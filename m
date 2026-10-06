@@ -1,187 +1,231 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94F173CB57F;
-	Tue,  6 Oct 2026 08:08:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49EE83DA5AA
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 08:08:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791274097; cv=none; b=sMZHRrABlK5CoziME3aqs3GNOgvVmALSQql4VdI8sA6z7utrCkrtxKauGgipnQYKnyn/ZZIO9CXPXXfPGuvgpK/X+S+PykKpPcmifFjCgMXkrITPrloJYLc3Qu0h5BSout41VjOr2ZK8bfLjq70gECtX3jIpOWtbUjvIU7qWny0=
+	t=1791274107; cv=none; b=k0y5nUIwrirhyypFyNlAUemOu8mTc+nevTMsEX6xhGQiajnu0iRYs61IS+2Uyyc5Ah7L2bzyTF3xj2eLDWGUhvZ2uNMd8pPmXtLwTRcaO/iOeS+23XEequ7Fsqfu0GZmtFxjhCqLQNX9yHYbZ07CA9jH2Vo/eFLro1JE1BFriT8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791274097; c=relaxed/simple;
-	bh=cJw40BTd+8MV8SOzfIm55naJLTh9TRdvvh9+bLZT8vU=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=R27XCCS/OTOUTq+/i2PIVhLc2j13z3S6/+qikTXfbAE2smUStUJl0awlvkcs6d1SH0oFK+NPaT7rPv+hbu9LvEwKsaEqLdonck6mv2bdWWdD5aii9a+zZR22o3kU43Je730PgBfHfOU9v6p8DTkuVGE1CIzpqJDZk5AXK+83w7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YUdpHUVS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791274107; c=relaxed/simple;
+	bh=n+2IwE2+IIr9TTH+v4J6U1CCskevxnr+BzHrpIX+eRM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=VX7UlN9++40GR0PaR4KDNnIrRWIZ72FuSCBoKmi+gLskB8bzWdNxK8LYbK+j8MYYrCzIt3gD59O6b+mwR7y7cm9KlGWbTdGYpQ6Oe69G+53sxk08lx40eI1v8OSzUDHK+nzNABKaYTLgbyGj7UpWHmo4vOm9kp3YJedgJu+IjDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UMz6JkIj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ifyqIjrI; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YUdpHUVS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 490351F000FF;
-	Tue,  6 Oct 2026 08:08:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791274095;
-	bh=iiOXzSA2iRIayYD/KFf7MAtf5CePax6vsVXarDyyXKk=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=YUdpHUVSnwIo5s61UjJR3Fd9Gv/KFISSJYajBGJ7ELRyr2Fkj0NT+sUP0G2v4BlP/
-	 bbyTT2P5A/oG1bVlaWKP34zsY0Yo5xtucFmFZDPVdQPsbG3W5m5RcHkfRSGPWpiOwp
-	 d5EQOmhoUGsvL0PE58k11LLg45Tz66ENsq7P2V/nhupEj5j3Z2yhO3cw5jP9DNOaJ/
-	 VVopjwOzPawQwkyguG3yBv4AGp6j2nHkm59pW7/uZuqJe/g65Ennw25B28jTov8iI1
-	 RA5vn4PvA/kljJtUi+KeqC3Sr3z40z9i72t0nFYw+2VNl0/3Yh8HBx6aDkgquS2JJ0
-	 nY3FartxehOEw==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id A5EE3198003A;
-	Tue,  6 Oct 2026 04:08:12 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Tue, 06 Oct 2026 04:08:12 -0400
-X-ME-Sender: <xms:aqzEat3SV1L-iM4EpYFhQ9eDlxiPNJ5xh1qlZ3ve-5hRp9KkE0jiXg>
-    <xme:aqzEau4pItyN9RZ_Y0mNmMUWQcxbz2lpHQ2cf21pLqNJPbeE7EcGn1VDeJYMsw5Vo
-    1jR294sEZZDCvKhPYAGYXd30iHOLDotrSsdfuuJ6jRfA9ktuITPXNtX>
-X-ME-Proxy-Cause: dmFkZTFToCI5pFS3yTsMz7zpkmo/kBWxYnz1cVpf0jsW1JwGAaMTw39F3bxo7/7xJ2OsRZ
-    j3pRAYO1cHgimYl/iAvmdQ1ATZh/ihFXI91nvq94FneGbk59cr5nAgNnUl3nA5cd40YFpL
-    hMIFZUjiw/9+Q8MVkt7D2n2li7y6RFO2RveA1SZxyYYzFAVGbBB81LaYDGEgxbaUYgk/y2
-    VPEewPb51GcCiqOV2zFej+H+VWtjFtGPofQF6nWrCVIVyriHYiMBGvh2MvOfu4uSYtmhqb
-    LAYrBH+7gfrxyrhbYXhIeZu8Gd4gCrtSDtzmHuNWgV8cRjJDq2VB/bSHaGE4Etgc8AXxq6
-    UTFaWkmTg0KeiUnmAtt+l0mm/E7rfjLtm01rEG9V0Lr2NguOvR6CyAZIqEgKf+hLGVctaS
-    D/FqgI2zIcFlfobCnLE5dqr32iMjTN1+M9mqbUP/98mbE0Q0KqAnUkuGpgfJjoGtTY4DoQ
-    IyK8r8huhwDbxEZlrXbtuTUCuqTT8A3tTWMyYHLoDj15YSQndijX+8Pona+eM578GHUrpp
-    XL9/O44XQIoIDiCfDthkmLGUXR0cSqmvCZrX9P190TupMxVGyqiXJ9mkalaIBZdnVobDZW
-    QekLBA6FdunbUT/EZvZfDRiQpa1B2Ra/I3j67L0Fq9aOl4SCkm1ckmA2b9gA
-X-ME-Proxy: <xmx:bKzEall_deV2b2pjTt5AwGns2uX2FXHtLjIY1Cvi-eN_d7XvKU7Haw>
-    <xmx:bKzEarNDsl5NTyUeX628vKnFblqB2D15LeE9m8_eSBgvg-gWKJ6REw>
-    <xmx:bKzEahxFhMpl4U3dPW033utnuUfiIO_YBYtGvn93t2GDW2SIDjauPw>
-    <xmx:bKzEagu5nyljGoRAs4EEuaY0zl5_4xLavr7GV-WOB7l-o_gA1-MKuA>
-    <xmx:bKzEasawkO2-zI0lEPdaCmdkCaPqkTveSmvaKTsEx1dj8G8-v-LmVetv>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id F086AF80090; Tue,  6 Oct 2026 04:08:09 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UMz6JkIj";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ifyqIjrI"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6966eDRf3269526
+	for <linux-kernel@vger.kernel.org>; Tue, 6 Oct 2026 08:08:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=w1wq3dQI2RF0LHKjEbpAb/
+	nLQYwcZCipMnLv/ojYT+A=; b=UMz6JkIjYM+lj8TwCiqcd8kDaxCEJ3QJPuXz0I
+	me5xkeVJZTEX41cGQDAU5FiDyeL3IG2sP1HXTRjzsgcqat0shSgXuBk1TP77I+Lw
+	M6oOQ/XARA1vS69FVHsiVWVvTvCDs7RjEcszoQ+9iS23s9bFLsrpbM1gSi0GMYuk
+	VQPkqn2tycU08aC8lbBxjLEueFca3qfIVR+7ZtYYch3LOITdQSeQVN02qw70Yxlb
+	YRm+zfzF7FvNZ1B1dobWvDRvkQFue6xxgBD5bmX/YkrKJQz5jnw6KgrkbRjt5wXO
+	XUtggU6NvKBEL/+fDh3nauePAgEaaYFT5oZ3vgnmdM6O/aEg==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4fkujytm-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 08:08:24 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93cb71b1443so485073185a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 01:08:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791274103; x=1791878903; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=w1wq3dQI2RF0LHKjEbpAb/nLQYwcZCipMnLv/ojYT+A=;
+        b=ifyqIjrIoRL/t5Mob09hYiZrnuN2w+mnsVvCIBzljqhy4ma+BIRZjBB2iOY7YXoWeg
+         7kcUpEtCzK06on0wDRaY3AMvukWYccsLjhCm4of80Y+P4Rvyhw90HMoix6TAH3xwyMGO
+         xRd6h3A+9k0RiBaXaRbct9eO3imJuLsYvq8RSRTDnt94G+J5ZTnoBfK83YiRGvY6U9wP
+         +S7+P+JoACi+GqMDZp1aiXaHC/54Hni8oXMeQboLRZ7pC2U3v04wiJHrZGIFBQcd9O2D
+         bm9zd4Z6iZ126oBWKOwBdhiaGk9QQb2mMNotRNLYYCIieEybE7FVkZOY5BJQWfk7DIUV
+         8j7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791274103; x=1791878903;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=w1wq3dQI2RF0LHKjEbpAb/nLQYwcZCipMnLv/ojYT+A=;
+        b=ZCCMRZGo82B9kNBa5rDBJ4Pz22V3lzpdNTbZwsS/oy2fQ2/qTiG+r757tFRsZb4yUm
+         XVOl+fL9aLkp3xklcKmxDT1SLwZDJb+islKAx8RUnq/TRAhMAles6XWD/cAo9NCPs67c
+         i8hKtloRkqoWP71td9SRJ/VUp4ua4PoitW3ZlYll/u66Ctx/G0h4Qigfe7fceAlMNYm2
+         +OWUMeATxAl1VpDwhPKQmgmr+wyGLg23nEL76UfCZtPswJuPxIKe/9L+/TjBIm1IkjWm
+         +JTjcGEOtZjeJHatqXYgM2FQzBMjhZ7m6inYKkqopMXAT0NfMQ5SVmZ9eWb4/NvP8mBk
+         8JgQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxilTsTgNW3Rpezl5BfboxJDpgaukzZphVl4EQU/QrmEprwSvvIDUekOvOB1nfcr87xMg3Sqwv5jq0BI3U=@vger.kernel.org
+X-Gm-Message-State: AFuF++mGYOrzq6CigcGieWZuqMPsGJAEJqdeUfEN6BRcGrNwN77Gnh7R
+	cWXtLNOrx1yoZqpWBf6KPvjK9vEjeBHUWScstFrcxq6pyPwo4bYn3GPyw7193f1MgZvaRkDeV7y
+	gnxlzTdgRBioPEjmpN6iVdMuj8VePriNMebcsIQEyzPA996P/XDVknRgwXCg6QgRcP10=
+X-Gm-Gg: AYBFou2rFtocPmWMh5Mm3DNwaNQb/8z5FppfD0F/cbsK5WCt3QWoKRxoMj9xjWFErLr
+	5sicChtVvYea+0XoG//wK4NysMScFTixSRGNkQs41VJnL6YqS5LZbbUbUbPs/pkEVNXEI0tMhGX
+	4ObdrOqRGMQWcWboMZO+rzIShMLcFKIQABMpx0m6J2EZzh3LmER/sjQbCQpA17aIB92crENUdty
+	a1bHNiQj6QrKnwm0LuKnBxUx1DWPRG6ionalf1pYdgxCdw6QGd3zPpIyKVB9AvcjwnyBg6OcR1N
+	xAdbNaF0Dr9PDyd8UkTMhjb5VqBeFbSDorpJs/nSWing/DbL9Cct/TS/LsQPWibc3lnRXm6pXtd
+	0wiyW3lZTpDt+wC4NKTWDlvVXqylfY+nSwBILowsfYTqK0A==
+X-Received: by 2002:a05:620a:1d0e:b0:93c:c7ee:8087 with SMTP id af79cd13be357-93e8f4a00e1mr107852485a.41.1791274103371;
+        Tue, 06 Oct 2026 01:08:23 -0700 (PDT)
+X-Received: by 2002:a05:620a:1d0e:b0:93c:c7ee:8087 with SMTP id af79cd13be357-93e8f4a00e1mr107848285a.41.1791274102886;
+        Tue, 06 Oct 2026 01:08:22 -0700 (PDT)
+Received: from brgl-qcom.local (90-182-211-1.rcp.o2.cz. [90.182.211.1])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178db8f28sm72055985e9.15.2026.10.06.01.08.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 01:08:21 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Date: Tue, 06 Oct 2026 10:08:11 +0200
+Subject: [PATCH v26] dmaengine: qcom: bam_dma: free interrupt before the
+ clock in error path
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 06 Oct 2026 10:07:48 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Justin Stitt" <justinstitt@google.com>
-Cc: "Bill Wendling" <morbo@google.com>, "Kees Cook" <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- "Nathan Chancellor" <nathan@kernel.org>,
- "Nick Desaulniers" <ndesaulniers@google.com>,
- "Mark Brown" <broonie@kernel.org>, "Marco Elver" <elver@google.com>,
- alan.maguire@oracle.com, namjain@linux.microsoft.com,
- "Peter Zijlstra" <peterz@infradead.org>, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org, llvm@lists.linux.dev
-Message-Id: <e9e04143-22ff-4396-9b33-333231366f64@app.fastmail.com>
-In-Reply-To: 
- <CAFhGd8q3Hs9r6ezCA5bFATcZcq7AZyC7Cai8muk5o-AwOMLW7w@mail.gmail.com>
-References: <20261005102518.2400984-1-morbo@google.com>
- <20261005192052.2589382-1-morbo@google.com>
- <3176a197-baf8-4e5f-96a0-8c79d32a168c@app.fastmail.com>
- <CAFhGd8q3Hs9r6ezCA5bFATcZcq7AZyC7Cai8muk5o-AwOMLW7w@mail.gmail.com>
-Subject: Re: [PATCH v3] compiler_types: Allow opting out of __counted_by and
- __counted_by_ptr
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261006-bam-dma-free-irq-v26-1-eef5c713d831@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAGqsxGoC/31NSw6CMBC9Cpm1Q9oKjXXlPQyLUqbSxFJplWgId
+ 3fkAG5e8v4rFMqBCpyrFTItoYQ0MVH6UIEb7XQjDAMLoITSUgiFvY04RIs+E3t5Rmdd0yt9co1
+ ugWuPTD68981rx3wM5ZnyZ79YVPuT/6xxAiX6oyEhB2mMFJdUSj2/7N2lGGsG6LZt+wJ1156Iu
+ gAAAA==
+X-Change-ID: 20261002-bam-dma-free-irq-cac4b268c465
+To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+        Andy Gross <agross@codeaurora.org>
+Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
+        linux-kernel@vger.kernel.org, brgl@kernel.org, stable@vger.kernel.org,
+        Sashiko <sashiko-bot@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3314;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=n+2IwE2+IIr9TTH+v4J6U1CCskevxnr+BzHrpIX+eRM=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqxKxxzTrtCSVZ2fACUSgdbvIPgEPV7kgZM6u4i
+ IH1xFgxjU6JAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCasSscQAKCRAFnS7L/zaE
+ wza/EACrJQ2MbdK0GKSxMMBc9JKslW+1nxkjAq/6lRMn6feMA464PvDPc/HsT8VJl/zTzIt66Nc
+ NcHRowHXr5tBjJuwkP7alRjfVV1yoCdQQG2jm0pOgWoDseKuCmkFyl8Z1EBae0qGqHweHJnfZiy
+ fxafbLDWFfhBJuucjaTso2ea3ujDxf+3uXXH93cMIbxssFz2Opk1zP9f3651HZG7ZafPmjTX5Xq
+ SeZA5f7FQMA/uvpla3ySQr++0Mltz0y6k5FI0tNifE2KB2bErXtPdufl9xnl+WnU/km5X1dJCsZ
+ nrhfUUuOOazoMGzLFV3hhEVdK+jatpVLrZDRBXkafjEfJfwtKQ/a6vITjRzxfGg0o8Efa39d4rD
+ PN6VIgBkE+W2jUptTOVrcLx6wVLqiX5VcAc84X5PTffmHloFWo6r3d25g+CvpYGy57M8ixjccdS
+ snvGU+NmmEK5GpvakJLXWXFQukK9Vg1DxD3v/AwWdJeQ5QwT4yRZo83g9kuPLIiYMLLbERiRjeg
+ UD4tBn55AGCR0hHQfJ36vZP6Wa1RoPzjOvGpMS7Nn0znqZSBNSd6D2dGelhodg7wVgFTDwsxEos
+ giJAVET67ua0sAso6ewHo3XQ/j0bnAdrYrZZTxDaTYHzCHIBk/cqgI+VlaFqAO35Rwg7SepaEVZ
+ xIzQVCP6kVqAWZA==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Authority-Analysis: v=2.4 cv=HtPjiETS c=1 sm=1 tr=0 ts=6ac4ac78 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=zRh97aRZNhiOMYVz81Er1w==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=c92rfblmAAAA:8 a=EUspDBNiAAAA:8 a=bC-a23v3AAAA:8 a=VwQbUJbxAAAA:8
+ a=sdHaY_b6le-me-Zt7agA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+ a=GvGzcOZaWPEFPQC_NcjD:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-GUID: Oq7HEkk1v1jQ0oJK19NdF34JlN1VWEHT
+X-Proofpoint-ORIG-GUID: Oq7HEkk1v1jQ0oJK19NdF34JlN1VWEHT
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDAzMiBTYWx0ZWRfXyNtpNJVEj+Xz
+ 4MMemZOOAOkznBFAFG226x4J4uNcsvG7pGzWCJ0KD19/dmFsGoi6azZ+MZWmPvS1/W9pPHehQar
+ ykqI98ejh8qdhsWMtuXiMxqdFDOhY60=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDAzMiBTYWx0ZWRfX2oPnLW4MNK6i
+ ouKN88kUqhElZ0hwsLay9gcd7iWAG1zxWgklNxAuyZA5+BzLfElw8t2ScxKAdtVd3NpN+0Ptyw4
+ RWwjz1LdUA3xTs9Dsg1w2YbrR2cudiVnySbMdPgDRvR4J6LXD/hksRcJfVe8KQi0LGAxAOBfuhT
+ ou5Tz5JkOPVJUh9/LxqWXBFYxkbOPWQTIPHoob22mc+pbFgsXAW9NS+ok2EZ/4+hYBcaCnzG953
+ sDOp8FoSrCdoSqBJcwr01ocUwdwcGBCZ5CuPEu8dMb3xSY1yN3J2Zd8ckZ+HK1XjQ2hPbFXLKa7
+ Ns/w4vFF8znw70Zg2LOwD1NEwZrUs7s+s1buHLEA64JcZdp43pTIxHNIMSuEX3y3x1Ekrd3I3Al
+ tZzd2TNQZGX2QmH3dIvUAFBQvnB/lz0gjPdiA4gkcxG4xnYV2Ss3vsaYQmM97nIG0wIDNrulp/7
+ /ApSyVU8uMlELJUEAag==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-06_02,2026-10-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 malwarescore=0 clxscore=1015 phishscore=0
+ spamscore=0 priorityscore=1501 bulkscore=0 suspectscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060032
 
+The BAM interrupt is requested with a devres helper and so on error it's
+freed after probe() returns. We disable the clock before freeing or
+masking it so it may still fire and we may end up reading BAM registers
+with clock disabled.
 
+Stop using devres for interrupts as we free it in remove() manually
+anyway. Add an appropriate label and free the interrupt before disabling
+the clock in error path and in remove().
 
-On Tue, 6 Oct 2026, at 09:30, Justin Stitt wrote:
-> Hi,
->
-> On Mon, Oct 5, 2026 at 2:25=E2=80=AFPM Ard Biesheuvel <ardb@kernel.org=
-> wrote:
->>
->>
->>
->> On Mon, 5 Oct 2026, at 21:20, Bill Wendling wrote:
->> > Code that runs outside the kernel proper, such as the EFI stub, gets
->> > nothing out of the counted_by annotations: the bounds checks they f=
-eed
->> > (FORTIFY_SOURCE, UBSAN_BOUNDS) are already disabled there.
->> >
->> > The annotations can also break the build. A __counted_by_ptr() that
->> > names a member declared after the pointer needs Clang's
->> > '-fexperimental-late-parse-attributes', which the top-level Makefile
->> > adds to 'KBUILD_CFLAGS'. The x86 EFI stub builds its own cflags and=
- does
->> > not get that flag, so it fails as soon as such a struct is pulled in
->> > through a common header.
->> >
->> > Overriding the __counted_by_ptr macro from a Makefile doesn't work:
->> > 'compiler_types.h' is pulled in with '-include', which is processed
->> > after all -D/-U options, so it re-establishes the definitions. Foll=
-ow
->> > the '__NO_FORTIFY' precedent instead: let a build define
->> > '__NO_COUNTED_BY_PTR' to turn the corresponding annotation into a n=
-o-op.
->> >
->> > Assisted-by: LLM
->> > Signed-off-by: Bill Wendling <morbo@google.com>
->> > ---
->> > v2: Only specify __NO_COUNTED_BY_PTR. Leave __NO_COUNTED_BY until w=
-e need it.
->> > v3: Add the version to the Subject line.
->> > ---
->> >  include/linux/compiler_types.h | 7 ++++++-
->> >  1 file changed, 6 insertions(+), 1 deletion(-)
->> >
->> > diff --git a/include/linux/compiler_types.h
->> > b/include/linux/compiler_types.h
->> > index c5921f139007..8bde6798b4ec 100644
->> > --- a/include/linux/compiler_types.h
->> > +++ b/include/linux/compiler_types.h
->> > @@ -387,8 +387,13 @@ struct ftrace_likely_data {
->> >   *
->> >   *   gcc:
->> > https://gcc.gnu.org/pipermail/gcc-patches/2025-April/681727.html
->> >   * clang:
->> > https://clang.llvm.org/docs/AttributeReference.html#counted-by-coun=
-ted-by-or-null-sized-by-sized-by-or-null
->> > + *
->> > + * Code that runs outside the kernel proper (e.g. the EFI stub) can
->> > define
->> > + * __NO_COUNTED_BY_PTR to drop the annotation. Such code may also =
-lack
->> > the flag
->> > + * Clang needs to parse a reference to a later-declared member
->> > + * (-fexperimental-late-parse-attributes).
->> >   */
->> > -#ifdef CONFIG_CC_HAS_COUNTED_BY_PTR
->> > +#if defined(CONFIG_CC_HAS_COUNTED_BY_PTR) &&
->> > !defined(__NO_COUNTED_BY_PTR)
->> >  #define
->> > __counted_by_ptr(member)      __attribute__((__counted_by__(member)=
-))
->> >  #else
->> >  #define __counted_by_ptr(member)
->>
->> Apologies, I may have been unclear.
->>
->> What I would like to see here is something like
->>
->> #ifndef __NO_COUNTED_BY
->> #define __counted_by(member)  __attribute__((....))
->> #define __counted_by_ptr(member)  __attribute__((....))
->> #else
->> #define __counted_by(member)
->> #define __counted_by_ptr(member)
->> #endif
->
-> FWIW, Bill's original patch had this explanation
->
-> "The two are kept separate but parallel so they
-> can be folded together once all supported compilers handle
-> '__counted_by' on pointers."
->
+Cc: stable@vger.kernel.org
+Fixes: e7c0fe2a5c84 ("dmaengine: add Qualcomm BAM dma driver")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260427-qcom-qce-cmd-descr-v16-0-945fd1cafbbc%40oss.qualcomm.com?part=2
+Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+---
+This used to be part of the larger BAM DMA pipe locking series and never
+got picked up despite months on the list. I'm resending it separately.
+---
+Changes in v26:
+- Rebased on top of current linux-next to address conflicts
+- Link to v25: https://patch.msgid.link/20261002-bam-dma-free-irq-v25-1-f39e01d19910@oss.qualcomm.com
 
-When opting out of this, whether or not the compiler supports
-all variants of counted_by() is irrelevant. The same #define
-should just opt out of all of them.
+Changes in v25:
+- Don't touch remove(), it's not wrong in its current version
+- Link to v24: https://patch.msgid.link/20260723-qcom-qce-cmd-descr-v24-0-4f87bb4d9938@oss.qualcomm.com
+---
+ drivers/dma/qcom/bam_dma.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-If the need arises to be more granular here, we can always add
-that later but I don't want to have to add
+diff --git a/drivers/dma/qcom/bam_dma.c b/drivers/dma/qcom/bam_dma.c
+index 05a3b1f9e0c23dc5f861488fae03494867970523..a626746b5c93496e5c5e885b35a856d38c284448 100644
+--- a/drivers/dma/qcom/bam_dma.c
++++ b/drivers/dma/qcom/bam_dma.c
+@@ -1332,8 +1332,8 @@ static int bam_dma_probe(struct platform_device *pdev)
+ 	for (i = 0; i < bdev->num_channels; i++)
+ 		bam_channel_init(bdev, &bdev->channels[i], i);
+ 
+-	ret = devm_request_irq(bdev->dev, bdev->irq, bam_dma_irq,
+-			IRQF_TRIGGER_HIGH, "bam_dma", bdev);
++	ret = request_irq(bdev->irq, bam_dma_irq, IRQF_TRIGGER_HIGH,
++			  "bam_dma", bdev);
+ 	if (ret)
+ 		goto err_bam_channel_exit;
+ 
+@@ -1366,7 +1366,7 @@ static int bam_dma_probe(struct platform_device *pdev)
+ 	ret = dma_async_device_register(&bdev->common);
+ 	if (ret) {
+ 		dev_err(bdev->dev, "failed to register dma async device\n");
+-		goto err_bam_channel_exit;
++		goto err_free_irq;
+ 	}
+ 
+ 	ret = of_dma_controller_register(pdev->dev.of_node, bam_dma_xlate,
+@@ -1385,6 +1385,8 @@ static int bam_dma_probe(struct platform_device *pdev)
+ 
+ err_unregister_dma:
+ 	dma_async_device_unregister(&bdev->common);
++err_free_irq:
++	free_irq(bdev->irq, bdev);
+ err_bam_channel_exit:
+ 	for (i = 0; i < bdev->num_channels; i++)
+ 		tasklet_kill(&bdev->channels[i].vc.task);
+@@ -1410,7 +1412,7 @@ static void bam_dma_remove(struct platform_device *pdev)
+ 	/* mask all interrupts for this execution environment */
+ 	writel_relaxed(0, bam_addr(bdev, 0,  BAM_IRQ_SRCS_MSK_EE));
+ 
+-	devm_free_irq(bdev->dev, bdev->irq, bdev);
++	free_irq(bdev->irq, bdev);
+ 
+ 	for (i = 0; i < bdev->num_channels; i++) {
+ 		bam_dma_terminate_all(&bdev->channels[i].vc.chan);
 
--D__NO_COUNTED_BY -D__NO_COUNTED_BY_PTR
+---
+base-commit: bf1ee2bd5c2da8992f33c8950ef194aaff74ed6c
+change-id: 20261002-bam-dma-free-irq-cac4b268c465
 
-everywhere today, and go back and remove the second part once
-all compilers have caught up.
+Best regards,
+-- 
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
