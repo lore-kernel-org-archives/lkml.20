@@ -1,146 +1,285 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f2.google.com (mail-pz2-f2.google.com [74.125.228.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DED1F46D551;
-	Tue,  6 Oct 2026 15:52:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF38D49C4C2
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 15:52:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791301939; cv=none; b=tty1rwuiFHhRrszfyxn/oaZQ8Yoq/0dsuty5n03yILbiGfJXltjegLS35xDbASFdbhbtpFwRnLpvNdj9+bbyOxqwcQCQ4UvRMthEXqCZsU0C3VjII4WABSO2o6EoSZYuOOsCyDKJTGBXBZPQHT7rLEDZD2DmhzSwsZaBo9MJoos=
+	t=1791301969; cv=none; b=mKkWb6v2DpJx2dvBREXuum8vFLHjutDq2/jXcLKT+gq0hFsMPVc22nzQwQo2RP43B7xtlByvKUAoXCW8oe2tMsrlfBTFVfTleTJ6wf9kW4H9NP/P9zO0w8zkeDecmfen0kD1YL+n9pnVnIWHPjzvallgUvS1tGIVPHjuaAm13IE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791301939; c=relaxed/simple;
-	bh=twFaY/jlgIalOZ6sQjAlGf9KORPCSmeJkuzt3F0y0yU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PxDV48PCtdpOjSZOxiN9P8u4xCV8J6V1VgRGyLNfs3ocLHYRIMbDLiBcD4Ikf+yry6TcyBPUFhFCeRV0Co7Q7v7+cdsHd0rLAD38X/WOzc7KVWgf1ZUC/ksop50PwUufJsjr6Evs+mR62Oq48m3GNnUtT3QjVGnjpbH2Dv320HY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KOX43lIH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791301969; c=relaxed/simple;
+	bh=aXEIj4YhxFHWSlbikZxZ69RwpFEU6HVG6IcQVjVkR1M=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=o0d9gy8Qu+Ovoika170GA1/h+oMroWWw4/hcF1i4/D7gco1IzWT1v64fOouLA8lQS2W6XtsMpmBj5URhtzyfK0Sb67ntJTPOaFHB7I6fXgiRrKQrQsxEH81LCeCSShHEEWKUwRBC1vwbL4ihzC5u9kW6EbnBnXg2zUV3KGHq++Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eo+j0UGs; arc=none smtp.client-ip=74.125.228.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KOX43lIH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 455931F0089B;
-	Tue,  6 Oct 2026 15:52:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791301937;
-	bh=2Ub01gSpzkIPPc4VtXS/tUHnccetbhBgf8QWwTXERhw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KOX43lIHXnXkOiPR8I7vX0iKTjhaYX1YpvjfUgBRcZYDu3hJU0USj+jKBrcKJnMcY
-	 Ph5T7kQ8XvvxDD/389E5TWK6DIRy+b4fxBwVa211/ZSpLoqTjEFLeY1ohgVBkWTO6B
-	 s5Mwrnjv0JfUixAu6KuzmciG0OUJbJI2idVC7h/hpeEmi/OqHs6MxY2+lnEaGoHpuO
-	 7JS4jaMRCs5GnPpb9/svHfMvW+zJjDppK6xW5xohEImdypQtfh1h+WITqlGmw8rq+X
-	 RDUkzM42SA5YNpl0Femws1pLptpj3T3EHvXrAy4BSm7iQDbhy+76QCUmf948ra1K/v
-	 fX/9qNmcyMrHQ==
-Date: Tue, 6 Oct 2026 10:52:16 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Quchaosheng <quchaosheng000406@163.com>
-Cc: Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
-	mfd@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Zhang Qing <zhangqing@rock-chips.com>,
-	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>, Chris Zhong <zyw@rock-chips.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5] dt-bindings: mfd: rockchip,rk805: Convert pinctrl to
- DT schema
-Message-ID: <179130193622.2397071.7473599240811145793.robh@kernel.org>
-References: <20260923083001.606935-1-quchaosheng000406@163.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eo+j0UGs"
+Received: by mail-pz2-f2.google.com with SMTP id 41be03b00d2f7-ccc451ef3a7so324594a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 08:52:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791301967; x=1791906767; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=iCfMB+9jyOng6UjHASMF1if+uXMBv5ni2DoESrOf5F0=;
+        b=eo+j0UGssVt7bm929+QbdBOAqVo6ZOf1hfVhrn9FrI5m1Zb33XY8+cHw8BUkt6YJ50
+         UydZ0F5/ctyGvq2n7CbOUyjYVyEb07+w74+5blCa2s2zBS4nZc/LKbN/se6922eZc1Ng
+         ejHdSbQz6Uk2UU1gcPD8M0YIiLnw0lIliIhQFrXXM/fO4OGdAo4tGv1Uf9hoIcMc6Fs5
+         ObKzXYOmblOBdba8ZbEcHzn8oe8GIzt2NaCc4y7L8PPv8kZ6+gDF4MFALN6wUyw8Bfqj
+         1kPqKb8Q9jp8UD1+OM1M7ktGdPM0GdiOhA+8fjeP6H/wSgQcWoNjJ/7ST23TwvRHQ75C
+         oz4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791301967; x=1791906767;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iCfMB+9jyOng6UjHASMF1if+uXMBv5ni2DoESrOf5F0=;
+        b=C9O0Tq0GjsyoEUc48Rmq0rUzNV3VWGZNrx6CGI1zHyumY08Su+fIoi3d3Qcl+OMKce
+         9aM6rLxOuhnezlDwYTECxQC8ZO7sYaq19a3P+vbJW7MnfEYQW9yEEyodEmyYkCGOYTBw
+         fznxPc9XwPCPS0zhnQVyJDaUYJj+oZolos1RdsMhp7H/xjK+PTyOIUi5anUU8seFHW6G
+         V5c614EcYfyezJn725SG8WJqm85kZ7uFYZpewVOG5xkmRcsmR5rShaJEN3wk7+lKnXNE
+         /7MvpGiFLNZ3AaK+9oyPTfJfRpR53AkZ26HZ5wE7aHTmV4kvTgmoJSLw2/ESLQDwT8/W
+         n2DA==
+X-Forwarded-Encrypted: i=1; AKwUvBw7W2NBv4I1a6nno3AFz2uBqQKwAO2ibMzOKWmONXGhEyxkX9yjn8I2EYCT9R0t9+uKxw/57Y1+nxlWn7A=@vger.kernel.org
+X-Gm-Message-State: AFuF++kMfN5ZOC/UDt7KreJoHv+HUrsQ+am6Iwf25Xj1yEUhzT3PdRjG
+	Gy8OTxjR4xfWymWyVp5N0YRxpxUg+VOSPsTKzmXWsdy2YPQ4W6wGcrYl
+X-Gm-Gg: AYBFou0rQXYaLtW9emkiDl0LyfLTXXZh42MGgwFHVIbX3np4vbsjOzG1I1M7Kw/HHqo
+	DtErK7VeWKSKEo2gW4WpL49frgLCvdICyMlOm/SfwfCfCivprhxp8hO9wr3gqArZs2eixVVkMvU
+	bJnz8pQVSa/VKRnIvC8+GzakdzpWVHmDkFJshprfmF+TAlVwysO+sFC2rq5Nda+watvAEY3rihW
+	pvC/WqgvTsV3N90N5MTXthhi7QT3T2KbD1I0LWN3xBaeVwKaLze0DQ5xqzfJmY6xEyNAfsibFZt
+	3I/v/e0Z7d+zlmKT+o3ncfvuLU6AGtDiKwDb3pVBblNX7irU/iIqfLEX3ReCyXOafSjLUWkNt7r
+	xSpHd5+k6SAz0CE/RD7WcQLW7zEL0N0sWSe0UbT1A4iFm/AzfHQY+s9W65IJxZlfM2rzWsazEdU
+	oZkNXsFXL3yoU03o1Fnc+W2pV/ZIta+6h/npa9vzRh9oAafRBWw81RjMNazjH9C40/Dn+b13yqK
+	8/4s3BM
+X-Received: by 2002:a05:6a00:22ca:b0:890:e1ff:3bac with SMTP id d2e1a72fcca58-890e1ff47c8mr1583488b3a.8.1791301967068;
+        Tue, 06 Oct 2026 08:52:47 -0700 (PDT)
+Received: from ehlo.thunderbird.net ([168.138.199.194])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-891894f6c0asm184007b3a.33.2026.10.06.08.52.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 06 Oct 2026 08:52:46 -0700 (PDT)
+Date: Tue, 06 Oct 2026 23:52:22 +0800
+From: Coia Prant <coiaprant@gmail.com>
+To: Rob Herring <robh@kernel.org>
+CC: Jakub Kicinski <kuba@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>,
+ David Wu <david.wu@rock-chips.com>, netdev@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_net-next_v10_1/6=5D_dt-bindings=3A_?=
+ =?US-ASCII?Q?net=3A_pcs=3A_add_rockchip=2Crk3568-xpcs_support?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <20261006150831.GC2194299-robh@kernel.org>
+References: <20261005223011.1124347-1-coiaprant@gmail.com> <20261005223011.1124347-2-coiaprant@gmail.com> <20261006132428.GA1659963-robh@kernel.org> <96FA84EA-3C0E-4FAC-963F-2A8165538748@gmail.com> <20261006150831.GC2194299-robh@kernel.org>
+Message-ID: <46337722-9C86-4118-8286-A506B455B23D@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923083001.606935-1-quchaosheng000406@163.com>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
+On October 6, 2026 11:08:31 PM GMT+08:00, Rob Herring <robh@kernel=2Eorg> w=
+rote:
+>On Tue, Oct 06, 2026 at 09:59:49PM +0800, Coia Prant wrote:
+>> On October 6, 2026 9:24:28 PM GMT+08:00, Rob Herring <robh@kernel=2Eorg=
+> wrote:
+>> >On Tue, Oct 06, 2026 at 06:30:03AM +0800, Coia Prant wrote:
+>> >> Add device tree binding documentation for the Synopsys DesignWare
+>> >> XPCS integrated on the Rockchip RK3568 SoC=2E
+>> >>=20
+>> >> The XPCS is accessed over the APB3 bus and internally connected to
+>> >> a Naneng Combo SerDes PHY=2E  It supports 1000BASE-X, SGMII, and
+>> >> QSGMII modes, with four MII ports=2E
+>> >>=20
+>> >> The four MII ports are described as ethernet-pcs-mii@N child nodes,
+>> >> consumed by the Rockchip XPCS glue driver later in this series=2E
+>> >>=20
+>> >> phys and phy-names are required because dtbs_check only validates
+>> >> required properties for enabled nodes=2E The SerDes link is a board-=
+level
+>> >> design choice (combphy1 on some boards, combphy2 on others), so thes=
+e
+>> >> properties must be provided by the board device tree, not the SoC dt=
+si=2E
+>> >>=20
+>> >> The CRU reset lines (SRST_XPCS*) are intentionally not described: no
+>> >> in-tree user requests them, and bring-up relies on the PD_PIPE power
+>> >> domain, the SerDes PHY and the in-IP soft reset=2E They can be added
+>> >> later as optional without breaking ABI=2E
+>> >>=20
+>> >> Signed-off-by: Coia Prant <coiaprant@gmail=2Ecom>
+>> >> ---
+>> >>  =2E=2E=2E/net/pcs/rockchip,rk3568-xpcs=2Eyaml         | 110 +++++++=
++++++++++++
+>> >>  1 file changed, 110 insertions(+)
+>> >>  create mode 100644 Documentation/devicetree/bindings/net/pcs/rockch=
+ip,rk3568-xpcs=2Eyaml
+>> >>=20
+>> >> diff --git a/Documentation/devicetree/bindings/net/pcs/rockchip,rk35=
+68-xpcs=2Eyaml b/Documentation/devicetree/bindings/net/pcs/rockchip,rk3568-=
+xpcs=2Eyaml
+>> >> new file mode 100644
+>> >> index 0000000000000=2E=2E703fcff0e3f70
+>> >> --- /dev/null
+>> >> +++ b/Documentation/devicetree/bindings/net/pcs/rockchip,rk3568-xpcs=
+=2Eyaml
+>> >> @@ -0,0 +1,110 @@
+>> >> +# SPDX-License-Identifier: (GPL-2=2E0-only OR BSD-2-Clause)
+>> >> +%YAML 1=2E2
+>> >> +---
+>> >> +$id: http://devicetree=2Eorg/schemas/net/pcs/rockchip,rk3568-xpcs=
+=2Eyaml#
+>> >> +$schema: http://devicetree=2Eorg/meta-schemas/core=2Eyaml#
+>> >> +
+>> >> +title: Rockchip RK3568 Synopsys DesignWare Ethernet PCS
+>> >> +
+>> >> +maintainers:
+>> >> +  - Coia Prant <coiaprant@gmail=2Ecom>
+>> >> +
+>> >> +description: |
+>> >> +  Rockchip RK3568 SoC integrates a Synopsys DesignWare Ethernet Phy=
+sical
+>> >> +  Coding Sublayer (XPCS)=2E
+>> >> +  The PCS provides an interface between the Media Access Control (M=
+AC)
+>> >> +  and the Physical Medium Attachment (PMA) sublayer through a Media
+>> >> +  Independent Interface (GMII)=2E
+>> >> +
+>> >> +  The XPCS is accessed over the APB3 bus and internally connected t=
+o a
+>> >> +  Naneng Combo SerDes PHY=2E
+>> >> +  It supports 1000BASE-X, SGMII and QSGMII modes=2E
+>> >> +
+>> >> +  The block contains four MII ports that can be individually enable=
+d and
+>> >> +  routed to one of the Ethernet GMAC controllers via the pcs-handle
+>> >> +  property in the MAC device tree node=2E
+>> >> +
+>> >> +properties:
+>> >> +  compatible:
+>> >> +    const: rockchip,rk3568-xpcs
+>> >> +
+>> >> +  reg:
+>> >> +    maxItems: 1
+>> >> +
+>> >> +  "#address-cells":
+>> >> +    const: 1
+>> >> +
+>> >> +  "#size-cells":
+>> >> +    const: 0
+>> >> +
+>> >> +  clocks:
+>> >> +    items:
+>> >> +      - description: APB3 bus interface clock (clk_csr_i), required=
+ for register access
+>> >> +      - description: EEE clock (clk_eee_i), required for Energy Eff=
+icient Ethernet operation
+>> >> +
+>> >> +  clock-names:
+>> >> +    items:
+>> >> +      - const: csr
+>> >> +      - const: eee
+>> >> +
+>> >> +  phys:
+>> >> +    maxItems: 1
+>> >> +
+>> >> +  phy-names:
+>> >> +    const: serdes
+>> >
+>> >You don't really need phy-names if there is only 1 entry=2E
+>> >
+>> >> +
+>> >> +  power-domains:
+>> >> +    maxItems: 1
+>> >> +
+>> >> +patternProperties:
+>> >> +  "^ethernet-pcs-mii@[0-3]$":
+>> >> +    type: object
+>> >> +    description:
+>> >> +      One of the four MII ports of the XPCS=2E The port is linked t=
+o an
+>> >> +      Ethernet MAC controller via the pcs-handle property in the MA=
+C's
+>> >> +      device tree node=2E
+>> >> +
+>> >> +    properties:
+>> >> +      reg:
+>> >> +        description: MII port number=2E
+>> >> +        enum: [0, 1, 2, 3]
+>> >> +
+>> >> +    required:
+>> >> +      - reg
+>> >
+>> >Why the child nodes? They don't contain anything=2E
+>> >
+>> >Perhaps that's due to pcs-handle not supporting arg cells to pass the=
+=20
+>> >port number? That's about to change[1]=2E
+>> >
+>> >Rob
+>> >
+>> >[1] https://github=2Ecom/devicetree-org/dt-schema/pull/198
+>>=20
+>> Hi Rob,
+>>=20
+>> Both points make sense=2E
+>>=20
+>> 1=2E I'll drop phy-names since there's only a single entry=2E
+>>=20
+>> 2=2E For the ethernet-pcs-mii child nodes: you're right that they only
+>>    contain 'reg'=2E The reason I used child nodes is because pcs-handle
+>>    arg cells are not available yet -- PR #198 is still open and in
+>>    RFC/change-request state=2E
+>>=20
+>>    The RZN1 MII converter binding does the same thing: it declares
+>>    MII ports as subnodes and references the PCS via pcs-handle, until
+>>    arg cells land=2E
+>>=20
+>>    So I'd like to keep the child nodes as a temporary workaround, and
+>>    I'll add a note in the binding that this can be simplified once
+>>    PR #198 is merged=2E
+>
+>Bindings are an ABI=2E You can't merge the binding then change it=2E Plea=
+se=20
+>comment on the PR that you all need it=2E
+>
+>Rob
 
-On Wed, 23 Sep 2026 16:30:01 +0800, Quchaosheng wrote:
-> pinctrl-rk805.txt describes the pinmux controller that is part of the
-> Rockchip RK805 PMIC. The PMIC itself is already described by
-> rockchip,rk805.yaml, so the pinmux part belongs there as well: the
-> pinctrl node is a child of the PMIC node, not a separate device.
-> 
-> Fold the pinmux description into rockchip,rk805.yaml and drop the
-> standalone text binding.
-> 
-> While doing so, add the missing child node schema. The rockchip,rk805.yaml
-> schema ends with 'additionalProperties: false' but did not describe the pin
-> configuration child nodes at all, so a valid pinmux node like the one shown
-> in pinctrl-rk805.txt was rejected:
-> 
->     pmic@18 (rockchip,rk805): 'rk805-default-pins' does not match any of
->     the regexes: '^pinctrl-[0-9]+$'
-> 
-> The pin configuration nodes require 'pins'; without it a node that names
-> no pin is accepted silently, while the text binding it replaces listed
-> 'pins' as required. The RK805 exposes two output-only GPIOs, so 'pins' is
-> an enum of gpio0 and gpio1 and a typo such as "gpio2" is caught.
-> 
-> The nodes may be direct children of the PMIC, or sit one level deeper
-> inside a "pinmux" grouping node, which is the layout the example of the
-> text binding used. pinctrl-bindings.txt allows the configuration nodes to
-> be grandchildren of the pin controller, and the driver reaches both
-> layouts: pinconf_generic_dt_node_to_map() parses the referenced node and
-> then walks its children. The example shows both.
-> 
-> The example also regains the gpio-controller and #gpio-cells lines that the
-> example of the text binding had.
-> 
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Link: https://sashiko.dev/#/patchset/20260923034245.396417-1-quchaosheng000406@163.com?part=1
-> Link: https://sashiko.dev/#/patchset/20260923062746.516666-1-quchaosheng000406@163.com?part=1
-> Link: https://sashiko.dev/#/patchset/20260923074337.575122-1-quchaosheng000406@163.com?part=1
-> Assisted-by: LLM
-> Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
-> ---
-> Changes in v5:
-> - The child nodes of the "pinmux" node were matched with a patternProperties
->   entry guarded by "if: type: object". That has no "else", so a non-object
->   property of the grouping node, a misspelled "typo = <1>;" for instance,
->   matched the pattern and passed. Match them with additionalProperties
->   against the same definition instead. dtschema puts phandle and status into
->   the allowed properties there, so the grouping node keeps the phandle that
->   pinctrl-0 points at, and every other property has to be a pin
->   configuration node.
-> 
-> Changes in v4:
-> - Describe the pin configuration nodes both as direct children and inside a
->   "pinmux" grouping node. Only the flat form was described, so the layout
->   used by the example of the text binding this replaces was still rejected:
-> 
->     pmic@18 (rockchip,rk805): 'pinmux' does not match any of the regexes:
->       '-pins$', '^pinctrl-[0-9]+$'
-> 
->   The nodes are now one definition referenced from both places, and the
->   example shows the flat node and a "pinmux" node holding one.
-> - Name the binding in the summary, as
->   Documentation/devicetree/bindings/submitting-patches.rst shows for a
->   conversion ("dt-bindings: iio: adc: adi,ad7476: Convert to DT schema").
-> 
-> Changes in v3:
-> - Capitalize the summary phrase. dt-bindings: mfd: titles are capitalized
->   after the subsystem prefix (Add 61, Convert 20 against convert 6).
-> - Add gpio-controller and #gpio-cells to the example, which the text
->   binding's example had and the conversion dropped.
-> - gpio-controller and #gpio-cells are deliberately *not* added to the
->   required list. rv1108-evb, rv1108-elgin-r1 and rk3328-a1 do not set
->   them, so requiring them breaks three in-tree boards:
-> 
->     rv1108-evb.dtb: pmic@18 (rockchip,rk805): 'gpio-controller' is a required property
-> 
->   No rk8xx PMIC schema requires the pair, and gpio.yaml already enforces
->   that they appear together ("'#gpio-cells' is a dependency of
->   'gpio-controller'"). The pinctrl driver calls devm_gpiochip_add_data()
->   unconditionally, so the property is not what makes the GPIO controller
->   work either.
-> 
-> Changes in v2:
-> - Require 'pins' in the pin configuration nodes. Without it a node that
->   names no pin passes validation, while the text binding listed 'pins'
->   as required.
-> ---
->  .../bindings/mfd/rockchip,rk805.yaml          | 60 +++++++++++++++++-
->  .../bindings/pinctrl/pinctrl-rk805.txt        | 63 -------------------
->  2 files changed, 59 insertions(+), 64 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/pinctrl/pinctrl-rk805.txt
-> 
+Hi Rob,
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Understood on the ABI point, and I don't want to merge a binding we'd
+have to change later=2E
 
+Could I ask for your guidance on the practical path? This series is
+ready, and I'd like to get it into 7=2E4 if possible, since OpenWrt and
+other distros base their support on LTS kernels=2E Missing this window
+means a long wait for users=2E
+
+Given PR #198 is still open, I see these options:
+
+1=2E Wait for PR #198, then use pcs-handle =3D <&xpcs 0>=2E My concern is =
+that
+   I have no visibility into its timeline -- it could be weeks or much
+   longer -- and holding the whole binding on that is hard to plan
+   around=2E
+
+2=2E Keep the child nodes as the final ABI, RZ/N1 style, no planned
+   migration=2E
+
+3=2E Something else you'd prefer=2E
+
+Which would you recommend? If waiting is the right call, I'll do that,
+but I'd like to understand roughly how long PR #198 is expected to take=2E
+
+Thanks,
+Coia
