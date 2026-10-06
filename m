@@ -1,94 +1,132 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com [209.85.161.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E5E73563F6;
-	Tue,  6 Oct 2026 22:11:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 259C037C108
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 22:14:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791324708; cv=none; b=cvRbsZ9ypPFbfLZBBpbj9R60cKwO/O1HYZOuECfSc+BG5FrjJG/+4IacqqyQ87cCSc5ggtRZ2XyXuD5+Qqse57+6QK4mbBoBl68xzwQ3pr2dYRky2+LVsv5jhqNbdpxNyGx4hdX241LNBqjMcCdJOg9PL0WIefstZyhk/zjpErI=
+	t=1791324856; cv=none; b=epU2esY9cbkCVCxa8N8VwDUIpVCtc8RvQanb3g6wrndi0yzwbQQ9iiHkbDh27yvsngwch6QimN4VIQ84a9jKQj7iIBHba/yhWFD24ZPFv/5TZ0Q9HUwt0B3AIQBpomMwim/fIpH2/lqNJHrL+LiPosUzyrNu3T5WhaMdUZjB754=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791324708; c=relaxed/simple;
-	bh=PF/6rsWjsWeSOgI3iEe1n6J/zoSDVP9wFA2bdAYdTE4=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=p/FBKcJx5CFH2ls0+pmCD4kCH76LwBas4FBDVMcl7UDL3TPiBeZrAZRtpHdmhtZflfxc4JCOj9oXnXMVshFNXWgeWOF3W9O9Dgxn1Q6do3D7FlAOejlEhgUoYtAqTM2kqZcrIUr40d6fcdzu0shRRML3BshprxnGKHPDaVVgRRk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=YV9FIN5i; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1791324856; c=relaxed/simple;
+	bh=5CdDIjccNPKDkIYkK32+rcmVZd05GDIDDwL8M20/R8c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DEko40BSXSVQOe7PW9YJ9DqfsEZR6XW5XazVRzBIUVVkNXXJA4Ai01OMrxkzqMv4FbwZlUu8OyGTYDNKjwuxaiQJ1Q1FgHyCnIRsdFd7U8psVWZeJ6E6/FPrtX13hN6lWUoOxNCbLL0cfZ5wNwlkG5Fu2LwZgyNJ/SSnA7uR8Oo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=bM1oVZyG; arc=none smtp.client-ip=209.85.161.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="YV9FIN5i"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B1E92A0F62;
-	Wed,  7 Oct 2026 00:11:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1791324696; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=TINJvfi+w1Dn/tkBlwCk9cUaKMPh76yUWPggzDlrv+k=;
-	b=YV9FIN5izh5LrdM/k4F+25mHY/dLJTGAYCAicxUI2d3By7f9HYy9YudHQDEv9jdmwzJ+8i
-	u0B16BU7cXeXxehUzWjxqHmOAMJU+BXJXP9V5GFHF7AflUDAYAsIGVRPzhkP5eF0J3dN2S
-	9/ymPM8J5/pk8ChfEitJ6gxY4hl7ano3B0lx9dEEO8BoQvjU1xhT9n+7IyQjaSdcs7gSnx
-	LuJAz3Oc6Jgdp2D07iOalCoyEoSr69MYUywHXODEBk7iXqq9KtJHiyhvPYvyTZ0BAQq2zG
-	HOrb4Ju26sXixVYIIOAwuqFM5qmpWxXci21RZtiACN0gm7mbaMeeldympbSHCQ==
+	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="bM1oVZyG"
+Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-6cfed5dd071so778640eaf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 15:14:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=openai.com; s=google; t=1791324854; x=1791929654; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4x71umo7VvmNzzHlNr492KsLnbcHO95/5Ekj2FJ6tCU=;
+        b=bM1oVZyGqB2H9frIJxe84baDqxV7T00F2ycFA+X1Z8/dCJ6g8n9KOuxRePX/qJ2dof
+         C4eRLabPBa8Z5GLoC8zETHo4WfkNiuC4CJ9wB+8G9Lliiqm9z50ApBNP696xPKSN7zaV
+         bEyOyHSt5/DRwHwQ2y6vF3G4s/U/7ci49+gI8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791324854; x=1791929654;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4x71umo7VvmNzzHlNr492KsLnbcHO95/5Ekj2FJ6tCU=;
+        b=ssqkpuTbtILuE3cI5ow7NOQqG1lEZQv/s6FtTFVdSU8otbry7xSLO5CchROszCl44Y
+         EpMJ5q2hRSQV7OHxUeCFCM9JPPBUqFMabpRrj+rDwL6nYEJg8vMy0y2oYkRbOYOwz8rR
+         BBsJpOuVQflz6DwnPiNqjFrRAGvzT+ftGax1i+t9Dr359nhrL5jfmrB3giI+qFIGFRvN
+         2VQrm8RnybYU+eNRnTU9/D9jWcN/lYh98NUtFOD5laaJJ61QOfC/IrUciKxNRGf1Vybu
+         KmwTymU7ZXANdF7fLkMWADMkKFADPf36YsjPKdAtqnchuE18L1PGw/pzFCMCEFDCMAyY
+         Hsuw==
+X-Gm-Message-State: AFuF++mziwigK2Pud9+1S0ROGTvrgoJ7dRuOPGc7MeJQ18RZp9l8fy3b
+	brVPFglyZ3YmR8qKA7b1hb4P9kWCHFpZZYfcM4hAP5TJ0Xc2++ZuMBrx4rzDn2PCGHjQaGNGiO1
+	9IZXhLzs=
+X-Gm-Gg: AYBFou0GSjZCzJ8LnEzEoCM2fTXl8x3IXu0i6XWPH5voVoEj1KQv56C3HSAXXYnkaXd
+	+mq5/pwOF/4/3oF7CtK5RX+NT9e0HoWeXrZflCMCJJumB5Qm78s3EIAgBsSiovgCwdeas5033rb
+	XQ9cM/prDONv+amCaqvb5aUByG1IY8gTQUUzwITXASzXZmmn/iLB5KZPZHpqom4+iRlzGnJICH5
+	jdLe9lLOax1GfPy7T0ihbWO260LD4M15056yzd96tY9X5gL/eegjBLhYflXihGfJumfHIKJjmtT
+	eqwmHqlVK+V9jYRjMacOM1SzYzhkl+o7RkNNSWcRg13uwqIip/1sY22YWfH0l3kzAIBO70970ua
+	en39mbBYNcIqRWWBzsSx9459wL+dDbQslWAb9gP+pBaE4hR0Pt5M2WmpnFMtFhlpHB/2dVofWet
+	j5BY6Fc7cBKAgun31M1TaK1KMoSt4+O7lLryibSYB3pwq+0eyo/KckGNINqvcV8a2vZdk/kg5zE
+	86T4JqVij9NqLXFGzMNwQB4LoJ8yKseZi62hGBzLDsFw99x63KOb0isnrhjRtbk82AnZAl6BPM=
+X-Received: by 2002:a05:6820:1694:b0:6e0:fb60:d5c1 with SMTP id 006d021491bc7-6e7a4b20318mr631832eaf.11.1791324853944;
+        Tue, 06 Oct 2026 15:14:13 -0700 (PDT)
+Received: from com-75606.corp.openai.org ([199.47.143.7])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-82ad9eeb5eesm831673a34.2.2026.10.06.15.14.13
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 06 Oct 2026 15:14:13 -0700 (PDT)
+From: Kyle Zeng <kylebot@openai.com>
+To: linux-kernel@vger.kernel.org
+Cc: akpm@linux-foundation.org,
+	outbounddisclosures@openai.com,
+	Kyle Zeng <kylebot@openai.com>
+Subject: [PATCH] assoc_array: preserve shortcut prefixes when splitting
+Date: Tue,  6 Oct 2026 15:14:09 -0700
+Message-ID: <20261006221409.35477-1-kylebot@openai.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 07 Oct 2026 00:11:32 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: James Clark <jjc@jclark.com>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
- netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>, "David S .
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Richard Cochran
- <richardcochran@gmail.com>, Miroslav Lichvar <mlichvar@redhat.com>, Maxime
- Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next] net: stmmac: ptp: switch to gettimex64()
- interface
-In-Reply-To: <20261006103610.98277-1-jjc@jclark.com>
-References: <20261006103610.98277-1-jjc@jclark.com>
-Message-ID: <d1f539343b3f3b495253f9043b899875@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-Hi James
+assoc_array_insert_mid_shortcut() advances past a parent node's key
+segment when deciding whether a pre-shortcut is needed.  A root shortcut
+has no such parent.  If the first differing nibble is at bit 4, the code
+therefore installs a node indexed at level 4 directly at the root, where
+assoc_array_walk() starts at level 0.  A successfully inserted object can
+then be unreachable by lookup.
 
-On 6.10.2026 12:36, James Clark wrote:
-> The stmmac PTP support currently implements the gettime64 callback to
-> retrieve the hardware clock time. Update the implementation to provide
-> the gettimex64 callback instead, adding support for the
-> PTP_SYS_OFFSET_EXTENDED ioctl.
-> 
-> The system clock readings are taken around the read of the nanoseconds
-> register in get_systime(), so get_systime() gains a 
-> ptp_system_timestamp
-> argument. rmb() is used to ensure proper ordering on weakly ordered
-> architectures.
-> 
-> Assisted-by: LLM
-> Signed-off-by: James Clark <jjc@jclark.com>
-> ---
-> Tested on a Radxa ZERO 3E (RK3566, DWMAC 4/5) running net-next.
-> Width of the interval between the two system clock readings
-> bracketing each PHC read (2000 calls of 25 samples each):
-> 
->                                          min      median
-> Before patch (PTP_SYS_OFFSET):           875 ns   1167 ns
-> After patch (PTP_SYS_OFFSET_EXTENDED):   291 ns    584 ns
-> 
-> On this board the 24 MHz arch timer counter advances in steps of 7
-> (~292 ns), so all intervals are multiples of that.
+For keyrings, a user can turn these lookup failures into an oracle for
+the pointer-derived index hash and recover the KASLR slide of a known
+kernel image.
 
-> [...]
+Only advance past the parent segment when the old shortcut actually has
+a parent.  This retains the prefix before a root split at bit 4 while
+leaving the non-root and bit-0 cases unchanged.
 
-(for the other patches you have prepared I will have a look later this 
-week)
+Also preserve the last complete prefix word when the split is
+word-aligned.  The unconditional zero-bit shift currently clears that
+word and can make both sides of the split unsearchable.  Use the same
+partial-word guard as the terminal-node shortcut constructor.
 
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+Fixes: 3cb989501c26 ("Add a generic associative array implementation.")
+Assisted-by: Codex:gpt-6-astra
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+---
+ lib/assoc_array.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-Thanks,
-Nicolai
+diff --git a/lib/assoc_array.c b/lib/assoc_array.c
+index b6c9723e12ce..ee4f3994f494 100644
+--- a/lib/assoc_array.c
++++ b/lib/assoc_array.c
+@@ -841,9 +841,10 @@ static bool assoc_array_insert_mid_shortcut(struct assoc_array_edit *edit,
+ 
+ 	/* Insert a new shortcut before the new node if this segment isn't of
+ 	 * zero length - otherwise we just connect the new node directly to the
+-	 * parent.
++	 * parent.  A root shortcut has no parent consuming the first level.
+ 	 */
+-	level += ASSOC_ARRAY_LEVEL_STEP;
++	if (shortcut->back_pointer)
++		level += ASSOC_ARRAY_LEVEL_STEP;
+ 	if (diff > level) {
+ 		pr_devel("pre-shortcut %d...%d\n", level, diff);
+ 		keylen = round_up(diff, ASSOC_ARRAY_KEY_CHUNK_SIZE);
+@@ -865,9 +866,11 @@ static bool assoc_array_insert_mid_shortcut(struct assoc_array_edit *edit,
+ 		memcpy(new_s0->index_key, shortcut->index_key,
+ 		       flex_array_size(new_s0, index_key, keylen));
+ 
+-		blank = ULONG_MAX << (diff & ASSOC_ARRAY_KEY_CHUNK_MASK);
+-		pr_devel("blank off [%zu] %d: %lx\n", keylen - 1, diff, blank);
+-		new_s0->index_key[keylen - 1] &= ~blank;
++		if (diff & ASSOC_ARRAY_KEY_CHUNK_MASK) {
++			blank = ULONG_MAX << (diff & ASSOC_ARRAY_KEY_CHUNK_MASK);
++			pr_devel("blank off [%zu] %d: %lx\n", keylen - 1, diff, blank);
++			new_s0->index_key[keylen - 1] &= ~blank;
++		}
+ 	} else {
+ 		pr_devel("no pre-shortcut\n");
+ 		edit->set[0].to = assoc_array_node_to_ptr(new_n0);
