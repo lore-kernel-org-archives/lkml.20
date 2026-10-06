@@ -1,68 +1,68 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6152B39C63D
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 22:40:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09FF339CCFB
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 22:40:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791326426; cv=none; b=UJVBDvJ4lXSg5vMfcKavX9Y96b9SM2mRx68v643zvA59+6N1+O4nLZ8y7Dh0xcnMzumKzBoOgbzLafdIaoOv3U5uyd/n5k4S/W7gYVZGSDQRy1Xa4Pi32nONSUF4qWlrIlCdwQmbClouvv4LslHVR/zzjDkrbwNf9/GMbw06O8U=
+	t=1791326433; cv=none; b=O2aWaxl5Lo5kbGlNTNci+IXN2J8uWoocfjFORz9Y7UQDDWPbO/7zw9EJJLH6q2wEPesC8j1g81ufzf7tygoo82eOVkNUf/FsiakAZFDlyZ8nI9FkJcRSrxKNTgNaAlNAsps+A9DZE018cAqYZ28xpaUK/kNtmaDHqb67okz2tRE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791326426; c=relaxed/simple;
-	bh=DPgKLvB2PNcWdmQvkIzprusFWSgbJAmy+ICrqd4Fj+0=;
+	s=arc-20240116; t=1791326433; c=relaxed/simple;
+	bh=o+pArcNbJmp2jNe5MdLimuBeqxq5vqZqEf7oThdS1No=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=r9fLltnjZjG4MO5YsWCy42tyQ+ySvMmuRICWwe7R9muQat6KQ1QB3luA3ettp54vb0dSEViyonP75fpnCpSB5YX5luB3nRDALWJUMThuT4ZbHDBXlJwiHANSnby6YNAXFuOPe/B+GGCVKQ55iE0ZAa4tWfXhqLiMb5rrXZ2EiSQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=fail (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CRcSSKz6 reason="signature verification failed"; arc=none smtp.client-ip=205.220.168.131
+	 MIME-Version; b=uQv+xWx9ocdpVDJtgQHWlZXXK095OpskF760YJSTWH9vXe5rjWJwWGBKxEETYcwJ5UPWjr79645usZaHrqdwUj+l+e8rz2hCX4X7hlRlrNmFy0DVAziSfjZzw7fj8vdHIyUoi5CEdBvZmvgR447uQC6LoD08B03D6UQ8ClpmF6s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=fail (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lO3Ga/vC reason="signature verification failed"; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CRcSSKz6"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 696LeSWb3050194
-	for <linux-kernel@vger.kernel.org>; Tue, 6 Oct 2026 22:40:21 GMT
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lO3Ga/vC"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 696Leabc2514102
+	for <linux-kernel@vger.kernel.org>; Tue, 6 Oct 2026 22:40:25 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=XU1FwuBtbti
-	AGCfwU3DbkpmUGr7mhTNOJFzOVECWXN8=; b=CRcSSKz6Pqy58Lp3Vj/L9fQVdUq
-	EP7/yunVuNbUiVLU15CY32lmeulKu4ri8uVgOwb+Mmt145c714bjvGrVASV2Xjy7
-	s9MMILeVVl9tbLGXtmVG52D1lWx7gA6DcweLW7tx6unn7/OQ5BucGFfWDgT4vUs2
-	MsBYXzy5Kl5bKFzesYVm5mEB+QTTXJdE0TaQ0C2hY7HOug5UVFKvObhrwRQ5QJNN
-	tut3zyAQ+0CghyXtfvKI95Ejxm5sAI3BVY2tM+ABnyV4NeEgtcJsag/G6rQmKxVa
-	IHvUYrHQPLe/qciIrPg57u6a3d8vLhooiBn4SBXqmRrB9c8qKzjVZe9mENA==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4xc5317c-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=F0S3PID9SQK
+	AbweaMyZ6e41wAcDSBT7h+cjSF8ADoV4=; b=lO3Ga/vCQOvPl4lOiWmolG206QZ
+	LpBXrfJTW1Cwb4SHy15CVGqBnmXt0bedrW6cu7VXhPBe3gMc0dJKf3aNDCBj+Cu8
+	DYZKjxTUVke/IxTA3z2TP4bYfizpxYNzv4RjxsJrcnTyG9vsrK7uIhw47vLrJoMT
+	+qdW6BDDzBxMw/YXT3YkmoDknj12Qb5I/qtSFn5SkqmqQA+8SKDTTRphQPU6loGf
+	pYa0AQ4J8lf/QJKncpr74UTxioJDZbfL7M9YRYnB34oPJJIZtOmLTZwMcZ6rmeC0
+	OubHJvgjQ6S1xFKvPqFFPV2purN1lG1NbQbL9thCsuAI5+kLuZdO1+gf9Aw==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4xwwtw74-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 22:40:21 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-91961d4b31bso64508996d6.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 15:40:21 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 22:40:25 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-934963b2bc0so602581485a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 15:40:25 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791326420; x=1791931220;
+        d=1e100.net; s=20260707; t=1791326425; x=1791931225;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XU1FwuBtbtiAGCfwU3DbkpmUGr7mhTNOJFzOVECWXN8=;
-        b=gjf6Li2dqjLL8iD8PJJeW9m2ovsmlaOHq4vpo5fuuuwt2sj9hJPiSJ40Bdo0tx7Lrv
-         jLCRKt/GkLNYkoP6/w1QuFFMkpDm5vhKd8xee80WqAyI1TxSkYbbfu00RxAivLVzB4ZJ
-         gQtGxR0ym/FQTDQZp/lbMuYZLEW92l6sNZ40h/+QZYM8fHd8ZfOhyI/YaVt4rsmZGgXI
-         vNNDSDiyBUvprONbTt6961PHzNXO09PxEt9sMAdfalMirnnGW+JHVsCOReOLULhRxVaW
-         gASRUkF95MN1ILBDjvRd56tlk8jOsSLoA+Knq04FeudZH12E8+h0/bsVlSoDQSHXK6eC
-         Fnjg==
-X-Forwarded-Encrypted: i=1; AKwUvBzb0v5owgItt+R7FviVVESURY8WU8Rn6DLjZ/SKH65KlhjWlWD6vqwR2xDbZn5BR5LK9PGNarsks5KDjeY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nFJJSzuTqXCRVr0gyd+dykOnrmg8NoS/BbNDwvbbghMLOUSiAP
-	Z0UVSJvZGGziJCyqAGpoTyCzTCtbmuu0qoueqaRioLowodwEJYdF9M35JOf9DYU/zODwbzuuaMj
-	S5opzbuTe8yLOvGB+dGn4yKgjyHg2ROJyMzCfvYlJAwlm7xXQFm5Xdpxhx6GLa+afRrs=
-X-Gm-Gg: AYBFou1Lh/II7WcCJ+af0XVFmgh5KDyB5Ca6WmoPDMHYO/q2ec2W02pI1K71puanGkk
-	scaovspFEAvoP4NXUYYAKb8hHSFX5cy1sezmmAMUMUkL7IoszkYvquhlq2aRRigS5WsHUqhYT4y
-	3XNEe9e2pmepwWLleQGWjnxGmp68NvwktPSZqwG28OS+4UXPSMyx5iC4r/cquJv+kbmEJ0YXjFF
-	LBwrOM+UL4HI90rp8hzfeM/Vfxjr4gJZMS6eFBNZ6qY8EvKjOW4zaNweSo3oCXhCuxCZO0qz7Y0
-	czoaTcJjyJLQu1idAoPS2uwEsdvpu0H0Hf4tG7SwTaTTcPiHnB5Nl/5toXY=
-X-Received: by 2002:a05:620a:4550:b0:93a:2d15:f84 with SMTP id af79cd13be357-93e9b7cc40amr75369885a.33.1791326420155;
-        Tue, 06 Oct 2026 15:40:20 -0700 (PDT)
-X-Received: by 2002:a05:620a:4550:b0:93a:2d15:f84 with SMTP id af79cd13be357-93e9b7cc40amr75365185a.33.1791326419732;
-        Tue, 06 Oct 2026 15:40:19 -0700 (PDT)
+        bh=F0S3PID9SQKAbweaMyZ6e41wAcDSBT7h+cjSF8ADoV4=;
+        b=2yUf/flIxulTGUxK+LoxlD+wSbEnsO3OarXUoWkTMDMBgMIwSKGzGj6D6rGGxlrCKZ
+         i0aPcV0yFNiOB/bZ7nPnDHl0OscIOEQgYZrNtesWd58ShWu5T200u8UtZkL9DUgjHAKV
+         JWdNM+MQ1Hs/W+5ukaK4P2CTFO5UKgipWeaBV4JeqegUGptHepknRhke88sB1PSvdnUq
+         1UwgiIeg+96q+xWBDBKDBzwqxJyyRb99oFdSFJ9+NJVZ5nfgcJgMY+tvxiUk/4LhSBL7
+         S7pjiafISH2tUaJFIigywfHY01I8yflHfJ7E7wUcIIiu3MYc2TrxJSZFjA5YaQ0+6bpG
+         q4Vg==
+X-Forwarded-Encrypted: i=1; AKwUvBxmPTdTMOsrJLs+KHsIzYjg6tgxQHb1762grQ6fkMYLNSFnzEgJLce+X0mD1cdslnwPVyLz3ictFo8QeVU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kQA2Lx3j9Q6BsUHSLZ2kedtIK9LGsr3blxNcvBxVsMFpDwz8Y3
+	z3goXtlh/F48Ma6CrqnJcrduNqpAaU5X3JCb6D4ZluPBlD2/O3qx0bHD4FbgLGoPLel7V5DzG06
+	ZzBQhWoB8JEKRcku72f8VcE5rEDwWgd/akgX8iD5JaVkMunH74XKIE65unzcAKm/52YQ=
+X-Gm-Gg: AYBFou3U+zk4I4Iizt2mwVUu+8pSkOMmK8XUVe9zJBWI4tUx9EFDBGL9oEuYXWvaDuP
+	O0Nl2AXwh3w38HuHjGuDZNDSzaAt0gGJrdot+R0aLhiMPxpLYY/RVt+wluThX7NS5kvZM+UporB
+	TlX9mDPDR4SA7xPzL4iogfHegOPyLWEXS2Rv4FrrToyUSXou3ei4hCJDw/0XhykrSJfFouz/UNM
+	66NYuc+ijrxBcL9niwIwkJCxwYgGn5V8mBd2DHuQ+CMhGBbR173cqJnlvev9MFbW+vNGfzFxRXU
+	EABIwOHYfr42iUBOHySu08HdA1VBn3NW7opzOoNq40moVcmfsWvOfDoclts=
+X-Received: by 2002:a05:620a:4488:b0:93e:9809:3367 with SMTP id af79cd13be357-93e9b83a81amr80367785a.72.1791326424855;
+        Tue, 06 Oct 2026 15:40:24 -0700 (PDT)
+X-Received: by 2002:a05:620a:4488:b0:93e:9809:3367 with SMTP id af79cd13be357-93e9b83a81amr80363685a.72.1791326424280;
+        Tue, 06 Oct 2026 15:40:24 -0700 (PDT)
 Received: from lin-0843.qualcomm.com ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178c53299sm167263575e9.11.2026.10.06.15.40.16
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178c53299sm167263575e9.11.2026.10.06.15.40.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 15:40:18 -0700 (PDT)
+        Tue, 06 Oct 2026 15:40:23 -0700 (PDT)
 From: Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
         Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -80,9 +80,9 @@ Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
         hariram.purushothaman@oss.qualcomm.com, pshrotri@qti.qualcomm.com,
         Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
         johannes.goede@oss.qualcomm.com, konradybcio@kernel.org
-Subject: [PATCH 03/45] media: qcom: camss: report probe failures
-Date: Wed,  7 Oct 2026 01:39:11 +0300
-Message-Id: <20261006223953.3382273-4-gjorgji.rosikopulos@oss.qualcomm.com>
+Subject: [PATCH 05/45] media: qcom: camss: keep CSIPHY lanes active while streaming
+Date: Wed,  7 Oct 2026 01:39:13 +0300
+Message-Id: <20261006223953.3382273-6-gjorgji.rosikopulos@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261006223953.3382273-1-gjorgji.rosikopulos@oss.qualcomm.com>
 References: <20261006223953.3382273-1-gjorgji.rosikopulos@oss.qualcomm.com>
@@ -93,85 +93,84 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=X5THu2Te c=1 sm=1 tr=0 ts=6ac578d5 cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA5MCBTYWx0ZWRfX3VjxpDEldU3S
+ saBNkfiku+tKg5edm+02wkzRJjROjTgWgb4F/aPQeSFzCoiZz+g/KvCFzIzqWfU1KMhN/nyL0BR
+ u+A+rdjgk80NQzN4n18zhZlUgBCWGIQJbBsVA8yW30JM3EcoWYpzsNxIQjIpKEkNEmgHwb41pBe
+ OIlix6Ru7NVao8kCjb1BNQuizkXqgitg0CbTzrqkc6eXOzyRbhYOEmSYh/T7O4QVRkpowXo2rd7
+ vZJhnETpwnQWv4Xlor29HGCgtQMz7FLu3UQtlPPvGNvV0bQKwIeMKZLa2mRFZusf/z5SIuFeWHx
+ YZ8Mg6+Z69dtgts/+cax/VMFB0qyvQYv0cWLWNJqBzfFpnS/7Iqz/7pxonSrU/9KVhZJneVE+Er
+ F62qgOUT411QqvqAJvaSf8JYrTZemUTSHyhIe4hxgErVFYN8h8E7Mvhc9tWh1tCjd7tWvEibEWq
+ 6qGuPZ60VETF1TVKHxQ==
+X-Proofpoint-ORIG-GUID: tySaHlgCR_mMxg8J9RSuEPUCWNu4n7Zz
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA5MCBTYWx0ZWRfX04a8JvDmBLjf
+ D3muaMMinWoRX7bQtGWKbrJ7nU1/pjAI5HJg/hxfY3qUwDcANg+C4GuiU/hJZ6AQ6gkXIf7uKW/
+ 6kX91jXVuwy4k/BOCeN0LjntFjLQI4k=
+X-Proofpoint-GUID: tySaHlgCR_mMxg8J9RSuEPUCWNu4n7Zz
+X-Authority-Analysis: v=2.4 cv=SJXXx+vH c=1 sm=1 tr=0 ts=6ac578d9 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
  a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8 a=_ke9eFR7E5bWC9if0q4A:9
- a=1HOtulTD9v-eNWfpl4qZ:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA5MCBTYWx0ZWRfXzoYapckY6VDF
- LPeIVkFdA+FRNls682/bXc8VvoO1bAnHDxjRIpFkgdzsb5/V4cyK22GxBdXNvJALSvL1VQdJIf0
- qt1OqiiPDFQFX6Trour+X4N/C0Zjs+E=
-X-Proofpoint-GUID: EqZPDVK0RJaBhsaEJY-HCrpu3ezYS6rM
-X-Proofpoint-ORIG-GUID: EqZPDVK0RJaBhsaEJY-HCrpu3ezYS6rM
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA5MCBTYWx0ZWRfX84dm/S3fySAA
- CukJ79j0xawO5cXWBMa81GLwRTeGDi5nsdvMwSJXMmXOJWBlNVDACDhx9ZfANZ30Rpk2PD+rrCo
- nvBU6AMUl5VSAE7hbzLcUCd6k0K4B2Um2ktYvz/7Ue4F2+UMMia4+rNKo9HNfkRO0B+xnVyTdkG
- L97/88tbyg0qQZd4mXPMa+TC0evKYO0nuGYzz7CgiLOVfePrvRayHQ3cldovMgw2S8NrGpkKI+d
- C3rjZ3K4inUgXzEXGqPJcPpJLgXgoxaaAp10YfCr2/wt/8bOCfxWStyZQsquYEex96tmBfAbUQM
- rIbB3ZMKEzSLg5UpTnlyxk/Tz6fp75qf3BKxSCPmdnC2rbsISjJry0m2dYyg04yhALkG4Lmlt8p
- ddyQH0fuQwAlvElLpRUzjJzA2+vKfY8PndOtzkQgSQBwABen7W4SgGjP+x//rQ5djUvPdKs/pGl
- Lx0xsF5wjzINxeXG2xg==
+ a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8 a=0Z5QZsCCh4IwRXeKKPkA:9
+ a=IoWCM6iH3mJn3m4BftBB:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-06_05,2026-10-06_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 malwarescore=0 clxscore=1015 phishscore=0
- priorityscore=1501 suspectscore=0 impostorscore=0 spamscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ lowpriorityscore=0 priorityscore=1501 impostorscore=0 bulkscore=0
+ malwarescore=0 spamscore=0 phishscore=0 adultscore=0 clxscore=1015
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
  definitions=main-2610060090
 
 From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 
-Report errors returned by interconnect, DMA and firmware setup.
-
-This makes early probe failures visible in the kernel log.
+Add a stream_count reference counter to csiphy_device. The CSIPHY
+lanes are enabled on the first stream start and disabled only when
+the last stream stops, preventing a shared CSI PHY from being torn
+down while another output is still active.
 
 Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 ---
- drivers/media/platform/qcom/camss/camss.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ drivers/media/platform/qcom/camss/camss-csiphy.c | 12 ++++++++++--
+ drivers/media/platform/qcom/camss/camss-csiphy.h |  1 +
+ 2 files changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 9bfb0290395b..1f662b1caf5a 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -5418,8 +5418,10 @@ static int camss_probe(struct platform_device *pdev)
- 		return -ENOMEM;
+diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.c b/drivers/media/platform/qcom/camss/camss-csiphy.c
+index 9e95d04b7235..4938e56f481d 100644
+--- a/drivers/media/platform/qcom/camss/camss-csiphy.c
++++ b/drivers/media/platform/qcom/camss/camss-csiphy.c
+@@ -324,10 +324,18 @@ static int csiphy_set_stream(struct v4l2_subdev *sd, int enable)
+ 	struct csiphy_device *csiphy = v4l2_get_subdevdata(sd);
+ 	int ret = 0;
  
- 	ret = camss_icc_get(camss);
--	if (ret < 0)
-+	if (ret < 0) {
-+		dev_err(dev, "Failed to configure ICC: %d\n", ret);
- 		return ret;
+-	if (enable)
++	if (enable) {
++		if (csiphy->stream_count) {
++			csiphy->stream_count++;
++			return 0;
++		}
++
+ 		ret = csiphy_stream_on(csiphy);
+-	else
++		if (!ret)
++			csiphy->stream_count++;
++	} else if (csiphy->stream_count && !--csiphy->stream_count) {
+ 		csiphy_stream_off(csiphy);
 +	}
  
- 	ret = camss_configure_pd(camss);
- 	if (ret < 0) {
-@@ -5432,8 +5434,10 @@ static int camss_probe(struct platform_device *pdev)
- 		goto err_genpd_cleanup;
+ 	return ret;
+ }
+diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.h b/drivers/media/platform/qcom/camss/camss-csiphy.h
+index e55c098dbe67..8c1eb83de751 100644
+--- a/drivers/media/platform/qcom/camss/camss-csiphy.h
++++ b/drivers/media/platform/qcom/camss/camss-csiphy.h
+@@ -115,6 +115,7 @@ struct csiphy_device {
+ 	struct v4l2_mbus_framefmt fmt[MSM_CSIPHY_PADS_NUM];
+ 	const struct csiphy_subdev_resources *res;
+ 	struct csiphy_device_regs *regs;
++	unsigned int stream_count;
+ 	u64 enabled_streams[MSM_CSIPHY_PADS_NUM];
+ };
  
- 	ret = dma_set_mask_and_coherent(dev, 0xffffffff);
--	if (ret)
-+	if (ret) {
-+		dev_err(dev, "Failed to configure DMA coherent: %d\n", ret);
- 		goto err_genpd_cleanup;
-+	}
- 
- 	camss->media_dev.dev = camss->dev;
- 	strscpy(camss->media_dev.model, "Qualcomm Camera Subsystem",
-@@ -5453,8 +5457,10 @@ static int camss_probe(struct platform_device *pdev)
- 	pm_runtime_enable(dev);
- 
- 	ret = camss_parse_ports(camss);
--	if (ret < 0)
-+	if (ret < 0) {
-+		dev_err(dev, "Failed to parse ports: %d\n", ret);
- 		goto err_v4l2_device_unregister;
-+	}
- 
- 	ret = camss_register_entities(camss);
- 	if (ret < 0)
 -- 
 2.34.1
 
