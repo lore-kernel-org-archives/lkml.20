@@ -1,243 +1,169 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A90B49E120
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A924E4582E1
 	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 15:44:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791301495; cv=none; b=OtPuPG6uXN7w+3sJngyDeAk8YzwIgJ6WVJxMlpte4NtIoymtiMdPPkuAaxDpU3hUhoQxTqobBlGA1F7zJ/OBG6f2YeITORAfVWfcgJjojGGzPaxeITHBohuyOs8oxIG1aIjP6eVd4Hsk0X+37uLxNQaai7NfYDLBzJY9nrKPMjU=
+	t=1791301495; cv=none; b=jWgtSxNdWpSLF+iHNGySw+7K+stDQU+3i4/ZAnac7Seob7g75sMtAugRzTeV5WDVnKJPV+8dUOGuFpW+LrFO0xSAYUHh8TF2I3Mf/RGKqGFPpHleEAZ3Wt1wMnx+wCK+x9+CsMz7290ISGY7dfHrjcb7+L8I7Dnmqn6hx2GNWwk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791301495; c=relaxed/simple;
-	bh=i9wB6k+gSOJqbar4HQq7tst641yPZLYwPNCoR+olQXQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ac+lMdRd6L2kYAUTxfacIJ/DOMZaXewuU8zb+MCZJF4vYK38fQML0ATCcv3QlZfL87OpMBpQ39MiuhEcmJ/kIeoxgwDO6glAvKh4brVvd7BXFnDWb0ey/lYZHCpG/ORXqsm0kHCk8lnsT47HqQ7lHugp9bdROokHPgpBUChTWLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bWCmSryF; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=E1rZootfw0BaVJgco43u4aUhbhbXqY00PRfewdfJt9k=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=QrAH/OPKPiEFSMqUMsR6ZaKUq3DcG/q58q8hQY04T0i3t3QBt3Y3lJqXRJpC61lFUSxDtbykTVZpMWHdnAbZZ7aCDRyIEHhxBkbfX0ZNuLwyjTbj2G6HPrKumak3JVB7H/kloEK91HGnJXh8kbSzMlwljYPomfMnimYBC2UgIrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=KQr8gLPB; arc=none smtp.client-ip=209.85.160.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bWCmSryF"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48afe75f055so2697446f8f.2
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="KQr8gLPB"
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-5339381b46eso6353011cf.1
         for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 08:44:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791301490; x=1791906290; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=toxicpanda.com; s=google; t=1791301490; x=1791906290; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IWzGAzD5eF9cKyqD/7NUq8DDIAMBDaKbaaDeJ35N/qg=;
-        b=bWCmSryFJu2Im8XYnZWVIjPECjICDIPEWqOF26DU3pSgyE40v1RptM8z94G4iqWhG5
-         6cdJk1j0B8x3PWq7Jely5pWZI0v8Gf5aEcQeAqM5r1iDs/zVQ763RblewIt3BkofJ1eC
-         8aVv/Y0EBtFZkC7mlhRz3xWjZNS0uwZUmVBLbTfjrwuNub3zR9n7/ERmvck8/TOMuGGm
-         T+gWm/EVR2lpjCyO+/nswLSd/LWHgRJn7oAIYDaqWikaAYOFfS7MFIniAkjheupANWIl
-         jVhMWbOPW769hFOykWnE9s10j8bZrP3r2Jv8mBaWCS1jugjDg6CpquVZjuYGj72uF2kL
-         z1dA==
+        bh=/kaO/BeZ1hBqRmUEbghNIWTLKJsn7PkodEnaWDOwIh8=;
+        b=KQr8gLPB0kQ7qMRCQfgbqn+O620pr96nGegYxrOnz7N2gHFgXM3ZsGjjY792YjIM2Y
+         o0wQnhywTHcIe+j9gk9Gn7EGdHHbGjgJ7K8pbKZIXgdPu0nd3U0UZ8YE5y3GvojQ/wlF
+         u87G9uZ/1o6qAhfH29jIp/v54HB6J1dv5AuI+Mb5rJx6Gx2KOIiBeEOynGpShwCD+yd7
+         5lO4QAK7v4QcuGgAyu1e6kHdahGwLzm7kdzk8E35Ruoz0nFLoMjFkw0ZjcO3NWUZUVJg
+         0AvCx+nEwDnLGNk7nd29L8GS08Im1hskqpSQeVU2onuoieOZ73Rj6ksGvL5Iv/uKqYiD
+         G9cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1791301490; x=1791906290;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IWzGAzD5eF9cKyqD/7NUq8DDIAMBDaKbaaDeJ35N/qg=;
-        b=h/JLiSBVJBiQIOM4/X3P5KtvfEk314rzDw4Z5GpgwkhlHvDkbJ8PPpT4HC8OQYzxgr
-         UPnOY+7+k8qmGr7v2yjetn6L+In2+64TjbB908A7/5TUxcA6q4u03cMOnq9xGurv7sBN
-         hQFjmEJmq3X0iq/MnDoqylxKxJqt/UwE/jufAuVyqx05/z7bVG+ZwAPDkn9neheb46Su
-         FnQXQor3HecqvSs46xCyYQi08buKMTShLT32hlincQv1bwF8zscafIIfTNEx29/+2hNW
-         kjY7diiwh4gfn7hcC7X1mPMU+fYtAuI3nfrlOnWnsrLS4xRbq1dNdbOWdjnHcsftJgaD
-         LIXQ==
-X-Gm-Message-State: AFq9FYKjdkM3BSCS/Qcn2rW1/bltA007adribcwngsNwm0wZQm6uFiRj
-	aTw2fYA9zU1qUJ4tT+nG2bPtwNXDjWf+5SkiQR1C6reVMwee2uI8BNpi
-X-Gm-Gg: AYBFou27W+GliHDHaBFqmb8FB30uDuJPnN6vhKXFmnmdDuYUaQ4keHrMhsJ7Ke3//6L
-	nIh/mYIeobIEk8jJ/HMxqn2TzaxNC8XsuQuyOZiPTKauk2WUmPRBo4hTmMn7ljSG/FoBkYHKiR9
-	1d0Y8VbYMZFatVAqWJ9UZwSt1wo51RqCq+9ngk3OnMgzBKI0Hw0SiFbRSTmGt+6q/ZfUfDdgXc9
-	6lq4vX4nZNapWS27luiyzgXMnSY3nZG2fGdiQhkWjvXrqqf8NZojVcGu7iaztFR1NeVjcNo6nNR
-	DIY9FS9kMp/7Xp+uQCDuXStiXFLLOXS5L7gKqYZQAn3nvcxRRWf3fIFToAd71B7rBqYfnE71hub
-	h60ZU4HtartwidMgYJ8qLMEwinsDUVhJVPv+xLX3KB9qZkD3QKalFsYCe4JqKBENo6e0nv7Jlnm
-	KPgKHQO1tJjC0J8lKPm7+SSYrFQ1RNF3mxRM9qZZXyCrfjsnIm1jFAt1K49gq8mZRDnq3bHiXeh
-	VlOCkEQ8A+4Fwiqcus=
-X-Received: by 2002:a05:6000:25c7:b0:487:489:7af0 with SMTP id ffacd0b85a97d-48c6d15f9d6mr3766141f8f.17.1791301489629;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/kaO/BeZ1hBqRmUEbghNIWTLKJsn7PkodEnaWDOwIh8=;
+        b=mbT5DomwvO3y9GCWP2IZtEqQ1aAtK7paMMtI1yeJc+hbSVMulHdjFqaHoAn6KayOH1
+         QJ2l12l6JNEgQ1cizogWQ8JIyep+kmb6XPb0YPGJT0xCDBusQxc4ijkIevGctSp0LC28
+         qKYG36bTgTa88p7bx5E44DkdQANmKczGaRD/cnTaSvKU2wDP8ESGeHzSFqLohf2PH1zu
+         +qN/CsPgmuN4M7coZyXIYyeqCbA6GoX/xRQeSGZ1jZ2M4RFlEVkYgkSIVxXi+PeOYruv
+         JkxRQN7X5OKc/HneYGb/VpnehIJ1ebTRQI/+deVrr7aEmy4FOmaZDNZqMwLHLNnTYCTO
+         K9cg==
+X-Forwarded-Encrypted: i=1; AKwUvBzKYbXbpkIahBIS40SV4+UjMrc/xOx+Ko1ZkfWy+/LnBr4Fg8UkKRU20WmGS4Ndwyf1HD04mhwO2NCs1wQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++khrsng5gxClwuMyd4h/ecHjuCfCWvmPsgwdKg3LjSP3lJl366A
+	WbeVHCgDNXZbpVlLkdQ3EUCtyIPHBJ/bcrVSzrIwqa2voJ0tZY2aUsgWiFRC9i/ezA0=
+X-Gm-Gg: AYBFou25khREtsRapxX5UwRHRAxXVsSbzQqeHmsdaFjZWyME5fwQ/B4JBzUwROa6Ict
+	YWks/4EwpAHRui01L/Ad46mSto1HKgHUINLw0+xYsy1GVg8MbxYUs7YG7wHEVSPVT0d3tCR7HXr
+	r2uNoezxMLrpirdL7ZoDlnaYbPvWisVJo+1maJJJMQ76cAOp78mFXIAuHnDMjfjRrGDAHLpwpHv
+	qqBaliebnW4nPC+JYyUM5pRYmjIt+HqjPvUjvaQWyPhII2Tgzl7HGQKeIYHY5k2r2dVfmecTx/z
+	OX/AkjUAyRfagd80w0uI4Z43tZsVnHCh2NrvSh1dv+nxqTW3/UEcAd+kNTDBEoUx+7xPMiqTdve
+	EaZvFTjcL2qjQhdJfa57e7DrmLKcD1hN5SEq/32+Nu3e4UyXJjzm+pchKE3o5e/7Xel0MUCwgrB
+	eUXWQR6SHV+77XPVUiVuI7WfFtv33WbU8g6Qw8Mmf4xUUUS6xysHnFmWiAO6XgWZKOmiusdVKlB
+	Ztxn/uZrz2Dvss=
+X-Received: by 2002:a05:622a:1f0d:b0:535:1ab1:9046 with SMTP id d75a77b69052e-53566fba1cbmr33686651cf.61.1791301489859;
         Tue, 06 Oct 2026 08:44:49 -0700 (PDT)
-Received: from xeon ([188.163.112.76])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71c0b6e6sm327615f8f.14.2026.10.06.08.44.48
+Received: from toxicpanda.com ([153.61.196.247])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53398d438ccsm123999661cf.30.2026.10.06.08.44.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Tue, 06 Oct 2026 08:44:49 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH v1 6/7] regulator: lp872x: Add support for input and regulator power supplies
-Date: Tue,  6 Oct 2026 18:44:30 +0300
-Message-ID: <20261006154431.318936-7-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261006154431.318936-1-clamor95@gmail.com>
-References: <20261006154431.318936-1-clamor95@gmail.com>
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Tue, 06 Oct 2026 15:44:20 +0000
+Subject: [PATCH 4/5] capabilities: limit fscaps to where CAP_SETFCAP
+ reaches
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261006-b4-setfcap-userns-v1-4-f47e7ed66072@toxicpanda.com>
+References: <20261006-b4-setfcap-userns-v1-0-f47e7ed66072@toxicpanda.com>
+In-Reply-To: <20261006-b4-setfcap-userns-v1-0-f47e7ed66072@toxicpanda.com>
+To: Serge Hallyn <serge@hallyn.com>, Paul Moore <paul@paul-moore.com>, 
+ Christian Brauner <brauner@kernel.org>
+Cc: James Morris <jmorris@namei.org>, David Howells <dhowells@redhat.com>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, "Andrew G. Morgan" <morgan@kernel.org>, 
+ Serge Hallyn <sergeh@kernel.org>, linux-security-module@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, keyrings@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1791301478; l=3137;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=E1rZootfw0BaVJgco43u4aUhbhbXqY00PRfewdfJt9k=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QJ0asHQ8ANUUYwRFoQCZNpg1bUWHerEkstImIk5QC/dPWZ1mhKNyFNQGF7IKAcSNmZOC5eYTAi2
+ CVMOoDyoxGws=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-The LP872x support dedicated main power supply input usually shared with
-parent power supply for one of internal regulators (ldo1).
+Commit db2e718a4798 ("capabilities: require CAP_SETFCAP to map uid 0")
+keeps a root process without CAP_SETFCAP from creating a user namespace
+that maps uid 0, in which it could attach capabilities to a file that are
+then honoured outside.  It does not have to create one, though.  Any
+namespace will do that maps uid 0 and that it may enter, and it may enter
+all those that were created by uid 0:
 
-Add support for retrieving and managing these supply regulators using the
-regulator framework to ensure proper power supply dependencies and
-power-up sequencing.
+  task A: uid 0, full caps          task B: uid 0, no CAP_SETFCAP
+  unshare(CLONE_NEWUSER)
+  write "0 0 1" to uid_map, gid_map
+                                    setns(A's user ns)
+                                      full capability set
+                                    setxattr(file, "security.capability")
+                                      rootid = kuid 0
+                                    (back in the initial namespace)
+                                    execve(file)
+                                      file capabilities apply
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+The map does not even have to show uid 0 of the parent as uid 0, since a
+v3 xattr can name any mapped uid as the root user.
+
+Check at the place where it matters, in cap_convert_nscap().  On an
+idmapped mount the root user named in the xattr has two identities: the
+kuid seen through this mount, and the kuid that is stored and seen
+through every other mount of the filesystem.  If either of them is the
+root user of an ancestor of the caller's namespace too, CAP_SETFCAP has
+to reach up to there, which cred->setfcap_level tells.
+
+Tasks in the initial namespace, tasks that held CAP_SETFCAP when they
+entered their namespace, and file capabilities for a root user that only
+exists in namespaces the caller came into with CAP_SETFCAP or below are
+not affected; that includes everything an unprivileged user does in his
+own namespaces.  The rest gets -EPERM.
+
+Fixes: 8db6c34f1dbc ("Introduce v3 namespaced file capabilities")
+Assisted-by: LLM
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 ---
- drivers/regulator/lp872x.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ security/commoncap.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/drivers/regulator/lp872x.c b/drivers/regulator/lp872x.c
-index 3d95ca7fa0246..df19a5cc94d0d 100644
---- a/drivers/regulator/lp872x.c
-+++ b/drivers/regulator/lp872x.c
-@@ -471,6 +471,7 @@ static const struct regulator_ops lp8725_buck_ops = {
- static const struct regulator_desc lp8720_regulator_desc[] = {
- 	{
- 		.name = "ldo1",
-+		.supply_name = "vbatt",
- 		.of_match = of_match_ptr("ldo1"),
- 		.id = LP8720_ID_LDO1,
- 		.ops = &lp872x_ldo_ops,
-@@ -485,6 +486,7 @@ static const struct regulator_desc lp8720_regulator_desc[] = {
- 	},
- 	{
- 		.name = "ldo2",
-+		.supply_name = "vin1",
- 		.of_match = of_match_ptr("ldo2"),
- 		.id = LP8720_ID_LDO2,
- 		.ops = &lp872x_ldo_ops,
-@@ -499,6 +501,7 @@ static const struct regulator_desc lp8720_regulator_desc[] = {
- 	},
- 	{
- 		.name = "ldo3",
-+		.supply_name = "vin1",
- 		.of_match = of_match_ptr("ldo3"),
- 		.id = LP8720_ID_LDO3,
- 		.ops = &lp872x_ldo_ops,
-@@ -513,6 +516,7 @@ static const struct regulator_desc lp8720_regulator_desc[] = {
- 	},
- 	{
- 		.name = "ldo4",
-+		.supply_name = "vin2",
- 		.of_match = of_match_ptr("ldo4"),
- 		.id = LP8720_ID_LDO4,
- 		.ops = &lp872x_ldo_ops,
-@@ -527,6 +531,7 @@ static const struct regulator_desc lp8720_regulator_desc[] = {
- 	},
- 	{
- 		.name = "ldo5",
-+		.supply_name = "vin2",
- 		.of_match = of_match_ptr("ldo5"),
- 		.id = LP8720_ID_LDO5,
- 		.ops = &lp872x_ldo_ops,
-@@ -541,6 +546,7 @@ static const struct regulator_desc lp8720_regulator_desc[] = {
- 	},
- 	{
- 		.name = "buck",
-+		.supply_name = "vinb",
- 		.of_match = of_match_ptr("buck"),
- 		.id = LP8720_ID_BUCK,
- 		.ops = &lp8720_buck_ops,
-@@ -556,6 +562,7 @@ static const struct regulator_desc lp8720_regulator_desc[] = {
- static const struct regulator_desc lp8725_regulator_desc[] = {
- 	{
- 		.name = "ldo1",
-+		.supply_name = "vin1",
- 		.of_match = of_match_ptr("ldo1"),
- 		.id = LP8725_ID_LDO1,
- 		.ops = &lp872x_ldo_ops,
-@@ -570,6 +577,7 @@ static const struct regulator_desc lp8725_regulator_desc[] = {
- 	},
- 	{
- 		.name = "ldo2",
-+		.supply_name = "vin2",
- 		.of_match = of_match_ptr("ldo2"),
- 		.id = LP8725_ID_LDO2,
- 		.ops = &lp872x_ldo_ops,
-@@ -584,6 +592,7 @@ static const struct regulator_desc lp8725_regulator_desc[] = {
- 	},
- 	{
- 		.name = "ldo3",
-+		.supply_name = "vin2",
- 		.of_match = of_match_ptr("ldo3"),
- 		.id = LP8725_ID_LDO3,
- 		.ops = &lp872x_ldo_ops,
-@@ -598,6 +607,7 @@ static const struct regulator_desc lp8725_regulator_desc[] = {
- 	},
- 	{
- 		.name = "ldo4",
-+		.supply_name = "vin3",
- 		.of_match = of_match_ptr("ldo4"),
- 		.id = LP8725_ID_LDO4,
- 		.ops = &lp872x_ldo_ops,
-@@ -612,6 +622,7 @@ static const struct regulator_desc lp8725_regulator_desc[] = {
- 	},
- 	{
- 		.name = "ldo5",
-+		.supply_name = "vin3",
- 		.of_match = of_match_ptr("ldo5"),
- 		.id = LP8725_ID_LDO5,
- 		.ops = &lp872x_ldo_ops,
-@@ -626,6 +637,7 @@ static const struct regulator_desc lp8725_regulator_desc[] = {
- 	},
- 	{
- 		.name = "lilo1",
-+		.supply_name = "vinlilo1",
- 		.of_match = of_match_ptr("lilo1"),
- 		.id = LP8725_ID_LILO1,
- 		.ops = &lp872x_ldo_ops,
-@@ -640,6 +652,7 @@ static const struct regulator_desc lp8725_regulator_desc[] = {
- 	},
- 	{
- 		.name = "lilo2",
-+		.supply_name = "vinlilo2",
- 		.of_match = of_match_ptr("lilo2"),
- 		.id = LP8725_ID_LILO2,
- 		.ops = &lp872x_ldo_ops,
-@@ -654,6 +667,7 @@ static const struct regulator_desc lp8725_regulator_desc[] = {
- 	},
- 	{
- 		.name = "buck1",
-+		.supply_name = "vinb",
- 		.of_match = of_match_ptr("buck1"),
- 		.id = LP8725_ID_BUCK1,
- 		.ops = &lp8725_buck_ops,
-@@ -670,6 +684,7 @@ static const struct regulator_desc lp8725_regulator_desc[] = {
- 	},
- 	{
- 		.name = "buck2",
-+		.supply_name = "vinb",
- 		.of_match = of_match_ptr("buck2"),
- 		.id = LP8725_ID_BUCK2,
- 		.ops = &lp8725_buck_ops,
-@@ -743,6 +758,7 @@ static const struct regmap_config lp872x_regmap_config = {
- static int lp872x_probe(struct i2c_client *cl)
- {
- 	struct device *dev = &cl->dev;
-+	const char *in_supply_name;
- 	struct lp872x *lp;
- 	u8 general_config;
- 	int ret;
-@@ -760,6 +776,12 @@ static int lp872x_probe(struct i2c_client *cl)
- 		return dev_err_probe(dev, PTR_ERR(lp->regmap),
- 				     "Failed to init regmap\n");
+diff --git a/security/commoncap.c b/security/commoncap.c
+index b406ede2fadc..26798d62e6b1 100644
+--- a/security/commoncap.c
++++ b/security/commoncap.c
+@@ -644,10 +644,24 @@ int cap_convert_nscap(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 	if (!vfsuid_valid(vfsrootid))
+ 		return -EINVAL;
  
-+	/* LDO0 parent supplies chip itself */
-+	in_supply_name = lp->info->rdesc[0].supply_name;
-+	ret = devm_regulator_get_enable(dev, in_supply_name);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to enable supply regulator\n");
++	/*
++	 * The root user may be the root user of ancestors of our namespace as
++	 * well.  CAP_SETFCAP that we got for entering it doesn't cover those.
++	 * On an idmapped mount the root user is vfsrootid as seen through
++	 * this mount and rootid as seen through every other mount of the
++	 * filesystem, so both have to stay within reach.
++	 */
++	if (cap_root_level(vfsuid_into_kuid(vfsrootid), task_ns) <
++	    current_cred()->setfcap_level)
++		return -EPERM;
 +
- 	lp->dev = dev;
- 	i2c_set_clientdata(cl, lp);
+ 	rootid = from_vfsuid(idmap, fs_ns, vfsrootid);
+ 	if (!uid_valid(rootid))
+ 		return -EINVAL;
  
++	if (cap_root_level(rootid, task_ns) < current_cred()->setfcap_level)
++		return -EPERM;
++
+ 	nsrootid = from_kuid(fs_ns, rootid);
+ 	if (nsrootid == -1)
+ 		return -EINVAL;
+
 -- 
-2.53.0
+2.55.0
 
