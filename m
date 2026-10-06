@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4B6E313547
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA2C734D389
 	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 18:10:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791310227; cv=none; b=rOzQ+xu1fS6KN/d/uniU+FwRQTZ4oWh03pccXMJLRumIQrFHKw2dnAIvfAsqqO4lqfX3UngoZ5w0z8ZsQJ9Ocz6mTBKfy5CuIaka3fB/D4pRxe2lSWR82zb1M2CkEEFtyf1QtcboiJSXH7tKcxSgXdiLtLoFANSbpYBLVkmIFlk=
+	t=1791310227; cv=none; b=GRH8KN9pBgxxpVYB2GB38dBFJW0zPClTD+hrtED5XEb6XiptD7RxYROBq6lo7Lh1IuK1t1c3t7/PoizOppjLFnyQkUFOMNPT8thqHS1xMtvSa85i+8fNzPWk8mScqqzlt2MeEBrB93wuBEqZx4KxljWOl/bnpQiOe38ufe+tUfo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791310227; c=relaxed/simple;
-	bh=DbeIVKz13TzT1MwJgQfOvMZzsTiao7rLjBhyw/Tak1w=;
+	bh=mdAvhSYFoTp7Cs2GMsUdE4BQvlRRVZ9EkWvRIK+71cE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=r4On3gHe+y8TN6pclnz/JI0AcSj04Tcd82AG1TfC5sywNVjjOY+UiZE64B+uwokW5bYtAQhylRkSjMAItwYrzqdVB+CCd9iplpoFwl6ncF1rlzrUW/huOKviUfiU5TLguP9miCZkgP998MmJi/wM7NaUh5rCgF0XDK82SGX7Xks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OeuoHonr; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=C6n0NP7iAU0ui1TOPHOxFHlS+HMUz0Bt5qQj3F5pos0Q3D3ffDusbFzPcqrOADYzEagJM1b54LoaMOnERHVnO8uotUkyNf5gZUgeqcJNiQtWITJdcS8yWCXEeIBK0FwMPEo1tH0WU+x/MwlhAWY7l7Ym0dAy4/MqYsE5u9K8XgE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CxrfSvle; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OeuoHonr"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 94DC0C4AF60;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CxrfSvle"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A4862C4AF61;
 	Tue,  6 Oct 2026 18:10:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1791310226;
-	bh=DbeIVKz13TzT1MwJgQfOvMZzsTiao7rLjBhyw/Tak1w=;
+	bh=mdAvhSYFoTp7Cs2GMsUdE4BQvlRRVZ9EkWvRIK+71cE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=OeuoHonrxX2vsuUC/j7DeVZ/oUhbD+eJckrC++fDOB6fJROKk4SUkN+9o2ISj1v4p
-	 CQp7d2FhjVNd5gSwXgZJB1uCeD8rAI/IPAxkLokwLa3UQrt4gXgkQ/2+lYj+3NYKAr
-	 EiYg8hJIu/d2XW7NuKSJ8KRL2QRlAMRkdxF4S7HB/5nj/HOuqmOesBmyhaNRw04g0q
-	 mxxvI8i6DrkkAYlgjyQl0P8GHFs1NZryTcqV2aUFpJk6Tt96gtRzRWqPdbL5rWUoIo
-	 YYsa3J8hcuCX/9e6Z4SI7+qs0Lfr5mP1XPCM5LqXr17QQQpWXEFEp/akEpxgLQFRNG
-	 IRcbarEwR+Y+g==
+	b=CxrfSvleYtz/zYA/y7EtIgjN+dii7G/H+bI/fnlGUpkDTl5pHeadUezVPEhzhkQTr
+	 WoBRSCXu/TiOC6T8Fs2HtQpCGQqzWLfaLsZjwQ7w68QCsu1bfeJTPtb9LAM+s0bt9u
+	 /hU8GS36rDscQbdaXewVQH5xaURzXKGPACs7LC3WMURdiER1d/D1DvjB5qVUqmV19B
+	 9NvlGEceUQRCfpNlOK5L8RGEjPQKy69zclkV/TNaU/6tFIGFRGIetVO4L4SPVRbd7I
+	 EN0+B/EDGGq6A1GfJf6mPN7Y/BU3ZDngs0ZhBJ5SebfCve5nQ9l2eHDyRgGAn9boAM
+	 OahfiCsGwhjpA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7479ECA5FED;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 86867CA5FFE;
 	Tue,  6 Oct 2026 18:10:26 +0000 (UTC)
 From: Viorel Cernateanu via B4 Relay <devnull+vrilutza.gmail.com@kernel.org>
-Date: Tue, 06 Oct 2026 21:10:22 +0300
-Subject: [PATCH 1/2] x86/kmsan: Fix CPU entry area metadata lookup
+Date: Tue, 06 Oct 2026 21:10:23 +0300
+Subject: [PATCH 2/2] x86/kmsan: Don't call instrumented code from
+ kmsan_virt_addr_valid()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261006-kmsan-serie-v1-1-07fa860ef3de@gmail.com>
+Message-Id: <20261006-kmsan-serie-v1-2-07fa860ef3de@gmail.com>
 References: <20261006-kmsan-serie-v1-0-07fa860ef3de@gmail.com>
 In-Reply-To: <20261006-kmsan-serie-v1-0-07fa860ef3de@gmail.com>
 To: Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>, 
@@ -52,11 +53,11 @@ To: Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
 Cc: Borislav Petkov <bp@suse.de>, kasan-dev@googlegroups.com, 
  linux-kernel@vger.kernel.org, Viorel Cernateanu <vrilutza@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791310224; l=3306;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791310225; l=3558;
  i=vrilutza@gmail.com; s=lenovo-20261005; h=from:subject:message-id;
- bh=N3m+fbIk2kyGBiXGLaUfAlrCuXw8P3s3ub1NW70+ovA=;
- b=1d5VwNUI08730DhFWPH7pVs9PezgdqBniw1njuhfTs/jjT4ogVN29LeE28Fp3J2dpG5Z8b02s
- cBM+4N4ukB/Di87lpPLlsQOFvAJwK5xsgR3lNX6kSodGh5EHb7S+gzx
+ bh=F/6GUjkmsEc44iwXpibyU3cTQT3QQPi2x9clp1QmJzo=;
+ b=y51UBSnmJzZIEzHgGtVEXtakgvcDvS200jITenXhWf3+S/ur2nvwf6xfTDURpod1nh+DcsgEQ
+ spuh+Rn93yHCbI7GnTqs8yx/subE5qMz3otCzEy1YPIk9UViXDmEKfr
 X-Developer-Key: i=vrilutza@gmail.com; a=ed25519;
  pk=HttZd2ffphVYTK/pvlflateaij8E4SdPd6Y+xDQMqDU=
 X-Endpoint-Received: by B4 Relay for vrilutza@gmail.com/lenovo-20261005
@@ -66,91 +67,101 @@ Reply-To: vrilutza@gmail.com
 
 From: Viorel Cernateanu <vrilutza@gmail.com>
 
-arch_kmsan_get_meta_or_null() works out which CPU owns an address in the
-CPU entry area as (addr - CPU_ENTRY_AREA_BASE) / CPU_ENTRY_AREA_SIZE.
-That is wrong in two ways:
+With CONFIG_DEBUG_PREEMPT, a KMSAN kernel hangs silently right after
+KMSAN is enabled during boot.
 
- - With KASLR, init_cea_offsets() puts each CPU's area in a random slot,
-   so the result is a slot number, usually far above NR_CPUS, and
-   get_cpu_entry_area() reads past the end of __per_cpu_offset[].
+kmsan_virt_addr_valid() calls preempt_disable() and pfn_valid(), and
+pfn_valid() calls rcu_read_lock_sched(). With CONFIG_DEBUG_PREEMPT both
+end up in preempt_count_add(), which is instrumented. Its instrumentation
+looks up metadata, which calls kmsan_virt_addr_valid() again, and so on
+until the boot stack overflows.
 
- - The per-CPU areas start one page higher, at CPU_ENTRY_AREA_PER_CPU.
-   Even without KASLR, the last page of each area is attributed to the
-   next CPU, so KMSAN loses that page, and for the last CPU the lookup
-   uses a CPU that does not exist.
+Use a copy of pfn_valid() that disables preemption with the notrace
+helpers instead. It is still an RCU-sched read-side critical section,
+and it avoids the instrumented preemption and RCU/lockdep helpers on
+this path.
 
-On an Ivy Bridge laptop, a KMSAN kernel with KASLR oopses at boot when
-the hard lockup detector sets up its perf event. In QEMU, a module that
-reads one byte of the current CPU's GDT alias hits the same bug:
-
-  UBSAN: array-index-out-of-bounds in arch/x86/mm/cpu_entry_area.c:25:9
-  index 2100006 is out of range for type 'unsigned long[64]'
-  Oops: general protection fault, probably for non-canonical address
-  RIP: 0010:get_cpu_entry_area+0x14/0x50
-  Call Trace:
-   kmsan_get_metadata+0xb2/0x150
-   kmsan_get_shadow_origin_ptr+0x31/0xa0
-   __msan_metadata_ptr_for_load_1+0x22/0x40
-   init_module+0x139/0xff0 [cea_repro]
-
-Find the CPU whose entry area contains the address instead.
-
-Fixes: ce732a7520b0 ("x86: kmsan: handle CPU entry area")
-Fixes: 97e3d26b5e5f ("x86/mm: Randomize per-cpu entry area")
+Fixes: f6564fce256a ("mm, kmsan: fix infinite recursion due to RCU critical section")
 Signed-off-by: Viorel Cernateanu <vrilutza@gmail.com>
+Link: https://lore.kernel.org/20240308043448.masllzeqwht45d4j@M910t
 ---
- arch/x86/include/asm/kmsan.h | 27 +++++++++++++++++++--------
- 1 file changed, 19 insertions(+), 8 deletions(-)
+ arch/x86/include/asm/kmsan.h | 49 +++++++++++++++++++++++++++++---------------
+ 1 file changed, 33 insertions(+), 16 deletions(-)
 
 diff --git a/arch/x86/include/asm/kmsan.h b/arch/x86/include/asm/kmsan.h
-index d91b37f5b4bb..a71e84d6abab 100644
+index a71e84d6abab..17effe8be642 100644
 --- a/arch/x86/include/asm/kmsan.h
 +++ b/arch/x86/include/asm/kmsan.h
-@@ -13,6 +13,7 @@
- 
- #include <asm/cpu_entry_area.h>
- #include <asm/processor.h>
-+#include <linux/cpumask.h>
- #include <linux/mmzone.h>
- 
- DECLARE_PER_CPU(char[CPU_ENTRY_AREA_SIZE], cpu_entry_area_shadow);
-@@ -32,18 +33,28 @@ static inline void *arch_kmsan_get_meta_or_null(void *addr, bool is_origin)
- 	unsigned long addr64 = (unsigned long)addr;
- 	char *metadata_array;
- 	unsigned long off;
--	int cpu;
-+	unsigned int cpu;
- 
- 	if ((addr64 < CPU_ENTRY_AREA_BASE) ||
- 	    (addr64 >= (CPU_ENTRY_AREA_BASE + CPU_ENTRY_AREA_MAP_SIZE)))
- 		return NULL;
--	cpu = (addr64 - CPU_ENTRY_AREA_BASE) / CPU_ENTRY_AREA_SIZE;
--	off = addr64 - (unsigned long)get_cpu_entry_area(cpu);
--	if ((off < 0) || (off >= CPU_ENTRY_AREA_SIZE))
--		return NULL;
--	metadata_array = is_origin ? cpu_entry_area_origin :
--				     cpu_entry_area_shadow;
--	return &per_cpu(metadata_array[off], cpu);
-+
-+	/*
-+	 * The per-CPU entry areas are not necessarily laid out in CPU order
-+	 * (see init_cea_offsets()), so find the area containing @addr instead
-+	 * of computing the CPU from the offset.
-+	 */
-+	for (cpu = 0; cpu < nr_cpu_ids; cpu++) {
-+		if (!cpu_possible(cpu))
-+			continue;
-+		off = addr64 - (unsigned long)get_cpu_entry_area(cpu);
-+		if (off >= CPU_ENTRY_AREA_SIZE)
-+			continue;
-+		metadata_array = is_origin ? cpu_entry_area_origin :
-+					     cpu_entry_area_shadow;
-+		return &per_cpu(metadata_array[off], cpu);
-+	}
-+	return NULL;
+@@ -68,6 +68,38 @@ static inline bool kmsan_phys_addr_valid(unsigned long addr)
+ 		return true;
  }
  
++/*
++ * Same as pfn_valid(), but without rcu_read_lock_sched(). That one calls into
++ * instrumented code: preempt_count_add() with CONFIG_DEBUG_PREEMPT or
++ * CONFIG_TRACE_PREEMPT_TOGGLE, lock_acquire() with CONFIG_DEBUG_LOCK_ALLOC.
++ * Instrumented code looks up metadata itself, so calling it from the metadata
++ * lookup can recurse; with CONFIG_DEBUG_PREEMPT it does, until the stack
++ * overflows.
++ *
++ * Disabling preemption still makes this an RCU-sched read-side critical
++ * section. Preemption is re-enabled without a reschedule, as before, to
++ * avoid entering the scheduler from the metadata lookup.
++ */
++static inline bool kmsan_pfn_valid(unsigned long pfn)
++{
++	struct mem_section *ms;
++	bool ret;
++
++	if (PHYS_PFN(PFN_PHYS(pfn)) != pfn)
++		return false;
++
++	if (pfn_to_section_nr(pfn) >= NR_MEM_SECTIONS)
++		return false;
++	ms = __pfn_to_section(pfn);
++
++	preempt_disable_notrace();
++	ret = valid_section(ms) &&
++	      (early_section(ms) || pfn_section_valid(ms, pfn));
++	preempt_enable_no_resched_notrace();
++
++	return ret;
++}
++
  /*
+  * Taken from arch/x86/mm/physaddr.c to avoid using an instrumented version.
+  */
+@@ -75,7 +107,6 @@ static inline bool kmsan_virt_addr_valid(void *addr)
+ {
+ 	unsigned long x = (unsigned long)addr;
+ 	unsigned long y = x - __START_KERNEL_map;
+-	bool ret;
+ 
+ 	/* use the carry flag to determine if x was < __START_KERNEL_map */
+ 	if (unlikely(x > y)) {
+@@ -91,21 +122,7 @@ static inline bool kmsan_virt_addr_valid(void *addr)
+ 			return false;
+ 	}
+ 
+-	/*
+-	 * pfn_valid() relies on RCU, and may call into the scheduler on exiting
+-	 * the critical section. However, this would result in recursion with
+-	 * KMSAN. Therefore, disable preemption here, and re-enable preemption
+-	 * below while suppressing reschedules to avoid recursion.
+-	 *
+-	 * Note, this sacrifices occasionally breaking scheduling guarantees.
+-	 * Although, a kernel compiled with KMSAN has already given up on any
+-	 * performance guarantees due to being heavily instrumented.
+-	 */
+-	preempt_disable();
+-	ret = pfn_valid(x >> PAGE_SHIFT);
+-	preempt_enable_no_resched();
+-
+-	return ret;
++	return kmsan_pfn_valid(x >> PAGE_SHIFT);
+ }
+ 
+ #endif /* !MODULE */
 
 -- 
 2.53.0
