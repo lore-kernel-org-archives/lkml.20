@@ -1,87 +1,66 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60A5746AA8F
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 14:00:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45B5146AA95;
+	Tue,  6 Oct 2026 14:01:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791295224; cv=none; b=fA/aWMuZgMB0bKvXw1igX2B65l6FZqUYKzSW/eSQTtU+T9vvlhCKotlLPvsfupkm2MQrqnaehoACrogxJsIPKAIAdHK4XPkk/gtD4PcQkBpLJJTqYk0PMzLrqsuxxAyhcQJp30H4OHNxwjpR0P85NXLWqZdAtDPkIhAO0yb/eZs=
+	t=1791295281; cv=none; b=hjeGaOIIct1afKE/h0eKWb5QCuixpMb0B705bkgdpXsWD800urrHchbeZ9amMZ4BlajQGzWZoHxIq6xUR/1AdhKjIxEfsCK4/qXPlmRIoVgczqgs80bvxXLVb+wclpBdSHxN7N17Z26VFU8adMjToFL7HeRsiBuuhLdeKfWx7mY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791295224; c=relaxed/simple;
-	bh=j1khJXtS10EkM2zMqjkvq8yhxUHcp+XWHw+FRAgq6qA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LjdgIPj3jkQw03HwE1JSjX3G1WJrTP+wHiSoF9kOgl2TV4OwKQGrReO6UaqaQtyHn6LagvHTetPB35ZBxyJvJt8LIuqiNQ0vDm4WffK4sHUj3/3HX07sS64SXq2VACo38f3iQjw1mZjgpIX7X8oIgpoVjFzyNRzes4Wm4xwvk9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WOaR03sr; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791295281; c=relaxed/simple;
+	bh=v/l+FV+bjTOwQTaMx0EGsuzGKhHopvxWz169Co/nrh4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NRc3mLB3+gc2GMY0eFrvYBRtnG6r/I3ml4XE7b4T1jEgOy3qQO2H+2xKHdeFtE6s1nI5/6lGh4zDJIGaf01ncAr9LQXUAGY6pR8HRAZAGZeXSxNR2U6D2YZUWcdzShQEsWtTq+neoss5Z3VUyGCAwmp9B6Rk5EYzwHf5E/uS9Tw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=qjzjPGQw; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WOaR03sr"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b93204449so1480625e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 07:00:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791295222; x=1791900022; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gxIH7tVcaH4/LHoTc1gJIz3XjhP3nLsv7ZMM8u1zMVY=;
-        b=WOaR03srM4VEPcf13yoWgn9l/JyTlhaHTBgph08IiB92UYpn5AhXWEnPgzEN5g+pSP
-         DJCwc7jPbheVCsUjWhH1kah4QVN2cfbgwH6MSlMWh1UON2f7XLeuch4x+6XfEXuJ1tVj
-         8DTBE8ZGU4S/PC1WFobsGFwrYjTEXs3CvUOGBSFAJncIXbdd8Za2XNn/Kwm/7CLZqgy2
-         Eqcm6Va0EudfsDIV3mjfHJsn9XqUshl05zL9Lgxkpyq6NemFrp78W1UP8cDSY/fKXY8G
-         vgRSfCoXuSLpBRHegLrLk+k3uVqAi5GKD3/kgybLFNnSOy3/FrO/Z9mRZ5k8PfKz/B3a
-         b0Vw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791295222; x=1791900022;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gxIH7tVcaH4/LHoTc1gJIz3XjhP3nLsv7ZMM8u1zMVY=;
-        b=nl3S/iQFQnfwcInFGxiSF971XGjnINkW0bbTWJMkc0FN8qOH1yWNX2nCiSgk/zpS+i
-         f6zDLAqS+TShON7CrjPrglOqUpdT6wUZmZqOusZHe3hX8kYuZuKn9oaQ3qU/zU7nT5+z
-         4LbOd6ZQfiVzXd88H0IecyU6bcwZj+OAaix5vkEnPVTQuldbARRbpRxdvTEquVHqCYdL
-         c2piU4AszCbrgOHBvFoQgRJXJKQ1DGHP7kcdSce9VRf3n/k80qN39LAy5JP16jwEREac
-         rp5P29xEcflNFfD9nVXglR3CRGpUzuoRcb0HqZyqpUKmGa2PSA5Xgo7c4a/Hb/mdERf6
-         RzfQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzBQOgEl2xnRFBORwbd9PTLsu6v7Honpll0EO/LTziuyaIjC7KkBKicT4NjYPogUEnRtuN3pnrp7bN7ahE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nXWUY2Pm1gA1MF9haEJZLWblqviRkDyUIJsj5k5V5FP69UGy+v
-	E+mGQVuI/yQxLykim6jssy56n0EEqwclFiBLbrthDDxqOyDaqhMkTDr0
-X-Gm-Gg: AYBFou3Oo1ZcO2scQ7xPXXGZTdc20Hv+Uuxqs8mwxeQQHZiZIgF4r+kxS5W/KWT4zky
-	6MZ6c3W16XCcvEn3fFNUv/kZOwLxL/FtfbDwwbkmZe8FyWYifm1KYt4MiOizbEmc7t1pN2IBjWB
-	W2NSGSABrfwYxEmhxk1sPLpYdi/fZYP6OYB8yTokCbjWqmtdlzuG4ITBtCgf94cJ1d1pELw42h8
-	L1KaImLvHL1gqSwnoZUjjbdddFKvEupEQjVWdmSTgFN0McVjXaiK1Yy4OEGeWEIr/eV+961EE2r
-	p+mD6sX6fwTlDUgem/Bj5Mzy3wEkpReQWtP5GoXCJUxekEQuDipWPsLYdk9CsFNKDE6ynkCrN5F
-	fqG6QIFQctCVe0VuvLDS05BuoSNsiF9iVZZ0hWw99GrrwCpsUAt9+x+y+WgaFswb3UxlalmiAgF
-	Z4Wb8s9DlQqaAJDiax5uh9yGq+bDWZPihu+ssPbqCX39MJtdTEhPG12a2cBkfYXQl1YCz03mMWv
-	qLRfUaJXflH4s2PUaYDHQ==
-X-Received: by 2002:a05:600c:6217:b0:4a0:1e9f:64f6 with SMTP id 5b1f17b1804b1-4a027454f31mr206690415e9.0.1791295221292;
-        Tue, 06 Oct 2026 07:00:21 -0700 (PDT)
-Received: from lima-kdev.local ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178ca8127sm80577255e9.2.2026.10.06.07.00.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 07:00:20 -0700 (PDT)
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: tim.c.chen@linux.intel.com
-Cc: KPrateek.Nayak@amd.com,
-	Vishal.Badole@amd.com,
-	juri.lelli@redhat.com,
-	kayracizmeci@gmail.com,
-	klaus.kusche@computerix.info,
-	linux-kernel@vger.kernel.org,
-	mario.limonciello@amd.com,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	platform-driver-x86@vger.kernel.org,
-	ricardo.neri@intel.com,
-	stable@vger.kernel.org,
-	vincent.guittot@linaro.org,
-	x86@kernel.org,
-	yu.c.chen@intel.com
-Subject: Re: [PATCH v2] sched/cache: Honor asym packing over cache aware scheduling on hybrid systems
-Date: Tue,  6 Oct 2026 16:59:58 +0300
-Message-ID: <20261006135959.5709-1-kayracizmeci@gmail.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="qjzjPGQw"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 696DZLrM3846949;
+	Tue, 6 Oct 2026 14:01:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=dxHJZFbWIVHA3VdqZfbeUn6J3BGK8L8su0rKprxpu
+	aA=; b=qjzjPGQwG0lNKGUMPGS2zw5pmjaA6Q/cJBMjXGzTyFU8apyFeTnEAkAsS
+	/zybr2yn5igP9eD5coXQ6ULNcRv+Y7vKaqxERdpLpV837GsRgl9cXauKmz07fAu2
+	e84eoQ7MqURN1oboXu/eIh+2hUDSglqJPicPnEgd83xsP8xVZ4hIrskNSY74ua/T
+	ccADzPPRGw4TKgsT/kxzjdr1lup1rzZItAZmq8psrAZcMtCASItZ5lYjmVIG+ihv
+	i52bJfmrEC3D9m0Z6MYUbtL55q8/HwIWf/YGbJ/LD/5PLb5Y1skn2291BQJyU1VH
+	VSzaBJlIWTpw3Rw7fDv+ugGnTKq4Q==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2se5gau5-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 06 Oct 2026 14:01:18 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 696DWYMg337276;
+	Tue, 6 Oct 2026 14:01:18 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h3d1jt63g-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 06 Oct 2026 14:01:17 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 696E1DgF53281268
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 6 Oct 2026 14:01:14 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id DB8022004E;
+	Tue,  6 Oct 2026 14:01:13 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A17172004B;
+	Tue,  6 Oct 2026 14:01:13 +0000 (GMT)
+Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
+	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue,  6 Oct 2026 14:01:13 +0000 (GMT)
+From: Heiko Carstens <hca@linux.ibm.com>
+To: Gerald Schaefer <gerald.schaefer@linux.ibm.com>
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+Subject: [PATCH v2 0/2] s390: Remove vtimer infrastructure
+Date: Tue,  6 Oct 2026 16:01:11 +0200
+Message-ID: <20261006140113.3128582-1-hca@linux.ibm.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <77ceef1e51b895760dc5f6c9cde985a1679545b5.1791224900.git.tim.c.chen@linux.intel.com>
-References: <77ceef1e51b895760dc5f6c9cde985a1679545b5.1791224900.git.tim.c.chen@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,27 +68,98 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA1NCBTYWx0ZWRfX56XzCBZKHT35
+ F9HViLgJnR70+8N50udrVQ+5K9lCPLllURrV037wj0YQgo5ggmtoQ3L4YCfrPyQssvaZfOQthdE
+ rMz60dbtU26I3rxJdrxBT4Vm1uq5/+E=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA1NCBTYWx0ZWRfX+VLmcwPquQTS
+ 6mlANIlaPbGFBtkFMUKNGp1sMj0kyFFXMPiLSLCAlpLbRJGEEHdfZZyZgXwfFGd6hEwtAESy/hE
+ SddSic4WbDXlo7glkLo9+Nn8HdRXRIwcxxANBZ7d19BKjhcFQ4G0gL75eAK6EhIZYdiqvQlJZkF
+ ROkmdEybGSltdV1W3WSiHv8L1gHOVcjPczGGdZ4GTfFlzU/2gH1Q2XyM012MQFXFufegSOK/rb6
+ f/eE6yxCSyHhokhbRigFF3eSmKo0+TdeLlNmPzKqU8o6S0I5x5rqhkDiqaAIY9Hy3zlBYu2t+x9
+ TIu+D421UKuTZv/w608SsRO1F1ujb36vy3pqToCXUDvF6gC/D8C2sp22i0sAXoMrj79TiOAAPy5
+ hxDhxyPmWVO9614KFeHi3YIUKfc/gvGcO2DELdERXd6t1oUoyjkxtsC4twt+I6odV4eGzvcKI3J
+ I9t1VWyY13A+0AxaqyQ==
+X-Proofpoint-GUID: i1MbHg_G9rDaxlVtuoHboLmHzfxzUOit
+X-Authority-Analysis: v=2.4 cv=UNRIjyfy c=1 sm=1 tr=0 ts=6ac4ff2f cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=U7nrCbtTmkRpXpFmAIza:22 a=IDWH8gVEt6i1YDZ61c0A:9
+X-Proofpoint-ORIG-GUID: i1MbHg_G9rDaxlVtuoHboLmHzfxzUOit
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-06_04,2026-10-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 adultscore=0 bulkscore=0 lowpriorityscore=0
+ phishscore=0 clxscore=1015 priorityscore=1501 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060054
 
-Hi Tim,
+v2:
+- Use for_each_possible_cpu() instead of for_each_online_cpu() in
+  appldata_total_cpu_time_ns() to make sure the reported cpu time is
+  monotonic increasing [Sashiko]
 
-> +	/*
-> +	 * On asym packing domains, if the destination CPU
-> +	 * has higher priority than all CPUs in the source group,
-> +	 * prioritize asym packing.
-> +	 */
-> +	if ((env->sd->flags & SD_ASYM_PACKING) &&
-> +	    sgs->group_asym_packing)
-> +		return false;
-> +
+- Rework locking in __appldata_timer_setup() to make sure
+  appldata_timer_active always reflects if a work is still active or
+  not [Sashiko]
 
-I think that check is redundant. group_asym_packing is set by sched_group_asym() and bunch of other stuff,
-but sched_group_asym() calls sched_asym() and sched_asym() calls sched_use_asym_prio() that has SD_ASYM_PACKING check
-inside of it.
+- Use mod_delayed_work() [Sashiko]
 
-Ah.. Hope I'm not missing something...
+- Add cpu hotplug handler to recalculate interval if a new CPU is
+  added, avoiding potential long delays between an expired timer and
+  when the callback is run
 
-Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
+- Avoid using scoped_guard(), etc. - keep coding style consistent
+  within the file
 
-Now, I'm going to grab a cup of tea. And sleep.
+v1:
+s390's virtual timer infrastructure has only a single user and the
+semantics of the interface are not straightforward: a virtual timer
+fires if the sum of elapsed CPU time over all CPUs exceeds a specified
+value.
 
+This is suboptimal since the number of active CPUs defines how
+frequently the timer fires. With many CPUs and short intervals this can
+be very frequent. Furthermore the required accounting in the vtime code
+uses a single 64-bit value to accumulate elapsed CPU time. In busy
+systems this can lead to cache line bouncing when the value is updated
+concurrently on several CPUs; which is the reason why other accounting
+mechanisms use per-CPU data structures for this purpose.
+
+In practice this is not a problem with the appldata default interval
+of 10 seconds, however the interval is configurable via sysctl with a
+minimum value of 1ms.
+
+Given that there is only a single user, emulate the virtual timer in
+appldata using delayed work: the work is scheduled for the minimum
+possible wall-clock time until the configured CPU-time interval elapses
+(remaining CPU time / number of online CPUs), with a minimum delay of
+100ms. The work then reads per-CPU statistics of all online CPUs to
+check whether enough CPU time has elapsed, and if so runs the
+registered callbacks.
+
+The calculation is more expensive, but avoids potential cache line
+bouncing problem. In addition it allows to remove the entire vtimer
+infrastructure code with a subsequent patch.
+
+Thanks,
+Heiko
+
+Heiko Carstens (2):
+  s390/appldata: Emulate virtual timer with delayed work
+  s390/vtime: Remove vtimer infrastructure
+
+ arch/s390/appldata/appldata_base.c | 171 ++++++++++++++---------
+ arch/s390/include/asm/vtime.h      |   2 +
+ arch/s390/include/asm/vtimer.h     |  30 ----
+ arch/s390/kernel/process.c         |   1 -
+ arch/s390/kernel/smp.c             |   2 +-
+ arch/s390/kernel/time.c            |   2 +-
+ arch/s390/kernel/vtime.c           | 212 ++---------------------------
+ 7 files changed, 119 insertions(+), 301 deletions(-)
+ delete mode 100644 arch/s390/include/asm/vtimer.h
+
+-- 
+2.53.0
 
