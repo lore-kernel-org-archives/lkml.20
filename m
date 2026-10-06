@@ -1,189 +1,97 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6A45F3F54D1;
-	Tue,  6 Oct 2026 12:36:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6B1041D4F1;
+	Tue,  6 Oct 2026 12:38:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791290228; cv=none; b=FpsgpfKQf6kYaHQ5Cub7oa9YbxdV19TwThbVeqZtqohj8IuyE/purQaOZwQ89AL2n8TAuClujuGoKu00DNkCgpRimfM3YCCUNGRNJGXgoSD3ENbp22C6JDr2FjtzlPntxba9vpur2YgL634qCJf967PSDWxT+itmIIokaRgwMLk=
+	t=1791290336; cv=none; b=fzCb0DgWKjk1ofjuGI6PtbqbSl0JK+wmmL4izcCsxyAvXFL5u+cQ1DNvHAtUCpP9pFNPgz82Bl326zFYcwWxEAj89jDHJQG9lcreJdcjQHTSkIlOmF/070FyvLWzaIG+KU7L27b9QGhyAC5Ve+KQ60XeXWhwFRWaH1sDf7oGpOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791290228; c=relaxed/simple;
-	bh=HEC1onotm9kW6QKrnzD0dawCfe6JSLioR7zbkY+XEdo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=C7Jl0yVKkjXUrrK+jQqjI8xf+zR22TzdF1SLTVSmtoP6OIvvDnZLsmeFYA4xBFiLoMLV26gm9joTv3tecWZFePJLoBwHAVQl3tc/X4lQGqNtpOvewUR800O+ULGUzahGhgkZsZvDDfIJoYhUKiW2ej8siJ4PHq6pM75uutgxyFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=cmJHBHd/; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791290336; c=relaxed/simple;
+	bh=i3Zue9L0U3QnYoExb9bKHR3RA6ghMefAuJkvqnzB6ns=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=VjAmMlVBu/4PFqHAwIakoIq0eexM2gW9f6KIdHLv7K6K2kUKMS1wghBR0/Mf1fzVwLH2u49vtVU9kPnRnbUqTE6A2R+/lI6w4iL3eGfXXzRrk3gvupU9Wgx34nILXzSnSVMiT0LQkT/qqEcJ4QCsdggZdTo6E/HBC7wAFBO8O/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=F9iFGrIU; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="cmJHBHd/"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BDFD51516;
-	Tue,  6 Oct 2026 05:36:51 -0700 (PDT)
-Received: from [10.57.10.233] (unknown [10.57.10.233])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 86AD73F66F;
-	Tue,  6 Oct 2026 05:36:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791290215; bh=HEC1onotm9kW6QKrnzD0dawCfe6JSLioR7zbkY+XEdo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=cmJHBHd/tPoaiaFDB+pHi4cdyG3iQqM8NNm9D0s0e54/KwUvvrB7GTB3RL6cbWQUN
-	 uoQM/Uh3rx22FzyshOZ6d1yBpYp3ImxJ5asGG1AEspVgFgpMXPSikCEiVc/7247Qbr
-	 RS8u+Ae3LpsMoBx8dZxP19enp8JguDuXyDk06wKg=
-Message-ID: <71ceb680-e168-450e-99e0-7a8cf4160bba@arm.com>
-Date: Tue, 6 Oct 2026 14:36:48 +0200
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="F9iFGrIU"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 696CcWuuD2926181, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1791290312; bh=i3Zue9L0U3QnYoExb9bKHR3RA6ghMefAuJkvqnzB6ns=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=F9iFGrIUlrWpu0yF+pG1jgLLBJfm1gyipslj3FrmesE2RWtcKPYbi4PDTdsbW5w3G
+	 AIQjuGM0mxIq+REq19Aamp4ZrrJ9ZYvv7+k2mq0DUWXC5dguCXs5t+gewY7fJPmY5F
+	 NPA32YjJvChlGwxmtrPSyvSCgsTtERlkOW5b0b5akqwmRUI8BpXlnPwW0e0p9X7gik
+	 FSvpY0YKi3ONDyp+bt+SvXYY4IeiANrIjhWrTuAwRc18eHeORBtw3SjNgunjBE/vuN
+	 IJBbjF9qkBHp92tsJDBcfRhRuKliX/wFS0WXbiFz+ovcm+tjzhOeQHiULGVN/2tAmO
+	 YRNLTr9DOlcKA==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 696CcWuuD2926181
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 6 Oct 2026 20:38:32 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 6 Oct 2026 20:38:33 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Tue, 6 Oct 2026 20:38:33 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Luka Gejak <luka.gejak@linux.dev>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
+     Straube" <straube.linux@gmail.com>, Peter Robinson
+	<pbrobinson@gmail.com>, Bitterblue Smith <rtl8821cerfe2@gmail.com>
+Subject: Re: [PATCH rtw-next v7 4/6] wifi: rtw88: 8723b: add the RTL8723B chip
+ driver
+Thread-Topic: [PATCH rtw-next v7 4/6] wifi: rtw88: 8723b: add the RTL8723B
+ chip driver
+Thread-Index: AQHdUkEe+6mTN1t+pkmrNCm0JOCqYbbudRJA///7x4CAAT4DAP//vViAgACViMD//5Y3AAAEHvmAAANfhgAAFMArtQ==
+Date: Tue, 6 Oct 2026 12:38:32 +0000
+Message-ID: <6e16f94786e24c89bea429f1370f4e59@realtek.com>
+References: <20261002073845.31486-1-luka.gejak@linux.dev>
+ <20261002073845.31486-5-luka.gejak@linux.dev>
+ <aa7d919d98304ee095990735f39095ac@realtek.com>
+ <DLWXWMOGZGX9.UANQJR9PZYWG@linux.dev>
+ <359ea3a6857d4aba9c83876a10f7f9e8@realtek.com>
+ <a1d007fffc35466a2d63a3fe6839286f3488d7be@linux.dev>
+ <f23d5ed909c746ad851bd1038966d271@realtek.com>
+ <9f11a1ee89aa22a2ce23238b5ac968463f6e79a2@linux.dev>
+ <39e05b490d5c6f90ea122e1c9a83ce8bad94e735@linux.dev>,<3abafff88a4607572817675c246ba50ca277b976@linux.dev>
+In-Reply-To: <3abafff88a4607572817675c246ba50ca277b976@linux.dev>
+Accept-Language: en-US, zh-TW
+Content-Language: en-US
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v22 23/23] KVM: arm64: CCA: Control user register access
- for Realms
-Content-Language: en-GB
-To: Gavin Shan <gshan@redhat.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev
-Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
- sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com,
- Jean-Philippe Brucker <jean-philippe@linaro.org>
-References: <20261005090754.2140522-1-suzuki.poulose@arm.com>
- <20261005090754.2140522-24-suzuki.poulose@arm.com>
- <52e3e45a-751e-40b2-8dd3-3db589ddebee@redhat.com>
- <7b6ed626-eca4-41f2-ae56-0af59a931b29@arm.com>
- <6bd785aa-4693-407d-b70a-39b1d0eda63e@redhat.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <6bd785aa-4693-407d-b70a-39b1d0eda63e@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-On 06/10/2026 07:16, Gavin Shan wrote:
-> On 10/6/26 4:01 PM, Suzuki K Poulose wrote:
->> On 06/10/2026 06:47, Gavin Shan wrote:
->>> On 10/5/26 7:07 PM, Suzuki K Poulose wrote:
->>>> From: Jean-Philippe Brucker <jean-philippe@linaro.org>
->>>>
->>>> The RMM restricts the access to the register states that the host can
->>>> read/modify for a given Realm.
->>>>
->>>> e.g., At VCPU creation, can modify GPRS (x0-x30) and PC.
->>>>        While servicing SMCCC calls via RSI_HOST_CALL or servicing PSCI
->>>>        requests.
->>>>        MMIO emulation in the unprotected space.
->>>>
->>>> Additionally we use the sysreg configuration to advertise/configure the
->>>> following Realm parameters, which are required before the Realm 
->>>> Descriptor
->>>> is created:
->>>>   - SVE Vector Length
->>>>   - Number of HW Breakpoints/Watchpoints
->>>>   - PMU Counters.
->>>>
->>>> Thus KVM also additionally allows access to ID_AA64DFR0_EL1 and 
->>>> SVE_VLS for
->>>> the configuration of Realm creation parameters. We don't support 
->>>> PMUs for
->>>> the Realm VMs yet, so PMCR is not exposed.
->>>>
->>>> The RMM makes similar restrictions for reading of the guest's registers
->>>> (this is *confidential* compute after all), however we don't impose the
->>>> restriction here. This allows the VMM to read (stale) values from the
->>>> registers which might be useful to read back the initial values even if
->>>> the RMM doesn't provide the latest version. For migration of a realm 
->>>> VM,
->>>> a new interface will be needed so that the VMM can receive an
->>>> (encrypted) blob of the VM's state.
->>>>
->>>> Reflect the above in KVM_GET_REG_LIST, KVM_SET_ONE_REG calls.
->>
->>>>   static int core_reg_size_from_offset(const struct kvm_vcpu *vcpu, 
->>>> u64 off)
->>>>   {
->>>>       int size;
->>>> @@ -553,6 +572,9 @@ static int copy_core_reg_indices(const struct 
->>>> kvm_vcpu *vcpu,
->>>>           u64 reg = KVM_REG_ARM64 | KVM_REG_ARM_CORE | i;
->>>>           int size = core_reg_size_from_offset(vcpu, i);
->>>> +        if (vcpu_is_rec(vcpu) && !kvm_realm_validate_core_reg(i))
->>>> +            continue;
->>>> +
->>>>           if (size < 0)
->>>>               continue;
->>>> @@ -598,6 +620,9 @@ static unsigned long num_sve_regs(const struct 
->>>> kvm_vcpu *vcpu)
->>>>       if (!vcpu_has_sve(vcpu))
->>>>           return 0;
->>>> +    if (kvm_vm_is_realm(vcpu->kvm))
->>>> +        return 1; /* KVM_REG_ARM64_SVE_VLS */
->>>> +
+Luka Gejak <luka.gejak@linux.dev> wrote:
+>=20
+> October 6, 2026 at 11:05, "Luka Gejak" <luka.gejak@linux.dev mailto:luka.=
+gejak@linux.dev?to=3D%22Luka%20Gejak%22%20%3Cluka.gejak%40linux.dev%3E > wr=
+ote:
+>=20
+> >
+> > October 6, 2026 at 09:07, "Luka Gejak" <luka.gejak@linux.dev mailto:luk=
+a.gejak@linux.dev?to=3D%22Luka%20Gejak%22%20%3Cluka.gejak%40linux.dev%3E > =
+wrote:
+> >
+> > Followup: the things I am moving will be exact copy paste, unedited or
+> > anything so take that into consideration when reviewing that patch.
+>=20
+> Or would you rather me fix those style issues? Your choice as I will have=
+ both versions ready.
+>=20
 
-This could be vcpu_is_rec().
->>>>       if (!kvm_arm_vcpu_sve_finalized(vcpu))
->>>>           return 1; /* KVM_REG_ARM64_SVE_VLS */
->>>>
->>>
->>> Aren't above two checks conflicting to each other?
->>
->> Do they? We allow SVE_VLS only for the Realms and we allow that
->> before the vCPUs are finalized. For normal VMs, depending on
->> whether the vcpus are finalized, we either send 1 or the full list.
->>
-> 
-> num_sve_regs() can be called for 3 cases: (a) non-finalized RECs; (b) 
-> finalized
-> RECs; (c) Other finalized vCPUs, correct? "if (kvm_vm_is_realm(vcpu- 
->  >kvm))", which
-> would be "if (vcpu_is_rec(vcpu))", covers (a) and (b). We needn't the 
-> excessive
-> check "if (!kvm_arm_vcpu_sve_finalized(vcpu))". So the check would be 
-> something
-> as below after this series is applied:
-> 
->      /*
->       * KVM_REG_ARM64_SVE_VLS is visible on realm vCPU no matter if it
->       * has been finalized.
->       */
->      if (vcpu_is_rec(vcpu))
->          return 1;
-> 
-> This check "if (vcpu_is_rec(vcpu))" belongs to PATCH[22]. Hope I make 
-> myself
-> clear this time :)
+Not very sure why style you meant?
 
-Sure, these two patches are closely related and may be even could be
-folded in. I split it out to make it easier to review.
+I assume you meant coding style. Then, fix them.=20
 
-22: Allow exposing SVE_VLS for unfinalized VCPU RECs
-23: Control register accesses includingthe SVE_VLS, but prevent
-everything else
-
-Does it help ?
-
-Cheers
-Suzuki
-
-
-> 
->>>
->>>> @@ -625,6 +650,10 @@ static int copy_sve_reg_indices(const struct 
->>>> kvm_vcpu *vcpu,
->>>>           return -EFAULT;
->>>>       ++num_regs;
->>>> +    /* For Realms only support SVE_VLS */
->>>> +    if (kvm_vm_is_realm(vcpu->kvm))
->>>> +        return num_regs;
->>>> +
->>>>       if (!kvm_arm_vcpu_sve_finalized(vcpu))
->>>>           return num_regs;
->>>
->>> Same question here.
->>
->> As above.
->>
->> Suzuki
-> 
-> Thanks,
-> Gavin
-> 
-
+Ping-Ke
