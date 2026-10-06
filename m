@@ -1,114 +1,191 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE094332621;
-	Tue,  6 Oct 2026 03:43:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791258232; cv=none; b=q2UiD52MQY+8yWNCAD1cVU1vLYCgIzeUoDTE7oyOYq/P0Sj44w2hcLIrkz5a4mRpxAPVl3pT3FIUKpoFyZEwlVYbclVfn0Wd3HxY1wVzzUqN9iBxPfLfUt3AiaGCgwPq/xtpKKgzVPkUldFujLnsV4weUAhh77ja3ahmhiqkLw4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791258232; c=relaxed/simple;
-	bh=3tgkAQgFnZ1KpY58GWODV6fxFp7Qx3kbvjbBmjjBKTM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AwiixvpU0KnDpK+0PRkG6kZR3qJd+YAS7g4hkckcdWNPMQXdtuh+mLRDC0IlMARZTpDF9p8V65PUnQVgdNm/dcWSFQs+ZmEeINYx9O1lt5A2tbWstah1Nf8pzr7aJwZ9sDXtGzDNmKugk4av46sDfFzc6mdAhRKX1HMxW3Y49I4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kseey+5s; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1506A1B3B19
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 03:45:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791258325; cv=pass; b=elWVxeatlnE8QR+M1o8pUHHjyIO4s/FPHm79WPK/mS7+rBsgkohshxiqhkJI2eO4LAZwY5JD8EPtTJP9nZUDB5GnnaUZhcLX23K0erHEowr0EcX/KVLdYWc4QaJFao1i4rPhPV40M25BeO/FpxVRGClA4eU/ySgAKoA2gGUDzoo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791258325; c=relaxed/simple;
+	bh=tCf9zcdPXyYE0i1nJT6GMpiiD0IaiKN9eE15bB7ZvtA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Content-Type; b=j/W1A1OEAa2s7BcXI2r8zHVbnN9Dlvl1L1uBolRX8MhGadQNc1c7XGxCpPUsIAs4dSiJ2p+wjCh2NNusBlDTqdnto3dCaHx3zc1jux9t3tvJRos+KsOsuFy2lxbqYjI10vAdlR5pFOJmRJPEMSgUneCNaryTYSIUKP7tAHGONAI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gINf+cPz; arc=pass smtp.client-ip=209.85.167.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kseey+5s"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791258230; x=1822794230;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=3tgkAQgFnZ1KpY58GWODV6fxFp7Qx3kbvjbBmjjBKTM=;
-  b=kseey+5sK5x4/yCKtoAEZ5jj7I5OJx+PoiTTPySS59QLxGZhMzmyIhsO
-   W0qFHdaIFtgnYa8MiTw3gUz8/T6o9BqEbosWMGp5FslU8EfJi/K5cfrWI
-   eHCGjqwL/H46tEmaFwOJu7g81WSJXqacSWZFUvNGuk7kbVWtuN/9sLDFF
-   Ws/85xAtr3RqOVGaNbU1FBmui1gs5sJdoXcP3gKXrsyf5Xt7Tjdw1alds
-   /HMDx0E9kTPpF9hrpzzD2bla58xXAVoPHrEwW/6FfI0sBm5cIgr7n68C3
-   ykNvWmMLchewhmSWOufpkHipMl8S+BMRelmIMGyzmFVplDAIvuzbZ1r1J
-   w==;
-X-CSE-ConnectionGUID: MPY+1KBcT/GayIuUkC2/Jw==
-X-CSE-MsgGUID: SHItgT5ASNaWiECorJDkGA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="94812289"
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="94812289"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 20:43:49 -0700
-X-CSE-ConnectionGUID: kPfbZEwwRryQKtQgZMlbLA==
-X-CSE-MsgGUID: rCb0w7q3R9Ccc2zH61qK/g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="276530544"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa007.fm.intel.com with ESMTP; 05 Oct 2026 20:43:45 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xDw5e-0000000017k-15jA;
-	Tue, 06 Oct 2026 03:43:42 +0000
-Date: Tue, 6 Oct 2026 11:42:52 +0800
-From: kernel test robot <lkp@intel.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Mikko Perttunen <mperttunen@nvidia.com>
-Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v2 4/7] drm/tegra: Add support for 8-bit CPU interface
-Message-ID: <202610061119.aQ5vg3Ez-lkp@intel.com>
-References: <20261004163114.181800-5-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gINf+cPz"
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5bcbb82dbadso847378e87.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 20:45:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791258322; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pcCUk4jCXBEfEbHvMkweJaDdHKagcfJRcIUHrhQFFVJi1Mxba+jWZ3pLo8mCMRtSH7
+         j6zy8z6Xfs5IjzWCNEQRxCzsYoQLIAXEcd4Rbtn4DIxJLB8uiYch/wgPJ4CHC8PblhTt
+         g7JtJpt2zIEbhMfGSblKZIz9MQbKNtFVgCJUWrdCgS9PLRcNz0TSzKb21LKKzPMT8e2M
+         t4zHubkSP8DopOc1kaRR2I1SqgD9qcTibOe+6I53aNoYWh8tYaeKtTZT+Gj9x9Z4GaUT
+         vKGgyHUb5E6CfnJ50d2zSIm4yaUYdjmQPyZuntlUkEfwUUm1k5AVSrbyM30yN4P3bZ1Y
+         elkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=b2CWcYPdL0RmTHJYZikl61tiiXDfBQjGyNirYnlHw3o=;
+        fh=pBQIr1hnP7jclazhWIV6Af8/cdG3KNBh8nvUTqlxzXI=;
+        b=dJZ/bFHYchrekYagZoNVzPEL8Hbg5mvwVWaw/Gql2aoxh8IB01BwK2q4MpN4FZZXSX
+         w+phcX9c+TaVT17k95Ac4JFyutVgwkZf0Kn83hKDDjXZ2hZkztNi4CPbjeKwd6JiZbPB
+         x2hG0CdDf8tnbtNxzNwqXGYj1v5RmX8JbOg1c9Vs2FSGGhvUMs69Eizxcirq70RsElHD
+         X+hoY44vPM5lmzqt/Nz//XkfiHDM0vdjfxG3dyfL+z7YWs2jmI2dbaYu9owF8ZQH6wLx
+         oGmeDRkMCUK5OOK6UNLVznXy6psa8xisSDjs3kQUc+5xaCvM/k4vwNb6nCyWPnyTw+RY
+         V9+Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791258322; x=1791863122; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:to:subject:message-id:date
+         :from:in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=b2CWcYPdL0RmTHJYZikl61tiiXDfBQjGyNirYnlHw3o=;
+        b=gINf+cPztFZw4hSHEb9nEDfdOhWco1GgnzLOnScT9vCL/yNusituI6cIEruqu2GhFN
+         qyA9PQPMx/ULHMA1CCDeCzAjusxpMIcxHvEsS55+jt6hSS6IJcmdVvmZo9Hpd8cPEEhm
+         qYOrCV+hUCOYrP8pd5ZoBUb+u2VRZIpbbx3cO6dEfqt24vMYiNC0GxPiK48NJbgtnZbs
+         AeSvKjqoU067AzSMeEF3So9r3mQMi454fOu6jNv+IBSuHVtlImRP/oXZHNcQliujF88d
+         4hvXA/d/5AS9IBs/74Rhl6GlbG9jOqbirqzghX9x0QOY/oxYkfmrMwAr4ZsEPtxb1rz6
+         4FsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791258322; x=1791863122;
+        h=content-transfer-encoding:content-type:to:subject:message-id:date
+         :from:in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=b2CWcYPdL0RmTHJYZikl61tiiXDfBQjGyNirYnlHw3o=;
+        b=0raE1rdJLVGXhIXDTI6x0t0w8EOERZWfqT++8GiJr1yS9+CzxM5y2dufv/g66lpLQb
+         QlcLW8TsHJ4jFsxd9VwiJRhuyC8Hzsg91Ft7NU3rAS3bfyTmYPfoVvsQkRmwiyJtyO7Z
+         3tsH1l6Uj7f1bF3FAih/mqPy6hqpSXp6oHAfuUxDTdBBKKpGXDRsVHKrENSJiYJDLojj
+         Lpxz2z3M7gPHhkpdFmrQtDAM6rB2AI0BfXOveKtIwJpZ3YxWfAJna2tqMWZwe/kF9sml
+         JkFc1+5VZP6a0fjXnWg7+xD0A/uULa+HCNfS9j5NGZxGiZFzNEaMA3o7C/IWiIIdhEac
+         9sDg==
+X-Forwarded-Encrypted: i=1; AKwUvBz4LfWlwvJ6UHz2r/Tcu201E8lzio40D9hJk5kt0sNYxFq/OQWXGzYsb8hAbsAZPzaArSSbcfrnBSKJgkA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL+CQvmbvtVYRE1lv0yKTPygROAdwc24IqIvwc0p/3AQXSI6Clo
+	QOpQv/7ht7cWVsg1HjCcRPDH9ESeIedx6o0Mo4TkYdFX4/PBASypntd8FB89xSZvoVsLFZEkbqw
+	yorE4O7cQ6OircClmN54bBiUfYz+6hFo=
+X-Gm-Gg: AYBFou2g4/r7ld47WRYM4/2jmMTiKtTzaHv5GTwD8aZSR6vZvU4E6xsXVqBrYbKM5Cj
+	04Jiw5r+E/d1F1ajT0s0OS8f/1Xb32AL8qMg/ADrdbbo1Ei9EEk6bK1epjXdXSWMAm0gggvtfaG
+	qoR3Ftkkd/K3XYZCnYjGZtcSqktIjxLp9MBIjE+XEHhVQPVZrVoqD0CLCmMHuSVyL6y1ry8YfMm
+	iZIWCIozQqx7+DUKKz1W87MrjBLk/Y9KaVEUcMB1lwKuCt4E+WtDV5FLovp/IaXZctDY5SmpWdy
+	MfRM6RNh6vXMqOcvh3QayNeLtgrcq6hUTRJXk8N3RzfUk3C3Fds3yA==
+X-Received: by 2002:a05:6512:3991:b0:5bb:7829:741c with SMTP id
+ 2adb3069b0e04-5bccc6b594cmr64148e87.1.1791258321918; Mon, 05 Oct 2026
+ 20:45:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261004163114.181800-5-clamor95@gmail.com>
+References: <20261004083759.1016519-1-maimon.sagi@gmail.com> <asQ1pF9AAqOiEo3r@devvm20253.cco0.facebook.com>
+In-Reply-To: <asQ1pF9AAqOiEo3r@devvm20253.cco0.facebook.com>
+From: Sagi Maimon <maimon.sagi@gmail.com>
+Date: Tue, 6 Oct 2026 06:44:55 +0300
+X-Gm-Features: AclHuK9PN1lCiJLlPnCC7s8Qa_5To1aOEypzViWt-JVLXj9lXdRlnfiN5UevbJ0
+Message-ID: <CAMuE1bGXcNwKKX1firkq6eEzymkrDOp8PnnowMzz97SibtpoSQ@mail.gmail.com>
+Subject: Re: [PATCH net v3] net: axienet: free outstanding TX buffers in axienet_dma_bd_release()
+To: Joe Damato <joe@dama.to>, Sagi Maimon <maimon.sagi@gmail.com>, netdev@vger.kernel.org, 
+	radhey.shyam.pandey@amd.com, michal.simek@amd.com, andrew+netdev@lunn.ch, 
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
+	daniel@iogearbox.net, jacob.e.keller@intel.com, suraj.gupta2@amd.com, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Svyatoslav,
+On Tue, Oct 6, 2026 at 2:41=E2=80=AFAM Joe Damato <joe@dama.to> wrote:
+>
+> On Sun, Oct 04, 2026 at 11:37:59AM +0300, Sagi Maimon wrote:
+> > axienet_dma_bd_release() walks the RX ring to unmap and free every
+> > receive buffer before releasing it, but frees the TX descriptor ring
+> > with dma_free_coherent() alone.  Any descriptor that
+> > axienet_free_tx_chain() had not yet reclaimed still holds its skb and
+> > its streaming DMA mapping, and both are lost.
+> >
+> > axienet_stop() disables TX NAPI and stops the DMA engine before calling
+> > it, so nothing reclaims those descriptors afterwards.  Bringing the
+> > interface down while frames are in flight therefore leaks up to
+> > lp->tx_bd_num skbs and mappings each time.
+> >
+> > Walk the TX ring the way axienet_dma_err_handler() already does: unmap
+> > every descriptor whose cntrl is still set - axienet_free_tx_chain()
+> > clears it on reclaim - and free any skb still attached, as a drop.
+> > This relies on axienet_stop() having stopped the DMA engine first, as
+> > the RX walk in the same function already does.
+>
+> [...]
+>
+> > Fixes: 8a3b7a252dca ("drivers/net/ethernet/xilinx: added Xilinx AXI Eth=
+ernet driver")
+> > Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
+> > Assisted-by: LLM sparse
+> > Signed-off-by: Sagi Maimon <maimon.sagi@gmail.com>
+> > ---
+> >
+> > Notes:
+> >     Changes in v3:
+> >     - Clear tx_bd_v and rx_bd_v after freeing the rings.  v2 only caugh=
+t a
+> >       NULL tx_bd_v from a first open; after a close followed by a faile=
+d
+> >       reset the walk would have read the freed ring (Sashiko).
+> >     - Reword the comment on the skb free: a descriptor can complete aft=
+er
+> >       TX NAPI was disabled, so "never transmitted" was not always true
+> >       (Sashiko).
+> >     - Say in the commit message which hardware the test ran on.
+> >     - Kept Jacob's Reviewed-by, as the changes are small; please say if
+> >       that is not OK.
+> >     - The hardware test is v1's.  The changes since only affect the
+> >       failed-reset paths, which it did not exercise, and how the freed =
+skbs
+> >       are accounted.
+> >     - v2: https://lore.kernel.org/netdev/20260930133851.663023-1-maimon=
+.sagi@gmail.com/
+>
+> [...]
+>
+> >
+> >  .../net/ethernet/xilinx/xilinx_axienet_main.c | 26 ++++++++++++++++++-
+> >  1 file changed, 25 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c b/driver=
+s/net/ethernet/xilinx/xilinx_axienet_main.c
+> > index 09443623a3e2..c88c671f8b2d 100644
+> > --- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+> > +++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+> > @@ -186,11 +186,34 @@ static void axienet_dma_bd_release(struct net_dev=
+ice *ndev)
+>
+> [...]
+>
+> > +     lp->tx_bd_v =3D NULL;
+> >
+> >       if (!lp->rx_bd_v)
+> >               return;
+> > @@ -221,6 +244,7 @@ static void axienet_dma_bd_release(struct net_devic=
+e *ndev)
+> >                         sizeof(*lp->rx_bd_v) * lp->rx_bd_num,
+> >                         lp->rx_bd_v,
+> >                         lp->rx_bd_p);
+> > +     lp->rx_bd_v =3D NULL;
+> >  }
+>
+> The added null writes makes me think that centralizing this code and usin=
+g it
+> from both axienet_dma_err_handler and axienet_dma_bd_release (instead of
+> repeating it) is a good idea like I mentioned in the last post.
+>
+> The code seems right tho even tho I don't like duplicating the logic.
+>
+> Reviewed-by: Joe Damato <joe@dama.to>
 
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on drm/drm-next linus/master v7.3-rc6 next-20261005]
-[cannot apply to tegra/for-next]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Svyatoslav-Ryhel/drm-tegra-dc-Expand-available-registers-layouts/20261004-193108
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20261004163114.181800-5-clamor95%40gmail.com
-patch subject: [PATCH v2 4/7] drm/tegra: Add support for 8-bit CPU interface
-config: parisc-allmodconfig (https://download.01.org/0day-ci/archive/20261006/202610061119.aQ5vg3Ez-lkp@intel.com/config)
-compiler: hppa-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261006/202610061119.aQ5vg3Ez-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610061119.aQ5vg3Ez-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   hppa-linux-ld: drivers/gpu/drm/tegra/dbi.o: in function `tegra_dbi_driver_init':
->> (.init.text+0x10): multiple definition of `init_module'; drivers/gpu/drm/tegra/drm.o:(.init.text+0x10): first defined here
-   hppa-linux-ld: drivers/gpu/drm/tegra/dbi.o: in function `tegra_dbi_driver_exit':
->> (.exit.text+0x0): multiple definition of `cleanup_module'; drivers/gpu/drm/tegra/drm.o:(.exit.text+0x0): first defined here
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Thanks for the review, Joe.
+Agreed on the helper.  As on v2, I kept the fix minimal for net, and
+will send the helper to net-next once this has reached it, with both
+axienet_dma_bd_release() and axienet_dma_err_handler() using it.
+Thanks,
+Sagi
