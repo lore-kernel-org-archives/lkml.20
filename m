@@ -1,238 +1,201 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F361D4A090F
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 16:19:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 90FC530E82B;
+	Tue,  6 Oct 2026 16:19:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791303569; cv=none; b=a5073YgLmkzW+yYoHx4K0FS51T6/ZkY0JHoG4EUyzmfd/0OggSy8Lcw4O2+i+HquhYnSoIAdLocHx1y9VB42vByDH+TRa8WSScUMerv44YOm3FKKmmutoyXXTdn1KZUCA0/tqJ4OII1hKY34NE3hu9dNE5ZhbBOpIjHtas64DK0=
+	t=1791303571; cv=none; b=mKxikgE1xpyRESAro9wNsdSUPaAJ7mp2a5LxBQqEyDYZ7zpB4+D/l89DpB+NZh8ufvih7iHro19e0zJmsRvpEa2BRcxb3ublG0yDHr42Vgak9jTc/ETfgf/X8LH9jW52NXCn7hH4TAOwjcx4+zw5DW/MhM0wn4c4sUPi68CzQSU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791303569; c=relaxed/simple;
-	bh=+L3nCM1/8BFjJDb5NR94sLtLbi4PV1zhhq4rjnZKcsU=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=rPb1O1kK/RWyFKGTxXxPiboOs1N+AIQCq6y8kHyKyz+quZETl4t5NE0Vqd5GIPugaKLxCmdHo6pu7jgwEGWj0l3DjMOIXZeF6RqFbi4anSZySvq3EZfkPV6TvXJp9USEzXDrp51oHSH2cXQe9gq5E3MhrBhf+nqaeYc6zM29Vak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4c734afb8deso4421287b6e.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 09:19:26 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791303566; x=1791908366;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Nph5pTCt6D8BOiYO8V4HZw16r0IFAYn4xJK1YC3f8Bg=;
-        b=Lj429GNksZ+RlXa2CGPHpV7Dkcyg7lAK8xiAEmXYtbRa18gPkY+j0a8iYpVfJTgfeL
-         ZKWxmhs//Eh8kUDzAl2Ujwgnmz9L1wtQOddi3SiyuuND4dEcroAAPb1R6Bkti7kkGnsV
-         qtyxb3jEP2msCNWF+M+sHxpq0yWY0YMjr9uH2TDHglg5YcEY+Pv8n/e0V8NBq4OJyyc0
-         kTuPPYexcVf9QLZEfj9KThZ4p4nN1tlWmIyEIavVuFliWZ3IEBqBu+rm1Slbn1J7R85D
-         f0yqeFiJ7SAwWsoSfFUzv8BnWU3YDH0Yu4IvKdEK7C0idMm6AAQzmmOni/9NdlszHrty
-         6BgA==
-X-Forwarded-Encrypted: i=1; AKwUvBwAK/LcSD7hB8ppp/xDOlNvHj4VIltr8ttQIF9+MgllMOs4MM1n7rgDBpyPE+IE6dYlQVWzqMqz4zc0FRk=@vger.kernel.org
-X-Gm-Message-State: AFuF++meKSRCEp1mYSNm6WbWjsZAthzDsGQbJaYtOk8g2mY9jn3fmuN0
-	W1KMgKld8f3cxgazllwvVKbWl1V08mMjAaaaLIwYkSWEwjBpSx3zbyqoGCqxkOQIFT9NkN+93O2
-	usAMecK5ah0+0JYmvPT378N2m65LQk2qUL7aRcs+jRpLyLzFlwkDHn0ycqh4=
+	s=arc-20240116; t=1791303571; c=relaxed/simple;
+	bh=XNv7I0MkTwHx+tdM3j/fp7moNAcgOO1BV5Xs65yK//M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DkITGr80rEHhTwFtd30+ANPaDD+syt13n6blTpU4FwEJSu5RtGuRvfwaao59jpVwI/Tg86Jj13JizKhCJZhS9UUl6KlvS1qh3M767oraHuLEvwO7SWb40z6VxVbF7hU/KfzdV1W1PzUZ2l4ZQ7whOXVLdlVPK9I+hDMj7uSkq04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=u6IGDAwb; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="u6IGDAwb"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 42FE9143D;
+	Tue,  6 Oct 2026 09:19:24 -0700 (PDT)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2730B3F66F;
+	Tue,  6 Oct 2026 09:19:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791303567; bh=XNv7I0MkTwHx+tdM3j/fp7moNAcgOO1BV5Xs65yK//M=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=u6IGDAwbX+uzfksBglkc459aOBENYG3WKamYJZ2EUmHMu5c2qyLb2JfJki+0kRs5y
+	 w2i0OHp7bOzXi8oRnzEcPBhVMGQV0kYHt0qyv0g59LHLeeIvgLzCYZFal4GzYagEoB
+	 o0DQvByaa1Bs3yoLzwzcvNh+k7oPl3/SBX12MkiQ=
+Message-ID: <d1720b63-65bf-4019-bc19-1852555f7993@arm.com>
+Date: Tue, 6 Oct 2026 17:19:23 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:2384:b0:4e5:c2b4:33a3 with SMTP id
- 5614622812f47-4fb415d61e1mr1585684b6e.45.1791303565794; Tue, 06 Oct 2026
- 09:19:25 -0700 (PDT)
-Date: Tue, 06 Oct 2026 09:19:25 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac51f8d.353c8d8e.177895.0006.GAE@google.com>
-Subject: [syzbot] [bluetooth?] possible deadlock in l2cap_chan_connect (2)
-From: syzbot <syzbot+1fed874be1d7e459b5a3@syzkaller.appspotmail.com>
-To: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	luiz.dentz@gmail.com, marcel@holtmann.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 02/11] ACPI: Introduce irq_get() for static fwnodes
+To: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner
+ <tglx@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Danilo Krummrich <dakr@kernel.org>, Hanjun Guo <guohanjun@huawei.com>,
+ Sudeep Holla <sudeep.holla@kernel.org>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
+ <linux@roeck-us.net>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, driver-core@lists.linux.dev,
+ linux-watchdog@vger.kernel.org
+References: <20260925-acpi-static-table-irq-probe-defer-v1-0-2c62125d0085@kernel.org>
+ <20260925-acpi-static-table-irq-probe-defer-v1-2-2c62125d0085@kernel.org>
+ <arZDwutoadki7tiZ@ashevche-desk.local> <arZNL9BnTGK0Klwc@red-moon>
+ <arZS4vwxps01dGb7@ashevche-desk.local> <arqSqcoWAkhy-8do@red-moon>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <arqSqcoWAkhy-8do@red-moon>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hello,
+On 28/09/2026 5:15 pm, Lorenzo Pieralisi wrote:
+> On Fri, Sep 25, 2026 at 01:54:26PM +0300, Andy Shevchenko wrote:
+>> On Fri, Sep 25, 2026 at 12:30:07PM +0200, Lorenzo Pieralisi wrote:
+>>> On Fri, Sep 25, 2026 at 12:49:54PM +0300, Andy Shevchenko wrote:
+>>>> On Fri, Sep 25, 2026 at 09:48:01AM +0200, Lorenzo Pieralisi wrote:
+>>
+>> ...
+>>
+>>>>> +static int acpi_static_fwnode_read_u32_prop_index(const struct fwnode_handle *fwnode,
+>>>>> +						  const char *propname,
+>>>>> +						  unsigned int index, u32 *value)
+>>>>> +{
+>>>>> +	u32 *values;
+>>>>> +	int ret, count;
+>>>>> +
+>>>>> +	count = fwnode_property_count_u32(fwnode, propname);
+>>>>> +	if (count < 0)
+>>>>> +		return count;
+>>>>> +
+>>>>> +	if (index >= count)
+>>>>> +		return -ENOENT;
+>>>>> +
+>>>>> +	values = kcalloc(count, sizeof(*values), GFP_KERNEL);
+>>>>> +	if (!values)
+>>>>> +		return -ENOMEM;
+>>>>> +
+>>>>> +	ret = fwnode_property_read_u32_array(fwnode, propname, values, count);
+>>>>> +	if (!ret)
+>>>>> +		*value = values[index];
+>>>>
+>>>> Use standard pattern, id est
+>>>>
+>>>> 	if (ret)
+>>>> 		...
+>>>>
+>>>>> +	kfree(values);
+>>>>
+>>>> You want to use __free()
+>>>>
+>>>>> +	return ret;
+>>>>> +}
+>>>>
+>>>> I believe the whole approach is suboptimal, if you wish get indexed value (but why?)
+>>>
+>>> Why what (that's what the irq_get() interface requires ?) I agree it is
+>>> suboptimal - the whole point of the series is an RFC on using properties
+>>> to store GSI number/flags, then how to read them we will optimize it
+I>>> when/if we agree that's the approach to be taken.
+>>
+>> Why to have indexed APIs. The callers usually do not want a single item from an
+>> array, they want all of them or a big pile (exception is the array of strings,
+>> but we have matching functions for that).
+>>
+>> As per approach, this patch is against device property and I don't think we are
+>> going to agree on the approach taken in *this* patch.
+> 
+> Coming back to this, what is needed here is a way to stash the GSI number,
+> flags and name in stardard storage (like OF nodes IRQ properties, ACPI objects
+> _CRS, etc).
+> 
+> To give you some background, I thought about adding an array of:
+> 
+> GSI [number, flags, name]
+> 
+> to the ACPI static fwnode itself. Then basically the irq_get() API has got
+> all the information it needs from the primary fwnode; while doing that I
+> thought that this might have been a bit like reinventing software nodes
+> (granted, software node properties are ways more general that what I suggest
+> above and I don't expect any other property to be ever added to static fwnodes)
+> that's why I put together the series as it is, precisely to understand what's
+> best.
+> 
+> When you say "against device property", what do you mean precisely ?
+> 
+> I suppose you mean that this approach goes against software node properties
+> usage guidelines ?
+> 
+> Anyway, again, it is just to provide some context, we are talking about
+> a bunch of platform devices, it is nice to have a generic solution but
+> it has to be simple enough too given its scope, I understand very well
+> your concern with this approach as-is - it is there to find a way
+> forward together and show what the problem is.
 
-syzbot found the following issue on:
+I guess software node properties look inviting in theory since they're a 
+ready-made mechanism for effectively attaching arbitrary data to a 
+fwnode, however looking at patches 6-7 and the amount of boilerplate 
+involved in the reality, I'm inclined to think that a dedicated 
+structure for static nodes is probably the best and most efficient 
+compromise here. The redundancy argument rather falls apart once we end 
+up creating copies of those contentiously-made-up property name strings 
+for every node, especially given that any one of those alone is probably 
+already more than the amount of actual data we need per node...
 
-HEAD commit:    2c3418fffa9d Merge tag 'keys-v7.3-rc7' of git://git.kernel..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=17ca6ff5580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=929e4854a828f434
-dashboard link: https://syzkaller.appspot.com/bug?extid=1fed874be1d7e459b5a3
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=101e6f25580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13cfbff5580000
+Perhaps the "purest" option might be to just store a function pointer in 
+the fwnode wrapper for each static table type to provide its own 
+internal irq_get() callback, so not stashing intermediate GSI data at 
+all, but I suspect that might end up being more work overall.
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-2c3418ff.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/1818dc9d2f44/vmlinux-2c3418ff.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/52ad1b5b053d/bzImage-2c3418ff.xz
+Cheers,
+Robin.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+1fed874be1d7e459b5a3@syzkaller.appspotmail.com
+> 
+> Thanks,
+> Lorenzo
+> 
+>>>> it needs to be retrieved as that in the guts of ACPI. Allocating memory for the whole
+>>>> array to retrieve a single element is simply wrong.
+>>
+>> ...
+>>
+>>>>> +#define ACPI_IRQ_PROP_GSI		"linux,acpi-gsi"
+>>>>> +#define ACPI_IRQ_PROP_GSI_TRIGGER	"linux,acpi-gsi-trigger"
+>>>>> +#define ACPI_IRQ_PROP_GSI_POLARITY	"linux,acpi-gsi-polarity"
+>>>>
+>>>> Oh... This sounds like a big ugly hack.
+>>>
+>>> That does not help much I am afraid.
+>>>
+>>> What's a ugly hack ? Property names ? Using properties for this purpose ?
+>>
+>> Yes, properties started with "linux," for some core functionality.
+>> Yes, using properties for this also doesn't sound right. I think the problem
+>> here is in the table specifications or somewhere that deep. That's why we
+>> ended up in this series.
+>>
+>>> Again, it is an RFC for this specific reason and I mentioned that in the
+>>> cover letter, thank you for your inputs.
+>>
+>> And here we have a discussion started :-)
+>>
+>> P.S. Looks like I was too quick to jump into this thread. I will wait for
+>> others to share their view on all this.
+>>
+>> -- 
+>> With Best Regards,
+>> Andy Shevchenko
+>>
+>>
 
-======================================================
-WARNING: possible circular locking dependency detected
-syzkaller #0 Not tainted
-------------------------------------------------------
-syz.0.17/5921 is trying to acquire lock:
-ffff88802d8700b8 (&hdev->lock){+.+.}-{4:4}, at: l2cap_chan_connect+0xac/0x2110 net/bluetooth/l2cap_core.c:7289
-
-but task is already holding lock:
-ffffffff90f83f60 (rfcomm_mutex){+.+.}-{4:4}, at: rfcomm_dlc_open+0x92/0xac0 net/bluetooth/rfcomm/core.c:426
-
-which lock already depends on the new lock.
-
-
-the existing dependency chain (in reverse order) is:
-
--> #2 (rfcomm_mutex){+.+.}-{4:4}:
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
-       rfcomm_security_cfm+0x3f/0x4b0 net/bluetooth/rfcomm/core.c:2223
-       hci_auth_cfm include/net/bluetooth/hci_core.h:2203 [inline]
-       hci_auth_complete_evt+0x811/0x1180 net/bluetooth/hci_event.c:3554
-       hci_event_func net/bluetooth/hci_event.c:7887 [inline]
-       hci_event_packet+0x8e9/0xcd0 net/bluetooth/hci_event.c:7938
-       hci_rx_work+0x451/0xfc0 net/bluetooth/hci_core.c:4087
-       process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
-       process_scheduled_works kernel/workqueue.c:3479 [inline]
-       worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
-       kthread+0x373/0x450 kernel/kthread.c:436
-       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #1 (hci_cb_list_lock){+.+.}-{4:4}:
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
-       hci_connect_cfm include/net/bluetooth/hci_core.h:2164 [inline]
-       hci_remote_features_evt+0x485/0x9b0 net/bluetooth/hci_event.c:3786
-       hci_event_func net/bluetooth/hci_event.c:7887 [inline]
-       hci_event_packet+0x8e9/0xcd0 net/bluetooth/hci_event.c:7938
-       hci_rx_work+0x451/0xfc0 net/bluetooth/hci_core.c:4087
-       process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
-       process_scheduled_works kernel/workqueue.c:3479 [inline]
-       worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
-       kthread+0x373/0x450 kernel/kthread.c:436
-       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #0 (&hdev->lock){+.+.}-{4:4}:
-       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
-       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
-       validate_chain kernel/locking/lockdep.c:3952 [inline]
-       __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
-       l2cap_chan_connect+0xac/0x2110 net/bluetooth/l2cap_core.c:7289
-       l2cap_sock_connect+0x37a/0x770 net/bluetooth/l2cap_sock.c:255
-       kernel_connect+0x107/0x160 net/socket.c:3755
-       rfcomm_session_create net/bluetooth/rfcomm/core.c:808 [inline]
-       __rfcomm_dlc_open net/bluetooth/rfcomm/core.c:385 [inline]
-       rfcomm_dlc_open+0x838/0xac0 net/bluetooth/rfcomm/core.c:428
-       rfcomm_sock_connect+0x42c/0x690 net/bluetooth/rfcomm/sock.c:419
-       connect_socket net/socket.c:2141 [inline]
-       connect_socket net/socket.c:2131 [inline]
-       __sys_connect_file+0x146/0x1a0 net/socket.c:2166
-       __sys_connect+0x141/0x170 net/socket.c:2183
-       __do_sys_connect net/socket.c:2189 [inline]
-       __se_sys_connect net/socket.c:2186 [inline]
-       __x64_sys_connect+0x72/0xb0 net/socket.c:2186
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-other info that might help us debug this:
-
-Chain exists of:
-  &hdev->lock --> hci_cb_list_lock --> rfcomm_mutex
-
- Possible unsafe locking scenario:
-
-       CPU0                    CPU1
-       ----                    ----
-  lock(rfcomm_mutex);
-                               lock(hci_cb_list_lock);
-                               lock(rfcomm_mutex);
-  lock(&hdev->lock);
-
- *** DEADLOCK ***
-
-locks held by syz.0.17/5921: 1, last CPU#3:
- #0: ffffffff90f83f60 (rfcomm_mutex){+.+.}-{4:4}, at: rfcomm_dlc_open+0x92/0xac0 net/bluetooth/rfcomm/core.c:426
-
-stack backtrace:
-CPU: 3 UID: 0 PID: 5921 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2087
- check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2219
- check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
- check_prevs_add kernel/locking/lockdep.c:3328 [inline]
- validate_chain kernel/locking/lockdep.c:3952 [inline]
- __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
- lock_acquire kernel/locking/lockdep.c:5942 [inline]
- lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
- __mutex_lock_common kernel/locking/mutex.c:646 [inline]
- __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
- l2cap_chan_connect+0xac/0x2110 net/bluetooth/l2cap_core.c:7289
- l2cap_sock_connect+0x37a/0x770 net/bluetooth/l2cap_sock.c:255
- kernel_connect+0x107/0x160 net/socket.c:3755
- rfcomm_session_create net/bluetooth/rfcomm/core.c:808 [inline]
- __rfcomm_dlc_open net/bluetooth/rfcomm/core.c:385 [inline]
- rfcomm_dlc_open+0x838/0xac0 net/bluetooth/rfcomm/core.c:428
- rfcomm_sock_connect+0x42c/0x690 net/bluetooth/rfcomm/sock.c:419
- connect_socket net/socket.c:2141 [inline]
- connect_socket net/socket.c:2131 [inline]
- __sys_connect_file+0x146/0x1a0 net/socket.c:2166
- __sys_connect+0x141/0x170 net/socket.c:2183
- __do_sys_connect net/socket.c:2189 [inline]
- __se_sys_connect net/socket.c:2186 [inline]
- __x64_sys_connect+0x72/0xb0 net/socket.c:2186
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fa5d1b9e199
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007ffc664cdb68 EFLAGS: 00000246 ORIG_RAX: 000000000000002a
-RAX: ffffffffffffffda RBX: 00007fa5d1e25fa0 RCX: 00007fa5d1b9e199
-RDX: 000000000000000a RSI: 0000200000000040 RDI: 0000000000000004
-RBP: 00007fa5d1c358e0 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007fa5d1e25fac R14: 00007fa5d1e25fa0 R15: 00007fa5d1e25fa0
- </TASK>
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
