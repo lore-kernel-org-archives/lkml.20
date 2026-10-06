@@ -1,245 +1,159 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011000.outbound.protection.outlook.com [52.101.70.0])
+Received: from fhigh-b2-smtp.messagingengine.com (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C33640802B;
-	Tue,  6 Oct 2026 12:34:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.0
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791290052; cv=fail; b=a36mWgAhB8stQkhQ0ULouHpjpSNkjA2MixMkLyBx9rr3z5Z0/qa+huj/bpc/hVyAaKNDYJHJbiRRDsnWLz1TbDyk7UoZkkF4L7M970ZzmeMxEItYStBAGAjYbmC8kERWcHNvhIFXxz6qEIf8GIlFHHc81Oh767ufi3dLwYSLUnY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791290052; c=relaxed/simple;
-	bh=kDOttNANywMV1u+AL4yD5S52RgtgJrXWwgUFOCqlQFY=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=tBriufmwge0jc0FkA4lVXrhyZ1gGkHvDYs7KLHatgQgl4O6adFlYpjEl0ILbsF7n60698iuVKNqlhGOAG4ACyyNJe53fWFToGrQkfYONetS5V2ZK1JV2smIAx1k56hx+YqjYpMjV36OCZy3wXRedx4B3n05z3RLvVIvLL2kZ+hg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=GdIgUa9T; arc=fail smtp.client-ip=52.101.70.0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E31640B119
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 12:34:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.153
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791290059; cv=none; b=NXiEkjaEG2Yv1rT4Bynh92muscNGXfj2o6gqRQDdAVeiMLhMi3kcSHwAWXLWdo/eeN5tQyAevld+AoC0mMvU40obfbDc/5NRcZxsiW74G5SeL65JTX+ZOZPrkeqms9NwRd5/EeJt3bUtg8JTiWvcrZ1VTVfOHrrxXLyxXXZ3dYc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791290059; c=relaxed/simple;
+	bh=9ctN73TGCjWxiv4YlXHJU1PdzvATsPWWSGxUdUkbdYI=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=QuwpJn/qR2hrpiuza6rwmxTW3uDHAUqYdpl15bmRBU3xZ7AYTKX3vxegortpHkKPSmTP8jN2G8rbIGfHr4ivcrdzbNnhinvr8o6GxNcqdgbOOETz4JPHeAbSDStWdjbPWow0a8PvBY/mzHcQf+KAIyQIhrBdFtpFRbSasbtaciw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=lmT4PeCD; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=OssAzv/e; arc=none smtp.client-ip=202.12.124.153
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="GdIgUa9T"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jyY1SYYJoly+WegIRWluIwEfmiEcQU1LpKQar/scCDodnx9dwc95UjCHFCoIyBN2TcP2DQuSMiyiPnUii2nD9QGysz/DO5wB6Q0mEcluUlY5s1mLKAYg1H6+cfE5i6/CLsjFwqNEnCjkyFtq389YXDxHfe+4duQxvwnUnb0ID1HOkKndESPpLcFCwero12zEfXu4S4DkUtJuyGOwFHg1RMVml9vg4P5LImp2JJjPAITrRDR/Ar+xj3oi07i3X8zv/ru2q+nN4lOXWM7TIAuUosuLGM2YfG/OenCXRNI4TRp1j0yVXaaHXTtksGIq8epqd4EKnoty5rXu6lkWOlBkpQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MjuT5ahdQaiKc1riD6ReBUM0l9oH+pXpz50A6vmk+80=;
- b=naX6dkb7RGlPgfkWaIyu7AfFKVryHM9xV7cYEMmYHlj1fpVqk8p+bJrCqvKvglxd8nRHs7rRbFglPQAzvsDJjVO+Tb6LmevJZxAEf8gYDZQ4xPyNhYv/R3d4/ieLSHaav+HZhtOtRevZC/DtAWWc8a1Nd6VpEIFGF1+dv9tmH2mvcbB/cmLo/alrzHD+Esie1F6rqJsrlSDXFE+vlZExIl44nkfMllwe2YeA3DtqB3SiigFrl8WCSK5l/9utqtAZ+JI4BYDF+TGhT72M3ypxG0UDmV+V3a0ZwM+9MLGAVm5LZI1hQ/qpHNe8+lQ1gD2E1Zi9cqQdbx1yFbcxxDyjjg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MjuT5ahdQaiKc1riD6ReBUM0l9oH+pXpz50A6vmk+80=;
- b=GdIgUa9TN+5Hxgv+dODo12YxYnmCZp4SvsjAfSGsJ/pBTnPiLxEOeQphpNOyijRxHoa7dW1Rf5tX1ig8TI1AkUnk3ZzNxQ5ro021yS0sgQJcDotZqkcuEs4DaO7myA+N3zB6OBuiQfIYKY84gY0uKht5rl15MXXCVeV0xnwtkjNY0G5+ZDit0AnwuQzD1OT9Qyu5Kboe4f1W49XpSuQX4YY6FYTb8owoaol8FaALqmxX7UFbDX44Xh3MOj8GAIywFQ5ZYkhKaEE/FOaVzOROHhX1Zb+SjW+2tJBatDgHy13wp9pIHFL9a5EX7t3I1IsmmrYwZjFPLFWsI6O2YnR8MA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by FRWPR04MB11246.eurprd04.prod.outlook.com (2603:10a6:d10:171::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Tue, 6 Oct
- 2026 12:34:03 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0451.022; Tue, 6 Oct 2026
- 12:34:03 +0000
-From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Date: Tue, 06 Oct 2026 20:31:07 +0800
-Subject: [PATCH v3 2/9] gpio: mxc: fix wakeup_pads bit operations
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261006-gpio-mxc-cleanup-v3-2-129f93302a90@nxp.com>
-References: <20261006-gpio-mxc-cleanup-v3-0-129f93302a90@nxp.com>
-In-Reply-To: <20261006-gpio-mxc-cleanup-v3-0-129f93302a90@nxp.com>
-To: Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Shenwei Wang <shenwei.wang@nxp.com>, 
- Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: linux-gpio@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Peng Fan <peng.fan@nxp.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: MA5P287CA0201.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1aa::9) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="lmT4PeCD";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="OssAzv/e"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id B4BDA7A0179
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 08:34:10 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Tue, 06 Oct 2026 08:34:10 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1791290048;
+	 x=1791376448; bh=hkIuxcqcXk0pW1RoPdYLN7kYT4Z6JkXVfbeMoVWxw6w=; b=
+	lmT4PeCDrFlnofGZ4PBEDIFUMZNzpp8rG7og00jC9m9ETbkxtbj9wptM40vdFTUy
+	Cc/ZAV67esA7KcaDwcq3Nrw4/f8Hug8snlFtzBJHnPj1jM+OiLjuJCLB3CAyG+0Q
+	S4xd2fybHWdzQIOJ2/p9lCOJBC2LJhWP6n0GPfh+c+Qi4pkX3z/l9M1SbMsvfTAq
+	vtOW84Q1+CGOJpCToWBFtlhhC010mCXLdX+VPUHwzjW4S9bDN41g4xC9DlzgfWc+
+	s3ls1lCQ+aqy6FZgEEJBwwSvrv6wXGsCiqaseaO4ATJgo9au8BTTROHg18V5rsuC
+	vlqfs8RVtKbzJVhbqhpLRw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791290048; x=
+	1791376448; bh=hkIuxcqcXk0pW1RoPdYLN7kYT4Z6JkXVfbeMoVWxw6w=; b=O
+	ssAzv/eSSgda+pz9KkkreDIc9XV3fkAVwpMo3Z3Zt1D56RfEVx8w0CpYVNoEEVyC
+	NVvejob2+crWMm47b6GpPmfFpMevFoaK6BQxa4vOXDDGuR33BnO0RjwlXevzfG2e
+	s4thV3qd0yqDGuVu/PbMv2r47NHfg8WSb1zTljkuI4kpJo8J25s028vNeLXEII2E
+	FPrUthW0Rwya5cwlGZ8FqwozeRBS4RsDS1vk/MKbOB1SCI3tRqQgy+BxjNbbJSwe
+	mT9ZrQ+liMnMwFmF8X+D1DvFNWwF4vwcdtjaxMCW0wX5SKjVJrF6/huakqQadba0
+	sQLh1tdK5DrdO0N0fONMA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791290048; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:gvHzMjo9IKWKLCWEDIQZMMUCi8eO+ai1a8Bhpnuq6GCc40M
+	b0u4sawiwz1/329+bVEqEslwL+5h5kyuR6ehy8O1ke8SKmo5zkduGQKOxadX0zoA
+	1gzle3bJ/26d4AKCT85Rz0rAFXKTk1ZSa2zGdaFsE8d+WsiLMQ5bavA1tRHal2kc
+	6EYz6bzv/MSqrc0J+qRxR9CVWoqYJSGWkF0digrBUF3Z2gS21YGlyr99oOoPVpau
+	q9OfeUIwebzlWzsFOjApUcJX2iK/FwYI3u9AA3zXuUaEjDha3mAdIBFSGw/brn+C
+	VCIrZTzr34v9V+bRSWkzqHk9RR4Izx6WfcoV20A==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:OgKf3LlVZ2IcwVn02qzWo3jRGu3vyQrO4/N+iq/uEqA=:9ctN73TGCjWxiv4YlXHJU1PdzvATsPWWSGxUdUkbdYI=;
+X-ME-Sender: <xms:vurEau4W-GVGs5GKKb4aPU8yRXIE_spPsuRUuBmpnTnOiU5gC5b6qw>
+    <xme:vurEaitrMrJqt2iiBTGiSX5kMCcxX104mbIXiJ8k5YlPBHqdR_iK8LwgeJZ6HoroL
+    sRcMGvHUeFtxO1MdTuRpwxJxLxsz8qLssJ4pDwbL8FbtNEO80T4oCvdvA>
+X-ME-Proxy-Cause: dmFkZTEapourW3Q5EdHjUkgnrE/J6kkwZGn/UfF1O+8cWVux1TWFiaqNkq9N45TtdTFu3u
+    SINqCFn1Oq1xhezdWmyiyGJcCWf+Ccx+rqWlOfBxtDpvzpfBB0QZKgEcKyop8fU3OHsWOu
+    gcLqtfNRvSq0Li7jyc9azj+tT/344IHsp+8Q89VUIGMMfvfBKJxcIISpHVWpmbkJoNQ1Wi
+    K1lMCXV+yC0k3wDEcRZmflvwEj06geJw0DdfPU+BRgWhiqc0+WP8oV5zJL5jp2CtAUcx4W
+    iK5Si/mUmhZh/GcgC1XljN/wmPhIUCx8RvIz8tNPDqb1UBR4KUlfMu9hdnX+USsRUB7UgI
+    TXXQ1yl2TEcvVi0Z3YYYbD6m/4R4GH6aFw999OuzQdDSBF/wYFt9KYKfQgAhP9T8oMlbA7
+    L2TMgOBJiA5G4CVOT6rhFj/8UYA4CS6i0MQgbnoIwjX6k/hdb272nCjzSBezj6S4Mr8U7V
+    /OlDLr+N+LsIh6Jq6K4eCSi4h1leatolW11h1LJTe7Fz0hp+J+G50D3uTx7b34O94kGOhU
+    vVut0zQEJ5dA+5Oi2RrLZdP3xa2ppfi0ti++aOmCwt2MBOdfr0WFVeoF4H8FExWHPE/PO3
+    rpCpIAs/cmQbmH+VC5yTmnVEcbyW8wEZeWdfvnnfXwsyPfM4gqR2ZR7CJAmA
+X-ME-Proxy: <xmx:v-rEalh_OnRD-O3zwvZJXRdCzFmFFU9AA9Ss4alN5vQKD3GlZMFaQg>
+    <xmx:v-rEaleWBw_8SjXLdtnEjXAvPl12Pquw9djjaIc-Uwo29axA2-4XsQ>
+    <xmx:v-rEaolAbMk8Ild5V7wwxoBRXX1HHlZZgTm3_qLkjsJ23ykL69HdMQ>
+    <xmx:v-rEaut2i2wHbPJphixOHSAcjfQZp025AK2-8VkIuqtkUN7sOGHtYA>
+    <xmx:wOrEamfIe8IF_evoymfMg0o3LzJP6WIZu_5hxFWPpURk14kJeS9j0e5m>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 7F98132A008E; Tue,  6 Oct 2026 08:34:06 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|FRWPR04MB11246:EE_
-X-MS-Office365-Filtering-Correlation-Id: 779b5de8-5124-4957-4527-08df23a61ade
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|19092799006|366016|7416014|376014|18002099003|22082099003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	IsREu3h24M+HM6WwaAeRoaEMqyf2ic6E5xep4Q7CQN2+OrxMKwhS3k/i+jww5vK1970hWPHAa1iwt63K3Aj6QLOli1XLNdHjns3WhPTnsn53UFD9IWgf/VgwIwtXSJESkRlXraaaWZGxUWwV0pCgW+P4F6xycQRk9nOun1krMcNHoOS1M7zG96wePfF/7OjO4zMOf5I8wsrSf5B7t3QECwOvSAkHjEd5fROAdMg367xPxTEgdbhJ/LJ4bs49ohEsl5gr+Zk1nISqulS7wHQTf/gL8WQY3E+AlAjlFvGSiVp7VRtBl9lXAhwvttzbob+psbWiikzzTHvmTvbkaIV5H+QFx7uTXH7Zjbb37kZVLc1mjMjTmHidiSijYIBss3ev5E9EzCpYExeUmgi4qBsldzDVU4dwK2smy7B4aCVI4xUN0yhBwKrGoWXoT+fSmLZQGnvUv8WD87ODR6IOn0KNkynT2TUiM27fBxtKUKwWk8nzpPPsOJCamaZNz9s2MYsuwVb3X9RFM8oCoamTldVtncrcORomoHa1etn2359zGq12AEY6OfJgK3xAZN9PgL3pFH/rVyW/ywK7g+SqVeZzvq90uqSonCxsGL7Kghbcq+Yi7tlsvfYVkFMlMnBUYYd+LNrTkXH2U3tzVnIN2WYo2kPtKZexo9AZ1aDVx/Fe6eg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(19092799006)(366016)(7416014)(376014)(18002099003)(22082099003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?U1VIenRNbXQ0MUR4VjgyZHBaYmx2eXRCRlN5ZW14MVN3VnhKSldqUkNLa3dW?=
- =?utf-8?B?MkoxUGc3TGtYOTlBK3FtMnYrN2xWQ295N2M0anRncmtodXJhNGZHWmJiaVhH?=
- =?utf-8?B?NnhSUlZBZzBHV3N3ZDkwVG5aKzBPVmh1V2ZNZjZleUtqWXhnQTZETjZaLzZu?=
- =?utf-8?B?MVg4SUFjdlNybWtYTU9JcmlGSG5CSmRUNEYyZ1lXU05zWitTVU9zdjhZK3Ny?=
- =?utf-8?B?eFJWWERwOXpEWVY4TCt3cElnZ09hN3Bzc1A4b1JzYVVLbytla2xkV3ErQzFT?=
- =?utf-8?B?OW9oYVMyS2lTMzlEaDVNWXBIM3lScGE0ZlI0MWRiQS8zekpHWDJhRC83OVhC?=
- =?utf-8?B?M2RCWCtma2EzYTJ2UzBEWGJNejJyN01MTXB3UWhpaXhPeVBQTkdYWmR2UVhu?=
- =?utf-8?B?SWRWUXR5aXdLb2VIU0xzNTZ5NnZFS3pMRXlTcmtoNlpyUnlJVTJhTVZnNzVq?=
- =?utf-8?B?cSswMnMwRkx3RUZyRHBRNkpSQnRCRTRWbWxKSEJraFBCYzQzOGlSaXBzdGla?=
- =?utf-8?B?bHc4K3lLZi9lcGMwL2J2azl4NURaNk9UWjd0NUhuM0ZnSzdhd2h6RnRzbzQ3?=
- =?utf-8?B?MnFJcS9IVnZjQzYrNCtPY09LZVEvYUZpYTlZMFVFNEZ5Q083UjlZNFZWc2hJ?=
- =?utf-8?B?b0hkd1V6UWlvVTRjN0YwT2l0T0NqY3BMUlVNcVZoczQ4b01iVVB0eWJpTll6?=
- =?utf-8?B?dURmZDJ3Z2xleGw1YUxJeE4yT1NORUlxVit1QWN1VU9pY1lDN2g5aEF1ZTVT?=
- =?utf-8?B?a25CT1ZoeWVaVFpibG43WkhRcU9NUFYrajE1aHBUMTdsZkJVMDJ6eE9NVGtL?=
- =?utf-8?B?b2M3Z0FrOUJRRUkyeUQ4U3QxTzVnaFAxU0RodXFQblgybTk1NzIzSzY4VERI?=
- =?utf-8?B?YThpMU93bStFbWVKTjlLRUlWeVZNOVVERFV2aExwSkZQdGtDekcveUdURmNa?=
- =?utf-8?B?eldUb0t3Zm1uU0hpcmp3c2RyOTRtdWtxRzUraWVxK3FLY3NIemRvWXNEa1BZ?=
- =?utf-8?B?SW9vNTg3Z0p2NnlrNWJ5ZHhsaVllOTkwdk5RSlFYS3JJOVpLK1ZZckJRYklm?=
- =?utf-8?B?bGlkTzlsOG1uZFpYcFdJQXRVWCtMcW1nMy85NEpIV1RuYTlwSUZRT3ptaUpJ?=
- =?utf-8?B?bWsveWVKdmhhUTZsRGVETnRlTUFPbXk2UXNoQm1KYnJ4ZHlQWmQvMm8zVExn?=
- =?utf-8?B?Z1FYZFI3dzlwN1FlUVV4V2NPcnoreUM0QVJka2VzdUszcmxxYzhza3VhT0Y1?=
- =?utf-8?B?VkZYSTFZUHpkYWgvajNZOEhjeWZ2QUJxWUs5MnZnbEpSOHVhdmlCdm1xREJ0?=
- =?utf-8?B?L200cWJSSlFKbjk3eklxdFEwUWJDU0s1bVNlZWZ2ZnRnRjM1aTRFMGJtTkpn?=
- =?utf-8?B?dVFvTExONTJtbXpxZ3lMT29ZYkxvS2J2aFprQ1JhVXJzdjhyajVIM1UzVEFz?=
- =?utf-8?B?UFhDMTB6akR5dUk4OHp6WlNtbC9SZVN1KytaVk01SnVvck5hbXJsdE1sTkpv?=
- =?utf-8?B?eTdBK3JhbnNBL0kzL0dGOFVZMlZFeTRGYkZJb3cvWDBwZnFPWVVkM2FMVHJj?=
- =?utf-8?B?OFhIWUlkdGpCZUUxeGJBKzZFWkN4Zmh6WkVzTlpBNnV0blZ4WmYxZVRWTUZ6?=
- =?utf-8?B?OVl6RnhSMkIrSk1ZOHZjZ1hPZ0U5d21RWkRkQVZzd052RjQwUUFxM3RoUkxk?=
- =?utf-8?B?N3lyVnNCTU5JdVY4SDJybUR0US8vKzFEQ2tmQlNUVE94T29IZy9OeC9VMUtX?=
- =?utf-8?B?bkJSUWVsMEFpVDhxYStUZzZReUUyR0VaLzU2TzNBQ3dsZ3ROT0tBK3QvWFRL?=
- =?utf-8?B?MEdIK1RiZXY4NkE3RktJeUdxTzZ3cC9CVC9YMmVJTjBlMWt3c3N0amIwZVlp?=
- =?utf-8?B?RStVYXVQbjVuWVE4V0JVR1pnV2Y4dW1OS3kzM0FmOUwrL3J4Q1RVN1kxMzND?=
- =?utf-8?B?WW8wM2I1VkErU2QwdkNwSWNiRUpoSkNlL2wzdHdTV1g3SUk0ZkczTmJWckhv?=
- =?utf-8?B?SkpnMzZqbG9PNXJPMDZYNGlnUWUrSkFVbm1SWXNIcnNENWRQVUxKOEJ3ZFNz?=
- =?utf-8?B?YldYTEhkVmR0RWlaZ1QxZCtjVFlReWhIM3Q3U3dzMUZtcjhLYmN6NTRQRXVR?=
- =?utf-8?B?WCtCUzFFYWhyN2VWQjVOWmJxL0lDMmdNRmF4bktNSjhPVVpsMnFFODhLa0dy?=
- =?utf-8?B?dDFhNHNqRDBhZTBFUXZjZFJQN0M4V2NtSzBhMmFRVUJ1WnpkYlBvdVFmUXFL?=
- =?utf-8?B?STJSVlVNc0ZhSXRiTFQwWlpWL2MwRDlBU2lVRko0R2NKRlhpeHdwM2VHSTVs?=
- =?utf-8?B?VWltWVZWdzhGa2Zsd3FlZVdteGxHY2d2MnVjeitpbTZGM0padVU0OU1XWERD?=
- =?utf-8?Q?eODu8ILAYrJriWWCq1nI2hqBm9ymLqI1zS1P6?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 779b5de8-5124-4957-4527-08df23a61ade
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 12:34:03.3501
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GTkGqEPcjRoZfqemQhsgXAWvFwqfiIWVJtml/ToN3BGFol3HFJD/kzOg5C5pWw2FXRf09uxB7PMWxuXNkeYEcq66x+ldDu47pVsHQGxQknbL+c6NPo3b2BkfDzbf/6H3
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRWPR04MB11246
+X-ThreadId: ApDcdGHCsDIN
+Date: Tue, 06 Oct 2026 14:33:36 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Alexandre Belloni" <alexandre.belloni@bootlin.com>
+Cc: "Karl Mehltretter" <kmehltretter@gmail.com>, linux-rtc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Message-Id: <d07b4229-a5f8-47fc-9b1c-c4a7096959b4@app.fastmail.com>
+In-Reply-To: <202610051349454ed35b56@mail.local>
+References: <20260914212537.1452-1-kmehltretter@gmail.com>
+ <7c020979-cf03-4ece-a7d4-b1475d1400c3@app.fastmail.com>
+ <aqnHDxRIBncNH6qr@gmail.com>
+ <59ba6707-c5d5-4fd8-9200-f910e61d9232@app.fastmail.com>
+ <aq3R5QnCpu_fOq8g@gmail.com>
+ <5515c266-f9cd-405f-b7a8-1ec45d9d902a@app.fastmail.com>
+ <202609222137059e745547@mail.local>
+ <d7825e87-93f2-4444-bf3b-45a4127de7a9@app.fastmail.com>
+ <202610051349454ed35b56@mail.local>
+Subject: Re: [PATCH] rtc: class: Make the time32 hctosys limit configurable
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-From: Peng Fan <peng.fan@nxp.com>
+On Mon, Oct 5, 2026, at 15:49, Alexandre Belloni wrote:
+> On 24/09/2026 17:07:30+0200, Arnd Bergmann wrote:
+>> On Tue, Sep 22, 2026, at 23:37, Alexandre Belloni wrote:
+>> 
+>> Not sure what exactly you are suggesting here. Do you mean we should
+>> try again to address this in systemd in order to no longer need
+>> the RTC_HCTOSYS hack?
+>> 
+>
+> Well I guess we'll get the same answer that this is too late in the boot
+> process.
 
-gpio_set_wake_irq() can be called concurrently for different pins on
-the same port, so need to use atomic bitops when modifying wakeup_pads.
+Right
 
-Since wakeup_pads is u32 but assign_bit() operate on unsigned long
-pointers. On 64-bit platforms this causes an 8-byte read-modify-write
-on a 4-byte field, corrupting the adjacent is_pad_wakeup member.
-Change wakeup_pads to unsigned long and reorder to avoid the overlap.
+> My proposed solution is to have a way to tell the kernel what size of
+> time_t userspace actually supports as there is no way to automatically
+> detect it. That's why I was thinking a kernel cmdline parameter would
+> fit. This would allow us to be 100% correct.
+>
+> Else, I'm fine with your last proposal.
 
-And the enable/disable path unconditionally sets/clears the wakeup_pads
-bit even when enable_irq_wake()/disable_irq_wake() fails. Only update
-the bit on success.
+Ok, thanks!
 
-While at here, simplify the logic by consolidating into a single
-irq_set_irq_wake() call based on the enable parameter.
+A command line argument would work for me as well, if we can make it
+have a working default for the COMPAT_32BIT_TIME=n case.
 
-Fixes: f60c9eac54af ("gpio: mxc: enable pad wakeup on i.MX8x platforms")
-Assisted-by: LLM
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
----
- drivers/gpio/gpio-mxc.c | 52 ++++++++++++++++++++++---------------------------
- 1 file changed, 23 insertions(+), 29 deletions(-)
+We could of course combine a compile-time and boot-time flag, but
+there should not be any need for that.
 
-diff --git a/drivers/gpio/gpio-mxc.c b/drivers/gpio/gpio-mxc.c
-index e05f276a50e8..0013f73d23bf 100644
---- a/drivers/gpio/gpio-mxc.c
-+++ b/drivers/gpio/gpio-mxc.c
-@@ -71,8 +71,8 @@ struct mxc_gpio_port {
- 	u32 both_edges;
- 	struct mxc_gpio_reg_saved gpio_saved_reg;
- 	bool power_off;
--	u32 wakeup_pads;
- 	bool is_pad_wakeup;
-+	unsigned long wakeup_pads;
- 	u32 pad_type[32];
- 	const struct mxc_gpio_hwdata *hwdata;
- };
-@@ -325,21 +325,17 @@ static int gpio_set_wake_irq(struct irq_data *d, u32 enable)
- 	u32 gpio_idx = d->hwirq;
- 	int ret;
- 
--	if (enable) {
--		if (port->irq_high && (gpio_idx >= 16))
--			ret = enable_irq_wake(port->irq_high);
--		else
--			ret = enable_irq_wake(port->irq);
--		port->wakeup_pads |= BIT(gpio_idx);
--	} else {
--		if (port->irq_high && (gpio_idx >= 16))
--			ret = disable_irq_wake(port->irq_high);
--		else
--			ret = disable_irq_wake(port->irq);
--		port->wakeup_pads &= ~BIT(gpio_idx);
--	}
-+	if (port->irq_high && (gpio_idx >= 16))
-+		ret = irq_set_irq_wake(port->irq_high, enable);
-+	else
-+		ret = irq_set_irq_wake(port->irq, enable);
- 
--	return ret;
-+	if (ret)
-+		return ret;
-+
-+	assign_bit(gpio_idx, &port->wakeup_pads, enable);
-+
-+	return 0;
- }
- 
- static int mxc_gpio_init_gc(struct mxc_gpio_port *port, int irq_base)
-@@ -598,22 +594,20 @@ static bool mxc_gpio_set_pad_wakeup(struct mxc_gpio_port *port, bool enable)
- 		IMX_SCU_WAKEUP_LOW_LVL,		/* IRQ_TYPE_LEVEL_LOW */
- 	};
- 
--	for (i = 0; i < 32; i++) {
--		if ((port->wakeup_pads & (1 << i))) {
--			type = port->pad_type[i];
--			if (enable)
--				config = pad_type_map[type];
--			else
--				config = IMX_SCU_WAKEUP_OFF;
--
--			if (is_imx8qm && config == IMX_SCU_WAKEUP_FALL_EDGE) {
--				dev_warn_once(port->dev,
--					      "No falling-edge support for wakeup on i.MX8QM\n");
--				config = IMX_SCU_WAKEUP_OFF;
--			}
-+	for_each_set_bit(i, &port->wakeup_pads, 32) {
-+		type = port->pad_type[i];
-+		if (enable)
-+			config = pad_type_map[type];
-+		else
-+			config = IMX_SCU_WAKEUP_OFF;
- 
--			ret |= mxc_gpio_generic_config(port, i, config);
-+		if (is_imx8qm && config == IMX_SCU_WAKEUP_FALL_EDGE) {
-+			dev_warn_once(port->dev,
-+				      "No falling-edge support for wakeup on i.MX8QM\n");
-+			config = IMX_SCU_WAKEUP_OFF;
- 		}
-+
-+		ret |= mxc_gpio_generic_config(port, i, config);
- 	}
- 
- 	return ret;
+> I guess this would leave us with
+> two unhandled cases:
+>  - 64bit systems with 32 bit userspace that you said we don't want to
+>    support
 
--- 
-2.51.0
+Right, as far as I'm concerned this has always done what I want,
+so no need to change it.
 
+>  - 32bit systems with 64bit time_t userspace that would not work
+>    properly with the default configuration.
+
+At this point it's just part of the platform defconfig, and
+users can pick the setting.
+
+       Arnd
