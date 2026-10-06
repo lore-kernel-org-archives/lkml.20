@@ -1,100 +1,117 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1804D3BD22F;
-	Tue,  6 Oct 2026 07:36:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88D94547072;
+	Tue,  6 Oct 2026 07:38:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791272190; cv=none; b=Ggnb0jo1W4Be8dEG0mdD72ZS3KdriL/PQ6x/vYraCJX7remiWNqFhCNWHm6TY1kzqeVmAwMalaI1UB536I/z4oY1yP+DijHdnybpJ2E9TMpVliz3skxUcyzjUfpyfAKEH4r/DOUQ9EtgafNCb6NA2+MVYh1AJoY6hEIshb+272Q=
+	t=1791272303; cv=none; b=ILxXl9Ulce7gHoHmjoVQSHzlpjR1uOhHshIGFqBR1yBb0Yu0l8ckObHZpxoiqk2/xBq71QpMUC5d1LNLbpmi4p7QBGu82QhcKo6EMCoSpal7QP5J4ySjg7GtbiJDm9GFi3dl2sv0qhHLQKzyzXyexMh6ZCoQ2YiaSYXbM2dkFto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791272190; c=relaxed/simple;
-	bh=yeWaKhrm+WR9bLBovNZ3j0cg/B3ktN5heCYTCG/FzqU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Yw8TJ07TvRa2BxlJ2GbG2yATnqpeGnn7CPUvrOQl66HiaTQsaJT7Z0jBdfxI5CQzhSN8WCzRbNpTBGNWbFtvVyeewrg7kcj9sT3AQLNIsI3TPiV/A+a0M82FiomyXQzPEN02MadQOxJXI1k6aQ5TT0yiCxbz8XQ1l9Z0L5+I2Gk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IrBTefDs; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791272303; c=relaxed/simple;
+	bh=Ix6rHZxeicX3kdIK9yyM338VddWxcFfM9aS479bXyGI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=RtkwmODUjFp+Cfo4tfMavQplnHLNWW8GAtWxZeuJ/f0qLLWNohWVoVCpLJq5/CXd5qvnsI+iD8Cl5G5+Q/nOgf8onBLyOMv7PNg9J5B9gvrkjg3GRyLfBq+ZAkfkrUmPTghtY9XR7GF7ilYCuVdl+zIOiA89awT4Z6jfl9Z6oHE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cVi6Vg8i; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IrBTefDs"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cVi6Vg8i"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791272186; x=1822808186;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=yeWaKhrm+WR9bLBovNZ3j0cg/B3ktN5heCYTCG/FzqU=;
-  b=IrBTefDsyd76w6JZGswrHSc2LISTKP6Dn2jfcPKWzPa/hKPQoFzd8cm5
-   Ji9NdyM8s1YwLsxrOHPDBCY5EpfGVljFvfWuTk9WD0IqVEc+3w653Znxh
-   KpP8r0MBg4TNhl8JfzfKVTIf5fmMq4F+SuVAg3NQSk0Uk+3+qHyNaryOX
-   GVuE2f6q1vfw9QYnUwB3n8dJ8wQRhpY0psvCk6xWYhZghXkQAGZavIr3l
-   kU+CABV54fB9CtnySJxifXPBU+TfrqJe9yNUJOdG80EUQ2eBcigjBJ/8f
-   WmaKttD2fWEXOtx6gTtflTvlkRlqaI6AUOZpFJIdfv0sTYuA5jJXKyXRL
-   g==;
-X-CSE-ConnectionGUID: GGl7k1lMTKWp+f50kLTs/A==
-X-CSE-MsgGUID: Lm6SlYnNQkWdiAZmaG5vug==
-X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="8866"
+  t=1791272302; x=1822808302;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:to:cc;
+  bh=Ix6rHZxeicX3kdIK9yyM338VddWxcFfM9aS479bXyGI=;
+  b=cVi6Vg8ijNl0w9F6vr4kue+xndVOyME9yR6GY4NlFFeOP6dRZCPWdEhF
+   xZdMZJKy1piOTR1r0KrcRodXqCNt2b+dgUIeI/1GhfqNZUTlzj6wxiQQ1
+   1/IikAUhcpvUcJYs/TSTOLRy5qLH9hV4Lg/3HQj/bNqO18t42dTMzsVGP
+   ytlmSuvv4aJhGxAMofTrdZG+VCMa/EDPQAFPYH43ytnRtiY8HdRbfTx17
+   XN/0tXXUB04Qj5RZzPj37wDJK9QvZgwlyjvxFUAs8JIet0UsEuuBF3pwu
+   FGjm4OF+owxod8/edCV9brIOk8M695b1flNGy68SyzCMJSRWgpu+PPaKx
+   A==;
+X-CSE-ConnectionGUID: 01CnLQpoQ5ayL1f/zd/v/w==
+X-CSE-MsgGUID: 2TUKrXgATsOVozd/BRhJog==
+X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="3644"
 X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="8866"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 00:36:23 -0700
-X-CSE-ConnectionGUID: fvjocqIcQz2EJtYqpGak0w==
-X-CSE-MsgGUID: nRfyIxf3T8C0XksoKhGq4g==
+   d="scan'208";a="3644"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 00:38:19 -0700
+X-CSE-ConnectionGUID: hPYCujVPQTO9teTPKhnUGg==
+X-CSE-MsgGUID: rut/W9aoSrqLzDdFEUkYRg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="1105882"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.66])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 00:36:19 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 5D586121BCD;
-	Tue, 06 Oct 2026 10:36:20 +0300 (EEST)
-Date: Tue, 6 Oct 2026 10:36:20 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Mirela Rabulea <mirela.rabulea@nxp.com>
-Cc: Rishikesh Donadkar <r-donadkar@ti.com>, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	tomi.valkeinen@ideasonboard.com, mchehab@kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, nm@ti.com,
-	vigneshr@ti.com, kristo@kernel.org, mripard@kernel.org,
-	jai.luthra@linux.dev, jai.luthra@ideasonboard.com, devarsht@ti.com,
-	y-abhilashchandra@ti.com, laurent.pinchart@ideasonboard.com
-Subject: Re: [RFC PATCH 6/8] media: i2c: ov2312: add Omnivison OV2312 driver
-Message-ID: <asSk9KW-lzuiUJa3@kekkonen.localdomain>
-References: <20260925133001.2780868-1-r-donadkar@ti.com>
- <20260925133001.2780868-7-r-donadkar@ti.com>
- <e469d168-39f9-448c-a7ab-5d02b79d8cb8@nxp.com>
+   d="scan'208";a="284984663"
+Received: from sannilnx-dsk.jer.intel.com (HELO [127.0.1.1]) ([10.12.231.107])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 00:38:17 -0700
+From: Alexander Usyskin <alexander.usyskin@intel.com>
+Date: Tue, 06 Oct 2026 10:38:00 +0300
+Subject: [PATCH char-misc] mei: vsc: Fix packet CRC computed over pointer
+ size
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <e469d168-39f9-448c-a7ab-5d02b79d8cb8@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261006-vcs_fix_crc-v1-1-b7b149f13c1d@intel.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MSQqAMAwAvyI5W+giPfgVEdE0ag5WSUAE8e9Wj
+ 8Mwc4OSMCm01Q1CJyvvuYCrK8B1zAsZToXBWx+dtdGcqMPM14CCJvkJbRhj42KAUhxCRf237sv
+ FbKwI/fO82615bGgAAAA=
+X-Change-ID: 20261006-vcs_fix_crc-d2bc03a64163
+To: Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Wentong Wu <wentong.wu@intel.com>
+Cc: linux-kernel@vger.kernel.org, Wentao Guan <guanwentao@uniontech.com>, 
+ stable@vger.kernel.org, Alexander Usyskin <alexander.usyskin@intel.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791272296; l=1461;
+ i=alexander.usyskin@intel.com; s=20260315; h=from:subject:message-id;
+ bh=+Gs4giFYHlUO8cBiRJAuKHgnryCDBc4Pgp0lkoPukTU=;
+ b=aYBhbI4Gql9Wvl7egSVVyouVVzKirgw7xsCeOj3MdqtVNtO6QiHdarWKXSrRHQhpYKASy8/pD
+ jkmKSeVJmMpDSM2HsF/ti71WqGdM0YDOvcVsfPIAd3zIDJrlVkbTHsj
+X-Developer-Key: i=alexander.usyskin@intel.com; a=ed25519;
+ pk=X+qoF/nFCdDOV04IForWSxnkyoCAbUE10egZi6PSfcU=
 
-Hi Mirela,
+From: Wentao Guan <guanwentao@uniontech.com>
 
-On Fri, Oct 02, 2026 at 07:16:11PM +0300, Mirela Rabulea wrote:
-> Laurent, Hans, Sakari,
-> 
-> did you encounter similar situations? Any comments or proposals? The concern
-> here, to summarize, is: v4l2 control cannot be committed to sensor registers
-> right away (even when streaming) and we are also unsure when the right
-> moment to perform the register access may come.
+vsc_tp_xfer() computes the packet CRC over sizeof(pkt) + olen bytes,
+but pkt is a pointer, so sizeof(pkt) evaluates to the pointer size
+instead of the size of struct vsc_tp_packet_hdr. The value correctly
+match the 8-byte header on 64-bit builds.
 
-In practice there's little the kernel overall can do about this: the timing
-of everything is handled by the userspace. Drivers that aren't directly in
-control of the data path don't even have frame timing information and even
-if we did pass that to drivers, I²C writes always have some uncertainty
-(system scheduling, I²C access failures etc.), so one needs to be prepared
-to failing to do the writes in time, which would further complicate the
-UAPI.
+Use sizeof(pkt->hdr), consistent with the header size used everywhere
+else in the driver, e.g. in VSC_TP_PACKET_SIZE().
 
-Do you have libcamera in userspace or something else?
+Cc: stable@vger.kernel.org
+Fixes: 566f5ca97680 ("mei: Add transport driver for IVSC device")
+Reviewed-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
+Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
+---
+ drivers/misc/mei/vsc-tp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/drivers/misc/mei/vsc-tp.c b/drivers/misc/mei/vsc-tp.c
+index 432bc59f11f9..ce877cb95757 100644
+--- a/drivers/misc/mei/vsc-tp.c
++++ b/drivers/misc/mei/vsc-tp.c
+@@ -293,7 +293,7 @@ int vsc_tp_xfer(struct vsc_tp *tp, u8 cmd, const void *obuf, size_t olen,
+ 	pkt->hdr.seq = cpu_to_le32(++tp->seq);
+ 	memcpy(pkt->buf, obuf, olen);
+ 
+-	crc = ~crc32(~0, (u8 *)pkt, sizeof(pkt) + olen);
++	crc = ~crc32(~0, (u8 *)pkt, sizeof(pkt->hdr) + olen);
+ 	memcpy(pkt->buf + olen, &crc, sizeof(crc));
+ 
+ 	ret = vsc_tp_wakeup_request(tp);
+
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20261006-vcs_fix_crc-d2bc03a64163
+
+Best regards,
 -- 
-Kind regards,
+Alexander Usyskin <alexander.usyskin@intel.com>
 
-Sakari Ailus
