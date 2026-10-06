@@ -1,211 +1,140 @@
-Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com [74.125.224.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E0B03DC85B;
-	Tue,  6 Oct 2026 14:04:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.190.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35C3242AFB7
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 14:04:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791295465; cv=none; b=eXNMZi9u7QnyhC0cqdvqHC6mj5A9yE4kQX+pwY+alttd4avbC9Cr5W1XT5RzMwW48BkVDpmlmodzssyv1ByCs+jKgE0R4te8ew80gHW56EgFHaP7y7aojeJvNpfiv+JLeZSqlY5U5e6YFHPvU482K/72dbvVAObC0csPlwAicZU=
+	t=1791295467; cv=none; b=cUmV6y1BjqvR8Tj2ZhNLHw02JLEOFbXtlsCop+18lYhvy+K02nLd8noytSt/TO5JsBBdcjVwfnI+d+4Hd9++6WMTFDkSkOoYIwaXQEz9LI7i31rC859MvTJ4y2SDdmLSi58WxCmWLMnNQyopJUqf6tDYrHi5PTCqx5b9hzAetLg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791295465; c=relaxed/simple;
-	bh=zW/f6NHpiFuglww3DpdvHRsKCi9KuHwZe8xw4IlfWVE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jL0MZpaC7Ou1/r7Yhd4Te6XXbugcGwl8CGWq17CqEhMiIrw29vcIcs1Iss4tLYE2voAx2WlBGVBg3j9A1j4xHibBCX64irmSmR+j8aSz0ICnd2gZD5W/JYGhxI3W2bDBVRZ6M3tpgxzJI5MVuPc1a65CBRvAlYpqwY/9BZ36CTg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org; spf=pass smtp.mailfrom=netfilter.org; dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b=KDz9IuqW; arc=none smtp.client-ip=217.70.190.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
+	s=arc-20240116; t=1791295467; c=relaxed/simple;
+	bh=STeKd4YFIQ0n3LH6A34QwIhke3uYslT6i1FZ3F874iE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=EoDkEzHizVChzVnKsEY49NH4wF/qo8SNljofj+WKCK3CEiO0bgC9hiWFR6LyJ5kXpQpib1GilbkwcUo6+EM1Gw33i6vkoN43+t3NpVodl6eJvUjH01EkJxf28AcmD4q4AQcHfLIepQpyUYGTDscCs8pKOrBPeD5YqSt734YvTCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iayFEHez; arc=none smtp.client-ip=74.125.224.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b="KDz9IuqW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
-	s=2025; t=1791295458;
-	bh=4w9SVrSskqILHj8ealT02pPs99nrXYu+MDXFiDVU/8Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KDz9IuqWA/U2gLMcYfuTZazzHplxJD45K0IYkDib7g3V5E29TnXTIcqQpg4t/hqvc
-	 THmqTc9vMZHy8gUEnRhiJjXQjsjOWQ9gEq6uRbWXdfZOZaTjtseM1J+GTpHWWG+TqK
-	 SamcgeVijiUa93g39FJQLbizpfiF51sZoO2JV7iLgDmnTVeVp9qQYkpEFzCmivlc/m
-	 wVPgLQNZoVYx3ESXP87wsk2B87TVG/t3wKwPWIYJx57lv81erNf/TNMTHwq/ws0qT6
-	 uSRp8OlzJ/TDcxlJEXlOyk5wdWaPscW6/LUyQTnSfPzkT5n7g5/aJRoEHzCgNktfQ2
-	 +yfu+rJ5tuU+Q==
-Received: from netfilter.org (mail-agni [217.70.190.124])
-	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 3D44B600A7;
-	Tue,  6 Oct 2026 16:04:18 +0200 (CEST)
-Date: Tue, 6 Oct 2026 16:04:15 +0200
-From: Pablo Neira Ayuso <pablo@netfilter.org>
-To: Hari Chandrakanthan <hari.chandrakanthan@oss.qualcomm.com>
-Cc: fw@strlen.de, phil@nwl.cc, netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH net-next] netfilter: nf_conntrack: add ct expression
- support for netdev egress chains
-Message-ID: <asT_37n_6viz9dJa@chamomile>
-References: <20261006085844.2694120-1-hari.chandrakanthan@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iayFEHez"
+Received: by mail-yx1-f49.google.com with SMTP id 956f58d0204a3-66c9995ca60so936392d50.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 07:04:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791295465; x=1791900265; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DJzvr3iFE3HfrvrQ99af4WvccIiSGFTCRjpk4CcYQWA=;
+        b=iayFEHez4txgwuuDMUCX/7zQswdcFCYo98a74R2d1vgUC5q7IxUfzQaFQPisN+3gIr
+         k60QWg8lpxfFq1YzKwTB7/zAPo9qBEzS6KRDkqNolIGqRZtmu2WTDBTz60GhJiOsxON0
+         wPwHvv+8v9lykI6KRQkdyddMTpOpWyuFTGthzzOetF+Ok6SnFjoCjD60Q2TiYz31B9QH
+         4jG/MNuKaXXqwfjZabZxSLfBVMflWo+8MG+iv9nkWSbPUvOqJl4lQNgXeGk7qVID7xH9
+         PC9mlp+jx6w7Ugv/zzqcLUEgDiMkiNlKpENd9x8/f0hD6FaRzjHRsGoU6hUa0GrKxcOh
+         EMJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791295465; x=1791900265;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DJzvr3iFE3HfrvrQ99af4WvccIiSGFTCRjpk4CcYQWA=;
+        b=PCKq8aOZ3yifPrm6OYEK81g/Ube+q1OAZRE58Wwb1Jrqqask685B3V+bJH1WgIs0w+
+         f5IwQTEKn375Ov5ruVw1eM35vxi1PbRbyjnZ6VRh8a+UePuRQp9jNbPODObVzx8nKyGx
+         B95Yi7c/XGXE2+ARA/Hs+PPyf92htfRS6PWUNcMJffvLrf7tDHZXfKQ6EPhnRRr3tg2v
+         SyOm+jl98NzlPNqk6yXaBatA9Jv9++7U74G2QbrlLg45C9BAF5p3RrM60CqHDkCcpg6Q
+         KciCUpjwn/CpfOjh7J4+MVzsTXkV7Lrp6XHv9j/F4aIJ40DbAJmnpnQyv2bI/TMOnopM
+         EkeQ==
+X-Forwarded-Encrypted: i=1; AKwUvByVzxuAUYpY1HHPda05IwCuAqRioDLhr7itopbR7ZC8yDN/td2XXbabFZHoQD7e9HkiiH9stFJZLK9PhWI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mmkMPDeLQXHumSCzDejvJ5YPv+7Ny2T+5DqgRevvVZjLW1cxKo
+	8homn2nfb+xlZErbPHExeM/d+wi97Hyx5EI5s3zZAs++PDkxAs+81Vvd
+X-Gm-Gg: AYBFou352fxKc2Zr6ps2oArJWt85ulOUx9xSXcGf4RRtnazB400QxpWgdSDfrwoiypn
+	Pk+zpnMLq+x29qsBq9Npjh9AjftPCEvmXkxPHyQA3QVDqucp/XKv0XpLJpG9DuxG6tSwUeD+u+T
+	4vBsOX8zihz0Ecn0IXyGCJQN59wKDnP+D6S0gtic8z/LuTpo/aoQ4hpixwkqHsFBz3ajTJwAk/E
+	Cs6A1VWYggNBXFoPj+YZIChBl+WFgXxmYsqw0S/6Zys0Hn2IpGIVPuDVVwcL0JOgl7Z9csuGQgs
+	KvKpRhLZtjkyoNfv3imI0RntVnPEMGCDYmcCATARU1vm5t+uohGFJUjE5u9T9QSc1zg8FyxHDLj
+	Fd0AGjp2OM/DgCZaEU5jIPnX6J0xkNaBlbjX4uDlhFs38BKZUsAeXFDZtg3ZPUacOnBw9wd/FN/
+	uPTXBt+8Ud2gSH/XMk/EgveYIsWqd4n25c5dDeFR5fqE1Wqs88nT1HGYrY3nxGuIDFFjxVRVw=
+X-Received: by 2002:a05:690e:b89:b0:677:ed83:7f13 with SMTP id 956f58d0204a3-678fcc5ff7bmr633660d50.3.1791295464803;
+        Tue, 06 Oct 2026 07:04:24 -0700 (PDT)
+Received: from localhost ([2600:1702:7a90:6f9f:8bc4:8aec:108d:7a04])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-677c1b1a214sm4230624d50.6.2026.10.06.07.04.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 07:04:23 -0700 (PDT)
+From: Matt Turner <mattst88@gmail.com>
+Date: Tue, 06 Oct 2026 10:04:15 -0400
+Subject: [PATCH 3/6] alpha: clarify that _PAGE_URE and _PAGE_UWE are the
+ Executive bits
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261006085844.2694120-1-hari.chandrakanthan@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261006-alpha-hugepages-v1-3-a673a18aaa70@gmail.com>
+References: <20261006-alpha-hugepages-v1-0-a673a18aaa70@gmail.com>
+In-Reply-To: <20261006-alpha-hugepages-v1-0-a673a18aaa70@gmail.com>
+To: Richard Henderson <richard.henderson@linaro.org>, 
+ Magnus Lindholm <linmag7@gmail.com>
+Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Matt Turner <mattst88@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2285; i=mattst88@gmail.com;
+ h=from:subject:message-id; bh=STeKd4YFIQ0n3LH6A34QwIhke3uYslT6i1FZ3F874iE=;
+ b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLKO/L+b++pyyn2+Op2ZdyctUprYrhPf0HX01X4F20rP8
+ 4YBOdOOd3xkYRDjYpgppsgSt16RZVbbjqU+p6V/wcxhZQIZIi3SwAAELAx8uYl5pUY6Rnqm2oZ6
+ hkCGjlE8RE6PQSOzuLg0tUg3raDIIS+/JLEkMz+vWC+/IDWvIL1ALy0zrSQjI7+oOBVohF5eaom
+ pq6ObkaGBiaWjhZmThaOpibOzk6GTm6Ojs6uTkaW5iYGzpaOJq6U5AxenAMw101sZGWbwylnef7
+ jYUnThRRcX1iQj7Rvffis063E3L0p1Zq62VGdkuN+2ZZP4xrt5FxbOsnwb8ulE9Xedd9fuaN178
+ GZP87Hek7wA
+X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
+ fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
 
-On Tue, Oct 06, 2026 at 02:28:44PM +0530, Hari Chandrakanthan wrote:
-> Add support for using the ct expression in nftables netdev egress chains.
-> This enables QoS policy enforcement at the netdev egress hook by
-> allowing ct operations such as copying connmark to packet mark.
-> 
-> Add an explicit NFPROTO_NETDEV case in nf_ct_netns_get() and
-> nf_ct_netns_put() that enables conntrack for IPv4, IPv6 and bridge when a
-> ct expression is added to a netdev chain.
-> 
-> Restrict ct expression use in the netdev family to egress hooks only, as
-> the connection entry is not yet available at ingress.
-> 
-> Sharing this change as an RFC, to get feedback. The patch has been tested
-> by configuring nft rules at netdev egress hook to set ct mark and copy
-> ct mark into skb->mark. Also, the patch is validated at netdev ingress to
-> ensure the nft rule with ct mark set action is rejected.
-> 
-> Signed-off-by: Hari Chandrakanthan <hari.chandrakanthan@oss.qualcomm.com>
-> ---
->  net/netfilter/nf_conntrack_proto.c | 26 ++++++++++++++++++++++++++
->  net/netfilter/nft_ct.c             | 22 ++++++++++++++++++++++
->  2 files changed, 48 insertions(+)
-> 
-> diff --git a/net/netfilter/nf_conntrack_proto.c b/net/netfilter/nf_conntrack_proto.c
-> index 7a40e4e0e33e..b8ee46262901 100644
-> --- a/net/netfilter/nf_conntrack_proto.c
-> +++ b/net/netfilter/nf_conntrack_proto.c
-> @@ -587,11 +587,36 @@ static int nf_ct_netns_inet_get(struct net *net)
->  int nf_ct_netns_get(struct net *net, u8 nfproto)
->  {
->  	int err;
-> +	bool bridge_acquired = false;
->  
->  	switch (nfproto) {
->  	case NFPROTO_INET:
->  		err = nf_ct_netns_inet_get(net);
->  		break;
-> +	case NFPROTO_NETDEV:
-> +		err = nf_ct_netns_do_get(net, NFPROTO_BRIDGE);
+The Alpha Architecture Reference Manual defines eight protection bits in
+PTE<15:8>: KRE, ERE, SRE, URE, KWE, EWE, SWE and UWE, for Kernel,
+Executive, Supervisor and User Read and Write Enable. Linux uses only
+two of the four privilege modes, and its user processes run in Executive
+mode, so the bits it calls _PAGE_URE and _PAGE_UWE are in fact the
+architecture's ERE (bit 9) and EWE (bit 13). The true URE and UWE bits,
+11 and 15, are unused.
 
-Hm. This is pulling in the bridge conntrack hooks.
+The names have been misleading since the beginning, and the comments on
+those defines said only "xxx". Spell out what the bits actually are. No
+functional change.
 
-> +		if (err < 0) {
-> +			mutex_lock(&nf_ct_proto_mutex);
-> +			if (nf_ct_bridge_info) {
-> +				/* Module present but hook registration failed.*/
-> +				mutex_unlock(&nf_ct_proto_mutex);
-> +				return err;
-> +			}
-> +			mutex_unlock(&nf_ct_proto_mutex);
-> +			/* Bridge module absent, netdev egress handles routed
-> +			 * traffic too, bridge conntrack is only needed for
-> +			 * bridged frames.
-> +			 */
-> +		} else {
-> +			bridge_acquired = true;
-> +		}
-> +		err = nf_ct_netns_inet_get(net);
+Signed-off-by: Matt Turner <mattst88@gmail.com>
+---
+ arch/alpha/include/asm/pgtable.h | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
-And inet too.
+diff --git a/arch/alpha/include/asm/pgtable.h b/arch/alpha/include/asm/pgtable.h
+index 8a175e0c2b42..d123fd0d4091 100644
+--- a/arch/alpha/include/asm/pgtable.h
++++ b/arch/alpha/include/asm/pgtable.h
+@@ -65,10 +65,18 @@ struct vm_area_struct;
+ #define _PAGE_FOW	0x0004	/* used for page protection (fault on write) */
+ #define _PAGE_FOE	0x0008	/* used for page protection (fault on exec) */
+ #define _PAGE_ASM	0x0010
+-#define _PAGE_KRE	0x0100	/* xxx - see below on the "accessed" bit */
+-#define _PAGE_URE	0x0200	/* xxx */
+-#define _PAGE_KWE	0x1000	/* used to do the dirty bit in software */
+-#define _PAGE_UWE	0x2000	/* used to do the dirty bit in software */
++/*
++ * The Alpha AXP ARM defines 8 protection bits in PTE[15:8]: KRE, ERE, SRE,
++ * URE, KWE, EWE, SWE, UWE (Kernel/Executive/Supervisor/User Read/Write
++ * Enable). Linux only uses two privilege modes: kernel (mode 0) and user.
++ * User processes run in Executive mode (mode 1), so _PAGE_URE and _PAGE_UWE
++ * correspond to the architecture's ERE (bit 9) and EWE (bit 13) bits. The
++ * true User Read/Write Enable bits (bits 11 and 15) are unused.
++ */
++#define _PAGE_KRE	0x0100	/* Kernel Read Enable (bit 8) */
++#define _PAGE_URE	0x0200	/* Executive Read Enable (bit 9); "user" in Linux */
++#define _PAGE_KWE	0x1000	/* Kernel Write Enable (bit 12) */
++#define _PAGE_UWE	0x2000	/* Executive Write Enable (bit 13); "user" in Linux */
+ 
+ /* .. and these are ours ... */
+ #define _PAGE_DIRTY	0x20000
 
-I understand this is to deal with a situation where only ct rule is
-placed in netdev/egress.
+-- 
+2.54.0
 
-Is it really worth? I would expect users already have rules refering
-to ct from either bridge and/or netdev would match here.
-
-It looks a bit like too much to enable them all for the "a ct rule in
-netdev/egress only".
-
-Probably better solution would be to enable nf_conntrack_in() from the
-netdev hook (just an earlier call), but this also needs to enable
-packet defrag from there. Then, enabling all inet and bridge is not
-required, because netdev/ingress would handle the creation/lookup of
-the conntrack.
-
-> +		if (err < 0) {
-> +			if (bridge_acquired)
-> +				nf_ct_netns_put(net, NFPROTO_BRIDGE);
-> +			return err;
-> +		}
-> +		break;
->  	case NFPROTO_BRIDGE:
->  		err = nf_ct_netns_do_get(net, NFPROTO_BRIDGE);
->  		if (err < 0)
-> @@ -615,6 +640,7 @@ void nf_ct_netns_put(struct net *net, uint8_t nfproto)
->  {
->  	switch (nfproto) {
->  	case NFPROTO_BRIDGE:
-> +	case NFPROTO_NETDEV:
->  		nf_ct_netns_do_put(net, NFPROTO_BRIDGE);
->  		fallthrough;
->  	case NFPROTO_INET:
-> diff --git a/net/netfilter/nft_ct.c b/net/netfilter/nft_ct.c
-> index 3c4c2faa7398..e90e73475b0c 100644
-> --- a/net/netfilter/nft_ct.c
-> +++ b/net/netfilter/nft_ct.c
-> @@ -649,6 +649,15 @@ static void nft_ct_get_destroy(const struct nft_ctx *ctx,
->  	nf_ct_netns_put(ctx->net, ctx->family);
->  }
->  
-> +static int nft_ct_validate(const struct nft_ctx *ctx,
-> +			   const struct nft_expr *expr)
-> +{
-> +	if (ctx->family != NFPROTO_NETDEV)
-> +		return 0;
-> +
-> +	return nft_chain_validate_hooks(ctx->chain, 1 << NF_NETDEV_EGRESS);
-> +}
-> +
->  static void nft_ct_set_destroy(const struct nft_ctx *ctx,
->  			       const struct nft_expr *expr)
->  {
-> @@ -732,6 +741,7 @@ static const struct nft_expr_ops nft_ct_get_ops = {
->  	.init		= nft_ct_get_init,
->  	.destroy	= nft_ct_get_destroy,
->  	.dump		= nft_ct_get_dump,
-> +	.validate	= nft_ct_validate,
->  };
->  
->  #ifdef CONFIG_MITIGATION_RETPOLINE
-> @@ -742,6 +752,7 @@ static const struct nft_expr_ops nft_ct_get_fast_ops = {
->  	.init		= nft_ct_get_init,
->  	.destroy	= nft_ct_get_destroy,
->  	.dump		= nft_ct_get_dump,
-> +	.validate	= nft_ct_validate,
->  };
->  #endif
->  
-> @@ -752,9 +763,19 @@ static const struct nft_expr_ops nft_ct_set_ops = {
->  	.init		= nft_ct_set_init,
->  	.destroy	= nft_ct_set_destroy,
->  	.dump		= nft_ct_set_dump,
-> +	.validate	= nft_ct_validate,
->  };
->  
->  #ifdef CONFIG_NF_CONNTRACK_ZONES
-> +static int nft_ct_set_zone_validate(const struct nft_ctx *ctx,
-> +				    const struct nft_expr *expr)
-> +{
-> +	if (ctx->family == NFPROTO_NETDEV)
-> +		return -EOPNOTSUPP;
-> +
-> +	return 0;
-> +}
-> +
->  static const struct nft_expr_ops nft_ct_set_zone_ops = {
->  	.type		= &nft_ct_type,
->  	.size		= NFT_EXPR_SIZE(sizeof(struct nft_ct)),
-> @@ -762,6 +783,7 @@ static const struct nft_expr_ops nft_ct_set_zone_ops = {
->  	.init		= nft_ct_set_init,
->  	.destroy	= nft_ct_set_destroy,
->  	.dump		= nft_ct_set_dump,
-> +	.validate	= nft_ct_set_zone_validate,
->  };
->  #endif
->  
-> -- 
-> 2.34.1
-> 
