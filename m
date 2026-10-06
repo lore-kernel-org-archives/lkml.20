@@ -1,91 +1,103 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB87A31E823;
-	Tue,  6 Oct 2026 11:03:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D3F53E51F4;
+	Tue,  6 Oct 2026 11:04:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791284618; cv=none; b=mSt2mwnvCCZfQq7V+4xOPTHyRPaMORdpQHQwlWr289+Q31sGGwyDcpVEb/hYchMp4DXnt1PcUL/KR44d/2xNMwaV2cYX34gQKMDiez+4XMSDwmhXFKGBv9EjzqBU6mNvOZyWt5LQnLnCQCmSD511ra6DfFvnGrZj7gjiDIQdf+I=
+	t=1791284658; cv=none; b=oTMYIYWAb6MzzO62rPxwpaMnSfJbwemhHjB8BV82iT2KyKiNRjWJRxb39Rb3IG9NEGiw9t0moT//WkiDXX7/mCANcOyvi8HY2AYsQlaMJxyxx3D36zlYNrbIog/UnVyoebBv9gXMisXLIvgYcelX3riGDKbBZBpL4cMTuvKghQ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791284618; c=relaxed/simple;
-	bh=/sEnKQOAYcBs3IqWcb6o7y7e2Yf6I8mqtpdFlQ7cHC4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=mjqc4xqGtywdNQ9hTOySiopNEuJWHzcmRHlMhBteY1tD+a1O8LIKAfTQ9cFoMRmVgO9rh16hoV8LAVWWwpX1hNCKXqH/8oEZybKHhxeyll12C22jphtZKQBap9yxZyN6BS4I2YgG5KrqTOSKHxDmE6LMEAXU5u1+WAp6BBfAPs8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QTfmITTT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791284658; c=relaxed/simple;
+	bh=OqF3Ap2AZaBUjm7tvmRY4qclkr+QEdK5FgHowYsJ004=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jFVvD57p2YsDw2iX2Elzf3waMCQI6I1Q9b162/jGZrpiCHplT/Cx5TeCUgiqMuOSb19kBzagQnh934ELVARxI/jq0ANbgNquZpCDXhPgPpv0406xR5/NAd2nETMEKUt1BCzrA6Z/KTpEd8XOGCIHJorlRGVplofysfezvhAcB5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FcaAaiAl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QTfmITTT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9AB61F000FF;
-	Tue,  6 Oct 2026 11:03:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FcaAaiAl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F80E1F000FF;
+	Tue,  6 Oct 2026 11:04:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791284616;
-	bh=TbB6ZQ+tdxcSXxxRThMSmIWWLCbmdMCvplWisVYn9do=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=QTfmITTT17z9DsuPf0OA9+kMsoGx0VrBkk0TUksIV20UHr1MFvoMIggZNC6l2aXoF
-	 WQecva2zzjcwphno+ICtHQQRYR0cf7yZMZI/nocc8jxhXmllmj7iAvq/YDplGbj9Mn
-	 BnMSPMKMrPXdNyb89t9VnVz69TaZGJWI9X/z3/FG4FC0dLz4C9xMAZCtqlJdJIOd5q
-	 UV/ChIpRYkqLCANPuz55vb7w89iH+sH9DVcHwjasxHutBiv5EjbOk0JUNotsu6OZ82
-	 WcbqMAoFZfaKmGDJsFQIjxDnFi4nZZGP6fZhjA9I79oQLp0EbFFjiWQ2qlxdSq4hAR
-	 kaqV4XiPyuu8Q==
-From: Mark Brown <broonie@kernel.org>
-To: error27@gmail.com, robh@kernel.org, 
- Yu-Chun Lin <eleanor.lin@realtek.com>
-Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- jyanchou@realtek.com, cy.huang@realtek.com, stanley_chang@realtek.com, 
- james.tai@realtek.com
-In-Reply-To: <20261005030504.2651773-1-eleanor.lin@realtek.com>
-References: <20261005030504.2651773-1-eleanor.lin@realtek.com>
-Subject: Re: [PATCH] spi: rtk-nor: Fix incorrect boolean return value
-Message-Id: <179120987392.150114.1333903605231981395.b4-ty@b4>
-Date: Mon, 05 Oct 2026 16:17:53 +0200
+	s=k20260515; t=1791284654;
+	bh=zYy9ZPOUVut5R2+Ahn9onLfAABH9FQl5/jQQUgBaOdk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FcaAaiAl8o0WdMF/V8wU5VWBeKFzqq78IeqqjynbS+yLRWzXtHTS9kf7IpltWo2me
+	 6h2ln8qbZaZSchbiD9vf6KipxW7kT5wqW6Qf/4bG7KuFoOm+TK8aFqz1Jp7kQgeyvx
+	 o5cpRha72vATiwEq6G5pKG8/BKA60Mou2OBuWe7Rex3YuhjVeQCz1R7QVSqhc3msoq
+	 gkQWCQ8jd/Vi3e7ZjWezuygk1/kC8fj0FlD0FySnxCwjeyin08ErpqOeNIE+Jb86Q9
+	 +7aLu4mHvTIAwe8V6I5e/1YNDeXIl6LX14C3QnGIOnFhNtkVXAlsbjGtxWa3pSJuUI
+	 I/WDSUnhSbh4Q==
+Date: Tue, 6 Oct 2026 13:04:10 +0200
+From: Vinod Koul <vkoul@kernel.org>
+To: "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v14 0/3] airoha: an7581: USB support
+Message-ID: <asTVqsqOLb29LY08@parshuram>
+References: <20261006102937.10972-1-ansuelsmth@gmail.com>
+ <asTRQ6d0-NYOeHqX@parshuram>
+ <CA+_ehUw8fQHGef_L7YPQEf-wwuzP9km=G64Ty3+AkvM=fkNJ4Q@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1109; i=broonie@kernel.org;
- h=from:subject:message-id; bh=/sEnKQOAYcBs3IqWcb6o7y7e2Yf6I8mqtpdFlQ7cHC4=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqxNWDIjhn4ItjglGDG3viZfwv1eUEYVlSCFLlL
- EL/oXuHX9uJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCasTVgwAKCRAk1otyXVSH
- 0D9vB/4lNQdfGtXzXrUxz+lzU6E4d8YJObInXroWe7K29TjO7e66bZ9GrAzQ3/AbjaHe3KkMZwS
- SB5tnqUiRXuK0OzCfqZAsvKYZMdxxhUIiafRDEygvgS9PBol0Ha7BauO61ZLQ9RBXZ+EupKOzjB
- BkhFlNIxeyAhgqsznq87FaT8BwA2LvdIWzOwxb+n5znm4uPgs83WjdCUxLdRAL7w0035liEJ1/R
- GIL+59VuOPf0s31MzHJle/fs4o3zaXa3xqlbTJiLKEwhPlLE3sej+m1To5qyw0sqPww5PPlOcs8
- R8zj3jfcGFO5Ioqgom6uTuWxFTeItgHnsW0Fs+wX/iSrZmiw
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CA+_ehUw8fQHGef_L7YPQEf-wwuzP9km=G64Ty3+AkvM=fkNJ4Q@mail.gmail.com>
 
-On Mon, 05 Oct 2026 11:05:04 +0800, Yu-Chun Lin wrote:
-> spi: rtk-nor: Fix incorrect boolean return value
+On 06-10-26, 12:47, Christian Marangi (Ansuel) wrote:
+> Il giorno mar 6 ott 2026 alle ore 12:45 Vinod Koul <vkoul@kernel.org>
+> ha scritto:
+> >
+> > On 06-10-26, 12:29, Christian Marangi wrote:
+> > > This is a major rework of the old v2 series.
+> > >
+> > > The SoC always support USB 2.0 but for USB 3.0 it needs additional
+> > > configuration for the Serdes port. Such port can be either configured
+> > > for USB usage or for PCIe lines or HSGMII and these are configured
+> > > in the SCU space.
+> > >
+> > > The previous implementation of a dedicated SSR driver was too
+> > > complex and fragile for the simple task of configuring a register
+> > > hence it was dropped and the handling is entirely in the PHY driver.
+> > >
+> > > Everything was reducted to the dt-bindings to describe the Serdes line.
+> > >
+> > > Also the property for the PHY are renamed to a more suitable name and
+> > > everything is now mandatory to simplify the implementation.
+> > > (the PHY are always present and active on the SoC)
+> >
+> > I get build failure:
+> >
+> > drivers/phy/airoha/phy-an7581-usb.c:7:10: fatal error: dt-bindings/soc/airoha,scu-ssr.h: No such file or directory
+> >     7 | #include <dt-bindings/soc/airoha,scu-ssr.h>
+> >       |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >
+> 
+> This header is present in linux-next
+> 
+> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/include/dt-bindings/soc/airoha,scu-ssr.h
+> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/include/dt-bindings/soc/airoha,scu-ssr.h?id=11952173d8a180ac05641775f80bd6946327478f
+> 
+> Introduced by a clk series.
 
-Applied to
+Okay so we have a cross tree dependency. I would like my tree to be
+buildable and not depend on next.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
+I can
+a) get a signed tag for this from clk tree with the required patch,
+merge and then apply this series
+b) postpone to rc1
 
-Thanks!
+Either works for me
 
-[1/1] spi: rtk-nor: Fix incorrect boolean return value
-      https://git.kernel.org/broonie/spi/c/a143fa85c78d
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Thanks
+-- 
+~Vinod
