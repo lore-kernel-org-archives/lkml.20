@@ -1,152 +1,104 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010005.outbound.protection.outlook.com [52.101.46.5])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C23523033FD
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 17:01:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.5
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791306075; cv=fail; b=urtH3oXgCxm2FReRLgpTxq8hGecVslE9OqZBGjMEKjB9k13JMFpLu8UP+M/zVs8+0psFk9wEbcToRKf9HZ/00Cw0hDGDGWBVoirrI+z3GKS2FMY1wetejewSOLt2v+pKBpd+fsJmo3knFQeZb0i2r7iOpwoGpL4U4FPnrQz2PME=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791306075; c=relaxed/simple;
-	bh=kK6IFMGdlyBWS9Qh2ZY/cv5omfOn4ZOB1g/RNd+mzOU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=atedqxsQPXOMBLRrQ0kqgNk/daG1ffAqgA43/qlzAeWb2UV+YC6JR4I5IfqN/5a14bzasf9yxpkTPn7G02VXYsTgllC1xtbAIoJ4KVQB/T8KpReLBN+rWXiTED2PmRgbKLtsJdPkvGUjxkFbDazUnYcq8nZPPGZtF/7lPfkbJq0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=xJ714r4h; arc=fail smtp.client-ip=52.101.46.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0EE028E0F;
+	Tue,  6 Oct 2026 17:04:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791306297; cv=none; b=ryNDO0gujM8WZS6Sa+OWSJ+jwHnwgj+SBYx/9nRwL0PiGMjZUNe+poN1wSMomBxDMP7Ho666nQtZR3Bf+To/3wh3yoMzLy1Dfw1ASQoRiL+H1NTkmj9xThC3axYQS1DdB4KLobSL1JLWA/ClitA3ZAwEoW0Jg+73/icIKGJSpfw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791306297; c=relaxed/simple;
+	bh=oNasH9LIHj1JSuBGvoFHsanx1eHLO7A5KIuVy5ezA7Y=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=tdIti4SWL2OML5zlzRWkBkhe3bq5FLcx9xVV6jbuiAzar5ZCvZ6WiOn89rffEz/+cMh/7EAXVpMo1Cjt/IIMBLeBONObSJpOMVWE60xbdBg/y0e4xNJoG6b7bef++PcH7h/Cy1q90ZreqN+akRPlBrsGkkQ48aY3nqCC4V3KSAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Aro3d/Ku; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="xJ714r4h"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tKHfsMs+SbcwmhYEtuBSbzdgTRJwsgkkiZE99UELzGNqb5DYKSI5ZKDu6DVgMRRFdNU0t7U3FoNrPeasAqzEvw973Zv7WHbd01wn8U5WVmcuDNdNRcllQv1GyHhrb4qGqtOR5A73tgvKCAVnCOEd5ofw6V4lLVuWggM0jy1R8+PzClGB1P6rcBkIhlYufzQDFJLbHJbk+ronxjnFFG+w2dbX9MBrGeYkV8sq4MOGis712KrIqWQ51jcnQtSYZjQWRddIfzKsa3RwgOQ8QutW82og6UFTA95UEXu9a92bhzTY5O5V4bqrH0lkcTBZ7OUNAwSmV5C10A0IRxz7kXrxkQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EN7Hx46Siv23gguu2ZtvuYlYiK5i2XjMf7kTziYHdYA=;
- b=J5zg+bgLzRIx/6sKHotMNeA2J4U235gfhObX/BGlel+KLX6uwrg3fMSk+4MZjthD6cHJ4qjuKhhitl68nUiYGkwZy0m3fysX1t+2W5WVp730rDI4IEKZE1bInYMlBdE5oRdi2HVQEttMjvVIPbC9u5+iSVDJAUJ7YcGFsumvpHZzC3HjuQBfQd9ugLcQ4f/s+tl3zaTlOKJPi85r/wtd79RpSaDK0CnZPVV58uqr4M8iAPiYpNn+rMbHY+ULsD1EokGHqV/jgdhSITui61yCEVkl3mo2dxrkEroihxu5Uy1T3objQ4AhUk7uqkO4OwPqEnro9+rMxYGOI3/kIYTRyw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EN7Hx46Siv23gguu2ZtvuYlYiK5i2XjMf7kTziYHdYA=;
- b=xJ714r4hrOe5RYQkTK+s399eoGDKfelOIcdSeGYXXO3xWoM2M8IA3OEj85BCiEyq1XJkhpX7YTsIg7rhqfL1M26CPP7mfXNB3D/x23i27p3LsuAc8RsQFsBvzIxGv+4u9x7XSam9nCqPuuYsz48ndBAQUnpxtMDvdrM9/5eskVA=
-Received: from CH0PR04CA0016.namprd04.prod.outlook.com (2603:10b6:610:76::21)
- by CY5PR12MB6035.namprd12.prod.outlook.com (2603:10b6:930:2d::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Tue, 6 Oct
- 2026 17:01:11 +0000
-Received: from BN7PEPF0000009F.namprd04.prod.outlook.com
- (2603:10b6:610:76:cafe::1) by CH0PR04CA0016.outlook.office365.com
- (2603:10b6:610:76::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Tue, 6
- Oct 2026 17:01:10 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN7PEPF0000009F.mail.protection.outlook.com (10.167.248.151) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Tue, 6 Oct 2026 17:01:10 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 6 Oct
- 2026 12:01:09 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Tue, 6 Oct 2026 12:01:08 -0500
-Message-ID: <8900270a-064a-fc3b-5686-e37ff58c5335@amd.com>
-Date: Tue, 6 Oct 2026 10:01:09 -0700
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Aro3d/Ku"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791306294; x=1822842294;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=oNasH9LIHj1JSuBGvoFHsanx1eHLO7A5KIuVy5ezA7Y=;
+  b=Aro3d/KunO6XJqLKbmSIqZOFDzVxi3t3Z90C7wzV7NANJsNnldmClKvA
+   m0L7hh5+HwR6iyLikazVINV5HvBvCo05HrEwOfi52ZJmXHhXMVAi/9R42
+   olrNLNOomn3y4FDFTAuEuFsbeONsCp4bY8mn3q9QSEOSbIuxZ1b0PfWk7
+   91c/dcOlrGRnEaNp0Kph/i3JdP68tOTprXxeO64c3AylW68MVVhxaFw9x
+   P/FNGOJ5ADfiNtieiNW5vwHnJzrWwwZUHYIrtZycqHzOoZf0ZusuHqvz8
+   4TrivfJnTkDxiBwCwkLYPfeL5b6iQDKpBdO2Zt4nX5qYcBQfvHtVqM/LJ
+   w==;
+X-CSE-ConnectionGUID: xyXNYwSbSw6Q+G6lEbemQw==
+X-CSE-MsgGUID: uOWj1zsETZWq++iXna3bnA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11927"; a="113792505"
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="113792505"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 10:04:53 -0700
+X-CSE-ConnectionGUID: VFCrjuO2TrCLXbVqlqKEVA==
+X-CSE-MsgGUID: CY27euWQQ96YX58MfHprLw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="280484058"
+Received: from unknown (HELO [10.241.243.185]) ([10.241.243.185])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 10:04:53 -0700
+Message-ID: <0f6b866947600528f84771227ef2b6c3f4adfbd7.camel@linux.intel.com>
+Subject: Re: [PATCH v2] sched/cache: Honor asym packing over cache aware
+ scheduling on hybrid systems
+From: Tim Chen <tim.c.chen@linux.intel.com>
+To: Kayra Cizmeci <kayracizmeci@gmail.com>
+Cc: KPrateek.Nayak@amd.com, Vishal.Badole@amd.com, juri.lelli@redhat.com, 
+	klaus.kusche@computerix.info, linux-kernel@vger.kernel.org, 
+	mario.limonciello@amd.com, mingo@redhat.com, peterz@infradead.org, 
+	platform-driver-x86@vger.kernel.org, ricardo.neri@intel.com, 
+	stable@vger.kernel.org, vincent.guittot@linaro.org, x86@kernel.org, 
+	yu.c.chen@intel.com
+Date: Tue, 06 Oct 2026 10:04:53 -0700
+In-Reply-To: <20261006135959.5709-1-kayracizmeci@gmail.com>
+References: 
+	<77ceef1e51b895760dc5f6c9cde985a1679545b5.1791224900.git.tim.c.chen@linux.intel.com>
+	 <20261006135959.5709-1-kayracizmeci@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH V2 16/20] accel/amdxdna: Finalize runtime PM before
- acquiring dev_lock on removal
-Content-Language: en-US
-To: Eva Crystal <0xiviel@gmail.com>, <yidong.zhang@amd.com>,
-	<quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
-	<max.zhen@amd.com>, <ogabbay@kernel.org>, <dri-devel@lists.freedesktop.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <sonal.santan@amd.com>, <mario.limonciello@amd.com>
-References: <20261006042230.547807-17-yidong.zhang@amd.com>
- <20261006071310.198186-1-0xiviel@gmail.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <20261006071310.198186-1-0xiviel@gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF0000009F:EE_|CY5PR12MB6035:EE_
-X-MS-Office365-Filtering-Correlation-Id: 40f3cc42-5a69-4c5a-31dc-08df23cb6bf1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|36860700016|82310400026|23010399003|22082099003|18002099003|11063799006|4143699003|6133799003|56012099006|10067099003|5023799004;
-X-Microsoft-Antispam-Message-Info:
-	Ze1VbWaTSxD7t92r2HiVkxLY9t3wHsr9jb+1Em6RbmJgbHIR7CSAWjZ+ZGAHXKb7Az/v06nI3G6sZ8Lfx5TTtHdz3IwO/9su5mp9LUOK2C6RoJQdFaTI4wuorfEiuIWxQDMB23GPC5JSMz931OEErPSHAeokHVwE117TrbCO9jAteYDkX0zlzLFuY38Os47u/e/MgzQ70NFpqbZrMDqMxvXd6fk7GJx4AbJOz7CuvbHmMFjM0xRdxqkdxPm1nCr8M2tlXVlIo3VuYTa5tVO8Djz8w2POcCHaVsRGU+S0+3710tHgVY7e0qLJFJediz31UDm7hGspNdx954deJKCxQPAQ7zPVnCcNIorOePhw0hMAg0X3Eh2YQSiAbL8/KTDZwciEXhFrerKz/PV7Pmza2gXxWff+qKdfX3lYskJxKnnbHh4uggXoslX0f/j4ZnrFlY+mr7+p5z4WZEFs+K5X58UVrKBfAa8YnARbHPoNoK4KiVlBOOHt70BbBgqNn4KCMVfHNemJi8XYMzhJXnxZ+eN5EBq8DvAqa1QFSKogDVSzAyczrVwqYGHke6ZGBuhfTz96cVXwctqPmyUNDjcKlR2KltT2mPNkI7qZ2oK/yTFfalX0tXC81tA58Fe2zduTyAxBOwk9nRKtOq2gTvtIUw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(36860700016)(82310400026)(23010399003)(22082099003)(18002099003)(11063799006)(4143699003)(6133799003)(56012099006)(10067099003)(5023799004);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	qv0ZyqLaEck5voC9KT7AW9QRQCIt564ki11ulfN11dxbmhnmu+FNhJyYcLmsFmpZ6Dal9Em5annjrdy9SJsDM7QU5BUGT15QFuSmH1rwlANpKAOvGdNjyrFGOxFf1xQyUqfqK6tpQQ2gegoDsodecS9ZiDuzga5cbHqKIrXDbiQiWQCiEDGgmo/QxDmRsCxLb4KKs2Arb80+U38ncLCkckF06U73FryRRN/gCfinkR//Imfrl4i76wmtfhfILXN21jGDsBeorw3rSBNPBKq4paa5qKrNvywtFnzKC5uoUaw/yhySEcANcxgUn6aq5QnHa92HHc6Tyu1qSvKK4TSjikDt4bKd/OwE360c4fv8g7puWx0lXMVt5NZTBAnAp0C6+cx+vUx5VmWGafne+pUHwCbOqcU5C0msEV13exvhL9lZ5ihRTkN64g7BJbOlxp0q
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 17:01:10.5766
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 40f3cc42-5a69-4c5a-31dc-08df23cb6bf1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN7PEPF0000009F.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6035
+
+On Tue, 2026-10-06 at 16:59 +0300, Kayra Cizmeci wrote:
+> Hi Tim,
+>=20
+> > +	/*
+> > +	 * On asym packing domains, if the destination CPU
+> > +	 * has higher priority than all CPUs in the source group,
+> > +	 * prioritize asym packing.
+> > +	 */
+> > +	if ((env->sd->flags & SD_ASYM_PACKING) &&
+> > +	    sgs->group_asym_packing)
+> > +		return false;
+> > +
+>=20
+> I think that check is redundant. group_asym_packing is set by sched_group=
+_asym() and bunch of other stuff,
+> but sched_group_asym() calls sched_asym() and sched_asym() calls sched_us=
+e_asym_prio() that has SD_ASYM_PACKING check
+> inside of it.
 
 
-On 10/6/26 00:13, Eva Crystal wrote:
-> On Mon, Oct 05, 2026 at 09:22:26PM -0700, David Zhang wrote:
->
->> When the device is runtime-suspended, pm_runtime_forbid() synchronously
->> resumes the device via rpm_resume(), which invokes
->> amdxdna_pm_runtime_resume(). Because amdxdna_pm_runtime_resume()
->> acquires dev_lock, calling amdxdna_pm_fini() inside ops->fini() while
->> holding dev_lock in amdxdna_remove() causes a deadlock.
->> -	amdxdna_pm_fini(xdna);
->>   	aie2_hw_stop(xdna);
->>   	aie2_hwctx_sched_fini(xdna->dev_handle);
-> This is worth more than its position in the series suggests: the deadlock is already live on shipping AIE2 parts, not only on the new AIE4 path.
->
-> On current drm-misc-next, amdxdna_remove() holds dev_lock across ops->fini(xdna) (drivers/accel/amdxdna/amdxdna_pci_drv.c:457 and drivers/accel/amdxdna/amdxdna_pci_drv.c:463 at 34e9ab018249), and aie2_fini() opens with amdxdna_pm_fini() (drivers/accel/amdxdna/aie2_pci.c:640 at the same commit). pm_runtime_forbid() then calls rpm_resume(dev, 0) synchronously (drivers/base/power/runtime.c:1672), which lands in amdxdna_pm_resume() and its guard(mutex)(&xdna->dev_lock) on the same task. The base wires RUNTIME_PM_OPS(amdxdna_pm_suspend, amdxdna_pm_resume, NULL) and aie2_ops supplies .suspend and .resume, so runtime PM is active on aie2 before this series adds .runtime_suspend. With amdxdna_pm_init() setting a 5000 ms autosuspend delay then pm_runtime_allow(), an unbind or rmmod more than five seconds after the last NPU access hangs holding dev_lock.
-On the remove path, pm_runtime_forbid() does not call 
-amdxdna_pm_resume(). The PCI core has already resumed the device.
+Thanks.  Yes, we can remove the SD_ASYM_PACKING check as the check was done=
+ when group_asym_packing was set.
 
-pci_device_remove() calls pm_runtime_get_sync() and pm_runtime_barrier() 
-before amdxdna_remove(). That get resumes a runtime-suspended device, 
-and the usage count stays elevated through aie2_fini(). 
-pm_runtime_forbid() then enters rpm_resume() with status RPM_ACTIVE, 
-which returns immediately and does not run ->runtime_resume()
+Tim
 
-
-Lizhi
-
->
-> Three things that would help it travel:
->
-> * Fixes: 1aa82181a3c2 ("accel/amdxdna: Fix dead lock for suspend and resume") looks right. amdxdna_pm.c had no dev_lock when 063db451832b created it, and 1aa82181a3c2 adds exactly the two guards the base still carries.
-> * Cc: stable@vger.kernel.org is warranted, since 1aa82181a3c2 is in v7.0 and later.
-> * Could this be split out to drm-misc-fixes on its own? At position 16 of a 20 patch AIE4 series it is unlikely to be picked up as a fix, and splitting it stops the fixes cadence holding up the feature work.
->
-> One question: amdxdna_pm_fini() now runs after drm_dev_unplug(), so pm_runtime_forbid() resumes hardware on a device already unregistered with its user mappings torn down. Intended?
->
-> Eva Crystal (0xiviel)
-> XSource Security
-> https://xsourcesec.com
->
->
+>=20
+> Ah.. Hope I'm not missing something...
+>=20
+> Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
+>=20
+> Now, I'm going to grab a cup of tea. And sleep.
+>=20
+>=20
