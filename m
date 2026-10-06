@@ -1,69 +1,70 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012009.outbound.protection.outlook.com [52.101.43.9])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011018.outbound.protection.outlook.com [52.101.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A78D83DC4C2;
-	Tue,  6 Oct 2026 12:11:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CF4A370ACA;
+	Tue,  6 Oct 2026 12:14:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.18
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791288690; cv=fail; b=qk15EzWWaLAbjwEzCNlhRDm6FofmxJ9fOgD0rKXM8i/Gu6jv17TaDGf78N7m7t/7l/eUs33xOnHgExhkCg2Gy3gw4Jz+aSYNXI9upikQxo5FUtVmq3IfulnL0FqN2CsreEvVSg9/xykfxTCmWL7RdCcw5+f8G+uxQU5wbWlWYBs=
+	t=1791288895; cv=fail; b=uxk2Bc+mMwSkvoLOQz6aJ3o5iI9RPZxnbSeexvuec3ZNghLrR5+X5AmTyx//vmtr/SvL79tC4mXDZukwDgW7SXg34qfEY/vWPb9HMtPGdkIyYv6pbXfWNh3JT0HRQrt8iNjrl4Q/3vCC91umE7P89rxAY34s02NrXaLemk8YATc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791288690; c=relaxed/simple;
-	bh=3XiYDFCEmGTz2ct2RicNdHBroPse4pekI0h+0rO02oo=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=F/B5DqOxzSfmOya5gYDeWXI3UR6F8B2eXR1cxtDNuOP3n+7FINMQEi3bV9ROws5DZOzw0h8nDtihVb96at2BRlWPDBmaAMIkeMYmr9kc4MQQxdSBXqcOlrQrY66gJpFP4bqz+R1/p1M173w2Vig7lgUT2CS+xHQzUu2csncRsWc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=gFA9l6Xj; arc=fail smtp.client-ip=52.101.43.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1791288895; c=relaxed/simple;
+	bh=t2DbNhqmuzL1JgrWTCjCuaN5hh6UWv3AMNFEIcXXiko=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=u3PHaHelcJgjh8FwnoNiTNfGUil+fFOFjUlAnnBBO/S6kXGDZ/+/ozz1wX8+nhAAlGJ5R039uFjGDFMqDJwnziafTao7XuyenfGZgPAYFFjtNyNyAkVVYvuRprfQcUUVTlHUbUTjazAhOOV4olgYNdzhkSsygu08sTvMs1I5AAg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=K7c79eqh; arc=fail smtp.client-ip=52.101.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="gFA9l6Xj"
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="K7c79eqh"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sqcPSm34wee4qynAlCfH7unrWGkAw1XJc/8p5O2s0UDdCFaU2L7PuWObq1AddfFLBXH3Fvipos46ipCHoOt1RNpflBqD7YiDDxFXqtFF9DmZ7IcFhUSNJD/1N19gzzQC8xgQ20UuTb3EzXJ58b48C4lX8FI/WIEMSVPKvpieR7cvvOy88z2Ux3yGIQEghOMZC5rKaDhhmw2wMWDih9z9cflq8l+XO0RHZXvxAF/p1GZSMU5xVkDSgcsjGRrzppz5etMfYlwueN6FUE4UxRJbIe72IpQ6/1Dmi+yMHCbJQJ8joMdXrjkXnwU6tJAch9LYavDNGJ1QjLejo2gD1iFJFg==
+ b=mTU9RpBg1jOTSFGcijas0vpnn2YBMbe/9ryI7YbKJirzdq4sWQy7zn61x1e+Wgvr/NhIMTlF4pq/akhKJlbIKzUNzsLYAeq77lWVnuU/kXWyRtaKTsOtlgj4hIqe4VhQ/aj7FYi3RzGrETOhwGqt5FSN6CfvtdLB3roCB8cCcxXXEBC49siK4rb+LbEhWxQtjDM3Mkj8HhcCZpeScHME78n1BME01IlGBlCKGj4/XNAPxvlVz219tpWmCQ9owgbyYHHXDQhNSxC3Mhu+9ZpbQj5b5ukmXtv+BQyOgnB/EFIPYnnGmhsgyJs718A8xY3jwD+vIIYgizXA7xtKeanr1w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PxIF0R/8ZQ5hasHegPFbZLbu2+h8V0n9PRjZMTK1PNY=;
- b=Jgq1VwlCzK62tgK5JcFgONwApigWY5SOsW+zyIG/W/CdhMjlNW3xUtp7GM60hjQQpIy/6efKwR+VFAN60rutxrg0RD7omZrUSNcDIdReVWSihy5MDIZqLVlWtlt8EkfQ39SejFgFMKjyC86W0IioEouv2GIFtEL4iuodYU/FIzawXU863Bd9DQbp4y50//a7YSnJ+V11GM6HU5EmDhhYgZPRYqy9QGm7tQHBUJM1iqT40NdIZT8u6vJqsw3J4QLAZJGxOq9U5IKqiHSEEv9yTqzTrmp9OBMa17wFKACyzjGYPNdNiH+iY70tXSNDXTtT04SRpfEN7mDwAaJ6hESSvA==
+ bh=HqWd/7B0dxLPU1n4dfHMHURXPc583Z1IyYZXvB5sPVc=;
+ b=UKnsbgFX73bXmH773SC9OXJkEyUrKRzAmeuIZ3cxg3Kh0p+1OCe8UVt9r4JgvT45QShQr8j+cWViXMCv2RwH4BwXNjIQq5+Rx0YXKjPwy2i/9EVPwwkgzprfTPuTogFocybUU49Oach41HT8T/be73Ke/sxBhct940AFhg5ZOoQQCFWBGBSdy5k+FIyTXnewXFFQbNsjUY4tanqt/zh0qsLLv+jFh7iAKVy+ipFL28MbbpgSmc0JD0EgzkQhArkC6hC/ipjMFquC+ZdeRqw9SFmiiJWtydcICTVb5rdUyN3E1QxWvuLIC7dRTQwBcIPd3wJnGMRNpiy2EEDzWvN/wA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PxIF0R/8ZQ5hasHegPFbZLbu2+h8V0n9PRjZMTK1PNY=;
- b=gFA9l6XjFJFmFCupy10vWCodLo2kEuhhmgCyX5+wdRiQrdSWZuYLRsErRVKtWFxU7rPtj0DaBwP7KOgsV1G03ZDJ2IShc88N/dzbg2qs4478u9IfuGjOMBvmzYPqF4jMEyOvjPVU7xWA116UjpR2Ih4uusNHlH3LJ11ztthrKjU=
+ bh=HqWd/7B0dxLPU1n4dfHMHURXPc583Z1IyYZXvB5sPVc=;
+ b=K7c79eqhCB5R3geEGe08ldXSOK97Jx1pqzK3ehGpFpQJBT3cEd6Q4YKEVRbmS1eJb8iaX9IFcokxSnvfwtrcAdVTv6r8juwXb7HeCABpWfWGcYwmt3SfqvmVnQraIgE7r9SDxieooS35i4AXl5i3jFlYqJQytZQ9EfCUyk7tnN1YBqK90RtKnb7NUGTz0AW67nUXsZPxO85lMzLc/NotJfcpYwhBXG39YEWqD+anMMvXSVFct3gP68rgZ9lZJFbvI3vYLsCQqWyA2dONqy4qlC5OtxT+qIq2ac8+B5bKnSRQH7EU1iYDpr6YrOQWTCHuAP7mTFFtuKVh39jnOYRrmA==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5356.namprd12.prod.outlook.com (2603:10b6:408:105::23)
- by DM6PR12MB4203.namprd12.prod.outlook.com (2603:10b6:5:21f::21) with
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by FRZPR04MB12432.eurprd04.prod.outlook.com (2603:10a6:d10:1ca::10) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Tue, 6 Oct
- 2026 12:11:24 +0000
-Received: from BN9PR12MB5356.namprd12.prod.outlook.com
- ([fe80::8e9c:2f3d:9679:942e]) by BN9PR12MB5356.namprd12.prod.outlook.com
- ([fe80::8e9c:2f3d:9679:942e%5]) with mapi id 15.21.0472.015; Tue, 6 Oct 2026
- 12:11:24 +0000
-Message-ID: <0dc0c5e1-0709-4b87-b4c8-b2fe8b6f006f@amd.com>
-Date: Tue, 6 Oct 2026 17:41:15 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/5] soundwire: stream: allow flagged BPT firmware
- download while streams are idle
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, vkoul@kernel.org
-Cc: broonie@kernel.org, Sunil-kumar.Dommati@amd.com,
- vijendar.mukunda@amd.com, Mario.Limonciello@amd.com,
- venkataprasad.potturu@amd.com, yung-chuan.liao@linux.intel.com,
- anson.tsao@amd.com,
- "open list:SOUNDWIRE SUBSYSTEM" <linux-sound@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>
-References: <20261005091620.1390916-1-syed.sabakareem@amd.com>
- <20261005091620.1390916-4-syed.sabakareem@amd.com>
- <fe936feb-b6bf-4d78-8cb3-d9ea61707a23@linux.dev>
-Content-Language: en-US
-From: Syed Saba Kareem <syed.sabakareem@amd.com>
-In-Reply-To: <fe936feb-b6bf-4d78-8cb3-d9ea61707a23@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN4P287CA0041.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:271::15) To BN9PR12MB5356.namprd12.prod.outlook.com
- (2603:10b6:408:105::23)
+ 2026 12:14:49 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0451.022; Tue, 6 Oct 2026
+ 12:14:49 +0000
+From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Subject: [PATCH RFC v5 0/6] iommu/arm-smmu-v3: Support shared Stream IDs
+Date: Tue, 06 Oct 2026 20:19:06 +0800
+Message-Id: <20261006-smmu-shared-sid-v5-0-169a59c671d3@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADrnxGoC/3WNwQ6CMBBEf4Xs2TUtFkRPJiZ+gFfDAdtF1qRAu
+ kAwhH8X8OxxJm/eTCAUmATO0QSBBhZu6iUkuwhsVdQvQnZLhljFqTrpFMX7HqUqAjkUdkgmy8r
+ UGmdKBcuqDVTyuBkfcL9dIf+V0j/fZLvVtWIVS9eEz/Y76A3+ezFoVJjo4yEziTIF0aUe271tP
+ OTzPH8BcwK67MMAAAA=
+X-Change-ID: 20260916-smmu-shared-sid-e488f6c4d4f0
+To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, 
+ Jean-Philippe Brucker <jpb@kernel.org>, Nicolin Chen <nicolinc@nvidia.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Thierry Reding <thierry.reding@kernel.org>, 
+ Krishna Reddy <vdumpa@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org, 
+ Peng Fan <peng.fan@nxp.com>, Mostafa Saleh <smostafa@google.com>
+X-Mailer: b4 0.16-dev-7bc12
+X-ClientProxiedBy: MA5PR01CA0139.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1b9::12) To AM8PR04MB7874.eurprd04.prod.outlook.com
+ (2603:10a6:20b:24d::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,105 +72,179 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5356:EE_|DM6PR12MB4203:EE_
-X-MS-Office365-Filtering-Correlation-Id: c32cfaca-4cdf-427a-0590-08df23a2f0cf
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|FRZPR04MB12432:EE_
+X-MS-Office365-Filtering-Correlation-Id: c34ff6f1-e3d1-4c1a-dbc4-08df23a36af8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|10067099003|11063799006|56012099006|4143699003|5023799004|22082099003|18002099003;
+	BCL:0;ARA:13230040|7416014|376014|366016|23010399003|19092799006|1800799024|10067099003|56012099006|11063799006|18002099003|921020;
 X-Microsoft-Antispam-Message-Info:
-	yiEm+Z49Gjj/HX+DSrNUcZcW02HlcjCamNNCgIBz/sY3Rd+4S+COtl65DDUfK+hVP/gxKqGlSQ2BuGKITcipLqs77R5q+VZPIaRivph/sbwa2a4ZHQHCwCYOM5Naqn0x6b4f765fJjdXRIdZtY0fQ78YibrbMZ/Uc6XFHgNJ8LJa+nUkBwn7mPMYLZWiDlsbqC1ujxF3Ssa3AXN+G2UBXA7qWfhIZyJhBFldFs3k6DSdidSA1TlTPvwUDTSeL1/xh88mMcGDKuBXoE1bkkRTkDCFAknwLeG9e34IsansFHNujg65HhAJ14LV2jVL/u5QGNO6tJHr1ruehjW1GqdSvjDkbcWp60dEXn0DSfKDRCcg68UFvgVjnllt2o7xOr4ONo5loc5VQzQoylfXRXagKZf+SxwP+J/mx93QE5gb8srKPq5Wn95y6suVt0PZaC80ToRtyGvKBgqKGfAw5a5NqSjODJMZK5LxlDuJ9eB2D2CqsKPkLFANt4336SVuD/4N3fVQKYvQ61c5EVLXHqUiJmFlOvzknqsYE0nqpOTDL5SHirSglC41uorh+GWVKRdpVgbZZ79mQl1ddns3z5YcUvK9rFfg3AdXUoPKqEdy+ZtRrGZsrjXh9BDRBZdvpog63UszyxMf7hDSGLhLeajFeQ==
+	DPdoZxwrxyVHgFuI3TQ18O3meFjGBMoNhP3huMCoT6CiygduTyjjhl28AYjQdl7M2267+zLE/ScfNsZopHPVJxlFm40Mj4KdbdW8rEnYHOtK1wgcbcuycOWu7ayPH8RfbGMnPgEOYKTRUA3sWHPqcyVG8bi21lUt3QoHzl0Auu7DDrCBbzbCOJU5I8rz/olB5ABGQ9pDRJzaaK4iBt6plhKu2YiZmHtxWbqpJIeskrBXNj6vowjhaV4D9axWqeFVrmk2Jld9CLGE9ED/sl3Abzs3K1H4YDOhsxa26dm0r5ZMhtWzOUI6yzumAEKTeRvTmeSrCock4vYSHpKof1/7GLggvgt/n9mmQtgTThxgTbq5f228tVKLaM5S/RYDb8Z3hYNxTsfDtElJwHVAivxQCRLNxb/Subh4AErfsheN10VCjN4QHgKxGpLMZ+BBR2EbI60lbOQ1nM6j5iWKSmQlyT4YcW3M3uWoeWwfA9DAXbOP7JgWMQTCYkR0vjzTzHF7V077qDrQeRWFo28p9MFxbGT82BJGdY9QSr+vr9RMTMa9swSpyCGpeAtehVF6erPqV3VuEFTVCfOjKU+pUfkN72E2QGccAR8g4w99H7x51WlFn/uJsMezE+o6H82s3PB0scb5QrmNYzlC5Lx+yIQIxSHBKK/d8UzW0SrVuT9nGTw=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(10067099003)(11063799006)(56012099006)(4143699003)(5023799004)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(23010399003)(19092799006)(1800799024)(10067099003)(56012099006)(11063799006)(18002099003)(921020);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bEkzcmtvWnQ1aWF6WUZjNnY2N0E0Q1JMQUxkUDN1V2NSUVh4dDZob0hxVHg0?=
- =?utf-8?B?eHo5YlRNbTNhMTZrK0t0M2o2VjVOM0ViNDB3RWZyRzdydk9jM2swMC9JOVow?=
- =?utf-8?B?d0IwL1cxb0VuV1dvampRVEgvWDdEWEgzeVc4MElON3pZWHRRUU4zUHpEM1pT?=
- =?utf-8?B?eE1WRWdtdmtNbnpQL1dHcklJOUYwUFZQbmNUcmMwY1JQdis5OU1HcVhreTFX?=
- =?utf-8?B?dWdLVDh3dFpHOHB2Znp0UzIzTm1FNW5Hc2tDSk1xbnVGYzhJUUQyTEt1aXVI?=
- =?utf-8?B?amw4cklGdGUwSUhiVjFkZWd2b2dCSnIrWFdqcmN1T3lQaDR5ZlNVdVNwY2dr?=
- =?utf-8?B?NUZ0VkNzRkdoRkhhRWVYbUV5UkVZTDF6MkRkYy9JVlRzS3NQWFNLV1ZBQ0Fk?=
- =?utf-8?B?NUJQTmx4ZmsyV3U2dExMUlpCTmd2c1Z5V3pkL09YT2NQRlBHREhRNW8yS1BS?=
- =?utf-8?B?SHNTL09UaHl3QXFPSWRRUGlQMDlPcUMzMVlLcDJ5TFVnRFM5NEZKUnNlZVZG?=
- =?utf-8?B?RitjWlVMNlUvUFVzRGkyYTZRWk14K1FMc0kzbCs0U0V1NmhlOUxWOVpmUVkr?=
- =?utf-8?B?L05WeDYwVWMvdkFua0psWjdMamlobDNDdWV5NzRFVFJham1ucnE4ZU1vbHdT?=
- =?utf-8?B?eEJVYjJ0Y2VpK0g5TzJpSEdMLzNydkhsL2xGMHpQOUpNOXoweEF1b1A4SC9E?=
- =?utf-8?B?SWJ4SmE2M21pamNpUVE5a2gxM2NVeWd5UGxQdzZ1MUVITHgvdkM4akpEOUJN?=
- =?utf-8?B?bExzQzBtNjRzMEhUVHFjTldEN2orNzlHYVRETk9qU00wQ2JSeCtjUFBzVFk4?=
- =?utf-8?B?NU9Fc0tBQkZSYXVUVWZPYThvTFZ1SWRjTUpUUklWKzJvUWtRdGFlL3owMklG?=
- =?utf-8?B?c25ZNGZZQmhsMnY3UTRKMEdwUDNsTTFSOTZMQjdlWUlSNXpMajhranNnaUhS?=
- =?utf-8?B?SVZteUF4alQvNXQwci9IcXBPaWRlSTdyTjhsTTdrVk9TbGhlMHlOZzlFeGZv?=
- =?utf-8?B?NFc0ckRjL1hFV2xoV0FVYVBkK1NqUzVUL3dkbmVOazIxRmhMdzhjZDBEWFNS?=
- =?utf-8?B?UlIrMTZWay9tbVZ5L0lLK3JVcW84UUluY1Y0QWQ3Rm1yTlJMWVlBYmtkMzhz?=
- =?utf-8?B?aVlNVG1VNnhRV3g0T1gxbmpMSWR4VS90K2NKYU8vMmFXTWdCY1BFVndtdGxJ?=
- =?utf-8?B?MnZqM2lEa3dmM0Vzb3NXbnFMQitPNFNhMmdzOWUzS3BWNVNTN0RKNmpCa0VY?=
- =?utf-8?B?N0p6V2p6enF3ejhmTTg2MzhjU3FoZ2E3VUh6WmJuamQ1UUlCOEptL0RwekIv?=
- =?utf-8?B?bDU1Sk5oSHdvM2FjMGpvTlVsdGVUZmErRDdtZWZuSlNkeUovY21FdGJnS1lQ?=
- =?utf-8?B?OGVOUzhQblRnTlg0RXUrVlFhRFZqRkE0MklqRXFEVkdTQVlZbWRaNlRLenZ4?=
- =?utf-8?B?V2ZpMHkrbC9xNG0rS0JNbUw1eVZlamRHcSt6bGhwUzlPSmMvb2ovQ29XV25l?=
- =?utf-8?B?UEdFbFpiTm81Q2g0SmZCdnl5bnlFcHB2cGw3eEpqQ0xjMW9pS3JmeVJZR1Mx?=
- =?utf-8?B?ZUo4T0VSd3orNXR3cnBLL29PNTJOWWJOSkVKa2MweEkwelZIK0UvN212NTBX?=
- =?utf-8?B?SzRSSmsrNWIxTE5ubnQ3REZ2TE1zam9KZTIvbTMxdmRJOHFGdE80TTlPRW1S?=
- =?utf-8?B?cmRzZ1pUbWN6bk1GZkY4TTRqaW5HbDNpckpUM1llZEowRnhoZHB4dkp0RXRa?=
- =?utf-8?B?WlljTFZUN0ptNEp6WWowREorYkU2UVphRVZtMmdvTHdvVStlandzRlJaZDdj?=
- =?utf-8?B?cDhsOVFuVnZoc1k0TnVCN25iU3A3cmsrNTUvK3ZwNEoyeWJBVEMydXNPTVFE?=
- =?utf-8?B?V2JkU2hLVnA4UDdJeTFCWFB0LzNsaDQ2aC9lUjdpWWxMZU9oS1JMeFFUZ2dm?=
- =?utf-8?B?NGVDOFVJZHpjR0Y0eUdNTUx6MlBuVWkrekhVNFJYaHYzeDR1N0pyaENYWXFu?=
- =?utf-8?B?THJNMzhjWGJ1QzhtRHVuZ1lLNWFFdlVtKzRTMlFiRDg5NXlHeGxRSjdlMjFJ?=
- =?utf-8?B?SGxKa3MvUXFYaXg2YnY1a2owU0RxcXpXc1BWYVBJZ1pUa3ZXQ2lCeTlDb2ph?=
- =?utf-8?B?bTU1bUxNU09YUWVYUWxtMHZGeVY1YXA0OENWL2U0Qlp5N29rMGRQODZSa2pi?=
- =?utf-8?B?ODdtNjR4U0k2UVZtM2VqUVhMZjQxcVhqUzgvd2E5RXh3K0VQLzJkNlNVMGNn?=
- =?utf-8?B?aWtrVFV1ai8zVjlJakNQazFDY1NXd255VnRrVTYyR0dtQXVVU210WmRyL04r?=
- =?utf-8?B?TkVzbFBsbENLeXlIeXVGMm9yeHpZZGpsWFFEV3ZzWE0xUVhFSVlZdz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c32cfaca-4cdf-427a-0590-08df23a2f0cf
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5356.namprd12.prod.outlook.com
+	=?utf-8?B?YzdhSUJlQ0JVcGZHMEFRSDBlNHlSWFhmU3BUazJiQXl4dUlGemhyajFhSWFJ?=
+ =?utf-8?B?UURKdVFuK0cwSlh6SEtXNjJGeGVBOXBPNnVJajE5aWtnbTNnZlVEWWFzRnpC?=
+ =?utf-8?B?U2hnZDg0d1M2cU9yUld1OUZVNXZJY2g0dGh0clJQdTFnR0NOMGR5RDJJOVdl?=
+ =?utf-8?B?NXZnUHIzNHVSWEZiejE2WExlMVhTbGI4TEVQdmkrek9FUm8rTFZQRHpUUGVR?=
+ =?utf-8?B?RStDM3NQWk5idmsvb1dCd3JsSWxMUDZBT2gvOWV4WmplL1NIbnhpQUdLZlRq?=
+ =?utf-8?B?YVQyVURmdUx5bDlCbGxobUxnMHc1SGVGWUZWODZEL1RLQkxjWWxyQTl4dyts?=
+ =?utf-8?B?Vll2Z1dUbzU2U1EzR0NBRGg2RDNSQkNPOC9UN1dQcHFZa0IrWW1ubzgyRWlL?=
+ =?utf-8?B?K1FCc1poZzRJTW12Yi9pMW01d3o3SnBTd1RUbGFITTh3SGlkdVRZSVJkNkRv?=
+ =?utf-8?B?VlZ5eXdKSzlSMVA1K05hZ2E2cTFySDlvNkM3M0xEYXZHakl3UGF1SVc4U242?=
+ =?utf-8?B?a0ZiQmw5N0hSMk9hTGh2QkYrT25vazZicGxhcDAyeTlvNm04U1pFcnIvQURo?=
+ =?utf-8?B?QmY2VDhmRXFMeTJUcjdMa1lJNUgzTG0xbUkva0IwdTVmQWpIK2M2T3Z4YlZn?=
+ =?utf-8?B?YkdIbHhmTmtCSlpCSmwxdkROdlAyUnQrOGFnQld2REJFTzFnWVUvTzlCNU4x?=
+ =?utf-8?B?N0p6anRvdlhJcnZBQkl2Qyt4RHB3eFk5M0Z6NHdhVDl4bVVac0tyQ2pVc3ZG?=
+ =?utf-8?B?Wk1tam52UHFiSENjK002TERKYUdHMGVUdnRTSXRSemRSYy9QSnprVlJ6czFy?=
+ =?utf-8?B?SlJDSVRxTXZWK2tnMHhyQ0VKeFU1RGxFcHVXeVVRempkWjdZb295QlY0V3VY?=
+ =?utf-8?B?ODVqcldtQWZtTmxYNlFKTWVUbVE3VGNZMmN2bTVsT1YrSmFBR1V6blNselFn?=
+ =?utf-8?B?R1pWcnkvcjc1NDg5UkpnL2w3WENjMGFlOWQyRSt2bzlVZlNlTXFkZmc2eGJU?=
+ =?utf-8?B?eE9UMTBaSk1ZcTJ1QjBDbWh0L2gwbU9GNnBia3JvbmVCYjBlc0ZzRW9OdlNS?=
+ =?utf-8?B?b1ZXYit5TU9USnRXU1cwNDVVdlZBVHBBNlZsTEdyR3VsNFF3LzRHL0ZITFNh?=
+ =?utf-8?B?cGs4cE5WWSs5WCsrSURnNWQ3M1Z3QUNYRktNOTU1M3hKeGRvMUEwRC9aUmlI?=
+ =?utf-8?B?UE54akFRc2NFc1RMaGJrQ0hIZmc5UmZEUlZzNDVERG1iWFpQeEtYVE9pd0RW?=
+ =?utf-8?B?OUI3emY1VU5NZmZqTTRtMjdzcW12ZnNoWmFocDh0QXphVDJnMFJCRTRvdmdG?=
+ =?utf-8?B?ZHBpOTFUaXZMaEpNSkJta0VQNDNGcGt4NGpVRmxocG42OXJPUGU3ak1HRUVR?=
+ =?utf-8?B?Vnk2alRkQ2ZUYWFIL25VYVJCNXQ2cGllSmpGb3cxTmFKWUpTUndMR3hqZVJt?=
+ =?utf-8?B?Yi9oelU0eFVlTGF2eEQ2RjAzNUc0Ny9FNkg2M05zSTlwN1JhUXFYVURkM0I5?=
+ =?utf-8?B?TFhHTXE2SFpMSStPN25sRWxXalprSGZVNFQ4NjFIdExDREhUUVpuU1V5VnUy?=
+ =?utf-8?B?a29EelpGdzZIR2JRaElNVC9xWEZmVUNBcWdnd21MN2Y5ZXRvL0piVkRTZjlQ?=
+ =?utf-8?B?Sk9kNUN1YVlNQnBlMVg4ZUhHdWlmZ1lvdVIvTXV0czJuRHZYRUlqTDhUTXo1?=
+ =?utf-8?B?NUVvbmp4RjVqdHl0N0FZWmlJb2d1aGhPblE5RXh6bnBLbmhMTzJzanVDOXlC?=
+ =?utf-8?B?SGR6ZXZMeWJKSjU3TVFneFNjejFTTHhXUnMzZ2paL01UZzAra2swMThGcVlo?=
+ =?utf-8?B?OEFCeXhPd2VKeFdobmtkcGVzSW56ZmhDN2NZb2RPOGR0c01OVnlrSFBLbGh1?=
+ =?utf-8?B?dDNkckpseWtMdzBTRDN4K0tJdjY3YU91NjJPM0ZHVC9DS3c2QVliWmhiL3Q4?=
+ =?utf-8?B?WjRkSGdwaWJTU1IvclA5Sks3UlVHT2FRWG9lR3V2VW1XVFNjQW40MmhHaUFa?=
+ =?utf-8?B?QWg0QkxxOWUvS3dHMTZlZGJnSjRwTDFGbXBOTXdCbGtEY3NEWDdMRUd4VkVv?=
+ =?utf-8?B?a2xxemZmK0dLUGpYRlJDaVcybGtXd0Q3SmVYOEcvdW4walJJMjFWRUFXTVI2?=
+ =?utf-8?B?dEdOSkx2bytrQk0xamJwSEF2dE9Gb0lwdFVDUlJuNEFmU3V0Vmo4aHJid0VK?=
+ =?utf-8?B?ak81WUQvd1VPT0F0VGNlNmtYaVhoNWYrMk15Q0VBV2ppU0d5SHB5eWIxSXlz?=
+ =?utf-8?B?aUJBdnVtR2V2R3I5MFlGd1BLVUhFZ3hPVmdWY1lxYWRRSnVuVXl5OWxZcGFG?=
+ =?utf-8?B?ZVRjd2dGUTg5TjFveFYwZjdtSzgzWW5Pa0pXUzcxSHJUZWhkYkR0bW0xMU1H?=
+ =?utf-8?Q?xEJ2TUmIXt9K+JwYJyKGDYVZN9dARAkNH3o4T?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c34ff6f1-e3d1-4c1a-dbc4-08df23a36af8
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 12:11:24.4036
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 12:14:49.4405
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZZyq3MXKG+kS6eplvrJrKTdwa5iHZEKzrS76YvBHzfmCKEdZmtAfOWKCSj/sEK8jGY9WHUGsuzrYPyVQ/wl2Ag==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4203
+X-MS-Exchange-CrossTenant-UserPrincipalName: kOgzT8FPA/b8A4w1JNXjQehU57XFApUmgcSAfwLStOJfSNhJtyEUjqdLDZjjOwPH0BvbiVP4h/87PDo2fgDemnGAehtaTVHUrn7ouZZITgdjrDT6tc6AfjuxupdfPHx1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRZPR04MB12432
 
+Changes since RFC v4:
+- Include Nicolin's patch ("iommu/arm-smmu-v3: Don't rb_erase() a
+  never-inserted stream node") to avoid conflicts in future.
+  so the standalone patch 1 from v4 is dropped.
+- Split old patch 2 (shared SID support) into two:
+  - New patch 2: Convert streams from embedded array to individually
+    allocated objects (struct arm_smmu_stream ** instead of *).
+  - New patch 3: Move stream allocation inside the mutex and look up
+    existing entries first (find-before-allocate), avoiding unnecessary
+    allocation when the SID already exists.  Pure refactor, no
+    functional change.
+  - New patch 4: Add shared-SID logic on top of the refactored code.
+- Duplicate-SID cleanup (bridged PCI) now uses pointer-equality dedup
+  instead of RB_EMPTY_NODE checks, since streams are no longer
+  pre-allocated with cleared nodes.
+- Link to v4: https://lore.kernel.org/all/20261001-smmu-shared-sid-ver3-v4-0-06b34fb2e691@nxp.com/
 
-On 10/5/26 16:56, Pierre-Louis Bossart wrote:
->> diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
->> index f710e5932b4b..9a3904f42078 100644
->> --- a/include/linux/soundwire/sdw.h
->> +++ b/include/linux/soundwire/sdw.h
->> @@ -1005,6 +1005,19 @@ struct sdw_stream_runtime {
->>    * @bpt_stream_refcount: number of BTP streams currently using this bus (should
->>    * be zero or one, multiple streams per link is not supported).
->>    * @bpt_stream: pointer stored to handle BTP streams.
->> + * @bpt_fw_download: set by a BPT-capable manager to flag a resume-time firmware
->> + * download (BPT/BRA). BPT and active audio are mutually exclusive on the bus;
->> + * this flag marks the one narrow exception -- a power-off-mode resume where the
->> + * codec must re-download firmware over BPT before its stream (left DISABLED
->> + * across suspend) is re-enabled. The manager guarantees no audio stream is made
->> + * active on the bus for the duration, so sdw_master_rt_alloc() permits the BPT
->> + * allocation even when idle audio streams are still allocated; an actively
->> + * streaming audio stream (PREPARED/ENABLED) still blocks BPT. It is not a
->> + * mechanism for running audio concurrently with a download. Written with
->> + * WRITE_ONCE() by the manager before it enters the stream allocation path and
->> + * cleared (also WRITE_ONCE()) after the transfer; read with READ_ONCE() in
->> + * sdw_master_rt_alloc() under bus_lock. Single-BPT exclusivity
->> + * (bpt_stream_refcount) means no concurrent writer races the lock-protected read.
->>    * @ops: Master callback ops
->>    * @port_ops: Master port callback ops
->>    * @prop: Master properties
->> @@ -1045,6 +1058,7 @@ struct sdw_bus {
->>   	int stream_refcount;
->>   	int bpt_stream_refcount;
->>   	struct sdw_stream_runtime *bpt_stream;
->> +	bool bpt_fw_download;
-> nit-pick: I would add this one line above to leave pointers and
-> structures grouped, this would be nicer in terms of alignment.
-Good point, will refactor in v4 — bpt_fw_download now sits with the 
-scalar fields above the bpt_stream pointer, and I moved its kernel-doc 
-entry to match the new field order.
->>   	const struct sdw_master_ops *ops;
->>   	const struct sdw_master_port_ops *port_ops;
->>   	struct sdw_master_prop prop;
+Changes since RFC v3:
+- Added a standalone bugfix for duplicate-SID rb_erase (new patch 1).
+- Stream structures are now shared directly between masters
+  instead of duplicating them (Nicolin).  No ref_count field;
+  sharing is detected via list_empty(&stream->shared_masters).
+- On owner removal, use rb_replace_node() + list_splice_init()
+  to transfer the RB tree entry and shared_masters list to the
+  next sharer, avoiding use-after-free.
+- INIT_LIST_HEAD(&stream->shared_masters) moved after sort() to
+  avoid list pointer corruption from bitwise memory swaps.
+- Both sides of the sharing pair are checked for num_streams == 1.
+- Link to v3: https://lore.kernel.org/all/20260930-smmu-shared-sid-v3-0-8abe6c1b4c20@nxp.com/
+
+Changes since RFC v2:
+- Dropped the RB tree to XArray conversion patch (Nicolin).
+  The RB tree is retained as-is; a new arm_smmu_find_stream()
+  helper provides stream-level lookup.
+- No per-master shared_sid bool; replaced by
+  list_empty(&master->shared_masters_elm) (Nicolin).
+- Only SID-sharing for single SID device
+- Follow Nicolin's suggestion https://lore.kernel.org/linux-iommu/arG6hmng3NddGEHm@nvidia.com/
+- Link to v2: https://lore.kernel.org/linux-iommu/20260921-smmu-shared-sid-v2-0-4b656ce68178@nxp.com/
+
+Changes since RFC v1:
+- Revised cover letter to drop eDMA channel example (Jason).
+
+Some SoCs have a limited number of IOMMU Stream IDs (SIDs) and
+hardware that inherently shares them. For example, the NXP i.MX95
+only has 64 SIDs, only 6 bits for SID in the system chip bus.
+However there are many device IPs, such as SDHC, PCIE, NETC, GPU,
+NPU, Display, VPU, ISP, ISI, JPEG, SATA, DMA and etc. Each Kind IP has
+mutilple instances inside the SoC. So I introudce this patchset to
+support shared SID.
+
+The current ARM SMMUv3 driver rejects this with:
+  "Aliasing StreamID unsupported, expect DMA to be broken"
+
+I took comments in [1] and implement this patchset and only want to
+support a very simple case that multiple platform devices share one SID.
+
+Patch 1 converts the per-master streams array from an embedded array
+of structs to an array of individually allocated pointers.  This
+prepares for subsequent patches where multiple masters will point
+to the same stream object.
+
+Patch 2 moves stream allocation from upfront into the mutex-protected
+loop in arm_smmu_insert_master(), using a find-before-allocate pattern:
+first look up whether the SID already exists in the RB tree, only
+allocate and insert a new stream when no existing entry is found.
+This is a pure refactor with no functional change.
+
+Patch 3 adds shared-SID tracking so that when a second single-SID
+master registers an already-owned SID, it joins the existing
+stream rather than being rejected.  The stream structure is shared
+directly between masters via a linked list.  On removal, a shared
+master detaches from the list; the stream and its RB tree entry
+are kept alive until the last master is removed.
+
+Patch 4 places devices that share a SID into the same IOMMU
+group, ensuring they share a single IOMMU domain (required
+because one STE can only point to one cd_table).
+
+Patch 5 wires up STE write ordering (first master writes, last
+master tears down) and gates features that require unambiguous
+SID-to-device mapping: SVA, IOPF/stall, and vSMMU nesting are
+disabled for shared-SID masters.
+
+[1] https://lore.kernel.org/linux-iommu/DU0PR04MB94172CB3F138AD39E9B6DEEF887F9@DU0PR04MB9417.eurprd04.prod.outlook.com/
+
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
+---
+Nicolin Chen (1):
+      iommu/arm-smmu-v3: Don't rb_erase() a never-inserted stream node
+
+Peng Fan (5):
+      iommu/arm-smmu-v3: Allocate streams individually
+      iommu/arm-smmu-v3: Delay stream allocation to inside the mutex
+      iommu/arm-smmu-v3: Support shared SIDs in insert/remove_master
+      iommu/arm-smmu-v3: Group aliasing devices into the same IOMMU group
+      iommu/arm-smmu-v3: Wire up shared-SID STE ordering and feature gating
+
+ .../iommu/arm/arm-smmu-v3/arm-smmu-v3-iommufd.c    |   4 +-
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c    |   3 +
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c        | 236 +++++++++++++++------
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h        |   5 +-
+ drivers/iommu/arm/arm-smmu-v3/tegra241-cmdqv.c     |   2 +-
+ 5 files changed, 186 insertions(+), 64 deletions(-)
+---
+base-commit: dceac7e589200a458860830d783b90dfd471691f
+change-id: 20260916-smmu-shared-sid-e488f6c4d4f0
+
+Best regards,
+--  
+Peng Fan <peng.fan@nxp.com>
+
