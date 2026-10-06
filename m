@@ -1,33 +1,33 @@
-Received: from mta1.migadu.com (out-59.mta1.migadu.com [95.215.58.59])
+Received: from mta1.migadu.com (out-62.mta1.migadu.com [95.215.58.62])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47342195B1A
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 00:23:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.59
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B8D8260565
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 00:23:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.62
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791246198; cv=none; b=MFdE+oqyg1N5HSbgCUqEBYBW8fdGVF1QhCtc0M4nLY/+u3+PvTpbtkZM52GwKSSS3c84uIRufMCcQ3DdOYXstuJSHglJwG5vQs5LxdYj54p4O/i3osWUxaRorXMurn2kAGYoF3IiGkHr58Jl2J5yzgw7rR52M6MYEQ8mwHpynKs=
+	t=1791246200; cv=none; b=nrQ1wGF9dPN/A68iq/hp29lSrZNqy1bellS1H+IXZRhWesioy4QTta6nChA4BU6QGNjeVRLJCh07eYcUTNu5G68F4VDZ0wARchxevExDTV2Eb7RZwqxp/9AguUSbuCLCTLWPLfbMdVNFkaO0R8otMVrusouXmfaP79yNZHoB7RQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791246198; c=relaxed/simple;
-	bh=P0176Esu0HHun/DWLJ1GER3m0qS1HWmjGzYArbHIIgg=;
+	s=arc-20240116; t=1791246200; c=relaxed/simple;
+	bh=nbJqiGn5pFkuXQBzYRivhDJLdV+pjGcePbifZ588ksg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=e0X1jqqr0JnxOStaQOl72B0kiX2DVS0BCv+t9ogEgGwxWVCOlebmS8JLGTvZCGNjvcNtCpaVPQpb+YXcN1y/2RORAMbyIdVQd3y0OEIjoxwYWuxOOkg7cLt4lVAorrXM9n6JLtrVnf5xK9l5kR/hoxSvdE3+OGORXu8TTXFFWU0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=RO/J0/l0; arc=none smtp.client-ip=95.215.58.59
+	 MIME-Version; b=tA1kGodn5+D0MbzPMuMXqJjlu1sMKVjHa7K4mtHE1yWz+jnwjCOcTT1NNNDJiI5cC/FMbbOqp7O8nFRszyruQVrvxoLOmtPWMXrjcLdhOVrfp4kCu8mlhymFAIY//xOc5g+vXg4cZnSUmFrhVi9vPSNXFiIG3XIVeJgja/HXVX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=YonuEzSv; arc=none smtp.client-ip=95.215.58.62
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="RO/J0/l0"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="YonuEzSv"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=P0176Esu0HHun/DWLJ1GER3m0qS1HWmjGzYArbHIIgg=;
+DKIM-Signature: a=rsa-sha256; bh=nbJqiGn5pFkuXQBzYRivhDJLdV+pjGcePbifZ588ksg=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791246194; v=1; x=1791850994;
- b=RO/J0/l0raGiU0QBbB7j+CAwdjo+59BjursZYJU97TGHtRfPm3WSA5Q6ZLGR7tHrH+aWJAz7
- PfoTLOzUs6FDyzbnA6FNYPamPPKwZIFWi1q/SY1Po1cTHH4vPO+kve9jgujNtJ70m8ltxEYaA4u
- qTaCFEXEO8s2w8m1IBQVnxVI=
+ t=1791246196; v=1; x=1791850996;
+ b=YonuEzSv6V1v6uLsWV1icfYMJZIDBdS3eiCoHZ/IFoawKjlt19ojM8GpCMaQelsqxqAtg2RB
+ k0Y8d9PXDVp1aH0Q75280aKj5aWAEgHvAq6jGW5Iai8i4DNIrYi5zRUqht2ZkAcJh0lh9bV5bP/
+ ihkDOOTO3+SrrUfzkxbSFOvQ=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id fd89e3a9f498a6ac;
-	Tue, 06 Oct 2026 00:23:14 +0000
-X-Mizu-Trace-ID: fd89e3a9f498a6ac
+Received: by mta12.migadu.com with ESMTPS id 99567cebb8f6a1d1;
+	Tue, 06 Oct 2026 00:23:16 +0000
+X-Mizu-Trace-ID: 99567cebb8f6a1d1
 X-Migadu-Flow: FLOW_OUT
 From: Usama Arif <usama.arif@linux.dev>
 To: Andrew Morton <akpm@linux-foundation.org>,
@@ -45,9 +45,9 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 	senozhatsky@chromium.org,
 	kernel-team@meta.com
 Cc: Usama Arif <usama.arif@linux.dev>
-Subject: [PATCH 1/2] mm: zswap: use separate compression and decompression requests
-Date: Mon,  5 Oct 2026 17:22:50 -0700
-Message-ID: <20261006002307.2669023-2-usama.arif@linux.dev>
+Subject: [PATCH 2/2] mm: zswap: use stack requests for synchronous decompression
+Date: Mon,  5 Oct 2026 17:22:51 -0700
+Message-ID: <20261006002307.2669023-3-usama.arif@linux.dev>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261006002307.2669023-1-usama.arif@linux.dev>
 References: <20261006002307.2669023-1-usama.arif@linux.dev>
@@ -59,208 +59,150 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Stores and loads serialize on the same per-CPU acomp request and mutex.
-A low-priority store can be preempted as soon as the compressor drops
-its stream lock, while it still holds the mutex. A higher-priority load
-on that CPU then waits until the store runs again, which can take a
-long time when other tasks are runnable.
+With separate requests for compression and decompression, loads still
+serialize on the per-CPU decompression mutex. A low-priority load that
+is preempted after the codec drops its stream lock keeps holding the mutex
+and stalls every other load on that CPU, including higher-priority ones.
 
-Give compression and decompression their own request, completion wait
-and mutex. Since commit e2c3b6b21c77f ("mm: zswap: use SG list
-decompression APIs from zsmalloc"), the per-CPU buffer is only used for
-compression. The two requests can share the per-CPU transform: no
-in-tree implementation modifies transform state while (de)compressing,
-and shared codec state has its own locking. Loads can still wait for
-each other on the decompression mutex, and stores still serialize on
-the compression mutex.
+Synchronous algorithms whose requests need no extra context can use an
+on-stack request, so decompress with one and take no zswap lock. All
+in-tree software compressors qualify. Asynchronous algorithms, and
+synchronous ones with request context, keep the per-CPU request and
+mutex, which is still taken before the zsmalloc read lock.
 
-This follows the proposal from Sergey Senozhatsky for the same split
-for zram [1].
+Reading the per-CPU context without the mutex is safe. Since
+commit ef3c0f6cb798e ("mm: zswap: tie per-CPU acomp_ctx lifetime to the
+pool"), it is set up before its CPU comes online and is not torn down
+until the pool is destroyed. The codecs keep their own stream locks, and
+crypto_acomp_decompress() rejects on-stack requests only for
+asynchronous transforms, which never take this path.
 
-[1] https://lore.kernel.org/all/20261005122036.718976-10-senozhatsky@chromium.org/
+For software compressors this drops the heap request added by the
+previous patch. The on-stack request and wait take 216 bytes, which
+makes the load path about 270 bytes deeper on x86-64. Asynchronous
+algorithms pay this too.
 
 Signed-off-by: Usama Arif <usama.arif@linux.dev>
 ---
- mm/zswap.c | 89 +++++++++++++++++++++++++++++++-----------------------
- 1 file changed, 52 insertions(+), 37 deletions(-)
+ mm/zswap.c | 65 +++++++++++++++++++++++++++++++++++++-----------------
+ 1 file changed, 45 insertions(+), 20 deletions(-)
 
 diff --git a/mm/zswap.c b/mm/zswap.c
-index ae19e301fced7..54187b1ef751d 100644
+index 54187b1ef751d..7e7fb6e7ec24c 100644
 --- a/mm/zswap.c
 +++ b/mm/zswap.c
-@@ -137,14 +137,20 @@ bool zswap_never_enabled(void)
- * data structures
- **********************************/
- 
--struct crypto_acomp_ctx {
--	struct crypto_acomp *acomp;
-+struct zswap_acomp_req {
- 	struct acomp_req *req;
- 	struct crypto_wait wait;
--	u8 *buffer;
- 	struct mutex mutex;
+@@ -147,7 +147,7 @@ struct zswap_acomp_req {
+ struct crypto_acomp_ctx {
+ 	struct crypto_acomp *acomp;
+ 	struct zswap_acomp_req comp;
+-	struct zswap_acomp_req decomp;
++	struct zswap_acomp_req decomp;	/* unused by synchronous algorithms */
+ 	u8 *buffer;
  };
  
-+/* Separate requests, so that decompression does not wait for compression. */
-+struct crypto_acomp_ctx {
-+	struct crypto_acomp *acomp;
-+	struct zswap_acomp_req comp;
-+	struct zswap_acomp_req decomp;
-+	u8 *buffer;
-+};
-+
- /*
-  * The lock ordering is zswap_tree.lock -> zswap_pool.lru_lock.
-  * The only case where lru_lock is not acquired while holding tree.lock is
-@@ -270,14 +276,10 @@ static void acomp_ctx_free(struct crypto_acomp_ctx *acomp_ctx)
- 	if (!acomp_ctx)
- 		return;
- 
--	/*
--	 * If there was an error in allocating @acomp_ctx->req, it
--	 * would be set to NULL.
--	 */
--	if (acomp_ctx->req)
--		acomp_request_free(acomp_ctx->req);
--
--	acomp_ctx->req = NULL;
-+	acomp_request_free(acomp_ctx->comp.req);
-+	acomp_ctx->comp.req = NULL;
-+	acomp_request_free(acomp_ctx->decomp.req);
-+	acomp_ctx->decomp.req = NULL;
- 
- 	/*
- 	 * We have to handle both cases here: an error pointer return from
-@@ -796,6 +798,28 @@ static void zswap_entry_free(struct zswap_entry *entry)
- /*********************************
- * compressed storage functions
- **********************************/
-+static int zswap_acomp_req_init(struct zswap_acomp_req *areq,
-+				struct crypto_acomp *acomp)
-+{
-+	/* acomp_request_alloc() returns NULL in case of an error. */
-+	areq->req = acomp_request_alloc(acomp);
-+	if (!areq->req)
-+		return -ENOMEM;
-+
-+	crypto_init_wait(&areq->wait);
-+
-+	/*
-+	 * if the backend of acomp is async zip, crypto_req_done() will wakeup
-+	 * crypto_wait_req(); if the backend of acomp is scomp, the callback
-+	 * won't be called, crypto_wait_req() will return without blocking.
-+	 */
-+	acomp_request_set_callback(areq->req, CRYPTO_TFM_REQ_MAY_BACKLOG,
-+				   crypto_req_done, &areq->wait);
-+
-+	mutex_init(&areq->mutex);
-+	return 0;
-+}
-+
- static int zswap_cpu_comp_prepare(unsigned int cpu, struct hlist_node *node)
- {
- 	struct zswap_pool *pool = hlist_entry(node, struct zswap_pool, node);
-@@ -827,25 +851,13 @@ static int zswap_cpu_comp_prepare(unsigned int cpu, struct hlist_node *node)
+@@ -851,15 +851,20 @@ static int zswap_cpu_comp_prepare(unsigned int cpu, struct hlist_node *node)
  		goto fail;
  	}
  
--	/* acomp_request_alloc() returns NULL in case of an error. */
--	acomp_ctx->req = acomp_request_alloc(acomp_ctx->acomp);
--	if (!acomp_ctx->req) {
-+	if (zswap_acomp_req_init(&acomp_ctx->comp, acomp_ctx->acomp) ||
-+	    zswap_acomp_req_init(&acomp_ctx->decomp, acomp_ctx->acomp)) {
- 		pr_err("could not alloc crypto acomp_request %s\n",
- 		       pool->tfm_name);
- 		goto fail;
+-	if (zswap_acomp_req_init(&acomp_ctx->comp, acomp_ctx->acomp) ||
+-	    zswap_acomp_req_init(&acomp_ctx->decomp, acomp_ctx->acomp)) {
+-		pr_err("could not alloc crypto acomp_request %s\n",
+-		       pool->tfm_name);
+-		goto fail;
++	if (zswap_acomp_req_init(&acomp_ctx->comp, acomp_ctx->acomp))
++		goto req_fail;
++
++	/* Synchronous algorithms decompress with an on-stack request. */
++	if (acomp_is_async(acomp_ctx->acomp) ||
++	    crypto_acomp_reqsize(acomp_ctx->acomp) > MAX_SYNC_COMP_REQSIZE) {
++		if (zswap_acomp_req_init(&acomp_ctx->decomp, acomp_ctx->acomp))
++			goto req_fail;
  	}
  
--	crypto_init_wait(&acomp_ctx->wait);
--
--	/*
--	 * if the backend of acomp is async zip, crypto_req_done() will wakeup
--	 * crypto_wait_req(); if the backend of acomp is scomp, the callback
--	 * won't be called, crypto_wait_req() will return without blocking.
--	 */
--	acomp_request_set_callback(acomp_ctx->req, CRYPTO_TFM_REQ_MAY_BACKLOG,
--				   crypto_req_done, &acomp_ctx->wait);
--
--	mutex_init(&acomp_ctx->mutex);
  	return 0;
  
++req_fail:
++	pr_err("could not alloc crypto acomp_request %s\n", pool->tfm_name);
  fail:
-@@ -866,14 +878,15 @@ static bool zswap_compress(struct folio *folio, long index,
- 	bool mapped = false;
- 
- 	acomp_ctx = raw_cpu_ptr(pool->acomp_ctx);
--	mutex_lock(&acomp_ctx->mutex);
-+	mutex_lock(&acomp_ctx->comp.mutex);
- 
- 	dst = acomp_ctx->buffer;
- 	sg_init_table(&input, 1);
- 	sg_set_folio(&input, folio, PAGE_SIZE, index * PAGE_SIZE);
- 
- 	sg_init_one(&output, dst, PAGE_SIZE);
--	acomp_request_set_params(acomp_ctx->req, &input, &output, PAGE_SIZE, dlen);
-+	acomp_request_set_params(acomp_ctx->comp.req, &input, &output,
-+				 PAGE_SIZE, dlen);
- 
- 	/*
- 	 * it maybe looks a little bit silly that we send an asynchronous request,
-@@ -885,10 +898,12 @@ static bool zswap_compress(struct folio *folio, long index,
- 	 * existing method to send the second page before the first page is done
- 	 * in one thread doing zswap.
- 	 * but in different threads running on different cpu, we have different
--	 * acomp instance, so multiple threads can do (de)compression in parallel.
-+	 * acomp instance, and compression and decompression use separate
-+	 * requests, so multiple threads can do (de)compression in parallel.
- 	 */
--	comp_ret = crypto_wait_req(crypto_acomp_compress(acomp_ctx->req), &acomp_ctx->wait);
--	dlen = acomp_ctx->req->dlen;
-+	comp_ret = crypto_wait_req(crypto_acomp_compress(acomp_ctx->comp.req),
-+				   &acomp_ctx->comp.wait);
-+	dlen = acomp_ctx->comp.req->dlen;
- 
- 	/*
- 	 * If a page cannot be compressed into a size smaller than PAGE_SIZE,
-@@ -932,7 +947,7 @@ static bool zswap_compress(struct folio *folio, long index,
- 	else if (alloc_ret)
- 		zswap_reject_alloc_fail++;
- 
--	mutex_unlock(&acomp_ctx->mutex);
-+	mutex_unlock(&acomp_ctx->comp.mutex);
+ 	acomp_ctx_free(acomp_ctx);
+ 	return ret;
+@@ -951,19 +956,14 @@ static bool zswap_compress(struct folio *folio, long index,
  	return comp_ret == 0 && alloc_ret == 0;
  }
  
-@@ -948,7 +963,7 @@ static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
- 		return false;
+-static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
++static bool __zswap_decompress(struct zswap_entry *entry,
++			       struct zswap_pool *pool, struct acomp_req *req,
++			       struct crypto_wait *wait, struct folio *folio)
+ {
+-	struct zswap_pool *pool = zswap_entry_pool(entry);
+ 	struct scatterlist input[2]; /* zsmalloc returns an SG list 1-2 entries */
+ 	struct scatterlist output;
+-	struct crypto_acomp_ctx *acomp_ctx;
+ 	int ret = 0, dlen;
  
- 	acomp_ctx = raw_cpu_ptr(pool->acomp_ctx);
--	mutex_lock(&acomp_ctx->mutex);
-+	mutex_lock(&acomp_ctx->decomp.mutex);
+-	if (WARN_ON_ONCE(!pool))
+-		return false;
+-
+-	acomp_ctx = raw_cpu_ptr(pool->acomp_ctx);
+-	mutex_lock(&acomp_ctx->decomp.mutex);
  	zs_obj_read_sg_begin(pool->zs_pool, entry->handle, input, entry->length);
  
  	/* zswap entries of length PAGE_SIZE are not compressed. */
-@@ -965,15 +980,15 @@ static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
+@@ -980,15 +980,14 @@ static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
  	} else {
  		sg_init_table(&output, 1);
  		sg_set_folio(&output, folio, PAGE_SIZE, 0);
--		acomp_request_set_params(acomp_ctx->req, input, &output,
-+		acomp_request_set_params(acomp_ctx->decomp.req, input, &output,
- 					 entry->length, PAGE_SIZE);
--		ret = crypto_acomp_decompress(acomp_ctx->req);
--		ret = crypto_wait_req(ret, &acomp_ctx->wait);
--		dlen = acomp_ctx->req->dlen;
-+		ret = crypto_acomp_decompress(acomp_ctx->decomp.req);
-+		ret = crypto_wait_req(ret, &acomp_ctx->decomp.wait);
-+		dlen = acomp_ctx->decomp.req->dlen;
+-		acomp_request_set_params(acomp_ctx->decomp.req, input, &output,
+-					 entry->length, PAGE_SIZE);
+-		ret = crypto_acomp_decompress(acomp_ctx->decomp.req);
+-		ret = crypto_wait_req(ret, &acomp_ctx->decomp.wait);
+-		dlen = acomp_ctx->decomp.req->dlen;
++		acomp_request_set_params(req, input, &output, entry->length,
++					 PAGE_SIZE);
++		ret = crypto_acomp_decompress(req);
++		ret = crypto_wait_req(ret, wait);
++		dlen = req->dlen;
  	}
  
  	zs_obj_read_sg_end(pool->zs_pool, entry->handle);
--	mutex_unlock(&acomp_ctx->mutex);
-+	mutex_unlock(&acomp_ctx->decomp.mutex);
+-	mutex_unlock(&acomp_ctx->decomp.mutex);
  
  	if (!ret && dlen == PAGE_SIZE)
  		return true;
+@@ -1002,6 +1001,32 @@ static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
+ 	return false;
+ }
+ 
++static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
++{
++	struct zswap_pool *pool = zswap_entry_pool(entry);
++	struct crypto_acomp_ctx *acomp_ctx;
++	bool ret;
++
++	if (WARN_ON_ONCE(!pool))
++		return false;
++
++	acomp_ctx = raw_cpu_ptr(pool->acomp_ctx);
++	if (!acomp_ctx->decomp.req) {
++		ACOMP_REQUEST_ON_STACK(req, acomp_ctx->acomp);
++		DECLARE_CRYPTO_WAIT(wait);
++
++		acomp_request_set_callback(req, CRYPTO_TFM_REQ_MAY_BACKLOG,
++					   crypto_req_done, &wait);
++		return __zswap_decompress(entry, pool, req, &wait, folio);
++	}
++
++	mutex_lock(&acomp_ctx->decomp.mutex);
++	ret = __zswap_decompress(entry, pool, acomp_ctx->decomp.req,
++				 &acomp_ctx->decomp.wait, folio);
++	mutex_unlock(&acomp_ctx->decomp.mutex);
++	return ret;
++}
++
+ /*********************************
+ * writeback code
+ **********************************/
 -- 
 2.53.0-Meta
 
