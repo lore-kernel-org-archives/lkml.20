@@ -1,62 +1,64 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F9513B27E7
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 10:10:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A5883DAAAA
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 10:10:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791281402; cv=none; b=QPyTwkYPCMqwLJ4NcTbjCEcwPteFWGcJkdnDRgD5M04teo3eKd3wwflHnSAxbv1cjLEMBL3kuOTSZ8S9eIK1u5dZlIvDKWVtHGMIg43laLcOX3HRuyWQO/QofW+OImkTQ/8AGZ7b96LyZVjyKC6gKb0+AWvkbj/kW6QMw7zfixg=
+	t=1791281407; cv=none; b=pzTvUtc2ylaDZ0BGeKZQBUyl3y6fUOz/cU0HcfFyWMTZoGanCacXK4HEhHXLbkwBOVG9ZrCzG38AWadjGWXiV0tOs7zkC3CZS7L7thG5CpUxRPR1hs0fZemX+5PKBN2KNYEZSCBUqHb3/9JW0SzIY7O1doFTjyAD8MGO5NSYxNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791281402; c=relaxed/simple;
-	bh=6YM5dOs2Pa7yUNeFsnmXwCOmE6Ns3r7eTdFiVyrvPY8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZX3HznomVKByNdNXWkT1y3GewD0YPBF9HD7fxvEliJcM5qIkUu87JAcaY9CfljDaNZVDe0kYMYyQiB7EG8Z3NmrP4q7BHQm6B8fJV5Intvs/coVGIQnOSpO8RpVr/jl0DyNKSOqLtfoECjpiMjhEs3tdJ7KOOvbQH26jaBFmbvg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KmjqhzHz; arc=none smtp.client-ip=209.85.210.178
+	s=arc-20240116; t=1791281407; c=relaxed/simple;
+	bh=Ms8KrmobsNmTMFpJ/93IDugaXmnB156D0bOZprPcjCs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cCaNJ1BNCEG3XeOLdzZ7xwwLh+v4Mba4AAFSgw9HDk15qbv3xz1p0PzZFK9Pn84UmAak56rFmsMhu2kfSW3SZwXCBuNFhkYxeSzE0nsskd0FWbJkrM3DNe30GZaCZZAxVPgdLdqTixLznyT4ZNs6wA4n7mPOJXYaSE7P7sHbiOo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i27o4WWa; arc=none smtp.client-ip=209.85.210.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KmjqhzHz"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-88bc25fcd0eso2286800b3a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 03:10:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i27o4WWa"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-878b44611ffso403364b3a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 03:10:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791281401; x=1791886201; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QH7NYDc+Yp9RWvv4A2NBCx8EZXAjVS1e6vOPWVaVpKU=;
-        b=KmjqhzHzjz2gaQvXJtt4xACWGymOsdN4FCrS23pBQM3EWS0ZzdgutNj+Ut6p+HV0dp
-         Jx9QbTN7GlL5rI99Yja90Cuf57APhG2UmOAPqDtysPVrp2YQP3JjDg3NZKbICbkDqWoU
-         UJr0Y/A+T/3REA3m69b+LKJ4qtpuuiRUQhSz4AwARBtUflwHylbJvgJe36A7SylHpCo/
-         DbfPn73pjzJkUcnH7FpwNJifRw50gdbXQBi1ZnBYD9Oj+789laBk20WrJ4oB2qpYuw3L
-         Q2dlF6mUhP82ynL+buPRMNzZ8bhXf92/9lIw031fplo+qldSD2nGrWlyFiiKqn7dRqBG
-         OnUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791281401; x=1791886201;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791281405; x=1791886205; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=QH7NYDc+Yp9RWvv4A2NBCx8EZXAjVS1e6vOPWVaVpKU=;
-        b=rCFSXrdBZgwe2NkpYcOxYUVIGZEeNKCBO+++lKJSNDWMsoS3TLYfFEx5d6Yrh0Dm7v
-         I9buPEH//+7E3DynExVn/R2Xf7uXTsEPAYPUqukL3m2wMYGhjoA9LkkqITHXrE+OqpH3
-         I1ypGeej22Qsso1cf4K7hxEjdyxXrzemBRmNK+usfWZ4AI+aDRd0cP3SWVaBz2zjxlNz
-         d+m7n3ztA0zg3QmOduKW9BE2ROZ7KZkjRn776dNYPFU0Xttu6EmWM/VU0ckTiz6ieF4C
-         xFvfpYkk/5DPGI0v9jdc8ywPE+WWan401gZCQXvn9kME3ACLI1v4qOBoEwJWUtgHJ5Bp
-         Tf8g==
-X-Forwarded-Encrypted: i=1; AKwUvBzWRW9pifm2XQgqnRNECYKBVfQC+82aud+aXfS9GJmZY+8pu6V/EXuSYOmjf2GE0ifZyA7+DfplZitvAkc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kb2QNAjwTDNCmTgHEsg9JIEGQDNOCXm3mQAmWofEIljhJ4gj1k
-	X72bmA1UcUIUoIOxyuHONFSEkNo0ezEKZHhPKSjDNgwGCa4IW9tO3hye
-X-Gm-Gg: AYBFou3Jh/moRnZ9msDuAxvo+VeTCAsj3Zfc97Ur9HubgF783E21SBLlrdVCydZ3iVt
-	cP/Q+VmJOAInjRffQ060eqjQ/gjU392060GURR8fl9ZlEkZ4uct6oViLkT75RRF38DPS8WTkQng
-	2FpcyGe/O1rdhK1EF0v1JDSg31DIN3xN91lW9HYMp/tNxR7RYPFLBE/1oXTclcv0/B/cSczs1Gp
-	RxQU8FrE9aWYI2oQ88/kKm1gsTPLvOsFZIBiufFnyRAqgfqaBbQIZgSeOOiDRgxXgkAO6OWEHLo
-	RL9wkBtYo8NUePjeajLN3xvoPRSDObKNH8YvPzGEUE7xUgCoG8A8H5U5FCHEiZcAwdVkMDWfdYN
-	kP2yLvqvyU4a8XSK6Qa4jDdhAPjM+9wKLeCWsrSiD3tGnVxxVWbJjVHn8ZcS5x1SQSO05lYF7n5
-	sCtsFHLUuGl2ASEyfzUfQhf/yn5YirMi0H/Vfiu0EGCb6E7nhLgtrXivhBQ+X0gIAW/XenTSsRO
-	KClPWcesvz/ht4B7/I=
-X-Received: by 2002:a05:6a00:4197:b0:881:4b67:ffd with SMTP id d2e1a72fcca58-88c6398f00amr10813068b3a.26.1791281400579;
-        Tue, 06 Oct 2026 03:10:00 -0700 (PDT)
+        bh=txtCljEVWe/u/jv1SP0sOmdyVcE1LpT4sX5ouMHqrXk=;
+        b=i27o4WWa3tiBGgwrIiSTv1J8NuZDhYrPmdaH/ngo8BpaL9iEVyG0iJFRwUrcHzIfi/
+         6fUEZ80uAavpzSovF01XflS2y00XCztZHaQ1YAQYZYw+HupD4VMOzRYnjsYj+06Aeuqd
+         2w9eRoPYr88MpzGJNVm7l5dtnjhfcgKlqXIhOBSsfzqKd2mQ+apytejPzUKfCgDPC6o5
+         nyCOYMHHlAllhqqenxjELmDg0EDesH5hyoLaDcUZ75u5m/AdIKqKinmKdefSZdgUr1xC
+         LgA5UCV3ElLygK1WAXhMSZorssDGxxP/f9zufltKRPKvdvXNPE8M+98++BYRO92ny+qC
+         kiVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791281405; x=1791886205;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=txtCljEVWe/u/jv1SP0sOmdyVcE1LpT4sX5ouMHqrXk=;
+        b=qBu4ZKPGJQaRd+URnZKIfOx9EIEu5ujBUKW+E+Q3oZ/9tXkYJjDK3FwIxI8YQbtZsj
+         Cq4mxj91FJ3HzdjWaFV8RItxF5u0no68f7/je3egXqSKMGLv8+2rvj9Ohl5DsYJtZE8+
+         +jtmedX3dWeINQj1jeRTtwucHyCe+qlr0z6ehgoiQBdmZ89npuI7j/ZCBn6elFp8P8it
+         RWnhjxXeCPbjrVIGvrxd/o/l7mnUhHIk7Z3t/Nj7t7sg9rcMd3JmLuXepswBy3JkNIjc
+         DVlgRMICuobm0x7xhA3ri6DBbj77mmr6pczTp8hruavTbrPKY+ZUIZiNR1Z3BZ+guF3b
+         8VFg==
+X-Forwarded-Encrypted: i=1; AKwUvBwZEDxy+yLjM8g6w+OjT/6gZ7sGkvWRNAl0NVff/CLbrHMCMHsW+mUz1cb7yJli+V8D+0DQToOOBaNf9WI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kayMMnitVROhVfC4KCU1AIdWgFcQiZF3lf4MeZMICrd+AsEQvq
+	knZxkN18KY4HGiKqbRN/ayIx9KNttQpBzrJeo+USB/8w9+I6YS0ovCMt
+X-Gm-Gg: AYBFou1AakdRnEOmMBUn7+zTLmzsdXR/Qe/FdrOvBCSJdXHQgpNfo0XoP1SFa96yN79
+	yzvvmhoxgCuBrBXEDTWaHP4//MnAKM6noXkMWYSJWL0yr4a2jYTF7Q+fIQBjNqzWm3Le3+r9Am7
+	Qyo828jqwe5p3Zv6yEmPbu4rF+vLBMZHxYkY9vJKZbmOuDX6Rwtw52Ra6TlMuhr/X1rftUmrQ+F
+	RkGW5iMGui4CfB5LygnMPXhXZ0eW347Vi4tLlHeYCSEJx+H9foXwTLv6wUd0KY0Fkwg97F84ws3
+	iSqjE5aVRJS4g0VLKnlSmFWjmjT925t+b8n6tWSm3ERsEl/FEZF6CB/x/kkJPujbXFgFsKOUDAa
+	wP2CPaq0qZfhfloPm5MOosGJWLpbOl81eSXU50gseIglRYGEKOV+gOPAqDfU2vniwh3eT33E11w
+	gV7JoUqScAXxkgJRkBTLKnuREi+rSAQCXmbPIxyhwbw2JYDpYlcQPx1TodHo8D19lvqBWsQmnxV
+	2ZXH0DHGcxgpcDDhvw=
+X-Received: by 2002:a05:6a00:3004:b0:880:ec27:9826 with SMTP id d2e1a72fcca58-890dbc81240mr825118b3a.2.1791281405512;
+        Tue, 06 Oct 2026 03:10:05 -0700 (PDT)
 Received: from l (ec2-56-155-114-54.ap-northeast-3.compute.amazonaws.com. [56.155.114.54])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88b0b8f7198sm4592961b3a.9.2026.10.06.03.09.56
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88b0b8f7198sm4592961b3a.9.2026.10.06.03.10.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 03:10:00 -0700 (PDT)
+        Tue, 06 Oct 2026 03:10:05 -0700 (PDT)
 From: Liu Yufei <lyf98405@gmail.com>
 X-Google-Original-From: Liu Yufei <lyf98405@gmail.com
 To: Jonathan Cameron <jic23@kernel.org>,
@@ -69,11 +71,14 @@ Cc: David Lechner <dlechner@baylibre.com>,
 	linux-iio@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Liu Yufei <lyf98405@gmail.com>
-Subject: [PATCH v2 0/2] iio: proximity: Add Vishay VCNL36829 driver
-Date: Tue,  6 Oct 2026 18:09:41 +0800
-Message-ID: <20261006100943.78971-1-lyf98405@gmail.com>
+	Liu Yufei <lyf98405@gmail.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v2 1/2] dt-bindings: iio: proximity: Add Vishay VCNL36829
+Date: Tue,  6 Oct 2026 18:09:42 +0800
+Message-ID: <20261006100943.78971-2-lyf98405@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261006100943.78971-1-lyf98405@gmail.com>
+References: <20261006100943.78971-1-lyf98405@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,50 +89,100 @@ Content-Transfer-Encoding: 8bit
 
 From: Liu Yufei <lyf98405@gmail.com>
 
-This series adds support for the Vishay VCNL36829, an I2C proximity
-sensor with an integrated VCSEL emitter.
+Add devicetree binding for the Vishay VCNL36829 proximity sensor.
 
-Patch 1 adds the devicetree binding.
-Patch 2 adds the IIO driver, which exposes the proximity reading and
-a configurable integration time.
+The VCNL36829 is a proximity sensor with an integrated VCSEL emitter
+in a small package. It is controlled over I2C and has an interrupt
+output. It is powered by two supplies, vdd and vddio.
 
-Tested on Orange Pi Zero 2W.
+Signed-off-by: Liu Yufei <lyf98405@gmail.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+v2:
+- Collect Reviewed-by from Krzysztof.
 
-Changes in v2:
-- dt-bindings: Collect Reviewed-by from Krzysztof.
-- driver: Address review comments from Andy:
-  - Use a Datasheet: tag in the commit message.
-  - Drop mod_devicetable.h, sort the includes and include what is used.
-  - Drop the i2c_client pointer from the private data and use
-    regmap_get_device() instead.
-  - Drop the unused i2c_set_clientdata().
-  - Enable a maple regmap cache, mark PS_DATA and DEV_ID volatile.
-  - Rework the integration time validation in write_raw().
-  - Use reverse xmas tree order for local variables.
-  - Document the power-up delay and use 3 * USEC_PER_MSEC.
-  - Warn and continue on an unknown device ID instead of failing.
-  - Join lines that fit within 100 columns.
-  - Simplify the Assisted-by tag.
-- driver: Drop the i2c_check_functionality() call, as
-  devm_regmap_init_i2c() already checks the adapter capabilities.
-
-Link to v1: https://lore.kernel.org/linux-iio/20261003050453.413700-1-lyf98405@gmail.com/
-
-Liu Yufei (2):
-  dt-bindings: iio: proximity: Add Vishay VCNL36829
-  iio: proximity: Add driver for Vishay VCNL36829
-
- .../iio/proximity/vishay,vcnl36829.yaml       |  55 ++++
- MAINTAINERS                                   |   6 +
- drivers/iio/proximity/Kconfig                 |  11 +
- drivers/iio/proximity/Makefile                |   1 +
- drivers/iio/proximity/vcnl36829.c             | 298 ++++++++++++++++++
- 5 files changed, 371 insertions(+)
+ .../iio/proximity/vishay,vcnl36829.yaml       | 55 +++++++++++++++++++
+ MAINTAINERS                                   |  5 ++
+ 2 files changed, 60 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/iio/proximity/vishay,vcnl36829.yaml
- create mode 100644 drivers/iio/proximity/vcnl36829.c
 
-
-base-commit: 52c36105f76e96b638152a42e735f2e7767ed946
+diff --git a/Documentation/devicetree/bindings/iio/proximity/vishay,vcnl36829.yaml b/Documentation/devicetree/bindings/iio/proximity/vishay,vcnl36829.yaml
+new file mode 100644
+index 000000000..6f20537ad
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/proximity/vishay,vcnl36829.yaml
+@@ -0,0 +1,55 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iio/proximity/vishay,vcnl36829.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: VISHAY VCNL36829 Proximity Sensor
++
++maintainers:
++  - Liu Yufei <lyf98405@gmail.com>
++
++description: |
++  Proximity sensor with VCSEL in an ultra thin small package with I2C
++  interface.
++  Datasheet: https://www.vishay.com/docs/80580/vcnl36829um.pdf
++
++properties:
++  compatible:
++    const: vishay,vcnl36829
++
++  reg:
++    maxItems: 1
++
++  vdd-supply: true
++
++  vddio-supply: true
++
++  interrupts:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - vdd-supply
++  - vddio-supply
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        proximity@60 {
++            compatible = "vishay,vcnl36829";
++            reg = <0x60>;
++            vdd-supply = <&vdd_reg>;
++            vddio-supply = <&vddio_reg>;
++            interrupt-parent = <&gpio>;
++            interrupts = <17 IRQ_TYPE_LEVEL_LOW>;
++        };
++    };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 8014b9f82..e6ef84b49 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -28754,6 +28754,11 @@ S:	Maintained
+ F:	drivers/input/serio/userio.c
+ F:	include/uapi/linux/userio.h
+ 
++VISHAY VCNL36829 PROXIMITY SENSOR DRIVER
++M:	Liu Yufei <lyf98405@gmail.com>
++S:	Maintained
++F:	Documentation/devicetree/bindings/iio/proximity/vishay,vcnl36829.yaml
++
+ VISHAY VEML3235 AMBIENT LIGHT SENSOR DRIVER
+ M:	Javier Carrasco <javier.carrasco.cruz@gmail.com>
+ S:	Maintained
 -- 
 2.53.0
 
