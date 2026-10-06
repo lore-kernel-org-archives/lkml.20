@@ -1,150 +1,90 @@
-Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE45D4A0913
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 15:50:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.145
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD8FF4A0EF5;
+	Tue,  6 Oct 2026 15:50:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791301809; cv=none; b=ET8X4Y4fS1S+km2vAMuW6kVVT1zsUDPHiAO/xBtf44stYEJ/Y9gZByWiO/TL7mhh7EQ0kfcjKijlJixLDWPxhApJ1UsJg9va2ECuL+PYaHK2XQxHWbW3j+KbQaDXTUzGOlTcK/lcHWrlOUyw+pPH9WGkgsCCJOzxFKsI8sGmh/Y=
+	t=1791301823; cv=none; b=UdXLjv+DBk7R+212ydBCvDOcXKQEa1b8zySLRwF2kFMY16Zn5EysM3dlQLsqKTtSQoPyKIJexHnOFnnipjWmVHz9wLDF3317b8nxEBjZWCrpB8N6rS6vlSRqZ8waHzReaA1LuRSYJBYJh9VMGxZ98EsNuvGfqt1KE+OwNvt3aqM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791301809; c=relaxed/simple;
-	bh=+z3BTio3dttLfzIRdDJhJENtcbD0+/tRk0bwGMvwPJ0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZLC7lVObnkk1qG7JZMVublvqL5DhPK7UlA4Wo2InWA3T0ox/KLq5veB42vTCVo61vgUvKzqDFdyzPKBGH8NS1PHJil0/rNhSQnOERnVFJ+D1ab6QF+WLU/wjOJ1dYvPHoMneZN8pbaah4i+JAfYBQgCbLALpEGPfJhaMi0XKACo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=invisiblethingslab.com; spf=pass smtp.mailfrom=invisiblethingslab.com; dkim=pass (2048-bit key) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.b=kn9jNxXH; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=tzC8gk2n; arc=none smtp.client-ip=103.168.172.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=invisiblethingslab.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=invisiblethingslab.com
+	s=arc-20240116; t=1791301823; c=relaxed/simple;
+	bh=oJ07hBlzOEWCDMH3PxBzK7Q7WNjpV2k4xBGgOl+sTFQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=S/UEOwSQEeknJ20tE7Udz5SXUUozdXHzG12/5Fjj5MtSDmllbE5DoTQ9bJIbYGT67ccMO2cpt5CItNhRhQ+sjs9FG6rNBH1kye+UJpfvyrtJQ1IUkW3H6qX9aKKPLVnDuau0MPBoRqb/x1oxEKdl9TukE/Ac615Ilh6Xdqq38xw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wn6W2CEm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.b="kn9jNxXH";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="tzC8gk2n"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id C331CEC01A2
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 11:50:00 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Tue, 06 Oct 2026 11:50:00 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:from:from:in-reply-to:message-id
-	:mime-version:reply-to:subject:subject:to:to; s=fm1; t=
-	1791301800; x=1791388200; bh=bHZw8spNWvxR68eOttzhCB7EQBznbaSXg7W
-	RKemtuj8=; b=kn9jNxXHc32r8K0WNDobcXnajoZQnnP4xoS+Rm02iQlTy5jOqFr
-	o1th/+iTmU9G/4et3iJnU0zUu//a9GF6MZiomEP5xIoNUqy9oguz299Wa74sdEA5
-	pt0c8dpximEbC2BbaLHQvWWgkQA9SklOIYpWqTSC3GAeAgHO8G3vQxtllpkmQf1J
-	H3Hh16EFGGCH6jXAdMRSVagcZitVnxnCEsDHcXgS+zqVgJSpekCtmD4gpMRCWxGK
-	OpMpQ+Pdrtd+suBfWaG2OoMDaakN+8LedXKkMXaXn2Cgx1Ssyv+P4KHqCy8t+lnq
-	jFaYsT1kdb5fGYT1SyxubI4CS4QP5V4aRCw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1791301800; x=1791388200; bh=bHZw8spNWvxR68eOttzhCB7EQBznbaSXg7W
-	RKemtuj8=; b=tzC8gk2nPEDwXFulLRmlUF7TDoNpKEA32xG448uDA7R39rtDiSc
-	0TXOzxST2Vd+b/VCNCRJoz/uTiz6FOGlI5sNRew5SWseovuKw1zOP2NgpuI6VD7e
-	V8TZXOtze0y8TgXE+eIS47qCvD62+17OVStG3dJMLXZJ7v8UvNOIBliaaXsKb9Z7
-	Ya6CxJGqrmUbPw0MC7ubg9K/Y9na+JdEq1jZJhvGnB0+dzuJxkYT+rXfe8euS+TT
-	NbXmpOqZLmP29uhyyhhTKZZT+4KkfWsRBmxQGbc9PVlTYqYiI/ahsFoxBIas23t7
-	n8xOY07U6RQGMB36wFU3PtdZKEhMTH8spMQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=invisiblethingslab.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791301800; d=invisiblethingslab.com;
-	mf=PHZhbEBpbnZpc2libGV0aGluZ3NsYWIuY29tPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:psAun2juu/D0D+87W5UYYL9yaU90PIfwFirv3+qb+x090oe
-	GKlgbSi9xHyD0GrjC2na+xzJyHgLM8ikEYohLLSX3wtjKGmGoaIDxS9jQr3sHMbk
-	UfLu0ULp7j8B+YHGNqdlae66lkbSoej1hDYmBmAbzUBJor9EBes3GAqoAkI5M0RZ
-	vny/zafWpyKONFyB/Dnn1u01uWZZnKw3SAz1GvDi2Qsz2z/BrUiz4FMONa91vhOl
-	CNxcUBGM0fINA+4JAmMVU39hoSRNyJ3FpnBVjW3s4ifAa3r6QBtEgnl5uGY1pX8a
-	VFUfny1XHGApHTU/b+giDV8ptVY/8/jveUqGaYw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:uTBDXNl40C+ztrwCU2gxTmFmjMy8XCtfnda7alaSZFk=:+z3BTio3dttLfzIRdDJhJENtcbD0+/tRk0bwGMvwPJ0=;
-X-ME-Sender: <xms:qBjFatHHiLJSxcqkKwdk2a4BeiFDr1W8jO6MsCguC1YOq4cOzY_iDw>
-    <xme:qBjFautZT5smrd-FmAln0rPUcoW4-4JKOgo_3ST4pUQLolPDAp1eZDA8een8CAVNw
-    wVBp219vcOoprqg_J-paRJBUTcO2XRF_Pc41PZDzNO3vjAZNMKr>
-X-ME-Received: <xmr:qBjFajn88VwQemVEwk4mejGeJVs_tmBKam8zCwWRy9VI43b7Up4zI_IIRhhgTOLqxXWxUflYalrXnnum_JoAfhr2lFba01JX2Do3i0R_Paz_l8pv7mdInREDiNPz0w>
-X-ME-Proxy-Cause: dmFkZTGK3BYQg4D7QX8O2SLVb5Fmjf863f1hkDTTDgUlu/D82rNup2Ngu2sVmKhTDesYu8
-    jHatZlWRTI0Z3GHm4tKcM+ZVIpL9JNo7l98jpnMm1L+O52kgwsr4lVL3JC7C108cTuHYsB
-    BdgFFffZzLpQEs+9UGyJyfZzU+t4Fk+WsEu7ijT7GgaVieiDpB0zoMMeOrTbFjLpXlhzmn
-    Mdkg/c/o+1bHIC5PTYJiVSxQQ6o0ReOQiN1zpu1fVCQaq+6PsQAuzSDAVHHWtawcr0cwIn
-    eRJJXNbLfspAo9qV6pEkXQFpo81japWJcyr8An4m12/rcFROQVFNQ/1e+bd3maNaN8JESd
-    f6Gk6vgQWuW2Z0k9yylV+hzZ+OKjgMO7vLEB3oiHlD4RugkFP/YdhXuRDCnXCbNsXlyDc3
-    eAMTzy4r6I4ppwv3FQP+CGF9E5v2TI/udlNsPiEAa4FuuA5RC265N/PAqW+agj5xwblkfM
-    crmZYSTn/IBeG/jlfA/voShFjKBStlxWwMJFD5rYTSLPkGtuj/eo7xS3bpoMVtr0yrHM0I
-    uREJL75NZ9znyquCWYgkrIlEF7IIMmcrzNrzApDAshirdT1mH16GMmtbuxKodvL7yNMNZ9
-    8+LAEo990juLJibq//tZkoliPe8K70C1ewCy/sNaQc+ig4LxhF2Vk+qM7mMA
-X-ME-Proxy: <xmx:qBjFahOvZHVvIbR4vlfvuEFggNo-prmq8Ki7iP_GBJZ7M1kAM4xx7w>
-    <xmx:qBjFavw8dP0wJnKRXv4ObAsuF6LwJYNtTgv2M2gvhdrf3PbSqPqp_Q>
-    <xmx:qBjFamuD_zTklgzVyVPe-b6JD4nmn7WRqpV4_2VFqsy4kIicZH5RaQ>
-    <xmx:qBjFaqYbrKVvos5YYne8-on4tncDYJYsFTB03NvDPLBTpa-nLRk89Q>
-    <xmx:qBjFahFlcVUhWJIy1FZxclE3OQJG-8ZpkC2bjDOmfQ51sUtbFHo5pVgJ>
-Feedback-ID: i001e48d0:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 6 Oct 2026 11:49:57 -0400 (EDT)
-From: Val Packett <val@invisiblethingslab.com>
-To: David Airlie <airlied@redhat.com>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-	Gurchetan Singh <gurchetansingh@chromium.org>,
-	Chia-I Wu <olvaffe@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Simona Vetter <simona@ffwll.ch>,
-	Sergio Lopez <slp@redhat.com>
-Cc: Val Packett <val@invisiblethingslab.com>,
-	dri-devel@lists.freedesktop.org,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] drm/virtio: do not enforce blob_alignment in cross-domain contexts
-Date: Tue,  6 Oct 2026 12:42:50 -0300
-Message-ID: <20261006154913.2689067-2-val@invisiblethingslab.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wn6W2CEm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D39061F0089B;
+	Tue,  6 Oct 2026 15:50:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791301808;
+	bh=MlmHww92f1vJW/S4QWSB1ZbKlcGagch0hBEyJ9FR60o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Wn6W2CEmZCc1wmFlg+Vnsz5z3biQCNIJb9RVhkJBf4RvFhE+uWjpdf5k0lorTthIQ
+	 invFXp/KL8IDg+OnlSlRFjV5eyhrb8e+r2lOg17d52DbQRWvfQhZfBV7lqXZmRXKf5
+	 o6w+Hk4T/V78X2waoJ+VyxIBS7VnQkCuJ2iv0mkmnOV7JHUj3vup+cg/ECNdsOS8zT
+	 FGUT0cvciRM2yj5bWY8C+Tz7ICdz0KMlxzy57kwy5vAkzdBMkzHlDBEpjHgk6w7Dqi
+	 au0bqnftLOeUjqX3EOZIQRipBwqWnairTN3neiFfHgzQP1rAbR/ij4K7ZmrmzxdENu
+	 HZpPC88ailUuQ==
+Date: Tue, 6 Oct 2026 10:50:07 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Inochi Amaoto <inochiama@gmail.com>
+Cc: Jingoo Han <jingoohan1@gmail.com>, Paul Walmsley <pjw@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Albert Ou <aou@eecs.berkeley.edu>, Arnd Bergmann <arnd@arndb.de>,
+	Frank Li <Frank.Li@nxp.com>, linux-pci@vger.kernel.org,
+	linux-riscv@lists.infradead.org, Yixun Lan <dlan@kernel.org>,
+	Vidya Sagar <vidyas@nvidia.com>,
+	Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
+	devicetree@vger.kernel.org,
+	Siddharth Vadapalli <s-vadapalli@ti.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Senchuan Zhang <zhangsenchuan@eswincomputing.com>,
+	Xincheng Zhang <zhangxincheng@ultrarisc.com>,
+	Yixun Lan <dlan@gentoo.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Longbin Li <looong.bin@gmail.com>,
+	Randolph Lin <randolph@andestech.com>, spacemit@lists.linux.dev,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Alex Elder <elder@riscstar.com>,
+	Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	linux-kernel@vger.kernel.org,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Christian Bruel <christian.bruel@foss.st.com>,
+	Niklas Cassel <cassel@kernel.org>
+Subject: Re: [PATCH v7 5/6] dt-bindings: PCI: spacemit: Introduce Spacemit K3
+ PCIe host controller
+Message-ID: <179130180665.2390774.18094483716506116545.robh@kernel.org>
+References: <20260929083755.458238-1-inochiama@gmail.com>
+ <20260929083755.458238-6-inochiama@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929083755.458238-6-inochiama@gmail.com>
 
-VIRTIO_GPU_F_BLOB_ALIGNMENT is designed for GPU rendering context types,
-however VIRTIO_GPU_CAPSET_CROSS_DOMAIN is not one of those. Resources
-created under cross-domain contexts are arbitrary shared system memory
-files, which includes unusual things like Wayland keymaps received
-from the host compositor. Do not enforce alignment requirements there.
 
-Fixes: 47248e0d8264 ("drm/virtio: honor blob_alignment requirements")
-Signed-off-by: Val Packett <val@invisiblethingslab.com>
----
+On Tue, 29 Sep 2026 16:37:51 +0800, Inochi Amaoto wrote:
+> Add binding support for the PCIe controller on the SpacemiT K3 SoC.
+> This controller is almost a standard Synopsys DesignWare PCIe IP,
+> with some extra link and reset state control.
+> 
+> Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+> ---
+>  .../bindings/pci/spacemit,k1-pcie-host.yaml   | 55 ++++++++++++++++---
+>  1 file changed, 46 insertions(+), 9 deletions(-)
+> 
 
-v2: also check has_virgl_3d to prevent dereferencing NULL vfpriv
-v1: https://lore.kernel.org/all/20261006004044.2242154-1-val@invisiblethingslab.com/
-
-~val
-
----
- drivers/gpu/drm/virtio/virtgpu_ioctl.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-index 3ddd5481d6bc..4d5ae062834d 100644
---- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-@@ -551,7 +551,9 @@ static int verify_blob(struct virtio_gpu_device *vgdev,
- 	params->blob_flags = rc_blob->blob_flags;
- 	params->blob_hints = rc_blob->blob_hints;
- 
--	if (vgdev->has_blob_alignment &&
-+	if (vgdev->has_blob_alignment && vgdev->has_virgl_3d &&
-+	    (vfpriv->context_init & VIRTIO_GPU_CONTEXT_INIT_CAPSET_ID_MASK) !=
-+	    VIRTIO_GPU_CAPSET_CROSS_DOMAIN &&
- 	    !IS_ALIGNED(params->size, vgdev->blob_alignment))
- 		return -EINVAL;
- 
--- 
-2.55.0
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
