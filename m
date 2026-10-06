@@ -1,148 +1,172 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41F5A497B6D;
-	Tue,  6 Oct 2026 15:10:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791299417; cv=none; b=XGJdvLHqPptHpI9dBC/9Vfxe3p2rWX7bX25fs5tbx06U957f2z7bR8aNCXAkc/iKKwR/wyd7ta8LkywRA6MRdtaYKZuoyKw7cqBqJpK9QUiqz1I9c6eEu+lYZgIDWfdxQhoV1q50esyvnj9ki4GY6O+C8zZcPhtQLfrZGjPLgXg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791299417; c=relaxed/simple;
-	bh=VkZbF5Ix4Bnh/LDAKPb1Q/dRJ7mFAi944jLXyhb9vLU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EJ/yTcQXNmTfgccLhrCCSIGSpU/C3EfAUivh5qgq2lcf8eHfs75ABi1DNA/5uSp8vjMTngFG6Yuo5m/UTq2yj2ET4Z1BuzscUhjsm7eHB7QPkLfYPq9ZFQyzV+IUC6yfWyCBk/kQ/9muOZ1NRak57uTvbxReMQhau9543QNQncc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T5eiZaIM; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F74D497B6D
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 15:10:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791299423; cv=pass; b=PD1w22X5vvg+UO6vkuyEk02NDQh+wm2Q6LiUsjkw5igdGP943wNMuFezUBRKymj63IXE6WjBop1KITbLuttow4S12f/5R0Nl59EggLJdeHf7k/DoLrFKjnUDvve38/foZCg1BSdhlPVDbzjVR/fQmw6bITmfxl846pnw2RTjgQc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791299423; c=relaxed/simple;
+	bh=/359jzaga1q2flPdc665gmmTDhhWSRi9NJm4hn7GQNw=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=nnNi1HaSy6zgXnn1uu7PogHCfqRjb4CbNIEMYpkQhVjRHROdfCgvngPEEKsRGRVooEJnFeg0XQEm19o90BjcqQ15aF8FrKL7Py5A55Sh/imEmJ1xeUxHnZnWLO2Gv4wbyZuDz66lLc7dkJhnGFjKHqPF5cqQb2O8CmVDOh9+0IQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=AUq3R75T; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T5eiZaIM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D42561F0089B;
-	Tue,  6 Oct 2026 15:10:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791299416;
-	bh=/8MwodWIc7pSXoyonykfDnVGjP6esjgcz4uVWq2ywBA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=T5eiZaIMlFsFmdSMBbX7eLmldhAkSuyF4MC4iWzTFxgZk2MLYdLtk8jzJeWuC7aTw
-	 BBPpyzAqQ6J5qcpNMnEvITLSxNYdH28iGtaRarLR45SATLCVDG8FXeoa/Ws3XqwXyy
-	 Wfqw6A4pDfI+lkqU0WaVj5KA5tTQSYJzHvkRPYW6+H9ftovC+fFIYwiZ8juvIiV1UK
-	 F+eHMerfYSWhy6I79RPArfp4r+o1srzi+myJaNa9bDSum0VdIgLDsGQ6di4f9pX+K3
-	 3Atnhpkqu6NkF2LpmM6Ku6Uc2/e6jDDdtfvCmEb7OiNA+K3pb+A3A5w3oEkiFnvjOC
-	 KRsCetlFLy6PA==
-Message-ID: <b6a552a8-7710-4472-aeaa-96d50856f896@kernel.org>
-Date: Tue, 6 Oct 2026 17:10:08 +0200
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="AUq3R75T"
+ARC-Seal: i=1; a=rsa-sha256; t=1791299387; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=hfl6Pb9TWg96s3MNFkW7Oln/piZmXE6HLkwTFINszKTxjtyj2HSO+Sayn4yOh61urndhE07WjRuHy+1x9ZVz7VOgZzR4vO6AVAKYQ9Be38WvAi5tHi6Z1ZV/4K1/gDvqQT/2uTbld70kaQ/1oIeBIpETP0z2fQ4IiMuAUIQaHW4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791299387; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=vchKlw0oPu4/T9op3iicQOsXwyXtZm1YnhCzMrpelZ8=; 
+	b=hHhjbZKq3Kgd4G3dWMDaWD/3LRTc+YX3GCqYtq9KZecTn58JgFqbkt1o2SZb14r4MWx6j5zrO8OlX7L2VeLkMmbibqKEfnc3XnREQCFbyaC/UJ9CFnQXMUH9UMsOzmIPWC5b6wiHbaKK0BMcPGaY883g1KC4pjOZcosdl26uxsw=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791299387;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Date:Date:Message-Id:Message-Id:Reply-To;
+	bh=vchKlw0oPu4/T9op3iicQOsXwyXtZm1YnhCzMrpelZ8=;
+	b=AUq3R75TpcJXek13rBy6pg7JQmbMn1X7+Juae6ZdxUXMCjfmLC0BpW8c6s5M3Oq/
+	LEZL68TC2zBicALp6CzSHz2AcG2tahNSGd3YUCwC+UF7HEXAe+B48eK/Y/o+rq7SRlx
+	zatgsZ73vm0agFg3m4hvhD7/c+vLmOcfcffHFfxE=
+Received: by smtp.zohomail.com with SMTPS id 1791299386430341.413130039174;
+	Tue, 6 Oct 2026 08:09:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/8] Add SpacemiT K1 USB2.0 controllers support
-To: Yixun Lan <dlan@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Junzhong Pan <panjunzhong@linux.spacemit.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Xu Yang <xu.yang_2@nxp.com>,
- Peng Fan <peng.fan@nxp.com>, Peter Chen <peter.chen@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, linux-usb@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
- Conor Dooley <conor.dooley@microchip.com>, Ze Huang <huang.ze@linux.dev>,
- Troy Mitchell <troy.mitchell@linux.spacemit.com>
-References: <20260927-b4-spacemit-k1-usb2-v3-0-ce7095896039@linux.spacemit.com>
- <20260928230310-GKB2079@kernel.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260928230310-GKB2079@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v12 09/15] drm/panfrost: Add warning messages to fatal
+ error conditions
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+To: Steven Price <steven.price@arm.com>
+Cc: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Faith Ekstrand <faith.ekstrand@collabora.com>, 
+ "Marty E. Plummer" <hanetzer@startmail.com>, 
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Collabora Kernel Team <kernel@collabora.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+In-Reply-To: <2ea16821-fcd8-4f35-b371-7c7e57f76e7c@arm.com>
+References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
+ <20260929-claude-fixes-v12-9-62beb08de207@collabora.com>
+ <2ea16821-fcd8-4f35-b371-7c7e57f76e7c@arm.com>
+Date: Tue, 06 Oct 2026 16:09:40 +0100
+Message-Id: <179129938072.1018806.14660127756555690690.b4-reply@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4034;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=/359jzaga1q2flPdc665gmmTDhhWSRi9NJm4hn7GQNw=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqxQ80W+6riWXlL7Lnulw1qR5GZHk/R7c0H2cXo
+ siCVo85wi+JAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCasUPNAAKCRAOJn5M7lND
+ PaiWDACV+IKNA/V2NgbdzN1Dj41QFt7Dt9Gq5KjmnFRbTcHti2H664QF7XtZPiRq7vNWtUuycWL
+ wlgklToVdjW5wmK68j/dEcrf2UK146Mo+xhRtJa4ezJRTMz7uRtAC0ZLrIDPV1q2yuZQdn+Qd3p
+ hLyaRUAqpdJ1e5lOcYDzOGB+1C8jbA4L491qiauxQCrhlPZ32zLB+PkFgqXNfsdW22Gan+v26zT
+ EigAmdfwfLPboDxCNjspLo5orU1WJEG2tso4sK3PXLO/7iCXGa6qop5Zpp+kRgi4Se4/o0enxUa
+ eCz+/V9UaTfMH5qIeImO7AcyvCkYyUBjH2HNMSEgMZTCJxXtpZXtpBBqsErvHw/enQdBCxMyEXj
+ ZEFeY/yKJVN8Num529CNzXSrz1R69oJDc+dojJ0wqzbE+LO7rTr2uDn+oIkRUsnMgWItoOFD9SA
+ 7Ued9iw/MKLPNuPTj5woQ4WWNWS7bWbty3d55jWn030gmQSuSCOnJYJeM8WM7s4Lo/hb8=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
-On 29/09/2026 01:03, Yixun Lan wrote:
-> Hi Greg,
+On 2026-10-02 15:59:20+01:00, Steven Price wrote:
+> On 29/09/2026 04:44, Adrián Larumbe wrote:
 > 
-> On 19:40 Sun 27 Sep     , Junzhong Pan wrote:
->> The SpacemiT K1 SoC has two USB2.0 controllers, one has Dual-Role
->> support, but the hardware has no internal OTG registers, the other is
->> Host only. These controllers are compatible with Chipidea USB2 driver
->> with some flags set and reset control support.
->>
->> This series is based on 7.3-rc1 and has been tested on Banana Pi F3
->> development board.
->>
->> A self-powered USB device/hub is needed to test the host function of the
->> dual-role controller on Banana Pi F3, a MINI-PCIe USB2.0 module (a
->> cellular module e.g.) is needed to test the host only controller.
->>
->> ---
->> Changes in v3:
->> - collect tags
->> - merge the two dt-binding commits
->> - use local variables when acquiring devm managed clock/reset
->> - drop manual clk_disable_unprepare() from the remove path
->> - enable related drivers as modules in defconfig
->> - Link to v2: https://lore.kernel.org/r/20260908-b4-spacemit-k1-usb2-v2-0-f07342ffa051@linux.spacemit.com
->>
->> Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
->>
+> > Rather than just failing silently, let's warn the user of device remove not
+> > being able to take an PM reference or the PM suspend path still reporting
+> > inflight jobs. Neither situation should ever happen.
+> > 
+> > Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+> > Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+> > ---
+> >  drivers/gpu/drm/panfrost/panfrost_device.c | 5 +++--
+> >  1 file changed, 3 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
+> > index c6bf3d0663df..09a5752a3f40 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> > @@ -9,6 +9,7 @@
+> >  #include <linux/pm_runtime.h>
+> >  #include <linux/regulator/consumer.h>
+> >  #include <drm/drm_drv.h>
+> > +#include <drm/drm_print.h>
+> >  
+> >  #include "panfrost_device.h"
+> >  #include "panfrost_devfreq.h"
+> > @@ -357,7 +358,7 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+> >  
+> >  void panfrost_device_fini(struct panfrost_device *pfdev)
+> >  {
+> > -	pm_runtime_get_sync(pfdev->base.dev);
+> > +	drm_WARN_ON(&pfdev->base, pm_runtime_get_sync(pfdev->base.dev) < 0);
 > 
->> ---
->> Junzhong Pan (8):
->>       dt-bindings: usb: ci-hdrc-usb2: add spacemit,k1-usb2 compatible
->>       usb: chipidea: usb2: use devm_clk_get_optional_enabled()
->>       usb: chipidea: usb2: add optional reset support
->>       usb: chipidea: usb2: add SpacemiT K1 support
->>       riscv: dts: spacemit: add USB2.0 controller nodes for K1
->>       riscv: dts: spacemit: enable USB2.0 controllers on BananaPi F3
->>       riscv: dts: spacemit: enable USB2.0 controllers on OrangePi RV2
->>       riscv: defconfig: enable ChipIdea USB controller support
->>
-> Any chance to queue these patches (1-4) for v7.4 cycle? Hope it not too late,
-> and then I will handle the rest part, thanks
+> This seems fine.
+> 
+> >  	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+> >  	pm_runtime_disable(pfdev->base.dev);
+> > @@ -516,7 +517,7 @@ static int panfrost_device_runtime_suspend(struct device *dev)
+> >  {
+> >  	struct panfrost_device *pfdev = dev_get_drvdata(dev);
+> >  
+> > -	if (!panfrost_jm_is_idle(pfdev))
+> > +	if (drm_WARN_ON(&pfdev->base, !panfrost_jm_is_idle(pfdev)))
+> 
+> I'm a bit wary that this might be something that user space can trigger.
+> My AI says:
+> 
+> The runtime-suspend WARN can be reached by ordinary userspace job
+> submissions. The DRM scheduler increments credit_count before calling
+> Panfrost’s job runner (drivers/gpu/drm/scheduler/sched_main.c:1044).
+> Panfrost takes the job’s PM reference later in hardware submission
+> (drivers/gpu/drm/panfrost/panfrost_job.c:213). If autosuspend runs in
+> that interval, the new WARN
+> (drivers/gpu/drm/panfrost/panfrost_device.c:525) sees the credit and
+> fires, even though this is a timing race rather than a broken job.
+> Repeated submissions near the autosuspend boundary could therefore
+> produce repeated stack traces. The PM core treats the resulting -EBUSY
+> as a transient failure.
+> 
+> Now I have to admit I don't trust it that much - but I'd want a
+> convincing argument on why panfrost_jm_is_idle() will never be false here.
 
-Can you drop the fake test tags while at it?
+You're right. I was in the belief that autosuspend kicking in was proof of no
+inflight or pending jobs present in the scheduler queues, so I came to treat
+this check as things having gone awry.
 
-Best regards,
-Krzysztof
+I guess its value lies in the ability of the PM runtime suspend handler
+to cancel itself at an autosuspend event, like you said.
+
+However, it just made me wonder: what would happen in the event that autosuspend
+kicks in and runs panfrost_device_runtime_suspend() right at the same time that
+a scheduler job is picked up by drm_sched_run_job_work(), but hasn't yet reached
+the statement where it does an atomic increment on the credit_count? I guess
+nothing, because panfrost_job_hw_submit() is getting a PM reference before
+accessing any HW registers, and that should take care of dealing with any
+ongoing autosuspend events.
+
+In that case I'll just delete that warning. However, I'd say it's bad practice
+to have DRM drivers access the internal state of the DRM scheduler. At present,
+only Panfrost and Etnaviv poke it in their RPM suspend handlers, and I've been
+wondering whether we should get rid of this check altogether, or else maybe ask
+the scheduler maintainers whether it makes sense to have a non-racy way to
+query the presence of pending jobs in their queues?
+
+> Thanks,
+> Steve
+
+
