@@ -1,166 +1,81 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F40941A928
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 20:26:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94A3325B0BD;
+	Tue,  6 Oct 2026 20:27:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791318384; cv=none; b=pLeuIBewemWOrc2z5Bwyf7fw9OwQr4d7U1NhjcG/S9/VvFwXpbBhCfcF5cbZa38kxy7zz3GN1CRX8ijjQSBYeq/RWgtWnES3mywI/Ia/U0RZYz7bfjAJyqi/N437qcx9I/WYOA3xB+0zLyrmd+VjU1QnnLWv+Hvy5oe4PTX93Oo=
+	t=1791318479; cv=none; b=lIakEu02ag5OeDAUN69ZQ/j6HJI0VhjhMc7isnR6mSuQ1UEzwHHKe4iCsm37ypL9qa/JpcPGALtWsQMb7wq5I4rSc9LqjlH0ASuvw1tlCGFxZSnSiFAIwV1ve08H8E9GtTeLdjCHzdhQ87q9VkzoFM7gIttehIoDsHoxNptRSjk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791318384; c=relaxed/simple;
-	bh=/HuvMcI81Zsd8Wc7EmFxlJdMGFhy1DHGBcuwjZ5cShk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bLaa1qssE3ewKnp+RlKIfo7XzNLtoqLx1994Al1G+WDE+K5SoCfvm8wtbmYisxaKYKCnpJZENlAq2AL/l2uiDiY6ofzLmvf/mrlC1Hu1FkJzdQghkiUjs+XfAHonYRgxBJfRbSN+pys0762XdlnSB6aufadh0DDZw8nqIZhx8T0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PU/RoUcS; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791318479; c=relaxed/simple;
+	bh=nQ68lgnNWIGQzaj+6IGjraICICFgXTOkubcAJ/wqw9A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RxtFpYT0n56/6P9Y9zGqtkP7WhYrBui+cDF2eAxJbbEWDG+2w8XkqNmgnq0iQod894F45VQPwF1K5rZCUAhcD4H1TL+F2YGsRZQCGUSDStSYmdwULc4Ajzrgo9rBAq86Rna2/zpWb8ECos1Jo446ITb8wqJ7EVVTlEShSqyZX9U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qy3g2J/M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PU/RoUcS"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49e73611928so8037985e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 13:26:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791318381; x=1791923181; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JBu+DzZZbbueC/8QmlJUcOPlzBwqeEdGhoe14aARaOU=;
-        b=PU/RoUcSq56DawPrtRBkIpcFnZIoYnRapgYAbAVp/dyzQcpei6TB123M4o/wOM7h76
-         NlUkp5K7fic5xmNJoPn8t0hxBC64yedh7s19PGNV79jIPsF0Ri3Ep9ONkQiqI1DRBhWf
-         U8RHr5YVRnxUtCXu+5rq+SW51/Sgyfxd20afUojOCT34eljaTxQH1uBsb+BIAW+XsQGf
-         uTy4b9ZAMQrLZOQcwBhvqesEXYp5wreZd4mxHBrJCCMTwMFbNTJ5IefLKnhsyNMgDLFZ
-         PavAcJpRZIZJoaTNb9KSI43dFYZx40b7JShc8mB65dzT6MwVTLJSngcvQTBBYcBvQwQY
-         FAWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791318381; x=1791923181;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JBu+DzZZbbueC/8QmlJUcOPlzBwqeEdGhoe14aARaOU=;
-        b=lph1ibGh5uSVk8Fl7WPK9TD3d/lgOkv5xZKUWaXLwGT57hmWSBwsZzM72F3+Q7jeGX
-         9ri6RtArKrxYYHE2RYc6aVRyx/Dd7O73TNOGGjjcVKsavo1LPAUtbOqMUCS9MwiXfQqm
-         rggM45+rIQAQNgJVjfMs9o5w26CfQjoxZPuPEW5nWNHwxHeC58lgukFoWsKWfwdJYAKm
-         5UMhXboefY4oIvnA16B/rhUEjscQPTiJxgcFmsGhwwDhup+mT/oPqO2nv+md83Oa9XjM
-         wuZA/UhzAMXoa3UsaqDADN8ktIn5Eem/iPSOCLRWaePnm+ZO6yQ7R0qqpNAtm1lT8xcU
-         CQAg==
-X-Forwarded-Encrypted: i=1; AKwUvBzsBtu9RuyxPT2aJjHgKC6mVZws/QOu+yx5vymxuDDuYPQgBcKNS0hk7B4BqVJ0x0+M9bMjJyjlmzK+sDo=@vger.kernel.org
-X-Gm-Message-State: AFuF++ltTD7altniZ/BxLuvqHLz9Cf+MsboqYVGQYW+o2Kju2+ROgft4
-	GhF56Wfn6doo8BtpmMYmGgepgSDJeYFlo+IcC9FA82CS8snp8sQTeHY=
-X-Gm-Gg: AYBFou340k6zDQ6XQlQn3W+tPhOzqUdPpisE9TpSAsO9tkyAZDQBY2VhUmZfqEWulXl
-	NK9Ik+2MZT7vIRzts4D/V1A19WsfRWpJfF4zYduPxcOskAVb8nrQfWaJXQODhlOFgNELJZ0ONsT
-	9dNB82xdiZGvhJ+FCOPuygge95HlNy7/7AqNa4f9WEvUQa04hrF4VuyiE4ayb14O6IVjNJNGMia
-	Iy2QJSC9oxFybMenCWIN9WOMJ8CYtiehrzmH617GTKGXHWwOuqSO3ja6AfMY+lTXs4ZGhaOxIJ9
-	lK1oyJSdlk8epU6KRcnNnb8rAmTjHcvcHxv8jM3cjWtMq/tzjMpoUxbYNONBWP1X4KqqeGtJoWl
-	Y/dLJMPkrh4poSfr9WvigmXGxHzkFBIW/9PEqLhCt90RFKJmqKz3+nX+vS2rBjUD9UsUqJ1k9Z1
-	ozimGiiuUvKOhUEZE86cnEBdnsXdzZx21Z/OqH4azIG62hiq0DwYgqpqpFEZW9TBDhrys2JjJPs
-	ptues/QxIZzZ9M7mqcuId/Csl9mLDCyAeF4QU674c1rTMaGeULAzQ==
-X-Received: by 2002:a05:600c:348d:b0:4a0:1ef1:b62b with SMTP id 5b1f17b1804b1-4a18043b443mr114185e9.10.1791318381123;
-        Tue, 06 Oct 2026 13:26:21 -0700 (PDT)
-Received: from localhost ([2a02:810d:4a94:b300:d1f6:bf6:35f2:f07c])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a17f5510desm9065205e9.7.2026.10.06.13.26.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 06 Oct 2026 13:26:20 -0700 (PDT)
-From: Florian Fuchs <fuchsfl@gmail.com>
-To: Rich Felker <dalias@libc.org>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	linux-sh@vger.kernel.org
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Florian Fuchs <fuchsfl@gmail.com>,
-	yoshinori.sato@nifty.com,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qy3g2J/M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 965321F0089B;
+	Tue,  6 Oct 2026 20:27:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791318478;
+	bh=cqxmOhAaf0jJbiWYynr1D5oxbMRyOf/h5HQ0F1FiFV0=;
+	h=From:To:Cc:Subject:Date;
+	b=Qy3g2J/ML4rWXYkeIGYfCnGQn/4cLG3svw+yeSe1zz/dHkcYgNmbB5o8wTXc6AvjL
+	 SF2OV7DPmIRguv5qrvlPJhjBFBzoN1E9E6aHfNTAmpnAbs9+5P04rOd8NecK/S3NUO
+	 l5NfiuRCZIbJBPaZ6NG5YAbbQ11SehMm8znA2hRemGwzV0vNRZgnXU+3iZmsGBM72j
+	 6GETpu27e31118+hkrqbb4ghYn7DCvM41cy4A0X5QAh//Ye/X6J/PgKSynkf/YuwKY
+	 9SHFr7rEKUOQ/VPid8geo27WdaQTUzS1IHCzfuEjmQsixf1IUXxMqhXnjTxgm21Tez
+	 g9Fc0fc7Lr5Tw==
+From: Thorsten Blum <blum@kernel.org>
+To: Hadar Gat <hadar.gat@arm.com>,
+	Olivia Mackall <olivia@selenic.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>
+Cc: Thorsten Blum <blum@kernel.org>,
+	linux-crypto@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] sh: lib: Restore r4 in shift helpers
-Date: Tue,  6 Oct 2026 22:25:42 +0200
-Message-ID: <20261006202542.777358-1-fuchsfl@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH] hwrng: cctrng - simplify cctrng_probe()
+Date: Tue,  6 Oct 2026 22:27:34 +0200
+Message-ID: <20261006202734.104415-2-blum@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=994; i=blum@kernel.org; h=from:subject; bh=nQ68lgnNWIGQzaj+6IGjraICICFgXTOkubcAJ/wqw9A=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFlHI7d97+57tyD+gWvPSYnp6z6/yS+I+T1z7QemMlkVO VOvO7xTOkpZGMS4GGTFFFkezPoxw7e0pnKTScROmDmsTCBDGLg4BWAia7cx/BXY/2Vz1PcjSxsU +o7U+G7zP7gpUvMK1ysuPfPA/L9sN4MZGVYUCyrJqvVYZ0b+XXM/mvNz5bPWRZoMKsZhqvPqtEu 3cwMA
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
 Content-Transfer-Encoding: 8bit
 
-Commit 940d4113f330 ("sh: New gcc support") reuses r4 as scratch for
-the jump table offset and pops the saved value into r0 in the jmp
-delay slot, so the helpers return with r4 still holding the table
-byte. GCC can keep a live value in r4 across the call, which leads to
-runtime data corruption.
+Handle the error directly and drop the goto statement.
 
-GCC calls __ashlsi3, __ashrsi3 and __lshrsi3 with a special convention:
-value in r4, result in r0, and only r0 and T clobbered.
-
-Pop the saved value back into r4 before the jmp and copy it to r0 in
-the delay slot. The shift sequences only operate on r0, so r4 is now
-preserved across the whole call.
-
-Fixes: 940d4113f330 ("sh: New gcc support")
-Signed-off-by: Florian Fuchs <fuchsfl@gmail.com>
+Signed-off-by: Thorsten Blum <blum@kernel.org>
 ---
-v1->v2: Make commit message more accurate
+ drivers/char/hw_random/cctrng.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
-v1: https://lore.kernel.org/linux-sh/20260714104147.2016549-1-fuchsfl@gmail.com/
-
-Without the patch, the early boot on e.g J2 gets a kernel BUG at
-mm/percpu.c:2604 / "can't handle more than one group."
-        PCPU_SETUP_BUG_ON(pcpu_verify_alloc_info(ai) < 0);
-As the static condition in mm/percpu-km.c wasn't true:
-        ai->nr_groups != 1
-nr_groups contained 60 - the clobbered value from the shift helper.
-
-This change was tested on the J2 core on the Mimas v2 board. It can
-theoretically also target other SH2 devices, but I don't have any other
-than J2 sadly.
-
-The flow of operations matches now the state in the libgcc, see also
-in gcc: libgcc/config/sh/lib1funcs.S
-
- arch/sh/lib/ashlsi3.S | 3 ++-
- arch/sh/lib/ashrsi3.S | 3 ++-
- arch/sh/lib/lshrsi3.S | 3 ++-
- 3 files changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/arch/sh/lib/ashlsi3.S b/arch/sh/lib/ashlsi3.S
-index 4df4401cdf31..73a9d709b169 100644
---- a/arch/sh/lib/ashlsi3.S
-+++ b/arch/sh/lib/ashlsi3.S
-@@ -63,8 +63,9 @@ __ashlsi3_r0:
- 	mova	ashlsi3_table,r0
- 	mov.b	@(r0,r4),r4
- 	add	r4,r0
-+	mov.l	@r15+,r4
- 	jmp	@r0
--	mov.l	@r15+,r0
-+	mov	r4,r0
+diff --git a/drivers/char/hw_random/cctrng.c b/drivers/char/hw_random/cctrng.c
+index a6925211c3b5..43bf99741bdf 100644
+--- a/drivers/char/hw_random/cctrng.c
++++ b/drivers/char/hw_random/cctrng.c
+@@ -539,7 +539,8 @@ static int cctrng_probe(struct platform_device *pdev)
+ 	rc = devm_hwrng_register(dev, &drvdata->rng);
+ 	if (rc) {
+ 		dev_err(dev, "Could not register hwrng device.\n");
+-		goto post_pm_err;
++		cc_trng_pm_fini(drvdata);
++		return rc;
+ 	}
  
- 	.align	2
- ashlsi3_table:
-diff --git a/arch/sh/lib/ashrsi3.S b/arch/sh/lib/ashrsi3.S
-index bf3c4e03e6ff..9962d7c587df 100644
---- a/arch/sh/lib/ashrsi3.S
-+++ b/arch/sh/lib/ashrsi3.S
-@@ -62,8 +62,9 @@ __ashrsi3_r0:
- 	mova	ashrsi3_table,r0
- 	mov.b	@(r0,r4),r4
- 	add	r4,r0
-+	mov.l	@r15+,r4
- 	jmp	@r0
--	mov.l	@r15+,r0
-+	mov	r4,r0
+ 	/* trigger HW to start generate data */
+@@ -552,11 +553,6 @@ static int cctrng_probe(struct platform_device *pdev)
+ 	dev_info(dev, "ARM cctrng device initialized\n");
  
- 	.align	2
- ashrsi3_table:
-diff --git a/arch/sh/lib/lshrsi3.S b/arch/sh/lib/lshrsi3.S
-index b79b8170061f..9218f0bad1cc 100644
---- a/arch/sh/lib/lshrsi3.S
-+++ b/arch/sh/lib/lshrsi3.S
-@@ -62,8 +62,9 @@ __lshrsi3_r0:
- 	mova	lshrsi3_table,r0
- 	mov.b	@(r0,r4),r4
- 	add	r4,r0
-+	mov.l	@r15+,r4
- 	jmp	@r0
--	mov.l	@r15+,r0
-+	mov	r4,r0
+ 	return 0;
+-
+-post_pm_err:
+-	cc_trng_pm_fini(drvdata);
+-
+-	return rc;
+ }
  
- 	.align	2
- lshrsi3_table:
--- 
-2.43.0
-
+ static void cctrng_remove(struct platform_device *pdev)
