@@ -1,242 +1,158 @@
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 406FD49C4C2
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 17:15:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 706C24A1E01
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 17:16:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791306959; cv=none; b=T4xGEsjHww9WhBu6C7oi0f4RPhjRCNf0Dg+BtAoMFyR+rk4pbHybXNKi7udBac22nMwLhk1wc3bENCyTXYzd5q1VVN68eMBQ1eGGW67cnGa6Irujxdwm0UoyKWhZ3X0lX9soPiK0GfJrWeJePmD89vyMWGuPpHPncDYHh4VCMhs=
+	t=1791306965; cv=none; b=gdIkVYyAqriqpQK9ZkTembjPxkUyrN1EEZaBu3Ft65h4q0z1IoNKW26X/xvUm7NSNxB+DX9bFeiVDdgmuk3J2fUcDmSa79co7XZ2a392B8WWG/fIIih3xfZGSkEh45gNtVpYlZ0LGwy7u6aPCZEI8UvGFp8xNyzrj651NTOnMFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791306959; c=relaxed/simple;
-	bh=Zdm2T6AevFfORGkCPmF2QjXcpStUZ/jMGyL/SE6t7mU=;
-	h=Message-ID:In-Reply-To:References:From:Date:Subject:To:Cc; b=uLomOcIoirDKjEBokE9x5YqcyEmqG3bbmu5klLnWEtSAMris8WTwDF2325pELxm7pbczt30NSTFtvb/7DxCTQU8JK3s05g5ybyCsqpd5th/G+UuAm1htDK3OW/nsMT9DeGNoK2ZiBsEB62LYhRq67E+dPyCpOIQuyxdeUCKdZCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=UYYC9cEO; arc=none smtp.client-ip=209.85.160.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="UYYC9cEO"
-Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-533778ab0bdso9022891cf.3
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 10:15:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1791306957; x=1791911757; darn=vger.kernel.org;
-        h=cc:to:subject:date:from:references:in-reply-to:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=xExnBleInceOlCuc+SUse0f1MyDmEoa14ImGZUlXkCw=;
-        b=UYYC9cEOlMnJWtG7z7yZzo8HQMVYgOEL2WR1bl2BvDs4zeTTH05C3EueAjIrJapKSO
-         e2Wgm6VX8AwKmEB+Ui13ucwVwTghIp/ck7cd7UWm9ZAu/QyfZDR++RtsblNwIy0OKbQ5
-         GPFpjMsRHebJk3bZgEePcyCNx0Ta2aE5azQTrK2sttF72NTgRhkmwzzw2Ru9kI4KxhFD
-         LZvKCetj2i3+PqeuZW2w1+r9ThC3nJG5+j4rT6QPP30joe/1+wueyransZT1rtuT68d+
-         tf1RC2kNs9qt2e2lMjgADlFMPmaisRWxWj3+Kx5wD+iQ71NDBu8uQ97QWEnKMnGsccSa
-         BO4w==
+	s=arc-20240116; t=1791306965; c=relaxed/simple;
+	bh=2LhvKNfXjirIqU57oe2YY/T0W86EQijBsx+nVPG1t9E=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=WURH6fz4S5O7MDOI1HgDvq1CXv3ofPnzcyIZSn3PNXh+K/vWEsXy+eAFogei/OcIgYV0UAOT8dw76+FgngKCsNaaMrYq6Bb1HagSzdZheue4Bqz4MHshBcCpAxQeXn83vE3XSyzb08VqW9Qgv5f8M8BiW6g90rajAtoMXmZEY/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4a7de733fa9so3903281b6e.3
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 10:16:03 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791306957; x=1791911757;
-        h=cc:to:subject:date:from:references:in-reply-to:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xExnBleInceOlCuc+SUse0f1MyDmEoa14ImGZUlXkCw=;
-        b=jsb9DRQzFDFk8tmMhUxgxyT4dCpr79G4t/vssYpWKssg7Ecyx2CsWjmtO4OtkOHwaH
-         kKH3GTFeMkpyZzZFE8ErM7eAsKotReBvPJb0Y1CpDxCzS+IXxGQKtb6bKk3JV8c6c0IK
-         eWVHJdLhYCdUaOhVQjjW722eTOCz06Nbyacw7AqCfsh+C1vngWF/spnDchg6Ohc3lCxb
-         LUzx7iUQf3f6QwqGiA3mbIwBrYE2kTHs8NSU2HFz5VFuPAV4XicoaeFeLJQQaEgu7YcI
-         ZCiOpoSjNVADK/vTwXjxjoMYwQQ0chte358Ua4Yusiq5u/ARb+tx0BQCYZDy2BPqdgnK
-         OjuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwFBZL1mljZjvrTCi+e1jvtKfNQB7/2xCZIWAT3J46OLMVj5Gd8KclftODgyiKflc0RvDqUqDicjaU3gT4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kyTo8TVY+dDudzQ1UgCUW6l5AoW6w11ktUtWoKzzeyZzb7E/+8
-	YYxbf7VXLFsBXuDY4iX2J9/CHOg8reG7XVWcSB6R1GUDnwlFfOqsZIAyOJUL0N3FGT0=
-X-Gm-Gg: AYBFou0Ypbd/vIlVOQou1Y2ER6bxR0AKFShgK6zsJaWYA+EXPLlF+zwGPPitnQuHkv3
-	+q6n057k57BnvXQJxhmc9QJFMvdSHBfMBFNpYLSBpYzkoehJ3KioVcNB8TYIgxbcXFtz2jPtY/N
-	Ej4vWPG/G4IKsrf7OEwY9yxo+Vi8h3JO6e8pZYStjDdJ8EIFcGBH92NlTY9u1BmYV36pr3p8Gfa
-	t911m0IUmZIkzWQ3IPEM/hK7QKE7cnSY0pFUOs9PiuBnVICTEQ4I4ecRqe30TiGp/378Ez1wJ2F
-	ychTmIwGXZlOaVw0YA1es1jIW5ISgG1K0asH5t2mXOEaKMVJh3gdFoGMJMyGPbB4SlVQYMLC9pm
-	hW2o3sLLtkQOIkNuGPPdxNY97ygGqS7DnZK9MXcV5htHteZdF7uZfm8/N0yXGiOKAKulm2oyiHY
-	1LXyAHtzk76WGKMEH6oGj8olhAMZ+aBS4MGhm17DODsQ8tIiarDBcGgTMxr0RpC/oWieEGKDSdw
-	ZGwoi5hGUNd30k=
-X-Received: by 2002:a05:622a:391:b0:535:942:4e0 with SMTP id d75a77b69052e-53566910e8cmr38409831cf.12.1791306956850;
-        Tue, 06 Oct 2026 10:15:56 -0700 (PDT)
-Received: from toxicpanda.com ([153.61.196.246])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-535720ea3bbsm438011cf.13.2026.10.06.10.15.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 10:15:55 -0700 (PDT)
-Message-ID: <f190450a6eeccbb41010002e091662948083166d.1791303049.git.josef@toxicpanda.com>
-In-Reply-To: <cover.1791303049.git.josef@toxicpanda.com>
-References: <20261001125422.1364260-1-tom.leiming@gmail.com>
-	<cover.1791303049.git.josef@toxicpanda.com>
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Tue, 6 Oct 2026 14:50:15 +0000
-Subject: [PATCH 3/4] ublk: give the command back from COMMIT_AND_FETCH on a
- canceling queue
-To: Ming Lei <tom.leiming@gmail.com>,
-    Jens Axboe <axboe@kernel.dk>
-Cc: Caleb Sander Mateos <csander@purestorage.com>,
-    linux-block@vger.kernel.org,
-    linux-kernel@vger.kernel.org
+        d=1e100.net; s=20260707; t=1791306962; x=1791911762;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=siyiGTq0y6RwxOFicmUR5RZfSwiB5r+3P84mEp+5CPk=;
+        b=EMRxPiXpaxuZcjFj1MPoT6S7cxO/Imlp0eFGCc/GtZfVMQEnAK5qEbHX9u7SwTh8vb
+         KJ7NkyrRiyLggrwrDPHbHcws4U0RQssSRpAibbaqOBNYG3dlCPR0f16LDlHCsd5osS4V
+         Hvh+g4fKLrS+aghMu6C9XQUsayP/GlzRM3+MWR1vkQJKcW8F7Hhw2EZhiPdoukha6sZu
+         FIqbjp1a3TpFnO9MmZjCEfww5OaQMYZhCsxOLXZuxU5HDXtA1BdDUCLDv/KHf2NhEn+l
+         /ikQhC2ekokK/Ze6ANXQfK8ZPHVqIjMjmcgi7v51cxvkmWKbC4Kvz5Ud5JMB/8kUi3ge
+         NtKg==
+X-Forwarded-Encrypted: i=1; AKwUvBwF82QIccf57hysCg5Rjcuj6v/h/4t4EDCOcRDwaOClkpF7vN5/jTmG8K+ekJQ6ya9GhAYiGWeJe8pmqOc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kL66jw6F1DK0xLip63RgQ1uSyKsjHsA12TJfLIKw2AaCPsn7nD
+	dOL0OLp8Hf97ltj1xmbyK3PlvYmcqb0Ei6gK3LYCDIp1fJ7R2hGBEzyRCvB05DYH1EvfeP0Nzf2
+	CdhOHyeGlHfzoCjMjN0lCjbvduvhiRlwTGjv7Vvn5x1nhjuYw9HDuotAgiuA=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-Received: by 2002:a05:6808:3a0b:b0:4e7:8f9b:1191 with SMTP id
+ 5614622812f47-4fb40da837bmr1980959b6e.52.1791306962295; Tue, 06 Oct 2026
+ 10:16:02 -0700 (PDT)
+Date: Tue, 06 Oct 2026 10:16:02 -0700
+In-Reply-To: <20261006105153.8625-2-jakovnovak30@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac52cd2.9ad129c8.3ce5b3.0005.GAE@google.com>
+Subject: Re: [syzbot] [media?] [usb?] WARNING in smsusb_term_device (2)
+From: syzbot <syzbot+d627b1495de0e851be32@syzkaller.appspotmail.com>
+To: jakovnovak30@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-COMMIT_AND_FETCH and NEED_GET_DATA publish the server's next command in
-io->cmd without a lock. A cancel which runs at the same time can see
-the io active and still read the request pointer io->cmd shares its
-storage with, or miss the command altogether. QUIESCE_DEV cancels while
-the server still commits, and the command published right after its
-cancel pass is never completed, which is what leaves the server waiting
-for it forever.
+Hello,
 
-Have the issuer decide instead: read ->canceling before publishing, and
-on a canceling queue complete the committed request as usual, but give
-the new command back with UBLK_IO_RES_ABORT instead of publishing it,
-leaving the io canceled the way ublk_cancel_cmd() does. NEED_GET_DATA
-sends its request back the way ublk_queue_rq() does on a canceling
-queue.
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+WARNING in enable_work
 
-The read and the publish are one RCU read section, so a cancel which
-marks the queue and then calls synchronize_rcu() knows every command
-published without seeing the mark is in place before it looks, and
-every later one comes back from its issuer. That keeps the commit path
-free of locks and barriers. ->canceling is read locklessly now, so write
-it with WRITE_ONCE().
+------------[ cut here ]------------
+workqueue: work disable count underflowed
+WARNING: kernel/workqueue.c:4530 at work_offqd_enable kernel/workqueue.c:4530 [inline], CPU#0: kworker/0:1/10
+WARNING: kernel/workqueue.c:4530 at enable_work+0x1c7/0x230 kernel/workqueue.c:4701, CPU#0: kworker/0:1/10
+Modules linked in:
+CPU: 0 UID: 0 PID: 10 Comm: kworker/0:1 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
+Workqueue: usb_hub_wq hub_event
+RIP: 0010:work_offqd_enable kernel/workqueue.c:4530 [inline]
+RIP: 0010:enable_work+0x1c7/0x230 kernel/workqueue.c:4701
+Code: 9f 1b 38 00 4d 85 f6 75 48 e8 95 1b 38 00 eb 47 e8 8e 1b 38 00 90 0f 0b 90 e9 bc fe ff ff e8 80 1b 38 00 48 8d 3d 99 1c 26 0e <67> 48 0f b9 3a e9 d2 fe ff ff e8 6a 1b 38 00 90 0f 0b 90 e9 1d ff
+RSP: 0018:ffffc900000f6ae0 EFLAGS: 00010093
+RAX: ffffffff818ebc00 RBX: 0000000000000000 RCX: ffff88801ca8be80
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffffffff8fb4d8a0
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: dffffc0000000000 R11: ffffed10170c7719 R12: 1ffff11005420c3f
+R13: 0000000000800001 R14: ffff88802a1061f8 R15: 0000000000000000
+FS:  0000000000000000(0000) GS:ffff888125bc2000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f2ccbc072c0 CR3: 0000000037316000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ __cancel_work_sync+0xf8/0x110 kernel/workqueue.c:4571
+ smsusb_stop_streaming drivers/media/usb/siano/smsusb.c:183 [inline]
+ smsusb_term_device+0xdd/0x3d0 drivers/media/usb/siano/smsusb.c:345
+ smsusb_init_device drivers/media/usb/siano/smsusb.c:497 [inline]
+ smsusb_probe+0x1aba/0x2280 drivers/media/usb/siano/smsusb.c:575
+ usb_probe_interface+0x788/0xe50 drivers/usb/core/driver.c:399
+ call_driver_probe drivers/base/dd.c:-1 [inline]
+ really_probe+0x254/0xae0 drivers/base/dd.c:706
+ __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
+ driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
+ __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
+ bus_for_each_drv+0x25b/0x2f0 drivers/base/bus.c:500
+ __device_attach+0x2c7/0x450 drivers/base/dd.c:1098
+ device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
+ bus_probe_device+0x12d/0x220 drivers/base/bus.c:620
+ device_add+0x7d7/0xb80 drivers/base/core.c:3776
+ usb_set_configuration+0x1bb5/0x2260 drivers/usb/core/message.c:2274
+ usb_generic_driver_probe+0x8d/0x150 drivers/usb/core/generic.c:250
+ usb_probe_device+0x1c3/0x3b0 drivers/usb/core/driver.c:293
+ call_driver_probe drivers/base/dd.c:-1 [inline]
+ really_probe+0x254/0xae0 drivers/base/dd.c:706
+ __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
+ driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
+ __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
+ bus_for_each_drv+0x25b/0x2f0 drivers/base/bus.c:500
+ __device_attach+0x2c7/0x450 drivers/base/dd.c:1098
+ device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
+ bus_probe_device+0x12d/0x220 drivers/base/bus.c:620
+ device_add+0x7d7/0xb80 drivers/base/core.c:3776
+ usb_new_device+0x99a/0x1680 drivers/usb/core/hub.c:2713
+ hub_port_connect drivers/usb/core/hub.c:5585 [inline]
+ hub_port_connect_change drivers/usb/core/hub.c:5725 [inline]
+ port_event drivers/usb/core/hub.c:5889 [inline]
+ hub_event+0x28cf/0x4cf0 drivers/usb/core/hub.c:5971
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+ kthread+0x38b/0x470 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+----------------
+Code disassembly (best guess):
+   0:	9f                   	lahf
+   1:	1b 38                	sbb    (%rax),%edi
+   3:	00 4d 85             	add    %cl,-0x7b(%rbp)
+   6:	f6 75 48             	divb   0x48(%rbp)
+   9:	e8 95 1b 38 00       	call   0x381ba3
+   e:	eb 47                	jmp    0x57
+  10:	e8 8e 1b 38 00       	call   0x381ba3
+  15:	90                   	nop
+  16:	0f 0b                	ud2
+  18:	90                   	nop
+  19:	e9 bc fe ff ff       	jmp    0xfffffeda
+  1e:	e8 80 1b 38 00       	call   0x381ba3
+  23:	48 8d 3d 99 1c 26 0e 	lea    0xe261c99(%rip),%rdi        # 0xe261cc3
+* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
+  2f:	e9 d2 fe ff ff       	jmp    0xffffff06
+  34:	e8 6a 1b 38 00       	call   0x381ba3
+  39:	90                   	nop
+  3a:	0f 0b                	ud2
+  3c:	90                   	nop
+  3d:	e9                   	.byte 0xe9
+  3e:	1d                   	.byte 0x1d
+  3f:	ff                   	.byte 0xff
 
-Assisted-by: LLM
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
----
- drivers/block/ublk_drv.c | 66 +++++++++++++++++++++++++++++++++++++---
- 1 file changed, 61 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
-index bd7126dcf92f..6717dabf3a23 100644
---- a/drivers/block/ublk_drv.c
-+++ b/drivers/block/ublk_drv.c
-@@ -2492,6 +2492,9 @@ static void ublk_partition_scan_work(struct work_struct *work)
-  * - there are no concurrent reads of ubq->canceling from the queue_rq
-  *   path. This can be done by quiescing the queue, or through other
-  *   means.
-+ *
-+ * ublk_commit_io_cmd() reads ubq->canceling locklessly, so it is written
-+ * with WRITE_ONCE().
-  */
- static void ublk_set_canceling(struct ublk_device *ub, bool canceling)
- 	__must_hold(&ub->cancel_mutex)
-@@ -2500,7 +2503,7 @@ static void ublk_set_canceling(struct ublk_device *ub, bool canceling)
- 
- 	ub->canceling = canceling;
- 	for (i = 0; i < ub->dev_info.nr_hw_queues; i++)
--		ublk_get_queue(ub, i)->canceling = canceling;
-+		WRITE_ONCE(ublk_get_queue(ub, i)->canceling, canceling);
- }
- 
- static bool ublk_check_and_reset_active_ref(struct ublk_device *ub)
-@@ -3109,7 +3112,7 @@ static void ublk_queue_reset_io_flags(struct ublk_device *ub,
- 	 */
- 	mutex_lock(&ub->cancel_mutex);
- 	if (!ub->canceling)
--		ubq->canceling = false;
-+		WRITE_ONCE(ubq->canceling, false);
- 	mutex_unlock(&ub->cancel_mutex);
- 	ubq->fail_io = false;
- 	ubq->force_abort = false;
-@@ -3227,6 +3230,49 @@ ublk_fill_io_cmd(struct ublk_io *io, struct io_uring_cmd *cmd)
- 	return req;
- }
- 
-+/*
-+ * Instead of ublk_fill_io_cmd() on a canceling queue: the server's new
-+ * command is not published, it goes back with UBLK_IO_RES_ABORT, and the
-+ * io is left canceled the way ublk_cancel_cmd() leaves it.  Returns the
-+ * request the server owned.
-+ */
-+static struct request *ublk_cancel_io_cmd(struct ublk_queue *ubq,
-+					  struct ublk_io *io)
-+{
-+	struct request *req = io->req;
-+
-+	spin_lock(&ubq->cancel_lock);
-+	io->flags &= ~(UBLK_IO_FLAG_OWNED_BY_SRV | UBLK_IO_FLAG_NEED_GET_DATA);
-+	io->flags |= UBLK_IO_FLAG_CANCELED;
-+	spin_unlock(&ubq->cancel_lock);
-+
-+	return req;
-+}
-+
-+/*
-+ * Publish the command a COMMIT_AND_FETCH or NEED_GET_DATA brings, unless
-+ * the queue is canceling, see ublk_quiesce_cancel().  The read of
-+ * ->canceling and the publish are one RCU read section: a cancel which
-+ * marks the queue after the read waits in synchronize_rcu() until the
-+ * command is published, and claims it then.  Returns whether the command
-+ * goes back to the server instead.
-+ */
-+static bool ublk_commit_io_cmd(struct ublk_queue *ubq, struct ublk_io *io,
-+			       struct io_uring_cmd *cmd, struct request **req)
-+{
-+	bool canceling;
-+
-+	rcu_read_lock();
-+	canceling = READ_ONCE(ubq->canceling);
-+	if (likely(!canceling))
-+		*req = ublk_fill_io_cmd(io, cmd);
-+	else
-+		*req = ublk_cancel_io_cmd(ubq, io);
-+	rcu_read_unlock();
-+
-+	return canceling;
-+}
-+
- /*
-  * Call before ublk_fill_io_cmd() publishes @cmd in io->cmd: a control-path
-  * cancel may complete any command found there, and io_uring_cmd_done() only
-@@ -3465,6 +3511,7 @@ static int ublk_ch_uring_cmd_local(struct io_uring_cmd *cmd,
- 	u64 addr = READ_ONCE(ub_src->addr); /* unioned with zone_append_lba */
- 	struct request *req;
- 	int ret;
-+	bool canceled;
- 	bool compl;
- 
- 	WARN_ON_ONCE(issue_flags & IO_URING_F_UNLOCKED);
-@@ -3547,7 +3594,7 @@ static int ublk_ch_uring_cmd_local(struct io_uring_cmd *cmd,
- 			goto out;
- 		io->res = result;
- 		ublk_prep_cancel(cmd, issue_flags, ubq, tag);
--		req = ublk_fill_io_cmd(io, cmd);
-+		canceled = ublk_commit_io_cmd(ubq, io, cmd, &req);
- 		ublk_apply_io_buf(ub, io, cmd, addr, &auto_buf, &buf_idx);
- 		if (buf_idx != UBLK_INVALID_BUF_IDX)
- 			io_buffer_unregister(cmd, buf_idx, issue_flags);
-@@ -3557,6 +3604,10 @@ static int ublk_ch_uring_cmd_local(struct io_uring_cmd *cmd,
- 			req->__sector = addr;
- 		if (compl)
- 			__ublk_complete_rq(req, io, ublk_dev_need_map_io(ub), NULL);
-+		if (unlikely(canceled)) {
-+			ret = UBLK_IO_RES_ABORT;
-+			goto out_done;
-+		}
- 		break;
- 	}
- 	case UBLK_IO_NEED_GET_DATA:
-@@ -3566,7 +3617,12 @@ static int ublk_ch_uring_cmd_local(struct io_uring_cmd *cmd,
- 		 * request
- 		 */
- 		ublk_prep_cancel(cmd, issue_flags, ubq, tag);
--		req = ublk_fill_io_cmd(io, cmd);
-+		if (unlikely(ublk_commit_io_cmd(ubq, io, cmd, &req))) {
-+			/* as ublk_queue_rq() does on a canceling queue */
-+			__ublk_abort_rq(ubq, req);
-+			ret = UBLK_IO_RES_ABORT;
-+			goto out_done;
-+		}
- 		io->buf.addr = addr;
- 		if (likely(ublk_get_data(ubq, io, req))) {
- 			__ublk_prep_compl_io_cmd(io, req);
-@@ -3765,7 +3821,7 @@ static int ublk_batch_unprep_io(struct ublk_queue *ubq,
- 	if (ublk_queue_ready(ubq)) {
- 		data->ub->nr_queue_ready--;
- 		spin_lock(&ubq->cancel_lock);
--		ubq->canceling = true;
-+		WRITE_ONCE(ubq->canceling, true);
- 		spin_unlock(&ubq->cancel_lock);
- 	}
- 	ubq->nr_io_ready--;
--- 
-2.55.0
+Tested on:
+
+commit:         69f80fef Merge tag 'ata-7.3-rc7' of git://git.kernel.o..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=14efef25580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=341a98f91c13ec9
+dashboard link: https://syzkaller.appspot.com/bug?extid=d627b1495de0e851be32
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=129b6f25580000
 
