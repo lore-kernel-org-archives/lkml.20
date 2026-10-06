@@ -1,85 +1,110 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 042503793DC
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 11:48:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791287312; cv=none; b=KeTLvG5wQsBeydlOwdqjPpl9kNYZuzLqd2jFoUYawRd35QJUydHAbVs8C5EUbTofjhAlBnjyutqXPvWi2u65/nKklVibo60lup57W3+AvwWbx74h/aPliUevTarWLCcW9vOYEDlk6NS6xw1tK+ZvKiyYxb/ymqyjGIRrdkM0EJU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791287312; c=relaxed/simple;
-	bh=cr9hHYMB2tYTAMI1fcibd/WSAHGzMrbP0ig4jEuoGm4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DgAWUgm4eAMBXTqn7Oc/CEF1yVBAG7TCGDPGUTjA2trwcxJaiFrH1U3Q5HQVR8XQhYTGMEoGA+v8Jo2iccLpu9FHrhY5SwPE1xEhMUzjw/4tGRGMOW+IhPICyXgUWsogm0yEJjJpGiB5UgQighWAovsRn2WfURZt6og+x0I05kM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=singe.za.net; spf=pass smtp.mailfrom=white.za.net; dkim=pass (1024-bit key) header.d=singe.za.net header.i=@singe.za.net header.b=okzgZ2nQ; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=singe.za.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=white.za.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B7013B9618
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 11:48:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.173
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791287334; cv=pass; b=t5qeJAL6Uy4ZfEzvaAltBwpG7qNl/cfBSrfgW7nMzKM7CKshiKo81wltUhv1NmYBU49ehvAQVNF85nzxD4J0ZUBCBRXus5bldQN4tcRsuGWfd1Fia3/pmHe8hrTEY/5Rfd6kF/5AUA7vOqicr7IYJlT66OPK1an8TOmBDl5zw94=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791287334; c=relaxed/simple;
+	bh=jYJ3IdQnPrGlZkney67DWpSuVjwOBnDlJr0yOA4BAXA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=j6NdOuqswBrFMfcKrVTLhM+rGpeT/Wb5oiixQpFPE0ah1gkKsVAhdHa0SDr0XGySKmT5JXJnv7AcGbB+oCayqPaWZjbF22iqBpeqZCz5Svw3RC0XohDdJX+BDJe0Lo1NjQITUwSn3ERtSEYI6Og6bz9MSk1ocDH6uede5sfQJ3w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S/S3AV4W; arc=pass smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=singe.za.net header.i=@singe.za.net header.b="okzgZ2nQ"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a172eb31f0so5353715e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 04:48:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S/S3AV4W"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2dd9cbb661bso5016305ad.3
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 04:48:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791287332; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kLo+pfnhosj/rRORnSMxZnUNArJVG0Lc877m4VDuhA88uDLLEHeNV+Pi9DihQdRyOW
+         SYlDUgaauIVPf5PnLLZ0im6sAjFf0RfZzc3U5zBCVYmFNIlltehJbEY+kVB00vvE7Fb9
+         dNKgy2PCq0noXqbM61wIMyi8JihFhS4tdxWrlnSLhbl8IDWfbd77fzdcJs3liLNkBFxU
+         FwitPX8SVyjHEpYY5E/Y0VqBtXbCoLLXnzwH5nl53IcpTzFg839uY1s7aODHDe9nkTQa
+         U7LUFuOpZ5oR3OGM4+sKBrulrdmsLXkDadCWPmqqfJqSlEShWqnB3vQDpGrzIOCK3cb3
+         IPKw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=jYJ3IdQnPrGlZkney67DWpSuVjwOBnDlJr0yOA4BAXA=;
+        fh=4w4GpGO0/CSIepGtFTHlb0NcF8IYhZzxmnnaCcyPjak=;
+        b=EKNazVUp1pGdv4BrKn/6BGBP/G7UNn6uRrvS5phaFLekz5ymchCaiRsEgd76fJV/zs
+         8ToKm4Pphq6pDI4V2QSaU6XDPFSNjwVNAEO+7b+6cs8B3o3N5JuGBZ+t1cFBfLqy5Yop
+         9sgr9VrO8SGSgnbtJA/ggiQ5fgkMBLFOHueg5QSAbiOxyy74He2z3ePlEUTumk2wJzzw
+         5vOyO8pRA+3zPZL4GtTrWyD2pkBvusauPDUpVBUDZh4rJoeVq/Jfepg5wUxFFeehNgdG
+         Mo2ekalAUmGsIJFk8jvC20hvcinESaS7vFgXVlzFSu3h6Pb+CbcRvcn8VVqBkilUC9tP
+         HAVg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=singe.za.net; s=google; t=1791287309; x=1791892109; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cr9hHYMB2tYTAMI1fcibd/WSAHGzMrbP0ig4jEuoGm4=;
-        b=okzgZ2nQbYPqR099Q4PXM0wWIuJ25p1D77w62aowmu9i+iwfD17HjI4rwGg64CK2v0
-         zjRGiPNy1mSNIAXd0oUqZ/54hU6njGbNatKLmCOZ3ujMSle34hIkRFvdTQiNF8Pjgo3Q
-         b2hWRxSHwt59bstJhsZ8Y32TJnZN6M6u0cHA8=
+        d=gmail.com; s=20251104; t=1791287332; x=1791892132; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jYJ3IdQnPrGlZkney67DWpSuVjwOBnDlJr0yOA4BAXA=;
+        b=S/S3AV4Wb/6L+uQ1KRumjH7w+tNlWIs3J7jc0gd7dz2RltFveeFx8NA0NC2mY5+7iC
+         zOPdBQc/1qMLLZe0ER1yWSC9jCOT6xVztDvYRhjZmiadCkMRBZks6v3psAxctwDy2CUD
+         oI8bWhLLSerOQ4BZEV+BNP53sYCUKpFru1OWrboVFzY4DQaTX5KGLmGCltZ2YaiE49zo
+         KEkU1sODQh7Sr9QxWRaeEuKiUkrx2wA9VmLljpc+ujVKgxfYMPy6AIsQ3D8V2qIb823H
+         DqlahuOJu+GhhrCR+LG5zd0/YBXCUC/bKHoOXoFcqRCCqn/M1B0nChNRT9BvsR81o7qd
+         ux5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791287309; x=1791892109;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cr9hHYMB2tYTAMI1fcibd/WSAHGzMrbP0ig4jEuoGm4=;
-        b=un9evb8sAoyoI8KDQm78dBI7QWcbkmBKyJJYmSAKsvgdOlC3WvZXNsrNGbJQECA9Bd
-         msN4p63stmU5+iIUL6VksA1BuZIqXan9CqXjJ9ek9TujWuv4Zv19AFWEmvETzTktJNSY
-         O5oA5vMyvmS5r3B7vseX5nRErIoWdwW9poKWRaJdifo+eLLgz0WdMGE43GlDLbMhlz3u
-         ec0rmf7mbP6GN3R0fyNxCHA1ZuZX0qPhXIiY4FgbpZryXgPvYHWc/XTrQTb6J96JYX/+
-         58ZLb9c4hSyqQBGWStOrTCzF8l1AdcjV2M1Ejl5Ycl0S8Z/c0Rc684+pbcDcq+M0QZfu
-         Zy9g==
-X-Forwarded-Encrypted: i=1; AKwUvByj4eY2G4gr+852qgDAewUrtFf0hb6MvjcvVLk+K94nfqGwcLsSjpSYQMdtMDl5vEW5MUSf2XFWV+NTtn0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lIod+vQJADHZbuQ9akjplVutsIlj3kmKIQFBvLD7ANs30BGj1G
-	zW4ZxZHirdGHioyXt9zPp2xiH2xKyKiWhKB73XxOAsJazm9/AXQztKiKUwBTZMpew0U=
-X-Gm-Gg: AYBFou0fH4I0F5RsB5NlcEp6rCRV4Wynsnz9OX8tk891YqkeyK5MypCMggIHiqJi44k
-	gmI8m9ugGOZHrroAFIorUDu1DG6G+XOWPVW6yZjWA/YwiV5Hbls/adbnubZtjjoK3VSLrhTUNkN
-	9OnajgYF/58OiiWUBL0eDV+tdEc1Dhyq7Bf4F1lJnwBj2W2vHgaGLhMJ14oJ3Hi1MeAQg+jGExl
-	2hLk/1pxDkMzFjEOyMQipdPTyc9DSeyf/TTsJjw+ChEZrbqH6CuePCfLZP4SsIJPNeE0hda/HvF
-	AtPmomrvuVYIoKs0+cZRyI40LsseA9LR0F1QpwZ+KNxntPgvyqI0Iw3xyAcr9V29DGpfHH6c6lO
-	NfwRnyNF80LlEBp4/lm6UEIpsG6CncEJI7fqv20rG4SklJIRoV5tnXId41Nxl0dzHCowPQU319r
-	Xng8uTb2jPmRPxSuGqz6SkYYNs91Y0K6vG6h+6pPGrx5QxO3ibieBvdBVhZrcvyBok8g/Fm7D7r
-	qcyLT0g1gDHDU/XaGTQvljNxJQ=
-X-Received: by 2002:a05:600d:82c1:b0:4a0:1a7f:2abf with SMTP id 5b1f17b1804b1-4a17b536decmr21973265e9.7.1791287306355;
-        Tue, 06 Oct 2026 04:48:26 -0700 (PDT)
-Received: from localhost.localdomain ([102.33.233.50])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178ca806fsm65783405e9.3.2026.10.06.04.48.23
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 06 Oct 2026 04:48:25 -0700 (PDT)
-From: github@singe.za.net
-To: johannes@sipsolutions.net
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	github@singe.za.net
-Subject: Re: [PATCH] wifi: cfg80211: allow zero HE OBSS PD offsets
-Date: Tue,  6 Oct 2026 13:47:03 +0200
-Message-ID: <20261006114703.29021-1-github@singe.za.net>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <a5f74bb1113b5841a4a5359ba615cc114f41a1cd.camel@sipsolutions.net>
-References: <a5f74bb1113b5841a4a5359ba615cc114f41a1cd.camel@sipsolutions.net>
+        d=1e100.net; s=20260707; t=1791287332; x=1791892132;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=jYJ3IdQnPrGlZkney67DWpSuVjwOBnDlJr0yOA4BAXA=;
+        b=X2MlCTx1kYEsYhdgXBTmNsgk4wZ19xCLp5NZgertwLAB7pj2C2mIdWzqL7dairtLN8
+         QsADac7RrnBfYDgGiZc+bL4WRozGPGi+fwccRnuo/4mFVhKEUOrpgFDxJGD7jUYQeGCH
+         k83Fjo80bZdogUqiH78t2cj4RbVUMSG2cEbFW/NrBlwkpFHIqWuv3Kvm256gm3sDw5Ff
+         mHMwkSxsZ6tFX7GHk6cUta2/BUCiLmglhV1/bO30C6rrdRs0VWCgyyx2DnENMlnBSr4k
+         vdzpkl9GmwO1t2A/BnbeIA0cmFFEolqT53SypUghASn+OzQN29R3viW209SaVh+FFwAc
+         Wqqw==
+X-Forwarded-Encrypted: i=1; AKwUvBw5G7VblzpE1CKLRuEbFxcERBhpOLTPVgBubTPZopCYSyuNZuPXBTfykint89GtPRVTNZab8Uz1nyGMDao=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIfg5HieS2E8sgdTW2In3SThj0qm8b4o5FhRnyZBNtMj/7Uetho
+	o/BxkKQ3qkLyvQub7vUqRU6WyAy+LQeXfoh7OqjzC9AnR9sQFLgF5wUkuE7RX5SEb9i1Awbpd1q
+	YVm+jGG1qK4um9tB3lO/1kMDi9gKM+YrtV2VVHTQ=
+X-Gm-Gg: AYBFou3/httjdu5HVs6GY+RU97Fh8iBAmF1s5698B187haZ9H5SFsmKOoB98uI7Yh4P
+	Gk5IV9dY0LTLnuJoHKr5AGQCZVnsSg7wvZTHxhZTrQlmmFLLH8sFCfNvWwwhAVO4ShiPlwDO9H2
+	j+aiYgly5ypOmfzQI3W96/CmWSs6WgnrTyogWrHqbWh1D4YLaFvtGBj5ZC1Q7QaITVj4oGfAwsa
+	AiNfTOPd3IHQnyO/EqP9v+JDeeYAKv0qWxYp6NSG5fF/R6h7Cdv4PxWtMOyeZQhWixNobihu33K
+	H9zGbU+HlreeSJ+ezFKwG78lNNzMrqwvmR5cCAzo0TWcjEvmlTLifgWiATuHCxwTdgWwZaJY9bg
+	F6mSbxpEeIg2eVnEZPIo=
+X-Received: by 2002:a17:903:244e:b0:2dd:ad74:ac7f with SMTP id
+ d9443c01a7336-2e5dcda375bmr8786655ad.26.1791287332318; Tue, 06 Oct 2026
+ 04:48:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261004-asus-ec-x570e-cpu-opt-v1-1-d9ea371c30d5@gmail.com>
+In-Reply-To: <20261004-asus-ec-x570e-cpu-opt-v1-1-d9ea371c30d5@gmail.com>
+From: Eugene Shalygin <eugene.shalygin@gmail.com>
+Date: Tue, 6 Oct 2026 13:48:40 +0200
+X-Gm-Features: AclHuK8vZ3ZZc1eQpcjpnegkwDCbrJBuk7gokOoEYOfEz1Xn_OmcqrH8tPcCuB8
+Message-ID: <CAB95QASjtm0sUOSjr70+SNi2qGsCSMJKFh3D1intNKdmK5UHcw@mail.gmail.com>
+Subject: Re: [PATCH] hwmon: (asus-ec-sensors) add CPU_Opt fan for ROG STRIX
+ X570-E GAMING
+To: mdlayher@gmail.com
+Cc: Guenter Roeck <linux@roeck-us.net>, linux-hwmon@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Johannes,
+Hi Matt,
 
-Thanks. I followed up with a hostapd workaround, which Jouni has now applied:
+On Sun, 4 Oct 2026 at 16:26, Matt Layher via B4 Relay
+<devnull+mdlayher.gmail.com@kernel.org> wrote:
+>
+> From: Matt Layher <mdlayher@gmail.com>
+>
+> Enable the CPU_Opt fan sensor for ROG STRIX X570-E GAMING.
 
-https://git.w1.fi/cgit/hostap/commit/?id=5b156e272a0266ca6be0f394192bad42b0ff176c
+Can we have a laconic description for this more or less trivial change, please?
 
-Regards,
-Dominic
+Cheers,
+Eugene
