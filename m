@@ -1,325 +1,228 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93987439F9C;
-	Tue,  6 Oct 2026 12:52:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791291180; cv=none; b=f3BC5vydu5LJIGpMHD2OLd1jJV4nYClNfQb/7PFgrThe0WXeMozdsYj1dVd5MSixExoh4p3rzzugEZbE+HoZxvcCAowCgSAdWRfL6dC3tJrlmGG1uatAWPtW368cINDRrInQfHNt9QLcOyvnvNgSlYHtiOiCpkjs/S7fbmQwiDQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791291180; c=relaxed/simple;
-	bh=QmTIxIQL8o4BcQSdRnhk0bo/WvdU0ljdDcoztFJr4Hs=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=VxxoggujmGMwx18d0i66FjnGNeU8q11t8XInIYInXbN1+NeSrIYxYNko3FoS7tk4O+VrRN9EQh1v/nl1vEhnlvEvPQDd5+6HNn9cjCg1P2wKMdL3pbA7zH27X26xAyK86wcG3bLwo48330blajMFU5IOGNP82PfpwAZsB+SQLJg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=w/w3iaaa; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=wCwMD8rC; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3575D44A40C
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 12:53:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791291233; cv=fail; b=d4DnLt4VWzSLkxEaB9w7XAOIQ8BEFPtUHxdCXwii/xduSAUnPSi1/0JBBrVoecbezwtlVGYJDdnPUHdgv5pnHd9/JphB3CS7VR+XXfN5jI4KzHPPJVBRCQULQFCmuLQR7GdCNa70Wizf+mTc8ZVEGflX9zodaFhvaicwhQNkqic=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791291233; c=relaxed/simple;
+	bh=K2wT6CHc0l1UZXiGHbpCOd0qDa8xCFNpfy4hxfwl7m0=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=KQH9ZQxYNN94We02ykuA2R0SKt/jP6KcIBTgUbGfff2tS6eRwRsBC/lZkjNF9eW0f4gkWt0Sv8G+f8ZfGVrFac1/wyRWPR4X/n46v8LyWL+enlywJvsitpZR1x9eamzldU7bTtwFtxi5n88vWqFYcA87p06kQXmT/IS0y+5FwBs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mSIeKmqJ; arc=fail smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="w/w3iaaa";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="wCwMD8rC"
-Message-ID: <36ab80c8501f7327351095c02e19362f30cd91cd.camel@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1791291167;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3XMENZB12qYAD3YmRq0Nu0A4LMi8A5xnfJKWoKWqOIQ=;
-	b=w/w3iaaaEeG6IhsHb1ItbvzqqNABlL0Zcf5kc2pLDcG60BGj/nn7lAbDC9NyzSFUmVlqlO
-	aajXSAyWJQW9Wls7yDve68V9UJdAxJ0DBSxrcWlUn/3V6Fvxbst+rtVs64532/MFKy/0Ej
-	Elqn8vJQ2UOkP2xar8ecwDgkQhuBG23K101zNkxuQed9xzucJiU4UEcHJWgrwXyM9JbwqA
-	AES7AlQqyqumNsnH1y2354gEKmUoslMOAw90B0J4cIfoc64eNeizckc3EnXNnJSu9Gjg9U
-	oZ3pgQwd89U6n68bUJMS9vDd4ViyGDbL1mBTVGpIEb0I2mhS1aCYghoL20t5zg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1791291167;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3XMENZB12qYAD3YmRq0Nu0A4LMi8A5xnfJKWoKWqOIQ=;
-	b=wCwMD8rCTCCCd4F2Qm/UC1C5XZlciScUdtJrSYsQygTv3N7XYW5lN7e77G12W/AHpIb+U5
-	qM7zgG9LfnC91uAQ==
-Subject: Re: [PATCH net-next v3 7/8] net: dsa: soce: Add VLAN offload support
-From: Vasilij Strassheim <v.strassheim@linutronix.de>
-To: sashiko-reviews@lists.linux.dev
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
- <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>, Heiner
- Kallweit <hkallweit1@gmail.com>,  devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,  Martin Kaistra
- <martin.kaistra@linutronix.de>, Benedikt Spranger <b.spranger@linutronix.de>
-Date: Tue, 06 Oct 2026 14:52:47 +0200
-In-Reply-To: <20260924104005.597041F00898@smtp.kernel.org>
-References: 
-	<20260923-devel-vstrassheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de>
-	 <20260923-devel-vstrassheim-soce-dsa-ml-v3-7-ddebafcb9ba7@linutronix.de>
-	 <20260924104005.597041F00898@smtp.kernel.org>
-Organization: Linutronix GmbH
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mSIeKmqJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791291232; x=1822827232;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=K2wT6CHc0l1UZXiGHbpCOd0qDa8xCFNpfy4hxfwl7m0=;
+  b=mSIeKmqJF7UE2hRp7P/nX/BkBBssBGGfOj9YY+b/C2ZXQOmAESYfjreR
+   wHQhHfrRE+3RzeJDhBpFNKnscL3mgfPYDCpwn3ahbMVZ38oT2C35OR2te
+   NeGPQO54jw/JRytlnM0989xOKD7kNPgfsz7w8K83BVDbA/eDRfoK7befd
+   YtYYknsp93jb4WP7ev94DDYOzPnbtd+Ux4mu4MucDscYV9LGiZe3fbApr
+   gXwq+6OKN7k3chzuL1PdGA320/AOwe1srwwWBbn3nLFZ8qZUaXNndxN0w
+   FpDCDrm5WMrq0PoehBHDcK0kKBeVP2IgLT/GBaRoEeBREiQ85DXXF8H9A
+   w==;
+X-CSE-ConnectionGUID: 5jiy9FtQRSavs4saH27phg==
+X-CSE-MsgGUID: H2ODGsxZQ/ua1A/iKdh/iA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="17887"
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="17887"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 05:53:50 -0700
+X-CSE-ConnectionGUID: e1bYvLyKShu0fW4XKSPhHQ==
+X-CSE-MsgGUID: ngMf2/kbQ8yaTQ2YlPmfQg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="276264262"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+  by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 05:53:49 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 6 Oct 2026 05:53:48 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Tue, 6 Oct 2026 05:53:48 -0700
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.8) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 6 Oct 2026 05:53:47 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bveiH+IZPPUz831jI+37CrAr4GIXgFq6PJmF6TKwzqYNkRsbT256O+/XvHKaRGGkvg3Nc0fJFNpZ/rUNzPzqUIpLE7Mq/54zyOysaaNNAEHTMN55ZNmQJj/VEp0KPgQ6H+TDj+5WnIJZ23cxTtgdDaW6hC83Odysr1fRB46SAU5msi/nFxbypaCS9C2kc5P1viY7ZMO0Arn+AjYHdvJq6BzrGrgCdWZKhroUUfF+uKb6G3t4i8rkRMCIU8Q2TB0SgmyobL1x8MTXEXzqMDbNVknMLqmzdrPLogK6wHDEe5MDg0UteioXExZOJ8I/HD+0ftZa5cQkiTIemZT5Ew4TqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YgSMskvsXDWXQpH54YPgCiLgXF+lpGnj9GqEdEWtTFk=;
+ b=gWRpwgjLYbtTWIrYOHI6LOLVOegtBhLtgqhi4sO7xPaRDV248qtXuFonLa1z0S5b4p8XUklTYo39Isjf8uSkC4SEU+CRJWAKC8bxVQsVkd5rM47XrtiTt+WQI6i+X/LqEr41R/zUzD7E01RkGSQn4VPyQ55Y+Oc+x90SglCtqGgpvyHlza3D7nczlRDfPmPk3cbqPx2TYiSIGTSXqKvo/jvooHao4l0hLt3Wk7bthZQgQqw2QxHYhJUfP3rxi1PvqKDD4rqgwlcRNadD5Tp3UFoGftjKHg695VMbwg+12DSiBfPYLE4ewj/lWksudlH6thEeseH4c46bQ3TuAociDQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from CH3PR11MB081371.namprd11.prod.outlook.com
+ (2603:10b6:610:34d::17) by SN7PR11MB7020.namprd11.prod.outlook.com
+ (2603:10b6:806:2af::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Tue, 6 Oct
+ 2026 12:53:44 +0000
+Received: from CH3PR11MB081371.namprd11.prod.outlook.com
+ ([fe80::dead:ac74:f146:cf8c]) by CH3PR11MB081371.namprd11.prod.outlook.com
+ ([fe80::dead:ac74:f146:cf8c%5]) with mapi id 15.21.0496.010; Tue, 6 Oct 2026
+ 12:53:44 +0000
+From: "Hahn, Matthias" <matthias.hahn@intel.com>
+To: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"x86@kernel.org" <x86@kernel.org>
+CC: "tglx@linutronix.de" <tglx@linutronix.de>, "mingo@redhat.com"
+	<mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>,
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+	"peterz@infradead.org" <peterz@infradead.org>, "Hahn, Matthias"
+	<matthias.hahn@intel.com>
+Subject: [RFC/DISCUSSION] x86/tsc: Handling legacy PIT fallback calibration on
+ modern platforms
+Thread-Topic: [RFC/DISCUSSION] x86/tsc: Handling legacy PIT fallback
+ calibration on modern platforms
+Thread-Index: Ad1VfW6GJFdWcHhxSfSywrMry6HhvA==
+Date: Tue, 6 Oct 2026 12:53:44 +0000
+Message-ID: <CH3PR11MB08137159D0CC079C8BFA13F6E7F1952@CH3PR11MB081371.namprd11.prod.outlook.com>
+Accept-Language: en-US, de-DE
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH3PR11MB081371:EE_|SN7PR11MB7020:EE_
+x-ms-office365-filtering-correlation-id: 5a942b80-0737-4d6f-7266-08df23a8db0e
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|10070799003|10067099003|56012099006|6133799003|11063799006|18002099003|38070700021;
+x-microsoft-antispam-message-info: 7ovW1LV1FEpEItTLkHj3i8fhUZGhDU+jn3LMo2mOVyACi0tO9hhmLUBJ7C0cFznAox8RQlHnzmQY7PRtTmEKHAEX5s6MT7am2sV7Tg6qrMl3+LUW5OCPwIww3pq4e0uNA12gf3LTe2FipxT198yuOlLz6VGk1qxpaEGS0l7I3TMdE5OoyTVGPa9a92CFR9goO1VdAfUYlBhtAbm6a10yJZ5/Nt3O7gGLxYlmBQoz/6dpuQXh6P9DngxxZu84DXIWozZCiX0zymuLaz6q1IHn/krbYJZ5N8R+PTRBvGfZEvfyh8M60Vo+SQGAtC/joyuDbxyo3p0tTtW90K7/+ekCcEAprHYp0Atsl3vvZg3RJDUv3CSXmOXzybRkT9XWLfeEXQ28GaLVAHiIip/UwJorEb4YdgFZNaikXGotUs9nrEe6chAq8n7cOQ6J2urpC1C+S4X+Ra/0T0DAg/GNu/eQKKwNPUlvVpqGiIcnnB/plZpqUQXKPRO2lrqS7A7w7Km/6QQcp5vC/7f+r7uhwsbvUU+gP6RHAqEgZejvSY+RlLyTOhDWxiN512lbBo1O+dnGEI6whVMMnNGwArmdpXejoXQZm+xsYUKiawSBm+/HZo+kwaCsbzfatl+LOb1yZkDK6jR/YLkOfgYIpLHTCz8B1MilDulk/zI9n74q2F/88ss=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR11MB081371.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(10070799003)(10067099003)(56012099006)(6133799003)(11063799006)(18002099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 2
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ZnRvY3FBVXpLMWxCcVhzNjA4T3VXRzMxT1Q4QThNQ2pST0xQeWVRdTNIVDJZ?=
+ =?utf-8?B?a1o2NmI1ZUdBRndEWXE1RmltTlc3NkJzRFJRSmltV0xZMWRCT0p2OE5zUVcz?=
+ =?utf-8?B?QnVRM0VpQmhMVlE2ZnJja3RNdDBjeUlhNm5BdHRUV3dIaUdkZXRhUEhpY3po?=
+ =?utf-8?B?dlppYi9jOW9QRm5kYWsrMjV6anF3RjdQRXZxT0lvVFVzVHJtLytKYXFHeWxp?=
+ =?utf-8?B?KzgwZS82NnpubnFDMlBhQllFMWJiT3IrRWQxT0VzdU1oY1F6ZGN4RGlTbWZu?=
+ =?utf-8?B?Si9BNWNhbjhrU29EN2RVWjY2WkxubDNJK1NocG1XSWRBVkxEb054V3A2anZ0?=
+ =?utf-8?B?QThkVmptTndXMkVnVzAxYVpuUkU1MVpXSUcyK09TemcveWgrWXFlZ1RLcmhu?=
+ =?utf-8?B?dGtEbWNGSEZabUw3L3BxNDhXZFJYd0pRUEpEckY4djdzL1UwMHZUVlNhLytu?=
+ =?utf-8?B?ajhicWN4QUNlQjhPOVk1c0VzWE4wRkRvUzJ4WWNrSE00ekhTaWo3dDF5UVhC?=
+ =?utf-8?B?cXQ2SlBWM1BxZkVQOUZKTWJ2Rlh3NXptTktmZmZWSkppaUMzT3VQRFBnR3ZR?=
+ =?utf-8?B?ZExrdXI4NFkrUGh5d1ZZMDk0ZjdFeEZmZFI1elFYT01uWkRmdGlKaFh0L3cx?=
+ =?utf-8?B?eXhJcnNCUXFtVzlGRE91dFNaUld1WHpXempMdkxmNkRxektObmNZUjJUdmNp?=
+ =?utf-8?B?eDQwZURvY3gwd0ZoenVBZXF6ZTVHWGFqV1ZydktwSm5LcDcrUlJLOUZMLzN4?=
+ =?utf-8?B?KzNocDZhTWIwSkgwdHByUndqQldseUtObnhMcXVWTUdrSll4QXJJdXJwdDFU?=
+ =?utf-8?B?d2ZZTnE0MmcrWVNCSWtxZ1hsUU9qZlp5emVRZDBRWDVMMjJ4dW9YczQxK1ls?=
+ =?utf-8?B?SmYzcm54cXlGRGZ3Zld6RS9HQmY0OFhYL2JVanp1SEpLOVpUcFl5TGpMN0ND?=
+ =?utf-8?B?clBCNFFPeDlEU0dQLzUzOVlCMUd5bmNxWXhKTTNkbE1VcHVzRkZ5Q3AxaGJp?=
+ =?utf-8?B?dWIyVVNIZUE4Z09zUWg1bzdReDVRUE9OYi9OU05DK3VJUkFGaFVqSmNXVjJt?=
+ =?utf-8?B?M0RUc1hZVmtDdE9GMEk4aUIrL29GYVRjbUJGTGJpdkNkQVRsdnFMK2cwTE1N?=
+ =?utf-8?B?emVNYmcvUkdrZXhsYnlRaHBQbmYrY2Vod3NHR3RsQTBFbTEwang3VDYvcngz?=
+ =?utf-8?B?dzN6cEdMY3NEK24vOGRvK3pxRnNnc2hwOXA0QXZOV3hlYTZ5WjJhWDUrekZX?=
+ =?utf-8?B?eEFUcWNqbUlZdTVNVit1NlBBdzYveVNVYmJ3N0E1d3BOYUppOU55dUt6dHBo?=
+ =?utf-8?B?dWVlYzcyZXB0RW1HRU54R1ZBNlVWTnJOamR5ME9FTEZvN3VSTXgzRkVYck9u?=
+ =?utf-8?B?MXFRWFlTQlUzbTRNWWk1N0s5dStOSlNvSlNWKzMxTGtPMjl4bzZBVmwrYnIw?=
+ =?utf-8?B?d09kdlNlWWdaZHp3MGpjbkhKYlJ5b0JkTFozejZRK2JLZFFCWUlXMStnSTRq?=
+ =?utf-8?B?eFpQa0RYZEZhVy82ZExoL1Vpc21mcElwcSs1SHloY3VXRFFaTnRaU0M0cFNU?=
+ =?utf-8?B?anNUUjJJdSt4OTIzMFBEWVRJVkZVM0hMV2lZZjRreDVHdWd0ZXFMTCtCbWVU?=
+ =?utf-8?B?YVN1Q1VBa3N3bUNHN3dwWWZaU0tCN3p3K3crcGhMM2dRbWtsUlgwckhxUmRE?=
+ =?utf-8?B?RXIwZU9CbzVCcFMzb21PMllCbDltMjNJNFltbE1WNis2RUVHVmk0WE5VeHVO?=
+ =?utf-8?B?ZnppUE5QRitTLzh5aDBOeXlSUmFINDVwN3diZEZvWFlzVE95aUVWa3hEZ3RQ?=
+ =?utf-8?B?OVdSZWphTm1qemdDTFlwelROcndieStETDJCdW14T3U5MDBVTW5DSFFrUjhu?=
+ =?utf-8?B?bmNDckI0VGs0MXppS21nT1pOK05xZGxybURqclplUHVwS0tpYW9KOWRJbUN4?=
+ =?utf-8?B?eGdEWWE5QlJWNDZ6ZHZQVGsrVzhrd2JJYXBZZFBTZGpxV1gwbUxERGJzQ0g5?=
+ =?utf-8?B?T3BvODVpWUYxSFQxaUo4TndGUk43YVRaeHBCaHFmbnNlTjJoVXRlN0JEVlBY?=
+ =?utf-8?B?SGhHZFVmZW93bTlNUEZyZU51MTJFcHZmRXBHekMyRjhZUUowR3R5UUUrTm94?=
+ =?utf-8?B?YndybW5HZ1hSdEZvMDJOdzk5QUZ0dGY4QWpLTGVrUjUvc05SeFZpQmg0czhM?=
+ =?utf-8?B?TXRiVTFnUFo2dkxGcW5MU1ZPK1NVSWN0cUhrQWtxdGRUdkFic0htdFZUY2xY?=
+ =?utf-8?B?SExrbXlYQ0tBbExWcFdrTDBMZnNnUE9ZOFdPdC9tYm5oT0doV0ZEZ3YzeWpv?=
+ =?utf-8?B?R1ZTZGNPVXB0T2NtUzVxeGIrYUtlMWNvZEVJTFpNTUJTYmdVaDUwVFo5VmlV?=
+ =?utf-8?Q?niD+Ufq5/x+wmFo1//5GneC3YiJIaQrLpiOkdJf0ud9Ou?=
+x-ms-exchange-antispam-messagedata-1: 1wcAhxWBtBImKQ==
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: VuiK06elwFrw56gbYMIziV8OoqFLTJpS8U/LpodPvPbHwz0pQgqhvVbvy1dUEJyI3EMR73INmUwggEnaYJvQkQIoWPwXvYf5/GwdsSmiMriPTuDl0Wvg5Zm9CshusVMZlLlrIU20xskNY66M6eLdhJzzen1jZxtI+ew1BK89t4Hb4gfBontEnbqYCYtgbTWnE9zhqLB4e733CLi+wws7AlMbQW46Di4PBKSLr8nlYiR0LyYLORhtxQZm18/jJ5cntSGmaXOBXYSzuTxbc7qQWCl6zYQlb03P84eaSAKstuIuKYJJPMLZ9YXg3FtYAXvz3LtyHmqzKhaqbY/61q9zRA==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR11MB081371.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5a942b80-0737-4d6f-7266-08df23a8db0e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Oct 2026 12:53:44.6323
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: wMGDKt4vQDhz759pVpaKtWgeSR2elwQ7c9SoeGbvgWk7Wq4JlwOVd5WUXLlw1BAWMvUHOBfCFx+AJpKtqeZQQQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR11MB7020
+X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: base64
 
-On Thu, 2026-09-24 at 10:40 +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential issu=
-e(s) to consider:
-> - [High] net: dsa: soce: needs_standalone_vlan_filtering drops standalone=
- traffic after bridge leave
-> - [High] net: dsa: soce: VLAN isolation bypass due to missing hardware ro=
-llback on write failure
-> - [Medium] net: dsa: soce: -EOPNOTSUPP fails to reject unsupported VLAN c=
-onfigurations
-> --
->=20
-> commit b9f4e8ae119f137ae188040da4ddc3fbc9794221
-> Author: Vasilij Strassheim <v.strassheim@linutronix.de>
->=20
-> net: dsa: soce: Add VLAN offload support
->    =20
-> Add VLAN filtering and membership offload for switch configurations that
-> implement the Port VLAN synthesis option.
->=20
-> > diff --git a/drivers/net/dsa/soce/soce_dsa_core.c b/drivers/net/dsa/soc=
-e/soce_dsa_core.c
-> > index d391b11b94ad6..f93ce9da8400c 100644
-> > --- a/drivers/net/dsa/soce/soce_dsa_core.c
-> > +++ b/drivers/net/dsa/soce/soce_dsa_core.c
->=20
-> [ ... ]
->=20
-> > @@ -162,6 +200,178 @@ static void soce_sw_disable_tagging(struct soce_d=
-sa_local *local)
->=20
-> [ ... ]
->=20
-> > +static int soce_vlan_write_entry(struct soce_priv *priv, u16 vid)
-> > +{
-> > +	struct soce_dsa_local *local =3D &priv->local;
-> > +	void __iomem *base =3D local->base_addr;
-> > +	u32 cpu_ports;
-> > +	u32 untagged;
-> > +	u32 members;
-> > +	int ret;
-> > +
-> > +	/* The CPU port must be a tagged member of every active VLAN so
-> > +	 * tagged frames can reach the conduit.
-> > +	 */
-> > +	cpu_ports =3D dsa_cpu_ports(&priv->ds);
-> > +	members =3D priv->vlan_members[vid];
-> > +	if (members)
-> > +		members |=3D cpu_ports;
-> > +	untagged =3D priv->vlan_untagged[vid] & ~cpu_ports;
-> > +
-> > +	soce_vlan_select_vid(local, vid);
-> > +	writel(members, base + SOCE_VLAN_MEMBER_PORTS_OFFSET);
-> > +	writel(SOCE_VLAN_MEMBER_CTRL_WRITE,
-> > +	       base + SOCE_VLAN_MEMBER_CTRL_OFFSET);
-> > +	ret =3D soce_vlan_wait_for_write(local, SOCE_VLAN_MEMBER_CTRL_OFFSET,
-> > +				       SOCE_VLAN_MEMBER_CTRL_WRITE);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	writel(untagged, base + SOCE_VLAN_UNTAG_PORTS_OFFSET);
-> > +	writel(SOCE_VLAN_UNTAG_CTRL_WRITE,
-> > +	       base + SOCE_VLAN_UNTAG_CTRL_OFFSET);
-> > +
-> > +	return soce_vlan_wait_for_write(local, SOCE_VLAN_UNTAG_CTRL_OFFSET,
-> > +					SOCE_VLAN_UNTAG_CTRL_WRITE);
-> > +}
->=20
-> [ ... ]
->=20
-> > +static int soce_vlan_setup(struct dsa_switch *ds)
-> > +{
-> > +	struct soce_priv *priv =3D ds->priv;
-> > +	struct soce_dsa_local *local;
-> > +	struct dsa_port *dp;
-> > +	int ret;
-> > +
-> > +	local =3D &priv->local;
-> > +
-> > +	if (!priv->features.port_vlan)
-> > +		return 0;
-> > +
-> > +	ret =3D soce_vlan_reset(local);
-> > +	if (ret) {
-> > +		dev_err(ds->dev, "failed to reset VLAN configuration: %d\n",
-> > +			ret);
-> > +		return ret;
-> > +	}
-> > +
-> > +	/* Default every port to PVID 1, unfiltered, so standalone
-> > +	 * forwarding keeps working before any bridge VLAN is configured.
-> > +	 */
-> > +	scoped_guard(mutex, &priv->vlan_lock) {
-> > +		dsa_switch_for_each_available_port(dp, ds) {
-> > +			priv->port_pvid[dp->index] =3D 1;
-> > +			soce_vlan_config_port(priv, dp->index, false);
-> > +		}
-> > +		soce_vlan_set_enabled(local, true);
-> > +	}
-> > +
-> > +	return 0;
-> > +}
->=20
-> [ ... ]
->=20
-> > @@ -224,6 +443,130 @@ static enum dsa_tag_protocol soce_get_tag_protoco=
-l(struct dsa_switch *ds,
->=20
-> [ ... ]
->=20
-> > +static int soce_port_vlan_add(struct dsa_switch *ds, int port,
-> > +			      const struct switchdev_obj_port_vlan *vlan,
-> > +			      struct netlink_ext_ack *extack)
-> > +{
-> > +	struct dsa_port *dp =3D dsa_to_port(ds, port);
-> > +	struct soce_priv *priv =3D ds->priv;
-> > +	u32 port_mask =3D BIT(port);
-> > +	u32 *untagged_ports;
-> > +	u32 old_untagged;
-> > +	u32 old_members;
-> > +	bool untagged;
-> > +	u32 *members;
-> > +	int ret;
-> > +
-> > +	untagged_ports =3D priv->vlan_untagged;
-> > +	members =3D priv->vlan_members;
-> > +
-> > +	if (!priv->features.port_vlan) {
-> > +		NL_SET_ERR_MSG_MOD(extack,
-> > +				   "Port VLAN support is not implemented in the switch core");
-> > +		return -EOPNOTSUPP;
-> > +	}
->=20
-> [Severity: Medium]
-> Since -EOPNOTSUPP is explicitly masked by the switchdev and DSA cores, wi=
-ll
-> this return value be ignored instead of rejecting the configuration? It
-> looks like this would allow the operation to succeed in the network stack=
-,
-> causing hardware to silently strip VLAN tags on CPU ingress without
-> including them in the DSA tag, which could break the network configuratio=
-n.
->=20
-
-The error is propagated through dsa_port_vlan_add(). In my tests VLAN
-upper configuration was rejected in this path. Anyway, I will use
--EINVAL instead to avoid exceptions.
-
-> > +
-> > +	if (!vlan->vid)
-> > +		return 0;
-> > +
-> > +	untagged =3D vlan->flags & BRIDGE_VLAN_INFO_UNTAGGED;
-> > +
-> > +	scoped_guard(mutex, &priv->vlan_lock) {
-> > +		old_members =3D members[vlan->vid];
-> > +		old_untagged =3D untagged_ports[vlan->vid];
-> > +
-> > +		members[vlan->vid] |=3D port_mask;
-> > +		if (untagged)
-> > +			untagged_ports[vlan->vid] |=3D port_mask;
-> > +		else
-> > +			untagged_ports[vlan->vid] &=3D ~port_mask;
-> > +
-> > +		ret =3D soce_vlan_write_entry(priv, vlan->vid);
-> > +		if (ret) {
-> > +			NL_SET_ERR_MSG_MOD(extack,
-> > +					   "failed to update VLAN hardware tables");
-> > +			dev_err(ds->dev,
-> > +				"failed to add VLAN %u on port %d: %d\n",
-> > +				vlan->vid, port, ret);
-> > +			members[vlan->vid] =3D old_members;
-> > +			untagged_ports[vlan->vid] =3D old_untagged;
-> > +			return ret;
-> > +		}
->=20
-> [Severity: High]
-> If the second write for the untagged mask in soce_vlan_write_entry() fail=
-s
-> and returns an error, the first write for the member mask has already bee=
-n
-> committed to the hardware.=20
->=20
-> Is it safe to only rollback the software state here? By leaving the hardw=
-are
-> member mask modified, the switch might forward frames for this VLAN to th=
-e
-> port, leading to a VLAN isolation bypass while the OS believes the port i=
-s
-> isolated.
->=20
-
-Yes, this might become a problem.
-I will fix this with best-effort rollback to the previous configuration
-(like mxl862xx), and also check that both table commands have completed
-before modifying the selector or data registers.
-
-> [ ... ]
->=20
-> > +static int soce_port_vlan_filtering(struct dsa_switch *ds, int port,
-> > +				    bool vlan_filtering,
-> > +				    struct netlink_ext_ack *extack)
-> > +{
-> > +	struct soce_priv *priv =3D ds->priv;
-> > +
-> > +	if (!priv->features.port_vlan) {
-> > +		NL_SET_ERR_MSG_MOD(extack,
-> > +				   "Port VLAN support is not implemented in the switch core");
-> > +		return -EOPNOTSUPP;
-> > +	}
->=20
-> [Severity: Medium]
-> Similarly to soce_port_vlan_add(), will returning -EOPNOTSUPP here fail t=
-o
-> reject unsupported VLAN configurations since it gets masked by the DSA co=
-re?
-
-Same as above, I will change it to -EINVAL.
-
->=20
-> [ ... ]
->=20
-> > @@ -278,8 +623,35 @@ static int soce_sw_probe(struct platform_device *p=
-dev)
->=20
-> [ ... ]
->=20
-> > +	/* Force VLAN uppers always through the callbacks, so cores without
-> > +	 * Port VLAN feature can reject them instead of silently dropping
-> > +	 * VLAN frames.
-> > +	 */
-> > +	ds->needs_standalone_vlan_filtering =3D true;
->=20
-> [Severity: High]
-> Does enabling needs_standalone_vlan_filtering cause complete loss of stan=
-dalone
-> network traffic when a port leaves a bridge?
->=20
-> When a port is removed from a VLAN-unaware bridge, the DSA core will call
-> dsa_port_vlan_filtering(dp, true), forcing the hardware into ingress filt=
-ering
-> mode.
->=20
-> Since the bridge flushes VLANs on leave, the port is removed from the har=
-dware
-> member mask for VLAN 1. However, earlier in soce_vlan_setup(), the driver
-> assigns PVID 1 but never adds the port to the hardware member mask for VL=
-AN 1.
-> Will all subsequent untagged standalone traffic be classified to PVID 1 a=
-nd
-> dropped by the ingress filter because the port is no longer a member?
->=20
-
-Yes, I will fix this by preserving standalone VLAN membership and
-restoring the default PVID when the port leaves the bridge.
-
+KHNvcnJ5LCByZXNlbmRpbmcgYXMgcGxhaW4gdGV4dCkNCg0KSGkgZXZlcnlvbmUsDQoNCldlIGhh
+dmUgcmVjZW50bHkgb2JzZXJ2ZWQgYW4gaXNzdWUgcmVnYXJkaW5nIFRTQyBjYWxpYnJhdGlvbiBm
+YWxsYmFjayBvbg0KbW9kZXJuIGNsaWVudC9zZXJ2ZXIgcGxhdGZvcm1zIChzcGVjaWZpY2FsbHkg
+UmFwdG9yIExha2UgYW5kIG5ld2VyKSB3aGVuDQpydW5uaW5nIGluc2lkZSByZXN0cmljdGVkIHZp
+cnR1YWxpemVkIGVudmlyb25tZW50cy4NCg0KUHJvYmxlbSBCYWNrZ3JvdW5kOg0KLS0tLS0tLS0t
+LS0tLS0tLS0tLQ0KSW4gYXJjaC94ODYva2VybmVsL3RzYy5jLCBxdWlja19waXRfY2FsaWJyYXRl
+KCkgYXNzdW1lcyB0aGF0IGxlZ2FjeSBwb3J0DQpJL08gYWNjZXNzZXMgKHBvcnRzIDB4NjEsIDB4
+NDMsIDB4NDIpIHRha2Ugcm91Z2hseSB+MSB1cyBwZXIgcmVhZC4NCg0KT24gbW9kZXJuIHBsYXRm
+b3JtcywgaG93ZXZlciwgbGVnYWN5IHBvcnQgSS9PIGN5Y2xlIGxhdGVuY3kgaGFzIGluY3JlYXNl
+ZA0Kc3Vic3RhbnRpYWxseS4gSW4gYmVuY2htYXJrIGNvbXBhcmlzb25zIGJldHdlZW4gb2xkZXIg
+cGxhdGZvcm1zIChlLmcuDQpCcm9hZHdlbGwtREUpIGFuZCBtb2Rlcm4gc2lsaWNvbiAoUmFwdG9y
+IExha2UpLCAxMDI0IFBJVCByZWFkcyB0b29rIH4yLjdNDQpjeWNsZXMgb24gQkRYIGNvbXBhcmVk
+IHRvIH4yMS4zTSBjeWNsZXMgb24gUlBMICh+OHgtMTB4IHNsb3dlciwgeWllbGRpbmcNCn4xMC0y
+MCB1cyBwZXIgcmVhZCkuDQoNCkFzIGEgY29uc2VxdWVuY2U6DQoxLiBXaGVuIHJ1bm5pbmcgYXMg
+YSBndWVzdCB1bmRlciBoeXBlcnZpc29ycyB0aGF0IHJlc3RyaWN0IG9yIG1hc2sgbW9kZXJuDQrC
+oMKgIGVudW1lcmF0aW9uIG1ldGhvZHMgKENQVUlEIDB4MTVIIC8gMHgxNkgsIE1TUl9QTEFURk9S
+TV9JTkZPLCBwYXJhdmlydA0KwqDCoCBjbG9ja3MsIG9yIEhQRVQpLCB0aGUgZ3Vlc3QgZmFsbHMg
+YmFjayB0byBxdWlja19waXRfY2FsaWJyYXRlKCkuDQoyLiBUaGUgaW5mbGF0ZWQgSS9PIGxhdGVu
+Y3kgYnJlYWtzIHRoZSBpbnRlcm5hbCBsb29wIGJ1ZGdldDoNCsKgwqAgYGQxICsgZDIgPj0gKGRl
+bHRhICogTUFYX1FVSUNLX1BJVF9JVEVSQVRJT05TKSA+PiAxMWANCsKgwqAgdHJpZ2dlcnMgcHJl
+bWF0dXJlbHksIGNhdXNpbmcgcXVpY2sgY2FsaWJyYXRpb24gdG8gZmFpbCBmYXN0ICgiRmFzdCBU
+U0MNCsKgwqAgY2FsaWJyYXRpb24gZmFpbGVkIikgYW5kIGxlYWRpbmcgZWl0aGVyIHRvIHJlZmlu
+ZWQgY2FsaWJyYXRpb24gdGltZW91dHMNCsKgwqAgb3IgaW5hY2N1cmF0ZSB0c2Nfa2h6IGRldGVy
+bWluYXRpb24uDQoNClF1ZXN0aW9ucyAvIFBvaW50cyBmb3IgRGlzY3Vzc2lvbjoNCi0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0NCldoaWxlIGh5cGVydmlzb3JzIGNsZWFybHkgKnNo
+b3VsZCogZXhwb3NlIHJlbGlhYmxlIHRpbWluZyBpbnRlcmZhY2VzDQooQ1BVSUQgMHgxNUgsIHB2
+Y2xvY2ssIGV0Yy4pLCBmYWxsYmFjayByb2J1c3RuZXNzIGluIHRoZSBrZXJuZWwgcmVtYWlucw0K
+ZGVzaXJhYmxlLg0KDQoxLiBEZXByZWNhdGlvbiAvIFJlbW92YWw6DQrCoMKgIElzIHRoZXJlIGFu
+IGFwcGV0aXRlIHRvIGRlcHJlY2F0ZSBvciBjb21wbGV0ZWx5IGRyb3AgbGVnYWN5IDgyNTQgUElU
+DQrCoMKgIGNhbGlicmF0aW9uIGZyb20gbW9kZXJuIHg4NiBrZXJuZWxzLCBvciBpcyBzdHJpY3Qg
+YmFja3dhcmQgY29tcGF0aWJpbGl0eQ0KwqDCoCBmb3IgbGVnYWN5IHN5c3RlbXMgc3RpbGwgcmVx
+dWlyaW5nIGl0Pw0KDQoyLiBHdWFyZGluZyBieSBQcm9jZXNzb3IgR2VuZXJhdGlvbjoNCsKgwqAg
+U2hvdWxkIFBJVCBjYWxpYnJhdGlvbiBiZSBhdXRvbWF0aWNhbGx5IGJ5cGFzc2VkIC8gcmVmdXNl
+ZCBvbiBtb2Rlcm4NCsKgwqAgQ1BVIGZhbWlsaWVzIChlLmcuIGJhc2VkIG9uIGZhbWlseS9tb2Rl
+bCBvciBtb2Rlcm4gZmVhdHVyZSBwcmVzZW5jZSkNCsKgwqAgd2hlcmUgODI1NCBoYXJkd2FyZSB0
+aW1pbmcgYXNzdW1wdGlvbnMgYXJlIG5vIGxvbmdlciB2YWxpZD8NCg0KMy4gSGV1cmlzdGljIEFk
+anVzdG1lbnRzOg0KwqDCoCBBbHRlcm5hdGl2ZWx5LCBzaG91bGQgdGhlIGxvb3AgdGltaW5nIGhl
+dXJpc3RpY3MgaW4gcXVpY2tfcGl0X2NhbGlicmF0ZSgpDQrCoMKgIGJlIGFkYXB0ZWQgdG8gYWNj
+b3VudCBmb3IgbXVsdGktbWljcm9zZWNvbmQgcG9ydCBJL08gbGF0ZW5jaWVzIG9uIG1vZGVybg0K
+wqDCoCBjaGlwc2V0cz8NCg0KSSB3b3VsZCBhcHByZWNpYXRlIHRob3VnaHRzIGFuZCBndWlkYW5j
+ZSBmcm9tIHRoZSB4ODYgYW5kIHRpbWVyIG1haW50YWluZXJzDQpvbiBob3cgdGhlIGNvbW11bml0
+eSBwcmVmZXJzIHRvIGhhbmRsZSB0aGlzIGFyY2hpdGVjdHVyYWwgZ2FwLg0KDQpUaGFua3MsDQpN
+YXR0aGlhcyBIYWhuDQoNCi0tDQpEci4gTWF0dGhpYXMgSGFobg0KQ0NHIEVDRyBFQ0UgQ1NFRSBF
+TUVBDQpTVyBBcHBsaWNhdGlvbiBFbmdpbmVlcg0KUGhvbmU6wqAgKzQ5ICgwKTg5IDk5MTQtMzg2
+NQ0KTW9iaWxlOiArNDkgKDApMTczIDY1MTQgNTc4DQptYXR0aGlhcy5oYWhuQGludGVsLmNvbQ0K
+wqANClZJU0lUIFVTIEFUOiBodHRwOi8vd3d3LmludGVsLmNvbQ0KwqANCkFkZHJlc3M6DQpJbnRl
+bCBEZXV0c2NobGFuZCBHbWJIDQpEb3JuYWNoZXIgU3RyLiAxDQo4NTYyMiBGZWxka2lyY2hlbiAv
+IE11bmljaA0KR2VybWFueQ0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fDQpJbnRlbCBEZXV0c2NobGFuZCBHbWJIIA0KDQpSZWdpc3RlcmVkIEFkZHJlc3M6IERvcm5h
+Y2hlciBTdHJhc3NlIDEsIDg1NjIyIEZlbGRraXJjaGVuLCBHZXJtYW55IA0KDQpUZWw6ICs0OSAo
+ODkpIDk5MTQzLTAgDQoNCnd3dy5pbnRlbC5kZSANCg0KTWFuYWdpbmcgRGlyZWN0b3JzOiBDYW5k
+aWNlIE1vb3JlLCBKZWZmcmV5IFNjaG5laWRlcm1hbiwgUmFtYWNoYW5kcmFuIFNpdGFyYW1hbg0K
+DQpDaGFpcnBlcnNvbiBvZiB0aGUgU3VwZXJ2aXNvcnkgQm9hcmQ6IFNvbmphIFBpZXJlcg0KDQpS
+ZWdpc3RlcmVkIFNlYXQ6IE11bmljaCBDb21tZXJjaWFsIFJlZ2lzdGVyIEI6IEFtdHNnZXJpY2h0
+IE11bmljaCBIUkIgMTg2OTI4DQoNClRoaXMgZS1tYWlsIGFuZCBhbnkgYXR0YWNobWVudHMgbWF5
+IGNvbnRhaW4gY29uZmlkZW50aWFsIG1hdGVyaWFsIGZvcg0KdGhlIHNvbGUgdXNlIG9mIHRoZSBp
+bnRlbmRlZCByZWNpcGllbnQocykuIEFueSByZXZpZXcgb3IgZGlzdHJpYnV0aW9uDQpieSBvdGhl
+cnMgaXMgc3RyaWN0bHkgcHJvaGliaXRlZC4gSWYgeW91IGFyZSBub3QgdGhlIGludGVuZGVkDQpy
+ZWNpcGllbnQsIHBsZWFzZSBjb250YWN0IHRoZSBzZW5kZXIgYW5kIGRlbGV0ZSBhbGwgY29waWVz
+Lgo=
 
