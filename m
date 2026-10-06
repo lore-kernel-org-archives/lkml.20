@@ -1,164 +1,296 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77D413D5C05;
-	Tue,  6 Oct 2026 20:42:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791319347; cv=none; b=Oa4PV20rPwHYyZrOByW9F0fTpwaoV4WPUud++yqFq3K/sx/Jz8qkpnRRTs5Q+A/nsfmzbQdxj0XJbzhEUln5ntnXWPet1281cU2W1ADar8566boYysaITyYtKEVOQE9DPKOJoUhYgRnmbYVr7b0ij08Hyuhbr4i6g3DnhUirKxs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791319347; c=relaxed/simple;
-	bh=t9ViRMTSh54X8wtED+hoKIuuW65gzfe/BbcVMHXD2PE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SmK4UvxdkD3UD3s8pX3QGWkJyZEISGnAhQwASh9z88ROfkj96y+u9SUr+r5pr8622OyD2QWWZnHp8jXA8Q8FTuv68biYMDheVO4vD5e3yvHuT6VGP/UHFuB+Q7dtrHSK8EDVNgJKWMrP/roYXzXVQF0j4fBH3gw9IaPCdqAOSoQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cvvl5jSE; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 552163BB9EB
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 20:43:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.175
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791319410; cv=pass; b=Kq3Fa9rsl6SYHmEMd4faF+1yUjevGC4s+1hk0qFit6EjU6OJLc0xp/1ZLLavbV1Ak1tTpMPLndT7i6HYUZh3QeaH0oRmO1Y69wbM9V1uJzf3/izUCmzpE8zw5qdFwN4FcYy1cJSkzDOQurZhA9U8RaVmrp3frGGiL8yuyWMyv6Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791319410; c=relaxed/simple;
+	bh=XfDOqwl6Iw7dv6BhzcIBSwIFStzO1lcl+rnJERqVgQ4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EXHxQv9bLsQVs1xgNLtZcIlaG+K6n2xQoGD40/YJyJp5S28sd+LwYiYVPh9JZaKixwpt3uekWNx7vdNuaVovgswW4Nny5p3PR+OknV4NOOwycDWiX4bScc/kQEnKjX+Lc/uJdUXfRyoab7Eh5L995xVqyWuvyJus1A8ED6akc9c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V5S5XvZg; arc=pass smtp.client-ip=209.85.210.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cvvl5jSE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27DF31F0089D;
-	Tue,  6 Oct 2026 20:42:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791319345;
-	bh=RgFf/YhqSFb/oEnYpnkaAPWq48mTxMazcGc6rbc4AZQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Cvvl5jSEOXg9kKUKUWtTY5Wkin2vDrqMNjWvAYOOSF5j2fjUPSrj67jeGMypzt0/o
-	 3+euQ6VWc2bEfuB19QkzhmrG+qEfaRRsCfNcpaqHWCaypdkS04EcNbYq0ovM8w+rSt
-	 zDxLqpt9UKrwQX/wDgdCuxu+/zpLTmknDecCflMBP+4yWGCqAIAHALlkY3v8j8vQ/J
-	 CaLscaeJ1iN39+7S41tmQz2prBA9cTPVi79SCaM63RhC/vEn4WWz5oj6vm/DWXxDH8
-	 CrXlWNsoyF+yiILFUuif3XO7zpcCd0C9l3hILgYvxk4TuwGe09oYqC93I3O+fva0R8
-	 ufDH0Pl8g8R8Q==
-From: Kees Cook <kees@kernel.org>
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: Kees Cook <kees@kernel.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	linux-efi@vger.kernel.org,
-	llvm@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: [PATCH v1 2/3] efi/libstub: Build the x86 stub from KBUILD_CFLAGS
-Date: Tue,  6 Oct 2026 13:42:22 -0700
-Message-ID: <20261006204224.1536491-2-kees@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261006204210.i.137-kees@kernel.org>
-References: <20261006204210.i.137-kees@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V5S5XvZg"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-88bd2b44f3aso645184b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 13:43:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791319409; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gpFsfaKO05TKYA1n2uyujPVZhu6/7/Qm3mXJqRFgc3tMwN373IgRzRhulbRneiF3wg
+         oik4qV1uc1dCovnaQbNK/4kq18TIJCMWIl4bqU0nfv4s2KyLosXxgSpCbz1L4tUmrJ7H
+         mDj4W4H9dtMfMl/B1CmKYpaYcJr0QpACwhTca7Vx23WjU67VrPXnuLC5/6+VoLAACCHm
+         ghFFEEsuuYP8pieq5xFfETR7FIPXkj5XLgy7ZZrJY4ncYH879XY8v4TMYm78Fhg4jeFt
+         qnpibDZhvZz/G9jMEw8ngFfYAZJPKac0uSsNx1JqDx+dMEoh4Js5kJ6C65O1YBiVVZQB
+         PFrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=pYLtJa497tb3khpaP4kumzUEgLsH3DJmAXssXxTU2u0=;
+        fh=0Vf7U/y+NUSdrwm0KF09GCMLVNuQLlsVwu4izfmu2HE=;
+        b=FkVNVlb6NMqDwH0eFhfQC7AoiKAgpQyARBJb19Nm4jbWnY5yHRlPDYr5RHG/eQ/Sy8
+         nfwAZv1WuWZfbWzs9CPllePwR2F2P56eojbzS8ZeYfMVuiVBQMDKPkkh7U5RV/O4Q+8E
+         NVFAPGWUlgEZr4k6NfKXsxDmFMrEQKxaBC3pAZ6Ye+83K5jaMb+IaLXdCG/8TpIxPX2t
+         NWZvAtLLvVJqPYkzGxJOZuC7fIeCVL1C5vJmHHOr4j2llp7ECd84ANBxwurExSOM4GkX
+         KL5LTYnzHmL04AelS7wXbXo5Mo+DB35IgtpacWTcYyh1I/4WhpXU2a2TFED0/+PdTOZn
+         6TWw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791319409; x=1791924209; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pYLtJa497tb3khpaP4kumzUEgLsH3DJmAXssXxTU2u0=;
+        b=V5S5XvZgo8p3OD2UQE5HmB3owC4iF6nZhK0gwdQBeSuUzaHaOAmiPhuLeXa2ZRiqgV
+         z57lVVHxrdlCGXD2W9nrUG41BnA7nIwR5YWUv3A6uqcGY+cUNFEBanbaYgdhUfkdZxnz
+         YkIFS4WBrMaR3s93a7ST+8kyJjcOZ7TRhTroav9XXp6EKDcZGjHx1oJIXRvTxOu53HMt
+         BazxFrkgAWzA4a+lVg8RpbHxDVcupTz5B3FGtgFZTZQZI4Kd2KoMfVpwLyA38bxR6IRB
+         9zNWYEfZyMiO7M87dhvBrQOn4umqv7QvW8/7PBULbE0zc7SYfXJJzOKp0ewFcTz3Wffp
+         ZRtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791319409; x=1791924209;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pYLtJa497tb3khpaP4kumzUEgLsH3DJmAXssXxTU2u0=;
+        b=MDRuqbxvWy1P07CbTSi8bA1rK8fa5RttSI0rYrRgWCmyHSMOmbRZHB6iVSwO95Wc5G
+         6eRqI1P2HzpSCJeB/mYovgdHGMQ3icdTusqc0Tr6UxdjCsrqC/jyka5JhnzL12wAhrgE
+         AgpvPjoPc9I+O8QIx31O62lIb+0ggo4lcF89rE/hTeuW0CEolZiqmEDEiCf1Vuc+OBiN
+         nrkMe59pCnBHq0XVMvJrTcrDtVixsKtTJiN0lJ73c0bfTUvGn80X9zkjIvPnsWc1P8+w
+         1wk8+YWmKQkoGcWkIfiXtIpKGSIeC4ayx/FXZ5yauqNfFypB9X2De3DHf7CeTSQ3dX94
+         sGcA==
+X-Forwarded-Encrypted: i=1; AKwUvByaEG/KzKmH0d9KbUOlBCbnBLgoLCao2HrX8tp7M9E2dWCA/cjjEmiUYZHSoCNb26pHF9Wv3kwJbx4N5LA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lRw4+A1cXDPRAgxgr9t/i9akGa4w8qICTFWnQquwzAakeLRNSQ
+	WWTNV/YNKU78kTYh0SY/9svCbSOz3pHF9t2U8MwYvH5PATwBfTD7sURq9QD8/MJSYDrrn46Uo6Y
+	KxfiannHjaH18xmJcfbgLudCNwy3AtTM=
+X-Gm-Gg: AYBFou3flBMukPduvlZMMxC6Tn6f2xWykI+WIhr9lgPnKe+psnmf3x8nHc/SLry/2y7
+	7MqISPiZxLXiBuEHxGXWK2+MexemgZL013kFd85qZh4V1IDitX8jAjqGyUhoBt5hTyFN19TYf1U
+	eAAqVQIKK0IqCbbyZJcjdG1KJSsvacfaQaLUrTsJZrzkovUxARDeTJSynWJc2Sk7bvMLf95Y99a
+	HY20ZmvyY323W+N7AubuD7LnLZQYq+t0mYA7ELDx+jKPQ7xlnuzSjgDMWceR8yFWrpxOlBtgSRS
+	APjlLategpr5KwtGJVZIe6qmWQaFJv8JqGZ+tJUm5IfTqyAjr2Zd3ErcLvIkBdlUXzZ6n97FGOZ
+	v8FqkErd5LbjcsMb0uRt1a7I3yWr4jluHf7yQsOMhgNt6gQ+LMKNVBg==
+X-Received: by 2002:a05:6a00:32c4:b0:877:d02a:42f2 with SMTP id
+ d2e1a72fcca58-891b1195350mr273315b3a.7.1791319408388; Tue, 06 Oct 2026
+ 13:43:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4579; i=kees@kernel.org; h=from:subject; bh=t9ViRMTSh54X8wtED+hoKIuuW65gzfe/BbcVMHXD2PE=; b=owGbwMvMwCVmps19z/KJym7G02pJDFlHY/WC1Y+7mx87daBOpXrJ7IgJu1pnB5ydNP/Iu0/HC swZvabv6ihlYRDjYpAVU2QJsnOPc/F42x7uPlcRZg4rE8gQBi5OAZjI7FeMDKcPxZ52ZY+rX2BS 757mtfaw3fLc9SqTV80OeBe8JV3l9wJGhvsXSny2v4lp0lfU8izkdPx542OdzfZQmQtCvfH73ke uZwYA
-X-Developer-Key: i=kees@kernel.org; a=openpgp; fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
-Content-Transfer-Encoding: 8bit
+References: <20261002010449.3689454-1-4ncienth@gmail.com> <179124882160.434549.10169630192303444846@kernel.org>
+In-Reply-To: <179124882160.434549.10169630192303444846@kernel.org>
+From: Xin Long <lucien.xin@gmail.com>
+Date: Tue, 6 Oct 2026 16:43:16 -0400
+X-Gm-Features: AclHuK97XPKuX_Iuayb6nolJMGLhL_ExO0TZyJKCzoxjc8sL4n8F-xIlo7P6KTI
+Message-ID: <CADvbK_ed4ruZjf8CV_jGN=JPkJDHwwZ_9vx+q3zdHnFYiW8dLQ@mail.gmail.com>
+Subject: Re: [PATCH net] sctp: revalidate output stream after association
+ connect wait
+To: netdev-bot+sashiko@kernel.org
+Cc: 4ncienth@gmail.com, marcelo.leitner@gmail.com, davem@davemloft.net, 
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	nhorman@tuxdriver.com, linux-sctp@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The x86 stub replaces KBUILD_CFLAGS with a short list of its own, so new
-kernel-wide compiler options go missing, unless explicitly remembered
-or when lacking them breaks the build, e.g. commit 5ff8ad3909524
-("kbuild: Add '-fms-extensions' to areas with dedicated CFLAGS")
-did. Today, several still go missing that are provided to non-x86
-stub builds, e.g. -ftrivial-auto-var-init, -fzero-call-used-regs,
--fstrict-flex-arrays=3, and the various kernel's warnings.
+On Mon, Oct 5, 2026 at 9:07=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wrot=
+e:
+>
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 1 =C2=B7 Low: 0
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [High] The patch only partly revalidates state after
+>   sctp_wait_for_connect() in sctp_sendmsg_to_asoc()=E2=80=A6
+> - [Medium] The new -EINVAL in sctp_sendmsg_to_asoc()
+>   (net/sctp/socket.c:1851-1855) is returned only after=E2=80=A6
+>
+> --
+>
+> sctp: revalidate output stream after association connect wait
+>
+> This patch adds a check in sctp_sendmsg_to_asoc() after
+> sctp_wait_for_connect() returns, for the message interleaving case. It
+> compares sinfo->sinfo_stream against asoc->stream.outcnt again. The
+> handshake can shrink outcnt and free the ext of removed streams while the
+> socket lock is dropped, and that used to cause a NULL dereference in
+> sctp_outq_tail().
+>
+> > diff --git a/net/sctp/socket.c b/net/sctp/socket.c
+> > index 4652fd90d9a6c..394d31cb698e0 100644
+> > --- a/net/sctp/socket.c
+> > +++ b/net/sctp/socket.c
+> > @@ -1848,6 +1848,11 @@ static int sctp_sendmsg_to_asoc(struct sctp_asso=
+ciation *asoc,
+> >                               err =3D -ESRCH;
+> >                               goto err;
+> >                       }
+> > +                     if (unlikely(sinfo->sinfo_stream >=3D
+> > +                                  asoc->stream.outcnt)) {
+> > +                             err =3D -EINVAL;
+> > +                             goto err;
+> > +                     }
+>
+> [Severity: High]
+> Is the bound check enough on its own here? Could the stream's ext still b=
+e
+> NULL when this check passes?
+>
+> The code before the wait checks two things:
+>
+> net/sctp/socket.c:sctp_sendmsg_to_asoc() {
+>     ...
+>         if (sinfo->sinfo_stream >=3D asoc->stream.outcnt) {
+>                 err =3D -EINVAL;
+>                 goto err;
+>         }
+>
+>         if (unlikely(!SCTP_SO(&asoc->stream, sinfo->sinfo_stream)->ext)) =
+{
+>                 err =3D sctp_stream_init_ext(&asoc->stream, sinfo->sinfo_=
+stream);
+>     ...
+> }
+>
+> Only the first check is repeated after sctp_wait_for_connect().
+>
+> While the lock is dropped, INIT-ACK processing can shrink outcnt:
+>
+> sctp_process_init()
+>   sctp_stream_init()
+>     sctp_stream_outq_migrate(stream, NULL, outcnt)
+>       sctp_stream_free_ext()   /* kfree(ext); ext =3D NULL for sid >=3D o=
+utcnt */
+>     sctp_stream_alloc_out()    /* only lowers stream->outcnt */
+>
+> After that, outcnt can be raised again without restoring ext. One way is
+> for the peer to send a RECONF ADD_IN_STREAMS request, either bundled afte=
+r
+> COOKIE-ACK or sent right after it:
+>
+> sctp_sf_do_reconf()
+>   sctp_process_strreset_addstrm_in()
+>     sctp_stream_alloc_out(stream, outcnt, GFP_ATOMIC)
+>     stream->outcnt =3D outcnt;
+>
+> The other way is for another local thread to call
+> setsockopt(SCTP_ADD_STREAMS) while the lock is released:
+>
+> sctp_send_add_streams()
+>   sctp_stream_alloc_out(stream, outcnt, GFP_KERNEL)
+>
+> On that path, outcnt is also not rolled back if sctp_send_reconf() fails.
+This is a separate issue to check.
 
-Flip the x86 option logic to match the other architectures. Since the
-x86 stub is linked into the decompressor rather than the kernel proper,
-remove the kernel code model, the i386 register calling convention,
-and the kernel's reduced stack alignment, along with the retpoline and
-return thunks and the call padding, which only the kernel provides,
-and disable kernel stack erasing as the other architectures do. The
-existing -mcmodel=small, -march=i386, and -fPIC still get overrides.
-Build with -fcf-protection=none, since nothing enables IBT while the
-stub runs: the firmware applies forward-edge CFI only to images that
-advertise it, which bzImage does not.
+>
+> sctp_stream_alloc_out() only calls genradix_prealloc(), so the existing
+> entry for the earlier sid keeps ext =3D=3D NULL.
+>
+> When the sender resumes, the new check passes because outcnt has grown
+> back. Then this runs:
+>
+> sctp_primitive_SEND()
+>   sctp_cmd_send_msg()
+>     sctp_outq_tail()
+>       sctp_outq_tail_data()
+>         oute =3D SCTP_SO(&q->asoc->stream, stream)->ext;
+>         list_add_tail(&ch->stream_list, &oute->outq);
+>
+> Doesn't this reach the same NULL ext dereference in sctp_outq_tail() that
+> the commit message describes?
+>
+> Could the full pre-wait validation be repeated after each wait that drops
+> the lock, perhaps in a shared helper? That means the bound check plus the
+> !ext -> sctp_stream_init_ext() step.
+>
+> The existing outcnt-only recheck after sctp_wait_for_sndbuf() seems to
+> have the same gap.
+>
+Please add a helper like:
 
-New flags that change code generation or semantics in a plain x86_64
-defconfig hardening.config stub:
+static int sctp_sendmsg_check_stream(struct sctp_association *asoc,
+                                     struct sctp_sndrcvinfo *sinfo)
+{
+        if (unlikely(sinfo->sinfo_stream >=3D asoc->stream.outcnt))
+                return -EINVAL;
 
-Hardening:
-	-ftrivial-auto-var-init=zero
-	-fzero-init-padding-bits=all
-	-fstrict-flex-arrays=3
-	-fno-strict-overflow
-	-fno-delete-null-pointer-checks
-	-fno-allow-store-data-races
-	-fno-jump-tables (from the default IBT config)
+        if (unlikely(!SCTP_SO(&asoc->stream, sinfo->sinfo_stream)->ext))
+                return sctp_stream_init_ext(&asoc->stream, sinfo->sinfo_str=
+eam);
 
-C semantics:
-	-funsigned-char
-	-fno-common
+        return 0;
+}
 
-x86 code generation:
-	-mno-sse2 -mno-3dnow -mno-avx -mno-sse4a
-	 (stub already added -mno-mmx -mno-sse)
-	-mno-80387 -mno-fp-ret-in-387 -mskip-rax-setup
-	-falign-jumps=1 -falign-loops=1 -fmin-function-alignment=16
-	-fomit-frame-pointer -fconserve-stack
-	-fno-stack-clash-protection -fno-stack-check -fno-builtin-wcslen
+then add or replace the stream checks in these places:
+[1] at the beginning of sctp_sendmsg_to_asoc().
+[2] after sctp_wait_for_sndbuf().
+[3] after sctp_wait_for_connect() in asoc->ep->intl_enable branch.
 
-Warnings (lots and lots, but notably):
-	-Wall -Wextra -Wundef -Wmissing-prototypes
-	-Wvla-larger-than=1 -Wimplicit-fallthrough=5
+> [Severity: Medium]
+> What happens to the association when this new -EINVAL is returned?
+>
+> sctp_wait_for_connect() only returns 0 once the asoc is ESTABLISHED. If
+> the association was created in this sendmsg() call, the caller then does:
+>
+> net/sctp/socket.c:sctp_sendmsg() {
+>     ...
+>         err =3D sctp_sendmsg_to_asoc(asoc, msg, msg_len, transport, sinfo=
+);
+>         if (err < 0 && err !=3D -ESRCH && new)
+>                 sctp_association_free(asoc);
+>     ...
+> }
+>
+> This frees a live, established association outside the state machine.
+>
+> No ABORT or SHUTDOWN is sent, so the peer is left with a half-open
+> association. SCTP_MIB_CURRESTAB was incremented in sctp_sf_do_5_1E_ca()
+> and is never decremented.
+>
+> On a TCP-style socket, sctp_cmd_new_state() has already set sk_state to
+> SCTP_SS_ESTABLISHED. It stays there with no association behind it, so
+> later sendmsg() calls fail with -EADDRNOTAVAIL or -EPIPE.
+>
+> The commit message says:
+>
+>     Return
+>     EINVAL if it falls outside the negotiated range.  This matches the pr=
+e-wait
+>     check.
+>
+> The -EINVAL before the wait frees a CLOSED asoc that never associated.
+> This one frees an established asoc. A peer can trigger it just by
+> advertising fewer inbound streams than the chosen sinfo_stream.
+>
+> Failures after the wait from sctp_datamsg_from_user() or
+> sctp_primitive_SEND() already reach the same free path. This patch adds
+> another way into it, and the peer controls that one.
+Please set err =3D -ESRCH; before goto err; for the check [3].
 
-Present but with no effect, because the stub's later flags override them:
-	-O2, overridden by -Os
-	-fstack-protector-* flags, overridden by -fno-stack-protector
-	-fno-PIE, overridden by -fPIC
-	-fcf-protection=branch, overridden by -fcf-protection=none
-	the stack-erase plugin, loaded and then disabled
+For sctp_datamsg_from_user() and sctp_primitive_SEND(), we should not
+change it now, in case it may break any existing applications.
 
-Build tested ARCH=x86_64 defconfig hardening.config, plus retpolines,
-return thunks, call depth tracking, IBT, GCC plugins, and EFI mixed
-mode, with GCC 16.2.0 and Clang 24.0.0git, and ARCH=i386 defconfig
-hardening.config with GCC 16.2.0. Each booted through the EFI stub to
-userspace under QEMU with x64 and IA32 OVMF, the latter in mixed mode
-for x86_64.
+Thanks.
 
-Assisted-by: LLM
-Signed-off-by: Kees Cook <kees@kernel.org>
----
- drivers/firmware/efi/libstub/Makefile | 24 ++++++++++++++----------
- 1 file changed, 14 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/firmware/efi/libstub/Makefile b/drivers/firmware/efi/libstub/Makefile
-index 77a2b2d74f3f..1f588591f458 100644
---- a/drivers/firmware/efi/libstub/Makefile
-+++ b/drivers/firmware/efi/libstub/Makefile
-@@ -6,18 +6,22 @@
- # enabled, even if doing so doesn't break the build.
- #
- 
--# non-x86 reuses KBUILD_CFLAGS, x86 does not
- cflags-y			:= $(KBUILD_CFLAGS)
- 
--cflags-$(CONFIG_X86_32)		:= -march=i386
--cflags-$(CONFIG_X86_64)		:= -mcmodel=small
--cflags-$(CONFIG_X86)		+= -m$(BITS) -D__KERNEL__ $(CC_FLAGS_DIALECT) \
--				   -fPIC -fno-strict-aliasing -mno-red-zone \
--				   -mno-mmx -mno-sse -fshort-wchar \
--				   -Wno-pointer-sign \
--				   $(call cc-disable-warning, address-of-packed-member) \
--				   -fno-asynchronous-unwind-tables \
--				   $(CLANG_FLAGS)
-+# x86 links the stub into the decompressor rather than the kernel proper, so
-+# drop the kernel's code model, calling convention, and stack alignment, and
-+# the mitigations that rely on thunks and patch sites only the kernel has.
-+cflags-$(CONFIG_X86)		:= $(filter-out -mcmodel=kernel \
-+				     -mregparm=3 -freg-struct-return \
-+				     -mpreferred-stack-boundary=% \
-+				     -mstack-alignment=% \
-+				     $(RETPOLINE_CFLAGS) $(RETHUNK_CFLAGS) \
-+				     $(PADDING_CFLAGS), $(cflags-y))
-+cflags-$(CONFIG_X86_32)		+= -march=i386
-+cflags-$(CONFIG_X86_64)		+= -mcmodel=small
-+cflags-$(CONFIG_X86)		+= -fPIC $(DISABLE_KSTACK_ERASE)
-+# Nothing enables IBT while the stub runs, so ENDBR would only take space.
-+cflags-$(CONFIG_X86)		+= $(call cc-option,-fcf-protection=none)
- 
- # arm64 uses the full KBUILD_CFLAGS so it's necessary to explicitly
- # disable the stackleak plugin
--- 
-2.55.0
-
+>
+> Since the association is already established at this point, should this
+> case be handled differently from the pre-wait check?
+>
+> --
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
+set/20261002010449.3689454-1-4ncienth%40gmail.com
