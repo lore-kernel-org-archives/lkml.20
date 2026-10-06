@@ -1,79 +1,50 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91371200110
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 04:19:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 192CB362130;
+	Tue,  6 Oct 2026 04:19:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791260357; cv=none; b=UXAiOVj+IUAG3eobGNzoamR+hn8bp5YcGJzQjv066CuSyuSnaKwa1/4h57+UgZ3kowuzr1eb07jfopFGgpZOgR+RAfxrpRaO0PLNHTztQEEeoimvFxHCQZ7i3Gv8cObC5pdLJI94Uj4SuLU4rR4Sh810/ozvgdOH6wJaGQ07Z+s=
+	t=1791260392; cv=none; b=gHpYxI9IgHbnqDjO2u/PcCw+tjVIVrD24pvGScaW9aG6MKAGrf0ES27POR3qiM6upLF5N1g06AjZ+PZ2XIZN6hG8wqnptvI2aj5ribU/L0J/cNjcS7QwbCZ9BTjxxuQB6cJgs0bd3vefojM00b4I11yC+3bJNx6zgZnFu3+aoXo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791260357; c=relaxed/simple;
-	bh=k3RSUY4fxdXMS3ZnKpvJScrf6J75V/fZ8Jp7axykJk8=;
+	s=arc-20240116; t=1791260392; c=relaxed/simple;
+	bh=DBgULKQJRxSISWiQkZsLSXKXrSoFjjW8kTUeon4KlS0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aENv8NW3++BgphdDj6But5Bby4V1XstznpF5T4sjE485ZlW07smKnZA9jT05FcVvAPVztz+2drZF6muP0G7JPFozGfwxQRi506JWM4JAmpzTfpQdA2S5FGehtdhLs749NzASa/agtbAqiVpuwbxeXtNkht6ZoYAuTGqy6324YQk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IbPgxINj; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=oKTvtlIqObzJK9JOglSQu/FHKf57AOLhp+JhWXn6TpITS5BPkaPnfwJNcGZlwjkMgIaD14T3XlEWoYSw5RiWQfYw2dseVaf0t4Msfqs4H8ovSvC4q8pPhCVVoC46XA3/jQsXVQIg7K8FT6KBNlE2GnaaHCPKQNmuESGLYxJ0U28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bINWofTo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IbPgxINj"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a018dc1f98so2896955e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 21:19:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791260354; x=1791865154; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=b4cq9NsXa/9Ah4XIfTqt/umKWCh8D9nJZ3hIc35Disk=;
-        b=IbPgxINjCvplytLmNPCsTLTmB1c1v2BFp0asKSns/n0IdBsxtShIzICiNTsd2ulGjh
-         T8NQJRAjilYMaiXgC9v6HEjmI1dAgNbq2YOnQt7kYTXpr/s3Q/QSwZG/I1HWTNxeRHty
-         PUcTxY4HxKBPeDT2kzLsOXLeaW9FNQ6m/yuqYYgBk4BuNHtRdDoKAKtS0heuTEbEthd1
-         0iwJtXZPU23/Xjw4Lb6xi867SfUvTExj7RAaw0e7XCHsZpj2nbY4dO4wn52LNRGS7F2f
-         bbOMtAtLiD9b4cMOaL17FZq/NoX2w6DE7S+wovPWkxywPfwgXxcgaQFv6X8g7Lm14+5r
-         CPUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791260354; x=1791865154;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=b4cq9NsXa/9Ah4XIfTqt/umKWCh8D9nJZ3hIc35Disk=;
-        b=UgdvCZ48RWIp02KowAF1yMMddA+ghA/ZvxozxyrG+hNXt5CldFXKyddsbh2EojZzZz
-         6dVvVlwGe8XNjwlfs2vvwFa6IwiGnvgvd4GIDGkxoBYZVYLu5gNYBrppU5/flZKuf7fq
-         uXRhqz0d8QJL0M3tNnLUgUzd6kApE/4tSXdELbiBdVgb0i20TiUbAFdD52uDXsoOLuxx
-         zh1vOe7smpZdMOt4LLH5Flafl8Z9kens5rhf4Aw9gbKm2fbrlMD5KIHokQsW/A+4D3nq
-         xlDQIRqM5EfDMoKsNaJUTtIX1n2gfue8SPUYmYF65vHho3nyAl3iSZu0KDkiH/YbyBV2
-         6FgQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx1y8cDFgrsMTD2KkHPm95S8rnlfUfcF4nykV3CX05J9kEdcasMscnew+uzxZ9Ad5am4gGxbtKFGyWQAgs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lhksR2MSJvm+9wFruqETvEjV93iNNF1EOVcp8OhRHI97XbCgO7
-	PHYZF4c1WhhKhWi2KtBtSR62XvBI4YliUuu2brMao0haQEcmY7K5Di/I
-X-Gm-Gg: AYBFou2+RxM0QaI30h3Njix6paHF7I3uF0D85aOAL78+ObqgGepFoYIGGIC7SNOjls6
-	ieGP7MYjR7LrmOI/WorU6jqmvv5WrPjHGlp1uS0x9XEwtS2cGThbbcy2547apCgF9yNYUhldpTf
-	PcEWPi+mxh/ruh9z/iHTxsm/5UcJuX83dkzLiVYTUZ+eGjuuuYBN2TmtmBfSSbi3sWX5mCSKYT1
-	qcamJQUCCTEZQHzLLf3BtxLSkC9gtC/pVigcCWoSGwBYjfuBE6HK/ZcM8mgYMgVc0CA+15R/y+h
-	K4inZEp3MNWpuZGWsAo/miIlK36CpYjGm5lXjv9dfW2l8ekCnuqM9yvOMP4IN9jMHQFbMkv8fAB
-	sCuF3DuIUU4UpMFn53P+YmOLHy4NCrEu2Bo6vMIhoXD9DzVGABQHLehrBJZyHyP4CrVR/5kotMJ
-	uUmUxe+0ylroZAj1aa5oITGL/KlsBAYDmYLldlhQaYm8kmJc2cjDWAhsAe1NKw3FRas0cABeNHU
-	rpAbAadk0ELAhq7eLWD3Q9KVjFy3eny74U8o4CfC/NSmyTRkmXyILCiHtaRehLo5LUQztYvWGSK
-	UohpqMcW62ft+5YeVLv+FgG1iAeSDQpe2Q==
-X-Received: by 2002:a05:600c:3510:b0:4a0:1c43:3c04 with SMTP id 5b1f17b1804b1-4a17b53e298mr3201995e9.13.1791260353780;
-        Mon, 05 Oct 2026 21:19:13 -0700 (PDT)
-Received: from MacBook-Pro-von-Karl (dynamic-095-117-040-097.95.117.pool.telefonica.de. [95.117.40.97])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1776cfe45sm44826795e9.1.2026.10.05.21.19.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 21:19:13 -0700 (PDT)
-Date: Tue, 6 Oct 2026 06:18:41 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Arend van Spriel <arend.vanspriel@broadcom.com>
-Cc: linux-wireless@vger.kernel.org, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com, 
-	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH] wifi: brcmfmac: avoid sleeping tx locks in netpoll
- context
-Message-ID: <asR1TaKQJlPFqEvR@gmail.com>
-References: <20260930185417.61865-1-kmehltretter@gmail.com>
- <20261004122910.1392318-1-arend.vanspriel@broadcom.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bINWofTo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 931321F000FF;
+	Tue,  6 Oct 2026 04:19:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791260390;
+	bh=wyQ5nTXXeJyN1ADu2l0tdNd+THbSAN4zI6DtA9zLwKM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bINWofTolj4c6Wcl4yYtrzA4UuVSNSS6oEstWOcYeWEebbLQ+VK8+WyY10Gkyo5NS
+	 EDGJQo0NVjyyvbXDY3KHIMhi9X2JNQmER3QSfSyym+HLTBCKsplq/bFUV8kkcQZdFH
+	 nk4jHtDS51Hq3V1/XTKDqHyDeB3qlrnQD3CtsLyptjFUW2mxmbvsYRDj/Si/keLIxk
+	 D4UIWKyyhGIfpzQTh01uHTWxZpus2sOI/F6FWeAWn01bRXylGwIakHluX8406jiPzx
+	 pAW+OSGl8QwY/+tooKKbzL+z5cIgu6JgKdYBnPamIVf6jGgSLe6OlVblrCJu8ackQZ
+	 WaqJaFi5v4xYQ==
+Date: Tue, 6 Oct 2026 15:19:41 +1100
+From: Dave Chinner <dgc@kernel.org>
+To: Brian Foster <bfoster@redhat.com>
+Cc: MingTao Huang <1037827920@qq.com>, Carlos Maiolino <cem@kernel.org>,
+	Dave Chinner <dchinner@redhat.com>,
+	"Darrick J . Wong" <djwong@kernel.org>,
+	Chandan Babu R <chandanbabu@kernel.org>, linux-xfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	MingTao Huang <mintaohuang@tencent.com>
+Subject: Re: [PATCH] xfs: fix skipped flushing items not counted in
+ xfsaild_push()
+Message-ID: <asR23Qk3uXtTSTKr@dread>
+References: <tencent_F801A9436DFB447AAFEC63D3E615B8052405@qq.com>
+ <arL9Xrmf5Q7wd3T4@dread>
+ <arPXwKnDMVMj-oMK@bfoster>
+ <arRv-SRK0nHHGBxM@dread>
+ <arq3MsiNwf1R1QCL@bfoster>
+ <arse0L6mA00ybLvf@dread>
+ <ar0VBbwULCzAQW2u@bfoster>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,24 +53,176 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261004122910.1392318-1-arend.vanspriel@broadcom.com>
+In-Reply-To: <ar0VBbwULCzAQW2u@bfoster>
 
-On Sun, Oct 04, 2026 at 05:29:10AM +0100, Arend van Spriel wrote:
-> Is there an opportunity to reuse/refactor brcmf_sdio_prec_enq() rather than
-> adding a separate brcmf_sdio_prec_enq_irqoff() helper? For example, passing
-> a can_evict parameter:
+On Wed, Sep 30, 2026 at 09:56:21AM -0400, Brian Foster wrote:
+> On Tue, Sep 29, 2026 at 12:13:36PM +1000, Dave Chinner wrote:
+> > > > Hence, from the POV of the AIL control loop, this latter
+> > > > ITEM_FLUSHING metric is pure noise. We did not queue new IO, we did
+> > > > not update a buffer already queued for IO, and we do not know if the
+> > > > item has been recently modified, yet we still accounted it as
+> > > > "flushing".
+> > > 
+> > > This all makes sense, but I wonder if it would be simpler to just let
+> > > the case of "new inode flushed to pre-queued cluster buffer" return
+> > > ITEM_SUCCESS instead of ITEM_FLUSHING.
+> > 
+> > That means we lose the 'this inode cluster is being actively
+> > modified' signal from the feedback loop. That makes it behave
+> > differently to buffer items, and so now we have confused and
+> > unbalanced signals being fed to the backoff control decision again.
 > 
+> What do we do (or not do) with this signal?
 
-Thanks for the review!
+That triggers a larger backoff - the "flushing" part of the
+"if (stuck + flushing > count * 0.9)" of the check. If we get lots
+of newly dirtied inodes pushed to already queued inode buffers,
+then we backoff for 20ms because it implies we are reaching the
+active head of the AIL where journal commits are inserting newly
+committed dirty items.
 
-Sharing the helper with a can_evict argument is cleaner.
+This is very similar to when LOCKED starts to show up - the only
+difference between FLUSHING and LOCKED in this situation is that
+FLUSHING means the inode buffer is still queued for IO, whilst
+LOCKED means one of two things:
 
-One queue user does not hold txq_lock: brcmf_fws_bus_txq_cleanup()
-dequeues through brcmu_pktq_pdeq_match(). 
+1. It is being actively accessed and maybe modified (i.e. locked in
+a transaction), and so it is about to be relogged and pinned, in
+which case we can't flush it. It is likely "stuck" until some time
+passes.
 
-Lockdep instrumentation in fcmode=1 and 2 confirmed that cleanup enters
-without txq_lock.
+2. it is locked and under writeback IO. In this case, it was likely
+pushed on the previous AIL push iteration. i.e. we are iterating
+recently pushed items that are still under IO. If we get lots of
+locked items, then we are likely 'stuck' needing them to complete IO
+for progress to be made. Hence we need to back off.
 
-I combined the helpers, but kept brcmu_pktq_penq() for normal calls.
+PINNED is very similar LOCKED case 1, only it has been relogged and
+is dirty in the CIL.
 
-Karl
+Hence there is a simlar relationship between pinned, locked and
+flushing - the only difference between them is where in the
+'recently modified and/or submitted for IO' cycle the objects are
+in.
+
+These all indicate we have push vs access/modification contention on
+the log items, and we give the active modifications processing
+preference by backing off. i.e. we prioritise relogging over
+pushing because it avoids unnecessary writeback IO, and to do that
+we need pushing to back off when contention signals are detected.
+
+> ITEM_* implies state of the log item, so I don't see that as
+> inconsistent. They behave differently because they are different items.
+> What's the expectation for the push interface? If we flush an ili/dquot
+> and the buffer is already queued, did we push the item "successfully" or
+> was the item "flushing?"
+
+It's an indication that there is active modification occurring on
+the inodes/dquots on the cluster buffer, and so we have to make a
+decision to push immediately or back off to allow further
+aggregation.
+
+push immediately (i.e ignore flushing signal) means the inode
+cluster gets submitted for IO, and the next inode we modify on that
+cluster blocks waiting for cluster IO to finish. If we get the
+timing wrong, we end up doing lots of individual inode pushes and
+repeated cluster buffer IO, instead of aggregating them all into a
+single IO. the "flushing" signal is a sign of the push algorithm to
+back off to allow  modification to continue unhindered and hance
+allow the next push of a item on that cluster buffer to sweep all
+the modifications in one go.
+
+i.e. the decision is "push immediately and repeatedly" or "backoff
+on modification contention and push once". Doing it once is more CPU
+and IO efficient, push immediately causes modification latency
+issues in xfs_inode_item_precommit() locking the cluster
+buffer...
+
+> > That is, we can have tens of thousands of inodes on the same LSN in
+> > the AIL. A CIL checkpoint on a large log is closed off at ~32MB in
+> > size, and an inode core takes up about 300 bytes in the journal. If
+> > we are logging nothing but inode cores (e.g. 'chown -R <somedir>'
+> > over millions of files) then a single checkpoint can contain up to
+> > ~100,000 inode log items. These are all inserted into the AIL at the
+> > same LSN.  Hence it is very common for there to be tens of thousands
+> > of inode in the FLUSHING state on the same LSN in the AIL.
+> > 
+> 
+> So in the current code what prevents from adding that many cluster
+> buffers to the delwri queue? The current count > 1000 logic only breaks
+> across an LSN change, so ISTM queue length is subject to the level of
+> cluster overlap in the dataset.
+
+<looks closer>
+
+Ok, that's probably a real bug. I think it should be an || not an
+&&. i.e. I'd intended it to submit the buffer list when we completed
+flushing a checkpoint (i.e. the LSN changes) or if we'd gathered
+enough items on the buffer list for submission (count > 1000).
+
+This points out the difference between "knowing the intent" and
+"reading the code". One cannot tell the difference between bug and
+intended behaviour from reading the code....
+
+As it is, this could result in longer buffer submission lists, but
+that makes it even less likely to trigger a hangcheck timer. i.e.
+submission to the request queue is typically faster than hardware IO
+completion, hence the more we have to submit, the more likely we are
+to block on a full request queue.
+
+> > inodes doesn't actually move the LSN for the next loop forwards.
+> > We start the next loop at the same LSN in this case, and the only
+> > reason we didn't tend to process the same flushing items a second
+> > time is the backoff allows IO completion to remove the items from
+> > the AIL.
+> > 
+> 
+> I get that the LSN bookmark is not granular, but the old algorithm only
+> broke the loop if we were stuck or hit the target. It resets the
+> bookmark if the 90% stuck+flushing threshold is met or we hit the
+> target. So the example described above sounds like one where we'd reset
+> the LSN pushed bookmark anyways, or otherwise we are stuck and intend to
+> repush locked/pinned items.
+> 
+> That said, I can see how accounting the flushing state for cluster
+> flushed inodes in the same push cycle inflates this metric into backing
+> off/restarting, which seems like a flaw/inefficiency in the old code.
+
+It's not just the backoff, it's all the extra code that has to be
+executed to get to the point of realising the inode has already been
+flushed to the cluster buffer. THis change made it a single bit
+check in the outer loop, vs going into ->iop_push and taking a cache
+miss to pull the buffer from the ILI, then another to pull the inode
+and i_flags from the ILI, then another to pull the pincount from the
+inode, then another to pull the pin count from the buffer,
+
+IOWs, the LI_FLUSHING check runs hot in cache, whilst iop_push()
+takes multiple dependent cacheline misses for every inode it checks
+for STALE/pinned/flushing....
+
+<snip>
+
+> > Besides, if the problem really is "we are walking too many
+> > LI_FLUSHING items repeatedly because the LSN is not changing", then
+> > I'm pretty sure there's a relatively straight forward fix for that.
+> > i.e. we need fine grained tracking of the item we are up to across
+> > loop iterations where the AIL lock is not held and the AIL can
+> > change. We already do this within the processing loop itself...
+> 
+> I'm curious what you're referring to here, if not the last lsn thing..
+> a cursor enhancement perhaps?
+
+Yeah, get rid of last_pushed_lsn, and keep the cursor active across
+push iterations. The only reason for last_pushed_lsn existing is to
+re-seed the cursor on the next iteration. It's a bit of a wart, and
+it's quite inefficient because we have to walk the entire list from
+the head or tail to find the LSN we need to start at.
+
+To replace last_push_lsn, we can store a lsn in the cursor on item
+deletion to act as a reseed value for the next iteration instead of
+starting from the [still valid] item in the cursor...
+
+-Dave.
+-- 
+Dave Chinner
+dgc@kernel.org
