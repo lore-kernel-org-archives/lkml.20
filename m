@@ -1,170 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-00617f01.pphosted.com (mx0a-00617f01.pphosted.com [205.220.165.167])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17244347FCD;
-	Wed,  7 Oct 2026 04:19:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36826351C3B
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 04:20:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.165.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791346788; cv=none; b=io/hY7PvcGtfHc8IaHggQEAfESWU8OLhehyaA/3b5xNmrdZm0cP7obXzIlOHmPKrnBU12gmkPA5qTGKPGVrHiDLnutQth85eAaU3uupCF6S7erdEVJGZ2ZItOt5tENYVPr888SmE8xvwGWtZ9U0TcMLRqbPSjYG88WuxBMbiBgE=
+	t=1791346859; cv=none; b=Dvr+ygB0KNr/WGqtUZJTPdXAKzPXugodKC99FSHzrm7sterRYuyFy7EjuBU+ykIMj3nwkr+ndUA9DJ2pP4RV0z0xQydt1I0r9Ef+ZF1UO7Kcs5+9y+A/3cXGswz+eNs9XZ1Y1xZdW+1+oVW3IZaze4iuhyF5mahgoeql0RyR+BU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791346788; c=relaxed/simple;
-	bh=rF6Atx0QB+IRloEnSYn8db/75iSHktfOLfZaskW82sQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-Id; b=GIQIoN8aUsTvXCuAVEJPgA9uDyBSLnfRlhFpBumbsAl5RP32gF3qmg4jTcSxdwlpyiNdkH6gbV+lzwn5y7Rrd2jtT6zT4N0tHAWSLZJznpN9C7n17b5MxIQQ0LOA+XM48KrXNLVyvooel5eoMx43r3JeaE0E42SSB3rqD26ngHg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j/gU3J7H; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j/gU3J7H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D5151F0089B;
-	Wed,  7 Oct 2026 04:19:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791346786;
-	bh=DFSi2Wk0MvpE9fCPPDSt7iv3uIUllMCpxznmfG9s3vc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=j/gU3J7HuXc7irqCXpZ9/sr3dGZgJ956/GIFFBrYb/zHuTj2VBsAX9NUcYVal9hc5
-	 QOcjSEhsusgR8t1FJLfL0EScXWI9NtKHf/iVWgR/H5CJfK9sFGW2k22oVFc8OGv9yg
-	 F00e60iqGX8wUrJlXwiJOSUx4UZ3jaGNutfvBzpY6ZRur2GaMkqjw5qRGmxq+sN3nN
-	 II/eIy6xoNSEm4lGQ60sTYqUcMkP5igUSoDyAr693QdOHHJX6l2AWNE74Pyyo6lL8/
-	 2GVTzmo7VB9w0WL0MGuz5Mu+UENYBE453Fsy+tMPQW6aJEMvzmSKgBrwTGILIZA2l6
-	 tI72r7wdoO9XA==
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: kylebot@openai.com
-Cc: linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
- rostedt@goodmis.org, mhiramat@kernel.org, outbounddisclosures@openai.com,
- Kyle Zeng <kylebot@openai.com>, stable@vger.kernel.org
-Subject:
- Re: [PATCH] tracing/filters: Treat zero-length dynamic strings as empty
-Date: Wed, 07 Oct 2026 04:19:41 +0000
-In-Reply-To: <20261006225642.58778-1-kylebot@openai.com>
-References: <20261006225642.58778-1-kylebot@openai.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=arc-20240116; t=1791346859; c=relaxed/simple;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=BbqfUqQnZ9BvwolDVZCBiT1QCex7ZT3f5SxbkDkHGrysmFaOvqR/UhVxYEmRRZgx6wcxdkYz/DDbdSKwDaNodWkxMjAXOxGEoZllVststxPhWTipNMvi3DWbN0FP4K4Kaibo2zP2QMBxoM6kRZkhz1drEQrYLOWobvqL23D4QJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=psmicorp.com; spf=pass smtp.mailfrom=psmicorp.com; arc=none smtp.client-ip=205.220.165.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=psmicorp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=psmicorp.com
+Received: from pps.filterd (m0247527.ppops.net [127.0.0.1])
+	by mx0a-00617f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697002oK3309987
+	for <linux-kernel@vger.kernel.org>; Tue, 6 Oct 2026 20:07:59 -0400
+Received: from egc-exch2.psmicorp.com (webmail.psmicorp.com [38.142.134.66] (may be forged))
+	by mx0a-00617f01.pphosted.com (PPS) with ESMTPS id 4h5b5e00ne-10
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 20:07:58 -0400 (EDT)
+Received: from EGC-EXCH2.psmicorp.com (10.1.1.111) by EGC-EXCH2.psmicorp.com
+ (10.1.1.111) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.61; Tue, 6 Oct
+ 2026 17:55:51 -0400
+Received: from psmicorp.com (10.1.1.107) by EGC-EXCH2.psmicorp.com
+ (10.1.1.111) with Microsoft SMTP Server (version=TLS1_0,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.1.2507.61 via Frontend
+ Transport; Tue, 6 Oct 2026 17:55:50 -0400
+Reply-To: <greg@gospelmusicuniversity.com>
+From: Evans Thomas <_us@psmicorp.com>
+To: <linux-kernel@vger.kernel.org>
+Subject: fund transfer opportunity,Reply..
+Date: Tue, 6 Oct 2026 23:55:47 +0200
+Message-ID: <20261006235547.3C16C11681FB5BD1@psmicorp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <20261007041944.6D5151F0089B@smtp.kernel.org>
+Content-Type: text/plain
+X-Proofpoint-GUID: xCNt9DgUZm9BjPIdtKg7S2aVfuuNRDT2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAwMCBTYWx0ZWRfXwYDd+oQ0/SGB
+ Xeq5KsxCJKZP8V5DCncv4cf8MZvtvzCMExpHJ5AX68Eal78D5sNVIgqpRUJBC5Wyg6ljH4KsdZu
+ TSkePrS1iVh0w3d/lTYl9HqfrlC2vIYgw8o7x6SkPjN4IbkyCykScLBkQWypPKmwfRRCzYbMKOA
+ JBae7IErTyucaqTnvw8BVrCS98z8WuwnCjb+3Kq6PyvUoJTIXJgysYoO1fT73GAcVIJ1Lb7IS7D
+ 1uYZy2JyYaQ5Iyu1Jkj4kWwKKu8MP+ISXjBb3a96OBcSOsiuQKyVFI08/OvbCFne8QIQQNX5qjT
+ AXo2TcJSnLFiY14F7gyC/Jx6iyjRsyh38XDXJkwLf5tkrI4pRzhS6+fV7Hiqp+V4rR8GnPSRfQ8
+ qVlWet1vXqGe5zGJWROSAg30fs2isPZXANm601e86H/frBmzGFi4SSTVEMfYks/HWokrtldt3P0
+ khcq7uhulWI3Ur0RwEw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAwMCBTYWx0ZWRfX5bGSSneeam0u
+ 1Izqwe62g8czUtO+cMECp5d6uup3KTRgNnBZk0i/UU5f+FetWgpkXJ6bkO5ngScxonv26uDI4Pr
+ p6zYcrJVfmAf20+gZloDRaZSdj90VPPx8Cu1ulpmpxojSZ+ygFmS
+X-Authority-Analysis: v=2.4 cv=GvTXaU1C c=1 sm=1 tr=0 ts=6ac58d5e cx=c_pps
+ a=sNj4pI0fii9qGHoVqNzRVg==:117 a=sNj4pI0fii9qGHoVqNzRVg==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=ZHGAjPH774soz-f4Le74:22
+ a=GfZueQGhKz3ujf-POmTq:22 a=tclcd6dtLQvEqt9_mmAA:9
+X-Proofpoint-ORIG-GUID: xCNt9DgUZm9BjPIdtKg7S2aVfuuNRDT2
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1015 impostorscore=0
+ phishscore=0 malwarescore=0 priorityscore=1501 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610070000
 
-On Tue, 06 Oct 2026 15:56:42 -0700, Kyle Zeng <kylebot@openai.com> wrote:
-> The regex callbacks use a length of zero for NUL-terminated strings of
-> unknown size, such as the trailing buffer in a trace_marker record.
-> However, filter_pred_strloc() and filter_pred_strrelloc() pass the length
-> from a data locator directly to those callbacks. A zero-length locator
-> has no data and need not point at a NUL byte.
->
-> In particular, syscall entry events can contain an empty captured array
-> or a failed user-string copy. Matching such a field with an equality,
-> prefix, or substring filter can read beyond the record. The per-CPU perf
-> trace buffer is reused, so an unprivileged counting syscall event can
-> disclose bytes left by a previous kernel tracepoint even when raw
-> sampling is denied and exclude_kernel prevents counting that tracepoint.
->
-> Handle both locator formats through a common helper. For a zero-length
-> field, pass an empty string and its actual size to the regex callback.
-> This gives all matching modes the empty-string semantics without reading
-> the locator's target. Keep nonzero fields and the legacy trace_marker
-> unknown-length convention unchanged.
->
-> Fixes: 10f20e9f9da9 ("tracing: Have zero size length in filter logic be full string")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Codex:gpt-6-astra
-
-nit:
-Assisted-by: LLM
-
-> Signed-off-by: Kyle Zeng <kylebot@openai.com>
-
-Looks good to me.
-
-Reviewed-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-
-Thanks,
-
-> ---
->  kernel/trace/trace_events_filter.c | 38 +++++++++++++++++++-----------
->  1 file changed, 24 insertions(+), 14 deletions(-)
->
-> diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
-> index 2b46ca536045..02aaa92e0361 100644
-> --- a/kernel/trace/trace_events_filter.c
-> +++ b/kernel/trace/trace_events_filter.c
-> @@ -884,6 +884,25 @@ static int filter_pred_pchar_user(struct filter_pred *pred, void *event)
->  	return filter_pchar(pred, str);
->  }
->  
-> +static __always_inline int filter_dyn_string(struct filter_pred *pred,
-> +					     char *str, int len)
-> +{
-> +	int cmp;
-> +
-> +	/*
-> +	 * The regex callbacks use zero for an unknown-length, NUL-terminated
-> +	 * string. A zero-length data_loc or rel_loc field has no bytes at all.
-> +	 * Match an empty string instead of reading past the end of the field.
-> +	 */
-> +	if (!len) {
-> +		str = "";
-> +		len = 1;
-> +	}
-> +
-> +	cmp = pred->regex->match(str, pred->regex, len);
-> +	return cmp ^ pred->not;
-> +}
-> +
->  /*
->   * Filter predicate for dynamic sized arrays of characters.
->   * These are implemented through a list of strings at the end
-> @@ -900,13 +919,8 @@ static int filter_pred_strloc(struct filter_pred *pred, void *event)
->  	int str_loc = str_item & 0xffff;
->  	int str_len = str_item >> 16;
->  	char *addr = (char *)(event + str_loc);
-> -	int cmp, match;
-> -
-> -	cmp = pred->regex->match(addr, pred->regex, str_len);
->  
-> -	match = cmp ^ pred->not;
-> -
-> -	return match;
-> +	return filter_dyn_string(pred, addr, str_len);
->  }
->  
->  /*
-> @@ -923,13 +937,8 @@ static int filter_pred_strrelloc(struct filter_pred *pred, void *event)
->  	int str_loc = str_item & 0xffff;
->  	int str_len = str_item >> 16;
->  	char *addr = (char *)(&item[1]) + str_loc;
-> -	int cmp, match;
-> -
-> -	cmp = pred->regex->match(addr, pred->regex, str_len);
->  
-> -	match = cmp ^ pred->not;
-> -
-> -	return match;
-> +	return filter_dyn_string(pred, addr, str_len);
->  }
->  
->  /* Filter predicate for CPUs. */
-> @@ -1014,7 +1023,8 @@ static int filter_pred_function(struct filter_pred *pred, void *event)
->   *
->   * @str: the string to be searched
->   * @r:   the regex structure containing the pattern string
-> - * @len: the length of the string to be searched (including '\0')
-> + * @len: the length of the string to be searched (including '\0'), or zero
-> + *       for a NUL-terminated string of unknown length
->   *
->   * Note:
->   * - @str might not be NULL-terminated if it's of type DYN_STRING
-> @@ -1023,7 +1033,7 @@ static int filter_pred_function(struct filter_pred *pred, void *event)
->  
->  static int regex_match_full(char *str, struct regex *r, int len)
->  {
-> -	/* len of zero means str is dynamic and ends with '\0' */
-> +	/* Zero is reserved for a NUL-terminated string of unknown length. */
->  	if (!len)
->  		return strcmp(str, r->pattern) == 0;
->  
->
-
--- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
