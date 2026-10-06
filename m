@@ -1,294 +1,116 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 39B4E3E3D86;
-	Tue,  6 Oct 2026 11:18:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99C0539A7F2
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 11:19:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791285530; cv=none; b=dYCdfTh+Sb0/fX6xah612YrMRJARuqjRe7oF4+nT+8JPNH/0pxq/aHm21fEoMwRmj+pQzqPZHfddeLihI39z0LJ7yogyVcSmqsXzggVbYO+P44y483Y7mK+5ieJBZDceSjjX+JxBxgEyOIjIc4L+kwn7/x0LciEJdkE7xukIx5k=
+	t=1791285542; cv=none; b=kZEbNCsdT52CW8mbob7190jLEDmNFGp2KV6I/30G6+X1OeYCpJ5hkkXI49JDzmgEaSMQhqyqTpUS4WNDcX8O4g/hwJX8/pOB3hNObCTcCL2uONmxB4mAW3RFOw+Xpj9obNIVtxOj1KiJnv9PUpNdg6vlgNDQ748boQwbD8jjmm0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791285530; c=relaxed/simple;
-	bh=J0aYmzl4Bca+kxxzx5CT2dAYF56mfLYy3OaN1LrAIjc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=l5C+Jk/krFPQQhymgy7MGM5v4+Q9KEFkqrksFRqFCsc932iISDHX9nr5TWFC01UdKi7DqsiSJNyTEqqIC6cN62gwY4BCTS4Uei9aH4ax2uFjfmCSb8FHAyJb3182P2Z76/fJh/SWyxZmo5rieHW+8h9JCekbPxKMrL+MraYJ4LI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=RZ5hdLhD; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791285542; c=relaxed/simple;
+	bh=T9pQLHtkTws6ReeUvx+8dHa8B2SrtK8aEWmbBiNo0o4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NdAdnYFaOpoHjdcYzwtOxGvH1WGyHAQ4RwGnB9fjs/8pmC+EL9PRgWW0MH69fYTifCd/WRppmPk+rIKrZktV9uNoaQSJONB6aHyxsTVMEuSckL9Cz3ZnXiHY2l0ZvnSxRk6skOxQq+0wz1pbFEEpP2CxJt5eJQji1eiafdUOiJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LxzelV5a; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="RZ5hdLhD"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id ECE121516;
-	Tue,  6 Oct 2026 04:18:43 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A908D3F763;
-	Tue,  6 Oct 2026 04:18:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791285527; bh=J0aYmzl4Bca+kxxzx5CT2dAYF56mfLYy3OaN1LrAIjc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=RZ5hdLhDyybGfQibMShr19Huoc4OLB+eoXXlg7amCRsxzOgV1zt1dFH/S0dhFJkgc
-	 rIFYwye7wxuuF+SdCgqKHuV8+tHKURuLoG+OFSMqph64rLv2vaGBHlM7+nTnpwaXg0
-	 NO8CPkXvVECFbdhIjvjb8OSJwJynk/APt9d+RyAE=
-Date: Tue, 6 Oct 2026 12:18:42 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	"Ivan T. Ivanov" <iivanov@suse.de>,
-	Francesco Dolcini <francesco@dolcini.it>,
-	Frank Li <frank.li@nxp.com>, linux-arm-kernel@lists.infradead.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	kvmarm@lists.linux.dev, imx@lists.linux.dev,
-	Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH v4] arm64: errata: Add NXP iMX8QM workaround for A53
- cache coherency issue
-Message-ID: <asTZEhzMDs869r_n@arm.com>
-References: <20260824-imx8qm-cache-coherency-v4-v4-1-b2e528c7d05e@nxp.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LxzelV5a"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48afcfc4bf5so2254549f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 04:19:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791285539; x=1791890339; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lbWPBQuVRiue4AC08Y5e154S6RcmoKslymnN0Vvmfhw=;
+        b=LxzelV5aud9Wnv1J9wVSZXTPhQvi7hAFXQOpvPF0YTwXFfs9ye9oI+Prou4aw++EcB
+         1wqQRopugMAcPy4zlA32Cwy/kjuDnSs+MpNkPQKbJTB/MdvDRZKsmoC5Y/Q/AhTA5PQ0
+         9qBMb3aWTR/M79nQVJuV3qjz8tRw4MoZ4a36NmadUR2fpLEOHgrmqXs/felXOdtZvlMG
+         MivoqHKygUV8c7pZuW8K+4S8BZ5hpfPUCTgXiy1sKTGoqbxmIvda59XqlnMTSBJZ4XtF
+         gKS/9fpzeeEUhHqw7aVrp2af567EwKFuR3mLe2YwDwlFHPQdM8Rk/UTUvT0c1Zh+5/yL
+         nyyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791285539; x=1791890339;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lbWPBQuVRiue4AC08Y5e154S6RcmoKslymnN0Vvmfhw=;
+        b=SwYE5ZkAMmYUq9ogGwAPLiG6f6jz66ImJJzCQDL3dgsIyf3YYOVxSBIWnVQocrgCXR
+         R1C/TsOd2ekCgCnepYtgEDcdwYh+99CysKl5HcCqqewp+q8nWnXVdZYEprWQmpQPOkSL
+         UXc48BLuGw1xW5LmRmvDmTQQ3n+yzOhep+ZtLkqc6bLhVOgxycpe1mJRsvb1kZzbVy3n
+         cgLJTIrdbmC6/vBKog03wrM6Ir6nKvJLTBfcmDmXgH8N/qV5SaEIqq1mwvx1E2wfhxgg
+         9K0/enl0ZnCzunn/5HmbT44CWZ1mBOUjTIeeCRiWP2YE8HKNHn7Z0D3WVXD+hE85ouBm
+         wEbg==
+X-Forwarded-Encrypted: i=1; AKwUvBzrRPpuyYPdSe27ofa/6zXgbu/i3p5Ruc8cfn9F3ft32auRT9JaoCneKCPjV7dLEYYR5BvLFVTrxVgEAWY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKhS0KT+xcQUrUkmvPX6+WPvCEPaDAxHM4XtF0gENivZ5kGRHpk
+	GIfVsfbk7vwGGIhtep6afZQJHl+442oseFzFtaso0SWE0OIRpJuA5WDx
+X-Gm-Gg: AYBFou3DC5W32wi2EMu6wzctdXo9ZE6oOFJWcfBfTQPLmyvKvqx5aqMrmBKkTTUgRdn
+	k+P4N5cytFdFzmizW6Il2yTbt+xFUrWsu8loKlMvcLgA1Gbd8+Ykj4XLRBA5YYj7M2Sr3eEWW60
+	8GAgyv1okyxGc6jHdlR5DgAI+M4KjgyOZaKD75g40T1L9HW3TrcFdb+71XRqF6/RsTQn55m7sav
+	H3uHSSNPe5f7eK+lJu7B1feJD1+GQkwQzCkU7sN+LrV6GBFs81mGCFR9X8ISXOOw6O4i8OjmJJv
+	pXJqQ98kr+NpaYrPSvhMtlbyQXL1vNJY4aZfA2tY1+6e2XWBBJRdZOkCla/8h/dkrZBhD/yRfw4
+	HOGw5K5w4hpEiGso6CHq/vzBH1qT28LUNLWtpwou6guwvzy/hfhNor+IZ4/O44vIlon0adWExgB
+	HAKi2gcpimlrUeugllbBJ+ZmvCZH4c+ttlF8ZSLBFcOTknfK7e2+VzTBj8O9uz0L/WxJdEPnI1+
+	Tq94A==
+X-Received: by 2002:a05:6000:1a85:b0:487:490:8391 with SMTP id ffacd0b85a97d-48c6d160060mr2104906f8f.16.1791285538622;
+        Tue, 06 Oct 2026 04:18:58 -0700 (PDT)
+Received: from [192.168.1.50] ([81.196.40.70])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c6d264fcbsm2172381f8f.47.2026.10.06.04.18.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 06 Oct 2026 04:18:58 -0700 (PDT)
+Message-ID: <3a57c874-ab57-4ca2-98a9-d5cf4fdf285b@gmail.com>
+Date: Tue, 6 Oct 2026 14:18:55 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260824-imx8qm-cache-coherency-v4-v4-1-b2e528c7d05e@nxp.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH rtw-next v7 4/6] wifi: rtw88: 8723b: add the RTL8723B chip
+ driver
+To: Ping-Ke Shih <pkshih@realtek.com>, Luka Gejak <luka.gejak@linux.dev>
+Cc: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Michael Straube <straube.linux@gmail.com>,
+ Peter Robinson <pbrobinson@gmail.com>
+References: <20261002073845.31486-1-luka.gejak@linux.dev>
+ <20261002073845.31486-5-luka.gejak@linux.dev>
+ <aa7d919d98304ee095990735f39095ac@realtek.com>
+ <DLWXWMOGZGX9.UANQJR9PZYWG@linux.dev>
+ <359ea3a6857d4aba9c83876a10f7f9e8@realtek.com>
+Content-Language: en-US
+From: Bitterblue Smith <rtl8821cerfe2@gmail.com>
+In-Reply-To: <359ea3a6857d4aba9c83876a10f7f9e8@realtek.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Peng,
-
-On Mon, Aug 24, 2026 at 12:02:04PM +0800, Peng Fan (OSS) wrote:
-> From: Peng Fan <peng.fan@nxp.com>
+On 06/10/2026 03:39, Ping-Ke Shih wrote:
+> Luka Gejak <luka.gejak@linux.dev> wrote:
+>> On Mon Oct 5, 2026 at 8:08 AM CEST, Ping-Ke Shih wrote:
+>>> Luka Gejak <luka.gejak@linux.dev> wrote:
+>> [...]
+>>>> +/*
+>>>> + * Shares the receive PHY status layout, the SDIO aggregation burst fields
+>>>> + * and a few baseband registers with the RTL8703B; reuse that header.
+>>>> + */
+>>>> +#include "rtw8703b.h"
+>>>
+>>> Which layout you are using?
+>>> Should you move the layout to rtw8723x.h ?
+>>>
+>>
+>> The layout I reuse is the RTL8703B receive PHY status structure, struct
+>> phy_status_8703b, together with the SDIO aggregation burst fields and four
+>> baseband registers. 
 > 
-> According to NXP errata document IMX8_1N94W[1], the i.MX8QuadMax SoC
-> suffers from a cache coherency issue (ERR050104). The upper bits, above
-> bit 35, of the ARADDR and ACADDR buses within the Arm A53 subsystem
-> have been incorrectly connected. This causes some TLBI and IC
-> maintenance operations exchanged between the A53 and A72 core clusters
-> to be corrupted.
+> Let's use another patch to move the struct out of rtw8703b.h, and rename
+> to phy_status_8723x for example.
 > 
-> The workaround requires:
-> 
->   - Downgrading targeted TLBI operations to broadcast-all variants.
->     Instead of patching the low-level __TLBI_1 macro (which interferes
->     with the REPEAT_TLBI workaround and causes excessive over-
->     invalidation), redirect high-level TLB flush functions
->     (flush_tlb_mm, __do_flush_tlb_range, flush_tlb_kernel_range,
->     __flush_tlb_kernel_pgtable) to use VMALLE1IS via static key checks.
-> 
->   - Upgrading IC IVAU to IC IALLUIS for both kernel (via ALTERNATIVE in
->     invalidate_icache_by_line) and EL0 userspace (via trap-and-upgrade
->     in user_cache_maint_handler with SCTLR_EL1.UCI=0).
-> 
->   - Disabling KVM since correct TLB maintenance cannot be guaranteed
->     for guests.
 
-Do you need virtualisation on such platform? An alternative would be for
-the guests to be aware of the erratum as well and use the right TLBI/IC
-ops. But you'd also need to upgrade the VMID-aware ops in KVM (unless
-the hardware can't work around stage 2 TLBI at all).
+The same struct could be used by other chips in the future, like
+RTL8192EE/RTL8192EU and RTL8188FU/RTL8189FS.
 
->   - No need to touch SMMU Broadcast TLB Maintenance (BTM) since i.MX8QM
->     does not support broadcast TLB.
-> 
-> SoC detection uses devicetree compatible string "fsl,imx8qm" or
-> "fsl,imx8qp" since the boot CPU MIDR_EL1 (0x410fd034) and AIDR_EL1 (0)
-> are not unique to this SoC.
-
-That's fine but I wonder whether your hardware implements the SoC ID
-SMCCC. That would come in handy if some future revision fixes the bug.
-The DT string doesn't tell you version/revision.
-
-> @@ -580,23 +584,28 @@ static __always_inline void __do_flush_tlb_range(struct vm_area_struct *vma,
->  
->  	asid = ASID(mm);
->  
-> -	switch (flags & (TLBF_NOWALKCACHE | TLBF_NOBROADCAST)) {
-> -	case TLBF_NONE:
-> -		__flush_s1_tlb_range_op(vae1is, start, pages, stride,
-> -					asid, tlb_level);
-> -		break;
-> -	case TLBF_NOWALKCACHE:
-> -		__flush_s1_tlb_range_op(vale1is, start, pages, stride,
-> -					asid, tlb_level);
-> -		break;
-> -	case TLBF_NOBROADCAST:
-> -		/* Combination unused */
-> -		BUG();
-> -		break;
-> -	case TLBF_NOWALKCACHE | TLBF_NOBROADCAST:
-> -		__flush_s1_tlb_range_op(vale1, start, pages, stride,
-> -					asid, tlb_level);
-> -		break;
-> +	if (alternative_has_cap_unlikely(ARM64_WORKAROUND_NXP_ERR050104) &&
-> +	    !(flags & TLBF_NOBROADCAST)) {
-> +		__tlbi(vmalle1is);
-
-This assumes it doesn't run under any hypervisor with HCR_EL2.FB. I
-guess that's fine if this erratum renders virtualisation unusable
-anyway.
-
-> +	} else {
-> +		switch (flags & (TLBF_NOWALKCACHE | TLBF_NOBROADCAST)) {
-> +		case TLBF_NONE:
-> +			__flush_s1_tlb_range_op(vae1is, start, pages, stride,
-> +						asid, tlb_level);
-> +			break;
-> +		case TLBF_NOWALKCACHE:
-> +			__flush_s1_tlb_range_op(vale1is, start, pages, stride,
-> +						asid, tlb_level);
-> +			break;
-> +		case TLBF_NOBROADCAST:
-> +			/* Combination unused */
-> +			BUG();
-> +			break;
-> +		case TLBF_NOWALKCACHE | TLBF_NOBROADCAST:
-> +			__flush_s1_tlb_range_op(vale1, start, pages, stride,
-> +						asid, tlb_level);
-> +			break;
-> +		}
->  	}
->  
->  	if (!(flags & TLBF_NONOTIFY))
-
-[...]
-
-> @@ -200,6 +202,29 @@ cpu_enable_cache_maint_trap(const struct arm64_cpu_capabilities *__unused)
->  	sysreg_clear_set(sctlr_el1, SCTLR_EL1_UCI, 0);
->  }
->  
-> +#ifdef CONFIG_NXP_IMX8QM_ERRATUM_ERR050104
-> +static bool
-> +is_imx8qm_soc(const struct arm64_cpu_capabilities *entry, int scope)
-> +{
-> +	WARN_ON(preemptible());
-
-Not needed for a DT lookup.
-
-> +
-> +	return of_machine_is_compatible("fsl,imx8qm") ||
-> +		of_machine_is_compatible("fsl,imx8qp");
-> +}
-> +
-> +static void
-> +cpu_enable_imx8qm_err050104(const struct arm64_cpu_capabilities *__unused)
-> +{
-> +	cpu_enable_cache_maint_trap(__unused);
-> +
-> +	/*
-> +	 * TLB maintenance cannot be guaranteed correct for guests, so
-> +	 * disable KVM as if kvm-arm.mode=none was passed on the command line.
-> +	 */
-> +	kvm_force_disabled();
-> +}
-> +#endif
-> +
->  #define CAP_MIDR_RANGE(model, v_min, r_min, v_max, r_max)	\
->  	.matches = is_affected_midr_range,			\
->  	.midr_range = MIDR_RANGE(model, v_min, r_min, v_max, r_max)
-> @@ -1030,6 +1055,15 @@ const struct arm64_cpu_capabilities arm64_errata[] = {
->  		.type = ARM64_CPUCAP_SYSTEM_FEATURE,
->  		.matches = has_broken_gic_v3_seis,
->  	},
-> +#ifdef CONFIG_NXP_IMX8QM_ERRATUM_ERR050104
-> +	{
-> +		.desc = "NXP erratum ERR050104",
-> +		.capability = ARM64_WORKAROUND_NXP_ERR050104,
-> +		.type = ARM64_CPUCAP_STRICT_BOOT_CPU_FEATURE,
-> +		.matches = is_imx8qm_soc,
-> +		.cpu_enable = cpu_enable_imx8qm_err050104,
-> +	},
-> +#endif
-
-There's a precedent with 4311569 to wire up a SoC erratum into the CPU
-errata framework. That one is a system wide feature, so only probed once
-for the CPUs coming up at boot (though still probed for each late CPUs).
-For iMX, you need this turned on early, hence the boot probing. But
-calling it a strict boot CPU feature is a bit of a stretch. It also gets
-probed on every CPU, unnecessarily.
-
-I think we could do with something like below (maybe as a preparatory
-patch). We could also add it to 4311569 even if it changes its scope
-from system to boot CPU (the early param is available).
-
-Only compile-tested and haven't tried wiring up your workaround:
-
--------------------8<-----------------------
-diff --git a/arch/arm64/include/asm/cpufeature.h b/arch/arm64/include/asm/cpufeature.h
-index 4f04ad82ea34..669f808e379e 100644
---- a/arch/arm64/include/asm/cpufeature.h
-+++ b/arch/arm64/include/asm/cpufeature.h
-@@ -266,6 +266,13 @@ extern struct arm64_ftr_reg arm64_ftr_reg_ctrel0;
- #define SCOPE_BOOT_CPU				ARM64_CPUCAP_SCOPE_BOOT_CPU
- #define SCOPE_ALL				ARM64_CPUCAP_SCOPE_MASK
- 
-+/*
-+ * matches() is called only once, when the capability is detected, and the
-+ * result applies to all CPUs. Secondary and late CPUs are not checked for
-+ * conflicts but cpu_enable() is still called on each of them. It has no
-+ * effect on SCOPE_LOCAL_CPU capabilities.
-+ */
-+#define ARM64_CPUCAP_PROBE_ONCE			((u16)BIT(3))
- /*
-  * Is it permitted for a late CPU to have this capability when system
-  * hasn't already enabled it ?
-@@ -293,6 +300,13 @@ extern struct arm64_ftr_reg arm64_ftr_reg_ctrel0;
-  */
- #define ARM64_CPUCAP_LOCAL_CPU_ERRATUM		\
- 	(ARM64_CPUCAP_SCOPE_LOCAL_CPU | ARM64_CPUCAP_OPTIONAL_FOR_LATE_CPU)
-+/*
-+ * SoC (not CPU) errata workarounds. The erratum is probed once on the boot
-+ * CPU, before the secondary CPUs are brought up, and no secondary or late CPU
-+ * can conflict with it.
-+ */
-+#define ARM64_CPUCAP_SOC_ERRATUM			\
-+	(ARM64_CPUCAP_SCOPE_BOOT_CPU | ARM64_CPUCAP_PROBE_ONCE)
- /*
-  * CPU feature detected at boot time based on system-wide value of a
-  * feature. It is safe for a late CPU to have this feature even though
-@@ -414,6 +428,12 @@ static inline bool cpucap_match_all_early_cpus(const struct arm64_cpu_capabiliti
- 	return cap->type & ARM64_CPUCAP_MATCH_ALL_EARLY_CPUS;
- }
- 
-+static inline bool cpucap_probe_once(const struct arm64_cpu_capabilities *cap)
-+{
-+	return (cap->type & ARM64_CPUCAP_PROBE_ONCE) &&
-+	       !(cap->type & ARM64_CPUCAP_SCOPE_LOCAL_CPU);
-+}
-+
- /*
-  * Generic helper for handling capabilities with multiple (match,enable) pairs
-  * of call backs, sharing the same capability bit.
-diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
-index e0c09402540c..a418e240ccce 100644
---- a/arch/arm64/kernel/cpu_errata.c
-+++ b/arch/arm64/kernel/cpu_errata.c
-@@ -986,7 +986,7 @@ const struct arm64_cpu_capabilities arm64_errata[] = {
- #ifdef CONFIG_ARM64_ERRATUM_4311569
- 	{
- 		.capability = ARM64_WORKAROUND_4311569,
--		.type = ARM64_CPUCAP_SYSTEM_FEATURE,
-+		.type = ARM64_CPUCAP_SOC_ERRATUM,
- 		.matches = need_arm_si_l1_workaround_4311569,
- 	},
- #endif
-diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
-index 84053f0a8e01..0e4c3de78c1d 100644
---- a/arch/arm64/kernel/cpufeature.c
-+++ b/arch/arm64/kernel/cpufeature.c
-@@ -3695,8 +3695,11 @@ static void verify_local_cpu_caps(u16 scope_mask)
- 		if (!caps || !(caps->type & scope_mask))
- 			continue;
- 
--		cpu_has_cap = caps->matches(caps, SCOPE_LOCAL_CPU);
- 		system_has_cap = cpus_have_cap(caps->capability);
-+		if (cpucap_probe_once(caps))
-+			cpu_has_cap = system_has_cap;
-+		else
-+			cpu_has_cap = caps->matches(caps, SCOPE_LOCAL_CPU);
- 
- 		if (system_has_cap) {
- 			/*
