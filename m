@@ -1,156 +1,148 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A568B3C1088
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 23:53:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23FD43839B9
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 23:55:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791330818; cv=none; b=kgnxKH5OqEhNiPMu5UlNR06on5hcxYPeyemU+ezY7lyQ28oo5qOIAFMOeC5MPIvGKMw92UvmLKujamdzRjfWdnMeJl9L7lVKEu+KnB4cLaYlxtx6QyEsu6K6PwTTAZa7M8hRy5G9N/HmZzD9Ldk9CeztzzS1/P9/HxpvFxKYUFw=
+	t=1791330903; cv=none; b=ThGskDIgmcp/OlzQSEme0ZW/J1Un+p9d9Y9G2a3202p3bI6NPyPUUqcXCsLsw4oT1CvqLQBUAELDM95rqa7pA5uyj0MSnmkeXIU4Pkg8iuIeY5mL6uaw/mZSBZ5xt3p6zuMAcgRFMLEm1p1/J+3/PUj2hkl+VgM9yiYB5WI6ccY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791330818; c=relaxed/simple;
-	bh=xf167AZzu0nvnTcAX1Xw8R4tyYv+cUzmt2UzRs7bslQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=imh5BvVqMqAiyPy6GhtAyteTRL/AFMK724QKMeZ+LaIQmQbZQguO10WXtDOjVW21aDKO1VTmbjOqaCNuPF/fJrwGGZLSxI6Fv2SNL/YwQGlhksIQd13dN7hFIZ/89F28LiLH3UHbj+qmunixmonnSg1XarD3tNlSCcQKw7Teh3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KkiWrAzX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=P+z66KUC; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791330903; c=relaxed/simple;
+	bh=9px0KKW6+S6ScpCVxlEJlJB8scT76HzwC5B67rbvQqU=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=aIpZGrSp7xsCQJxVr6osiaMXOY2CL8Qklo+OAfGBhwlCjLuAfODJ87ekB6KraN1iNsR7L8fGsFLC33zVkrNlfSYavvZuFfL2TE1kHwPJQulU4L8cW04hVV6RfapP3/AGx6oq/G+adQgN65bJ9d1T2zl+4nkQIddRIF1G6uUg13s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XfGD1mtK; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KkiWrAzX";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="P+z66KUC"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 696LeUEl2049528
-	for <linux-kernel@vger.kernel.org>; Tue, 6 Oct 2026 23:53:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	IFp8HdaEfTURv3yOkfDgaxZg9EFYUbB/frsyn4UIA0o=; b=KkiWrAzXJ0cWLYsj
-	DWrvvW6RLnt3U7oadPNWuvLNs4UbwqMb8BQRas/iqGSO8pxrAF8kzD78d5B/Ltuk
-	oL8+9fqfkFcty1hY9Sg3iWS91ESxCx0tej2TAhoUoFuc3sHOIIl8aQ1MheovAUDh
-	Ax+ArVACEAlkOwleqh9YCYjDEMAJVoRkh055+d1JSzoE82U6W5dLfau66blM+hDn
-	mvaOsS6YbEjCM7ZzId1oG2s4lfaaKPqi2I8pRFwKPcnzGrBTYgNCoa1dj3G5yCow
-	XcDAkZGhMgqdjV5tWVaZdkm10tuBqqhsJ6tOMhtTQB1mtx9eIq2a4CBou4P8WPmT
-	ErMHKg==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h54621pyv-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 23:53:36 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3510a481ae9so6564300eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 16:53:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XfGD1mtK"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a172eb31f0so10952645e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 16:55:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791330815; x=1791935615; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IFp8HdaEfTURv3yOkfDgaxZg9EFYUbB/frsyn4UIA0o=;
-        b=P+z66KUCVaVdG46mJGBGEu5X1yP6CIlTB8KEhhLufX14Vq7SkRLBU2EDXVLBwUYMq8
-         DT4ZlSb+O0gjvnQuJVTqr4elpS7JLns8f4erz8+90Pt3qshRCZyJLYBRU2bhj+B4lQJ+
-         kAZc/fpIDQkNysIfNDXB+pYt0JQs4ucgyzROgdPkkW3S6NHMxQv/rwtmYntJsmtUj5a6
-         FmgcIw0sABG9S5SPYl+cmyobYtVz7Pbq5hLlFfDtK9ZsOSTG58/mC5yJxwMNOGrVH+P8
-         gFfRH+iLRUOKmVScQAd5L95o8iuYnbK17LE/7JW+krkqqovmURmRWD6ZVrr49YEvuGtz
-         Mz+w==
+        d=gmail.com; s=20251104; t=1791330900; x=1791935700; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=6caTqpTyvHD+5gas9OwUK4EamiM1ZGZZvDW5j5iNI9E=;
+        b=XfGD1mtKeebY3+K65lCZNAnkklZoR+jt/3nc/FEURugGFGRUlf0hLUwQCo5fIfPKQ8
+         s/O4NuGq4eKJHO3U0GbIB3fgxzQn6ouACn/sI4fMRSUQMTjtNInwWhnw81yZV+F8hEnd
+         TDE2Wf8ewbLZLwKh9HH5e5oLAkSBf9J4FJZd7jvW+SwuSRZSmTHbRTWHCRFScdRx8n3/
+         HQyLkvReMY0tQaGeCxzleRiLRQ4fxYr5H4H80F2xQSuDS/uxZzqacBnnznmBFC4J9H4U
+         JaH8Yc1M5iBT1KQYRD6cSRXBPBcOiPvzWvsEv46O3XuQDl6nSLNYLZcUEOTAh+1iQDjv
+         GSnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791330815; x=1791935615;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IFp8HdaEfTURv3yOkfDgaxZg9EFYUbB/frsyn4UIA0o=;
-        b=z834ZmU8alt6vG9CmTsp86kxxLjl9XsoyQEZghkYRmcIiuccReRRYYE0mjGYmz6xE1
-         d9dlRvXaD8l2CbCPMHhQSLVVbzOiHvsAoXAYcGmK3zDIzUIIuR44SrJC9daIqxitgLEM
-         SJb9trT/f5M7ovS8WZDCvfdnxJh+o9sklXokuEURFraFJVpd2c1fUoSzusFw5JptEbxT
-         t0dJy40uf2QdtQA6j/bZRPXHjwo8mKKVdqBQpmWgC+ylaYnS/9ZD0ztinQ5j8yLjTHkI
-         QWWf41aCoDEbtaeyrF1xOkaW5Qjz2pkOZAN2hf76OpfZusPeXNu9KXh/hs1MGEI8xzTB
-         vAvQ==
-X-Forwarded-Encrypted: i=1; AKwUvByO4k+khtaxUcL0EVxIAa/uAf1F/t3brCP3vqELydBfqcfiSoFyavA/+Ffdf2nsDk7Od9gHAYleJs3Pa5w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJForI/82qRj8z5Kisdnjvk+veufCLTajK4fD+ojNbW0tTH7W5z
-	xl98ovdi0AdYOzQ7V2EABrSbA+ViTPJKJkc+BugeA80zAPS+kB9sAKbL5IUogxYvZfHSuCIve0s
-	he8YW6qQhcO4R5tza+ilFsWGiZ/buOLSSQQ5/y/wlf02I/UnE/czYThBwI2PGnmzhRUI=
-X-Gm-Gg: AYBFou18W0rf3ez2n9nCfNmXgPxuQI8+olAZ1ps6B/MGLnTHE3xIzajWzkRVdRNYIJL
-	ogsWGeXxGwGHHyslfxo6KFYlgGU6c3hW8IErageh0B6h+U69g8xlGAFtBZBJ26+mHhCuCPzuahb
-	0LNO6EezhoPDZj/JfJ8iZ6rRV9pXNo9yaq0YgcFeEL+WAoHSYkR+0IVWCV4XUR3OAY1oNpI2yGh
-	jEE0Ai9MpJOueaQCKuWxeawvCi9Md2GFPR/aUaV02rOUgrPZSR+19VTnkxOipnek/wsGb6GDcuu
-	EAsghR9x7d4e/HfLRI0kbKnsT0Vk+ZqcN6Bso6fDcP1Ep36sEYEIvQQrk928hzLMXTwzLmITx/v
-	U+MFV8zrKJScK2h8SCfhggaLQpmNoIBj8ZpIsItjS0k6e27RPLJnkL6b6paxJ/JM=
-X-Received: by 2002:a05:7300:e5cb:b0:34b:f456:25ce with SMTP id 5a478bee46e88-3515d86f096mr371874eec.3.1791330815313;
-        Tue, 06 Oct 2026 16:53:35 -0700 (PDT)
-X-Received: by 2002:a05:7300:e5cb:b0:34b:f456:25ce with SMTP id 5a478bee46e88-3515d86f096mr371852eec.3.1791330814702;
-        Tue, 06 Oct 2026 16:53:34 -0700 (PDT)
-Received: from [10.71.184.34] (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515afa61e8sm1972503eec.22.2026.10.06.16.53.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 06 Oct 2026 16:53:34 -0700 (PDT)
-Message-ID: <4ed3f09f-74fc-4f07-8897-5c773fbde0b2@oss.qualcomm.com>
-Date: Tue, 6 Oct 2026 16:53:33 -0700
+        d=1e100.net; s=20260707; t=1791330900; x=1791935700;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6caTqpTyvHD+5gas9OwUK4EamiM1ZGZZvDW5j5iNI9E=;
+        b=Sc0jyLL9qPVds3N/IeeyFjgl5dlazNmB7axn6c00A50ZcpCxomY6rtyyTKbvX9REff
+         NIRsBSolmNOtAnhQeasfFSLtHWRO+CUB9TmZ+8agRxLgY397P0ZlCgOX4edEBybJGRLm
+         VkQDYWJHY0q/JHtBhktP51kHNPfWtaDdLRrUf8olboavH7xcSywCtbVn5b4M4XhtxCCi
+         rs1r/PNp6XFbB4l/kdRSv1BJXN5v4sQWd32WeW41n/MPi+MU37V4QCW7H5w7d/Dn36Dp
+         K94PuU5L42njO2fS9EqtkFvbxmw5GjJjhoYPjQkgA6b4KDamSXRJNQv6YVNebDu8yvzW
+         rqFA==
+X-Forwarded-Encrypted: i=1; AKwUvBxD2FlLMMmtGXHpIg3V1UFxg2QJ1vcl3aquu2HzMNG1CgKM7UcounO/C6vtSygY2Ve4my1UQ3I7chJGamI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nPNpdxcDZH+0iGWJj4C7coSEptEPaSsfW2IgQ5GL8ipIv0x5eR
+	JYIRS3F46dlyzdVJEAdLaBgInFZFthRL0NmcDy5OKw7wggs2crN3tRge
+X-Gm-Gg: AYBFou36+GkXCUi4sz1jHfQPmgVBFjXoJ8lAyRUiNWSdDmWbFvcZmtKOXNolhs64UEL
+	3mnMHP5B8zFZF2SmPJRtVhqXFDvNC4Odq9eusVdJd0ZXStPd5vvOGmH2RzG5w1IUUP0inX0I+3y
+	o0EYtVphN0Lkb9qNt7te7ZDmqNKH8LYFZMr3NsgDdD/3fLVM9S0O0Ymi7oX/oEouWexAGMQYdLl
+	q5+hI9npJGaILFmlSC9eGPNPE6A9tnci/tvNV9ID6qQmmrsz4ToB9TRUKlcyzjaYbg2kBbzZnuZ
+	WwQDPaHwBzDcSgvzDi1xMjdSJSmiq4FC+byFBG00Zos2nG6YH1DYTdt7HMIE3uMQ8VpZvd5YNJZ
+	mMViPe9D/pB0EFLVPqWrh1jjAYd3czgQTDj/GeHz7W9rb8+P06TBzCnR9FTg/JdAaiuM/V0EMyJ
+	2h2aRLKEgIEwP6+cseZ4dIIM68Bm41+jqtCpSrpCDqXziKiTMN0X/TigDyI2KgY1r3pDgNFm/xI
+	ahj/cSFchawGMBEDERyhiw7bJR/9GcxrYNbSK4YMQ6PJA==
+X-Received: by 2002:a05:600c:3c89:b0:499:8aff:59b6 with SMTP id 5b1f17b1804b1-4a18041b75amr5330465e9.14.1791330900202;
+        Tue, 06 Oct 2026 16:55:00 -0700 (PDT)
+Received: from [192.168.221.223] ([81.0.216.212])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1787e7792sm102154535e9.0.2026.10.06.16.54.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 16:54:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/6] zram: Add QPaCE zcomp backend
-To: Sergey Senozhatsky <senozhatsky@chromium.org>,
-        Georgi Djakov <georgi.djakov@oss.qualcomm.com>
-Cc: andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
-        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        minchan@kernel.org, axboe@kernel.dk, rostedt@goodmis.org,
-        mhiramat@kernel.org, mathieu.desnoyers@efficios.com,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
-        linux-trace-kernel@vger.kernel.org, djakov@kernel.org
-References: <20260930145215.3380977-1-georgi.djakov@oss.qualcomm.com>
- <20260930145215.3380977-5-georgi.djakov@oss.qualcomm.com>
- <ar3yt8Kl3WUV93lP@google.com>
-Content-Language: en-US
-From: Oreoluwa Babatunde <oreoluwa.babatunde@oss.qualcomm.com>
-In-Reply-To: <ar3yt8Kl3WUV93lP@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: 4kcr0rcn3gtPjp7nya7EhZM9BPHOwh2l
-X-Authority-Analysis: v=2.4 cv=ZZiIpcVA c=1 sm=1 tr=0 ts=6ac58a00 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=9kMCAbyDuj7LhItxiaIA:9 a=QEXdDO2ut3YA:10 a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA5NSBTYWx0ZWRfXwsEsxi2G6Nxv
- 3h9nxHPnSNB3W5Ub9O54wF5VpABOOGhfPBpWi4uJVyvI7RJbJbtAHG0iK8/iPOTuqorPUmeulEN
- V6bPZxTAVdNN2Z0zy2GfAzu9PpBtLZE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA5NSBTYWx0ZWRfXw/H+XrCc/m9R
- lh66Ui7oYnbUrhPEL8KLy8v80aF+XLgxo6PWZ26ORWjWdb6okgyoE2ve5clQgHtWVEEZeCIFYad
- SUMJCgKAKUrB48/9S7HH3aP1drQ0nHKNPcf3BojdKe5XeMcF7UwQnhEHtajZVFxOw8kEJ2NkTbo
- W17+O60ldCWayl0WmZyRsdA8vr4H+NzEJ9FRmK8+QCxeF8/6K2Ucb/UtEME+fRFKLJUMhoD7VCC
- wgt50Kj3nIFoUFD7pB+ffQQDBJ9GJH5+o8nCndgc+JLYAtqwwpJxcnNXwM68q7Hb9nihup9HR19
- mbw4ixXg3oyRg7hCyNMXM33bPNQM4HhgYvxjcMyxeiVYW2jaO4vLDfrnhFJFBZYEZAerSmhK2Ef
- UcVRP/cjorb55wcfsBqwhnNRpTeCzKA/VVMOrUTZsnQ75L7thKgN14J3pUXfS2Nvlk0Uc/r+eXZ
- g/WBGBW0paKiu1r9enQ==
-X-Proofpoint-ORIG-GUID: 4kcr0rcn3gtPjp7nya7EhZM9BPHOwh2l
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-06_05,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 priorityscore=1501 impostorscore=0 bulkscore=0
- phishscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060095
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH 1/6] riscv: hwprobe: Report FP extensions only when
+ available
+From: Charlie Jenkins <thecharlesjenkins@gmail.com>
+To: =?utf-8?q?Radim_Kr=C4=8Dm=C3=A1=C5=99?= <radim.krcmar@oss.qualcomm.com>
+Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Samuel Holland <samuel.holland@sifive.com>, 
+ Andy Chiu <andybnac@gmail.com>, Guodong Xu <guodong@riscstar.com>, 
+ Zong Li <zong.li@sifive.com>, Charlie Jenkins <thecharlesjenkins@gmail.com>
+In-Reply-To: <20261006075303.205216-2-radim.krcmar@oss.qualcomm.com>
+References: <20261006075303.205216-1-radim.krcmar@oss.qualcomm.com>
+ <20261006075303.205216-2-radim.krcmar@oss.qualcomm.com>
+Date: Tue, 06 Oct 2026 16:54:53 -0700
+Message-Id: <179133089395.137225.157195939155119911.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791330897; l=2848;
+ i=thecharlesjenkins@gmail.com; s=20260605; h=from:subject:message-id;
+ bh=9px0KKW6+S6ScpCVxlEJlJB8scT76HzwC5B67rbvQqU=;
+ b=IXpSMuCwkwGtNWcB7512IaSVcHgJ+fHhO6oesNjxGTtxqvfRZo5010Ya/IUUAm0m6WTneDU0U
+ 7fvpY2pUXB9Agq9hTCrj6KqydJ8MqYBgJRDet0FngldtFfBWReUK8Uw
+X-Developer-Key: i=thecharlesjenkins@gmail.com; a=ed25519;
+ pk=ajnnRQ98PIdwKp4HeMkq9U32okYbnh6Zb4G3o5XXvkg=
 
-On 9/30/2026 10:43 PM, Sergey Senozhatsky wrote:
-> On (26/09/30 07:52), Georgi Djakov wrote:
-> [..]
->> @@ -80,10 +87,10 @@ static const struct zcomp_ops *lookup_backend_ops(const char *comp)
->>   
->>   	while (backends[i]) {
->>   		if (sysfs_streq(comp, backends[i]->name))
->> -			break;
->> +			return backends[i];
->>   		i++;
->>   	}
->> -	return backends[i];
->> +	return NULL;
->>   }
+> User-mode use of Zcd, Zcf, Zfa, Zfbfmin, Zfh and Zfhmin requires
+> non-Off sstatus.FS, which we set only when has_fpu() (CONFIG_FPU and D
+> on all harts).  The vector floating-point extensions Zve32f, Zve64f,
+> Zve64d, Zvfbfmin, Zvfbfwma, Zvfh and Zvfhmin require it as well, but
+> hwprobe gates them only on has_vector().  hwprobe otherwise reports the
+> extensions from the per-hart ISA bitmaps alone, so it can advertise
+> extensions that are always disabled in user-mode.
 > 
-> This hunk looks unrelated to the patch in question.
-ACK. Will remove this.
+> Report correct environment to user-mode.
+> 
+> Fixes: 2e2cf5581fcc ("riscv: cpufeature: add validation for zfa, zfh and zfhmin")
+> Fixes: de8f8282a969 ("riscv: hwprobe: add zve Vector subextensions into hwprobe interface")
+> Fixes: 5dadda5e6a59 ("riscv: hwprobe: export Zvfh[min] ISA extensions")
+> Signed-off-by: Radim Krčmář <radim.krcmar@oss.qualcomm.com>
+>
+> diff --git a/arch/riscv/kernel/sys_hwprobe.c b/arch/riscv/kernel/sys_hwprobe.c
+> index 7818e1d32622..b57ccd116bb1 100644
+> --- a/arch/riscv/kernel/sys_hwprobe.c
+> +++ b/arch/riscv/kernel/sys_hwprobe.c
+> @@ -146,15 +146,8 @@ static void hwprobe_isa_ext0(struct riscv_hwprobe *pair,
+>  		if (has_vector()) {
+>  			EXT_KEY(isainfo->isa, ZVBB, pair->value, missing);
+>  			EXT_KEY(isainfo->isa, ZVBC, pair->value, missing);
+> -			EXT_KEY(isainfo->isa, ZVE32F, pair->value, missing);
+>  			EXT_KEY(isainfo->isa, ZVE32X, pair->value, missing);
+> -			EXT_KEY(isainfo->isa, ZVE64D, pair->value, missing);
+> -			EXT_KEY(isainfo->isa, ZVE64F, pair->value, missing);
+>  			EXT_KEY(isainfo->isa, ZVE64X, pair->value, missing);
+> -			EXT_KEY(isainfo->isa, ZVFBFMIN, pair->value, missing);
+> -			EXT_KEY(isainfo->isa, ZVFBFWMA, pair->value, missing);
+> -			EXT_KEY(isainfo->isa, ZVFH, pair->value, missing);
+> -			EXT_KEY(isainfo->isa, ZVFHMIN, pair->value, missing);
+>  			EXT_KEY(isainfo->isa, ZVKB, pair->value, missing);
+>  			EXT_KEY(isainfo->isa, ZVKG, pair->value, missing);
+>  			EXT_KEY(isainfo->isa, ZVKNED, pair->value, missing);
+> @@ -163,14 +156,26 @@ static void hwprobe_isa_ext0(struct riscv_hwprobe *pair,
+>  			EXT_KEY(isainfo->isa, ZVKSED, pair->value, missing);
+>  			EXT_KEY(isainfo->isa, ZVKSH, pair->value, missing);
+>  			EXT_KEY(isainfo->isa, ZVKT, pair->value, missing);
+> +
+> +			if (has_fpu()) {
+> +				EXT_KEY(isainfo->isa, ZVE32F, pair->value, missing);
+> +				EXT_KEY(isainfo->isa, ZVE64D, pair->value, missing);
+> +				EXT_KEY(isainfo->isa, ZVE64F, pair->value, missing);
+> +				EXT_KEY(isainfo->isa, ZVFBFMIN, pair->value, missing);
+> +				EXT_KEY(isainfo->isa, ZVFBFWMA, pair->value, missing);
+> +				EXT_KEY(isainfo->isa, ZVFH, pair->value, missing);
+> +				EXT_KEY(isainfo->isa, ZVFHMIN, pair->value, missing);
 
-Thanks,
-Oreoluwa
+The vector Kconfig is gated on FPU=y so the vector instructions can't
+ever be enabled when FPU=n.
+
+-- 
+- Charlie
+
