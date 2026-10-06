@@ -1,143 +1,165 @@
-Received: from sonic309-24.consmr.mail.ir2.yahoo.com (sonic309-24.consmr.mail.ir2.yahoo.com [77.238.179.82])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D01F125A655
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 11:40:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.238.179.82
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791286811; cv=none; b=kHqkYwcgnbUmZjmEMXJgb8AV/oLqnqwSV0L+4gDZzF2aldQ4sFRDMygAe05PU5w4zS3zz8mPz+oIYR0o2pkLhkyZJthVW8NeTD0BI+ogVulmDkm25ErstjHN5zoBoQAgBJSwKxAJk8SUvvot6dGTqlHrwJ1Rh8MVhfpEPjYBvjA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791286811; c=relaxed/simple;
-	bh=wkm3SWGC9/4bBpG8ZcWuwHfvayB7mVGlCBRNoLHww10=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=VbGawpPE41il9lCd52oCrZcbzYo2+Jp7dp1h9PRlCvhy8i5mwPqTmHI/k4E7OZpJwi0pKlu45wZuTv7/59bniGAK3/zzEGsK96cXeXV1xZxe5c07cIgFPiKXhRZ8fdGSHJ6JwCGybfCXJsg7aQPRA4L6YZ5suOFAHM8y/YF1KXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ymail.com; spf=pass smtp.mailfrom=ymail.com; dkim=pass (2048-bit key) header.d=ymail.com header.i=@ymail.com header.b=C4V+i+/m; arc=none smtp.client-ip=77.238.179.82
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ymail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ymail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA1073BB661
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 11:43:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791287032; cv=pass; b=NtfdsVytSd7MQP6CL+PB8Nzjnm7xRQSdy/bBpdknJUUc0mr3rpr/rTOp0Jn5AaHNzLrLL0f3MVxDuROZA8NE4iWnKnQaxYPyPqbPcK2M38cENYK3rl5Lkp0Sia6sIvwjjSIguyLSFt3PbkOAeoBZYUX1bO1FKKVpc12zLr8uvj0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791287032; c=relaxed/simple;
+	bh=x3rZMdKi3vGTqXwDbjr6PJPvmHZfAQUVoS4iSMA9MB0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=TH+V2O2wFFr3B6uOSO14fFQAL+Zux86eG5ojCMZ3nwQRN/WJGVMlEDo2q+316ka25w3if+II9hetgNxkcLjishpzO5odZh+dgTaCm0aoykYY0e7duFtUo+uKPNyg39VnWNMG6drQJsUQrfxI0ThwNpSR+FmduV2xkjxqYDYkrkc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lVS6Ld/A; arc=pass smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ymail.com header.i=@ymail.com header.b="C4V+i+/m"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ymail.com; s=s2048; t=1791286807; bh=HIlrYJk6Xp4PvfFizQJ+RZO9Wa0gJ9XH2BbBIPwGi9o=; h=Date:From:To:Cc:In-Reply-To:References:Subject:From:Subject:Reply-To; b=C4V+i+/mVpZsgspjfnOVR43bxBatz15E6WQC5Jh1EkOdnkYFf7aiMMe55Z1qlbIR45IrgPR+bzhK4Ll56D8fFVjoe0tLEKxoGsp7dj55fyO71bg60Vl2CNR36eq9hpEHf0W4NPge2G7kxzfTrURBkDbVEvS0gNTaVh5aHRrci/7SBNxHYrhfDJBGFLbruDfnT290T6gV5jGcw4FSIlpOiYSVWHiBEDvkHxw4VGDCJ8QiCYGnPdFJ1rh6Xr6ULI12fAbO6kpailbXvLgEhovVFgAzKKFs2QcIhKNjJYc/Q11X1+PxeObcl+Y/e458BuOEJeJYWvtkZmfe6e+Osp1qbw==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791286807; bh=HPFZ21XVe5exRQ0HaGSAIQ6eu8NLev/uHg69b7E1NvN=; h=X-Sonic-MF:Date:From:To:Subject:From:Subject; b=Bm/MuEgvfVc1FO2RQerzvkGj9u/vasWEF+5pg0yMAj7A8ul+joehmkKnNAei8xuk+R6+R4F74Zf7DN7LKtSoMkIzfgdDuSEmooV0oZan861zNjUwnmD1/fb4nJj8zazJAlFuJXwLANEZ1gZljX4xIu2kld6Gd8ay0iEQxIE5+g854/w5804Ptyizb9VoMVnlkHWnhekaO7V1B23zdE+9lVeg6Z0cHL0asK+JXbE4jDRlXX37TnuuuiXG6+MFpTb3Bg4j1rupCmujNxsRuC8gqvFopcRbkUr635MD4rR/462iLQ+/I14sRrA54DxEG+KmqlaVvlTMKKfUfJUn9owR8g==
-X-YMail-OSG: aGha6zIVM1lFnu.YNireiwrQgAIe4qw_HRCeK4GMDb3Zb.Po2fBbAxu7K9CQbgb
- zRNNZDpwVXIQWZ.eZnTQI1qjwfq.koBVDYtSyAc7rqt2xoGdT.V9GQJiH.tBCaWOvyc9Fp14N6VP
- g89Ob3isUj5wMeu.45Ld3n4mwCLaftzaDSLj28veTw_F2zlTavjHMLmz0gIWmcXIbsx34ZY8CymO
- 6l5NXCDduT0dmMRgjyYX013MnDmZt27iowO2dMt719JoMC_UfIjMTW8fnoUz6oTnHAacO8XoE.Dj
- NG0IMgtEIxhxRrXOKCwTWvuTa09Q6cycsTgoMzhU4eNB3YxHar80nlc7oia21vOJPNuR4rHC6E6y
- yRok13sx3.u.fCp74t4mxQ9JviYjJSduyu6Y5rANF9ngJMo3M9SKmVERN.fzwb9gr8DjdBXcLnvM
- cLtC6ioxQdl.sQ.gpeCkFM.b9yG03bYjXzh.Tqu8Hu2ANRhpNg.B8iMPvNqhXMcyXonS5WmyP53M
- pZusxAy_aKmdqhHcjfjqMitw0T7MSXsRSqL441ntv97rT1Qv0tke_A1tvlH2VfYzh5AQDG1IrDsR
- azm4IJjrHUT.Ffd5P7DIIsv_5p45CWuengwa9uQ2sY0QqzQw6OJJ7X2M48vc65BRod6U6dnfTEmk
- JJJ763qfwjGiRbF5RFH6MIMRixSX4YEtnHoG7OxL7QDPxo5OH_5YI4WY_SIHl0KjFveSbkuN3VzZ
- uyjzsBh29vA5_A2Ege5.3ng10DVXPRnjAAgkFjcXBOGZshQwZwjbhYmAuQIkKEsCgo8ssE8z4QbB
- rnFKsGAgyYJkzshj5PpERxP6T1POKanwOWOWlRX3qSftSIzWnCQrRnUvsDy9ZauIeXnZw4Hjei8U
- Jq6M7g7tO6lSOsxw1t23BoCoUzb5yL7.jDj9HL7ME7Lj5CgaL3miGNpcBSBcRnzUNXbutVtH.dSK
- NO5oPMoYgiENTitycvQLFniZe.YvHvtFVMw9kRqAWlaXEyE_Gt_1WslqKW6CxizIh39nCN5_KPVA
- M8cDFAe162rWyEm60BomfVXPIhy381lsfVU65G14kV_ThOOs00VJFIg1GOqd0WmAjK2rB.x9kNwn
- 7yA1AAaB2sMXb09NuF_b3ZKe7vdT04NqPlXjSW7OI7imXpBXoi37.oGuKjD6PZlzWcS18s475XUn
- jyThA8BcMltEs4aASPL0.KthOGu0CBFSOmGmUXVlKu1EKEOYj0..9ItlIKmR66XMUJ_tfjQKQM5Q
- oO8rshc6SQczBAJ4.sOLpvOx0d8AH7ub4FMq7cW755UIw5_jASu8oaQ128SYmvP84ouJQkW3NgkB
- 8o0EkD.6Z1tI2.igRLYKHgjEBAFxv8jAkAvpZlIwLbspjHnUUExOZ4HzhdmLuImOr8C_bXhXZHyN
- Sou3TLURbE0xJOY629fmMzpzo3LibiHph4nN5lngWlXE7huE0kaLFuTkAEbdfdHy4i43mQhvW5HY
- wjvRWb8bZCZ2Ar2il5trHEEORH.2qTLgmIYwQXibr69BbzLyVfELyjy7tuQqYWPVm7i1sUdTcreW
- NfyxvJ0yylwDRQWZQj.PvXZIX0S3lCmAf8eu11l0OpkoNlPCeuzjUMBFdZ.OzDc7hEuLp9oA26cB
- ZAwZ5kN7onGX1TOyonSZJCf0ACL1bDbi54MMoBjICs09lRvvjaTHL3QbyvaTHqAyYTFSP6p920cM
- dlCSdHhPERrLWUKOXC2sY.KT9UkoBu85mo.uCgP1tALEfRn37j9MkbB9uv_hLdnDk7JtEpWooNue
- o4YOBjbK5wdG11RUxwuzmRo60V._tqdKj1jMPunyPTrcJzLqIaoGnPR9YopbCQUjVIu.4cJKu8F9
- q_zO4O8qBm98GBdr0GPTIRLwpgUPLC1Yl_LBrfwwd9fDxY4XMYfm4PgoyR2LZHLOF9wiObFelR1I
- csidfailCFFswHaupLjsLRHD3qenRW7OGEsnoGoxTQ73WJoYRDMSVT0fu3t2d0YO4dYqE0h3jjeA
- nJNu.9YKJgiEPvfaJ0uJjRn5ImTeaH.1ln8.N0npT07Bm0xpJdgIrIkwi8xOIGqw.Tf41ElMO0gk
- nrEfUcU2hX3jQCA.DaylH5NpWF9OUo9gdJ5NCZJHklVcd.vCZ1E89NMfNUncIfTyiQj9a9qvJJDs
- qF4p.9.jcSvx7PEcdl8sUVlG1QyMqwIbxoy57ZJ7.VCFJrpDbkjUXr6.ZrFyL96NZTOQZTdFi.b7
- EUBQsoRnn_ps08AAHgBlzEmsD3DfaQOB2sqU_VIUfLVJ.rqP.v8nMChdgmtQ1HWyd
-X-Sonic-MF: <d.piecha@ymail.com>
-X-Sonic-ID: 54d1463b-1d8c-43d7-befc-3c2ef5a899dd
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic309.consmr.mail.ir2.yahoo.com with HTTP; Tue, 6 Oct 2026 11:40:07 +0000
-Date: Tue, 6 Oct 2026 11:19:25 +0000 (UTC)
-From: Dennis Piecha <d.piecha@ymail.com>
-To: Oleksij Rempel <o.rempel@pengutronix.de>, 
-	"patchwork-bot+netdevbpf@kernel.org" <patchwork-bot+netdevbpf@kernel.org>
-Cc: "andrew@lunn.ch" <andrew@lunn.ch>, 
-	"nic_swsd@realtek.com" <nic_swsd@realtek.com>, 
-	"hkallweit1@gmail.com" <hkallweit1@gmail.com>, 
-	"davem@davemloft.net" <davem@davemloft.net>, 
-	"edumazet@kernel.org" <edumazet@kernel.org>, 
-	"kuba@kernel.org" <kuba@kernel.org>, 
-	"pabeni@redhat.com" <pabeni@redhat.com>, 
-	"stable@vger.kernel.org" <stable@vger.kernel.org>, 
-	"kernel@pengutronix.de" <kernel@pengutronix.de>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>
-Message-ID: <503211732.1051249.1791285565321@mail.yahoo.com>
-In-Reply-To: <179081461327.2189941.5041238879527277665.git-patchwork-notify@kernel.org>
-References: <20260925071040.2137178-1-o.rempel@pengutronix.de> <179081461327.2189941.5041238879527277665.git-patchwork-notify@kernel.org>
-Subject: Re: [PATCH net v1 1/1] r8169: disable EEE on RTL8168h/8111h
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lVS6Ld/A"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a1635f7c89so25914515e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 04:43:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791287029; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MYxjxtrkktjRaUU2b5Dl1RprC1heTrSaTVjL7TbW6zXKpiv0UgRpHIP7rE58dDJHuB
+         PG6/mNWl4Y4wSweWSBvbT8kBklmyWOvObxN5eiRbowe/uNm/CTbIo/DqqTBcM0gfBBF1
+         PM7CR/X0xy+LRWbYbvENs39z/Ndv9Pw8YLHJAUM3dNyCGle0GSEAWze/cPHVHZ7aKv4Q
+         /DpdYQ3KiKfpqJLFTqq88riwi4KfmyjtdepLex7GzCihimBiH19RwUciktqDAsJ+dBWK
+         TH0tvdXhmhX2KGqtlv8MGZmYwhOEuCTvkqpLD36IHCluSlu+JjjfkUSFvHm8Mc27hDHa
+         BwOg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0IOK8vNrGs/AYi3igHXIRIEgzlu5V8i6x1q3/Az/h04=;
+        fh=7VBUMjFiLnUuzayOI0acot9E+KsVkXbLEIaiGBBFxKg=;
+        b=OYwom4GOURaKTyNWzNP5NBB5NtrsStNCUOpoMQ9fS/7HiWvao0QkzIwsb8yxCuN3O5
+         Te7uRFzHD2fWUb9RG0awKgs3BbEix1/9lLdWnPBnxQiHzfIEYdj5WRSHZcxCxXJffSvW
+         IoFzEI4/Sy/JAInxzVp0QAdP8NHAc9u8ze6jRNV6AsLKnhaKN8wozmr1JLLQK75dqNsi
+         vuKOLZwBpuFWSkm4GHtVBkI2MfiFYC5GVw4VbknZqhOj4FFCObc2zQmgYr1Pbhxsj5Sr
+         LL/Ercg3cWQ4Ccf5rKWfbbd2VPFRPx5DO1FjoSfZ7P/crYHkCKLxqSkmSgxEFkzoYanw
+         KJyA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791287029; x=1791891829; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0IOK8vNrGs/AYi3igHXIRIEgzlu5V8i6x1q3/Az/h04=;
+        b=lVS6Ld/A+7Etdh5Ig9jEnV5cvxOl3AIKY03S5aXRvcWae1Ttb1+S5WFKNBikMH0eXd
+         Gfratt2vdBCf7QylGUZg0oJ5HmwWFAI+uyxUQxIMcGqZt9qQG8e/R01G1Q1DfrGsGUA+
+         a0svZqbDkEDYk4dbXFiDpmlbNtGyNFWvtl/fj4yHpgAG4WDgvzsw5zM9/rTozYEMCGdL
+         UNqLkHeByNpAOTgF3pnLVrsoLkcGvwjU4UWAubh4NzQXt3zrMUEwnmmX/awfa3VUBfzW
+         TfHXKHdEp434R9d+gvWhXDTdhYjmUQOP3hx7T9b5mO7qY0VG3pYjzs3dgSG2/UGmXF2X
+         BCpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791287029; x=1791891829;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0IOK8vNrGs/AYi3igHXIRIEgzlu5V8i6x1q3/Az/h04=;
+        b=hNkFLJ6LrHqmAwj3RgZGTP+P37/oWSC9ju/MidUa0iYxg5/pbQxNI9g034feVQtEjD
+         Ojk7qgpj/VJL1CGbpX/pX194WFoyliav/I6tgmfEGNCCqM5dwHxeEWF04YyReNydK4Jm
+         ZUbEMksScvxFLu5bmJuPMXipY60SyIF91ZnQT9nrrHmYEL2VmxLH+YzSP0Qj/aJ7pw6K
+         tEZmDfA1DFMSD5MG7+Pk4oZwKJA/TDl/r+gT01ZoLQizgM3NXOZAOtrtbWeDCybp78TI
+         8bBuux/VEF51sjtCOUEmorp1XYLFmF1VH5TsKoP/1SusR4NIFqKlh8plPIDRUDArJAtE
+         /XMg==
+X-Forwarded-Encrypted: i=1; AKwUvBw+3094ZW/ZUndkDbOOIVZ8pkEqm8Q6E66YFPS6rB9SG4C4dqf44VKi8bRmRSL6WuhOHfHDmIaPdNXiKv4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mxbM/QbUTj9EDirgUkJuLcC0PP5h2kVeSjUhDcwDcZNHWA7wi7
+	qsYR53Y4IY35S3O1iHXEgjY3owKDZ066ladOO+tnOeiu67+V50fIL4tAMZaBXEHpUf5z1FfnshS
+	w6GRBH4dswGT7VfvvgOS6jQ/DjgI1HB8=
+X-Gm-Gg: AYBFou314UVvcs7CnKRutMNqDF1rig1QPxSyiv97DEnW9Ps45c/To1P2QHOmLXx4ZCs
+	Xo2RlPYJS95Iaj2C1ZGuZrqwvmLTP9U3BsokHLyjYNBXtDlTtz/vF7f8IUFaPJjX98G4DN1Nz1E
+	C7FTE6RBazr7+k2LBiCECwOxzj73UYYmTivCz+n1z24vhGvQU6yoY4AIxLCVc/xzeBK56ie4Nk7
+	AYxVl3UavhIC/tWLFFKRrI0k3TP8P+0AL1I2pXuotldw3yIw3uPJJBMmiXCeLwkadY6snmPNZF7
+	c3Nz+2PXfNOX5hF0SmdlrvEWw/qNzMfqquzOaGtTCcpIlAW/fY4nabGyJa2jWc0erK/oZulBmUr
+	IusehBqnkmS2NO/W+RACx0XvtZ/Fn4wiLyj5H1rGHAtM/fTSBzlwGbcZ98Nidici5PiLQZP1kAa
+	csnH+TPZw=
+X-Received: by 2002:a05:600c:45c3:b0:4a0:2540:b46 with SMTP id
+ 5b1f17b1804b1-4a1680e5babmr175664345e9.12.1791287029030; Tue, 06 Oct 2026
+ 04:43:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26668 YMailNovation
+References: <20260929-mali-c55-irq-supend-resume-v1-0-e3af34afff12@kernel.org>
+In-Reply-To: <20260929-mali-c55-irq-supend-resume-v1-0-e3af34afff12@kernel.org>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Tue, 6 Oct 2026 12:43:23 +0100
+X-Gm-Features: AclHuK8EEYHZRufa5Q70T_3oX3Ok7xh0rXwO38lzCRt9fe8SDgh9FN1A00CzUvk
+Message-ID: <CA+V-a8sSaGYcMUpXhX+mr2C44zLj2Hgnwj4pQS1t5YrZN1ejqQ@mail.gmail.com>
+Subject: Re: [PATCH 0/3] media: mali-c55: Fix IRQ lifetime and wake handling
+To: Linus Walleij <linusw@kernel.org>
+Cc: Li Youhong <dayou5941@163.com>, Daniel Scally <dan.scally@ideasonboard.com>, 
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Nayden Kanchev <nayden.kanchev@arm.com>, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Oleksij,
+Hi Linus,
 
-I tested this on the affected machine with a Home Assistant OS test
-build that includes the patch (kernel 6.18.54-haos).
+On Tue, Sep 29, 2026 at 1:08=E2=80=AFPM Linus Walleij <linusw@kernel.org> w=
+rote:
+>
+> This is essentially my reply with the "proper fix" for:
+> https://lore.kernel.org/linux-media/20260903025526.2657105-1-dayou5941@16=
+3.com/
+>
+> Keep the Mali-C55 interrupt requested for the driver's lifetime instead
+> of changing interrupt ownership along with the runtime power state.
+> Synchronize and disable the IRQ before power-off, and enable it after
+> power-on. Hold a PM reference until probe installs the IRQ, and stop
+> runtime PM and drain the IRQ before removing the media entities.
+>
+> Allow platforms to mark the ISP as a wakeup source. Hold a runtime PM
+> reference while IRQ wake is armed, resuming an idle ISP if needed and
+> preserving an active ISP's configuration. Balance the reference on resume
+> and failure. Hibernation still uses the power-down path.
+>
+> Wake events require a configured stream and an input that remains active
+> during system sleep. The internal TPG shares the ISP's power state;
+> external sensors and receivers need their own wake support. An idle
+> pipeline is not started by this series. Hardware wake remains untested.
+>
+> The first patch extends the binding with the standard wakeup-source
+> property. The second patch updates the driver IRQ and PM handling. The
+> third patch retains ISP power while IRQ wake is armed.
+>
+> Tested on the Renesas RZ/V2H board with the other in-flight patches
+> (DTS changes and the TPG enablement) doing full suspend/resume cycles
+> with wakeup from RTC and NMI and capturing images before and
+> after the test.
+>
+Can you please share the dependency patches or branch, as these don't
+apply cleanly. I tried the latest 'next' and 'media/next' branches
+with no luck.
 
-Hardware: Intel NUC11ATKPE, RTL8168h/8111h (XID 541), FRITZ!Box 6690
-as link partner, no VLANs.
+Cheers,
+Prabhakar
 
-With the patch the NIC reports EEE as not supported and the RX stall
-is gone: more than 4 hours without a single drop, everything on
-defaults, no workaround. Before, on 6.18.52 without the patch, it
-stalled every 7-20 minutes.
-
-Since 6.18.y stable is affected (that's where the PHY EEE fix was
-backported), it would be great to see this there too.
-
-Tested-by: Dennis Piecha <d.piecha@ymail.com>
-
-Thanks for the fix!
-Dennis
-
-
-
-
-
-
-Am Donnerstag, 1. Oktober 2026 um 02:30:16 MESZ hat <patchwork-bot+netdevbpf@kernel.org> Folgendes geschrieben: 
-
-
-
-
-
-Hello:
-
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Fri, 25 Sep 2026 09:10:40 +0200 you wrote:
-> Force EEE off on the RTL8168h/8111h (RTL_GIGA_MAC_VER_46) at PHY connect
-> with phy_disable_eee().
-> 
-> Commit 202fef9bbbf5 ("net: phy: realtek: fix EEE advertisement write on
-> the internal PHY MMD path") made EEE actually advertise on the generic
-> Realtek PHY; the write had been a no-op before. On the RTL8168h that
-> un-masks a latent defect: once EEE negotiates, RX silently stalls after
-> ~7-20 minutes. The carrier stays up, no counter or dmesg moves, and only
-> "ip link set down/up" recovers it; disabling EEE keeps the link stable.
-> 
-> [...]
-
-Here is the summary with links:
-- [net,v1,1/1] r8169: disable EEE on RTL8168h/8111h
-https://git.kernel.org/netdev/net/c/3cdeaef1754a
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+> Assisted-by: LLM
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
+> ---
+> Linus Walleij (3):
+>       dt-bindings: media: mali-c55: Allow wakeup source
+>       media: mali-c55: Keep IRQ requested during suspend
+>       media: mali-c55: Keep ISP powered while IRQ wake is armed
+>
+>  .../devicetree/bindings/media/arm,mali-c55.yaml    |  2 +
+>  .../media/platform/arm/mali-c55/mali-c55-core.c    | 96 ++++++++++++++++=
++-----
+>  2 files changed, 78 insertions(+), 20 deletions(-)
+> ---
+> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+> change-id: 20260918-mali-c55-irq-supend-resume-30b507a20011
+>
+> Best regards,
+> --
+> Linus Walleij <linusw@kernel.org>
+>
+>
