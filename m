@@ -1,73 +1,47 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE7647209F
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 16:46:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 350A93563F6;
+	Tue,  6 Oct 2026 16:47:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791305191; cv=none; b=RqZ/PkW07MyCtZDEVce/br8J8GqJqUqujTNC5MYWftK13zM5NyUFCiu1UVn2xSeOG6mMj+KRC8mSYcbqty+T8hBCUU6abK6magzCPrpYtcnHiU5zb8TzP+UuKU/iUbsl/bpeZD8Oz1EcQZgKUPul2BeuTaA6lsszukuAeaDLrnU=
+	t=1791305252; cv=none; b=UI5zo1Y+Fr2WxgyvdEy/lazPCZyZiBi5pUgcecA+U2y4iC58dMFk0c3c/PMq2RPQRS7KiriqSbBgZtGVqXWmELwdwNP7VTZQdXWhorNeMf0jJDaizsJyIP7oWDot+NA8cNIDIScQxMra9yhDcRAscm0P/gAUo4/x6OnoIMcgWco=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791305191; c=relaxed/simple;
-	bh=PmY2/2+YeeJVj0sv07/vs1Hu1NyaLYs5j1MFToQCEf4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ok3V8tFsrCt5tqxq+48GQrkZCzYtlHfFIr4aY+ApPfDcuqFRgP21lTj0oCv3pM02uZ9pvplKMLS+p2MDd6ZYEO34zyWbQKwM0jyxBf+//0x679khK9adcwhrXoc2kjtSLqvyu8TCa17WyLMXXbTv1m69ebRIoYs3yZgtCnt7USI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V1srn5IR; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791305252; c=relaxed/simple;
+	bh=/h+op23MI0eLCsmes62NpIrbxEsijSRh4s9d4q4O7zg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=iS2wEnr4G+f9JkW7JhTxSIqbI8kVzMsYl4nqVYEyki6+vcDTmTUfVPmo5/ujq7alsXOqlINkklJRnhg4y/OehY+lh9S0BIiz+acKC1vE0+lkdakbtZ9X5NwoH+kCJRyFbT9A1FIbUskMd61y2uWiVcvRy10lblX/K6O5SDXRxZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=gpdrUp8d; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V1srn5IR"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a02718da81so8745745e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 09:46:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791305188; x=1791909988; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nYsDsdPup8U8QMnz4nrwKqf/8/44Yd6sLmVcGYR6ZYI=;
-        b=V1srn5IRbjf9sTfmIZ6zvrdhHliJxZ2bl9oxVWTd39QEEc6kwI3btIbeh0X5R2KSeu
-         WsRfORieSgr0um4K6SHd9+odrtI6H229qQYE1uj1DOoxD0waanuCyU/qHKFGPohCdhjF
-         BhxlsmV3mAF2yPnUDu6ClkV5aFQg4kNBwimWbNa5lXkZpvZPuh3M8POzJO905sL7Dvd3
-         zNQoS1nlhzPMVjS84xyqUqjS91GaQWrGQU2R5n1K9G9YXFml1CF2E3kQ8BdpZLiZMqBT
-         gkxWTpB9iiq0Ows3xxrhiqSsvGJRQ0ihckicnwmjEXWRQFFqYv47T9FCSJxFD17FXw2D
-         +0Sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791305188; x=1791909988;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nYsDsdPup8U8QMnz4nrwKqf/8/44Yd6sLmVcGYR6ZYI=;
-        b=yReRa2es9n0Rsj7JUbNp/6ET0yqTLTRN4bee/ze3K4jXN6b8veXS3HEyVuV+sijc1B
-         JeyJcuFyOa7XQCm5Y3pg29tbnTVcXq/Pmn53Ba1TltI9QHrVtOxEz3hOxkyMVS/cdC7y
-         5xSOOJotGs0vo/y7PhPB0KEODrxDn5k8IqV2HgkiMfVkJoinZPr0EYIqBLJu9RFsK6jy
-         TXHlRTevLzUNa3X+UkHhBjCm3g3FEhl4lBwgRmik612VEaIrzUJuTDRdrnHotTOfjh2W
-         sZ2Z/taAXo22GYNXg+YgmJv6EOb0RiSgfZuHfFO7cVLSyMut0FNcCE8b3wXeI2SHJJ8m
-         Z5hA==
-X-Forwarded-Encrypted: i=1; AKwUvBwmPti11boVA1UczYWgvleOSZ0I83YvkYJys+wtuQ08WSw1qlyfZyQPOuilgnqEIrfCwIrjVw+i72r3eWc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kZZMI0aawoq048HD8i+habaslWpsfbDFfD5BYVnYm57wfqVqA8
-	CHEKmex19ny7TWuu1nnlbx/hoxpNTMD8H/GX6QgdaM8uFwZ/4Aqn9XII
-X-Gm-Gg: AYBFou1xX6ciTmhzKv0LoY3tsr7LEEJ4K0KGhBSYPDDycAOnY/UNwAZignaA1PzSFIw
-	0bIjqrQIzksPe/dotc+ZeC2vLILPg0AEEhn/DitOnHP7eaWC0Hzm8/LVbMA/XSMr9T6epARUJGO
-	p+kf/wRM9mPBL19xP0fJpv1n2yDFBsoTRIp6oihszxNNFtBltDSf0EjrHXqbIZlGFTqesuX5SDs
-	Z3FlzYQCCFbLEQws0zTSKYuy7blfdKV8tytb+TbNUWeDT7waJLTXJyvgGOcNvtfhNXXhRE+Vd6N
-	UvPisWrscH8hFLg/g9TCsCKvZRG4Y/2IzQqa0JNe+XMpw5zgI0rmUKefRSl2I8HP2sZGfm8Srhb
-	pBuwvLhN/AbyZKrS81d+U2SgrD9P1Cz6Ltx5IQBYPepi+9bicFECMHRo3Dfjy6cQuGOyKU1nhZM
-	2E+kGuLJ5T5UVqmtHPsJy9sfPUMasUTW1ZlHVgBfOblaEGQ5lJDTpfEHlvpMLOcLdx2CronHnp/
-	Uakoms0
-X-Received: by 2002:a05:600c:3516:b0:4a0:1efa:c74a with SMTP id 5b1f17b1804b1-4a17b53c6e9mr29983675e9.20.1791305188032;
-        Tue, 06 Oct 2026 09:46:28 -0700 (PDT)
-Received: from fedora.domain.name ([217.218.153.210])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178db8c6dsm134197405e9.14.2026.10.06.09.46.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 09:46:27 -0700 (PDT)
-From: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
-To: tgraf@suug.ch
-Cc: herbert@gondor.apana.org.au,
-	akpm@linux-foundation.org,
-	linux-crypto@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="gpdrUp8d"
+Received: from jeffbarnes-ThinkPad-P14s-Gen-2i.corp.microsoft.com (unknown [52.177.6.198])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 7000C20B7166;
+	Tue,  6 Oct 2026 09:46:33 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 7000C20B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1791305194;
+	bh=O7Zo8jVe43pQTgN6U7gRviNoDS/kOV/3u2QWjpeM4po=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=gpdrUp8dAJVjv9+CoHByFzj/OYp6rDPOaPh2KJDrAiR98HSQk+/UH8Cl5jPUQGV3z
+	 4oYb5bmpaNq6fiFXVIwE7sCpKh289Gf0TDCk0JLR+txkmBv6DQo4saqg3QDM90ei24
+	 /KXvS0eBJo240qWD1djYV17fo8312UESlJ7+yi88=
+From: Jeff Barnes <jeffbarnes@linux.microsoft.com>
+To: rostedt@goodmis.org,
+	mhiramat@kernel.org,
+	shuah@kernel.org
+Cc: mathieu.desnoyers@efficios.com,
+	reddybalavignesh9979@gmail.com,
+	richard.weiyang@gmail.com,
+	michael.bommarito@gmail.com,
 	linux-kernel@vger.kernel.org,
-	Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
-Subject: [PATCH] rhashtable: move init kernel-doc to header
-Date: Tue,  6 Oct 2026 20:16:19 +0330
-Message-ID: <20261006164619.342010-1-ampr.mhd@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	linux-trace-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH v2 0/3] tracing/user_events: Share state with existing threads
+Date: Tue,  6 Oct 2026 12:47:17 -0400
+Message-ID: <20261006164720.3940272-1-jeffbarnes@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261002153934.798176-1-jeffbarnes@linux.microsoft.com>
+References: <20261002153934.798176-1-jeffbarnes@linux.microsoft.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,150 +50,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Signed-off-by: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
----
- include/linux/rhashtable-types.h | 51 ++++++++++++++++++++++++++++++++
- lib/rhashtable.c                 | 51 --------------------------------
- 2 files changed, 51 insertions(+), 51 deletions(-)
+A thread created before the first user_events registration can share an
+mm with another thread while retaining a NULL user_event_mm. If it later
+registers an event, it can create independent registration state instead
+of observing the state already associated with the shared mm. This allows
+pre-existing threads in one address space to register different events
+using the same enable address and bit.
 
-diff --git a/include/linux/rhashtable-types.h b/include/linux/rhashtable-types.h
-index 57c11ec9d..b35ad6ff1 100644
---- a/include/linux/rhashtable-types.h
-+++ b/include/linux/rhashtable-types.h
-@@ -145,6 +145,48 @@ int __rhashtable_init_noprof(struct rhashtable *ht,
- 									\
- 	__rhashtable_init_noprof(ht, params, &__key);			\
- })
-+/**
-+ * rhashtable_init - initialize a new hash table
-+ * @ht:		hash table to be initialized
-+ * @params:	configuration parameters
-+ *
-+ * Initializes a new hash table based on the provided configuration
-+ * parameters. A table can be configured either with a variable or
-+ * fixed length key:
-+ *
-+ * Configuration Example 1: Fixed length keys
-+ * struct test_obj {
-+ *	int			key;
-+ *	void *			my_member;
-+ *	struct rhash_head	node;
-+ * };
-+ *
-+ * struct rhashtable_params params = {
-+ *	.head_offset = offsetof(struct test_obj, node),
-+ *	.key_offset = offsetof(struct test_obj, key),
-+ *	.key_len = sizeof(int),
-+ *	.hashfn = jhash,
-+ * };
-+ *
-+ * Configuration Example 2: Variable length keys
-+ * struct test_obj {
-+ *	[...]
-+ *	struct rhash_head	node;
-+ * };
-+ *
-+ * u32 my_hash_fn(const void *data, u32 len, u32 seed)
-+ * {
-+ *	struct test_obj *obj = data;
-+ *
-+ *	return [... hash ...];
-+ * }
-+ *
-+ * struct rhashtable_params params = {
-+ *	.head_offset = offsetof(struct test_obj, node),
-+ *	.hashfn = jhash,
-+ *	.obj_hashfn = my_hash_fn,
-+ * };
-+ */
- #define rhashtable_init(...)	alloc_hooks(rhashtable_init_noprof(__VA_ARGS__))
- 
- int __rhltable_init_noprof(struct rhltable *hlt,
-@@ -156,6 +198,15 @@ int __rhltable_init_noprof(struct rhltable *hlt,
- 									\
- 	__rhltable_init_noprof(hlt, params, &__key);			\
- })
-+/**
-+ * rhltable_init - initialize a new hash list table
-+ * @hlt:	hash list table to be initialized
-+ * @params:	configuration parameters
-+ *
-+ * Initializes a new hash list table.
-+ *
-+ * See documentation for rhashtable_init.
-+ */
- #define rhltable_init(...)	alloc_hooks(rhltable_init_noprof(__VA_ARGS__))
- 
- #endif /* _LINUX_RHASHTABLE_TYPES_H */
-diff --git a/lib/rhashtable.c b/lib/rhashtable.c
-index 6362896e4..5f53b4c71 100644
---- a/lib/rhashtable.c
-+++ b/lib/rhashtable.c
-@@ -1120,48 +1120,6 @@ static u32 rhashtable_jhash2(const void *key, u32 length, u32 seed)
- 	return jhash2(key, length, seed);
- }
- 
--/**
-- * rhashtable_init - initialize a new hash table
-- * @ht:		hash table to be initialized
-- * @params:	configuration parameters
-- *
-- * Initializes a new hash table based on the provided configuration
-- * parameters. A table can be configured either with a variable or
-- * fixed length key:
-- *
-- * Configuration Example 1: Fixed length keys
-- * struct test_obj {
-- *	int			key;
-- *	void *			my_member;
-- *	struct rhash_head	node;
-- * };
-- *
-- * struct rhashtable_params params = {
-- *	.head_offset = offsetof(struct test_obj, node),
-- *	.key_offset = offsetof(struct test_obj, key),
-- *	.key_len = sizeof(int),
-- *	.hashfn = jhash,
-- * };
-- *
-- * Configuration Example 2: Variable length keys
-- * struct test_obj {
-- *	[...]
-- *	struct rhash_head	node;
-- * };
-- *
-- * u32 my_hash_fn(const void *data, u32 len, u32 seed)
-- * {
-- *	struct test_obj *obj = data;
-- *
-- *	return [... hash ...];
-- * }
-- *
-- * struct rhashtable_params params = {
-- *	.head_offset = offsetof(struct test_obj, node),
-- *	.hashfn = jhash,
-- *	.obj_hashfn = my_hash_fn,
-- * };
-- */
- int __rhashtable_init_noprof(struct rhashtable *ht,
- 		    const struct rhashtable_params *params,
- 		    struct lock_class_key *key)
-@@ -1228,15 +1186,6 @@ int __rhashtable_init_noprof(struct rhashtable *ht,
- }
- EXPORT_SYMBOL_GPL(__rhashtable_init_noprof);
- 
--/**
-- * rhltable_init - initialize a new hash list table
-- * @hlt:	hash list table to be initialized
-- * @params:	configuration parameters
-- *
-- * Initializes a new hash list table.
-- *
-- * See documentation for rhashtable_init.
-- */
- int __rhltable_init_noprof(struct rhltable *hlt,
- 			   const struct rhashtable_params *params,
- 			   struct lock_class_key *key)
+Patch 1 fixes a locking issue found while reviewing this path. Duplicate
+enabler lookup performs a plain traversal of the enabler list, while
+asynchronous fault cleanup can remove entries under event_mutex. Serialize
+the traversal with that cleanup.
+
+Patch 2 finds the already-published user_event_mm for the current mm and
+attaches the pre-existing thread to it. The global list lock serializes
+lookup and attachment with the final task-count decrement and list removal.
+
+Patch 3 adds a regression test covering two pre-existing threads that
+attempt to register different events at the same enable address and bit.
+
+Tested on 7.3.0-rc6 with virtme-ng:
+
+- user_events ftrace_test: 6/6 passed
+- user_events dyn_test: 4/4 passed
+- user_events perf_test: 2/2 passed
+- user_events abi_test: 7/7 passed
+
+The user.preexisting_threads_same_address test passed.
+
+Changes since v1:
+
+- Split the duplicate-enabler locking correction into a preparatory patch.
+- Protect duplicate-enabler traversal with event_mutex.
+- Document and assert the group reg_mutex contract.
+- Simplify existing-thread attachment around user_event_mms_lock.
+- Serialize the final tasks decrement and list removal with lookup and
+  attachment.
+- Keep the regression selftest as the final patch.
+
+Jeff Barnes (3):
+  tracing/user_events: Serialize duplicate enabler lookup with event
+    removal
+  tracing/user_events: Share event state with existing threads
+  selftests/user_events: Test registration from existing threads
+
+ kernel/trace/trace_events_user.c              |  56 ++++++--
+ .../testing/selftests/user_events/abi_test.c  | 125 ++++++++++++++++++
+ 2 files changed, 171 insertions(+), 10 deletions(-)
+
+
+base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
 -- 
-2.55.0
-
+2.43.0
