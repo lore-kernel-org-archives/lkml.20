@@ -1,116 +1,108 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99C0539A7F2
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 11:19:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 679EC39A7F2
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 11:20:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791285542; cv=none; b=kZEbNCsdT52CW8mbob7190jLEDmNFGp2KV6I/30G6+X1OeYCpJ5hkkXI49JDzmgEaSMQhqyqTpUS4WNDcX8O4g/hwJX8/pOB3hNObCTcCL2uONmxB4mAW3RFOw+Xpj9obNIVtxOj1KiJnv9PUpNdg6vlgNDQ748boQwbD8jjmm0=
+	t=1791285604; cv=none; b=VU3CNRZxOO/QEiRaVjw2rOm7XB/1raSRNC39ffecRWhhDp9FMPhECZK+j6PsWlCcODpu9x69KSUcIerjdyTNPUSlYKA+n2eYvW5e8Ib4O/gBc6ItvWDm99AFVmfvhSyyTU3MngFNf4AAsHwosnj1O3svy865RDeBAANXVEDA5WU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791285542; c=relaxed/simple;
-	bh=T9pQLHtkTws6ReeUvx+8dHa8B2SrtK8aEWmbBiNo0o4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NdAdnYFaOpoHjdcYzwtOxGvH1WGyHAQ4RwGnB9fjs/8pmC+EL9PRgWW0MH69fYTifCd/WRppmPk+rIKrZktV9uNoaQSJONB6aHyxsTVMEuSckL9Cz3ZnXiHY2l0ZvnSxRk6skOxQq+0wz1pbFEEpP2CxJt5eJQji1eiafdUOiJc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LxzelV5a; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791285604; c=relaxed/simple;
+	bh=5GeN4NyIgiqjT3unzPCJfH1WVo/ZStkxIgI0YRdk5a8=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Fe2LdacYpIjqs4HMRZDUH+wuU4+VNpt5SNMK8sKvX4RR4tipUXdXZhMOpBoCF6EJg+lM2IrD5EG9dvqg08lizZ3oWF6dnxuWpmSGgkWSzNi6taDDBT50/Vz/4gHhuCwBtbRaFhp41eEO8U4j4r/LvfjW7ZU7yVwmYIila6NGjYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=e0gg4MQp; arc=none smtp.client-ip=91.189.121.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LxzelV5a"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48afcfc4bf5so2254549f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 04:19:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791285539; x=1791890339; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lbWPBQuVRiue4AC08Y5e154S6RcmoKslymnN0Vvmfhw=;
-        b=LxzelV5aud9Wnv1J9wVSZXTPhQvi7hAFXQOpvPF0YTwXFfs9ye9oI+Prou4aw++EcB
-         1wqQRopugMAcPy4zlA32Cwy/kjuDnSs+MpNkPQKbJTB/MdvDRZKsmoC5Y/Q/AhTA5PQ0
-         9qBMb3aWTR/M79nQVJuV3qjz8tRw4MoZ4a36NmadUR2fpLEOHgrmqXs/felXOdtZvlMG
-         MivoqHKygUV8c7pZuW8K+4S8BZ5hpfPUCTgXiy1sKTGoqbxmIvda59XqlnMTSBJZ4XtF
-         gKS/9fpzeeEUhHqw7aVrp2af567EwKFuR3mLe2YwDwlFHPQdM8Rk/UTUvT0c1Zh+5/yL
-         nyyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791285539; x=1791890339;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lbWPBQuVRiue4AC08Y5e154S6RcmoKslymnN0Vvmfhw=;
-        b=SwYE5ZkAMmYUq9ogGwAPLiG6f6jz66ImJJzCQDL3dgsIyf3YYOVxSBIWnVQocrgCXR
-         R1C/TsOd2ekCgCnepYtgEDcdwYh+99CysKl5HcCqqewp+q8nWnXVdZYEprWQmpQPOkSL
-         UXc48BLuGw1xW5LmRmvDmTQQ3n+yzOhep+ZtLkqc6bLhVOgxycpe1mJRsvb1kZzbVy3n
-         cgLJTIrdbmC6/vBKog03wrM6Ir6nKvJLTBfcmDmXgH8N/qV5SaEIqq1mwvx1E2wfhxgg
-         9K0/enl0ZnCzunn/5HmbT44CWZ1mBOUjTIeeCRiWP2YE8HKNHn7Z0D3WVXD+hE85ouBm
-         wEbg==
-X-Forwarded-Encrypted: i=1; AKwUvBzrRPpuyYPdSe27ofa/6zXgbu/i3p5Ruc8cfn9F3ft32auRT9JaoCneKCPjV7dLEYYR5BvLFVTrxVgEAWY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKhS0KT+xcQUrUkmvPX6+WPvCEPaDAxHM4XtF0gENivZ5kGRHpk
-	GIfVsfbk7vwGGIhtep6afZQJHl+442oseFzFtaso0SWE0OIRpJuA5WDx
-X-Gm-Gg: AYBFou3DC5W32wi2EMu6wzctdXo9ZE6oOFJWcfBfTQPLmyvKvqx5aqMrmBKkTTUgRdn
-	k+P4N5cytFdFzmizW6Il2yTbt+xFUrWsu8loKlMvcLgA1Gbd8+Ykj4XLRBA5YYj7M2Sr3eEWW60
-	8GAgyv1okyxGc6jHdlR5DgAI+M4KjgyOZaKD75g40T1L9HW3TrcFdb+71XRqF6/RsTQn55m7sav
-	H3uHSSNPe5f7eK+lJu7B1feJD1+GQkwQzCkU7sN+LrV6GBFs81mGCFR9X8ISXOOw6O4i8OjmJJv
-	pXJqQ98kr+NpaYrPSvhMtlbyQXL1vNJY4aZfA2tY1+6e2XWBBJRdZOkCla/8h/dkrZBhD/yRfw4
-	HOGw5K5w4hpEiGso6CHq/vzBH1qT28LUNLWtpwou6guwvzy/hfhNor+IZ4/O44vIlon0adWExgB
-	HAKi2gcpimlrUeugllbBJ+ZmvCZH4c+ttlF8ZSLBFcOTknfK7e2+VzTBj8O9uz0L/WxJdEPnI1+
-	Tq94A==
-X-Received: by 2002:a05:6000:1a85:b0:487:490:8391 with SMTP id ffacd0b85a97d-48c6d160060mr2104906f8f.16.1791285538622;
-        Tue, 06 Oct 2026 04:18:58 -0700 (PDT)
-Received: from [192.168.1.50] ([81.196.40.70])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c6d264fcbsm2172381f8f.47.2026.10.06.04.18.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 06 Oct 2026 04:18:58 -0700 (PDT)
-Message-ID: <3a57c874-ab57-4ca2-98a9-d5cf4fdf285b@gmail.com>
-Date: Tue, 6 Oct 2026 14:18:55 +0300
+	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="e0gg4MQp"
+Message-ID: <f9449162aaea3b43154c3981c50d9bd40340c2c0.camel@itx.no>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
+	t=1791285600;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5GeN4NyIgiqjT3unzPCJfH1WVo/ZStkxIgI0YRdk5a8=;
+	b=e0gg4MQp9pBgXdFMNtULx900JPBPmhoj3OQ8IHibo1M5o9nfE8+8dX+iQExKTuc0jFijwc
+	j/rEAn18fEPiybfYsmXowMkiBa5EsLagElKisBN9mQ+SMzI9augo4pG25JO/LHUBzPZquU
+	jUquMQYHJHNa5DHxBGsNY/g7rBo0IpE=
+Subject: Re: [PATCH v2] sched/cputime: Don't account idle time twice after
+ dyntick-idle
+From: Stian Halseth <stian@itx.no>
+To: Frederic Weisbecker <frederic@kernel.org>
+Cc: Thomas Gleixner <tglx@kernel.org>, Anna-Maria Behnsen
+	 <anna-maria@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Peter Zijlstra
+	 <peterz@infradead.org>, Shrikanth Hegde <sshegde@linux.ibm.com>, 
+	regressions@lists.linux.dev, linux-kernel@vger.kernel.org
+Date: Tue, 06 Oct 2026 13:19:58 +0200
+In-Reply-To: <asTWpV1xFQ4opyB7@localhost.localdomain>
+References: <20261005194010.168299-1-stian@itx.no>
+	 <asTJQHcGzJmB9u33@localhost.localdomain>
+	 <630a98619b9c5d04b01dd1c506d432d13f724218.camel@itx.no>
+	 <asTWpV1xFQ4opyB7@localhost.localdomain>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-lpvlzLQHz1C3ScxHyUW5"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH rtw-next v7 4/6] wifi: rtw88: 8723b: add the RTL8723B chip
- driver
-To: Ping-Ke Shih <pkshih@realtek.com>, Luka Gejak <luka.gejak@linux.dev>
-Cc: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Michael Straube <straube.linux@gmail.com>,
- Peter Robinson <pbrobinson@gmail.com>
-References: <20261002073845.31486-1-luka.gejak@linux.dev>
- <20261002073845.31486-5-luka.gejak@linux.dev>
- <aa7d919d98304ee095990735f39095ac@realtek.com>
- <DLWXWMOGZGX9.UANQJR9PZYWG@linux.dev>
- <359ea3a6857d4aba9c83876a10f7f9e8@realtek.com>
-Content-Language: en-US
-From: Bitterblue Smith <rtl8821cerfe2@gmail.com>
-In-Reply-To: <359ea3a6857d4aba9c83876a10f7f9e8@realtek.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 06/10/2026 03:39, Ping-Ke Shih wrote:
-> Luka Gejak <luka.gejak@linux.dev> wrote:
->> On Mon Oct 5, 2026 at 8:08 AM CEST, Ping-Ke Shih wrote:
->>> Luka Gejak <luka.gejak@linux.dev> wrote:
->> [...]
->>>> +/*
->>>> + * Shares the receive PHY status layout, the SDIO aggregation burst fields
->>>> + * and a few baseband registers with the RTL8703B; reuse that header.
->>>> + */
->>>> +#include "rtw8703b.h"
->>>
->>> Which layout you are using?
->>> Should you move the layout to rtw8723x.h ?
->>>
->>
->> The layout I reuse is the RTL8703B receive PHY status structure, struct
->> phy_status_8703b, together with the SDIO aggregation burst fields and four
->> baseband registers. 
-> 
-> Let's use another patch to move the struct out of rtw8703b.h, and rename
-> to phy_status_8723x for example.
-> 
 
-The same struct could be used by other chips in the future, like
-RTL8192EE/RTL8192EU and RTL8188FU/RTL8189FS.
+--=-lpvlzLQHz1C3ScxHyUW5
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
+On Tue, 2026-10-06 at 13:08 +0200, Frederic Weisbecker wrote:
+
+> > Only with steal time, and that is older than the rework. I ran the
+> > same
+> > guest test on v7.1 and on ad5a9e14ec8b, the parent of
+> > cf6444c3e1bb7.
+> > Total CPU time per wall second on the loaded vCPU:
+> >=20
+> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0 v7.1=A0=A0=A0 ad5a9e14ec8b=A0=A0 v2
+> > =A0 3.7 ms sleeps=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 0.995=A0=A0 0.996=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0 0.998
+> > =A0 pipe ping-pong=A0=A0=A0=A0=A0=A0=A0=A0=A0 0.997=A0=A0 0.996=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0 1.000
+> > =A0 steal, sleep + spin=A0=A0=A0=A0 1.029=A0=A0 1.028=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0 1.008
+> > =A0 steal, pipe ping-pong=A0=A0 1.338=A0=A0 1.341=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0 1.001
+> >=20
+> > Without steal time nothing was counted twice before the rework.
+> > With
+> > steal time, v7.1 counted steal time during idle as both idle and
+> > steal
+> > time. The rework fixed most of that, and what is left with a busy
+> > spin
+> > after each wakeup is smaller than before.
+>=20
+> Ok and you haven't observed a real difference between your v1 and v2,
+> right?
+>=20
+No, not in normal operation.=20
+
+It only made a difference with a test-only change that stops the tick
+on every idle entry. There v2 added to a pending overlap about 900
+times a second, which v1 lost.
+
+/Stian
+
+
+--=-lpvlzLQHz1C3ScxHyUW5
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTK1ph9OaYoND1R57zoeAEuJe36VgUCasTZXgAKCRDoeAEuJe36
+ViyIAP0c38dOVGj+r+D7NqmS72u1aJFgqIw3CmjbiSSISOqqogD+M+pxEmSRLMVW
+jpZh1e0kjy/yyp2J3/C+Z63nBAWu5go=
+=eXTt
+-----END PGP SIGNATURE-----
+
+--=-lpvlzLQHz1C3ScxHyUW5--
