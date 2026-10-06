@@ -1,127 +1,137 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5925A3BB661;
-	Tue,  6 Oct 2026 10:00:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7519F332621;
+	Tue,  6 Oct 2026 10:00:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791280813; cv=none; b=bU4zlCCbO8t7fbsVnP1aJYBIbsvPCDH2BU0CjNU2QbMcTzygMrrQmkqSgPW3irrLNwJYwIgIUT5FbC39y5y1imvtseBik9s62T+aKceDkBBzlYNIqP9rNZgdSAOOvNSc3ZKvLqq885PJ1YbikmUTIGUeqW4UX3eBDPsmdblFHis=
+	t=1791280855; cv=none; b=IAaYs55dJ44/BUWdGlOJDWzxX/Laih3+5CbEjS7m8ImpCvJ6hWJipmDOEFXB2y/MV2/rfS09QDtY3Igi9pB0KGo8HKQeR6t0OXGk7dHjPX07RR3DjaoZftAJk0JKaaEIRTfuDdyXDkcSU9wYXS7pN9h6pQmq/k0b2v64kKM3P10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791280813; c=relaxed/simple;
-	bh=EvMamSDRxzu7OuMvdizxprj6S5S2WL34AU5Oxj3sGE4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=J8EPt9nYSyUPt0ojASbo7XfOsBmCbZp7RHu08LiLOAHPIQg9wU2eZtiOA0xSkyHm0y4ZorBCqpgx+ZhK/gztWQDo9STDt3rk/9ElSk2XqeUNIzRD/vOm2PpO5nCbBlNejzt7P4LabMktSmyIpaf7DZbdoUnzERzBTMVR0NBvXJI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn; spf=pass smtp.mailfrom=jmu.edu.cn; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jmu.edu.cn
-Received: from Vostro-3710.. (unknown [14.220.232.127])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 50126dbdd;
-	Tue, 6 Oct 2026 18:00:05 +0800 (GMT+08:00)
-From: Chukun Pan <amadeus@jmu.edu.cn>
-To: Yixun Lan <dlan@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	spacemit@lists.linux.dev,
-	Chukun Pan <amadeus@jmu.edu.cn>
-Subject: [PATCH v2 1/1] riscv: dts: spacemit: set ETH MAC from eeprom for OrangePi
-Date: Tue,  6 Oct 2026 18:00:00 +0800
-Message-Id: <20261006100000.548264-1-amadeus@jmu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1791280855; c=relaxed/simple;
+	bh=YS72mDVgBqOiM3y5oj5JRFVXXwdS4wkbbbpnfg4GBM4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=o2Kc2g++EQnv3XpM+YHeyQLf9kT1KbW6MXc+L23crFbYIQ6Du/vLaWIlw2hgiecqLVYpRr4qAbombWEtZI4OAyIrKwMENFmA29FO86BjX/k+MSOvhA3j/t3tc1XPVGvG/scalqiI7wT1m7eg2A8YwMpXV3BDwiVIjvMK/srY+1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rq30gTS6; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rq30gTS6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABBC41F000FF;
+	Tue,  6 Oct 2026 10:00:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791280854;
+	bh=+KlVwSyHDnavG7QvskgSBE2rSteLEpC0WhyEJlJpUUI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Rq30gTS6aNcLeVZcb5Vx5oD/xEzadhC9LpNv9ju6She6gBvkHsGvUCK2gBArTavj4
+	 ab5wSO82DFMdfrUBGaX7pupt0YoONt7RL+KizriKsuKR3huhEqvEPUAhoRn/DOhUMa
+	 IsxRcweEQnMjaWcmMBQOpWexTRT0LdJk07lKExAhbwmuys/yfAxTYW/RXzfwyr2NBQ
+	 LfPMPLACfwfIzcP1xRblhqtokjbdmo2uJa6tgs1MgzBmqT2HXyKeevC4hW/TtXEn6j
+	 MghCfcG54dVqG43Aew5YOlRFyb59EWluN4/qbr2KL2h/oU1mrc1yToL5urT1RXj1fc
+	 uPZ0qz7TqOb9w==
+Date: Tue, 6 Oct 2026 12:00:51 +0200
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>, Boqun Feng <boqun@kernel.org>,
+	Lyude Paul <lyude@redhat.com>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Alexander Potapenko <glider@google.com>,
+	Marco Elver <elver@google.com>, Jonathan Corbet <corbet@lwn.net>,
+	Bradley Morgan <brads@mainlining.org>, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev
+Subject: Re: [PATCH v5] softirq: Preserve interrupt context during IRQ exit
+Message-ID: <asTG09Me93-zP3aG@localhost.localdomain>
+References: <20260930191432.62760-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa110a7f59703a2kunm67906f2632db24
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCT0pNVkkdTh8eGk8dQ08dSlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKT1VJSUtVSUhJVUpJTFlXWRYaDxIVHRRZQVlPS0hVSktISk
-	5MTlVKS0tVSkJLS1kG
+In-Reply-To: <20260930191432.62760-1-kmehltretter@gmail.com>
 
-The EEPROM on the OrangePi R2S and RV2 stores the MAC address.
-Assign it to Ethernet, with ethernet1 having a MAC offset of 1.
+Hi Karl,
 
-Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
----
-Changes in v2:
-  Remove Ethernet alias changes.
----
- arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts | 6 +++++-
- arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts | 6 +++++-
- 2 files changed, 10 insertions(+), 2 deletions(-)
+Le Wed, Sep 30, 2026 at 09:14:32PM +0200, Karl Mehltretter a écrit :
+> +static inline bool softirq_handle_begin(void)
+>  {
+> -	__local_bh_disable_ip(_RET_IP_, SOFTIRQ_OFFSET);
+> +	bool from_irq_exit = in_hardirq();
+> +
+> +	if (!from_irq_exit) {
 
-diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
-index 7125f2882ce8..78cdef0c7287 100644
---- a/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
-@@ -66,6 +66,8 @@ &emmc {
- };
- 
- &eth0 {
-+	nvmem-cells = <&mac_address 0>;
-+	nvmem-cell-names = "mac-address";
- 	phy-handle = <&rgmii0>;
- 	phy-mode = "rgmii-id";
- 	pinctrl-names = "default";
-@@ -90,6 +92,8 @@ rgmii0: phy@1 {
- };
- 
- &eth1 {
-+	nvmem-cells = <&mac_address 1>;
-+	nvmem-cell-names = "mac-address";
- 	phy-handle = <&rgmii1>;
- 	phy-mode = "rgmii-id";
- 	pinctrl-names = "default";
-@@ -129,7 +133,7 @@ eeprom@50 {
- 		nvmem-layout {
- 			compatible = "onie,tlv-layout";
- 
--			mac-address {
-+			mac_address: mac-address {
- 				#nvmem-cell-cells = <1>;
- 			};
- 
-diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-index 837616255464..44b81268c802 100644
---- a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-@@ -93,6 +93,8 @@ &emmc {
- };
- 
- &eth0 {
-+	nvmem-cells = <&mac_address 0>;
-+	nvmem-cell-names = "mac-address";
- 	phy-handle = <&rgmii0>;
- 	phy-mode = "rgmii-id";
- 	pinctrl-names = "default";
-@@ -117,6 +119,8 @@ rgmii0: phy@1 {
- };
- 
- &eth1 {
-+	nvmem-cells = <&mac_address 1>;
-+	nvmem-cell-names = "mac-address";
- 	phy-handle = <&rgmii1>;
- 	phy-mode = "rgmii-id";
- 	pinctrl-names = "default";
-@@ -156,7 +160,7 @@ eeprom@50 {
- 		nvmem-layout {
- 			compatible = "onie,tlv-layout";
- 
--			mac-address {
-+			mac_address: mac-address {
- 				#nvmem-cell-cells = <1>;
- 			};
- 
+Is this variable necessary?
+
+> +		__local_bh_disable_ip(_RET_IP_, SOFTIRQ_OFFSET);
+> +		return false;
+> +	}
+> +
+> +	/*
+> +	 * Only reached from irq_exit(), with HARDIRQ_OFFSET still set.
+> +	 * Replace it with SOFTIRQ_OFFSET before handle_softirqs() enables
+> +	 * interrupts. Use the raw operation to preserve the preemption
+> +	 * disable location recorded by irq_enter_rcu(), and update lockdep
+> +	 * directly.
+> +	 */
+> +	__preempt_count_sub(HARDIRQ_OFFSET - SOFTIRQ_OFFSET);
+> +	lockdep_softirqs_off(_RET_IP_);
+> +	WARN_ON_ONCE(irq_count() != SOFTIRQ_OFFSET);
+> +
+> +	return true;
+>  }
+>  
+> -static inline void softirq_handle_end(void)
+> +static inline void softirq_handle_end(bool from_irq_exit)
+>  {
+> -	__local_bh_enable(SOFTIRQ_OFFSET);
+> -	WARN_ON_ONCE(in_interrupt());
+> +	if (!from_irq_exit) {
+> +		__local_bh_enable(SOFTIRQ_OFFSET);
+> +		WARN_ON_ONCE(in_interrupt());
+> +		return;
+> +	}
+> +
+> +	lockdep_softirqs_on(_RET_IP_);
+> +	__preempt_count_add(HARDIRQ_OFFSET - SOFTIRQ_OFFSET);
+> +	WARN_ON_ONCE(irq_count() != HARDIRQ_OFFSET);
+>  }
+>  
+>  static inline void ksoftirqd_run_begin(void)
+> @@ -758,10 +788,21 @@ static inline void __irq_exit_rcu(void)
+>  		invoke_softirq();
+>  	}
+>  
+> +	/*
+> +	 * Wake the timer thread even if the interrupt hit a softirq or a
+> +	 * section with BHs disabled. Only nested interrupts and NMIs are
+> +	 * excluded.
+> +	 */
+>  	if (IS_ENABLED(CONFIG_IRQ_FORCED_THREADING) && force_irqthreads() &&
+> -	    local_timers_pending_force_th() && !(in_nmi() | in_hardirq()))
+> +	    local_timers_pending_force_th() &&
+> +	    (in_nmi() | hardirq_count()) == HARDIRQ_OFFSET)
+
+NMIs shouldn't ever take this path, right?
+
+>  		wake_timersd();
+>  
+> +	/*
+> +	 * tick_irq_exit() relies on in_hardirq() being false for the
+> +	 * outermost interrupt.
+> +	 */
+> +	preempt_count_sub(HARDIRQ_OFFSET);
+>  	tick_irq_exit();
+
+Can we also extend the HARDIRQ_OFFSET context coverage to tick_irq_exit() ?
+From a quick look I haven't found anything that would prevent from that. You just need
+to turn the "if (!in_hardirq())" test to "if hardirq_count()) == HARDIRQ_OFFSET"
+
+Thanks.
+
 -- 
-2.34.1
-
+Frederic Weisbecker
+SUSE Labs
