@@ -1,72 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-17.mta0.migadu.com [91.218.175.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F6063750BC;
-	Tue,  6 Oct 2026 09:28:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D23D3A7F4D
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 09:28:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791278886; cv=none; b=EVjwrw/f/RbHOeZ5u77VPy+cQ52lhf/j3ZeqjO4x6PJW7OH4NzVj0NX4lFEk75RRhYQ8vkDVnP4xAtejE0IpizYes3vI/I+hlQ2lUPuVHuvuUxK2SEtONTDC8QmiDxQWAsBYx8ki2ogDhJRrgQFujgZVtYoO0cBq6PExl+P156A=
+	t=1791278916; cv=none; b=cw5YRNJJQCU64IUiffPyF06DTW8VPT8Gv+wErxfNkN/CExFemOhlAZmhk5ZmDxOGaQVsY7vB9pOyk2B8GeSgH5eTY5GC2N9T8lBGf4Zc2o6tPaYQWZ7EPbvfj2oq980UKTuSimXeEuhBsEK2btTKOGM2MS0RRlMznoWVA2+7cbE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791278886; c=relaxed/simple;
-	bh=+FDaVM+iN2S6d4LlhnhZFZtqkz2EVNDOZrfwx7Ivk3o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TGeDBPk6F/DZ4PuDPpx7N6kuwxbTIzpjaP9bNHL2sC4TlDJliT/0GHFpS4ODSHKnYcb3oOQT/RMDvpxw9kP7X/xIfkhWRrihOBN2pyExWUsDewU/I1dxyOTjFPjddWlS4QdYosfAQ4uQTQgW1FhGQaVLSuij1R9uThmD5tmdWZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A/g7hcLT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791278916; c=relaxed/simple;
+	bh=v3T3fBb11/yU7ppCqF5TMod7CuvBDECZxjrjNXI8Y9o=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=RpHfZ6gZhAUV1dJPBwbzFWPUBJ9bgfHfd7u1DxLvo8jQsDujz8iz1nZWiDPk5E4OWiWBm8uJgniR1aK+OoVCVSBeuzSlLdRE18r5ElD9k4estMbS/WNVKzdFVjEiNc0+iFDyM6ohvB/RM5bgMDzsoxDhqRvycfEwTqEsinWx8GE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=PsL7Jxdf; arc=none smtp.client-ip=91.218.175.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A/g7hcLT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 015361F00898;
-	Tue,  6 Oct 2026 09:28:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791278884;
-	bh=aFfRik6ofX2MimsXUIjUnGQ1h4GtCfo0fIPNLZE0cwI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=A/g7hcLT6/z2TxB/35QnTnfOF00uR0EMe5WoZajEwktcwzQbEpxxIgdQtxajOYw7r
-	 bexZ0ALMvZs/7FP99hVteatwKpapTQg8LS4T6/y0NIBkFcm1cMWadCt6n2zrOpz2rU
-	 jAl4cn4VpNJGLjSx0qqRSZSEhnlszt3fWTMRAn5fHh0fIOH9yrW/lL95PCekb7DRoy
-	 2wdO8z/2DRsIfAPE+AtctbAYLZ9QjxsTtm5jspyM8xnsi2PRa1/a2vwZz341OEnx4y
-	 kw94OsUK/Ka+7uAM4rHZyBd9ZoAWs9kELNwfuMRtbF8A/jCF5yd7ki66XMlwd5ysRj
-	 U0C5dKPiZ7Epg==
-Date: Tue, 6 Oct 2026 11:28:01 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Robert Foss <rfoss@kernel.org>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="PsL7Jxdf"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=v3T3fBb11/yU7ppCqF5TMod7CuvBDECZxjrjNXI8Y9o=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791278911; v=1; x=1791883711;
+ b=PsL7JxdfWqBr55wQ/rfIOw4yeUv7YZfEcRTuZv6UWuOkukydRyHYSD4gkVKv7DQiedOLNLOz
+ z2q2qFK5yPord/fz9SKjajpvJNe5mUsb5ZM5ysIYnWJyCRFF4wL+HfWBbyELn+muClp7s4R6Uza
+ OvUfE6wlMvQzBZ5N4MTC+/rc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 913d3b9294e19705;
+	Tue, 06 Oct 2026 09:28:30 +0000
+X-Mizu-Trace-ID: 913d3b9294e19705
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: maz@kernel.org,
+	oupton@kernel.org,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/5] i2c: qcom-cci: Handle and report queue
- overflow/underflow interrupts
-Message-ID: <asS-ppSQ3zHjjVBs@zenone.zhora.eu>
-References: <20261004-cci-imp-v1-0-227d12cb4829@oss.qualcomm.com>
- <20261004-cci-imp-v1-2-227d12cb4829@oss.qualcomm.com>
+Cc: catalin.marinas@arm.com,
+	will@kernel.org,
+	joey.gouly@arm.com,
+	seiden@linux.ibm.com,
+	suzuki.poulose@arm.com,
+	yuzenghui@huawei.com,
+	vdonnefort@google.com,
+	qperret@google.com,
+	mark.rutland@arm.com,
+	tabba@google.com
+Subject: [PATCH v2] KVM: arm64: Mask SErrors in a protected vCPU's host copy at first run
+Date: Tue,  6 Oct 2026 10:28:26 +0100
+Message-Id: <20261006092826.2201763-1-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261004-cci-imp-v1-2-227d12cb4829@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Loic,
+The host's copy of a protected vCPU has SErrors masked from reset, so a
+host-injected SError is pended through HCR_EL2.VSE and the guest takes
+it when it unmasks SErrors. However, the VMM can unmask SErrors in that
+copy before the first run, through PSTATE.A or SCTLR2_EL1.NMEA. KVM
+then emulates the SError's entry on the host copy, and the guest never
+takes it as an SError. Exits that copy PSTATE out set PSTATE.A again,
+but nothing clears NMEA. With NMEA set, an SError injected after a
+KVM_RUN that completes an MMIO access but returns before entering the
+guest also trips WARN_ON(INCREMENT_PC).
 
-...
+Mask SErrors in the host copy when the first run creates the hyp vCPU,
+after which KVM_SET_ONE_REG is rejected. An SError injected before then
+is still emulated, but only writes registers the VMM can set itself.
 
->  	if (unlikely(val & CCI_IRQ_STATUS_0_I2C_M0_Q0Q1_HALT_ACK)) {
-> -		reset = CCI_RESET_CMD_M0_MASK;
-> +		reset |= CCI_RESET_CMD_M0_MASK;
->  		ret = IRQ_HANDLED;
->  	}
->  
->  	if (unlikely(val & CCI_IRQ_STATUS_0_I2C_M1_Q0Q1_HALT_ACK)) {
-> -		reset = CCI_RESET_CMD_M1_MASK;
-> +		reset |= CCI_RESET_CMD_M1_MASK;
+Fixes: 872383bd12e11 ("KVM: arm64: Add per-EC entry/exit state marshalling for protected guests")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20261001142109.794CA1F000FF@smtp.kernel.org/
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
+v2:
+ - Set PSTATE.A and clear SCTLR2_EL1.NMEA in the host copy when the hyp
+   vCPU is created, instead of testing vcpu_is_protected() in
+   kvm_inject_serror_esr() (Marc).
 
-these changes are independent from the patch you sent. Can you
-move them to another patch? Probably this part can also be
-considered as a fix and if so it can be sent separately. Right?
+Applies on kvmarm/next. A follow-up to "KVM: arm64: Confine protected VM
+vCPU state to EL2" [1], from Sashiko's review of its v4 patch 12.
 
-Thanks,
-Andi
+v1: https://lore.kernel.org/r/20261005050352.836980-1-fuad.tabba@linux.dev/
+[1] https://lore.kernel.org/all/20261001135711.1640520-1-fuad.tabba@linux.dev/
 
->  		ret = IRQ_HANDLED;
->  	}
+ arch/arm64/kvm/pkvm.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/arch/arm64/kvm/pkvm.c b/arch/arm64/kvm/pkvm.c
+index d4822d8bb16b8..49973c689789f 100644
+--- a/arch/arm64/kvm/pkvm.c
++++ b/arch/arm64/kvm/pkvm.c
+@@ -191,12 +191,18 @@ static int __pkvm_create_hyp_vcpu(struct kvm_vcpu *vcpu)
+ 	/*
+ 	 * Mirror EL2's seeding of power_state from mp_state. The hyp vCPU is
+ 	 * published, so take mp_state_lock against kvm_psci_vcpu_on().
++	 *
++	 * EL2 never reads the VMM's PSTATE or SCTLR2_EL1: undo any unmasking
++	 * so that a host SError is pended through HCR_EL2.VSE.
+ 	 */
+ 	if (vcpu_is_protected(vcpu)) {
+ 		spin_lock(&vcpu->arch.mp_state_lock);
+ 		if (kvm_arm_vcpu_stopped(vcpu))
+ 			WRITE_ONCE(vcpu->arch.mp_state.mp_state, KVM_MP_STATE_UNINITIALIZED);
+ 		spin_unlock(&vcpu->arch.mp_state_lock);
++
++		*vcpu_cpsr(vcpu) |= PSR_A_BIT;
++		__vcpu_rmw_sys_reg(vcpu, SCTLR2_EL1, &=, ~SCTLR2_EL1_NMEA);
+ 	}
+ 
+ 	vcpu_set_flag(vcpu, VCPU_PKVM_FINALIZED);
+
+base-commit: fa22cd9947fc245d71bc40482f7f78eb0d5a4af0
+-- 
+2.39.5
+
