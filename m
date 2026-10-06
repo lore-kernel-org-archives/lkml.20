@@ -1,221 +1,109 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC74942E004
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 14:24:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B342842E004;
+	Tue,  6 Oct 2026 14:24:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791296642; cv=none; b=lDz0WC/pMX9cKbL483AqMc6x8E8d0LvJcOTkt5QzybyRbhauo3IucCbuXbiF6Xg7O2cU1QLc5JT1k9lXfrYqS/nQX/eIW2xSdUl9Aq0Kb6AX71paSZYmY+0MhtIUhkXebheSE4CblCEpNIVE+08oWpTtnjecy3xyqmj+421XgtY=
+	t=1791296646; cv=none; b=IphM4w6W0qSoszjIGolhqZky2v9Y8viEg0VFohvnhCtCndLffq9N2QVCgG1Mf9OMs6eSxBMLTZKh6WknJiD0fj7MjUiw7DunFTbwA5PGebdmxksVSSjM3u/vpaGemQ0hvbOLef6Y287d7d2tNWsOhNcnFLKqgTOh5Op9AQlXxCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791296642; c=relaxed/simple;
-	bh=An+MCDhgc3sfLbMAePUDyErCiH8tMghywbVBAwvS8qc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=B1XPsaLJXgOFHiu4ungx/A1ljlxWXAYl1lMRgjkdWYMhT5TbDR2zmXBVrU5m2CftDmv/qUxgoTDSMIvxk8VfjwszwjPnAWaFM5CHGseFrATj1bqyvsSUdNj+F7r8gnAXqzzfhQQv8mdUpgtzzFYWI4RiqeLd6mutDnOZKPI+LdU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VUWYGicH; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791296646; c=relaxed/simple;
+	bh=F46wmeq8sgiFcW6ENmE+0VuKM656ynw9mex+LuVjaKk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GRtDVCEMxEvWvVTzkGRxroJ6S5Vlqd0G2na/EFismdjeK3Iqs7GLGXAdI24oJ/yLXfsH+4wTTAr/orUcfXFIVx3Acwu6DLmClB3acrDBsq06n4erGzoanxgOiTak9xMGQLTmmfFc6CoT0mCY+TpYhCynsXKfqdRFDiMWNKldWO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VTukRynv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VUWYGicH"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48b042c0728so252861f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 07:24:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791296639; x=1791901439; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CwCJGLidE7F0BvbzMmwayW0fAmkGxcdA0QvtRqy2mgk=;
-        b=VUWYGicH8Nu9gpueMNfwGwfUF7JReaUyIUpvel4OKuoINAmKmEt7qrjU7qbB2jY44Z
-         agHYJ4iei+GzBTn/zgsP4u3iWRaooYiF6lh2J67fhw3KYJ1Kb2ztoC17owSEQMBJelJ8
-         E6AYBAqQwM0H+dOxV5H24TvDme1uMJ0Xi2kKuD4xaEJfL9IrJ0LqgXYlePPK8vWko5XI
-         iLNfic7WnDRDXuU4y0M93ahbH2jFx7sPWl2lXcFiobOnjUgNQ5RYCgDw8ssbRDHsUnZf
-         UoZmr3svlnogVfh2sI0GKrzqmpv/8mqnjjLENt8Yx0vpKjP/+lGK6Wl5omFU/MQBNePO
-         hTCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791296639; x=1791901439;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CwCJGLidE7F0BvbzMmwayW0fAmkGxcdA0QvtRqy2mgk=;
-        b=LwW32TDuSnpQUXROqjaLg4hOt71gidJl9eDItzCYc+kxC2RBqbvPZNFXokpqix2Jcq
-         m2qJDIiks2q+hgVcti30W6gJmBaERmR+3B6mJgltJTLQkrrEwmKrMMfUSxxJOdRW3Fvy
-         9Sumg4DmHCVO19Bw7klp2g6pHb1a2lJgWpXu5uQF6uG5CNkcpXRF9m2yAJmjSXRQ8RQA
-         MQru3p4TIxok9MzUvAKQBEgG/QJZTiUoDSB+MbHgXIZ8AQlnWT6rpqAdjW5O6zHMy7x+
-         VA0ML25NzAwRP+PHbk6wMpbsiLo5Nz4pPciOKezw+RaqFKM6F0hmnuKNtTCvQ+A/Bcfm
-         01mw==
-X-Forwarded-Encrypted: i=1; AKwUvBy6rT9480YdLqDfcwwKTCv+RQ8OOQeO80UaSJQRjec28i+RMOWq9UFYSQQ+vjEAV4SsUgWxVnbF17z8hgs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJInPJDCK/N4/MGvQm8kIA6SHl1p86h2XhpDtit3aOHmNS4giY9
-	T0Tly2R1USkG9rI+UMY8Jt55WEYYTMo/FM1DURmvkN0y6sHllsFnWrbN
-X-Gm-Gg: AYBFou0AZMWIr5/CjMB2nNX93hkpzzFpETDOXaEx+g8QBZS+8eeCYy2pVfaZF37P/4m
-	3N45S+AZChKjs5tI9Q6D2WRV7KohkuJjoEJkd7OCztr1J1Q4S3q72KcjMHIPd4lItAUrW5e9Wha
-	Imbi0wC3VwUOOr0ruwNCrxLJNDFYnTv9vlw2xqWQYkIu7+nphEoH92hMai7qrIpq/k0REAAJTJM
-	tnCh9iourP+94WdZYtURUReP99JU7yIo8sR1M9qmGYKMmbKutklAf1XQQkLFgzk/jqj7bi/pv6V
-	svKqYRy2y7DZMX4gOTnl7btaGYFOY7i93FB02e2lyKBBev5MoM5naJXr3bM1k8bjglVc4LR4Luk
-	0A1jtys4O0mSGEx8NEKf1RVrAp+uPpOhq5W8ssJSI0kz6EH1Q3ROgxt73ceTzoJw13LLY4u8a49
-	qfTDvb231S0Q47pl+eyhSc3FbblR91Aiytq4DVY5DsbRL9MU4d85jugrlWxR9vY0JgGBTM4lg6F
-	xsogKpeGFsjBAsSuEQLx8PB9qQ5F6pRZLqeBLTquooX7vlH+dGoGKXiU9qZWqF2VmlmWkY=
-X-Received: by 2002:a05:6000:430d:b0:486:f9ea:796f with SMTP id ffacd0b85a97d-48c6d19be9amr3340549f8f.41.1791296638649;
-        Tue, 06 Oct 2026 07:23:58 -0700 (PDT)
-Received: from voyt-laptop-dell.fritz.box ([2001:9e8:bd51:6800:c199:bb10:b06d:d65])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c6fa42d99sm1890987f8f.46.2026.10.06.07.23.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 07:23:58 -0700 (PDT)
-From: Dmitry Voytik <voytikd@gmail.com>
-To: Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>
-Cc: Nicolas Schier <n.schier@fritz.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VTukRynv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 359DA1F000FF;
+	Tue,  6 Oct 2026 14:24:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791296645;
+	bh=7b6as+N11WBsROO8ecGTfwqyF1FOsBi6gKzVGUGTDSs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VTukRynvJ+fSwq3KuJCpdeAmT2t2cbGXxGTzCCtgS/2s82m6WUmpafvc4hhGPYv68
+	 L4t6POmSKjq9bNmQ40+zB3y3Xnenp6WgWiwMgcaou0eL6Rtd/NzETUgdow/3QYrFTW
+	 OVL8/heemX14zNW/ErVECE1yfJYxaAhJzwcr4XgvrQ87Zo1mRs9haN/w1AMnC/azof
+	 8jKGnTJee0t0+efYwx9b3e7Pr7Nf0TmGRyqQ9Pwi2kR0n6pDfIgQYMEjJnGjB8bsLc
+	 zRW5d2hnoSqKu5kDoQxZjLATB0F+qW7nYljR9iaKcTOglPI/hUO36sYSQlzYbUCbGW
+	 NaFkT8jaFU2fw==
+Date: Tue, 6 Oct 2026 14:24:02 +0000
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: Paul Louvel <paul.louvel@bootlin.com>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>, linux-watchdog@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-kbuild@vger.kernel.org,
-	Dmitry Voytik <voytikd@gmail.com>
-Subject: [PATCH v6] scripts/config: honor $KBUILD_OUTPUT by default
-Date: Tue,  6 Oct 2026 16:23:37 +0200
-Message-ID: <20261006142337.821859-1-voytikd@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v3 1/6] watchdog: w83627hf_wdt: Replace magic numbers
+ with descriptive macros
+Message-ID: <asUEgunBdF6N9LCA@google.com>
+References: <20261004-w83627hf_wdt-improvements-v3-0-8e27b518595e@bootlin.com>
+ <20261004-w83627hf_wdt-improvements-v3-1-8e27b518595e@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261004-w83627hf_wdt-improvements-v3-1-8e27b518595e@bootlin.com>
 
-If $KBUILD_OUTPUT is set, use it by default if --file is not passed.
+On Sun, Oct 04, 2026 at 02:12:49PM +0200, Paul Louvel wrote:
+> @@ -71,6 +72,12 @@ MODULE_PARM_DESC(early_disable, "Disable watchdog at boot time (default=0)");
+>   *	Kernel methods.
+>   */
+>  
+> +#define SIO_REG_LDSEL		0x07	/* Logical device select */
+> +#define SIO_REG_DEVID		0x20	/* Device ID (1 or 2 bytes) */
+> +#define SIO_REG_ENABLE		0x30	/* Logical device enable */
+> +#define SIO_REG_CONF_ADDR0	0x2E
+> +#define SIO_REG_CONF_ADDR1	0x4E
 
-Fix the issue when the script silently updates a stale .config in
-the root directory, while the user expects ${KBUILD_OUTPUT}/.config
-to be updated.
-Handle properly if the config file is a relative path.
+They are actually I/O ports rather than SIO registers.  SIO_PORT_2E and
+SIO_PORT_4E (or SIO_CONF_PORT_*) would be better names to distinguish them
+from SIO_REG_*.
 
-The problem can be worked around with --file, but this is easy to miss,
-and is inconsistent with how the Makefile and other tools work
-(e.g., scripts/diffconfig).
+> @@ -248,16 +258,17 @@ static int w83627hf_init(struct watchdog_device *wdog, enum chips chip)
+>  		}
+>  	}
+>  
+> -	/* set second mode & disable keyboard turning off watchdog */
+> -	t = superio_inb(cr_wdt_control) & ~0x0C;
+> +	/* set second mode & disable keyboard reset turning off watchdog */
 
-How to reproduce the issue:
-	make mrproper
-	export KBUILD_OUTPUT=.out
-	make defconfig
-	./scripts/config \
-	       -e CONFIG_UBSAN
-Error reported:
-	grep: .config: No such file or directory
+This is confusing.  How about:
 
-How the patch was tested:
-	make mrproper
-	export KBUILD_OUTPUT=.out
-	make defconfig
-	grep "CONFIG_UBSAN=y" $KBUILD_OUTPUT/.config || echo "OK"
+    /* set second mode & disable watchdog reload on keyboard reset */
 
-Test the basic usage:
-	./scripts/config -e CONFIG_UBSAN
-	grep "CONFIG_UBSAN=y" $KBUILD_OUTPUT/.config && echo "OK"
+> +	t = superio_inb(cr_wdt_control) &
+> +	    ~(WDT_CTRL_MINUTE_MODE | WDT_CTRL_RISING_EDGE_KBD_RESET);
+>  	superio_outb(cr_wdt_control, t);
+>  
+>  	t = superio_inb(cr_wdt_csr);
+>  	if (t & WDT_CSR_STATUS)
+>  		wdog->bootstatus |= WDIOF_CARDRESET;
+>  
+> -	/* reset status, disable keyboard & mouse turning off watchdog */
+> -	t &= ~(WDT_CSR_STATUS | WDT_CSR_KBD | WDT_CSR_MOUSE);
+> +	/* reset status, disable keyboard & mouse interrupt turning off watchdog */
 
-Test --refresh picks up correct config file by using $KBUILD_OUTPUT:
-	./scripts/config -d CONFIG_UBSAN
-	grep "CONFIG_UBSAN=y" $KBUILD_OUTPUT/.config && echo "FAIL"
-	./scripts/config --refresh -e CONFIG_UBSAN
-	grep "CONFIG_UBSAN=y" $KBUILD_OUTPUT/.config && echo "OK"
+Same here.  How about:
 
-Test --file takes precedence over $KBUILD_OUTPUT and a relative
-path is handled properly:
-	./scripts/config -d CONFIG_UBSAN
-	mkdir .out2
-	cp .out/.config .out2/.my_config
-	grep "CONFIG_UBSAN=y" .out2/.my_config  && echo "FAIL"
-	./scripts/config --file .out2/.my_config --refresh \
-	       -e CONFIG_UBSAN
-	grep "CONFIG_UBSAN=y" .out2/.my_config && echo "OK"
-	ls .out/.out2 && echo "FAIL"
-	ls .out/.out && echo "FAIL"
+    /* reset status & disable watchdog reload on keyboard/mouse interrupts */
 
-Test --file can accept files with hyphen:
-	./scripts/config -d CONFIG_UBSAN
-	cp .out/.config -- -my_config
-	grep "CONFIG_UBSAN=y" -- -my_config && echo "FAIL"
-	./scripts/config  --refresh \
-	       -e CONFIG_UBSAN --file -my_config
-	grep "CONFIG_UBSAN=y" -- -my_config && echo "OK"
+> @@ -513,11 +524,11 @@ static int __init wdt_init(void)
+>  	/* Apply system-specific quirks */
+>  	dmi_check_system(wdt_dmi_table);
+>  
+> -	wdt_io = 0x2e;
+> -	chip = wdt_find(0x2e);
+> +	wdt_io = SIO_REG_CONF_ADDR0;
+> +	chip = wdt_find(SIO_REG_CONF_ADDR0);
+>  	if (chip < 0) {
+> -		wdt_io = 0x4e;
+> -		chip = wdt_find(0x4e);
+> +		wdt_io = SIO_REG_CONF_ADDR1;
+> +		chip = wdt_find(SIO_REG_CONF_ADDR1);
 
-Signed-off-by: Dmitry Voytik <voytikd@gmail.com>
----
-v6:
- * Per Nathan Chancellor's suggestions, simplified
- * https://lore.kernel.org/lkml/179121581235.2275809.12565811683284940522.b4-review@b4/
-v5:
- * Per Nathan Chancellor's suggestion, improved handling $FN path by
-   realpath
- * https://lore.kernel.org/lkml/179097210878.309835.10523307262544578337.b4-review@b4/
- * Documented the new test scenario in the git commit message
-v4:
- * Addressed Nicolas Schier's comments - dropped the change how '--refresh'
-   is handled
- * Implemented conversion of $FN to the absolute path which helps with
-   '--refresh' and relative paths
- * Documented testing steps in the commit message
-v3:
- * Added an example in the commit message how to reproduce the issue
-v2:
- * Addressed comments by sashiko:
-   * https://sashiko.dev/#/patchset/20260920064350.17999-1-voytikd%40gmail.com
-   * use basename when --refresh is used
-   * remove echo which can be misleading when --file is passed
-v1:
- * https://lore.kernel.org/all/20260920064350.17999-1-voytikd@gmail.com/
----
- scripts/config | 17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
-
-diff --git a/scripts/config b/scripts/config
-index 32428ea909c2..d1d59d5fece6 100755
---- a/scripts/config
-+++ b/scripts/config
-@@ -130,13 +130,23 @@ on_exit() {
- trap on_exit EXIT
- 
- FN=.config
-+
-+if [ -n "$KBUILD_OUTPUT" ]; then
-+	if [ ! -d "$KBUILD_OUTPUT" ]; then
-+		echo "KBUILD_OUTPUT is set but does not exist or is not a " >&2
-+		echo "directory. Create it before running $myname." >&2
-+		exit 1
-+	fi
-+	FN=$(realpath -- "$KBUILD_OUTPUT")/"$FN"
-+fi
-+
- CMDS=()
- while [[ $# -gt 0 ]]; do
- 	if [ "$1" = "--file" ]; then
- 		if [ "$2" = "" ]; then
- 			usage
- 		fi
--		FN="$2"
-+		FN=$(realpath -q -- "$2" || printf -- "%s\n" "$2")
- 		shift 2
- 	else
- 		CMDS+=("$1")
-@@ -144,6 +154,7 @@ while [[ $# -gt 0 ]]; do
- 	fi
- done
- 
-+
- set -- "${CMDS[@]}"
- if [ "$1" = "" ] ; then
- 	usage
-@@ -200,7 +211,7 @@ while [ "$1" != "" ] ; do
- 		;;
- 
- 	--state|-s)
--		if grep -q "# ${CONFIG_}$ARG is not set" $FN ; then
-+		if grep -q "# ${CONFIG_}$ARG is not set" "$FN" ; then
- 			echo n
- 		else
- 			V="$(grep "^${CONFIG_}$ARG=" $FN)"
-@@ -229,7 +240,7 @@ while [ "$1" != "" ] ; do
- 		;;
- 
- 	--refresh)
--		yes "" | make oldconfig KCONFIG_CONFIG=$FN
-+		yes "" | make oldconfig KCONFIG_CONFIG="$FN"
- 		;;
- 
- 	*)
--- 
-2.55.0
-
+I noticed the 'addr' parameter in wdt_find() is unused.  We could consider
+removing it in a later cleanup patch.
