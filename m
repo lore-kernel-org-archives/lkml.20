@@ -1,71 +1,75 @@
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0FA636D4F1
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 20:08:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0C733A6F17
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 20:08:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791317290; cv=none; b=Tcjky+6x/JLt1pe1zixlqcIXCMq8vXm56OMISCbXUqjpz3uI3jB4KYXXRZd3VExhsyjyk+Q8Ol03SpXTMKNFn00cqO64a/TxY1zDJ/S+YLLSsQ7pcYQTW64KRiDzsz4177tCpKGoqWv2uAfhkmONrj8CJEY+GGPRSNan9JjahIU=
+	t=1791317297; cv=none; b=QedLyBSaJHONEuJrjxto+APYIuVlo+nxilbExOBWUbDBOFSNd/4sYLQKZu1lSpy6skA9GmjNpfPLJqFp665CNmkrRP/oVuLHTqq/CboVAotzhv0rF+cSuBVeqQSACadDUlqurt5i96HAx82Wwk69LBxAeUcAtExni+GMfy5hDPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791317290; c=relaxed/simple;
-	bh=PhhKSOpCe/E/GAGK6TfFO4BrrpiXBwhPFWTDPIQI8PQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PYtmehq8oEMJubkEiF+NAr/ALjW72ADxJXv3wvFuox2+D9oTU9mZHw8i9NNjMGOZsoUUqjvu4BpV0zKcELFeNqa8TVgwHQxDBCfyG3rQhPI/QZTRH1zD9RkYweS+oX04ocU7+DTNnlw6EEGXMkAHg/sMlsjdPNiwq5Gn75mlYD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pfNDgMC+; arc=none smtp.client-ip=74.125.82.180
+	s=arc-20240116; t=1791317297; c=relaxed/simple;
+	bh=7i4MfBif1YBMwW4P4YcIx42H2opYlr9PUCuKE67zzF8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Oj5bu7JWeWh0oaYyDTyO5PTmegEfIhdOnfnfEFrjxDkPuYjXR2nZPwC993gs2nLn26fbn9f2HrqSx3dGR09g+m44a/JIv+BRY0yMOjvvV2rffXR7S/m20TDdDscVVnWYmm+xJxOV7Gisfckn//RQ/NIFdBl/2vFapJTGhpoKVzs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OISjucD0; arc=none smtp.client-ip=74.125.82.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pfNDgMC+"
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-34c4a0868b6so2837201eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 13:08:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OISjucD0"
+Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-16079d54c17so832511c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 13:08:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791317288; x=1791922088; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=REeqHpbU7sEmHz3kU0K1dMEvaUlqDewtYeD77YnIXKk=;
-        b=pfNDgMC+sgMXkiyPvIdHPNRXfDuJXYF8Zyt+gHXm+54X8cnDXRx1zUvXDg6s4XRoo9
-         TOIERF1vnHX6E/8ekL+p0NX59Az8Z/i7VLgPbQlVz5IcZ6lNofdozHQI+DMPZ2XEh58Y
-         XxcnLebBnmGk9kateY5ZxPz9/Nh8lyxWwvsmVkMXw+JXpwjSqADfhJvjk/yikvuV2/0m
-         GVU0BGozDBrgMFxIqnq4/ARsewk+6cSGEr5Zu9KhJxp7pdqe7APhj9uhuLPymM/hZ3KC
-         C8e4wGF/BaPjK3ee7nXfpJtVWnY7y8V+p1mwynDutK+d1CThcl3f1ELPxtJH86cHVypn
-         v8dw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791317288; x=1791922088;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791317295; x=1791922095; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=REeqHpbU7sEmHz3kU0K1dMEvaUlqDewtYeD77YnIXKk=;
-        b=2V0eCkrYQXGsB/onmJP7ik24quklL1NgJJPRHLvgGzJiqG3xSiETJ13TtGBGWZrWFB
-         +1vrJcM4SqSDtML3tRiDPgYWb8vDPVwdZFvlImvq5dFplkWm0/q+hiK2XxwmL9PUjZJJ
-         gORDQ+uojmiL7zlzpptOBHC8R8jmm1tx9ueAwbUTrB5eoMnPY2dx09hhrqolF7wWXbsR
-         37VVJSSs9pFliMAWAkn7S/nh2Vhxo4iwrESlxb406rW7QOqL8iV0DD26oQTbp+8h1WDx
-         fhYJk69wtb2lyha+HqQSF2vmCE5IaL2tZmsiYMJ2IKiuEQbQZg2M9x8ye9tfNL+nPvbR
-         IygQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy+BwNgy2NRdi7JAtek5RKzrYfP8ZkstA77Wdwhqyjg/51joSN7dmzBxq+OCAsRQQHfQUNLd6YBN8KEumc=@vger.kernel.org
-X-Gm-Message-State: AFuF++n4uAU8Ldc4RSCZxez5yKdlQcWnIfCfj0yCTBFwSR4UDcOsmqza
-	qyDdN1sYuUETKKtM6cnoG5FjFtfsY4DF0HWJhvSur7fIE/vY7bpLTBkxAhFiSw==
-X-Gm-Gg: AYBFou2P+jxhJW/MYB1bKGSDd1ze+nde+VioDOxrahscy0bstToCM9h2gVpFwMztZJP
-	am8tOUxyKMk8PC3Nnl3dyVUD88x1PkE59OVwMigmCLxK2yce2ZWgFZrEPIsXY4vwbffJmE9Cj0V
-	RUd2537OLRhK3T3jCcy1RM09mGPrFNg1Sl/IUz7qis5xMeLPvDIBOE2HPmmUp+F317W1gtssQxy
-	AppkdAkDl2dWsYpln626pCf8iyauaSyJXmbUl0GoxZGjX4+/lTp94wftGPjw7uPo0Mu1pjNLz/G
-	qD2hR6hWrjuu6HD4PpBVGYlb7/Bhud/T7XI9eDXgmli2hwlL5h2sXLyjJv887Gi1KvoPq20W5E4
-	S+ehbG1uwvKnUUkeyOrMKty9D5tZ5lk49GQFM+fdbTDvHDGKWYrRAdTQDgXVQCoB9fKh0wUseVr
-	9fychYIDdVQ8gS9TQcB+6rk5nj788Nqa82imK08QxBt68D+CNscAIg20aB9f869OsnprsWQ06/W
-	Q==
-X-Received: by 2002:a05:701b:418e:20b0:15b:1439:1fcb with SMTP id a92af1059eb24-15ec66dd5e1mr2613597c88.10.1791317287714;
-        Tue, 06 Oct 2026 13:08:07 -0700 (PDT)
+        bh=nRFnytrAolaXx0R4qG3nHnA0DMDOLQyqllwW7qfiF5s=;
+        b=OISjucD09bZyH8SU0Iyqa9zNXxKpyZRtTnhC3+L+D/PgMtTGO7nTXTl8pXj4GcLPYy
+         55RAvE1n0of+fax7mM6OwC3Fqs5m2VjxZ5rpAGgesHYK7IFKQ3jG/di/2YZozcVoeiWl
+         PZAppcEG/W1WBR7YZSUx35kSO7FgymLA8XJalEDpcm83ZPwKd5jrmSIqvRYJgPA1niRI
+         EUuECFgljQ1cYZWKX5jlsZZdAkOyC8xEP5IODHHdzyFlOhTyJopFLnZ2hZROhkHNdGDK
+         c4hPKiPPmkeaD7W4THDzjTriLMDLZZbvWp7PXBfuYylx29U3UFdP0Efs3AtOuf16mF5B
+         4i4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791317295; x=1791922095;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nRFnytrAolaXx0R4qG3nHnA0DMDOLQyqllwW7qfiF5s=;
+        b=HAP+YvfTKl5yYfLZbPskYvsEHegS3skJDJBYH29BGUgKx4yED2CnyMHH8gtya5Nkx1
+         wTbproocGAnnSb+Q62fFXtiUCFy69uRUr5zhFI2sT3B9FimKCaslyFjpZPRUkrVfFGYX
+         9vWTDlym1R1BhuO13OREsF8VQc0uu+VhPGLYgOkj67SPhtIOMWS5oEXiQc9mf0wl0lOz
+         ZkFDalqwd2pUfSLW9Hap3yD527HaMWXHnNcw3+ORrP6GdSRTJNs6IV+B3IpRw5USG91t
+         6qawJsFJtjtjRcAncQBXxgipBtOeT7XeEiKF+pKtB1sUG9sJUHRbQtQy3QzThPenwy+N
+         JONQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzfQBeywedpVYbo5rYXpDqfp8yGgesuY1EMNtvf9/vmIDNJCLoJUDXHh0zoPBONyQu4iqfd6/AHfU807to=@vger.kernel.org
+X-Gm-Message-State: AFuF++nDWTDz5LglaILJTJpk8rgnh7xgjeZteszCjWGIVlfoC2bBUqgJ
+	JSIJT6I37y8fT/ESqRa/CMV89aU1rbv2JSrYrhR14RS1J6Xchfrr2l1THEkynw==
+X-Gm-Gg: AYBFou3sv3T+c09euymf1RkAjXysE59WZM7inqO+jCuqtaNxSvCg7psinlHf2pJPcu4
+	xTtcPUycSSimB1uqwvvCezzTu3H/6Nf7uah+hwF+ZVGHSTCsiv2IkvzS/zFyoyfB45DUYtjWs6R
+	UuosIZ1zJ4tXE3WBo+U20eGil0hV8H9QJ/i0KCOK6QSWAgFVD4NwGhiaaM3VaNu6wDAtarFDbM/
+	FZlyw35gcd00TO0dpJYrjYZf5c2tCg1X7BT1iG+h8K5WCoBKIhiQodBglIMZr6aGxEyfx3YC8GU
+	ogRrZHcYM17WIFB/K8xIvzeUrC2NJdOmGYpWe1r36IdL/6/DxBDNgjEPGGhkRvkMBeIbF5C/0Jx
+	dYC/uw9o3Q4oc0o6U4IjLpYW/FS7Br3sXukm/nHN2mG2T5ubA5hblHwYiuZ3H4CnVMvA0olmyaM
+	IHAK8mj14NwQQPL7gGQ5nEwohOFpXGMOVjNWFIBktPA0qDACSIrJ9D1jilZzKxP6IVC4+MmYt3B
+	g==
+X-Received: by 2002:a05:701b:4544:20b0:156:1d8:7026 with SMTP id a92af1059eb24-15ece6d34c6mr2813983c88.46.1791317294962;
+        Tue, 06 Oct 2026 13:08:14 -0700 (PDT)
 Received: from host ([103.103.208.69])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-161680e191esm804946c88.11.2026.10.06.13.08.05
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-161680e191esm804946c88.11.2026.10.06.13.08.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 13:08:06 -0700 (PDT)
+        Tue, 06 Oct 2026 13:08:14 -0700 (PDT)
 From: Pranav Desai <contact.pranavdesai@gmail.com>
 To: gregkh@linuxfoundation.org
 Cc: linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Pranav Desai <contact.pranavdesai@gmail.com>
-Subject: [PATCH v2 0/2] staging: rtl8723bs: fix uint types in hal_intf and rtw_security
-Date: Wed,  7 Oct 2026 01:37:49 +0530
-Message-ID: <20261006200751.819332-1-contact.pranavdesai@gmail.com>
+Subject: [PATCH v2 1/2] staging: rtl8723bs: replace uint with u32 in hal_intf.[ch]
+Date: Wed,  7 Oct 2026 01:37:50 +0530
+Message-ID: <20261006200751.819332-2-contact.pranavdesai@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261006200751.819332-1-contact.pranavdesai@gmail.com>
+References: <20261006200751.819332-1-contact.pranavdesai@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,31 +78,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Per Greg's feedback on v1, I went through the variables to pick
-types based on how each is used, rather than doing a blind replace.
+The non-standard 'uint' type was used for the return values of
+rtw_hal_init() and rtw_hal_deinit(), as well as their internal
+'status' variables.
 
-I am sending this as a smaller 2-patch series to ensure I am on the
-right track before tackling the rest of the driver. If this approach
-looks good, I will do the same for the remaining files.
+Since the underlying hardware-specific functions
+(rtl8723bs_hal_init() and rtl8723bs_hal_deinit()) explicitly
+return u32, replace these 'uint' occurrences with 'u32' to match
+the underlying types and conform to the kernel coding style.
 
-Changes in v2:
-- Replaced the driver-wide `uint` to `unsigned int` conversion with
-  explicit sizing (u8, u16, u32, bool) based on actual variable usage.
-- Scoped down from the entire driver to just hal_intf and rtw_security
-  to keep review easy.
+Signed-off-by: Pranav Desai <contact.pranavdesai@gmail.com>
+---
+ drivers/staging/rtl8723bs/hal/hal_intf.c     | 8 ++++----
+ drivers/staging/rtl8723bs/include/hal_intf.h | 4 ++--
+ 2 files changed, 6 insertions(+), 6 deletions(-)
 
-Link: https://lore.kernel.org/linux-staging/20261006102846.170825-1-contact.pranavdesai@gmail.com/
-
-
-Pranav Desai (2):
-  staging: rtl8723bs: replace uint with u32 in hal_intf.[ch]
-  staging: rtl8723bs: replace uint with explicit types in rtw_security.c
-
- drivers/staging/rtl8723bs/core/rtw_security.c | 51 +++++++++++--------
- drivers/staging/rtl8723bs/hal/hal_intf.c      |  8 +--
- drivers/staging/rtl8723bs/include/hal_intf.h  |  4 +-
- 3 files changed, 36 insertions(+), 27 deletions(-)
-
+diff --git a/drivers/staging/rtl8723bs/hal/hal_intf.c b/drivers/staging/rtl8723bs/hal/hal_intf.c
+index 1443875d1369..1290631a2158 100644
+--- a/drivers/staging/rtl8723bs/hal/hal_intf.c
++++ b/drivers/staging/rtl8723bs/hal/hal_intf.c
+@@ -27,9 +27,9 @@ static void rtw_hal_init_opmode(struct adapter *padapter)
+ 	rtw_setopmode_cmd(padapter, networkType, false);
+ }
+ 
+-uint rtw_hal_init(struct adapter *padapter)
++u32 rtw_hal_init(struct adapter *padapter)
+ {
+-	uint status;
++	u32 status;
+ 	struct dvobj_priv *dvobj = adapter_to_dvobj(padapter);
+ 
+ 	status = rtl8723bs_hal_init(padapter);
+@@ -54,9 +54,9 @@ uint rtw_hal_init(struct adapter *padapter)
+ 	return status;
+ }
+ 
+-uint rtw_hal_deinit(struct adapter *padapter)
++u32 rtw_hal_deinit(struct adapter *padapter)
+ {
+-	uint status = _SUCCESS;
++	u32 status = _SUCCESS;
+ 	struct dvobj_priv *dvobj = adapter_to_dvobj(padapter);
+ 
+ 	status = rtl8723bs_hal_deinit(padapter);
+diff --git a/drivers/staging/rtl8723bs/include/hal_intf.h b/drivers/staging/rtl8723bs/include/hal_intf.h
+index 7b63116525ca..ff2a9982a102 100644
+--- a/drivers/staging/rtl8723bs/include/hal_intf.h
++++ b/drivers/staging/rtl8723bs/include/hal_intf.h
+@@ -175,8 +175,8 @@ typedef s32 (*c2h_id_filter)(u8 *c2h_evt);
+ #define	RX_PNOWakeUp			0x55
+ #define	AP_WakeUp			0x66
+ 
+-uint rtw_hal_init(struct adapter *padapter);
+-uint rtw_hal_deinit(struct adapter *padapter);
++u32 rtw_hal_init(struct adapter *padapter);
++u32 rtw_hal_deinit(struct adapter *padapter);
+ void rtw_hal_stop(struct adapter *padapter);
+ void rtw_hal_set_hwreg(struct adapter *padapter, u8 variable, u8 *val);
+ void rtw_hal_get_hwreg(struct adapter *padapter, u8 variable, u8 *val);
 -- 
 2.55.0
 
