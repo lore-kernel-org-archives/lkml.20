@@ -1,191 +1,124 @@
-Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com [209.85.167.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4404549C4A5
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 15:05:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791299154; cv=pass; b=AGGSmLnkyYKuAxKPif+vNi44/+0HsQ6ivXCcAOu2mGqqVlT0GNwO+CnK7u2VRazzK6QICbcEJ2RaSWo832q/SL2p+GecgLK/Iru1i7oV05svKNnZ6QLQfZ/ALPPpv6X/pEvMxiwE10751NpnusmysipImdEZ+o8h0q66Oed+pHQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791299154; c=relaxed/simple;
-	bh=YVC2BPRipWA3F8RCf661MD2MDTtLmCEYdI0GMzOeaKA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BPbC06aWHTKVA5++mT6VyY4013jmyFGDjnb9AbYu8t7BCsOqTcGEHhSoCqPvkwNJIUgXFkR3imBk45U/6nkHBQ3r6y1R/eoWp1Z/ayfOTBAMbTBj8GK8rF6nspahSoJhVJIscjd8IsPTU4f0z9xhnFxl/OgzzDMPry5YDuQrlzA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W/VsMLBu; arc=pass smtp.client-ip=209.85.167.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F099472F81;
+	Tue,  6 Oct 2026 15:06:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791299213; cv=none; b=WyuLDsEr3QVUZCKKClDxcpq5BTJC7VrbxwLu6vNP+qGRGvkKtWQD+SfkqUFhObQZwwxIWO0O+4YJqU1MsOQVjj+0IAS1jrBIl4vn7FySloOyN1pc3PIy7yapw27a2wep4ZW+HK5vQoxuYPdiKwDyN/UHqBMLttFNhNCwCtmAV0I=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791299213; c=relaxed/simple;
+	bh=IHf3nZpjL87Z6VWmVYrDWfpBWzDYqnG5yvHqluTl7ls=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VACFm1cNSBB4XNfdsopsJFMd3ujaA+izQzeWXa/egdI+QKty/qEss2TO4fosdtUVWsRSGhlfEfJQ7rPkjJMecptYUqc/I9AtZ/pO0nvzI9irv8HX5Mr0jO0QdJGkMGeWC6Cf/YQ1QQIOHkTc4axL0HkZzVXYrKTORF8lzzWbyYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TYD7NtYi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W/VsMLBu"
-Received: by mail-oi1-f182.google.com with SMTP id 5614622812f47-4f59e61f295so530630b6e.3
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 08:05:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791299152; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nD2afrvO0TPYhyPL+QvHZzszgSt4FO+FFcylLjEE7hLrzcIZBrcpME77QNpI7RhkSd
-         wLt+Xj1pIOTshZhV42jUF8c2XcEQC6nuOGVBOzblx3/S0hBSKihkBxn4fn+g2VWm1Aip
-         BS4vOFihYzD5zJevmSiV/IKkUfPzu6TnmhcwY8ZJn+rWMcdllpYnibjI62JMxaCQRhZB
-         6IlgwXsYVkBpL+42T4t6DiaOhMct1wDtoW+3/+SidjJDy0G/b+NJxxMbML2NUwaeeS3s
-         Y1f+9tA8HihkQbhZmaSGb2RCwBN2+j3QcoxsYP09ia0dTb10o1icQEBzoPkJplpE+BPE
-         0igQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=qns0Ve5FBsD6x5ySVg9MVtsDTlkBXqWvb1Wkh64joq0=;
-        fh=pTEF1jm147nVGQB9tp8T31d4WtJ5HVFGxHttm8vlw/o=;
-        b=TA2uYzAPpWjAdcxqcRqlYvC3XeFZ7/kXumJBNfA4O/5Z+pj5ZKo+2KGLytPvdUolgf
-         kZoQoMvSL3gMWQUl4UkVQzvffB2vp/rPjySfq/yk6fn45nXYL16zkFztGJVw8VJKcz8k
-         BLLU4GkM+vo3dKjvA1kOpnh8S14yCG9FyADsBsiNT0CiyzQyxOBPgOxq/ROsZXycCOTG
-         Rb8C6l6kL8SYYhKAsB76wNmvDBLmE+Muw0y3GYMT7unjM000W2EUCDM2xJIC6eV8XzkB
-         nSZef+weWoY50ZZsZ2tquUA1yqfIDx2HCPeXzwxyAxIZdbN1iXL7Hu8qdUq+icaIGarE
-         fbhQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791299152; x=1791903952; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qns0Ve5FBsD6x5ySVg9MVtsDTlkBXqWvb1Wkh64joq0=;
-        b=W/VsMLBuu09fpwBV4H9Pikx3dNMfX+I88zP14BxPCo6dFkD2sJLFeSLlfFofJ+DPiP
-         X9uuNwNzq4makJrtTjWzaYFKTP7eF4TcCz1ofNsqNdVZa1WSK8Nx9pFdwp5q2bt0h911
-         l02KnqNPR9FCvx2h9tsBIPeuYSVVV+A41/vGeUdgGo1szjTCZN6Pf5pzoFfJDCGFRLIZ
-         yUIlAIFQ0HvMMoQQZNCog+lqaGf7AbBxaMs4bCkE0DPHtD5eHd8cB4zRehoqO4ZBMZ2N
-         cIWEl9/wTcJ0bUoifJigtQAULp4wHi47CHgun+3+rP/2BvbDkffoGaFJwJxKY4DjgXmx
-         ZYJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791299152; x=1791903952;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qns0Ve5FBsD6x5ySVg9MVtsDTlkBXqWvb1Wkh64joq0=;
-        b=Wsy7oHephNB3jIpenEx7BsG7T7CAB4mdRROCaok6ww43yb8hHLb0DO8H/uR/Wl2W2U
-         fwBGDMavpd7CGZCLlOI/PzRqmb7OpzOfOkhvP0NHmt/UgLOdNCuGPjTEQOlGPXGADu4B
-         xHvTwHnkBDH4rTJifxaNN3PAjFa87ZrLYMQ4kmZqWMLGswZsynu5S9Qgl3p4cK+UGDAo
-         r2qbEH0pm/M0LsMrC6romk0psDhe+NoXJZZ/IipFm1WlcPU+A7nHCUC4seb892lUIObO
-         KU8cr7DifRItpB1EBM5umnW+CZp2ZOhjpYi+Js0bjYq6Oy9LEo/Ceq7qix3f/zUHZYp1
-         Z1Dg==
-X-Forwarded-Encrypted: i=1; AKwUvBztugXUBHIndOoLv0b8cHx2lf8/sgL+cMbQBq6LE/zT2mBrS13fd2cuzkPtqsXz97yMIOs1tcGg0hmu9oA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nNPogTbMDaphhx+BzQzHPrsnzhYaTI5a63kyGy4ZH5dUG1IcHS
-	espQsg+N8kew5og8in1eG8yuXBFVFNKC3i4unNBunTnzG/ArJtrlQmfzOK06lGPBuLt0n1GDg4N
-	BH7EVUtOsltFfBYNjFDgnhf6eqAOiRwo=
-X-Gm-Gg: AYBFou3q7M2P9evKBy2e4ipKUtG2FrIkFHvlpY0jbqxE9Z4wgekHnVf+7OewbP81yr6
-	GEgr85uQJJ7XL+c2QaRxXvyHsx8BWEfW1yh5brupx7fEfiK+OqCRNbekv6Tu0JetkqC18HIKsPw
-	wAdJoAS0/N74wjeTxSn/SnUOvRPRMX4uj/N1gCU4lGMV2rDHMzFpp2O+IvPvRyMI5oxOgKuiDnC
-	oi+welAGfKcAClwH0Mf/Ft2/rRIUGTPaLyQU0pryPcX5eH8CrrmPEWjliNVBixUzFg8ZvLn0qIM
-	ErhruWB+aM/ZBmyPgPCayjgRnXWOKbBEY8+hvRORWqK+O/Xrp9kYVowts9IZgath0rGizh7Vbtf
-	wdH3Wrq7bAYv+kg==
-X-Received: by 2002:a05:6808:50ab:b0:4d3:6be7:c5e9 with SMTP id
- 5614622812f47-4fb4027254amr1772058b6e.24.1791299151962; Tue, 06 Oct 2026
- 08:05:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TYD7NtYi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65E441F0089B;
+	Tue,  6 Oct 2026 15:06:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791299212;
+	bh=0fJ26XE1TvdwldcwM047xqNjWPwWFHsQ3DnqXb/Rf3Q=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=TYD7NtYiAWRI7Iw1iROGD0lQSPqlnM9MXgZV4uGemYtENuD1HByTUaOIqZo8Q4W6O
+	 RYbfr0sx8Gev4hjiGnnPGQ0Gf4RMLurU3och9ICRjbt0K6Aq4/4YXvkU+dX+jHnms+
+	 SGfzVXaXEg786nogqsSZoJpP02ZHTFHsXmjY3oxitrviIC1q8XuPCUJAWY5QOlsB+x
+	 bdbY0gy36LtxUg1zeyZggGgG85Mbv7lDertKFw66ddiwpONgkOPbaP9quDyCVelBvG
+	 oOJI89D7Cy14viPFVXrNfCsLFwybibddk8keMywl3JV2kS/CIHxPqdCk69G9tmVTnR
+	 BJR0dqVtoCQFw==
+Message-ID: <b622b5f5-859f-47db-95fb-daf5cb22720f@kernel.org>
+Date: Tue, 6 Oct 2026 17:06:43 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260908201302.1085862-1-georgeandrout13@gmail.com>
-In-Reply-To: <20260908201302.1085862-1-georgeandrout13@gmail.com>
-From: Georgios Androutsopoulos <georgeandrout13@gmail.com>
-Date: Tue, 6 Oct 2026 11:05:41 -0400
-X-Gm-Features: AclHuK9mg9m2V3zh65-8EB7fiSKLtEon174Uu5eNM3MZudNsRjd_XcYbP47AEBs
-Message-ID: <CAESH5ofE5dYAvJKZC4tF9dB-_w4V7LmhPmnetAGkq=E4Hw2uBA@mail.gmail.com>
-Subject: Re: [PATCH v3] rust: bitmap: document panics in `next_bit` and `next_zero_bit`
-To: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>, 
-	Miguel Ojeda <ojeda@kernel.org>, Yury Norov <yury.norov@gmail.com>
-Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v18 03/23] dt-bindings: media: i2c: max96717: add support
+ for pinctrl/pinconf
+To: dumitru.ceclan@analog.com,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Julien Massot <julien.massot@collabora.com>, Rob Herring <robh@kernel.org>,
+ =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ mitrutzceclan@gmail.com, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-gpio@vger.kernel.org,
+ =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+ Martin Hecht <Martin.Hecht@avnet.eu>, Andrian Suciu
+ <Adrian.Suciu@analog.com>, Cosmin Tanislav <demonsingur@gmail.com>,
+ Martin Hecht <mhecht73@gmail.com>
+References: <20260930-gmsl2-3_serdes-v18-0-43117818f499@analog.com>
+ <20260930-gmsl2-3_serdes-v18-3-43117818f499@analog.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260930-gmsl2-3_serdes-v18-3-43117818f499@analog.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 8, 2026 at 4:13=E2=80=AFPM Georgios Androutsopoulos
-<georgeandrout13@gmail.com> wrote:
->
-> `next_bit()` and `next_zero_bit()` use `bitmap_assert!()` to check
-> that `start` is less than `self.len()`, which panics when
-> `CONFIG_RUST_BITMAP_HARDENED` is enabled. However, neither function
-> has a `# Panics` section, and both document that `None` is returned
-> for exactly the input that triggers the panic.
->
-> Update the documentation of `next_bit()` and `next_zero_bit()` to add
-> the missing `# Panics` sections, add the missing blank doc comment line
-> before `Returns` in `next_zero_bit()`, and simplify the wording.
->
-> Fixes: 11eca92a2cae ("rust: add bitmap API.")
-> Closes: https://github.com/Rust-for-Linux/linux/issues/1252
-> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-> Signed-off-by: Georgios Androutsopoulos <georgeandrout13@gmail.com>
-> ---
-> Changes in v3:
-> - Use Closes: instead of Link:, and add Fixes:, following feedback from
->   Alexandre Courbot and Miguel Ojeda.
-> - Link to v2: https://lore.kernel.org/rust-for-linux/20260828133543.22590=
-29-1-georgeandrout13@gmail.com/
->
-> Changes in v2:
-> - Simplify doc wording following feedback from Alice Ryhl.
-> - Remove extra empty line between Link: and Signed-off-by:.
-> - Link to v1: https://lore.kernel.org/rust-for-linux/20260827150719.10914=
-5-1-georgeandrout13@gmail.com/
-> ---
->  rust/kernel/bitmap.rs | 17 +++++++++++++++--
->  1 file changed, 15 insertions(+), 2 deletions(-)
->
-> diff --git a/rust/kernel/bitmap.rs b/rust/kernel/bitmap.rs
-> index b27e0ec80d64..b51c8a96f1a8 100644
-> --- a/rust/kernel/bitmap.rs
-> +++ b/rust/kernel/bitmap.rs
-> @@ -459,7 +459,13 @@ pub fn last_bit(&self) -> Option<usize> {
->
->      /// Finds next set bit, starting from `start`.
->      ///
-> -    /// Returns `None` if `start` is greater or equal to `self.nbits`.
-> +    /// Returns `None` if no bits are set on or after the given index. T=
-he
-> +    /// index `start` must be in bounds.
-> +    ///
-> +    /// # Panics
-> +    ///
-> +    /// Panics if `CONFIG_RUST_BITMAP_HARDENED` is enabled and `start` i=
-s
-> +    /// out of bounds.
->      #[inline]
->      pub fn next_bit(&self, start: usize) -> Option<usize> {
->          bitmap_assert!(
-> @@ -479,7 +485,14 @@ pub fn next_bit(&self, start: usize) -> Option<usize=
-> {
->      }
->
->      /// Finds next zero bit, starting from `start`.
-> -    /// Returns `None` if `start` is greater than or equal to `self.len(=
-)`.
-> +    ///
-> +    /// Returns `None` if no bits are zero on or after the given index. =
-The
-> +    /// index `start` must be in bounds.
-> +    ///
-> +    /// # Panics
-> +    ///
-> +    /// Panics if `CONFIG_RUST_BITMAP_HARDENED` is enabled and `start` i=
-s
-> +    /// out of bounds.
->      #[inline]
->      pub fn next_zero_bit(&self, start: usize) -> Option<usize> {
->          bitmap_assert!(
->
-> base-commit: 73e3f0710014fe6d4ed98cfc02292f6121db7558
-> --
-> 2.47.3
->
+On 30/09/2026 00:41, Dumitru Ceclan via B4 Relay wrote:
+> From: Cosmin Tanislav <demonsingur@gmail.com>
+> 
+> MAX96717 is capable of configuring various pin properties.
+> 
+> Add pinctrl/pinconf properties to support this usecase.
+> 
+> Signed-off-by: Cosmin Tanislav <demonsingur@gmail.com>
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> Tested-by: Martin Hecht <mhecht73@gmail.com>
 
-Hi,
+This is a fake test, you cannot test bindings how we understand Linux
+kernel testing. Please drop such blanket-fake test tags from all patches
+where this is not relevant.
 
-Just checking if there are any remaining concerns with this patch, or if
-it can be picked up.
 
-Thanks,
-Georgios
+Best regards,
+Krzysztof
