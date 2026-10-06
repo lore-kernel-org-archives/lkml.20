@@ -1,154 +1,192 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-yx2-f40.google.com (mail-yx2-f40.google.com [74.125.224.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FBDC217723;
-	Tue,  6 Oct 2026 14:12:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D73DA4503E1
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 14:13:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791295971; cv=none; b=Y1U2MxgNljQomQpVE/0iT9LwmAK5soSBpTGSBtbHN5Asrdqa+vUxaFvys+CRltT0tMveLMbzQDBNR1Ocx8hQA32pT7Ggs3FToJJoEeGLYOtdjOLHGHL1UQh6AUQIdeBIYRsm5DnMkwI3vdC0pvCtk6q3+RAmrpYjPLZTr+3tqhs=
+	t=1791296001; cv=none; b=b0MxLG3YRlwctSq3uwmGz7F1D4wc3mK4Nf7iOqVmL+KOWNHiGLVZMVhmYQfWxb1qtvR0Tk4eNzYTs9K7tGQKI3w6WsvZfuPmCCeZ1G/kAU/dFvp07QIkacU9KVJQXnrwkQT8DrMP2Tsp89adhXcuCOZOUmUZPVvZPdPlDtSn2lE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791295971; c=relaxed/simple;
-	bh=qdO7Mhq09bWIq9YgrxP0DPSw7OU9qBoagiXzBeavfO8=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=n/abKxLtHDRq702gyuVg492kDYK6PwXCZCnYxGij2v2jYsBPsxWJeWWkxdUGrvWo8XI0j7oRiLvUoUHG9HtWIueIxuQuMBg1sUg5No/IW8LcgUmqy1oUYlZ0y1xmt2rKndbYXtucVuuvmP9Dl6mr4bfKpsLmYgyDMb1aX+tTLUM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=SIcQQxUQ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=XHkj1ufn; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=BOGjlPyR; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=pdeFS0Xf; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791296001; c=relaxed/simple;
+	bh=YthvZh996WmS97p3yScvHgPu1ITU5mXYvRDBy99QpIA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dwm+ZS1PYwvUDgdiid8Z88bBd3ePq+JYuL+s0OghpWDKjQL4hMtOqg1yNmoUDOjKHaPtRJ40RFZUSl6xGcT3PrYS3GbvAInOZd9JGAypG6PwkZxdn9EsbPBL0+8IMhDMG/EqT27A5Q2vtxd7/HtXV6lukQbX4/Cgi2q00zR3ED0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tq1EZm9E; arc=none smtp.client-ip=74.125.224.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="SIcQQxUQ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="XHkj1ufn";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="BOGjlPyR";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="pdeFS0Xf"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id D8F9B21FEA;
-	Tue,  6 Oct 2026 14:12:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791295964; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uraFhfuuTVKiYFnDxsHsVcA5DvRI7vQxkFKFI35Ui9g=;
-	b=SIcQQxUQJfI8Z/2dW9neT02lR8VHHV+57O2xSRfXKhfqHiWr1Eco4CwqSHhhDwfCUckZbG
-	kk98Ns6/riwPuBVTcxpkym7aWY8QzBojVoRaxObA8INQfPfaLUugMn/DqhUQHyp+t+pyLf
-	wpitBlIxSc5pMtbaZx/qtzzMas8/bg4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791295964;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uraFhfuuTVKiYFnDxsHsVcA5DvRI7vQxkFKFI35Ui9g=;
-	b=XHkj1ufnORJf3k4Duhj7Tv+cCfDOl5wvTSBgdcLZPEce18PBuvPYjj0E5tFiyHv3JX2/ca
-	pjNncZtafAF/ZkDA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=BOGjlPyR;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=pdeFS0Xf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791295959; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uraFhfuuTVKiYFnDxsHsVcA5DvRI7vQxkFKFI35Ui9g=;
-	b=BOGjlPyRFLpN0bYhjfHVtQOR82Uq/CzPuiHQE/tAunqPhual8BA2Yi34r5EyarX4Ygsl1F
-	u84WGspol1kYkIfh67iEtKk19MVBBKDF5lnFYGN7CGlqBdiiSqZFR3xWPA1a51iH6bM6/r
-	cRvC0b3iBpMkTYeH+2f66ut9Vu0hPho=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791295959;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uraFhfuuTVKiYFnDxsHsVcA5DvRI7vQxkFKFI35Ui9g=;
-	b=pdeFS0XfuLQvzPcQdDsBL/1vfAJ1tkjACyTZCcwJgESZJDTZHZpUu1LOMbjbsfGl4gd7g8
-	twRep0f6+GRwG6AQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 83A1713A95;
-	Tue,  6 Oct 2026 14:12:39 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id H4MEGNcBxWoLFgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 06 Oct 2026 14:12:39 +0000
-Date: Tue, 06 Oct 2026 16:12:39 +0200
-Message-ID: <87ld8aq5ns.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Denis Yakovlev <mfthesun@vivaldi.net>
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda/realtek: Drop unneeded DAC override for HONOR MagicBook Pro 16 2024
-In-Reply-To: <20261005203836.11074-1-mfthesun@vivaldi.net>
-References: <20261005203836.11074-1-mfthesun@vivaldi.net>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tq1EZm9E"
+Received: by mail-yx2-f40.google.com with SMTP id 956f58d0204a3-6741b102537so325481d50.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 07:13:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791295998; x=1791900798; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hyEGomIzuBoHIvPyjH0DgVGZJd6w+q9JDDJqvGFGDIU=;
+        b=Tq1EZm9EfKyIAQTU8rmGy0hjPDEGN3zHgqHAgVakRlMJYPUnK7miO6GDyUK3Unxh+j
+         ZzgNkNDQOVqgIgPbkN37PjEKMtyJIBhZ9SPH1gqMZ2T2SiUizuqYjIxwo2tryQyIPPRg
+         D/qsxVL0vkePab0DN4LHmDBdjH0yIFDrCxai2V7mPrkqO9ObgOhzE+8LE9o7CxvN8M7G
+         5YuRJTXfrPWbv/5ri5MN6OL+SlMoAeB08twH36GB29aOZ37w4XLwpE3l2XFuq3PEAPyw
+         /sIqNacJ01JahrX4pdDT0yAct17Ue+iZYoT/xGSAOl/D97uv2dbWxXDLL2W1PPQExHEM
+         inEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791295998; x=1791900798;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hyEGomIzuBoHIvPyjH0DgVGZJd6w+q9JDDJqvGFGDIU=;
+        b=c2q5W7SOfCGt/81xr1Uc2EdR781WeYDVc7AGit46cgYfjhR2Bn1icjK3AdlMW7mDjo
+         YsQHhzZOEct+qaYIG1qBj3Y6YINcwwdnIe2eXh5Zg8z9ZH4wYeVHxfAe9ayaLV/EHsvZ
+         119MRN6Tdm2Bn/vlh5Vz4e+UkucLvQBuMpIw/gOJaZ2wiu+S12U0rPJIYyVSAzor+rMw
+         shldeMSPuWaa8P/Sct13Ird5aFKqEzAk5mJePwaSmbSdxeMmJ2gI5wlD7OMQhixyXCNo
+         GYkorgGpGcL+IOZ8jBNeUUrSAdqjLStw6cBVfLBVXGc6+frfRFUG2FFz+a6FYHDLZhsn
+         XnZA==
+X-Forwarded-Encrypted: i=1; AKwUvBylIKRE4AKqx2wIUU0owKYfHq9bwR2hHO0zRFroArlgDyqQddjWZeKg1E04vqKBXc/3CCuZsZoLfOccOSI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK/MbeHgukWDDBfp5lYGJ/3UPPgiVME9fNK52/vaByZLbvJZwx0
+	D6XDaMwF0zBH66yYps4sQOFjn8nAIqXr2h7KahZLpooCgyS/wHnLkq9K
+X-Gm-Gg: AYBFou3FKG/Xcq0ClaFHX5wCyiTAo93K+/XlMoDAnWn/MKelqnrtdFpDSPnCzOp87/1
+	sA+oMCwOooHaoHQAJmUGb87ovrM0z6S1YiPm5LcL0dhjNiiY7Cw1wmtWoqsILmf+axlIY1xzP5S
+	+arQdKx+oTciB+XINYc65dIcMlYkA/jsYAZGS3+1Kc4zqgvFl2Q/X+Rkud2Qe5FIXJpNgybHTir
+	wAkuooy3I035myPXOSPqTbsf1drZbg7mJfjPdfqC1tNyZgVnHIwIWhEQJGGXXtP8foRdXV6jfUW
+	jtObQ8NWrPJ282MkFt+mZLV3WzMi8MUx8nnVkHIrTxWYg9txnRymopHXGaYqNaiIxaPQwgFxkDB
+	hxsHGKQxdPpVZvbXQzPwQgh4ByuSPhGGKxRPkV5HNgcpgJLC6MgpGNgq60CVUsb4Ojg922hxdlz
+	Sza+fbnG3hZGP1JXjVvg1oMk33FND+ZaaSY+ClhkRQbUJ9wrrzMUOn1cQ7x+l4ycSAuP3btRjPi
+	IbViOTDQIMbRvlm7S8x0J1rUxlmld1IMw3huWE6Gsx/PqIPQjdVoyaVOUg=
+X-Received: by 2002:a05:690e:1585:10b0:677:bd0d:52b4 with SMTP id 956f58d0204a3-677bd0d5635mr5641309d50.2.1791295997457;
+        Tue, 06 Oct 2026 07:13:17 -0700 (PDT)
+Received: from yes.c.googlers.com.com (215.177.86.34.bc.googleusercontent.com. [34.86.177.215])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-678ff67ee9asm438458d50.22.2026.10.06.07.13.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 07:13:16 -0700 (PDT)
+From: Neal Cardwell <ncardwell.sw@gmail.com>
+To: edumazet@kernel.org
+Cc: davem@davemloft.net,
+	horms@kernel.org,
+	jiayuan.chen@linux.dev,
+	kuba@kernel.org,
+	kuniyu@google.com,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	ncardwell@google.com,
+	netdev@vger.kernel.org,
+	nramaswamy@openai.com,
+	pabeni@redhat.com,
+	shuah@kernel.org,
+	ycheng@google.com
+Subject: Re: [PATCH net v2 1/2] tcp: restore RACK list membership when undoing loss
+Date: Tue,  6 Oct 2026 07:13:00 -0700
+Message-ID: <20261006141300.1722466-1-ncardwell.sw@gmail.com>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+In-Reply-To: <CAL4WiipKWgA-EcFWDQd3t7nBwU7AnkLvqs6j--he-dR-SAgqiw@mail.gmail.com>
+References: <CAL4WiipKWgA-EcFWDQd3t7nBwU7AnkLvqs6j--he-dR-SAgqiw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: D8F9B21FEA
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
-X-Spam-Score: -3.51
-X-Spam-Level: 
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, 05 Oct 2026 22:38:36 +0200,
-Denis Yakovlev wrote:
-> 
-> Commit 1e3e378d63be ("ALSA: hda/realtek: Enable bass speakers on HONOR
-> MagicBook Pro 16 2024") restricted the speaker pin 0x1b to DAC 0x02, on
-> the assumption that the second speaker pair would otherwise end up on
-> DAC 0x03, as channels 3/4 that a stereo stream never reaches. That
-> assumption was wrong: without the override, pin 0x1b is still connected
-> to DAC 0x02, the only DAC that pin 0x14 can use, so the override changes
-> nothing. With and without it the codec routing is identical and the
-> speakers behave the same with nothing plugged in, with headphones and
-> with a CTIA headset inserted; without it they also keep working after
-> suspend/resume.
-> 
-> That commit also got the speaker roles the wrong way round. Pin 0x1b,
-> which the BIOS does configure, drives the bottom speakers, which carry
-> the low and mid frequencies; pin 0x14 drives the tweeters next to the
-> keyboard, and those are the speakers that stay silent without the quirk.
-> Measured with the internal microphones, enabling one pin at a time: at
-> 1 kHz the 0x14 pair alone is more than 30 dB below the 0x1b pair alone,
-> while at 6 kHz the two are within 10 dB of each other.
-> 
-> Drop the DAC override and correct the pin comment, so the quirk only
-> sets pin configurations, like the one for the sibling M1020 board
-> (HONOR MRB-XXX).
-> 
-> Fixes: 1e3e378d63be ("ALSA: hda/realtek: Enable bass speakers on HONOR MagicBook Pro 16 2024")
-> Assisted-by: LLM
-> Signed-off-by: Denis Yakovlev <mfthesun@vivaldi.net>
+From: Neal Cardwell <ncardwell@google.com>
 
-Applied to for-next branch.  Thanks.
+Hi Neil,
 
+Thanks for your TCP patch and packetdrill test! I agree this is worth
+improving.
 
-Takashi
+I share Eric's concerns about the performance costs of this current TCP
+patch. And Yuchung and I were chatting about this out of band a few days ago;
+we were both concerned about the performance costs of that approach.
+
+Yuchung and I were thinking that perhaps a better trade-off would be to
+leverage the fact that most of the time when there is an undo there are no lost
+packets in the scoreboard that were retransmitted, in which case all skbs that
+are marked as lost have a transmission order that is the same as their sequence
+order. That means that in most cases in the existing skb_rbtree_walk iterating
+through the tcp_rtx_queue we can do a kind of fast "merge sort" of the (already
+time-sorted) lost skbs in tcp_rtx_queue into the (already time-sorted) skbs in
+tp->tsorted_sent_queue.  This should allow us to keep the cost of
+tcp_undo_cwnd_reduction() as O(packets_out) (without any extra list_sort()
+cost), while still integrating all the lost packets back into
+tp->tsorted_sent_queue in the vast majority of cases.
+
+And in the rare case when somehow there is an undo while there are lost packets
+that were EVER_RETRANS, it would be OK to fall back to an RTO for this rare
+case. That is no worse than the behavior we have been living with for a long
+time.
+
+And with this approach we would not need to add any per-socket or per-skb
+state.
+
+Along those lines, what do you think about something like the following (which
+compiles and passes your nice packetdrill test):
+
+diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
+index 92bc60716..cd7c3e408 100644
+--- a/net/ipv4/tcp_input.c
++++ b/net/ipv4/tcp_input.c
+@@ -2840,15 +2840,62 @@ static void DBGUNDO(struct sock *sk, const char *msg)
+ #endif
+ }
+ 
++/* Is skb @a after skb @b in tp->tsorted_sent_queue (send) order? */
++static bool tcp_tsorted_after(const struct list_head *a,
++			      const struct list_head *b)
++{
++	const struct sk_buff *skb_a = list_entry(a, struct sk_buff,
++						 tcp_tsorted_anchor);
++	const struct sk_buff *skb_b = list_entry(b, struct sk_buff,
++						 tcp_tsorted_anchor);
++
++	return tcp_skb_sent_after(tcp_skb_timestamp_us(skb_a),
++				  tcp_skb_timestamp_us(skb_b),
++				  TCP_SKB_CB(skb_a)->end_seq,
++				  TCP_SKB_CB(skb_b)->end_seq);
++}
++
++/* Link skb back into tp->tsorted_sent_queue in send order, at or after
++ * pos, and advance pos to it. Leave skb alone if it was sent before
++ * pos. As pos only moves forward, each call is amortized O(1).
++ */
++static void tcp_tsorted_relink_skb(struct tcp_sock *tp, struct sk_buff *skb,
++				    struct list_head **pos_ptr)
++{
++	struct list_head *head = &tp->tsorted_sent_queue;
++	struct list_head *node = &skb->tcp_tsorted_anchor;
++	struct list_head *pos = *pos_ptr;
++
++	if (pos != head && !tcp_tsorted_after(node, pos))
++		return;
++	while (pos->next != head && !tcp_tsorted_after(pos->next, node))
++		pos = pos->next;
++	if (pos != node)		/* not already linked in place */
++		list_move(node, pos);
++	*pos_ptr = node;
++}
++
+ static void tcp_undo_cwnd_reduction(struct sock *sk, bool unmark_loss)
+ {
+ 	struct tcp_sock *tp = tcp_sk(sk);
+ 
+ 	if (unmark_loss) {
++		struct list_head *pos = &tp->tsorted_sent_queue;
+ 		struct sk_buff *skb;
+ 
+ 		skb_rbtree_walk(skb, &sk->tcp_rtx_queue) {
+-			TCP_SKB_CB(skb)->sacked &= ~TCPCB_LOST;
++			u8 sacked = TCP_SKB_CB(skb)->sacked;
++
++			TCP_SKB_CB(skb)->sacked = sacked & ~TCPCB_LOST;
++			/* RACK unlinked the skbs it marked lost. Skbs never
++			 * retransmitted keep their original send times, which
++			 * increase with sequence, so in one forward pass we
++			 * relink them all. For the rare case of undo after
++			 * lost retransmissions, we will fall back to RTO.
++			 */
++			if ((sacked & (TCPCB_LOST | TCPCB_EVER_RETRANS)) ==
++			    TCPCB_LOST)
++				tcp_tsorted_relink_skb(tp, skb, &pos);
+ 		}
+ 		tp->lost_out = 0;
+ 		tcp_clear_all_retrans_hints(tp);
