@@ -1,102 +1,230 @@
-Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9074E31F989
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 21:49:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C1013590AE;
+	Tue,  6 Oct 2026 21:49:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791323357; cv=none; b=I5JyvyWFJ9mkNrdt4oWtch9RGEe2GYIuz+nqeZSiWvC52THtomCSZBas8DIfPb/H3bhQURxKq5ZXWyTsOOJt1utDdOQvaCFJ9k9GbmgM2mtDc526X9AfudsOV5x+4en+/X/ZVFjBDHb3yA6MZTRWEJcswRBNMzAVwQugYVUhvEg=
+	t=1791323372; cv=none; b=SxCiulIhvc5juDpOUhg7rVBbuymwjWgqyE6AHVJVpBmFHaY74xYOA39ylLYJR5ePjiEnvR1q5tddRoRfKwHwhFN5exXSCUOQJGI6kP6ic4LaJTrOXLMY0Lb76r0YS8IRBEbcoD5syo9Hk5rMtPIiAOKqfOls2+61FTeljot4Juw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791323357; c=relaxed/simple;
-	bh=poluRrFSmDIlB+/zIiUoVzpJ86A8vkad5nYfGvBnzmA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=urm8Pn3HB3PlMwoZN66BRqxlcUKPiYSJp+ASxrcXCkvrljtEAOCT/VGJE7HmpKTHhZbouWW8XKV0HjR45Zxd8Kf+pPsg9y6e7No9UjAhf7nxkV8xRuWR3IetJzZDIz1A8Hs4MAxqnL1o4NxBXnya4QJfDogs7/ISfczkx7/FLqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=e/gWFdwp; arc=none smtp.client-ip=185.125.188.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+	s=arc-20240116; t=1791323372; c=relaxed/simple;
+	bh=zmNVpFiIdF8yRDkY6dmoQbBghNxbyY57cDfc2JuLrNQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EaMcm3GZ0WsGIoZ+lExP9KiVQRxRbCyNpVXiGH/DOBSI1UMcHdoL8RKH83lhYyVnoA98jLErWeeLUoPcDojxgHzyxdBeq5+NrDDF9cOBfbRfU7a7xUYgHF16ZlD293WiyNE6T2qKX9eYmV+GAaJN7lFGXNZ3ah5Fhawa5lMIg8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z+T8EQwQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="e/gWFdwp"
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id B1F053F4D5
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 21:49:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1791323352;
-	bh=poluRrFSmDIlB+/zIiUoVzpJ86A8vkad5nYfGvBnzmA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version;
-	b=e/gWFdwp2u3bkjtUfUJu30eth+tyUKW78DbJ6X17S4/giEoVaBAhAZVKX45kxTeo2
-	 +d36kJ4AybcRy2wnd4zVlT/5a5vvse/7+DGtNnWwoDGduqjgQoavrAzeLQWN1oTP4M
-	 IOxwSWRFI2pIjXLdoVS6YAVp8izIYKktMUB4NgwB5bOcXLuA/bwxCbXxpLJ9Exfyqb
-	 vwt3Txr3uwj8gDx4uos4UMlHhh0gOa18iKssQavSDdUxoQDFkwU/NXSfPuiz/iZ3+U
-	 Bw2eRxrbmdXjb03e5U3gFCr4C9bVOq9/Cxnu+aXZyh49XbX1tcp2nX5k8jfPzHD6Qu
-	 2lui6CXNoTdEMLP2h4rvfWDkETa7Xk4FOgrP3ELJO2CJ0dzObLl7mNmEQY7FgWEU+j
-	 buAVuTYiswjs8WI+Ni/eqpW5drJ1Pdrusx01GNdI5gDPACgDFGYqjshC9zlR8kOb2R
-	 BZDM8UnkjWEd58vzclI39+sJEbmyXlv1WrVNG5oCiYTjMFF+O4xzfr2+15WoR/o5cH
-	 R2YUXx0la18ZUrJ06GMlovVBjUuMqWYb8BZMHNXBQYnc2kwiSIKHDmR7AMAZp6VdtW
-	 QU0WkWXwkVooiknFypSKQBgQequCQi0dVOiKrVAej6gBLDWDv0pzzJfpo6qCvPtofj
-	 5Yoo88kaofsYyeEhyySzRYJU=
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-33713e5e6daso4049252eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 14:49:12 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791323351; x=1791928151;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=poluRrFSmDIlB+/zIiUoVzpJ86A8vkad5nYfGvBnzmA=;
-        b=r+9aBOywodROik6q+RHmCXRn3OtZBJSzjqCwlpuShCWhPLb1VIjTGud37/UOzP/7yp
-         QLYkfBWrLYwyw5Ie9mqh4HULKu0G8lGNTr+k3RKV4S4fzlX3jnxAVYKQHcYEx/mYp7dJ
-         ORSfB+aJE3Cg1oOFIArTypVr+PnL4wOPdEM1/TqTJ3U/g7Hk6z8r7kVp5xGKEMe9c709
-         /TaLNTGNYG8haMUOH1O4DDmtqiBg2/XNp8XICwWSuvV896mnafigCxesZoiDUw4MyWAz
-         0/92wU+ZLDU6XEh/gDVDVkc6gOle4mUFdyVybb8HKPQOI695K9wrdWH1nehVyccLoO5U
-         mZVw==
-X-Forwarded-Encrypted: i=1; AKwUvBwm2a8Lr7GQqXUGcFz4g9dZn0boA8PrN0550kaVtWwiR5NkFGdI9Kbfn6bAvd5ScreriqtW/tbiJv2kZTc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIM+IddT4IZuuu9Ug2qNAghCaWngwY3DpwVahJT3mKYfPw32t2a
-	XSQT3P880p5PaWvOR7FB5xd7MWEzQ8oyNuFjiFyIiBH+YEQ8eMlX4MktIIOFQrDEhY5xcM3hocB
-	SR4TBk5P4HDFBN9b4FNxR/zENxkzSdB55JviPd0qvINC1t1RJP/sTeos4TBFPxryQOvilcOEQv1
-	QAOOqdJKCddPSwfA==
-X-Gm-Gg: AYBFou18SxibZ1Kw+aZ1AaMaIHYQOj9j47lrgPK0L6ubPaZxN1hWSKr+g8xfUkiS3Xd
-	7ISBC5vFneFlZ/fM+HwFcCrQ3zLzLuTx2S6AMB+uMVhR/EwWauYETqsWSKXBZqDH76i0Mq4NA+k
-	qevlRdOvFhVSZN3l034YmP+3tdzDlR2jBjSJuKpxrQ8chM+eMhWNX3FHx/wJnorJLoAlVWu0y5z
-	vEXGsD2WVZyKA9sBUOHcGf5vuPwg874zhCaBYzBmtVBEHy1XeNLWaBgtWzIUdRN138A/8i4l2xs
-	a7qdTJaoC4IM5RHm5JRG8Rbx8eziNOQ40/MY6oaymyE7ewqXVwDG901cJL/ihkcl1pJc9SGbqVm
-	9csv2t95aD1Y8kJer/Q==
-X-Received: by 2002:a05:7301:db0f:b0:33c:e74:4625 with SMTP id 5a478bee46e88-3515de89918mr138833eec.28.1791323351115;
-        Tue, 06 Oct 2026 14:49:11 -0700 (PDT)
-X-Received: by 2002:a05:7301:db0f:b0:33c:e74:4625 with SMTP id 5a478bee46e88-3515de89918mr138771eec.28.1791323349201;
-        Tue, 06 Oct 2026 14:49:09 -0700 (PDT)
-Received: from localhost ([2600:6c40:657f:4180:3a1e:4952:21ef:b8ec])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515afd00e0sm1271255eec.23.2026.10.06.14.49.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 14:49:08 -0700 (PDT)
-From: mitchell.augustin@canonical.com
-To: abel.vesa@oss.qualcomm.com
-Cc: andi.shyti@kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	mukesh.savaliya@oss.qualcomm.com,
-	viken.dadhaniya@oss.qualcomm.com,
-	mitchell.augustin@canonical.com
-Subject: Re: [PATCH] i2c: qcom-geni: Restore the source-clock selection policy
-Date: Tue,  6 Oct 2026 16:48:41 -0500
-Message-ID: <20261006214841.202946-1-mitchell.augustin@canonical.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260928-b4-i2c-qcom-geni-preserve-source-clock-v1-1-9aded7552a76@oss.qualcomm.com>
-References: <20260928-b4-i2c-qcom-geni-preserve-source-clock-v1-1-9aded7552a76@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z+T8EQwQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 873651F0089B;
+	Tue,  6 Oct 2026 21:49:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791323371;
+	bh=MR/kKzdKUbRbxIo5AlBnzLpoRKt6DdnYtuH9HxT5rZg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Z+T8EQwQfcC4Dsl0rfHAy7DAr3ckjnc55xRY9k8ihf2V06by9utsJIUbvm4QE+qHR
+	 QKdcDlyOBwe3F4rGUU5EdOvz65Jgt+VzWFiWaBtahe3bL5n/K61Ms7q595gvqrDB72
+	 Ez27iKZ/SQ1f/FuWmqqDU3Guw4kpQZ2aiSIWeXp3/Fi2cDErexzgESkZmUkPWv20Vo
+	 49yv64pLvV9ZDzsc7eMwgznEKqg8QdJ8I29J3N+TnSgVCEcytw3htWHfNzQjfFCe5P
+	 LSItfvLQ9ixCWlP4yZR7plvTFG2lBxy8cZ/+eIE5upXhl7h44DyChdW/rFTzCXyyRz
+	 k1f+1HOXPJh8g==
+Date: Tue, 6 Oct 2026 22:49:17 +0100
+From: Will Deacon <will@kernel.org>
+To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Robin Murphy <robin.murphy@arm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jiri Pirko <jiri@resnulli.us>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Mostafa Saleh <smostafa@google.com>,
+	Petr Tesarik <ptesarik@suse.com>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
+	linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+	x86@kernel.org
+Subject: Re: [PATCH v6 6/8] dma: swiotlb: Centralize memory-encryption pool
+ sizing
+Message-ID: <asVs3doaJ4WrT3M2@willie-the-truck>
+References: <20260924060756.1325156-1-aneesh.kumar@kernel.org>
+ <20260924060756.1325156-7-aneesh.kumar@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924060756.1325156-7-aneesh.kumar@kernel.org>
 
-From: Mitchell Augustin <mitchell.augustin@canonical.com>
+On Thu, Sep 24, 2026 at 11:37:54AM +0530, Aneesh Kumar K.V (Arm) wrote:
+> Memory-encrypted guests use shared or unencrypted memory for DMA and may
+> route all DMA through SWIOTLB. The default pool can therefore be too
+> small for I/O-intensive workloads.
+> 
+> Move the existing x86 guest-sizing policy into the SWIOTLB core. For
+> SWIOTLB_POOL_CC_GUEST, size the pool to 6% of guest memory, clamped
+> between the normal default and 1 GiB. Preserve an explicit swiotlb=
+> size.
+> 
+> Host memory encryption still selects a normal-sized shared pool and
+> does not use the guest-sizing policy.
+> 
+> A restricted DMA pool already provides shared bounce buffers for its
+> devices. Record its presence during reserved-memory initialization and
+> do not select the confidential-guest default-pool policy solely because
+> guest memory encryption is active.
+> 
+> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+> Cc: Dave Hansen <dave.hansen@linux.intel.com>
+> Cc: Andy Lutomirski <luto@kernel.org>
+> Cc: Peter Zijlstra <peterz@infradead.org>
+> Cc: Thomas Gleixner <tglx@kernel.org>
+> Cc: Ingo Molnar <mingo@redhat.com>
+> Cc: Borislav Petkov <bp@alien8.de>
+> Cc: x86@kernel.org
+> Cc: "H. Peter Anvin" <hpa@zytor.com>
+> Cc: Marek Szyprowski <m.szyprowski@samsung.com>
+> Cc: Robin Murphy <robin.murphy@arm.com>
+> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+> ---
+>  arch/x86/mm/mem_encrypt.c | 24 ------------------------
+>  kernel/dma/swiotlb.c      | 27 +++++++++++++++++++++++++--
+>  2 files changed, 25 insertions(+), 26 deletions(-)
+> 
+> diff --git a/arch/x86/mm/mem_encrypt.c b/arch/x86/mm/mem_encrypt.c
+> index 95bae74fdab2..912f22ca838f 100644
+> --- a/arch/x86/mm/mem_encrypt.c
+> +++ b/arch/x86/mm/mem_encrypt.c
+> @@ -101,9 +101,6 @@ void __init mem_encrypt_init(void)
+>  
+>  void __init mem_encrypt_setup_arch(void)
+>  {
+> -	phys_addr_t total_mem = memblock_phys_mem_size();
+> -	unsigned long size;
+> -
+>  	/*
+>  	 * Do RMP table fixups after the e820 tables have been setup by
+>  	 * e820__memory_setup().
+> @@ -114,27 +111,6 @@ void __init mem_encrypt_setup_arch(void)
+>  	if (!cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT))
+>  		return;
+>  
+> -	/*
+> -	 * For SEV and TDX, all DMA has to occur via shared/unencrypted pages.
+> -	 * Kernel uses SWIOTLB to make this happen without changing device
+> -	 * drivers. However, depending on the workload being run, the
+> -	 * default 64MB of SWIOTLB may not be enough and SWIOTLB may
+> -	 * run out of buffers for DMA, resulting in I/O errors and/or
+> -	 * performance degradation especially with high I/O workloads.
+> -	 *
+> -	 * Adjust the default size of SWIOTLB using a percentage of guest
+> -	 * memory for SWIOTLB buffers. Also, as the SWIOTLB bounce buffer
+> -	 * memory is allocated from low memory, ensure that the adjusted size
+> -	 * is within the limits of low available memory.
+> -	 *
+> -	 * The percentage of guest memory used here for SWIOTLB buffers
+> -	 * is more of an approximation of the static adjustment which
+> -	 * 64MB for <1G, and ~128M to 256M for 1G-to-4G, i.e., the 6%
+> -	 */
+> -	size = total_mem * 6 / 100;
+> -	size = clamp_val(size, IO_TLB_DEFAULT_SIZE, SZ_1G);
+> -	swiotlb_adjust_size(size);
+> -
+>  	/* Set restricted memory access for virtio. */
+>  	virtio_set_mem_acc_cb(virtio_require_restricted_mem_acc);
+>  }
+> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+> index 75ee63cd354e..e626cca63ad1 100644
+> --- a/kernel/dma/swiotlb.c
+> +++ b/kernel/dma/swiotlb.c
+> @@ -33,6 +33,7 @@
+>  #include <linux/kmsan-checks.h>
+>  #include <linux/iommu-helper.h>
+>  #include <linux/init.h>
+> +#include <linux/math64.h>
+>  #include <linux/memblock.h>
+>  #include <linux/mm.h>
+>  #include <linux/pfn.h>
+> @@ -80,6 +81,7 @@ struct io_tlb_slot {
+>  
+>  static bool swiotlb_force_bounce;
+>  static bool swiotlb_force_disable;
+> +static bool restricted_dma_pool_present __initdata;
+>  
+>  enum swiotlb_pool_policy {
+>  	SWIOTLB_POOL_NONE,
+> @@ -478,7 +480,25 @@ swiotlb_adjust_pool_size(enum swiotlb_pool_policy policy)
+>  		size = min(swiotlb_default_pool_size(), size);
+>  		break;
+>  	case SWIOTLB_POOL_CC_GUEST:
+> -		return;
+> +		/*
+> +		 * For SEV and TDX and CCA, all DMA has to occur via
+> +		 * shared/unencrypted pages. Kernel uses SWIOTLB to make this
+> +		 * happen without changing device drivers. However, depending on
+> +		 * the workload being run, the default 64MB of SWIOTLB may not be
+> +		 * enough and SWIOTLB may run out of buffers for DMA, resulting in
+> +		 * I/O errors and/or performance degradation especially with high
+> +		 * I/O workloads.
+> +		 *
+> +		 * Adjust the default size of SWIOTLB using a percentage of guest
+> +		 * memory for SWIOTLB buffers.
+> +		 *
+> +		 * The percentage of guest memory used here for SWIOTLB buffers is
+> +		 * more of an approximation of the static adjustment which 64MB for
+> +		 * <1G, and ~128M to 256M for 1G-to-4G, i.e., the 6%
+> +		 */
+> +		size = div_u64((u64)memblock_phys_mem_size() * 6, 100);
+> +		size = clamp_val(size, IO_TLB_DEFAULT_SIZE, SZ_1G);
+> +		break;
+>  	case SWIOTLB_POOL_NONE:
+>  		WARN(true, "Cannot adjust SWIOTLB size without a pool\n");
+>  		return;
+> @@ -496,7 +516,8 @@ swiotlb_select_pool_policy(unsigned int flags)
+>  	if (swiotlb_force_disable)
+>  		return SWIOTLB_POOL_NONE;
+>  
+> -	if (cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT))
+> +	if (cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT) &&
+> +	    !restricted_dma_pool_present)
+>  		return SWIOTLB_POOL_CC_GUEST;
 
-Same issue on my machine. This patch fixes it for me as well. Thanks!
+I think this check on the restricted DMA pool is too general -- the pool
+could be tied to a specific DMA-capable peripheral and so treating its
+presence as a global property isn't right.
 
-Tested-by: Mitchell Augustin <mitchell.augustin@canonical.com>
-Reviewed-by: Mitchell Augustin <mitchell.augustin@canonical.com>
+Will
