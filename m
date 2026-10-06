@@ -1,41 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56D9E471435
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 15:02:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A815E46E007;
+	Tue,  6 Oct 2026 15:05:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791298976; cv=none; b=EvlGC59stPo4h7FbzkX3oVZIAw9xur32m0Wf6J5m6nkv6ZGTbgj07QyU8pw1IJQBreB2zYZElRX0ev5pPOg3JmiYqkFI/fbTB4R8121miHcWqM6w3rUfEaygLxv9bL9LBcnGiBTPC+4R2DooU5ASfiRWHGHFl2DNXBAasvYbjGk=
+	t=1791299130; cv=none; b=flKSpXrr+Ec4n9l/4DTJW1Mh1GP5x8eXLfo/aDlx1QPq+Rcx9UD6jfYkhXedsStnMOMbXWyM7CkeyDYhNcYCNTNBD0Tm7z+wajk7OpHhNtXejM0SdynFX04U5jnYEf4S9cRrOfwA7VclMTkZ3lN6aPu0B6CLIKEVKNbYTpUuy3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791298976; c=relaxed/simple;
-	bh=uHmxGDTsNhsQt2YwJyM42DyClVzXNZr5HiOheNyEOSc=;
+	s=arc-20240116; t=1791299130; c=relaxed/simple;
+	bh=kywWPPUkRrL4Ls3U6xiUZCF49pQdQ4WNb0YLEU8SD5Y=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SBNlUhj9Qmo2PQZi99br+Zkv6gaN+vOmzbCIUX8+DJ971XkzyXmd8LtD7/U3SmGvCpuUnz9VUeNOzQC5ovxibqa4QW5JaWPN5b4CcDiTaj6L9kOZfee0xkUqwz91uAt9uDmjCWvB01h58l+yXoo4T0NUcvLKhErI4Be8noE0oBY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X/FWaShQ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=m6YVf99ltW4E0RMTjYeyLzPtxt4EtUUbzM01YrBulydBGbHJjMWcR4gWVq6a0lkUO5ijfTpzjlX4Rn2je9wknu7+MtVZMDtbdpNrsr/vimvk7oHmA9rP79dJbNm3GXI/iZYrcXYlgBUJEEECyF1vH4/7NYGPVF5hA4NPjdrywDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kyHZtuH+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X/FWaShQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87FEA1F0089C;
-	Tue,  6 Oct 2026 15:02:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kyHZtuH+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16E8B1F0089B;
+	Tue,  6 Oct 2026 15:05:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791298975;
-	bh=XrmZ5VjcGo1CmLI392pf/ezl3slVPaW65lqzIAGxnkM=;
+	s=k20260515; t=1791299129;
+	bh=hBqFdznuLd3hjEwdeyX6wxG7qA8UaM4e75ldG5AnVMg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=X/FWaShQqtGzwCzQ/Fd66ZOxErJRlyAyTqeg5H0ztxUsxHSnqpZz3z8eaWDIGfJ7O
-	 IcOZWb4nhRp94GIVZL57lmQB6GNn1/eM7flBjjrai6LSjZXpi5TWJFTL5aJ1V85LaU
-	 dQsk3MEv2rufH3NiaA7u/INlrgZ+Wh3e/9UmFBsJOKbOkpK9X76xQQMSGz9VWl2NS8
-	 RKm0wNkeK+xHgROjJG7Y17m5GHuqUXvw5ZcSfuQgv6pRkZizVZlIm3XqpLbQ04cbFz
-	 9JL6GnwrbIlgm3Bf3wFJxzX2ZYxr+S6MV5Wu7DtAnAC6BGc4CJQgZot9eYhSkM4C0c
-	 3uuEwR0Cp5WgA==
-Date: Tue, 6 Oct 2026 17:02:50 +0200
-From: Thorsten Blum <blum@kernel.org>
-To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>
-Cc: linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RESEND v2] x86/fpu: Use vmemdup_user() in xstateregs_set()
-Message-ID: <asUNmhyCFpNx5olr@kernel.org>
-References: <20260917121441.214567-3-blum@kernel.org>
+	b=kyHZtuH+FP9Kiatn9EU+MxMJ9YMK/tjec/fNEotp8ZykFRq4e/RGG1/ISWwLjlCyC
+	 xJzurq7kFCpyzybl8cOhnEtKTZa/CTshXKO66+4ESF/E3geFruNz3swKCHV5VtIgs6
+	 NWdfOQUUaBwjZ+/u1wZSjumOSM0xXYyxO0RtJPfgICNKga7POHHWXY87J0s5e3TSmT
+	 Mu8hrXnqiAVBsDgBXHdoPZYIdQpmvC39TFEHEsrPh816BWa9HZQzWWtIIwcRAOW1lr
+	 49uJQQwONgadWKq6DHjEqhEc0+RI/nr9bREDlCuURtQX+VM/mOA6O+t2zOQ10Q5Tng
+	 th1I+GZtq5zxg==
+Date: Tue, 6 Oct 2026 10:05:28 -0500
+From: Rob Herring <robh@kernel.org>
+To: "Musham, Sai Krishna" <sai.krishna.musham@amd.com>
+Cc: "bhelgaas@google.com" <bhelgaas@google.com>,
+	"lpieralisi@kernel.org" <lpieralisi@kernel.org>,
+	"kw@linux.com" <kw@linux.com>, "mani@kernel.org" <mani@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"cassel@kernel.org" <cassel@kernel.org>,
+	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"Simek, Michal" <michal.simek@amd.com>,
+	"Gogada, Bharat Kumar" <bharat.kumar.gogada@amd.com>,
+	"Havalige, Thippeswamy" <thippeswamy.havalige@amd.com>,
+	"Sanwal, Pranav" <Pranav.sanwal@amd.com>
+Subject: Re: [PATCH v7 1/2] dt-bindings: PCI: amd-mdb: Add CPM6 support
+Message-ID: <20261006150528.GB2194299-robh@kernel.org>
+References: <20260823040715.204096-1-sai.krishna.musham@amd.com>
+ <20260823040715.204096-2-sai.krishna.musham@amd.com>
+ <20260917192515.GA3283677-robh@kernel.org>
+ <IA4PR12MB9810F0345A3E7A7D3F28ADCDCD952@IA4PR12MB9810.namprd12.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,41 +56,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260917121441.214567-3-blum@kernel.org>
+In-Reply-To: <IA4PR12MB9810F0345A3E7A7D3F28ADCDCD952@IA4PR12MB9810.namprd12.prod.outlook.com>
 
-On Thu, Sep 17, 2026 at 02:14:41PM +0200, Thorsten Blum wrote:
-> Replace the open-coded vmalloc() and copy_from_user() with
-> vmemdup_user() to simplify xstateregs_set().
+On Tue, Oct 06, 2026 at 10:01:31AM +0000, Musham, Sai Krishna wrote:
+> AMD General
 > 
-> vmemdup_user() returns an ERR_PTR() on failure, preserving the existing
-> -ENOMEM and -EFAULT error codes. Since vmemdup_user() is backed by
-> kvmalloc(), use kvfree() to free the buffer instead.
+> Hi Rob,
 > 
-> Return early on error and drop the obsolete out label.
+> > -----Original Message-----
+> > From: Rob Herring <robh@kernel.org>
+> > Sent: Friday, September 18, 2026 12:55 AM
+> > To: Musham, Sai Krishna <sai.krishna.musham@amd.com>
+> > Cc: bhelgaas@google.com; lpieralisi@kernel.org; kw@linux.com;
+> > mani@kernel.org; krzk+dt@kernel.org; conor+dt@kernel.org;
+> > cassel@kernel.org; linux-pci@vger.kernel.org; devicetree@vger.kernel.org;
+> > linux-kernel@vger.kernel.org; Simek, Michal <michal.simek@amd.com>;
+> > Gogada, Bharat Kumar <bharat.kumar.gogada@amd.com>; Havalige,
+> > Thippeswamy <thippeswamy.havalige@amd.com>; Sanwal, Pranav
+> > <Pranav.sanwal@amd.com>
+> > Subject: Re: [PATCH v7 1/2] dt-bindings: PCI: amd-mdb: Add CPM6 support
+> >
+> > On Sun, Aug 23, 2026 at 09:37:14AM +0530, Sai Krishna Musham wrote:
+> > > The AMD CPM6 PCIe controller is based on the Synopsys DesignWare PCIe
+> > > IP and integrates two PCIe host controller instances. Add the
+> > > "amd,versal2-cpm6-host" and "amd,versal2-cpm6-host1" compatible strings
+> > > to describe the HOST0 and HOST1 controller instances.
+> >
+> > That is clear from the diff. What's not clear in this patch, and I
+> > probably already asked, what is the difference between host0 and host1?
+> > Usually instances are not different compatibles...
+> >
 > 
-> Performance should be similar, and xstateregs_set() is not a hot path.
-> Page alignment should not matter because the buffer is only used as a
-> memcpy() source in copy_uabi_from_kernel_to_xstate().
+> Thanks for reviewing, there is no functional difference between HOST0 and
+> HOST1. They are two instances of the same CPM6 PCIe controller and support
+> the same feature set.
 > 
-> The allocation behavior differs because vmemdup_user() uses GFP_USER,
-> which adds __GFP_HARDWALL and may affect cpuset allocations.
-> 
-> tools/testing/selftests/x86/avx_64 passed on an Alder Lake CPU.
-> 
-> Signed-off-by: Thorsten Blum <blum@kernel.org>
-> ---
-> Changes in v2:
-> - Add performance analysis and selftest result to the changelog (Ingo)
-> - v1: https://lore.kernel.org/r/20260720195534.70111-3-thorsten.blum@linux.dev/
-> ---
->  arch/x86/kernel/fpu/regset.c | 17 ++++++-----------
->  1 file changed, 6 insertions(+), 11 deletions(-)
+> The underlying hardware and driver behavior are identical between the
+> two instances. The only differences are instance-specific resources,
+> such as register regions and controller-specific interrupt status bits.
 
-Hi Ingo,
+The only difference I see in the driver is:
 
-A gentle follow-up on this resend. The v2 changelog now includes the
-analysis you asked for in the earlier thread, plus a successful x86
-selftest result. Is anything else needed for this to be queued?
++/* MERGED input bits for the MISC_EVENT sources this driver handles. */
++#define AMD_CPM6_MERGED_MISC_EVENT_HOST0	14
++#define AMD_CPM6_MERGED_MISC_EVENT_HOST1	17
 
-Thanks,
-Thorsten
+If that is the only difference, I would make this a property instead.
+
+But there's another problem here:
+
++		/*
++		 * CPM6 moves the per-controller MISC_EVENT registers
++		 * into a separate "intr" region. The SLCR block, which holds
++		 * the shared MERGED/PS_MISC aggregators, is shared by both CPM6
++		 * host controllers, so map it without requesting exclusive
++		 * ownership; otherwise the second controller fails to probe.
++		 */
+
+This implies the 'slcr' region is the same address for both controllers? 
+That's a problem because the DT should not contain the same address in 
+multiple nodes. There should be a single 'slcr' node.
+
+> I understand your point that instances are typically not represented by
+> different compatible strings. Given that the driver needs to distinguish
+> between the two controller instances for these instance-specific
+> resources, could you please suggest the preferred DT representation for
+> this case?
+
+The answer depends on what the variation is, so the patch needs to 
+explain that.
+
+Rob
