@@ -1,142 +1,75 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from cvsmtppost25.nm.naver.com (cvsmtppost25.nm.naver.com [114.111.35.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83CA7288C2D;
-	Tue,  6 Oct 2026 09:39:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25369231829
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 09:39:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791279542; cv=none; b=BOsWhnbEIcX3Nm9sBjHgjNzvNI8AdJAp4+5SO+9yHunk6Yk/pfnqCVpse0F0Vti9aZYCJg9+FQc9mj6xBBCnS4fu4/mW+X25hLotGj1arSUSlLgDwlTo/7C8uAU+3okl4jBhSaraQj/tMx+dWtYvX44hcAk0Y550Y5N7ZKSv4CA=
+	t=1791279574; cv=none; b=cQrcDwNxJtypE95A7e8u/V/aOhlgw0Q7sxengcTQQ7XBO2P9KDP8Ohuua/w1MY8EzmaJZsHNIDNhnfdaGT70BvAr3ug6ono0pra3ceHZMjDsgTYEYAsuTTP+vJZeATf+KR7LwWGSfEcQShSHriKMaWC6zuzsSFX/CNT0piaOOE8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791279542; c=relaxed/simple;
-	bh=xHIKDl1YOdzR9stjV+DQinnaatuz7Z0o6g8GMagiQtg=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HXm+JE5lgA6LoUG9g+05c2CLOCkAzMyUh+QfCpLBwnvy6WsxvABTotllRUikzbc4mkk/mJq3wnwClkUwL5WhBqNUgipLnlRKSjm8C8a98bBLbommn62ITEZ5QpKSRnWu5X84v9tuPSJunNVDakAMChuRRc1QKgS4kbEZr7S9irk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kDru/Ioz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791279574; c=relaxed/simple;
+	bh=hv3YkMknznKDrsXSimNXNHCUepDX0g8wBzpKCmfDKCM=;
+	h=MIME-Version:Message-ID:Date:From:In-Reply-To:References:To:Cc:
+	 Subject:Content-Type; b=tgZuJRjppt1Rak98jVE1VQUOK/VtJHIMX76wXqNQbKEWwVWvZSNT/3S2oAIsGbLGU8NI6YB6qVD4h785xNdcXoBY3j4EOGtfqpQSQ57lLY/SKMyHBkgu5VA+6L56DIkS2VfYz5UgrXHPqABUzBmrSwb8G9Qzl7WHoQnpGIxzeMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=O7gTclpi; arc=none smtp.client-ip=114.111.35.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kDru/Ioz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2C6F1F000FF;
-	Tue,  6 Oct 2026 09:39:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791279540;
-	bh=O9HJH+uXkT13MNQK1cMIvKlsgzXLnzAXDk7pgKiWtZY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=kDru/Ioz3ij+3dRZx740U4Gb2cGeu3UNTE4DQltvVbtA/ea6TUMkTYu/uB5G+yg9E
-	 3ZUXnlLTdBiCb6+KKvAJwkpdlI1udbxgfiacsddel5nbrfh1hr6XPp9RpRgQaxgLul
-	 HnwJHiRPtKNGE9DPC7ZfgIJy8AjOA56x36cOTH5nAdemdgkimQIyOm8HLxeMFijXiM
-	 4QTvldbbnaN3eGZiN6zodlweXqAdhtJzDumYFFt+C6NV3iCqG1scgCmxxNpOfjnDTQ
-	 8FM/zKBxkZ1rZjhEy2RDgXxRpj2kwvkFCC5tR0JgxnTS6Z4gz1NUhVY9FPCblWyUxI
-	 H0h68H5qx2qPw==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xE1dS-0000000HMXc-1zsb;
-	Tue, 06 Oct 2026 09:38:58 +0000
-Date: Tue, 06 Oct 2026 10:42:06 +0100
-Message-ID: <878q4b2mj5.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Kohei Enju <enju.kohei@fujitsu.com>
-Cc: Tomohiro Misono <misono.tomohiro@fujitsu.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-perf-users@vger.kernel.org
-Subject: Re: [PATCH 4/4] irqchip/gicv3: Add workaround for FUJITSU-MONAKA erratum E#030003
-In-Reply-To: <asS5r0WNCQpMIo4p@FCCLS0092175.localdomain>
-References: <20261002-monaka-fix-for-upstream-v1-0-4aec0b0cbe34@fujitsu.com>
-	<20261002-monaka-fix-for-upstream-v1-4-4aec0b0cbe34@fujitsu.com>
-	<86tsn42sqr.wl-maz@kernel.org>
-	<asS5r0WNCQpMIo4p@FCCLS0092175.localdomain>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="O7gTclpi"
+X-Works-Smtp-Source: /rbdKoulFqJCpNmdFouXWHF0
+Received: from nv1s-hmac-real-8 ([10.180.31.91])
+  by cvsmtppost25.nm.naver.com with ESMTP id MwoHjybGSRW6u6GQjMHheQ
+  for <multiple recipients>;
+  Tue, 06 Oct 2026 09:39:24 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
+	t=1791279564; bh=hv3YkMknznKDrsXSimNXNHCUepDX0g8wBzpKCmfDKCM=;
+	h=Message-ID:Date:From:To:Subject:From:Subject:Feedback-ID:
+	 X-Works-Security;
+	b=O7gTclpiqViA/Df+zAKBcL2MFJ2lb3qWbclC1vVtUdorMUFA7jzrg/hiNlUbCx3sh
+	 VXpfRK83yWPj1YWGPPRKYJzYfVqqsEYSJSXbUwiv3My6jYoLkARZC85CPesR8Pq0bM
+	 qUts3liwMaeGxiAqe5j7KaAYLBWydlGPzm1aE7WdPI5ZWGRiZUO3/lE4SeaTMgW6xU
+	 hexDD+8CcojMDc6LyJzKXmaFj+2fgovb1LsrFhwzV4Bj6exq7+ZRvsHlQI1Qak5ykw
+	 o2gxCY9lVmsOFIvKmOjQ4phG+bAoUtvNHiEmgEqxEH6fOsNK7XFJZl36pvVg3sunOh
+	 9//U5DCmvVuAg==
+X-Session-ID: f14b3a2c8effbebe64322f257b2efacdfda1d8d7f9ece28e845c3184cf597b3f
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: enju.kohei@fujitsu.com, misono.tomohiro@fujitsu.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, tglx@kernel.org, radu@rendec.net, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Message-ID: <2b6ae98573123157c0d5aca458dd4d1@cweb009.nm>
+Date: Tue, 06 Oct 2026 18:39:23 +0900
+From: =?utf-8?B?7ISx67OR7LCs?= <tjdqudcks0424@naver.com>
+In-Reply-To: <20261006052105-mutt-send-email-mst@kernel.org>
+References: <20261006091210.828229-1-tjdqudcks0424@naver.com>
+	<20261006052105-mutt-send-email-mst@kernel.org>
+Importance: normal
+To: =?utf-8?B?TWljaGFlbCBTLiBUc2lya2lu?= <mst@redhat.com>
+Cc: =?utf-8?B?SmFzb24gV2FuZw==?= <jasowangio@gmail.com>,
+	=?utf-8?B?RXVnZW5pbyBQZXJleg==?= <eperezma@redhat.com>,
+	=?utf-8?B?WHVhbiBaaHVv?= <xuanzhuo@linux.alibaba.com>,
+	<virtualization@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>,
+	<security@kernel.org>
+Subject: =?utf-8?B?UmU6IFtCVUddIHZpcnRpb19yaW5nOiBWRFVTRSBiYWNrZW5kIGNhbiBjb3JydXB0IHNwbA==?=
+	=?utf-8?B?aXQtcmluZyBmcmVlIGxpc3Q=?=
+X-Works-Send-Opt: OPewpzGdjHmdKHFOMr39Ko3YKHmXjAudFqM9KqMqFxIYkEljxBmwjAg=
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On Tue, 06 Oct 2026 10:08:19 +0100,
-Kohei Enju <enju.kohei@fujitsu.com> wrote:
-> 
-> On 10/02 13:26, Marc Zyngier wrote:
-> > On Fri, 02 Oct 2026 11:26:52 +0100,
-> > Tomohiro Misono <misono.tomohiro@fujitsu.com> wrote:
-> > > 
-> > > From: Kohei Enju <enju.kohei@fujitsu.com>
-> > > 
-> > > On affected FUJITSU-MONAKA CPUs, an SGI generated by writing to
-> > > ICC_SGI0R_EL1, ICC_SGI1R_EL1, or ICC_ASGI1R_EL1 may be lost if the
-> > > operation races with CPU interface processing triggered by the arrival
-> > > of a higher-priority interrupt, an update to a pending interrupt, or a
-> > > transition of the PE to the Sleep state. When this occurs, the system
-> > > register write does not complete, causing the issuing core to hang.
-> > >
-> > 
-> > Is the SGI lost? Or is the sender core hanging?
-> 
-> Both: the SGI is lost, and the sysreg write does not complete, causing
-> the sending core to hang.
-
-I don't think the two are distinguishable. You might want to simplify
-the commit message to simply say that the CPU hangs.
-
-[...]
-
-> > > +		 */
-> > > +		for_each_cpu(cpu, mask)
-> > > +			gic_send_sgi_via_rdist(cpu, d->hwirq);
-> > > +
-> > > +		/* Force the above writes to GICR_ISPENDR0 to be executed */
-> > > +		dsb(st);
-> > 
-> > This doesn't force things to be executed. This is about completion of
-> > the access, and with an nGnRE mapping, it doesn't enforce that the
-> > stores actually reach the RDs, only an arbitrary point in the memory
-> > subsystem.  The only way to guarantee this is to perform a read-back.
-> 
-> Understood.
-> 
-> I hadn't considered this when writing v1, but on further reflection, I
-> don't think gic_ipi_send_mask() needs to wait for the target CPUs to
-> handle the IPIs.
-
-It's not about the target CPU handling the IPI, that'd be crazy. It is
-about making sure that the IPI request has been observed by the HW and
-that it is not going to race with something else.
-
-> Given that the GICv2 driver does not wait for MMIO
-> write completion either, I don't think we need to ensure completion of
-> these writes before returning.
-
-GICv2 has different architectural requirements (i.e. none). GICv3 is a
-bit clearer, see the requirements at the end of 12.1.3 in IHI0069H.b.
-
-> 
-> If my understanding is correct, I'll remove the dsb(st) in v2.
->
-
-As indicated in the spec, you either need nGnRnE+DSB, or a read-back.
-Given that Linux uses nGnRE for all device mappings, read-back is the
-only option here.
-
-Thanks,
-
-	M.
-
--- 
-Jazz isn't dead. It just smells funny.
+WWVzLCB0aGUgYmFja2VuZCBjYXVzZXMgdGhlIGRyaXZlciB0byBjb3JydXB0IGl0cyBvd24gdmly
+dHF1ZXVlCmZyZWUtbGlzdCBhY2NvdW50aW5nLgoKTXkgY29uY2VybiB3YXMgdGhhdCwgYWZ0ZXIg
+cHJpdmlsZWdlZCBWRFVTRSBzZXR1cCwgYSBkZWxlZ2F0ZWQKdW5wcml2aWxlZ2VkIGJhY2tlbmQg
+Y2FuIHRyaWdnZXIgdGhpcyBieSBtb2RpZnlpbmcgYSBwdWJsaXNoZWQKZGVzY3JpcHRvci4gSG93
+ZXZlciwgbXkgY3VycmVudCByZXByb2R1Y2VyIGRlbW9uc3RyYXRlcyBkdXBsaWNhdGUKZGVzY3Jp
+cHRvciBhbGxvY2F0aW9uIG9ubHkuIEl0IGRvZXMgbm90IGRlbW9uc3RyYXRlIGEgaG9zdAptZW1v
+cnktc2FmZXR5IHZpb2xhdGlvbiwgY3Jvc3MtZGV2aWNlIGltcGFjdCwgaW5mb3JtYXRpb24gZGlz
+Y2xvc3VyZSwKb3IgcHJpdmlsZWdlIGVzY2FsYXRpb24uCgpJIHRoZXJlZm9yZSBhZ3JlZSB0aGF0
+IHRoZSBjdXJyZW50IGV2aWRlbmNlIHN1cHBvcnRzIGEgcm9idXN0bmVzcwppc3N1ZSByYXRoZXIg
+dGhhbiBhIGNvbmZpcm1lZCBzZWN1cml0eSB2dWxuZXJhYmlsaXR5LgoKV291bGQgYSBwYXRjaCB1
+c2luZyB0aGUgZHJpdmVyLW93bmVkIGRlc2NfZXh0cmEgZmxhZ3MgZHVyaW5nIGRldGFjaApzdGls
+bCBiZSBjb25zaWRlcmVkIHdvcnRod2hpbGUsIG9yIGlzIHByb3RlY3Rpb24gYWdhaW5zdCB0aGlz
+IGJhY2tlbmQKYmVoYXZpb3Igb3V0c2lkZSB0aGUgaW50ZW5kZWQgdGhyZWF0IG1vZGVsPwoKUmVn
+YXJkcywKc3VuZ2J5ZW9uZ2NoYW4=
