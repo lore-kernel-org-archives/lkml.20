@@ -1,146 +1,89 @@
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BF9D191F91
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 13:37:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD7383D9DB1;
+	Tue,  6 Oct 2026 13:37:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791293854; cv=none; b=fSiTbo8wAOqAB8ppzsMHlXsK7fjsiiOyYvmm4rxrLr6Iso7PssbUhk7k/wp492EBpB0m3UB/TuqdfsMVBVnUFznNHBeyxjsiy1NrnXN/ReRLbpYSpviS2pXI4zo6WqjpjLOGmVEOgNUc/6H2oBnlWzlUR5CsTDWI55fzVW0Oa3I=
+	t=1791293855; cv=none; b=OZOsX03MC5vELtl2k/3YvmXlLwJha6VzDkyggEAtZ37gUdK1k2RCr24x47bk50nhUh+Bc/vFVsIWfnZyeEWuFGkvum1XBOJgpSj31JNIUqb+BdagnBmOaITInP0XPQsI6ShqUS+X6kg5LtfB9TRph/xEaVYzMpHG/2HCLtPZmVc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791293854; c=relaxed/simple;
-	bh=DDCZ9Mqu1FH9Osr7KFh+7vfu+BuP+rNmjrrGNJm6z/c=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=Y6wtOKZYUyej32kVVcVDfbYqVbpj2AdGj/YGivO0RXyVeG9Y7FjNYGpgaB8MlRrNtlD2rzVrty7t5uQRC1fAjon6PCa8RniW4DO4sdUJ7gqV4EqDLKEu1AmSdNsf9rkNiRWspBstJ2dw8ai+SZS/yu0MD5K0PEZfJoPJ6qToNp4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=iFQSMZ4I; arc=none smtp.client-ip=209.85.215.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1791293855; c=relaxed/simple;
+	bh=lQmcpeBJb7n1ORC0panr8ZuGG2wReezQhX/rqKnx08s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fWsw0eYYyHOobLb2x/6Q5hnKfTb7KjLq0u80pu2MejEb0/9xnyItmlcUBqGJjDgps9fgM7KrPCVqdNXCha9y6QDEvHEVH+CW4WTCKai2L0P1xuWEGdwMTleGn0/7d6Rmpj+CL5WRArQrPLn0NFuxmb/yL6xqDo/Q69dlnhq7WaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=eZ4QFt31; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="iFQSMZ4I"
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc1b80835d5so1672207a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 06:37:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791293853; x=1791898653; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=F/qBmMLuBmnpwWTygvTCZyx4zAAU2cLGG3mNQcChlaE=;
-        b=iFQSMZ4IZmrbzp2B5rwy6YUFa70v0vVTsKRP6H6DNrFSRRgVNVzAMpLHfGHHU+PxG8
-         3CLiPouQvVhcJYVOJwAsIG5yNKB4eF317kmYFewFgGqd+dYgnzWxTEV0XjIEz4zc1BSc
-         U0oqZYArWgPT/gRG6xk/psizyAbrsc1PIn9RfcMtROSDjpi4TgKocNwk+Yp4gg+7+dJd
-         IOhQ1rmicFbZDMHlm2N65dy8Phtkf+pJfDdssYM6fygW+HzQbYkdOotTqfch2PUz8blH
-         FXtIw84OCGwwU8n2q34RLgNx2v+dt0p81PCTQU6HZ+Qq0sbJeMkR7o70evkzx/XrNwWd
-         b4wQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791293853; x=1791898653;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=F/qBmMLuBmnpwWTygvTCZyx4zAAU2cLGG3mNQcChlaE=;
-        b=sZ75yHH1O2uA+MfNcxcvt5J9HkY6xtkA4dgVsJn12zQyvfd1eBA6AuEP+7Jov90Ddy
-         y77ApwHU/yGXWQwO+WkdokJP7R/OznHGUrP4/5HnGlTzID+Sm6YdnnKwrda1e9q5PUqf
-         qVL80ORlO2U1cU7Y8BgrRPLc5j8AmXOOeEnrwof1gVHGU5eyrzbvrB7K0GRXtqPoiXjV
-         PBG16S5X+Lv1sVnRIAFT0g3nbQyR02p4MvI3ch/HDgGWVum4dJ05XEdnrT3kxaS9o1b7
-         MNxvXxUtcz3DZ/lOl4BYrGx/4c8frvgJAOiNo0glx1xoc6WSKO44WSGbRMnYkORCyso2
-         oW+w==
-X-Forwarded-Encrypted: i=1; AKwUvBxCr+3eE525DvMA2zTB/TJYAiqJAaXJoOnjWtAgfm+Y0nrVpU62RtMSXghubzA/qfaRN2DyzF8A5JYQl2s=@vger.kernel.org
-X-Gm-Message-State: AFuF++lDpJR1Pj4E2FiFICNMh+WAvOI3l1KRIPcA4OwzzYPbej7HHkkf
-	4YPzDHW7NsKz7Z1LaYD5oZndlRmkntn+bJWxXZyvaJNDzpz2F7M+3V9c2lAiHAlfMigCc7LvaKM
-	zzHqPAA==
-X-Received: from pgp20-n1.prod.google.com ([2002:a05:6a02:62d4:10b0:cc7:9e1d:7d45])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:1014:b0:3dd:a006:7b31
- with SMTP id adf61e73a8af0-3e1247894f7mr1269961637.48.1791293852598; Tue, 06
- Oct 2026 06:37:32 -0700 (PDT)
-Date: Tue, 6 Oct 2026 06:37:31 -0700
-In-Reply-To: <6ac316c7.01314a6c.556a8.000d.GAE@google.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="eZ4QFt31"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=kHQF0W3m9sutLBx2DP4KV8QpdSfbTtfJc8r8atJ6tMQ=; b=eZ4QFt31dcGzTejEv+0uGBP6T5
+	b/lhH8slFH2B1FBEgstNIVMZX+g23rSsroiuLvKVjNKaemGxz1ha+8G+Ge+iKONwPAQcZ4VRxg7t9
+	BFzo6uUwtJAsjp+diTqcDXwP9A3+NhzbUAfDH/0tqWwyNpM4AMgVr3VtX2TiwLToAmt1ce9ck/Crn
+	dnhXybKGTRQok1sLdwWj03N6Sh738aAS4OBaplR32EFvRG8miwAYYaEhqaf8SVuziRsZhQzvO0b8M
+	LFtqMgQsGV5d4Wn2I6uBsaTnNs+j3qyZ6NMRvjmZRenn8kGtBt4238OzQNwHQTMrBMLlWSa5JIf/K
+	ZyWv+m1Q==;
+Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xE5M2-0000000ADkY-2m5c;
+	Tue, 06 Oct 2026 13:37:14 +0000
+Date: Tue, 6 Oct 2026 14:37:14 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: Daniel Gomez <da.gomez@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Julia Lawall <Julia.Lawall@inria.fr>,
+	Corinn Tiffany <corinn.tiffany@inria.fr>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Philipp Stanner <pstanner@redhat.com>, linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org, Samsung GOST <gost.dev@samsung.com>,
+	Daniel Gomez <da.gomez@samsung.com>
+Subject: Re: [PATCH RFC v2] rust: rxarray: add rust xarray support
+Message-ID: <asT5inptTPITu2j1@casper.infradead.org>
+References: <20261005-rxarray-next-v2-1-187f689b52e4@samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <6ac316c7.01314a6c.556a8.000d.GAE@google.com>
-Message-ID: <asT5m8OClUbYT8ZX@google.com>
-Subject: Re: [syzbot] [kvm?] WARNING in kvm_vcpu_pre_fault_memory
-From: Sean Christopherson <seanjc@google.com>
-To: syzbot <syzbot+db7bd0f41c2a7e82d4ba@syzkaller.appspotmail.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, pbonzini@redhat.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261005-rxarray-next-v2-1-187f689b52e4@samsung.com>
 
-On Sun, Oct 04, 2026, syzbot wrote:
-> Hello,
+On Mon, Oct 05, 2026 at 03:37:30PM +0200, Daniel Gomez wrote:
+> From: Daniel Gomez <da.gomez@samsung.com>
 > 
-> syzbot found the following issue on:
+> Add Rust XArray support.
 > 
-> HEAD commit:    ce1e0223d8ad Merge tag 'devicetree-fixes-for-7.3-2' of git..
-> git tree:       upstream
-> console+strace: https://syzkaller.appspot.com/x/log.txt?x=1353dbf5580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=9d4242cb1c54cdf7
-> dashboard link: https://syzkaller.appspot.com/bug?extid=db7bd0f41c2a7e82d4ba
-> compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=14cdf6c9580000
-> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=12cdf6c9580000
+> This is the Rust implementation of the XArray lib/xarray.c. As of now,
+> it supports basic functionality: store, load, load_mut and erase.
 > 
-> Downloadable assets:
-> disk image: https://storage.googleapis.com/syzbot-assets/217b0c1b14ee/disk-ce1e0223.raw.xz
-> vmlinux: https://storage.googleapis.com/syzbot-assets/335343cc5803/vmlinux-ce1e0223.xz
-> kernel image: https://storage.googleapis.com/syzbot-assets/760ef2f39df0/bzImage-ce1e0223.xz
+> Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
+> Signed-off-by: Daniel Gomez <da.gomez@samsung.com>
+> ---
+> As discussed at LPC26, this is the version of the Rust XArray that is
+> ready to merge for testing and evaluating purposes following the Rust
+> reference implementation rule (experimental) [1]. Next, we will make
+> progress following the roadmap suggested in v1.
 > 
-> IMPORTANT: if you fix the issue, please add the following tag to the commit:
-> Reported-by: syzbot+db7bd0f41c2a7e82d4ba@syzkaller.appspotmail.com
+> For the motivation, see v1 link below in the changelog.
 > 
-> ------------[ cut here ]------------
-> r == 0 || r == -EIO
-> WARNING: arch/x86/kvm/../../../virt/kvm/kvm_main.c:4389 at kvm_vcpu_pre_fault_memory+0x45d/0x470 virt/kvm/kvm_main.c:4389, CPU#1: syz-executor267/8523
-> Modules linked in:
-> CPU: 1 UID: 0 PID: 8523 Comm: syz-executor267 Not tainted syzkaller #0 PREEMPT(full) 
-> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
-> RIP: 0010:kvm_vcpu_pre_fault_memory+0x45d/0x470 virt/kvm/kvm_main.c:4389
-> Code: fe ff ff e8 85 2e 88 00 90 0f 0b 90 e9 0d ff ff ff e8 77 2e 88 00 e8 42 85 f3 ff eb 8f e8 6b 2e 88 00 eb 05 e8 64 2e 88 00 90 <0f> 0b 90 e9 a7 fe ff ff 66 66 2e 0f 1f 84 00 00 00 00 00 90 90 90
-> RSP: 0018:ffffc900024dfc28 EFLAGS: 00010293
-> RAX: ffffffff813fe025 RBX: ffffc900024dfe00 RCX: ffff88807fcc0000
-> RDX: 0000000000000000 RSI: ffffffff8eaf6510 RDI: fffffffffffffffb
-> RBP: dffffc0000000000 R08: ffff88807fcc0000 R09: 0000000000000002
-> R10: fffffffffffffffb R11: 0000000000000000 R12: ffffc900024dfe00
-> R13: ffff88807fcc0000 R14: 1ffff1100ff98000 R15: fffffffffffffffb
-> FS:  00007f9c411186c0(0000) GS:ffff888124dc7000(0000) knlGS:0000000000000000
-> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 00007f9c4116312d CR3: 0000000026a4a000 CR4: 00000000003526f0
-> Call Trace:
->  <TASK>
->  kvm_vcpu_ioctl+0x8a6/0xfd0 virt/kvm/kvm_main.c:4668
->  vfs_ioctl fs/ioctl.c:51 [inline]
->  __do_sys_ioctl fs/ioctl.c:597 [inline]
->  __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
->  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
->  do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
->  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> RIP: 0033:0x7f9c4118db49
-> Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d0 ff ff ff f7 d8 64 89 01 48
-> RSP: 002b:00007f9c411181d8 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-> RAX: ffffffffffffffda RBX: 00007f9c4123bb88 RCX: 00007f9c4118db49
-> RDX: 0000200000000100 RSI: 00000000c040aed5 RDI: 0000000000000005
-> RBP: 00007f9c4123bb80 R08: 38203a6b63617473 R09: 38203a6b63617473
-> R10: 38203a6b63617473 R11: 0000000000000246 R12: 00007f9c4120b858
-> R13: 0000200000000118 R14: 0000200000000100 R15: 0000200000000600
->  </TASK>
+> A branch with the patches can be found here [2].
+> 
+> Link: https://rust-for-linux.com/rust-reference-drivers [1]
+> Link: https://git.kernel.org/pub/scm/linux/kernel/git/da.gomez/linux.git/log/?h=rxarray-next [2]
 
-#syz test
-
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index 108d42c5c1d6..31aba0c6f883 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -4386,10 +4386,7 @@ static int kvm_vcpu_pre_fault_memory(struct kvm_vcpu *vcpu,
- 		}
- 
- 		r = kvm_arch_vcpu_pre_fault_memory(vcpu, range);
--		if (WARN_ON_ONCE(r == 0 || r == -EIO))
--			break;
--
--		if (r < 0)
-+		if (WARN_ON_ONCE(!r) || r < 0)
- 			break;
- 
- 		range->size -= r;
-
+Reviewed-by: Matthew Wilcox (Oracle) <willy@infradead.org>
