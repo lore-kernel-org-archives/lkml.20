@@ -1,164 +1,110 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ACEA3B27E8;
-	Tue,  6 Oct 2026 09:24:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 14D7F3AC0C3;
+	Tue,  6 Oct 2026 09:25:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791278702; cv=none; b=PTrk3SJsekXjnygEXqNXr6v5wBuFUeFxz9fPOZxvR68BMIWL3f4v7XTi0DPCVbJt6n+1aOK0NfUhs+2lwvI5x8PRDfGCLznq+GNsBqlwYPnA5rtaHTmWuEYNE/oMUF8kf37wQuisDCFPMdv9QCjG/k6b+pEAmA/sDh12lNAyioc=
+	t=1791278733; cv=none; b=DBkhs51hGoiIklMBnNALE4+Fq1C3DHGfeKSjlOUTjCXdeTG3NQsqL5AA+5aDEO5dvJXuJ7LVQ99xcZJLG78FUkY41XDbHPR0Rr5t/BLEwxQXXfN1pGYxtZiQgGAh7WN8c+votfNmUff5BTsoyRxZbavC6d9tPBEsnYrhzCcWL2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791278702; c=relaxed/simple;
-	bh=RTPyiP+J6hqBLL7VsBt9Y65vQ+7IOuJay0DnTXhA7+Y=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ou4y2i6waUa+2Wl+p3LQvdFBVFT9lGWUe11VrSq3N8X/ZDA4i3qVhUFx+jINyiLfrOhkScM3rmde7oaF5+UbtdLJgcdOv6yskvOWj/ZIWSoYiJFhCZyVGIwcDxgxBTHxHUpS4EgeJAbc1CYDArhr6S15XUvdOcGcTV3VaEYMd5M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=raBcIyYM; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1791278733; c=relaxed/simple;
+	bh=6ISjPM2u/Z+vYWm4XET8cat7X78rAK3YnbcaLUDy+tg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=H+ucPtGHmUesp4K7o57VdMcG1m6nIAvav65FIaZjNAcogi93MprPqjszEMWQinCtHzk+6hG3S70T2RT48wIKjMpXsvviAGVArp/vflRDhQV8TbhWrsg6EfCI74ePKUh8T8b/CqsMjRj+EMx59kkh57SG1Q2e1X4G6U9Q2k33w2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ZG/jv5FR; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="raBcIyYM"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6969OYuxC2776832, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1791278674; bh=RTPyiP+J6hqBLL7VsBt9Y65vQ+7IOuJay0DnTXhA7+Y=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=raBcIyYMPgdC4M2eG2zhqmzq9reDoXEDjIGQMH1DKAuyIjyk3Lw9tyXzuxw50hmMH
-	 b9bLubSU47U+Isg92aly6FmbZA902NUK82rLWWCOxUGUuLT1sa9YbyNJTSrsSFa69r
-	 YKj1hgVj12e4MnjeZF4ugdSk34OWu89bW7khTpO4BK5W+OzO27LXn4zA5KSL6HXCmW
-	 wfTuoiHS5h5MOQUiRynWE0D31uPP8qldTLNehSOvq2gPVhZnUimyGLecyHhBj5LU1p
-	 483pDM3EL4td92FzE7GwMMQqpvDE6W3LBFZoCXlC27E2Szkazjz2OVNfex2IOmeCcF
-	 7IpFdLz3w37cA==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6969OYuxC2776832
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 6 Oct 2026 17:24:34 +0800
-Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 6 Oct 2026 17:24:35 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 6 Oct 2026 17:24:33 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Tue, 6 Oct 2026 17:24:33 +0800
-From: Chih Kai Hsu <hsu.chih.kai@realtek.com>
-To: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>
-CC: "davem@davemloft.net" <davem@davemloft.net>, "kuba@kernel.org"
-	<kuba@kernel.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	nic_swsd <nic_swsd@realtek.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-usb@vger.kernel.org"
-	<linux-usb@vger.kernel.org>, "edumazet@google.com" <edumazet@google.com>,
-	"bjorn@mork.no" <bjorn@mork.no>, "pabeni@redhat.com" <pabeni@redhat.com>,
-	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>
-Subject: RE: [PATCH net-next v5 5/9] r8152: split r8157_hw_phy_cfg into
- RTL8157 and RTL8159 variants
-Thread-Topic: [PATCH net-next v5 5/9] r8152: split r8157_hw_phy_cfg into
- RTL8157 and RTL8159 variants
-Thread-Index: AQHdUYTkEma4fG9dkUqR3BHjNtno77buNq2AgAIO8nA=
-Date: Tue, 6 Oct 2026 09:24:33 +0000
-Message-ID: <64b9ad780af54796892a520bed4e1c37@realtek.com>
-References: <20261001091144.28191-6-nic_swsd@realtek.com>
- <179119424162.434549.12438188375752636403@kernel.org>
-In-Reply-To: <179119424162.434549.12438188375752636403@kernel.org>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ZG/jv5FR"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 294051516;
+	Tue,  6 Oct 2026 02:25:22 -0700 (PDT)
+Received: from a081061.blr.arm.com (a081061.arm.com [10.164.19.84])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 46C213F763;
+	Tue,  6 Oct 2026 02:25:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791278725; bh=6ISjPM2u/Z+vYWm4XET8cat7X78rAK3YnbcaLUDy+tg=;
+	h=From:To:Cc:Subject:Date:From;
+	b=ZG/jv5FRf0oHlBbQSrbUzXPCGLvasASjZG8I0HHQGD15RDdVfdoNMjdxdVsnbEJOd
+	 IhiLFhi37YnZuNgDPU8Mk/est4HJdQ48EJTJhmRqIRdQRypWCpa9gPxc+OaPcw3fr0
+	 fM6cPSib4lHk2Z16J3OEaOheUOfrNp6uxaEcYNvo=
+From: Sarthak Sharma <sarthak.sharma@arm.com>
+To: akpm@linux-foundation.org,
+	david@kernel.org
+Cc: ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@suse.com,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	shuah@kernel.org,
+	jhubbard@nvidia.com,
+	kaleshsingh@google.com,
+	anshuman.khandual@arm.com,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sarthak Sharma <sarthak.sharma@arm.com>
+Subject: [PATCH v2 00/12] selftests/mm: improve mremap_test
+Date: Tue,  6 Oct 2026 14:54:59 +0530
+Message-ID: <20261006092511.145776-1-sarthak.sharma@arm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-PiBUaGFuayB5b3UgZm9yIHlvdXIgY29udHJpYnV0aW9uISBTYXNoaWtvIEFJIHJldmlldyBmb3Vu
-ZCAyIHBvdGVudGlhbA0KPiBpc3N1ZShzKSB0byBjb25zaWRlci4NCj4gDQo+IENyaXRpY2FsOiAw
-IMK3IEhpZ2g6IDAgwrcgTWVkaXVtOiAxIMK3IExvdzogMQ0KPiANCj4gSWYgeW91IGJlbGlldmUg
-bm9uZSBvZiB0aGUgaXNzdWVzIGFyZSBsZWdpdGltYXRlLCBwbGVhc2UgcmVwbHkgdG8gZWFjaCBp
-c3N1ZSBvZg0KPiBNZWRpdW0gc2V2ZXJpdHkgb3IgaGlnaGVyIGFuZCBleHBsYWluIHdoeSB0aGUg
-QUkgaXMgd3JvbmcuDQo+IElmIGFueSBvZiB0aGVtIGFyZSBsZWdpdGltYXRlIGFuZCB5b3UgcGxh
-biB0byByZXNwaW4sIHBsZWFzZSBsZXQgcGF0Y2h3b3JrIGtub3cNCj4gYnkgaW5jbHVkaW5nICJw
-dy1ib3Q6IGNyIiBhcyBhIHNlcGFyYXRlIGxpbmUgYXQgdGhlIGVuZCBvZiB5b3VyIHJlcGx5IChv
-bmUgc3VjaA0KPiByZXBseSBwZXIgc2VyaWVzIGlzIGVub3VnaCkuDQo+IA0KPiAtIFtNZWRpdW1d
-IHI4MTU5X2h3X3BoeV9jZmcoKSAoZHJpdmVycy9uZXQvdXNiL3I4MTUyLmMsDQo+ICAgUlRMX1ZF
-Ul8xN19RRk42OC9RRk4xMDApIG5vIGxvbmdlciBjYWxscyBydGxfZWVlX2VuYWJsZSh0cCwgZmFs
-c2UpLOKApg0KPiAtIFtMb3ddIFRoZSBjb21taXQgbWVzc2FnZSBzYXlzIHRoZSBzcGxpdCBnaXZl
-cyBlYWNoIGZ1bmN0aW9uICdpdHMgb3duDQo+ICAgY29weSBvZiB0aGUgc2hhcmVkIHByb2xvZ3Vl
-L2VwaWxvZ3VlIGluc3RlYWQgb2Ygc3dpdGNoaW5nIG9uIHZlcnNpb27igKYNCj4gDQo+IC0tDQo+
-IA0KPiByODE1Mjogc3BsaXQgcjgxNTdfaHdfcGh5X2NmZyBpbnRvIFJUTDgxNTcgYW5kIFJUTDgx
-NTkgdmFyaWFudHMNCj4gDQo+IFRoaXMgcGF0Y2ggc3BsaXRzIHI4MTU3X2h3X3BoeV9jZmcoKSBp
-bnRvIHI4MTU3X2h3X3BoeV9jZmcoKSBmb3INCj4gUlRMX1ZFUl8xNiBhbmQgYSBuZXcgcjgxNTlf
-aHdfcGh5X2NmZygpIGZvciBSVExfVkVSXzE3X1FGTjY4L1FGTjEwMC4NCj4gVGhlDQo+IFJUTDgx
-NTkgdmFyaWFudCBubyBsb25nZXIgY2FsbHMgcnRsX2VlZV9lbmFibGUodHAsIGZhbHNlKSwgY2hh
-bmdlcyBob3cgdGhlIEVFRQ0KPiBjbG9jayBkaXZpZGVyIGFuZCAweGE1ZWEgYXJlIHByb2dyYW1t
-ZWQsIGFuZCBhZGRzIG5ldyBQSFkgdHVuaW5nDQo+IHBhcmFtZXRlcnMuIEl0IGFsc28gYWRkcyB0
-aGUgc3JhbTJfc2V0X2JpdHMoKS9zcmFtMl9jbHJfYml0cygpIGhlbHBlcnMuDQo+IA0KPiA+IGRp
-ZmYgLS1naXQgYS9kcml2ZXJzL25ldC91c2IvcjgxNTIuYyBiL2RyaXZlcnMvbmV0L3VzYi9yODE1
-Mi5jIGluZGV4DQo+ID4gMWQ3Y2NhNTUxMDRjYy4uMTNhNTlhMWRmMzdlYSAxMDA2NDQNCj4gPiAt
-LS0gYS9kcml2ZXJzL25ldC91c2IvcjgxNTIuYw0KPiA+ICsrKyBiL2RyaXZlcnMvbmV0L3VzYi9y
-ODE1Mi5jDQo+IA0KPiBbIC4uLiBdDQo+IA0KPiA+ICtzdGF0aWMgdm9pZCByODE1OV9od19waHlf
-Y2ZnKHN0cnVjdCByODE1MiAqdHApIHsNCj4gPiArICAgICB1MTYgZGF0YTsNCj4gPiArDQo+ID4g
-KyAgICAgcjgxNTZiX3dhaXRfbG9hZGluZ19mbGFzaCh0cCk7DQo+IA0KPiBbIC4uLiBdDQo+IA0K
-PiA+ICsgICAgIHI4MTUyX21kaW9fdGVzdF9hbmRfY2xyX2JpdCh0cCwgTUlJX0JNQ1IsIEJNQ1Jf
-UERPV04pOw0KPiA+ICsNCj4gPiArICAgICByODE1M19hbGRwc19lbih0cCwgZmFsc2UpOw0KPiA+
-ICsNCj4gPiArICAgICBkYXRhID0gcjgxNTNfcGh5X3N0YXR1cyh0cCwgUEhZX1NUQVRfTEFOX09O
-KTsNCj4gDQo+IFtTZXZlcml0eTogTWVkaXVtXQ0KPiBXaXRoIHJ0bF9lZWVfZW5hYmxlKHRwLCBm
-YWxzZSkgZ29uZSwgZG9lcyBhbnl0aGluZyBvbiB0aGlzIHBhdGggc3RpbGwgd3JpdGUgdGhlDQo+
-IEVFRS1kaXNhYmxlZCBzdGF0ZSB0byB0aGUgY2hpcCB3aGVuIHRwLT5lZWVfZW4gaXMgZmFsc2U/
-DQo+IA0KPiBUaGUgZXBpbG9ndWUgb2YgcjgxNTlfaHdfcGh5X2NmZygpIG9ubHkgZG9lcyB0aGlz
-Og0KPiANCj4gICAgICAgICBpZiAodHAtPmVlZV9lbikNCj4gICAgICAgICAgICAgICAgIHJ0bF9l
-ZWVfZW5hYmxlKHRwLCB0cnVlKTsNCj4gDQo+IEJlZm9yZSB0aGlzIHBhdGNoLCBSVExfVkVSXzE3
-IGFsd2F5cyBjYWxsZWQgcnRsX2VlZV9lbmFibGUodHAsIGZhbHNlKSBmaXJzdC4NCj4gVGhyb3Vn
-aCByODE1Nl9lZWVfZW4odHAsIGZhbHNlKSwgdGhhdCBjYWxsIGNsZWFycyBFRUVfUlhfRU4gYW5k
-IEVFRV9UWF9FTg0KPiBpbiBQTEFfRUVFX0NSLCBFRUUxMF9FTiBpbiBPQ1BfRUVFX0NGRywgYW5k
-IHRoZSAyLjVHLzVHIGJpdHMgaW4NCj4gT0NQX0VFRV9BRFYyLiBJdCB0aGVuIHdyaXRlcyAwIHRv
-IE9DUF9FRUVfQURWLiBTbyBhdCB0aGUgZW5kIG9mIHRoZQ0KPiBmdW5jdGlvbiB0aGUgaGFyZHdh
-cmUgYWx3YXlzIG1hdGNoZWQgdHAtPmVlZV9lbi4NCj4gDQo+IFRha2UgYSB1c2VyIHdobyB0dXJu
-cyBFRUUgb2ZmOg0KPiANCj4gcjgxNTJfc2V0X2VlZSgpDQo+ICAgICB0cC0+ZWVlX2VuID0gZWVl
-LT5lZWVfZW5hYmxlZDsgICAvKiBmYWxzZSAqLw0KPiAgICAgcnRsX2VlZV9lbmFibGUodHAsIHRw
-LT5lZWVfZW4pOw0KPiANCj4gVGhlIGRldmljZSB0aGVuIGxvc2VzIHBvd2VyIG9yIGlzIHJlc2V0
-Og0KPiANCj4gcjgxNTZfdXBzX2VuKHRwLCBmYWxzZSkgICAvKiBQQ1VUX1NUQVRVUyBzZXQgKi8N
-Cj4gICAgIHRwLT5ydGxfb3BzLmh3X3BoeV9jZmcodHApICAgLT4gcjgxNTlfaHdfcGh5X2NmZygp
-DQo+ICAgICBydGw4MTUyX3NldF9zcGVlZCguLi4pDQo+IA0KPiBUaGUgc2FtZSBhcHBsaWVzIHRv
-IHJ0bDgxNTJfcmVzZXRfcmVzdW1lKCkgLT4gaHdfcGh5X3dvcmsgLT4NCj4gcjgxNTlfaHdfcGh5
-X2NmZygpLiBOZWl0aGVyIHBhdGggdG91Y2hlcyB0aGUgRUVFIHJlZ2lzdGVycywgc28gdGhleSBr
-ZWVwDQo+IHRoZWlyIHBvc3QtcmVzZXQgb3IgZmlybXdhcmUgZGVmYXVsdHMuDQo+IA0KPiBJZiB0
-aG9zZSBkZWZhdWx0cyBoYXZlIEVFRSBhZHZlcnRpc2VkLCBjb3VsZCB0aGUgUlRMODE1OSBhZHZl
-cnRpc2UgRUVFIGFuZA0KPiBlbnRlciBMUEkgYWZ0ZXIgdGhlIHVzZXIgZGlzYWJsZWQgaXQ/IHI4
-MTUzX2dldF9lZWUoKSB3b3VsZCB0aGVuIHJlcG9ydA0KPiBlZWVfZW5hYmxlZCBmcm9tIHRwLT5l
-ZWVfZW4sIGJ1dCB0aGUgYWR2ZXJ0aXNlZCBtYXNrIGZyb20NCj4gT0NQX0VFRV9BRFYvT0NQX0VF
-RV9BRFYyLg0KPiANCj4gVGhlIGNvbW1pdCBtZXNzYWdlIHNheXM6DQo+IA0KPiAgICAgUlRMODE1
-OSBkb2Vzbid0IG5lZWQgRUVFIGRpc2FibGVkIGJlZm9yZSByZXByb2dyYW1taW5nIFBIWQ0KPiAg
-ICAgcGFyYW1ldGVycywgc28gcjgxNTlfaHdfcGh5X2NmZygpIGRyb3BzIHRoZSBydGxfZWVlX2Vu
-YWJsZSh0cCwNCj4gICAgIGZhbHNlKSBjYWxsIHRoYXQgcjgxNTdfaHdfcGh5X2NmZygpIGtlZXBz
-Lg0KPiANCj4gVGhhdCBjYWxsIHdhcyBhbHNvIHRoZSBvbmx5IHBsYWNlIHdoZXJlIGVlZV9lbiA9
-PSBmYWxzZSBnb3QgYXBwbGllZCB0byBmcmVzaGx5DQo+IHJlc2V0IGhhcmR3YXJlLiBUaGUgb3Ro
-ZXIgaHdfcGh5X2NmZyB2YXJpYW50cyBrZWVwIHRoZQ0KPiBkaXNhYmxlLXRoZW4tY29uZGl0aW9u
-YWxseS1lbmFibGUgcGF0dGVybiwgYW5kIHI4MTUyYl9od19waHlfY2ZnKCkgdXNlcw0KPiBydGxf
-ZWVlX2VuYWJsZSh0cCwgdHAtPmVlZV9lbikuDQo+IA0KPiBXb3VsZCBjYWxsaW5nIHJ0bF9lZWVf
-ZW5hYmxlKHRwLCB0cC0+ZWVlX2VuKSBpbiB0aGUgcjgxNTlfaHdfcGh5X2NmZygpDQo+IGVwaWxv
-Z3VlIHJlc3BlY3QgdGhlIGRhdGFzaGVldCByZXF1aXJlbWVudCBhbmQgc3RpbGwgYXBwbHkgdGhl
-IHVzZXIncyBzZXR0aW5nPw0KDQpZZXMsIEkgd2lsbCBmaXggaXQuDQoNCj4gDQo+ID4gKyAgICAg
-V0FSTl9PTl9PTkNFKGRhdGEgIT0gUEhZX1NUQVRfTEFOX09OKTsNCj4gPiArDQo+ID4gKyAgICAg
-LyogUEZNIG1vZGUgKi8NCj4gPiArICAgICBvY3Bfd29yZF9jbHJfYml0cyh0cCwgTUNVX1RZUEVf
-UExBLCBQTEFfUEhZX1BXUiwNCj4gPiArIFBGTV9QV01fU1dJVENIKTsNCj4gDQo+IFsgLi4uIF0N
-Cj4gDQo+ID4gKyAgICAgLyogRGlzYWJsZSBieXBhc3NfdHVybl9vZmZfY2xrX2luX2FsZHBzICov
-DQo+ID4gKyAgICAgb2NwX2J5dGVfY2xyX2JpdHModHAsIE1DVV9UWVBFX1BMQSwgMHhkM2M4LCBC
-SVQoMCkpOw0KPiA+ICsNCj4gPiArICAgICBzd2l0Y2ggKHRwLT52ZXJzaW9uKSB7DQo+ID4gICAg
-ICAgY2FzZSBSVExfVkVSXzE3X1FGTjY4Og0KPiA+ICAgICAgIGNhc2UgUlRMX1ZFUl8xN19RRk4x
-MDA6DQo+IA0KPiBbU2V2ZXJpdHk6IExvd10NCj4gVGhpcyBpc24ndCBhIGJ1ZywgYnV0IHRoZSBj
-b21taXQgbWVzc2FnZSBzYXlzIGVhY2ggZnVuY3Rpb24gZ2V0czoNCj4gDQo+ICAgICBpdHMgb3du
-IGNvcHkgb2YgdGhlIHNoYXJlZCBwcm9sb2d1ZS9lcGlsb2d1ZSBpbnN0ZWFkIG9mIHN3aXRjaGlu
-ZyBvbg0KPiAgICAgdmVyc2lvbiBtaWQtZnVuY3Rpb24uDQo+IA0KPiBCb3RoIGZ1bmN0aW9ucyBz
-dGlsbCBzd2l0Y2ggb24gdHAtPnZlcnNpb24gbWlkLWZ1bmN0aW9uLg0KPiBydGxfb3BzX2luaXQo
-KSBhc3NpZ25zIHI4MTU3X2h3X3BoeV9jZmcoKSBvbmx5IGZvciBSVExfVkVSXzE2LCBhbmQNCj4g
-cjgxNTlfaHdfcGh5X2NmZygpIG9ubHkgZm9yIFJUTF9WRVJfMTdfUUZONjgvUUZOMTAwLg0KPiAN
-Cj4gVGhhdCBtZWFucyB0aGUgc3dpdGNoICh0cC0+dmVyc2lvbikgaGVyZSBhbmQgdGhlIG9uZSBp
-bg0KPiByODE1N19od19waHlfY2ZnKCkgZWFjaCBoYXZlIGp1c3Qgb25lIHJlYWNoYWJsZSBjYXNl
-LiBUaGUgZGVmYXVsdCBicmFuY2hlcw0KPiBjYW4gbmV2ZXIgcnVuLg0KPiANCj4gQ291bGQgdGhl
-c2Ugc3dpdGNoZXMgYmUgZHJvcHBlZCwgb3IgdGhlIGNvbW1pdCBtZXNzYWdlIGNoYW5nZWQgdG8g
-bWF0Y2gNCj4gdGhlIGNvZGU/DQoNCk9rLCBJIHdpbGwgcmV3b3JkIGl0Lg0KDQo+IA0KPiBbIC4u
-LiBdDQo+IA0KPiAtLQ0KPiBTYXNoaWtvIEFJIHJldmlldyDCtw0KPiBodHRwczovL25ldGRldi1h
-aS5ib3RzLmxpbnV4LmRldi9zYXNoaWtvLyMvcGF0Y2hzZXQvMjAyNjEwMDEwOTExNDQuMjgxOTEt
-MQ0KPiAtbmljX3N3c2QlNDByZWFsdGVrLmNvbQ0KDQpCZXN0IFJlZ2FyZHMsDQpDaGloLUthaQ0K
+This series fixes correctness issues in mremap_test, simplifies its
+test infrastructure and strengthens validation of remapped mappings.
+
+Patches 1-3 remove unused command line handling, unnecessary cleanup
+checks and redundant errno handling. Patch 4 converts the test to use
+kselftest helpers and removes manual failure tracking.
+
+Patches 5-8 fix handling of unavailable userfaultfd support, unexpected
+mremap() successes, data-corruption failures and cleanup after mmap()
+failures. Patch 9 removes perf tests and timing infrastructure.
+
+Patches 10 and 11 replace threshold-based random-data validation with
+sampled validation and a deterministic data pattern. Patch 12
+strengthens multi VMA validation by also checking the mapping state
+of holes after remapping.
+
+Changes in v2:
+- Add a first patch to remove command-line options
+- Add a second patch to remove munmap() checks from cleanup paths
+- Add a third patch to simplify errno handling
+- Drop the "correct multiple VMA range size" patch
+- Add an eighth patch to fix cleanup after target mmap() failures
+- Replace fully populating and validating large mappings with
+  populating and validating 10 pages each from the start, middle
+  and end
+- Extend multi VMA strengthening to userfaultfd multi VMA test
+- Fix minor formatting issues
+
+Previous versions:
+v1: https://lore.kernel.org/all/20260924050009.19974-1-sarthak.sharma@arm.com/
+
+---
+Sarthak Sharma (12):
+  selftests/mm: mremap_test: remove command line options
+  selftests/mm: mremap_test: drop munmap() checks from cleanup paths
+  selftests/mm: mremap_test: simplify errno handling
+  selftests/mm: mremap_test: use kselftest helpers
+  selftests/mm: mremap_test: skip test when userfaultfd is unavailable
+  selftests/mm: mremap_test: fail unexpected mremap successes
+  selftests/mm: mremap_test: fail on data corruption
+  selftests/mm: mremap_test: handle cleanup after mmap failures
+  selftests/mm: mremap_test: remove perf tests and timing
+  selftests/mm: mremap_test: replace validation threshold with sampled
+    checks
+  selftests/mm: mremap_test: replace random data with deterministic
+    pattern
+  selftests/mm: mremap_test: strengthen multi VMA validation
+
+ tools/testing/selftests/mm/mremap_test.c | 701 ++++++++++-------------
+ 1 file changed, 291 insertions(+), 410 deletions(-)
+
+-- 
+2.53.0
+
