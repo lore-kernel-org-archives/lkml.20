@@ -1,81 +1,170 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3ACC449C4A3;
-	Tue,  6 Oct 2026 15:57:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C35749C4DF
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 15:59:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791302271; cv=none; b=RzkCwFFjDGZiMUFCpq/jPcsRoC/m6cHEXqPsybC7mRmiKUTSnmsU1Ql7HFxbNLI9nISnvzDeeYRtre72sBtd4YfJW7MetL69mHTofdPRHGxuWlEfJR4mLzMcnJz+0oro5Vbj1ej35QdZ7Sj4VtDipYnkVcuPRP+h4NcYhbUzR18=
+	t=1791302348; cv=none; b=Y6sF3/pAaPB/im/j/UcE7XuJaVfmFSX7/Z3pnTOSnIcfuphvR8zTYhhPLSip//ERvhV3kTPx3UVCCJ6mq1JzO9BNeMWQ9YnJXxJeSWe7U8tjJt2vaCbTo0L2UeaGnVejctgzgQABDoiRgqXtUqE60EWfV+Ee8fsj1iSZUgrTUbo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791302271; c=relaxed/simple;
-	bh=Pf8EPNhq9IaFtueugyD5BlO9dMOI/Pc1XaecLXQ+tQA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BLVEy1JYQRqJdkpRayY8E7Bv7jfyQcVNm0Vx5jD3fUPVqkr2HZxfrzPOknq3/XXMpAZ5pYeCZWPvkgZovCiQKd9m/0bcqBc0OY7fvuKTc34xwrUWt4/Kcz89X/mUEDyaX5JwCQTWDC8aqBdRxeRmVVIXZ2v8+6Ze19OIm/jyUDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.arm.com; spf=pass smtp.mailfrom=foss.arm.com; dkim=pass (1024-bit key) header.d=foss.arm.com header.i=@foss.arm.com header.b=OfTYXDfm; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.arm.com
+	s=arc-20240116; t=1791302348; c=relaxed/simple;
+	bh=ff1D2bH50Ynt58NUDZ4l8/6s5FXJ1UAPQyYFIJtPsI4=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:MIME-Version:
+	 Content-Type:References; b=GgyLYald3Wajh89GlIurpwvNafhl1OPjbtX4+7GyS3eTFLdw4xfSX8tawVdVh+7lM5/R02tafNfMwEfFBtKovya9fYzcxLw1RQ9THeJNa8VwuYg1nKQUbXEFjeM4A7atWJt8nviJimERIrxtRApcI8fDtPoZl+SHjKHJXrFXC2I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=rw8mLAdZ; arc=none smtp.client-ip=203.254.224.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=foss.arm.com header.i=@foss.arm.com header.b="OfTYXDfm"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3E58C143D;
-	Tue,  6 Oct 2026 08:57:46 -0700 (PDT)
-Received: from [10.211.55.7] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 49FB73F763;
-	Tue,  6 Oct 2026 08:57:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=foss.arm.com; s=main;
-	t=1791302269; bh=Pf8EPNhq9IaFtueugyD5BlO9dMOI/Pc1XaecLXQ+tQA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=OfTYXDfmzBiGrhfZhBz5ssW0iPG9mWbR1eLtqv7qX8rqBIlDxgSv4FtiebdjSuMbP
-	 S/USuq7SI9SmGJiB5G05+vtV08D5otClWwBakLiB4zlhLaan2cpXO4N7EZO8x8P+7W
-	 4ExllblFVwsIuHyb0gMfWd81yVsoom4Xp5jK7aTY=
-Message-ID: <8c425dac-11f0-4267-8745-d23d6391a6b1@foss.arm.com>
-Date: Thu, 24 Sep 2026 15:49:14 -0500
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="rw8mLAdZ"
+Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261006155903epoutp02bc28b648b02fd7217d81a215b3530ad5~b_-2P7JPX1151211512epoutp023
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 15:59:03 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261006155903epoutp02bc28b648b02fd7217d81a215b3530ad5~b_-2P7JPX1151211512epoutp023
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791302343;
+	bh=LwqKq7AOFyzAaVzBCsYm6GFytFQT8pUNRjYDrtN2KiI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=rw8mLAdZ3xIowmyENWwLjz+lo+aZqc8bljSbQqY5TMhq3ACSagYweKfJpwhi59lbI
+	 h+Xb8MaI/bkdjV+S5UlgCkMLvi65ra5hyFXZxs5JY+RaqK0Ly3u8L95u/e5NzknhR6
+	 QGqEbmXa42k2Al8VZSDgq3mfpj1dEIFA+NWh660E=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPS id
+	20261006155902epcas5p300dd286bbc826cc534ff583a816fc9d2~b_-1iWPQ80752307523epcas5p3x;
+	Tue,  6 Oct 2026 15:59:02 +0000 (GMT)
+Received: from epcas5p1.samsung.com (unknown [182.195.38.95]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4hzgsx5YZ5z6B9m4; Tue,  6 Oct
+	2026 15:59:01 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261006155900epcas5p1b842116272ea9d75c815ebb11303cfa5~b_-zppPOU1729417294epcas5p1T;
+	Tue,  6 Oct 2026 15:59:00 +0000 (GMT)
+Received: from bose.samsungds.net (unknown [107.108.83.9]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261006155858epsmtip1d7474f0e7dd372ba74e46d8b277c7f56~b_-x-W6Hr1367213672epsmtip1B;
+	Tue,  6 Oct 2026 15:58:58 +0000 (GMT)
+From: Alim Akhtar <alim.akhtar@samsung.com>
+To: krzk@kernel.org, peter.griffin@linaro.org, robh@kernel.org,
+	conor+dt@kernel.org, linusw@kernel.org
+Cc: linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
+	linux@roeck-us.net, hajun.sung@samsung.com, wim@linux-watchdog.org, Alim
+	Akhtar <alim.akhtar@samsung.com>
+Subject: [PATCH v3 2/2] watchdog: s3c2410_wdt: Add support for Exynos8855
+ SoC
+Date: Tue,  6 Oct 2026 21:47:00 +0530
+Message-Id: <20261006161700.2185432-2-alim.akhtar@samsung.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261006161700.2185432-1-alim.akhtar@samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] arm64: gcs: Return -EPERM when changes are prevented
- by locking
-To: Mark Brown <broonie@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>
-Cc: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Shuah Khan <shuah@kernel.org>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-References: <20260910-arm64-gcs-lock-eperm-v1-0-d88e51855c9f@kernel.org>
- <asUIWgHk3hdaLEu5@arm.com> <asUQdaTtMF1X_Hsa@sirena.org.uk>
-Content-Language: en-US
-From: Bill Roberts <bill.roberts@foss.arm.com>
-In-Reply-To: <asUQdaTtMF1X_Hsa@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261006155900epcas5p1b842116272ea9d75c815ebb11303cfa5
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-543,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261006155900epcas5p1b842116272ea9d75c815ebb11303cfa5
+References: <20261006161700.2185432-1-alim.akhtar@samsung.com>
+	<CGME20261006155900epcas5p1b842116272ea9d75c815ebb11303cfa5@epcas5p1.samsung.com>
 
+Watchdog IP on this SoC is similar to Exynos850/ExynosAutov{9/920}.
+This does not have CNT_EN_WDT bit in PMU and offset of RST_STAT is
+different then the previously support SoC.
+Reuse the offset as much as possible from already supported SoCs
 
-On 10/6/26 10:15 AM, Mark Brown wrote:
-> On Tue, Oct 06, 2026 at 03:40:26PM +0100, Catalin Marinas wrote:
->> On Thu, Sep 10, 2026 at 08:00:39PM +0100, Mark Brown wrote:
->>> When we refuse to change the GCS configuraiton due to locking we
->>> currently return -EBUSY which is an odd choice.  The only userspace I
->>> found that relies on this value at present is the kselftest and other
->>> architectures are using the more obvious -EPERM here let's switch.
->> IIUC, riscv is returning -EINVAL. Should we get an overall consistent
->> value? Personally I find -EBUSY quite descriptive but I don't mind
->> aligning the architectures (before user space starts making use of the
->> return value).
-> Yes, it's using -EINVAL though it differs in that it's interface for
-> locking only allows locking a single enable bit in the enabled state
-> rather than letting you lock unknown bits, or locking things off, so we
-> need some changes there too.  I guess we could also go with -EPERM which
-> would also distinguish the "I don't understand" from "This is blocked",
-> but nobody uses that yet.
->
-> I was intending to do something soon to pull more of this code out into
-> some shared place since especially for RISC-V and arm64 where they're
-> using the prctl() rather than arch_prctl() interface so there's less
-> reason for things to be duplicated.
-Bear in mind that I do have patches out there, for x86 that enable prctl
-for them as well. I looked into doing the lock check in the prctl call 
-path before
-it gets dispatched to the arch specific backend, it does require a 
-common interface
-into the threads feature bits that each arch would need to, trivially, 
-implement.
+Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
+Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
+---
+*Changes in V3:
+ - updated commit mesg as suggested by Peter
+ - Added Reviewed-by tag
+
+*Changes in V2:
+	- Fixed Sashiko review comments
+		- [Low] watchdog: confusing reuse of CLUSTER0 macro for CLUSTER1
+		- [Low] watchdog: space-based alignment for EXYNOS8855_RST_STAT_REG_OFFSET
+
+ drivers/watchdog/s3c2410_wdt.c | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
+
+diff --git a/drivers/watchdog/s3c2410_wdt.c b/drivers/watchdog/s3c2410_wdt.c
+index 7053963fb0ac..007c05ed2c7b 100644
+--- a/drivers/watchdog/s3c2410_wdt.c
++++ b/drivers/watchdog/s3c2410_wdt.c
+@@ -58,6 +58,7 @@
+ #define S3C2410_WATCHDOG_DEFAULT_TIME	(15)
+ 
+ #define EXYNOS5_RST_STAT_REG_OFFSET		0x0404
++#define EXYNOS8855_RST_STAT_REG_OFFSET		0x10
+ #define EXYNOS5_WDT_DISABLE_REG_OFFSET		0x0408
+ #define EXYNOS5_WDT_MASK_RESET_REG_OFFSET	0x040c
+ #define EXYNOS850_CLUSTER0_NONCPU_OUT		0x1220
+@@ -73,6 +74,7 @@
+ 
+ #define EXYNOS850_CLUSTER0_WDTRESET_BIT		24
+ #define EXYNOS850_CLUSTER1_WDTRESET_BIT		23
++#define EXYNOS8855_CLUSTER1_WDTRESET_BIT	25
+ #define EXYNOSAUTOV9_CLUSTER0_WDTRESET_BIT	25
+ #define EXYNOSAUTOV9_CLUSTER1_WDTRESET_BIT	24
+ #define EXYNOSAUTOV920_CLUSTER0_WDTRESET_BIT	0
+@@ -281,6 +283,26 @@ static const struct s3c2410_wdt_variant drv_data_exynos850_cl1 = {
+ 		  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_PMU_CNT_EN,
+ };
+ 
++static const struct s3c2410_wdt_variant drv_data_exynos8855_cl0 = {
++	.mask_reset_reg = EXYNOS850_CLUSTER0_NONCPU_INT_EN,
++	.mask_bit = 2,
++	.mask_reset_inv = true,
++	.rst_stat_reg = EXYNOS8855_RST_STAT_REG_OFFSET,
++	.rst_stat_bit = EXYNOS850_CLUSTER0_WDTRESET_BIT,
++	.quirks = QUIRK_HAS_WTCLRINT_REG | QUIRK_HAS_PMU_MASK_RESET |
++		  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_DBGACK_BIT,
++};
++
++static const struct s3c2410_wdt_variant drv_data_exynos8855_cl1 = {
++	.mask_reset_reg = EXYNOSAUTOV920_CLUSTER1_NONCPU_INT_EN,
++	.mask_bit = 2,
++	.mask_reset_inv = true,
++	.rst_stat_reg = EXYNOS8855_RST_STAT_REG_OFFSET,
++	.rst_stat_bit = EXYNOS8855_CLUSTER1_WDTRESET_BIT,
++	.quirks = QUIRK_HAS_WTCLRINT_REG | QUIRK_HAS_PMU_MASK_RESET |
++		  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_DBGACK_BIT,
++};
++
+ static const struct s3c2410_wdt_variant drv_data_exynos990_cl0 = {
+ 	.mask_reset_reg = GS_CLUSTER0_NONCPU_INT_EN,
+ 	.mask_bit = 2,
+@@ -400,6 +422,8 @@ static const struct of_device_id s3c2410_wdt_match[] = {
+ 	  .data = &drv_data_exynos7 },
+ 	{ .compatible = "samsung,exynos850-wdt",
+ 	  .data = &drv_data_exynos850_cl0 },
++	{ .compatible = "samsung,exynos8855-wdt",
++	  .data = &drv_data_exynos8855_cl0 },
+ 	{ .compatible = "samsung,exynos990-wdt",
+ 	  .data = &drv_data_exynos990_cl0 },
+ 	{ .compatible = "samsung,exynosautov9-wdt",
+@@ -723,6 +747,7 @@ s3c2410_get_wdt_drv_data(struct platform_device *pdev, struct s3c2410_wdt *wdt)
+ 	/* Choose Exynos850/ExynosAutov9 driver data w.r.t. cluster index */
+ 	if (variant == &drv_data_exynos850_cl0 ||
+ 	    variant == &drv_data_exynosautov9_cl0 ||
++	    variant == &drv_data_exynos8855_cl0 ||
+ 	    variant == &drv_data_gs101_cl0 ||
+ 	    variant == &drv_data_exynosautov920_cl0 ||
+ 	    variant == &drv_data_exynos990_cl0) {
+@@ -740,6 +765,8 @@ s3c2410_get_wdt_drv_data(struct platform_device *pdev, struct s3c2410_wdt *wdt)
+ 		case 1:
+ 			if (variant == &drv_data_exynos850_cl0)
+ 				variant = &drv_data_exynos850_cl1;
++			else if (variant == &drv_data_exynos8855_cl0)
++				variant = &drv_data_exynos8855_cl1;
+ 			else if (variant == &drv_data_exynosautov9_cl0)
+ 				variant = &drv_data_exynosautov9_cl1;
+ 			else if (variant == &drv_data_gs101_cl0)
+-- 
+2.34.1
+
