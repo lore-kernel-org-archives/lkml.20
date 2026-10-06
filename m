@@ -1,194 +1,266 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f227.google.com (mail-qk1-f227.google.com [209.85.222.227])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9A7A27E1DC;
-	Tue,  6 Oct 2026 21:16:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C06F7383320
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 21:21:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791321382; cv=none; b=cfeJYFQdarYziCFCz7+ebKMBXf3Y9f0tT6eH2E0P8MkTxml2V3DtKQ68+lqBpLOzRbqfiBBwxenm099HBe1tg5no0SgJpZSkOSknnUz12XKMdICMR9dZFK1jBLNPGgADkDKNnoy6U3iq8Ap2+oEZI2cKAKUA8iou4CsmD4u1Gs0=
+	t=1791321683; cv=none; b=jKAQj530Yfkxhg4QD9evVE7j7ROVygnrRlSZwNKPSPbHd3BmrsRXZ0jMxyTV0ByoUTkQ1Zy33DY75wuZY32MZWeDGKdWM7Am1uvfIhl9Krxq3Nr/HEKbR1brf3OSs7eIxNrKj9V6kiJapbqFX0EXKusjJzA5M5CQAplgB0jt77Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791321382; c=relaxed/simple;
-	bh=Wt0tSBXm1m5dvm9QmEBo/E9Zi+TYLJV5vVBCCmQ6bkI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=O1DDOAcp0+5fjtvpLqJCQlecvRpaYv5UFOqGFRtWtrIr/TrYSma6BrWBPesiNHkDt9sT10KUuBqflYHXRSroDF9X/EcO51f++U0DE/aOvCSukLnJbDi2myUenY85DIM/84dBIxwEJ34DpXP7688f5vQ3eykONHTK0dukPO4BRrY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=D1TRSTFr; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791321683; c=relaxed/simple;
+	bh=c0npU9j0jw2gLlCjVb+kR1taANZH0aEUXhdPQWdtQCI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Mk5hZuGP3xDSU8JsBwsbmwgoa5p9+mF14mPOtMoohb5Li+FxXlsjAWlysFNQuzDSsxxhdchICzjNuYWsmAZ3iKZcGqpMQVVQm0c8uLLCttTP8TuY78dde0ZJ3+xNBbh48i6uiLf4pUEdi7BbNSlUDLF4LmBGjwnbSHODUSEU6Fs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=b9skhlkR; arc=none smtp.client-ip=209.85.222.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="D1TRSTFr"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 696I60E4239519;
-	Tue, 6 Oct 2026 21:16:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=On7qUP
-	5YkoFz9cJd80++6TqSdJztSGWW/C7z0XCLUcQ=; b=D1TRSTFryOJQHIHt+qEMrm
-	+G8K+f4fDg7tOhm8gxm+ZppAhI8WHIZLZma0WaW6xwSfcgtdE1usdp9by/8TRJyz
-	8+DqHlOeaoibzxdy5uNoTswMUwB/L6nXJ7cauS6drZ5h/xlpNli7fWLr8JnPO3Ko
-	CoIOCychM5Bd9kqagUpNX7PNVWeNRMNkgMSyIbz80sflKBRSylLPHYjIDupkR0SK
-	ovRwN4Pjs/gcOCDTQptMPdEOxwh6FV435y6nEQxUvxdkWn4j3tGNIzOr8Mah2hxa
-	VZVCnk7o3++/IuPLv6l0tYkz6oYGNCK8F7/03Nd8Zf2IkGwBlTTQaVOIduAbCQ3A
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2sbv9brv-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 06 Oct 2026 21:16:09 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 696KsuKl860842;
-	Tue, 6 Oct 2026 21:16:08 GMT
-Received: from smtprelay06.dal12v.mail.ibm.com ([172.16.1.8])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h58ek0289-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 06 Oct 2026 21:16:08 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com [10.39.53.229])
-	by smtprelay06.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 696LG7Ib10420988
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 6 Oct 2026 21:16:08 GMT
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 98F035805F;
-	Tue,  6 Oct 2026 21:16:07 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 10D4858059;
-	Tue,  6 Oct 2026 21:16:06 +0000 (GMT)
-Received: from [9.61.78.19] (unknown [9.61.78.19])
-	by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Tue,  6 Oct 2026 21:16:05 +0000 (GMT)
-Message-ID: <dea9a4d3-f76c-49f7-bb40-d793ebef7da8@linux.ibm.com>
-Date: Tue, 6 Oct 2026 17:16:05 -0400
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="b9skhlkR"
+Received: by mail-qk1-f227.google.com with SMTP id af79cd13be357-93e50170ba7so255053785a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 14:21:21 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791321680; x=1791926480;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=c+s8wDkFJjmUsGyNSfck13snpsgrI2xWNmikr55Ve2o=;
+        b=aM7DGdNsJLUGem/RTu3vHbjjw+TPAanBneComhuYv4r2jANxL57Wu7wANZXHIuKCAP
+         DpyliVXmWeMu6a7vcQvtkkxm8zRAY4G1LBVBZuMBzuSHfsj3raQTZaNNOPc4vkK4eEda
+         B4llgA1Nrhk3w2awI+f6iXnVWBQtjC/7c7zoZjATwF0lBSC0ZLgYPqIfCthmy3Uzboii
+         qZRT8d+zjnUPIB18Jdbxj2Y3Y+wj8YlafFHYTDIAcpC1Qzy4jqMp7emGpmfbGQeo0/aU
+         h0p2jf+R+ubjnjKo9dYkR0pYmfRwp3afkcMcZVkp3MWbF7Nq+0aj1oBvdvw2ckDb36E9
+         +ZFg==
+X-Forwarded-Encrypted: i=1; AKwUvByaaUUjHKTRoniLlmWl0vr0rkUMmTqCsAykruUIm1q7+WYKrblzmiErqkEuflNtaAfpBI0ev5kBHl019B8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lLpMamctb73GAs8964iM6uYFo03pMfLuXqdH+q6sV9jD2AQ1S4
+	tqK4btnbnbor4qc85YDetZR8OcqBlqNjuKC1W7RVWa2TkFsbcGR/q8IlD+DUlkFEnn5dp/ltIDh
+	+FSFASn8QUMDN+RMpR9qAJ3Qo7NeM0+JUP+dxlMvDL2OscQKiGV8WnRDHhujYJifse7IaxWD6fx
+	fIDSC1z+xt6HtO888R8QjNK07VCGuNPK8lzMhFC4WkyZXtcL6lWHvNxDlc3FH6EVQw0EriWz9hb
+	PVX7hffRCkmdQ==
+X-Gm-Gg: AYBFou1KHYFVcTi9czT2xr8WMUbQEWutuhYNj6FE94SCGvhXtf2BNOC4nayOQgsIOQU
+	itbofn0bQ1litRdE7u0eAEniQlGSSuzEPqGiDFXHvGqdbPXBEwDIk/CsFRWlnGBv/GNs6Rbxsbw
+	RZNUtwDoTLryZEphosNJX52VCpqT+SsHnk8Ce/jXjzJ1GYOwVcxEzmg2VgzHhHwGMk3o9L4mqMG
+	H+r3h2HYrAZfiQSaIy6ftly72YBCv/xFQHk6zWzVk7WUELSRn2sCXROCtqiJj57mgzlESRANDiv
+	QMwgtuVu6eFfLhXLApjXz/g9fCDXiRAFkJ+QJpEx2PaYk/mfsjpiO1kczOSysNQCbhglPNqKCSS
+	QOhzDdnauQpU3UttZRasU5eEqHTEthOlmA8AAJbTMoe5CIapJMVt6CN0GroL0LP5yk374GATM3t
+	2utFiEpeuGdtCBDwSYcU/mu5xJ6JX7ewer
+X-Received: by 2002:a05:620a:254b:b0:93b:d7a3:45d4 with SMTP id af79cd13be357-93e9b84acfemr36969185a.61.1791321680569;
+        Tue, 06 Oct 2026 14:21:20 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-124.dlp.protect.broadcom.com. [144.49.247.124])
+        by smtp-relay.gmail.com with ESMTPS id af79cd13be357-93e9912449asm19072685a.10.2026.10.06.14.21.20
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 06 Oct 2026 14:21:20 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-yx1-f71.google.com with SMTP id 956f58d0204a3-677c2db10b1so7080946d50.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 14:21:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1791321680; x=1791926480; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=c+s8wDkFJjmUsGyNSfck13snpsgrI2xWNmikr55Ve2o=;
+        b=b9skhlkRGI4y/sX4XXTGbTI4u0qmJnxAeIkqkANi/bbrpzCylX2r0VnqdRPGV1iY5o
+         nCLLisU+JTcnoDZJe9TCyVnpsSrt1NukRIqzugSvi/EfbU9/xi465SZg70CAAOakEO0q
+         L+P9o5qVU/qXsGiL0skaMX08yyPUS/84NcLBE=
+X-Forwarded-Encrypted: i=1; AKwUvBx1VvkjUSuDpnqS+rRuanPmEyyb5zS+IvpQGJynEHrV+SybJ2k0zdwig/5vJE4QABQvX8NsdvJPsUwFJtY=@vger.kernel.org
+X-Received: by 2002:a05:690e:bc1:b0:675:37b1:931a with SMTP id 956f58d0204a3-6790a0c3183mr204473d50.12.1791321679909;
+        Tue, 06 Oct 2026 14:21:19 -0700 (PDT)
+X-Received: by 2002:a05:690e:bc1:b0:675:37b1:931a with SMTP id
+ 956f58d0204a3-6790a0c3183mr204450d50.12.1791321679271; Tue, 06 Oct 2026
+ 14:21:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 14/15] s390/vfio-ap: Add 'migratable' feature to sysfs
- 'features' attribute
-To: "Jason J. Herne" <jjherne@linux.ibm.com>, linux-s390@vger.kernel.org,
-        linux-kernel@vger.kernel.org, kvm@vger.kernel.org
-Cc: borntraeger@de.ibm.com, mjrosato@linux.ibm.com, pasic@linux.ibm.com,
-        alex@shazbot.org, kwankhede@nvidia.com, fiuczy@linux.ibm.com,
-        pbonzini@redhat.com, frankja@linux.ibm.com, imbrenda@linux.ibm.com,
-        agordeev@linux.ibm.com, hca@linux.ibm.com, gor@linux.ibm.com
-References: <20260807221834.562851-1-akrowiak@linux.ibm.com>
- <20260807221834.562851-15-akrowiak@linux.ibm.com>
- <8b8dc348-ac31-4dbe-a518-9563d5414f09@linux.ibm.com>
-Content-Language: en-US
-From: Anthony Krowiak <akrowiak@linux.ibm.com>
-In-Reply-To: <8b8dc348-ac31-4dbe-a518-9563d5414f09@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: 75xFoeZZbkCR0bWsXkJo0D4rhFgoFMso
-X-Authority-Analysis: v=2.4 cv=KJHPn1Fo c=1 sm=1 tr=0 ts=6ac56519 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8
- a=Bb8CXz_sGeinu_NhX6AA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: 75xFoeZZbkCR0bWsXkJo0D4rhFgoFMso
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA4MyBTYWx0ZWRfX5y8xg3ch+Nl/
- NM6iG9wBTRLrrjbp6DYz50VjpPQmblv+eUBqYf7X6tF47Oi0FnjHMmGVJ/2fGlIQGD3vuSJ1aw4
- fLzMPilRB7OuS+/GDMvsXlHb4qjXQi92WDwc95XX9XMwkK6hcY2VnHvh6K4fXf0NEHDLq6EatjN
- uMwLNGFARtVvYtZINMVPYU7N1rsNJkyYpbQO/PIHvlBKClvhRYa7LrpNkff7d+Abptt6t1EPxps
- On6bZAY1CsIN+NToNrOk00GdQjjJUB1uLHl3ksbVyuF0KDhV+k68JAdMCE/he0ylnpOQQp5Cn8+
- TYyMCD3Dt+jfHO8jh82DMNCf4VWPyoTV+0iifuO30nPonYNvy04F7xvkRfXcaJAXiOluup0oQcc
- 4J7SCKacOwl0HsTijh1C3+V3FjW6c+hFONMqtnDk4yDFm2+i2DbGOP2r0jNWQTFVG0BWcpAOFK2
- d5puytAAoy57BnDNB+w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA4MyBTYWx0ZWRfX4s1LSxKpiSZl
- kQIHJ0riFSAryIL82RKxxfd4IUUtn9XSLUuDqveD0022MfGaBNuy89u81DxllxLXZcXSA6IwSqh
- 1/vZ97RLTO1CmO2ErJ7EZaE24WWXA3s=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-06_05,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0
- priorityscore=1501 phishscore=0 impostorscore=0 adultscore=0 clxscore=1015
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610060083
+References: <20260917144758.2157707-1-vulab@iscas.ac.cn> <CAEQnVQnWk2ADAvLEVCrgNE=dtf3D4DJ-UcosUQgGDj8=AMnA2A@mail.gmail.com>
+In-Reply-To: <CAEQnVQnWk2ADAvLEVCrgNE=dtf3D4DJ-UcosUQgGDj8=AMnA2A@mail.gmail.com>
+From: Paul Ely <paul.ely@broadcom.com>
+Date: Tue, 6 Oct 2026 17:21:07 -0400
+X-Gm-Features: AclHuK9ZSfOlyGbY5h0Kfvrv-muwnCR6dEPA3TUbGjoEl17TCh4tSpsHX0vjPvA
+Message-ID: <CAEQnVQn7fpgpm5zY=8ne0G5M_KXWg4qjecMK6smk-q+_0j1PEw@mail.gmail.com>
+Subject: Re: [PATCH] scsi: lpfc: Fix ndlp reference leak in lpfc_release_rpi()
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: James.Bottomley@hansenpartnership.com, james.smart@broadcom.com, 
+	linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org, 
+	martin.petersen@oracle.com, stable@vger.kernel.org, 
+	Nigel Kirkland <nigel.kirkland@broadcom.com>
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
+	boundary="0000000000006cc0b6065d3294de"
+
+--0000000000006cc0b6065d3294de
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Since you are fixing up the return values, could you also fix the -EIO
+in lpfc_sli_issue_mbox_s4 to return MBXERR_ERROR?  The patch will work
+in case of -EIO return but clearly lpfc_release_rpi isn't looking for
+a negative MBX return status.
+
+Thanks
 
 
 
-On 8/20/26 9:01 AM, Jason J. Herne wrote:
+On Thu, Sep 17, 2026 at 3:35=E2=80=AFPM Paul Ely <paul.ely@broadcom.com> wr=
+ote:
 >
+> Thanks Wentao,
+> I need some time to read this one and test it.
 >
-> On 8/7/26 6:18 PM, Anthony Krowiak wrote:
->> Add the 'migratable' feature to the features provided by the sysfs
->> /sys/devices/vfio_ap/matrix/feature attribute to indicate that migration
->> of vfio devices is supported. Since live guest migration is not 
->> supported
->> for SE guests, the 'migratable' feature will not be included when the
->> feature attribute is displayed.
->>
->> Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
->> ---
->>   drivers/s390/crypto/vfio_ap_drv.c | 14 +++++++++++++-
->>   1 file changed, 13 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/s390/crypto/vfio_ap_drv.c 
->> b/drivers/s390/crypto/vfio_ap_drv.c
->> index 8e69ed286bb9..abfb34421d74 100644
->> --- a/drivers/s390/crypto/vfio_ap_drv.c
->> +++ b/drivers/s390/crypto/vfio_ap_drv.c
->> @@ -26,9 +26,21 @@ MODULE_LICENSE("GPL v2");
->>   struct ap_matrix_dev *matrix_dev;
->>   debug_info_t *vfio_ap_dbf_info;
->>   +#define VFIO_AP_DRV_FEATURES    "guest_matrix hotplug ap_config 
->> migratable"
->> +#define SE_GUEST_FEATURES    "guest_matrix hotplug ap_config"
->> +
->>   static ssize_t features_show(struct device *dev, struct 
->> device_attribute *attr, char *buf)
->>   {
->> -    return sysfs_emit(buf, "guest_matrix hotplug ap_config\n");
->> +    /*
->> +     * If the system running is an SE guest, it will support a 
->> different
->> +     * set of features; for example, it will not support live guest
->> +     * migration
->> +     */
->> +    if (ap_is_se_guest())
->> +        return sysfs_emit(buf, "%s\n", SE_GUEST_FEATURES);
+> Thanks
 >
-> ap_is_se_guest() is defined like this:
-> is_prot_virt_guest() && ap_sb_available();
->
-> is_prot_virt_guest() makes sense, this tells is this is actually a 
-> secured guest.
->
-> But ap_sb_available() "Returns 1 if secure binding facility is 
-> available".
->
-> What do we want to happen here if is_prot_virt_guest() = TRUE while 
-> ap_sb_available() = FALSE? Have you considered this scenario?
+> On Thu, Sep 17, 2026 at 10:48=E2=80=AFAM Wentao Liang <vulab@iscas.ac.cn>=
+ wrote:
+> >
+> > lpfc_release_rpi() only drops the node reference and frees the mailbox
+> > memory it took when lpfc_sli_issue_mbox() returns MBX_NOT_FINISHED.  Th=
+e
+> > SLI-4 issue path can also return -EIO without submitting the command, i=
+n
+> > which case the completion handler never runs and both are leaked.
+> >
+> > Clean up whenever the command was not handed to the port.
+> >
+> > Fixes: 4430f7fd09ec ("scsi: lpfc: Rework locations of ndlp reference ta=
+king")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> > ---
+> >  drivers/scsi/lpfc/lpfc_nportdisc.c | 8 +++++++-
+> >  1 file changed, 7 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/scsi/lpfc/lpfc_nportdisc.c b/drivers/scsi/lpfc/lpf=
+c_nportdisc.c
+> > index 9c449055a55e..055f44ec7b94 100644
+> > --- a/drivers/scsi/lpfc/lpfc_nportdisc.c
+> > +++ b/drivers/scsi/lpfc/lpfc_nportdisc.c
+> > @@ -1142,7 +1142,13 @@ lpfc_release_rpi(struct lpfc_hba *phba, struct l=
+pfc_vport *vport,
+> >                                  ndlp->nlp_rpi, ndlp->nlp_DID, ndlp->nl=
+p_flag);
+> >
+> >                 rc =3D lpfc_sli_issue_mbox(phba, pmb, MBX_NOWAIT);
+> > -               if (rc =3D=3D MBX_NOT_FINISHED) {
+> > +
+> > +               /* Only a queued or completed command is handed to the
+> > +                * port; other results, such as the -EIO returned by th=
+e
+> > +                * SLI-4 path when it cannot submit a non-polled comman=
+d,
+> > +                * leave the mailbox and the node reference to the call=
+er.
+> > +                */
+> > +               if (rc !=3D MBX_SUCCESS && rc !=3D MBX_BUSY) {
+> >                         lpfc_nlp_put(ndlp);
+> >                         mempool_free(pmb, phba->mbox_mem_pool);
+> >                 }
+> > --
+> > 2.34.1
+> >
 
-I have not for two reasons:
-1. The doc block for ap_is_se_guest() states: Check for SE guest with AP 
-pass-through support. Based
-     on that it would seem that both are needed
-2. This is what the author - Harald - told me to use
+--0000000000006cc0b6065d3294de
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
 
->
-> Also, the code would be a bit more extendible if you emitted the 
-> static string of always supported features, and then if(se) emit the 
-> string of se support features prepended with a space. Then new feature 
-> updates only have a single string to modify, so no risk of 
-> accidentally missing one.
-
-I'm not sure what you're describing here. SE supported features are a 
-subset of all supported features.
-
->
-> Also, I'd consider using "migrate" or "migration" as they match 
-> existing feature designations better. We did not use hotpluggable :)
-
-Sure, migration is probably better.
-
->
->> +
->> +    /* Return all features supported by the vfio_ap device driver */
->> +    return sysfs_emit(buf, "%s\n", VFIO_AP_DRV_FEATURES);
->>   }
->>   static DEVICE_ATTR_RO(features);
->
-
+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
+iId6lRoDnFAsEvnaOMvg29iSc9gZaFsMAV8NLrmVgatBLqETEHgQ4n1BrE2+pRoymE80Zf+Qe5W6
+GF5zYMjxe2smznZoexz/BISo+5QDZaKZKtmoZ3ApyLjKz1G5Q2hUhmZWHvMu/eGSXP59UaUUmelW
+ZlVs3E0h345YpaGuBNlquYm35nQ3ehYjm2jqaIh7F7K0+eF5TPjcMLpqnpak12xIx6BCxmFi8Oqu
+Gb9+KrrAD+KPgqzjyZZxdVcCAwEAAaOCAdkwggHVMA4GA1UdDwEB/wQEAwIFoDAMBgNVHRMBAf8E
+AjAAMIGTBggrBgEFBQcBAQSBhjCBgzBGBggrBgEFBQcwAoY6aHR0cDovL3NlY3VyZS5nbG9iYWxz
+aWduLmNvbS9jYWNlcnQvZ3NnY2NyNnNtaW1lY2EyMDIzLmNydDA5BggrBgEFBQcwAYYtaHR0cDov
+L29jc3AuZ2xvYmFsc2lnbi5jb20vZ3NnY2NyNnNtaW1lY2EyMDIzMGUGA1UdIAReMFwwCQYHZ4EM
+AQUDAzALBgkrBgEEAaAyASgwQgYKKwYBBAGgMgoDAjA0MDIGCCsGAQUFBwIBFiZodHRwczovL3d3
+dy5nbG9iYWxzaWduLmNvbS9yZXBvc2l0b3J5LzBBBgNVHR8EOjA4MDagNKAyhjBodHRwOi8vY3Js
+Lmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAyMy5jcmwwIAYDVR0RBBkwF4EVcGF1bC5l
+bHlAYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8GA1UdIwQYMBaAFAApNp5ceroP
+ry1QLdugI4UYsKCSMB0GA1UdDgQWBBTc34vK15RY7h33segpWeDeAloTGDANBgkqhkiG9w0BAQsF
+AAOCAgEAb0hABkNonbsXXPrDOwB9B9lRtVhdRszakaT0zWubTTtHAV/XTebY1b4caUC2iX9AJvr0
+XTJrFAiLtJ6eeP6yQOjD+rBprWauwPUzydJWEftECpX/lbPgZLBSHx22euCSnIm8HNj8o0bMi+Ii
+plCW6kU56G1krQY0jrqDJCFgH4Wmp1TrKi36iVTIXyYLDtPOcSXe9hLmeUlQuL4nAoB8EsI45w4a
+5Wi/xS7vGQLXzXAQ2SY6Yuseqhh+QcXvzeb0uVB54edC4HFrVX9DtFzHXoyB9s0C29MZm2zpFPNS
+DgwnsmTsvpPuLELuuaJvIKnSHHR9FKrmQZbmz/i6KyBt0enmjNk7I7vAKQa8IqZxSrjvR6tYExiq
+BP9ZuiXJnuqoPujFE7kphkUjmK76yv8904eZNflTvcEDpthD1boifOzT78iQ3fbuytR8LKx7tzGV
+Ga9+dcLBcR/eP85Vmc9NW1frtO3dRd26+DHs1lXX96Em5AAlvBgDw8b1GfyEvfimBkxTIWxR3mBB
+jAMkNKrfvV7NxS9AfcFu4fvxuBJc+t2FN1zBc8VyVyn9ZBeJ2DYS9uQ2x00QPXMHqVlAT5fBanmS
+n1fgcSTdHEy1fzVZIAtM1XMIWy03bJKNBwUebgxHKHSUCZ7VSMHE4jyERMCqkvTxU6h4JJ7YzRrU
+jhXYo8oxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52
+LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBDQSAyMDIzAgx9OiWw8dVRSIkn
+L+YwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIHANuGyVmHVOHyCjuIiMjdOiGnkT
+z5wZCibE7zZ3gFVPMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI2
+MTAwNjIxMjEyMFowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQMEASowCwYJYIZIAWUDBAEWMAsG
+CWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJYIZIAWUDBAIBMA0GCSqGSIb3
+DQEBAQUABIIBAINMDkgm/zyuoNNATN4GjTHWzq31u8uBw498sWEYQoFeFdgctlGgZ/vjVRF/Jm6z
+35X/6r0vi5tEdamZQi/5LZUIYvlCgAHOKD+KzDWTIWXj1HqDg8fBpP34RJXsLS+bIaM6fZcpGCrg
+f2I/KSJc424gvlfmwf2uK1veK/uZHQkhURMUnWZ1u6OD3UkAQBK4wiVgjJbEaaLaYeDxXtHP5vjW
+iJGijF+GNxxrqQ7vaMRiIGOm1AUVyqMx+0MzGzuEtQZsxbP845ujdtVPrvFKueEuTpgkNhbrXQvx
+6625bV5s5J564bHcR3mLJAM6kQU3MKbqAk2hamGx+LqnSAkYxw0=
+--0000000000006cc0b6065d3294de--
