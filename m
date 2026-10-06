@@ -1,276 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87BF6381E92;
-	Tue,  6 Oct 2026 23:52:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A568B3C1088
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 23:53:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791330755; cv=none; b=g7XMAB5CX3695cfGmfOuMYVDBceK+qbOK97J57A6ZOO0UY69Myn7sk0N/52FX1SbX77uyWVnpi+gkgdGkhScDcNUFiX2mX4bTFs4pK/NnQLlUJmq9hXgYKAYEh/VQGtM0y4bQnHS3TErrPhukW5T87P2TS7cAQD2CHOkzb+MgY8=
+	t=1791330818; cv=none; b=kgnxKH5OqEhNiPMu5UlNR06on5hcxYPeyemU+ezY7lyQ28oo5qOIAFMOeC5MPIvGKMw92UvmLKujamdzRjfWdnMeJl9L7lVKEu+KnB4cLaYlxtx6QyEsu6K6PwTTAZa7M8hRy5G9N/HmZzD9Ldk9CeztzzS1/P9/HxpvFxKYUFw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791330755; c=relaxed/simple;
-	bh=bagGNJDCMi2lj5pkMFgWwfbItScCQcAO4V8tv93nSdo=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=b/HDZnbtd/8qUYwMTIKxk0bIQuRXtwfUy93XbBRGUOF2RAMvKvLZLqNYbGdKE/dJUIBFws4AGIf5EAS+Zft7rlmfAS43yxXJWYTpEF32zgLyfyUqWt8i96cVqSDlK7+0dd3gLaUjvsqHEdJHIadC8OBx6Bl65XUH8UETerxbRBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IrE4j/rr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791330818; c=relaxed/simple;
+	bh=xf167AZzu0nvnTcAX1Xw8R4tyYv+cUzmt2UzRs7bslQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=imh5BvVqMqAiyPy6GhtAyteTRL/AFMK724QKMeZ+LaIQmQbZQguO10WXtDOjVW21aDKO1VTmbjOqaCNuPF/fJrwGGZLSxI6Fv2SNL/YwQGlhksIQd13dN7hFIZ/89F28LiLH3UHbj+qmunixmonnSg1XarD3tNlSCcQKw7Teh3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KkiWrAzX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=P+z66KUC; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IrE4j/rr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8E491F0089C;
-	Tue,  6 Oct 2026 23:52:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791330754;
-	bh=uRYyWJzC9kDxB04vAfaScQPuymABU053QnX0SMRlcIM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=IrE4j/rrtW6TOvK/LGxyIBqmrTgkvhf+CtNOCxa9y7MrMKq3b5WuIqwIQwOsJwRj7
-	 itik1qf7K+YFv/v4WnAtyu1LZBu0HrmaBiYxbx+Fcw7RJQ/EVZnkIaMFVIlgu6TtAD
-	 EMFzoUkbx0lwujFQTea+E0Z0Y1A94cdmrKLccwHQsdc1cGoT6YaEy2F673q7FVBqa/
-	 PJdBn7IC16biHsBaIxk4zWCa+tSrHNRJ/9YjJZp+gRsgCqFwrO4cps/uIM1nXILAUt
-	 Ns1rFOHd8qPlmFG1pecnS0g2+aTeuaxCHoP/FV2Ql5T/1XtvkOnldi4O8wT9JircH7
-	 VCOS2L6r299VA==
-Subject: Re: [PATCH RFC 2/2] can: mcp251xfd: mcp251xfd_irq(): add call to
- can_rx_offload_threaded_irq_flush()
-From: netdev-bot+sashiko@kernel.org
-To: mkl@pengutronix.de
-Cc: ciprianmarian.costea@oss.nxp.com, mailhol@kernel.org, mani@kernel.org,
- thomas.kopp@microchip.com, kernel@pengutronix.de, linux-can@vger.kernel.org,
- linux-kernel@vger.kernel.org, kuba@kernel.org
-Date: Tue, 06 Oct 2026 23:52:33 +0000
-Message-ID: <179133075328.1406898.10468739053467692064@kernel.org>
-In-Reply-To: =?utf-8?q?=3C20261005-upstream-can-rx-offload-batching-alternat?=
- =?utf-8?q?ive-v1-2-4c08ccb516ec=40pengutronix=2Ede=3E?=
-References: =?utf-8?q?=3C20261005-upstream-can-rx-offload-batching-alternati?=
- =?utf-8?q?ve-v1-2-4c08ccb516ec=40pengutronix=2Ede=3E?=
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KkiWrAzX";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="P+z66KUC"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 696LeUEl2049528
+	for <linux-kernel@vger.kernel.org>; Tue, 6 Oct 2026 23:53:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	IFp8HdaEfTURv3yOkfDgaxZg9EFYUbB/frsyn4UIA0o=; b=KkiWrAzXJ0cWLYsj
+	DWrvvW6RLnt3U7oadPNWuvLNs4UbwqMb8BQRas/iqGSO8pxrAF8kzD78d5B/Ltuk
+	oL8+9fqfkFcty1hY9Sg3iWS91ESxCx0tej2TAhoUoFuc3sHOIIl8aQ1MheovAUDh
+	Ax+ArVACEAlkOwleqh9YCYjDEMAJVoRkh055+d1JSzoE82U6W5dLfau66blM+hDn
+	mvaOsS6YbEjCM7ZzId1oG2s4lfaaKPqi2I8pRFwKPcnzGrBTYgNCoa1dj3G5yCow
+	XcDAkZGhMgqdjV5tWVaZdkm10tuBqqhsJ6tOMhtTQB1mtx9eIq2a4CBou4P8WPmT
+	ErMHKg==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h54621pyv-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 23:53:36 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3510a481ae9so6564300eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 16:53:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791330815; x=1791935615; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IFp8HdaEfTURv3yOkfDgaxZg9EFYUbB/frsyn4UIA0o=;
+        b=P+z66KUCVaVdG46mJGBGEu5X1yP6CIlTB8KEhhLufX14Vq7SkRLBU2EDXVLBwUYMq8
+         DT4ZlSb+O0gjvnQuJVTqr4elpS7JLns8f4erz8+90Pt3qshRCZyJLYBRU2bhj+B4lQJ+
+         kAZc/fpIDQkNysIfNDXB+pYt0JQs4ucgyzROgdPkkW3S6NHMxQv/rwtmYntJsmtUj5a6
+         FmgcIw0sABG9S5SPYl+cmyobYtVz7Pbq5hLlFfDtK9ZsOSTG58/mC5yJxwMNOGrVH+P8
+         gFfRH+iLRUOKmVScQAd5L95o8iuYnbK17LE/7JW+krkqqovmURmRWD6ZVrr49YEvuGtz
+         Mz+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791330815; x=1791935615;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IFp8HdaEfTURv3yOkfDgaxZg9EFYUbB/frsyn4UIA0o=;
+        b=z834ZmU8alt6vG9CmTsp86kxxLjl9XsoyQEZghkYRmcIiuccReRRYYE0mjGYmz6xE1
+         d9dlRvXaD8l2CbCPMHhQSLVVbzOiHvsAoXAYcGmK3zDIzUIIuR44SrJC9daIqxitgLEM
+         SJb9trT/f5M7ovS8WZDCvfdnxJh+o9sklXokuEURFraFJVpd2c1fUoSzusFw5JptEbxT
+         t0dJy40uf2QdtQA6j/bZRPXHjwo8mKKVdqBQpmWgC+ylaYnS/9ZD0ztinQ5j8yLjTHkI
+         QWWf41aCoDEbtaeyrF1xOkaW5Qjz2pkOZAN2hf76OpfZusPeXNu9KXh/hs1MGEI8xzTB
+         vAvQ==
+X-Forwarded-Encrypted: i=1; AKwUvByO4k+khtaxUcL0EVxIAa/uAf1F/t3brCP3vqELydBfqcfiSoFyavA/+Ffdf2nsDk7Od9gHAYleJs3Pa5w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJForI/82qRj8z5Kisdnjvk+veufCLTajK4fD+ojNbW0tTH7W5z
+	xl98ovdi0AdYOzQ7V2EABrSbA+ViTPJKJkc+BugeA80zAPS+kB9sAKbL5IUogxYvZfHSuCIve0s
+	he8YW6qQhcO4R5tza+ilFsWGiZ/buOLSSQQ5/y/wlf02I/UnE/czYThBwI2PGnmzhRUI=
+X-Gm-Gg: AYBFou18W0rf3ez2n9nCfNmXgPxuQI8+olAZ1ps6B/MGLnTHE3xIzajWzkRVdRNYIJL
+	ogsWGeXxGwGHHyslfxo6KFYlgGU6c3hW8IErageh0B6h+U69g8xlGAFtBZBJ26+mHhCuCPzuahb
+	0LNO6EezhoPDZj/JfJ8iZ6rRV9pXNo9yaq0YgcFeEL+WAoHSYkR+0IVWCV4XUR3OAY1oNpI2yGh
+	jEE0Ai9MpJOueaQCKuWxeawvCi9Md2GFPR/aUaV02rOUgrPZSR+19VTnkxOipnek/wsGb6GDcuu
+	EAsghR9x7d4e/HfLRI0kbKnsT0Vk+ZqcN6Bso6fDcP1Ep36sEYEIvQQrk928hzLMXTwzLmITx/v
+	U+MFV8zrKJScK2h8SCfhggaLQpmNoIBj8ZpIsItjS0k6e27RPLJnkL6b6paxJ/JM=
+X-Received: by 2002:a05:7300:e5cb:b0:34b:f456:25ce with SMTP id 5a478bee46e88-3515d86f096mr371874eec.3.1791330815313;
+        Tue, 06 Oct 2026 16:53:35 -0700 (PDT)
+X-Received: by 2002:a05:7300:e5cb:b0:34b:f456:25ce with SMTP id 5a478bee46e88-3515d86f096mr371852eec.3.1791330814702;
+        Tue, 06 Oct 2026 16:53:34 -0700 (PDT)
+Received: from [10.71.184.34] (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515afa61e8sm1972503eec.22.2026.10.06.16.53.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 06 Oct 2026 16:53:34 -0700 (PDT)
+Message-ID: <4ed3f09f-74fc-4f07-8897-5c773fbde0b2@oss.qualcomm.com>
+Date: Tue, 6 Oct 2026 16:53:33 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/6] zram: Add QPaCE zcomp backend
+To: Sergey Senozhatsky <senozhatsky@chromium.org>,
+        Georgi Djakov <georgi.djakov@oss.qualcomm.com>
+Cc: andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
+        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        minchan@kernel.org, axboe@kernel.dk, rostedt@goodmis.org,
+        mhiramat@kernel.org, mathieu.desnoyers@efficios.com,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
+        linux-trace-kernel@vger.kernel.org, djakov@kernel.org
+References: <20260930145215.3380977-1-georgi.djakov@oss.qualcomm.com>
+ <20260930145215.3380977-5-georgi.djakov@oss.qualcomm.com>
+ <ar3yt8Kl3WUV93lP@google.com>
+Content-Language: en-US
+From: Oreoluwa Babatunde <oreoluwa.babatunde@oss.qualcomm.com>
+In-Reply-To: <ar3yt8Kl3WUV93lP@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: 4kcr0rcn3gtPjp7nya7EhZM9BPHOwh2l
+X-Authority-Analysis: v=2.4 cv=ZZiIpcVA c=1 sm=1 tr=0 ts=6ac58a00 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=9kMCAbyDuj7LhItxiaIA:9 a=QEXdDO2ut3YA:10 a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA5NSBTYWx0ZWRfXwsEsxi2G6Nxv
+ 3h9nxHPnSNB3W5Ub9O54wF5VpABOOGhfPBpWi4uJVyvI7RJbJbtAHG0iK8/iPOTuqorPUmeulEN
+ V6bPZxTAVdNN2Z0zy2GfAzu9PpBtLZE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA5NSBTYWx0ZWRfXw/H+XrCc/m9R
+ lh66Ui7oYnbUrhPEL8KLy8v80aF+XLgxo6PWZ26ORWjWdb6okgyoE2ve5clQgHtWVEEZeCIFYad
+ SUMJCgKAKUrB48/9S7HH3aP1drQ0nHKNPcf3BojdKe5XeMcF7UwQnhEHtajZVFxOw8kEJ2NkTbo
+ W17+O60ldCWayl0WmZyRsdA8vr4H+NzEJ9FRmK8+QCxeF8/6K2Ucb/UtEME+fRFKLJUMhoD7VCC
+ wgt50Kj3nIFoUFD7pB+ffQQDBJ9GJH5+o8nCndgc+JLYAtqwwpJxcnNXwM68q7Hb9nihup9HR19
+ mbw4ixXg3oyRg7hCyNMXM33bPNQM4HhgYvxjcMyxeiVYW2jaO4vLDfrnhFJFBZYEZAerSmhK2Ef
+ UcVRP/cjorb55wcfsBqwhnNRpTeCzKA/VVMOrUTZsnQ75L7thKgN14J3pUXfS2Nvlk0Uc/r+eXZ
+ g/WBGBW0paKiu1r9enQ==
+X-Proofpoint-ORIG-GUID: 4kcr0rcn3gtPjp7nya7EhZM9BPHOwh2l
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-06_05,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 priorityscore=1501 impostorscore=0 bulkscore=0
+ phishscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060095
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issue(s) to consider.
+On 9/30/2026 10:43 PM, Sergey Senozhatsky wrote:
+> On (26/09/30 07:52), Georgi Djakov wrote:
+> [..]
+>> @@ -80,10 +87,10 @@ static const struct zcomp_ops *lookup_backend_ops(const char *comp)
+>>   
+>>   	while (backends[i]) {
+>>   		if (sysfs_streq(comp, backends[i]->name))
+>> -			break;
+>> +			return backends[i];
+>>   		i++;
+>>   	}
+>> -	return backends[i];
+>> +	return NULL;
+>>   }
+> 
+> This hunk looks unrelated to the patch in question.
+ACK. Will remove this.
 
-Critical: 0 · High: 2 · Medium: 0 · Low: 3
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The fix is incomplete.
-- [High] This patch adds the first and only caller of
-  can_rx_offload_threaded_irq_flush(), in a driver whose producers all…
-- [Low] The commit fixes a user-visible defect (unbounded growth of
-  offload->skb_irq_queue in the mcp251xfd threaded IRQ handler under bus…
-- [Low] The kernel-doc of the new __skb_cut_position()
-  (drivers/net/can/dev/rx-offload.c:354-368, added in the preceding…
-- [Low] The kernel-doc of can_rx_offload_threaded_irq_flush() (rx-
-  offload.c:388-399) says that once skb_irq_queue exceeds 3/4 of…
-
---
-
-can: mcp251xfd: mcp251xfd_irq(): add call to can_rx_offload_threaded_irq_flush()
-
-This patch adds a call to can_rx_offload_threaded_irq_flush() at the end
-of each pass through the main status-register loop in mcp251xfd_irq().
-The goal is to stop offload->skb_irq_queue from growing without bound when
-the threaded IRQ handler never leaves its loop under load.
-
-> Under certain load situations, the threaded IRQ handler will not exit
-> the while loop, resulting in unlimited growth of the
-> offload->skb_irq_queue.
-
-[ ... ]
-
-> Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
-
-[Severity: Low]
-This fixes a user-visible problem, so should it carry a Fixes: tag and
-possibly a stable annotation?
-
-The skb_irq_queue design and the threaded finish call in mcp251xfd_irq()
-come from these commits:
-
-c757096ea103 ("can: rx-offload: add skb queue for use during ISR")
-30bfec4fec59 ("can: rx-offload: can_rx_offload_threaded_irq_finish(): add new function to be called from threaded interrupt")
-
-Either one looks like a reasonable Fixes: target.
-
-This patch also depends on the preceding commit, which adds
-can_rx_offload_threaded_irq_flush() and the flush_skb/flush_len fields.
-Neither commit records that dependency, and this patch will not build if
-it is backported on its own.
-
-> diff --git a/drivers/net/can/spi/mcp251xfd/mcp251xfd-core.c b/drivers/net/can/spi/mcp251xfd/mcp251xfd-core.c
-> index f441f2265299e..208595c0cc469 100644
-> --- a/drivers/net/can/spi/mcp251xfd/mcp251xfd-core.c
-> +++ b/drivers/net/can/spi/mcp251xfd/mcp251xfd-core.c
-> @@ -1615,6 +1615,7 @@ static irqreturn_t mcp251xfd_irq(int irq, void *dev_id)
->  			}
->  		}
->  
-> +		can_rx_offload_threaded_irq_flush(&priv->offload);
-
-[Severity: High]
-Does this also cover the RX-INT loop at the top of mcp251xfd_irq()?
-
-The new flush runs only in the second loop, the one that reads the
-status registers. When the microchip,rx-int GPIO is present and
-rx_ring_num == 1, the first loop keeps running for as long as the RX-INT
-pin is asserted:
-
-mcp251xfd_irq() {
-	if (priv->rx_int)
-		do {
-			rx_pending = gpiod_get_value_cansleep(priv->rx_int);
-			if (!rx_pending)
-				break;
-			...
-			err = mcp251xfd_handle(priv, rxif);
-			...
-		} while (priv->rx_ring_num == 1);
-	...
-}
-
-Each pass goes through
-mcp251xfd_handle_rxif_one()->can_rx_offload_queue_timestamp(), which adds
-the skb to offload->skb_irq_queue. The only admission check there looks
-at skb_queue, not at skb_irq_queue:
-
-can_rx_offload_queue_timestamp() {
-	if (skb_queue_len(&offload->skb_queue) >
-	    offload->skb_queue_len_max) {
-		dev_kfree_skb_any(skb);
-		return -ENOBUFS;
-	}
-	...
-	__skb_queue_add_sort(&offload->skb_irq_queue, skb,
-			     can_rx_offload_compare);
-}
-
-Nothing in this loop moves skbs to skb_queue or schedules NAPI, so the
-check never fires.
-
-rx_ring_num is 1 whenever rx_obj_num <= MCP251XFD_FIFO_DEPTH, for example
-after "ethtool -G rx 32". If back-to-back frames on the bus keep the RX
-FIFO non-empty, can skb_irq_queue still grow without bound here? That is
-the problem the commit message describes.
-
-Would it make sense to call can_rx_offload_threaded_irq_flush() inside
-the RX-INT loop as well, or to count skb_irq_queue in the admission check?
-
-[Severity: High]
-This is the first caller of can_rx_offload_threaded_irq_flush(), and every
-producer in this driver inserts into skb_irq_queue in timestamp order.
-Can the saved flush_skb/flush_len pair go stale between the 1/2 call and
-the 3/4 call?
-
-can_rx_offload_threaded_irq_flush() {
-	...
-	if (!offload->flush_skb) {
-		offload->flush_skb = skb_peek_tail(&offload->skb_irq_queue);
-		offload->flush_len = irq_queue_len;
-	}
-	...
-	__skb_cut_position(&tmp_queue, &offload->skb_irq_queue,
-			   offload->flush_skb, offload->flush_len);
-	...
-}
-
-__skb_cut_position() cuts by pointer, but it takes both qlen values from
-the caller and never counts the list:
-
-	list->qlen = qlen;
-	...
-	head->qlen -= qlen;
-
-Between the two calls, __skb_queue_add_sort() puts a new skb in front of
-flush_skb whenever its timestamp is older. In mcp251xfd this seems to
-happen routinely:
-
-- mcp251xfd_handle_rxovif() queues an error skb stamped with a live TBC
-  read from mcp251xfd_alloc_can_err_skb(). On the next pass, the frames
-  still in the full RX FIFO sort in front of it.
-- With TX IRQ coalescing, TEF echo skbs from mcp251xfd_handle_tefif_one()
-  carry older TX timestamps.
-- With multiple RX FIFOs, frames from another ring can be older than the
-  saved tail.
-
-The preceding commit's own description expects older frames to be "added
-to the queue at the correct position in the next loop".
-
-If k skbs land in front of flush_skb, the cut moves flush_len + k skbs
-but counts only flush_len. skb_irq_queue.qlen ends up k too high and
-skb_queue.qlen k too low. Once NAPI drains skb_queue with skb_dequeue(),
-skb_queue.qlen wraps to about 2^32 - k.
-
->From then on, can_rx_offload_queue_timestamp() sees
-skb_queue_len(&offload->skb_queue) > skb_queue_len_max and frees every new
-RX, TEF echo and error skb, even though skb_queue is actually empty.
-
-If the cut left the skb_irq_queue list empty,
-can_rx_offload_threaded_irq_finish() returns early:
-
-	if (skb_queue_empty_lockless(&offload->skb_irq_queue))
-		return;
-
-skb_queue_empty_lockless() checks only the pointers, so the wrong qlen is
-never handed back. Nothing else resets qlen, because
-can_rx_offload_enable() only calls napi_enable().
-
-Would this leave the interface unable to receive until the driver is
-unbound?
-
-There is also a possible NULL dereference. If a stale skb_irq_queue.qlen
-on an empty list ever reached 3/4 of the max, skb_peek_tail() would
-return NULL and __skb_cut_position() would dereference entry->next. That
-needs k >= 384, which the FIFO depths make unlikely.
-
-[Severity: Low]
-This isn't a bug, but the kernel-doc of __skb_cut_position(), added in
-the preceding commit, doesn't match the function body:
-
- * @entry: an entry within head, could be the head itself
- *	and if so we won't cut the list
-
-The body has no entry == head check. If entry == (struct sk_buff *)head,
-@list is left with list->next pointing at the first element and
-list->prev pointing at head, while list->qlen is 0. skb_queue_empty(list)
-then returns false for a list that isn't valid. list_cut_position(), where
-this comment was copied from, handles that case with INIT_LIST_HEAD(list).
-
-The only caller passes skb_peek_tail(), so this can't happen today. Could
-the comment be corrected, or the check added?
-
-[Severity: Low]
-The kernel-doc of can_rx_offload_threaded_irq_flush() says that once
-skb_irq_queue exceeds 3/4 of the maximum it will "flush about 1/2 of the
-maximal queue length". The code instead flushes whatever was queued when
-flush_skb was first saved:
-
-	if (!offload->flush_skb) {
-		offload->flush_skb = skb_peek_tail(&offload->skb_irq_queue);
-		offload->flush_len = irq_queue_len;
-	}
-
-	if (irq_queue_len < offload->skb_queue_len_max * 3 / 4)
-		return;
-
-If the first call with qlen >= 1/2 max already sees qlen >= 3/4 max,
-flush_skb is the current tail and the whole queue goes to NAPI.
-
-One pass of the main loop can't cross both thresholds. It adds at most
-about 112 skbs, and the gap between 256 and 384 is 128.
-
-The RX-INT loop with rx_ring_num == 1, however, can queue any number of
-skbs without flushing. The first flush from this call site in
-mcp251xfd_irq() can then send everything to NAPI.
-
-Would older TEF echo or error frames handled after that point then be
-delivered after newer RX frames?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261005-upstream-can-rx-offload-batching-alternative-v1-0-4c08ccb516ec%40pengutronix.de
+Thanks,
+Oreoluwa
