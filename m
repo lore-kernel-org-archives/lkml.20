@@ -1,98 +1,160 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F733350298;
-	Tue,  6 Oct 2026 16:31:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F15C8499F2D;
+	Tue,  6 Oct 2026 16:31:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791304302; cv=none; b=g9u+htiCox+azfy9W8nxQKiJzGVP17+utsUDaaqdNDcRgMJFFOnnXuMHRF/burWSVPV88lKAJLZ0yLhooeYFHuJVCiRIsWoOofCnRojtfQWW9hL17/wDzRa91CQKFbH6g594duYtgMSG6YmtZbQd4D/QnyuMibKbY891Kj1tExM=
+	t=1791304302; cv=none; b=TFRhifwgEpogmGmz0D0sy3BqhV7g3XmxLBIhPTk7qRxKzNH5V3EvacLPYGlP5pvdJCcGaE9w/UcgYOjfIjQ9yzeJua4AA4QfNcTXz8GAn2QM8bFgRJDhDl/frBSn45ueOp5UPo2ToeIs34g5dqPcigz1j3nsz3+60Leu1zvbXOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791304302; c=relaxed/simple;
-	bh=oEU7AUmEa0w1b7v5C8WdXlv6vQvEAhWjxyz76YPRccQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pvqdD7hBNeITXrqidDpGSjLO8MQ8FTEfTqvZBecZboB86K/OvKaMs3Qby4cxq8QqBr8kzF/rvo7Jk2sP8FYV51uau2qryzGil8QZQJIBxvk+UWQUg8I7PBqVf08X3+4D0gn1z2hKUHKvKFL20vzV1t3h1GzXktMIJpd2+wI+T4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b85/A9a3; arc=none smtp.client-ip=100.103.45.18
+	bh=rhT08b+glvPpW1l6yH8H9qdpaK3d17/NBaj+vAT8ryw=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=YenYgRb6UGybHWxE7n7fzIf1v1NKtRcAAmmbbMoPtM/cwaok6cenW8T9H/1/cPkJZo3BTMqGupibQ4OFhM6xJQk0Pp4LVM0aXxXoAYyiGTqo1HH8bwiZVpJvSZOt6wbGDqn6116tUCZoluLU8LsoUSgKk/AqSa6SN2IlFWWQvMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fvOu8AtK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b85/A9a3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDDBE1F0089C;
-	Tue,  6 Oct 2026 16:31:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fvOu8AtK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B14131F0089B;
+	Tue,  6 Oct 2026 16:31:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791304301;
-	bh=xn9CHPNUMgXF5eWjO16T9pJS08WP8G7GaEcEU5LwiB8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=b85/A9a3zJ2tHjg+mxFnHhqHDk8/ARNUI3HXYA91FMKbk+Y1gyDKUZbuVv0keOsSE
-	 Q7PmamlF0h2K+efxqkWvY5ZsUleMA3z0XaHm4rCSZMjN1W7dguK6lMmI/MiDtXQ/7D
-	 gKvqAf3k3Qf0caa1PhzWlubj8aXCMS8+cGmhj+O1aErevB8pbtjX2NCF4teSTRaGpG
-	 lU8Xh603l9OwjR/N87kXLh+9emfuOpwKKfOE6iUSw2FKIXiPSBhEsdCXuYj1HH2wMu
-	 FCYGGE5iO9e5X3UZMoQcNkK1CeP48W8Rs2pCKHVLXdsOvGE1y7IGWGLb/kUZQzdHae
-	 tWIgy2ocG9N2A==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id A1EA2185F3BD; Tue, 06 Oct 2026 17:31:38 +0100 (BST)
-Date: Tue, 6 Oct 2026 18:31:38 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Bill Roberts <bill.roberts@foss.arm.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Shuah Khan <shuah@kernel.org>, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH 0/2] arm64: gcs: Return -EPERM when changes are prevented
- by locking
-Message-ID: <asUiaocg44i8n3zA@sirena.org.uk>
-References: <20260910-arm64-gcs-lock-eperm-v1-0-d88e51855c9f@kernel.org>
- <asUIWgHk3hdaLEu5@arm.com>
- <asUQdaTtMF1X_Hsa@sirena.org.uk>
- <8c425dac-11f0-4267-8745-d23d6391a6b1@foss.arm.com>
+	s=k20260515; t=1791304300;
+	bh=EQxdhBfbtyMgMfbca0rm+ILKO2CQUIh6DyHyMegL+1M=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=fvOu8AtKB4A8ASvuODnmUFNHNGH8/HJ/+Gb28doNh90F8npImOhT1UjS37UBUKrbx
+	 AHRJif5nzTCkALpHx2aQ/OV5rOGVokNUIxCKVGoSZBlwazHGPvcRkoUObE6Rkx5XUd
+	 mvanWiiVaBF8UzVlZL9j55dGhSd43vb12twvuMSFf0NEsBtO+/VXdxE+iPcfjf2Hpq
+	 UdDEdnlYlOqfVHZlOYuH6O7T+2syOcdZvtyX600NRjefxyg0qoM1DSW3G8ETvT7PTU
+	 ZfyGRR7B1hsjt5/ACdKg3p+tQ9tr2Dk9i7YFoRoPufOGN2kHUZEyLmF41y9IDCrQ10
+	 JtPQ+u3koAsmA==
+Subject: Re: [PATCH net-next v24 1/3] dt-bindings: net: Document Motorcomm
+ YT8824 PHY package
+From: netdev-bot+sashiko@kernel.org
+To: kyle.switch@motor-comm.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andrew@lunn.ch, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, Frank.Sae@motor-comm.com, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com,
+ jianmin.wang@motor-comm.com
+Date: Tue, 06 Oct 2026 16:31:39 +0000
+Message-ID: <179130429912.434549.15478715617108213161@kernel.org>
+In-Reply-To: <20261002153034.934814-2-kyle.switch@motor-comm.com>
+References: <20261002153034.934814-2-kyle.switch@motor-comm.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="mQTRuwMjDg3vLtjl"
-Content-Disposition: inline
-In-Reply-To: <8c425dac-11f0-4267-8745-d23d6391a6b1@foss.arm.com>
-X-Cookie: Use the Force, Luke.
 
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
---mQTRuwMjDg3vLtjl
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Low priority / nit picks for your consideration:
 
-On Thu, Sep 24, 2026 at 03:49:14PM -0500, Bill Roberts wrote:
-> On 10/6/26 10:15 AM, Mark Brown wrote:
+- [Low] The YT8824 binding gives the package node's `reg` a device-
+  specific meaning: the MDIO address of the shared 'top extend' register…
 
-> > I was intending to do something soon to pull more of this code out into
-> > some shared place since especially for RISC-V and arm64 where they're
-> > using the prctl() rather than arch_prctl() interface so there's less
-> > reason for things to be duplicated.
+--
 
-> Bear in mind that I do have patches out there, for x86 that enable prctl
-> for them as well. I looked into doing the lock check in the prctl call path
-> before
-> it gets dispatched to the arch specific backend, it does require a common
-> interface
-> into the threads feature bits that each arch would need to, trivially,
-> implement.
+dt-bindings: net: Document Motorcomm YT8824 PHY package
 
-Yeah, it'd be great if that could land and we could hopefully eventually
-end up with a shared interface for userspace.  We'd still need some arch
-hooks no matter what, but the userspace experience would be much more
-pleasant.
+This commit adds a devicetree binding for the Motorcomm YT8824, a package
+of four PHYs. The binding is built on ethernet-phy-package.yaml. It adds a
+motorcomm,package-mode property and gives the package reg a
+device-specific meaning. MAINTAINERS is updated to list the new file and
+a new maintainer.
 
---mQTRuwMjDg3vLtjl
-Content-Type: application/pgp-signature; name="signature.asc"
+> diff --git a/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml b/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
+> new file mode 100644
+> index 0000000000000..4c67f8afcf27a
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
 
------BEGIN PGP SIGNATURE-----
+[ ... ]
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrFImQACgkQJNaLcl1U
-h9Cixgf/Yp5k02jhKO4YyuzTdlCZv0IsZWojY0A5nuXSz/3heNezN/naEINMdnHM
-EYGzPw8UvpxXITQslcXZf1gUFO92Of/y10abhv1HfKAqHoYY0ij44MrDT0gEUlXJ
-oOKraAReQ7H1vb0mDB74Ynn6s/rM72i34Vv670IIy8JGSUWr0eY2QrdqxXadia86
-F0xV3EpZ8xAcJloXGWAb0kxiDPIK56CkYcLixFWKSGS1cigDwQDawbYtvriCJASm
-x/0+/uKL4rVA4YP7yV3SAj46XX9SoiXrh6p6KJ8VBd7OU1NfWZIP+6xaq2/1+/A7
-ktwaeE0+OBTy9CRAlr7/reVtGAKYQQ==
-=nqUf
------END PGP SIGNATURE-----
+> +  motorcomm,package-mode:
+> +    description: |
+> +      PHY package can be configured in 2 modes:
+> +      - internal: YT8824 is embedded in the switch, using
+> +        an internal interface to the MAC.
+> +      - 10g-qxgmii: YT8824 is a standalone external PHY,
+> +        connected via 10G QXGMII.
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    enum: [ internal, 10g-qxgmii ]
+> +
+> +  reg:
+> +    description:
+> +      The absolute MDIO address of the YT8824 shared top extend
+> +      register block.
+> +      For internal mode, this is fixed at 9;
+> +      For external mode, it is the base MDIO address of the four
+> +      member PHYs plus 4, where base is typically 0x0.
+> +      Note that this is NOT the reg of the first member PHY.
 
---mQTRuwMjDg3vLtjl--
+[Severity: Low]
+Should the schema enforce the constraints that this description states?
+
+The text says reg is fixed at 9 in internal mode. In 10g-qxgmii mode it
+says reg is the member PHY base plus 4. The binding has no allOf if/then
+block that ties reg to motorcomm,package-mode, so any reg value passes
+dt_binding_check. For example, nothing like this exists:
+
+  if:
+    properties:
+      motorcomm,package-mode:
+        const: internal
+  then:
+    properties:
+      reg:
+        const: 9
+
+This meaning of reg also differs from ethernet-phy-package.yaml. That file
+describes reg as "The base ID number for the PHY package. Commonly the ID
+of the first PHY in the PHY package". A DT that follows the common
+convention would pass validation here without any warning.
+
+This matters for the driver added later in this series.
+ytphy_read_top_ext() and ytphy_write_top_ext() in
+drivers/net/phy/motorcomm.c send every top extend access to package
+offset 0:
+
+  ret = __phy_package_write(phydev, 0, YTPHY_PAGE_SELECT, regnum);
+
+phy_package_address() in drivers/net/phy/phy_package.c turns offset 0
+into base_addr:
+
+  return base_addr + addr_offset;
+
+of_phy_package_join() reads base_addr directly from the package node's
+reg. The call path is:
+
+  of_phy_package_join()
+    of_property_read_u32(package_node, "reg", &base_addr)
+  phy_package_join()
+  ytphy_write_top_ext()
+    __phy_package_write(phydev, 0, YTPHY_PAGE_SELECT, ...)
+      phy_package_address() -> base_addr
+
+If a board DT sets reg to the first member PHY's address, would the driver
+write the top extend page select and data values into that member PHY's
+registers 0x1e/0x1f?
+
+Could a per-mode if/then block be added to constrain reg? For internal
+mode this could be const: 9.
+
+> +
+> +required:
+> +  - compatible
+> +  - motorcomm,package-mode
+> +  - reg
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261002153034.934814-2-kyle.switch%40motor-comm.com
