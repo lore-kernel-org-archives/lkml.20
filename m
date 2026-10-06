@@ -1,414 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 485753822B7;
-	Tue,  6 Oct 2026 09:06:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DB10382F25
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 09:06:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791277602; cv=none; b=sMH6eCRNgKNZg4vjfZOKjQ+wp84suOkixl0KFObAMvfRgyuodrDMqPy9thvJBVtWmINrpcznS1NHLbuQibDQ8iNNyi7iHZrwPjVirMPdz5JWm8yichyNaJrX934n0eEsGXYIFFLhcHJ82B+XWwfbmTe1mPhjOB4WUxY8gAicG10=
+	t=1791277619; cv=none; b=VBrV80OCDi8l5VBfj3WMz/AU1lIGt606T5fxgfhGbOf45PNuPWbjKaM281DYdkvqknU1355y5HlmspCdzHTMwF69dlq07oV0wvXSj3nORMNHSmM/QKV6Np+1YyvTK1xEU9yNu1dZN/z+9+Mj/q+VHACyQjlaRFqozsEedpCtbLw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791277602; c=relaxed/simple;
-	bh=mVI5lvlBaJvbQUE+DeyS83R9kZqWun+Sy4716zKGRW8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iZCUnvJjFNIP11VLvOvUalSOXu8c4GLgYIv/c2p/wW8p2mb94AQkZoKFMdt9rAVN7GxeupoPVWSQaf6yIKBi4K++bqGihMh0Gqfx15xO5BFXNdbHr2K1+QUUEcSOxDf77pU7ZgTiAD8nfxgAQdYRtGJVVSaC9EJPDkVZD/OSqmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=npHp7Gew; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791277619; c=relaxed/simple;
+	bh=1bvDS9fHDJTL5ME2XlLK2KRX7HjHcbnJDvoYJnlcOl8=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=aTmtDbY1VlSl2ENfC/ahIxY4o4FahVrrjFraf7sug+p6TrJ603507ATPLBJqX+YMpCPtiV+sOmchi1eYuOdk3FYSkoH7afkTJ+jWgSH2Iu5mcjyjniLd0gxEbfHioav3t+81h8zu+qBP7W7McnJIiY1lVIyAsW6qPznHWDunJ80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=Og0sykee; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=DoKzgbX6; arc=none smtp.client-ip=202.12.124.159
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="npHp7Gew"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC95F1F000FF;
-	Tue,  6 Oct 2026 09:06:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791277600;
-	bh=sUnzJFS0vEkM45lr13Lwjbra7wmPUhF8l2cLj7aPAwc=;
-	h=From:To:Cc:Subject:Date;
-	b=npHp7GewNj9aWKVHSgMpZLYTCW0F+d3oQXS2gwaG7CGidoCcNl85j7dKe3VlQM5cj
-	 7b78FgL4LDd/kF9EdIon+tC54ylETW129D5l5uxQQ8i7t61DpTm9IpJyEVM49bigLu
-	 /DvOa/TVrHPgEQyJ+yjQYAkEwWWvUP+VpgIaPnQsg06+VpEeQWZWqFkWCKxyLfI8RF
-	 sHzJKh/rTyCqwkUnqkJXCxdO23kPW/BjkA+kdOKoswBUUBudt5JzJDrHoJ6BGDCGiH
-	 yZNL+B0G5Usnm4/ugkqYcT7/pfYge+6H8TSIMTDTY0EnLnIFNFYvPB/l/qK77Ykmmj
-	 FKUUNU1qCt7pA==
-From: Kees Cook <kees@kernel.org>
-To: Cong Wang <cwang@multikernel.io>
-Cc: Kees Cook <kees@kernel.org>,
-	Andy Lutomirski <luto@amacapital.net>,
-	Will Drewry <wad@chromium.org>,
-	linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: [PATCH] selftests/seccomp: Split fork_and_close into clone and close tests
-Date: Tue,  6 Oct 2026 02:06:38 -0700
-Message-ID: <20261006090637.i.823-kees@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="Og0sykee";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="DoKzgbX6"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 0A2B07A0023
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 05:06:55 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Tue, 06 Oct 2026 05:06:56 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1791277613;
+	 x=1791364013; bh=75mYoqO7XTZPDFCrG1UYJermMjb5BcnwengTra+DTqY=; b=
+	Og0sykee5JkbnTUUlaWG8c6h66zPhcFNn1l6Fyi2axwrG5ch3EJToRI6gi74O3oY
+	K9lwIEkZJ12blMqR37W5XwXKvf1g3k0H4/zAMaAU98Im7mYKP4csUXNMjdvi+PG9
+	gUSTvhQpH129paHqKHlqNlVBRbtDIjykxf8QfaLyiv9mXiuVhqxk+g8rUQFu7+Qc
+	JYCB3NmK5rl5rDjajfI8Y4g1G1biq1KId/6f5V5/fScJxXRtWfgMqb921cNIwBlT
+	cn8LBvb0VDAHMs/URrWsYoH+XOjPIMCslimH8aOKW7+cPEy5TlNsKLZX1gEuh2Uh
+	55L30Qm7aSROiIa7oR3P1g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791277613; x=
+	1791364013; bh=75mYoqO7XTZPDFCrG1UYJermMjb5BcnwengTra+DTqY=; b=D
+	oKzgbX6el4e7Uf7LGDwW9kROhDp1sSw2u3EC2LPOQGCgPN3fUm4QEYvwItL+hFMm
+	IMi3KXezHkwqCz5b2kV1b+S/8/DW+9h+bCuKXVRMVp1mIoCa8NeHDUhjDU4O4SIf
+	IfGfI5hA5GxWyc976VMcStoeQVgR0fhFdLtvee+AtrrbjaQxNZCLuC9/q+v7ndJe
+	jt4NpMC7uAqM1z4TfL/ScyH+xYA2iI5os9N5avoJ+HvE44+3DwO6SY9P93BvpPOZ
+	jxQNUPczu1Bqr63KD+WU9eAx3NqKxFqaf/dxuEBaMClE1xtV9XTVUTuzpU/7wAG1
+	b7yjkZ9p0aN5KY4fm7kFQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791277613; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:OPFYpUCAUzIGmzhxJm2B4HN1hoUrNgFRZr5bByWqtF+Re+e
+	KodhbTOs96bE+ZpyxSD0SA4DM8+x3IUsW5APwsUBS9IWGHRuDqG4Ofed8zjtUAOk
+	R+wDjtjegIvh9XgfOK/Y6x7gKyV99GD6DbyfD8V5nJLQcNjEoSIozkEtwifbQDAP
+	ktLXQKtAjdPwE5xzkf0EaWcK//u763yTT2CBItCgF4UobPBs3alNqN5gZx8Yzkcf
+	mAQqEWpOn0h+Qlvb5ikNJ2IuFs+dZHyPR07Adna48Wwx4LD0IAsloZCcplcc8MyX
+	cNKyPikNvLwueCM9Es0YsyqzQ7QiAplsVomhPVQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:kfiOc7mNBEKN8npdJqjsfHKxTRdaDx6XhmllkuqgXAE=:1bvDS9fHDJTL5ME2XlLK2KRX7HjHcbnJDvoYJnlcOl8=;
+X-ME-Sender: <xms:KbrEaihIc2eUV7hVAceMaCTWhTfcIFv6FAK0iySGdSd2aTT_1BrkjA>
+    <xme:KbrEat18WK-jCMUaNKqXA2Qi_errmWRsjFwJczDKUSwA-wKDpa6v2ytCGTKUvfQ7W
+    rUk_KJ34qNaeoueuT2Hzepm9pvuyvh49XyQGvYYNADDxPx8bBkipxmB>
+X-ME-Proxy-Cause: dmFkZTFrrhbwtUy0L2w/r2xQ+i+KheQroFIeLxX3YbJhFKS5iiH3ieg418s5r0uFyK4Rgy
+    IG3wvbppnJD0mjzMKqgUxAoRRNPdqEf0zIr6qeOhyd9bwJsLtTnXuJU0iUa2LWtbaBMO0q
+    TKTAgcuCeJ0h+ujOH3bk3tc2v2kcoGzjqmro+OFNsxlrtqb/MlgSbGFFcEU/5lyR/nOcgF
+    zwwxw9DNXH1XIPQgAi0jNkW+6bovyA7XUrttc05zk+9orEwO9NAC7mUCx27hMjj9cXy3Ld
+    nWUS+733Mn+Efb4gcywFQ5eGeOzrwT8gbH9WI9MSTKJLe92slk8HcGJGhJfUfyyoFPamN7
+    xawYOM7peLUb8/+x6qvi8f5hW8UbOpWlb6q8g0+9wzWNR/doEMod8rOA84I4COId780SF6
+    VK/HsNtNZKb395yz34yFbobjp4MLjlHC+932y1FkBQT4sCMMds+xEC1lcWm+wQ3TsIwNbi
+    KJqy8zVQDmFMKctTFSsVCsx9AzU2G6NPkDkjyMnna//msyAa2ijP5498U6RSIkq6hc/qTv
+    8EM6LU2fyu/QzryvMZLr3qH2A7Y5ST+dQ13VQdn4ufMHQ8xMmgPfYsj4wB24UiVT4OhpNJ
+    NK1LYqdmDhxob9HzNZbsu4f3UhR1K7qzq/53opHxkf5ZS5Idru56HEqJj5pQ
+X-ME-Proxy: <xmx:KrrEagU22bzlpUVgxVZtG4ztIY9xQODjUwDzV597Wco36cIVnnniSQ>
+    <xmx:KrrEaoS_EamPfyn7KykR7hqvF3MSfos_6wh4BjitlpnI350K1_MUuw>
+    <xmx:KrrEauN9Ej1mDMHTLToLGpgatDRb9tsk6t2IfVY5keMFyzx1H6yw5Q>
+    <xmx:KrrEamT7KmnQ2RzzHOpRHtcmnexu5QFko9rnPpLU1u6ARfKN2amS3g>
+    <xmx:LbrEaq7z9OJG1s4JiC22g-0SP65ujSiJtJBU5dIf6nFfeGQKZhkyQ7_B>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 6D6D432A0096; Tue,  6 Oct 2026 05:06:49 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=12721; i=kees@kernel.org; h=from:subject:message-id; bh=mVI5lvlBaJvbQUE+DeyS83R9kZqWun+Sy4716zKGRW8=; b=owGbwMvMwCVmps19z/KJym7G02pJDFlHdskJOPg71cgE7dpn9uFWjuxC6cPrwmtuOjz0nZ3cc /ha8butHaUsDGJcDLJiiixBdu5xLh5v28Pd5yrCzGFlAhnCwMUpABN59Zrhr+Slj1tZ5l5W+B2e tjVJNpDvydkHG2bc0N4pIRHRJfZh/gWGf2rGYUcMN+ZERGRv+9At+LBx4YPFe5L3ydtf7LPgFZp 0hQkA
-X-Developer-Key: i=kees@kernel.org; a=openpgp; fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
-Content-Transfer-Encoding: 8bit
+X-ThreadId: AAFP4Q54jfPg
+Date: Tue, 06 Oct 2026 11:06:29 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Karl Mehltretter" <kmehltretter@gmail.com>,
+ "Russell King" <linux@armlinux.org.uk>
+Cc: "Linus Walleij" <linusw@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Message-Id: <dcc948ad-a718-4ee2-87d7-f4dc7536b4bc@app.fastmail.com>
+In-Reply-To: <20261006055223.9299-1-kmehltretter@gmail.com>
+References: <20261006055223.9299-1-kmehltretter@gmail.com>
+Subject: Re: [PATCH] ARM: mm: compare ARM926 cache range sizes as unsigned
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-fork_and_close checked three things against one listener: that a
-restarted clone3() creates exactly one child, that a restarted close()
-releases its descriptor, and that a supervisor error reaches the caller
-after a restart. A three-pass loop chose what each pass did for each
-variant, and a failure in the first check kept the others from running.
+On Tue, Oct 6, 2026, at 07:52, Karl Mehltretter wrote:
+> arm926_flush_user_cache_range() uses BGT to compare end - start
+> with CACHE_DLIMIT. Sizes of 2 GiB or more are treated as negative
+> and take the cache-line loop instead of the whole-cache path.
+>
+> Use BHI for an unsigned comparison, keeping the line-by-line path
+> at exactly CACHE_DLIMIT.
+>
+> With the default 3G/1G split, unmapping an untouched 2 GiB
+> PROT_NONE mapping flushes the range through tlb_start_vma().
+> On a SAM9X75 Curiosity board, munmap() took about 1.3 seconds
+> unpatched and 20 ms patched.
 
-Split it into notification_restart.clone and notification_restart.close,
-each with one mediated syscall, one signal, and one expected result per
-variant. They share helpers that fork the filtered child, receive its
-listener, and interrupt its notification. notification_restart_child()
-now uses the same fork and report helpers, and the filter flags are
-computed in one place. Drop the supervisor error check, which
-failed_receive already covers.
+Good catch!
 
-Tests run on ARCH=x86_64 defconfig with CONFIG_PROVE_LOCKING=y,
-CONFIG_DEBUG_ATOMIC_SLEEP=y, and CONFIG_DEBUG_LIST=y under QEMU, built
-with GCC 16.2.0: seccomp_bpf passes 137/137 with 5 skips, and the 28
-notification_restart tests pass in 25 of 25 runs at -smp 2 and -smp 4.
-On v7.3-rc2 the restart and both variants fail and the others pass.
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 
-Assisted-by: LLM
-Signed-off-by: Kees Cook <kees@kernel.org>
----
- tools/testing/selftests/seccomp/seccomp_bpf.c | 258 ++++++++++--------
- 1 file changed, 148 insertions(+), 110 deletions(-)
+Acked-by: Arnd Bergmann <arnd@arndb.de>
+CC: stable@vger.kernel.org
 
-diff --git a/tools/testing/selftests/seccomp/seccomp_bpf.c b/tools/testing/selftests/seccomp/seccomp_bpf.c
-index b902d52cc917..730aaa21ee2d 100644
---- a/tools/testing/selftests/seccomp/seccomp_bpf.c
-+++ b/tools/testing/selftests/seccomp/seccomp_bpf.c
-@@ -4916,20 +4916,27 @@ FIXTURE_VARIANT_ADD(notification_restart, both) {
- 	.restart = true, .killable = true,
- };
- 
--FIXTURE_SETUP(notification_restart)
-+static unsigned int
-+notification_restart_flags(const FIXTURE_VARIANT(notification_restart) *variant)
- {
- 	unsigned int flags = SECCOMP_FILTER_FLAG_NEW_LISTENER;
- 
-+	if (variant->restart)
-+		flags |= SECCOMP_FILTER_FLAG_RESTART_BEFORE_RECV;
-+	if (variant->killable)
-+		flags |= SECCOMP_FILTER_FLAG_WAIT_KILLABLE_RECV;
-+	return flags;
-+}
-+
-+FIXTURE_SETUP(notification_restart)
-+{
- 	self->pid = -1;
- 	self->listener = -1;
- 	self->sync[0] = self->sync[1] = -1;
- 	ASSERT_EQ(prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0), 0);
- 	ASSERT_EQ(socketpair(AF_UNIX, SOCK_STREAM, 0, self->sync), 0);
--	if (variant->restart)
--		flags |= SECCOMP_FILTER_FLAG_RESTART_BEFORE_RECV;
--	if (variant->killable)
--		flags |= SECCOMP_FILTER_FLAG_WAIT_KILLABLE_RECV;
--	self->listener = user_notif_syscall(__NR_getppid, flags);
-+	self->listener = user_notif_syscall(__NR_getppid,
-+					    notification_restart_flags(variant));
- 	ASSERT_GE(self->listener, 0);
- }
- 
-@@ -4944,29 +4951,50 @@ FIXTURE_TEARDOWN(notification_restart)
- 	close(self->sync[1]);
- }
- 
--static void notification_restart_child(struct __test_metadata *_metadata,
--				       struct _test_data_notification_restart *self)
-+/*
-+ * Fork the notifying child with SIGUSR1 handled. Returns true in the
-+ * child, which sends its result with notification_report().
-+ */
-+static bool notification_restart_fork(struct __test_metadata *_metadata,
-+				      struct _test_data_notification_restart *self)
- {
- 	struct sigaction action = { .sa_handler = notification_restart_handler };
--	long result[2];
- 
- 	self->pid = fork();
- 	ASSERT_GE(self->pid, 0);
- 	if (self->pid)
--		return;
-+		return false;
- 
--	close(self->listener);
- 	close(self->sync[0]);
- 	handled = self->sync[1];
- 	if (sigemptyset(&action.sa_mask) || sigaction(SIGUSR1, &action, NULL))
- 		_exit(1);
--	result[0] = syscall(__NR_getppid);
--	result[1] = errno;
-+	return true;
-+}
-+
-+/* Send the child's syscall result to notification_result(), and exit. */
-+static __noreturn void notification_report(long ret, int err)
-+{
-+	long result[2] = { ret, err };
-+
- 	if (write(handled, result, sizeof(result)) != sizeof(result))
- 		_exit(1);
- 	_exit(0);
- }
- 
-+static void notification_restart_child(struct __test_metadata *_metadata,
-+				       struct _test_data_notification_restart *self)
-+{
-+	long ret;
-+
-+	if (!notification_restart_fork(_metadata, self))
-+		return;
-+
-+	close(self->listener);
-+	ret = syscall(__NR_getppid);
-+	notification_report(ret, errno);
-+}
-+
- static void notification_pending(struct __test_metadata *_metadata, int fd)
- {
- 	struct pollfd pfd = { .fd = fd, .events = POLLIN };
-@@ -5084,28 +5112,17 @@ TEST_F(notification_restart, after_receive)
- 	notification_result(_metadata, self, USER_NOTIF_MAGIC, 0);
- }
- 
--TEST_F(notification_restart, fork_and_close)
-+/*
-+ * Fork a child that installs its own filter notifying on @nr, so that the
-+ * test process is not mediated, and receive the child's listener. Returns
-+ * true in the child.
-+ */
-+static bool
-+notification_restart_filtered(struct __test_metadata *_metadata,
-+			      struct _test_data_notification_restart *self,
-+			      const FIXTURE_VARIANT(notification_restart) *variant,
-+			      int nr)
- {
--	struct sigaction action = { .sa_handler = notification_restart_handler };
--	struct sock_filter filter[] = {
--		BPF_STMT(BPF_LD | BPF_W | BPF_ABS, offsetof(struct seccomp_data, nr)),
--#ifdef __NR_fork
--		BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, __NR_fork, 0, 1),
--		BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_USER_NOTIF),
--#endif
--#ifdef __NR_clone
--		BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, __NR_clone, 0, 1),
--		BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_USER_NOTIF),
--#endif
--#ifdef __NR_clone3
--		BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, __NR_clone3, 0, 1),
--		BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_USER_NOTIF),
--#endif
--		BPF_JUMP(BPF_JMP | BPF_JEQ | BPF_K, __NR_close, 0, 1),
--		BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_USER_NOTIF),
--		BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_ALLOW),
--	};
--	struct sock_fprog prog = { .len = ARRAY_SIZE(filter), .filter = filter };
- 	char control[CMSG_SPACE(sizeof(int))] = {};
- 	char c = 'f';
- 	struct iovec iov = { .iov_base = &c, .iov_len = 1 };
-@@ -5114,73 +5131,25 @@ TEST_F(notification_restart, fork_and_close)
- 		.msg_control = control, .msg_controllen = sizeof(control),
- 	};
- 	struct cmsghdr *cmsg;
--	/*
--	 * glibc's fork() blocks all signals across clone(), so the
--	 * notification wait could not be interrupted: call clone3()
--	 * directly instead.
--	 */
--	struct __clone_args args = { .exit_signal = SIGCHLD };
--	unsigned int flags = SECCOMP_FILTER_FLAG_NEW_LISTENER;
--	int i, fd, listener, status;
--	long result[2] = {};
--	pid_t child;
--
--	if (__NR_clone3 < 0)
--		SKIP(return, "Test not built with clone3 support");
--	/* Some container profiles reject clone3() with ENOSYS. */
--	if (sys_clone3(NULL, 0) == -1 && errno == ENOSYS)
--		SKIP(return, "clone3() is not available");
-+	int listener;
- 
--	if (variant->restart)
--		flags |= SECCOMP_FILTER_FLAG_RESTART_BEFORE_RECV;
--	if (variant->killable)
--		flags |= SECCOMP_FILTER_FLAG_WAIT_KILLABLE_RECV;
-+	/* A filter chain may hold only one listener. */
- 	ASSERT_EQ(close(self->listener), 0);
- 	self->listener = -1;
--	self->pid = fork();
--	ASSERT_GE(self->pid, 0);
--	if (!self->pid) {
--		close(self->sync[0]);
--		handled = self->sync[1];
--		ASSERT_EQ(sigemptyset(&action.sa_mask), 0);
--		ASSERT_EQ(sigaction(SIGUSR1, &action, NULL), 0);
--		fd = open("/dev/null", O_RDONLY);
--		ASSERT_GE(fd, 0);
--		listener = seccomp(SECCOMP_SET_MODE_FILTER, flags, &prog);
--		ASSERT_GE(listener, 0);
-+	if (notification_restart_fork(_metadata, self)) {
-+		listener = user_notif_syscall(nr, notification_restart_flags(variant));
-+		if (listener < 0)
-+			_exit(1);
- 		cmsg = CMSG_FIRSTHDR(&msg);
- 		cmsg->cmsg_level = SOL_SOCKET;
- 		cmsg->cmsg_type = SCM_RIGHTS;
- 		cmsg->cmsg_len = CMSG_LEN(sizeof(listener));
- 		memcpy(CMSG_DATA(cmsg), &listener, sizeof(listener));
--		ASSERT_EQ(sendmsg(handled, &msg, 0), 1);
--
--		child = sys_clone3(&args, sizeof(args));
--		if (!child)
--			_exit(0);
--		if (variant->restart) {
--			ASSERT_GT(child, 0);
--			ASSERT_EQ(waitpid(child, &status, 0), child);
--			ASSERT_TRUE(WIFEXITED(status));
--			ASSERT_EQ(WEXITSTATUS(status), 0);
--			ASSERT_EQ(waitpid(-1, &status, WNOHANG), -1);
--			ASSERT_EQ(errno, ECHILD);
--			ASSERT_EQ(close(fd), 0);
--			ASSERT_EQ(fcntl(fd, F_GETFD), -1);
--			ASSERT_EQ(errno, EBADF);
--		} else {
--			ASSERT_EQ(child, -1);
--			ASSERT_EQ(errno, EINTR);
--			ASSERT_EQ(close(fd), -1);
--			ASSERT_EQ(errno, EINTR);
--			ASSERT_GE(fcntl(fd, F_GETFD), 0);
--		}
--
--		ASSERT_EQ(sys_clone3(&args, sizeof(args)), -1);
--		ASSERT_EQ(errno, EAGAIN);
--		ASSERT_EQ(write(handled, result, sizeof(result)), sizeof(result));
--		_exit(0);
-+		if (sendmsg(handled, &msg, 0) != 1)
-+			_exit(1);
-+		return true;
- 	}
-+
- 	ASSERT_EQ(recvmsg(self->sync[0], &msg, 0), 1);
- 	ASSERT_FALSE(msg.msg_flags & MSG_CTRUNC);
- 	cmsg = CMSG_FIRSTHDR(&msg);
-@@ -5189,30 +5158,99 @@ TEST_F(notification_restart, fork_and_close)
- 	ASSERT_EQ(cmsg->cmsg_type, SCM_RIGHTS);
- 	ASSERT_EQ(cmsg->cmsg_len, CMSG_LEN(sizeof(listener)));
- 	memcpy(&self->listener, CMSG_DATA(cmsg), sizeof(self->listener));
-+	return false;
-+}
- 
--	for (i = 0; i < 3; i++) {
--		struct seccomp_notif req = {};
--		struct seccomp_notif_resp resp = {};
-+/*
-+ * Interrupt the child's notification before it is received. Without the
-+ * restart flag the syscall fails with EINTR. With it, the restarted
-+ * syscall is notified again, allowed to continue, and succeeds.
-+ */
-+static void
-+notification_restart_interrupt(struct __test_metadata *_metadata,
-+			       struct _test_data_notification_restart *self,
-+			       const FIXTURE_VARIANT(notification_restart) *variant)
-+{
-+	struct seccomp_notif req = {};
-+	struct seccomp_notif_resp resp = {};
- 
--		notification_pending(_metadata, self->listener);
--		if (i < 2 || variant->restart) {
--			notification_signal(_metadata, self);
--			if (!variant->restart)
--				continue;
--			notification_pending(_metadata, self->listener);
--		}
--		ASSERT_EQ(ioctl(self->listener, SECCOMP_IOCTL_NOTIF_RECV, &req), 0);
--		EXPECT_EQ(req.pid, self->pid);
--		resp.id = req.id;
--		if (i == 2)
--			resp.error = -EAGAIN;
--		else
--			resp.flags = SECCOMP_USER_NOTIF_FLAG_CONTINUE;
--		ASSERT_EQ(ioctl(self->listener, SECCOMP_IOCTL_NOTIF_SEND, &resp), 0);
-+	notification_pending(_metadata, self->listener);
-+	notification_signal(_metadata, self);
-+	if (!variant->restart) {
-+		notification_result(_metadata, self, -1, EINTR);
-+		return;
- 	}
-+	notification_pending(_metadata, self->listener);
-+	ASSERT_EQ(ioctl(self->listener, SECCOMP_IOCTL_NOTIF_RECV, &req), 0);
-+	EXPECT_EQ(req.pid, self->pid);
-+	resp.id = req.id;
-+	resp.flags = SECCOMP_USER_NOTIF_FLAG_CONTINUE;
-+	ASSERT_EQ(ioctl(self->listener, SECCOMP_IOCTL_NOTIF_SEND, &resp), 0);
- 	notification_result(_metadata, self, 0, 0);
- }
- 
-+/* A successful clone3() must have created exactly one child. */
-+static __noreturn void notification_restart_clone_child(void)
-+{
-+	/*
-+	 * glibc's fork() blocks all signals across clone(), so the
-+	 * notification wait could not be interrupted: call clone3()
-+	 * directly instead.
-+	 */
-+	struct __clone_args args = { .exit_signal = SIGCHLD };
-+	int status;
-+	long ret;
-+
-+	ret = sys_clone3(&args, sizeof(args));
-+	if (ret == 0)
-+		_exit(0);
-+	if (ret > 0) {
-+		if (waitpid(ret, &status, 0) != ret || !WIFEXITED(status) ||
-+		    WEXITSTATUS(status) != 0)
-+			_exit(2);
-+		if (waitpid(-1, NULL, WNOHANG) != -1 || errno != ECHILD)
-+			_exit(3);
-+		ret = 0;
-+	}
-+	notification_report(ret, errno);
-+}
-+
-+/* close() must release the descriptor exactly when it succeeds. */
-+static __noreturn void notification_restart_close_child(void)
-+{
-+	int fd, err;
-+	long ret;
-+
-+	fd = open("/dev/null", O_RDONLY);
-+	if (fd < 0)
-+		_exit(1);
-+	ret = close(fd);
-+	err = errno;
-+	if ((fcntl(fd, F_GETFD) == -1) != (ret == 0))
-+		_exit(2);
-+	notification_report(ret, err);
-+}
-+
-+TEST_F(notification_restart, clone)
-+{
-+	if (__NR_clone3 < 0)
-+		SKIP(return, "Test not built with clone3 support");
-+	/* Some container profiles reject clone3() with ENOSYS. */
-+	if (sys_clone3(NULL, 0) == -1 && errno == ENOSYS)
-+		SKIP(return, "clone3() is not available");
-+
-+	if (notification_restart_filtered(_metadata, self, variant, __NR_clone3))
-+		notification_restart_clone_child();
-+	notification_restart_interrupt(_metadata, self, variant);
-+}
-+
-+TEST_F(notification_restart, close)
-+{
-+	if (notification_restart_filtered(_metadata, self, variant, __NR_close))
-+		notification_restart_close_child();
-+	notification_restart_interrupt(_metadata, self, variant);
-+}
-+
- TEST_F(notification_restart, fatal_signal)
- {
- 	int status;
--- 
-2.55.0
+> ---
+> Based on v7.3-rc6. Tested on a Microchip EV31H43A SAM9X75 Curiosity
+> LAN Kit with two kernels built from Linux4Microchip revision
+> 8f2c610093aa3d5a7bd50a8d0597be4f0b7a3eda. The vendor function matches
+> mainline.
+>
+> Both builds used Clang/LLD 22.1.3, the same DTB and an
+> at91_dt_defconfig-derived config: ARM926T, MMU, CPU_CACHE_VIVT,
+> VMSPLIT_3G, CPU_DCACHE_WRITETHROUGH=n. proc-arm926.o differs
+> by one byte, the branch condition.
+>
+> An unprivileged test timed munmap() of untouched mappings made with
+> mmap(PROT_NONE, MAP_PRIVATE | MAP_ANONYMOUS). Boot order was
+> original, patched, original. Each cell is one munmap() call:
+>
+> Range              Original A1     Patched B     Original A2
+> 16 KiB               0.0840 ms      0.0852 ms       0.0844 ms
+> 20 KiB               0.0656 ms      0.0636 ms       0.0632 ms
+> 1 GiB                9.7688 ms      9.7702 ms       9.7716 ms
+> 2 GiB - 4 KiB       19.4054 ms     19.3928 ms      19.4066 ms
+> 2 GiB             1323.2802 ms     19.6478 ms    1331.8680 ms
+> 2 GiB + 4 KiB     1322.2016 ms     19.3972 ms    1322.2146 ms
 
+I would suggest moving the extra text into the actual changelog,
+as this seems useful information.
+
+> ARM925, Feroceon and Mohawk have the same BGT but were not tested.
+> Their fixes are left for a separate patch.
+
+My feeling here would be that a single patch for all four
+is best, since you have conclusively shown the solution to
+be correct for one of them and it easily translates to the
+others. I don't object to separate patches either, it just
+seems more work for everyone.
+
+       Arnd
