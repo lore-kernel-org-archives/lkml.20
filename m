@@ -1,232 +1,195 @@
-Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B9D83B6C15
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 08:32:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791275557; cv=pass; b=Bt9nw/iWrgw1S+ZRiT81CWSxV18+TJUL24oK7RW/GSR2eP1ZDQeJ+my3Ds+mV7wZyw4ML5mVXaAWLuSfZQpk03viYxhqXE5QUp9VPzvTBETAcGFCMieTg3/wxabG/T/Cw6u1n77BjR3dUs8EQg4z9Cbep7y4/x+UNkYt9ElSYk0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791275557; c=relaxed/simple;
-	bh=IIIQqSLM52I4Dl3J6UVq5jxv5UJfW0trkx7wlCIr9I8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gF8tKkiw4GOicNwdgcF2IAAtgJpPOxc1aFe+jATnEt3kiYxaYiTJkawBjtjMWoRpxmxFmkoZdSKD8bXWXzijY2xUDO4Ifgkon2JXig6gjr1IeDt2+HoMa91NLi3xdjDn+wtnZdxuhB50mBAHupOVwIdLzfzUh4WQaxkR4gu4bVw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=cU5yHVWW; arc=pass smtp.client-ip=74.125.224.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F35C02E54B6
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 08:33:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791275612; cv=none; b=lOQofuGs2nkH/vTnVxbh3bHwuSYMuYbQZjz98iFkJzu1n0PZVDtf9jNE4MEqpUVgdo8WQySt+e4Zd1/8Xq4NL89JcoKwbBNLutwpPTFQ4VwA3ygs0f9Fst4jcar/sz2sZI+H8OCTcRoFmKEUBcyeBnYTR8S0nf92bQXHr0S6uVY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791275612; c=relaxed/simple;
+	bh=0QG05hN2bjHzC1maR4PCWp+0jd73NMhzdsmgGsdufyg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=COrJjW9ARnpVoPryPvisw6JZ7PpUGWI/27aESTbNg4/ZVi+4I3bRNY4qcRrGJAzOxMsqueoqW4t+AQesLISumiSWxfoVgQ+BgRMQhxuBGb49cFbJXk/nTnvh0E/i0ki81IN5TUrLrw6Ld5haDrBFWCT3jKr6eHSTTyNpV7WONUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UeM5zSvD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eocuntHd; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="cU5yHVWW"
-Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-6768a9fc0e8so2338691d50.2
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 01:32:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791275553; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RhnengKlKvTbXFKm1DWiAlxa4W0n2ESWxRcJb7qqo/2h1JicNgJf2BShgck6mYf+qG
-         s/zdDTL6ArY99EzE+cYb3hlzEii7HPpY1udQ0ROorkhfn0cGVH1REd8N+iNxG0lTZ2sS
-         9byp5DCyOV/AOqsF8QnerbATxLx/cznVKWq4CnnD5mgkkqn5zlFgUU9PC5zyRPM4K9m4
-         W+mP1vRPo1bogUXZH3S58utQltiu0PJ0taFv/MO+m7v6rMIZqHp6buFG6+HhCuc1f0CM
-         CYhiC9xeFF588xSHfjuyS37Z0LC51hpaPzZlWFA2d0IzkRDkVYtLNms/wuxwDvTmDPqI
-         V7Ow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=3shV/IEEj+NmVizCeUDHMNW1W3PTgtTr4WQ4n8BMHxY=;
-        fh=JQLSUzt6m3z7PlIVkaWOqBN2pdqP96OFxb8kV0JMwx4=;
-        b=tAwq6nnnXC6m0C4/y96Us8dxJbklyK4jSnTPxnDtsYUUzoOGGo6Kxy+HaBHcVCvBVH
-         9CCi7jMk+TtaUWLw0MF24IIjSFssAiLJXY8630PZXkyzeWxWUD5CVxyciPrLZUM9L1nT
-         aE/M7JRSWhqB5AFVE7Ix8Cc+4x4yy8YSkjPwaWZpRl1gsoyZLYbeMQjjYTwkVHNLLhAU
-         OC3zGJnHBHEIzYC87TzxHwM3+YqoGPpMpUX/bLT2vLCawRLts+HBgo1vjdlnDwEnQ+oH
-         lizzfvbvaCOHRpXX+ZBUWV3SBiJ5nCO/mvZqyAHVljCedCNK9IHrMedalBDofbPZc5zW
-         paqw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UeM5zSvD";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eocuntHd"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6966dw5S094627
+	for <linux-kernel@vger.kernel.org>; Tue, 6 Oct 2026 08:33:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	dOjLxqEjz9TY9CmUoh/ZCCERCiVQQE6LX+zeibVYX+s=; b=UeM5zSvD2cC44SSo
+	4iUZsbRqFEuTwpY3DlsehqmM/VPC2c+cxNx49BZ8jWjYA1iX1vfe/vmB9jz3uFaR
+	7gPcQAITpTeA1tbF//cUEjnIq/Hesg/hJaC+H+OqdpCdlapEDEKH2gWgQ9Bu3gC1
+	CyTUf2drYcYsSG07qUx+mthLxrC25WuJUsbjN/nzb5cCESPLVIA2YqvODpxroiNl
+	UYvkpIYKBBYW7pKvEFgRcvvrqU/z3YWv0uaNxj9mrUDv35yF30cZPaBPIkB7BCxD
+	effqU0h4ml5jbQOrGkBkQDEMPAYdtqjjl0uUFL0SRiFiAv0qqw82npv03FVzYQZO
+	lhvDFw==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4gr3jrff-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 08:33:30 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2df8d1e91c9so49013155ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 01:33:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1791275553; x=1791880353; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3shV/IEEj+NmVizCeUDHMNW1W3PTgtTr4WQ4n8BMHxY=;
-        b=cU5yHVWWElFKjYhbMwU/mbdMyhpVpYOBM+dGuxrmyRaF0Eoz6isB839nJ21VTMSrrt
-         7QHqItGtG61MiGg7wsxKPqOO/cPsOZKqTmkuXOIt/84FWNHWpjSmKtVv378LwD9W5GvX
-         9Tv9MxuUqhkRoOIbnpRdvbhd1LqyWLaArOZV4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791275553; x=1791880353;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1791275610; x=1791880410; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3shV/IEEj+NmVizCeUDHMNW1W3PTgtTr4WQ4n8BMHxY=;
-        b=WMElgHQClFpPjXJHRv+bP5QUbiAc57bh2P5PRpWyN77uTXb0z4bSjOkpflk9sxk459
-         pyNCekpmWCvOk2q5a3av5I+fVhFmWx/W34QUDMrtlP3OZhgTf7ROdxzfxvpZYwx9l7oH
-         NWVB+DpYdKLxsrR8CVFk/CEEQUQoazsQq7HI6ffC2gcFnDqVCZG3pw9nVpa0U5gAACFp
-         j0PLLnDs8WGjG+8mnl76ZmWyvOXKPOFkz264SlWp9hQBVFJwaL236QQnYqyUs5K2OI47
-         NCr43luqev++PwQq4KNcDXlc+yPR67+J8I4pPw45or+gTKrii7ArH6HGg0Tn8Qj0ddlA
-         pILQ==
-X-Forwarded-Encrypted: i=1; AKwUvBztTODxr4oIS/P5w5JGqetVosXf6P+CbmaDIhUSWHakBBb3OhtzVIzS2G3CGA4vX/nqQoFFTJ8U7MdijNE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYInPdtCT2V4bliHpbEEilKy/MkYYDC1tpUq3c/qnB2wvgKMH6ui
-	Oy7uq/S7GCQfEUD5QooCWZaWR0ScfZsbF8oHCriQQ4R6AwPVUmVFEXAKVqpMsfnFktgv96qAg6/
-	wKCrbRIwyLMnp4jDJoluz1tBd+D87wamRlK6KSh57
-X-Gm-Gg: AYBFou27DgBRAcNw7hTe1waLzZArYwve4SxRv3Z5NEuZn/vrEqjv0cj9WpilUoV3dhR
-	JnDoIg4X30fAAxePtdLobhLCT4WFAy+XCXnA9a6kh1SysMSpfPa+URWuj7ldV40pQZetkczgfYK
-	FZZEFDPjCTeiieRbhWYHsZNAN2pFNF1Gvpf5m193ndfi/mAzQ1IpDX85nHRz5wh31m8NKkuaYeW
-	Tdyac+uxUZ8Epw+CAfiOeagUFcZWwH1pjF7TdtXmCxVTRXhY5jcfVkQcUmqSr6sDEXcO8mVdK86
-	WFYAs8XBnFzvkuIlHqfDNwGeojPw+aqi6Y3E9fGNpuzI/0eGViYSug==
-X-Received: by 2002:a53:c0c2:0:b0:671:7b7f:abbb with SMTP id
- 956f58d0204a3-677bd39aa4dmr2469021d50.59.1791275553415; Tue, 06 Oct 2026
- 01:32:33 -0700 (PDT)
+        bh=dOjLxqEjz9TY9CmUoh/ZCCERCiVQQE6LX+zeibVYX+s=;
+        b=eocuntHd05Hl5dydE0H422p/M0PSvqmoDp9SDPBGjR4T8yxaleEL2p1Znz9yKoFm1G
+         oGe+kJisIWfB9d8yHopcO66s6WoEkaWCm4+EIgHUfvm2VjQI/ZyRJ3oURWbZ69gXIyAW
+         1GHd0qjd+yJlyq6G30fsAIL3A4WegNUtyKuT3yX8amJhI9vz0+p9cdLCqO/BSsNoxsH7
+         rgHBtHiyE4KVIgrN05Ei+E1bBdXXAESuywfWN+njkEgCywOno07n2PkmTJk2F/LGtxG3
+         XV9UY5g3HCIs8J7MqbMqBsLXAyDYL1OqR16YbpdhjeAp5VPMa627yiKazZ5V9Kuq4ntk
+         R3oQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791275610; x=1791880410;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dOjLxqEjz9TY9CmUoh/ZCCERCiVQQE6LX+zeibVYX+s=;
+        b=Nb7vNwrsbFZLBKDxlmFcagCZpUqA6dVk0sC7xz0r0bwwJBpGqoUs9SKRkmCB9tr5CJ
+         wcAT2DVvVN1iKi5z7YNNhW7jYb5uM6WR9VnKiNEZ2mhkCViTH3oU+3XvVYcQOLjxWaZa
+         FKdwIoWUtS5zBsFewyc2K5mPD3XHK9ltl8awGDaet8uca9vACkH4KmGoL0PAvq8TNpKZ
+         fNGii2/DHGo2zb++aDxQfQWq61CtO1CPASUMjtMuyhF98xjiWPIq//oCZAcTGDiZDn76
+         nK+SUrqkgce3KFkUAYPTd25vJ4cydVtGKC/OL32jlu8EJPJL2UJCNf3IkinerhAV4haM
+         eO5Q==
+X-Gm-Message-State: AFq9FYKetb2HU0ZH11odvGt0pN8CS25A/faoA+ZKFsbRTreTu+7p64jQ
+	rIjEwx5+odyn/Bzh+s2Bk/IlJML4cm1JHzUkb0IhS8RhonhqS38kdsgZ1h6HaX0uVxZHsYpnI4J
+	eudbLil1A0SmL3oCYVqKc7NfH8neLbj86gdU5ftBvO+e1S6O8Yadf5k+ecl/oeaFqeX8=
+X-Gm-Gg: AYBFou3P4rOe3q4GRvkLY0lWcedWVe5/MSbAdmDFtqULfEZASWt/F2onwMUpjrOfpcY
+	/9sY88iPKITeEUG/GX1D3Aj1Ef6tIsezsRzeXh5OvYxnhCR4v9sDXPSLY9Q36ah+1T0JpXDVnC5
+	BVB3YAosQhV4e+ntceDpsYQab+u4oK9X290HgyuiP4WBcIoL12aO0PnhurSYbpXsJ4XTBp0RqGu
+	HkpHkz93JmqImO7KlYW9xcMWoctOnVgzkTaARc9dpVtDIfzxafsB8NSEsW18Zs52KGh6l8s1VYQ
+	/va6m9FaegM8lCQy4uRId49kSSsD0hOBQpM80I/tZ3vFW/CAPwj3r75sdNKSIFXah9/Y5/e7Uik
+	DgzzUHBJtOXrCp3gsrGJ0vHvk07M=
+X-Received: by 2002:a17:90b:1c09:b0:39e:6c68:c787 with SMTP id 98e67ed59e1d1-3a873793baamr602583a91.61.1791275609577;
+        Tue, 06 Oct 2026 01:33:29 -0700 (PDT)
+X-Received: by 2002:a17:90b:1c09:b0:39e:6c68:c787 with SMTP id 98e67ed59e1d1-3a873793baamr602568a91.61.1791275609071;
+        Tue, 06 Oct 2026 01:33:29 -0700 (PDT)
+Received: from [10.218.18.193] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8543b0c1fsm4707716a91.14.2026.10.06.01.33.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 06 Oct 2026 01:33:28 -0700 (PDT)
+Message-ID: <47a42c54-d3b8-44ec-8017-cdc34b474798@oss.qualcomm.com>
+Date: Tue, 6 Oct 2026 14:03:23 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261006025410.506443-1-nils@buechner.me> <20261006025410.506443-3-nils@buechner.me>
-In-Reply-To: <20261006025410.506443-3-nils@buechner.me>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Tue, 6 Oct 2026 10:32:21 +0200
-X-Gm-Features: AclHuK8Gx2HsVGfCjYPgfM4FA2K14FiDyp_XESIE_p6YvoUuSuzEHEzfn-CxmWQ
-Message-ID: <CAGXv+5F-5b+ESeUXBMYfKU=wUF9tAioyWOjWfYXoz09_-P8-bg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] soc: mediatek: mtk-svs: Don't fail init01 on a bank
- whose buck is not at vboot yet
-To: =?UTF-8?Q?Nils_B=C3=BCchner?= <nils@buechner.me>
-Cc: Daniel Lezcano <daniel.lezcano@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Zhang Rui <rui.zhang@intel.com>, 
-	Lukasz Luba <lukasz.luba@arm.com>, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/3] ASoC: codecs: wsa885x: Reset registers on teardown
+ for B2B playback
+To: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, ajay.nandam@oss.qualcomm.com
+References: <20261006053717.3455143-1-prasad.kumpatla@oss.qualcomm.com>
+ <20261006053717.3455143-2-prasad.kumpatla@oss.qualcomm.com>
+Content-Language: en-US
+From: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+In-Reply-To: <20261006053717.3455143-2-prasad.kumpatla@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: i_yn9HzoIpRjrcjBIpTSDTdF9gJny3kj
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDAzMyBTYWx0ZWRfXythO5CmUQ6Oy
+ tXa19leblaGIUofrKBH/VyHGvNFJu9PdwOWqO1UPba21bsaAHscpa3vJ9LogfaXAsV/7bWgZb1X
+ aAzxuzoyGFix7wpuVfMizNlZbWHYZL4=
+X-Authority-Analysis: v=2.4 cv=PNWaavqC c=1 sm=1 tr=0 ts=6ac4b25a cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=Rl-Sov5dAngERj82jmUA:9 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDAzMyBTYWx0ZWRfX7oVXoTSfxZfI
+ drEnJxJQth/NwvOJDUkybsvyzBlS95DjVRwPoGhku2lCp/AhUog3m2CsYGk1Z37mYEq9xtC7PAf
+ s5xEEOBRuHTgSSwD4KZFqOUKKV1HcDqdNALdvyH2Fv58Q3LbeukBv76YiBvgZai8ycPs5vasC0h
+ TRYtoaWMUHW8c5ISRxAHH86hRx8pMsYI7O/qLyOB1bFDT4b62dwLnjnOaFFNaTWqRQFeJSNWVSy
+ t7HfLO1KyUrc2v0r3GO4BIF/Tpr1wrJ1A6l32MUtqdvc5+ICZ1oZhh8YqkQmYFNP1f4DrTZSF0e
+ pVR84rYtlsJJ0y8YvrADyejzMQ3iFIkuee1A1D1zrrsRH3LZeKZpAKkBIJejaMaa5s9BLd8VaiJ
+ CTdYOFnPnSpvLG9m9dsTB/vEKfT8xmdkP+XOLwNoHBcVZPO2wm97cv+8QB4Ci63+Z4N3vMv0ClU
+ k8urbAYqiGlb/iAVR5w==
+X-Proofpoint-GUID: i_yn9HzoIpRjrcjBIpTSDTdF9gJny3kj
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-06_02,2026-10-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 phishscore=0 clxscore=1015 adultscore=0
+ malwarescore=0 spamscore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060033
 
-On Tue, Oct 6, 2026 at 4:54=E2=80=AFAM Nils B=C3=BCchner <nils@buechner.me>=
- wrote:
->
-> svs_init01() moves every bank to its vboot OPP and then immediately
-> requires the bank's buck to read back exactly vboot. For the MT8183 GPU
-> banks the buck follows panfrost devfreq, which has not necessarily acted
-> on the OPP change yet (an idle GPU stays at its lowest OPP), so the
-> check fails and the whole SVS probe aborts with -EPERM, leaving the CPU
-> and CCI banks uncalibrated as well:
->
->   SVSB_GPU: buck voltage: 700000uV, expected vboot: 800000uV
->   mtk-svs 1100bc00.svs: error -EPERM: svs start fail
->
-> Poll the buck for up to 500ms before giving up. If it still is not at
-> vboot, skip only that bank: restore its default OPP voltages, disable it,
-> and calibrate the others.
->
-> On Acer Chromebook Spin 311 (MT8183) the GPU buck reaches vboot within
-> the poll window and all four banks complete init01/init02.
 
-Were both drivers (mtk-svs and panfrost) built-in, or as modules?
-This would affect the timing.
 
-> Runtime-tested on an Acer Chromebook Spin 311 (MT8183, juniper) with a
-> 7.0-based kernel (the hardware is not set up to boot mainline);
-> build-tested on mainline with W=3D1. On the device together with
-> the auxadc_thermal per-sensor zone change: all four banks complete
-> init01/init02 at boot (CPU little 1.99 GHz 1050 -> 1000 mV), stable
-> under 60 s of full load on all cores at maximum frequency.
->
-> The change and this changelog were drafted with an AI coding assistant
-> during a debugging session on the hardware; they were reviewed and
-> tested by the submitter.
-
-This section could be moved after the "---".
-
-> Fixes: 681a02e95000 ("soc: mediatek: SVS: introduce MTK SVS engine")
-> Assisted-by: Claude Opus 5.5
-> Signed-off-by: Nils B=C3=BCchner <nils@buechner.me>
+On 10/6/2026 11:07 AM, Prasad Kumpatla wrote:
+> During back-to-back speaker playback the PA sometimes fails to enable
+> because a few I2S/TDM and clock source registers retain their previous
+> state and are not reprogrammed on the next stream.
+> 
+> Reset the relevant I2S/TDM, clock source and bandgap override registers
+> in hw_free() so the codec is torn down cleanly and the speaker amplifier
+> comes up reliably on back-to-back use cases. Move the bandgap override
+> reset out of set_sysclk() into the teardown path where it belongs.
+> 
+> Signed-off-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
 > ---
->  drivers/soc/mediatek/mtk-svs.c | 34 +++++++++++++++++++++++++++-------
->  1 file changed, 27 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/soc/mediatek/mtk-svs.c b/drivers/soc/mediatek/mtk-sv=
-s.c
-> index 99edecb20..2598a1ccb 100644
-> --- a/drivers/soc/mediatek/mtk-svs.c
-> +++ b/drivers/soc/mediatek/mtk-svs.c
-> @@ -16,6 +16,7 @@
->  #include <linux/device.h>
->  #include <linux/init.h>
->  #include <linux/interrupt.h>
-> +#include <linux/iopoll.h>
->  #include <linux/kernel.h>
->  #include <linux/kthread.h>
->  #include <linux/module.h>
-> @@ -1439,6 +1440,7 @@ static int svs_init01(struct svs_platform *svsp)
->         bool search_done;
->         int ret =3D 0, r;
->         u32 opp_freq, opp_vboot, buck_volt, idx, i;
-> +       unsigned long skipped =3D 0;
->
->         if (!svs_mode_available(svsp, SVSB_MODE_INIT01))
->                 return 0;
-> @@ -1542,13 +1544,20 @@ static int svs_init01(struct svs_platform *svsp)
->                                                       bdata->volt_step,
->                                                       bdata->volt_base);
->
-> -               buck_volt =3D regulator_get_voltage(svsb->buck);
-> -               if (buck_volt !=3D opp_vboot) {
-> -                       dev_err(svsb->dev,
-> -                               "buck voltage: %uuV, expected vboot: %uuV=
-\n",
-> -                               buck_volt, opp_vboot);
-> -                       ret =3D -EPERM;
-> -                       goto svs_init01_finish;
-> +               /*
-> +                * The consumer's DVFS (e.g. GPU devfreq while the GPU is=
- idle)
-> +                * may not have moved to the vboot OPP yet. Give it a mom=
-ent,
-> +                * then calibrate the remaining banks without this one in=
-stead
-> +                * of failing the whole SVS probe.
-> +                */
-> +               if (read_poll_timeout(regulator_get_voltage, buck_volt,
-> +                                     buck_volt =3D=3D opp_vboot, 10000, =
-500000,
-> +                                     false, svsb->buck)) {
-> +                       dev_warn(svsb->dev,
-> +                                "buck voltage: %uuV, expected vboot: %uu=
-V, skipping bank\n",
-> +                                buck_volt, opp_vboot);
-> +                       __set_bit(idx, &skipped);
-> +                       continue;
->                 }
->
->                 spin_lock_irqsave(&svs_lock, flags);
-> @@ -1578,6 +1587,14 @@ static int svs_init01(struct svs_platform *svsp)
->                         if (r)
->                                 dev_err(svsb->dev, "opp %uHz enable fail:=
- %d\n",
->                                         svsb->opp_dfreq[i], r);
-> +
-> +                       /* A skipped bank keeps its default OPP voltages =
-*/
-> +                       if (test_bit(idx, &skipped))
-> +                               dev_pm_opp_adjust_voltage(svsb->opp_dev,
-> +                                                         svsb->opp_dfreq=
-[i],
-> +                                                         svsb->opp_dvolt=
-[i],
-> +                                                         svsb->opp_dvolt=
-[i],
-> +                                                         svsb->opp_dvolt=
-[i]);
->                 }
->
->                 if (svsb->volt_flags & SVSB_INIT01_PD_REQ) {
-> @@ -1599,6 +1616,9 @@ static int svs_init01(struct svs_platform *svsp)
->                 if (r)
->                         dev_err(svsb->dev, "%s disable fail: %d\n",
->                                 bdata->buck_name, r);
-> +
-> +               if (test_bit(idx, &skipped))
-> +                       svsb->mode_support =3D SVSB_MODE_ALL_DISABLE;
->         }
->
->  svs_init01_resume_cpuidle:
-> --
-> 2.53.0
->
->
+>   sound/soc/codecs/wsa885x.c | 11 ++++++++++-
+>   1 file changed, 10 insertions(+), 1 deletion(-)
+> 
+> diff --git a/sound/soc/codecs/wsa885x.c b/sound/soc/codecs/wsa885x.c
+> index 1faa8541a872..5ffbf9e89fd9 100644
+> --- a/sound/soc/codecs/wsa885x.c
+> +++ b/sound/soc/codecs/wsa885x.c
+> @@ -896,7 +896,6 @@ static int wsa885x_codec_set_sysclk(struct snd_soc_dai *dai, int clk_id,
+>   
+>   	regmap_write(wsa885x->regmap, WSA885X_DIG_CTRL0_SYS_CLK_SEL, 0x00);
+>   	regmap_write(wsa885x->regmap, WSA885X_DIG_CTRL0_POWER_FSM_CTL1, 0x01);
+> -	regmap_write(wsa885x->regmap, WSA885X_ANA_TOP_BG_TVP_OVRD_CTL, 0x00);
+>   
+>   	return 0;
+>   }
+> @@ -1006,6 +1005,16 @@ static int wsa885x_codec_hw_free(struct snd_pcm_substream *substream,
+>   				 struct snd_soc_dai *dai)
+>   {
+>   	static const struct reg_sequence regs[] = {
+> +		{ WSA885X_DIG_CTRL1_I2S_RESET_CTL, 0x00 },
+> +		{ WSA885X_DIG_CTRL1_I2S_CFG0_TDM_TX, 0x00 },
+> +		{ WSA885X_DIG_CTRL1_I2S_CFG1_TDM_TX, 0x00 },
+> +		{ WSA885X_DIG_CTRL1_I2S_TDM_CTL1, 0x05 },
+> +		{ WSA885X_DIG_CTRL1_I2S_TDM_CTL0, 0x00 },
+> +		{ WSA885X_DIG_CTRL1_I2S_TDM_CH_TX, 0x00 },
+> +		{ WSA885X_DIG_CTRL1_I2S_CTL0, 0x06 },
+> +		{ WSA885X_DIG_CTRL1_I2S_TDM_CH_RX, 0x08 },
+> +		{ WSA885X_DIG_CTRL0_CLK_SOURCE_ENABLE, 0x00 },
+> +		{ WSA885X_ANA_TOP_BG_TVP_OVRD_CTL, 0x00 },
+
+
+This moves the BG_TVP override clear from immediately after a successful 
+PLL lock to hw_free(), so WSA885X_ANA_TOP_BG_TVP_OVRD_CTL appears to 
+remain at 0x03 for the lifetime of the active stream.
+
+Is that intentional for the back-to-back playback fix? If the override 
+is only needed during PLL programming/lock, keeping the old immediate 
+clear and also resetting it during hw_free() would preserve the existing 
+active-stream behavior while still cleaning up the teardown path.
+
+Thanks
+Ajay Kumar Nandam
+
+
+>   		{ WSA885X_DIG_CTRL0_PA_FSM_CTL, 0x00 },
+>   	};
+>   	struct wsa885x_priv *wsa885x;
+
