@@ -1,87 +1,87 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8813035F5ED
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 04:57:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CA8735DA47
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 04:58:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791262677; cv=none; b=O/mT9mmo+pu3HUBRbcfVyY8HDr3Ape5JSn1YZE/qAUIwVKNgMheKo3kHfaXu6LfbtvdZnHc4N+0bD/IFP0kUrVx5U7UO+CUQs3Q31TvgVQqzGF+kbZgFRp1MKbir57rmeK/3M40UtgWRr6gepQrN5MyD/mMbtsnsPTsssGHSQ7A=
+	t=1791262700; cv=none; b=m1MI/+75AZZgmmMSP4CE5PXqwgry36Sjox+GH/RrxALPKkT3JUaErO0rGgNNzSqiRom5bTHwLAubzUoy6bQ4lKwvS3Z2bTahTH3Rn7h7pPqjYzX44XWagyDxgxSk3hYs62sDhMbidGD+ne717sLXBdJ6+hU2yacvKud2sqvSl+Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791262677; c=relaxed/simple;
-	bh=a1JEW3k1zmF8z5nj6EAZL2tUpE/tQqtIEkgMf7GCqgw=;
+	s=arc-20240116; t=1791262700; c=relaxed/simple;
+	bh=6OM9wWHapIU6KE4mRyTPlvJHLyN9Y0AIPIvU/nV26Uo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=W7EzL5Lmq4AwbcBaSBYS2sN1EfaZOpWplW9JkWKmgykkiapJwRiqn7nn5diaZb7eQDCLghm3GYCsVP9ofy9h0BHUk8+lwuG2IXcsZxvLHJwpOpLl7Pm757cFUgTvY6x++BhCvCkpsQLcXT5lL3a3arI5U2VyxWPkKro0PJyphak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=P/VcwWyo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RWOjNQhw; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=aiWwWef24BU6M3kXvVpSuQPwR8Jh5LNvzvPhUnSV3nscy4G74h27d3M2jEwpFSC9o1cttfMDwdn32BZR7MHEXfu7zA1J3crkjlfw0RLWpRTtKNFVzchV5ykucAlnUVjyDyLBpxWd1Olq2e81x9iN+DiteX2TxfqaTzKcm8/jHuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=VQq8jpJf; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=rq7eK0gO; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="P/VcwWyo";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RWOjNQhw"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6963AW1r4157939
-	for <linux-kernel@vger.kernel.org>; Tue, 6 Oct 2026 04:57:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	gQzwae4o1iSNwmG3c/z/nj5af5VdgVaz2HBMvoJAgX4=; b=P/VcwWyo4ByvsUB5
-	VqxAI/xuHFY/tEXRaBeZEPQ9wcJ3pfio53m++M9ohVeOZWJietfc0NwHxYH5+ydE
-	RjPwP2fG/28sivUqvhe9vZI7opnGv0Ia3njVAHTQkQ2FArn+p2AnJcM22i0loKBp
-	skWR2/pCveD8OMznbqSAlgSWRjN7b0ky+fREBgcTT6uC7IEWHsVIBsP2hSbvOE8t
-	lZSvMRMCLSVeqRLGfsi7KHfcPq2xHGDuIKYyHejEicjT3Q/VaURB75V1RMmt3lpj
-	qQye/caNtq0i0PddoQQ+xSVfOgoxeOPyZYSLUWU3ZXIci5n1Y4oIn0o2m0acE0RU
-	3ADkMw==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4bhg3ete-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 04:57:54 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cbe77d6864dso2554616a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 21:57:54 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="VQq8jpJf";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="rq7eK0gO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791262697;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3xmwhtVAOTYHUjmcRz00UOuxKG7KIIGgmFuc28vNIW8=;
+	b=VQq8jpJfEOzWvQUNrshD2pmtd92ou2oNAxhZFY/n+OfNZ6XJFNBhcxKcWfsVmsssaHXb96
+	jyJbavZNu4+eRygGJ97VFOldoN7HK0xP/tuk1MFtRQd1D0OEJMAs868w/qZpS4iC7aktMD
+	HAoi39kB3Bol8juMj+vN/4WVvHTH+4Q=
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-348-AioQ3EdVPjixBpUMhouwyg-1; Tue, 06 Oct 2026 00:58:16 -0400
+X-MC-Unique: AioQ3EdVPjixBpUMhouwyg-1
+X-Mimecast-MFC-AGG-ID: AioQ3EdVPjixBpUMhouwyg_1791262695
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-39deb05ef51so2463306a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 21:58:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791262673; x=1791867473; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1791262695; x=1791867495; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gQzwae4o1iSNwmG3c/z/nj5af5VdgVaz2HBMvoJAgX4=;
-        b=RWOjNQhwwzRQF421zs20bMntdHVCYah+BpueoY8hIj1EaE3ttBn/BO0ewdFHx2ObAL
-         BHei/VS3ONUbqG7eQ9kJxfHc2VVXETe06s5AUcVAn/gnN7XmOliBMJ1YDWdwp3/kh6s8
-         nVJ5BqIpCsKbvHjtTXoHPxsD6KLG0ps5CTgfhBue5fm3O7L8tm3zl41pav35cfAIVyi5
-         U6k9ol8gXkfgB65p5pMQwDc4tp5eWI7PiWIrJCHmM4qT/ZoBLTjjNo7oxVyRYenICief
-         ccxTbIlr4YWsAl9TRY3rslEStE/4q3n+AwWDAVz3KOA4lixro1CEszefruQ/XbAAZvN+
-         4iPA==
+        bh=3xmwhtVAOTYHUjmcRz00UOuxKG7KIIGgmFuc28vNIW8=;
+        b=rq7eK0gOEmJf0AO0RNWtPt6T1+BKb5iFZfuyUvzd+fmfj6Giier8SezLS+OzwaCLm6
+         WXrDd649FPhQd/v6a8fqH65z+jXjlEfu1Is/sMxmSC7qULT+4b3bhscErjzWcu7DRCtH
+         k2sM2pBUb4f8VXNiuL2IfS1o82lREX6VLdJzatSOfc9IU3P44uXPRIC+Z89EeTqDMugN
+         OJHZAmvNFuxx0i8weVhJw6PYACpUDm196Rgx3krjVT8Tg0Ss0y9rfc1NaRA68x6BZsk/
+         eyxefwpINv/QIffGiYJfZwUna3VcrUOoysvjuIUR4E4caU9M0Qcm+cQxUUvA3x6LUBxF
+         PMCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791262673; x=1791867473;
+        d=1e100.net; s=20260707; t=1791262695; x=1791867495;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gQzwae4o1iSNwmG3c/z/nj5af5VdgVaz2HBMvoJAgX4=;
-        b=uBalE8+cvWLRaYiOcmciIDJJUSIgWt/omMfZbxa+2IeKAMLPmY6uz7PCL2nU7zSoUH
-         vfxq7ekGDAXek39NIF6EfNEUsl0C5TiDKm3dmNDH6jWOX/PaMjYwXcIXPPlS0IrZU2/0
-         7907MMcDWbAkj+5OKxyfDQuirPg/heh9GhRUStxjC6vaq68kglh++GryrKvzd6e7PRWQ
-         m/nWXllEyo8ks/SDHCkEgbRTmq82q2IXdDyyxGq56aE4HQxfLOqKwzV6GB/TImYVx/dK
-         EpwD2wKlIiEPgsKXI+Ty8RcJ//u5pdQIKHF3SMqSfoWPKgRzQf9MGZFXSrAjiSG96bZO
-         N6NQ==
-X-Forwarded-Encrypted: i=1; AKwUvByZs6HJrh9O5BopDOArkqy5MKM7Rr7VzZ7zCwQylSBh+Fkf6Y+G2mWoufs+ZoXxQkx4jYh+svZylfwgvo4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK8w2sF0pVNKaHWXJrMuPxS9a2T8Fhohs0sd+ulzFq5M/20QCff
-	bsTYdBRnjY1hEUgsgc15ppeO27zComf0Po/VmGPViJ8hKDMH/3IW8vXnm5vOFXuJ1KAujWgR6I0
-	zkKBj2ltffcK3ANxgWPbcmwz+kpIZwrvwW8MiyYzwpZ6P+l854XSue1NVaGZ/b9QX4CI=
-X-Gm-Gg: AYBFou2Jn0H9dQtZPBXmPGQ9gwClJq7DyGD89jPLMXvCXCQcP9K+wsj2QgYGM+yAuhe
-	o5h6Y+XWrFZRG4uuUNpnm3oKSDGkIM7++IFqvS83z4owhbxNRH6u+EvvzoO5hhwabkjypTXC4p/
-	ugvvcCr8E05jcwrzcaUcB7iQJRcdlCr66c64wgpwg4LYG5Zem3vyVeauaXnzCW/sK41WwCqZq5A
-	XcJIXMWlTtLurgboWbi6YSH1yj3EYFEioHrV5rZtH5M2yxoq0XME7wZJ7mHLziPldT5WRvLx5YM
-	GrVeI1xYOtmKlpeUxaBLKbRJ/e7FjqMqse31wduzxmlvns6NDeaqsRshGNyplYPWV4nmKtCvsOF
-	d08tvoN5SItRZQvnnbytjykrl/P1b2rBf
-X-Received: by 2002:a17:90b:2648:b0:3a8:4e64:e59e with SMTP id 98e67ed59e1d1-3a84e64f263mr1760780a91.0.1791262673320;
-        Mon, 05 Oct 2026 21:57:53 -0700 (PDT)
-X-Received: by 2002:a17:90b:2648:b0:3a8:4e64:e59e with SMTP id 98e67ed59e1d1-3a84e64f263mr1760755a91.0.1791262672866;
-        Mon, 05 Oct 2026 21:57:52 -0700 (PDT)
-Received: from [10.217.219.98] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a85436fb54sm2819331a91.10.2026.10.05.21.57.49
+        bh=3xmwhtVAOTYHUjmcRz00UOuxKG7KIIGgmFuc28vNIW8=;
+        b=aVgFYMdcs4uwo46lb9vMwegO9JLKnlAD2e6MdBvOg7IYN69hnXXYwZMDovxVTrUd+U
+         WvKIBFJl8FJu7m5D1bhTFAM1Ok3kDq9I0SvIyfv6cc3gXzvlSUaaJhKPrPxIi3PsOzSE
+         9XlfT2fIaW5YcjRPAJowcbBjuQDvZ7IPKTRTmK/JZphTI3bg6oPAeRDZHImDX73cXa3p
+         fCoJPXR0qA4YMvUKEVzwikkP8AUuqUbJVXAQUIbu7aRmNmHHK0IR3z7DtchbnnuUDQrX
+         mKchvxLo3qlPbq+MgTtWDJQgLPI46pAyTySUNlMDy93+qTA/TIENZhlyk5zUp4vc4FSa
+         Hvrw==
+X-Forwarded-Encrypted: i=1; AKwUvByqaIMX8UfUgI5jI/C/H0SQWqmB2TpvcyC3Fyz57Gd/F3oM2lVSeAJcAGFv49QHKwYzBuIKqK2uGWWHnRY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLuRhCoS4AvuVxO3QBzI4k++LU3lDWwRl1n05zQuEU6HW/6TlR8
+	iz3ocRlPkmalIXTmWA9odPFvGh5IhPFh1/82xEqTyLvuOVBBrd5DaEI2//CvfKI0UJO71GhlAsv
+	E1OId6uf8qgAh7dpe9EjjjLBUicbhRx9nq8hXv0z0p9E0FAzFc/bRgzIj45sBtrHpqGALMXAWJw
+	==
+X-Gm-Gg: AYBFou3cJmt1edPnk8DYRXZ00d/A9PeDVg6Cr51dZZ+PfM0j7HboYLXfag2b5UERXAv
+	J3DHI2aXq1mIaYLScD2LuwNtgJqXLk1u1luXVoeXnBpl5aaKV8hHLufjshdKr6E0Hre7Jt8Tp9m
+	QM8/czRSQMUwHOCvVzGT3QifGn0PwHFwRE27Y9qXQySH2nFAFET1ZNcpWqeF3gcLW+rfbsblpdi
+	ElBFxJyyV3crMj8YnZLPS3Lo1PQYqBWAZu529YHg2IWjP1+h0yF7nc1CDhTVK9AoMB5tWKehhJn
+	zqPnVUOXZbPg2yF3VvYp3eqzA3CVZgryKVAR5+54vlauVY2IUyrulTucTlXPRIQOpd3bnJuFfsu
+	LD2tTXsIFTEd4rzj8JF86moSNmm/HRooWI3O/K2zQhg==
+X-Received: by 2002:a17:90b:288c:b0:3a4:b0a1:c7ed with SMTP id 98e67ed59e1d1-3a87350ab48mr128895a91.13.1791262694821;
+        Mon, 05 Oct 2026 21:58:14 -0700 (PDT)
+X-Received: by 2002:a17:90b:288c:b0:3a4:b0a1:c7ed with SMTP id 98e67ed59e1d1-3a87350ab48mr128872a91.13.1791262694226;
+        Mon, 05 Oct 2026 21:58:14 -0700 (PDT)
+Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853d0261csm2783924a91.17.2026.10.05.21.58.06
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 05 Oct 2026 21:57:52 -0700 (PDT)
-Message-ID: <eaa6f116-7556-4791-857d-cd50c504528d@oss.qualcomm.com>
-Date: Tue, 6 Oct 2026 10:27:45 +0530
+        Mon, 05 Oct 2026 21:58:13 -0700 (PDT)
+Message-ID: <b8c965a4-7b89-4938-ba40-35d06b7c8419@redhat.com>
+Date: Tue, 6 Oct 2026 14:58:04 +1000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,100 +89,208 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] i2c: qcom-geni: restore tSCL with 32MHz I2C fast-mode
-To: Daniel J Blueman <daniel@quora.org>
-Cc: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
-        Andi Shyti <andi.shyti@kernel.org>,
-        Manikanta Mylavarapu <quic_mmanikan@quicinc.com>,
-        Bjorn Andersson <andersson@kernel.org>, linux-i2c@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org
-References: <20260929041444.9837-1-daniel@quora.org>
- <1ca16602-fb66-4706-8e86-3b35372324b9@oss.qualcomm.com>
- <CAMVG2svsfP+6cpRq=kBCZFva_r8jXSm+-pp+qC9D372S10z12g@mail.gmail.com>
+Subject: Re: [PATCH v22 19/23] KVM: arm64: CCA: Don't expose unsupported
+ capabilities for realm guests
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
+ kvmarm@lists.linux.dev
+Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
+ sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
+References: <20261005090754.2140522-1-suzuki.poulose@arm.com>
+ <20261005090754.2140522-20-suzuki.poulose@arm.com>
 Content-Language: en-US
-From: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
-In-Reply-To: <CAMVG2svsfP+6cpRq=kBCZFva_r8jXSm+-pp+qC9D372S10z12g@mail.gmail.com>
+From: Gavin Shan <gshan@redhat.com>
+In-Reply-To: <20261005090754.2140522-20-suzuki.poulose@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: miQpr4NdYaRP4EIEIIB7h4Wmo8iw3_jp
-X-Authority-Analysis: v=2.4 cv=GMGdgeNK c=1 sm=1 tr=0 ts=6ac47fd2 cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=8AirrxEcAAAA:8 a=EUspDBNiAAAA:8 a=H1DAGgz6eS-KeOzs8WUA:9 a=QEXdDO2ut3YA:10
- a=3WC7DwWrALyhR5TkjVHa:22 a=ST-jHhOKWsTCqRlWije3:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDAxOSBTYWx0ZWRfXya8jAAMlT9tb
- e8EwMO9iUujXlspqfjErcH9cunz2Rgs0tp/uRA9jhmRNHA8h/FPz+Hv8uGxrChlsNNEmLeuJNU4
- EfqboF7SUVdkmf13Jtsx22JVT4MHk20=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDAxOSBTYWx0ZWRfXwpwzohn3DuKo
- i4UOKQmtWQtSXnZQgF1VSj+Quy8oYrzE9E3/hainc6cCC6I5vjCM+iIKO8/MFv0N5Qbx72Vq27t
- I01mTcKnfGTdTusjJjg2v/I9tAfLSh7JT6MEGDOM9lXqmFxlfc8vVSMTxalJjdv98ufaG5gNas9
- CvWwJwh4J3X6CJwGs1p2GZn1gRenb+4S8FqDihxeSRfFU7cYEHwwvBLuG0FnS40jDzuYYeMDXVG
- dIq4Ek2r74+kR01/W5sRte3DC3dhdD2XNWZvlrzf22KUqlySq8svvlJpM53ni9xMz6EOQDj2KST
- 4gR5JhdVNtEJU5vTwII/98nAM1jQ418KVYOG5mlk/mFbXAV0D6jGsQXAeaF6Txn554BiJTmSiNc
- PBpX3NEDBAohILIUxpFc3CMBnyVIFLqUXwu1X5xq9Go/gKNHVA/tQvNxk6+aZuB8PE+wM3LjjYz
- B/TtW7hfFYfmHkP3Niw==
-X-Proofpoint-GUID: miQpr4NdYaRP4EIEIIB7h4Wmo8iw3_jp
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-06_01,2026-10-05_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 suspectscore=0 spamscore=0 adultscore=0 malwarescore=0
- priorityscore=1501 impostorscore=0 lowpriorityscore=0 clxscore=1015
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610060019
 
-Thanks Dan !
-
-On 9/30/2026 3:01 PM, Daniel J Blueman wrote:
-> On Wed, 30 Sept 2026 at 15:19, Mukesh Savaliya
-> <mukesh.savaliya@oss.qualcomm.com> wrote:
->>
->> Thanks Daniel !
->>
->> On 9/29/2026 9:44 AM, Daniel J Blueman wrote:
->>> Commit cb97bf3d4f91 ("i2c: qcom-geni: Fix hardcoded clock index in
->>> SE_GENI_CLK_SEL") allowed GENI to use 32MHz clock. This changed I2C
->>> timing, making the Yoga Slim 7x keyboard (ITE 048D:8987) unusable
->>> on all boots, and touchpad unusable on some boots, resulting in:
->>>
->>>     i2c_hid_of 1-003a: unexpected HID descriptor bcdVersion (0x0000)
->>>     i2c_hid_of 1-002c: failed to fetch HID descriptor: -110
->>>
->>> With this change, t_high_cnt 3 and clk_div 4 gave a tSCL of 375ns
->>> versus the previous default of 521ns, however the I2C spec has a
->>> minimum tSCL of 600ns.
->>>
->>> Restore tSCL to the spec with t_high_cnt 5 giving a 625ns tSCL,
->>> verified on Lenovo Yoga Slim 7x X1E-80100.
->>>
->>
->> There might be a final count which i should get and update back.
->> Since this fix is working though not suggested per hardware guidance,
->> should we consider as temporary fix and move ahead to prevent failing
->> usecase ?
+On 10/5/26 7:07 PM, Suzuki K Poulose wrote:
+> Limit the capabilities that are allowed for Realm VMs. Similarly block
+> the vm_ioctls backed by the capabilities.
 > 
-> If you can get the final values into a patch for the next -rc instead
-> of my fix here, that would be the minimal path for everyone. You or
-> the hardware team can cross-check against the I2C standard as I did
-> [1, p44].
+> Repurpose the kvm_pkvm_ioctl_allowed() to support both pKVM and Realm
+> ioctls. Rename the helper to kvm_vm_ioctl_allowed() and move it
+> into arch/arm64/kvm/arm.c. Also add a generic kvm_vm_ext_allowed()
+> to handle pKVM and Realm capability filtering and route them accordingly.
+> 
+> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> ---
+> Changes since v21:
+>   - Drop WARN_ON_ONCE() from kvm_vm_ioctl_allowed to synchronise with
+>     what is in -rc5 and make the conflict resolution easier.
+> ---
+>   arch/arm64/include/asm/kvm_pkvm.h | 19 ------------
+>   arch/arm64/include/asm/kvm_rmi.h  | 24 +++++++++++++++
+>   arch/arm64/kvm/arm.c              | 49 +++++++++++++++++++++++++++++--
+>   3 files changed, 70 insertions(+), 22 deletions(-)
 > 
 
-Yes, Agree Dan ! That would be quick and fast way.
-I am in discussion to get more details on correct configuration meeting 
-the specs.
+One nitpick below. In either way:
 
-> I would revert the original patch if there is hardware that uses the
-> I2C 1MHz fast-mode, since the current timings aren't to spec, but also
-> weren't before.
-> 
-Agree, after having last change thought that would meet the spec.
+Reviewed-by: Gavin Shan <gshan@redhat.com>
 
+> diff --git a/arch/arm64/include/asm/kvm_pkvm.h b/arch/arm64/include/asm/kvm_pkvm.h
+> index 2addc37c500e1..b833abb1be9c7 100644
+> --- a/arch/arm64/include/asm/kvm_pkvm.h
+> +++ b/arch/arm64/include/asm/kvm_pkvm.h
+> @@ -53,25 +53,6 @@ static inline bool kvm_pkvm_ext_allowed(struct kvm *kvm, long ext)
+>   	}
+>   }
+>   
+> -/*
+> - * Check whether the KVM VM IOCTL is allowed in pKVM.
+> - *
+> - * Certain features are allowed only for non-protected VMs in pKVM, which is why
+> - * this takes the VM (kvm) as a parameter.
+> - */
+> -static inline bool kvm_pkvm_ioctl_allowed(struct kvm *kvm, unsigned int ioctl)
+> -{
+> -	long ext;
+> -	int r;
+> -
+> -	r = kvm_get_cap_for_kvm_ioctl(ioctl, &ext);
+> -
+> -	if (WARN_ON_ONCE(r < 0))
+> -		return false;
+> -
+> -	return kvm_pkvm_ext_allowed(kvm, ext);
+> -}
+> -
+>   extern struct memblock_region kvm_nvhe_sym(hyp_memory)[];
+>   extern unsigned int kvm_nvhe_sym(hyp_memblock_nr);
+>   
+> diff --git a/arch/arm64/include/asm/kvm_rmi.h b/arch/arm64/include/asm/kvm_rmi.h
+> index 44f5c75a27b5b..ea1450e0c8619 100644
+> --- a/arch/arm64/include/asm/kvm_rmi.h
+> +++ b/arch/arm64/include/asm/kvm_rmi.h
+> @@ -6,6 +6,8 @@
+>   #ifndef __ASM_KVM_RMI_H
+>   #define __ASM_KVM_RMI_H
+>   
+> +#include <linux/kvm.h>
+> +
+>   /**
+>    * enum realm_state - State of a Realm
+>    *
+> @@ -58,4 +60,26 @@ struct realm {
+>   
+>   void kvm_init_rmi(void);
+>   
+> +static inline bool kvm_realm_ext_allowed(long ext)
+> +{
+> +	switch (ext) {
+> +	case KVM_CAP_IRQCHIP:
+> +	case KVM_CAP_ARM_PSCI:
+> +	case KVM_CAP_ARM_PSCI_0_2:
+> +	case KVM_CAP_DEVICE_CTRL:
+> +	case KVM_CAP_NR_VCPUS:
+> +	case KVM_CAP_MAX_VCPUS:
+> +	case KVM_CAP_MAX_VCPU_ID:
+> +	case KVM_CAP_MSI_DEVID:
+> +	case KVM_CAP_ARM_VM_IPA_SIZE:
+> +	case KVM_CAP_ARM_SVE:
+> +	case KVM_CAP_ONE_REG:
+> +	case KVM_CAP_ARM_PTRAUTH_ADDRESS:
+> +	case KVM_CAP_ARM_PTRAUTH_GENERIC:
+> +	case KVM_CAP_SYNC_MMU:
+> +		return true;
+> +	}
+> +	return false;
+> +}
+> +
+>   #endif /* __ASM_KVM_RMI_H */
+> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> index 37ef2ba4e43e2..fe707a0c47308 100644
+> --- a/arch/arm64/kvm/arm.c
+> +++ b/arch/arm64/kvm/arm.c
+> @@ -136,6 +136,49 @@ int kvm_arch_vcpu_should_kick(struct kvm_vcpu *vcpu)
+>   	return kvm_vcpu_exiting_guest_mode(vcpu) == IN_GUEST_MODE;
+>   }
+>   
+> +static inline bool kvm_vm_ext_allowed(struct kvm *kvm, long ext)
+> +{
+> +	/*
+> +	 * We could be called with kvm as NULL, so can't use kvm_vm_* for pKVM
+> +	 * flavors
+> +	 */
+> +	if (is_protected_kvm_enabled())
+> +		return kvm_pkvm_ext_allowed(kvm, ext);
+> +	else if (kvm && kvm_vm_is_realm(kvm))
+> +		return kvm_realm_ext_allowed(ext);
+> +	else
+> +		return true;
+> +}
+> +
+> +/*
+> + * Check whether the KVM VM IOCTL is allowed. For pKVM and Realm VMs, certain
+> + * ioctls are not allowed. Further, certain features are allowed only for
+> + * non-protected VMs in pKVM.
+> + */
+> +static inline bool kvm_vm_ioctl_allowed(struct kvm *kvm, unsigned int ioctl)
+> +{
+> +	long ext;
+> +	int r;
 
-> Thanks,
->    Dan
-> 
-> -- [1] https://www.nxp.com/docs/en/user-guide/UM10204.pdf
+	long ext, r;
+
+	kvm_get_cap_for_kvm_ioctl() returns 'long' instead of 'int' value.
+
+> +
+> +	/*
+> +	 * We are guaranteed to be called with a valid kvm instance, as the
+> +	 * only caller is kvm_arch_vm_ioctl(). Catch any deviations, as we
+> +	 * rely on the kvm instance below.
+> +	 */
+> +	if (WARN_ON_ONCE(!kvm))
+> +		return false;
+> +
+> +	/* Cover both pKVM host and Realm VMs */
+> +	if (!kvm_vm_hyp_is_distrusting(kvm))
+> +		return true;
+> +
+> +	r = kvm_get_cap_for_kvm_ioctl(ioctl, &ext);
+> +	if (r < 0)
+> +		return false;
+> +
+> +	return kvm_vm_ext_allowed(kvm, ext);
+> +}
+> +
+>   int kvm_vm_ioctl_enable_cap(struct kvm *kvm,
+>   			    struct kvm_enable_cap *cap)
+>   {
+> @@ -144,7 +187,7 @@ int kvm_vm_ioctl_enable_cap(struct kvm *kvm,
+>   	if (cap->flags)
+>   		return -EINVAL;
+>   
+> -	if (is_protected_kvm_enabled() && !kvm_pkvm_ext_allowed(kvm, cap->cap))
+> +	if (!kvm_vm_ext_allowed(kvm, cap->cap))
+>   		return -EINVAL;
+>   
+>   	switch (cap->cap) {
+> @@ -403,7 +446,7 @@ int kvm_vm_ioctl_check_extension(struct kvm *kvm, long ext)
+>   {
+>   	int r;
+>   
+> -	if (is_protected_kvm_enabled() && !kvm_pkvm_ext_allowed(kvm, ext))
+> +	if (!kvm_vm_ext_allowed(kvm, ext))
+>   		return 0;
+>   
+>   	switch (ext) {
+> @@ -2146,7 +2189,7 @@ int kvm_arch_vm_ioctl(struct file *filp, unsigned int ioctl, unsigned long arg)
+>   	void __user *argp = (void __user *)arg;
+>   	struct kvm_device_attr attr;
+>   
+> -	if (is_protected_kvm_enabled() && !kvm_pkvm_ioctl_allowed(kvm, ioctl))
+> +	if (!kvm_vm_ioctl_allowed(kvm, ioctl))
+>   		return -EINVAL;
+>   
+>   	switch (ioctl) {
+
+Thanks,
+Gavin
 
