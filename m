@@ -1,161 +1,150 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1F3D288C2D
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 09:35:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791279352; cv=none; b=K3GE7ENL3S9eG0QeVF6D+6B94SmE1KlQBNL9iisMHO75L0xSoVvKtYyOcvpraM81Y66RJz+vmPneGEoQmm5PcKl1k8I8yDPjLsfFmNWsQ7R+aNgBFVfrwzqgHFHd78PpbvNgxWfD/+YGtEOxn8zI/ar4P96flQlJ0mk4HdteOMI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791279352; c=relaxed/simple;
-	bh=TObM65NBjBYwCaft6O0/QOlU54JyJSGJETTZRgol+kQ=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=CBxS/2JbNu9VqK19No18rtfCDG7gv+LY8BX8bFmNAq49jcMNQjpYRlX/s9ViU7YhrufrxETFbK54UCjlCno/tBsjTVH6fFMh8vVP2hYgN7sfqIibyCqN/YfAwmqXUBNXocQoGAblrvop5xX8z34NPzCeAQGmreaUoVwEXYDmqvI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hjwWXXyD; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F45231829
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 09:35:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791279356; cv=pass; b=ReAEP/i4gB6D2e9bVGuajaYuuWbm4p3OY0e+YpVdcJsaAQaFGjKe/jCXBIz5SXzn4wl9NIUIbtU0m76lTFr3gakg1nnYtbU8gleckBLJiDbk0YDzrF1FuqO3cp0DNx9zODVu+ufI4SjhN5jbG/uu/HiqzLlQ2dN4F3z+N2Y/6jo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791279356; c=relaxed/simple;
+	bh=iFDKH0dZQ7vT4Wu/AAsnm64voL3DOVnNYQNWvIJmaNM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=c/I23wNVFZglC+ZUDWq7unBWzR6ZKWI2mCUsoi4sSLnt/gtl5/OP69b5PEdjOKPhLao/5woccC6fWVJFSqppMMVqmHLybnIoHo0Yca7E9aE0LeXhF/RH6pzVD9um/IVAhy7oIbvdVKLdpI124ybnORj2iqAK4PRfBU5R22uwJwY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pcR70hOZ; arc=pass smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hjwWXXyD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791279351; x=1822815351;
-  h=date:from:to:cc:subject:message-id;
-  bh=TObM65NBjBYwCaft6O0/QOlU54JyJSGJETTZRgol+kQ=;
-  b=hjwWXXyD+C9wEd2aL5yZaaOJNuqMltMSi0pz5NW+yH17q3AXDcGe8Xoa
-   1lSHGXr+tgenkYwxNobqXfPvjvdTC+UqiluniDScN1vwNX7NfgL12ssCC
-   1Ql0+toZBkj/S57GH7ht5Wj59HNrSs+f9RyqXYuslyKaqP5AByRdGwyPV
-   KFGCUaHlYUfQntTelJjo06V6cdka4QxBNtMpy6X2XJ4651UtVvEmRyh7L
-   GDWAdmb657xMrFOO4aIDy+XNtQPGNNPYIxatguLDff3yBC2FSpUmjc8ck
-   WF+1QFYaxzY8QrwWRkNdpSmNbh1sehP6QohW1obrZ+kSQdorKZdLFbK9q
-   g==;
-X-CSE-ConnectionGUID: 8ca86X/0T7uwgBHf7oOwXg==
-X-CSE-MsgGUID: PTKcmh9MRZuHfqYJigSAiA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="95780492"
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="95780492"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 02:35:50 -0700
-X-CSE-ConnectionGUID: sxA7jR1hSQaID3qpen9CJQ==
-X-CSE-MsgGUID: 4KYqBwuLRLijd/MLFVBGIg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="280828417"
-Received: from igk-lkp-server01.igk.intel.com (HELO d0de6c2a75a7) ([10.211.93.152])
-  by orviesa005.jf.intel.com with ESMTP; 06 Oct 2026 02:35:48 -0700
-Received: from kbuild by d0de6c2a75a7 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xE1aM-0000000013H-2zRu;
-	Tue, 06 Oct 2026 09:35:46 +0000
-Date: Tue, 06 Oct 2026 11:34:50 +0200
-From: kernel test robot <lkp@intel.com>
-To: Md Sadre Alam <md.alam@oss.qualcomm.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Mark Brown <broonie@kernel.org>
-Subject: drivers/spi/spi-qpic-snand.c:1502:6-18: opportunity for
- str_enabled_disabled(quad_enabled)
-Message-ID: <202610061128.0Hjx7Feh-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pcR70hOZ"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-486e8faff03so229700f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 02:35:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791279352; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BFEZpwU/31IVhh8gViQpLqGord2kZh/35lSa/qMiGHOwj6zfUarGELlCRmmQ//SF5Q
+         ebTgFlUiXpKkU0w0twduA/7uwNwAoqgH2fDTCJbBrHNj5MLsl7sZBRFc5dwQlrfNmSWL
+         QWSxJs5KOk7+HIis1OXK+yUbY7X223iBSsO1iMHJzKiJW1gYNlHUNL224lug6BHQUoen
+         oafPm9qUpqwWos9Yhq0dk6mBbc6rtt7Sbe4o/IX+bnp02Zp2pdca3kHOQKKZ/K/EUN52
+         I2SdNk8JlAyKeX3AiEmGI7r5PQwHtY1eGoJeNIrJ0tx2v6UnEtJ686M1VyFsYC9QrWDE
+         vuNA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+Cgetbi5PuPxsF5bfepfN9t314B9UjLEVq/ZXofyuHQ=;
+        fh=nvEFovDPpGDQ6J/NNr/TQPBtS70zIPqhjLPLzd/nwEY=;
+        b=CjfEhQp3QtSs3bhNdAqkUPt8Aufbl39ONDhUAUGceSaegCbpoReRQOT03+7C/wdXlC
+         Is1XmFZp0VexZ20jGi+q/wDBv5qIgqfzFmS78cc84R0JyALbQJhIS6pxShR5+t2I5+Wq
+         pbUUmPw02l1STPO8jd/Ocpkujp27kNJeJatH0/rWDwQ992r2WNqPLLcCdo3vO4HQ7eQE
+         XmVuHmDF+t1yfPNzw4P099bUnE2tfkZMj5uMCJJ67ZQYVixuYAohU1AguziN/m7f+Pxy
+         vNHOk7xm+34fqC7cS/179H7M3LdQ3jfwS7pFvWT/dhzCdM0Sv0VcMgX3hCI/7M3rHnst
+         NODw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791279352; x=1791884152; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+Cgetbi5PuPxsF5bfepfN9t314B9UjLEVq/ZXofyuHQ=;
+        b=pcR70hOZjQ4Whf587GohZTc1nDoyj8+XRQiySzoaB32e0TJRcuN+eTUuwqv9etxxnL
+         xqoEY3BgR1tD4XJ0dM26AOmvn3CZAuM6+bhOTbBIWThi14h0nLXCrvUJv52HP7u3OJBz
+         AwsNvuJKwTxgyiiIsu+Pkc9TrYlNKU5MymsQLmxFuOMkRZk3P8w+UKM9hk+StAtiSA4U
+         IUBqxnlp8Tm72aASj4I0fxlhPcgOjWuIx5LM1e/1ZrvEjiTEtoxCtg5Gd2HrV6NsN3OT
+         P6Rruu4v8OWtU9Nk7BPeUhUcyjqQjbZNhAwl6+xnnSgioeoTPJ4wVKj2WUMkB02AOv/1
+         IRgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791279352; x=1791884152;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+Cgetbi5PuPxsF5bfepfN9t314B9UjLEVq/ZXofyuHQ=;
+        b=DnivTUMYrds3KzwFXukFu9WXNzbuu3qrM0RG1QGtS9xUY+w3CFT5DRWJmZW85PdZSK
+         DLMNMPm7MjRmtJk4Is7HbUdzI11NTH7d88NBJxUkQxq5pdELxutHradbthEkGStp88dM
+         19+ifLw5pwidhoeMQ7Z/JqtivfgcOezUubCA2qINKRmm3N64W2yflYagVkZfBKehKnaW
+         VdQVgiBxNdcdyvoFc1p4nKVKzJn+Hzrri9H8omyxv9kDzdyQIRdya8Dwg9aWPenvSyyc
+         Qo5mRdwyh6tSOOhgmBDvJ4/k5CX/TMXDCZ7BSLACzLMXhXy0y1uMSc0JjnJF8iWeXRS+
+         2ugQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzOnrASDUjoC9Y/iq1HfwGtcVfGkueJCxd7FY1Ybp9ddASL/urL/qFJ0A9cTUtnB0yBd6JqiyxenOk46aA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLBAfdU3jh16NOhdsEaCkJoIN4/JmWhUU4VoUOJgCkzbiK6P0dE
+	McxXk+RJOuCRk+yff7HAR25QBkaYQDT0RD6fjllnnB45eTia/3FE3eaIhK+AyMq0Ae28bqKABKV
+	P5+ODGmlhX/SnZu9Y0ukhMzpkMM6Zttc=
+X-Gm-Gg: AYBFou0H1GbxCppNEqL4mItfqbIhrwxLbOvYydbuZ90CF7z69+05yPLCFB5dmWqoT/6
+	/lk/YDsB6cKyS00qm3A+ZIg6fMKJg9W8X8EYv/eH1TMaKFJzb9hSeGsYb7QSnzQBkEPmcuRE4su
+	tfL7V9+amqwFqB+Zcw/j5qEZxUjM57IwcrioPdRS3/rwlvD/mypxdTdB5I75HcRMJrZD3/sDbHR
+	e+v5JU9FhldNzS8SlEwTWqWZ+8oB9HX66smq4hI2X4nPa5KSHRqOpErMcgAmFstrdpo9I6sDsYf
+	if+gwwZM7npcfKdrwnboNLrNt9BtZSDfq4HU7wOR6IMEpbZkjGDUy8yakgevHeeqgURc7cHTzJF
+	k2Njs3YujKQ==
+X-Received: by 2002:adf:e006:0:10b0:487:81c:6de with SMTP id
+ ffacd0b85a97d-48c6d1ed705mr1065716f8f.34.1791279351554; Tue, 06 Oct 2026
+ 02:35:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20261006002307.2669023-1-usama.arif@linux.dev>
+In-Reply-To: <20261006002307.2669023-1-usama.arif@linux.dev>
+From: Nhat Pham <nphamcs@gmail.com>
+Date: Tue, 6 Oct 2026 11:35:40 +0200
+X-Gm-Features: AclHuK-I-EC0QMEEhgjEh4SjGXEPR_qp-oBVhjIP65Qw2qNeTHjeK_O2GUMd75o
+Message-ID: <CAKEwX=N3ks2O-dCYPRif3NnHQckdVqLiPGRn03GkCuEE+FVgtQ@mail.gmail.com>
+Subject: Re: [PATCH 0/2] mm: zswap: reduce request contention on loads
+To: Usama Arif <usama.arif@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, chengming.zhou@linux.dev, dsterba@suse.com, 
+	hannes@cmpxchg.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	terrelln@fb.com, yosry@kernel.org, riel@surriel.com, shakeel.butt@linux.dev, 
+	alex@ghiti.fr, senozhatsky@chromium.org, kernel-team@meta.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   2c3418fffa9d037b2038a6db48be63f9e2291806
-commit: cdb1dbba490205c32f1e72aaaad26715c8f98f80 spi: spi-qpic-snand: add quad mode support
-date:   8 weeks ago
-config: sparc64-randconfig-r2106-20261005 (https://download.01.org/0day-ci/archive/20261006/202610061128.0Hjx7Feh-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 195c81658995a4b7531c30a12c5aef6cf2bbd671)
+On Tue, Oct 6, 2026 at 2:23=E2=80=AFAM Usama Arif <usama.arif@linux.dev> wr=
+ote:
+>
+> Stores and loads share a per-CPU acomp request and mutex. A low-priority
+> store can be preempted right after the compressor drops its stream
+> lock, while it still holds the zswap mutex, and a higher-priority load
+> on that CPU then waits for the store to run again. This follows the work
+> from Sergey Senozhatsky's zram series which splits it for the same
+> reason [1].
+>
+> Patch 1 gives compression and decompression separate requests, waits
+> and mutexes, so loads no longer wait for stores, though they can still
+> wait for each other. Patch 2 decompresses with an on-stack request when
+> the algorithm is synchronous and needs no request context, which covers
+> all in-tree software compressors, so those loads take no zswap lock.
+> Asynchronous algorithms keep the per-CPU request and mutex. For software
+> compressors the series allocates the same number of requests as before;
+> each per-CPU context grows by 72 bytes, and the load path is about 270
+> bytes deeper on x86-64.
+>
+> The series does not fix two related cases:
+> - Stores still serialize on the compression mutex, so a high-priority
+>   task that reclaims (direct reclaim, MADV_PAGEOUT) can still wait for
+>   a preempted store.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: cdb1dbba4902 ("spi: spi-qpic-snand: add quad mode support")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610061128.0Hjx7Feh-lkp@intel.com/
+Any reasons why we cannot tackle this too? Or just one at a time?
 
-cocci warnings: (new ones prefixed by >>)
->> drivers/spi/spi-qpic-snand.c:1502:6-18: opportunity for str_enabled_disabled(quad_enabled)
+> - On PREEMPT_RT the codec stream locks are preemptible, so a load can
+>   still wait for a preempted store inside the codec.
 
-vim +1502 drivers/spi/spi-qpic-snand.c
+Acked.
 
-  1433	
-  1434	static int qcom_spi_io_op(struct qcom_nand_controller *snandc, const struct spi_mem_op *op)
-  1435	{
-  1436		int ret, val, opcode;
-  1437		bool copy = false, copy_ftr = false;
-  1438	
-  1439		ret = qcom_spi_send_cmdaddr(snandc, op);
-  1440		if (ret)
-  1441			return ret;
-  1442	
-  1443		snandc->buf_count = 0;
-  1444		snandc->buf_start = 0;
-  1445		qcom_clear_read_regs(snandc);
-  1446		qcom_clear_bam_transaction(snandc);
-  1447		opcode = op->cmd.opcode;
-  1448	
-  1449		switch (opcode) {
-  1450		case SPINAND_READID:
-  1451			snandc->buf_count = 4;
-  1452			qcom_read_reg_dma(snandc, NAND_READ_ID, 1, NAND_BAM_NEXT_SGL);
-  1453			copy = true;
-  1454			break;
-  1455		case SPINAND_GET_FEATURE:
-  1456			snandc->buf_count = 4;
-  1457			qcom_read_reg_dma(snandc, NAND_FLASH_FEATURES, 1, NAND_BAM_NEXT_SGL);
-  1458			copy_ftr = true;
-  1459			break;
-  1460		case SPINAND_SET_FEATURE:
-  1461			/* fully handled by qcom_spi_send_cmdaddr() */
-  1462			return 0;
-  1463		case SPINAND_PROGRAM_EXECUTE:
-  1464		case SPINAND_WRITE_EN:
-  1465		case SPINAND_RESET:
-  1466		case SPINAND_ERASE:
-  1467		case SPINAND_READ:
-  1468			return 0;
-  1469		default:
-  1470			return -EOPNOTSUPP;
-  1471		}
-  1472	
-  1473		ret = qcom_submit_descs(snandc);
-  1474		if (ret) {
-  1475			dev_err(snandc->dev, "failure in submitting descriptor for:%d\n", opcode);
-  1476			return ret;
-  1477		}
-  1478	
-  1479		if (copy) {
-  1480			qcom_nandc_dev_to_mem(snandc, true);
-  1481			memcpy(op->data.buf.in, snandc->reg_read_buf, snandc->buf_count);
-  1482		}
-  1483	
-  1484		if (copy_ftr) {
-  1485			qcom_nandc_dev_to_mem(snandc, true);
-  1486			val = le32_to_cpu(*(__le32 *)snandc->reg_read_buf);
-  1487			val >>= 8;
-  1488			memcpy(op->data.buf.in, &val, snandc->buf_count);
-  1489	
-  1490			/*
-  1491			 * Track QUAD mode state from configuration register.
-  1492			 * When core layer reads register 0xB0 (CFG), check if
-  1493			 * QUAD enable bit (bit 0) is set and update our state
-  1494			 * accordingly for future READ/WRITE operations.
-  1495			 */
-  1496			if (op->addr.val == SPINAND_FEATURE_ADDR) {
-  1497				bool quad_enabled = !!((u8)val & BIT(0));
-  1498	
-  1499				if (snandc->qspi->quad_mode != quad_enabled) {
-  1500					snandc->qspi->quad_mode = quad_enabled;
-  1501					dev_info(snandc->dev, "SPI NAND QUAD mode: %s\n",
-> 1502						 quad_enabled ? "enabled" : "disabled");
-  1503				}
-  1504			}
-  1505		}
-  1506	
-  1507		return 0;
-  1508	}
-  1509	
+>
+> The numbers below are the slowest read per run, as a median (min-max)
+> of 5 runs. Each run is 12 seconds in a zstd VM with lazy preemption,
+> vm.page-cluster=3D0 and swap on /dev/ram0. With 1 vCPU, four nice +10
+> workers page memory out and read it back while a nice 0 task spins. A
+> nice -19 reader pages out its own buffer and measures how long each
+> read of it takes. With 8 vCPUs there are 16 workers, 8 spinning tasks
+> and 8 readers.
+>
+>               Before series (ms)      With series (ms)
+>   1 vCPU      22.3 (21.6-22.6)        0.97 (0.72-1.4)
+>   8 vCPUs     314 (97-2542)           7.0 (5.0-98)
+>
+> Reads over 10 ms fell from 26-35 per run to none with 1 vCPU, and from
+> 3-18 per run to at most one with 8 vCPUs. The benchmark and test programs
+> were written with the help of an LLM.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Great find, Usama!
