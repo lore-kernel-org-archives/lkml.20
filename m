@@ -1,82 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E9D63AD503
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 09:55:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 369272D77F7;
+	Tue,  6 Oct 2026 09:55:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791280518; cv=none; b=TWL/EG7yMJzroM2uEOCmKi7xIZtR7mpgIhCoOeOHq0yKrxyKK7Z2RXUq1zNTu/xOydidY9mE37/UjCmaMkrgWVrpgybUavFOvC60e3ogQDN3wVtk7hL+3NsdALMNkQf+i1M7LOVp5mZj7xjRoqPaQBAPG7khePxOS7+AGcCghps=
+	t=1791280518; cv=none; b=nTCaxORxm1Ww/igaX58VMMWtQJJOH8NyxQhLk+4TTgjOY5YtoathzaUJf3IcwfCmjC6PKNH4W8B/XJCDtSsBdOAnTpBm5hC3lDILiYsWYpQB8qzcdv2r0176ryx33Beg+lZY7hUWEK13mC6nzrThR+bF8YgKw9pTKLAl88fHrzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791280518; c=relaxed/simple;
-	bh=r+zeNEuUcmG49zQlT7QFsoefRziSDgfJwX1F1S77F+E=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=nzA5vx9fmxMG6rWVRJeCrVwdlsN1RLkYOH4w6+ODsxr0gDvVk3yApGJt/K8PWJ1VKv2RMDjEPvj2B479IvtGr1t2YOJA/+0wh5rvjaE3EzTyDyw5eJZv1ephBmG63Hwo3ZwFohjhrGxmp6JWtOp3nchTuMu6HRIVdGS4O2Gevbw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AUy/9/vj; arc=none smtp.client-ip=100.103.45.18
+	bh=PprG1zoTavpw3blbpMrw2Qfk/deLSjiCWxGPFyBWXnA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QOGhVOXXtMZKThiueiP67bFGXkazVZJyZiUB5ovubLo/MS7rMtZkeOWVl+jYbMvY+H6EhiOrOAvgfff6XdQa588VwX7CWJjrlyd8byxx7EHtUCU//yK6/V18tgTl+M22LSDYYYYy5Avi7FB+nzrBIN+jAu5VcnMvXWcg7v5Pu5U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Vm4m60nR; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AUy/9/vj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11CC51F000FF;
-	Tue,  6 Oct 2026 09:55:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791280517;
-	bh=U/UJLBwKjfbb2sgsrgLx15T9FSqQIhajyoEePoI+pZU=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=AUy/9/vjS2XtlXuvtdJPZOLX1BQfwjtP6LdD6yzKeNeavB+39why0E0QkxeedqmaO
-	 IqOi6NCngJDi0FTBI646o5kagYURXHMW3eHaBWpdSeitTbJ8BZirC6zzjo8RJc0qXG
-	 mYM2bE++mwfsS69YalOcw4yUhyvMblae1RWcxEyPIyifcqB2oguPDhuf/kXHRLe2I9
-	 OYwlm448XhlbqTs8kwnpvxEznTXriUUFch2KZsQIzoNwzIM837/WlMEtoTrxdXT4fe
-	 9CZnhoc3QKtiKAURXeCGnXrEViuo0/o4yUWNtaa+xp/vjvB84K0WmNa1Pi6ArQdbqG
-	 uG6Sa/w1qwRdg==
-Date: Tue, 6 Oct 2026 03:55:12 -0600 (MDT)
-From: Paul Walmsley <pjw@kernel.org>
-To: =?ISO-8859-2?Q?Radim_Kr=E8m=E1=F8?= <rkrcmar@ventanamicro.com>, 
-    rkrcmar@qti.qualcomm.com
-cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
-    Paul Walmsley <paul.walmsley@sifive.com>, 
-    Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-    Alexandre Ghiti <alex@ghiti.fr>, Atish Patra <atishp@rivosinc.com>, 
-    Andrew Jones <ajones@ventanamicro.com>, 
-    =?ISO-8859-15?Q?Cl=E9ment_L=E9ger?= <cleger@rivosinc.com>, 
-    Anup Patel <apatel@ventanamicro.com>, 
-    =?ISO-8859-15?Q?Thomas_Wei=DFschuh?= <thomas.weissschuh@linutronix.de>, 
-    David Laight <david.laight.linux@gmail.com>
-Subject: Re: [PATCH v2 2/2] RISC-V: make use of variadic sbi_ecall
-In-Reply-To: <20250619190315.2603194-3-rkrcmar@ventanamicro.com>
-Message-ID: <650d23e8-b51b-85da-f9f3-52a06fed81e5@kernel.org>
-References: <20250619190315.2603194-1-rkrcmar@ventanamicro.com> <20250619190315.2603194-3-rkrcmar@ventanamicro.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Vm4m60nR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791280517; x=1822816517;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=PprG1zoTavpw3blbpMrw2Qfk/deLSjiCWxGPFyBWXnA=;
+  b=Vm4m60nRU1hndNQ6PgkArjwlgXxENN0vYV5Fve5Hq7kWP5zxKtM+GXvx
+   ru5GRBokloxT6CgWt9TLGKwXqCC1BHvPWH4es0PvprB8D84wQS1RVzVkc
+   h3aZ7Te4GWWotJX3jjiuJ6uVqYQ+ei8eohpJ+A3SWXN7TyAOWkLRQEs/q
+   BlHrkmoN5kaK8Tb0R5fJQzbYfJhRl3n2uPJNdIiVms5PovsCX8b6w5xYy
+   yPoUbt+UPNm6tr/pW0KqOLj/UEVt9X3Z6UB43YoBFk9IuA3JO5TZu8wY2
+   xPpzXuTsbTWyVD1FllJAMzahfpc2ufU4sg/OH4soEv33rsQH2JgMVGali
+   w==;
+X-CSE-ConnectionGUID: YE3EgKHJQT+pLNSRGCWkag==
+X-CSE-MsgGUID: qzKYvbg8SZqrCPBtlJgiLQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="112880"
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="112880"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 02:55:17 -0700
+X-CSE-ConnectionGUID: 3CvIPXL/Tc2i1GM26q+rSA==
+X-CSE-MsgGUID: NdjTDoNtQXq0SfBbj3gt+w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="285008670"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa003.fm.intel.com with ESMTP; 06 Oct 2026 02:55:13 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xE1t7-000000001Qi-36dv;
+	Tue, 06 Oct 2026 09:55:09 +0000
+Date: Tue, 6 Oct 2026 17:54:53 +0800
+From: kernel test robot <lkp@intel.com>
+To: Bradley Morgan <brads@mainlining.org>, akpm@linux-foundation.org,
+	vgupta@kernel.org, guoren@kernel.org, chris@zankel.net,
+	jcmvbkbc@gmail.com
+Cc: oe-kbuild-all@lists.linux.dev, arnd@arndb.de, paulmck@kernel.org,
+	david.laight.linux@gmail.com, glaubitz@physik.fu-berlin.de,
+	ysato@users.sourceforge.jp, dalias@libc.org,
+	linux-snps-arc@lists.infradead.org, linux-csky@vger.kernel.org,
+	linux-kernel@vger.kernel.org, brads@mainlining.org
+Subject: Re: [PATCH v5 3/3] xtensa: Emulate two-byte cmpxchg
+Message-ID: <202610061704.rvbolgPy-lkp@intel.com>
+References: <20261005120700.383058-4-brads@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1636448891-1791280516=:2885293"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261005120700.383058-4-brads@mainlining.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Hi Bradley,
 
---8323329-1636448891-1791280516=:2885293
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8BIT
+kernel test robot noticed the following build errors:
 
-On Thu, 19 Jun 2025, Radim Krčmář wrote:
+[auto build test ERROR on akpm-mm/mm-everything]
+[also build test ERROR on vgupta-arc/for-curr jcmvbkbc-xtensa/xtensa-for-next linus/master v7.3-rc6 next-20261005]
+[cannot apply to vgupta-arc/for-next]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-> The new sbi_ecall doesn't have to list all 8 arguments anymore, so only
-> pass the actual numbers of arguments for each SBI function.
-> 
-> The remaining trailing 0 are intentional as they represent an argument.
-> 
-> SBI 0.1 shouldn't be using the sbi_ecall, because it's only for 0.2+,
-> but allow it by passing 0 is the reserved register.
-> 
-> Signed-off-by: Radim Krčmář <rkrcmar@ventanamicro.com>
+url:    https://github.com/intel-lab-lkp/linux/commits/Bradley-Morgan/ARC-Emulate-two-byte-cmpxchg/20261005-120658
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
+patch link:    https://lore.kernel.org/r/20261005120700.383058-4-brads%40mainlining.org
+patch subject: [PATCH v5 3/3] xtensa: Emulate two-byte cmpxchg
+config: xtensa-allyesconfig (https://download.01.org/0day-ci/archive/20261006/202610061704.rvbolgPy-lkp@intel.com/config)
+compiler: xtensa-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261006/202610061704.rvbolgPy-lkp@intel.com/reproduce)
 
-Thanks, queued for v7.4.  
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610061704.rvbolgPy-lkp@intel.com/
 
-For everyone, not just Radim - probably it's worth looking through the 
-codebase to convert any SBI ecalls that were added over the past year that 
-weren't covered by this patch (e.g., the MPXY drivers) and to doublecheck 
-the overall argument counts.
+All errors (new ones prefixed by >>):
+
+   In file included from arch/xtensa/include/asm/atomic.h:19,
+                    from include/linux/atomic.h:7,
+                    from include/asm-generic/bitops/atomic.h:5,
+                    from arch/xtensa/include/asm/bitops.h:192,
+                    from include/linux/bitops.h:67,
+                    from include/linux/log2.h:12,
+                    from kernel/bounds.c:14:
+   arch/xtensa/include/asm/cmpxchg.h: In function '__cmpxchg':
+>> arch/xtensa/include/asm/cmpxchg.h:79:25: error: implicit declaration of function 'cmpxchg_emu_u16'; did you mean 'cmpxchg_emu_u8'? [-Wimplicit-function-declaration]
+      79 |         case 2:  return cmpxchg_emu_u16(ptr, old, new);
+         |                         ^~~~~~~~~~~~~~~
+         |                         cmpxchg_emu_u8
+   make[3]: *** [scripts/Makefile.build:185: kernel/bounds.s] Error 1
+   make[3]: Target 'prepare' not remade because of errors.
+   make[2]: *** [Makefile:1405: prepare0] Error 2
+   make[2]: Target 'prepare' not remade because of errors.
+   make[1]: *** [Makefile:248: __sub-make] Error 2
+   make[1]: Target 'prepare' not remade because of errors.
+   make: *** [Makefile:248: __sub-make] Error 2
+   make: Target 'prepare' not remade because of errors.
 
 
-- Paul
---8323329-1636448891-1791280516=:2885293--
+vim +79 arch/xtensa/include/asm/cmpxchg.h
+
+    73	
+    74	static __inline__ unsigned long
+    75	__cmpxchg(volatile void *ptr, unsigned long old, unsigned long new, int size)
+    76	{
+    77		switch (size) {
+    78		case 1:  return cmpxchg_emu_u8(ptr, old, new);
+  > 79		case 2:  return cmpxchg_emu_u16(ptr, old, new);
+    80		case 4:  return __cmpxchg_u32(ptr, old, new);
+    81		default: __cmpxchg_called_with_bad_pointer();
+    82			 return old;
+    83		}
+    84	}
+    85	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
