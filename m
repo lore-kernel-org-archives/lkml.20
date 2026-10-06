@@ -1,135 +1,234 @@
-Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A78B39D6FA
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 10:45:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.153
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 472743B05AD
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 10:47:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791283554; cv=none; b=ptDKlNlYOmOeSqChPY6r3INFn0GWdAPy/KYPZUWmHOSG9fRVwVVgVlIgZo8rRrm2b763u4LT++/5puHFx49aUEFpjDBgibL7iuhOvi/WncFTOGq0V3aCVlhjuNxDttB5KxnUVH0hMv+tcHFEzzmq9CiT6AER91LHmVoIMa2OzuI=
+	t=1791283633; cv=none; b=clxBkKD/J+lIcFb88+LsLxtsoJDFASKUUvjx6NjDXy0ZyK8Ng0ujG2HSbwIAXVw66BfoaciQl593MKWCTnuXBRNVTvSHIPLGKHwpWvrsWRsqSqiqdSL1JYdUVPOEJzBOcipO4QSsoF6XJ+SV3J3ntP6rLhwRCqiP9dFwTVCby4Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791283554; c=relaxed/simple;
-	bh=hYnMIuf9IJ9ZXwf35KrcykFHtQwQCLcRpmeWfFT/tXo=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=PwEGbMrmJeB2aYSPljQDW09DBHR+0HPLnviulMn/ra1xltRN7W7qo81SE4TYpOS4dby9+NDFH0vtzlcmRTAAUTiKKax+ObUaq2gbOY4DfBn6hf/hfBpg5nDROGCN8XbHOpxegl4Z6p8jSkUynvaMZFGiWj+3OK403NBXKzbv0aM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=GJtFmWuP; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Ey/P3qK+; arc=none smtp.client-ip=103.168.172.153
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	s=arc-20240116; t=1791283633; c=relaxed/simple;
+	bh=VCi/kjLFAJJGXjgxhIYMwC657u5zE4DOnBkrZHplcNE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PdzMdF2Vv0BqlihBat36qqPy9CKkZTAi8TR3nAOSbEV671DLSg9QVaIHqEXbKXx62iU8AekkW4rkW3h9r60i5s66KDc9h2ImhnOcdLw0NmbxnZbaK18CSLDtm2BywZMvebgs4jKHtXfjd3Z/Vxay5POMTDyCrerh3KfMaXao6gw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Nyc9X9VT; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="GJtFmWuP";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Ey/P3qK+"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id A38E91400160
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 06:45:51 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Tue, 06 Oct 2026 06:45:51 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1791283551;
-	 x=1791369951; bh=C4gS1mrdzGZyEHNcX8oPdYcyRpMYGZeHaaYB6VPfr/4=; b=
-	GJtFmWuPmsvtJK4iGH2wr+0fJiF/vgbi2BE5TLShefZc/YzO4lgxsVT1mujksbkj
-	9LiOLm9e1/vNqDtprGg87mdfUZtmVc2qp5VtT3znnWuhtUjlQS1qjkUuOdLe2k4I
-	uHo9J8dFIcvcFNRLZiE8v0nQ4348gy+odmm/Nsq0BYIN01RNjoJx217A1RX6OX2b
-	YThbg5Q8wqrrXTDS/Rh/HiNyjY9qEALSMHRhVLYYh7iZqlgrDQuOjtxoSvoK4EMV
-	I91Qgswx63axh8E3s/U0gIqxsJM5yfpl9iTxpzBS1yT+1bpOPF0UGk8weQZbQS8s
-	kXxGHvQCiWePx2cApmTfhA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791283551; x=
-	1791369951; bh=C4gS1mrdzGZyEHNcX8oPdYcyRpMYGZeHaaYB6VPfr/4=; b=E
-	y/P3qK+A5PyEe7+WmdYYmoyAXVaTLNBMlJ65Sw3mEMfTUXJRqx/UqA6Kf82RcInJ
-	jJrwxIoFAoK4qlWQHsWiIFD1yMZhE/Ii/7/D8ePwqj12Pqusi3WC9TEIpteW5/2i
-	W/Bxu+8o9oCxe64FVaP4CktrQSv/qhnJDBXMIs0DP2kB4Qd5OVZHufC8lCKT9+1R
-	dnab8iS7jRZHCpaBI9bSBjTBCdCwCUT4nxcYCPq0NZkJUriAfAt1d9HLALa3cvaT
-	5H+MG7Gb+tTkEl4BD/TrkmkyDJWEfv1kCEPisEknUnrkFw+GONUruFjfktcbLNLu
-	89wlloGhqllmGaBLUoVKA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=kroah.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791283551; d=kroah.com;
-	mf=PGdyaWZmaW5Aa3JvYWguY29tPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:ZOU/pyruoIkvhNtzo3GKAllL6lZs4lc8Hcdjl6qUC6A0uwV
-	arBEXbBz65kCu7gHRiTerkEWSeV5gnTTtXo+tjDJ1+PsevEmREzb+qEdlBaTlfWw
-	am+CEFb7u3Rc3LNXb48TQPlG7ysvlopeF0nMbTFDUOOESGbRXAR5ZnSwl4Gp2a5f
-	nm/AhpEo4MDi6xqFsj36lXHkpaa6wy5ZNbBhaIhG0upYCiyKDkGOJcL+WrleEoij
-	xpA0P9fkbZRghXDxkyGZw3SgFHXCC5SlGU6d6tr4JaEkIJDqlPZ12Y9saKUdbtW+
-	YhooqlY/lzs7Ef9vdc254dOZBU4Z+Dm5SKwOSiQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:pzdmtJgjbNy+WiPvdAyYwifn6KAwUgmimkie6AyAc8U=:hYnMIuf9IJ9ZXwf35KrcykFHtQwQCLcRpmeWfFT/tXo=;
-X-ME-Sender: <xms:X9HEaowfHzLV7bEv776C462BzLCsojYLaC7V__en6IOX15tq1jYGMw>
-    <xme:X9HEahd-KPtFBKEAsEWVT3migvkdOer_IWN3EeFXOKHuCLnuhxw4-EZ6-xJS3VArM
-    qzwsavi4w3fJMyIzrJQvYw0nFa8nMqp_nA4vF_j6H5FXCT61ZVx>
-X-ME-Received: <xmr:X9HEatvhJKAEUwbfgEr3JA1_Ah9v2rNuSZt1trQnspr7wEzdYUndQ0oQ1oj0xL0kNJsVTon1uzpLB5FxkBU2PPc>
-X-ME-Proxy-Cause: dmFkZTFy4ly97poWc5eIB3CDioH0b7lk00ywrvxtI3dD2vlH5skS96JyuW8PGyM4KCPx/N
-    U77fhS90DigJqJud0V3fVaAttDCxLkq/UnS2mJ/LRpXNeDVazJ/atUMxnDr+P6ix9Puicw
-    wVB/Zrj0LiFcbzQhepuNoO/sLOC49ACMQz8n4kghT5mI051YmmuJpJLlLACRMGlp4QjApF
-    iYnBwSWLmBVHM3abxjVvf83CelErZCLqqUdBW1PMFkyfwASS3xnAIAFWJUFQuoUBmtgE5B
-    db3yLg+Kly76VNzLpIq+Mg3NrkmTvg8R57TPp9l3N2M0LqNvDvKdXktiXFtLeI4iLErbk+
-    TZccKL2fF4mIyHRgvl6WwUCyrMazL6TvX/Q1O+CyP9BWbHXGgG4k2M52Z57tSQmW/5XrK+
-    Srb6HPtAcKW6OxlDEi4mqMEp2ldjXoG1TQ2xC+4X/pZoVpAA4HjPCN//3osh1+QAR+5XfM
-    NyHZUiijvx4zrAh6QH8VLhVZ+R/ErlVn+T8C5sYJHQo6vO9vE+vUOBKeYmSVRMAYDUZ7R5
-    s3k/j9FJ6Nrif8GWZsuHPXdyApWwz8BpEGqp4fEPwusEyPdTcP0WiJseYQqgvcGGiqRUvW
-    R/rdrhif3lUBCBZi/AacUdnhZGetMkCaMKm2zKHVYH7pEw4J1zAPRzbsArDg
-X-ME-Proxy: <xmx:X9HEamAroRAiCFuHBTqtNvleokLi1p8sL1uhNycEG0SRlPvMvIeFGw>
-    <xmx:X9HEalFLkwAPVFbv7wc3va4mHq0RPlXbYkzJ3e9tKhrpIisf3G84Tw>
-    <xmx:X9HEamtX7oFjLY62Xnnhcb6ZnVwSA54-v5YjJCnmLR3iMEvGFk0wZA>
-    <xmx:X9HEarnrZBiAFqskCe9AmTeUF08VU3gwQTr3w854DPwEc9NOdk33eQ>
-    <xmx:X9HEamvJWzOuKhz7K6v9iqLVBctDmQrkbLmxWFBw57EgO8rOrjrXr-E0>
-Feedback-ID: i1d2843be:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 6 Oct 2026 06:45:47 -0400 (EDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Nyc9X9VT"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a018493d57so55245e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 03:47:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791283630; x=1791888430; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oNhJI/vsDPATwVHCwRxldmCYKg+ihLyBJJx7xKlf2yc=;
+        b=Nyc9X9VT5iw8oRbsGxy/ZaE7DOjJQLdO2znx4A0+Ecy1dOdtaDc0M4nQgga2QTk7ua
+         gZBD7p2Ew3H2LaaYK190r2WKerLJF+2QQZKZKMmVTJx6ryTjJke6nfuV5ymDsDLLOeJ5
+         fPv2HB2LbjCy8VRVWP6JgMHIizPIVeaZgdbokTyORIPu/ExOPP/mxeng6+3/Wgyxdo5C
+         8Tu/ZlB3UXHJ5vAjVYH0DLvZLawO8p1ntYVMhKbDzAQd6iopjY3xLxIkJ/8NL/F+u/3V
+         /5QLY2NA0Q3XF0+T8+MUklcTb/EPT82Ijik6FNo86z2Y/zFkOEYiAPC7HS7lmAem4eQV
+         AefQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791283630; x=1791888430;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oNhJI/vsDPATwVHCwRxldmCYKg+ihLyBJJx7xKlf2yc=;
+        b=LJYcKxI6iGIjaKWfNz53r381Uwi79ODiYg58e0MeMgrBpbJdvoBr9Xi7UE9z+c6f4R
+         o7WXJAIEd5kM2g3J/+9Eo9fI3gHxpumnrU9QSUAeCcbqJpZhaQpWK/dvbMXrfsBBSA/r
+         gTNFh0N9GUEISE3+S13SkHFH7DCmdWe/0x61Pd3lAoHUz3ucBjZWOQbVATXURIfM1lvc
+         9/KK+jqkVowKLF0pTTv0jxeKIbu+mupvDZz95eYpVLzsAUqxAcTe61fFYAGXspaQWpZY
+         5hsFBEse8/jWmFuEYicJ3wkuPkl8m+edMrPkHSBjML0TgCv9eZJ7twC2QQXEtSbJuUuM
+         Ka0w==
+X-Gm-Message-State: AFuF++niRNTb8NZ31PWNWm7rP0Z7epc6TdvXVDnEU+kTkwzLc//fYGtd
+	VeVz0OkIJ+3nBEsRZ0PQ+9uwy5bJyNiTPm0cU6ghFBZhhVV4auIkcuJot6v57guoMQ==
+X-Gm-Gg: AYBFou2IgDsiJ7rbl+7X7R4NAJ0q3h7s1IgpQ869DbcKe4WmBc+2T9KVDB2BEhz7Q2s
+	8V7cV/yLmoYJpp+sbLqpxSe7jicsSEEWfah2e9+LJXINRJ+dFA7l7b+Ad4YbZz5uBjFyPMvfJ75
+	NB0DRkv+DvSdtUTsyplG2gBqbUJLe3mR9xvL4PnieYwmKjb+p6QFGMsATVr+hS8ch/sYisoE04q
+	dxDr9GDdvp/jzbs1UE1Fsmr/m0HAJOcccfv9FLsQnsS+RU6HFew4OhQtwkn90t1uqn2++9INAxT
+	6SOwZvl3WvHuqKk6hDokVBOTAeghZj3PHhFUc/SITNvmcvdVLQL8UoSyaxeHJLE01IBfzO/7+qL
+	RecLmF3+PSIPKkFd1hEDo8uB6TuSp4WepObk1DOwigU9980YFT02tjQRJ5kCHZXv8EE3xHczHBA
+	keR+l1gJAdfKgs8qQHZzzF12LaYf5STY6xPd6RJtsj45+eDWikBcoX2rThjPLCYaWKR/W5hmFE1
+	hzvjqA/c551TpzrtP0yxnccqPO/oT39ChhQhKW5
+X-Received: by 2002:a05:600c:6290:b0:4a1:7af1:5386 with SMTP id 5b1f17b1804b1-4a17b4587a5mr465225e9.1.1791283629775;
+        Tue, 06 Oct 2026 03:47:09 -0700 (PDT)
+Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c69afe66bsm3896689f8f.30.2026.10.06.03.47.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 03:47:08 -0700 (PDT)
+Date: Tue, 6 Oct 2026 10:47:04 +0000
+From: Mostafa Saleh <smostafa@google.com>
+To: Vincent Donnefort <vdonnefort@google.com>
+Cc: linux-kernel@vger.kernel.org, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, maz@kernel.org,
+	oupton@kernel.org, seiden@linux.ibm.com, joey.gouly@arm.com,
+	suzuki.poulose@arm.com, yuzenghui@huawei.com,
+	catalin.marinas@arm.com, will@kernel.org, tabba@google.com,
+	sebastianene@google.com, keirf@google.com, qperret@google.com,
+	linu.cherian@arm.com
+Subject: Re: [PATCH v3 2/2] KVM: arm64: Support BBM level 3
+Message-ID: <asTRqPfsrnbBWVSF@google.com>
+References: <20260904132855.638117-1-smostafa@google.com>
+ <20260904132855.638117-3-smostafa@google.com>
+ <asO77kvqqwCsJt8I@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 2/7] leds: aw2013: Rename internal APIs from aw2013
- to aw20xx
-From: Griffin Kroah-Hartman <griffin@kroah.com>
-To: Paul Sajna <sajattack@postmarketos.org>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Nikita Travkin <nikitos.tr@gmail.com>, 
- Alexey Min <alexeymin@minlexx.ru>, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht
-In-Reply-To: <20261005-aw2013-aw20xx-rename-v2-2-108ecbdf2775@postmarketos.org>
-References: <20261005-aw2013-aw20xx-rename-v2-0-108ecbdf2775@postmarketos.org>
- <20261005-aw2013-aw20xx-rename-v2-2-108ecbdf2775@postmarketos.org>
-Date: Tue, 06 Oct 2026 12:45:39 +0200
-Message-Id: <179128353952.5667.14752630401954655843.b4-review@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791283547; l=470;
- i=griffin@kroah.com; s=20260910; h=from:subject:message-id;
- bh=hYnMIuf9IJ9ZXwf35KrcykFHtQwQCLcRpmeWfFT/tXo=;
- b=gxewX2HL/m5lL+vuOpm4/Sn4pb7rX32zykPyRQ64FJyOvP41n4xMSX0ZL2bkRsdWCMItg/UYL
- 59Ank6z1sdBDrzQ1ZZ6PezLrbMyXOmfwn69MzmC3izAqZxKlUAbii6l
-X-Developer-Key: i=griffin@kroah.com; a=ed25519;
- pk=HlyUkuZAN9I5qlPbOHN5N9xxdQ5sT6AbPgC4TsLCxzA=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <asO77kvqqwCsJt8I@google.com>
 
-On Mon, 05 Oct 2026 20:46:03 -0700, Paul Sajna <sajattack@postmarketos.org> wrote:
-> We don't want to break external compatibility, but it's better
-> if the things shared between aw2013 and aw2027 have generic names.
+On Mon, Oct 05, 2026 at 04:02:06PM +0100, Vincent Donnefort wrote:
+> On Fri, Sep 04, 2026 at 01:28:55PM +0000, Mostafa Saleh wrote:
+> > If the system supports hardware Break-Before-Make (BBM) level 3, use it
+> > to replace stage-2 PTEs directly. Otherwise, fall back to the software
+> > BBM sequence.
+> > 
+> > For BBML3 the sequence is:
+> > 1) Get a reference count on the containing table for the new PTE.
+> > 2) Atomically update the PTE with the new valid descriptor.
+> > 3) Invalidate the TLB for the old PTE.
+> > 4) Drop the reference count holding the old PTE.
+> > 
+> > Add 2 helpers:
+> > 1) kvm_pgtable_use_bbml3(): Checks for the architecture requirement
+> >    for BBML3.
+> > 
+> > 2) stage2_use_bbml3(): Extra checks added by SW design (FWB and DIC)
+> >    - As BBML3 will update the PTE atomically, it can only know it
+> >      raced with another core at the point of the cmpxchg failing,
+> >      unlike the SW implementation which locks the PTE first.
+> >      And as we must issue CMOs to the new mapped page before the
+> >      update, that means with BBML3 racing cores will issue redundant
+> >      CMOs.
+> > 
+> > Signed-off-by: Mostafa Saleh <smostafa@google.com>
+> > ---
+> >  arch/arm64/kvm/hyp/pgtable.c | 111 ++++++++++++++++++++++++++++-------
+> >  1 file changed, 90 insertions(+), 21 deletions(-)
+> > 
+> > diff --git a/arch/arm64/kvm/hyp/pgtable.c b/arch/arm64/kvm/hyp/pgtable.c
+> > index d670da8882a5..a9ba761e9a01 100644
+> > --- a/arch/arm64/kvm/hyp/pgtable.c
+> > +++ b/arch/arm64/kvm/hyp/pgtable.c
+> > @@ -82,6 +82,27 @@ static bool kvm_pte_table(kvm_pte_t pte, s8 level)
+> >  	return FIELD_GET(KVM_PTE_TYPE, pte) == KVM_PTE_TYPE_TABLE;
+> >  }
+> >  
+> > +/*
+> > + * Check if BBML3 can be used for this PTE update.
+> > + * Fallback to software break-before-make for leaf-to-leaf changes.
+> > + */
+> > +static bool kvm_pgtable_use_bbml3(const struct kvm_pgtable_visit_ctx *ctx,
+> > +				  kvm_pte_t new)
+> > +{
+> > +	if (!system_supports_bbml3())
+> > +		return false;
+> > +
+> > +	if (!kvm_pte_valid(ctx->old) || !kvm_pte_valid(new))
+> > +		return false;
+> > +
+> > +	/* Block <-> Table is ok. */
+> > +	if (kvm_pte_table(new, ctx->level) ||
+> > +	    kvm_pte_table(ctx->old, ctx->level))
+> > +		return true;
+> > +
+> > +	return false;
+> > +}
+> > +
+> >  static kvm_pte_t *kvm_pte_follow(kvm_pte_t pte, struct kvm_pgtable_mm_ops *mm_ops)
+> >  {
+> >  	return mm_ops->phys_to_virt(kvm_pte_to_phys(pte));
+> > @@ -835,25 +856,46 @@ static void stage2_clean_old_pte(const struct kvm_pgtable_visit_ctx *ctx,
+> >  		mm_ops->put_page(ctx->ptep);
+> >  }
+> >  
+> > +/*
+> > + * Don't use bbml3 for stage-2 if FWB or DIC are not supported
+> > + * as that means racing cores will issue duplicate CMOs.
+> > + */
+> > +static bool stage2_use_bbml3(const struct kvm_pgtable_visit_ctx *ctx,
+> > +			     kvm_pte_t new)
+> > +{
+> > +	if (!cpus_have_final_cap(ARM64_HAS_STAGE2_FWB) ||
+> > +	    !cpus_have_final_cap(ARM64_HAS_CACHE_DIC))
+> > +		return false;
+> > +
+> > +	return kvm_pgtable_use_bbml3(ctx, new);
+> > +}
+> > +
+> >  /**
+> >   * stage2_try_break_pte() - Invalidates a pte according to the
+> >   *			    'break-before-make' requirements of the
+> > - *			    architecture.
+> > + *			    architecture, if BBML3 is supported it
+> > + *			    will be used and this function won't
+> > + *			    break the PTE.
+> >   *
+> >   * @ctx: context of the visited pte.
+> >   * @mmu: stage-2 mmu
+> > + * @new: New pte installed in make.
+> >   *
+> > - * Returns: true if the pte was successfully broken.
+> > + * Returns: true if the pte was successfully broken or BBML3 is used.
+> >   *
+> >   * If the removed pte was valid, performs the necessary serialization and TLB
+> >   * invalidation for the old value. For counted ptes, drops the reference count
+> >   * on the containing table page.
+> >   */
+> >  static bool stage2_try_break_pte(const struct kvm_pgtable_visit_ctx *ctx,
+> > -				 struct kvm_s2_mmu *mmu)
+> > +				 struct kvm_s2_mmu *mmu, kvm_pte_t new)
+> >  {
+> >  	kvm_pte_t locked_pte;
+> >  
+> > +	/* All handled in stage2_make_pte() */
+> > +	if (stage2_use_bbml3(ctx, new))
+> > +		return true;
+> > +
 > 
+> Wouldn't it be easier to keep try_break_pte/make_pte to the !bbml3 case and to
+> just create a make_pte_bbml3() variant to be called when stage2_use_bbml3()?
+> 
+>   if (!stage2_use_bbml3()) {
+>       if (stage2_try_break_pte())
+>           return -EAGAIN;
+>       stage2_make_pte();
+>   } else {
+>       if (stage2_make_pte_bbml3())
+>           return -EAGAIN;
+>   }
+> 
+> I believe also, the error path would look less weird as we catch an error in
+> make_pte() but without reverting the break_pte() (even if it is correct right
+> now).
+> 
+> And perhaps you could introduce a function that does both break/make
+> (stage2_update_pte()?) called by both stage2_split_walker() and
+> stage2_map_walk_leaf(). This would avoid repeating the error path.
 
-I understand the impulse, but the preferred way to handle this situation
-is just to rename the properties unique to your new driver, otherwise
-this code wouldn't make sense to be in the aw2013.c file anymore :)
+I though about that and was not sure about it at the beginning as
+mentioned in the cover letter:
+    Initially, I encapsulated the full logic of BBM in one function,
+    which was not readable, due to different ordering and dealing with
+    CMO, TLBI.
+
+I think that can be better if we call the new helper for all sites
+except for stage2_map_walker_try_leaf(). Although we would need to
+open code the bbml3 check there now. I can try and see how it looks.
 
 Thanks,
-Griffin
+Mostafa
 
--- 
- 
-
+> 
+> Otherwise, everything looks functional to me.
+> 
+> -- 
+> Vincent
+> 
