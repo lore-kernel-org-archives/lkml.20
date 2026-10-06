@@ -1,129 +1,131 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D22554707E
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 00:03:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADA02547040
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 00:04:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791245016; cv=none; b=QyIces9xBfrTYRUl7MDbryfT0m2I1bWvi+Lt03SvnTc0EtMG12/YHoSldqsbgi+3sbWods62VYy8rEjmtn0vKoqGZVGYyCWt8x+xMCi1K7oNQ6ofMae0MsW+y5CGcSTjO8i0HcvxixYkkB6urxQNlg+LAdbN9jK5UJg1PWgqTA0=
+	t=1791245080; cv=none; b=C9TaVtLoemsEEM3iHJuR1mjQjXX4jgHl8soChH0VhnwJ0EcpsP+mTWSJpbdxQzCSUeDO3yvgTFusrlQ3OpxuPqXZmJaBmvm8BEik9Wpvg3uVFwr3ju6bhaXdrlnmX3kBQGBSh1Kt5oLr6fAEVbOnlFstqMBjzah6Gk63SnZqZbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791245016; c=relaxed/simple;
-	bh=r/xyKW/+NyCSyYJfFfr1Na2zRDCsUAkIxdQRW3XIkgY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UtfI+RMuaorunU7B9JPJiK9n34fow7boCD29dEKNEdHN1RoTuo885H2JbWNFUge1uF61lGz7fe844t19Pv9fCLdOS2eJ+SQRVu43Kjaqw3JXUGQ6VUONOVCetA9lddSE36gorAU5BHNQgj2rvzpWhQYzFnf2M7sfuHVJKws4VAE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=BNmfQfm+; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=V+tIk5pr; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="BNmfQfm+";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="V+tIk5pr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791245011;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3isgNN8kiLtIbsG19uUxm1RN+HXpbBndqmLznSpT6Ig=;
-	b=BNmfQfm+OGz/YrDAVeDAwKWkogiP6zMZsMfxl6VN0ZxpBNhjlm16HCxLhABLWILu7548D8
-	Wz+Faguj9+5BB5/KmWBH5H/75qtUw9tPF3ViNb0HEoOxm8qp65xiVrpN3gjNoARkO8SZhO
-	P1ewFhqiw6My4TeWi5s3hnRlMOVTepk=
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
- [209.85.216.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-121-1gUGw-MmN6GAqiR2TNS_uA-1; Mon, 05 Oct 2026 20:03:26 -0400
-X-MC-Unique: 1gUGw-MmN6GAqiR2TNS_uA-1
-X-Mimecast-MFC-AGG-ID: 1gUGw-MmN6GAqiR2TNS_uA_1791245003
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3965ba1ba3eso2485324a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 17:03:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791245003; x=1791849803; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3isgNN8kiLtIbsG19uUxm1RN+HXpbBndqmLznSpT6Ig=;
-        b=V+tIk5prA8Rr1SVLSxe8icbMarGm50FUzoouWSNqf7DyOEG5SSRV9F3ygwNXd2JhD3
-         rXZEWpjWNcsOawcJu52ACfslMx732SBeofMdRhLR04vUMuSTHA8uCPCEvzq5+DOFMvxW
-         +l9lF13cOXULEciEgop6jcI7dwgW4+Z4Yj+5nysSGqRlAdDF+y4zadKyHylhomBHGk5k
-         ZaiYRDu2wxCViDsddd0LWX68LFU6roCBDOljNQdTydpPnjPGIcqmp1ZBVsXkYZ+SoicW
-         E3Q2lmT8nxNPhQ5Tzqh+6Xci49p9xwQdLTZYNB0PfF7P+bTrTCd6pdHZzIl5WKVwNn/W
-         vssw==
+	s=arc-20240116; t=1791245080; c=relaxed/simple;
+	bh=P2ZLfK5sQH+NFxJaRgE3SKD/e9ahhwg1IfGSDEhQpyE=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Wn/HulAtsYz6FyPQiSA8+PRByM7mlNlSsKDkn5YFqgvV1FQQaT2T72uBEKUAITJp0dL/fXBu9IflzmbXC3A7cdcyIgeHlqSTKOkEBlMmwREcyNgMjsWIqB+9il20LDb46K1+teziuvNRcK2n+7YMH84TIfAn6qO49icE8WQsGd0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4c55ba309c2so3495965b6e.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 17:04:38 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791245003; x=1791849803;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3isgNN8kiLtIbsG19uUxm1RN+HXpbBndqmLznSpT6Ig=;
-        b=iS2beIbCs1knoh/3OKbEnz5wO1ZSGvPB4AF+vMQmMOrfJiXrsYYkYFY1TR7HSGLLCu
-         /yuF0ZipuUoOvVBBkCpqtt8tnVzFUdeSF9yDzsE5fCrG6AJJgSjjm+VqtplxQEvo2sV7
-         UBB9Ggql4Bw1DCD+c/HGKJx2C3ZFFy5emy2xlqYTKUgNhndoqJGnxRsNojMkdrcnX+WW
-         7+o36sa7Q/qZE8kKdj3if5inGsAD2DaqiK1J91+B4GOkyA7gC9yLcveOcaopgbjOvnl7
-         SD34y7cqgd4QWVzLkSc5IJ6jwZfdS0xb7YX3ybJtOUQDKacyNfRF086rqerptMTXuO3X
-         I6TQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwxGpEUkhC99mroLgHuW853Z18oIyBLUlbT+G2+wSQRwPdEK/JWDzH34nYoZ9BS1/EeEolrLca8/djYMnA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLPe3I8ZWzrgLXzJi3VpUxL9yi1fCKe7dVrh0AGUdtfdh2miZu2
-	ZNaY1Rsk/KkPBHa2MCbpQO3zs4d+RUsl2Z3mOZmRG50q/Pf97h7ezKYfLNTadpVNZaAXFxfyorq
-	+McBWPgDzLgvQqrmH/cQ1qnF/i9ZpIeSrN2PfetoQpRDMwHuOEdwXb21Z93dVoJ4iFg==
-X-Gm-Gg: AYBFou3+sS8DbGdEeJde2/CRfMYmtcTl/DfiEVQPrv488OOqbY7PLZeH0NMmJt//Xgk
-	D3fkLtrczIJequVYMf0Hx5XzonL1+t0qhJ2MIbrucALMlWPc5kthDReoGRTYW+WHyPcCgQBiYO+
-	cX+vEAUNMR6UteynFLlB0IPFlcuhtbNGH/Y+G//FRGqWzIfTuUdg5crjJK3neGSyDS/6i0wY/ZI
-	gXJTKdYK+ID8Ga8rQdzzzfQQcM/LdA+ilPYo4MbCEIHqJV9ETvp7xVzc6kR9nvZA2J23JWS7OwG
-	z1GiksGPDu8v2O64mRL6IodVRD8TsUq9tvufIUSAvf8uFsd/P9+wvFwDaxAgLnV/oH/T2Sx0lFk
-	jkK1UQWlY5kcu/NPtI1dW08RS6TcpfET1GeF0mJuUYA==
-X-Received: by 2002:a17:90b:39b0:b0:3a4:c8d2:6c2c with SMTP id 98e67ed59e1d1-3a6ce845d78mr5199403a91.49.1791245002636;
-        Mon, 05 Oct 2026 17:03:22 -0700 (PDT)
-X-Received: by 2002:a17:90b:39b0:b0:3a4:c8d2:6c2c with SMTP id 98e67ed59e1d1-3a6ce845d78mr5199369a91.49.1791245002098;
-        Mon, 05 Oct 2026 17:03:22 -0700 (PDT)
-Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a6dcbdd97fsm8611158a91.0.2026.10.05.17.03.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 05 Oct 2026 17:03:21 -0700 (PDT)
-Message-ID: <7b196a7f-d31a-4acd-9f3f-a24c0e78db43@redhat.com>
-Date: Tue, 6 Oct 2026 10:03:11 +1000
+        d=1e100.net; s=20260707; t=1791245077; x=1791849877;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YZfHvdcoS6BGVaobjlEJFKWcAFbVdkN8rdALLDkhIdI=;
+        b=RjvlSaOFBqbSifky8/uOFESA06Ba3olzShJRAA40grPAuDjzr9Yz8g8aNnhHz4EXqg
+         pfZlT+aczcJSWU1FYTQT3cMYqpiQ5oZfxlTJYm6J7AhE5J7y8V4EdcY6Lg08BvrqvC5M
+         vxeEtWfViVypgXJUfK3SJdXUiOrsPFsoNpTt3c+izT7hzJn6MeaPxRl1yii2p6U+Nkzw
+         8SiCCaUvkKgd6MngxZ+7bgkIOZ6zoS8WgP23WIJN/7IrKOqwEeYRxUD2ULqt9gO/oHRd
+         jq+cNFUwmQPrleUpSkdd2Y1HsOgcb59+zQNyndst2WVWDSa0b3fR9ybnzDF31/PpTFtP
+         JizA==
+X-Forwarded-Encrypted: i=1; AKwUvBy9yPipFGphmAiLnppTyxmZbEOiYy4qCK+OtYlxvrMW6Vs8QmfWLj2gSo+1IGPPBQ0ACADa23E6Uxtts5A=@vger.kernel.org
+X-Gm-Message-State: AFuF++kLkVTc/Kg9o0j080AU/XUVlHQFJyUaLyAoJdVijzB6+WNlS32+
+	V1aQrpGkKZZ2kLeJV8e3KBgkdL5ySKumNt6HWBU0jXJ47lewR9cQ1yiYIdOSDhbkUs1hp9AwBJE
+	l3OdJzBRHY+dl5qGJ3d2z6Ti4MS/R6GpO3jrw3FBS6TLeLwSBFDbOnNjfZbU=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v22 02/23] KVM: arm64: Disable Steal time accounting for
- protected guests
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
- kvmarm@lists.linux.dev
-Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
- sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com,
- Fuad Tabba <fuad.tabba@linux.dev>
-References: <20261005090754.2140522-1-suzuki.poulose@arm.com>
- <20261005090754.2140522-3-suzuki.poulose@arm.com>
-Content-Language: en-US
-From: Gavin Shan <gshan@redhat.com>
-In-Reply-To: <20261005090754.2140522-3-suzuki.poulose@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:470b:b0:4ec:19e3:4072 with SMTP id
+ 5614622812f47-4f529d205afmr11124559b6e.18.1791245077677; Mon, 05 Oct 2026
+ 17:04:37 -0700 (PDT)
+Date: Mon, 05 Oct 2026 17:04:37 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac43b15.34119e79.2f92f3.0039.GAE@google.com>
+Subject: [syzbot] [wireless?] WARNING in cfg80211_ibss_joined
+From: syzbot <syzbot+d0a52209bddfa0948065@syzkaller.appspotmail.com>
+To: johannes@sipsolutions.net, linux-kernel@vger.kernel.org, 
+	linux-wireless@vger.kernel.org, netdev@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 10/5/26 7:07 PM, Suzuki K Poulose wrote:
-> PVTIME support is advertised by KVM_CAP_STEAL_TIME, which doesn't take into
-> account the kvm instance. Even with that, a VMM could skip the CAP check
-> and proceed to configure the PVTIME as we don't do further check on the
-> DEVICE_CTRL. Tighten this up by passing the KVM instance around wherever
-> possible and catch things early.
-> 
-> Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
-> Tested-by: Gavin Shan <gshan@redhat.com>
-> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> ---
->   arch/arm64/include/asm/kvm_host.h |  2 +-
->   arch/arm64/kvm/arm.c              |  2 +-
->   arch/arm64/kvm/pvtime.c           | 14 +++++++-------
->   3 files changed, 9 insertions(+), 9 deletions(-)
-> 
-Reviewed-by: Gavin Shan <gshan@redhat.com>
+Hello,
 
+syzbot found the following issue on:
+
+HEAD commit:    7b12c538697f Merge branch 'bpf-fix-objects-stuck-in-free_b..
+git tree:       bpf
+console output: https://syzkaller.appspot.com/x/log.txt?x=16192035580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=9d4242cb1c54cdf7
+dashboard link: https://syzkaller.appspot.com/bug?extid=d0a52209bddfa0948065
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/4306e2a7031b/disk-7b12c538.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/4f631dc420c7/vmlinux-7b12c538.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/6633caf1195c/bzImage-7b12c538.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+d0a52209bddfa0948065@syzkaller.appspotmail.com
+
+wlan1: Creating new IBSS network, BSSID 8d:8d:8d:ff:00:00
+------------[ cut here ]------------
+!bss
+WARNING: net/wireless/ibss.c:72 at cfg80211_ibss_joined+0x3a7/0x5b0 net/wireless/ibss.c:72, CPU#1: kworker/u8:15/6639
+Modules linked in:
+CPU: 1 UID: 0 PID: 6639 Comm: kworker/u8:15 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+Workqueue: events_unbound cfg80211_wiphy_work
+RIP: 0010:cfg80211_ibss_joined+0x3a7/0x5b0 net/wireless/ibss.c:72
+Code: 48 89 da 48 83 c4 18 5b 41 5c 41 5d 41 5e 41 5f 5d e9 fd 81 50 f6 e8 d8 25 8a f6 90 0f 0b 90 e9 0b fd ff ff e8 ca 25 8a f6 90 <0f> 0b 90 eb 5c 44 89 fe 83 e6 01 31 ff e8 b7 2a 8a f6 44 89 f8 83
+RSP: 0018:ffffc90010217570 EFLAGS: 00010293
+RAX: ffffffff8b3db6f6 RBX: 0000000000000001 RCX: ffff888032853e80
+RDX: 0000000000000000 RSI: ffffffff8c6da760 RDI: ffffffff8c6da720
+RBP: ffff888069cc3518 R08: ffffffff907a547f R09: 1ffffffff20f4a8f
+R10: dffffc0000000000 R11: fffffbfff20f4a90 R12: ffff8880561e4ed0
+R13: 0000000000000001 R14: 1ffff1100ac3c9da R15: 0000000000000cc0
+FS:  0000000000000000(0000) GS:ffff888124dcb000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fb644e39246 CR3: 0000000059b92000 CR4: 00000000003526f0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+DR3: 0000000000000000 DR6: 00000000ffff0ff0 DR7: 0000000000000600
+Call Trace:
+ <TASK>
+ __ieee80211_sta_join_ibss+0xdd8/0x1660 net/mac80211/ibss.c:375
+ ieee80211_sta_create_ibss+0x300/0x480 net/mac80211/ibss.c:1287
+ ieee80211_sta_find_ibss net/mac80211/ibss.c:1448 [inline]
+ ieee80211_ibss_work+0xb85/0x1060 net/mac80211/ibss.c:1637
+ cfg80211_wiphy_work+0x29e/0x420 net/wireless/core.c:564
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
