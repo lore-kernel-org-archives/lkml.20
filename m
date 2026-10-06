@@ -1,164 +1,146 @@
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E245420496
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 13:39:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791293956; cv=pass; b=WUNwcUZGHsPP9TnMBCBd4VbpuuLJcxBCfyU2mbUkniBtFLVbgoHpvc7Uk9rEwBHTQLHMNy4qZC93UgRSk9LJC5FsZZm8wC/zkoAyV6GrzpxlEciP4CWf2BC4CEeJUrr6tN7c6KpSyE0Bv7tLCYoUzMqoNfz6FKPTvG4vgPvG8kw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791293956; c=relaxed/simple;
-	bh=PDKCA2LqDdwF75BRjCYuu/t8MaYkMS6lP/2EM+xeVV0=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=iIktbY1Rkyy8FerZd65yWSsifUxmPZZTrXoJcAmxEOmt6evLlVLHRk6Cd+GpyKVoKtPIwTmd2/BlJG4m44ya5xmeQ1HD55aFuo2KWuvqgpxMqD78PSoHfQdnhheyRNQESNhPGfGnKMEqIJol70BDImQgxQbFzuu9Yh0TKJU5uQM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=iPe/dLYf; arc=pass smtp.client-ip=165.173.182.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CDBF456E11;
+	Tue,  6 Oct 2026 13:40:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791294051; cv=none; b=ik+9ANeYQUBmwDea+K4ec8ia6Xy7qrW6a65eVw3KrcHNEphaCC4S2tqNnqr50g15JEjVhenn7DC4r1im1VW1sx6Aira6E9JVICiErZfSLxHIjKd0ifFBHnX6qJNVTOoWp29TssN7YuNuU1E7EUKGRUp271+pS1aECpDEESkXnY4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791294051; c=relaxed/simple;
+	bh=FlXQU8AdRw4F5Zni787q91/Dz8Vz3IueQSF+yQNTN8A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UqiK2lX2OSwzX/Axkdu//waDuGWKAqbcOGCEgVKVuXsDyVNmFe9Gw1mPf+x2Di89rKoRepyUPBHyZREuQmsMMS38Yxo4yN4fiIR05aLWQ8hnwwOzdy92fJms7Z47CZSbbE8jVH6LRBAI6Vly6yOh4iTEWdFRjJ4o82tCeQ2B2MY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ZkZA9uZl; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=7kMpW3Op; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=GD0WZs3Y; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=MmMhEuWP; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="iPe/dLYf"
-ARC-Seal: i=1; a=rsa-sha256; t=1791293889; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=ctIWeVt6Bo1DSvLZW9bcj3koiiOjn/pk97R7w73/ImEmZlmSD1g4IjRmsnQi6ADrCRQfO2sboCxg9o+SvvJrs1tbYO9TdLHopC+cw8pq3nbIMPO6xsbPXVKxV9JM0vX/fM5sQH9piqDvtvZwlqyC6M5IaphdOps6wEntjb8AkaY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791293889; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=VxANVvaudC9ucdAgKK1Ve2w93u03mD0/qfWlUqbCtCo=; 
-	b=k7uEv4XxZI7LOm6Dl4URLVIpeOzXFQthaBGjf6mB0Kp7YRPbmPilsl8t3OMFj5NTCXGpqUGXpKtunlrmR9acOK2/wPwoAo8UYNYvwe2wBgnKc/9tn8j9YO3/X1KzZXLChDYatH3moo+y4clXYKsTlnJMIlhqCQ0y9OO6mvAEq5M=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
-	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791293889;
-	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
-	h=MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Date:Date:Message-Id:Message-Id:Reply-To;
-	bh=VxANVvaudC9ucdAgKK1Ve2w93u03mD0/qfWlUqbCtCo=;
-	b=iPe/dLYfSxIrdSGL1c+9/uyD1t4BmGMcf16vZbbgQzeXE+Td9zENZrZ7anKC1Bpn
-	KpZyryv1KNUXfu32RJErpCgbfYACzZC7FtfnU/yns7Vt229+lYarGJO8+w/YYbzs5rl
-	7QkQvVft9jc063MIq6pz/zCuxK82mSl95hi15huk=
-Received: by smtp.zohomail.com with SMTPS id 1791293887679226.9185627884126;
-	Tue, 6 Oct 2026 06:38:07 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ZkZA9uZl";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="7kMpW3Op";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="GD0WZs3Y";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MmMhEuWP"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 5CB951FB08;
+	Tue,  6 Oct 2026 13:40:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791294043; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=5kkL7rGD1lfrJV2Q6SexzszHUwfC44V7MT+s8rYk+Dw=;
+	b=ZkZA9uZlYlB1MVNARN+RAirvJeL/PTn+JvLq7EEj1NFj3YpAlSP3wruoOBK7t7xH/xO6Lj
+	AUnzQIBJD2Qp9ogYTt4qkmTC71dHcl/DByQLN1DxCthoYRp1h206ZpOUoV3Ut1Mgi7svBt
+	GaO3l0bZZteVK7afSzTmSFyxPQ7woNg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791294043;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=5kkL7rGD1lfrJV2Q6SexzszHUwfC44V7MT+s8rYk+Dw=;
+	b=7kMpW3Op5m03NjTWg0TEwWhgqYlVv3hAj52F0rY4+vU+sd/UDRxWzTToTNG9PySJiOIXmO
+	WBzbd6KrFzOBeRAg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=GD0WZs3Y;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=MmMhEuWP
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791294039; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=5kkL7rGD1lfrJV2Q6SexzszHUwfC44V7MT+s8rYk+Dw=;
+	b=GD0WZs3Yl/Z1d2XSy05WTRvPkG1IJ2CEvxsywokPDs/VNJNoDTkIkeVYyqRCHAUIv2qLiR
+	j02sJG4WQOZvgFeJptZeMZtkgOmbVje4dvKnQqe3b09iehqkbvyCU0TCXJJcLG3vy3mlr2
+	thYTef2otp6UgUFHiVL2+1XqUMS4YZk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791294039;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=5kkL7rGD1lfrJV2Q6SexzszHUwfC44V7MT+s8rYk+Dw=;
+	b=MmMhEuWPtQwpenCI+5o/+qB90uJswYzmIYkFerV5xs+bGP7rNiSR9ZrH2+qwyar8mRTP1r
+	RLxnbV0XVIjHwtDQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2AF191368D;
+	Tue,  6 Oct 2026 13:40:39 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 1eVrAVf6xGq1cAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 06 Oct 2026 13:40:39 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: linux-sound@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH 0/8] ALSA: Fix some bugs reported by Sashiko
+Date: Tue,  6 Oct 2026 15:40:24 +0200
+Message-ID: <20261006134035.478529-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v12 10/15] drm/panfrost: Add debugfs knob for manually
- triggering a GPU reset
-From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-To: Steven Price <steven.price@arm.com>
-Cc: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Rob Herring <robh@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Faith Ekstrand <faith.ekstrand@collabora.com>, 
- "Marty E. Plummer" <hanetzer@startmail.com>, 
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Collabora Kernel Team <kernel@collabora.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-In-Reply-To: <1930451a-97e7-4029-91b4-45989e954d7a@arm.com>
-References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
- <20260929-claude-fixes-v12-10-62beb08de207@collabora.com>
- <1930451a-97e7-4029-91b4-45989e954d7a@arm.com>
-Date: Tue, 06 Oct 2026 14:38:02 +0100
-Message-Id: <179129388241.1018806.5773521934450351426.b4-reply@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3187;
- i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=PDKCA2LqDdwF75BRjCYuu/t8MaYkMS6lP/2EM+xeVV0=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqxPm6DovXbI5ZpmdK2vim4PJNQas5ZU7DY6iND
- x0013jaf8iJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCasT5ugAKCRAOJn5M7lND
- PRIxC/4hmPoz8MGU4IVr5nNMT/V8sHBIHuWf1KTg8QfEzlyh0l7rEKICS8MCyPoLD6pYUnCHn2h
- OEDtvrjT8UbOZa/vY37iec+onmLrLD98g2mh3HS3o+MH9fZ0Jf7SN7Dd75NP5ftZ2eP31vNvORg
- iz+NEyGwgkOx+xaJwfrhWrVyWW7DUfOncHNsa9t1Ud0N8xXWcQWRcWPSuTdYDNpWtptzmdJ0gpp
- TBRKfF4Vyb6O31QvkzJc1q00sZIOgarFAtIYNKnBBROP1kxItcOvi6LM98Y4h2wSz6UOvK4QRwS
- wRZsf5G8IeM8DuMJlwYqKC30WmRgzO7vOmpyRdUGkkFNmmuTnxXLEqZyUUUqixca1bgyN1oxtgy
- VLL/kSsaDf9NVzx8CMJCzQ/AAdO3JgAirhS038bHg0ut5KgH7tiuYNk79HRforFjIr+MNg9IWOO
- a75l96yI4X9pmbuCniSKMWnx7fkgKko3G3XzA57YEeC+KKSAoKMSo4ywE6bgVfdVO8nmM=
-X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
- fpr=324030E8C005175DF93707A40E267E4CEE53433D
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	TO_DN_NONE(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RCPT_COUNT_TWO(0.00)[2];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Score: -3.01
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 5CB951FB08
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Flag: NO
 
-On 2026-10-02 16:10:43+01:00, Steven Price wrote:
-> On 29/09/2026 04:44, Adrián Larumbe wrote:
-> 
-> > This will be of great help when testing potential races between the GPU
-> > reset sequence and other parts of the code accessing HW registers.
-> > 
-> > We must also disable the reset work item rather than simply cancelling
-> > it, to prevent the knob from triggering another reset when the device
-> > is being removed.
-> > 
-> > Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-> > Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
-> > ---
-> >  drivers/gpu/drm/panfrost/panfrost_device.c | 42 ++++++++++++++++++++++++++++++
-> >  drivers/gpu/drm/panfrost/panfrost_job.c    |  2 +-
-> >  2 files changed, 43 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-> > index 09a5752a3f40..94d2de341838 100644
-> > --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> > +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> > @@ -2,6 +2,7 @@
-> >  /* Copyright 2018 Marty E. Plummer <hanetzer@startmail.com> */
-> >  /* Copyright 2019 Linaro, Ltd, Rob Herring <robh@kernel.org> */
-> >  
-> > +#include <linux/debugfs.h>
-> >  #include <linux/clk.h>
-> >  #include <linux/reset.h>
-> >  #include <linux/platform_device.h>
-> > @@ -595,9 +596,50 @@ EXPORT_GPL_DEV_PM_OPS(panfrost_pm_ops) = {
-> >  };
-> >  
-> >  #ifdef CONFIG_DEBUG_FS
-> > +static int reset_get(void *data, u64 *val)
-> > +{
-> > +	struct panfrost_device *pfdev =
-> > +		container_of(data, struct panfrost_device, base);
-> > +
-> > +	*val = atomic_read(&pfdev->reset.pending);
-> > +	return 0;
-> > +}
-> > +
-> > +static int reset_set(void *data, u64 val)
-> > +{
-> > +	struct panfrost_device *pfdev =
-> > +		container_of(data, struct panfrost_device, base);
-> > +	int ret = pm_runtime_get_if_active(pfdev->base.dev);
-> > +
-> > +	if (!ret)
-> > +		return 0;
-> > +
-> > +	panfrost_device_schedule_reset(pfdev);
-> > +	flush_work(&pfdev->reset.work);
-> > +
-> > +	/* ret < 0 means runtime PM for the device is disabled, so we
-> > +	 * only need to return the PM reference in the opposite case
-> > +	 */
-> > +	if (ret > 0)
-> > +		pm_runtime_put(pfdev->base.dev);
-> > +
-> > +	return 0;
-> > +}
-> 
-> NIT: If this wasn't debugfs I'd be complaining that you're ignoring
-> 'val' and so this isn't very extensible. But hey, it's debugfs... so:
-> 
-> Reviewed-by: Steven Price <steven.price@arm.com>
+Hi,
 
-I looked into the available debugfs attribute definition macros and none of them provide
-a wrapper that avoid passing the input value when the attribute is to be understood as
-an action rather than a device property. My understanding is that because debugfs doesn't
-become part of the device's uAPI, we can do pretty much whatever we want with it.
-However, on a second thought, maybe in the future we'll want to extend the knob so that
-it performs resets in different ways, and would want to keep backwards compatibility with
-UM binaries that expect certain input values to stand for specific actions.
+now Sashiko reports the existing bugs, I took a look, grabbed a few
+critical ones, and ere are the fix patches.  About a half are about
+core stuff and a few about USB-audio mixers.
 
-I'll change it so that all value other than '1' are returned with -EINVAL.
 
+Takashi
+
+===
+
+Takashi Iwai (8):
+  ALSA: seq: Drop the bogus RCU guard from clientptr()
+  ALSA: pcm: Fix TOCTOU state overwrite in snd_pcm_drop()
+  ALSA: hda: Fix potential UAF for gating jack
+  ALSA: usb-audio: Fix invalid UAC2/3 mixer unit matrix evaluation
+  ALSA: usb-audio: Fix data race at mixer_ctl_feature_info()
+  ALSA: pcmtest: Fix a bogus pointer read in snd_pcmtst_pcm_pointer()
+  ALSA: usb-audio: Fix mixer bitmap cache over 32 channels
+  ALSA: core: Add missing barriers for power_ref vs card->shutdown
+
+ sound/core/init.c              |   4 +
+ sound/core/pcm_native.c        |   2 +-
+ sound/core/seq/seq_clientmgr.c |  21 ++---
+ sound/drivers/pcmtest.c        |   3 +-
+ sound/hda/common/jack.c        |   9 ++-
+ sound/usb/mixer.c              | 141 +++++++++++++++++++++++----------
+ sound/usb/mixer.h              |   3 +-
+ sound/usb/mixer_scarlett.c     |  18 ++---
+ sound/usb/mixer_us16x08.c      |  20 ++---
+ 9 files changed, 139 insertions(+), 82 deletions(-)
+
+-- 
+2.55.0
 
