@@ -1,100 +1,106 @@
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65E7E35BDC7
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 06:02:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 849D136EAB0;
+	Tue,  6 Oct 2026 06:03:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791266530; cv=none; b=uDLRCaEYEcP6V8gl/eODQ/yiaYbCEhFPSkWmN5VemhkTPp++womoWDgeCzSn5OrSaonSUBSJHk4Su7kxkpDb7eP5IyH0LLxij1Xg/wn3vklpiuxZ23+Jur9QOTujlKG5GVWsR0Yxpapm+GhhnYYcDiClAg+vA4avyO1nyUPtpjA=
+	t=1791266582; cv=none; b=nrEb3eVzjGTZgUIYR7trbHgG3zE85rvCrqdX5Apmn7b5Tb6hJQMmNVFM0jvxUAjfZAOYs2RQBuR7+QFRjZm5ixoPjgZftO/YDFshX4icM9xcnb0aEq33NlkXgqcFygawBvvsxuNboKOO7MySWvi65sm/f0eNufYihyjff//WiyY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791266530; c=relaxed/simple;
-	bh=dR8Qutpl2FyesqtcpPHIrzvBeE1WogkEGbe/5zasnK0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=leEiQ4fE6sXeOFy0UGyTzpNx4P1ppb3hs5ZolvHieove/g85BGK1zfRmaJOG05FFuMpMRWDWCEwq2NelZ6wNmf00RKQXBtG4CsN1ShtZ3GhwvIogo0bEspR9NjgBQ4shGTDS6zefBF5EokkP+OZ5CzKFJW8UGynw0kDtAQt16Ps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GsBRq9EB; arc=none smtp.client-ip=74.125.82.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791266582; c=relaxed/simple;
+	bh=4RrppC/03roNa+H8YcGtw0/eBWvITbBtHds3QUWqoks=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j5JyHALNBRL7fo+wB1DzCIxCNqG/mitR5JzWyxgldN16ZNE1a1bDJxI5JD54R/MxuVZnhyB5u0kUWhrxAbw2NxtKP38PQz8G6iO6pe0+Syjnw3//bROgjZ2O0OCnEv6HAd8hFz9WNeQpzkzXpXp792ezFd2uYMY0ov+/nRjDO8w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MZVYLceG; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GsBRq9EB"
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-15756f82e8aso348117c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 23:02:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791266528; x=1791871328; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dR8Qutpl2FyesqtcpPHIrzvBeE1WogkEGbe/5zasnK0=;
-        b=GsBRq9EBlh+sIzt9KRSUZKSZWXAnJl0/haxyn/Jw7higFIWKPiaO/yFhfNyvIfnUV8
-         rXB9QLzx6IA+BA4aosx58m+mOuLjJk8e5NHZIqZlHhS7wsv5qROY8zdm7/fT4TTmzuih
-         SP+QmJvQg+E5ff/UlMPrKWqmLfZzyU/fiCRB/4fqTdQ3LqXiZ1NZYYvSqpK9GGiAzslZ
-         rfKgsIxpNWNUvkWaMdGMK2UQImbX69OPS7Y/tDZZqNmCaVHBBQJ90kRAf1hIVPYHu/LB
-         1U2RoUS1M154IcNNH7zpTELajRpcYIiP01VMEenKcrG/eKZlnpp1mrfxpI1q1glKWsmi
-         UXdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791266528; x=1791871328;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dR8Qutpl2FyesqtcpPHIrzvBeE1WogkEGbe/5zasnK0=;
-        b=jLCCC4icdoJCPjrbEiASeVcn6snBfnmfDcLQ9+1SQjz9cpmf1lmlvJt2qADzAMrni+
-         K/eFFnR+6EwwI6jk8a9sO67UfXRDlwNcBaiJggII4iZpP/Vsx5V1zPQhlUW0/D32veuz
-         xLhBAo1neX3M3rZPG4S4FF0S+Nj1DARF1yf4ClsiBxl7MUmHK3cxF8u2c+zfzZzohLRY
-         0d5TvHyHkmp9oqqxDbCTxNk1wH2gfCSp/hClgVw8HCMf/anGtj+4IyWNSJaz9Eazb4vy
-         RUxWuJD9sETpGbD3iyisf55CyBdTASoSU9Cm7ER7RMONXiJIpzG1DdGpTr41LVJliJdI
-         /iPw==
-X-Forwarded-Encrypted: i=1; AKwUvBwB2ZSboRSzid7B9N72JFLP2wQ++j3O+8YFUhjnn2Ddi+AZnRDFOGqYJA4sX7KaqidXZZON+jcFsGHcv74=@vger.kernel.org
-X-Gm-Message-State: AFq9FYID8Knfdr97TjWy3lG943vas2XKXA9bt88T0iDF9IijtuFxqyYd
-	bYX/pjF1jpAgMP/AkuUaahYkNaW/UIcZFkCYiQNDTwaMjJ/Kpc8lTSLJ
-X-Gm-Gg: AYBFou3Op2u3DIOv+2snPpVxyIMTQuqKUoduVA2KkX6sJBJTjeCkHeIZpE9tmVaXHpM
-	AYUdcSLt0zpCgsXEpY0G7gUlQt/qdAvygnTt5OCbgUR2opVJhnu5GEy0Iujwc79XEpr8jyOcT+Z
-	yA3NM0a6KLP/pPFHW20WTvuhYBa2qYcje9pNMZ/g4MUy9gIZlNSm4g+j9ChQiK17dAquDfGRVNu
-	UySxypr6kCuEAm0RONDGeL/8JwwKxADfucfSxK0BODGvejU+9Dx7+mZFsty/u0D7BA52NHX3gyZ
-	PYpnDPehi4PrQqza+csBWF8/OnnPMMPtkLlrdt2Q8o72/ycjvAOe+E8vqyR1rPakecRHFLx3qnT
-	5OR7wWb/AMPMicaqd9hV3Lm94n4Hardq0e0Mo9zbI4cSX9lNt6kjdV+IZPjYwrMX22XV12KuLXV
-	YOmN2JgTHQPia37Yluah1KJb5cq+TzUIIQVZujZzB5EbZc5CBKn0yq95QiAuq0rnTvlPeH98Sqq
-	8b74O3N1EO2tKyqLzUg/mQ=
-X-Received: by 2002:a05:7022:439a:b0:14a:6a66:f6e3 with SMTP id a92af1059eb24-15d302eb7d5mr2994502c88.20.1791266528379;
-        Mon, 05 Oct 2026 23:02:08 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-15d84523b6csm3799091c88.12.2026.10.05.23.02.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 23:02:07 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Vinod Koul <vkoul@kernel.org>
-Cc: Frank Li <Frank.Li@kernel.org>,
-	Frank Li <Frank.li@oss.nxp.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Michal Simek <michal.simek@amd.com>,
-	dmaengine@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MZVYLceG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791266581; x=1822802581;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=4RrppC/03roNa+H8YcGtw0/eBWvITbBtHds3QUWqoks=;
+  b=MZVYLceGXiF0FbddReTV5BDwgsuFmIAVsBgc2u7xAB5AZUkw9EURGGXp
+   oTxXCuKZCvZg2HSyaXYpV43eYcTGy2bcnF3eFk4HxnGUdiu0q5GgzTR6U
+   LK2JxTIPQCS9vYxkHe7y16O+eFiT6PVTwqQVmTPo3Uuy7+MDzSCBWIK32
+   MWaxSjH8QxlBUFMIzrAi1/mXw/wVr77dcgjrzctjxpP20Ip3Ej+0w0A9A
+   f1MX+KS5jLezXIqf8u4D0xhDVekJl9eC2/TpgC9EYC8ACHQQf+GTzn9az
+   6+AdkgiDtCMHatYryswJAF5GJjDYtqBExL50awGuzrXRc21gltcY25AZF
+   w==;
+X-CSE-ConnectionGUID: 7Ht8SClzQ42+jRimMUP6Bw==
+X-CSE-MsgGUID: oP+m7+PQRGq2Sdk45oYxsQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="94434227"
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="94434227"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 23:03:00 -0700
+X-CSE-ConnectionGUID: r57R8brgT1q9IQDJith4fA==
+X-CSE-MsgGUID: 2M2cMkSNT6C+eXkret5tuA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="276180007"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa008.jf.intel.com with ESMTP; 05 Oct 2026 23:02:57 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xDyGM-000000001DE-11Dp;
+	Tue, 06 Oct 2026 06:02:54 +0000
+Date: Tue, 6 Oct 2026 14:02:35 +0800
+From: kernel test robot <lkp@intel.com>
+To: Thomas Bonnefille <thomas.bonnefille@bootlin.com>,
+	Puranjay Mohan <puranjay@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	=?iso-8859-1?Q?Miqu=E8l?= Raynal <miquel.raynal@bootlin.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH] dmaengine: fix typos in comments
-Date: Tue,  6 Oct 2026 11:32:02 +0530
-Message-ID: <20261006060202.45817-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <asOtEhjOMXc9SVNP@parshuram>
-References: <20260907063343.22255-1-hemanth.selam@gmail.com> <asOtEhjOMXc9SVNP@parshuram>
+	Thomas Bonnefille <thomas.bonnefille@bootlin.com>
+Subject: Re: [PATCH 2/2] iio: temperature: tmp117: add support for HIGH and
+ LOW alerts
+Message-ID: <202610061423.9wuPD5b6-lkp@intel.com>
+References: <20261005-add-tmp117-notif-v1-2-c6cef6fad64c@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261005-add-tmp117-notif-v1-2-c6cef6fad64c@bootlin.com>
 
-On Mon, Oct 05, 2026 at 07:28:42PM +0530, Vinod Koul wrote:
-> This is bogus, pls drop these... If there are real typos pls fix those
-> instead! This is not a language book, it is code, upto should be just
-> fine!
+Hi Thomas,
 
-Understood, dropping this one.
+kernel test robot noticed the following build errors:
 
-For what it is worth, one hunk in it was not an "upto" style change:
-drivers/dma/ppc4xx/xor.h has "contoller" where "controller" is meant.
-If you would still take that on its own I will send it as a separate
-one-line patch; otherwise I will leave it be.
+[auto build test ERROR on 551c722f40809618230001baccf219193e22fc5a]
 
-Sorry for the noise.
+url:    https://github.com/intel-lab-lkp/linux/commits/Thomas-Bonnefille/dt-bindings-iio-ti-tmp117-describe-interrupts-for-TMP117/20261005-164419
+base:   551c722f40809618230001baccf219193e22fc5a
+patch link:    https://lore.kernel.org/r/20261005-add-tmp117-notif-v1-2-c6cef6fad64c%40bootlin.com
+patch subject: [PATCH 2/2] iio: temperature: tmp117: add support for HIGH and LOW alerts
+config: i386-buildonly-randconfig-1004-20261006 (https://download.01.org/0day-ci/archive/20261006/202610061423.9wuPD5b6-lkp@intel.com/config)
+compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261006/202610061423.9wuPD5b6-lkp@intel.com/reproduce)
 
-Thanks,
-Hemanth
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610061423.9wuPD5b6-lkp@intel.com/
+
+All errors (new ones prefixed by >>, old ones prefixed by <<):
+
+>> ERROR: modpost: drivers/iio/temperature/tmp117.ko: symbol '__udivdi3' undefined!
+ERROR: modpost: drivers/iio/temperature/tmp117.ko: symbol '__divdi3' undefined!
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
