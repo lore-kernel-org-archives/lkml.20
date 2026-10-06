@@ -1,102 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from cvsmtppost32.nm.naver.com (cvsmtppost32.nm.naver.com [114.111.35.241])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4271D3AB273;
-	Tue,  6 Oct 2026 09:21:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4FE83A9619
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 09:21:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.241
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791278464; cv=none; b=sPGm38p6ixQi+zZ0DD/kmODhywimEqAYEcKtVB/4kSkaPnsb9sVHxGeppVN39H6B2p1R98WUW82tsAFdxCiUTssGfX1hCKQwMBlUgpW9mGAPn9jUT58yc6ODpIM2Iz5EzWzY84t8frtrOiXDPiNIaR+9aw9SQFhtxlPSHhrMpHM=
+	t=1791278485; cv=none; b=LKxSpknDhsat25k4OJpowGzgltQdoVxQTGcRMaB7Gw0T8T43wzA4mQwyt23DOsmc86zLD5i/t0ufoUsDJY3Ggi5IHV8LcVJMIMnGrtOlNVGYIK+gfCTWSBdUaredE9nZkqShXTDPHcfu2RqZojOUZ6TguqJSgbQAaNQwu+fg7Hc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791278464; c=relaxed/simple;
-	bh=PPslDzfuLJgD8FRs3rfIC7ONG8uWiqOG1mJq0t7RMtM=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=faLm0y/bdMqS7ICHXuu79IxHCAX5kpUhSXnN5lPe3k5q47JBMDe5WLEWXAkhbyZrXdzPHvwY6Y1kTyUIJDbqDQ9vJayeUP798lCYIkDfrCZO7se2cRsCeJC8bllgnL/5hSWb6iTit4T+Ekb2vMYCdxirLq/M8/NJBbiBZopvDZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VLoNKXgN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791278485; c=relaxed/simple;
+	bh=vSNHTD+dPCv2xEtQ52r2jcGC3tPg7oclUecwXiN2h0I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JWcJc2Diz7mAMiQxdwM6PBIpGvVdXl67nuBRAjyAKB3iToaojCjvui+nLGATzjHhka00r1WUtZlIZv/x1bSjVfanfySY+Xz940h4QZe+Kap8kN9IY7R3iLjgcEIMSnlM3K0NeMpSz0b1kgTZkFCZo0qoAJxRB+BbMtIUTTQBFmo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=URdv7Jlo; arc=none smtp.client-ip=114.111.35.241
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VLoNKXgN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5E661F000FF;
-	Tue,  6 Oct 2026 09:21:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791278462;
-	bh=z8HCIhNuDYrT+ORH4aIuCyvFjp7fM67uCGXy31jymWA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=VLoNKXgNbL5pvIdvKiXXog0YYD7C2kt7elX+06jHvy+c2SJhZue6JFyyytxOQLq9g
-	 mtgEu/cO9bfr14AopOHBezZx+5b72rYYfjUUA80TA6GvBTSV5DNTAOY6pF8tPmckUc
-	 CuzOwQfKNPg1GzG2OiY2+nGPY9RtiVQprPpeKFR6V9rKbCZkmKHrGZEp42tX/1MwJ9
-	 ifxgVVf9I8J0cK8JQcpJntzCj4lXCM0pOswejwkZvyangfbasvP6qJft8DTjL9ko6z
-	 QccDXxdAQ0r7bwKpKknd3Z59aijfxt7rxcQAKAiKGT5gPFbDnndDhD0+yUF1c7vxmk
-	 NVlR4DBfDzAFA==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xE1M3-0000000HM6R-45B4;
-	Tue, 06 Oct 2026 09:21:00 +0000
-Date: Tue, 06 Oct 2026 10:24:06 +0100
-Message-ID: <87a4or2nd5.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev,
-	will@kernel.org,
-	catalin.marinas@arm.com,
+	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="URdv7Jlo"
+Received: from cvsendbo022.nm ([10.112.20.47])
+  by cvsmtppost32.nm.naver.com with ESMTP id T0xsqPa2TcGgJDLlsOj7dQ
+  for <linux-kernel@vger.kernel.org>;
+  Tue, 06 Oct 2026 09:11:13 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
+	t=1791277873; bh=vSNHTD+dPCv2xEtQ52r2jcGC3tPg7oclUecwXiN2h0I=;
+	h=From:To:Subject:Date:Message-ID:From:Subject:Feedback-ID:
+	 X-Works-Security;
+	b=URdv7JloOPNt2oadQ/LZtIGB0SfvrFOjEJyy+Ol5cFSm7dO/MO5bqp4Igt3eUh53e
+	 S6lUiO9EsxRFGkeNpgfaFtAQ2SCCFUZNurAd3GiBwVagNZHYlXja69YqDbB1rxSF7f
+	 nldhriPYIXI/RDjst0L9wlfifP6FqUbtZ/+6wlRXPzOz3ne7bqT3DvFL9F3rpNzmO+
+	 5Bbr9ppJIiz0/P8jZ4ImB7wwpVjKsxr6NcLaKtxzG/Ghu39GutHwRqktk7GFPpGU4r
+	 3PvZkO2h5tV7nL6St2WyZQlS7indxsyyaIn36QWSc+TJLWA32ffL3WRSQalZYOZNJO
+	 ilu2t8XWt/qwg==
+X-Session-ID: t2sidC+JSpuZ+jfPGS3U9w
+X-Works-Send-Opt: OPRwpzGdjHmdKHFOMr39Ko3YKHmrjAudFqM9KqMqFxIYkEljxBmwjAg=
+X-Works-Smtp-Source: /qndKoulFqJZ+HmZFqt9+6E=
+Received: from localhost.localdomain ([115.136.205.4])
+  by cvnsmtp002.nm.naver.com with ESMTP id t2sidC+JSpuZ+jfPGS3U9w
+  for <multiple recipients>
+  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+  Tue, 06 Oct 2026 09:11:12 -0000
+From: sungbyeongchan <tjdqudcks0424@naver.com>
+To: Zhu Yanjun <zyjzyj2000@gmail.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>
+Cc: linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	steven.price@arm.com,
-	aneesh.kumar@kernel.org,
-	oupton@kernel.org,
-	gshan@redhat.com,
-	joey.gouly@arm.com,
-	tabba@google.com,
-	yuzenghui@huawei.com,
-	linux-coco@lists.linux.dev,
-	gankulkarni@os.amperecomputing.com,
-	sdonthineni@nvidia.com,
-	alpergun@google.com,
-	fj0570is@fujitsu.com,
-	WeiLin.Chang@arm.com,
-	lpieralisi@kernel.org,
-	enju.kohei@fujitsu.com,
-	sudeep.holla@arm.com,
-	jonathan.cameron@oss.qualcomm.com
-Subject: Re: [PATCH v22 11/23] KVM: arm64: Add VM specific callback for S2 MMU operations
-In-Reply-To: <20261005090754.2140522-12-suzuki.poulose@arm.com>
-References: <20261005090754.2140522-1-suzuki.poulose@arm.com>
-	<20261005090754.2140522-12-suzuki.poulose@arm.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	security@kernel.org
+Subject: [BUG] RDMA/rxe: MW rkey authorizes accesses outside the bound range
+Date: Tue,  6 Oct 2026 18:11:03 +0900
+Message-ID: <20261006091105.827719-1-tjdqudcks0424@naver.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: suzuki.poulose@arm.com, kvm@vger.kernel.org, kvmarm@lists.linux.dev, will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com, joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com, sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, 05 Oct 2026 10:07:42 +0100,
-Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
-> 
-> Add VM type specific S2 MMU operation backends which can be initialized per
-> VM flavor, to keep the handling cleaner.
-> 
-> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> ---
-> Change since v21:
->  - Define all vm_s2_ops call back. All calls are mandatory.
->  - Define callback for each flavor, disjointing the non-protetcted pKVM and
->    normal KVM (VHE & nVHE) and remove the KVM_PGT_FN() hacks.
+Hello,
 
-It is a bit annoying that we still have part of the operations being
-indirected by kvm_vm_s2_ops, and others by KVM_PGT_FN(), which is
-still there. I was hoping that we'd have only one indirection. after
-this patch.
+I found a memory-window range authorization bug in the RXE responder.
 
-	M.
+A peer with a valid type-2 MW rkey can issue RDMA READ or WRITE outside
+the interval authorized by the MW bind, provided the request remains
+inside the wider backing MR.  rxe_lookup_mw() validates the key, PD, QP,
+access rights, state, and nonzero length, but check_rkey() checks the
+request address only against the backing MR.  It never checks the full
+request extent against mw->addr and mw->length.
 
--- 
-Jazz isn't dead. It just smells funny.
+I reproduced this twice on commit
+ff47652a4b66c067c765a7ad464d930b5a9367cc.  A 64-byte type-2 MW at
+offset 1024 in a 4096-byte MR allowed a valid connected peer to read an
+eight-byte sentinel at offset 2048 and replace it with peer-selected
+bytes.  In-window READ and WRITE succeeded, while a request crossing the
+backing-MR end was rejected.
+
+The demonstrated impact is disclosure and modification of registered
+userspace memory outside the delegated MW.  I did not demonstrate kernel
+memory access, a kernel crash, code execution, or privilege escalation.
+
+The affected path is:
+
+  rxe_responder()
+    -> check_rkey()
+      -> rxe_lookup_mw()
+      -> mr_check_range() against only the backing MR
+
+I tested an overflow-safe MW interval check immediately after MW lookup.
+With that change, outside-window READ and WRITE return a remote-access
+error, while valid in-window operations continue to work.  Fixed A/B
+testing passed with the same kernel configuration.
+
+I performed a best-effort public duplicate search through 2026-10-06.
+The public RXE MW/MR lifetime-race series addresses reference and object
+lifetime races, not this missing MW range check; I found no exact public
+report of this range bypass.
+
+This report was prepared with AI assistance and is being treated as
+public under Documentation/process/security-bugs.rst.  A tested source
+reproducer, logs, configuration, and proposed patch are available to the
+maintainers on request; the reproducer is intentionally not attached to
+this public report.
+
+Assisted-by: LLM
+
+Regards,
+sungbyeongchan
+
