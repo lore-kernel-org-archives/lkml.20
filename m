@@ -1,195 +1,193 @@
-Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0F7F48E0C5
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 15:29:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A60149C4D2;
+	Tue,  6 Oct 2026 15:29:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791300551; cv=none; b=lLxw2UaRqoFrNU7HM2eQ0X7CgdBLa9+WRWD0gldYVCginUJC//+Xsj5VkcfO9J4odaom+TyA/BcXiZrGAqHCje+92s9wzLxHZ0/vMYtwORtYnmsAUgUmKZORRhL9OEcCN18xTXSND6UCX55UXu0LayvvD1NfwDT2V/cEo4o+YI0=
+	t=1791300553; cv=none; b=kKp7v6/i+JRgIK0uz+7NDC6eb2lzWnC+jcJw5sxA6rfcgohRJPkNvQSWJ7iWqPPJoxJyuoSP0gzrgT6+nJL57kZMhXhN59WcnqXcDBZ/5vPcqKvGZQBqEo9xX+zvwKtuQ7yyuwr1foFtoodF9E7q1oScvI6HT+QkM21XdKOLvCU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791300551; c=relaxed/simple;
-	bh=dq948jaoMaEB3LYVgNxryC4BevIUKD9Bh6F8q6HBkwI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=i20jU9khzAsMmKRv1riM4X2eR0YYY+eBrFeS1pyagXuxp5sLxz6wxDyYPhLrB9lDCkJTC+v7yILC8TVIr5S8Ewo4bwcTwxE3abrfnTjaFJ7oFtGmrm79IQ9bEOW2L27deHj4wtXm6GbZf4J46f+W8MW7CbzHknfd+dUeIU42yuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=XXZmrOYM; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=xG5Iidc/; arc=none smtp.client-ip=202.12.124.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
+	s=arc-20240116; t=1791300553; c=relaxed/simple;
+	bh=xEtJZDjPq3Ju9oR5UkVEoFO9DrVTQiUuxAiUuKEL348=;
+	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
+	 Date:MIME-Version; b=BrbR0MvX6qeNk6fc8gpcKkrJG60AvYPDpaDSfsXsnhh7ZUCSDuK+/rDXZCQbK0K9tjJpeGXEA3R70/JvHdXp+/FNO1FIgxfTTkvvE8u8lD5YAjP75gHxkmC5DPE0ddSgK+0xiMsZiGDnB5+Uy17Ozt6KJRxW7kzkda7WkRB70WM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Cj49jyTW; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="XXZmrOYM";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="xG5Iidc/"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.stl.internal (Postfix) with ESMTP id 0315F1D00169
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 11:29:07 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Tue, 06 Oct 2026 11:29:08 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1791300547; x=
-	1791386947; bh=e8eXYtY+oREDaA0FgzeVv9uzs8E118cpgp7JTwvR2PA=; b=X
-	XZmrOYMBnPaBGwozJChARL5sEYXeqm9F8b5mFV0F/ANbDM1rE2tcSWEL0bf/uEJq
-	QyLwo1J3AALqU1nHqK85sX5ZmEvXreWpJYSwrPCV2dODdBzOU3zlxOrt5R99w4sc
-	7XiCTqAUQuSBRW2zDNgOjJ80NT6fq+dv8HZWSnhyPPvyS/ED8DRy42gRoXff4wGm
-	s5cqw5j2BaZHHSUSeCCI2B6C9P17m8P3AyOy5UALWU4YhlY0RBO4T5IVAcjsq6oz
-	KDxgv/wALR8jhs0x7YQ1dGaJCxyO2sbkTMt74h5GRpViIXIQLvq96eBvA9R08EXO
-	BdBfyVP3KnAONCJXK0uNg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1791300547; x=1791386947; bh=e8eXYtY+oREDaA0FgzeVv9uzs8E118cpgp7
-	JTwvR2PA=; b=xG5Iidc/aH2rCCICI9KNqehnP5S3Lp0X76YYNXVNF9ZbGJ067UR
-	GOTK4IdOLXVBTUML6rifavbl/Xx/Xtab3k3+ae4PLwbldQ4qMEPJyyrlMJtVOakX
-	ngmMZAbepc9spCONhxMFDdv6fHgghg5CU+5sq2+lwNFfHeBY+qc7vfL66cBc6MVS
-	Rx+Lvg0qlKkr3qYkXSRvZpiV/3su9hNvrnMm1TmGgF6TJtQyWt1ibmwKRVR5yWlL
-	2G4l1Z4RlzyMkSut4ZZRUbp1WngwiJuZ79I4Hh4P2sWRy084wS4MCmYYVQMnIfnC
-	uv8/Vt5RIjswWOiveQkyaM6alEhWvwldBLA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=sakamocchi.jp a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791300547; d=sakamocchi.jp;
-	mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:hmlf0JESZW+D7uhSD6++RY36ODhMUZEN/kvU8wu0i8nbps9
-	aKuVsu0X8qJdf7E11jTq6vV1WnftOsq4bMQ1+RC24I6EePvz/EuGoiniFggOX+ZJ
-	b3iaIH6O2gLZlwQ2OtDUHp4nUohZkKi2+S8pcmNpY00aJ2KaVQHaSTAlkEl+wMcb
-	1FpNXwDLvvzieNIPiKeve659jjzkJ64e65B296875d/7EXqmL95x5osCbgkEejuE
-	IckrXXAmZMo27hD8FWeAuGpFldyEoAS0arVVvZg7PKvYwtaNatNWngBVBoMo7+qn
-	3QBDHAqC3+hl1NrARzo8wBNcKvUJFZWctePGI7g==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,mail-followup-to,message-id,mime-version,references,
-	subject,to;
-Message-Instance: m=1; h=sha256:efH8BgJF9eVPXBP+iLYC1M2ISEpw93h1whqYI8I5Beo=:dq948jaoMaEB3LYVgNxryC4BevIUKD9Bh6F8q6HBkwI=;
-X-ME-Sender: <xms:wxPFaubPGpy3T3Jh6EljaEB6W1gcHRCKvnNGCa1ICpGsMla6rarfkA>
-    <xme:wxPFavVxFdLwLjj-F2-UaXYt9EmQJxM4Vx7GYB0w6yfUHCIKFJC9W5_OicFZGCR7O
-    yOscP633mWYx9daROFgGHeXd5Fr5XJK8fQncV8md4V2u_jtN8VpwXU>
-X-ME-Received: <xmr:wxPFagghJiUws0T2H_DVgNUNDG4KTqkmY3pqHu31KnbE3iznvUqD2goBYJEWomR04kwXgl9hkQ_YmQh3SZxXfpN2D_JwrA>
-X-ME-Proxy-Cause: dmFkZTFcJDpnIEoaWg0SCNrEg9VL1sbsKKHhtnGw3PWQlCVmN/UfGQY7pHSls/dT7RuU3B
-    Ch6okomxv17eNfSOlUv2k85FVQ5IlGqkISy5gykVBjhl8nzVFoQyRlTvTyil2E3bzuOxhz
-    HKEM0Mjdu6Uf2GUq2WtjyabaDEIAD+QhF+QzWDK+stbvmCbIobXKwLs0SjYL0t/Ql3S9Hh
-    TANVu8HU8+URhNeYdFxB0W0/p8zOin7LJrPotCISPj5zqaA0CQsFoMJVhxrQVilUcL8K8c
-    5bK+JQJ5PvJuWMw0wdX0b68FaBc3/9194xjh1s2Asryk91GFZ2Kfq1Dy3vBjDELZhhqngO
-    /yANUd3WkYMKHGV6Na8PNQuGf5ZhMrnvqzSJ1Z1w91oSShJOvw5tHI28fa6avML+vyNLfP
-    wixsC2iLrty8hZD/lTcqWM94K1ReWCFr1wlOKNWpmV0OgG+VL428455K0t3sWWQrnFByKX
-    BFcYBOfTErKIBRfseTu+V2XzwuWWGhrzV8fcub1SRGFp3gZLBFu8UCCYRFMGe9J474rWNY
-    lGljWSECSnHcY7Yh6Xn5d9mpS65jzK2de/iXJYDuJWYgCr6Yp1DlYcZbG6eN43VcjVoUSG
-    /KA7boszOxevXfvG/FIzccSafK4uw8woWAgNZvsF1ZY76absePv0HBWEoFpQ
-X-ME-Proxy: <xmx:wxPFatUr4ROaVk7Vct4AMusYjTeNUj-HVGRnqGz3j4nzgA_Mg9_mEQ>
-    <xmx:wxPFanO6Mb7JWXkdVDa1Ipg7b3YK0v3VfX3qeD9DITgHkd2PaNKnLg>
-    <xmx:wxPFapashfYIo0F_WYNmWAzpFz0NgDpc5TQO4bHLbcbWuq0OQ5iatQ>
-    <xmx:wxPFajpIv3LtnaKTcWZ2FgZrB25ilOonKxfuR-JpwI8gfu0ZeH4lGw>
-    <xmx:wxPFajOANJkHHMjS5J4Kg5jl0hDjiXpC8wixxL866QgXz68tc9Ulu6Fc>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 6 Oct 2026 11:29:06 -0400 (EDT)
-Date: Wed, 7 Oct 2026 00:29:04 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: linux1394-devel@lists.sourceforge.net
-Cc: linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/5] firewire: core: expand close_transaction() into its
- callers and remove it
-Message-ID: <20261006152904.GA101743@sakamocchi.jp>
-Mail-Followup-To: linux1394-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org
-References: <20261005112544.240552-1-o-takashi@sakamocchi.jp>
- <20261005112544.240552-2-o-takashi@sakamocchi.jp>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Cj49jyTW"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 696EZLdZ2182157;
+	Tue, 6 Oct 2026 15:29:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=xEtJZD
+	jPq3Ju9oR5UkVEoFO9DrVTQiUuxAiUuKEL348=; b=Cj49jyTWhEgXEBf/kbFtwv
+	XevPzkgcyvBWy4H/HwCjI92XWLyHR9WlEzipPDyJf3PoafnuIbYJe+jrmKr5sTNh
+	fzBagPUzfgO6R1HVdyV44mEmAgKzaCkyQGMBuJ8PjQY7VO0J2bKtK9O4/HSxb07e
+	beDWpFjoFfoHtnzxaryadNRI4SkicRjqUheJaJiAXROn/KEOKuBy+yvvcEACvfgF
+	UvgluFGoYg+y69djdBr0xlmFx4gzX+mH7wSW8d5Mgg8lDWB2qELAK0uc8PTXWNxS
+	NfVDU4T/476x480s23b82g5R1JnvMinhvAX1nmU19R1cye0diWpJjK7QM5SdW1Kg
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2scrgsjf-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 06 Oct 2026 15:29:11 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 696EHULi424975;
+	Tue, 6 Oct 2026 15:29:10 GMT
+Received: from smtprelay05.wdc07v.mail.ibm.com ([172.16.1.72])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h3eqya9ah-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 06 Oct 2026 15:29:10 +0000 (GMT)
+Received: from smtpav03.wdc07v.mail.ibm.com (smtpav03.wdc07v.mail.ibm.com [10.39.53.230])
+	by smtprelay05.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 696FT9m923986868
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 6 Oct 2026 15:29:09 GMT
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id F1B8658066;
+	Tue,  6 Oct 2026 15:29:08 +0000 (GMT)
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4B7FF58064;
+	Tue,  6 Oct 2026 15:29:06 +0000 (GMT)
+Received: from [9.87.140.229] (unknown [9.87.140.229])
+	by smtpav03.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Tue,  6 Oct 2026 15:29:06 +0000 (GMT)
+Message-ID: <30c16838f7f4681c72aada3864dc9f1a9e8e8326.camel@linux.ibm.com>
+Subject: Re: [PATCH v2 7/7] s390/pci: Drop the unused index argument of
+ zpci_msi_clear_airq()
+From: Niklas Schnelle <schnelle@linux.ibm.com>
+To: Tobias Schumacher <ts@linux.ibm.com>, Gerd Bayer
+ <gbayer@linux.ibm.com>,
+        Julian Ruess <julianr@linux.ibm.com>,
+        Farhan Ali
+ <alifm@linux.ibm.com>,
+        Christian Borntraeger	 <borntraeger@linux.ibm.com>,
+        Halil Pasic <pasic@linux.ibm.com>,
+        Matthew Rosato	 <mjrosato@linux.ibm.com>
+Cc: Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle
+ <svens@linux.ibm.com>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+In-Reply-To: <20261005-s390_irq_domain_fixes-v2-7-d45b824874c0@linux.ibm.com>
+References: <20261005-s390_irq_domain_fixes-v2-0-d45b824874c0@linux.ibm.com>
+	 <20261005-s390_irq_domain_fixes-v2-7-d45b824874c0@linux.ibm.com>
+Autocrypt: addr=schnelle@linux.ibm.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 06 Oct 2026 17:28:05 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261005112544.240552-2-o-takashi@sakamocchi.jp>
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA2MCBTYWx0ZWRfX4JWEyxAkGi/L
+ VJm1W+tGKaJyAmGpeOeE1jU6+dvYiPvNxvIp0kFIhcGdpm9an3q1vj5vfn0MaBpHwUT72M7FVVF
+ ncBeqD5M6+rOddt3C//xHUgM5tTzezo=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA2MCBTYWx0ZWRfX32QAQjvrVa8o
+ 0yEfTjN0e0RcqdtBmeVvOgT/62WabgDJc4OoIUTRRW++WLbfbnCUpIZmOboxsYd4/pidpCZC2TY
+ 1vtl19OiYhl4ezJ4DPVQrXvSWx6ziFqLtTXl+xeUkiPZoQvlrDSgy9mWMJywrLZbTR8ZKlOgt2P
+ jl6qNJZBAeb7X/UdLZLsJ/51OVYAVcAQaW+5OYW0Aff/AUuCeC+ZHaYJmqi/Uceg1cvd/kyuUTE
+ Rymdxhi1DyBKRQu24SMm6rUXynu6FHHCE3FMSxCEECI/76QDM3L/GlvLWZ47aoh9wfgxzt4IEqJ
+ EGUQBK5PHi4bd8SxZhfKJ4JqDLAMQeoZtXQPBDB9lrD0hitizkvX3nBP3ben6mHPlkDMLYfOgr1
+ 5E6kJYjixbf+Mk8fSiVelB+DUnBZY/TJbDzPzY5IYLKOF31bl/vdSauajxN94wykKUQO2dlWNPj
+ /HJQzCipeAYZOoECKbA==
+X-Proofpoint-GUID: wLE2Irpq9uU66jQDQww_pm1y-VNu7EFy
+X-Proofpoint-ORIG-GUID: wLE2Irpq9uU66jQDQww_pm1y-VNu7EFy
+X-Authority-Analysis: v=2.4 cv=B7osQ+tM c=1 sm=1 tr=0 ts=6ac513c7 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8
+ a=GD8W1rJbHNz6WrJPDTMA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-06_04,2026-10-06_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 malwarescore=0 impostorscore=0 phishscore=0
+ clxscore=1015 spamscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060060
 
-On Mon, Oct 05, 2026 at 08:25:40PM +0900, Takashi Sakamoto wrote:
-> The return value from close_transaction() is useful only in
-> fw_cancel_transaction(). The other caller,
-> transmit_complete_callback(), simply discards it.
-> 
-> Additionally, the pending transaction queue should be enumerated as soon
-> as possible to prevent the issued transaction from completing.
-> 
-> Expand close_transaction() into its callers, and remove it.
-> 
-> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+On Mon, 2026-10-05 at 14:03 +0200, Tobias Schumacher wrote:
+> zpci_msi_domain_free() passes its loop index to zpci_msi_clear_airq(),
+> which adds it to an offset that already accounts for it.
+> zpci_msi_domain_alloc() stores hwirq + i for each vector, so
+> zpci_decode_hwirq_msi_index() hands back msi_index + i and bit is
+> already zdev->msi_first_bit + msi_index + i.
+>=20
+> The doubled index never selected a wrong entry. An irq domain's free()
+> callback is only ever invoked from irq_domain_free_irqs_hierarchy(),
+> which walks the range itself and passes a count of one. So, the loop in
+> zpci_msi_domain_free() runs once with an index of zero.
+>=20
+> Drop the parameter and the addition.
+>=20
+> No functional change.
+>=20
+> Signed-off-by: Tobias Schumacher <ts@linux.ibm.com>
 > ---
->  drivers/firewire/core-transaction.c | 66 ++++++++++++++---------------
->  1 file changed, 31 insertions(+), 35 deletions(-)
-> ... 
-> @@ -201,9 +191,6 @@ static void transmit_complete_callback(struct fw_packet *packet,
->  					      packet->speed, status, packet->timestamp);
->  
->  	switch (status) {
-> -	case ACK_COMPLETE:
-> -		close_transaction(t, card, RCODE_COMPLETE, packet->timestamp);
-> -		break;
->  	case ACK_PENDING:
->  	{
->  		unsigned int delta;
-> @@ -218,27 +205,36 @@ static void transmit_complete_callback(struct fw_packet *packet,
->  		// local destination never runs in any type of IRQ context.
->  		scoped_guard(spinlock_irqsave, &card->transactions.lock)
->  			start_split_transaction_timeout(t, delta);
-> -		break;
-> +		return;
->  	}
-> +	case ACK_COMPLETE:
-> +		status = RCODE_COMPLETE;
-> +		break;
->  	case ACK_BUSY_X:
->  	case ACK_BUSY_A:
->  	case ACK_BUSY_B:
-> -		close_transaction(t, card, RCODE_BUSY, packet->timestamp);
-> +		status = RCODE_BUSY;
->  		break;
->  	case ACK_DATA_ERROR:
-> -		close_transaction(t, card, RCODE_DATA_ERROR, packet->timestamp);
-> +		status = RCODE_DATA_ERROR;
->  		break;
->  	case ACK_TYPE_ERROR:
-> -		close_transaction(t, card, RCODE_TYPE_ERROR, packet->timestamp);
-> +		status = RCODE_TYPE_ERROR;
->  		break;
->  	default:
-> -		/*
-> -		 * In this case the ack is really a juju specific
-> -		 * rcode, so just forward that to the callback.
-> -		 */
-> -		close_transaction(t, card, status, packet->timestamp);
-> +		// In this case the ack is really a juju specific rcode, so just forward that to
-> +		// the callback.
->  		break;
->  	}
-> +
-> +	// NOTE: This can be without irqsave when we can guarantee that __fw_send_request() for
-> +	// local destination never runs in any type of IRQ context.
-> +	scoped_guard(spinlock_irqsave, &card->transactions.lock) {
-> +		if (!find_and_pop_transaction_entry(card, iter == t))
-> +			return;
-> +	}
 
-I realized that this expansion has a bug to suppress the following
-callback, since the condition 'iter == t' includes the local variable 't' 
-while 'find_and_pop_transaction_entry()' macro initiates the 't' with NULL
-for its internal use. When receiving one of the above error acknowledge
-codes (e.g. RCODE_GENERATION at bus reset),
-'find_and_pop_transaction_entry()' is evaluated as NULL, then the above
-return statement is executed always.
+Good catch and a gppd explanation. Great work.
 
-> +	invoke_callback(t, status, packet->timestamp, NULL, 0);
->  }
->  
->  static void fw_fill_request(struct fw_packet *packet, int tcode, int tlabel,
+Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
 
-I'll post v2 patch after enough testing.
-
-
-Regards
-
-Takashi Sakamoto
+Thanks,
+Niklas
