@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B9BA49C4BE;
-	Tue,  6 Oct 2026 15:09:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD1DB30216D;
+	Tue,  6 Oct 2026 15:09:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791299353; cv=none; b=VBj92SIpJpWcVizsD+nLtoclfc65DujxFK5qLjdu1oGjoJnObBTRy01/68yTYu82oQ4iDkcRSi7ujmWo1pBiwXKK31bynOj4ich+x1iZrNW1mBiemaFh0XiCr1AzByQd6A7fA6Tg3CU0p5eF4yHE62C6CB4fvnLyHyMRVxSnEDc=
+	t=1791299388; cv=none; b=bFYeZaOAaeoZYzaWVGxTJWkez5MCJuccIitSmHbbxLrr3/Fm0bLA+xYpjgW99YbLV90aBuBnvjSvjOj2WBYcfUVqoRoaL1zQyzjv6qiABkRwMB5rrD859yttpztMY5zNo/S1wzou0aq1hKjgNbra6jhfxLJUoBLRkntzSt1iRqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791299353; c=relaxed/simple;
-	bh=I9bhbYltPkS0lWeeqq7JSwvOPSvncjDBaQk3HRw1u34=;
+	s=arc-20240116; t=1791299388; c=relaxed/simple;
+	bh=vjjf0HNZOTfxDkEBkISqlEmtKtu1raOyY4UwuuDzTv4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R9M13bB/rU/WVMIN0Y2hzkoSWH5Qt9OLQjEuoj9b0JEAXMBe9tcxshz4//L9Qse0IJB6vORVD/+hQMfAZIV66IB3ibXIF7a47R/IkN6GJFCx5rGxy6nJ6E12WPht0sGCE3Gxk/qQ8aMLsxAE3Jn8NknZiSw2zLCNpi+CpAXmUaY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oeD9QMK/; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=foTRG46mB4LMnelseFF+9a3qfzAjPB5RBJv6Caw3vfxbSX8yNFsY66B87lMVQT8XUlREtvTp/MZCx/f0caVPn6q0pXnH8OlrtrFTaeXCyDPL8prKkSXLQYpiIaYmhAwks9NAvBEN9q2cV+y1fQtrT/wMVB0dqH2vIDHonPYesPo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JADQ/W32; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oeD9QMK/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38C4F1F0089B;
-	Tue,  6 Oct 2026 15:09:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JADQ/W32"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96C301F0089B;
+	Tue,  6 Oct 2026 15:09:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791299352;
-	bh=TXACSYhLXtVOS9sONVQPPWY9uQYglM+Zmt4FkOCBx3E=;
+	s=k20260515; t=1791299387;
+	bh=ypugqTxIdQppYiqCNelnqHaVIK7Fz1xg2co6sYWbb7w=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=oeD9QMK/tXxY4ZxQ0+Gmxg5aPRwX8W4X1AsK0sM2/mcxH5WLbLIqfNtfXKgb//leF
-	 XSP48glRRhnj3pQa1VCq6PUqbetMprs1Ae1hsidFDVuXLj8C5jyU+QvHptSuSxkQfE
-	 OLjdV7BpPGqd7FFkWefViFpHPP966uaE8UsT1h3MUaiHorajeVhPBIeWZQmBY2K+cl
-	 OsoIa3GrOv8mEummzhMcMh6UXe19qhig9gh4u0Z0tqjxFK3uuzBls/sZGPruZopO6V
-	 gZab5ew9dzEGQqga0VIjn5fWAV8Olsicn1jGw5NFyHA+7kLvJVBwxbRdYKVdchrNiA
-	 4DV5zTUQMDIKA==
-Message-ID: <2639e56d-1fcd-4f20-b065-0066a6d841a4@kernel.org>
-Date: Tue, 6 Oct 2026 17:09:06 +0200
+	b=JADQ/W32HacX4sHBEBThZnCEfM/5lu9F7NbWCE/8FAglGiPAS0gLhvZ3+CQJqNf+U
+	 s2v7NK5EJctlr+zNuHkYL2FNn6iQvVUi0Fn7oZ2KLZzz0Pk4bp8LvYS3Om0iBcxHDq
+	 FAYI1xKApZDMOz3M29HVlPCfdnm192FDqEOzFv5EFvy6Mzu6BCSvCIrJRjZiOJDTeu
+	 MF6xeJiDdCJRDQNv/FuNoAXv/zVGzu4fCLEc9C6exX4DIhYDVbwL/M43rVO44d1JT4
+	 AQNFo95gtklsbzcVDV/a4Sdj5+RW3mELePI+KANp9wBWp67rYoSc4YlJokSw3r/dzk
+	 dUaqydFSWXxcw==
+Message-ID: <bcd2df4f-9ff6-4d30-8735-573d661bf367@kernel.org>
+Date: Tue, 6 Oct 2026 17:09:40 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,17 +35,22 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/5] dt-bindings: soc: rockchip: add boot ROM download
- boot mode
-To: Alexey Charkov <alchark@flipper.net>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Sebastian Reichel <sre@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org, Shawn Lin <shawn.lin@rock-chips.com>
-References: <20260929-b4-rk3576-reboot-mode-v2-0-5a34ca72065a@flipper.net>
- <20260929-b4-rk3576-reboot-mode-v2-1-5a34ca72065a@flipper.net>
+Subject: Re: [PATCH v3 1/8] dt-bindings: usb: ci-hdrc-usb2: add
+ spacemit,k1-usb2 compatible
+To: Junzhong Pan <panjunzhong@linux.spacemit.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+ Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>,
+ Peter Chen <peter.chen@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+ spacemit@lists.linux.dev, Conor Dooley <conor.dooley@microchip.com>,
+ Ze Huang <huang.ze@linux.dev>
+References: <20260927-b4-spacemit-k1-usb2-v3-0-ce7095896039@linux.spacemit.com>
+ <20260927-b4-spacemit-k1-usb2-v3-1-ce7095896039@linux.spacemit.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -91,17 +96,21 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260929-b4-rk3576-reboot-mode-v2-1-5a34ca72065a@flipper.net>
+In-Reply-To: <20260927-b4-spacemit-k1-usb2-v3-1-ce7095896039@linux.spacemit.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 29/09/2026 12:28, Alexey Charkov wrote:
-> Rockchip boot ROMs enter USB download mode, commonly known as maskrom,
-> when they find 0xef08a53c in the register they take the boot mode from.
-> Add the magic under the name U-Boot already uses for it, so that boards
-> able to request it can do so symbolically.
+On 27/09/2026 13:40, Junzhong Pan wrote:
+> The USB2.0 controller on the SpacemiT K1 SoC is dual-role capable but
+> has no internal OTG registers, this requires flags which disable
+> related features set in platform data. Add a compatible string to match
+> the platform data.
 > 
-> Tested-by: Shawn Lin <shawn.lin@rock-chips.com>
+> Chipidea USB2 Controller on SpacemiT K1 requires 1 clock and 1 reset to
+> work, add constraints for it.
+> 
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Tested-by: Ze Huang <huang.ze@linux.dev>
 
 This is a fake test, you cannot test bindings how we understand Linux
 kernel testing. Please drop such blanket-fake test tags from all patches
