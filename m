@@ -1,144 +1,167 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010051.outbound.protection.outlook.com [52.101.56.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-139.mta1.migadu.com [95.215.58.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 211F246C4BE
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 14:02:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791295376; cv=fail; b=g1dasD9sIzsvjcJXA9zxC/025hckSOCL6c28oYxur3DOUdGG3hI60rjrxfWaDxgX6gyGXFGAgYNNAGCL6X7leZMWoElI5L3X8/Y6RShcJE41v/VrTjB2AYMcOopRa/dczfW+Bre34zyNKuGOgbYy/sZ4SMXrBmvFpeWDhAhxpwM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791295376; c=relaxed/simple;
-	bh=IfqpWZ1wf5ind0fplozxsq9e0ZtFlETPdnqAjefuhGk=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=I+Ud57YG3dy/YvWB4xwYxqaKPcGiY0XHRryqG7ecdzB5tJSBeKdv4DgB/cuUmRw2EmG8CF9RZzsOSXhVIaDW25Rez21X1cGKu/dfboMQGIYQWw/ItdtPP8RMUd31i42wmKoW12ZsUTsKSc+kheCZscbonPZ6RcQDhQz7RVearGs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=BXRUpDlx; arc=fail smtp.client-ip=52.101.56.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE3E43E49C7
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 14:03:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.139
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791295404; cv=none; b=e/vFbSc1CnqET8x8nkxio7ETNBMdPL/RkJZ4fR966AFy5eUeArIDu0d8unhBickkTxL69kmmrNSDvIjfOU4NRpJ2+he37C05axmIjpygcjVZyCG7KuULuZLss4wXfpEuQrzZ4gceydZaV4Og13RhMW+5S86FSXOGIKVK0zSFLJM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791295404; c=relaxed/simple;
+	bh=GPmw8AqftBV38rZhW8wE/zQAx5QAmhgjAvNnumw0xs0=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=dQ8au+ZYDE+gP5vfWbr5h5WU0Q/IdEExpht4WewhKg0TMGWVOktvkzdn/PqvHYkqUudoL/F+GMk9q6JzNsmy4Mkg3/8r+5OGakppvJRP7OAySOidpUGGfhHqpX4mgEyo0S3mbI9b1FnitZ4ijD0F7tiPplE967jpK2+6F8ElidU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OnT1ksDM; arc=none smtp.client-ip=95.215.58.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="BXRUpDlx"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hB/Nz5ekQpv8kMee66f6EbI0akPFJ1/e+gxQJgmfocsFAk3pzIBwx84Gs8JF+z4+3qP2hS5YZHJw1CNYeyRyC12tU5hC7FmOK+yQj20ntKDRWDwpitz35/KWrdsTDHwumKSmpYX26gw8VBI+V1BPG9VJayibPpdWaEbl3oZd/VuLCO+K3O4ILbvr4KvvJEg8XaKo9A+VKTWqhKymjGiUXq7zOKnIsn2gzTmDE92jYMHyKfxAYhYWivfGuCUY33UC/1/enA6w0IkDwX2nZJfYZ2s15jDr7mn2gg74ACLk7gGs6UhaPC+3OEnd4OYDsVBLkKIIXNGySZ2yN+FQo6GzEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Gnc1DXH3z+94CkqZ0Vgycit0j0yjvcjP4WFvDeMMum4=;
- b=qKhG5YH9LnWcqlWo+lQo0UG/sJ2wzinuf3XmWGPVynUc3ESa32fhdneVlt6Rk1kG+KrVjKnnZVEOR2WOZU5Clgl4mFuuy3aLijZjVSg5uEqsY35LUEwSWC9/Ru+rlqLmipzaqr9RX/3hHJC5A1ownpgRQXGP1vLn/MH86W2P/8cqh+yH8bolv9aQsZhWbknyHR5Brp3GWLbrkokgFyHNMPbWInaJyr4bPK0hwCQC8YrovkpdPrqwix1ueGtKi69a9Rg7bYCSz7SDpYC9JUm7RS/w4NhaLszaoGDEygMyNBZ3+ZuGBbeHOKeHVnufWTafCeX6K26/h3N28/AI4JX6Kg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=linux.dev smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gnc1DXH3z+94CkqZ0Vgycit0j0yjvcjP4WFvDeMMum4=;
- b=BXRUpDlxEYoFpNo7PU48O8g7hBorBB/KLqxb/BkOV8noDzbsm6OsDvkG45WIkdCh1e8NFOo/gKU6O+M+lEF7BzNetkuiBRCeVh+33ytrY38hAJ3nHuR6UVwF6EKS3fcr813ovOcYmF4oUmnYEgogycgaNlOMbpK5BDz0czrf1gI=
-Received: from BN9PR03CA0875.namprd03.prod.outlook.com (2603:10b6:408:13c::10)
- by PH7PR12MB6441.namprd12.prod.outlook.com (2603:10b6:510:1fb::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Tue, 6 Oct
- 2026 14:02:49 +0000
-Received: from BN1PEPF00004689.namprd05.prod.outlook.com
- (2603:10b6:408:13c:cafe::45) by BN9PR03CA0875.outlook.office365.com
- (2603:10b6:408:13c::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Tue, 6
- Oct 2026 14:02:48 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN1PEPF00004689.mail.protection.outlook.com (10.167.243.134) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Tue, 6 Oct 2026 14:02:48 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 6 Oct
- 2026 09:02:47 -0500
-Received: from BLRDHSRIVAS.amd.com (10.180.168.240) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 6 Oct
- 2026 09:02:41 -0500
-From: Dheeraj Kumar Srivastava <dheerajkumar.srivastava@amd.com>
-To: <muchun.song@linux.dev>, <osalvador@suse.de>, <david@kernel.org>,
-	<akpm@linux-foundation.org>, <davidlohr@hp.com>, <linux-mm@kvack.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <dheerajkumar.srivastava@amd.com>, <Vasant.Hegde@amd.com>,
-	<bharata@amd.com>
-Subject: [PATCH] mm/hugetlb: use kvmalloc_array for hugetlb_fault_mutex_table
-Date: Tue, 6 Oct 2026 19:32:26 +0530
-Message-ID: <20261006140226.11684-1-dheerajkumar.srivastava@amd.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OnT1ksDM"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=GPmw8AqftBV38rZhW8wE/zQAx5QAmhgjAvNnumw0xs0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791295397; v=1; x=1791900197;
+ b=OnT1ksDMSNgrOSH8ktxOwVl7sBmO9/mXtKVv5FzP6XDYEQjWcRuqgM/wSSC79KtirrbKNy2i
+ um754iBGXaUzWU/B6hmtXBAmCD8+sT+4cymziOkWQ+D1BCQ8DINbzlO6KtGWclEpXNQYrJFSXdZ
+ 2dFpmduJUNaFz2IS1Bqjo/Sw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 748223c0c7949980;
+	Tue, 06 Oct 2026 14:03:17 +0000
+X-Mizu-Trace-ID: 748223c0c7949980
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb09.amd.com
- (10.181.42.218)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00004689:EE_|PH7PR12MB6441:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8291b661-ca3c-45aa-f590-08df23b28122
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|82310400026|23010399003|1800799024|56012099006|10067099003|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	4MseebFX7g7hJ9zrRuv4HMshSYKCbok06F3AdhIrK5MmdHHQcheV5hrpUfFxsU5tcbmvgJKLjRqSa35KYoAdKmNskJdT2Bz/dh1wg+3wjKnn3PnG6uSLautJ1Ne3nBKqejMHPwZPHKx9YUiWZzZRePebHL3hrNzfW7Uhn0lhRxW0PSaH9H7X/P2lp7Eh+jE/2LtBTtgdA21aCN3gk4CszxFed3o42wk1AN5XnbrEqR0dDRZjm6MdPY4L93KGnnIbWGg1DbxRy5qvpzSMZIpg+7NSt0Jk1n1gIMPe7zH7sDlKqG86GDgnbSeYa0b6xcaSpzgQQHa7L16Ruc99mmnzfI/Hs249Yrm7YtnVJxKzx+YOqe/1lA+E1+C4ahin1V7wkkXHdVOTPI5NDybNf0VVGwdyujQvLJFU0PEkC33Dp5cTLSeTZZKRzewVGt315Bk3M6KAzjzJgX5EseIDRVlRN4IGI2hVadOvCJQegrL2MF9nLUaMUFXELJGCF0jUG3WJ/P1X9oFykcB98WYRY0IppsSPzTNYutGwz9shtGDBDRzuKdvYKUB3R8s0frI6BRuFaO8h20Q8UaBwrYjTyC1l268aMF9oDt88ZjCpAutUOPWHGa0ujvz1YEnolwIbnslTFrfnq5M+hjKYmvxHJm0i8E0T4HArqXrjCkQahX+AFbgSSwLxznfMjwt2Z1Nmg5mscBl3mkqAGuGG9OaD+7O+uw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(82310400026)(23010399003)(1800799024)(56012099006)(10067099003)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	gBDMMVQb6gY24cj77fcs8teYLmSaWIKgWBVjCIEWsgWTsJbVQUuv3EboAjaMoHKiSfPOEOy1elDBYLdcK/KysXmcpPIREyi1TiKMDkJLgureAiuKcc/yMd59heNx7DpFs3+5STycCA+BwPp6f66/1cV0My0RZusmX/7ppeYRmCLWoksvpYi6K2Bz/SqRRh7xGkOU7v7thVw0cvNsDG8eUg0lNp+WHFhCNEKPbqwfNKVMxeHF3L8QNxsSuEfugw9PRy8nzlZbajnzVh2K3Zw7jAexWB3yBhTp6BTg0ojmAhTTPK21TJ6AWYaro8X3hIH0P7dACcQrVyH4qXc60oJxdCyfRFADcOMilJlMa0zJC6DKTXBeO8m2X7LOaXj7TP5J8hhYz+0FlBCLZflMXf5C6ThDF2G2SpxkUnFEmPO9cGMETwLs7QMBO+sD9g6XwpIN
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 14:02:48.7132
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8291b661-ca3c-45aa-f590-08df23b28122
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF00004689.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6441
+Date: Tue, 06 Oct 2026 14:03:13 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Luka Gejak" <luka.gejak@linux.dev>
+Message-ID: <ccc69689fe2a2cccc39d40221056722e24263f2f@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH rtw-next v4 2/4] wifi: rtw88: sdio: Track running state
+ and cancel TX worker on stop
+To: "Ping-Ke Shih" <pkshih@realtek.com>, "Alastair D'Silva"
+ <alastair@d-silva.org>, linux-wireless@vger.kernel.org, "Kalle Valo"
+ <kvalo@kernel.org>
+Cc: "Martin Blumenstingl" <martin.blumenstingl@googlemail.com>, "Jernej
+ Skrabec" <jernej.skrabec@gmail.com>, "Ulf Hansson" <ulfh@kernel.org>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ luka.gejak@linux.dev
+In-Reply-To: <6665409e1d374c1face4936b827a6a9d@realtek.com>
+References: <20261005084849.3109337-1-alastair@d-silva.org>
+ <20261005084849.3109337-3-alastair@d-silva.org>
+ <6665409e1d374c1face4936b827a6a9d@realtek.com>
 
-On systems/VMs with a large number of CPUs (e.g. 4096), hugetlb_init()
-computes num_fault_mutexes = roundup_pow_of_two(8 * num_possible_cpus())
-= 32768.  The subsequent kmalloc for the mutex table can exceed
-MAX_PAGE_ORDER when struct mutex is enlarged by debug options like
-CONFIG_DEBUG_MUTEXES and CONFIG_DEBUG_LOCK_ALLOC, resulting in:
+October 6, 2026 at 04:03, "Ping-Ke Shih" <pkshih@realtek.com mailto:pkshi=
+h@realtek.com?to=3D%22Ping-Ke%20Shih%22%20%3Cpkshih%40realtek.com%3E > wr=
+ote:
 
-  WARNING: at __alloc_frozen_pages_noprof (order > MAX_PAGE_ORDER)
-  kernel BUG at mm/hugetlb.c (BUG_ON(!hugetlb_fault_mutex_table))
-  Kernel panic - not syncing: Fatal exception
+>=20
+>=20Alastair D'Silva <alastair@d-silva.org> wrote:
+>=20
+>=20>=20
+[...]
+>=20>  @@ -1082,7 +1084,11 @@ static int rtw_sdio_start(struct rtw_dev *r=
+twdev)
+> >=20=20
+>=20>  static void rtw_sdio_stop(struct rtw_dev *rtwdev)
+> >  {
+> >  + struct rtw_sdio *rtwsdio =3D (struct rtw_sdio *)rtwdev->priv;
+> >  +
+> >  + rtwsdio->running =3D false;
+> >  rtw_sdio_disable_interrupt(rtwdev);
+> >  + cancel_delayed_work_sync(&rtwsdio->tx_handler_data->work);
+> >=20
+>=20I think this is the major statement added by this patch, but I'm not =
+sure
+> if this is actually needed. (Maybe, Luka can help this)
+>=20
+>=20By 'git blame', the work is added by
+> 28eaf7971a20 ("wifi: rtw88: sdio: add TX back-pressure and retry on pag=
+e starvation")
+>=20
+>=20Maybe, the fixes tag should be 28eaf7971a20. I think there is no way =
+to apply this
+> to 65371a3f14e7 (your fixes tag)
+>=20
+>=20But I think you need this because patch 3/4.=20
+>=20
 
-Switch to kvmalloc_array() so the allocation falls back to vmalloc when
-the contiguous physical allocation is too large.  The table is only
-accessed by index, so virtual contiguity is sufficient.
+The cancel is needed. Nothing else cancels this work before the
+device goes down, the only other cancel is at remove:
 
-Fixes: 8382d914ebf7 ("mm, hugetlb: improve page-fault scalability")
-Signed-off-by: Dheeraj Kumar Srivastava <dheerajkumar.srivastava@amd.com>
----
- mm/hugetlb.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+	cancel_delayed_work_sync(&rtwsdio->tx_handler_data->work);
+	destroy_workqueue(rtwsdio->txwq);
 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index cea25773a6c9..f1b982595151 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -4177,7 +4177,8 @@ static int __init hugetlb_init(void)
- 	num_fault_mutexes = 1;
- #endif
- 	hugetlb_fault_mutex_table =
--		kmalloc_objs(struct mutex, num_fault_mutexes);
-+		kvmalloc_array(num_fault_mutexes,
-+			       sizeof(*hugetlb_fault_mutex_table), GFP_KERNEL);
- 	BUG_ON(!hugetlb_fault_mutex_table);
- 
- 	for (i = 0; i < num_fault_mutexes; i++)
--- 
-2.25.1
+The stop hook runs from the chip power off op, so the MAC is powered
+off right after the HCI stops, but items can be pending at that point,
+because the 8723bs retry re-arms the work with a delay:
 
+	if (!rtw_is_8723bs(rtwdev))
+		return false;
+
+	queue_delayed_work(rtwsdio->txwq, &work_data->work, delay);
+
+The delayed re-arm came with my back-pressure work, 28eaf7971a20.
+So in my opinion cancel should stay with changed Fixes tag.
+
+> >=20
+>=20> }
+> >=20=20
+>=20>  static void rtw_sdio_deep_ps_enter(struct rtw_dev *rtwdev)
+> >  @@ -1470,6 +1476,9 @@ static void rtw_sdio_handle_interrupt(struct s=
+dio_func *sdio_func)
+> >  rtwdev =3D hw->priv;
+> >  rtwsdio =3D (struct rtw_sdio *)rtwdev->priv;
+> >=20=20
+>=20>  + if (!rtwsdio->running)
+> >  + return;
+> >  +
+
+I think we should keep this check too, per my explanation below.
+
+> >  rtwsdio->irq_thread =3D current;
+> >=20=20
+>=20>  hisr =3D rtw_read32(rtwdev, REG_SDIO_HISR);
+> >  @@ -1703,6 +1712,9 @@ static void rtw_sdio_tx_handler(struct work_st=
+ruct *work)
+> >  rtwdev =3D work_data->rtwdev;
+> >  rtwsdio =3D (struct rtw_sdio *)rtwdev->priv;
+> >=20=20
+>=20>  + if (!rtwsdio->running)
+> >  + return;
+> >  +
+> >=20
+>=20I don't think we need this, since you added cancel_delayed_work_sync(=
+) in
+> rtw_sdio_stop().
+
+I think we should keep the check. The tx work arms the SDIO work at the e=
+nd,
+and stop does not cancel it:
+
+	rtw_hci_tx_kick_off(rtwdev);
+
+	cancel_work_sync(&rtwdev->c2h_work);
+	cancel_work_sync(&rtwdev->update_beacon_work);
+	cancel_delayed_work_sync(&rtwdev->watch_dog_work);
+	cancel_delayed_work_sync(&coex->bt_relink_work);
+	cancel_delayed_work_sync(&coex->bt_reenable_work);
+	cancel_delayed_work_sync(&coex->defreeze_work);
+	cancel_delayed_work_sync(&coex->wl_remain_work);
+	cancel_delayed_work_sync(&coex->bt_remain_work);
+	cancel_delayed_work_sync(&coex->wl_connecting_work);
+	cancel_delayed_work_sync(&coex->bt_multi_link_remain_work);
+	cancel_delayed_work_sync(&coex->wl_ccklock_work);
+
+so a kick can land after the cancel has run, and only this flag
+keeps the item off the powered-down device.
+
+Also I believe this series should be tested on hardware to ensure
+nothing breaks.
+
+Best regards,
+Luka Gejak
