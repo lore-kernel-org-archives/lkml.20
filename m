@@ -1,110 +1,118 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B07F430DD00
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 20:00:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DE1830DD00
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 20:00:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791316821; cv=none; b=hgO/93akNd/3dufubGmG5qLnnUEMmZ3x+9rRHoGKIJuyEc60xzcZvIvqxVtB+DCGk+N45oW1ZSitay3YodyIUQ+g6qyd+9FA7CS216Xr35TL3dz1pKBl0xjeI08HYatKuqMYE2DJQ9ZSztLeYIXi2/iyChCtDCItUO3typ6nT6A=
+	t=1791316849; cv=none; b=V7C5ZqrrHsvKkYgifczk39hRo38KM+H282Dt1insLYvg6D8ii/rMDuDigKLJMV8w9PtHjq4fdypqVTcwkXqrxeD105+tFoIZIgMXg9pT4ijSAexHuYMRQwlPlBsG2evnSBp+39jDCpRS0ZpAPBWvycvU93rh0ChNO9A2Y8B+3EU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791316821; c=relaxed/simple;
-	bh=7SFqUvYZyEeLgvCRE96WwdfkhzXxHXTyCW4wbZFK1EA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Iz1PIuQMmrp+8Ur6wrmDDP1tKFU9/ml8A5Nt+HG1oHN35aMJzNm5FrZglD5ZXqLlSo3A9WTAaIRKGXW4TtEGfcUaY0DiQxTdizWEVlmsWtc/jUl6GuKTPJ/KqX3rvuUujpVfkT1301YtR1dOLMVvIHD928bCuGntD/Z2NuB1X1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=bkyu0B5Z; arc=none smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+	s=arc-20240116; t=1791316849; c=relaxed/simple;
+	bh=IOTVLEFCya+bwAvPF8aWNmU1ouHNoQKiZ6FbT18pmDQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=FnwwIfS5+MVcTdG/KHfeEiWSbcKRY74ocaUdjN0SuXDHDQeOCq8PpT9PPRmiv7DmQVhdyWM0MZQ0f4Llvh6g5+oZR52zag8xDnXGDD6SFeLGwb5SyBg0vXWh3epnbqUEsvU1wjziNGbJ+uuTJZ1xzr1JznsKCg7IXVtDgVqcyOs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a1suUD4r; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="bkyu0B5Z"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3a0aaa0fd13so1638826a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 13:00:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a1suUD4r"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a018792ab3so11184205e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 13:00:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1791316819; x=1791921619; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4cW3Rtfy0hQP+eT8zDQmID+6Pmx2WSOpAfGo5d96jXs=;
-        b=bkyu0B5ZCTxvmgCV65RVWCb4Ei8+K6XrHLpKiaM03i0fSDsChjVA+9iN8olUZrgJUB
-         Na6ah7gGyMJk/RhaRMyhRXfKy8U4wWXW7UuNUkmcV/yKEoUuWXEmNi+WfsmCQrDXSzxp
-         1lQkBp+GPIWYXfbgQZGOlE/C8rz+ewoE11DOCI48PDgVLKWPhreoRdHCdEQA7b1HV/bE
-         app9Pbn1sZ/0JyK3pZhWG6ew1RkJPRTWYT8JKbE+6jvjcthK/TYhAHDBMf46E6kvuJWq
-         GeqE6KY8LCZ4tlSdjgq72fnhK+KHoW0+XAG3VFdMBYiQYflkSgFd4Jp3R+LttGIwrA4k
-         U+MA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791316819; x=1791921619;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=gmail.com; s=20251104; t=1791316846; x=1791921646; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=4cW3Rtfy0hQP+eT8zDQmID+6Pmx2WSOpAfGo5d96jXs=;
-        b=cMltcqxTe8mOPsIaoYpUeaxBirbpJngX9RdvkLqG9z7IOnve5vfFfR/biOhoVuFqgz
-         XkwqytRaA3ID1aBmbqqDyuJH9BzY8IXL1GWW2ValEZJ2TwXqPUpuPJg/UxZHoiscQpfc
-         GJGuIUC3kLAADaGPL0GvbySF/pGICSFE5gwcVsw3GvwT26E6MZURqXi79pFOmQnlbfhb
-         ShRQHQOueg8t5rLc8eEj37aakJoAl4nqejFZtP6iVWuptB8xgeAkH1GuN/dusnu0yCIg
-         jC2psXznyHl7y8nvT7mbXZtEpoeOiSkqzYvLZ/PZ/ytmiMKFgkd/9zrzp7On5tWFRiBk
-         ZNnA==
-X-Forwarded-Encrypted: i=1; AKwUvBwRUOHr3DuzHf0CfZqXfZ36NLYuMUNiLhAEPB/F69dFN0WZUzWRPAxZi9h7SlLGpjpAgzPeeDVrdRSDsqI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK/03fDuziy+WMLb7CWrkfu4I4GOjcxu1XyBWpOLtrsHISK4r5N
-	BH2S0WYStxOmjDon6+v3nRMH35zvCOn/WHIFR9/nchwEnTBS3jpzvxwBF8sVxS3BxHc=
-X-Gm-Gg: AYBFou3LuzWpYomkdpZdyRTVLdX0zElB0UxQUlejW6i9RFOPEG8HQ14B2/DUZ9HgChe
-	5V3IrLiGuo+rdfnTslpijuR2ymFdrVZLngaWvgJTMnjD/VLSSAM3n6tC9ub6lG5jNcHs04msyqb
-	kbZQEJ35eH14sFXgI/UMeVu9V87b6jj0W1nnR10n5hZBdQwxG0Oygn6xYwik09BV/Py3hCeDmmy
-	EJLGspsvLHAv+NDuIt6uNrq2TLgORIZL3Z2yb25go8RK1OXkkUbsrN7HvUgEp5jjFfX+jMyk7An
-	VWchtlyoj7AI2/U930/jWFq3EhhvQUT87WMhXZlbD028gq4suLUB7TgoDCESS8OkWjcBgfdea0Y
-	5FaNIXecX5iFRfWZvaFMjt0j1atS5+WL07Wg5VJMPFTRSvrvn0g9A9rZpL86UWFFiDB4J74jayl
-	GJTHXPlBeGdiHhVoHgKCYHuTMarOhyrs6I+QY9BdyVrZMc/LW57KBOrjWBJjLPJHSrWXrASzGKZ
-	UGIJ6Frhok=
-X-Received: by 2002:a17:90b:2687:b0:3a4:97ea:f0d6 with SMTP id 98e67ed59e1d1-3a8a0f341e3mr231885a91.42.1791316818489;
-        Tue, 06 Oct 2026 13:00:18 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:9::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a89b7727a1sm951252a91.17.2026.10.06.13.00.16
+        bh=o3DAyDVHNrcV6GLzUE6mqYOVGNLRQA+er+Rt7Tx0w2s=;
+        b=a1suUD4rAF76viJJmvrblT+5oP5If4OkUCOfgS8TB5Yq1eUM/fxq9gjDg4cy2WT4c1
+         j+JTa2r61dIFGae3AKf+oW8oYJkDCuEq0vF/Yq3kzBUXU7KGuKdoipeMSkJecyJaBXVa
+         5cvVI5xvF/l1/Zv6Ctz/DLA/ewzuCavxrdNDuEjbkyB2U3GoKBcV6K6Y+2VxaWaWP6f8
+         nR9QtpNQQ8uAtg4HbybAZoPnFOWmNkweFKRyGlLGqclRngXOEi4T68QeFFf6/6a4RBce
+         hrY8SH4mX98hIbw1Km+Oac/N1YYim5PoaewvSjhXqVjzobIzxRAo56RQTa1+KU3yqTpP
+         n2Hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791316846; x=1791921646;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=o3DAyDVHNrcV6GLzUE6mqYOVGNLRQA+er+Rt7Tx0w2s=;
+        b=PaLQPKraj8FM48d5C51Q2j/biWaaqspnsESg4U1gRwaVJiHwhDjipN/Ux/I8vHGbjZ
+         qk1MXiWdF94doIq5nTcb8FvZ50sHkNj3BtknuZgg706TGqiCNWK8VJRp1hjRBjeW7Oxp
+         y1COCTRc3YgTQH7Vf0gN4Y2V98FR5hCd1ylMbinFBJ4ZOd+aZ04cwYFDSFoURl1MWm/Y
+         40XQjNDIRk83w3ZJ/3rcWz9Rbauvhwwsyn9OOJ6LTX7dBp+aVIXswkc2LC4TIhaxW+Vj
+         2fWMdieFfVFIyJV09ootiU3e5yc/OayKyGWO5BawKNXkrRQe1QCJL+hiqUeONBHzzbps
+         ptGA==
+X-Forwarded-Encrypted: i=1; AKwUvBzwbdylhYy2otrVIgLc7SOeBc07fslS09x9u2jHFhvoeT84tKpRfcCF98f2wwCOtgLQba9NI7721oTkfZU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mfAMaZqx3UZaLka2ad37WDjxTVIbGdBxzOri+6vplii2Dn8vcL
+	EK5Zr1dF0e8aP+PNBECwvNV/cN4xdrmaEhapn1wjFoiqELFhBfC0PeRTxxCcQg==
+X-Gm-Gg: AYBFou2Ppo6rB5WcDvyQHgrIehmVQz54LyfNjOaU74mDMGtflVJTz1se9M3Dcb3G5tU
+	vPxVB4EqGEb/DqVS16VScmhVP8mmVE7sr32imIWId+YVsn3i7kwhypEYOqEABrcailzaRbk828z
+	QUOHf9jCgcBPW/+HL9jlsrk2YBzv2nVotEIH5XpLirRVIVpq4idJoZ9c9xtetetmsb+iYxOZPgs
+	DMd3W0Gm7fqR0jVHVmwh+4Gzph7qfLIzDoBpE7q4SFDADrzKvCgo0rvqitV+D2PIBZEiWHvbGDN
+	goEw02M5jeo4TzQk7ZaAzFPtvOQ27NXSmFqGjVqi4BDMW/oOtZQGCIQolPQCwBGvxtlZFd2ELSW
+	c5CqUyhB5hE33uevBmHB0EHRG5ngjdpm4g9i/PXdOfqVhzaSUurN6yQpxLRj/N05b/8wAH2GWGF
+	MwkyGv6ZkQlSFoSbAe4Xv++Z19BOGtCcDSDX04g5jyQCJuSj0aLbo5inqvrRuVPcShTcDUoSQYr
+	A1gAClSzZgMZwnpW728El17wBk=
+X-Received: by 2002:a05:600c:840e:b0:49e:645e:2616 with SMTP id 5b1f17b1804b1-4a17b5365d6mr54722065e9.5.1791316846361;
+        Tue, 06 Oct 2026 13:00:46 -0700 (PDT)
+Received: from [192.168.0.253] (5403F394.catv.pool.telekom.hu. [84.3.243.148])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a17f692cf4sm16366515e9.3.2026.10.06.13.00.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 13:00:16 -0700 (PDT)
-Date: Tue, 6 Oct 2026 13:00:15 -0700
-From: Joe Damato <joe@dama.to>
-To: anmory <anmory@protonmail.com>
-Cc: netdev@vger.kernel.org, michael.chan@broadcom.com,
-	pavan.chebbi@broadcom.com, linux-kernel@vger.kernel.org
-Subject: Re: [RFC net v4 0/4] bnxt_en: Make RING FREE more robust
-Message-ID: <asVTT+FQPowDZWea@devvm20253.cco0.facebook.com>
-Mail-Followup-To: Joe Damato <joe@dama.to>, anmory <anmory@protonmail.com>,
-	netdev@vger.kernel.org, michael.chan@broadcom.com,
-	pavan.chebbi@broadcom.com, linux-kernel@vger.kernel.org
-References: <VyyrJwrwBZEIGezDRJP8QPxbcsGROaxnmohLCnzNQY6sX5CEt0BK3AEC_0MGBx6OxGf4H5UG_xQcqgtAonwmXLdZ5Bd3INWMsof8Oj6ruqg=@protonmail.com>
+        Tue, 06 Oct 2026 13:00:45 -0700 (PDT)
+From: Gabor Juhos <j4g8y7@gmail.com>
+Date: Tue, 06 Oct 2026 22:00:41 +0200
+Subject: [PATCH] mtd: parsers: qcom: drop setting of partition's mask_flags
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <VyyrJwrwBZEIGezDRJP8QPxbcsGROaxnmohLCnzNQY6sX5CEt0BK3AEC_0MGBx6OxGf4H5UG_xQcqgtAonwmXLdZ5Bd3INWMsof8Oj6ruqg=@protonmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261006-qcom-smempart-ignore-mask_flags-v1-1-a48d9395b21b@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3N3QrCMAxA4VcZuTaQFZ0/ryIioctq0LZbIiKMv
+ bvFy+/mnBVcTMXh0q1g8lHXWhr6XQfxwSUJ6tgMgcLQEw24xJrRs+SZ7Y2aSjXBzP68Ty9Ojqc
+ jxXjgcN6PBK0ym0z6/R+ut237AW0ir+1xAAAA
+X-Change-ID: 20261006-qcom-smempart-ignore-mask_flags-870cc5a294d0
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-mtd@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Gabor Juhos <j4g8y7@gmail.com>
+X-Mailer: b4 0.14.3
 
-On Tue, Oct 06, 2026 at 04:43:42PM +0000, anmory wrote:
-> Hi Joe,
-> 
-> we appear to be hitting a very similar issue to the one described in
-> this RFC on two Broadcom BCM57504 systems.
-> 
-> One detail that may be particularly relevant is the ordering in our
-> reproductions: on both systems the AMD-Vi IO_PAGE_FAULT occurs before
-> the NETDEV WATCHDOG / TX timeout.
-> 
-> We originally encountered the problem after updating from Debian
-> 6.12.107-1 to 6.12.111-1.
-> 
-> We subsequently reproduced it deliberately on two separate systems.
+The 'attr' member of struct 'smem_flash_pentry' is 8 bits wide,
+so it is only usable to mask the lower 8 bits in the MTD flags.
+However the MTD layer does not define any maskable flags in
+these bits at all. Additionally, the meaning of the bits in the
+'attr' field is not documented, so it is not even possible to map
+those to the defined MTD flags.
 
-Can you provide a sample program or explanation on how *exactly* to reproduce
-this issue?
+Due to the reasons above, remove the 'mask_flags' assignment code
+since it has no effect anyway.
 
-I've hit the same one you are describing (IO_PAGE_FAULT before the NETDEV TX
-timeout) but have not been able to reliably reproduce it. It happens fairly
-rarely on my systems, but I am very eager to debug this and fix it.
+Signed-off-by: Gabor Juhos <j4g8y7@gmail.com>
+---
+ drivers/mtd/parsers/qcomsmempart.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-If you have a way to reliably reproduce this, that would make it *much* easier
-to debug.
+diff --git a/drivers/mtd/parsers/qcomsmempart.c b/drivers/mtd/parsers/qcomsmempart.c
+index d4fdc46a0073..cd562514f88d 100644
+--- a/drivers/mtd/parsers/qcomsmempart.c
++++ b/drivers/mtd/parsers/qcomsmempart.c
+@@ -144,7 +144,6 @@ static int parse_qcomsmem_part(struct mtd_info *mtd,
+ 
+ 		parts[j].name = name;
+ 		parts[j].offset = le32_to_cpu(pentry->offset) * mtd->erasesize;
+-		parts[j].mask_flags = pentry->attr;
+ 		parts[j].size = le32_to_cpu(pentry->length) * mtd->erasesize;
+ 		pr_debug("%d: %s offs=0x%08x size=0x%08x attr:0x%08x\n",
+ 			 i, pentry->name, le32_to_cpu(pentry->offset),
 
-Thanks,
-Joe
+---
+base-commit: 55c5b6d5f59f59a8c98a7effc3195226cc20175c
+change-id: 20261006-qcom-smempart-ignore-mask_flags-870cc5a294d0
+
+Best regards,
+-- 
+Gabor Juhos <j4g8y7@gmail.com>
+
