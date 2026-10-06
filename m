@@ -1,239 +1,147 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-144.mta0.migadu.com [91.218.175.144])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 355953A5421;
-	Tue,  6 Oct 2026 07:06:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E092F3A5421
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 07:07:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791270417; cv=none; b=fosE8FS8pvMmGtX6bqwtGwBHJdKLNhmPB4Hq7aWHC6LcFBnyA1lVhrbuRWcmroC//R3EpXPEvp/N718XCTzxn7hejopOBOfuVKNA9eg/baNwhthbUEGLXpUX3pu1qNPtDPrNI5/iPlaWaxjhx1mR/vuEE1aA+ZIgHbVemJH2XNE=
+	t=1791270427; cv=none; b=ZFxG2xABidykCb9fre+iMCzsKOOX9ejlHNB1BCHgQ8cIEUy7Yx7s592xY0w8SOZVdS1/8b/fYNhKIpVfaLCGiolQjTGr+Xns+wlXJwW2E/ZLCe6oRZvAGO8wfN5wBywkmvEZw31o/fX9Eeh369zqxkjM238bB8XP0FGXy6SYkIs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791270417; c=relaxed/simple;
-	bh=cQxRqSaiZxL4F4PCK3yebx8k0CW4SsErsJmdQgRQYVI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CXxYDIxrS6D0jTiCi80q2nZ1muvxe3T91vvMNfL+XELJCLdHTA+T53VUVeX0KW8WmFOU9hOOUvveuTJk67X4ZjmGXL3eTMHarWWkzW7qLIAe/mGn6lXd5K90Az4brfZKH4qYC4V8/+v/1J+gCZH8rQTjRxX7GQRUAHWBy38aFMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=tvidsCKs; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1791270427; c=relaxed/simple;
+	bh=iiX60+Z7HoWkdWXO4dHEAUZDSGDyej80VhEbBoX8gwM=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=T46cbeFOjBEHNevqOtOW/3rNUWonFeLpGN1FSts5S/DUwWe568MKIiU0ObQaLORalqj12aH6Dbgpa0Bj+GT3iMS79gKbLIHKXc4dWAunNoQQUpO2VkJeWDRvqTHmjlFzbeVfJVwSzHP/BYdpO+KCd++ywk9iTk2ZM4Q7wE7yjZo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=aVoL/uSY; arc=none smtp.client-ip=91.218.175.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="tvidsCKs"
-Received: from ideasonboard.com (mob-5-90-111-156.net.vodafone.it [5.90.111.156])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 46466493;
-	Tue,  6 Oct 2026 09:04:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1791270293;
-	bh=cQxRqSaiZxL4F4PCK3yebx8k0CW4SsErsJmdQgRQYVI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=tvidsCKsdLju6k3ry4umHRK+Au3IYQvMYM78RppaE/229aIXkHANU+QqzIzf+/XIp
-	 JNSl1ZXAEq/H/SqfBLoFc8tobc9f2+NF7377fMrydgOkG5m8guqvsCXFkWG4MLis4f
-	 AqaJFQNGvW4gr3sTqEKCRm8OPTDePC8kDtkDwLO0=
-Date: Tue, 6 Oct 2026 09:06:44 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Bryan O'Donoghue <bod@kernel.org>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>, 
-	Richard Acayan <mailingradian@gmail.com>, Hans Verkuil <hverkuil@kernel.org>, 
-	Gjorgji Rosikopulos <quic_grosikop@quicinc.com>, Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, 
-	Robert Foss <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>, 
-	linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Antoine Bouyer <antoine.bouyer@nxp.com>, 
-	Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 00/74] RFC: Switch on IFE YUV, Stats and Params support
- for sm8650
-Message-ID: <asSdUQ-2fnvcD-h_@zed>
-References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="aVoL/uSY"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=iiX60+Z7HoWkdWXO4dHEAUZDSGDyej80VhEbBoX8gwM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791270422; v=1; x=1791875222;
+ b=aVoL/uSYBWCW1DCoo2IBDE4gl3og16/jKx5nsu68OzA10UuILy+It16WU3knCDsT0dqH/nHq
+ Ye8j/BAalO0FwQ6i3Z4zIEB1M6v8gGTZ1LD9bgquoFbznXTW4M29w/ci9YJZnLiYN3ulIetheKo
+ 5f5fcifKh3IN+AsjRaxlynHg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 62fdbc330a98d3b4;
+	Tue, 06 Oct 2026 07:07:02 +0000
+X-Mizu-Trace-ID: 62fdbc330a98d3b4
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+Date: Tue, 06 Oct 2026 07:07:02 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Luka Gejak" <luka.gejak@linux.dev>
+Message-ID: <9f11a1ee89aa22a2ce23238b5ac968463f6e79a2@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH rtw-next v7 4/6] wifi: rtw88: 8723b: add the RTL8723B
+ chip driver
+To: "Ping-Ke Shih" <pkshih@realtek.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, "Michael  
+ Straube" <straube.linux@gmail.com>, "Peter Robinson"
+ <pbrobinson@gmail.com>, "Bitterblue Smith" <rtl8821cerfe2@gmail.com>,
+ luka.gejak@linux.dev
+In-Reply-To: <f23d5ed909c746ad851bd1038966d271@realtek.com>
+References: <20261002073845.31486-1-luka.gejak@linux.dev>
+ <20261002073845.31486-5-luka.gejak@linux.dev>
+ <aa7d919d98304ee095990735f39095ac@realtek.com>
+ <DLWXWMOGZGX9.UANQJR9PZYWG@linux.dev>
+ <359ea3a6857d4aba9c83876a10f7f9e8@realtek.com>
+ <a1d007fffc35466a2d63a3fe6839286f3488d7be@linux.dev>
+ <f23d5ed909c746ad851bd1038966d271@realtek.com>
 
-Hi Bryan
+October 6, 2026 at 07:29, "Ping-Ke Shih" <pkshih@realtek.com mailto:pkshi=
+h@realtek.com?to=3D%22Ping-Ke%20Shih%22%20%3Cpkshih%40realtek.com%3E > wr=
+ote:
 
-On Mon, Oct 05, 2026 at 07:13:30PM +0200, Bryan O'Donoghue wrote:
-> This extensive series restructures CAMSS around the idea of lines and
-> outputs more closely matching the concepts in the camera hardware.
->
-> To begin with some bug fixing and some dependencies on the OPE series are
-> pulled in.
->
-> Following that a series of changes to enable the IFE hardware is introduced
-> for VFE780.
->
-> Supported in this drop:
->
-> - YUV output on the pix path
->   YUV downscale 16 and downscale 4 work on a staging branch
->   but with this series at 60 patches I've not included that.
->
-> - Stats output
->   Bayer histogram only
->
->   How many stats are intended to be brought out this way ?
->   Consider that scene in The Terminator when the guy in the gun
->   store.
->
->   Gun store owner: "So which will it be"
->   The Terminator: "All"
->
->   More seriously once this series lands then it will be possible to bring
->   out stats for Agatti mitigating the need for calculating stats in
->   software.
->
-> - Params application
->   AEC Bayer hist params
->
->   Again there are no limits envisaged on which params are to be enabled.
->
->   "All"
->
-> - Testing on HDK sm8650
->
->   There is a repo to test this stuff out:
->
->   https://github.com/0xB0D/ife-tests
->
-> Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
-> ---
-> Antoine Bouyer (2):
->       media: uapi: v4l2-isp: Add extensible statistics
->       media: Documentation: uapi: Update V4L2 ISP for extensible stats
->
-> Bryan O'Donoghue (66):
->       media: qcom: camss: vfe: Rename gen3 back to vfe780
->       media: qcom: camss: vfe: Separate VFE 690 from VFE 780/880
->       media: qcom: camss: Fix invalid declaration of PIX for SDM670
->       media: qcom: camss: Fix invalid declaration of PIX for SDM845
->       media: qcom: camss: Fix invalid declaration of PIX for sc8280xp
->       media: qcom: camss: Fix invalid declaration of PIX for x1e80100
->       media: qcom: camss: csid: Configure the stream on every s_stream
->       media: qcom: camss: Switch existing vfe_formats_pix_845 to vfe_formats_rdi_845
->       media: qcom: camss: Define PIX formats for x1e PIX interface
->       media: qcom: camss: vfe: Add helper vfe_bus_v3_packer_fmt()
->       media: qcom: camss: vfe: Represent output as an array instead of a singleton
->       media: qcom: camss: vfe: Move video_out from vfe_line to vfe_output
->       media: qcom: camss: vfe: Represent vfe wm inside of a struct
->       media: qcom: camss: vfe: Add is_pix to struct line
->       media: qcom: camss: vfe: Add comp_group to struct vfe_wm
->       media: qcom: camss: vfe: Define vfe v3 completion group enum
->       media: qcom: camss: vfe: Define output based VFE controls
->       media: qcom: camss: vfe: Call vfe_subdev_init after not before significant enumeration
->       media: qcom: camss: vfe: Move legacy VFE bus client assignment to msm_vfe_subdev_init
->       media: qcom: camss: vfe: Add planes identifier to struct wm
->       media: qcom: camss: vfe: Specify number of pads via line->num_pads
->       media: qcom: camss: vfe: Add support for starting multiple write-masters in one output's group
->       media: qcom: camss: vfe: Add support for updating multiple write-masters within an output group
->       media: qcom: camss: vfe: Update an output group's write masters on buffer done
->       media: qcom: camss: vfe: Add support for stopping outputs which contain multiple write masters
->       media: qcom: camss: vfe: Stop an output group once
->       media: qcom: camss: vfe: Add helper __vfe_pix_format_is_raw
->       media: qcom: camss: csid: Add helper function csid_ipp_bayer_pattern
->       media: qcom: camss: vfe: Decompose repeated code down to __vfe_src_pad_default()
->       media: qcom: camss: vfe: Eliminate ever expanding src_pad_code switch logic
->       media: qcom: camss: vfe: Add Bayer to YUV conversion switch cases for PIX
->       media: qcom: camss: vfe-gen3: Define full array of write-masters
->       media: qcom: camss: vfe-gen3: Enable PIX formats on PIX interfaces
->       media: qcom: camss: vfe: Pass struct line to wm_stop
->       media: qcom: camss: vfe-780: Use bus-client to derive write master index
->       media: qcom: camss: vfe-780: Switch on YUV pix path
->       media: qcom: camss: vfe: Add support for pix pad data-types
->       media: qcom: camss: vfe: Add helper methods to enumerate output descriptors
->       media: qcom: camss: Pass new struct camss_buf_done_info to camss_buf_done
->       media: qcom: camss: Add a status field to camss_buf_done_info
->       media: qcom: camss: csid-gen3: Enable the IPP path
->       media: qcom: camss: vfe: Pass the completion info to vfe_buf_done()
->       media: qcom: camss: vfe: Pass the buffer to vfe_wm_update()
->       media: qcom: camss: Add the SM8650 IFE pixel pipe configuration
->       media: qcom: camss: csid-gen3: Define the IPP reg update port in the header
->       media: qcom: camss: vfe-880: Program the pixel pipe outside output_lock
->       media: qcom: camss: vfe: Make is_pix the only test for the pixel path
->       media: qcom: camss: csid-gen3: Route IPP completions to the port the IPP feeds
->       media: qcom: camss: vfe-780: Add full-resolution YUV on the PIX line
->       media: uapi: Add CAMSS ISP statistics definition
->       media: Documentation: uapi: Add qcom-camss ISP statistics
->       media: qcom: camss: vfe: Select line-based mode for the pixel path's video node
->       media: qcom: camss: vfe: Size the pixel path clock by its pixels per clock
->       media: qcom: camss: vfe: Size the outputs for the PIX line and set up each one
->       media: qcom: camss: video: Support metadata capture nodes
->       media: qcom: camss: vfe: Register a statistics node for the pixel line
->       media: qcom: camss: vfe: Complete pixel line outputs on their own completion group
->       media: qcom: camss: vfe-780: Produce the AEC Bayer histogram statistics
->       media: uapi: Add the CAMSS AEC Bayer histogram configuration
->       media: v4l2: Add the Qualcomm CAMSS ISP parameters format
->       media: Documentation: uapi: Add the CAMSS IFE parameters
->       media: qcom: camss: video: Support metadata output nodes
->       media: qcom: camss: vfe: Register and apply a parameters node for the pixel line
->       media: qcom: camss: vfe-780: Apply the AEC Bayer histogram parameters
->       media: qcom: camss: vfe-780: Drive the write masters through the output ops
->       media: qcom: camss: vfe: Pass the write master its address again
->
-> Jacopo Mondi (4):
->       media: v4l2-isp: Rename v4l2_isp_params_buffer_size
->       media: v4l2-isp: Add per-block validation callback
->       media: amlogic-c3: Implement per-block validation
->       media: v4l2-isp: Add helpers for stats buffer
 
-What branch are you based on ? This has been collected for 7.3 and
-if you base your work on media-committers/next you should find it
-there
+>=20
+>=20Luka Gejak <luka.gejak@linux.dev> wrote:
+>=20
+>=20>=20
+>=20> >
+> >  > However, including rtw8703b.h from another chip driver is
+> >  > already established, rtw8723cs.c includes it to reuse rtw8703b_hw_=
+spec.
+> >  >
+> >  As I know, 8723CS and 8723B are mutual alias, no?
+> >=20=20
+>=20>  As far as I know, they are not. They are different chips.
+> >=20
+>=20fix typo.
+>=20
+>=208723CS and 8703B are mutual alias, no?
+>=20
 
-Thanks
-  j
+Possibly,=20but either way I will move, so it shared.
 
->
-> Loic Poulain (2):
->       media: uapi: Add CAMSS ISP configuration definition
->       media: Documentation: uapi: Add qcom-camss ISP params documentation
->
->  .../userspace-api/media/v4l/meta-formats.rst       |   1 +
->  .../userspace-api/media/v4l/metafmt-qcom-isp.rst   | 219 +++++
->  Documentation/userspace-api/media/v4l/v4l2-isp.rst |  45 +-
->  MAINTAINERS                                        |   1 +
->  .../media/platform/amlogic/c3/isp/c3-isp-params.c  |  42 +-
->  .../media/platform/arm/mali-c55/mali-c55-params.c  |  12 +-
->  drivers/media/platform/qcom/camss/Kconfig          |   2 +
->  drivers/media/platform/qcom/camss/Makefile         |   4 +-
->  drivers/media/platform/qcom/camss/camss-csid-680.c |   8 +-
->  .../media/platform/qcom/camss/camss-csid-gen3.c    | 131 ++-
->  .../media/platform/qcom/camss/camss-csid-gen3.h    |   3 +
->  drivers/media/platform/qcom/camss/camss-csid.c     |  37 +-
->  drivers/media/platform/qcom/camss/camss-csid.h     |  18 +-
->  drivers/media/platform/qcom/camss/camss-vfe-17x.c  |  10 +-
->  drivers/media/platform/qcom/camss/camss-vfe-340.c  |  12 +-
->  drivers/media/platform/qcom/camss/camss-vfe-4-1.c  |  20 +-
->  drivers/media/platform/qcom/camss/camss-vfe-4-7.c  |  34 +-
->  drivers/media/platform/qcom/camss/camss-vfe-4-8.c  |  34 +-
->  drivers/media/platform/qcom/camss/camss-vfe-480.c  |  19 +-
->  drivers/media/platform/qcom/camss/camss-vfe-680.c  |   4 +-
->  .../camss/{camss-vfe-gen3.c => camss-vfe-690.c}    |  53 +-
->  drivers/media/platform/qcom/camss/camss-vfe-780.c  | 419 +++++++++
->  .../media/platform/qcom/camss/camss-vfe-880-pp.c   | 629 +++++++++++++
->  .../media/platform/qcom/camss/camss-vfe-880-pp.h   |  13 +
->  drivers/media/platform/qcom/camss/camss-vfe-gen1.c |  96 +-
->  drivers/media/platform/qcom/camss/camss-vfe.c      | 985 ++++++++++++++++++---
->  drivers/media/platform/qcom/camss/camss-vfe.h      | 156 +++-
->  drivers/media/platform/qcom/camss/camss-video.c    | 235 ++++-
->  drivers/media/platform/qcom/camss/camss-video.h    |   8 +
->  drivers/media/platform/qcom/camss/camss.c          | 156 ++--
->  drivers/media/platform/qcom/camss/camss.h          |   8 +-
->  drivers/media/v4l2-core/v4l2-ioctl.c               |   2 +
->  drivers/media/v4l2-core/v4l2-isp.c                 |  55 ++
->  include/media/v4l2-isp.h                           |  94 +-
->  include/uapi/linux/media/v4l2-isp.h                | 125 ++-
->  include/uapi/linux/qcom-camss-config.h             | 273 ++++++
->  include/uapi/linux/videodev2.h                     |   4 +
->  37 files changed, 3464 insertions(+), 503 deletions(-)
-> ---
-> base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
-> change-id: 20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-aa75cdf2c39b
->
-> Best regards,
-> --
-> Bryan O'Donoghue <bod@kernel.org>
->
+> >=20
+>=20> >
+> >  > +/*
+> >  > + * Row 20 (-6.0 dB) intentionally does not match the v5.2.17 vend=
+or driver,
+> >  >
+> >  > I really don't want to mention vendor driver here. If you really n=
+eed it,
+> >  > mention it in commit message or cover-letter.
+> >  >
+> >  > + * which has 0x1c, 0x1a, 0x18, 0x12, 0x0e, 0x08 there. Every othe=
+r row agrees.
+> >  > + * The values below are what rtl8723be, the mainline driver for t=
+his same
+> >  > + * chip, uses at the same index, and they are also what the vendo=
+r's own
+> >  > + * cck_swing_table_ch1_ch13_92e and the staging rtl8723bs driver =
+use. They
+> >  > + * also track the 0.5 dB step of the surrounding rows: against ro=
+w 32 as 0 dB,
+> >  > + * 0x1b is within 0.06 of the ideal -6.0 dB value while 0x1c is 0=
+.94 away,
+> >  > + * the largest error anywhere in the table. Treat the vendor row =
+as the
+> >  > + * anomaly and do not "fix" this towards it.
+> >  >
+> >  > And you have comments each row. Is it still need this block commen=
+t to explain?
+> >  >
+> >  >
+> >  > I agree, will drop vendor reference and block comment.
+> >  >
+> >  I'm not sure if LLM writes this? LLM always write verbose comments f=
+or
+> >  each line it added. Just ask LLM to write self-explained code.
+> >=20=20
+>=20>  No, I wrote it because only 1 row differs from vendor driver and I
+> >  thought I should mention it.
+> >=20
+>=20No worries. Just remove them.
+>=20
+>=20>=20
+>=20> >
+> >  > So I would
+> >  > prefer to leave both tables as they are. If you want the unused fi=
+elds listed as dummies
+> >  > to pin the order, I can add them, but the sequence itself would no=
+t change.
+> >  >
+> >  I will think a bit how to align these messed tables.
+> >=20=20
+>=20>  I understand. I am gonna send v8 today, and do you think that v8 c=
+ould
+> >  be merged, so driver lands in 7.4 release?
+> >=20
+>=20I think only minor changes are needed, it is possible to get merged i=
+nto 7.4
+> The messed tables can be ignored for now.=20
+
+You=20made few minor comments on rtw8723b.c which I addressed in v8.
+
+Best regards,
+Luka Gejak
