@@ -1,274 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-245.mta0.migadu.com [91.218.175.245])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82EA43E5594;
-	Tue,  6 Oct 2026 13:18:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3BB54418D7
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 13:19:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.245
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791292696; cv=none; b=SzRaiJNrLN+2AsDKmRMVygMSeF/MvRzjYxFeX35KljOIFzzI9ErHvcY5ozDPiPgd7aqPzqf43G4lBERXb6J2v6RV6MR4/v+wZqDvP1uLoKPUxYydLMErqRh0gGEPmsCFiwk2Ag1IPRudIhgPJ/bbzSDMVGwuJ6MKQuErYppZliE=
+	t=1791292745; cv=none; b=eA6HmC2kqMrAqH1yGt10IqHT8S4ldKS5dbAKFE/4/bxlwFO6UK/O37XRMPoLGi6lavtUxMNPvBpb/u8lp3FQty34sGKSdJulUvx5FTa4S9XfWrbkJ1fhx4Ay+2HYEo4wu8MDWZe0ZL8G6Hux9sUg04qfWFzwJ4y1oNeSVcRIu5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791292696; c=relaxed/simple;
-	bh=Q6hr1e//NWP3w9MThugtcJDfN/0Qb8J9ZQvzVy5bgLo=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=XWbxghj3mC882P7KMEvIAieEPvAg6nqpgasM5F3dbfRVnrS/+AQ/p2MIBrrQ3uATvgZ8k7h2NGtP03b4hBBeK3tHQfLIa96SBGV3+uEUKdQAT36a7zRdzlZ6cWqwMg/mEILrfStg8TOkS1+G+BqqgHh//1uhDgWwocFSckyDcco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LJGjF317; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791292745; c=relaxed/simple;
+	bh=DRIrSbkbtrBkartjFVq+RFV2/jC6XURTKQFkUBIVp7w=;
+	h=From:To:Cc:Subject:Date:Message-Id; b=c/n9k9tfycZx5+zRxjB6SDsS3lf7b/cH9LjsckyPTG7sD39L0XJAVEfZ8ppxuNyT4OlGfdVBiB1wwaiReCd5tXN+D/1r9PlNKeoEdg4XFZ1hVAO0V4GujBePrJD1jgQCkBwdt0zlHtQlm1fpatBXWRIc2Bm92xUXQ1kRc3HFFFM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AjqrfXhZ; arc=none smtp.client-ip=91.218.175.245
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LJGjF317"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 635E41F00893;
-	Tue,  6 Oct 2026 13:18:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791292695;
-	bh=CQWkEbyFeoypLgC86ETxzKIKgUjEbxY7Sx+JR0+C0oQ=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=LJGjF317k7V3P6G9GplpyL92/8Yh5NVHAvmwHiShqwcJnbSgL9Zo1AcWkxT+C45CH
-	 zVppVIv7hLKBscwcjrlYdKn18pzizZ2fof7AzTDPz3OvHYlYXFnddprKUNx1a62/Th
-	 ipbou2J36b4KHjKsd7G4HCgJ1+H423MLKC2Ac94h1GfPvPGyO9OdOGZfqPBs2J70OG
-	 nn8hFsR8rxAtWPzLDL6VL5PcOtJ69gg8yqj2on5B9MiV+v6J97t8o02R4fsJe6zoAu
-	 aHwI7CAsQjsZDe1b4ijautavlG8wD9cXYvqsSH2GOTiTrgW1V1T7I6hCDbyoHsL5aC
-	 rtCz0eVNyF3ZA==
-Subject: Re: [PATCH net v3 1/2] eth: fbnic: Preserve channels across resume
-From: netdev-bot+sashiko@kernel.org
-To: bjorn@kernel.org
-Cc: alexanderduyck@fb.com, kuba@kernel.org, kernel-team@meta.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- pabeni@redhat.com, linux@armlinux.org.uk, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, mike.marciniszyn@gmail.com,
- almasrymina@google.com, netdev-bot+sashiko@kernel.org
-Date: Tue, 06 Oct 2026 13:18:13 +0000
-Message-ID: <179129269393.434549.14053731707723183539@kernel.org>
-In-Reply-To: <20261002125617.409447-2-bjorn@kernel.org>
-References: <20261002125617.409447-2-bjorn@kernel.org>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AjqrfXhZ"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=DRIrSbkbtrBkartjFVq+RFV2/jC6XURTKQFkUBIVp7w=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791292741; v=1; x=1791897541;
+ b=AjqrfXhZj3cFgdo8TelIuhFI0bfSPdumqJREtUX1+K3qGkaL6qdMxhFmIOOdAhMnF3p1+3lM
+ r9C5eR3dBI3CIsCT/MwhuN+VdLiycFTjeYreI2hqRG9p5BFuGtxZVPF6/CJpOZZpaQPYWO/1NtI
+ 1trzirqTiw4IpuBnOiLQK7R4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9087b2f6437d9c29;
+	Tue, 06 Oct 2026 13:19:00 +0000
+X-Mizu-Trace-ID: 9087b2f6437d9c29
+X-Migadu-Flow: FLOW_OUT
+From: Shawn Lin <shawn.lin@linux.dev>
+To: Ulf Hansson <ulfh@kernel.org>
+Cc: linux-mmc@vger.kernel.org,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	linux-kernel@vger.kernel.org,
+	Shawn Lin <shawn.lin@linux.dev>
+Subject: [PATCH] mmc: core: Fix max_dtr passed to SD drive strength selection
+Date: Tue,  6 Oct 2026 21:18:46 +0800
+Message-Id: <1791292726-31978-1-git-send-email-shawn.lin@linux.dev>
+X-Mailer: git-send-email 2.7.4
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+sd_select_driver_type() passes card->sw_caps.uhs_max_dtr to
+mmc_select_drive_strength(), but that field is only assigned later by
+sd_set_bus_speed_mode().  A card initialized for the first time thus
+gets max_dtr=0, while a re-initialized card (system resume or
+hw reset recovery reuse the card struct) gets the stale value from the
+previous initialization.
 
-Critical: 0 · High: 2 · Medium: 0 (2) · Low: 0
+No in-tree driver implementing ->select_drive_strength() (AMD and Intel
+SDHCI) actually looks at max_dtr, so there is no functional impact
+today.  Still, compute the frequency from the bus speed mode that
+sd_update_bus_speed_mode() has already selected, so the core doesn't
+hand out a bogus value, and use the same helper in sd_set_bus_speed_mode()
+to keep a single mapping.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Signed-off-by: Shawn Lin <shawn.lin@linux.dev>
+---
 
-- [High] This patch makes resume fail outright when fewer MSI-X vectors
-  come back than before suspend, and the commit message describes that…
-- [High] After one failed resume, num_napi stays 0 for good, and the next
-  open divides by zero and oopses.
+ drivers/mmc/core/sd.c | 25 +++++++++++++++++++------
+ 1 file changed, 19 insertions(+), 6 deletions(-)
 
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but
-  __fbnic_pm_attach() calls fbnic_up() without holding rtnl or the…
-- [Medium] This problem wasn't introduced by this patch, but
-  fbnic_service_task_stop() uses cancel_delayed_work(), which does not…
-
---
-
-eth: fbnic: Preserve channels across resume
-
-This patch keeps fbn->num_napi across suspend instead of clearing it. It
-also drops the fbnic_reset_queues() call from __fbnic_pm_resume(), so the
-pre-suspend channel layout is reused on resume. fbnic_stop() gets a new
-early return for when the NAPI vectors have already been freed.
-
-> diff --git a/drivers/net/ethernet/meta/fbnic/fbnic_pci.c b/drivers/net/ethernet/meta/fbnic/fbnic_pci.c
-> index c6698e3002a13..ec916c9f7faa4 100644
-> --- a/drivers/net/ethernet/meta/fbnic/fbnic_pci.c
-> +++ b/drivers/net/ethernet/meta/fbnic/fbnic_pci.c
-
-[ ... ]
-
-> @@ -442,16 +441,11 @@ static int fbnic_pm_suspend(struct device *dev)
->  	rtnl_lock();
->  	netdev_lock(netdev);
->  
-> -	fbn = netdev_priv(netdev);
-> -
->  	netif_device_detach(netdev);
->  
->  	if (netif_running(netdev))
->  		netdev->netdev_ops->ndo_stop(netdev);
-
-[Severity: Medium]
-This is a pre-existing issue, but should fbnic_service_task_stop() use
-cancel_delayed_work_sync() here?
-
-drivers/net/ethernet/meta/fbnic/fbnic_pci.c:fbnic_service_task_stop() {
-	...
-	cancel_delayed_work(&fbd->service_task);
-}
-
-fbnic_service_task() takes rtnl_lock(), and at the end it re-arms itself:
-
-	if (netif_running(netdev))
-		schedule_delayed_work(&fbd->service_task, HZ);
-
-fbnic_pm_suspend() calls ndo_stop directly, so __LINK_STATE_START stays
-set. Suppose an instance is already running and blocked on rtnl_lock()
-while suspend holds rtnl. The cancel on this path does not wait for it:
-
-fbnic_stop()->fbnic_down()->fbnic_down_noidle()->fbnic_service_task_stop()
-
-Suspend then drops rtnl and goes on to fbnic_fw_free_mbx(),
-fbnic_free_irqs() and clearing uc_addr0/uc_addr4. Can the service task
-then run fbnic_get_hw_stats32(), fbnic_fw_check_heartbeat() and
-fbnic_health_check() against hardware that is being torn down? After that
-it would re-arm every HZ while the device is suspended.
-
-The MMIO accessors and the mailbox TX path have their own guards, so no
-concrete crash has been shown. With this patch num_napi now stays
-non-zero while napi[] is NULL. fbnic_napi_depletion_check() only runs
-when netif_carrier_ok(), and phylink_suspend() turns the carrier off, so
-that walk does not seem to be reached.
-
->  
-> -	/* The IRQs are about to be freed, so drop the napi vector count */
-> -	fbn->num_napi = 0;
-> -
->  	netdev_unlock(netdev);
->  	rtnl_unlock();
->  
-> @@ -519,9 +513,6 @@ static int __fbnic_pm_resume(struct device *dev)
->  
->  	fbn = netdev_priv(netdev);
->  
-> -	/* Reset the queues if needed */
-> -	fbnic_reset_queues(fbn, fbn->num_tx_queues, fbn->num_rx_queues);
-> -
-
-[Severity: High]
-Wasn't this call the only place where the channel layout was clamped to
-the MSI-X vectors actually granted on resume?
-
-Earlier in __fbnic_pm_resume(), fbnic_alloc_irqs() renegotiates
-fbd->num_irqs from the current online CPU count. It accepts as few as
-FBNIC_NON_NAPI_VECTORS + 1:
-
-	wanted_irqs += min_t(unsigned int, num_online_cpus(), FBNIC_MAX_RXQS);
-	num_irqs = pci_alloc_irq_vectors(pdev, FBNIC_NON_NAPI_VECTORS + 1,
-					 wanted_irqs, PCI_IRQ_MSIX);
-	...
-	fbd->num_irqs = num_irqs;
-
-Before this patch, fbnic_reset_queues() clamped tx/rx to max_napis =
-fbd->num_irqs - FBNIC_NON_NAPI_VECTORS and set num_napi = max(tx, rx).
-The interface came back with fewer queues but still worked.
-
-Fewer vectors can come back if CPUs went offline after probe or the
-MSI-X grant is smaller. With this call removed, num_napi can then be
-larger than num_irqs - FBNIC_NON_NAPI_VECTORS, which breaks the bound
-fbnic_set_channels() enforces. In that case:
-
-__fbnic_open()
-  fbnic_alloc_napi_vectors()
-    fbnic_alloc_napi_vector()
-      fbnic_napi_request_irq()
-        fbnic_request_irq()
-          pci_irq_vector()   <- -EINVAL for an unallocated MSI-X index
-
-__fbnic_open() then fails, and __fbnic_pm_resume() unwinds through
-err_free_mbx. netif_device_attach() is never called, so the NIC stays
-unusable until the driver is reloaded.
-
-The AER path also goes through __fbnic_pm_resume(). There,
-fbnic_err_slot_reset() now returns PCI_ERS_RESULT_DISCONNECT where it
-used to return PCI_ERS_RESULT_RECOVERED.
-
-The commit message says:
-
-    If fewer IRQs return, reopening still fails. Handle that separately.
-
-Is that accurate for the code before this patch? The removed
-fbnic_reset_queues() call seems to have handled exactly this case, so
-this failure looks like it comes from this patch. The follow-up "eth:
-fbnic: Publish real queue counts" does not touch the resume path, so the
-problem is still present at the end of the series.
-
->  	if (netif_running(netdev)) {
->  		err = __fbnic_open(fbn);
->  		/* On failure the vectors are freed, so drop the count */
-
-[Severity: High]
-With fbnic_reset_queues() gone from resume, what restores num_napi after
-this failure path?
-
-Right below this comment, the error path still does:
-
-		if (err)
-			fbn->num_napi = 0;
-
-Before this patch, the fbnic_reset_queues() call on the next resume
-rebuilt num_napi from num_tx_queues/num_rx_queues. fbnic_reset_queues()
-is now static and only called from fbnic_netdev_alloc(). So num_napi
-stays 0 while the queue counts stay non-zero and netif_running() stays
-set. ethtool can't repair it either, because the device is detached.
-
-On the next suspend, the new guard in fbnic_stop() returns early:
-
-	if (!fbn->napi[0])
-		return 0;
-
-On the next resume, num_napi == 0 does not match num_tx + num_rx, so
-fbnic_alloc_napi_vectors() skips the 1:1 branch and reaches:
-
-	while (num_rx | num_tx) {
-		int tqpv = DIV_ROUND_UP(num_tx, num_napi - txq_idx);
-
-Here num_napi == 0 and txq_idx == 0. Can this divide by zero while
-rtnl_lock and the netdev instance lock are held?
-
-There is also a second path. After the failed resume, run ip link set
-down: fbnic_stop() takes the early return. A later suspend/resume then
-succeeds and re-attaches the device. Then ip link set up calls
-fbnic_open()->__fbnic_open() with num_napi still 0.
-
-The first failure doesn't need fewer MSI-X vectors (see above). It can
-also come from -ENOMEM in fbnic_alloc_resources(), a FW ownership message
-failure, a heartbeat init failure, or a fbnic_mac_request_irq() failure.
-
-This also seems to contradict the new comment in fbnic_stop(), which says
-suspend "keeps num_napi for resume". fbnic_get_channels() would also
-derive its combined/standalone split from num_napi == 0, not from what
-the user configured.
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but on the same resume path,
-__fbnic_pm_attach() calls fbnic_up() without rtnl or the netdev instance
-lock:
-
-	rtnl_lock();
-	fbnic_reset_hw_stats(fbd);
-	rtnl_unlock();
-	...
-	if (netif_running(netdev))
-		fbnic_up(fbn);
-
-fbnic_up()->fbnic_napi_enable() walks fbn->napi[0..num_napi) and calls
-napi_enable_locked(). Everywhere else (ndo_open, set_channels) this runs
-under rtnl + netdev_lock.
-
-During AER recovery the two halves are separate callbacks.
-fbnic_err_slot_reset()->__fbnic_pm_resume() allocates the NAPI vectors
-under rtnl + netdev_lock and then drops both locks.
-fbnic_err_resume()->__fbnic_pm_attach() runs later. Userspace is not
-frozen in between.
-
-Could an ip link set down in that window reach
-fbnic_stop()->fbnic_down()->fbnic_napi_disable() on NAPIs that were never
-enabled? NAPI_STATE_SCHED is still set from netif_napi_add(), so
-napi_disable_locked() would keep looping in its usleep_range() wait with
-rtnl held.
-
-And if the close overlaps fbnic_up() instead, can fbnic_free_napi_vectors()
-free fbn->napi[i] while fbnic_up() is still using it?
-
+diff --git a/drivers/mmc/core/sd.c b/drivers/mmc/core/sd.c
+index c763efb..5ba4e2d 100644
+--- a/drivers/mmc/core/sd.c
++++ b/drivers/mmc/core/sd.c
+@@ -417,6 +417,22 @@ int mmc_sd_switch_hs(struct mmc_card *card)
+ 	return err;
+ }
+ 
++static unsigned int sd_get_bus_speed_dtr(struct mmc_card *card)
++{
++	switch (card->sd_bus_speed) {
++	case UHS_SDR104_BUS_SPEED:
++		return UHS_SDR104_MAX_DTR;
++	case UHS_DDR50_BUS_SPEED:
++		return UHS_DDR50_MAX_DTR;
++	case UHS_SDR50_BUS_SPEED:
++		return UHS_SDR50_MAX_DTR;
++	case UHS_SDR25_BUS_SPEED:
++		return UHS_SDR25_MAX_DTR;
++	default:
++		return UHS_SDR12_MAX_DTR;
++	}
++}
++
+ static int sd_select_driver_type(struct mmc_card *card, u8 *status)
+ {
+ 	int card_drv_type, drive_strength, drv_type;
+@@ -427,7 +443,7 @@ static int sd_select_driver_type(struct mmc_card *card, u8 *status)
+ 	card_drv_type = card->sw_caps.sd3_drv_type | SD_DRIVER_TYPE_B;
+ 
+ 	drive_strength = mmc_select_drive_strength(card,
+-						   card->sw_caps.uhs_max_dtr,
++						   sd_get_bus_speed_dtr(card),
+ 						   card_drv_type, &drv_type);
+ 
+ 	if (drive_strength) {
+@@ -490,28 +506,25 @@ static int sd_set_bus_speed_mode(struct mmc_card *card, u8 *status)
+ 	switch (card->sd_bus_speed) {
+ 	case UHS_SDR104_BUS_SPEED:
+ 		timing = MMC_TIMING_UHS_SDR104;
+-		card->sw_caps.uhs_max_dtr = UHS_SDR104_MAX_DTR;
+ 		break;
+ 	case UHS_DDR50_BUS_SPEED:
+ 		timing = MMC_TIMING_UHS_DDR50;
+-		card->sw_caps.uhs_max_dtr = UHS_DDR50_MAX_DTR;
+ 		break;
+ 	case UHS_SDR50_BUS_SPEED:
+ 		timing = MMC_TIMING_UHS_SDR50;
+-		card->sw_caps.uhs_max_dtr = UHS_SDR50_MAX_DTR;
+ 		break;
+ 	case UHS_SDR25_BUS_SPEED:
+ 		timing = MMC_TIMING_UHS_SDR25;
+-		card->sw_caps.uhs_max_dtr = UHS_SDR25_MAX_DTR;
+ 		break;
+ 	case UHS_SDR12_BUS_SPEED:
+ 		timing = MMC_TIMING_UHS_SDR12;
+-		card->sw_caps.uhs_max_dtr = UHS_SDR12_MAX_DTR;
+ 		break;
+ 	default:
+ 		return 0;
+ 	}
+ 
++	card->sw_caps.uhs_max_dtr = sd_get_bus_speed_dtr(card);
++
+ 	err = mmc_sd_switch(card, SD_SWITCH_SET, 0, card->sd_bus_speed, status);
+ 	if (err)
+ 		return err;
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261002125617.409447-1-bjorn%40kernel.org
+2.7.4
+
