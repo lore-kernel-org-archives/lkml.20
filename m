@@ -1,284 +1,106 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B05F0260580;
-	Tue,  6 Oct 2026 06:15:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CC833955C4
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 06:16:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791267349; cv=none; b=PK66FILUY5jy7zMOwDV7oZJsiD5SBbFOfhNhCEt/XT8zueeukYhB99ZbAqVyO607GkISB2VpspLSnvGM74q0vZZN3/2Edrnk2XpsbS2VbuSziat2SGfqOcBj82d5OIHcYKDag3epbaLwKXT6/JPKRmC8ypR5K0DQDY6oMX6xqV4=
+	t=1791267414; cv=none; b=j/IUFucB3Jy8vQeRDz4cE4rcdANqSf2Ts9XtQ+pYDt/wpZppdXPBka71sxPCpKBzfjFjfQQM8jcoT+3CpFDh5GibdnfHn0D8oEyS7K3EDXQGTYShqkWDZhEqZMccEtVU/qzxEaayTuEQv7BWPXF38Gr5GnItK+YBb7n/RmLGkEg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791267349; c=relaxed/simple;
-	bh=rCqwZ2IjgmH5Im+4R8OwXzGglNEF337ZZbfKCwd83Ac=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=gGRa+wv0nSb+HR/BM4I6AzS82hliKd4CGdBz+jJWcrrkA27uiznmC2xuYCpy/q2+afp5PrxXxs2fs2/4OPPCjf+2oEmlD9R9IobQU+Bo0bYxwWJ/5PI7DMAyvRYcevNCu8ezHp7jDwZmWsSkV00o7U19etDKh7BheK5NCKTxeI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=qkNQ8z/p; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791267414; c=relaxed/simple;
+	bh=O08cq3Y3cQTH/9SBVvDHHzM60EuXDef5UreGi/S+Czk=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=tAkRAnBJRbtZKL7n22g7yRBOUKAts/EJdCZ1WBRFgxXf4WfvfUY1jTotEPVjyjm/AvMYUXL0fJN9iy8fGPYOUZs9dHG0fwARXgdmai8We3ERcFojit8i6MP5mqCIk+ONZTVYD6HjzNs+KSAFlmrHUWxppYV1oA09IzGDQ+iOFCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Da2dVD3P; arc=none smtp.client-ip=209.85.215.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="qkNQ8z/p"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6963ZdQG695812;
-	Tue, 6 Oct 2026 06:14:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=+rXo/9
-	HsyVW3aJ8rwfYpaCgSZGYXBJigBbvc+8XFoRg=; b=qkNQ8z/pgO8CESdAoHTYTS
-	wTTpI5ZKwsYHoo0xrYLm+pQ+0Se50pZaLYDSQjXy4FE+6nJWanCIcGtWtmLDFEox
-	WvajW8y32zRCNq0mErRo53TUNzCNum1SlsNOtLC+qLhJ4bEuJUMaDH8STeVbqZZQ
-	OA0OQFzFsxjZNQushE7TsXxpfLVcyymrKh8dl8D9X4ogc4OzyX2LAXisy6B5aoXU
-	fDRqkxfbHe/Wk0XOrZbeO9RuCzTUy6NV6PYk4TBB7RFY5pSsrhy5Dm1YFVx7O02B
-	W4WKs+V0b5NpXsjysy/10ZfllFfi5/X1YKnOvwJrAi/Fb6w91BdEVYcQja5Rb+XQ
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2screajw-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 06 Oct 2026 06:14:42 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6963HdaR3925182;
-	Tue, 6 Oct 2026 06:14:41 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h3dhgrmj7-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 06 Oct 2026 06:14:41 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6966EZKP9240912
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 6 Oct 2026 06:14:35 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8649A2004E;
-	Tue,  6 Oct 2026 06:14:35 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 81DE42004B;
-	Tue,  6 Oct 2026 06:14:26 +0000 (GMT)
-Received: from shivang.upadyay (unknown [9.39.25.101])
-	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Tue,  6 Oct 2026 06:14:26 +0000 (GMT)
-Message-ID: <3297b07cf058b29251063e5e7dc61bf047c5148f.camel@linux.ibm.com>
-Subject: Re: [PATCH v2 4/6] objtool/powerpc: Skip jump destination analysis
- and unnanotated intra-function call warnings for --ftr-fixup
-From: Shivang Upadhyay <shivangu@linux.ibm.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linuxppc-dev@lists.ozlabs.org, sv@linux.ibm.com,
-        alexandre.chartre@oracle.com, alexghiti@rivosinc.com,
-        aliceryhl@google.com, ardb@kernel.org, bp@alien8.de,
-        chleroy@kernel.org, elver@google.com, ihor.solodrai@linux.dev,
-        jpoimboe@kernel.org, kees@kernel.org, legion@kernel.org,
-        lossin@kernel.org, maddy@linux.ibm.com, masahiroy@kernel.org,
-        mpe@ellerman.id.au, nathan@kernel.org, npiggin@gmail.com,
-        nsc@kernel.org, ojeda@kernel.org, pmladek@suse.com,
-        rostedt@goodmis.org, tamird@kernel.org,
-        thomas.weissschuh@linutronix.de, thuth@redhat.com,
-        yuxuan.zuo@outlook.com, sourabhjain@linux.ibm.com
-Date: Tue, 06 Oct 2026 11:44:25 +0530
-In-Reply-To: <20260930094449.GJ88198@noisy.programming.kicks-ass.net>
-References: <20260929055138.43489-1-shivangu@linux.ibm.com>
-	 <20260929055138.43489-5-shivangu@linux.ibm.com>
-	 <20260929142559.GC88198@noisy.programming.kicks-ass.net>
-	 <05e06ab0d9fc8810fc50e888e9e0f55b2ec9b77f.camel@linux.ibm.com>
-	 <20260930094449.GJ88198@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Da2dVD3P"
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc7361c62b9so1736350a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 23:16:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791267413; x=1791872213; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nSMXz7j7y1E19IYWz6Uz4I7uqLz4WSNGL5PR7f2zxls=;
+        b=Da2dVD3PS563p8xwQLOw6gK8OyrjV2rYAyZKuiXqdKT+Qv3g21nhi25tc9qKYstYN/
+         N0Aw2MiWcY47xBhG5dzPZoEc02outHWaTLeOUOWvr902bYPhMAC3rKGjo8i+ICD/LlQx
+         n/WTmqV0NhI4m4aoQXqz8qaOHD4eSBaWfHRNJeieVolLBtWP26mgiiD0NFRjcU7NgXxg
+         AjpkmqA3mrLYoNL0A5eiTtjF1zxeoOdpy+BAqwflTxjMwq+4OpVOvNthfJm3OYUU72Op
+         +xXG+ZGGNwToX+HxhwLSxjq6mxde1pmE7Xbjq05xme8UzOqqAXsR+1Ni4koSlXBDWF4Y
+         F2lA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791267413; x=1791872213;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nSMXz7j7y1E19IYWz6Uz4I7uqLz4WSNGL5PR7f2zxls=;
+        b=USR9X7YFxxLZM/+kjSCoAwoC1s/r9LJL7DcjlVBa2UE8jecxsbnViIsXHMkzvT77Vz
+         FXN/f7Ac8hdhsADhXJp1C5x1yOqaU9VfCpXQaltZx/MoUbaKvn0CT6p+CsauOopgxdDZ
+         8FPwSsxCTKbl0ACd/v63HK0GSK/jb6f9UJSGw75gx0188BWODN271dN5wjh0R08jcV4C
+         bJ931TA3oK/FXM+FHSy6bEzlZ0iRTGC5ja76fJZlO7rX1beolvA4DVATHAdKdzfVVMEW
+         NJQbBbfnzF4yMN3J2qHaqiJ1Y4aIy8pRlsrvRVojJ7W576jgBJqZGHdQJIXRoFoWD8PN
+         w8mg==
+X-Forwarded-Encrypted: i=1; AKwUvByQGyKg937VFDpr8LN/hlraHZOV+LgpagCq1AUSE3+A2wqOU4DF+MVVFrk+pNV7VY0FP4y+pD4bZDlakIE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKfIcNbCUMku7qSVWpvxocHsK2mlKGGmkxUcRb2kyb9ATfKp1pU
+	tDcmwHN53J3LJH6n4WleJFzS6UC+xfRw+5cvZ2HdgwerSUuYC+uTaRjXNiB5skoqwazaHqRgDL0
+	z138fDg==
+X-Received: from plbmg12.prod.google.com ([2002:a17:903:348c:b0:2df:a429:6698])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:d4c5:b0:2e2:d09f:d770
+ with SMTP id d9443c01a7336-2e5dcda05a9mr4724415ad.26.1791267412437; Mon, 05
+ Oct 2026 23:16:52 -0700 (PDT)
+Date: Mon, 5 Oct 2026 23:16:51 -0700
+In-Reply-To: <alX59ewiXXSx7J3R@blrnaveerao1>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDAyNCBTYWx0ZWRfXzRroh2hxk3ho
- /WMxD9GPhvrQGDKuB6JREuWbCxxFi7nBfjphufwdC0fDpAlZIoBCcscZOoVSVUj96K+uOXXqa67
- 8rssQfEvhqQs1nbuE/qIBiZ934KkRY8=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDAyNCBTYWx0ZWRfX7kWSQavWXc7v
- mZS8AON7SxP7qJGQ5awJIPp1WWPFAnMslr69FD7TLG/fzs7rdUH2iaoVcIucgP7NBIMYWQrYnJk
- sQ0APpK+wS2dp1z3LOZERYwtCvqRgG0QeDWu9740wvu7NuxEFuGbgALGESjcHd+Pc3E5CC+DZnE
- dydYWdgEkJZiC4pj6V+CDy36HhDTCFeLQdlfLxrDJdO8DBMU07ZTPsWmjZ5RdhwCzlV+R0RV35S
- j1XZ0Pgu0bxhCianQyVKfENbWtWMeP2+QZcRlf3h/SUL5yL2i98SwVwzeDKucAy8/3DHJgpn00/
- ZeLH1QYy4DrqvSHJ3yNHvQJVk4ZIe+mlSW3BVA9eIZA1aDfU5bu73S2dLxo7LCUEXZPlbXh7Dm6
- JdPpsQZMlysHoZvitEFkI/nVesCzKeWWH4cgRO19Z/j/0MQ2UqSFa5lzglVd6DX0pmCi4mpG1E/
- U/HBhFpA8I4iRIXRPPw==
-X-Proofpoint-GUID: N0UneCwz4OyrvdRWQDFs2ZF7DNe1FElD
-X-Proofpoint-ORIG-GUID: a1oYyYKwK2rz2UngSXjTTmc1BQoEmsdp
-X-Authority-Analysis: v=2.4 cv=B7osQ+tM c=1 sm=1 tr=0 ts=6ac491d3 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=_kaDUDulWroBixN9eW0A:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-06_01,2026-10-05_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 malwarescore=0 impostorscore=0 phishscore=0
- clxscore=1015 spamscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060024
+Mime-Version: 1.0
+References: <cover.1783490022.git.naveen@kernel.org> <36c039713c4b03c87b636635cb4c1f8b98c15eff.1783490022.git.naveen@kernel.org>
+ <5f6bcceb-1c48-43e5-bafc-8f86676c4092@amd.com> <alX59ewiXXSx7J3R@blrnaveerao1>
+Message-ID: <asSSU2huZDlusYdG@google.com>
+Subject: Re: [RFC PATCH v3 02/27] x86/apic: Drop savic_eoi() in favor of
+ native_apic_msr_eoi() for Secure AVIC
+From: Sean Christopherson <seanjc@google.com>
+To: Naveen N Rao <naveen@kernel.org>
+Cc: Tom Lendacky <thomas.lendacky@amd.com>, Borislav Petkov <bp@alien8.de>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>, 
+	Nikunj A Dadhania <nikunj@amd.com>, Tianyu Lan <tiala@microsoft.com>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, Thomas Gleixner <tglx@kernel.org>
+Content-Type: text/plain; charset="us-ascii"
 
-On Wed, 2026-09-30 at 11:44 +0200, Peter Zijlstra wrote:
-> On Wed, Sep 30, 2026 at 11:43:10AM +0530, Shivang Upadhyay wrote:
-> > On Tue, 2026-09-29 at 16:25 +0200, Peter Zijlstra wrote:
-> > > > c00000000002a610 <system_reset_exception>:
-> > > > c00000000002a610:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0e 01 4c 3c=
-=C2=A0=C2=A0=C2=A0=C2=A0 addis=C2=A0=C2=A0 r2,r12,270
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 c00000000002a610: R_PPC64_REL16_HA=C2=A0=C2=A0=C2=A0
-> > > > .TOC.
-> > > > c00000000002a614:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 f0 6c 42 38=
-=C2=A0=C2=A0=C2=A0=C2=A0 addi=C2=A0=C2=A0=C2=A0 r2,r2,27888
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 c00000000002a614: R_PPC64_REL16_LO=C2=A0=C2=A0=C2=A0
-> > > > .TOC.+0x4
-> > > > c00000000002a618:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 a6 02 08 7c=
-=C2=A0=C2=A0=C2=A0=C2=A0 mflr=C2=A0=C2=A0=C2=A0 r0
-> > > >=20
-> > > > This is happening because we should be looking for destination
-> > > > symbols that are at absolute offsets instead of relative
-> > > > offsets.
-> > >=20
-> > > Again, confused. We run objtool on objects, this is pre-linking,
-> > > there
-> > > are no absolute offsets.
-> > Hi Peter,
-> >=20
-> > This is the special requirement of patching jump assembly
-> > instructions
-> > that we need to know where the jump is performed from/to. As per
-> > 5/6
-> > objtool is run post link on vmlinux. If handling post-link
-> > information
-> > is outside the scope of objtool, please let me know.
->=20
-> I think we can make it work; but this wasn't immediately obvious.
-> Also
-> I'm still struggling to understand what exactly you're doing -- I'm
-> not
-> well versed in the PPC details and have no idea what this ftr thing
-> really is and your patches don't really explain anything much at all.
->=20
-> (Gemini is suggesting this is all somewhat similar to the x86 RIP
-> relative fixup we do for alternatives, but your case is more 'fun').
->=20
+On Tue, Jul 14, 2026, Naveen N Rao wrote:
+> On Mon, Jul 13, 2026 at 12:43:45PM -0500, Tom Lendacky wrote:
+> > On 7/8/26 01:32, Naveen N Rao (AMD) wrote:
+> > > Drop savic_eoi() in favor of using the native helper that writes to the
+> > > APIC_EOI MSR. savic_eoi() was added mainly to be able to handle
+> > > level-triggered interrupts. However, it relies on APIC_TMR indicating a
+> > > vector to be level-triggered, but APIC_TMR can never have a bit set
+> > > since it is only updated when the LAPIC accepts a level-triggered
+> > > interrupt. In the case of a Secure AVIC SEV-SNP guest, all
+> > > level-triggered interrupt sources are in the VMM (emulated IOAPIC
+> > > primarily) and KVM accepts them on behalf of the guest resulting in the
+> > > APIC_TMR in KVM APIC backing page having a bit set. This is never seen
+> > > by the guest, which has its own private APIC backing page. As such, the
+> > > savic_eoi() handler is dead code. Remove it.
+> > > 
+> > > Fixes: 43b6687ac877 ("x86/apic: Handle EOI writes for Secure AVIC guests")
+> > > Signed-off-by: Naveen N Rao (AMD) <naveen@kernel.org>
+> > 
+> > Another guest change which should be separate from this series.
+> 
+> Yes, I have called this out in the cover letter. I see now that I should 
+> have used a better subject for the cover letter though.
+> 
+> > 
+> > Is this causing issues with this hypervisor support or is just code that
+> > is never invoked? Do other hypervisors behave the same way and will
+> > removing this break them?
+> 
+> This is code that is never invoked and is independent of the hypervisor.  
+> No impact to hypervisor code.
 
-Hi Peter,
-Sorry for the delayed response.
-
-I think I can explain the feature fixup mechanism and the problem we're
-trying to solve more clearly in the cover letter.
-
-Here is a basic example of what we're trying to achieve.
-
-        GEN_COMMON data_access
-
-            ld      r4,_DSISR(r1)
-            addi    r3,r1,STACK_INT_FRAME_REGS
-            andis.  r0,r4,DSISR_DABRMATCH@h
-            bne-    1f
-
-        #ifdef CONFIG_PPC_64S_HASH_MMU
-        BEGIN_MMU_FTR_SECTION
-            bl      CFUNC(do_hash_fault)
-        MMU_FTR_SECTION_ELSE
-            bl      CFUNC(do_page_fault)
-        ALT_MMU_FTR_SECTION_END_IFCLR(MMU_FTR_TYPE_RADIX)
-        #else
-            bl      CFUNC(do_page_fault)
-        #endif
-
-            b       interrupt_return_srr
-
-This is the implementation of the data_access exception handler on
-ppc64le. Depending on whether the machine is using the hash or radix
-MMU, we need to execute a different fault handler. The choice is made
-at runtime based on the CPU's feature bits.
-
-The assembly macros therefore generate code for both possible cases at
-build time, and the feature-fixup mechanism later patches the code so
-that only the appropriate path is executed.
-
-The problem is that the linker does not know about this later patching
-when it resolves branch relocations.
-For example, consider:
-
-feat_loc:
-    ...
-
-BEGIN_MMU_FTR_SECTION
-
-    ...
-loc_a:
-    bl      CFUNC(main_feature)
-    ...
-
-MMU_FTR_SECTION_ELSE
-
-    ...
-loc_b:
-    bl      CFUNC(alt_feature)
-    ...
-
-When linking this code, the linker will encode=20
-main_feature - loc_a at loc_a and alt_feature - loc_b at loc_b at two
-bl instructions ablove.
-
-
-However, alt_feature - loc_b is not the offset that we ultimately need
-from the alt branch. When the feature fixup is applied, the instruction
-at loc_a is replaced with the alternative instruction, so the branch
-needs to encode (alt_feature - loc_a) jump.
-
-This distinction matters because the branch displacement has to fit in
-the range representable by the 32-bit PowerPC branch instruction.
-Depending on where feat_loc, main_feature, and alt_feature end up after
-linking, the linker-generated displacement can therefore be different
-from the displacement that is actually needed after the feature fixup.
-In some layouts this can result in either a build-time failure or, more
-importantly, an invalid branch at runtime.
-
-What we're trying to do with the build-time pass is detect these cases
-and prepare the branch relocations for the code as it will actually
-exist after feature patching. At minimum, it should allow us to detect
-an impossible branch offset at build time rather than discovering it
-only after the feature fixup is applied at runtime.
-
-
-> Anyway, I would much rather objtool learns how to deal with absolute
-> sections rather than making things depend on a 'random' ftr option.
-> That
-> is, if we need conditional code, have it be because the secion has
-> non-zero address, not because ftr option or somesuch.
->=20
-> But noting that, can't we simply change:
->=20
-> =C2=A0 decode_instructions()
-> =C2=A0=C2=A0=C2=A0 hash_add(file->insn_hash, &insn->hash, sec_offset_hash=
-(sec, insn-
-> >offset));
->=20
-> to take sh_addr into account? I mean, when unlinked, it'll be 0 so
-> nothing changes, but when already linked, it'll get you the absolute
-> value and then you don't need that fixup later on, or am I missing
-> some
-> details?
->=20
-> So from where I'm at, please:
->=20
-> =C2=A0- teach objtool about absolute sections, not ftr specials
-Sure I will try to rework these patches towards that.
-
->=20
-> =C2=A0- expand changelog to actually explain what these ftr things are an=
-d
-> =C2=A0=C2=A0 how they work and what the actual problem is we're solving, =
-so we
-> =C2=A0=C2=A0 don't need to employ LLMs to understand patches and all that=
- :-)
->=20
-> Does that sound reasonable?
-
-Yes.
-
-Thanks
-~Shivang.
+Doesn't that mean level-triggered interrupts are fundamentally incompatible with
+Secure AVIC?  I don't see how the emulated I/O APIC will ever get an EOI.
