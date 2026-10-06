@@ -1,110 +1,155 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010041.outbound.protection.outlook.com [52.101.61.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 486682248A5;
-	Tue,  6 Oct 2026 06:11:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791267077; cv=none; b=uwjc28/R3dF4qYikgUKJL1+Sq192Rp+/jyLTg9S8ZWy18W50aDQMg+hdx82gM34vXKzp7z1Uu4LWgLIndpSudINBO91w1rxY0RNENZYVhHj5vMmIsruZONg4JIv8AHcyg/k0WNopR7Ty1OXOlKoi07JEHQySHVc8Fw9DdbsavMw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791267077; c=relaxed/simple;
-	bh=HfrOCLCos8pvCpwh2VRr8eGgdKwA0DFIXhXuj7Az7vU=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=nI/mDNM859ttSh4q4+AeYu1n1vBMfpUHgkH1U7ncpQ6tIaK1QPFzVpbcz8zWFay5RfymkUPHahLeBN8Ccr55gBPWpVKksKaek3HFHesOqMsCk88V4JwxWkr8ziFyUq+iEb82wh2DpEHzG/mBuZOaw8su507OwVQzyi70BsVyMks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=Ie5wANbw; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B8CE39795B;
+	Tue,  6 Oct 2026 06:11:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791267093; cv=fail; b=FD4VJrLLLjpe7m+w2kDCj9GuTudsdLFcn8m62nygp1ng00g1GHexcFOO0Pq/imjkhTig7VazmlHgWaTY4B8qzOCUs7QUgG40hRgT+Ha0dNG2E/aGn4OxHQwtSnD2z6kcIIPrDlB/QdNYEtx3HjroeMaVjb6hpkapoU2pfJyRq6E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791267093; c=relaxed/simple;
+	bh=IGblQ4pWXeddSqzWB0bstyUfk9nIDnBiHppYTzxtRh8=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=HDGQ3y8L5OwXYnOGx0JH4ICkt+PmkkezQBScGlHJvQU7eBw8fqSWO3RayNIWdX3ud5sPVmrAUv/892Uz3djGLfMwgWjlzyZWQAOeO3GkCzrCDflDsHzweOUkE7ItVHsdmA8lp43iq1USbhMnXkAXL+pBUA9UF3YeSlICRq5ff0c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=N7sObxPV; arc=fail smtp.client-ip=52.101.61.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="Ie5wANbw"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 68368A012B;
-	Tue,  6 Oct 2026 08:11:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1791267073; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=QEqiKEHKarFBBNj7EInhCi1Qac+F8ajzAZ5Uck5ighE=;
-	b=Ie5wANbwdKEGXszo8EQjyZgNwM1u745GFqrntFnuP7l+Yz7JEb0hGCv/uycRvxYKMoIRZz
-	khoIhFvpMCPrLAbYmCe/YBv7qcNRzMN+VUe2yAIny4KBZ0+flg6y8EBNVnzz3lYNfhiI5c
-	CtHeIfb55a7rArfJ+Ud1pan81doBUoQOqNWXIPMWxN0F9/EHLdVwLvEsjpwkx3H++AkavQ
-	fTv5hYlMUJQvTEpR1UuP4gggaGP/TLjYnnk8dPymZurry6fuAXNzAzq+BAld5ure9T5CO6
-	zftsrhjIGkjxYzJyCtdbsnt7TcOJAsc2RiIZCizacET5pEgkiQCf2g6Ot0TFng==
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="N7sObxPV"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=diZ9Kkd/8LxuQ1FH03Lva3+bpA+XOulqD8lqJakQo2i1WGb4cpjw0qY58bYtyPpEUX0OCfYRxLzHL35dEapjZl6SO7srHboJjW+Ds/jzEs5G+SMZonETI/s6u3GBzAtNkOZM1k/hK60pTBcJD/b9wkptLwTqdGCb75xpGKP4+PczCWr3GJs0QFqMNBsUA8COxs35gDLRMcSEDcPN6aM4Y4HnTUJIuEcj17VVfI0k+UDq0IvGbdF5w74yerecJ0xWvF5SX4IHYP/2hBrH2DIWt4DOiB4XN0gTMGbkotobVEyMJFTJ2B+SNylVVYjc/DLuiEEVcIk8PaYzO2Ive8aRhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=oj++YW5ntYZ7SOzeeINeIDSxf/8cbhA4KdkSINDFhdk=;
+ b=AMn/MMHdvPGZzmLjbXHHmqmvd0rkAiIF5/46OQhfisrn6wsPYGZhlwPSjFws2jU5ZkRtyU6ZzbEexhxgoihl6Ee38HII6H/tJgs4MHj+szWb8Wyz/rxW2WWgXW7KAxq1164t8yRLV3yuVsxEQsmUtjOQGv8kuTN5+tDKdauDVswSQZfhsutdOkcYydBNyp7Z3shKzRJKFUFeigNIIRawYQ1bR8aCUiU4MQN4itrkfZrHWpdIFxgsNCvA8wIbwQtzQsLs2LvtaBjVmY/CQq8YFvKniCNSj1/QMIGDIkF6nA2HO+gn2x+Zy6h4sTirZrFqChqofVJmxFeRIKWIxrZNmQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oj++YW5ntYZ7SOzeeINeIDSxf/8cbhA4KdkSINDFhdk=;
+ b=N7sObxPVaVvjHDxoaMOotmTWHuVI7LeHNZQQtD3FJLSRKm7SrehxBQBKqIg7FQuYtA0xwwuuiiPZs3Y7yvr2aYgkvmrI7xvk9UtVI0McEWU8aF6vYdcqfgetuNf20RHd8pEnvwPENT2t/gvvzbNy6KaIlAppMspZAWpaw2Bxrx6HRPZANx5VoaC61MuHGiApJPCM+oZHBSVPAOc53fmRI7lR4OodlHoeAZx3OyeMvrK9ekaW/7RmVXY4MdIEByLgqb8OKXaerHofAHRFE40C96aXr/Ynhe3Uk35H09AsmnEF3eAT/DhokYaS9DBNt5ouGDDQjlci5a/8D7IPjj7o4Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by EAYPR12MB999179.namprd12.prod.outlook.com (2603:10b6:303:2bf::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Tue, 6 Oct
+ 2026 06:10:40 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0472.016; Tue, 6 Oct 2026
+ 06:10:40 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 06 Oct 2026 15:10:37 +0900
+Message-Id: <DLXJ64SVRMFW.NX53HBMT16K@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
+ <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v3 2/8] rust: alloc: add Vec::push_init
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+Content-Transfer-Encoding: quoted-printable
+References: <20260928-b4-nvkv-v3-0-f04504c262c2@nvidia.com>
+ <20260928-b4-nvkv-v3-2-f04504c262c2@nvidia.com>
+In-Reply-To: <20260928-b4-nvkv-v3-2-f04504c262c2@nvidia.com>
+X-ClientProxiedBy: TYCP286CA0262.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:455::9) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 06 Oct 2026 08:11:11 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>, Jakub Kicinski
- <kuba@kernel.org>, Maxime Chevallier <maxime.chevallier@bootlin.com>, Andrew
- Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@kernel.org>, Maxime
- Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Christian Marangi <ansuelsmth@gmail.com>,
- "David S. Miller" <davem@davemloft.net>,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: stmmac: leave the datapath running for
- normal-size MTU changes
-In-Reply-To: <20260930-stmmac-mtu-fastpath-v1-1-fd73f378c071@gmail.com>
-References: <20260930-stmmac-mtu-fastpath-v1-1-fd73f378c071@gmail.com>
-Message-ID: <f0cbb31213093859821d467971d604a9@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|EAYPR12MB999179:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2edcf0ac-4751-4de9-d0dc-08df23708bc9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|10070799003|376014|23010399003|7416014|56012099006|11063799006|4143699003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	8IJMHO1qGXv9yx3Lw42hJmdfcY/cTArNmgrnpEeHtCwYiFJ3Z6DY4InsjJwrlIveYZabXAvB8BXEUlQRa33UyRpWt5p0A5cxmuk61f6kcn4XNBjWpLQfZXETFeT4Rwr0C+UVy/ojlKeuNjern7C+4fNq57yYY5DODQdbU2E+DUfgpHZQtSO4tMmDIBWs7F2CMY9ZItBVnlhUL8H7nuh08aAFFpIsVM5R1wImxUm4E7zsyQgGmUsuzLHWiESiIPknxm/vOGT6/wHR6wp+hPhkADMDpK/p28yZ5aX7VLsnoJ8H5UgM0OvjoteAuXBzIQsZXF2rcV25r2rbS4hD8eP1DDVf05OoWNUigqTtJEURwUYVOfrWHMh8yNQMqDeNwyfPJK5RGjaw9lwYpPQpEcEVWxFuHVvecRIx7fW5i4kixZGZqAtN9toZO4vaa/rmp632zR2XTQSV5er2yB7Xr/s5jh25vuZL9chziY6ud+51Ofd+EqOVcae0X9SEeIVyU7kkU01lJ2jOHuTiruEUrggfhHIAk6QWRCIKepJvRYR+Kx0FjYS96dFNAxYyV1mVfumHBaRjvJ5g1z8+z+PVN80cX8QFmUADTdzti78Dlmme1M45yyGj7AUDyeyYTSlOCQ70QdEfSDiDlC028nPrcZyVtsTXprWikjd5GUVR7Zq980k=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(10070799003)(376014)(23010399003)(7416014)(56012099006)(11063799006)(4143699003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?YWtLaWgwQ2c0bUNhRmUwUUFPMU9iNnhJdXpDKzRXZEdNaTBpTnhPWXh0dUZY?=
+ =?utf-8?B?SDIyTFB6dmRJSGl2Y3dkRUtacTRtTlRkY3l5Wmwxak5HUzV1elJRWlcxQ21p?=
+ =?utf-8?B?aThCT1lOcG12WFJqZjB5RFJ5UUVNandTcFZnYitzVWpMYnJUVjN4ak4rT3JI?=
+ =?utf-8?B?aXZoL3RPYTRVb3pKei82TEdhOThXQkxFek9PZUxTcE9WNlZnRXBZeFVuenBa?=
+ =?utf-8?B?UDJjSnNNdldzS2ZianlmeVZGMHJNdndqTDg1Z1lPbEtaSDlWOUlXNzZWNHBF?=
+ =?utf-8?B?UFZWRjlYa0tRZVkvbzZjS0JVUEZIQ2xCbGxobTRWWVprMTh1YmhOaFpRRXZs?=
+ =?utf-8?B?T1NVUVdJUFFnRGMycVZzRWdCZ2NHWDRCN2s3Rm1jUmZEVlBrcGFJRjRWQStv?=
+ =?utf-8?B?Uk5ueGxpZ1YxT0ZFTEJmU0RIZVhwc3VhcEhRQlNiSE9mQ1BWTGpPazBOWUpX?=
+ =?utf-8?B?d3c0V1NNMTlERmxPTGNZMlNMYXVsOHJwcndxM01KNXJLWnV2ZjRDQk9hb3Q1?=
+ =?utf-8?B?c0Fuem9MMDdsSlhIL3plY0ZtN2xOU05aenhkVXJkYUlJWVplQTNCa2I0UEQ2?=
+ =?utf-8?B?Y1hQQk1GRUFCWDU4S3Jua3Jrai9GRnNDTXpnS1RXWDN6LzhqQm9MaDJjaUlz?=
+ =?utf-8?B?eTZHZ01jVWRtRVhtaktLTnRTbUhRd1g2aS9XQ0ZwMGNFMXBZeTRkRmIxZVFt?=
+ =?utf-8?B?RjROck12aytwY3orbUlOWlVQQmZMRHBzY0tPeittVXZBTmFnSjJqV1lTY1pN?=
+ =?utf-8?B?Nkx2bG8rRTg1UjU0UGZ6MytxSHlwZVQ2UWhWNXVYR1EwZWVIZ01nN2tvOWZE?=
+ =?utf-8?B?MGxIbGliaDZWSnNqaWcrYk1OZmpOVCtoTVViWjdseUgrZzhjMGNuNkJFcTI2?=
+ =?utf-8?B?UytMSzd1cmQwOHR5b1Z5bUZ5bmg0TUhsSEJUckxnd0JFSGZISGErK0FiUVhW?=
+ =?utf-8?B?cWpKL0UyVk5uVTRRWkNRWEkwcE81cCtsSElXenFocTFNN3BteHg3eUpQNy9o?=
+ =?utf-8?B?czFwSCtkUkRZYkRGMnRIejI4TS9WRHJrcFB2OXQyTXIveXloYWpPamNTUDVB?=
+ =?utf-8?B?RGNtdmY1TnZNcjFvWml5NzhyMVZtdGdXZEthRlhQdmF6T2JwQ3JzSG9KZ2Na?=
+ =?utf-8?B?Q3lxNWlJbmpOVTNScFV3a2U1RHQ5OTRLMXlzdSsvUDFJY3Y3dGZpQlQvaTM4?=
+ =?utf-8?B?S1VEeFhYSmtZUGgrNUhReEF3a1RsSkFmVURtS0Ryb2d1ZXdYbVYyZVZQSGZz?=
+ =?utf-8?B?L0YvY2FOZHFZck9hWVdWYVNWVkltejkyVkJGZ256KzNYNDJnSnk2aVdudGZl?=
+ =?utf-8?B?ZE9TMkFBTGRuK00xVEI4VTZwa0lMR2ljVHNwYzU2YTRYRUt2OExnRFlIazds?=
+ =?utf-8?B?eTNyOWY3NEZGNzR4N2RDU2t1c3lnZWh0WjNPTEEralBVeUZCU1doTXZTc0VM?=
+ =?utf-8?B?TVY4TXJIWGNucmdXQXRCYzRrUGZOMFV3Nmtnd2FrTVE3eFRyTnZwMHFyd1hR?=
+ =?utf-8?B?V21lazlFVDVoZDQ3aTdJdzFYUGR6YW56N1RxNzZHUHdSZXZCOVQyd3ZxRlFx?=
+ =?utf-8?B?VEg5MFJEVXBScE56VXZKaHprcUdvWlRPcHNqbk5mNGpYdTl4b3Nvcm5RWXU3?=
+ =?utf-8?B?UTRFWEpSUVk2NXVQYzBtUVN0bHY0ckR1c1BzZXJtUVhqQkhNL2pqSWxFa3BU?=
+ =?utf-8?B?R0Fudi9WTEFkbDBJOGJMdzQ0ekFLMTRFL09CdytsSVFqRW1uYzZtVVZ3WXFL?=
+ =?utf-8?B?MkJMdUN6Yko0VTZENm42ZEVtcSsxYktyTDIydHZwSGVYTzUzNGkyd3BBWU9F?=
+ =?utf-8?B?WEg3L0tlZC9CUVFJK2drN3ZwbTd6bUdnRStYNXQ4S2syV1pZaG9wQ2UvOWho?=
+ =?utf-8?B?NmhnYmhWVlZRbElnbTQvRzlRR2YvY05IKzREdkxsQlNFbnpjbW5yQ0F1bGVZ?=
+ =?utf-8?B?U2NPOW5sZkFKa243UVlaSzlpM0FmYmF1bVc3Nm55MTdQR1NaM052WHBVaDEv?=
+ =?utf-8?B?UDZhZVZvcjVadkNRSmJrd2IrZ3hTZDNXN1g0NHd6QXd4Z3BXSFBYQ1BDUVA4?=
+ =?utf-8?B?aXRNVlVGTVo1Q2tnM0g0cmsyNDRVS3hFSXladWdrUmhFNHNMaGFnRXRNTGhY?=
+ =?utf-8?B?VnZ0MHhaemlxL2tNNDR0bHNzQ0ViYzhuV1M1amR0bTRYamJGT0NoTDdTTnBo?=
+ =?utf-8?B?c1d0NGUzbzFCeDBpZU9qTWtMZVhoR3VHS2lFYVNNVWRlVGFZYml3N0lMd3lC?=
+ =?utf-8?B?Z2ZEb21JaWdjam1zYlZJVjFpWVBaejRQdlNqYzZ6QUlZNzhsNmZrSEIvMWRZ?=
+ =?utf-8?B?Nkl4UktQT0lUTk5EZjNLYTRhMzNEMkQxWjkvYnBJN3dQYWorRW5Hcm5vK3F4?=
+ =?utf-8?Q?s/2qJjEkdfJReD3G2PQmy/3UYQfqhp6L2kLL9FG1U3hGA?=
+X-MS-Exchange-AntiSpam-MessageData-1: RiVWC7ehl/LNSA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2edcf0ac-4751-4de9-d0dc-08df23708bc9
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 06:10:40.0445
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nJ/F3eJ/3HbenyJTZyAJB3LE/lBO49s7CwcL4dSXpKNNnjGUnYO5oxZ3mO7NAPObThXkEQllToQL60NKTZZM7Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: EAYPR12MB999179
 
-Hi James
-
-On 1.10.2026 06:39, James Hilliard wrote:
-> When both MTUs are at most ETH_DATA_LEN, the receive buffer size and 
-> MAC
-> receive limit do not change. Update the MTU without restarting the
-> datapath.
-> 
-> This also avoids rebinding a live AF_XDP pool to a temporary RXQ. XDP
-> rejects jumbo MTUs, so all supported XDP MTU changes take this path.
-> Jumbo transitions remain on the reopen path until the rollback change.
-> 
-> Fixes: 3470079687448 ("net: ethernet: stmicro: stmmac: permit MTU 
-> change with interface up")
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+On Mon Sep 28, 2026 at 5:42 PM JST, Eliot Courtney wrote:
+> Add `Vec::push_init` which is the init-infallible version of
+> `try_push_init`.
+>
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 > ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c 
-> b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 3f34d491c959..03cd14d10356 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -6161,7 +6161,12 @@ static int stmmac_change_mtu(struct net_device 
-> *dev, int new_mtu)
->  	if ((txfifosz < new_mtu) || (new_mtu > BUF_SIZE_16KiB))
->  		return -EINVAL;
-> 
-> -	if (netif_running(dev)) {
-> +	/* Normal-size frames use the same buffers and MAC receive limits.
-> +	 * In particular, do not disturb a live AF_XDP pool: XDP does not
-> +	 * support jumbo frames, so it never needs the ring replacement 
-> below.
-> +	 */
-> +	if (netif_running(dev) &&
-> +	    (dev->mtu > ETH_DATA_LEN || mtu > ETH_DATA_LEN)) {
->  		netdev_dbg(priv->dev, "restarting interface to change its MTU\n");
->  		/* Try to allocate the new DMA conf with the new mtu */
->  		dma_conf = stmmac_setup_dma_desc(priv, mtu);
-> 
-> ---
-> base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
-> change-id: 20260930-stmmac-mtu-fastpath-68813ead3b90
-> 
-> Best regards,
-> --
-> James Hilliard <james.hilliard1@gmail.com>
+>  rust/kernel/alloc/kvec.rs | 19 ++++++++++++++++++-
+>  1 file changed, 18 insertions(+), 1 deletion(-)
 
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
-
-Thanks,
-Nicolai
+This patch can probably be folded into patch 1 without making things
+harder to review.
