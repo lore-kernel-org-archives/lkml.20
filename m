@@ -1,350 +1,230 @@
-Received: from sonic305-20.consmr.mail.gq1.yahoo.com (sonic305-20.consmr.mail.gq1.yahoo.com [98.137.64.83])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 527C33DD522
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 13:33:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=98.137.64.83
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 769433ED5C7;
+	Tue,  6 Oct 2026 13:33:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791293630; cv=none; b=KiK9BfQDW7uL3W2s/6S1QcDszQxUjSWorYkV914zfVNpMbhcQpBtD9/3jKISfN5ZRjc6ptfro4XdeKTf0W54se14wON3iwoIZdsTd08GMsVU7ITliQd3rUII/kcUB9dimIjk+TZtnL24FVWmd+ZSLvzGVr7/qqpClPeK6SZNp5s=
+	t=1791293639; cv=none; b=n3Z9e165Dm8ktswymq5OrJzQOoKPLUafT8GProoZLfEJdVIIUk8IIpdSfuzdlNURR0+CJISgAj4oTJNX2G1oE2Vo3wfBX7RLGlK6aGoY18cDi/4VgdWHWvewEJGRUjQTK9UxCsrAjjKwuF3Y43cVaj8tvobSZ03iBPOrgPdJ0SE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791293630; c=relaxed/simple;
-	bh=SBSa6/f+x51BTX2YNvk6aGtBLZqSYj38LJWLB7jjx/8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=jEO8OPfyv8JbHVBeQNPrPiA2yHcShdoxMr9PcpmiXAKHVIw9YzhPmcQ5VN40kwThEg8NXt14wqY5/uxf8qTbqIGGQEJ4TVvf7a6dI62YeOF/YgkbgOUKTun8mSxGTyBDPHX9Oa9hW8DyiWqNTk1iWIcNmhlzDSBUHyqecZGpe4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=aol.com; spf=pass smtp.mailfrom=aol.com; dkim=pass (2048-bit key) header.d=aol.com header.i=@aol.com header.b=MRySnO9h; arc=none smtp.client-ip=98.137.64.83
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=aol.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aol.com
+	s=arc-20240116; t=1791293639; c=relaxed/simple;
+	bh=UJCwxSB8qVJZxh1AQwZgnYcgsGXVm/AeqWyAkiEIAic=;
+	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
+	 Date:MIME-Version; b=hVGOmms6oSvtQ9rMWtKNYqdO+gLBU2BAi8ZR8vCDAvqyXEZYPrFJG9gGVFyeu8SGBZLvnAdnBUF8gQUDo1Hb878R3vHStelVpWQt2oZBZybimrgsJ+WsD9jcMeotSkR3OVRBOPYUm2K91Sze1O65X8kcqjF6XS50ifwZOh+dlI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=lqdTwDr7; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aol.com header.i=@aol.com header.b="MRySnO9h"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1791293628; bh=9E3OCWXprX0RJaktFxM/8n6uIVZDAaRTP/3rY7uLJ9I=; h=Subject:From:To:Cc:Date:In-Reply-To:References:From:Subject:Reply-To; b=MRySnO9hVED8BIx0W4vK0nOajiw5sUdzFYLEf5+kVY7wPu6qX/BOnG5owDqdbRiw8n3BDiBjua2Rmyo96suPRH2pYUNwFmoZBrnyS2zK/rZoqm/8cweG5H83KXBdkp3um418kw2ZaZoOzq+hN5mIyx+Z+XDDZ6ok+W/GEfl2IumHxOQrWg6cb4n6D5wP1hLYkHulozxyr7v+K+noWXVwVkjmI5YHFKvaXNGgSkvczLcN1YWjXghf0RCZHepmJCrDjlbiHaBTHzDPCSoKPQkOzgUF2YeWSU0BraRG6IIk8qq7iPSNH17S/u9K56hKNR2fRxb/3Aqvktp1lT7hRxXqlA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791293628; bh=ZroKlQB4hd+y8xui/znb1fnMJZF5RH8lDBUDsEnGUqA=; h=X-Sonic-MF:Subject:From:To:Date:From:Subject; b=f9t+m2QGedOMokiqPBux4so2++qxswMO7jqWvbaI+npBGFs2djRYN1+A4+VRbmoPDJKTzkoe2Yrkio01IEN6RWMdllC5bIYkKhyZFtMTDSIrQtl0lAZkx2YJ9NgSZJFZwx48coZdmzF+edP0VduPVXJEekvKwCingE72YoLV+C1kZU6wOqYZZ7mG6kfmmkIv4Z8HMikbodg0DCXUPhWTDjSzt8h3DnuLuCU4EP/NGRuOcK42preRXMQq6rVehK3aHJV2EXYNZqsrunDPBBg/s2uTpQIoX/C9LmDbv4Ea+qLw4YEQp1hA1bFmxptY5OAWC/jfFGBTchcGkEPLb/cccw==
-X-YMail-OSG: ccu42_4VM1mIvNDPR3peCwxwHT0RzwS0PuunkhaK_liYGkqzU2dIPw1SaINJElN
- eimk9CmHTQ7MM3B2DWE8O2f2MuWM_pRaJwIKiIxhrhSDGMm2enzDagMBgTKoyfh4PHGVSXJOwNVB
- 4ee9P_ZVTOsTwrA4pipn4Bvzy_BZmIMTrWnzJwZ2oS5DK_db2qukKstPuvGe.x7xjZqmQABcZDpL
- 6f9uP44jOi1u7UwY104t_PLEBu4.EY1VRX5oLKUSri856v9hZR7ShDtkVurURZFwIce.GC5S5rvH
- th0NDS8shVv1amhq9PsMHVsVn4v6fgkGUjKWVVBH2jCQTD9D.76nqVWIyMWwOzgUc0xs8o3ccXxO
- MdNEoDl5Y4KsruYFMxoo__ohGs7Fp9.RHmX8Uu4JMhmIdSk8PfQ.AA8kgVfLQ6qdLa5XWtHM0stp
- v__.y.65_9z75_vGsRJPytilbP0ESPOGYaXQXLxP8pSzaLmJ4lQBA8F9NNwM8wxNdRIcbdmeCmti
- 4kSehuNU6mpRk5WiXaMCiF4.8ScRTHqiai9WVeLwJjuujkLaZ0D5dLmAYi988ChPWt0WlglH5fTw
- 8B6Lu97RKLNDRW7ns2qv8MXCpIFAd5b4HIfS4tacB0WNivoqpZA_HUt8fND9IskrkwGEsGxpn_Vg
- lNpv4WvX7nHFrYtlHak8mYGMtlyOWNdSLCk1odyaSDaHxbB645cOXodP.h3k_BieylIvnPk.wxQ9
- pn7dQ5S01UlizdYktl6VNAguReSapnsVExIHr0o9LTPVx6V.3nFNmczaKPg24LagkfFSFROgrOwb
- g.jFXNGUXHxDoefzUcH6PiQdIpsOXnoccmLH_wZ_DEbLxLkGNuieoIF.VDMR5hrlLvPrPtHqpVZ4
- QgzFSwtdTCca1cH1qkgrxSopbO1qtOJx4IKxU27Dn.8k5mEtx94LowcLZwq77EPZWXFshH2m5WAX
- YlIWFS7tCwj49oZp.QMG1wmmNO1L5wZCzIasyhlKy8MPs4Xcpu6iybwLBhBlXaOY.ht7M0H_CqMz
- gG1CN_ElhCuseHjeD8huGHllyjHhOnnjNxRScRWap70Akwxejnush1u1BejN5nRVLSvTQ1LuknfW
- cZ4cCtqvYPLxsdHx786dgJ6CL2ZZPHAldpGrldyJ12BV2O3XtW.pilMCuM4_GdWyWB334MY35pdh
- gUQUnM1M_gStuGJG.WvG1.tCZOxTnPpzmb4EswN7BzD3JbdXENU2jEog6ulFTwlT28PzguwWzlzw
- WvXRRLQlmrXRraP8ruO0bkTuuw6jRdNRJfWCHQp1uJhSW3LCDuzUzaqvYxsFLvuxkiCXM95S7G15
- _vwGUXxlxz7FBot.Wp81xoL9DwMRD1YMMJqN3qMpUSCWkDgFtNXjUDns_N_6F897dt4FKSC2XrZo
- f83UlotehmdwwS1E6ujja0oWqNnkR302_iAfC7K5xkWlqcIdKiP1N9yv51XCWJ5cuNLp8.JnKAgv
- 6DQt6Gfbn6YWwYeakpU1fjlqt8VarycYvEt5ZmIFDEN1AlV7rwGTMkRNpFfnbeIVaFNf_5NztfAL
- QjTBa0RfkPdOtEpursDA60jPxv4HQI6dwrgZkRf8Xvaq6pZyyPwx9jPxu4OK1FQbSBD6KcsCLIhW
- wr4pgGe59JDA9dbCkIb7XR30.frfdgRdiB56ENYw4aoXok2DtARr1JEZqPK9HsRQDLd82RjX7w2Y
- OjalCU6YjMPyN9Ow5p8YLFPYAMssqesOxBxDmn8S.H34LYBEoltOCbxNaDejWVwefFtYwA4NYNls
- vEgwfhjACAeim5E_FHsygF01bIAHGB3JRozNMzzsHX5h9fyL0hazsFbPeedwwL2YEomSINhE6QMJ
- _YO_mIsVZqCoPkDpMTbrfcIu_AzI16Djz556YltyptZLDcQxKiZMHT5aaLV4evGAUflOQJT9z5Ye
- fJ4peUVAsg95PL.qxa19a1O8Vadt34JpJtmgl_74ExkbjEe22jvegpUUgZtOETCBb1ptsp.wd5DI
- SFS.54GtO2PG_VWrQwWHpthGG4IHG5FcZkgNY1tFHrBdmhu9s5n9yAMos6ijMhUfAHyqW_76.dYn
- 0hO0tgBA2lXyjIjv_KKREHHibxtEdOlnITXz8k7hL2yn0tJzu41TcJTPajcv7D8wnHsMiT2Dxdj7
- pbRmx9jbmhpU6oGb3r4Q9fO9.DwaVtelQB4_wggEZYLjg8AL6Liai6v.ESrBtctPyXA96Yn3th_Y
- 5GrO.RaqoalYOA3DqIiS_uiP52CB7hErPsjeqVUV7mtv6J5c0Q3Nm2TUZfCueBkDSDVKsivDNKyQ
- e
-X-Sonic-MF: <rubenru09@aol.com>
-X-Sonic-ID: 4a8950ea-8a68-4480-a32d-903fbcca4f86
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic305.consmr.mail.gq1.yahoo.com with HTTP; Tue, 6 Oct 2026 13:33:48 +0000
-Received: by hermes--production-ir2-5dd9bf4598-hrqwh (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID e54da0c57641f9e2d2552a0febb4bdc0;
-          Tue, 06 Oct 2026 13:02:27 +0000 (UTC)
-Message-ID: <714216ad03c9189426d92646d28b1872301d83b1.camel@aol.com>
-Subject: Re: [PATCH] drm/gud: fix bulk_len divide-by-zero, connector bitmap
- OOB, and short USB reads
-From: Ruben Wauters <rubenru09@aol.com>
-To: Hui Peng <benquike@gmail.com>, tzimmermann@suse.de, simona@ffwll.ch, 
-	airlied@redhat.com
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Tue, 06 Oct 2026 14:02:24 +0100
-In-Reply-To: <20260919223510.3888975-1-benquike@gmail.com>
-References: <20260919223510.3888975-1-benquike@gmail.com>
-Autocrypt: addr=rubenru09@aol.com; prefer-encrypt=mutual;
- keydata=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
- eIvzsqg==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-gNRPWEAJ3y4bweuDeAF6"
-User-Agent: Evolution 3.60.2 
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="lqdTwDr7"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 696BZZks3680527;
+	Tue, 6 Oct 2026 13:33:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=W1eFOi
+	FsNKsJTR+Xmg+8ymMySd0SsyFZ7N5u2wfZjRo=; b=lqdTwDr7KAyrgkUz8ANv83
+	efcpVCz8uVMhAUAFc37kQ4m7IVT8OT42CVu+orDCebiu0KKoXPto1pDl/kUSsIk5
+	t/LT1tsoXWFDH2RCM90grXlpKAVA9i8/b3dhfDv66WycVtXzoYWghYmrjVb4h4DE
+	hBRl2+ICCg1YI4MfMK3d/kU9Hfa+ptgRmDxsOaErCNMAs903CdUCpyEEaJ5Ip0xd
+	5Nkrve+O5rpRkqX57SbcAnRii/lsjjqnUgseoshfuwRll5ze2iq9KAOugdnzhqbp
+	7jOrnT/sPZbZnSUN5mwHTbl29PrjL/zCjHmXpK94oV5VpEYG7XJ1rKom0X7j4vQg
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2s74r9pb-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 06 Oct 2026 13:33:57 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 696DWV2W337241;
+	Tue, 6 Oct 2026 13:33:56 GMT
+Received: from smtprelay03.dal12v.mail.ibm.com ([172.16.1.5])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h3d1jt3a0-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 06 Oct 2026 13:33:56 +0000 (GMT)
+Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com [10.39.53.229])
+	by smtprelay03.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 696DXt9u25559590
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 6 Oct 2026 13:33:55 GMT
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0E1A758060;
+	Tue,  6 Oct 2026 13:33:55 +0000 (GMT)
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 524BF5805E;
+	Tue,  6 Oct 2026 13:33:52 +0000 (GMT)
+Received: from [9.87.140.229] (unknown [9.87.140.229])
+	by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Tue,  6 Oct 2026 13:33:52 +0000 (GMT)
+Message-ID: <2321a5e161cc30281464302cc12810ae62c286ae.camel@linux.ibm.com>
+Subject: Re: [PATCH v2 5/7] s390/pci: Add error cleanup in
+ zpci_directed_irq_init
+From: Niklas Schnelle <schnelle@linux.ibm.com>
+To: Tobias Schumacher <ts@linux.ibm.com>, Gerd Bayer
+ <gbayer@linux.ibm.com>,
+        Julian Ruess <julianr@linux.ibm.com>,
+        Farhan Ali
+ <alifm@linux.ibm.com>,
+        Christian Borntraeger	 <borntraeger@linux.ibm.com>,
+        Halil Pasic <pasic@linux.ibm.com>,
+        Matthew Rosato	 <mjrosato@linux.ibm.com>
+Cc: Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle
+ <svens@linux.ibm.com>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+In-Reply-To: <20261005-s390_irq_domain_fixes-v2-5-d45b824874c0@linux.ibm.com>
+References: <20261005-s390_irq_domain_fixes-v2-0-d45b824874c0@linux.ibm.com>
+	 <20261005-s390_irq_domain_fixes-v2-5-d45b824874c0@linux.ibm.com>
+Autocrypt: addr=schnelle@linux.ibm.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 06 Oct 2026 15:32:51 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Mailer: WebService/1.1.26668 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: DniPh8cB-xQBfYfqyFUKIWdN7n36xXE6
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA1MiBTYWx0ZWRfX40UHsFAupTGc
+ l42DQNcjoR+WeXsn8Q8KqCqlDkv6yEndW7GtmgMkO/w1+TvSAtDrZL1lUaJz8y/RIjLwBM0eELx
+ KXSpF2fFh9E1CVAjcyXfLZx9IQZUe3w=
+X-Proofpoint-GUID: DniPh8cB-xQBfYfqyFUKIWdN7n36xXE6
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA1MiBTYWx0ZWRfX4AYoJWpm3WXh
+ R5yj9sX0pJ2/MCYRE9SLvqPrL+I1mXFAyhEYn6qufT0OdmXYqUwgvrJCH3cx8l2IakzlgDE3xM9
+ 4fB7riwKSwy9tg2iGxOSASQUidX4FWF/LnaBvRnScb86Hmn2uQOnHRTrHU6cY+MKZX1jMj07Wxy
+ zuk+kbwVPBakzXxq3zgi6sAbIfMXaJlKMEZDL9Md03s+rWniXgY0z1BZSGzQ372LAvIzT5DppVI
+ rKOkT40kr85+s8I80hl2XtjLj9IufGdySk42i1sID854Lw5adTkdId+fBASGUaWVm+kgGXRowhr
+ ZzUQlo/dik5qKr8xfLcGoXvvmzJDBxp+0rRaHXPPY+yqh6NXg8Bpywf4XFuNLdvfb/iay9fEiU3
+ t2GBBBNChEQRIgqxuJ24KJJ/hliorlDqNUfEtlVB9d7eoR4ca2pD7A3CVJZWrBNOJTbEhb6Q+FW
+ tzcpwl0Fz8T+4iGPKHQ==
+X-Authority-Analysis: v=2.4 cv=fM2sTpae c=1 sm=1 tr=0 ts=6ac4f8c5 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
+ a=L-QhOtcujkM9ov2wOJ0A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-06_03,2026-10-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 priorityscore=1501 spamscore=0 lowpriorityscore=0
+ phishscore=0 adultscore=0 malwarescore=0 clxscore=1015 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060052
 
-
---=-gNRPWEAJ3y4bweuDeAF6
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Sat, 2026-09-19 at 22:35 +0000, Hui Peng wrote:
-> In drivers/gpu/drm/gud/ (gud_drv.c, gud_pipe.c, gud_connector.c), ensure
-> gdrm->bulk_len >=3D max_pitch so lines =3D bulk_len / pitch cannot be 0 i=
-n
-> gud_flush_damage(), cap num_connectors to GUD_CONNECTORS_MAX, and reject
-> short USB control transfers in gud_usb_get().
+On Mon, 2026-10-05 at 14:03 +0200, Tobias Schumacher wrote:
+> If per-CPU airq_iv allocation fails in the loop, previously allocated
+> vectors and arrays leak. Add proper error path to release all resources
+> on failure.
 >=20
-> Fixes: 40e1a70b4aed ("drm: Add GUD USB Display driver")
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
+> Fixes: e979ce7bced2 ("s390/pci: provide support for CPU directed interrup=
+ts")
+> Signed-off-by: Tobias Schumacher <ts@linux.ibm.com>
 > ---
-> diff --git a/drivers/gpu/drm/gud/gud_connector.c b/drivers/gpu/drm/gud/gu=
-d_connector.c
-> index 8141c3a1e30a..1bf0495bf43f 100644
-> --- a/drivers/gpu/drm/gud/gud_connector.c
-> +++ b/drivers/gpu/drm/gud/gud_connector.c
-> @@ -569,7 +569,7 @@ static int gud_connector_add_properties(struct gud_de=
-vice *gdrm, struct gud_conn
->  			continue; /* not a DRM property */
+>  arch/s390/pci/pci_irq.c | 16 ++++++++++++++--
+>  1 file changed, 14 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/arch/s390/pci/pci_irq.c b/arch/s390/pci/pci_irq.c
+> index 81a27bf756a3..682bceb6525e 100644
+> --- a/arch/s390/pci/pci_irq.c
+> +++ b/arch/s390/pci/pci_irq.c
+> @@ -576,7 +576,7 @@ static int __init zpci_directed_irq_init(void)
 > =20
->  		property =3D gud_connector_property_lookup(connector, prop);
-> -		if (drm_WARN_ON(drm, IS_ERR(property)))
-> +		if (drm_WARN_ON(drm, IS_ERR_OR_NULL(property)))
->  			continue;
+>  	zpci_dibv =3D kzalloc_objs(*zpci_dibv, num_possible_cpus());
+>  	if (!zpci_dibv)
+> -		return -ENOMEM;
+> +		goto out_free_sbv;
 > =20
->  		state_val =3D gud_connector_tv_state_val(prop, &gconn->initial_tv_stat=
-e);
-> diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.=
-c
-> index 3a1b9e2a2eaa..f69b0e6e2ee0 100644
-> --- a/drivers/gpu/drm/gud/gud_drv.c
-> +++ b/drivers/gpu/drm/gud/gud_drv.c
-> @@ -328,7 +328,7 @@ static int gud_stats_debugfs(struct seq_file *m, void=
- *data)
->  		seq_puts(m, " none");
->  	seq_puts(m, "\n");
-> =20
-> -	if (gdrm->compression) {
-> +	if (gdrm->compression && gdrm->stats_actual_length) {
->  		u64 remainder;
->  		u64 ratio =3D div64_u64_rem(gdrm->stats_length, gdrm->stats_actual_len=
-gth,
->  					  &remainder);
-> @@ -427,6 +427,8 @@ static void gud_free_buffers_and_mutex(void *data)
->  {
->  	struct gud_device *gdrm =3D data;
-> =20
-> +	vfree(gdrm->shadow_buf);
-> +	gdrm->shadow_buf =3D NULL;
->  	vfree(gdrm->compress_buf);
->  	gdrm->compress_buf =3D NULL;
->  	sg_free_table(&gdrm->bulk_sgt);
-> @@ -443,7 +445,7 @@ static int gud_probe(struct usb_interface *intf, cons=
-t struct usb_device_id *id)
->  	struct usb_endpoint_descriptor *bulk_out;
->  	struct gud_display_descriptor_req desc;
->  	struct device *dev =3D &intf->dev;
-> -	size_t max_buffer_size =3D 0;
-> +	size_t max_buffer_size =3D 0, max_pitch =3D 0;
->  	struct gud_device *gdrm;
->  	struct drm_device *drm;
->  	struct device *dma_dev;
-> @@ -495,6 +497,10 @@ static int gud_probe(struct usb_interface *intf, con=
-st struct usb_device_id *id)
->  		put_device(dma_dev);
->  	} else {
->  		dev_warn(dev, "buffer sharing not supported"); /* not an error */
-> +	if (!drm->mode_config.min_width || !drm->mode_config.min_height ||
-> +	    drm->mode_config.max_width < drm->mode_config.min_width ||
-> +	    drm->mode_config.max_height < drm->mode_config.min_height)
-> +		return -EINVAL;
+>  	for_each_possible_cpu(cpu) {
+>  		/*
+> @@ -589,13 +589,25 @@ static int __init zpci_directed_irq_init(void)
+>  						AIRQ_IV_CACHELINE |
+>  						(!cpu ? AIRQ_IV_ALLOC : 0), NULL);
+>  		if (!zpci_dibv[cpu])
+> -			return -ENOMEM;
+> +			goto out_free_dibv;
 >  	}
+>  	on_each_cpu(cpu_enable_directed_irq, NULL, 1);
 > =20
->  	/* Mode config init */
-> @@ -523,7 +529,7 @@ static int gud_probe(struct usb_interface *intf, cons=
-t struct usb_device_id *id)
->  	num_formats_dev =3D ret;
->  	for (i =3D 0; i < num_formats_dev; i++) {
->  		const struct drm_format_info *info;
-> -		size_t fmt_buf_size;
-> +		size_t fmt_buf_size, fmt_pitch;
->  		u32 format;
+>  	zpci_irq_chip.irq_set_affinity =3D zpci_set_irq_affinity;
 > =20
->  		format =3D gud_to_fourcc(formats_dev[i]);
-> @@ -562,8 +568,9 @@ static int gud_probe(struct usb_interface *intf, cons=
-t struct usb_device_id *id)
->  			break;
->  		}
-> =20
-> -		fmt_buf_size =3D drm_format_info_min_pitch(info, 0, drm->mode_config.m=
-ax_width) *
-> -			       drm->mode_config.max_height;
-> +		fmt_pitch =3D drm_format_info_min_pitch(info, 0, drm->mode_config.max_=
-width);
-> +		fmt_buf_size =3D fmt_pitch * drm->mode_config.max_height;
-> +		max_pitch =3D max(max_pitch, fmt_pitch);
->  		max_buffer_size =3D max(max_buffer_size, fmt_buf_size);
-> =20
->  		if (format =3D=3D GUD_DRM_FORMAT_R1 || format =3D=3D GUD_DRM_FORMAT_XR=
-GB1111)
-> @@ -588,9 +595,13 @@ static int gud_probe(struct usb_interface *intf, con=
-st struct usb_device_id *id)
-> =20
->  	if (desc.max_buffer_size)
->  		max_buffer_size =3D le32_to_cpu(desc.max_buffer_size);
-> +	if (max_buffer_size < max_pitch)
-> +		max_buffer_size =3D max_pitch;
->  	/* Prevent a misbehaving device from allocating loads of RAM. 4096x4096=
-@XRGB8888 =3D 64 MB */
->  	if (max_buffer_size > SZ_64M)
->  		max_buffer_size =3D SZ_64M;
-> +	if (max_buffer_size < max_pitch)
-> +		return -EINVAL;
-This feels like it can just be changed to a check for max_pitch >
-SZ_64M || max_buffer_size > SZ_64M? Comparing max_buffer_size against
-max_pitch twice seems... odd
-> =20
->  	gdrm->bulk_pipe =3D usb_sndbulkpipe(interface_to_usbdev(intf), usb_endp=
-oint_num(bulk_out));
->  	gdrm->bulk_len =3D max_buffer_size;
-> diff --git a/drivers/gpu/drm/gud/gud_pipe.c b/drivers/gpu/drm/gud/gud_pip=
-e.c
-> index 5ef887d8485a..1f08226b23b2 100644
-> --- a/drivers/gpu/drm/gud/gud_pipe.c
-> +++ b/drivers/gpu/drm/gud/gud_pipe.c
-> @@ -156,10 +156,14 @@ static int gud_prep_flush(struct gud_device *gdrm, =
-struct drm_framebuffer *fb,
->  			  struct drm_format_conv_state *fmtcnv_state)
->  {
->  	u8 compression =3D gdrm->compression;
-> +	unsigned int block_width =3D drm_format_info_block_width(format, 0);
->  	struct iosys_map dst;
->  	void *vaddr, *buf;
->  	size_t pitch, len;
-> =20
-> +	if (block_width > 1)
-> +		rect->x1 =3D ALIGN_DOWN(rect->x1, block_width);
+>  	return 0;
 > +
->  	pitch =3D drm_format_info_min_pitch(format, 0, drm_rect_width(rect));
->  	len =3D pitch * drm_rect_height(rect);
->  	if (len > gdrm->bulk_len)
-> @@ -327,7 +331,7 @@ static void gud_flush_damage(struct gud_device *gdrm,=
- struct drm_framebuffer *fb
->  {
->  	struct drm_format_conv_state fmtcnv_state =3D DRM_FORMAT_CONV_STATE_INI=
-T;
->  	const struct drm_format_info *format;
-> -	unsigned int i, lines;
-> +	unsigned int i, lines, block_width;
->  	size_t pitch;
->  	int ret;
-> =20
-> @@ -335,12 +339,21 @@ static void gud_flush_damage(struct gud_device *gdr=
-m, struct drm_framebuffer *fb
->  	if (format->format =3D=3D DRM_FORMAT_XRGB8888 && gdrm->xrgb8888_emulati=
-on_format)
->  		format =3D gdrm->xrgb8888_emulation_format;
-> =20
-> +	block_width =3D drm_format_info_block_width(format, 0);
-> +	if (block_width > 1)
-> +		damage->x1 =3D ALIGN_DOWN(damage->x1, block_width);
-> +
->  	/* Split update if it's too big */
->  	pitch =3D drm_format_info_min_pitch(format, 0, drm_rect_width(damage));
->  	lines =3D drm_rect_height(damage);
-> =20
-> +	if (!pitch || !lines)
-> +		return;
-> +
->  	if (gdrm->bulk_len < lines * pitch)
->  		lines =3D gdrm->bulk_len / pitch;
-> +	if (!lines)
-> +		return;
-This also feels a bit odd, checking !lines twice, it shouldn't be
-possible at this point for pitch < gdrm->bulk_len due to your changes
-to max_pitch above, given that max_pitch should always be at least
-min_pitch for all the formats.
-> =20
->  	for (i =3D 0; i < DIV_ROUND_UP(drm_rect_height(damage), lines); i++) {
->  		struct drm_rect rect =3D *damage;
-> @@ -399,6 +412,13 @@ static int gud_fb_queue_damage(struct gud_device *gd=
-rm, struct drm_framebuffer *
-> =20
->  	mutex_lock(&gdrm->damage_lock);
-> =20
-> +	if (gdrm->shadow_buf && gdrm->fb &&
-> +	    (fb->pitches[0] !=3D gdrm->fb->pitches[0] || fb->height !=3D gdrm->=
-fb->height)) {
-> +		vfree(gdrm->shadow_buf);
-> +		gdrm->shadow_buf =3D NULL;
-> +		gud_clear_damage(gdrm);
+> +out_free_dibv:
+> +	for_each_possible_cpu(cpu) {
+> +		if (zpci_dibv[cpu])
+> +			airq_iv_release(zpci_dibv[cpu]);
 > +	}
-> +
->  	if (!gdrm->shadow_buf) {
->  		gdrm->shadow_buf =3D vcalloc(fb->pitches[0], fb->height);
->  		if (!gdrm->shadow_buf) {
-> @@ -562,8 +582,8 @@ int gud_plane_atomic_check(struct drm_plane *plane,
->  			goto out;
->  		}
-> =20
-> -		req->properties[num_properties + i].prop =3D cpu_to_le16(prop);
-> -		req->properties[num_properties + i].val =3D cpu_to_le64(val);
-> +		req->properties[num_properties].prop =3D cpu_to_le16(prop);
-> +		req->properties[num_properties].val =3D cpu_to_le64(val);
-Please rebase your patch, this has already been fixed upstream
+> +	kfree(zpci_dibv);
+> +	zpci_dibv =3D NULL;
+> +out_free_sbv:
+> +	airq_iv_release(zpci_sbv);
+> +	zpci_sbv =3D NULL;
+> +	return -ENOMEM;
 
-Ruben
->  		num_properties++;
->  	}
-> =20
+As Sashiko notes this doesn't undo the
+zpci_set_irq_ctrl(SIC_IRQ_MODE_DIRECT, 0, &iib) and via the iib leaves
+the zpci_sbv->vector that gets freed here set in hardware. While
+Sashiko also notes this is an __init function and these allocations are
+extremely unlikely to fail I think the rollback is still just nice
+form. I think we could simply move the zpci_set_irq_ctrl() to after the
+allocations but before the cpu_enable_directed_irq(). It also seems
+more logical to set the interrupt mode only after memory has been set
+up.
 
---=-gNRPWEAJ3y4bweuDeAF6
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEE3obNNdPQ9V5CQi2Y0n5QwFCuDOEFAmrE8WAbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJENJ+UMBQrgzha9kQAKnqmimlz9QU+TualnIu
-Ct71/9CNST7ptTA5gaPomV/jQOGP3sOW+YtgQy1eavkcktDddk9vyH5EECcetTEM
-BWCqWHSRtonDTPBhJCUY6fdTVPLDRU6XzIlfsDk8/fyzvBDrV44AYSFDROINkjJK
-NLYKGWAJ7FhU5aYW3jJ7bE9bBRmtow4Nv1Et8yeRPrvPuHvkqAk1yCOLVkBLb5aP
-NEi0bkcS8iYllEM36moh48eE1FJ7w3xZzKzlzBHOBUYedsQNNtEP9PdRKKWqfQmy
-e4beuMSoNl/fauxVouZFOT+i18YYBH8FYGB+SbmAyeJFl5hKqO8pzg9okucPsW9g
-OqAHUZn7uHNEfwXlP/QF6Z+o2fD+uqPn8Qy9sM0PmeZKo+uOXD1sfSkzewdXkaIv
-ZoHvtcIfFopM8mx9CMyT8Z3rpiD81bzRBJnnGlSdffzNTtSORiPX7aC429YL5A7O
-lLUck4x41Bat8UzStl9pHY+PpMECFmvSVcHc+bNG1KThr/rAQcf6GqxJP1nHQYAr
-MER0ni11JYyrdiG/g7HsQzXrj9dH/bIb4uU6ObalpkQwzoG3X18c8JucWEvDUNqu
-XRqFMIKqSFPKGh9ACcBCiLAq7IoW3+ba5ik1X3Za60SZJUBOYjJN0LSPZJVCnMwC
-1ljKwwuw9i2e08zHc/75qARx
-=cbxp
------END PGP SIGNATURE-----
-
---=-gNRPWEAJ3y4bweuDeAF6--
+Thanks,
+Niklas
