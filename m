@@ -1,287 +1,414 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender5-pp-g120.zoho.com (sender5-pp-g120.zoho.com [165.173.182.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07A0A43DA50;
-	Tue,  6 Oct 2026 15:59:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791302369; cv=none; b=vFkYQFtR3RRm6nhaczPue9hayXDP21T24Ep5tk2FhcM+9OIE/Hsd3637f0NoE8kFG0IXBmGvtV+qLHXCTG1w8yb6d0GQXVJfQeUZd3Hp3lSjow9aWPW9ywEeFL3xs8oTA3i2TXzVs5pwOz8hOL9ItV558Efq7p9p/cZeQZ3Zlbc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791302369; c=relaxed/simple;
-	bh=tF4DZadjAnhSeunXrNq06uHSevNVFzYrRri2EGTqylM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nkX5wkjYubnb9bGvmYTT0vBsTAPNHEWXT+mAVQgF//fse7I9+YhP8z0UfafBeqZn1BCwKlm0xnLcbFWOkTIf6+AQZHpWX+kgX7aIUGPeepSUwN7C39vbWRbId1l/gPkh/YEIDEW/im7/apiE2QxziJuRq3X8aoW6UsAAf29KtPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gj/ThtFM; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81EB549C4A0;
+	Tue,  6 Oct 2026 15:59:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.120
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791302402; cv=pass; b=i2k6tJax92io5pVJLc3SIVHjwMMIaHgr3TXK+bhlxIppr5/VhzaZoYE6hbknieK36yH0d8LTITOnChof8UUH+Z3QySn6Gt4vr2wsqud1dH+U2Ntfj0Z8EqnycGSGKg8C81vutFIKHjHLGpDXKLXsVL+/tlZvb0dtMKAsDbFM86k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791302402; c=relaxed/simple;
+	bh=31dft7DrMoMIL7cQinT8Mc1lr5vjidUapYSotieFims=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=C4yBsR2vgnT5GgOIuRyNDZkCrb/Y7xvORhSvwG0w3OUVqyQ9CiB5eRkj/rjP3nmu004FEmRGilep0VDAWgWn5uvdoRX9X/E3kk/nprTeyo/UCF283dSLrbYbr92CZt2vO6rePCvt5PoYW0/46xDkwjlaghe6GgcpDwhMz5nkWb4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=rnViszo2; arc=pass smtp.client-ip=165.173.182.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gj/ThtFM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9EE51F0089D;
-	Tue,  6 Oct 2026 15:59:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791302367;
-	bh=SOExgyoOJDUbBxw57Jd8DLtCxRntAzBWatUantBFvdo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=gj/ThtFM5d7BGT74qtbUMWUFB/5E8RvPRhphS+iJILnsq69ho4u078xsWhGo0Zhfb
-	 Z50+tZCQzdFBhllFWAxd2oqD0AAK5Q/EC8Dh5+7fMHAgf08UWvBjQ2o1c8zJ0iRUIb
-	 I2ik5/F/E1LevbG9Z7WGQxlbluqkG9GITJdjJ8OpH3+E2I8A1mCi3abd5N2g4Fmo9p
-	 QCzCQtPmliZsJ8OswH4zFiC6CxZqIT29RqRAfm7Mg6nC5swdDYbfCN5QdCl+BJ9Iee
-	 jannwXfaWD3UAaLB23T/80pV2GsAB5c7OmMFZzaM11Zv46Q4o5/INRKwXaFXv0oGxB
-	 ZrYO5b5oKAPFQ==
-Message-ID: <1aace5d9-82c5-419a-a916-756312afe599@kernel.org>
-Date: Tue, 6 Oct 2026 17:59:21 +0200
+	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="rnViszo2"
+ARC-Seal: i=1; a=rsa-sha256; t=1791302364; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=fvYX0IY6tjWMM9ZOcE/JSMqlSFzGx8fL+vHApnEYomu2oNqgXzmU5NicaQz6J+lWXH+prfLjzEEVFJyJoOn/Kx5jvkq2z5UaDuFJfKD1aS32Ll6+8zGT5/t6ocuWu6We/i8UvxO1iHvq3SVD3RyByxGJBjo3XPjYgQ00EgJybpk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791302364; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=ofJ6lFmaqkMAD1B5crgh4ZVwIkmC1rZp5ZE3WR+x4IQ=; 
+	b=Wq0b7NnvCl/3C3ZOLM2dwKExw6wCwFGPMW6cQ1Hf5uRNtbi8oPGp2bcsHJxkdX7xaU3P7zhUDvAVz9ujNIPQGaeGYjO9y/iHqWxUAL9RDKfufbLSwwvwr3Rwb3TzyE1aEl+krhLvQuYF5eZ49nFrtEalFQ7KKc5bZ/2hQ44TW1w=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=pigmoral.tech;
+	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
+	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791302364;
+	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
+	h=Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Date:Message-Id:Message-Id:Cc:Cc:Subject:Subject:From:From:To:To:In-Reply-To:Reply-To;
+	bh=ofJ6lFmaqkMAD1B5crgh4ZVwIkmC1rZp5ZE3WR+x4IQ=;
+	b=rnViszo2gzEw3WXjg8UERJ6Q8Hl+VIa+/lLTYE0A97TTTJgQd4umIVR8DO51z32Q
+	R9BLlL9Hv4oA9rmksZGwEtrmoNXtnaNwyG79uvpOcdS53UxRLHqrQnhau57geCILYpb
+	HH3w2dQjw1wrcYvOFpvpxPLrS1Qm/3VNO0Ex+49s=
+Received: by smtp.zohomail.com with SMTPS id 1791302362417454.9136076680727;
+	Tue, 6 Oct 2026 08:59:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: iio: adc: add bindings for stm32 mdf
- filter
-To: Olivier MOYSAN <olivier.moysan@foss.st.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261001145702.2628429-1-olivier.moysan@foss.st.com>
- <20261001145702.2628429-2-olivier.moysan@foss.st.com>
- <20261002-pragmatic-smart-piculet-cacb3e@quoll>
- <57322a17-7fae-434a-b60a-f879855cbb2b@foss.st.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <57322a17-7fae-434a-b60a-f879855cbb2b@foss.st.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Tue, 06 Oct 2026 23:59:12 +0800
+Message-Id: <DLXVOSID7Y2U.VWIHLBRJIU7B@pigmoral.tech>
+Cc: "Stephen Boyd" <sboyd@kernel.org>, "Brian Masney"
+ <bmasney+clk@redhat.com>, "Jerome Brunet" <jbrunet+clk@baylibre.com>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Jernej Skrabec"
+ <jernej.skrabec@gmail.com>, "Samuel Holland" <samuel@sholland.org>,
+ "Philipp Zabel" <p.zabel@pengutronix.de>, "Paul Walmsley" <pjw@kernel.org>,
+ "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
+ "Alexandre Ghiti" <alex@ghiti.fr>, "Richard Cochran"
+ <richardcochran@gmail.com>, <linux-clk@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-sunxi@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <linux-riscv@lists.infradead.org>, <netdev@vger.kernel.org>, "Jerome
+ Brunet" <jbrunet@baylibre.com>, "Enzo Adriano"
+ <enzo.adriano.code@gmail.com>
+Subject: Re: [PATCH v5 7/8] clk: sunxi-ng: a733: Add bus clock gates
+From: "Junhui Liu" <junhui.liu@pigmoral.tech>
+To: "Andre Przywara" <andre.przywara@arm.com>, "Junhui Liu"
+ <junhui.liu@pigmoral.tech>, <wens@kernel.org>
+X-Mailer: aerc 0.22.0
+References: <20260930-a733-clk-v5-0-11175b41cd2d@pigmoral.tech>
+ <20260930-a733-clk-v5-7-11175b41cd2d@pigmoral.tech>
+ <CAGb2v65Lqo7NiFhc2GYdfY7+jkC4Y+p6=Zy85HOFmXJzT0u1fg@mail.gmail.com>
+ <DLWMN3TYBP9F.3N62QFP7QEE9U@pigmoral.tech>
+ <4ac4c90f-887e-4545-9c26-9706bdaa1a79@arm.com>
+ <DLXU88MGGIWX.2IUEKEMBTV4QC@pigmoral.tech>
+ <d7cb2a75-7d9c-4e91-8fcf-4c466734497d@arm.com>
+In-Reply-To: <d7cb2a75-7d9c-4e91-8fcf-4c466734497d@arm.com>
+X-ZohoMailClient: External
 
-On 06/10/2026 17:48, Olivier MOYSAN wrote:
+Hi Andre,
+
+On Tue Oct 6, 2026 at 11:29 PM CST, Andre Przywara wrote:
+> Hi,
+>
+> On 10/6/26 16:50, Junhui Liu wrote:
+>> Hi Andre, Chen-Yu,
+>>=20
+>> I ran some tests and now have a better understanding of the clock
+>> hierarchy. Please see the results below.
+>>=20
+>> On Mon Oct 5, 2026 at 5:17 PM CST, Andre Przywara wrote:
+>>> Hi,
 >>>
->>> diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-mdf-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stm32-mdf-adc.yaml
->>> new file mode 100644
->>> index 000000000000..f2fbc3e150e8
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-mdf-adc.yaml
->>
->> Filename follows compatible, so st,stm32mp23-mdf
->>
-> 
-> stmp32mp25 is the main SoC, while stm32mp23 is a variant.
-> file renamed st,stm32mp25-mdf.yaml
+>>> On 10/5/26 06:41, Junhui Liu wrote:
+>>>> Hi Chen-Yu,
+>>>>
+>>>> On Sun Oct 4, 2026 at 7:03 PM CST, Chen-Yu Tsai wrote:
+>>>>> On Tue, Sep 29, 2026 at 7:28=E2=80=AFPM Junhui Liu <junhui.liu@pigmor=
+al.tech> wrote:
+>>>>>>
+>>>>>> Add the bus clock gates that control access to the devices' register
+>>>>>> interface on the Allwinner A733 SoC. These clocks are typically
+>>>>>> single-bit controls in the BGR registers, covering UARTs, SPI, I2C, =
+and
+>>>>>> various multimedia engines. It also includes bus gates for system
+>>>>>> components like the IOMMU and MSI-lite interfaces.
+>>>>>>
+>>>>>> Also mark the ahb-store, mbus-store and ahb-cpus clocks as critical.
+>>>>>> Disabling either store gate breaks access to boot/storage devices su=
+ch
+>>>>>> as MMC and SPI NOR, while gating ahb-cpus hangs any access to the CP=
+US
+>>>>>> power domain registers when unused clocks are disabled.
+>>>>>>
+>>>>>> Tested-by: Jerome Brunet <jbrunet@baylibre.com>
+>>>>>> Reviewed-by: Andre Przywara <andre.przywara@arm.com>
+>>>>>> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+>>>>>> ---
+>>>>>>    drivers/clk/sunxi-ng/ccu-sun60i-a733.c | 492 ++++++++++++++++++++=
+++++++++++++-
+>>>>>>    1 file changed, 491 insertions(+), 1 deletion(-)
+>>>>>>
+>>>>>> diff --git a/drivers/clk/sunxi-ng/ccu-sun60i-a733.c b/drivers/clk/su=
+nxi-ng/ccu-sun60i-a733.c
+>>>>>> index 1b2d4d36ec4c..b077e5d2f32c 100644
+>>>>>> --- a/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
+>>>>>> +++ b/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
+>>>>>> @@ -4,6 +4,10 @@
+>>>>>>     * Copyright (C) 2026 Junhui Liu <junhui.liu@pigmoral.tech>
+>>>>>>     * Based on the A523 CCU driver:
+>>>>>>     *   Copyright (C) 2023-2024 Arm Ltd.
+>>>>>> + *
+>>>>>> + * TODO: The real parents of some bus gates, including its-pcie0-ac=
+lk,
+>>>>>> + * msi-lite, npu, ufs, sgpio, lpc and i2spcm, are not documented in=
+ the
+>>>>>> + * manual. For now, follow the vendor BSP, which keeps them on hosc=
+.
+>>>>>>     */
+>>>>>
+>>>>> [...]
+>>>>>
+>>>>>> @@ -510,9 +522,118 @@ static SUNXI_CCU_M_DATA_WITH_MUX_GATE_FEAT(mbu=
+s_clk, "mbus", mbus_parents, 0x588
+>>>>>>                                              BIT(31),     /* gate */
+>>>>>>                                              CLK_IS_CRITICAL,
+>>>>>>                                              CCU_FEATURE_UPDATE_BIT)=
+;
+>>>>>> +static const struct clk_hw *mbus_hws[] =3D { &mbus_clk.common.hw };
+>>>>>> +
+>>>>>> +static SUNXI_CCU_GATE_HWS(mbus_iommu0_sys_clk, "mbus-iommu0-sys", m=
+bus_hws, 0x58c, BIT(0), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(apb_iommu0_sys_clk, "apb-iommu0-sys", apb=
+0_hws, 0x58c, BIT(1), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(ahb_iommu0_sys_clk, "ahb-iommu0-sys", ahb=
+_hws, 0x58c, BIT(2), 0);
+>>>>>> +
+>>>>>> +static SUNXI_CCU_GATE_DATA(bus_msi_lite0_clk, "bus-msi-lite0", hosc=
+, 0x594, BIT(0), 0);
+>>>>>> +static SUNXI_CCU_GATE_DATA(bus_msi_lite1_clk, "bus-msi-lite1", hosc=
+, 0x59c, BIT(0), 0);
+>>>>>> +static SUNXI_CCU_GATE_DATA(bus_msi_lite2_clk, "bus-msi-lite2", hosc=
+, 0x5a4, BIT(0), 0);
+>>>>>> +
+>>>>>> +static SUNXI_CCU_GATE_HWS(mbus_iommu1_sys_clk, "mbus-iommu1-sys", m=
+bus_hws, 0x5b4, BIT(0), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(apb_iommu1_sys_clk, "apb-iommu1-sys", apb=
+0_hws, 0x5b4, BIT(1), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(ahb_iommu1_sys_clk, "ahb-iommu1-sys", ahb=
+_hws, 0x5b4, BIT(2), 0);
+>>>>>
+>>>>>> +static SUNXI_CCU_GATE_HWS(ahb_ve_dec_clk, "ahb-ve-dec", ahb_hws,
+>>>>>> +                         0x5c0, BIT(0), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(ahb_ve_enc_clk, "ahb-ve-enc", ahb_hws,
+>>>>>> +                         0x5c0, BIT(1), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(ahb_vid_in_clk, "ahb-vid-in", ahb_hws,
+>>>>>> +                         0x5c0, BIT(2), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(ahb_vid_cout0_clk, "ahb-vid-cout0", ahb_h=
+ws,
+>>>>>> +                         0x5c0, BIT(3), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(ahb_vid_cout1_clk, "ahb-vid-cout1", ahb_h=
+ws,
+>>>>>> +                         0x5c0, BIT(4), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(ahb_de_clk, "ahb-de", ahb_hws,
+>>>>>> +                         0x5c0, BIT(5), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(ahb_npu_clk, "ahb-npu", ahb_hws,
+>>>>>> +                         0x5c0, BIT(6), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(ahb_gpu0_clk, "ahb-gpu0", ahb_hws,
+>>>>>> +                         0x5c0, BIT(7), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(ahb_serdes_clk, "ahb-serdes", ahb_hws,
+>>>>>> +                         0x5c0, BIT(8), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(ahb_usb_sys_clk, "ahb-usb-sys", ahb_hws,
+>>>>>> +                         0x5c0, BIT(9), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(ahb_msi_lite0_clk, "ahb-msi-lite0", ahb_h=
+ws,
+>>>>>> +                         0x5c0, BIT(16), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(ahb_store_clk, "ahb-store", ahb_hws,
+>>>>>> +                         0x5c0, BIT(24), CLK_IS_CRITICAL);
+>>>>>> +static SUNXI_CCU_GATE_HWS(ahb_cpus_clk, "ahb-cpus", ahb_hws,
+>>>>>> +                         0x5c0, BIT(28), CLK_IS_CRITICAL);
+>>>>>
+>>>>> I suspect these refer to a AHB-AHB bridge for the various subsystems =
+shown
+>>>>> in the memory map. That would explain why when the "ahb-store" clock =
+is
+>>>>> gated, the storage bits stop working.
+>>>>>
+>>>>> If that's the case, we should describe it as the parent of each stora=
+ge
+>>>>> peripheral bus gate's parent. Same would go for the other types. I ha=
+ven't
+>>>>> checked what the BSP does though.
+>>>>
+>>>> As Norman mentioned in his reply, the vendor BSP also does not model
+>>>> this hierarchy and instead models these gates as independent clocks
+>>>> parented to the oscillator. The manual does not describe the hierarchy
+>>>> either, so I don't think we have enough information to model it
+>>>> differently at this point.
+>>>
+>>> Well, I wouldn't use the BSP as a good example on how to model the cloc=
+k
+>>> tree, they have been very misguided in the past.
+>>=20
+>> Understood. I will not rely on the BSP's clock hierarchy.
+>
+> Well, I meant more the BSP software/DT modelling, as in: this device=20
+> know needs now two input clocks. As you mentioned, the manual does not=20
+> describe every relation, so we need to rely on the BSP for knowing the=20
+> parents. But ...
 
-Sure, that's fine.
+Got it, thanks for clarifying.
 
-> 
->>> @@ -0,0 +1,383 @@
->>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>> +%YAML 1.2
->>> +---
->>> +$id: http://devicetree.org/schemas/iio/adc/st,stm32-mdf-adc.yaml#
->>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>> +
->>> +title: STMicroelectronics STM32 Multi-function Digital Filter (MDF) ADC
->>> +
->>> +maintainers:
->>> +  - Olivier Moysan <olivier.moysan@foss.st.com>
->>> +
->>> +description: |
->>> +  STM32 MDF ADC is a sigma delta analog-to-digital converter dedicated to
->>> +  interface external sigma delta modulators to STM32 micro controllers.
->>> +
->>> +properties:
->>> +  compatible:
->>> +    enum:
->>> +      - st,stm32mp25-mdf
->>> +      - st,stm32mp23-mdf
->>
->> Why reversed order?
->>
-> 
-> Ok. Reordered alphabetically
-> 
->>> +  ranges: true
->>> +
->>> +  clock-ranges: true
->>
->> Do you need it here?
-> 
-> clock-ranges property is used to allow the filter child nodes to inherit 
-> the MDF kernel clock from the parent node.
+>
+>>> What the BSP does is to add just more input/gate MBUS clocks for each
+>>> device, which is something I think we should avoid.
+>>> To that regard using them as parent clocks for the existing gates, as
+>>> Chen-Yu suggested, sounds like a good idea: We keep a single clock for
+>>> the devices, but still can turn both clocks off (I think, not tested).
+>>=20
+>> I tested bus-mmc0, bus-mmc2, bus-spi0, bus-ufs, bus-nand0, and
+>> bus-spif individually. Disabling each bus gate made the corresponding
+>> controller's MMIO registers inaccessible: reads either returned zero or
+>> a fixed invalid value.
+>>=20
+>> With those individual bus gates enabled, disabling ahb-store made the
+>> MMIO registers of all those controllers inaccessible. Restoring
+>> ahb-store made them accessible again.
+>
+> Ah, awesome, that's a good test, thanks for doing this! I thought that=20
+> this clock is really about the data path, not the (MMIO register)=20
+> control part, which is typically a separate low-speed bus (APB).
+> Since that is somewhat surprising, it's probably best to add a comment=20
+> in the code about that.
 
-You answered why you need it in DTS. I question why do you need it in
-the binding? Do you see a warning?
+Okay, I will add a comment.
 
-> 
->>
->>> +
->>> +  resets:
->>> +    maxItems: 1
->>> +
->>> +  reset-names:
->>> +    items:
->>> +      - const: mdf
+>
+>> Based on these results, I plan to make ahb-store the parent of the
+>> following bus clocks in the next version:
+>
+> Is ahb-store ungated at reset?
 
+Yes. Both the manual and a read through FEL before loading any external
+firmware confirmed that ahb-store is ungated at reset. The same is true
+for mbus-store.
 
->>> +        then:
->>> +          patternProperties:
->>> +            "^channel@[0-7]$":
->>> +              required:
->>> +                - io-backends
->>> +
->>> +      - if:
->>> +          properties:
->>> +            compatible:
->>> +              contains:
->>> +                const: st,stm32mp25-mdf-dmic
->>> +
->>> +        then:
->>> +          patternProperties:
->>> +            "^mdf-dai+$":
->>
->> This makes no sense. Why is this a pattern and why mdf-daiiiii is
->> correct name?
->>
-> 
-> "^mdf-dai$" is intended here
-> 
->> Not mentioning that your are not supposed to define properties in if
->> block (do you see any code like that?). Mixing addressable and
->> non-addressable children is another odd thing.
->>
-> 
-> This binding is inspired by the one already adopted for the DFSDM
-> https://www.kernel.org/doc/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
-> 
-> I assume can move the mdf-dai node definition outside the conditional 
-> branch easily.
-> However, it seems to me more complicated to avoid mixing addressable and 
-> non-addressable nodes here. Can we keep this binding aligned with the 
-> DFSDM model? Or would you have another suggestion?
+>
+>>    bus-nand0
+>>    bus-mmc0
+>>    bus-mmc1
+>>    bus-mmc2
+>>    bus-mmc3
+>>    bus-spi0
+>>    bus-spi1
+>>    bus-spi2
+>>    bus-spif
+>>    bus-spi3
+>>    bus-spi4
+>>    bus-ufs
+>>=20
+>> I directly tested MMC0, MMC2, SPI0, SPIF, NAND0, and UFS. The remaining
+>> instances use the same type of bus gates in the same storage subsystem,
+>> so I plan to model them in the same way.
+>>=20
+>> For mbus-store, testing with MMC0 and UFS showed that disabling it
+>> breaks the storage DMA paths.
+>
+> When you say "storage DMA", you mean the actual DMA data path, using=20
+> those chained descriptors? Does it work for PIO accesses, as U-Boot uses?
 
-Why was this model chosen in that dfsdm? The child has no resources, so
-it should never been made a separate node.
+Yes, I mean the actual DMA data path.
 
+In my tests, MMC and SPI PIO transfers in U-Boot still worked with
+mbus-store disabled, and the controller MMIO registers remained
+accessible.
 
-> 
->> This entire schema is quite chaotic and overcomplicated.
->>
->>> +              type: object
->>> +              description: child node
->>> +
->>> +              properties:
->>> +                compatible:
->>> +                  enum:
->>> +                    - st,stm32mp25-mdf-dai
->>> +
->>> +                "#sound-dai-cells":
->>> +                  const: 0
->>> +
->>> +                io-channels:
->>> +                  description:
->>> +                    From common IIO binding. Used to pipe external sigma delta
->>> +                    modulator or internal ADC output to MDF channel.
->>> +
->>> +                power-domains:
->>> +                  maxItems: 1
->>> +
->>> +                port:
->>> +                  $ref: /schemas/sound/audio-graph-port.yaml#
->>> +                  unevaluatedProperties: false
->>> +
->>> +              required:
->>> +                - compatible
->>> +                - "#sound-dai-cells"
->>> +                - io-channels
->>> +
->>> +              additionalProperties: false
->>> +
->>> +examples:
->>> +  - |
->>> +    #include <dt-bindings/clock/st,stm32mp25-rcc.h>
->>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
->>> +    mdf1: mdf@504d0000 {
->>
->> Node names should be generic. See also an explanation and list of
->> examples (not exhaustive) in DT specification:
->> https://devicetree-specification.readthedocs.io/en/latest/chapter2-devicetree-basics.html#generic-names-recommendation
->> If you cannot find a name matching your device, please check in kernel
->> sources for similar cases or you can grow the spec (via pull request to
->> DT spec repo).
->>
->> And drop unused labels.
->>
-> 
-> The MDF is a digital filter for sigma-delta bitstreams, rather than the 
-> analog-to-digital converter itself. So "adc" would not be adapted. I did 
-> not find "filter", that probably would be the more relevant generic name.
-> The closest similar case is the DFSDM peripheral, which already uses a 
-> specific naming:
->      dfsdm: dfsdm@4400d000 { ...
-> https://www.kernel.org/doc/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
-> 
-> What is your recommendation: keep the naming "mdf" or make a pull 
-> request to add "filter" or another more appropriate name ?
-> 
->>> +      compatible = "st,stm32mp25-mdf";
->>> +      ranges = <0 0x504d0000 0x1000>;
->>> +      reg = <0x504d0000 0x8>, <0x504d0ff0 0x10>;
->>
->> Address ranges of 2 and 4 words?
->>
-> 
-> These two sections correspond to MDF common registers managed by the core
-> - Control registers: 2 x 32 bits registers
-> - Identification registers: 4 x 32 bits registers
-> The other registers are managed by filter and serial interface driver
-> 
+>
+>> Most of these storage controllers do not have dedicated MBUS gate
+>> clocks, so there is no clock that can be parented to mbus-store to model
+>> their DMA dependency.
+>
+> Could this be like mbus-store -> ahb_store -> bus-{mmc,spi,ufs,nand}<n>?
 
+I don't think that would reflect the hardware topology. mbus-store is
+fed by mbus, while ahb-store is fed by ahb. Chaining them would also
+make the AHB bus gates inherit the MBUS rate in the CCF model.
 
-Unfortunately this leaves impression of incomplete DT or too granular
-split of devices to match your driver model.
+I would therefore prefer to keep mbus-store marked as CLK_IS_CRITICAL,
+or use a better way to model this dependency if there is one.
 
 Best regards,
-Krzysztof
+Junhui Liu
+
+>
+> Cheers,
+> Andre
+>
+>> I therefore plan to keep mbus-store marked as
+>> CLK_IS_CRITICAL, as we already do for the main mbus clock. For NAND,
+>> which does have a dedicated mbus-nand gate, I will make mbus-store its
+>> parent.
+>>=20
+>> I also tested NVMe, but disabling either ahb-store or mbus-store had no
+>> effect on it.
+>>=20
+>> Does this approach look reasonable to you?
+>>=20
+>> Best regards,
+>> Junhui Liu
+>>=20
+>>>
+>>> Cheers,
+>>> Andre
+>>>
+>>>> I will add comments explaining why ahb_store_clk, mbus_store_clk, and
+>>>> ahb_cpus_clk are marked critical.
+>>>>
+>>>>>
+>>>>>> +static SUNXI_CCU_GATE_HWS(mbus_iommu0_clk, "mbus-iommu0", mbus_hws,
+>>>>>> +                         0x5e0, BIT(0), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(mbus_iommu1_clk, "mbus-iommu1", mbus_hws,
+>>>>>> +                         0x5e0, BIT(1), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(mbus_desys_clk, "mbus-desys", mbus_hws,
+>>>>>> +                         0x5e0, BIT(11), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(mbus_ve_enc0_gate_clk, "mbus-ve-enc0-gate=
+", mbus_hws,
+>>>>>> +                         0x5e0, BIT(12), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(mbus_ve_dec0_gate_clk, "mbus-ve-dec0-gate=
+", mbus_hws,
+>>>>>> +                         0x5e0, BIT(14), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(mbus_gpu0_clk, "mbus-gpu0", mbus_hws,
+>>>>>> +                         0x5e0, BIT(16), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(mbus_npu_clk, "mbus-npu", mbus_hws,
+>>>>>> +                         0x5e0, BIT(18), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(mbus_vid_in_clk, "mbus-vid-in", mbus_hws,
+>>>>>> +                         0x5e0, BIT(24), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(mbus_serdes_clk, "mbus-serdes", mbus_hws,
+>>>>>> +                         0x5e0, BIT(28), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(mbus_msi_lite0_clk, "mbus-msi-lite0", mbu=
+s_hws,
+>>>>>> +                         0x5e0, BIT(29), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(mbus_store_clk, "mbus-store", mbus_hws,
+>>>>>> +                         0x5e0, BIT(30), CLK_IS_CRITICAL);
+>>>>>
+>>>>> Same thing for the MBUS clocks.
+>>>>>
+>>>>>> +static SUNXI_CCU_GATE_HWS(mbus_msi_lite2_clk, "mbus-msi-lite2", mbu=
+s_hws,
+>>>>>> +                         0x5e0, BIT(31), 0);
+>>>>>> +
+>>>>>> +static SUNXI_CCU_GATE_HWS(mbus_dma0_clk, "mbus-dma0", mbus_hws,
+>>>>>> +                         0x5e4, BIT(0), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(mbus_ve_enc0_clk, "mbus-ve-enc0", mbus_hw=
+s,
+>>>>>> +                         0x5e4, BIT(1), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(mbus_ce_clk, "mbus-ce", mbus_hws,
+>>>>>> +                         0x5e4, BIT(2), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(mbus_dma1_clk, "mbus-dma1", mbus_hws,
+>>>>>> +                         0x5e4, BIT(3), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(mbus_nand_clk, "mbus-nand", mbus_hws,
+>>>>>> +                         0x5e4, BIT(5), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(mbus_csi_clk, "mbus-csi", mbus_hws,
+>>>>>> +                         0x5e4, BIT(8), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(mbus_isp_clk, "mbus-isp", mbus_hws,
+>>>>>> +                         0x5e4, BIT(9), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(mbus_gmac0_clk, "mbus-gmac0", mbus_hws,
+>>>>>> +                         0x5e4, BIT(11), 0);
+>>>>>> +/* Undocumented, taken from the vendor kernel. */
+>>>>>> +static SUNXI_CCU_GATE_HWS(mbus_gmac1_clk, "mbus-gmac1", mbus_hws,
+>>>>>> +                         0x5e4, BIT(12), 0);
+>>>>>> +static SUNXI_CCU_GATE_HWS(mbus_ve_dec0_clk, "mbus-ve-dec0", mbus_hw=
+s,
+>>>>>> +                         0x5e4, BIT(18), 0);
+>>>>>
+>>>>> [...]
+>>>>>
+>>>>> The remaining definitions look correct (minus the vendor BSP ones whi=
+ch I
+>>>>> couldn't check at this time).
+>>>>>
+>>>>> I didn't check the clock list additions.
+>>>>>
+>>>>> Consider this
+>>>>>
+>>>>> Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
+>>>>>
+>>>>
+>>>> Thanks!
+>>>>
+>>>>>
+>>>>> We can change the AHB / MBUS clock parents later if we do figure it o=
+ut.
+>>>>>
+>>>>>
+>>>>> ChenYu
+>>>>
