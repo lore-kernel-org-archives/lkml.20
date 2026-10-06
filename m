@@ -1,234 +1,133 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 472743B05AD
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 10:47:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791283633; cv=none; b=clxBkKD/J+lIcFb88+LsLxtsoJDFASKUUvjx6NjDXy0ZyK8Ng0ujG2HSbwIAXVw66BfoaciQl593MKWCTnuXBRNVTvSHIPLGKHwpWvrsWRsqSqiqdSL1JYdUVPOEJzBOcipO4QSsoF6XJ+SV3J3ntP6rLhwRCqiP9dFwTVCby4Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791283633; c=relaxed/simple;
-	bh=VCi/kjLFAJJGXjgxhIYMwC657u5zE4DOnBkrZHplcNE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PdzMdF2Vv0BqlihBat36qqPy9CKkZTAi8TR3nAOSbEV671DLSg9QVaIHqEXbKXx62iU8AekkW4rkW3h9r60i5s66KDc9h2ImhnOcdLw0NmbxnZbaK18CSLDtm2BywZMvebgs4jKHtXfjd3Z/Vxay5POMTDyCrerh3KfMaXao6gw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Nyc9X9VT; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08E673B05AD
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 10:47:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791283679; cv=pass; b=IMpCE01TWchA8YTsCgRKdq45vNVwdkZXCWSkYzKGzwGe/l8OxQze5149n7e6FGJp0FCcBErDWaInwxTl3oC0EOCs3vaYchsG1ZH8A4DxzbW3QqhV4AjbiboSTendZb1uqb5fYrTLWAtxmtvOAaI4CNlvEGF6Oidujb0bkPUD+N4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791283679; c=relaxed/simple;
+	bh=e/UFUu1HfFn6538kphTVwWa5FV2s/YJlDCcIhCs7g5Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kfO3gvi9zNtzjUjmPBu+u8d/j3vo1qQBI07AbYeHeGxvJNvdqc+JMIsZ4d9mXz5/4rny/xCjfw3J2/ZJZyfk3cgI9/IKnHACMOfYGZHIzTrg0L4/IuAFeCELb0fgp3oPXEoSw49qkSUAuinBCQDT8JEgwelp0XV6nokmtq/Pzr8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a1kklJ8Q; arc=pass smtp.client-ip=209.85.219.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Nyc9X9VT"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a018493d57so55245e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 03:47:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a1kklJ8Q"
+Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-917a9f42283so32832786d6.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 03:47:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791283677; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gew+xP1bVIacLKeYAw7fbKUtNNP+KsCYOoYcciCCsoy6VgvBiRfJup67F+YLH8rs7l
+         6TtSLlxi2KQNpxt5MVVbPQGI5gLzd2hjr9ddxONP54TlUSuH1rtV7/t/+uHYn6renQCq
+         cqhvGQc57gKt/AU3FBiWD65tsGWIMoPMM+yMltwCvevuhAmrla1it9R+ypCF707+EHEw
+         butXk50Mk3u8yEN7U2c1bTgvyEfEEDiYfokgAFtIiGFGDz6/I8EcVrw092wyxP2y1ie6
+         TQiGeLvy3XRtwlgk+63DScEouR6uawCXPAkUOOlJSBT7sLbPfJDRsTNPJ6UmuGL1w+qJ
+         NTFw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=SYZusaEHeQJp9+PNNGappmpwDZuJKs0VI2BXqV5hxv4=;
+        fh=XiPKNWZZtrxjRuyUdBrqBTf3YGT1tI8pnGDfgbc2uGg=;
+        b=ohQWMCH+x5BMNCyilbIXb6qGljJj+s+dCvpnS689o2hjAEj9D/DqRbe9aQVdGN4dYd
+         LwkZxXabTBoQn9RXEcHYJQxCABuzxEHoRMYVDKNZrSd90aY+aGjst9g4FTjTZmuS/LoJ
+         1w/T+bB9mu18gfzJZ80E5XXLEiyO3Lx9B16MhLUWu/4FIWxeXZ+989SG4m9l21ZeHoj5
+         zXgiLvELHtS/iDNOGUGnVv6BGyWVDhCn6Ji66WILOqTK95AGY7fr2Hvj694SBd6qZiwz
+         tLefMnLLUvQ3ycvB9JB2ipsZeqGnOixQES5F8wz2Xm5C8p4Pk6nTouwVPIoqS502DXeT
+         m18w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791283630; x=1791888430; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=oNhJI/vsDPATwVHCwRxldmCYKg+ihLyBJJx7xKlf2yc=;
-        b=Nyc9X9VT5iw8oRbsGxy/ZaE7DOjJQLdO2znx4A0+Ecy1dOdtaDc0M4nQgga2QTk7ua
-         gZBD7p2Ew3H2LaaYK190r2WKerLJF+2QQZKZKMmVTJx6ryTjJke6nfuV5ymDsDLLOeJ5
-         fPv2HB2LbjCy8VRVWP6JgMHIizPIVeaZgdbokTyORIPu/ExOPP/mxeng6+3/Wgyxdo5C
-         8Tu/ZlB3UXHJ5vAjVYH0DLvZLawO8p1ntYVMhKbDzAQd6iopjY3xLxIkJ/8NL/F+u/3V
-         /5QLY2NA0Q3XF0+T8+MUklcTb/EPT82Ijik6FNo86z2Y/zFkOEYiAPC7HS7lmAem4eQV
-         AefQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791283630; x=1791888430;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1791283677; x=1791888477; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=oNhJI/vsDPATwVHCwRxldmCYKg+ihLyBJJx7xKlf2yc=;
-        b=LJYcKxI6iGIjaKWfNz53r381Uwi79ODiYg58e0MeMgrBpbJdvoBr9Xi7UE9z+c6f4R
-         o7WXJAIEd5kM2g3J/+9Eo9fI3gHxpumnrU9QSUAeCcbqJpZhaQpWK/dvbMXrfsBBSA/r
-         gTNFh0N9GUEISE3+S13SkHFH7DCmdWe/0x61Pd3lAoHUz3ucBjZWOQbVATXURIfM1lvc
-         9/KK+jqkVowKLF0pTTv0jxeKIbu+mupvDZz95eYpVLzsAUqxAcTe61fFYAGXspaQWpZY
-         5hsFBEse8/jWmFuEYicJ3wkuPkl8m+edMrPkHSBjML0TgCv9eZJ7twC2QQXEtSbJuUuM
-         Ka0w==
-X-Gm-Message-State: AFuF++niRNTb8NZ31PWNWm7rP0Z7epc6TdvXVDnEU+kTkwzLc//fYGtd
-	VeVz0OkIJ+3nBEsRZ0PQ+9uwy5bJyNiTPm0cU6ghFBZhhVV4auIkcuJot6v57guoMQ==
-X-Gm-Gg: AYBFou2IgDsiJ7rbl+7X7R4NAJ0q3h7s1IgpQ869DbcKe4WmBc+2T9KVDB2BEhz7Q2s
-	8V7cV/yLmoYJpp+sbLqpxSe7jicsSEEWfah2e9+LJXINRJ+dFA7l7b+Ad4YbZz5uBjFyPMvfJ75
-	NB0DRkv+DvSdtUTsyplG2gBqbUJLe3mR9xvL4PnieYwmKjb+p6QFGMsATVr+hS8ch/sYisoE04q
-	dxDr9GDdvp/jzbs1UE1Fsmr/m0HAJOcccfv9FLsQnsS+RU6HFew4OhQtwkn90t1uqn2++9INAxT
-	6SOwZvl3WvHuqKk6hDokVBOTAeghZj3PHhFUc/SITNvmcvdVLQL8UoSyaxeHJLE01IBfzO/7+qL
-	RecLmF3+PSIPKkFd1hEDo8uB6TuSp4WepObk1DOwigU9980YFT02tjQRJ5kCHZXv8EE3xHczHBA
-	keR+l1gJAdfKgs8qQHZzzF12LaYf5STY6xPd6RJtsj45+eDWikBcoX2rThjPLCYaWKR/W5hmFE1
-	hzvjqA/c551TpzrtP0yxnccqPO/oT39ChhQhKW5
-X-Received: by 2002:a05:600c:6290:b0:4a1:7af1:5386 with SMTP id 5b1f17b1804b1-4a17b4587a5mr465225e9.1.1791283629775;
-        Tue, 06 Oct 2026 03:47:09 -0700 (PDT)
-Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c69afe66bsm3896689f8f.30.2026.10.06.03.47.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 03:47:08 -0700 (PDT)
-Date: Tue, 6 Oct 2026 10:47:04 +0000
-From: Mostafa Saleh <smostafa@google.com>
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: linux-kernel@vger.kernel.org, kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, maz@kernel.org,
-	oupton@kernel.org, seiden@linux.ibm.com, joey.gouly@arm.com,
-	suzuki.poulose@arm.com, yuzenghui@huawei.com,
-	catalin.marinas@arm.com, will@kernel.org, tabba@google.com,
-	sebastianene@google.com, keirf@google.com, qperret@google.com,
-	linu.cherian@arm.com
-Subject: Re: [PATCH v3 2/2] KVM: arm64: Support BBM level 3
-Message-ID: <asTRqPfsrnbBWVSF@google.com>
-References: <20260904132855.638117-1-smostafa@google.com>
- <20260904132855.638117-3-smostafa@google.com>
- <asO77kvqqwCsJt8I@google.com>
+        bh=SYZusaEHeQJp9+PNNGappmpwDZuJKs0VI2BXqV5hxv4=;
+        b=a1kklJ8QXYoIGi8lOlZsRO9VraF/W//BIFsd966H1Bj7WVBE79q3p+MOh3/Cq3rtPn
+         efHncnYAyQwhVVLjyDJBGc4At7S2q1wU9nGH90Pd84kxixRkYGsQGLpSuNbeJP6CdxiS
+         /x+WHdhXXi/vKTQN6cFFGphbo/TWu6eek1PEA5oQ3mBY9gnu2po6RVl8ctUNlNUT9rXs
+         Mq0Gq3djU69YqAZuauI4rdv0XviL0YNEfPbDO3imnSkjvZRyU22Frx6fcOcxuaSYGRO6
+         K/q6mG6ewNrU25RPub0hkE+EB9ALROElmYOCgv8T4mUB72e374CDNi7XQHqmGOTe+h7S
+         sr2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791283677; x=1791888477;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=SYZusaEHeQJp9+PNNGappmpwDZuJKs0VI2BXqV5hxv4=;
+        b=O5MShmFcHTiE74Dd/orgA6Ra1HZP3ZgtuJ0ZEW6YWU3LJYhWs1YU9ZW/qcPACBsvQ+
+         nqNEf1RSl0+8Gsl3m6f1jW/1LTZgyfn/xRpyAfpuji0n55hl6B00CP1ctp6AmFb93HR6
+         MexV9UhlTl7hOD74Iqqk29x9Fldjo93QmfTRN6RVi5/sm7xsFA7pF+Lb9wuPlPJTTF76
+         hLqNlPWvSyaCVgTV+ohEnXnJDEml4pjiTa+/SjhAbvigzRh17Vt9Ed31InFdEbmtJc6R
+         rvr/OreI1JpG0qnaeSHGw1w+Yle7oONOUM42LUaPab0HH0ccFiJ42joXoSmYn8ujFNGt
+         GHLg==
+X-Forwarded-Encrypted: i=1; AKwUvBxa435V3UJPYZNJ4ngLCeXU04y8o5PJU9RUbsNX85UX5vnRKBdqwXA5IKbhX6smM67o9OPx2ouVeGIJpRU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJI+rGL+9cywexLZmXDkUV2N2q4HkYFhZgnTumK0Ul1MkES2Rob
+	wt/q4cz5fOb/cizGStt46fDx7JmvphQaBG1BwVGtpgmpmLCn1YDSALPWOVP4WiTTwcgfeW6uHjr
+	PfqL7GCY8fbMWDhX1yUJ8zAEgJJlbd0Q=
+X-Gm-Gg: AYBFou0N8f4YgjMZ44fGhZ+Ip8y7Q3jcGiEHMzHafL52gpT+TTfmFP45aELTw/g76xx
+	ZpRYpY8yPtSF96GvOMGFQL2id1wVPn2Pvq1RdEg1KWxv/S9XdAf2x7mqX1h26s3vNwrJuxEjU6s
+	p9MyYJ6x6ftJtDnGK9WRF7RvN2pE860ZYWEwckFopl1d0DrFd2t0qVDL2vwwpmmUJfpIs7CCaJf
+	Q7U6ouDZKL3WCSMvDEgRNHlPr/yZCdjtLt/+xb8fcEHsUNpOtTQAHCKeWmolbEvsnVCAcOZQ6T+
+	KrdqB86d/y3sfFd1BMXVhWh3C1jKUU5Wj9rNis7yYD7jPxaGZ8WRiEV5Xw08baNtMEx4hiDzKCh
+	MPRIjnnQY
+X-Received: by 2002:ad4:5fc9:0:b0:912:435f:1a8b with SMTP id
+ 6a1803df08f44-9198b7a05f0mr16247936d6.22.1791283676856; Tue, 06 Oct 2026
+ 03:47:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asO77kvqqwCsJt8I@google.com>
+References: <20261006102937.10972-1-ansuelsmth@gmail.com> <asTRQ6d0-NYOeHqX@parshuram>
+In-Reply-To: <asTRQ6d0-NYOeHqX@parshuram>
+From: "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>
+Date: Tue, 6 Oct 2026 12:47:44 +0200
+X-Gm-Features: AclHuK9fa-eKez1qMwGkLA8zpyrdQxMIu76X1IlFgkWsR3UIRNVxdiubkFU4NSU
+Message-ID: <CA+_ehUw8fQHGef_L7YPQEf-wwuzP9km=G64Ty3+AkvM=fkNJ4Q@mail.gmail.com>
+Subject: Re: [PATCH v14 0/3] airoha: an7581: USB support
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Lorenzo Bianconi <lorenzo@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Oct 05, 2026 at 04:02:06PM +0100, Vincent Donnefort wrote:
-> On Fri, Sep 04, 2026 at 01:28:55PM +0000, Mostafa Saleh wrote:
-> > If the system supports hardware Break-Before-Make (BBM) level 3, use it
-> > to replace stage-2 PTEs directly. Otherwise, fall back to the software
-> > BBM sequence.
-> > 
-> > For BBML3 the sequence is:
-> > 1) Get a reference count on the containing table for the new PTE.
-> > 2) Atomically update the PTE with the new valid descriptor.
-> > 3) Invalidate the TLB for the old PTE.
-> > 4) Drop the reference count holding the old PTE.
-> > 
-> > Add 2 helpers:
-> > 1) kvm_pgtable_use_bbml3(): Checks for the architecture requirement
-> >    for BBML3.
-> > 
-> > 2) stage2_use_bbml3(): Extra checks added by SW design (FWB and DIC)
-> >    - As BBML3 will update the PTE atomically, it can only know it
-> >      raced with another core at the point of the cmpxchg failing,
-> >      unlike the SW implementation which locks the PTE first.
-> >      And as we must issue CMOs to the new mapped page before the
-> >      update, that means with BBML3 racing cores will issue redundant
-> >      CMOs.
-> > 
-> > Signed-off-by: Mostafa Saleh <smostafa@google.com>
-> > ---
-> >  arch/arm64/kvm/hyp/pgtable.c | 111 ++++++++++++++++++++++++++++-------
-> >  1 file changed, 90 insertions(+), 21 deletions(-)
-> > 
-> > diff --git a/arch/arm64/kvm/hyp/pgtable.c b/arch/arm64/kvm/hyp/pgtable.c
-> > index d670da8882a5..a9ba761e9a01 100644
-> > --- a/arch/arm64/kvm/hyp/pgtable.c
-> > +++ b/arch/arm64/kvm/hyp/pgtable.c
-> > @@ -82,6 +82,27 @@ static bool kvm_pte_table(kvm_pte_t pte, s8 level)
-> >  	return FIELD_GET(KVM_PTE_TYPE, pte) == KVM_PTE_TYPE_TABLE;
-> >  }
-> >  
-> > +/*
-> > + * Check if BBML3 can be used for this PTE update.
-> > + * Fallback to software break-before-make for leaf-to-leaf changes.
-> > + */
-> > +static bool kvm_pgtable_use_bbml3(const struct kvm_pgtable_visit_ctx *ctx,
-> > +				  kvm_pte_t new)
-> > +{
-> > +	if (!system_supports_bbml3())
-> > +		return false;
-> > +
-> > +	if (!kvm_pte_valid(ctx->old) || !kvm_pte_valid(new))
-> > +		return false;
-> > +
-> > +	/* Block <-> Table is ok. */
-> > +	if (kvm_pte_table(new, ctx->level) ||
-> > +	    kvm_pte_table(ctx->old, ctx->level))
-> > +		return true;
-> > +
-> > +	return false;
-> > +}
-> > +
-> >  static kvm_pte_t *kvm_pte_follow(kvm_pte_t pte, struct kvm_pgtable_mm_ops *mm_ops)
-> >  {
-> >  	return mm_ops->phys_to_virt(kvm_pte_to_phys(pte));
-> > @@ -835,25 +856,46 @@ static void stage2_clean_old_pte(const struct kvm_pgtable_visit_ctx *ctx,
-> >  		mm_ops->put_page(ctx->ptep);
-> >  }
-> >  
-> > +/*
-> > + * Don't use bbml3 for stage-2 if FWB or DIC are not supported
-> > + * as that means racing cores will issue duplicate CMOs.
-> > + */
-> > +static bool stage2_use_bbml3(const struct kvm_pgtable_visit_ctx *ctx,
-> > +			     kvm_pte_t new)
-> > +{
-> > +	if (!cpus_have_final_cap(ARM64_HAS_STAGE2_FWB) ||
-> > +	    !cpus_have_final_cap(ARM64_HAS_CACHE_DIC))
-> > +		return false;
-> > +
-> > +	return kvm_pgtable_use_bbml3(ctx, new);
-> > +}
-> > +
-> >  /**
-> >   * stage2_try_break_pte() - Invalidates a pte according to the
-> >   *			    'break-before-make' requirements of the
-> > - *			    architecture.
-> > + *			    architecture, if BBML3 is supported it
-> > + *			    will be used and this function won't
-> > + *			    break the PTE.
-> >   *
-> >   * @ctx: context of the visited pte.
-> >   * @mmu: stage-2 mmu
-> > + * @new: New pte installed in make.
-> >   *
-> > - * Returns: true if the pte was successfully broken.
-> > + * Returns: true if the pte was successfully broken or BBML3 is used.
-> >   *
-> >   * If the removed pte was valid, performs the necessary serialization and TLB
-> >   * invalidation for the old value. For counted ptes, drops the reference count
-> >   * on the containing table page.
-> >   */
-> >  static bool stage2_try_break_pte(const struct kvm_pgtable_visit_ctx *ctx,
-> > -				 struct kvm_s2_mmu *mmu)
-> > +				 struct kvm_s2_mmu *mmu, kvm_pte_t new)
-> >  {
-> >  	kvm_pte_t locked_pte;
-> >  
-> > +	/* All handled in stage2_make_pte() */
-> > +	if (stage2_use_bbml3(ctx, new))
-> > +		return true;
-> > +
-> 
-> Wouldn't it be easier to keep try_break_pte/make_pte to the !bbml3 case and to
-> just create a make_pte_bbml3() variant to be called when stage2_use_bbml3()?
-> 
->   if (!stage2_use_bbml3()) {
->       if (stage2_try_break_pte())
->           return -EAGAIN;
->       stage2_make_pte();
->   } else {
->       if (stage2_make_pte_bbml3())
->           return -EAGAIN;
->   }
-> 
-> I believe also, the error path would look less weird as we catch an error in
-> make_pte() but without reverting the break_pte() (even if it is correct right
-> now).
-> 
-> And perhaps you could introduce a function that does both break/make
-> (stage2_update_pte()?) called by both stage2_split_walker() and
-> stage2_map_walk_leaf(). This would avoid repeating the error path.
+Il giorno mar 6 ott 2026 alle ore 12:45 Vinod Koul <vkoul@kernel.org>
+ha scritto:
+>
+> On 06-10-26, 12:29, Christian Marangi wrote:
+> > This is a major rework of the old v2 series.
+> >
+> > The SoC always support USB 2.0 but for USB 3.0 it needs additional
+> > configuration for the Serdes port. Such port can be either configured
+> > for USB usage or for PCIe lines or HSGMII and these are configured
+> > in the SCU space.
+> >
+> > The previous implementation of a dedicated SSR driver was too
+> > complex and fragile for the simple task of configuring a register
+> > hence it was dropped and the handling is entirely in the PHY driver.
+> >
+> > Everything was reducted to the dt-bindings to describe the Serdes line.
+> >
+> > Also the property for the PHY are renamed to a more suitable name and
+> > everything is now mandatory to simplify the implementation.
+> > (the PHY are always present and active on the SoC)
+>
+> I get build failure:
+>
+> drivers/phy/airoha/phy-an7581-usb.c:7:10: fatal error: dt-bindings/soc/airoha,scu-ssr.h: No such file or directory
+>     7 | #include <dt-bindings/soc/airoha,scu-ssr.h>
+>       |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>
 
-I though about that and was not sure about it at the beginning as
-mentioned in the cover letter:
-    Initially, I encapsulated the full logic of BBM in one function,
-    which was not readable, due to different ordering and dealing with
-    CMO, TLBI.
+This header is present in linux-next
 
-I think that can be better if we call the new helper for all sites
-except for stage2_map_walker_try_leaf(). Although we would need to
-open code the bbml3 check there now. I can try and see how it looks.
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/include/dt-bindings/soc/airoha,scu-ssr.h
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/include/dt-bindings/soc/airoha,scu-ssr.h?id=11952173d8a180ac05641775f80bd6946327478f
 
-Thanks,
-Mostafa
-
-> 
-> Otherwise, everything looks functional to me.
-> 
-> -- 
-> Vincent
-> 
+Introduced by a clk series.
