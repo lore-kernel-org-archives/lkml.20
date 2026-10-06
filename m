@@ -1,99 +1,165 @@
-Received: from mta0.migadu.com (out-33.mta0.migadu.com [91.218.175.33])
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 006D2396B9D
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 09:18:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7648F39D6FA;
+	Tue,  6 Oct 2026 09:19:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791278338; cv=none; b=n0AnyqKgua3hMjKjqVpJ81KZdWl+0ZAhjQUUjsX4vrXosH3NFc9EFbU3VuPep6mnWeWjBRTfmjtFknIv0wxB8fUZtnpMQO8DiU6N1wncW84AXjQeeWQ8zcGt1yCEOYqaTmQD/RPjEB2t8eYuDw20M0uiKRNjaO3/6gM3/YQzIms=
+	t=1791278363; cv=none; b=eP2xMyFWnG7FX6Bc7I8vh5CxzKojGC+t68KmHNivORCWCVzYxdBEnRTBjLz9d9fEvfj6frCJfynGtmDWGXqtb/I6F53da/1x740ROyCKVSa2SutQSv8zikSMVSkOSy9gU9pR085FwkK4ml6lSGRGWhazWnY3GSWK7cK6Cp6sPbU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791278338; c=relaxed/simple;
-	bh=NDxmeOdnEZLt33HxSjhMazQD45+/Tc0cXQPCXn7yG38=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=kmhAIVv3keVTX9Y5/yphG8soODhGhM2nEf0AbDHkU7FXonvoT4pRphqoSF1FM9H1BxMTxyQt3sYOko2mahyN4k8tsTtOQouu6sGgCwcU3d+OP2eOs2ecvhfELc5YfBTX74JFzY8a90YjsUdcoVk8xP0PiaTHIZvioGvhHpVttBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=LtEE3rJO; arc=none smtp.client-ip=91.218.175.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791278363; c=relaxed/simple;
+	bh=O6Fs3kbyDnaoWbsau3W7qu/dEYjB4vE3IXvSrvfZ7EQ=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=l5te2sjRcqtx+dkf6FeLt5HxkECSXlKmd7Pe0dpmgWGBALVOLXEW4NbfORKOkDqdbTGAq5PICeReG+fMbVXtZR6pOSQG5XwUWZHt3kn2aa9n0S8ro8h/6zC0RmJ1gYglYSFdxl1IAJ91gw+q4uJaoKWnB2qDo4gb90wxzjHlqos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=EzRZ9Kkb; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="LtEE3rJO"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=NDxmeOdnEZLt33HxSjhMazQD45+/Tc0cXQPCXn7yG38=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791278331; v=1; x=1791883131;
- b=LtEE3rJO92u+ZKx6mK24AxUU7Ba4Acwti/ARpRKJCs+qke7r+IV034pxf4q8ys9WtyQTV4Ry
- VDMh3cv0cB7CBhX9NfJFoKs7GTKK0xvKQ6sKXmNmQks25iyDNlSMCjzbhjK0/EQGKSbd8+6Shzt
- RXi4NqrlZJaj1lei3FcF+uf4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f269d7c266675868;
-	Tue, 06 Oct 2026 09:18:51 +0000
-X-Mizu-Trace-ID: f269d7c266675868
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <13c2ca0d-9bdb-4a23-8317-ed48129cbe16@linux.dev>
-Date: Tue, 6 Oct 2026 11:18:49 +0200
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="EzRZ9Kkb"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6969If3pA2775051, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1791278321; bh=O6Fs3kbyDnaoWbsau3W7qu/dEYjB4vE3IXvSrvfZ7EQ=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=EzRZ9KkbwOKDh5t2X2Y8Ne9Pf2E24QRO6pMglHR0vtBnwMVPyoMvUYZiyJO96tOQu
+	 L1Ke7BZOYdeNa6h/MxFH/HfAtf+hNq8ZFby8aZZ0FE0NzPW2KjUozgqhvEk0hI3Q+a
+	 PfKM9EOYTj0BHyWDNcAUaueQphWbUz2hizHHNgXgOTkrI7/pzO1PCsFV2LqPEfV0KP
+	 AiwaBkYrzTFjP0nY16WyJrW3phxcefAwvHQE/Ct8WY9FnAzJHYYsueEyBfbgAwNVBJ
+	 lSDQvYEitS3fEbA90cOTv6nZip1vxm1nJCw3KW/p1SJMsO9KI2/30eQz5rpNOKxICs
+	 dGaoWV8I/ZMIw==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6969If3pA2775051
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 6 Oct 2026 17:18:41 +0800
+Received: from RTKEXHMBS01.realtek.com.tw (172.21.6.40) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 6 Oct 2026 17:18:42 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS01.realtek.com.tw (172.21.6.40) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 6 Oct 2026 17:18:41 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Tue, 6 Oct 2026 17:18:41 +0800
+From: Chih Kai Hsu <hsu.chih.kai@realtek.com>
+To: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>
+CC: "davem@davemloft.net" <davem@davemloft.net>, "kuba@kernel.org"
+	<kuba@kernel.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	nic_swsd <nic_swsd@realtek.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-usb@vger.kernel.org"
+	<linux-usb@vger.kernel.org>, "edumazet@google.com" <edumazet@google.com>,
+	"bjorn@mork.no" <bjorn@mork.no>, "pabeni@redhat.com" <pabeni@redhat.com>,
+	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>
+Subject: RE: [PATCH net-next v5 1/9] r8152: split r8156_init per chip and add
+ missing init writes
+Thread-Topic: [PATCH net-next v5 1/9] r8152: split r8156_init per chip and add
+ missing init writes
+Thread-Index: AQHdUYTjx30WLQVKjk+ynPGj3AiBTrbuNquAgAIL5tA=
+Date: Tue, 6 Oct 2026 09:18:41 +0000
+Message-ID: <aa4a0fe95052494b9544bdeec8babf9b@realtek.com>
+References: <20261001091144.28191-2-nic_swsd@realtek.com>
+ <179119423934.434549.8623262119068946046@kernel.org>
+In-Reply-To: <179119423934.434549.8623262119068946046@kernel.org>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] mm: zswap: reduce request contention on loads
-To: Andrew Morton <akpm@linux-foundation.org>, chengming.zhou@linux.dev,
- dsterba@suse.com, hannes@cmpxchg.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, nphamcs@gmail.com, terrelln@fb.com, yosry@kernel.org,
- riel@surriel.com, shakeel.butt@linux.dev, alex@ghiti.fr,
- senozhatsky@chromium.org, kernel-team@meta.com
-References: <20261006002307.2669023-1-usama.arif@linux.dev>
-Content-Language: en-US
-From: Usama Arif <usama.arif@linux.dev>
-In-Reply-To: <20261006002307.2669023-1-usama.arif@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-
-
-On 06/10/2026 01:22, Usama Arif wrote:
-> Stores and loads share a per-CPU acomp request and mutex. A low-priority
-> store can be preempted right after the compressor drops its stream
-> lock, while it still holds the zswap mutex, and a higher-priority load
-> on that CPU then waits for the store to run again. This follows the work
-> from Sergey Senozhatsky's zram series which splits it for the same
-> reason [1].
-> 
-> Patch 1 gives compression and decompression separate requests, waits
-> and mutexes, so loads no longer wait for stores, though they can still
-> wait for each other. Patch 2 decompresses with an on-stack request when
-> the algorithm is synchronous and needs no request context, which covers
-> all in-tree software compressors, so those loads take no zswap lock.
-> Asynchronous algorithms keep the per-CPU request and mutex. For software
-> compressors the series allocates the same number of requests as before;
-> each per-CPU context grows by 72 bytes, and the load path is about 270
-> bytes deeper on x86-64.
-> 
-> The series does not fix two related cases:
-> - Stores still serialize on the compression mutex, so a high-priority
->   task that reclaims (direct reclaim, MADV_PAGEOUT) can still wait for
->   a preempted store.
-> - On PREEMPT_RT the codec stream locks are preemptible, so a load can
->   still wait for a preempted store inside the codec.
-> 
-> The numbers below are the slowest read per run, as a median (min-max)
-> of 5 runs. Each run is 12 seconds in a zstd VM with lazy preemption,
-> vm.page-cluster=0 and swap on /dev/ram0. With 1 vCPU, four nice +10
-> workers page memory out and read it back while a nice 0 task spins. A
-> nice -19 reader pages out its own buffer and measures how long each
-> read of it takes. With 8 vCPUs there are 16 workers, 8 spinning tasks
-> and 8 readers.
-> 
->               Before series (ms)      With series (ms)
->   1 vCPU      22.3 (21.6-22.6)        0.97 (0.72-1.4)
->   8 vCPUs     314 (97-2542)           7.0 (5.0-98)
-> 
-> Reads over 10 ms fell from 26-35 per run to none with 1 vCPU, and from
-> 3-18 per run to at most one with 8 vCPUs. The benchmark and test programs
-> were written with the help of an LLM.
-> 
-In Meta fleet, looking at lock profiler in the last day, the longest observed
-mutex hold was 137.6 ms, including 137.5 ms during which the holder was runnable
-but off-CPU.
+PiBUaGFuayB5b3UgZm9yIHlvdXIgY29udHJpYnV0aW9uISBTYXNoaWtvIEFJIHJldmlldyBmb3Vu
+ZCAxIHBvdGVudGlhbA0KPiBpc3N1ZShzKSB0byBjb25zaWRlci4NCj4gDQo+IENyaXRpY2FsOiAw
+IMK3IEhpZ2g6IDAgwrcgTWVkaXVtOiAxIMK3IExvdzogMA0KPiANCj4gSWYgeW91IGJlbGlldmUg
+bm9uZSBvZiB0aGUgaXNzdWVzIGFyZSBsZWdpdGltYXRlLCBwbGVhc2UgcmVwbHkgdG8gZWFjaCBp
+c3N1ZSBvZg0KPiBNZWRpdW0gc2V2ZXJpdHkgb3IgaGlnaGVyIGFuZCBleHBsYWluIHdoeSB0aGUg
+QUkgaXMgd3JvbmcuDQo+IElmIGFueSBvZiB0aGVtIGFyZSBsZWdpdGltYXRlIGFuZCB5b3UgcGxh
+biB0byByZXNwaW4sIHBsZWFzZSBsZXQgcGF0Y2h3b3JrDQo+IGtub3cgYnkgaW5jbHVkaW5nICJw
+dy1ib3Q6IGNyIiBhcyBhIHNlcGFyYXRlIGxpbmUgYXQgdGhlIGVuZCBvZiB5b3VyIHJlcGx5IChv
+bmUNCj4gc3VjaCByZXBseSBwZXIgc2VyaWVzIGlzIGVub3VnaCkuDQo+IA0KPiAtIFtNZWRpdW1d
+IFRoaXMgcGF0Y2ggaXMgcHJlc2VudGVkIGFzIHNwbGl0dGluZyByODE1Nl9pbml0KCkgcGVyIGNo
+aXAsDQo+ICAgYnV0IGl0IGFsc28gY2hhbmdlcyBoYXJkd2FyZSBiZWhhdmlvdXIgZm9yIGFsbCBm
+b3VyIGNoaXAgZmFtaWxpZXMsIGFuZOKApg0KPiANCj4gLS0NCj4gDQo+IHI4MTUyOiBzcGxpdCBy
+ODE1Nl9pbml0IHBlciBjaGlwIGFuZCBhZGQgbWlzc2luZyBpbml0IHdyaXRlcw0KPiANCj4gVGhp
+cyBjb21taXQgc3BsaXRzIHRoZSBzaGFyZWQgcjgxNTZfaW5pdCgpIGludG8gc2VwYXJhdGUgaW5p
+dCBmdW5jdGlvbnMgZm9yDQo+IFJUTDgxNTYsIFJUTDgxNTZCLCBSVEw4MTU3IGFuZCBSVEw4MTU5
+LiBJdCBhbHNvIG1vdmVzIHRoZQ0KPiBBVVRPTE9BRF9ET05FIHBvbGxpbmcgaW50byBhIG5ldyB3
+YWl0X2F1dG9sb2FkX2RvbmUoKSBoZWxwZXIuIFdoaWxlDQo+IHNwbGl0dGluZywgaXQgYWRkcyBz
+ZXZlcmFsIG5ldyByZWdpc3RlciB3cml0ZXMgdG8gdGhlIHBlci1jaGlwIGluaXQgcGF0aHMsIGlu
+Y2x1ZGluZw0KPiBjbGVhcmluZyBSWF9FTkRfVFJBTlNGRVJfRU4gb24gUlRMODE1Ny4NCj4gDQo+
+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0L3VzYi9yODE1Mi5jIGIvZHJpdmVycy9uZXQvdXNi
+L3I4MTUyLmMgaW5kZXgNCj4gPiBhZjNkN2RjYjJmMTQxLi40ZDhmMDgxNWQ3OWQxIDEwMDY0NA0K
+PiA+IC0tLSBhL2RyaXZlcnMvbmV0L3VzYi9yODE1Mi5jDQo+ID4gKysrIGIvZHJpdmVycy9uZXQv
+dXNiL3I4MTUyLmMNCj4gDQo+IFsgLi4uIF0NCj4gDQo+ID4gQEAgLTg0MjEsNzMgKzg0NDQsMjYx
+IEBAIHN0YXRpYyB2b2lkIHI4MTU2X2luaXQoc3RydWN0IHI4MTUyICp0cCkNCj4gDQo+IFsgLi4u
+IF0NCj4gDQo+ID4gICAgICAgc2V0X2JpdChHUkVFTl9FVEhFUk5FVCwgJnRwLT5mbGFncyk7DQo+
+ID4NCj4gPiAtICAgICAvKiBSWCBhZ2dyZWdhdGlvbiAvIDE2IGJ5dGVzIFJYIGRlc2NyaXB0b3IN
+Cj4gPiAtICAgICAgKiBCSVQoMTEpIGlzIHNwZWNpZmljIHRvIFJUTDgxNTksIHdpdGggdW5rbm93
+biBtZWFuaW5nDQo+ID4gLSAgICAgICovDQo+ID4gLSAgICAgaWYgKHRwLT52ZXJzaW9uID09IFJU
+TF9WRVJfMTcpDQo+ID4gLSAgICAgICAgICAgICBvY3Bfd29yZF9jbHJfYml0cyh0cCwgTUNVX1RZ
+UEVfVVNCLCBVU0JfVVNCX0NUUkwsDQo+ID4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBSWF9BR0dfRElTQUJMRSB8IFJYX0RFU0NfMTZCIHwNCj4gQklUKDExKSk7DQo+ID4gLSAgICAg
+ZWxzZSBpZiAodHAtPnZlcnNpb24gPT0gUlRMX1ZFUl8xNikNCj4gPiAtICAgICAgICAgICAgIG9j
+cF93b3JkX2Nscl9iaXRzKHRwLCBNQ1VfVFlQRV9VU0IsIFVTQl9VU0JfQ1RSTCwNCj4gUlhfQUdH
+X0RJU0FCTEUgfCBSWF9ERVNDXzE2Qik7DQo+ID4gKyAgICAgb2NwX3dvcmRfY2xyX2JpdHModHAs
+IE1DVV9UWVBFX1VTQiwgVVNCX1VTQl9DVFJMLA0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAg
+IFJYX0FHR19ESVNBQkxFIHwgUlhfWkVST19FTik7DQo+IA0KPiBbIC4uLiBdDQo+IA0KPiA+ICtz
+dGF0aWMgdm9pZCByODE1N19pbml0KHN0cnVjdCByODE1MiAqdHApIHsNCj4gDQo+IFsgLi4uIF0N
+Cj4gDQo+ID4gKyAgICAgLyogUlggYWdncmVnYXRpb24gLyAxNiBieXRlcyBSWCBkZXNjcmlwdG9y
+IC8gQnVsayBJbiBFbmQgdHJhbnNmZXIgKi8NCj4gPiArICAgICBvY3Bfd29yZF9jbHJfYml0cyh0
+cCwgTUNVX1RZUEVfVVNCLCBVU0JfVVNCX0NUUkwsDQo+ID4gKyAgICAgICAgICAgICAgICAgICAg
+ICAgUlhfQUdHX0RJU0FCTEUgfCBSWF9ERVNDXzE2QiB8DQo+ID4gKyBSWF9FTkRfVFJBTlNGRVJf
+RU4pOw0KPiANCj4gW1NldmVyaXR5OiBNZWRpdW1dDQo+IElzIHRoaXMgYSBmdW5jdGlvbmFsIGZp
+eCBmb3IgUlRMODE1NyB0aGF0IHNob3VsZCBnbyBpbiBhcyBpdHMgb3duIHBhdGNoIHdpdGggYQ0K
+PiBGaXhlczogdGFnPw0KPiANCj4gQmVmb3JlIHRoaXMgcGF0Y2gsIHRoZSBSVExfVkVSXzE2IGJy
+YW5jaCBpbiByODE1Nl9pbml0KCkgY2xlYXJlZCBvbmx5DQo+IFJYX0FHR19ESVNBQkxFIHwgUlhf
+REVTQ18xNkIuIEJJVCgxMSkgd2FzIGNsZWFyZWQgb25seSBmb3IgUlRMX1ZFUl8xNywNCj4gYW5k
+IHRoZSBjb21tZW50IHNhaWQgaXRzIG1lYW5pbmcgd2FzIHVua25vd24uIHI4MTU3X2luaXQoKSBu
+b3cgY2xlYXJzDQo+IFJYX0VORF9UUkFOU0ZFUl9FTiBhcyB3ZWxsLg0KPiANCj4gVGhlIGNvbW1p
+dCBtZXNzYWdlIHNheXMgdGhhdCB3aGlsZSB0aGlzIGJpdCBpcyBzZXQsICJCdWxrLWluIHRyYW5z
+ZmVycyBhcmUNCj4gc3VzcGVuZGVkIiwgYW5kIHRoYXQgInRoZSBkcml2ZXIgbXVzdCBtYW51YWxs
+eSBjbGVhciBpdCB0byByZXN1bWUgQnVsay1pbg0KPiB0cmFuc2ZlcnMiLg0KPiANCj4gVGhhdCBz
+b3VuZHMgbGlrZSBhbiBSWCBzdGFsbCBvbiBSVEw4MTU3IHRoYXQgZ29lcyBiYWNrIHRvIGNvbW1p
+dA0KPiBmZDNjN2QwODBkZjUgKCJyODE1MjogQWRkIHN1cHBvcnQgZm9yIHRoZSBSVEw4MTU3IGhh
+cmR3YXJlIikuIFRoaXMgZml4IGhhcw0KPiBubyBGaXhlczogdGFnIGFuZCBpcyBwYXJ0IG9mIGEg
+cmVmYWN0b3IgdG91Y2hpbmcgYWJvdXQgNDkwIGxpbmVzLCBzbyBpdCBzZWVtcw0KPiB1bmxpa2Vs
+eSB0byByZWFjaCBuZXQgb3Igc3RhYmxlLg0KPiANCj4gTGF0ZXIgcGF0Y2hlcyBpbiB0aGlzIHNl
+cmllcyBkbyBjYXJyeSBGaXhlczogdGFnczogInI4MTUyOiBmaXggdXAgYW5kIGRvd24NCj4gcmVn
+aXN0ZXIgc2V0dGluZ3MgZm9yIFJUTDgxNTYvODE1NkIvODE1Ny84MTU5IiBhbmQgInI4MTUyOiBh
+ZGQNCj4gcnRsODE1N191bmxvYWQgYW5kIHJ0bDgxNTdfY2hhbmdlX210dSIuDQo+IA0KPiBDb3Vs
+ZCB0aGlzIGNoYW5nZSBiZSBzZW50IGFzIGEgc21hbGwgc3RhbmRhbG9uZSBmaXggYWhlYWQgb2Yg
+dGhlIHNwbGl0Pw0KDQpUaGUgaGFyZHdhcmUgdXNlcyB0aGlzIGJpdCB0byBwcmVzZXJ2ZSBwYWNr
+ZXQgaW50ZWdyaXR5IGFjcm9zcyBydW50aW1lDQpzdXNwZW5kL3Jlc3VtZSwgYW5kIGl0IGlzIG5v
+dCBzZWxmLWNsZWFyaW5nLiBIb3dldmVyLCB0aGUgZHJpdmVyIGRvZXNuJ3QNCnVzZSB0aGlzIGJp
+dCBub3c7IHRoaXMgaXMgYSBkZWZlbnNpdmUgY2xlYXJpbmcuDQoNCj4gDQo+IFRoZSBvdGhlciBu
+ZXcgaGFyZHdhcmUgd3JpdGVzIHJhaXNlIHRoZSBzYW1lIHF1ZXN0aW9uLiBUaGUgY29tbWl0IG1l
+c3NhZ2UNCj4gbGlzdHMgdGhlbSwgYnV0IGl0IGRvZXNuJ3Qgc2F5IHdoYXQgcHJvYmxlbSBvciBz
+eW1wdG9tIGVhY2ggb25lDQo+IGZpeGVzOg0KPiANCj4gICAgIFBSRUJPT1RfT1BUSU9OIGFuZCBS
+TVRfV0FLRV9FTiwgY2xlYXJlZCBpbiBhbGwgZm91ciBpbml0IGZ1bmN0aW9ucw0KPiAgICAgcjgx
+NTZiX3UycGh5X2JhY2t1cCgpIHdyaXRpbmcgMHhkM2NlLzB4ZDNkMC8weGQzZDQvMHhkM2Q4LzB4
+ZDNkYw0KPiAgICAgMHhjZjA0IGludGVycnVwdCBtaXRpZ2F0aW9uIGRpc2FibGUgaW4gcjgxNTdf
+aW5pdCgpL3I4MTU5X2luaXQoKQ0KPiAgICAgMHhjZDA2IEJJVCgxMSkgaW4gcjgxNTdfaW5pdCgp
+L3I4MTU5X2luaXQoKQ0KPiAgICAgMHhiOWE2IEJJVCgwKSBhbmQgMHhiOWEyID0gMHgwNDQ4IGlu
+IHI4MTU5X2luaXQoKQ0KPiANCj4gQ291bGQgdGhlc2UgYmUgc3BsaXQgb3V0LCBvciBoYXZlIHRo
+ZWlyIHB1cnBvc2UgZXhwbGFpbmVkPyBJZiBvbmUgb2YgdGhlbQ0KPiBjYXVzZXMgYSByZWdyZXNz
+aW9uLCBhIGJpc2VjdCB3b3VsZCBsYW5kIG9uIHRoaXMgbGFyZ2UgbWl4ZWQgY29tbWl0Lg0KPiAN
+Cj4gcjgxNTZiX2luaXQoKSBhbHNvIG1vdmVzIHRoZSBBVVRPX1NQRUVEVVAgY2xlYXIuIEl0IHVz
+ZWQgdG8gYmUgcGFydCBvZiB0aGUNCj4gVVNCX0ZXX0NUUkwgcmVhZC1tb2RpZnktd3JpdGUgdGhh
+dCByYW4gYWZ0ZXIgdXNiX2VuYWJsZV9scG0oKSBhbmQgdGhlDQo+IGZsb3cgY29udHJvbCBzZXR1
+cDoNCj4gDQo+ICAgICBvY3BfZGF0YSA9IG9jcF9yZWFkX3dvcmQodHAsIE1DVV9UWVBFX1VTQiwg
+VVNCX0ZXX0NUUkwpOw0KPiAgICAgLi4uDQo+ICAgICBvY3BfZGF0YSAmPSB+QVVUT19TUEVFRFVQ
+Ow0KPiAgICAgb2NwX3dyaXRlX3dvcmQodHAsIE1DVV9UWVBFX1VTQiwgVVNCX0ZXX0NUUkwsIG9j
+cF9kYXRhKTsNCj4gDQo+IE5vdyBpdCBydW5zIHJpZ2h0IGFmdGVyIHI4MTUzX3UycDNlbigpOg0K
+PiANCj4gICAgIHI4MTUzX3UycDNlbih0cCwgZmFsc2UpOw0KPiANCj4gICAgIC8qIERpc2FibGUg
+QXV0byBTcGVlZCB1cCAqLw0KPiAgICAgb2NwX3dvcmRfY2xyX2JpdHModHAsIE1DVV9UWVBFX1VT
+QiwgVVNCX0ZXX0NUUkwsIEFVVE9fU1BFRURVUCk7DQo+IA0KPiBUaGF0IGlzIGJlZm9yZSB0aGUg
+TVNDIHRpbWVyLCByODE1NmJfdTJwaHlfYmFja3VwKCksIHBvd2VyLWN1dCwgVVBTIGFuZA0KPiBM
+UE0gc2V0dXAuIElzIHRoaXMgcmVvcmRlcmluZyBpbnRlbmRlZCBmb3IgUlRMODE1NkI/IFRoZSBj
+b21taXQgbWVzc2FnZQ0KPiBkb2Vzbid0IG1lbnRpb24gaXQuDQoNCldpbGwgZml4Lg0KDQo+IA0K
+PiAtLQ0KPiBTYXNoaWtvIEFJIHJldmlldyDCtw0KPiBodHRwczovL25ldGRldi1haS5ib3RzLmxp
+bnV4LmRldi9zYXNoaWtvLyMvcGF0Y2hzZXQvMjAyNjEwMDEwOTExNDQuMjgxOTEtDQo+IDEtbmlj
+X3N3c2QlNDByZWFsdGVrLmNvbQ0KDQpCZXN0IFJlZ2FyZHMsDQpDaGloLUthaQ0K
