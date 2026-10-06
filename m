@@ -1,242 +1,535 @@
-Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D70074A0153
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 15:44:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A041749E134
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 15:44:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791301497; cv=none; b=kEyHBnXxhG0ZJWglwdjtxilwNisuy134gN0XzAFPfoV4vxGK/8kJ8pEMd8wdfxiwAfFdZ11SJ+3KdqAgbwWIIv98ejXZWmkwJTOZDI5sGXhLcCDVxND+gG4+tpAGaX8zP6SKtkeA9iEfbOzOPqqK2teTjrmj+e6pmwbih4+jxRw=
+	t=1791301494; cv=none; b=bEp9SBeNizWRg0m3wRPTbqXLYTN3l2/Fa3t6Asns/EPCvQm4R1/qEfrOaaZMG1TG9g0SaF4/7VSr5c2mR7BQPehRBVWVWzLDIvZYgMNsLuMKichRzQKJHs4iDDDs0obMCYn1EyWIhYlfqxy0hxUX1H+tZbqO7dAVHYwyrLn2tZ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791301497; c=relaxed/simple;
-	bh=8vkzyF59g32RtfmPZXkdpM3bmDGASCtX3QXPvfTT0t0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=WxjmrFmjXmJHQhpuHyT226JF7Su6DhgWpqcEO68byscx1E3sP0pman0EwiD7q+LYbYxsn//WAFR/COCFBFMv2bRHZR8/7lfV1f4/f+gAKk7ssxr0dCAYwaiB0vhWBYY7EXlGVxVAbSVwRgKKcUzZoa5zUlwLSht5+zwryTTys0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=OS/v21t2; arc=none smtp.client-ip=209.85.222.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	s=arc-20240116; t=1791301494; c=relaxed/simple;
+	bh=dKlQacMir1ApaDAGC8DxFBjOYGKy//CZvezCT/HIEII=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jCkneR/G/Tp66vscsaTPHFiiIfIB511rBEtp7fozWd9D5IOo1x76piSs2SdERbXr42aHCsGa124weP3+dTeNT56wewYr2H7G19BGSpveRXGk3sYBv8VR1rT3H2gbX2VofjVqis34GpibnBLFTHQ1pPciUWp8JqyxoDKsZdnquWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BQhVbJbp; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="OS/v21t2"
-Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-93e762768f3so58986285a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 08:44:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BQhVbJbp"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48c14a06c95so730343f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 08:44:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1791301492; x=1791906292; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791301488; x=1791906288; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/k5W5gRBGKOnv0GDUCR5h+EZBe1kD+dGC7pkS9kRVb8=;
-        b=OS/v21t25O6jQ72j2LBDZjZ8jz044uYh7yz3bYrMBeyNcGKFYyn9gWledD6gwEXQkt
-         MSsaLHB3Ugl7MWDi+OQ6YF8F2UYeB47TDLpaZtGiVEXh26OHWJhV9cypO4aEbp1+JDzN
-         BN/uUSjV6oRreqABPwygMn2LoJaXl3TXWTn27gurXiDMKjihDxFXLn9Cd0DqOhIp273T
-         DPdDz3vkEXjU7rFSujovkgNKGzOrBNnf3WnexeseBx2+X8Lf5N7TvJklAPeBk0uAqEby
-         Pu1phf3ec6qz3woHq0B1cjItldyGstAAboyuyU6iHAcDut1HCWtrlQwy/sOchQXAoSJm
-         jZ9A==
+        bh=AUaSIS8wHeIRIGqtBybQnix8JEVHTTvzxonmZPvVHuo=;
+        b=BQhVbJbpC8KPKGhhvFnSM8AVPuVHQR4I6DU1CV7tPnUOw2CsENuMv8d+0YBXhN+LuS
+         +NM3717qvDv4Iv+vjOtli5gO5HuIg96gNvwqZeZBEJCVsqfzLVTiaSFh8zeC+gQPEXn7
+         RE/gGiUFce3Qd4qT0Dxhk5tzYZlHUaqiy2gQAEKnUzzMEm+tulA7PvWaY3yWs6P54VEp
+         FqV4gFvd/HN1r/xWUkKnYwLcjXDke7hdF4jV4hKKum4z+l9DfZ9S4qnYuR2ZDMGlZLkH
+         ZRbKW0acWgsKWCQK4DzDOHs82EewnpaOzwy1tCMLyz5JIzWBRnkTyS+L9oUL8LvhgqRy
+         Jlvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791301492; x=1791906292;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/k5W5gRBGKOnv0GDUCR5h+EZBe1kD+dGC7pkS9kRVb8=;
-        b=K4hE4RTL6qV8OojAkocIGTCzlYTbhpmy+8ltziBAQb+tINdQHKazvCSqLUsdD03l4E
-         7rvti2ibyeknzVjr11bdvFZWBksF0fENlDZ3p2h7/psffnzBxasPrdFZwXXIuP/e1sp0
-         zct3/NSh0+FvZN18cZlJ4jx2K4EgrJT1fzwX67b6+exs28/n/KahezQUXcg69JEfyZty
-         c/Pji95lybFoBBfS3L5kEb4wSpUskV3YH+PIWSFpVErMG88LZ1YfEA2OXG8zGizRcGFf
-         y9lSqUg0l/eCjl3hDIsyPNYiiPCi5Mn3mQchbsrL5rzazIzGN+aQHdZhqe1v9YSjHdIf
-         HvzA==
-X-Forwarded-Encrypted: i=1; AKwUvByckKR9y3jw5YQekRAS17Sh9OInxZeeX92fPNXROVzRcV60sBGaByLE1zVApuAGcdolEvAU6hiB5sFjzS8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lkGQOP4j5OWHKpUeWU9iX57S69DMe5WoCVVsdFxSXllJeUNokH
-	+BYAUAGa5Hvq8rRtscxG8fDz5VZRDzuExVP98BK4fZzCfP3UGSMBZXx9waGGGCRmjdPgNSWlT3y
-	874vg
-X-Gm-Gg: AYBFou3ZKvPUgwh+wa9/LyXBt6No2dCIIPR3u53A7ROHE3be76Xjzh/IzhxuMG/eT0D
-	Gfb59Li2A0hCxmJG15NHZ4Q/INX9qDxGOE/dVpohPsGNa79qQwO+OZXbwcl0ptgnXnjarfAKrqp
-	7vmWTIUROKX/6JG4km9Da6/hzaCTSQgXnNmVKlw6zxN5sNU7cyCxJbct7sDlCQOmJZChfGYNGcT
-	JKjrQ9v7bNVuoIGFBuRAyVwcvXziOrzDPK641nzuujK1ZHZY6GlT07rypNSedeYXhiXGzqqBF+j
-	jDmo9hPDpbT2vC1kVCtzfKfrGYCiHPg2ZNs97hrElPzdOF7lj2KQ5+kr9lhdb6JzM/aqGYeWx3E
-	rVO/8zZshzVkMmPD0e9AAA2ALdjBpxOvYZr6Anr4VHfAgkSlF63Qm9lf6F8s/3jDUPkKrf4AVLC
-	Z6eLujr9Q4smOt7KZ1rA77EK7W7zjZshW+q+UHMY+uypLGu90N08uztBePXq4NIVZVVPfYV5cY/
-	onXFQlDL4QvhOY=
-X-Received: by 2002:a05:620a:1786:b0:93e:54d2:2285 with SMTP id af79cd13be357-93e8f37a03dmr301921185a.33.1791301491617;
-        Tue, 06 Oct 2026 08:44:51 -0700 (PDT)
-Received: from toxicpanda.com ([153.61.196.240])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93cca1a7a40sm1142936285a.7.2026.10.06.08.44.50
+        d=1e100.net; s=20260707; t=1791301488; x=1791906288;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AUaSIS8wHeIRIGqtBybQnix8JEVHTTvzxonmZPvVHuo=;
+        b=pQouXe0Bg9AG6xvpTAV3TMP1vHIbmjEr51dTxOYcm2v3NKnp32m1S+JLO1eOlFqmFE
+         2lWR9vxwOC0QLq3ctt6R2bp0Efoyc7NUkvBPKm9WQHBFwgBKtklQYDQGOTqiK7AIlngt
+         uJR/3rc6UuoW3vek+/pcl4Miud8Lj9N5ZCiNpEVMrDtaTSGneDzBTUyQmFG9RLF/vfBC
+         FOfSNDe9RhqHTox08Cybxe471huyBoiiIWvEwvgzclr3BY30uEfknpXLZlE7CWnV4Zly
+         W61+vYodQ3X+xGTuD1xqK0s6vkGgIV715Dina7rD2v6S/I2JlK2Zlv9+TaXIrsf2H+Lp
+         XHqw==
+X-Gm-Message-State: AFq9FYJc7sRYo1Kkj8NSKbbf+wyxhlTuPHG8LD4Vw9tmlXgUS55Z5TX2
+	65ZBv965i/8nnTgsYBJ6OHTG7p3iKSCFfFgj7+Ir/9kjQ5a7rr1xUgi9
+X-Gm-Gg: AYBFou3eMhKl+g7rSH7hWTILFFJOmEfE3iT/ejogkBUqe3ZtOveVnBtw1UDshOnwKK6
+	3Y9Ngo/ethnbodg0Iw4wBw2r/L8DqcbIHkLyddOZw2JPTC4OAVAbK/+8iS182eP3bAeyzUw2kNG
+	Fzmand50AfgoNIluA6Adbe7q/4k4TzXRwFKt7xpWXAOOVSANh8ojNUcXlwZmNKq0X1Wi1Z1xWat
+	/oIeCgSo8LgI7uIJRPmh7btC7wfABK8aHdxTmBTDN7by/2e3fnJbiHAz3YJmjg9DMudqTtNics2
+	68iGxYIM8ZIUgTomxINixqiWZgBF6xZ2MqYK1k9YfCfO90EYjT/fKzHXlp7ftoXZFHP+N182x0j
+	HpbTveRyZQYQP9ZlOXrGY7A/drWJBfI95vAHosuNkmZsHN/CCIOdRZ4HeUxvyOL2jS2JbZoMcaN
+	e80V+55rGvfpzVnyzu8cJ1uYRuf8q1Zs9aKzjk1WWfYDpyNgq9dJr2L6CIHTPF44Sg0X7Mbpda3
+	/jkXIapTFdIN6wVU+c=
+X-Received: by 2002:a05:6000:1786:b0:48c:571a:a197 with SMTP id ffacd0b85a97d-48c6d1c3e55mr3237214f8f.25.1791301488280;
+        Tue, 06 Oct 2026 08:44:48 -0700 (PDT)
+Received: from xeon ([188.163.112.76])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71c0b6e6sm327615f8f.14.2026.10.06.08.44.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 08:44:51 -0700 (PDT)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Tue, 06 Oct 2026 15:44:21 +0000
-Subject: [PATCH 5/5] capabilities: don't let ptrace borrow CAP_SETFCAP
+        Tue, 06 Oct 2026 08:44:47 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH v1 5/7] regulator: lp872x: Remove platform_data based probing
+Date: Tue,  6 Oct 2026 18:44:29 +0300
+Message-ID: <20261006154431.318936-6-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261006154431.318936-1-clamor95@gmail.com>
+References: <20261006154431.318936-1-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261006-b4-setfcap-userns-v1-5-f47e7ed66072@toxicpanda.com>
-References: <20261006-b4-setfcap-userns-v1-0-f47e7ed66072@toxicpanda.com>
-In-Reply-To: <20261006-b4-setfcap-userns-v1-0-f47e7ed66072@toxicpanda.com>
-To: Serge Hallyn <serge@hallyn.com>, Paul Moore <paul@paul-moore.com>, 
- Christian Brauner <brauner@kernel.org>
-Cc: James Morris <jmorris@namei.org>, David Howells <dhowells@redhat.com>, 
- Jarkko Sakkinen <jarkko@kernel.org>, "Andrew G. Morgan" <morgan@kernel.org>, 
- Serge Hallyn <sergeh@kernel.org>, linux-security-module@vger.kernel.org, 
- linux-kernel@vger.kernel.org, keyrings@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1791301478; l=6195;
- i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=8vkzyF59g32RtfmPZXkdpM3bmDGASCtX3QXPvfTT0t0=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
- JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QHNGGw1vUwvXcplc29Z3TsCoIHmp/GbPMb9KUsV94Rc3EGWtTYg/cXaPnamHbE91Nwb4n74qJXR
- 0+AE3tg1rkwU=
-X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
- fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
+Content-Transfer-Encoding: 8bit
 
-A task that entered a user namespace while it held CAP_SETFCAP outside may
-map uid 0 of the parent and write file capabilities that are honoured
-there.  That is the one privilege it keeps outside of its namespace, and
-the ptrace checks don't know about it: for a target in another user
-namespace cap_ptrace_access_check() is satisfied with CAP_SYS_PTRACE over
-the target's namespace, which the owner rule hands to any task with the
-right euid, and inside the namespace everybody has a full set.
+The platform_data-based probing is tightly integrated into the lp872x
+driver structure itself; removing just the platform data support is
+impossible without remodeling major parts of the probe sequence.
 
-  task A: uid 0, full caps          task B: uid 0, no CAP_SETFCAP
-  unshare(CLONE_NEWUSER)
-                                    ptrace(PTRACE_ATTACH, A)
-                                      uids match, euid == ns->owner
-                                    make A write "0 0 1" to its uid_map,
-                                    or set file capabilities
-                                      A is entitled -> allowed
+The lp872x_platform_data structure was removed, and its contents were
+incorporated into the driver private structure and lp872x_chip_info (which
+holds differences between the LP8720 and LP8725). The
+lp872x_populate_pdata_from_dt() helper was removed: general Device Tree
+parsing code was integrated directly into the probe function, and
+DVS-related code was consolidated into lp872x_init_dvs().
+lp872x_hw_enable() and lp872x_config() helpers were folded into probe().
+i2c_client_get_device_id() was switched to i2c_get_match_data(). Finally,
+of_regulator_match structures were dropped, and
+lp872x_regulator_register() was upgraded to rely on the core regulator
+registration framework.
 
-The same goes for /proc/<pid>/mem, process_vm_writev() and pidfd_getfd().
-
-Require for PTRACE_MODE_ATTACH and PTRACE_TRACEME that CAP_SETFCAP of the
-tracer reaches as far up as the target can make use of: to the topmost
-ancestor, within the target's setfcap_level, whose root user is mapped
-into the target's namespace, or can still be mapped because the namespace
-has no uid map yet.  CAP_SYS_PTRACE over that ancestor is accepted too,
-since it gives control of tasks there that have CAP_SETFCAP anyway.
-
-Targets in the initial namespace, in namespaces that were entered without
-CAP_SETFCAP (what unprivileged users create) and in namespaces that don't
-map the root user of an ancestor (the usual container) are not affected.
-What remains is a tracer that gave up CAP_SETFCAP and CAP_SYS_PTRACE and a
-target that didn't, in a namespace that shares its root user with the
-tracer's.  PTRACE_MODE_READ is unchanged.
-
-Fixes: db2e718a4798 ("capabilities: require CAP_SETFCAP to map uid 0")
-Assisted-by: LLM
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- security/commoncap.c | 56 ++++++++++++++++++++++++++++++++++++++++++++++++----
- 1 file changed, 52 insertions(+), 4 deletions(-)
+ drivers/regulator/lp872x.c | 320 ++++++++++---------------------------
+ 1 file changed, 84 insertions(+), 236 deletions(-)
 
-diff --git a/security/commoncap.c b/security/commoncap.c
-index 26798d62e6b1..7263c78b6397 100644
---- a/security/commoncap.c
-+++ b/security/commoncap.c
-@@ -195,14 +195,52 @@ int cap_settime(const struct timespec64 *ts, const struct timezone *tz)
+diff --git a/drivers/regulator/lp872x.c b/drivers/regulator/lp872x.c
+index 1e16d7e8361a0..3d95ca7fa0246 100644
+--- a/drivers/regulator/lp872x.c
++++ b/drivers/regulator/lp872x.c
+@@ -14,7 +14,7 @@
+ #include <linux/delay.h>
+ #include <linux/regulator/driver.h>
+ #include <linux/platform_device.h>
+-#include <linux/of.h>
++#include <linux/property.h>
+ #include <linux/regulator/machine.h>
+ #include <linux/regulator/of_regulator.h>
+ 
+@@ -92,8 +92,6 @@
+ /* dump registers in regmap-debugfs */
+ #define MAX_REGISTERS			0x0F
+ 
+-#define LP872X_MAX_REGULATORS		9
+-
+ #define LP8720_ENABLE_DELAY		200
+ #define LP8725_ENABLE_DELAY		30000
+ 
+@@ -130,31 +128,22 @@ enum lp872x_dvs_sel {
+ 	SEL_V2,
+ };
+ 
+-struct lp872x_dvs {
+-	struct gpio_desc *gpio;
+-	enum lp872x_dvs_sel vsel;
+-	enum gpiod_flags init_state;
+-};
+-
+-struct lp872x_regulator_data {
+-	enum lp872x_regulator_id id;
+-	struct regulator_init_data *init_data;
+-};
+-
+-struct lp872x_platform_data {
+-	u8 general_config;
+-	bool update_config;
+-	struct lp872x_regulator_data regulator_data[LP872X_MAX_REGULATORS];
+-	struct lp872x_dvs *dvs;
+-	struct gpio_desc *enable_gpio;
++struct lp872x_chip_info {
++	const struct regulator_desc *rdesc;
++	int num_regulators;
++	enum lp872x_id chipid;
+ };
+ 
+ struct lp872x {
+ 	struct regmap *regmap;
+ 	struct device *dev;
+-	enum lp872x_id chipid;
+-	struct lp872x_platform_data *pdata;
+-	int num_regulators;
++
++	struct gpio_desc *enable_gpio;
++	struct gpio_desc *dvs_gpio;
++
++	const struct lp872x_chip_info *info;
++
++	enum lp872x_dvs_sel vsel;
+ 	enum gpiod_flags dvs_pin;
+ };
+ 
+@@ -206,7 +195,7 @@ static const unsigned int lp8725_buck_uA[] = {
+ 
+ static int lp872x_get_timestep_usec(struct lp872x *lp)
+ {
+-	enum lp872x_id chip = lp->chipid;
++	enum lp872x_id chip = lp->info->chipid;
+ 	u32 val, mask, shift;
+ 	int *time_usec, size, ret;
+ 	int lp8720_time_usec[] = { 25, 50 };
+@@ -344,10 +333,9 @@ static int lp872x_buck_set_voltage_sel(struct regulator_dev *rdev,
+ 	struct lp872x *lp = rdev_get_drvdata(rdev);
+ 	enum lp872x_regulator_id buck = rdev_get_id(rdev);
+ 	u32 addr, mask = LP872X_VOUT_M;
+-	struct lp872x_dvs *dvs = lp->pdata ? lp->pdata->dvs : NULL;
+ 
+-	if (dvs && dvs->gpio)
+-		lp872x_set_dvs(lp, dvs->vsel, dvs->gpio);
++	if (lp->dvs_gpio)
++		lp872x_set_dvs(lp, lp->vsel, lp->dvs_gpio);
+ 
+ 	addr = lp872x_select_buck_vout_addr(lp, buck);
+ 	if (!lp872x_is_valid_buck_addr(addr))
+@@ -700,110 +688,45 @@ static const struct regulator_desc lp8725_regulator_desc[] = {
+ 
+ static int lp872x_init_dvs(struct lp872x *lp)
+ {
+-	struct lp872x_dvs *dvs = lp->pdata ? lp->pdata->dvs : NULL;
+-	enum gpiod_flags pinstate;
++	struct device *dev = lp->dev;
+ 	u32 mask[] = { LP8720_EXT_DVS_M, LP8725_DVS1_M | LP8725_DVS2_M };
+ 	u32 default_dvs_mode[] = { LP8720_DEFAULT_DVS, LP8725_DEFAULT_DVS };
++	u8 dvs_state;
+ 
+-	if (!dvs)
+-		goto set_default_dvs_mode;
+-
+-	if (!dvs->gpio)
+-		goto set_default_dvs_mode;
+-
+-	pinstate = dvs->init_state;
+-	dvs->gpio = devm_gpiod_get_optional(lp->dev, "ti,dvs", pinstate);
+-
+-	if (IS_ERR(dvs->gpio)) {
+-		dev_err(lp->dev, "gpio request err: %ld\n", PTR_ERR(dvs->gpio));
+-		return PTR_ERR(dvs->gpio);
+-	}
+-
+-	lp->dvs_pin = pinstate;
+-
+-	return 0;
+-
+-set_default_dvs_mode:
+-	return regmap_update_bits(lp->regmap, LP872X_GENERAL_CFG, mask[lp->chipid],
+-				  default_dvs_mode[lp->chipid]);
+-}
+-
+-static int lp872x_hw_enable(struct lp872x *lp)
+-{
+-	if (!lp->pdata)
+-		return -EINVAL;
+-
+-	if (!lp->pdata->enable_gpio)
+-		return 0;
++	device_property_read_u8(dev, "ti,dvs-vsel", (u8 *)&lp->vsel);
++	device_property_read_u8(dev, "ti,dvs-state", &dvs_state);
++	lp->dvs_pin = dvs_state ? GPIOD_OUT_HIGH : GPIOD_OUT_LOW;
+ 
+-	/* Always set enable GPIO high. */
+-	lp->pdata->enable_gpio = devm_gpiod_get_optional(lp->dev, "enable", GPIOD_OUT_HIGH);
+-	if (IS_ERR(lp->pdata->enable_gpio)) {
+-		dev_err(lp->dev, "gpio request err: %ld\n", PTR_ERR(lp->pdata->enable_gpio));
+-		return PTR_ERR(lp->pdata->enable_gpio);
++	lp->dvs_gpio = devm_gpiod_get_optional(dev, "dvs", lp->dvs_pin);
++	if (IS_ERR(lp->dvs_gpio)) {
++		dev_err(dev, "gpio request err: %ld\n", PTR_ERR(lp->dvs_gpio));
++		return PTR_ERR(lp->dvs_gpio);
+ 	}
+ 
+-	/* Each chip has a different enable delay. */
+-	if (lp->chipid == LP8720)
+-		usleep_range(LP8720_ENABLE_DELAY, 1.5 * LP8720_ENABLE_DELAY);
+-	else
+-		usleep_range(LP8725_ENABLE_DELAY, 1.5 * LP8725_ENABLE_DELAY);
++	if (!lp->dvs_gpio)
++		return regmap_update_bits(lp->regmap, LP872X_GENERAL_CFG,
++					  mask[lp->info->chipid],
++					  default_dvs_mode[lp->info->chipid]);
+ 
  	return 0;
  }
  
-+/*
-+ * CAP_SETFCAP of a task can count in ancestors of its user namespace, see
-+ * cap_setfcap_level().  That is a privilege outside of the namespace, so
-+ * capabilities over the namespace are not enough to take control of the task.
-+ */
-+static bool cap_covers_setfcap(const struct cred *cred,
-+			       const struct cred *child_cred)
-+{
-+	struct user_namespace *ns = child_cred->user_ns, *seen, *p, *top = NULL;
+-static int lp872x_config(struct lp872x *lp)
+-{
+-	struct lp872x_platform_data *pdata = lp->pdata;
+-	int ret;
+-
+-	if (!pdata || !pdata->update_config)
+-		goto init_dvs;
+-
+-	ret = regmap_write(lp->regmap, LP872X_GENERAL_CFG, pdata->general_config);
+-	if (ret)
+-		return ret;
+-
+-init_dvs:
+-	return lp872x_init_dvs(lp);
+-}
+-
+-static struct regulator_init_data
+-*lp872x_find_regulator_init_data(int id, struct lp872x *lp)
+-{
+-	struct lp872x_platform_data *pdata = lp->pdata;
+-	int i;
+-
+-	if (!pdata)
+-		return NULL;
+-
+-	for (i = 0; i < lp->num_regulators; i++) {
+-		if (pdata->regulator_data[i].id == id)
+-			return pdata->regulator_data[i].init_data;
+-	}
+-
+-	return NULL;
+-}
+-
+ static int lp872x_regulator_register(struct lp872x *lp)
+ {
+-	const struct regulator_desc *desc;
++	const struct regulator_desc *desc = lp->info->rdesc;
++	int num_regulators = lp->info->num_regulators;
+ 	struct regulator_config cfg = { };
++	struct device *dev = lp->dev;
+ 	struct regulator_dev *rdev;
+-	int i;
+-
+-	for (i = 0; i < lp->num_regulators; i++) {
+-		desc = (lp->chipid == LP8720) ? &lp8720_regulator_desc[i] :
+-						&lp8725_regulator_desc[i];
+ 
+-		cfg.dev = lp->dev;
+-		cfg.init_data = lp872x_find_regulator_init_data(desc->id, lp);
+-		cfg.driver_data = lp;
+-		cfg.regmap = lp->regmap;
++	cfg.dev = dev;
++	cfg.driver_data = lp;
++	cfg.regmap = lp->regmap;
+ 
+-		rdev = devm_regulator_register(lp->dev, desc, &cfg);
++	for (int i = 0; i < num_regulators; i++) {
++		rdev = devm_regulator_register(dev, &desc[i], &cfg);
+ 		if (IS_ERR(rdev)) {
+-			dev_err(lp->dev, "regulator register err");
++			dev_err(dev, "regulator register err");
+ 			return PTR_ERR(rdev);
+ 		}
+ 	}
+@@ -817,152 +740,77 @@ static const struct regmap_config lp872x_regmap_config = {
+ 	.max_register = MAX_REGISTERS,
+ };
+ 
+-#ifdef CONFIG_OF
+-
+-#define LP872X_VALID_OPMODE	(REGULATOR_MODE_FAST | REGULATOR_MODE_NORMAL)
+-
+-static struct of_regulator_match lp8720_matches[] = {
+-	{ .name = "ldo1", .driver_data = (void *)LP8720_ID_LDO1, },
+-	{ .name = "ldo2", .driver_data = (void *)LP8720_ID_LDO2, },
+-	{ .name = "ldo3", .driver_data = (void *)LP8720_ID_LDO3, },
+-	{ .name = "ldo4", .driver_data = (void *)LP8720_ID_LDO4, },
+-	{ .name = "ldo5", .driver_data = (void *)LP8720_ID_LDO5, },
+-	{ .name = "buck", .driver_data = (void *)LP8720_ID_BUCK, },
+-};
+-
+-static struct of_regulator_match lp8725_matches[] = {
+-	{ .name = "ldo1", .driver_data = (void *)LP8725_ID_LDO1, },
+-	{ .name = "ldo2", .driver_data = (void *)LP8725_ID_LDO2, },
+-	{ .name = "ldo3", .driver_data = (void *)LP8725_ID_LDO3, },
+-	{ .name = "ldo4", .driver_data = (void *)LP8725_ID_LDO4, },
+-	{ .name = "ldo5", .driver_data = (void *)LP8725_ID_LDO5, },
+-	{ .name = "lilo1", .driver_data = (void *)LP8725_ID_LILO1, },
+-	{ .name = "lilo2", .driver_data = (void *)LP8725_ID_LILO2, },
+-	{ .name = "buck1", .driver_data = (void *)LP8725_ID_BUCK1, },
+-	{ .name = "buck2", .driver_data = (void *)LP8725_ID_BUCK2, },
+-};
+-
+-static struct lp872x_platform_data
+-*lp872x_populate_pdata_from_dt(struct device *dev, enum lp872x_id which)
+-{
+-	struct device_node *np = dev->of_node;
+-	struct lp872x_platform_data *pdata;
+-	struct of_regulator_match *match;
+-	int num_matches;
+-	int count;
+-	int i;
+-	u8 dvs_state;
+-
+-	pdata = devm_kzalloc(dev, sizeof(*pdata), GFP_KERNEL);
+-	if (!pdata)
+-		return ERR_PTR(-ENOMEM);
+-
+-	of_property_read_u8(np, "ti,general-config", &pdata->general_config);
+-	pdata->update_config = of_property_read_bool(np, "ti,update-config");
+-
+-	pdata->dvs = devm_kzalloc(dev, sizeof(struct lp872x_dvs), GFP_KERNEL);
+-	if (!pdata->dvs)
+-		return ERR_PTR(-ENOMEM);
+-
+-	of_property_read_u8(np, "ti,dvs-vsel", (u8 *)&pdata->dvs->vsel);
+-	of_property_read_u8(np, "ti,dvs-state", &dvs_state);
+-	pdata->dvs->init_state = dvs_state ? GPIOD_OUT_HIGH : GPIOD_OUT_LOW;
+-
+-	if (of_get_child_count(np) == 0)
+-		goto out;
+-
+-	switch (which) {
+-	case LP8720:
+-		match = lp8720_matches;
+-		num_matches = ARRAY_SIZE(lp8720_matches);
+-		break;
+-	case LP8725:
+-		match = lp8725_matches;
+-		num_matches = ARRAY_SIZE(lp8725_matches);
+-		break;
+-	default:
+-		goto out;
+-	}
+-
+-	count = of_regulator_match(dev, np, match, num_matches);
+-	if (count <= 0)
+-		goto out;
+-
+-	for (i = 0; i < num_matches; i++) {
+-		pdata->regulator_data[i].id =
+-				(uintptr_t)match[i].driver_data;
+-		pdata->regulator_data[i].init_data = match[i].init_data;
+-	}
+-out:
+-	return pdata;
+-}
+-#else
+-static struct lp872x_platform_data
+-*lp872x_populate_pdata_from_dt(struct device *dev, enum lp872x_id which)
+-{
+-	return NULL;
+-}
+-#endif
+-
+ static int lp872x_probe(struct i2c_client *cl)
+ {
+-	const struct i2c_device_id *id = i2c_client_get_device_id(cl);
++	struct device *dev = &cl->dev;
+ 	struct lp872x *lp;
+-	struct lp872x_platform_data *pdata;
++	u8 general_config;
+ 	int ret;
+-	static const int lp872x_num_regulators[] = {
+-		[LP8720] = LP8720_NUM_REGULATORS,
+-		[LP8725] = LP8725_NUM_REGULATORS,
+-	};
+-
+-	if (cl->dev.of_node) {
+-		pdata = lp872x_populate_pdata_from_dt(&cl->dev,
+-					      (enum lp872x_id)id->driver_data);
+-		if (IS_ERR(pdata))
+-			return PTR_ERR(pdata);
+-	} else {
+-		pdata = dev_get_platdata(&cl->dev);
+-	}
+ 
+-	lp = devm_kzalloc(&cl->dev, sizeof(struct lp872x), GFP_KERNEL);
++	lp = devm_kzalloc(dev, sizeof(*lp), GFP_KERNEL);
+ 	if (!lp)
+ 		return -ENOMEM;
+ 
+-	lp->num_regulators = lp872x_num_regulators[id->driver_data];
++	lp->info = i2c_get_match_data(cl);
++	if (!lp->info)
++		return -ENODEV;
+ 
+ 	lp->regmap = devm_regmap_init_i2c(cl, &lp872x_regmap_config);
+-	if (IS_ERR(lp->regmap)) {
+-		ret = PTR_ERR(lp->regmap);
+-		dev_err(&cl->dev, "regmap init i2c err: %d\n", ret);
+-		return ret;
+-	}
++	if (IS_ERR(lp->regmap))
++		return dev_err_probe(dev, PTR_ERR(lp->regmap),
++				     "Failed to init regmap\n");
+ 
+-	lp->dev = &cl->dev;
+-	lp->pdata = pdata;
+-	lp->chipid = id->driver_data;
++	lp->dev = dev;
+ 	i2c_set_clientdata(cl, lp);
+ 
+-	ret = lp872x_hw_enable(lp);
+-	if (ret)
+-		return ret;
++	/* Always set enable GPIO high. */
++	lp->enable_gpio = devm_gpiod_get_optional(dev, "enable", GPIOD_OUT_HIGH);
++	if (IS_ERR(lp->enable_gpio))
++		return dev_err_probe(dev, PTR_ERR(lp->enable_gpio),
++				     "Failed to request gpio\n");
 +
-+	if (child_cred->setfcap_level >= ns->level)
-+		return true;
-+
-+	/*
-+	 * It is of use only for root users that are mapped into the namespace,
-+	 * or that can still be because there is no map yet.
-+	 */
-+	seen = READ_ONCE(ns->uid_map.nr_extents) ? ns : ns->parent;
-+	for (p = ns->parent; p; p = p->parent) {
-+		if (p->level < child_cred->setfcap_level)
-+			break;
-+		if (kuid_has_mapping(seen, make_kuid(p, 0)))
-+			top = p;
++	/* Each chip has a different enable delay. */
++	if (lp->info->chipid == LP8720)
++		usleep_range(LP8720_ENABLE_DELAY, 1.5 * LP8720_ENABLE_DELAY);
++	else
++		usleep_range(LP8725_ENABLE_DELAY, 1.5 * LP8725_ENABLE_DELAY);
+ 
+-	ret = lp872x_config(lp);
++	device_property_read_u8(dev, "ti,general-config", &general_config);
++	if (device_property_read_bool(dev, "ti,update-config")) {
++		ret = regmap_write(lp->regmap, LP872X_GENERAL_CFG, general_config);
++		if (ret)
++			return ret;
 +	}
-+	if (!top)
-+		return true;
 +
-+	if (cred->user_ns == ns)
-+		return cred->setfcap_level <= top->level;
++	ret = lp872x_init_dvs(lp);
+ 	if (ret)
+ 		return ret;
+ 
+ 	return lp872x_regulator_register(lp);
+ }
+ 
+-static const struct of_device_id lp872x_dt_ids[] __maybe_unused = {
+-	{ .compatible = "ti,lp8720", },
+-	{ .compatible = "ti,lp8725", },
++static const struct lp872x_chip_info lp8720_data = {
++	.rdesc = lp8720_regulator_desc,
++	.num_regulators = LP8720_NUM_REGULATORS,
++	.chipid = LP8720,
++};
 +
-+	/* CAP_SYS_PTRACE up there gives control of tasks with CAP_SETFCAP. */
-+	return cap_setfcap_level(cred, ns->parent) <= top->level ||
-+	       !cap_capable(cred, top, CAP_SYS_PTRACE, CAP_OPT_NOAUDIT);
-+}
++static const struct lp872x_chip_info lp8725_data = {
++	.rdesc = lp8725_regulator_desc,
++	.num_regulators = LP8725_NUM_REGULATORS,
++	.chipid = LP8725,
++};
 +
- /**
-  * cap_ptrace_access_check - Determine whether the current process may access
-  *			   another
-  * @child: The process to be accessed
-  * @mode: The mode of attachment.
-  *
-- * If we are in the same or an ancestor user_ns and have all the target
-- * task's capabilities, then ptrace access is allowed.
-+ * For PTRACE_MODE_ATTACH, if the target task may make use of CAP_SETFCAP in
-+ * an ancestor of its user_ns that our CAP_SETFCAP or CAP_SYS_PTRACE doesn't
-+ * reach, then ptrace access is denied.
-+ * Otherwise, if we are in the same or an ancestor user_ns and have all the
-+ * target task's capabilities, then ptrace access is allowed.
-  * If we have the ptrace capability to the target user_ns, then ptrace
-  * access is allowed.
-  * Else denied.
-@@ -223,11 +261,15 @@ int cap_ptrace_access_check(struct task_struct *child, unsigned int mode)
- 		caller_caps = &cred->cap_effective;
- 	else
- 		caller_caps = &cred->cap_permitted;
-+	if ((mode & PTRACE_MODE_ATTACH) &&
-+	    !cap_covers_setfcap(cred, child_cred))
-+		goto deny;
- 	if (cred->user_ns == child_cred->user_ns &&
- 	    cap_issubset(child_cred->cap_permitted, *caller_caps))
- 		goto out;
- 	if (ns_capable(child_cred->user_ns, CAP_SYS_PTRACE))
- 		goto out;
-+deny:
- 	ret = -EPERM;
- out:
- 	rcu_read_unlock();
-@@ -238,8 +280,11 @@ int cap_ptrace_access_check(struct task_struct *child, unsigned int mode)
-  * cap_ptrace_traceme - Determine whether another process may trace the current
-  * @parent: The task proposed to be the tracer
-  *
-- * If parent is in the same or an ancestor user_ns and has all current's
-- * capabilities, then ptrace access is allowed.
-+ * If current may make use of CAP_SETFCAP in an ancestor of its user_ns that
-+ * parent's CAP_SETFCAP or CAP_SYS_PTRACE doesn't reach, then ptrace access
-+ * is denied.
-+ * Otherwise, if parent is in the same or an ancestor user_ns and has all
-+ * current's capabilities, then ptrace access is allowed.
-  * If parent has the ptrace capability to current's user_ns, then ptrace
-  * access is allowed.
-  * Else denied.
-@@ -255,11 +300,14 @@ int cap_ptrace_traceme(struct task_struct *parent)
- 	rcu_read_lock();
- 	cred = __task_cred(parent);
- 	child_cred = current_cred();
-+	if (!cap_covers_setfcap(cred, child_cred))
-+		goto deny;
- 	if (cred->user_ns == child_cred->user_ns &&
- 	    cap_issubset(child_cred->cap_permitted, cred->cap_permitted))
- 		goto out;
- 	if (has_ns_capability(parent, child_cred->user_ns, CAP_SYS_PTRACE))
- 		goto out;
-+deny:
- 	ret = -EPERM;
- out:
- 	rcu_read_unlock();
-
++static const struct of_device_id lp872x_dt_ids[] = {
++	{ .compatible = "ti,lp8720", .data = &lp8720_data },
++	{ .compatible = "ti,lp8725", .data = &lp8725_data },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, lp872x_dt_ids);
+ 
+ static const struct i2c_device_id lp872x_ids[] = {
+-	{ .name = "lp8720", .driver_data = LP8720 },
+-	{ .name = "lp8725", .driver_data = LP8725 },
++	{ .name = "lp8720", .driver_data = (kernel_ulong_t)&lp8720_data },
++	{ .name = "lp8725", .driver_data = (kernel_ulong_t)&lp8725_data },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, lp872x_ids);
+@@ -971,7 +819,7 @@ static struct i2c_driver lp872x_driver = {
+ 	.driver = {
+ 		.name = "lp872x",
+ 		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
+-		.of_match_table = of_match_ptr(lp872x_dt_ids),
++		.of_match_table = lp872x_dt_ids,
+ 	},
+ 	.probe = lp872x_probe,
+ 	.id_table = lp872x_ids,
 -- 
-2.55.0
+2.53.0
 
