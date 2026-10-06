@@ -1,114 +1,268 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 814013D0927
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 08:09:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A89C3D9545
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 08:10:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791274201; cv=none; b=VIc8mioNEmkYBdbkioVao7WuF5QgU/ApQpFTFPt2hFOkvQfqr9c64JVd1v0zVxgHH5YWvn9eJKd7zWvA5sjOa/EwHV48KuRjvyE68Wec5kv7RjpbwJlE05M/fDB/TV4qMOaVKF13l8XiuZ68k8gOVsLPuDqFYTaudMANSsoyrcE=
+	t=1791274262; cv=none; b=jk2r18qJo/l/kX3HGocQ4XGQIu6XlaomRHATLCQYhprRn6isAKEGXBljxoSePiTisJvPMXjvTPc1fqzynJJ5jVKTlvMSqbCh272/pyLYZzM55Ls9sl+HFQEswDqhj++M1S9EUaq7MhLB2GJVw17SLuNnGDvJfqyWQDmjfbfazs4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791274201; c=relaxed/simple;
-	bh=h7DkrEnTmXYBw92lWxH+CAJ0i2zr2mym9tch2Vr281A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sVNS9tiUqkbSOGud9WbMLYt1NF1V/bu2PKZrrtGhQwG3u+Z7kRI4AlkNaHmJZaySyIiF7DS1IMCnF+UUIWVY4lPnD86WrAFGRGA4DsUkIhqs0cW5IL9a6ZNwiCmuc7u+LzFJCQ06r6YgggVzAY1oxYtGf8zrrSxKmPZw5fraT2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hha6RA2L; arc=none smtp.client-ip=209.85.215.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791274262; c=relaxed/simple;
+	bh=iSaj9HreJrtjgeXQea0qlyhUh8GWapDSL8Ofyqv645w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AMeiaZdGFBJyrmUrnIrpxMjqJL95cKH7I6QLSyL8HM6YKCOdDthlNkIFKp03XAj7AxRews5Rlcw4t/TKo+1cJV450kHhfbulNLHAOVP126CZzkKi1wo+O0BEwv4dLX2K4X1UtodixKqEnUD1Lcy5uFDG1wkDguDmnnM7md4GXdo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=jiW3RyTC; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hha6RA2L"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc1cf287ef8so175454a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 01:09:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="jiW3RyTC"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48c4d870d54so216474f8f.2
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 01:10:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791274198; x=1791878998; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0Eok7DWYmFOkeuFX4U4OhvywDDaFg642GCVXSSU8R3s=;
-        b=Hha6RA2LBmSVA75PCZKaLc8XZusOQqgKmBuN4LLG2vBKBs8cUU6lkp/y6byLxq+U/l
-         85LJpIwTOU3SEO4yLvxQt2r65jJe6ixBdhwN20fcW0V8a8IWOPqcNEbXq7GYcCklyi+m
-         UD8cyxJF6jcC3ftgWsdIUgv8+Gzv1+or2cSmL0yC+P2zYwliuM2TAsMIdXpNEedYu/Fx
-         qwgdBe3+MespUbF5VgP/EtvIryuPBl0ofeT8n+pmP7OcFlsZwc8NJJi0JetOvOoHyqze
-         nPtqr/FvsIT3EYib2JyVfoo6esDxT956dbA8Y9tXWizGpYUCJIRaPalVtdGHBl2A/ev1
-         W+zg==
+        d=cmpxchg.org; s=google; t=1791274256; x=1791879056; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tVXYOf8mvidID9ngA6Wiy5Zd6aixe2bdtBClg3CvrsU=;
+        b=jiW3RyTCnERM+gTO1/IKwFXi0GFXa+B/cwYGRDDDcrF2c7aIWgczdyuETSGzmq/JH2
+         4648F8Hw+05SbLlx8N2KQeniy8SfVA8E69Dj139spR2EpVIWat2XmQ8aPvS8u0/elyYy
+         0qG1UYDYxQlG8Le+LKg2K0wrR6f+/0ztCcc3vPzxPYEZaxAOAfhcE3LtplKRTqrOnT/9
+         2kkJDcB3HwRZxO/OP0uZYHUS41mt20rlDRAmhI+FPaCsnBp6BfG364+x27aBswWNHt8m
+         F4O6136Mu2xn+WpA/xDZNR8DRcBQu0rLH+fcBBBxqQu+zdDy0oEqKBhdo+lJVmCa538/
+         XlfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791274198; x=1791878998;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0Eok7DWYmFOkeuFX4U4OhvywDDaFg642GCVXSSU8R3s=;
-        b=SnKhsu62Lo8R0SbIH5jVQEPqEPPTHplK7wa4Nxg2S+zI6hM+AX3lV/vyic4XS+R5uM
-         pfZxugiNDoNF5mCyjWVKr0hpks6mJJ0DdJC9LQxaJjS4xAalukedkchYPz4V82TWuDrz
-         kQmStkw5C35yncx5NwENUU+PxbjobJLiKimdqFLivjgkZkbHsu2Pbf1s6AYAwYZDXY5Z
-         sMx/Jq+8eMRC2oGF1y4xn/CZS+Y/ckvNEAUS3DYY43jDXDlqTwDfcWMic48eF/dd3GZL
-         pAkXrhYM15KIXGi/TvdcO2tX9GTBiCYqsN/iL49q/ra4XF7zmYwhtLgqAPc0qa1B2hHO
-         064w==
-X-Forwarded-Encrypted: i=1; AKwUvByeqmt8NPtdQ4LZXdojIq/oqptyPer27C/ktXCViN7yI1WF9dDROIqD40mrzM47oYO6pUL7+dX8Sg5Ga7g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLfxpOOxXrH9Zpp/Ct1Xmb+BS8pXivbgINKgdQc4QVu/RTVh0wW
-	napmqOHecHfpzsss1lmTX6t39g5oKFXOGPbRgUTzqNrzGOxPJCgNyGj0
-X-Gm-Gg: AYBFou0h7xfxq9uHGuuDJcGGJYJeMOLAtyg0QldVGEfCVA0/Z8p2VE6pd1+GAxMslwG
-	UppM38YZ0eywAfBdiwbqPelW3ViOGOhlhxETL9t5FIaheueI/F28ijVD2usz+xwBaOgZ070fiDg
-	dDxXvi/ZwRjX0UnKzf8xCtti8GlktaTx86dxBe6wjrgDYV38wVuXl8iLkb2f32qLgyTQtYSpsOv
-	ZhTmz5yuQ67KJIwUkFd8qDlKulpEHXVzU2ammklsZwoLy2wr4ZhVvQ8lXQQ5QZDkneY2Im9UM8s
-	fH6T9TV6CGdqibXcjaio5YBzcxBw1uJa/jdaMAfhONr1N8YKP06KBXJk/98x+zh1jMZVgqT+qO2
-	akOV/I6P+66o2JtWw4oFOZnNqwFEwiliH9Esy+5vjYkSDl+prlAa2gUyf+9enYhuoKkqCGU1X3A
-	JwxSvFWpzT9zOh0hhQQ5QUrmF7QC2eFofqcy+5U7BNv+DmTsH40cU6YzHkDY7D0VkI9QzFlE2wW
-	osXs6Jspd6WvZkTdOelVzZKT70Ge7v+TgF47ZVin4k4VuKuuLkx9i2u2gDVg+IqBm5yl1fip+/1
-	wlzffW5zp7CGibM4IV1MMRqaFeXcLanIE6FPjYPeOy1BFpM=
-X-Received: by 2002:a17:902:f602:b0:2cc:6018:f030 with SMTP id d9443c01a7336-2e5dcd9093amr7496675ad.14.1791274197752;
-        Tue, 06 Oct 2026 01:09:57 -0700 (PDT)
-Received: from 0xiviel.ip (122-63-128-121.mobile.spark.co.nz. [122.63.128.121])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e5ccdd1f8esm6046185ad.83.2026.10.06.01.09.52
+        d=1e100.net; s=20260707; t=1791274256; x=1791879056;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=tVXYOf8mvidID9ngA6Wiy5Zd6aixe2bdtBClg3CvrsU=;
+        b=Y5/DajxspJBbdLAID72o5BVEw6/NUR0MeaiTAcQO1C0ogFYbIe/Kd3p5u1ENchz3yO
+         IeSyFPQJJtEGK/cvYDYBv3qAuYSrNpKQci3KUxD/Ziv/rW/ZNk4hrX4IPdWWnuWwO+js
+         ythHoZgG6iTAzNUvlTfUaJtC2z2Y38uTO+Aw/XRlBmhEn94cVINPmwnw95BwDJf7yq/J
+         JXZZ4mo2HnGhREPkfvQvon/eNBjym9WbSFqTis8wsgbfXMqYQb6Taw9upnag85MXugj9
+         GKtk/4k+amgl2yGHMw/ZJqFCR1Ime1A3tkvScd2YVhF4s40PJmT3RZyvLo2ttLl6LYrp
+         vZMA==
+X-Forwarded-Encrypted: i=1; AKwUvBy7y3WTfdLmWx7lEKghplAKsJlXaPiGlxR/BCY6nDECKbJ5NZxNQ97WDTjDE3eFDMz5dzSpvhWJf/n8euY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKF9jR69XO354T6PmCWXY6RqgtiCrIiP7BDL+n6gwTT00YZTyvQ
+	65wJWGbkiZbvvOoFOHBN8+ZJdU/P/6vGz3qAs7rYMcmlk9uD1zMZGlNKHHXdGEorx+VSORujTjI
+	Carqyk2s=
+X-Gm-Gg: AYBFou2Llq5SvWZTKFw0KT5tEDzwoWA3vO4aI0WU8W3JPBYQGOBB25IsK4jUtBZIjE3
+	DW0uJtGZwxoBAs+CSFP/zHMwEeCD4tB+ZdVh4LVQ7I+rhC9pHBg+FfqKyNNAqTgFgNIoIUuaEeL
+	BMkLe2d14kiJ11SYS4WYBr2KiDzzaL5vYqQT/VA7FXW5j3BKhqj9LG1zFYwwuJiSOiqUdGPtTJl
+	nzjWr0PpeDFAnrw0O4TndcBkjHWFsm5+B/WNlauWwug6/Z6VE1oZEf8QzZKHfZw3i5snZHWxUmu
+	7+jLFy3nGSMiDAj3Al553XqVI5VrdRxSLmoQ+AzGZOfs2SNQI+cH3X9nwQ0t/U/w0gMLXIGr0Qb
+	6QN2OqSYK+m1023NoMcSMCcfXZRT7lqKi6tja2e69OJD73okvmV1vH6cOlSOEz7OxM9Kv53ZIzx
+	I2m5vErq6x9veQElA/D0RvC29qWw0DPI14d73mHvze/J4J3ItEfCCstMkugO5ND4f5VXsei7TVW
+	IiPEogdafXl
+X-Received: by 2002:a05:6000:220f:b0:48b:60a:760c with SMTP id ffacd0b85a97d-48c6d18629cmr1226749f8f.31.1791274255753;
+        Tue, 06 Oct 2026 01:10:55 -0700 (PDT)
+Received: from localhost (90-182-211-1.rcp.o2.cz. [90.182.211.1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c6308481dsm9975049f8f.3.2026.10.06.01.10.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 01:09:57 -0700 (PDT)
-From: Eva Crystal <0xiviel@gmail.com>
-To: yidong.zhang@amd.com,
-	quic_jhugo@quicinc.com,
-	karol.wachowski@linux.intel.com,
-	max.zhen@amd.com,
-	lizhi.hou@amd.com,
-	ogabbay@kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Cc: sonal.santan@amd.com,
-	mario.limonciello@amd.com
-Subject: Re: [PATCH V2 16/20] accel/amdxdna: Finalize runtime PM before acquiring dev_lock on removal
-Date: Tue,  6 Oct 2026 20:13:10 +1300
-Message-ID: <20261006071310.198186-1-0xiviel@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261006042230.547807-17-yidong.zhang@amd.com>
-References: <20261006042230.547807-17-yidong.zhang@amd.com>
+        Tue, 06 Oct 2026 01:10:54 -0700 (PDT)
+Date: Tue, 6 Oct 2026 10:10:50 +0200
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Kiryl Shutsemau <kirill@shutemov.name>
+Cc: Harry Yoo <harry@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Zi Yan <ziy@nvidia.com>, Shakeel Butt <shakeel.butt@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	kernel-team@meta.com
+Subject: Re: [PATCH] mm: page_alloc: make defrag_mode retries follow the
+ promoted order
+Message-ID: <20261006081050.GA234057@cmpxchg.org>
+References: <20260929174553.175333-1-kirill@shutemov.name>
+ <arv8J7ysrdazJmfY@thinkstation>
+ <ar0NRMxps8UErXaQ@thinkstation>
+ <ar0Xbs9mEu-vUHvc@cmpxchg.org>
+ <ar5rOHWwc_iPJF6C@thinkstation>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <ar5rOHWwc_iPJF6C@thinkstation>
 
-On Mon, Oct 05, 2026 at 09:22:26PM -0700, David Zhang wrote:
+On Fri, Oct 02, 2026 at 10:59:32AM +0100, Kiryl Shutsemau wrote:
+> On Wed, Sep 30, 2026 at 10:06:38AM -0400, Johannes Weiner wrote:
+> > > > > @@ -4127,6 +4127,31 @@ __alloc_pages_may_oom(gfp_t gfp_mask, unsigned int order,
+> > > > >  	return page;
+> > > > >  }
+> > > > >  
+> > > > > +/*
+> > > > > + * If fallbacks are not permitted (defrag_mode), we either need to
+> > > > > + * reclaim space in a block of matching type, or clear out an entire
+> > > > > + * block to allow __rmqueue_claim() to convert.
+> > > > > + *
+> > > > > + * Reclaim by itself is primarily freeing space in movable blocks,
+> > > > > + * since that's where the LRU pages live. So this works for movable
+> > > > > + * requests, but not for others.
+> > > > > + *
+> > > > > + * For those, promote the order of reclaim and compaction to help make
+> > > > > + * blocks, instead of spinning in reclaim alone unproductively. Retry
+> > > > > + * decisions based on the outcome of that work - reclaim progress and
+> > > > > + * compaction results - must account for the promotion as well, see
+> > > > > + * should_reclaim_retry() and should_compact_retry().
+> > > > > + */
+> > > > > +static inline unsigned int nofrag_promote_order(unsigned int order,
+> > > > > +						unsigned int alloc_flags,
+> > > > > +						const struct alloc_context *ac)
+> > > > > +{
+> > > > > +	if ((alloc_flags & ALLOC_NOFRAGMENT) && ac->migratetype != MIGRATE_MOVABLE)
+> > > > > +		return max(order, pageblock_order);
+> > > > > +
+> > > > > +	return order;
+> > > > > +}
+> > > > 
+> > > > I think we should start distinguishing order and compact/reclaim_order
+> > > > in __alloc_pages_slowpath(). Silently overriding it makes it harder to
+> > > > follow and easy to make a mistake.
+> > > 
+> > > Agreed, four callers recomputing the same thing is asking for a
+> > > mismatch.
+> > > 
+> > > I would rather not grow this patch, it has to go to stable.
+> > > 
+> > > I will look into a cleanup on top: __alloc_pages_slowpath() computes the
+> > > promoted order once per iteration and passes it to direct
+> > > reclaim/compaction and the two retry helpers next to the request order,
+> > > so the helpers stop knowing about defrag_mode.
+> > 
+> > +1
+> > 
+> > All they really need to know is the split into requested order vs
+> > production order (reclaim_order, compaction_order).
+> 
+> Will fold it into the fix itself. The cleanup changes the same places as
+> the fix. It makes zero sense to keep it separate.
+> 
+> > > > > @@ -4299,7 +4316,7 @@ should_compact_retry(gfp_t gfp_mask, struct alloc_context *ac, int order,
+> > > > >  	/*
+> > > > >  	 * Compaction failed. Retry with increasing priority.
+> > > > >  	 */
+> > > > > -	min_priority = (order > PAGE_ALLOC_COSTLY_ORDER) ?
+> > > > > +	min_priority = (compact_order > PAGE_ALLOC_COSTLY_ORDER) ?
+> > > > >  			MIN_COMPACT_COSTLY_PRIORITY : MIN_COMPACT_PRIORITY;
+> > > > 
+> > > > This would change how hard we try to compact with defrag_mode in direct
+> > > > compaction as it won't try compaction with MIN_COMPACT_PRIORITY anymore.
+> > > > 
+> > > > It doesn't make much sense to change that as part of this fix?
+> > > 
+> > > It is a choice between compacting harder and falling back, which
+> > > fragments a block.
+> > > 
+> > > It is a judgement call on what defrag_mode means.
+> > > 
+> > > It would also mean that order-0 allocation request promoted to pageblock
+> > > can trigger SYNC_FULL compaction. I cannot say I understand the
+> > > implications. Will give it a try with the reproducer.
+> > > 
+> > > Johannes, Vlastimil, any comments here?
+> > 
+> > I would leave this one with requested order unless the reproducer
+> > disagrees.
+> 
+> I built a reproducer around what we saw in production, which was oomd
+> killing the workload on sustained PSI, so PSI and the number of times
+> ALLOC_NOFRAGMENT gets dropped are the headline numbers. 32G VM, 8 CPUs:
+> 
+>  - fill memory with 4K anon pages in a cgroup, memory.low = fill + 1G,
+>    so page cache beyond that stays reclaimable;
+> 
+>  - pin one page in every pageblock with io_uring registered buffers[1],
+>    except one block in 50 (2%), so whole blocks can be made but only
+>    from a few places. Without the pins rc5 does not storm in 180s:
+>    compaction makes 130-210 blocks per run and every retry loop ends in
+>    one. The storm needs blocks to be hard to produce, and the pin
+>    fraction is the knob for that;
+> 
+>  - free one page in eight so ~4G sit scattered in movable blocks;
+> 
+>  - turn on defrag_mode and run 8 build-like workers on btrfs for 180s:
+>    write 1-64K files, read earlier ones back, unlink 20%, fdatasync
+>    every 50 creates.
+> 
+> Kernels: v7.3-rc5; the fix as posted; the fix with the priority floor
+> and the COMPACT_SUCCESS retry limit on the requested order. Three runs
+> each, mean ± stddev, 2% producible:
+> 
+>                             rc5            posted        requested
+>     ops/s                   4751 ± 684     5181 ± 18     5206 ± 84
+>     PSI some, mean %        28.7 ± 11.5    22.0 ± 0      22.0 ± 0
+>     PSI some, peak avg10    42.8 ± 30.7    24.9 ± 0.3    25.0 ± 0.8
+>     s with some avg10 > 50  3.3 ± 5.8      0             0
+>     give-ups (NOFRAG off)   0              222 ± 58      277 ± 199
+>     movable blocks lost     641 ± 13       654 ± 10      652 ± 14
+>     whole blocks claimed    90 ± 8         81 ± 10       76 ± 8
+> 
+> rc5 stormed in one of its three runs: 3.85M order-9 reclaim runs in
+> 180s, PSI at 42% with ten seconds above 50, workers that would not die
+> on SIGKILL. The other two were quiet, which matches a workload that
+> OOMs regularly rather than always. The fixed kernels never stormed.
 
-> When the device is runtime-suspended, pm_runtime_forbid() synchronously
-> resumes the device via rpm_resume(), which invokes
-> amdxdna_pm_runtime_resume(). Because amdxdna_pm_runtime_resume()
-> acquires dev_lock, calling amdxdna_pm_fini() inside ops->fini() while
-> holding dev_lock in amdxdna_remove() causes a deadlock.
+Ack. Nice. Thanks for testing it out.
 
-> -	amdxdna_pm_fini(xdna);
->  	aie2_hw_stop(xdna);
->  	aie2_hwctx_sched_fini(xdna->dev_handle);
+> Between the two floors there is no difference I can measure here: same
+> PSI, same throughput, same give-ups, same movable blocks lost, same
+> whole blocks produced.
+> 
+> The promoted path is a small part of what the allocator does in this
+> workload, 16-22k order-9 reclaim runs against a million order-0 ones for
+> page cache, and a few hundred give-ups in 180s.
+> 
+> > There is a risk of defrag_mode self defeating over time by raising the
+> > bar for fallbacks but not high enough. Every fallback we let through
+> > will make it harder down the line to compact towards that higher bar.
+> 
+> Same movable blocks lost and same whole blocks produced in all three
+> kernels, so in this workload the extra SYNC_FULL passes neither produce
+> blocks nor save any.
 
-This is worth more than its position in the series suggests: the deadlock is already live on shipping AIE2 parts, not only on the new AIE4 path.
+Ok that's good to know.
 
-On current drm-misc-next, amdxdna_remove() holds dev_lock across ops->fini(xdna) (drivers/accel/amdxdna/amdxdna_pci_drv.c:457 and drivers/accel/amdxdna/amdxdna_pci_drv.c:463 at 34e9ab018249), and aie2_fini() opens with amdxdna_pm_fini() (drivers/accel/amdxdna/aie2_pci.c:640 at the same commit). pm_runtime_forbid() then calls rpm_resume(dev, 0) synchronously (drivers/base/power/runtime.c:1672), which lands in amdxdna_pm_resume() and its guard(mutex)(&xdna->dev_lock) on the same task. The base wires RUNTIME_PM_OPS(amdxdna_pm_suspend, amdxdna_pm_resume, NULL) and aie2_ops supplies .suspend and .resume, so runtime PM is active on aie2 before this series adds .runtime_suspend. With amdxdna_pm_init() setting a 5000 ms autosuspend delay then pm_runtime_allow(), an unbind or rmmod more than five seconds after the last NPU access hangs holding dev_lock.
+Without counter indication, I would prefer to keep the tighter
+guarantees. ISTR this mattered on some of my ext4 tests in the past
+with the buffer locking.
 
-Three things that would help it travel:
+> > There is also a non-zero risk of connecting order-0 request contexts
+> > to SYNC compaction which they haven't done before 7e8756d7ad22. But
+> > you traced the problem to retrying, not sync compaction itself.
+> 
+> That shows up only when I take the I/O out: tmpfs, every block pinned,
+> 1M empty files. Then every exhausted order-0 refill does a whole-zone
+> SYNC_FULL pass before it falls back, PSI some runs at 39% against 20%,
+> and the churn takes 1.3-2.8x as long, five runs each.
 
-* Fixes: 1aa82181a3c2 ("accel/amdxdna: Fix dead lock for suspend and resume") looks right. amdxdna_pm.c had no dev_lock when 063db451832b created it, and 1aa82181a3c2 adds exactly the two guards the base still carries.
-* Cc: stable@vger.kernel.org is warranted, since 1aa82181a3c2 is in v7.0 and later.
-* Could this be split out to drm-misc-fixes on its own? At position 16 of a 20 patch AIE4 series it is unlikely to be picked up as a fix, and splitting it stops the fixes cadence holding up the feature work.
+That seems acceptable for the no-hope worst-case behavior.
 
-One question: amdxdna_pm_fini() now runs after drm_dev_unplug(), so pm_runtime_forbid() resumes hardware on a device already unregistered with its user mappings torn down. Intended?
+> What do you prefer here? I don't have strong preference either way.
+> 
+> [1] One thing the pins made me notice. A FOLL_LONGTERM pin migrates
+>     the page first only for ZONE_MOVABLE, CMA and isolated blocks, see
+>     folio_is_longterm_pinnable(); a page in a MIGRATE_MOVABLE block in
+>     ZONE_NORMAL is pinned where it sits, and the block can never be
+>     made whole for as long as the pin lives. The migration target in
+>     gup already uses GFP_USER without __GFP_MOVABLE, so a moved page
+>     lands in a non-movable block.
 
-Eva Crystal (0xiviel)
-XSource Security
-https://xsourcesec.com
++1
+
+>     Should defrag_mode treat MIGRATE_MOVABLE like ZONE_MOVABLE there and
+>     move the page out at pin time? Ideally we might want to move it back
+>     on unpin, but it can be done by compaction too.
+
+Should it even be specific to defrag_mode? I suppose without it, the
+poisoning from fallbacks would dominate by a landslide under
+pressure. But these pins can mess with compactability long before
+becoming capacity-bound.
