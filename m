@@ -1,64 +1,64 @@
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E98693E49D2
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 10:30:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A6AD3EE1FE
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 10:30:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791282619; cv=none; b=diex1Ot/3ZLFkKPzG+agLzyqkInlOT+//MTuLdJ4EFGuS6tEJm92QzZHuVmz5gq+c3r0tlWen4paizrYbLzdUWLa1xPwVrRtSlNNJMgmtFptzyWWwAwdFI4bofOwJtjkyRvWcgRu/CVbZfjSOZyOcuZEJRI+6TNhdoDYlaLPtLM=
+	t=1791282624; cv=none; b=nwbkRXWJJcrNnVLP0m2tkhCbPx+nDA/XswWKEcSrbpZS0zcjcf/70sRgijTrw1BTgnP9QjABwLTOK/JWG4cnIHgNHmrxTqDsrKku/SFa8VPZFDmRUiH64kV0RXX3I5RxshDfG2Leh9EG08Pq7H+ZR4krE6kAsG3nYiiCa0UoOdA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791282619; c=relaxed/simple;
-	bh=HMaTu5dap/in+IMb7xSYXgqwggJzp61fMmk5d6fvDHA=;
+	s=arc-20240116; t=1791282624; c=relaxed/simple;
+	bh=KE/VAfOA8574I5li9eEfgHcBUlxNUQrSaLDRnqQEUVo=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=n90V1uucg7RIoVm5Vm73SBLanE9CW9gTFdWvzguDt8UtkU7JqOOUKialQPPOmIIKag4StwT5DX9U6rHR4WZSp6FZkpGy3GA3rik2LCrCWKx8GF6x7l3gWT6ZV0Xo5Xh37Hu1fVeuep/RrEvwDjhVLTttLLQ6wcMx7tZitGhEfoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iMyxJ/gM; arc=none smtp.client-ip=74.125.82.180
+	 MIME-Version; b=eNjstA0PVGmJRzTL23ZQMNVBSEs3C4IpQJ0B285gLcmIenCAT6MPQUhMidYI6DaflYpQL+cEwU8jXtHuPVSPCCkMAuz9VtTaiVFwYVv2qEIvItBPuykgptTh0yEkqDCtff5wtUrIKn8i93uXfzS2OK6b3Eau/Jy2L8HcNJ01bSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TZfLOpSt; arc=none smtp.client-ip=74.125.82.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iMyxJ/gM"
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-31490970b97so647420eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 03:30:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TZfLOpSt"
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-3514b90bb89so626746eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 03:30:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791282617; x=1791887417; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791282622; x=1791887422; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=f2zCsQ/oYn3ghBOOGUriCrZuEtWUXY39VXZEGkJ0WUI=;
-        b=iMyxJ/gMUv5Ce96D/YOn2Rdn8MRRxKSyXBDzVEaG64gmYj34pyQlaZmM6XBMgbwem+
-         wp6CIL/Du1v5sflYThYJChNVq8dXmQQXo6YbKewV4S+gxsFNQ3DNZYeikxIWTKafom58
-         DlGO82WtoSbfCj9H8g40ppuVjCuc9RdlEn3n6gXCLi5HBpSWlKNXRRD4zcBm+RSj1CND
-         EvpKDTyKztq/44wjB4gFFLUJ3gmg6eXHa9csivrRBO5RMVGxBHAC9SGG2ZRjp8I8uR1D
-         Wi3GdwqgWLAkViCrW+tXXYuKWY8WhowY8iwtEW8Ax3HNCLlCS2FilNjuKswPCxSdcrSn
-         371A==
+        bh=bol8X0wJHH74pShfR9ELa5dHnrFIGHJN+N1Iz8VFSIU=;
+        b=TZfLOpStJkQED5qFzJYyMO8XLvti+Zt+rfPrdWAZoNoOBn2HaY/qXN2tWELVl1izUR
+         rpcGYwSsYh+bCi5BqrxAL4qEJFEHGCVOGkmBdBDwEfMsws7raYi24JemFWWnUgHW06ov
+         wRlYcmaxsE2FeCgDPTaSIupY2s2TQYCrexgn93+gqsIzyQUD73+7c+CE1NlMVLGRLbh4
+         DQSk12Lxg3YWM/V+HQen72Jjq8ubkxDX29ue0R7p3xG0Mh0f3+xSVnG3HlC/kl5s2T8M
+         +0jslYZjhqaPa1Rzw386tOs9bzChaypyq0tTW/o3clxHKC/sqTi5v2sv+2gVblUoN8O9
+         5Ahg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791282617; x=1791887417;
+        d=1e100.net; s=20260707; t=1791282622; x=1791887422;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=f2zCsQ/oYn3ghBOOGUriCrZuEtWUXY39VXZEGkJ0WUI=;
-        b=LM8otC+UgkpVyQ1+b8I8mUmPiNBGXkniM7Mz9Lw9TBjhVv1KU6pfr8GDeiW3eSOM9G
-         mFlUBg6V1zKtoAHKHgJTDQsXdnMw+3ghi44jB7PmftEIxv/S/7YybSWW1pBZgp+o47xW
-         417XMxPxDyR4l7s6dRUSJ5yrwaJ5B+f99olZrPXUZCPAMnD/1rJqbJVRlrq2B5nMpaTb
-         FKlptCc1M/wtSnRPPFcVH7ZtHBic0EObdXanZ9EPMmoLC9NL6XeFlX+mNRhakkkOw+BL
-         NknOsYCiSNUqwcORXaqyjnZRH7KFFmlCR22WYdyH/YoKpYHmGdFInh1Ejda+i3qgYf9P
-         VzZg==
-X-Forwarded-Encrypted: i=1; AKwUvBzCYwwA7KFESomICDFpUuFetGtmL8Yxxy1Wp2i1/eMiaIsPW3WbAxw3Cf+UUZg3DNF5Z6G46C9K3Sb7xaE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nqFiB5B0w1Bk5tnzESBAJvzzJ0HCfMedXRBNGU3Fj5hm3UqBNx
-	zbOfAdvEU5dpeZ8u3NZNJcvRUudZTehmu7p9aI19t53wS1mg3o/zWbfRb1kMm52W
-X-Gm-Gg: AYBFou35lop9aDUGRaoJVPKoFlwkn9rUUOi8XXp7uKr4jYLXjgb5Tv+GFwoS7GdX6+3
-	YX2P3M9Koo0mhlPQ338iWr+9nHcwRE4RuRrQyfX2dt+h5tBlyEu/I+HeK+rgq+qxcMxnNXHQKwf
-	avapz5bax3mnGbmbJ1XYq0MMxDcYweIhZFRLRLlOU0y6bZypPx55yG10Msxi2ydJWor77B50yaI
-	2PjM3rpEfev6adZPN7i4O8gTENCWVN1za//5VTM2cLvKPPO6Dbq2at+BMThTjPJBE29sfl7DFd0
-	iNx2ZE0RO5stF1d/gx1+C+1lFINxAReKNFuJcvbiWaFRdgHEBVzSP/9JzqZEy8JpUY/6XHDCgSZ
-	fxI7fCbO34wWnskl2fxEhPvg0HhjotuTbE+HOmUglHfpxOExzQCPglDhBmsiMK3/0Ua5HWaZf/6
-	mHBUBpX7foHNEJQVdlBwkfY9nAl//wMtwwoV3bfDNJ0ebkZRlQcriVDksH1ljyU1j+lwlI8o15X
-	J/6kp+S3DBgfMSfRrCS21rbxuot/1XFkUdk7EFK65fniJaqPTs9MYlqOZn+V9Qu1RFbY8A=
-X-Received: by 2002:a05:7301:6790:b0:351:248d:d63b with SMTP id 5a478bee46e88-3514e2b30dbmr1487049eec.11.1791282616520;
-        Tue, 06 Oct 2026 03:30:16 -0700 (PDT)
+        bh=bol8X0wJHH74pShfR9ELa5dHnrFIGHJN+N1Iz8VFSIU=;
+        b=NnW/iU5v7S71lFx6wP5+9LGbAegMJIaGIa6EZwJ6lDknUGKc66k4nlwJlFM4l8Uhny
+         wupxMSyNqWei+FbtB+f+RKn5Cm6ndDrmhD8PJtxYkU/gxA7TiQKDMkkJ7PeHFClN+iUA
+         uM8krvaWNNKv7yWzjmIUOqs9EIE6SlGttNhhYl7omBxxwmo3yqAugAQm9G/dPGGa+rYi
+         sQ5D8hR3wiphERU0fMTLphFyyxGGMFlwMzyBjMxqanhf1SaUmMHpA7gl5YSBvMd1heGX
+         hDWClbUzObl70g2+sz5wxYg4LjdPa7CSX4ibvclfj+A9wXzaMk6EX6HOfVx+bop8D4IR
+         E7Bg==
+X-Forwarded-Encrypted: i=1; AKwUvBwmTWiGebKPIywaUwHMOWQDWc3h7mHJ3Cl/b/6vCbMPnkcZJSQnVwI0D4trifqaWz1R+ZJ9TdPmSmdOKK8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIPDTqmiUM+cwkkwoQybgdUPNfJG8ZT+u7L3TZRH0wvsuwlFLxB
+	EvZR842/eX6IzdU3gtND6vtZQFpMLEoZd+5IN9tKsCIGI3JAtwMr0U7R
+X-Gm-Gg: AYBFou2KArious2jOxGSMvQ/4r5vYoev2yl7CLBZ63zZl1FQFovqnALfUGnbyx9wVzm
+	9iGUSRwSG0ZvDhaKLl0vIG1y9C2MnvMPUrVu49OdJmZJQzoqPlvHhm0jRbmSF0DdM9tHjgQsc1t
+	I2l9DfCRTz0XSuVpI4cLVHPCLO9DsY+BBavNUcW3/yVF+9cvbzj1vlrFaCoGdY7jIPzzJB/fH+H
+	YKj+BoKSIfowojI4KD+c0VeDO+tQaxqefPjCieAMoA+Cq68ptLMf55x4ZHEcMl79+CTPvDRJ8Dj
+	vfShgUh4spVC6vD77np94td4eI99C+vTjqKafJaqu92oDRzwrGQvJcug6Q9/YgiXuO465pCQXtq
+	TULddlL1Nejfh5djhFo6U8LkfMvWOzBADVGF2n6jU+91z3V0KJ2x1+RtTp0Q8VRbjHmVsX0LBQ7
+	GbzLRF7yRvTFiPS4JUN4LS8nlT8Yg05+JntMN7iJ8cZNbzrUnwMeoFK7VeQoiQ+vAUIl0PtCPmY
+	CJqx9pQp4sOw+iz72krD+FOSGGZuCHB2WtZ1SjfRAw2sjD9rExbI7pOE/p5
+X-Received: by 2002:a05:693c:88c8:10b0:34b:7c9c:9a71 with SMTP id 5a478bee46e88-3512e446222mr7496069eec.1.1791282621782;
+        Tue, 06 Oct 2026 03:30:21 -0700 (PDT)
 Received: from pve-server.rlab ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-351469fa189sm7443970eec.6.2026.10.06.03.30.11
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-351469fa189sm7443970eec.6.2026.10.06.03.30.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 03:30:15 -0700 (PDT)
+        Tue, 06 Oct 2026 03:30:20 -0700 (PDT)
 From: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
 To: kvm@vger.kernel.org,
 	Sean Christopherson <seanjc@google.com>
@@ -73,9 +73,9 @@ Cc: Paolo Bonzini <pbonzini@redhat.com>,
 	Shrikanth Hegde <sshegde@linux.ibm.com>,
 	linux-kernel@vger.kernel.org,
 	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-Subject: [PATCH v7 6/8] KVM: selftests: Skip kvm_create_max_vcpus on powerpc pseries LPAR
-Date: Tue,  6 Oct 2026 15:58:40 +0530
-Message-Id: <c8856b73b06bd4b44ff31e7454c8fc56dd402428.1791280439.git.ritesh.list@gmail.com>
+Subject: [PATCH v7 7/8] KVM: selftests: Only warn for idle-page checks on powerpc pseries LPAR
+Date: Tue,  6 Oct 2026 15:58:41 +0530
+Message-Id: <0227000da4e6fe69b278dc971b74b3f65b73ead9.1791280439.git.ritesh.list@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1791280439.git.ritesh.list@gmail.com>
 References: <cover.1791280439.git.ritesh.list@gmail.com>
@@ -87,36 +87,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On a PAPR LPAR, KVM_CREATE_VCPU is H_GUEST_CREATE_VCPU and
-KVM_CAP_MAX_VCPUS is only the vcpuId range but is not a guarantee from
-L0 i.e. because L0 Guest Management Space can be exhausted before that
-many vCPUs exist, so creating MAX_VCPUS is not a valid assert.
+Same nested TLB/access bit issue like x86. PowerPC nested KVM (pSeries
+LPAR) can hide accessed/idle, since KVM (L1) doesn't explicitly flush
+the TLB for access bit update, so L0 keeps translations cached. That
+also means that the L2 accesses do not refault and L1 thinks that the
+pages for L2 memory are still idle.
 
-So, skip the test when powerpc is pseries LPAR (running nested i.e.
-ibm,hypertas-functions is present).
+Use kvm_is_ppc_pseries_lpar() check to detect when running nested on
+powerpc pseries LPAR and only warn on the idle-page count.
 
+Reported-by: Anushree Mathur <anushree.mathur@linux.ibm.com>
+Tested-by: Anushree Mathur <anushree.mathur@linux.ibm.com>
 Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
 ---
- tools/testing/selftests/kvm/kvm_create_max_vcpus.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ tools/testing/selftests/kvm/Makefile.kvm               |  1 +
+ .../testing/selftests/kvm/access_tracking_perf_test.c  | 10 ++++++++++
+ 2 files changed, 11 insertions(+)
 
-diff --git a/tools/testing/selftests/kvm/kvm_create_max_vcpus.c b/tools/testing/selftests/kvm/kvm_create_max_vcpus.c
-index 1b95027d41ba..22279c638d06 100644
---- a/tools/testing/selftests/kvm/kvm_create_max_vcpus.c
-+++ b/tools/testing/selftests/kvm/kvm_create_max_vcpus.c
-@@ -39,6 +39,12 @@ int main(int argc, char *argv[])
- 	int kvm_max_vcpu_id = kvm_check_cap(KVM_CAP_MAX_VCPU_ID);
- 	int kvm_max_vcpus = kvm_check_cap(KVM_CAP_MAX_VCPUS);
+diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
+index 4b7f6ab0ee54..692bbae44a65 100644
+--- a/tools/testing/selftests/kvm/Makefile.kvm
++++ b/tools/testing/selftests/kvm/Makefile.kvm
+@@ -257,6 +257,7 @@ TEST_GEN_PROGS_loongarch += set_memory_region_test
+ TEST_GEN_PROGS_loongarch += steal_time
  
+ TEST_GEN_PROGS_powerpc = $(TEST_GEN_PROGS_COMMON)
++TEST_GEN_PROGS_powerpc += access_tracking_perf_test
+ 
+ SPLIT_TESTS += arch_timer
+ SPLIT_TESTS += get-reg-list
+diff --git a/tools/testing/selftests/kvm/access_tracking_perf_test.c b/tools/testing/selftests/kvm/access_tracking_perf_test.c
+index 4415c94b2866..eb6939065e79 100644
+--- a/tools/testing/selftests/kvm/access_tracking_perf_test.c
++++ b/tools/testing/selftests/kvm/access_tracking_perf_test.c
+@@ -471,6 +471,16 @@ static int access_tracking_unreliable(void)
+ 		return 1;
+ 	}
+ #endif
 +	/*
-+	 * PowerPC's PAPR L0 does not guarantee KVM_CAP_MAX_VCPUS when running
-+	 * on pseries LPAR (nested kvm-on-powervm).
++	 * PowerPC: Nested KVM (pSeries LPAR) can hide accessed/idle, since KVM
++	 * doesn't explicitely flush the TLB for access bit update. L0 keeps
++	 * translations cached so the guest won't see the idle bit cleared.
 +	 */
-+	TEST_REQUIRE(!kvm_is_ppc_pseries_lpar());
++	if (kvm_is_ppc_pseries_lpar()) {
++		puts("Skipping idle page count sanity check, because the test is run nested");
++		return 1;
++	}
 +
- 	pr_info("KVM_CAP_MAX_VCPU_ID: %d\n", kvm_max_vcpu_id);
- 	pr_info("KVM_CAP_MAX_VCPUS: %d\n", kvm_max_vcpus);
- 
+ 	/*
+ 	 * When NUMA balancing is enabled, guest memory will be unmapped to get
+ 	 * NUMA faults, dropping the Accessed bits.
 -- 
 2.39.5
 
