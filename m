@@ -1,165 +1,201 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7648F39D6FA;
-	Tue,  6 Oct 2026 09:19:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA7013A8736
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 09:20:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791278363; cv=none; b=eP2xMyFWnG7FX6Bc7I8vh5CxzKojGC+t68KmHNivORCWCVzYxdBEnRTBjLz9d9fEvfj6frCJfynGtmDWGXqtb/I6F53da/1x740ROyCKVSa2SutQSv8zikSMVSkOSy9gU9pR085FwkK4ml6lSGRGWhazWnY3GSWK7cK6Cp6sPbU=
+	t=1791278431; cv=none; b=KhwzWHw9Wmw2d+/9G1WJs8+oxXUTPTw37lh9Dee+HBpxC1JIFTHJc1oREfX7mvNFLtOTuhClE7s5d9kMss6zabh6skcXBO0nA+5R5lTOcj5I6eDEE3ugGcEynBCOhR1CZCSs5HMtqYdR0StDTHp32U1ixlE36sKsVbUGVynUmX0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791278363; c=relaxed/simple;
-	bh=O6Fs3kbyDnaoWbsau3W7qu/dEYjB4vE3IXvSrvfZ7EQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=l5te2sjRcqtx+dkf6FeLt5HxkECSXlKmd7Pe0dpmgWGBALVOLXEW4NbfORKOkDqdbTGAq5PICeReG+fMbVXtZR6pOSQG5XwUWZHt3kn2aa9n0S8ro8h/6zC0RmJ1gYglYSFdxl1IAJ91gw+q4uJaoKWnB2qDo4gb90wxzjHlqos=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=EzRZ9Kkb; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1791278431; c=relaxed/simple;
+	bh=ur/DXjs0amE5Lb42gcYztjgZtZ3zVA6Xq7Nq1qb7Bzo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LRTOKC9YpJGD6VphTjaRYuNIxGrexZ22ABVzU+87gPbFoc6oTHv6A7jSbg0NDyGJgGnn+mWYpW4dZgUITh2FoJb9iwWVBFIW/wvDblNPmxhOWehNIiCuXWtjnALBfkwOQdceaBaQeBnZE8k9rvAAVjaV/20osEs+M8oVoBVHm1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eAt4vMVT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="EzRZ9Kkb"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6969If3pA2775051, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1791278321; bh=O6Fs3kbyDnaoWbsau3W7qu/dEYjB4vE3IXvSrvfZ7EQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=EzRZ9KkbwOKDh5t2X2Y8Ne9Pf2E24QRO6pMglHR0vtBnwMVPyoMvUYZiyJO96tOQu
-	 L1Ke7BZOYdeNa6h/MxFH/HfAtf+hNq8ZFby8aZZ0FE0NzPW2KjUozgqhvEk0hI3Q+a
-	 PfKM9EOYTj0BHyWDNcAUaueQphWbUz2hizHHNgXgOTkrI7/pzO1PCsFV2LqPEfV0KP
-	 AiwaBkYrzTFjP0nY16WyJrW3phxcefAwvHQE/Ct8WY9FnAzJHYYsueEyBfbgAwNVBJ
-	 lSDQvYEitS3fEbA90cOTv6nZip1vxm1nJCw3KW/p1SJMsO9KI2/30eQz5rpNOKxICs
-	 dGaoWV8I/ZMIw==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6969If3pA2775051
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 6 Oct 2026 17:18:41 +0800
-Received: from RTKEXHMBS01.realtek.com.tw (172.21.6.40) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 6 Oct 2026 17:18:42 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS01.realtek.com.tw (172.21.6.40) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 6 Oct 2026 17:18:41 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Tue, 6 Oct 2026 17:18:41 +0800
-From: Chih Kai Hsu <hsu.chih.kai@realtek.com>
-To: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>
-CC: "davem@davemloft.net" <davem@davemloft.net>, "kuba@kernel.org"
-	<kuba@kernel.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	nic_swsd <nic_swsd@realtek.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-usb@vger.kernel.org"
-	<linux-usb@vger.kernel.org>, "edumazet@google.com" <edumazet@google.com>,
-	"bjorn@mork.no" <bjorn@mork.no>, "pabeni@redhat.com" <pabeni@redhat.com>,
-	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>
-Subject: RE: [PATCH net-next v5 1/9] r8152: split r8156_init per chip and add
- missing init writes
-Thread-Topic: [PATCH net-next v5 1/9] r8152: split r8156_init per chip and add
- missing init writes
-Thread-Index: AQHdUYTjx30WLQVKjk+ynPGj3AiBTrbuNquAgAIL5tA=
-Date: Tue, 6 Oct 2026 09:18:41 +0000
-Message-ID: <aa4a0fe95052494b9544bdeec8babf9b@realtek.com>
-References: <20261001091144.28191-2-nic_swsd@realtek.com>
- <179119423934.434549.8623262119068946046@kernel.org>
-In-Reply-To: <179119423934.434549.8623262119068946046@kernel.org>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eAt4vMVT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DB491F000FF;
+	Tue,  6 Oct 2026 09:20:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791278429;
+	bh=k2oFBf7NcdeiQ1mvxZQOBHOdtK7HG7O62ICHQeHqpic=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eAt4vMVTn/aej2w9XBcBoorIS/bDXACSpcA5c2rYMaMULJSHbxS2jT9c5JNYVw54c
+	 CymwKrxDEC8M/iejIUv2pBPJUUB9h65YF6FiFee18L1j/x/14OzkYxHO6EFV5rpkVR
+	 kS92dMEJq1fsgOs+2oY7ftV20kIFx1I0TpcpmXkxiJ7NquWL/Iko6T4RD6Nezimj7v
+	 BObO+kqUCbr52MZ0UJ9Z1Jv+3DiPP9jM5grELgvkvJEEP6Gd+hb8nhTcxkTrufxtw8
+	 8aDXR8ScpavOgvyvsPZ0oKEEX+6EPyqtyaye0vKqqQiu4h6aBZvc1tnsy/P+lG35Cr
+	 Qz6NfnpLEpEpw==
+Date: Tue, 6 Oct 2026 11:20:25 +0200
+From: Eric Biggers <ebiggers@kernel.org>
+To: syzbot <syzbot+7add5c56bc2a14145d20@syzkaller.appspotmail.com>
+Cc: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Subject: Re: [syzbot] [crypto?] KMSAN: uninit-value in fscrypt_crypt_data_unit
+Message-ID: <20261006092025.GA2485@quark>
+References: <68ee633c.050a0220.1186a4.002a.GAE@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <68ee633c.050a0220.1186a4.002a.GAE@google.com>
 
-PiBUaGFuayB5b3UgZm9yIHlvdXIgY29udHJpYnV0aW9uISBTYXNoaWtvIEFJIHJldmlldyBmb3Vu
-ZCAxIHBvdGVudGlhbA0KPiBpc3N1ZShzKSB0byBjb25zaWRlci4NCj4gDQo+IENyaXRpY2FsOiAw
-IMK3IEhpZ2g6IDAgwrcgTWVkaXVtOiAxIMK3IExvdzogMA0KPiANCj4gSWYgeW91IGJlbGlldmUg
-bm9uZSBvZiB0aGUgaXNzdWVzIGFyZSBsZWdpdGltYXRlLCBwbGVhc2UgcmVwbHkgdG8gZWFjaCBp
-c3N1ZSBvZg0KPiBNZWRpdW0gc2V2ZXJpdHkgb3IgaGlnaGVyIGFuZCBleHBsYWluIHdoeSB0aGUg
-QUkgaXMgd3JvbmcuDQo+IElmIGFueSBvZiB0aGVtIGFyZSBsZWdpdGltYXRlIGFuZCB5b3UgcGxh
-biB0byByZXNwaW4sIHBsZWFzZSBsZXQgcGF0Y2h3b3JrDQo+IGtub3cgYnkgaW5jbHVkaW5nICJw
-dy1ib3Q6IGNyIiBhcyBhIHNlcGFyYXRlIGxpbmUgYXQgdGhlIGVuZCBvZiB5b3VyIHJlcGx5IChv
-bmUNCj4gc3VjaCByZXBseSBwZXIgc2VyaWVzIGlzIGVub3VnaCkuDQo+IA0KPiAtIFtNZWRpdW1d
-IFRoaXMgcGF0Y2ggaXMgcHJlc2VudGVkIGFzIHNwbGl0dGluZyByODE1Nl9pbml0KCkgcGVyIGNo
-aXAsDQo+ICAgYnV0IGl0IGFsc28gY2hhbmdlcyBoYXJkd2FyZSBiZWhhdmlvdXIgZm9yIGFsbCBm
-b3VyIGNoaXAgZmFtaWxpZXMsIGFuZOKApg0KPiANCj4gLS0NCj4gDQo+IHI4MTUyOiBzcGxpdCBy
-ODE1Nl9pbml0IHBlciBjaGlwIGFuZCBhZGQgbWlzc2luZyBpbml0IHdyaXRlcw0KPiANCj4gVGhp
-cyBjb21taXQgc3BsaXRzIHRoZSBzaGFyZWQgcjgxNTZfaW5pdCgpIGludG8gc2VwYXJhdGUgaW5p
-dCBmdW5jdGlvbnMgZm9yDQo+IFJUTDgxNTYsIFJUTDgxNTZCLCBSVEw4MTU3IGFuZCBSVEw4MTU5
-LiBJdCBhbHNvIG1vdmVzIHRoZQ0KPiBBVVRPTE9BRF9ET05FIHBvbGxpbmcgaW50byBhIG5ldyB3
-YWl0X2F1dG9sb2FkX2RvbmUoKSBoZWxwZXIuIFdoaWxlDQo+IHNwbGl0dGluZywgaXQgYWRkcyBz
-ZXZlcmFsIG5ldyByZWdpc3RlciB3cml0ZXMgdG8gdGhlIHBlci1jaGlwIGluaXQgcGF0aHMsIGlu
-Y2x1ZGluZw0KPiBjbGVhcmluZyBSWF9FTkRfVFJBTlNGRVJfRU4gb24gUlRMODE1Ny4NCj4gDQo+
-ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0L3VzYi9yODE1Mi5jIGIvZHJpdmVycy9uZXQvdXNi
-L3I4MTUyLmMgaW5kZXgNCj4gPiBhZjNkN2RjYjJmMTQxLi40ZDhmMDgxNWQ3OWQxIDEwMDY0NA0K
-PiA+IC0tLSBhL2RyaXZlcnMvbmV0L3VzYi9yODE1Mi5jDQo+ID4gKysrIGIvZHJpdmVycy9uZXQv
-dXNiL3I4MTUyLmMNCj4gDQo+IFsgLi4uIF0NCj4gDQo+ID4gQEAgLTg0MjEsNzMgKzg0NDQsMjYx
-IEBAIHN0YXRpYyB2b2lkIHI4MTU2X2luaXQoc3RydWN0IHI4MTUyICp0cCkNCj4gDQo+IFsgLi4u
-IF0NCj4gDQo+ID4gICAgICAgc2V0X2JpdChHUkVFTl9FVEhFUk5FVCwgJnRwLT5mbGFncyk7DQo+
-ID4NCj4gPiAtICAgICAvKiBSWCBhZ2dyZWdhdGlvbiAvIDE2IGJ5dGVzIFJYIGRlc2NyaXB0b3IN
-Cj4gPiAtICAgICAgKiBCSVQoMTEpIGlzIHNwZWNpZmljIHRvIFJUTDgxNTksIHdpdGggdW5rbm93
-biBtZWFuaW5nDQo+ID4gLSAgICAgICovDQo+ID4gLSAgICAgaWYgKHRwLT52ZXJzaW9uID09IFJU
-TF9WRVJfMTcpDQo+ID4gLSAgICAgICAgICAgICBvY3Bfd29yZF9jbHJfYml0cyh0cCwgTUNVX1RZ
-UEVfVVNCLCBVU0JfVVNCX0NUUkwsDQo+ID4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBSWF9BR0dfRElTQUJMRSB8IFJYX0RFU0NfMTZCIHwNCj4gQklUKDExKSk7DQo+ID4gLSAgICAg
-ZWxzZSBpZiAodHAtPnZlcnNpb24gPT0gUlRMX1ZFUl8xNikNCj4gPiAtICAgICAgICAgICAgIG9j
-cF93b3JkX2Nscl9iaXRzKHRwLCBNQ1VfVFlQRV9VU0IsIFVTQl9VU0JfQ1RSTCwNCj4gUlhfQUdH
-X0RJU0FCTEUgfCBSWF9ERVNDXzE2Qik7DQo+ID4gKyAgICAgb2NwX3dvcmRfY2xyX2JpdHModHAs
-IE1DVV9UWVBFX1VTQiwgVVNCX1VTQl9DVFJMLA0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAg
-IFJYX0FHR19ESVNBQkxFIHwgUlhfWkVST19FTik7DQo+IA0KPiBbIC4uLiBdDQo+IA0KPiA+ICtz
-dGF0aWMgdm9pZCByODE1N19pbml0KHN0cnVjdCByODE1MiAqdHApIHsNCj4gDQo+IFsgLi4uIF0N
-Cj4gDQo+ID4gKyAgICAgLyogUlggYWdncmVnYXRpb24gLyAxNiBieXRlcyBSWCBkZXNjcmlwdG9y
-IC8gQnVsayBJbiBFbmQgdHJhbnNmZXIgKi8NCj4gPiArICAgICBvY3Bfd29yZF9jbHJfYml0cyh0
-cCwgTUNVX1RZUEVfVVNCLCBVU0JfVVNCX0NUUkwsDQo+ID4gKyAgICAgICAgICAgICAgICAgICAg
-ICAgUlhfQUdHX0RJU0FCTEUgfCBSWF9ERVNDXzE2QiB8DQo+ID4gKyBSWF9FTkRfVFJBTlNGRVJf
-RU4pOw0KPiANCj4gW1NldmVyaXR5OiBNZWRpdW1dDQo+IElzIHRoaXMgYSBmdW5jdGlvbmFsIGZp
-eCBmb3IgUlRMODE1NyB0aGF0IHNob3VsZCBnbyBpbiBhcyBpdHMgb3duIHBhdGNoIHdpdGggYQ0K
-PiBGaXhlczogdGFnPw0KPiANCj4gQmVmb3JlIHRoaXMgcGF0Y2gsIHRoZSBSVExfVkVSXzE2IGJy
-YW5jaCBpbiByODE1Nl9pbml0KCkgY2xlYXJlZCBvbmx5DQo+IFJYX0FHR19ESVNBQkxFIHwgUlhf
-REVTQ18xNkIuIEJJVCgxMSkgd2FzIGNsZWFyZWQgb25seSBmb3IgUlRMX1ZFUl8xNywNCj4gYW5k
-IHRoZSBjb21tZW50IHNhaWQgaXRzIG1lYW5pbmcgd2FzIHVua25vd24uIHI4MTU3X2luaXQoKSBu
-b3cgY2xlYXJzDQo+IFJYX0VORF9UUkFOU0ZFUl9FTiBhcyB3ZWxsLg0KPiANCj4gVGhlIGNvbW1p
-dCBtZXNzYWdlIHNheXMgdGhhdCB3aGlsZSB0aGlzIGJpdCBpcyBzZXQsICJCdWxrLWluIHRyYW5z
-ZmVycyBhcmUNCj4gc3VzcGVuZGVkIiwgYW5kIHRoYXQgInRoZSBkcml2ZXIgbXVzdCBtYW51YWxs
-eSBjbGVhciBpdCB0byByZXN1bWUgQnVsay1pbg0KPiB0cmFuc2ZlcnMiLg0KPiANCj4gVGhhdCBz
-b3VuZHMgbGlrZSBhbiBSWCBzdGFsbCBvbiBSVEw4MTU3IHRoYXQgZ29lcyBiYWNrIHRvIGNvbW1p
-dA0KPiBmZDNjN2QwODBkZjUgKCJyODE1MjogQWRkIHN1cHBvcnQgZm9yIHRoZSBSVEw4MTU3IGhh
-cmR3YXJlIikuIFRoaXMgZml4IGhhcw0KPiBubyBGaXhlczogdGFnIGFuZCBpcyBwYXJ0IG9mIGEg
-cmVmYWN0b3IgdG91Y2hpbmcgYWJvdXQgNDkwIGxpbmVzLCBzbyBpdCBzZWVtcw0KPiB1bmxpa2Vs
-eSB0byByZWFjaCBuZXQgb3Igc3RhYmxlLg0KPiANCj4gTGF0ZXIgcGF0Y2hlcyBpbiB0aGlzIHNl
-cmllcyBkbyBjYXJyeSBGaXhlczogdGFnczogInI4MTUyOiBmaXggdXAgYW5kIGRvd24NCj4gcmVn
-aXN0ZXIgc2V0dGluZ3MgZm9yIFJUTDgxNTYvODE1NkIvODE1Ny84MTU5IiBhbmQgInI4MTUyOiBh
-ZGQNCj4gcnRsODE1N191bmxvYWQgYW5kIHJ0bDgxNTdfY2hhbmdlX210dSIuDQo+IA0KPiBDb3Vs
-ZCB0aGlzIGNoYW5nZSBiZSBzZW50IGFzIGEgc21hbGwgc3RhbmRhbG9uZSBmaXggYWhlYWQgb2Yg
-dGhlIHNwbGl0Pw0KDQpUaGUgaGFyZHdhcmUgdXNlcyB0aGlzIGJpdCB0byBwcmVzZXJ2ZSBwYWNr
-ZXQgaW50ZWdyaXR5IGFjcm9zcyBydW50aW1lDQpzdXNwZW5kL3Jlc3VtZSwgYW5kIGl0IGlzIG5v
-dCBzZWxmLWNsZWFyaW5nLiBIb3dldmVyLCB0aGUgZHJpdmVyIGRvZXNuJ3QNCnVzZSB0aGlzIGJp
-dCBub3c7IHRoaXMgaXMgYSBkZWZlbnNpdmUgY2xlYXJpbmcuDQoNCj4gDQo+IFRoZSBvdGhlciBu
-ZXcgaGFyZHdhcmUgd3JpdGVzIHJhaXNlIHRoZSBzYW1lIHF1ZXN0aW9uLiBUaGUgY29tbWl0IG1l
-c3NhZ2UNCj4gbGlzdHMgdGhlbSwgYnV0IGl0IGRvZXNuJ3Qgc2F5IHdoYXQgcHJvYmxlbSBvciBz
-eW1wdG9tIGVhY2ggb25lDQo+IGZpeGVzOg0KPiANCj4gICAgIFBSRUJPT1RfT1BUSU9OIGFuZCBS
-TVRfV0FLRV9FTiwgY2xlYXJlZCBpbiBhbGwgZm91ciBpbml0IGZ1bmN0aW9ucw0KPiAgICAgcjgx
-NTZiX3UycGh5X2JhY2t1cCgpIHdyaXRpbmcgMHhkM2NlLzB4ZDNkMC8weGQzZDQvMHhkM2Q4LzB4
-ZDNkYw0KPiAgICAgMHhjZjA0IGludGVycnVwdCBtaXRpZ2F0aW9uIGRpc2FibGUgaW4gcjgxNTdf
-aW5pdCgpL3I4MTU5X2luaXQoKQ0KPiAgICAgMHhjZDA2IEJJVCgxMSkgaW4gcjgxNTdfaW5pdCgp
-L3I4MTU5X2luaXQoKQ0KPiAgICAgMHhiOWE2IEJJVCgwKSBhbmQgMHhiOWEyID0gMHgwNDQ4IGlu
-IHI4MTU5X2luaXQoKQ0KPiANCj4gQ291bGQgdGhlc2UgYmUgc3BsaXQgb3V0LCBvciBoYXZlIHRo
-ZWlyIHB1cnBvc2UgZXhwbGFpbmVkPyBJZiBvbmUgb2YgdGhlbQ0KPiBjYXVzZXMgYSByZWdyZXNz
-aW9uLCBhIGJpc2VjdCB3b3VsZCBsYW5kIG9uIHRoaXMgbGFyZ2UgbWl4ZWQgY29tbWl0Lg0KPiAN
-Cj4gcjgxNTZiX2luaXQoKSBhbHNvIG1vdmVzIHRoZSBBVVRPX1NQRUVEVVAgY2xlYXIuIEl0IHVz
-ZWQgdG8gYmUgcGFydCBvZiB0aGUNCj4gVVNCX0ZXX0NUUkwgcmVhZC1tb2RpZnktd3JpdGUgdGhh
-dCByYW4gYWZ0ZXIgdXNiX2VuYWJsZV9scG0oKSBhbmQgdGhlDQo+IGZsb3cgY29udHJvbCBzZXR1
-cDoNCj4gDQo+ICAgICBvY3BfZGF0YSA9IG9jcF9yZWFkX3dvcmQodHAsIE1DVV9UWVBFX1VTQiwg
-VVNCX0ZXX0NUUkwpOw0KPiAgICAgLi4uDQo+ICAgICBvY3BfZGF0YSAmPSB+QVVUT19TUEVFRFVQ
-Ow0KPiAgICAgb2NwX3dyaXRlX3dvcmQodHAsIE1DVV9UWVBFX1VTQiwgVVNCX0ZXX0NUUkwsIG9j
-cF9kYXRhKTsNCj4gDQo+IE5vdyBpdCBydW5zIHJpZ2h0IGFmdGVyIHI4MTUzX3UycDNlbigpOg0K
-PiANCj4gICAgIHI4MTUzX3UycDNlbih0cCwgZmFsc2UpOw0KPiANCj4gICAgIC8qIERpc2FibGUg
-QXV0byBTcGVlZCB1cCAqLw0KPiAgICAgb2NwX3dvcmRfY2xyX2JpdHModHAsIE1DVV9UWVBFX1VT
-QiwgVVNCX0ZXX0NUUkwsIEFVVE9fU1BFRURVUCk7DQo+IA0KPiBUaGF0IGlzIGJlZm9yZSB0aGUg
-TVNDIHRpbWVyLCByODE1NmJfdTJwaHlfYmFja3VwKCksIHBvd2VyLWN1dCwgVVBTIGFuZA0KPiBM
-UE0gc2V0dXAuIElzIHRoaXMgcmVvcmRlcmluZyBpbnRlbmRlZCBmb3IgUlRMODE1NkI/IFRoZSBj
-b21taXQgbWVzc2FnZQ0KPiBkb2Vzbid0IG1lbnRpb24gaXQuDQoNCldpbGwgZml4Lg0KDQo+IA0K
-PiAtLQ0KPiBTYXNoaWtvIEFJIHJldmlldyDCtw0KPiBodHRwczovL25ldGRldi1haS5ib3RzLmxp
-bnV4LmRldi9zYXNoaWtvLyMvcGF0Y2hzZXQvMjAyNjEwMDEwOTExNDQuMjgxOTEtDQo+IDEtbmlj
-X3N3c2QlNDByZWFsdGVrLmNvbQ0KDQpCZXN0IFJlZ2FyZHMsDQpDaGloLUthaQ0K
+On Tue, Oct 14, 2025 at 07:50:36AM -0700, syzbot wrote:
+> Hello,
+> 
+> syzbot found the following issue on:
+> 
+> HEAD commit:    3a8660878839 Linux 6.18-rc1
+> git tree:       upstream
+> console output: https://syzkaller.appspot.com/x/log.txt?x=13d25dcd980000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=bbd3e7f3c2e28265
+> dashboard link: https://syzkaller.appspot.com/bug?extid=7add5c56bc2a14145d20
+> compiler:       Debian clang version 20.1.8 (++20250708063551+0c9f909b7976-1~exp1~20250708183702.136), Debian LLD 20.1.8
+> 
+> Unfortunately, I don't have any reproducer for this issue yet.
+> 
+> Downloadable assets:
+> disk image: https://storage.googleapis.com/syzbot-assets/d996feb56093/disk-3a866087.raw.xz
+> vmlinux: https://storage.googleapis.com/syzbot-assets/fa6f6bc3b02a/vmlinux-3a866087.xz
+> kernel image: https://storage.googleapis.com/syzbot-assets/7571083a68d6/bzImage-3a866087.xz
+> 
+> IMPORTANT: if you fix the issue, please add the following tag to the commit:
+> Reported-by: syzbot+7add5c56bc2a14145d20@syzkaller.appspotmail.com
+> 
+> EXT4-fs (loop5): mounted filesystem 00000000-0000-0000-0000-000000000000 r/w without journal. Quota mode: writeback.
+> =====================================================
+> BUG: KMSAN: uninit-value in subshift lib/crypto/aes.c:150 [inline]
+> BUG: KMSAN: uninit-value in aes_encrypt+0x1239/0x1960 lib/crypto/aes.c:283
+>  subshift lib/crypto/aes.c:150 [inline]
+>  aes_encrypt+0x1239/0x1960 lib/crypto/aes.c:283
+>  aesti_encrypt+0x7d/0xf0 crypto/aes_ti.c:31
+>  crypto_ecb_crypt crypto/ecb.c:23 [inline]
+>  crypto_ecb_encrypt2+0x142/0x300 crypto/ecb.c:40
+>  crypto_lskcipher_crypt_sg+0x3ac/0x930 crypto/lskcipher.c:188
+>  crypto_lskcipher_encrypt_sg+0x8b/0xc0 crypto/lskcipher.c:207
+>  crypto_skcipher_encrypt+0x111/0x1e0 crypto/skcipher.c:194
+>  xts_encrypt+0x2e1/0x570 crypto/xts.c:269
+>  crypto_skcipher_encrypt+0x18a/0x1e0 crypto/skcipher.c:195
+>  fscrypt_crypt_data_unit+0x38e/0x590 fs/crypto/crypto.c:139
+>  fscrypt_encrypt_pagecache_blocks+0x430/0x900 fs/crypto/crypto.c:197
+>  ext4_bio_write_folio+0x1383/0x30d0 fs/ext4/page-io.c:552
+>  mpage_submit_folio fs/ext4/inode.c:2080 [inline]
+>  mpage_process_page_bufs+0xf1b/0x13e0 fs/ext4/inode.c:2191
+>  mpage_prepare_extent_to_map+0x1792/0x2a10 fs/ext4/inode.c:2736
+>  ext4_do_writepages+0x11b6/0x8020 fs/ext4/inode.c:2877
+>  ext4_writepages+0x338/0x870 fs/ext4/inode.c:3025
+>  do_writepages+0x3f2/0x860 mm/page-writeback.c:2604
+>  filemap_fdatawrite_wbc mm/filemap.c:389 [inline]
+>  __filemap_fdatawrite_range mm/filemap.c:422 [inline]
+>  file_write_and_wait_range+0x6f0/0x7d0 mm/filemap.c:797
+>  generic_buffers_fsync_noflush+0x79/0x3c0 fs/buffer.c:609
+>  ext4_fsync_nojournal fs/ext4/fsync.c:88 [inline]
+>  ext4_sync_file+0x587/0x12f0 fs/ext4/fsync.c:147
+>  vfs_fsync_range+0x1a1/0x240 fs/sync.c:187
+>  generic_write_sync include/linux/fs.h:3046 [inline]
+>  ext4_buffered_write_iter+0xae9/0xce0 fs/ext4/file.c:305
+>  ext4_file_write_iter+0x2a2/0x3d90 fs/ext4/file.c:-1
+>  new_sync_write fs/read_write.c:593 [inline]
+>  vfs_write+0xbe2/0x15d0 fs/read_write.c:686
+>  ksys_pwrite64 fs/read_write.c:793 [inline]
+>  __do_sys_pwrite64 fs/read_write.c:801 [inline]
+>  __se_sys_pwrite64 fs/read_write.c:798 [inline]
+>  __x64_sys_pwrite64+0x2ab/0x3b0 fs/read_write.c:798
+>  x64_sys_call+0xe77/0x3e30 arch/x86/include/generated/asm/syscalls_64.h:19
+>  do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+>  do_syscall_64+0xd9/0xfa0 arch/x86/entry/syscall_64.c:94
+>  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+> Uninit was stored to memory at:
+>  le128_xor include/crypto/b128ops.h:69 [inline]
+>  xts_xor_tweak+0x566/0xbd0 crypto/xts.c:123
+>  xts_xor_tweak_pre crypto/xts.c:135 [inline]
+>  xts_encrypt+0x278/0x570 crypto/xts.c:268
+>  crypto_skcipher_encrypt+0x18a/0x1e0 crypto/skcipher.c:195
+>  fscrypt_crypt_data_unit+0x38e/0x590 fs/crypto/crypto.c:139
+>  fscrypt_encrypt_pagecache_blocks+0x430/0x900 fs/crypto/crypto.c:197
+>  ext4_bio_write_folio+0x1383/0x30d0 fs/ext4/page-io.c:552
+>  mpage_submit_folio fs/ext4/inode.c:2080 [inline]
+>  mpage_process_page_bufs+0xf1b/0x13e0 fs/ext4/inode.c:2191
+>  mpage_prepare_extent_to_map+0x1792/0x2a10 fs/ext4/inode.c:2736
+>  ext4_do_writepages+0x11b6/0x8020 fs/ext4/inode.c:2877
+>  ext4_writepages+0x338/0x870 fs/ext4/inode.c:3025
+>  do_writepages+0x3f2/0x860 mm/page-writeback.c:2604
+>  filemap_fdatawrite_wbc mm/filemap.c:389 [inline]
+>  __filemap_fdatawrite_range mm/filemap.c:422 [inline]
+>  file_write_and_wait_range+0x6f0/0x7d0 mm/filemap.c:797
+>  generic_buffers_fsync_noflush+0x79/0x3c0 fs/buffer.c:609
+>  ext4_fsync_nojournal fs/ext4/fsync.c:88 [inline]
+>  ext4_sync_file+0x587/0x12f0 fs/ext4/fsync.c:147
+>  vfs_fsync_range+0x1a1/0x240 fs/sync.c:187
+>  generic_write_sync include/linux/fs.h:3046 [inline]
+>  ext4_buffered_write_iter+0xae9/0xce0 fs/ext4/file.c:305
+>  ext4_file_write_iter+0x2a2/0x3d90 fs/ext4/file.c:-1
+>  new_sync_write fs/read_write.c:593 [inline]
+>  vfs_write+0xbe2/0x15d0 fs/read_write.c:686
+>  ksys_pwrite64 fs/read_write.c:793 [inline]
+>  __do_sys_pwrite64 fs/read_write.c:801 [inline]
+>  __se_sys_pwrite64 fs/read_write.c:798 [inline]
+>  __x64_sys_pwrite64+0x2ab/0x3b0 fs/read_write.c:798
+>  x64_sys_call+0xe77/0x3e30 arch/x86/include/generated/asm/syscalls_64.h:19
+>  do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+>  do_syscall_64+0xd9/0xfa0 arch/x86/entry/syscall_64.c:94
+>  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+> Uninit was created at:
+>  __alloc_frozen_pages_noprof+0x689/0xf00 mm/page_alloc.c:5206
+>  alloc_pages_mpol+0x328/0x860 mm/mempolicy.c:2416
+>  alloc_frozen_pages_noprof mm/mempolicy.c:2487 [inline]
+>  alloc_pages_noprof mm/mempolicy.c:2507 [inline]
+>  folio_alloc_noprof+0x109/0x360 mm/mempolicy.c:2517
+>  filemap_alloc_folio_noprof+0x9d/0x420 mm/filemap.c:1020
+>  __filemap_get_folio+0xb45/0x1930 mm/filemap.c:2012
+>  write_begin_get_folio include/linux/pagemap.h:784 [inline]
+>  ext4_write_begin+0x6d9/0x2d70 fs/ext4/inode.c:1318
+>  generic_perform_write+0x365/0x1050 mm/filemap.c:4242
+>  ext4_buffered_write_iter+0x61a/0xce0 fs/ext4/file.c:299
+>  ext4_file_write_iter+0x2a2/0x3d90 fs/ext4/file.c:-1
+>  new_sync_write fs/read_write.c:593 [inline]
+>  vfs_write+0xbe2/0x15d0 fs/read_write.c:686
+>  ksys_pwrite64 fs/read_write.c:793 [inline]
+>  __do_sys_pwrite64 fs/read_write.c:801 [inline]
+>  __se_sys_pwrite64 fs/read_write.c:798 [inline]
+>  __x64_sys_pwrite64+0x2ab/0x3b0 fs/read_write.c:798
+>  x64_sys_call+0xe77/0x3e30 arch/x86/include/generated/asm/syscalls_64.h:19
+>  do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+>  do_syscall_64+0xd9/0xfa0 arch/x86/entry/syscall_64.c:94
+>  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+> CPU: 1 UID: 0 PID: 5879 Comm: syz.5.3882 Tainted: G        W           syzkaller #0 PREEMPT(none) 
+> Tainted: [W]=WARN
+> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/02/2025
+> =====================================================
+> 
+> 
+> ---
+> This report is generated by a bot. It may contain errors.
+> See https://goo.gl/tpsmEJ for more information about syzbot.
+> syzbot engineers can be reached at syzkaller@googlegroups.com.
+> 
+> syzbot will keep track of this issue. See:
+> https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+> 
+> If the report is already addressed, let syzbot know by replying with:
+> #syz fix: exact-commit-title
+> 
+> If you want to overwrite report's subsystems, reply with:
+> #syz set subsystems: new-subsystem
+> (See the list of subsystem names on the web dashboard)
+> 
+> If the report is a duplicate of another one, reply with:
+> #syz dup: exact-subject-of-another-report
+> 
+> If you want to undo deduplication, reply with:
+> #syz undup
+
+#syz fix: fscrypt: Always use blk-crypto for contents on block-based filesystems
+
+- Eric
