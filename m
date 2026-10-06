@@ -1,120 +1,210 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A0DD38F935
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 11:09:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BC4C375AC4;
+	Tue,  6 Oct 2026 11:10:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.54
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791284993; cv=pass; b=eMeGKSShj31jE94LRZxfctyS03yCVFd3oKBHhX3ZuaN5kZiF1QYmfLZXSOStqQGLlFe6GEuWEGeudfxW+ZvFO4j6Dk4dRCqUDIU78l7e+1ECYu5uSpkHDgDrd3KUvXrssjnYuGQfwn8HjT6XcMyHdJ5l3OYmAo8y6o0xsOMKMaw=
+	t=1791285055; cv=pass; b=ozbX+KwdkLMhtXTtckv3z939ePbxY+gqRhdfuaAvNto1I1FjiBK9vbBYjDIjFIsvPVOmAleXn7hCQEF7PcoXCI9kRQ+uxTidr70kCllZHKZxSar7wxiqu3H28t+D+SUxyNMOByR04XrPLQll+df3roya5HXmujygZNZvNLYBkxk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791284993; c=relaxed/simple;
-	bh=7xITqmbUx1hnbG2Hl9SahyKAW7y/XppnkWMsC01/JTA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cv6glnUhx8H54AdpYtER2G/Jh9vOx6QgvZDaEDc7TYPkSJGPU0S2pwSdJE8CbATvvuPnGGiQgEV5eZSM3osI7fRrObwBU3yJUM8QmE/uolZGVc++qjYBxSODCSir/PU5FgLAQoZv54baPoZKmb3tJv2eX0VW2JJYznENVMHUT5U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aykrGAa+; arc=pass smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791285055; c=relaxed/simple;
+	bh=ANftsOVmqaZrOreCeDPKC1Hc/N9LZSRlGAcKVOmBucM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=QSiTEFlzbRIG8y4uV/ni03OWWxCngVffFRRTkU7FF1OsuHrFsgUc2oWdgpzTORSMw6vrWwQVTM2b2VG9EOHNVqp/L8eNDiRwrzCDwYxyTI2D3Squp/1Sb11wBM5KreVZoKBm3Q4Ms1sqTVtmAIpF9NbJVfnem1nWjScI3ijZhqs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=UIzD7sas; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=PFiEa/7E; arc=pass smtp.client-ip=85.215.255.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aykrGAa+"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e2e0f3dd40so17640665ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 04:09:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791284992; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZxjB15vw17qyrQd93etf24PmS/9WyD/SWQ+Ej21rE359HqJT5TqQm1dCDVy8oo/jIR
-         kuGmp7ahlHcCqryAKZbUp4qqInIc42B5r0e0HHjJCQUVcwKso8OLuL2JPwmOtrNlBfOs
-         ZzpsHib0iTIfGpBjXEG/udp9GY52wbDfHsi+ms31k2wXdjYR/EfjhebnIxgWvFlaqhMk
-         jHqrbBrcLlJ4Yd37Tj0UvM+QD6mQJ9MkdyUaDsm5HmYtaerR3/o/AYfEWtbdH/E3FW+l
-         55+E4j5Av4C8Zj8CltPdjx/aP2ZHhiTKnVnlg4BD9F0mO6bFO8KDH1QqLaRthtYH3gXQ
-         ToAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=2gHAHJjsWGwgVyBCVP7AcOw/LnAUaiF4NONapI8nsJc=;
-        fh=hcyKquqD2DRAPvv3z3SyL0zijaauqWKZkdyd1o/1/u0=;
-        b=cSTAK2yojf7K/6BEGPQVNlpVcvmeXC1AbxO/3LgWDlwIHpoa2fBxt4B1N6gntQAHYe
-         Nu85pjajlVzuznlggCewAf/klD2MgjN7Buy2TlEFL2vTxc0ztwy1rONAyNcerQoeo03P
-         5BOQmYYbLBU2/EdMP+QsvUvnnJufotMpjBVtIx40Rv3f5tvFWjMBw/wInPIc7j/5oKh5
-         mnXUuNAEjkBCPqnSmaaSR38dO4GUHbVn0kkMYAx3BUpAhzLvTvUOg8/6k9XXjN7phb21
-         aTz5Tzpc0NqXOJ1S69P9rQAT+XGh0pLD2ObEdD/ha5Vi4IIyXbEOi/oQIKkbaZr2DOqu
-         R70A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791284992; x=1791889792; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2gHAHJjsWGwgVyBCVP7AcOw/LnAUaiF4NONapI8nsJc=;
-        b=aykrGAa+40PqyMSYbyIZuRWgVthc5SOSuvMm8p3TE6+e8OtOmS+qN3rwUqVh/I9dgU
-         jLl1GjUnwM4GG2PBwdxKHnVwd7SwCZzQkhj95tv3a9h6pBI41X2uVF327jymglioP4sW
-         JnjcGg3PGq42mVsusHDq3U2o0Y4t1NNlpMFPmPdVo3JaGicMV+G0vuESHNwgsjGuux3Y
-         kDf9SndSAO11NPgPhTVo9gE29D3ziepMa0r2KcPDcV8JQ44vR6eXks4wSW9OtkUlTHLL
-         6myVZV7N5/HddXcNjQHtPlmD2QP0+peZtTNl0LMPByvM6KavlKMbmSCK0u+MxDpXaWdk
-         gDkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791284992; x=1791889792;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=2gHAHJjsWGwgVyBCVP7AcOw/LnAUaiF4NONapI8nsJc=;
-        b=LB/6gRGWIgNSdk4d2D95AKG2ovv1O6YWT79hkfdd2okykpjNjVjRb4WqyWWimZQ3y6
-         s3jfbfwsfxXSs/LW448/8c27w0wdmdVRQV6g7nNXgTKzK42qH7MfJSG5FnpkjnNWyax2
-         /Wsn/6Oo1m4C65oGnzscQU8bVlzCpX1iwTsRoGxFECOgIGMWqaPuXlPz5SptExpQYZL6
-         RAymCdDwk9wZ8YGGgj7Br6EuO1k7HEUV658aUyfM7JEVmpVe7kAWA8pb69IEDl+aas68
-         bXO0Jp5k7HrOChcK2wZp/uJGhEAlthfjWnX7m2N0yM6qp30ZjPmUbnzgbcn+F6S2tbub
-         KqmA==
-X-Forwarded-Encrypted: i=1; AKwUvBzKPyXdUAsYfYpGIGdM2zx7KotUx2MfKmzxjn/CBlK394wdCwDt6emaB+PJ0c6/NfcmjQq2PLz3NEZAO5Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLL/slMNHzrk2nzwPGExHlx6+/z/DL9v8AgWOchJZWClw5LaKvG
-	489qR67pRaxcU7O+vKCSIz6zn39AUQXKXl6R4+Aml7U1hOLhJhd+DAhHK/ANo3XjmQU3Jhtp0FZ
-	DWEmg9R8te996elH/8Py/8E/DztTqApY=
-X-Gm-Gg: AYBFou39jrVwvyu2uBxbcdKnZU09HRgd0eJb0mr7Xld6OjuSpP4w8CmVpVqerhl8yLd
-	wYo/oZCXwz9OEAG4bfV9bixAs6i9P2F0M00az/5UfhAs3je8Fi9zfj/jv1F3heWFTyolWOF2AFU
-	vogf5fvCDggkEAWPO9vnEWK2YBzJjdpB133KA3kXHd0JjlQm1xlRJnsewVFu6+u59g6frQdVt4m
-	5DstcahbwoftCcDZMdMhuKyT7NrmJKjwhMmSQ3DqDDgKamw5WdaPUGN6HlXGdQIltId/hewGcfh
-	7166YeWJmxD+N8r9PVMo0JujOsRJOpKl1+EnWajaI124zdrMjiF1QTpwsZWVDKrWNkYSDJSTz03
-	dK5G0/meUhIf6e026ngl+Hr7y2MhYPD+7GKetCDnOm4ghvimLQSBGbeb7cUc+z2y4pO8=
-X-Received: by 2002:a17:902:d2ce:b0:2dd:ad74:ac28 with SMTP id
- d9443c01a7336-2e5dcda3da0mr8813935ad.26.1791284991550; Tue, 06 Oct 2026
- 04:09:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="UIzD7sas";
+	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="PFiEa/7E"
+ARC-Seal: i=1; a=rsa-sha256; t=1791284863; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=BLTfIalHgTLMPF3y7NapsXjLLchi2NK1ZHSnYgqEknMf0atlC8xNotYxFDdqQYM2ip
+    tE7BMx1641H8l5I59IBsfFovgeEwFrkC7ZYZANuRyDvE1uimjdL1zOIYP4QUk4M4c8+0
+    715QF9wpjQJZp4hMnQ62FPea2QbTRgI0kG9Yqe++TZO0ZvglDRNRRf3rbPrrb2/ezqbY
+    lxgSKxl9xVEn7tawgGHmVvAJA3K/bAbpnQQ3Py4l0kg6b9I2VbErJdeBtGwAYhJhVR83
+    CrmVKxg7KWV8lndXaDhdmIPgSFbDEfUWpNYp3pqDZboCm7GBw6Z2WuLNW5c4uyQ+Ju6j
+    5aGQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1791284863;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=ANftsOVmqaZrOreCeDPKC1Hc/N9LZSRlGAcKVOmBucM=;
+    b=SZzAaLXblUbnoouLqD5cefdg/p2fZu2cxAF0pqTL4DDLMO3F+kDyJ+VW18ZLFmK7+T
+    ssmwxiqjDaUbw1j0HwmCEUcfxGth34r42/UXOWFdWYhPUQYGgvLjb4erzbbbFqndX3PP
+    jXoJxyLuL4kpfrf3lCYURDc8bPbiTTOTa2Y+zBTt2biYUDPI/7b8+q2FmN6Iv/MjQith
+    bWIa3mWXgJ3wM+JudtMnFrTmXVYiUX0uKdf2yn2gOpUq5PqgH2OWOgSeOj2ilOJvKMUH
+    xP8Wvlgs+6dkuFaNBVjuhBaSsI/r+X5R84D0/n3b6cwiO/SCx9tbm1iw0mgExTfv/wdW
+    AALg==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1791284863;
+    s=strato-dkim-0002; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=ANftsOVmqaZrOreCeDPKC1Hc/N9LZSRlGAcKVOmBucM=;
+    b=UIzD7saszgRqqgRNPDcajJoGLozrxzSKwblgta3WkRPTsi+WA/tK1YMY+UMDBc8ZqN
+    pDpQMp/NAwS/LfEVjvL/yDFPjOBckWvU/3gBuJ8IX0qYliX6jjjVeABWyNdmU/xR9Lyi
+    VuguACqw1NXQk2RZYLzHvC1FMrL//xvlnl5oqHpigRygg6jY5PynTzWA4OyO0i3Lp9Y1
+    VfA11OEo9EUCvvVko1+tYXFZUTIBqNUIIreY9xkRw1Jq1PpfMu4rh02F4oOaOG0fk8Yx
+    u5bUpJE5fnL6vb3J0xrElgbSU1IPW5U1/GR14Dy5BzAmuWSAJBWQ0qguXf22i0YmoIQF
+    fVYA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1791284863;
+    s=strato-dkim-0003; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=ANftsOVmqaZrOreCeDPKC1Hc/N9LZSRlGAcKVOmBucM=;
+    b=PFiEa/7EDviAWlPiXyaeReXT8FpMIge+M7LXP12wu/oxdAk27SciiG8NI3atxeIfUl
+    0f4bM49fNhT4A1OfBpDQ==
+X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0DBslXBtZUxPOub3IZuk"
+Received: from [10.176.237.163]
+    by smtp.strato.de (RZmta 55.6.2 AUTH)
+    with ESMTPSA id z04e1c296B7gVMl
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Tue, 6 Oct 2026 13:07:42 +0200 (CEST)
+Message-ID: <5377501a53a50bc8162cea277a2ce597ffdaf180.camel@iokpp.de>
+Subject: Re: [PATCH v2 0/4] devfreq: check the get_cur_freq() return value
+ and use it in ufshcd
+From: Bean Huo <beanhuo@iokpp.de>
+To: linux-pm@vger.kernel.org, linux-scsi@vger.kernel.org,
+ cw00.choi@samsung.com,  zhanjie9@hisilicon.com
+Cc: linux-kernel@vger.kernel.org, MyungJoo Ham <myungjoo.ham@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, "Martin K . Petersen"
+ <mkp@kernel.org>, "James E . J . Bottomley"
+ <James.Bottomley@HansenPartnership.com>, Avri Altman
+ <avri.altman@sandisk.com>,  Bart Van Assche <bvanassche@acm.org>, Alim
+ Akhtar <alim.akhtar@samsung.com>, Stanley Jhu <stanleyjhu@google.com>, 
+ linux-kernel@vger.kernel.org
+Date: Tue, 06 Oct 2026 13:07:40 +0200
+In-Reply-To: <48814f547eeb8a5c575cd143a2569291de890c2a.camel@iokpp.de>
+References: <20260907192140.2701755-1-beanhuo@iokpp.de>
+	 <48814f547eeb8a5c575cd143a2569291de890c2a.camel@iokpp.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261006101606.54079-1-phucduc.bui@gmail.com> <20261006101606.54079-3-phucduc.bui@gmail.com>
- <633be718-a5c5-4e67-b9e1-5d4422944f2a@intel.com>
-In-Reply-To: <633be718-a5c5-4e67-b9e1-5d4422944f2a@intel.com>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Tue, 6 Oct 2026 18:09:38 +0700
-X-Gm-Features: AclHuK_Pc8LShx91NLSv5hh9JwqBTqHJzVOnbNwPcfyhu5KBMevAfkIzcISxmg8
-Message-ID: <CAABR9nEp+-cM921ONe068QQ9OGH5e_+sqTpfBV73xcCCh8uu4g@mail.gmail.com>
-Subject: Re: [PATCH 2/4] ASoC: mediatek: mt8188: return 0 from
- mt8188_afe_fe_startup() on success
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, cassiogabrielcontato@gmail.com, 
-	Haotian Zhang <vulab@iscas.ac.cn>, Christian Marangi <ansuelsmth@gmail.com>, 
-	Cyril Chao <Cyril.Chao@mediatek.com>, Tuo Li <islituo@gmail.com>, 
-	Rosen Penev <rosenp@gmail.com>, Garlic Tseng <garlic.tseng@mediatek.com>, 
-	Alexandre Mergnat <amergnat@baylibre.com>, Dan Carpenter <error27@gmail.com>, linux-sound@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Trevor Wu <trevor.wu@mediatek.com>
-Content-Type: text/plain; charset="UTF-8"
 
-Hi Cezary,
 
->
-> You can reduce the delta by leaving the original if-statement as-is and
-> following it up with:
->
->         else
->                 ret = 0;
+Chanwoo, MyungJoo Ham, Kyungmin Park, who else maintains this,=20
 
-Thanks, I'll make this change and include it in v2.
+Patches 3/4 and 4/4 of this series have been picked up by the SCSI tree.
 
-Best regards,
-Phuc
+Patches 1/4 and 2/4 are the devfreq ones and do not depend on them.
+
+Would you like to take them, or should I resend the two on their own agains=
+t
+your devfreq-next branch?
+
+Kind regards,
+Bean
+
+
+On Mon, 2026-09-14 at 15:12 +0200, Bean Huo wrote:
+> Hi Chanwoo,
+>=20
+> A quick check. the patch 1/4, and patch 2/4 in this series would be queue=
+ing
+> up
+> for your pull requst?
+>=20
+> Regards,
+> Bean
+>=20
+>=20
+> On Mon, 2026-09-07 at 21:21 +0200, Bean Huo wrote:
+> > The devfreq core has three users of the optional ->get_cur_freq()
+> > callback. Two of them check the return value, the third one does not an=
+d
+> > passes an uninitialized frequency to the transition notifiers when the
+> > callback fails. Patch 1 fixes that.
+> >=20
+> > Patch 2 writes down what a driver is expected to return from the
+> > callback. Today this has to be found by reading the devfreq core.
+> >=20
+> > Patch 3 records the frequency the controller starts at.
+> > ufshcd_init_clocks() puts the controller at its highest frequency, but
+> > nothing writes that down, so clk_scaling.target_freq stays 0 and devfre=
+q
+> > starts with previous_freq at 0 as well. With use_pm_opp this makes
+> > ufshcd_devfreq_get_dev_status() report 0 Hz, the ondemand governor then
+> > asks for the maximum frequency, and ufshcd_devfreq_target() runs a full
+> > ufshcd_devfreq_scale() that holds up the queue for up to a second only =
+to
+> > set the same OPP and the same gear again.
+> >=20
+> > Patch 4 adds the ->get_cur_freq() callback to ufshcd. Without it the
+> > cur_freq attribute shows the last frequency the governor selected, whic=
+h
+> > is wrong whenever the controller is scaled outside the governor, for
+> > example after writing 0 to clkscale_enable.
+> >=20
+> > The patches touch two subsystems. Patches 1 and 2 are for the devfreq
+> > tree, patches 3 and 4 are for the SCSI tree. The two halves are
+> > independent, at build time and at run time, and can be applied in eithe=
+r
+> > order.
+> >=20
+> > Patch was tested on a Radxa Dragon Q6A (1d84000.ufshc):
+> >=20
+> > =C2=A0 before "echo 0 > clkscale_enable":=C2=A0 cur_freq 75000000, targ=
+et_freq
+> > 75000000
+> > =C2=A0 after=C2=A0 "echo 0 > clkscale_enable":=C2=A0 cur_freq 300000000=
+, target_freq
+> > 75000000
+> >=20
+> > Without it both files report 75000000 and keep doing so for as long as
+> > clock scaling stays disabled. A 4 GiB direct read after enabling clock
+> > scaling again counted the transitions in trans_stat and attributed time
+> > to the 300000000 state, so the frequency the callback returns is one th=
+at
+> > devfreq recognises.
+> >=20
+> > One thing to be aware of: devfreq_monitor_resume() copies previous_freq
+> > from the callback, but it does not call devfreq_update_status(). A
+> > frequency change made while the governor was suspended therefore does n=
+ot
+> > show up as a transition. That is how devfreq behaves today and this
+> > series does not change it.
+> >=20
+> > Changes since v1:
+> > - New patch 3, so that target_freq and devfreq's previous_freq are not =
+0
+> > =C2=A0 at boot (suggested by Stanley Jhu).
+> > - Patch 4: drop the !cur_freq check, it cannot happen any more.
+> > - Drop the now stale comment in ufshcd_devfreq_get_dev_status().
+> > - Patches 1 and 2 are unchanged.
+> > - The devfreq and the ufshcd patches no longer depend on each other.
+> > - Avri's Reviewed-by is on patches 1, 2 and 4. Patch 3 is new, so it do=
+es
+> > =C2=A0 not carry it. Avri, please note that patch 4 changed since you r=
+eviewed
+> > =C2=A0 it, the !cur_freq check is gone. Tell me if you want the tag dro=
+pped.
+> >=20
+> >=20
+> > Bean Huo (4):
+> > =C2=A0 PM / devfreq: Fall back to previous_freq when get_cur_freq() fai=
+ls
+> > =C2=A0 PM / devfreq: Add more details to the get_cur_freq() comment
+> > =C2=A0 scsi: ufs: core: Record the frequency the controller starts at
+> > =C2=A0 scsi: ufs: core: Report the current clock frequency to devfreq
+> >=20
+> > =C2=A0drivers/devfreq/devfreq.c |=C2=A0 5 ++---
+> > =C2=A0drivers/ufs/core/ufshcd.c | 37 +++++++++++++++++++++++++++++++---=
+---
+> > =C2=A0include/linux/devfreq.h=C2=A0=C2=A0 |=C2=A0 7 +++++--
+> > =C2=A03 files changed, 38 insertions(+), 11 deletions(-)
+> >=20
+> >=20
+> > base-commit: e30626823a406725ce29bc75cb8ec467d3e1e326
+>=20
+
