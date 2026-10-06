@@ -1,211 +1,284 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CCDD375AC4
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 06:14:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B05F0260580;
+	Tue,  6 Oct 2026 06:15:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791267259; cv=none; b=la3gdB7N6Wu6GI3EVjsmX3keDhpXLfcKvnMomLDI3CN7kHYtwp64aQSUJdOY0RbN9y1lpmDLjALupU6cfoxd+qndwkY29jOg/RTl2tJEta1YPjzJlbYd5KbHJC7TijTWivZE8P0q5+GQVVHQZfrboqIm7Xpcr8aQGoL6oLn1yII=
+	t=1791267349; cv=none; b=PK66FILUY5jy7zMOwDV7oZJsiD5SBbFOfhNhCEt/XT8zueeukYhB99ZbAqVyO607GkISB2VpspLSnvGM74q0vZZN3/2Edrnk2XpsbS2VbuSziat2SGfqOcBj82d5OIHcYKDag3epbaLwKXT6/JPKRmC8ypR5K0DQDY6oMX6xqV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791267259; c=relaxed/simple;
-	bh=fcY4p8z17weLxzT7Fs10+fGcXH/D8wfaxpDRZCQ03Cg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QRazE3nM33PyHD0m1AkoV0iLaSUDi78D2hfVIBeOq5zhiyzh929F7eRQxhqZKBrQ1mNC4Ufp8K3dbRv7PouXLFQxEa0FoBk0QRiqwoekdlvK7J/bBkhlWzCCCCl/vQ6jTgiWMc75CrQ6V4jEHtqZQ2wsoS9JWRh8SkS0rP43r5M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=EhOFm7ia; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791267349; c=relaxed/simple;
+	bh=rCqwZ2IjgmH5Im+4R8OwXzGglNEF337ZZbfKCwd83Ac=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=gGRa+wv0nSb+HR/BM4I6AzS82hliKd4CGdBz+jJWcrrkA27uiznmC2xuYCpy/q2+afp5PrxXxs2fs2/4OPPCjf+2oEmlD9R9IobQU+Bo0bYxwWJ/5PI7DMAyvRYcevNCu8ezHp7jDwZmWsSkV00o7U19etDKh7BheK5NCKTxeI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=qkNQ8z/p; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="EhOFm7ia"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791267256;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=9zZ5aL4QpTxtgEj8CNjX/E/lt1NREauZr/P3nTFrvSY=;
-	b=EhOFm7iaVsqybaTqKAmlqlbV2AU4ewFvoiRYAjDrH7L7Kydf1Hh/tygiBcKZtbSjbkjFH9
-	ElZQT5atzFwlkKBrOU7354ya6+wAJJNVCnSXwexZD7u5ukjXlfHs2mRKhko4rKtpR/Y9I8
-	GoX5Dwthy8y2LpUPGgVdTALYS4I6SFI=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-602-DLcV-1JwMMStanwR-8B0eQ-1; Tue,
- 06 Oct 2026 02:14:13 -0400
-X-MC-Unique: DLcV-1JwMMStanwR-8B0eQ-1
-X-Mimecast-MFC-AGG-ID: DLcV-1JwMMStanwR-8B0eQ_1791267249
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6E72D1869BB4;
-	Tue,  6 Oct 2026 06:14:08 +0000 (UTC)
-Received: from snishika-thinkpadp16vgen1.tokyo.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 75A6F1800473;
-	Tue,  6 Oct 2026 06:13:59 +0000 (UTC)
-From: Seiji Nishikawa <snishika@redhat.com>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Josh Don <joshdon@google.com>,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	hpa@zytor.com,
-	x86@kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+681e729b2cf0d4860042@syzkaller.appspotmail.com,
-	syzkaller-bugs@googlegroups.com,
-	Seiji Nishikawa <snishika@redhat.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] sched/core: Do not touch SMT siblings that have not joined the core yet
-Date: Tue,  6 Oct 2026 15:12:53 +0900
-Message-ID: <20261006061253.1199941-1-snishika@redhat.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="qkNQ8z/p"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6963ZdQG695812;
+	Tue, 6 Oct 2026 06:14:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=+rXo/9
+	HsyVW3aJ8rwfYpaCgSZGYXBJigBbvc+8XFoRg=; b=qkNQ8z/pgO8CESdAoHTYTS
+	wTTpI5ZKwsYHoo0xrYLm+pQ+0Se50pZaLYDSQjXy4FE+6nJWanCIcGtWtmLDFEox
+	WvajW8y32zRCNq0mErRo53TUNzCNum1SlsNOtLC+qLhJ4bEuJUMaDH8STeVbqZZQ
+	OA0OQFzFsxjZNQushE7TsXxpfLVcyymrKh8dl8D9X4ogc4OzyX2LAXisy6B5aoXU
+	fDRqkxfbHe/Wk0XOrZbeO9RuCzTUy6NV6PYk4TBB7RFY5pSsrhy5Dm1YFVx7O02B
+	W4WKs+V0b5NpXsjysy/10ZfllFfi5/X1YKnOvwJrAi/Fb6w91BdEVYcQja5Rb+XQ
+	==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2screajw-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 06 Oct 2026 06:14:42 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6963HdaR3925182;
+	Tue, 6 Oct 2026 06:14:41 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h3dhgrmj7-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 06 Oct 2026 06:14:41 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6966EZKP9240912
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 6 Oct 2026 06:14:35 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8649A2004E;
+	Tue,  6 Oct 2026 06:14:35 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 81DE42004B;
+	Tue,  6 Oct 2026 06:14:26 +0000 (GMT)
+Received: from shivang.upadyay (unknown [9.39.25.101])
+	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue,  6 Oct 2026 06:14:26 +0000 (GMT)
+Message-ID: <3297b07cf058b29251063e5e7dc61bf047c5148f.camel@linux.ibm.com>
+Subject: Re: [PATCH v2 4/6] objtool/powerpc: Skip jump destination analysis
+ and unnanotated intra-function call warnings for --ftr-fixup
+From: Shivang Upadhyay <shivangu@linux.ibm.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linuxppc-dev@lists.ozlabs.org, sv@linux.ibm.com,
+        alexandre.chartre@oracle.com, alexghiti@rivosinc.com,
+        aliceryhl@google.com, ardb@kernel.org, bp@alien8.de,
+        chleroy@kernel.org, elver@google.com, ihor.solodrai@linux.dev,
+        jpoimboe@kernel.org, kees@kernel.org, legion@kernel.org,
+        lossin@kernel.org, maddy@linux.ibm.com, masahiroy@kernel.org,
+        mpe@ellerman.id.au, nathan@kernel.org, npiggin@gmail.com,
+        nsc@kernel.org, ojeda@kernel.org, pmladek@suse.com,
+        rostedt@goodmis.org, tamird@kernel.org,
+        thomas.weissschuh@linutronix.de, thuth@redhat.com,
+        yuxuan.zuo@outlook.com, sourabhjain@linux.ibm.com
+Date: Tue, 06 Oct 2026 11:44:25 +0530
+In-Reply-To: <20260930094449.GJ88198@noisy.programming.kicks-ass.net>
+References: <20260929055138.43489-1-shivangu@linux.ibm.com>
+	 <20260929055138.43489-5-shivangu@linux.ibm.com>
+	 <20260929142559.GC88198@noisy.programming.kicks-ass.net>
+	 <05e06ab0d9fc8810fc50e888e9e0f55b2ec9b77f.camel@linux.ibm.com>
+	 <20260930094449.GJ88198@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDAyNCBTYWx0ZWRfXzRroh2hxk3ho
+ /WMxD9GPhvrQGDKuB6JREuWbCxxFi7nBfjphufwdC0fDpAlZIoBCcscZOoVSVUj96K+uOXXqa67
+ 8rssQfEvhqQs1nbuE/qIBiZ934KkRY8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDAyNCBTYWx0ZWRfX7kWSQavWXc7v
+ mZS8AON7SxP7qJGQ5awJIPp1WWPFAnMslr69FD7TLG/fzs7rdUH2iaoVcIucgP7NBIMYWQrYnJk
+ sQ0APpK+wS2dp1z3LOZERYwtCvqRgG0QeDWu9740wvu7NuxEFuGbgALGESjcHd+Pc3E5CC+DZnE
+ dydYWdgEkJZiC4pj6V+CDy36HhDTCFeLQdlfLxrDJdO8DBMU07ZTPsWmjZ5RdhwCzlV+R0RV35S
+ j1XZ0Pgu0bxhCianQyVKfENbWtWMeP2+QZcRlf3h/SUL5yL2i98SwVwzeDKucAy8/3DHJgpn00/
+ ZeLH1QYy4DrqvSHJ3yNHvQJVk4ZIe+mlSW3BVA9eIZA1aDfU5bu73S2dLxo7LCUEXZPlbXh7Dm6
+ JdPpsQZMlysHoZvitEFkI/nVesCzKeWWH4cgRO19Z/j/0MQ2UqSFa5lzglVd6DX0pmCi4mpG1E/
+ U/HBhFpA8I4iRIXRPPw==
+X-Proofpoint-GUID: N0UneCwz4OyrvdRWQDFs2ZF7DNe1FElD
+X-Proofpoint-ORIG-GUID: a1oYyYKwK2rz2UngSXjTTmc1BQoEmsdp
+X-Authority-Analysis: v=2.4 cv=B7osQ+tM c=1 sm=1 tr=0 ts=6ac491d3 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=_kaDUDulWroBixN9eW0A:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-06_01,2026-10-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 malwarescore=0 impostorscore=0 phishscore=0
+ clxscore=1015 spamscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060024
 
-When a CPU comes online, it is added to cpu_smt_mask() of its siblings
-before sched_core_cpu_starting() sets its rq->core to the core leader.
-For example, on x86, ap_starting() calls set_cpu_sibling_map() first,
-and calls notify_cpu_starting() after that. This order is intended.
+On Wed, 2026-09-30 at 11:44 +0200, Peter Zijlstra wrote:
+> On Wed, Sep 30, 2026 at 11:43:10AM +0530, Shivang Upadhyay wrote:
+> > On Tue, 2026-09-29 at 16:25 +0200, Peter Zijlstra wrote:
+> > > > c00000000002a610 <system_reset_exception>:
+> > > > c00000000002a610:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0e 01 4c 3c=
+=C2=A0=C2=A0=C2=A0=C2=A0 addis=C2=A0=C2=A0 r2,r12,270
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 c00000000002a610: R_PPC64_REL16_HA=C2=A0=C2=A0=C2=A0
+> > > > .TOC.
+> > > > c00000000002a614:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 f0 6c 42 38=
+=C2=A0=C2=A0=C2=A0=C2=A0 addi=C2=A0=C2=A0=C2=A0 r2,r2,27888
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 c00000000002a614: R_PPC64_REL16_LO=C2=A0=C2=A0=C2=A0
+> > > > .TOC.+0x4
+> > > > c00000000002a618:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 a6 02 08 7c=
+=C2=A0=C2=A0=C2=A0=C2=A0 mflr=C2=A0=C2=A0=C2=A0 r0
+> > > >=20
+> > > > This is happening because we should be looking for destination
+> > > > symbols that are at absolute offsets instead of relative
+> > > > offsets.
+> > >=20
+> > > Again, confused. We run objtool on objects, this is pre-linking,
+> > > there
+> > > are no absolute offsets.
+> > Hi Peter,
+> >=20
+> > This is the special requirement of patching jump assembly
+> > instructions
+> > that we need to know where the jump is performed from/to. As per
+> > 5/6
+> > objtool is run post link on vmlinux. If handling post-link
+> > information
+> > is outside the scope of objtool, please let me know.
+>=20
+> I think we can make it work; but this wasn't immediately obvious.
+> Also
+> I'm still struggling to understand what exactly you're doing -- I'm
+> not
+> well versed in the PPC details and have no idea what this ftr thing
+> really is and your patches don't really explain anything much at all.
+>=20
+> (Gemini is suggesting this is all somewhat similar to the x86 RIP
+> relative fixup we do for alternatives, but your case is more 'fun').
+>=20
 
-Before sched_core_cpu_starting() runs, rq->core of the new CPU still
-points to its own rq. But rq->core_enabled of the new CPU is already
-set. __sched_core_flip() sets it for all possible CPUs, also for
-offline CPUs, and CPU offline does not clear it. So __rq_lockp() of the
-new CPU returns its own rq->__lock. It does not return the core wide
-lock.
+Hi Peter,
+Sorry for the delayed response.
 
-If a sibling CPU runs pick_next_task() for SCHED_CORE at this time, it
-checks all CPUs in cpu_smt_mask(). It calls update_rq_clock() and
-pick_task() for the rq of the new CPU. But it holds only its own core
-lock, not the lock of the new CPU. Then lockdep shows this warning in
-update_rq_clock().
+I think I can explain the feature fixup mechanism and the problem we're
+trying to solve more clearly in the cover letter.
 
-  debug_locks && !(lock_is_held(&(__rq_lockp(rq))->dep_map) != 0)
-  WARNING: kernel/sched/sched.h:1666 at update_rq_clock+0x40a/0xd20 kernel/sched/core.c:875, CPU#0: syz-executor251/5712
-  Call Trace:
-   <TASK>
-   pick_next_task kernel/sched/core.c:6375 [inline]
-   __schedule+0x1c69/0x6920 kernel/sched/core.c:7199
-   preempt_schedule_irq+0x4e/0x90 kernel/sched/core.c:7606
+Here is a basic example of what we're trying to achieve.
 
-The next loops in pick_next_task() also change rq_i->core_pick of this
-rq, and can call resched_curr() for it, without its lock.
-resched_curr() has the same lockdep_assert_rq_held() check.
-__sched_core_account_forceidle() also checks all CPUs in the same mask.
+        GEN_COMMON data_access
 
-CPU offline does not have this problem. remove_siblinginfo() and
-sched_core_cpu_dying() both run in take_cpu_down() under stop_machine.
-So no sibling CPU can be in pick_next_task() at that time.
+            ld      r4,_DSISR(r1)
+            addi    r3,r1,STACK_INT_FRAME_REGS
+            andis.  r0,r4,DSISR_DABRMATCH@h
+            bne-    1f
 
-Fix this. In these loops, skip a sibling CPU if its rq->core is
-different from our rq->core. At run time, rq->core of a CPU is changed
-by sched_core_cpu_starting(), sched_core_cpu_deactivate() and
-sched_core_cpu_dying(). The first two hold sched_core_lock(), and
-sched_core_lock() takes the rq locks of all CPUs in the SMT mask. The
-last one runs under stop_machine, as written above. So while we hold
-our core lock, the result of this check does not change. A CPU that is
-not in the core yet will pick its own tasks. The comment in the
-reschedule loop of pick_next_task() already expects this case.
+        #ifdef CONFIG_PPC_64S_HASH_MMU
+        BEGIN_MMU_FTR_SECTION
+            bl      CFUNC(do_hash_fault)
+        MMU_FTR_SECTION_ELSE
+            bl      CFUNC(do_page_fault)
+        ALT_MMU_FTR_SECTION_END_IFCLR(MMU_FTR_TYPE_RADIX)
+        #else
+            bl      CFUNC(do_page_fault)
+        #endif
 
-I tested this with the syzbot C reproducer in QEMU. The two vCPUs were
-SMT siblings (-smp 2,sockets=1,cores=1,threads=2). Without this patch,
-the warning came after about 100 seconds. Just before the warning, a
-debug print showed that the loop on CPU 0 saw CPU 1 with rq->core
-pointing to CPU 1 itself, and cpu_online() was false for CPU 1. With
-this patch, the same state still happened, but there was no warning
-in more than 2 hours.
+            b       interrupt_return_srr
 
-Fixes: 3c474b3239f1 ("sched: Fix Core-wide rq->lock for uninitialized CPUs")
-Reported-by: syzbot+681e729b2cf0d4860042@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=681e729b2cf0d4860042
-Cc: stable@vger.kernel.org
-Signed-off-by: Seiji Nishikawa <snishika@redhat.com>
----
- kernel/sched/core.c       |  7 +++++++
- kernel/sched/core_sched.c |  3 +++
- kernel/sched/sched.h      | 11 +++++++++++
- 3 files changed, 21 insertions(+)
+This is the implementation of the data_access exception handler on
+ppc64le. Depending on whether the machine is using the hash or radix
+MMU, we need to execute a different fault handler. The choice is made
+at runtime based on the CPU's feature bits.
 
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 1fe40de6ebe3..7f9330e2ef8e 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -6365,6 +6365,8 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
- 	max = NULL;
- 	for_each_cpu_wrap(i, smt_mask, cpu) {
- 		rq_i = cpu_rq(i);
-+		if (!sched_core_sibling(rq, rq_i))
-+			continue;
- 
- 		/*
- 		 * Current cpu always has its clock updated on entrance to
-@@ -6398,6 +6400,9 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
- 	 */
- 	for_each_cpu(i, smt_mask) {
- 		rq_i = cpu_rq(i);
-+		if (!sched_core_sibling(rq, rq_i))
-+			continue;
-+
- 		p = rq_i->core_pick;
- 
- 		if (!cookie_equals(p, cookie)) {
-@@ -6444,6 +6449,8 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
- 	 */
- 	for_each_cpu(i, smt_mask) {
- 		rq_i = cpu_rq(i);
-+		if (!sched_core_sibling(rq, rq_i))
-+			continue;
- 
- 		/*
- 		 * An online sibling might have gone offline before a task
-diff --git a/kernel/sched/core_sched.c b/kernel/sched/core_sched.c
-index 43e0bde3038e..b21eade02c23 100644
---- a/kernel/sched/core_sched.c
-+++ b/kernel/sched/core_sched.c
-@@ -275,6 +275,9 @@ void __sched_core_account_forceidle(struct rq *rq)
- 
- 	for_each_cpu(i, smt_mask) {
- 		rq_i = cpu_rq(i);
-+		if (!sched_core_sibling(rq, rq_i))
-+			continue;
-+
- 		p = rq_i->core_pick ?: rq_i->curr;
- 
- 		if (p == rq_i->idle)
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index e656c7059bf8..c65d9cb8ad2e 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -1513,6 +1513,17 @@ static inline raw_spinlock_t *__rq_lockp(struct rq *rq)
- 	return &rq->__lock;
- }
- 
-+/*
-+ * A CPU coming online is set in cpu_smt_mask() before
-+ * sched_core_cpu_starting() links its rq->core to the core leader.
-+ * Until then it does not share the core-wide lock, so it must not be
-+ * touched as part of the core.
-+ */
-+static inline bool sched_core_sibling(struct rq *rq, struct rq *rq_i)
-+{
-+	return rq_i->core == rq->core;
-+}
-+
- extern bool
- cfs_prio_less(const struct task_struct *a, const struct task_struct *b, bool fi);
- 
--- 
-2.55.0
+The assembly macros therefore generate code for both possible cases at
+build time, and the feature-fixup mechanism later patches the code so
+that only the appropriate path is executed.
 
+The problem is that the linker does not know about this later patching
+when it resolves branch relocations.
+For example, consider:
+
+feat_loc:
+    ...
+
+BEGIN_MMU_FTR_SECTION
+
+    ...
+loc_a:
+    bl      CFUNC(main_feature)
+    ...
+
+MMU_FTR_SECTION_ELSE
+
+    ...
+loc_b:
+    bl      CFUNC(alt_feature)
+    ...
+
+When linking this code, the linker will encode=20
+main_feature - loc_a at loc_a and alt_feature - loc_b at loc_b at two
+bl instructions ablove.
+
+
+However, alt_feature - loc_b is not the offset that we ultimately need
+from the alt branch. When the feature fixup is applied, the instruction
+at loc_a is replaced with the alternative instruction, so the branch
+needs to encode (alt_feature - loc_a) jump.
+
+This distinction matters because the branch displacement has to fit in
+the range representable by the 32-bit PowerPC branch instruction.
+Depending on where feat_loc, main_feature, and alt_feature end up after
+linking, the linker-generated displacement can therefore be different
+from the displacement that is actually needed after the feature fixup.
+In some layouts this can result in either a build-time failure or, more
+importantly, an invalid branch at runtime.
+
+What we're trying to do with the build-time pass is detect these cases
+and prepare the branch relocations for the code as it will actually
+exist after feature patching. At minimum, it should allow us to detect
+an impossible branch offset at build time rather than discovering it
+only after the feature fixup is applied at runtime.
+
+
+> Anyway, I would much rather objtool learns how to deal with absolute
+> sections rather than making things depend on a 'random' ftr option.
+> That
+> is, if we need conditional code, have it be because the secion has
+> non-zero address, not because ftr option or somesuch.
+>=20
+> But noting that, can't we simply change:
+>=20
+> =C2=A0 decode_instructions()
+> =C2=A0=C2=A0=C2=A0 hash_add(file->insn_hash, &insn->hash, sec_offset_hash=
+(sec, insn-
+> >offset));
+>=20
+> to take sh_addr into account? I mean, when unlinked, it'll be 0 so
+> nothing changes, but when already linked, it'll get you the absolute
+> value and then you don't need that fixup later on, or am I missing
+> some
+> details?
+>=20
+> So from where I'm at, please:
+>=20
+> =C2=A0- teach objtool about absolute sections, not ftr specials
+Sure I will try to rework these patches towards that.
+
+>=20
+> =C2=A0- expand changelog to actually explain what these ftr things are an=
+d
+> =C2=A0=C2=A0 how they work and what the actual problem is we're solving, =
+so we
+> =C2=A0=C2=A0 don't need to employ LLMs to understand patches and all that=
+ :-)
+>=20
+> Does that sound reasonable?
+
+Yes.
+
+Thanks
+~Shivang.
