@@ -1,85 +1,84 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D135456E15;
-	Tue,  6 Oct 2026 13:40:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4749845D92B;
+	Tue,  6 Oct 2026 13:40:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791294052; cv=none; b=mvE56WLTbLsaDgSPAyb6ryFG/lDK3TdvXh884hSQ9POnrDTbtD354yus12mNawYT2IkZxdw8P8x9oRoP6j60b4y5EUFnQAS3gz/DBVYy27JMivvni88AxzE/SyROHM6qsZhHH3l6k021dOF8Mi41P1vbuI9D2ViHDxMx0cq/IUI=
+	t=1791294063; cv=none; b=HGOxU4SSd/uXdUIpSFzBjbsTswi+FF9DlE30W9d0AiArgp64+b8gsRhFt7Navi5GrPOOijZShAdqhb68bITyHGp8igN/1JyoERA0BxiGGBgGCfgo0kYDPY1u/TqsXS5m5s+GYauaNU5bZ4YNdZBu8gyunEntZ9Y7gGhzC/aHug4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791294052; c=relaxed/simple;
-	bh=jc3TSLXldXteeuO1/4m7Zp9oJvtjcpCAcs3SyOAEuYU=;
+	s=arc-20240116; t=1791294063; c=relaxed/simple;
+	bh=YqdcpTJqYZjlmX/P/LKvgMu8wTHnl7Gwap2cRMrTaB0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=A+RAAo3F2iz1wHQ7sHO32gk4y4kh2NPEPRAO1S6DeBWJepaefYOdavrpjdw4jzk8u1hO2zixj2Dov8wYKrCjhzHOWjUmoUTZaBlfJPx8HTJk/mqUVBNTBZIIOixE89Erat+XmQIlEhH3Fu6zTeJzKM7e5N1OXCVwMeHgRYw6v1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=WAydl2Ge; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=DMWvOtxx; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=CAoXwtsN; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=DSroREms; arc=none smtp.client-ip=195.135.223.130
+	 MIME-Version; b=In7Bqj/NUjjRWXMx543DuFBrV7if3KUxQvPGPfN9ycFuEjAfKyoFSuE1gqbfQYpOMJy7RLobVlUZk7/tQ6jRp017+b+ORkhEUDVbXaVSwey2Qze2eRCyO+k4zbVkCc7eEVLL/3vOOgJnOGxDAVcF+6TrHumNIf26EiCaVbtoYfs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=L6s4lT4T; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=4ITnyoYa; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=NxW6N49J; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=uuhWUzrD; arc=none smtp.client-ip=195.135.223.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="WAydl2Ge";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="DMWvOtxx";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="CAoXwtsN";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="DSroREms"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="L6s4lT4T";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="4ITnyoYa";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="NxW6N49J";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="uuhWUzrD"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 6BCD122002;
-	Tue,  6 Oct 2026 13:40:39 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 0E5391FA83;
+	Tue,  6 Oct 2026 13:40:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791294043; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1791294052; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=MhC74u0euHiG6EiTkvFEObitfBMnKo6wcSCms+38sDc=;
-	b=WAydl2Ge9XsUUydAHBCi67N61OK8vE6SNbeyPUmHGC1J2CLiUO6rVgTV57YwaRWrmgdIsH
-	0BrQXHSV0J+7Puqw5NJW+MVUD7AxTMqb5NUeTnW3HVEy2ez7K+0BhMmejAZj0nLgjs20Cr
-	p5zozO2g0jVEpiFNxao+wa7SbAXzkZo=
+	bh=rgLxZv35CgS7g0IWTbXthBD3uAd5BPazCxgcizGnc9s=;
+	b=L6s4lT4TaSpHf4Di2bYH6S8N9FHyWY5gf+pV9pvjn8EgpMg/qGPgt9tN4vKSLVihTNvB46
+	btvh9RFNHnflNpgIuF8C+bHRAeJ0jrSvr3NiCemO5XgHOUBg7f5TIeTNeC+HHOGSXlRRz4
+	jYPc1nlKa+pnNRiyRbu6dfBe6OgLx/s=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791294043;
+	s=susede2_ed25519; t=1791294052;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=MhC74u0euHiG6EiTkvFEObitfBMnKo6wcSCms+38sDc=;
-	b=DMWvOtxxneDCKe1+mruHVBVku7GnAS4Oa8XhQLzrmohLVtIAqAyqvHAEC4BTXe6f4NFQD0
-	KOJI/VZPnl2nQODQ==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=CAoXwtsN;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=DSroREms
+	bh=rgLxZv35CgS7g0IWTbXthBD3uAd5BPazCxgcizGnc9s=;
+	b=4ITnyoYaXpb5LMzqTE9XYDKIIB5+v3ofmV+W2ZTQdKGZaJnpADlqLSKfgNk7EE6b4HPsAa
+	kdIJkYx1e9NvqJAA==
+Authentication-Results: smtp-out2.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791294039; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1791294048; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=MhC74u0euHiG6EiTkvFEObitfBMnKo6wcSCms+38sDc=;
-	b=CAoXwtsNWqxxGAkxRiKuzdFD6hD7vw3pFgXKQWzTuZFn/v57+arcgFu7tv55/koIm9NrAh
-	74hSyUkORn2wbtYsNF+zWvU2T57sY0hijJ5V3BCWgY+BKp5PQO+ZfT5m8SHI7sgMFwMzjI
-	ncXioUQwAeiLlOXyKGwcvYzyte0DzYY=
+	bh=rgLxZv35CgS7g0IWTbXthBD3uAd5BPazCxgcizGnc9s=;
+	b=NxW6N49J5/2M/tsZ6IgZD2DiuQmf+eR2XyHpbG0PckZWbXlKHut88N4bmRYLFqeXhLfi4K
+	SQUKG86+iQixr9krcbQRR9HW+YMshQIwK1nOiE2k/e+d5prZ8nLNA9J5hGFgGVpNceNUn1
+	x5stJ87revc4TNr1L+jYa5VS52PVZl0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791294039;
+	s=susede2_ed25519; t=1791294048;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=MhC74u0euHiG6EiTkvFEObitfBMnKo6wcSCms+38sDc=;
-	b=DSroREmsIQawiu5m49Wu5v7auY42yzahHrGXtFfYImU18li9MaHoPfUhU2DT5HQpmxkjoh
-	h1xo1YCPFcLrXkDw==
+	bh=rgLxZv35CgS7g0IWTbXthBD3uAd5BPazCxgcizGnc9s=;
+	b=uuhWUzrDtygN9NJhuV4igclJTAvUbzLeou61UBr0CisIBuZxM4xlo5mo2pnSKsLjv4fSSC
+	GXRUeUAtBA36KTAw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3DF5513A5C;
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B2EDD13A63;
 	Tue,  6 Oct 2026 13:40:39 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 1eVrAVf6xGq1cAAAD6G6ig:T2
+	id 1eVrAVf6xGq1cAAAD6G6ig:T9
 	(envelope-from <tiwai@suse.de>); Tue, 06 Oct 2026 13:40:39 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: linux-sound@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH 1/8] ALSA: seq: Drop the bogus RCU guard from clientptr()
-Date: Tue,  6 Oct 2026 15:40:25 +0200
-Message-ID: <20261006134035.478529-2-tiwai@suse.de>
+Subject: [PATCH 8/8] ALSA: core: Add missing barriers for power_ref vs card->shutdown
+Date: Tue,  6 Oct 2026 15:40:32 +0200
+Message-ID: <20261006134035.478529-9-tiwai@suse.de>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261006134035.478529-1-tiwai@suse.de>
 References: <20261006134035.478529-1-tiwai@suse.de>
@@ -90,113 +89,71 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 6BCD122002
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
+X-Spamd-Result: default: False [-2.79 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
 	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_LONG(-0.99)[-0.994];
 	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
 	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TO_DN_NONE(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:mid,suse.de:email,suse.de:dkim];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
 	RCPT_COUNT_TWO(0.00)[2];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
-X-Spam-Score: -3.01
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email,imap1.dmz-prg2.suse.org:helo];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_NONE(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[]
+X-Spam-Score: -2.79
 X-Spam-Level: 
+X-Spam-Flag: NO
 
-In the recent refactoring with RCU, clientptr() takes guard(rcu)()
-around the client table lookup, but the RCU read-side section ends as
-soon as the function returns, so the returned pointer isn't protected
-at all.  This gives a false impression as if that the callers were
-safe, and confuse reviewers including Sashiko.
+snd_power_ref_and_wait() increments card->power_ref and then reads
+card->shutdown (and the power state) locklessly, while
+snd_card_disconnect() sets card->shutdown and then waits for
+power_ref to drop to zero via snd_power_sync_ref().  Due to the
+missing barrier on both sides, the caller proceeds with shutdown still
+seen as false, while the disconnect side sees a zero refcount and
+continues tearing down incorrectly.
 
-Actually, the callers (snd_seq_delete_kernel_client(),
-snd_seq_kernel_client_ctl() and snd_seq_kernel_client_write_poll())
-never relied on any lock; the caller is the owner of the client (a
-kernel client passing its own id, or a user client via its opened
-file), hence the client can't be released concurrently by others.
+For addressing the potential race, add smp_mb__after_atomic() after
+the refcount increment and smp_mb() before snd_power_sync_ref() in
+snd_card_disconnect().
 
-So just drop the confusing and useless RCU guard, read the table via
-rcu_dereference_protected(), and document the lifetime rule.  Along
-with it, fold __clientptr() into its only user client_use_ptr(); the
-id range is already checked there, and it's never called with
-clients_lock held, so a plain rcu_dereference() suffices.
-
-Fixes: 7a287e4615d6 ("ALSA: seq: Use RCU for the client table")
+Fixes: e94fdbd7b25d ("ALSA: control: Track in-flight control read/write/tlv accesses")
 Reported-by: Sashiko <sashiko-bot@kernel.org>
+Assisted-by: LLM
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/core/seq/seq_clientmgr.c | 21 ++++++++-------------
- 1 file changed, 8 insertions(+), 13 deletions(-)
+ sound/core/init.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/sound/core/seq/seq_clientmgr.c b/sound/core/seq/seq_clientmgr.c
-index 239809ce48d7..ba5619d0b0b0 100644
---- a/sound/core/seq/seq_clientmgr.c
-+++ b/sound/core/seq/seq_clientmgr.c
-@@ -95,23 +95,18 @@ static inline int snd_seq_write_pool_allocated(struct snd_seq_client *client)
- 	return snd_seq_total_cells(client->pool) > 0;
- }
+diff --git a/sound/core/init.c b/sound/core/init.c
+index 7878c0e6103c..dbe2acfa59fe 100644
+--- a/sound/core/init.c
++++ b/sound/core/init.c
+@@ -535,6 +535,8 @@ void snd_card_disconnect(struct snd_card *card)
+ 		clear_bit(card->number, snd_cards_lock);
+ 	}
  
--/* return pointer to client structure for specified id; call under RCU read-lock */
--static struct snd_seq_client *__clientptr(int clientid)
-+/* return pointer to client structure for specified id;
-+ * the caller must guarantee the client's lifetime by itself, as neither RCU
-+ * nor a use_lock reference is taken here.
-+ */
-+static struct snd_seq_client *clientptr(int clientid)
++	/* order card->shutdown store against power_ref read */
++	smp_mb();
+ 	snd_power_sync_ref(card);
+ }
+ EXPORT_SYMBOL(snd_card_disconnect);
+@@ -1152,6 +1154,8 @@ EXPORT_SYMBOL(snd_card_file_remove);
+ int snd_power_ref_and_wait(struct snd_card *card)
  {
- 	if (clientid < 0 || clientid >= SNDRV_SEQ_MAX_CLIENTS) {
- 		pr_debug("ALSA: seq: oops. Trying to get pointer to client %d\n",
- 			   clientid);
- 		return NULL;
- 	}
--	return rcu_dereference_check(clienttab[clientid],
--				    lockdep_is_held(&clients_lock));
--}
--
--/* return pointer to client structure for specified id */
--static struct snd_seq_client *clientptr(int clientid)
--{
--	guard(rcu)();
--	return __clientptr(clientid);
-+	return rcu_dereference_protected(clienttab[clientid], true);
- }
- 
- static struct snd_seq_client *client_use_ptr(int clientid, bool load_module)
-@@ -124,7 +119,7 @@ static struct snd_seq_client *client_use_ptr(int clientid, bool load_module)
- 		return NULL;
- 	}
- 	scoped_guard(rcu) {
--		client = __clientptr(clientid);
-+		client = rcu_dereference(clienttab[clientid]);
- 		if (client)
- 			return snd_seq_client_ref(client);
- 		if (clienttablock[clientid])
-@@ -159,7 +154,7 @@ static struct snd_seq_client *client_use_ptr(int clientid, bool load_module)
- 			}
- 		}
- 		scoped_guard(rcu) {
--			client = __clientptr(clientid);
-+			client = rcu_dereference(clienttab[clientid]);
- 			if (client)
- 				return snd_seq_client_ref(client);
- 		}
+ 	snd_power_ref(card);
++	/* order power_ref increment against card->shutdown read */
++	smp_mb__after_atomic();
+ 	if (snd_power_get_state(card) != SNDRV_CTL_POWER_D0) {
+ 		wait_event_cmd(card->power_sleep,
+ 			       card->shutdown ||
 -- 
 2.55.0
 
