@@ -1,39 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F0BA37BE6C;
-	Tue,  6 Oct 2026 17:35:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AEE837BE6C;
+	Tue,  6 Oct 2026 17:35:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791308150; cv=none; b=E9bnJ98WbmwjRAZiQcjwqPQGrQvTuX7jm5iXjTsctobzvV5eO5kBpmmg/2+82Kmf5PWLRhMFuCVvSNMgR9GWWz6dm8EtH0n/ZRcs6b+a+zeTf2XvnL1Rl2kpwGy7R2Ioj2aqRsiBoqrmmN2R+nhqEWi5WekO314Lf1NTjjLS+Vg=
+	t=1791308155; cv=none; b=MzjxAXAdzOch1eyzCZi2SYg1dY5DLSgxWa25g0mlk+SWsJQzm8z5+3Sqgtvjg6KdauZO5Hp0vdyXnL8BBttaxEVRCq+nPti4baJ0DFqTj8edzBkwr8XBjEedtlHtgC1k5Qf00xy0jyTqF1fDYEn7RtGosI3+oYornUM8sBT3aFM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791308150; c=relaxed/simple;
-	bh=OX6bTkjW435HjZTTDnLi7uxynbt01c5GL0krywFEV44=;
-	h=Date:Message-ID:From:To:Cc:Subject; b=hqlPoFEQO6oAapdPk6gbB77bP8EBxK1kFNgYfvZzN9FnBPdK1L+apDEk08fuVhtQfqpDu4az+Z69P+50YCt5IO9Yg0obo7fNcCw3R6Rm10GhjWaMPzLYVdFa4iF/3ermtLRH+OsZeO2pBbc2e6MBl35ZYgVDeRr+viInVAN8Lb0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lpc/Oh5x; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791308155; c=relaxed/simple;
+	bh=3PHxfy44ueqEECZvpxH6GtKowBvztYpyUkuV0+vh1Ic=;
+	h=Date:Message-ID:From:To:Cc:Subject; b=dGk8bHGRn/ZvSWd9yxatORi28mFlkaHPRbXkYJPlWIp6GbbK6gEtheUDrKZsChHMkjrJ7qPUcJAe7ckW4DfNDizoiwHw6LjsT9fiH2ahorkoHYL0JyrgD83x7NzvzBz8Ce8ZT7ynM4/GXJj6MbAWGUYdnpWlwLE/6qrzeuVP7W0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AAj72/GB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lpc/Oh5x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95E781F0089C;
-	Tue,  6 Oct 2026 17:35:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AAj72/GB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FABF1F0089B;
+	Tue,  6 Oct 2026 17:35:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791308148;
-	bh=kmNLW4KbcdzJkHKfY0fQiOgHN9xXurWExpZhYUJHQr4=;
+	s=k20260515; t=1791308153;
+	bh=Nw1XUf6ETcnOGKrSuNKQAKotVEwuPtqzIuy/Ix7cfJ8=;
 	h=Date:From:To:Cc:Subject;
-	b=Lpc/Oh5x/N9NhYtyhX4Ac9Ny6sNeqAMtHmcrND87cS9UcjByLWa13oIkxpiriTILM
-	 9pVlWP3Ukzo7/ksp6OQYuhYg43gv60Io4WZC/IOWYFROJdrI7tv/3iogaCD1YcJ/76
-	 NcRs9btwMhaihnW2rvfIWKdlL9hsJ6VP2UJfZejZ8MJi5PgX5CsoQwToQBXVNSqhUj
-	 wFHrjfkBefxXJbNBPltG/IvS9u9NY2oBKdTGXXtqnWvNrDmGvdicxU3hd+HLs/F1GE
-	 qgCfDpJSYKBIBg2G1zWwFheZ/zfv//eOElQJoDMhA0Pev5mhDTzDRvQyigBk96T3Y2
-	 7QBLcn5lHf5NA==
-Date: Tue, 06 Oct 2026 07:35:47 -1000
-Message-ID: <afa1dcf110d0a6c081e1232c6ae2c989@kernel.org>
+	b=AAj72/GBFqfJkEx1UDGYid+eDMjpK6Ti4mZbLHgqIbbjiUs7SLxKhhV5eC/hsB3Iw
+	 UTL9ulDpVAMPxi9KKmhV8VZ4y6WmpiIjQMBY4HwIwvSvO8rDYkS9DN2IHyOCEopuLk
+	 7fMlRP7vz/71SbdUYFmOZ9wMz5R/maszFobUD7ZXMoniO4REImwCMceDlFAetwfRD6
+	 OidhKA4w/N3GrWXAtK+eUZVyBlDeXAAiZSWQK2ehUb3B8CSvAaVRwnkdgNpGMXQJZ6
+	 DaFkw/7SaxY8pYTlXsxK2AVLinJKh0O1kikY97WtR+tPKqFlG/LjnroYnsBQWuX3Xz
+	 FAFlHGitw543A==
+Date: Tue, 06 Oct 2026 07:35:52 -1000
+Message-ID: <e2cbf80a5cffa62a2dfcea51b4fa7ac1@kernel.org>
 From: Tejun Heo <tj@kernel.org>
 To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>,
- Changwoo Min <changwoo@igalia.com>, Emil Tsalapatis <emil@etsalapatis.com>,
- David Dai <david.dai@linux.dev>, sched-ext@lists.linux.dev,
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Koutny <mkoutny@suse.com>,
+ Waiman Long <longman@redhat.com>, cgroups@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: [GIT PULL] sched_ext: Fixes for v7.3-rc6
+Subject: [GIT PULL] cgroup: Fixes for v7.3-rc6
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,57 +41,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 
 Hello,
 
-The following changes since commit 94480606a677deb68d5622cf0ded88626514b3f2:
+The following changes since commit 31c88350b7dd1522792f726f79607f31bb55c50f:
 
-  sched_ext: Add a size argument to scx_bpf_cid_topo() so struct scx_cid_topo can grow (2026-09-26 10:09:12 -1000)
+  cgroup/cpuset: Return PERR_NOCPUS in remote_partition_enable() on subpartitions_cpus conflict (2026-09-26 08:07:26 -1000)
 
 are available in the Git repository at:
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/tj/sched_ext.git tags/sched_ext-for-7.3-rc6-fixes
+  https://git.kernel.org/pub/scm/linux/kernel/git/tj/cgroup.git tags/cgroup-for-7.3-rc6-fixes
 
-for you to fetch changes up to e6ac89b8b1c12e9104df45a14a26e2dfa96ded06:
+for you to fetch changes up to b8eb5fd5bdb4c03758b056c70e5e1d962ca89757:
 
-  sched_ext: Generate qseq from a per-task counter (2026-10-03 13:23:31 -1000)
-
-----------------------------------------------------------------
-sched_ext: Fixes for v7.3-rc6
-
-- Taking a CPU offline could hang, or stall until the watchdog ejected the
-  BPF scheduler, when tasks on the dying CPU were still held by the
-  scheduler or sitting on a user dispatch queue. Re-enqueue them onto the
-  local queue when the runqueue goes offline so that the CPU pushes them off
-  like the other sched classes.
-
-- The sequence number guarding against stale dispatches was per runqueue, so
-  a task re-enqueued on another CPU could get the same number and a dispatch
-  meant for its earlier instance was applied to the new one. Use a per-task
-  counter.
-
-- A task dispatched to another CPU's local queue got its ops.dequeue() only
-  when picked to run and flagged as a core-sched pick. Call it at insertion
-  like for same-CPU dispatches.
+  cgroup/cpuset: Call is_in_v2_mode() after acquiring cpuset_mutex in cpuset_handle_hotplug() (2026-10-06 06:36:51 -1000)
 
 ----------------------------------------------------------------
-Kuba Piecuch (3):
-      sched_ext: Call ops.dequeue() when a task arrives on a remote local DSQ
-      selftests/sched_ext: Add a test for ops.dequeue() on remote local DSQ moves
-      sched_ext: Generate qseq from a per-task counter
+cgroup: Fixes for v7.3-rc6
 
-Tejun Heo (1):
-      sched_ext: Fix CPU hotplug hang when a dying CPU's tasks sit in the BPF scheduler
+- During CPU offline, the active mask drops the CPU before cpuset updates
+  the effective CPUs, so a task placement in that window could find no
+  active CPU in the top cpuset and dereference NULL. Restore the NULL check.
 
- include/linux/sched/ext.h                          |   1 +
- kernel/sched/ext/ext.c                             |  46 +++-
- kernel/sched/ext/inlines.h                         |   8 +-
- kernel/sched/ext/internal.h                        |   5 +
- kernel/sched/ext/sub.c                             |   4 -
- kernel/sched/sched.h                               |   6 +-
- tools/testing/selftests/sched_ext/Makefile         |   1 +
- .../selftests/sched_ext/dequeue_remote.bpf.c       | 270 +++++++++++++++++++++
- tools/testing/selftests/sched_ext/dequeue_remote.c | 204 ++++++++++++++++
- 9 files changed, 528 insertions(+), 17 deletions(-)
- create mode 100644 tools/testing/selftests/sched_ext/dequeue_remote.bpf.c
- create mode 100644 tools/testing/selftests/sched_ext/dequeue_remote.c
+- The cpuset v2-mode test read the subsystem's root pointer, which is stale
+  during a cgroup filesystem rebind, and the hotplug handler evaluated it
+  before taking the cpuset mutex. Record the mode in a flag and test it
+  under the mutex.
+
+----------------------------------------------------------------
+Waiman Long (3):
+      cgroup/cpuset: Don't access cpuset_cgrp_subsys.root in is_in_v2_mode()
+      cgroup/cpuset: Handle cpu hotplug race in guarantee_active_cpus()
+      cgroup/cpuset: Call is_in_v2_mode() after acquiring cpuset_mutex in cpuset_handle_hotplug()
+
+ kernel/cgroup/cpuset.c | 40 ++++++++++++++++++++++++++++++++--------
+ 1 file changed, 32 insertions(+), 8 deletions(-)
 
 -- 
 tejun
