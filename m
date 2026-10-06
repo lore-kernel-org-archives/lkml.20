@@ -1,68 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0446337BE6C
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 17:36:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791308162; cv=none; b=par60I18L8C+YHms/JtKagc9w6r6S4bdLnm4K7NHsIEe2UeXbJHLcwyT58dkMs1Rm9xF9H5ZFMTbLBmJEfNWThVBgGR67J4zy0X8NMRTnZ7nY0lqxDAyhx1DxUJR6bLOnpcfGBIJ7beiUIi5aeftWoNgSbeVBa/HSD8MUqXbKhU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791308162; c=relaxed/simple;
-	bh=vMnmTwE2G+AQgif2NbsLP9FLqmSZ6FMc9EKcPS6lvVo=;
-	h=Date:Message-ID:From:To:Cc:Subject; b=b3dwUM3mN9+cBnGsXDJZOcHf/puZIBKNpdSSrdB0YHpsmiIskgoo240c8s76gDmJcbsiKkMV1j0IXa5NzKRsRnc4l71jzlnjrw3a5M7wTXuRpkXzez+E4C2QrRBO/+kjipRaG9LQPBcTxK16UNsaKGNDYFSJdCz29XcqGh3QPTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fVF61WKE; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 497BE2D2488
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 17:36:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791308170; cv=pass; b=HHcS6htmhqFY1hjv5HB4h7UentiQZDU5KkKAImPGpcGTMNvQuiAkxGuK/MHrGYhuhUDTknqXAjsTBfGkwzf3uLJH+uZDuezCZoDYkMiaw0/r2YQip3+gzje2yNR5/3vd2rnAH6y5ncC6+HpeTI5v00WrGaOPMs1t6jmKknwBac4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791308170; c=relaxed/simple;
+	bh=R+WWnBcb7MjTrh3nR3mkd4Ia2jxPFj/JyJhqyre0svI=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=NdVRNCzJpz/w8zwA7S+c4RXbcAGMmxGN3XeHPecrX5sbCiYtqU6fTFxS5tIcAGQhALwuRrWKVoxXwYXY27ulKOCErCOmGPwNF5HU3Q+NNYO0L5IJSVfIn6aMksqh31gK4mWp4oc3axsdas6jiJkRfO6khDQncD9Ct1n3FSTG/wU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=Z1iOvX0H; arc=pass smtp.client-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fVF61WKE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 854741F0089B;
-	Tue,  6 Oct 2026 17:36:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791308160;
-	bh=QmM3AxiFbp2cYQ08Z8YKdo6OO8AxnjwHJQ0hnfPDJng=;
-	h=Date:From:To:Cc:Subject;
-	b=fVF61WKE0+SLBIZ48SW22faJwxvIlUykFPiJHKyV41CKh7J1mFVqqQmDERlIIyUqv
-	 Seq3CsbaWDGnXt5c3IFxOorA1BCN6+rL298IpUr3Wk6EIrIaOXYFF2pHJbK4FBut81
-	 i6gc/W0Qs6GOCMIwpQqIvbyPNUcKiXy5PivwbSwFpF2snezagonCDiH9OMVIN9QHX8
-	 pagWwPUCRk/LNKqq1uC6VOGJwmUDvSM3FIJ5FJ9cEin3EL5LstImSwU5QEUCNXIRca
-	 3OLraj/ddx9jpeTJn1dyqwaAATWMKTbBXNUNcu61lynoR6zC9FS7AF4njCeVdIBFHT
-	 KkLW2hn8UpwZA==
-Date: Tue, 06 Oct 2026 07:35:59 -1000
-Message-ID: <8b5da0d81963439650838cacae437645@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Lai Jiangshan <jiangshanlai@gmail.com>, linux-kernel@vger.kernel.org
-Subject: [GIT PULL] workqueue: Fixes for v7.3-rc6
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Z1iOvX0H"
+ARC-Seal: i=1; a=rsa-sha256; t=1791308135; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=JWnU8+DVJH77L5jPMmnJq4YyBE3IvPCdC+wh+Lgp5Mb4BhiurOs6t5KagrkdEnbvkscz5d4FMXUAQ76Awca0PS8a+2j18cvNlwzePkbS/R+zkhwElZi/UsmW8DrSe5c+0m2V09nI0IvlwGYl6fIU+OFqjmbQfEaLp3yz3fJ0JcM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791308135; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=uzlERgS6IKg3Aub4ATZ5A96E6H2wTIZyNgWca8i48qM=; 
+	b=kNGiNUc2NMSJ5ishQoLeMIIl2wxruxt6EacretbJl6DT054xHpBhpv7LdLSdPjmE22hwepqmkYPHvXU1YBYr5owm/zu6avTI0p+sVVxxv1b6PW8vN3Y9r8Ua/HrfjzXMon7XWgo+B5Eif3GwwEzdF5/CWO+b1dpph4idqivulnU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791308135;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Date:Date:Message-Id:Message-Id:Reply-To;
+	bh=uzlERgS6IKg3Aub4ATZ5A96E6H2wTIZyNgWca8i48qM=;
+	b=Z1iOvX0Hc0pAhuuy375LHNupuHw0eGfOCAhkNajU9gDasB+m4JG+Mg+Mo9vldzl9
+	pvZSnwDTPGErBo6FQhC+axmN5RP86a7rtPg3Sik+kYehgq/bkC+DFzgVR7sqcQZ/1Dl
+	ZqArxAsOMhWmhTldyq9iSnVsJQ1AaP+kEpZ+fyLA=
+Received: by smtp.zohomail.com with SMTPS id 1791308134410525.0055785860591;
+	Tue, 6 Oct 2026 10:35:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v12 12/15] drm/panfrost: Skip cache flush/invalidate
+ when enabling perfcnt
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+To: Steven Price <steven.price@arm.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Rob Herring <robh@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Faith Ekstrand <faith.ekstrand@collabora.com>, 
+ "Marty E. Plummer" <hanetzer@startmail.com>, 
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Collabora Kernel Team <kernel@collabora.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+In-Reply-To: <37422c77-ecdc-46a0-8896-3a5098417426@arm.com>
+References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
+ <20260929-claude-fixes-v12-12-62beb08de207@collabora.com>
+ <95174a67-0eee-4bf7-b883-9f1138c74a6f@arm.com>
+ <20261005103855.655f8199@fedora-61.home>
+ <5af99ba3-97e7-4a05-b91c-7d53a508b635@arm.com>
+ <20261005173741.445715f0@fedora-61.home>
+ <37422c77-ecdc-46a0-8896-3a5098417426@arm.com>
+Date: Tue, 06 Oct 2026 18:35:29 +0100
+Message-Id: <179130812939.1018806.2045583346110052897.b4-reply@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1992;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=R+WWnBcb7MjTrh3nR3mkd4Ia2jxPFj/JyJhqyre0svI=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqxTFh4ZC2cviUaNdI/hTgsK0SyulhC9u0cD9om
+ xOikBXnXtaJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCasUxYQAKCRAOJn5M7lND
+ PQoVC/94ShhpXjcf5gRnUev/o1FvkpfXpV9/Hvoidq6K/gonmmu3QSucxmiuVdpuryj2Iq2dYYl
+ J5q5w6gb0vJIBejnZaohQyiliMTDS528EPLNklrrGzogyiuXjDPvKZ7Kfoo+NyEsptR2rBi1vIo
+ U2ytKyfAOjVDO7X37819qVVi7GrDWH84+kf8pbF6Az0tzn0E1e/lBfXFnJiDbaomzR2bPnF0Bu1
+ 60Lu5PDvBJEcwaoAHy6Pn+JmibbMqMzd4oWPUoIFoFx5Wfyko+5Nb0NfcxHu50EDymBkj1s30FO
+ axy7P4Euj301ngXuETpwV3372uARirNRNUNCHg5raDq+wBqFiM7um34+EcQx9gyfFkAR5rTw4M3
+ WeuCH7bi7HnI/yH8UnSYeNTCJ3tszTHfjIGvb9t7tpjo4xdlftQ71PjQSoZ6rErL2Bk4uFCnli7
+ ZbXbWwnzkr4THmqugK1htUoFUVYZKoVC3Q6DICH4Tn9WW3ERngpQVZEU7C+AKSyY5NUrs=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
-Hello,
+On 2026-10-05 17:05:14+01:00, Steven Price wrote:
+> On 05/10/2026 16:37, Boris Brezillon wrote:
+> 
+> > On Mon, 5 Oct 2026 16:06:02 +0100
+> > Steven Price <steven.price@arm.com> wrote:
+> > 
+> > 
+> > Hm, I'd say it's actually impossible because every unmap operation is
+> > followed by a flush+inval of the GPU L2 and LSC, so for this stale
+> > clean line to exist on the GPU side when a physical page is GPU-mapped
+> > again, it would take a bug in the unmap logic or in the MMU HW, I
+> > think. Am I missing something?
+> 
+> Ah, yes that's true :) Although there's no need for us to do an
+> invalidate on the unmap path...
 
-The following changes since commit db6365ced4d5855e321f772b240c0e473bcfcdd5:
+Does that mean the panfrost_mmu_flush_range() we do at the end of panfrost_mmu_unmap()
+is unnecessary? Is it because, as you said in a previous message, cache lines for
+BOs referenced in a CS are always invalidates before anything else is executed?
 
-  workqueue: Fix NULL current_pwq deref in flush dependency check (2026-09-26 22:18:50 -1000)
+If we keep the invalidate at the end of the mmu path, then there would be no need
+to mention that all counters being enabled is the ultimate reason why no initial
+flush/invalidate is needed in the perfcnt enable path.
 
-are available in the Git repository at:
+> >>
+> > 
+> > I suppose speculation pre-populating the caches with stale data would be
+> > covered by the flush+inval we do after a map operation (this is
+> > currently done in the unlock path regardless of the VM op, so both map
+> > and unmap get it). I don't know, maybe the goal is to relax the flushing
+> > policy around VM modifications in the future, but if things stay as
+> > they are now, we can assume that a fresh BO being GPU-mapped guarantees
+> > that no cacheline points to it until the first GPU access. But maybe
+> > I'm missing something else...
+> 
+> I have to admit I'm coming from experience on CPUs - there speculation
+> means a CPU can load a cache line at basically any point. So the
+> argument that a line cannot be in a cache almost never holds. GPUs (at
+> least Mali GPUs) haven't quite got to the stage of CPUs.
+> 
+> Thanks,
+> Steve
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/tj/wq.git tags/wq-for-7.3-rc6-fixes
 
-for you to fetch changes up to 980db94e3eeefdd8a1c46f86412c33a7f7806f51:
-
-  workqueue: Fix NULL current_pwq deref in chained work check (2026-09-28 07:46:45 -1000)
-
-----------------------------------------------------------------
-workqueue: Fixes for v7.3-rc6
-
-- Fix a NULL dereference in the chained work check when a kworker queues
-  work on a draining or destroying workqueue outside work item execution.
-
-----------------------------------------------------------------
-Pavankumar Kondeti (1):
-      workqueue: Fix NULL current_pwq deref in chained work check
-
- kernel/workqueue.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
--- 
-tejun
