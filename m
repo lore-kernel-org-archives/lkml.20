@@ -1,112 +1,112 @@
-Received: from outbound.ci.icloud.com (ci-2007c-snip4-10.eps.apple.com [57.103.88.32])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 876443E9C11
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 14:40:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.88.32
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791297649; cv=none; b=AFXnnIyqzEfHe8bGjj7CAEmIRS1j8X1csRjKMLM4sDrgsOw17AVaeqbOSsz11cjDYE8VbHRKjiQ99rIGUskgLSCqHCDpDeblTiEiLet8VvyeipcqTq73WzynlZUmIoojWhiJ2u3pj/6YzIyQqRFVjgzTcscqKoBMBrePPUDqQqs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791297649; c=relaxed/simple;
-	bh=h/nnP+E7fe1nVoUD+2H9a5/ookyzyglbYchY8DE3q+0=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=l1gU4H93+V/p5buL+e/PiGujCV/X5rXUW6kZaz/DPv3eAFogvtArBjMuP+2m1x1cOdE3G43LnZMAa++bRrkX3BMpJWfB1l3A9uf0vEXt2Cnv+6TRng26LooqC1QjtPeT/yDC31eU72Vn9iMxiy/+BXPe2uNEC/RIeEImk3v8s4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=verdict.gg; spf=pass smtp.mailfrom=verdict.gg; dkim=pass (2048-bit key) header.d=verdict.gg header.i=@verdict.gg header.b=K3cCcf8H; arc=none smtp.client-ip=57.103.88.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=verdict.gg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=verdict.gg
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DB631BC08F
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 14:41:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791297673; cv=pass; b=NnuTMXwSmmTIf5O/EXKlXteTP8b0mCgapLefCR5QDrXtMknuTm+DvEyJ8BdUJeNZF+gv0oM3eV+dCeEtoe2pemZmAk7oGHYuxjS3RDJqHnjO/Y3pHUN030qgXTGg041pQfVleyFbHfklY5PUB3uZSTqNwAXE0hzw/bC8lZDAcAY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791297673; c=relaxed/simple;
+	bh=v/GsJDj9Q0Ij9HiaS1dDUSYj+explIch1r4r7AG4ZvE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Mm5vVaN8As8sfTmlXCG6trdwOvFBfvP9Mak0nr0AnUIZfbdC54Xm72UhHjhF86foxVV6L/n8c8O+8EM6ZfW4MIWF0AkoEliMwKLyKaBACBNiwf5r4STmB2gO48r9WgVw5BMuJkm2ub7o4Hl0qLUPO6csD0gGkSJvD1J/xxYDhTc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O+oxQupy; arc=pass smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=verdict.gg header.i=@verdict.gg header.b="K3cCcf8H"
-Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-central-1k-60-percent-0 (Postfix) with ESMTPS id 43127180011A;
-	Tue, 06 Oct 2026 14:40:40 +0000 (UTC)
-X-ICL-RepId: 01a111a8-da67-740e-ab91-79be6018d5d9
-X-ICL-Out-Info: HUtFAUMHWwJACUgATUQeDx5WFlZNRAJCTQ1OHVwORQFEF0oBTVIPDxRcFFofVgVyBlwKVwRUHxwXXlhVCQodVwJdEVAZGQxVUEsbDl8GS1oVVRcOAkIfUB9MFldDVAIcGVoUXBhTRVEfVFhDGUVWaUELTx1dGVscQmRYVwkKHVcCXRFQGRkMVVBUEVdQCy9+KGxIfylnPmcjflYBJ3lSaD97TmogYlsFME8dQQleCEZeXh8NTUMSQhUEG0YeQwRfL10XXgxeBQ==
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=verdict.gg; s=sig1; t=1791297644; x=1793889644; bh=h/nnP+E7fe1nVoUD+2H9a5/ookyzyglbYchY8DE3q+0=; h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:x-icloud-hme; b=K3cCcf8H8F9+2HE3eH770sAVOMvbgSzpDP3J+evQzHdX9GlEI54a+gCsJkTOKu7MW8il98VwPg82YOaUJ4q/JfHAL8nEEh+IQspRfu1E3Vr9Q/kpyza0tyHlTfL9/nVwBtmnkTGxcLozQfMT3x2XMxlLeICEinh+DkdRu+tqaHFULNndqmZysRFwkAFgNIpRJE7/jC7eMMTeYUgLEbP+3tKTOFj3Q3yTo42dZRWwV7VNxIW/G1M9tH6O247Dbz0vDq0ghr6A5Gnw0nHAFd/apO1kQeYwJVvvWzhXfGDiTL948buOJCiXv7iM3TLJFZk4Y8/ymS069YBOZ0jWO3ZEWw==
-mail-alias-created-date: 1621344842221
-Received: from localhost (unknown [17.57.156.36])
-	by p00-icloudmta-asmtp-us-central-1k-60-percent-0 (Postfix) with ESMTPSA id 7ECC1180197A;
-	Tue, 06 Oct 2026 14:40:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O+oxQupy"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3a49623b865so1811638a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 07:41:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791297671; cv=none;
+        d=google.com; s=arc-20260327;
+        b=i+uZ6Q99C28eYJGvH43YdNvW7zq5Wf5v4Vysl8tLiylxX4snciGq+FCBIllTtJPUZh
+         sP8n2nNP39lz61S4UNmg/aGhVLftdn75O7EuRZtLMSxVMyWPm+jqBXSwd5U1/shO3vEe
+         pOOwtO7DQE2JLUgdfvZ6dlSwVSyTW5Q50M2oD6Iud6H1SoAj7YwiRhcmKMfvl9pZa5Wa
+         NpSk4B74S2Cu7pmocxzn/3lxcZ3jG3X2lIFI45ELHkxT+v2+7HvYdwmzz+OOsw4PkmDh
+         BNUKlCrha2ynpllYIiHzTtbNAOThcL2b23ozl0GZ5xlDzY11D8U1/ndSSwybuioKkfkd
+         yWCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=v/GsJDj9Q0Ij9HiaS1dDUSYj+explIch1r4r7AG4ZvE=;
+        fh=gKwdesX6Mng9yJCABnG1b3j5veDhqlOm70t3+wH7LJE=;
+        b=Ua+tGW+mwGvjTgxoXWP53otFciRtCxUKI+FJKF49ku4n2TpdlEOJV7aqeSBDbLsL3X
+         eQAG7HUvDZ8x41n5eNFt95IvyCfbKRrHwX+W1VdIeu5nwaToYdkFvPMZbECo4TH4EQs8
+         os3bHIol8MKCmiwymsuJ0Zema+msCsT9V6U1oMsAcxoF+v1wtqIpdaMRW+60u7wDV5WI
+         nhD13DlGjv077qwXBpn4pPFButgMnuDI4xbB/AIJnN5qt3Bzcwqx/CBwfMKK/TgpCllC
+         JBRh94W115X8qZcDz0Jy5dBr3RFdeadwxo0X+vkhbEGR6GIM9UrNk3N81vHwzHI4H9ug
+         B/jg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791297671; x=1791902471; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=v/GsJDj9Q0Ij9HiaS1dDUSYj+explIch1r4r7AG4ZvE=;
+        b=O+oxQupyIIBBhvKTa3w/s0bCMDMznrSh2OBwOFo8dFkoUsV/kpKGm6/K0iCPUKBLOt
+         NJ4sF6/Ttjvc5dsJEN2JOkN93wvPN7hskF/EksdP+3AYNiCZAZ1eAAa6lk/ixWoWWCmO
+         mr2uv/JVKJvzo/lG3KHJvGN3uyuWZ4Pocjd8R3lnocph0olqWab2U5gh1Zhub/MvY8sb
+         4AdnbLF3XtiSSmNBQcQU6S8TNEoMdr0zk71BZu5yUjqK47ZaymFCT/Hks0B6evz5Z7WM
+         Nf0A1A9Vxh8SXqvFCqM4AIQJmgiORqs3rG4rl5Ola1y7Buaa6w8Wr27z8VWtGg9+LNYU
+         QvXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791297671; x=1791902471;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=v/GsJDj9Q0Ij9HiaS1dDUSYj+explIch1r4r7AG4ZvE=;
+        b=LfTNKJVfQzhiyPXHrdzpp5PWHhdCOcgJ9EjnmfvPFqTNZKsGQ79CXdzPHzcaQ4itSz
+         o2mAUistjszVcRDMayrfGjgWPWOP8vD/ZW8Rby9FSBdMjM49O+pUi3CrlWxhMfvE8CCw
+         5oXSV7Y6JJwRtAD6nRN8wJHC9ZewxRqaB3dN26aU/9VEKFYiosRmmchDxgW8OqNwqDqq
+         oAWENUojSGOsLHufZfYMBKOzi2z1ZZ+sTsKF0e/TUTXpb+zP8Hd2pW2ucSFQsROU06JB
+         rtyqxgZjejcUwg0aoFg+lji5U8nAdQfbgoj0qq46hSnCA3yoopTMje3qpFgjdaPF30fk
+         9jUw==
+X-Forwarded-Encrypted: i=1; AKwUvByyf6AVZ8LYB9mdTeXqh1T4ke+AqdeoDlhBcIGbtg7jqL2N8PWbi+dlgW+eQ2w2gvpfgOXeuQiaK6K+xpk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIrMFTOXOoJWW23E8qyi/giVSRuN3G7HO5zIkEbdQitM7HXCrt6
+	DSEPA3RLZW5UQL0ZE0VhjzPNwU5AhJV452y5V+DUeMQawTIK5YT5Aa6vEdpCz6nE7+mhR0t60C4
+	Ovtdacpa8H3Pvm2I79kLmGj58ETFqWmAHSy//
+X-Gm-Gg: AYBFou3XxCfYHTYs/65V4viJrMoeKt4NoojH9oIRVnnRf/Sucjt6IEA68Ku1dyb6tx3
+	zyNNhKvJvqMT+vcVnVtCpHCiTtCnoJj+Y0ZD1j+ZnDrvaAXFSgWpv0qFSPE4GkdGwJL9MWf2CaL
+	ZiVtP0SZMfiIvWf1/PQFQDQ6KHfIfCWp54Qy5vtug1GG008jP0hMid1aSHmEWA5sapmg7OOZ5Hh
+	OQc42n2rxM8syU4WJS6nJuiDvK9v1F7rhGYxA5W5qE9231fFa69Zo7rdnWSbaXi8lTfkQRej5oy
+	7qEwpiIof0ER5BdsZzHwv/S6fMie1rXNK4Xp+AHsSIijwxIEwxcfQVRmXPaHR68NqAEGvQTDXT0
+	O8a/HtY7ytnXAZyc07YQj5B6WS1TZNA==
+X-Received: by 2002:a17:90b:3949:b0:3a8:545a:9e87 with SMTP id
+ 98e67ed59e1d1-3a8545aa073mr2506773a91.15.1791297671442; Tue, 06 Oct 2026
+ 07:41:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 06 Oct 2026 17:40:35 +0300
-Message-Id: <DLXU0LDPUUSG.2JN9ZOB6YMU07@verdict.gg>
-Cc: "Ingo Molnar" <mingo@redhat.com>, "Peter Zijlstra"
- <peterz@infradead.org>, "Juri Lelli" <juri.lelli@redhat.com>, "Vincent
- Guittot" <vincent.guittot@linaro.org>, "Dietmar Eggemann"
- <dietmar.eggemann@arm.com>, "Steven Rostedt" <rostedt@goodmis.org>, "Ben
- Segall" <bsegall@google.com>, "Mel Gorman" <mgorman@suse.de>, "Valentin
- Schneider" <vschneid@redhat.com>, "K Prateek Nayak"
- <kprateek.nayak@amd.com>, "Vladimir Vdovin" <deliran@verdict.gg>, "Emil
- Tsalapatis" <etsal@meta.com>, "Christian Loehle"
- <christian.loehle@arm.com>, "Balbir Singh" <balbirs@nvidia.com>, "Lee
- Trager" <ltrager@nvidia.com>, <sched-ext@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCHSET sched_ext/for-7.4] sched_ext: Add NUMA balancing
- support
-From: "Vladimir Vdovin" <deliran@verdict.gg>
-To: "Andrea Righi" <arighi@nvidia.com>, "Tejun Heo" <tj@kernel.org>, "David
- Vernet" <void@manifault.com>, "Changwoo Min" <changwoo@igalia.com>
-X-Mailer: aerc 0.22.0
-References: <20261004072901.3579967-1-arighi@nvidia.com>
-In-Reply-To: <20261004072901.3579967-1-arighi@nvidia.com>
-X-Authority-Info-Out: v=2.4 cv=XMk9iAhE c=1 sm=1 tr=0 ts=6ac5086a
- cx=c_apl:c_pps:t_out a=2G65uMN5HjSv0sBfM2Yj2w==:117
- a=2G65uMN5HjSv0sBfM2Yj2w==:17 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=VkNPw1HP01LnGYTKEx00:22 a=18byMXbjZilrT4O_L_4A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA1OCBTYWx0ZWRfX13+4m56Y4Qoq
- jnUay0jZoWCzOqfDFLgMFFWFcHymBFJ4tMkDMbNF8myNI5iZ1pQ2eua6tS8k/w5ulubqOvChFGk
- +3RSNHe/IDbVgH43mBI+jswXod8Pi0/Plr8EtoS81BV7961umvn1WlHzuhY/YERCof86ObXWwym
- wuNOMJnwtd8Q1n8tAEba7zMSClSgUR3g4Dc3T1STT/Yomt8JEDPdBXHOGXE/z8NtMYWuAmChIk7
- 0ahwhO5EFB29lxMPnj96tGHrPyj4fTzUeIZj7UmFeFl4PXvAvY96Zv5S0vb87nsfcFV6GRzPRmH
- dBYfchWbmXUHxDK/nzx1Nc0TXcqkkKcJwUMbYfJbOYARKEgIKYFjYctKOIOcyw=
-X-Proofpoint-GUID: KWxPDw2SAkk9Or2XZ9iIt51MAH6a4z5X
-X-Proofpoint-ORIG-GUID: KWxPDw2SAkk9Or2XZ9iIt51MAH6a4z5X
-X-JNJ: AAAAAAABdUn6sFf76kXbnKpVK/BgksrlIuwj927XxVR2yldzlkmoU7+msZTNypuq+kpmY85OVhgB4EnlUqyNFiEAv2XoQVjT9g3z8HAXooOhxfwRlOdZ1pyucqE8djkCyLeGsIvFecl8unajozkcjPpeNXqmO2kIrTXZuotIMzLGcWNoLFfUwxyBqBNxZuUvhl1HsEIg1TysBayiQDoNRAhKOmwbPJeoRXIz0HNvCs4iOho3iUdKDRn2GsJUy28fats9eS+5xoSpd3R/JMp9ac8tnoP4IR3YCAwEnvurD+jUHFkbbN1w3MhLcLtwHX2Npt3SQNLXYqZz6/+Kiy5lhlvPxo2PTzotLSHvuxsoglmmBLI+K+K8sBVAZMIGhnydBUitJA3x6HOKJalqiFloJOmxxrv1E5BYFc2N7CO75ZHs2qT0wBP8Z/8ePloP9Zb1dpG1Is98Aoyw3eyp9AM+mLTSiE9A1muVr38kb0Kn9toY7dIIBULrmAZg9/+SEeyv8N6OoJ4iiseQjV+fvWqNuhTZpNKGPO6nejxLnXSIFSGw/azX4RImBfNiXjMPMbG7SmjH2fo6LEJcFNryyFLCUZE28OJLgg6bIW1s509roSKR5GxM86Iaah/Mx2CQfapwtSU2SYF7dcAXs0GWqacmANwHn9dr+9akAWIuUdc1Kauwaj4TT/dyEu3eusT5DY0siFKvRqN5cl0r07nPyGpUf4oHhW3jDvGoIx42okl2BSybQenMjWuSzvxL5KgpAm8guWu+bSsN9b2c3NDTWLHR30L9uUK/6CjlV4wzlKTXJfZEuHjcDugrJA7AXyzQ62UR6PlKa6hOTTEw4sD7hPg/RIVtn0YwDu8bRdl7/7XQ0FJZu21G1mUzEpuv/ReQ2lpgE7OK37kQao1wBswm54bXQCqhMEVG0yTbOsEj3DpIK8bIjLpTcj64SDUyjSQnwFF4IFkEiIpIokpWbXZWCKcv1b42RXUhGUA
- 6SxiUlwGUb3P3VuZk5510KvcL6hK8BhYUY8yJhw4AeMD1jrHgqcXuWByCm48az8ZHvRgr+aAmUKs+UIrU7MFCw6v6Q40sNIfrT6Hju53i5fezxVw43YWmdYMR2LA2ckA2OWaAB4shGHBUk4eTJ0ECWr0BdFmqgFwamrCoU5sKezIAUzT3pb60/5XChDPgzs0E/CVgiSbt0MAhRoQ+iXbYuzoAMz3sWzBGpdYONjSMD/kamNkXWvdNn337Hw4WodtzPyjVNhlVKj6008vEZz1zA6CgQSXWAravmoUCon+GQ7VLnFnZiw6wExee8OVa8VZZJGfzHhBRYKgCZmdD2FcC3RIqyhlVrmmE5ceJnsanCr3tCn9q18eZ6OqGPq5CLc1q+mNaM+6rk5s3lC7HDHhf7cxoe2+MOq9Nx+5CUi7aaSND5Qb1O11yQQuiumCDVkDtuBNJxbf9sfIgDI+tlVIw3EGbfVcOcwdCEjH4B4JnAPGshVjdc7u7WeyM6sU=
+MIME-Version: 1.0
+References: <20261006-asus-ec-x570e-cpu-opt-v3-0-62672edc18b3@gmail.com> <20261006-asus-ec-x570e-cpu-opt-v3-1-62672edc18b3@gmail.com>
+In-Reply-To: <20261006-asus-ec-x570e-cpu-opt-v3-1-62672edc18b3@gmail.com>
+From: Eugene Shalygin <eugene.shalygin@gmail.com>
+Date: Tue, 6 Oct 2026 16:40:59 +0200
+X-Gm-Features: AclHuK_VyES8DGlX4WpDsEtrXhRh82OdVQzj8EL621nkfmlGXF5ZyQLTHX8sgrw
+Message-ID: <CAB95QAT4A8ONTYdQ9Y50t8zJZ3cOZr6ADSTknYdUUs1n80qciw@mail.gmail.com>
+Subject: Re: [PATCH v3] hwmon: (asus-ec-sensors) add CPU_Opt fan for ROG STRIX
+ X570-E GAMING
+To: mdlayher@gmail.com
+Cc: Guenter Roeck <linux@roeck-us.net>, linux-hwmon@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Andrea,
+On Tue, 6 Oct 2026 at 16:36, Matt Layher via B4 Relay
+<devnull+mdlayher.gmail.com@kernel.org> wrote:
+>
+> From: Matt Layher <mdlayher@gmail.com>
+>
+> The board has a CPU_OPT fan header, which the EC reports at the same
+> register (bank 0, 0xb0) as the other AMD 500 series boards. Enable it.
+>
+> Assisted-by: LLM sparse
+> Signed-off-by: Matt Layher <mdlayher@gmail.com>
 
-On Sun, Oct 04, 2026 at 09:27:06AM +0200, Andrea Righi wrote:
-> Tasks running under a BPF scheduler are currently invisible to NUMA balan=
-cing:
-> their address space is never scanned for hinting faults, so they never re=
-cord
-> NUMA fault statistics and never acquire a preferred node.
+Reviewed-by: Eugene Shalygin <eugene.shalygin@gmail.com>
 
-In case it's useful, I gave patches 1-3 a try on one of our KVM hosts,
-backported to 6.18.54 and running our in-house sched_ext scheduler.
-
-It's not exactly the series as posted: to avoid changing the scheduler,
-the backport drops SCX_OPS_NUMA_BALANCING and drives the scan for all
-sched_ext tasks under the sched_numa_balancing static key alone, and it
-passes curr, as there is no donor there on 6.18. The fair.c parts are
-the same.
-
-As a controlled check, I used a stress-ng --vm worker touching 4G,
-pinned to a CPU on node 0 and then moved to a CPU on node 1 with
-taskset.
-
-Without the patches, under the same scheduler, mm->numa_scan_seq stays
-at 0, numa_preferred_nid stays at -1, numa_pte_updates in /proc/vmstat
-doesn't move, and all 4G stay on node 0.
-
-With the backport:
-
- - mm->numa_scan_seq advances (7 to 12 over two minutes);
- - numa_preferred_nid is 0 before the move and 1 about 20s after it;
- - the whole 4G (~1M pages) is migrated to node 1 within ~20s;
- - the task stays on the CPU it was pinned to.
-
-On an otherwise idle host, the vCPU threads of a running guest now get
-task_numa_work() calls as well. On a host running the same scheduler
-without the patches, a kprobe on task_numa_work() sees no calls at all
-in 30s, as task_tick_numa() is only reached from task_tick_fair().
-
-Thanks for working on this,
-Vladimir
+Thank you,
+Eugene
