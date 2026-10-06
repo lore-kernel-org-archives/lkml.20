@@ -1,83 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C10749B5C5;
-	Tue,  6 Oct 2026 15:01:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A36823E8C77;
+	Tue,  6 Oct 2026 15:01:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791298890; cv=none; b=hRluSJF8v8JklVbqlgf1AKB3AlueqeN6lqdc7I7LTyqF0yk5zaXeFhr+HMGnJ7XBd1aEnuEhbvlZVaISBzaY1JrF4uQ6MNdzyOidJ87OShI9f6QigNzo8cP76bZ4mIFAiXjc047lEDD5QdJhW4yti58g3AxhAvBkzkVGEmgnCRg=
+	t=1791298897; cv=none; b=nItibpRxeWxwHGe3sb2A4zpUYqjMwEOp4Wx1FgqRPEa8F1hh7I6A2Vvh4HAGxQ6SEm5aNZdUtSuObVNn++YTUTHWFwLlgpKmLEe8HylOFKvt6i908JeFdrf/Ta2M26wFn78CW7StCpa4tFoSmu1h3Ac0UFNJtLWiZxtKYwue54A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791298890; c=relaxed/simple;
-	bh=vKUlAkv9kE2jfuS5he8GuXJYsMBv8JxaqPzw/w2RK7A=;
+	s=arc-20240116; t=1791298897; c=relaxed/simple;
+	bh=AawIuNNuAdZmKEotUJLIOKE8pXpFWRNIYA/39Sn99WY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e2c+9xxQ0PVL76UfK6HJDXpOYYvWSsnOeULEaPgs0YTcl4YsbZucXLlWNqgLe1N8SZzKnODRuTfHuLnc+0xiqbdIgVFTc9OhIrzpmifSAb5ObMqu1U3P5NH004V+dGmEeFXGW7K6QBvZ776emQVgcwWbWlvRyMCrFtc6jUNdQMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A9P9NTJ2; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=hBscE5IJa69DM9SoQU/EUjNQ5r18H9o4lf33DjsGtccvQopsfUvP2rproP5zQEzP2X6szHcDoIFIVOQzS0cLhF0jpHZErBJrZHouW4iW5xlUo/IgLk+JF8JaSaff+SYBBJj4j8LyLZsLKC3w3+1pGwjnJNKpi8Hzhqyipo26vjs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SAHF3URF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A9P9NTJ2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49BF11F0089B;
-	Tue,  6 Oct 2026 15:01:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791298888;
-	bh=zP7bMLfk/y3kcdTgl7DbKryqJaH2lXO8Bn7/SsVoFtY=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SAHF3URF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAA5B1F0089B;
+	Tue,  6 Oct 2026 15:01:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791298895;
+	bh=OGKvTKGfYMz2Mi1hTbuVKuDdNpjudbrA/okQD5pP910=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=A9P9NTJ2DITgGi7O1t/cEg7rvO7Nk5MQywPHqp0ukCx9CMbFC4b+tv4jWlIGjt8LC
-	 WcCShLyQuWtxeSKpFvWzij97IKE78K2jiev2wgaLPGTAsVDyMS9OKvbStox0G4Gny/
-	 sZGlD71l92zxyuGpUtzmosHzXjU6aDNx4C1XOaG7U1x6uuIiwNWtO57jW4flC0MR5z
-	 +uEFxL8BOSz8+PP0mK/mzyK1Ec/q6aArxcH6+pGvKxTorSdlGTYB4uOO2JKkpwr6uL
-	 SHeDJ5BvLDDw8Va8i2Yd9TEgUzf76cfb/8UAEBoFAJF2zHkuRv552SehMAXqrWUj4M
-	 aF2Bk9ax77DDQ==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id 383CE172A99A; Tue, 06 Oct 2026 16:01:24 +0100 (BST)
-Date: Tue, 6 Oct 2026 17:01:24 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Shuah Khan <shuah@kernel.org>, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH 2/2] kselftest/arm64: Check for -EPERM not -EBUSY in the
- locking test
-Message-ID: <asUNRLuW4-zshydk@sirena.org.uk>
-References: <20260910-arm64-gcs-lock-eperm-v1-0-d88e51855c9f@kernel.org>
- <20260910-arm64-gcs-lock-eperm-v1-2-d88e51855c9f@kernel.org>
- <asUIxt-XzxfWBW4N@arm.com>
+	b=SAHF3URFjrrJvuaN7niGhBM8e/rsm+w6A8pKVK+2I8i7lSLwHI5syi8G7axYpfzC3
+	 SHglXGqnTwUGxayIVwv1dy7Ev0Lwb+duAf5ujVoUmNDj/kwMizcfEpV1tYEyvvg2nw
+	 5N9MYI9c/BVIxgFbk3an9MiR3lnpDZUDbNaaf/RU=
+Date: Tue, 6 Oct 2026 16:38:26 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Mario Peter <mario.peter@leica-geosystems.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Alan Stern <stern@rowland.harvard.edu>, driver-core@lists.linux.dev,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1] driver core: Take parent lock in async device attach
+Message-ID: <2026100658-stoic-unread-22c6@gregkh>
+References: <20261006132335.4014316-1-mario.peter@leica-geosystems.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="WTcFK7zLwtuPcd2Y"
-Content-Disposition: inline
-In-Reply-To: <asUIxt-XzxfWBW4N@arm.com>
-X-Cookie: Use the Force, Luke.
-
-
---WTcFK7zLwtuPcd2Y
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20261006132335.4014316-1-mario.peter@leica-geosystems.com>
 
-On Tue, Oct 06, 2026 at 03:42:14PM +0100, Catalin Marinas wrote:
-> On Thu, Sep 10, 2026 at 08:00:41PM +0100, Mark Brown wrote:
-> > The API has been updated to return the more permissive -EPERM rather
-> 					      ^^^^^^^^^^
-> "descriptive" like in the first patch?
+On Tue, Oct 06, 2026 at 01:23:35PM +0000, Mario Peter wrote:
+> On buses with need_parent_lock set (only USB), probe() must run with the
+> parent device locked. A synchronous attach after device_add() gets this
+> from the caller, e.g. usb_set_configuration() holds the udev lock while
+> adding interfaces. __device_attach_async_helper() runs the probe from an
+> async worker instead, where that lock isn't held, and only takes
+> device_lock(dev).
+> 
+> With async probing enabled for USB drivers (driver_async_probe=*,
+> module.async_probe=1), hub_probe() of a multi-TT hub then races with
+> usb_set_configuration() and both create the interface's endpoint
+> devices. On an i.MX8MM board this hit 11 of 100 boots:
+> 
+>   sysfs: cannot create duplicate filename '.../1-1/1-1:1.0/ep_81'
+>   Call trace:
+>    sysfs_warn_dup
+>    usb_create_ep_devs
+>    create_intf_ep_devs
+>    usb_set_interface
+>    hub_probe
+>    usb_probe_interface
+>    really_probe
+>    __device_attach_async_helper
+>    async_run_entry_fn
+> 
+> Take the parent lock there as well, like __driver_attach_async_helper()
+> does, and move __device_driver_lock/unlock() up for that. With this the
+> warning was gone in 300 boots.
+> 
+> Fixes: 765230b5f084 ("driver-core: add asynchronous probing support for drivers")
+> Assisted-by: LLM
+> Signed-off-by: Mario Peter <mario.peter@leica-geosystems.com>
+> ---
+> Seen and tested on 6.16.y, which has the same code here. On mainline
+> only build-tested.
 
-Yes.
+Please verify this on the latest tree, 6.16.y is _VERY_ old and
+obsolete, lots has changed in the year it was released.
 
---WTcFK7zLwtuPcd2Y
-Content-Type: application/pgp-signature; name="signature.asc"
+> Not covered: deferred_probe_work_func() also re-probes via
+> __device_attach() without the parent lock.
+> 
+> Analysis and patch done with the help of Claude Code.
 
------BEGIN PGP SIGNATURE-----
+This feels really wrong, what bus is the host controller on for these?
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrFDTsACgkQJNaLcl1U
-h9D2Vgf9F8JtWBoktO7Uhu1XHssouxkmCvbDMt0+2dsV3P0CsnBTKlfKfVA0Av7p
-ZTyEwDnIUm8YL4u3swJabYZO6zhbVnfMOJ9gFeA2k6eQ0xJOnHccyyMJsvCt7MN7
-t87pPnXvEKoOom8Q02JpzfVTyO6RkSK14YuR/chrioW9KeYHq21/bjguDcF/K02/
-uCLLqFLO41qlbteL3InrkjmfEAJqgFprIfaRCvu+SyOJWtsWJra70hoptjONgNaB
-32iq21C2SARArB+m3d242txTFkGcQOIINt3N3iJvA99k+SMA2l+1LJoTou2Tpde0
-XVBoE2PFpojw508zy5lNYW1a/YEDzw==
-=JIsD
------END PGP SIGNATURE-----
+thanks,
 
---WTcFK7zLwtuPcd2Y--
+greg k-h
