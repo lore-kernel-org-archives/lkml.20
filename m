@@ -1,202 +1,154 @@
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012034.outbound.protection.outlook.com [40.107.200.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95975286A4
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 16:09:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A6DE46C4DD
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 16:09:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.34
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791302967; cv=pass; b=AoDoWJyThw3alHM0N4yT7Ve3bHYKrpKmBkjWSrTySzL4jzEnMI3L3yHke+U+N+GlylcI6n2W+hiA5+u9SHtY6PrA4BFNwjnHi9Ilt86M6FZcCa38aXwhK4EoF+l0sjQ8K2GZsJlZU9pjpzGE/n8O0EPRwBCJjf0MaihX1VpPMhs=
+	t=1791303000; cv=fail; b=PJOHlq1UNcaJmw+E7vrl3UHrHZ+9NtMddjesPucV/CVjTqV4FGzDPk5wYVg5p7zBLIH93Kz4HhX7olNhVVEcYZJ9jSOKs+IpNtE+TDbeEyyZ3XhcWKD8kfi/xS5Ij7coN/6cZNKpVBYO450mnitMez5/E/bpNk1czEi+rJ39aFk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791302967; c=relaxed/simple;
-	bh=cep8Cv1vd6ia4rUlLSHVJgZJDz2Dr6KiISVrbn2rzyE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=C9Jd8bFogakJB/dCcGucW759MM6q+ED3qgvKSPqSB6KrPbcC20CExCTFxIyVNusJSfL5O9DOaorw87E8bi1i8EB/IHnuOkIHl0QdwZcHY1A8A3okNTlwxgQ5igdPIhltrAHTG6lfPHsSqw/tj2ExyX98na40KjLbp7npVYwqPDc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Iwl8kkt1; arc=pass smtp.client-ip=209.85.218.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791303000; c=relaxed/simple;
+	bh=lHmnLBbHEKiJDemUijZ0JAP4yELZp5xzcAHByMPxynA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=T5xVMZdAzLQKSLfRZHg72p0dKciBm8YOciDtV5KgdPv+onLz9vL3dHD/T4HTc9f4aiuxUechtRGUU83VB/HdxxoW6ClkP6ZpxnD6YpEfRzO7DIhYtsB0LTtwuIf0kmLAdHGYyMqAYlH8CUU/24kyNTjLwSqlMMfZLQ432TGpT/k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=1Rdmp2TF; arc=fail smtp.client-ip=40.107.200.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Iwl8kkt1"
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c2e5f8fe879so119801166b.3
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 09:09:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791302964; cv=none;
-        d=google.com; s=arc-20260327;
-        b=IPfMoZdN400yxACnk+M46+xaL8UlFMkrxUxEb4qnpOXnGAzqJwIV2+jtXrjir3zDCz
-         3JByodMXIM4fczVraK6jEVFy+XPZ8aNAbiv10OLgcZlkq8VfDCUOUX0m2FnZ7U1IQeuw
-         S6JOJCWocGPW42wyp5ZF7KDezaYFQlReios0Wqjn+5bTTcZqlRYjaRXTXdJjeY8UulLo
-         mpkNt7hP5j6Oz5InSztWGi5nu/JxKYcgSc/VtFHAYhslXpLSFvCdJzEawxhpIC6rbICF
-         6mEpGsilKcSQC4dNt03b4+dIhUdzekuLVfXjLJUP0s3oQxuKDsDsuXBrExQbUMPvzlm0
-         P41A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=3usypQk1aH/wgn8+3d6DUOUXO79QcDW+qxXIhYKt0d8=;
-        fh=wFFxS2AMyfNc0ZkfdTqCeWioLLo8XR3e50u9OFx7NKM=;
-        b=LJHLTfoogu/xVU+YwQeWSWff9r2PkW4GMDsm2+7owVUc3zUHzyQPsH0EDfMBs/euOo
-         KhWa8TAefSswky0tqBC3JQBqBXlcE7rXKqjI9lqv4OLMzNd462/6WUgol9WrsILn/1ny
-         5gRRWt1bmK9mI2dg8TU+N4hdjMRJyECZC+tPjzYp4R1ZoHbfVTW1oYUYAB/F+oawomGc
-         19o5A2G1YZ9B/2GmGTlEltsbit6nSLYdbD2TZiw/nTZnNjXQYCSpMCEPgFnNVY7mb4KH
-         CgAJYhby1TXWg5Al+cmm27A5EpgDt+7A+X6N7s8YPKSznU1LytMZPQUFGPnNIM/hvnAa
-         njGA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791302964; x=1791907764; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3usypQk1aH/wgn8+3d6DUOUXO79QcDW+qxXIhYKt0d8=;
-        b=Iwl8kkt1wVGuZTj2CV9e8ZpIPPqS1YqCQxyndX114srjrdXSoUD2nji9S5tg7489XU
-         qj/oaZLzq3jaUK4RWVOeW9aiKKj7DXLSwEgRZfqlAD/jsq1oERCDwqPKXCRWqdFRtMjj
-         d9sy8w7zCkuyF/H/C55z2iy6pU84Tc/Ei4F8e3QnSxx5Jjc3yyf8YK5iAr2hnCtuXNFm
-         rpujyP4igflJmJrMZoWrOvYBox4UF8c/eMDLf35XI1mGMX4vhrw4LVKoyvTv3B5fybrd
-         vUQXCCpapcx0C8FYAkVmP3YWPFzuJK7PezFhUB61X6AM2+vzIumA4U8nlCpHrKsKAGCN
-         m/2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791302964; x=1791907764;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=3usypQk1aH/wgn8+3d6DUOUXO79QcDW+qxXIhYKt0d8=;
-        b=hRYLfXn8kd+szs8wdw1ZsdIk22r0R+0IUIdiRMuCxEhjuSioeF0WXU/0jOGeQeHGqg
-         qRpYxCSRMWH9dtgtHDduvdXoQxzzL5GsjTDNcII/ByiSqKkpBdKI4b6MJqxis+htPEPx
-         JbdoyC/3pCeylUZEe4COC+dJyT2cBR5N4WYJ0jUXulVnTX/QyhDqYyc/m1tYazy4KTYD
-         K7myF/BfhtpNwm/AcSdIlftlsh+42bB61YBOBVosLuHpSOwmPs3Zzyctbg41Jo76jsz8
-         alISZEMie8rRLF5yWgIipAeLySHZaq09stdGsNY5QNTvKtzaNnLCrLrev/CwnIGGgHF+
-         e8XQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwFwtFcRYK3jn37ftKcjDdhhSvK/x0CT4lZCKhK5nh7PFnZ070Ep8QjXE1sogf/SPV1mypq+EXx/mpgr5I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJqzrqYtlcY9WBwOtyHEm1o+IxnJerv1ggFn8XESo5tsMGCrmqg
-	nxksRxkBRmupH+SZFG/uv92m52LB4uVX40AOkC54h8yVUJ8LVcW5QUhJpaSuLIRkzBIrJINKbQA
-	xT3HWl1bXC6Lu+5xkg6iADxAict0gysA=
-X-Gm-Gg: AYBFou3ft5y5jtlqNR+WCwan5PQoqMmYVmvE5C9Bu3EEo0EPjtMGU1EN2DAnHa4Mqwd
-	PCed1zpHzx4uGe5HokXpj+8Ivsme5RDzNJcWJ+GByhhx2t+A5XNmEHNu8tFJHOacJDp9dxozfJr
-	4RGBRgpGcxpCXaXjrOQ9YIQ/iCDaWAzx8RlnEzw8pqox4g1Or6UIN+H0b0ezU1QrMbnFYVsZxsp
-	67m8mN+igAvP7bWKsE3K7I10zXU7MLnhKrX/e7vDDCG00D4L+F5BfJdLWTrbBs2lLrV8ft8MW1g
-	kTfP1nCVNRf1aG4qZaFU6iQnLCLZHE/QvvBid2BSo92gOn8ikJneAsKt+DdGNn2hSJynpTPgtcW
-	yIgdHTpMuXUJN4sp4geh2Mk1pRxlLuK6D2SjyAKmSCFq8u/kP4iTDXpqkho2doX/d6pLf+GTuAw
-	==
-X-Received: by 2002:a17:907:9608:b0:c2e:350b:7220 with SMTP id
- a640c23a62f3a-c3169faf310mr221144966b.9.1791302963551; Tue, 06 Oct 2026
- 09:09:23 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="1Rdmp2TF"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=R7AvLMsoAifK3Dlnl+S4KeHrwrnsKmtgiA8ATYVFJdCDVAB0x561PZzVnYGqkxJx/UCLR1H8VROoh8qEUNHt2BJ+tOYM2IHDLnbR2xGQ1hIpCRN/v0bL6Jpbg0ZCbiEn/JjdCfLqcdzYUXuVjY1yKEmWN2ul7MAgxt1XCoNbhfvsj4Xj1rBsfHPIb7IDBUGn7/4qXPMlPVi/Dg4AM1SmIapFqvD+nOyv8P72x7VbtraAS9vkKAxDIWBC7XUCY8HTKuLsu/2e/u2PpaPevblm8aRYdJ73hDK09F45EUZsiCwix6gK9cFklFy050/rIeaG6IIqdUe7ga16myAXokqSPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nA2NZW6KlB7vW3zwmThuYnEhQEnitc1FqIMQplJKEWg=;
+ b=izEhO23fxoAMzNZcP+YM2XrMtIcVTzN4dq+V4DK9+AFATBuVvAUii07gxCMp0GfnyvC7pC1NbH3sn0w0F7SBcyY7nfotD9DnFOpaH7VDiaafIpnC9qy0pnmsMHnFowzcMJUsTtT6h7P+YDB02VhrOAZ9/Zfc9dHgWJYVkbz8yn6cAfVqkb6cZeGTe4zYJhbuWDPFIzApZxK6Xlx4/p590VyB3w3XWSdaoW5MCn7HzyNORZsPeOZ3ew88FVrjfj2RR5Ea9oKr2tvVKs3m3wLFtT/RPH6HflxHp5Kvx/wBT7HcDINgmB0CEi2Zb7kRIxTmXGCScJQvMKNpdgGoXhdzsg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=linux.dev smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nA2NZW6KlB7vW3zwmThuYnEhQEnitc1FqIMQplJKEWg=;
+ b=1Rdmp2TFFEJdFwGXCRBc4a7EzKs3akNtNFBLUyac+5TIWjTtdwTKf96x5m7HcgTDvMzVqFgI7tXyKIPy2SUBzuok+bIt7yHQUiqrvxhdtKNgXoEJi1k2IAYyTgHAiq0p4FVlh9oSofE1F3pmJf2X1CplS4CkBP6KrMp/DRFwiDk=
+Received: from DM6PR06CA0094.namprd06.prod.outlook.com (2603:10b6:5:336::27)
+ by DS6PR12MB534567.namprd12.prod.outlook.com (2603:10b6:8:498::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Tue, 6 Oct
+ 2026 16:09:54 +0000
+Received: from BL6PEPF00022570.namprd02.prod.outlook.com
+ (2603:10b6:5:336:cafe::40) by DM6PR06CA0094.outlook.office365.com
+ (2603:10b6:5:336::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Tue, 6
+ Oct 2026 16:09:54 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BL6PEPF00022570.mail.protection.outlook.com (10.167.249.38) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.496.14 via Frontend Transport; Tue, 6 Oct 2026 16:09:54 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 6 Oct
+ 2026 11:09:51 -0500
+Received: from [10.252.201.245] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Tue, 6 Oct 2026 11:09:49 -0500
+Message-ID: <023e73af-ebfd-4490-bf56-e91df10f7855@amd.com>
+Date: Tue, 6 Oct 2026 21:39:48 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <5893371ab206c97d5d2f1d72eb149d5ace4250e2@intel.com> <20260924211852.436787-1-conor10@gmail.com>
-In-Reply-To: <20260924211852.436787-1-conor10@gmail.com>
-From: Conor Svensson <conor10@gmail.com>
-Date: Tue, 6 Oct 2026 17:09:11 +0100
-X-Gm-Features: AclHuK8euk8GLEFfAD6Rnbhy2sHY5UC2jDl_5n4HYrsNEmactwXBlRsXbHOqyPw
-Message-ID: <CALr9iFoWV7YVSb9Hi+kUUmZP5wUhGwaKf1XTa67KViqj1=4b3A@mail.gmail.com>
-Subject: Re: [PATCH] drm/i915/dp: Configure protocol converter only for TMDS outputs
-To: intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
-	rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, 
-	airlied@gmail.com, simona@ffwll.ch, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mm/hugetlb: use kvmalloc_objs for
+ hugetlb_fault_mutex_table
+To: <muchun.song@linux.dev>, <osalvador@suse.de>, <david@kernel.org>,
+	<akpm@linux-foundation.org>, <davidlohr@hp.com>, <linux-mm@kvack.org>,
+	<linux-kernel@vger.kernel.org>
+CC: <Vasant.Hegde@amd.com>, <bharata@amd.com>
+References: <20261006160128.31447-1-dheerajkumar.srivastava@amd.com>
+Content-Language: en-US
+From: Dheeraj Kumar Srivastava <dheerajkumar.srivastava@amd.com>
+In-Reply-To: <20261006160128.31447-1-dheerajkumar.srivastava@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF00022570:EE_|DS6PR12MB534567:EE_
+X-MS-Office365-Filtering-Correlation-Id: c2577bc6-bc69-4c87-0d86-08df23c4426d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|23010399003|36860700016|1800799024|376014|10067099003|56012099006|18002099003|11063799006|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	knnqffqC+yVSbKMzx9fDDjGGjbFazaH0gRwd3Vv5/QXKwB5IjEXiqJWymrs2sjjQfEL88d6mIKLuOe6PqN3JuU2m6jrJ1bgsmJNmSysmTnRmfh8YFGrmgVpE7i2j1WD2RCBwDNYx6TDVXb2nXdAWCrQ3ocMrUpTXBDoZ+eP55nynDuoFrSI4IcPEwyKxcyvoW3Tg8BMLxmtKt9f+WM8ZThiBY4nRgZ2WgiQ33Ndwsge5LEqh6qAuSpzG3jKUiaKFpewG4QBualsfN3QufiOluHLOmbicU2e+3Jpr1Eicxq4jOsybg+o9u/2A5d5KfJMz9YnrmwKCl5gGQ0ReP2OG2+eKEmoF+S/KmDPOwjFQd8B9vpSeJ3cHD4/JWAkUC6Esxtg7HVU6Mi3KcwriTIk0cVBpUI+MpSc+4VtDTP1sKOt8cCAW19DaCuEbctmLEH5aMkJRlqwy+wWtSQhUMy3pmUr51Aa99kYNb6ZEpmeU7vxbIZhNAxLuKD3IIqWae1ZJt5M/Al4ZpXvLFt4lPhFprumCuLEIuCOo5ruFwczb9lIrgEqrP5ffXa72dPIqATW/Sfogs2JLaliOP9t1SqHeol+2g4+vv1zM4WyUAbQ7Sey4vrojJ5MBTziXXxXXHT6mrXvNaFO2JfaveEkOT7mGBusnOx4o0qrBuzG52SwV0pB0VkkiN1wBQkC6aX+FJjt0
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(36860700016)(1800799024)(376014)(10067099003)(56012099006)(18002099003)(11063799006)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	pdeeT8PR2oDyVhRFS+Z05M+5+yxfqOHBmFa2t3qqa9jhePcDHN4T4Hnv6RGuj4R2ipP2fa+APTwUkcjwHL0nqRkEf8iVpfTKWJ+tNFZ/Pgf3cCG5UFO7TwkE+plKGdjFSsHfl2oMcLYJKoQ7nL80K+i4oibHIN0xABcD1q67sGP57Nnn6f0nFeExF9uUBhydtI9L1fnred9FPGoPmJmltYOEAx+zIoWgf//CJcNX0pr7ebirMzoxB5E1lmglVIwksHjDKILMKJbd6Sv/wV4cKPMQcUxkNClcT1dq1nv3yA3Vx+RTlFZv7TzlWVPhVtsXr74LOvFmZxxGAGfBlPBfOsWj0XYlR0c9jAMZnb+ZC5bHf9QDGTQupnhmHnXv5p1Glgz4RqNY21N5D0YTDp9oWRRiZ7X6mMsfHRQzFMx99c7xLQkVb0kz1YapUaYMLFdP
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 16:09:54.4457
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c2577bc6-bc69-4c87-0d86-08df23c4426d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF00022570.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB534567
 
-Hi Jani,
+Hi all,
 
-A gentle follow-up on this patch. Following your advice on the
-original RFC, I investigated the root cause and posted the findings
-and testing results to the GitLab issue:
+On 10/6/2026 9:31 PM, Dheeraj Kumar Srivastava wrote:
+> On systems/VMs with a large number of CPUs (e.g. 4096), hugetlb_init()
+> computes num_fault_mutexes = roundup_pow_of_two(8 * num_possible_cpus())
+> = 32768.  The subsequent kmalloc for the mutex table can exceed
+> MAX_PAGE_ORDER when struct mutex is enlarged by debug options like
+> CONFIG_DEBUG_MUTEXES and CONFIG_DEBUG_LOCK_ALLOC, resulting in:
+> 
+>    WARNING: at __alloc_frozen_pages_noprof (order > MAX_PAGE_ORDER)
+>    kernel BUG at mm/hugetlb.c (BUG_ON(!hugetlb_fault_mutex_table))
+>    Kernel panic - not syncing: Fatal exception
+> 
+> Switch to kvmalloc_objs() so the allocation falls back to vmalloc when
+> the contiguous physical allocation is too large.  The table is only
+> accessed by index, so virtual contiguity is sufficient.
 
-https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17180#note_3679658
+Sorry, I forgot to include the "Changes since v1" change log.
 
-The revised patch replaces the device-specific quirk with a change to
-the protocol-converter configuration. Feedback on the approach and
-whether this belongs in i915 or the DP helper would be appreciated.
+Changes since v1:
+-> Use kvmalloc_objs() instead of kvmalloc_array().
 
-Thanks for your time,
+Thanks
+Dheeraj
 
-Conor
-
-
-On Thu, 24 Sept 2026 at 22:19, Conor Svensson <conor10@gmail.com> wrote:
->
-> intel_dp_configure_protocol_converter() currently writes the HDMI/DVI
-> output-selection control for every DP 1.3+ branch. The write is only
-> meaningful for a TMDS downstream output; a native DisplayPort output should
-> not be switched to the HDMI/DVI protocol-converter mode.
->
-> An Anker 565 branch (Synaptics OUI 90:cc:24) changes its downstream port
-> descriptor from DisplayPort to DVI immediately after this write. i915 then
-> derives a 165 MHz TMDS limit on the next hotplug probe and drops the
-> monitor's native modes. Skipping the write for non-TMDS outputs prevents
-> the transition.
->
-> The existing dfp.min_tmds_clock classification is nonzero for HDMI/DVI
-> outputs and zero for native DisplayPort outputs, so retain the write for
-> the protocol-converter cases that need it. Colour-conversion controls are
-> unchanged.
->
-> Tested on a ThinkPad L14 Gen 4 with an Anker 565 A8388 hub and a Dell
-> S3422DWG:
->
-> - native 3440x1440@59.973 after DP recovery
-> - three USB-C reconnects on the first USB-C port
-> - one test on the second USB-C port
-> - suspend/resume on the second port
-> - HDMI through the hub at 3440x1440@59.973, with HDMI-specific modes
->   present
->
-> On the unpatched control kernel, the live descriptor changed from
-> 08 f0 01 1e 00 00 00 00 to 0a 42 00 00 00 00 00 00 across the 0x3050 write.
->
-> Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17180
->
-> Root-cause findings and validation details were added to the linked issue.
->
-> Assisted-by: LLM Codex GPT-6
->
-> Signed-off-by: Conor Svensson <conor10@gmail.com>
+> 
+> Fixes: 8382d914ebf7 ("mm, hugetlb: improve page-fault scalability")
+> Signed-off-by: Dheeraj Kumar Srivastava <dheerajkumar.srivastava@amd.com>
 > ---
->  drivers/gpu/drm/i915/display/intel_dp.c | 17 ++++++++++-------
->  1 file changed, 10 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-> index ffddf4b33..cdc3d7786 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -4422,14 +4422,17 @@ void intel_dp_configure_protocol_converter(struct intel_dp *intel_dp,
->         if (!drm_dp_is_branch(intel_dp->dpcd))
->                 return;
->
-> -       tmp = intel_dp_has_hdmi_sink(intel_dp) ? DP_HDMI_DVI_OUTPUT_CONFIG : 0;
-> +       /* HDMI/DVI output selection only applies to TMDS downstream ports. */
-> +       if (intel_dp->dfp.min_tmds_clock) {
-> +               tmp = intel_dp_has_hdmi_sink(intel_dp) ? DP_HDMI_DVI_OUTPUT_CONFIG : 0;
->
-> -       ret = drm_dp_dpcd_write_byte(&intel_dp->aux,
-> -                                    DP_PROTOCOL_CONVERTER_CONTROL_0, tmp);
-> -       if (ret < 0)
-> -               drm_dbg_kms(display->drm,
-> -                           "Failed to %s protocol converter HDMI mode\n",
-> -                           str_enable_disable(intel_dp_has_hdmi_sink(intel_dp)));
-> +               ret = drm_dp_dpcd_write_byte(&intel_dp->aux,
-> +                                            DP_PROTOCOL_CONVERTER_CONTROL_0, tmp);
-> +               if (ret < 0)
-> +                       drm_dbg_kms(display->drm,
-> +                                   "Failed to %s protocol converter HDMI mode\n",
-> +                                   str_enable_disable(intel_dp_has_hdmi_sink(intel_dp)));
-> +       }
->
->         if (crtc_state->sink_format == INTEL_OUTPUT_FORMAT_YCBCR420) {
->                 switch (crtc_state->output_format) {
->
-> base-commit: 703cd271db3a35088460ab3fec0a96bd48e7fe04
-> --
-> 2.55.0
->
+>   mm/hugetlb.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+> index cea25773a6c9..6fc5c0bdb500 100644
+> --- a/mm/hugetlb.c
+> +++ b/mm/hugetlb.c
+> @@ -4177,7 +4177,7 @@ static int __init hugetlb_init(void)
+>   	num_fault_mutexes = 1;
+>   #endif
+>   	hugetlb_fault_mutex_table =
+> -		kmalloc_objs(struct mutex, num_fault_mutexes);
+> +		kvmalloc_objs(struct mutex, num_fault_mutexes);
+>   	BUG_ON(!hugetlb_fault_mutex_table);
+>   
+>   	for (i = 0; i < num_fault_mutexes; i++)
 
-
---
-
-Conor Svensson
-
-Schedule a Meeting
-
-+44 (0) 7497 376 365
-
-LinkedIn  X (Twitter)
