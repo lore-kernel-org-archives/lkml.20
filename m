@@ -1,34 +1,35 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9729C3E2751;
-	Tue,  6 Oct 2026 10:28:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E62BC3E3177;
+	Tue,  6 Oct 2026 10:28:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791282531; cv=none; b=C+iY3RYEm8QfyHGE8ulnT7xbcXWtLG4HKoFfNHEdCexgMWuze6zDynJz5lY+Oc3hC+UIMElLApMXG2N7VT704DDKCw1i2JuPB8iE9QJrs+vPYq9k97X9Jh+P9ZtBtzKWfLEseKQ3zCzAQofmTT96jlu9BHhaPWLaINGesqsz+tk=
+	t=1791282537; cv=none; b=Ad/BCZ226RGIqlw/c+tXmkAwHY+yZ+LEmipbzxG5gR/vnIe8F4Rxt8utGo07hwZ3k0g3RWCVEjiXgZYyMbI9/s5Bo4fJb9wF+C8ZFwl8cMsJpqm37DDBNdNTZNQFQdRW3kWWMJh8fGHj8ZPLpMnEcvv51aze3S5iG25wyehw0Ac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791282531; c=relaxed/simple;
-	bh=eEGtRczHjxTULl4VBNXnvHlt2NPPQvYK7b8knK8rR0A=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=G5wmjrriXVTZGPJDzMGZhD90bDXiK0Of/Yn07xLrCJHEFcBOBO66fIJsr+jOO9cT5hki8Au/2sQFpHLeBSv/qPOd7ii+a/Uf7GMJJ0qFqf2qedLBJAIDXabUny2qN3B/7B+/LTLkECXGc72EQ6HG1Rrt09ham0mYZ/4cVGU6ijA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=vTNZgkma; arc=none smtp.client-ip=213.167.242.64
+	s=arc-20240116; t=1791282537; c=relaxed/simple;
+	bh=CMwnIq4EzH/h8aGBC+9C1q1EScSn2RamA0/WP01JIRo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=M/4vfLZTCg9xmcE8Zl8GuKfP0JDQjDG9olsFyP5GDbZaU+hl1V4XOhsmTRPM2ea4Vn3nPgWiSMXNOJJ9PSTlJvAvAO4rg7Jss90vlQbmfMiJtDvftSZXHPidn+DRnIAqDCmQKb7E/sSm7th4j0hwV36zwbfUN3uLljihPw7unwc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=uKry8SPe; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="vTNZgkma"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="uKry8SPe"
 Received: from [127.0.1.1] (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id D2570493;
-	Tue,  6 Oct 2026 12:26:50 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B2B141CF8;
+	Tue,  6 Oct 2026 12:26:51 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1791282411;
-	bh=eEGtRczHjxTULl4VBNXnvHlt2NPPQvYK7b8knK8rR0A=;
-	h=From:Subject:Date:To:Cc:From;
-	b=vTNZgkmaY3ZYP0PXZESp4xzjua/BQNFYTIwOOavAs6vGDDhDGxBtXcGp70GHp9RU3
-	 irG7MU+6FZnVoCv1vMLKuL6903KXxs4+mAMGGtMollzMDh0/Eu3des/v5XQdgm5bv8
-	 UGepERXRBSij7nfRsQR61jp0yEOMwDcilopiML58=
+	s=mail; t=1791282412;
+	bh=CMwnIq4EzH/h8aGBC+9C1q1EScSn2RamA0/WP01JIRo=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=uKry8SPeYfkaAUFPvUfiOgCdWdfxanbJRYX3QCqYJEUyoInmzGtnfalYf/5f1UDFv
+	 y6r4uQ/9SJQNrM3j4LpJXrLniiue6Ahxfw+i9VfmwuDm4bDd1L3lpc25wodzdTcStk
+	 lnXwshE2l0i58ogjoL7nA/o8kX3N3tgh9HSb5jpk=
 From: Alen Karnil <alen.karnil@ideasonboard.com>
-Subject: [PATCH v3 0/2] media: rkisp1: Add YUV bypass support for rkisp1
-Date: Tue, 06 Oct 2026 11:28:31 +0100
-Message-Id: <20261006-media-rkisp1-add-yuv-bypass-support-for-rkisp1-v3-0-93d3d43991a0@ideasonboard.com>
+Date: Tue, 06 Oct 2026 11:28:33 +0100
+Subject: [PATCH v3 2/2] media: rkisp1: Treat 8 bus width and 16 bus width
+ formats the same
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,71 +38,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/0WNQQrCMBBFr1Kydkqa2tq68h7iYppM7SBtwkwVR
- Xp3gyDu/oPPe2+jJExqjsXbCD1YOS4Z6l1h/ITLlYBDZuOsa21ftTBTYAS5saYKMAR43R8wvBK
- qgt5TirLCGOX38F1XedvVzdCRydIkNPLzGzxfMo8SZ1gnIfxnnG0qWzt7KPd5900PDlgRfak+r
- uuJA6HGZYgoofRxNtv2AUl/drnIAAAA
-X-Change-ID: 20260916-media-rkisp1-add-yuv-bypass-support-for-rkisp1-c881c0835b8e
+Message-Id: <20261006-media-rkisp1-add-yuv-bypass-support-for-rkisp1-v3-2-93d3d43991a0@ideasonboard.com>
+References: <20261006-media-rkisp1-add-yuv-bypass-support-for-rkisp1-v3-0-93d3d43991a0@ideasonboard.com>
+In-Reply-To: <20261006-media-rkisp1-add-yuv-bypass-support-for-rkisp1-v3-0-93d3d43991a0@ideasonboard.com>
 To: Dafna Hirschfeld <dafna@fastmail.com>, 
  Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
  Mauro Carvalho Chehab <mchehab@kernel.org>, 
  Heiko Stuebner <heiko@sntech.de>
 Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Alen Karnil <alen.karnil@ideasonboard.com>, 
- Isaac Scott <isaac.scott@ideasonboard.com>
+ Isaac Scott <isaac.scott@ideasonboard.com>, 
+ Alen Karnil <alen.karnil@ideasonboard.com>
 X-Mailer: b4 0.16.0
 
-Hi all, 
+From: Isaac Scott <isaac.scott@ideasonboard.com>
 
-I am taking over the series from Isaac.
+The driver accepts 1x16 YUV formats, which are 16 bits per sample.
+Each sample being made of two 8-bit components. Add a fallthrough case
+to allow the ISP to handle the 8-bit components.
 
-The goal is unchanged, which is allowing sensors that can
-output YUV streams to be used through the rkisp1's passthrough mode.
-
-In patch 1, the ISP mode has been replaced in two possible
-paths, as my hardware configuration only goes through a csi serializer
-I've only been able to test a single path (the lower else block),
-so the path requires testing with hardware I do not possess. 
-
-Cheers,
-Alen Karnil
-
-Tested on: v7.2, using OV5640, GC2145 and I.MX8MPlus
-Compile-tested on: media/next
-
+Signed-off-by: Isaac Scott <isaac.scott@ideasonboard.com>
+[Alen:Rewrote commit message, added comment]
+Signed-off-by: Alen Karnil <alen.karnil@ideasonboard.com>
 ---
-Changes in v3:
-- Reworked patch 1, to fix incorrect logic and add comment.
-- Reworded patch 2, including code comment.
-- Link to v2: https://lore.kernel.org/linux-media/20260205103207.4020959-1-isaac.scott@ideasonboard.com
-
---
-2.43.0
-
-To: Dafna Hirschfeld <dafna@fastmail.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: linux-media@vger.kernel.org
-Cc: linux-rockchip@lists.infradead.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-
+v3:
+ - Taken over from list and refreshed
+ - Rewrote commit message following review and added code comment
 ---
-Alen Karnil (1):
-      media: rkisp1-isp: Set correct data mode for YUV bypass
+ drivers/media/platform/rockchip/rkisp1/rkisp1-isp.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Isaac Scott (1):
-      media: rkisp1: Treat 8 bus width and 16 bus width formats the same
+diff --git a/drivers/media/platform/rockchip/rkisp1/rkisp1-isp.c b/drivers/media/platform/rockchip/rkisp1/rkisp1-isp.c
+index 4de44f6ec753..54b9028b1f41 100644
+--- a/drivers/media/platform/rockchip/rkisp1/rkisp1-isp.c
++++ b/drivers/media/platform/rockchip/rkisp1/rkisp1-isp.c
+@@ -264,6 +264,11 @@ static int rkisp1_config_isp(struct rkisp1_isp *isp,
+ 
+ 		switch (sink_fmt->bus_width) {
+ 		case 8:
++		case 16:
++			/*
++			 * 16-bit width YUV formats use 8 bits per component,
++			 * so they can be handled by the ISP same as 8-bit.
++			 */
+ 			acq_prop |= RKISP1_CIF_ISP_ACQ_PROP_IN_SEL_8B_ZERO;
+ 			break;
+ 		case 10:
 
- drivers/media/platform/rockchip/rkisp1/rkisp1-isp.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
----
-base-commit: bd5f485f3f026225b86573e559af0b7254ef4184
-change-id: 20260916-media-rkisp1-add-yuv-bypass-support-for-rkisp1-c881c0835b8e
-
-Best regards,
---  
-Alen Karnil <alen.karnil@ideasonboard.com>
+-- 
+2.53.0
 
