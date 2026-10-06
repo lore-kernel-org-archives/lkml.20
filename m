@@ -1,106 +1,98 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 849D136EAB0;
-	Tue,  6 Oct 2026 06:03:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2435137C926
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 06:03:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791266582; cv=none; b=nrEb3eVzjGTZgUIYR7trbHgG3zE85rvCrqdX5Apmn7b5Tb6hJQMmNVFM0jvxUAjfZAOYs2RQBuR7+QFRjZm5ixoPjgZftO/YDFshX4icM9xcnb0aEq33NlkXgqcFygawBvvsxuNboKOO7MySWvi65sm/f0eNufYihyjff//WiyY=
+	t=1791266613; cv=none; b=s2PYyjCw3IXtm2voAPmYNekq7a2jcD7i+dh7IEqcbbQQuWiikNeE0cUC7f7sDrzmheX0Kma1k8IaFhGgCHvzju3hm95pzMvDkxWWMm3T45G6Pf2+2BbFYHIQoLCoH3+gjtA5U4DWU6AKCeY2V3B3xYpWHD9buJOiiqLI1ZwsJEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791266582; c=relaxed/simple;
-	bh=4RrppC/03roNa+H8YcGtw0/eBWvITbBtHds3QUWqoks=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j5JyHALNBRL7fo+wB1DzCIxCNqG/mitR5JzWyxgldN16ZNE1a1bDJxI5JD54R/MxuVZnhyB5u0kUWhrxAbw2NxtKP38PQz8G6iO6pe0+Syjnw3//bROgjZ2O0OCnEv6HAd8hFz9WNeQpzkzXpXp792ezFd2uYMY0ov+/nRjDO8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MZVYLceG; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791266613; c=relaxed/simple;
+	bh=BUeqe0sop8BUduLCXUTxcm0E7UM++A9aDsUk/MfpBpo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nGGTmQQvIoRk7t1QBbNz+KvgSp0XmM3fRHgJVkUgNmVkvl3aS4TBo2tPikb7avpHhv7WTk9Kgq8B2ZYm/k4HLaQvLrsFQv3+3qkdG5BsUxmv8U/BqjxwZttDxYfR/y3G6/9g4DG+hPF8yKoHvaVVF60NFHwH8DCAnVgng/CuAKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=cGUFEeww; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MZVYLceG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791266581; x=1822802581;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=4RrppC/03roNa+H8YcGtw0/eBWvITbBtHds3QUWqoks=;
-  b=MZVYLceGXiF0FbddReTV5BDwgsuFmIAVsBgc2u7xAB5AZUkw9EURGGXp
-   oTxXCuKZCvZg2HSyaXYpV43eYcTGy2bcnF3eFk4HxnGUdiu0q5GgzTR6U
-   LK2JxTIPQCS9vYxkHe7y16O+eFiT6PVTwqQVmTPo3Uuy7+MDzSCBWIK32
-   MWaxSjH8QxlBUFMIzrAi1/mXw/wVr77dcgjrzctjxpP20Ip3Ej+0w0A9A
-   f1MX+KS5jLezXIqf8u4D0xhDVekJl9eC2/TpgC9EYC8ACHQQf+GTzn9az
-   6+AdkgiDtCMHatYryswJAF5GJjDYtqBExL50awGuzrXRc21gltcY25AZF
-   w==;
-X-CSE-ConnectionGUID: 7Ht8SClzQ42+jRimMUP6Bw==
-X-CSE-MsgGUID: oP+m7+PQRGq2Sdk45oYxsQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="94434227"
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="94434227"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 23:03:00 -0700
-X-CSE-ConnectionGUID: r57R8brgT1q9IQDJith4fA==
-X-CSE-MsgGUID: 2M2cMkSNT6C+eXkret5tuA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="276180007"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa008.jf.intel.com with ESMTP; 05 Oct 2026 23:02:57 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xDyGM-000000001DE-11Dp;
-	Tue, 06 Oct 2026 06:02:54 +0000
-Date: Tue, 6 Oct 2026 14:02:35 +0800
-From: kernel test robot <lkp@intel.com>
-To: Thomas Bonnefille <thomas.bonnefille@bootlin.com>,
-	Puranjay Mohan <puranjay@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	=?iso-8859-1?Q?Miqu=E8l?= Raynal <miquel.raynal@bootlin.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Thomas Bonnefille <thomas.bonnefille@bootlin.com>
-Subject: Re: [PATCH 2/2] iio: temperature: tmp117: add support for HIGH and
- LOW alerts
-Message-ID: <202610061423.9wuPD5b6-lkp@intel.com>
-References: <20261005-add-tmp117-notif-v1-2-c6cef6fad64c@bootlin.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="cGUFEeww"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=4OaGkGeWJuAXAEuqfk9c1g3z4yOyNWqgglafWczMznc=;
+	b=cGUFEewwwv8EiY0jsuYyBSz9zOb1vYFOsoT31QUfhIaIsOkyxjPqF04/9/CGOP
+	j3OgMwbRF7IJso0vo4cuMmlBu+ySde2OJhQoEPY7lmNK5p1jOrgFZaQdVzww84K5
+	sDGp+pMf+sQtUw2CPW/HvLy9OrYfFSzKOs2lgYt8xeHX4=
+Message-ID: <c1ab6f08-f277-4645-99ce-5e31ed896a89@163.com>
+Date: Tue, 6 Oct 2026 14:02:15 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261005-add-tmp117-notif-v1-2-c6cef6fad64c@bootlin.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/4] exfat: dirty all new pages when extending
+ valid_size
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: exfat@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Yuezhang.Mo@sony.com, dxdt@dev.snart.me, sj1557.seo@samsung.com,
+ Chi Zhiling <chizhiling@kylinos.cn>, Jiale Yao <yaojiale02@163.com>
+References: <20261004101934.1975655-1-chizhiling@163.com>
+ <20261004101934.1975655-4-chizhiling@163.com>
+ <CAKYAXd-2cSYwBcAfGtcAYbK95FfpASRrptz4YUf7Ke-cXK00PA@mail.gmail.com>
+ <5b101dea-77ef-4ae7-b8d9-54df20b0a6a5@163.com>
+ <CAKYAXd9u3gC=McjgAVABfsd_JPwKWMteJ=t4r0RAnuZ0worupw@mail.gmail.com>
+From: Chi Zhiling <chizhiling@163.com>
+In-Reply-To: <CAKYAXd9u3gC=McjgAVABfsd_JPwKWMteJ=t4r0RAnuZ0worupw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3z5PnjsRqcY05Cw--.37199S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Zw15ZF4UWr4xZF45KF1DAwb_yoW8Ww45pF
+	W8Ka1rJrWUXw1xt392qFn7XFyS93sxWF1kW345X3sFyas09Fy8GFW8G3y0kr1aqws7Wa1j
+	vFs8Xryxur1DGrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UPOz-UUUUU=
+X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC2wipR2rEjuhs2wAA3C
 
-Hi Thomas,
+On 10/6/26 11:57 AM, Namjae Jeon wrote:
+> On Mon, Oct 5, 2026 at 7:19 PM Chi Zhiling <chizhiling@163.com> wrote:
+>>
+>> On 10/5/26 5:08 PM, Namjae Jeon wrote:
+>>>> @@ -664,90 +664,30 @@ int exfat_file_fsync(struct file *filp, loff_t start, loff_t end, int datasync)
+>>>>    static int exfat_zero_new_range(struct inode *inode, loff_t start, loff_t end)
+>>> Function name and comments no longer seem to match. What do you think
+>>> about changing them like this?
+>>>
+>>> /*
+>>>    * exfat_prepare_valid_range - populate and dirty folios covering [start, end)
+>>>    *
+>>>    * Populate missing blocks via the read path, which zero-fills data
+>>>    * beyond the current valid_size while preserving uptodate blocks.
+>>>    * Mark entire folios dirty so the newly valid range is written back.
+>>>    *
+>>>    * Call before advancing valid_size.
+>>>    */
+>>
+>> Okay, I'll add it to v3.
+>>
+>>>
+>>> And generic/538 test fails with this patch set. Please check if this
+>>> test failure is reproducible for you as well.
+>>
+>> I ran the tests, but I wasn't able to reproduce the failure. Could you
+>> tell me the block size and cluster size used to reproduce it?
+>>
+>> There is also a new failure in generic/551. This failure can be fixed by
+>> adding inode_dio_wait() to exfat_extend_valid_size(). Jiale's patch
+>> includes this fix:
+>>
+>> https://lore.kernel.org/exfat/20261003093035.532916-4-yaojiale02@163.com/T/#u
+> Okay, generic/538 test passed with this patch.
+> I will apply this patch and your patch-set.
 
-kernel test robot noticed the following build errors:
+Okay,
 
-[auto build test ERROR on 551c722f40809618230001baccf219193e22fc5a]
+I noticed that these patches have already been merged into the exfat/dev 
+branch, and the comments in exfat_zero_new_range() have also been 
+updated. So I don't need to send v3, right?
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Thomas-Bonnefille/dt-bindings-iio-ti-tmp117-describe-interrupts-for-TMP117/20261005-164419
-base:   551c722f40809618230001baccf219193e22fc5a
-patch link:    https://lore.kernel.org/r/20261005-add-tmp117-notif-v1-2-c6cef6fad64c%40bootlin.com
-patch subject: [PATCH 2/2] iio: temperature: tmp117: add support for HIGH and LOW alerts
-config: i386-buildonly-randconfig-1004-20261006 (https://download.01.org/0day-ci/archive/20261006/202610061423.9wuPD5b6-lkp@intel.com/config)
-compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261006/202610061423.9wuPD5b6-lkp@intel.com/reproduce)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610061423.9wuPD5b6-lkp@intel.com/
-
-All errors (new ones prefixed by >>, old ones prefixed by <<):
-
->> ERROR: modpost: drivers/iio/temperature/tmp117.ko: symbol '__udivdi3' undefined!
-ERROR: modpost: drivers/iio/temperature/tmp117.ko: symbol '__divdi3' undefined!
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
