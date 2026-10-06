@@ -1,270 +1,163 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011071.outbound.protection.outlook.com [52.101.52.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF8A130ACF0;
-	Tue,  6 Oct 2026 02:13:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791252803; cv=none; b=hW0qW1FsKNQ60Pv3ZMCALfgcSRP0KnoRV9wFxTv+84wgfb/bSQYHfqFsJ+Mqs53EXAVWlcLf9uGrYs1SBWQEtEJ1jskSJfQ+kF8yUQRmThWqN3E8jsUAw9Lr4ce6893+lyzIqJm4ukq+SqYq+MuOQDdIvwM1QtngLN1Y5LRE77Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791252803; c=relaxed/simple;
-	bh=Sy7ZG8F8I42UlJSn2r+fZy8Yz7GXel3s+WmXnuZMCI4=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=FhYpeUdl68sGC3NytiKPhuLbn6wjs2CzidfA6cSEZ2rKVug8FArEbP2q4q3s9m1NGgRjxmYl0KV1sdS2o4RDYAepe4jxxQ4XIocANw09pmGSaHl0l61lJSa/oTuioTPdCY0tWHfE7klHJEglhFN1iDwlx6a3+wXW3d8PM0bMF0U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cExTTGNo; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 446E4547040
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 02:13:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.71
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791252834; cv=fail; b=usA6l7UImDlAi/X+6tb6TijfTrfKQuiL5aZM2BHnTyw3Rf4kTAtZ//te43X37ZHzqJBqU+EFq3mcHEdkBYASTGZjBN+R1BkfhgJm23T005W4zaKrJHTlNIM2xin/7/FMMK0whTE3kvzxPwGC3J/Os0GHw2eHMNtQEkqKhHTJ+bY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791252834; c=relaxed/simple;
+	bh=XfYDCxA1R038g8U3de7B6psNieb6Fgm7KSg6ffjRfjY=;
+	h=Message-ID:Date:From:Subject:To:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=KgJivj9WQznLRsbK9yUEbHWSWt5rDIbg3LjfXl+W+TcRjThDPniRNqb3LZ6ZADELN8gc67/yA54DLoRKKolQPPyjI6xALa1R8uMFvf5Gq2ib8SANtPSaK+60ggQjdkUSt8w+GQsIm4YdPsaO8orPqRBIa/94K/SGsLMJQzBXoAg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=l5V5lOae; arc=fail smtp.client-ip=52.101.52.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cExTTGNo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AC921F000FF;
-	Tue,  6 Oct 2026 02:13:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791252799;
-	bh=0vv3oOj+BuuQqlFyQE4+IDBtBVeSsbYAbbUXZ72DE8E=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=cExTTGNo+4jVcUxVo7UGK13ndTLETjD6Pi1Q3Ke+WmWjhFGinBgK21HW3hqoXzl8m
-	 +gPD3ix/snFGp8ounFUg0bQx1/Sp4ar741vtvdoTbOEnc5UHonsGxbuTpAkdw4a8mf
-	 ywJ+tsypGCdJeXqrURB3cjn0quv5fc5lkNKeuXGZ/Cr39DyTqlCGpnwWBGjTZae5Es
-	 ivnw4RVsvgKnMUS2ww7ABIglRd/OvB2FCIYGtM4XPTh9hGarVgR8xjp3aPhXcGeCl/
-	 OxO4HTtEx7+NJ3mVzXT61V7Kz87mp9EUX8ejL3OmRTXeiEC1cBhzCHCaBnl4XW5xPU
-	 2oLbX+uadjgXg==
-Subject: Re: [PATCH net v6 4/4] net: wwan: t7xx: complete NAPI on the
- not-started RX poll early return
-From: netdev-bot+sashiko@kernel.org
-To: tim770802@gmail.com
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, andrew+netdev@lunn.ch, horms@kernel.org,
- ilpo.jarvinen@linux.intel.com, johannes@sipsolutions.net,
- loic.poulain@oss.qualcomm.com, ryazanov.s.a@gmail.com,
- chandrashekar.devegowda@intel.com, haijun.liu@mediatek.com,
- ricardo.martinez@linux.intel.com, linux-kernel@vger.kernel.org,
- tim.jh.chen@wnc.com.tw, Chih.Hung.Huang@wnc.com.tw
-Date: Tue, 06 Oct 2026 02:13:18 +0000
-Message-ID: <179125279802.434549.7622382865971659585@kernel.org>
-In-Reply-To: <20261002014638.47981-5-tim770802@gmail.com>
-References: <20261002014638.47981-5-tim770802@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="l5V5lOae"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PtC/9GMk5AkaOA/B9xo3ScgcI0R74xpMboO0EI4oSl4R0VLGfS9ijqeI9BrNUEfeIhPdn6VHnEJqcBaEW4bYKj/CqmVXzy7GXyiDaTft4EklEl4CQLoHCWPNCR2rNniwyKdeNaiZ3BkIIx+OTx0tQf0lSMj7QRZr7ap3QG3Q9yz4kUt0vZLHA5BDGVrtI6ljTst16KVquty/ZPwdHbelZvQETu3VsGsrP4vdHxmMNwOfwlU1e5jRen3ByRe2E0HWwB+SjtJOu/1c3qALWOXnETSufqWaYs14bDrfbL6k04VOeO1npG22Vm963B11+HXEH7oXkMnZHHbOaaEHD1C3PA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6gkwF64Pa+rkMmSN32uAQ+exkAUs0d6CN5e9PeduGSM=;
+ b=Iq4g1Uw07OUxDjWQyvHmpMP/G2GQfxcTlB9OvlhEqayl0tAC2Ll1jiCr7J5hCLdS7zD4FIOoRpEcpGKm97xmeaHHxiUJvS48UlLvXzJcuFmctzQl2oz54P3PYqUAxW9EVkKGPhen8RazsdSPqcJI81nKpheIToPy9jQ+6RZncztO4lpWHt0DCycC2yuHP11jrhFQtiImxTnNNuRpepW2I9lEv0RJDWdQscAoxiKtuFLw1y8g9qP8vSq7147zTUqfVI3YcCIs2GK/e0Uj0MkrmPlFsrx7nFnEyAeZbT3soe4DvVuT9q6+PxIBknMqvpUTQ9SKSTuZExJjyqkrFdfttA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6gkwF64Pa+rkMmSN32uAQ+exkAUs0d6CN5e9PeduGSM=;
+ b=l5V5lOaea6JkotN3hNT4sCMYitR4h+GXE0wM+m7uu4hLEB1WxwurNvY4IjYH2Upfl0fhFZZAt6ypQXqS3PbfDhh5rnpvExuCQ/d5YR5jbjWX+8L9ogqbKnXz1Yq08j5PP7XYGewxB0IydrtL0nlVbLcj6Xi6nvKbNGVBAPpbHB7o06zTF4MI1pLsJh/aKOT/GZE16f2b+6b+EuoWemVHBe3W0NnpxJ8BoOmbBnD3cUWLwje+j116k01C+I/rwpkfLW3Ua4fPtpDHaGebiaCgIr0RBPGbTfXkcFXg5091usFNVWaAYfOgi6ieYOiHRfQB99Dg512yEnNR5+NjJdWWgw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from SJ0PR03MB5950.namprd03.prod.outlook.com (2603:10b6:a03:2d3::20)
+ by SA1PR03MB156663.namprd03.prod.outlook.com (2603:10b6:806:5a0::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Tue, 6 Oct
+ 2026 02:13:49 +0000
+Received: from SJ0PR03MB5950.namprd03.prod.outlook.com
+ ([fe80::53a0:bf93:6b6b:de01]) by SJ0PR03MB5950.namprd03.prod.outlook.com
+ ([fe80::53a0:bf93:6b6b:de01%5]) with mapi id 15.21.0472.016; Tue, 6 Oct 2026
+ 02:13:49 +0000
+Message-ID: <9baf125f-bd02-4523-a23b-516f567f3777@altera.com>
+Date: Tue, 6 Oct 2026 10:13:43 +0800
+User-Agent: Mozilla Thunderbird
+From: "NG, TZE YEE" <tze.yee.ng@altera.com>
+Subject: Re: [PATCH 1/2] mtd: spi-nor: Fix deadlock in
+ spi_nor_rww_start_exclusive()
+To: Michael Walle <mwalle@kernel.org>, Pratyush Yadav <pratyush@kernel.org>,
+ Takahiro Kuwano <takahiro.kuwano@infineon.com>,
+ Tudor Ambarus <tudor.ambarus@linaro.org>, linux-mtd@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <cover.1788404586.git.tze.yee.ng@altera.com>
+ <46e4e2e31f051f64c120307216ce2766c004d9af.1788404586.git.tze.yee.ng@altera.com>
+ <DLKSSLURXYDB.2VSDOA0K7U9MN@kernel.org>
+Content-Language: en-US
+In-Reply-To: <DLKSSLURXYDB.2VSDOA0K7U9MN@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SG2PR01CA0196.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:189::23) To SJ0PR03MB5950.namprd03.prod.outlook.com
+ (2603:10b6:a03:2d3::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB5950:EE_|SA1PR03MB156663:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7f9df784-048a-4f50-9391-08df234f7599
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|55112099003|10067099003|22082099003|18002099003|4143699003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	NiAl8ttdgD3uir0TYdvzz5H41RvTOL9LMHXlcu5+oMe3muEXBr10p5jcZpaR4xg3Hk2Wxn1PwplFruXTnf6m2B5wDCa6xOUo0NoV8GerwiBNoEMSEFrEI+Z8wNuyipZwz/wFN5ZzzhY3jfl42RP8ruhOCHKahyaIeq7t2WWHFTN0+gZoPXkuXrpRcizafUM+p+aGfQwXY1jKErq4zjqNHybapOEyWYZVRjMS3EzfZtJIzYBx2gGib5NvEWzDKN0O8P5RYG5jqDAN0hZy9Q/Tn/VE6NNk5HfCqwXhEsxwZE9BmumA1L50BpALpVcdvgy8EMshPmdsAbkP8sKyAHV3RWdtqI6mBMZ/6UrYkn9yuN1qrFUWymbN3oc5a9dtVdH6Bu888FIq3VMGzqVVfRKtYOFQBJhM/BhbT4pvAGe1YoDMnOJb/SHOEwKuC/Sj3PLDlon1ocLcV6SB8iVSuT6HmLZISIMfm17Ciwgo9ETZf4uv1ocUxpLPt5I3vcHGv72G3i4WUIZjLVITOVjmprnZhmANBcpZ3dtlMLtyTy5E78l5DSqQMOvXFbNgU7CbYSbsT2CLnPoRqpq4KM+am4h7LA1ksWm6SUj2EO8X1fKGXbNdKf+Q/ExZ9W78ibiOfd5DBg1tYnvrGg7mjDts6YVvwzxvk7z6LgOyrHR7lOOzyNs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5950.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(55112099003)(10067099003)(22082099003)(18002099003)(4143699003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UUFOLzJnYmdMZ3RpeVhNMUdOemVVVi9uSmFiRUx1UGZZRlVjekdWL2ZWSC9j?=
+ =?utf-8?B?bEJ1S2JVNUVJS3NrMnVFTm14cjhzbjdvNC9oKzlBQ0JHMUVjcUJJelRFbzdL?=
+ =?utf-8?B?em9YTU0yVVZIRFJuODBxL1hPRktxbjJSQlZMWVYyZFp4cHpYUFh5QitmN3pO?=
+ =?utf-8?B?MjBFVGxLTEtMQmVTV0RLTkVvL0RDU01VdENDVTVuVHdwYWx3cHVrWURNY0x5?=
+ =?utf-8?B?V0drcEpMVkw4ZHQxNXJONW1IMTY2ZG9YZHRNNGhuVEdOZHJod2h4akJnTU1E?=
+ =?utf-8?B?UEQ4dEZXSkZlSjY2MjNuYm45OU83MEp6L2NUMTNrQlhJcDhCYzZSVmU1Qyto?=
+ =?utf-8?B?eVFnK1hEYTFMSFhtaEk2Q0Q4QUlSM1NobzZ0QU1qZ0Q2Q2JSdXVCd2tlUUF0?=
+ =?utf-8?B?YVFlTzdzUTVza0FEeVhBSkJjQ1FxeTkxSGZKRFRmR1R2WEc2Yk9OMVc3RkNB?=
+ =?utf-8?B?VjZaL3dmYXVoQTF0bGZaVUxmK0ltK0Y3MlM3cm15TnVSQUdiYUkxR2diMHJX?=
+ =?utf-8?B?OWg1ZHM2TkxNbW40VFAzL2h4SG05VG9oUXhmRHc3MlcxQWVvVDBSZTlTa3ht?=
+ =?utf-8?B?a3QySEI3ekQ1ajlzVFJwSXY2bWxoZTUrcWZJd0V4UHlaMmJsVktQaGFpZFpu?=
+ =?utf-8?B?VmlVZXA1L1RSUk00a05oR1hWUDVvbHg0SzRZV29NWGx5RHBxMTFEUitLcVha?=
+ =?utf-8?B?SjYzOXBRbE1SWmZkeklhY0lteW1ORHNUeFFpalVOWXJHclRaVFJSbzNCL1Mx?=
+ =?utf-8?B?d05QY2ROaWdMM0h1TXc1a0t0RjNnNEJwcU5JRHFETUZ1d29zSm5QaXZ6RVZS?=
+ =?utf-8?B?dmlUNHdlZ0V6Y1dDMEJVeXBqc2VHb3lZQ2dDUE9WNlRrOU52cDBTampreG5s?=
+ =?utf-8?B?ODI4RForbWU2U0w3WENvMVZEQk1JUDNyR1A5RVR3b25WaklhQW9HWG9iMGxs?=
+ =?utf-8?B?QkczYjRDQW5UZk1BYnBqN3ozOXJhV3N3eDZSN3F5OVV5MHlwUWIyWlEzUEsx?=
+ =?utf-8?B?cTZhM3hBU1Y0TmtPb0NkRENYUEZYS2lDR252Z2xJV000anE5ODJocXhWdklu?=
+ =?utf-8?B?b3B3QWtsNFlodnVtSGRtenQzVTA3TTlHMlRMTnhwd1lDMGVZMk42aXdYSmx5?=
+ =?utf-8?B?ZnVNUmNjMEVHekpiQkJDaTlsTUcwNW40dksyUlRMUHJlYUFSVENYVk40Rk55?=
+ =?utf-8?B?c0JudHFON0VWdGM5YUt1eWV0QW1TY2E1SG9WbkRLN0JsVUovUWE2bEZxQjl1?=
+ =?utf-8?B?a1dQU2VNa3QrU08reElDM3ZMbThxTURqVG44Zk96em1xdFljT3ZPaGJDTzBl?=
+ =?utf-8?B?T3hCaXNmd0NrMXVZL3Bxa1FibnhtRC9NbUhBbW56TzBpcWRaV2doOGkwd3Jp?=
+ =?utf-8?B?bmxla1BHK1BoUnl5Z0R6WU9yK2dEVlhMSmZOdldESVF5TThycUsrSHBlNUs1?=
+ =?utf-8?B?U2QxTlJyS1U4VDBneHVBUVNSckh1ZTVJV1FIcEhTb09Td2RsczlINHkvL1BO?=
+ =?utf-8?B?OWRmSWh6NmFmREt0YTRFbW8zWFdhQzJ4YXlXR1dVRWdSaGx3aWxZMVJNeVZ1?=
+ =?utf-8?B?TWthQnNJS1ZpMVBPQU0yajFSWXRIUmtIY0VwejI1THRPMFRVYVA0S1dCa1ZW?=
+ =?utf-8?B?a2hLVE9waFMvQXZWci9KMFRXRFRnaDFuUU1haFdaRVN5c2tDckhNbDUrWG50?=
+ =?utf-8?B?V29odTZmR2ZOK2cwOXhJeTQyVy90STNiclBEclo1bHNhcGwyNktZeUVRTGtS?=
+ =?utf-8?B?MFNudUV4aURVS1FUQ3VwVk90MUxscmFaMWdST0NYUS96RG5OdFdOakZhV0d1?=
+ =?utf-8?B?SUYxNFVHdmZlKzlTYnV5bmZrSUxoWmNuODhjLzYrdEEyVWZLOWRrNkNoczRU?=
+ =?utf-8?B?Z0wrVm5ZUEZhR3pmRTZMUmZ4MXd4NGdyOHlxQ2lkTmhEUnJzVTNPemFDcVZZ?=
+ =?utf-8?B?TTBRaE5oOXZXVG1jeDdkc1JNNkFCSVlZUnFxWjJBNlZsL2xRQkZjVXhMR3Rh?=
+ =?utf-8?B?L0ZEd3hTZGIvUmZwMmJyd05CaTA1OXY1M3RsVUswbU1PY0lXOWlwNzJtZ3BI?=
+ =?utf-8?B?Z09Vdm5UUUlNOWZXWWliZTFiUjdyaGJUM3ZBVnkySTkzR2orbSs4cGdZZFNs?=
+ =?utf-8?B?eWFIKzRQdnR5QmF3NjJISS9mV3Z3eTIyVk10cy96bVpSWCtuY3N2alJ1aldB?=
+ =?utf-8?B?WmFabnpRUUFHL2pueDZ2UXdEdkhlUWx3bGhFOThaN1A4ZGUrMy90SUdLOXFj?=
+ =?utf-8?B?emhmK0xKMWJzZXhwci9GbWRmVTN1TlJIQnpsU2NVbU02RXVPNWlabjhRbFlD?=
+ =?utf-8?B?UkRPTXZjRG9teTVyYlpwZUtXd0VnNFlhNm9FcFZzVEdFTFB4VFZsQT09?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7f9df784-048a-4f50-9391-08df234f7599
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5950.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 02:13:49.5762
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: J5guqEvN2t92eo13T75s4SlY/poCj1F4HEX0exU6DZ5wK/5EpeX8zBlwDnpBizqUVbZH5lUwg6nHyncSwQre5Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR03MB156663
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
 
-Critical: 0 · High: 1 · Medium: 0 (1) · Low: 2
+On 21/9/2026 2:58 pm, Michael Walle wrote:
+> On Thu Sep 3, 2026 at 5:14 AM CEST, tze.yee.ng wrote:
+>> From: Tze Yee Ng <tze.yee.ng@altera.com>
+>>
+>> spi_nor_rww_start_exclusive() takes nor->lock with a bare mutex_lock()
+>> and returns with it held, while its counterpart
+>> spi_nor_rww_end_exclusive() re-acquires nor->lock via guard(mutex). Any
+>> exclusive operation on a read-while-write (SNOR_F_RWW) part thus
+>> deadlocks against itself.
+>>
+>> The exclusive section is serialized by the rww ongoing_io/rd/pe flags,
+>> so take nor->lock with guard(mutex) like the sibling start helpers.
+>>
+>> Fixes: 03e7bb864d9a9 ("mtd: spi-nor: use scope-based mutex cleanup helpers")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Tze Yee Ng <tze.yee.ng@altera.com>
+> 
+> This was already fixed in:
+> https://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux.git/commit/?id=44b8a0bf5f96e8393312fc34b956766882341f16
+> 
+> -michael
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Thanks Michael, you're right. I missed that commit. I'll drop this patch 
+and resend the use-after-free fix (patch 2/2) standalone as v2.
 
-- [High] The handshake between t7xx_dpmaif_rx_stop() and
-  t7xx_dpmaif_napi_rx_poll() can let a poll run past the stop.
-- [Low] The Fixes: tag points at the wrong commit.
-- [Low] The new comment in t7xx_dpmaif_napi_rx_poll() says the hang
-  happens in "napi_synchronize() in t7xx_ccmni_disable_napi() (which…
-
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but the
-  !que_started early return in t7xx_dpmaif_napi_rx_poll() (lines…
-
---
-
-net: wwan: t7xx: complete NAPI on the not-started RX poll early return
-
-The patch adds a napi_complete_done() call to the !que_started early
-return in t7xx_dpmaif_napi_rx_poll(). Without that call, a poll that
-returns 0 after t7xx_dpmaif_rx_stop() leaves NAPI_STATE_SCHED set. A later
-napi_synchronize() in t7xx_ccmni_disable_napi() then hangs.
-
-> Fixes: d642b012df70 ("net: wwan: t7xx: Add data path interface")
-
-[Severity: Low]
-Is this the right commit for the Fixes: tag?
-
-At d642b012df70, drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c has no NAPI
-code. RX ran from a workqueue, so returning early on !que_started was fine
-at that point.
-
-The NAPI ->poll() form came from 5545b7b9f294 ("net: wwan: t7xx: Add NAPI
-support"). That is t7xx_dpmaif_napi_rx_poll(napi, budget), with the
-dev_err() followed by return work_done and no napi_complete_done().
-
-Should it be this instead?
-
-Fixes: 5545b7b9f294 ("net: wwan: t7xx: Add NAPI support")
-
-d642b012df70 is in v5.19, and 5545b7b9f294 was merged for v6.2. With the
-current tag, stable tooling would try to apply this to 6.1.y, which has no
-t7xx_dpmaif_napi_rx_poll().
-
-> diff --git a/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c b/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c
-> index 0e1174ee611df..6272956fe0535 100644
-> --- a/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c
-> +++ b/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c
-> @@ -848,6 +848,12 @@ int t7xx_dpmaif_napi_rx_poll(struct napi_struct *napi, const int budget)
->  		atomic_set(&rxq->rx_processing, 0);
->  		pm_runtime_put_autosuspend(rxq->dpmaif_ctrl->dev);
->  		dev_err(rxq->dpmaif_ctrl->dev, "Work RXQ: %d has not been started\n", rxq->index);
-> +		/* Returning work_done < budget without completing the NAPI would
-> +		 * leave NAPI_STATE_SCHED set, hanging a later napi_synchronize()
-> +		 * in t7xx_ccmni_disable_napi() (which holds rtnl_lock). Complete
-> +		 * it here so the queue is cleanly unscheduled after rx_stop().
-> +		 */
-
-[Severity: Low]
-Is the "(which holds rtnl_lock)" part of this comment accurate?
-t7xx_ccmni_disable_napi() doesn't take any lock:
-
-drivers/net/wwan/t7xx/t7xx_netdev.c:t7xx_ccmni_disable_napi() {
-	if (!ctlb->is_napi_en)
-		return;
-
-	for (i = 0; i < RXQ_NUM; i++) {
-		napi_synchronize(ctlb->napi[i]);
-		napi_disable(ctlb->napi[i]);
-	}
-	...
-}
-
-rtnl is held only when the core reaches it through .ndo_stop, which is
-t7xx_ccmni_close().
-
-The other caller is the modem state path. It runs in FSM context without
-rtnl:
-
-t7xx_ccmni_md_state_callback()    /* MD_STATE_EXCEPTION / MD_STATE_STOPPED */
-  t7xx_ccmni_post_stop()
-    t7xx_ccmni_disable_napi()
-      napi_synchronize()
-
-On the exception path, this is the first napi_synchronize() to hit a
-stranded NAPI_STATE_SCHED. By then que_started has already been cleared
-through
-t7xx_dpmaif_md_state_callback()->t7xx_dpmaif_stop()->t7xx_dpmaif_stop_sw()->t7xx_dpmaif_rx_stop().
-
-The t7xx driver never takes rtnl_lock itself. Could the comment say that
-rtnl_lock is held only on the ndo_stop path, or drop the lock reference?
-
-> +		napi_complete_done(napi, work_done);
->  		return work_done;
->  	}
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but this early return still
-doesn't undo an earlier t7xx_pci_disable_sleep() from the same scheduling
-cycle. It doesn't call t7xx_pci_enable_sleep(), and it doesn't clear
-rxq->sleep_lock_pending.
-
-There are two ways to reach it with a sleep-disable vote still
-outstanding.
-
-(a) An earlier poll used up its budget or set once_more. It returned with
-sleep_disable_count incremented and rx_processing still 1.
-
-(b) An earlier poll took the retry branch:
-
-	ret = try_wait_for_completion(&t7xx_dev->sleep_lock_acquire);
-	if (!ret) {
-		napi_complete_done(napi, work_done);
-		rxq->sleep_lock_pending = true;
-		napi_schedule(napi);
-		return work_done;
-	}
-
-In both cases t7xx_dpmaif_rx_stop() can time out and clear que_started
-anyway:
-
-		timeout = readx_poll_timeout_atomic(atomic_read, &rxq->rx_processing, value,
-						    !value, 0, DPMAIF_CHECK_INIT_TIMEOUT_US);
-		if (timeout)
-			dev_err(dpmaif_ctrl->dev, "Stop RX SW failed\n");
-		...
-		rxq->que_started = false;
-
-Can the next poll then take this early return with sleep_disable_count
-still raised, or with sleep_lock_pending stale?
-
-sleep_disable_count is never reset. If it stays raised,
-t7xx_dev_set_sleep_capability(true) wouldn't run again. Later
-t7xx_pci_disable_sleep() calls would also skip the count == 1 DS_LOCK
-handshake.
-
-The accounting also looks unbalanced apart from this branch. Each repoll
-after a budget-exhausting or once_more return calls
-t7xx_pci_disable_sleep() again, because sleep_lock_pending is false. The
-completion branch calls t7xx_pci_enable_sleep() only once.
-
-This patch doesn't make things worse. In case (b), the stale flag now makes
-the next poll skip t7xx_pci_disable_sleep() and call
-t7xx_pci_enable_sleep() on completion, which cancels out the leaked count.
-
-[Severity: High]
-Can a new poll still get past t7xx_dpmaif_rx_stop() through this check?
-The current ordering doesn't seem able to keep a newly starting poll out.
-
-t7xx_dpmaif_rx_stop() loads rx_processing, does smp_mb(), and then stores
-que_started = false. The poll stores rx_processing = 1, does smp_mb(), and
-then loads que_started. Because the stop side does a load and then a
-store, this interleaving is allowed:
-
-CPU0 (t7xx_dpmaif_rx_stop)        CPU1 (t7xx_dpmaif_napi_rx_poll)
-reads rx_processing == 0
-                                  atomic_set(&rxq->rx_processing, 1);
-                                  smp_mb();
-                                  reads que_started == true
-smp_mb();
-rxq->que_started = false;
-returns
-
-A new poll can be scheduled here even after the IRQ is masked. If an RX
-IRQ arrived during the previous poll, NAPIF_STATE_MISSED is set. That
-poll's napi_complete_done() then reschedules it with __napi_schedule(), and
-only afterwards does it store rx_processing = 0.
-
-CPU1 would then run the full RX path while the rest of
-t7xx_dpmaif_suspend() runs. That includes:
-
-t7xx_dpmaifq_rx_notify_hw()
-  queue_work(dpmaif_ctrl->bat_release_wq, &dpmaif_ctrl->bat_release_work);
-
-This can run after cancel_work_sync(&dpmaif_ctrl->bat_release_work). The
-PIT/BAT updates and the MMIO in t7xx_dpmaif_clr_ip_busy_sts() and
-t7xx_dpmaif_dlq_unmask_rx_done() can also run at the same time as
-t7xx_dpmaif_hw_stop_all_rxq() and the H2D suspend requests.
-
-That conflicts with what the earlier patch in this series ("net: wwan:
-t7xx: fix race between TX/RX data path and system PM suspend") relies on
-in t7xx_dpmaif_suspend():
-
-	/* t7xx_dpmaif_rx_stop() clears que_started and waits for the
-	 * in-flight NAPI poll (rx_processing) to finish, so no poll issues
-	 * MMIO after this point. It is also the sole producer of
-	 * bat_release_work, so cancel that work only after rx_stop();
-	 ...
-	 */
-	t7xx_dpmaif_rx_stop(dpmaif_ctrl);
-	cancel_work_sync(&dpmaif_ctrl->bat_release_work);
-
-The same path can also be reached on a modem exception through
-t7xx_dpmaif_stop_sw().
-
-The load-then-store order in t7xx_dpmaif_rx_stop() dates back to
-d642b012df70, but this series now depends on it to guarantee that no
-MMIO happens after the stop.
-
-Would this ordering close the window?
-
-- In t7xx_dpmaif_rx_stop(): store que_started = false with WRITE_ONCE(),
-  then smp_mb(), then wait for rx_processing == 0.
-- In t7xx_dpmaif_napi_rx_poll(): read que_started with READ_ONCE().
-
->  
->
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261002014638.47981-1-tim770802%40gmail.com
+Thanks,
+Tze Yee
