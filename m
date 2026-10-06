@@ -1,154 +1,168 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012034.outbound.protection.outlook.com [40.107.200.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A6DE46C4DD
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 16:09:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.34
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791303000; cv=fail; b=PJOHlq1UNcaJmw+E7vrl3UHrHZ+9NtMddjesPucV/CVjTqV4FGzDPk5wYVg5p7zBLIH93Kz4HhX7olNhVVEcYZJ9jSOKs+IpNtE+TDbeEyyZ3XhcWKD8kfi/xS5Ij7coN/6cZNKpVBYO450mnitMez5/E/bpNk1czEi+rJ39aFk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791303000; c=relaxed/simple;
-	bh=lHmnLBbHEKiJDemUijZ0JAP4yELZp5xzcAHByMPxynA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=T5xVMZdAzLQKSLfRZHg72p0dKciBm8YOciDtV5KgdPv+onLz9vL3dHD/T4HTc9f4aiuxUechtRGUU83VB/HdxxoW6ClkP6ZpxnD6YpEfRzO7DIhYtsB0LTtwuIf0kmLAdHGYyMqAYlH8CUU/24kyNTjLwSqlMMfZLQ432TGpT/k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=1Rdmp2TF; arc=fail smtp.client-ip=40.107.200.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D33EC49E14B;
+	Tue,  6 Oct 2026 16:10:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791303042; cv=none; b=oFfPrX7q8KZ2G6jQbGFfhOX7KA3q9j/1IySwCsLkHJ+lxZ2AcOES9s55+EkE4TjzbpTAxmhzyN6XKQjrSdCifryAhlFPVPa+qOBHMB3oooGFh/Fmv7glastQTSzEQyvXbUkkCHOPG0dc2RPzh8AgiOga7KAixK7dEwP4wZMnOG8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791303042; c=relaxed/simple;
+	bh=rFfIvmCe1uMzcdh7HiJnyXC2h8CwibsjHm3hTC3KYO8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZzRVQWgZrZEgDzUUkT0nyD6mDiAfeWqM1WiRQZ880muC3t1tRMpJyVeSKV96cOABzf8AKKZB/cW6JL0QsYlrrZiBqsfXnHh4kAINxQR/79uppR1y5WEE0QpEPxuQioVqe4l4H5mAlmn8gJQhIp1sMgHpiwJsU3P6TX6QyKm4NZk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L8mkYQm8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="1Rdmp2TF"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=R7AvLMsoAifK3Dlnl+S4KeHrwrnsKmtgiA8ATYVFJdCDVAB0x561PZzVnYGqkxJx/UCLR1H8VROoh8qEUNHt2BJ+tOYM2IHDLnbR2xGQ1hIpCRN/v0bL6Jpbg0ZCbiEn/JjdCfLqcdzYUXuVjY1yKEmWN2ul7MAgxt1XCoNbhfvsj4Xj1rBsfHPIb7IDBUGn7/4qXPMlPVi/Dg4AM1SmIapFqvD+nOyv8P72x7VbtraAS9vkKAxDIWBC7XUCY8HTKuLsu/2e/u2PpaPevblm8aRYdJ73hDK09F45EUZsiCwix6gK9cFklFy050/rIeaG6IIqdUe7ga16myAXokqSPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nA2NZW6KlB7vW3zwmThuYnEhQEnitc1FqIMQplJKEWg=;
- b=izEhO23fxoAMzNZcP+YM2XrMtIcVTzN4dq+V4DK9+AFATBuVvAUii07gxCMp0GfnyvC7pC1NbH3sn0w0F7SBcyY7nfotD9DnFOpaH7VDiaafIpnC9qy0pnmsMHnFowzcMJUsTtT6h7P+YDB02VhrOAZ9/Zfc9dHgWJYVkbz8yn6cAfVqkb6cZeGTe4zYJhbuWDPFIzApZxK6Xlx4/p590VyB3w3XWSdaoW5MCn7HzyNORZsPeOZ3ew88FVrjfj2RR5Ea9oKr2tvVKs3m3wLFtT/RPH6HflxHp5Kvx/wBT7HcDINgmB0CEi2Zb7kRIxTmXGCScJQvMKNpdgGoXhdzsg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=linux.dev smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nA2NZW6KlB7vW3zwmThuYnEhQEnitc1FqIMQplJKEWg=;
- b=1Rdmp2TFFEJdFwGXCRBc4a7EzKs3akNtNFBLUyac+5TIWjTtdwTKf96x5m7HcgTDvMzVqFgI7tXyKIPy2SUBzuok+bIt7yHQUiqrvxhdtKNgXoEJi1k2IAYyTgHAiq0p4FVlh9oSofE1F3pmJf2X1CplS4CkBP6KrMp/DRFwiDk=
-Received: from DM6PR06CA0094.namprd06.prod.outlook.com (2603:10b6:5:336::27)
- by DS6PR12MB534567.namprd12.prod.outlook.com (2603:10b6:8:498::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Tue, 6 Oct
- 2026 16:09:54 +0000
-Received: from BL6PEPF00022570.namprd02.prod.outlook.com
- (2603:10b6:5:336:cafe::40) by DM6PR06CA0094.outlook.office365.com
- (2603:10b6:5:336::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Tue, 6
- Oct 2026 16:09:54 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BL6PEPF00022570.mail.protection.outlook.com (10.167.249.38) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Tue, 6 Oct 2026 16:09:54 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 6 Oct
- 2026 11:09:51 -0500
-Received: from [10.252.201.245] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Tue, 6 Oct 2026 11:09:49 -0500
-Message-ID: <023e73af-ebfd-4490-bf56-e91df10f7855@amd.com>
-Date: Tue, 6 Oct 2026 21:39:48 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L8mkYQm8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A1351F0089B;
+	Tue,  6 Oct 2026 16:10:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791303040;
+	bh=jBSzgIQiDKIdVOouse9O8m70fhpFq8FSj2RNSA5L8gs=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=L8mkYQm8HadJV+3ESPCmb38t2MS7PpXmG+eqKLh0tBoKyKdGrSKaks+z2LlaL0ySf
+	 JeV6+mgYbYs6DBVjLKqm7YsJpXdasafgurVt4Pqj8c2AqHWwL9/yI60Lljo/+Y34Fe
+	 1/lcnIUOSxTpUCcHmDeXkdIscPi/fKzMX46n7UjSrwEdUMnFl4Iv7eIhrUB/fNIcwI
+	 T/u629DnJw9/gsXD8xcRx+FeBv2KiD/+KC6OdMcJTg5l0M+YCkiiXvSLmWD4jeRHil
+	 BqniKelmHekkQLbOJO+Iwu4eSQMwmiIuzkfErh6TkEw0LFvW89LnhUoQbiD6ovswcD
+	 CNFqgVkH7wfiw==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 1CB85CE3A08; Tue,  6 Oct 2026 09:10:40 -0700 (PDT)
+Date: Tue, 6 Oct 2026 09:10:40 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Bradley Morgan <brads@mainlining.org>
+Cc: kernel test robot <lkp@intel.com>, akpm@linux-foundation.org,
+	vgupta@kernel.org, guoren@kernel.org, chris@zankel.net,
+	jcmvbkbc@gmail.com, oe-kbuild-all@lists.linux.dev, arnd@arndb.de,
+	david.laight.linux@gmail.com, glaubitz@physik.fu-berlin.de,
+	ysato@users.sourceforge.jp, dalias@libc.org,
+	linux-snps-arc@lists.infradead.org, linux-csky@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 3/3] xtensa: Emulate two-byte cmpxchg
+Message-ID: <fde35b55-8916-47fe-a505-ef6db296e4bb@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20261005120700.383058-4-brads@mainlining.org>
+ <202610061704.rvbolgPy-lkp@intel.com>
+ <82aad69a-603c-41cd-876d-09772a1a7e6a@paulmck-laptop>
+ <543B9D97-52F8-4D12-8118-9698F6908668@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm/hugetlb: use kvmalloc_objs for
- hugetlb_fault_mutex_table
-To: <muchun.song@linux.dev>, <osalvador@suse.de>, <david@kernel.org>,
-	<akpm@linux-foundation.org>, <davidlohr@hp.com>, <linux-mm@kvack.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <Vasant.Hegde@amd.com>, <bharata@amd.com>
-References: <20261006160128.31447-1-dheerajkumar.srivastava@amd.com>
-Content-Language: en-US
-From: Dheeraj Kumar Srivastava <dheerajkumar.srivastava@amd.com>
-In-Reply-To: <20261006160128.31447-1-dheerajkumar.srivastava@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00022570:EE_|DS6PR12MB534567:EE_
-X-MS-Office365-Filtering-Correlation-Id: c2577bc6-bc69-4c87-0d86-08df23c4426d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|23010399003|36860700016|1800799024|376014|10067099003|56012099006|18002099003|11063799006|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	knnqffqC+yVSbKMzx9fDDjGGjbFazaH0gRwd3Vv5/QXKwB5IjEXiqJWymrs2sjjQfEL88d6mIKLuOe6PqN3JuU2m6jrJ1bgsmJNmSysmTnRmfh8YFGrmgVpE7i2j1WD2RCBwDNYx6TDVXb2nXdAWCrQ3ocMrUpTXBDoZ+eP55nynDuoFrSI4IcPEwyKxcyvoW3Tg8BMLxmtKt9f+WM8ZThiBY4nRgZ2WgiQ33Ndwsge5LEqh6qAuSpzG3jKUiaKFpewG4QBualsfN3QufiOluHLOmbicU2e+3Jpr1Eicxq4jOsybg+o9u/2A5d5KfJMz9YnrmwKCl5gGQ0ReP2OG2+eKEmoF+S/KmDPOwjFQd8B9vpSeJ3cHD4/JWAkUC6Esxtg7HVU6Mi3KcwriTIk0cVBpUI+MpSc+4VtDTP1sKOt8cCAW19DaCuEbctmLEH5aMkJRlqwy+wWtSQhUMy3pmUr51Aa99kYNb6ZEpmeU7vxbIZhNAxLuKD3IIqWae1ZJt5M/Al4ZpXvLFt4lPhFprumCuLEIuCOo5ruFwczb9lIrgEqrP5ffXa72dPIqATW/Sfogs2JLaliOP9t1SqHeol+2g4+vv1zM4WyUAbQ7Sey4vrojJ5MBTziXXxXXHT6mrXvNaFO2JfaveEkOT7mGBusnOx4o0qrBuzG52SwV0pB0VkkiN1wBQkC6aX+FJjt0
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(36860700016)(1800799024)(376014)(10067099003)(56012099006)(18002099003)(11063799006)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	pdeeT8PR2oDyVhRFS+Z05M+5+yxfqOHBmFa2t3qqa9jhePcDHN4T4Hnv6RGuj4R2ipP2fa+APTwUkcjwHL0nqRkEf8iVpfTKWJ+tNFZ/Pgf3cCG5UFO7TwkE+plKGdjFSsHfl2oMcLYJKoQ7nL80K+i4oibHIN0xABcD1q67sGP57Nnn6f0nFeExF9uUBhydtI9L1fnred9FPGoPmJmltYOEAx+zIoWgf//CJcNX0pr7ebirMzoxB5E1lmglVIwksHjDKILMKJbd6Sv/wV4cKPMQcUxkNClcT1dq1nv3yA3Vx+RTlFZv7TzlWVPhVtsXr74LOvFmZxxGAGfBlPBfOsWj0XYlR0c9jAMZnb+ZC5bHf9QDGTQupnhmHnXv5p1Glgz4RqNY21N5D0YTDp9oWRRiZ7X6mMsfHRQzFMx99c7xLQkVb0kz1YapUaYMLFdP
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 16:09:54.4457
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c2577bc6-bc69-4c87-0d86-08df23c4426d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF00022570.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB534567
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <543B9D97-52F8-4D12-8118-9698F6908668@mainlining.org>
 
-Hi all,
-
-On 10/6/2026 9:31 PM, Dheeraj Kumar Srivastava wrote:
-> On systems/VMs with a large number of CPUs (e.g. 4096), hugetlb_init()
-> computes num_fault_mutexes = roundup_pow_of_two(8 * num_possible_cpus())
-> = 32768.  The subsequent kmalloc for the mutex table can exceed
-> MAX_PAGE_ORDER when struct mutex is enlarged by debug options like
-> CONFIG_DEBUG_MUTEXES and CONFIG_DEBUG_LOCK_ALLOC, resulting in:
+On Tue, Oct 06, 2026 at 04:46:22PM +0100, Bradley Morgan wrote:
+> On 6 October 2026 16:44:13 BST, "Paul E. McKenney" <paulmck@kernel.org>
+> wrote:
+> >On Tue, Oct 06, 2026 at 05:54:53PM +0800, kernel test robot wrote:
+> >> Hi Bradley,
+> >> 
+> >> kernel test robot noticed the following build errors:
+> >> 
+> >> [auto build test ERROR on akpm-mm/mm-everything]
+> >> [also build test ERROR on vgupta-arc/for-curr
+> >jcmvbkbc-xtensa/xtensa-for-next linus/master v7.3-rc6 next-20261005]
+> >> [cannot apply to vgupta-arc/for-next]
+> >> [If your patch is applied to the wrong git tree, kindly drop us a note.
+> >> And when submitting patch, we suggest to use '--base' as documented in
+> >> https://git-scm.com/docs/git-format-patch#_base_tree_information]
+> >> 
+> >> url:   
+> >https://github.com/intel-lab-lkp/linux/commits/Bradley-Morgan/ARC-Emulate-two-byte-cmpxchg/20261005-120658
+> >> base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git
+> >mm-everything
+> >> patch link:   
+> >https://lore.kernel.org/r/20261005120700.383058-4-brads%40mainlining.org
+> >> patch subject: [PATCH v5 3/3] xtensa: Emulate two-byte cmpxchg
+> >> config: xtensa-allyesconfig
+> >(https://download.01.org/0day-ci/archive/20261006/202610061704.rvbolgPy-lkp@intel.com/config)
+> >> compiler: xtensa-linux-gcc (GCC) 16.1.0
+> >> reproduce (this is a W=1 build):
+> >(https://download.01.org/0day-ci/archive/20261006/202610061704.rvbolgPy-lkp@intel.com/reproduce)
+> >> 
+> >> If you fix the issue in a separate patch/commit (i.e. not just a new
+> >version of
+> >> the same patch/commit), kindly add following tags
+> >> | Reported-by: kernel test robot <lkp@intel.com>
+> >> | Closes:
+> >https://lore.kernel.org/oe-kbuild-all/202610061704.rvbolgPy-lkp@intel.com/
+> >> 
+> >> All errors (new ones prefixed by >>):
+> >
+> >These patches need to be applied on top of my -rcu tree's "dev" branch,
+> >which supplies cmpxchg_emu_u16().
+> >
+> >Nevertheless, thank you for your testing efforts!
 > 
->    WARNING: at __alloc_frozen_pages_noprof (order > MAX_PAGE_ORDER)
->    kernel BUG at mm/hugetlb.c (BUG_ON(!hugetlb_fault_mutex_table))
->    Kernel panic - not syncing: Fatal exception
+> Do you reckon they are fine to you? The patches?
 > 
-> Switch to kvmalloc_objs() so the allocation falls back to vmalloc when
-> the contiguous physical allocation is too large.  The table is only
-> accessed by index, so virtual contiguity is sufficient.
+> Arch maintainers may be busy unfortunately :(, I've done testing on all
+> the arches, 
 
-Sorry, I forgot to include the "Changes since v1" change log.
+I have queued the one that is already acked by the SH maintainer, so we
+get at least something into the upcoming merge window.  I plan to try your
+patches out later today, Pacific Time, and queue them if they are ready.
 
-Changes since v1:
--> Use kvmalloc_objs() instead of kvmalloc_array().
+If the architecture maintainers ack them in time, I send a pull request
+for them in the upcoming merge window.  If some of the do not yet have
+acks, I keep those unacked ones for the next merge window.  If they
+are still being ignored at that point, I send the pull request anyway.
+Maybe Linus takes it, maybe not.  If not, I figure things out from that
+point.
 
-Thanks
-Dheeraj
+Hey, it is a lot faster than some other communities that I am involved
+with, where the timeframes are years and even decades rather than
+mere weeks and months.  ;-)
 
+							Thanx, Paul
+
+> >>    In file included from arch/xtensa/include/asm/atomic.h:19,
+> >>                     from include/linux/atomic.h:7,
+> >>                     from include/asm-generic/bitops/atomic.h:5,
+> >>                     from arch/xtensa/include/asm/bitops.h:192,
+> >>                     from include/linux/bitops.h:67,
+> >>                     from include/linux/log2.h:12,
+> >>                     from kernel/bounds.c:14:
+> >>    arch/xtensa/include/asm/cmpxchg.h: In function '__cmpxchg':
+> >> >> arch/xtensa/include/asm/cmpxchg.h:79:25: error: implicit declaration
+> >of function 'cmpxchg_emu_u16'; did you mean 'cmpxchg_emu_u8'?
+> >[-Wimplicit-function-declaration]
+> >>       79 |         case 2:  return cmpxchg_emu_u16(ptr, old, new);
+> >>          |                         ^~~~~~~~~~~~~~~
+> >>          |                         cmpxchg_emu_u8
+> >>    make[3]: *** [scripts/Makefile.build:185: kernel/bounds.s] Error 1
+> >>    make[3]: Target 'prepare' not remade because of errors.
+> >>    make[2]: *** [Makefile:1405: prepare0] Error 2
+> >>    make[2]: Target 'prepare' not remade because of errors.
+> >>    make[1]: *** [Makefile:248: __sub-make] Error 2
+> >>    make[1]: Target 'prepare' not remade because of errors.
+> >>    make: *** [Makefile:248: __sub-make] Error 2
+> >>    make: Target 'prepare' not remade because of errors.
+> >> 
+> >> 
+> >> vim +79 arch/xtensa/include/asm/cmpxchg.h
+> >> 
+> >>     73	
+> >>     74	static __inline__ unsigned long
+> >>     75	__cmpxchg(volatile void *ptr, unsigned long old, unsigned long new, int size)
+> >>     76	{
+> >>     77		switch (size) {
+> >>     78		case 1:  return cmpxchg_emu_u8(ptr, old, new);
+> >>   > 79		case 2:  return cmpxchg_emu_u16(ptr, old, new);
+> >>     80		case 4:  return __cmpxchg_u32(ptr, old, new);
+> >>     81		default: __cmpxchg_called_with_bad_pointer();
+> >>     82			 return old;
+> >>     83		}
+> >>     84	}
+> >>     85	
+> >> 
+> >> --
+> >> 0-DAY CI Kernel Test Service
+> >> https://github.com/intel/lkp-tests/wiki
 > 
-> Fixes: 8382d914ebf7 ("mm, hugetlb: improve page-fault scalability")
-> Signed-off-by: Dheeraj Kumar Srivastava <dheerajkumar.srivastava@amd.com>
-> ---
->   mm/hugetlb.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-> index cea25773a6c9..6fc5c0bdb500 100644
-> --- a/mm/hugetlb.c
-> +++ b/mm/hugetlb.c
-> @@ -4177,7 +4177,7 @@ static int __init hugetlb_init(void)
->   	num_fault_mutexes = 1;
->   #endif
->   	hugetlb_fault_mutex_table =
-> -		kmalloc_objs(struct mutex, num_fault_mutexes);
-> +		kvmalloc_objs(struct mutex, num_fault_mutexes);
->   	BUG_ON(!hugetlb_fault_mutex_table);
->   
->   	for (i = 0; i < num_fault_mutexes; i++)
-
+> --- Thanks!
+> "I'm not a very positive person" - Linus torvalds
