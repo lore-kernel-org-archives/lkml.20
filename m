@@ -1,200 +1,208 @@
-Received: from mail-ua1-f98.google.com (mail-ua1-f98.google.com [209.85.222.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from flow-b6-smtp.messagingengine.com (flow-b6-smtp.messagingengine.com [202.12.124.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C03249CF42
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 16:24:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BEE749E145
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 16:27:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791303853; cv=none; b=WyOFgztnSuy09DpfruUfngoFGm8IzywWsGiYP397l8z4vhXhtdubzilYev2iGVeTKdn0gUGji7Cyj7K5fYoxJKUC0/uhYCcvV2TETRJOowf7uBCMXnBI4VLkkiyBCzhncBfqJeGCXPsW8L4htd4uAjaLpEN5p7qIUe3/XKdKa0I=
+	t=1791304063; cv=none; b=P8CRBg+x6+qrKRe3MPNR84tqdJ+fsnvAWBNn2qUpm7kC0yGkUoZcMgSaLa0KdzEUFkbfA+q+OmJnZF9JI26ICa84EKP91nn/HTEF5bGPgMBZKO7ZRfuUQrchQ51rWxzKfG34+dyqNhDKw2GWkeUjj3teX13c60yg7PsujQvIDF0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791303853; c=relaxed/simple;
-	bh=RcbvBXG/6lrsdkpqL8g9IxIvet2V3+6WRbvHO5gAYgA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PM7SshFJxtnbp5sRlpkT9Bv6a4QwbYdmcMwBwJgeNIWzKUTCAaGjTV/kODq9bUJ+X9Hlqorux0NJRJtYBdIP6CA9F2iaRg00e1MrJIAAB55qHwZaafPJJJ+tUtIADZqu6+CM1pX2Gm4Die6mG/WI3w0FzxdRiS582fvaUu7pZBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=h3gxBz3D; arc=none smtp.client-ip=209.85.222.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1791304063; c=relaxed/simple;
+	bh=JaOT2qccNi/eJCcGFKpQPyFgrQUtWBfNjazKR4huGJc=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=fkW+OGL8FWyxcgwqWs1AP51JWfYj2uN7MOWYuT/nDSu5/OOrCUM0i1DFX9O2Lgn+rk4LT89N8q7cFFoEGsQRqeDHKlgQcJoem0Vtvm1x57AVDT2iHCwUMpuTGSFQ+NgA4ryrjAyrvvYmeyEt0jtxlw/aHKO2bjamKzXli9tpz1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wolber.net; spf=pass smtp.mailfrom=wolber.net; dkim=pass (2048-bit key) header.d=wolber.net header.i=@wolber.net header.b=aDJ0OTHC; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=fBLlzhf/; arc=none smtp.client-ip=202.12.124.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wolber.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wolber.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="h3gxBz3D"
-Received: by mail-ua1-f98.google.com with SMTP id a1e0cc1a2514c-980c4f5c921so250668241.2
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 09:24:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791303842; x=1791908642;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=F8p9gZ6dHUeXfr9Ect+sOuLZTX6uktr9z7PwXXUBPJY=;
-        b=nsUxhv8rhdAiooFic1aJmA8WN+0eBRPoOk5xY9WVx3bQor08yDWfzn+jVWDVAdhnF5
-         2TnzQURujytIuhUs6xlWyyxhwIV8AaLMMdOTO49E/naTqt6IfOBgKsRZ5tBQvcBx6mSQ
-         EeG9rXQDLVDzL8pky1jL66HnuN42M+6I+jj0YDkv0CHVq6UNSWq1mg1oGtH6JLmaPLko
-         pWhRIV5JLiNEVtGv6BXvpPkBVOmonlaicnXlfOSIaJ0AquJXJq302SAvHMkQMyCHKgwn
-         iTzksi4QmyU+21lBobk5X9dOow07hZmrUCVyT1kS9WMwmQqm9/1RJLQ1roY5cLEZoUGB
-         oZYg==
-X-Forwarded-Encrypted: i=1; AKwUvBxMvu9UCCVjZ5GVmDI9RSz9r/lEIYWxozTWXQGyyDyy0WuAKNFHJfOhdocXGhKgugssXOociIETEPOh5cs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKeVkKq9ul+DxxqNUbxzH9pSXBQ7MOi0KlM7KUPsAy5NHVq+uBq
-	8PJ0t5RiDewKw2h6svJZm2GKn4oXdmvWaDVwSwcwx8yc/Yo6T+own8/Li1119sFgzfhI/qtrvN5
-	u7uHrOC+6ibpV0kgt8lqYKfmAulezAA/K9iZbkwRo4hYUTKkbrtZHIpI4EnD1Nq3OVcoAO7A0gZ
-	4/Jk83ITtWKmGFdLOOae57vE7a0UZOlquBdF9/hF3ULlbOFR7HxFc+mFjJtHzH3euGWn3X0lLi3
-	rTnxUI3wp/Oi+c+1vJw
-X-Gm-Gg: AYBFou2Na4A0DbOB2LQNONvSxReMqmiOvaWMIo276hHCdRLXswXV5rmOyWx447UJAKN
-	KcpA7o0hvXvcQYyqxFiWLJ5T4d16nSXNffPrv8idu6Z8KhhVL+DbxW/smVvNXYS5kmtYxjsC/bd
-	7eSZgOqvN5QThzpvJzLouTC7y1GrEcR6BusZ8qGdIjlefrDkS1FFYfZF+mZbPHhkAe8D2MJJIPH
-	jjt6nD0eAAWq0oQyBzeK593Ug+AL0oUG10f2FBEsY10aaU1S9r9rPdJAryfX4om3q7PQVxFRyoS
-	FvNQSEQIw9qNEbL6vCuxryJZLN+YGtLEIgmplHHCv0WPTfIyPyp5khsksklOdRvSAiXHaEDIgRy
-	LAA6mApxIANZJYn65GqH02RUME8duzBsPVFARD3EPai9+7etlzoG93+Xhc9/tVcGq7YqvXdqrr0
-	I3hMxWgMxj55mapSAS95w2g3PohfhAg48OqQ==
-X-Received: by 2002:a05:6102:41a0:b0:7b5:4f3e:709a with SMTP id ada2fe7eead31-7c87cb7c5b3mr392721137.37.1791303842209;
-        Tue, 06 Oct 2026 09:24:02 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-25.dlp.protect.broadcom.com. [144.49.247.25])
-        by smtp-relay.gmail.com with ESMTPS id ada2fe7eead31-7c100d6496bsm94579137.26.2026.10.06.09.24.01
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 06 Oct 2026 09:24:02 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-917baea8e5dso63339416d6.3
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 09:24:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1791303841; x=1791908641; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=F8p9gZ6dHUeXfr9Ect+sOuLZTX6uktr9z7PwXXUBPJY=;
-        b=h3gxBz3D6k97B+mQI3Oex6nh50F8IZvF7hZoEmLHknu9f77Hi3+guupWPYkngMZxe+
-         1ezv2YEWoepQziuvDsbVvqJ2EXGC4oFG9ud8p1q5KLxzC+22DtaW23c6WzhadgTAOVbN
-         NHRGIGTprNn+kvTlynKT16c82xbEQ8Q0ksO0E=
-X-Forwarded-Encrypted: i=1; AKwUvByT/DUrMbZLKeW/7SV9Q7hXtWK/8ur2ugJsnaEIGfir9i+DLViKBDLnbGEDWx8i6rRsrX5irPV/xj928Ug=@vger.kernel.org
-X-Received: by 2002:a05:622a:312:b0:535:2283:20a3 with SMTP id d75a77b69052e-53566b24b6fmr31828981cf.33.1791303841411;
-        Tue, 06 Oct 2026 09:24:01 -0700 (PDT)
-X-Received: by 2002:a05:622a:312:b0:535:2283:20a3 with SMTP id d75a77b69052e-53566b24b6fmr31828551cf.33.1791303840787;
-        Tue, 06 Oct 2026 09:24:00 -0700 (PDT)
-Received: from mgmt5.dhcp.broadcom.net ([192.19.222.250])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5356b860df8sm9020961cf.14.2026.10.06.09.23.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 09:24:00 -0700 (PDT)
-From: Siva Reddy Kallam <siva.kallam@broadcom.com>
-To: leonro@nvidia.com,
-	jgg@nvidia.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	andrew+netdev@lunn.ch,
-	horms@kernel.org
-Cc: vikas.gupta@broadcom.com,
-	ajit.khaparde@broadcom.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	Sachin Holla <sachin.holla@broadcom.com>,
-	Siva Reddy Kallam <siva.kallam@broadcom.com>,
-	Dharmender Garg <dharmender.garg@broadcom.com>
-Subject: [net-next v2 3/3] bnge: reserve TX/completion rings for the RoCE MPC channel
-Date: Tue,  6 Oct 2026 09:12:56 -0700
-Message-ID: <20261006161256.1493672-4-siva.kallam@broadcom.com>
-X-Mailer: git-send-email 2.43.5
-In-Reply-To: <20261006161256.1493672-1-siva.kallam@broadcom.com>
-References: <20261006161256.1493672-1-siva.kallam@broadcom.com>
+	dkim=pass (2048-bit key) header.d=wolber.net header.i=@wolber.net header.b="aDJ0OTHC";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="fBLlzhf/"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailflow.stl.internal (Postfix) with ESMTP id A77A61300988
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 12:27:41 -0400 (EDT)
+Received: from phl-imap-03 ([10.202.2.93])
+  by phl-compute-03.internal (MEProxy); Tue, 06 Oct 2026 12:27:41 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wolber.net; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1791304054;
+	 x=1791311254; bh=JaOT2qccNi/eJCcGFKpQPyFgrQUtWBfNjazKR4huGJc=; b=
+	aDJ0OTHCchnO4w6/CsJuj3/fyrPyNJFY4ttnZJ32SPYQ1baaTFGfKMO9PA/8DtHV
+	AsNd8Xsu84MUJmBFv5/ll9m+VcCPPgxqsSJT2n+TmbcmG6fD4QNVtpqhPT7Q4TOz
+	WTiDe6Lq4M1G6UjTKlQhaXAb09dBds0JAgfMd2zBhDs0nAwWOhjrNyhvGleNZe7y
+	gv2D+1qn6q4ZhtNXKj2Gf9bd1/cucl15+nnvNYNbFIeG1Ityus3JxcU9s/6Yq09B
+	rvUaskoGk8zZ/9UluAUKyH887JgkJ3AgCu3mmn5Pz+2uAheFZUt1bGNnsWBTrI8s
+	esQMOdnFBRIRZ0x2NygQJg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791304054; x=
+	1791311254; bh=JaOT2qccNi/eJCcGFKpQPyFgrQUtWBfNjazKR4huGJc=; b=f
+	BLlzhf/ACw2DnbRA/f0NFj/mSJdBV3nRoBDnYx0ZhOUCdVHCeVj6hFriIZUcll4y
+	HYVAhQJ/gnOC0Ye0ISQTWcG5vtU1Gkw0/1cJzG3YGxWj7mVmOmZpFzfFtgmSSU4p
+	2zIlVn2Awy7dvBu4dEzk7gpDC2IH/Ui8fad90Cn/5T8/cQz0sRwoyQhl/c3WT6vM
+	QeSUVmdTUYmyh1pgv5fkCka+NPaQY8yY1pDNukujWG1DBBmMXRhQ3cmPJx7egwpQ
+	5SSKHDSGFhca+orYJ6al39eGSm4jB6wPvueYsX8/+8FVKGO1vL/ruK2ntGDv4w4k
+	SihsKkwdF/NX3cIJy9R1A==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=wolber.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791304054; d=wolber.net;
+	mf=PGNodWNrQHdvbGJlci5uZXQ+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:JWZvTKHkkyHqhhoMVSiMcJaQgaJ7+4ujX0DLmHWaK7RLqv6
+	Wa4LEUTEbYK3kALT+PwgSFE/1Hf64s/RI9/KZtr5FBUmHYxzF5JJzfGGpSBb0ieU
+	HOuhIuLLsMLLTRNX66UQY6COLjKw/k7JgW3EQ0XbaJ3qLLADejL94rPIK6mmy564
+	jU43yPqKCtFQaS7dbkGv/Fo7/PVKQuQb/UvTAMbgLjbK4JdbJGdqofw02L1OvUI2
+	A8JfC/0hUfr92zwL60liKKonrRRnYVoHhOeD8GQ88ISJDbNazJGF1FPOZxAJkl0k
+	L8GBoNHYo/Tg4h1MQqXVs16nDzPRKSkYU9G1YcA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:9OT84S2nU/0nZ1U64BlOetYjb+/mK3i5jm+AZt7+BvI=:JaOT2qccNi/eJCcGFKpQPyFgrQUtWBfNjazKR4huGJc=;
+X-ME-Sender: <xms:cyHFav2-FXDCSQuCl4UvdwZDw3DXvUGCTqrIBXFwQjqh8CIUBrV_ag>
+    <xme:cyHFao5zpJVZ_b_VN1729xUOenCfieF6CzFcNFgMSngnQ20-3uZ_0r7V7QV9GBhep
+    oO-9X6fCh-9B98DlBKwcYnQwcjIoa_CrHgVs_8OaTQKpi1fe8iciKA>
+X-ME-Proxy-Cause: dmFkZTFmiYJcPEGs0A/qYvq8C4MVW3CyXeGEtkOmNDhmCvIFflxFleW7ny57bnBIuQlD59
+    cWped2LiQiXafwA6rH6Ez7xNTRfmFYqjWZDEOCaTaZ+Z4syI7a6O9pxCiwEuqUzZdAJDx0
+    9cWIwLNy/t9fQal6PAMxVsKLkQvvtnsbOBBlUQGL+vOqAn4RFaEl2GHR2b4L1cq9s/UcOt
+    fSVio0w3i/g32nR140kVw61B5rztlTHebHqHKh60OEO7PQ5ZJXf+jeu/CrVryWbHaULU5f
+    OwU38sNMeIhs7opS8zYCEwfGqY1WbgnZ0lsOM1x7qOw1aVGpBTx6LXlr7kO60t15lxjcJQ
+    Xoz6jr0j4pjIR+O+PZ9nKQoFOT41zfg/kPlJYxlgE0wkci+XoTiX+ZZ4/HdymIYC0wObkn
+    HaaEWy6CzVlyLPwlfBUMXcf7/ewqCKLgGcnZKpY7u8A8P13E+O9DUKSqLvkXaNFv3Ep0lA
+    8lCIbxA7dKgreq3nvVhgNUZmHcJ62jED4uvNreTSgAxMWJyV4LIJjvEg+Tau6puOkMEW+Q
+    yF3ikUrkFhHlmZykAc1jvQujIO8vFRGIPKWU9ZIhTUDXcVDmBiqvVDBuwrsYHt6OcsEW9k
+    jBh0wc2IwF7idYt+Gc1PXZUsdyXHFZGint2G86631DLv8ttt/eLnmgSc73pQ
+X-ME-Proxy: <xmx:cyHFalRulfrI0gOe5n2wt8jZZ03L3H4VPYS_luBEHa_EpwUN4qkbtA>
+    <xmx:dCHFaoRUoLvWxDt5tWh7AqecATopVRbeseTkPnbfbMcmvQLU5qEIMw>
+    <xmx:dCHFavHAlYNEcqam7lbTPA14JbY0ZXtQKXHVkmiSR5gfzrc-urkg9Q>
+    <xmx:dCHFakn3xNzhke-YnOSwSFwDAIfvsCGSwfRjOky3Yk59ZEtY7qv9iw>
+    <xmx:diHFapqJCieSCu-f8Lh0CzmaIrjuMtsndrKAb-WlzuewQeP1weUcPRy1>
+Feedback-ID: i5cf64821:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id D087518E0071; Tue,  6 Oct 2026 12:27:31 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+X-ThreadId: A8p1gvDKPv03
+Date: Tue, 06 Oct 2026 16:27:11 +0000
+From: "Chuck Wolber" <chuck@wolber.net>
+To: "Marco Elver" <elver@google.com>
+Cc: kasan-dev@googlegroups.com, nathan@kernel.org, akpm@linux-foundation.org,
+ anton.ivanov@cambridgegreys.com, oberpar@linux.ibm.com, ardb@kernel.org,
+ arnd@arndb.de, bhelgaas@google.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, dvyukov@google.com, hpa@zytor.com,
+ jinghao7@illinois.edu, johannes@sipsolutions.net, jpoimboe@kernel.org,
+ justinstitt@google.com, kees@kernel.org, kent.overstreet@linux.dev,
+ linux-arch@vger.kernel.org, linux-efi@vger.kernel.org,
+ linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-um@lists.infradead.org,
+ llvm@lists.linux.dev, luto@kernel.org, marinov@illinois.edu,
+ masahiroy@kernel.org, maskray@google.com, mathieu.desnoyers@efficios.com,
+ mhiramat@kernel.org, mingo@redhat.com, morbo@google.com,
+ "Nick Desaulniers" <ndesaulniers@google.com>,
+ "Paul E. McKenney" <paulmck@kernel.org>, richard@nod.at,
+ "Steven Rostedt" <rostedt@goodmis.org>, samitolvanen@google.com,
+ tglx@linutronix.de, tingxur@illinois.edu, tyxu@illinois.edu,
+ wentaoz5@illinois.edu, x86@kernel.org, peterz@infradead.org,
+ "Sasha Levin" <sashal@kernel.org>,
+ "Aleksandr Nogikh" <nogikh@google.com>,
+ "Taras Madan" <tarasmadan@google.com>,
+ "Alexander Potapenko" <glider@google.com>
+Message-Id: <41913a77-5c57-4967-8166-765dd5dde1bf@app.fastmail.com>
+In-Reply-To: 
+ <CANpmjNOaykC4McAj=gZghqPSQc9aGBP_CjgKmp3n2yjeJTxDSA@mail.gmail.com>
+References: <00ed0b57-ad05-4c5d-b152-7c81df94b23a@app.fastmail.com>
+ <CANpmjNOaykC4McAj=gZghqPSQc9aGBP_CjgKmp3n2yjeJTxDSA@mail.gmail.com>
+Subject: Re: [PROPOSAL] Replace gcov and kcov with llvm-cov
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-From: Sachin Holla <sachin.holla@broadcom.com>
+On Tue, Oct 6, 2026, at 4:10 PM, Marco Elver wrote:
+> On Tue, 6 Oct 2026 at 17:14, Chuck Wolber <chuck@wolber.net> wrote:
+>>
+>> Stemming from some hallway track conversations with maintainers at LPC
+>> 2026, I propose replacing gcov and kcov in the kernel with llvm-cov.
+>
+> I know the origin of the discussion, and wanted to chat, but I guess
+> that didn't happen and instead we get this proposal. It would have
+> been good to understand the requirements of users of gcov and kcov
+> (more below).
 
-When RoCE is enabled, the bng_re driver allocates its own TX/CQ rings
-for the MPC control channel out of the same per-function FW ring pool.
-Enhanced bnge_reserve_rings() to account for this extra ring count to
-avoid pool overflow while allocating netdev rings.
+No problem, I still plan to seek you out to discuss this further. I just
+wanted to get the discussion going in case there was a broader set of
+opinions on this matter.
 
-Signed-off-by: Sachin Holla <sachin.holla@broadcom.com>
-Signed-off-by: Siva Reddy Kallam <siva.kallam@broadcom.com>
-Reviewed-by: Dharmender Garg <dharmender.garg@broadcom.com>
----
- .../net/ethernet/broadcom/bnge/bnge_resc.c    | 32 ++++++++++++++++---
- 1 file changed, 28 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_resc.c b/drivers/net/ethernet/broadcom/bnge/bnge_resc.c
-index 4711dd4945ff..9dfb22b7c7c7 100644
---- a/drivers/net/ethernet/broadcom/bnge/bnge_resc.c
-+++ b/drivers/net/ethernet/broadcom/bnge/bnge_resc.c
-@@ -110,9 +110,24 @@ static u16 bnge_nqs_demand(struct bnge_dev *bd)
- 	return bd->nq_nr_rings + bnge_aux_get_msix(bd);
- }
- 
-+static u16 bnge_tx_rings_demand(struct bnge_dev *bd)
-+{
-+	u16 tx_rings = bd->tx_nr_rings;
-+
-+	if (bnge_is_roce_en(bd))
-+		tx_rings += 1; /* For MPC TX ring */
-+
-+	return tx_rings;
-+}
-+
- static u16 bnge_cprs_demand(struct bnge_dev *bd)
- {
--	return bd->tx_nr_rings + bd->rx_nr_rings;
-+	u16 cprs = bd->tx_nr_rings + bd->rx_nr_rings;
-+
-+	if (bnge_is_roce_en(bd))
-+		cprs += 1; /* For MPC CQ ring */
-+
-+	return cprs;
- }
- 
- static u16 bnge_get_avail_msix(struct bnge_dev *bd, int num)
-@@ -250,7 +265,7 @@ static bool bnge_need_reserve_rings(struct bnge_dev *bd)
- 	u16 nqs = bnge_nqs_demand(bd);
- 	u16 vnic;
- 
--	if (hw_resc->resv_tx_rings != bd->tx_nr_rings)
-+	if (hw_resc->resv_tx_rings != bnge_tx_rings_demand(bd))
- 		return true;
- 
- 	vnic = bnge_get_total_vnics(bd, rx);
-@@ -275,6 +290,7 @@ int bnge_reserve_rings(struct bnge_dev *bd)
- 	u16 nq = bd->nq_nr_rings;
- 	u16 aux_msix = 0;
- 	bool sh = false;
-+	u16 tx_demand;
- 	u16 tx_cp;
- 	int rc;
- 
-@@ -293,11 +309,12 @@ int bnge_reserve_rings(struct bnge_dev *bd)
- 		hwr.nq = bnge_nqs_demand(bd);
- 	}
- 
--	hwr.tx = bd->tx_nr_rings;
-+	tx_demand = bnge_tx_rings_demand(bd);
-+	hwr.tx = tx_demand;
- 	hwr.rx = bd->rx_nr_rings;
- 	if (bd->flags & BNGE_EN_SHARED_CHNL)
- 		sh = true;
--	hwr.cmpl = hwr.rx + hwr.tx;
-+	hwr.cmpl = bnge_cprs_demand(bd);
- 
- 	hwr.vnic = bnge_get_total_vnics(bd, hwr.rx);
- 
-@@ -327,6 +344,13 @@ int bnge_reserve_rings(struct bnge_dev *bd)
- 	if (hwr.stat > bnge_aux_get_stat_ctxs(bd))
- 		hwr.stat -= bnge_aux_get_stat_ctxs(bd);
- 	hwr.nq = min_t(u16, hwr.nq, hwr.stat);
-+	/* Drop MPC TX ring from L2 TX ring count; it is owned by RoCE driver */
-+	if (bnge_is_roce_en(bd)) {
-+		if (hwr.tx >= tx_demand)
-+			hwr.tx -= 1;
-+		else
-+			return -ENOMEM;
-+	}
- 
- 	/* Adjust the rings */
- 	rc = bnge_adjust_rings(bd, &rx_rings, &hwr.tx, hwr.nq, sh);
--- 
-2.43.5
+>> We have a set of patches [1] that implements kernel based llvm-cov.
+>> They need to be updated and some additional patches are required to
+>> address some stubs that are missing noinstr annotation. But otherwise
+>> I should be able to send a full set of patches (including taking on
+>> the maintainer role) to remove gcov and kcov and replace it with
+>> llvm-cov in fairly short order.
+>
+> The hallway chat was supposed to figure out if there's a way to bridge
+> some of the gaps, but jumping the gun like this without having
+> addressed the requirements of kcov users does not make any sense at
+> all.
 
+I totally agree, and I am still up for that discussion.
+
+
+>> If there is a desire to take this in pieces or implement other
+>> intermediate steps, let me know. Otherwise I can generate a
+>> monolithic set all at once.
+>>
+>> [1] https://lore.kernel.org/lkml/20240905043245.1389509-1-wentaoz5@illinois.edu/
+>
+> llvm-cov is generally useful to have; llvm-cov is closest to gcov, so
+> that might make sense to replace.
+
+Swapping llvm-cov for gcov to start with is pretty straightforward, so I
+can aim my initial patch set there.
+
+
+> KCOV, however, cannot be replaced by llvm-cov. KCOV isn't a coverage
+> reporting tool for users, it's a low-overhead interface for fuzzers
+> (syzkaller/syzbot and many others). llvm-cov has no equivalent of:
+>
+> - per-task and remote (kthread/softirq/USB/vhost) coverage collection
+> (to avoid polluting coverage with concurrent tasks);
+> llvm-cov counters are global and polluted by everything else running;
+
+Correct, and I have pondered some ideas for doing exactly that, but they
+would be quite experimental at this time. The patches come with the
+ability to clear the counters so that specific tests can be run, but
+that is still monolithic. I would love to discuss the potential for
+other methods of masking coverage so we can get granular results.
+
+
+> - ordered PC traces (edge signal) and comparison operands (TRACE_CMP);
+>
+> - performance: a per-task mmap'd buffer reset with one store, vs.
+> reading/resetting
+> megabytes of global counters after every program;
+>
+> - GCC support (we may want to keep at least one GCC-supported coverage tool).
+>
+> It's also UAPI (include/uapi/linux/kcov.h), with existing users.
+> syzkaller heavily relies on KCOV's features above to achieve good
+> performance and coverage; there's no reasonable way today to migrate
+> to anything else.
+>
+> As-is, NAK on removing KCOV. Consider replacing gcov with it.
+
+Understood. I will focus on replacing gcov for now, and I am interested
+in exploring what else is possible.
+
+Thank you,
+
+..Ch:W..
