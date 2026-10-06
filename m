@@ -1,133 +1,243 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28444360745
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 05:10:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6A3F337E5F5;
+	Tue,  6 Oct 2026 05:10:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791263457; cv=none; b=GlGjk0iBbPrZXbs9d/Z7f9OJ3J/D6LHEV2u0WVAO8EAzJLdYzOAmNcJLQxqFBMHddCcey4yHnjNzlb/EnteIaRdKFl+uWo3lroCqmTKcBObjUQ6PEmVHq7DE9N+Jbw8x68hnRZgZ3xMwoBHCQ419dFoA21wrFRt/Wglck8SOY70=
+	t=1791263461; cv=none; b=ERDmqL2Toi9z89cmOwzz4P3bRaSkaZc2LxvDp0lj1RJsj/cOcRHNVbTYUWuJ/fIpJV1aociGWg/RiJ34Ip9C7f/4gY+FaS3XgoNdOfg4pVUtlG4/BJXlO2ITF5OjGQBzQWG0PwLds7bxDj3a+6ofaiSWe4qeeRdjTobEY7ItSIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791263457; c=relaxed/simple;
-	bh=gMzRaq3DDfNLKdRRoGwGMBdwUs1hP7ONJIUqEWtCFpU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=azaBpcI1utTKECRHUgMNcK4kogdUxdghZ4BACihQW4hhZ+tgZ0R9zquwKAWCXBepjnbNwTgZcdAHhdYCTK8PBLg0DGUeqPGYcIsGZrcwxPz3YvWoToEHjoQpywweXixtuGvWRXexm3szbwWaKI90CT00BS6hZB7MQPF7e9jzr98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bHvSQazN; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791263461; c=relaxed/simple;
+	bh=7sWLZyvocBVUSF6JTvcAYmYuD+V3OBaqBlyyA8q87dM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cMPhP+mZGMWRCtoeUbwyL5MJWV2Hpc86KxIjAOg0nUj3sr2D4b2YGcFzVS3Wufd2wShExdmjIR7SUYo7EBF8660dPBxjza8KiUQ+6nemT2MJxYrKDYtTdv9qoVMeI3SuQaFsJNQngocb6SLMqf00g39yliYZQkiBm2mfNls/nIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=cr88Q/26; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bHvSQazN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791263455; x=1822799455;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=gMzRaq3DDfNLKdRRoGwGMBdwUs1hP7ONJIUqEWtCFpU=;
-  b=bHvSQazNV+1Gtmta13IwaFU/Dl9dRQb2oeGX8O+VRtBom1GVFjvrl2gn
-   7kprxJARWET7QBTzn+HkgjFkTByLNM7PPSsAeJLDzkJQyd1U3nCxCY+r2
-   /05TBMjI8x6NsaEMjhXC9G7lY2BvQY/OXbm8xEN3TF5/EdL8r0chxUnw6
-   GkKHBiWQENj+eBf5WmaimrIty7/kIXl2KCN47YrJY1HiUoCVqndhmYnGO
-   Qylcmgqc7b+lYfe6G5tryc4yIOwTRafTzZRaq9ScoBRmbE1M6Ju3gphID
-   HQsSEoKPxqo59faQyVdmPnB94Y2T2N5OAOR8b4wRu0wdFDhCJrfQXf7Je
-   Q==;
-X-CSE-ConnectionGUID: OuMdqwJjSyiclolmqPnr2w==
-X-CSE-MsgGUID: jg161iihRaWYurcFC5JB0w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="102461422"
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="102461422"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 22:10:55 -0700
-X-CSE-ConnectionGUID: TymkvGTZT7aRvlsDydv3Pg==
-X-CSE-MsgGUID: O2fiyGz8RdCO8RmoZxmP3w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="276551934"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa007.fm.intel.com with ESMTP; 05 Oct 2026 22:10:52 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xDxRx-000000001BQ-1ziK;
-	Tue, 06 Oct 2026 05:10:49 +0000
-Date: Tue, 6 Oct 2026 13:09:57 +0800
-From: kernel test robot <lkp@intel.com>
-To: Habil Eren =?iso-8859-1?Q?T=FCrker?= <habilerenturker@hotmail.com>,
-	"tglx@kernel.org" <tglx@kernel.org>,
-	"mingo@redhat.com" <mingo@redhat.com>,
-	"bp@alien8.de" <bp@alien8.de>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
-	"x86@kernel.org" <x86@kernel.org>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	"hpa@zytor.com" <hpa@zytor.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Habil Eren =?iso-8859-1?Q?T=FCrker?= <habilerenturker@hotmail.com>
-Subject: Re: [PATCH v2 2/2] x86/apic: Replace deprecated simple_strtol() with
- sscanf() in x86_fwspec_is_hpet()
-Message-ID: <202610061356.8VHVO1CY-lkp@intel.com>
-References: <20261005163213.6515-3-habilerenturker@hotmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="cr88Q/26"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6E68C1595;
+	Mon,  5 Oct 2026 22:10:55 -0700 (PDT)
+Received: from [10.57.10.233] (unknown [10.57.10.233])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 23C9E3F763;
+	Mon,  5 Oct 2026 22:10:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791263458; bh=7sWLZyvocBVUSF6JTvcAYmYuD+V3OBaqBlyyA8q87dM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=cr88Q/26bT5Gh0PWAt9WHvtulW0F+N5GaLp/2i8swPFTfns4uo4cGLiUjssbfagej
+	 eYbOgFbtChwzqnpd+EF4c8+hxKZPy4G2eQut0NNFdH/kuMN93NB2hZWotCH5dFrZmk
+	 coZi9q3WXVFj5qIkj3MDPjMZdf/yW0wqyg8tPPys=
+Message-ID: <05dbdd69-411f-40e2-a7fa-8651ce2a2556@arm.com>
+Date: Tue, 6 Oct 2026 07:10:53 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261005163213.6515-3-habilerenturker@hotmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v22 18/23] KVM: arm64: CCA: Introduce Realms
+Content-Language: en-GB
+To: Gavin Shan <gshan@redhat.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev
+Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
+ sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
+References: <20261005090754.2140522-1-suzuki.poulose@arm.com>
+ <20261005090754.2140522-19-suzuki.poulose@arm.com>
+ <9bbb3b3c-522f-4deb-9f32-0fcf731dd0bb@redhat.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <9bbb3b3c-522f-4deb-9f32-0fcf731dd0bb@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Habil,
+On 06/10/2026 04:42, Gavin Shan wrote:
+> On 10/5/26 7:07 PM, Suzuki K Poulose wrote:
+>> From: Steven Price <steven.price@arm.com>
+>>
+>> Add foundational work for supporting Realms.
+>>   - Add a new VM flavor.
+>>   - At KVM init, check if the KVM can support Realms (though not 
+>> functional
+>>     yet) and will be advertised by static key kvm_rmi_is_available. This
+>>     will be turned on in a later patches, once we have all the bits and
+>>     pieces ready. For now check if we are blessed with KVM_MODE_RMM.
+>>   - Add realm specific tracking in kvm_arch. Since Realm and protected 
+>> pKVM
+>>     states are mutually exclusive, move them into a union.
+>>
+>> Please note that we cannot create Realm VMs yet. This requires further
+>> changes to the UABI and core RMI driver support, which will come later.
+>>
+>> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+>> Signed-off-by: Steven Price <steven.price@arm.com>
+>> Co-developed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+>> ---
+>>   arch/arm64/include/asm/kvm_emulate.h | 16 ++++++++
+>>   arch/arm64/include/asm/kvm_host.h    | 19 ++++++---
+>>   arch/arm64/include/asm/kvm_rmi.h     | 61 ++++++++++++++++++++++++++++
+>>   arch/arm64/include/asm/virt.h        |  1 +
+>>   arch/arm64/kvm/Makefile              |  2 +-
+>>   arch/arm64/kvm/arm.c                 |  6 +++
+>>   arch/arm64/kvm/mmu.c                 |  1 +
+>>   arch/arm64/kvm/rmi.c                 | 18 ++++++++
+>>   8 files changed, 118 insertions(+), 6 deletions(-)
+>>   create mode 100644 arch/arm64/include/asm/kvm_rmi.h
+>>   create mode 100644 arch/arm64/kvm/rmi.c
+>>
+>> diff --git a/arch/arm64/include/asm/kvm_emulate.h b/arch/arm64/ 
+>> include/asm/kvm_emulate.h
+>> index a3c1928bdf743..d360a8b05b8bf 100644
+>> --- a/arch/arm64/include/asm/kvm_emulate.h
+>> +++ b/arch/arm64/include/asm/kvm_emulate.h
+>> @@ -793,4 +793,20 @@ static inline void kvm_reset_vcpu_psci(struct 
+>> kvm_vcpu *vcpu,
+>>       vcpu_set_reg(vcpu, 0, reset_state->r0);
+>>   }
+>> +static inline enum realm_state kvm_realm_state(struct kvm *kvm)
+>> +{
+>> +    return READ_ONCE(kvm->arch.realm.state);
+>> +}
+>> +
+>> +static inline void kvm_set_realm_state(struct kvm *kvm,
+>> +                       enum realm_state new_state)
+>> +{
+>> +    WRITE_ONCE(kvm->arch.realm.state, new_state);
+>> +}
+>> +
+>> +static inline bool kvm_realm_is_created(struct kvm *kvm)
+>> +{
+>> +    return kvm_vm_is_realm(kvm) && kvm_realm_state(kvm) != 
+>> REALM_STATE_NONE;
+>> +}
+>> +
+>>   #endif /* __ARM64_KVM_EMULATE_H__ */
+>> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/ 
+>> asm/kvm_host.h
+>> index dfa9d4ec61a76..3debffef638a4 100644
+>> --- a/arch/arm64/include/asm/kvm_host.h
+>> +++ b/arch/arm64/include/asm/kvm_host.h
+>> @@ -27,6 +27,7 @@
+>>   #include <asm/fpsimd.h>
+>>   #include <asm/kvm.h>
+>>   #include <asm/kvm_asm.h>
+>> +#include <asm/kvm_rmi.h>
+>>   #include <asm/vncr_mapping.h>
+>>   #define __KVM_HAVE_ARCH_INTC_INITIALIZED
+>> @@ -334,6 +335,7 @@ enum kvm_arm_vm_flavor {
+>>       VM_PKVM,        /* Normal guests on pKVM */
+>>       MARKER(__VM_PROTECTED),
+>>       VM_PROTECTED_PKVM,    /* Protected VM */
+>> +    VM_REALM,        /* CCA */
+>>       VM_FLAVOR_MAX
+>>   };
+>> @@ -450,11 +452,14 @@ struct kvm_arch {
+>>       /* Count the number of VNCR_EL2 TLBs */
+>>       atomic_t vncr_tlb_count;
+>> -    /*
+>> -     * For an untrusted host VM, 'pkvm.handle' is used to lookup
+>> -     * the associated pKVM instance in the hypervisor.
+>> -     */
+>> -    struct kvm_protected_vm pkvm;
+>> +    union {
+>> +        /*
+>> +         * For an untrusted host VM, 'pkvm.handle' is used to lookup
+>> +         * the associated pKVM instance in the hypervisor.
+>> +         */
+>> +        struct kvm_protected_vm pkvm;
+>> +        struct realm realm;
+>> +    };
+>>   #ifdef CONFIG_PTDUMP_STAGE2_DEBUGFS
+>>       /* Nested virtualization info */
+>> @@ -1565,6 +1570,10 @@ struct kvm *kvm_arch_alloc_vm(void);
+>>           (__kvm && kvm_vm_is_protected_pkvm(__kvm));        \
+>>       })
+>> +
+>> +#define kvm_vm_is_realm(kvm)        ((kvm)->arch.vm_flavor == VM_REALM)
+>> +#define vcpu_is_rec(vcpu)        kvm_vm_is_realm((vcpu)->kvm)
+>> +
+> 
+> vcpu_is_rec() isn't safely called in nVHE hyp stub. So do we need add 
+> something
+> similiar to what we had for vcpu_is_protected(vcpu) in PATCH[05]?
+> 
+> #ifdef __KVM_NVHE_HYPERVISOR__
+> /* vcpu_is_rec() isn't expected to called in nVHE hyp stub */
+> #define vcpu_is_rec(vcpu)    BUILD_BUG_ON(1)
+> #else
+> #define vcpu_is_rec(vcpu)    kvm_vm_is_realm((vcpu)->kvm)
+> #endif
+> 
+> 
+>>   #define kvm_vm_hyp_is_distrusting(kvm)    ((kvm)->arch.vm_flavor >= 
+>> __VM_DISTRUSTING_HYP)
+>>   int kvm_arm_vcpu_finalize(struct kvm_vcpu *vcpu, int feature);
+>> diff --git a/arch/arm64/include/asm/kvm_rmi.h b/arch/arm64/include/ 
+>> asm/kvm_rmi.h
+>> new file mode 100644
+>> index 0000000000000..44f5c75a27b5b
+>> --- /dev/null
+>> +++ b/arch/arm64/include/asm/kvm_rmi.h
+>> @@ -0,0 +1,61 @@
+>> +/* SPDX-License-Identifier: GPL-2.0 */
+>> +/*
+>> + * Copyright (C) 2023-2026 ARM Ltd.
+>> + */
+>> +
+>> +#ifndef __ASM_KVM_RMI_H
+>> +#define __ASM_KVM_RMI_H
+>> +
+>> +/**
+>> + * enum realm_state - State of a Realm
+>> + *
+>> + * Mirrors the RMM's Realm lifecycle states where they are meaningful 
+>> to KVM,
+>> + * with REALM_STATE_DYING being a KVM-internal state used to prevent 
+>> further
+>> + * requests while teardown is in progress. KVM does not track 
+>> REALM_SYSTEM_OFF
+>> + * or REALM_ZOMBIE separately as they naturally lead to teardown.
+>> + */
+>> +enum realm_state {
+>> +    /**
+>> +     * @REALM_STATE_NONE:
+>> +     *      Realm has not yet been created. rmi_realm_create() has not
+>> +     *      yet been called.
+>> +     */
+>> +    REALM_STATE_NONE,
+>> +    /**
+>> +     * @REALM_STATE_NEW:
+>> +     *      Realm is under construction, rmi_realm_create() has been
+>> +     *      called, but it is not yet activated. Pages may be populated.
+>                                                       ^^^^^
+> Granule instead of page is the term applicable to RMM. Lets use a generic
+> term 'memory' here. Also, lets mention the name of the function used to
+> populate the memory (granules), which is consistent to the comments for
+> REALM_STATE_ACTIVE.
+> 
+>      Memory may be populated by rmi_rtt_data_map_init().
+> 
+> 
+>> +     */
+>> +    REALM_STATE_NEW,
+>> +    /**
+>> +     * @REALM_STATE_ACTIVE:
+>> +     *      Realm has been created and is eligible for execution with
+>> +     *      rmi_rec_enter(). Pages may no longer be populated with
+>> +     *      rmi_data_create().
+>> +     */
+>> +    REALM_STATE_ACTIVE,
+> 
+> rmi_data_create() is an invalid function name.
+> 
+>      Memory can't longer be populated using rmi_rtt_data_map_init().
 
-kernel test robot noticed the following build warnings:
-
-[auto build test WARNING on tip/x86/core]
-[also build test WARNING on linus/master v7.3-rc6 next-20261005]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Habil-Eren-T-rker/x86-apic-Replace-deprecated-simple_strtol-with-sscanf-for-robust-parsing/20261005-163219
-base:   tip/x86/core
-patch link:    https://lore.kernel.org/r/20261005163213.6515-3-habilerenturker%40hotmail.com
-patch subject: [PATCH v2 2/2] x86/apic: Replace deprecated simple_strtol() with sscanf() in x86_fwspec_is_hpet()
-config: x86_64-buildonly-randconfig-1003-20261006 (https://download.01.org/0day-ci/archive/20261006/202610061356.8VHVO1CY-lkp@intel.com/config)
-compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261006/202610061356.8VHVO1CY-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610061356.8VHVO1CY-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> arch/x86/kernel/apic/vector.c:700:10: warning: comparison between pointer and integer ('unsigned int' and 'u32 *' (aka 'unsigned int *')) [-Wpointer-integer-compare]
-     700 |             val == fwspec->param)
-         |             ~~~ ^  ~~~~~~~~~~~~~
-   1 warning generated.
+Ack, thanks for spotting, I will fix them.
 
 
-vim +700 arch/x86/kernel/apic/vector.c
-
-   685	
-   686	int x86_fwspec_is_hpet(struct irq_fwspec *fwspec)
-   687	{
-   688		const char *fwname;
-   689		unsigned int val;
-   690	
-   691		if (fwspec->param_count != 1)
-   692			return 0;
-   693	
-   694		if (!is_fwnode_irqchip(fwspec->fwnode))
-   695			return 0;
-   696	
-   697		fwname = fwnode_get_name(fwspec->fwnode);
-   698	
-   699		if (fwname && sscanf(fwname, "HPET-MSI-%u", &val) == 1 &&
- > 700		    val == fwspec->param)
-   701			return 1;
-   702	
-   703		return 0;
-   704	}
-   705	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Cheers
+Suzuki
