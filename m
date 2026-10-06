@@ -1,89 +1,164 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD7383D9DB1;
-	Tue,  6 Oct 2026 13:37:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791293855; cv=none; b=OZOsX03MC5vELtl2k/3YvmXlLwJha6VzDkyggEAtZ37gUdK1k2RCr24x47bk50nhUh+Bc/vFVsIWfnZyeEWuFGkvum1XBOJgpSj31JNIUqb+BdagnBmOaITInP0XPQsI6ShqUS+X6kg5LtfB9TRph/xEaVYzMpHG/2HCLtPZmVc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791293855; c=relaxed/simple;
-	bh=lQmcpeBJb7n1ORC0panr8ZuGG2wReezQhX/rqKnx08s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fWsw0eYYyHOobLb2x/6Q5hnKfTb7KjLq0u80pu2MejEb0/9xnyItmlcUBqGJjDgps9fgM7KrPCVqdNXCha9y6QDEvHEVH+CW4WTCKai2L0P1xuWEGdwMTleGn0/7d6Rmpj+CL5WRArQrPLn0NFuxmb/yL6xqDo/Q69dlnhq7WaM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=eZ4QFt31; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E245420496
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 13:39:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791293956; cv=pass; b=WUNwcUZGHsPP9TnMBCBd4VbpuuLJcxBCfyU2mbUkniBtFLVbgoHpvc7Uk9rEwBHTQLHMNy4qZC93UgRSk9LJC5FsZZm8wC/zkoAyV6GrzpxlEciP4CWf2BC4CEeJUrr6tN7c6KpSyE0Bv7tLCYoUzMqoNfz6FKPTvG4vgPvG8kw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791293956; c=relaxed/simple;
+	bh=PDKCA2LqDdwF75BRjCYuu/t8MaYkMS6lP/2EM+xeVV0=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=iIktbY1Rkyy8FerZd65yWSsifUxmPZZTrXoJcAmxEOmt6evLlVLHRk6Cd+GpyKVoKtPIwTmd2/BlJG4m44ya5xmeQ1HD55aFuo2KWuvqgpxMqD78PSoHfQdnhheyRNQESNhPGfGnKMEqIJol70BDImQgxQbFzuu9Yh0TKJU5uQM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=iPe/dLYf; arc=pass smtp.client-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="eZ4QFt31"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=kHQF0W3m9sutLBx2DP4KV8QpdSfbTtfJc8r8atJ6tMQ=; b=eZ4QFt31dcGzTejEv+0uGBP6T5
-	b/lhH8slFH2B1FBEgstNIVMZX+g23rSsroiuLvKVjNKaemGxz1ha+8G+Ge+iKONwPAQcZ4VRxg7t9
-	BFzo6uUwtJAsjp+diTqcDXwP9A3+NhzbUAfDH/0tqWwyNpM4AMgVr3VtX2TiwLToAmt1ce9ck/Crn
-	dnhXybKGTRQok1sLdwWj03N6Sh738aAS4OBaplR32EFvRG8miwAYYaEhqaf8SVuziRsZhQzvO0b8M
-	LFtqMgQsGV5d4Wn2I6uBsaTnNs+j3qyZ6NMRvjmZRenn8kGtBt4238OzQNwHQTMrBMLlWSa5JIf/K
-	ZyWv+m1Q==;
-Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xE5M2-0000000ADkY-2m5c;
-	Tue, 06 Oct 2026 13:37:14 +0000
-Date: Tue, 6 Oct 2026 14:37:14 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: Daniel Gomez <da.gomez@kernel.org>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Julia Lawall <Julia.Lawall@inria.fr>,
-	Corinn Tiffany <corinn.tiffany@inria.fr>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Philipp Stanner <pstanner@redhat.com>, linux-kernel@vger.kernel.org,
-	rust-for-linux@vger.kernel.org, Samsung GOST <gost.dev@samsung.com>,
-	Daniel Gomez <da.gomez@samsung.com>
-Subject: Re: [PATCH RFC v2] rust: rxarray: add rust xarray support
-Message-ID: <asT5inptTPITu2j1@casper.infradead.org>
-References: <20261005-rxarray-next-v2-1-187f689b52e4@samsung.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="iPe/dLYf"
+ARC-Seal: i=1; a=rsa-sha256; t=1791293889; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=ctIWeVt6Bo1DSvLZW9bcj3koiiOjn/pk97R7w73/ImEmZlmSD1g4IjRmsnQi6ADrCRQfO2sboCxg9o+SvvJrs1tbYO9TdLHopC+cw8pq3nbIMPO6xsbPXVKxV9JM0vX/fM5sQH9piqDvtvZwlqyC6M5IaphdOps6wEntjb8AkaY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791293889; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=VxANVvaudC9ucdAgKK1Ve2w93u03mD0/qfWlUqbCtCo=; 
+	b=k7uEv4XxZI7LOm6Dl4URLVIpeOzXFQthaBGjf6mB0Kp7YRPbmPilsl8t3OMFj5NTCXGpqUGXpKtunlrmR9acOK2/wPwoAo8UYNYvwe2wBgnKc/9tn8j9YO3/X1KzZXLChDYatH3moo+y4clXYKsTlnJMIlhqCQ0y9OO6mvAEq5M=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791293889;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Date:Date:Message-Id:Message-Id:Reply-To;
+	bh=VxANVvaudC9ucdAgKK1Ve2w93u03mD0/qfWlUqbCtCo=;
+	b=iPe/dLYfSxIrdSGL1c+9/uyD1t4BmGMcf16vZbbgQzeXE+Td9zENZrZ7anKC1Bpn
+	KpZyryv1KNUXfu32RJErpCgbfYACzZC7FtfnU/yns7Vt229+lYarGJO8+w/YYbzs5rl
+	7QkQvVft9jc063MIq6pz/zCuxK82mSl95hi15huk=
+Received: by smtp.zohomail.com with SMTPS id 1791293887679226.9185627884126;
+	Tue, 6 Oct 2026 06:38:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261005-rxarray-next-v2-1-187f689b52e4@samsung.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v12 10/15] drm/panfrost: Add debugfs knob for manually
+ triggering a GPU reset
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+To: Steven Price <steven.price@arm.com>
+Cc: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Faith Ekstrand <faith.ekstrand@collabora.com>, 
+ "Marty E. Plummer" <hanetzer@startmail.com>, 
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Collabora Kernel Team <kernel@collabora.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+In-Reply-To: <1930451a-97e7-4029-91b4-45989e954d7a@arm.com>
+References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
+ <20260929-claude-fixes-v12-10-62beb08de207@collabora.com>
+ <1930451a-97e7-4029-91b4-45989e954d7a@arm.com>
+Date: Tue, 06 Oct 2026 14:38:02 +0100
+Message-Id: <179129388241.1018806.5773521934450351426.b4-reply@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3187;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=PDKCA2LqDdwF75BRjCYuu/t8MaYkMS6lP/2EM+xeVV0=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqxPm6DovXbI5ZpmdK2vim4PJNQas5ZU7DY6iND
+ x0013jaf8iJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCasT5ugAKCRAOJn5M7lND
+ PRIxC/4hmPoz8MGU4IVr5nNMT/V8sHBIHuWf1KTg8QfEzlyh0l7rEKICS8MCyPoLD6pYUnCHn2h
+ OEDtvrjT8UbOZa/vY37iec+onmLrLD98g2mh3HS3o+MH9fZ0Jf7SN7Dd75NP5ftZ2eP31vNvORg
+ iz+NEyGwgkOx+xaJwfrhWrVyWW7DUfOncHNsa9t1Ud0N8xXWcQWRcWPSuTdYDNpWtptzmdJ0gpp
+ TBRKfF4Vyb6O31QvkzJc1q00sZIOgarFAtIYNKnBBROP1kxItcOvi6LM98Y4h2wSz6UOvK4QRwS
+ wRZsf5G8IeM8DuMJlwYqKC30WmRgzO7vOmpyRdUGkkFNmmuTnxXLEqZyUUUqixca1bgyN1oxtgy
+ VLL/kSsaDf9NVzx8CMJCzQ/AAdO3JgAirhS038bHg0ut5KgH7tiuYNk79HRforFjIr+MNg9IWOO
+ a75l96yI4X9pmbuCniSKMWnx7fkgKko3G3XzA57YEeC+KKSAoKMSo4ywE6bgVfdVO8nmM=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
-On Mon, Oct 05, 2026 at 03:37:30PM +0200, Daniel Gomez wrote:
-> From: Daniel Gomez <da.gomez@samsung.com>
+On 2026-10-02 16:10:43+01:00, Steven Price wrote:
+> On 29/09/2026 04:44, Adrián Larumbe wrote:
 > 
-> Add Rust XArray support.
+> > This will be of great help when testing potential races between the GPU
+> > reset sequence and other parts of the code accessing HW registers.
+> > 
+> > We must also disable the reset work item rather than simply cancelling
+> > it, to prevent the knob from triggering another reset when the device
+> > is being removed.
+> > 
+> > Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+> > Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+> > ---
+> >  drivers/gpu/drm/panfrost/panfrost_device.c | 42 ++++++++++++++++++++++++++++++
+> >  drivers/gpu/drm/panfrost/panfrost_job.c    |  2 +-
+> >  2 files changed, 43 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
+> > index 09a5752a3f40..94d2de341838 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> > @@ -2,6 +2,7 @@
+> >  /* Copyright 2018 Marty E. Plummer <hanetzer@startmail.com> */
+> >  /* Copyright 2019 Linaro, Ltd, Rob Herring <robh@kernel.org> */
+> >  
+> > +#include <linux/debugfs.h>
+> >  #include <linux/clk.h>
+> >  #include <linux/reset.h>
+> >  #include <linux/platform_device.h>
+> > @@ -595,9 +596,50 @@ EXPORT_GPL_DEV_PM_OPS(panfrost_pm_ops) = {
+> >  };
+> >  
+> >  #ifdef CONFIG_DEBUG_FS
+> > +static int reset_get(void *data, u64 *val)
+> > +{
+> > +	struct panfrost_device *pfdev =
+> > +		container_of(data, struct panfrost_device, base);
+> > +
+> > +	*val = atomic_read(&pfdev->reset.pending);
+> > +	return 0;
+> > +}
+> > +
+> > +static int reset_set(void *data, u64 val)
+> > +{
+> > +	struct panfrost_device *pfdev =
+> > +		container_of(data, struct panfrost_device, base);
+> > +	int ret = pm_runtime_get_if_active(pfdev->base.dev);
+> > +
+> > +	if (!ret)
+> > +		return 0;
+> > +
+> > +	panfrost_device_schedule_reset(pfdev);
+> > +	flush_work(&pfdev->reset.work);
+> > +
+> > +	/* ret < 0 means runtime PM for the device is disabled, so we
+> > +	 * only need to return the PM reference in the opposite case
+> > +	 */
+> > +	if (ret > 0)
+> > +		pm_runtime_put(pfdev->base.dev);
+> > +
+> > +	return 0;
+> > +}
 > 
-> This is the Rust implementation of the XArray lib/xarray.c. As of now,
-> it supports basic functionality: store, load, load_mut and erase.
+> NIT: If this wasn't debugfs I'd be complaining that you're ignoring
+> 'val' and so this isn't very extensible. But hey, it's debugfs... so:
 > 
-> Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
-> Signed-off-by: Daniel Gomez <da.gomez@samsung.com>
-> ---
-> As discussed at LPC26, this is the version of the Rust XArray that is
-> ready to merge for testing and evaluating purposes following the Rust
-> reference implementation rule (experimental) [1]. Next, we will make
-> progress following the roadmap suggested in v1.
-> 
-> For the motivation, see v1 link below in the changelog.
-> 
-> A branch with the patches can be found here [2].
-> 
-> Link: https://rust-for-linux.com/rust-reference-drivers [1]
-> Link: https://git.kernel.org/pub/scm/linux/kernel/git/da.gomez/linux.git/log/?h=rxarray-next [2]
+> Reviewed-by: Steven Price <steven.price@arm.com>
 
-Reviewed-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+I looked into the available debugfs attribute definition macros and none of them provide
+a wrapper that avoid passing the input value when the attribute is to be understood as
+an action rather than a device property. My understanding is that because debugfs doesn't
+become part of the device's uAPI, we can do pretty much whatever we want with it.
+However, on a second thought, maybe in the future we'll want to extend the knob so that
+it performs resets in different ways, and would want to keep backwards compatibility with
+UM binaries that expect certain input values to stand for specific actions.
+
+I'll change it so that all value other than '1' are returned with -EINVAL.
+
+
