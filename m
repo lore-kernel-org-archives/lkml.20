@@ -1,80 +1,122 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DE8B3BB127;
-	Tue,  6 Oct 2026 07:49:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B82E454706D
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 07:50:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791272946; cv=none; b=L2TXn16Uwd9vD5ZqqxQxY6OCAhZs+MHGQz1aHbth1QzJnW5RfRx2sXqwTSmUx/6xPADyDmDcfhHrOhruSfhAFP0ObHvk0pkABODQ+Sc5hcoguQvNBDL59zAXRkuOBpJ/c61TFc9pA0vw5T1LH8UPuwOICDxQ8E2OcAhxa/Yp3XM=
+	t=1791273053; cv=none; b=FWyMZIBeXMhMyO8SHVzi/eMDSrob0PHKc1kJaCHlwZxOat9/nc0UZhZuYMxqzFxDgzbeaXiczx1DUEzrYUXzDnteMCaRgXLEOuUXb8ymTwEHiiRbLr29g2zCYwp9shcTXYSvVt+NlpN0JXQwbXpo+hSzUIha0WycnRMvYQeFw+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791272946; c=relaxed/simple;
-	bh=FHFQoeXdiic9xZmTfhZvmlAOznZhtz8pOXnmnU2RQYQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=SyrjeQEaCKG9NugU4R+fp1PvbBHv6fBhZDI9J7ySF6p/owPjbC6xMnctAe58o02EnOEPitx/PDE8+sYtMhss8EOSgLq7HRqDZU29S4bST4Y1G1uZIH+i48xqFmxDSaWCAAD0hBE9Y+A9i5yvh9HU06MQnfzSwXGExcEalnv8t54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=tXvW+VPa; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1791273053; c=relaxed/simple;
+	bh=Keln+N68J8XZDbe+kzt1qXG/rgmmDyHZEtTL8njsg5o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=m/gi/I4IdTf3sPvpFQusrCMIYykE7ShPW41nWM/lBcC+LeJuFcBSuHYJDsE2Pq1Hoc8VXB+bnm8WxIz4+RZd+C+gksed69rImn7rRfu2VibSUSIYu0PT9xpoEaGa/4A6LNy//DbFb/FkI8amiv/U/zvuF5gZWI0H1zX8qGfJxcI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=h71LLACy; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="tXvW+VPa"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6967mhTbB2739958, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1791272923; bh=FHFQoeXdiic9xZmTfhZvmlAOznZhtz8pOXnmnU2RQYQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=tXvW+VPaX5i4G4mE5DDzsOYnG26kt9A9rjhGvMOi3o9Ozvx+GVBDxyrgH27r8MJ+O
-	 C9+KYfFhc5fePjRs+rhPyHcqYq0WBeZH+IFt0VuRe2+aT/uhQ2WQnyfaYjGV9B7N5G
-	 SW0ev8kx4rvPuuTlu8ILdFcgE2XAAkvmtEEtaujdmiJaCdTttyJ8kHFikkHiSmKue/
-	 L/UIeRMVvVcUKDEyYSWyQmlrOQjfcNKFo5Ek3bxRljexRvPQSC2YxgwFCkRjeWbDJG
-	 EGfl+r/3O/7lsBvn4p/LrhbgoWivm68ACLNgK9FxSKOtBAHD8Bb+pCvW5sMXPcN2Mz
-	 SgCPVP2b4l6lA==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6967mhTbB2739958
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 6 Oct 2026 15:48:43 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 6 Oct 2026 15:48:43 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Tue, 6 Oct 2026 15:48:43 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Mehmet Fide <mehmet.fide@gmail.com>
-CC: Luka Gejak <luka.gejak@linux.dev>, Bitterblue Smith
-	<rtl8821cerfe2@gmail.com>, "linux-wireless@vger.kernel.org"
-	<linux-wireless@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "mehmet.fide@screeningeagle.com"
-	<mehmet.fide@screeningeagle.com>
-Subject: RE: [PATCH rtw-next v3 0/2] wifi: rtw88: channel switch in AP mode
-Thread-Topic: [PATCH rtw-next v3 0/2] wifi: rtw88: channel switch in AP mode
-Thread-Index: AQHdVNZ4ts6N6Jh3bEeUdjVzehzxzLbvrnEA///vXYCAAIZpcA==
-Date: Tue, 6 Oct 2026 07:48:42 +0000
-Message-ID: <df3ec647010848f6a1efc9f23baf9ed0@realtek.com>
-References: <b6c8d3f63f7e40fa8b515352cba19541@realtek.com>
- <20261006074629.372782-1-mehmet.fide@gmail.com>
-In-Reply-To: <20261006074629.372782-1-mehmet.fide@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="h71LLACy"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id AE8654E411A1;
+	Tue,  6 Oct 2026 07:50:41 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 80B4960553;
+	Tue,  6 Oct 2026 07:50:41 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 205751033069A;
+	Tue,  6 Oct 2026 09:50:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791273040; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=Y687D0b0XnsGS0sPqnJmnJK0mFwzbLcgaZ8E4hwXOuY=;
+	b=h71LLACy3ly81f+yP0sA5gGlPiCBQERPnJDVMokgcAb93p+b9EO5xXEdmclFfV0U6Md1el
+	jWjZpD+A8b0T32+Pbgm1kDLNW06sJ+TbWD6L1a2fJvWRVD4gfcKWDFek2uBBx9azHk0oFG
+	OfE7pK6l/J40SOqBQodwpvZL7bhCbXwTVO7LjbJzULy0guEOTGTWG99HQJ8W+ipxpRkExv
+	WbFya2BD16PAqkfJqCVdqOp/bbMuAjWxIGjvHz1uH9hO8T6ssuQPDs8fKgKemHbF4fYXQx
+	eS653ptxuAIE6w/Y9j3ntM6wUkZo+PS9KQRay+ztt0McNJreGxxdiupfySZRUw==
+Message-ID: <97bc7b37-0c21-4182-9d1d-075287cd0fde@bootlin.com>
+Date: Tue, 6 Oct 2026 09:50:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2] net: stmmac: unwind the WoL IRQ after a safety IRQ
+ request failure
+To: James Hilliard <james.hilliard1@gmail.com>, netdev@vger.kernel.org,
+ Paolo Abeni <pabeni@redhat.com>, Jakub Kicinski <kuba@kernel.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Serge Semin <fancer.lancer@gmail.com>
+Cc: "David S. Miller" <davem@davemloft.net>, Nicolai Buchwitz
+ <nb@tipi-net.de>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261006-stmmac-irq-unwind-v2-1-194591c87460@gmail.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20261006-stmmac-irq-unwind-v2-1-194591c87460@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Mehmet Fide <mehmet.fide@gmail.com> wrote:
-> On 2026-10-06 Ping-Ke Shih wrote:
-> > If you have something changed, you should not carry my acked-by.
-> > Or, point out the reason you can.
->=20
-> You are right, sorry. v4 drops it; the only change since the version
-> you acked is the initialisation of the beacon pointer in the caller.
+Hi,
 
-Yes, I did aware this after reviewing patch 1/2. So feel free to carry
-my acked-by to v4.=20
+On 10/6/26 09:06, James Hilliard wrote:
+> The safety IRQ is requested after the MAC and optional WoL IRQs. If its
+> request fails, stmmac_free_irq() frees the unregistered safety IRQ and
+> leaks the WoL handler. This can warn about an already-free IRQ and make
+> the next open fail.
+> 
+> Move the safety and WoL cleanup labels into reverse acquisition order.
+> 
+> Fixes: 5c2215167d12 ("net: stmmac: Add driver support for common safety IRQ")
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
 
-Ping-Ke
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
+Maxime
+
+> ---
+> Changes in v2:
+> - Drop the claim that later per-queue IRQ failures also had broken
+>   cleanup; those paths already released both IRQs.
+> - Add Nicolai Buchwitz's Reviewed-by.
+> - Link to v1: https://patch.msgid.link/20260930-stmmac-irq-unwind-v1-1-0c8a053761c7@gmail.com
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index b837e8e27a35..0403d434c9b9 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -3799,13 +3799,13 @@ static void stmmac_free_irq(struct net_device *dev,
+>  			free_irq(msi->sfty_ce_irq, dev);
+>  		fallthrough;
+>  	case REQ_IRQ_ERR_SFTY_CE:
+> -		if (priv->wol_irq > 0 && priv->wol_irq != dev->irq)
+> -			free_irq(priv->wol_irq, dev);
+> -		fallthrough;
+> -	case REQ_IRQ_ERR_SFTY:
+>  		if (priv->sfty_irq > 0 && priv->sfty_irq != dev->irq)
+>  			free_irq(priv->sfty_irq, dev);
+>  		fallthrough;
+> +	case REQ_IRQ_ERR_SFTY:
+> +		if (priv->wol_irq > 0 && priv->wol_irq != dev->irq)
+> +			free_irq(priv->wol_irq, dev);
+> +		fallthrough;
+>  	case REQ_IRQ_ERR_WOL:
+>  		free_irq(dev->irq, dev);
+>  		fallthrough;
+> 
+> ---
+> base-commit: d5a007b9b457c915ab1a53227e8939e4018aa97a
+> change-id: 20260930-stmmac-irq-unwind-0be86901638d
+> 
+> Best regards,
+> --  
+> James Hilliard <james.hilliard1@gmail.com>
 
