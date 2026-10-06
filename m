@@ -1,70 +1,70 @@
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 167C72F8E9E
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 17:15:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 406FD49C4C2
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 17:15:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791306956; cv=none; b=beboZbSlglKPhhWp6X1M8LBe1v3n/bbpaSHMyfHwh5UjujnKseyODTNig/FyVk8zU6IVjKxC6ota0jNmQCbNyDGdydMq+DS4k532KsKYPS35kHVt/zHi05yaCRVu3PUH6oDl2ng0Vz+5aSe2CjoFk6/+gURzsoiqXX/w4wCgD6E=
+	t=1791306959; cv=none; b=T4xGEsjHww9WhBu6C7oi0f4RPhjRCNf0Dg+BtAoMFyR+rk4pbHybXNKi7udBac22nMwLhk1wc3bENCyTXYzd5q1VVN68eMBQ1eGGW67cnGa6Irujxdwm0UoyKWhZ3X0lX9soPiK0GfJrWeJePmD89vyMWGuPpHPncDYHh4VCMhs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791306956; c=relaxed/simple;
-	bh=udlscoQO6lt5ieBwi5A9lM5Fkjh28j/ixHjmt4ShOOA=;
-	h=Message-ID:In-Reply-To:References:From:Date:Subject:To:Cc; b=gTS57D2Fb3AqQKmYTVfq/MFS5z6UuaetazhHuUw+BQjgoWruEJ6pBTIrMRRLbaVsGnl+WEIU7AnIB1FfuopCdqw3uD/hTEBybNo+N3skClbGhTrDYJozPFuGBNrn3pMrqxPW6WfAhvGkCqzcKf3i86JMmn0gFlhG+Ifyg8ZdF8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=EpyfxzdT; arc=none smtp.client-ip=209.85.160.176
+	s=arc-20240116; t=1791306959; c=relaxed/simple;
+	bh=Zdm2T6AevFfORGkCPmF2QjXcpStUZ/jMGyL/SE6t7mU=;
+	h=Message-ID:In-Reply-To:References:From:Date:Subject:To:Cc; b=uLomOcIoirDKjEBokE9x5YqcyEmqG3bbmu5klLnWEtSAMris8WTwDF2325pELxm7pbczt30NSTFtvb/7DxCTQU8JK3s05g5ybyCsqpd5th/G+UuAm1htDK3OW/nsMT9DeGNoK2ZiBsEB62LYhRq67E+dPyCpOIQuyxdeUCKdZCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=UYYC9cEO; arc=none smtp.client-ip=209.85.160.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="EpyfxzdT"
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-5350d9ea106so10737401cf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 10:15:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="UYYC9cEO"
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-533778ab0bdso9022891cf.3
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 10:15:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1791306954; x=1791911754; darn=vger.kernel.org;
+        d=toxicpanda.com; s=google; t=1791306957; x=1791911757; darn=vger.kernel.org;
         h=cc:to:subject:date:from:references:in-reply-to:message-id:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=X9CSClLeUlYDebJUwQpya4W05/MVjIaKRZATfthLkR4=;
-        b=EpyfxzdTQUC+YFsLLuCPhiMo7lDkFSEkfoFgQ01kXb0iQrP8aO2SUp55569Wo5mwGr
-         drKQ/JgTq1sdf5Rgwwfd+vdCPjaV/er+2Y9we1ViDkkHysuKef2DWH+JwMyDJs1hYwJF
-         MFCjMmy2wThsX2PuDCdbEvfqqzqv5MFXPYv1842b62Kr8mQ4tQhMPEak0q60DT2UIQjG
-         X4fBPuK3wCdHBsBnsJ7snbYMYJ1t2L5MeTpwEgfFLnl7JUNOW1RIGTlvZNdtRXRTQ1T4
-         lpv1dzBq3zUUn1tfWtbRipjMZyXssgAyBZCs5f5xIrFbWyVn6V2h/iig584P2XAoZa6r
-         wNTg==
+        bh=xExnBleInceOlCuc+SUse0f1MyDmEoa14ImGZUlXkCw=;
+        b=UYYC9cEOlMnJWtG7z7yZzo8HQMVYgOEL2WR1bl2BvDs4zeTTH05C3EueAjIrJapKSO
+         e2Wgm6VX8AwKmEB+Ui13ucwVwTghIp/ck7cd7UWm9ZAu/QyfZDR++RtsblNwIy0OKbQ5
+         GPFpjMsRHebJk3bZgEePcyCNx0Ta2aE5azQTrK2sttF72NTgRhkmwzzw2Ru9kI4KxhFD
+         LZvKCetj2i3+PqeuZW2w1+r9ThC3nJG5+j4rT6QPP30joe/1+wueyransZT1rtuT68d+
+         tf1RC2kNs9qt2e2lMjgADlFMPmaisRWxWj3+Kx5wD+iQ71NDBu8uQ97QWEnKMnGsccSa
+         BO4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791306954; x=1791911754;
+        d=1e100.net; s=20260707; t=1791306957; x=1791911757;
         h=cc:to:subject:date:from:references:in-reply-to:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=X9CSClLeUlYDebJUwQpya4W05/MVjIaKRZATfthLkR4=;
-        b=fxLTxTzuz9uZIpmCpyQMdK4AtPISY3CLyMmPCqgqXkPvQj+VSImTUUWG7E5CH519xl
-         da+ljjWxqaenlBqahATfLS7DdLaapUhTywnGKZT1T1bHhlQt77Smd2WWVEKY5pl8/U7Z
-         mlwJxnP2k0c64hpkJTomzrcVeFRCzVPDeXtdDUhW6eSpRO+jDMYu7Gpvme0BK+mpp99j
-         jaMBsDruZM8lU9VkrTtPGrjvBr5eyNomYzIm3kmrLFiDlH/80epJHXqfXXE5yi04dmOG
-         GscXaQdPlLMXifNnxcjlheShwXs39KTF7zxyKqLRdwYLejZGlCwkLGf7s8Jslouaxn0e
-         8KNw==
-X-Forwarded-Encrypted: i=1; AKwUvBytid9L/vJYRGfKZwuQz5GlhrhbFulysC3RkRryd8rG/pOoJ+sh1tQkDX/AbiH0ZQ8BDgNwVSoneOh1e1o=@vger.kernel.org
-X-Gm-Message-State: AFuF++kh0A4aFWRfpaq+/fWjMELHceEgEwW8mn0NYmFcJKsqD43tJ/8l
-	GOJk3lQILK5Cpqn43pdjcPMO9QjTBuSFDXVGs3iSLdYs9gzwY3JH2iBlQAv6iZycpMaunRjorV9
-	57vSI
-X-Gm-Gg: AYBFou1YHyBkVw+bBw6N19v5k+Y1W3wGT4tHGp+8cjWxBV2UJ8S36mjG4OgJGsFMmy3
-	Yg6nXuC8YceJoRvYie0NIqHpdbq5uUoUrftUiFobDTAgnMRDmTNPORMIYfcOFbRHHqAOy0cyhfZ
-	V31z/UfB6V415NvaTh1vchYLjcIpNf1RmUOJtKzPjoK8cOQcliiaz7fB1Vgd2x0qKh/+UZ0OhM/
-	REs4xGsCfjG+uYJeOm47F0Dhu7UvKwCQxsXGuDjKC0/Ytb9/sv3nfFgNpnfy+qUewKxfMHFRClT
-	q66o1E+LNvhc8v2lpU9dKIf3CTxhA68ynSTPYHl3ZEOqB3Ul+RMIMgFk+0NduH6zgVlWrWpp34f
-	Odoak53mIvr/qUwcnd5HzgtKRqb73WGFsnHej36Vn3pXXUPKmYe0GPo6AJE8mtHmjmh7SzpVDOX
-	ah3/TS3N7ksZ9MXjvaxyn1VDzmBxVqeGAAR7jkNK7Dy9FAa/Hpl6gmhc6pyp6oXJT7OI2KijK7E
-	KiIN6qtj0uXEP8=
-X-Received: by 2002:ac8:5e4e:0:b0:535:70c4:acb1 with SMTP id d75a77b69052e-53570c4b5bcmr8655501cf.70.1791306953728;
-        Tue, 06 Oct 2026 10:15:53 -0700 (PDT)
-Received: from toxicpanda.com ([153.61.196.249])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5357209e284sm479771cf.5.2026.10.06.10.15.51
+        bh=xExnBleInceOlCuc+SUse0f1MyDmEoa14ImGZUlXkCw=;
+        b=jsb9DRQzFDFk8tmMhUxgxyT4dCpr79G4t/vssYpWKssg7Ecyx2CsWjmtO4OtkOHwaH
+         kKH3GTFeMkpyZzZFE8ErM7eAsKotReBvPJb0Y1CpDxCzS+IXxGQKtb6bKk3JV8c6c0IK
+         eWVHJdLhYCdUaOhVQjjW722eTOCz06Nbyacw7AqCfsh+C1vngWF/spnDchg6Ohc3lCxb
+         LUzx7iUQf3f6QwqGiA3mbIwBrYE2kTHs8NSU2HFz5VFuPAV4XicoaeFeLJQQaEgu7YcI
+         ZCiOpoSjNVADK/vTwXjxjoMYwQQ0chte358Ua4Yusiq5u/ARb+tx0BQCYZDy2BPqdgnK
+         OjuQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwFBZL1mljZjvrTCi+e1jvtKfNQB7/2xCZIWAT3J46OLMVj5Gd8KclftODgyiKflc0RvDqUqDicjaU3gT4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kyTo8TVY+dDudzQ1UgCUW6l5AoW6w11ktUtWoKzzeyZzb7E/+8
+	YYxbf7VXLFsBXuDY4iX2J9/CHOg8reG7XVWcSB6R1GUDnwlFfOqsZIAyOJUL0N3FGT0=
+X-Gm-Gg: AYBFou0Ypbd/vIlVOQou1Y2ER6bxR0AKFShgK6zsJaWYA+EXPLlF+zwGPPitnQuHkv3
+	+q6n057k57BnvXQJxhmc9QJFMvdSHBfMBFNpYLSBpYzkoehJ3KioVcNB8TYIgxbcXFtz2jPtY/N
+	Ej4vWPG/G4IKsrf7OEwY9yxo+Vi8h3JO6e8pZYStjDdJ8EIFcGBH92NlTY9u1BmYV36pr3p8Gfa
+	t911m0IUmZIkzWQ3IPEM/hK7QKE7cnSY0pFUOs9PiuBnVICTEQ4I4ecRqe30TiGp/378Ez1wJ2F
+	ychTmIwGXZlOaVw0YA1es1jIW5ISgG1K0asH5t2mXOEaKMVJh3gdFoGMJMyGPbB4SlVQYMLC9pm
+	hW2o3sLLtkQOIkNuGPPdxNY97ygGqS7DnZK9MXcV5htHteZdF7uZfm8/N0yXGiOKAKulm2oyiHY
+	1LXyAHtzk76WGKMEH6oGj8olhAMZ+aBS4MGhm17DODsQ8tIiarDBcGgTMxr0RpC/oWieEGKDSdw
+	ZGwoi5hGUNd30k=
+X-Received: by 2002:a05:622a:391:b0:535:942:4e0 with SMTP id d75a77b69052e-53566910e8cmr38409831cf.12.1791306956850;
+        Tue, 06 Oct 2026 10:15:56 -0700 (PDT)
+Received: from toxicpanda.com ([153.61.196.246])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-535720ea3bbsm438011cf.13.2026.10.06.10.15.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 10:15:51 -0700 (PDT)
-Message-ID: <53d2ea1f34e03e73a1be52e9473fc6d692ec2194.1791303049.git.josef@toxicpanda.com>
+        Tue, 06 Oct 2026 10:15:55 -0700 (PDT)
+Message-ID: <f190450a6eeccbb41010002e091662948083166d.1791303049.git.josef@toxicpanda.com>
 In-Reply-To: <cover.1791303049.git.josef@toxicpanda.com>
 References: <20261001125422.1364260-1-tom.leiming@gmail.com>
 	<cover.1791303049.git.josef@toxicpanda.com>
 From: Josef Bacik <josef@toxicpanda.com>
-Date: Tue, 6 Oct 2026 14:49:23 +0000
-Subject: [PATCH 2/4] ublk: drop QUIESCE_DEV's wait for an idle command
+Date: Tue, 6 Oct 2026 14:50:15 +0000
+Subject: [PATCH 3/4] ublk: give the command back from COMMIT_AND_FETCH on a
+ canceling queue
 To: Ming Lei <tom.leiming@gmail.com>,
     Jens Axboe <axboe@kernel.dk>
 Cc: Caleb Sander Mateos <csander@purestorage.com>,
@@ -76,125 +76,167 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 
-ublk_wait_for_idle_io() is meant to wait until every queue has a command
-whose request is not with the server, so that canceling it tells the
-server about the quiesce. It never waits: blk_mq_tagset_busy_iter()
-only calls ublk_count_busy_req() for started requests, and the callback
-counts a request only when it is not started, so nr_busy is always 0
-and every queue looks idle.
+COMMIT_AND_FETCH and NEED_GET_DATA publish the server's next command in
+io->cmd without a lock. A cancel which runs at the same time can see
+the io active and still read the request pointer io->cmd shares its
+storage with, or miss the command altogether. QUIESCE_DEV cancels while
+the server still commits, and the command published right after its
+cancel pass is never completed, which is what leaves the server waiting
+for it forever.
 
-Making it count would not help either. It runs with ub->mutex held, so
-a server which keeps every tag busy would hold up STOP_DEV, recovery
-and its own release work for as long as the QUIESCE_DEV timeout, which
-is forever by default. Drop it; nothing changes, since it never waited,
-and a later patch has QUIESCE_DEV keep canceling until the server has
-been told, without ub->mutex held.
+Have the issuer decide instead: read ->canceling before publishing, and
+on a canceling queue complete the committed request as usual, but give
+the new command back with UBLK_IO_RES_ABORT instead of publishing it,
+leaving the io canceled the way ublk_cancel_cmd() does. NEED_GET_DATA
+sends its request back the way ublk_queue_rq() does on a canceling
+queue.
 
-The QUIESCE_DEV timeout in data[0] is unused until then.
+The read and the publish are one RCU read section, so a cancel which
+marks the queue and then calls synchronize_rcu() knows every command
+published without seeing the mark is in place before it looks, and
+every later one comes back from its issuer. That keeps the commit path
+free of locks and barriers. ->canceling is read locklessly now, so write
+it with WRITE_ONCE().
 
-Fixes: b465ae7b2524 ("ublk: add feature UBLK_F_QUIESCE")
 Assisted-by: LLM
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 ---
- drivers/block/ublk_drv.c | 75 ----------------------------------------
- 1 file changed, 75 deletions(-)
+ drivers/block/ublk_drv.c | 66 +++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 61 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
-index 0bd0b95b3217..bd7126dcf92f 100644
+index bd7126dcf92f..6717dabf3a23 100644
 --- a/drivers/block/ublk_drv.c
 +++ b/drivers/block/ublk_drv.c
-@@ -5338,80 +5338,9 @@ static int ublk_ctrl_set_size(struct ublk_device *ub, const struct ublksrv_ctrl_
- 	return ret;
+@@ -2492,6 +2492,9 @@ static void ublk_partition_scan_work(struct work_struct *work)
+  * - there are no concurrent reads of ubq->canceling from the queue_rq
+  *   path. This can be done by quiescing the queue, or through other
+  *   means.
++ *
++ * ublk_commit_io_cmd() reads ubq->canceling locklessly, so it is written
++ * with WRITE_ONCE().
+  */
+ static void ublk_set_canceling(struct ublk_device *ub, bool canceling)
+ 	__must_hold(&ub->cancel_mutex)
+@@ -2500,7 +2503,7 @@ static void ublk_set_canceling(struct ublk_device *ub, bool canceling)
+ 
+ 	ub->canceling = canceling;
+ 	for (i = 0; i < ub->dev_info.nr_hw_queues; i++)
+-		ublk_get_queue(ub, i)->canceling = canceling;
++		WRITE_ONCE(ublk_get_queue(ub, i)->canceling, canceling);
  }
  
--struct count_busy {
--	const struct ublk_queue *ubq;
--	u16 nr_busy;
--};
--
--static bool ublk_count_busy_req(struct request *rq, void *data)
--{
--	struct count_busy *idle = data;
--
--	if (!blk_mq_request_started(rq) && rq->mq_hctx->driver_data == idle->ubq)
--		idle->nr_busy += 1;
--	return true;
--}
--
--/* uring_cmd is guaranteed to be active if the associated request is idle */
--static bool ubq_has_idle_io(const struct ublk_queue *ubq)
--{
--	struct count_busy data = {
--		.ubq = ubq,
--	};
--
--	blk_mq_tagset_busy_iter(&ubq->dev->tag_set, ublk_count_busy_req, &data);
--	return data.nr_busy < ubq->q_depth;
--}
--
--/* Wait until each hw queue has at least one idle IO */
--static int ublk_wait_for_idle_io(struct ublk_device *ub,
--				 unsigned int timeout_ms)
--{
--	unsigned int elapsed = 0;
--	int ret;
--
--	/*
--	 * For UBLK_F_BATCH_IO ublk server can get notified with existing
--	 * or new fetch command, so needn't wait any more
--	 */
--	if (ublk_dev_support_batch_io(ub))
--		return 0;
--
--	while (elapsed < timeout_ms && !signal_pending(current)) {
--		u16 i, queues_cancelable = 0;
--
--		for (i = 0; i < ub->dev_info.nr_hw_queues; i++) {
--			struct ublk_queue *ubq = ublk_get_queue(ub, i);
--
--			queues_cancelable += !!ubq_has_idle_io(ubq);
--		}
--
--		/*
--		 * Each queue needs at least one active command for
--		 * notifying ublk server
--		 */
--		if (queues_cancelable == ub->dev_info.nr_hw_queues)
--			break;
--
--		msleep(UBLK_REQUEUE_DELAY_MS);
--		elapsed += UBLK_REQUEUE_DELAY_MS;
--	}
--
--	if (signal_pending(current))
--		ret = -EINTR;
--	else if (elapsed >= timeout_ms)
--		ret = -EBUSY;
--	else
--		ret = 0;
--
--	return ret;
--}
--
- static int ublk_ctrl_quiesce_dev(struct ublk_device *ub,
- 				 const struct ublksrv_ctrl_cmd *header)
- {
--	/* zero means wait forever */
--	u64 timeout_ms = header->data[0];
- 	struct gendisk *disk;
- 	bool live = true;
- 	int ret = -ENODEV;
-@@ -5445,10 +5374,6 @@ static int ublk_ctrl_quiesce_dev(struct ublk_device *ub,
- 	blk_mq_unquiesce_queue(disk->queue);
+ static bool ublk_check_and_reset_active_ref(struct ublk_device *ub)
+@@ -3109,7 +3112,7 @@ static void ublk_queue_reset_io_flags(struct ublk_device *ub,
+ 	 */
+ 	mutex_lock(&ub->cancel_mutex);
+ 	if (!ub->canceling)
+-		ubq->canceling = false;
++		WRITE_ONCE(ubq->canceling, false);
  	mutex_unlock(&ub->cancel_mutex);
+ 	ubq->fail_io = false;
+ 	ubq->force_abort = false;
+@@ -3227,6 +3230,49 @@ ublk_fill_io_cmd(struct ublk_io *io, struct io_uring_cmd *cmd)
+ 	return req;
+ }
  
--	if (!timeout_ms)
--		timeout_ms = UINT_MAX;
--	ret = ublk_wait_for_idle_io(ub, timeout_ms);
--
- put_disk:
- 	ublk_put_disk(disk);
- unlock:
++/*
++ * Instead of ublk_fill_io_cmd() on a canceling queue: the server's new
++ * command is not published, it goes back with UBLK_IO_RES_ABORT, and the
++ * io is left canceled the way ublk_cancel_cmd() leaves it.  Returns the
++ * request the server owned.
++ */
++static struct request *ublk_cancel_io_cmd(struct ublk_queue *ubq,
++					  struct ublk_io *io)
++{
++	struct request *req = io->req;
++
++	spin_lock(&ubq->cancel_lock);
++	io->flags &= ~(UBLK_IO_FLAG_OWNED_BY_SRV | UBLK_IO_FLAG_NEED_GET_DATA);
++	io->flags |= UBLK_IO_FLAG_CANCELED;
++	spin_unlock(&ubq->cancel_lock);
++
++	return req;
++}
++
++/*
++ * Publish the command a COMMIT_AND_FETCH or NEED_GET_DATA brings, unless
++ * the queue is canceling, see ublk_quiesce_cancel().  The read of
++ * ->canceling and the publish are one RCU read section: a cancel which
++ * marks the queue after the read waits in synchronize_rcu() until the
++ * command is published, and claims it then.  Returns whether the command
++ * goes back to the server instead.
++ */
++static bool ublk_commit_io_cmd(struct ublk_queue *ubq, struct ublk_io *io,
++			       struct io_uring_cmd *cmd, struct request **req)
++{
++	bool canceling;
++
++	rcu_read_lock();
++	canceling = READ_ONCE(ubq->canceling);
++	if (likely(!canceling))
++		*req = ublk_fill_io_cmd(io, cmd);
++	else
++		*req = ublk_cancel_io_cmd(ubq, io);
++	rcu_read_unlock();
++
++	return canceling;
++}
++
+ /*
+  * Call before ublk_fill_io_cmd() publishes @cmd in io->cmd: a control-path
+  * cancel may complete any command found there, and io_uring_cmd_done() only
+@@ -3465,6 +3511,7 @@ static int ublk_ch_uring_cmd_local(struct io_uring_cmd *cmd,
+ 	u64 addr = READ_ONCE(ub_src->addr); /* unioned with zone_append_lba */
+ 	struct request *req;
+ 	int ret;
++	bool canceled;
+ 	bool compl;
+ 
+ 	WARN_ON_ONCE(issue_flags & IO_URING_F_UNLOCKED);
+@@ -3547,7 +3594,7 @@ static int ublk_ch_uring_cmd_local(struct io_uring_cmd *cmd,
+ 			goto out;
+ 		io->res = result;
+ 		ublk_prep_cancel(cmd, issue_flags, ubq, tag);
+-		req = ublk_fill_io_cmd(io, cmd);
++		canceled = ublk_commit_io_cmd(ubq, io, cmd, &req);
+ 		ublk_apply_io_buf(ub, io, cmd, addr, &auto_buf, &buf_idx);
+ 		if (buf_idx != UBLK_INVALID_BUF_IDX)
+ 			io_buffer_unregister(cmd, buf_idx, issue_flags);
+@@ -3557,6 +3604,10 @@ static int ublk_ch_uring_cmd_local(struct io_uring_cmd *cmd,
+ 			req->__sector = addr;
+ 		if (compl)
+ 			__ublk_complete_rq(req, io, ublk_dev_need_map_io(ub), NULL);
++		if (unlikely(canceled)) {
++			ret = UBLK_IO_RES_ABORT;
++			goto out_done;
++		}
+ 		break;
+ 	}
+ 	case UBLK_IO_NEED_GET_DATA:
+@@ -3566,7 +3617,12 @@ static int ublk_ch_uring_cmd_local(struct io_uring_cmd *cmd,
+ 		 * request
+ 		 */
+ 		ublk_prep_cancel(cmd, issue_flags, ubq, tag);
+-		req = ublk_fill_io_cmd(io, cmd);
++		if (unlikely(ublk_commit_io_cmd(ubq, io, cmd, &req))) {
++			/* as ublk_queue_rq() does on a canceling queue */
++			__ublk_abort_rq(ubq, req);
++			ret = UBLK_IO_RES_ABORT;
++			goto out_done;
++		}
+ 		io->buf.addr = addr;
+ 		if (likely(ublk_get_data(ubq, io, req))) {
+ 			__ublk_prep_compl_io_cmd(io, req);
+@@ -3765,7 +3821,7 @@ static int ublk_batch_unprep_io(struct ublk_queue *ubq,
+ 	if (ublk_queue_ready(ubq)) {
+ 		data->ub->nr_queue_ready--;
+ 		spin_lock(&ubq->cancel_lock);
+-		ubq->canceling = true;
++		WRITE_ONCE(ubq->canceling, true);
+ 		spin_unlock(&ubq->cancel_lock);
+ 	}
+ 	ubq->nr_io_ready--;
 -- 
 2.55.0
 
