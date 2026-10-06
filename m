@@ -1,167 +1,114 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E45326ED3C;
-	Tue,  6 Oct 2026 08:29:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791275348; cv=none; b=GXnIrmkT/8Fy/oHmjjIn5sbMSrM5LYWOt/zP1H+hpHktC4GPtjlDOa3Etyw9HtY2vaHTRWfGuciIKS9wRRVSIp7DQHkD3FD67XlfE0B3xa0e9NFM+BUvi/RU5IjWF2IWQxPnWnriJb7K1xPE6ASjT9WWP8ij/V0/5IwPsCsZL0M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791275348; c=relaxed/simple;
-	bh=4E90XbME5YYrCHUynb8Gq04uOMIs5TinNGnJqDgIEo0=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=VWGXi5gyJFxVdbzx09oWRga0uOrNGXeRDZoL0TEvn+usH1MemIssxlQ4c9Ys85xqcgJRVQhQ9WT/je+4OcSJrGxpNiKVbK65ZL2zPD9TmTcP5PWutHEoICAVGIubQyg5DBb7gh2dyw9wmfdMu2G7SMt2ZCAKKgbmzuaKoYHI3dk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=WrTuxpWN; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEDF63DEAFA;
+	Tue,  6 Oct 2026 08:29:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791275381; cv=pass; b=ChoSXKRVYwzFaRj8oz5bqkinlwkrrzTB23CZQDIoTW3JRXyiMGC2ENznHoSJCYWw4RUa4832Idy1CaHBibiFbNtsqGxGZgj7PdNkklxS8fw938myj0SfC0lW5jm47o3QCW5zwDqnID3kyUlH55NklKKwynXWahimhYHa5A+anBs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791275381; c=relaxed/simple;
+	bh=4ok4CNjLLt7YE2aQITRKh1c1uP2M1Efp4tUE95JfGrM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=HNbkiuYueKeberKRFOSoRJRBd2pAjXFKYKyzo72dJDub35ZzHIDnRahF9NcwNaEirNMxOWD14t4COqMVl6Cqs1K9Zr+RFY66vMSSzvSnqF1KmPmDByzVHSCQPlnQQRhVd3LxRJGodNbVB5rZLVu06yoQkyU2tryq70PTTK/yMDQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=oY9YUV9+; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=Mse+vnxw; arc=pass smtp.client-ip=85.215.255.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="WrTuxpWN"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6968SRylC2756064, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1791275308; bh=YTvTHDWQ0MPVFXdmQKE3U9s9hkDXT5kOh2ihQfR5+pc=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=WrTuxpWN3KxPc7nwUDcwojj1fJkMhfbBAWUaLKrXmrWN7MUHX4XLozxILBBzO7FDv
-	 kobnoxH6cj6qzJENJh9djb0FNTmTSVdXFQ00kmXu4szYSL+quSDwGcmHBbX9bNOlNP
-	 rCcpy8f+gbJYL/4dOiE51T+xHf36/tLX6DSy+LdAS+erhVqJ7j++EBJ14jqOhDo0ek
-	 Wf4TbgQtbbqIzNzJeUqJFIbytVDbWQNiQDa436I5XyONGvfRYA+yCipJBIjrRMNDgr
-	 Qhc0BoIAi8suGpgqdHUrLLwjV7k1d5daGz7zAhRs+CD+UrbT9lpTESraE9qdJWi/PC
-	 /XEWRU4YorAEg==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6968SRylC2756064
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 6 Oct 2026 16:28:28 +0800
-Received: from RTKEXHMBS03.realtek.com.tw (10.21.1.53) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 6 Oct 2026 16:28:21 +0800
-Received: from RTKEXHMBS03.realtek.com.tw ([::1]) by
- RTKEXHMBS03.realtek.com.tw ([fe80::f36f:a844:4916:93f2%9]) with mapi id
- 15.02.2562.049; Tue, 6 Oct 2026 16:28:21 +0800
-From: Hayes Wang <hayeswang@realtek.com>
-To: Linmao Li <lilinmao@kylinos.cn>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-CC: Chih Kai Hsu <hsu.chih.kai@realtek.com>, nic_swsd <nic_swsd@realtek.com>,
-	Birger Koblitz <mail@birger-koblitz.de>, Xiangqian Zhang
-	<zhangxiangqian@kylinos.cn>, "linux-usb@vger.kernel.org"
-	<linux-usb@vger.kernel.org>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>
-Subject: RE: [PATCH net v2] r8152: Use BMSR to detect the link state
-Thread-Topic: [PATCH net v2] r8152: Use BMSR to detect the link state
-Thread-Index: AQHdVLexra3FlE5swkqMdmzmTHCGJ7bwLnWg
-Date: Tue, 6 Oct 2026 08:28:21 +0000
-Message-ID: <fd3bff0e63304681b9e5f35f2f57e50e@realtek.com>
-References: <20261005105249.1281648-1-lilinmao@kylinos.cn>
-In-Reply-To: <20261005105249.1281648-1-lilinmao@kylinos.cn>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="oY9YUV9+";
+	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="Mse+vnxw"
+ARC-Seal: i=1; a=rsa-sha256; t=1791275355; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=OKKeVjpwU/Ckbq/6dddXKjou7HHpp5K/DAjPD9rPcQ2bIsN5ol5mfOGTULPvVgiQZD
+    sC46ctr1dd0f75x0PQx74QZN8fpTYvnd2xeT5pV/KZxcuQ+Uk5rshkTwAgnnkgJX0tQW
+    nQFG8aOwDLibPHWz4MbaGadMQ6FzeT0vNcc8NQNZ9QKOV/Y+ztcDbqvKPmLl1ZFYUelr
+    OejwQ47M9i6yXyYkIn3IPuADkEi6v2CdxPzAVJLIx74uQNFwfPWdSrjOPPuuHEqEWVXQ
+    KJf81xZnjLq1kRlI8reEjHfbHMC68ssFo4yZcfXRK6H9imY+OjHMKxCpy/wwK1LriOcW
+    Mrtg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1791275355;
+    s=strato-dkim-0002; d=strato.com;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=DE3fGC9qOKrA9fymSxeZ/Uqcz2Iv3Xz/JK0nunuDjEU=;
+    b=SwPtgXeWczpINL8/2IAwZzXEpHR++JDV0vsRe7sxvYrGrARPKnpDKAGe7TjkLDlh8t
+    PjjuAJWLLnG5nbTAzDV6lBsYjc4n3wkuDLM2EQz+X0OTueXJYqlMHK/IyRMkvj9f79Eb
+    QtFGd2dhfycEsLO/ZcmbXcJzqLC9YolVD9tLLBjuCIe0lSbzxn23H+VW97lKcIBDo4k4
+    V235ib1QvNTjisj+F1xL+LjBxVGOIEcYENzscb8QAUC60l8/HYT9Dd/XjhW86Lg8z7y7
+    AjuNS0uss6lihhYN1TQHfKAIrI6i2vWVSMY0wDP5Ue9XLSqPGvvzCJY/60dQWtLSqVU8
+    cL4A==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1791275355;
+    s=strato-dkim-0002; d=iokpp.de;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=DE3fGC9qOKrA9fymSxeZ/Uqcz2Iv3Xz/JK0nunuDjEU=;
+    b=oY9YUV9+p5yVsq5Fe+R0+mLGmiNPOdV2UiGPL06lLftVfanVbTHNYL9jlOgBl7pSUt
+    QQT67+5hOCE4jh9EmNsDmlD/qheIFFe2+hDohaVgruAQozBpXE1XoxpMtn1++hTBokzA
+    eHLQ/eD0ZcpUfH1uyS245bpZb2SwnU1JUAjaAtRL4HGVQ7tKtLtgHNWabu88Nv4RaFyF
+    edR20DMgm/K9APqtfTqscWm/yV/bBVtgS6rYUGZIr6UIlm9DVIH38kwwEI7DkHahAt0/
+    seCiAlOTAdp+68AeKQuFogPnkZXTg4DP1pcVxThjkiOXFQkTq8Ti9o88bBUYTpxHr9Ce
+    ITVQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1791275355;
+    s=strato-dkim-0003; d=iokpp.de;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=DE3fGC9qOKrA9fymSxeZ/Uqcz2Iv3Xz/JK0nunuDjEU=;
+    b=Mse+vnxwhaecVrMvNx/VAUUBw1l8mYKZvEjtv0lUQnlsPqeIRWOc37RIMt7GbcDauA
+    xxZggH55QCSzPlhJKvAA==
+X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSfNuhhDSDt3O2J2YOom0XQaPis+nU/9K"
+Received: from Munilab01-lab.micron.com
+    by smtp.strato.de (RZmta 55.6.2 AUTH)
+    with ESMTPSA id z04e1c2968TFU4o
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Tue, 6 Oct 2026 10:29:15 +0200 (CEST)
+From: Bean Huo <beanhuo@iokpp.de>
+To: "Martin K . Petersen" <mkp@kernel.org>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Stanley Jhu <stanleyjhu@google.com>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Bean Huo <beanhuo@micron.com>
+Subject: [PATCH] scsi: MAINTAINERS: Add Bean Huo and Stanley Jhu as UFS reviewers
+Date: Tue,  6 Oct 2026 10:29:07 +0200
+Message-Id: <20261006082907.3405554-1-beanhuo@iokpp.de>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
 
-Linmao Li <lilinmao@kylinos.cn>
-> Sent: Monday, October 5, 2026 6:53 PM
-[...]
-> r8152 detects carrier from PLA_PHYSTATUS without reading BMSR, so
-> BMSR_LSTATUS can still be latched low when the carrier comes up.
-> Since commit f6f2e946aa4d ("net: mii: Fix the Speed display when the netw=
-ork
-> cable is not connected"), the first speed query after link up can then re=
-port
-> SPEED_UNKNOWN, leaving NetworkManager at 0 Mb/s until the next carrier
-> change.
->=20
-> Use BMSR_LSTATUS in set_carrier() and rtl8152_runtime_resume(), so the
-> driver consumes the latched link down itself. If the first read still rep=
-orts link
-> down, the next link-up notification triggers another read and brings the =
-carrier
-> up.
->=20
-> Tested on an RTL8153B with a 6.6-based kernel. In 5 rebinds and 6 cable
-> replugs, the first read returned LSTATUS=3D0, a second link-up notificati=
-on came
-> about 32 ms later, the second read returned
-> LSTATUS=3D1 and the carrier went up; NetworkManager reported 1000 Mb/s.
-> Runtime suspend/resume with the link up did not change the carrier.
+From: Bean Huo <beanhuo@micron.com>
 
-I think this patch may introduce a new issue.
+Bean Huo and Stanley Jhu have been contributing to and reviewing
+changes in the UFS subsystem for a number of years, and would like
+to help share the review load going forward.
 
-Our newer ICs do not generate periodic link-status notifications. They gene=
-rate a
-notification only when the link status changes. Therefore, with your patch,=
- BMSR
-will not be read a second time until the next link-status change.
+Add both as reviewers (R:) for the UFS subsystem.
 
-Best Regards,
-Hayes
+Signed-off-by: Bean Huo <beanhuo@micron.com>
+---
+ MAINTAINERS | 2 ++
+ 1 file changed, 2 insertions(+)
 
-> Fixes: f6f2e946aa4d ("net: mii: Fix the Speed display when the network ca=
-ble is
-> not connected")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
-> ---
-> v2:
-> - Fix it in r8152 instead of mii.c, detecting the link from BMSR as
->   suggested by Andrew Lunn.
-> - Also use BMSR in rtl8152_runtime_resume().
-> v1:
-> https://lore.kernel.org/netdev/20260930113842.2640928-1-lilinmao@kylinos.=
-c
-> n/
->=20
-> Only tested on an RTL8153B, with a 6.6-based kernel; the changed lines ar=
-e the
-> same in net/main. I could not check whether BMSR_LSTATUS is reliable on t=
-he
-> 2.5G/5G/10G chips handled by this driver.
-> I could not reproduce a link drop that recovers while the device is runti=
-me
-> suspended, so that case is only covered by code inspection.
->=20
-> r8152_mdio_read() cannot fail today. The pending RTL8157/RTL8159 series
-> makes it return errors, so these two callers will need error handling onc=
-e that
-> is merged.
->=20
->  drivers/net/usb/r8152.c | 7 ++-----
->  1 file changed, 2 insertions(+), 5 deletions(-)
->=20
-> diff --git a/drivers/net/usb/r8152.c b/drivers/net/usb/r8152.c index
-> f61686433031..e3947eb796c5 100644
-> --- a/drivers/net/usb/r8152.c
-> +++ b/drivers/net/usb/r8152.c
-> @@ -6979,11 +6979,8 @@ static void set_carrier(struct r8152 *tp)  {
->         struct net_device *netdev =3D tp->netdev;
->         struct napi_struct *napi =3D &tp->napi;
-> -       u16 speed;
-> -
-> -       speed =3D rtl8152_get_speed(tp);
->=20
-> -       if (speed & LINK_STATUS) {
-> +       if (r8152_mdio_read(tp, MII_BMSR) & BMSR_LSTATUS) {
->                 if (!netif_carrier_ok(netdev)) {
->                         tp->rtl_ops.enable(tp);
->                         netif_stop_queue(netdev); @@ -8653,7 +8650,7
-> @@ static int rtl8152_runtime_resume(struct r8152 *tp)
->                 set_bit(WORK_ENABLE, &tp->flags);
->=20
->                 if (netif_carrier_ok(netdev)) {
-> -                       if (rtl8152_get_speed(tp) & LINK_STATUS) {
-> +                       if (r8152_mdio_read(tp, MII_BMSR) &
-> + BMSR_LSTATUS) {
->                                 rtl_start_rx(tp);
->                         } else {
->                                 netif_carrier_off(netdev);
-> --
-> 2.25.1
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 7b5c27c68e5d..4ad924aeaf16 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -28042,6 +28042,8 @@ F:	lib/union_find.c
+ UNIVERSAL FLASH STORAGE HOST CONTROLLER DRIVER
+ R:	Alim Akhtar <alim.akhtar@samsung.com>
+ R:	Bart Van Assche <bvanassche@acm.org>
++R:	Bean Huo <beanhuo@micron.com>
++R:	Stanley Jhu <stanleyjhu@google.com>
+ L:	linux-scsi@vger.kernel.org
+ S:	Supported
+ F:	Documentation/devicetree/bindings/ufs/
+-- 
+2.34.1
 
