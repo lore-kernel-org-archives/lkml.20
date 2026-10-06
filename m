@@ -1,397 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68D6D4A263B;
-	Tue,  6 Oct 2026 16:31:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62AF13BCD17
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 16:31:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791304306; cv=none; b=eQv7vAVTVkgzijSsq0E17DWwAcRNRCgPbJ1kyoU//BMBdppY4xE/gTYWDas8K1jMyJOprOF5FlzzKh4x6LlRzWvp7xFUQmR6lXV2kPFVHT6rgBlipl6RfOPTbQ2Mals19OwqXQcQQYi5cUjDFZ8ntATBu/oUXJFNYlKNMvSG+vg=
+	t=1791304311; cv=none; b=h4baNgWGWicgg2L0x729BnOq3YvXYI0E5RbfYRifeZ+Wsxz6FAlleC6kFMr9/VyzzfpGdwYgbSuOtmI563mNf1ISZB3efOt9SxZ7vcrj3gkTVNjQeh/9yiOH7XMikFjEtq5JRkHeGkn5h1PxlNg/KQlCUWezIK1mrrrkkiRqwrs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791304306; c=relaxed/simple;
-	bh=VGpo3YNSdRdbX+RP/gKRnDYPeaLBdX/dgKTSFL/IZ7A=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=fAWafOcblKvJOR3fA4j5R6PFN4PdWQOAbJMaY1/AaKHP8wro7Zrt4tZAYTxuXwVhZaZo4ZNjINM04gg/darqHaX7MP/921HmLB8aswKaslLYL75K7Ksr5xN9gf4eAGqdAaDt8dAlpsG/5asstcXVSMBqias9xNF0H5c7fMNxi2Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZvF8J5DK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791304311; c=relaxed/simple;
+	bh=W7Rxhq+/Kyau/rHvDlBgPfh6oA9jJsVr+B/7Dat+95A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aLU3zpCUrl9bmcG3AQnS/gnwuCCB3ZhVNtXnj6PNWRpi4tdMJNQyUYtmZVe7rWBXjhVrrvg/sHmRghKREhI397a88W8o5CKB+F2ItuJYzIm7DnJR6mXKSZct424CP37XkEj/mXggXat8iXqHC48kl8CakpYAtkKcNInwJfLufFk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WzrH6XL5; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZvF8J5DK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 217F61F0089B;
-	Tue,  6 Oct 2026 16:31:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791304304;
-	bh=lBdRtQZsStubLmMRZaxWdXR9jv+5z2tA6rm0+eMN/68=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ZvF8J5DKOPRkYR08I4NAxmAxRB6dAV9g7alg+iTCtDFmxYu5fmopO99DG3IMftLvy
-	 CgQ0CXUL2J/6vmdKctoWlC5Y7h2qP8lMJsUnAn/ke60RfHuGjIremCYCbF5NuLoeMa
-	 DLDTlLW+MiTucSabzqeqhahJHUUXvA0mLtvLTmLQ/kqkYDvS/fYDpd3nc5/7wjZwZS
-	 MaHBkEjWTdYfx4g4uSEtOIDX9uPjLBip50UXTNL0CEwAwGNJtZSqzQtkCvfp542MFg
-	 kwRWdryCvsCtjwq7jcu2gaVLCVEn7/Vf92r+MWxhyL2oXQZ1QGyyLR4Qd/YanMXHoJ
-	 nKCxJxEZ2R74w==
-Subject: Re: [PATCH net-next v24 3/3] net: phy: Add driver for Motorcomm Quad
- 2.5GbE phy
-From: netdev-bot+sashiko@kernel.org
-To: kyle.switch@motor-comm.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andrew@lunn.ch, hkallweit1@gmail.com,
- linux@armlinux.org.uk, Frank.Sae@motor-comm.com, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com,
- jianmin.wang@motor-comm.com
-Date: Tue, 06 Oct 2026 16:31:42 +0000
-Message-ID: <179130430268.434549.16236732059337568756@kernel.org>
-In-Reply-To: <20261002153034.934814-4-kyle.switch@motor-comm.com>
-References: <20261002153034.934814-4-kyle.switch@motor-comm.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WzrH6XL5"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a1635f7c89so29405915e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 09:31:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791304309; x=1791909109; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eP166MuWD/CcjIGW1YMpwcO4qWyr24CPI+SXn98l56c=;
+        b=WzrH6XL5URfEZoWjCf77L44kya84qfwI0E/OgyAnVmUMRgETSZ9OBoVoBs0kKGHDtE
+         0ukeoihk284FHtV1hnv+Eqe6Zc6f0dE66CkAOWAXE5pAABH95SxxprW7lGd1RhvWevu6
+         6RgheEqPk0wyBsBQ4RqLGvo3Gc3uIh0BdqWMpVdzpPSfB+PDHDRog++kS25Yb6hlSiu4
+         6OgAbupgqbmr6mzfq9c7KDWc1OfrofXgW+sRZLP2vRJJUv6QrkqsR/AQa9iMLvixtL0I
+         K2OmhyLL0xOWl32s5xa7THrZkpCJZZk0cdZsynmXsxSUUS2VFHie3qbNgSO5R0yqIreE
+         +VCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791304309; x=1791909109;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eP166MuWD/CcjIGW1YMpwcO4qWyr24CPI+SXn98l56c=;
+        b=1cTVE8VdJ+SjPZHHL82x+pL69SE4qNkR7cRKJIwYho9tYZifVN7mDSlIfE5rOZPp3S
+         Kz/DA1VeDORXbuskvp6kyePobCrF4OUEbQ+tslgK5vPS18gPcn+9HlKevvrGf8BC6DUz
+         7tdvNI9dqZfxdTK8bphM99KWLdtEkYmaoxvSk/rsgS1YyK2veSZKHMZP93DF7+N9hLmd
+         pxdowKi3fW71C+cXBUBO4a0wH6/DjAV38mZDNKKLprKDkb/GLX+q+xpY7+xqwcC/mZkS
+         Pq+Mz0SXKjh9+X17XBTQBalTm0v7hyzcXj3auj5vdu0DroWYxmWCV5KA7HYRXNYRATiT
+         DNzA==
+X-Forwarded-Encrypted: i=1; AKwUvByPIW0M5z/zAtLEluZXDudHynOlSwpCTNyj+Kpyj+OwYr1lb0ICNIv+WfR30ofWUR2wIzqmHflSv7r+keg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mY1YtyfV/7NLkSj6W6jsASbGY1Mv+tDL6NVuxSikGs3pP5wcUa
+	kwrErVgLrGp8zlRUMsgRHjNa+LpEW8ZV8ksYCw5+ARkEMJWJpyJ+x9OY
+X-Gm-Gg: AYBFou1pUU9ePYeS3CY0DuKew8pCRaXUlfUtUWtkZAOwxsZZVOsk3dT0HjsA8wEYhvy
+	EZOf0KALRbxSRIPUzTV9QKKE+SRPoVjymuDlg3SbA/FiX1VjXEFrHKkBww7C/+tXE4cMNJu0R3L
+	WvuHv1DGwzuzdLSYD+oiPKtC40JK8zphOuMwhnOXu2vi74MjsgPUKFjXvUP1HgMDG4tPLQ4RzyR
+	Q/4B2MU08Y5pc2G5agzgyeVGHjPWhhhKlAdYo3Pnd4/ytR+I1RluC/+TMDyDSqiJdM87EF35BOu
+	QXBYGYmFIXLgwUR4MwqYCOpgMfTh85Q/jZlmy1NVAbF2+gSmgMFRYNeRWq/KLJe8z6sVW20AyIv
+	+mYQwaRdqcliuPXTLdPhiVBHcu0zNOWUX+tgIq3DZeAJ8zoPfcyb1lAhoMsSoINUGeRqcCpAjXv
+	MoQBZQ0f2P0xylwFen7oygHnll0aV+y9R8EKRq8laGA9Fs04cTBS8CjpqtUQZKwMZmysOpnAtw6
+	ZU80h3l
+X-Received: by 2002:a05:600c:1395:b0:4a0:a34:6e7d with SMTP id 5b1f17b1804b1-4a1680eb564mr183390005e9.18.1791304308583;
+        Tue, 06 Oct 2026 09:31:48 -0700 (PDT)
+Received: from fedora.domain.name ([217.218.153.210])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178caf832sm93839125e9.4.2026.10.06.09.31.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 09:31:48 -0700 (PDT)
+From: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
+To: pmladek@suse.com
+Cc: rostedt@goodmis.org,
+	john.ogness@linutronix.de,
+	senozhatsky@chromium.org,
+	linux-kernel@vger.kernel.org,
+	Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
+Subject: [PATCH] printk: fix kernel-doc name for nbcon_write_context_is_braille
+Date: Tue,  6 Oct 2026 20:01:41 +0330
+Message-ID: <20261006163141.304554-1-ampr.mhd@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-Thank you for your contribution! Sashiko AI review found 7 potential
-issue(s) to consider.
-
-Critical: 0 · High: 0 · Medium: 4 · Low: 3
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] yt8824_read_status_paged() sets phydev->speed/duplex to
-  SPEED_UNKNOWN/DUPLEX_UNKNOWN whenever the link is down, even with…
-- [Medium] priv->sds_initialized is set to true after the first
-  successful package SERDES init in yt8824_config_init().
-- [Medium] yt8824_probe() calls phy_package_probe_once(), which
-  permanently sets the package's 'probed' bit via test_and_set_bit()…
-- [Medium] After a negotiation with a 2.5G-capable partner,
-  lp_advertising holds ETHTOOL_LINK_MODE_2500baseT_Full_BIT.
-- [Low] The commit message (three lines for about 1900 added lines)
-  leaves out behaviour a maintainer needs in order to review the driver.
-- [Low] Some kernel-doc does not match the code.
-- [Low] yt8824_config_utp_init_paged() writes the U0/U1 TX resetb bits to
-  0 and later to 1, and pulses YT8824_PLL_DAC_RST 0→1.
-
---
-
-net: phy: Add driver for Motorcomm Quad 2.5GbE phy
-
-This adds support for the Motorcomm YT8824 quad-port 2.5G PHY to the
-existing motorcomm driver. The phy_package helpers are used to reach the
-shared top extended register space. The package mode (internal or
-10G-QXGMII) is read from the PHY package DT node.
-
-> Add support for Motorcomm YT8824 quad-port 2.5G PHY to the existing
-> motorcomm driver, using the phy_package helpers for the shared top
-> extended register space.
-
-[Severity: Low]
-Could the commit message say more about what the driver does? It is three
-lines long for roughly 1900 added lines.
-
-Five functions put the copper side into PMA template TESTMODE_1, do the
-reset or power change, and then switch back to TESTMODE_NORMAL:
-yt8824_soft_reset(), yt8824_power_on(), yt8824_power_down(),
-yt8824_restore_working_status() and yt8824_config_utp_init_paged().
-
-yt8824_soft_reset()
-    yt8824_utp_set_template_test_mode(phydev, MDIO_PMA_10GBT_TESTMODE_1);
-    ...
-    yt8824_utp_softreset_paged(phydev);
-    ...
-    yt8824_utp_set_template_test_mode(phydev, MDIO_PMA_10GBT_TESTMODE_NORMAL);
-
-This looks like a hardware workaround. However,
-genphy_c45_template_testmode() was added in "net: phy: Add support for
-Template Control register for PMA" as a helper "used for PHY validation".
-
-Could the commit message explain the workaround and why it is needed?
-
-Probe also now requires DT. devm_of_phy_package_join() needs an
-ethernet-phy-package parent with a reg property. Without
-motorcomm,package-mode, yt8824_phy_package_probe_once() returns -EINVAL.
-The two package modes also take quite different init paths.
-
-Could these points be mentioned as well, along with the source of the many
-magic register values in the init sequences?
-
-> diff --git a/drivers/net/phy/motorcomm.c b/drivers/net/phy/motorcomm.c
-> index 90a4f86f2758b..1d096d232224b 100644
-> --- a/drivers/net/phy/motorcomm.c
-> +++ b/drivers/net/phy/motorcomm.c
-
-[ ... ]
-
-> @@ -437,6 +684,70 @@ static int ytphy_read_ext_with_lock(struct phy_device *phydev, u16 regnum)
->  	return ret;
->  }
->  
-> +/**
-> + * ytphy_read_top_ext() - read a PHY's top extended register for YT8824
-> + * @phydev: a pointer to a &struct phy_device
-> + * @regnum: register number to read
-> + *
-> + * Returns: the value of regnum reg or negative error code
-> + */
-> +static int ytphy_read_top_ext(struct phy_device *phydev, u16 regnum)
-> +{
-> +	int ret;
-> +
-> +	lockdep_assert_held(&phydev->mdio.bus->mdio_lock);
-> +	ret = __phy_package_write(phydev, 0, YTPHY_PAGE_SELECT, regnum);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	return __phy_package_read(phydev, 0, YTPHY_PAGE_DATA);
-> +}
-
-[Severity: Low]
-This isn't a bug, but the kernel-doc for ytphy_read_top_ext() and
-ytphy_write_top_ext() says they access "a PHY's top extended register".
-
-Both helpers call __phy_package_read()/__phy_package_write() with offset 0.
-That reaches the package-shared block at the package reg address, not this
-PHY's own address. Writing YT8521_REG_SPACE_SELECT_REG through them
-therefore switches the register space for all four ports.
-
-Could the comments say that?
-
-The kernel-doc for yt8824_restore_working_status() has a similar problem.
-It says "called to do store working status", but the function restores
-state: it sets the template test mode back to NORMAL, and outside internal
-mode it clears SERDES isolate and soft resets the SERDES.
-
-[ ... ]
-
-> @@ -622,15 +933,1165 @@ static int ytphy_set_wol(struct phy_device *phydev, struct ethtool_wolinfo *wol)
-
-[ ... ]
-
-> +static int yt8824_config_utp_init_paged(struct phy_device *phydev)
-> +{
-
-[ ... ]
-
-> +	ctrl = FIELD_PREP(YT8824_U0_CSR_RESETB_TX_CH0, 0);
-> +	ctrl |= FIELD_PREP(YT8824_U0_CSR_RESETB_TX_CH1, 0);
-> +	ctrl |= FIELD_PREP(YT8824_U0_CSR_RESETB_TX_CH2, 0);
-> +	ctrl |= FIELD_PREP(YT8824_U0_CSR_RESETB_TX_CH3, 0);
-> +	mask  = YT8824_U0_CSR_RESETB_TX_CH0 | YT8824_U0_CSR_RESETB_TX_CH1 |
-> +		YT8824_U0_CSR_RESETB_TX_CH2 | YT8824_U0_CSR_RESETB_TX_CH3;
-> +	ret = ytphy_modify_ext_with_lock(phydev, YT8824_U0_CRS_RESET_REG,
-> +					 mask, ctrl);
-> +	if (ret < 0)
-> +		goto err_restore;
-
-[ ... ]
-
-> +err_restore:
-> +	r = phy_modify(phydev, MII_BMCR, BMCR_PDOWN, 0);
-> +	if (ret >= 0 && r < 0)
-> +		ret = r;
-> +	return ret;
-
-[Severity: Low]
-Suppose an MDIO access fails after the U0/U1 TX resetb bits have been
-cleared, or between the two YT8824_PLL_DAC_RST writes. err_restore only
-clears BMCR_PDOWN in that case.
-
-Is it intended that the TX channels stay held in reset here?
-
-In that case config_init returns an error, and a later phy_init_hw() runs
-the whole sequence again, which deasserts the resets. So this may be fine.
-If it is, a short comment saying so could help.
-
-[ ... ]
-
-> +static int yt8824_config_init(struct phy_device *phydev)
-> +{
-> +	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
-> +	int ret;
-> +
-> +	mutex_lock(&priv->shared_lock);
-> +	if (priv->package_mode == PHY_INTERFACE_MODE_INTERNAL) {
-> +		ret = yt8824_config_utp_init_paged(phydev);
-> +		if (ret < 0)
-> +			goto err;
-> +	} else {
-> +		if (!priv->sds_initialized) {
-> +			ret = yt8824_extern_config_sds_init_paged(phydev);
-> +			if (ret < 0)
-> +				goto err;
-> +			priv->sds_initialized = true;
-> +		}
-
-[Severity: Medium]
-What resets priv->sds_initialized once the package has lost its register
-state? The only place that sets it to false is
-yt8824_phy_package_probe_once().
-
-config_init is called again from phy_init_hw() in at least two places where
-the hardware may have been reset:
-
-phy_detach_internal()
-    phy_device_reset(phydev, 1);
-...
-phy_attach_direct()
-    phy_init_hw()
-        yt8824_config_init()
-
-mdio_bus_phy_resume()
-    phy_init_hw()
-        yt8824_config_init()
-
-In both cases the shared priv is still alive, because the package is joined
-at probe and sibling PHYs keep their references. So
-yt8824_extern_config_sds_init_paged() is skipped.
-
-In 10G-QXGMII mode, would the package-wide SERDES PLL/CDR/AFE and
-calibration settings then stay at their reset defaults?
-
-[ ... ]
-
-> @@ -3104,6 +4565,450 @@ static int yt8821_resume(struct phy_device *phydev)
->  	return yt8821_modify_utp_fiber_bmcr(phydev, BMCR_PDOWN, 0);
->  }
->  
-
-[ ... ]
-
-> +static int yt8824_read_status_paged(struct phy_device *phydev)
-> +{
-> +	int ret;
-> +	int val;
-> +
-> +	ret = phy8824_page_write_with_lock(phydev, YT8824_RSSR_UTP_SPACE);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ret = genphy_read_status(phydev);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	if (phydev->autoneg == AUTONEG_ENABLE && phydev->autoneg_complete) {
-> +		ret = genphy_c45_read_lpa(phydev);
-> +		if (ret < 0)
-> +			return ret;
-> +	}
-
-[Severity: Medium]
-Can lp_advertising keep a stale ETHTOOL_LINK_MODE_2500baseT_Full_BIT here?
-
-When a link with a 2.5G partner goes down or renegotiates,
-genphy_read_status()->genphy_read_lpa() takes its !autoneg_complete branch.
-That branch only clears the clause 22 bits:
-
-genphy_read_lpa()
-    mii_stat1000_mod_linkmode_lpa_t(phydev->lp_advertising, 0);
-    mii_lpa_mod_linkmode_lpa_t(phydev->lp_advertising, 0);
-
-genphy_c45_read_lpa() would clear the 10GBT bits, but it only runs when
-autoneg_complete is set. phy_ethtool_ksettings_get() copies lp_advertising
-unchanged, so ethtool would still show a 2.5G-capable link partner.
-
-rtl822x_read_status() avoids this by clearing the 10GBT bits first.
-
-> +
-> +	if (!phydev->link) {
-> +		phydev->speed = SPEED_UNKNOWN;
-> +		phydev->duplex = DUPLEX_UNKNOWN;
-> +		if (phydev->autoneg == AUTONEG_ENABLE)
-> +			phy_resolve_aneg_pause(phydev);
-> +		return 0;
-> +	}
-
-[Severity: Medium]
-Does this throw away a forced speed and duplex while the link is down?
-
-With autoneg disabled, genphy_read_status() has just reloaded speed and
-duplex from BMCR via genphy_read_status_fixed(). This block then replaces
-them with SPEED_UNKNOWN/DUPLEX_UNKNOWN.
-
-On the next phy_start(), for example after ifdown/ifup or resume, the
-PHY_UP path does:
-
-_phy_start_aneg()
-    phy_sanitize_settings()
-        phy_caps_lookup(SPEED_UNKNOWN, DUPLEX_UNKNOWN, supported, false)
-
-That lookup matches nothing and returns the slowest supported mode. Then
-yt8824_config_aneg()->__genphy_config_aneg()->genphy_setup_forced() would
-program 10/half instead of the forced setting the user chose.
-
-yt8821_read_status() in the same file does not clear speed on link down.
-Could the clearing here be limited to the autoneg case?
-
-[ ... ]
-
-> +static int yt8824_phy_package_probe_once(struct phy_device *phydev)
-> +{
-> +	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
-> +	struct device_node *np = phy_package_get_node(phydev);
-> +	const char *mode;
-> +
-> +	if (!priv || !np) {
-> +		phydev_err(phydev, "%s: missing shared priv or DT node\n",
-> +			   __func__);
-> +		return -EINVAL;
-> +	}
-> +	/* Initialise shared lock for YT8824 */
-> +	mutex_init(&priv->shared_lock);
-> +	priv->sds_initialized = false;
-> +	priv->package_mode = PHY_INTERFACE_MODE_INTERNAL;
-> +	if (!of_property_read_string(np, "motorcomm,package-mode",
-> +				     &mode)) {
-
-[ ... ]
-
-> +	} else {
-> +		phydev_err(phydev, "missing package-mode in PHY package node.\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +static int yt8824_probe(struct phy_device *phydev)
-> +{
-
-[ ... ]
-
-> +	/* Ensure other PHY probes wait for shared mutex initialization. */
-> +	phy_package_lock(phydev);
-> +	if (phy_package_probe_once(phydev)) {
-> +		ret = yt8824_phy_package_probe_once(phydev);
-> +		if (ret) {
-> +			phy_package_unlock(phydev);
-> +			return ret;
-> +		}
-> +	}
-> +	phy_package_unlock(phydev);
-
-[Severity: Medium]
-What happens to the other PHYs in the package when
-yt8824_phy_package_probe_once() fails?
-
-phy_package_probe_once() has already set the probed bit with
-test_and_set_bit(), and nothing clears it later. priv->package_mode has
-also already been set to PHY_INTERFACE_MODE_INTERNAL before
-motorcomm,package-mode is checked.
-
-With async probing, a sibling PHY can join through
-devm_of_phy_package_join() before the failing PHY's devres drops its
-reference. The shared struct then survives. The sibling sees
-phy_package_probe_once() return false, skips the validation, and binds in
-internal mode even though the DT never asked for that.
-
-Would it be better to validate the property before the once bit is
-consumed, so that every PHY in the package fails the same way?
-
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
+---
+ kernel/printk/nbcon.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/kernel/printk/nbcon.c b/kernel/printk/nbcon.c
+index fb1b37741..6f9735f4b 100644
+--- a/kernel/printk/nbcon.c
++++ b/kernel/printk/nbcon.c
+@@ -2005,7 +2005,7 @@ void nbcon_kdb_release(struct nbcon_write_context *wctxt)
+ }
+ 
+ /**
+- * nbcon_is_braille - Checks whether the nbcon write context is using Braille console
++ * nbcon_write_context_is_braille - Checks whether the nbcon write context is using Braille console
+  *
+  * @wctxt:	checked nbcon write context
+  *
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261002153034.934814-2-kyle.switch%40motor-comm.com
+2.55.0
+
