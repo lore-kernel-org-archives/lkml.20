@@ -1,195 +1,253 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2122.outbound.protection.partner.outlook.cn [139.219.146.122])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F35C02E54B6
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 08:33:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791275612; cv=none; b=lOQofuGs2nkH/vTnVxbh3bHwuSYMuYbQZjz98iFkJzu1n0PZVDtf9jNE4MEqpUVgdo8WQySt+e4Zd1/8Xq4NL89JcoKwbBNLutwpPTFQ4VwA3ygs0f9Fst4jcar/sz2sZI+H8OCTcRoFmKEUBcyeBnYTR8S0nf92bQXHr0S6uVY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791275612; c=relaxed/simple;
-	bh=0QG05hN2bjHzC1maR4PCWp+0jd73NMhzdsmgGsdufyg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=COrJjW9ARnpVoPryPvisw6JZ7PpUGWI/27aESTbNg4/ZVi+4I3bRNY4qcRrGJAzOxMsqueoqW4t+AQesLISumiSWxfoVgQ+BgRMQhxuBGb49cFbJXk/nTnvh0E/i0ki81IN5TUrLrw6Ld5haDrBFWCT3jKr6eHSTTyNpV7WONUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UeM5zSvD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eocuntHd; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UeM5zSvD";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eocuntHd"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6966dw5S094627
-	for <linux-kernel@vger.kernel.org>; Tue, 6 Oct 2026 08:33:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	dOjLxqEjz9TY9CmUoh/ZCCERCiVQQE6LX+zeibVYX+s=; b=UeM5zSvD2cC44SSo
-	4iUZsbRqFEuTwpY3DlsehqmM/VPC2c+cxNx49BZ8jWjYA1iX1vfe/vmB9jz3uFaR
-	7gPcQAITpTeA1tbF//cUEjnIq/Hesg/hJaC+H+OqdpCdlapEDEKH2gWgQ9Bu3gC1
-	CyTUf2drYcYsSG07qUx+mthLxrC25WuJUsbjN/nzb5cCESPLVIA2YqvODpxroiNl
-	UYvkpIYKBBYW7pKvEFgRcvvrqU/z3YWv0uaNxj9mrUDv35yF30cZPaBPIkB7BCxD
-	effqU0h4ml5jbQOrGkBkQDEMPAYdtqjjl0uUFL0SRiFiAv0qqw82npv03FVzYQZO
-	lhvDFw==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4gr3jrff-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 08:33:30 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2df8d1e91c9so49013155ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 01:33:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791275610; x=1791880410; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dOjLxqEjz9TY9CmUoh/ZCCERCiVQQE6LX+zeibVYX+s=;
-        b=eocuntHd05Hl5dydE0H422p/M0PSvqmoDp9SDPBGjR4T8yxaleEL2p1Znz9yKoFm1G
-         oGe+kJisIWfB9d8yHopcO66s6WoEkaWCm4+EIgHUfvm2VjQI/ZyRJ3oURWbZ69gXIyAW
-         1GHd0qjd+yJlyq6G30fsAIL3A4WegNUtyKuT3yX8amJhI9vz0+p9cdLCqO/BSsNoxsH7
-         rgHBtHiyE4KVIgrN05Ei+E1bBdXXAESuywfWN+njkEgCywOno07n2PkmTJk2F/LGtxG3
-         XV9UY5g3HCIs8J7MqbMqBsLXAyDYL1OqR16YbpdhjeAp5VPMa627yiKazZ5V9Kuq4ntk
-         R3oQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791275610; x=1791880410;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dOjLxqEjz9TY9CmUoh/ZCCERCiVQQE6LX+zeibVYX+s=;
-        b=Nb7vNwrsbFZLBKDxlmFcagCZpUqA6dVk0sC7xz0r0bwwJBpGqoUs9SKRkmCB9tr5CJ
-         wcAT2DVvVN1iKi5z7YNNhW7jYb5uM6WR9VnKiNEZ2mhkCViTH3oU+3XvVYcQOLjxWaZa
-         FKdwIoWUtS5zBsFewyc2K5mPD3XHK9ltl8awGDaet8uca9vACkH4KmGoL0PAvq8TNpKZ
-         fNGii2/DHGo2zb++aDxQfQWq61CtO1CPASUMjtMuyhF98xjiWPIq//oCZAcTGDiZDn76
-         nK+SUrqkgce3KFkUAYPTd25vJ4cydVtGKC/OL32jlu8EJPJL2UJCNf3IkinerhAV4haM
-         eO5Q==
-X-Gm-Message-State: AFq9FYKetb2HU0ZH11odvGt0pN8CS25A/faoA+ZKFsbRTreTu+7p64jQ
-	rIjEwx5+odyn/Bzh+s2Bk/IlJML4cm1JHzUkb0IhS8RhonhqS38kdsgZ1h6HaX0uVxZHsYpnI4J
-	eudbLil1A0SmL3oCYVqKc7NfH8neLbj86gdU5ftBvO+e1S6O8Yadf5k+ecl/oeaFqeX8=
-X-Gm-Gg: AYBFou3P4rOe3q4GRvkLY0lWcedWVe5/MSbAdmDFtqULfEZASWt/F2onwMUpjrOfpcY
-	/9sY88iPKITeEUG/GX1D3Aj1Ef6tIsezsRzeXh5OvYxnhCR4v9sDXPSLY9Q36ah+1T0JpXDVnC5
-	BVB3YAosQhV4e+ntceDpsYQab+u4oK9X290HgyuiP4WBcIoL12aO0PnhurSYbpXsJ4XTBp0RqGu
-	HkpHkz93JmqImO7KlYW9xcMWoctOnVgzkTaARc9dpVtDIfzxafsB8NSEsW18Zs52KGh6l8s1VYQ
-	/va6m9FaegM8lCQy4uRId49kSSsD0hOBQpM80I/tZ3vFW/CAPwj3r75sdNKSIFXah9/Y5/e7Uik
-	DgzzUHBJtOXrCp3gsrGJ0vHvk07M=
-X-Received: by 2002:a17:90b:1c09:b0:39e:6c68:c787 with SMTP id 98e67ed59e1d1-3a873793baamr602583a91.61.1791275609577;
-        Tue, 06 Oct 2026 01:33:29 -0700 (PDT)
-X-Received: by 2002:a17:90b:1c09:b0:39e:6c68:c787 with SMTP id 98e67ed59e1d1-3a873793baamr602568a91.61.1791275609071;
-        Tue, 06 Oct 2026 01:33:29 -0700 (PDT)
-Received: from [10.218.18.193] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8543b0c1fsm4707716a91.14.2026.10.06.01.33.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 06 Oct 2026 01:33:28 -0700 (PDT)
-Message-ID: <47a42c54-d3b8-44ec-8017-cdc34b474798@oss.qualcomm.com>
-Date: Tue, 6 Oct 2026 14:03:23 +0530
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E96A33C3BE0;
+	Tue,  6 Oct 2026 08:34:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.122
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791275649; cv=fail; b=jaEbay6g9vEFVxEJwghQQ2u5cdYredvm6PFGGIFF6+A1UMo4ZUS6V1cwMON2Gp7hfz5yRUFZYD454n62yP+HkK9Xc80CVOmi04OGz3B8vqsbD4WqT+tYAY8ZXPOfYHUQQ5GcR7y4LzQF5KruLUrt0r9nATCKRkEsSTvc0ZyHIn8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791275649; c=relaxed/simple;
+	bh=51cRp3dC9Qrh+oRLClqfEPZN+mFx2ZvZ/Q7v2jE97WY=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=M6HmPMJrpgHGJV2wMaoQstQM35+putrzzmEoOiEuHl/wx+eLqBUGNIVfMOAyBe7KrQs1n7H2rGoYDqnlO+fioAO5JkqshPe2oe5NETQzR56fmAzKC1v8yD9cnaYwO1xRk0Psc89dICTspi2z8ZOp083uiMB4wOxO67zY6BBkLwk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.122
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=X/ozdqZGudldRlu+PYyhk62grTqcVkgZTh1zP+mNq9VoQQIDG6fUIFKlZlzyB1ThGBnE3fXcd3t9TvHOXfqx8OTu4moOi+6XzERzETIk6+P40lJwRTa9HCuf6Hl9H9o+nA0FCzWEoSNkd/aDXH4DnzeA80gG6IbREo0VWxGlo5zfrPdGgX+c+g1+g6cl5AgP5xK2H5QsbWtQRjx3yJWioZVpMpPdPeNeaxW3AIpYwk436i9djnI78e3EceOgEQ+hI4gNXEkLIBrAV9V/tF1OMMm5mmHUxok7zwVHaejg5JfYqTyRGev/f/9SrYhb6xOfScRVpXnVFurmDlhAx7U0AA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pMPcPSL6G5oku3VTrja91cfgfcO7GsXJnURK/TBCChI=;
+ b=ZYAq/d+KBUlEsnaesASWBysjAvAHazdYyiMz16r0hrfIrVkcpkvP2i/GdIp/rVeJesZC+Yv58TkoCXqSQgW35GyNPnIJXa8t+x0q3rI5g/XJFUt6jTUHOCBcbPj7SmdN8B+7QLtVlsHDYIaEEToJ+FxGqOO91GL8Cbl3cKBZQ4VsfvWmMtUpXDkJwoqRWRg4osA7mw5qzuAwoFtkQCCavgyF/Ha7EcG9O5tKi4vuWPI1QdYVrwcyvN0QhnBJEkI/YMsIrGeDEqZZGKwf/dcWGXUWly2Jc1USDbU4QMDLLgzxYpIlfCIiIw+1mf6W5YyFYhqQzYN/XQ5ccTAqRzk7jQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:20::14) by SH0PR01MB0556.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:8::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Tue, 6 Oct
+ 2026 08:33:53 +0000
+Received: from SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn
+ ([fe80::435e:52b5:c524:459c]) by
+ SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn ([fe80::435e:52b5:c524:459c%3])
+ with mapi id 15.21.0472.016; Tue, 6 Oct 2026 08:33:53 +0000
+From: Joshua Yeong <joshua.yeong@starfivetech.com>
+To: broonie@kernel.org,
+	lgirdwood@gmail.com,
+	rahul@summations.net,
+	anup@brainfault.org,
+	lftan.linux@gmail.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu
+Cc: alex@ghiti.fr,
+	joshua.yeong@starfivetech.com,
+	linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/3] Add RISC-V RPMI voltage service support
+Date: Tue,  6 Oct 2026 16:32:56 +0800
+Message-ID: <20261006083259.2206001-1-joshua.yeong@starfivetech.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: NT0PR01CA0008.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510::13) To SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:20::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/3] ASoC: codecs: wsa885x: Reset registers on teardown
- for B2B playback
-To: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
-        Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, ajay.nandam@oss.qualcomm.com
-References: <20261006053717.3455143-1-prasad.kumpatla@oss.qualcomm.com>
- <20261006053717.3455143-2-prasad.kumpatla@oss.qualcomm.com>
-Content-Language: en-US
-From: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
-In-Reply-To: <20261006053717.3455143-2-prasad.kumpatla@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: i_yn9HzoIpRjrcjBIpTSDTdF9gJny3kj
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDAzMyBTYWx0ZWRfXythO5CmUQ6Oy
- tXa19leblaGIUofrKBH/VyHGvNFJu9PdwOWqO1UPba21bsaAHscpa3vJ9LogfaXAsV/7bWgZb1X
- aAzxuzoyGFix7wpuVfMizNlZbWHYZL4=
-X-Authority-Analysis: v=2.4 cv=PNWaavqC c=1 sm=1 tr=0 ts=6ac4b25a cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=Rl-Sov5dAngERj82jmUA:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDAzMyBTYWx0ZWRfX7oVXoTSfxZfI
- drEnJxJQth/NwvOJDUkybsvyzBlS95DjVRwPoGhku2lCp/AhUog3m2CsYGk1Z37mYEq9xtC7PAf
- s5xEEOBRuHTgSSwD4KZFqOUKKV1HcDqdNALdvyH2Fv58Q3LbeukBv76YiBvgZai8ycPs5vasC0h
- TRYtoaWMUHW8c5ISRxAHH86hRx8pMsYI7O/qLyOB1bFDT4b62dwLnjnOaFFNaTWqRQFeJSNWVSy
- t7HfLO1KyUrc2v0r3GO4BIF/Tpr1wrJ1A6l32MUtqdvc5+ICZ1oZhh8YqkQmYFNP1f4DrTZSF0e
- pVR84rYtlsJJ0y8YvrADyejzMQ3iFIkuee1A1D1zrrsRH3LZeKZpAKkBIJejaMaa5s9BLd8VaiJ
- CTdYOFnPnSpvLG9m9dsTB/vEKfT8xmdkP+XOLwNoHBcVZPO2wm97cv+8QB4Ci63+Z4N3vMv0ClU
- k8urbAYqiGlb/iAVR5w==
-X-Proofpoint-GUID: i_yn9HzoIpRjrcjBIpTSDTdF9gJny3kj
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-06_02,2026-10-05_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 phishscore=0 clxscore=1015 adultscore=0
- malwarescore=0 spamscore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060033
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SH0PR01MB0841:EE_|SH0PR01MB0556:EE_
+X-MS-Office365-Filtering-Correlation-Id: f73d298b-6802-4cf7-d501-08df23848d79
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|52116014|7416014|1800799024|23010399003|366016|6133799003|18002099003|10067099003|3023799007|921020|56012099006|38350700014|5023799004;
+X-Microsoft-Antispam-Message-Info:
+	hox3JxMLATtw0wPG7Z/yVOXOwnkc/AyhO/mO0qvP7Rh5AL4CGPJCijgcYEdiX1grQf1D7tMAvMmlAf0yMb56/Vn3c/IjGN+J42qbyWhXyeF8Jl2XR4zx9U1bO8e/8yeSDzkkr8MzJUit9Ig/zneHnrZHl6V3XmTq+TJnVYUm32pr2czn3L8aroboY/wuvsPkpAyFi6vHguuBNHHiLPZSbv5gIkc8+1v1KxrYeynsTcEHbEXMsBFWOWYjD7AjhhG8uLwY4m/Vi7FjeOX5G9NMcEYg2zAEJDHryTeNie/FNLbFv91Mu+78emHnk4NUyBylpGA1t55abilZOCmFXM8qATWM6x44A+NHWf6Erg2fclZLlnVHYWhcJp5q6X1Q65EvJOKycGtqdRn4bjzT+rpvE6w3GdFHX1/yGrRyXc12LzHt4bHqxF47rtuxDCgAW0EtN+bIEzjiCM5eAM8qgdJco7RfNlbSt5ACP6OX4sDlJHuK+7Xq6CIJ5b7T9YJeG1hMvJhTiyhdjsHnYLRGcEDQctu+2V6tAmJPSsX5ocTLTWLdMLkPZugxAjvZ8Ab1Bafu2rpmFIpv2/OBsvDUhB5npQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(376014)(52116014)(7416014)(1800799024)(23010399003)(366016)(6133799003)(18002099003)(10067099003)(3023799007)(921020)(56012099006)(38350700014)(5023799004);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?mOsgKsYTF6DxwnUoUMneu+2tgMxKqaQe9liQJlSXL+5JyqfOubceBCtf2TyO?=
+ =?us-ascii?Q?BiUi+L0g/UqIcYIrn2Z5eBOPMeF9SDGTyEBC7lyYjKFd5zYvLu+h5k+8M4ea?=
+ =?us-ascii?Q?Y4BAS2mqZ0IRAdm3Fbr9SfBWHGC7by33M3nk+PFFud4GAGrqPjk//iLcvpU/?=
+ =?us-ascii?Q?XxCBi8t96osfR2yW0qu8eN5R1BPvt1gqFuPh0HmzUREN+D16Bsb5OXV94fox?=
+ =?us-ascii?Q?4Hv+6O7kL/fLAIIVpHCoGraudld9ZshNQhDkBEKaPkcPGkSSadSTYXgzOA7Z?=
+ =?us-ascii?Q?AO2nZNdRtvWFTcGePcRAWpmes6rMaLccK2qvdBdVPeL6x+5IljwLTLDqUSW0?=
+ =?us-ascii?Q?ZBt1hPjs2znv9RGFaiGxcVorlpLEIvB49h5ZoqleVpBZr7Vpn9hinXOds7yK?=
+ =?us-ascii?Q?7lrVpdPIvHar+2wQ/Ddhd085+FWfU42vdeKRAhHlhTx1CU9BdYvVrF1wYh26?=
+ =?us-ascii?Q?mWkcMAEWldaqjuc1C1lOuPXLSBCrCpGsJAR5sR00QXM9z0eu/e1QabKHV58b?=
+ =?us-ascii?Q?RmiMNTLR/fNMjoy1rYf/Rc7uZudY6BcF7xrA38CrzHCYFBZCv4dliIIn+Moa?=
+ =?us-ascii?Q?d2wWfKXkljJuteLamKPYzi/2p88kqb8P5CacP49IOsoStuTePzzRjO98Ny9Z?=
+ =?us-ascii?Q?x8zv9RhiOVaWjIpTNKgO57lAmlSmSbwenOhDG2hjrsMoiuyh+/wrDgyu+DYx?=
+ =?us-ascii?Q?DBiIL8UmitAMexfa2ppNTAu1SagheMzBwJtn7xiffcfzSrNAvxNtwPv6Flmf?=
+ =?us-ascii?Q?aAL3RzFm9l6HqwurYpPaxY2Dscl7+4hLuf7c64FtWn5nzz34hJ2127qMP5jq?=
+ =?us-ascii?Q?qUS3NOiqRzGoWrgkwsKhO79chjJF607DQuT0r9lVisO6wLSSuTPP/N12sevk?=
+ =?us-ascii?Q?LxcvxUxLr02ukslaOiUt4voJtdrcIdshA5z8mCI2tpIS5voCZ3tYS12zB7L1?=
+ =?us-ascii?Q?8bJKm0uBNiIPhkcDTaRpS6d/NqEBAYtuwqjzOJ2h9vaV6pYxqodXfBS9N9vS?=
+ =?us-ascii?Q?0UaT4cfViNNbyw5wYDfiwxBOBfdu8zZyPVqfGa0t0kHTd0vz+Qf+RQjrOtir?=
+ =?us-ascii?Q?nOQVmT0pJSN4hMn+A4UqF/1fa9ohJtEn12n/8uI9fqWAaWrtdkyysx1hAsR/?=
+ =?us-ascii?Q?+sy8AtZu4Bt47eXoNMLIFFJLNC8zCnt3l8DKJWWWiVEphS6IgSgXB10/nvXO?=
+ =?us-ascii?Q?q1OpklwfyXFb5KtxBC/UlpsZbgQ6h8sdM+mtVQ7JE5r4BpN/IolVTrHiLkY0?=
+ =?us-ascii?Q?yQssgfdnXomUFwA1Np8eocMQqRnf7SxgAaVCl1H6/51ZjBnpCq0RDXsz0yAE?=
+ =?us-ascii?Q?bwq64Q1IbQRfBRvIjEMPvu/BrjuMmFKNq2jzucDFMN63zm4JzHoI+5DBa7Xp?=
+ =?us-ascii?Q?u+70NU3m2UMDqWf+opaVBOpP+qxkGouoj4LELBPmkL7YuSuvROlcEJvTc7zC?=
+ =?us-ascii?Q?vET6dEr4BUG5/rRUIfUxjWt7iD+ontBy3ajSVDCls1pZIqW+MCMM5RL+Hamx?=
+ =?us-ascii?Q?qwxegJmAvoOZPD/llrHDEj8Kh/g67X7ZuHulTyDFwewl6P0TrLmF7cP7q9Dq?=
+ =?us-ascii?Q?qm0uNKlqIKNDLXQNxWg/JRvC3Hx2RWFPFuZhOVqMA3D/lqXia0oigfL5HI45?=
+ =?us-ascii?Q?VwMaX0BRHzGs/TA/y777vVaTzffb1xLKqkJ6PlrnlNYlFWHbeV/Pwgtqf0Ib?=
+ =?us-ascii?Q?8RRZql4d5vEOs3PjB73d3WozhPZlHOfojvyhmUW0doQZ/r/noueB6/WutldC?=
+ =?us-ascii?Q?19mRo9KUDBCY5QUeMW+6yYVhMdXym0k=3D?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f73d298b-6802-4cf7-d501-08df23848d79
+X-MS-Exchange-CrossTenant-AuthSource: SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 08:33:53.1602
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8GWEPuhaZhLURChWQV+8ZxdIwGiNAdq9PKKjjGFgaqepwKPoJoVjKhI99ZxlzkrZOeAUahs/V5mSNTqUY1Sl+4ULbTRylq3p9k5PpAg1duA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SH0PR01MB0556
+
+The RISC-V Platform Management Interface (RPMI) specification defines a
+modular and extensible messaging protocol between the supervisor software
+and a platform microcontroller (PuC). Among the service groups it defines
+is the voltage service group (service group ID 0x00007), which allows the
+supervisor to enumerate the voltage domains managed by the PuC, query
+their attributes and supported levels, switch them on and off, and
+get/set their voltage level.
+
+This series adds supervisor-side support for that service group:
+
+ - DT bindings for the regulator controller exposed to the supervisor
+   ("riscv,rpmi-voltage") and for the SBI MPXY channel that the SBI
+   implementation uses to expose the service group to the supervisor
+   ("riscv,rpmi-mpxy-voltage"). The name, level format, supported
+   levels and always-on capability of each domain are discovered at
+   runtime, so none of them is described in DT. A consumer names a
+   domain through a "<name>-supply" phandle to a child of the optional
+   "regulators" container, whose "reg" is the RPMI DOMAIN_ID. A child
+   may also give the board's regulator-min-microvolt and
+   regulator-max-microvolt, which the PuC has no way to express.
+
+ - A regulator driver, drivers/regulator/riscv-rpmi-regulator.c, which
+   talks to the PuC over an SBI MPXY mailbox channel. At probe it
+   checks the RPMI and service group versions, queries
+   VOLT_GET_NUM_DOMAINS, then for each domain VOLT_GET_ATTRIBUTES and
+   VOLT_GET_SUPPORTED_LEVELS and registers it as a regulator. Both
+   level formats the specification defines are supported: discrete
+   levels become a voltage table and linear (min, max, step) ranges
+   become linear ranges. The constraints are built from the discovered
+   levels and the always-on flag, with the transition latency as the
+   settling time, and a DT child can only narrow them. Enable and
+   disable go through VOLT_SET_CONFIG and voltage selection through
+   VOLT_SET_LEVEL and VOLT_GET_LEVEL.
+
+ - A MAINTAINERS update adding the driver and its bindings to the RPMI
+   device power entry, renamed "RISC-V RPMI DEVICE POWER AND VOLTAGE
+   DRIVERS".
+
+The series has a prerequisite: the RPMI device power series ("Add
+RISC-V RPMI device power service support"), which has been applied for
+next:
+
+  https://lists.infradead.org/pipermail/linux-riscv/2026-September/099498.html
+
+Patch 2 needs it for include/linux/mailbox/riscv-rpmi-message.h, where
+the voltage service group definitions are added next to the device
+power ones that series introduces. Patch 3 also extends the MAINTAINERS
+entry it adds. The base-commit and prerequisite-patch-id lines below
+identify the tree the series applies to.
+
+Changes in v3:
+ - Drop "#voltage-domain-cells" and naming a domain by DOMAIN_ID through
+   "voltage-domains". A consumer now names a domain only through a
+   "<name>-supply" phandle to its child in the "regulators" container.
+   The regulator core and fw_devlink already follow that phandle, so
+   such a consumer is also ordered after the provider without any help
+   from the driver. With it go devm_rpmi_voltage_supply_alias(), the
+   provider list it searched, the per-domain supply name it aliased to,
+   and include/linux/regulator/riscv-rpmi-regulator.h together with its
+   MAINTAINERS entry.
+ - Make the driver depend on "RISCV || COMPILE_TEST" and on MAILBOX
+   separately, as the RPMI device power driver does, so a COMPILE_TEST
+   build no longer selects it without MAILBOX.
+ - Rebase onto v7.3-rc6.
+
+v1: https://lore.kernel.org/r/20260922161156.1088153-1-joshua.yeong@starfivetech.com
+v2: https://lore.kernel.org/r/20260923070014.1340761-1-joshua.yeong@starfivetech.com
+
+Testing
+=======
+
+The series was tested under QEMU with the RPMI voltage service
+implemented in firmware.
+
+Components:
+
+ - OpenSBI: v1.9
+   https://github.com/riscv-software-src/opensbi
+
+ - QEMU: the RPMI-enabled tree at
+   https://github.com/yeongjoshua/qemu/tree/rpmi-v11.1.0
+
+Kernel config: enable CONFIG_REGULATOR_RISCV_RPMI (default y on RISC-V
+when MAILBOX is enabled) along with the SBI MPXY mailbox driver.
+
+Run with:
+
+  qemu-system-riscv64 \
+      -M virt -m 2G -smp 4 \
+      -bios fw_dynamic.bin \
+      -kernel Image \
+      -M rpmi=true \
+      -nographic \
+      -initrd rootfs-busybox.cpio \
+      -append "root=/dev/ram rw console=ttyS0,115200 no_console_suspend mem=2048M earlycon=uart8250,mmio,0x10000000"
+
+The emulated PuC advertises eight voltage domains, covering both level
+formats, always-on and switchable domains, and domains the board
+constrains in DT. They show up under /sys/class/regulator/ and in
+/sys/kernel/debug/regulator/regulator_summary. Consumer test drivers,
+kept out of this series, walked each domain to its highest and lowest
+level, switched the switchable ones off and back on, and checked board
+ranges and requests from several consumers sharing a rail, each naming
+it through "<name>-supply", including requests carried by an OPP table.
+All checks passed.
+
+Joshua Yeong (3):
+  dt-bindings: regulator: Add RPMI voltage service bindings
+  regulator: Add RPMI voltage service
+  MAINTAINERS: Add RISC-V RPMI voltage driver
+
+ .../regulator/riscv,rpmi-mpxy-voltage.yaml    |  65 ++
+ .../regulator/riscv,rpmi-voltage.yaml         | 130 +++
+ MAINTAINERS                                   |   5 +-
+ drivers/regulator/Kconfig                     |  14 +
+ drivers/regulator/Makefile                    |   1 +
+ drivers/regulator/riscv-rpmi-regulator.c      | 893 ++++++++++++++++++
+ include/linux/mailbox/riscv-rpmi-message.h    |  14 +
+ 7 files changed, 1121 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/regulator/riscv,rpmi-mpxy-voltage.yaml
+ create mode 100644 Documentation/devicetree/bindings/regulator/riscv,rpmi-voltage.yaml
+ create mode 100644 drivers/regulator/riscv-rpmi-regulator.c
 
 
-
-On 10/6/2026 11:07 AM, Prasad Kumpatla wrote:
-> During back-to-back speaker playback the PA sometimes fails to enable
-> because a few I2S/TDM and clock source registers retain their previous
-> state and are not reprogrammed on the next stream.
-> 
-> Reset the relevant I2S/TDM, clock source and bandgap override registers
-> in hw_free() so the codec is torn down cleanly and the speaker amplifier
-> comes up reliably on back-to-back use cases. Move the bandgap override
-> reset out of set_sysclk() into the teardown path where it belongs.
-> 
-> Signed-off-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-> ---
->   sound/soc/codecs/wsa885x.c | 11 ++++++++++-
->   1 file changed, 10 insertions(+), 1 deletion(-)
-> 
-> diff --git a/sound/soc/codecs/wsa885x.c b/sound/soc/codecs/wsa885x.c
-> index 1faa8541a872..5ffbf9e89fd9 100644
-> --- a/sound/soc/codecs/wsa885x.c
-> +++ b/sound/soc/codecs/wsa885x.c
-> @@ -896,7 +896,6 @@ static int wsa885x_codec_set_sysclk(struct snd_soc_dai *dai, int clk_id,
->   
->   	regmap_write(wsa885x->regmap, WSA885X_DIG_CTRL0_SYS_CLK_SEL, 0x00);
->   	regmap_write(wsa885x->regmap, WSA885X_DIG_CTRL0_POWER_FSM_CTL1, 0x01);
-> -	regmap_write(wsa885x->regmap, WSA885X_ANA_TOP_BG_TVP_OVRD_CTL, 0x00);
->   
->   	return 0;
->   }
-> @@ -1006,6 +1005,16 @@ static int wsa885x_codec_hw_free(struct snd_pcm_substream *substream,
->   				 struct snd_soc_dai *dai)
->   {
->   	static const struct reg_sequence regs[] = {
-> +		{ WSA885X_DIG_CTRL1_I2S_RESET_CTL, 0x00 },
-> +		{ WSA885X_DIG_CTRL1_I2S_CFG0_TDM_TX, 0x00 },
-> +		{ WSA885X_DIG_CTRL1_I2S_CFG1_TDM_TX, 0x00 },
-> +		{ WSA885X_DIG_CTRL1_I2S_TDM_CTL1, 0x05 },
-> +		{ WSA885X_DIG_CTRL1_I2S_TDM_CTL0, 0x00 },
-> +		{ WSA885X_DIG_CTRL1_I2S_TDM_CH_TX, 0x00 },
-> +		{ WSA885X_DIG_CTRL1_I2S_CTL0, 0x06 },
-> +		{ WSA885X_DIG_CTRL1_I2S_TDM_CH_RX, 0x08 },
-> +		{ WSA885X_DIG_CTRL0_CLK_SOURCE_ENABLE, 0x00 },
-> +		{ WSA885X_ANA_TOP_BG_TVP_OVRD_CTL, 0x00 },
-
-
-This moves the BG_TVP override clear from immediately after a successful 
-PLL lock to hw_free(), so WSA885X_ANA_TOP_BG_TVP_OVRD_CTL appears to 
-remain at 0x03 for the lifetime of the active stream.
-
-Is that intentional for the back-to-back playback fix? If the override 
-is only needed during PLL programming/lock, keeping the old immediate 
-clear and also resetting it during hw_free() would preserve the existing 
-active-stream behavior while still cleaning up the teardown path.
-
-Thanks
-Ajay Kumar Nandam
-
-
->   		{ WSA885X_DIG_CTRL0_PA_FSM_CTL, 0x00 },
->   	};
->   	struct wsa885x_priv *wsa885x;
+base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
+prerequisite-patch-id: 907ffadca74a65c93ad38f428e002d2b34341067
+prerequisite-patch-id: 5a4df94e66de2f63697891a0f1382fabd9df7b6f
+prerequisite-patch-id: 0827a7050d08fea7deaab8e82f2dd16acdca507d
+-- 
+2.43.0
 
