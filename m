@@ -1,68 +1,68 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 657AA3A4F4A
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 22:40:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCE3539B970
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 22:40:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791326444; cv=none; b=AfLf4aP/P9a/SHAFhDtzbiHca/ddBWxv2Eqsn13NcpaTaSxk/o7hfxqyYAn8AQG7Oi/Lxn5wfKyMDQmJ0/1Zy9fGK3KO6IXV8EY1G5ikkeJY2KXzbtkJo5BnTOd3ffwKQcIWfVOeBrteUPU5M3LURNw8l4mbYcAp2uFQeIZzqrQ=
+	t=1791326440; cv=none; b=ctJeGp68riKbjwgW5PAwRN1lcFaAg7hGW92QKlHQDHGx5HYo/NVH1tLmRJYTiW738X4VvoavGuyI2iSdyCDrPNBw6Cv56ZJP766ksCaKkqTyCB2JbkMq+cC3Qb7RoU6wZwmFstwXOa9eUzcfpB5tNspCpwn6UDYxHUe9ldE3APs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791326444; c=relaxed/simple;
-	bh=jCHLyjvh3+T9dpBgJBN/rrtKwH/018pWKvdxYxje5wM=;
+	s=arc-20240116; t=1791326440; c=relaxed/simple;
+	bh=wwNdqBKydV3sKNndIKMDb0duUxJePVVmM/leJ1sDREA=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=PkkCWAnwvBPMIbO0ZI/D99WGVVb+1lU6s09gBMxQ/jrcruaeSLBhKU3zElNHn+/p/1w7RiWxGubVG7APtixX9vf/+D6hfmT2VwibVAiNhTgB/y4nISRgKQ6Krl5tttnvG0j9KEEWTw6V/x6scrLC40NLWmunGsb3/4rTJKE+dpY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=fail (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hkdrMI4f reason="signature verification failed"; arc=none smtp.client-ip=205.220.180.131
+	 MIME-Version; b=chnH3v6eJSWMnqXp8ivbs/OXh+g4aT47t9nWMRbu/eErFGbKGQN+EEalkvNfOPhctztwA+cm3atDQThBjCfH/SBcRG+rBz3tKi0157gMlWOv2D2hRcUL/tzuGDOQGbL6dLvCuYHV3YiGVm06PJK9ac63YxFDJi3U4owvFMJAB84=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=fail (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CbdWe0Ws reason="signature verification failed"; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hkdrMI4f"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 696LeNvJ1899642
-	for <linux-kernel@vger.kernel.org>; Tue, 6 Oct 2026 22:40:32 GMT
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CbdWe0Ws"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 696Lg0gA1678478
+	for <linux-kernel@vger.kernel.org>; Tue, 6 Oct 2026 22:40:28 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=8sfe/XIDFZl
-	aQRDiVJ5wqvQe6ukasnDP7luJc5DwaJ8=; b=hkdrMI4fIse/pLu8hkEU/e+2GeI
-	GXUcjlf6YftvPGRQYo3ONQsGTUa6gVSKoQx9HrFz8vBYwIiC99uAJX8L1Nh30LeM
-	+sZEamthu5+9dZrMPMy1j2J3g7VMI2W+SQXeG26w4lA3cb8l58gn2ELBP05COSJJ
-	1b+k0ukt9adP7orf+kLKCpE3gG4nZQnjePZ0Ff2T0QrJ/y8gZkAywL1MzaJLhdQO
-	GXPanylJVmfZH59ee8pBfQyh7OLEAlgvdyQP9jBCwuP5hSNcfxZjrRhhXh4gWcGq
-	LujAIBG4Htxe8BXud0EZWukaQNiYYhtj7FH5asvE5h85mUSyF/Jvw74UxXg==
+	:mime-version:references:subject:to; s=qcppdkim1; bh=cU6cB7tSn1l
+	wlOWS7+RD0zc037o+olQbgRawKxC//3Y=; b=CbdWe0WsEEbmqEIEdjV1hpnWYpe
+	UggdmLeDJUn7qog58GJ56JHnVDbTc9li3R9fRlFcjJpsAVRuz3mGqwPQZqAkm1Om
+	Dr9gMu4DdTNuE72GBODSLhgpkIXRDmcDo7wLHrRMBp8fktUb7Y9Z16uiwqTCBMn5
+	cGoiOO9C97mzdcR4yH+TWUCkEyfQcZK6oEf0hHcm8g417Es87tnKnzq2RQvBkTbm
+	hAITmA8akYO+ErehnElJkCqw7Fwaabmrn9MLR6RzdfrV4c2koavROOfBc9dyc/kO
+	hkD5mF8xUKQUC8DVmsDzZlwOCpVAsD77Y5qqQ5tjkmxxFDjuGrkaMC/oa9w==
 Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h541uhmyk-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4xdub0xn-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 22:40:30 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93dea1b6c89so555068685a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 15:40:30 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 22:40:28 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-92e82060977so541734985a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 15:40:28 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791326430; x=1791931230;
+        d=1e100.net; s=20260707; t=1791326428; x=1791931228;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8sfe/XIDFZlaQRDiVJ5wqvQe6ukasnDP7luJc5DwaJ8=;
-        b=rUPjqK54aLI44MufoVUAJrpOPJl5fKr1PkHh+9W0ccRgROMkmVSxPhceTr5cVv+ZP1
-         1MpPyBumSzXKSL87EFZeLHQJKZNluHrSMapO4jS8ym317vmaeGdXTBmv8C5+62df1L3B
-         PTitz49UKsvU9TZ0QYUNs6j4xhqSIQMGp8t317p8ZAlfMvoMlLwubCnFPZaUrlkj4KXX
-         bjNgj0kHnfWG7/OxztanU9VTtAmSG2YDhALJKAVRwaZiUqBQNEq15bBfqIw2zuSGc3gy
-         8PbRPb0kt4b+HzwGY8oTKpE/+jz09synJN9N510Kki4wVaJg1+SiPCRE+RhLxHAnn3vq
-         gkwQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwM0gjVNhrwgsjMlC2fNDyX98jxJIyZEIeKianIaotRtqxbcy1k9NRjNt7iQBLYHCq3QXul1GM9/6g4BbI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lJ+l61hJIf98oxwKox3hbGnl9+nUUWwgn0AQNg2vRygueLGqtB
-	8VlkrWeLjTu5ISAr+KKbeVFdUYn1Gqk+aittHP2vPt/x1tFL9DyqD505sIU8AGTZIHzrMskB/tr
-	P7Sy2HF4x2NWO0zATUw4eNlCnqiegPBX43Q2IZQUj9A74eYSgBASRmDZ98uUCoeQxsDo=
-X-Gm-Gg: AYBFou11gRxdm/ILKC/EQs3xL6Ds7uL8HBfB5nMaaaRNHIVHpF/qqcgAw2mrV6a2izD
-	9TnTFMKiTVGG1/s6kMBu1VQSeWGTR6EJ7fcUetofzz7yTytPPP+Ot9JZf5DeXIYaiJ6N3QONkL8
-	J4854G5PsyAJXH62Mupd+eLP+MGredTEuzTySQYOuV0hgpkjLI2riRlVtegQTLGxGAwr95tQkqS
-	NZu1VVwOex3ZU+0Io7STi5Hy9QOFU0D8r0ut3zAsmbHyf/5ZwTQ/dM2tRpnmMHfMZ4bL3BT5KZ4
-	xIN7y/h6wVleoEshD8aEtoWlmgtP1M9PsQebhg83sy9WiNQCUh35MeJ6BdE=
-X-Received: by 2002:a05:620a:4110:b0:93c:7a5c:77d8 with SMTP id af79cd13be357-93e9b2e965bmr88084785a.4.1791326429696;
-        Tue, 06 Oct 2026 15:40:29 -0700 (PDT)
-X-Received: by 2002:a05:620a:4110:b0:93c:7a5c:77d8 with SMTP id af79cd13be357-93e9b2e965bmr88079985a.4.1791326429128;
-        Tue, 06 Oct 2026 15:40:29 -0700 (PDT)
+        bh=cU6cB7tSn1lwlOWS7+RD0zc037o+olQbgRawKxC//3Y=;
+        b=ptyQdhsH3uvl5tM0Y44Rct2vNsUl7GDl8xJFqcxLoYTvaUp3H8IOiB4lwChwy6/xhU
+         NDBNEakeEnF+VeftGakLhoXFWtFs1XXoSBdED7Zyu5ka3sPFBLIby6U9dMB0KGNfpx+X
+         PPv+iCH81jc2J5z5CA0X0No8vK/S7N14TJwKXOy8SbExDmdCVx9ycFBH/ZI42EgEW+SP
+         9yBSgclvbutJoJZ9eDJd7HxhGCOa1LZOGvzjJZRxcm0oQ3/Et0gvQCQk2Do5kmPFHVOX
+         xCY+wozunbaOzkQ0BNHYjIgOXOCr+dpmzNCaMIwD0KGbCOf+b6mmVBvulXdLlWK20cgb
+         PbwA==
+X-Forwarded-Encrypted: i=1; AKwUvBzyeMOKoTs8UZlT0bxJg6j7ZBb8Fc0RY8ZsNtuMJwUYZb3gDMWeCfHhipSnsw9IxaVo0R0KBmunujeGO3Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++n66mNklsP9e92vMOQrxitNC3FeM0SJC7vg5kU9f6E+weD5pzD0
+	3u1P+XD4fkoNx1qmnXZ4OTBW1W+jL7DDoLacRyG2SkncRtXAn07QMOx5CY9PzYbThJmXB3xCJT5
+	cVsJK9lRkj+ktRZWMg25q8ufRx9y0boYB4ETVtankvjL2/nuF+aVs6v4nD44lx6ApiAU=
+X-Gm-Gg: AYBFou3RgpZhtLrx9HqTItGxcf9ObpM2NfG8Wp4PM0e3s9HRLn5MZy1kR+GiaNPZ1ja
+	ZWEJd8OPsnI3ghsdfpNft1Cv8eL6klryJP/VlV2+cwuo7IIqU5Q0jVfonIM3dDJgABbAZRBw/Uk
+	7aXJYUdvCBlXDuEtzoWx3F7JESYPId0z5KWVPCjvfmdUCo7INqPi/ilUNugKXmbovXrLyRWZIL1
+	boNM4kO6ZxlLgBwdKxuksXkISZdTagBj/7u+OWSpXGe9ylvbWeEWEsTxqNLDc57RDMNcVvcZdL6
+	TDbtgkTumhLy6V4cbwXV3ARpUo5fCi6rxTEixCdU0R+WucdBqxGIdykUDLU=
+X-Received: by 2002:a05:620a:3704:b0:939:72cb:bae5 with SMTP id af79cd13be357-93e860c1fb1mr881417385a.28.1791326427327;
+        Tue, 06 Oct 2026 15:40:27 -0700 (PDT)
+X-Received: by 2002:a05:620a:3704:b0:939:72cb:bae5 with SMTP id af79cd13be357-93e860c1fb1mr881411685a.28.1791326426588;
+        Tue, 06 Oct 2026 15:40:26 -0700 (PDT)
 Received: from lin-0843.qualcomm.com ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178c53299sm167263575e9.11.2026.10.06.15.40.27
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178c53299sm167263575e9.11.2026.10.06.15.40.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 15:40:28 -0700 (PDT)
+        Tue, 06 Oct 2026 15:40:25 -0700 (PDT)
 From: Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
         Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -80,9 +80,9 @@ Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
         hariram.purushothaman@oss.qualcomm.com, pshrotri@qti.qualcomm.com,
         Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
         johannes.goede@oss.qualcomm.com, konradybcio@kernel.org
-Subject: [PATCH 07/45] media: qcom: camss: sm8250: add IFE BUS v20x
-Date: Wed,  7 Oct 2026 01:39:15 +0300
-Message-Id: <20261006223953.3382273-8-gjorgji.rosikopulos@oss.qualcomm.com>
+Subject: [PATCH 06/45] media: qcom: camss: add IFE subdevice interface
+Date: Wed,  7 Oct 2026 01:39:14 +0300
+Message-Id: <20261006223953.3382273-7-gjorgji.rosikopulos@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261006223953.3382273-1-gjorgji.rosikopulos@oss.qualcomm.com>
 References: <20261006223953.3382273-1-gjorgji.rosikopulos@oss.qualcomm.com>
@@ -93,362 +93,442 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: qqwa6Hw9GPJbEmSfFzISp5GFJ38pzH-b
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA5MCBTYWx0ZWRfX62uHIlrgqmXx
- tw2Z7LMtjdpWQkLIFuC1Xn3tcpX/HaD+Rt+vIH+1ViyuA7JxgbYrEdrge9IOrkz3/h4/M/bJX1H
- gJ4N5h7ZAaEFqi0qaQRYe6B50+ZIo7M=
-X-Authority-Analysis: v=2.4 cv=XZYcX455 c=1 sm=1 tr=0 ts=6ac578de cx=c_pps
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA5MCBTYWx0ZWRfXySjTzL+rfkcG
+ BpnOr3PmPhAHez367W+sCMlHFAYcSY/q/BIbZMVavRSo6l8Uo6uQCmpVBRtfKtpo0R8U9KJlmiX
+ w9YY5gAmxzg4yz+oPaeVFbZsknbcuX0=
+X-Authority-Analysis: v=2.4 cv=NshE4MdJ c=1 sm=1 tr=0 ts=6ac578dc cx=c_pps
  a=50t2pK5VMbmlHzFWWp8p/g==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
  a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8 a=f5t0ODRzorHQIUvYkhMA:9
- a=8DUjIpf0rZZqWCZ8:21 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA5MCBTYWx0ZWRfX7GhQm5F2Ococ
- i4dLFugqWIoqsdOf60g8cJtxUScXGkF3/7YJLRIAcaHyt75ZCIUKI/wWmdNsYLWhpkHjVDLM6ru
- 5qFbOrEQ6MCQ1teB4/8GY3LaBUE8nC/eLclDhWg2N/8KbvQCzl/ngpPBnXsP52b7IHd590abqvt
- UNjrFpM8Woa2cAU3nnYvcIWoBplme8m7y19YFPIotvzev/PAqDZv4bI+0z1gkDlgsscQm3RK2oL
- QgCrzhlNcdHBytBC7S16xeIvylciF2egCIlvS1Rp/Mg4wkPanJq3EG8jRRH1Gxw2yQ8Us34qRDf
- dX7khsqMlJqU6IfcWz1Vk0Ph5bXnmw5vfxBS3pwICdN5e590TfIWlkIQfoR7Wtbd9/RsPMtFMkU
- JChN2ezK0ke5iBt0Xo1ekGqyBwMTMjoU0jBjRT4DQPWf21FCgn/tStwpQ9R4ZpS65duJ+5jW77U
- L/xQVJQ9h+ClKOvlMAw==
-X-Proofpoint-ORIG-GUID: qqwa6Hw9GPJbEmSfFzISp5GFJ38pzH-b
+ a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8 a=95Q6_5sKJtTNXQvUJdsA:9
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-GUID: 0G4MRd824r_TncPH8yg1LTte5as4Flhx
+X-Proofpoint-ORIG-GUID: 0G4MRd824r_TncPH8yg1LTte5as4Flhx
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA5MCBTYWx0ZWRfXx82+XpoMafyR
+ gLJNDPKyFm4j7KvoUD2Pcxk2gjIm/8jopb16jz25vORGFCpzeSt7I7IK1MZQ+WZeMSvegzAQuXV
+ +29xUsl24uUKoH/btoYA4aAyP8S0pI6Tq7zFz1w6smmnH+NfYZJRfyBcCL1Yl7T1Zxs366dzb+L
+ CT274r+v7LeAMahNI6mCaTiP6YPZQTtL0k2MT9nx//YL53WVdlZR94Nipqft1ApEtoLUpJle9vX
+ 0S/Ll1f0ieEkDWL1fFK7N3UMSlJEP9mhuUScfpvt015wN2HuUkOXRrQlULDNpEU55Qjw/pzJV06
+ SPoGNvBQeky1udbF9sevCG/a/ahnHkItX4kqgrf5Hy2Dv6CUDPS6Eb+SbVFedMDLKZ+9qAW0izu
+ cuuS6GOGDAaakAP2VtuHWL4WL37dcjLbLZ3CP7qEYErhDFZQKvuzQAQDVoD7Z5dOZcWXuQpWW4T
+ OLNI7syrg0UHWUMmk+Q==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-06_05,2026-10-06_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 priorityscore=1501 impostorscore=0 bulkscore=0 suspectscore=0
- clxscore=1015 phishscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
+ lowpriorityscore=0 suspectscore=0 malwarescore=0 phishscore=0 impostorscore=0
+ spamscore=0 clxscore=1015 priorityscore=1501 bulkscore=0 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060090
 
 From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 
-Add the IFE BUS write engine used by the SM8250 full and lite pixel
-paths.
+Add the common IFE types and hardware operation interfaces. Later
+patches use them to add the IFE engines and subdevice.
 
 Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 ---
- drivers/media/platform/qcom/camss/Makefile    |   1 +
- .../platform/qcom/camss/camss-ife-bus-v20x.c  | 287 ++++++++++++++++++
- drivers/media/platform/qcom/camss/camss-ife.h |   2 +
- 3 files changed, 290 insertions(+)
- create mode 100644 drivers/media/platform/qcom/camss/camss-ife-bus-v20x.c
+ drivers/media/platform/qcom/camss/camss-ife.h | 392 ++++++++++++++++++
+ 1 file changed, 392 insertions(+)
+ create mode 100644 drivers/media/platform/qcom/camss/camss-ife.h
 
-diff --git a/drivers/media/platform/qcom/camss/Makefile b/drivers/media/platform/qcom/camss/Makefile
-index b79c40626c40..e30fe07b16f4 100644
---- a/drivers/media/platform/qcom/camss/Makefile
-+++ b/drivers/media/platform/qcom/camss/Makefile
-@@ -14,6 +14,7 @@ qcom-camss-objs += \
- 		camss-csiphy-2ph-1-0.o \
- 		camss-csiphy-3ph-1-0.o \
- 		camss-format.o \
-+		camss-ife-bus-v20x.o \
- 		camss-ispif.o \
- 		camss-tpg.o \
- 		camss-tpg-gen1.o \
-diff --git a/drivers/media/platform/qcom/camss/camss-ife-bus-v20x.c b/drivers/media/platform/qcom/camss/camss-ife-bus-v20x.c
+diff --git a/drivers/media/platform/qcom/camss/camss-ife.h b/drivers/media/platform/qcom/camss/camss-ife.h
 new file mode 100644
-index 000000000000..3e27494d91da
+index 000000000000..39e8cfa74909
 --- /dev/null
-+++ b/drivers/media/platform/qcom/camss/camss-ife-bus-v20x.c
-@@ -0,0 +1,287 @@
-+// SPDX-License-Identifier: GPL-2.0
++++ b/drivers/media/platform/qcom/camss/camss-ife.h
+@@ -0,0 +1,392 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
 +/* Copyright (c) 2023, The Linux Foundation. All rights reserved.
 + * Copyright (c) 2023 Qualcomm Technologies, Inc.
 + */
 +
-+#include <linux/bitfield.h>
-+#include <linux/device.h>
++#ifndef CAMSS_IFE_SUB_DEV_H
++#define CAMSS_IFE_SUB_DEV_H
 +
-+#include "camss.h"
-+#include "camss-ife.h"
++#include <media/v4l2-isp.h>
++#include <media/v4l2-subdev.h>
 +
-+/* Block base offsets */
-+#define BUSWR_V20X_OFFS		0xaa00
-+#define BUSWR_V20X_LITE_OFFS	0x1a00
++#include "camss-format.h"
++#include "camss-video.h"
 +
-+/* Per-client register offset */
-+#define BUSWR_V20X_CLIENT_OFFS(n)	((n) * 0x100)
++#define IFE_CAMIF_HW_PIPES_MAX	6
 +
-+/* Interface interrupt and violation status bits */
-+#define BUSWR_V20X_IIF_IRQ_CMD_CLEAR			BIT(0)
-+#define BUSWR_V20X_OVERFLOW_ERR_MASK			GENMASK(25, 0)
-+#define IS_BUSWR_V20X_OVERFLOW_ERR(s)	\
-+	((s) & BUSWR_V20X_OVERFLOW_ERR_MASK)
-+#define BUSWR_V20X_VIOLATION_ERR_MASK			GENMASK(25, 0)
-+#define IS_BUSWR_V20X_VIOLATION_ERR(s)	\
-+	((s) & BUSWR_V20X_VIOLATION_ERR_MASK)
-+#define BUSWR_V20X_IMG_SIZE_VIOLATION_ERR_MASK		GENMASK(25, 0)
-+#define IS_BUSWR_V20X_IMG_SIZE_VIOLATION_ERR(s)	\
-+	((s) & BUSWR_V20X_IMG_SIZE_VIOLATION_ERR_MASK)
-+#define BUSWR_V20X_IIF_IRQ_S0_IMG_SIZE_VIOLATION	BIT(31)
-+#define IS_BUSWR_V20X_IIF_IRQ_S0_IMG_SIZE_VIOLATION(s)	\
-+	((s) & BUSWR_V20X_IIF_IRQ_S0_IMG_SIZE_VIOLATION)
-+#define BUSWR_V20X_IIF_IRQ_S0_VIOLATION			BIT(30)
-+#define IS_BUSWR_V20X_IIF_IRQ_S0_VIOLATION(s)	\
-+	((s) & BUSWR_V20X_IIF_IRQ_S0_VIOLATION)
++/* IFE irq 0 status flags */
++#define IFE_HW_TOP_IRQ0_RST_DONE	BIT(0)
++#define IFE_HW_TOP_IRQ0_BUSWR		BIT(1)
 +
-+/* Client configuration field values */
-+#define BUSWR_V20X_IIF_CGC_OVERRIDE			GENMASK(25, 0)
-+#define BUSWR_V20X_CLIENT_CFG_MODE			GENMASK(17, 16)
-+#define BUSWR_V20X_CLIENT_CFG_AUTO_RECOVERY_EN		BIT(4)
-+#define BUSWR_V20X_CLIENT_CFG_EN			BIT(0)
-+#define BUSWR_V20X_CLIENT_IMG_CFG0_HEIGHT		GENMASK_U32(31, 16)
-+#define BUSWR_V20X_CLIENT_IMG_CFG0_WIDTH		GENMASK_U32(15, 0)
-+#define BUSWR_V20X_CLIENT_IMG_CFG2_STRIDE		GENMASK_U32(15, 0)
-+#define BUSWR_V20X_CLIENT_PACKER_CFG_ALIGN		GENMASK(4, 4)
-+#define BUSWR_V20X_CLIENT_PACKER_CFG_FORMAT		GENMASK(3, 0)
-+#define BUSWR_V20X_CLIENT_IRQ_SUBSAMPLE_CFG0_PERIOD	GENMASK(4, 0)
-+#define BUSWR_V20X_CLIENT_IRQ_SUBSAMPLE_CFG1_PATTERN	GENMASK(31, 0)
-+#define BUSWR_V20X_CLIENT_FRAMEDROP_CFG0_PERIOD		GENMASK(4, 0)
-+#define BUSWR_V20X_CLIENT_FRAMEDROP_CFG1_PATTERN	GENMASK(31, 0)
++/* IFE top */
++#define IFE_HW_TOP_IRQ1_RDI0_SOF	BIT(0)
++#define IFE_HW_TOP_IRQ1_RDI0_EPOCH0	BIT(1)
++#define IFE_HW_TOP_IRQ1_RDI0_EPOCH1	BIT(2)
++#define IFE_HW_TOP_IRQ1_RDI1_SOF	BIT(3)
++#define IFE_HW_TOP_IRQ1_RDI1_EPOCH0	BIT(4)
++#define IFE_HW_TOP_IRQ1_RDI1_EPOCH1	BIT(5)
++#define IFE_HW_TOP_IRQ1_RDI2_SOF	BIT(6)
++#define IFE_HW_TOP_IRQ1_RDI2_EPOCH0	BIT(7)
++#define IFE_HW_TOP_IRQ1_RDI2_EPOCH1	BIT(8)
++#define IFE_HW_TOP_IRQ1_RDI3_SOF	BIT(9)
++#define IFE_HW_TOP_IRQ1_PP_SOF		BIT(12)
++#define IFE_HW_TOP_IRQ1_PP_EPOCH0	BIT(13)
++#define IFE_HW_TOP_IRQ1_PP_EPOCH1	BIT(14)
 +
-+/* Burst and FIFO limits */
-+#define BUSWR_V20X_BURST_BEATS8_256			3
-+#define BUSWR_V20X_CLIENT_BURST_LIMIT_CFG_MAX_LENGTH	GENMASK(1, 0)
-+#define BUSWR_V20X_IMG_ADDR_FIFO_MAX_DEPTH		4
++#define BUSWR_CLIENT_CFG_MODE_LINE_BASED	0
++#define BUSWR_CLIENT_CFG_MODE_FRAME_BASED	1
 +
-+/* Common BUSWR registers */
-+#define BUSWR_V20X_IIF_CGC_OVERRIDE_REG		0x00000008
-+#define BUSWR_V20X_IIF_IRQ_MASK_S0		0x00000018
-+#define BUSWR_V20X_IIF_IRQ_MASK_S1		0x0000001c
-+#define BUSWR_V20X_IIF_IRQ_CLEAR_S0		0x00000020
-+#define BUSWR_V20X_IIF_IRQ_CLEAR_S1		0x00000024
-+#define BUSWR_V20X_IIF_IRQ_STATUS_S0		0x00000028
-+#define BUSWR_V20X_IIF_IRQ_STATUS_S1		0x0000002c
-+#define BUSWR_V20X_IIF_IRQ_CMD_REG		0x00000030
-+#define BUSWR_V20X_OVERFLOW_CLEAR_REG		0x00000060
-+#define BUSWR_V20X_VIOLATION_STATUS_REG		0x00000064
-+#define BUSWR_V20X_OVERFLOW_STATUS_REG		0x00000068
-+#define BUSWR_V20X_IMG_SIZE_VIOLATION_REG	0x00000070
-+
-+/* Per-client BUSWR registers */
-+#define BUSWR_V20X_CLIENT_CFG_REG		0x00000200
-+#define BUSWR_V20X_CLIENT_ADDR_IMAGE_REG	0x00000204
-+#define BUSWR_V20X_CLIENT_IMG_CFG0_REG		0x0000020c
-+#define BUSWR_V20X_CLIENT_IMG_CFG2_REG		0x00000214
-+#define BUSWR_V20X_CLIENT_PACKER_CFG_REG	0x00000218
-+#define BUSWR_V20X_CLIENT_IRQ_SS_CFG0_REG	0x00000230
-+#define BUSWR_V20X_CLIENT_IRQ_SS_CFG1_REG	0x00000234
-+#define BUSWR_V20X_CLIENT_FRAMEDROP_CFG0_REG	0x00000238
-+#define BUSWR_V20X_CLIENT_FRAMEDROP_CFG1_REG	0x0000023c
-+#define BUSWR_V20X_CLIENT_BURST_LIMIT_REG	0x00000264
-+#define BUSWR_V20X_CLIENT_ADDR_STATUS_0_REG	0x00000268
-+#define BUSWR_V20X_CLIENT_ADDR_STATUS_2_REG	0x00000270
-+
-+static void ife_buswr_20x_acquire(struct ife_device *ife, void __iomem *base)
-+{
-+	struct ife_buswr_ctx *ctx = &ife->buswr_ctx;
-+
-+	if (ife->res->type == CAMSS_IFE_SUBDEV_TYPE_IFE_LITE)
-+		ctx->base = base + BUSWR_V20X_LITE_OFFS;
-+	else
-+		ctx->base = base + BUSWR_V20X_OFFS;
-+
-+	ctx->dev = ife->camss->dev;
-+}
-+
-+static void ife_buswr_20x_release(struct ife_buswr_ctx *ctx)
-+{
-+	ctx->base = NULL;
-+}
-+
-+static void ife_buswr_20x_wm_config(struct ife_buswr_ctx *ctx, const u8 wm,
-+				    const struct camss_ife_wm_config *cfg)
-+{
-+	void __iomem *base = ctx->base;
-+	u32 rval, period = 0, pattern = 1;
-+
-+	writel_relaxed(BUSWR_V20X_IIF_CGC_OVERRIDE,
-+		       base + BUSWR_V20X_IIF_CGC_OVERRIDE_REG);
-+
-+	rval = FIELD_PREP(BUSWR_V20X_CLIENT_CFG_MODE, cfg->mode_config);
-+	writel_relaxed(rval, base + BUSWR_V20X_CLIENT_CFG_REG + BUSWR_V20X_CLIENT_OFFS(wm));
-+
-+	rval = FIELD_PREP(BUSWR_V20X_CLIENT_PACKER_CFG_FORMAT, cfg->packing_fmt) |
-+	       FIELD_PREP(BUSWR_V20X_CLIENT_PACKER_CFG_ALIGN, 1);
-+	writel_relaxed(rval, base + BUSWR_V20X_CLIENT_PACKER_CFG_REG + BUSWR_V20X_CLIENT_OFFS(wm));
-+
-+	rval = FIELD_PREP(BUSWR_V20X_CLIENT_IMG_CFG0_WIDTH, cfg->bytes) |
-+	       FIELD_PREP(BUSWR_V20X_CLIENT_IMG_CFG0_HEIGHT, cfg->lines);
-+	writel_relaxed(rval, base + BUSWR_V20X_CLIENT_IMG_CFG0_REG +
-+		       BUSWR_V20X_CLIENT_OFFS(wm));
-+	rval = FIELD_PREP(BUSWR_V20X_CLIENT_IMG_CFG2_STRIDE, cfg->stride);
-+	writel_relaxed(rval, base + BUSWR_V20X_CLIENT_IMG_CFG2_REG +
-+		       BUSWR_V20X_CLIENT_OFFS(wm));
-+
-+	rval = FIELD_PREP(BUSWR_V20X_CLIENT_IRQ_SUBSAMPLE_CFG0_PERIOD, period);
-+	writel_relaxed(rval, base + BUSWR_V20X_CLIENT_IRQ_SS_CFG0_REG +
-+		       BUSWR_V20X_CLIENT_OFFS(wm));
-+
-+	rval = FIELD_PREP(BUSWR_V20X_CLIENT_IRQ_SUBSAMPLE_CFG1_PATTERN, pattern);
-+	writel_relaxed(rval, base + BUSWR_V20X_CLIENT_IRQ_SS_CFG1_REG +
-+		       BUSWR_V20X_CLIENT_OFFS(wm));
-+
-+	rval = FIELD_PREP(BUSWR_V20X_CLIENT_FRAMEDROP_CFG0_PERIOD, period);
-+	writel_relaxed(rval, base + BUSWR_V20X_CLIENT_FRAMEDROP_CFG0_REG +
-+		       BUSWR_V20X_CLIENT_OFFS(wm));
-+
-+	rval = FIELD_PREP(BUSWR_V20X_CLIENT_FRAMEDROP_CFG1_PATTERN, pattern);
-+	writel_relaxed(rval, base + BUSWR_V20X_CLIENT_FRAMEDROP_CFG1_REG +
-+		       BUSWR_V20X_CLIENT_OFFS(wm));
-+
-+	rval = FIELD_PREP(BUSWR_V20X_CLIENT_BURST_LIMIT_CFG_MAX_LENGTH,
-+			  BUSWR_V20X_BURST_BEATS8_256);
-+	writel_relaxed(rval, base + BUSWR_V20X_CLIENT_BURST_LIMIT_REG +
-+		       BUSWR_V20X_CLIENT_OFFS(wm));
-+}
-+
-+static void ife_buswr_20x_wm_enable(struct ife_buswr_ctx *ctx, u8 wm)
-+{
-+	void __iomem *base = ctx->base;
-+	u32 rval;
-+
-+	rval = readl_relaxed(base + BUSWR_V20X_CLIENT_CFG_REG + BUSWR_V20X_CLIENT_OFFS(wm));
-+	rval |= BUSWR_V20X_CLIENT_CFG_EN | BUSWR_V20X_CLIENT_CFG_AUTO_RECOVERY_EN;
-+	writel_relaxed(rval, base + BUSWR_V20X_CLIENT_CFG_REG + BUSWR_V20X_CLIENT_OFFS(wm));
-+}
-+
-+static void ife_buswr_20x_wm_disable(struct ife_buswr_ctx *ctx, u8 wm)
-+{
-+	void __iomem *base = ctx->base;
-+	u32 rval;
-+
-+	rval = readl_relaxed(base + BUSWR_V20X_CLIENT_CFG_REG + BUSWR_V20X_CLIENT_OFFS(wm));
-+	rval &= ~(BUSWR_V20X_CLIENT_CFG_EN | BUSWR_V20X_CLIENT_CFG_AUTO_RECOVERY_EN);
-+	writel_relaxed(rval, base + BUSWR_V20X_CLIENT_CFG_REG + BUSWR_V20X_CLIENT_OFFS(wm));
-+}
-+
-+static bool ife_buswr_20x_is_fifo_full(struct ife_buswr_ctx *ctx, u8 wm)
-+{
-+	u32 rval = readl_relaxed(ctx->base + BUSWR_V20X_CLIENT_OFFS(wm) +
-+				 BUSWR_V20X_CLIENT_ADDR_STATUS_2_REG);
-+
-+	return rval >= BUSWR_V20X_IMG_ADDR_FIFO_MAX_DEPTH;
-+}
-+
-+static void ife_buswr_20x_queue_buf(struct ife_buswr_ctx *ctx, const u8 num_wms, const u8 *wm,
-+				    dma_addr_t *addr)
-+{
-+	int i;
-+
-+	for (i = 0; i < num_wms; i++) {
-+		if (addr[i])
-+			writel_relaxed(addr[i], ctx->base + BUSWR_V20X_CLIENT_ADDR_IMAGE_REG +
-+				       BUSWR_V20X_CLIENT_OFFS(wm[i]));
-+	}
-+}
-+
-+static u32 ife_buswr_20x_consumed_addr(struct ife_buswr_ctx *ctx, u8 wm)
-+{
-+	return readl_relaxed(ctx->base + BUSWR_V20X_CLIENT_ADDR_STATUS_0_REG +
-+			     BUSWR_V20X_CLIENT_OFFS(wm));
-+}
-+
-+static void ife_buswr_20x_log_image_size(struct ife_buswr_ctx *ctx, u32 clients)
-+{
-+	unsigned int wm;
-+	u32 cfg0, cfg2;
-+
-+	dev_dbg(ctx->dev, "BUSWR image size violation clients: %#010x\n", clients);
-+
-+	for (wm = 0; wm < 26; wm++) {
-+		if (!(clients & BIT(wm)))
-+			continue;
-+
-+		cfg0 = readl_relaxed(ctx->base + BUSWR_V20X_CLIENT_IMG_CFG0_REG +
-+				     BUSWR_V20X_CLIENT_OFFS(wm));
-+		cfg2 = readl_relaxed(ctx->base + BUSWR_V20X_CLIENT_IMG_CFG2_REG +
-+				     BUSWR_V20X_CLIENT_OFFS(wm));
-+
-+		dev_dbg(ctx->dev, "BUSWR client %u config: width=%u height=%u stride=%u\n",
-+			wm, FIELD_GET(BUSWR_V20X_CLIENT_IMG_CFG0_WIDTH, cfg0),
-+			FIELD_GET(BUSWR_V20X_CLIENT_IMG_CFG0_HEIGHT, cfg0),
-+			FIELD_GET(BUSWR_V20X_CLIENT_IMG_CFG2_STRIDE, cfg2));
-+	}
-+}
-+
-+static u32 ife_buswr_20x_irq_status(struct ife_buswr_ctx *ctx)
-+{
-+	void __iomem *base = ctx->base;
-+	u32 bus_stat, iif_stat = 0;
-+
-+	bus_stat = readl_relaxed(base + BUSWR_V20X_OVERFLOW_STATUS_REG);
-+	writel_relaxed(BIT(0), base + BUSWR_V20X_OVERFLOW_CLEAR_REG);
-+	if (IS_BUSWR_V20X_OVERFLOW_ERR(bus_stat)) {
-+		writel_relaxed(bus_stat, base + BUSWR_V20X_OVERFLOW_CLEAR_REG);
-+		pr_warn("BUSWR common overflow: 0x%x\n", bus_stat);
-+	}
-+
-+	iif_stat = readl_relaxed(base + BUSWR_V20X_IIF_IRQ_STATUS_S1);
-+	writel_relaxed(iif_stat, base + BUSWR_V20X_IIF_IRQ_CLEAR_S1);
-+
-+	iif_stat = readl_relaxed(base + BUSWR_V20X_IIF_IRQ_STATUS_S0);
-+	writel_relaxed(iif_stat, base + BUSWR_V20X_IIF_IRQ_CLEAR_S0);
-+	if (iif_stat) {
-+		if (IS_BUSWR_V20X_IIF_IRQ_S0_IMG_SIZE_VIOLATION(iif_stat)) {
-+			bus_stat = readl_relaxed(base + BUSWR_V20X_IMG_SIZE_VIOLATION_REG);
-+			if (IS_BUSWR_V20X_IMG_SIZE_VIOLATION_ERR(bus_stat))
-+				pr_warn("BUSWR common image size violation: 0x%x\n", bus_stat);
-+			ife_buswr_20x_log_image_size(ctx, bus_stat);
-+			pr_warn("BUSWR image size violation from CCIF: 0x%x\n", iif_stat);
-+		}
-+		if (IS_BUSWR_V20X_IIF_IRQ_S0_VIOLATION(iif_stat)) {
-+			bus_stat = readl_relaxed(base + BUSWR_V20X_VIOLATION_STATUS_REG);
-+			if (IS_BUSWR_V20X_VIOLATION_ERR(bus_stat))
-+				pr_warn("BUSWR common violation: 0x%x\n", bus_stat);
-+			pr_warn("BUSWR violation from CCIF: 0x%x\n", iif_stat);
-+		}
-+	}
-+
-+	writel_relaxed(BUSWR_V20X_IIF_IRQ_CMD_CLEAR, base + BUSWR_V20X_IIF_IRQ_CMD_REG);
-+
-+	return iif_stat;
-+}
-+
-+static void ife_buswr_20x_irq_enable(struct ife_buswr_ctx *ctx)
-+{
-+	void __iomem *base = ctx->base;
-+
-+	writel_relaxed(~0, base + BUSWR_V20X_IIF_IRQ_MASK_S0);
-+	writel_relaxed(~0, base + BUSWR_V20X_IIF_IRQ_MASK_S1);
-+}
-+
-+static void ife_buswr_20x_irq_disable(struct ife_buswr_ctx *ctx)
-+{
-+	void __iomem *base = ctx->base;
-+
-+	writel_relaxed(0, base + BUSWR_V20X_IIF_IRQ_MASK_S0);
-+	writel_relaxed(~0, base + BUSWR_V20X_IIF_IRQ_CLEAR_S0);
-+	writel_relaxed(0, base + BUSWR_V20X_IIF_IRQ_MASK_S1);
-+	writel_relaxed(~0, base + BUSWR_V20X_IIF_IRQ_CLEAR_S1);
-+
-+	writel_relaxed(BUSWR_V20X_IIF_IRQ_CMD_CLEAR, base + BUSWR_V20X_IIF_IRQ_CMD_REG);
-+}
-+
-+const struct ife_hw_buswr_ops ife_buswr_20x_ops = {
-+	.acquire	= ife_buswr_20x_acquire,
-+	.release	= ife_buswr_20x_release,
-+	.irq_enable	= ife_buswr_20x_irq_enable,
-+	.irq_disable	= ife_buswr_20x_irq_disable,
-+	.wm_config	= ife_buswr_20x_wm_config,
-+	.wm_enable	= ife_buswr_20x_wm_enable,
-+	.wm_disable	= ife_buswr_20x_wm_disable,
-+	.queue_buf	= ife_buswr_20x_queue_buf,
-+	.consumed_addr	= ife_buswr_20x_consumed_addr,
-+	.irq_status	= ife_buswr_20x_irq_status,
-+	.is_fifo_full	= ife_buswr_20x_is_fifo_full,
++enum camss_ife_output {
++	CAMSS_IFE_OUTPUT_INVALID,
++	CAMSS_IFE_OUTPUT_RDI0,
++	CAMSS_IFE_OUTPUT_RDI1,
++	CAMSS_IFE_OUTPUT_RDI2,
++	CAMSS_IFE_OUTPUT_RDI3,
++	CAMSS_IFE_OUTPUT_VID_FULL,
++	CAMSS_IFE_OUTPUT_DISP_FULL,
++	CAMSS_IFE_OUTPUT_FD,
 +};
-diff --git a/drivers/media/platform/qcom/camss/camss-ife.h b/drivers/media/platform/qcom/camss/camss-ife.h
-index 39e8cfa74909..48701cb67e1e 100644
---- a/drivers/media/platform/qcom/camss/camss-ife.h
-+++ b/drivers/media/platform/qcom/camss/camss-ife.h
-@@ -389,4 +389,6 @@ camss_ife_pipe_for_stream_id(int nstreams,
- 			     const struct camss_ife_stream *streams,
- 			     u32 id);
- 
-+extern const struct ife_hw_buswr_ops ife_buswr_20x_ops;
 +
- #endif /* CAMSS_IFE_SUB_DEV_H */
++enum camss_ife_hw_pipe {
++	CAMSS_IFE_HW_PIPE_RDI0,
++	CAMSS_IFE_HW_PIPE_RDI1,
++	CAMSS_IFE_HW_PIPE_RDI2,
++	CAMSS_IFE_HW_PIPE_RDI3,
++	CAMSS_IFE_HW_PIPE_PP,
++	CAMSS_IFE_HW_PIPE_INVALID,
++};
++
++enum ife_hw_planes {
++	Y_PLANE = 0,
++	C_PLANE,
++	IFE_HW_PLANES
++};
++
++enum ife_top_status {
++	IFE_TOP_STATUS_ID0,
++	IFE_TOP_STATUS_ID1,
++	IFE_TOP_STATUS_ID2,
++	IFE_TOP_STATUS_MAX,
++};
++
++struct camss_hw_version {
++	union {
++		u32 hw_version;
++		struct {
++			u32 major:  4;
++			u32 minor: 12;
++			u32 steps: 16;
++		} ids;
++	};
++};
++
++struct camss_ife_wm_config {
++	u32 wm_id;
++	u32 width;
++	u32 height;
++	u32 bytes;
++	u32 stride;
++	u32 lines;
++	u32 mode_config;
++	u32 packing_fmt;
++};
++
++struct camss_ife_pipeline_cfg {
++	u32 in_code;
++	u32 in_width;
++	u32 in_height;
++	struct v4l2_rect *ds_mn_crop;
++};
++
++struct camss;
++struct camss_subdev_resources;
++struct ife_device;
++struct ife_pad_desc;
++struct ife_top_ctx;
++struct ife_pp_ctx;
++struct vb2_buffer;
++struct ife_buswr_ctx;
++
++/**
++ * struct ife_hw_camif_ops - CAMIF hardware ops interface.
++ *
++ * Abstracts the CAMIF config/enable/disable operations so that
++ * top-level controllers are not coupled to a specific CAMIF IP version.
++ *
++ * @config:  Program CAMIF registers for the given pipe and pipeline config.
++ * @enable:  Enable the CAMIF output for the given pipe.
++ * @disable: Disable the CAMIF output for the given pipe.
++ */
++struct ife_hw_camif_ops {
++	int  (*config)(void __iomem *base, enum camss_ife_hw_pipe hw_pipe,
++		       const struct camss_ife_pipeline_cfg *cfg);
++	void (*enable)(void __iomem *base, enum camss_ife_hw_pipe hw_pipe);
++	void (*disable)(void __iomem *base, enum camss_ife_hw_pipe hw_pipe);
++};
++
++struct ife_hw_top_ops {
++	int	(*acquire)(struct ife_device *ife, void __iomem *base,
++			   void __iomem *csid_base);
++	void	(*release)(struct ife_top_ctx *ctx);
++
++	u32	(*version)(struct ife_top_ctx *ctx);
++	void	(*prepare)(struct ife_top_ctx *ctx);
++	void	(*enable)(struct ife_top_ctx *ctx, enum camss_ife_hw_pipe hw_pipe);
++	void	(*disable)(struct ife_top_ctx *ctx, enum camss_ife_hw_pipe hw_pipe);
++
++	int	(*pipe_config)(struct ife_top_ctx *ctx, const struct ife_pad_desc *desc,
++			       const struct camss_ife_pipeline_cfg *pipeline_cfg,
++			       const struct camss_ife_wm_config *wm_cfg);
++	int	(*pipe_enable)(struct ife_top_ctx *ctx, const struct ife_pad_desc *desc);
++	int	(*pipe_disable)(struct ife_top_ctx *ctx, const struct ife_pad_desc *desc);
++
++	void	(*reg_update)(struct ife_top_ctx *ctx, const struct ife_pad_desc *dsc);
++	void	(*reset)(struct ife_top_ctx *ctx);
++	void	(*irq_status)(struct ife_top_ctx *ctx, u32 isr_stat[IFE_TOP_STATUS_MAX]);
++};
++
++struct ife_hw_buswr_ops {
++	void	(*acquire)(struct ife_device *ife, void __iomem *base);
++	void	(*release)(struct ife_buswr_ctx *ctx);
++	void	(*irq_enable)(struct ife_buswr_ctx *ctx);
++	void	(*irq_disable)(struct ife_buswr_ctx *ctx);
++	void	(*wm_config)(struct ife_buswr_ctx *ctx, const u8 wm,
++			     const struct camss_ife_wm_config *cfg);
++	void	(*wm_enable)(struct ife_buswr_ctx *ctx, u8 wm);
++	void	(*wm_disable)(struct ife_buswr_ctx *ctx, u8 wm);
++	void	(*queue_buf)(struct ife_buswr_ctx *ctx, const u8 num_wms,
++			     const u8 *wm, dma_addr_t *addr);
++	u32	(*consumed_addr)(struct ife_buswr_ctx *ctx, u8 wm);
++	u32	(*irq_status)(struct ife_buswr_ctx *ctx);
++	bool	(*is_fifo_full)(struct ife_buswr_ctx *ctx, u8 wm);
++};
++
++/**
++ * struct camss_pp_cfg - PP module pipeline configuration.
++ *
++ * @width:   Input frame width in pixels.
++ * @height:  Input frame height in pixels.
++ * @in_code: Input media bus format code (MEDIA_BUS_FMT_*).
++ */
++struct camss_pp_cfg {
++	u32 width;
++	u32 height;
++	u32 in_code;
++};
++
++/**
++ * struct camss_mod_ops - PP module ops interface.
++ *
++ * Engine-agnostic ops for configuring, enabling and disabling a set of
++ * post-processing hardware modules.  The concrete implementation is
++ * provided by the IP-specific backend (e.g. pp_v10x_modules_ops).
++ *
++ * @acquire:      Initialise the context; store @base in @ctx.
++ * @release:      Release the context.
++ * @config:       Program module registers with default values derived from @cfg.
++ *                Called once per stream start before @enable.
++ * @enable:       Enable all modules managed by this backend.
++ * @disable:      Disable all modules managed by this backend.
++ * @apply_params: Apply per-frame IFE module parameters (optional).
++ */
++struct camss_mod_ops {
++	void (*acquire)(struct ife_device *ife, struct ife_pp_ctx *ctx, void __iomem *base);
++	void (*release)(struct ife_pp_ctx *ctx);
++	void (*config)(struct ife_pp_ctx *ctx, const struct camss_pp_cfg *cfg);
++	void (*enable)(struct ife_pp_ctx *ctx);
++	void (*disable)(struct ife_pp_ctx *ctx);
++	int  (*apply_params)(struct ife_pp_ctx *ctx, struct vb2_buffer *vb);
++};
++
++/**
++ * struct ife_top_ctx - runtime context for the IFE top controller.
++ *
++ * Holds the hardware base address and the CAMIF ops pointer so that
++ * top-level pipe functions do not need to receive them as arguments.
++ * Initialised once at device probe via ife_hw_top_ops::acquire().
++ *
++ * @base:      MMIO base of the IFE top register block.
++ * @camif_ops: CAMIF hardware ops bound to this IFE hardware block.
++ * @dev:       Device used for diagnostic messages.
++ */
++struct ife_top_ctx {
++	void __iomem                  *base;
++	void __iomem                  *csid_base;
++	void __iomem                  *rdi_base;
++	void __iomem                  *pp_base;
++	const struct ife_hw_camif_ops *camif_ops;
++	struct device                 *dev;
++};
++
++/**
++ * struct ife_buswr_ctx - runtime context for the IFE BUS write engine.
++ *
++ * Holds the hardware base address so that BUS write ops do not need to
++ * receive it as an argument on every call.
++ * Initialised once at device probe via ife_hw_buswr_ops::acquire().
++ *
++ * @base: MMIO base of the IFE BUS write register block.
++ * @dev:  Device used for diagnostics.
++ */
++struct ife_buswr_ctx {
++	void __iomem  *base;
++	struct device *dev;
++};
++
++/**
++ * struct ife_pp_ctx - runtime context for the IFE post-processing engine.
++ *
++ * Holds the hardware base address so that PP ops do not need to receive
++ * it as an argument on every call.
++ * Initialised once at device probe via camss_mod_ops::acquire().
++ * @in_width/@in_height are latched from struct camss_pp_cfg on
++ * camss_mod_ops::config() and reused by apply_params() for modules (e.g.
++ * LSC) whose per-frame register values depend on the input frame size.
++ *
++ * @base:          MMIO base of the IFE PP register block.
++ * @in_width:      Input frame width in pixels, latched from the last @config call.
++ * @in_height:     Input frame height in pixels, latched from the last @config call.
++ * @dev:           Device used for allocating @params_scratch and diagnostics.
++ * @params_scratch: Scratch buffer used to validate/stage an apply_params() buffer.
++ */
++struct ife_pp_ctx {
++	void __iomem *base;
++	u32 in_width;
++	u32 in_height;
++	struct device *dev;
++	struct v4l2_isp_params_buffer *params_scratch;
++};
++
++struct ife_pad_limits {
++	u32 min_width;
++	u32 min_height;
++	u32 max_width;
++	u32 max_height;
++	u32 max_h_ratio;
++	u32 max_v_ratio;
++};
++
++struct ife_pad_desc {
++	u16 pad_flags;
++	struct camss_formats sup_fmts;
++	const struct ife_pad_limits *limits;
++
++	const char *video_name;
++	u32 link_flags;
++
++	enum v4l2_buf_type buf_type;
++	enum camss_ife_output output;
++	u32 hw_pipe;
++
++	u8 packing_fmt;
++	u8 mode_config;
++
++	u32 rup_group_mask;
++	u32 comp_group_mask;
++
++	u8 num_wms;
++	u8 wm[IFE_HW_PLANES];
++};
++
++struct ife_pads_descriptors {
++	unsigned int num_desc;
++	const struct ife_pad_desc *desc;
++};
++
++enum ife_subdev_type {
++	CAMSS_IFE_SUBDEV_TYPE_IFE = 0,
++	CAMSS_IFE_SUBDEV_TYPE_IFE_LITE,
++};
++
++struct camss_ife_stream {
++	u32 id;
++	enum camss_ife_hw_pipe pipe;
++};
++
++struct ife_subdev_resources {
++	enum ife_subdev_type type;
++	const struct ife_hw_top_ops	*top_ops;
++	const struct ife_hw_camif_ops	*camif_ops;
++	const struct camss_mod_ops	*mod_ops;
++	const struct ife_hw_buswr_ops	*buswr_ops;
++	const struct ife_pads_descriptors *pads;
++
++	unsigned int num_sink_streams;
++	const struct camss_ife_stream *sink_streams;
++};
++
++struct ife_video_pad {
++	struct ife_device *ife;
++	u32 pad_index;
++
++	struct camss_video video;
++	bool streaming;
++
++	struct list_head pending_bufs;
++	struct list_head processing_bufs;
++};
++
++struct ife_subdev_pads {
++	const struct ife_pad_desc *desc;
++	struct v4l2_mbus_framefmt fmt;
++	struct ife_video_pad *vid_pad;
++};
++
++struct ife_device {
++	u8 id;
++	struct camss *camss;
++	struct ife_top_ctx   top_ctx;
++	struct ife_buswr_ctx buswr_ctx;
++	struct ife_pp_ctx    pp_ctx;
++
++	const struct ife_subdev_resources *res;
++	u32 irq;
++	char irq_name[sizeof(((struct v4l2_subdev *)0)->name)];
++
++	int nclocks;
++	struct camss_clock *clock;
++
++	struct completion reset_complete;
++
++	struct mutex state_mutex; /* Protects all pad states */
++	spinlock_t bufs_lock; /* Protects buffer lists */
++	unsigned int stream_count;
++
++	struct ife_subdev_pads *pads;
++	struct media_pad *mpads;
++	int npads;
++	u32 sink_pad;
++
++	struct {
++		unsigned int stream_count;
++		u32 next_seq;
++	} camif_data[IFE_CAMIF_HW_PIPES_MAX];
++
++	struct camss_ife_pipeline_cfg pipeline_cfg[IFE_CAMIF_HW_PIPES_MAX];
++
++	struct v4l2_subdev sd;
++	struct device *genpd;
++	struct device_link *genpd_link;
++};
++
++int camss_ife_subdev_init(struct camss *camss, struct ife_device *ife,
++			  const struct camss_subdev_resources *res, u8 id,
++			  void __iomem *csid_base);
++
++int ife_register_entities(struct ife_device *ife, struct v4l2_device *v4l2_dev);
++void ife_unregister_entities(struct ife_device *ife);
++
++int ife_get(struct ife_device *ife);
++void ife_put(struct ife_device *ife);
++
++int camss_ife_link_entities(struct camss *camss);
++
++u32 camss_ife_stream_id_for_pipe(int nstreams,
++				 const struct camss_ife_stream *streams,
++				 enum camss_ife_hw_pipe pipe);
++enum camss_ife_hw_pipe
++camss_ife_pipe_for_stream_id(int nstreams,
++			     const struct camss_ife_stream *streams,
++			     u32 id);
++
++#endif /* CAMSS_IFE_SUB_DEV_H */
 -- 
 2.34.1
 
