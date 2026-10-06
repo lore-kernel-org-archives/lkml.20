@@ -1,145 +1,105 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from nick.sneptech.io (nick.sneptech.io [178.62.38.78])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 418CE4A64E8
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 23:42:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 749D94E3229;
+	Tue,  6 Oct 2026 23:42:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.62.38.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791330126; cv=none; b=ITB56CWETeGQNg/Fo+K4UwXBlbimwJG2OOUmD3Qw4/peym5gJHxSNEL0KBvPYATxZ0NSTabU6EZ6vnrV2JIPMIklbpgMge0gF2gSCBEkzYrfj8xBsbj/v2yFUT3nP5ElU2vA+1a16BjGMLFkKAu4L5RE9HN4Mlghmji3v57oF60=
+	t=1791330129; cv=none; b=Q/ThnGJuwTbF/ZWNe8C0XfKhzWCNhBTBFgUjLixRlzKxcF3Oi2Wwvt/rRHvVGTwe37trwUyo/CYyaByUHmd615oPb0VSMTCFWhEFoNQXycm4n5WPRM5Nhyz1ReYBcPi8lGVWzMF8nt9Lo43Q/yOb/Qnv82MgV9wC1eCNzWh3tII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791330126; c=relaxed/simple;
-	bh=IxHD8EsJvKBJ4mWzOOAhpewIyTVODpY0N6LJF3B0ba8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SdWxRgtPT27o8//B/q/4141XfDhTgxMRObR+DBylBvAAU2cSc+QRw5XbpPMnk53S3pdGhVfU56IwGfE+M3n61G0vB+dsncambASZfUFugVC02S8QfWwMRNd8mEWhSYiXun5tEA9pCE5pwn40nGWSA7/wFvDsa3FgVCeMaeeWJwE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lsVW46BD; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791330129; c=relaxed/simple;
+	bh=9r+TMbKLM84NykY/tQPO43ydHWQ+ptnWPsGpcr5D7b0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BdQie+umCHvecchX2yLB/wv3L9S5XIKyeaLZBFWewi8LrzqFtHmC1fW/oRquTIyJghQj+R5Lb45B29OjuZHxuXah5igErzhJItRtfvwViT8lv+jVBmcPugEis5VCkZuSAnST2xgjFg2tGMrdO0zf4cm/kpQmC5BVvgg0eBAu5aU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=philpem.me.uk; spf=pass smtp.mailfrom=philpem.me.uk; dkim=pass (1024-bit key) header.d=philpem.me.uk header.i=@philpem.me.uk header.b=C4qU0hGl; arc=none smtp.client-ip=178.62.38.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=philpem.me.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=philpem.me.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lsVW46BD"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49fbb2acc90so11420685e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 16:42:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791330123; x=1791934923; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xtl9xeh/w1n1/842SeGkR83P1qgAjaMld+9slL7tN5Y=;
-        b=lsVW46BDC8HTcKESMKOwBYpYB+Luef+Krku/nfpPysjl1bjIQ578wnHi36+99Mx1q9
-         pf6KX1v4tPyzAiaUc1+yTVoWo34uWg9C50iIU2CbTyDD0t2iYueS1Uv69JQMoTEXJ/51
-         lRYdRqNQX06PCAQt0ouvn1IP/m7ayhiSWa2/gDTKUrq32xbOuaVNl4WOZRwZU1cXsHNk
-         KLLnQ25S/ECfC4xYtjyPAb45DTekSBdpKzISg+tm3LF+oSN34IKI5XgXYiP496hr9hsV
-         Zzl7RAcDhLE7r92dC3DnUXsRJVxBAnqduoI0mhByVxyMnBybLgm4tXsZtlV54vCtWHkX
-         mfEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791330123; x=1791934923;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xtl9xeh/w1n1/842SeGkR83P1qgAjaMld+9slL7tN5Y=;
-        b=kI5rWA4KEw7HlL6BvnYAblcToalVFwU9eAUk0UrqgiKUONDjLwKM+kg7d9elc0xlVp
-         FB1Mh/bYJ995/F6eXumPz4xj3j8U5GI2dbS/qEy7ZX9JBj7w8sggnvpXcSrdE6+bdOPR
-         5f5cRQUNJWs7rmE2oHnJCVUuHG+eq05hHcdLU4w7HXM6MbpOigDsST7BaB/pza+heD59
-         m4Up0iVxRwpsH9jyPtHwRx5ocJxLofLVU2dFjyXPSDn6hfeWstJOfm3K+ESyFMoMt/eP
-         oGEHzGikFQISnUgba/XLwsLDIMJgXztgBYeyeezyCQfgsQeqwRKjpycEswRZYHNgqxu8
-         0EZw==
-X-Forwarded-Encrypted: i=1; AKwUvBxAXJ23/cPqA+9FRRDtKdgudRTKjR3DluMr03+hAgvXrYCUWpBqnMmyKH+jBosUACnjxHg87Ny2e4keHck=@vger.kernel.org
-X-Gm-Message-State: AFuF++m7g9hfVo84Z254vBLoQu63AOZ99vMlgmZS2R5T+o9+igTetBL0
-	pS5fAT4r1dzYuWSh8nj3OhN70N0CftLaWvk1ZV1/3ywT/PJF/Gi65xgD
-X-Gm-Gg: AYBFou3HYN48qwbeuOn0ROUQAmgX/mkm2yZ7AVhd6kvD2TWefuBtNvGuLldvXVcAe4e
-	pBjbKpXL8ZObN1wBr2AUxYKBvvngxd58sV5kMgMm0QBPEJnxldRiEPbBrwmcPPmZJebHrW+8wE7
-	LGFuiCMnAfYZKJqWmz+enwYFf+t7eRpPbj5Le7O66oiPZV9W8mif7vFLfGCQ3o5+Nsi6NH2pb5d
-	ctxhuMFlY/kobE96okYckssVhTkdwx00ZdfC5FmenjT69s+mfDjFdhXQUAvxeauVy/t7t09n+QI
-	NPorzUrNdoZU9heKM+BTf13SoJEZtgZLEk2guo2eYfFt13UnT7sN9BVz+Mtmd6UovRtpMdURJl2
-	9JWruC1vXEn1Fk/AeLfnheHJj04v8tZaW4vEGql51FnOdGXmddXIGVTh18EBSnHxBQyi7EMyA+x
-	QSyZWmOfQrug4395J5Qbgts+y9lun8tm6wVB9edwp9wptUKZcRmIZcmu4pouDjM1L5nRIF+CukV
-	s2sapz1lHkyfS4zNW3ZhDzysa0gVDM=
-X-Received: by 2002:a05:600c:1e17:b0:49d:2562:d670 with SMTP id 5b1f17b1804b1-4a180310dc1mr5435555e9.14.1791330123255;
-        Tue, 06 Oct 2026 16:42:03 -0700 (PDT)
-Received: from blinky ([81.0.216.212])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178c53997sm153565635e9.12.2026.10.06.16.42.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 16:42:02 -0700 (PDT)
-Date: Tue, 6 Oct 2026 16:42:01 -0700
-From: Charlie Jenkins <thecharlesjenkins@gmail.com>
-To: Anup Patel <anup@brainfault.org>, Atish Patra <atish.patra@linux.dev>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Andy Chiu <tchiu@tenstorrent.com>,
-	Yong-Xuan Wang <yongxuan.wang@sifive.com>,
-	Radim =?utf-8?B?S3LEjW3DocWZ?= <radim.krcmar@oss.qualcomm.com>
-Cc: kvm@vger.kernel.org, kvm-riscv@lists.infradead.org,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] riscv: KVM: Fix compilation when CONFIG_RISCV_ISA_V=n
-Message-ID: <asWHSd31uyyNvt0a@blinky>
-References: <20261006-vector_off_fix-v1-1-9e48e654d445@gmail.com>
+	dkim=pass (1024-bit key) header.d=philpem.me.uk header.i=@philpem.me.uk header.b="C4qU0hGl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=philpem.me.uk;
+	s=mail; t=1791330125;
+	bh=9r+TMbKLM84NykY/tQPO43ydHWQ+ptnWPsGpcr5D7b0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=C4qU0hGlKm8Aqe8Z46+e36yrVczHxhVr2MGNDKfI+uaKXBnQfwH72Gub7ZI5AcVPH
+	 vFpoddWZMwbZ+e49q25zzhQREfmZ7CpokTmoJ2HiQpCiezR4fOzRNXKndc21a54VSQ
+	 tMCuuuTWnX+VY6oVMrmHcmidQupQ6+qjCmo8bxcU=
+Received: from wolf.philpem.me.uk (81-187-163-148.ip4.reverse-dns.uk [81.187.163.148])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	(Authenticated sender: mailrelay_wolf@philpem.me.uk)
+	by nick.sneptech.io (Postfix) with ESMTPSA id 89429BD748;
+	Tue,  6 Oct 2026 23:42:05 +0000 (UTC)
+Received: from cheetah.homenet.philpem.me.uk (cheetah.homenet.philpem.me.uk [10.0.0.32])
+	by wolf.philpem.me.uk (Postfix) with ESMTPSA id 2AA605FC4F;
+	Wed,  7 Oct 2026 00:42:05 +0100 (BST)
+From: Phil Pemberton <philpem@philpem.me.uk>
+To: linux-ide@vger.kernel.org,
+	linux-scsi@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K . Petersen" <mkp@kernel.org>,
+	Hannes Reinecke <hare@kernel.org>,
+	Phil Pemberton <philpem@philpem.me.uk>,
+	stable@vger.kernel.org
+Subject: [PATCH v9 03/11] scsi: scsi_devinfo: preserve full-width quirk identifiers
+Date: Wed,  7 Oct 2026 00:41:53 +0100
+Message-ID: <20261006234202.1139018-4-philpem@philpem.me.uk>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261006234202.1139018-1-philpem@philpem.me.uk>
+References: <20261006234202.1139018-1-philpem@philpem.me.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261006-vector_off_fix-v1-1-9e48e654d445@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 06, 2026 at 04:39:03PM -0700, Charlie Jenkins wrote:
-> Fix the KVM code to use stubbed out versions of vector functions when
-> vector is not enabled instead of failing to compile. An alternative
-> approach would be to ifdef out the vector code but since a handful of
-> the vector code already just uses stubbed functions to tell the compiler
-> to drop the implementation, follow the same pattern.
-> 
-> Fixes: b5060a4aa33d ("RISC-V: KVM: fix vcpu vector context handling for kernel-mode vector")
-> Signed-off-by: Charlie Jenkins <thecharlesjenkins@gmail.com>
+strscpy_pad() reserves a byte for NUL termination, truncating quirk
+identifiers that fill their fields. An eight-character vendor such as
+MATSHITA loses its final character and fails to match. A sixteen-character
+model loses its final character too; prefix matching then allows the
+quirk to match other models with the same first fifteen characters.
 
-Should have looked at the lists first, this wa already sent
-https://lore.kernel.org/all/20260922021823.44251-2-zhangzhanpeng.jasper@bytedance.com/.
+Copy the full vendor and model fields. Pad shorter strings with NUL for
+compatible entries and spaces for dynamic entries. Lookup uses bounded
+strnlen() and memcmp(), so full-width identifiers need no terminator.
+Shorter model names continue to match prefixes.
 
-> ---
-> I was reviewing [1] and noticed that when I disabled FPU and tried to
-> compile that vector got disabled and the kernel failed to compile.
-> 
-> [1] https://lore.kernel.org/all/20261006075303.205216-1-radim.krcmar@oss.qualcomm.com/
-> ---
->  arch/riscv/include/asm/kvm_vcpu_vector.h | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/riscv/include/asm/kvm_vcpu_vector.h b/arch/riscv/include/asm/kvm_vcpu_vector.h
-> index 6371d5ea5392..1c9efc6048bb 100644
-> --- a/arch/riscv/include/asm/kvm_vcpu_vector.h
-> +++ b/arch/riscv/include/asm/kvm_vcpu_vector.h
-> @@ -11,9 +11,9 @@
->  #define __KVM_VCPU_RISCV_VECTOR_H
->  
->  #include <linux/types.h>
-> +#include <asm/vector.h>
->  
->  #ifdef CONFIG_RISCV_ISA_V
-> -#include <asm/vector.h>
->  #include <asm/kvm_host.h>
->  
->  static __always_inline void __kvm_riscv_vector_save(struct kvm_cpu_context *context)
-> @@ -55,6 +55,14 @@ static inline void kvm_riscv_v_exit(void)
->  
->  struct kvm_cpu_context;
->  
-> +static __always_inline void __kvm_riscv_vector_save(struct kvm_cpu_context *context)
-> +{
-> +}
-> +
-> +static __always_inline void __kvm_riscv_vector_restore(struct kvm_cpu_context *context)
-> +{
-> +}
-> +
->  static inline void kvm_riscv_vcpu_vector_reset(struct kvm_vcpu *vcpu)
->  {
->  }
-> 
-> ---
-> base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
-> change-id: 20261006-vector_off_fix-938d61b1f906
-> 
-> Best regards,
-> --  
-> - Charlie
-> 
+Fixes: 1b60c86dd992 ("scsi: devinfo: Replace strncpy() and manual pad")
+Link: https://lore.kernel.org/linux-ide/20260611025249.D23191F00893@smtp.kernel.org/
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Phil Pemberton <philpem@philpem.me.uk>
+---
+ drivers/scsi/scsi_devinfo.c | 11 +++--------
+ 1 file changed, 3 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/scsi/scsi_devinfo.c b/drivers/scsi/scsi_devinfo.c
+index 88a911b35c94..5e37461e61e8 100644
+--- a/drivers/scsi/scsi_devinfo.c
++++ b/drivers/scsi/scsi_devinfo.c
+@@ -289,14 +289,9 @@ static void scsi_strcpy_devinfo(char *name, char *to, size_t to_length,
+ 
+ 	from_length = strlen(from);
+ 
+-	/*
+-	 * null pad and null terminate if compatible
+-	 * otherwise space pad
+-	 */
+-	if (compatible)
+-		strscpy_pad(to, from, to_length);
+-	else
+-		memcpy_and_pad(to, to_length, from, from_length, ' ');
++	/* Full-width identifiers need all bytes; shorter ones are padded. */
++	memcpy_and_pad(to, to_length, from, from_length,
++		       compatible ? '\0' : ' ');
+ 
+ 	if (from_length > to_length)
+ 		 printk(KERN_WARNING "%s: %s string '%s' is too long\n",
+-- 
+2.43.0
+
