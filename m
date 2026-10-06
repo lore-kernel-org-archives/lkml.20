@@ -1,75 +1,94 @@
-Received: from cvsmtppost25.nm.naver.com (cvsmtppost25.nm.naver.com [114.111.35.37])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25369231829
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 09:39:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D8A288C2D
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 09:40:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791279574; cv=none; b=cQrcDwNxJtypE95A7e8u/V/aOhlgw0Q7sxengcTQQ7XBO2P9KDP8Ohuua/w1MY8EzmaJZsHNIDNhnfdaGT70BvAr3ug6ono0pra3ceHZMjDsgTYEYAsuTTP+vJZeATf+KR7LwWGSfEcQShSHriKMaWC6zuzsSFX/CNT0piaOOE8=
+	t=1791279611; cv=none; b=XETIUCwqNANUhuGhuQrqthlfSOx+16Jul+nQJorZYFPyw2tivvcTi6NC/Dubp93mIbLMzkU2mxO6SWJ4jqMBD2th3FFMNN9RibnesEl54zg+l4gqzIK9+h+dB5NC2qckXcFHBf0d6tFGU+lzsjzX17J+4NBloutmnO7EmVSr/q0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791279574; c=relaxed/simple;
-	bh=hv3YkMknznKDrsXSimNXNHCUepDX0g8wBzpKCmfDKCM=;
-	h=MIME-Version:Message-ID:Date:From:In-Reply-To:References:To:Cc:
-	 Subject:Content-Type; b=tgZuJRjppt1Rak98jVE1VQUOK/VtJHIMX76wXqNQbKEWwVWvZSNT/3S2oAIsGbLGU8NI6YB6qVD4h785xNdcXoBY3j4EOGtfqpQSQ57lLY/SKMyHBkgu5VA+6L56DIkS2VfYz5UgrXHPqABUzBmrSwb8G9Qzl7WHoQnpGIxzeMs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=O7gTclpi; arc=none smtp.client-ip=114.111.35.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
+	s=arc-20240116; t=1791279611; c=relaxed/simple;
+	bh=47AOKgfQlGomhBEanvGQF/lHYeTLHCT25l6OOJKXbVQ=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=ea8pr8bY2kJvnBeBjgHp5fnBXI8KoE3w5E9j5CQ+CCPGSCnzlHhtpXTAv6391huqapjXfFh+wAjqKd5//3BOql83CayGhpfsd95TDAlp06YzkaXSrtA075lx5LYvEgsN5+cPzg8dRmYRAHBi8HGVmlCEfkzjuQ+UjNp+g5MOz0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IbHnaY6E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="O7gTclpi"
-X-Works-Smtp-Source: /rbdKoulFqJCpNmdFouXWHF0
-Received: from nv1s-hmac-real-8 ([10.180.31.91])
-  by cvsmtppost25.nm.naver.com with ESMTP id MwoHjybGSRW6u6GQjMHheQ
-  for <multiple recipients>;
-  Tue, 06 Oct 2026 09:39:24 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
-	t=1791279564; bh=hv3YkMknznKDrsXSimNXNHCUepDX0g8wBzpKCmfDKCM=;
-	h=Message-ID:Date:From:To:Subject:From:Subject:Feedback-ID:
-	 X-Works-Security;
-	b=O7gTclpiqViA/Df+zAKBcL2MFJ2lb3qWbclC1vVtUdorMUFA7jzrg/hiNlUbCx3sh
-	 VXpfRK83yWPj1YWGPPRKYJzYfVqqsEYSJSXbUwiv3My6jYoLkARZC85CPesR8Pq0bM
-	 qUts3liwMaeGxiAqe5j7KaAYLBWydlGPzm1aE7WdPI5ZWGRiZUO3/lE4SeaTMgW6xU
-	 hexDD+8CcojMDc6LyJzKXmaFj+2fgovb1LsrFhwzV4Bj6exq7+ZRvsHlQI1Qak5ykw
-	 o2gxCY9lVmsOFIvKmOjQ4phG+bAoUtvNHiEmgEqxEH6fOsNK7XFJZl36pvVg3sunOh
-	 9//U5DCmvVuAg==
-X-Session-ID: f14b3a2c8effbebe64322f257b2efacdfda1d8d7f9ece28e845c3184cf597b3f
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IbHnaY6E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47D591F000FF;
+	Tue,  6 Oct 2026 09:40:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791279610;
+	bh=6R8RMOkwV0EymoYmXscl5Br2ZuN1oYC1fXv6El8aBW8=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=IbHnaY6EVS3ghVCrRzhMIgUe+eh0bxn1lifep1QqXUOz7qs4qdbjUsKFWd8tb6+FO
+	 u+R+z8/Bw39bM58TNAMSpPmO6UU8jUYW3xN1vBnQ2gD3Y0bJ3fUhZr6KZldUvsZtcg
+	 LTuQyD7qMV6yIb7gCkEXiX2GPh3jsWeAArR3+y/4TgSum5o5MK3Jh3eHqacEvSG+rp
+	 kDjaRIiWMwWQfCWj4RdjTj9nY5P/vuVvjEiQFNsCOvQEqcE8f4KGPScXYJEm1ihveH
+	 zNnajBdORx1S0xfFN/faMvY5IFOS1ynH3gnc/SaXd5MpqKkS3CayW0Yi/raH8hW/Vd
+	 nwwKWDD4eGd7A==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A2D23927078;
+	Tue,  6 Oct 2026 09:40:10 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <2b6ae98573123157c0d5aca458dd4d1@cweb009.nm>
-Date: Tue, 06 Oct 2026 18:39:23 +0900
-From: =?utf-8?B?7ISx67OR7LCs?= <tjdqudcks0424@naver.com>
-In-Reply-To: <20261006052105-mutt-send-email-mst@kernel.org>
-References: <20261006091210.828229-1-tjdqudcks0424@naver.com>
-	<20261006052105-mutt-send-email-mst@kernel.org>
-Importance: normal
-To: =?utf-8?B?TWljaGFlbCBTLiBUc2lya2lu?= <mst@redhat.com>
-Cc: =?utf-8?B?SmFzb24gV2FuZw==?= <jasowangio@gmail.com>,
-	=?utf-8?B?RXVnZW5pbyBQZXJleg==?= <eperezma@redhat.com>,
-	=?utf-8?B?WHVhbiBaaHVv?= <xuanzhuo@linux.alibaba.com>,
-	<virtualization@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>,
-	<security@kernel.org>
-Subject: =?utf-8?B?UmU6IFtCVUddIHZpcnRpb19yaW5nOiBWRFVTRSBiYWNrZW5kIGNhbiBjb3JydXB0IHNwbA==?=
-	=?utf-8?B?aXQtcmluZyBmcmVlIGxpc3Q=?=
-X-Works-Send-Opt: OPewpzGdjHmdKHFOMr39Ko3YKHmXjAudFqM9KqMqFxIYkEljxBmwjAg=
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v6 0/8] riscv: optimize mode switch latency for Vector
+From: patchwork-bot+linux-riscv@kernel.org
+Message-Id: 
+ <179127960878.2107992.9155163918962890142.git-patchwork-notify@kernel.org>
+Date: Tue, 06 Oct 2026 09:40:08 +0000
+References: <20260918215154.2481482-1-tchiu@tenstorrent.com>
+In-Reply-To: <20260918215154.2481482-1-tchiu@tenstorrent.com>
+To: Andy Chiu <tchiu@tenstorrent.com>
+Cc: linux-riscv@lists.infradead.org, pjw@kernel.org, palmer@dabbelt.com,
+ aou@eecs.berkeley.edu, alex@ghiti.fr, andybnac@gmail.com,
+ dfustini@oss.tenstorrent.com, greentime.hu@sifive.com,
+ linux-kernel@vger.kernel.org, olof@lixom.net
 
-WWVzLCB0aGUgYmFja2VuZCBjYXVzZXMgdGhlIGRyaXZlciB0byBjb3JydXB0IGl0cyBvd24gdmly
-dHF1ZXVlCmZyZWUtbGlzdCBhY2NvdW50aW5nLgoKTXkgY29uY2VybiB3YXMgdGhhdCwgYWZ0ZXIg
-cHJpdmlsZWdlZCBWRFVTRSBzZXR1cCwgYSBkZWxlZ2F0ZWQKdW5wcml2aWxlZ2VkIGJhY2tlbmQg
-Y2FuIHRyaWdnZXIgdGhpcyBieSBtb2RpZnlpbmcgYSBwdWJsaXNoZWQKZGVzY3JpcHRvci4gSG93
-ZXZlciwgbXkgY3VycmVudCByZXByb2R1Y2VyIGRlbW9uc3RyYXRlcyBkdXBsaWNhdGUKZGVzY3Jp
-cHRvciBhbGxvY2F0aW9uIG9ubHkuIEl0IGRvZXMgbm90IGRlbW9uc3RyYXRlIGEgaG9zdAptZW1v
-cnktc2FmZXR5IHZpb2xhdGlvbiwgY3Jvc3MtZGV2aWNlIGltcGFjdCwgaW5mb3JtYXRpb24gZGlz
-Y2xvc3VyZSwKb3IgcHJpdmlsZWdlIGVzY2FsYXRpb24uCgpJIHRoZXJlZm9yZSBhZ3JlZSB0aGF0
-IHRoZSBjdXJyZW50IGV2aWRlbmNlIHN1cHBvcnRzIGEgcm9idXN0bmVzcwppc3N1ZSByYXRoZXIg
-dGhhbiBhIGNvbmZpcm1lZCBzZWN1cml0eSB2dWxuZXJhYmlsaXR5LgoKV291bGQgYSBwYXRjaCB1
-c2luZyB0aGUgZHJpdmVyLW93bmVkIGRlc2NfZXh0cmEgZmxhZ3MgZHVyaW5nIGRldGFjaApzdGls
-bCBiZSBjb25zaWRlcmVkIHdvcnRod2hpbGUsIG9yIGlzIHByb3RlY3Rpb24gYWdhaW5zdCB0aGlz
-IGJhY2tlbmQKYmVoYXZpb3Igb3V0c2lkZSB0aGUgaW50ZW5kZWQgdGhyZWF0IG1vZGVsPwoKUmVn
-YXJkcywKc3VuZ2J5ZW9uZ2NoYW4=
+Hello:
+
+This series was applied to riscv/linux.git (for-next)
+by Paul Walmsley <pjw@kernel.org>:
+
+On Fri, 18 Sep 2026 16:51:14 -0500 you wrote:
+> This series provide several optimizations targeting system call latency
+> regarding vector context management. Before the series, the kernel
+> handled user's vector context in an conservative way, where registers
+> were null out and VS is tracked as DIRTY. This introduce excess context
+> saving and restoring when there is a context swicth.  Also, the kernel
+> turned off Vector at the exception entry, making all in-kernel vector
+> usecase take the serialization cost, which includes context switch and
+> user copies. The cost is not easy to hide as vector code are usually sit
+> right after enabling V.
+> 
+> [...]
+
+Here is the summary with links:
+  - [v6,1/8] riscv: do not read csr in vector context switch
+    https://git.kernel.org/riscv/c/5fd018c630e2
+  - [v6,2/8] riscv: vector: refactor context switch for kernel-mode vector
+    https://git.kernel.org/riscv/c/4740b934ebe7
+  - [v6,3/8] selftest: riscv: test vectorized user copy
+    https://git.kernel.org/riscv/c/52318cf0fa6e
+  - [v6,4/8] riscv: vector: refactor vector context operations
+    https://git.kernel.org/riscv/c/1a5c75ee3d09
+  - [v6,5/8] riscv: clarify vector state semantics on syscall and context switch
+    https://git.kernel.org/riscv/c/cc12e55016ba
+  - [v6,6/8] riscv: vector: adjust ptrace and signal behavior for INITIAL state
+    https://git.kernel.org/riscv/c/0d4b43a7734d
+  - [v6,7/8] selftests: riscv: Extend vector tests for sigreturn and ptrace
+    https://git.kernel.org/riscv/c/6740ec489dd7
+  - [v6,8/8] riscv: vector: optimize vstate operations
+    (no matching commit)
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
