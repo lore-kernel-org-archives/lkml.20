@@ -1,155 +1,209 @@
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC0FF2E7162
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 04:52:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD8452E7162
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 04:52:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791262323; cv=none; b=CBltVaJVmSV3DxyNK8aS+6HtjyJipoeQ6iLBd7otSzwsCEKnX2tawWEf0IWDg2z8PhVRDU1kzRhpJZYlev0f9fQyGDZ3oJ82PsKxD6EoRDTlw1DtJZ/6BHZCmwo2jZNK18R70rINrlcy7+uhqqhsfFVDtJwJD0JcCylNABQsyBM=
+	t=1791262375; cv=none; b=Nzpima1pGBl9auHVYp0KyNY78L0sSCyarTUKzRNzS9QYkxpbRfQjNlqmHSYjjKMz91LFWWMy2Vs2gz/r67hD2VnTO3BCLGUWwzQCat4kUktvq78clMU6J/7l6wd3I/U9IX7ZBpaJM3Z38UtGQeSwHDhmbpc7JNabDUbCoiWcWL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791262323; c=relaxed/simple;
-	bh=tNa2lptrWw3cyveg0myvYrhG1Z8itS2A43/mqGtb36Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bTTYOTbPgoRlR3V//gR7NzePk2kKKqu3aIsxbk6LAz3+FL88s7jHwtIdpJwK69wIIbT8HdGSm5qWSaNDjnfXHrWYGczaAt6yl2fZSOEzolhaC7HbVMztN51qOfMDlPUw8Jqjo943eXYxJexIGhcNf0jXOEVHxUXLRJg8a1gmtx0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KmRuDczq; arc=none smtp.client-ip=74.125.82.180
+	s=arc-20240116; t=1791262375; c=relaxed/simple;
+	bh=vAwxTOYdTbJqPJ5N0FRDMltoI9JGGUpE7W7K2butapY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MVCk/vXhMUdjQccNovPPSCxDTt5anPx3HIAraWNvDiRne5gX/lxQ/tY/UOol6WxKube4ZFGV04Ox9KjfnvkGfFc+ir0rO506daurLIRQCMuCdTdL932+CYexKx5gQMnef98Cpz/eLLC4kzwLYrFTlNgnIBrSsy08SKvTHh1p8Qg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TBpqL/sy; arc=none smtp.client-ip=74.125.82.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KmRuDczq"
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-34ef8f66a6bso171297eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 21:52:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TBpqL/sy"
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-34ceab2900eso155985eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 21:52:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791262321; x=1791867121; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=26jPmwk/kB3l2dhl5l0yo+wFBC7eHrahpCgj50b3t24=;
-        b=KmRuDczqkpXYzb6l7VRv32J+WGiKJJTWkJ1MhhF39XNdHeyrIL5zTNVzdKxzrMbrU0
-         a57Bnphl8Sjy5i7FoFPATyP32NIHbQ2Lgf3hRKtXmOk+4IDTbsSsxQE4AM4mF4CT7qB9
-         aQVwGdDRWZn08aPSho2xog/rf+rDlS9Tdy8L9yGoR1AO5xZB4T6idhiF/Uv99rk+7FiV
-         7V5Shc5/2bVvF4Ppwjp91FR/xZvkEgPpy+YscCZLFgO+/AHJdKR//+QEmUh/5tHZx3fU
-         FL+TDqMQA2heX+5tXrwkkVQvPb0RgDlfH1PVF97WQAO7yxKE58TZNFwz/Hy8FmgwGfyE
-         ycFw==
+        d=gmail.com; s=20251104; t=1791262373; x=1791867173; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gjWpsPP1YvaKw0KmwtgkUd07tpE8T1uZ+/jDWJ2bz18=;
+        b=TBpqL/sywtmDBwpV9TPPu6sOXe8as3r/A6s9YwXaC+D99CWduwb/kJRGULA8itFvct
+         dkYZ0ZS88Qyqfzj+GsOSwdH7ptE9MqCLpnGvwEcIvZtQBYp067iaibFOzlm2ESgIbk2o
+         X/wb3PAJyW+Y8V2AWBQUTSZgV0RuR1zYOyBeDkPtX9GSlcTSFnQVPtbdk6ECustSiXue
+         3+sDYj9GrwPCCu9rKgojLj9Y+Ha/v7PoIDqQmoyR+q/plX3XeJr1Q/yVN+hLf7/knYdw
+         MEkZQa3Q1prD+eD7kN2CRCNTpo1IqT4JYxU0UBfmjsh1sRBzecHV+iuLSgmtjH8sHw/c
+         rW3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791262321; x=1791867121;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=26jPmwk/kB3l2dhl5l0yo+wFBC7eHrahpCgj50b3t24=;
-        b=amkV2VcfjLpJug/6wgn4GUTa0rfLAZK12miWduDfUKRmQ0AaItBX7qp94WbwQ+YHpA
-         oNKeoq2TAWlSVzCJ9HxDkSNl8jKTPlwEu0Kd0ejY3dDT9OfDk4xVRQMZZ1k+4Jm2Bxef
-         92xN4D6VzbsDU++LJMcf32YxoKKMnt9MmbTbqlMiawOHZzt+M3B+Bpd0ZJGs9I1UQxos
-         5URsxRLE7RLwhABJIul9fWU1GvtQHzRRVqdNU26cChjn6o5f68uTWUR/eBiiZ2UutpzR
-         T2RYEGOqT7Aq6IGdlyaL8JhHDVPkFUJCM0pqI9M+eKbHie21jzLnZz1olXcR9OUmvfdm
-         xpUw==
-X-Forwarded-Encrypted: i=1; AKwUvBzlVGfxnDTg50n2M/aLGSJNdl64lbJSSrhDQ48eqD2W6OT98MzkmeEAQXW3AwKlepNSqvwJOf7DHlIpLxU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mNT+wubQenKrQD1WAeQn7Xl+QpGTiNX/KV0kYbuv2XcT01bYja
-	lslzoPQs10ZfMIksUGfI9OX30InzUBPiLWHOYQVPc3GHpooAVqyE09Kq
-X-Gm-Gg: AYBFou1mU7kAfsEEqAtfF1Vp+p4FP4NqyRARj+up/SecN2DRAOvL3e/QYGaoSMtQmV0
-	qs0Xu711VtAN83z90juWc7y2J28lIUPP3T8jfUXI6ZCeVIuZBT17iRvxvD0kXuCdV2pZrVcl4xe
-	ZVJZzVKZCv261aRNyygxf+0M2Mn30eMPAObcOOPls/TQXdnP29GUbrBTGYnIbGH4pVqhi2Z3ISS
-	59EGdOA6LOcFpgIhHzfO6yUwtlH1+3BZGQdLsLsbc6DzlBzrfZK7KWNLIF9ABvS8CIJBPGzdZba
-	WpIEIXvHHYfmoDmg2BrKMgyZkXrduC1OoLD/cPszI9mJx9LpAZ8MbzgQkgW0nVQjAW4ai6oQ1lj
-	D+A+LA/Vkr6ydW+//iJGmrDRFSkHoG21BDJeeGPgZuv+PqPI/6jXw7T1sTwmg1N3A2g0EADlQEH
-	jDn2mtk/VjHMErr/p1nTpZCFDLoufTViiyXvyARbpJE883olrUdCMi9CQJk5/9yOXduU553bEgK
-	r/+PA2SRi7o28X81lNhrnVBfBvQXcFtazRmGmaxT/F0U70aITz2DlTWreu8ofTVLKo=
-X-Received: by 2002:a05:7300:a98e:b0:351:4648:3611 with SMTP id 5a478bee46e88-3514e334d5emr262924eec.26.1791262320917;
-        Mon, 05 Oct 2026 21:52:00 -0700 (PDT)
-Received: from archlinux ([2405:201:1b:20ef:de2d:6e5b:74df:ad41])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-15d83d6af11sm3550227c88.10.2026.10.05.21.51.58
+        d=1e100.net; s=20260707; t=1791262373; x=1791867173;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gjWpsPP1YvaKw0KmwtgkUd07tpE8T1uZ+/jDWJ2bz18=;
+        b=Kxag6CxY3D/yDhptOQAx07OcZmFQoZax8b2QikdYdd1HS7aKnlVBQMwtDZDb/2ofAs
+         SuVmx7qbvEA6jzRxRy2omyQYeWf8pq38sIytqLSG7XTwVs+mPmozt8oIxE/8ehDftc1o
+         V2ABcl9K9gH5fukmEWYPsqVbgs9afR8HNU5BM8FOx1OtGrDqIZsGRUnQr+LLS4rKWcNp
+         jZbGEb4GN/LinPc1LsCE4gSM4pgr3EJMVHmRtQnshtFydyVnUg61VvUj0m5WNJiTT1Y8
+         vAvrXUJdxeURtIRqlchUbpoPaibok9QXBw5SwLv1aZYbetYQzxWuoUbCqDZ1xk0RjTIW
+         dM0w==
+X-Forwarded-Encrypted: i=1; AKwUvBwm5u/ZrXutTfsTLELgrkT1+ELC3xGdp81yotJxz317IWsEjx0Q+5mGVuhr87I0F/qNWLjvAd8ysdrIugM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nTl58D2T/N5SZwMf2Zkf0YOalTtbTgka4tTEVJqpciweQFhpey
+	yl/F7tIW8aSbqfuNsDFn5PHpfZSkwslcBqilcKzeZo1vS+WsblSqUDgk
+X-Gm-Gg: AYBFou1vlNe4AR8UZs+lTkAw9HpI0VWGxfhQAuoN3+pN4bUUMIDsiYC5wKBZuf/bqjv
+	9t6O/lZZM/Fo082HMy5qjCJ7oj6byFrMfslCj57MlfC6o/1ITLT7GMIZ8tihh0Xb9eCWy8PFZ2R
+	AQtyMtgHnCJy++LLV3EJimmWpf3AxirU3f7z3GekhsKSORF8pU9SSgUrmxrbshwYGOR7aatxJGd
+	TuZKFvnmECGecwwY6f6UK1NUO2FdWAAgWTRUegYCkXNwcUt2PtcrwoaF6Y2/grs4tYcg+HBfGow
+	BhuT6lUqvI0Og2wTQgVdpZnahrpDmEsrViTDDbBpbrksvNfOjBJ6lT5rOz3P7U8Cbgs0agOAiE7
+	MVtgfFUbQeCieebhR3jB4SODIu7m7bilsp+iFnj2hku/JXsowiuj5tJ10PZapz5exfpC1icFfgF
+	OC2eBGf4tGugzh6NNp3wtaoXn9rlbUmk9S4mZ9YwvRSJhtY1F9U43l7i6BpCDoQSLd1+Xg2TWkV
+	e4jiaqn20C8Jf7BWLSqpMRqc6VEXlUSbuQsFGkf0fVToC2jx7Wzj0rJebNbX2TTKILyKyDwphdQ
+	qa9IVYXx4I3knTVpnej/Bm9DcFf9mg==
+X-Received: by 2002:a05:701b:2315:b0:151:7f08:5961 with SMTP id a92af1059eb24-15ec01d35ffmr532725c88.4.1791262372695;
+        Mon, 05 Oct 2026 21:52:52 -0700 (PDT)
+Received: from kapoor.iiserb.ac.in ([203.18.51.214])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-15d816e983asm3728345c88.6.2026.10.05.21.52.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 21:52:00 -0700 (PDT)
-Date: Tue, 6 Oct 2026 10:21:56 +0530
-From: Krishna Chomal <krishna.chomal108@gmail.com>
-To: Ciro Pedrini <ciro.pedrini@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>, 
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, platform-driver-x86@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] platform/x86: hp-wmi: Add OMEN board 8A17 thermal
- profile support
-Message-ID: <asR-FLwLfpyT8uOz@archlinux>
-References: <20260925205226.883724-1-ciro.pedrini@gmail.com>
+        Mon, 05 Oct 2026 21:52:52 -0700 (PDT)
+From: Arnav Kapoor <kapoorarnav43@gmail.com>
+To: Jyoti Bhayana <jbhayana@google.com>,
+	Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	kernel test robot <lkp@intel.com>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Arnav Kapoor <kapoorarnav43@gmail.com>
+Subject: [PATCH v2] iio: common: scmi_sensors: fix truncating 64-bit divisions
+Date: Tue,  6 Oct 2026 10:22:41 +0530
+Message-ID: <20261006045244.13993-1-kapoorarnav43@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20260925205226.883724-1-ciro.pedrini@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 25, 2026 at 05:52:26PM -0300, Ciro Pedrini wrote:
->The HP OMEN 17-ck1xxx (board 8A17) isn't in omen_thermal_profile_boards,
->so hp-wmi uses the generic thermal profile query. The firmware only
->stores that value and never acts on it, so the EC stays in its default
->mode and the CPU is held at 45 W whatever profile is selected.
->
->The board uses the OMEN interface (mode byte at EC 0x95, thermal policy
->v1) and also needs the timed profile quirk: without it, the EC drops
->back to the default mode about two minutes after each profile change.
->
->Add 8A17 to omen_thermal_profile_boards and
->omen_timed_thermal_profile_boards.
->
->With this, all three profiles work and sustained package power under
->load goes from 45 W to 56-79 W.
+do_div() divides a 64-bit dividend by a 32-bit divisor: the divisor is
+stored in a uint32_t on all architectures. The driver passes 64-bit
+divisors to it in several places, so they are silently truncated:
 
-Hi Ciro Pedrini,
+- scmi_iio_set_odr_val() divides by uHz, which exceeds 32 bits for
+  sampling frequencies above ~4294 Hz.
+- convert_ns_to_freq() divides by interval_ns, which exceeds 32 bits
+  for update intervals of ~4.29 s and above. If its low 32 bits happen
+  to be zero, this is a division by zero.
+- scmi_iio_get_odr_val(), scmi_iio_convert_interval_to_ns(),
+  scmi_iio_sensor_update_cb() and scmi_iio_get_raw_available() divide
+  by int_pow(10, n), which returns u64 and exceeds 32 bits for n >= 10.
+  The SCMI exponent fields allow values down to -16.
 
-I was working a patch[1] involving omen_timed_thermal_profile_boards[]
-and needed some diagostic info. Would you mind attaching the acpidump
-for your board 8A17?
+Truncation results in wrong sampling frequency, timestamp and
+raw_available values being reported to userspace.
 
-Thanks!
+Use div64_u64() and div64_u64_rem(), which take a 64-bit divisor.
 
-[1]: https://lore.kernel.org/platform-driver-x86/asPy5Q5wNYaMzTqJ@archlinux/#m922ff6cf9a68285d2b0f64e578fd6d2d6fa573f4
+Fixes: f774117c96f9 ("iio/scmi: Adding support for IIO SCMI Based Sensors")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202606040245.XfmRpBhA-lkp@intel.com/
+Assisted-by: LLM coccinelle
+Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+---
+Changes in v2:
+- Keep the div64_u64() call in scmi_iio_sensor_update_cb() on one line (Andy)
+- Use HZ_PER_GHZ and MICROHZ_PER_HZ in convert_ns_to_freq() (Andy)
+- Use the Assisted-by format from coding-assistants.rst (Andy)
 
->Cc: stable@vger.kernel.org
->Assisted-by: Claude:claude-opus-5-5
->Signed-off-by: Ciro Pedrini <ciro.pedrini@gmail.com>
->---
->
->Notes:
->    Tested on 7.2.7, whose OMEN profile code matches for-next. Without the
->    timed quirk, EC 0x63 counts down from about 120 after each profile
->    write, and at zero the EC resets 0x95 to 0x30.
->
->    8A13, 8A14, 8A16 and 8A18 appear in the same DSDT. 8A18 is in the OMEN
->    list but not the timed one, so it may have the same two-minute
->    fallback. I can't test it.
->
->    I used an AI assistant (Claude) for the ACPI analysis and to draft this
->    message. I tested the change on my machine and reviewed everything.
->
-> drivers/platform/x86/hp/hp-wmi.c | 4 ++--
-> 1 file changed, 2 insertions(+), 2 deletions(-)
->
->diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
->index 7ab81ce5f..76f489d5d 100644
->--- a/drivers/platform/x86/hp/hp-wmi.c
->+++ b/drivers/platform/x86/hp/hp-wmi.c
->@@ -207,7 +207,7 @@ static const char * const omen_thermal_profile_boards[] = {
-> 	"886B", "886C", "88C8", "88CB", "88D1", "88D2", "88F4", "88F5", "88F6",
-> 	"88F7", "88FD", "88FE", "88FF",
-> 	"8900", "8901", "8902", "8912", "8917", "8918", "8949", "894A", "89EB",
->-	"8A15", "8A18", "8A42", "8A43",
->+	"8A15", "8A17", "8A18", "8A42", "8A43",
-> 	"8BAD",
-> 	"8E41",
-> };
->@@ -226,7 +226,7 @@ static const char * const omen_thermal_profile_force_v0_boards[] = {
->  * "balanced" when reaching zero.
->  */
-> static const char * const omen_timed_thermal_profile_boards[] = {
->-	"8A15", "8A42",
->+	"8A15", "8A17", "8A42",
-> 	"8BAD",
-> };
->
->
->base-commit: f475845eaf3d749114a63270bf2efea459e14dd2
->-- 
->2.55.0
->
+v1: https://lore.kernel.org/all/20261003055602.145118-1-kapoorarnav43@gmail.com/
+
+Compile-tested on x86_64 and i386 (W=1); I don't have SCMI sensor
+hardware. I checked the arithmetic with a userspace model of these
+conversions: e.g. a 5 s sensor update interval is currently reported as
+1.418373 Hz instead of 0.2 Hz, and requesting 5000 Hz computes an update
+interval of 141837 (does not fit the 16-bit field) instead of 20000.
+
+ drivers/iio/common/scmi_sensors/scmi_iio.c | 27 +++++++++++-----------
+ 1 file changed, 13 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/iio/common/scmi_sensors/scmi_iio.c b/drivers/iio/common/scmi_sensors/scmi_iio.c
+index 442b40ef27cf..659a2f888ac9 100644
+--- a/drivers/iio/common/scmi_sensors/scmi_iio.c
++++ b/drivers/iio/common/scmi_sensors/scmi_iio.c
+@@ -14,6 +14,7 @@
+ #include <linux/iio/sysfs.h>
+ #include <linux/kernel.h>
+ #include <linux/kthread.h>
++#include <linux/math64.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
+ #include <linux/scmi_protocol.h>
+@@ -70,8 +71,7 @@ static int scmi_iio_sensor_update_cb(struct notifier_block *nb,
+ 		 */
+ 		tstamp_scale = sensor->sensor_info->tstamp_scale + 9;
+ 		if (tstamp_scale < 0) {
+-			do_div(time, int_pow(10, abs(tstamp_scale)));
+-			time_ns = time;
++			time_ns = div64_u64(time, int_pow(10, abs(tstamp_scale)));
+ 		} else {
+ 			time_ns = time * int_pow(10, tstamp_scale);
+ 		}
+@@ -162,7 +162,7 @@ static int scmi_iio_set_odr_val(struct iio_dev *iio_dev, int val, int val2)
+ 	mult = scnprintf(buf, sizeof(buf), "%llu", sf) - 1;
+ 
+ 	sec = int_pow(10, mult) * MICROHZ_PER_HZ;
+-	do_div(sec, uHz);
++	sec = div64_u64(sec, uHz);
+ 	if (sec == 0) {
+ 		dev_err(&iio_dev->dev,
+ 			"Trying to set invalid sensor update value for sensor %s",
+@@ -237,13 +237,10 @@ static int scmi_iio_read_avail(struct iio_dev *iio_dev,
+ 
+ static void convert_ns_to_freq(u64 interval_ns, u64 *hz, u64 *uhz)
+ {
+-	u64 rem, freq;
++	u64 rem;
+ 
+-	freq = NSEC_PER_SEC;
+-	rem = do_div(freq, interval_ns);
+-	*hz = freq;
+-	*uhz = rem * 1000000UL;
+-	do_div(*uhz, interval_ns);
++	*hz = div64_u64_rem(HZ_PER_GHZ, interval_ns, &rem);
++	*uhz = div64_u64(rem * MICROHZ_PER_HZ, interval_ns);
+ }
+ 
+ static int scmi_iio_get_odr_val(struct iio_dev *iio_dev, int *val, int *val2)
+@@ -269,7 +266,8 @@ static int scmi_iio_get_odr_val(struct iio_dev *iio_dev, int *val, int *val2)
+ 	mult = SCMI_SENS_CFG_GET_UPDATE_EXP(sensor_config);
+ 	if (mult < 0) {
+ 		sensor_interval_mult = int_pow(10, abs(mult));
+-		do_div(sensor_update_interval, sensor_interval_mult);
++		sensor_update_interval = div64_u64(sensor_update_interval,
++						   sensor_interval_mult);
+ 	} else {
+ 		sensor_interval_mult = int_pow(10, mult);
+ 		sensor_update_interval =
+@@ -395,9 +393,9 @@ static ssize_t scmi_iio_get_raw_available(struct iio_dev *iio_dev,
+ 		 */
+ 		exponent = exponent - scale;
+ 		if (exponent < 0) {
+-			rem = do_div(resolution,
+-				     int_pow(10, abs(exponent))
+-				     );
++			resolution = div64_u64_rem(resolution,
++						   int_pow(10, abs(exponent)),
++						   &rem);
+ 			len = sysfs_emit(buf,
+ 					"[%lld %llu.%llu %lld]\n", min_range,
+ 					resolution, rem, max_range);
+@@ -491,7 +489,8 @@ static u64 scmi_iio_convert_interval_to_ns(u32 val)
+ 	mult = SCMI_SENS_INTVL_GET_EXP(val);
+ 	if (mult < 0) {
+ 		sensor_interval_mult = int_pow(10, abs(mult));
+-		do_div(sensor_update_interval, sensor_interval_mult);
++		sensor_update_interval = div64_u64(sensor_update_interval,
++						   sensor_interval_mult);
+ 	} else {
+ 		sensor_interval_mult = int_pow(10, mult);
+ 		sensor_update_interval =
+-- 
+2.53.0
+
