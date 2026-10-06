@@ -1,120 +1,178 @@
-Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
+Received: from mail-pj2-f4.google.com (mail-pj2-f4.google.com [74.125.227.132])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC66337F310
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 22:06:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C937383C95
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 22:07:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.132
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791324406; cv=none; b=UvfNXFGjjMr0e8vR1OoJJisim2BtQEelwmNoJ3zyFe4hkUP9bYK1QYbj7o0BzrthbjHsLAfVXYva5WzUSUp395lUB2A7pA5TWr3rPcU02UJTX3yhFs4cjl8zLb8utdSDT0RGqHFzYuQUXMdvhfBh0IarZ9BYI6UDPHWZvZgz5wg=
+	t=1791324425; cv=none; b=arVBTFC8OwB9hOs0BoriwedfirBeesKBAN2wBFbpuJefswSXdgoMIt4w7KpS20Ds5RjWcbQGLkDlDfTO7lY5VgI5pezL3u+6zXi5SB3o5Pc/LT/MOEHRwwqh1f+xXxB+mmcu65D4wXqQcOx8Z8xi3nA3B96K9cSjbYzU25G0Q88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791324406; c=relaxed/simple;
-	bh=S0hzy6+FdzanYQq8RA+km9ypXgv2p7Rwg6W8f/13eaA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JOX7tVYXvA8hjwAnZ9MM29IxO8bjZMDaMPUfw5rvdf2wqD2mkF1MCyb/tl4bkk5hdtfm/bCQ0hhk37uEpEIvULNTcCZIk8aHovkZFBS+ieQLCUSnBRjN2+y50VslwlNg0gFZI6PCKtnfTiOowQuDDh7P2y1SadhcVLWBriLL384=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=WwGVDmAp; arc=none smtp.client-ip=209.85.210.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
+	s=arc-20240116; t=1791324425; c=relaxed/simple;
+	bh=oLowqW4kTT1TNYX2A/gZw2hQoXAMth+pOFnbIsMCdaY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nU1POd4zZC4oGYVTUbiG3EbCfc5oO18qHndoYhqwftrSsXaAxbD2r7IRd3oZdqqNO8X1DwVKDuqc3sr/MhoyFXPMJVtq0nI4ZyeJx+nmPAAyJdZE1Lw4RZffC8D9aE/xXlWPp7EKt+BsnhEPEjJL27zkdVXSJOcWvLjXxYxvNbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IG54vHzI; arc=none smtp.client-ip=74.125.227.132
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="WwGVDmAp"
-Received: by mail-ot1-f45.google.com with SMTP id 46e09a7af769-821a7bee9b2so1234388a34.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 15:06:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IG54vHzI"
+Received: by mail-pj2-f4.google.com with SMTP id 98e67ed59e1d1-3a854dffb5dso509946a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 15:07:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1791324403; x=1791929203; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nBf3erK4lQNAxshTTULuJxGlEdxTadfb57Bl++VwwQo=;
-        b=WwGVDmApgz6LqmTXG7L2JSX0wxrdUDXUxTP0l+4FS/LQgJQX+HmVWDSxTIPpfg42DT
-         0o5GYMcqYiet3na50sC03OfyXA5ZlbMgEPuKjcyU1rLZ2vATW6ZU0bLKXDNN9I6oKjaM
-         z3+EgOy0vdXwt00aQX0UvBRek7KpvBJoqis68=
+        d=gmail.com; s=20251104; t=1791324423; x=1791929223; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OGTI2frF8RrBIeT4/ePn5rUSGsgZXEb1V8OC+n96/mk=;
+        b=IG54vHzImmmbr4Y8m8Xp5wLUFkdbL5HQMXRvk5+2kzRzDWQ1XYvbucB8zomHoFZEyN
+         2cxY0CzNuGA/CTE7qWYzflmyq43AaCW+NGmUJZEjahy8uJX4DMn8yRL02+S1WCj6I29r
+         oCH0qxtCxvtbPBEGASxKTFqOnVuvtZKE060GVzbEkHeV7XMKByEcSA7yhChHP7mausVe
+         mMcE9lLNvuBbc8q4bFyH9hcPnOlH3iDPtcPDk27UpjAFoGu5qhCt7bdUmkq5bW0tPUoe
+         de40QR6/vQG6nelaYJ7WdooNLi+cI4AV7wpOmmvqApwCeteBDHcWTV7iX6Nydt+h4y6F
+         n8GA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791324403; x=1791929203;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nBf3erK4lQNAxshTTULuJxGlEdxTadfb57Bl++VwwQo=;
-        b=tmw6Egzr39e+4JX4l1s/9MnafnLKE2FopenyJe/DWCv6imObMG6Z2KD6k1bDIZHd67
-         XoTY9dv3Py80N8f1mBwKPO4tYMGdy/BH0zqamyN4Njyyyd4I/XuBJWNn5tB1JejaJUfd
-         MJx5VSFBc2z+p4N5Fj03m7r2d2s75r5mVe8P9Zg7GPFh/rLq9c8R3bsFgctw7SHb2Wfh
-         sr9DbWWD+GyibCG9DYyRDO72SOkzsyaobXYYn5L8KJizy/rhM7pw9HzZdRbqGyG9RdQj
-         8QPWhL0yfOLMMIZom7FeHNcLnL2Dp3BKcAY6sp5Y2b8/MkwjiqhV6JyCIOqctNxpXJTd
-         ZYtQ==
-X-Gm-Message-State: AFuF++lvdZ7Eopqy43c7OzqQySoUxpnqZM53h/AGwyiSj+GoeUlc8TxR
-	IQRjuz772YphFVEHBwqK3Nx6PMM1tbkTVrUMG0Q82zXInk1FgMKz9R4uMyM1hIa3N2CzjO9pwk9
-	EN7/4ce0=
-X-Gm-Gg: AYBFou28SttMOMkaHOe4s7gUu8XrNo8VyrXq+2Bru3hL5XenTJA+p8rSG56w2Oqbs/D
-	77IzovC9FShvyiyKOy+diOdDWAr+vHL6nrZFutzvAymNt6c+5IBstiU9apCO3B6sU12SUid1JqL
-	0XUZjJ5vRSJyo1jX9tgWsM5OoldFnLUZq0u2+n5TBD6nCt/xl4OygiUF3MDQYFks3sov0EpuUz/
-	1FGcRmQmoCNXmhILmfLmGaQL6Mvk3VGB/iB3guubMU3hH8jYGKMLFkdBBGdd928XD2B3oAWUcgo
-	qTadcMcoc+7mjS8CoagHpMv2KD8hsJUucanSBASXWEmDbz73neOZb8hbWDGUwgOELjvt3lPVjRG
-	RJ48vI32EydKpcQDjHwYeIwc4tjgR/9DaW0SnJ2JFGTjJv9oo/5txzIqud3G2Ivbj1wWpvCaqk8
-	9RIj3EmZXX4/24UKhFtPIDoPYqeKLTQd3zCCLCu7dmnqP7Vf/CnFM2GKdBH7VyhgeEILge7xXpH
-	NbaHyBaI1iwrfq8pH+OcusEJ9ExrTfthEnUV9l+LMoz1/8q+1MCBG+7QP4v72iB5xVH51sPfmo=
-X-Received: by 2002:a05:6830:8548:20b0:814:ab94:7779 with SMTP id 46e09a7af769-82802951d62mr2576272a34.7.1791324403574;
-        Tue, 06 Oct 2026 15:06:43 -0700 (PDT)
-Received: from com-75606.corp.openai.org ([199.47.143.7])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-82adbded9afsm713790a34.7.2026.10.06.15.06.42
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 06 Oct 2026 15:06:43 -0700 (PDT)
-From: Kyle Zeng <kylebot@openai.com>
-To: linux-kernel@vger.kernel.org
-Cc: akpm@linux-foundation.org,
-	Kyle Zeng <kylebot@openai.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] assoc_array: Preserve full words when splitting shortcuts
-Date: Tue,  6 Oct 2026 15:06:38 -0700
-Message-ID: <20261006220638.32195-1-kylebot@openai.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20260707; t=1791324423; x=1791929223;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=OGTI2frF8RrBIeT4/ePn5rUSGsgZXEb1V8OC+n96/mk=;
+        b=woX2BGbzye62uJpaM5HwrdtgIdPHpym+7jTORF6f//BCf9jKpiwD79KKEb0clnjEG2
+         IXlU3BNnhkuupQ93oT1cRYhR1x5wvZAtMxG1uIxMlJJB/N1zfHztcBFph6w8iVpMVIUS
+         UWuN/hskAEGKjWFswLFrHkcRY2kWDQst7AnTgEihinjdYSnoKPb1ZPRVbw9/azKFh+zH
+         7vdzwU4+j54NnMq0hg2490AAnjCXWUt0cqPdfUpdrv4uATyLKJPAGqGyObLt6oVwo+Gf
+         U7MY42FBjqaNAeqFlSXtY4tK+YOc7ILZAkna15AWPSkipxpd+6HTL7Q37S1pk9asBaAn
+         vsiQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzRyBKdWdGPqvgePKc4pWtUv/URfnkNZFc30NTwTXVgbK6+lQJR2+F8+U+xuN8jR+f9abTfkS4U1qPVnBQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKUtArUiX6WwkfekNry6GZUPjZ/BzpJNuvFiqfEfOqGkItgH3tV
+	6f+a/f5kA6fMY+5cs1pZ6GMqwDQvWW8ZMYIGkW2B07dXwQAmxCQ7lPiC
+X-Gm-Gg: AYBFou0TwOJ+ZhTkMGygHK8YWFWzmlYN8f7x4k8IiNTMny+7bnKzTWUhBKLpBir4ZDx
+	Wt8ainLc/FuPQEiQobEnhjguA3WTDpXbldlzOTA2ewrAnBAytmM8/PI8woeeFuoN7PL/NQJj1al
+	JCp4s+DLWQxlrDxtRK87LB2w/Q/kRTKNWZeeFx9J2cMgitEID/2mHB0HIHHCWqa+/8ByaQsn5qV
+	Y91oghUKQOmNm5K/c1qJlu/YXl7G1G4dTDjGQy82zIchCPtanS349aHgK6cJwz8MVet5OVB5Wj+
+	q00BTiBMmIr8lAPR6Yfw43dzSavih9ytb+L+jMnT39yaYvrS8PDq/SnM97EYPlq9VdqStRJ8C2s
+	qUNdAj45Oh9x/4d3oppm0FIPUuqaK0qn3L9+LutGCLM9Xd+gcsqXZereNJQ7EIU4I1S3QBVL5Q0
+	kCxt3lhilQNVBAHZWuNcfFqaPMEFzsBrlXsMtmTI8QYvPyzgGYLPZOC/H5L4VczAXk
+X-Received: by 2002:a17:90b:1c0a:b0:3a0:42a9:9c75 with SMTP id 98e67ed59e1d1-3a8a1b5d361mr332289a91.43.1791324422809;
+        Tue, 06 Oct 2026 15:07:02 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:54::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a89d5ced5asm504062a91.0.2026.10.06.15.07.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 15:07:01 -0700 (PDT)
+Date: Tue, 6 Oct 2026 15:02:42 -0700
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: Mina Almasry <almasrymina@google.com>
+Cc: netdev@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Jesper Dangaard Brouer <hawk@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, 
+	Stanislav Fomichev <sdf@fomichev.me>, Luigi Rizzo <lrizzo@google.com>, 
+	=?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, Pavel Begunkov <asml.silence@gmail.com>
+Subject: Re: [PATCH net-next v1 2/2] docs: netmem: document netmem and memory
+ provider design principles
+Message-ID: <asVvzDm8rf5BMl3b@devvm7509.cco0.facebook.com>
+References: <20261005004958.3603059-1-almasrymina@google.com>
+ <20261005004958.3603059-3-almasrymina@google.com>
+ <asPNJ2V8Tv2Z05n-@devvm7509.cco0.facebook.com>
+ <CAHS8izOvea3eas4i09pMds2zzqbCtf8VL0Zdvo3fBT_+AM1TBg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAHS8izOvea3eas4i09pMds2zzqbCtf8VL0Zdvo3fBT_+AM1TBg@mail.gmail.com>
 
-assoc_array_insert_mid_shortcut() copies enough index-key words for the
-new pre-shortcut, then masks off the unused bits in its last word.  If
-diff is word-aligned, the shift is zero and the mask clears that entire
-word, even though all of it belongs to the required prefix.  The new
-shortcut no longer matches the objects behind it, so lookups can fail
-for both the existing objects and the new one.
+On 10/05, Mina Almasry wrote:
+> On Mon, Oct 5, 2026 at 9:19 AM Stanislav Fomichev <sdf.kernel@gmail.com> wrote:
+> >
+> > On 10/05, Mina Almasry wrote:
+> > > Add a Design Principles section to Documentation/networking/netmem.rst
+> > > covering the netmem_ref abstraction, the prohibition on direct
+> > > downcasting in callers, decoupling memory providers from net_iov,
+> > > decoupling net_iov from unreadability, delegating provider/type logic to
+> > > memory_provider_ops and netmem helpers, and the homogeneous skb fragment
+> > > memory type invariant.
+> > >
+> > > Cc: Luigi Rizzo <lrizzo@google.com>
+> > > Cc: Björn Töpel <bjorn@kernel.org>
+> > > Cc: Stanislav Fomichev <sdf@fomichev.me>
+> > > Cc: Pavel Begunkov <asml.silence@gmail.com>
+> > > Signed-off-by: Mina Almasry <almasrymina@google.com>
+> > > ---
+> > >  Documentation/networking/netmem.rst | 46 +++++++++++++++++++++++++++++
+> > >  1 file changed, 46 insertions(+)
+> > >
+> > > diff --git a/Documentation/networking/netmem.rst b/Documentation/networking/netmem.rst
+> > > index 217869d1108dd..57e52a947663d 100644
+> > > --- a/Documentation/networking/netmem.rst
+> > > +++ b/Documentation/networking/netmem.rst
+> > > @@ -19,6 +19,52 @@ Benefits of Netmem :
+> > >  * Simplified Development: Drivers interact with a consistent API,
+> > >    regardless of the underlying memory implementation.
+> > >
+> > > +Design Principles
+> > > +=================
+> > > +
+> > > +Memory providers (or the default ``page_pool`` allocator) allocate underlying
+> > > +memory (``struct net_iov`` or ``struct page``), cast it to ``netmem_ref``, and
+> > > +supply it to ``page_pool``. The ``page_pool``, drivers, and networking stack
+> > > +operate on ``netmem_ref`` as the abstract type. Existing ``page_pool`` APIs
+> > > +that allocate or free ``struct page`` are legacy compatibility wrappers for
+> > > +drivers that do not yet support ``netmem_ref``. Code that is not yet
+> > > +``netmem``-aware should be converted to ``netmem_ref`` unless it will never
+> > > +need to support ``netmem``.
+> > > +
+> > > +1. **Operate on netmem_ref, do not downcast**: ``page_pool``, drivers, and the
+> > > +   core networking stack should deal with ``netmem_ref`` rather than
+> > > +   ``struct net_iov`` or ``struct page``. Downcasting ``netmem_ref`` to
+> > > +   ``struct net_iov`` or ``struct page`` is not allowed unless a code path
+> > > +   strictly cannot function without knowing the underlying memory type (for
+> > > +   example, ``kmap_local_page()``). In those cases, to keep call sites simple,
+> > > +   add a ``netmem`` helper that performs the operation on behalf of the caller,
+> > > +   cleanly handles all ``net_iov`` and ``page`` cases, and returns an error if
+> > > +   the ``netmem`` type cannot support the requested operation.
+> >
+> > [..]
+> >
+> > > +2. **Decouple memory providers from net_iov**: Memory providers are not limited
+> > > +   to ``struct net_iov``. A memory provider that returns ``struct page``-backed
+> > > +   ``netmem_ref``\ s to upper layers is allowed. Code must not assume that using
+> > > +   a memory provider implies ``net_iov`` memory.
+> > > +
+> > > +3. **Decouple net_iov from unreadability**: ``struct net_iov`` is flexible and
+> > > +   has no inherent restrictions. While current ``net_iov`` implementations are
+> > > +   unreadable by the CPU, future readable ``net_iov`` implementations are
+> > > +   allowed. Code must not assume ``net_iov`` is unreadable; check readability
+> > > +   via ``netmem_address()`` or ``skb_frags_readable()`` instead.
+> >
+> > For these, idk, I do agree in principle, but it is not true right now? And
+> > there needs to be a bunch of work to generalize?
+> >
+> 
+> I may have misunderstood, but I think Bjorn is creating readable
+> net_iovs for his work (patch 5). And I think that's great work and I
+> plan to support the series. So this will become true very soon.
+> 
+> https://lore.kernel.org/netdev/20261002190018.696925-1-bjorn@kernel.org/
+> 
+> > Should we document where we are right now (mp return niov, niov == unreadable)
+> > and where we wanna be (mp can return whatever, niov can imply readable or
+> > unreadable). And when Bjorn's xsk work lands, he can update the mp section.
+> > And sometime later maybe we'll lift niov == unreadable.
+> 
+> I think that's a good idea with 1 addendum. I'll say something like,
+> "This is where we are right now, but new code should, as much as
+> possible, update existing limitations to generalize and match the
+> design principles.""I basically don't want LLMs lazily reward hacking
+> and say "I'll just write code matching where we are right now and
+> ignore the design principles." WDYT?
 
-For example, inserting a user key with a different description length
-into a keyring containing enough full-hash collisions can split a
-shortcut at bit 64 and erase its hash word.  The resulting search
-failure can also expose the pointer-dependent keyring hash as a KASLR
-oracle.
-
-Only trim the last word when diff ends inside it.  This mirrors
-commit bb2ba2d75a2d ("assoc_array: Fix shortcut creation"), which fixed
-the terminal-node case, and leaves non-word-aligned splits unchanged.
-
-Fixes: 3cb989501c26 ("Add a generic associative array implementation.")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-6-astra
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
----
- lib/assoc_array.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
-
-diff --git a/lib/assoc_array.c b/lib/assoc_array.c
-index b6c9723e12ce..20ef69e03780 100644
---- a/lib/assoc_array.c
-+++ b/lib/assoc_array.c
-@@ -865,9 +865,11 @@ static bool assoc_array_insert_mid_shortcut(struct assoc_array_edit *edit,
- 		memcpy(new_s0->index_key, shortcut->index_key,
- 		       flex_array_size(new_s0, index_key, keylen));
- 
--		blank = ULONG_MAX << (diff & ASSOC_ARRAY_KEY_CHUNK_MASK);
--		pr_devel("blank off [%zu] %d: %lx\n", keylen - 1, diff, blank);
--		new_s0->index_key[keylen - 1] &= ~blank;
-+		if (diff & ASSOC_ARRAY_KEY_CHUNK_MASK) {
-+			blank = ULONG_MAX << (diff & ASSOC_ARRAY_KEY_CHUNK_MASK);
-+			pr_devel("blank off [%zu] %d: %lx\n", keylen - 1, diff, blank);
-+			new_s0->index_key[keylen - 1] &= ~blank;
-+		}
- 	} else {
- 		pr_devel("no pre-shortcut\n");
- 		edit->set[0].to = assoc_array_node_to_ptr(new_n0);
--- 
-2.53.0
-
+SGTM!
