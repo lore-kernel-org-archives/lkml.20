@@ -1,518 +1,146 @@
-Received: from sonic309-26.consmr.mail.ne1.yahoo.com (sonic309-26.consmr.mail.ne1.yahoo.com [66.163.184.152])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E5244A1E0B
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 15:50:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.184.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DED1F46D551;
+	Tue,  6 Oct 2026 15:52:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791301863; cv=none; b=u0Eqbb3IYKKoQ8fIR++le9pDeBEPecbCUKtXJwOGGyc/sb9QUU7zTlt6k3SuW44GzxHdX8NPNFLP1XIS1pBtjwnMT+HhitDL7DMg23gj+RSA4kyDUyX/lHRfQtLA/v8P2iSwrni8CUJUt0VD/yO9za+dBOpXzHssc9ja8IOl2co=
+	t=1791301939; cv=none; b=tty1rwuiFHhRrszfyxn/oaZQ8Yoq/0dsuty5n03yILbiGfJXltjegLS35xDbASFdbhbtpFwRnLpvNdj9+bbyOxqwcQCQ4UvRMthEXqCZsU0C3VjII4WABSO2o6EoSZYuOOsCyDKJTGBXBZPQHT7rLEDZD2DmhzSwsZaBo9MJoos=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791301863; c=relaxed/simple;
-	bh=EheR1hmf6/Ev3iO8zIIEknwXzGh5275L3B9/AxtcZ+s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=u8HYHl5XQ8FMBvoVQ0F7BkiixTa90JPEXkfxR6CrCd9VBv+4FQGZbwWRByorCnZMAa7NP2M0tZu78EE88Hry1tUBXIAsHPTeaYuT9VlfH23jKr4ktaJoFwcFWzE/e6YG83RN1zTuxFTx1OzIvu1DwNuswmLRXfWMWMQLLCRsCO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=schaufler-ca.com; spf=pass smtp.mailfrom=schaufler-ca.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=UZfV3tON; arc=none smtp.client-ip=66.163.184.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=schaufler-ca.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=schaufler-ca.com
+	s=arc-20240116; t=1791301939; c=relaxed/simple;
+	bh=twFaY/jlgIalOZ6sQjAlGf9KORPCSmeJkuzt3F0y0yU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PxDV48PCtdpOjSZOxiN9P8u4xCV8J6V1VgRGyLNfs3ocLHYRIMbDLiBcD4Ikf+yry6TcyBPUFhFCeRV0Co7Q7v7+cdsHd0rLAD38X/WOzc7KVWgf1ZUC/ksop50PwUufJsjr6Evs+mR62Oq48m3GNnUtT3QjVGnjpbH2Dv320HY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KOX43lIH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="UZfV3tON"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791301848; bh=In0HrnRjC0SQ8uSLS948ZfF+aHZwrdC2RfKhVM1BaVU=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=UZfV3tONQNSl5S3BZlLyAcaspco9G2cysE31uURe+3yErCynXyik8Wio+r5bccsdPhxdEuUuzd7CT6Qr5MdaHEktUwU4tW0YCOBcLU464zmFicUgWJGPiipCzMJ+fhFHJOLj+qHwNrF8K8jlOMYv8tNB+xNhsBWpSWVWzXfImB38e+xLLqFoHg9xaa/oQ7XBoLV2NMR3AcizWIFn6Cue3Uq/WcGLkEZGngCd6eULn4eUO8h1k8jFeRIo2ZHjaSGYF7Ze4nmRsM3pSA0bJ1lBOtzS3R/BbffrsNcGLt6q9RQw7akweJIYNFZI4PA4B2GCZ+RFEDbOK5/BcctgjWYb/w==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791301848; bh=bszr0R7NxrMvXQXlI7CJ/y+uPMtJNWA1ygd+Xu7aVhC=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=ipRbc9CXusILcecqduz37VuJS998Pf7p7vm4sRZ0887/03Gvp0EwPOPaW0vL5BeoOKq0Ai14UI0Yv0Iou9YxjXDehwlEpC1M25hQy4qCxLEwiOhm1L/xKhuPvFTRQJIEPinqrUWcSyh2giO34+o0jj3wOmo8MeWSTbEEuoozpfv/ZUNNMeAyTYNZvBe5nJTEI42U8ZXueJj+v33tC1cPQp7fXkKYHTH1o1x+CwDuwXFEXmyIFuAUdDDBLisbPrhrnd0yOIbTHBXA19+YrdYzByUyPpiyeFL5HU7w3F8M5l2mdBD6xj/LsmLYO1vBHBqUMKBfHSazKiC8zJmB/f6JJQ==
-X-YMail-OSG: 12QZ3EUVM1mvDQlcxYZXldfO5rSekIBwMsvbLf0NDjQP6AnCtfnVTQNdvWfOf0J
- 93fqh6RW9AOmZtVzqatN.80sTuj8Yf0QB98V9uUSxbgcgNpp9tbgyqkiD1K2BPN4o8SVD5ViqN_X
- gsXAQofdVDPr2zBwaq8ozjSfI9mnbFeF_zCn6gmV7NZsQofQfQZEqH9.bXVObgPkO4MQeBLUDtPI
- ZY8eB0Z8Q1JOSYd0.pu9fRdKcMp_TSxvhsHACW0GgPzzp1RDPlBwGfTwPytWACoA4EB7HGFu8NFW
- ORr.oXUHSj0DEOESUeg6mfeP0lqSxa9Ii_Tv84xOJcSSkd5TtNs9LkkkHiZnCJV6a2MLNKelJlKq
- dTwUIQDHSuMTRevGtpNL1WK57izjzOJKqxmpFJvalR2yK26zPFRyqSW8PmoutNFayKolG0m3upcX
- SJ0MFM61bIE5mElH88jae_4tFLKODQWmuJByRIMZgGE_0eyAI7jbTd67TT_yqPDBjVYDMJqbTOnk
- qoKHXZUa1Ul89a.Yr.vm8TO2oczz.I360Wi9UcH0Lr4nZqd.503ilsgvjkJEQcXED89feVBP4TKy
- H56nynAjgco5rC2sOuS0JUk9i.FS13mheAA6eS3ulNdeVSdlLV1dM6as5x0BbEaimTCh0WPq4aFf
- AEDuvxuZ46eBgOaUZmC_I9xrYhWMNppp8B0zLn.Vq.4liihxHaW6Ew15Ek9QXomnOz2y99J.itFp
- wbfvwur9YPQnbYkHSGSynbOSbz.zwW4HhUMm5N2DI3x0iBUTCM9HSRHnn6_K_ffLNy9te9vYq2kM
- pFo8E9qe8lPp5kL_dmp1q_zMA6xCI_3PQsWH2talsDK7RoUhjtmDi7Y.1_wU1p61g11SgMsM2Ubv
- PXGNSW1EcWYNR0Czn5GIHe3BtbzYYwh7dUaqF16NKGy6K4XmFAJy9g6tE2iCQiGiFAShBB5znCp0
- QcJvBp0Mp9finI.PqM8VYOwV26PDPCmdm_JvTUYZIwRm91EqDu6BqSZaPeT0Y0Yvy8sQ9T5o6hia
- Jf5lpjNVhpP_5E7P67z1HaOr9_w1YD18XNDEh_KHCYODDpbDxD99uF4PsH1s1m8lJwBaLpOdWyoE
- F0qjRTf5UIn_JirFUiHAe6Up3rZ5Jdp5rh2X4isVXxXL4bbuxlqM_gGEE2RBaY6ltIdBQ0GIbZBT
- dbYp3bMvfF_q.skNBoxubsX1QyiUzx0fuzETYBBG7CqxpyaGlUorLh34pPGFvL2iJ0Pxuf3lGh7Y
- hRQCnsRwkw7Ae.lK9C.Qv4FLwaeM2p51MVNpMgPGR2PGhlZ.KLrKI4kGtDIzzI5G6dluMlMSxDfZ
- XcFdrMJzlLmveLcCRjEs1XOEUwUVGD5cpXCVTkJfL0NiTCWmcOphYNYGgw2mw4UFeapHp8hy5e1_
- 62L85fGtYxLidMzyulooqyRXpuKiwoFTq0W2GO40.tUitBBPFHiyAByUa6cVi3hct8i1FBjzw6rC
- 4X34olOFGDJ0rWScH11TeSeufzxRM1CaVXHD8k7u46gfTS9e5ATA2voAqb7sb6rECwVOZYWMjdWV
- ku3Hb8__zDu2J6jSmFnhchYWaH934QFgmbUTjh5MvzvD8TAth474RNDFZrYFfE9gDkLwYu2ufCii
- 0HNVICGW5Z7oMs_MvrmBo4_EiKcl.B6TqUvtPdUwwly1dlby3DClhWo_Liil2D3QScNSCZ4vdTOS
- NyBHJIn5D5al1Vqfi1qHbDWuKnsIQqGDYL0ZZZtdNCx0J7zK62RedeBiLdikZRc3SJAKjkUq3SBN
- U278Y9zv3oQIsNrXVEI7LinaGiz93T2DptLp1KkgRehMGTMrzVz6nZQpXt3fuUCMRnEpw3_ozxwI
- 3z94rmRGDFvUk3VsThm5ml8wim8wdu5uxeg24e3m_GPvIZsQLY0dO8ioutGnA1XFscIhfE0nq3qS
- PwV8a.MYffvzhYPk4_YdoSdWTWi4TxtwqmrZ5SdnYq.yqE_4LZHB86yWVBtx.hS0pUJQk.SuI4nd
- f3Cz32JctTVwMGOAPWXxMSa4sfL0ia3RrxgWYr1gvng2OcbevvpJAXwusvsZIsyDY7.mrPQcxXB3
- IjORPWA1U8hp9J7LNf_QQQHN.7Onb9GIazIqw76sHgnIK2X39Db8ggpsGus_p1ppyt81TrLuHvzD
- .e5wOwqup1lVwkezrv4u8Kw6JqBC7KXTLtWZW2cpsJLur1aqfpK0AE.s1SJ6o9EWX5_sE02HHOHk
- UVOCnvvImJwBcE1x3Li0eUyUIoqmL5hmO1D3Zkz2sLIPZEyqAhJyWcYcQKL6Mii9zupM-
-X-Sonic-MF: <casey@schaufler-ca.com>
-X-Sonic-ID: 2e35ecc7-e47d-4d0e-b617-632020e93310
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic309.consmr.mail.ne1.yahoo.com with HTTP; Tue, 6 Oct 2026 15:50:48 +0000
-Received: by hermes--production-gq1-fd7994565-ftb5j (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID b0571d5bbbc1cca81cf8719e87a92cf0;
-          Tue, 06 Oct 2026 15:30:08 +0000 (UTC)
-Message-ID: <113bf656-867b-4b96-a8c3-4ae4735c0159@schaufler-ca.com>
-Date: Tue, 6 Oct 2026 08:30:05 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KOX43lIH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 455931F0089B;
+	Tue,  6 Oct 2026 15:52:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791301937;
+	bh=2Ub01gSpzkIPPc4VtXS/tUHnccetbhBgf8QWwTXERhw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KOX43lIHXnXkOiPR8I7vX0iKTjhaYX1YpvjfUgBRcZYDu3hJU0USj+jKBrcKJnMcY
+	 Ph5T7kQ8XvvxDD/389E5TWK6DIRy+b4fxBwVa211/ZSpLoqTjEFLeY1ohgVBkWTO6B
+	 s5Mwrnjv0JfUixAu6KuzmciG0OUJbJI2idVC7h/hpeEmi/OqHs6MxY2+lnEaGoHpuO
+	 7JS4jaMRCs5GnPpb9/svHfMvW+zJjDppK6xW5xohEImdypQtfh1h+WITqlGmw8rq+X
+	 RDUkzM42SA5YNpl0Femws1pLptpj3T3EHvXrAy4BSm7iQDbhy+76QCUmf948ra1K/v
+	 fX/9qNmcyMrHQ==
+Date: Tue, 6 Oct 2026 10:52:16 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Quchaosheng <quchaosheng000406@163.com>
+Cc: Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+	mfd@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Zhang Qing <zhangqing@rock-chips.com>,
+	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>, Chris Zhong <zyw@rock-chips.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5] dt-bindings: mfd: rockchip,rk805: Convert pinctrl to
+ DT schema
+Message-ID: <179130193622.2397071.7473599240811145793.robh@kernel.org>
+References: <20260923083001.606935-1-quchaosheng000406@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC -next 07/12] LSM: pass struct path to the inode posix
- acl hooks
-To: Cai Xinchen <caixinchen1@huawei.com>, mic@digikod.net, gnoack@google.com,
- paul@paul-moore.com, jmorris@namei.org, serge@hallyn.com, corbet@lwn.net,
- skhan@linuxfoundation.org
-Cc: rdunlap@infradead.org, gregkh@linuxfoundation.org, rafael@kernel.org,
- dakr@kernel.org, dlemoal@kernel.org, hch@lst.de, axboe@kernel.dk,
- viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz,
- dhowells@redhat.com, code@tyhicks.com, linkinjeon@kernel.org,
- sj1557.seo@samsung.com, yuezhang.mo@sony.com, hirofumi@mail.parknet.co.jp,
- cel@kernel.org, jlayton@kernel.org, neil@brown.name, okorniev@redhat.com,
- Dai.Ngo@oracle.com, tom@talpey.com, miklos@szeredi.hu, amir73il@gmail.com,
- senozhatsky@chromium.org, chenxiaosong@chenxiaosong.com,
- zohar@linux.ibm.com, roberto.sassu@huawei.com, dmitry.kasatkin@gmail.com,
- eric.snowberg@oracle.com, stephen.smalley.work@gmail.com,
- omosnacek@gmail.com, nanx95726@gmail.com, djwong@kernel.org,
- daniel@iogearbox.net, linux-security-module@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- driver-core@lists.linux.dev, linux-block@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, netfs@lists.linux.dev,
- ecryptfs@vger.kernel.org, exfat@lists.linux.dev, linux-nfs@vger.kernel.org,
- linux-unionfs@vger.kernel.org, linux-cifs@vger.kernel.org,
- linux-integrity@vger.kernel.org, selinux@vger.kernel.org,
- linux-kselftest@vger.kernel.org, xiujianfeng@huawei.com,
- lujialin4@huawei.com, Casey Schaufler <casey@schaufler-ca.com>
-References: <20260924104831.1081137-1-caixinchen1@huawei.com>
- <20260924104831.1081137-8-caixinchen1@huawei.com>
-Content-Language: en-US
-From: Casey Schaufler <casey@schaufler-ca.com>
-In-Reply-To: <20260924104831.1081137-8-caixinchen1@huawei.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26668 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923083001.606935-1-quchaosheng000406@163.com>
 
-On 9/24/2026 3:48 AM, Cai Xinchen wrote:
-> The inode_set_acl, inode_get_acl and inode_remove_acl hooks are
-> called from fs/posix_acl.c, whose helpers now hold a struct path and
-> used to derive the idmap and dentry from it just for the hook calls.
->
-> Convert the hooks and their SELinux, Smack, EVM and IMA
-> implementations to take a const struct path.  The implementations
-> derive the idmap and dentry they still need from the path, so this
-> is a purely mechanical change with no behavior change.
->
-> Assisted-by: opencode: glm-5.3
-> Signed-off-by: Cai Xinchen <caixinchen1@huawei.com>
 
-The Smack changes appear sane.
-Acked-by: Casey Schaufler <casey@schaufler-ca.com>
-
+On Wed, 23 Sep 2026 16:30:01 +0800, Quchaosheng wrote:
+> pinctrl-rk805.txt describes the pinmux controller that is part of the
+> Rockchip RK805 PMIC. The PMIC itself is already described by
+> rockchip,rk805.yaml, so the pinmux part belongs there as well: the
+> pinctrl node is a child of the PMIC node, not a separate device.
+> 
+> Fold the pinmux description into rockchip,rk805.yaml and drop the
+> standalone text binding.
+> 
+> While doing so, add the missing child node schema. The rockchip,rk805.yaml
+> schema ends with 'additionalProperties: false' but did not describe the pin
+> configuration child nodes at all, so a valid pinmux node like the one shown
+> in pinctrl-rk805.txt was rejected:
+> 
+>     pmic@18 (rockchip,rk805): 'rk805-default-pins' does not match any of
+>     the regexes: '^pinctrl-[0-9]+$'
+> 
+> The pin configuration nodes require 'pins'; without it a node that names
+> no pin is accepted silently, while the text binding it replaces listed
+> 'pins' as required. The RK805 exposes two output-only GPIOs, so 'pins' is
+> an enum of gpio0 and gpio1 and a typo such as "gpio2" is caught.
+> 
+> The nodes may be direct children of the PMIC, or sit one level deeper
+> inside a "pinmux" grouping node, which is the layout the example of the
+> text binding used. pinctrl-bindings.txt allows the configuration nodes to
+> be grandchildren of the pin controller, and the driver reaches both
+> layouts: pinconf_generic_dt_node_to_map() parses the referenced node and
+> then walks its children. The example shows both.
+> 
+> The example also regains the gpio-controller and #gpio-cells lines that the
+> example of the text binding had.
+> 
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://sashiko.dev/#/patchset/20260923034245.396417-1-quchaosheng000406@163.com?part=1
+> Link: https://sashiko.dev/#/patchset/20260923062746.516666-1-quchaosheng000406@163.com?part=1
+> Link: https://sashiko.dev/#/patchset/20260923074337.575122-1-quchaosheng000406@163.com?part=1
+> Assisted-by: LLM
+> Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
 > ---
->  fs/posix_acl.c                        |  6 ++---
->  include/linux/lsm_hook_defs.h         | 12 ++++-----
->  include/linux/security.h              | 20 +++++----------
->  security/integrity/evm/evm_main.c     | 14 +++++-----
->  security/integrity/ima/ima_appraise.c |  8 +++---
->  security/security.c                   | 32 ++++++++++-------------
->  security/selinux/hooks.c              | 19 +++++++-------
->  security/smack/smack_lsm.c            | 37 ++++++++++++---------------
->  8 files changed, 66 insertions(+), 82 deletions(-)
->
-> diff --git a/fs/posix_acl.c b/fs/posix_acl.c
-> index be1643e18a6a..72e77540a0e9 100644
-> --- a/fs/posix_acl.c
-> +++ b/fs/posix_acl.c
-> @@ -1128,7 +1128,7 @@ int vfs_set_acl(const struct path *path, const char *acl_name,
->  	if (error)
->  		goto out_inode_unlock;
->  
-> -	error = security_inode_set_acl(idmap, dentry, acl_name, kacl);
-> +	error = security_inode_set_acl(path, acl_name, kacl);
->  	if (error)
->  		goto out_inode_unlock;
->  
-> @@ -1184,7 +1184,7 @@ struct posix_acl *vfs_get_acl(const struct path *path, const char *acl_name)
->  	 * The VFS has no restrictions on reading POSIX ACLs so calling
->  	 * something like xattr_permission() isn't needed. Only LSMs get a say.
->  	 */
-> -	error = security_inode_get_acl(idmap, dentry, acl_name);
-> +	error = security_inode_get_acl(path, acl_name);
->  	if (error)
->  		return ERR_PTR(error);
->  
-> @@ -1236,7 +1236,7 @@ int vfs_remove_acl(const struct path *path, const char *acl_name)
->  	if (error)
->  		goto out_inode_unlock;
->  
-> -	error = security_inode_remove_acl(idmap, dentry, acl_name);
-> +	error = security_inode_remove_acl(path, acl_name);
->  	if (error)
->  		goto out_inode_unlock;
->  
-> diff --git a/include/linux/lsm_hook_defs.h b/include/linux/lsm_hook_defs.h
-> index 3a3512a3ee91..45cf0ca24260 100644
-> --- a/include/linux/lsm_hook_defs.h
-> +++ b/include/linux/lsm_hook_defs.h
-> @@ -160,14 +160,14 @@ LSM_HOOK(void, LSM_RET_VOID, inode_post_removexattr, struct dentry *dentry,
->  	 const char *name)
->  LSM_HOOK(int, 0, inode_file_setattr, struct dentry *dentry, struct file_kattr *fa)
->  LSM_HOOK(int, 0, inode_file_getattr, struct dentry *dentry, struct file_kattr *fa)
-> -LSM_HOOK(int, 0, inode_set_acl, struct mnt_idmap *idmap,
-> -	 struct dentry *dentry, const char *acl_name, struct posix_acl *kacl)
-> +LSM_HOOK(int, 0, inode_set_acl, const struct path *path,
-> +	 const char *acl_name, struct posix_acl *kacl)
->  LSM_HOOK(void, LSM_RET_VOID, inode_post_set_acl, struct dentry *dentry,
->  	 const char *acl_name, struct posix_acl *kacl)
-> -LSM_HOOK(int, 0, inode_get_acl, struct mnt_idmap *idmap,
-> -	 struct dentry *dentry, const char *acl_name)
-> -LSM_HOOK(int, 0, inode_remove_acl, struct mnt_idmap *idmap,
-> -	 struct dentry *dentry, const char *acl_name)
-> +LSM_HOOK(int, 0, inode_get_acl, const struct path *path,
-> +	 const char *acl_name)
-> +LSM_HOOK(int, 0, inode_remove_acl, const struct path *path,
-> +	 const char *acl_name)
->  LSM_HOOK(void, LSM_RET_VOID, inode_post_remove_acl, struct mnt_idmap *idmap,
->  	 struct dentry *dentry, const char *acl_name)
->  LSM_HOOK(int, 0, inode_need_killpriv, struct dentry *dentry)
-> diff --git a/include/linux/security.h b/include/linux/security.h
-> index f5dc67a937bd..8b02b3bfe46d 100644
-> --- a/include/linux/security.h
-> +++ b/include/linux/security.h
-> @@ -435,15 +435,12 @@ int security_inode_getattr(const struct path *path);
->  int security_inode_setxattr(const struct path *path,
->  			    const char *name, const void *value,
->  			    size_t size, int flags);
-> -int security_inode_set_acl(struct mnt_idmap *idmap,
-> -			   struct dentry *dentry, const char *acl_name,
-> -			   struct posix_acl *kacl);
-> +int security_inode_set_acl(const struct path *path,
-> +			   const char *acl_name, struct posix_acl *kacl);
->  void security_inode_post_set_acl(struct dentry *dentry, const char *acl_name,
->  				 struct posix_acl *kacl);
-> -int security_inode_get_acl(struct mnt_idmap *idmap,
-> -			   struct dentry *dentry, const char *acl_name);
-> -int security_inode_remove_acl(struct mnt_idmap *idmap,
-> -			      struct dentry *dentry, const char *acl_name);
-> +int security_inode_get_acl(const struct path *path, const char *acl_name);
-> +int security_inode_remove_acl(const struct path *path, const char *acl_name);
->  void security_inode_post_remove_acl(struct mnt_idmap *idmap,
->  				    struct dentry *dentry,
->  				    const char *acl_name);
-> @@ -1021,8 +1018,7 @@ static inline int security_inode_setxattr(const struct path *path,
->  	return cap_inode_setxattr(path, name, value, size, flags);
->  }
->  
-> -static inline int security_inode_set_acl(struct mnt_idmap *idmap,
-> -					 struct dentry *dentry,
-> +static inline int security_inode_set_acl(const struct path *path,
->  					 const char *acl_name,
->  					 struct posix_acl *kacl)
->  {
-> @@ -1034,15 +1030,13 @@ static inline void security_inode_post_set_acl(struct dentry *dentry,
->  					       struct posix_acl *kacl)
->  { }
->  
-> -static inline int security_inode_get_acl(struct mnt_idmap *idmap,
-> -					 struct dentry *dentry,
-> +static inline int security_inode_get_acl(const struct path *path,
->  					 const char *acl_name)
->  {
->  	return 0;
->  }
->  
-> -static inline int security_inode_remove_acl(struct mnt_idmap *idmap,
-> -					    struct dentry *dentry,
-> +static inline int security_inode_remove_acl(const struct path *path,
->  					    const char *acl_name)
->  {
->  	return 0;
-> diff --git a/security/integrity/evm/evm_main.c b/security/integrity/evm/evm_main.c
-> index 47ad39d64c76..c83befd32e99 100644
-> --- a/security/integrity/evm/evm_main.c
-> +++ b/security/integrity/evm/evm_main.c
-> @@ -685,8 +685,7 @@ static inline int evm_inode_set_acl_change(struct mnt_idmap *idmap,
->  
->  /**
->   * evm_inode_set_acl - protect the EVM extended attribute from posix acls
-> - * @idmap: idmap of the idmapped mount
-> - * @dentry: pointer to the affected dentry
-> + * @path: pointer to the affected object
->   * @acl_name: name of the posix acl
->   * @kacl: pointer to the posix acls
->   *
-> @@ -696,10 +695,12 @@ static inline int evm_inode_set_acl_change(struct mnt_idmap *idmap,
->   *
->   * Return: zero on success, -EPERM on failure.
->   */
-> -static int evm_inode_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
-> +static int evm_inode_set_acl(const struct path *path,
->  			     const char *acl_name, struct posix_acl *kacl)
->  {
->  	enum integrity_status evm_status;
-> +	struct dentry *dentry = path->dentry;
-> +	struct mnt_idmap *idmap = mnt_idmap(path->mnt);
->  
->  	/* Policy permits modification of the protected xattrs even though
->  	 * there's no HMAC key loaded
-> @@ -738,8 +739,7 @@ static int evm_inode_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
->  
->  /**
->   * evm_inode_remove_acl - Protect the EVM extended attribute from posix acls
-> - * @idmap: idmap of the mount
-> - * @dentry: pointer to the affected dentry
-> + * @path: pointer to the affected object
->   * @acl_name: name of the posix acl
->   *
->   * Prevent removing posix acls causing the EVM HMAC to be re-calculated
-> @@ -748,10 +748,10 @@ static int evm_inode_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
->   *
->   * Return: zero on success, -EPERM on failure.
->   */
-> -static int evm_inode_remove_acl(struct mnt_idmap *idmap, struct dentry *dentry,
-> +static int evm_inode_remove_acl(const struct path *path,
->  				const char *acl_name)
->  {
-> -	return evm_inode_set_acl(idmap, dentry, acl_name, NULL);
-> +	return evm_inode_set_acl(path, acl_name, NULL);
->  }
->  
->  static void evm_reset_status(struct inode *inode)
-> diff --git a/security/integrity/ima/ima_appraise.c b/security/integrity/ima/ima_appraise.c
-> index 58ba674bc172..518faf04ddde 100644
-> --- a/security/integrity/ima/ima_appraise.c
-> +++ b/security/integrity/ima/ima_appraise.c
-> @@ -793,11 +793,11 @@ static int ima_inode_setxattr(const struct path *path,
->  	return result;
->  }
->  
-> -static int ima_inode_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
-> +static int ima_inode_set_acl(const struct path *path,
->  			     const char *acl_name, struct posix_acl *kacl)
->  {
->  	if (evm_revalidate_status(acl_name))
-> -		ima_reset_appraise_flags(d_backing_inode(dentry), -1);
-> +		ima_reset_appraise_flags(d_backing_inode(path->dentry), -1);
->  
->  	return 0;
->  }
-> @@ -818,10 +818,10 @@ static int ima_inode_removexattr(const struct path *path,
->  	return result;
->  }
->  
-> -static int ima_inode_remove_acl(struct mnt_idmap *idmap, struct dentry *dentry,
-> +static int ima_inode_remove_acl(const struct path *path,
->  				const char *acl_name)
->  {
-> -	return ima_inode_set_acl(idmap, dentry, acl_name, NULL);
-> +	return ima_inode_set_acl(path, acl_name, NULL);
->  }
->  
->  static struct security_hook_list ima_appraise_hooks[] __ro_after_init = {
-> diff --git a/security/security.c b/security/security.c
-> index 3a8892d8ca5c..74bcd8c0502c 100644
-> --- a/security/security.c
-> +++ b/security/security.c
-> @@ -1987,8 +1987,7 @@ int security_inode_setxattr(const struct path *path,
->  
->  /**
->   * security_inode_set_acl() - Check if setting posix acls is allowed
-> - * @idmap: idmap of the mount
-> - * @dentry: file
-> + * @path: file
->   * @acl_name: acl name
->   * @kacl: acl struct
->   *
-> @@ -1997,13 +1996,12 @@ int security_inode_setxattr(const struct path *path,
->   *
->   * Return: Returns 0 if permission is granted.
->   */
-> -int security_inode_set_acl(struct mnt_idmap *idmap,
-> -			   struct dentry *dentry, const char *acl_name,
-> -			   struct posix_acl *kacl)
-> +int security_inode_set_acl(const struct path *path,
-> +			   const char *acl_name, struct posix_acl *kacl)
->  {
-> -	if (unlikely(IS_PRIVATE(d_backing_inode(dentry))))
-> +	if (unlikely(IS_PRIVATE(d_backing_inode(path->dentry))))
->  		return 0;
-> -	return call_int_hook(inode_set_acl, idmap, dentry, acl_name, kacl);
-> +	return call_int_hook(inode_set_acl, path, acl_name, kacl);
->  }
->  
->  /**
-> @@ -2025,8 +2023,7 @@ void security_inode_post_set_acl(struct dentry *dentry, const char *acl_name,
->  
->  /**
->   * security_inode_get_acl() - Check if reading posix acls is allowed
-> - * @idmap: idmap of the mount
-> - * @dentry: file
-> + * @path: file
->   * @acl_name: acl name
->   *
->   * Check permission before getting osix acls, the posix acls are identified by
-> @@ -2034,18 +2031,16 @@ void security_inode_post_set_acl(struct dentry *dentry, const char *acl_name,
->   *
->   * Return: Returns 0 if permission is granted.
->   */
-> -int security_inode_get_acl(struct mnt_idmap *idmap,
-> -			   struct dentry *dentry, const char *acl_name)
-> +int security_inode_get_acl(const struct path *path, const char *acl_name)
->  {
-> -	if (unlikely(IS_PRIVATE(d_backing_inode(dentry))))
-> +	if (unlikely(IS_PRIVATE(d_backing_inode(path->dentry))))
->  		return 0;
-> -	return call_int_hook(inode_get_acl, idmap, dentry, acl_name);
-> +	return call_int_hook(inode_get_acl, path, acl_name);
->  }
->  
->  /**
->   * security_inode_remove_acl() - Check if removing a posix acl is allowed
-> - * @idmap: idmap of the mount
-> - * @dentry: file
-> + * @path: file
->   * @acl_name: acl name
->   *
->   * Check permission before removing posix acls, the posix acls are identified
-> @@ -2053,12 +2048,11 @@ int security_inode_get_acl(struct mnt_idmap *idmap,
->   *
->   * Return: Returns 0 if permission is granted.
->   */
-> -int security_inode_remove_acl(struct mnt_idmap *idmap,
-> -			      struct dentry *dentry, const char *acl_name)
-> +int security_inode_remove_acl(const struct path *path, const char *acl_name)
->  {
-> -	if (unlikely(IS_PRIVATE(d_backing_inode(dentry))))
-> +	if (unlikely(IS_PRIVATE(d_backing_inode(path->dentry))))
->  		return 0;
-> -	return call_int_hook(inode_remove_acl, idmap, dentry, acl_name);
-> +	return call_int_hook(inode_remove_acl, path, acl_name);
->  }
->  
->  /**
-> diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-> index 5d98ec73df9f..45ece734463e 100644
-> --- a/security/selinux/hooks.c
-> +++ b/security/selinux/hooks.c
-> @@ -3498,23 +3498,22 @@ static int selinux_inode_setxattr(const struct path *path,
->  			    &ad);
->  }
->  
-> -static int selinux_inode_set_acl(struct mnt_idmap *idmap,
-> -				 struct dentry *dentry, const char *acl_name,
-> -				 struct posix_acl *kacl)
-> +static int selinux_inode_set_acl(const struct path *path,
-> +				 const char *acl_name, struct posix_acl *kacl)
->  {
-> -	return dentry_has_perm(current_cred(), dentry, FILE__SETATTR);
-> +	return dentry_has_perm(current_cred(), path->dentry, FILE__SETATTR);
->  }
->  
-> -static int selinux_inode_get_acl(struct mnt_idmap *idmap,
-> -				 struct dentry *dentry, const char *acl_name)
-> +static int selinux_inode_get_acl(const struct path *path,
-> +				 const char *acl_name)
->  {
-> -	return dentry_has_perm(current_cred(), dentry, FILE__GETATTR);
-> +	return dentry_has_perm(current_cred(), path->dentry, FILE__GETATTR);
->  }
->  
-> -static int selinux_inode_remove_acl(struct mnt_idmap *idmap,
-> -				    struct dentry *dentry, const char *acl_name)
-> +static int selinux_inode_remove_acl(const struct path *path,
-> +				    const char *acl_name)
->  {
-> -	return dentry_has_perm(current_cred(), dentry, FILE__SETATTR);
-> +	return dentry_has_perm(current_cred(), path->dentry, FILE__SETATTR);
->  }
->  
->  static void selinux_inode_post_setxattr(struct dentry *dentry, const char *name,
-> diff --git a/security/smack/smack_lsm.c b/security/smack/smack_lsm.c
-> index 4adb2fd9cf70..7889f63ec739 100644
-> --- a/security/smack/smack_lsm.c
-> +++ b/security/smack/smack_lsm.c
-> @@ -1548,62 +1548,59 @@ static int smack_inode_removexattr(const struct path *path,
->   *
->   * Returns 0 if access is permitted, an error code otherwise
->   */
-> -static int smack_inode_set_acl(struct mnt_idmap *idmap,
-> -			       struct dentry *dentry, const char *acl_name,
-> -			       struct posix_acl *kacl)
-> +static int smack_inode_set_acl(const struct path *path,
-> +			       const char *acl_name, struct posix_acl *kacl)
->  {
->  	struct smk_audit_info ad;
->  	int rc;
->  
->  	smk_ad_init(&ad, __func__, LSM_AUDIT_DATA_DENTRY);
-> -	smk_ad_setfield_u_fs_path_dentry(&ad, dentry);
-> +	smk_ad_setfield_u_fs_path_dentry(&ad, path->dentry);
->  
-> -	rc = smk_curacc(smk_of_inode(d_backing_inode(dentry)), MAY_WRITE, &ad);
-> -	rc = smk_bu_inode(d_backing_inode(dentry), MAY_WRITE, rc);
-> +	rc = smk_curacc(smk_of_inode(d_backing_inode(path->dentry)), MAY_WRITE, &ad);
-> +	rc = smk_bu_inode(d_backing_inode(path->dentry), MAY_WRITE, rc);
->  	return rc;
->  }
->  
->  /**
->   * smack_inode_get_acl - Smack check for getting posix acls
-> - * @idmap: idmap of the mnt this request came from
-> - * @dentry: the object
-> + * @path: the object
->   * @acl_name: name of the posix acl
->   *
->   * Returns 0 if access is permitted, an error code otherwise
->   */
-> -static int smack_inode_get_acl(struct mnt_idmap *idmap,
-> -			       struct dentry *dentry, const char *acl_name)
-> +static int smack_inode_get_acl(const struct path *path,
-> +			       const char *acl_name)
->  {
->  	struct smk_audit_info ad;
->  	int rc;
->  
->  	smk_ad_init(&ad, __func__, LSM_AUDIT_DATA_DENTRY);
-> -	smk_ad_setfield_u_fs_path_dentry(&ad, dentry);
-> +	smk_ad_setfield_u_fs_path_dentry(&ad, path->dentry);
->  
-> -	rc = smk_curacc(smk_of_inode(d_backing_inode(dentry)), MAY_READ, &ad);
-> -	rc = smk_bu_inode(d_backing_inode(dentry), MAY_READ, rc);
-> +	rc = smk_curacc(smk_of_inode(d_backing_inode(path->dentry)), MAY_READ, &ad);
-> +	rc = smk_bu_inode(d_backing_inode(path->dentry), MAY_READ, rc);
->  	return rc;
->  }
->  
->  /**
->   * smack_inode_remove_acl - Smack check for getting posix acls
-> - * @idmap: idmap of the mnt this request came from
-> - * @dentry: the object
-> + * @path: the object
->   * @acl_name: name of the posix acl
->   *
->   * Returns 0 if access is permitted, an error code otherwise
->   */
-> -static int smack_inode_remove_acl(struct mnt_idmap *idmap,
-> -				  struct dentry *dentry, const char *acl_name)
-> +static int smack_inode_remove_acl(const struct path *path,
-> +				  const char *acl_name)
->  {
->  	struct smk_audit_info ad;
->  	int rc;
->  
->  	smk_ad_init(&ad, __func__, LSM_AUDIT_DATA_DENTRY);
-> -	smk_ad_setfield_u_fs_path_dentry(&ad, dentry);
-> +	smk_ad_setfield_u_fs_path_dentry(&ad, path->dentry);
->  
-> -	rc = smk_curacc(smk_of_inode(d_backing_inode(dentry)), MAY_WRITE, &ad);
-> -	rc = smk_bu_inode(d_backing_inode(dentry), MAY_WRITE, rc);
-> +	rc = smk_curacc(smk_of_inode(d_backing_inode(path->dentry)), MAY_WRITE, &ad);
-> +	rc = smk_bu_inode(d_backing_inode(path->dentry), MAY_WRITE, rc);
->  	return rc;
->  }
->  
+> Changes in v5:
+> - The child nodes of the "pinmux" node were matched with a patternProperties
+>   entry guarded by "if: type: object". That has no "else", so a non-object
+>   property of the grouping node, a misspelled "typo = <1>;" for instance,
+>   matched the pattern and passed. Match them with additionalProperties
+>   against the same definition instead. dtschema puts phandle and status into
+>   the allowed properties there, so the grouping node keeps the phandle that
+>   pinctrl-0 points at, and every other property has to be a pin
+>   configuration node.
+> 
+> Changes in v4:
+> - Describe the pin configuration nodes both as direct children and inside a
+>   "pinmux" grouping node. Only the flat form was described, so the layout
+>   used by the example of the text binding this replaces was still rejected:
+> 
+>     pmic@18 (rockchip,rk805): 'pinmux' does not match any of the regexes:
+>       '-pins$', '^pinctrl-[0-9]+$'
+> 
+>   The nodes are now one definition referenced from both places, and the
+>   example shows the flat node and a "pinmux" node holding one.
+> - Name the binding in the summary, as
+>   Documentation/devicetree/bindings/submitting-patches.rst shows for a
+>   conversion ("dt-bindings: iio: adc: adi,ad7476: Convert to DT schema").
+> 
+> Changes in v3:
+> - Capitalize the summary phrase. dt-bindings: mfd: titles are capitalized
+>   after the subsystem prefix (Add 61, Convert 20 against convert 6).
+> - Add gpio-controller and #gpio-cells to the example, which the text
+>   binding's example had and the conversion dropped.
+> - gpio-controller and #gpio-cells are deliberately *not* added to the
+>   required list. rv1108-evb, rv1108-elgin-r1 and rk3328-a1 do not set
+>   them, so requiring them breaks three in-tree boards:
+> 
+>     rv1108-evb.dtb: pmic@18 (rockchip,rk805): 'gpio-controller' is a required property
+> 
+>   No rk8xx PMIC schema requires the pair, and gpio.yaml already enforces
+>   that they appear together ("'#gpio-cells' is a dependency of
+>   'gpio-controller'"). The pinctrl driver calls devm_gpiochip_add_data()
+>   unconditionally, so the property is not what makes the GPIO controller
+>   work either.
+> 
+> Changes in v2:
+> - Require 'pins' in the pin configuration nodes. Without it a node that
+>   names no pin passes validation, while the text binding listed 'pins'
+>   as required.
+> ---
+>  .../bindings/mfd/rockchip,rk805.yaml          | 60 +++++++++++++++++-
+>  .../bindings/pinctrl/pinctrl-rk805.txt        | 63 -------------------
+>  2 files changed, 59 insertions(+), 64 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/pinctrl/pinctrl-rk805.txt
+> 
+
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+
