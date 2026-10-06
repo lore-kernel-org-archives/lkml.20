@@ -1,69 +1,82 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45AA046A5E4;
-	Tue,  6 Oct 2026 14:01:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2795D20E023
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 14:02:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791295282; cv=none; b=ofEu7oV3p2P9nq++y4ozZjEl/JUrRehDITsXSpS1fGba5UiCbUqS2qJBD/geF2wej9+zybWhws7ZPeLR8FP8EPnRA7EgIQwIsmm6+qryIN7uQZjQVjrlAjtf9OvmE33YSklLLO7Hm2bvx/J8Mkfq560mjahqcIsMy9GvqmFi+Gk=
+	t=1791295338; cv=none; b=EcHquQPaGwdXCUx82GiRBiHnDtaCr4YH6lTGZqeGJAGSJvHf1JORWRDcXlLw2Sx37tZwYTZqWPj0kRuFB4O9VlZDNBlVNOK+ZQ3PvUMZkoNugURgt/24RApgivQUywQE8A7EzWrekgNNMvIAvw8ZoKKgQsiCw9UYPLsTm7IdofI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791295282; c=relaxed/simple;
-	bh=5cTWjD0mnj1yXOk6RfXezQeY0F59HG7VGw8r3u9d0sk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=StmhHRZKOKns0I5YUAZk9przSg45l9AXJ10X7eC/zCs0T8YUfmKsK14690fxR+i96XppNC7ZGvb77gYLxerP5GZM4bLQr2VZ4tENEWoveH+N7MMQsjmNE3rxCXAKDgaxKzv+xqsilCmA4vZUlnpOxo0gjgrqNemTZj9UNsKDZOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=KryX475h; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791295338; c=relaxed/simple;
+	bh=7a/r0c22USbKub7O9zDQbjz1OA+PpCzhZQ4bovs1osY=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=nRPmj3U759agzrXxTJaatE3L3gulfsei5yxjHWWqdG7IcufgsnD8jkoI7SyF247jRphuIw5udXcNcl0zMCzCpiOsBxAloQgMQL9MaNjGwoNtV4mRTFjtQRjAnF6rxftx5n9BrfPawP8zKqNv1dLUrg/F//E4n3yoDdRZU4vVxMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m69zvNik; arc=none smtp.client-ip=209.85.222.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="KryX475h"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 696DbIuH2059160;
-	Tue, 6 Oct 2026 14:01:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=i6h1GEC5HIyV6EYuF
-	OZnavVKR0eSGCP+tDoZBzqFbTE=; b=KryX475hFp+Ib7FWRRRXEfR15KLMOK+AG
-	TtiZwhOMUzo+tOdhzp9QPvhxzd2nYKdr7zB19qQrDVLooYO3UpmLpwY0ydlaQU7q
-	UPqO1H4VmKPOD06Njquh0PlIm1ZVimMGn8VNHv+a+4A931l/dpma5p6S8O48yw9O
-	4pUh6HObZTz+5+zGiW44eKq0y2fpJrwPDMoFgoEoklswG7rcfvV/xMRCPEgR+lTg
-	V8vOugK4v9M83JYadUbylA518X0qiy/FwRlOTazr+ua12TeZSCQF83j3j5cCDs6b
-	cJV0ASeAX0XLlyRBuJeuJRl4kZeFJhSxMZ63zKaG5xTxIkT+xg/gQ==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2scrgb20-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 06 Oct 2026 14:01:18 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 696DWTgs375214;
-	Tue, 6 Oct 2026 14:01:18 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h3eqy9xvd-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 06 Oct 2026 14:01:18 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 696E1E8K43778516
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 6 Oct 2026 14:01:14 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 78DE52004B;
-	Tue,  6 Oct 2026 14:01:14 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 3A66820049;
-	Tue,  6 Oct 2026 14:01:14 +0000 (GMT)
-Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
-	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Tue,  6 Oct 2026 14:01:14 +0000 (GMT)
-From: Heiko Carstens <hca@linux.ibm.com>
-To: Gerald Schaefer <gerald.schaefer@linux.ibm.com>
-Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
-Subject: [PATCH v2 2/2] s390/vtime: Remove vtimer infrastructure
-Date: Tue,  6 Oct 2026 16:01:13 +0200
-Message-ID: <20261006140113.3128582-3-hca@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261006140113.3128582-1-hca@linux.ibm.com>
-References: <20261006140113.3128582-1-hca@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m69zvNik"
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-93e4c00d71aso44246985a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 07:02:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791295336; x=1791900136; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CPvl7PbyU/2kfsD+JpTBP33aFuEJTpqh+wQCTs8+mrY=;
+        b=m69zvNik5YVUvTfQ0uhiG8LZpmLKfmTHekzbYzXBppQ6UM7XSASAqO1rKNMTTlSXdt
+         4hCkCYQCUy/vTeUiT2MsruwCC5Z58zv9zJbMctOUI7b4Gso1Iy4B8mhPmSrjjjyyRlM2
+         Viu5WRjLX33rofQcJsfVR76OclD5TA5WKGXbd69n4z7Yk+o99Gt8woeAs1yixpAk0rWS
+         kkreXRI5J2XNMB2oW7x/yW34OZCJWDscvjisqtCnfZPeZ3LHYEisHm87e+RKlBvoSGwd
+         3W8qekX35wRvDYmq4LGczy5E0iH9Z7hCiX08ptX7nZmcyHy65M7WPqJj4Gfm1Ti/LPbH
+         REZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791295336; x=1791900136;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CPvl7PbyU/2kfsD+JpTBP33aFuEJTpqh+wQCTs8+mrY=;
+        b=UVY1eep3QPcDu/6AwNPecimtlCtasN1ywCL154Me+Ynu5l26uWIy4PGahcvnzUYn+S
+         wt5bdOxH2pQGKo3DnBGVwWxsBpGt4OiDQGHZIk+3PYPxyiwErtSqTq8Eu4maAFc5sZaM
+         VOuXQECueRs/35T8sRhlD9rhSUroI1DqD9/y/qVpkiP3BZbZnL0Ref5ARKW366oqc1Xj
+         Y4tZzkR432Rw12AiR7oTGHfaZwOF0p2LYkuGUZR3nsvzgLKrFyQOg/jQ/m4iJbD51CiR
+         sPPYE3M39QE6ulsT779bl71OFRRtEdux2FxJ2eSbJ+Arf9UXsGRefNXl3t59Jjg438w7
+         F8bA==
+X-Forwarded-Encrypted: i=1; AKwUvBwPtnaA1rpxzBU1Fbb56/FL5NgfyjAA/jZcPrN8OAuI3gWSuM/+bqFWS2KKgH5a4Qnp+Gn8y5s35LwvZgY=@vger.kernel.org
+X-Gm-Message-State: AFuF++m1U8acqV+TV+Ull37Ve4nNmRoFTB/7RyoXUhDMw3d0jB915B/I
+	aPYiQMOYQ7z0LWpNUVH61ih4Rq7E1+wv5GMZ22Rquf/++5OFVOa3YMyB
+X-Gm-Gg: AYBFou1cBCvf0uDBM5bqqSGzYktMGCbwlLI5MpUq1jNKxjnqL6PEp3T8244hS8ohv1o
+	gDcNS9SDGQvV1B/AzPMH1ObCBySiv+CEEis4O8+kbdPV1+LcELZywhdstAWeWn9ZyywRD8tcOHc
+	2Ix0cKFCn6iwCSr+uBL9ouLSoBOdiCbILD5Bzi2V37SKC6WFdGUkmrxoHNWMjqjkxUMpREaZI0j
+	OZLxBySdsIZauIKNim/AlVMVWELJb7v6ygm4NuIK1Usmr4njuq7Hx9uPbgQ+Elnoco/UE4gIgsq
+	GquuMxwHsM77Tnc/I3CPW8oo0IAX7wfguRqs8lGTJkEZr3TOSivuuEY7rtWtmSzbPb57zTNRZXa
+	hxAn9teioHOT6PfYSChAgzz/8g5suVTZcNq3ZuGQVfAO7mfmFdbUHc+9sCr/u5zC7B/+eC1/jna
+	qOeKmwUrIDk0fUt/oo4h1bHNzErejw30F6aWXHIVe5CpRS8zGszdlCO3NC054UBwMHklG31kaQl
+	ppogKXB1yGe2r6yBvbOj1baIXRpkpNf/lLk6fJdDPr/77WUp7UiHzCdn0z2DaN49PWsB0BB0Yf3
+	aRslSxNu
+X-Received: by 2002:a05:620a:4101:b0:93e:4bbf:cc11 with SMTP id af79cd13be357-93e8f35972dmr280007185a.30.1791295335737;
+        Tue, 06 Oct 2026 07:02:15 -0700 (PDT)
+Received: from security.cs.northwestern.edu (security.cs.northwestern.edu. [165.124.184.136])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93cc9d80ae3sm1138742185a.0.2026.10.06.07.02.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 07:02:15 -0700 (PDT)
+From: Ziyi Guo <guoziyi114@gmail.com>
+To: palmer@dabbelt.com,
+	pjw@kernel.org,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr
+Cc: samuel.holland@sifive.com,
+	thecharlesjenkins@gmail.com,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Ziyi Guo <guoziyi114@gmail.com>
+Subject: [PATCH v2] riscv: futex: untag the user pointer before the atomic access
+Date: Tue,  6 Oct 2026 14:02:00 +0000
+Message-Id: <20261006140200.877263-1-guoziyi114@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261001184355.2395068-1-guoziyi114@gmail.com>
+References: <20261001184355.2395068-1-guoziyi114@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,416 +84,63 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA1NCBTYWx0ZWRfX9pP/LwGt/d+k
- jQSFesGUUUIgGX6mTvizvDdwRID2q3A0ijdKt8aUdyYyNaMt02AfwwPvEBT2LjsF8bg3pIo/d6Q
- ILC0KTTjJ33kiPnRfAASkhuK1KnCgqM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA1NCBTYWx0ZWRfX8dhvC52xZ0a7
- rZhUypo3HEp0vEXGdRC+5/a30nL0traLBWTOM6b1guEohZWnNb4LdnnFrMIGvQXMeJUwaLUAe7f
- 7KFc3tski0qSB+aTIFII1NBcBuGEfVtQAkaCH1j/s5W7b47cQuuIeDmjR+6A6SFB7jgOuRSCYwo
- 9dx07Upoll9TCBP5seaLZv5HqFFXSJWr9vKTzRYZSIjUL6XhSxEw9jRhtTQqp+EO7xXap3WtTn3
- 93ZaEry5N5FVTH5BuQX0jqwK68R1anQrCqzBcqkVVATnTsZHZ5TM+lZSmPeb3QN+7luVnpcoJdD
- 4A0vZXVUlnNFk+DOnquj62mBlmKMOErIGiBadFYTXIBVq2kEnTB1MPfiIkMpfsi7PmXHtJAXGPB
- 0Myd5CQTn5o5fVPdBZg5MztCSUBo5YPCQ56Bc9aJvUgqxAYOVneIwW1sofV951dPu2HlXBvONPv
- JN8t7WbG6CAo98jU3vQ==
-X-Proofpoint-GUID: 9kc0evu2eSQWLvWgrRlrH4g_PP7uYYtm
-X-Proofpoint-ORIG-GUID: 9kc0evu2eSQWLvWgrRlrH4g_PP7uYYtm
-X-Authority-Analysis: v=2.4 cv=B7osQ+tM c=1 sm=1 tr=0 ts=6ac4ff2e cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8 a=4MNNjMLRCm2piMos7SkA:9
- a=O8hF6Hzn-FEA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-06_04,2026-10-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 malwarescore=0 impostorscore=0 phishscore=0
- clxscore=1015 spamscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060054
 
-The only user is gone - remove the vtimer infrastructure.
+access_ok() checks untagged_addr(uaddr), but arch_futex_atomic_op_inuser()
+and futex_atomic_cmpxchg_inatomic() hand the raw uaddr to the inline asm
+amoswap/amoadd/.../lr.w+sc.w through the "+m" (*uaddr) operand.  When the
+tagged address ABI is enabled (CONFIG_RISCV_ISA_SUPM, prctl
+PR_SET_TAGGED_ADDR_CTRL with PMLEN != 0), those two addresses differ: a
+user pointer whose top PMLEN bits hold a tag passes access_ok() after
+untagging, but the atomic is then performed on the still-tagged raw
+address.
 
-Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+Supervisor-mode data accesses are not subject to the U-mode pointer
+masking (that is governed by menvcfg.PMM, which the kernel does not set),
+so hardware does not strip the tag for the kernel's own access.  With
+Sv57 and PMLEN=16 the tag bits overlap the canonical-address bits, so a
+tagged pointer can name a canonical kernel virtual address (e.g. in the
+linear map) whose untagged form is a valid user address.  An unprivileged
+process can thus make FUTEX_WAKE_OP perform an atomic read-modify-write on
+an arbitrary kernel address, with the matching FUTEX_OP_CMP_* result
+serving as a read oracle.
+
+get_user()/put_user()/raw_copy_{to,from}_user() already untag the pointer
+after the access_ok() check; do the same in the futex helpers so the
+atomic operates on the address that was actually validated.
+
+Fixes: 2e1743085887 ("riscv: Add support for the tagged address ABI")
+Reviewed-by: Samuel Holland <samuel.holland@sifive.com>
+Signed-off-by: Ziyi Guo <guoziyi114@gmail.com>
 ---
- arch/s390/include/asm/vtime.h  |   2 +
- arch/s390/include/asm/vtimer.h |  30 -----
- arch/s390/kernel/process.c     |   1 -
- arch/s390/kernel/smp.c         |   2 +-
- arch/s390/kernel/time.c        |   2 +-
- arch/s390/kernel/vtime.c       | 212 ++-------------------------------
- 6 files changed, 12 insertions(+), 237 deletions(-)
- delete mode 100644 arch/s390/include/asm/vtimer.h
+Changes in v2:
+- Drop the inline comments (Samuel Holland)
+- Add Samuel's Reviewed-by
 
-diff --git a/arch/s390/include/asm/vtime.h b/arch/s390/include/asm/vtime.h
-index da116a93d3b6..22e494b22192 100644
---- a/arch/s390/include/asm/vtime.h
-+++ b/arch/s390/include/asm/vtime.h
-@@ -8,6 +8,8 @@
+v1: https://lore.kernel.org/all/20261001184355.2395068-1-guoziyi114@gmail.com/
+
+ arch/riscv/include/asm/futex.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/arch/riscv/include/asm/futex.h b/arch/riscv/include/asm/futex.h
+index 90c86b115e00..6f3bc9bdb85e 100644
+--- a/arch/riscv/include/asm/futex.h
++++ b/arch/riscv/include/asm/futex.h
+@@ -40,6 +40,7 @@ arch_futex_atomic_op_inuser(int op, int oparg, int *oval, u32 __user *uaddr)
  
- DECLARE_PER_CPU(u64, mt_cycles[8]);
+ 	if (!access_ok(uaddr, sizeof(u32)))
+ 		return -EFAULT;
++	uaddr = untagged_addr(uaddr);
  
-+void vtime_init(void);
-+
- static inline void update_timer_sys(void)
- {
- 	struct lowcore *lc = get_lowcore();
-diff --git a/arch/s390/include/asm/vtimer.h b/arch/s390/include/asm/vtimer.h
-deleted file mode 100644
-index e601adaa6320..000000000000
---- a/arch/s390/include/asm/vtimer.h
-+++ /dev/null
-@@ -1,30 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--/*
-- *  Copyright IBM Corp. 2003, 2012
-- *  Virtual CPU timer
-- *
-- *  Author(s): Jan Glauber <jan.glauber@de.ibm.com>
-- */
--
--#ifndef _ASM_S390_TIMER_H
--#define _ASM_S390_TIMER_H
--
--#define VTIMER_MAX_SLICE (0x7fffffffffffffffULL)
--
--struct vtimer_list {
--	struct list_head entry;
--	u64 expires;
--	u64 interval;
--	void (*function)(unsigned long);
--	unsigned long data;
--};
--
--extern void init_virt_timer(struct vtimer_list *timer);
--extern void add_virt_timer(struct vtimer_list *timer);
--extern void add_virt_timer_periodic(struct vtimer_list *timer);
--extern int mod_virt_timer(struct vtimer_list *timer, u64 expires);
--extern int mod_virt_timer_periodic(struct vtimer_list *timer, u64 expires);
--extern int del_virt_timer(struct vtimer_list *timer);
--extern void vtime_init(void);
--
--#endif /* _ASM_S390_TIMER_H */
-diff --git a/arch/s390/kernel/process.c b/arch/s390/kernel/process.c
-index 416650ae4871..4c73d2528fcb 100644
---- a/arch/s390/kernel/process.c
-+++ b/arch/s390/kernel/process.c
-@@ -35,7 +35,6 @@
- #include <asm/cpu_mf.h>
- #include <asm/processor.h>
- #include <asm/ptrace.h>
--#include <asm/vtimer.h>
- #include <asm/exec.h>
- #include <asm/fpu.h>
- #include <asm/irq.h>
-diff --git a/arch/s390/kernel/smp.c b/arch/s390/kernel/smp.c
-index 32499cad86f0..f7c262a17c03 100644
---- a/arch/s390/kernel/smp.c
-+++ b/arch/s390/kernel/smp.c
-@@ -48,7 +48,7 @@
- #include <asm/setup.h>
- #include <asm/irq.h>
- #include <asm/tlbflush.h>
--#include <asm/vtimer.h>
-+#include <asm/vtime.h>
- #include <asm/abs_lowcore.h>
- #include <asm/sclp.h>
- #include <asm/debug.h>
-diff --git a/arch/s390/kernel/time.c b/arch/s390/kernel/time.c
-index 2b989bebd220..dd8a88cc9c4b 100644
---- a/arch/s390/kernel/time.c
-+++ b/arch/s390/kernel/time.c
-@@ -48,9 +48,9 @@
- #include <asm/vdso.h>
- #include <asm/irq.h>
- #include <asm/irq_regs.h>
--#include <asm/vtimer.h>
- #include <asm/stp.h>
- #include <asm/cio.h>
-+#include <asm/vtime.h>
- #include "entry.h"
+ 	switch (op) {
+ 	case FUTEX_OP_SET:
+@@ -82,6 +83,7 @@ futex_atomic_cmpxchg_inatomic(u32 *uval, u32 __user *uaddr,
  
- union tod_clock __bootdata_preserved(tod_clock_base);
-diff --git a/arch/s390/kernel/vtime.c b/arch/s390/kernel/vtime.c
-index efcbf406f03e..d9fd39c5732e 100644
---- a/arch/s390/kernel/vtime.c
-+++ b/arch/s390/kernel/vtime.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-- *    Virtual cpu timer based timer functions.
-+ *    Virtual CPU time accounting
-  *
-  *    Copyright IBM Corp. 2004, 2012
-  *    Author(s): Jan Glauber <jan.glauber@de.ibm.com>
-@@ -14,7 +14,6 @@
- #include <linux/time.h>
- #include <asm/alternative.h>
- #include <asm/cputime.h>
--#include <asm/vtimer.h>
- #include <asm/vtime.h>
- #include <asm/cpu_mf.h>
- #include <asm/idle.h>
-@@ -22,19 +21,14 @@
+ 	if (!access_ok(uaddr, sizeof(u32)))
+ 		return -EFAULT;
++	uaddr = untagged_addr(uaddr);
  
- #include "entry.h"
- 
--static void virt_timer_expire(void);
--
--static LIST_HEAD(virt_timer_list);
--static DEFINE_SPINLOCK(virt_timer_lock);
--static atomic64_t virt_timer_current;
--static atomic64_t virt_timer_elapsed;
-+#define CPU_TIMER_MAX	0x7fffffffffffffffUL
- 
- DEFINE_PER_CPU(u64, mt_cycles[8]);
- static DEFINE_PER_CPU(u64, mt_scaling_mult) = { 1 };
- static DEFINE_PER_CPU(u64, mt_scaling_div) = { 1 };
- static DEFINE_PER_CPU(unsigned long, mt_scaling_jiffies);
- 
--static inline void set_vtimer(u64 expires)
-+static inline void cpu_timer_init(u64 value)
- {
- 	struct lowcore *lc = get_lowcore();
- 	u64 timer;
-@@ -42,18 +36,9 @@ static inline void set_vtimer(u64 expires)
- 	asm volatile(
- 		"	stpt	%0\n"	/* Store current cpu timer value */
- 		"	spt	%1"	/* Set new value imm. afterwards */
--		: "=Q" (timer) : "Q" (expires));
-+		: "=Q" (timer) : "Q" (value));
- 	lc->system_timer += lc->last_update_timer - timer;
--	lc->last_update_timer = expires;
--}
--
--static inline int virt_timer_forward(u64 elapsed)
--{
--	lockdep_assert_irqs_disabled();
--	if (list_empty(&virt_timer_list))
--		return 0;
--	elapsed = atomic64_add_return(elapsed, &virt_timer_elapsed);
--	return elapsed >= atomic64_read(&virt_timer_current);
-+	lc->last_update_timer = value;
- }
- 
- static void update_mt_scaling(void)
-@@ -125,7 +110,7 @@ static inline void vtime_reset_last_update(struct lowcore *lc)
-  * Update process times based on virtual cpu times stored by entry.S
-  * to the lowcore fields user_timer, system_timer & steal_clock.
-  */
--static int do_account_vtime(struct task_struct *tsk)
-+static void do_account_vtime(struct task_struct *tsk)
- {
- 	u64 timer, clock, user, guest, system, hardirq, softirq;
- 	struct lowcore *lc = get_lowcore();
-@@ -172,8 +157,6 @@ static int do_account_vtime(struct task_struct *tsk)
- 		account_system_index_scaled(tsk, hardirq, CPUTIME_IRQ);
- 	if (softirq)
- 		account_system_index_scaled(tsk, softirq, CPUTIME_SOFTIRQ);
--
--	return virt_timer_forward(user + guest + system + hardirq + softirq);
- }
- 
- void vtime_task_switch(struct task_struct *prev)
-@@ -203,8 +186,7 @@ void vtime_flush(struct task_struct *tsk)
- 	struct lowcore *lc = get_lowcore();
- 	u64 steal, avg_steal;
- 
--	if (do_account_vtime(tsk))
--		virt_timer_expire();
-+	do_account_vtime(tsk);
- 
- 	steal = lc->steal_timer;
- 	avg_steal = lc->avg_steal_timer;
-@@ -247,187 +229,9 @@ void vtime_account_hardirq(struct task_struct *tsk)
- 	get_lowcore()->hardirq_timer += vtime_delta();
- }
- 
--/*
-- * Sorted add to a list. List is linear searched until first bigger
-- * element is found.
-- */
--static void list_add_sorted(struct vtimer_list *timer, struct list_head *head)
--{
--	struct vtimer_list *tmp;
--
--	list_for_each_entry(tmp, head, entry) {
--		if (tmp->expires > timer->expires) {
--			list_add_tail(&timer->entry, &tmp->entry);
--			return;
--		}
--	}
--	list_add_tail(&timer->entry, head);
--}
--
--/*
-- * Handler for expired virtual CPU timer.
-- */
--static void virt_timer_expire(void)
--{
--	struct vtimer_list *timer, *tmp;
--	unsigned long elapsed;
--	LIST_HEAD(cb_list);
--
--	/* walk timer list, fire all expired timers */
--	spin_lock(&virt_timer_lock);
--	elapsed = atomic64_read(&virt_timer_elapsed);
--	list_for_each_entry_safe(timer, tmp, &virt_timer_list, entry) {
--		if (timer->expires < elapsed)
--			/* move expired timer to the callback queue */
--			list_move_tail(&timer->entry, &cb_list);
--		else
--			timer->expires -= elapsed;
--	}
--	if (!list_empty(&virt_timer_list)) {
--		timer = list_first_entry(&virt_timer_list,
--					 struct vtimer_list, entry);
--		atomic64_set(&virt_timer_current, timer->expires);
--	}
--	atomic64_sub(elapsed, &virt_timer_elapsed);
--	spin_unlock(&virt_timer_lock);
--
--	/* Do callbacks and recharge periodic timers */
--	list_for_each_entry_safe(timer, tmp, &cb_list, entry) {
--		list_del_init(&timer->entry);
--		timer->function(timer->data);
--		if (timer->interval) {
--			/* Recharge interval timer */
--			timer->expires = timer->interval +
--				atomic64_read(&virt_timer_elapsed);
--			spin_lock(&virt_timer_lock);
--			list_add_sorted(timer, &virt_timer_list);
--			spin_unlock(&virt_timer_lock);
--		}
--	}
--}
--
--void init_virt_timer(struct vtimer_list *timer)
--{
--	timer->function = NULL;
--	INIT_LIST_HEAD(&timer->entry);
--}
--EXPORT_SYMBOL(init_virt_timer);
--
--static inline int vtimer_pending(struct vtimer_list *timer)
--{
--	return !list_empty(&timer->entry);
--}
--
--static void internal_add_vtimer(struct vtimer_list *timer)
--{
--	if (list_empty(&virt_timer_list)) {
--		/* First timer, just program it. */
--		atomic64_set(&virt_timer_current, timer->expires);
--		atomic64_set(&virt_timer_elapsed, 0);
--		list_add(&timer->entry, &virt_timer_list);
--	} else {
--		/* Update timer against current base. */
--		timer->expires += atomic64_read(&virt_timer_elapsed);
--		if (likely((s64) timer->expires <
--			   (s64) atomic64_read(&virt_timer_current)))
--			/* The new timer expires before the current timer. */
--			atomic64_set(&virt_timer_current, timer->expires);
--		/* Insert new timer into the list. */
--		list_add_sorted(timer, &virt_timer_list);
--	}
--}
--
--static void __add_vtimer(struct vtimer_list *timer, int periodic)
--{
--	unsigned long flags;
--
--	timer->interval = periodic ? timer->expires : 0;
--	spin_lock_irqsave(&virt_timer_lock, flags);
--	internal_add_vtimer(timer);
--	spin_unlock_irqrestore(&virt_timer_lock, flags);
--}
--
--/*
-- * add_virt_timer - add a oneshot virtual CPU timer
-- */
--void add_virt_timer(struct vtimer_list *timer)
--{
--	__add_vtimer(timer, 0);
--}
--EXPORT_SYMBOL(add_virt_timer);
--
--/*
-- * add_virt_timer_int - add an interval virtual CPU timer
-- */
--void add_virt_timer_periodic(struct vtimer_list *timer)
--{
--	__add_vtimer(timer, 1);
--}
--EXPORT_SYMBOL(add_virt_timer_periodic);
--
--static int __mod_vtimer(struct vtimer_list *timer, u64 expires, int periodic)
--{
--	unsigned long flags;
--	int rc;
--
--	BUG_ON(!timer->function);
--
--	if (timer->expires == expires && vtimer_pending(timer))
--		return 1;
--	spin_lock_irqsave(&virt_timer_lock, flags);
--	rc = vtimer_pending(timer);
--	if (rc)
--		list_del_init(&timer->entry);
--	timer->interval = periodic ? expires : 0;
--	timer->expires = expires;
--	internal_add_vtimer(timer);
--	spin_unlock_irqrestore(&virt_timer_lock, flags);
--	return rc;
--}
--
--/*
-- * returns whether it has modified a pending timer (1) or not (0)
-- */
--int mod_virt_timer(struct vtimer_list *timer, u64 expires)
--{
--	return __mod_vtimer(timer, expires, 0);
--}
--EXPORT_SYMBOL(mod_virt_timer);
--
--/*
-- * returns whether it has modified a pending timer (1) or not (0)
-- */
--int mod_virt_timer_periodic(struct vtimer_list *timer, u64 expires)
--{
--	return __mod_vtimer(timer, expires, 1);
--}
--EXPORT_SYMBOL(mod_virt_timer_periodic);
--
--/*
-- * Delete a virtual timer.
-- *
-- * returns whether the deleted timer was pending (1) or not (0)
-- */
--int del_virt_timer(struct vtimer_list *timer)
--{
--	unsigned long flags;
--
--	if (!vtimer_pending(timer))
--		return 0;
--	spin_lock_irqsave(&virt_timer_lock, flags);
--	list_del_init(&timer->entry);
--	spin_unlock_irqrestore(&virt_timer_lock, flags);
--	return 1;
--}
--EXPORT_SYMBOL(del_virt_timer);
--
--/*
-- * Start the virtual CPU timer on the current CPU.
-- */
- void vtime_init(void)
- {
--	/* set initial cpu timer */
--	set_vtimer(VTIMER_MAX_SLICE);
-+	cpu_timer_init(CPU_TIMER_MAX);
- 	/* Setup initial MT scaling values */
- 	if (smp_cpu_mtid) {
- 		__this_cpu_write(mt_scaling_jiffies, jiffies);
+ 	__enable_user_access();
+ 	__asm__ __volatile__ (
 -- 
-2.53.0
+2.34.1
 
