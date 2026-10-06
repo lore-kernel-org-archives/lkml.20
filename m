@@ -1,69 +1,67 @@
-Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com [209.85.167.170])
+Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EB622D0617
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 22:06:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC66337F310
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 22:06:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791324372; cv=none; b=LEvkDDNw6NK0Lcp+Kq/r1i1uQixIDAj4vkEfcSifMYXTqLDChR4fOREHYuVzuzVrIFT8NVCYXECBrDecyF92E9sCXyS6pZtmJ4Kw2nmUuYv95911AmQx88gGvbRQUq540JjiOm8+z0sD8WZjKAKoNnRco5O1ychbWyKQ642a1DE=
+	t=1791324406; cv=none; b=UvfNXFGjjMr0e8vR1OoJJisim2BtQEelwmNoJ3zyFe4hkUP9bYK1QYbj7o0BzrthbjHsLAfVXYva5WzUSUp395lUB2A7pA5TWr3rPcU02UJTX3yhFs4cjl8zLb8utdSDT0RGqHFzYuQUXMdvhfBh0IarZ9BYI6UDPHWZvZgz5wg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791324372; c=relaxed/simple;
-	bh=c/drCJen5LJMtn3pQqXT+RbL6rm/KkIjmd4Ej7ez9pk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=K8+JNlTzMiGMRTzLXPHAjQXtwKFboe9wx/stVxhSjM6zNa+XXq6OGOR3fVxvcYNphYb7FxS/zIh2/u2eKKONA0t20nZo3auserRLF041t1PlQDAREnUqBLBN7YU8v3/Ia3IlA84UCePbpAg6S9QhSJobw5V0s9pYr4QnjnGRYc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=Xb2csrNa; arc=none smtp.client-ip=209.85.167.170
+	s=arc-20240116; t=1791324406; c=relaxed/simple;
+	bh=S0hzy6+FdzanYQq8RA+km9ypXgv2p7Rwg6W8f/13eaA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JOX7tVYXvA8hjwAnZ9MM29IxO8bjZMDaMPUfw5rvdf2wqD2mkF1MCyb/tl4bkk5hdtfm/bCQ0hhk37uEpEIvULNTcCZIk8aHovkZFBS+ieQLCUSnBRjN2+y50VslwlNg0gFZI6PCKtnfTiOowQuDDh7P2y1SadhcVLWBriLL384=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=WwGVDmAp; arc=none smtp.client-ip=209.85.210.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="Xb2csrNa"
-Received: by mail-oi1-f170.google.com with SMTP id 5614622812f47-4f59e61f295so794504b6e.3
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 15:06:11 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="WwGVDmAp"
+Received: by mail-ot1-f45.google.com with SMTP id 46e09a7af769-821a7bee9b2so1234388a34.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 15:06:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1791324370; x=1791929170; darn=vger.kernel.org;
+        d=openai.com; s=google; t=1791324403; x=1791929203; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=r/J703MqDk74gwFcythehYWn182MykFiNjG1Hjsd4aM=;
-        b=Xb2csrNakjRLjNRB8ncODQgCjnoOrcaNFjigLK37WK34bGwgjwXqOvpC2rcBxHBszU
-         H0oQdbn1L42Xrh+UW9VMA0RzxO8GH2YWmt/mDXs4A3ty4Vh5CKc5ORPnDJ1hU2/O6Hbk
-         +/63XA/Debbbi+u98D1pGrHf2PAEt67OFkis0=
+        bh=nBf3erK4lQNAxshTTULuJxGlEdxTadfb57Bl++VwwQo=;
+        b=WwGVDmApgz6LqmTXG7L2JSX0wxrdUDXUxTP0l+4FS/LQgJQX+HmVWDSxTIPpfg42DT
+         0o5GYMcqYiet3na50sC03OfyXA5ZlbMgEPuKjcyU1rLZ2vATW6ZU0bLKXDNN9I6oKjaM
+         z3+EgOy0vdXwt00aQX0UvBRek7KpvBJoqis68=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791324370; x=1791929170;
+        d=1e100.net; s=20260707; t=1791324403; x=1791929203;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=r/J703MqDk74gwFcythehYWn182MykFiNjG1Hjsd4aM=;
-        b=g0mzI0EfvOg+r9ZltaS+r9csOqG+gWg41ayC+fKphR1vu8geooLPGNwQLZIcn1gy7R
-         Dg2r5sX2sIcGSi8UiRW2ehvrmIMwzURTKYDg0Mq37FS8tCQF6ryxJMYK3HUcE0H3qdge
-         COPvhwyPTOPdzkZ4pYfgA4mfKuWjRwxgjHoF0gNlPAtumR+imihS52fFTFRLXB6w9M6r
-         7H6V4nGtZQgUdgZJPtkIrjsfm1IMf9Zi1j6Nc+BNCKIVsdGdXelMQTY5MxQzRBDGv3rD
-         4OP8J5aQbIYQdojyon02gOvIzxVBOzMxO8s2X9dQvzSLErTsfgO0bszeDGO+v7Hzzrkn
-         NKpw==
-X-Gm-Message-State: AFuF++kuEG06/xpEzswOhi2XTz1IKfrcQDAZ0B+H/hlYTRXbALMiLQRm
-	w7qkcwum0T39LeEaQogE90M5h9YUVfZ/x6pFt9inUgo7qbQKCQlSExXKkYLcL+dTkrE=
-X-Gm-Gg: AYBFou0U0DcoX0GOugVP1S2hx5bPdh2o3uR6QaUNd60zxopf8mj7JGv1mSfhanh2Iex
-	dZGmOR4hk6ur9uCUfQUJRXkkIT4D8S9RVb951avti7D8xZ7hEQWD2ZvzdwJLl5WnTVl1jKNp5In
-	xew7jJ6PaEfJbwBsH3XOK4bLuCtaFaYP8DztQHea7Kv/55O6OVxA7F9YEVCCMnF/wNc/jBNl23U
-	iqCAMelZDqyO5QY9ZbmDFvlEmXhdCjaqdTiEsw7nhTgniXCP8feJCopBbJg1kOjehy1pcwEkSeq
-	hTRFSoyX+uUC2dfTqCkbgfNNUCMD/nwCa9iuhuXTy6y9kWrVyJZFIWq4b7W1dN31LxsK4PO55x6
-	BaHeTjQ6QSouB81kC4IaZhjlVXExUfU1LMBXZHl5UNAZxVbgmJ7G+FobuRX5o2e3QARQ/hCS7Pl
-	h44h6zi9ja4jZn3b6QYaQtdb78DtkLfcq9DcfH5/6a7jiqvvTWjC7ZGpuEnkq7D9Bnzk1hWaeHw
-	1A2vZ2+GGM+5CldN6d/THS3s0RWVNc8RlFK0/dNRJgTbmQDGt0M/Q4diYIXoYBH0FUQTEOKu5S7
-	SQ2ub51ddQ==
-X-Received: by 2002:a05:6808:13cf:b0:4c3:95d:91f1 with SMTP id 5614622812f47-4fc435fc500mr735773b6e.1.1791324370150;
-        Tue, 06 Oct 2026 15:06:10 -0700 (PDT)
+        bh=nBf3erK4lQNAxshTTULuJxGlEdxTadfb57Bl++VwwQo=;
+        b=tmw6Egzr39e+4JX4l1s/9MnafnLKE2FopenyJe/DWCv6imObMG6Z2KD6k1bDIZHd67
+         XoTY9dv3Py80N8f1mBwKPO4tYMGdy/BH0zqamyN4Njyyyd4I/XuBJWNn5tB1JejaJUfd
+         MJx5VSFBc2z+p4N5Fj03m7r2d2s75r5mVe8P9Zg7GPFh/rLq9c8R3bsFgctw7SHb2Wfh
+         sr9DbWWD+GyibCG9DYyRDO72SOkzsyaobXYYn5L8KJizy/rhM7pw9HzZdRbqGyG9RdQj
+         8QPWhL0yfOLMMIZom7FeHNcLnL2Dp3BKcAY6sp5Y2b8/MkwjiqhV6JyCIOqctNxpXJTd
+         ZYtQ==
+X-Gm-Message-State: AFuF++lvdZ7Eopqy43c7OzqQySoUxpnqZM53h/AGwyiSj+GoeUlc8TxR
+	IQRjuz772YphFVEHBwqK3Nx6PMM1tbkTVrUMG0Q82zXInk1FgMKz9R4uMyM1hIa3N2CzjO9pwk9
+	EN7/4ce0=
+X-Gm-Gg: AYBFou28SttMOMkaHOe4s7gUu8XrNo8VyrXq+2Bru3hL5XenTJA+p8rSG56w2Oqbs/D
+	77IzovC9FShvyiyKOy+diOdDWAr+vHL6nrZFutzvAymNt6c+5IBstiU9apCO3B6sU12SUid1JqL
+	0XUZjJ5vRSJyo1jX9tgWsM5OoldFnLUZq0u2+n5TBD6nCt/xl4OygiUF3MDQYFks3sov0EpuUz/
+	1FGcRmQmoCNXmhILmfLmGaQL6Mvk3VGB/iB3guubMU3hH8jYGKMLFkdBBGdd928XD2B3oAWUcgo
+	qTadcMcoc+7mjS8CoagHpMv2KD8hsJUucanSBASXWEmDbz73neOZb8hbWDGUwgOELjvt3lPVjRG
+	RJ48vI32EydKpcQDjHwYeIwc4tjgR/9DaW0SnJ2JFGTjJv9oo/5txzIqud3G2Ivbj1wWpvCaqk8
+	9RIj3EmZXX4/24UKhFtPIDoPYqeKLTQd3zCCLCu7dmnqP7Vf/CnFM2GKdBH7VyhgeEILge7xXpH
+	NbaHyBaI1iwrfq8pH+OcusEJ9ExrTfthEnUV9l+LMoz1/8q+1MCBG+7QP4v72iB5xVH51sPfmo=
+X-Received: by 2002:a05:6830:8548:20b0:814:ab94:7779 with SMTP id 46e09a7af769-82802951d62mr2576272a34.7.1791324403574;
+        Tue, 06 Oct 2026 15:06:43 -0700 (PDT)
 Received: from com-75606.corp.openai.org ([199.47.143.7])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4fc48e35ba6sm508311b6e.8.2026.10.06.15.06.09
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-82adbded9afsm713790a34.7.2026.10.06.15.06.42
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 06 Oct 2026 15:06:09 -0700 (PDT)
+        Tue, 06 Oct 2026 15:06:43 -0700 (PDT)
 From: Kyle Zeng <kylebot@openai.com>
-To: linux-crypto@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	herbert@gondor.apana.org.au,
-	davem@davemloft.net,
+To: linux-kernel@vger.kernel.org
+Cc: akpm@linux-foundation.org,
 	Kyle Zeng <kylebot@openai.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] crypto: algif_skcipher - Fix receive iterator advancement
-Date: Tue,  6 Oct 2026 15:05:23 -0700
-Message-ID: <20261006220523.31218-1-kylebot@openai.com>
+Subject: [PATCH] assoc_array: Preserve full words when splitting shortcuts
+Date: Tue,  6 Oct 2026 15:06:38 -0700
+Message-ID: <20261006220638.32195-1-kylebot@openai.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -73,55 +71,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-af_alg_get_rsgl() advances the receive iterator by the full RX scatterlist
-length.  A non-final skcipher request then rounds that length down to a
-multiple of the cipher's chunksize without returning the unused suffix
-to the iterator.  If the receive loop processes another request, it
-writes past that suffix even though the returned byte count includes
-only the processed lengths.  The socket splice fallback can consequently
-publish uninitialized bytes from its newly allocated pages.
+assoc_array_insert_mid_shortcut() copies enough index-key words for the
+new pre-shortcut, then masks off the unused bits in its last word.  If
+diff is word-aligned, the shift is zero and the mask clears that entire
+word, even though all of it belongs to the required prefix.  The new
+shortcut no longer matches the objects behind it, so lookups can fail
+for both the existing objects and the new one.
 
-Save the iterator before gathering the RX scatterlist.  After processing
-the request and releasing its resources, restore the iterator and advance
-it only by the successfully processed length.  This also leaves the
-iterator unchanged if gathering or processing the request fails.  Keep
-the existing cipher request lengths, continuation flags and scatterlist
-cleanup unchanged.
+For example, inserting a user key with a different description length
+into a keyring containing enough full-hash collisions can split a
+shortcut at bit 64 and erase its hash word.  The resulting search
+failure can also expose the pointer-dependent keyring hash as a KASLR
+oracle.
 
-Fixes: e870456d8e7c ("crypto: algif_skcipher - overhaul memory management")
+Only trim the last word when diff ends inside it.  This mirrors
+commit bb2ba2d75a2d ("assoc_array: Fix shortcut creation"), which fixed
+the terminal-node case, and leaves non-word-aligned splits unchanged.
+
+Fixes: 3cb989501c26 ("Add a generic associative array implementation.")
 Cc: stable@vger.kernel.org
 Assisted-by: Codex:gpt-6-astra
 Signed-off-by: Kyle Zeng <kylebot@openai.com>
 ---
- crypto/algif_skcipher.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ lib/assoc_array.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/crypto/algif_skcipher.c b/crypto/algif_skcipher.c
-index 1e61fe6e24b9..21d077a54dd5 100644
---- a/crypto/algif_skcipher.c
-+++ b/crypto/algif_skcipher.c
-@@ -107,6 +107,7 @@ static int _skcipher_recvmsg(struct socket *sock, struct msghdr *msg,
- 	struct alg_sock *pask = alg_sk(psk);
- 	struct af_alg_ctx *ctx = ask->private;
- 	struct crypto_skcipher *tfm = pask->private;
-+	struct iov_iter saved_iter = msg->msg_iter;
- 	unsigned int bs = crypto_skcipher_chunksize(tfm);
- 	struct af_alg_async_req *areq;
- 	unsigned cflags = 0;
-@@ -193,6 +194,11 @@ static int _skcipher_recvmsg(struct socket *sock, struct msghdr *msg,
- free:
- 	af_alg_free_resources(areq);
+diff --git a/lib/assoc_array.c b/lib/assoc_array.c
+index b6c9723e12ce..20ef69e03780 100644
+--- a/lib/assoc_array.c
++++ b/lib/assoc_array.c
+@@ -865,9 +865,11 @@ static bool assoc_array_insert_mid_shortcut(struct assoc_array_edit *edit,
+ 		memcpy(new_s0->index_key, shortcut->index_key,
+ 		       flex_array_size(new_s0, index_key, keylen));
  
-+	/* The RX SGL may be longer than the request actually processed. */
-+	msg->msg_iter = saved_iter;
-+	if (!err)
-+		iov_iter_advance(&msg->msg_iter, len);
-+
- 	return err ? err : len;
- }
- 
-
-base-commit: fd179f8a05be3ccae366b9b96e176b51fbe54aab
+-		blank = ULONG_MAX << (diff & ASSOC_ARRAY_KEY_CHUNK_MASK);
+-		pr_devel("blank off [%zu] %d: %lx\n", keylen - 1, diff, blank);
+-		new_s0->index_key[keylen - 1] &= ~blank;
++		if (diff & ASSOC_ARRAY_KEY_CHUNK_MASK) {
++			blank = ULONG_MAX << (diff & ASSOC_ARRAY_KEY_CHUNK_MASK);
++			pr_devel("blank off [%zu] %d: %lx\n", keylen - 1, diff, blank);
++			new_s0->index_key[keylen - 1] &= ~blank;
++		}
+ 	} else {
+ 		pr_devel("no pre-shortcut\n");
+ 		edit->set[0].to = assoc_array_node_to_ptr(new_n0);
 -- 
 2.53.0
 
