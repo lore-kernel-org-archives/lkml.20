@@ -1,142 +1,117 @@
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12C18397B02
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 06:43:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14ACD39F165
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 06:43:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791268985; cv=none; b=XPN/xmSK7aYdfI1Ds0L29dKAb/LMUu0KB9HPdafbjN21jcqExPKWjXYyhJ/seFIedxRqWe2lyBm+/umjlvhR8t65DhyZPDGhwZuE0yqskKVcYZx/oVR/ZmqwuxoWEwJ1RhwNJYuK1kBz+Tr/H1251KcjdpxvjD6v7/LVY3vVeL8=
+	t=1791269038; cv=none; b=A+y0Klc5rEfwKFBJP/sPZAL3oLL1r8JzJ5xx1kuO4i4bE1tdfgfzObeozxatvv/VkYDqTxsPlF9tlcJfXyCoE8jQwGKO7s+epRXEeNQpmtlC8Dz01syhPG8TxjlvmZ7r5jerDJFcBUdJ2W1ZeUfp6r3qTT2WIdV+9fad2r7nCIw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791268985; c=relaxed/simple;
-	bh=LPA4AM/vfcSgBS/S0JOUdZBplbpkl3iyy1X111JdKXs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=u7T25/ZDgryA/sEh2u6gD8h7WBiZPaa04drogeKjS+dqi0IRWzmXCa/yYjQBl8dDJ/k7l+wEZVxJKyV+fZCePiX8P/XZdtDLbW9hyXgbmrAeW3GHpPZIBwj8rHg9CVjMzzc+stCmnrHcr0KTZzPuErF24MRJ8z0GaOnAioZrZnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DcU7Shu3; arc=none smtp.client-ip=74.125.82.178
+	s=arc-20240116; t=1791269038; c=relaxed/simple;
+	bh=J41VmjD4EFgYfzl/7VgyVDca9LLRoFkhtnzas6rTGds=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pFvBsfKhoBmm3ujNHOMek0Ab/MgYu5U7OoNFhqOOUGj0P5roZFnHjbeAXby1UOV0nrxE+KHEYuHe/QyXbySk5AM66NvZ1qPdMu8g5wONIZ94DkTwYwK8OCgdb5ys3D0xejnOIPSdplrnfmKJ6YinrqfsL2Gf3PeoYk68S/lHPGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=djiHs3Z5; arc=none smtp.client-ip=209.85.128.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DcU7Shu3"
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-3282db206d3so7825753eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 23:43:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="djiHs3Z5"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a172eb31f0so2451915e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 23:43:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791268983; x=1791873783; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HcianPOZJYcBmieDb1o4dWGCk/aX34XvMBlFCiEYCc4=;
-        b=DcU7Shu3YMzQvz60HJZoeh0S3B7cQZDcYRR6NhQKWaux3nmQ7SfQ20Ilz920CJvgDt
-         Zz5ESqDIUklR6U3B0HN6ArWK29x/wNLKWbPOeEcQsRohrOQ+B/rOTkxqyCQvQM9KQyfL
-         cScUg+hKd/QWsCmXBcbfcbh400AsgFxjD/7aQIVhi41/6hnN0CcYBR3oydMqF7J/GgCy
-         lmlljRVsV0DmLDgqLbiokYVsAD9Z6chFFjeoXdZe2zXRsck53uAiEveuCfh80HqYMcRL
-         W9bJVvCyutAQUCU45q3wQzRxb20i2SPQHvMwencQqun84u5lS07Ig3o2LKSrEzVPNmP0
-         5hzA==
+        d=gmail.com; s=20251104; t=1791269035; x=1791873835; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dCBQ9OSiuHfTq4KBApOUdi5q97pueuXHIVTklJDANJE=;
+        b=djiHs3Z5Y7QvwNVYxBx9grq1YFmkW2qIfiEqe50mCx7F4WfZmCvSrf8T5Dd8MfqBOU
+         oN0xqYux6Z0Nc90aFiX0De/gdt0jY/sECK/MfJoLcV6ABk1MCN7h3KyNu/mrPSi3W/Vw
+         9ebOk/3sHG+zT+CNE1rPu40/icnkT0S0L/XSlRYuSDlJSM3+3svaSqpntFKAK0DhmaGY
+         T3XePomQHZKDZjjsklUDZZhyxu5gLjZtw6ZZu2vkBvDmmVFapbg5XEImTxqRs8+a12KV
+         TrAEMwUZNxZopN6XAhWhDB3Cw2c3kJvU+zDDdeuzJEcdm7/y9e76Y3dvvvQgMD8UMe3X
+         k8QQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791268983; x=1791873783;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1791269035; x=1791873835;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=HcianPOZJYcBmieDb1o4dWGCk/aX34XvMBlFCiEYCc4=;
-        b=un+4BoasunwIfQnm7JNJG+MEnjryj3fbDdHPS9UCz0MNFK7buly1TMJryJ+26X1lFP
-         kQbLI9f/oBN55FkLwBABz0eQmHcQ2LJTSTQ3zTxN32TYw6EQID8I1WUaBcQJlCS/XGHW
-         BJPyK0fWHchW9Ai4l/lqOXwIZIhzOXVztMgZLJsrUNBUoKBeDXqL9S5T8SoGt78qJlQs
-         SWj1NkxqhOTrxCe6BIyEvgytd7TJO3tik+Cdg7dqjKyaQE2txlqzzhdQL7JtTEvAvnCL
-         sEpA0B/gwotYiT1luk1+IPb3MwV+FLPfequtQd4ZF9/Oyhorfk7W/E9gUsw/DWFtYm1s
-         pY+w==
-X-Forwarded-Encrypted: i=1; AKwUvBwfyoSw5fVMFiG6qMYquVl0OksnNTYQxlDHSEfbV8+lpxrlI/XDdakvy4eji0k/iHcLp9nRqcs0kG7XPB8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLSFexpktqG0SdAwrdpemFefrQbDvpHEueSaHNvc7TDRZCGf+9h
-	hA1iqJK9Bp42hHLgSma4lePE5hasNyu+h0Wdnf++WtuTgTVZHkeua4wbWFApvZNn
-X-Gm-Gg: AYBFou3anHNnO5UAELhHBglsCtkP0vb2nz6r8hT4f7ISU3yZDZFGHLL6M206XXTXqDg
-	vfPopr6J9dW7gl4qRaB4A8fQlmHmHbdNiXvroS8tRo2TsKd2IZIS100PBmuN2l+nvlsx7wyUNnw
-	vcohWPiYu0Mo79dgX/H7ZAwosy/2+r0iTLiguC0DsGsoiGGJiwHcHCtNX78Sy+1Dh9bQkZoDUZo
-	xdOLTWn2u+be/I5U8oUvi124SnMOzEr6DoKzrn3lzhqj0G9CjdfJ4vZVo0KDE+bZt/DUpyn1n/z
-	sFO04171w5AWZj3ivYUjxLcllzQgVcPUPxS4ZZa/cnu6+toO/ib7xaps7h0bg5r3uWqzJskSjIY
-	TGRoaAuFGCDSslpkzg2TSg71itnGpEyCrZJiGp6FdPQnsBSnCoSLZ4UbIbNZ2svfhTtP4QL+7gS
-	2NAUKCoqTP0K6d8gPlW0OgvA55IvfZ6m4fP91QcsBo58kGwNWnn7I3N/cRYfmuYGvlFtkfM6jOx
-	vIOEQiV
-X-Received: by 2002:a05:7301:18a3:b0:34e:67d0:bbb9 with SMTP id 5a478bee46e88-351116caa62mr11416936eec.29.1791268983110;
-        Mon, 05 Oct 2026 23:43:03 -0700 (PDT)
-Received: from localhost.localdomain ([2a09:bac5:55f5:25c3::3c3:b])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35146a2c991sm4617347eec.14.2026.10.05.23.42.56
+        bh=dCBQ9OSiuHfTq4KBApOUdi5q97pueuXHIVTklJDANJE=;
+        b=U3OStxdAuR5sPXTVWiZKTfB3qtD5nz6mz85hLY0NYqlQMlOPKBtoX82G6xFHMnQupH
+         LmsUXoStrvy0O0F6huidBmnazRFKDbOoYgxnw18hAyiUYoPJHYCsfVLrmsmUiwNlcNhL
+         hbJ8BdNtVfFWsSVGcVMrcqts1mSanxp9hEgJ0LhCctPyXejz+GZA7jYcZuUtiOt+PDa3
+         /xSW19MD6P/vr64ScGYkyDf2IKiyxbbMfGET7iIqlFr7mAiCJn5b1+8DrJVyEgv3+lBo
+         ZJyTuNvbnqVnl/2/Nel9g/vfnCZCXjwF8o3aPPha+PzQPOiFMtTrQVZX+sUtuOzhePHI
+         yHaA==
+X-Forwarded-Encrypted: i=1; AKwUvBwnUiqfV89PnKojWOqS4uWKfYPiqpD6hOk0UV8gl56DDbvx2/xoBW534dA8sdRSZI+brjR4zcjujntqmQk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lThbMpWSo6aogKmcqTMom6g5uLaYP7/ssRneStqq7I6dhqa3hr
+	sFctpKi0qu9eP4+rP6bahKI0X8IV3vbKkI3WIHxf+zNzQN7HfKTSKoRc
+X-Gm-Gg: AYBFou2KC/0FXdploXOdgbicdMwC5/M7wYatljtoxF3j9mtRtINM/zMpvkXyo/eNn2g
+	SdzsNW96vtPLBIk4KlK860j6W4i5ScC6205ZnorcNgz+Iou20SoSDuhM1u/VdQGQslLPLkoOefG
+	65fJZHjoCThWgDfo5Q9apn67TK+mrh9H8ov8RlAPjPeHanNskoMhy4K///DKC+yZAhhiePplFWs
+	RBL9k3HVrhndMdL3Ms0I0H0yDmRnngNY8jlPeuZb3kXH+I1Znf9FFVUWthmCAwkS4UQyLbH8ThF
+	GbxOTO1+spaGmRuZNk5MoftNTymeHqYP28vJ/9KHcvDwUGEOt5llo0DVIMq/2i1BLP7tv0m3jjt
+	ZtrRuK3jmNgFgXyJKKgnA3YiU7x0bDsbrevn20Du1pg45/Jh2Zmv4H5+/DdLw8LHs6Qb7ubO0zg
+	FxgVFzgmNllcH1cAFSkxU1oJnGcVrZgpwo7Jcux51NA4fBmRjApCxOInWM569CvWVBC6L6EYv07
+	dc/+ZPWB92GC5ZlP6D0C5d9T0wgKvK/5mJa5FRrFglH+kbWK5Nlb0dG7vRxcWJPB/4SxxlvYm59
+	mQff2Pa8hja/6YaKaawhlkLMMv1nUeSExdLRHmPG0IYYpw9zW0xHQ5EjUkpCLEe9fjjs//SBKk8
+	MhWP83tZf0uk5Oz+JdAXtYpEDsvoA0Qsi958lYY4lABc/IvsYCKUfL12sIfthQA6RVxm1eWVup5
+	+cWqRI
+X-Received: by 2002:a05:600c:3c8d:b0:49f:cbf3:551c with SMTP id 5b1f17b1804b1-4a17b53dd1dmr8467765e9.12.1791269034997;
+        Mon, 05 Oct 2026 23:43:54 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a03feed16bsm327658955e9.4.2026.10.05.23.43.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 23:43:02 -0700 (PDT)
-From: Chuanhong Guo <gch981213@gmail.com>
-Date: Tue, 06 Oct 2026 14:42:24 +0800
-Subject: [PATCH 2/2] clk: mediatek: mt7629: add RTC clock selection
+        Mon, 05 Oct 2026 23:43:54 -0700 (PDT)
+Date: Tue, 6 Oct 2026 08:43:52 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Leonard Crestez <cdleonard@gmail.com>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] iio: trigger: Return an error when the trigger has no
+ free irq
+Message-ID: <20261006084352.00006689@gmail.com>
+In-Reply-To: <20261006034147.2370-1-kmehltretter@gmail.com>
+References: <20261006034147.2370-1-kmehltretter@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261006-b4-mt7629-rtc-v1-2-e556386df816@gmail.com>
-References: <20261006-b4-mt7629-rtc-v1-0-e556386df816@gmail.com>
-In-Reply-To: <20261006-b4-mt7629-rtc-v1-0-e556386df816@gmail.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>
-Cc: linux-clk@vger.kernel.org, linux-mediatek@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, Chuanhong Guo <gch981213@gmail.com>
-X-Mailer: b4 0.14.3
 
-CLK_MODE bits 3:2 select the RTC clock source. Selector 0 uses the
-40 MHz crystal divided by 1024, while selector 3 divides it by 1221
-to provide approximately 32.76 kHz. The integrated Wi-Fi needs this
-/1221 source.
+On Tue,  6 Oct 2026 05:41:47 +0200
+Karl Mehltretter <kmehltretter@gmail.com> wrote:
 
-Add the /1221 fixed-factor clock and the RTC mux so device trees can
-select this source through assigned-clock-parents. Keep CLK_TOP_RTC
-for the existing /1024 source.
+> iio_trigger_attach_poll_func() prints an error when all
+> CONFIG_IIO_CONSUMERS_PER_TRIGGER irqs of the trigger are in use, but
+> returns 0. The buffer of the extra consumer is enabled without a poll
+> function.
+> 
+> Disabling that buffer calls clear_bit() with a negative bit number and
+> drops a module reference for the second time. On arm and arm64 the
+> clear_bit() goes about 512 MB past the pool bitmap. That is an oops if
+> the address is not mapped, and a bit cleared in unrelated memory if it
+> is.
+> 
+> Return the error from iio_trigger_get_irq().
+> 
+> Fixes: 995438233579 ("iio: Fix error handling in iio_trigger_attach_poll_func")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ---
 
-Selector 1 is reserved. Selector 2 is documented as an approximately
-25 kHz PMU bandgap clock, but its source and control are not sufficiently
-described to model it here. Leave these entries unmodelled while
-preserving the hardware selector values.
+A 10 year old bug. Nice find!
 
-Signed-off-by: Chuanhong Guo <gch981213@gmail.com>
----
- drivers/clk/mediatek/clk-mt7629.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/clk/mediatek/clk-mt7629.c b/drivers/clk/mediatek/clk-mt7629.c
-index e154771b1b8b..6336f8c4167b 100644
---- a/drivers/clk/mediatek/clk-mt7629.c
-+++ b/drivers/clk/mediatek/clk-mt7629.c
-@@ -285,6 +285,10 @@ static const char * const infra_mux1_parents[] = {
- 	"armpll"
- };
- 
-+static const char * const rtc_parents[] = {
-+	"rtc", "clk_null", "clk_null", "rtc_32k"
-+};
-+
- static const struct mtk_gate_regs apmixed_cg_regs = {
- 	.set_ofs = 0x8,
- 	.clr_ofs = 0x8,
-@@ -367,6 +371,7 @@ static const struct mtk_fixed_factor top_divs[] = {
- 	FACTOR(CLK_TOP_ETH_500M, "eth_500m", "eth1pll", 1, 1),
- 	FACTOR(CLK_TOP_TXCLK_SRC_PRE, "txclk_src_pre", "sgmiipll_d2", 1, 1),
- 	FACTOR(CLK_TOP_RTC, "rtc", "clkxtal", 1, 1024),
-+	FACTOR(CLK_TOP_RTC_32K, "rtc_32k", "clkxtal", 1, 1221),
- 	FACTOR(CLK_TOP_PWM_QTR_26M, "pwm_qtr_26m", "clkxtal", 1, 1),
- 	FACTOR(CLK_TOP_CPUM_TCK_IN, "cpum_tck_in", "cpum_tck", 1, 1),
- 	FACTOR(CLK_TOP_TO_USB3_DA_TOP, "to_usb3_da_top", "clkxtal", 1, 1),
-@@ -458,6 +463,8 @@ static struct mtk_composite infra_muxes[] = {
- };
- 
- static struct mtk_composite top_muxes[] = {
-+	/* CLK_MODE */
-+	MUX(CLK_TOP_RTC_SEL, "rtc_sel", rtc_parents, 0x000, 2, 2),
- 	/* CLK_CFG_0 */
- 	MUX_GATE(CLK_TOP_AXI_SEL, "axi_sel", axi_parents,
- 		 0x040, 0, 3, 7),
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
 
 -- 
-2.55.0
-
+Kind regards,
+Joshua Crofts
