@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D952338F64D;
-	Tue,  6 Oct 2026 18:44:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF3384A8A35;
+	Tue,  6 Oct 2026 18:44:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791312251; cv=none; b=NIIzY+VmKcgErczOH9vMefLydc0zQZ4KCYP2p71gqerKeUtJHahIAoxBEuHZm+Pl5R8xy0r5PLV2o7zIFrWFP5svl2eIoULi39wEJfC7VwfCf0uCfQrDihrhwCgqTvHOFrWHRtXIYWRPXOx6Cu24GbmPWmG9LsEG+ohf4VEzXWw=
+	t=1791312259; cv=none; b=sMmNSnf/Dps94XO9LgJIUf+D3YS8bXFQ+lW3rnc2Qj4vxcA+A87EiWE8GL08GmhTHeKTANTTLN7xLk/i7xO5NN7XYbdkqa2wHir3uPnUv2o3MIhkLAPU7aJOqxZII+nmuhdAfudlS0ovqMTBE7x075k4tJsDtN+rnE2oZa8QvW4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791312251; c=relaxed/simple;
-	bh=Y6L9Y9ixPDbM6y/vr6p3U+LsSpKfSYPAaWI46E9JIkc=;
+	s=arc-20240116; t=1791312259; c=relaxed/simple;
+	bh=hnjyQyoQKx0QqYhJeh/NWA7hgjLnITEXc6y/oxouJNo=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=B9m25a9rvxsUQeziY1wi6ZXWjzIL6luWwLzGnGPB2zsM4zRtOVma6X1DM7Lk6azdcZG6Bv1aeAJKiityf1QgyB9z+DmVf+beEhJ3M0qPL2OlOxM4pa6c4gDo77NSSG/M/7GrDThIEm2/udXHC7kL+jv5wTvEOpz8hZDv2jR2Eis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WIDFRztX; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=PGD+pTE8Ih4PCGiiOLHFG2/5VI5g2wwXlzgX0cdcP6NXp0eHZUje1cky3QSCcVF8IJdGd6/Q8sPLXp5mrnfDMS5+onjGUdImfapjWhwsYQ4dwTcq7JKvBuRPm437YQ1g6aCa4Qp3rDWc2azgxXsmsr6W2VOY9w3npvFi7IzBLa8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P1gk+pmk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WIDFRztX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D33BA1F0089B;
-	Tue,  6 Oct 2026 18:44:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P1gk+pmk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E165D1F0089C;
+	Tue,  6 Oct 2026 18:44:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791312248;
-	bh=TtyeIp+HpRp4mP+HQW5CeT1e5+71S9zvILV3RP4sF40=;
+	s=k20260515; t=1791312251;
+	bh=3902MVaoy7oxRPS2bpzRRIlv4HX7rnx5iKoibWtn3kE=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=WIDFRztXeztc2/jh3zOpNAmkYeiqDwWY6b18wjIvcaddyyD6tbcHeqbh9pnuoeTM7
-	 gBCiQhrW5DfsiWHP2TXpHf9dZBTS40QB2vG1Fr6MuaFNHPK2VJHApzR910lCKQUihM
-	 boI1ct4s8fxMf90eHELzy7hgtSRyg0zLqq+y7t7+TTx4vGTuLd1Qg9GvmwFCTU0Alb
-	 XX0A+kKeNy9fcvDD4Lfunf73oVC7zhMYVZa9F1ryTQMQZUT9PUViafcdM9WGDFr/Tp
-	 wBMToPP1frC8rQAtWFSw1Lom6RqyNEGwSrnsWEiWQGuLBuMwb+J2pCVExZZ21XtpbY
-	 LcJ23GyYXrvFw==
-Subject: Re: [PATCH net-next v11 4/7] net: dsa: motorcomm: move mib start from
- probe() to dsa_setup()
+	b=P1gk+pmk6/FPNinPoIiEF5bzYp67Ge2vQ+4pByDpEPthFFqH6PIK+IG5nATmZa6HN
+	 xMxSiKhtkV4HlVPF/TzMI0KeOvijZHKdgD1jowSrT3WXB7XAi9AVYKp9m9JetV2D15
+	 tgPwcR+EbvARyYSSAOit1PciE+VaMIvu42heNuIMBaEq6jaKvYVcNe4u6y/DoSfe5s
+	 feN1RPavzp9fZ9LWBBPzlnZc6zgXPYkZEdbJC/aXkK4Q1lVL8h39Ao5EaYYZqQUPZM
+	 MP6bPuK43za3c6acC7Nq9Re92z1GTBtbQtYfZQx+hDehp2x7Vd/WAe+bK3WhiJXyjq
+	 DihetGFuIIqkw==
+Subject: Re: [PATCH net-next v11 6/7] net: dsa: tag_yt922x: add support for
+ Motorcomm YT922x tags
 From: netdev-bot+sashiko@kernel.org
 To: kyle.switch@motor-comm.com
 Cc: andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net,
@@ -36,11 +36,11 @@ Cc: andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net,
  linux-kernel@vger.kernel.org, ming.xu@motor-comm.com,
  xiaolin.xu@motor-comm.com, jianmin.wang@motor-comm.com, wei.zhang@gl-inet.com,
  sijia.huang@gl-inet.com
-Date: Tue, 06 Oct 2026 18:44:07 +0000
-Message-ID: <179131224741.434549.13271700601873587215@kernel.org>
-In-Reply-To: <20261002173706.1225502-5-kyle.switch@motor-comm.com>
-References: <20261002173706.1225502-5-kyle.switch@motor-comm.com>
-X-sashiko-severity: High
+Date: Tue, 06 Oct 2026 18:44:10 +0000
+Message-ID: <179131225045.434549.15006490929783226716@kernel.org>
+In-Reply-To: <20261002173706.1225502-7-kyle.switch@motor-comm.com>
+References: <20261002173706.1225502-7-kyle.switch@motor-comm.com>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -50,218 +50,195 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 1 · Medium: 2 · Low: 1
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+- [Low] The commit message for "net: dsa: tag_yt922x: add support for
+  Motorcomm YT922x tags" is one line ('Add support for Motorcomm YT922x…
+- [Low] Concern: yt922x_tag_rcv() never sets skb->offload_fwd_mark, so
+  the software bridge would duplicate frames the hardware already…
+- [Low] The new NET_DSA_TAG_YT922X entry in net/dsa/Kconfig is indented
+  with spaces: 2 spaces before 'tristate' and 'help', and 4 spaces…
 
-- [High] In this commit, mib_read is re-initialized on every
-  yt921x_dsa_setup(), but yt921x_dsa_teardown() only removes LEDs and…
-- [Medium] In this commit, the only call to
-  INIT_DELAYED_WORK(&pp->mib_read, yt921x_poll_mib) is inside…
-- [Medium] In this commit, yt921x_mdio_remove() runs its
-  disable_delayed_work_sync() loop before dsa_unregister_switch() and…
-- [Low] The subject 'move mib start from probe() to dsa_setup()' does not
-  match the code.
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the new
+  yt922x_tag_rcv() calls dsa_conduit_find_user(netdev, 0, port) and so…
 
 --
 
-net: dsa: motorcomm: move mib start from probe() to dsa_setup()
+net: dsa: tag_yt922x: add support for Motorcomm YT922x tags
 
-This commit moves the per-port pp->index assignment and the
-INIT_DELAYED_WORK() of the MIB polling work from yt921x_mdio_probe()
-into yt921x_dsa_setup(). The works are now initialized once per DSA
-.setup() instead of once per probe().
+This commit adds a DSA tag driver for Motorcomm YT922x switches. The tag
+is 8 bytes, EtherType based, and uses the same EtherType as YT921x
+(0x9988). The commit also adds DSA_TAG_PROTO_YT922X and the Kconfig and
+Makefile entries, and updates the existing YT921x MAINTAINERS entry.
 
-> net: dsa: motorcomm: move mib start from probe() to dsa_setup()
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 3011f995437fd..1a48e4570c698 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -18433,11 +18433,13 @@ F:	drivers/net/phy/motorcomm.c
+>  
+>  MOTORCOMM YT921X ETHERNET SWITCH DRIVER
+>  M:	David Yang <mmyangfl@gmail.com>
+> +M:	Kyle Switch <kyle.switch@motor-comm.com>
 
 [Severity: Low]
-This isn't a bug, but the subject says "mib start". Only the
-INIT_DELAYED_WORK() moves. Polling actually starts in
-yt921x_phylink_mac_link_up(), and this patch does not change that code:
+This isn't a bug, but the commit message is one sentence:
 
-	schedule_delayed_work(&priv->ports[port].mib_read, 0);
+  Add support for Motorcomm YT922x tags with 8bytes. which includes
+  ethertype field (default to 0x9988).
 
-> Move the delayed work initialization of the per-port MIB polling
-> from yt921x_mdio_probe() into the DSA .setup() callback, changing
-> its lifetime from once per probe() to once per DSA .setup().
+It doesn't mention this new M: line. The existing entry already has a
+maintainer and covers drivers/net/dsa/motorcomm/, the DT binding and
+tag_yt921x.c. Should the co-maintainer addition be a separate patch with
+an ack from David Yang?
 
-The body does not say why the move is needed. It also leaves out that
-pp->index moves as well.
+The commit message also doesn't say why YT922x needs a new tag protocol.
+It uses the same ETH_P_YT921X EtherType and the same 8-byte length as
+tag_yt921x. Could that be explained?
 
-pp->index is not specific to MIB polling. yt921x_port_to_priv() depends
-on it, and so do the PCS and LED code. Should the commit message mention
-this? Should the assignment sit under a comment other than
-"mib polling init"?
+In net/dsa/tag_yt922x.c, the only description of the wire format is:
 
-> diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
-> index 13fc286d4194b..c7cfaf2442749 100644
-> --- a/drivers/net/dsa/motorcomm/chip.c
-> +++ b/drivers/net/dsa/motorcomm/chip.c
-> @@ -4251,6 +4251,14 @@ static int yt921x_dsa_setup(struct dsa_switch *ds)
->  	int port;
->  	int res;
+  /*
+   * To define the from cpu tag format 8 bytes.
+   */
+
+The to-CPU layout isn't described at all. tag_yt921x.c, by contrast, has
+a full bit layout diagram. Could both directions be documented here?
+
+Some examples are that bits 5:2 of tag[2] carry the RX source port, and
+that bit 15 of tag[2] selects TX port 0. It would also help to say why
+the RX path doesn't check a valid bit, restore the priority or decode a
+forward code.
+
+>  L:	netdev@vger.kernel.org
+>  S:	Maintained
+>  F:	Documentation/devicetree/bindings/net/dsa/motorcomm,yt921x.yaml
+>  F:	drivers/net/dsa/motorcomm/
+>  F:	net/dsa/tag_yt921x.c
+> +F:	net/dsa/tag_yt922x.c
+
+[ ... ]
+
+> diff --git a/net/dsa/Kconfig b/net/dsa/Kconfig
+> index 4f44bf3ede238..86802058678c0 100644
+> --- a/net/dsa/Kconfig
+> +++ b/net/dsa/Kconfig
+> @@ -233,4 +233,10 @@ config NET_DSA_TAG_YT921X
+>  	  Say Y or M if you want to enable support for tagging frames for
+>  	  Motorcomm YT921x switches.
 >  
-> +	/* mib polling init */
-> +	for (size_t i = 0; i < ARRAY_SIZE(priv->ports); i++) {
-> +		struct yt921x_port *pp = &priv->ports[i];
-> +
-> +		pp->index = i;
-> +		INIT_DELAYED_WORK(&pp->mib_read, yt921x_poll_mib);
+> +config NET_DSA_TAG_YT922X
+> +  tristate "Tag driver for Motorcomm YT922x switches"
+> +  help
+> +    Say Y or M if you want to enable support for tagging frames for
+> +    Motorcomm YT922x switches.
+
+[Severity: Low]
+This isn't a bug, but this entry is indented with spaces. The
+NET_DSA_TAG_YT921X entry just above it, and the rest of net/dsa/Kconfig,
+indent attributes with one tab and help text with a tab plus two spaces.
+
+[ ... ]
+
+> diff --git a/net/dsa/tag_yt922x.c b/net/dsa/tag_yt922x.c
+> new file mode 100644
+> index 0000000000000..3c9fef651cf51
+> --- /dev/null
+> +++ b/net/dsa/tag_yt922x.c
+
+[ ... ]
+
+> +static struct sk_buff *
+> +yt922x_tag_rcv(struct sk_buff *skb, struct net_device *netdev)
+> +{
+
+[ ... ]
+
+> +	/* Locate which port this is coming from */
+> +	rx = ntohs(tag[2]);
+> +	port = FIELD_GET(YT922X_TAG_RX_PORT_M, rx);
+> +	skb->dev = dsa_conduit_find_user(netdev, 0, port);
 
 [Severity: High]
-Can this re-initialize a delayed work that is still armed?
+This isn't a bug introduced by this patch, but the new tagger inherits an
+existing race in the DSA receive path. Can dsa_conduit_find_user() see a
+NULL dev->dsa_ptr here?
 
-INIT_DELAYED_WORK() now runs on every tree setup. In this commit,
-yt921x_dsa_teardown() only removes the LEDs:
+dsa_switch_rcv() checks the pointer once, before it calls the tagger:
 
-static void yt921x_dsa_teardown(struct dsa_switch *ds)
-{
-#if IS_ENABLED(CONFIG_NET_DSA_YT921X_LEDS)
-	struct yt921x_priv *priv = to_yt921x_priv(ds);
-
-	yt921x_leds_remove(priv);
-#endif
+net/dsa/tag.c:dsa_switch_rcv() {
+    struct dsa_port *cpu_dp = dev->dsa_ptr;
+    ...
+    if (unlikely(!cpu_dp)) {
+        kfree_skb(skb);
+        return 0;
+    }
+    ...
 }
 
-In a multi-switch tree, unbinding a peer switch tears down the whole
-tree. That includes this switch, which stays bound:
+dsa_conduit_find_user() then reloads it and dereferences it without a
+check:
 
-dsa_unregister_switch() (peer)
-  dsa_switch_remove()
-    dsa_tree_teardown(dst)
+net/dsa/tag.h:dsa_conduit_find_user() {
+    struct dsa_port *cpu_dp = dev->dsa_ptr;
+    struct dsa_switch_tree *dst = cpu_dp->dst;
+    ...
+}
 
-When the peer rebinds, yt921x_dsa_setup() runs again on the same priv.
+Meanwhile, teardown clears the pointer under RTNL while the conduit can
+still be receiving frames:
 
-On the teardown path, the only thing that stops the work is the non-sync
-cancel in yt921x_phylink_mac_link_down():
+dsa_unregister_switch()
+  dsa_tree_teardown()
+    dsa_tree_teardown_conduit()
+      dsa_conduit_teardown()
+        dev->dsa_ptr = NULL;
+        wmb();
 
-	/* No need to sync; port control block is hold until device remove */
-	cancel_delayed_work(&priv->ports[port].mib_read);
+The wmb() only orders the store. Nothing like synchronize_net() waits for
+receive callbacks that are already running.
 
-yt921x_poll_mib() also always re-arms itself:
+Suppose the store lands after the check in dsa_switch_rcv() but before
+the reload in dsa_conduit_find_user(). Would the NET_RX softirq then
+dereference NULL->dst? Every tagger that uses dsa_conduit_find_user() has
+the same pattern.
 
-	schedule_delayed_work(&pp->mib_read, delay);
-
-A poll can be running when that cancel happens, for example while it
-waits on reg_lock, which link_down takes right after the cancel. The poll
-then re-arms and the work is still pending after teardown.
-
-The next INIT_DELAYED_WORK() would then reset a timer that is still
-enqueued, and possibly a work that is still queued. Could that corrupt
-the timer wheel or worklist linkage? Debugobjects would also report
-"init active object".
-
-Before this patch the init ran only once in probe, so a later setup
-never touched a live work.
-
-The next patch in the series, "net: dsa: motorcomm: move mib stop from
-remove() to teardown()", adds disable_delayed_work_sync() for every port
-to yt921x_dsa_teardown(). That fixes this in the final state of the
-series. Could the two changes be merged so every commit bisects cleanly?
-
-Separately, in that later patch priv looks like it is declared only under
-CONFIG_NET_DSA_YT921X_LEDS in yt921x_dsa_teardown(). Does
-yt921x_dsa_teardown() still build when the LED option is disabled?
-
-[Severity: Medium]
-Can this INIT_DELAYED_WORK() undo the disable that yt921x_mdio_remove()
-just did?
-
-In this commit, yt921x_mdio_remove() disables the works before calling
-dsa_unregister_switch(), and it does so without holding dsa2_mutex:
-
-	for (size_t i = ARRAY_SIZE(priv->ports); i-- > 0; ) {
-		struct yt921x_port *pp = &priv->ports[i];
-
-		disable_delayed_work_sync(&pp->mib_read);
-	}
-
-	dsa_unregister_switch(&priv->ds);
-
-Another member of the same tree may re-register at the same time, after
-an earlier unbind tore the tree down. If that completes the tree,
-dsa_tree_setup() calls yt921x_dsa_setup() for this switch.
-
-INIT_DELAYED_WORK() resets work->data, which clears the disable count
-that remove() just set. yt921x_phylink_mac_link_up() can then arm the
-works again.
-
-The non-sync cancel in yt921x_phylink_mac_link_down() can also race with
-a running yt921x_poll_mib(). Together, could a re-armed work survive
-teardown (which has no cancel in this commit) and run after devm has
-freed priv?
-
-This needs two timing windows and root. Before this patch, though,
-.setup() never touched the work state, so nothing could undo the disable
-in remove().
-
-The later patch "net: dsa: motorcomm: move mib stop from remove() to
-teardown()" moves the disable into yt921x_dsa_teardown(). That runs
-under dsa2_mutex, as dsa_tree_setup() does, so the race goes away by the
-end of the series.
-
+> +	if (unlikely(!skb->dev)) {
+> +		dev_warn_ratelimited(&netdev->dev,
+> +				     "Couldn't decode source port %u\n", port);
+> +		kfree_skb(skb);
+> +		return NULL;
 > +	}
 > +
->  	mutex_lock(&priv->reg_lock);
->  	res = yt921x_chip_reset(priv);
->  	mutex_unlock(&priv->reg_lock);
-> @@ -4525,13 +4533,6 @@ static int yt921x_mdio_probe(struct mdio_device *mdiodev)
->  	priv->reg_ops = &yt921x_reg_ops_mdio;
->  	priv->reg_ctx = mdio;
->  
-> -	for (size_t i = 0; i < ARRAY_SIZE(priv->ports); i++) {
-> -		struct yt921x_port *pp = &priv->ports[i];
-> -
-> -		pp->index = i;
-> -		INIT_DELAYED_WORK(&pp->mib_read, yt921x_poll_mib);
-> -	}
-> -
+> +	/* Remove tag and update checksum */
+> +	skb_pull_rcsum(skb, YT922X_TAG_LEN);
+> +	dsa_strip_etype_header(skb, YT922X_TAG_LEN);
+> +
+> +	return skb;
+> +}
 
-[Severity: Medium]
-After this removal, does yt921x_mdio_remove() call
-disable_delayed_work_sync() on works that were never initialized?
+[Severity: Low]
+This isn't a bug with the series as it stands, but yt922x_tag_rcv() never
+sets skb->offload_fwd_mark.
 
-The only INIT_DELAYED_WORK() for mib_read is now in yt921x_dsa_setup().
-yt921x_mdio_probe() returns the result of dsa_register_switch(ds).
+That is fine today. yt922x_dsa_switch_ops in
+drivers/net/dsa/motorcomm/chip.c has no .port_bridge_join, so
+dsa_user_changeupper() falls back to a software bridge.
 
-For an incomplete tree, dsa_tree_setup() returns success without calling
-.setup(). An example is a multi-switch tree whose peer has not registered
-yet:
+yt922x_port_setup() also isolates each user port so that it can only
+reach the CPU port:
 
-net/dsa/dsa.c:dsa_tree_setup() {
-    ...
-	complete = dsa_tree_setup_routing_table(dst);
-	if (!complete)
-		return 0;
-    ...
-}
+	ctrl = ~priv->cpu_ports_mask;
+	res = yt921x_reg_write(priv, YT922X_PORTn_ISOLATION(port), ctrl);
 
-If the device is unbound in that state, yt921x_mdio_remove() still loops
-over every port and calls this on a delayed_work that devm_kzalloc() left
-zeroed:
-
-		disable_delayed_work_sync(&pp->mib_read);
-
-The call goes through __cancel_work_sync()->__flush_work(), which hits
-WARN_ON(!work->func) once per port. Debugobjects may also report the
-timer_delete() on the uninitialized timer.
-
-The next patch, "net: dsa: motorcomm: move mib stop from remove() to
-teardown()", takes this loop out of remove() and puts it in
-yt921x_dsa_teardown(). dsa_switch_teardown() only calls that when
-ds->setup is set, so the problem is limited to the window between the
-two patches. Could the init stay in probe until the stop side moves too?
-
->  	ds = &priv->ds;
->  	ds->dev = dev;
->  	ds->priv = priv;
+If bridge offload is added later, would this tagger have to decode the
+hardware forward or reason code and set offload_fwd_mark, as tag_yt921x
+does? Otherwise the bridge could forward duplicate frames.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261002173706.1225502-1-kyle.switch%40motor-comm.com
