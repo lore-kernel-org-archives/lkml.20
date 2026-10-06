@@ -1,119 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5662425B0BD;
-	Tue,  6 Oct 2026 19:47:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6FA5339364
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 19:53:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791316024; cv=none; b=nLwPhTVGhNKUJPVNht9gzObNnPOBEqfdVuXpt7PqzzMfbIxBxx8/zZ2X3gBrPnEUgVyR5NtLW8e06+UJ2KClzWRz+oQ4Nf3dVkzxsv9zxIlxQ4Sj648ZhZDhpt63HA8jnGXTfauplPpMASRgOh+DP1+ZvN6txl8/PbTT5jpxjm0=
+	t=1791316386; cv=none; b=QnxDg6vpho0vYKDAGVMNgdsRKMAehLeXnzktKwNxAB02hVY7jCacj27OTL+NRoGa8EnGfjPZNkcmMKzHUJvanS4MEX3jO5qMG3/LLb5gXz1Ol/sPsKJAAepIl7FBfahmxX8eDIwn41tXKhIZQfj082gEb4Bc3cQL0s6+iNGCWqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791316024; c=relaxed/simple;
-	bh=cc02fnmYhMjNRJWWWxau3VBTEXG6tctMMlcyXxw5sY8=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=ILzVuEOMTR75G00Ep6iiWbo7J0W8ES0H1AKayG7fhOygvAppe3WtJnRbW7uqcnu/HHnWnKhQJzXSrHPN2qStWaD8xIm+p8vEx5u5F9F2PByrbTRS4hxRKV+xGMj6hfTqMoCab2mNmhs+9axzq09tyKd68pn+6DGoixdjgYhuFQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UMPfo23I; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791316386; c=relaxed/simple;
+	bh=NJ1pRbRnKJmFoEUqhxcP8u3zEH4RTXw94iffrMDycjw=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=SzZqLJ/oS22jLnojV/YIVOxW7kA756Si9XBbu/Kc+wTjiUNGJROGnSiBY8tWKgxgZ5F9ZqQOlQInH0N7p6zcQBEnDlUT3xmXdfDkKZxo2V1/Y/5+bWOVey0mG8/z4f3NK4hPvMlBd3dG6hfpfSaHM8ungkzVvYv81U/TCatW/e4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=MKO58mlB; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Gsz6Kehn; arc=none smtp.client-ip=202.12.124.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UMPfo23I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 871371F0089B;
-	Tue,  6 Oct 2026 19:47:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791316022;
-	bh=il44b6d7cnwVrTLbw9qIi3axa5za+JetazdEyV26FB0=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=UMPfo23Iqlg+mkZk6I8hpY8Chl5olQ5z2wbFLHgAJSSrEfm0p/jyI3W5e4MukZGna
-	 0O78MSqS3kJGi4DzP6nnBQTKcj3bbD1wBzvV08pPk1NniHG0ewGrOT5K8QUSclngnZ
-	 rNRbiOAIic/f32wuNPxdNGCHZaDE+4uVQLi2FuhPdPDHVCafdL8gs5IuHEEwauIZ/o
-	 LYgQczwFI8YkaxWxxIXW6IB8BHdPdZXWOdRkGc1M9MCbjw8CUj+dGNvGHKwjfVbrgY
-	 0VNfzbI5XhW3z39C7MNYM36qlpNS+xLPJ9n0QajOedKX1m+Bs1RySibx4Lfn3QanFB
-	 T3mozd25BdoHQ==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id AE6A9F40066;
-	Tue,  6 Oct 2026 15:47:01 -0400 (EDT)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Tue, 06 Oct 2026 15:47:01 -0400
-X-ME-Sender: <xms:NVDFavucvuQxgIfG4ki3mGGkLGHE0tX3AFiC6Eeq7X1D2YThsowG_A>
-    <xme:NVDFarQsJeMNpvmfBp3nM1KdnecLNczSpovqNM-cNMNgWuYhnaU5biJK-StzU_3rl
-    cpRY8zvNKm3FJwbfz6RybS-bNCEUhh8y4ojDZd2k8JjaKhpQRzCdO4>
-X-ME-Proxy-Cause: dmFkZTGMaBQSnK4GQOosuurIVpy8Drfw5aCO1d0DH4zlmvk4m2MxBgpN5UCJCqYeJTtpDf
-    qQb8bWp3kjU1t7j3hNzwVQt9+y4ubuscA8oFFNN0ZwS3ZsxE/JebV4Rj5/f1017LrIDkor
-    pBrOImDtuj+vTJMm8pmRvHKKGB3Amek7I/YuWcHiNxv1lSYJ7DzMldOnAsDTa/tSfcz2l8
-    ZV3ZhnCkFFfNEYNSDmiKebvstRFh8xQfDutt19oSBABskEDbrl1gJhMvn3KU2gfpcCJDHa
-    lCYKMxGzwWHjR88dlqaEIkkDzv8PK1dhXmmDjWyU2q+RkdERUXxcZzIDIJUEUBAgtJ4rsS
-    xhKmXis1Xri1BxQriZTvFRfQ0IyEXulJ9ksBjHfH8sHK0CzSk52USFxbybTtqZj2JLz8kZ
-    +xyFY6xtJ0f50qUloToWLefwd2J79saxTVaMlxqE143zHkKM4D5tvp/Y0XgEiNmWsyEpoH
-    q9OT842iLixMDR2LvE/abfgIQovHkuXrSg2tkkCovh1oG1FIoFYGRzSLyja/E2wgfpcKK8
-    aqiQ5E8Df7LyiRyBLP3c5AZza/C8xXb9S4NH8/cofM8vUIisf6yTxBu5NKtoXpdKFQVtLK
-    MqUCPyo3+hnaFkL/Fsw4e8S6BCBLSDA0BcipeiLccOxIYLGgJyl3flDwjcoQ
-X-ME-Proxy: <xmx:NVDFamEtnIQ2JZncPbBBkMn39vGXhHU95yBMxRMdi_bs_tXqJNf-JQ>
-    <xmx:NVDFavdJr-Uw7Nj3aeJVoSNPSb7IgZw20Kk3wvG2EZZsk00seBHM1Q>
-    <xmx:NVDFavp1Y3Nd4hZFkkVOmLfHwAnFvFdh1HAQ0qVZulzN2e-pXI44aQ>
-    <xmx:NVDFagBWOl7H9_uaPr8wVdjw-5rWQfmv0PiPwt7D0nIGsXR-UYIQ3A>
-    <xmx:NVDFaoe_Ck0PrU3Tt2A_Fa6eLPt_yg7bkwOeXKiAIjDqKRXK0Ompqqd0>
-Feedback-ID: ifa6e4810:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 86E40780070; Tue,  6 Oct 2026 15:47:01 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="MKO58mlB";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Gsz6Kehn"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 3DB6E7A0151
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 15:53:04 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Tue, 06 Oct 2026 15:53:04 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1791316383;
+	 x=1791402783; bh=xldaJtJatu9aKIUiDCxeXNusAU6qzJ37au3HT7Fm//s=; b=
+	MKO58mlB99lpRYtnQGXQi/Gqymg1LOnKQ0P2VSuVCP+AJhRjGLYpDTwmxP2ZB4wC
+	JXw71iv6btSaOEt4168OSBtiwpucLPvkkC/AtrTNEeS6jrLjiVS93Buj8oYlEXzp
+	9UfcokbCy7/06HiVzp3HrjwDibHridTZl87Mw5WOWjhJE9MESfQvzviaRDLdkB1a
+	98Q2YtU0pX0MciYpqrZ1TYmhygJTFYa9+JyVOZElzB8BTHhu0/UOY+y9JF3R1o4H
+	K8H16jbpkdaCZWxR4Ou6sNLgr87yLud3kglo+v9iVDCB96BmR0vU3ttQMO5No3Dd
+	Q2AEI0a9YZMf+8GNoiyD1w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791316383; x=
+	1791402783; bh=xldaJtJatu9aKIUiDCxeXNusAU6qzJ37au3HT7Fm//s=; b=G
+	sz6Kehnvxal+l9c6iWyqS/rMoV0CHTYulMfg0yCj9GjLQJMZMUMXydC7uZpXKGOK
+	2nrlvfppza75jJ0RzgCIwOLnbg+8Qz3SrOgKVrapnToRG0g/ZaZSjyrv+HxpfhHg
+	uoATY1sSvazo4neIziCvYUDrb9f3BR3IUjdF/lBUnKV4bHrPhLG40LjGKhuw7dZI
+	GmKCgL8ItGp+eKfvr+Jw4H82twyj9Z1Ozw7uoaydQ3zvO9GNjKxIjrKrVGJG9tcf
+	4COZzggzCSVoBry7PGSds0hU9WjfA5ltMBDU9jY+BU2whY5RSUJtJylVmghdg/KC
+	D1uAXvydXDD+z30r2cYjw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=kroah.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791316383; d=kroah.com;
+	mf=PGdyaWZmaW5Aa3JvYWguY29tPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:f5QJHCX31F7h0Ky67wwBQzjINqc2Zmo8Mm8IMpcx2REQK67
+	1TUsMhDS3mn5Y1BwOJ7TB4kfPcnjSMvv/G0/2rYbR00u+JlrFox8DixmMTvvk8NR
+	CAToJlvvQRb5/qojNlGhaTYeGA/iEXpnil+pq7EJ2T0K4BC7iQfEBY9MKwPPKfNG
+	GHkn2xp/f3t5MT1d3agT9LhFTVuN/gER2f7OkHb+McFM5onmzlvdQKixxbplnpA4
+	KHe+2m7BwQR6yQlL8KiLToGkDamFdx1jlzc2PoQbyu9ohHWtnxfJHNRUtF+1FclO
+	0Xl4eQbpKcaKLxjjxsZZ3OhpRQcbOvyE69DTcKg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:92us6Jfvd+OzOP89EiR252Amh/mmuVAJqo44MSKg82k=:NJ1pRbRnKJmFoEUqhxcP8u3zEH4RTXw94iffrMDycjw=;
+X-ME-Sender: <xms:nlHFauyMTadoNQ9UQoNF3d7oR7xIFl9MBDdTZFR1NqDHhcM9JuXzWg>
+    <xme:nlHFavdPsaptcc7khSbsflMN1LlnRxFgg99cKudBqrGUQfM2OMD-atOz7Ybc9aZTC
+    JuUs8sGYZLnX2UmVDtGfps5s63fnYicHHhKjCx0ZaMxAWORfeI>
+X-ME-Received: <xmr:nlHFajt-dQSrh-bFkdied0Z-E2CTpvC-Ew5V9lhjeChNBWkS8Q9JPXZWnf4kQBP-1I2UWuvOS62er1VO6yJXsh_cWQfk7rj4NIxMHGlNBg>
+X-ME-Proxy-Cause: dmFkZTGV8nXLgn086JaXf8cevSE95/GulR8M8Esy8uUy4s5UIlArkTvX/QFBZiEJ4YMSRs
+    bZ+4UyNhQoyfBsmfOOo4RjwrVO9Ao24AjY2aKjUJkeEpKeS9ZPvoxFRiSDTL7gOQDE2Gue
+    aaOfl0LL5Jnt0kr2L/Oi5R++JV0qH7E1vrnaU68RQeOpg3JdTHUFln9/meyjCiQnE0PziN
+    tj/lBWrc2WcZf+z5NkgOd33vJ2LOfsCrjAFlxOa6UNY5HvRGQ4sqern16o1QOpJqMhDVkN
+    /zUoPJrZi+MaW16YeTGQcgyzNez3hGh9B3blohBRgpkVsRSmQssdRQ4Rs0+2aiyrpdLbrh
+    ZfR56gTPa5VxISRSO/4SFM2Q5qml+ToYHyDhEuMF2EwgxlHDXoj9UF5jCCI8uc2adTqA0O
+    YLvG/ddqeSWaOznQbem/qnAFga4LmuqOPxbwgkYlAjTzBe+nYHTDxkkL3nTVk4eJbR08HK
+    pL8GGfMtou3V25Fpt4hV+9kcRW3ajSd5vHbgIExnUDh7OobEAzoF+/gN7QFG+aDhP5KuRt
+    1622xYzvjNf3gGMkSo5k5SIjiijNUxcHYOejO+V5G78ONtucJDVp4Y9AEZJiD67Cqz1Una
+    lKbBG3DaaNAAbBRnthYoUF/wC5tSyfimJ+iP7lMonugHglbWNC2rRG3gTRkQ
+X-ME-Proxy: <xmx:nlHFakAA8puUgbk3lmQPEvA6L-Y65TFXj7fJLZ4pUUYpQcHO1DXDpA>
+    <xmx:nlHFarEuv2_q1ruheaoG8c521nBMj7wsE4hY-AuVK5clCGT9I1nOpQ>
+    <xmx:nlHFaktnZiKjEFZFDcRRBw4Gm9IZO3eyqaTEy_BVl9ezG7wGfH5Hiw>
+    <xmx:nlHFahnuRiwEgX2nAR8oHbh3c1qx8ck8uJ6cwGmvy8BJdhNpK83EZA>
+    <xmx:n1HFakterNy7uBzT0vGrNWnnr9Lta_FiP_m0M9Ak-GVWcgmoaEVmzvUK>
+Feedback-ID: i1d2843be:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 6 Oct 2026 15:52:58 -0400 (EDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: A9t8TiIcTZy-
-Date: Tue, 06 Oct 2026 15:46:40 -0400
-From: "Chuck Lever" <cel@kernel.org>
-To: daejun7.park@samsung.com
-Cc: "Jeff Layton" <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
- "Olga Kornievskaia" <okorniev@redhat.com>, "Dai Ngo" <Dai.Ngo@oracle.com>,
- "Tom Talpey" <tom@talpey.com>, "Christoph Hellwig" <hch@lst.de>,
- "Benjamin Coddington" <bcodding@redhat.com>,
- "Trond Myklebust" <trondmy@kernel.org>, "Anna Schumaker" <anna@kernel.org>,
- linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org
-Message-Id: <63ef8d7c-086f-4cc8-84bb-72c1b23bf596@slotpi15m67>
-In-Reply-To: <20261006-nfsd-layout-recall-v1-0-b59b31caf342@samsung.com>
-References: <20261006-nfsd-layout-recall-v1-0-b59b31caf342@samsung.com>
-Subject: Re: [PATCH 0/6] nfsd: layout recall and lease break fixes
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2 4/7] leds: aw2013: use dev_err_probe
+From: Griffin Kroah-Hartman <griffin@kroah.com>
+To: Paul Sajna <sajattack@postmarketos.org>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Nikita Travkin <nikitos.tr@gmail.com>, 
+ Alexey Min <alexeymin@minlexx.ru>, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht
+In-Reply-To: <20261005-aw2013-aw20xx-rename-v2-4-108ecbdf2775@postmarketos.org>
+References: <20261005-aw2013-aw20xx-rename-v2-0-108ecbdf2775@postmarketos.org>
+ <20261005-aw2013-aw20xx-rename-v2-4-108ecbdf2775@postmarketos.org>
+Date: Tue, 06 Oct 2026 21:52:46 +0200
+Message-Id: <179131636687.6822.4895381769539366104.b4-review@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791316378; l=352;
+ i=griffin@kroah.com; s=20260910; h=from:subject:message-id;
+ bh=NJ1pRbRnKJmFoEUqhxcP8u3zEH4RTXw94iffrMDycjw=;
+ b=ujdRNQDCJOxKnTvhoZptG9V/l3QiRKpKvMMuNZB6LfCCYZQATZ6sVJKLSdAUSnqxQ9nFQHDOE
+ TSfE6UxbJQVDmftjN7xtidJXyuuC7buZfzHJA8Ic0U5bCqL0w6+0icf
+X-Developer-Key: i=griffin@kroah.com; a=ed25519;
+ pk=HlyUkuZAN9I5qlPbOHN5N9xxdQ5sT6AbPgC4TsLCxzA=
 
-Hi Daejun,
+On Mon, 05 Oct 2026 20:46:05 -0700, Paul Sajna <sajattack@postmarketos.org> wrote:
+> Failure to use dev_err_probe() for regulator requests violates
+> LED subsystem guidelines.
+> 
+> The original driver didn't use it, but it's worth cleaning up
+> while I'm here.
+> 
+> 
+> [...]
 
-An nfsd thread must not block for more than a few milliseconds, and
-never on something a client controls. A client can tie up thread
-after thread until the server has no more threads to respond to
-LAYOUTRETURN or DELEGRETURN, and then the server deadlocks.
-
-For delegations we are safe. nfsd_open_break_lease() passes
-O_NONBLOCK and the operation returns NFS4ERR_DELAY.
-
-For layouts we are not. A WRITE or SETATTR goes into XFS,
-xfs_break_leased_layouts() calls break_layout() blocking, and the
-nfsd thread sleeps in __break_lease() until the lease is dropped or
-the breaker times out. That dates from f52792f484ba, but it was
-bounded by fs.lease-break-time, and a Linux client from v6.8 on
-rarely hit it. It responded OLD_STATEID, the callback failed, the
-lease was dropped, and the thread was back within a round trip.
-
-This series makes that wait the common case and then unbounded.
-
-- Patch 3 polls on OLD_STATEID, so the thread sleeps for as long as
-  the client takes to drain its I/O, up to lease-break-time.
-
-- Patch 2 waits on the fence script with UMH_WAIT_PROC while
-  lm_breaker_timedout() keeps returning false, so the thread waits
-  lease-break-time plus however long the script takes to reach the
-  client.
-
-- Patch 5 extends the wait of patch 3 to a client past the seqid.
-
-I think the fix has to come first. Before the WRITE or SETATTR, call
-break_layout() non-blocking to start the recall, and return
-NFS4ERR_DELAY on -EWOULDBLOCK, as we do for delegations. Then the
-fence worker and the poll loop can take as long as they need and no
-nfsd thread waits on them.
-
-Give that a try and let me know if that works or needs improvement.
-
+Reviewed-by: Griffin Kroah-Hartman <griffin@kroah.com>
 
 -- 
-Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
+ 
+
