@@ -1,64 +1,64 @@
-Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
+Received: from mail-yx2-f41.google.com (mail-yx2-f41.google.com [74.125.224.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 795302701B6
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 00:20:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 091FD255F2D
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 00:20:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791246036; cv=none; b=XHKDxj2HLoCkfaObLPV6wIXY7Yi23wfANFB1K5JoVj7KG3s4+C3ea0jvsogU542Iza/a02DbJRDYL3SB89Oe9n0epcogsvfz7L1zsNIn2ovhz8XWhs3+y3XORCZQgIUUg45EZ+mumzdjJrXO0dI6K2PTOudh5NHVjhlbWTcyqqc=
+	t=1791246042; cv=none; b=ONA/4p8M6lTDXjJij3L6DTkF+70LSi7LG+FMMEkUKT2IyR3yyEikiYYIbPlWc7toElMVjT1jiZ+WU/AOsxuaz4FQoQGTpRKSkwszKId0xt9pwB4/23W/77V+VzzBOOrS7OUXwz9uK3RemGf61YLsUr//GgsfamwF7g5UZPod9RA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791246036; c=relaxed/simple;
-	bh=DIsH8LhRgy5De7wrfmXFB40fy5GLNjqhOnWKee0JJik=;
+	s=arc-20240116; t=1791246042; c=relaxed/simple;
+	bh=y13XcqrXalvPlyqorK5jhgilk8EVXf5xHNq9KHtHVwA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RV4zA2loZtt3x7RIiPnuhHiPhH1e1cyki1GUTS3ehOVhCgWmAsRfwljiBvyJQz3+KlOAMWG72B6rQgoUJC4dH2Ww0q4RHvrsSfWkGHzXmTldjQsXY7f66dPZPT5vCH0CLeejYOaF7kAqxNGvcAYnm6S/ixSPMOtOMo/nh2i/8/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oQVCym1s; arc=none smtp.client-ip=209.85.128.173
+	 MIME-Version; b=W+Zxk6+wv28em/ygLUtKPj7FyhqGXjsOPQpj6vWlo+n42aPPLTXsU0ZF3kSGFZgKH2tIPe2h6gRysxoYqglY0J+MqMPIbYiKjDfhsnAheC1XU8urquc52incFqkSHxMyhpx/eyeR5/kV6ZCGBd4At512Ie+PP72t4MEMXx6k7p4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f6In4wK3; arc=none smtp.client-ip=74.125.224.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oQVCym1s"
-Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-8ab37e44643so17976337b3.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 17:20:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f6In4wK3"
+Received: by mail-yx2-f41.google.com with SMTP id 00721157ae682-8ab4b4f3d6eso8187307b3.0
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 17:20:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791246033; x=1791850833; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791246040; x=1791850840; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pibLRMB5X78yAjvj6wK6JEPDe7qdxNtboEvLx0/jkVU=;
-        b=oQVCym1s9ATvJLeMsh4DB9usLeA2zxMRxNYUog88N477X6WtccfOUbLMDOfIy0IZgx
-         uFMidH5Ucc+J82/A6iYtBCTXec6juHhlf+oBQ4CpVag9Fl7SEjgjj6aT7EQjSEHff7Xz
-         LrY3/d8Ky1YiuvpqOC1Y/QoKReYx8NuhlC4soc9H7zHjq5aeY2jWy6b9hfkT8d/p971A
-         YrhtNTDbtmKM/VGPZfLfxfUpMi9WASXUxza47b7yodoo1Sh+nUvdKuaBppxppxHbybc9
-         Pcq3ZdM0OWvCXjN7/xcBXdvPPZ0XeKnC6rK6krZF6I2KVjiQ/DQIMpgbflkF5xYdZJ06
-         TUoQ==
+        bh=OvPSFgeEpLGLZYk/CFPoDi6u2PEbfv8+Riz8KF6NXE8=;
+        b=f6In4wK31khh7gR7nKf2NLpHJ5j0hMSZQntP6prmgra1EnOaaALBJ000wWm//logde
+         2MJDXyO5Lj4pFD2ggilYnI8XJAYOyDFVk2lbO8s3Lme/tq1mqQD1AvGDsp5oi09HzGlR
+         pWMNB4MxYL+SZGQ/E9pHrvqHf3F06kKoQtRPAbomXP1aw0o9gUzDOyHuqCraPbttfo1C
+         hWaODzLeVzCJvcO4OWivKsLkI4C0oE991grBUQbhQq0ZVpTRwpKEgAGIokFAYXcSF6uL
+         zTshD+lMGuM6X6EnRkeHloGwgTpJ1r0KuDxgwCgdh77OfweeKLcY0Xgm1c3J6+PRzHOu
+         Muuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791246033; x=1791850833;
+        d=1e100.net; s=20260707; t=1791246040; x=1791850840;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pibLRMB5X78yAjvj6wK6JEPDe7qdxNtboEvLx0/jkVU=;
-        b=0oJ0dNRohnsq09JdcdgZ/8BKpofJYs4+hZZc9dBTBov1wIFWJ9nwtKlG+XEzAfr246
-         jaC7WXobZ8yk2GZCq4WV5F1UCVh7Icob8vwQ5wvA4l9hsk9B51Sgzqksc2NMbWF3dBO7
-         RdNMbkEpO0i+aimKqAEPZJs/QAyF6qHJ4wjwcooiZtDiqhMCqxWfNNra/Dv6bS+tYeDe
-         aSrFHyfepSXi2w6R1x4CQV0739Dp/Cn2hnh4C9XJTcAwzMN5sZT1gaPeXnvCUm8IDHC4
-         ni9zXCcwGAHLtrob5M93QrqnZJ8O6IGNPCcyyyyEP4gOkYjG8dxIPQhpIih8I/1ZgjI+
-         BX0A==
-X-Forwarded-Encrypted: i=1; AKwUvBzxy96CS8Y13SssqFjPf+zjbd/iF8hBDSMZY3uewKveQCqNr2TIRq3ZOPwqtsGHPCB00FwDfccASYwrmJA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIkkpzJ+MG/mwkn2wxCT8JiVsVl7lJ1Gkp1bVMg1GvhTkx/YloF
-	Q7WhJWO22ajXBi1DOBWAs7mXKTauFNrC1HLvUOarHHmd5/2GWbLO26LV
-X-Gm-Gg: AYBFou2xeBjNvnlbTBOl2/0ttnfzmS2gaKXsGEPUHsi6hYHo3qpGuUIFWM6V1cvCU2c
-	SYIKB/JgXnKokWheOfEerf6SA4hRwO2OLq+vceCdUPk9/n9SYvHpB8eKQvDM/aTVbjiSBh0Zs3U
-	oRzGfh+jbqtsolDfHaq+FMgzur3lXz6MVNO5wScpw5oLiOSs9yzDNk7qmgA7F978vQ5RHDTZVO8
-	nwQLi8zAQaM56ORh0DPKLlLJ0vWkN51TWKQ9CzlbobQKBILK8H2KAESAH+pEtGEYgybtjiMt9P+
-	93bjfR82ykKy/P8KtiekiVO4P2dbbngNRRFunPgpHh2pw4mHVLTUk87QGtwX1oFz6bt9yMAp6Ed
-	Ocl9y0P6xADHmudkYWJN+HLZPqVqGpZt3iKBmUWnnOePqj6rW3GyPmBfXr4BZocvrUWqfZHwcXQ
-	6mZHYUkLyjs28ABJVCTlEVplnEa1Cw+HE63IzNq+ZvD5o0I2vS1itJxIeXR0dVTRGBVDJIrp2M/
-	9w=
-X-Received: by 2002:a05:690c:ec6:b0:8a8:8f62:ebd with SMTP id 00721157ae682-8ae957d256dmr26869597b3.41.1791246033335;
-        Mon, 05 Oct 2026 17:20:33 -0700 (PDT)
+        bh=OvPSFgeEpLGLZYk/CFPoDi6u2PEbfv8+Riz8KF6NXE8=;
+        b=o0w/nKpu2mZYihIJxBmXHVydrfJvJkXG5lbrNdKnaf42RKZthWz30YpZVr7foPUw3l
+         S+llwVWKNGZkgMG/c66XJBxmwhs0I6XkQX1EbcTJzO/Bp90+Y3KtIjHqYMMjzPbBMJKk
+         HtBbK/xFej5W6xw07PXr9djrjEjW3LVsQwA2+NoNtv0YMN4tMQRYYTjLPXSKCAKAfKP5
+         jWTxrHRHeQWNSePPsccEcTaaUcoCj2AYYShRQDY8W0gFGgQqWku3+dBhrcTZMaHUo5fx
+         irtCVFD5AhsV3h9oX5akz17JaRtHIe7EmqZ1bW9TPnVP8nl4YhiGVmTEHNi3Fz+cc/zn
+         NXIA==
+X-Forwarded-Encrypted: i=1; AKwUvBwlXR0UCQPkeeAStl8pS4+Ls3Cvs80S/rZExw2KF4r5Sefv8LjNg4OhIQgFZEzAruO4G4bjFN17Rae6t28=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJEQOzzQIYZ95bQCnr75yQ1YdU4qfisvHLEbcj67PrMPb+oDR2I
+	7NNlLG5qd1pNe28m4ReC3DcfVdHk65EaAQQeJqlDXFB28TzfzIPlsTy1
+X-Gm-Gg: AYBFou0DPrvJPItvixRQtNvTrGfyBCY3EtEb3RrFMjAyNRJdqP+M5ZoX2N6iVREBbdq
+	znoWVZpRCWGzA6AAMB7azCfDj2Kv/SQHRqZmC7eNtT91tqI7PI5PCR5fX1DOG/Rme60LupGDQFg
+	kYpynn5OhsLf48n5JD6J1OHT84xH25bZrDRly1LH9JgJxCx522teSCH5qT1H8Q4fn1f1x0+ni4D
+	o0GkX+B+DI7kfagc0SslfKj1KfsKgl9eihbBFDW5vapbAal8e1muHHA2UvR9Bw7ZyR5TYWgSpH9
+	sSWSdW0Z+XKltD5vNtuKnAqYJxSHBsqFSREHL6STF3bkEcBVMwJeoZtjYrTmkfgZk5P8UXKgfx/
+	brYbXZkIY9jH7p6MSZ2mc7ZUkEFDqqSlB6rVG3m+rdc4uFR+tIaaaBVAw5QWgXXx5QaSmO7EipY
+	3vIJE2toHLgHQmjm47cV93oD/V573DbimW3Z1jucyU70Zkt+GEjZLGN6ZT6ON1f3Yw0gheBfTjJ
+	w==
+X-Received: by 2002:a05:690c:5809:b0:873:5c6b:a327 with SMTP id 00721157ae682-8af71ff15a8mr3855077b3.33.1791246039798;
+        Mon, 05 Oct 2026 17:20:39 -0700 (PDT)
 Received: from zenbox ([2600:1700:18fb:6011:6dc9:4ffd:1851:60b1])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8ae33be0e58sm46636277b3.43.2026.10.05.17.20.31
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8ae33be0e58sm46636277b3.43.2026.10.05.17.20.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 17:20:32 -0700 (PDT)
+        Mon, 05 Oct 2026 17:20:39 -0700 (PDT)
 From: Justin Suess <utilityemal77@gmail.com>
 To: Christian Brauner <brauner@kernel.org>,
 	Alexander Viro <viro@zeniv.linux.org.uk>,
@@ -89,9 +89,9 @@ Cc: linux-fsdevel@vger.kernel.org,
 	Shuah Khan <shuah@kernel.org>,
 	Tingmao Wang <m@maowtm.org>,
 	Justin Suess <utilityemal77@gmail.com>
-Subject: [RFC PATCH bpf-next 02/12] namei: add vfs_walk_ancestors()
-Date: Mon,  5 Oct 2026 20:20:09 -0400
-Message-ID: <20261006002020.2890858-3-utilityemal77@gmail.com>
+Subject: [RFC PATCH bpf-next 04/12] bpf: mark struct path trusted
+Date: Mon,  5 Oct 2026 20:20:11 -0400
+Message-ID: <20261006002020.2890858-5-utilityemal77@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261006002020.2890858-1-utilityemal77@gmail.com>
 References: <20261006002020.2890858-1-utilityemal77@gmail.com>
@@ -103,139 +103,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a callback-based walk over a path and its ancestors, built on
-__path_walk_parent(): the kernel owns the loop and the callback must
-not sleep, so an rcu-walk engine can be added later without changing
-the API.
+Walking a trusted struct path yields a trusted dentry - a live path
+never carries a NULL dentry - so BPF programs can use it with kfuncs
+that require trusted arguments.
 
-Disconnected root dentries are reported to the callback instead of
-terminating the walk; continuing over one resumes at the root of its
-mount.  A disconnected mountpoint landed on by a mount crossing - the
-one position this walk visits that a dget_parent()/follow_up() loop
-never does - is additionally flagged VFS_WALK_POS_MOUNTPOINT, so
-security callers can reproduce their pre-conversion evaluation
-sequence exactly.
-
-Suggested-by: NeilBrown <neil@brown.name>
-Suggested-by: Christian Brauner <brauner@kernel.org>
+Signed-off-by: Song Liu <song@kernel.org>
+[justin: carried only the verifier.c hunk of the original patch,
+ trusted instead of trusted-or-null]
 Signed-off-by: Justin Suess <utilityemal77@gmail.com>
 ---
- fs/namei.c            | 76 +++++++++++++++++++++++++++++++++++++++++++
- include/linux/namei.h | 14 ++++++++
- 2 files changed, 90 insertions(+)
+ kernel/bpf/verifier.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/fs/namei.c b/fs/namei.c
-index 808fb4bed7c4..2e6ea19714b2 100644
---- a/fs/namei.c
-+++ b/fs/namei.c
-@@ -2229,6 +2229,82 @@ static struct dentry *__path_walk_parent(struct path *path, const struct path *r
- 	return dget(path->dentry);
+diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+index fd3c0206bd67..24ec4b037de7 100644
+--- a/kernel/bpf/verifier.c
++++ b/kernel/bpf/verifier.c
+@@ -6300,6 +6300,10 @@ BTF_TYPE_SAFE_TRUSTED(struct scx_sub_detach_args) {
+ 	struct sched_ext_ops *ops;
+ };
+ 
++BTF_TYPE_SAFE_TRUSTED(struct path) {
++	struct dentry *dentry;
++};
++
+ BTF_TYPE_SAFE_TRUSTED_OR_NULL(struct dentry) {
+ 	struct inode *d_inode;
+ };
+@@ -6352,6 +6356,7 @@ static bool type_is_trusted(struct bpf_verifier_env *env,
+ 	BTF_TYPE_EMIT(BTF_TYPE_SAFE_TRUSTED(struct scx_cpu_release_args));
+ 	BTF_TYPE_EMIT(BTF_TYPE_SAFE_TRUSTED(struct scx_sub_attach_args));
+ 	BTF_TYPE_EMIT(BTF_TYPE_SAFE_TRUSTED(struct scx_sub_detach_args));
++	BTF_TYPE_EMIT(BTF_TYPE_SAFE_TRUSTED(struct path));
+ 
+ 	return btf_nested_type_is_trusted(&env->log, reg, field_name, btf_id, "__safe_trusted");
  }
- 
-+/**
-+ * vfs_walk_ancestors - invoke a callback on a path and each of its ancestors
-+ * @path: path to walk up from; the caller's path is never modified
-+ * @cb: callback invoked on @path, then on each ancestor up to the real
-+ *      root, crossing mount boundaries.  @cb must not sleep and returns
-+ *      %VFS_WALK_CONTINUE, %VFS_WALK_STOP or a negative errno to abort the
-+ *      walk.  @ancestor is only valid during the invocation; @cb must take
-+ *      its own references to keep a position.
-+ *      A position whose dentry is a disconnected root is flagged with
-+ *      %VFS_WALK_POS_DISCONNECTED (plus %VFS_WALK_POS_MOUNTPOINT when it
-+ *      is a mountpoint a mount crossing landed on rather than a parent);
-+ *      if @cb continues over it, the walk resumes at the root of that
-+ *      position's mount.
-+ * @data: opaque argument passed to @cb
-+ * @flags: %VFS_WALK_* flags; none defined yet, pass 0
-+ *
-+ * Returns: 0 once the real root was reached, 1 if @cb stopped the walk, or
-+ * the negative errno @cb aborted with.
-+ */
-+int vfs_walk_ancestors(const struct path *path,
-+		       int (*cb)(const struct path *ancestor,
-+				 unsigned int pos_flags, void *data),
-+		       void *data, unsigned int flags)
-+{
-+	const struct path root = {};
-+	struct path walk = *path;
-+	unsigned int pos_flags = 0;
-+	int ret;
-+
-+	path_get(&walk);
-+	if (unlikely(IS_ROOT(walk.dentry) &&
-+		     walk.dentry != walk.mnt->mnt_root))
-+		pos_flags = VFS_WALK_POS_DISCONNECTED;
-+	for (;;) {
-+		struct dentry *parent;
-+
-+		ret = cb(&walk, pos_flags, data);
-+		if (ret < 0)
-+			break;
-+		if (ret == VFS_WALK_STOP) {
-+			ret = 1;
-+			break;
-+		}
-+
-+		if (unlikely(pos_flags & VFS_WALK_POS_DISCONNECTED)) {
-+			dput(walk.dentry);
-+			walk.dentry = dget(walk.mnt->mnt_root);
-+			pos_flags = 0;
-+			continue;
-+		}
-+		parent = __path_walk_parent(&walk, &root, LOOKUP_BENEATH);
-+		if (IS_ERR(parent)) {
-+			/* The real root. */
-+			ret = 0;
-+			break;
-+		}
-+		/*
-+		 * A mount crossing can step onto a disconnected root, whose
-+		 * parent is itself: only then is the mountpoint itself
-+		 * visited, flagged, next iteration.
-+		 */
-+		if (unlikely(parent == walk.dentry))
-+			pos_flags = VFS_WALK_POS_DISCONNECTED |
-+				    VFS_WALK_POS_MOUNTPOINT;
-+		else if (unlikely(IS_ROOT(parent) &&
-+				  parent != walk.mnt->mnt_root))
-+			pos_flags = VFS_WALK_POS_DISCONNECTED;
-+		else
-+			pos_flags = 0;
-+		dput(walk.dentry);
-+		walk.dentry = parent;
-+	}
-+	path_put(&walk);
-+	return ret;
-+}
-+
- static struct dentry *follow_dotdot(struct nameidata *nd)
- {
- 	struct dentry *parent;
-diff --git a/include/linux/namei.h b/include/linux/namei.h
-index 86d657b24fc6..3e198de7a0d3 100644
---- a/include/linux/namei.h
-+++ b/include/linux/namei.h
-@@ -162,6 +162,20 @@ extern int follow_down_one(struct path *);
- extern int follow_down(struct path *path, unsigned int flags);
- extern int follow_up(struct path *);
- 
-+/* per-position flags passed to the vfs_walk_ancestors() callback */
-+#define VFS_WALK_POS_DISCONNECTED	BIT(0)
-+/* the position is a mountpoint landed on by a mount crossing */
-+#define VFS_WALK_POS_MOUNTPOINT		BIT(1)
-+
-+/* vfs_walk_ancestors() callback verdicts; negative values abort the walk */
-+#define VFS_WALK_STOP		0
-+#define VFS_WALK_CONTINUE	1
-+
-+int vfs_walk_ancestors(const struct path *path,
-+		       int (*cb)(const struct path *ancestor,
-+				 unsigned int pos_flags, void *data),
-+		       void *data, unsigned int flags);
-+
- int start_renaming(struct renamedata *rd, int lookup_flags,
- 		   struct qstr *old_last, struct qstr *new_last);
- int start_renaming_dentry(struct renamedata *rd, int lookup_flags,
 -- 
 2.55.0
 
