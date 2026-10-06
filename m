@@ -1,91 +1,77 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1E573D9026
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 23:19:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4A0A38B12D
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 23:19:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791328776; cv=none; b=G4VTHo3KTxi4r9AfsA2TZuTA5UwVucKnX6ceu90KbxjSxbIsHZrH/VNciwy+bwA2LvhRVaiR+NNYjt8O9v/64TJpgahh1+2rjDi/od3sCDz5VsJhqxHHxo9wBqm5BhQsiJJmymduARFSTPEHLducdNcP7wAtENpsbs5OB5uDjJk=
+	t=1791328802; cv=none; b=KaqXOjP87GL6LEpFJfS1yTG/jxAXq4OKESwAcYvKNwOQMi03odgDg+NX3GJ4coBMTCPXkcRxnp9vdp3MwNx3bZGpT25irwPuRf9tlnsE0fVlFv1TOuVbOQyca/vx3zx/rRtNQxEbnG+vwxhZ1FE/8b50+h/dXZQcGCugX6aprdo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791328776; c=relaxed/simple;
-	bh=T6NGPeImLPospjxS8/pCO+W9TSe73t4Y6Lz+PI/W/L4=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=G7yQ7t9li6eRtx8N5MxGNBZMgITzn0q8qavfFTdgU4c1/WSKXlb2mskZ8Ufeiwu/ChF11bQ7K/zFAKz3YKIcDeU9xzwRDFFX/KLvKZmV+42eHW407Gnyu1BnVkD/mKvkEPwHyOGyX7QChMeT1OsRQdKwiaUOLaWL23bVUsBT3NQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=fail (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pWqnxPLy reason="signature verification failed"; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791328802; c=relaxed/simple;
+	bh=jOFIi9j5lb+W4ZgP3d2GOzqpMZpI5gD3eEQ9EXJ3vUU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=iFrhT38s/u+aZddZ2CqbxK2tZvIiEQraJFmtgcJHtTpYzjZlnuBVoP+JX/terMK0r56wAjvHODCp3rHngZRpL+qTUMYBLUcAp1xtPjw6GHOpmURT+wopR8oUTE+s5OUGk2fFyS60xrD0YDxB62O4KhBa0nMkBtQKJkWCTEeikSI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Z1fgv2Xr; arc=none smtp.client-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pWqnxPLy"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 696LexsY2389962
-	for <linux-kernel@vger.kernel.org>; Tue, 6 Oct 2026 22:41:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=DrnF+WzDhjC
-	ZA+grZoIKVvpbcMd8nTjpbf5IDdeQS9M=; b=pWqnxPLyDwc60BTeVl9q4UfcwE3
-	1ViwjEiWDGenyjOvk6jTy3G7j5WAZ16Cj6BJl1N1AhKST5mSqwYYPN9gbHnigqW5
-	yiljH/cEwHa+qP1hcmqSVtG92J2W4VnjrPHlglG0p18Erv4ymPDpb4qsCCbLrAbr
-	77QpKSgJgz9+SNy2+1fa1eh0NE8nsQUchQs6ZX/+xY4/1Ga035DckVYl5op8dGFJ
-	C74pLjGEjfkjqyQ2DH0IdSI6yV17VEGAD/XcT3yoITErWrVHM6XuyQIVd1B+fdYf
-	XhP3At8b+zCsmBrO3k8coajRvUdc8L7VJL/+dzTOhf+5jtroEn7mkJ2xjtA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4xfbk0vk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 22:41:17 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93be1861d2dso555947285a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 15:41:17 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Z1fgv2Xr"
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-33c2520ad38so2791767eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 16:19:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1791328788; x=1791933588; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=V7WLLRIqhaGAc6KUPG47cH0uIhtma10yNuJoi118PnY=;
+        b=Z1fgv2XroizXq9Owz9yQuRq9DVYxToalxPKuqI0ji9JAPJaEksVcoD2hUojOl2Fduo
+         2AUxD0GAy9CMbohmGPkbOb5CxNQx9T5NMBlbRX+aWyk01iU7+U8peSJeFFg0A5c23lDS
+         k4vjXpegU65YyYiOQFjvCKKpDwJ4fz1nShtdg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791326477; x=1791931277;
+        d=1e100.net; s=20260707; t=1791328788; x=1791933588;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DrnF+WzDhjCZA+grZoIKVvpbcMd8nTjpbf5IDdeQS9M=;
-        b=F5P953XhLf4oMvN7M/IOLlXg4Xe6oB4R4TJIVNu+uQ5SZjrHXeTt27umHocwqpAnsW
-         PuMT2WQlzxterHrEClMUgqp/Tt+/0GMznvMorONqnW9zsoFhD4KRp1rr6FBU4DZ8BPbZ
-         t9G1cyu+rgby1MrfIPhaP8AOjDufy03UWV7nPV7pPHEUNZqySPRuQG6IvDLkuNa7+9h4
-         VjHmaoCNVywyIK24dRnjCczybeUKSpRVszj98wZ8qk//sgS7dOxIDMxatAjT0k9YKDWJ
-         3SQunIqU3mF5pRXuwlkLCo9Zs88B7qGdjFMRDBc3Q0iPoInUwEEibkszBpDgVS/FibkR
-         QC/A==
-X-Forwarded-Encrypted: i=1; AKwUvBzvLi910vuI297F0TG8COaYxvzPeFNlqMwvBDFKydY1TVrVBog3Zic2m+Vm8cOICfA0EbnNgoTXKZNSqE8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kqxsfD/LzIN0MWuVLvrgiQCGa5MJBc8hQB/5LjPfbtkeb+eqc7
-	/cN02j+4lTwXPF4irqp9Gecwws++ZljA0tFqqYD4kGY1nOboOQCc5gmFjjf/OqTs/y+/3rwGl7M
-	7QQhelEm6kwqtHypKnX/1Uz4XHRthsTASm7Or9cjTNnSh33EOKX05ozTecOf3vJYeYtk=
-X-Gm-Gg: AYBFou3K8GUir/skqQ0gXA39S37P6w9yUa8WPt5XiekllEzeSNALe0C1dwMPZXzQvDG
-	f97B3LAfVYlvjaWrEx8NR/l5WAtI0eLxiWzGuJ5wG/d/nlI8/5iw1Z6b+zE4sk1mhOyh41M0iQv
-	6qOJCkNZAsA09r/ESxz5T2LwcWaSvG4WquiJlHv+49gzkBLU4OAOWn90lK35nSbBnFNK/qn5kfa
-	myIobY0pZCjgKN8VVAwy+O9pw2fWBrgG/+cfZOFv5THr3ZmZ4EMwFXTxunjoKB8BxhsVneAj7M7
-	CVSamrBLxiMuiiPbPL9lpt2Kh821fbhCxN03KfYrWk1SoY4rrJVpcTv2JnA=
-X-Received: by 2002:a05:620a:4486:b0:93c:5958:9de9 with SMTP id af79cd13be357-93e9b7c7f3dmr72919885a.33.1791326476812;
-        Tue, 06 Oct 2026 15:41:16 -0700 (PDT)
-X-Received: by 2002:a05:620a:4486:b0:93c:5958:9de9 with SMTP id af79cd13be357-93e9b7c7f3dmr72915485a.33.1791326476290;
-        Tue, 06 Oct 2026 15:41:16 -0700 (PDT)
-Received: from lin-0843.qualcomm.com ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178c53299sm167263575e9.11.2026.10.06.15.41.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 15:41:15 -0700 (PDT)
-From: Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
-        Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        hariram.purushothaman@oss.qualcomm.com, pshrotri@qti.qualcomm.com,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
-        johannes.goede@oss.qualcomm.com, konradybcio@kernel.org
-Subject: [PATCH 26/45] dt-bindings: media: qcom,sa8775p-camss: add pixel path variant
-Date: Wed,  7 Oct 2026 01:39:34 +0300
-Message-Id: <20261006223953.3382273-27-gjorgji.rosikopulos@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261006223953.3382273-1-gjorgji.rosikopulos@oss.qualcomm.com>
-References: <20261006223953.3382273-1-gjorgji.rosikopulos@oss.qualcomm.com>
+        bh=V7WLLRIqhaGAc6KUPG47cH0uIhtma10yNuJoi118PnY=;
+        b=x6W1nWrzwvrS1i5wbN8MFQH3JcbDolAfuIK2SGr7QlGiw+Akp9pEXBvwiKI57qnr0+
+         X0oPkPcwyVOZj3k/+wi1lCwIRWKr8ws3v9CKAuDRA36rlGmErAYNGcGYYj8jJp47izJJ
+         b0ihXdugO2/CSsTINDlcnOeScL84OwfFbvQOEevb0B+FVLdIshW3435iNllMbrtROxuX
+         vjGwyKGxxGl7zUNMzAYPCOLb0OSHtPremUUcZ5uG+ekPJ4PwdejbJgLJUX1GshhaaFdl
+         S81zuGMxXyKyfygQ/vpHz+xb6OZWRrZ/Zg9FGEnahS3imXRLaZaKrxBWrCxVkzFm4Mt9
+         SfIw==
+X-Forwarded-Encrypted: i=1; AKwUvBwHUAwbrdE6ExK/B2qQnp5JJ7HL0tyYBwO0Mio5PsAh15VBASlO8+oDgqetANcgidYsMgtjo8MqmH3f898=@vger.kernel.org
+X-Gm-Message-State: AFuF++ladp/GVz3iEU/M1eOpwzzxqU0IQpHMUztIWC8uwWC40SxfVMNG
+	h05jZSXOgziBvNuFOKEhMThIyuWeOWVIyoyEEJwcdJmgpdjvoAPfAoBZDCjwTYh6Zw==
+X-Gm-Gg: AYBFou1H/XG8Yz04XbhcM3iWrRaiJUg8UNxxk+3tRIbnT49nikh22D/hiNAoCWptg9Z
+	au4FLgnhd3rHre9Vb9TQqsPDjsCK6CsAg6qC9B8F4J5HDgALtKhkeKIYah7+u4RWlZN08Vq3bX9
+	+NBk/Q+OGgAVyai4bMS4iHliig2kBWbVlxNzq53y5u/QRKEfaLWAJH6U3vZCVbBLU5j0dW1sHB/
+	JZlZnsS2UqfK5EIbCQb0QUTCG6SyVWDA2Qa1jYZwHHc4Db7fUNsP0Bzq1MmX7l0IFOU1xpaqq8k
+	qDWiKHoc7q095TIEZpu0ED8sizrMovMq0yuOIItwPWUKpcATEW1dVHPhrYfFHUiatxbBAsE8EgT
+	uTfuDCg9ZW/sInAvmFwse5UPbHA7jzjjsT23dvGm3DN4Yq6GDI6Ng7a4RlBzdroBGqlJeVeKDH7
+	N1RfnWooP34PTBsuVDnOJuJIPmPQ9Y8o5xHmCFfDlaSgzoBMNNNPJrMrnDJjTwu8vGHVdtbdmAy
+	5Wv7ZOoEO8ItkTrtj1rQsspZRSXSfZD3J4Mdw==
+X-Received: by 2002:a05:7022:ed0a:b0:143:2719:566c with SMTP id a92af1059eb24-1620824887emr274449c88.40.1791328787647;
+        Tue, 06 Oct 2026 16:19:47 -0700 (PDT)
+Received: from localhost ([2a00:79e0:2e7c:8:63eb:e7f9:1d47:7d47])
+        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-16166121f2asm1806348c88.4.2026.10.06.16.19.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 06 Oct 2026 16:19:47 -0700 (PDT)
+From: Brian Norris <briannorris@chromium.org>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: linux-pm@vger.kernel.org,
+	Ulf Hansson <ulfh@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Brian Norris <briannorris@chromium.org>,
+	Hadar Gat <hadar.gat@arm.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Olivia Mackall <olivia@selenic.com>,
+	linux-crypto@vger.kernel.org
+Subject: [PATCH 01/13] hwrng: cctrng: Discard pm_runtime_put_autosuspend() return value
+Date: Tue,  6 Oct 2026 16:13:29 -0700
+Message-ID: <20261006161337.1.I8e0880001b352bc2b0e99c40b78cb57e03c88a12@changeid>
+X-Mailer: git-send-email 2.56.0.360.g66cac248cb-goog
+In-Reply-To: <20261006231900.3230373-1-briannorris@chromium.org>
+References: <20261006231900.3230373-1-briannorris@chromium.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -93,58 +79,50 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=D8TSufRj c=1 sm=1 tr=0 ts=6ac5790d cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8 a=xOFzXCKjWWEJiKxN6jAA:9
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-GUID: ejD1zfN96wltUpFgvqgXGKCuwuRsj0ut
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA5MCBTYWx0ZWRfX783id5p/xedZ
- /L/gV5E1/uGtfC2jxa8WcA2L+18hxdJgzpio5bhdRzSTM1Yn2KJMCWei9/D3XovlNDCxFU2ta+O
- Lats6O6/PtacvkY7tsCffxfcVx62D7s=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA5MCBTYWx0ZWRfXzZupIDI5s/tt
- /obnDY4PRNj6vF5i7VYAS93JnXop4UezVNd9eygXXSpMmoNdz8Kif6jGn29c1bk/T/ePeNykW/3
- DBxud1qRm1aQrWxX3+zkC8ID3kyks/BEpkV8mGunBjiIKwk4El3LoBvZB+KFQkNrlbzVn+YsKAI
- AbVtcAKL+IxqKGF+3UlIo14pT/lBuO21n3fhGcXWAGVfwYhheI45NxmKdHk62h5itfQZt1ZQj4a
- mf+1J4pBp0aQdPKtkHlohkererDUwTKm6XoCq5cVyywluRnUQSeEtktVJ9QZczTv7cNsHzIns2/
- AtK3G5OIjOcnoit9mAomUI6NgruY9wwnQxiam5Bq+05yKFu8ETxDyIKyAR3scl66Jpk2PGy96sZ
- 6+7puObWGMG+oV3ps7ZAu/Id+S99qxJgdcBnCeCSNYX93XnnBxAIcp2ulMK/k8lZBCqZsurF+QV
- 2qknKm8lUM6/IOrIKiw==
-X-Proofpoint-ORIG-GUID: ejD1zfN96wltUpFgvqgXGKCuwuRsj0ut
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-06_05,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 adultscore=0 suspectscore=0 priorityscore=1501
- bulkscore=0 lowpriorityscore=0 spamscore=0 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060090
 
-From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+Printing an error message on pm_runtime_put_autosuspend() returning a
+non-zero value is not particularly useful.
 
-Document qcom,sa8775p-camss-pix for CAMSS configurations that use IFE
-pixel paths. Keep qcom,sa8775p-camss for the legacy VFE resources.
+Returning an error code from pm_runtime_put_autosuspend() merely means
+that it has not queued up a timer or work item to check whether or not
+the device can be suspended and there are many perfectly valid
+situations in which that can happen, like after writing "on" to the
+device's runtime PM "control" attribute in sysfs for one example.
 
-Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+Accordingly, update cc_trng_pm_put_suspend() to simply discard the
+return value of pm_runtime_put_autosuspend().
+
+This will facilitate a planned change of the
+pm_runtime_put_autosuspend() return type to void in the future, similar
+to commit 3afd8df02433 ("PM: runtime: Change pm_runtime_put() return
+type to void").
+
+Signed-off-by: Brian Norris <briannorris@chromium.org>
 ---
- .../devicetree/bindings/media/qcom,sa8775p-camss.yaml         | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+This patch is independent of the rest of the series, except for the end
+(changing the return type). I expect it can be applied by individual
+maintainers, and we pick up the end once the dust is settled.
 
-diff --git a/Documentation/devicetree/bindings/media/qcom,sa8775p-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sa8775p-camss.yaml
-index 48f280e99809..9206c7cfe197 100644
---- a/Documentation/devicetree/bindings/media/qcom,sa8775p-camss.yaml
-+++ b/Documentation/devicetree/bindings/media/qcom,sa8775p-camss.yaml
-@@ -14,7 +14,9 @@ description:
+ drivers/char/hw_random/cctrng.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
+
+diff --git a/drivers/char/hw_random/cctrng.c b/drivers/char/hw_random/cctrng.c
+index a6925211c3b5..7e1e1a7844b0 100644
+--- a/drivers/char/hw_random/cctrng.c
++++ b/drivers/char/hw_random/cctrng.c
+@@ -96,11 +96,7 @@ static int cc_trng_pm_get(struct device *dev)
  
- properties:
-   compatible:
--    const: qcom,sa8775p-camss
-+    enum:
-+      - qcom,sa8775p-camss-pix
-+      - qcom,sa8775p-camss
+ static void cc_trng_pm_put_suspend(struct device *dev)
+ {
+-	int rc = 0;
+-
+-	rc = pm_runtime_put_autosuspend(dev);
+-	if (rc)
+-		dev_err(dev, "pm_runtime_put_autosuspend returned %x\n", rc);
++	pm_runtime_put_autosuspend(dev);
+ }
  
-   reg:
-     maxItems: 22
+ static int cc_trng_pm_init(struct cctrng_drvdata *drvdata)
 -- 
-2.34.1
+2.56.0.360.g66cac248cb-goog
 
