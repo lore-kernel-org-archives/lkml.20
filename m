@@ -1,108 +1,212 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-119.mta0.migadu.com [91.218.175.119])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 351BE45C6FC;
-	Tue,  6 Oct 2026 13:06:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0334456E1A
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 13:07:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.119
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791291998; cv=none; b=MhePL5Lwp1M+JWvnSKq2gbaZWXSIYd4XF4prPIwZCkWexDLKAQ+V1aoSBGkDkPI7IblYMuN7Y/gDXA2zJsH7Tys7PL1jOV5Ldt9nEXKvTdbrPO0qwseGapwRBudaLuFcnqqyzF44eisBJKHRSRfgrJlvoDeXWSO9ej2hlQiWxls=
+	t=1791292039; cv=none; b=NDDn0dF/TYNyblvCvbeTW8QJ3tIAQSsJqzwx0LWjbdDQHETUhA7Xgrz3xj2PaUDtXA+1+/gM1wxKOctww1yZNra3bAe++fM6yFQUxAbNo44oAIhHb+bgccWcuV1U2i8Eg7ftjXKEMcNCgTElAJwfUcrr1Cju+OZQ/YY4bd8a0sA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791291998; c=relaxed/simple;
-	bh=zhOu27oxfzwSiANFlhZ2HvPrHAiETkc90ajbDcCfLBc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=crngz9MYagxW501nTZYg5c3dSzpOPb89Wg8kuNXPYPDkQz5mauCORjkUUtcaFGmWZfMEwxEMj0Hlar8dUtvWhH6gTlv+GimMoLYYdln5v2PiYq/5ghrFcn4XmvjvxNpNiC0KcCvGwX4G9mgubNAZGQsf19ApLAZBP7ULxPVBnJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=uZ3Ug/lK; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1791292039; c=relaxed/simple;
+	bh=XoywHfKWSMNZzejXXYvAXwmDX3AVn+m3CuZNwIwXAe8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=vGpU2D1nGfgOmbb6DD4AzWfUFVb6R0zpU6k29s1QcXgrr2LCWiXCMhZwrerCYJD2DB0OLkE3Jj47XZmZBCpqolScL/nIOrS/UuNGawTy85Mdob+aVfTcVpW07tAQYc4Jayj3Kg8U1w1iDLcLlHWSjlDy/GXa4l4yS3G4u5EstqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=rfuE4SzZ; arc=none smtp.client-ip=91.218.175.119
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="uZ3Ug/lK"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=6pVnrxOROFVOkwWfQdTsRuJM4AJzKzSq0bMpts2rh5I=; b=uZ3Ug/lKmjg81E6zeai+YA2uKL
-	oHBQ96jo/Zvlz+JrKSMlD77HI2rkFviDHcBL7T3sNk7KYjMArkFYEDYmRwAJ20mm0MlBJpje9i1Wc
-	JpgsLli4Yr13TPQFJcEpSxIoJeqgj0eerqWVLwPU/dPaZgyCarIH83K0eWhKWywn5fv0=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xE4sC-009GSp-Rl; Tue, 06 Oct 2026 15:06:24 +0200
-Date: Tue, 6 Oct 2026 15:06:24 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Selvamani.Rajagopal@onsemi.com
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Piergiorgio Beruto <pier.beruto@onsemi.com>,
-	Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
-	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, Jerry Ray <jerry.ray@microchip.com>
-Subject: Re: [PATCH net-next v8 09/11] net: phy: ncn26000: Support for
- loopback
-Message-ID: <344be351-656f-4e02-8c33-d9dde6bf80b1@lunn.ch>
-References: <20260928-s2500-mac-phy-support-v8-0-7e011aacc309@onsemi.com>
- <20260928-s2500-mac-phy-support-v8-9-7e011aacc309@onsemi.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="rfuE4SzZ"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=XoywHfKWSMNZzejXXYvAXwmDX3AVn+m3CuZNwIwXAe8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791292034; v=1; x=1791896834;
+ b=rfuE4SzZ06tHg2ZbJ8VdNULW8hR3tsG9Q5u8TNzGOcs+rZsoo6l5AD0vCsk+cQVzcwK3Mz3i
+ AIlfVnrsbP/VtXBHueVqq+SrXdFwbWQIbKSrMj0kl4J+0FYKQXXDxOVK8xCNWCA92ZpDlQ4UdQt
+ +whzYEQTBCdPFFQJruAD/KzQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 74bf45c5ca40593c;
+	Tue, 06 Oct 2026 13:07:14 +0000
+X-Mizu-Trace-ID: 74bf45c5ca40593c
+X-Migadu-Flow: FLOW_OUT
+From: Luka Gejak <luka.gejak@linux.dev>
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Michael Straube <straube.linux@gmail.com>,
+	Peter Robinson <pbrobinson@gmail.com>,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
+	Luka Gejak <luka.gejak@linux.dev>
+Subject: [PATCH rtw-next v8 2/7] wifi: rtw88: 8723b: add the RTL8723B register definitions
+Date: Tue,  6 Oct 2026 15:06:56 +0200
+Message-ID: <20261006130701.120460-3-luka.gejak@linux.dev>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261006130701.120460-1-luka.gejak@linux.dev>
+References: <20261006130701.120460-1-luka.gejak@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928-s2500-mac-phy-support-v8-9-7e011aacc309@onsemi.com>
+Content-Transfer-Encoding: 8bit
 
-> @@ -2775,6 +2775,26 @@ int genphy_write_mmd_unsupported(struct phy_device *phdev, int devnum,
->  }
->  EXPORT_SYMBOL(genphy_write_mmd_unsupported);
->  
-> +/**
-> + * genphy_loopback_fixed_speed - Helper to modify the PHY loopback mode
-> + * without affecting any other settings.
-> + * @phydev: The phy_device struct
-> + * @enable: Flag to enable or disable the PHY level loopback.
-> + * @speed: Speed setting. Not expected to be set. Error if it is set.
-> + *
-> + * Returns: 0 if successful, negative error code on failure.
-> + */
-> +int genphy_loopback_fixed_speed(struct phy_device *phydev, bool enable,
-> +				int speed)
-> +{
-> +	if (enable && speed)
-> +		return -EOPNOTSUPP;
-> +
-> +	return phy_modify(phydev, MII_BMCR, BMCR_LOOPBACK,
-> +			  enable ? BMCR_LOOPBACK : 0);
-> +}
-> +EXPORT_SYMBOL(genphy_loopback_fixed_speed);
+Add the register offsets and bit definitions the RTL8723B driver uses,
+including the power and system function bits, the BT antenna and efuse
+control registers, the packet lifetime and MAC ID drop registers, the
+FPGA0 HSSI and RF switch control registers, and the RFE antenna path
+registers.
 
-Please could you place it next to genphy_loopback()
+Signed-off-by: Luka Gejak <luka.gejak@linux.dev>
+Reviewed-by: Bitterblue Smith <rtl8821cerfe2@gmail.com>
+Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+---
+ drivers/net/wireless/realtek/rtw88/reg.h | 34 ++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
-> +
->  int genphy_suspend(struct phy_device *phydev)
->  {
->  	return phy_set_bits(phydev, MII_BMCR, BMCR_PDOWN);
-> diff --git a/include/linux/phy.h b/include/linux/phy.h
-> index 7c5098a0dd6c..c1b9bc305c82 100644
-> --- a/include/linux/phy.h
-> +++ b/include/linux/phy.h
-> @@ -2327,6 +2327,8 @@ int genphy_read_mmd_unsupported(struct phy_device *phdev, int devad,
->  				u16 regnum);
->  int genphy_write_mmd_unsupported(struct phy_device *phdev, int devnum,
->  				 u16 regnum, u16 val);
-> +int genphy_loopback_fixed_speed(struct phy_device *phydev, bool enable,
-> +				int speed);
+diff --git a/drivers/net/wireless/realtek/rtw88/reg.h b/drivers/net/wireless/realtek/rtw88/reg.h
+index 0b9ba6f37680..afcdb66fdb9a 100644
+--- a/drivers/net/wireless/realtek/rtw88/reg.h
++++ b/drivers/net/wireless/realtek/rtw88/reg.h
+@@ -8,7 +8,9 @@
+ #define REG_SYS_FUNC_EN		0x0002
+ #define BIT_FEN_EN_25_1		BIT(13)
+ #define BIT_FEN_ELDR		BIT(12)
++#define BIT_FEN_PPLL		BIT(7)
+ #define BIT_FEN_PCIEA		BIT(6)
++#define BIT_FEN_DIO_PCIE	BIT(5)
+ #define BIT_FEN_CPUEN		BIT(2)
+ #define BIT_FEN_USBA		BIT(2)
+ #define BIT_FEN_BB_GLB_RST	BIT(1)
+@@ -19,6 +21,7 @@
+ #define BIT_PFM_WOWL		BIT(3)
+ #define BIT_APFM_OFFMAC		BIT(9)
+ #define REG_APS_FSMCO		0x0004
++#define BIT_EN_PDN		BIT(4)
+ #define APS_FSMCO_MAC_ENABLE	BIT(8)
+ #define APS_FSMCO_MAC_OFF	BIT(9)
+ #define APS_FSMCO_HW_POWERDOWN	BIT(15)
+@@ -67,6 +70,9 @@
+ #define BIT_SHIFT_LDO25_VOLTAGE	4
+ #define BIT_LDO25_EN		BIT(7)
+ 
++#define REG_PWR_DATA		0x0038
++#define BIT_EEPRPAD_RFE_CTRL_EN	BIT(11)
++
+ #define REG_ACLK_MON		0x3e
+ 
+ #define REG_GPIO_MUXCFG		0x0040
+@@ -105,6 +111,12 @@
+ #define BIT_BTGP_SPI_EN		BIT(20)
+ #define BIT_LED1DIS		BIT(15)
+ #define BIT_SW_DPDT_SEL_DATA	BIT(0)
++#define REG_BT_ANT_SEL		0x0067
++#define BIT_BT_SEL_BY_WIFI	BIT(5)
++/* 0x006b is the high byte of the 16 bit register at 0x006a. */
++#define REG_BT_EFUSE_CTRL	0x006b
++#define BIT_BT_PWR_CUT		BIT(6)
++#define BIT_BT_OUT_ISO		BIT(7)
+ #define REG_WL_BT_PWR_CTRL	0x0068
+ #define BIT_BT_FUNC_EN		BIT(18)
+ #define BIT_BT_DIG_CLK_EN	BIT(8)
+@@ -301,6 +313,8 @@
+ #define REG_HMEBOX3		0x01DC
+ #define REG_LLT_INIT		0x01E0
+ #define BIT_LLT_WRITE_ACCESS	BIT(30)
++#define REG_RFK_FW_ACK		0x01E7
++#define BIT_RFK_FW_ACK		BIT(0)
+ #define REG_HMEBOX0_EX		0x01F0
+ #define REG_HMEBOX1_EX		0x01F4
+ #define REG_HMEBOX2_EX		0x01F8
+@@ -429,6 +443,8 @@
+ #define REG_ARFRH5		0x04A8
+ #define REG_SW_AMPDU_BURST_MODE_CTRL 0x04BC
+ #define BIT_PRE_TX_CMD		BIT(6)
++#define REG_PKT_VO_VI_LIFE_TIME	0x04C0
++#define REG_PKT_BE_BK_LIFE_TIME	0x04C2
+ #define REG_QUEUE_CTRL		0x04C6
+ #define BIT_PTA_WL_TX_EN	BIT(4)
+ #define BIT_PTA_EDCCA_EN	BIT(5)
+@@ -437,6 +453,8 @@
+ #define REG_PROT_MODE_CTRL	0x04C8
+ #define REG_MAX_AGGR_NUM	0x04CA
+ #define REG_BAR_MODE_CTRL	0x04CC
++#define REG_MACID_PKT_DROP0	0x04D0
++#define REG_MACID_PKT_SLEEP	0x04D4
+ #define REG_PRECNT_CTRL		0x04E5
+ #define BIT_BTCCA_CTRL		(BIT(0) | BIT(1))
+ #define BIT_EN_PRECNT		BIT(11)
+@@ -520,6 +538,7 @@
+ #define BIT_UC_MD_EN		BIT(16)
+ #define BIT_RXSK_PERPKT		BIT(15)
+ #define BIT_HTC_LOC_CTRL	BIT(14)
++#define BIT_AMF			BIT(13)
+ #define BIT_RPFM_CAM_ENABLE	BIT(12)
+ #define BIT_TA_BCN		BIT(11)
+ #define BIT_RCR_ADF		BIT(11)
+@@ -546,6 +565,7 @@
+ #define REG_ACKTO		0x0640
+ #define REG_EIFS		0x0642
+ #define REG_NAV_CTRL		0x0650
++#define REG_NAV_UPPER		0x0652
+ #define REG_WMAC_TRXPTCL_CTL	0x0668
+ #define BIT_RFMOD		(BIT(7) | BIT(8))
+ #define BIT_RFMOD_80M		BIT(8)
+@@ -581,6 +601,7 @@
+ #define REG_BT_COEX_V2		0x0762
+ #define BIT_GNT_BT_POLARITY	BIT(12)
+ #define BIT_LTE_COEX_EN		BIT(7)
++#define REG_BT_CONTROL		0x0764
+ #define REG_GNT_BT		0x0765
+ #define BIT_PTA_SW_CTL		GENMASK(4, 3)
+ #define REG_BT_COEX_ENH_INTR_CTRL	0x76E
+@@ -606,12 +627,20 @@
+ #define BIT_RX_PSEL_RST		(BIT(28) | BIT(29))
+ #define REG_TXPSEL		0x080C
+ #define REG_RX_GAIN_EN		0x081c
++#define REG_FPGA0_XA_HSSI_PARM2	0x0824
++#define HSSI_3WIRE_ADDR_LEN	0x400
++#define HSSI_3WIRE_DATA_LEN	0x800
+ #define REG_CCASEL		0x082C
++#define REG_FPGA0_XB_HSSI_PARM2	0x082C
+ #define REG_PDMFTH		0x0830
+ #define REG_BWINDICATION	0x0834
+ #define REG_CCA2ND		0x0838
+ #define REG_L1PKTH		0x0848
+ #define REG_CLKTRK		0x0860
++#define REG_FPGA0_XA_RF_INT_OE	0x0860
++#define REG_FPGA0_XB_RF_INT_OE	0x0864
++#define REG_FPGA0_XA_RF_SW_CTRL	0x0870
++#define RFSI_RFENV		0x10
+ #define REG_CSI_MASK_SETTING1	0x0874
+ #define REG_NBI_SETTING		0x087c
+ #define BIT_NBI_ENABLE		BIT(13)
+@@ -630,6 +659,9 @@
+ #define REG_PSD			0x0910
+ #define BIT_PSD_INI		GENMASK(23, 22)
+ #define REG_SINGLE_TONE_CONT_TX	0x0914
++#define REG_RFE_CTRL_ANTA_SRC	0x0930
++#define REG_RFE_CTRL_ANT_SW	0x0944
++#define BIT_RFE_CTRL_ANT_SW_SEL	GENMASK(1, 0)
+ #define REG_AGC_TABLE		0x0958
+ #define REG_RFE_CTRL_E		0x0974
+ #define REG_2ND_CCA_CTRL	0x0976
+@@ -649,6 +681,7 @@
+ #define REG_CCA_MF		0x0a20
+ #define BIT_MBC_WIN		GENMASK(5, 4)
+ #define REG_CCK0_TX_FILTER1	0x0a20
++#define REG_CCK_SWING		0x0a22
+ #define REG_CCK0_TX_FILTER2	0x0a24
+ #define REG_CCK0_DEBUG_PORT	0x0a28
+ #define REG_CCK0_FAREPORT	0x0a2c
+@@ -683,6 +716,7 @@
+ #define REG_RX_IQC_AB_A		0x0c10
+ #define REG_RX_IQC_CD_A		0x0c14
+ #define REG_TXSCALE_A		0x0c1c
++#define REG_B_RXIQI		0x0c1c
+ #define BB_SWING_MASK		GENMASK(31, 21)
+ #define REG_TX_AGC_A_CCK_11_CCK_1		0xc20
+ #define REG_TX_AGC_A_OFDM18_OFDM6		0xc24
+-- 
+2.55.0
 
-and this next to genphy_loopback().
-
-	Andrew
