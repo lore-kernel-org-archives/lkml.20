@@ -1,139 +1,107 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1DBE3EC683
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 12:46:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51C61421257
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 12:47:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791290776; cv=none; b=MsTHVCrqrxmxUrXMbwN/O4bX8MPIDY8Gc2HZhVVkEoc7r93XNSSNMu6hqrFdP9esuws5GvcBTLp5Q0H8Qg+22Hh+P9QDyvQ6EcfwGXyobYy+TIDIdumfdCjNFlRoUqhawqpFdYQhKwo85bFfxhGqctfaSf3qjpusw5V7WKUse28=
+	t=1791290841; cv=none; b=akTK/Tg4vwo6qjGeQPsAN+pXMuEG/gwkRU7g2Qk41KXrxPBB/bYGSnC8AjTInIgSESVKoC+ENRQkq82BsFuwdf2KVJq5Ys7lDOAGK4ERMAAu3luD9TldMb/p0usa74ZHQ4hRdmPMAlCQomgq+ZnJSEkLzksrimH5zDHI987TnzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791290776; c=relaxed/simple;
-	bh=4EwkUTqxC5Uts/rcG3ZaV8UEts32S3lMvIUHgcMGsRk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CL5J6b+ZpFYAEGH/Sov3ytBZCsV2Z0RRlrw69QWe6uZt4+u5/ZZkuAygrIOmS1BOZBU77ILJdE4tI49luaUievF6UQx0QpBE5s69xlDLA1rhFhtREjk0OfNc6eM0k7vZ4K/hACDvMAWCqjTJqZjyDS2F8fwpTXGTgLL1osYlfQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q0MCuzNd; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791290841; c=relaxed/simple;
+	bh=R72NPvOuQ6e2UyG9GZVXQfcWUZHF2on8NKI/dYIzBbw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nNdB31uDxbI5QKhauUZD4ZDnSOpXMOAlQVgtLTyFcAUSSzl3AIP9HcF93M0Q1XvzOeNP0zMc4rAnNuvVl2NIk1VYMKIvVKMgZwUeQzE3QAs7aqy4Wo23aYgS0qFCEEeQQBk98SX4ZlykwpNgkWD79ysHQ//zkxWV6oDAkcuz6tI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=LiHOm/dw; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q0MCuzNd"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e2d4cf3668so4735865ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 05:46:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791290762; x=1791895562; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YaXlr/yPmfkUIqnSLYGFyg6IcacgTfFI6Bnanq/Mm1U=;
-        b=Q0MCuzNdwYp3hH66haF9SfMjiB+5XKf7v9VvTL6GFlfuk0qZQJEf9ifXKJjAu2LCbj
-         fa/BxavgqAduaKSmo0EQD4owIcVcC2oWWmEty+A20akcjTGE7xh/6IC9pcMhvu+orhV+
-         D5XBhldpnnWwPvMfhB/8xWniQNR+cM6fWGRtzNqx/T4pbzQAWMWEBC3jHAS8BYQ/oaEg
-         /zZP3clHqs9EFicrnNptE4xyFiczWadSeulEUfgChmb1CceL6NEIObU5TfBA+m3FGRR1
-         axP6smYeXleDhFGxrXdsJ1CkVMGEfDZskjDM3SjnIVbniQx/zUF+KfkAUvSKBYNvhNBV
-         gn9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791290762; x=1791895562;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YaXlr/yPmfkUIqnSLYGFyg6IcacgTfFI6Bnanq/Mm1U=;
-        b=d/XPW21EKgsSfEVhX7OiuZL4lOVTxcW+iVzyAsMQlygqpv0nmfRmSSMXzpRJIaHzKk
-         98ujXq99XRKXE71Y+3t1hmsnj2CSDSxeU8col5/uyCtNp02gW2QhaVAMIjHtWtWFngGM
-         xR/aXUR+7kdQ5WMFG+hM0o1CgShPYhNP7L1mPMy14IiB04s6faAxZMEnk147XGCXEk9m
-         VyRyHpoLRMqOYdtZkwETt7LdtLegNoNDCt7Rd5eL0I87ObbKaIQBecnEANUMn7kKGsZG
-         qTN1oLXBNsvZweOrvE7JfQbk+62BSQ19fmBVKi5AjR2NymjdvJc3QFC52eT7+Y8LWf80
-         T/6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzWG1/DkH1TG/n8OBCzFQfCUgsotCnWiF0R4M4gWoZ0vOVHBLs5+olCqNs+Z+FxbLLiwQjh5KDuz53G+pY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYICCp40Hq81P0hdrd/D4DpKs0OtIXIZx0YuzHiBNBeQbo2loM6f
-	OBTyAPtwg8BLce7foRUM9aXPqTIJ1YtHG4jxL8WaSEqqRYhf/MnmdvsMyhsZR1BvpryoQA==
-X-Gm-Gg: AYBFou2i8YlaZWvBtTRXlJ8vEEY9/G5NZxa9hTrb1MXvCO/givk/rYrgHOOBma1Vkvp
-	MoAca7+gsmxEZeYKumAhIgchOEBrMQ3+vTnYzG5iTyMzAl+ErjW5K8ItIIuyFgDmwaiDDtqRy22
-	CsmGCjKhDC22JIn6hyDFw1ZAoV/7gLEp4+SyImsDlpP6QCkoj3Ut4/CAROSSfnmYdI+MxmyjpQN
-	XfGTOGqGmXnRQsyDKAW+kmiijUanI078jD2CyfLuUVQmP1ZeKdf+R/h8aemKAxbgusE/ATQVdtM
-	U+/NXVYeb4iRKfI9Q0kPborLRMmn56rDuisVs7he8EyBB4B/kyGqXEVyN3XJw3GhqufNvvNR6CU
-	QFhE1TFxUzeGXwnp5up2jMNXo9Z6Aul2M6NKf5D70H+U+mrvW9Q/q+oZy8t+3F7D0C20xZjvm+k
-	3mpnlPLxcmffMU1q0A8FPxqpxHQQ+2cCqmYmav0LumZ6tbnsmCSiLG2FW+vGAwSas60yyoWOYba
-	nfZuecKekGzXAqbNw==
-X-Received: by 2002:a17:903:4685:b0:2df:5967:8eb4 with SMTP id d9443c01a7336-2e5dcda69ccmr12590655ad.41.1791290761607;
-        Tue, 06 Oct 2026 05:46:01 -0700 (PDT)
-Received: from LAPTOP-450UDG4J ([2401:4900:900c:ec20:d139:f8fd:7043:7eb2])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e5a5eb9254sm21240175ad.36.2026.10.06.05.45.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 05:46:01 -0700 (PDT)
-From: Yogesh Gaur <yogeshgaur.83@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>
-Cc: Duoming Zhou <duoming@zju.edu.cn>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yogesh Gaur <yogeshgaur.83@gmail.com>,
-	syzbot+d627b1495de0e851be32@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH] media: siano: initialise the urb work once, not on every completion
-Date: Tue,  6 Oct 2026 18:15:44 +0530
-Message-ID: <20261006124545.1778-1-yogeshgaur.83@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="LiHOm/dw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=4H7N/PFGdR9C/OA1qduSI6nayiZubCZ9HlKPIcu+HB8=;
+	b=LiHOm/dw4RWOOOidkD52BRG94F/92DCMy7xjOpt9+kF4yAADpXc0Vuh6MxbFt6
+	goWnGvJ0FJQBFAqMdFSNzGU77nXnCNiHb5zdi5Jb7YnKhpJgjpbQEmc29tZCvUXs
+	6tFT5LKe8q452fi9noqeSMSaoVj26yJT+QAIjooF+N1pE=
+Message-ID: <98d26a59-6955-4e1d-8588-eef9a0303ca0@163.com>
+Date: Tue, 6 Oct 2026 20:46:05 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/4] exfat: dirty all new pages when extending
+ valid_size
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: exfat@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Yuezhang.Mo@sony.com, dxdt@dev.snart.me, sj1557.seo@samsung.com,
+ Chi Zhiling <chizhiling@kylinos.cn>, Jiale Yao <yaojiale02@163.com>
+References: <20261004101934.1975655-1-chizhiling@163.com>
+ <20261004101934.1975655-4-chizhiling@163.com>
+ <CAKYAXd-2cSYwBcAfGtcAYbK95FfpASRrptz4YUf7Ke-cXK00PA@mail.gmail.com>
+ <5b101dea-77ef-4ae7-b8d9-54df20b0a6a5@163.com>
+ <CAKYAXd9u3gC=McjgAVABfsd_JPwKWMteJ=t4r0RAnuZ0worupw@mail.gmail.com>
+ <c1ab6f08-f277-4645-99ce-5e31ed896a89@163.com>
+ <CAKYAXd-v5W8g_Ho81Xa+hJ5mbA3wrdUcY1K9X-RjpMHbiivXnw@mail.gmail.com>
+From: Chi Zhiling <chizhiling@163.com>
+In-Reply-To: <CAKYAXd-v5W8g_Ho81Xa+hJ5mbA3wrdUcY1K9X-RjpMHbiivXnw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3v62N7cRqj2H5Cw--.39581S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Zw18XFyxAF1UCw4rJw4xZwb_yoW8ZFWrpF
+	W8Ga15ArWUJw17J392qFn7XF1rt3sxWFn7Xry5X34UArZ09Fy5KrWkJrWjkF1aqwn8uw4j
+	vFs5XryxZr1DJrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UdsqAUUUUU=
+X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC3A5qCGrE7Y7KlgAA3h
 
-smsusb_onresponse() re-runs INIT_WORK() on surb->wq every time an URB
-completes, right before scheduling it.  INIT_WORK() resets work->data,
-which is where the workqueue keeps the work's state, including the
-"being cancelled" mark that cancel_work_sync() sets while it waits.
+On 10/6/26 2:30 PM, Namjae Jeon wrote:
+> On Tue, Oct 6, 2026 at 3:02 PM Chi Zhiling <chizhiling@163.com> wrote:
+>>
+>> On 10/6/26 11:57 AM, Namjae Jeon wrote:
+>>> On Mon, Oct 5, 2026 at 7:19 PM Chi Zhiling <chizhiling@163.com> wrote:
+>>>>
+>>>> On 10/5/26 5:08 PM, Namjae Jeon wrote:
+>>>>>> @@ -664,90 +664,30 @@ int exfat_file_fsync(struct file *filp, loff_t start, loff_t end, int datasync)
+>>>>>>     static int exfat_zero_new_range(struct inode *inode, loff_t start, loff_t end)
+>>>>> Function name and comments no longer seem to match. What do you think
+>>>>> about changing them like this?
+>>>>>
+>>>>> /*
+>>>>>     * exfat_prepare_valid_range - populate and dirty folios covering [start, end)
+>>>>>     *
+>>>>>     * Populate missing blocks via the read path, which zero-fills data
+>>>>>     * beyond the current valid_size while preserving uptodate blocks.
+>>>>>     * Mark entire folios dirty so the newly valid range is written back.
+>>>>>     *
+>>>>>     * Call before advancing valid_size.
+>>>>>     */
+>>>>
+>>>> Okay, I'll add it to v3.
+>>>>
+>>>>>
+>>>>> And generic/538 test fails with this patch set. Please check if this
+>>>>> test failure is reproducible for you as well.
+>>>>
+>>>> I ran the tests, but I wasn't able to reproduce the failure. Could you
+>>>> tell me the block size and cluster size used to reproduce it?
+>>>>
+>>>> There is also a new failure in generic/551. This failure can be fixed by
+>>>> adding inode_dio_wait() to exfat_extend_valid_size(). Jiale's patch
+>>>> includes this fix:
+>>>>
+>>>> https://lore.kernel.org/exfat/20261003093035.532916-4-yaojiale02@163.com/T/#u
+>>> Okay, generic/538 test passed with this patch.
+>>> I will apply this patch and your patch-set.
+>>
+>> Okay,
+>>
+>> I noticed that these patches have already been merged into the exfat/dev
+>> branch, and the comments in exfat_zero_new_range() have also been
+>> updated. So I don't need to send v3, right?
+> For now, yes. I am currently doing other tests, and if there are some
+> issues for these patches, I will request v3 to you.
 
-smsusb_stop_streaming() kills the URB and then cancels the work.  If
-do_submit_urb() is running at that point it can resubmit the URB, and
-if that URB completes during the cancel, smsusb_onresponse()
-re-initialises the work, wiping the cancel mark, and queues it again.
-__flush_work() then finds a queued work where it expects an idle one:
+Okay!
 
-  smsusb:smsusb_init_device: smscore_start_device(...) failed
-  data & WORK_STRUCT_PWQ
-  WARNING: kernel/workqueue.c:4425 at __flush_work+0xc8f/0xd70 kernel/workqueue.c:4425
-   __cancel_work_sync+0xbf/0x110 kernel/workqueue.c:4568
-   smsusb_stop_streaming drivers/media/usb/siano/smsusb.c:183 [inline]
-   smsusb_term_device+0xdd/0x3d0 drivers/media/usb/siano/smsusb.c:345
-   smsusb_init_device drivers/media/usb/siano/smsusb.c:497 [inline]
-   smsusb_probe+0x1aba/0x2280 drivers/media/usb/siano/smsusb.c:575
-
-Initialise each work item once, next to the URB it resubmits, and only
-schedule it from the completion handler.  smsusb_stop_streaming() keeps
-its wq.func check, which still skips the URBs that were never set up
-when smsusb_init_device() fails early.
-
-Fixes: ebad8e731c1c ("media: usb: siano: Fix use after free bugs caused by do_submit_urb")
-Reported-by: syzbot+d627b1495de0e851be32@syzkaller.appspotmail.com
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
----
-Built with W=1 only; not runtime-tested.
-
- drivers/media/usb/siano/smsusb.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/media/usb/siano/smsusb.c b/drivers/media/usb/siano/smsusb.c
-index 0fdc2e0950b7..210c323c8232 100644
---- a/drivers/media/usb/siano/smsusb.c
-+++ b/drivers/media/usb/siano/smsusb.c
-@@ -143,7 +143,6 @@ static void smsusb_onresponse(struct urb *urb)
- 
- 
- exit_and_resubmit:
--	INIT_WORK(&surb->wq, do_submit_urb);
- 	schedule_work(&surb->wq);
- }
- 
-@@ -468,6 +467,7 @@ static int smsusb_init_device(struct usb_interface *intf, int board_id)
- 	/* initialize urbs */
- 	for (i = 0; i < MAX_URBS; i++) {
- 		dev->surbs[i].dev = dev;
-+		INIT_WORK(&dev->surbs[i].wq, do_submit_urb);
- 		dev->surbs[i].urb = usb_alloc_urb(0, GFP_KERNEL);
- 		if (!dev->surbs[i].urb)
- 			goto err_unregister_device;
--- 
-2.55.0.windows.5
 
