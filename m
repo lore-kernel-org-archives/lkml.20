@@ -1,141 +1,140 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com [209.85.219.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5805233939C;
-	Tue,  6 Oct 2026 15:19:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791299993; cv=none; b=LpWN07Bq9mlq537egI4DoWluGN7G2HRukQcKhc+HNpCcqus0oEFohA8dzE0+Vpi+rn1RWvSaZ8ibPq4YUfFEqbVw703fjgrZBgIef4fyW0HZKqkblVeDa2qgSJxIFaIGl5BkOGipewdKbYlFEItvmgAu8DBft6gEc0IZAg3WrbA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791299993; c=relaxed/simple;
-	bh=3fvKYikq/O+7NV1fblX1fDVc5rdFesI1+Sal7b07mAY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RXVKVw39ThyfKWM38fg8CU+B+wXo5USQKYlqcT6477Ap1hPysV6VXlbDUe1DctAelQyPm6wrMc3y04Zj0kjEJxcprPwIt5OTzsdZb4ryE+NM1NQGNHyrxZkDqlnS/OS+4sVLMOqRrLG9lVp7+f7pn+9SURjxAwY/Tim/BZOUOaw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=D7U8erG7; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BA78496D4E
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 15:19:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791299997; cv=pass; b=AwYp7Qc66oqALhoNr3wvjSj8lMCSlL6O1us6voc1jN2tXu2L2fB0B58LGerZkt9JUaJtAx1JEIfB/A/MzIqcB8DLiLESa2clfJt7pXcK42VdaMatX/NihXwq2qe2yr18AENl3CmWz0ye+s6Npvy6SZuEbxpHF+Vj2V3JCYa5Vxo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791299997; c=relaxed/simple;
+	bh=D8NJyNcaXmiLOu/5xUDOc5pfb/vtlF83ItCriA4u71o=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=FNrE0Oqi+/uROk/eXFKfoBbAyMWGVL41VH3zmyC9WkCx3UPRIldt3Fog14rgs27im/aV0oThr8UlZENUWFtFDR2WwknrFNww8DmTBX+nMzSaieYdLFMeKYBULfIzvL5sJ7oX9/cNzEx+Lijomv4JUUmWeVwV6opPYrg2u5v5FyU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bsh0v1l+; arc=pass smtp.client-ip=209.85.219.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="D7U8erG7"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 696EZX8L3974867;
-	Tue, 6 Oct 2026 15:19:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:sender:subject:to; s=pp1; bh=mvzM3pUYVnqKucdXNTH1EQb
-	Xu28c7Tgb1+5jwmfWUog=; b=D7U8erG7cVcWzMYHHFnGfBOFArKXm6BO4rXOyFS
-	IphOFzzi9xhZMlxbWyWytEydEjKV9XSxfbcFG3mHySUInL7qCC+IRNghno4Rh2w7
-	05VwZFe/xktiAMfMl6AkjQh4ODvadSyTIeBXj/cTNz/pIIcL2Q0YxlB77exGCIvG
-	wmj1HWnoC4A1/5rtRUQHHb0EfgMi5xCqnPYKogYvYzb3753nSNBcft0F/jQGa4hm
-	r4Lw9smL93qUUTE+KHxtCqxzOJYFhQF1H9OqgUZ/JGqn4tGb8IvM76eKXvq+RKQQ
-	j5rbQcxzkim1UxQXfVAdBeSpeKn5EvKvqArA8YzZtcmVvuw==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2se5gqrn-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 06 Oct 2026 15:19:19 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 696EHWZb424982;
-	Tue, 6 Oct 2026 15:19:19 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h3eqya857-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 06 Oct 2026 15:19:18 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 696FJAbn38732158
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 6 Oct 2026 15:19:10 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9B9F22004B;
-	Tue,  6 Oct 2026 15:19:10 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 7D2F220071;
-	Tue,  6 Oct 2026 15:19:10 +0000 (GMT)
-Received: from vela (unknown [9.111.1.151])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Tue,  6 Oct 2026 15:19:10 +0000 (GMT)
-Received: from brueckner by vela with local (Exim 4.99.5)
-	(envelope-from <brueckner@linux.ibm.com>)
-	id 1xE6wg-00000000k1c-0Aw6;
-	Tue, 06 Oct 2026 17:19:10 +0200
-Date: Tue, 6 Oct 2026 17:19:10 +0200
-From: Hendrik Brueckner <brueckner@linux.ibm.com>
-To: Steffen Eiden <seiden@linux.ibm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-        linux-s390@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
-        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        David Hildenbrand <david@kernel.org>,
-        Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
-        Gautam Gala <ggala@linux.ibm.com>,
-        Hariharan Mari <hari55@linux.ibm.com>,
-        Heiko Carstens <hca@linux.ibm.com>,
-        Hendrik Brueckner <brueckner@linux.ibm.com>,
-        Ilya Leoshkevich <iii@linux.ibm.com>,
-        Janosch Frank <frankja@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
-        Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>,
-        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
-        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
-        Sean Christopherson <seanjc@google.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
-        Zenghui Yu <yuzenghui@huawei.com>
-Subject: Re: [PATCH v9 01/24] KVM: Make device name configurable
-Message-ID: <asURbogjgPv0giOu@linux.ibm.com>
-References: <20260930173441.66762-1-seiden@linux.ibm.com>
- <20260930173441.66762-2-seiden@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bsh0v1l+"
+Received: by mail-qv1-f44.google.com with SMTP id 6a1803df08f44-917a64f28d0so10887986d6.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 08:19:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791299995; cv=none;
+        d=google.com; s=arc-20260327;
+        b=KnyXxIm/Ad50/rKkZ4Ye9Ry/XsYMV8gSR2hx7ARgOimxhehS2i10RlBBpaccePSQaL
+         VYxELloMdhgBFeC+bjSdwbrLOeUHkx9IaExhQ1taofw4/T6spfgopWJqysmp1/+AzIF2
+         cepmD6ghR0Y0CRzyLN8DkTBU2Z7tOO75OWnWWWKOMd5KgytczWXhEZSEYt5ihHJA5BnF
+         wuAJePa1qustFKL0stNFNtBCPZqYwwm+pTky24Qc5Hco0cxQ04w0NOMANF82OytPojDn
+         +3qi4Jg9F2gHGuk1ZM9iGbctpc2oRgMOXo0ZioNY7+lfbwfLjFrzNXYhOeAHWSwjh4+7
+         6VgA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=yFVV6rDqzkVe7MPT1P1wIPFYg4xEhPTH8XQEr8tqcT8=;
+        fh=inwor+dFGOFzCGNqI5ZQvT4YDRk+sMVzapBArWE0J40=;
+        b=MWPOCUsHPEzJZCDSXiLvJ3FQ/1i8JKRC2lOXb3SuQEBkTWcjkscT2lRn8h6lUUUkl3
+         Na0cTWRTsc16b7Ww3Ip9rYQD/z12aq2cpIqSewatuud0/ljWXdgkgoevNxV38s0q9wvv
+         0EcfDRXbDXCuBEbipKyFrcVgs8aa95zASQtGpevB6PQ3c1PGzpH9EIf4H7xjwYXzDajy
+         OHmOdRrrGNDL91mI74RTlK1VZMy01RwjRvjtJ+5BHazOdzlKofjTR05+O6KDpmMegO/4
+         s4bRW4YB4iRr+m710EcGqme5WbsirU1zN6M9pe/LItyD4rcOwKJnjB7SrSt5OAkRsgaR
+         TV/w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791299995; x=1791904795; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yFVV6rDqzkVe7MPT1P1wIPFYg4xEhPTH8XQEr8tqcT8=;
+        b=bsh0v1l+Gv6aC6hyZB40+jYYvnHpmXUXLiWf4JAHMNmK3ZWuWa9Ym0IX8Gq6vtDuRs
+         yjgSjEG1rCp+dgEU8G8OP4FMbYDFaiU4/ubnfUZ/7AefysGLfVaYIqvsLVsGcsw+6TZm
+         zRUem1nWB2W+zgaZfBUnMQz7E5SFOJDWyP4Xbl5etJzolOVBFMD4AaqORqDPYxCNW65+
+         ZsEB5uwRvlOOZGsSBMTOWSLpB0Hz1sn1wJ2FLbnCTKjASOvQUkW+mwjNbGhO7rxcK1nH
+         ta77erzEPm38lI0/13BFqPuCmS0gzCKreqFn1edhga+KvxmACIsX9b/R5iXqaK/YOx0V
+         xuZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791299995; x=1791904795;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=yFVV6rDqzkVe7MPT1P1wIPFYg4xEhPTH8XQEr8tqcT8=;
+        b=exWr3Jv8+T3AHVpKVbUSxAA8dGT4ur9owCKOvQXDyQLEsa/GOIA4ghd5XHvhrd8yMF
+         9lTjRTO78TMddXu73u8wZXGscCriz05yG7vmdbvFq1wavWNVaFOTmkHdK0AnGcgj5+qK
+         3W6U7+zEec7dCtBX7LXjYot7AJANykvzAeTNIRKb/AYiVCuTbOsFSGFQFxMj05rrPAVc
+         aqOPbwNYeY4Yl8AyioZZsVrbiW7b6GE45B7e3hS/x0kCP+FWkcnO+/21Hv+Bs+K5NGHT
+         qi72aeRRlZWTWFcCVVHZouaTIVuzl212yPE7bYnkXEwqwWGepYBOycqSYtTmZ1x261Nf
+         yTTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxWrck8HWAPylu209ImB/g/WD8g8Y9KPYhT/vY8bRLFzCkOZMY/8jJLlqdKfGbehXSeXGSNjFSJIgAWpRU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kOBecQN6z8lw/UaM8nAoWyl71QTZ7HNwlhZVVUspkr1HLSq8ph
+	vrNO7HtDKFuzZh90pYStQ5SPtkEGCU/dxb//TcWG1L1/9zjWHhJSI00BjBT2F4AdxiKqrKD3tJ5
+	afP0+vsBtAUPYkf29F3VSMtIyrW1MjxU=
+X-Gm-Gg: AYBFou2uWSLA99op4MLxkmykdqdxglFuTA0GXxMmyfzPa0aVSVUU2kJ3JSNYNAKAYKI
+	+5cYpf/XJ66m/Y+cTjiwEHJh7aDY8eOS1UEdzE5JVrv+++ulFeLl6H1YISf3Cqn1WXoUL5Cwbp8
+	yZP4H4eMCqwu/mBE8ox4psA14Ou/b2Z0pDjP1aS/QRKPJkaxp4J6dISropaEmz74dV4uaMzCSFU
+	CVe6S79qEwyzI7dFzhppb8MFowSLwpmktphNqwBJbsfkf0AZlmHx+3uf0boVc5UYyiegsCWDMhq
+	gC9H3EqeGqCPv1vOQuMHqNcDL7O7bo1D6qlA1jw+M1XE8NOC4pgoB7vaRuBLE5A6OsSatxlPQx7
+	RezU75uoloXZPlBj2pdpcaGFsMCYrbRdYQoMBjX4wzWNr5ouJabNE86zXfVtu8Awz84rs+R5CXu
+	0TGvhAHkw0Yzvwe9ino2Cz/UxcWLCmfP5Kc1+LwK/N8kP9bprHzCfItwMW8m3sIDeeYKl1eNfNI
+	Yo=
+X-Received: by 2002:a05:622a:e49a:10b0:535:70b3:fa0a with SMTP id
+ d75a77b69052e-53570b3fb28mr1387511cf.38.1791299994820; Tue, 06 Oct 2026
+ 08:19:54 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Tue, 6 Oct 2026 08:19:54 -0700
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Tue, 6 Oct 2026 08:19:43 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930173441.66762-2-seiden@linux.ibm.com>
-Sender: Hendrik Brueckner <brueckner@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA2MCBTYWx0ZWRfX9+etyTznx5pA
- 7OdEta3SyWkep5S3mhGPAF8b/qBsQtEBqyFeHQvm/cJxhSHUB57bq0yD2jOz21Yztz/haMn3qsN
- UQ30nMjC+ELEH5jyKa3WSY6Gy6xxA+w=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA2MCBTYWx0ZWRfXzyszztP/S3VL
- DnwvC4iQ++cQ7h8blXPxFT1ApfG2ew05X4fJs5qH8W+1k39LukibrerQ3kWjNbdPLFnpPcSMmZS
- TXTXUbILGMKgaWdiSiEztYxH7/fk5pqcqOyxqWyKRXxV5Q5QXVheX5D3/dOP51UzWxmkFBTZMkg
- KfwcVN3Rv0GvulG/F0jmD8QSNV2pgkWn9sRM3oKRYaePCv0BJhVoFOUhXz/HTWren+itfaskaTr
- 2AGLy3wQ6PnBqsvPp+qeTqNhScnS7xozQfKaMXFxDWcZFMx03txZlyJYkVA//biH4lsf8ZEOGYl
- ESLfMHoqplBIS/LubNBbJ9jtdVeShCUMOOEwtyWzr9IBTVJfnlPjP5GP8x4us8J+TcD/mNLLHz7
- BzflqX9AHK2TptCim0DtgQY0J1UINhHoK/sTMEwdDJDlczYFlVpI6yh+L+GIdc+7h/JUAIXBgk1
- jBeo4oUKbx7j1dcu2IQ==
-X-Proofpoint-GUID: jHucc80oTy9NR3f9_0VZvSIogY6jBP99
-X-Authority-Analysis: v=2.4 cv=UNRIjyfy c=1 sm=1 tr=0 ts=6ac51178 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=1XWaLZrsAAAA:8
- a=VnNF1IyMAAAA:8 a=OeVGTaGK0LzumyUwHG4A:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-ORIG-GUID: ic2jutYozjRQ-XNF-uBcpKXBhAdCiCUY
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-06_04,2026-10-06_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 adultscore=0 bulkscore=0 lowpriorityscore=0
- phishscore=0 clxscore=1015 priorityscore=1501 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060060
+Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST;
+ Tue, 6 Oct 2026 10:15:54 -0500
+From: Ting-Han Hou <ue081723@gmail.com>
+Date: Tue, 6 Oct 2026 08:19:54 -0700
+X-Gm-Features: AclHuK9yqSdRAFzPsVeJO1Zn2ht02ZhprGx2lSC9pDzBb2P38sk3c0pSEMytM_o
+Message-ID: <CA+NtrhQBK8uW32qO3dXxVxO1GSN-0EJfyJ16tnyx0o52T17WtQ@mail.gmail.com>
+Subject: [PATCH] scripts/make_fit: Ignore schema checks when decomposing DTBs
+To: Simon Glass <sjg@chromium.org>
+Cc: Chen-Yu Tsai <wenst@chromium.org>, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Sep 30, 2026 at 07:34:16PM +0200, Steffen Eiden wrote:
-> Allow KVM implementations to choose alternative device names. This is
-> especially useful for architectures providing multiple KVM
-> implementations simultaneously. Architectures providing multiple KVM
-> implementations must compile the KVM common code once per implementation
-> and mangle symbols.
-> 
-> Suggested-by: Sean Christopherson <seanjc@google.com>
-> Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
-> ---
-lgtm. Thanks Sean and Steffen.
+With CHECK_DTBS enabled, Kbuild appends a schema validation command to
+the fdtoverlay command saved in a composite DTB's .cmd file. When DTB
+decomposition is requested, process_dtb() treats every word after -i as
+an input file, including the semicolon and the validator arguments.
+FIT generation then fails with FileNotFoundError while opening or
+checking the size of those words as files.
 
-Acked-by: Hendrik Brueckner <brueckner@linux.ibm.com>
+Limit the input list to the fdtoverlay command before extracting its
+arguments. This preserves the base DTB and overlay order and ignores
+the subsequent schema validation command.
+
+Fixes: 17c31aded9a1 ("scripts/make_fit: Support decomposing DTBs")
+Assisted-by: LLM
+Signed-off-by: Ting-Han Hou <ue081723@gmail.com>
+---
+Reproduced with DTBs and saved commands generated by the current Kbuild
+rules. Verified uncompressed and gzip FIT payloads, shared-base reuse,
+and the non-decomposed mode. The schema checker was a success-only
+stub; no hardware boot tests were run.
+
+ scripts/make_fit.py | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/scripts/make_fit.py b/scripts/make_fit.py
+index 15ba269..9bd35aa 100755
+--- a/scripts/make_fit.py
++++ b/scripts/make_fit.py
+@@ -292,7 +292,8 @@ def process_dtb(fname, args):
+
+         if 'scripts/dtc/fdtoverlay' in cmd:
+             # This depends on the structure of the composite DTB command
+-            files = cmd.split()
++            # Ignore any subsequent commands, such as schema validation
++            files = cmd.split(';', 1)[0].split()
+             files = files[files.index('-i') + 1:]
+         else:
+             files = [fname]
+
+base-commit: 69f80fef3153299d9c72c53d1d71eef6354b6926
+-- 
+2.52.0.windows.1
