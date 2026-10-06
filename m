@@ -1,143 +1,120 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+Received: from cvsmtppost28.nm.naver.com (cvsmtppost28.nm.naver.com [114.111.35.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B95574A1396;
-	Tue,  6 Oct 2026 18:48:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 206724A1396
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 18:49:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791312492; cv=none; b=kXNPnmAXhee5U9JiBgPftelte2xxDoWjE8fHX0AlnICJqyeiAN/hDxVki0quqW2CKJebChirBs+Kl1D0Blz3PmFrQQxTQtlwF8gDZ+zzDrMRMvtdmlp0Uw6ry10jxiPiuvQQYKFKwxHH7T76HG4cn5XWcKpIM8MH5H51/aaBedo=
+	t=1791312581; cv=none; b=MEi+H4AtNURY1swChXBkoE9xyeyf1KJsq5Brrfo9ZVVUYC0/blJrTrxqLMSOCLKihoYWoe2zPTaJedAS0G662CLxZIj7Bhs/WDfuc3KDK+CkKbxcXB/xEvfDMfG7qxXvT5XJGkKIcmGUEQ2kly+jGj2OGkdfC4XT+u6Z+uGA9p8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791312492; c=relaxed/simple;
-	bh=atcAMD4x7FkkNbPQPT4vitA5pLXLaUOh/xm5kgjNdCs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CyqMV6oosIB05e2i4AH07QKbP2k4v2qqTWp3ahsepAYuWOxaj284S3hGkS4tAXVtUpWsPn6g2nzPGVXU5MqDcAAbP9zW7XE1gAPCv7wd+2XjznwYDkSgKswi8Kfnj7LecPIsrZyJmd75Ybm1CEUsqugbbGN8BJnfw1jL33Es+Eg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=MGpurnpJ; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1791312581; c=relaxed/simple;
+	bh=CJi3s/0v6JU4A6iTZVVHnEv5OWBNiUuN4DmFKtXQuMA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OgEULpfzBz8Jx/5mX4hOHARbmCBjrxciZgoK+TgIZE2aiJn5GcWrHRL7OTuYRtPXcnVHNMW383SNBlz6IpKbrCemIEKBh49IdPf7ABcHR/Lb+QkHc6YUI/wAa0d6mq0fyT9e63YCNvwV3cQk1gJ+sYwTk+NOcTMe3rVtc4C0HDs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=fDBr9mCP; arc=none smtp.client-ip=114.111.35.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="MGpurnpJ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=PBhPGHM3H5YMCfWnb8Woct2TK8TsNUryiGGa4HNcke8=; b=MGpurnpJfTINoiGOqysYeO3pMC
-	41zjdsvjaVfZI5RRCloPL+BW/H+HopUPQZy4cwmQ9ZoFztC3hYQkXpOKdDtB+y9nxA4O7ym6MXaEg
-	Nxm4hC8TqED0cz7SCYV7RtJIzMcwQdGcjxjhd9JRyT1iISryZH8tf9ACa3TMP00SDPAuvTZU0WgPO
-	KOIAGHTgjn+GZnV2FhLSdWKwNyfBhZPcLIC3WWPuauxq2VqWGEexnlaRIVSdnncKQBEP2uk1okB1c
-	9IjqoXJar07r1mY9wSkzo99ijrUJNS/wytNJP2IW34d+RmrzaMZH4iq25caZBNH+XDHOonj/HvKId
-	1UWUUnCw==;
-Received: from [179.105.94.163] (helo=[192.168.0.2])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1xEACY-00DZne-5z; Tue, 06 Oct 2026 20:47:46 +0200
-Message-ID: <0bb880c5-2f40-4d63-bc4c-0e4a1c5b4fa6@igalia.com>
-Date: Tue, 6 Oct 2026 15:47:39 -0300
+	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="fDBr9mCP"
+Received: from cvsendbo019.nm ([10.112.22.34])
+  by cvsmtppost28.nm.naver.com with ESMTP id nqnLla3VRqewjJ+Cav+nYg
+  for <linux-kernel@vger.kernel.org>;
+  Tue, 06 Oct 2026 18:39:30 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
+	t=1791311970; bh=CJi3s/0v6JU4A6iTZVVHnEv5OWBNiUuN4DmFKtXQuMA=;
+	h=From:To:Subject:Date:Message-ID:From:Subject:Feedback-ID:
+	 X-Works-Security;
+	b=fDBr9mCP0PzE6YpIx54R+cybDPyd5ognJ1ZcxaM6ozE2KieNQQLLfdVyPbnfVGKJY
+	 7UMAmIN2WQim5oOyYbpyRowerwV/IRH4zxT6+hTHcqfsvT50z2hKXwHgBLmkhjaZdV
+	 rtPJ6HJZ/ay1IYCN014CO1utXJp56Nj1hhF0Fw0iN1KpD+3PdakDTc+RVTNk3OW3b3
+	 +GsUc8g8Bm2jlBKh5Jco7d+7Az3hLW5N9S9bWO8Lq1CTd79qG6kbzX6ZGH3R1adE1Q
+	 BdHBHxRE9nbvBV0gDs2eoEnftrngQ+Sr+yreJffc4oJuwKZxYFVXVOIjXaIcJbFT/2
+	 JNjvim/2YFc9A==
+X-Session-ID: zJjiOR3iRcuLxonRdmXMKQ
+X-Works-Send-Opt: OPRwpzGdjHmdKHFOMr39Ko3YKHmrjAudFqM9KqMqFxIYkEljxBmwjAg=
+X-Works-Smtp-Source: sdbXKoulFqJZ+HmmFqEl+6E=
+Received: from localhost.localdomain ([115.136.205.4])
+  by cvnsmtp007.nm.naver.com with ESMTP id zJjiOR3iRcuLxonRdmXMKQ
+  for <multiple recipients>
+  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+  Tue, 06 Oct 2026 18:39:30 -0000
+From: sungbyeongchan <tjdqudcks0424@naver.com>
+To: Zhu Yanjun <zyjzyj2000@gmail.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>
+Cc: linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] RDMA/rxe: enforce memory window ranges
+Date: Wed,  7 Oct 2026 03:39:18 +0900
+Message-ID: <20261006183919.1304642-1-tjdqudcks0424@naver.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] drm: use dmaengine API instead of raw function
- pointers
-To: Frank.Li@oss.nxp.com, Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- "open list:DRM DRIVERS FOR TI OMAP" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>
-Cc: vkoul@kernel.org, imx@lists.linux.dev, Frank Li <Frank.Li@nxp.com>
-References: <20261002200620.230735-1-Frank.Li@oss.nxp.com>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20261002200620.230735-1-Frank.Li@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Frank,
+RXE records the address and length authorized by an MW bind, but the
+responder does not compare a remote request with that interval. After
+validating the MW key, PD, QP, access, and state, check_rkey() selects the
+backing MR and applies only the broader MR range check.
 
-On 02/10/26 17:06, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
-> 
-> Replace direct calls through dma_async_tx_descriptor and
-> dma_device function pointers with the proper dmaengine API
-> wrappers in vc4_dsi and omap_dmm_tiler.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+A peer with a valid rkey for a 64-byte type-2 MW could consequently READ
+and WRITE another address in the same 4096-byte backing MR. In two runs,
+an eight-byte READ returned the exact nondelegated sentinel and an
+eight-byte WRITE replaced it with the peer's chosen bytes. In-window
+operations succeeded and a request crossing the backing-MR end was
+rejected.
 
-For VC4:
+Check the complete request extent against the MW interval before selecting
+the backing MR. Use subtraction-form comparisons to avoid addition overflow
+and handle zero-based MWs relative to address zero.
 
-Reviewed-by: Maíra Canal <mcanal@igalia.com>
+The fixed kernel rejects outside-window READ and WRITE with remote-access
+errors while preserving normal in-window READ and WRITE.
 
-Best regards,
-- Maíra
-> ---
->   drivers/gpu/drm/omapdrm/omap_dmm_tiler.c | 2 +-
->   drivers/gpu/drm/vc4/vc4_dsi.c            | 8 +++-----
->   2 files changed, 4 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/omapdrm/omap_dmm_tiler.c b/drivers/gpu/drm/omapdrm/omap_dmm_tiler.c
-> index a2c702b831a7c..c5dd350f937f4 100644
-> --- a/drivers/gpu/drm/omapdrm/omap_dmm_tiler.c
-> +++ b/drivers/gpu/drm/omapdrm/omap_dmm_tiler.c
-> @@ -87,7 +87,7 @@ static int dmm_dma_copy(struct dmm *dmm, dma_addr_t src, dma_addr_t dst)
->   		return -EIO;
->   	}
->   
-> -	cookie = tx->tx_submit(tx);
-> +	cookie = dmaengine_submit(tx);
->   	if (dma_submit_error(cookie)) {
->   		dev_err(dmm->dev, "Failed to do DMA tx_submit\n");
->   		return -EIO;
-> diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.c
-> index 0148f2befed14..b1626c2d3a582 100644
-> --- a/drivers/gpu/drm/vc4/vc4_dsi.c
-> +++ b/drivers/gpu/drm/vc4/vc4_dsi.c
-> @@ -628,16 +628,14 @@ dsi_dma_workaround_write(struct vc4_dsi *dsi, u32 offset, u32 val)
->   
->   	*dsi->reg_dma_mem = val;
->   
-> -	tx = chan->device->device_prep_dma_memcpy(chan,
-> -						  dsi->reg_paddr + offset,
-> -						  dsi->reg_dma_paddr,
-> -						  4, 0);
-> +	tx = dmaengine_prep_dma_memcpy(chan, dsi->reg_paddr + offset,
-> +				       dsi->reg_dma_paddr, 4, 0);
->   	if (!tx) {
->   		drm_err(drm, "Failed to set up DMA register write\n");
->   		return;
->   	}
->   
-> -	cookie = tx->tx_submit(tx);
-> +	cookie = dmaengine_submit(tx);
->   	ret = dma_submit_error(cookie);
->   	if (ret) {
->   		drm_err(drm, "Failed to submit DMA: %d\n", ret);
+The demonstrated impact is access to registered userspace memory outside
+the delegated MW. Kernel memory access, code execution, and privilege
+escalation were not demonstrated.
+
+Fixes: cdd0b85675ae ("RDMA/rxe: Implement memory access through MWs")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: sungbyeongchan <tjdqudcks0424@naver.com>
+---
+ drivers/infiniband/sw/rxe/rxe_resp.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/drivers/infiniband/sw/rxe/rxe_resp.c b/drivers/infiniband/sw/rxe/rxe_resp.c
+index 02b16e2b49b8f..01eb111f81ca6 100644
+--- a/drivers/infiniband/sw/rxe/rxe_resp.c
++++ b/drivers/infiniband/sw/rxe/rxe_resp.c
+@@ -520,6 +520,8 @@ static enum resp_states check_rkey(struct rxe_qp *qp,
+ 	pktlen	= payload_size(pkt);
+ 
+ 	if (rkey_is_mw(rkey)) {
++		u64 mw_start;
++
+ 		mw = rxe_lookup_mw(qp, access, rkey);
+ 		if (!mw) {
+ 			rxe_dbg_qp(qp, "no MW matches rkey %#x\n", rkey);
+@@ -527,6 +529,14 @@ static enum resp_states check_rkey(struct rxe_qp *qp,
+ 			goto err;
+ 		}
+ 
++		mw_start = (mw->access & IB_ZERO_BASED) ? 0 : mw->addr;
++		if (unlikely(va < mw_start || resid > mw->length ||
++			     va - mw_start > mw->length - resid)) {
++			rxe_dbg_qp(qp, "request outside MW range\n");
++			state = get_rkey_violation_state(pkt);
++			goto err;
++		}
++
+ 		mr = mw->mr;
+ 		if (!mr) {
+ 			rxe_dbg_qp(qp, "MW doesn't have an MR\n");
+-- 
+2.43.0
 
