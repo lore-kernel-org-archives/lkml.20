@@ -1,151 +1,253 @@
-Received: from mail-pj2-f4.google.com (mail-pj2-f4.google.com [74.125.227.132])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E02426694
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 13:55:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.132
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E9EE1DEFE8
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 13:56:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791294952; cv=none; b=LAM6DYqvkk5isCRFEpfreId3WnP/YyEStp+FpgtMseKOK6FctX38D0mSIZU1oDNK619T4Ih0R2EgWZ68Vb9HeHoDs3rDbj3ZxUfixPMAwWMdFAiQSw/FR9c32cL7JEgG6Os+qo82ADwKPhtKJ0lOdARfjYt9jkhS68NCKxVr/AM=
+	t=1791294971; cv=none; b=Ld5mDfBaZJBpFI1TeQQrxD7g784ChXrqH8ah6uAhqmP/gq4+jZ1MzGWvSE8F7iRT0SkkcB5P/xftBv4SLMHlscfYOaOCcFltjIfXTucZ8AYPtGg7x5XPgEvXyzxn84yE02E6xhbULXRlJNsMcxhUzBpz4FoNPJ2HjEzKMvfvB8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791294952; c=relaxed/simple;
-	bh=EfsknO+e8STbS4VH4mYbE6xCJxLHJAuPON4fbSQTRAc=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=WRaHEBBwOj2YIAXisrxFEuz8gKUOBiuoSHJZhRLNQOxQBv+bIlAwQv0dMMw6N1V/PH4HIGx0fJnjKwPQ0hXnGwkg+A+ECq4QStVzj1nyOrNEDff+lIuVjtvizbVweCp0xFqwS/05zILsBOnqUEq548bHYJSWhy77sV+dNbxFPxE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SihA87bu; arc=none smtp.client-ip=74.125.227.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791294971; c=relaxed/simple;
+	bh=/Dhuh/wtI0yX/Les8bDjamHrz/rhROiQMQkvk8Zx65o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=N1tzgaDAHDSD6wROyOvy2tpHnX6FjT4LqyRtEXffHjFlobz3JCUrSG2i6nlmK5nqeS5HtEZU0HpcrYHfRr0zXTLx4BKOf20NU7UDCqSLaWXAfd34Ivv30Mt0ClG/h9MtnxtGgRuDOvZw5o/YkqiaU14j2cq2/7dR9sZ+VFMWb/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=gDOgNTbV; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SihA87bu"
-Received: by mail-pj2-f4.google.com with SMTP id 98e67ed59e1d1-3a854dffb5dso377649a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 06:55:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="gDOgNTbV"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4956869750eso5337885e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 06:56:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791294950; x=1791899750; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Id6lH5GTy+yyaEPTm6FcZZ7BLsleqqnI80GvEmpDvAs=;
-        b=SihA87buQeKBBcothTaDqfgAwjht2ZE9cMOLP8+CISRwbagc9qvCiiTdfhLLYl+CSQ
-         Dsqd9er9K3+MhCqMEaLfTsXUgCPLMa9953obiHiabEOKFF7aw+Bmk36CyBTYsJMhv0Py
-         i/PnM3QI2dxZhRPOuKKaMlvykoDhzmgQ1aK67H+xdj8NstPzzZisWbgq5wVr/PJuPi3t
-         Ht5dIsfLcJB2BPQzIwS8mqDKSCsVrhPHNit7IR9qIGqUmdFEaEL/frgYdLi49G81Wgci
-         FxPc3g9iQz91+dDTJjsCKGA94NfHocsqqA/ruQkiK0LI/2v/rKH+MR2g2sjWgVc2PjZA
-         wBUw==
+        d=suse.com; s=google; t=1791294967; x=1791899767; darn=vger.kernel.org;
+        h=content-type:in-reply-to:autocrypt:from:content-language:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/Dhuh/wtI0yX/Les8bDjamHrz/rhROiQMQkvk8Zx65o=;
+        b=gDOgNTbVxzxJR0Asl3ay6a5Kf8rfl9ha0LABhQZaEHgid/0Hjp/mt911TErgMnV7MW
+         Y45hd+3g9/ziRwZC2X2PadKiFj7iJY1rxtn8IjUAR7Bah25lf55s1tOuNl1SfbJmayB5
+         YgkTwdHrYCpWrRrBBByG29qiAptb6HpDE3NvxoctqwRtmSHIHhdqdwRsH78oKejodLm6
+         6binDxw0QJpvhwS7BdQeHfO5EppkUMp3msx3kSYf+a0yJOEoMEBFZdChFZLZZ4gPvwLE
+         4+MToniGd6HF/BPTv+SolJ5cpYM9L9x4jJZQpNu5H1r3jsJ+8vT0eVqGsUIUh9MCZcal
+         t9wQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791294950; x=1791899750;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1791294967; x=1791899767;
+        h=content-type:in-reply-to:autocrypt:from:content-language:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Id6lH5GTy+yyaEPTm6FcZZ7BLsleqqnI80GvEmpDvAs=;
-        b=dReL5hpZ6jyMIL2LMWONM+B99G1d4aq6gqdJ2CU5g2ndg0zo8UyPnEZXjy0MW56kdO
-         cSBa+TlpXhHDJyymkEXprUQqhOm8SRt0JviXQayJPHboOhYdgKQ8fIzY++QCnVdh6ae8
-         9Yr4HR75qrtBdhgxIgQpdRNrnUmB2UIeCcPpOHuZjy2gMFIsE6J0116YPVXq8xJ6VeJf
-         icKe/xtK8fOR9T5rNZdNrY/C38lDpflQdJkldiZnIHq7aqAgrIGVZAUFxevIXo6fwJ35
-         qrQPHvuwKqWZtmSc/MoqFB3fkZR8fe2vB9uYUEPakV08tq6tupEG6eLWMDX6SYeTxQo1
-         tDAw==
-X-Forwarded-Encrypted: i=1; AKwUvBzFq50wHXgzbJ9l6NT3gbnV6ABvqSG/H6coIQb4AmgRSdbOeNsLlNeozZvn91B+J+x7ElqfBppY4V+CALI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKGOjuPUpHBKfzOUBYgKuYCqnXBCPKcNyQGS3lTNyEyys+o2idq
-	Ekc6Hhxe0CY7KE78DwuTFkc7eO41cvdjvZ8NAgnn43ir2HzDkEZsAgsY
-X-Gm-Gg: AYBFou2O3nat5zEqn4Zt8K3Mc3ZToQ0ztkfPI5pPco705+VPxHY+T8khUlxLKW2trrR
-	abo23JsJ4O05YkLvNgKLlv6uCVhm7pwJpKBflh+5eq/C0XeDoApHxZiPO3BPszKQwqS5DJB+8w+
-	j+WCtGC4hQTb7B/9we6jSVbR5yEMtieXEUCTMTb1px+4IswMOpuUGd/6pP1OO+cyDV7KzLt8VPU
-	DBLMpq9sxtU9C+sQeMXRNT2TR5iT++SSOtdsfjoNZO7n3KWYDKu9F2OyLvzLuoVklfPjUocSKcP
-	MA0csfYE+kOm7Ru5TJS6LDrbHOUjFpWmsYkvDCHfW3CFwRQur5rBxmTBSP/B85H570RK4fmD2Qv
-	lONoeIANfNFT0PivC1IwAX+8V0/Jblgd8BEkq8JFPClWTAdi4kTJHZxxXkcj+sHM4YwGccr70kq
-	t+n/xfqV+7TvGInAsMYQr5nL3vmFzHEZgO+e1Tzco7H7JLJiyzgM6UkIQ+wxdk6aExDiQ=
-X-Received: by 2002:a17:90b:4c4e:b0:3a7:eb0:119e with SMTP id 98e67ed59e1d1-3a873554164mr844006a91.21.1791294949932;
-        Tue, 06 Oct 2026 06:55:49 -0700 (PDT)
-Received: from ehlo.thunderbird.net ([2603:c021:8000:9500:233::14])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-ccf99acacb2sm1189776a12.22.2026.10.06.06.55.48
+        bh=/Dhuh/wtI0yX/Les8bDjamHrz/rhROiQMQkvk8Zx65o=;
+        b=BKbKZR3kFXHoSyqaz+6+2z5+t4FvuLYvb2o52hrlWAEOhTjF+EefA/phuHe1AN6Qmh
+         XiHOalGQwuQTz//KEKje4AMxU544139QaTEL7YWIizBABCx4ubmLDqjC9FgZbHxu8o4A
+         q5Q/Vifz2nUgfEpZcjH4txPqreapPFNK0XVAwB6hzCu2dtLJKCmGExzXNEb74E752Z/S
+         SHoTgj+NXDsORJOiSCKt0Y8asuzUP7A0kKNBsfTKTEcQ9Ds3A/kYnJNKx4zW1wvoupM0
+         j4WPsn/gVUdkqJ050VossDFJpVY/DCzCfdZSxiD35a6E+4yiFie3cNCoTFrFToHdFwNp
+         gW1w==
+X-Forwarded-Encrypted: i=1; AKwUvBxH+vJNHWNv4v9qW9uSxciHmXYDf9K7R7sCbfruz2aPFsHjLUwTdCLxK0jQbmIVcVf6CujwxU7wqiRka1I=@vger.kernel.org
+X-Gm-Message-State: AFuF++lT1UrfbHrgZUDb7EdWxSRJGaLCSvIonkqzUeCQoUBbnNZHkBhd
+	/4vMl4VzpbTFpgu3UMMKeJFVAkvZ0Pd2+MrYKrFPka23BPOzjCQ0jWRMg0UpJlg/C3c=
+X-Gm-Gg: AYBFou1ITo9Jj4bNgGQ5h5FGSovuVNSGM6HhJrkxoOTi72Woo+vLJvXoNA7ixRrvB7D
+	Dp4ccVQ6zVYzqoVb/ngNyZK/jF4wAqP/Gmix5a0dJVU9QByJg4n0Q+H2flcmWJQZ1hTYhKW5H18
+	r+uza4dr4aqYThfWtvqn3GD74yvZgcga19nFabAuE+FKKCX7jnThVW5B4vHrgRAobNZFONlS9h8
+	Uo7e4bYkFJE4OOZQfbxR1NA57dBry+F3PyCCiskGH0btrIcIkJ9pd9YIDrKG8C7MppXHkzi+oTV
+	PD3jeOT71XH6htdgbxmH57mjQT2g8dSbW2ah2QVPpYqSAr9i1i06kd/rw42retsOlZDoTCkU4ek
+	ipbFBaCC3WGOGa3qnc79n/l81P2aEvMmXkqyoGj/7t52EEltNr38ov6DfidBQgHKBsG7mpuGF/G
+	GKvLN0PSpBQAbNGfLWGfxTYjcfcXc9St5TgH5n9xXwFZ39xntqdlKhNH5/1Q9O0xVbhxbFVn5Rw
+	X8VJkAc2Zg0JQR9EJDEmtmEoLVCTcKKxJ3mP/GlAzmuYRExYOESwhvMI+a7Fv+KvRk9+rLLgMuT
+	8JCcl+GcWUwaenQNSsygx8R7
+X-Received: by 2002:a05:600c:5492:b0:4a1:6d35:779a with SMTP id 5b1f17b1804b1-4a17b4f297bmr27971755e9.3.1791294967343;
+        Tue, 06 Oct 2026 06:56:07 -0700 (PDT)
+Received: from ?IPV6:2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112? (2a00-12d0-af5d-ad01-5d3f-14e6-9bcb-5112.ip.tng.de. [2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17a0fc2e4sm68582055e9.3.2026.10.06.06.56.06
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 06 Oct 2026 06:55:49 -0700 (PDT)
-Date: Tue, 06 Oct 2026 21:55:41 +0800
-From: Coia Prant <coiaprant@gmail.com>
-To: Rob Herring <robh@kernel.org>
-CC: Jakub Kicinski <kuba@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>,
- David Wu <david.wu@rock-chips.com>, netdev@vger.kernel.org,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_net-next_v10_4/6=5D_dt-bindings=3A?=
- =?US-ASCII?Q?_net=3A_rockchip-dwmac=3A_document_pcs-handle?=
-User-Agent: K-9 Mail for Android
-In-Reply-To: <20261006134802.GA1916640-robh@kernel.org>
-References: <20261005223011.1124347-1-coiaprant@gmail.com> <20261005223011.1124347-5-coiaprant@gmail.com> <20261006134802.GA1916640-robh@kernel.org>
-Message-ID: <F86D938C-01FF-4398-B4A3-69EF2404FB72@gmail.com>
+        Tue, 06 Oct 2026 06:56:07 -0700 (PDT)
+Message-ID: <f073f438-7335-4d9f-9bba-c6df5ee1fa40@suse.com>
+Date: Tue, 6 Oct 2026 15:56:06 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/scsifront: check for a NULL shadow entry on a backend
+ response
+To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ xen-devel@lists.xenproject.org, linux-scsi@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+References: <20261005123555.253995-1-yhlee@isslab.korea.ac.kr>
+Content-Language: en-US
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <20261005123555.253995-1-yhlee@isslab.korea.ac.kr>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------nnH7S5YuLqUH0yIqtmqXntAT"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------nnH7S5YuLqUH0yIqtmqXntAT
+Content-Type: multipart/mixed; boundary="------------0I6v6BijZSEvEjvGrfeccWKG";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ xen-devel@lists.xenproject.org, linux-scsi@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Message-ID: <f073f438-7335-4d9f-9bba-c6df5ee1fa40@suse.com>
+Subject: Re: [PATCH] xen/scsifront: check for a NULL shadow entry on a backend
+ response
+References: <20261005123555.253995-1-yhlee@isslab.korea.ac.kr>
+In-Reply-To: <20261005123555.253995-1-yhlee@isslab.korea.ac.kr>
+
+--------------0I6v6BijZSEvEjvGrfeccWKG
+Content-Type: multipart/mixed; boundary="------------HscB0pQhO6alWtKX55NS0MMB"
+
+--------------HscB0pQhO6alWtKX55NS0MMB
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+
+T24gMDUuMTAuMjYgMTQ6MzUsIFllaHllb25nIExlZSB3cm90ZToNCj4gc2NzaWZyb250X2Rv
+X3Jlc3BvbnNlKCkgdmFsaWRhdGVzIHRoZSBycWlkIGluIGEgYmFja2VuZCByZXNwb25zZSBh
+Z2FpbnN0DQo+IFZTQ1NJSUZfTUFYX1JFUVMgYmVmb3JlIHVzaW5nIGl0IHRvIGluZGV4IGlu
+Zm8tPnNoYWRvd1tdLCBidXQgdGhlbg0KPiBkZXJlZmVyZW5jZXMgdGhlIGVudHJ5IHRvIHRl
+c3QgLT5pbmZsaWdodCB3aXRob3V0IGNoZWNraW5nIHRoYXQgdGhlIHNsb3QNCj4gaXMgcG9w
+dWxhdGVkLiAgU2hhZG93IHNsb3RzIGFyZSBOVUxMIGJlZm9yZSBhIGNvbW1hbmQgaXMgc3Vi
+bWl0dGVkICh0aGUNCj4gaG9zdCBwcml2YXRlIGFyZWEgaXMgemVyb2VkIGF0IGFsbG9jYXRp
+b24pIGFuZCBhcmUgcmVzZXQgdG8gTlVMTCBpbg0KPiBfc2NzaWZyb250X3B1dF9ycWlkKCkg
+b25jZSBhIHJlcXVlc3QgY29tcGxldGVzLCBzbyBhbiBpbi1yYW5nZSBycWlkIHRoYXQNCj4g
+ZG9lcyBub3QgY29ycmVzcG9uZCB0byBhbiBvdXRzdGFuZGluZyByZXF1ZXN0IG1ha2VzIHRo
+ZSBmcm9udGVuZA0KPiBkZXJlZmVyZW5jZSBhIE5VTEwgcG9pbnRlci4NCj4gDQo+IEEgbWFs
+aWNpb3VzIG9yIGJ1Z2d5IGJhY2tlbmQgY2FuIHRodXMgY3Jhc2ggdGhlIGd1ZXN0IGJ5IHJl
+dHVybmluZyBhDQo+IHJlc3BvbnNlIHdob3NlIHJxaWQgaXMgaW4gcmFuZ2UgYnV0IG5vdCBp
+biBmbGlnaHQgLS0gZm9yIGV4YW1wbGUgYQ0KPiBzcHVyaW91cyByZXNwb25zZSBiZWZvcmUg
+YW55IGNvbW1hbmQgaGFzIGJlZW4gaXNzdWVkLCBvciBhIGR1cGxpY2F0ZSBvZg0KPiBvbmUg
+YWxyZWFkeSBjb21wbGV0ZWQuICBUaGUgcmluZyBoYXMgb25seSBWU0NTSUlGX01BWF9SRVFT
+ICgxNikgc2xvdHMsIHNvDQo+IGJlZm9yZSB0aGUgZmlyc3QgY29tbWFuZCBldmVyeSBpbi1y
+YW5nZSBycWlkIHNlbGVjdHMgYSBOVUxMIHNsb3QuDQo+IA0KPiBSZWplY3QgYSByZXNwb25z
+ZSB3aG9zZSBzaGFkb3cgc2xvdCBpcyBub3QgcG9wdWxhdGVkLg0KPiANCj4gRml4ZXM6IDZk
+MWMyZjQ4ZjNmYyAoInhlbi9zY3NpZnJvbnQ6IGhhcmRlbiBkcml2ZXIgYWdhaW5zdCBtYWxp
+Y2lvdXMgYmFja2VuZCIpDQo+IENjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnDQo+IFNpZ25l
+ZC1vZmYtYnk6IFllaHllb25nIExlZSA8eWhsZWVAaXNzbGFiLmtvcmVhLmFjLmtyPg0KDQpS
+ZXZpZXdlZC1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPg0KDQoNCkp1ZXJn
+ZW4NCg==
+--------------HscB0pQhO6alWtKX55NS0MMB
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
 Content-Transfer-Encoding: quoted-printable
 
-On October 6, 2026 9:48:02 PM GMT+08:00, Rob Herring <robh@kernel=2Eorg> wr=
-ote:
->On Tue, Oct 06, 2026 at 06:30:06AM +0800, Coia Prant wrote:
->> The Rockchip GMAC binding needs to describe the PCS reference used by
->> the SGMII support added later in this series=2E The property will be
->> parsed by rk_pcs_init(), and a missing phandle fails the probe=2E Add i=
-t
->> and require it when phy-mode is "sgmii" on rockchip,rk3568-gmac, the
->> only SoC in this binding that has SGMII support=2E
->>=20
->> Signed-off-by: Coia Prant <coiaprant@gmail=2Ecom>
->> ---
->>  =2E=2E=2E/bindings/net/rockchip-dwmac=2Eyaml           | 18 ++++++++++=
-++++++++
->>  1 file changed, 18 insertions(+)
->>=20
->> diff --git a/Documentation/devicetree/bindings/net/rockchip-dwmac=2Eyam=
-l b/Documentation/devicetree/bindings/net/rockchip-dwmac=2Eyaml
->> index 80c252845349c=2E=2Ebb7540e838033 100644
->> --- a/Documentation/devicetree/bindings/net/rockchip-dwmac=2Eyaml
->> +++ b/Documentation/devicetree/bindings/net/rockchip-dwmac=2Eyaml
->> @@ -120,6 +120,12 @@ properties:
->>      maximum: 0x7F
->>      default: 0x10
->> =20
->> +  pcs-handle:
->> +    description:
->> +      Specifies a reference to a node representing the PCS device
->> +      connected to this GMAC=2E Required when phy-mode is "sgmii"=2E
->> +    maxItems: 1
->> +
->>    phy-supply:
->>      description: PHY regulator
->> =20
->> @@ -159,6 +165,18 @@ allOf:
->>          clocks:
->>            minItems: 5
->> =20
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            const: rockchip,rk3568-gmac
->> +        phy-mode:
->> +          contains:
->> +            const: sgmii
->
->The 'if' will also be true if 'phy-mode' is not present=2E Probably not=
-=20
->what you want? You need 'required: [ phy-mode ]'=2E
->
->Rob
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Hi Rob,
+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
+kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
+=3DeeAB
+-----END PGP PUBLIC KEY BLOCK-----
 
-Right, thanks=2E Without 'required: [ phy-mode ]' the 'if' matches wheneve=
-r
-the compatible matches, even if phy-mode is absent=2E I'll add it and send
-a respin=2E
+--------------HscB0pQhO6alWtKX55NS0MMB--
 
-Thanks,
-Coia
+--------------0I6v6BijZSEvEjvGrfeccWKG--
+
+--------------nnH7S5YuLqUH0yIqtmqXntAT
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmrE/fYFAwAAAAAACgkQsN6d1ii/Ey8M
+DQgAn67Our2fo1bMCOV5O+3w37AmRu4L3TTxvToURAAHydJz7TJ3hqBD5FlZhLmX6LdxqaLWYwMO
+MS3mwgAUtulFRhkwVDuMs63dXLlRNgw0m9426pAPQ3lMva/tjoFsdST2KP0LXwIFspRvsX4dCVHy
+DlCGLpEeC40ybm7reCHJJBQshsVra+9Jxyer73TGy0vJgVs6qnrjQ1VnzbufezWmAK3Ovzy3Tj3v
+egMCT2rqTVWsBqXH+2GdbtR+XttYuxwnsYTnDSw5XMMAKECUC9ULqx+K3/Gexxl0lZFNCp9gG8vu
+xUl/Xqi6SXmtsnr03S4XoWbeHAnhlFgFiBiPkKcNlg==
+=UJPI
+-----END PGP SIGNATURE-----
+
+--------------nnH7S5YuLqUH0yIqtmqXntAT--
