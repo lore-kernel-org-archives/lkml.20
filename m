@@ -1,235 +1,624 @@
-Received: from mx0a-00154904.pphosted.com (mx0a-00154904.pphosted.com [148.163.133.20])
+Received: from mail-43103.protonmail.ch (mail-43103.protonmail.ch [185.70.43.103])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 237C749C4D4
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 15:25:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.133.20
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791300351; cv=fail; b=T8Vt7bPP8MOqosWbSFJ830sRaoV1GibzQM8S1iSYzG7XBRUdooRX9irIg3en6UqHTwJkcW92lCEcFZOK8hBiBsKxakRTBD7rPX2HuHSLxc4dl6kVIo9nhz/6YhNWnqpQPSH99rvUxYjy+5BByYkGh5wKrczxHtqpqRPS47pegIs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791300351; c=relaxed/simple;
-	bh=EYEWTsXCEJ+VbwhXeqSLiNM6VE6/2rZ6BYCWgmLL7qw=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=fu9E+cLcJvk9ohRqXvrR+tC/VZfwLtQCbD2FBoxc/DOez00N5c7ssW3/Oyd+IDuUGEizifDCO19LjgZsPIdDPOMLWLHPjk5vpdQcGm/xE2cPTGqISQysKkmCKjjmA59Sj8tu9oNg7RNMDLpkVQbit7a70LeskOs2SS8c1NWm8PE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dell.com; spf=pass smtp.mailfrom=dell.com; dkim=pass (2048-bit key) header.d=dell.com header.i=@dell.com header.b=FpxOTKtN; arc=fail smtp.client-ip=148.163.133.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dell.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B62045D5E7
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 15:25:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.103
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791300340; cv=none; b=gLBRVIh5p8QARGOfxz3EmrZEWtOJwaxyErMCidL/UyZdSrs+/gO2bd93bASiML7otB5hrRj1vQOaXpNO2CQkXf88fSgtzrK0DHbS7vZU+JUeXYkMeKUVnJmt+kzmvk/QUDgOgTGGlbz26GXGhM8cMMcpAfTVQspAkfa3ignYvPQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791300340; c=relaxed/simple;
+	bh=TwzjjUqT9d5sWA9rFGD/PKsk51ePDAdgPbjN/vGmY8A=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UPkElHOuh16mHMBqsY1ojh+fk/yrgSH09pMVS+0SL9BANjd4f9t52e4O9I9GOiiQUhvgDpJXzkQbUpy5p1D6JBSmBGHtbT9cahSvInupximjIKknmcTKAfSwReZ+tx/Mc/iyXnnokqyhG5RkRAA+xgmH8hu2p2CJwOIEULyxYHY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=T0dCVzy9; arc=none smtp.client-ip=185.70.43.103
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dell.com header.i=@dell.com header.b="FpxOTKtN"
-Received: from pps.filterd (m0170393.ppops.net [127.0.0.1])
-	by mx0a-00154904.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 696BQX8J2323593;
-	Tue, 6 Oct 2026 08:49:56 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dell.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=smtpout1; bh=gRQWlzz6ZnloXGS6UNIw8p3
-	TKn59SMFHYEi4N1DFvwE=; b=FpxOTKtNC1FsfzM5zJ5TcwuGLoh6JN1MfYUtszM
-	T4kn3oOarN2fz1bkHa4fyS83DEj/pT33UqMIyw3qnY9i0U6Ap8zLr4lKBDNrA8GR
-	INC5bZtk3zSv0pRiR8AAhmGrBHaNI84FwQn26Tu94HtiQfB0f+t3shP2lkY/A2CE
-	3hBvf9l9xD5ch8EPb0pHFZLTYWsDgvz5Uxtou3kFPjNz7qwmgj8Xc7knOo5AWj8E
-	Qj7CwOPpJ97eA243Zw1sE6ZVTMvPOlSwFKniWZktB5l3g0BTYVja38+kldSoci2q
-	VwRHKvng0EkaRV1Nn6dkUE8L149LXgw7nQEFoj1k9V86HDA==
-Received: from mx0b-00154901.pphosted.com (mx0b-00154901.pphosted.com [67.231.157.37])
-	by mx0a-00154904.pphosted.com (PPS) with ESMTPS id 4h2w1fvs38-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 06 Oct 2026 08:49:55 -0400 (EDT)
-Received: from pps.filterd (m0393468.ppops.net [127.0.0.1])
-	by mx0a-00154901.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 696CVamO1095382;
-	Tue, 6 Oct 2026 08:49:55 -0400
-Received: from sn4pr0501cu005.outbound.protection.outlook.com (mail-southcentralusazon11011011.outbound.protection.outlook.com [40.93.194.11])
-	by mx0a-00154901.pphosted.com (PPS) with ESMTPS id 4h4wfubdwp-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
-	Tue, 06 Oct 2026 08:49:54 -0400 (EDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kKEqwJ1kdC6c51LRmUbYjwb0N2khiGwN4/mG3fmK3lw9FQ6+dZzFp0UyT9c3Y68kefnFi29J74URmk/vmTXcmwx4pWHCeiMLI9KJkgiWM8nznjvLYF4eWb5UgCKLTdjTHQTwzasPQkHCSalswpdtv9bllw3i4is1e2528/po5CqZ2FZ4xu/kkIv6vicDzFux+vhyIFWwnjgC4QQsbPzI7zMvKG0j50WnO5FBwaPPiMYLNWOlqikMDV2YD6LS5MRzGUnKHqvZ36IBPuZGN/VW4QMAyi0ob0WL9wTctE+cyVEfBmHJQ6VIlP3Fnhmlk3o0Vkoph/N9tpPVdb/oRIDoCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gRQWlzz6ZnloXGS6UNIw8p3TKn59SMFHYEi4N1DFvwE=;
- b=cGwuezAdqsFdNIsI15PPe9ABhtZ0rYXnYyi/JQb9Y7wwM7wsaG9jMqrkKKhxif0iK9q7yRh7slyvJ2R4L8AewiB/srBhdn+Gn2XN9IJfX5SaAfqkybKiJ6ch4JnAXB5j79JxPeu0Tbp+RNOX7ENYDyscTcL60zJmtbMqXNLKz8idEGaCaM8y874bmlkzP8LP/+48VdZKWKaKQFcDSvZZL6oRybAQymv5EEIm5Ovuel2WRUzkKb2kUSeeIUFwC/J5sVL3aWFcuXaYif6Oqmvr2bqy99f+VMj5flXz0ZpX6vnB2rYSDKH1UI47UCjlbfPq9B131WGWR1PosMknP+h3Og==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=dell.com; dmarc=pass action=none header.from=dell.com;
- dkim=pass header.d=dell.com; arc=none
-Received: from DS0PR19MB7696.namprd19.prod.outlook.com (2603:10b6:8:f8::5) by
- DS2PR19MB717513.namprd19.prod.outlook.com (2603:10b6:8:405::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Tue, 6 Oct
- 2026 12:49:28 +0000
-Received: from DS0PR19MB7696.namprd19.prod.outlook.com
- ([fe80::9d6:bb81:6340:84a9]) by DS0PR19MB7696.namprd19.prod.outlook.com
- ([fe80::9d6:bb81:6340:84a9%5]) with mapi id 15.21.0472.016; Tue, 6 Oct 2026
- 12:49:27 +0000
-From: "Achkinazi, Igor" <Igor.Achkinazi@dell.com>
-To: "mkhalfella@purestorage.com" <mkhalfella@purestorage.com>
-CC: "axboe@kernel.dk" <axboe@kernel.dk>, "hare@kernel.org" <hare@kernel.org>,
-        "hare@suse.de" <hare@suse.de>, "hch@lst.de" <hch@lst.de>,
-        "jsmart833426@gmail.com" <jsmart833426@gmail.com>,
-        "justin.tee@broadcom.com"
-	<justin.tee@broadcom.com>,
-        "kbusch@kernel.org" <kbusch@kernel.org>,
-        "kch@nvidia.com" <kch@nvidia.com>,
-        "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>,
-        "linux-nvme@lists.infradead.org"
-	<linux-nvme@lists.infradead.org>,
-        "nareshgottumukkala83@gmail.com"
-	<nareshgottumukkala83@gmail.com>,
-        "paul.ely@broadcom.com"
-	<paul.ely@broadcom.com>,
-        "randyj@purestorage.com" <randyj@purestorage.com>,
-        "sagi@grimberg.me" <sagi@grimberg.me>
-Subject: Re: [PATCH v6 06/18] nvme: Rapid Path Failure Recovery read
- controller identify fields
-Thread-Topic: Re: [PATCH v6 06/18] nvme: Rapid Path Failure Recovery read
- controller identify fields
-Thread-Index: Ad1Vj13rTQ1CocYYRpOc3TgiH2yZTA==
-Date: Tue, 6 Oct 2026 12:49:27 +0000
-Message-ID:
- <DS0PR19MB76967E8FE20ECF6D2EFF1EE1FD952@DS0PR19MB7696.namprd19.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_73dd1fcc-24d7-4f55-9dc2-c1518f171327_Enabled=True;MSIP_Label_73dd1fcc-24d7-4f55-9dc2-c1518f171327_SiteId=945c199a-83a2-4e80-9f8c-5a91be5752dd;MSIP_Label_73dd1fcc-24d7-4f55-9dc2-c1518f171327_SetDate=2026-10-06T12:36:53.0000000Z;MSIP_Label_73dd1fcc-24d7-4f55-9dc2-c1518f171327_Name=No
- Protection (Label Only) - Internal
- Use;MSIP_Label_73dd1fcc-24d7-4f55-9dc2-c1518f171327_ContentBits=3;MSIP_Label_73dd1fcc-24d7-4f55-9dc2-c1518f171327_Method=Standard
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=dell.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS0PR19MB7696:EE_|DS2PR19MB717513:EE_
-x-ms-office365-filtering-correlation-id: 3b8ba27f-fb08-454d-bbf1-08df23a84202
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|7416014|23010399003|786006|366016|1800799024|6133799003|10067099003|18002099003|3023799007|38070700021|56012099006|11063799006;
-x-microsoft-antispam-message-info:
- HY3xiHjwbXMK4di6TmFhMAnFSxp2JnsdEEZnKmrDoBVVco1uZZ4DadhS2UkiQBr03leLL08XXqubGoN2QRK5J/MIE62jXtRfX2nG0mIgJzUILB+11JQOaUopwyx4COKcDoFBn0W2m4z2Fl0bGU4pQAi+O5bxcUZXn4odOdtEse/+FBJWwb0LmbKweICF0cty7XvMLVTNvL6zHxFVF11nQPS65aUzmo879fNZP2E9xwZeDidKjOO9sg8csl41HnzmlVrh0bYkP1c4GYAShmLZA8LDvdacMLbofyqksb3frzG6HFRaIqMjZEZUWm5oWzvtPSQU58X5QmZxNjxS6XtBcuXVQkmU3oh4M4r8WMl66fFnZbD10ScgAoaqkgrWZXXwyTY390mdq+sJDuHAIYIe50LGDqnNqqSBxX/7QP71mbTZKwNsN3jgdslmXYPATDB+/FECxcMOc/U7fVqebdfI+3nGyRsFZcMHxp/PRIFrkbroxM2JjBNZfsQC8EdyW9bbgI+xgk6MIAIOTiZxYDl/4JaNhw19Ei13mYT1lMt4bb8VipdH+I8cYQGjo5E/z5CxEd7GOKlAF7Q5IvWuSBJ8c7cBS4OVzA6fG3dDF+ddcJU5YpU1KPR6VVo1gcIkYh5CWBgGJXd+szHSvdy6EyTRLLQRTM2EA9ueZo9/bnUJCuOah7ouSAcOugsIhBTz9ml5U+DrYtq02398mEML5Znd9m5SkyUml2erScu7C0UA/tg=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR19MB7696.namprd19.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(786006)(366016)(1800799024)(6133799003)(10067099003)(18002099003)(3023799007)(38070700021)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?rihPerEAPXJM8K0BF0htbxNieCpWOPfVhp72VWk1Gpm+KtegO7ld/qJxZKnK?=
- =?us-ascii?Q?biHrt+13kSYbjcbI7rHXmkt5h1HxI72y1DrRNXwpbbD8fCNKqhGk8eL9jJLs?=
- =?us-ascii?Q?k5To20hbWq+DiuKXClhmyNW5nZsQEJcxUA21H0kT6aGB8NY0n7thxKhMH2OU?=
- =?us-ascii?Q?2KBxVI4WacLDEQpxmMkBjWhEOFV5QwuOfZJw4Pc1er5ADnDSJbXBdOFmWLCi?=
- =?us-ascii?Q?xDOL7QgNAroTrmRvcxG9hrbPC+icYMxg7m37qdn8cRhNXIWAmE59aTaCnv/4?=
- =?us-ascii?Q?3U7RZENrmPtC8FyDPedXP2v78nMT3CRJnq0ugfa4l1sIe+lU8HduTaCT9Abu?=
- =?us-ascii?Q?ZNa7SyqC1m0UFBbHoTEtiIF5IozDP94nNQkMxlsqFEeLpJTxPtxLqGUkUK3l?=
- =?us-ascii?Q?uESoJa18s7Oq1ed5C6JJp8lncU7aaB8dx9E8q8PYxqF4xZNzBc0SxmgoNsXh?=
- =?us-ascii?Q?Sgw5Uq2q7SePiSswVoQ/Zelj9Aj8cDemPfJAuGB92A951SxpSiEwa2rOP4rY?=
- =?us-ascii?Q?IN9Bw6y1AAaBzqfPTbK9pu3u3UH1LyQ3XjlUkoa2oMIvEiN/AU+ux2AUBiFZ?=
- =?us-ascii?Q?bTNee4LYEdFKjybC4Li5G2c9r0ca8ZR4EmEYOIFA27YAG/Xj08dBr/0q/+Kb?=
- =?us-ascii?Q?6bCdvdRgoQ8PxAerefouL9yk37tcbvJ0lNRa/8bYOolXHMUp6oGbg5UrQ5C+?=
- =?us-ascii?Q?dZT5+TzWW0lDU/kADnmsw+g00xWxyEdIVh7+714ZqqEW0sxfexXfwi/LMjPE?=
- =?us-ascii?Q?EbNf3rjaH5Jk6jrJ7nMwAO74/f/m/863h7yc9mRjAmmfmDOSASXVT+o7BM05?=
- =?us-ascii?Q?jF1cXz5dHnU3VyDRerz0mXoJLGFX4xZ6XOudVv8U1aoyBMdOzJYz9ZnYw1gS?=
- =?us-ascii?Q?1ZomJ2kjuZd+dhMxU7ocOKxjzkd05LELrgowr6bidY3sb7szmnOhiNjsabQP?=
- =?us-ascii?Q?EQk9gW70YHwXS0riloU4tvYru1rWGRFM1+xLthfkRXI3465qtQcthRWa/kaM?=
- =?us-ascii?Q?MrxK2W73vRKwOi5BirpALwHn5Q41MaVtLwY1RvJFXA1EHI8s2z6YBJp1CBXm?=
- =?us-ascii?Q?xyCuIQuRhpvPepr9Xf6uWCHg4Qfr0rZ7b6s1nJSJIBhylydmJW08K7hTpm0u?=
- =?us-ascii?Q?WD84RN4J1qJUtVaxlrnMDxbotPKL4VSNfHyeej5KcQhv1QXXEVtUHNJe7rol?=
- =?us-ascii?Q?hBlOL8iHxYa5xfGOy3iB1HO01nKUVY3cwZMkQcNpZdKcWPl93K7E6ttel2X7?=
- =?us-ascii?Q?0mUZxy/kW7hESkuB4a4Ne+uUASgkoliJJnd6BDVU9AHRkHZkp6vBogpBKTuE?=
- =?us-ascii?Q?Vmx6Bokc5967kmxor+BePbTBVHoqpS+PPZjYpx+tW5jQ8xpPFRBZ/XtSY8IJ?=
- =?us-ascii?Q?SGbty7Od6IyBaRvccdCGjg2F47U3v98woOli7zeVIVSkPkA6Tj6cicc+CwVd?=
- =?us-ascii?Q?oZjokLqOrB9F2sXbcaUqGgWk82L5OaEFRa5u5DH38QS4qemuOnyiccfOZ43G?=
- =?us-ascii?Q?jVx0iybjSwXnN+mw5HJM+LOiScJUyUc7LIy8WqRTErJ+cNyJwwAEe6yh21/I?=
- =?us-ascii?Q?Lp40mWHRodn4MBaJwfski2cB+/deJRnfqx7t8Tawval3wQBEHSixbgpiIENO?=
- =?us-ascii?Q?dqObLoSA+T0vGE9D0n/xhO19d/rnXDOI1ZyuocGjqSP5sRMlK9RRVKwOeUXk?=
- =?us-ascii?Q?JpMtwJeXqKXhwT0q4lf4jtZMbzeRnZD+Ua8RMMLYvDvuxcL5HbvlzicMuTNz?=
- =?us-ascii?Q?WVRFdxDpEw=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="T0dCVzy9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1791300332; x=1791559532;
+	bh=YiE9UQwnW6BJ2ITpsxD8Qv0GpGQg+JyogHOn4SupnWE=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=T0dCVzy9+/UrvzclQyCv/CoUkkctsriDNK8IKIKBM/GVx4rKZoFVE9e8pO+0fmJcW
+	 kFKYqc+6UeD5JG1iQGEz1EdT0Cxp6Phym8ecyxGcMiHH5uu1WEZ4MU0ShmLAXY9Nuc
+	 PBOvhXD2pZLIhM3BuQ4K/J5BJ7i+/8wngAgNV0IRKOG2Dk15dli7ZZg5hPCloWMsp7
+	 v4jYoNnIK+ZeYkftMJJyYcFx55p30yoTehi7hsJL/QMB8qUrWkoam8CffQ4kVO9TTo
+	 LXVuwpd3l4ccQFT696t5XnmQrMNx84HpjjjsV4OUr1SN3U+pGFRZgREEo+ASlHHi2O
+	 XY9lW6X4gF2LA==
+Date: Tue, 06 Oct 2026 15:25:27 +0000
+To: tiwai@suse.de, Devin Christensen <dchristensen8@proton.me>
+From: Devin Christensen <dchristensen8@proton.me>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v4] ALSA: hda/ca0132: Add Sound BlasterX AE-5 external RGB LED strip support
+Message-ID: <20261006152520.1409881-1-dchristensen8@proton.me>
+In-Reply-To: <87mrsrorxc.wl-tiwai@suse.de>
+References: <20261005141244.2130023-1-dchristensen8@proton.me> <87mrsrorxc.wl-tiwai@suse.de>
+Feedback-ID: 45895322:user:proton
+X-Pm-Message-ID: b5e93509162421e57fd180b87a589114411095fe
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	yQZuqtCr49NzgWkNzbd4Ll1BUQcv7k0j5XbOtFRytTK3/ad7dRH8YHdcnoKM71ENZMWc0OqMp8gjjy9aU7YtI3NJd7CU4GuqFsTwa+qJ1HpQ29Rml7m9beXPtHxQS7W37m1cNBK56s2Qe7Y62NDVkTRMnO+7o3h72sgCr2CKWs8jGdc5Q2E/173mFjP/BVkwrO46xkalv5w2GpiZp0G/OkCsTAQC7231dRy6yO5Sl1OUkqFk0hEzbChwPgdKDdENHVc7Vo5ELGEG4nahv9N7C3OcPBh9YcSPBJlwr9QrcktT8x9IV0l6cXRKwQLKq3ujVYT2FtxTnjJihbPpTqmf4g==
-X-OriginatorOrg: Dell.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR19MB7696.namprd19.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3b8ba27f-fb08-454d-bbf1-08df23a84202
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Oct 2026 12:49:27.8751
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 945c199a-83a2-4e80-9f8c-5a91be5752dd
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: aXwU/fpLytntR/AKf5M+PxaFskTqYWtQEDkLIhIb3XlDqvHtwp0Y1d+afghFMhUnha7cRUV/lQJKIwcHfv9wDg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR19MB717513
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-06_03,2026-10-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
- clxscore=1011 bulkscore=0 adultscore=0 suspectscore=0 impostorscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610060050
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA1MSBTYWx0ZWRfXwmMPETVs9zXG
- nFjX+vEzh2bahkcQzZ03xuwSVgltsmuDfcksFXWcuSZ26t1uf1JZ1GiiWCgC8858kZD8A/WqVkP
- dEeFXOS4rTWMOZGoJUppYXpGJ9et2Lg=
-X-Authority-Analysis: v=2.4 cv=IvyL47/g c=1 sm=1 tr=0 ts=6ac4ee74 cx=c_pps
- a=Z2e5DKjA+8LiMDv5v6mwwA==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=6gNNCFAoQcIphELLPWWu:22
- a=2Lpba0WeoN7BYVdwMO11:22 a=iLNU1ar6AAAA:8 a=-_Dj0B074LiPcoKQ5xkA:9
- a=CjuIK1q_8ugA:10 a=hlJyneSgMmFPbskH-t2w:22
-X-Proofpoint-GUID: JQb7bVPHUa5TmF3Zh0CTkCPycxtFa9Hr
-X-Proofpoint-ORIG-GUID: JQb7bVPHUa5TmF3Zh0CTkCPycxtFa9Hr
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA1MSBTYWx0ZWRfX7rn9iviFFJpv
- +NZlGWgyGFUYC7BmCDFGaLVAk+BHVjn4CTFrNmdp9o4i2L3ByeRvOCjFtzfLX9sh+uRelVJbiAP
- v7jxU5Iyi3R/f9rDVigH0hmuIogN+HO4cyl2Tm56usvwp5+eaz+erGRzr4hHn6CLL7+x+Cl6u2L
- iHbKaFyoGajwZOyDsztjxWRkTDsrobMkANVAcrL2XbaM9k+ZKzz+Ea6d74qY3QoCR+ZB69H0FEC
- V3XbvJn1JTT80Mkxvqg5zKGPRF/aRLmJza2hrZ9VL201q0Iu7OnzSgSCzXDvPpIUx7/FNu4LfXq
- OCXuxeU6ATs58GbB0SM1csBPRzDjbhPIZ5WGR6xIaM44HzM27grxR36X03FXIbB9b8hD7sQne02
- ssLnEw8g1oWAT7Cx+q2h3AVFgomqOzRaXc08AQuE4UmAs+AnRjPnywpeeTsNgdFY7ScmmDrRJ4Y
- RdGyrq0sBasX/bTOL6Q==
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
- bulkscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015 impostorscore=0
- malwarescore=0 priorityscore=1501 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060051
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Randy, Mohamed,
+The Sound BlasterX AE-5 and AE-5 Plus expose a 3-pin 5V addressable RGB
+header driven directly by the CA0113 PCIe-to-HD-Audio bridge. Rather
+than using the CA0132 DSP or MMIO GPIO, the CA0113 contains an
+autonomous HDA link sniffer that snoops a designated HDA DMA playback
+stream, extracts the 24-bit GRB color payload, and serializes it as
+800 kHz single-wire NRZ pulses to the strip (WS2812B protocol).
 
-We have tested the v6 patchset against our PowerFlex NVMe-oF target
-implementation with TP8028 (Cross-Controller Reset) support.
+Expose the strip through volatile card control elements:
 
-Our testing covered:
+  "AE-5 LED Strip"        (RW, BYTES): 300-byte RGB payload representing
+                          up to 100 addressable LEDs (3 bytes per LED).
+  "AE-5 LED Strip Count"  (RW, INTEGER): Active LED count (1..100).
 
-- CCR for an impacted controller on the same node as the source
-  controller
-- CCR for an impacted controller on a remote node in a distributed
-  system
-- Fallback to CQT-based timeout recovery (2*KATO + CQT) when CCR
-  is not supported
-- CCR limit exceeded and log page full error handling (tested on v3,
-  still applicable)
+The controls are marked with IFACE_CARD and SNDRV_CTL_ELEM_ACCESS_VOLATILE
+so changes do not trigger unnecessary audio daemon wakeups or state
+restoration by alsactl.
 
-CCR dramatically reduces recovery time compared to the (2*KATO + CQT)
-timeout path.
+Writes allocate an idle HDA playback stream, format a 32 KB DMA buffer
+populated with repeating WS2812 frames (preamble, audio words per LED,
+and reset gap), configure the CA0113 BAR2 serializers and stream-tag
+pin mux, and pulse the stream long enough for the reset latch to fire.
+Access is serialized with a per-spec mutex, and the controls are only
+registered on QUIRK_AE5 devices.
 
-When PowerFlex returns CCR operation success (via IRS or the CCR log
-page), the patched host resumes I/O immediately. When the target
-returns success without the Validated/CLRI flags set, the host
-correctly falls back to timeout-based recovery. On failure, the host
-appropriately retries CCR via another controller.
+The strip transport uses snd_hdac_dsp_prepare() / snd_hdac_dsp_cleanup(),
+which require CONFIG_SND_HDA_DSP_LOADER. All strip-related code and struct
+fields are conditionally compiled under
+IS_ENABLED(CONFIG_SND_HDA_DSP_LOADER), with a no-op stub for
+ae5_add_strip_controls() when disabled.
 
-We also confirmed that without this patchset, the Linux host can
-retry commands too quickly during path recovery, resulting in
-duplicate commands outstanding at storage simultaneously. This
-patchset's fix for that retry behavior is long overdue.
+Signed-off-by: Devin Christensen <dchristensen8@proton.me>
+---
+Went through the Sashiko report. Several were solid catches and are fixed
+in v4:
 
-We strongly support acceptance of this patchset. It makes a
-significant and measurable improvement to Linux NVMe-oF usability
-and correctness.
+- Fixed the TOCTOU race in ae5_strip_find_stream(): marked s->opened =3D 1
+  under bus->reg_lock (and cleared on cleanup) so concurrent PCM playback
+  can't steal the stream out from under it.
+- Added a check for pm.err right after CLASS(snd_hda_power_pm, pm) to bail
+  out cleanly if powering up fails.
+- Propagated errors in the put callbacks instead of ignoring
+  ae5_strip_send_frame() failures, so userspace actually gets the error and
+  we don't commit unapplied state.
+- Used cpu_to_le32() when filling DMA buffer words for big-endian safety.
+- Dropped the manual SD_CTL interrupt mask clearing =E2=80=94 like Sashiko =
+pointed
+  out, snd_hdac_stream_start() overwrote it anyway, and no_period_wakeup
+  already prevents period interrupts.
 
-Tested-by: Igor Achkinazi <Igor.Achkinazi@dell.com>
+The other two points were false positives (ca0132_init_chip() only runs on
+probe, not resume; and the MMIO RMW collision cited code that doesn't exist
+in ca0113_mmio_command_set()).
 
-Thank you,
-Igor
+Thanks,
+Devin
+
+v4:
+ - Reserve HDA stream by marking s->opened =3D 1 under bus->reg_lock in
+   ae5_strip_find_stream(), and clear on completion/error, preventing
+   TOCTOU race with concurrent PCM stream assignment.
+ - Check pm.err after CLASS(snd_hda_power_pm, pm)(codec) to avoid MMIO/DMA
+   access on suspended or failed-to-resume devices.
+ - Check return value of ae5_strip_send_frame() in control put callbacks,
+   propagating errors to userspace and avoiding uncommitted state divergenc=
+e.
+ - Write DMA buffer words using cpu_to_le32() for big-endian architecture
+   safety.
+ - Remove redundant/overwritten orig_sd_ctl save and interrupt mask clearin=
+g.
+
+v3:
+ - Move #include <linux/dma-mapping.h> into main header block.
+ - Check s->opened in ae5_strip_find_stream() to avoid stealing open stream=
+s.
+ - Guard all strip code and struct members with IS_ENABLED(CONFIG_SND_HDA_D=
+SP_LOADER)
+   and provide a static inline stub for ae5_add_strip_controls().
+ - Return 1 from put callbacks when values change (using memcmp on colors).
+
+v2:
+ - Use CLASS(snd_hda_power_pm, pm)(codec) for RAII power management.
+ - Switch userspace interface from sysfs to volatile card control elements
+   ("AE-5 LED Strip" and "AE-5 LED Strip Count").
+
+ sound/hda/codecs/ca0132.c | 394 +++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 393 insertions(+), 1 deletion(-)
+
+diff --git a/sound/hda/codecs/ca0132.c b/sound/hda/codecs/ca0132.c
+index 0f8fb62f0..47aadd6f9 100644
+--- a/sound/hda/codecs/ca0132.c
++++ b/sound/hda/codecs/ca0132.c
+@@ -18,6 +18,7 @@
+ #include <linux/types.h>
+ #include <linux/io.h>
+ #include <linux/pci.h>
++#include <linux/dma-mapping.h>
+ #include <asm/io.h>
+ #include <sound/core.h>
+ #include <sound/hda_codec.h>
+@@ -1060,6 +1061,8 @@ enum dsp_download_state {
+  * CA0132 specific
+  */
+=20
++#define AE5_STRIP_MAX_LEDS 100
++
+ struct ca0132_spec {
+ =09struct hda_gen_spec gen;
+=20
+@@ -1162,6 +1165,13 @@ struct ca0132_spec {
+ =09 * Renames PlayEnhancement and CrystalVoice too.
+ =09 */
+ =09bool use_alt_controls;
++
++#if IS_ENABLED(CONFIG_SND_HDA_DSP_LOADER)
++=09/* AE-5 WS2812 strip control */
++=09struct mutex ae5_strip_mutex;
++=09u32 ae5_strip_cur_colors[AE5_STRIP_MAX_LEDS];
++=09int ae5_strip_cur_num_leds;
++#endif
+ };
+=20
+ /*
+@@ -6846,6 +6856,15 @@ static int ca0132_alt_add_mic_boost_enum(struct hda_=
+codec *codec)
+=20
+ }
+=20
++#if IS_ENABLED(CONFIG_SND_HDA_DSP_LOADER)
++static int ae5_add_strip_controls(struct hda_codec *codec);
++#else
++static inline int ae5_add_strip_controls(struct hda_codec *codec)
++{
++=09return 0;
++}
++#endif
++
+ /*
+  * Add headphone gain enumerated control for the AE-5. This switches betwe=
+en
+  * three modes, low, medium, and high. When non-headphone outputs are sele=
+cted,
+@@ -7149,6 +7168,10 @@ static int ca0132_build_controls(struct hda_codec *c=
+odec)
+=20
+ =09switch (ca0132_quirk(spec)) {
+ =09case QUIRK_AE5:
++=09=09err =3D ae5_add_strip_controls(codec);
++=09=09if (err < 0)
++=09=09=09return err;
++=09=09fallthrough;
+ =09case QUIRK_AE7:
+ =09=09err =3D ae5_add_headphone_gain_enum(codec);
+ =09=09if (err < 0)
+@@ -8316,8 +8339,370 @@ static void sbz_setup_defaults(struct hda_codec *co=
+dec)
+ }
+=20
+ /*
+- * Setup default parameters for the Sound BlasterX AE-5 DSP.
++ * Sound BlasterX AE-5 External WS2812B RGB LED Strip Transport
+  */
++#if IS_ENABLED(CONFIG_SND_HDA_DSP_LOADER)
++#define AE5_STRIP_DMA_SIZE=09=090x8000
++#define AE5_STRIP_TOTAL_WORDS=09=09(AE5_STRIP_DMA_SIZE / sizeof(u32))
++#define AE5_STRIP_PREAMBLE_WORDS=095
++#define AE5_STRIP_WORDS_PER_LED=09=094
++#define AE5_STRIP_RESET_GAP_WORDS=0983
++
++#define CA0113_SERIALIZER_BASE(spec, ch)=09((spec)->mem_base + 0x42c + (ch=
+) * 0x40)
++#define CA0113_SERIALIZER_CLK(spec, ch)=09=09((spec)->mem_base + 0x43c + (=
+ch) * 0x40)
++#define CA0113_SERIALIZER_OUT(spec, ch)=09=09((spec)->mem_base + 0x454 + (=
+ch) * 0x40)
++
++static void ae5_strip_encode_24(u32 u, u32 *words)
++{
++=09/*
++=09 * 24-bit pixel -> 4 x 32-bit audio words (6 bits per word).
++=09 * Hardware audio serializer transmits MSB first (bits 31 down to 0).
++=09 * For word i (i8 =3D 23, 17, 11, 5), bit_idx 0..5 (MSB to LSB within t=
+he word)
++=09 * is placed at n =3D 29 - bit_idx * 4:
++=09 *   Bit 0 -> 0b100 << n (375ns high, 1042ns low): BIT(n + 2)
++=09 *   Bit 1 -> 0b111 << n (1083ns high, 333ns low): BIT(n + 2) | BIT(n +=
+ 1) | BIT(n)
++=09 */
++=09int i8 =3D 23;
++=09int i, bit_idx;
++
++=09for (i =3D 0; i < 4; i++) {
++=09=09u32 out =3D 0;
++
++=09=09for (bit_idx =3D 0; bit_idx < 6; bit_idx++) {
++=09=09=09int bit =3D (u >> (i8 - bit_idx)) & 1;
++=09=09=09int n =3D 29 - bit_idx * 4;
++
++=09=09=09out |=3D (bit ? (BIT(2) | BIT(1) | BIT(0)) : BIT(2)) << n;
++=09=09}
++=09=09words[i] =3D out;
++=09=09i8 -=3D 6;
++=09}
++}
++
++static struct hdac_stream *ae5_strip_find_stream(struct hda_codec *codec)
++{
++=09struct ca0132_spec *spec =3D codec->spec;
++=09struct hdac_bus *bus =3D &codec->bus->core;
++=09struct hdac_stream *s, *dsp =3D NULL, *first =3D NULL;
++
++=09guard(spinlock_irqsave)(&bus->reg_lock);
++=09list_for_each_entry(s, &bus->stream_list, list) {
++=09=09if (s->direction !=3D SNDRV_PCM_STREAM_PLAYBACK)
++=09=09=09continue;
++=09=09if (s->opened || s->running || s->locked)
++=09=09=09continue;
++=09=09if (!first)
++=09=09=09first =3D s;
++=09=09/* The DSP DMA consumes the DSP-loader stream (tag in dsp_stream_id)=
+. */
++=09=09if (spec->dsp_stream_id && s->stream_tag =3D=3D spec->dsp_stream_id)
++=09=09=09dsp =3D s;
++=09}
++
++=09s =3D dsp ? dsp : first;
++=09if (s)
++=09=09s->opened =3D 1;
++
++=09return s;
++}
++
++/*
++ * Caller must hold spec->ae5_strip_mutex.
++ */
++static int ae5_strip_send_frame(struct hda_codec *codec, const u32 *grb_co=
+lors, int num_leds)
++{
++=09struct ca0132_spec *spec =3D codec->spec;
++=09struct hdac_bus *bus =3D &codec->bus->core;
++=09struct snd_dma_buffer dmab;
++=09struct hdac_stream *hstr =3D NULL;
++=09unsigned int format, stream_tag;
++=09u32 enc_words[4];
++=09__le32 *dst;
++=09int word_idx =3D 0;
++=09int frame_words;
++=09int led, w, i;
++=09int retries =3D 20; /* ~100ms max */
++
++=09if (!spec || !spec->mem_base)
++=09=09return -ENODEV;
++=09if (num_leds <=3D 0 || num_leds > AE5_STRIP_MAX_LEDS)
++=09=09return -EINVAL;
++
++=09lockdep_assert_held(&spec->ae5_strip_mutex);
++
++=09CLASS(snd_hda_power_pm, pm)(codec);
++=09if (pm.err < 0)
++=09=09return pm.err;
++
++=09/*
++=09 * 44.1kHz, 24-bit, 2-channel format (0x4031) matches Windows CtxHda
++=09 * HDAUDIO_STREAM_FORMAT.
++=09 */
++=09format =3D snd_hdac_stream_format(2, 24, 44100);
++
++=09for (;;) {
++=09=09hstr =3D ae5_strip_find_stream(codec);
++=09=09if (!hstr) {
++=09=09=09if (--retries <=3D 0) {
++=09=09=09=09codec_warn(codec, "AE5 strip: no free azx stream after retries=
+\n");
++=09=09=09=09return -EBUSY;
++=09=09=09}
++=09=09=09usleep_range(5000, 10000);
++=09=09=09continue;
++=09=09}
++
++=09=09stream_tag =3D snd_hdac_dsp_prepare(hstr, format, AE5_STRIP_DMA_SIZE=
+, &dmab);
++=09=09if ((int)stream_tag > 0)
++=09=09=09break;
++
++=09=09/* Prepare failed (e.g. -EBUSY due to race with playback starting); =
+retry */
++=09=09scoped_guard(spinlock_irq, &bus->reg_lock)
++=09=09=09hstr->opened =3D 0;
++
++=09=09if (--retries <=3D 0) {
++=09=09=09codec_warn(codec, "AE5 strip: snd_hdac_dsp_prepare failed %d\n",
++=09=09=09=09   (int)stream_tag);
++=09=09=09return (int)stream_tag;
++=09=09}
++=09=09usleep_range(5000, 10000);
++=09}
++
++=09/* 1. Populate the 32KB DMA buffer with repeating WS2812 frames + reset=
+ gaps */
++=09memset(dmab.area, 0, AE5_STRIP_DMA_SIZE);
++=09dst =3D (__le32 *)dmab.area;
++
++=09/* Words per frame: preamble + (num_leds * words_per_led) + reset gap *=
+/
++=09frame_words =3D AE5_STRIP_PREAMBLE_WORDS + (num_leds * AE5_STRIP_WORDS_=
+PER_LED) +
++=09=09      AE5_STRIP_RESET_GAP_WORDS;
++
++=09while (word_idx + frame_words <=3D AE5_STRIP_TOTAL_WORDS) {
++=09=09/* Preamble per Windows CtxHda FUN_00042944 */
++=09=09for (w =3D 0; w < AE5_STRIP_PREAMBLE_WORDS; w++) {
++=09=09=09*dst++ =3D 0;
++=09=09=09word_idx++;
++=09=09}
++=09=09/* LEDs */
++=09=09for (led =3D 0; led < num_leds; led++) {
++=09=09=09ae5_strip_encode_24(grb_colors[led], enc_words);
++=09=09=09for (w =3D 0; w < AE5_STRIP_WORDS_PER_LED; w++) {
++=09=09=09=09*dst++ =3D cpu_to_le32(enc_words[w]);
++=09=09=09=09word_idx++;
++=09=09=09}
++=09=09}
++=09=09/* Zero reset gap (> 1.8 ms; WS2812 requires > 50 us low) */
++=09=09for (w =3D 0; w < AE5_STRIP_RESET_GAP_WORDS; w++) {
++=09=09=09*dst++ =3D 0;
++=09=09=09word_idx++;
++=09=09}
++=09}
++=09while (word_idx < AE5_STRIP_TOTAL_WORDS) {
++=09=09*dst++ =3D 0;
++=09=09word_idx++;
++=09}
++=09/* Ensure DMA buffer writes are committed before triggering the HDA str=
+eam */
++=09wmb();
++
++=09/* 2. Configure CA0113 BAR2 hardware registers */
++=09/* Power up clocks (CtxHdb 0x141b7 / 0x14210) */
++=09writel(readl(spec->mem_base + 0xc04) | 0x7, spec->mem_base + 0xc04);
++
++=09/* Base serializer initialization (CtxHdb 0x14ba4) */
++=09writel(readl(spec->mem_base + 0x400) | 1, spec->mem_base + 0x400);
++=09for (i =3D 0; i < 4; i++) {
++=09=09writel(readl(CA0113_SERIALIZER_BASE(spec, i)) & ~1,
++=09=09       CA0113_SERIALIZER_BASE(spec, i));
++=09=09writel(0, CA0113_SERIALIZER_CLK(spec, i));
++=09}
++=09writel(readl(spec->mem_base + 0x408) | 1, spec->mem_base + 0x408);
++=09writel(readl(spec->mem_base + 0x40c) | 1, spec->mem_base + 0x40c);
++=09writel((readl(spec->mem_base + 0x410) & ~0xb) | 0x14, spec->mem_base + =
+0x410);
++
++=09/* Configure serializers 0..3 clocking (CtxHdb 0x14a6c) */
++=09for (i =3D 0; i < 4; i++)
++=09=09writel(readl(CA0113_SERIALIZER_CLK(spec, i)) | 0x33,
++=09=09       CA0113_SERIALIZER_CLK(spec, i));
++
++=09/* BAR2 + 0x100 format & channel enables:
++=09 * - base 0x70f
++=09 * - bit 28 =3D 1 (24-bit audio format via CtxHdb 0x14f58)
++=09 * - bits 29..31 =3D 1 (44.1 kHz sample rate via CtxHdb 0x14fa4)
++=09 * - bits 4..7 =3D 0xf (stage 1 enables)
++=09 * - bits 12..15 =3D 0xf (stage 2 enables)
++=09 * =3D> 0x3000ff8f
++=09 */
++=09writel((readl(spec->mem_base + 0x100) & ~0xe000ffff) | 0x3000ff8f, spec=
+->mem_base + 0x100);
++
++=09/* Enable serializer output drivers for pins 0..3 (CtxHdb 0x14e94) */
++=09for (i =3D 0; i < 4; i++)
++=09=09writel(readl(CA0113_SERIALIZER_OUT(spec, i)) | 1,
++=09=09       CA0113_SERIALIZER_OUT(spec, i));
++
++=09/* Route all channels 0..3 to stream_tag (CtxHdb 0x1502c) */
++=09writel((stream_tag << 28) | (stream_tag << 20) | (stream_tag << 12) | (=
+stream_tag << 4),
++=09       spec->mem_base + 0x104);
++
++=09/* Enable CA0113 MMIO GPIO 0 & 1 */
++=09ca0113_mmio_gpio_set(codec, 0, true);
++=09ca0113_mmio_gpio_set(codec, 1, true);
++
++=09codec_dbg(codec, "AE5 strip: send_frame: num_leds=3D%d stream_tag=3D%u =
+(0x%08x)\n",
++=09=09  num_leds, stream_tag, readl(spec->mem_base + 0x104));
++
++=09/* 3. Trigger stream transmission on HDA link */
++=09snd_hdac_dsp_trigger(hstr, true);
++=09/*
++=09 * WS2812 latches on the >50us reset gap after one frame. The 32KB buff=
+er holds ~64
++=09 * repeating frame+reset cycles; at ~1.4ms/frame a 15ms run transmits ~=
+10 complete
++=09 * cycles - more than enough to latch reliably. Keep it short so rapid =
+sysfs writes
++=09 * (OpenRGB effects/theme changes) are not serialized behind a 1s block=
+ing sleep.
++=09 */
++=09usleep_range(15000, 20000);
++=09snd_hdac_dsp_trigger(hstr, false);
++=09codec_dbg(codec, "AE5 strip: trigger complete\n");
++
++=09/* Teardown: clear 0x104 pin mux back to 0 */
++=09writel(0x00000000, spec->mem_base + 0x104);
++
++=09snd_hdac_dsp_cleanup(hstr, &dmab);
++=09scoped_guard(spinlock_irq, &bus->reg_lock)
++=09=09hstr->opened =3D 0;
++
++=09return 0;
++}
++
++static int ae5_strip_ctl_info(struct snd_kcontrol *kcontrol,
++=09=09=09      struct snd_ctl_elem_info *uinfo)
++{
++=09uinfo->type =3D SNDRV_CTL_ELEM_TYPE_BYTES;
++=09uinfo->count =3D AE5_STRIP_MAX_LEDS * 3;
++=09return 0;
++}
++
++static int ae5_strip_ctl_get(struct snd_kcontrol *kcontrol,
++=09=09=09     struct snd_ctl_elem_value *ucontrol)
++{
++=09struct hda_codec *codec =3D snd_kcontrol_chip(kcontrol);
++=09struct ca0132_spec *spec =3D codec->spec;
++=09int i;
++
++=09guard(mutex)(&spec->ae5_strip_mutex);
++=09for (i =3D 0; i < spec->ae5_strip_cur_num_leds; i++) {
++=09=09u32 grb =3D spec->ae5_strip_cur_colors[i];
++
++=09=09ucontrol->value.bytes.data[i * 3 + 0] =3D (grb >> 8) & 0xff;
++=09=09ucontrol->value.bytes.data[i * 3 + 1] =3D (grb >> 16) & 0xff;
++=09=09ucontrol->value.bytes.data[i * 3 + 2] =3D grb & 0xff;
++=09}
++=09if (spec->ae5_strip_cur_num_leds < AE5_STRIP_MAX_LEDS)
++=09=09memset(&ucontrol->value.bytes.data[spec->ae5_strip_cur_num_leds * 3]=
+, 0,
++=09=09       (AE5_STRIP_MAX_LEDS - spec->ae5_strip_cur_num_leds) * 3);
++=09return 0;
++}
++
++static int ae5_strip_ctl_put(struct snd_kcontrol *kcontrol,
++=09=09=09     struct snd_ctl_elem_value *ucontrol)
++{
++=09struct hda_codec *codec =3D snd_kcontrol_chip(kcontrol);
++=09struct ca0132_spec *spec =3D codec->spec;
++=09u32 colors[AE5_STRIP_MAX_LEDS];
++=09int i, num_leds, change, ret;
++
++=09guard(mutex)(&spec->ae5_strip_mutex);
++=09num_leds =3D spec->ae5_strip_cur_num_leds;
++=09for (i =3D 0; i < num_leds; i++) {
++=09=09u8 r =3D ucontrol->value.bytes.data[i * 3 + 0];
++=09=09u8 g =3D ucontrol->value.bytes.data[i * 3 + 1];
++=09=09u8 b =3D ucontrol->value.bytes.data[i * 3 + 2];
++
++=09=09colors[i] =3D ((u32)g << 16) | ((u32)r << 8) | (u32)b;
++=09}
++=09change =3D memcmp(spec->ae5_strip_cur_colors, colors,
++=09=09=09sizeof(u32) * num_leds) !=3D 0;
++=09ret =3D ae5_strip_send_frame(codec, colors, num_leds);
++=09if (ret < 0)
++=09=09return ret;
++=09if (change)
++=09=09memcpy(spec->ae5_strip_cur_colors, colors,
++=09=09       sizeof(u32) * num_leds);
++=09return change;
++}
++
++static int ae5_strip_num_leds_info(struct snd_kcontrol *kcontrol,
++=09=09=09=09   struct snd_ctl_elem_info *uinfo)
++{
++=09uinfo->type =3D SNDRV_CTL_ELEM_TYPE_INTEGER;
++=09uinfo->count =3D 1;
++=09uinfo->value.integer.min =3D 1;
++=09uinfo->value.integer.max =3D AE5_STRIP_MAX_LEDS;
++=09return 0;
++}
++
++static int ae5_strip_num_leds_get(struct snd_kcontrol *kcontrol,
++=09=09=09=09  struct snd_ctl_elem_value *ucontrol)
++{
++=09struct hda_codec *codec =3D snd_kcontrol_chip(kcontrol);
++=09struct ca0132_spec *spec =3D codec->spec;
++
++=09guard(mutex)(&spec->ae5_strip_mutex);
++=09ucontrol->value.integer.value[0] =3D spec->ae5_strip_cur_num_leds;
++=09return 0;
++}
++
++static int ae5_strip_num_leds_put(struct snd_kcontrol *kcontrol,
++=09=09=09=09  struct snd_ctl_elem_value *ucontrol)
++{
++=09struct hda_codec *codec =3D snd_kcontrol_chip(kcontrol);
++=09struct ca0132_spec *spec =3D codec->spec;
++=09int val =3D ucontrol->value.integer.value[0];
++=09int ret;
++
++=09if (val < 1 || val > AE5_STRIP_MAX_LEDS)
++=09=09return -EINVAL;
++
++=09guard(mutex)(&spec->ae5_strip_mutex);
++=09if (spec->ae5_strip_cur_num_leds =3D=3D val)
++=09=09return 0;
++=09ret =3D ae5_strip_send_frame(codec, spec->ae5_strip_cur_colors, val);
++=09if (ret < 0)
++=09=09return ret;
++=09spec->ae5_strip_cur_num_leds =3D val;
++=09return 1;
++}
++
++static const struct snd_kcontrol_new ae5_strip_ctls[] =3D {
++=09{
++=09=09.iface =3D SNDRV_CTL_ELEM_IFACE_CARD,
++=09=09.name =3D "AE-5 LED Strip",
++=09=09.access =3D SNDRV_CTL_ELEM_ACCESS_READWRITE |
++=09=09=09  SNDRV_CTL_ELEM_ACCESS_VOLATILE,
++=09=09.info =3D ae5_strip_ctl_info,
++=09=09.get =3D ae5_strip_ctl_get,
++=09=09.put =3D ae5_strip_ctl_put,
++=09},
++=09{
++=09=09.iface =3D SNDRV_CTL_ELEM_IFACE_CARD,
++=09=09.name =3D "AE-5 LED Strip Count",
++=09=09.access =3D SNDRV_CTL_ELEM_ACCESS_READWRITE |
++=09=09=09  SNDRV_CTL_ELEM_ACCESS_VOLATILE,
++=09=09.info =3D ae5_strip_num_leds_info,
++=09=09.get =3D ae5_strip_num_leds_get,
++=09=09.put =3D ae5_strip_num_leds_put,
++=09},
++};
++
++static int ae5_add_strip_controls(struct hda_codec *codec)
++{
++=09int i, err;
++
++=09for (i =3D 0; i < ARRAY_SIZE(ae5_strip_ctls); i++) {
++=09=09err =3D snd_hda_ctl_add(codec, 0,
++=09=09=09=09      snd_ctl_new1(&ae5_strip_ctls[i], codec));
++=09=09if (err < 0)
++=09=09=09return err;
++=09}
++=09return 0;
++}
++#endif /* CONFIG_SND_HDA_DSP_LOADER */
++
+ static void ae5_setup_defaults(struct hda_codec *codec)
+ {
+ =09struct ca0132_spec *spec =3D codec->spec;
+@@ -8741,6 +9126,10 @@ static void ca0132_init_chip(struct hda_codec *codec=
+)
+ =09unsigned int on;
+=20
+ =09mutex_init(&spec->chipio_mutex);
++#if IS_ENABLED(CONFIG_SND_HDA_DSP_LOADER)
++=09mutex_init(&spec->ae5_strip_mutex);
++=09spec->ae5_strip_cur_num_leds =3D 10;
++#endif
+=20
+ =09/*
+ =09 * The Windows driver always does this upon startup, which seems to
+@@ -9626,6 +10015,9 @@ static void ca0132_free(struct hda_codec *codec)
+ #ifdef CONFIG_PCI
+ =09if (spec->mem_base)
+ =09=09pci_iounmap(codec->bus->pci, spec->mem_base);
++#endif
++#if IS_ENABLED(CONFIG_SND_HDA_DSP_LOADER)
++=09mutex_destroy(&spec->ae5_strip_mutex);
+ #endif
+ =09kfree(spec->spec_init_verbs);
+ =09kfree(codec->spec);
+--=20
+2.55.0
 
 
-Internal Use - Confidential
