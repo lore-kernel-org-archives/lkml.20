@@ -1,117 +1,166 @@
-Received: from smtp.uniroma2.it (smtp.uniroma2.it [160.80.4.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A3E613BB695;
-	Tue,  6 Oct 2026 15:44:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.80.4.37
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EF4E49CF55
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 15:44:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791301468; cv=none; b=ZG6PxeoyATiGAGLRTF5hQ0yEyQEgRm4U+V9+oOkT4fsuUUY9LhbNnX2e89juDvkcWKpHEe3cNJpog3KCszQZfunD+vSdVtJ/8lF2rlv/GdNpvlabf2DIWMsfhZbwu9SjUsmg9b0ZDDz/vIF+kxHay+yfes4GF2cRq5b+d2NqQYs=
+	t=1791301484; cv=none; b=cdYPLlL50eLbKn2OxQRJ3Sm5q9fMIslFsWsGEJ3HVqJ6gltByxb5TKTvinEfZvjx0mamLdkO3ZatEfrWkymtwcR1K+SVd36p6ULONJMfhK7nQ3N/2+h5y98cTDAoCH7UpFVr93YGiL2AtXRn5hhONfVAL+5BAdxXediMWoTNZhc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791301468; c=relaxed/simple;
-	bh=/akPqFjBPFk1i0fF17zHYL4oqlB65msOV86aBtJy4xg=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=e6AlCAoK8UOVZR0om9KLdUAn7IzHmmoNolIff9k8Xw27gDqAbAfIHCidsd6MI9QHaKxjvL+2GHKiZ/7lbVir0hGMQwq82cZPD4qrJl+i3VgEqqJnQvVvk0j0Dw9rc/9pHaPQFD0S9heTK1uc1IlLYmgE2TVCFm7MWnXX0k0Kg70=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it; spf=pass smtp.mailfrom=uniroma2.it; dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=APvjwjp9; dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=QPhveSUG; arc=none smtp.client-ip=160.80.4.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniroma2.it
+	s=arc-20240116; t=1791301484; c=relaxed/simple;
+	bh=OqvqQY/IhC7NWo4o7gGhk0MEeJ2Xat8IfeE3dy9I0P8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=pmWmHnGpH2PYHQVMHxIpwZdg+wIpfsfFtBBkN+9NJJ9hzJ1aQH1e/U8NkG7Lpcvix9BFzgx2wicudOpKyHTSq/MmWs/u7GYSmR+ReDdJnbMDk1cD5dZ9ImOBN6BvMlFUwCrRjNlhIkOmovf/h6Zh1yLKKfiDb4O7hmKbbwC2KYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=ELlfynIt; arc=none smtp.client-ip=209.85.160.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="APvjwjp9";
-	dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="QPhveSUG"
-Received: from smtpauth-2019-1.uniroma2.it (smtpauth.uniroma2.it [160.80.5.46])
-	by smtp-2015.uniroma2.it (8.14.4/8.14.4/Debian-8) with ESMTP id 696FhqXA030345;
-	Tue, 6 Oct 2026 17:43:58 +0200
-Received: from lubuntu-18.04 (host-95-234-228-71.retail.telecomitalia.it [95.234.228.71])
-	by smtpauth-2019-1.uniroma2.it (Postfix) with ESMTPSA id 765B91228BD;
-	Tue,  6 Oct 2026 17:43:48 +0200 (CEST)
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=uniroma2.it;
-	s=ed201904; t=1791301428; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OdK6cwIPlCPet6hLfR7uwhBD0oYQ7PTncgtI8QIo+SM=;
-	b=APvjwjp94Y2KzdF4/TiFIfkGLof61N5HhXDspThV1XQKByYWGpIFEhN4AVoPs5xXSvw8pW
-	pJnmNn3pLKYNYgAA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniroma2.it; s=rsa201904;
-	t=1791301428; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OdK6cwIPlCPet6hLfR7uwhBD0oYQ7PTncgtI8QIo+SM=;
-	b=QPhveSUGTjxu6991vCq4MxLFJZyQQLkRxrf+kF82xofi76IkGCFBwPMCOmFIZ/Mw1vFqY7
-	rDCWz0l7qvTWenQlysre/3TejmKYDHSDKXu5oAbaSL2a6Jor7hLwOY72bYJYEwQGtMgp2X
-	VFc/N9XBCXnH8mOrl6XdLTX59476m9oKQHuRVdmcLCADyVtzxlh8qKtFf1kf22yW9Jyi6R
-	0A5M6Uv5xKuDIquEEH5LjPUcMtMl1vc8JSp8Lk1ycKhVxrnYnswEoOlskNiAX4w/YCGTnW
-	jpm566rsZjUSybQBUfls1SlPhUYSOV75hxcwfhAbJgPtb9hp6eKLZEknmMfxUg==
-Date: Tue, 6 Oct 2026 17:43:48 +0200
-From: Andrea Mayer <andrea.mayer@uniroma2.it>
-To: Gabriel Goller <g.goller@proxmox.com>
-Cc: "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet
- <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-        netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-        hangbin.liu@linux.dev, Stefano Salsano <stefano.salsano@uniroma2.it>,
-        Andrea Mayer <andrea.mayer@uniroma2.it>
-Subject: Re: [PATCH v4] net: ipv6: seg6: report lwtunnel setup errors via
- extack
-Message-Id: <20261006174348.b62a0e824aa8acfbf187e4c5@uniroma2.it>
-In-Reply-To: <20261005140637.644840-1-g.goller@proxmox.com>
-References: <20261005140637.644840-1-g.goller@proxmox.com>
-X-Mailer: Sylpheed 3.5.1 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="ELlfynIt"
+Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-5351d76e1baso20874151cf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 08:44:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=toxicpanda.com; s=google; t=1791301482; x=1791906282; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=IU49nZZhlVu2qJsiPTHVpkbTUnb5Udm3WFaqPCSBC1s=;
+        b=ELlfynItz72JPceAe9hntvezZXR2T2hVu0YMz5K07CIqgUSeLKOKX3ARovmUYllYl5
+         yYlhH5TqWT0Lm6/2wu4Fpa1wPiflj+ujFshqoJI6w83lxe4CQxkiVydPfuTIrpFNNwtN
+         /kE3qyJnGqTwT6bdRhsv/3AnJJdkNSwt3HrDb1igGrLi4CxEHEKMi5w4BZOjBxStGtnq
+         WuDsBB2RZ0GSqu1amqZYgNm+KtfF3lej78g3JVp66qHXeD4At/qEJU31gYMFXzc9Im/D
+         o9V0DbXxuFc8khY9+w0gwrc4uZPIfIcpPw9AoJLhabmZ9Plnm0jbA/DujfXmk2PzMKOc
+         fTXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791301482; x=1791906282;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=IU49nZZhlVu2qJsiPTHVpkbTUnb5Udm3WFaqPCSBC1s=;
+        b=bTpPd7QajA3MUngUF+jGADHTabMqEh4h6ze1svVAnI0zqp9lnTTVfSTKBwRRzj7Gpr
+         L81zDqXNdiAjtXMv6Ll86ipOqHw0migGImYFtuF4jkmKjpo1Us6m3sRLyhEdoMxAlx0K
+         HQkBQ1BhEnF7W79lmYn4bKzf6FH+1aNmdg15I+lirWg7boGdXjp6ZzZzOa4FhvPjLOnm
+         0tq1WcC3fixOP+/ds+uBQZ1w5Tlv3odXdZAAOK2TAFvjvl9qWOOgx6eSRo+QoiGaKSxs
+         abWfRUtW3xJehNzCuxR58I0WXiKG070MVC4k6yX8T77Ut1jccziJL2O6t179u+xs3R02
+         wM5g==
+X-Forwarded-Encrypted: i=1; AKwUvBypZ3/4NoSgWZQcD+f55NsNwXjuiHOI9sT85l2cIx32eWXMrUemNtEg+CHO+TLrSHwxDdc0hP8q7m2gyaE=@vger.kernel.org
+X-Gm-Message-State: AFuF++m0MTQSh+zOGYIoHZHUuZflFthCZkWTjfNkeVh8a5Gg/fA2kmKI
+	NMB8wT/ghEK6SwF6G0IHaubW62zLVsmkTh7NUwly0A6AWwhUxnBgC71V6tdJQ2A9JIo=
+X-Gm-Gg: AYBFou1UTj98m0SCZAsQhIt5zCMKsBm1ZjTkS5xCjy6UE1isDaYnBOnQB7gd5qhUJ1N
+	kKbkkrjY931Xvv5SLa5mgf4JMKthbTpKPPcTyPNRVTJf/9BF+3CKz/tA0muzb1Dv3Hnb9lgQnIR
+	11CURaQ742+0KWwgmKvMKlZzDEr9c8NeS1u4rOcy3rqXjpGqhQPIfYYqFN/L29qlMg2nQYhX9vT
+	CDZezGIMnMv8CWtf3u/p3n8imLjoj1PKvLg7qZ84pTVZg0Ashym9E5QEZE/ziPxAlODVvPa/vno
+	NYx/WLZkCVgbHc/IykSCcxquidMsIhYcEGK4HMseDQlg6pBoN2WkHFBREmT80k2z25P/5snge5s
+	TFBVObJsiZipEx5SLJD/RlKvf6uxvWNsJ95CO9eZCv3H18BLMxTZC6sSU6SD0SeI9GP+tETKg8M
+	7NExH+WD/onnwosQxMkfh7ahb7LXsghcd6zYENPeWQlr56cqXTjkcVloZP7OcHYsF0H2begVzhO
+	wBPBWM1YHkpnTAGvjUKl/GYXQ==
+X-Received: by 2002:a05:622a:1f13:b0:535:1e6a:1f0e with SMTP id d75a77b69052e-53566d8e3cbmr25469741cf.27.1791301481707;
+        Tue, 06 Oct 2026 08:44:41 -0700 (PDT)
+Received: from toxicpanda.com ([153.61.196.241])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5339883034csm124897031cf.3.2026.10.06.08.44.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 08:44:41 -0700 (PDT)
+From: Josef Bacik <josef@toxicpanda.com>
+Subject: [PATCH 0/5] capabilities: close the ways around the CAP_SETFCAP
+ rule for uid 0
+Date: Tue, 06 Oct 2026 15:44:16 +0000
+Message-Id: <20261006-b4-setfcap-userns-v1-0-f47e7ed66072@toxicpanda.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Virus-Scanned: clamav-milter 0.100.0 at smtp-2015
-X-Virus-Status: Clean
+X-B4-Tracking: v=1; b=H4sIAFEXxWoC/1WMQQ6CMBBFr0Jm7YSWYmO8imHRDoPUmNp0wJgQ7
+ m6LK5fv57+3gXAOLHBtNsj8DhJesYA+NUCzi3fGMBaGTnVWK2XR9yi8TOQSrsWNgqM1+nJ2RhM
+ bKF7KPIXP0bwNP5bVP5iWGqoP74TRZxdprtMztb5vj/E/Dfv+BR+OVX2hAAAA
+X-Change-ID: 20261006-b4-setfcap-userns-d63185a31ce3
+To: Serge Hallyn <serge@hallyn.com>, Paul Moore <paul@paul-moore.com>, 
+ Christian Brauner <brauner@kernel.org>
+Cc: James Morris <jmorris@namei.org>, David Howells <dhowells@redhat.com>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, "Andrew G. Morgan" <morgan@kernel.org>, 
+ Serge Hallyn <sergeh@kernel.org>, linux-security-module@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, keyrings@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1791301477; l=3293;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=OqvqQY/IhC7NWo4o7gGhk0MEeJ2Xat8IfeE3dy9I0P8=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QFGH3nAizFspoz6WknfBOIRo2rktqxme/IK9Mf9Wqf0+sIV0rpomF8WzQ+ZmgB8jxmltOol3zy3
+ G5R34oa49qgk=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-On Mon,  5 Oct 2026 16:06:34 +0200
-Gabriel Goller <g.goller@proxmox.com> wrote:
+Hello,
 
-Hi Gabriel,
+Commit db2e718a4798 ("capabilities: require CAP_SETFCAP to map uid 0")
+stops a root task that has given up CAP_SETFCAP from creating a user
+namespace that maps uid 0 and then writing file capabilities in it that
+the initial namespace honours.  The check only looks at the task that
+creates the namespace, so if somebody who did have CAP_SETFCAP created
+one, there are still several ways around it:
 
-thanks for the v4. +1 to Jakub on _MISS. I also have two comments on
-the message text.
+- setns() into their namespace and write uid_map from inside (patch 2)
+- write "0 0 1" through a uid_map fd that they opened (patch 3)
+- setns() into a namespace of theirs that already maps uid 0 and set
+  security.capability there, no map write needed (patch 4)
+- ptrace one of their tasks and have it do any of the above (patch 5)
 
-> [snip]
->  	switch (tuninfo->mode) {
->  	case SEG6_IPTUN_MODE_INLINE:
-> -		if (family != AF_INET6)
-> +		if (family != AF_INET6) {
-> +			NL_SET_ERR_MSG_ATTR(extack, tb[SEG6_IPTUNNEL_SRH],
-> +					    "inline mode requires an IPv6 route");
->  			return -EINVAL;
-> +		}
+On an unmodified kernel we took a uid 0 task with CAP_SETFCAP dropped
+from its permitted, effective and bounding sets and, through each of
+these, ended up with a file that a uid 1000 user execs with
+CAP_SYS_ADMIN in its effective set.
 
-This message is also returned for an IPv4 nexthop object, where there
-is no route, for example:
+Patch 1 adds cred->setfcap_level, which records how far up the
+namespace tree a task's CAP_SETFCAP reached when it entered its
+namespace, and patches 2-5 check it.  Patch 4 is the check that closes
+the class, the map patches make the uid 0 map rule mean what
+db2e718a4798 meant it to, and patch 5 keeps ptrace from borrowing what
+the target is entitled to.
 
-  ip -4 nexthop add id 1 encap seg6 mode inline segs fc00::1 dev dummy0
+This does change behaviour.  Everything new is -EPERM:
 
-What about "inline mode requires the IPv6 address family"?
+- a task that entered a namespace without CAP_SETFCAP outside can't map
+  uid 0 of the outside or write fscaps for that root user anymore
+- a uid_map fd opened by a task with CAP_SETFCAP can't be used by a
+  task without it to map uid 0
+- if a privileged task maps "0 0 1" from the parent for a namespace
+  created by a task without CAP_SETFCAP, that namespace can no longer
+  write fscaps honoured outside
+- PTRACE_ATTACH and PTRACE_TRACEME fail when the tracer gave up
+  CAP_SETFCAP and CAP_SYS_PTRACE, the target didn't, and they share a
+  root user
 
-> [snip]
->  	/* verify that SRH is consistent */
-> -	if (!seg6_validate_srh(tuninfo->srh, tuninfo_len - sizeof(*tuninfo), false))
-> +	if (!seg6_validate_srh(tuninfo->srh, tuninfo_len - sizeof(*tuninfo),
-> +			       false)) {
-> +		NL_SET_ERR_MSG_ATTR(extack, tb[SEG6_IPTUNNEL_SRH],
-> +				    "invalid SRv6 segment routing header");
->  		return -EINVAL;
-> +	}
+Rootless containers, privileged runtimes writing the map from the
+parent, nested unprivileged namespaces and containers that don't map
+host uid 0 aren't affected.  The ptrace check is one compare for
+targets in the initial namespace and in namespaces entered without
+the capability.
 
-A nit: the same header is "SRv6 segment routing header" here and
-"SRv6 SRH" in the other messages of seg6_build_state(). What about
-using the name from the title of RFC 8754 in the extack messages,
-for example:
+Testing: a set of flows run on the base and patched kernels, every
+bypass route above gets -EPERM with the series and the 16 legitimate
+flows behave the same.  The capabilities, namespaces, ptrace, pidfd and
+proc selftests give the same results before and after. Thanks,
 
-  "invalid SRv6 segment routing header"
-    -> "invalid IPv6 Segment Routing Header"
+Josef
 
-Thanks,
-Andrea
+---
+Josef Bacik (5):
+      cred: record how far up CAP_SETFCAP reaches
+      userns: don't let setns() lend the right to map uid 0
+      userns: check the writer too before mapping uid 0
+      capabilities: limit fscaps to where CAP_SETFCAP reaches
+      capabilities: don't let ptrace borrow CAP_SETFCAP
+
+ include/linux/capability.h   |   4 ++
+ include/linux/cred.h         |   1 +
+ kernel/user_namespace.c      |  40 +++++++++++----
+ security/commoncap.c         | 119 +++++++++++++++++++++++++++++++++++++++++--
+ security/keys/process_keys.c |   1 +
+ 5 files changed, 150 insertions(+), 15 deletions(-)
+---
+base-commit: 7909a3e30a05e40bbc8bfb7f5629ed642abeaab8
+change-id: 20261006-b4-setfcap-userns-d63185a31ce3
+
