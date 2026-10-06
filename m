@@ -1,64 +1,64 @@
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 638CF2459C5
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 00:20:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A115A283FCE
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 00:20:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791246053; cv=none; b=aTFAbcSw4dyMrYG6hBbMrH8NE8MHP+MrPKP6QfdXLVrXVNDFFEcSgpJt/1NDJUGpycU6SgYlg/yrF9J3p0/aea2ChXrcnkps1jrJmmhkGbjXSjVH4mINOCNdNmOPbfKMCF50ZZ1sGA5L4EMVShxLaZPXp1csV+qpU/9E6nxktK0=
+	t=1791246058; cv=none; b=Gwp6m0uKHKxPNYvbE/Azb/cEsJG7Z/OKC+ME2w9krFNGt0rtZ+SzQ3iQXnwAXCvtR/7xdAclAZSqt5TrDUlVXHsHa3sa/L7pMlRX2t2nEaUJOMQ0u3Q53/xFsBmIQ3JovXRjl8q5M0Dzn7Vu8UbKP8KqVBuD2nTxkr4AFqlDfe0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791246053; c=relaxed/simple;
-	bh=g+n1czrcMHPLMQpcpTgeEza8tWqqWT5DIADJOEgauhg=;
+	s=arc-20240116; t=1791246058; c=relaxed/simple;
+	bh=jlzmzVUZatc66HPQV+KRZVQKntcM2EXkVs5FTJwJSp0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qV6NfekpaqINQEcBuyvmo3e5+0OeafKJssgAwuSkPfGHBQHJP99oNdSKYreNckBx10LlOujH+Sx48hxuofHmUOLOFt9WCpLlzIjkCZsn5Nrja+dJUrNfaTwlyVFgmfu8FGlm3I6VhD6DkvAotVZ7KsWFeQ2zhBgbaFy1zJJwk58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D4T56T7N; arc=none smtp.client-ip=209.85.128.181
+	 MIME-Version; b=Sm5H+MVRMgGUtLfFglNRx/oAJrfQlgnJitRaTvzQCFfgPjX52aLofCOKtM4/H8i/wJAzcFfZkVR0JW8d+pBExUNMZ7mdbIiOVP9k2oKMxhLwJM268XxUTiPARbnWBM2NNGWXKG7TlwcsIBVk3xlArOKDNv0j0RupCopKVEBlr88=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ppf+DIku; arc=none smtp.client-ip=209.85.128.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D4T56T7N"
-Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-8ac8a2ac52bso3549317b3.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 17:20:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ppf+DIku"
+Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8ae9bc9a2fcso2559987b3.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 17:20:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791246049; x=1791850849; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791246051; x=1791850851; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WcPAYnp6FRhiKAh9ydZFYz6XVPrSxVL1Ud94wpG3oX4=;
-        b=D4T56T7N+JYXwvkTfK1CmI685PRoJSJ11hOKflHGb7K/jjIHUtjAf1KshSV2zZdSgL
-         ZkApGaPqnAPmBLhe1bN6Xv+XhSYFBudrfMk9U5EL+zjjGSU8prqfwIAV+NpgJlxEKveJ
-         sl5YzrYCQly66AVuMBIbR7QN26da1ZRFymZQgAfiYOCnDNp3IhVgCqYWCMoBDQnszqSf
-         OgjZNJhoFmhr3iktHrgZDACoS09hVHcA8jbdSByG5UfmDCfjTfFwyjwUyAkbQ4R6d7Vn
-         4ebGNTSsTZnFht9mUXggxNIg/DBSquYm7crMsDSv4GnbGMKLSQZdAYTgmvK0gjJ707ZA
-         fG3Q==
+        bh=TeNSAJLFPq7jjMeEaP2RymD5KGPr8j5TQzJn1I+wbQ4=;
+        b=ppf+DIkuzcwF/DSvKYymITFgXHUOkLm5RteZj/beYEKhbNjFg77e+WTtI/K5Y0duk8
+         mZmk25NL6+gf+umOtSIczNFOBlQExc+Zv6vqTS3tDJDegtAOYnK/dOtHifBFgs0vxpne
+         INwC21+Byf4Gw4dJq8PRipaWywe+m1Clfgd5qiOoFuj2kvBiZIpA9U8HL5T7Hjl/LtNn
+         ZqSymt+3DECkagQb4z7IAgvwk/Pb4d1oRjsJ5uyZGNbC4q9r1Z9Lyb+VBHdZTE+2oRVO
+         g9QDDEQP0sHA5L4+Sgo0lbiP0wHwavy7bzovjcXA84NWXITnbL75wcTIoW6HwjxDWPPQ
+         REHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791246049; x=1791850849;
+        d=1e100.net; s=20260707; t=1791246051; x=1791850851;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WcPAYnp6FRhiKAh9ydZFYz6XVPrSxVL1Ud94wpG3oX4=;
-        b=TvftxgAFQvzbDSLC9jrABd1tnDCdrM5nUr8lEh/xmzlxCVyautdfr2RXm05bzEQUO1
-         ioIUTAuLiqQ2U8V849b9bYjMxvt8Wp0CT2rmBHH7X0b34qrQGrBq4UdLFFo3e+sdm18H
-         +OW998+ZjWv8oak7FtsOqe1K5ZBnfyCU2NZzepBvQXLwqZd/oRLld3uIGqZ/wMkyfF+T
-         DfDPlKNqyw8G3JjjGhI5Dh5qpo1iXlLFao4p66nI8m6tasiDa6J+ccmnGvm3dTb8BweL
-         0bBpODI23y41wDOsHuE1BaZ4AlhReCPZ0QMz09NQoq8EYK0tK+YBmGotfN99Pbx4Wls+
-         n2/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBz+T0woHvQG1FCj1mVZwKeoC/ryOSXAMQjzlLl+zdxTlNrlDuLBH3uT0yMgDr1u90P5bmdipw3QKP1C5Y0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ+WGgTey6ezFU6dhspxlj3TXFoulBlz87DOO9ypebIY60uwcKT
-	KC9atCemC3yFBFWBAhdcMIDy1+dElXU3/kv43CHmVcEVkKwcWGShU3KQ
-X-Gm-Gg: AYBFou1QRAsimWDvc2sEXWNAoSHvt4abOxPBDfyubnE732u0jXoyHuxbAts842UtjdU
-	+bjKdaT0J6yxrW23Lep1p9eo5g558e80JX1p5PdY5QMZp5jIYoA9yN6hc15oNl+VMshvFXJtf5T
-	dV2/WlKWTZ3uFnapNMiz1hhRpoiz7lFFPxquNmISP+kGi1HcKFtPMkOn8YIjNNnZoCMZVtGz+eG
-	seHf3NXNHGfJXToJrelBeDAZmdhGeDSUhsyOjVU0objy3el5b61tZ13hjND4sxD9MmYWkkGKmQE
-	6LI8j/u7WYbzsaNYHP9+k3nWWbnDU+v4fk5h8vgVv+JFqrGmmzpVsszsTckAFYvdbjeEkj65ei5
-	KCjZFDBwx90ttvE0zHwXa8ebi0hAphLkTsa8CeGrJrTivXGOAn68pi+tvLjXAH9CsRaBDIAHNfx
-	IGAnft22wnus7ghcgjv4cP4ebZeU96FmzVpsRzZUrLa+24qQZszIWrmXRZlIpuV6VGNpy38VgqS
-	IM=
-X-Received: by 2002:a05:690c:e64b:b0:8ae:ae7a:2763 with SMTP id 00721157ae682-8af7204ed31mr3635217b3.13.1791246049148;
-        Mon, 05 Oct 2026 17:20:49 -0700 (PDT)
+        bh=TeNSAJLFPq7jjMeEaP2RymD5KGPr8j5TQzJn1I+wbQ4=;
+        b=Y8tMayJbpMNW9ohb4lzcAYlHGefM+yom/hVmGQoSh5tSFD+V3c03FTnh6pcqPvqJpK
+         dydwGDiojgM3rQwjwQk3k5wIJ31cmc1ltfNio8+Nef/NTV1vDtAw/d3E8+ekrpj2l76Y
+         1vEqnbtgkkyQRXCZsHLFiVjTed87VJgKNrwiRr0JM7oDLN+ueqm3/PQJgR7NzCVXZQnn
+         bepY/bs5aDkBcjF5Zg0aTPcbmbQXTMvs4ftc7A2MtGDXjxSLoc13r9t2HUG1M1gI0rwW
+         BS2+DDFKkWOMi/1/0leF+wMAAxy7MSd5g2ShO0j9vFRNARywd0fxR3Lw0ZJDcWvm/2d1
+         Z3FA==
+X-Forwarded-Encrypted: i=1; AKwUvBzoviTuIDqcfxhfn4MPNcIr6OXadu6DFgFNWVHcel/W6NuCBazULYYdwq05lZED8cUW7rP7i3Nj4cW+c8U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLrLNgDpyW7Bq5s+9VkL4a9PB8uQX/xxPjNcCpV59Pd78p3miPp
+	pKZBfevaDIDIjrOkKMhWkTLgAbn7g4UCKuRjJyzSWR9SrFmP1M56yYxC
+X-Gm-Gg: AYBFou0mwcwTwn3CuiatDoO5XvRzOqYvkCYVPqXaAl5iHaGHwM442fzDHgbNQgaEk4v
+	svW4BgAkRNEe0LumprFSpBA/7J9SHCT7KC5eKTTMUKw/e+NEEYJqfdNXE2HSxiOntZxgUq+5fCv
+	PaQ3vAtbHlU9TyN8lC7yFiOjs/U3Y2bwEPD3gw/srrOZoRommCPQNl1lRWzT810YIKWt8veNOev
+	8Bg+XdMxbdhA9HrHpDSh2T+puHeKWPn6f/tQ8EQUT0QDDxmuzmLur6pEAilVKl0HVoTQV/2lq8H
+	U71D3ml3XXVajY/G1AVkDZX3IRlC6GpJ/3Hx8Q5fcA+8WRGWTHz5HV1OxofQ47PxIZg7EIoq+3C
+	SwMne54ninoSvdLhDhJOphZRjSlyHtJvPvEErr7oz4CoMzMKuiDZAr6TvCDDJc4zgCTI2THlCkn
+	g5Y1Q8tYCeSHdDXJR7xIiQyRVsH2TuJpz4MezQAonzJk4J5ik1FySvw+6Oconevh6sTx07lm58n
+	w==
+X-Received: by 2002:a05:690c:ec9:b0:8a8:4d6:22ec with SMTP id 00721157ae682-8af71ff7827mr5781577b3.7.1791246051523;
+        Mon, 05 Oct 2026 17:20:51 -0700 (PDT)
 Received: from zenbox ([2600:1700:18fb:6011:6dc9:4ffd:1851:60b1])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8ae33be0e58sm46636277b3.43.2026.10.05.17.20.47
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8ae33be0e58sm46636277b3.43.2026.10.05.17.20.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 17:20:48 -0700 (PDT)
+        Mon, 05 Oct 2026 17:20:50 -0700 (PDT)
 From: Justin Suess <utilityemal77@gmail.com>
 To: Christian Brauner <brauner@kernel.org>,
 	Alexander Viro <viro@zeniv.linux.org.uk>,
@@ -89,9 +89,9 @@ Cc: linux-fsdevel@vger.kernel.org,
 	Shuah Khan <shuah@kernel.org>,
 	Tingmao Wang <m@maowtm.org>,
 	Justin Suess <utilityemal77@gmail.com>
-Subject: [RFC PATCH bpf-next 07/12] selftests/bpf: exercise the path ancestor iterator
-Date: Mon,  5 Oct 2026 20:20:14 -0400
-Message-ID: <20261006002020.2890858-8-utilityemal77@gmail.com>
+Subject: [RFC PATCH bpf-next 08/12] fs: add mnt_undo_legitimize()
+Date: Mon,  5 Oct 2026 20:20:15 -0400
+Message-ID: <20261006002020.2890858-9-utilityemal77@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261006002020.2890858-1-utilityemal77@gmail.com>
 References: <20261006002020.2890858-1-utilityemal77@gmail.com>
@@ -103,132 +103,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Walk the ancestry of a mkdir's parent directory from a sleepable LSM
-program and check that the iteration reaches the root: the temporary
-directory, its parent and / are visited, and no position comes back
-flagged.
+A failed __legitimize_mnt() can oblige its caller to mntput() the
+mount, which may be the final put and so may sleep: legitimize_mnt()
+leaves the RCU read-side critical section it ran under to do it.  A
+caller that cannot leave its critical section - a BPF program driving
+a lockless walk, which only the verifier ends - needs that put to be
+callable from inside it.
 
-Resolve the second position's pathname from the acquired position after
-the step that yielded it has been taken, so that the acquired reference
-is what the sleepable kfunc runs on rather than the walk's.
+Add mnt_undo_legitimize(), which drops the count and, when the count
+turns out to be the mount's last, keeps it and hands the mount to
+delayed_mntput() for the sleepable final put.  delayed_mntput() then
+tells the two queue populations apart by MNT_DOOMED rather than by an
+unlocked mnt_get_count() read, which a concurrent failed
+__legitimize_mnt() could transiently inflate.  legitimize_mnt()
+switches to it as well, retiring its
+rcu_read_unlock/mntput/rcu_read_lock dance.
+
+Unlike mntput(), mnt_expiry_mark is left alone: a walker that failed
+to legitimize a mount never used it.
 
 Signed-off-by: Justin Suess <utilityemal77@gmail.com>
 ---
- .../selftests/bpf/prog_tests/path_ancestors.c | 48 ++++++++++++++++++
- .../selftests/bpf/progs/path_ancestors.c      | 49 +++++++++++++++++++
- 2 files changed, 97 insertions(+)
- create mode 100644 tools/testing/selftests/bpf/prog_tests/path_ancestors.c
- create mode 100644 tools/testing/selftests/bpf/progs/path_ancestors.c
+ fs/mount.h     |  1 +
+ fs/namespace.c | 63 ++++++++++++++++++++++++++++++++++++++++++++------
+ 2 files changed, 57 insertions(+), 7 deletions(-)
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/path_ancestors.c b/tools/testing/selftests/bpf/prog_tests/path_ancestors.c
-new file mode 100644
-index 000000000000..2de79673a13b
---- /dev/null
-+++ b/tools/testing/selftests/bpf/prog_tests/path_ancestors.c
-@@ -0,0 +1,48 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Copyright (c) 2026 Justin Suess */
-+
-+#include <sys/stat.h>
-+#include <stdlib.h>
-+#include <unistd.h>
-+#include <test_progs.h>
-+#include "path_ancestors.skel.h"
-+
-+void test_path_ancestors(void)
-+{
-+	char base[] = "/tmp/path_ancestors_XXXXXX";
-+	struct path_ancestors *skel = NULL;
-+	char suba[280], subb[280];
-+
-+	if (!ASSERT_OK_PTR(mkdtemp(base), "mkdtemp"))
-+		return;
-+	snprintf(suba, sizeof(suba), "%s/a", base);
-+	snprintf(subb, sizeof(subb), "%s/a/b", base);
-+	if (!ASSERT_OK(mkdir(suba, 0755), "mkdir_a"))
-+		goto out_rm;
-+
-+	skel = path_ancestors__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "open_and_load"))
-+		goto out_rm;
-+	skel->bss->monitored_pid = getpid();
-+	if (!ASSERT_OK(path_ancestors__attach(skel), "attach"))
-+		goto out;
-+
-+	/* mkdir b: the hook sees dir == suba, whose ancestry is walked. */
-+	if (!ASSERT_OK(mkdir(subb, 0755), "mkdir_b"))
-+		goto out;
-+
-+	/* suba, base, /tmp, / at least. */
-+	ASSERT_GE(skel->bss->ref_count, 3, "ref_count");
-+	ASSERT_EQ(skel->bss->ref_flags, 0, "ref_flags");
-+
-+	/* The acquired second position, used after its step was taken. */
-+	ASSERT_STREQ(skel->bss->second_path, base, "second_path");
-+	ASSERT_EQ(skel->bss->second_len, strlen(base) + 1, "second_len");
-+
-+out:
-+	path_ancestors__destroy(skel);
-+out_rm:
-+	rmdir(subb);
-+	rmdir(suba);
-+	rmdir(base);
-+}
-diff --git a/tools/testing/selftests/bpf/progs/path_ancestors.c b/tools/testing/selftests/bpf/progs/path_ancestors.c
-new file mode 100644
-index 000000000000..af6b777e8bec
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/path_ancestors.c
-@@ -0,0 +1,49 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Copyright (c) 2026 Justin Suess */
-+
-+#include "vmlinux.h"
-+#include <errno.h>
-+#include <bpf/bpf_helpers.h>
-+#include <bpf/bpf_tracing.h>
-+#include "bpf_kfuncs.h"
-+
-+char _license[] SEC("license") = "GPL";
-+
-+__u32 monitored_pid;
-+
-+int ref_count;		/* positions seen by the pure referenced walk */
-+int ref_flags;		/* pos flags seen by the referenced walk */
-+int second_len;		/* d_path length of the walk's second position */
-+char second_path[256];
-+
-+static bool monitored(void)
-+{
-+	return (bpf_get_current_pid_tgid() >> 32) == monitored_pid;
-+}
-+
-+SEC("lsm.s/path_mkdir")
-+int BPF_PROG(walk_modes, const struct path *dir, struct dentry *dentry,
-+	     umode_t mode)
-+{
-+	struct bpf_iter_path_ancestors it;
-+	struct path *pos;
-+
-+	if (!monitored())
-+		return 0;
-+
-+	/*
-+	 * Referenced walk: every position comes acquired, so it stays valid
-+	 * for sleepable work and past the step that yielded it.
-+	 */
-+	bpf_iter_path_ancestors_new(&it, (struct path *)dir, 0);
-+	while ((pos = bpf_iter_path_ancestors_next(&it))) {
-+		ref_count++;
-+		ref_flags |= bpf_path_ancestors_pos_flags(&it);
-+		if (ref_count == 2)
-+			second_len = bpf_path_d_path(pos, second_path,
-+						     sizeof(second_path));
-+		bpf_path_put(pos);
+diff --git a/fs/mount.h b/fs/mount.h
+index 94fcc306d21e..e714040f8e8f 100644
+--- a/fs/mount.h
++++ b/fs/mount.h
+@@ -140,6 +140,7 @@ static inline int is_mounted(struct vfsmount *mnt)
+ extern struct mount *__lookup_mnt(struct vfsmount *, struct dentry *);
+ 
+ extern int __legitimize_mnt(struct vfsmount *, unsigned);
++void mnt_undo_legitimize(struct mount *mnt);
+ 
+ static inline bool __path_is_mountpoint(const struct path *path)
+ {
+diff --git a/fs/namespace.c b/fs/namespace.c
+index 580877e46b1a..920b8a85f9fa 100644
+--- a/fs/namespace.c
++++ b/fs/namespace.c
+@@ -767,11 +767,8 @@ static bool legitimize_mnt(struct vfsmount *bastard, unsigned seq)
+ 	int res = __legitimize_mnt(bastard, seq);
+ 	if (likely(!res))
+ 		return true;
+-	if (unlikely(res < 0)) {
+-		rcu_read_unlock();
+-		mntput(bastard);
+-		rcu_read_lock();
+-	}
++	if (unlikely(res < 0))
++		mnt_undo_legitimize(real_mount(bastard));
+ 	return false;
+ }
+ 
+@@ -1330,8 +1327,19 @@ static void delayed_mntput(struct work_struct *unused)
+ 	struct llist_node *node = llist_del_all(&delayed_mntput_list);
+ 	struct mount *m, *t;
+ 
+-	llist_for_each_entry_safe(m, t, node, mnt_llist)
+-		cleanup_mnt(m);
++	llist_for_each_entry_safe(m, t, node, mnt_llist) {
++		/*
++		 * MNT_DOOMED is only ever set on the mounts
++		 * mntput_no_expire_slowpath() queues here, never on the
++		 * kept-count ones mnt_undo_legitimize() queues.  Route on it
++		 * rather than on mnt_get_count(), which a concurrent failed
++		 * __legitimize_mnt() can transiently inflate.
++		 */
++		if (m->mnt.mnt_flags & MNT_DOOMED)
++			cleanup_mnt(m);
++		else
++			mntput(&m->mnt);	/* kept by mnt_undo_legitimize() */
 +	}
-+	bpf_iter_path_ancestors_destroy(&it);
-+	return 0;
+ }
+ static DECLARE_DELAYED_WORK(delayed_mntput_work, delayed_mntput);
+ 
+@@ -1423,6 +1431,47 @@ void mntput(struct vfsmount *mnt)
+ }
+ EXPORT_SYMBOL(mntput);
+ 
++/**
++ * mnt_undo_legitimize - drop a count __legitimize_mnt() asked us to put
++ * @mnt: the mount __legitimize_mnt() failed on
++ *
++ * Like the mntput() that a failed __legitimize_mnt() normally obliges,
++ * but callable from the RCU read-side critical section the legitimization
++ * ran under: when the count turns out to be the mount's last, it is kept
++ * and the mount handed to delayed_mntput() for the sleepable final put.
++ * Unlike mntput(), mnt_expiry_mark is left alone: a walker that failed
++ * to legitimize the mount never used it.
++ */
++void mnt_undo_legitimize(struct mount *mnt)
++{
++	if (likely(READ_ONCE(mnt->mnt_ns))) {
++		/* Not the final count, as in mntput_no_expire(). */
++		mnt_add_count(mnt, -1);
++		return;
++	}
++	lock_mount_hash();
++	/*
++	 * As in mntput_no_expire(): make sure that if a concurrent
++	 * __legitimize_mnt() has not seen us grab mount_lock, we'll see
++	 * its refcount increment here.
++	 */
++	smp_mb();
++	if (likely(mnt_get_count(mnt) > 1)) {
++		mnt_add_count(mnt, -1);
++		unlock_mount_hash();
++		return;
++	}
++	unlock_mount_hash();
++	/*
++	 * Ours is the last count: nothing else can reach the mount any
++	 * more, which makes its mnt_llist ours to use.  delayed_mntput()
++	 * tells our kept-count mount from the doomed ones by MNT_DOOMED.
++	 */
++	WARN_ON_ONCE(mnt->mnt.mnt_flags & MNT_DOOMED);
++	if (llist_add(&mnt->mnt_llist, &delayed_mntput_list))
++		schedule_delayed_work(&delayed_mntput_work, 1);
 +}
++
+ struct vfsmount *mntget(struct vfsmount *mnt)
+ {
+ 	if (mnt)
 -- 
 2.55.0
 
