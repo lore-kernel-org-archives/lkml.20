@@ -1,575 +1,237 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011017.outbound.protection.outlook.com [52.101.65.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25CEC41442B
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 12:47:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791290869; cv=none; b=mTMX4Mg7CJsrGOw4oWm3AI8v08H9z/g0C2p5srIKBihhnh2FSytxdarBp4uSaZUrm4lJbd1gdNhuwF8YcpbDynkZnZ/w6dKUyk+5uVPiueYN6sOq43EXBuDHYsaxRG4eBqYIUAskIqsNPPkjTDEDRCTTbFoPg3kLFNXcFKS6pWM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791290869; c=relaxed/simple;
-	bh=eN14CAftL8SR9APqGnM5DdM3l608zabyUCMeRaS2Nwg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bvrUwlqNs+y58tsIRsgVtOuIp8inZro5bAwJc+vd9CbJPFXiWufoQwQyhzySqNGMTNTo8ZepDlbWcCcjmEvKmwZu4DrC14l0CjYKJj9JNDMJOrXMH6HAQeSvjnZjpFHDZEL8m6b1lnMEz+0Qsr091irA40Xv4Tzu5dPDGDlqqkE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=I9ZMRhoX; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 745514078F4;
+	Tue,  6 Oct 2026 12:48:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791290906; cv=fail; b=m7u3iGFvq1cDGpgrIbsWLpaC6BzjeW6fL/hlLbpAzdmQZkMXde/9cgzkslTaDcvn2HEl1Sbmu1oITOixnqWeQFtmOnvkZdIDGy+At9mo8TB5H06/+P+P4HGMPCBzNTsOYtBwrgPG/U23YVE4BnpZB1aXG9rr35EzJ9FgC2ufzPk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791290906; c=relaxed/simple;
+	bh=3vRC99mP09O+5WuMbnYULwrfSyNqP+uQwocUDOQd70s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=CLoAuXtHPJDHaMp/IGyKz3IjdiJwjjgCnP6TMS6J4mEPq6lyEOd8OZKLDzPIevkKslls4JA3E3rEfOQf8I8AhHOUAqDnrPb18svcJ4uEWUKVI7TTESGy93qoCFXdrJPvNAtgC5YoUjhaL4odbfOViVwh9EPXpS4fIDDlgvIrDD0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=QfNrfvrI; arc=fail smtp.client-ip=52.101.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="I9ZMRhoX"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a022fee0caso7551535e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 05:47:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1791290861; x=1791895661; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1iwlFVHZA6ubrLm3XzWv0ZwVjTMu5isvDaU+jx/MqOk=;
-        b=I9ZMRhoXQD3CxqsbEKqBmBRnjndteUMqM4ZTdFhslR1DWgMWMo8zk9qOhqhl68Ci7c
-         rHbg1j6Z4dPrd8/1xlbj/Pa9uLi7DlVHj2OO2tuhS+7ANtL8psufy7+oKYTU2e1FfpG2
-         hFJ75ogCc42SCJKSafsD+fmbZpfRg+u9FweSFhYFB4hPMUUCUChQY74eRLiD7orGjaC1
-         bkOlFoqiE5x9g0vK2e1xxeCGWbwRm1/8T9iaAcsOxi0W2p5fPsQ1gjdfuunz1kcDGVF8
-         uEcoY6gk20eqb2lR61Y1YRwzTES6usSqhuejt+NuIDOCrTB96Sk+m/mWoZ69yCORl8tx
-         9jRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791290861; x=1791895661;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1iwlFVHZA6ubrLm3XzWv0ZwVjTMu5isvDaU+jx/MqOk=;
-        b=PAjW0oLoRs5LV2ccmd3YMz8Bxv9mwJwAFjTDAZAsu85AJ4XTj0yEGAa0yZxHzjhHE4
-         4V51iCUVKJmcuNjzGdYMllMn5ZLWOOBqwjhrf8PoHd5qOpkEJ+DC2Bi6y6OUPKwitttn
-         gb4aQHawkDJ/VIbo5gS6E3HHQuMzJ74bJ55dYxhrAH17S51LQMVI3ppTSHoJ6HIx686S
-         1GBO2bn5HhfJsJ/l0c5Cl9ItdPJjTExBAkJk3kzbhwc1n+eh03H+FMLCuiwAJ3JBZliX
-         ZzWgixtBE1tQdL7irPcGsN2XoRpxjcVUuIpmOjlaMuD2iAP4tXt+pkrNFxk+Y2f8L5pW
-         z2Jw==
-X-Forwarded-Encrypted: i=1; AKwUvBygrwDJT1Sg1TN585zbp2m8gN2hyPWHaoDRqYVAd+YVVUDxj337a+f2hIx9SZrnhlbeo3DrMcN9vX+51Ag=@vger.kernel.org
-X-Gm-Message-State: AFuF++kT51ek2m62P6cRpnDOjWOTtf8k/V3jnEH9c4pmvmibS5dHmbcB
-	LsYVKZIsTmMmU/AwQNrpYeGY46ZTAsHOjTsdufwukhkCPGTyGsPfBlLQlWjltP1+VMU=
-X-Gm-Gg: AYBFou2he2P77sJ/qJ4wZL23LEYzwEfF8CSJ81FCCCF3sJf+loaNeiNvJaS2PC5yjKu
-	u0zjGxhap59hOkOGXtgWDffySoRJmXn6Vuf+UCmS1UZVn0nIubdI0prgSZwpPtDrtWNWZy5wdlq
-	yZWiX4bCiNudbAoUDDWgnzYffsv+JsZnU/hYejqz8hgXLxis2cLakd+sZVXg6jyBxDnqP2hJZD+
-	gQe3gQOWQhjxUypuFh3JJoUzv9HwPPfgziKT3kj/9pajH4PALMs9fmP+ytjHUmZfdG2oROnxDrp
-	kec4sM/kK8BcWKDwDC2uKMp4Y7sNMGcwi6WElz/jUZnRkJ17vZrawvKDyRSE0VYp4O6bkwSrK9B
-	TaeTVU+LE3PThzeuIpO3LoT0lGYh7bxBJ3O8xFw0qohRk6hoWUi99gQncCMo1PADNbe3t3tSvez
-	MnA9fPXAj7TAjAg8mV02DQveH74C80od0nRYdZOCYC5Z1ovOzSRLp5D3+z+JaR
-X-Received: by 2002:a05:600c:46d3:b0:49e:8377:c880 with SMTP id 5b1f17b1804b1-4a17b563aabmr22286165e9.33.1791290860958;
-        Tue, 06 Oct 2026 05:47:40 -0700 (PDT)
-Received: from remote-01 ([84.17.55.224])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c622b4685sm9722003f8f.41.2026.10.06.05.47.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 05:47:40 -0700 (PDT)
-From: Aleksei Sviridkin <f@lex.la>
-To: Russell King <linux@armlinux.org.uk>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Conor Dooley <conor@kernel.org>,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	"Chester A. Unal" <chester.a.unal@arinc9.com>,
-	Daniel Golle <daniel@makrotopia.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: [PATCH net-next v6 2/3] net: phylink: wait for PHYs that are known to probe late
-Date: Tue,  6 Oct 2026 15:47:30 +0300
-Message-ID: <20261006124731.1528963-3-f@lex.la>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261006124731.1528963-1-f@lex.la>
-References: <20261006124731.1528963-1-f@lex.la>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="QfNrfvrI"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ovSGcKmUJyI9XdoEDXy/M1G8oIQNPy3R+VvYZPFc8Wo3dWY5xShQhuOizcheI+vxQe/OJwLqPedamUhX1Ti/uPpYqKpNFqLnsD2XHcGNAm8g7umBCmujxefeHI83Ur5mDI9GnS70j74uE/aFBxpNwFz3I6IXEUpopnnWb9pt4aebrx0xcOWkbOYyePZM/3FaP+/50W0rskBSId8U/MYM4n7BBdR/xkZxxfJhVGopntdBnVgz+B6/xEXtIVf3ZZDvzO6onT+PuCYss2EVxPsX1+vhrQQ4pSX2+WowB3tikrm6bYN2SPXBVaiqLZgUxR9irEKc5JUaZvJNKrsINNUKnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uj8o6HC3AwzR1Ak/ZrTdXDzWyx3IS3PV8qhJ9+6bhdo=;
+ b=siK0JIUdGaKxWp1oI1izzYQIpZbRi96n46NErENZ21bD2HKmlHjEQK1fO8OBhUcG1HhOvJbh2Ypa6yZxK59Cq1eSJeQ4KzK+sqykz9sR4p+s9YBQ891VszFEI+y4I8mUxsh/UYYpL+a+w0m6JSQMcdzUwYCBHG0o/bX6y92eDNZwfUgGDFG43ikn0u8KG+qk6yaa2BNItLJA3O4qr3aSyjZFFSlpgWajWk5SlIOCeAfUARAmn7Y5qC9dvgelQsro8/xkAggEWI7put+ULznk268fKJi2mSP6hohONDgzMEr1IbXZ+1PkWlRzcCX40pj2gYq3TwByztLSI5TbthufkQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uj8o6HC3AwzR1Ak/ZrTdXDzWyx3IS3PV8qhJ9+6bhdo=;
+ b=QfNrfvrI1Ktrzf88AGz5GUJMBHQiBzqadQ5RxAJV5TXMrtdePwH2ljzzsMT94mK//yP4CIXNxIi6UU5tIJcZdGI4xtGZj79vPBhVU0xAHmstZkebSJCVRuQuj04SSaOtTnRLs9KygqPaRkbVE9HYDPGFs/miPaSFfjNfUHo8wv16o4pRj45lPWgJUZvWvNgDVNdrySZUrN/8Glx+Wr2F6D6NZHhfd6ze3s1H50mtgcRPZ2lRBskm+IlVUIEN95Y4PoZe4lIEwuz4i0ELMORcPzQVOv8+SLQUfTj15wNBZedHylmvbCIHDUQb3iPYt5VroU69nlF14Vc8YlDhGHMWOQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by AS1PR04MB9700.eurprd04.prod.outlook.com (2603:10a6:20b:473::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Tue, 6 Oct
+ 2026 12:48:08 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0451.022; Tue, 6 Oct 2026
+ 12:48:08 +0000
+Date: Tue, 6 Oct 2026 20:52:38 +0800
+From: Peng Fan <peng.fan@oss.nxp.com>
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Shenwei Wang <shenwei.wang@nxp.com>, linux-gpio@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH v2 2/9] gpio: mxc: fix wakeup_pads bit operations
+Message-ID: <asTvFjwJ3f1FbnJ0@shlinux89>
+References: <20261005-gpio-mxc-cleanup-v2-0-bdc3afbb35e2@nxp.com>
+ <20261005-gpio-mxc-cleanup-v2-2-bdc3afbb35e2@nxp.com>
+ <CAHp75Ve+p6TMr7MwQw0orGdjxLgNBN8gfTw2SY+EKBBgCyYXgA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAHp75Ve+p6TMr7MwQw0orGdjxLgNBN8gfTw2SY+EKBBgCyYXgA@mail.gmail.com>
+X-ClientProxiedBy: MA0PR01CA0085.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:ae::6) To AM8PR04MB7874.eurprd04.prod.outlook.com
+ (2603:10a6:20b:24d::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|AS1PR04MB9700:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3b7f2e1e-bc10-4ea2-9808-08df23a812a3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|1800799024|19092799006|366016|23010399003|376014|4143699003|11063799006|56012099006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	QKieAmyuHdMSXXPVKCciPFDIjpvARfRnpYQeFayqyi25B5Pe6mC0A+p5qvzB6fHNelBaURj1UE65ER/s0DkX4tXhtkyX4H45RmFOiiUK80vwcKlfIwkOcsnCcT9Z6Pk/on9xZRm7yNYCzWkXSn3q5tvcET1mUqhyOFsAKsovX2WLvWK9LCCzzYdMEzeu5fOmqE/qUD2/3lQyTGdgDGhW1bG0UiVCPoxpZiX0bm/2p1Ay0bfsAq4C0J73GX9AJHyWkcvkUctAE6dkQ/HycDRVZM9k16HiteQWtctVvmnvGgbrqeGzGS+48xgfDEQtp4du9XksD/t0QJpEEXbFxLNg+Jd+HE5zZd1degV+eNnQEms38zHB8V82dZ8bbly2uvSe3JvFKvfH8Z6vk8hipEfarN+M8BwOUSKp+lO9u2QkbRUC+ul+RZ/umXzkdUibQC2YwVF+NZI4gHqAlsmEXl4NYDrNK+eCiogkmYwyCY0rgPhj2IEPlAmOupzhvrq6xuP0M03P4QU847Z3pQ60ECoDJ2sDicw9Nh0NdlzyUKo9kC27nEXPePWTBCME1ZIAhASwooFf3LQTz0YAp5C8ULPV2Esg/NRlhBHnQpOlqvotF1MEQx0yjXUpogWPYB8N/ICpskq8PtF7vwcKWP0vNsJoyupdBaaHRUuH//1pnBRlIkU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(19092799006)(366016)(23010399003)(376014)(4143699003)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Y2M2QU9kalBmem5ldmd1SUVsWWNDMlpGenhRSmRrTmV6N3BsZTkxVFh3K2J0?=
+ =?utf-8?B?VFRkYzVTTmNLTHJpL3ArUm9PcUZFRmZJUWVhUy9SVTArMTNGL2hYelRHSUVV?=
+ =?utf-8?B?M1AvcjNrQjJyUHdGbThqUFhDK0xwTko1a3lYR3JCRjVRSDA4TWEwLzk1QVAr?=
+ =?utf-8?B?S2FSWnhpc3NsejVjQ0t3ZE9mbEp5R3p0R3kyY2FYQUVuTnJta25oT2o5ZXF3?=
+ =?utf-8?B?SWttQ01iMG1Ibm1vQUZRSHB2V2lnU1IxUVRTQmxCRHhUU1JqME84VFJUZCs0?=
+ =?utf-8?B?TWxaVzBsbGxwZEhsa2Zia0lkUGwrU1J4dmI5ZmNtYTJYdnAyMklUSUNxMEc4?=
+ =?utf-8?B?RmhCcVJwVlc4TmwxNm9lclBPQXc3YWdnVk1JWFZNeGN0OWhlV1FmdUV0b0JL?=
+ =?utf-8?B?TjJ0Nm0yVVVaclkxQzE2RHBlR3pkV2JjMXZ6QzRBRmZtM0J5dXZvVlBGTDZw?=
+ =?utf-8?B?VmJrNmliVVhCNlowTW42NXFEK1EzamNmRGViUk9tOS9kWWh3RnJhRXV1VzZK?=
+ =?utf-8?B?UDkweXJSUXJNT2l2MnZuamVTZkZ6Ym8xVWNJaFdYV3ZCZEF5Z2xpUHZsbHow?=
+ =?utf-8?B?MDVJeTJtU0RNdm1PZXQyTnk4aGlJb2h3QU9oN1ZTZDJSeS9EaG5hdjJBa1hQ?=
+ =?utf-8?B?OU1KS2tkY2d1V01QOFRJYjhmc0lUd0x6RHZzZW9GUCtSbnBldFZMWHo2bGlH?=
+ =?utf-8?B?L25Wa2RKRGl6NWxFVmIwU25vcnR3eFlkQnFPVGp6Titid1hOVkpMNnFWQW00?=
+ =?utf-8?B?dWlSNkN3Yk9tdE83d211OVdqdlk2cDJpRGtXSFZJekNNYStwNzJhUThaTUZq?=
+ =?utf-8?B?NStrRzdZdG0vbWZvT0RJSThaVjIxQ1JzcWxPZXhhak1IRkhFOXEycGZYc3NB?=
+ =?utf-8?B?VnFOQ1dQYzZsbjdXUmhBMWlVdWRNeEoycjk1blRpamFGOFhDWlMxQmtka2Z6?=
+ =?utf-8?B?NHo2ZUJRRGVBSzFhdGNoUWdwRFdpcjA5cVQwUFc3bnRqS045RnlFM2pxSmY4?=
+ =?utf-8?B?R3BKM3pkbmFvOVBRTS9NV3o5c2ZJNWpwdUxDV1IvZWNFdUZXR0NPY3hyQmNq?=
+ =?utf-8?B?RW1IY1FmZ1pxT1VzV21OTmxnR25kUDRKQ3lWVVp2RFhKdU51YVpuUEhMZGZX?=
+ =?utf-8?B?cEN2ZVlFekVacm5ud1hHaHA3SVd5VEpDS0piT2JnQWx5ZGFUSk1QMGd2MExH?=
+ =?utf-8?B?N0tOL0F1MGVFdTFVMStXUTFQTDljV3NYRXpDTDdSL0FVTTl4WjRPMXR2aXFw?=
+ =?utf-8?B?dk1oc2NyOVQzdWJtbXFKQkZLbW9tSkN5YzNCNGRpT3ZrUkRHUWUrRGt0NXd3?=
+ =?utf-8?B?NFpiRG41S0RJZ0xkaFg2VkFyaTZRcTN0UmczSE1kSklNeWl4aDFyVmtrWkVV?=
+ =?utf-8?B?UUtBT3NhTWlzNFhTMTdpNGR5RGhXall1OCtKY2QzV1NtZ3JpNTRUNEhxUXpJ?=
+ =?utf-8?B?QXByQWtzYzRDazRKZk03VmpEK1ZIaEhOOGZiVCsyYVFwbm84cnA1a29uTlhp?=
+ =?utf-8?B?TjkxWFFiZHJtOXduUXRHa0psUDZPK3llVnAzWi9MU21HbVpNK29zNHZhSjZB?=
+ =?utf-8?B?NzhJTGNHNTFZZU9WNHlrRnN3eXZmeG0zVURBSmNDVHoxRndTUndOVEpHSjQy?=
+ =?utf-8?B?TmRjdy93SkRKQVdGaThqZExGZys5QUJmbTY1dVdhL2FaWWorelRvZksyYjRy?=
+ =?utf-8?B?YStjNW1mU00rK3l1YkVmU0h2RjJSRkNSemxwZDAzMHIzYlMzd21NK2IwMmJI?=
+ =?utf-8?B?Z3MyeFJMa3FQczMramVoVHZVTnRidkYzWExvZncrNW1JU0duYmVOUXM1ODJp?=
+ =?utf-8?B?SnpFU1hVTFVwYTRZa1V5U09rdWhlcFhXZlFmWndpMEhNcGZhWk1sTTEyajU1?=
+ =?utf-8?B?N1hDL3FPTGtoUUdoeThPMVlTcjlmWFNjNWlKU3JCZVpWK1NNQndoUU81SjYx?=
+ =?utf-8?B?a1dvZGZyV09nNlZmdEk1NjQwd3ZRRHpUUlNXTkU3bkJqdjBoZFRjSko2ay9a?=
+ =?utf-8?B?Y2JZbHJJMjUwRHBiYUVlbG5ZbFlwa1E5ZDQ5MXdOUmRHSVZrRVhKUENwV2g1?=
+ =?utf-8?B?YjFzMjByT1hpc1JhM1hqWm5QWVJ2aVJkRE9sZTN1TUhDR2VVTytkSzNHWHZF?=
+ =?utf-8?B?M2pZU21oOHUzQVZjMVcyclo5L2VUSjRmTXdRSFY3T0JudkFidkxiT2xXQ2JV?=
+ =?utf-8?B?TXAzczJORTJ5RUV5UktNclozWlFNbGZWRVZVdk1YaDJBcEZKRXh4QlBlODJo?=
+ =?utf-8?B?cHJCcnNNaDJZZDNZbktjbS8yS1Y2NExHY0dzTkZ5UEZXdDArVmRyaHpiaHhG?=
+ =?utf-8?B?N2JFdldsSEtrTzYrcHJuM2I0WkE4WXhtc0l4cGdLT1piT3ZMSnlKOGlpbXp6?=
+ =?utf-8?Q?o7h6QiBoXa9zYBxqIVuabDXRc7N/4Va3oTr53?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b7f2e1e-bc10-4ea2-9808-08df23a812a3
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 12:48:08.6271
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2VZudObtC8vpcRSr7Fbsm4JuJv1RAkorAt1vQYmkDFlR2YkJxkVMj78nO7EYXXIBFuj0rBboUSTT69HeTMUgVLLr5RtfnOihGxkK2gTHq8b1KCdap3cutlJ33dflBGUo
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9700
 
-A PHY that needs firmware from the host and whose driver has not bound
-when the MAC sets up its port is either taken by the generic driver,
-which cannot drive it, or not found at all; a MAC that connects once at
-setup, as DSA does, gets no working PHY on that port for the rest of the
-uptime. The case this reaches is a driver built as a module on a
-filesystem that is mounted after the MAC probes. Let the PHY declare it
-with needs-host-firmware and, for a MAC that opts in with
-phy_may_probe_late, poll until the driver binds instead of failing. A
-driver that has bound is not covered, whatever it does about firmware
-afterwards. Neither is one whose probe has already failed: the driver
-core does not retry it, and the poller cannot tell that apart from a
-driver that has yet to load, so it keeps polling.
+Hi Andy,
+On Tue, Oct 06, 2026 at 11:36:15AM +0300, Andy Shevchenko wrote:
+>On Mon, Oct 5, 2026 at 5:24 PM Peng Fan (OSS) <peng.fan@oss.nxp.com> wrote:
+>>
+>> From: Peng Fan <peng.fan@nxp.com>
+>>
+>> gpio_set_wake_irq() can be called concurrently for different pins on
+>> the same port, so need to use atomic bitops when modifying wakeup_pads.
+>
+>so we need
+>
+>> Since wakeup_pads is u32 but assign_bit() operate on unsigned long
+>
+>operates
+>
+>> pointers.
+>
+>This sentence doesn't sound like it's finished.
+>
+>> On 64-bit platforms this causes an 8-byte read-modify-write
+>> on a 4-byte field, corrupting the adjacent is_pad_wakeup member.
+>> Change wakeup_pads to unsigned long and reorder to avoid the overlap.
 
-Deferring the MAC's own probe is not an option: it keeps every port of
-that MAC down until the module loads, and forever if it never does, and
-those ports can include the one needed to mount the filesystem that
-holds the module. Return 0 rather than -ENODEV, because DSA reads
--ENODEV as permission to look for the PHY on the switch's internal MDIO
-bus, which is the wrong device.
+wakeup_pads is a u32, while assign_bit() operates on unsigned long
+pointers. On 64-bit platforms, this causes an 8-byte read-modify-write
+on a 4-byte field, corrupting the adjacent is_pad_wakeup member.
+So change wakeup_pads to unsigned long and reorder to avoid the overlap.
 
-The deferral is opt-in because it returns 0 with no PHY attached, and
-some callers read 0 as a PHY being there: ucc_geth dereferences
-dev->phydev later in the same open, and enetc, stmmac, mvneta, sparx5
-and lan743x do one-time PHY setup at that point that a late attach
-would skip.
+>>
+>> And the enable/disable path unconditionally sets/clears the wakeup_pads
+>> bit even when enable_irq_wake()/disable_irq_wake() fails. Only update
+>> the bit on success.
+>>
+>> While at here, simplify the logic by consolidating into a single
+>> irq_set_irq_wake() call based on the enable parameter.
+>
+>...
+>
+>> +       if (port->irq_high && (gpio_idx >= 16))
+>> +               ret = irq_set_irq_wake(port->irq_high, enable);
+>> +       else
+>> +               ret = irq_set_irq_wake(port->irq, enable);
+>>
+>
+>This blank line may be removed.
 
-The deferral also needs an interface mode known up front, as without one
-the MAC would be configured for PHY_INTERFACE_MODE_NA when started
-before the PHY supplies its own. It is limited to PHY mode without an
-SFP cage: in-band, the PCS can bring the link up with no PHY to gate it,
-and an SFP PHY can take the port while the wait is armed and drop the
-wait on removal. The poll runs only while phylink is started, so nothing
-touches the PHY of a stopped port, as at switch shutdown; a port that is
-down attaches at its next start.
+sure.
 
-Wait for a driver that has bound, not for a device that exists, because
-the generic driver would otherwise bind and cannot drive such a PHY. If
-the real driver goes away between that test and the attach, the generic
-one binds instead or the attach fails; when the driver is gone after the
-attach, the poll keeps waiting without counting a failed connect. The
-attach-versus-unbind window itself is phylib's to close and is not
-closed here.
+>
+>> -       return ret;
+>> +       if (ret)
+>> +               return ret;
+>
+>...
+>
+>> -       for (i = 0; i < 32; i++) {
+>> -               if ((port->wakeup_pads & (1 << i))) {
+>> -                       type = port->pad_type[i];
+>> -                       if (enable)
+>> -                               config = pad_type_map[type];
+>> -                       else
+>> -                               config = IMX_SCU_WAKEUP_OFF;
+>> -
+>> -                       if (is_imx8qm && config == IMX_SCU_WAKEUP_FALL_EDGE) {
+>> -                               dev_warn_once(port->dev,
+>> -                                             "No falling-edge support for wakeup on i.MX8QM\n");
+>> -                               config = IMX_SCU_WAKEUP_OFF;
+>> -                       }
+>> +       for_each_set_bit(i, &port->wakeup_pads, 32) {
+>
+>This change can be done later, can it?
+>(I mean in a separate patch)
 
-A connect that fails with the real driver bound is retried a few times
-and then given up on with one line, because silence from a poller reads
-like success. Each retry re-runs the PHY's init and, on boards whose DT
-gives it a reset line, pulses that reset, at a cost that depends on the
-board and the PHY, so the retries are bounded. Stopping after the first
-failure would leave a DSA port, which connects once, dead until the
-switch driver is rebound.
+ok to use a separate patch for switching to use for_each_set_bit.
 
-Until a PHY attaches, report no link modes and refuse the ethtool
-settings that would configure the MAC alone for a link that cannot come
-up.
+Thanks
+Peng
 
-Found on a Keenetic KN-1012 (MT7981B with an MT7531 switch): the EN8811H
-behind lan4 has its driver on the root filesystem, the switch sets its
-ports up before that is mounted, and lan4 was lost for the uptime. With
-this change and the DSA opt-in that follows, lan4 attaches once the
-module has loaded and the port is up. The retry path was driven there by
-a local debug parameter that fails the connect after a successful
-attach: two injected failures were retried a second apart and the third
-attempt attached, and with failures that never stop, four attempts ended
-in one "giving up" line and no further polls.
-
-Assisted-by: LLM
-Signed-off-by: Aleksei Sviridkin <f@lex.la>
----
-Changes in v6:
- - defer only in MLO_AN_PHY and without an SFP bus
- - poll only while started: phylink_start() queues the poll,
-   phylink_stop() cancels it, the poller's STOPPED test is gone
- - a failed attach with no usable driver is a lost race, not a retry
- - commit message: ndo_open argument dropped, board sentence updated
-
- drivers/net/phy/phylink.c | 232 ++++++++++++++++++++++++++++++++++++--
- include/linux/phylink.h   |   5 +
- 2 files changed, 229 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-index a7d086cdc9b2..ec76138f1065 100644
---- a/drivers/net/phy/phylink.c
-+++ b/drivers/net/phy/phylink.c
-@@ -98,6 +98,16 @@ struct phylink {
- 
- 	u32 wolopts_mac;
- 	u8 wol_sopass[SOPASS_MAX];
-+
-+	/* The poller writes these while it runs; arming cancels it first. */
-+	struct fwnode_handle *late_phy_fwnode;
-+	u32 late_phy_flags;
-+	struct delayed_work late_phy_poll;
-+	unsigned int late_phy_poll_ms;
-+	unsigned int late_phy_waited_ms;
-+	u8 late_phy_retries;
-+	bool late_phy_warned;
-+	bool late_phy_gave_up;
- };
- 
- #define phylink_printk(level, pl, fmt, ...) \
-@@ -1831,6 +1841,18 @@ int phylink_set_fixed_link(struct phylink *pl,
- }
- EXPORT_SYMBOL_GPL(phylink_set_fixed_link);
- 
-+static void phylink_late_phy_poll(struct work_struct *work);
-+
-+/* Synchronous: the poller reads the node put here. It only trylocks
-+ * rtnl, so a caller holding rtnl cannot deadlock on it.
-+ */
-+static void phylink_late_phy_cancel(struct phylink *pl)
-+{
-+	cancel_delayed_work_sync(&pl->late_phy_poll);
-+	fwnode_handle_put(pl->late_phy_fwnode);
-+	pl->late_phy_fwnode = NULL;
-+}
-+
- /**
-  * phylink_update_pause_state() - Update the phylink pause frame configuration
-  * @pl: a pointer to a &struct phylink instance
-@@ -1989,6 +2011,7 @@ struct phylink *phylink_create(struct phylink_config *config,
- 	mutex_init(&pl->phydev_mutex);
- 	mutex_init(&pl->state_mutex);
- 	INIT_WORK(&pl->resolve, phylink_resolve);
-+	INIT_DELAYED_WORK(&pl->late_phy_poll, phylink_late_phy_poll);
- 
- 	pl->config = config;
- 	if (config->type == PHYLINK_NETDEV) {
-@@ -2068,6 +2091,8 @@ EXPORT_SYMBOL_GPL(phylink_create);
-  */
- void phylink_destroy(struct phylink *pl)
- {
-+	phylink_late_phy_cancel(pl);
-+
- 	sfp_bus_del_upstream(pl->sfp_bus);
- 	if (pl->link_gpio)
- 		gpiod_put(pl->link_gpio);
-@@ -2337,10 +2362,8 @@ static int phylink_bringup_phy(struct phylink *pl, struct phy_device *phy,
- }
- 
- static int phylink_attach_phy(struct phylink *pl, struct phy_device *phy,
--			      phy_interface_t interface)
-+			      phy_interface_t interface, u32 flags)
- {
--	u32 flags = 0;
--
- 	if (WARN_ON(pl->cfg_link_an_mode == MLO_AN_FIXED))
- 		return -EINVAL;
- 
-@@ -2378,7 +2401,7 @@ int phylink_connect_phy(struct phylink *pl, struct phy_device *phy)
- 		pl->link_config.interface = pl->link_interface;
- 	}
- 
--	ret = phylink_attach_phy(pl, phy, pl->link_interface);
-+	ret = phylink_attach_phy(pl, phy, pl->link_interface, 0);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -2390,6 +2413,134 @@ int phylink_connect_phy(struct phylink *pl, struct phy_device *phy)
- }
- EXPORT_SYMBOL_GPL(phylink_connect_phy);
- 
-+#define PHYLINK_LATE_PHY_POLL_MS	1000
-+#define PHYLINK_LATE_PHY_WARN_MS	60000
-+#define PHYLINK_LATE_PHY_POLL_MAX_MS	30000
-+#define PHYLINK_LATE_PHY_RETRIES	3
-+
-+static bool phylink_late_phy_pending(struct phylink *pl)
-+{
-+	return pl->late_phy_fwnode && !pl->phydev;
-+}
-+
-+/* Stale the moment it returns: the device lock this wants cannot be held
-+ * across the attach, whose own failure path takes it again.
-+ */
-+static bool phylink_phy_is_usable(struct phy_device *phy_dev)
-+{
-+	return phy_dev && device_is_bound(&phy_dev->mdio.dev) && phy_dev->drv;
-+}
-+
-+static void phylink_late_phy_backoff(struct phylink *pl)
-+{
-+	pl->late_phy_poll_ms = min_t(unsigned int, pl->late_phy_poll_ms * 2,
-+				     PHYLINK_LATE_PHY_POLL_MAX_MS);
-+}
-+
-+static void phylink_late_phy_poll(struct work_struct *work)
-+{
-+	struct phylink *pl = container_of(to_delayed_work(work), struct phylink,
-+					  late_phy_poll);
-+	struct phy_device *phy_dev;
-+	bool again = false, lost_race = false;
-+	int ret;
-+
-+	if (!rtnl_trylock()) {
-+		pl->late_phy_waited_ms += pl->late_phy_poll_ms;
-+		goto requeue;
-+	}
-+
-+	/* A PHY arrived by another path while queued. */
-+	if (!phylink_late_phy_pending(pl)) {
-+		rtnl_unlock();
-+		return;
-+	}
-+
-+	/* Stable here: whoever clears it waits for this work first. */
-+	phy_dev = fwnode_phy_find_device(pl->late_phy_fwnode);
-+	if (!phylink_phy_is_usable(phy_dev)) {
-+		if (phy_dev)
-+			phy_device_free(phy_dev);
-+
-+		if (!pl->late_phy_warned &&
-+		    pl->late_phy_waited_ms >= PHYLINK_LATE_PHY_WARN_MS) {
-+			pl->late_phy_warned = true;
-+			phylink_warn(pl,
-+				     "still waiting for %pfw (needs-host-firmware)\n",
-+				     pl->late_phy_fwnode);
-+		}
-+		/* Past the warn it may never come: stop paying 1 Hz for it. */
-+		if (pl->late_phy_waited_ms >= PHYLINK_LATE_PHY_WARN_MS)
-+			phylink_late_phy_backoff(pl);
-+		/* The first run is immediate, so count the sleep ahead. */
-+		pl->late_phy_waited_ms += pl->late_phy_poll_ms;
-+		rtnl_unlock();
-+		goto requeue;
-+	}
-+
-+	ret = phylink_attach_phy(pl, phy_dev, pl->link_interface,
-+				 pl->late_phy_flags);
-+	if (!ret && phy_driver_is_genphy(phy_dev)) {
-+		/* Lost the race: the attach bound the generic driver, which
-+		 * is the outcome this poller exists to avoid.
-+		 */
-+		phy_detach(phy_dev);
-+		lost_race = true;
-+		ret = -EAGAIN;
-+	} else if (ret && !phylink_phy_is_usable(phy_dev)) {
-+		/* The driver went away under the attach: wait for it again. */
-+		lost_race = true;
-+	}
-+	if (!ret) {
-+		ret = phylink_bringup_phy(pl, phy_dev,
-+					  pl->link_config.interface);
-+		if (ret) {
-+			phy_detach(phy_dev);
-+		} else {
-+			/* Only a major config programs the masks bringup
-+			 * narrowed.
-+			 */
-+			mutex_lock(&pl->state_mutex);
-+			pl->force_major_config = true;
-+			mutex_unlock(&pl->state_mutex);
-+			/* MAC before the PHY, the order a start uses. */
-+			phylink_run_resolve(pl);
-+			flush_work(&pl->resolve);
-+			phy_start(phy_dev);
-+		}
-+	}
-+	if (lost_race) {
-+		/* Not a failed connect: the next poll waits for the real
-+		 * driver.
-+		 */
-+		again = true;
-+	} else if (ret) {
-+		phylink_err(pl, "failed to connect late PHY: %pe\n",
-+			    ERR_PTR(ret));
-+		/* Bounded: each retry re-runs the PHY's init, maybe its reset. */
-+		if (pl->late_phy_retries) {
-+			pl->late_phy_retries--;
-+			again = true;
-+		} else {
-+			/* Silence from here reads as success otherwise. */
-+			phylink_err(pl, "giving up on %pfw after %u attempts\n",
-+				    pl->late_phy_fwnode,
-+				    PHYLINK_LATE_PHY_RETRIES + 1);
-+			pl->late_phy_gave_up = true;
-+		}
-+	}
-+	phy_device_free(phy_dev);
-+	rtnl_unlock();
-+
-+	if (!again)
-+		return;
-+
-+requeue:
-+	queue_delayed_work(system_freezable_power_efficient_wq,
-+			   &pl->late_phy_poll,
-+			   msecs_to_jiffies(pl->late_phy_poll_ms));
-+}
-+
- /**
-  * phylink_of_phy_connect() - connect the PHY specified in the DT mode.
-  * @pl: a pointer to a &struct phylink returned from phylink_create()
-@@ -2398,9 +2549,11 @@ EXPORT_SYMBOL_GPL(phylink_connect_phy);
-  *
-  * Connect the phy specified in the device node @dn to the phylink instance
-  * specified by @pl. Actions specified in phylink_connect_phy() will be
-- * performed.
-+ * performed, except for a deferred connect, where they happen once the
-+ * PHY attaches.
-  *
-- * Returns 0 on success or a negative errno.
-+ * Returns what phylink_fwnode_phy_connect() returns, including 0 for a
-+ * deferred connect with no PHY attached yet.
-  */
- int phylink_of_phy_connect(struct phylink *pl, struct device_node *dn,
- 			   u32 flags)
-@@ -2418,7 +2571,18 @@ EXPORT_SYMBOL_GPL(phylink_of_phy_connect);
-  * Connect the phy specified @fwnode to the phylink instance specified
-  * by @pl.
-  *
-- * Returns 0 on success or a negative errno.
-+ * If the MAC set &phylink_config.phy_may_probe_late, uses %MLO_AN_PHY
-+ * with a known interface mode and no SFP cage, and the PHY node carries
-+ * the needs-host-firmware property and the PHY is not usable yet, 0 is
-+ * returned with no PHY connected: while phylink is started, a poller
-+ * connects it once its driver has probed. Until then the MAC runs
-+ * without a PHY and ethtool reports no link modes.
-+ * If the connect keeps failing with the driver bound, the poller gives
-+ * up after a few attempts and the port stays that way until the PHY is
-+ * disconnected and connected again.
-+ *
-+ * Returns 0 on success - the PHY connected, or the deferred connect
-+ * armed - or a negative errno.
-  */
- int phylink_fwnode_phy_connect(struct phylink *pl,
- 			       const struct fwnode_handle *fwnode,
-@@ -2428,6 +2592,8 @@ int phylink_fwnode_phy_connect(struct phylink *pl,
- 	struct phy_device *phy_dev;
- 	int ret;
- 
-+	phylink_late_phy_cancel(pl);
-+
- 	if (!phylink_expects_phy(pl))
- 		return 0;
- 
-@@ -2440,6 +2606,29 @@ int phylink_fwnode_phy_connect(struct phylink *pl,
- 	}
- 
- 	phy_dev = fwnode_phy_find_device(phy_fwnode);
-+	if (pl->config->phy_may_probe_late &&
-+	    pl->cfg_link_an_mode == MLO_AN_PHY && !pl->sfp_bus &&
-+	    pl->link_interface != PHY_INTERFACE_MODE_NA &&
-+	    fwnode_property_present(phy_fwnode, "needs-host-firmware") &&
-+	    !phylink_phy_is_usable(phy_dev)) {
-+		/* -ENODEV here would also send DSA to the switch's own bus. */
-+		if (phy_dev)
-+			phy_device_free(phy_dev);
-+
-+		pl->late_phy_fwnode = phy_fwnode;
-+		pl->late_phy_flags = flags;
-+		pl->late_phy_poll_ms = PHYLINK_LATE_PHY_POLL_MS;
-+		pl->late_phy_waited_ms = 0;
-+		pl->late_phy_retries = PHYLINK_LATE_PHY_RETRIES;
-+		pl->late_phy_warned = false;
-+		pl->late_phy_gave_up = false;
-+		if (!test_bit(PHYLINK_DISABLE_STOPPED,
-+			      &pl->phylink_disable_state))
-+			queue_delayed_work(system_freezable_power_efficient_wq,
-+					   &pl->late_phy_poll, 0);
-+		return 0;
-+	}
-+
- 	/* We're done with the phy_node handle */
- 	fwnode_handle_put(phy_fwnode);
- 	if (!phy_dev)
-@@ -2481,6 +2670,8 @@ void phylink_disconnect_phy(struct phylink *pl)
- 
- 	ASSERT_RTNL();
- 
-+	phylink_late_phy_cancel(pl);
-+
- 	mutex_lock(&pl->phydev_mutex);
- 	phy = pl->phydev;
- 	if (phy) {
-@@ -2615,6 +2806,9 @@ void phylink_start(struct phylink *pl)
- 		phy_start(pl->phydev);
- 	if (pl->sfp_bus)
- 		sfp_upstream_start(pl->sfp_bus);
-+	if (phylink_late_phy_pending(pl) && !pl->late_phy_gave_up)
-+		queue_delayed_work(system_freezable_power_efficient_wq,
-+				   &pl->late_phy_poll, 0);
- }
- EXPORT_SYMBOL_GPL(phylink_start);
- 
-@@ -2634,6 +2828,9 @@ void phylink_stop(struct phylink *pl)
- {
- 	ASSERT_RTNL();
- 
-+	/* The node stays: the next start resumes the wait. */
-+	cancel_delayed_work_sync(&pl->late_phy_poll);
-+
- 	if (pl->sfp_bus)
- 		sfp_upstream_stop(pl->sfp_bus);
- 	if (pl->phydev)
-@@ -3047,6 +3244,14 @@ int phylink_ethtool_ksettings_get(struct phylink *pl,
- 
- 	ASSERT_RTNL();
- 
-+	/* No PHY yet: the port supports nothing, not what the MAC alone can. */
-+	if (phylink_late_phy_pending(pl)) {
-+		kset->base.port = pl->link_port;
-+		kset->base.speed = SPEED_UNKNOWN;
-+		kset->base.duplex = DUPLEX_UNKNOWN;
-+		return 0;
-+	}
-+
- 	if (pl->phydev)
- 		phy_ethtool_ksettings_get(pl->phydev, kset);
- 	else
-@@ -3119,6 +3324,10 @@ int phylink_ethtool_ksettings_set(struct phylink *pl,
- 
- 	ASSERT_RTNL();
- 
-+	/* Would configure the MAC alone, for a link that cannot come up. */
-+	if (phylink_late_phy_pending(pl))
-+		return -EOPNOTSUPP;
-+
- 	if (pl->phydev) {
- 		struct ethtool_link_ksettings phy_kset = *kset;
- 
-@@ -3292,6 +3501,9 @@ int phylink_ethtool_nway_reset(struct phylink *pl)
- 
- 	ASSERT_RTNL();
- 
-+	if (phylink_late_phy_pending(pl))
-+		return -EOPNOTSUPP;
-+
- 	if (pl->phydev)
- 		ret = phy_restart_aneg(pl->phydev);
- 	phylink_pcs_an_restart(pl);
-@@ -3331,6 +3543,10 @@ int phylink_ethtool_set_pauseparam(struct phylink *pl,
- 	if (pl->req_link_an_mode == MLO_AN_FIXED)
- 		return -EOPNOTSUPP;
- 
-+	/* pl->supported still describes the MAC, so the test below passes. */
-+	if (phylink_late_phy_pending(pl))
-+		return -EOPNOTSUPP;
-+
- 	if (!phylink_test(pl->supported, Pause) &&
- 	    !phylink_test(pl->supported, Asym_Pause))
- 		return -EOPNOTSUPP;
-@@ -3817,7 +4033,7 @@ static int phylink_sfp_config_phy(struct phylink *pl, struct phy_device *phy)
- 	/* Attach the PHY so that the PHY is present when we do the major
- 	 * configuration step.
- 	 */
--	ret = phylink_attach_phy(pl, phy, config.interface);
-+	ret = phylink_attach_phy(pl, phy, config.interface, 0);
- 	if (ret < 0)
- 		return ret;
- 
-diff --git a/include/linux/phylink.h b/include/linux/phylink.h
-index 3a88a69882a6..84815556f7d1 100644
---- a/include/linux/phylink.h
-+++ b/include/linux/phylink.h
-@@ -147,6 +147,10 @@ enum phylink_op_type {
-  * @default_an_inband: if true, defaults to MLO_AN_INBAND rather than
-  *		       MLO_AN_PHY. A fixed-link specification will override.
-  * @eee_rx_clk_stop_enable: if true, PHY can stop the receive clock during LPI
-+ * @phy_may_probe_late: if true, a connect in PHY mode to a PHY marked
-+ *			needs-host-firmware whose driver has not bound yet is
-+ *			deferred until that driver binds; see
-+ *			phylink_fwnode_phy_connect().
-  * @get_fixed_state: callback to execute to determine the fixed link state,
-  *		     if MAC link is at %MLO_AN_FIXED mode.
-  * @supported_interfaces: bitmap describing which PHY_INTERFACE_MODE_xxx
-@@ -169,6 +173,7 @@ struct phylink_config {
- 	bool mac_requires_rxc;
- 	bool default_an_inband;
- 	bool eee_rx_clk_stop_enable;
-+	bool phy_may_probe_late;
- 	void (*get_fixed_state)(struct phylink_config *config,
- 				struct phylink_link_state *state);
- 	DECLARE_PHY_INTERFACE_MASK(supported_interfaces);
--- 
-2.53.0
-
+>
+>> +               type = port->pad_type[i];
+>> +               if (enable)
+>> +                       config = pad_type_map[type];
+>> +               else
+>> +                       config = IMX_SCU_WAKEUP_OFF;
+>>
+>> -                       ret |= mxc_gpio_generic_config(port, i, config);
+>> +               if (is_imx8qm && config == IMX_SCU_WAKEUP_FALL_EDGE) {
+>> +                       dev_warn_once(port->dev,
+>> +                                     "No falling-edge support for wakeup on i.MX8QM\n");
+>> +                       config = IMX_SCU_WAKEUP_OFF;
+>>                 }
+>> +
+>> +               ret |= mxc_gpio_generic_config(port, i, config);
+>>         }
+>
+>-- 
+>With Best Regards,
+>Andy Shevchenko
+>
