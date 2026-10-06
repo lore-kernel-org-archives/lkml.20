@@ -1,94 +1,124 @@
-Received: from mta0.migadu.com (out-214.mta0.migadu.com [91.218.175.214])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFCEC318EE7
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 09:05:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.214
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB184382383;
+	Tue,  6 Oct 2026 09:05:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791277505; cv=none; b=L+E3XAv1W6FowaA7TaBrVc0ahwCgHB/nvM/9w5RP4wlz4r4FnsSfMj5mbDViTgNkDHByabBOFpZqCyfMHwm58dzUUfn9wUBjO1UQKpqxtWgwi1hCvmDBQZII4h0IFXWV5i7Cgjc4osQdw383rR22oktXw207tCqGY7JM//0J17c=
+	t=1791277533; cv=none; b=tJa/N6kMlSxtjcOA0xj9UTloAmGpotYhEVmT2kM2uTxVNTSXkGmb6DgEjATMCN/ydCMAsRd3oahu03nvMQnBNMLSwaw/QaybMVQf4ZX975/zW/oir0cWlBClvsgi3vmJy77+ZK+2u/l4TVwG6h9CwRmFlEqsUpEWIGdRPMs8GIs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791277505; c=relaxed/simple;
-	bh=pSKJ8t+N5gHFjx4NjV1mBfzDMvP7QspArwWL52ezD5g=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=J0AtGOknAzGF071kshir7gUKy/haDxTNdCs0kwKjDVhjngdOH0+KcOSdJuPyaBoBXxbPOmsdyeJwChNx9AeTK2svtfj7iqTQdUfSgRBuZDjAFvEW2Th/xAn63I/n370D3tulfvnUe7LYh+VmsqRTUTNsy1lpAg4ELiYzuECKyFg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OUIPxQg1; arc=none smtp.client-ip=91.218.175.214
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791277533; c=relaxed/simple;
+	bh=DqlX7p8H4/IV/CTzoF6Pn+1zd/zy2/hFxTa3S31Whfg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TR4F4nvHTuLgmPtoCIde9GrN5wFDBrWKOfK50s4oXl8VrakFIBt8OAFzOn8FJlstLWyLVyxlbnqkYKDpsAag98WEdGb0P2IR5E+iLTqti4CSE7Dq/1necRK/kgJCMsLulZW1+XKaX4InZVj6OibnsR7bloeDLvPUs2pMtzfe3H4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cD2W5yP7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OUIPxQg1"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=pSKJ8t+N5gHFjx4NjV1mBfzDMvP7QspArwWL52ezD5g=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791277501; v=1; x=1791882301;
- b=OUIPxQg1mzzrcphQ3Ao2I9g1GJwvyu8bdKWRmmWsdxuZaP7J7fQofVL8FQs3BgHsu6ZcH68z
- xHPsoA8q/A/wterfe7dtmKp/NmaQCuWkcCFxAm872n80anzlEmSBq/u1w1ng69QFDEKoht6W+Bz
- dTbt1J+oiJwIWZVNDW9ACq1g=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id cf1a0565370f02ca;
-	Tue, 06 Oct 2026 09:05:01 +0000
-X-Mizu-Trace-ID: cf1a0565370f02ca
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cD2W5yP7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 519411F000FF;
+	Tue,  6 Oct 2026 09:05:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791277531;
+	bh=bJa95qu+WgQA0I7hDtTyw4vZyAQhmnKWc8K9WvZumho=;
+	h=From:To:Cc:Subject:Date;
+	b=cD2W5yP7pSXrSAt+TWwOVVQ8EQfuSFuR/hpJjySLe50mIYTwkR3fQP+cj4dTmCG/X
+	 TH+rMPxZzt8DdaRJmlA3kAuEV0CdiU4VIgMlIiudqKKHGe5X2Kq6vYBI5KYIvnYoo+
+	 sySoUsrVsw5b/V3Ew9mo6AcKLThjLvTqj0LbHcgUJyvgyB0thV5PZooMu0qao1a0xw
+	 j5OAQQPQ9bWaSiCvN165r/DmUV3zEI8MHRlnAQAE6VgCsZ8yChR8Ok2PHhtUSeIoA0
+	 vZSWQWXWCnHMkSVFqcZXWkGbk/B8EuItywx0ZjJ2NfzWdmUMU76Y0I9OQ8K+sV0ogo
+	 +iGkMvxrQpWPg==
+From: Kees Cook <kees@kernel.org>
+To: Cong Wang <cwang@multikernel.io>
+Cc: Kees Cook <kees@kernel.org>,
+	Andy Lutomirski <luto@amacapital.net>,
+	Will Drewry <wad@chromium.org>,
+	linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org
+Subject: [PATCH] seccomp: Document RESTART_BEFORE_RECV and O_PATH addfd
+Date: Tue,  6 Oct 2026 02:05:29 -0700
+Message-ID: <20261006090528.i.976-kees@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 06 Oct 2026 09:05:01 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Luka Gejak" <luka.gejak@linux.dev>
-Message-ID: <39e05b490d5c6f90ea122e1c9a83ce8bad94e735@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH rtw-next v7 4/6] wifi: rtw88: 8723b: add the RTL8723B
- chip driver
-To: "Ping-Ke Shih" <pkshih@realtek.com>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, "Michael   
- Straube" <straube.linux@gmail.com>, "Peter Robinson"
- <pbrobinson@gmail.com>, "Bitterblue Smith" <rtl8821cerfe2@gmail.com>,
- luka.gejak@linux.dev
-In-Reply-To: <9f11a1ee89aa22a2ce23238b5ac968463f6e79a2@linux.dev>
-References: <20261002073845.31486-1-luka.gejak@linux.dev>
- <20261002073845.31486-5-luka.gejak@linux.dev>
- <aa7d919d98304ee095990735f39095ac@realtek.com>
- <DLWXWMOGZGX9.UANQJR9PZYWG@linux.dev>
- <359ea3a6857d4aba9c83876a10f7f9e8@realtek.com>
- <a1d007fffc35466a2d63a3fe6839286f3488d7be@linux.dev>
- <f23d5ed909c746ad851bd1038966d271@realtek.com>
- <9f11a1ee89aa22a2ce23238b5ac968463f6e79a2@linux.dev>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3586; i=kees@kernel.org; h=from:subject:message-id; bh=DqlX7p8H4/IV/CTzoF6Pn+1zd/zy2/hFxTa3S31Whfg=; b=owGbwMvMwCVmps19z/KJym7G02pJDFlHdt7MqF73jOmoWL/0Tdt3N8/qcOhP2XRFt2zX3I/H7 bfFnVpysaOUhUGMi0FWTJElyM49zsXjbXu4+1xFmDmsTCBDGLg4BWAiEx4y/BV7+ar59rtso2vM jB3+dUseGel3vLLrknhmfuKH+d+7smaMDNsLz3fKOFv6bec7Hepx0aTJdmNGmIT1YXOW9N64syG J/AA=
+X-Developer-Key: i=kees@kernel.org; a=openpgp; fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
+Content-Transfer-Encoding: 8bit
 
-October 6, 2026 at 09:07, "Luka Gejak" <luka.gejak@linux.dev mailto:luka.=
-gejak@linux.dev?to=3D%22Luka%20Gejak%22%20%3Cluka.gejak%40linux.dev%3E > =
-wrote:
+Describe SECCOMP_FILTER_FLAG_RESTART_BEFORE_RECV in the UAPI header, as
+SECCOMP_FILTER_FLAG_WAIT_KILLABLE_RECV is described above it, and say in
+the documentation that supervisors must tolerate ENOENT from
+SECCOMP_IOCTL_NOTIF_RECV, which the flag makes routine. Note at the
+fget_raw() call that O_PATH files are allowed on purpose.
 
+Build tested ARCH=x86_64 defconfig (kernel/seccomp.o and headers) with
+GCC 16.2.0, and SPHINXDIRS=userspace-api htmldocs.
 
->=20
->=20October 6, 2026 at 07:29, "Ping-Ke Shih" <pkshih@realtek.com mailto:p=
-kshih@realtek.com?to=3D%22Ping-Ke%20Shih%22%20%3Cpkshih%40realtek.com%3E =
-> wrote:
->=20
->=20>=20
->=20> Luka Gejak <luka.gejak@linux.dev> wrote:
-> >=20=20
->=20>=20=20
->=20>  >
-> >  > However, including rtw8703b.h from another chip driver is
-> >  > already established, rtw8723cs.c includes it to reuse rtw8703b_hw_=
-spec.
-> >  >
-> >  As I know, 8723CS and 8723B are mutual alias, no?
-> >=20=20
->=20>  As far as I know, they are not. They are different chips.
-> >=20=20
->=20>  fix typo.
-> >=20=20
->=20>  8723CS and 8703B are mutual alias, no?
-> >=20
->=20Possibly, but either way I will move, so it shared.
+Assisted-by: LLM
+Signed-off-by: Kees Cook <kees@kernel.org>
+---
+ Documentation/userspace-api/seccomp_filter.rst | 8 ++++++++
+ include/uapi/linux/seccomp.h                   | 1 +
+ tools/include/uapi/linux/seccomp.h             | 1 +
+ kernel/seccomp.c                               | 1 +
+ 4 files changed, 11 insertions(+)
 
-Followup: the things I am moving will be exact copy paste, unedited or
-anything so take that into consideration when reviewing that patch.
+diff --git a/Documentation/userspace-api/seccomp_filter.rst b/Documentation/userspace-api/seccomp_filter.rst
+index b6875ce54fe2..0a00336d773a 100644
+--- a/Documentation/userspace-api/seccomp_filter.rst
++++ b/Documentation/userspace-api/seccomp_filter.rst
+@@ -292,6 +292,14 @@ for calls such as ``close`` where callers do not retry on ``EINTR``.
+ A failed notification receive that resets the notification to its initial
+ state is also eligible for restart.
+ 
++Each restart withdraws the pending notification, so a supervisor woken by
++``poll()``, or blocked in ``ioctl(SECCOMP_IOCTL_NOTIF_RECV)``, may find
++nothing left to receive, and the ioctl then fails with ``ENOENT``. This
++already happens whenever a notifying process is interrupted before receipt,
++but with this flag it becomes routine under repeated signals. Supervisors
++should treat ``ENOENT`` from ``SECCOMP_IOCTL_NOTIF_RECV`` as a reason to wait
++again, not as an error.
++
+ The flag requires ``SECCOMP_FILTER_FLAG_NEW_LISTENER`` and can be used with
+ or without ``SECCOMP_FILTER_FLAG_WAIT_KILLABLE_RECV``. Using both flags allows
+ handlers to run before receipt and defers non-fatal signals during supervisor
+diff --git a/include/uapi/linux/seccomp.h b/include/uapi/linux/seccomp.h
+index 30b76aa48355..3a0ee0551261 100644
+--- a/include/uapi/linux/seccomp.h
++++ b/include/uapi/linux/seccomp.h
+@@ -25,6 +25,7 @@
+ #define SECCOMP_FILTER_FLAG_TSYNC_ESRCH		(1UL << 4)
+ /* Received notifications wait in killable state (only respond to fatal signals) */
+ #define SECCOMP_FILTER_FLAG_WAIT_KILLABLE_RECV	(1UL << 5)
++/* Restart syscalls interrupted before their notification is received */
+ #define SECCOMP_FILTER_FLAG_RESTART_BEFORE_RECV	(1UL << 6)
+ 
+ /*
+diff --git a/tools/include/uapi/linux/seccomp.h b/tools/include/uapi/linux/seccomp.h
+index 30b76aa48355..3a0ee0551261 100644
+--- a/tools/include/uapi/linux/seccomp.h
++++ b/tools/include/uapi/linux/seccomp.h
+@@ -25,6 +25,7 @@
+ #define SECCOMP_FILTER_FLAG_TSYNC_ESRCH		(1UL << 4)
+ /* Received notifications wait in killable state (only respond to fatal signals) */
+ #define SECCOMP_FILTER_FLAG_WAIT_KILLABLE_RECV	(1UL << 5)
++/* Restart syscalls interrupted before their notification is received */
+ #define SECCOMP_FILTER_FLAG_RESTART_BEFORE_RECV	(1UL << 6)
+ 
+ /*
+diff --git a/kernel/seccomp.c b/kernel/seccomp.c
+index e6e1feed0e7b..3eecba5ccdef 100644
+--- a/kernel/seccomp.c
++++ b/kernel/seccomp.c
+@@ -1743,6 +1743,7 @@ static long seccomp_notify_addfd(struct seccomp_filter *filter,
+ 	if (addfd.newfd && !(addfd.flags & SECCOMP_ADDFD_FLAG_SETFD))
+ 		return -EINVAL;
+ 
++	/* Allow O_PATH files, as SCM_RIGHTS and pidfd_getfd() do. */
+ 	kaddfd.file = fget_raw(addfd.srcfd);
+ 	if (!kaddfd.file)
+ 		return -EBADF;
+-- 
+2.55.0
 
-Best regards,
-Luka Gejak
