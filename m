@@ -1,660 +1,358 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010063.outbound.protection.outlook.com [52.101.201.63])
+Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch [79.135.106.118])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1549535957;
-	Tue,  6 Oct 2026 16:41:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.63
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791304883; cv=fail; b=QjxAyB+/3PguXBbg+VBAcPr/N5gYfh9zIVZtlKzHnERbF2rHFJ8xUkQJs2QwdNUMaEmSIHYuDXJSuw4ZlBq5Es54znsXHG9Xf1BkmxUd7tFOUwVEbrpqAjd5xzbY41YAj07hzcLWBpVa5q2xcpsCA+AiSz5OsYpbmeoiL7sxetI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791304883; c=relaxed/simple;
-	bh=HzY+r0Z8QT422G/2JljPreIP1jD2ALtoW3y8YyzJ2Kk=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=bZWlfnu3O5g2eJubAX3GYY3Jy6K93T+EmlYNNrRNecwuYVc3BZBYj2KwS58EkMNOVOyvz0dDGMWeU3ENlCNOnGrJQKMENSr+AN6P0VpMgc2Ugr/YDPOBIHdfFqR0K3xvaCU4WJ/23OB6Efbkb9KsU74qUZbt5XsblLaEcbg1uCI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=VReTjAYg; arc=fail smtp.client-ip=52.101.201.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D9703B14AA
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 16:43:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.118
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791305037; cv=none; b=vBwZPEry0r+V2/SJEhiblh3rSYMGHuyDcLpTcPqpydNjnmo5Aty8sGfxfkRMT8l1gQVYMpdhRNb5YhqyVByLyEUhWckjQCVGoboGTxb6lt8vVxsa/RQo0UDNl28xGnkIyMFsdHAac8KjPn1wDlqlJyFtTKTqD1nKxQg9NaERGOw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791305037; c=relaxed/simple;
+	bh=hjoCyG0Ot+GTh3sZwXjB11w9yFizmSDkOSIxlTp/Zbw=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=hfnNS10nFCJ5Z3mX8MM1KpDpm/fFbbkV7B4iLNvtaR6GsRo4O41GWJOquGjDnYLtX80nIm8UqX289qiFrO68uikcG60UGNumjtmX0jUbO3e/NQsrVGgwed51hTyCA1mKsHPaaND7fKESuXoV2sjlGaeBG0sMJh1dpZVub62L2aM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=Zrd/gxQO; arc=none smtp.client-ip=79.135.106.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="VReTjAYg"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZngBb+DMnBrnRFxF2Kipy+ljM1lZQcB5k6K6CjmoBS8D3D2cwMBzmkWuG+qgtffVidUdPyYofSCRCI3oso9oifSmKfo39Hc7/6ibDrHW1PDM3APS2GbYD7AVQDbpr32uBca0HNZGMr+WLaKwMkvGZD3pkf2/u0zR1SCb/ZmcAoCgLnNLPMPM7bRvJk+iY+zf/89R0o6216jx3fHwwLY2weL06uuUKnoReU8k1g1UrI4NqjBrMox11wYzHJjJrRucwiGMc4ZXZV0xnfGtzHEm1T3oJUSdckcmXdR9tSnx82fTzjbDsCYMrYafcMOJSbY9CmKIugTly22nu0X5ph/TCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UvI9OJ/1Bk4DTybNeOg2EcNrK6OqjawSsBq1Fvi/r7U=;
- b=qghBTptUjfhLh37dtc8NBDEsma2gzeAejS1GOLHqOOoz9F1MRBxIyoiEGvTG+YTyJ9s4znxZp+Af09uNldjj1MJhrg4RFTCaxzWTjZ5EKDqFkbx1/eFCD9pzr4FOE3WW+v6wDIsfPJ7E43JwNsIbUt7R3gTl46E26JaoYCoIo4NU3lFXyBrBKQwzmL7JfFaIxsxuf7OG9+OI7i9cJ4EI3GdjvFnFkJSd7YPxS2ezPBYGtygUz1LU+C4fy+51nfS/ZVHPCcnliMNnY/VusQIOBFA3prbk6Bj6MXhEgTkOMtJS6IHPYfw/vqEUa2LycYIjVVDZ36IvK8LMI0wb7t/uew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UvI9OJ/1Bk4DTybNeOg2EcNrK6OqjawSsBq1Fvi/r7U=;
- b=VReTjAYg7RgwjGXDmHW5xjb0xrLOvLs9v+wyVn9N9ocE20CcgZXwEuIlckmUEf5VK6zhnXRiDukC94xQnGLg7/EKFQeEkEjTJzoATc62UlZIgEuZOaflCq1pqvLjC6lg2/BFxNBpXo38CW4cgZfddt2bxmCoIkPsPu7zGk0Q5zs=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ1PR12MB6217.namprd12.prod.outlook.com (2603:10b6:a03:458::6)
- by IA1PR12MB6211.namprd12.prod.outlook.com (2603:10b6:208:3e5::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 6 Oct
- 2026 16:41:15 +0000
-Received: from SJ1PR12MB6217.namprd12.prod.outlook.com
- ([fe80::bdbb:19b0:4f1b:44e5]) by SJ1PR12MB6217.namprd12.prod.outlook.com
- ([fe80::bdbb:19b0:4f1b:44e5%6]) with mapi id 15.21.0451.022; Tue, 6 Oct 2026
- 16:41:14 +0000
-Message-ID: <028cdf37-2272-4d7f-a8dd-bd011a55774d@amd.com>
-Date: Tue, 6 Oct 2026 11:41:11 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [Patch v3 7/7] crypto/ccp: Implement SNP Download Firmware EX
-To: Tom Lendacky <thomas.lendacky@amd.com>, mcgrof@kernel.org,
- russ.weight@linux.dev, dakr@kernel.org, ashish.kalra@amd.com,
- herbert@gondor.apana.org.au, davem@davemloft.net
-Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
- gregkh@linuxfoundation.org, rafael@kernel.org, chao.gao@intel.com,
- aik@amd.com, tycho@kernel.org, nikunj@amd.com, michael.roth@amd.com,
- shansinha@google.com
-References: <cover.1791212077.git.prsampat@amd.com>
- <c03c5a47f3972486fdb144bf8c6f50ab3375da2f.1791212077.git.prsampat@amd.com>
- <4639287b-0fe6-4aaa-9720-c7f264019d06@amd.com>
-Content-Language: en-US
-From: "Pratik R. Sampat" <prsampat@amd.com>
-In-Reply-To: <4639287b-0fe6-4aaa-9720-c7f264019d06@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CH2PR16CA0007.namprd16.prod.outlook.com
- (2603:10b6:610:50::17) To SJ1PR12MB6217.namprd12.prod.outlook.com
- (2603:10b6:a03:458::6)
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="Zrd/gxQO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1791305024; x=1791564224;
+	bh=hjoCyG0Ot+GTh3sZwXjB11w9yFizmSDkOSIxlTp/Zbw=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=Zrd/gxQOvGqdZbawTO7NgHmF0jgRm1HySY8Aroi6TugFoccQqqfbC74VnhvM3BH6f
+	 2WOqDJ9C3NJADjZNEwIybrZJ54Z6Hf/oT0gqw0XJPnC6FaVMBsIQUbEIt6MttPFfDt
+	 VjTCNQ11LDIrm63otyVMUHtxWgETAQVvbt/maDCFr7Zkf7Ya2Uy0fAh0l+PvnqwWsK
+	 u/Oi/QkHvgKDPfBjZMN/tQCcMONCbYCFglrwyO8J1QdDcEmXP8tPb8X1OCeStEaCU/
+	 7P5g/0lJ/tZd4ojT5GqMuz3ClMx57w0e5iMXFb15CXhaqIfvisMEfVp4I8s2yZSChM
+	 ZQjRBuhiOQXUQ==
+Date: Tue, 06 Oct 2026 16:43:42 +0000
+To: joe@dama.to
+From: anmory <anmory@protonmail.com>
+Cc: netdev@vger.kernel.org, michael.chan@broadcom.com, pavan.chebbi@broadcom.com, linux-kernel@vger.kernel.org
+Subject: Re: [RFC net v4 0/4] bnxt_en: Make RING FREE more robust
+Message-ID: <VyyrJwrwBZEIGezDRJP8QPxbcsGROaxnmohLCnzNQY6sX5CEt0BK3AEC_0MGBx6OxGf4H5UG_xQcqgtAonwmXLdZ5Bd3INWMsof8Oj6ruqg=@protonmail.com>
+Feedback-ID: 107053670:user:proton
+X-Pm-Message-ID: 4e325bd54481edb919f93366573e6c4e6a7dd4be
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PR12MB6217:EE_|IA1PR12MB6211:EE_
-X-MS-Office365-Filtering-Correlation-Id: 47c0a5ca-00e1-424d-bb51-08df23c8a30d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|366016|23010399003|4143699003|10067099003|11063799006|56012099006|6133799003|5023799004|3023799007|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	gFzFnz1voXxTWPKmDCXKq6u6wPDWt33wLiVzBZwzqD450avhhTYNHPB6Juf/b7Tp580QLz45sAuliPBYksX/kwa24GR62RpPw/izCxEz/p4Kb1qZaGEbTiQI0hiTb91/JOxlHoA5tsGdg4hL0a1kmuYlq52c3b62fRHgH8RB2I2NXp2expR18a9P/fdDO+RbttV1qjP9Qn/X6zkcob1faRUlf8qifwiulcLqxTbQon9skH/PK70YPMxSF3leMzZQ2I7KHmUIsQSINU1lbGvwH17uryuYUhQoRpFYoDqcodfdJqQDwG057vWN4FmzGcitlUP+Mv+beLBIq0bscBLJtdgF/NQBkrGP9UEv3BEFLOQQFKyaV4cacETImxjp1QZ1BINEe7bQ0IKO3280iJuSXga5fNZg+y5hlZjpfMdzxNv2pKNtEX1vvncAt4MKrDiUd6v5x9r9Du4S0ziaaVwgNC2R8PFYzDDS9Ct0h2btDtQ6luFdO7VFz4Tqxu8PIbBrxVWfycPh14j9vZxHv1SElUnOsCgvzj/tDM/dN4h5kj3+ZRxkKy4WQZ4nfc1OhF/o4DmqN6wzrBwFMJeSjL8gx94+98eSHqsoFwKgWLYq2D49g6PU3oOXO1F/eedl1B+LRHc/tTEBOTRiMS6HCDZua1tam+aroe8lb6Ov5EL8w+A=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ1PR12MB6217.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(23010399003)(4143699003)(10067099003)(11063799006)(56012099006)(6133799003)(5023799004)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?R1Z4NktCc091L0N3RnZybllRMWVmQStUMmxoWFB4QTFDcW9SSTVnWTRhYytU?=
- =?utf-8?B?RXBJazlOVmlUd3FYRjlLT1BrbUg5OFh1NkkyUzRFWUN2SmVNS1FVZVIzS3BM?=
- =?utf-8?B?VTY3aVVWK3pKQW5EK3pvQStIc3hyT25DSmNUeGpvM09RdzdXcmMwd2JOMElv?=
- =?utf-8?B?VFBnUGE2WmI3N1VOK0NBOTRqU28wMHN6cHU3T3pWUHBBb2xWQWNuN1pLL1JF?=
- =?utf-8?B?SWpSTU1MdlJVUTM4bWZKLzJMdFNJV3NOSU5MemZyczRyWWN0eGQyRWJub21a?=
- =?utf-8?B?SUs5SSt4SytYcXl0bnE4THN3Ulkxc1haZ2lZQjhZMkRGa0laWmRZTkxvTHUx?=
- =?utf-8?B?OU1uNThDUVZKWDRiQ0svRGROTWZnVEtiay9TOXJTKzN2K25VWXdtdkFDcHNB?=
- =?utf-8?B?c1JXNW41NlpUcVVDbmZIWUUxU0dRcndGQVFjNm54Smw5MXlpaXhGMHBEb0NV?=
- =?utf-8?B?dkdUMzdJc2pSN2FIeEFzaUhNYjJYQlZrVHFvSDQ5aEVzTXlhc3kreHlabkxQ?=
- =?utf-8?B?QkxUNElEdXFwS0hUcTFTemZPR3dURVdSb0piMUZNTXBNd2twNVdjNi9XY1BX?=
- =?utf-8?B?OW9STU0vTUhxVDl4WWw5N3JWRHFwbGZJaTVKRTVFd1dscTJhTmt1YnRmaDRh?=
- =?utf-8?B?VFlnQU01K0hUQXNIanRhc2ZBeStjWnRjSDBKaURCWkpNT0pIbXlRSWkvUTdM?=
- =?utf-8?B?R1MyUGxUdUUzMUdtakh3ZXQ4NmRFR3d3MHpUZEd1NHB0b2toc3IyanVYTG1V?=
- =?utf-8?B?QjJiLytvdXlQUUhPTVUxR0hyYUxOUnV1RFIwY0ZETFdZcS9KUDlRM1dEUGhn?=
- =?utf-8?B?RnpKUnU5UHlyZyszc3M0SGhpU28zVFNVWHZrRit2WWtWcGlSYTlRWmk0Z0dk?=
- =?utf-8?B?aDV2bEZtd0Rqb1ZwTmQ2ckNJRFVqTWVVWWRybWNNTUhBck1aTUV3VWc0MWl5?=
- =?utf-8?B?c2U2c2pHdGVOamFHaE9MM2tGTUd4eUlkd2tPWXpYYVZ2ZGhOcllJTUNVVVEy?=
- =?utf-8?B?RjNhaVBPdXA2aGhXcmNkWjI3ek1KT1AvK3hDanBoSldiTmVSckErOGtwNUwv?=
- =?utf-8?B?U2RDcUhOR3ZzdkhDRS94cC9oUlczVUQ5cDBFM1cxUGEyYjEwYjhuSTgxaHVI?=
- =?utf-8?B?M1NzczNHOFJlVTNVRy9xNUw4WUhIcXorWEllRW5ud29YQlBGcWFMRWpwYUdD?=
- =?utf-8?B?cmhocjR0OWVuWjJsYkVJaHB6WGNBWm05UFVrMkQvUGllNVZjeW1aNEJmeGZr?=
- =?utf-8?B?ZXRYdS83MlZBeFBCdVEycVArNkkzTzgvQzBBcVAzeUFUZjJlTzF4L3M0TkVL?=
- =?utf-8?B?S3JYTWlNVXphSDJZeEt4eGVBbWQvL3c2S1F1dVVXWUlXME15dlZ0azZsRkxS?=
- =?utf-8?B?anI1UXBuaVlyUStBQitBaTRhTEtXaXM5RnBsQUV3WUl4WVdFNk9kR3N1aktK?=
- =?utf-8?B?UUFNNG42RC9SV3RZQVhRdUJnbzd3ZHRSclNSc2pTb2JHbzVieGVRVnRCMjlS?=
- =?utf-8?B?Uk0xMUEwUGR4THFUTVRndi9GVzAySXNPaTljQ3NxMVhuakdsWWw0K1dxY1Fi?=
- =?utf-8?B?TXhScDNWRXd5MDFwOU9abVlrNDRXZmJHZ29mQWFIUDJXZ1pqZmtXUFdobFFI?=
- =?utf-8?B?dWNpSTFVTnFXSWtyUXQ4S2l3Z1FBWGFObDFVdmhJM1VuNjRuZ0t5MEFRZ3c2?=
- =?utf-8?B?K3luT0tlUGhCSTdHZzZlRXB3SkFwMCtuZ2ZDbkdYYmNIMFhkMzk2VVZLaUx6?=
- =?utf-8?B?UENCUENvU29vcFpocGlnZ2pubzhscjRNU1JPb1MzaW93dVcvS3VpRWtaWnJK?=
- =?utf-8?B?QkNQMFFsUDB1czRCa0xDNmd3M2wvSUVsMnk0S1JJZUtTSEJuL2lNYWtIQTFG?=
- =?utf-8?B?WHp6WmJmUXNxdElqaWNCVWhuSWF6cFVUa1pWRmRrSzNTSEtHM0VkdDBBYkIw?=
- =?utf-8?B?UWxxT3VHTzYxVEtMMzJRNnE5b1diVTI5ZjVGSnVzQXVLeHVhbHRQZm03S2dM?=
- =?utf-8?B?QWRjV05MWWp0M2l5NHlFb2tjSEV1byswUU9UOVpNbG9jeUxyQkZhajFhV1Nt?=
- =?utf-8?B?SHlEUTFiZVJTdk1OM0VNb3RjOVZSd1U0SlNKSTNuUTAvNTZLUUZ3L2JtTlVR?=
- =?utf-8?B?RzBRTVR0UzErSU5uWGNwOWRJN3R2VC9mMWJwWnBkNGVkV1RzWEhWZkR4U2sz?=
- =?utf-8?B?WDVtM2JuMHlKM0dweHZqRlRQSndiVDBkTWdRQVl2a0RhaXFPY01KaUNmc1Uw?=
- =?utf-8?B?cTdyQ2JHSlMvQnJiblg3R0w0UFFJWExyZE5NTWcwRDZGT1JPS0NWV2syNVFx?=
- =?utf-8?Q?Yj2tk5eeTpz8NwxNNO?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 47c0a5ca-00e1-424d-bb51-08df23c8a30d
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PR12MB6217.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 16:41:14.8505
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3GsxFjDseaoq5/VjTWm+Flct++VYmOT8/JvMPAOhv1l6c2Qob+anB8b80QOIbXOjMAZ8q845RQ9IARSBykbe3g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6211
+Content-Type: multipart/mixed;
+ boundary="b1=_Jf6iIlN5q5nK6VJS8DdrEywpc4UedCza9jfxY5w64"
 
-Hi Tom,
+--b1=_Jf6iIlN5q5nK6VJS8DdrEywpc4UedCza9jfxY5w64
+Content-Type: multipart/alternative;
+ boundary="b2=_Jf6iIlN5q5nK6VJS8DdrEywpc4UedCza9jfxY5w64"
 
-Thanks for the review!
+--b2=_Jf6iIlN5q5nK6VJS8DdrEywpc4UedCza9jfxY5w64
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
 
-On 10/6/26 11:10 AM, Tom Lendacky wrote:
-> On 10/5/26 11:15, Pratik R. Sampat wrote:
->> Implement SNP live firmware update using the DOWNLOAD_FIRMWARE_EX
->> command.
->>
->> DOWNLOAD_FIRMWARE_EX requires the legacy SEV platform to be UNINIT. If
->> it is WORKING then legacy guests are running and the update is refused
->> as busy. If it is INIT, shut it down, release the buffers the firmware
->> owns across that shutdown, run the update, and bring the platform back
->> up afterwards. SNP is never taken down, so SNP guests are unaffected.
->>
->> To test run the following with your sbin file in FW:
->>
->> echo 1 > /sys/class/firmware/sev/loading
->> cat <firmware.sbin> > /sys/class/firmware/sev/data
->> echo 0 > /sys/class/firmware/sev/loading
->>
->> The COMMIT bit is left clear, so the image is only loaded provisionally
->> and the admin decides when to make it permanent with ioctl(/dev/sev,
->> SNP_COMMIT). To roll back, do not commit and upload the previous image
->> the same way.
->>
->> Co-developed-by: Tycho Andersen (AMD) <tycho@kernel.org>
->> Signed-off-by: Tycho Andersen (AMD) <tycho@kernel.org>
->> Signed-off-by: Pratik R. Sampat <prsampat@amd.com>
->> ---
->>  drivers/crypto/ccp/sev-dev.c | 284 ++++++++++++++++++++++++++++++++++-
->>  drivers/crypto/ccp/sev-dev.h |   2 +
->>  include/linux/psp-sev.h      |  19 +++
->>  3 files changed, 304 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/crypto/ccp/sev-dev.c b/drivers/crypto/ccp/sev-dev.c
->> index 88cf60a9640e..e54f23ba1b9b 100644
->> --- a/drivers/crypto/ccp/sev-dev.c
->> +++ b/drivers/crypto/ccp/sev-dev.c
->> @@ -29,6 +29,7 @@
->>  #include <linux/psp.h>
->>  #include <linux/amd-iommu.h>
->>  #include <linux/crash_dump.h>
->> +#include <linux/sizes.h>
->>  
->>  #include <asm/smp.h>
->>  #include <asm/cacheflush.h>
->> @@ -252,6 +253,7 @@ static int sev_cmd_buffer_len(int cmd)
->>  	case SEV_CMD_SNP_PLATFORM_STATUS:	return sizeof(struct sev_data_snp_addr);
->>  	case SEV_CMD_SNP_GUEST_REQUEST:		return sizeof(struct sev_data_snp_guest_request);
->>  	case SEV_CMD_SNP_CONFIG:		return sizeof(struct sev_user_data_snp_config);
->> +	case SEV_CMD_SNP_DOWNLOAD_FIRMWARE_EX:	return sizeof(struct sev_data_download_firmware_ex);
->>  	case SEV_CMD_SNP_COMMIT:		return sizeof(struct sev_data_snp_commit);
->>  	case SEV_CMD_SNP_FEATURE_INFO:		return sizeof(struct sev_data_snp_feature_info);
->>  	case SEV_CMD_SNP_VLEK_LOAD:		return sizeof(struct sev_user_data_snp_vlek_load);
->> @@ -2213,17 +2215,297 @@ static int sev_update_firmware(struct device *dev)
->>  }
->>  
->>  #ifdef CONFIG_FW_UPLOAD
->> +/* Largest image the firmware accepts, anything above is rejected */
-> 
-> I may have missed it, but I don't see anything in the SNP ABI spec that
-> says the limit is 512K. If that doesn't have a limit how did we arrive
-> at 512K?
-> 
+SGkgSm9lLAoKd2UgYXBwZWFyIHRvIGJlIGhpdHRpbmcgYSB2ZXJ5IHNpbWlsYXIgaXNzdWUgdG8g
+dGhlIG9uZSBkZXNjcmliZWQgaW4KdGhpcyBSRkMgb24gdHdvIEJyb2FkY29tIEJDTTU3NTA0IHN5
+c3RlbXMuCgpPbmUgZGV0YWlsIHRoYXQgbWF5IGJlIHBhcnRpY3VsYXJseSByZWxldmFudCBpcyB0
+aGUgb3JkZXJpbmcgaW4gb3VyCnJlcHJvZHVjdGlvbnM6IG9uIGJvdGggc3lzdGVtcyB0aGUgQU1E
+LVZpIElPX1BBR0VfRkFVTFQgb2NjdXJzIGJlZm9yZQp0aGUgTkVUREVWIFdBVENIRE9HIC8gVFgg
+dGltZW91dC4KCldlIG9yaWdpbmFsbHkgZW5jb3VudGVyZWQgdGhlIHByb2JsZW0gYWZ0ZXIgdXBk
+YXRpbmcgZnJvbSBEZWJpYW4KNi4xMi4xMDctMSB0byA2LjEyLjExMS0xLgoKV2Ugc3Vic2VxdWVu
+dGx5IHJlcHJvZHVjZWQgaXQgZGVsaWJlcmF0ZWx5IG9uIHR3byBzZXBhcmF0ZSBzeXN0ZW1zLgoK
+VGVzdCByZXN1bHRzOgoKYWZmZWN0ZWQtaG9zdC0xOgpCQ001NzUwNCBbMTRlNDoxNzUxXSwgYm54
+dF9lbgpCSU9TOiAxLjE2LjIKTklDIEZXOiAzNi4xMS41NS4wMApGVyBtZ210OiAyMzYuMS4xNTMu
+MAoKNi4xMi4xMDctMTogc3RhYmxlCjYuMTIuMTExLTE6IGZhaWx1cmUgcmVwcm9kdWNlZAoKYWZm
+ZWN0ZWQtaG9zdC0yOgpCQ001NzUwNCBbMTRlNDoxNzUxXSwgYm54dF9lbgpCSU9TOiAxLjE4LjIK
+TklDIEZXOiAzNi4xMS43My4wMApGVyBtZ210OiAyMzYuMS4xNzMuMAoKNi4xMi4xMDctMTogc3Rh
+YmxlCjYuMTIuMTExLTE6IGZhaWx1cmUgcmVwcm9kdWNlZAoKVGhlIGZhaWx1cmUgc2VxdWVuY2Ug
+b24gYWZmZWN0ZWQtaG9zdC0xIHdhczoKCjA2OjQ5OjAwIEFNRC1WaSBJT19QQUdFX0ZBVUxUCjA2
+OjQ5OjE0IE5FVERFViBXQVRDSERPRzogdHJhbnNtaXQgcXVldWUgMCB0aW1lZCBvdXQKMDY6NDk6
+MTQgVFggdGltZW91dCBkZXRlY3RlZCwgc3RhcnRpbmcgcmVzZXQgdGFzawowNjo0OToxOCBIV1JN
+L1JJTkdfRlJFRSBmYWlsdXJlcyBiZWdpbgowNjo0OToyNSBIV1JNX1JJTkdfQUxMT0MgZmFpbHMK
+MDY6NDk6MjUgYm54dF9pbml0X25pYyBmYWlscwowNjo0OToyNSBuaWMgb3BlbiBmYWlscwoKT24g
+YWZmZWN0ZWQtaG9zdC0yOgoKMTU6Mjk6MDkgQU1ELVZpIElPX1BBR0VfRkFVTFQKMTU6Mjk6MTUg
+TkVUREVWIFdBVENIRE9HOiB0cmFuc21pdCBxdWV1ZSA0IHRpbWVkIG91dAoxNToyOToxNSBUWCB0
+aW1lb3V0IGRldGVjdGVkLCBzdGFydGluZyByZXNldCB0YXNrCjE1OjI5OjE5IEhXUk0vUklOR19G
+UkVFIGZhaWx1cmVzIGJlZ2luCjE1OjI5OjM3IEhXUk1fUklOR19BTExPQyBmYWlscwoxNToyOToz
+NyBibnh0X2luaXRfbmljIGZhaWxzCjE1OjI5OjM3IG5pYyBvcGVuIGZhaWxzCgpTbyBpbiBvdXIg
+cmVwcm9kdWN0aW9ucyB0aGUgSU9NTVUgZmF1bHQgcHJlY2VkZXMgdGhlIFRYIHdhdGNoZG9nIGJ5
+CmFwcHJveGltYXRlbHkgNi0xNCBzZWNvbmRzLgoKV2UgaGF2ZSBhbHNvIG9ic2VydmVkIHRoZSB0
+aW1lb3V0IG9uIGRpZmZlcmVudCBUWCBxdWV1ZXMgYWNyb3NzCmRpZmZlcmVudCBvY2N1cnJlbmNl
+cywgc28gaXQgZG9lcyBub3QgYXBwZWFyIHRvIGJlIHRpZWQgdG8gYSBzcGVjaWZpYwpxdWV1ZS4K
+CkJvdGggaW50ZXJmYWNlcyB3ZXJlIHVwIGFuZCBvcGVyYXRpbmcgYXQgMjUgR2JpdC9zIGJlZm9y
+ZSB0aGUgZmFpbHVyZS4KVGhlIHN5c3RlbXMgdXNlIHRoZSBJT01NVSBpbiB0cmFuc2xhdGVkIG1v
+ZGUuCgpBZnRlciB0aGUgcmVzZXQgYXR0ZW1wdCBmYWlscywgdGhlIGludGVyZmFjZSBjYW5ub3Qg
+YmUgcmVvcGVuZWQgYW5kIGEKcmVib290IGlzIHJlcXVpcmVkLgoKVGhlIHNhbWUgcHJvYmxlbSB0
+aGVyZWZvcmUgcmVwcm9kdWNlcyBhY3Jvc3M6Ci0gdHdvIHBoeXNpY2FsIHN5c3RlbXMKLSB0d28g
+QklPUyByZXZpc2lvbnMKLSB0d28gTklDIGZpcm13YXJlIHJldmlzaW9ucwotIGRpZmZlcmVudCBU
+WCBxdWV1ZXMKCndoaWxlIHJldmVydGluZyB0byA2LjEyLjEwNy0xIGhhcyBiZWVuIHN0YWJsZSB3
+aXRoIHRoZSBzYW1lIHdvcmtsb2FkLgoKSSd2ZSBhdHRhY2hlZCBzYW5pdGl6ZWQgZGlhZ25vc3Rp
+YyBvdXRwdXQgZnJvbSBib3RoIHJlcHJvZHVjdGlvbnMsCmluY2x1ZGluZyBQQ0kvZGV2aWNlIGlu
+Zm9ybWF0aW9uLCBmaXJtd2FyZSB2ZXJzaW9ucywgSU9NTVUKY29uZmlndXJhdGlvbiBhbmQgdGhl
+IGNvbXBsZXRlIGZhaWx1cmUgZXZlbnQgc2VxdWVuY2UuCgpXZSBoYXZlIG5vdCBiaXNlY3RlZCB0
+aGUgY2hhbmdlcyBiZXR3ZWVuIDYuMTIuMTA3IGFuZCA2LjEyLjExMSB5ZXQuCgpHaXZlbiB0aGF0
+IHRoZSBJT19QQUdFX0ZBVUxUIHByZWNlZGVzIHRoZSB3YXRjaGRvZyBpbiBvdXIgY2FzZSwgSQp3
+b25kZXIgd2hldGhlciB0aGlzIG1heSBwcm92aWRlIHNvbWUgaW5mb3JtYXRpb24gYWJvdXQgdGhl
+IGluaXRpYWwKZmFpbHVyZSwgaW4gYWRkaXRpb24gdG8gdGhlIFJJTkdfRlJFRSByZWNvdmVyeSBw
+cm9ibGVtIGFkZHJlc3NlZCBieQp5b3VyIFJGQy4KClBsZWFzZSBsZXQgbWUga25vdyBpZiB0aGVy
+ZSBhcmUgYWRkaXRpb25hbCBkaWFnbm9zdGljcyB0aGF0IHdvdWxkIGJlCnVzZWZ1bCwgb3IgaWYg
+eW91IHdvdWxkIGxpa2UgdXMgdG8gdGVzdCB0aGUgUkZDIHNlcmllcyBvbiBvbmUgb2YgdGhlc2UK
+c3lzdGVtcy4KClRoYW5rcywKUi4KCmh0dHBzOi8vcHJvdG9uLm1lL21haWwvaG9tZQ==
 
-The ABI spec doesn't mention it, but the firmware had this limit hard-coded.
-This can potentially change without notice to the ABI. However, I did want a
-sanity check in the OS and that's why had it in.
+--b2=_Jf6iIlN5q5nK6VJS8DdrEywpc4UedCza9jfxY5w64
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: base64
 
-I can drop it and let the firmware fail if the image is too large.
+PGh0bWw+PGhlYWQ+PC9oZWFkPjxib2R5Pjxicj5IaSBKb2UsPGRpdj48YnI+PC9kaXY+PGRpdj53
+ZSBhcHBlYXIgdG8gYmUgaGl0dGluZyBhIHZlcnkgc2ltaWxhciBpc3N1ZSB0byB0aGUgb25lIGRl
+c2NyaWJlZCBpbjwvZGl2PjxkaXY+dGhpcyBSRkMgb24gdHdvIEJyb2FkY29tIEJDTTU3NTA0IHN5
+c3RlbXMuPC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj5PbmUgZGV0YWlsIHRoYXQgbWF5IGJlIHBh
+cnRpY3VsYXJseSByZWxldmFudCBpcyB0aGUgb3JkZXJpbmcgaW4gb3VyPC9kaXY+PGRpdj5yZXBy
+b2R1Y3Rpb25zOiBvbiBib3RoIHN5c3RlbXMgdGhlIEFNRC1WaSBJT19QQUdFX0ZBVUxUIG9jY3Vy
+cyBiZWZvcmU8L2Rpdj48ZGl2PnRoZSBORVRERVYgV0FUQ0hET0cgLyBUWCB0aW1lb3V0LjwvZGl2
+PjxkaXY+PGJyPjwvZGl2PjxkaXY+V2Ugb3JpZ2luYWxseSBlbmNvdW50ZXJlZCB0aGUgcHJvYmxl
+bSBhZnRlciB1cGRhdGluZyBmcm9tIERlYmlhbjwvZGl2PjxkaXY+Ni4xMi4xMDctMSB0byA2LjEy
+LjExMS0xLjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+V2Ugc3Vic2VxdWVudGx5IHJlcHJvZHVj
+ZWQgaXQgZGVsaWJlcmF0ZWx5IG9uIHR3byBzZXBhcmF0ZSBzeXN0ZW1zLjwvZGl2PjxkaXY+PGJy
+PjwvZGl2PjxkaXY+VGVzdCByZXN1bHRzOjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+YWZmZWN0
+ZWQtaG9zdC0xOjwvZGl2PjxkaXY+QkNNNTc1MDQgWzE0ZTQ6MTc1MV0sIGJueHRfZW48L2Rpdj48
+ZGl2PkJJT1M6ICAgICAgICAxLjE2LjI8L2Rpdj48ZGl2Pk5JQyBGVzogICAgICAzNi4xMS41NS4w
+MDwvZGl2PjxkaXY+RlcgbWdtdDogICAgIDIzNi4xLjE1My4wPC9kaXY+PGRpdj48YnI+PC9kaXY+
+PGRpdj42LjEyLjEwNy0xOiBzdGFibGU8L2Rpdj48ZGl2PjYuMTIuMTExLTE6IGZhaWx1cmUgcmVw
+cm9kdWNlZDwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+YWZmZWN0ZWQtaG9zdC0yOjwvZGl2Pjxk
+aXY+QkNNNTc1MDQgWzE0ZTQ6MTc1MV0sIGJueHRfZW48L2Rpdj48ZGl2PkJJT1M6ICAgICAgICAx
+LjE4LjI8L2Rpdj48ZGl2Pk5JQyBGVzogICAgICAzNi4xMS43My4wMDwvZGl2PjxkaXY+RlcgbWdt
+dDogICAgIDIzNi4xLjE3My4wPC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj42LjEyLjEwNy0xOiBz
+dGFibGU8L2Rpdj48ZGl2PjYuMTIuMTExLTE6IGZhaWx1cmUgcmVwcm9kdWNlZDwvZGl2PjxkaXY+
+PGJyPjwvZGl2PjxkaXY+VGhlIGZhaWx1cmUgc2VxdWVuY2Ugb24gYWZmZWN0ZWQtaG9zdC0xIHdh
+czo8L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PjA2OjQ5OjAwIEFNRC1WaSBJT19QQUdFX0ZBVUxU
+PC9kaXY+PGRpdj4wNjo0OToxNCBORVRERVYgV0FUQ0hET0c6IHRyYW5zbWl0IHF1ZXVlIDAgdGlt
+ZWQgb3V0PC9kaXY+PGRpdj4wNjo0OToxNCBUWCB0aW1lb3V0IGRldGVjdGVkLCBzdGFydGluZyBy
+ZXNldCB0YXNrPC9kaXY+PGRpdj4wNjo0OToxOCBIV1JNL1JJTkdfRlJFRSBmYWlsdXJlcyBiZWdp
+bjwvZGl2PjxkaXY+MDY6NDk6MjUgSFdSTV9SSU5HX0FMTE9DIGZhaWxzPC9kaXY+PGRpdj4wNjo0
+OToyNSBibnh0X2luaXRfbmljIGZhaWxzPC9kaXY+PGRpdj4wNjo0OToyNSBuaWMgb3BlbiBmYWls
+czwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+T24gYWZmZWN0ZWQtaG9zdC0yOjwvZGl2PjxkaXY+
+PGJyPjwvZGl2PjxkaXY+MTU6Mjk6MDkgQU1ELVZpIElPX1BBR0VfRkFVTFQ8L2Rpdj48ZGl2PjE1
+OjI5OjE1IE5FVERFViBXQVRDSERPRzogdHJhbnNtaXQgcXVldWUgNCB0aW1lZCBvdXQ8L2Rpdj48
+ZGl2PjE1OjI5OjE1IFRYIHRpbWVvdXQgZGV0ZWN0ZWQsIHN0YXJ0aW5nIHJlc2V0IHRhc2s8L2Rp
+dj48ZGl2PjE1OjI5OjE5IEhXUk0vUklOR19GUkVFIGZhaWx1cmVzIGJlZ2luPC9kaXY+PGRpdj4x
+NToyOTozNyBIV1JNX1JJTkdfQUxMT0MgZmFpbHM8L2Rpdj48ZGl2PjE1OjI5OjM3IGJueHRfaW5p
+dF9uaWMgZmFpbHM8L2Rpdj48ZGl2PjE1OjI5OjM3IG5pYyBvcGVuIGZhaWxzPC9kaXY+PGRpdj48
+YnI+PC9kaXY+PGRpdj5TbyBpbiBvdXIgcmVwcm9kdWN0aW9ucyB0aGUgSU9NTVUgZmF1bHQgcHJl
+Y2VkZXMgdGhlIFRYIHdhdGNoZG9nIGJ5PC9kaXY+PGRpdj5hcHByb3hpbWF0ZWx5IDYtMTQgc2Vj
+b25kcy48L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PldlIGhhdmUgYWxzbyBvYnNlcnZlZCB0aGUg
+dGltZW91dCBvbiBkaWZmZXJlbnQgVFggcXVldWVzIGFjcm9zczwvZGl2PjxkaXY+ZGlmZmVyZW50
+IG9jY3VycmVuY2VzLCBzbyBpdCBkb2VzIG5vdCBhcHBlYXIgdG8gYmUgdGllZCB0byBhIHNwZWNp
+ZmljPC9kaXY+PGRpdj5xdWV1ZS48L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PkJvdGggaW50ZXJm
+YWNlcyB3ZXJlIHVwIGFuZCBvcGVyYXRpbmcgYXQgMjUgR2JpdC9zIGJlZm9yZSB0aGUgZmFpbHVy
+ZS48L2Rpdj48ZGl2PlRoZSBzeXN0ZW1zIHVzZSB0aGUgSU9NTVUgaW4gdHJhbnNsYXRlZCBtb2Rl
+LjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+QWZ0ZXIgdGhlIHJlc2V0IGF0dGVtcHQgZmFpbHMs
+IHRoZSBpbnRlcmZhY2UgY2Fubm90IGJlIHJlb3BlbmVkIGFuZCBhPC9kaXY+PGRpdj5yZWJvb3Qg
+aXMgcmVxdWlyZWQuPC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj5UaGUgc2FtZSBwcm9ibGVtIHRo
+ZXJlZm9yZSByZXByb2R1Y2VzIGFjcm9zczo8L2Rpdj48ZGl2Pi0gdHdvIHBoeXNpY2FsIHN5c3Rl
+bXM8L2Rpdj48ZGl2Pi0gdHdvIEJJT1MgcmV2aXNpb25zPC9kaXY+PGRpdj4tIHR3byBOSUMgZmly
+bXdhcmUgcmV2aXNpb25zPC9kaXY+PGRpdj4tIGRpZmZlcmVudCBUWCBxdWV1ZXM8L2Rpdj48ZGl2
+Pjxicj48L2Rpdj48ZGl2PndoaWxlIHJldmVydGluZyB0byA2LjEyLjEwNy0xIGhhcyBiZWVuIHN0
+YWJsZSB3aXRoIHRoZSBzYW1lIHdvcmtsb2FkLjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+SSd2
+ZSBhdHRhY2hlZCBzYW5pdGl6ZWQgZGlhZ25vc3RpYyBvdXRwdXQgZnJvbSBib3RoIHJlcHJvZHVj
+dGlvbnMsPC9kaXY+PGRpdj5pbmNsdWRpbmcgUENJL2RldmljZSBpbmZvcm1hdGlvbiwgZmlybXdh
+cmUgdmVyc2lvbnMsIElPTU1VPC9kaXY+PGRpdj5jb25maWd1cmF0aW9uIGFuZCB0aGUgY29tcGxl
+dGUgZmFpbHVyZSBldmVudCBzZXF1ZW5jZS48L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PldlIGhh
+dmUgbm90IGJpc2VjdGVkIHRoZSBjaGFuZ2VzIGJldHdlZW4gNi4xMi4xMDcgYW5kIDYuMTIuMTEx
+IHlldC48L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PkdpdmVuIHRoYXQgdGhlIElPX1BBR0VfRkFV
+TFQgcHJlY2VkZXMgdGhlIHdhdGNoZG9nIGluIG91ciBjYXNlLCBJPC9kaXY+PGRpdj53b25kZXIg
+d2hldGhlciB0aGlzIG1heSBwcm92aWRlIHNvbWUgaW5mb3JtYXRpb24gYWJvdXQgdGhlIGluaXRp
+YWw8L2Rpdj48ZGl2PmZhaWx1cmUsIGluIGFkZGl0aW9uIHRvIHRoZSBSSU5HX0ZSRUUgcmVjb3Zl
+cnkgcHJvYmxlbSBhZGRyZXNzZWQgYnk8L2Rpdj48ZGl2PnlvdXIgUkZDLjwvZGl2PjxkaXY+PGJy
+PjwvZGl2PjxkaXY+UGxlYXNlIGxldCBtZSBrbm93IGlmIHRoZXJlIGFyZSBhZGRpdGlvbmFsIGRp
+YWdub3N0aWNzIHRoYXQgd291bGQgYmU8L2Rpdj48ZGl2PnVzZWZ1bCwgb3IgaWYgeW91IHdvdWxk
+IGxpa2UgdXMgdG8gdGVzdCB0aGUgUkZDIHNlcmllcyBvbiBvbmUgb2YgdGhlc2U8L2Rpdj48ZGl2
+PnN5c3RlbXMuPC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj5UaGFua3MsPC9kaXY+PGRpdj5SLjwv
+ZGl2Pjxicj48ZGl2IGNsYXNzPSJwcm90b25tYWlsX3NpZ25hdHVyZV9ibG9jay11c2VyIj48L2Rp
+dj48YnI+PGJyPjxicj48YSB0YXJnZXQ9Il9ibGFuayIgaHJlZj0iaHR0cHM6Ly9wcm90b24ubWUv
+bWFpbC9ob21lIiByZWw9Im5vcmVmZXJyZXIiPjwvYT48L2JvZHk+PC9odG1sPg==
 
->> +#define SEV_FW_IMAGE_MAX_SIZE	SZ_512K
->> +
->>  static enum fw_upload_err sev_fw_upload_prepare(struct fw_upload *fw_upload,
->>  						const u8 *data, u32 size)
->>  {
->> +	struct sev_device *sev = fw_upload->dd_handle;
->> +
->> +	if (size > SEV_FW_IMAGE_MAX_SIZE) {
->> +		dev_err(sev->dev, "DLFW_EX: image of %u bytes exceeds the %u byte maximum\n",
->> +			size, SEV_FW_IMAGE_MAX_SIZE);
->> +		return FW_UPLOAD_ERR_INVALID_SIZE;
->> +	}
->> +
->>  	return FW_UPLOAD_ERR_NONE;
->>  }
->>  
->> +static int sev_download_firmware_ex(const u8 *data, u32 size, int *psp_ret)
->> +{
->> +	struct sev_data_download_firmware_ex sev_data = {0};
->> +	int ret, order;
->> +	struct page *p;
->> +	void *fw_blob;
->> +
->> +	order = get_order(size);
->> +	p = alloc_pages(GFP_KERNEL | __GFP_ZERO, order);
->> +	if (!p)
->> +		return -ENOMEM;
->> +
->> +	fw_blob = page_address(p);
->> +	memcpy(fw_blob, data, size);
->> +
->> +	sev_data.len = sizeof(sev_data);
->> +	sev_data.fw_paddr = __psp_pa(fw_blob);
->> +	sev_data.fw_len = size;
->> +	/*
->> +	 * Don't commit to the new firmware immediately, perform an explicit
->> +	 * SNP_COMMIT after
-> 
-> Don't commit the new firmware, an explict SNP_COMMIT is required after
-> update.
 
-Ack.
+--b2=_Jf6iIlN5q5nK6VJS8DdrEywpc4UedCza9jfxY5w64--
 
-> 
->> +	 */
->> +	sev_data.commit = 0;
->> +
->> +	ret = __sev_do_cmd_locked(SEV_CMD_SNP_DOWNLOAD_FIRMWARE_EX, &sev_data,
->> +				  psp_ret);
->> +
->> +	__free_pages(p, order);
->> +
->> +	return ret;
->> +}
->> +
->> +static enum fw_upload_err sev_fw_upload_handle_err(struct sev_device *sev,
->> +						   int rc, int psp_ret)
-> 
-> Name rc something more specific, like cmd_ret, to better distinguish
-> what you're checking.
+--b1=_Jf6iIlN5q5nK6VJS8DdrEywpc4UedCza9jfxY5w64
+Content-Type: text/plain; name=affected-host-1-bnxt.txt
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename=affected-host-1-bnxt.txt
 
-Sure.
+PT09IFNZU1RFTSA9PT0KaG9zdG5hbWU6IGFmZmVjdGVkLWhvc3QtMQpiaW9zX3ZlcnNpb246IDEu
+MTYuMgpiaW9zX2RhdGU6IDAxLzE2LzIwMjYKZXRoMV9wY2lfZGV2aWNlOiAwMDAwOmM0OjAwLjIK
+Cj09PSBOSUMgLyBEUklWRVIgPT09CmM0OjAwLjIgRXRoZXJuZXQgY29udHJvbGxlciBbMDIwMF06
+IEJyb2FkY29tIEluYy4gYW5kIHN1YnNpZGlhcmllcyBCQ001NzUwNCBOZXRYdHJlbWUtRSAxMEdi
+LzI1R2IvNDBHYi81MEdiLzEwMEdiIEV0aGVybmV0IFsxNGU0OjE3NTFdIChyZXYgMTIpCglEZXZp
+Y2VOYW1lOiBJbnRlZ3JhdGVkIE5JQyAxIFBvcnQgMy0xCglTdWJzeXN0ZW06IEJyb2FkY29tIElu
+Yy4gYW5kIHN1YnNpZGlhcmllcyBOZXRYdHJlbWUtRSBCQ001NzUwNCA0eDI1RyBPQ1AzLjAgWzE0
+ZTQ6NTA0NV0KCUtlcm5lbCBkcml2ZXIgaW4gdXNlOiBibnh0X2VuCglLZXJuZWwgbW9kdWxlczog
+Ym54dF9lbgoKPT09IERFVkxJTksgPT09CnBjaS8wMDAwOmM0OjAwLjI6CiAgZHJpdmVyIGJueHRf
+ZW4KICBzZXJpYWxfbnVtYmVyIDxyZWRhY3RlZD4KICB2ZXJzaW9uczoKICAgICAgZml4ZWQ6CiAg
+ICAgICAgYm9hcmQuaWQgQkNNOTU3NTA0CiAgICAgICAgYXNpYy5pZCAxNzUxCiAgICAgICAgYXNp
+Yy5yZXYgQjIKICAgICAgcnVubmluZzoKICAgICAgICBmdy5wc2lkIDIzMi4wLjIKICAgICAgICBm
+dyAzNi4xMS41NS4wMAogICAgICAgIGZ3Lm1nbXQgMjM2LjEuMTUzLjAKICAgICAgICBmdy5tZ210
+LmFwaSAxLjEwLjMKICAgICAgc3RvcmVkOgogICAgICAgIGZ3LnBzaWQgMjMyLjAuMgogICAgICAg
+IGZ3IDM2LjExLjU1LjAwCiAgICAgICAgZncubWdtdCAyMzYuMS4xNTMuMAoKPT09IENBUFRVUkUg
+QkFTRUxJTkUgPT09CjIwMjYtMTAtMDZUMDY6Mjg6MjYrMDA6MDAKYWZmZWN0ZWQtaG9zdC0xCjYu
+MTIuMTExK2RlYjEzLWFtZDY0CjEuMTYuMgowMS8xNi8yMDI2CmV0aDEgICAgICAgICAgICAgVVAg
+ICAgICAgICAgICAgWFg6WFg6WFg6WFg6WFg6WFggPEJST0FEQ0FTVCxNVUxUSUNBU1QsVVAsTE9X
+RVJfVVA+IAoKPT09IFJFTEVWQU5UIEJPT1QgLyBIQVJEV0FSRSA9PT0KMjAyNi0xMC0wNlQwNjoy
+ODoyNSswMDowMCBhZmZlY3RlZC1ob3N0LTEga2VybmVsOiBMaW51eCB2ZXJzaW9uIDYuMTIuMTEx
+K2RlYjEzLWFtZDY0IChkZWJpYW4ta2VybmVsQGxpc3RzLmRlYmlhbi5vcmcpICh4ODZfNjQtbGlu
+dXgtZ251LWdjYy0xNCAoRGViaWFuIDE0LjIuMC0xOSkgMTQuMi4wLCBHTlUgbGQgKEdOVSBCaW51
+dGlscyBmb3IgRGViaWFuKSAyLjQ0KSAjMSBTTVAgUFJFRU1QVF9EWU5BTUlDIERlYmlhbiA2LjEy
+LjExMS0xICgyMDI2LTA5LTI4KQoyMDI2LTEwLTA2VDA2OjI4OjI1KzAwOjAwIGFmZmVjdGVkLWhv
+c3QtMSBrZXJuZWw6IERNSTogRGVsbCBJbmMuIFBvd2VyRWRnZSBSNzYxNSwgQklPUyAxLjE2LjIg
+MDEvMTYvMjAyNgoyMDI2LTEwLTA2VDA2OjI4OjI1KzAwOjAwIGFmZmVjdGVkLWhvc3QtMSBrZXJu
+ZWw6IHBjaSAwMDAwOmM0OjAwLjI6IFsxNGU0OjE3NTFdIHR5cGUgMDAgY2xhc3MgMHgwMjAwMDAg
+UENJZSBFbmRwb2ludAoyMDI2LTEwLTA2VDA2OjI4OjI1KzAwOjAwIGFmZmVjdGVkLWhvc3QtMSBr
+ZXJuZWw6IGlvbW11OiBEZWZhdWx0IGRvbWFpbiB0eXBlOiBUcmFuc2xhdGVkCjIwMjYtMTAtMDZU
+MDY6Mjg6MjUrMDA6MDAgYWZmZWN0ZWQtaG9zdC0xIGtlcm5lbDogaW9tbXU6IERNQSBkb21haW4g
+VExCIGludmFsaWRhdGlvbiBwb2xpY3k6IGxhenkgbW9kZQoyMDI2LTEwLTA2VDA2OjI4OjI1KzAw
+OjAwIGFmZmVjdGVkLWhvc3QtMSBrZXJuZWw6IHBjaSAwMDAwOmM0OjAwLjI6IEFkZGluZyB0byBp
+b21tdSBncm91cCAxNAoyMDI2LTEwLTA2VDA2OjI4OjI1KzAwOjAwIGFmZmVjdGVkLWhvc3QtMSBr
+ZXJuZWw6IGJueHRfZW4gMDAwMDpjNDowMC4yIGV0aDQ6IEJyb2FkY29tIEJDTTU3NTA0IE5ldFh0
+cmVtZS1FIDEwR2IvMjVHYi81MEdiLzEwMEdiLzIwMEdiIEV0aGVybmV0IGZvdW5kIGF0IG1lbSBj
+YjAxMDAwMCwgbm9kZSBhZGRyIFhYOlhYOlhYOlhYOlhYOlhYCjIwMjYtMTAtMDZUMDY6Mjg6MjYr
+MDA6MDAgYWZmZWN0ZWQtaG9zdC0xIGtlcm5lbDogYm54dF9lbiAwMDAwOmM0OjAwLjIgZXRoMTog
+TklDIExpbmsgaXMgVXAsIDI1MDAwIE1icHMgKE5SWikgZnVsbCBkdXBsZXgsIEZsb3cgY29udHJv
+bDogT04gLSByZWNlaXZlICYgdHJhbnNtaXQKMjAyNi0xMC0wNlQwNjoyODoyNiswMDowMCBhZmZl
+Y3RlZC1ob3N0LTEga2VybmVsOiBibnh0X2VuIDAwMDA6YzQ6MDAuMiBldGgxOiBGRUMgYXV0b25l
+ZyBvZmYgZW5jb2Rpbmc6IENsYXVzZSA3NCBCYXNlUgoKPT09IEZBSUxVUkUgRVZFTlRTID09PQoy
+MDI2LTEwLTA2VDA2OjQ5OjAwKzAwOjAwIGFmZmVjdGVkLWhvc3QtMSBrZXJuZWw6IGJueHRfZW4g
+MDAwMDpjNDowMC4yOiBBTUQtVmk6IEV2ZW50IGxvZ2dlZCBbSU9fUEFHRV9GQVVMVCBkb21haW49
+MHgwMDBmIGFkZHJlc3M9MHhmYjM4NzAwMCBmbGFncz0weDAwMDBdCjIwMjYtMTAtMDZUMDY6NDk6
+MTQrMDA6MDAgYWZmZWN0ZWQtaG9zdC0xIGtlcm5lbDogYm54dF9lbiAwMDAwOmM0OjAwLjIgZXRo
+MTogTkVUREVWIFdBVENIRE9HOiBDUFU6IDI6IHRyYW5zbWl0IHF1ZXVlIDAgdGltZWQgb3V0IDUz
+MTIgbXMKMjAyNi0xMC0wNlQwNjo0OToxNCswMDowMCBhZmZlY3RlZC1ob3N0LTEga2VybmVsOiBi
+bnh0X2VuIDAwMDA6YzQ6MDAuMiBldGgxOiBUWCB0aW1lb3V0IGRldGVjdGVkLCBzdGFydGluZyBy
+ZXNldCB0YXNrIQoyMDI2LTEwLTA2VDA2OjQ5OjE4KzAwOjAwIGFmZmVjdGVkLWhvc3QtMSBrZXJu
+ZWw6IGJueHRfZW4gMDAwMDpjNDowMC4yIGV0aDE6IFJlc3AgY21wbCBpbnRyIGVyciBtc2c6IDB4
+NTEKMjAyNi0xMC0wNlQwNjo0OToxOCswMDowMCBhZmZlY3RlZC1ob3N0LTEga2VybmVsOiBibnh0
+X2VuIDAwMDA6YzQ6MDAuMiBldGgxOiBod3JtX3JpbmdfZnJlZSB0eXBlIDEgZmFpbGVkLiByYzpm
+ZmZmZmZmMCBlcnI6MgoyMDI2LTEwLTA2VDA2OjQ5OjIxKzAwOjAwIGFmZmVjdGVkLWhvc3QtMSBr
+ZXJuZWw6IGJueHRfZW4gMDAwMDpjNDowMC4yIGV0aDE6IFJlc3AgY21wbCBpbnRyIGVyciBtc2c6
+IDB4NTEKMjAyNi0xMC0wNlQwNjo0OToyMSswMDowMCBhZmZlY3RlZC1ob3N0LTEga2VybmVsOiBi
+bnh0X2VuIDAwMDA6YzQ6MDAuMiBldGgxOiBod3JtX3JpbmdfZnJlZSB0eXBlIDIgZmFpbGVkLiBy
+YzpmZmZmZmZmMCBlcnI6MAoyMDI2LTEwLTA2VDA2OjQ5OjI1KzAwOjAwIGFmZmVjdGVkLWhvc3Qt
+MSBrZXJuZWw6IGJueHRfZW4gMDAwMDpjNDowMC4yIGV0aDE6IFJlc3AgY21wbCBpbnRyIGVyciBt
+c2c6IDB4NTEKMjAyNi0xMC0wNlQwNjo0OToyNSswMDowMCBhZmZlY3RlZC1ob3N0LTEga2VybmVs
+OiBibnh0X2VuIDAwMDA6YzQ6MDAuMiBldGgxOiBod3JtX3JpbmdfZnJlZSB0eXBlIDQgZmFpbGVk
+LiByYzpmZmZmZmZmMCBlcnI6MAoyMDI2LTEwLTA2VDA2OjQ5OjI1KzAwOjAwIGFmZmVjdGVkLWhv
+c3QtMSBrZXJuZWw6IGJueHRfZW4gMDAwMDpjNDowMC4yIGV0aDE6IGh3cm1fcmluZ19mcmVlIHR5
+cGUgMCBmYWlsZWQuIHJjOmZmZmZmZmZiIGVycjoxCjIwMjYtMTAtMDZUMDY6NDk6MjUrMDA6MDAg
+YWZmZWN0ZWQtaG9zdC0xIGtlcm5lbDogYm54dF9lbiAwMDAwOmM0OjAwLjIgZXRoMTogaHdybV9y
+aW5nX2ZyZWUgdHlwZSAwIGZhaWxlZC4gcmM6ZmZmZmZmZmIgZXJyOjEKMjAyNi0xMC0wNlQwNjo0
+OToyNSswMDowMCBhZmZlY3RlZC1ob3N0LTEga2VybmVsOiBibnh0X2VuIDAwMDA6YzQ6MDAuMiBl
+dGgxOiBod3JtX3JpbmdfYWxsb2MgdHlwZSAxIGZhaWxlZC4gcmM6ZmZmZmZmZTQgZXJyOjQKMjAy
+Ni0xMC0wNlQwNjo0OToyNSswMDowMCBhZmZlY3RlZC1ob3N0LTEga2VybmVsOiBibnh0X2VuIDAw
+MDA6YzQ6MDAuMiBldGgxOiBibnh0X2luaXRfbmljIGVycjogZmZmZmZmZmIKMjAyNi0xMC0wNlQw
+Njo0OToyNSswMDowMCBhZmZlY3RlZC1ob3N0LTEga2VybmVsOiBibnh0X2VuIDAwMDA6YzQ6MDAu
+MiBldGgxOiBuaWMgb3BlbiBmYWlsIChyYzogZmZmZmZmZmIpCg==
 
-> 
->> +{
->> +	enum fw_upload_err ret = FW_UPLOAD_ERR_FW_INVALID;
->> +	const char *msg;
->> +
->> +	if (!rc)
->> +		return FW_UPLOAD_ERR_NONE;
->> +
->> +	/*
->> +	 * The command timed out: psp_ret was cleared and the PSP was declared
->> +	 * dead, so there is no firmware status to decode.
->> +	 */
-> 
-> Move this comment into the if block as it is explaining what happened if
-> psp_dead is set and simplify it:
-> 
-> "The SEV command timed out and marked the ASP dead, there is no status
-> to decode."
+--b1=_Jf6iIlN5q5nK6VJS8DdrEywpc4UedCza9jfxY5w64
+Content-Type: text/plain; name=affected-host-2-bnxt.txt
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename=affected-host-2-bnxt.txt
 
-Ack, will do.
+PT09IFNZU1RFTSA9PT0KaG9zdG5hbWU6IGFmZmVjdGVkLWhvc3QtMgpiaW9zX3ZlcnNpb246IDEu
+MTguMgpiaW9zX2RhdGU6IDA3LzIyLzIwMjYKZXRoMV9wY2lfZGV2aWNlOiAwMDAwOmM0OjAwLjMK
+Cj09PSBOSUMgLyBEUklWRVIgPT09CmM0OjAwLjMgRXRoZXJuZXQgY29udHJvbGxlciBbMDIwMF06
+IEJyb2FkY29tIEluYy4gYW5kIHN1YnNpZGlhcmllcyBCQ001NzUwNCBOZXRYdHJlbWUtRSAxMEdi
+LzI1R2IvNDBHYi81MEdiLzEwMEdiIEV0aGVybmV0IFsxNGU0OjE3NTFdIChyZXYgMTIpCglEZXZp
+Y2VOYW1lOiBJbnRlZ3JhdGVkIE5JQyAxIFBvcnQgNC0xCglTdWJzeXN0ZW06IEJyb2FkY29tIElu
+Yy4gYW5kIHN1YnNpZGlhcmllcyBOZXRYdHJlbWUtRSBCQ001NzUwNCA0eDI1RyBPQ1AzLjAgWzE0
+ZTQ6NTA0NV0KCUtlcm5lbCBkcml2ZXIgaW4gdXNlOiBibnh0X2VuCglLZXJuZWwgbW9kdWxlczog
+Ym54dF9lbgoKPT09IERFVkxJTksgPT09CnBjaS8wMDAwOmM0OjAwLjM6CiAgZHJpdmVyIGJueHRf
+ZW4KICBzZXJpYWxfbnVtYmVyIDxyZWRhY3RlZD4KICB2ZXJzaW9uczoKICAgICAgZml4ZWQ6CiAg
+ICAgICAgYm9hcmQuaWQgQkNNOTU3NTA0CiAgICAgICAgYXNpYy5pZCAxNzUxCiAgICAgICAgYXNp
+Yy5yZXYgQjIKICAgICAgcnVubmluZzoKICAgICAgICBmdy5wc2lkIDIzMi4wLjIKICAgICAgICBm
+dyAzNi4xMS43My4wMAogICAgICAgIGZ3Lm1nbXQgMjM2LjEuMTczLjAKICAgICAgICBmdy5tZ210
+LmFwaSAxLjEwLjMKICAgICAgc3RvcmVkOgogICAgICAgIGZ3LnBzaWQgMjMyLjAuMgogICAgICAg
+IGZ3IDM2LjExLjczLjAwCiAgICAgICAgZncubWdtdCAyMzYuMS4xNzMuMAoKPT09IENBUFRVUkUg
+QkFTRUxJTkUgPT09CjIwMjYtMTAtMDZUMTU6Mjk6MDkrMDA6MDAKYWZmZWN0ZWQtaG9zdC0yCjYu
+MTIuMTExK2RlYjEzLWFtZDY0CjEuMTguMgowNy8yMi8yMDI2CmV0aDEgICAgICAgICAgICAgVVAg
+ICAgICAgICAgICAgWFg6WFg6WFg6WFg6WFg6WFggPEJST0FEQ0FTVCxNVUxUSUNBU1QsVVAsTE9X
+RVJfVVA+IAoKPT09IFJFTEVWQU5UIEJPT1QgLyBIQVJEV0FSRSA9PT0KMjAyNi0xMC0wNlQxNToy
+OTowNyswMDowMCBhZmZlY3RlZC1ob3N0LTIga2VybmVsOiBMaW51eCB2ZXJzaW9uIDYuMTIuMTEx
+K2RlYjEzLWFtZDY0IChkZWJpYW4ta2VybmVsQGxpc3RzLmRlYmlhbi5vcmcpICh4ODZfNjQtbGlu
+dXgtZ251LWdjYy0xNCAoRGViaWFuIDE0LjIuMC0xOSkgMTQuMi4wLCBHTlUgbGQgKEdOVSBCaW51
+dGlscyBmb3IgRGViaWFuKSAyLjQ0KSAjMSBTTVAgUFJFRU1QVF9EWU5BTUlDIERlYmlhbiA2LjEy
+LjExMS0xICgyMDI2LTA5LTI4KQoyMDI2LTEwLTA2VDE1OjI5OjA3KzAwOjAwIGFmZmVjdGVkLWhv
+c3QtMiBrZXJuZWw6IERNSTogRGVsbCBJbmMuIFBvd2VyRWRnZSBSNzYxNSwgQklPUyAxLjE4LjIg
+MDcvMjIvMjAyNgoyMDI2LTEwLTA2VDE1OjI5OjA3KzAwOjAwIGFmZmVjdGVkLWhvc3QtMiBrZXJu
+ZWw6IHBjaSAwMDAwOmM0OjAwLjM6IFsxNGU0OjE3NTFdIHR5cGUgMDAgY2xhc3MgMHgwMjAwMDAg
+UENJZSBFbmRwb2ludAoyMDI2LTEwLTA2VDE1OjI5OjA3KzAwOjAwIGFmZmVjdGVkLWhvc3QtMiBr
+ZXJuZWw6IGlvbW11OiBEZWZhdWx0IGRvbWFpbiB0eXBlOiBUcmFuc2xhdGVkCjIwMjYtMTAtMDZU
+MTU6Mjk6MDcrMDA6MDAgYWZmZWN0ZWQtaG9zdC0yIGtlcm5lbDogaW9tbXU6IERNQSBkb21haW4g
+VExCIGludmFsaWRhdGlvbiBwb2xpY3k6IGxhenkgbW9kZQoyMDI2LTEwLTA2VDE1OjI5OjA3KzAw
+OjAwIGFmZmVjdGVkLWhvc3QtMiBrZXJuZWw6IHBjaSAwMDAwOmM0OjAwLjM6IEFkZGluZyB0byBp
+b21tdSBncm91cCAxNQoyMDI2LTEwLTA2VDE1OjI5OjA3KzAwOjAwIGFmZmVjdGVkLWhvc3QtMiBr
+ZXJuZWw6IGJueHRfZW4gMDAwMDpjNDowMC4zIGV0aDU6IEJyb2FkY29tIEJDTTU3NTA0IE5ldFh0
+cmVtZS1FIDEwR2IvMjVHYi81MEdiLzEwMEdiLzIwMEdiIEV0aGVybmV0IGZvdW5kIGF0IG1lbSBj
+YjAwMDAwMCwgbm9kZSBhZGRyIFhYOlhYOlhYOlhYOlhYOlhYCjIwMjYtMTAtMDZUMTU6Mjk6MDkr
+MDA6MDAgYWZmZWN0ZWQtaG9zdC0yIGtlcm5lbDogYm54dF9lbiAwMDAwOmM0OjAwLjMgZXRoMTog
+TklDIExpbmsgaXMgVXAsIDI1MDAwIE1icHMgKE5SWikgZnVsbCBkdXBsZXgsIEZsb3cgY29udHJv
+bDogT04gLSByZWNlaXZlICYgdHJhbnNtaXQKMjAyNi0xMC0wNlQxNToyOTowOSswMDowMCBhZmZl
+Y3RlZC1ob3N0LTIga2VybmVsOiBibnh0X2VuIDAwMDA6YzQ6MDAuMyBldGgxOiBGRUMgYXV0b25l
+ZyBvZmYgZW5jb2Rpbmc6IENsYXVzZSA3NCBCYXNlUgoKPT09IEZBSUxVUkUgRVZFTlRTID09PQoy
+MDI2LTEwLTA2VDE1OjI5OjA5KzAwOjAwIGFmZmVjdGVkLWhvc3QtMiBrZXJuZWw6IGJueHRfZW4g
+MDAwMDpjNDowMC4zOiBBTUQtVmk6IEV2ZW50IGxvZ2dlZCBbSU9fUEFHRV9GQVVMVCBkb21haW49
+MHgwMDEwIGFkZHJlc3M9MHhmYjUyNjAwMCBmbGFncz0weDAwMDBdCjIwMjYtMTAtMDZUMTU6Mjk6
+MTUrMDA6MDAgYWZmZWN0ZWQtaG9zdC0yIGtlcm5lbDogYm54dF9lbiAwMDAwOmM0OjAwLjMgZXRo
+MTogTkVUREVWIFdBVENIRE9HOiBDUFU6IDIzOiB0cmFuc21pdCBxdWV1ZSA0IHRpbWVkIG91dCA1
+NjI4IG1zCjIwMjYtMTAtMDZUMTU6Mjk6MTUrMDA6MDAgYWZmZWN0ZWQtaG9zdC0yIGtlcm5lbDog
+Ym54dF9lbiAwMDAwOmM0OjAwLjMgZXRoMTogVFggdGltZW91dCBkZXRlY3RlZCwgc3RhcnRpbmcg
+cmVzZXQgdGFzayEKMjAyNi0xMC0wNlQxNToyOToxOSswMDowMCBhZmZlY3RlZC1ob3N0LTIga2Vy
+bmVsOiBibnh0X2VuIDAwMDA6YzQ6MDAuMyBldGgxOiBSZXNwIGNtcGwgaW50ciBlcnIgbXNnOiAw
+eDUxCjIwMjYtMTAtMDZUMTU6Mjk6MTkrMDA6MDAgYWZmZWN0ZWQtaG9zdC0yIGtlcm5lbDogYm54
+dF9lbiAwMDAwOmM0OjAwLjMgZXRoMTogaHdybV9yaW5nX2ZyZWUgdHlwZSAxIGZhaWxlZC4gcmM6
+ZmZmZmZmZjAgZXJyOjAKMjAyNi0xMC0wNlQxNToyOToxOSswMDowMCBhZmZlY3RlZC1ob3N0LTIg
+a2VybmVsOiBibnh0X2VuIDAwMDA6YzQ6MDAuMyBldGgxOiBod3JtX3JpbmdfZnJlZSB0eXBlIDEg
+ZmFpbGVkLiByYzpmZmZmZmZlYSBlcnI6MgoyMDI2LTEwLTA2VDE1OjI5OjE5KzAwOjAwIGFmZmVj
+dGVkLWhvc3QtMiBrZXJuZWw6IGJueHRfZW4gMDAwMDpjNDowMC4zIGV0aDE6IGh3cm1fcmluZ19m
+cmVlIHR5cGUgMSBmYWlsZWQuIHJjOmZmZmZmZmVhIGVycjoyCjIwMjYtMTAtMDZUMTU6Mjk6MjIr
+MDA6MDAgYWZmZWN0ZWQtaG9zdC0yIGtlcm5lbDogYm54dF9lbiAwMDAwOmM0OjAwLjMgZXRoMTog
+UmVzcCBjbXBsIGludHIgZXJyIG1zZzogMHg1MQoyMDI2LTEwLTA2VDE1OjI5OjIyKzAwOjAwIGFm
+ZmVjdGVkLWhvc3QtMiBrZXJuZWw6IGJueHRfZW4gMDAwMDpjNDowMC4zIGV0aDE6IGh3cm1fcmlu
+Z19mcmVlIHR5cGUgMSBmYWlsZWQuIHJjOmZmZmZmZmYwIGVycjoyCjIwMjYtMTAtMDZUMTU6Mjk6
+MjIrMDA6MDAgYWZmZWN0ZWQtaG9zdC0yIGtlcm5lbDogYm54dF9lbiAwMDAwOmM0OjAwLjMgZXRo
+MTogaHdybV9yaW5nX2ZyZWUgdHlwZSAxIGZhaWxlZC4gcmM6ZmZmZmZmZWEgZXJyOjIKMjAyNi0x
+MC0wNlQxNToyOToyNiswMDowMCBhZmZlY3RlZC1ob3N0LTIga2VybmVsOiBibnh0X2VuIDAwMDA6
+YzQ6MDAuMyBldGgxOiBSZXNwIGNtcGwgaW50ciBlcnIgbXNnOiAweDUxCjIwMjYtMTAtMDZUMTU6
+Mjk6MjYrMDA6MDAgYWZmZWN0ZWQtaG9zdC0yIGtlcm5lbDogYm54dF9lbiAwMDAwOmM0OjAwLjMg
+ZXRoMTogaHdybV9yaW5nX2ZyZWUgdHlwZSAyIGZhaWxlZC4gcmM6ZmZmZmZmZjAgZXJyOjAKMjAy
+Ni0xMC0wNlQxNToyOTozMCswMDowMCBhZmZlY3RlZC1ob3N0LTIga2VybmVsOiBibnh0X2VuIDAw
+MDA6YzQ6MDAuMyBldGgxOiBSZXNwIGNtcGwgaW50ciBlcnIgbXNnOiAweDUxCjIwMjYtMTAtMDZU
+MTU6Mjk6MzArMDA6MDAgYWZmZWN0ZWQtaG9zdC0yIGtlcm5lbDogYm54dF9lbiAwMDAwOmM0OjAw
+LjMgZXRoMTogaHdybV9yaW5nX2ZyZWUgdHlwZSA0IGZhaWxlZC4gcmM6ZmZmZmZmZjAgZXJyOjAK
+MjAyNi0xMC0wNlQxNToyOTozMyswMDowMCBhZmZlY3RlZC1ob3N0LTIga2VybmVsOiBibnh0X2Vu
+IDAwMDA6YzQ6MDAuMyBldGgxOiBSZXNwIGNtcGwgaW50ciBlcnIgbXNnOiAweDUxCjIwMjYtMTAt
+MDZUMTU6Mjk6MzMrMDA6MDAgYWZmZWN0ZWQtaG9zdC0yIGtlcm5lbDogYm54dF9lbiAwMDAwOmM0
+OjAwLjMgZXRoMTogaHdybV9yaW5nX2ZyZWUgdHlwZSAyIGZhaWxlZC4gcmM6ZmZmZmZmZjAgZXJy
+OjAKMjAyNi0xMC0wNlQxNToyOTozNyswMDowMCBhZmZlY3RlZC1ob3N0LTIga2VybmVsOiBibnh0
+X2VuIDAwMDA6YzQ6MDAuMyBldGgxOiBSZXNwIGNtcGwgaW50ciBlcnIgbXNnOiAweDUxCjIwMjYt
+MTAtMDZUMTU6Mjk6MzcrMDA6MDAgYWZmZWN0ZWQtaG9zdC0yIGtlcm5lbDogYm54dF9lbiAwMDAw
+OmM0OjAwLjMgZXRoMTogaHdybV9yaW5nX2ZyZWUgdHlwZSA0IGZhaWxlZC4gcmM6ZmZmZmZmZjAg
+ZXJyOjAKMjAyNi0xMC0wNlQxNToyOTozNyswMDowMCBhZmZlY3RlZC1ob3N0LTIga2VybmVsOiBi
+bnh0X2VuIDAwMDA6YzQ6MDAuMyBldGgxOiBod3JtX3JpbmdfZnJlZSB0eXBlIDAgZmFpbGVkLiBy
+YzpmZmZmZmZmYiBlcnI6MQoyMDI2LTEwLTA2VDE1OjI5OjM3KzAwOjAwIGFmZmVjdGVkLWhvc3Qt
+MiBrZXJuZWw6IGJueHRfZW4gMDAwMDpjNDowMC4zIGV0aDE6IGh3cm1fcmluZ19mcmVlIHR5cGUg
+MCBmYWlsZWQuIHJjOmZmZmZmZmZiIGVycjoxCjIwMjYtMTAtMDZUMTU6Mjk6MzcrMDA6MDAgYWZm
+ZWN0ZWQtaG9zdC0yIGtlcm5lbDogYm54dF9lbiAwMDAwOmM0OjAwLjMgZXRoMTogaHdybV9yaW5n
+X2ZyZWUgdHlwZSAwIGZhaWxlZC4gcmM6ZmZmZmZmZmIgZXJyOjEKMjAyNi0xMC0wNlQxNToyOToz
+NyswMDowMCBhZmZlY3RlZC1ob3N0LTIga2VybmVsOiBibnh0X2VuIDAwMDA6YzQ6MDAuMyBldGgx
+OiBod3JtX3JpbmdfZnJlZSB0eXBlIDAgZmFpbGVkLiByYzpmZmZmZmZmYiBlcnI6MQoyMDI2LTEw
+LTA2VDE1OjI5OjM3KzAwOjAwIGFmZmVjdGVkLWhvc3QtMiBrZXJuZWw6IGJueHRfZW4gMDAwMDpj
+NDowMC4zIGV0aDE6IGh3cm1fcmluZ19mcmVlIHR5cGUgMCBmYWlsZWQuIHJjOmZmZmZmZmZiIGVy
+cjoxCjIwMjYtMTAtMDZUMTU6Mjk6MzcrMDA6MDAgYWZmZWN0ZWQtaG9zdC0yIGtlcm5lbDogYm54
+dF9lbiAwMDAwOmM0OjAwLjMgZXRoMTogaHdybV9yaW5nX2FsbG9jIHR5cGUgMSBmYWlsZWQuIHJj
+OmZmZmZmZmU0IGVycjo0CjIwMjYtMTAtMDZUMTU6Mjk6MzcrMDA6MDAgYWZmZWN0ZWQtaG9zdC0y
+IGtlcm5lbDogYm54dF9lbiAwMDAwOmM0OjAwLjMgZXRoMTogYm54dF9pbml0X25pYyBlcnI6IGZm
+ZmZmZmZiCjIwMjYtMTAtMDZUMTU6Mjk6MzcrMDA6MDAgYWZmZWN0ZWQtaG9zdC0yIGtlcm5lbDog
+Ym54dF9lbiAwMDAwOmM0OjAwLjMgZXRoMTogbmljIG9wZW4gZmFpbCAocmM6IGZmZmZmZmZiKQo=
 
-> 
->> +	if (psp_dead) {
->> +		dev_err(sev->dev, "DLFW_EX: PSP not responding (failed %d, error %#x)\n",
->> +			rc, psp_ret);
->> +		sev->fwl_rollback_required = false;
->> +
->> +		return FW_UPLOAD_ERR_TIMEOUT;
->> +	}
->> +
->> +	switch (psp_ret) {
->> +	case SEV_RET_INVALID_PARAM:
->> +		msg = "Provided image is not well formed";
->> +		break;
->> +	case SEV_RET_INVALID_LEN:
->> +		ret = FW_UPLOAD_ERR_INVALID_SIZE;
->> +		msg = "Provided image has an unusable length";
->> +		break;
->> +	case SEV_RET_SHUTDOWN_REQUIRED:
->> +		msg = "Provided image cannot be live-updated, shutdown required";
->> +		break;
->> +	case SEV_RET_BAD_VERSION:
->> +		msg = "Provided image < committed version";
->> +		break;
->> +	case SEV_RET_INVALID_PLATFORM_STATE:
->> +		msg = "Platform not in UNINIT state";
->> +		break;
->> +	case SEV_RET_INVALID_ADDRESS:
->> +		msg = "Unaligned address provided";
->> +		break;
->> +	case SEV_RET_UNSUPPORTED:
->> +		msg = "Feature not supported";
->> +		break;
->> +	case SEV_RET_INVALID_CONFIG:
->> +		msg = "Image rejected, unsupported configuration";
->> +		break;
->> +	case SEV_RET_BAD_SVN:
->> +		msg = "Image rejected, SVN < committed SVN";
->> +		break;
->> +	case SEV_RET_BAD_SIGNATURE:
->> +		msg = "Bad firmware signature";
->> +		break;
->> +	case SEV_RET_UPDATE_FAILED:
->> +		/* The previous firmware is still running, a retry is safe. */
->> +		ret = FW_UPLOAD_ERR_BUSY;
->> +		msg = "Upgrade failed, automatically reverted";
->> +		break;
->> +	case SEV_RET_RESTORE_REQUIRED:
->> +		/*
->> +		 * Firmware requested a roll-back. Declare the PSP dead so
->> +		 * nothing else tries to use it, and let the next upload through
->> +		 * so the admin can restore the previous image.
->> +		 */
->> +		sev->fwl_rollback_required = true;
->> +		psp_dead = true;
->> +		ret = FW_UPLOAD_ERR_RW_ERROR;
->> +		msg = "Live upgrade failed, please roll back";
->> +		break;
->> +	case SEV_RET_HWSEV_RET_UNSAFE:
->> +		/*
->> +		 * Following a return of HARDWARE_UNSAFE, operation of the SEV
->> +		 * firmware is indeterminate and the recommendation is to reboot
->> +		 * the platform. Declare the PSP dead so the driver stops
->> +		 * issuing commands to it while the reboot is pending.
->> +		 */
->> +		sev->fwl_rollback_required = false;
->> +		psp_dead = true;
->> +		ret = FW_UPLOAD_ERR_HW_ERROR;
->> +		msg = "SEV firmware no longer safe. Reboot recommended";
->> +		break;
->> +	case SEV_RET_NO_FW_CALL:
->> +		/* The command never reached the firmware. */
->> +		ret = FW_UPLOAD_ERR_BUSY;
->> +		msg = "Driver error";
->> +		break;
->> +	default:
->> +		ret = FW_UPLOAD_ERR_HW_ERROR;
->> +		msg = "Unknown SEV firmware error";
->> +		break;
->> +	}
->> +
->> +	dev_err(sev->dev, "DLFW_EX: %s (failed %d, error %#x)\n", msg, rc, psp_ret);
-> 
-> This is coming from userspace interaction, so probably should use
-> ratelimited variant (here and any place you issue a message).
-> 
-
-Ack, will do.
-
->> +
->> +	return ret;
->> +}
->> +
->> +static int sev_fw_upload_shutdown_platform(struct sev_device *sev)
->> +{
->> +	int rc, error = SEV_RET_NO_FW_CALL, sev_plat_state;
->> +
->> +	lockdep_assert_held(&sev_cmd_mutex);
->> +
->> +	rc = sev_get_platform_state(&sev_plat_state, &error);
->> +	if (rc) {
->> +		dev_err(sev->dev, "SEV get platform state failed %d, error %#x\n",
->> +			rc, error);
->> +		return rc;
->> +	}
->> +
->> +	switch (sev_plat_state) {
->> +	case SEV_STATE_UNINIT:
->> +		return 0;
->> +	case SEV_STATE_WORKING:
->> +		/* Legacy guests are running, the update cannot proceed. */
->> +		return -EBUSY;
->> +	case SEV_STATE_INIT:
->> +		break;
->> +	default:
->> +		dev_err(sev->dev, "Unknown SEV firmware state %d\n", sev_plat_state);
->> +		return -EINVAL;
->> +	}
->> +
->> +	rc = __sev_platform_shutdown_locked(&error);
->> +	if (rc) {
->> +		dev_err(sev->dev, "SEV platform shutdown failed %d, error %#x\n",
->> +			rc, error);
->> +		return rc;
->> +	}
->> +
->> +	__sev_release_firmware_buffers(false);
-> 
-> Do the buffers have to be released? If so, why? I think you can keep the
-> allocations. During platform initialization the buffers will be
-> detected. Is there a shutdown path where they might not get freed?
-> 
-
-Shantanu hit this on Milan with an earlier version of the series that kept the
-buffers across the update [1]. After DOWNLOAD_FIRMWARE_EX the new firmware
-rejected INIT_EX with SEV_RET_INVALID_PAGE_STATE (0x1A), because sev_es_tmr and
-sev_init_ex_buffer were still in the firmware state left over from the previous
-image's INIT. Freeing them, and letting re-init allocate fresh ones, fixed it,
-which is where this call came from.
-
-However, a fresh allocation with SNP initialized just goes through
-rmp_mark_pages_firmware(), so my understanding of what the new firmware needs
-is the reclaim -> make shared -> mark firmware cycle, not necessarily new
-memory.
-
-Freeing seemed like the easiest option, but if you prefer, just cycling them
-back should be able to achieve the same effect, I believe.
-
-[1] https://lore.kernel.org/all/20260831204757.436751-1-shansinha@google.com/
-
->> +
->> +	sev->fwl_reinit_required = true;
->> +
->> +	return 0;
->> +}
->> +
->> +static void sev_fw_upload_reinit_platform(struct sev_device *sev)
->> +{
->> +	int rc, error = SEV_RET_NO_FW_CALL;
->> +
->> +	lockdep_assert_held(&sev_cmd_mutex);
->> +
->> +	if (!sev->fwl_reinit_required)
->> +		return;
->> +
->> +	rc = __sev_platform_init_locked(&error);
->> +	if (rc) {
->> +		dev_err(sev->dev, "SEV platform re-init failed %d, error %#x\n",
->> +			rc, error);
-> 
-> Single line.
-
-Ack.
-
-> 
->> +		return;
->> +	}
->> +
->> +	sev->fwl_reinit_required = false;
->> +}
->> +
->> +static enum fw_upload_err sev_fw_upload_update(struct sev_device *sev,
->> +					       const u8 *data, u32 size,
->> +					       u32 *written)
->> +{
->> +	int rc, error = SEV_RET_NO_FW_CALL;
->> +	enum fw_upload_err ret;
->> +
->> +	guard(mutex)(&sev_cmd_mutex);
->> +
->> +	/*
->> +	 * A PSP declared dead only executes DOWNLOAD_FIRMWARE_EX if it was the
->> +	 * firmware update that killed it and asked for a rollback. Declared
->> +	 * dead for any other reason it will not answer until the platform is
->> +	 * rebooted.
->> +	 */
-> 
-> "SEV firmware will only successfully execute the DOWNLOAD_FIRMWARE_EX
-> command if a firmware rollback is required. Other commands may be
-> processed, but may not execute properly. Use the psp_dead boolean to
-> restrict execution to this path."
-> 
-> Say something similar where psp_dead is being set to true in
-> sev_fw_upload_handle_err().
-
-Sure.
-
-> 
->> +	if (psp_dead && !sev->fwl_rollback_required) {
->> +		dev_err(sev->dev, "DLFW_EX: PSP is not responding\n");
->> +		return FW_UPLOAD_ERR_HW_ERROR;
->> +	}
->> +
->> +	/*
->> +	 * If the last firmware update returned RESTORE_REQUIRED, retry DLFW_EX.
-> 
-> I see a mix of DOWNLOAD_FIRMWARE_EX and DLFW_EX, change these to all be
-> the same name of your choice.
-
-Sure.
-
-> 
->> +	 * We being in this state means that the legacy firmware has previously
-> 
-> s/We being/Being/
-
-Ack.
-
-> 
->> +	 * been shut down, so no need to do it again.
->> +	 */
->> +	if (sev->fwl_rollback_required) {
->> +		psp_dead = false;
->> +	} else {
->> +		rc = sev_fw_upload_shutdown_platform(sev);
->> +		if (rc) {
->> +			return psp_dead ? FW_UPLOAD_ERR_HW_ERROR
->> +					: FW_UPLOAD_ERR_BUSY;
->> +		}
->> +	}
->> +
->> +	rc = sev_download_firmware_ex(data, size, &error);
->> +	ret = sev_fw_upload_handle_err(sev, rc, error);
-> 
-> Maybe it's just me, but using generic rc and ret can make this possibly
-> confusing in the future. How about:
-> 
-> s/rc/cmd_ret/
-> s/ret/fwl_ret/
-> s/error/psp_ret/
-> 
-
-Nah, I can see that. Your options are so much better!
-
->> +	if (ret == FW_UPLOAD_ERR_NONE) {
->> +		*written = size;
->> +		sev->fwl_rollback_required = false;
->> +	}
->> +
->> +	/* A rollback retry failed. PSP now stays dead */
->> +	if (sev->fwl_rollback_required) {
->> +		psp_dead = true;
->> +		if (ret != FW_UPLOAD_ERR_HW_ERROR)
->> +			ret = FW_UPLOAD_ERR_RW_ERROR;
->> +	}
->> +
->> +	if (!sev->fwl_rollback_required && !psp_dead)
->> +		sev_fw_upload_reinit_platform(sev);
->> +
->> +	return ret;
->> +}
->> +
->>  static enum fw_upload_err sev_fw_upload_write(struct fw_upload *fw_upload,
->>  					      const u8 *data, u32 offset,
->>  					      u32 size, u32 *written)
->>  {
->> -	return FW_UPLOAD_ERR_BUSY;
->> +	struct sev_device *sev = fw_upload->dd_handle;
->> +	u8 old_major, old_minor, old_build;
->> +	enum fw_upload_err ret;
->> +
->> +	old_major = sev->api_major;
->> +	old_minor = sev->api_minor;
->> +	old_build = sev->build;
->> +
->> +	ret = sev_fw_upload_update(sev, data, size, written);
->> +	if (ret != FW_UPLOAD_ERR_NONE)
->> +		return ret;
->> +
->> +	if (sev_get_api_version()) {
->> +		dev_err(sev->dev, "SNP platform data refresh after firmware update failed\n");
->> +		return FW_UPLOAD_ERR_HW_ERROR;
->> +	}
->> +
->> +	if (sev->api_major != old_major || sev->api_minor != old_minor ||
->> +	    sev->build != old_build) {
-> 
-> One line.
-
-Ack.
-
-> 
->> +		dev_info(sev->dev, "SEV firmware updated to %d.%d build %d\n",
-> 
-> Should be the same as the sev_pci_init() issued message.
-> 
->> +			 sev->api_major, sev->api_minor, sev->build);
->> +	} else {
->> +		dev_info(sev->dev, "SEV firmware version unchanged: %d.%d build %d\n",
-> 
-> s/ build /./
-> 
-
-Thanks!
---Pratik
-
-> Thanks,
-> Tom
->> +			 sev->api_major, sev->api_minor, sev->build);
->> +	}
->> +
->> +	return ret;
->>  }
->>  
->>  static enum fw_upload_err sev_fw_upload_poll_complete(struct fw_upload *fw_upload)
->> diff --git a/drivers/crypto/ccp/sev-dev.h b/drivers/crypto/ccp/sev-dev.h
->> index 7ec692e2147e..1e45a08c41da 100644
->> --- a/drivers/crypto/ccp/sev-dev.h
->> +++ b/drivers/crypto/ccp/sev-dev.h
->> @@ -71,6 +71,8 @@ struct sev_device {
->>  	struct sev_tio_status *tio_status;
->>  
->>  	struct fw_upload *fwl;
->> +	bool fwl_rollback_required;
->> +	bool fwl_reinit_required;
->>  };
->>  
->>  int sev_dev_init(struct psp_device *psp);
->> diff --git a/include/linux/psp-sev.h b/include/linux/psp-sev.h
->> index fab62228f981..b71154e9ae4b 100644
->> --- a/include/linux/psp-sev.h
->> +++ b/include/linux/psp-sev.h
->> @@ -890,6 +890,25 @@ struct sev_platform_init_args {
->>  	unsigned int max_snp_asid;
->>  };
->>  
->> +/**
->> + * struct sev_data_download_firmware_ex - SNP_DOWNLOAD_FIRMWARE_EX structure
->> + *
->> + * @len: length of the command buffer read by the PSP
->> + * @rsvd0: reserved
->> + * @fw_paddr: system physical address of the start of the firmware blob
->> + * @fw_len: length of the firmware blob
->> + * @commit: whether to immediately commit the firmware update
->> + * @rsvd1: reserved
->> + */
->> +struct sev_data_download_firmware_ex {
->> +	u32 len;			/* In */
->> +	u32 rsvd0;
->> +	u64 fw_paddr;			/* In */
->> +	u32 fw_len;			/* In */
->> +	u32 commit:1;			/* In */
->> +	u32 rsvd1:31;
->> +} __packed;
->> +
->>  /**
->>   * struct sev_data_snp_commit - SNP_COMMIT structure
->>   *
-> 
+--b1=_Jf6iIlN5q5nK6VJS8DdrEywpc4UedCza9jfxY5w64--
 
