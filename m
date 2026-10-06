@@ -1,378 +1,376 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A9F743914F5;
-	Tue,  6 Oct 2026 19:36:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 696FE30E82B;
+	Tue,  6 Oct 2026 19:36:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791315370; cv=none; b=Q9PSx0fik1RzDPAHrwDDSOFElitGnV6FXzB7sdy3IvoZg2HRdNfZ+XqE+IDKqALL0CJ2u15gl53ALEBYehzT6zj8jnXW8bA+i6KTKf1fo7Pjjf8vBX0EQF8ChnjOWDZcoxjzHAUjFr/J8wMMF44EoomZFzCzPzUZvyNR8eJEA78=
+	t=1791315421; cv=none; b=hNrQoKlLHcULkMiuxZO2/c6yuIX7IM6Zf74c2iwstjsve6IpWD2pBtaHkSjXjczndmc6VSIYxR/e6SS27UY3Rdyh9h9XY7OQ1D9w3kmJccd/SsJlK3yQ3v/TzIaQLMRnuRz7NVWfL892BareNyGNcSfk5N/u1mTLfWLGPTqWm1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791315370; c=relaxed/simple;
-	bh=wj/sWfdoddtzMIGh1H3vjjBs66rG02RDwUhV9GRgmWw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OqEE+LXwRZeSUInF7suoYAUtDRremclJbYUAGwBIe5/aj1rypMxanpcx6QrRHDLAUJvdcI7+Fc/9VlCkxgnwlBgdsMYtXm0rE9r3+tX5s+R3DWGp5aeOJlA1p1kcW5imjYaiWbjyLwJuAP/cpehQp5nayyO+rre48TgXzc5E3MI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=JIXVxyYP; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1791315421; c=relaxed/simple;
+	bh=cmIw9EGj6tdclgJ+9rvLrITazUzkenCXpYmRlU2mOuA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=L2z1BPvT3gWEdj/CI9/m/Y4DY8U9rE3nSeHRl+P4zL3Rt5REa8EdnqqzLB0woOvaG+g6VmxrcgN/BbSa3QmRW8hPTxLDt7FgkRo6XdBT2IFnFC87eCvQH4eMLKgWfV7812tKYhn/wjzeugUO4qn2GG+x3x6rE4CRsi0GFg1emZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=fcv1G/i/; arc=none smtp.client-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="JIXVxyYP"
-Received: by linux.microsoft.com (Postfix, from userid 1223)
-	id B1A5820B7175; Tue,  6 Oct 2026 12:35:12 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com B1A5820B7175
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1791315312;
-	bh=ZHFeuUEcgA/zJNYAb+gVRneYC++YNlFUgfUofhTwpC0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=JIXVxyYPVGUahVQSbBeR6lhtqlo+464NbJKVnsn6MnEHpuAojkME6r5sK/6Vg4jbk
-	 TE1b2xfxdU9SmWh0bU8XY9UYwUFrXHCszXWEv7hY8gF7i+TF0HC3F7IICTGKZoti5g
-	 8wdiOittX0hXTsSe1NqVwmj/ySYwpMcP8fcsBKbQ=
-Date: Tue, 6 Oct 2026 12:35:12 -0700
-From: Meagan Lloyd <meaganlloyd@linux.microsoft.com>
-To: "Patil, Shubham Sanjay" <shubpati@amd.com>
-Cc: Frank Li <Frank.li@oss.nxp.com>,
-	Shubham Patil <shubhamsanjay.patil@amd.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>, linux-i3c@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	meaganlloyd@linux.microsoft.com, git@amd.com,
-	jk@codeconstruct.com.au, matt@codeconstruct.com.au,
-	netdev@vger.kernel.org
-Subject: Re: [PATCH] i3c: master: dw: Clamp GETMRL/GETMWL to controller FIFO
- limits
-Message-ID: <20261006-fc1d7a5f0e4e3b1b453450f9@linux.microsoft.com>
-References: <20260908102724.3232660-1-shubhamsanjay.patil@amd.com>
- <aqL4HaQ1gjeaJYUQ@lizhi-Precision-Tower-5810>
- <eff031f6-e212-43a8-98c0-5f52a4b9317b@amd.com>
- <arVBZ0j2noe0g0Wi@lizhi-Precision-Tower-5810>
- <44e2c06b-7742-47a7-b2fa-2284867d4f32@amd.com>
+	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="fcv1G/i/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+	s=201707; t=1791315415;
+	bh=7FwHW/kz9OvyjnbInxvjFAMnT8ybPDtZB0CrAm1lGGU=;
+	h=From:To:Cc:Subject:Date:From;
+	b=fcv1G/i/qHxKckbz38i9ymJ2i+7pDpZkPPq+53qguyYZOhMFOX4+d22ZG/J7Y+fyR
+	 Mr60il3hOexUpfpz54lnDyQJrBgTWj38iUPfOCvc3L1LijyuW0lwxO6dEk3b5zgj8O
+	 +RQfQeueto1gVotY2DNGvn/VYIqvf2OWfkDyK1HfkAFn56h7c8q4AuVJ23AS2md+h0
+	 8CFCThSD9fEpyC228aOAuoYSRfxw2ogVZtLAVpbbcmzAs1fT2rVsIW/cjiOqKjcnSY
+	 1OF3+DBg0Q6DjbmEG/asmdRkeg82TGVHQQahMFB/Xlo0Zm8N5+v/P5/ZYpXZ1avi5J
+	 dMvKWvxEOyH2Q==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	by mail.ozlabs.org (Postfix) with ESMTPSA id 4hzmjL3MGdz4w9b;
+	Wed, 07 Oct 2026 06:36:54 +1100 (AEDT)
+From: Matt Evans <matt@ozlabs.org>
+To: Alex Williamson <alex@shazbot.org>,
+	Leon Romanovsky <leon@kernel.org>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Alex Mastro <amastro@fb.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Pranjal Shrivastava <praan@google.com>,
+	Longfang Liu <liulongfang@huawei.com>
+Cc: Mahmoud Adam <mngyadam@amazon.de>,
+	David Matlack <dmatlack@google.com>,
+	=?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Ankit Agrawal <ankita@nvidia.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Vivek Kasireddy <vivek.kasireddy@intel.com>,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	kvm@vger.kernel.org,
+	linux-pci@vger.kernel.org
+Subject: [PATCH v8 0/9] vfio/pci: Add mmap() for DMABUFs
+Date: Tue,  6 Oct 2026 20:36:28 +0100
+Message-ID: <20261006193643.76330-1-matt@ozlabs.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <44e2c06b-7742-47a7-b2fa-2284867d4f32@amd.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 06, 2026 at 06:05:16PM +0530, Patil, Shubham Sanjay wrote:
-> On 9/24/2026 8:57 PM, Frank Li wrote:
-> > Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
-> > 
-> > 
-> > On Thu, Sep 24, 2026 at 10:25:44AM +0530, Patil, Shubham Sanjay wrote:
-> > > 
-> > > 
-> > > On 9/11/2026 12:04 AM, Frank Li wrote:
-> > > > Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
-> > > > 
-> > > > 
-> > > > On Tue, Sep 08, 2026 at 03:57:24PM +0530, Shubham Patil wrote:
-> > > > > The DW master rejects private SDR transfers larger than
-> > > > > caps.datafifodepth with -EOPNOTSUPP. Targets often report MRL/MWL
-> > > > > values larger than that FIFO, so the core stores limits the controller
-> > > > > cannot meet.
-> > > > > 
-> > > > > After a successful GETMRL/GETMWL, issue Direct SETMRL/SETMWL to the
-> > > > > same target with lengths capped to the data FIFO (in bytes), then
-> > > > > rewrite the GET payload so the core keeps the same values. Only update
-> > > > > the GET buffer once SET is acked, so a failed SET does not leave the
-> > > > > core and the target disagreeing.
-> > > > 
-> > > > I think i3c device driver should know these information choose
-> > > > min value dring each xfer. even though you set devcie's MRL/MXL, device
-> > > > driver still issue a longer transfer.
-> > > > 
-> > > > Frank
-> > > 
-> > > Understood - I will drop the SETMRL/SETMWL and stop rewriting the GET
-> > > payload, and instead expose the controller limit so the min is taken
-> > > per transfer. Two questions on how you want that done:
-> > > 1) Where should the min be taken?
-> > >     a) In the core: the controller driver sets max_read_len /
-> > >        max_write_len / max_ibi_len in struct i3c_master_controller, and
-> > >        the core caps i3c_device_info to min(target, controller) after
-> > >        GETMRL/GETMWL. Device drivers then use i3c_device_get_info()
-> > >        as-is and cannot forget.
-> > >     b) In each device driver: the core keeps reporting the raw target
-> > >        values, and drivers do the min themselves.
-> > 
-> > We can provide APIs for device driver to get whole data path required
-> > max_read/write_len.
-> 
-> Thanks. Next v2 will be:
-> 
-> Patch 1 - core: add max_read_len/max_write_len to struct
-> i3c_master_controller, set by the controller driver before
-> i3c_master_register(), plus two helpers for client drivers:
-> 	u16 i3c_device_get_max_read_len(const struct i3c_device *dev);
-> 	u16 i3c_device_get_max_write_len(const struct i3c_device *dev);
-> 
-> Each returns the smallest limit along the whole data path, i.e.
-> min_not_zero() of the target's GETMRL/GETMWL value and the controller
-> limit, and U16_MAX when nothing limits it. i3c_device_info keeps the raw
-> target values untouched.
-> 
-> Patch 2 - dw: advertise the data FIFO depth to the core, by setting
-> base.max_read_len/base.max_write_len in dw_i3c_common_probe() before
-> i3c_master_register().
-> 
-> Thanks,
-> Shubham
+Hi all,
 
-I'd vote to avoid overloading the terms 'max_read_len' and
-'max_write_len' as it currently refers to the device's MRL and MWL
-values retrieved through the GETMRL, GETMWL CCCs.
 
-So, maybe something like:
+The goal of this series is to enable userspace driver designs that use
+VFIO to export DMABUFs representing subsets of PCI device BARs, and
+"vend" those buffers from a primary process to other subordinate
+processes by fd.  This is achieved by allowing the processes to mmap()
+the DMABUFs; their access to the device is isolated to the exported
+ranges.  The primary userspace driver process can forcibly revoke
+access to previously-shared buffers upon cleanup (without requiring
+cooperation from the subordinate processes).  This is an improvement
+on sharing the VFIO device fd to subordinate processes, which would
+allow unfettered access.  See the RFCs for background.
 
-struct i3c_master_controller fields rx_fifo_bytes, tx_fifo_bytes
+The existing VFIO PCI BAR mmap() becomes backed by a DMABUF too,
+keeping common vm_ops and fault handler for VMAs from the VFIO device
+and explicitly-exported DMABUFs.  This will help future iommufd
+emulation of VFIO Type1 peer-to-peer, making it easier to get a DMABUF
+for a VFIO BAR as a DMA target.
 
-i3c_device_get_max_read_xfer_bytes() - min(rx_fifo_bytes, device mrl)
-i3c_device_get_max_write_xfer_bytes() - min(tx_fifo_bytes, device mwl)
+Below are per-patch notes & background info, and at the bottom are
+several related questions that reviewers may like to consider (worth
+at least skipping to #1, a possible bug).
 
--
 
-The first meaningful user of this patch would be mctp-i3c driver. Where
-the i3c_xfer.len would need to be updated from using the device's mrl/mwl
-to whatever these new API functions return.
+Notes on patches
+================
 
-I think that the mctp-i3c driver update should be part of this series since
-it'll be the first user. Unless, Alexandre and the MCTP maintainers disagree.
+mmap() conversion to use DMABUF underneath has been done for vfio-pci,
+but not sub-drivers:
 
-Thanks,
-Meagan
+nvgrace-gpu's mmap() override path is unchanged; I kept this out of
+scope for now not least because I don't have a thorough test setup for
+this system.  I would prefer to help the nvgrace-gpu maintainers
+enable BAR mmap() DMABUFs themselves.
 
-> 
-> > 
-> > > 2) Either way, a driver that ignores these limits still gets
-> > >     -EOPNOTSUPP from dw_i3c_master_i3c_xfers() when the transfer does
-> > >     not fit the data FIFO. Should the driver keep returning that, or
-> > >     would you consider splitting an oversized private SDR transfer into
-> > >     FIFO-sized chunks in the controller driver? My understanding is
-> > >     no - splitting changes what the target sees on the bus - but I
-> > >     want to be sure before v2.
-> > 
-> > the decision about split transfer should be decided by device drivers.
-> > Not all device treat two continue repeat START as continue write/read.
-> > 
-> > Frank
-> > > 
-> > > Thanks,
-> > > Shubham>
-> > > > > 
-> > > > > GETMRL is variable length: the optional third byte is max IBI payload
-> > > > > and is only present if the target returned it. Clamp that IBI byte to
-> > > > > the IBI queue depth from QUEUE_SIZE_CAPABILITY.IBI_BUF_SIZE (bits 19:16
-> > > > > at 0xe8, encoded as 2^(n+1) dwords).
-> > > > > 
-> > > > > Rename the unused EXTENDED_CAPABILITY macro at 0xe8 to the databook
-> > > > > name QUEUE_SIZE_CAPABILITY.
-> > > > > 
-> > > > > Signed-off-by: Shubham Patil <shubhamsanjay.patil@amd.com>
-> > > > > ---
-> > > > >    drivers/i3c/master/dw-i3c-master.c | 149 ++++++++++++++++++++++++++++-
-> > > > >    drivers/i3c/master/dw-i3c-master.h |   1 +
-> > > > >    2 files changed, 149 insertions(+), 1 deletion(-)
-> > > > > 
-> > > > > diff --git a/drivers/i3c/master/dw-i3c-master.c b/drivers/i3c/master/dw-i3c-master.c
-> > > > > index 4563d8761ba0..51defcb57761 100644
-> > > > > --- a/drivers/i3c/master/dw-i3c-master.c
-> > > > > +++ b/drivers/i3c/master/dw-i3c-master.c
-> > > > > @@ -203,7 +203,13 @@
-> > > > >    #define BUS_IDLE_TIMING                      0xd8
-> > > > >    #define I3C_VER_ID                   0xe0
-> > > > >    #define I3C_VER_TYPE                 0xe4
-> > > > > -#define EXTENDED_CAPABILITY          0xe8
-> > > > > +#define QUEUE_SIZE_CAPABILITY                0xe8
-> > > > > +#define QUEUE_SIZE_CAPABILITY_IBI_BUF(x)     (((x) & GENMASK(19, 16)) >> 16)
-> > > > > +/*
-> > > > > + * IBI_BUF_SIZE is encoded as 2^(field + 1) dwords: the smallest buffer is
-> > > > > + * 2 dwords and each increment of the field doubles the depth.
-> > > > > + */
-> > > > > +#define QUEUE_SIZE_IBI_BUF_MIN_DWORDS        2
-> > > > >    #define SLAVE_CONFIG                 0xec
-> > > > > 
-> > > > >    #define DYN_ADDR_LO_MASK GENMASK(4, 0)
-> > > > > @@ -844,6 +850,130 @@ static int dw_i3c_ccc_get(struct dw_i3c_master *master, struct i3c_ccc_cmd *ccc)
-> > > > >         return ret;
-> > > > >    }
-> > > > > 
-> > > > > +/*
-> > > > > + * Cap the limits a target reported through GETMRL to what this controller can
-> > > > > + * actually transfer, so the core never asks for a private read the data FIFO
-> > > > > + * cannot hold. The optional IBI payload byte is capped to the IBI queue depth
-> > > > > + * instead; since that byte is a u8, the IBI cap only ever applies to
-> > > > > + * controllers whose IBI queue is smaller than 255 bytes.
-> > > > > + *
-> > > > > + * Direct SETMRL is optional, so a target may implement GETMRL and NACK the SET.
-> > > > > + * Clamp the values handed back to the core either way: a failed SET only means
-> > > > > + * the target keeps its own larger limit, which is harmless as long as the core
-> > > > > + * stays within ours.
-> > > > > + */
-> > > > > +static int dw_i3c_master_clamp_mrl(struct dw_i3c_master *master,
-> > > > > +                                struct i3c_ccc_cmd *ccc)
-> > > > > +{
-> > > > > +     u16 max_fifo_bytes = master->caps.datafifodepth * sizeof(u32);
-> > > > > +     u32 max_ibi_bytes = master->caps.ibififodepth * sizeof(u32);
-> > > > > +     u16 actual_len = ccc->dests[0].payload.actual_len;
-> > > > > +     struct i3c_ccc_cmd_dest set_dest = { };
-> > > > > +     struct i3c_ccc_cmd set_cmd = { };
-> > > > > +     struct i3c_ccc_mrl set_mrl;
-> > > > > +     struct i3c_ccc_mrl *mrl;
-> > > > > +     bool clamp_ibi = false;
-> > > > > +     bool clamp_read;
-> > > > > +     u8 ibi_len = 0;
-> > > > > +     u16 read_len;
-> > > > > +     int ret;
-> > > > > +
-> > > > > +     /* Need at least the 2-byte max read length field to act on. */
-> > > > > +     if (actual_len < 2)
-> > > > > +             return 0;
-> > > > > +
-> > > > > +     mrl = ccc->dests[0].payload.data;
-> > > > > +     read_len = be16_to_cpu(mrl->read_len);
-> > > > > +     clamp_read = read_len > max_fifo_bytes;
-> > > > > +
-> > > > > +     /* Optional third byte is valid only if the target returned it. */
-> > > > > +     if (actual_len > 2) {
-> > > > > +             ibi_len = mrl->ibi_len;
-> > > > > +             clamp_ibi = max_ibi_bytes && ibi_len > max_ibi_bytes;
-> > > > > +     }
-> > > > > +
-> > > > > +     if (!clamp_read && !clamp_ibi)
-> > > > > +             return 0;
-> > > > > +
-> > > > > +     set_mrl.read_len = cpu_to_be16(clamp_read ? max_fifo_bytes : read_len);
-> > > > > +     if (actual_len > 2)
-> > > > > +             set_mrl.ibi_len = clamp_ibi ? max_ibi_bytes : ibi_len;
-> > > > > +
-> > > > > +     set_dest.addr = ccc->dests[0].addr;
-> > > > > +     set_dest.payload.data = &set_mrl;
-> > > > > +     set_dest.payload.len = actual_len;
-> > > > > +
-> > > > > +     set_cmd.rnw = 0;
-> > > > > +     set_cmd.id = I3C_CCC_SETMRL(false);
-> > > > > +     set_cmd.ndests = 1;
-> > > > > +     set_cmd.dests = &set_dest;
-> > > > > +
-> > > > > +     ret = dw_i3c_ccc_set(master, &set_cmd);
-> > > > > +     if (ret)
-> > > > > +             dev_dbg(&master->base.dev,
-> > > > > +                     "SETMRL not accepted by target: %d\n", ret);
-> > > > > +
-> > > > > +     if (clamp_read) {
-> > > > > +             mrl->read_len = cpu_to_be16(max_fifo_bytes);
-> > > > > +             dev_dbg(&master->base.dev,
-> > > > > +                     "clamped target MRL from %u to %u bytes (FIFO depth limit)\n",
-> > > > > +                     read_len, max_fifo_bytes);
-> > > > > +     }
-> > > > > +     if (clamp_ibi) {
-> > > > > +             mrl->ibi_len = max_ibi_bytes;
-> > > > > +             dev_dbg(&master->base.dev,
-> > > > > +                     "clamped target IBI len from %u to %u bytes (IBI buffer limit)\n",
-> > > > > +                     ibi_len, max_ibi_bytes);
-> > > > > +     }
-> > > > > +
-> > > > > +     return 0;
-> > > > > +}
-> > > > > +
-> > > > > +/* Same contract as dw_i3c_master_clamp_mrl(), for the write direction. */
-> > > > > +static int dw_i3c_master_clamp_mwl(struct dw_i3c_master *master,
-> > > > > +                                struct i3c_ccc_cmd *ccc)
-> > > > > +{
-> > > > > +     u16 max_fifo_bytes = master->caps.datafifodepth * sizeof(u32);
-> > > > > +     struct i3c_ccc_cmd_dest set_dest = { };
-> > > > > +     struct i3c_ccc_cmd set_cmd = { };
-> > > > > +     struct i3c_ccc_mwl set_mwl;
-> > > > > +     struct i3c_ccc_mwl *mwl;
-> > > > > +     u16 write_len;
-> > > > > +     int ret;
-> > > > > +
-> > > > > +     if (ccc->dests[0].payload.actual_len < 2)
-> > > > > +             return 0;
-> > > > > +
-> > > > > +     mwl = ccc->dests[0].payload.data;
-> > > > > +     write_len = be16_to_cpu(mwl->len);
-> > > > > +
-> > > > > +     if (write_len <= max_fifo_bytes)
-> > > > > +             return 0;
-> > > > > +
-> > > > > +     set_mwl.len = cpu_to_be16(max_fifo_bytes);
-> > > > > +
-> > > > > +     set_dest.addr = ccc->dests[0].addr;
-> > > > > +     set_dest.payload.data = &set_mwl;
-> > > > > +     set_dest.payload.len = sizeof(set_mwl);
-> > > > > +
-> > > > > +     set_cmd.rnw = 0;
-> > > > > +     set_cmd.id = I3C_CCC_SETMWL(false);
-> > > > > +     set_cmd.ndests = 1;
-> > > > > +     set_cmd.dests = &set_dest;
-> > > > > +
-> > > > > +     ret = dw_i3c_ccc_set(master, &set_cmd);
-> > > > > +     if (ret)
-> > > > > +             dev_dbg(&master->base.dev,
-> > > > > +                     "SETMWL not accepted by target: %d\n", ret);
-> > > > > +
-> > > > > +     mwl->len = cpu_to_be16(max_fifo_bytes);
-> > > > > +     dev_dbg(&master->base.dev,
-> > > > > +             "clamped target MWL from %u to %u bytes (FIFO depth limit)\n",
-> > > > > +             write_len, max_fifo_bytes);
-> > > > > +
-> > > > > +     return 0;
-> > > > > +}
-> > > > > +
-> > > > >    static int dw_i3c_master_send_ccc_cmd(struct i3c_master_controller *m,
-> > > > >                                       struct i3c_ccc_cmd *ccc)
-> > > > >    {
-> > > > > @@ -866,6 +996,18 @@ static int dw_i3c_master_send_ccc_cmd(struct i3c_master_controller *m,
-> > > > >         else
-> > > > >                 ret = dw_i3c_ccc_set(master, ccc);
-> > > > > 
-> > > > > +     /*
-> > > > > +      * Clamp GETMRL/GETMWL responses to the data FIFO depth, and the
-> > > > > +      * optional GETMRL IBI byte to the IBI queue depth. The GET itself has
-> > > > > +      * already succeeded, so its result is never overridden here.
-> > > > > +      */
-> > > > > +     if (!ret && ccc->rnw) {
-> > > > > +             if (ccc->id == I3C_CCC_GETMRL)
-> > > > > +                     dw_i3c_master_clamp_mrl(master, ccc);
-> > > > > +             else if (ccc->id == I3C_CCC_GETMWL)
-> > > > > +                     dw_i3c_master_clamp_mwl(master, ccc);
-> > > > > +     }
-> > > > > +
-> > > > >         pm_runtime_put_autosuspend(master->dev);
-> > > > >         return ret;
-> > > > >    }
-> > > > > @@ -1728,6 +1870,11 @@ int dw_i3c_common_probe(struct dw_i3c_master *master,
-> > > > >         ret = readl(master->regs + DATA_BUFFER_STATUS_LEVEL);
-> > > > >         master->caps.datafifodepth = DATA_BUFFER_STATUS_LEVEL_TX(ret);
-> > > > > 
-> > > > > +     /* Read the IBI data buffer size advertised by the controller. */
-> > > > > +     ret = readl(master->regs + QUEUE_SIZE_CAPABILITY);
-> > > > > +     master->caps.ibififodepth = QUEUE_SIZE_IBI_BUF_MIN_DWORDS <<
-> > > > > +                                 QUEUE_SIZE_CAPABILITY_IBI_BUF(ret);
-> > > > > +
-> > > > >         ret = readl(master->regs + DEVICE_ADDR_TABLE_POINTER);
-> > > > >         master->datstartaddr = ret;
-> > > > >         master->maxdevs = ret >> 16;
-> > > > > diff --git a/drivers/i3c/master/dw-i3c-master.h b/drivers/i3c/master/dw-i3c-master.h
-> > > > > index 17ad817d1f8e..54c3912374c8 100644
-> > > > > --- a/drivers/i3c/master/dw-i3c-master.h
-> > > > > +++ b/drivers/i3c/master/dw-i3c-master.h
-> > > > > @@ -15,6 +15,7 @@
-> > > > >    struct dw_i3c_master_caps {
-> > > > >         u8 cmdfifodepth;
-> > > > >         u8 datafifodepth;
-> > > > > +     u32 ibififodepth;
-> > > > >    };
-> > > > > 
-> > > > >    struct dw_i3c_dat_entry {
-> > > > > --
-> > > > > 2.34.1
-> > > > > 
-> > > 
-> 
-> 
-> -- 
-> linux-i3c mailing list
-> linux-i3c@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-i3c
+It's also worth noting that one reason for nvgrace-gpu's special BAR
+handling is to map RESMEM with a WC memory type.  This is unchanged
+for existing mmap() but WC is not currently supported for mapping
+DMABUFs exported for that BAR; all DMABUF VMAs currently have the same
+memory type and control of UC/WC for a mapping is future work.
+
+
+ vfio/pci: Remove DMABUF export dependency on vdev->memory_lock
+
+   In v5 of this series we discover that doing an export from the VFIO
+   mmap() path (fundamental!) adds a dependency between mmap_lock and
+   vdev->memory_lock(W) because export was using memory_lock(W) to
+   protect the vdev->dmabufs list and state within, and a deadlock
+   scenario leapt out to bite:
+
+   https://lore.kernel.org/kvm/9a615f22-c0d4-46ae-9654-db11e94e5fec@ozlabs.org/
+
+   The suggestion was to add a dedicated mutex/rwsem specifically for
+   the DMABUFs/list, which is cleaner than overloading memory_lock(W).
+
+   But whilst export could now downgrade to holding memory_lock(R) to
+   test __vfio_pci_memory_enabled(), a very similar deadlock can still
+   arise due to a memory_lock(W) elsewhere depending on a prior
+   memory_lock(R) to be released, and attempting to take
+   memory_lock(R) will queue behind the (W) for fairness (effectively
+   an R->R dependency).  I'd overlooked that rwsem cannot guarantee
+   multiple readers.
+
+   To be able to export while holding mmap_lock, export cannot hold
+   memory_lock at all.  Instead of testing __vfio_pci_memory_enabled()
+   (which tracks PCI_COMMAND.MSE and PM state), this patch tracks
+   device-global DMABUF revocation state in a new vdev->bars_revoked
+   flag updated by vfio_pci_dma_buf_move().  If an mmap() is somehow
+   performed during a period when DMABUFs are all revoked, then the
+   DMABUF is created revoked.  Move() already bookends reset, PM
+   transitions etc., so subsequent revocation state changes work
+   as-is.  This flag is also protected by the dmabuf_lock and thus
+   memory_lock is not required to export.
+
+
+ vfio/pci: Un-revoke DMABUFs in LOW_POWER_ENTRY_WITH_WAKEUP resume
+
+   On LOW_POWER entry, DMABUFs have a move(revoke=true), but the
+   runtime resume path didn't un-revoke.  This adds a corresponding
+   move(revoke=false), which will later turn into
+   vfio_pci_unrevoke_bars().
+
+   NOTE: the unrevoke is reordered _before_ the eventfd_signal() in
+   vfio_pci_core_runtime_resume() to remove a window in which a waking
+   waiter could have observed the DMABUF state as still revoked (or
+   pm_runtime_engaged = true).  (The UAPI docs state the event means
+   the resume's complete, so observing otherwise seemed unintended.)
+
+   Also, when DMABUFs are later mmap()ed, a waiter waking and taking a
+   fault could have seen the unrevoked state and SIGBUS just before
+   taking the memory_lock.  (If the handler gets to acquire the lock,
+   though, the resume sequence is complete, and the handler observes
+   pm_runtime_engaged = false.)
+
+   This fix is in this series because the issue will impact CPU access
+   to the VMA as well (once they use DMABUFs), and so it's a strict
+   dependency of later commits.
+
+
+ dma-buf: Provide dma_buf_set_name()
+
+   Makes dma_buf_set_name() available for use (by helper patch),
+   taking a kernel-allocated string.  The pre-existing local helper
+   becomes a wrapper copying a __user string for the set-name ioctl.
+
+
+ vfio/pci: Add a helper to look up PFNs for DMABUFs
+
+   Adds a DMABUF VMA fault handler helper to determine arbitrary-sized
+   PFNs from ranges in DMABUF.
+
+
+ vfio/pci: Add a helper to create a DMABUF for a BAR-map VMA
+
+   Refactors DMABUF export for use by the existing export feature, and
+   adds a helper that creates a DMABUF corresponding to a VFIO BAR
+   mmap() request.
+
+   There was a request for decent debug naming in /proc/<pid>/maps
+   etc.  comparable to the existing VFIO names: since the VMAs are
+   DMABUFs, they have a "dmabuf:" prefix and can't be 100% identical
+   to before.  This is a user-visible change, but this patch at least
+   now gives us extra info on the BDF & BAR being mmap()ed.  The name
+   is installed with the new dma_buf_set_name() above.
+
+
+ vfio/pci: Convert BAR mmap() to use a DMABUF
+
+   The vfio-pci core mmap() creates a DMABUF with the helper above,
+   and the vm_ops fault handler uses the other helper to resolve the
+   fault.  Because this depends on DMABUF structs/code,
+   CONFIG_VFIO_PCI_CORE needs to depend on CONFIG_DMA_SHARED_BUFFER.
+   The CONFIG_VFIO_PCI_DMABUF still conditionally enables the export
+   support code.
+
+   NOTE: The user mmap()s a device fd, but the resulting VMA's vm_file
+   becomes that of the DMABUF.  The DMABUF takes ownership of the
+   device file and put()s it on release, which maintains the existing
+   behaviour of a VMA keeping the VFIO device open.
+
+   BAR zapping then happens via the existing vfio_pci_dma_buf_move()
+   path, which now needs to unmap PTEs in the DMABUF's address_space.
+
+   NOTE: As local LLM reviews did, Sashiko might falsely worry about
+   the DMABUF fd being obtained through /proc/pid/map_files and
+   remapped, but the file is an anon inode and doesn't support the
+   open op (-ENXIO) so AFAICT this is currently impossible.
+
+   NOTE: A side-effect of this is that is_mergeable_vma() will be
+   false between adjacent mappings of VFIO BARs; merging would require
+   rebuilding a larger DMABUF representing the union, not just
+   plugging the VMAs together.
+
+   The DMABUF backing the BAR is an implicit/internal export, even
+   when the CONFIG_VFIO_PCI_DMABUF feature is not included because
+   CONFIG_PCI_P2PDMA is not available.  Without P2PDMA, it's
+   acceptable for the DMABUF to not have a P2PDMA provider.  In this
+   configuration, the VFIO DMABUF .attach prohibits any import, which
+   avoids getting as far as a WARN in dma_buf_map_attachment(), which
+   would fail without P2PDMA anyway.
+
+
+ vfio/pci: Clean up BAR zap and revocation
+
+   In general (see NOTE!) the vfio_pci_zap_bars() is now obsolete,
+   since it unmaps PTEs in the VFIO device address_space which is now
+   unused.  This consolidates all calls (e.g. around reset) with the
+   neighbouring vfio_pci_dma_buf_move()s into new functions, to
+   revoke/unrevoke (making the steps clearer).
+
+   NOTE: Because drivers can use their own vm_ops and override .mmap,
+   the core must conservatively assume an overridden .mmap might still
+   add PTEs to the VFIO device address_space and therefore still does
+   the zap.  A new flag, zap_bars_on_revoke, enables the zap when
+   .mmap is overridden.  A driver that does not need the zap can clear
+   this to opt-out, e.g. if the driver calls down to the common mmap
+   (and so uses DMABUFs).  hisi-acc-vfio-pci does just this, and thus
+   sets the opt-out flag.
+
+
+ vfio/pci: Support mmap() of a VFIO DMABUF
+
+   Adds mmap() for a DMABUF fd exported from vfio-pci.
+
+   It was a goal to keep the VFIO device fd lifetime behaviour
+   unchanged with respect to the DMABUFs.  An application can close
+   all device fds, and this will revoke/clean up all DMABUFs; then, no
+   mappings or other access can be performed.  When enabling mmap() of
+   the DMABUFs, this means access through the VMA is also revoked.
+   This complicates the fault handler because whilst the DMABUF
+   exists, it has no guarantee that the corresponding VFIO device is
+   still alive.  Adds synchronisation ensuring the vdev is available
+   before the locks in vdev are touched; this holds the device
+   registration so that even if the buffer has been cleaned up, vdev
+   hasn't been freed and so the locks can be safely taken.
+
+
+ vfio/pci: Revoke a DMABUF on request from userspace
+
+   This is mostly a rename of `revoked` to an enum, `status`, and
+   adding a third state for a buffer: usable, revoked temporary,
+   revoked permanent.  A new VFIO feature is added,
+   VFIO_DEVICE_FEATURE_DMA_BUF_REVOKE, which takes a DMABUF (exported
+   from the same device) and permanently revokes it.  Thus a userspace
+   driver can guarantee any downstream consumers of a shared fd are
+   prevented from accessing a BAR range, and that range can be reused.
+   NOTE: This might block userspace, waiting on importers to detach.
+
+   The code doing revocation in vfio_pci_dma_buf_move() is moved, to a
+   common function used by ..._move() and this new feature.
+
+
+Testing
+=======
+
+(The [RFC ONLY] userspace test program, which drives a QEMU
+bochs-display function, can be found in the GitHub branch below.  It
+at least illustrates how the export, map, revoke, and close semantics
+interoperate.  WIP on a follow-up with a proper vfio-selftests style
+test based on this -- this won't be part of this series.)
+
+This code has been tested in mapping DMABUFs of single/multiple ranges
+from multiple BARs, aliasing mmap()s, aliasing ranges across DMABUFs,
+vm_pgoff > 0, revocation, shutdown/cleanup scenarios, and hugepage
+mappings.  No regressions observed on the VFIO selftests, or on our
+internal vfio-pci applications.  VFIO on i386 has been build-tested.
+Thanks to Alex Mastro for building a (WIP) testcase for the
+prior mmap_lock->memory_lock issue.
+
+
+END
+===
+
+This is based on v7.3-rc6
+
+These commits are on GitHub for easier browsing, along with
+"[RFC ONLY] selftests: vfio: Add standalone vfio_dmabuf_mmap_test":
+
+https://github.com/evansm7/linux/compare/v7.3-rc6...dev/mev/vfio-dmabuf-mmap-v8
+
+Also please see...
+
+https://lore.kernel.org/all/f8efaabd-c06e-4f04-8cfa-489c148e37ba@ozlabs.org/
+("[PATCH] dma-buf: Annul dmabuf->file on file release")
+
+...which fixes a stale file pointer issue that could affect VFIO's
+DMABUF export.  Although the issue exists prior to this series, the
+addition of another dmabuf->file dereference adds additional
+unpleasant failure modes (for example, unmap_mapping_range() the wrong
+file, or good old random data dereference, etc.)
+
+
+Thanks for reading,
+
+
+Matt
+
+
+
+================================================================================
+Changelog:
+
+v8:
+
+ - Rebased, on v7.3-rc6
+
+ - "dma-buf: Provide dma_buf_set_name()": Comment and "DOC: locking
+   convention" updates.  dma_buf_set_name() is is listed in the "do
+   not hold resv" category
+
+v7:	https://lore.kernel.org/all/20260924152159.49702-1-matt@ozlabs.org/
+v6:	https://lore.kernel.org/all/20260911214200.33793-1-matt@ozlabs.org/
+v5:	https://lore.kernel.org/all/20260715174737.15287-1-matt@ozlabs.org/
+v4:	https://lore.kernel.org/all/20260701171245.90111-1-matt@ozlabs.org/
+v3: 	https://lore.kernel.org/all/20260610154327.37758-1-matt@ozlabs.org/
+v2: 	https://lore.kernel.org/all/20260527102319.100128-1-mattev@meta.com/
+v1: 	https://lore.kernel.org/kvm/20260416131815.2729131-1-mattev@meta.com/
+RFCv2:	https://lore.kernel.org/kvm/20260312184613.3710705-1-mattev@meta.com/
+RFCv1:	https://lore.kernel.org/all/20260226202211.929005-1-mattev@meta.com/
+Tech topic: https://lore.kernel.org/linux-iommu/20250918214425.2677057-1-amastro@fb.com/
+
+Matt Evans (9):
+  vfio/pci: Remove DMABUF export dependency on vdev->memory_lock
+  vfio/pci: Un-revoke DMABUFs in LOW_POWER_ENTRY_WITH_WAKEUP resume
+  dma-buf: Provide dma_buf_set_name()
+  vfio/pci: Add a helper to look up PFNs for DMABUFs
+  vfio/pci: Add a helper to create a DMABUF for a BAR-map VMA
+  vfio/pci: Convert BAR mmap() to use a DMABUF
+  vfio/pci: Clean up BAR zap and revocation
+  vfio/pci: Support mmap() of a VFIO DMABUF
+  vfio/pci: Revoke a DMABUF on request from userspace
+
+ drivers/dma-buf/dma-buf.c                     |  84 ++-
+ drivers/vfio/pci/Kconfig                      |   4 +-
+ drivers/vfio/pci/Makefile                     |   3 +-
+ .../vfio/pci/hisilicon/hisi_acc_vfio_pci.c    |  14 +-
+ drivers/vfio/pci/vfio_pci_config.c            |  30 +-
+ drivers/vfio/pci/vfio_pci_core.c              | 222 +++++--
+ drivers/vfio/pci/vfio_pci_dmabuf.c            | 609 +++++++++++++++---
+ drivers/vfio/pci/vfio_pci_priv.h              |  54 +-
+ include/linux/dma-buf.h                       |  16 +-
+ include/linux/vfio_pci_core.h                 |   3 +
+ include/uapi/linux/vfio.h                     |  24 +
+ 11 files changed, 870 insertions(+), 193 deletions(-)
+
+-- 
+2.47.3
+
