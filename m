@@ -1,122 +1,149 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com [209.85.217.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22BF62853FD;
-	Tue,  6 Oct 2026 04:37:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791261421; cv=none; b=Fy6ioIsZ04PnNZ4E9GuxU3h1vZjxKLeh72K6ew4eAVyp1/jnSnOJMd5eOpZosTJMq5zG1+d0bu3rMvgDlI7Fez97G0jFSNIQinVQvna7uzZPqPoZkcwupkwRk8b9q415GUpAQrWJ4+/TBF4yi8YmVHMHd/mmBWe+dJsyToCInH4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791261421; c=relaxed/simple;
-	bh=WTL2BeKNotzn/h1QPZkSobi2zJginBeztB+bKqv7qaI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NSLGRCY4oy3wGVfw73Ooz4txRnvf15f88uzx8yTmh1AUxpNHB7J/UHkTDih09lddGAKM35onBmjKhCejF7n9lMMPWN1IMSBNNCK7x7ylM4BWMTCLmnftx8c1P4VAwPT+GgrS2R89As7MkOKS/OSOppK/dryrg7f9srJVLByJpXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MhTNmmER; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17F3825B0BD
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 04:37:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791261451; cv=pass; b=YO+6RhNd14svrA0iXUiNi7m4I7Unga4P2VOqsY02+aw2+OOZLkuuEbqfMfv02x1t30AlDOjuSfTqhjvsG5gjQE/ASvJ188JHsIH6Zb51rDpMNv4KUpo5ib1xgTVJSJrxJdrcgTBarMfNIz2fpGBiZHnVBOp3x1qKYFrmpjjxABY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791261451; c=relaxed/simple;
+	bh=0AndkzISWXJsmL1SMyRIFmSUfipTv5pei0zq8nnuLEA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KTszOUPRgmgZXX0fefoYoU8+Y4H73zpIoM0BTWndOJ63y/NJQv3mlatZzosmzh9PFJbtGbJA8zUbQuzlc27hUZ229KLlRG205MVqP70yFxBj9yY0HBGfmlLxu2idHmF51tjWJW6v0bgjsVNq7DzjG3JnC3Cj+JrzSWNVLJiHxU4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nfTmvTjY; arc=pass smtp.client-ip=209.85.217.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MhTNmmER"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791261420; x=1822797420;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=WTL2BeKNotzn/h1QPZkSobi2zJginBeztB+bKqv7qaI=;
-  b=MhTNmmEROZZAmUDh9VeyPZygqgFmqMea7qdxD1eTenez3sWV88CIjG6l
-   lvOVdUoYuz6//GcPRIowqfIadjWzDzY27FGci4ZbIsJtTySvZMBj6E1Qc
-   gJ8LSr7+FHMe8OFFTNU727dFBXIHpDcQdPbyNuU/s4C4k0KTFzIQv1QGB
-   2K+9UJu307eGsA9i7OrB7B9YjztHTlXJKvPqT/IdQpPMex1c3Dq/nFEIq
-   YABeZcPmPnnLMZBz3PqXI7Qal6L0IXDkUjbrxglaIhKnrMV0gl+eoJjBi
-   5NHxjX0F+qm++FXIRz5PSa7NsTDiJZ4mkNiuobhk/To0LsWqZ843ySfq7
-   g==;
-X-CSE-ConnectionGUID: 0N8SiqM3TQCs/qJ4b/3OEg==
-X-CSE-MsgGUID: FNgnj5EWSxaHxyy0fwFttQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="117458466"
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="117458466"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 21:37:00 -0700
-X-CSE-ConnectionGUID: RYtoPNqiQrWKBuJxouGwZA==
-X-CSE-MsgGUID: OlyfK/cyRzS75K9kVD1HJA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="315055538"
-Received: from jkrzyszt-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.246.96])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 21:36:53 -0700
-Date: Tue, 6 Oct 2026 07:36:50 +0300
-From: Tony Lindgren <tony.lindgren@linux.intel.com>
-To: Xu Yilun <yilun.xu@linux.intel.com>
-Cc: x86@kernel.org, linux-coco@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Kiryl Shutsemau <kas@kernel.org>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>, dave.hansen@intel.com,
-	kvm@vger.kernel.org, yilun.xu@intel.com, xiaoyao.li@intel.com,
-	sohil.mehta@intel.com, adrian.hunter@intel.com,
-	kishen.maloor@intel.com, peter.fang@intel.com,
-	baolu.lu@linux.intel.com, zhenzhong.duan@intel.com,
-	chao.gao@intel.com, artem.bityutskiy@linux.intel.com,
-	nik.borisov@suse.com
-Subject: Re: [PATCH v3 6/6] x86/virt/tdx: Support DPAMT when adding memory
- for the extensions
-Message-ID: <asR64ovVXEmTVgg6@tlindgre-MOBL1>
-References: <20261006-tdx-module-ext-v3-0-db52cb05b918@linux.intel.com>
- <20261006-tdx-module-ext-v3-6-db52cb05b918@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nfTmvTjY"
+Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-7c19c6721a3so61150137.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 21:37:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791261449; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Yz9hGBdZc5Qm/baE8kCLIuFcgHeA0aOA8yYpwO5rb+U3hBSg+eKK+I8JJpGb+PyG17
+         IUHL0Cqod32OCskSJJCx3fz77cAxbKRplwxomcOYBqJHwSnK3dDC2//rGSG/q8hRXTe/
+         VYHcqBoEzKtZw5Z+FHDm8rBRKZy8nFk0f5k+kUOr/qMvn4Z8cS8FWRNOmYqYBVGbdd2m
+         s8YhDrzxvSvTsqGlWHsDyvgDJlUza3lMrit/tCVXTek41VfNIFjUAry5tETXVF1hCq8X
+         DRdiRSWj6BPYRJ4uVBt7FWpANwXpTQmLHzWEw8/jz5QEsu/Ow/KlFyCXROZHY4CBNrgY
+         up9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=AY/4/mZt0eY3/2zGQJ4VfDnIKBzDcXDkb0pfkxHi03Y=;
+        fh=PNWDNtHlbGj+dczKQr88TfEqAnaO3kAS3hG5AmuS0mI=;
+        b=EBn+C5A6fDf7fcS904x0eo2gFnoQe8AT8wbeAZwi1jG3Zw6+Y0xVTbtj3V2PdZdmtS
+         5Exr/9U8qDOyKb2eKkDQKzG829IoEz04OzYPgl6FGx9jybySxScc15q+hgpaZC9zWYdo
+         GymoVoR0OW6gx3VeB7YgSOmriggiCVnEsZT/TIF/YNz0DV+k7fcPDDx9VcchYLINLvz8
+         iz8rXdRFAhhFgnxWZ1EHy7kANQL/HXR13o7wwoBISlYyuhql7jKw+Oi1Y6ChFO3Vja91
+         jeY4tEZOaWiv7ctdMUyW3ZCstyQtuPrQDqN9WrcpSqme9FLcVJ2jygM2jL0A08MMSNNa
+         66EA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791261449; x=1791866249; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AY/4/mZt0eY3/2zGQJ4VfDnIKBzDcXDkb0pfkxHi03Y=;
+        b=nfTmvTjY8Lbl9tWgkjP0EvD7OH13VNxrkrkQrITwbHmUH32shShBasCmrT/vrjZQKX
+         6jVkDDRGNQdyN7iqoHLz20P0DBhxQXXQfwwc+SWu/5H2rpjsvJ2yU39e2cvj2cIvwnWq
+         xLEyofjFxvACsOYf0XhAlC0ZlARag/XBH8Bf6gYvG9kdoegUSYItwYd0Pqz14KilgpiP
+         todinXfi2rAofdv8NcYMn4KswBO9LNip5SO3PK7k2hfRc3E5BlmsBk8EPv0a5HT084AZ
+         gyFaW7XI2USyr7OoJKQU65wymLk9aC19kINKck7Q4i7eH63QjJ5ZkzTrcrI3ZZ61oSpF
+         C+Rw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791261449; x=1791866249;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AY/4/mZt0eY3/2zGQJ4VfDnIKBzDcXDkb0pfkxHi03Y=;
+        b=FV3UanPIta1ZtVL9nIQj/iB/Dw2zSKHyq892P7Hdu3BKkhjz4KqoaAbciW64rMJFXa
+         Irt8JhrBMfNxNAl6RcXi0j9Ox158F6/cuwZJlRC9miStqakm8cVoueA0GPahHMGzs/H2
+         dGm/ozMxIcbNP0QHvIn6d6ymHr3fUBAtE0hRar+W8UBiWHv6Gt7uaRToNQ64p7sG2+Kv
+         e3HpuQ2UDWVEihD8AS2zN+3zGh1KyOki1ZcYMLb6t9cTWwSgeeeW2GS5H0cDu+BeR0Uj
+         xfhvu2+pE9xF9bHb7Qtv6OOqraGQFQQktAD/bcQTkBCWdRyNBZk5EvlgbT05oi9YJsat
+         kB+w==
+X-Forwarded-Encrypted: i=1; AKwUvBymSR0sqJE8gfPzM4JF+oGPr3CStcibbvG1s01ZDfghpG4j4qq7K+eOw8vqDJbrXaV7nVTFUdYYXDy/G50=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKad3yQlSqFyPSYFxONiIMTKIK9bXRnO3ufEkIhzXkgUPCGkqkX
+	8lY9BeqO0danABg3yW2BZpU3h+bg2yZtf5d+Bq/4ShGjoaXbtqkN4iVWsSKc097eN4tsAwsqCME
+	aDkUWtJ/FIJEp3V/uiM4NvwYChf9Ab9M=
+X-Gm-Gg: AYBFou3X27LNLXubh0jx0opyMTpSxjdXICFvpOdOz+4z0KtGlxIRDWKWjUYqxFelwrx
+	LETPjV/NThQpwBA6ZxYsiSRVlDs8kx6NsnyoxU2yDRKTAGshZJhB01JYZte9pmrvP7zgB3LyCFM
+	KOYwooRDUmAhksGl0grQwElXLpRGsubQw/WlJgjg19HDYimB0tkoUtl7eAf84A884uOGE6kn6EW
+	ALQwxQhG4ndrxj1NC2wBFsDwQS0wzRZFE9OEwkQDlhaOP02G6T6ggSFxdn/nrRNbi763fAoBotZ
+	VeIpX+5hbM/WUVVWAbJ9kHd4HBNgxHxPKATSx4ZCjejYrPx6uQ4D8/ezop+zAMMu9egrmh/tzJi
+	dE94Rzfva4mLWtKsPqTyWqHbj3T5ghnsr5nT7BopGQ6xF8CdEthyKrhq5geooETvjlH8vGK14Sv
+	XW/AzmrXUO7IblAVPqEY9N0yyZxTTM4PbkMhADr/JmDcEz
+X-Received: by 2002:a05:6102:915:b0:7c3:9b2b:7efb with SMTP id
+ ada2fe7eead31-7c87a31a2demr29458137.16.1791261448899; Mon, 05 Oct 2026
+ 21:37:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261006-tdx-module-ext-v3-6-db52cb05b918@linux.intel.com>
+References: <20260930-stmmac-est-reapply-after-open-v4-0-9d4366587b73@gmail.com>
+ <179082834895.31693.4009727999698761506@kernel.org>
+In-Reply-To: <179082834895.31693.4009727999698761506@kernel.org>
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Mon, 5 Oct 2026 22:37:18 -0600
+X-Gm-Features: AclHuK-ofFt6slNz98bqVopfHARNnkiLXB8RVY7WAXdbkjgJ1j-2L7i2_F7ye-0
+Message-ID: <CADvTj4okT50YYV=t6ZHD12K+XEBpz2B-FxE6C8ApkQeKXLyt5A@mail.gmail.com>
+Subject: Re: [PATCH net-next v4 0/4] net: stmmac: preserve and restore the
+ installed EST schedule
+To: netdev-bot+sinfo@kernel.org
+Cc: netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Jesper Dangaard Brouer <hawk@kernel.org>, 
+	John Fastabend <john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, 
+	Jose Abreu <Jose.Abreu@synopsys.com>, Russell King <linux@armlinux.org.uk>, 
+	Eric Dumazet <edumazet@google.com>, "David S. Miller" <davem@davemloft.net>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Serge Semin <fancer.lancer@gmail.com>, Simon Horman <horms@kernel.org>, 
+	Maxime Chevallier <maxime.chevallier@bootlin.com>, Richard Cochran <richardcochran@gmail.com>, 
+	linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, Rayagond Kokatanur <rayagond@vayavyalabs.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 06, 2026 at 01:41:50AM +0800, Xu Yilun wrote:
-> The TDX module uses Physical Address Metadata Table (PAMT) to track some
-> state for each page of physical memory that it might use. 3 levels of
-> PAMTs are used to track pages of different sizes - 1GB, 2MB and 4KB.
-> Dynamic PAMT (DPAMT) allows saving memory by allocating 4KB PAMT
-> dynamically, while the 1GB and 2MB levels remain allocated on TDX module
-> initialization. The kernel has helpers to install 4K DPAMT.
-> 
-> Although the memory for the extensions is tens of megabytes and the host
-> allocates it in a large chunk, the TDX module accepts it at 4K
-> granularity. Thus the host has to install 4K DPAMT for each page of it.
-> 
-> Call tdx_pamt_get() for each page before adding it to TDX module.
-> Normally, these operations should not fail, and if they do,
-> intentionally keep the error handling as simple as before - leak all
-> pages, including the installed 4K DPAMT metadata.
-> 
-> Signed-off-by: Xu Yilun <yilun.xu@linux.intel.com>
-> ---
-> v3:
->  - New patch
-> ---
->  arch/x86/virt/vmx/tdx/tdx.c | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/x86/virt/vmx/tdx/tdx.c b/arch/x86/virt/vmx/tdx/tdx.c
-> index 5d5f9da1ab02..27a7039ee443 100644
-> --- a/arch/x86/virt/vmx/tdx/tdx.c
-> +++ b/arch/x86/virt/vmx/tdx/tdx.c
-> @@ -1330,8 +1330,15 @@ static __init int tdx_ext_mem_setup(void)
->  		struct page *chunk = page + added_pages;
->  		unsigned int i;
->  
-> -		for (i = 0; i < chunk_pages; i++)
-> +		for (i = 0; i < chunk_pages; i++) {
-> +			ret = tdx_pamt_get(page_to_pfn(chunk + i), NULL);
-> +			if (ret) {
-> +				WARN(1, "DPAMT setup error for extensions, stranded all pages\n");
-> +				goto out_free_hpa_list;
-> +			}
-> +
->  			hpa_list->phys[i] = page_to_phys(chunk + i);
-> +		}
->  
->  		ret = tdx_ext_mem_add(hpa_list, chunk_pages);
->  		if (ret) {
-> 
+On Wed, Sep 30, 2026 at 10:19=E2=80=AFPM <netdev-bot+sinfo@kernel.org> wrot=
+e:
+>
+> Hi!
+>
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+>
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
 
-How about just fold this change in into patch 3/6?
+My additional replacement/error-path fixes were found by source review
+while integrating Lorenzo's EST work into the larger stmmac MTU/resume
+recovery series.
+
+>  - Whether the issue was actually triggered, or is only theoretical
+>    (e.g. found by code inspection). If it was triggered please include
+>    the symptoms, like the stack trace or error messages.
+
+These were source-review findings, not failures observed on an
+EST-capable device.
+
+>  - What hardware the change was tested on. For driver fixes please
+>    mention the device (and if relevant firmware version) used for
+>    testing, or say that the change was not tested on real hardware.
+
+I have not tested these EST paths on real hardware.
+
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
+>
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
