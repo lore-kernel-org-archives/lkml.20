@@ -1,161 +1,102 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+Received: from mta0.migadu.com (out-5.mta0.migadu.com [91.218.175.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D59F4562A1
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 14:16:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D9B130216D
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 14:18:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791296214; cv=none; b=HH8hnzUdtSSGHgRB+UfzzpH0nM6eXIUecCj0ojsnLRT5ePFJUZQkbcPXhmMqVZgWmU78+cdZgTSiiQTl5SPDm2q2JMWdksLlOON+hZCXe4r5yXHNf+95HblJ7XVKf+6jQLmzXldJYbzBdvMYeSM3PxJOz+GTDR52c/hnQlDqt34=
+	t=1791296315; cv=none; b=NWVwpIBDcltBxQz1VS4cxNzR4gwDE6L80KWM0HNy3rOtgOJtXpKD6xcqMN9jK7jxyc84c9BF+tHEiiazUq4oBZOQkk1uCw9X4NR2+xdZsk729IPZKBYeKNtClo7bBa3Ui1SrudhY0XdsYHsupht+OflRg6/PFNfHmKYwj4bG8gE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791296214; c=relaxed/simple;
-	bh=02r4wGAOjM+0zaxUQkQ6LUoyUS4UyZaMWkhJRo0z8G4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=pLNre24AOQjF128H8is3U6vb4UVnkxz0/+08rzdVL3oB7p/koy+AmAl0ECZTXF4PFk8u3aRTnWSulloclQPhWCd34Ecl0f2DR5jXEABtjIcpQoY6ZPEASqhokDayoekkqvWJQpSwnS+sLy9JedlayYanoazt3FxbpTiwL5TDJCc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr; spf=pass smtp.mailfrom=snu.ac.kr; dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b=U6dy56Q1; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=snu.ac.kr
+	s=arc-20240116; t=1791296315; c=relaxed/simple;
+	bh=lY+UNi6/Xewdo1898eoNR/G3xmaD28GHwyLqmqUFsco=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=nSrRhZ3yRquLLWnSr5NcpoK8FC3MPm+GhFWx20LyXCWZpaq9lMQDL3P992YLJt+V1rTlh3p/1oiuBvUnrGt5Xu/LHFa4mUhKP2+L8XLgPnQ1yLA1aXmQ8ao4bP48lL8u/wiVw1LyqougrawB4j3lLLnWUeZSQ2tTD8LnTCJk7ag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=eA/Y2DTH; arc=none smtp.client-ip=91.218.175.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b="U6dy56Q1"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38759bcd877so892406a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 07:16:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=snu.ac.kr; s=google; t=1791296211; x=1791901011; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Y7W/stljCR7Yo3LPNubWsyzPTC2BQ+EVRhVLuL/EFgc=;
-        b=U6dy56Q1aBkmoRo7wfYzZ0NQnRj6ubXeTkf3XeFKhpT6R0y1K4nKAp3qRyxoiqIVrS
-         uJecWmQUFigQuqogS5xFYQLSxuZjqr4Wh0FKQNkBTPXzEeXVcg5p9x7sqjcjd2uGilaJ
-         LYU9D5lc8ACTO8mSWXVgpiR79bYImLLYBVvRA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791296211; x=1791901011;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Y7W/stljCR7Yo3LPNubWsyzPTC2BQ+EVRhVLuL/EFgc=;
-        b=PuMkYWE9dXoFe1+dTFEaLgYb32l/xgz1lIJ9NS9XNJKpdKdj6tvLgal/5bS5JjLurH
-         nKXreCUfQ0Wz1/XdJ+LV2jAsWCvRPyIrVlki44tCjBMaCVWgmbEiOx7zvOYfUAzpa2FE
-         uWP8Mujj5kELvQnhlfUObsFUmsoflrbYeNkWdPKQ2nltCOoHBv4/B+6W3ncSl4gnypKV
-         ERptKUMcdPqbZ47n55biHQDvldrZAbHySwguF7NAOHnaAJ1GH3HS8GzRJEZ3VoLf13Gq
-         fFnBWrS7zueblUEDRFQ6fglSP2EETLVsHpx/fIuxB9whqJTH96gK/WT8uTedySp76+Ia
-         SsiA==
-X-Forwarded-Encrypted: i=1; AKwUvBzxLT44mS80jTLis9VDKT7iARvR66cx+NGoWg9cioVyWQC/kIzFUGKvOVmyaKoXPWkDNoY2IjMQrcqdNrQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKa7j279QS0DlJo2ern15+lqroDOtlUQj6N8LMqNqw8swFYL/rd
-	UOW0m4VnBbY2pfzYavOXdxatfPf8tbcei8d/SmvjO+TAp7g/VsoFfBqynzhyUEdK29c=
-X-Gm-Gg: AYBFou0kO5E2xwdzaDadVvOV4HW1WcGpltba6k3h+NE4chJyjZP4ZvozD6RI2yDPk4S
-	Eb84FRCcf10B1ExkhViT9xt9QdO9u7Ejg9knh0LbkwYCxOxcT7V9gxE/VOmsjrafaaujN/BNpJH
-	SP56LHZVr1tFisP9eem0dp44V5cM1o/RGNP8vmY4gtFLQT9yMVByfVAZVNMJk9kBGaz+3YZxY5n
-	Wynx3yS4FqHdzBR/VYLhQn5WmdmUzp7vBLCiAupIIHaXmhYcpZXsbOOFX/S/biC8xGfzma1lyx2
-	rygT1D2YVhw+Hi8tpKYtpbcr1J0fwLshbno3Wh9moftvMB1bFBFf6JBbySoDyxqNB0WZ2w3IQsY
-	+kbkYUn8EQDcP3au0/VTzQge7CicRFrlN6vw8xwmV9IWJsVZBIBA70dUfCcWnn5qma8dHT0i/wo
-	akiFQv+DwIcZrdP4cv025sjENdRQByOs2qc05z6+wK8y4NwOj33XdYh6CHu0d70YdSO+cVeeefl
-	Dc=
-X-Received: by 2002:a17:90a:f94e:b0:3a4:c18c:b8a5 with SMTP id 98e67ed59e1d1-3a8737d4695mr910988a91.58.1791296210623;
-        Tue, 06 Oct 2026 07:16:50 -0700 (PDT)
-Received: from [172.19.0.2] ([49.142.45.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853889388sm5969035a91.2.2026.10.06.07.16.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 07:16:50 -0700 (PDT)
-From: Seongjun Hong <hsj0512@snu.ac.kr>
-Date: Tue, 06 Oct 2026 14:16:45 +0000
-Subject: [PATCH net-next v2] net/mlx5: allocate DMA pool structs on the
- pool's NUMA node
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="eA/Y2DTH"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=lY+UNi6/Xewdo1898eoNR/G3xmaD28GHwyLqmqUFsco=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791296310; v=1; x=1791901110;
+ b=eA/Y2DTHp66qFKGiUpDevC98TwSGyHl3jiGvpFfEk7BAMpdLIiJgyP902VXfLGPoqShMi2oS
+ Dh/32CV6/pFIKzIcEypU2SW/PfXpi1Mro+5VOEAHLQoBRYrzW9RQV7wUSqL0psg3nNQr0fxj4+v
+ YYEQX0LbVpZW6KYA5SXl9aF4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 193ce7972a46e22a;
+	Tue, 06 Oct 2026 14:18:30 +0000
+X-Mizu-Trace-ID: 193ce7972a46e22a
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Date: Tue, 06 Oct 2026 14:18:26 +0000
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261006-net-mlx5-numa-allocate-pool-page-v2-1-0dc4c2eb1376@snu.ac.kr>
-X-B4-Tracking: v=1; b=H4sIAMwCxWoC/42NTQ6CMBCFr0Jm7ZC21D9W3sOwGHGQxtKSthAM4
- e5WTuDuvbyfb4XIwXCEulgh8Gyi8S4bdSig7cm9GM0ze1BCnaQQR3SccLBLFtNASNb6lhLj6L3
- FkXJfMStBQkt9Zsg3Y+DOLDviDr+14yVBk5PexOTDZ2fPcs//x8wSJQrZaXWprpV66Ft0U0lt+
- Q7QbNv2BT4d5Z/aAAAA
-To: Saeed Mahameed <saeedm@nvidia.com>, Leon Romanovsky <leon@kernel.org>, 
- Tariq Toukan <tariqt@nvidia.com>, Mark Bloch <mbloch@nvidia.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-rdma@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Seongjun Hong <hsj0512@snu.ac.kr>
-X-Mailer: b4 0.13.0
+Content-Transfer-Encoding: quoted-printable
+From: "Luka Gejak" <luka.gejak@linux.dev>
+Message-ID: <9821f85cc14d3e3d5c0ea557013002a732e3fb42@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH rtw-next v4 2/4] wifi: rtw88: sdio: Track running state
+ and cancel TX worker on stop
+To: "Ping-Ke Shih" <pkshih@realtek.com>, "Alastair D'Silva"
+ <alastair@d-silva.org>, linux-wireless@vger.kernel.org, "Kalle Valo"
+ <kvalo@kernel.org>
+Cc: "Martin Blumenstingl" <martin.blumenstingl@googlemail.com>, "Jernej 
+ Skrabec" <jernej.skrabec@gmail.com>, "Ulf Hansson" <ulfh@kernel.org>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ luka.gejak@linux.dev
+In-Reply-To: <ccc69689fe2a2cccc39d40221056722e24263f2f@linux.dev>
+References: <20261005084849.3109337-1-alastair@d-silva.org>
+ <20261005084849.3109337-3-alastair@d-silva.org>
+ <6665409e1d374c1face4936b827a6a9d@realtek.com>
+ <ccc69689fe2a2cccc39d40221056722e24263f2f@linux.dev>
 
-The mlx5 DMA pool structs (mlx5_dma_pool, mlx5_dma_pool_page and its
-block bitmap, and mlx5_frag_buf_node_pools) are allocated without a
-node hint, so they land on the node of whichever CPU happens to create
-or fill the pool, while the DMA pages they describe are allocated on
-the pool's node.
+October 6, 2026 at 16:03, "Luka Gejak" <luka.gejak@linux.dev mailto:luka.=
+gejak@linux.dev?to=3D%22Luka%20Gejak%22%20%3Cluka.gejak%40linux.dev%3E > =
+wrote:
 
-The pool, page and bitmap are dereferenced on every block allocation
-and free. Allocate them on the pool's NUMA node as well, so that all
-of a pool's state lives on one node.
 
-These allocations happen on the control path, so the performance gain
-is expected to be small; the change is mainly for consistency.
+>=20
+>=20October 6, 2026 at 04:03, "Ping-Ke Shih" <pkshih@realtek.com mailto:p=
+kshih@realtek.com?to=3D%22Ping-Ke%20Shih%22%20%3Cpkshih%40realtek.com%3E =
+> wrote:
+>=20
+>=20>=20
+>=20> Alastair D'Silva <alastair@d-silva.org> wrote:
+> >=20
+[...]
+>=20>=20=20
+>=20>  static void rtw_sdio_deep_ps_enter(struct rtw_dev *rtwdev)
+> >  @@ -1470,6 +1476,9 @@ static void rtw_sdio_handle_interrupt(struct s=
+dio_func *sdio_func)
+> >  rtwdev =3D hw->priv;
+> >  rtwsdio =3D (struct rtw_sdio *)rtwdev->priv;
+> >=20=20
+>=20>  + if (!rtwsdio->running)
+> >  + return;
+> >  +
+> >=20
+>=20I think we should keep this check too, per my explanation below.
+>=20
 
-Signed-off-by: Seongjun Hong <hsj0512@snu.ac.kr>
----
-Changes in v2:
-- fix typo and specify the structs are allocated on the control path
-- add a prefix net-next to the subject
-- Link to v1: https://lore.kernel.org/r/20261005-net-mlx5-numa-allocate-pool-page-v1-1-01f4283932b4@snu.ac.kr
----
- drivers/net/ethernet/mellanox/mlx5/core/alloc.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+Correction,=20as I realized I didn't include explanation for this below.
 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/alloc.c b/drivers/net/ethernet/mellanox/mlx5/core/alloc.c
-index a92cf545bdaf..dcd281c4691d 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/alloc.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/alloc.c
-@@ -110,7 +110,7 @@ static struct mlx5_dma_pool *mlx5_dma_pool_create(struct mlx5_core_dev *dev,
- {
- 	struct mlx5_dma_pool *pool;
- 
--	pool = kzalloc_obj(*pool);
-+	pool = kzalloc_node(sizeof(*pool), GFP_KERNEL, node);
- 	if (!pool)
- 		return NULL;
- 
-@@ -127,19 +127,20 @@ mlx5_dma_pool_page_alloc(struct mlx5_dma_pool *pool)
- {
- 	int blocks_per_page = BIT(PAGE_SHIFT - pool->block_shift);
- 	struct mlx5_dma_pool_page *page;
-+	int node = pool->node;
- 
--	page = kzalloc_obj(*page);
-+	page = kzalloc_node(sizeof(*page), GFP_KERNEL, node);
- 	if (!page)
- 		goto err_out;
- 
- 	page->pool = pool;
--	page->bitmap = bitmap_zalloc(blocks_per_page, GFP_KERNEL);
-+	page->bitmap = bitmap_zalloc_node(blocks_per_page, GFP_KERNEL, node);
- 	if (!page->bitmap)
- 		goto err_free_page;
- 
- 	bitmap_fill(page->bitmap, blocks_per_page);
- 	page->buf = mlx5_dma_zalloc_coherent_node(pool->dev, PAGE_SIZE,
--						  &page->dma, pool->node);
-+						  &page->dma, node);
- 	if (!page->buf)
- 		goto err_free_bitmap;
- 
-@@ -278,7 +279,7 @@ mlx5_frag_buf_node_pools_create(struct mlx5_core_dev *dev, int node)
- {
- 	struct mlx5_frag_buf_node_pools *node_pools;
- 
--	node_pools = kzalloc_obj(*node_pools);
-+	node_pools = kzalloc_node(sizeof(*node_pools), GFP_KERNEL, node);
- 	if (!node_pools)
- 		return NULL;
- 
+Sorry for that, here is the explanation:
 
----
-base-commit: 8b4e7209c842d8cb9516f1f5ef0a88aa2d8831a6
-change-id: 20261005-net-mlx5-numa-allocate-pool-page-2ee20a04147e
+This check sits on the interrupt path, which the cancel does not
+cover. rtw_sdio_stop() only masks HIMR. The SDIO IRQ is released in
+rtw_sdio_free_irq():
+
+sdio_release_irq(sdio_func);
+
+and that only runs at remove. A request raised just before the mask
+can still reach the handler once after a stop, and without the check
+that run reads HISR and writes the ack back on a stopped device.
 
 Best regards,
--- 
-Seongjun Hong
-
+Luka Gejak
