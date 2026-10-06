@@ -1,161 +1,238 @@
-Received: from usb-smtp-delivery-120.mimecast.com (usb-smtp-delivery-120.mimecast.com [170.10.151.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89EB249E13F
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 16:19:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.151.120
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F361D4A090F
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 16:19:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791303564; cv=none; b=lJEDCzUhL3tp5oymGGpHTLof/rSv3vu7U0/dXNoFb3ZEVYPOF5dm14Rv/MFOBUwshi3gx1Ac+VFMNaZUkyMyCP7OLpjLhRnybjMFq/uKGriwsRwlKcS/hGdkiYWfjYH/J+u0Tv+5NsulmMyclHv4B0L1+P4DU0oyEpMFEgUjEm0=
+	t=1791303569; cv=none; b=a5073YgLmkzW+yYoHx4K0FS51T6/ZkY0JHoG4EUyzmfd/0OggSy8Lcw4O2+i+HquhYnSoIAdLocHx1y9VB42vByDH+TRa8WSScUMerv44YOm3FKKmmutoyXXTdn1KZUCA0/tqJ4OII1hKY34NE3hu9dNE5ZhbBOpIjHtas64DK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791303564; c=relaxed/simple;
-	bh=PkYnh8S1VT72APbM7Ysdv494MtCKfko0DMCtusVqUfk=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 MIME-Version:Content-Type; b=VaqHC9AEgLHuJZwtj34Oqmi7dSyeUuB5Qy0Alt7cYURRbE3CXs03nObHWxgI3efcojj+2Vvl9jHTnxHNjP6GBA8RUfM7qT3gCFki0ImIxBf8Ja1seq8wh51of+r3PRFaV6S7xEzwQo6MrgyQ7nHgg+0Okpn9PWa+YnqEgd8uVWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com; spf=pass smtp.mailfrom=onsemi.com; dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b=YSYUOjz9; arc=none smtp.client-ip=170.10.151.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onsemi.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b="YSYUOjz9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onsemi.com;
-	s=mimecast20250127; t=1791303556;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PkYnh8S1VT72APbM7Ysdv494MtCKfko0DMCtusVqUfk=;
-	b=YSYUOjz9xldtbFnNDHkXq0SPh0PtaamQxwuJM7hVc7sSosqxxhJVbig5w/pCd+iXl6ppoj
-	AG5vmwPs9kBHzL9eBqL7aRXYWvkwwwQwvlzQPjh7zG0YHuovSkLiV6d/IiccOSgf1HcN8F
-	I2S8H2eSiszrDgzCEffACFyrDXVNiaUTGtd/9UrzC2MhgCiXOMvwNgL+nu6h9Afh5VTtBX
-	L9jvAxZmDYBjIsN+C7aF5m7ktOudDaCyYunDXTPmDf/Owi9ZX35nc/jVbOnneI1brpy5gB
-	w2LGTluoxaFKJWmD3wqe2nBfS5BpVZym0GF+vp96JWpKxAd+L11wue/5Ro8bYA==
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011061.outbound.protection.outlook.com [40.107.208.61])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id usb-mta-53-jcGMHVPTPBOGvS_JckhiZQ-1; Tue,
- 06 Oct 2026 09:19:12 -0700
-X-MC-Unique: jcGMHVPTPBOGvS_JckhiZQ-1
-X-Mimecast-MFC-AGG-ID: jcGMHVPTPBOGvS_JckhiZQ_1791303548
-Received: from CH0PR02MB7867.namprd02.prod.outlook.com (2603:10b6:610:110::22)
- by SA0PR02MB7114.namprd02.prod.outlook.com (2603:10b6:806:e6::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Tue, 6 Oct
- 2026 16:19:07 +0000
-Received: from CH0PR02MB7867.namprd02.prod.outlook.com
- ([fe80::d722:d686:a9cb:6c2e]) by CH0PR02MB7867.namprd02.prod.outlook.com
- ([fe80::d722:d686:a9cb:6c2e%4]) with mapi id 15.21.0472.016; Tue, 6 Oct 2026
- 16:19:06 +0000
-From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-To: Jakub Kicinski <kuba@kernel.org>, Selvamani Rajagopal via B4 Relay
-	<devnull+Selvamani.Rajagopal.onsemi.com@kernel.org>
-CC: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
-	<pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Piergiorgio Beruto
-	<Pier.Beruto@onsemi.com>, Parthiban Veerasooran
-	<parthiban.veerasooran@microchip.com>, Simon Horman <horms@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, Richard Cochran
-	<richardcochran@gmail.com>, Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit
-	<hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>, Jerry Ray
-	<jerry.ray@microchip.com>
-Subject: RE: [PATCH net-next v8 05/11] net: ethernet: oa_tc6: Support for
- hardware timestamp
-Thread-Topic: [PATCH net-next v8 05/11] net: ethernet: oa_tc6: Support for
- hardware timestamp
-Thread-Index: AQHdUCZK/42vAQikQEyQnWutx/ewbbbvvicAgAD+CiA=
-Date: Tue, 6 Oct 2026 16:19:06 +0000
-Message-ID: <CH0PR02MB78678AF6F2018A8E443E2B9183952@CH0PR02MB7867.namprd02.prod.outlook.com>
-References: <20260928-s2500-mac-phy-support-v8-0-7e011aacc309@onsemi.com>
-	<20260928-s2500-mac-phy-support-v8-5-7e011aacc309@onsemi.com>
- <20261005180842.66ea6c93@kernel.org>
-In-Reply-To: <20261005180842.66ea6c93@kernel.org>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CH0PR02MB7867:EE_|SA0PR02MB7114:EE_
-x-ms-office365-filtering-correlation-id: 67effc68-c7a8-4bb8-2fbc-08df23c58ba5
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|376014|7416014|366016|23010399003|22082099003|18002099003|38070700021|4143699003|11063799006|10067099003|56012099006
-x-microsoft-antispam-message-info: 9g2uLbuA101+rtt2vOwiH3ziTBnE0vlNY9Ax2R9SEgwJSAWV6Rx6MdpiH1PNtJ+OoY2uyUM9/Skj+V1dq77Vesn3twn+t3PnXRjlDaLxfNgNu3kMOVaesN8Rlqowr/lBtyGpNV3KV1pQa3siUhM5T4c/IREs2dlW+/LsJwl4a9r3rI1CIArtQ6SjJdCqto/Pk5JjYy3lzLYVgbXVCp2ytnY3qhv7HWYUyw8WEYU0NOPzZgqGkNiYEIhHcqJWb9MsezjU4lRV7IRtAbpRbqFK2bIjFmvk/bKAZXExYoBiz2hy8EYlfiQRIgIi/d+5RrPTw81D1koJJApQKhqekMIs/zSha6r6bRwqqcxVlDb/BF2wPfSFqzCWZLd5hqE3BwjvsYK3wjxxzR9ZmWcc/jqo/WZTf3IfSADVFVT9RtXIJBgBc+4cXDATBqY/FhrhiOn/mcLEmx+fa81JJo5VT3thNMgz7TiK8FyAsU9dYd8KaxWlG1ADx3vJx7HNkwjbhFTnqPehSSisySg4W/7n3m/aQrl2Cd3buCilWVmUd/btWff2TP4IMxJs7i39jTkeijZZy+5BVOo8KaCWNtcJE2X6JE18VH/EOKMSOTtuZLTdlh2rtaTSpFmB4oetg6QJ0xrB3UzfhXYfxbnKssV/iGTV3Ru0dopnutyhPqA7ZbvWCJ8xVtequ4FXBnfDqTP86DMP+kmFniaB6xFxkbfoxGAO8fGPfQJHXAkjS0VQ7xtklSo=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH0PR02MB7867.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(23010399003)(22082099003)(18002099003)(38070700021)(4143699003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?WGk0NC85Sm4vdzg4blRCSk9MY2tYcktlTHc1VGJTM0Y2YkFOM1Q1UkRTY2ov?=
- =?utf-8?B?eXBNVndSaFcvSnIzeXh4cmo4eS8yV25GbmNnaGlSOVgrQTd6NnZKRTUvV3lp?=
- =?utf-8?B?cjl1L0daZGgvYjJWSlBXelBSQTBxc2xlOThLOXo1ZG92NFdGY3hLYUlWWU1Y?=
- =?utf-8?B?bkhxd0FVZlRGZWthVTVoVTUxUk9XQUtLL3U3TG0vNHN3WC9NWmJiVnV1cElW?=
- =?utf-8?B?TG1TeGV0dmVmOVlQbGJCOGhoOEZsVkhXRDB2Z0JUWisvazh4NkdtY2hoZVJn?=
- =?utf-8?B?VXdZK3F5bzRSVG14bFNITDJ6TGpBWWIrc0RYalJiY09nU3ptYVorNGdQa2tB?=
- =?utf-8?B?RnM4U3UvZ0dySUE1Q3RLczE1eU0rUzhDNG91WFpWWkNhekUybFFXWDhZRWhk?=
- =?utf-8?B?Zk5vZitGSU5MNDVKU2RpSmUyeklZZUZyK3J5V2FhVTR2RUtrUlNsWGJEOGlt?=
- =?utf-8?B?ZGQ2MjFOOEdFVW5kVFJXSEcxaSt3M2VHNlF6ZklFTjVlMXZzUUI0Yk1BdkFl?=
- =?utf-8?B?RnJwMGxHZUltTW0vb1RIOXYyOTg2NFhXRC9mMlRLMUp2a3d6Z3JKQ2VFdWlU?=
- =?utf-8?B?YUVZZVNWT3hhMEVUcCtWNWN5OEhCMVlER0ppdWxVNWFRWE1BcWgzQXlRdTZT?=
- =?utf-8?B?czZPRTV4SVc5ZGlKQ014bm1MM3B2NmZ6c1plK21iOUoyMTl3cUswaGJkcThl?=
- =?utf-8?B?SnZ6V2JrbEJTV1Z6bHpPUGFQeVBQeTBGU08yVVVnQm9aT1Vocm5ZZGVQc05Z?=
- =?utf-8?B?Rys2alp5WW9pQXFIaXhZWEFUbzBDRnd2K1hZL2s1NnFvYkpmUnpTbFFHMXRl?=
- =?utf-8?B?OWZBTldCQ3lZY3dtdStobHRsTksxYitELzVOSHJYcXA1SUVpcHlxaXZTV1JI?=
- =?utf-8?B?dkg4d2UzUkJLTzVyR1YyU2NiUEpFSVVzRzNoMExiakpDd3A5eXJaMFNzUVlt?=
- =?utf-8?B?M2NVOU1Walp4cmpCWFpyNEJvL0VDMjhJNjVXbVVYRDdnZWFTL05qMlEyS3RU?=
- =?utf-8?B?b0hoYVdxNlNJWFpBbkRUSDcwdUU1Y3VZZW9KWDhXZ1M5WWw0OFZySytDQ3F6?=
- =?utf-8?B?amVFRWthYXd0OXJDRWxPVnUxd2FXdkxBKzZDZGxkdnB4bTZ2YXBYNm9CcVQ3?=
- =?utf-8?B?bWRiL3VRRTFpNmZHck16NVAzenZ3NlF5VEVTR08vTzVHR0IzVjNjQjdmQ0lF?=
- =?utf-8?B?SlhyNjNwZVNkZGFiUzVqR3dUbG9qZS8xTG56RVdzdXhCd3dDZUMvZFgrM3Mz?=
- =?utf-8?B?VkhZWXhHaUtNbWZLODJsbWRhd1pPa1orT0p2SGN2N1AzZkFVK1VLUUluK2Zl?=
- =?utf-8?B?Mld5NEthcUQ1RDFOdEd1T1EwTVZzRlRGZ0hnY3MrU0t6MmZDYzEzdEswZHVB?=
- =?utf-8?B?eVJ6czJvRm5HZ1AyZXpCR0JhSDZCMTB0OFo2UEtiVGEwc2xVOHF3bGdlQ3RO?=
- =?utf-8?B?ZG4veFM3OVRXWEVEemY3Mmptb0JkV2hWVWlsWW5HRDZPUCtwRUxBK3ZrRkF5?=
- =?utf-8?B?UDAvS1E3b21xMU9KdldrRDZFTmNBYk1HajR5TWhXcDUrekxyRkVHMnNkTVAz?=
- =?utf-8?B?VVR2TndEWkZXRkkyYnF2cGFGc3F3ZVZkTTFFOVdGMlpReFBwNVlhRW9XZHVL?=
- =?utf-8?B?WGNEcWd3N2pkUTRTWS90RU4vbGxiZjM1bUdIWXpzeWlOY3RONWtjQmVyem1J?=
- =?utf-8?B?aU0wTmg0MGQ0RmIwVm40RzF1MHRSUVFiYkFzdGE3NE9MdG9aYWdwWXowemY4?=
- =?utf-8?B?MGg4V0dBblR1bGQrRlovY1N3OGJNZTJjSzlVOUNjQkpUM3NZdmlibERTZUZE?=
- =?utf-8?B?WTdNdDVTa0VkQ3Q2LzM5Y3U0RE83dWh5ZVhMOTlLWHAzTG5wdGI3ZDBFdTBk?=
- =?utf-8?B?MEJpWWhoemdyLzlVVWhjcURpZ3BZZ3FyOHJmWGVxSTd1ZWdmUUFvbld5QkNj?=
- =?utf-8?B?cDBaMGpmV1pIZWFpSzJxUUIvRi9mVFVRc0dreXoyMzFuZVpvRGRoZmRlcWJ4?=
- =?utf-8?B?N0d6YTRJWDBYTk45UUM4ZExIQWZvOWtNM0toTC9uQkJ2QlBxN3R3WDY3bmZR?=
- =?utf-8?B?WDdWNWZDdEtPRVUwYUZmWFY5cXNOZGV1RlNMQ1o3aEtpZUhCTUs4KzJTNGpG?=
- =?utf-8?B?ZlVva2JCRTFUMGpuMVd0Ym96cTNRbzZHSnNGbVNjcXAxUEh3Q2Y3N05IQ0pU?=
- =?utf-8?B?U3JZVkducXdWMytTSzE3S3BFQ2R2Z1laRGV6NWx1NjBTLzlaYmZjcjZ5VW9i?=
- =?utf-8?B?Z1l6aEYxbHNyQi9uKzRNUXVDMkFjaEgxeXhhalVKbHdjbXZONmdwaU5DNWZN?=
- =?utf-8?B?ZzNmTHF5OHVsVGZpUThGNVNQbkZ3dUJwWmdqQUhjRTFOWUozREkrZz09?=
+	s=arc-20240116; t=1791303569; c=relaxed/simple;
+	bh=+L3nCM1/8BFjJDb5NR94sLtLbi4PV1zhhq4rjnZKcsU=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=rPb1O1kK/RWyFKGTxXxPiboOs1N+AIQCq6y8kHyKyz+quZETl4t5NE0Vqd5GIPugaKLxCmdHo6pu7jgwEGWj0l3DjMOIXZeF6RqFbi4anSZySvq3EZfkPV6TvXJp9USEzXDrp51oHSH2cXQe9gq5E3MhrBhf+nqaeYc6zM29Vak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4c734afb8deso4421287b6e.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 09:19:26 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791303566; x=1791908366;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Nph5pTCt6D8BOiYO8V4HZw16r0IFAYn4xJK1YC3f8Bg=;
+        b=Lj429GNksZ+RlXa2CGPHpV7Dkcyg7lAK8xiAEmXYtbRa18gPkY+j0a8iYpVfJTgfeL
+         ZKWxmhs//Eh8kUDzAl2Ujwgnmz9L1wtQOddi3SiyuuND4dEcroAAPb1R6Bkti7kkGnsV
+         qtyxb3jEP2msCNWF+M+sHxpq0yWY0YMjr9uH2TDHglg5YcEY+Pv8n/e0V8NBq4OJyyc0
+         kTuPPYexcVf9QLZEfj9KThZ4p4nN1tlWmIyEIavVuFliWZ3IEBqBu+rm1Slbn1J7R85D
+         f0yqeFiJ7SAwWsoSfFUzv8BnWU3YDH0Yu4IvKdEK7C0idMm6AAQzmmOni/9NdlszHrty
+         6BgA==
+X-Forwarded-Encrypted: i=1; AKwUvBwAK/LcSD7hB8ppp/xDOlNvHj4VIltr8ttQIF9+MgllMOs4MM1n7rgDBpyPE+IE6dYlQVWzqMqz4zc0FRk=@vger.kernel.org
+X-Gm-Message-State: AFuF++meKSRCEp1mYSNm6WbWjsZAthzDsGQbJaYtOk8g2mY9jn3fmuN0
+	W1KMgKld8f3cxgazllwvVKbWl1V08mMjAaaaLIwYkSWEwjBpSx3zbyqoGCqxkOQIFT9NkN+93O2
+	usAMecK5ah0+0JYmvPT378N2m65LQk2qUL7aRcs+jRpLyLzFlwkDHn0ycqh4=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: 3vKBGKGBcaqAJtptUSDkh8cxvbUsGs48lqdssIh29R8fgjXvjoXctH0yVh1GbsMx0VZaZ2xlNMf5kkEiDgiW3yTbuqmY7oHoFovuGhA+muSG/dJrWLYEEXNs6RVJRqIeQtiAm1Lwa8ziQBmBKOd87M4v5s1601lvBuSUUvFF6epcqJej8OwjIiSex0L15FfOuovx4NqH0916CS5f50ksoJGEzFMY/a/TI/EkPRTMk/FvGSruyCxDfEtxq7zm9NaHbpu0Jnm3QJ2ida47lYT0gn3djotz6obqXVhOv7NiXU9ETN1AVmXE2Sx0v6Sns8F1NXLEBmCR9Kv5NSz+mnOPCA==
-X-OriginatorOrg: onsemi.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR02MB7867.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 67effc68-c7a8-4bb8-2fbc-08df23c58ba5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Oct 2026 16:19:06.7661
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 04e1674b-7af5-4d13-a082-64fc6e42384c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: lfr6eF6lIUnZYJrE+6WqhErxOFXx+G/osNMRpJDNgVBxp6n24XRiSbe4byG9OGvL/VdBSW4W4vtFXLlC/UYvRuCFuEoLTUBWrzhmE/2z4cc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR02MB7114
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: ij1bRHKX-sIHeTusDwGoyXWmYsOb4dRAPP_-2OfhJNk_1791303548
-X-Mimecast-Originator: onsemi.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
+X-Received: by 2002:a05:6808:2384:b0:4e5:c2b4:33a3 with SMTP id
+ 5614622812f47-4fb415d61e1mr1585684b6e.45.1791303565794; Tue, 06 Oct 2026
+ 09:19:25 -0700 (PDT)
+Date: Tue, 06 Oct 2026 09:19:25 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac51f8d.353c8d8e.177895.0006.GAE@google.com>
+Subject: [syzbot] [bluetooth?] possible deadlock in l2cap_chan_connect (2)
+From: syzbot <syzbot+1fed874be1d7e459b5a3@syzkaller.appspotmail.com>
+To: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	luiz.dentz@gmail.com, marcel@holtmann.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBKYWt1YiBLaWNpbnNraSA8a3Vi
-YUBrZXJuZWwub3JnPg0KPiBTZW50OiBNb25kYXksIE9jdG9iZXIgNSwgMjAyNiA2OjA5IFBNDQo+
-IFN1YmplY3Q6IFJlOiBbUEFUQ0ggbmV0LW5leHQgdjggMDUvMTFdIG5ldDogZXRoZXJuZXQ6IG9h
-X3RjNjogU3VwcG9ydCBmb3IgaGFyZHdhcmUNCj4gdGltZXN0YW1wDQo+IA0KPiANCj4gZHJpdmVy
-cy9uZXQvZXRoZXJuZXQvb2FfdGM2L29hX3RjNi5jOjE2NTA6NzogZXJyb3I6IG5vIG1lbWJlciBu
-YW1lZCAndmVuZDFfbW1zJyBpbg0KPiAnc3RydWN0IG9hX3RjNicNCj4gMTY1MCB8IHRjNi0+dmVu
-ZDFfbW1zID0gLUVPUE5PVFNVUFA7DQoNClRoYW5rcyBmb3IgeW91ciByZXZpZXcuIFNvcnJ5LiBU
-aGlzIGxpbmUgc2hvdWxkIGhhdmUgYmVlbiBwYXJ0IG9mIDYvMTEgcGF0Y2guIFdpbGwgbW92ZSBp
-dC4NCg0KPiB8IH5+fiBeDQo+IC0tDQo+IHB3LWJvdDogY3INCg0K
+Hello,
 
+syzbot found the following issue on:
+
+HEAD commit:    2c3418fffa9d Merge tag 'keys-v7.3-rc7' of git://git.kernel..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=17ca6ff5580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=929e4854a828f434
+dashboard link: https://syzkaller.appspot.com/bug?extid=1fed874be1d7e459b5a3
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=101e6f25580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13cfbff5580000
+
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-2c3418ff.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/1818dc9d2f44/vmlinux-2c3418ff.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/52ad1b5b053d/bzImage-2c3418ff.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+1fed874be1d7e459b5a3@syzkaller.appspotmail.com
+
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Not tainted
+------------------------------------------------------
+syz.0.17/5921 is trying to acquire lock:
+ffff88802d8700b8 (&hdev->lock){+.+.}-{4:4}, at: l2cap_chan_connect+0xac/0x2110 net/bluetooth/l2cap_core.c:7289
+
+but task is already holding lock:
+ffffffff90f83f60 (rfcomm_mutex){+.+.}-{4:4}, at: rfcomm_dlc_open+0x92/0xac0 net/bluetooth/rfcomm/core.c:426
+
+which lock already depends on the new lock.
+
+
+the existing dependency chain (in reverse order) is:
+
+-> #2 (rfcomm_mutex){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
+       rfcomm_security_cfm+0x3f/0x4b0 net/bluetooth/rfcomm/core.c:2223
+       hci_auth_cfm include/net/bluetooth/hci_core.h:2203 [inline]
+       hci_auth_complete_evt+0x811/0x1180 net/bluetooth/hci_event.c:3554
+       hci_event_func net/bluetooth/hci_event.c:7887 [inline]
+       hci_event_packet+0x8e9/0xcd0 net/bluetooth/hci_event.c:7938
+       hci_rx_work+0x451/0xfc0 net/bluetooth/hci_core.c:4087
+       process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+       process_scheduled_works kernel/workqueue.c:3479 [inline]
+       worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+       kthread+0x373/0x450 kernel/kthread.c:436
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #1 (hci_cb_list_lock){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
+       hci_connect_cfm include/net/bluetooth/hci_core.h:2164 [inline]
+       hci_remote_features_evt+0x485/0x9b0 net/bluetooth/hci_event.c:3786
+       hci_event_func net/bluetooth/hci_event.c:7887 [inline]
+       hci_event_packet+0x8e9/0xcd0 net/bluetooth/hci_event.c:7938
+       hci_rx_work+0x451/0xfc0 net/bluetooth/hci_core.c:4087
+       process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+       process_scheduled_works kernel/workqueue.c:3479 [inline]
+       worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+       kthread+0x373/0x450 kernel/kthread.c:436
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #0 (&hdev->lock){+.+.}-{4:4}:
+       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+       validate_chain kernel/locking/lockdep.c:3952 [inline]
+       __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
+       l2cap_chan_connect+0xac/0x2110 net/bluetooth/l2cap_core.c:7289
+       l2cap_sock_connect+0x37a/0x770 net/bluetooth/l2cap_sock.c:255
+       kernel_connect+0x107/0x160 net/socket.c:3755
+       rfcomm_session_create net/bluetooth/rfcomm/core.c:808 [inline]
+       __rfcomm_dlc_open net/bluetooth/rfcomm/core.c:385 [inline]
+       rfcomm_dlc_open+0x838/0xac0 net/bluetooth/rfcomm/core.c:428
+       rfcomm_sock_connect+0x42c/0x690 net/bluetooth/rfcomm/sock.c:419
+       connect_socket net/socket.c:2141 [inline]
+       connect_socket net/socket.c:2131 [inline]
+       __sys_connect_file+0x146/0x1a0 net/socket.c:2166
+       __sys_connect+0x141/0x170 net/socket.c:2183
+       __do_sys_connect net/socket.c:2189 [inline]
+       __se_sys_connect net/socket.c:2186 [inline]
+       __x64_sys_connect+0x72/0xb0 net/socket.c:2186
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+other info that might help us debug this:
+
+Chain exists of:
+  &hdev->lock --> hci_cb_list_lock --> rfcomm_mutex
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(rfcomm_mutex);
+                               lock(hci_cb_list_lock);
+                               lock(rfcomm_mutex);
+  lock(&hdev->lock);
+
+ *** DEADLOCK ***
+
+locks held by syz.0.17/5921: 1, last CPU#3:
+ #0: ffffffff90f83f60 (rfcomm_mutex){+.+.}-{4:4}, at: rfcomm_dlc_open+0x92/0xac0 net/bluetooth/rfcomm/core.c:426
+
+stack backtrace:
+CPU: 3 UID: 0 PID: 5921 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2087
+ check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2219
+ check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+ check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+ validate_chain kernel/locking/lockdep.c:3952 [inline]
+ __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
+ lock_acquire kernel/locking/lockdep.c:5942 [inline]
+ lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+ __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+ __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
+ l2cap_chan_connect+0xac/0x2110 net/bluetooth/l2cap_core.c:7289
+ l2cap_sock_connect+0x37a/0x770 net/bluetooth/l2cap_sock.c:255
+ kernel_connect+0x107/0x160 net/socket.c:3755
+ rfcomm_session_create net/bluetooth/rfcomm/core.c:808 [inline]
+ __rfcomm_dlc_open net/bluetooth/rfcomm/core.c:385 [inline]
+ rfcomm_dlc_open+0x838/0xac0 net/bluetooth/rfcomm/core.c:428
+ rfcomm_sock_connect+0x42c/0x690 net/bluetooth/rfcomm/sock.c:419
+ connect_socket net/socket.c:2141 [inline]
+ connect_socket net/socket.c:2131 [inline]
+ __sys_connect_file+0x146/0x1a0 net/socket.c:2166
+ __sys_connect+0x141/0x170 net/socket.c:2183
+ __do_sys_connect net/socket.c:2189 [inline]
+ __se_sys_connect net/socket.c:2186 [inline]
+ __x64_sys_connect+0x72/0xb0 net/socket.c:2186
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fa5d1b9e199
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffc664cdb68 EFLAGS: 00000246 ORIG_RAX: 000000000000002a
+RAX: ffffffffffffffda RBX: 00007fa5d1e25fa0 RCX: 00007fa5d1b9e199
+RDX: 000000000000000a RSI: 0000200000000040 RDI: 0000000000000004
+RBP: 00007fa5d1c358e0 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007fa5d1e25fac R14: 00007fa5d1e25fa0 R15: 00007fa5d1e25fa0
+ </TASK>
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
