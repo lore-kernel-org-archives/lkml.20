@@ -1,77 +1,81 @@
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DD1051992A
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 23:20:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFDC4503BD3
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 23:20:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791328845; cv=none; b=DtxSmGTl7bWaYgnmRHWwzpc8B4tMyNsLVV5HZA5cxhcgrjo1TgGrwK1K9Z4VXg+fP5W6Nn0JK0CEsLrOV3IfuQQsmJWkc0DrUG1954cOTCtp2mflFFfw54nM1mspNPBYodoyYr5oX56aRkEy71Lr5ZF3JlGzGZf4R4ZKmWEZNdk=
+	t=1791328846; cv=none; b=l0qYM7lQgB85uWJiYU5HAmAcWBinMAmz51JD351bOGivU9K3pp8gyxxcNvgLWJCB+gkt5tV3Dt0yrNGPqvWVlq378/zqRCUqM9tvFSDQz2uTJtRV1DxFP6etLS8+OisOzyu4KqksNxJRphuVIP2E7/auYAqNoa9PSiZmHCFBpl8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791328845; c=relaxed/simple;
-	bh=hKNrEY9jF9wBWZQYAfpaatIF+v/NREqC1KfjAm370Lc=;
+	s=arc-20240116; t=1791328846; c=relaxed/simple;
+	bh=IMKT3YbYLEQIaeZRPQ0W0c7b8FlnqPjbay1YpcxYqko=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZiofOUXsFI3Y14lMbpfHxf5n89sfm8QTc1a5LmjKvZHSyoUvIjYjVRStJ7LxWjRt4KwJzA6sOdq1VzBUq0sjTT1wxBPx5spZXvAYILXkBS3Zcr+T6ixx83oEzaAitIwXGaD8VzHslA0Ujlr8KY0s0SsYYnUrMQNodTLqOxa+YA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=C5lMylUo; arc=none smtp.client-ip=74.125.82.179
+	 MIME-Version; b=tBQExNu4F6sBrOkEw/cQGn31zS2nlkIlxmG9xJOLeOv+bpQ6jWPHXRviXh8m7ARhqLJGZjFpiauN74dU9B0PYf0JNP4Dqo56ArCKR589cIM5vYGuJ/chOt9N87JKJBFWnpT9Iq9KhLyLL6mjIBXaGiwzy7i/qdTvjbu9KgH2r48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=aSWEmxo2; arc=none smtp.client-ip=74.125.82.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="C5lMylUo"
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-30b6dad2382so2753319eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 16:20:21 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="aSWEmxo2"
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-31490970b97so2053053eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 16:20:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1791328820; x=1791933620; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1791328823; x=1791933623; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0Mz0QVq949oJHs2GUaSqDf7Aeu8nycc4Rm2PAfn+Bdw=;
-        b=C5lMylUosjfgNwRe0DPGUI6rcnOGUwRtvPDmAI4/V3hs1g5lKF4E6arSEf6diMwS7u
-         rZYl+FqarAJ93zRElTqN37OeQu49teMsQX8J4pqwR3WkT2qGCJtgZ/HvYP2snZ00fuCs
-         +xnL2BgWn6gJgcfs073lI4MT9JU64U7ccCYVs=
+        bh=/iTXW3RRmMd+aIED+k8R/Mf/E9JCnchJwCHuj4DeazA=;
+        b=aSWEmxo20oPuJJVneo66x1d2edoe09jTY0IGUwqwCHj/Ugsyn7b551MRBXtTLnLQSP
+         aY3aDRGdnJn0L7kpgSsY1+MyDnP0HwoxxIdijhU9jGfzo6j351YwwnF1AuLGjDPI0xCq
+         ZI0iQ/ChA7lO5YTADSa3HaBG6leS2Fm38N9IM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791328820; x=1791933620;
+        d=1e100.net; s=20260707; t=1791328823; x=1791933623;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0Mz0QVq949oJHs2GUaSqDf7Aeu8nycc4Rm2PAfn+Bdw=;
-        b=a8IKv66u/8bGc71/RC/cqoeuljZkTw6uP2OxMx/9wHHtR+l9XfRVQJSMyuqMBjpG1x
-         ULs57ezpNZepj2VkNqAhTB6d8UY3AeRAPay+iPzezcjTATAF0bgF9g8UbRQQufOQivpD
-         2BNGiU+6EJp8zm5Tv8Gdj3pK6u4TnoelzPXx5fjKJzEwjNfYHjgbgS+dgGHMXq11zfaz
-         R47shDYH/lvmdMFoRyyCd84pk//EcWv1jkCnBGKmTUg8qBz2M2UYneuoB01I37k8oDPT
-         9QY9k8Wm4PNr9RyYjFOho6qWZvPLIl4Sjpi/zqKaFrulNedCskpdxTyb6/X4hKp6xh8U
-         TcBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwWu+mwN2H4rK83KSSNoy2umAaLTXfJI3cM06HeW8JLJOfl4bw+5g3162mXKvoubn0+rDt5Gc4n9t0SFKI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJG3RW7QP8NWDj5kgf/QMZOubuBY0BDpuvO9YbokFki0KVzeiPb
-	y5T30HfSoU+Zjo5BJcrHIfen52hM4UMnq8aCe4KMSjUAqaw3wRYX8LYIcvsSUNZkJA==
-X-Gm-Gg: AYBFou06nshnbt3Oy74Bx5CFvna65TarRNv1iInHVW+pXLYeKkK5JDnDK15WqE05WyW
-	z7HSW6pJjepwxOYee2fSx4ChHXDgWL4wIbU8mczWjJH9+fRekz3VM52dHgrJsqZD214qYajNjzU
-	nN59tSyqHFJuZL7mgEITFQEwjV/qtxdp72jz96rb5UIo52w91kpXaxeEJ8Pgcv9pif6ik9HF6Mq
-	Y3ngddJaW7ZZnKronHtUA06yMLNXQRZv+GZHeDkFJh2MdIxiYvXZ50aF75h6qtMymN9cpLAIH+T
-	qQvkpMSwNJ+Jdxk06KQxba8SFdfdK6pN4q8aWMTH3dxsWH+BFtbopfMf5RmnTJ0ZDjhcirMUFGT
-	ed/WIThRAkjqO52Oays9wYW3B9CzuStizRSXI5qp3cy6P8b3NPBAN0LIE5MZEbJmr3vRgr/9Lz6
-	Vos2YNSq3biYWQOTf2HDBsdOT6glMT0QIpz033pLTPMt/nfn/5QB4TeOTwTDjK+C4Dh4QJLY0dV
-	RT9TAt7L9sebFYRhTWchiMMJMEgfKeA0o7Z9Q==
-X-Received: by 2002:a05:693c:608f:b0:34b:34cc:bcf9 with SMTP id 5a478bee46e88-3515da5dc72mr384025eec.3.1791328820400;
-        Tue, 06 Oct 2026 16:20:20 -0700 (PDT)
+        bh=/iTXW3RRmMd+aIED+k8R/Mf/E9JCnchJwCHuj4DeazA=;
+        b=NLHsGDT0kUiFpSqijAaFl0yTcYoHe5WiWPRCgyBzRTR9AgSLU+EGcilW4kXVXgL5wR
+         cLkpArZbWCN90TymP1Thkr2iq4WJjrjHtxeqolVho3mJ6t0ftmKbK73BkQ4pK8jQkpBm
+         wt54+Q6h1kTRBEeyOW1Bt02cZGA7FROJvdTvs71rL4YIj7fYybkn7XqurkNY7CFSO+GD
+         K0RmNog1rDAs3XIwbYiS2KdE8BxMihyDGPSPBGe+IEGBtswmtGoFnPlm3wrSWCyYKWOi
+         qw07Gvrcwvaw+kyMhQeMxFZI1CIMV/On0F0iRY/1xL/5Rg4765G+yvuZMwXwLqSC1uPV
+         UkTw==
+X-Forwarded-Encrypted: i=1; AKwUvBz1ISS91iLxZGy5peTAe6PH6tk1aDusVHWezJfMw6zZ18407j4iNEI1NapPus24x5odup+lvPkyf7WNq30=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLnQSpnNSzWBv2Cduo37AH3iR73j+bGR2tNbjVqRwOmvZFZFLoK
+	HeHxys5Q3B80Od2ml2AOtE1FlANz7AAeOH9hJ4mID+9iTfP/Wo/bCu/YgkAz+u/gUmjXQc4tZkw
+	JL4Jvow==
+X-Gm-Gg: AYBFou2RQexzCF3w3dFmbIJ1cHARmxiWSuuSxWHaZ8sbmVsGgMsZStjlAICrLo8TSoP
+	zx+IAowriaBqFPGSFaUYx9qy5wu0HB50YpvdQI4cs7OMD4A+X2sXIVsKVD+k8WE/R3MifYizTz8
+	7xgCE9ybbQEE6TwGLlLaNwbUvhX9lEERHMwjoM8ZrcaExF2+4UmtHCIXxe2h37hfzZEMrUo2Cd9
+	4WgrDMCRV1VIy2SDdpodwpdTSfA4QWRP7QxigJPk9s4JtDDVUSRFtGy4m5YDgly7Z8naN/K6RSs
+	l7rBclwVprBfjfI6TsPvSFEMHUBwe5S7scwf+Ganv+kRx0v91MONY5aRXkoVAWx+bnNz4hgVMDV
+	zrQ/DXKL5zlkzYRjMOm7PQBdUuknp1iAi7KmkNxq03Vcn9Jwxc15i5xYMhlRjOStz5fFHm6aAxS
+	NYLsg5PO58RginSUF1wcqHNuWazuTNwAXcLFOdFfP1wecgrokw4j7HwyRWHRkrzayVnlrNHOt4i
+	60GK3ADHXCIVKAG96Ixotb5Gn+kl1FiDZU87g==
+X-Received: by 2002:a05:7301:3d0e:b0:351:3c34:9bfa with SMTP id 5a478bee46e88-3515deddeebmr346793eec.31.1791328822885;
+        Tue, 06 Oct 2026 16:20:22 -0700 (PDT)
 Received: from localhost ([2a00:79e0:2e7c:8:63eb:e7f9:1d47:7d47])
-        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-3515aeb5b46sm1698029eec.7.2026.10.06.16.20.18
+        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-3515abb67e5sm1729507eec.4.2026.10.06.16.20.21
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 06 Oct 2026 16:20:19 -0700 (PDT)
+        Tue, 06 Oct 2026 16:20:22 -0700 (PDT)
 From: Brian Norris <briannorris@chromium.org>
 To: "Rafael J. Wysocki" <rafael@kernel.org>
 Cc: linux-pm@vger.kernel.org,
 	Ulf Hansson <ulfh@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	Brian Norris <briannorris@chromium.org>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
 	Jaroslav Kysela <perex@perex.cz>,
-	Liam Girdwood <lgirdwood@gmail.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
 	Mark Brown <broonie@kernel.org>,
-	Srinivas Kandagatla <srini@kernel.org>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
 	Takashi Iwai <tiwai@suse.com>,
-	linux-arm-msm@vger.kernel.org,
 	linux-sound@vger.kernel.org
-Subject: [PATCH 09/13] ASoC: codecs: lpass: Discard pm_runtime_put_autosuspend() return values
-Date: Tue,  6 Oct 2026 16:13:37 -0700
-Message-ID: <20261006161337.9.I5cd238b1d4516d4d6980565e0a4e1b83d9abce63@changeid>
+Subject: [PATCH 10/13] ASoC: intel: atom: Discard pm_runtime_put_autosuspend() return value
+Date: Tue,  6 Oct 2026 16:13:38 -0700
+Message-ID: <20261006161337.10.Ia8792ce5d04a55522d84afc8e71cc879721a5f49@changeid>
 X-Mailer: git-send-email 2.56.0.360.g66cac248cb-goog
 In-Reply-To: <20261006231900.3230373-1-briannorris@chromium.org>
 References: <20261006231900.3230373-1-briannorris@chromium.org>
@@ -83,8 +87,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Printing warning messages on pm_runtime_put_autosuspend() returning
-negative values is not particularly useful.
+Propagating the pm_runtime_put_autosuspend() return value to callers is
+not particularly useful.
 
 Returning an error code from pm_runtime_put_autosuspend() merely means
 that it has not queued up a timer or work item to check whether or not
@@ -92,8 +96,15 @@ the device can be suspended and there are many perfectly valid
 situations in which that can happen, like after writing "on" to the
 device's runtime PM "control" attribute in sysfs for one example.
 
-Accordingly, update the LPASS macro codec drivers to simply discard the
-return value of pm_runtime_put_autosuspend().
+Modify sst_pm_runtime_put() to discard the pm_runtime_put_autosuspend()
+return value, change its return type to void, and update its callers in
+sst_power_control() accordingly.
+
+Note that in one error path for sst_power_control(), we would previously
+overwrite one error code (from "FW download fail") with the return code
+from pm_runtime_put_autosuspend(). This was probably an unexpected
+behavior, which is now changed to propagate the sst_load_fw() error
+code.
 
 This will facilitate a planned change of the
 pm_runtime_put_autosuspend() return type to void in the future, similar
@@ -106,124 +117,65 @@ This patch is independent of the rest of the series, except for the end
 (changing the return type). I expect it can be applied by individual
 maintainers, and we pick up the end once the dust is settled.
 
- sound/soc/codecs/lpass-rx-macro.c  |  4 +---
- sound/soc/codecs/lpass-tx-macro.c  |  4 +---
- sound/soc/codecs/lpass-va-macro.c  | 17 ++++-------------
- sound/soc/codecs/lpass-wsa-macro.c |  8 ++------
- 4 files changed, 8 insertions(+), 25 deletions(-)
+ sound/soc/intel/atom/sst/sst.h               | 2 +-
+ sound/soc/intel/atom/sst/sst_drv_interface.c | 4 ++--
+ sound/soc/intel/atom/sst/sst_pvt.c           | 9 ++-------
+ 3 files changed, 5 insertions(+), 10 deletions(-)
 
-diff --git a/sound/soc/codecs/lpass-rx-macro.c b/sound/soc/codecs/lpass-rx-macro.c
-index 282a6aaa9986..e6c27893584c 100644
---- a/sound/soc/codecs/lpass-rx-macro.c
-+++ b/sound/soc/codecs/lpass-rx-macro.c
-@@ -3917,9 +3917,7 @@ static int rx_macro_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto err_rpm_put;
- 
--	ret = pm_runtime_put_autosuspend(dev);
--	if (ret < 0)
--		dev_warn(dev, "runtime PM put failed after probe: %d\n", ret);
-+	pm_runtime_put_autosuspend(dev);
- 
- 	return 0;
- 
-diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-tx-macro.c
-index a8e83eb60ba2..149373384a15 100644
---- a/sound/soc/codecs/lpass-tx-macro.c
-+++ b/sound/soc/codecs/lpass-tx-macro.c
-@@ -2370,9 +2370,7 @@ static int tx_macro_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto err_rpm_put;
- 
--	ret = pm_runtime_put_autosuspend(dev);
--	if (ret < 0)
--		dev_warn(dev, "runtime PM put failed after probe: %d\n", ret);
-+	pm_runtime_put_autosuspend(dev);
- 
- 	return 0;
- 
-diff --git a/sound/soc/codecs/lpass-va-macro.c b/sound/soc/codecs/lpass-va-macro.c
-index dbc5795b9273..48139119b335 100644
---- a/sound/soc/codecs/lpass-va-macro.c
-+++ b/sound/soc/codecs/lpass-va-macro.c
-@@ -1352,7 +1352,7 @@ static int fsgen_gate_enable(struct clk_hw *hw)
- {
- 	struct va_macro *va = to_va_macro(hw);
- 	struct regmap *regmap = va->regmap;
--	int ret, rpm_ret;
-+	int ret;
- 
- 	ret = pm_runtime_resume_and_get(va->dev);
- 	if (ret < 0)
-@@ -1360,11 +1360,7 @@ static int fsgen_gate_enable(struct clk_hw *hw)
- 
- 	ret = va_macro_mclk_enable(va, true);
- 	if (ret) {
--		rpm_ret = pm_runtime_put_autosuspend(va->dev);
--		if (rpm_ret < 0)
--			dev_warn(va->dev,
--				 "runtime PM put failed in fsgen enable unwind: %d\n",
--				 rpm_ret);
-+		pm_runtime_put_autosuspend(va->dev);
- 		return ret;
+diff --git a/sound/soc/intel/atom/sst/sst.h b/sound/soc/intel/atom/sst/sst.h
+index c43946c5ecee..518b2b53510d 100644
+--- a/sound/soc/intel/atom/sst/sst.h
++++ b/sound/soc/intel/atom/sst/sst.h
+@@ -497,7 +497,7 @@ int get_stream_id_mrfld(struct intel_sst_drv *sst_drv_ctx,
+ u32 relocate_imr_addr_mrfld(u32 base_addr);
+ void sst_add_to_dispatch_list_and_post(struct intel_sst_drv *sst,
+ 					struct ipc_post *msg);
+-int sst_pm_runtime_put(struct intel_sst_drv *sst_drv);
++void sst_pm_runtime_put(struct intel_sst_drv *sst_drv);
+ int sst_shim_write(void __iomem *addr, int offset, int value);
+ u32 sst_shim_read(void __iomem *addr, int offset);
+ u64 sst_reg_read64(void __iomem *addr, int offset);
+diff --git a/sound/soc/intel/atom/sst/sst_drv_interface.c b/sound/soc/intel/atom/sst/sst_drv_interface.c
+index 2646c4632ca1..c99697b975d8 100644
+--- a/sound/soc/intel/atom/sst/sst_drv_interface.c
++++ b/sound/soc/intel/atom/sst/sst_drv_interface.c
+@@ -135,13 +135,13 @@ static int sst_power_control(struct device *dev, bool state)
+ 			if (ret) {
+ 				dev_err(dev, "FW download fail %d\n", ret);
+ 				sst_set_fw_state_locked(ctx, SST_RESET);
+-				ret = sst_pm_runtime_put(ctx);
++				sst_pm_runtime_put(ctx);
+ 			}
+ 		}
+ 	} else {
+ 		usage_count = GET_USAGE_COUNT(dev);
+ 		dev_dbg(ctx->dev, "Disable: pm usage count: %d\n", usage_count);
+-		return sst_pm_runtime_put(ctx);
++		sst_pm_runtime_put(ctx);
  	}
- 	if (va->has_swr_master)
-@@ -1378,7 +1374,6 @@ static void fsgen_gate_disable(struct clk_hw *hw)
- {
- 	struct va_macro *va = to_va_macro(hw);
- 	struct regmap *regmap = va->regmap;
--	int ret;
- 
- 	if (va->has_swr_master)
- 		regmap_update_bits(regmap, CDC_VA_CLK_RST_CTRL_SWR_CONTROL,
-@@ -1386,9 +1381,7 @@ static void fsgen_gate_disable(struct clk_hw *hw)
- 
- 	va_macro_mclk_enable(va, false);
- 
--	ret = pm_runtime_put_autosuspend(va->dev);
--	if (ret < 0)
--		dev_warn(va->dev, "runtime PM put failed in fsgen disable: %d\n", ret);
-+	pm_runtime_put_autosuspend(va->dev);
+ 	return ret;
+ }
+diff --git a/sound/soc/intel/atom/sst/sst_pvt.c b/sound/soc/intel/atom/sst/sst_pvt.c
+index 0b0cfd70efbc..913e232bf6ed 100644
+--- a/sound/soc/intel/atom/sst/sst_pvt.c
++++ b/sound/soc/intel/atom/sst/sst_pvt.c
+@@ -255,14 +255,9 @@ int sst_prepare_and_post_msg(struct intel_sst_drv *sst,
+ 	return ret;
  }
  
- static int fsgen_gate_is_enabled(struct clk_hw *hw)
-@@ -1693,9 +1686,7 @@ static int va_macro_probe(struct platform_device *pdev)
- 		goto err_rpm_put;
- 	}
- 
--	rpm_ret = pm_runtime_put_autosuspend(dev);
--	if (rpm_ret < 0)
--		dev_warn(dev, "runtime PM put failed after probe: %d\n", rpm_ret);
-+	pm_runtime_put_autosuspend(dev);
- 
- 	return 0;
- 
-diff --git a/sound/soc/codecs/lpass-wsa-macro.c b/sound/soc/codecs/lpass-wsa-macro.c
-index cfd2ac0a6cda..60d285a2040f 100644
---- a/sound/soc/codecs/lpass-wsa-macro.c
-+++ b/sound/soc/codecs/lpass-wsa-macro.c
-@@ -2548,9 +2548,7 @@ static int wsa_swrm_clock(struct wsa_macro *wsa, bool enable)
- 				   CDC_WSA_SWR_CLK_EN_MASK, 0);
- 		wsa_macro_mclk_enable(wsa, false);
- 
--		ret = pm_runtime_put_autosuspend(wsa->dev);
--		if (ret < 0)
--			dev_warn(wsa->dev, "runtime PM put failed: %d\n", ret);
-+		pm_runtime_put_autosuspend(wsa->dev);
- 	}
- 
- 	return 0;
-@@ -2820,9 +2818,7 @@ static int wsa_macro_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto err_rpm_put;
- 
--	ret = pm_runtime_put_autosuspend(dev);
+-int sst_pm_runtime_put(struct intel_sst_drv *sst_drv)
++void sst_pm_runtime_put(struct intel_sst_drv *sst_drv)
+ {
+-	int ret;
+-
+-	ret = pm_runtime_put_autosuspend(sst_drv->dev);
 -	if (ret < 0)
--		dev_warn(dev, "runtime PM put failed after probe: %d\n", ret);
-+	pm_runtime_put_autosuspend(dev);
+-		return ret;
+-	return 0;
++	pm_runtime_put_autosuspend(sst_drv->dev);
+ }
  
- 	return 0;
- err_rpm_put:
+ void sst_fill_header_mrfld(union ipc_header_mrfld *header,
 -- 
 2.56.0.360.g66cac248cb-goog
 
