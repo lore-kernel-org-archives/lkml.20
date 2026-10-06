@@ -1,89 +1,119 @@
-Received: from mail.hugovil.com (mail.hugovil.com [162.243.120.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FCC445FFB0;
-	Tue,  6 Oct 2026 13:42:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.120.170
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A124C466B03;
+	Tue,  6 Oct 2026 13:42:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791294149; cv=none; b=uz5ofP6cKzcM7hx+KwYJlLhz1eKJkTTFaSD3MGc2L/0bm8zJyxnFUPmL36dZM6weMxQedLOWChOlk7sDr2c09bQk4Dlp6HqYsc3eRbRqeEEdGmHGmhbkMmmcS0JjSmvHAgTfr+PJFpBHVBNMLDUiJB6+DVAbPuxQUP5QtbYyc04=
+	t=1791294164; cv=none; b=NO5ndyg2ZIjrDnyhkMFSBGnKkSUCUDtJXE+ystsj89/SExMKOnjyFCEDwXJwXgwcdfowewCct5DXknSBSb3X741zgejJMAyOCZrbtorq5vbQVH4caRaDl/J+7tMNkK4vobI+ntIuBKebLxiNpAsV0GHfIoqI1RtGtNxXopkJiQg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791294149; c=relaxed/simple;
-	bh=HvH7jliIVM5NmLHOLw/VtY4dMp9sQbB8DV8eFbbRHL4=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=X+ulNE2o2FvPAsfthCAXGCPVmPyT0jSjgkxW1Y0w6tgy6g+SsA2qW4pLMPIPcF/S/gPxWrm/a89BSxpcp3e5pCiKG8FypkrO/v1bPerD444QtA1+If/6qM+MkZaX8RBXdQRlRE4k3c/e9KB4rwx9ndhvdKrsXCiubkxImfRn0xw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com; spf=pass smtp.mailfrom=hugovil.com; dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b=NEZRQTyy; arc=none smtp.client-ip=162.243.120.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hugovil.com
+	s=arc-20240116; t=1791294164; c=relaxed/simple;
+	bh=NhrerJh+FIvyRhVhYK2RZ3+zs0tCPgHwWAK9TnlDqNQ=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type:Content-Disposition; b=HKhOTovgd6B18u8YxyBugqePBwuf1Npl497oW42P91kiZR8jfOroW989ovDo77bVOMqhmqw6TlnYa/Dk7wKCpF8DhMVVTUZNX8OoxfjkVmng36n+unT8VBG8yGI6qT7tuVJNxjG1Dm2CXMahxebezZg3U0V/9SC4nHKjZVm4278=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=RuMjPgCm; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b="NEZRQTyy"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hugovil.com
-	; s=default; h=Content-Transfer-Encoding:Mime-Version:Message-Id:Subject:Cc:
-	To:From:Date:subject:date:message-id:reply-to;
-	bh=YO24heqEXj8ZXkD2uO//smgB0ZhhcNCck8M9KWsbnDM=; b=NEZRQTyynpG6rkYfKSk38K1dEA
-	24VGQzCDn0fITz41KE0H12ia06WHgkvPpZdYTW0wcAnkYOFrbxpnIVwkbIjnzBhxT3ryFNMwOXVjB
-	tFD5kTDlwqSCD4s5Lgn8A89mdL86inJTMNEqbmGFcSZk7iLJvJhzW+iOoaGAXzpq+lnE=;
-Received: from modemcable168.174-80-70.mc.videotron.ca ([70.80.174.168] helo=pettiford.lan)
-	by mail.hugovil.com with esmtpa (Exim 4.98.2)
-	(envelope-from <hugo@hugovil.com>)
-	id 1xE5R0-000000006aV-2sWp;
-	Tue, 06 Oct 2026 09:42:24 -0400
-Date: Tue, 6 Oct 2026 09:42:23 -0400
-From: Hugo Villeneuve <hugo@hugovil.com>
-To: Tapio Reijonen <tapio.reijonen@vaisala.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
- <jirislaby@kernel.org>, linux-kernel@vger.kernel.org,
- linux-serial@vger.kernel.org, Hugo Villeneuve <hvilleneuve@dimonoff.com>,
- Tapio Reijonen <tapio.reijonen@kolumbus.fi>, Maarten Brock
- <Maarten.Brock@sttls.nl>
-Subject: Re: [PATCH v7 1/9] serial: max310x: don't clobber the TX break bit
- in set_termios
-Message-Id: <20261006094223.f6ebb7729377787ef43cbb54@hugovil.com>
-In-Reply-To: <a69c09a9-76d8-46c2-9aa3-64b7a961cdad@vaisala.com>
-References: <20261005-max310x-rs485-sw-delay-v7-0-6ae392eca08c@vaisala.com>
-	<20261005-max310x-rs485-sw-delay-v7-1-6ae392eca08c@vaisala.com>
-	<20261005115737.3a26240eadeff00262e920ff@hugovil.com>
-	<a69c09a9-76d8-46c2-9aa3-64b7a961cdad@vaisala.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="RuMjPgCm"
+Received: from [100.96.208.29] (unknown [52.167.115.14])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 32D2F20B7166;
+	Tue,  6 Oct 2026 06:41:45 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 32D2F20B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1791294106;
+	bh=ymMYpd6/ibtw57JvGJoXuuopAlt6a2U5TBrWdbZiyQA=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+	b=RuMjPgCmBvwWFqM+/GDz624NyLfl8MGbycwDBi/dO36j4yzCvNGbd42i29eU67ko9
+	 bZ/gwTZVNgJfYGSAzXf+jqQVR1ctGwg35Gh+faD+Fu865MgYWyzGt4suetKMUJ5lPM
+	 I1Gfd1BZYCNE436+NhDi1pXE0y/Xdz8lWpKcmo14=
+Date: Tue, 6 Oct 2026 09:42:39 -0400
+From: Jeff Barnes <jeffbarnes@linux.microsoft.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Beau Belgrave <beaub@linux.microsoft.com>, 
+ "=?utf-8?Q?linux-trace-kernel=40vger.kernel.org?="
+ <linux-trace-kernel@vger.kernel.org>, 
+ "=?utf-8?Q?mhiramat=40kernel.org?=" <mhiramat@kernel.org>, 
+ "=?utf-8?Q?mathieu.desnoyers=40efficios.com?="
+ <mathieu.desnoyers@efficios.com>, 
+ "=?utf-8?Q?linux-kernel=40vger.kernel.org?="
+ <linux-kernel@vger.kernel.org>, 
+ "=?utf-8?Q?akpm=40linux-foundation.org?=" <akpm@linux-foundation.org>, 
+ "=?utf-8?Q?kees=40kernel.org?=" <kees@kernel.org>
+Message-ID: <0499A842-AA79-49A7-AAB5-47003DD799BE@getmailspring.com>
+In-Reply-To: <20261006083825.2bbeaef2@fedora>
+References: <20261006083825.2bbeaef2@fedora>
+Subject: Re: [PATCH] tracing/user_events: Fail fork when event state
+ duplication fails
+X-Mailer: Mailspring
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Spam_score: -2.0
-X-Spam_bar: --
+Content-Disposition: inline
 
-On Tue, 6 Oct 2026 07:06:06 +0300
-Tapio Reijonen <tapio.reijonen@vaisala.com> wrote:
 
-> Hi Hugo,
+
+On Oct 6 2026, at 8:38 am, Steven Rostedt <rostedt@goodmis.org> wrote:
+
+> On Tue, 6 Oct 2026 08:01:14 -0400
+> Jeff Barnes <jeffbarnes@linux.microsoft.com> wrote:
 > 
-> On 10/5/26 18:57, Hugo Villeneuve wrote:
+>> Yes, that was intentional. My concern with allowing fork() to succeed
+>> after removing the child's user_events state is that the allocation
+>> failure then becomes a silent loss of inherited tracing state.
+>> 
+>> The enable word is the userspace-visible indication that an event is
+>> enabled. If the child loses its inherited enablers, later enable and
+>> disable changes will no longer be reflected in that child. Removing the
+>> state fixes the stale-value inconsistency, but userspace has no
+>> indication from fork() that the child is no longer following the
+>> inherited tracing state.
+>> 
+>> I also think there is a potential security implication here. If
+>> user_events are being used for tracing or auditing, an allocation
+>> failure could result in a successfully created child silently no longer
+>> following subsequent enablement changes. I don't want to characterize
+>> that as a security vulnerability without a demonstrated security
+>> boundary, but silently losing that state seems undesirable for auditing
+>> in particular.
+>> 
+>> That is why I favored returning -ENOMEM: either the child is created
+>> with the inherited user_events state intact, or the failure is visible
+>> to userspace and the fork is unwound.
+>> 
+>> I agree that uprobes provides a useful comparison. If you think
+>> user_events should likewise be best-effort across fork, then removing
+>> the state on duplication failure would address the inconsistency without
+>> introducing the new fork() failure path.
 > 
-> > You commit message indicate only part of what your patch changed,
-> > but not why.
-> >
-> > In this case, IIUC, your patch prevent ending a preconfigured
-> > TX break when calling set_termios()?
+> Question, to use user events the application needs to be involved,
+> correct? That is, there's code in the application specific for
+> user_events, as supposed to uprobes that can attach to any application.
 > 
-> Yes, exactly: a break asserted with TIOCSBRK must stay on the wire
-> until TIOCCBRK, but any termios change landing in between rewrote the
-> whole LCR register and silently ended the break early. The second
-> hunk covers the leftover that fix exposes: nothing clears a break
-> still asserted when the port is closed - the unconditional LCR write
-> was the accidental recovery - so startup() now clears it, the same
-> way 8250 does.
+> Thus, it makes sense for uprobes to only warn on failure. Why should a
+> task fail to fork if something attaches a uprobe on it and it causes
+> issues.
 > 
-> I can reword the message for a v8 to lead with that user-visible
-> failure rather than the register mechanics.
+> Now if user_events is driven by the application that has them, then
+> yes, it makes sense for fork() to fail if the user_event it created
+> fails processing inside the fork(). If the user application is
+> expecting something, then if it fails it should know about it.
+> 
+> But this is only if user_events is driven by the application doing the
+> fork().
+> 
+> -- Steve
+> 
+Yes, that's correct. user_events registration is initiated by the
+application through the user_events interface, rather than being
+attached externally to an arbitrary application like an uprobe.
 
-Hi Tapio,
-some other patches in your series also have a title that simply state
-what is done, but not why, so make sure to check their titles
-too.
+So in this case the state being duplicated during fork() is state that
+the application itself established. That's why I think propagating the
+allocation failure back through fork() is preferable to silently
+allowing the child to lose that state.
 
-
--- 
-Hugo Villeneuve
+Thanks, Jeff
