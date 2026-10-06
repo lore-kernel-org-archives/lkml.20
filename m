@@ -1,150 +1,355 @@
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FCD837DABD
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 06:12:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 905E0375AC4
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 06:13:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.53
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791267122; cv=pass; b=JYIqOsTNbm2nifFW8QLXkthzwM7AQ11PfKx/2CYeJAH7VhD1L58qP1CnqHHydl5PlDZVHyVVzebLvu2XFqZmaAMIOFbTUgkeIqFpQx5MlUR0g7VCr+Ft3T1IkphHT0uxXDX6YBA6ora/6cTBnkff+fznrDLyandrUzkbMlqkBhA=
+	t=1791267213; cv=pass; b=giPnFoi4npQQknJJgTWzPPn0iDIqGMB7PP4i+ZUKzjSBwEBjFNxE1dj0NrM+0bZEVhOKME6HKpwTwnjLHvOXcI6eW/ZEMo6uaAa+++OZQT7qOMFSwJA5jkL0URg+Teq7Ddm3M6GXCW8qlgDWDd4jRk3omNXRaMd/gyZklbiCKYM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791267122; c=relaxed/simple;
-	bh=qqCMB4Vc+PEpwfp51MydCJj9S9ec4+6lAOGZH5tEKrs=;
+	s=arc-20240116; t=1791267213; c=relaxed/simple;
+	bh=tUmcbY2LGjhuvkOD8Wnif+BGx0U4Ife6GiX/aWsmJ5Y=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Y7JcPPkLBhH7fFxt8WF57O0kNwtpssHtALO6EAJyaHSGOfvyGHrW7cJCLn4vqFtuVd8QjBgzG3LBtNXZFOvQOZ9bM+VaF9O8jvx2QgJNnqY/u0JAF462ouVadBQHvVbJNQnbXAtWVvhRqzu0Kab4U9rSb0xK4GhfCnwyFVx7Kuo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=byBlYjD/; arc=pass smtp.client-ip=209.85.160.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 To:Cc:Content-Type; b=A+LOkF/r70YqkEZ2+aAjLEvycmIRnEos3+IycEWMkWM8MeJZoiD0Je5ab5MFJL8fH1MI6x2Vq6TpkU5eEb2A+p6n+auV4rI9Wh7hvqneaFxFhsKpS5OmgZSdu21EBnBC/Z/3fSfv3zwt1WazhiHIwrhzglcBfI6OGgcB+zp6rek=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z9p66PZp; arc=pass smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="byBlYjD/"
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-5337fa12431so129861cf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 23:12:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791267120; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z9p66PZp"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so23004865e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 23:13:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791267210; cv=none;
         d=google.com; s=arc-20260327;
-        b=OmPrDmqveCtMX7f27GzyaYMBJdGZVJ2JdUf25JhW6I/KjLK46gxWgc/IEcI8y0Hcba
-         6vWunwV0CPn6qUpzPBNlNGxTMjaXWzTcX3xHDHboGTI5uhrYXcjZHaaqBiqCRF4QX7lk
-         GHUdIm944N04tx+TNLnAUu9QPQ8fFcVpF1VFpYlNFKKnemxL60w8NqCdJyELnPAvSCNQ
-         YY4Ut3YzDKYxhCFYb54iuwmIXn9v8b4I6L9R3fHLT0/TGn3hi6/Jsl3gwlf4GKze1+/F
-         Uopu9lU/IL9lY06X09FC6jh/MUTgH8M3sRZReBuAOGQ2BjmvFMnvnP4436Z4KdIsxgUq
-         +U7w==
+        b=JBXjr+EK46NvYN3289mNqZ2hQ5Fi8ZQuMKRoC/Up8uQvCt+cUTP1B8ki/+7ILxZ+RL
+         0FVSPQc7DyI77fvwS499pKY1v8ZYtMSALkkNK7p/wc9439l0/FlOEsFduPWOORC7LmS/
+         3VyOrYsyoofk3DEVyX+Ij+9ucABxuyU0a3ONr2OIJYsKCuBwZ+vb2YYxdVBdUxTFYxGK
+         Nnjq1Pg7PCHsHS3NOmNwygZkhLSnntrfxCiaRh9RVBQ2I5SUz3/e5iuw27SYUL77Yp5j
+         7TqeHz7YXDFuRjDt4J1gO/jlu4nmdrpO4isUxSkZMHpx8X7/J3ma1IMsNbdF+tQ0utGO
+         uUmg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=gj6RHy/jbDQ7XvW3Qfyv/IMf5W2R8V0RhoVCA/GC8SQ=;
-        fh=epkaWY62GoWFqOm8hDTG15znYSTQKElcJpsGkFPW4iI=;
-        b=OjA6jem7cTINW64b260IGU1T9ry2Z/7qyzaPeyPRcS9i++9UA0OoHt5xMzrRgTVOwk
-         C9WIqC70pkdHM8IsavMqjR/tV6kPFP9QQw98YHl8rjW0M4bsK/VhKEHE61YduxqpZ/z7
-         OMlUitrhERqOzZWIj7Jj33JTRLP6OCE08WCAyy9Z02re67bPESjqPoO0nvGWPy0CARgN
-         /odnPVERIYklY9jyR2LloYGo8OwKSr3Ys7PHJX43Ip9QSoaU6ffzVcEikR6YyjkyB5SD
-         G3ExXUpG6Ay8mhqWXaYSAP+Asd9qaLsA955avbvAP/SANY1GQuC8mOq7Ur2fGnLHz8tJ
-         Or/g==;
+        bh=kDVYF6o0gmAoJIiHellWQW2xAg271OU0hbLK0g0y5g8=;
+        fh=4u2DxFXx9RGMZKAStSDmC9tqHT2TWy7bA8mY33Bta7Y=;
+        b=ahaeOTKLxJyMDf6roUj/v3Z1OXcYTjlt1KRAdF1NnPJSTnNEPFr7P+DrZjabO9Qc5C
+         2gU+jq+vwwwj0Od7znpW9UdyjUhP9e4RVkAIr9wfzSC5DiRzIenJRRdvljoZKd3fsC/E
+         nYXJZJyeTaCcNbRmmnL8LEn5B+Yj2ri5ChVOWP5Ee7mAWEU0U6hg5oBUE8PMvbQ4pwmH
+         FzNy71B7AVvbJ18SSeoE5sXS/iTtjYcTAoJsv2dVzALrS9LEtMrifdaykTQK3145iOm1
+         PhTr+xWwe9ySjge2W62KvdVl+G/9M7BA0+8E59XBV/ThdJYTfCtD/kFX5nn5MN9nVVQ3
+         GiqQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791267120; x=1791871920; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791267210; x=1791872010; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=gj6RHy/jbDQ7XvW3Qfyv/IMf5W2R8V0RhoVCA/GC8SQ=;
-        b=byBlYjD/CjMwNjfCFwlKIBBL5PchWHh8pDpPYITpzu6Jizq3RtR2JjQyBCJOIBMwTH
-         bmEnLnURzUY8oLSqKdi14cSdV5miXaioVH2yejY5Td8nMBCbgKdlQuwuJtc5yQhFn+iY
-         vjRklKW7vNm+uw7W3mRqYvgvSRYykFJq/S7TcJD+0LOTqBZoXlSiVgbuZ44P1Kl3uA4g
-         zP2WK+VJJbc9SzlRnut5P4XsnoNCuKsXMmKUH4MQJv9b9rhKBppAvT38XMncYRb5s1wz
-         34nLJBFTkhXypkNmwyLO6MZCP3S52/tvk3d8z6RIUeIF1SkdGpyjONQ3PuFQ7YP02AKL
-         wrwQ==
+        bh=kDVYF6o0gmAoJIiHellWQW2xAg271OU0hbLK0g0y5g8=;
+        b=Z9p66PZpB1A8HeBmsoZ+zMO6SwjezS2D3QwwuhHRpD/G+s9y9Rv3/vglxRNuQEDRS0
+         rE0Clk5YP0N5QnF0FNoKDaBHMF3zkj/eULH2eY3LrEWtMmt2Q2BLK6Nb/kMapjLeAvpF
+         MJJcQRkyVAlJ8298Rdh2Lq5JiR2pTEvbs7KqBUSD1KoJJidzuD1IgI5wpSt2EkdOSljK
+         2UNOEEHytJbt7MSY0gM8KMcVF5fLGdyyOacLxbS4vLcehwxCUwZQYNuv4IsxWv72W58v
+         1OiFM9XvBxhO3flD7TEIXPvmgCD41ZYqFSfl6k2HjtQNTLMi3tXIgZOc3GIlwMPNlzv+
+         gFyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791267120; x=1791871920;
+        d=1e100.net; s=20260707; t=1791267210; x=1791872010;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gj6RHy/jbDQ7XvW3Qfyv/IMf5W2R8V0RhoVCA/GC8SQ=;
-        b=XTeDVcn0Ef8TSJr5Q2HQxvJkzCnIOHKMj+ygJAZAfGqL4gTDV7XdxCX2eMZcsUjXFw
-         +4OoAypHX22IVHjgYtebJ8dxeL676ciLEm4JCbhT6zNP0pz76DceZIZ8QZtrPFz5wfAW
-         pRP+FATq0SsqyG5aihhVf5uKQJGqI2yYN+mUTARPGMwo0XwaXpmHgOemQOpzkP8Nm3OT
-         6wDbxaS2ndMpvENMERCaZ+q+0lBuHg8WQvYRiXVDmJeu8s2cvpfZLl6gkQvpNQSzi0Vj
-         bgcThP5jYmZEt1O9Zv2qnHZBuTq+d+D9+R4tKUC/d0PI4oo4s1iVJPGZXoXLvJbYBn9g
-         tItw==
-X-Forwarded-Encrypted: i=1; AKwUvBy8LeMfjMsN9h1h+wNWpGdFycI6qyyZxjcYnprUHPnbMpR/MIUdLnMZAwCpQc96+3z4NdJM7BhwIfGNZUk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kkUdqPR2ODXlV/b1Gjb+DJdPF5y2+eQLBg3jEkDGfHccD1jftV
-	/8RFv6WSvWAdVFj63jvfIoZF1esoRQtq66wsvDNfuA9VdpHZ07yjsheA3Y+DOtdob1cT0hCD4P/
-	r8mc2AntDprQjPDr74XHvdnYNvGu/iWcsaO4rR3+n
-X-Gm-Gg: AYBFou1YtAcWmjYJv0OIcSFhIGjewA3CMB/SC25bFTTnpyVMPXRDexncizQ2WohT9Zp
-	AiEBwgKYGyP9EcgFACsX1DorPbZJf1Pq+s7vlPiUX0qMaUej/52tv+wiFMj5au+wy4kQOaVLnQh
-	g8vXKBRwWXNpVHoPvNwr5QCDY+/uL2PlU7pvlW3hg0uZZ2EJHlxKVgs5g2Zfoi3jnn8w2nQKuvP
-	wvMgWEnHjYm8wyGtT5RCcaSc7eJFXkh45K/3ir2DL4F/FndBlTwBUoqFzmGlGj6cyZ2GKHH/xaR
-	1kRYiebpde+Zd9BUPPKBnrwKk44jAtBOyOzW4bEP88hPVIkoQPndyY5J7MiHmXEjHCLgUsCYUuA
-	ofM5fK/gvRacPf9jTOadmIehsqVqJlopDRhsSIVDjl/WxbihJs7Sp7tU40oxtsGOkN90BaNwseh
-	c5S74P+pYLT+UCaEQOWQDylSGNSRAV
-X-Received: by 2002:a05:622a:5a13:b0:532:d36c:7094 with SMTP id
- d75a77b69052e-535406c5437mr11354271cf.4.1791267119345; Mon, 05 Oct 2026
- 23:11:59 -0700 (PDT)
+        bh=kDVYF6o0gmAoJIiHellWQW2xAg271OU0hbLK0g0y5g8=;
+        b=TbqliEz2A2IG8i4UG1XCR8h+NLvprbNwv9yJTL80yCYAVW5xWurXbIRz6KLI1srVje
+         rpn2NYbogbzzi5gNHmrbX0Q7kzvc9g5vqNnm2y9Rn/TUXD4stxgitVBIL+gCk2ZYudDb
+         uEvBtbhsNzs29O4sp0KjWCZv2ACFWiPmnLSWDL1l/xSa1QS4hn5xj8gFE5t+nurBgJxb
+         +7kEuAoHRPZqd/Y7SFSpMWXFM1NReUCRAen9YMeGlw7x5Pe+FPaMUcNPHtpQZCcCfhNT
+         P0iKOD3Lh2FckDt/Y5ZwACUW/s8Q0TKzkBJeQqoPeHrXqbCxn4pjkg9RUNyaYT0Pd4VB
+         jX/Q==
+X-Forwarded-Encrypted: i=1; AKwUvByLgTlPPzJIpgn+tx6G3HtWhd4m56af/b3c4Wg1VuYsdir9GFI7XrpyWtzCD8R9qnHX0cKUCiV5KlWYzKY=@vger.kernel.org
+X-Gm-Message-State: AFuF++l9P4N5Tt65QIcZPQ3/XvWu1dBX2Wz0++XbNR5WIyb9VXYRDIFq
+	iYRHaftrbS5zcP0u9BGC+F4ueUjlDlImtGPDBt0LjcF65JTr2uC80CCLqBj//da3vTIqqDghSl6
+	Zm6rEczK/eOd7zLDB7pI9f/YRGLmUgr4=
+X-Gm-Gg: AYBFou0pkqQTxOi4gtaYKOxn/m4DhADvWgDdkWnGJKBhYkjW94dqVOxdwnMPQBM/6Mb
+	adl8pUkSBGx87TfjGo5GbXezzndyWOhA5uZk79V+J0kbwhngKsHNZ2KBU2zP8oSTQIlU54R8++g
+	cQQkFcXaz0+FrTbFa6v6dwxJB0O/QXbcQV5lBij7KpMS8MkVph6QBdQpqLjZmZZFDanWhr0Q0iF
+	or/6aWDKuPqMDN1J8ldOb5Dwfz62fqmzmWMuvGYpbyoLxvcYu6Wkp5otMCN784/Qou23HqTHSnH
+	0oqNIiTaVOZVXaSrbhI4b/uoNXj6RpcUFUxYbttJWIczZ7NzqV5QLQ2a/mfViIjkxAih
+X-Received: by 2002:a05:600c:3ba0:b0:4a0:236c:8601 with SMTP id
+ 5b1f17b1804b1-4a17b4b6c82mr7463485e9.0.1791267208960; Mon, 05 Oct 2026
+ 23:13:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261005122036.718976-1-senozhatsky@chromium.org> <20261005122036.718976-9-senozhatsky@chromium.org>
-In-Reply-To: <20261005122036.718976-9-senozhatsky@chromium.org>
-From: Brian Geffon <bgeffon@google.com>
-Date: Tue, 6 Oct 2026 15:11:22 +0900
-X-Gm-Features: AclHuK-hA3u42-jLX2PTceoOBTEETCWnRCw_Pvipfp3U7_-ms2srhkS8B0C_EQE
-Message-ID: <CADyq12yNeSK-JW9QvrceqBRhrhRWRRA=byPSRC7482JgpodGHQ@mail.gmail.com>
-Subject: Re: [PATCH 08/10] zram: reset writeback state in zram_reset_device()
-To: Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Minchan Kim <minchan@kernel.org>, 
-	Richard Chang <richardycc@google.com>, linux-kernel@vger.kernel.org, 
-	linux-block@vger.kernel.org, linux-mm@kvack.org
+References: <20261005171529.1378809-1-kunwu.chan@gmail.com>
+ <20261005171529.1378809-3-kunwu.chan@gmail.com> <bedc399a-151c-42e5-b33e-d78221702fa5@efficios.com>
+In-Reply-To: <bedc399a-151c-42e5-b33e-d78221702fa5@efficios.com>
+From: KunWu Chan <kunwu.chan@gmail.com>
+Date: Tue, 6 Oct 2026 14:13:15 +0800
+X-Gm-Features: AclHuK_ppGKVx44qdjA5Rxwn4Zvoh7x1d62IrHMgogUx403i6VttKqXBF_sphJI
+Message-ID: <CAN_Opa-ngHYkvssm1dqdUUsOoECES5eGtCTyfKJ0Qsyx-sB5KQ@mail.gmail.com>
+Subject: Re: [PATCH RFC v3 02/15] hazptr: use Bloom filter for shared scan waiters
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: paulmck@kernel.org, corbet@lwn.net, mingo@redhat.com, frederic@kernel.org, 
+	neeraj.upadhyay@kernel.org, josh@joshtriplett.org, urezki@gmail.com, 
+	dave@stgolabs.net, lianux.mm@gmail.com, stern@rowland.harvard.edu, 
+	parri.andrea@gmail.com, will@kernel.org, peterz@infradead.org, 
+	boqun@kernel.org, npiggin@gmail.com, dhowells@redhat.com, j.alglave@ucl.ac.uk, 
+	luc.maranget@inria.fr, akiyks@gmail.com, dlustig@nvidia.com, 
+	joelagnelf@nvidia.com, skhan@linuxfoundation.org, rdunlap@infradead.org, 
+	longman@redhat.com, rostedt@goodmis.org, jiangshanlai@gmail.com, 
+	qiang.zhang@linux.dev, brads@mainlining.org, linux-kernel@vger.kernel.org, 
+	linux-arch@vger.kernel.org, lkmm@lists.linux.dev, linux-doc@vger.kernel.org, 
+	rcu@vger.kernel.org, linux-kselftest@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 5, 2026 at 9:21=E2=80=AFPM Sergey Senozhatsky
-<senozhatsky@chromium.org> wrote:
+On Tue, Oct 6, 2026 at 1:51=E2=80=AFPM Mathieu Desnoyers
+<mathieu.desnoyers@efficios.com> wrote:
 >
-> Reset all writeback state to its initial defaults on device reset.
-> We used to keep writeback related data in zram->stats, which
-> zram_reset_device() clears, but commit 1d69a3f8ae77 ("zram: idle
-> writeback fixes and cleanup") moved it (along with the newly added
-> wb_limit_enable) to struct zram, after which neither of them was
-> reset anymore.  wb_batch_size and compressed_wb, which were added
-> later, are not reset either.
+> On 2026-10-05 13:15, Kunwu Chan wrote:
+> > Replace the per-waiter exact-match scan with a shared Bloom filter
+> > built during the second drain pass: each observed non-wildcard
+> > address sets three bits, so a waiter whose address hashes to an
+> > unset bit can be completed without another slot walk.
+> >
+> > A Bloom filter has no false negatives, so an address absent from
+> > the final drain scan cannot be held by an observed slot; false
+> > positives only delay completion to a later scan cycle.
+> >
+> > The filter uses a one-page bitmap with three multiply-shift hash
+> > functions.  It lives in the hazptr_scan_state and is only touched
+> > by the scan kthread, so waiter state remains on the caller's stack
+> > and no dynamic allocation is needed.
+> >
+> > Suggested-by: Boqun Feng <boqun@kernel.org>
 >
-> Fixes: 1d69a3f8ae77 ("zram: idle writeback fixes and cleanup")
-> Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+> I actually suggested that to Boqun in the first place. Feel
+> free to add my suggested-by tag as well. :)
+>
 
-Acked-by: Brian Geffon <bgeffon@google.com>
+Thanks, Mathieu. I wasn't aware that you originally suggested the Bloom
+filter idea to Boqun. I'll add your Suggested-by tag.
 
-> ---
->  drivers/block/zram/zram_drv.c | 7 +++++++
->  1 file changed, 7 insertions(+)
+> Did you run your Bloom filter in a test program on the side to
+> see how it behaves with pointers, and confirm that the false
+> positive rate is not too high due to hashing algorithm/constants
+> concerns ?
 >
-> diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.=
-c
-> index 593fa4ae47c4..0e1aa0da11aa 100644
-> --- a/drivers/block/zram/zram_drv.c
-> +++ b/drivers/block/zram/zram_drv.c
-> @@ -694,6 +694,7 @@ static void reset_bdev(struct zram *zram)
->         zram->disk->fops =3D &zram_devops;
->         kvfree(zram->bitmap);
->         zram->bitmap =3D NULL;
-> +       zram->nr_pages =3D 0;
->  }
+
+I haven't run a standalone Bloom filter test yet. I'll test the actual
+hash functions
+and constants from the patch with pointer-like and aligned address
+distributions,
+and measure the false-positive rate for representative numbers of
+observed addresses.
+
+The in-kernel tests currently pass, including hazptr.sh and rcuscale,
+but I agree that
+these don't directly characterize the Bloom filter's false-positive rate.
+I'll add the standalone test results to the next version.
+
+Thanks,
+Kunwu
+
+> Thanks!
 >
->  static ssize_t backing_dev_show(struct device *dev,
-> @@ -2881,6 +2882,12 @@ static void zram_reset_device(struct zram *zram)
->         zram_destroy_comps(zram);
->         memset(&zram->stats, 0, sizeof(zram->stats));
->         reset_bdev(zram);
-> +#ifdef CONFIG_ZRAM_WRITEBACK
-> +       zram->wb_limit_enable =3D false;
-> +       zram->bd_wb_limit =3D 0;
-> +       zram->wb_batch_size =3D 32;
-> +       zram->compressed_wb =3D false;
-> +#endif
->  }
+> Mathieu
 >
->  static ssize_t disksize_store(struct device *dev, struct device_attribut=
-e *attr,
+> > Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+> > ---
+> >   kernel/hazptr.c | 93 +++++++++++++++++++++++++++++++++++++++++++-----=
+-
+> >   1 file changed, 83 insertions(+), 10 deletions(-)
+> >
+> > diff --git a/kernel/hazptr.c b/kernel/hazptr.c
+> > index 9e274a691af5..900ba35de2cb 100644
+> > --- a/kernel/hazptr.c
+> > +++ b/kernel/hazptr.c
+> > @@ -7,6 +7,7 @@
+> >    */
+> >
+> >   #include <linux/hazptr.h>
+> > +#include <linux/bitops.h>
+> >   #include <linux/percpu.h>
+> >   #include <linux/spinlock.h>
+> >   #include <linux/mutex.h>
+> > @@ -16,6 +17,7 @@
+> >   #include <linux/kthread.h>
+> >   #include <linux/swait.h>
+> >   #include <linux/sched.h>
+> > +#include <linux/bitmap.h>
+> >
+> >   /*
+> >    * The current hazard pointer wildcard. Flips between 1UL and 2UL to =
+guarantee
+> > @@ -213,6 +215,55 @@ void hazptr_scan_period(void *addr, void *scan_wil=
+dcard)
+> >       }
+> >   }
+> >
+> > +/* Number of hash functions for the Bloom filter. */
+> > +#define HAZPTR_BLOOM_HASHES 3
+> > +
+> > +/* Number of bits in the Bloom filter bitmap: one page. */
+> > +#define HAZPTR_BLOOM_NBITS (PAGE_SIZE * 8)
+> > +
+> > +struct hazptr_bloom {
+> > +     unsigned long map[PAGE_SIZE / sizeof(unsigned long)];
+> > +};
+> > +
+> > +/*
+> > + * Multiply @addr by a per-hash odd constant and use the high bits
+> > + * as the Bloom filter index.
+> > + */
+> > +static unsigned long hazptr_bloom_hash(void *addr, unsigned int i)
+> > +{
+> > +     static const u64 mult[HAZPTR_BLOOM_HASHES] =3D {
+> > +             0x9E3779B97F4A7C15ULL,
+> > +             0xC2B2AE3D27D4EB4FULL,
+> > +             0x165667B19E3779F9ULL,
+> > +     };
+> > +     u64 hash =3D (u64)(unsigned long)addr * mult[i];
+> > +
+> > +     return hash >> (64 - ilog2(HAZPTR_BLOOM_NBITS));
+> > +}
+> > +
+> > +static void hazptr_bloom_reset(struct hazptr_bloom *bloom)
+> > +{
+> > +     bitmap_zero(bloom->map, HAZPTR_BLOOM_NBITS);
+> > +}
+> > +
+> > +static void hazptr_bloom_add(struct hazptr_bloom *bloom, void *addr)
+> > +{
+> > +     unsigned int i;
+> > +
+> > +     for (i =3D 0; i < HAZPTR_BLOOM_HASHES; i++)
+> > +             __set_bit(hazptr_bloom_hash(addr, i), bloom->map);
+> > +}
+> > +
+> > +static bool hazptr_bloom_contains(const struct hazptr_bloom *bloom, vo=
+id *addr)
+> > +{
+> > +     unsigned int i;
+> > +
+> > +     for (i =3D 0; i < HAZPTR_BLOOM_HASHES; i++)
+> > +             if (!test_bit(hazptr_bloom_hash(addr, i), bloom->map))
+> > +                     return false;
+> > +     return true;
+> > +}
+> > +
+> >   struct hazptr_waiter {
+> >       struct list_head node;
+> >       void *addr;
+> > @@ -226,17 +277,26 @@ struct hazptr_scan_state {
+> >       struct mutex lock;
+> >       struct list_head pending;
+> >       struct list_head scanning;      /* kthread only */
+> > +     struct hazptr_bloom bloom;      /* kthread only */
+> >   };
+> >   static struct hazptr_scan_state hazptr_scan;
+> >
+> >   /*
+> > - * Check per-CPU slots before overflow-list slots to match the
+> > - * acquisition ordering of promoted slots.
+> > + * Walk all slots and return true if @watch is present.  If @bloom
+> > + * is non-NULL, record observed non-wildcard addresses in it.
+> > + *
+> > + * Per-CPU slots are examined before overflow-list slots on each CPU
+> > + * to preserve the acquisition ordering required by the promote path:
+> > + * synchronize must observe the per-CPU slot release before the
+> > + * overflow-list entry can be missed.
+> >    */
+> > -static bool hazptr_value_present(void *val)
+> > +static bool hazptr_scan_walk(void *watch, struct hazptr_bloom *bloom)
+> >   {
+> >       int cpu;
+> >
+> > +     if (bloom)
+> > +             hazptr_bloom_reset(bloom);
+> > +
+> >       for_each_possible_cpu(cpu) {
+> >               struct hazptr_percpu_slots *percpu_slots =3D per_cpu_ptr(=
+&hazptr_percpu_slots, cpu);
+> >               struct hazptr_overflow_list_flip *overflow_list_flip =3D =
+per_cpu_ptr(&percpu_overflow_list_flip, cpu);
+> > @@ -244,10 +304,14 @@ static bool hazptr_value_present(void *val)
+> >
+> >               for (idx =3D 0; idx < NR_HAZPTR_PERCPU_SLOTS; idx++) {
+> >                       struct hazptr_slot_item *item =3D &percpu_slots->=
+items[idx];
+> > +                     void *v;
+> >
+> >                       /* Pairs with smp_store_release in hazptr_release=
+(). */
+> > -                     if (smp_load_acquire(&item->slot.addr) =3D=3D val=
+)
+> > +                     v =3D smp_load_acquire(&item->slot.addr);
+> > +                     if (v =3D=3D watch)
+> >                               return true;
+> > +                     if (bloom && v && !is_wildcard(v))
+> > +                             hazptr_bloom_add(bloom, v);
+> >               }
+> >               for (int i =3D 0; i < 2; i++) {
+> >                       struct hazptr_overflow_list *list =3D &overflow_l=
+ist_flip->array[i];
+> > @@ -256,11 +320,16 @@ static bool hazptr_value_present(void *val)
+> >
+> >                       raw_spin_lock_irqsave(&list->lock, flags);
+> >                       hlist_for_each_entry(b, &list->head, overflow_nod=
+e) {
+> > +                             void *v;
+> > +
+> >                               /* Pairs with smp_store_release in hazptr=
+_release(). */
+> > -                             if (smp_load_acquire(&b->slot.addr) =3D=
+=3D val) {
+> > +                             v =3D smp_load_acquire(&b->slot.addr);
+> > +                             if (v =3D=3D watch) {
+> >                                       raw_spin_unlock_irqrestore(&list-=
+>lock, flags);
+> >                                       return true;
+> >                               }
+> > +                             if (bloom && v && !is_wildcard(v))
+> > +                                     hazptr_bloom_add(bloom, v);
+> >                       }
+> >                       raw_spin_unlock_irqrestore(&list->lock, flags);
+> >               }
+> > @@ -276,7 +345,7 @@ static bool hazptr_value_present(void *val)
+> >    */
+> >   static void hazptr_drain_wildcard(void *wc)
+> >   {
+> > -     while (hazptr_value_present(wc))
+> > +     while (hazptr_scan_walk(wc, NULL))
+> >               cond_resched();
+> >   }
+> >
+> > @@ -309,12 +378,16 @@ static void hazptr_scan_do_cycle(void)
+> >       WRITE_ONCE(hazptr_wildcard, scan_wildcard);
+> >       old_wildcard =3D flip_wildcard(scan_wildcard);
+> >
+> > -     /* Pass 2: drain the old wildcard. */
+> > -     hazptr_drain_wildcard(old_wildcard);
+> > +     /*
+> > +      * Pass 2: drain the old wildcard while collecting observed
+> > +      * addresses into the Bloom filter.
+> > +      */
+> > +     while (hazptr_scan_walk(old_wildcard, &hazptr_scan.bloom))
+> > +             cond_resched();
+> >
+> > -     /* Complete waiters whose address is no longer held by any slot. =
+*/
+> > +     /* Complete waiters whose address is not in the filter. */
+> >       list_for_each_entry_safe(w, n, &hazptr_scan.scanning, node) {
+> > -             if (!hazptr_value_present(w->addr))
+> > +             if (!hazptr_bloom_contains(&hazptr_scan.bloom, w->addr))
+> >                       list_move(&w->node, &done);
+> >       }
+> >
+>
+>
 > --
-> 2.56.0.rc1.315.gc6ed9934b7-goog
->
+> Mathieu Desnoyers
+> EfficiOS Inc.
+> https://www.efficios.com
