@@ -1,647 +1,252 @@
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FF5F25B09C
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 11:51:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791287497; cv=none; b=UwtIB32V07tqfJ1Ig42oZS5fWvE0XiqyvC8rAhCN1WPMsiOSTUk2E7NcGmVu/nMGL82tKB4RoorGOh/XRBtBqaURgTSgCV+x1R04wFhNmtLLLCBSTOcHefKY4OVoYY73k4C9LBDTrLXD6fCQPDrt039hTnK8+/YMZcVLYrB07FA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791287497; c=relaxed/simple;
-	bh=1YXZs2DmZSNjAs9eWxEzuWZPu/J8GAykWsNE37mfL3k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NoTgOWMm0jwJkuTlDNbs+y4my0HL9X5ud8k2POYHrHtAvnOdqH5zXiBwCxfoUcb2+Ae6ahZzKuvVrm7SoOtD3l0N+5toyMbt1S2DXNvSyTcKBYIZ3xMnRTwon5RhExYNT5vEvMg6VOj/AyLGI3gL2qT9Q3zcIniy408FI/53R30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EBKozQlB; arc=none smtp.client-ip=209.85.218.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 057863B5850;
+	Tue,  6 Oct 2026 11:51:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.18
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791287516; cv=fail; b=grPxsVrX+artaZ+7jJXEmwgcL1EMP1bpK6HAxYJpOcMs5PsalqW/8ggWX5w90osl+Wy+oZsUv1WRTt8DprBYXJVce0YQMwG3fGWXzR03gWZLgsbxEx+PHFLM7B168HL9w/gPHnTCWxgMsX8dujWYlT06WVBer+S1abbf/qEZS3g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791287516; c=relaxed/simple;
+	bh=WQ7Zqm3gLIMuorfvtpQmX9BSViOPnNnftNCswIBGYgU=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=f5nGG2Weq96q4RjzURSSdOL2FR3QA4LjotK5i1TKOVjayy3QYaWhTRXF/3x9uFIFKEfZvnw98pX/0OOySTmcZ7k6hNcpW7bOb0hHSaKi3tUlM59S2+ClFmTQZdaCatFAg0stehTMnRlKfSRk92YgpDlrKLLCrudUgLaaXyG9SJs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=e1X7SXL8; arc=fail smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EBKozQlB"
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c2055573c8cso62731066b.3
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 04:51:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791287494; x=1791892294; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HeaZOxgi+yPw3XtmGhgaOnby0wPMS2WGx8jpxDJ0+rM=;
-        b=EBKozQlBbIN51p82VhbawOpjsorQ1rl37pGNHnlX4ASb9RLTQTA3May1HDV9qgYLJt
-         t0oNUywbStBqzbzi2FIY0BBr22ZcyPJK1gMGPmBYymk8N91v4t8biBQa1CHlHN7UTz8W
-         c7eK5QRc4NCU/wTkreLKe9yDSSHG8TcKXftjRvHTTZNpAUC4D10zxG6/6pS3ADoasFvg
-         LlJFA2kxcmlKibMS+fP+e+vZu6fn+BoWmknzbQy2LOvLKgwCVyjBzk3g9sBnoKnDuB9d
-         LWC6STh0h0pkBI0GZGXfXGw4+yWMrstkAyPR+QBFSPetU5AIkymmw9CHfRmTgCgoJPtw
-         7WUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791287494; x=1791892294;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HeaZOxgi+yPw3XtmGhgaOnby0wPMS2WGx8jpxDJ0+rM=;
-        b=fo+L2V2T+Tj4tgHAobWnxPRW0njnVLikHTKnA9vVqvdi7HeYP9ZzOXKzFiZKv6hhsk
-         XBJUvoyCQsRkb44JaLgXiks48cp2i5vktm1WQKUCqdaT+ZIf5FZlauvuxDLBtU/TxRJ5
-         VL4Bu+0TJzyUT4rmpsd0P8RTrY0/XFKuydNfA1ILA8ZpZ7B1wIRFL8Yivexc3hVuOaca
-         EZxNzodejchLsDfwqbF8J9rymb29P6pWizf9Eb+rRR8iVLSTbfy76daiICtDPQIUf46g
-         G7bNRpwZfys5EPJk63yB+P3W0wkmCFnFQgb4CA2IrmdEshgrfkIiDSbaagOkjn4h093b
-         orRQ==
-X-Gm-Message-State: AFq9FYLjtO7xSMgsXsGDZdqyuB+8b2Q9nVaFpVP5D9c97E89OelNYlao
-	zEQ03bACnhhVQquCXtog/Py8cPdR6J8XbxPvrYrVPgW079TqbT56GIiE
-X-Gm-Gg: AYBFou2a4amxl6gZ0SqcYCgX060stAUFCiJ8BuVQeDsrVP4rb3l4DwTsFGk2D+nO5fL
-	w0DRcNXqLgN/FTsLED3T+Qe82ZDOv0rgs00muK5suNSQ51IMSgxsCmbatxmOndK80snhF6563n7
-	LmeTBfqX85D+WQkoOHd3Ld/769dKm8rylFV1I8n20oUXAgUNrt878/6CX62ehUmiR2wjorjt39y
-	kveXhUhHFddkXADLhWNjxHoYffmjBaDxVegFCbjDuPwWlPXD6Q9hO0K/LNjWNiV5pebLChcM4hu
-	OI65zzo7G3Zn6SPRdQAk88z/6WzhsqzmhJ7rCueWon6C2YqrHlpLKWquIfKGHtlOhstkQ7hdBxl
-	r72x792aIDNxxu9GCoWSaApoOT9R1e0el0slPmzdVYSeC/jSM7GieGoMg3kEdip+c7ZiHipLKnJ
-	I3IseN8dgbBHk6ZAUf8xVXtJqKh7LeBjv3xH67dfUKWfrczbQNhZglEWnYcL0obMhwp4BrY8FrT
-	PX4jNXQ8lruUP1/eVBUMbbQEedHIMjlfxDFqlmJ5PZBJQaSIi82SaRu8msM+qtnVj2iTA7rP8bz
-	94pCu7pf53ynzi3qu8DTpL45KnoUQD8gnRt4QTyRA3lhdF3BEP6TbUCdzWxquZ5S1KsOsoognSE
-	+ly/Ot2YBJCYj+nX0WMunx3Lyi2oaRAefiU2Y+aQzKCMsj5XxKo+k3244TDrufV4M4WeUTzuTg2
-	wviyHz+07awhUSPyPvzlZyzZPGlZQteC5unKOugUTmcLARiJP7NATREQR5JtZJ52RxbI+toU6/z
-	VDfb3MaAvc=
-X-Received: by 2002:a17:907:d20:b0:c29:d77b:66a0 with SMTP id a640c23a62f3a-c3169f8521fmr139623666b.10.1791287493237;
-        Tue, 06 Oct 2026 04:51:33 -0700 (PDT)
-Received: from cs-280612103108-default.europe-west4-a.c.od237066db22328bb-tp.internal (79.152.7.34.bc.googleusercontent.com. [34.7.152.79])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c316c842f9dsm35854766b.36.2026.10.06.04.51.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 04:51:32 -0700 (PDT)
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Michael Hennerich <Michael.Hennerich@analog.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux@analog.com
-Subject: [PATCH] staging: iio: adc: ad7816: remove obsolete driver
-Date: Tue,  6 Oct 2026 11:51:19 +0000
-Message-ID: <20261006115119.1416-1-joshua.crofts1@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="e1X7SXL8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791287514; x=1822823514;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=WQ7Zqm3gLIMuorfvtpQmX9BSViOPnNnftNCswIBGYgU=;
+  b=e1X7SXL8tahYRJCXwzhwyalpCa4onARJWPD+pNKqdAG92HgygAr31/Wp
+   1myMr9mP1h+28FZ0tahVdHeyjVKQppNE4YUbMl3LHAvklSLaLv+XHGXov
+   LUJjnZA5V9lTSjjGhAQTnrQn+vJABDEwGuLaRkz0DKbEXegoKGvwEmR1Q
+   f99OxXvJ3wHE+DkWvYs9XjG+5zgrIPQYFwdFT/JwnfMQ9J7+94P82tPYc
+   pcfNGAIIax//DhMuJnrngf/fhgD6mUgEuPWmZL26MOb6QMdyoIIlOWWbc
+   2CJK1yHEC4RvCrBtE00pyPMzJKzMqNE4eTkc6t4pX41D7SgZwHNT7dYlE
+   g==;
+X-CSE-ConnectionGUID: uNajoZojSEqQoAAR5QNmRw==
+X-CSE-MsgGUID: IbreA8ppS+a0LwaDRxmFXQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="29092"
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="29092"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 04:51:53 -0700
+X-CSE-ConnectionGUID: /Z3fk71GRJCZkiXLxuW3UQ==
+X-CSE-MsgGUID: 5cJHlerPSnGwxN18na3WdA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="315151489"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 04:51:53 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 6 Oct 2026 04:51:52 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Tue, 6 Oct 2026 04:51:52 -0700
+Received: from BYAPR05CU005.outbound.protection.outlook.com (52.101.85.2) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 6 Oct 2026 04:51:52 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kdNTwBMkIEaAwD8uAjxr1YmXsz9iBxhIIOZA+F2yhlB3DX8M4BRrOkn/Lg7bq/+vKZlq6h1DL6DUPD9AICPGi/JphnDPSIAqoM1cWW29iNRiJ7CWb4GN5eNUYwF1TJ7xBR+wybKUJCIRAN7L7qmrDYDXa4D2gtn4qsivgX3E66cm55emmI3kUiCuMRV56ZYXXciOXKgWxftXsMJ48A+4QdxgHDc+oNRFza90tSZ3s6muSSkWFYj3x6ScuhnyE9AvFkRv6bp1zzQ0uT5nueloDoxglDcDjeRME1BQ6JU98GN+WRVyT3kphsCtc6s53w9RdQCuktNin9HvLJgu1EMdRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bIWJGS9u7UXs0d2xEM/4BNo4y9HrhTyCSMLXKj8YmFk=;
+ b=Ixk8AfB2j6fDTfXsJ2/5IK9VZMwPQsDLqMR69yx6MnpjfLpWQXjQrI0dsWjClhZnUHyqKVkxUvHM0Yih9trUecwrvUUaFt9b54TI8o8mOKxSeJ0Qp0Dbh7Be8jWxH+zmh+1yPLyzjqai//DrjSPoFod3Mzvq/hcW/FcKAOlBxeFMRYUrnMocSeDgcTmY7jZt5SPBb3JkiQJZ+N63cDT4bClyFry55IQKEZjHM8YCOXs3khcXCvpml5w6EI32Q0xNuxNuxyjUdZaEiDcS9j7+n9FL7P2NTE57gUgiTQe0ErM8j3euHRvwGNpTca2HVM3NyGCJaevltNIOIUoo8rH61A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA1PR11MB7198.namprd11.prod.outlook.com (2603:10b6:208:419::15)
+ by SN7PR11MB6970.namprd11.prod.outlook.com (2603:10b6:806:2aa::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Tue, 6 Oct
+ 2026 11:51:48 +0000
+Received: from IA1PR11MB7198.namprd11.prod.outlook.com
+ ([fe80::2c4e:e92a:4fa:a456]) by IA1PR11MB7198.namprd11.prod.outlook.com
+ ([fe80::2c4e:e92a:4fa:a456%3]) with mapi id 15.21.0472.015; Tue, 6 Oct 2026
+ 11:51:48 +0000
+Message-ID: <13319d31-c7ac-4b78-a8d1-3f764ce57204@intel.com>
+Date: Tue, 6 Oct 2026 14:51:42 +0300
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mmc: sdhci-esdhc-imx: map unsupported driver type to
+ Type B
+To: Ian Ray <ian.ray@gehealthcare.com>, Haibo Chen <haibo.chen@nxp.com>, "Ulf
+ Hansson" <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>, Sascha Hauer
+	<s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Shawn Lin <shawn.lin@rock-chips.com>,
+	Kamal Dasu <kamal.dasu@broadcom.com>
+CC: <stable@vger.kernel.org>, <imx@lists.linux.dev>,
+	<linux-mmc@vger.kernel.org>, <s32@nxp.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+References: <20261006105301.996-1-ian.ray@gehealthcare.com>
+Content-Language: en-US
+From: Adrian Hunter <adrian.hunter@intel.com>
+Organization: Intel Finland Oy, Registered Address: c/o Alberga Business Park,
+ 6 krs, Bertel Jungin Aukio 5, 02600 Espoo, Business Identity Code: 0357606 -
+ 4, Domiciled in Helsinki
+In-Reply-To: <20261006105301.996-1-ian.ray@gehealthcare.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DUZPR01CA0243.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4b5::11) To IA1PR11MB7198.namprd11.prod.outlook.com
+ (2603:10b6:208:419::15)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA1PR11MB7198:EE_|SN7PR11MB6970:EE_
+X-MS-Office365-Filtering-Correlation-Id: 43fca1d9-fa2d-474d-8227-08df23a033b7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|7416014|1800799024|23010399003|56012099006|11063799006|22082099003|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info: a19p90rFLLNgsa7OAxJKBAEt7hWMA96V+iMiDb6T7aJXH/6WrBYL3MXX73qpqvkc2ZK4t86htAuiPWSDn2r1o4oTC1pVjkqb55No7Lb31ryx7WtfGtH9CzvtV7uMTw42OvozuV4rOp/9E0bh6uQ86WbU8sIvI1mqvGjClhMHiARjBDz1LvqW8tpmOFG3LQLIhNsmK228nH3QMJFFMmNHf6iMI+zALyGkhDj5ZGp5AVlqtZ4CE4ABTT4mBbhliLU8xF1yUApfDbCpHJtW8MIDIegUmP6mVAggy5+pws77QnNX8I/vNnuZJvSyaAFw3knF9/AJy/KPBS77Mg/cHdd8U+B/FSq8uIXrqFbLYxOzl+CBjK3lvlSW6m5pI6WsifuGHr9z6b+TStcDjtwlydSIaHaO0SpatBL2Ho3H9e29ZtABqQQwCN6G+yXpkthgrJCK8pklHYU4Z1mdWITdqjQ5RE7qumNiir/Y4hHtL9bH13ghlCcOnlHOws3VwogBzfFhbWsdiNwYw/GdsFQBkmiFXzuDC1ozPrdJiwlCZN5pYobIqjCOeKtAmbadTBSWcwSnF/5MxL3l/Z7cqdKRwSyshY4wQaAuLvsX/87GTuj0Exi9uQnvqL94ssv/JiGtmjHx5OOkUeStMI/daBW8IojxKydsgs9AYXVsqzV5Z0KrHhI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR11MB7198.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(56012099006)(11063799006)(22082099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZnBkcDRvV0R0WlljZlROM3R2SEpMSEgwMVlDR2FRRkdkRHJ1TDFucGwvcFBU?=
+ =?utf-8?B?OW1ER2lsN3NGb1FkcDl1SEgxWUVkMjQzeDdFaXhTRlBXUWlFa1dQSnV6MHdI?=
+ =?utf-8?B?TU1qcmRkc1dEWHh4MWpLck1tUWl1RzdiMTJPdWlIVFpBVGxJZGc1WEpQdU00?=
+ =?utf-8?B?U3lzRlFmYzBGWTFDSmNORVVweXdRS0hOay9lbVJIcXJ5Vk0yck9WcGUxQU9n?=
+ =?utf-8?B?RUdObUd0OEhxOUlSS0FxK0pLd0dGQTFYKzIwV1FENXdGVCtjRy93TGlHd3B5?=
+ =?utf-8?B?UmZzVWN1NTFIZlJCeUxIRzhZemp5TGZEeERhK0djOVpUSkNjakV0WUx2VVNq?=
+ =?utf-8?B?aVAyMWlYMUpweE5WdHdGL0dlby9yalZFaXRvajErYXBnZko5a1hTclBJVWFl?=
+ =?utf-8?B?YW9sRkppNjlKRGNCaWZjK0oxNFd2ME9qcjcvTVJsZVJyVFFLbkl2QVZQa3hK?=
+ =?utf-8?B?ekJqdVJRWUc4Nnp3ZVZWSzFZbEdYZmpqZm1sTUxJcFRVUFpDSEQ3R1lQSGc4?=
+ =?utf-8?B?TVhrYVhtWldaQVk5VGVkVmM0Rks2TGVUcS9INEJqaEdQM3pCQkM0d1RobVVH?=
+ =?utf-8?B?VDN6aWMra0JaaDdoSEYzT283UUJWaksrNi9PWGdsWVIxbjN3M2JVRXlNZVlw?=
+ =?utf-8?B?OE9FeFYxV3F6ZXlhWktyRXNaMzJUMDN2ZHo2L29yS1AwcUhBbkRsa1NMU3kw?=
+ =?utf-8?B?MGlQTkhtdmNUSjBiZzdzdzh0ODkrZFBCbDJCYkFNd0xPdFIvYk1ITENBMVJB?=
+ =?utf-8?B?UVBLU2lwU2ZkcGp4TkduVmhDTEYrUXh4aFJYNWthZUlQcnlsYVVMUnNWY0Qr?=
+ =?utf-8?B?ZHA2aEZsSlhqWGhxZHc4Mll0S1NVTUFKcFNKbVlWTFhzSDdubll2N3FFSkNn?=
+ =?utf-8?B?Mkpsd2RtM0ZGK1c2ck9qczNVVHFUVlFqMVV6SDgyVGF3WWFuVUcvc0xTenZs?=
+ =?utf-8?B?ZGUvcEI1aXllZ3lRd0Y5L2FEVlZrM2xjLzlTSXp6QUdsT3RUTjR2dXgvSjVR?=
+ =?utf-8?B?NWdFQ2ZKaVIvWTg5RFIybFE5Zzc5Z1JpVWtoOTZ6dTdSdytrNyt2RndWaTJE?=
+ =?utf-8?B?YnQ0dTJuK0V6cVZkb0hYWEpVaGgzT01qVlN0dndqUm1UY0NSRFdjVFdiNnZZ?=
+ =?utf-8?B?WXZjbkdIZXNXYkhNUmJhbG9KR2VBMG02NDhTTmpwUFI1SmtKMlR0ZFBzOE9s?=
+ =?utf-8?B?ZUFMell4blI0V0ZwdENIN1gwNStYSzVuMWhlZktXanh4OHFrdFVKNlgrUC9t?=
+ =?utf-8?B?L2w4SGh4WWVoMWJreUZPOWsxSktuR1Jva3ZBWEdCWmZHS2VBUHZiSzFoQXBm?=
+ =?utf-8?B?aWFkUWxYa0FlWnJJTnl0cG9kSWlJU1I0dFBIMi9LQXBHTHdZWXpyUDVLbmR3?=
+ =?utf-8?B?Q1dCUkZZT2txaXJvZTFMMHVxS0pnbXgwdktGNG53YSs4R3d5Yk1WOWpJRG01?=
+ =?utf-8?B?VWdCekgwM0pNNUtRNUlydXlZR1ZIZEt6VU5SWTlydnFjMDcrTTVsS1dHc09u?=
+ =?utf-8?B?ck9wMXZNTFc3RTE1K0s4SUxla3JmUUlLeFZ0VVBNSzB2bFQvOGxXV3ArZmNU?=
+ =?utf-8?B?dTFKa01uTERnLzR5UFNDQVhKd2Q0TlUydDYxY2h2dmZrbEdqUEZ3ZzYzMWs0?=
+ =?utf-8?B?eW1OcExIY3FZYXp0ZUNlNGhhMld6V1BHUnZGUm92M1c0Rzh1eXMwamNGMEt3?=
+ =?utf-8?B?bXo4WXllU2kxUW94eXdtVlBDWFpuY0tXeERSUTBnZTdIZDE2cXNwN1FNS3FM?=
+ =?utf-8?B?cDczMVhSV29uQ1c4Sm94b1VrbVczVG1iak5tSU1GOWViUDlISW1ueEszZmlQ?=
+ =?utf-8?B?d21DQmcwNGl3Y3BiVFlEc0x6eHI2QmdsT2FJQ0Yrc0htZ0lmQXJzQ1A0MFRk?=
+ =?utf-8?B?Uk13NEhMdGRrcHZ2TFhKRnUwZnd1YkllSElwOFFQSXAyY3NXNWYrcDNaSmlI?=
+ =?utf-8?B?NW5BR2tiaUhPa3BwWlRiaGd5SDdJVU5KQ0dHZWVBNjJJUVBaY0JueTloRUtO?=
+ =?utf-8?B?NXEvVE10d1JhTFZGOFJGNnFiVDV1T2pSR0swWnJhREtoSVB0d0tyaG5CSjVR?=
+ =?utf-8?B?RkVOUmx4NU5FZmNKdmJTSGg0TG0zSU1aYXJLQUVtNStKUFQxSWFjNmhJVTM5?=
+ =?utf-8?B?cGhvTEQwUXkyOHMyQUtuZzdyTllqK2xJUDIrVFFnWmJhL0NnNm51MGNVR01a?=
+ =?utf-8?B?UVpMcFJiaVUzSzFvZk1SM1dkZEJSSjFFTkJxUVVBWU1sTGZ2bmV5RzRnY01j?=
+ =?utf-8?B?TmVyQytXZExqVUZpbW1FM0JjY1V1REs2V0FoOHNqYkZpNmdxN0lub0kvL1p6?=
+ =?utf-8?B?eWh6cEpZbVV2cnhYYW5PRXJjcEVNNkR3U1Bma0NobjJyS2VZeFhnUjhpUElu?=
+ =?utf-8?Q?nGVgJkIAZDwPz9Ko=3D?=
+X-Exchange-RoutingPolicyChecked: eej3SHAGfPhGplqcz5nXs/E9Jf9LinV3RX0ddNSYcMGos9qwybPoyFa4lNq7agR+646XR46lEggehK0CobMDM14LyZqq/Kk2kuY2YB0M9NjVc45jEtif2LRiNcxL5BpAqFA/5ZaJ6qXs6N5gkIveqYp4BZGsoWkEpa05rwSV223wzcx6FbrWqHqNTeSTGWHlcZqzLU7HGVPnJjt5Ee15TSvn3ldvDwWnwYEyKAvls0xBEsSjbFZGt1Cdr9cqxN7IfQfGFUJLZiOhIhjIJCVnEIGtcwr1dn515KbB7Bed/L3Vkbl6Tz8tkGpWcEMDegMD01qn93BF6wZzJjvSNM1ovA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 43fca1d9-fa2d-474d-8227-08df23a033b7
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR11MB7198.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 11:51:48.1597
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jWhPTlGDHQH3sFvo7302Y1s1HXx+QmBam9w3cpUbgymbzy5WI+TAc2+lbo6gfaqP0Zt7m5cKBucyx9KL7dt9dw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR11MB6970
+X-OriginatorOrg: intel.com
 
-The AD7816 driver has been in staging for 16 years and hasn't seen any
-significant improvements for it to mature out of staging.
+On 06/10/2026 13:53, Ian Ray wrote:
+> Since commit 5a52c5701a67 ("mmc: core: Fix host controller programming
+> for fixed driver type"), the eMMC driver strength is passed directly to
+> mmc_set_driver_type(), which propagates the value through ios.drv_type
+> all the way to sdhci_set_ios().  For 40 Ohm driver strength [1], SDHCI
+> correctly warns:
+> 
+>   mmc2: invalid driver type, default to driver type B
+> 
+> Hook ->set_ios() to map any driver type value outside of the SD-defined
+> range to default Type B, so that SDHCI always receives a valid value.
+> 
+> Tested on i.MX8MP (usdhc3, eMMC in HS400) with
+> `fixed-emmc-driver-type = <4>`: the warning is gone and the HS_TIMING
+> register contains 0x43 as expected.
+> 
+> [1] 'fixed-emmc-driver-type', see JESD84-B51 Table 206 and
+>     Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
+> 
+> Fixes: 5a52c5701a67 ("mmc: core: Fix host controller programming for fixed driver type")
+> Link: https://lore.kernel.org/all/20260926122908.866-1-ian.ray@gehealthcare.com/
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ian Ray <ian.ray@gehealthcare.com>
+> ---
+> v1 -> v2: Move fix from mmc core to sdhci-esdhc-imx driver per
+>           review (see "Link:" above);
+>           always provide a valid host driver type.
+> 
+>  drivers/mmc/host/sdhci-esdhc-imx.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+> 
+> diff --git a/drivers/mmc/host/sdhci-esdhc-imx.c b/drivers/mmc/host/sdhci-esdhc-imx.c
+> index 6ab59d3e346f..33f63c6dc8ce 100644
+> --- a/drivers/mmc/host/sdhci-esdhc-imx.c
+> +++ b/drivers/mmc/host/sdhci-esdhc-imx.c
+> @@ -1142,6 +1142,14 @@ static void esdhc_reset_tuning(struct sdhci_host *host)
+>  	}
+>  }
+>  
+> +static void sdhci_esdhc_imx_set_ios(struct mmc_host *mmc, struct mmc_ios *ios)
+> +{
+> +	if (ios->drv_type > MMC_SET_DRIVER_TYPE_D)
+> +		ios->drv_type = MMC_SET_DRIVER_TYPE_B;
 
-Additionally, the AD7816/AD7817/AD7818 have been obsolete for ~11 years.
+Looking at esdhc_writew_le(), it seems that drv_type is not used
+at all.  I'd prefer:
 
-Remove the entire adc/ subdirectory and references to it as this is the
-only driver in it.
+	/*
+	 * drv_type is not used (see esdhc_writew_le()) but SDHCI rejects
+	 * non-SDHCI values like 0x4 (eMMC 40 ohm) passed via device property
+	 * fixed-emmc-driver-type. Force drv_type to an always-valid value.
+	 */
+	ios->drv_type = MMC_SET_DRIVER_TYPE_B;
 
-Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
----
-If people want to use the AD7816, Analog Devices have their own fork of
-the kernel where the driver is present [1].
+> +
+> +	sdhci_set_ios(mmc, ios);
+> +}
+> +
+>  static void usdhc_init_card(struct mmc_host *mmc, struct mmc_card *card)
+>  {
+>  	struct sdhci_host *host = mmc_priv(mmc);
+> @@ -1949,6 +1957,11 @@ static int sdhci_esdhc_imx_probe(struct platform_device *pdev)
+>  		 */
+>  		host->mmc_host_ops.init_card = usdhc_init_card;
+>  
+> +		/*
+> +		 * Validate host driver type.
 
-Also, I don't see a point in keeping the driver for newcomers to
-practice on, as all mechanical changes (checkpatch, cocci) have been
-applied.
+Not really "Validate".  Perhaps "No SDHCI driver type control"
 
-[1] https://github.com/analogdevicesinc/linux/blob/main/drivers/staging/iio/adc/ad7816.c
----
- drivers/staging/iio/Kconfig      |   1 -
- drivers/staging/iio/Makefile     |   1 -
- drivers/staging/iio/adc/Kconfig  |  18 --
- drivers/staging/iio/adc/Makefile |   6 -
- drivers/staging/iio/adc/ad7816.c | 464 -------------------------------
- 5 files changed, 490 deletions(-)
- delete mode 100644 drivers/staging/iio/adc/Kconfig
- delete mode 100644 drivers/staging/iio/adc/Makefile
- delete mode 100644 drivers/staging/iio/adc/ad7816.c
+> +		 */
+> +		host->mmc_host_ops.set_ios = sdhci_esdhc_imx_set_ios;
 
-diff --git a/drivers/staging/iio/Kconfig b/drivers/staging/iio/Kconfig
-index bf6addf2974f..58d6859e039a 100644
---- a/drivers/staging/iio/Kconfig
-+++ b/drivers/staging/iio/Kconfig
-@@ -5,7 +5,6 @@
- menu "IIO staging drivers"
- 	depends on IIO
- 
--source "drivers/staging/iio/adc/Kconfig"
- source "drivers/staging/iio/addac/Kconfig"
- source "drivers/staging/iio/frequency/Kconfig"
- source "drivers/staging/iio/impedance-analyzer/Kconfig"
-diff --git a/drivers/staging/iio/Makefile b/drivers/staging/iio/Makefile
-index 739e4cbf9a7a..7768c4a8d278 100644
---- a/drivers/staging/iio/Makefile
-+++ b/drivers/staging/iio/Makefile
-@@ -3,7 +3,6 @@
- # Makefile for the industrial I/O core.
- #
- 
--obj-y += adc/
- obj-y += addac/
- obj-y += frequency/
- obj-y += impedance-analyzer/
-diff --git a/drivers/staging/iio/adc/Kconfig b/drivers/staging/iio/adc/Kconfig
-deleted file mode 100644
-index 2f0d6cf048d2..000000000000
---- a/drivers/staging/iio/adc/Kconfig
-+++ /dev/null
-@@ -1,18 +0,0 @@
--# SPDX-License-Identifier: GPL-2.0
--#
--# ADC drivers
--#
--menu "Analog to digital converters"
--
--config AD7816
--	tristate "Analog Devices AD7816/7/8 temperature sensor and ADC driver"
--	depends on SPI
--	depends on GPIOLIB || COMPILE_TEST
--	help
--	  Say yes here to build support for Analog Devices AD7816/7/8
--	  temperature sensors and ADC.
--
--	  To compile this driver as a module, choose M here: the
--	  module will be called ad7816.
--
--endmenu
-diff --git a/drivers/staging/iio/adc/Makefile b/drivers/staging/iio/adc/Makefile
-deleted file mode 100644
-index 1e2a94c4db84..000000000000
---- a/drivers/staging/iio/adc/Makefile
-+++ /dev/null
-@@ -1,6 +0,0 @@
--# SPDX-License-Identifier: GPL-2.0
--#
--# Makefile for industrial I/O ADC drivers
--#
--
--obj-$(CONFIG_AD7816) += ad7816.o
-diff --git a/drivers/staging/iio/adc/ad7816.c b/drivers/staging/iio/adc/ad7816.c
-deleted file mode 100644
-index 2a15d7598abb..000000000000
---- a/drivers/staging/iio/adc/ad7816.c
-+++ /dev/null
-@@ -1,464 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0+
--/*
-- * AD7816 digital temperature sensor driver supporting AD7816/7/8
-- *
-- * Copyright 2010 Analog Devices Inc.
-- */
--
--#include <linux/cleanup.h>
--#include <linux/device.h>
--#include <linux/gpio/consumer.h>
--#include <linux/interrupt.h>
--#include <linux/kernel.h>
--#include <linux/list.h>
--#include <linux/module.h>
--#include <linux/mutex.h>
--#include <linux/slab.h>
--#include <linux/spi/spi.h>
--#include <linux/sysfs.h>
--
--#include <linux/iio/events.h>
--#include <linux/iio/iio.h>
--#include <linux/iio/sysfs.h>
--
--/*
-- * AD7816 config masks
-- */
--#define AD7816_FULL			0x1
--#define AD7816_PD			0x2
--#define AD7816_CS_MASK			0x7
--#define AD7816_CS_MAX			0x4
--
--/*
-- * AD7816 temperature masks
-- */
--#define AD7816_VALUE_OFFSET		6
--#define AD7816_BOUND_VALUE_BASE		0x8
--#define AD7816_BOUND_VALUE_MIN		-95
--#define AD7816_BOUND_VALUE_MAX		152
--#define AD7816_TEMP_FLOAT_OFFSET	2
--#define AD7816_TEMP_FLOAT_MASK		0x3
--
--/*
-- * struct ad7816_chip_info - chip specific information
-- */
--
--struct ad7816_chip_info {
--	kernel_ulong_t id;
--	struct spi_device *spi_dev;
--	struct gpio_desc *rdwr_pin;
--	struct gpio_desc *convert_pin;
--	struct gpio_desc *busy_pin;
--	struct mutex lock; /* protect device state during SPI transfers */
--	u8  oti_data[AD7816_CS_MAX + 1];
--	u8  channel_id;	/* 0 always be temperature */
--	u8  mode;
--};
--
--enum ad7816_type {
--	ID_AD7816,
--	ID_AD7817,
--	ID_AD7818,
--};
--
--/*
-- * ad7816 data access by SPI
-- */
--static int ad7816_spi_read(struct ad7816_chip_info *chip, u16 *data)
--{
--	struct spi_device *spi_dev = chip->spi_dev;
--	int ret;
--	__be16 buf;
--
--	guard(mutex)(&chip->lock);
--
--	gpiod_set_value(chip->rdwr_pin, 1);
--	gpiod_set_value(chip->rdwr_pin, 0);
--	ret = spi_write_then_read(spi_dev, &chip->channel_id, sizeof(chip->channel_id), NULL, 0);
--	if (ret < 0) {
--		dev_err(&spi_dev->dev, "SPI channel setting error\n");
--		return ret;
--	}
--	gpiod_set_value(chip->rdwr_pin, 1);
--
--	if (chip->mode == AD7816_PD) { /* operating mode 2 */
--		gpiod_set_value(chip->convert_pin, 1);
--		gpiod_set_value(chip->convert_pin, 0);
--	} else { /* operating mode 1 */
--		gpiod_set_value(chip->convert_pin, 0);
--		gpiod_set_value(chip->convert_pin, 1);
--	}
--
--	if (chip->id == ID_AD7816 || chip->id == ID_AD7817) {
--		while (gpiod_get_value(chip->busy_pin))
--			cpu_relax();
--	}
--
--	gpiod_set_value(chip->rdwr_pin, 0);
--	gpiod_set_value(chip->rdwr_pin, 1);
--	ret = spi_write_then_read(spi_dev, NULL, 0, &buf, sizeof(buf));
--	if (ret < 0) {
--		dev_err(&spi_dev->dev, "SPI data read error\n");
--		return ret;
--	}
--
--	*data = be16_to_cpu(buf);
--
--	return ret;
--}
--
--static int ad7816_spi_write(struct ad7816_chip_info *chip, u8 data)
--{
--	struct spi_device *spi_dev = chip->spi_dev;
--	int ret;
--
--	guard(mutex)(&chip->lock);
--
--	gpiod_set_value(chip->rdwr_pin, 1);
--	gpiod_set_value(chip->rdwr_pin, 0);
--	ret = spi_write_then_read(spi_dev, &data, sizeof(data), NULL, 0);
--	if (ret < 0)
--		dev_err(&spi_dev->dev, "SPI oti data write error\n");
--
--	return ret;
--}
--
--static ssize_t ad7816_show_mode(struct device *dev,
--				struct device_attribute *attr,
--				char *buf)
--{
--	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
--	struct ad7816_chip_info *chip = iio_priv(indio_dev);
--
--	if (chip->mode)
--		return sysfs_emit(buf, "power-save\n");
--	return sysfs_emit(buf, "full\n");
--}
--
--static ssize_t ad7816_store_mode(struct device *dev,
--				 struct device_attribute *attr,
--				 const char *buf,
--				 size_t len)
--{
--	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
--	struct ad7816_chip_info *chip = iio_priv(indio_dev);
--
--	guard(mutex)(&chip->lock);
--
--	if (strcmp(buf, "full") == 0) {
--		gpiod_set_value(chip->rdwr_pin, 1);
--		chip->mode = AD7816_FULL;
--	} else {
--		gpiod_set_value(chip->rdwr_pin, 0);
--		chip->mode = AD7816_PD;
--	}
--
--	return len;
--}
--
--static IIO_DEVICE_ATTR(mode, 0644,
--		ad7816_show_mode,
--		ad7816_store_mode,
--		0);
--
--static ssize_t ad7816_show_available_modes(struct device *dev,
--					   struct device_attribute *attr,
--					   char *buf)
--{
--	return sysfs_emit(buf, "full\npower-save\n");
--}
--
--static IIO_DEVICE_ATTR(available_modes, 0444, ad7816_show_available_modes,
--			NULL, 0);
--
--static ssize_t ad7816_show_channel(struct device *dev,
--				   struct device_attribute *attr,
--				   char *buf)
--{
--	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
--	struct ad7816_chip_info *chip = iio_priv(indio_dev);
--
--	return sysfs_emit(buf, "%d\n", chip->channel_id);
--}
--
--static ssize_t ad7816_store_channel(struct device *dev,
--				    struct device_attribute *attr,
--				    const char *buf,
--				    size_t len)
--{
--	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
--	struct ad7816_chip_info *chip = iio_priv(indio_dev);
--	unsigned long data;
--	int ret;
--
--	ret = kstrtoul(buf, 10, &data);
--	if (ret)
--		return ret;
--
--	if (data > AD7816_CS_MAX && data != AD7816_CS_MASK) {
--		dev_err(&chip->spi_dev->dev, "Invalid channel id %lu for %s.\n",
--			data, indio_dev->name);
--		return -EINVAL;
--	} else if (strcmp(indio_dev->name, "ad7818") == 0 && data > 1) {
--		dev_err(&chip->spi_dev->dev,
--			"Invalid channel id %lu for ad7818.\n", data);
--		return -EINVAL;
--	} else if (strcmp(indio_dev->name, "ad7816") == 0 && data > 0) {
--		dev_err(&chip->spi_dev->dev,
--			"Invalid channel id %lu for ad7816.\n", data);
--		return -EINVAL;
--	}
--
--	guard(mutex)(&chip->lock);
--
--	chip->channel_id = data;
--
--	return len;
--}
--
--static IIO_DEVICE_ATTR(channel, 0644,
--		ad7816_show_channel,
--		ad7816_store_channel,
--		0);
--
--static ssize_t ad7816_show_value(struct device *dev,
--				 struct device_attribute *attr,
--				 char *buf)
--{
--	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
--	struct ad7816_chip_info *chip = iio_priv(indio_dev);
--	u16 data;
--	s8 value;
--	int ret;
--
--	ret = ad7816_spi_read(chip, &data);
--	if (ret)
--		return -EIO;
--
--	data >>= AD7816_VALUE_OFFSET;
--
--	if (chip->channel_id == 0) {
--		value = (s8)((data >> AD7816_TEMP_FLOAT_OFFSET) - 103);
--		data &= AD7816_TEMP_FLOAT_MASK;
--		if (value < 0)
--			data = BIT(AD7816_TEMP_FLOAT_OFFSET) - data;
--		return sysfs_emit(buf, "%d.%.2d\n", value, data * 25);
--	}
--	return sysfs_emit(buf, "%u\n", data);
--}
--
--static IIO_DEVICE_ATTR(value, 0444, ad7816_show_value, NULL, 0);
--
--static struct attribute *ad7816_attributes[] = {
--	&iio_dev_attr_available_modes.dev_attr.attr,
--	&iio_dev_attr_mode.dev_attr.attr,
--	&iio_dev_attr_channel.dev_attr.attr,
--	&iio_dev_attr_value.dev_attr.attr,
--	NULL,
--};
--
--static const struct attribute_group ad7816_attribute_group = {
--	.attrs = ad7816_attributes,
--};
--
--/*
-- * temperature bound events
-- */
--
--#define IIO_EVENT_CODE_AD7816_OTI IIO_UNMOD_EVENT_CODE(IIO_TEMP,	\
--						       0,		\
--						       IIO_EV_TYPE_THRESH, \
--						       IIO_EV_DIR_FALLING)
--
--static irqreturn_t ad7816_event_handler(int irq, void *private)
--{
--	iio_push_event(private, IIO_EVENT_CODE_AD7816_OTI,
--		       iio_get_time_ns(private));
--	return IRQ_HANDLED;
--}
--
--static ssize_t ad7816_show_oti(struct device *dev,
--			       struct device_attribute *attr,
--			       char *buf)
--{
--	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
--	struct ad7816_chip_info *chip = iio_priv(indio_dev);
--	int value;
--
--	if (chip->channel_id > AD7816_CS_MAX) {
--		dev_err(dev, "Invalid oti channel id %d.\n", chip->channel_id);
--		return -EINVAL;
--	} else if (chip->channel_id == 0) {
--		value = AD7816_BOUND_VALUE_MIN +
--			(chip->oti_data[chip->channel_id] -
--			AD7816_BOUND_VALUE_BASE);
--		return sysfs_emit(buf, "%d\n", value);
--	}
--	return sysfs_emit(buf, "%u\n", chip->oti_data[chip->channel_id]);
--}
--
--static inline ssize_t ad7816_set_oti(struct device *dev,
--				     struct device_attribute *attr,
--				     const char *buf,
--				     size_t len)
--{
--	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
--	struct ad7816_chip_info *chip = iio_priv(indio_dev);
--	long value;
--	u8 data;
--	int ret;
--
--	ret = kstrtol(buf, 10, &value);
--	if (ret)
--		return ret;
--
--	if (chip->channel_id > AD7816_CS_MAX) {
--		dev_err(dev, "Invalid oti channel id %d.\n", chip->channel_id);
--		return -EINVAL;
--	} else if (chip->channel_id == 0) {
--		if (value < AD7816_BOUND_VALUE_MIN ||
--		    value > AD7816_BOUND_VALUE_MAX)
--			return -EINVAL;
--
--		data = (u8)(value - AD7816_BOUND_VALUE_MIN +
--			AD7816_BOUND_VALUE_BASE);
--	} else {
--		if (value < AD7816_BOUND_VALUE_BASE || value > 255)
--			return -EINVAL;
--
--		data = (u8)value;
--	}
--
--	ret = ad7816_spi_write(chip, data);
--	if (ret)
--		return -EIO;
--
--	chip->oti_data[chip->channel_id] = data;
--
--	return len;
--}
--
--static IIO_DEVICE_ATTR(oti, 0644,
--		       ad7816_show_oti, ad7816_set_oti, 0);
--
--static struct attribute *ad7816_event_attributes[] = {
--	&iio_dev_attr_oti.dev_attr.attr,
--	NULL,
--};
--
--static const struct attribute_group ad7816_event_attribute_group = {
--	.attrs = ad7816_event_attributes,
--	.name = "events",
--};
--
--static const struct iio_info ad7816_info = {
--	.attrs = &ad7816_attribute_group,
--	.event_attrs = &ad7816_event_attribute_group,
--};
--
--/*
-- * device probe and remove
-- */
--
--static int ad7816_probe(struct spi_device *spi_dev)
--{
--	struct ad7816_chip_info *chip;
--	struct iio_dev *indio_dev;
--	int i, ret;
--
--	indio_dev = devm_iio_device_alloc(&spi_dev->dev, sizeof(*chip));
--	if (!indio_dev)
--		return -ENOMEM;
--	chip = iio_priv(indio_dev);
--
--	ret = devm_mutex_init(&spi_dev->dev, &chip->lock);
--	if (ret)
--		return ret;
--
--	chip->spi_dev = spi_dev;
--	for (i = 0; i <= AD7816_CS_MAX; i++)
--		chip->oti_data[i] = 203;
--
--	chip->id = spi_get_device_id(spi_dev)->driver_data;
--	chip->rdwr_pin = devm_gpiod_get(&spi_dev->dev, "rdwr", GPIOD_OUT_HIGH);
--	if (IS_ERR(chip->rdwr_pin)) {
--		ret = PTR_ERR(chip->rdwr_pin);
--		dev_err(&spi_dev->dev, "Failed to request rdwr GPIO: %d\n",
--			ret);
--		return ret;
--	}
--	chip->convert_pin = devm_gpiod_get(&spi_dev->dev, "convert",
--					   GPIOD_OUT_HIGH);
--	if (IS_ERR(chip->convert_pin)) {
--		ret = PTR_ERR(chip->convert_pin);
--		dev_err(&spi_dev->dev, "Failed to request convert GPIO: %d\n",
--			ret);
--		return ret;
--	}
--	if (chip->id == ID_AD7816 || chip->id == ID_AD7817) {
--		chip->busy_pin = devm_gpiod_get(&spi_dev->dev, "busy",
--						GPIOD_IN);
--		if (IS_ERR(chip->busy_pin)) {
--			ret = PTR_ERR(chip->busy_pin);
--			dev_err(&spi_dev->dev, "Failed to request busy GPIO: %d\n",
--				ret);
--			return ret;
--		}
--	}
--
--	indio_dev->name = spi_get_device_id(spi_dev)->name;
--	indio_dev->info = &ad7816_info;
--	indio_dev->modes = INDIO_DIRECT_MODE;
--
--	if (spi_dev->irq) {
--		/* Only low trigger is supported in ad7816/7/8 */
--		ret = devm_request_threaded_irq(&spi_dev->dev, spi_dev->irq,
--						NULL,
--						&ad7816_event_handler,
--						IRQF_TRIGGER_LOW | IRQF_ONESHOT,
--						indio_dev->name,
--						indio_dev);
--		if (ret)
--			return ret;
--	}
--
--	ret = devm_iio_device_register(&spi_dev->dev, indio_dev);
--	if (ret)
--		return ret;
--
--	dev_info(&spi_dev->dev, "%s temperature sensor and ADC registered.\n",
--		 indio_dev->name);
--
--	return 0;
--}
--
--static const struct of_device_id ad7816_of_match[] = {
--	{ .compatible = "adi,ad7816", },
--	{ .compatible = "adi,ad7817", },
--	{ .compatible = "adi,ad7818", },
--	{ }
--};
--MODULE_DEVICE_TABLE(of, ad7816_of_match);
--
--static const struct spi_device_id ad7816_id[] = {
--	{ .name = "ad7816", .driver_data = ID_AD7816 },
--	{ .name = "ad7817", .driver_data = ID_AD7817 },
--	{ .name = "ad7818", .driver_data = ID_AD7818 },
--	{ }
--};
--
--MODULE_DEVICE_TABLE(spi, ad7816_id);
--
--static struct spi_driver ad7816_driver = {
--	.driver = {
--		.name = "ad7816",
--		.of_match_table = ad7816_of_match,
--	},
--	.probe = ad7816_probe,
--	.id_table = ad7816_id,
--};
--module_spi_driver(ad7816_driver);
--
--MODULE_AUTHOR("Sonic Zhang <sonic.zhang@analog.com>");
--MODULE_DESCRIPTION("Analog Devices AD7816/7/8 digital temperature sensor driver");
--MODULE_LICENSE("GPL v2");
--- 
-2.47.3
+Does this need to be conditional on esdhc_is_usdhc(imx_data)?
+Seems like esdhc_writew_le() is used and drv_type ignored either way.
+
+> +
+>  		host->max_timeout_count = 0xF;
+>  	}
+>  
 
