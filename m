@@ -1,261 +1,225 @@
-Received: from mta0.migadu.com (out-45.mta0.migadu.com [91.218.175.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48DDD3B6C15
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 08:57:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 042D237F337;
+	Tue,  6 Oct 2026 09:02:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791277046; cv=none; b=WpN40v3OB7blLUGoABQeh97ZzJoF4fW2oWA2iBH572kACFafPMiBvzLMIA0S+y2mL3YEIc9eFQ8p2VeZzFQKeEeZaimSWWvQ+6V2RsgmLAnxidR1J5J2zfoia8zFItj4gQrXt0Qobu3OTFUerrD9nlhF+u8WyxRPXg1KXLiQNk4=
+	t=1791277324; cv=none; b=cuZ9WvxZU2vRcK07wln4XvwjeooKvUf5s2U4X4HaUfD6s83BQBbpvAVnKU93vQJGrYEVk7Jnz6NGLh+QzaVwMpR79uykIANRxJCOJesfexrWRMW2PsqmUJgl6WR6G5Z8oXXMgFYZe76p4qGU7mKepZB8QH0hGPtIokosIFGwsd8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791277046; c=relaxed/simple;
-	bh=paK1UqnR9gAHH66c1E1VmYVUb6B61az2dHUEqVYM0JQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fUi8X+Q3yWjs1sVGBdcg5JHptjBtz/hg1VPP00a2+tEDeh21GJj7qr/Sz/NlgRJqNZIVvrXA0CsiK8Jk+IWJaWH1PUVgXo6cEZk3mPLq6wPFbUhl/YlU9qVOk9QrQtZkg8LLZSqglBrbSGEgMcoKcAhPvjj1x0BzBmtWyO6dtsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JeK7cQXZ; arc=none smtp.client-ip=91.218.175.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791277324; c=relaxed/simple;
+	bh=8MfpeJFSppQamPfCBYTs5Fd1fLWRa6sO3hiJm8ub+10=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DNTnD2tV8XkxLAd/lyqbo39bgEHOWQJuUFsDDjugyxTsrB2ckv2koW8WY/ATlRe54h26ar98d4F716Z1iNAgfFprPba9X4nJq55nZuRpyAasSaAQQKASZnzFXr7cb6sXSczysDjkPYP1h66IwNdyDM4tCPbZktPs/p9W3migVAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=idJuu1mZ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JeK7cQXZ"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=paK1UqnR9gAHH66c1E1VmYVUb6B61az2dHUEqVYM0JQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791277041; v=1; x=1791881841;
- b=JeK7cQXZwyYivuG1Of/HPr2/Q5ndQalkMqkHjuge66bcYlyDfurvgOeB5chArT2RYJ8NjMCU
- mD25JY86Ta7SH7Zvq06W3xU0taZZq+ARY10CeJd1buXG8Mm5O8lhb4fxz2+LlUJ/aiRtJ7x7r4A
- tRc8zjJzkNx2N/PBPlkNxZeo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8a67217149587fa0;
-	Tue, 06 Oct 2026 08:57:11 +0000
-X-Mizu-Trace-ID: 8a67217149587fa0
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 6 Oct 2026 10:57:04 +0200
-From: Richard Leitner <richard.leitner@linux.dev>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
-	"Paul J. Murphy" <paul.j.murphy@intel.com>, Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
-	Gyula Kelemen <gyula.kelemen@advasolutions.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 09/10] media: i2c: ov9282: fix flash duration control
- range
-Message-ID: <asS0anZZXpbR96oE@bombadil>
-References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev>
- <20260914-ov9282-fixes-v1-9-f520af59df1b@linux.dev>
- <CAPY8ntAk1z-BuftZufd-qPwP9fDf9NQ0nwJn8XMV6pGKLfrFKA@mail.gmail.com>
- <arpyD2CjxOqwQvx8@bombadil>
- <CAPY8ntAMUwemmB+LLOS=WGozvBSyXoYrpWDdyGeyjHQ6Y6sh0Q@mail.gmail.com>
- <arrVt-0ctw1cXkkW@bombadil>
- <CAPY8ntC1SEr3seqcAWchZ8A9nSqWp-FZow7v=o-oL8CcQgMaNQ@mail.gmail.com>
- <asO1sIZC8rOyhSnu@bombadil>
- <CAPY8ntC5oO2hdzbKsFpu+SqMetUKLM8HRP_fVc7VBreZYXAz_w@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="idJuu1mZ"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6967Sdp63537718;
+	Tue, 6 Oct 2026 09:01:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=Vf2j2u+/3ZFVhWU7kRS+D/SAyrxMqxWOEyH
+	NN4i7jCo=; b=idJuu1mZVFJ1kWVWOdUMaDZRPSY8vaspIdVZHH3dcm7qkleWhSW
+	n3ZzAYG187J32DZCsL3bJ456C67VFAx+L5jxg5aQB6JyB/rCfbyzb72jNvvG+zhJ
+	mo6CXciyKbKqE+8gsAeUUUoQz6N3ocITy/LgD4xxp84XxP5t8LoT2ezd5aJsIJ09
+	OCRRTuXPmnfOEBT6GKleubaHYBMRDyjN26kMkxsJrsuqu7kQjz7evgLImBoDdgqd
+	p8pakomhtJnS7FcUV8L/pq3Ryx3ZxvHPxr7z9xZ4Efmom0VOLWgnQmspVHHjC8xz
+	5kBVNWaF7noFtpeoTGCfWTkFyLKjAD1ZTLQ==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4vmrrabd-2
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 06 Oct 2026 09:01:25 +0000 (GMT)
+Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69690Act079404;
+	Tue, 6 Oct 2026 09:00:10 GMT
+Received: from hu-devc-blr-u22-a.qualcomm.com (hu-haric-blr.qualcomm.com [10.131.39.39])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 69690Anv079366
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 06 Oct 2026 09:00:10 +0000 (GMT)
+Received: by hu-devc-blr-u22-a.qualcomm.com (Postfix, from userid 3844793)
+	id 7864A41200; Tue,  6 Oct 2026 14:30:09 +0530 (+0530)
+From: Hari Chandrakanthan <hari.chandrakanthan@oss.qualcomm.com>
+To: pablo@netfilter.org, fw@strlen.de
+Cc: phil@nwl.cc, netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+        netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Hari Chandrakanthan <hari.chandrakanthan@oss.qualcomm.com>
+Subject: [RFC PATCH net-next] netfilter: nf_conntrack: add ct expression support for netdev egress chains
+Date: Tue,  6 Oct 2026 14:28:44 +0530
+Message-Id: <20261006085844.2694120-1-hari.chandrakanthan@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAPY8ntC5oO2hdzbKsFpu+SqMetUKLM8HRP_fVc7VBreZYXAz_w@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Authority-Analysis: v=2.4 cv=XZ4cX455 c=1 sm=1 tr=0 ts=6ac4b8e5 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8 a=9ZRjs37vXSK0Xz5s9nIA:9
+X-Proofpoint-GUID: zdtoavhFzn70cuIX0hlSgil06VE3J6x_
+X-Proofpoint-ORIG-GUID: zdtoavhFzn70cuIX0hlSgil06VE3J6x_
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDAzNSBTYWx0ZWRfX8Un9jr8pISRN
+ 574g4xqoke3at92eQ85UoRxrXQY76FjNq06dRKIDG/D7Siloey9M7MUFWEjP13UcHreTnpb2Cn6
+ bfvRfwydU64HtsTJkbKb3BCFOB3G+TWhDjGow1Qi76u2VSN3nMBQ/WzrpiLoutayyWmXFnRHiNf
+ wUXKPvuFJgQJ2cTqlUrLte4y+hdfGBvCEZZMWqwvQNbq0XXqbX44NCxp4gQdwHmiyxViCzWVHLm
+ gaQW/FXswcGx4vkBReB6Y8ttIgFZzlzNQ1sYS9l0oDymZjqWRAeJ11CSJgGtV2Q7bgsRDE9WqjD
+ 25F83GT7GPOr2L0gYYuzO1DzNswL/Mvf2YL8uvx7pfXxUvdwDh7bp4UQbKRUtJsmyLLBVMeeRIA
+ k5z0t2f/Di9BSRRwx1D0R+jbxt37sKSsaup+fG41UdB/ckAsq2b+55G1+CCX31dMpjOPu8yUmnb
+ dNveOanw8RFXglSdBGQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDAzNSBTYWx0ZWRfX4G+GTiOVJovN
+ jcgGsltq3tOUmbtLbztF6pl3HLp/Gdu0YwVD1YvC+DT/dHGF/g6HyF5Ev9TjSwR6uPLDb/J/j3t
+ GB2mEmuxNJUFOSVG12igWEFV1Sb/rmQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-06_02,2026-10-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 spamscore=0 priorityscore=1501 adultscore=0
+ suspectscore=0 impostorscore=0 bulkscore=0 clxscore=1011 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060035
 
-On Mon, Oct 05, 2026 at 05:05:54PM +0100, Dave Stevenson wrote:
-> Hi Richard
-> 
-> On Mon, 5 Oct 2026 at 15:46, Richard Leitner <richard.leitner@linux.dev> wrote:
-> >
-> > On Tue, Sep 29, 2026 at 03:06:51PM +0100, Dave Stevenson wrote:
-> > > On Mon, 28 Sept 2026 at 22:08, Richard Leitner
-> > > <richard.leitner@linux.dev> wrote:
-> > > >
-> > > > On Mon, Sep 28, 2026 at 03:40:21PM +0100, Dave Stevenson wrote:
-> > > > > On Mon, 28 Sept 2026 at 15:23, Richard Leitner
-> > > > > <richard.leitner@linux.dev> wrote:
-> > > > > >
-> > > > > > Hi Dave,
-> > > > > >
-> > > > > > thanks for your feedback! Greatly appreciated!
-> > > > > >
-> > > > > > On Mon, Sep 28, 2026 at 02:47:36PM +0100, Dave Stevenson wrote:
-> > > > > > > Hi Richard
-> > > > > > >
-> > > > > > > On Mon, 14 Sept 2026 at 20:21, Richard Leitner
-> > > > > > > <richard.leitner@linux.dev> wrote:
-> > > > > > > >
-> > > > > > > > When updating the flash_duration range ensure the ceiling is at least as
-> > > > > > > > long as the exposure time is. This may cause the calculated
-> > > > > > > > flash_duration register value to be rounded up.
-> > > > > > > >
-> > > > > > > > This is done by introducing a new
-> > > > > > > > ov9282_update_ctrl_range_flash_duration() function and using them
-> > > > > > > > wherever possible.
-> > > > > > > >
-> > > > > > > > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
-> > > > > > > > ---
-> > > > > > > >  drivers/media/i2c/ov9282.c | 47 +++++++++++++++++++++++++++-------------------
-> > > > > > > >  1 file changed, 28 insertions(+), 19 deletions(-)
-> > > > > > > >
-> > > > > > > > diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-> > > > > > > > index f728709fcf0a6..be38ecfad8c82 100644
-> > > > > > > > --- a/drivers/media/i2c/ov9282.c
-> > > > > > > > +++ b/drivers/media/i2c/ov9282.c
-> > > > > > > > @@ -541,6 +541,29 @@ static u32 ov9282_flash_duration_to_us(struct ov9282 *ov9282, u32 value)
-> > > > > > > >                                 NSEC_PER_USEC);
-> > > > > > > >  }
-> > > > > > > >
-> > > > > > > > +/**
-> > > > > > > > + * ov9282_update_ctrl_range_flash_duration() - Update flash_duration control range
-> > > > > > > > + * @ov9282: pointer to ov9282 device
-> > > > > > > > + *
-> > > > > > > > + * This may round up the ceiling to the microseconds representation of the
-> > > > > > > > + * next flash_duration register value to make sure one can illuminate the whole
-> > > > > > > > + * exposure time long.
-> > > > > > > > + *
-> > > > > > > > + * Return: 0 if successful, error code otherwise.
-> > > > > > > > + */
-> > > > > > > > +static int ov9282_update_ctrl_range_flash_duration(struct ov9282 *ov9282)
-> > > > > > > > +{
-> > > > > > > > +       u32 exposure_us = ov9282_exposure_to_us(ov9282, ov9282->exp_ctrl->val);
-> > > > > > > > +       u32 fd_max = ov9282_us_to_flash_duration(ov9282, exposure_us);
-> > > > > > > > +       u32 fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max);
-> > > > > > > > +
-> > > > > > > > +       if (fd_max_us < exposure_us)
-> > > > > > > > +               fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max + 1);
-> > > > > > >
-> > > > > > > Reading the driver for how it handles flash duration, it all gets a
-> > > > > > > bit convoluted. I see part of it comes from the units being usecs
-> > > > > > > whilst natively it is in lines, but we've got this slightly odd calc
-> > > > > > > and adding 1, and rounding in try_ctrl to get closest to the absolute
-> > > > > > > value.
-> > > > > >
-> > > > > > That's true. I'm also not happy with this back-and-forth conversion between
-> > > > > > u/n-secs and lines. From a V4l2 API user perspective I'd love to have
-> > > > > > all "timing related" controls in the same unit (likely usecs). I was
-> > > > > > already playing around with that approach, but as this would break the
-> > > > > > current exporsure property I have not sent those patches...
-> > > > > >
-> > > > > > If you have any "mainline-acceptable" idea on how to do that I would
-> > > > > > definitely love to hear it ;-)
-> > > > >
-> > > > > Sadly I think that there is a need for some of the back and forth in
-> > > > > conversions :-(
-> > > > >
-> > > > > > > Seeing as this is the max flash_duration, is it actually limited by
-> > > > > > > the exposure, or by the frame duration? The difference between those
-> > > > > > > is a minimum of 25 lines (OV9282_EXPOSURE_OFFSET), which I think gives
-> > > > > > > you up to another 9usecs to play with. That covers any of this
-> > > > > > > rounding stuff. You can afford to always round that one down and never
-> > > > > > > clip the range below the exposure time.
-> > > > > >
-> > > > > > From a hardware perspective this isn't limited at all AFAICT. But from a
-> > > > > > "use-case" perspective a flash_duration (with a flash offset=0, which is
-> > > > > > the hard-coded default case in this driver currently) longer than the
-> > > > > > exposure time makes no sense, as it does not have any effect on the image.
-> > > > > >
-> > > > > > With this patch I want to make sure to be able to illuminate the frame
-> > > > > > during the complete exposure time, but keep the maximum as short as
-> > > > > > possible. So I was comparing/aiming this at the exposure time, not the
-> > > > > > frame duration.
-> > > > > >
-> > > > > > As the frame duration is OV9282_EXPOSURE_OFFSET longer than the exposure
-> > > > > > time: Would a "turned-on flash" during those 25 lines have any impact on
-> > > > > > the frames brightness in your opinion?
-> > > > > > I haven't explicitely tested/measured this with hardware, but I guess
-> > > > > > this does not have any impact?
-> > > > >
-> > > > > No, as this is a global shutter sensor I wouldn't expect the flash to
-> > > > > impact the image if a connected flash was on for more lines than the
-> > > > > exposure.
-> > > > >
-> > > > > > Or do you mean when calculating against the frame duration the +/-1
-> > > > > > stuff can be dropped and the code would be easier to read?
-> > > > >
-> > > > > Yes, I'm suggesting the driver handles the range of values that the
-> > > > > hardware can support correctly. Whether that helps for your image
-> > > > > quality requirements is a different question.
-> > > > > The driver can pass the buck with at least some of the rounding issues
-> > > > > to userspace, which potentially has use-case specific knowledge. And
-> > > > > it simplifies the driver in the process.
-> > > >
-> > > > Talking about "range of values that the hardware can support": AFAICT
-> > > > the strobe duration is (from a sensor hardware point of view) not
-> > > > limited by the frame duration. At least I found nothing on this in the
-> > > > datasheet and a quick test on hardware also showed no correlation.
-> > >
-> > > Interesting. So if you set it to a 1 second strobe pulse when
-> > > streaming at 60fps, what behaviour do you get?
-> >
-> > I haven't tested the 1 second strobe explicitely. But the strobe in my
-> > case is always on for the configured time. No matter if it exceeds the
-> > frame time/trigger. After the configured strobe_duration passed it goes
-> > low until the next trigger happens.
-> >
-> > Maybe the following visualization helps:
-> >
-> >
-> > strobe duration < frame time:
-> >                   __         __         __         __
-> >                  |  |       |  |       |  |       |  |
-> > strobe signal   _|  |_______|  |_______|  |_______|  |_____
-> > strobe trigger   ^          ^          ^          ^
-> >
-> >
-> > frame time < strobe duration < 2x frame time:
-> >                   _____________         _____________
-> >                  |             |       |             |
-> > strobe signal   _|             |_______|             |_____
-> > strobe trigger   ^          ^          ^          ^
-> >
-> >
-> > 2x frame time < strobe duration < 3x frame time:
-> >                   ________________________         ________
-> >                  |                        |       |
-> > strobe signal   _|                        |_______|
-> > strobe trigger   ^          ^          ^          ^
-> >
-> > Therefore I would strongly suggest to set the maximum strobe duration to
-> > be in every case shorter than the "frame time".
-> >
-> > For the reasons discussed earlier it the maximum strobe duration should
-> > be the same or longer than the actual exposure time.
-> >
-> > What's your take on this Dave? Or Sakari?
-> 
-> Seeing as the behaviour is logical, personally I'd go with allowing
-> whatever strobe period (up to the register max), and leave it up to
-> userspace to keep the period below the exposure time if that is what
-> is desired for the use case.
+Add support for using the ct expression in nftables netdev egress chains.
+This enables QoS policy enforcement at the netdev egress hook by
+allowing ct operations such as copying connmark to packet mark.
 
-Fair approach. But if we do so it will become a pain in the ass to
-calculate between the expsoure time (which is based on the line time)
-and the strobe duration (which is currently microseconds) IMHO.. As we
-don't have a "reasonable upper limit" easily available...
+Add an explicit NFPROTO_NETDEV case in nf_ct_netns_get() and
+nf_ct_netns_put() that enables conntrack for IPv4, IPv6 and bridge when a
+ct expression is added to a netdev chain.
 
-The problem I'm talking about is that it would be quite "easy" then to
-mess up the units and configure a strobe duration longer than the frame
-time, which then show up as "strangely illuminated frames" in the stream.
+Restrict ct expression use in the netdev family to egress hooks only, as
+the connection entry is not yet available at ingress.
 
-Do you see any chance to get the exposure time and strobe duration on
-the same unit? Or is this basically impossible as we would "break"
-userpace with this? If so, would a new "strobe_duration in line time" be
-a possible approach?
+Sharing this change as an RFC, to get feedback. The patch has been tested
+by configuring nft rules at netdev egress hook to set ct mark and copy
+ct mark into skb->mark. Also, the patch is validated at netdev ingress to
+ensure the nft rule with ct mark set action is rejected.
 
-Apart from that I found another problem in the current time calculation
-of the flash duration... When changing the "line width" (e.g. HBLANK)
-the register value of the flash_duration stays unchanged. This
-results in a different strobe duration on hardware, as it "scales" with
-the line time... So a change to e.g. HBLANK would need to trigger a
-re-calculation and therefore register write of the strobe duration...
+Signed-off-by: Hari Chandrakanthan <hari.chandrakanthan@oss.qualcomm.com>
+---
+ net/netfilter/nf_conntrack_proto.c | 26 ++++++++++++++++++++++++++
+ net/netfilter/nft_ct.c             | 22 ++++++++++++++++++++++
+ 2 files changed, 48 insertions(+)
 
-As you mentioned earlier, this back-and-forth conversion of
-width/lines/microseconds is somehow just bloating the driver without any
-real benefit... Unless all "time/duration" properties would be on
-microseconds... IMHO
+diff --git a/net/netfilter/nf_conntrack_proto.c b/net/netfilter/nf_conntrack_proto.c
+index 7a40e4e0e33e..b8ee46262901 100644
+--- a/net/netfilter/nf_conntrack_proto.c
++++ b/net/netfilter/nf_conntrack_proto.c
+@@ -587,11 +587,36 @@ static int nf_ct_netns_inet_get(struct net *net)
+ int nf_ct_netns_get(struct net *net, u8 nfproto)
+ {
+ 	int err;
++	bool bridge_acquired = false;
+ 
+ 	switch (nfproto) {
+ 	case NFPROTO_INET:
+ 		err = nf_ct_netns_inet_get(net);
+ 		break;
++	case NFPROTO_NETDEV:
++		err = nf_ct_netns_do_get(net, NFPROTO_BRIDGE);
++		if (err < 0) {
++			mutex_lock(&nf_ct_proto_mutex);
++			if (nf_ct_bridge_info) {
++				/* Module present but hook registration failed.*/
++				mutex_unlock(&nf_ct_proto_mutex);
++				return err;
++			}
++			mutex_unlock(&nf_ct_proto_mutex);
++			/* Bridge module absent, netdev egress handles routed
++			 * traffic too, bridge conntrack is only needed for
++			 * bridged frames.
++			 */
++		} else {
++			bridge_acquired = true;
++		}
++		err = nf_ct_netns_inet_get(net);
++		if (err < 0) {
++			if (bridge_acquired)
++				nf_ct_netns_put(net, NFPROTO_BRIDGE);
++			return err;
++		}
++		break;
+ 	case NFPROTO_BRIDGE:
+ 		err = nf_ct_netns_do_get(net, NFPROTO_BRIDGE);
+ 		if (err < 0)
+@@ -615,6 +640,7 @@ void nf_ct_netns_put(struct net *net, uint8_t nfproto)
+ {
+ 	switch (nfproto) {
+ 	case NFPROTO_BRIDGE:
++	case NFPROTO_NETDEV:
+ 		nf_ct_netns_do_put(net, NFPROTO_BRIDGE);
+ 		fallthrough;
+ 	case NFPROTO_INET:
+diff --git a/net/netfilter/nft_ct.c b/net/netfilter/nft_ct.c
+index 3c4c2faa7398..e90e73475b0c 100644
+--- a/net/netfilter/nft_ct.c
++++ b/net/netfilter/nft_ct.c
+@@ -649,6 +649,15 @@ static void nft_ct_get_destroy(const struct nft_ctx *ctx,
+ 	nf_ct_netns_put(ctx->net, ctx->family);
+ }
+ 
++static int nft_ct_validate(const struct nft_ctx *ctx,
++			   const struct nft_expr *expr)
++{
++	if (ctx->family != NFPROTO_NETDEV)
++		return 0;
++
++	return nft_chain_validate_hooks(ctx->chain, 1 << NF_NETDEV_EGRESS);
++}
++
+ static void nft_ct_set_destroy(const struct nft_ctx *ctx,
+ 			       const struct nft_expr *expr)
+ {
+@@ -732,6 +741,7 @@ static const struct nft_expr_ops nft_ct_get_ops = {
+ 	.init		= nft_ct_get_init,
+ 	.destroy	= nft_ct_get_destroy,
+ 	.dump		= nft_ct_get_dump,
++	.validate	= nft_ct_validate,
+ };
+ 
+ #ifdef CONFIG_MITIGATION_RETPOLINE
+@@ -742,6 +752,7 @@ static const struct nft_expr_ops nft_ct_get_fast_ops = {
+ 	.init		= nft_ct_get_init,
+ 	.destroy	= nft_ct_get_destroy,
+ 	.dump		= nft_ct_get_dump,
++	.validate	= nft_ct_validate,
+ };
+ #endif
+ 
+@@ -752,9 +763,19 @@ static const struct nft_expr_ops nft_ct_set_ops = {
+ 	.init		= nft_ct_set_init,
+ 	.destroy	= nft_ct_set_destroy,
+ 	.dump		= nft_ct_set_dump,
++	.validate	= nft_ct_validate,
+ };
+ 
+ #ifdef CONFIG_NF_CONNTRACK_ZONES
++static int nft_ct_set_zone_validate(const struct nft_ctx *ctx,
++				    const struct nft_expr *expr)
++{
++	if (ctx->family == NFPROTO_NETDEV)
++		return -EOPNOTSUPP;
++
++	return 0;
++}
++
+ static const struct nft_expr_ops nft_ct_set_zone_ops = {
+ 	.type		= &nft_ct_type,
+ 	.size		= NFT_EXPR_SIZE(sizeof(struct nft_ct)),
+@@ -762,6 +783,7 @@ static const struct nft_expr_ops nft_ct_set_zone_ops = {
+ 	.init		= nft_ct_set_init,
+ 	.destroy	= nft_ct_set_destroy,
+ 	.dump		= nft_ct_set_dump,
++	.validate	= nft_ct_set_zone_validate,
+ };
+ #endif
+ 
+-- 
+2.34.1
 
-regards;rl
-
-> 
->   Dave
-> 
-
-[... snip ...]
