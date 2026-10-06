@@ -1,159 +1,92 @@
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87A5330ACF0
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 04:49:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33E7B360745
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 04:50:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791262194; cv=none; b=kJpQ2ZeuK4SlfIdboxxAPsncqTsQc8SiozVjT3HsyozmwwBjdXJDb9UdnKEKbkcKScmCncN4nFlcm2J1Fts1fH3mtLoCAEyF9h7ZJdwU362ER9NUA6nPnMqOkZD4DeRMcdlwDOKIlYCDZHZ+saWzA3XsPbmQSsb5z3oVxAcFwMk=
+	t=1791262245; cv=none; b=fIvTDCm2pFtH/Jtq3JpDEO03IREH0QajTRHDESYs8tUixDuXlGnU+/O00GD5MX4FdZ+IAa7YDSH6NBrm7CsYWjj1SSfNOYtaLqjvtOVu+6cpMUIqskac4ae4+Zwt7UeHTjBf9zsqZPUcJYJPVgw2rydlQF2XJN7zVciuCwViOaA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791262194; c=relaxed/simple;
-	bh=AuKSq5zNoEPdcTVeayPv4nEkgGoFgwVt4mAnVV9DlsI=;
+	s=arc-20240116; t=1791262245; c=relaxed/simple;
+	bh=N2dqD9oDAslSmVXglflxtsPusgZbGIROFq0AkRcGJuQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gzWIw/PZqZyYAO3RnKM2XMw6lAvmSmzhuSdYLINIO0b/tcNx90ubcBd0EXxHkWy8Q3/stclx5iySBN98WoY8o0rLgtIhb1rTR9ZUwNOaSz0Q+cJmQDjosgLLmLSRtiONzBeTx/K4Zisir04twPRmp+PgkWc3Yg4/MI+C+WStPEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rYSiGKkW; arc=none smtp.client-ip=74.125.82.180
+	 Content-Type:Content-Disposition:In-Reply-To; b=obaZ93mDz0jJunPpKcR7EnKPuXvBwypWBeiDIpl96RYJSg7kqOaUpwRvrRgBjbWZiT2t3F3ZBSczfw8FxtFFHSQSL3uulSv37DP4DnfobnBwCxuYKUkN/XNOEkthpOYnuZ2KAQDFXyCq+JrrJozc/kW/II2R4UuZXJxXXHNGje4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AA6l4r8w; arc=none smtp.client-ip=209.85.221.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rYSiGKkW"
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-31490970b97so173067eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 21:49:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AA6l4r8w"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48c4be28b82so138229f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 21:50:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791262193; x=1791866993; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791262242; x=1791867042; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=YrEcoU9FcHdWMW/WvsPqp/tm10NVhSMWvPzpSIVGh4U=;
-        b=rYSiGKkW9Zg1QiIvUQZbBbwvqUxoMH1rCicktV6hbOBX6jtsUZaHzkC/xVWIVCmD9H
-         GvCDFkvBcJ+BEanOBx0cevccynvToIJBC7by63nan9UdZfGpMDOGmv/RdrfgCc4GX2tq
-         DlZDbmOcHhRIIGtfqI+kH7sHtQCdTJoAERKDViebOWXrIWBWPXGMDaJsb5ullbxvT3A0
-         Opnlu6hcRYCpzPB1q+Cq+4z80i0jsrKR1Mih8I8g+UON32iv2TFW9F9hjp2ioxWPJB03
-         cpKF9bTkV4JgnksFAvniSlgBRau41Pqwcr9SxxoZrT9lrjh7jCyX6L6yn++lcoyU21Pu
-         TdCw==
+        bh=AZTcEpNIkmijk+TrbdyJk/7ltqjN6rjFrhnfuYd+A6c=;
+        b=AA6l4r8wXhwIjavrQUNOvEdhUriQ3HJa8lH5kzOLkJxVjyh4IFqdK18xpOVM4XMJS/
+         2D7CyrZ5Z8aeih+FIAvzeg5PvBh2QBTHc4D1fV4bLUIxK2LvThCCtq3eCkgYqHM7qjo5
+         ojAhir7ri1vsTxHRScFbuC3/B5/y743im6YNJqq2wFORQ3b8K6BMgHQfmNtg1vuliM4+
+         u8mvexLpSpupxTdmqUSqN9O2EsK4qcDvq9HJLAKTxAXS4FZOrKrKM3mX/qNFp9NAY4/r
+         B17XqR3KBdq/lCQJz+EdnnELRWDpb9BRjaZhSI/nqzPeZHlpWZdSy21mhe3/DBHJsLUI
+         2M4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791262193; x=1791866993;
+        d=1e100.net; s=20260707; t=1791262242; x=1791867042;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=YrEcoU9FcHdWMW/WvsPqp/tm10NVhSMWvPzpSIVGh4U=;
-        b=M0JxyEix10ZmU6nzU07zzniyzGt7enPbxBL1obON5sbC2QfQQ93Bb8AWQjF6JfN5ue
-         3sp71qciZYElFkIlyKW5lXKay+4FcKUZmaZH9dou6M4SyQBBMgglc6zTDENvHTbocPWl
-         Jgt7zXmGz1eTr3C3ibCTxfSUKi0sTHtmeZo2jWig8Cqmv1C99mfIRS1gI6V/eopbh4Fg
-         wPaVuf2l1rw00wwyHSHSrCD+Bl1RYw/IMLKWfaUIkI5OAd7VMuJFx5hAtftgTNKU3rG6
-         Sf6GmtrUKvNGPHJZZSE+klrOKZD4OHxf3SCroBB2blktztzC6NV9FMMzeQTKGfiU0pNH
-         7lYg==
-X-Forwarded-Encrypted: i=1; AKwUvBwlCha13trl/fO0KBgLI7NN7MNH1cP4e9x+inF/2HjqhLuhoc4MX4qKq3kGqmSBmZ11cEe9IBHLdRTo9gs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKAxubYtmEeqCFR5lKfnVncnubTxbabqQuk86HRwD4TYPvIjEr/
-	btwbwdW7z+8Mbs2Xh/62inlKS/536dvhL5fBiGPdKaDcl34+mxVM1j5D
-X-Gm-Gg: AYBFou0AJTjBwi+sJIk3XpjygqIGIqvalLkPlbB6+LSzXOC5ujVtbtYZmgj72Xhj6qt
-	/uh3nGIvvQIV2I0yIai2XmWJSX+sWc7aXwZ1HPE2VylEXOl1c6bpTOV/L8xR0IO3DetoXsf5hnj
-	1HkSseNxI44TU1+m2adpi55scviil8sS8ALT7WbghFhgW5yHRe/udya+cqhyTYyV0N5DKttUFT7
-	YCvtGKlslmpkjlfkOVaj+npszx/0PSVVUzKlPIpPcvN/0DFLSrNaFZyWnZjCsRZHEGqkXVtAMS9
-	wkfNaRiW/6ik3MwP1i//OUEmUCJUgWxyQGRNvl0HBWRRcOeWHcF+JtZBsCWiLxWTMca++4/ejH5
-	dfCVwe/57r9t8z66WcdnZecQCd8rt7hAXkkwFp3obSBfbbiWytFO6Vf227M3R7W9nCC2IwS3Fur
-	u+r9E8+ejs+17IdYT+tChwDepe1SgaLM5a9MOxo4SOq2Oi0rZ86UVJUN4L71CCLkxuAvj9xnmfW
-	99RPtFR1HoaVt1j/vBUjDLK/wZbpzaAG1G2fq0aL0Vf96mnE8Ybb/9dWowE7e6p0ns=
-X-Received: by 2002:a05:693c:26cb:b0:351:4b50:4063 with SMTP id 5a478bee46e88-3514e383ee3mr193472eec.37.1791262192567;
-        Mon, 05 Oct 2026 21:49:52 -0700 (PDT)
-Received: from archlinux ([2405:201:1b:20ef:de2d:6e5b:74df:ad41])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35146abff39sm3568320eec.21.2026.10.05.21.49.48
+        bh=AZTcEpNIkmijk+TrbdyJk/7ltqjN6rjFrhnfuYd+A6c=;
+        b=YswcVHVVoRqXLKrW/LHzLXGB7C3oLfvL37NGPxSRKvEB3jBwr1FiINcYZiqur7bKKD
+         0lNZi6yRDJ3SwXYOe3YxZ/WSApVlM2DB0IwtfBYErYnwni9XN1HGjSHBoiun/0cxH6UJ
+         2N3bkKjklUm/BPajyBy4ECpn9zVs/HVmmTUjzwWJunccvjx/yABVLXBNvs2dj4hhej+m
+         3PoFV1hw+aWOpUG3ZRcgZmQ2eIuvXfxlMks/G1mOxgBkwBI1PWddwYlp0N8YiOSI95tH
+         wWD6k+3h5JKPRBF43SS2BIYWRmaA9oVi/8YaLf0wPOK5mWYrtB8bjx+XKizpeLMRduvN
+         Vzfg==
+X-Forwarded-Encrypted: i=1; AKwUvBwcPJyDPfLh8jR/7S2WODVr9FVXcqwxihmVNyPLfkueUqXPmr8gdjwuVEP1gu4c6MZc566lpIWZUOB/qjk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLSfqDG9chXf0nKwW7cCxoDPnahOGmxi25rHa9AHSFxK6x9Cqie
+	Do/CLvA7zQWHwavA98qM2gocTv8SQujl2wynvTrgLwJAdFHi2SOdL2uqpil3jeb/
+X-Gm-Gg: AYBFou2Z/w7WWoJkQedInzS5kizOx9emljIGHgIfncHpm9RHe1Ap1QxaGpVYN0vnGV8
+	07GU9Qc043wCWoKQLj4av9YjeClbIt/2BSm7a01vUxALFKcfD0pVoqHU+0f/AcfGSvC15DyWh3B
+	j9nU25zSpKOO2b2UTqk/8f2s9GtKW5JbAElYAF5RTpB9aADOKskzVZwC++XdZU+dp83aK1jYIvT
+	SXZH1m42refLzoKPImAE76KiAGTuaBqTAh3CrHeIAbev0pduy3qxWbYN13jstomz9mZpQGkJVzt
+	eGeCq/SS2HR0tyyG1Op74rTIohU25/i4jaEpOw0aLSDKOedXt2sC8FJPi+gDnmQPhs0ypWO7yqp
+	67vQBYdSx1YJ7zXJ/mpZbp/h8q8xFGELIm6kYC3KsLqVxfEEc3L6XaKYOIG1TDMGhQ2WluLbm0d
+	lR5OYA580ABYYaVjxUn2yTU/6CqEyv0/dxR/En/X7RfbHHjm/6CkdOeRljZNz+7Fcuv36Gws5ZC
+	VhsYrgE59e1FNw8S23wXHjAwOQ/Oe7hPm6IKoMShZNQlFdJFs7DXNR15EhMPFPdxeaLXHPYp//K
+	34Xgg86ypsZhkh3kVJweauaVjhaHfmzC
+X-Received: by 2002:a05:6000:40da:b0:487:88b:4681 with SMTP id ffacd0b85a97d-48c6d16d91fmr350123f8f.10.1791262242252;
+        Mon, 05 Oct 2026 21:50:42 -0700 (PDT)
+Received: from unknown748F3CBA5068 (dynamic-095-117-040-097.95.117.pool.telefonica.de. [95.117.40.97])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c622704a5sm18265831f8f.15.2026.10.05.21.50.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 21:49:52 -0700 (PDT)
-Date: Tue, 6 Oct 2026 10:19:45 +0530
-From: Krishna Chomal <krishna.chomal108@gmail.com>
-To: Shuwen Bao <baoshuwen2013@outlook.com>
-Cc: Hans de Goede <hansg@kernel.org>, 
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Emre Cecanpunar <emreleno@gmail.com>, 
-	Suryansh Singh <technosfan14@gmail.com>, Radhey Kalra <radheykalra901@gmail.com>, 
-	=?utf-8?B?S8O8csWfYXQgQWJheWzEsQ==?= <hello@kursatabayli.dev>, platform-driver-x86@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] platform/x86: hp-wmi: add support for OMEN 16-am2xxx
- boards
-Message-ID: <asR9Q8Xia4ijLvXM@archlinux>
-References: <SI2PR04MB58957D08A31E56D73C751885A2862@SI2PR04MB5895.apcprd04.prod.outlook.com>
+        Mon, 05 Oct 2026 21:50:41 -0700 (PDT)
+Date: Tue, 6 Oct 2026 06:50:10 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Hyunchul Lee <hyc.lee@gmail.com>, ntfs@lists.linux.dev, 
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] ntfs: fix two kmap_local bugs on 32-bit kernels
+Message-ID: <asR9jHZMwy6Atpmz@gmail.com>
+References: <20261006043810.5393-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <SI2PR04MB58957D08A31E56D73C751885A2862@SI2PR04MB5895.apcprd04.prod.outlook.com>
+In-Reply-To: <20261006043810.5393-1-kmehltretter@gmail.com>
 
-On Sat, Sep 19, 2026 at 09:24:25AM +0800, Shuwen Bao wrote:
->The HP HyperX OMEN 16-am2xxx (DMI board 8F1C, 26C1 platform cycle,
->Arrow Lake-HXR) is listed in the OMEN Command Center device
->capability table with DisplayName "HyperX OMEN 16" and the
->"PerformanceControl" feature, but is missing from the kernel's
->omen_thermal_profile_boards whitelist. The thermal profile path is
->therefore not enabled and the embedded controller keeps the CPU
->pinned at the default frequency cap while running Linux.
->
->Add 8F1C to the OMEN thermal profile board list. On this platform
->the EC firmware also arms its own thermal profile revert timer (EC
->offset 0x63, armed with 0x5a when performance is selected) and
->switches back to the balanced profile once it expires, so also add
->the board to omen_timed_thermal_profile_boards in order to have the
->driver clear the timer and set the NOTIMER|TURBO flags when
->switching to the performance profile. Testing further showed that
->this board uses v0 commands, so also add it to
->omen_thermal_profile_force_v0_boards.
->
->Tested on a HyperX OMEN 16-am2xxx: after loading the patched hp-wmi
->module the platform_profile interface is exposed, and switching to
->the performance profile raises the CPU from a ~2.9 GHz (P-core) /
->2.6 GHz (E-core) cap to ~4.8 GHz / ~4.3 GHz under a single-thread
->load. The EC then reports the performance profile (0x31) with the
->NOTIMER|TURBO flags set (0x62=0x06) and the revert timer cleared
->(0x63=0x00); a plain write of the profile without those flags
->instead arms the timer (0x63=0x5a) and the profile reverts to
->balanced when it expires.
+On Tue, Oct 06, 2026 at 06:38:07AM +0100, Karl Mehltretter wrote:
+> Karl Mehltretter (2):
+>   ntfs: fix kunmap_local() of advanced pointers in check_mft_mirror()
+>   ntfs: fix kmap_local leak in ntfs_check_logfile()
+> 
 
-Hi Shuwen Bao,
+Oops I sent patch 2 with an old draft version too. I will send a v2
+without that. Sorry for the noise.
 
-I was working a patch[1] involving omen_timed_thermal_profile_boards[]
-and needed some diagostic info. Would you mind attaching the acpidump
-for your board 8F1C?
-
-Thanks!
-
-[1]: https://lore.kernel.org/platform-driver-x86/asPy5Q5wNYaMzTqJ@archlinux/#m922ff6cf9a68285d2b0f64e578fd6d2d6fa573f4
-
->Signed-off-by: Shuwen Bao <baoshuwen2013@outlook.com>
->---
-> drivers/platform/x86/hp/hp-wmi.c | 3 +++
-> 1 file changed, 3 insertions(+)
->
->diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
->index 615b4cf6fc45..f229da54366a 100644
->--- a/drivers/platform/x86/hp/hp-wmi.c
->+++ b/drivers/platform/x86/hp/hp-wmi.c
->@@ -211,6 +211,7 @@ static const char * const omen_thermal_profile_boards[] = {
-> 	"8BAD",
-> 	"8C58",
-> 	"8E41",
->+	"8F1C",
-> };
->
-> /* DMI Board names of Omen laptops that are specifically set to be thermal
->@@ -220,6 +221,7 @@ static const char * const omen_thermal_profile_boards[] = {
-> static const char * const omen_thermal_profile_force_v0_boards[] = {
-> 	"8607",
-> 	"8746", "8747", "8748", "8749", "874A",
->+	"8F1C",
-> };
->
-> /* DMI board names of Omen laptops that have a thermal profile timer which will
->@@ -229,6 +231,7 @@ static const char * const omen_thermal_profile_force_v0_boards[] = {
-> static const char * const omen_timed_thermal_profile_boards[] = {
-> 	"8A15", "8A42",
-> 	"8BAD",
->+	"8F1C",
-> };
->
-> /* DMI Board names of Victus 16-d laptops */
->-- 
->2.53.0
->
+Thanks
+Karl
