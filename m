@@ -1,139 +1,99 @@
-Received: from mail.hugovil.com (mail.hugovil.com [162.243.120.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 173AF2FDC20;
-	Tue,  6 Oct 2026 15:36:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.120.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 926CD2FDC20
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 15:36:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791300999; cv=none; b=R2FJMA9NPbLr7BYTm0AazD2wzViIPIyPBoP+k/2nwLMoqJS+pria3o1a0u1h65kVVSZzMvK2Ayr0M9JKkSPx2IUnPTbLsHXVL//4zS7we5up2CvB5vZ64hGp6MEclZdwNbc1075fnYizgMa+1CqAxRHBZjlHCySgSmF7Hrs3tvk=
+	t=1791301015; cv=none; b=JXsIB4C1R6/L0gjuRXCt4sJV5ghSVeq80jCgDoLZcXstM4hxwl8WRzu1ZoSirj1Ay8gtKVLcKNxxhNPNHqxQzi+CdF6kvraVYUIjc8YyBgyb4suMOhijbiKdP+g7YEkgFaalODEbiF8M5uy2ISYw8InJLd0H9KIZ6GvvbldMrz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791300999; c=relaxed/simple;
-	bh=4Wx6FlxLELJH4KUGi3iAA9os2hDmzpV95j74p16rwA8=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=ui/b3JL52tmnZfqfzxGwREesE5mHNTsfsDPBhNyHkHTiZuSV+AxBSLzBx67bxLGpMnTNrJ4ITdk3S+gCO46OdDjJUxrhGk/w0sEW/quZE7bAEbFyEHB0/8TyCO2a9Sfg56zzWDTJwQv/hi1/0Z7ZMx58cdS8VWWwuNQpxvo8yjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com; spf=pass smtp.mailfrom=hugovil.com; dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b=XK1u3Slw; arc=none smtp.client-ip=162.243.120.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hugovil.com
+	s=arc-20240116; t=1791301015; c=relaxed/simple;
+	bh=YgIV9R8R7lN3e7PO5eiRn5CtkNayP6wx8pWhx3zR4kk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rcCjMHgdGbro9QAA0/KsZyfdmBYJqfywgDfi1RXqxbjIuPILDGI8clOGotIwgqIWKIBj0wZebphYkOavsa8I7cEY++Sh3d+vVz3dyZ8iryQxCYIPL/4Cm9gNZEVuX7Ds8EWxJQG7NQ8hJHkJ1IpFpFN+ELNbtFL5WTM3CSL0eUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NYniTAiR; arc=none smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b="XK1u3Slw"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hugovil.com
-	; s=default; h=Content-Transfer-Encoding:Mime-Version:Message-Id:Subject:Cc:
-	To:From:Date:subject:date:message-id:reply-to;
-	bh=+8CSBT2OQAOa7nJB3rRl2U1wh9CwAZDl+AQNBGfWpBE=; b=XK1u3Slw/qXMmriQFbFmg1ehMb
-	srmBpIViseRWCKIRL2StJpRLyv0VEY3k5SVbGEGN4Q2CPyoznmyN+F74TyZiCt7SvdVaOtDRPGPMZ
-	9AaWcoHkXC/Lrl65iob7y8g4NlOJaSK4VhXCuzr6IstSovPgE7RvjqbxhYRTVCxIhO5k=;
-Received: from modemcable168.174-80-70.mc.videotron.ca ([70.80.174.168] helo=pettiford.lan)
-	by mail.hugovil.com with esmtpa (Exim 4.98.2)
-	(envelope-from <hugo@hugovil.com>)
-	id 1xE7DV-000000007NO-1cs1;
-	Tue, 06 Oct 2026 11:36:35 -0400
-Date: Tue, 6 Oct 2026 11:36:34 -0400
-From: Hugo Villeneuve <hugo@hugovil.com>
-To: Hui Peng <benquike@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
- <jirislaby@kernel.org>, John Ogness <john.ogness@linutronix.de>, Ilpo
- =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>, Andy
- Shevchenko <andriy.shevchenko@linux.intel.com>,
- linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v7 2/2] serial: core: reject baud_base values that
- overflow port->uartclk in uart_set_info()
-Message-Id: <20261006113634.67dcefd86c007e115a5fa150@hugovil.com>
-In-Reply-To: <20260930125901.778868-3-benquike@gmail.com>
-References: <20260930125901.778868-1-benquike@gmail.com>
-	<20260930125901.778868-3-benquike@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NYniTAiR"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48bbb06e746so1607677f8f.3
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 08:36:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791301012; x=1791905812; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qaQeSjk9Sbx45aXo0TjHg6DDwFZBLFYkE2gFb53/iBY=;
+        b=NYniTAiR2p7NHJBHUsxorj0S5Y5st5qHbhqAr6RI7+29bsn22YS23GFj97zlorO/bA
+         OxY5cuXERqdkB11KikqXjAYPTqtZO827pBoNe4TJAGth4lJPBLSfyzhRtXyngyD6XAwC
+         znqFfHLuufEYoUmYPc4To5YRZhUu39Uk1/45vuugNK20fiPmG70UuwL/j4IPZIWFsTdL
+         K8zPeTyYX4UWy7xSFrMkt/yOzBSc7yurYYQf7nwsStFFV5sxH8k8Kv5nqfkYWeMV19QE
+         /X/GpLNBAtRC2bdTFmiqzd9KiGsw57JAFZIPhlf7TcnNwUP8XhQogQzDEtmgi6J0gqyC
+         a/kw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791301012; x=1791905812;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qaQeSjk9Sbx45aXo0TjHg6DDwFZBLFYkE2gFb53/iBY=;
+        b=JZpMaVON6H+diGRLoxs4Y8wFT1UaIAzS+719zR9iHxkksBdeeK3XgMZKSumVcwd9kR
+         qtZGWpuZS+B4nL2c5lZFmy7LccX0U/q9ySZeu3ra4zKMgMgQCR2rb980qQIDbttpk074
+         Rc0nM390zLq8gkACPYVJsOPPc7VYsNJHIsaGOBDAyIZrmoZ2awnd+ZMQlA06LnQih9Si
+         l897H3BrCelbsDnms581yJ3rTevYaWY+zuldjtt5iK5rIYPxAih2RZwlg1yDOOk2H638
+         kBP+uMkPDOUJXA5+QizGMM6BvnFBusH/UT7ANUihsuH+2MoZZkqynJSwdXtUVvzCdgxL
+         N1Bw==
+X-Forwarded-Encrypted: i=1; AKwUvBznucfqi0rQSRDEln7vLxwvPc9XC0pe8Rx/yvG6lEdJ1aGGlAf2k9U8NoMYqfb8Hd5JmikUlVdfRVI06aQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJtMxovj1Qr+x3pLLE9IAy1oeQ3oMsxA1mHToEZveSkzcUkv6lE
+	05Mztzvaz+RSVb/HFz2dkQ+Vmo9xzp+1RJdSYPmm90cHzHqWyx5X26pJ
+X-Gm-Gg: AYBFou35uli6F0qyzjlgtJaUYPWXPBcfNk8cUH9H9YMRYRAyGwG7uUBns/zGl5ZalJk
+	voqPkwWuGxNcqOxhfe8BKtL8MZ05NqFZ0crvCwrHydo//orUlK2+e4S1vxBYoE7HuvgK+eM4tQx
+	GR/T8SdwxMr6DJeyKB8bZQVp1OXg/Rh1Xh5ZHk3ijlPIvEzM3l/w8sFZLtFmyE7tkeGNsx4JCsg
+	GKYLvTGUPIACwfNZOQNyCFkDxYL+xS1Q4pqTISQh7AIS8B0AZU5Vi4TMPBkFYCjkpOAKpi57HT3
+	3gklVpXAcvW9DW4eZkrxbw1og/QlkgAh/47m98HPUsJJ8eZ4yMG1OsCan36KWkqsvgr0hTtYRsJ
+	/v2appeel0GrSvF4cSRmq1vVU4ICyyP5bS6WWJyG/b3w1++XniMyWX0VGAwsxRirIwUmSYOxYAd
+	Nk2rNKqPyu5iLYkWxdRWDVI2r0owZIn6C8oBSjGw6KyJm+ZcWvFe/7BZ7qv/0sPSi1sguk6YU6f
+	EYih6O7Ngmc1aF8XAM=
+X-Received: by 2002:a05:6000:3c7:b0:488:8a3d:b58a with SMTP id ffacd0b85a97d-48c4801b97bmr19026243f8f.53.1791301011482;
+        Tue, 06 Oct 2026 08:36:51 -0700 (PDT)
+Received: from xeon ([188.163.112.76])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d3b502sm243489f8f.52.2026.10.06.08.36.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 08:36:50 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/1] media: i2c: mt9m114: Add get_fwnode_pad operation for IFP
+Date: Tue,  6 Oct 2026 18:36:18 +0300
+Message-ID: <20261006153619.304520-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
-X-Spam_score: -2.0
-X-Spam_bar: --
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Hui,
+Currently, the driver's binding exposes only one endpoint, which maps to
+the IFP subdevice's SOURCE pad. This configuration causes failures for
+many devices using this camera because both the DT binding and the
+one-to-one pad mapping logic map the endpoint to the wrong pad. Fix this
+by implementing the get_fwnode_pad operation for the IFP, which correctly
+matches the endpoint to the corresponding IFP pad.
 
-On Wed, 30 Sep 2026 12:59:01 +0000
-Hui Peng <benquike@gmail.com> wrote:
+---
+Changes in v2:
+- adjusted coding style as asked by Laurent Pinchart
+---
 
-> In uart_set_info(), new_info->baud_base is multiplied by 16 and stored in
-> uport->uartclk (an unsigned int):
->=20
->   uport->uartclk =3D new_info->baud_base * 16;
->=20
-> While uart_set_info() checks if (uartclk =3D=3D 0) and
-> if (new_info->baud_base < 9600), when new_info->baud_base exceeds
-> UINT_MAX / 16 with low bits set (for example, 0x10000001), multiplying
-> by 16 wraps around in 32-bit unsigned arithmetic to a small non-zero value
-> (16), bypassing both uartclk =3D=3D 0 and new_info->baud_base < 9600 and
-> setting uport->uartclk =3D 16 (baud_base =3D 1, well below the required
-> minimum of 9600 * 16).
->=20
-> Use check_mul_overflow(new_info->baud_base, 16, &uartclk) in
-> uart_set_info() to reject overflowing baud_base values with -EINVAL.
->=20
-> Tested in QEMU against Linux 7.3.0-rc3 by calling ioctl(fd, TIOCSSERIAL,
-> &ss) with ss.baud_base =3D 0x10000001 on /dev/ttyS1: on the unfixed kernel
-> TIOCSSERIAL succeeds (ret =3D 0) and wraps uport->uartclk to 16
-> (TIOCGSERIAL reports baud_base =3D 1), whereas with the fix applied
-> TIOCSSERIAL returns -EINVAL and preserves the existing uport->uartclk.
->=20
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Fixes: 6eabce6608d6 ("serial: core: check uartclk for zero to avoid divid=
-e by zero")
+Svyatoslav Ryhel (1):
+  media: i2c: mt9m114: Add get_fwnode_pad operation for IFP
 
-The final statement that returns zero baud rate was already present
-before 6eabce6608d6. My commit added the warning, so I am not
-sure if this additional Fixes tag is justified?
+ drivers/media/i2c/mt9m114.c | 39 +++++++++++++++++++++++++++----------
+ 1 file changed, 29 insertions(+), 10 deletions(-)
 
+-- 
+2.53.0
 
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com>
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
-> ---
-> Changes in v7:
-> - Use check_mul_overflow() instead of raw UINT_MAX / 16 comparison as
->   suggested by Jiri Slaby.
->=20
->  drivers/tty/serial/serial_core.c | 9 ++++++---
->  1 file changed, 6 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial=
-_core.c
-> index 6ed0195e6912..9a8f4c2e1180 100644
-> --- a/drivers/tty/serial/serial_core.c
-> +++ b/drivers/tty/serial/serial_core.c
-> @@ -14,6 +14,7 @@
->  #include <linux/tty_flip.h>
->  #include <linux/serial_core.h>
->  #include <linux/console.h>
-> +#include <linux/overflow.h>
->  #include <linux/gpio/consumer.h>
->  #include <linux/kernel.h>
->  #include <linux/of.h>
-> @@ -931,9 +932,11 @@ static int uart_set_info(struct tty_struct *tty, str=
-uct tty_port *port,
->  	old_custom_divisor =3D uport->custom_divisor;
->=20
->  	if (!(uport->flags & UPF_FIXED_PORT)) {
-> -		unsigned int uartclk =3D new_info->baud_base * 16;
->=20
->  		/* check needs to be done here before other settings made */
-> -		if (uartclk =3D=3D 0)
-> +		unsigned int uartclk;
-> +
-> +		if (check_mul_overflow(new_info->baud_base, 16, &uartclk) ||
-> +		    uartclk =3D=3D 0)
->  			return -EINVAL;
->  	}
-> --=20
-> 2.47.3
->=20
-
-
---=20
-Hugo Villeneuve
