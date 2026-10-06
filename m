@@ -1,97 +1,98 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from mx3.wp.pl (mx3.wp.pl [212.77.101.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB0FD3DDAE4
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 08:38:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 286A32BE639
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 08:40:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.77.101.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791275933; cv=none; b=O6UAW6AwwEmJvZTdnkzX1GMoAxtbr8M0rpdiB4H7HBJzVjAFLpmAMmib2/SrEFzQoqCps2DyXjsHQq4xi6IUSlbamOWe/RHO6Wfx23N7O6g9fpn3CbbE4fqVGL3GjDBLL+IEFJir//89i1bXb817ILBZDpd6bEWFVmCvprnz7SI=
+	t=1791276034; cv=none; b=P428AinPP95qbTHXrWmMG0PT4Vy5dee+sZs7GCQvbErdUV7u1bZzzqm5RcZeRZDCw6yY4sZO8wD2DMwFcw9XbqnVbyAPgh9u1dZzdMIt+Zs8PlWsQp3tdRQS+ifOYTp8eea6OdGI31mmP6J0NvAAKvGfzVlAbNtIu6Yf4tObvbE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791275933; c=relaxed/simple;
-	bh=S7mbjJsdOH1y6cZEHFsKN84sSmvjkVA8r40kT4OvmcQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=dgT7y5dahVwuREcvcL7pdecy+N++obfmcCFWJ/Ej1DePpw2DJargyfgcc2cVYr3EIx4bCPwncsfPKpkkv1eCKEmiytu0QWdYbX04w75qDoIb5jFIx0y2rpTVmVoY0jRhkONg872aWxsV2KrpDis/6iha6r7Ani0qoIepf093JFs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=iigl/7S3; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1791276034; c=relaxed/simple;
+	bh=xxSTO/xdQBco7iQpYIT0E3BtjsQC7FGn/b+5e6zl/4M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uOqo2mzAfP9tvG55TGqpVsVAQo6OTrugZltJ6rjoriORwt6HcM1t5knnArxpgwEm8hZI7OW9pyCm1SMdD9f0+PbAK6hnGkoszFFTHuWjOWRVjytLkENAIMqc7vg6PiocGGy0ZDUh3oCikB4/nS7YRVw/wC2ODgvRZzpj6XHGerY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl; spf=pass smtp.mailfrom=wp.pl; dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b=YsdyO5nA; arc=none smtp.client-ip=212.77.101.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wp.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="iigl/7S3"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hzV5t0L7fzMlT6;
-	Tue, 06 Oct 2026 10:38:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1791275922;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=S7mbjJsdOH1y6cZEHFsKN84sSmvjkVA8r40kT4OvmcQ=;
-	b=iigl/7S3287vT3m4CcJM/cC+eb3MSdf2VrRcV/6tNkYERSvUJfOAQyd6vG8Pip1ytelUuT
-	rcGTp7e5kUgcOD/R1L9vaRYprUGUdr5tYw4ghxJWp96rOl+8DwWAyjkJ8MRmKxJDI16rHX
-	gso7NJ6+puFdMuqGKixccO31uB3Aaalft4t3p+gEd0hrbuytlTy/Do7iRg85DthegFDkqH
-	fFfLFe83tPHoBk+FXtElYWElgmH1UuRJ6+0HXgXP7oGeFtLJN2/gNiW195Nmc0vGFlBU9b
-	QzCqJL9GCezqx8zg6+51GHipDh+m2ylRhQWvpZQHiMtscd7ig86R5An0nyusww==
-Message-ID: <c2c4279ac5948b1debbe597eea1210fd667801f6.camel@mailbox.org>
-Subject: Re: [PATCH 1/1] mm/damon: fix typos in comments
-From: Manuel Ebner <manuelebner@mailbox.org>
-To: "Adrian Huang (Lenovo)" <adrianhuang0701@gmail.com>, SJ Park
- <sj@kernel.org>,  Andrew Morton <akpm@linux-foundation.org>
-Cc: damon@lists.linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- 	ahuang12@lenovo.com
-Date: Tue, 06 Oct 2026 10:38:38 +0200
-In-Reply-To: <20260915102746.647-1-adrianhuang0701@gmail.com>
-References: <20260915102746.647-1-adrianhuang0701@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b="YsdyO5nA"
+Received: (wp-smtpd smtp.wp.pl 27085 invoked from network); 6 Oct 2026 10:40:24 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=s20261001;
+          t=1791276024; bh=u32rIA+ebJvRNAzsi0CEVF/UH8RYqLgEbKPGOr3aUIA=;
+          h=From:To:Cc:Subject;
+          b=YsdyO5nAov4/rdsWF5G6OERvOS5oBxNUv4HQLw5pPM+TuxDbNLJU+4FS0r3IyvQEh
+           WnQsQHDmWLgNKAMJHiNeS617RV8CgnHYtREnVSPUo0r6mNIl6YV50zeprfm6RDqqN8
+           vhFaPy3btGJZbAPtq8XnHtpTZnZcA/iFPUf5MvROobjE+EKMK+Qsucnzx1bFX+AfFC
+           tANjK4QXVqFvyupXs4OqJU5q8qd2FiqCqKmasNtqA+uKLh+ahNqhzDFhjq26Je7tsV
+           dd0EfQyWK8PrzBDjJxC4HKTyXXhuivRZ2d9IGMJDldRUV1swMlxS+Su9M0CJkAdmwi
+           vN7sDP426ZtcQ==
+Received: from localhost (77-236-6-58.static.play.pl [77.236.6.58])
+          (envelope-sender <stf_xl@wp.pl>)
+          by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
+          for <runyu.xiao@seu.edu.cn>; 6 Oct 2026 10:40:24 +0200
+Date: Tue, 6 Oct 2026 10:40:23 +0200
+From: Stanislaw Gruszka <stf_xl@wp.pl>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Julia Lawall <Julia.Lawall@lip6.fr>, Kalle Valo <kvalo@kernel.org>,
+	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH] wifi: iwlegacy: serialize watchdog updates with device
+ teardown
+Message-ID: <20261006084023.GA28327@wp.pl>
+References: <20261004114519.1233305-1-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-ID: 4f7708e9e185bd138c8
-X-MBO-RS-META: jfbsa4wbs98wgj5dz7dihncj5qdkb3ur
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261004114519.1233305-1-runyu.xiao@seu.edu.cn>
+X-WP-MailID: daa2ea11ae5572eb5b65c94f5f4eaa40
+X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
+X-WP-SPAM: NO 0000000 [8eNh]                               
 
-Hi Adrian,=C2=A0
+On Sun, Oct 04, 2026 at 07:45:19PM +0800, Runyu Xiao wrote:
+> The writable wd_timeout debugfs file changes il->cfg->wd_timeout, but the
+> iwl3945 configuration is shared and const. The handler also rearms the
+The cfg in il_priv is not const. What would possibly make sense is
+take _all_ modified fields out, and make it const then.
 
-On Tue, 2026-09-15 at 18:27 +0800, Adrian Huang (Lenovo) wrote:
-> Correct spelling mistakes. No functional changes.
->=20
-> Signed-off-by: Adrian Huang (Lenovo) <adrianhuang0701@gmail.com>
-> ---
-> =C2=A0mm/damon/core.c=C2=A0=C2=A0=C2=A0=C2=A0 | 6 +++---
-> =C2=A0mm/damon/lru_sort.c | 2 +-
+> watchdog without taking il->mutex. The down paths hold this mutex, delete
+> the timer, and then free the TX queues, so an unlocked debugfs write can
+> rearm the timer after deletion. The callback can then access the queues
+> after they have been freed.
+> 
+> Store wd_timeout in per-device state. Serialize the debugfs update with
+> the down paths and only arm the watchdog while TX queues exist. Use
+> READ_ONCE() and WRITE_ONCE() for accesses that do not hold il->mutex.
+> 
+> Fixes: 1dc80798a8ca ("iwlegacy: constify local structures")
+This is wrong tag. At least for watchdog stop races.
 
-could you add this changes in this file?
+> --- a/drivers/net/wireless/intel/iwlegacy/debug.c
+> +++ b/drivers/net/wireless/intel/iwlegacy/debug.c
+> @@ -1284,8 +1284,12 @@ il_dbgfs_wd_timeout_write(struct file *file, const char __user *user_buf,
+>  	if (timeout < 0 || timeout > IL_MAX_WD_TIMEOUT)
+>  		timeout = IL_DEF_WD_TIMEOUT;
+>  
+> -	il->cfg->wd_timeout = timeout;
+> -	il_setup_watchdog(il);
+> +	mutex_lock(&il->mutex);
+> +	WRITE_ONCE(il->wd_timeout, timeout);
+> +	if (il->txq)
+> +		il_setup_watchdog(il);
+This will not work for 4965. Possibly il->is_open could be used as
+check. But maybe we should just remove possibility of setting
+wd_timeout, I need to think about it.
 
-DAMON_RCLAIM -> DAMON_RECLAIM
-'set as' -> 'set to'
-
-> =C2=A02 files changed, 4 insertions(+), 4 deletions(-)
->=20
-> diff --git a/mm/damon/core.c b/mm/damon/core.c
-> index 0c98f7e267d0..981a153619c0 100644
-> --- a/mm/damon/core.c
-> +++ b/mm/damon/core.c
-> @@ -2447,7 +2447,7 @@ static bool damos_valid_target(struct damon_ctx *c,=
- struct damon_region *r,
-> =C2=A0 * This function checks if a given region should be skipped or not =
-for the
-> =C2=A0 * reason.=C2=A0 If only the starting part of the region has previo=
-usly charged,
-> =C2=A0 * this function splits the region into two so that the second one =
-covers the
-> - * area that not charged in the previous charge widnow, and return true.=
-=C2=A0 The
-> + * area that not charged in the previous charge window, and return true.=
-=C2=A0 The
-
-Please make it 'area that is not charged'
-
-Thanks
- Manuel=20
-
+Regards
+Stanislaw
+> +	mutex_unlock(&il->mutex);
+> +
+>  	return count;
+>  }
+>  
+> -- 
+> 2.34.1
