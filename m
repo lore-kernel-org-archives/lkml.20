@@ -1,133 +1,143 @@
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE2CE41D626
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 13:26:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29A6C547073
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 13:27:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791293195; cv=none; b=gSLiMA69SAZRw5zkUuxiJAugjVcni1d91vqewjYj0WMbD6JHJxHoavehPOiIHCsgdnBk7rPXkfb39WRUzIF4Zarl5KJZcpRLSiU2tG8nfd5OaQjdilq3JzF6E8d8JtOqocbNIByhh8xqrpgCfDDQ7FF7fJcyaP3fUNFcc3hdZxQ=
+	t=1791293263; cv=none; b=Kp9Ai2CFOVmaodh93teU3bczctv7+jAFiDxDN4ssd42qe91LZci/QFGi8Kyi3u6JVHLZOIbL12Q98x4mZV+n/KoCEhwr44226kHoxOoBEEkbpRzLMRHl48j6Kbi1xaw0JcdZ9yIREZbmFLfFfyPmXpQxLhoQSsnGc4a+s0cnoKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791293195; c=relaxed/simple;
-	bh=ceGfxjof+93GEskjqqlX9xzwc6QXB9c09TKAcO5jqe8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=pII3tt/a5DPjACXmIe0yHR6Tti4rmVA+u3kBgGJ+6UJJ3cpMnqYuMIPmo323i+5N2zzTUKnhWMzGlC4gZ5TXRUKb9rXYV95RMmNbYNItWGgQStX2vVKbWgcp/fxdxIj4WVdsIyCKkSL67BjSbiGNuJJ/PxZmUiXcntWNytrgOiQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=Xo20vtU7; arc=none smtp.client-ip=210.118.77.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1791293263; c=relaxed/simple;
+	bh=D6SCTdmcByENC3y6LIO2+R7KlyVXFXTr0rb63G7+ObU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gGOi1TtZmyfPdjLrLJGRUc740+f4xaNXbxbxnviQh1fTfiLYO/h/k9Td0FpWL+Zbr9m1lC/wKDHNJqOXYRCO4taWV+irKC/pJxSleGWvRyEy1YDQKIwPSFXdNk9F/Oj/ZaiqsZXi5wEYINFoiUegmbX702027q8noOdeDMiYjW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Bg22N0cU; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=yXiTH4my; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=sRDYN3eG; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=+dn0/Ggv; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="Xo20vtU7"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261006132623euoutp013e5b8586da358d788590084bef82b134~b86j2k0PX2564525645euoutp01s
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 13:26:23 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261006132623euoutp013e5b8586da358d788590084bef82b134~b86j2k0PX2564525645euoutp01s
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1791293183;
-	bh=ilvLBZmTUTzmE/0HmWSaWsOHx+yR2B5vrGdgJnqNXLU=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=Xo20vtU7vpz6oPUoo5J+3OTaVXCzYEoQLwGJLQfKlEieZQ+4aq6ct4FxV2dwnPz/D
-	 yx4SBODk1XoQCa5j4HwJKEaIxs8v9xdtu6dfama+2U5eK6SntjR0Uh3iaxA3MvMUdy
-	 /tKoGJSPDOTQ2YTToVsh2PWc+iaolL2UY3RkF6XI=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261006132623eucas1p2f095ce115c383348370c030aa9756bab~b86jfzdIa1161711617eucas1p2E;
-	Tue,  6 Oct 2026 13:26:23 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261006132622eusmtip134c8b3d58fbd753bef81a132148a358c~b86ibB-YQ3255432554eusmtip1f;
-	Tue,  6 Oct 2026 13:26:22 +0000 (GMT)
-Message-ID: <5dccea9b-a9e1-44f5-84d9-bc9efe04edee@samsung.com>
-Date: Tue, 6 Oct 2026 15:26:21 +0200
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Bg22N0cU";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="yXiTH4my";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="sRDYN3eG";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+dn0/Ggv"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id ECF70220B1;
+	Tue,  6 Oct 2026 13:27:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791293256; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=+eTQT7kfCFg9E9pn+BH+E+AYSJ0PhGECvtNap1x2seA=;
+	b=Bg22N0cU1kNDuH1ib+mhpXlSYUMf4FjJvlICyA0IT+dq4gVAauebuZ95la3uuavy7DdtYr
+	R8ouv+F+70mUqzRRrKlIWEC518YutDJgcimVB6SvtVxOTpuXgeXdgkA2WTGHAcj3dRcg42
+	HcClyTrYOOe8RhUayLk0MS/jeOOgMxM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791293256;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=+eTQT7kfCFg9E9pn+BH+E+AYSJ0PhGECvtNap1x2seA=;
+	b=yXiTH4myms4rHhKj9AhbchI0xQ2AyYY2QJYmuPZ1oWf4yFILluxCTveXj21qyMOmd9teY0
+	UmB02WTE7xsl0RCw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791293251; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=+eTQT7kfCFg9E9pn+BH+E+AYSJ0PhGECvtNap1x2seA=;
+	b=sRDYN3eG2Bdu40/xI4xOT6cXBeZ4RrbQ+aLvtvlSqA2/AjSBUmpzPIYysGWb7TRSrrE8sc
+	hibjfetFiT4b8SdtDTSQrFa/yHW4HxgPXscMDBeL271oKOSnVv7P84++JJ2/G8Dmh9fDdR
+	O1mMT4OZIhmItYG6jBdy9wa/UYZHUgw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791293251;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=+eTQT7kfCFg9E9pn+BH+E+AYSJ0PhGECvtNap1x2seA=;
+	b=+dn0/GgvhexAXkG4+r1xVqlNpW28zMgq9U/K34gR4hjdQSS0acHZ1KCsfyGNWD/TAD+u2F
+	BN2/T/JY3OZClPCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C3A5E138A7;
+	Tue,  6 Oct 2026 13:27:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id UZZlKEP3xGqiYQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 06 Oct 2026 13:27:31 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: liux-sound@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH] ALSA: caiaq: Allow zero-length packet handling for EP1
+Date: Tue,  6 Oct 2026 15:27:26 +0200
+Message-ID: <20261006132728.475067-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v3 0/5] of: reserved_mem: several fixes about reserved
- memory
-To: Mike Rapoport <rppt@kernel.org>, Wandun <chenwandun1@gmail.com>
-Cc: robh@kernel.org, saravanak@kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, akpm@linux-foundation.org
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <asC3DBvtlcO5AVsz@kernel.org>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261006132623eucas1p2f095ce115c383348370c030aa9756bab
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261003080438eucas1p2bdb68c248ecad088559285a4f736bfe5
-X-EPHeader: CA
-X-CMS-RootMailID: 20261003080438eucas1p2bdb68c248ecad088559285a4f736bfe5
-References: <20260920092852.614973-1-chenwandun1@gmail.com>
-	<arJA6fOMetzoBhDH@kernel.org>
-	<060fb694-ba1d-40e7-8a18-f32d5a4039ab@gmail.com>
-	<CGME20261003080438eucas1p2bdb68c248ecad088559285a4f736bfe5@eucas1p2.samsung.com>
-	<asC3DBvtlcO5AVsz@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-2.79 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-0.99)[-0.994];
+	R_MISSING_CHARSET(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCPT_COUNT_TWO(0.00)[2];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_NONE(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[]
+X-Spam-Flag: NO
+X-Spam-Score: -2.79
+X-Spam-Level: 
 
-On 03.10.2026 10:04, Mike Rapoport wrote:
-> On Tue, Sep 22, 2026 at 05:24:32PM +0800, Wandun wrote:
->> On 9/22/26 16:48, Mike Rapoport wrote:
->>> On Sun, Sep 20, 2026 at 05:28:47PM +0800, Wandun Chen wrote:
->>>> From: Wandun Chen <chenwandun@lixiang.com>
->>>>
->>>> This series fixes several error-handling issues in the reserved-memory
->>>> initialization paths.
->>>>
->>>> The first two patches fix cleanup of no-map regions after driver
->>>> initialization failure.
->>>>
->>>> Static reserved-memory nodes are reserved during the early DT scan but
->>>> initialized later. The third patch tags regions whose early reservation
->>>> succeeded, so the late scan can skip the nodes whose early reservation
->>>> failed.
->>>>
->>>> The last two patches reject overlapping static regions. Without
->>>> these checks, overlapping nodes can be initialized over the same
->>>> physical memory, result in data corrupt.
->>>>
->>>> Sashiko reported these issues in [1] [2] [3].
->>>>
->>>> [1] https://protect2.fireeye.com/v1/url?k=7e2f7441-1fa46164-7e2eff0e-74fe485cbff6-619f01488e6b7010&q=1&e=f3c07e6c-275b-4aa1-aec1-d931cda5f11a&u=https%3A%2F%2Fsashiko.dev%2F%23%2Fmessage%2F20260814090305.4C8741F00A3D%2540smtp.kernel.org
->>>> [2] https://protect2.fireeye.com/v1/url?k=a92ba57b-c8a0b05e-a92a2e34-74fe485cbff6-5f58f4b0f32080b9&q=1&e=f3c07e6c-275b-4aa1-aec1-d931cda5f11a&u=https%3A%2F%2Fsashiko.dev%2F%23%2Fmessage%2F20260814084718.29C341F000E9%2540smtp.kernel.org
->>>> [3] https://protect2.fireeye.com/v1/url?k=4f58aae4-2ed3bfc1-4f5921ab-74fe485cbff6-f4c4b3d0ed61b93e&q=1&e=f3c07e6c-275b-4aa1-aec1-d931cda5f11a&u=https%3A%2F%2Fsashiko.dev%2F%23%2Fmessage%2F20260806100605.2C2C01F000E9%2540smtp.kernel.org
->>>>
->>>> v2 --> v3:
->>>> 1. Rework the mechanism that checks in the late scan whether the early
->>>>    reservation succeeded (patches 3-5, suggested by Marek, thanks).
->>>>
->>>>    Patch 3 adds a new memblock flag MEMBLOCK_RSRV_RMEM, which is set when
->>>>    the early reservation of a static region succeeds and checked in the
->>>>    late scan.
->>> Can we keep this local to of_reserved_mem please?
->> Probably not. I do not see a way to keep this entirely local to
->> of_reserved_mem while handling the issue robustly.
->>
->> I previously implemented an approach in of_reserved_mem that records
->> static reserved-memory nodes whose early reservation failed in a local
->> array [1]. However, the early scan runs before paging_init(), so the array
->> cannot be dynamically expanded. If the number of failed nodes exceeds
->> the array size, some failures cannot be recorded and the issue remains,
->> and that is why Marek said "partial solution", although in practice
->> having that many failed nodes is unlikely.
-> Even before paging_init() there is memblock_alloc().
+The recent fix to avoid OOB access for malformed packets added a
+packet length check and returns immediately if it's too short.
+However, this can be lead to a regression because the completion
+handler doesn't resubmit the packet, while a zero-length packet itself
+is valid, per se.
 
-One can call it, but such memory cannot be dereferenced/accessed for example
-on ARM64, because it is not yet mapped in the linear map.
+For addressing the potential regression above, change the handling for
+a zero-length packet to just resubmit without processing the incoming
+contents.
 
->> To handle this robustly, the late scan needs a way to determine whether
->> the corresponding early reservation actually succeeded. Current approach
->> uses memblock to retain that state.
-> I can't say I like the idea of keeping this state in memblock.
-> This add flags and code to memblock to deal with corner cases of bad
-> firmware that reports weird memory layouts, and once there is a flag in
-> the common infrastructure, people tend to abuse it.
+Fixes: aba30af07d4f ("ALSA: usb-audio: caiaq: validate EP1 reply lengths")
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/usb/caiaq/device.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-So far I found no better place to store the information about successful
-region reservation.
-
-Best regards
+diff --git a/sound/usb/caiaq/device.c b/sound/usb/caiaq/device.c
+index dea3a68ca896..a596f5f763b8 100644
+--- a/sound/usb/caiaq/device.c
++++ b/sound/usb/caiaq/device.c
+@@ -143,7 +143,7 @@ static void usb_ep1_command_reply_dispatch (struct urb* urb)
+ 		return;
+ 	}
+ 	if (urb->actual_length < 1)
+-		return;
++		goto resubmit;
+ 
+ 	payload_len = urb->actual_length - 1;
+ 
+@@ -193,6 +193,7 @@ static void usb_ep1_command_reply_dispatch (struct urb* urb)
+ 		break;
+ 	}
+ 
++ resubmit:
+ 	cdev->ep1_in_urb->actual_length = 0;
+ 	ret = usb_submit_urb(cdev->ep1_in_urb, GFP_ATOMIC);
+ 	if (ret < 0)
 -- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+2.55.0
 
