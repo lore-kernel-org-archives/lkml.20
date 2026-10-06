@@ -1,122 +1,80 @@
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout3.hostsharing.net (mailout3.hostsharing.net [144.76.133.104])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DE1A3D9048
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 09:44:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1C283ABDA8;
+	Tue,  6 Oct 2026 09:44:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=144.76.133.104
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791279842; cv=none; b=oXPy7uDrg7ssP2LcaTWDWpIyZRv+bYhhl0YFcxbxBnC0KHWeeRvoe3HGFgH76W+/3jQsjABa7U391xyZNEL4BnPyYjD5iM1YbE0kdmLfe9HoD+ydrnOdV12vEem9buFompSZ1s6zS0Oo1GFcazlFxq6cxHa89abWfghi9b78QQk=
+	t=1791279887; cv=none; b=KzeowX+1+IkT1rb0+NNaFqAy+FIrewCnnIBXB+BJ7RzoxOG6RYZyHj9QFEEa0LIc9BZXk/XTgGbPO1uUKmKx1CVa7wOv7bYGbBHMFeZhRXdkIqzoiO36tfR81n+tpfzH0rHjgLwiLcpcOy2TdvbrZ5xfHzzTMXJNYVXbrdbqzTY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791279842; c=relaxed/simple;
-	bh=iLcbc1HzGTozKQw6QU5goIrH/E+sVR+cS+TOcPW2ZOg=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=DGjVWTwtrDf2ovsHyajBK7nkf4qMyM4R4A9B5wtB/jBStHJHtITMgvITOBu6RPB1LDSzx3BkfYbBUbIFw8YR+PK25D3ZnAPVobQ4l0NJRKmzfmddw25CnKXQ+ZuMfXEI77cNOIZ/VQy1Z82wjeBaoK8QHq3oq2pODxsRmOMnVtg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=cWSBbcin; arc=none smtp.client-ip=209.85.215.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="cWSBbcin"
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-ccca9481fb6so1603159a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 02:44:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791279841; x=1791884641; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HjGTgfZsDADCktmqdDXJCkHYgkEUNyCL+EFPGA5tSXE=;
-        b=cWSBbcinzVHHyYhCaeKztIIfL+hofX4z/rrNPDDgzetvziAT1cyiI4BrXHt2XsyrYM
-         q6oxPMsuYPIucSeQziJktloRRnQH20xen5cPutdoVOa2u0PrceAijpdivf0Bd09w7cq5
-         YmWDeFmDDK0fvkIFsvty6c7zz0WANfNR1XXQ/EHa/6wxuq2GwIAoJibQ3vI3mHzl17my
-         2d26BqZwDgZqDIZWhpUoA2O09IzIfd40GE8Ua2/z4qQjdwHJWABsSU7RHIBUqw7PGUaC
-         HgikLMnuC9dH8SaiQziBwe2HPf1h4QV5SXMheKUCXA7cDDweuXqq0JRVPuxbF4FThKk9
-         fFPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791279841; x=1791884641;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HjGTgfZsDADCktmqdDXJCkHYgkEUNyCL+EFPGA5tSXE=;
-        b=N4s72pIJZx3mGDJnF8zX2Wj9xIMyVSsIVxhPHHfOMdRqf8NTQD/LOrLfcP6SUxb70x
-         hjov173h5PpFlFVdFjXQt8TOVQWyp1S/4740ll3p+hLm9TFD4iORuPAoUgDDZi0HHULk
-         vrTPo6UoCPDZJsG8gOagM+WkhP7r9GgIvssoKsjDruJJmokREtiFK5HxUSwlCJM882h0
-         x3p01Q2kYzqf/SX9GRIGQGnIGkMwEJ+mrAS1zHveVeHpVXrv3iqMw3ITp2zgQ56F71d4
-         G50yGHXHaK7iqV/juJKKg6V4sp9uo5kmI+P0PDqlAtfO+WFday/Ap615OJ3zvuAXq1oK
-         mdOw==
-X-Forwarded-Encrypted: i=1; AKwUvByM58Aphn9W3JtXWHfZi42yg2kKpVkXLEYepmqlR9v0pFBm1E4PnU+S+1WKJZzHPnvo8YYuuFJxsjTLJfM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lI4+obzjpUilaup1Xe2s043CIXg/T4efnmffvaO449TXILbRZP
-	9xIxmdqk+nj6nj6lihYcOpknSR7cqdXAQ418jwWu/PtYJs2jKb5gLwOMjJ3w7daATQ44Ez1KRgR
-	T
-X-Received: from pgba19-n1.prod.google.com ([2002:a05:6a02:6453:10b0:cc8:1e8a:c8d0])
- (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:2c11:b0:3e0:dc12:890a
- with SMTP id adf61e73a8af0-3e1248398a9mr649187637.86.1791279840528; Tue, 06
- Oct 2026 02:44:00 -0700 (PDT)
-Date: Tue,  6 Oct 2026 09:43:58 +0000
-In-Reply-To: <20261005102518.2400984-1-morbo@google.com>
+	s=arc-20240116; t=1791279887; c=relaxed/simple;
+	bh=ZvUH+z8vQ8h5nsALRrcCmlmDFeZr2Esi/BQtBak8F5k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JCpwCVcl7VTynDqeAFOiDZJEtnNNHRWIFOQIY1mJqZKPnK91Rxw6eupxTCpKIpyZzrkPWbw67lxOt1nhKLn6JkfiCFhhwQ/8zDDjB610pk8E7ODdyBgFPXEARi4TkMzOr0c+W5zk+ugooTuNqls8a55FXz7yPvZ2uScuOrw+dF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de; spf=pass smtp.mailfrom=wunner.de; arc=none smtp.client-ip=144.76.133.104
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wunner.de
+Received: from h08.hostsharing.net (h08.hostsharing.net [IPv6:2a01:37:1000::53df:5f1c:0])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature ECDSA (secp384r1) server-digest SHA384
+	 client-signature ECDSA (secp384r1) client-digest SHA384)
+	(Client CN "*.hostsharing.net", Issuer "GlobalSign GCC R6 AlphaSSL CA 2025" (verified OK))
+	by mailout3.hostsharing.net (Postfix) with ESMTPS id 60693C29;
+	Tue, 06 Oct 2026 11:44:41 +0200 (CEST)
+Received: by h08.hostsharing.net (Postfix, from userid 100393)
+	id 3B5CB627ED8E; Tue,  6 Oct 2026 11:44:41 +0200 (CEST)
+Date: Tue, 6 Oct 2026 11:44:41 +0200
+From: Lukas Wunner <lukas@wunner.de>
+To: Aditya Garg <aditya.garg@linux.dev>
+Cc: "Perlow, Jason" <jperlow@gmail.com>, Bjorn Helgaas <helgaas@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
+	Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [REGRESSION] PCI/AER: MacBookPro16,1 powers off ~20 s after boot
+Message-ID: <asTDCW28kKBfKAVs@wunner.de>
+References: <CABZrw2HcaOh3DHTJtxU5dXrb3Vg19scr6+qR-xe_+R7rME35_Q@mail.gmail.com>
+ <20261005231914.GA639967@bhelgaas>
+ <CABZrw2F=pOOq7+puKohtYMihYqWCevCFc7rkAOETW4T5Nf4n8Q@mail.gmail.com>
+ <asRjch1fMBslk07D@wunner.de>
+ <2a7a97cc-7ad0-4e6f-845a-dd841d36079b@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261005102518.2400984-1-morbo@google.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20261006094358.2948476-1-morbo@google.com>
-Subject: [PATCH v4] compiler_types: Allow opting out of __counted_by and __counted_by_ptr
-From: Bill Wendling <morbo@google.com>
-To: Kees Cook <kees@kernel.org>, ardb@kernel.org
-Cc: gustavoars@kernel.org, nathan@kernel.org, ndesaulniers@google.com, 
-	justinstitt@google.com, broonie@kernel.org, elver@google.com, 
-	alan.maguire@oracle.com, namjain@linux.microsoft.com, peterz@infradead.org, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	llvm@lists.linux.dev, Bill Wendling <morbo@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2a7a97cc-7ad0-4e6f-845a-dd841d36079b@linux.dev>
 
-Code that runs outside the kernel proper, such as the EFI stub, gets
-nothing out of the counted_by annotations: the bounds checks they feed
-(FORTIFY_SOURCE, UBSAN_BOUNDS) are already disabled there.
+On Tue, Oct 06, 2026 at 02:01:52PM +0530, Aditya Garg wrote:
+> On 06-10-2026 08:26 am, Lukas Wunner wrote:
+> > On Mon, Oct 05, 2026 at 08:17:12PM -0400, Perlow, Jason wrote:
+> > >   masked only on 04:00.2 (Apple T2 Secure Enclave, 106b:1802):
+> > >       stays up (120 s)
+> > [...]
+> > > So here the trigger is unmasking Advisory Non-Fatal Errors on that
+> > > one function.
+> > 
+> > That's quite unexpected.  Maybe there's a bug in the PCIe IP which
+> > Apple used for the T2 Secure Enclave device (which I believe is a
+> > fully-fledged arm64 CPU with a PCIe port in Endpoint mode).
+[...]
+> > macOS likely never unmasks the bit and so they never saw this during
+> > validation testing.  Is the T2 device visible on Windows?  If it is,
+> > it seems Windows doesn't support and unmask Advisory Non-Fatal Errors
+> > either.
+> 
+> T2 device is visible on Windows as well as "System Device"
 
-The annotations can also break the build. A __counted_by_ptr() that
-names a member declared after the pointer needs Clang's
-'-fexperimental-late-parse-attributes', which the top-level Makefile
-adds to 'KBUILD_CFLAGS'. The x86 EFI stub builds its own cflags and does
-not get that flag, so it fails as soon as such a struct is pulled in
-through a common header.
+It looks like lspci is also available as a Windows binary:
 
-Overriding the macros from a Makefile doesn't work:
-'compiler_types.h' is pulled in with '-include', which is processed
-after all -D/-U options, so it re-establishes the definitions. Follow
-the '__NO_FORTIFY' precedent instead: let a build define
-'__NO_COUNTED_BY' to turn the corresponding annotation into a no-op.
+https://github.com/pciutils/pciutils/releases/tag/v3.15.0
+https://eternallybored.org/misc/pciutils/
 
-Assisted-by: LLM
-Signed-off-by: Bill Wendling <morbo@google.com>
----
-v2: Only specify __NO_COUNTED_BY_PTR. Leave __NO_COUNTED_BY until we need it.
-v3: Add the version to the Subject line.
-v4: Use __NO_COUNTED_BY to reduce churn later on.
----
- include/linux/compiler_types.h | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+Could you double-check whether it unmasks Advisory Non-Fatal Errors
+in the Uncorrectable Error Mask Register, on the T2 or any other device?
 
-diff --git a/include/linux/compiler_types.h b/include/linux/compiler_types.h
-index c5921f139007..05e2b637f1cd 100644
---- a/include/linux/compiler_types.h
-+++ b/include/linux/compiler_types.h
-@@ -371,8 +371,13 @@ struct ftrace_likely_data {
-  *
-  * __bdos on clang < 19.1.3 can be off by 4:
-  * https://github.com/llvm/llvm-project/pull/112636
-+ *
-+ * Code that runs outside the kernel proper (e.g. the EFI stub) can define
-+ * __NO_COUNTED_BY to drop the annotation, since it gains nothing from the
-+ * bounds checks. __NO_COUNTED_BY should be used sparingly, because there are
-+ * better options for opting out of bounds checking.
-  */
--#ifdef CONFIG_CC_HAS_COUNTED_BY
-+#if defined(CONFIG_CC_HAS_COUNTED_BY) && !defined(__NO_COUNTED_BY)
- # define __counted_by(member)		__attribute__((__counted_by__(member)))
- #else
- # define __counted_by(member)
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+Thanks!
 
+Lukas
