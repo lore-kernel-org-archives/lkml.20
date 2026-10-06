@@ -1,115 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1877D3F1ACE;
-	Tue,  6 Oct 2026 14:35:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE1B33F1ACE;
+	Tue,  6 Oct 2026 14:36:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791297357; cv=none; b=u5bWSANwRAjZ1hhIuTwYiPkArmRH/dZAD74hLF0/k4MHfQ1dEsTl1QQ4rt/r4Tz/cIDrF8DUVnqGDTMQ34xIZhhQ+wX9Fm/1k4c/76oxoiQMhGIqMRo4IzJA/C+RPc+DhhMEBQ3yy6KRan3RY+nBB0Jtc7GwcAdEAhNI+BTQiM0=
+	t=1791297408; cv=none; b=LOnm72BoMrFUrYQHNaULAZcDNS9gmOI8Y86HTOsr9mEHB9wytjWGAaL6OyA3Sn7ERsX2j5HrAhvubJ+kmH5+p/TwteCKL+W2YkXWAD05xO5IJS0GFR27vRhQVNbm7/XU7gh1CG9tD3QPgKySnRMtav92JuhprSAG5dvrCQt/PKY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791297357; c=relaxed/simple;
-	bh=WKyjJo0ctDdDpRtfBNoImhZUouSnE7D4e9wIb82XiVQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cf5e69n2j54uifJFsZ+BVAUwpEUW7WQTc2MBHkCr2/BWe6vlzzVEpjz5XQVJZr3x7TGorW84Mg6v9BaGKk4Ol4ZS7dPo1xINlbpB7o5pctBYCcT2vhXgiqEfczXieGCjb+PigNoHJEvI/VwVfJhRPBfmbJVb0jY/0tvIxwzreRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BvXdGDK1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791297408; c=relaxed/simple;
+	bh=Du715d/GXvp0weHXce0cb9IcYUZ3N2wWS85/a0Xjye0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Oq4dVQCghvrMZDQ6wdu4VGNWFBEqKgs4B/xPppeaLeona9iiZm2av4yoItRWM4S2fWtwx6Wo2nZ0cKqOOBWgbJcz2mwKOUL2evEBD26UHd3NRea8AXBkcC/cJubSwg1Myyawfx5eh4mzhpWC2Q6Dn32Zwl9XFhgc0rHanWn3JK4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tdhOSBIE; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BvXdGDK1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02DCC1F0089B;
-	Tue,  6 Oct 2026 14:35:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791297355;
-	bh=U1L8jykox/avQocIULNmCLTZ8y9+zM/0S8Z42jWufDM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BvXdGDK1YwBTmfBMPwEf8IFYL007+JRcPJuME3P2Nita0OLXh/mfsdPULxUMPb5kg
-	 mS7as+zUWe+7e+Yp8opbOXi0KstRi60uJybcaGLDsDYa9B0axaxKI89Ebezd4SUhYz
-	 Z4TZ86oCLJBOEl95dp6dGye62RFqhdvbOWBXcSM1waI/obfEqL0Q2w5B/dNrf7GBuI
-	 k6L1cJQMuwIcViz0XrniedgIFkosG2Ae0q4zq9Qqfc1qY8xY0qvAwW9aC/IdSi3F+k
-	 2PzmYlch3jT089e1FhbWE47ty9r9pYjMAEwpenMfzUUs0uUv8c/TQKYC4xIDpVii9j
-	 vQCzlmbsnR3tQ==
-Date: Tue, 6 Oct 2026 09:35:54 -0500
-From: Rob Herring <robh@kernel.org>
-To: Kyrie Wu <kyrie.wu@mediatek.com>
-Cc: Tiffany Lin <tiffany.lin@mediatek.com>,
-	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
-	Yunfei Dong <yunfei.dong@mediatek.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Ricardo Ribalda <ribalda@chromium.org>, Kees Cook <kees@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Fei Shao <fshao@chromium.org>,
-	Haoxiang Li <haoxiang_li2024@163.com>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
-	Tomasz Figa <tfiga@chromium.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Qianfeng Rong <rongqianfeng@vivo.com>,
-	Irui Wang <irui.wang@mediatek.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Fan Wu <fanwu01@zju.edu.cn>, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	Sakari Ailus <sakari.ailus@linux.intel.com>
-Subject: Re: [PATCH v7 08/14] Add the MT8196 compatible string to the
- MediaTek vcodec subdev decoder binding.
-Message-ID: <20261006143554.GA2123458-robh@kernel.org>
-References: <20260923024258.257846-1-kyrie.wu@mediatek.com>
- <20260923024258.257846-9-kyrie.wu@mediatek.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tdhOSBIE"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7A1C1C2BCF4;
+	Tue,  6 Oct 2026 14:36:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791297408;
+	bh=Du715d/GXvp0weHXce0cb9IcYUZ3N2wWS85/a0Xjye0=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=tdhOSBIEIOWIeotNMQUs7EkqFrGkTjIyTXpjiZQEF791/RktVWdAFE1bGMwglS9KL
+	 8LW2pRZFeoO69zC+R7KbQGMgAuOhg8XqI98KE7C6B/6kZGN2/GeqAKKCgt80Crthou
+	 3iIBOWWlGrWhxctttcItwvPBX2ccSuM5sf7IlsGmtSpuUlb7l2kxJuT8E4pSvhNpfE
+	 mpv9iTbqv8w+QteB4uCJpOoJ59dz93Wef8ainV/kCNk/jfzq0NhtvmQoGF7wgnpkQR
+	 5eQfIWSnXtKwl6l8IqwsfVonb6R37M+mfbwgrRv0WgjYikIK2MRBnI5JUpF8yuoabH
+	 rO+KaiAkw5VhA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 518FACA5FFC;
+	Tue,  6 Oct 2026 14:36:48 +0000 (UTC)
+From: Matt Layher via B4 Relay <devnull+mdlayher.gmail.com@kernel.org>
+Subject: [PATCH v3] hwmon: (asus-ec-sensors) add CPU_Opt fan for ROG STRIX
+ X570-E GAMING
+Date: Tue, 06 Oct 2026 10:35:36 -0400
+Message-Id: <20261006-asus-ec-x570e-cpu-opt-v3-0-62672edc18b3@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923024258.257846-9-kyrie.wu@mediatek.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNyw6CMBBFf4V07Zh2Cm1w5X8YF7UMUCOPtEAwh
+ H+X4oaNcXmSe89ZWCDvKLBLsjBPkwuuazeQp4TZ2rQVgSs2ZshRCc5TMGEMQBbmTHMC24/Q9QM
+ olAqFKbnOOdu+vafSzbv3dv9yGB9PskOUxUXtwtD59x6eRNz9a0wCBBQ5GamFlbzIrlVj3Otsu
+ 4bFxoRHi/plwc2i06JEaRFLnh4t67p+AFZl/QsSAQAA
+X-Change-ID: 20261004-asus-ec-x570e-cpu-opt-623621af0790
+To: Eugene Shalygin <eugene.shalygin@gmail.com>, 
+ Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Matt Layher <mdlayher@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791297407; l=1127;
+ i=mdlayher@gmail.com; s=linuxdev; h=from:subject:message-id;
+ bh=Du715d/GXvp0weHXce0cb9IcYUZ3N2wWS85/a0Xjye0=;
+ b=2onDSZxHI3ZVFEXxDP3FKcJi9OA2AamFktHt7ILCv/AK84Ex0blmA3hte5x8cmrj4v0T6JvL5
+ N7iei+Gj9MFBYTj97ZU6hNiJ0huRbTlrdERJr4UwqujMr+J5MU6XyId
+X-Developer-Key: i=mdlayher@gmail.com; a=ed25519;
+ pk=jO44g3WNw2T0EoKPeB+RUgDmyrZpA5Pmr830ITlwhaA=
+X-Endpoint-Received: by B4 Relay for mdlayher@gmail.com/linuxdev with
+ auth_id=1109
+X-Original-From: Matt Layher <mdlayher@gmail.com>
+Reply-To: mdlayher@gmail.com
 
-On Wed, Sep 23, 2026 at 10:42:51AM +0800, Kyrie Wu wrote:
-> Compared to previous ICs, the MT8196 supports a 10-bit decoder
-> and has a decoding capability of 4K@120fps. It also supports
-> 36-bit DRAM IOVA address and Video Power Control to optimize
-> bandwidth and voltage usage.
+Testing:
+- Runtime: the same one-line change applied to the driver in v6.18.54,
+  loaded on the board in place of the stock module; CPU_Opt read
+  1454-1463 RPM and the chipset fan 0.
+- Build: hwmon-next with W=1 and sparse (C=1), no warnings;
+  checkpatch --strict reports no errors, warnings or checks.
 
-Please fix your subject.
+Signed-off-by: Matt Layher <mdlayher@gmail.com>
+---
+Changes in v3:
+- Drop the LLM usage note in favor of the Assisted-by tag (Eugene).
+- Move the testing notes to a cover letter (Eugene).
+- Link to v2: https://patch.msgid.link/20261006-asus-ec-x570e-cpu-opt-v2-1-74df23c22f04@gmail.com
 
-> 
-> Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
-> Acked-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-> ---
->  .../media/mediatek,vcodec-subdev-decoder.yaml | 50 ++++++++++++++++++-
->  1 file changed, 49 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/mediatek,vcodec-subdev-decoder.yaml b/Documentation/devicetree/bindings/media/mediatek,vcodec-subdev-decoder.yaml
-> index d1d209cbb..618be8c52 100644
-> --- a/Documentation/devicetree/bindings/media/mediatek,vcodec-subdev-decoder.yaml
-> +++ b/Documentation/devicetree/bindings/media/mediatek,vcodec-subdev-decoder.yaml
-> @@ -76,6 +76,7 @@ properties:
->        - mediatek,mt8186-vcodec-dec
->        - mediatek,mt8188-vcodec-dec
->        - mediatek,mt8195-vcodec-dec
-> +      - mediatek,mt8196-vcodec-dec
->  
->    reg:
->      minItems: 1
-> @@ -96,6 +97,12 @@ properties:
->        The node of system control processor (SCP), using
->        the remoteproc & rpmsg framework.
->  
-> +  mediatek,vcp:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description: |
+Changes in v2:
+- Shorten the commit message (Eugene).
+- Link to v1: https://patch.msgid.link/20261004-asus-ec-x570e-cpu-opt-v1-1-d9ea371c30d5@gmail.com
 
-Don't need '|'
+---
+Matt Layher (1):
+      hwmon: (asus-ec-sensors) add CPU_Opt fan for ROG STRIX X570-E GAMING
 
-> +      The node of video companion processor (VCP), using
-> +      the remoteproc & rpmsg framework.
+ drivers/hwmon/asus-ec-sensors.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+---
+base-commit: 4781ca52761e666cf18b591e6bb0478396c90320
+change-id: 20261004-asus-ec-x570e-cpu-opt-623621af0790
 
-Please say what the VCP provides, not the Linux subsystem it uses.
+Best regards,
+--  
+Matt Layher <mdlayher@gmail.com>
 
-Rob
+
