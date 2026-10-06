@@ -1,225 +1,302 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0CF32F60CC;
-	Tue,  6 Oct 2026 21:45:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791323104; cv=fail; b=J8ivyrTtVqWdG6qaeK1aeNKqNmMqnFk8icTE1P/FPO9ZIAUAodlnHQd1wjD9naoD3fsCSt1xGtQ8U7ONTeu7W8OOCSpQTE9sNDdfBFnkfBbWO0iGVXZuLsfS3HBIh1cAfabUE7p9xlFANG6AxqwS678W6VqFza9wHX/ncTfJBJU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791323104; c=relaxed/simple;
-	bh=SAhqGAOJKHiJNizcFuh1BdyL9AWf2LmXNAiL+fUB3y4=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=sd9/MY1MLJXe/0lTNlqKDuFgPCtLqiHUMwlwqN5T2vgNZ0HGVz5uF22kCYnmSb/DNXrWsUBoXEr4F3nXO0nmSYp/7nKHIqTDS3R39PYYGn5DYiA7moghv+YB9+W3BZHWdSR2MuznLfT+aUAvFLBHuUiRqQk0XQM9w4uDcUEjxsY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aFn1VXNi; arc=fail smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0C21134CCF;
+	Tue,  6 Oct 2026 21:49:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791323342; cv=none; b=rtyBuGrMEsoFU5mJZIfvYgwBTtchWeYFwI8eqhHdUUKKUHGriYvx8ztFv6+UGM5hTH0V/894p6OgQVTTsbP3PDdjEgI46/qgpBxJiSFaa3X/9FAnUVCVvYNlprp1Z3WPds3v0GOOh4PJ9C2+JUk/TRXpME06YVtcGEEdlHUVP/M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791323342; c=relaxed/simple;
+	bh=9/kIwIroF3I78IKmLSDuil+2CDGn0X72S83yzgqd7/g=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=BSrlAfsrj0OZzKhi+9OpUllWeFarU8x9UB+jQTvhZ2WIwQd/VIFRI2bUDYmExoN0ag1FyUBK9eftNG4SJsgiO7d/QA5VsMOJKkBsyIrinEv0lp+7mc4kEgL1g58kFTT1A34o3M8A8pymts5eNLWqFfhxBEn1bvowM5d2MXUqJHg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q5v2niIJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aFn1VXNi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791323102; x=1822859102;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=SAhqGAOJKHiJNizcFuh1BdyL9AWf2LmXNAiL+fUB3y4=;
-  b=aFn1VXNiY5uwlcbvVKNKSEW3zSaRdahB3MPHm+0fSmIyg3Ab7ZZ1GFvB
-   0mRmY+I/kauknxRuy9YEOmcQDhkUs1N0+P23Cf0OtX+edND7eaQr5jROv
-   l40teahqRaGOCm2dH6mvrvy7LPKfb2FHH7ZX6Qa1SV8CBaZ6ZAz/ADWPv
-   c1IQaT22vay5IFdQMC+xXMiCZCTSYausVy+E9IROJRq0khVGDdY6K/CW0
-   hbT5KmgYCX7XJh6XDh/HG4VKm4edu63jmCAugrcsC3I69LGVibYTzvvVR
-   4+mGgVqAe94BFYzcr6NkqEPNi7ZKLP4RTS7b01jEJj7lmcVUdMyHjeaCe
-   g==;
-X-CSE-ConnectionGUID: SP6jjT6mSmCy6esU6A/YHw==
-X-CSE-MsgGUID: CqtwES6/RTemEzGR4OB0Aw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11927"; a="108401977"
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="108401977"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 14:45:01 -0700
-X-CSE-ConnectionGUID: klQWyEVIToKSjj/kkdX43w==
-X-CSE-MsgGUID: vDt9Cf6kR/eSG7Y1ahsAKw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="306733619"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 14:45:01 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 6 Oct 2026 14:45:00 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Tue, 6 Oct 2026 14:45:00 -0700
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.51)
- by edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 6 Oct 2026 14:45:00 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UPIFGgJMLXpsQ7zUYk9UKGqQVMDgkBgvglNPB5+voLolP5xi8RE0yv9kCNV6BbCQvMFDtKwlDGqkdYnoeCTeP9USQVSEyW9zGk+jVD9CTPrqEK7QW1ByUEKMBCpFKPptaJ/Nl1GJCP3BjD5EJUWNsdtsbgtVJN7VR/LvqigywpXGraqHu4ehQOuGQbf9+Zz4puyCxHKxLWBxG7IqXOOIRCW01Ae+d+EBtXm7tz6MAsHJfN/v1A8GXAhowgazegCltgALvRTYhHOmVqk5ch0CIGbZN9jIDo6KaaTmJULIAWn85VCf18bTT9ETPWYqScFhty1a6UfBg18PabF5ElKbXg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gTyRRvHG2wM4oR2NJlbr5N6y8P2R8lEsR91OTH6ajxU=;
- b=MxHJXyYQY30kdLieasOcyYRUILB54OFfEuiuslzAf+1JrXOy6jf+BF25z5pybQtg2Ww77xcsUa48Fj8s+D1HCRaxU7aUYFuPtG1TO+Pv5NC+HDEkf4hOjtK1nrO9n20mpeSjiAlsOLYC29Hr9mWZUszvhv+TB4MgYdsJa4XZuQV5GMTdL3b3lBGNZJwV32l9UxA7P7UnaN2qHQy7eGv8cmvzTUgpegHvloVDF13t5pavtVyKNPnRSdJIuFii+t6NKZ60RVxQYPDhSbgCoTJueVSBxgQukPYmbeJtfcrfs4zIuQYoS38Ig0ecn729i6yFuwWNk2VxtFaDbqug3gwWTQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB7381.namprd11.prod.outlook.com (2603:10b6:8:134::14)
- by CH3PR11MB7675.namprd11.prod.outlook.com (2603:10b6:610:122::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Tue, 6 Oct
- 2026 21:44:58 +0000
-Received: from DS0PR11MB7381.namprd11.prod.outlook.com
- ([fe80::4c39:dfe6:d6dc:6f58]) by DS0PR11MB7381.namprd11.prod.outlook.com
- ([fe80::4c39:dfe6:d6dc:6f58%6]) with mapi id 15.21.0451.022; Tue, 6 Oct 2026
- 21:44:58 +0000
-Message-ID: <818a214a-b4bc-4e85-b4c0-2270c736d03b@intel.com>
-Date: Tue, 6 Oct 2026 14:44:55 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net: ethernet: i825xx: Fix dma_alloc_coherent() size
-To: Thomas Fourier <fourier.thomas@gmail.com>
-CC: <stable@vger.kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Jeff Garzik
-	<jeff@garzik.org>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, "open
- list:NETWORKING DRIVERS" <netdev@vger.kernel.org>, open list
-	<linux-kernel@vger.kernel.org>
-References: <20261006143247.54724-2-fourier.thomas@gmail.com>
-Content-Language: en-US
-From: Jacob Keller <jacob.e.keller@intel.com>
-In-Reply-To: <20261006143247.54724-2-fourier.thomas@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR03CA0060.namprd03.prod.outlook.com
- (2603:10b6:303:8e::35) To DS0PR11MB7381.namprd11.prod.outlook.com
- (2603:10b6:8:134::14)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q5v2niIJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D35B91F0089B;
+	Tue,  6 Oct 2026 21:48:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791323340;
+	bh=DOWWt1KJLFYMrWcgT4FQO58tS9UYRaxA2t0lKYqxiTY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=Q5v2niIJ5LRiKoDFZltL3IbLPktOJr5pP30s5DSLcbt7GSEtaOrjaS2MbGXva/rHo
+	 QphiZGiboKLj+JYKWvdvZpAQTI1HZk7dqUpSR/BsyAJVl8JlvzTyBSdXtc0qxOSAcP
+	 UJTUQDck9g0spi4EUe2Cg6f0RMqY//NeuZoQxvXlx5fsAMPtQY3ETYBtdfyd82pqd5
+	 17Tyk3Zpyh8Smibz0CdsEbfty1JqfiHQogouoEZZnJilPhni1gh7ZN5IwXEFOcsHz5
+	 xpn7wVe6vIYIfBKbZXDwfXxj3/7Nfo9zSphjycYssaD1pFvLPuV7NEvEe/THhy/u8k
+	 rlMDKf7O8JzeA==
+Date: Tue, 6 Oct 2026 16:48:58 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH v9 06/18] PCI/P2PDMA: Collect the path's ACS controls
+ before deciding
+Message-ID: <20261006214858.GA717151@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB7381:EE_|CH3PR11MB7675:EE_
-X-MS-Office365-Filtering-Correlation-Id: 20093376-b00e-4ce8-2099-08df23f31100
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|23010399003|7416014|1800799024|366016|22082099003|18002099003|10067099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: qZbWSkGt+fyxmo3/QFo6YEO7RYDeaUw7oPNRhSC0gBSVnwj48mZZTRtJKntaIjRFFEpf7UlPph+6lBEHIJU57NE5otGJ4+WLWj+xYVBJnK4Ir+CRS4cUkdBSkv/EjPrL2ZkDlDLMg0mLkpN6ZzfnTcHA45XEuO1UWUi/fNnfEMKTviiy7anaywvEw6VVJb7DX2OysBuC/hHtCic47F3yOPvh6r0sCnKE9hMzadJxjrjXJ4M7JAV+O9EoEuT6tmWbOMpNKMfbkJ98WqlAp4nevOCV8Z8lnrybLSlDH+U22pJYQAiqjRb17NxE3gCHbzf2xMb7s0jYSS/HthY2zXjMmarwx81cyozBLvgsTSyItPydTN5ChpfVOVV99X6eSVJ19Bsldhji69qVlYaK4GkixO95fN9Nqza4oTo6BWuVCcx2mImTtNiOLosXTbkgLzfcowLlE9dQWNrvjMuy7WaLwWICqVvCBL2ABtfl0zqxR6RskmgsieUWpPIQwxoCQHVnh8h03qRjU9fNoiU1+ZulyXut6RkKzBe9kgwL63+VpK3IV0c20R3R6ttOzJnWPQDLOHGsQXAn5sAHteiMNPmaSYHEMU6XPzgx6YvNBAieO5HLa11VuRMy08rmEJW22s9dRMZXTTNXc87J2vPIABmVmPAvO987o96vfvaLvqu28hc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB7381.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(1800799024)(366016)(22082099003)(18002099003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q2Y1VXI4L1RUWUNRVDYyNHhkeVRpVm8rUWcxSFpKOWtwTkxMS1hJUkhrbG9w?=
- =?utf-8?B?aGRrTXVpaGxVSStLMHJTTUwveFk4a00zVEc5Rms2UnVmU1AxU0tjbmdzME5y?=
- =?utf-8?B?dzBONWJSd0ZmVHZyWlNjSnFiVk1YR2lMb3JxN21ieEdoQVVNTy9jMVk0WStY?=
- =?utf-8?B?TzdhWG90RFZxTHYyZmNzTk1PbEtReWZBQnJuRFdTSkJCTUV4Ry9yaXNwWng1?=
- =?utf-8?B?RStmVUFheTNhYlFtTHNXSG5ZNWNCNWpqMFlrMCs2bkxOand1SHY5NFlYVzEr?=
- =?utf-8?B?TDFqRTU5V0JJTFJHRXdjTWNka2NGSVdXRjdmdTByZnVsL0JOelhSd0t6b3lJ?=
- =?utf-8?B?d0lBVEVvZS9pOUxhWnRaQUdiRDhIRlZrRlMyMXpIaVhjTXQ5cEhzMkFjQlRB?=
- =?utf-8?B?OFV5OTUxeGR2TG9IQlA2Mkp5YlFJam1Rb3YveEt4aTBkR25Lb2JpTi9RYkRL?=
- =?utf-8?B?NWt2UlhIMmNJeVlPZEpHVUpCeDZscXJGOG8zc1VhNy8xUW82Mzhub3VvQVcx?=
- =?utf-8?B?R2htdTBSaTZaR1lPZzFRb2wzU1MxcUxRdkRtaEc0dGVCMkhKenFWaVBFUDhO?=
- =?utf-8?B?TUVRVGJBNDk3aXBhSVVZMklGYWFrYnNZdzZUMktweXZNSTF1aHVZUUxpRlBa?=
- =?utf-8?B?UHEwMWFkZWlaZnU3bHdqdFBhRXFodWRFTXBEU3M2cnQrTzMyMVJ0QVo3SUNJ?=
- =?utf-8?B?SCt6UzRPdGpkUS9WVVg5R1JXcEVKd3pvMUMxMXVsZWRPejZ1MXZTUGhBVVZt?=
- =?utf-8?B?TVZhbUlJY3RuNkltYkVnM3E3QytNekd5Mk5VZm5uQm1Nd1lzM3d4NVpHWkRM?=
- =?utf-8?B?TzZMODUrdHZNUDFwODYvTXRLazd2WGpYQ1FOcVhYN0NLWG5nMlF1aVI1V3U3?=
- =?utf-8?B?R2Uxenh0Ymp5aHNMMVFQQysxdHdWYy9LS1hob1pGcWlucStmdmRvWGt5emJp?=
- =?utf-8?B?U1J5VmxLQXdRUkpEeDBVUUhkWGxLZUpBMXBmcDd2UW81cTdkY0pHZTk4V2Yr?=
- =?utf-8?B?Ky9zVjNIT25JenVtejZwcDZFYXZNeWExc3VLbVJnVmFJQ2RiNHVOUENpWnFV?=
- =?utf-8?B?dnBDOTZSQ0VIYUI5aS9aUnJhR2tYd3VpclpUb3poU3Z0OEpVQk1QR1pGdnBs?=
- =?utf-8?B?Y04rbHRrLzQ4MlFGT3o4VVVzNDNXYXU5QURUclR2N0FOR20yUWo3bnNXV3N3?=
- =?utf-8?B?bGZ0bW5NbXZyTndpT2UzWnFPZVhCMWdwRmhvelJJNjAxVm5DMlBwUGltUzdB?=
- =?utf-8?B?Q25pVXlxbFdvdS9INUdrUXlFWTBtYUFJSmI5SzFzS0ZRY0Y4RnpMWjZ3elpZ?=
- =?utf-8?B?S0RPV3ZteXNzWWQzSFdUSEJGS0hLa0owcC9vVUJWaVMxQ01TMXIyWFFReWMw?=
- =?utf-8?B?S3MxdnBTdE4xUEhPYmU5cTdzUzY1ODF0b28xQm1OQlcxY0VxZXJmL2NJdkJC?=
- =?utf-8?B?a25ERUlUaExEWXRZUWR2ZUtBZFFEVzlQZVBQYkRjQVVqSjF6ZFB1VXhpazVs?=
- =?utf-8?B?d1M0YWpjUHJBUnVTYXlNd0dlVUlRRGMybzhDb2hWa09yNktvcnY3RWJnbnRN?=
- =?utf-8?B?OTUvcW8xZi9zNHlQMW53WGgvWjBrOWFCWllNTFdVb1dHb2V1cHdjTWxtV0hB?=
- =?utf-8?B?aFNMZDFxNVNDYmRHcjZFTHlLQmdjWDAwcUZ6NXRiVTR3TXp4OGVxRWw1QzFu?=
- =?utf-8?B?cFpNeGFVbzdaMzN6NVNjWi8yZXJsYU1vNWNLbzVhWEJtR0k3aTdTb3M4UjY4?=
- =?utf-8?B?YndIanFrRzVpNGJqNDJrYkVVcWl3b1JKWmtmZWdoU1R5ZXBTU2xpQVJqSVJJ?=
- =?utf-8?B?UkltQ2pUeU5ZNTRoQWViUWRGdmFCTUxxeW1CN0d3SEpzeE5pd3htT2lhb2JG?=
- =?utf-8?B?enQvdldaa29laStFRkZnSkZTM3EzWUFUemJYbk16cjB4b0lxUldjZElrMTFI?=
- =?utf-8?B?RVlVT2wxMmRuNVB6c25FWEd4YXZScXlsTmM2REJZcG5ZNzNrRW9DTnRraDRD?=
- =?utf-8?B?WEtjYzZHbFB4SUtMaDBqRzJhcFA3OFJ0Q043Zkxua2JWOFhuSE9Qamw5dVpa?=
- =?utf-8?B?MXJoWG16ckFpK0J0Nk5iSVloYUYzK1dmN0pLWHUzZUdYMWR6MGs5VkhoaDIy?=
- =?utf-8?B?N0hNQlN4bXFQVkhNS0xGZmN2RTZXRDBYTGFXelFDL2krM3Z0ek4xOE5HUGxh?=
- =?utf-8?B?c0QxSHdjSm9vc0w5aGhpRnQ1eVVSK3ZVRzRIcVVoelpDY1pHUGxiYUVHL0Ju?=
- =?utf-8?B?dGY1SUF1bzdVZnkvVXRxRkgxVWRGbG5senF0cjl6dWI5WDNPSHFnU1RyVXAx?=
- =?utf-8?B?dlJ5dlB0Wkl5YkxSMEJXb0U0WTYrbDJHcEp1a0NVY2pZMDJVMHBMU2Z3M0Vk?=
- =?utf-8?Q?aS8aTNy9bpqpzJ+8=3D?=
-X-Exchange-RoutingPolicyChecked: Z/37AGNkLcrDbOSet7vtTnGvMj3AnjPTeJevVzPSYLw+yws9VVGZVXDH77UAnJ9PDqb+VQ0izUR4glwYausRrMsc6yZHqBrOtWXHUKzO7ck/nBLZ6DEzjnQplfeacoIiogFMugyHAhNUR9ml0nm90aS2ANowQCoN9EdZViXOtyaUQ7haVs0Zv3bYg4cflklt8W1IrZhGbK06oU1+8LxQ/oGEzZO0QQbKH9ouu/jsgAet8jFOtqKuFGOBM89+pm8vdaKE9Z1hO8VyReMWA8XsGimub/97XUEJhy/RTXhemAfQmljAuaEAtxhJqWPKixauZvJ6HYMcsQG11esezupqoQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20093376-b00e-4ce8-2099-08df23f31100
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7381.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 21:44:58.0637
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vAM3c9QcXx7kCB0ZAkrfljglmmSZ3Sej5l+sNsARjLzZvCDkY9y5xQKrZjhS6d3z1Lnf11kf64xXPODBgD9LLKUKvNCQTncRPYJJKbaZIPU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB7675
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001-fix-p2p-acs-v4-0-v9-6-1a8e0f50ddd9@nvidia.com>
 
-On 10/6/2026 7:32 AM, Thomas Fourier wrote:
-> In sni_82596_probe(), the lp->dma buffer is allocated with
-> dma_alloc_coherent() and with size sizeof(struct i596_dma), and possibly
-> freed in the error path with the same size. However, in
-> sni_82596_driver_remove(), the same buffer is freed but with size
-> sizeof(struct i596_private). This error may leave the freed buffers
-> mapped, leaking a resource and allowing the device to access freed
-> memory.
+On Thu, Oct 01, 2026 at 02:55:14PM +0300, Leon Romanovsky wrote:
+> From: Leon Romanovsky <leonro@nvidia.com>
 > 
-> Change the length in sni_82596_driver_remove() to
-> sizeof(struct i596_dma).
-> 
-> This patch was compile tested only, and found by hand.
-> 
-> Fixes: f2ec8030085a ("Ethernet driver for EISA only SNI RM200/RM400 machines")
+> calc_map_type_and_dist() reads each divergence port's ACS Control register
+> and folds the result into running counters as it goes. Any routing property
+> that depends on the kind of TLP being routed would have to be threaded
+> through that code, so there is nowhere to put one without reading the
+> registers again for each kind.
 
-Hmm. At first this didn't seem like the right fixes tag. The offending
-code was changed multiple times before being caught.
+What is the "one" that there's nowhere to put?  I guess the routing
+property?  So this is an optimization to avoid some config reads?
 
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Thomas Fourier <fourier.thomas@gmail.com>
+> Collect the two ports' ACS Control values into struct pci_p2pdma_acs_path
+> first, then decide from it. pci_p2pdma_route() applies the same rule as
+> before: a path routes directly only when both directions do.
+> 
+> Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+> Tested-by: Tushar Dave <tdave@nvidia.com>
+> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 > ---
->  drivers/net/ethernet/i825xx/sni_82596.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/pci/p2pdma.c | 148 +++++++++++++++++++++++++++++++++------------------
+>  1 file changed, 96 insertions(+), 52 deletions(-)
 > 
-> diff --git a/drivers/net/ethernet/i825xx/sni_82596.c b/drivers/net/ethernet/i825xx/sni_82596.c
-> index baa598988f47..73e1e153cb78 100644
-> --- a/drivers/net/ethernet/i825xx/sni_82596.c
-> +++ b/drivers/net/ethernet/i825xx/sni_82596.c
-> @@ -159,7 +159,7 @@ static void sni_82596_driver_remove(struct platform_device *pdev)
->  	struct i596_private *lp = netdev_priv(dev);
+> diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
+> index 550e6c7346ef..841c86be31bb 100644
+> --- a/drivers/pci/p2pdma.c
+> +++ b/drivers/pci/p2pdma.c
+> @@ -553,6 +553,80 @@ static void seq_buf_print_bus_devfn(struct seq_buf *buf, struct pci_dev *pdev)
+>  	seq_buf_printf(buf, "%s;", pci_name(pdev));
+>  }
 >  
->  	unregister_netdev(dev);
-> -	dma_free_coherent(&pdev->dev, sizeof(struct i596_private), lp->dma,
-> +	dma_free_coherent(&pdev->dev, sizeof(struct i596_dma), lp->dma,
->  			  lp->dma_addr);
-
-This dma_free_coherent call was added by commit 48d15814dd0f ("lib82596:
-move DMA allocation into the callers of i82596_probe").
-
-But I guess previous to this it was using dma_free_attrs inside of the
-probe function and that also appears to have also mistakenly used a
-different size.
-
-Digging deeper, this was changed to dma_free_attrs as part of commit
-7f683b920479 ("i825xx: switch to switch to dma_alloc_attrs"), previously
-using DMA_FREE. But even prior to this it still had the incorrect size.
-
-Strictly, a backport to that old version would have merge conflicts due
-to the changes, but it is accurate that the bug exists all the way back
-to 2.6.23... Hopefully no one is going to bother trying though and every
-currently supported stable release has the current code and should apply
-clean.
-
-Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
-
->  	iounmap(lp->ca);
->  	iounmap(lp->mpu_port);
-
+> +/*
+> + * What the topology walk found out about one provider/client path. Producing
+> + * this costs a walk and one config read per divergence port, none of which
+> + * depends on the TLP being routed.
+> + *
+> + * @req_ctrl:	ACS Control of the client-side divergence port. That is the
+> + *		first port at which a Request can route toward the peer rather
+> + *		than upstream, so it is where the Request controls apply.
+> + * @cpl_ctrl:	ACS Control of the provider-side divergence port, likewise for
+> + *		the Completions travelling back.
+> + * @unreadable:	First port whose ACS Control could not be read, if any.
+> + */
+> +struct pci_p2pdma_acs_path {
+> +	u16 req_ctrl;
+> +	u16 cpl_ctrl;
+> +	struct pci_dev *unreadable;
+> +};
+> +
+> +/*
+> + * Combine both directions into a mapping type. Only a path that routes the
+> + * Request and the Completions it generates directly can be programmed with
+> + * the peer's bus addresses.
+> + */
+> +static enum pci_p2pdma_map_type
+> +pci_p2pdma_route(const struct pci_p2pdma_acs_path *path)
+> +{
+> +	if (path->unreadable)
+> +		return PCI_P2PDMA_MAP_NOT_SUPPORTED;
+> +
+> +	if (pci_acs_p2pdma_request(path->req_ctrl) == PCI_ACS_P2PDMA_DIRECT &&
+> +	    pci_acs_p2pdma_completion(path->cpl_ctrl) == PCI_ACS_P2PDMA_DIRECT)
+> +		return PCI_P2PDMA_MAP_BUS_ADDR;
+> +
+> +	return PCI_P2PDMA_MAP_THRU_HOST_BRIDGE;
+> +}
+> +
+> +/*
+> + * Name the ports that keep this path off a direct route, so that the admin
+> + * can hand them to pci=disable_acs_redir=.
+> + */
+> +static void pci_p2pdma_warn_path(struct pci_dev *client,
+> +				 struct pci_dev *provider,
+> +				 const struct pci_p2pdma_acs_path *path,
+> +				 struct pci_dev *a_child,
+> +				 struct pci_dev *b_child)
+> +{
+> +	struct seq_buf acs_list;
+> +	char buf[128];
+> +
+> +	if (path->unreadable) {
+> +		pci_warn(client,
+> +			 "ACS Control is unreadable for provider %s at %s\n",
+> +			 pci_name(provider), pci_name(path->unreadable));
+> +		return;
+> +	}
+> +
+> +	seq_buf_init(&acs_list, buf, sizeof(buf));
+> +	if (pci_acs_p2pdma_completion(path->cpl_ctrl) != PCI_ACS_P2PDMA_DIRECT)
+> +		seq_buf_print_bus_devfn(&acs_list, a_child);
+> +	if (pci_acs_p2pdma_request(path->req_ctrl) != PCI_ACS_P2PDMA_DIRECT)
+> +		seq_buf_print_bus_devfn(&acs_list, b_child);
+> +
+> +	/* Drop the final semicolon; the list is not empty here. */
+> +	if (!seq_buf_has_overflowed(&acs_list))
+> +		acs_list.buffer[acs_list.len - 1] = '\0';
+> +
+> +	pci_warn(client,
+> +		 "ACS redirect is set between the client and provider (%s)\n",
+> +		 pci_name(provider));
+> +	pci_warn(client,
+> +		 "to disable ACS controls for this path, add the kernel parameter: pci=disable_acs_redir=%s\n",
+> +		 seq_buf_str(&acs_list));
+> +}
+> +
+>  static bool cpu_supports_p2pdma(void)
+>  {
+>  #ifdef CONFIG_X86
+> @@ -751,19 +825,13 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
+>  		int *dist, bool verbose)
+>  {
+>  	enum pci_p2pdma_map_type map_type = PCI_P2PDMA_MAP_THRU_HOST_BRIDGE;
+> -	enum pci_acs_p2pdma_state state = PCI_ACS_P2PDMA_NOT_SUPPORTED;
+>  	struct pci_dev *a = provider, *b = client, *bb;
+>  	struct pci_dev *a_child = NULL, *b_child = NULL;
+> -	struct pci_dev *acs_unreadable = NULL;
+> +	struct pci_p2pdma_acs_path path = {};
+>  	struct pci_p2pdma *p2pdma;
+> -	struct seq_buf acs_list;
+> -	int acs_redirect_cnt = 0;
+> +	bool cpu_p2pdma, host_whitelisted = false;
+>  	int dist_a = 0;
+>  	int dist_b = 0;
+> -	char buf[128];
+> -	u16 ctrl;
+> -
+> -	seq_buf_init(&acs_list, buf, sizeof(buf));
+>  
+>  	/*
+>  	 * Note, we don't need to take references to devices returned by
+> @@ -806,61 +874,35 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
+>  	 * branch is upstream, so redirect controls do not affect the path.
+>  	 */
+>  	if (a_child && b_child) {
+> -		if (pci_acs_p2pdma_ctrl(a_child, &ctrl))
+> -			state = pci_acs_p2pdma_completion(ctrl);
+> -		if (state != PCI_ACS_P2PDMA_DIRECT) {
+> -			seq_buf_print_bus_devfn(&acs_list, a_child);
+> -			if (state == PCI_ACS_P2PDMA_REDIRECT)
+> -				acs_redirect_cnt++;
+> -			else if (!acs_unreadable)
+> -				acs_unreadable = a_child;
+> -		}
+> -
+> -		state = PCI_ACS_P2PDMA_NOT_SUPPORTED;
+> -		if (pci_acs_p2pdma_ctrl(b_child, &ctrl))
+> -			state = pci_acs_p2pdma_request(ctrl);
+> -		if (state != PCI_ACS_P2PDMA_DIRECT) {
+> -			seq_buf_print_bus_devfn(&acs_list, b_child);
+> -			if (state == PCI_ACS_P2PDMA_REDIRECT)
+> -				acs_redirect_cnt++;
+> -			else if (!acs_unreadable)
+> -				acs_unreadable = b_child;
+> -		}
+> +		if (!pci_acs_p2pdma_ctrl(a_child, &path.cpl_ctrl))
+> +			path.unreadable = a_child;
+> +		if (!pci_acs_p2pdma_ctrl(b_child, &path.req_ctrl) &&
+> +		    !path.unreadable)
+> +			path.unreadable = b_child;
+>  	}
+>  
+>  	/*
+>  	 * Below a shared upstream bridge, a path whose divergence ports do not
+>  	 * redirect routes the request directly.
+>  	 */
+> -	if (!acs_unreadable && !acs_redirect_cnt) {
+> -		map_type = PCI_P2PDMA_MAP_BUS_ADDR;
+> +	map_type = pci_p2pdma_route(&path);
+> +	if (map_type == PCI_P2PDMA_MAP_BUS_ADDR)
+>  		goto done;
+> -	}
+>  
+> -	if (verbose) {
+> -		/* Drop the final semicolon; the list is not empty here. */
+> -		if (!seq_buf_has_overflowed(&acs_list))
+> -			acs_list.buffer[acs_list.len - 1] = '\0';
+> -		if (acs_unreadable)
+> -			pci_warn(client, "ACS Control is unreadable for provider %s at %s\n",
+> -				 pci_name(provider), pci_name(acs_unreadable));
+> -		else {
+> -			pci_warn(client, "ACS redirect is set between the client and provider (%s)\n",
+> -				 pci_name(provider));
+> -			pci_warn(client, "to disable ACS controls for this path, add the kernel parameter: pci=disable_acs_redir=%s\n",
+> -				 seq_buf_str(&acs_list));
+> -		}
+> -	}
+> +	if (verbose)
+> +		pci_p2pdma_warn_path(client, provider, &path, a_child, b_child);
+>  
+>  	/* An unreadable control does not establish an upstream redirect. */
+> -	if (acs_unreadable) {
+> -		map_type = PCI_P2PDMA_MAP_NOT_SUPPORTED;
+> +	if (path.unreadable)
+>  		goto done;
+> -	}
+>  
+>  map_through_host_bridge:
+> -	if (!cpu_supports_p2pdma() &&
+> -	    !host_bridge_whitelist(provider, client, verbose)) {
+> +	cpu_p2pdma = cpu_supports_p2pdma();
+> +	if (!cpu_p2pdma)
+> +		host_whitelisted = host_bridge_whitelist(provider, client,
+> +							  verbose);
+> +
+> +	if (!cpu_p2pdma && !host_whitelisted) {
+>  		if (verbose)
+>  			pci_warn(client, "cannot be used for peer-to-peer DMA as the client and provider (%s) do not share an upstream bridge or whitelisted host bridge\n",
+>  				 pci_name(provider));
+> @@ -1193,8 +1235,9 @@ enum pci_p2pdma_map_type pci_p2pdma_map_type(struct p2pdma_provider *provider,
+>  {
+>  	enum pci_p2pdma_map_type type = PCI_P2PDMA_MAP_NOT_SUPPORTED;
+>  	struct pci_dev *pdev = to_pci_dev(provider->owner);
+> -	struct pci_dev *client;
+>  	struct pci_p2pdma *p2pdma;
+> +	unsigned long cache_index;
+> +	struct pci_dev *client;
+>  	int dist;
+>  
+>  	if (!pdev->p2pdma)
+> @@ -1204,13 +1247,14 @@ enum pci_p2pdma_map_type pci_p2pdma_map_type(struct p2pdma_provider *provider,
+>  		return PCI_P2PDMA_MAP_NOT_SUPPORTED;
+>  
+>  	client = to_pci_dev(dev);
+> +	cache_index = map_types_idx(client);
+>  
+>  	rcu_read_lock();
+>  	p2pdma = rcu_dereference(pdev->p2pdma);
+>  
+>  	if (p2pdma)
+>  		type = xa_to_value(xa_load(&p2pdma->map_types,
+> -					   map_types_idx(client)));
+> +					   cache_index));
+>  	rcu_read_unlock();
+>  
+>  	if (type == PCI_P2PDMA_MAP_UNKNOWN)
+> 
+> -- 
+> 2.55.0
+> 
