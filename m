@@ -1,130 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9697949B1F0;
-	Tue,  6 Oct 2026 15:44:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from smtp.uniroma2.it (smtp.uniroma2.it [160.80.4.37])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A3E613BB695;
+	Tue,  6 Oct 2026 15:44:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.80.4.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791301455; cv=none; b=rvnCGMTyXTSfSXmShIY0qV/Nt0Kz5MYyHLJkmY9dgeVIanZxGqwinw3UFGPVLp0hR7MsvBnb+f4jApbxsr2fgkKo8SXRGrNspzBcpVA6usa8Gk7AmgeVhH9JjaHEHPuUFh/ougGtEKhCE614+6UxHvySPOaQjjKzbmVioRqyaB4=
+	t=1791301468; cv=none; b=ZG6PxeoyATiGAGLRTF5hQ0yEyQEgRm4U+V9+oOkT4fsuUUY9LhbNnX2e89juDvkcWKpHEe3cNJpog3KCszQZfunD+vSdVtJ/8lF2rlv/GdNpvlabf2DIWMsfhZbwu9SjUsmg9b0ZDDz/vIF+kxHay+yfes4GF2cRq5b+d2NqQYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791301455; c=relaxed/simple;
-	bh=pADMW7DfkNoxo1ip2jKe3XqV0+n7swEMSzwgVIHkhRI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bRzxrAeUtmaI9USaNbDmxAul0/hj3FIW2V/TGdNqegccBMFfIc6hLhABeAWfqOgr0XdAf0NJbz7xJ0Lb1oalLcWpnYou3a4cfovrzlh0DH0tQcpbfuQps32+1JRcR252JPLJpDcxdBLkugshhJdqiq5irCti4REXpFyuhbVtFiY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d1o9LzMZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791301468; c=relaxed/simple;
+	bh=/akPqFjBPFk1i0fF17zHYL4oqlB65msOV86aBtJy4xg=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=e6AlCAoK8UOVZR0om9KLdUAn7IzHmmoNolIff9k8Xw27gDqAbAfIHCidsd6MI9QHaKxjvL+2GHKiZ/7lbVir0hGMQwq82cZPD4qrJl+i3VgEqqJnQvVvk0j0Dw9rc/9pHaPQFD0S9heTK1uc1IlLYmgE2TVCFm7MWnXX0k0Kg70=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it; spf=pass smtp.mailfrom=uniroma2.it; dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=APvjwjp9; dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=QPhveSUG; arc=none smtp.client-ip=160.80.4.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniroma2.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d1o9LzMZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 282771F0089B;
-	Tue,  6 Oct 2026 15:44:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791301454;
-	bh=mUrWQujljsMH/p/9Y5XMz/o7VHMyGKrumRnHLYhjLPQ=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=d1o9LzMZti0vMOfKz36Pg22wT2Jf6eXrxj6erZQKijnoy7IjyPP6zDnSOpXv91H0/
-	 mI6nE6c/oDZXsfLA622qmVLRIASS2a0U85wOoHPBJ7tYP3x/Gy+uwkAurHy5JzYkce
-	 4B1+Tr3zAA0wRUEOmPlOb7Fu7Q3s2TebB0tBmbIwHN0jXHBpOOZ0o8brmWfv93S2kQ
-	 4vWpoKZIA+Lepa7w6ufuuy62yuwtRtWwUUAks9gbPWmtp6GjV3xlSe3aFPboP0UseB
-	 8EdH88XHIs6hj4h5hg9a+j6FjlNQtnni2v/do3b44edYczxieNGMZj/TRabVuJv9Ch
-	 OB48m0wsb9qHw==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id C9F51CE0ACB; Tue,  6 Oct 2026 08:44:13 -0700 (PDT)
-Date: Tue, 6 Oct 2026 08:44:13 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: kernel test robot <lkp@intel.com>
-Cc: Bradley Morgan <brads@mainlining.org>, akpm@linux-foundation.org,
-	vgupta@kernel.org, guoren@kernel.org, chris@zankel.net,
-	jcmvbkbc@gmail.com, oe-kbuild-all@lists.linux.dev, arnd@arndb.de,
-	david.laight.linux@gmail.com, glaubitz@physik.fu-berlin.de,
-	ysato@users.sourceforge.jp, dalias@libc.org,
-	linux-snps-arc@lists.infradead.org, linux-csky@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 3/3] xtensa: Emulate two-byte cmpxchg
-Message-ID: <82aad69a-603c-41cd-876d-09772a1a7e6a@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20261005120700.383058-4-brads@mainlining.org>
- <202610061704.rvbolgPy-lkp@intel.com>
+	dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="APvjwjp9";
+	dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="QPhveSUG"
+Received: from smtpauth-2019-1.uniroma2.it (smtpauth.uniroma2.it [160.80.5.46])
+	by smtp-2015.uniroma2.it (8.14.4/8.14.4/Debian-8) with ESMTP id 696FhqXA030345;
+	Tue, 6 Oct 2026 17:43:58 +0200
+Received: from lubuntu-18.04 (host-95-234-228-71.retail.telecomitalia.it [95.234.228.71])
+	by smtpauth-2019-1.uniroma2.it (Postfix) with ESMTPSA id 765B91228BD;
+	Tue,  6 Oct 2026 17:43:48 +0200 (CEST)
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=uniroma2.it;
+	s=ed201904; t=1791301428; h=from:from:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OdK6cwIPlCPet6hLfR7uwhBD0oYQ7PTncgtI8QIo+SM=;
+	b=APvjwjp94Y2KzdF4/TiFIfkGLof61N5HhXDspThV1XQKByYWGpIFEhN4AVoPs5xXSvw8pW
+	pJnmNn3pLKYNYgAA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniroma2.it; s=rsa201904;
+	t=1791301428; h=from:from:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OdK6cwIPlCPet6hLfR7uwhBD0oYQ7PTncgtI8QIo+SM=;
+	b=QPhveSUGTjxu6991vCq4MxLFJZyQQLkRxrf+kF82xofi76IkGCFBwPMCOmFIZ/Mw1vFqY7
+	rDCWz0l7qvTWenQlysre/3TejmKYDHSDKXu5oAbaSL2a6Jor7hLwOY72bYJYEwQGtMgp2X
+	VFc/N9XBCXnH8mOrl6XdLTX59476m9oKQHuRVdmcLCADyVtzxlh8qKtFf1kf22yW9Jyi6R
+	0A5M6Uv5xKuDIquEEH5LjPUcMtMl1vc8JSp8Lk1ycKhVxrnYnswEoOlskNiAX4w/YCGTnW
+	jpm566rsZjUSybQBUfls1SlPhUYSOV75hxcwfhAbJgPtb9hp6eKLZEknmMfxUg==
+Date: Tue, 6 Oct 2026 17:43:48 +0200
+From: Andrea Mayer <andrea.mayer@uniroma2.it>
+To: Gabriel Goller <g.goller@proxmox.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+        netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+        hangbin.liu@linux.dev, Stefano Salsano <stefano.salsano@uniroma2.it>,
+        Andrea Mayer <andrea.mayer@uniroma2.it>
+Subject: Re: [PATCH v4] net: ipv6: seg6: report lwtunnel setup errors via
+ extack
+Message-Id: <20261006174348.b62a0e824aa8acfbf187e4c5@uniroma2.it>
+In-Reply-To: <20261005140637.644840-1-g.goller@proxmox.com>
+References: <20261005140637.644840-1-g.goller@proxmox.com>
+X-Mailer: Sylpheed 3.5.1 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <202610061704.rvbolgPy-lkp@intel.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Virus-Scanned: clamav-milter 0.100.0 at smtp-2015
+X-Virus-Status: Clean
 
-On Tue, Oct 06, 2026 at 05:54:53PM +0800, kernel test robot wrote:
-> Hi Bradley,
-> 
-> kernel test robot noticed the following build errors:
-> 
-> [auto build test ERROR on akpm-mm/mm-everything]
-> [also build test ERROR on vgupta-arc/for-curr jcmvbkbc-xtensa/xtensa-for-next linus/master v7.3-rc6 next-20261005]
-> [cannot apply to vgupta-arc/for-next]
-> [If your patch is applied to the wrong git tree, kindly drop us a note.
-> And when submitting patch, we suggest to use '--base' as documented in
-> https://git-scm.com/docs/git-format-patch#_base_tree_information]
-> 
-> url:    https://github.com/intel-lab-lkp/linux/commits/Bradley-Morgan/ARC-Emulate-two-byte-cmpxchg/20261005-120658
-> base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
-> patch link:    https://lore.kernel.org/r/20261005120700.383058-4-brads%40mainlining.org
-> patch subject: [PATCH v5 3/3] xtensa: Emulate two-byte cmpxchg
-> config: xtensa-allyesconfig (https://download.01.org/0day-ci/archive/20261006/202610061704.rvbolgPy-lkp@intel.com/config)
-> compiler: xtensa-linux-gcc (GCC) 16.1.0
-> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261006/202610061704.rvbolgPy-lkp@intel.com/reproduce)
-> 
-> If you fix the issue in a separate patch/commit (i.e. not just a new version of
-> the same patch/commit), kindly add following tags
-> | Reported-by: kernel test robot <lkp@intel.com>
-> | Closes: https://lore.kernel.org/oe-kbuild-all/202610061704.rvbolgPy-lkp@intel.com/
-> 
-> All errors (new ones prefixed by >>):
+On Mon,  5 Oct 2026 16:06:34 +0200
+Gabriel Goller <g.goller@proxmox.com> wrote:
 
-These patches need to be applied on top of my -rcu tree's "dev" branch,
-which supplies cmpxchg_emu_u16().
+Hi Gabriel,
 
-Nevertheless, thank you for your testing efforts!
+thanks for the v4. +1 to Jakub on _MISS. I also have two comments on
+the message text.
 
-							Thanx, Paul
+> [snip]
+>  	switch (tuninfo->mode) {
+>  	case SEG6_IPTUN_MODE_INLINE:
+> -		if (family != AF_INET6)
+> +		if (family != AF_INET6) {
+> +			NL_SET_ERR_MSG_ATTR(extack, tb[SEG6_IPTUNNEL_SRH],
+> +					    "inline mode requires an IPv6 route");
+>  			return -EINVAL;
+> +		}
 
->    In file included from arch/xtensa/include/asm/atomic.h:19,
->                     from include/linux/atomic.h:7,
->                     from include/asm-generic/bitops/atomic.h:5,
->                     from arch/xtensa/include/asm/bitops.h:192,
->                     from include/linux/bitops.h:67,
->                     from include/linux/log2.h:12,
->                     from kernel/bounds.c:14:
->    arch/xtensa/include/asm/cmpxchg.h: In function '__cmpxchg':
-> >> arch/xtensa/include/asm/cmpxchg.h:79:25: error: implicit declaration of function 'cmpxchg_emu_u16'; did you mean 'cmpxchg_emu_u8'? [-Wimplicit-function-declaration]
->       79 |         case 2:  return cmpxchg_emu_u16(ptr, old, new);
->          |                         ^~~~~~~~~~~~~~~
->          |                         cmpxchg_emu_u8
->    make[3]: *** [scripts/Makefile.build:185: kernel/bounds.s] Error 1
->    make[3]: Target 'prepare' not remade because of errors.
->    make[2]: *** [Makefile:1405: prepare0] Error 2
->    make[2]: Target 'prepare' not remade because of errors.
->    make[1]: *** [Makefile:248: __sub-make] Error 2
->    make[1]: Target 'prepare' not remade because of errors.
->    make: *** [Makefile:248: __sub-make] Error 2
->    make: Target 'prepare' not remade because of errors.
-> 
-> 
-> vim +79 arch/xtensa/include/asm/cmpxchg.h
-> 
->     73	
->     74	static __inline__ unsigned long
->     75	__cmpxchg(volatile void *ptr, unsigned long old, unsigned long new, int size)
->     76	{
->     77		switch (size) {
->     78		case 1:  return cmpxchg_emu_u8(ptr, old, new);
->   > 79		case 2:  return cmpxchg_emu_u16(ptr, old, new);
->     80		case 4:  return __cmpxchg_u32(ptr, old, new);
->     81		default: __cmpxchg_called_with_bad_pointer();
->     82			 return old;
->     83		}
->     84	}
->     85	
-> 
-> --
-> 0-DAY CI Kernel Test Service
-> https://github.com/intel/lkp-tests/wiki
+This message is also returned for an IPv4 nexthop object, where there
+is no route, for example:
+
+  ip -4 nexthop add id 1 encap seg6 mode inline segs fc00::1 dev dummy0
+
+What about "inline mode requires the IPv6 address family"?
+
+> [snip]
+>  	/* verify that SRH is consistent */
+> -	if (!seg6_validate_srh(tuninfo->srh, tuninfo_len - sizeof(*tuninfo), false))
+> +	if (!seg6_validate_srh(tuninfo->srh, tuninfo_len - sizeof(*tuninfo),
+> +			       false)) {
+> +		NL_SET_ERR_MSG_ATTR(extack, tb[SEG6_IPTUNNEL_SRH],
+> +				    "invalid SRv6 segment routing header");
+>  		return -EINVAL;
+> +	}
+
+A nit: the same header is "SRv6 segment routing header" here and
+"SRv6 SRH" in the other messages of seg6_build_state(). What about
+using the name from the title of RFC 8754 in the extack messages,
+for example:
+
+  "invalid SRv6 segment routing header"
+    -> "invalid IPv6 Segment Routing Header"
+
+Thanks,
+Andrea
