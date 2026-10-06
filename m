@@ -1,163 +1,258 @@
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DF1D383982
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 21:57:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5123386C25;
+	Tue,  6 Oct 2026 21:57:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.13
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791323854; cv=pass; b=EynLJgJ45G/GYRzTKhiy1S8DMuP7XuTtRhmooVe4sTBrFZ9SNP1U4TFM1k+cTPkyPZ5GHKunTkI1USbPztJ7V0R3Io8CZ5cwTQsQC0bkwYOpwJ3qc94eWnMt4nLBshaIW/vT5+/PErqnJpMNyXsibxU6JIiPJhhtJXb1TXbESBU=
+	t=1791323859; cv=fail; b=ZqrlXfgkW8gnGfaFMqznRrW1/dwnQxs60hBvMiTeFHyadQyBX3jRCFVt6Khud8pA7E0Di7BS76C8ddYPxJRQUb3AnJphDBonW0AyL4ACwXU0T5kc7V7N34yXnz9314vqPTbyIgitgbjIVYJKlxc+HvD1qaAO9E8x+wGjIX68Zkk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791323854; c=relaxed/simple;
-	bh=e08EuhQW7pzOcYaJ548JslB8xHm80aFdGtESM8ZlF58=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NJND4MWr+ZEKqXXpMefsKOALM/JcdNULPpp85sb+/M8VfcxN8w1571/VVVnK5X4RknsF4v/tuhA4aSyLErgHdHEOfn0rLEErreKfLnUwsSeEPf509mjlcwXQISyHxK1Hv+R/12wfKetEGUFcxDXKv7Ojd1oKKqjc04j5DZfzOWk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eQ9705hJ; arc=pass smtp.client-ip=209.85.208.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1791323859; c=relaxed/simple;
+	bh=UVP1sj2Jc7WC7lDaJUenCUTeRBdaRHZw/7ukygKBXFs=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=k38fs5dsVbEL6IPTnQebGJoYAdED9lN8OBMVbvslSBqfNmzCUL5eBPUNlpozwmGAzUxHwn1zb61bNtRhOhWgXAChATxLjxbZFxJdfqgcKVMW4716ig6lE4Cal9OfCt7OvWnfrRcgvWY6HUkBxu1+CSTNIsqNymhpX8jFtQMOnrg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Jz8Q/ZOy; arc=fail smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eQ9705hJ"
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6ae14cdc63aso2597a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 14:57:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791323851; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YE33NAHtpFM85FEJiz/iipZLR2hnYsmppN/CGh7xRR8pg233Dsr0ccfsahsTB3X5yk
-         1H9Py50mDoZrh2CPaHX6dEljZX201hJjjlYZ4bzonUif9ZBmwVfH9JZPWxZl6ZrfG5Pg
-         q2YaaFVji8Jq3T2EbeNSFj5z264kLeioiozpvJY1BxmdUJIaG2wkAUn9Idf1fgnu3uKH
-         BjfMNssKhlVobTvSTN/PKKtNFOGDjvbUGI0+awVJtwMPO8qaRmkYopZEd0LuHL6r+RcF
-         NAPD8/9csmm9gNg3AMfzagdOLHuOEokSrm7FWdQ53TZieNRR3xtFr7StH2gPFdux0azN
-         QAAQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=jCcwO2LV+Ld2g/yJwpkwAsvl8IfvNX1pMTCUsDf1qHM=;
-        fh=+xHT4Qo/L5epSoE5WZu11zSbfRMoIGgAXmtCWxVBdVM=;
-        b=d0P1jb4hrnEuSM1exvr8kMm5Jd1i+J0wpN5j/qix0RQVn7jvps7+JirQJkr+jucAtW
-         +XJq2FivCFrPCv7oXhbbyzPCy3GqVhbazkRRQr16mnS0vN72f+jkztOPnGjscQbPAOYb
-         8Q6ADZc3pOfrFt5hz0htevaC2x69S1APMU7fo/ApdSsqyGTAWNxnxDODOlVlWq0e5P6y
-         o8wPa+/BxwPqGPk7+GJN5S7m/WoG8RuH2HoUccwRGPk1DsBLgsiCU0ap6eSVzrpMlkSA
-         v9ZsDcl2pFUeMmYt65eeonF658eyktvYZSX0FlVv4xzsYOB3c9Nod8WOK1IGinEFwBng
-         4J+Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791323851; x=1791928651; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jCcwO2LV+Ld2g/yJwpkwAsvl8IfvNX1pMTCUsDf1qHM=;
-        b=eQ9705hJAkE7ySDjuMQAyrAM3oqMnmZob82tt6Su8LCyND5r7Of+mlg5t7UlzWAyAt
-         rxrXLzYFGo+RE2/CYR6kmq815soMeIPdikAFtcRUxwK13uE39prHgnjiiwFrs1UtkIPU
-         e3GMM/Qr4ZxNkrB0mrUfbNzd97eM8rlA1XKmkF59iCaSk4KhzLNGxkcjF+QvhQRnMz1k
-         SDyKyP1Fs3C4bzG8KuC/pXNVabUFH0z1YUl4RjOzca1WXOAXdc9MoAgea/CBsAjOlrEL
-         BfiZE1/YlLcYIRfyNsDjojJbq1AZiA1Rx5xAhec8f+MLa5J+HHTZJsHzMrzjZ4hcFJKK
-         WUgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791323851; x=1791928651;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jCcwO2LV+Ld2g/yJwpkwAsvl8IfvNX1pMTCUsDf1qHM=;
-        b=R+vmNYNzM5SbmPqmfp/gDAOQhZ6m8AeqkLlWTPu3vbxnjHXxkP55o5C1ah4rz2VmqI
-         tmXQoLAyteOCzyNtO0jq+c65MPXY1fe5NEUPY2FLBwwRcG1kficrGEr/xJKWx88Nrcmz
-         SD9YzEoavPKfRYcv6WfCkrwEWPvZqd75mqmUD+H+7EaStLWRS9MwKoFs2A4zT4gI/DGx
-         FwstpsMvnh4OGDrXlIEmzT9um/sk4sjXxhv5geNAOLz7lfL/n9QARQJd8+1F92z1Grib
-         nzCfoE9HOn8sI+u/w2Vija1B8SMdAMBOduF1jFfL1JagnnbBpi3tDDttCtiW3svdVozg
-         sH9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzHpMafN1N5TtnqMh4gvhZ4HrkcKTt8F+hfA6ckKjo4QWEm5y6pdBnlkX0NkG0VS6EG9ZAjbRrW7nvfbQU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKp4XOPV2C7IoAMbz9N06PFXKfHPP80szZRTuI88DdpPS8VMQ0S
-	LVy8mjMFOfE8xzYMt7jOn+qcCPtkATwAQ3lJOQb/cBJoTqM4XN5FzP9z4MVZQ0UEtNQlABCMlVp
-	s9ahNRZSc+MGjxwro9Why2p1J3caNjv4FwAlQglmW
-X-Gm-Gg: AYBFou1YhbhCGA9V1omzCWUxBe62YoAewU5QH8f6IHoS0pB2B9b7zhZcRvkQPMxKlL3
-	u+8doK9eC2CvONBZaItCIYtbsSSUtlhOlFRuB8QLdfaAG7PWYrlKlBD4mM9AjQQDjA+hIYGJiOQ
-	ifyVOJ53qgthBsoHySZWreGai6kl0oMGBMlCd8w4rEWeVmbl9HykrDC7Y53g9vyLGk9MPe2L1jR
-	GsRVE1LuOUx6KhgvPm7N7a4SOxywXAjUwqTbGMC3xqbaMjKs1BQy0YRO5TAsRpfibECrn3Ba8na
-	bmTOiLV7WUem8btmIes0MyB0sZkcOfN1xiIShprVK44XR0IiN8ms/rE=
-X-Received: by 2002:aa7:d5c2:0:b0:6aa:b72b:d762 with SMTP id
- 4fb4d7f45d1cf-6afd8fe5331mr72366a12.1.1791323850737; Tue, 06 Oct 2026
- 14:57:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Jz8Q/ZOy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791323857; x=1822859857;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=UVP1sj2Jc7WC7lDaJUenCUTeRBdaRHZw/7ukygKBXFs=;
+  b=Jz8Q/ZOy/Mta1uW3bKZxKJroTUiaNU9u3ZjjiXJ84RMniKh4vXC0hlDz
+   xh00LpmeZQNhVndCBL1BPGoMgXE/WNz6yaHpQaXtJKa0rQc3gWdRk6eTv
+   SJFtXm23lGiiHxSyJwZHrRkPCmUfr7WEdOLarT6U6FJONpTZGz+neqCYE
+   dcqmI/BF9Panh1SOle6feH2Bv8L+FMaku3+GqRK14LDUWXx97HbYWhyGs
+   1qMTWuoavw4lAJhlJ1oQpEZWE7hE/XvKGkJ7ycztat2LFg0+pFwyWZE7S
+   r5SAE+wU8ASAITSBe+sISouPofcMRa7Rjz7pgONSfUnrangYj3MQf30gF
+   Q==;
+X-CSE-ConnectionGUID: Thpmw0DcRhqGSf8nFbp73g==
+X-CSE-MsgGUID: oxNVqVFYReSQGwesO2T+ww==
+X-IronPort-AV: E=McAfee;i="6800,10657,11927"; a="72355"
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="72355"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 14:57:36 -0700
+X-CSE-ConnectionGUID: d+K/X1RYRoS9v+U/8xNRJw==
+X-CSE-MsgGUID: hq00iYyvRbyffu/371t+YA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="285178714"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+  by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 14:57:36 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 6 Oct 2026 14:57:35 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Tue, 6 Oct 2026 14:57:35 -0700
+Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.1) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 6 Oct 2026 14:57:35 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=O6hd/B3m97FZQJff7PZluYYdN/rMaQ0nd3gDj5PmsmJTjoXLrmT5sTzsCjayZoOvJAIzmwmKI8JpTM4Qb7qriOCruuJQ9rmp9PztQYC4bMuic376ib0BXoAZfwKKrGWiFynBGz52Ad+HLOSazk7R99cKvFLjKIGXbcVRAos7ieW8sVPTd9CugYCHzqwrNCCGF1MiDIv4jybdJgM7xfNpD9b/vFf39cZPDR0QmPaIW/IC779ZRBY9PWG2Ds681lpyBF8olafDaJzn45UKCZpj13LmA+iZzPrSy5TRNsxuekWLrae4utorJy/DFwtyARKYxZc6ydhQ86cEd2iWN+Uvaw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=y7Lkvbx9uCGtnXAWNsrsjZ4JbdQIkr+CCNhQrKgOu3c=;
+ b=hrjm40Rrd3sa9TU8FHc9sR5zfwtfJWuFHj1ZXL4+zYvc09piIaaLhSZtvAGVhIxywQfjc8lxruSepq7IuY5g56QMorHU1z7LWf3Md5LE7sixPK9kqzEY1NQAP/sKaVkcYpfyAHFS6Mrq7HLVB30XOEVDCtXdGsug1Xxuo3QBiVdKL3+GaDTINIYc3wcJV0Z34NMn9iVRZO3vnLCpbS/cwgBHNlfNwL579CSwgffO2cnFPJEqM+IPCkyWP5qXWIZlkL0TRljU0ZG4PYl0ezlF6MqXkNlS8PeXfpc4HGh88waHbsys+IcfIwZ4/3Ef1hiBSBgNnyTyMZfbec6Aomwcgg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB7381.namprd11.prod.outlook.com (2603:10b6:8:134::14)
+ by MW4PR11MB5776.namprd11.prod.outlook.com (2603:10b6:303:183::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Tue, 6 Oct
+ 2026 21:57:31 +0000
+Received: from DS0PR11MB7381.namprd11.prod.outlook.com
+ ([fe80::4c39:dfe6:d6dc:6f58]) by DS0PR11MB7381.namprd11.prod.outlook.com
+ ([fe80::4c39:dfe6:d6dc:6f58%6]) with mapi id 15.21.0451.022; Tue, 6 Oct 2026
+ 21:57:31 +0000
+Message-ID: <345a40de-5353-477d-8be2-8c4e6468875e@intel.com>
+Date: Tue, 6 Oct 2026 14:57:28 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v2] net/mlx5: allocate DMA pool structs on the
+ pool's NUMA node
+To: Seongjun Hong <hsj0512@snu.ac.kr>, Saeed Mahameed <saeedm@nvidia.com>,
+	Leon Romanovsky <leon@kernel.org>, Tariq Toukan <tariqt@nvidia.com>, "Mark
+ Bloch" <mbloch@nvidia.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, "Jakub
+ Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+CC: <netdev@vger.kernel.org>, <linux-rdma@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+References: <20261006-net-mlx5-numa-allocate-pool-page-v2-1-0dc4c2eb1376@snu.ac.kr>
+Content-Language: en-US
+From: Jacob Keller <jacob.e.keller@intel.com>
+In-Reply-To: <20261006-net-mlx5-numa-allocate-pool-page-v2-1-0dc4c2eb1376@snu.ac.kr>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR04CA0329.namprd04.prod.outlook.com
+ (2603:10b6:303:82::34) To DS0PR11MB7381.namprd11.prod.outlook.com
+ (2603:10b6:8:134::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930173635.3362655-1-seanjc@google.com> <20260930173635.3362655-14-seanjc@google.com>
-In-Reply-To: <20260930173635.3362655-14-seanjc@google.com>
-From: Jim Mattson <jmattson@google.com>
-Date: Tue, 6 Oct 2026 14:57:18 -0700
-X-Gm-Features: AclHuK-juL2tOV8vJqtls9IgipFfKDGs-bJ8YWH9hKG05WoEYaaS7Uk5UU7yNdc
-Message-ID: <CALMp9eS0=HgM02Ff4mv6RLHVoM3EgavhKu_P6J-oTWTMbk9zng@mail.gmail.com>
-Subject: Re: [PATCH v3 13/21] KVM: selftests: Use KVM's reported TSC KHz as
- L0's frequency (sanity checked)
-To: Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>, Sashiko Bot <sashiko-bot@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB7381:EE_|MW4PR11MB5776:EE_
+X-MS-Office365-Filtering-Correlation-Id: 259cfee8-ff33-44a9-5c78-08df23f4d1ba
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|18002099003|22082099003|921020|10067099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: bNuNUMKF65+7BvY1nxjLVwC2sV5sSnuObb/EJccwrGgA10RfVRWmzgm8tfNkk9HwDSKM/hjySN7W87TVdL73N8yvFnEWNiIzaN/JMbc3JlUNVXwMErzbFOwwnf0tWIqfXv8b/izvQgctVLajBUBz9tJBTuAFw1i5MfPaGRo4fQRWhqz5j/IFDVJSQajJvSr38q4zFRiUjr64kuw3GL5B1w60bUUvV3IZAjvLJ7dEIEDrwLgoiNwevK9HkxMGI8EFggQLsLYlOMwP6cT6d5AsJf7PvrSyZT1c/3LkQ85zF7BsjN5IN8TVQ6QQULOuHp0c/RB3VnOdW+UICRHIVKCUZ46aFJF86vv69e6fXLn65cc0ZWhB28Jo3gF5HJN5CSs2dLNGcWUayFuv7njjpo6ITo8gBhzCkJJUxL7wDLHt5MzaeFm+9e/oneO0wYrpAaIFeulBhE8fwqGbqp71VYwvST3l/ZZ7cuopCP27F7pwyP4Q6HoJc3P9KIgUDCU0l5BifkPKBLzTAubeAODEAWnQzcx0feiC2l33MfYuCWvOiDmjdYDud50wuCoGgmivRHPdcoSEmoG0UDVLl3NlvDTJFeliH27KGPCykW5VqVscO+NhSUDjRgoHG2IiVEnC/8vD2PvpViso3rjk32vyDlVFE7/BR1MjIrt4KtvHUTfp835Wia7XApZDLBTdSyaxVqvPk0k/HCvVn7k8Hw7O2wHp7w==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB7381.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(18002099003)(22082099003)(921020)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YVBFQ0NNdXRuVlRPOUVSa0ZnYlQveHluNHgvblp5SEphS0JCeFBQK1NPTk1l?=
+ =?utf-8?B?WTRjcXRVdGJPenp3eVEwV2hsNWFvRS8xWWk5aGIyaXV4K0RBUkFnYUhMcWNZ?=
+ =?utf-8?B?UDhhdnJlcFNLSGxEMHJZUDNWaXVwb1N4d2hodFJ4aFlzTkNIdzN6S2JNOUlP?=
+ =?utf-8?B?VmZTY3BCRmVpVkxVLzRyMDJBWnJlQllzZnRCajMybmErZk5xcnIxWkNiUWYv?=
+ =?utf-8?B?MlhPYXE5SlNnWGFXN2Ruc2FIeHFpK295Y1BqaGd5TnJWbFE4TFpRQkwvVjRS?=
+ =?utf-8?B?Z3hIVEpUQWRUdUx5ZGQvWGk2Ukt5elVHWlVVa1ovN3pOVjdFcmRqbzhTWHhr?=
+ =?utf-8?B?N3ZwUWRza3g1WDRqaExjbS9wQ1EvSVNYd3dGaTR6dmljdWVLYVpCNXZVcVFx?=
+ =?utf-8?B?NUx5TVlRbEpKV3p4ck85NVVpTURwejJrRjNzM3lDVmM3ZDRLWmx1cHg2c0hD?=
+ =?utf-8?B?OUtvQ0ZORzNMbDh0a1JEeEJWUkhVZkhNNEw1L0xXUjdheXZRVExnSU5jZ2Q0?=
+ =?utf-8?B?T1BrTmZITS95aTdHNHliQzQ5amNpZlNRUmxmQWNSOFZHMy9sUFVIYWhzbmVy?=
+ =?utf-8?B?M25QTzE3R3VJSjNlckZYMmNWTTdiNTJXWkgraldjOStxUHJqdjI3TTVoNkZk?=
+ =?utf-8?B?bEVrY1pSTDQ5WVltTEtXVFZMMWRybWYzbkhtZDZqejJaY01QakRFdy9wN1NY?=
+ =?utf-8?B?cnltUTJqbGpNcVdMaU4rTkJJSFQyVFN0b0dNNHFOcGtnWFYwbTA3SUh1WHNC?=
+ =?utf-8?B?ZFY3L3VsUzdXMnZiNklheEdZS3V6V2dvRlBvSTBFbW5uemVWa3puUFRqMWRL?=
+ =?utf-8?B?cGxxL3V6bWNVdE5QZkZjbXRjYkYxVkpmZTVlb1pobkw4dG91d1BCMldwTVlV?=
+ =?utf-8?B?TXl4WmFmaTROWWZwQlBML0JiTk1PRXE5YkRNMWhnbHhVaW01SHlNbnBCdlFD?=
+ =?utf-8?B?Z0prNXJNNGJKeGZFOCtJT3NhV1pUK1Aray9KajlyWWd1U0t5NDZ2VU9QNXk5?=
+ =?utf-8?B?VU9TQ3YrSUlaRFpuaWQyVlJMa3RaKzlqZ281RU0rak9JMi9FWDNRWjdaOTc4?=
+ =?utf-8?B?ZG0yWisvdkltM0F0WWZCUUo4UHBkM1BBV1crRkxjemZLSndVZzN5RmxHQnpu?=
+ =?utf-8?B?NllQTEVPMjlYZ1oyY3pod1VNZ1N0L0g3SEV4NVFoN0NJMGFrN2lLUEFaWHRp?=
+ =?utf-8?B?V0FqanI0b1BIWnZaekZSTlRZTml2NGE1RWRsOS8rd3lWL3JPaUYzMVZEMlNw?=
+ =?utf-8?B?cGh5OE52aHFBVVdKOEdCWHkrK1VXdlQ4MlFZMFBxRnVtWkNxTmFYeWdNV2xF?=
+ =?utf-8?B?S09BTm11NkxDTzdJZDJyVEdZekprM2VacUE3UTRSWVZ1ZnhZY1VUZ2RQSndu?=
+ =?utf-8?B?RncvT092MGdteHUyMU5RY0ljMmJORzVCZ0hFQ3RZb1J2aDdaUkdSOXdLem1u?=
+ =?utf-8?B?cS9lUzN5bzEvbHdVTys1NGdabEIxY1k0MEd3bXordlduOTBSTVIwWE9xNmQw?=
+ =?utf-8?B?ZnRUV3VtTW9EbE9mUDlSL2U0c0E1bng0OEpPakQzNkxxRTNRUlQ4VlY2aHk4?=
+ =?utf-8?B?MSt2TUtBYXgvZzdXaTBPUklqNHViMmZXQzkxVXYvU3VkM2xvWmJsYjVCQ0dw?=
+ =?utf-8?B?RStZaEEvSDRyQjkxT2FqOVhLNGRCOGpPbWtmdGlqaWJFQU04VXVUK25aYnJE?=
+ =?utf-8?B?MFBmRUZqd0daUVhQWTRPM1dOcmlETVU1emxIVjA0L1RFVktqc1JBWGxkRmRa?=
+ =?utf-8?B?eVJadjd3Q2dIUkVXYVlaZEZlWjA5OHdEdUdiTytTWll5ZmZMaXlTdXFyYXox?=
+ =?utf-8?B?cjFnbEtUQ3VMR0ZYZXQzV3VDTGtUZndSZitsMGdmWjZHRXBBQ3I4Y0doT3l5?=
+ =?utf-8?B?Qm5QMVJHWjM3MjhCeXh2WXdSRmhnU1Q2RzV1ejNVdzI4KzR6bU9qeTgxaGVY?=
+ =?utf-8?B?b0F3cVJXMjZJMCt0cW5nclVZeVN0KzVoNUhyRjZTSllOdCtUQTBnQnVRc3VN?=
+ =?utf-8?B?VFg0ODVyQnBqYkNKYmRLRVhuZlNHSllOWXhQZ3Q3OEtJUnc3alR5V296cVhh?=
+ =?utf-8?B?T2pmMXFPZkFSZzgxa3gzVjBNTmtWQTcyODJ3WDJ0VDV6dHVxWFBUVlpuSDZS?=
+ =?utf-8?B?MUJiOWtQcmh3Si8rODN3amZLVm5XTitpdHF6Q1A3L043N2kzbUFsOFVkS2ZN?=
+ =?utf-8?B?NktDRmJWUFAxbzZoUzhaSVVtN1R1THprczFlbjF0eDV4Q2hlSHhLb0NpeGhm?=
+ =?utf-8?B?MUJndDFVUjZRclJ0RjFESWhDckRIWUROSDk2RTFGR0pVSXhUV1k5MHF1MXFR?=
+ =?utf-8?B?M3d1b0w3VFg1QUp0Tzg1MHdtc0FQUStiQnpkamg3MnhFTmxkZGttWnpwbEZq?=
+ =?utf-8?Q?CVWEQ/eCbrSYot8Y=3D?=
+X-Exchange-RoutingPolicyChecked: J0qPsg7NHrOeF4ZpkinQ7iN0ckTOdf+SS8wUjaMYtpgi4b6FHIe8VpSkFQQxQH2xWPRhitjZyzjv1RDMSLrmRWBCJ2q6nPK3ExFlNjI9XPowSvKoXm/8/WphH1m+NC37ajDHBHqBI62piWCNwuheHGBskuGOi+kz/Ver14TTXtmk01+MC/dw02FaUVZKGTyn0USgW+xunvHBhyFBAfdDBFMCafLMeAjoG9xDi6eEjrcEIz+rEGlYX6qM/4Dit7KlOHa9M0Twm8PP5iManIqzAW6cauf1E270CeSY6iYEXgPtZe4yJBVuocb1W1kooRekstNpvvoOnnX24D+Yjc6zag==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 259cfee8-ff33-44a9-5c78-08df23f4d1ba
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7381.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 21:57:30.9449
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HjqCHp+6t517R2UuJ2iAlW3EnwbqJrCMPmTP4t/fbVpzU85kVUV6RLZgBSVZuM4XJlHjR62/7oi3606Bzd9QYt6sKscXeXocaJ1dlxXLmtk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR11MB5776
+X-OriginatorOrg: intel.com
 
-On Wed, Sep 30, 2026 at 12:04=E2=80=AFPM Sean Christopherson <seanjc@google=
-.com> wrote:
->
-> Use KVM's reported default TSC frequency as L0's frequency instead of
-> calibrating L0's frequency using RDTSC.  Trying to calibrate the frequenc=
-y
-> in userspace is all but guaranteed to be wildly inaccurate, e.g. due to
-> interrupts, preemption, etc, and no known CPU supports TSC scaling withou=
-t
-> also having a constant TSC.  I.e. there's no need to calibrate the curren=
-t
-> frequency, as it should also be the same as KVM's default frequency.
->
-> Opportunistically sanity check KVM's reported frequency against what is
-> observed via RDTSC, e.g. so that KVM_GET_TSC_KHZ or platform issues show =
-up
-> much earlier in the test, before VMs get involved.
->
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
+On 10/6/2026 7:16 AM, Seongjun Hong wrote:
+> The mlx5 DMA pool structs (mlx5_dma_pool, mlx5_dma_pool_page and its
+> block bitmap, and mlx5_frag_buf_node_pools) are allocated without a
+> node hint, so they land on the node of whichever CPU happens to create
+> or fill the pool, while the DMA pages they describe are allocated on
+> the pool's node.
+> 
+> The pool, page and bitmap are dereferenced on every block allocation
+> and free. Allocate them on the pool's NUMA node as well, so that all
+> of a pool's state lives on one node.
+> 
+> These allocations happen on the control path, so the performance gain
+> is expected to be small; the change is mainly for consistency.
+> 
+> Signed-off-by: Seongjun Hong <hsj0512@snu.ac.kr>
 > ---
->  .../kvm/x86/nested_tsc_scaling_test.c         | 25 +++++++++++++------
->  1 file changed, 17 insertions(+), 8 deletions(-)
->
-> diff --git a/tools/testing/selftests/kvm/x86/nested_tsc_scaling_test.c b/=
-tools/testing/selftests/kvm/x86/nested_tsc_scaling_test.c
-> index d790ab36a198..a78585af0ffd 100644
-> --- a/tools/testing/selftests/kvm/x86/nested_tsc_scaling_test.c
-> +++ b/tools/testing/selftests/kvm/x86/nested_tsc_scaling_test.c
-> @@ -137,7 +137,7 @@ static void l1_guest_code(void *data)
->
->  static void test_tsc_scaling(u64 l0_tsc_freq, u64 l1_scale_factor, u64 l=
-2_scale_factor)
+> Changes in v2:
+> - fix typo and specify the structs are allocated on the control path
+> - add a prefix net-next to the subject
+> - Link to v1: https://lore.kernel.org/r/20261005-net-mlx5-numa-allocate-pool-page-v1-1-01f4283932b4@snu.ac.kr
+> ---
+>  drivers/net/ethernet/mellanox/mlx5/core/alloc.c | 11 ++++++-----
+>  1 file changed, 6 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/alloc.c b/drivers/net/ethernet/mellanox/mlx5/core/alloc.c
+> index a92cf545bdaf..dcd281c4691d 100644
+> --- a/drivers/net/ethernet/mellanox/mlx5/core/alloc.c
+> +++ b/drivers/net/ethernet/mellanox/mlx5/core/alloc.c
+> @@ -110,7 +110,7 @@ static struct mlx5_dma_pool *mlx5_dma_pool_create(struct mlx5_core_dev *dev,
 >  {
-> -       u64 tsc_khz, l1_tsc_freq, l2_tsc_freq;
-> +       u64 l1_tsc_freq, l2_tsc_freq;
->         struct kvm_vcpu *vcpu;
->         struct kvm_vm *vm;
->         gva_t guest_gva;
-> @@ -159,11 +159,8 @@ static void test_tsc_scaling(u64 l0_tsc_freq, u64 l1=
-_scale_factor, u64 l2_scale_
->
->         vcpu_args_set(vcpu, 1, guest_gva);
->
-> -       tsc_khz =3D __vcpu_ioctl(vcpu, KVM_GET_TSC_KHZ, NULL);
-> -       TEST_ASSERT(tsc_khz !=3D -1, "vcpu ioctl KVM_GET_TSC_KHZ failed")=
-;
-> -
->         /* scale down L1's TSC frequency */
-> -       vcpu_ioctl(vcpu, KVM_SET_TSC_KHZ, (void *) (tsc_khz / l1_scale_fa=
-ctor));
-> +       vcpu_ioctl(vcpu, KVM_SET_TSC_KHZ, (void *) (l0_tsc_freq / l1_scal=
-e_factor));
+>  	struct mlx5_dma_pool *pool;
+>  
+> -	pool = kzalloc_obj(*pool);
+> +	pool = kzalloc_node(sizeof(*pool), GFP_KERNEL, node);
 
-Our internal Sashiko complains:
+This removes all the benefits of kzalloc_obj() here...
 
-[Severity: Medium]
-Is l0_tsc_freq passed to KVM_SET_TSC_KHZ in Hz rather than KHz?
+But I guess the __alloc_objs API doesn'thave the ability to add a node?
+It seems like we'd benefit from having support for the node parameter..
+but it does seem tricky to add. kzalloc_node_obj() could potentially be
+added. Staring at the implementation I have no idea how complicated that
+would be.
 
-In main(), l0_tsc_freq is calculated in Hz by multiplying the KVM_GET_TSC_K=
-HZ
-result by 1000. Passing this value divided by l1_scale_factor into
-KVM_SET_TSC_KHZ configures the guest TSC frequency 1000x larger than
-intended, since the ioctl expects a value in KHz.
+Still, this only really changes two allocations and they're pretty
+obviously correct.
 
-I concur.
+Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
+
+>  	if (!pool)
+>  		return NULL;
+>  
+> @@ -127,19 +127,20 @@ mlx5_dma_pool_page_alloc(struct mlx5_dma_pool *pool)
+>  {
+>  	int blocks_per_page = BIT(PAGE_SHIFT - pool->block_shift);
+>  	struct mlx5_dma_pool_page *page;
+> +	int node = pool->node;
+>  
+> -	page = kzalloc_obj(*page);
+> +	page = kzalloc_node(sizeof(*page), GFP_KERNEL, node);
+>  	if (!page)
+>  		goto err_out;
+>  
+>  	page->pool = pool;
+> -	page->bitmap = bitmap_zalloc(blocks_per_page, GFP_KERNEL);
+> +	page->bitmap = bitmap_zalloc_node(blocks_per_page, GFP_KERNEL, node);
+>  	if (!page->bitmap)
+>  		goto err_free_page;
+>  
+>  	bitmap_fill(page->bitmap, blocks_per_page);
+>  	page->buf = mlx5_dma_zalloc_coherent_node(pool->dev, PAGE_SIZE,
+> -						  &page->dma, pool->node);
+> +						  &page->dma, node);
+>  	if (!page->buf)
+>  		goto err_free_bitmap;
+>  
+> @@ -278,7 +279,7 @@ mlx5_frag_buf_node_pools_create(struct mlx5_core_dev *dev, int node)
+>  {
+>  	struct mlx5_frag_buf_node_pools *node_pools;
+>  
+> -	node_pools = kzalloc_obj(*node_pools);
+> +	node_pools = kzalloc_node(sizeof(*node_pools), GFP_KERNEL, node);
+>  	if (!node_pools)
+>  		return NULL;
+>  
+> 
+> ---
+> base-commit: 8b4e7209c842d8cb9516f1f5ef0a88aa2d8831a6
+> change-id: 20261005-net-mlx5-numa-allocate-pool-page-2ee20a04147e
+> 
+> Best regards,
+
