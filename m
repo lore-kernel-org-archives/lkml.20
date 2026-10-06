@@ -1,91 +1,177 @@
-Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7B7C37C0EC
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 05:43:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 401AB38D406
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 05:44:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791265413; cv=none; b=DVEacxgK4fRS5T9fbr0FLn3ChspdChoegqKfkB53OwdxN6E17x53fvCMNkJs6u+g2abXDdBkGYU+DyNBasbLS6XV8YF2fNtSueW4ZkHT+suIISJQT2f/9Q4oDWZbdseRlaqi86OSRPXZ22aJsbN4SByH0lYtiaeGIF/xHJoH/uo=
+	t=1791265495; cv=none; b=uaZhOA/gmmYttLMHzVOrXTkG4yCdWHw9/Vwy4xs0FFQlHZV72c8u+1RMpJ9S8RjlEBz3DImf24t3wtmJ09SDxSVARqfchKsp/HLExDelzCle1Gcynvi5YtXqx8C5nnhOdQCujBvXgof0FBtPZgBEN7KIJKXUu2cCx3moZ8O5V04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791265413; c=relaxed/simple;
-	bh=4P7rUUuIR7xsSQEmQNddgzMeQSvUB6RPQnnAfBU9ibY=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=l1NOOFVtXVw6kWqChRZfaK0JykJtdLpyCNehSu+VDtBp2Z0Wna1ErDj/ZDnxgA9N02EFS2P0wtT2rM6F8Vdjmuayf+uOayFhYe0JT1vA1kkmeXlBmwfs57zboGhbql18DS/c5G8twbd5TGM09D4QnY6vqKANCwTgEo6w9w/Anak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=vGcYlV2b; arc=none smtp.client-ip=162.62.57.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1791265495; c=relaxed/simple;
+	bh=DHoKyepo2fp+kisnl6gLY6MDmj/N/k7KerpVds1Hw9s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sWa5WUYZ8EPxZivN+XKfDqFHuHwH29iveR+WgALp5aJ6AEcaprky7rssBreu1cNH/4iIMIZkH39JVg/WzLEBzxWbjKx6n2B7wYygqmwUsYd/1nAmsKVgHaO/NEQqAEuY+t2xA1LWYOx5y813g/3GUuM4O7pPWQEWmhTlNBEgv0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=H/2QPeI5; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=J9Oym4rM; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="vGcYlV2b"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1791265405; bh=RhT+Xn+tDPpU6FbPwCjwNTRHH7v+/Y9iSfR/+4+YTkc=;
-	h=From:To:Cc:Subject:Date;
-	b=vGcYlV2bfSbzCUZ57U0BztGD+fiNCeZmwpxmtb+0BjTdETUdmpAtV9pxiIo8JFMSh
-	 TCuikQHJs/K8IkfXSuxx3wBLR+kp9HTj6ayjENcGpkNeQaTAaqtIJ9DVzyChefD4y/
-	 EO7IuQlLQ9zwC3b4AKiTEmDCRtB6t41ROPOG+q1Q=
-Received: from localhost.localdomain ([124.90.15.213])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id A6583A84; Tue, 06 Oct 2026 13:41:37 +0800
-X-QQ-mid: xmsmtpt1791265297t4f7qfc91
-Message-ID: <tencent_FFB850BF5E1E8DE5006C89BE938093D4BB0A@qq.com>
-X-QQ-XMAILINFO: MeukCuWaRbQlw4QwrlSJamyNGR8U2+7KKHN6yK2944bpDGHVXDD1wbV4XoyJou
-	 OLVyxWoB402PEMxD1AKZrZ+4pYXbWRVKo+JCm+szgewEs6m2k1HLIlQ71xBswfzWktwT1roocABZ
-	 qgj0XO19QrJdp90JiG4LQAi0Y0nq+O4oWCERPmrvol1q3VLkF7tK7wkyDr2mnia6Y8MTzZTWY1RO
-	 Cdkp0mi2fdZuchWR3ANW4vdD7KBrlwUqWPFC2M71yxLs7y6ImpH1/WUXFM6u7b78tBf7E08nSrqe
-	 dsMSVK01YooGA4tlsL86x/XWilypaNiOT3NgcgEKBJR7sunYlZ0KhAtuIAyfS5YKOr2YkeM23lhG
-	 1vfPbHY0a7dM/9/lFgNdeQoxFqW8DGW8dEi6gu2hIt9YkEcEXDz9Ks+QdTjEtTW8l79KLqCb3Khs
-	 DAdDHJbQPUSoVHBS6QCdQsP6UT2blni93Y+yZXqHYKBvy7bfkBcyOZE5TBcpusKiI8eWvbsFHzol
-	 zkhrGG88CaF2+54mP1KtDzreFUKt2oowf4sHWo/na6CrjugjR/ICwdQAK8frXkRb1dPLp7PRvsLE
-	 lOAYFZdrlk5MsToMaZ3TaSPU5TlBFIT3BnnZAwktgT2m5kZYkvPgZyF9JEtRVmyapN9Rn3QONQbg
-	 FJVQvxW0Pwb+/RhZxWRCP1D66/R9n+FliuApyi4ud2pJB0l3plbK7cueVnzpv5eb7MQdFbnXSq6Z
-	 7t3G79CzJjO+R5a+qFXh6RygFsmMqtcdQHi5LBNwtGxf7REi930Gx9C0eR54VbrSY6vnC+EddwfJ
-	 DkVgctGbvscvdm6uN1rD9E0K/rlqTBYq1laMLI9gK8WP4h8/wIzX0VPqVhcP8MbUT2EDnXEWNTh8
-	 wf5E3+rlGELSQfClilJcbwimO77hSg+LSLLfpkFIXa23WWbSRKwFHXGfD/osuXRew4azB94nPJhX
-	 eC/dP2mSGk8XQvHJPpAfGOOOuZOD1BTaurijvGhzBicz0+ibgcxo3ZgYBw4Wjt+/EyzZDMx5WaIk
-	 zzZMqpDslIttTZkTE2xrxDzU7C8t/296yvSeO+uA==
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-From: Hui Wei <2935553232@qq.com>
-To: Dave Hansen <dave.hansen@linux.intel.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	x86@kernel.org
-Cc: "H . Peter Anvin" <hpa@zytor.com>,
-	linux-kernel@vger.kernel.org,
-	Hui Wei <2935553232@qq.com>
-Subject: [PATCH] x86/mm: Fix typo in pud_free_pmd_page() comment
-Date: Tue,  6 Oct 2026 13:41:13 +0800
-X-OQ-MSGID: <20261006054113.39522-1-2935553232@qq.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="H/2QPeI5";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="J9Oym4rM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791265493;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HlbDdSB3PruPRmOdVrnRuaAfzphnBA/AuglJGG/CjDA=;
+	b=H/2QPeI5HGWXZ+ZyyHFDqHw+hNrZegLbjCGCA5hxD3IR2VJ72nK43HyGh9rcKlQWhf06qo
+	dsEt9MdiKS4Qvh3ISvgLRXx4+OjUk6A60Vjpv5NH7G7qFL+W2H202kpOVcBxo5jfeyIwKf
+	ALSJBsxUUMg65fhZ7jEfjIQptXCg4pA=
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
+ [209.85.214.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-516-IgnzJuEMMn2MBJFcZNPRGA-1; Tue, 06 Oct 2026 01:44:51 -0400
+X-MC-Unique: IgnzJuEMMn2MBJFcZNPRGA-1
+X-Mimecast-MFC-AGG-ID: IgnzJuEMMn2MBJFcZNPRGA_1791265490
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e2c785aa62so38092755ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 22:44:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1791265490; x=1791870290; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HlbDdSB3PruPRmOdVrnRuaAfzphnBA/AuglJGG/CjDA=;
+        b=J9Oym4rMR0BKMMoqf+SsuAXXwDP5DrUYsct9c9aj0LuXDQwyXSA6w6d20T2y8EDtiH
+         jBaatvkrIMy6XunXRvz2jw8Tu0ypRld+kWoHB5x0Rnavozvdvz3NVlju1ALkvhpkrt5c
+         /XxYAZEumjP4Bz5+vBWbOqZn12Hk3ZIzpEBjgzuv4wY0FMGyRtiWVdAzFAbM8RpxH8Co
+         kT/Q0mdlP9/LsjeB4spcDY39fZpu0EeJcxrjtI4VOvn1TusdkvctNW+yVZEzLtChG2nx
+         Veo2w48OhsnulpIaJP3eGN9QPXE8Et22sz+cCtrIK2j3nwluvM+kaGU9augfzv0hTXcR
+         1GaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791265490; x=1791870290;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HlbDdSB3PruPRmOdVrnRuaAfzphnBA/AuglJGG/CjDA=;
+        b=XxbChEUO0lcAhRnrWQh/Q2LpGl2pt+4oI0lA+sG07DJOOOK+BGQ1VEkqGzAMn5JkNb
+         sXms6gzL2NoV5WFOgAQAWvij8SkIY2WEdGMfyZk/ICQjbjr0M9ow9expizNh1WN+ZQ0K
+         SH/cFudqwXfaEI0kxb8d3MDaGss7JqZ9BPVqnIhvYaXsqgMYdiZ43DRhMG5MFXRzMm/Z
+         xmi3FQB/Uqk1Yz5AOZyU8iRbOW9M+ktWhRTkXmBzhSX2gy8hjWJjy5RO8ysv/bRddgyT
+         t3vVqWsv/eT+cTgL8aoqKm2gqON1MYk/n3FmHPrJI/qeff2SI3g+ZpRUMyTl4mjdoG69
+         GbcQ==
+X-Forwarded-Encrypted: i=1; AKwUvByBJ4se7A0zYGhzemMPJdtARPW6ef35IOK/ppKRqR3stgyJXj8VwpTnQoIX1xVo/uUhz2oiTefJ4LsdaG8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kmYa9r3eYiIhwHt/zy0Lm8VyWqKcyVRBRpeX2+MsXsk4wPuwtY
+	mKXtL/z/eXVM6KV3yb+yRU815+QmGoGQVkWf8srsRCotE8SHTkXZYLozuC7Bv0Gv5q57SyXCv2i
+	R8hPEa6Gri9OOQc+oF7VULYj9kmXW3l+jiZRQkFdAnDK2A5kz3ExQb6IEAwpwvisHKQ==
+X-Gm-Gg: AYBFou1zNIh5WQkNXs/q+O4SDiY2GLKu4aDTg+Dbf8fO9WbSyW6JEk9YmaB+Rsa8LrB
+	LT1EX8gpAR/5dccZ3FenIOAt58UG9FBP//vb0tKcXmx6UXNHfyI0DTM6UgEhDYHFk54Q5o7p49e
+	UXudsBEe8q1+1NlgydZUNRWDBC8Td4M/fRmepwpVvHxgiOqKHG0frlHyzTFyOb929SiVqNRtxAb
+	xPaZZ0zuct82YYoh7gurcLQwFO4H5U5rOJ5n7jBdjtTx1ibMG3E+v28kR12xEzRpefzzRHuTHdM
+	fKgjFaYoEBPBrvNh032YmudS+QuvRnugH/XRaAomLnal2YghAxwbebuNwLHRewEubSEIWNRcXvJ
+	60zpHttqtlh8XK18Kz4jfA2a6YCpbip6rBqeaAG+EaA==
+X-Received: by 2002:a17:902:d584:b0:2dd:68a4:16f1 with SMTP id d9443c01a7336-2e5dcd90b05mr3770035ad.11.1791265490000;
+        Mon, 05 Oct 2026 22:44:50 -0700 (PDT)
+X-Received: by 2002:a17:902:d584:b0:2dd:68a4:16f1 with SMTP id d9443c01a7336-2e5dcd90b05mr3769785ad.11.1791265489595;
+        Mon, 05 Oct 2026 22:44:49 -0700 (PDT)
+Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e5a5ecbdd3sm17417165ad.48.2026.10.05.22.44.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 05 Oct 2026 22:44:48 -0700 (PDT)
+Message-ID: <830e8afc-b208-4972-a45a-32c828c14206@redhat.com>
+Date: Tue, 6 Oct 2026 15:44:39 +1000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v22 21/23] KVM: arm64: CCA: Support timers in realm RECs
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
+ kvmarm@lists.linux.dev
+Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
+ sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
+References: <20261005090754.2140522-1-suzuki.poulose@arm.com>
+ <20261005090754.2140522-22-suzuki.poulose@arm.com>
+Content-Language: en-US
+From: Gavin Shan <gshan@redhat.com>
+In-Reply-To: <20261005090754.2140522-22-suzuki.poulose@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-"poitner" should be "pointer".
+On 10/5/26 7:07 PM, Suzuki K Poulose wrote:
+> From: Steven Price <steven.price@arm.com>
+> 
+> The RMM keeps track of the timer while the realm REC is running, but on
+> exit to the normal world KVM is responsible for handling the timers.
+> 
+> A later patch adds the support for propagating the timer values from the
+> exit data structure and making sure the values are in sync for KVM.
+> 
+> Also, RMM doesn't support injecting virtual interrupts backed by Physical
+> interrupts. So, use the existing software resampling mechanims for Realm
+                                                        ^^^^^^^^^
+typo: mechanism
 
-Assisted-by: LLM
-Signed-off-by: Hui Wei <2935553232@qq.com>
----
- arch/x86/mm/pgtable.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/x86/mm/pgtable.c b/arch/x86/mm/pgtable.c
-index 4a105f283..f134e9e06 100644
---- a/arch/x86/mm/pgtable.c
-+++ b/arch/x86/mm/pgtable.c
-@@ -706,7 +706,7 @@ int pmd_clear_huge(pmd_t *pmd)
- 
- #ifdef CONFIG_X86_64
- /*
-- * Given a PUD poitner, detach and free the pointed-to
-+ * Given a PUD pointer, detach and free the pointed-to
-  * PMD page and any PTE page children. The entire range
-  * under the PUD must not have any valid translations
-  * and the TLB must have already been flushed.
--- 
-2.50.1 (Apple Git-155)
+> timer interrupts.
+> 
+> Signed-off-by: Steven Price <steven.price@arm.com>
+> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> ---
+>   arch/arm64/kvm/arch_timer.c | 22 ++++++++++++++++++++--
+>   1 file changed, 20 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/arm64/kvm/arch_timer.c b/arch/arm64/kvm/arch_timer.c
+> index a45845f4ae4ea..428709f499205 100644
+> --- a/arch/arm64/kvm/arch_timer.c
+> +++ b/arch/arm64/kvm/arch_timer.c
+> @@ -56,11 +56,25 @@ static unsigned long kvm_arch_timer_get_irq_flags(void)
+>   	return kvm_vgic_global_state.no_hw_deactivation ? VGIC_IRQ_SW_RESAMPLE : 0;
+>   }
+>   
+> +static unsigned long kvm_realm_timer_get_irq_flags(void)
+> +{
+> +	/*
+> +	 * RMI_REC_ENTER rejects LRs with the HW bit set, so use the existing
+> +	 * software resampling mechanism for Realm timer interrupts.
+> +	 */
+> +	return VGIC_IRQ_SW_RESAMPLE;
+> +}
+> +
+>   static const struct irq_ops arch_timer_irq_ops = {
+>   	.get_flags	 = kvm_arch_timer_get_irq_flags,
+>   	.get_input_level = kvm_arch_timer_get_input_level,
+>   };
+>   
+> +static const struct irq_ops realm_timer_irq_ops = {
+> +	.get_flags	 = kvm_realm_timer_get_irq_flags,
+> +	.get_input_level = kvm_arch_timer_get_input_level,
+> +};
+> +
+>   static const struct irq_ops arch_timer_irq_ops_vgic_v5 = {
+>   	.get_input_level = kvm_arch_timer_get_input_level,
+>   	.queue_irq_unlock = vgic_v5_ppi_queue_irq_unlock,
+> @@ -1617,8 +1631,12 @@ int kvm_timer_enable(struct kvm_vcpu *vcpu)
+>   
+>   	get_timer_map(vcpu, &map);
+>   
+> -	ops = vgic_is_v5(vcpu->kvm) ? &arch_timer_irq_ops_vgic_v5 :
+> -				      &arch_timer_irq_ops;
+> +	if (vcpu_is_rec(vcpu))
+> +		ops = &realm_timer_irq_ops;
+> +	else if (vgic_is_v5(vcpu->kvm))
+> +		ops = &arch_timer_irq_ops_vgic_v5;
+> +	else
+> +		ops = &arch_timer_irq_ops;
+>   
+>   	for (int i = 0; i < nr_timers(vcpu); i++)
+>   		kvm_vgic_set_irq_ops(vcpu, timer_irq(vcpu_get_timer(vcpu, i)), ops);
 
