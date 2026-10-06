@@ -1,101 +1,144 @@
-Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch [109.224.244.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A426B35AC3B
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 22:23:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB5238AC65
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 22:24:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791325387; cv=none; b=t8ralkyYFKG8PPIvD0GcIxOTVrV9equIRlghl09NTq6xmKQrxUKNTdgFpo2WjdD0leTLlYc9WIdLSXkKN6xYABDwpDKcI0qVcm0MqlU4o4LutEZc4V9QYBcADACN3PI8Vr12JFbIFaZnDa2FkTmQgKtdHILXRjEmTPc4SUWS9As=
+	t=1791325498; cv=none; b=JGjuFp8vNDrFvIhdwAKS6zgR8ESnks7hXHK7jOBOxLPwNEBLDUFe6XztIU+nZUhtBZSZGRytMLpIqyPkpVvNx13I72fwQcWGLmaawgBOs58fywn1L26XQRGZDUpf5jZebnTk1cFEgPZK+D2thdqcGGYtgsXqsuQ/8U6/iHMR4EM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791325387; c=relaxed/simple;
-	bh=bFnG8yZ5td1q8WJAjS+Zi9PC6iLvCquLMDul11glZL0=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=p4Sofs0906X1OqhtW/v21aiunnPlycnXwOEnFaoL1T4euO/ffIbfuwdk64Zs229JjJFB8YqNAsAXdoXS9fo841pA9/OfEpXFCOFBP1RxsrRLJjCUPkKx41ZLDFJqOLog/auLy7Ga8SbGaVP5q7LW1//1O15tP0MUR3kow2LAGQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=LTRc49W0; arc=none smtp.client-ip=109.224.244.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	s=arc-20240116; t=1791325498; c=relaxed/simple;
+	bh=C/wjBB6ODndbUHD9ckG0IP7OsNMrq0W3o6908fW2L50=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SkyakA0g0lISppkNS+xWbWsTnrUVk9dbCOjFADXjn4jDVsWyuKy14hD1+3g7wthZQyfNmZTyElgqkp0Q0kLP38BLE6Yr+MwkYTfhn4gQXPTsDiK9TyscOnBmAgh71XEE6j437BL2AHNrKsqbJuFeKpUz4908xaCyvD0qbifDvt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=HQnFtNIa; arc=none smtp.client-ip=209.85.160.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="LTRc49W0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1791325376; x=1791584576;
-	bh=bFnG8yZ5td1q8WJAjS+Zi9PC6iLvCquLMDul11glZL0=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=LTRc49W0YJYKrc2WSfI67cLCTOJN+avwqszEqShwSskorK2gR9eMZw0opDyyEzDtS
-	 wIoQwuP7RUX7cvD9y1wfX3Va9WPugRrnNTz3p+/XmXL/iJv6GLLWtDQvS5O/DNWSkN
-	 si5goAYkRPQ6vrnJG03V68GMKoS3m9SXkvse9L6jCBMNUaaqvldby3+b0h3RXqZZH6
-	 O32ArpGhJ8O6/CxHKHz63PehtQtZvcSGRUs6djwIMDGrCx8l8DFr+IhlVQ7Aw4vZlP
-	 gxr5tHmqRmJA9HMewBhQdlPQNF8Ow1yTtc+C9AydVjt5k2BADbnWxLtaEhOrtzFzLb
-	 sCn70j4BZ/GCA==
-Date: Tue, 06 Oct 2026 22:22:51 +0000
-To: Joe Damato <joe@dama.to>
-From: anmory <anmory@protonmail.com>
-Cc: netdev@vger.kernel.org, michael.chan@broadcom.com, pavan.chebbi@broadcom.com, linux-kernel@vger.kernel.org
-Subject: Re: [RFC net v4 0/4] bnxt_en: Make RING FREE more robust
-Message-ID: <eXJey19uF3K9zJxeuqly_VAGq8y6AiyexdzLKxv22b7m1Av025Dp-w9cGWDelfFwBqcD-wtUIjtz7p1ZYKwlKeyzd3vHHpdY7U6FGPIrK7M=@protonmail.com>
-In-Reply-To: <asVYjdbZGMAEck2t@devvm20253.cco0.facebook.com>
-References: <VyyrJwrwBZEIGezDRJP8QPxbcsGROaxnmohLCnzNQY6sX5CEt0BK3AEC_0MGBx6OxGf4H5UG_xQcqgtAonwmXLdZ5Bd3INWMsof8Oj6ruqg=@protonmail.com> <asVYjdbZGMAEck2t@devvm20253.cco0.facebook.com>
-Feedback-ID: 107053670:user:proton
-X-Pm-Message-ID: 2a1d023a01d49c8fa5c2c0f5463d72d48a8186d3
+	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="HQnFtNIa"
+Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-48e94879f02so483889fac.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 15:24:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=openai.com; s=google; t=1791325496; x=1791930296; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NRmWs1MEMIQ0AZDf8upgCfJOi1tx4WylAjm9X23MxPc=;
+        b=HQnFtNIaajFZYK80ldSYTSAAMUKUysYyH6MipFGMpjBRzEVqOQqTsAx1T+JdpSNzwK
+         jBOkSJ4kt6CXvtE4QjDQGBJFkAytnjfzzL+FAwzf0usU+gmqUQmFmgh7oTNJOnn34JHk
+         cPseTxtiRe/0jlUYAVccbL0dP9ZswtZGGKyjE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791325496; x=1791930296;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NRmWs1MEMIQ0AZDf8upgCfJOi1tx4WylAjm9X23MxPc=;
+        b=unFBz7TOZffp0Hw7k6SSUTFIA6IIxNS241YZNLMCs6SY/fEMDsMknDKru4dqUxibO5
+         H+PPv7wfsJnq276dGNgPw9cqzV/bnqAPufDpOve1UAfIdP91AXPE1SvARAX3DE/v4gcg
+         3RM+4yM8O/+NtEFZzaw4MaSm7iEu9sq06po5Jg5i7FCvCC7/3bFASWxBbaesGUOz+jqs
+         p40NxIWmB0FugWNCWnpptCZQZPACs/7vr0tb5QSF65F+qkhZ55RpntSGHiVHyl78LpzH
+         T/SWo+pf+PYqiHk0+sEqyH0gu3hvTzegrsNGvXxR2UCwZDdoVveRApLC1+3b0heE9Eov
+         ccmQ==
+X-Gm-Message-State: AFuF++lZX/3NvyrQlq6bgIkZYP4cuEvxyra+0YrpvCMyeydvbw8/7D8V
+	RYFIkCd6275YsFizHYuYwKPvNNbT5RpS00p2QopuYS9vuV+vBqJJLiGjRjatBnLX+ZWedCqCot+
+	FBupXFKQ=
+X-Gm-Gg: AYBFou2ggvNZUDPPSUiSNTqnImKwyfncXV6ajFNNkmd9cFiahM87zST/GHbL3vK/OYD
+	PUMD2Q8m/GOV4s7TeG6o8NPINOaEf6Dqv8RMvS1gJOckXSuxaex3U+HITyO1GI5R+AE43lj4Ba6
+	IQpwinQMvk7rGXvvpMg0IKeWbDcck91ee4ZplGCjO700zpqGINgGMvukIZnswRZFxzCKAY8J8X/
+	479py/bJUzzAGa0JqG9XAPiskJmYJngAKk9xjM335+hH+ZHUvIoNz5nGprJ6geiz7Tw4lZzjKgx
+	ZfFeD7q9igaoD7JP8fKpG4FmkYyB1arK66SQo+esjroRQNhqpi7lMKSCJisKn8TpwF6TOl0eKeO
+	ohjopLlxIHxyACQMmhKPjgvkZTqfL9dSIR8kS8yAGgI5Q1iPWfEq0iT/VkvdRyyQUETHG2hx7QL
+	Yku2ThymTvyOwfLAwAK9benik4HtRlZP4vw1s5+7+iBi/1zkNEDHH+4/amuvpFC8j9d4keJmATu
+	n4H9vRQDG0ZebngoG19VK2yHcoFTg4WVa2g1FqQBN7zwkIlwHQ+RE3GxM6Jz9TSnS8Bd8zoQWw=
+X-Received: by 2002:a05:6870:c248:b0:449:bccf:bb6e with SMTP id 586e51a60fabf-4a2591dc120mr415992fac.7.1791325495841;
+        Tue, 06 Oct 2026 15:24:55 -0700 (PDT)
+Received: from com-75606.corp.openai.org ([199.47.143.7])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a25716e1f5sm578773fac.9.2026.10.06.15.24.53
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 06 Oct 2026 15:24:55 -0700 (PDT)
+From: Kyle Zeng <kylebot@openai.com>
+To: linux-kernel@vger.kernel.org
+Cc: tglx@kernel.org,
+	mingo@redhat.com,
+	outbounddisclosures@openai.com,
+	Kyle Zeng <kylebot@openai.com>
+Subject: [PATCH] futex: Use a keyed hash for global futex buckets
+Date: Tue,  6 Oct 2026 15:24:50 -0700
+Message-ID: <20261006222450.42518-1-kylebot@openai.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
+The global futex hash is a public jhash2 of the key, which for private
+and shared-anonymous futexes includes an mm_struct pointer. A task can
+populate a bucket with futex_waitv() and time nonmatching wakes to learn
+which chosen user addresses collide. Shared-file keys have predictable
+inode sequence numbers, so the task can also identify the bucket and
+turn those timings into constraints on current->mm.
 
-Hi Joe,
-one important detail I omitted from my previous mail: the affected eth1 int=
-erface is an 802.1Q trunk with multiple VLAN subinterfaces.
-We also use Keepalived VRRP with use_vmac, so virtual MAC interfaces are la=
-yered on the VLAN interfaces. Traffic is routed/forwarded through the host =
-and uses conntrack/SNAT before leaving through another physical interface.
-We are not deliberately toggling VLAN offload during the test. The reproduc=
-tion so far is simply to boot Debian 6.12.111-1 with this normal network co=
-nfiguration and workload. On one host it reproduced after about 20 minutes;=
- on another it reproduced almost immediately. We have also seen a previous =
-occurrence after several hours, so we do not yet have a deterministic packe=
-t-level trigger.
-Given the VLAN configuration, Eric's patch looks especially relevant. I'll =
-test 6.12.111 with that patch first as you suggested and report whether the=
- failure still reproduces.
-Thanks, R.
+The per-mm private hash does not prevent this: a task can disable it
+through PR_FUTEX_HASH. NUMA-routed private futexes and shared-anonymous
+keys also use the global hash.
 
--------- Original Message --------
-On Tuesday, 10/06/26 at 22:22 Joe Damato <joe@dama.to> wrote:
-On Tue, Oct 06, 2026 at 04:43:42PM +0000, anmory wrote:
-> Hi Joe,
->
-> we appear to be hitting a very similar issue to the one described in
-> this RFC on two Broadcom BCM57504 systems.
->
-> One detail that may be particularly relevant is the ordering in our
-> reproductions: on both systems the AMD-Vi IO_PAGE_FAULT occurs before
-> the NETDEV WATCHDOG / TX timeout.
->
-> We originally encountered the problem after updating from Debian
-> 6.12.107-1 to 6.12.111-1.
+Use SipHash-2-4 with a boot-time random key for global bucket selection.
+Hash the three identity fields individually, without padding or the
+separately handled NUMA node. Keep the original futex keys and equality
+checks, and leave the per-mm hash, which only hashes userspace addresses
+and offsets, unchanged. Initialize the secret before the global tables
+are made available and keep it fixed for their lifetime.
 
-BTW there was recently this patch [1] proposed by Eric which helps prevent
-a bug Stefan reported [2].
+Assisted-by: Codex:gpt-6-astra
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+---
+ kernel/futex/core.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-I am not sure whether the bug you are hitting is Eric's bug or the bug I am
-chasing.
-
-Other than explaining how you repro'd the issue, if you want to test Eric's
-patch you could apply his patch to v6.12.111 and see if the issue still
-occurs.
-
-If it stops, it's probably the bug Eric fixed and not the one I'm chasing :=
-)
-but if it continues, it could be what I've been looking for and I'd really
-want to know how you reproduced it, please.
-
-[1]: https://lore.kernel.org/netdev/20261006042153.199444-1-edumazet@kernel=
-.org/
-[2]: https://lore.kernel.org/netdev/20261004122616.56714cbd@nargothrond/
-
+diff --git a/kernel/futex/core.c b/kernel/futex/core.c
+index a061f54b606d..941713b62ee1 100644
+--- a/kernel/futex/core.c
++++ b/kernel/futex/core.c
+@@ -42,7 +42,9 @@
+ #include <linux/pagemap.h>
+ #include <linux/plist.h>
+ #include <linux/prctl.h>
++#include <linux/random.h>
+ #include <linux/rseq.h>
++#include <linux/siphash.h>
+ #include <linux/slab.h>
+ #include <linux/vmalloc.h>
+ #include <linux/kmemleak.h>
+@@ -58,6 +60,7 @@
+ static u32 __futex_mask __ro_after_init;
+ static u32 __futex_shift __ro_after_init;
+ static struct futex_hash_bucket **__futex_queues __ro_after_init;
++static siphash_key_t futex_hash_key __ro_after_init;
+ 
+ static __always_inline struct futex_hash_bucket **futex_queues(void)
+ {
+@@ -386,8 +389,12 @@ __futex_hash(union futex_key *key, struct futex_private_hash *fph, struct futex_
+ 	}
+ #endif
+ 
+-	hash = jhash2((u32 *)key, offsetof(typeof(*key), both.offset) / sizeof(u32),
+-		      key->both.offset);
++	/*
++	 * Global bucket collisions are observable through futex operations.
++	 * Use a keyed hash so they do not disclose the mm pointer in the key.
++	 */
++	hash = siphash_3u64(key->both.ptr, key->both.word, key->both.offset,
++			    &futex_hash_key);
+ 
+ 	if (node == FUTEX_NO_NODE) {
+ 		/*
+@@ -2090,6 +2097,8 @@ static int __init futex_init(void)
+ 	unsigned int order, n;
+ 	unsigned long size;
+ 
++	get_random_bytes(&futex_hash_key, sizeof(futex_hash_key));
++
+ #ifdef CONFIG_BASE_SMALL
+ 	hashsize = 16;
+ #else
