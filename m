@@ -1,50 +1,67 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f6.google.com (mail-wm2-f6.google.com [74.125.225.134])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC0F1547061;
-	Tue,  6 Oct 2026 17:13:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AF7649D5B0
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 17:14:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.134
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791306804; cv=none; b=mkWwT3ySrKYza/MkeBUPnLgg/LO6fIQTplTAtL4l9llbGMNlN8KZ5v4X7QPrMMtAoHQOxCJE3vHpdGwbRp/rVSKs74i5Z+WVUTSNzFJjI/wqFPp6Y0i70yy7uY58zj2uumgZqmEDKJfpN5RBb/P7k2HeJZej9mK/JUpBi0baJms=
+	t=1791306880; cv=none; b=bT5rVPROi2dh7r/a0VXtNJV0p5uC536qtcIXuKIBkMP0tmz/Wkd5s0f9pS4ofhBQxPjHrYs3AJzS7y1lxEwYuEb5DO/cPC1mQvMaCCKHt17fdLsyaiiWRp1kS2+zdlB+wIwoQh6fJtQLuFpxM+g9scT8WcJFnjQXkgypTHVXRtA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791306804; c=relaxed/simple;
-	bh=6hTp7abrUCBANrVeUZr7+9orxPXfXbaltmosY1LJSGE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=C/n6s5IIZaSNLwAWD9/TYXqsgyRWt2SzhWDWHPidzSj6aGAcPG8vSa7Wyhtu72fE50kMnXoybYKz4W+iUy2oLfZZo+3gKYtiRZrJzduxVfLIhnEtPIxw3exeXMMoohrrEsysxXpSt7h0aOk5uoC5xjQsiTbcqWzCFwreFZZ7Llo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=K1RELe0X; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791306880; c=relaxed/simple;
+	bh=de0q0u9wOZaDN3BfzaDpLHztm5ogLHhnn6peJDNVgH4=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=gyZfUSM2cjjAyK3YeedS1ZVYMFbTzz51klRh7xBqjkDnZ6Sbpopl4/am8qMJ83BL2urA4Q0MALIZ4V2U3F+47VoWHpyHo3XQfJfdHYYZTFppybjurAs8aNm0ZzneZ4F0aihr7O+zfH/g9Y+c9/TPQ337jhZdUz+H8napHiZpp6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h+QF0Jf0; arc=none smtp.client-ip=74.125.225.134
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="K1RELe0X"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791306803; x=1822842803;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=6hTp7abrUCBANrVeUZr7+9orxPXfXbaltmosY1LJSGE=;
-  b=K1RELe0X28oVhIB/ZjKusaN+p11u/S4aXkKx4jF1A+1AAbsmeXLBmXBS
-   zP/nyvI0zgTDgBT+R9X4VmbAqIoP7zmk49g5YTPsahtKS58oBxwANOmcR
-   SoWRm9POg3LDvaGLLzEZLcSSYrsRycMxS4eSQc7ivACJ97khb0nuDE+mm
-   G7EMbcwJHyQFVoRDbUEgwRzW3y+SMONbCv1oC+7rYFN72jp0rwHrWt964
-   XM27ANpU2bohiJR//Af+HzDRRXi62AxRU3Tal+JhWhCOgn/5cDixfhMTB
-   ltbBDw/gDW2yixgAFHbHpMPJH7JqciFS7fxdTwQ2ycJLHo1lHjH4RJV2y
-   A==;
-X-CSE-ConnectionGUID: 47gXiDwqRsSl0oH4k7vhhg==
-X-CSE-MsgGUID: kNbl7PwNS9CbwxvOFVCKtA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11927"; a="117526832"
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="117526832"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 10:13:21 -0700
-X-CSE-ConnectionGUID: RISsF7C2Tba5ZlFsLqWc9g==
-X-CSE-MsgGUID: 0BJZiU5xQMqTmvD1a68euw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="274994321"
-Received: from soc-pf446t5c.clients.intel.com (HELO [10.24.80.90]) ([10.24.80.90])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 10:13:21 -0700
-Message-ID: <eec2107f-2c08-44ad-98c8-2c92f7a31fd3@linux.intel.com>
-Date: Tue, 6 Oct 2026 10:13:21 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h+QF0Jf0"
+Received: by mail-wm2-f6.google.com with SMTP id 5b1f17b1804b1-49fe4ca1052so6394995e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 10:14:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791306877; x=1791911677; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=de0q0u9wOZaDN3BfzaDpLHztm5ogLHhnn6peJDNVgH4=;
+        b=h+QF0Jf0Kj3zLougfbrd+KzperRO6tQxkHJjQJfVNQ0M7lYBrvrCCWknhSWmFdE/vl
+         b5LWoM1o26fnByiWCr0uUoBFkzDLIZHD0EQcdQtn4egLyaMrHvwGyGbcUUbHyiaFmoG5
+         cGPEcueBNvSTkQSF+xB1xBoSxv+dOHgoshjuG/6BgixQd6Biv9nC7rL9WSvt+GPfzNXp
+         dhctWv+ImhhiPDXZtXwwuCmr2QUJCs0IGpPLqxxub8uquCXWm8AJ86KVvlaw9XP2+l1O
+         lCgkJDbWzMedUVnXPykMYyeynMUF0dZisLvrpVEeFQyfUCFDgNnaVpJL+q0MzGrE2UHd
+         i9Xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791306877; x=1791911677;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=de0q0u9wOZaDN3BfzaDpLHztm5ogLHhnn6peJDNVgH4=;
+        b=Acei+IFAXoRVcWllpN/iS3QI5MWg1TaMn+09YqQbyg8f4+6RjskxrEm7P43Qxp2/0H
+         8eb0LBaTV8/vJwpSdtjvvqfimHPvy+BSuu1ORU3el5Qzwcq8djspJElU2k2scl8uw/AA
+         2ZCApaf6+RTB/fpv6xk7tRTSubozv9MX1yWou9lm9QBkfDS5M8aK3jjwkmZz9vsi+YmG
+         O4Qy8pICd7IYIE+/wdKzv/kRjUh9kTKc+8CktckaUrd5riBBJLRjz9j0Xj6yBVG/HnAx
+         m7Pvs8hE5iqIXZr/xIigSzyrImZz5khCnF9GqdELCFil6gkKnAZDwFv+opYkmdZy/ieq
+         pKRw==
+X-Forwarded-Encrypted: i=1; AKwUvByOOAinbWIpto6vfnCEltrwEE+LE0bIRK31UTSx8dDbN7TXjwye7MxzOpA6/pNOjQnmls9NDhyfFeY8cL4=@vger.kernel.org
+X-Gm-Message-State: AFuF++k+dgp2/0x9rsEUPYwb4j761QYY+32RBL95rBvtCr8hprVKwFAu
+	CLMTb1SZA24fEI6fErv7DUy/qjZsuHzsYJR0FSuNVTYXb3dW96FT1ZVZ
+X-Gm-Gg: AYBFou1p8hfkEkZWuByR7Qj0iPh6cUUC93kJoOEfzmrkELbe0SdfOgclyw72d4qWAf8
+	uD/Zmc2yewJV94c/Wtpgh+1Mo5Nj1HdBLNewDDfH6Qdu/RLDsbzmVjBApNG1EClz55xgYljSjAm
+	SEDNk0XIIVzKLDo8puKyYKtfSaeok/nPSCDA0gjRdQMPwt214vm8VIdOLt+zu9wKZQfRylJxRAR
+	qounIXFsxrZZXYbFUJhoKwm0/zvIFKC+vnFvmXTwh3lALZXyJnwyCEKgBZopH/qh88CibORnRlT
+	M5bberuPmE4ihnP4MXMWpyLR47vmxkNyLUqDwYvc0u/tAd4SbGgdKX2QhmyCPH/et6YfzHQZaS8
+	7A9Yj/Q7UNjqC6FPs2k5KJHlFnLT1EnApSTThGOh2gLYkjCw4WgGSEIwfKkmC0b8w9UyM9y4hKb
+	pZPxZS+Dzhn3IEywYGwkEX583ZMqrThTyWPs/ZA9Np0s7Oyh5Bjd4gM/DOd1UiYwkNmIQLY3qlN
+	y5JlOWCsG1R3iND
+X-Received: by 2002:a05:600c:45d3:b0:4a0:2835:6fd3 with SMTP id 5b1f17b1804b1-4a17b547ac5mr34074015e9.17.1791306877406;
+        Tue, 06 Oct 2026 10:14:37 -0700 (PDT)
+Received: from [192.168.1.44] ([182.182.239.23])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d1f3f7sm636697f8f.32.2026.10.06.10.14.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 06 Oct 2026 10:14:37 -0700 (PDT)
+Message-ID: <84e9de99-8997-47f0-986d-910924c61d7f@gmail.com>
+Date: Tue, 6 Oct 2026 22:14:32 +0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,92 +69,23 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/3] PCI/AER: Document that aer_recover_queue() takes
- ownership of aer_regs
-To: Priyank Rathod <rathodpriyank@google.com>,
- Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
- Oliver O'Halloran <oohall@gmail.com>, Bjorn Helgaas <bhelgaas@google.com>
-Cc: Lukas Wunner <lukas@wunner.de>, Jonathan Cameron <jic23@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Dave Jiang <dave.jiang@intel.com>, Shiju Jose <shiju.jose@huawei.com>,
- "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
- linuxppc-dev@lists.ozlabs.org, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260928-b4-fix-aer-memleaks-v5-0-ba6b94c9c9a6@google.com>
- <20260928-b4-fix-aer-memleaks-v5-3-ba6b94c9c9a6@google.com>
+From: Shehryar Ahmad <shehryar.amd@gmail.com>
+Subject: Re: [PING][RFC PATCH] iio: adis_buffer: fix buffer ordering for IIO
+ core demultiplexing
+To: jic23@kernel.org
+Cc: Michael.Hennerich@analog.com, andy@kernel.org,
+ antoniu.miclaus@analog.com, dlechner@baylibre.com, dragos.bogdan@analog.com,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, linux@analog.com,
+ nuno.sa@analog.com, robert.budai@analog.com, shehryar.amd@gmail.com
+References: <20260927185929.70635769@jic23-hlaptop>
 Content-Language: en-US
-From: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-In-Reply-To: <20260928-b4-fix-aer-memleaks-v5-3-ba6b94c9c9a6@google.com>
+In-Reply-To: <20260927185929.70635769@jic23-hlaptop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 Hi,
 
-On 9/28/2026 10:40 AM, Priyank Rathod wrote:
-> ghes_handle_aer() allocates the AER register snapshot that it passes to
-> aer_recover_queue() from ghes_estatus_pool.  aer_recover_queue() returns
-> void, so the caller cannot tell whether the record was queued, and the
-> AER code owns the buffer from then on and must free it on every path.
-> 
-> None of this is documented at the definition of this exported function.
-> With GHES enabled, a new caller that passed a buffer from any other
-> allocator would hit the BUG() in gen_pool_free_owner() when the AER code
-> returns the buffer to ghes_estatus_pool, and a caller that freed the
-> buffer itself would cause a double free.
-> 
-> Add a kernel-doc comment that describes the parameters and states that
-> aer_recover_queue() takes ownership of @aer_regs, which must have been
-> allocated from ghes_estatus_pool.
-> 
-> No functional change.
-> 
+A gentle reminder, it's been more than a week since Jonathan's review.
+Responses from library maintainers would be appreciated :)
 
-Thanks, this matches what I had in mind. 
-
-Reviewed-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-
-Bjorn, I see you already applied the series to pci/aer. Feel free to
-pick up the tag if it is still convenient.
-
-> Suggested-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-> Link: https://lore.kernel.org/r/4513e7d4-4e2f-42d8-8f0c-2f0e03815dee@linux.intel.com
-> Signed-off-by: Priyank Rathod <rathodpriyank@google.com>
-> ---
->  drivers/pci/pcie/aer.c | 18 ++++++++++++++++++
->  1 file changed, 18 insertions(+)
-> 
-> diff --git a/drivers/pci/pcie/aer.c b/drivers/pci/pcie/aer.c
-> index a6600801af6e..a58244e00bc4 100644
-> --- a/drivers/pci/pcie/aer.c
-> +++ b/drivers/pci/pcie/aer.c
-> @@ -1404,6 +1404,24 @@ static void aer_recover_work_func(struct work_struct *work)
->  static DEFINE_SPINLOCK(aer_recover_ring_lock);
->  static DECLARE_WORK(aer_recover_work, aer_recover_work_func);
->  
-> +/**
-> + * aer_recover_queue - queue an AER error record reported by firmware
-> + * @domain: PCI domain (segment) of the device that reported the error
-> + * @bus: bus number of the device that reported the error
-> + * @devfn: encoded device and function number, as returned by PCI_DEVFN()
-> + * @severity: AER_CORRECTABLE, AER_NONFATAL or AER_FATAL
-> + * @aer_regs: snapshot of the device's AER Capability registers
-> + *
-> + * Queue an error record received from firmware through APEI GHES.  The
-> + * record is processed later from a workqueue, which logs the error and,
-> + * for uncorrectable errors, attempts recovery of the device.
-> + *
-> + * Takes ownership of @aer_regs, which must have been allocated from
-> + * ghes_estatus_pool with a size of sizeof(struct aer_capability_regs).
-> + * The buffer is freed with ghes_estatus_pool_region_free() by the work
-> + * item that processes the record, or immediately if the queue is full.
-> + * The caller must not access or free @aer_regs after this call.
-> + */
->  void aer_recover_queue(int domain, unsigned int bus, unsigned int devfn,
->  		       int severity, struct aer_capability_regs *aer_regs)
->  {
-> 
-
--- 
-Sathyanarayanan Kuppuswamy
-Linux Kernel Developer
-
+Thanks
