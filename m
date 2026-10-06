@@ -1,126 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A1583B27E7;
-	Tue,  6 Oct 2026 10:07:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5D05F3B27E7;
+	Tue,  6 Oct 2026 10:08:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791281245; cv=none; b=BXkMdtRA72ksOC/bgWzuvP6EwiO1AHz5octJgSTCJ8QGsYwbo49QyjM+x7ZbXYtcA606kmcDb/s9/OvGawGCQ3BTwJiRRS0LZz/Ep5waq0RGVGPMQs3Inx0IoGG6fKf/yZnw2VrFNhBiI8K+WIORP1q7IqQo3sqjwUTSRCqAoew=
+	t=1791281315; cv=none; b=eA/4EBfejiZMqo7rMllTiexUuSmkXOH41GvSmWN+Epm2udOOIvL9uNzeh9NiAyl/Vb7/fNnoAAfTppSAL60lNzaUHfmGi+PUH54McCxZ0Oa/B7suR/YWdLKZriPHcWJTzLr3aqPuASjboqxaeHhZRo1II3j4uzoNiAYXXG8uA30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791281245; c=relaxed/simple;
-	bh=pxeVVIHNnlWwD6xFFtuu1+vHeopqEeuP1HyhH2p1Mh8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b1vV0vEpo+CChATjTLa25xrcf8D4R0zdVMHmKiYnQ1YJ9nywHH1jcQGda4EU/IweoHbKggxcAsF9k5BOJy3qbklehbxxTikOtX7kvs86otFa30oklNzUQfWs5Pt/UlN/4pe1zepUt5TrBfdS8Xc/SJbhKpYyQMTxLxCWtP61ly0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nszWfxxU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791281315; c=relaxed/simple;
+	bh=gnp8MSjVsj2xCAhK7jar17DLHCZrDPkcKPJcGmYENxY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RrLc/aAyX9CmU8A1zv5amPcYxFhyCWlibVA6e2tCudZqPDtX/l7r3Aiivo1TXe8AdAz3qiXlG5s9acAXxO8F1II2tGnLxU51Tf3VQ806jMg7CwHD6kVw6vlKW/YsuCwYsUkCJDtu8LzmS7s6bzA8M8bgjO8NrKCWL3sEJ1ySzCU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=qvjOFXrC; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nszWfxxU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EE2E1F000FF;
-	Tue,  6 Oct 2026 10:07:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791281241;
-	bh=qUF+033+/7SK+YgWY0SC+6O8QQFqvbHIyTFHI7FQAlE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nszWfxxUcE/Q9Namhuvv2MlvaE6iPZcX4IhoQbECsAtThGqIjZUT0W8v1HAkIr3TH
-	 P2UVdEG/+GOGJbfPkEuAsqqBiZfDaW/AKi/dZdVgO+wiDgu7zFwr1KYYzyCxerZbtK
-	 m3I77Kf7aukC/PW0eRvHZyUUzxCoWjJ8CuYlqtTm3qzJW1rHfDaiEgeFHW52ziMKP3
-	 huQ+BHtdpvIudNaiYNfmQnSr6OFIRezvSK9AVGW14dCnlgKGpptKak8Hg9Dzn8iguq
-	 mQA4c2TD/3W28CHzwSQXtXrjdNC3HWwGLA6ID2rRnQxJaS37G63P/e6k8PKIaD0DtV
-	 oKaEynT4xl1gg==
-Date: Tue, 6 Oct 2026 11:07:16 +0100
-From: Daniel Thompson <danielt@kernel.org>
-To: david@ixit.cz
-Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
-	Helge Deller <deller@gmx.de>, Kiran Gunda <quic_kgunda@quicinc.com>,
-	Marco Mattiolo <marco.mattiolo@hotmail.it>,
-	=?iso-8859-1?B?QmFybmFi4XMgQ3rpbeFu?= <barnabas.czeman@mainlining.org>,
-	linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	phone-devel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Joel Selvaraj <foss@joelselvaraj.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v4 3/4] backlight: qcom-wled: Fix unbalanced OVP IRQ
- enable at probe
-Message-ID: <asTIVMnldeyS4T9p@aspen.lan>
-References: <20260921-qcom-wled-backlight-v4-0-bab8c7ef73cb@ixit.cz>
- <20260921-qcom-wled-backlight-v4-3-bab8c7ef73cb@ixit.cz>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="qvjOFXrC"
+Received: from [10.95.66.108] (unknown [52.172.102.222])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 7A7A720B7166;
+	Tue,  6 Oct 2026 03:07:31 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 7A7A720B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1791281257;
+	bh=Gt1lp+Gdyr+I3+ep/fgfelXAWkuyT6J0SUoT/mWxGK4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=qvjOFXrCl2Fm7UpQpdxBBERC1/pwNW9LxDDp3yH1tH7KYtGcXxKtDlsJpfibq4Vxk
+	 Bfi9nnVAY5937ciu1VKyQMFEYjye25C0BExY/t+G8WcJcHJSN6M88oNg75ZsdQb1qQ
+	 r6E4hq1xVBJAJYQEspNRjH1QwGQ0La7JWOgo7buE=
+Message-ID: <6c1752b6-d09b-4d64-ac33-ab401df266fd@linux.microsoft.com>
+Date: Tue, 6 Oct 2026 15:38:23 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260921-qcom-wled-backlight-v4-3-bab8c7ef73cb@ixit.cz>
-
-On Mon, Sep 21, 2026 at 12:46:24PM +0200, David Heidelberg via B4 Relay wrote:
-> From: David Heidelberg <david@ixit.cz>
->
-> wled_configure_ovp_irq() derives the initial state of the OVP interrupt
-> from the hardware:
->
->         /* Keep OVP irq disabled until module is enabled */
->         if (!(val & WLED3_CTRL_REG_MOD_EN_MASK))
->                 disable_irq(wled->ovp_irq);
->
-> but wled->brightness, which is what the rest of the driver uses to tell
-> whether the module is on, is left at zero.
->
-> On boards where the bootloader hands the kernel a lit backlight the two
-> disagree. MOD_EN is already set, so the interrupt is left enabled, while
-> wled_update_status() still believes the backlight is off and takes
->
->         if (!!brightness != !!wled->brightness)
->                 rc = wled_module_enable(wled, !!brightness);
->
-> on the first backlight update. wled_module_enable() then schedules
-> wled_ovp_work(), which calls enable_irq() on the already enabled
-> interrupt:
->
->   Unbalanced enable for IRQ 176
->   WARNING: CPU: 0 PID: 160 at kernel/irq/manage.c:774 __enable_irq+0x50/0x80
->   Hardware name: Xiaomi Pocophone F1 (DT)
->   Workqueue: events wled_ovp_work
->   Call trace:
->    __enable_irq+0x50/0x80
->    enable_irq+0x48/0xa0
->    wled_ovp_work+0x18/0x24
->    process_one_work+0x1d0/0x350
->    worker_thread+0x13c/0x460
->    kthread+0x110/0x114
->    ret_from_fork+0x10/0x20
->
-> The bootloader is not the only way to get there. The readback runs after
-> wledN_setup(), and wled4_setup() sets MOD_EN itself on the path where the
-> sink configuration does not already match, as does the tail of
-> wled_auto_string_detection(), which all three setup paths can reach
-> through wled_auto_detection_at_init(). A cold-booted board with a dark
-> panel can therefore reach the same disagreement.
->
-> Move the MOD_EN readback into wled_probe() and use it to seed
-> wled->brightness, so the driver starts out agreeing with the hardware,
-> and key the OVP interrupt off wled->brightness instead. The first
-> backlight update then only reprograms the brightness registers and
-> leaves both the module and the interrupt alone. The OVP interrupt also
-> stays armed from probe whenever the module is already enabled, rather
-> than being disabled at probe and only enabled once something writes
-> brightness.
->
-> Note that a backlight update requesting brightness 0 before any non-zero
-> one now really does turn the module off wherever MOD_EN was already set,
-> where before it was silently ignored.
->
-> wled->brightness is seeded with default-brightness rather than the level
-> the bootloader actually programmed, so the first update can still step
-> the brightness. Reading that level back is version specific and is done
-> in a follow-up, to keep this fix small enough to backport.
->
-> Assisted-by: LLM
-> Fixes: 8663c188beea ("backlight: qcom-wled: Add auto string detection logic")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-
-Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/2] hyperv: Run VMBus kexec cleanup from syscore
+ shutdown
+To: Shradha Gupta <shradhagupta@linux.microsoft.com>,
+ Michael Kelley <mhklinux@outlook.com>, Wei Liu <wei.liu@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, Baoquan He <baoquan.he@linux.dev>
+Cc: Will Deacon <will@kernel.org>, "K . Y . Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Dexuan Cui <decui@microsoft.com>,
+ Long Li <longli@microsoft.com>, Andrew Morton <akpm@linux-foundation.org>,
+ Mike Rapoport <rppt@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Arnd Bergmann <arnd@arndb.de>, linux-hyperv@vger.kernel.org,
+ kexec@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org
+References: <20261001132128.1703511-1-shradhagupta@linux.microsoft.com>
+Content-Language: en-US
+From: Naman Jain <namjain@linux.microsoft.com>
+In-Reply-To: <20261001132128.1703511-1-shradhagupta@linux.microsoft.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
-Daniel.
+
+On 10/1/2026 6:51 PM, Shradha Gupta wrote:
+> Kexec reboot fails on ARM64 Hyper-V guests because the VMBus
+> connection and SynIC CPU hotplug state are not torn down before the
+> secondary CPUs are stopped. The kexec kernel consequently starts with
+> the previous kernel's VMBus state still active.
+> 
+> The previous version added an ARM64-specific syscore shutdown
+> implementation. This version follows Michael Kelley's review and moves
+> the cleanup into the existing architecture-independent VMBus syscore
+> operations. This removes the separate x86 handler dispatch and gives
+> x86 and ARM64 the same ordering:
+> 
+>    device_shutdown()
+>    syscore_shutdown()
+>      VMBus UNLOAD and SynIC CPU hotplug teardown
+>    machine_shutdown()
+> 
+> On x86, VMBus teardown now runs before hv_stimer_global_cleanup().
+> This ordering is safe after commit be0cfab740e5 ("clocksource: hyper-v:
+> Remove support for stimer interrupts in message mode") removed the
+> VMBus dependency from synthetic timer handling.
+> 
+> Patch 1 adds a read-only helper that reports whether a kexec reboot is
+> in progress. The helper is exported because HYPERV_VMBUS is tristate
+> and the common syscore callback must also link when VMBus is a module.
+> Patch 2 moves the cleanup into the common callback and removes the
+> obsolete architecture-specific setup/remove interface.
+> 
+> For stable kernels that still support message-mode stimers, an
+> ARM64-specific backport will be needed to preserve the existing x86
+> ordering.
+> 
+> Changes in v3:
+>    - Use the existing common VMBus syscore operations on all
+>      architectures, as suggested by Michael.
+>    - Remove the x86 handler pointer and the weak setup/remove interface.
+>    - Add an exported read-only helper for modular VMBus builds.
+>    - Correct the Fixes tag to the commit that enabled Hyper-V on ARM64.
+> 
+> Changes in v2:
+>    - Use syscore shutdown instead of an ARM64 machine_shutdown() hook, as
+>      suggested by Catalin.
+> 
+> Shradha Gupta (2):
+>    kexec: Add helper to report an active kexec reboot
+>    Drivers: hv: Run VMBus kexec cleanup from syscore shutdown
+> 
+>   arch/x86/kernel/cpu/mshyperv.c | 17 +----------------
+>   drivers/hv/hv_common.c         | 10 ----------
+>   drivers/hv/vmbus_drv.c         | 22 ++++++++++++++--------
+>   include/asm-generic/mshyperv.h |  2 --
+>   include/linux/kexec.h          |  2 ++
+>   kernel/kexec_core.c            |  7 +++++++
+>   6 files changed, 24 insertions(+), 36 deletions(-)
+> 
+> 
+> base-commit: be0cfab740e58b70047ef6e7e3d578f00ed5d258
+
+Since the approach changed in this version and previously reviewed-by 
+tags were not applicable, sharing them again for the series.
+
+Reviewed-by: Naman Jain <namjain@linux.microsoft.com>
+
+Regards,
+Naman
+
+
+
