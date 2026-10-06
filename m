@@ -1,31 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C311E3806AD;
-	Tue,  6 Oct 2026 22:18:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7E1DE3839B2;
+	Tue,  6 Oct 2026 22:18:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791325113; cv=none; b=CTeyKeOAKHYs7BgQ2l74AeGo5uaVfs87qP7vpE4+AbND31sP32NBbpfx1Me++MwjiKWTRqqkVQKBNCvqHD2NGsfzsOwltIHsiVqBPsR16zSfOZ6F5LqfcYW7l/IWFgDeqeJ57+IZdXbCAWhHcDGQfl/YvcjxP0HAY1fwb4krVHE=
+	t=1791325113; cv=none; b=dQHMfnXhQhKcdeFLYjnOZNaQmMMC8333eGNRx/nD5qJ65gAJJmib39HDP3gRaVavdpfY8DQlOiW2imP0fWucS6/RurJZ5H04Nfd+G4vHJZPqVTsizb3U43RFDXbCLwWhsC63M9/JU3lBoj+HqxJ3F12/3V9Mu9Rh63JhQIK2O98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791325113; c=relaxed/simple;
-	bh=fYd+ZgGcjjbOpEQfH2CwcKiMTrSZUa4AV4L2gsdp5PA=;
+	bh=OGA3idTNXhZROHziMCaC6ZlubDmLelD8Mc7M9kbqDt0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WEUCWf7yNMpJCNlDVNd4Tq8vFFyEk91kMTOJ50Bgu0vpLNnUlnWqqFkL7xgf6tr0Jx+MM94dnfJKr8Jn9O82TzJeBgAhU1egvW/N6i5tm5bW2wbu2YHWRBMVT7hRyaUAXiyo1EWP3joVSmU8N+plkcJFFxsklZKJHJfzVn5S8sI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=pRraBkPs; arc=none smtp.client-ip=217.140.110.172
+	 MIME-Version; b=YoMG5wo5oBbhcy15FA7Ep2ehnofcr/LC7mcTBrl5tnKJO2ZMR3VV9/PbW/sV5u0rcHtVp8y76utbppbltp0lsESQBiWLNTVkBK59GmT/nJ95q7g27/O+Z4cJiCSP/COCGtRhty/yG8FHejPJSiCsywwKXdysRL6YBcZbuWPOn5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=dVWdqd+J; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="pRraBkPs"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="dVWdqd+J"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D059C15A1;
-	Tue,  6 Oct 2026 15:18:26 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 809C6169E;
+	Tue,  6 Oct 2026 15:18:27 -0700 (PDT)
 Received: from mammon-tx2.austin.arm.com (mammon-tx2.austin.arm.com [10.118.28.65])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id AB9453F66F;
-	Tue,  6 Oct 2026 15:18:29 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 541623FA32;
+	Tue,  6 Oct 2026 15:18:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791325110; bh=fYd+ZgGcjjbOpEQfH2CwcKiMTrSZUa4AV4L2gsdp5PA=;
+	t=1791325110; bh=OGA3idTNXhZROHziMCaC6ZlubDmLelD8Mc7M9kbqDt0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=pRraBkPsnTOuIN8dTICkVAToowKbzgFM5SndvHM5LGFaa5F76muC/rmV04iUz+V5/
-	 O5wwD9njsMO6ZhisOZeOBibFeUooWAwovDpdewRDfbstNKumfIBBP/1qviiAbkXMsU
-	 DAYo8yb54Cg/2VuDFlGOwkGa7daDIBwMmV/EZM+w=
+	b=dVWdqd+JrjtoiHS5XWYJdUrIgfbv6H6qN0ElbsqXdILe//sCfyoNyBbZ/RBZ3GUmU
+	 LaHhKDcIw3WiKB5petIKo8w0GOl5jd8OlUSvQZNY14yyX4q1obDqNrmPqeOb9YvgL6
+	 f28r1Rk3s/oG7jJJ/3BrOizaj7aSOB8ez0vpv0oI=
 From: Jeremy Linton <jeremy.linton@arm.com>
 To: linux-arm-kernel@lists.infradead.org
 Cc: linux-kbuild@vger.kernel.org,
@@ -47,9 +47,9 @@ Cc: linux-kbuild@vger.kernel.org,
 	Emanuele.Rocca@arm.com,
 	linux-kernel@vger.kernel.org,
 	Jeremy Linton <jeremy.linton@arm.com>
-Subject: [RFC 2/3] kbuild: modules: Build and trigger BTI scanner for arm64
-Date: Tue,  6 Oct 2026 17:18:14 -0500
-Message-ID: <20261006221815.2823252-3-jeremy.linton@arm.com>
+Subject: [RFC 3/3] arm64: bti: Drop compiler specific BTI checks
+Date: Tue,  6 Oct 2026 17:18:15 -0500
+Message-ID: <20261006221815.2823252-4-jeremy.linton@arm.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20261006221815.2823252-1-jeremy.linton@arm.com>
 References: <20261006221815.2823252-1-jeremy.linton@arm.com>
@@ -61,68 +61,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-Now that we have a utility which can detect and correct missing
-landing pads, build it and hook it up to scan during module
-finalization.
+Now that modules with missing BTI landing pads have veneers explicitly
+added, the need for compiler revision specific checks can be dropped.
+The link pass will correct the specific cases that both clang and gcc
+now generate.
 
 Signed-off-by: Jeremy Linton <jeremy.linton@arm.com>
 ---
- scripts/Makefile          |  3 +++
- scripts/Makefile.modfinal | 12 +++++++++++-
- 2 files changed, 14 insertions(+), 1 deletion(-)
+ arch/arm64/Kconfig | 6 ------
+ 1 file changed, 6 deletions(-)
 
-diff --git a/scripts/Makefile b/scripts/Makefile
-index 3434a82a119f..10042d5d1251 100644
---- a/scripts/Makefile
-+++ b/scripts/Makefile
-@@ -8,6 +8,7 @@ hostprogs-always-$(BUILD_C_RECORDMCOUNT)		+= recordmcount
- hostprogs-always-$(CONFIG_BUILDTIME_TABLE_SORT)		+= sorttable
- hostprogs-always-$(CONFIG_ASN1)				+= asn1_compiler
- hostprogs-always-$(CONFIG_MODULE_SIG_FORMAT)		+= sign-file
-+hostprogs-always-$(CONFIG_ARM64_BTI_KERNEL)		+= module-bti-check
- hostprogs-always-$(CONFIG_SYSTEM_EXTRA_CERTIFICATE)	+= insert-sys-cert
- hostprogs-always-$(CONFIG_RUST_KERNEL_DOCTESTS)		+= rustdoc_test_builder
- hostprogs-always-$(CONFIG_RUST_KERNEL_DOCTESTS)		+= rustdoc_test_gen
-@@ -32,6 +33,8 @@ rustdoc_test_gen-rust := y
- HOSTCFLAGS_tracepoint-update.o = -I$(srctree)/tools/include
- HOSTCFLAGS_elf-parse.o = -I$(srctree)/tools/include
- HOSTCFLAGS_sorttable.o = -I$(srctree)/tools/include
-+HOSTCFLAGS_module-bti-check.o = -I$(srctree)/tools/include
-+HOSTLDLIBS_module-bti-check = -lelf
- HOSTLDLIBS_sorttable = -lpthread
- HOSTCFLAGS_asn1_compiler.o = -I$(srctree)/include
- HOSTCFLAGS_sign-file.o = $(shell $(HOSTPKG_CONFIG) --cflags libcrypto 2> /dev/null)
-diff --git a/scripts/Makefile.modfinal b/scripts/Makefile.modfinal
-index 01a37ec872b9..973adfa72a7d 100644
---- a/scripts/Makefile.modfinal
-+++ b/scripts/Makefile.modfinal
-@@ -32,6 +32,12 @@ ifneq ($(WARN_ON_UNUSED_TRACEPOINTS),)
- cmd_check_tracepoint = $(objtree)/scripts/tracepoint-update --module $<;
- endif
- 
-+ifdef CONFIG_ARM64_BTI_KERNEL
-+quiet_cmd_bti_check = BTICHECK [M] $@
-+      cmd_bti_check = $(objtree)/scripts/module-bti-check --fix $(KBUILD_MODULE_BTI_CHECK_FLAGS) $@
-+bti_check_dep = $(objtree)/scripts/module-bti-check
-+endif
-+
- quiet_cmd_ld_ko_o = LD [M]  $@
-       cmd_ld_ko_o =							\
- 	$(LD) -r $(KBUILD_LDFLAGS)					\
-@@ -47,8 +53,12 @@ quiet_cmd_btf_ko = BTF [M] $@
- 	fi;
- 
- # Re-generate module BTFs if either module's .ko or vmlinux changed
--%.ko: %.o %.mod.o .module-common.o $(objtree)/scripts/module.lds $(and $(CONFIG_DEBUG_INFO_BTF_MODULES),$(KBUILD_BUILTIN),$(objtree)/vmlinux) FORCE
-+%.ko: %.o %.mod.o .module-common.o $(objtree)/scripts/module.lds $(bti_check_dep) $(and $(CONFIG_DEBUG_INFO_BTF_MODULES),$(KBUILD_BUILTIN),$(objtree)/vmlinux) FORCE
- 	+$(call if_changed,ld_ko_o)
-+ifdef CONFIG_ARM64_BTI_KERNEL
-+	+$(call cmd,bti_check)
-+endif
-+
- ifdef CONFIG_DEBUG_INFO_BTF_MODULES
- 	+$(if $(newer-prereqs),$(call cmd,btf_ko))
- endif
+diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+index cab741a695f5..aea4c34a18bc 100644
+--- a/arch/arm64/Kconfig
++++ b/arch/arm64/Kconfig
+@@ -2196,12 +2196,6 @@ config ARM64_BTI_KERNEL
+ 	depends on ARM64_BTI
+ 	depends on ARM64_PTR_AUTH_KERNEL
+ 	depends on CC_HAS_BRANCH_PROT_PAC_RET_BTI
+-	# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=94697
+-	depends on !CC_IS_GCC || GCC_VERSION >= 100100
+-	# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=106671
+-	depends on !CC_IS_GCC
+-	# https://github.com/llvm/llvm-project/issues/215547
+-	depends on !CC_IS_CLANG || CLANG_VERSION < 210000
+ 	depends on (!FUNCTION_GRAPH_TRACER || DYNAMIC_FTRACE_WITH_ARGS)
+ 	help
+ 	  Build the kernel with Branch Target Identification annotations
 -- 
 2.55.0
 
