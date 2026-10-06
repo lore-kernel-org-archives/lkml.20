@@ -1,105 +1,178 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3327E4A0F01;
-	Tue,  6 Oct 2026 18:34:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 215A04A3D5B
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 18:36:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791311675; cv=none; b=ERGF2gsDeJ5mSF1P32enA8zhRI6XzXUjAX2NGD7l1Y8DZf04p/R3yZiVBIXCF1UA/2/w3zAgta0m2RgRCZFDZFu9ZH9vPeZeFhYVQdrFTYlJMxoOSI0LFXjf6k2zZBi3lYWX8pqx0ZHiVa8oerT9eJz/h4YNsp881hZr8mYOZJA=
+	t=1791311764; cv=none; b=l3TsolBvOKDVwG6Fj7pesEWrAxyd+deHheUuQXx5NSvD2R+k1+PV7JLRh0Pd/nOx2WqVlT6PFrXObO8yq7SjybA2X+eO4l+JSCpWohUlf37grdLuavwaQiZnzf/SWl03Sp4JbeCdPqvpzEQN8CKy3lqWirmTGhruqY6R0GyDIU8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791311675; c=relaxed/simple;
-	bh=Lo6XuEJWK83L8MNFBRGuFvOBrKkQaaNkgybvpzga4PI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b7zVuSKAEnPeVmLi/hnBOz9U67h/G+sGhGeHhhRVHh/fSEjubKNde/ceTfVFfKtBRwiJn9Vz8kyUJjBkvdxT0mFtfCgwr37M0RnMexzAuNZCqZjV+bF+/v0pZCAMrsmjAsMkqvt9pVrPqyD4gPdEn0W0IK07z/HMnitbRcjkocw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NVGehG62; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NVGehG62"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CE851F00902;
-	Tue,  6 Oct 2026 18:34:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791311672;
-	bh=xu3chdljYk93N4v9mi52eqGaMBxperNhAYuHdfcwsKI=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=NVGehG62SsigyLbp4m2/jaaY12WpGLFt0Dc+Q7tnJfHCbWmK8yVbXpFeyUUDFvQya
-	 H8KtuDzsxI+ahBaroOSZQ4uYND6dV+6eTpe2iyoftQQwLgsxHXUSXX0qwe0bWehazl
-	 aiUY4oOYQ0q28vsLfELJWUtdFGeMdmN/CBOnErqwtUY+a2EvLFklCReZrNYKx96u24
-	 0ZNVRvZEPD4dNkKx3pEstyBZP1SBoyonoYwVmRxMe/zKZr5RbPBFAVx1w4SxxJ80a6
-	 QCaNOOGZvCAhZSN+nrsEJbCJk+ye3ueJvQ5/blv7frkxXqhrHa1KsOO/BC7VJLr4Aq
-	 6l+8OSE1SD0JQ==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 59561CE3A08; Tue,  6 Oct 2026 11:34:32 -0700 (PDT)
-Date: Tue, 6 Oct 2026 11:34:32 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Josef Bacik <josef@toxicpanda.com>
-Cc: Frederic Weisbecker <frederic@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>, Boqun Feng <boqun@kernel.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Puranjay Mohan <puranjay@kernel.org>, rcu@vger.kernel.org,
-	bpf@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 01/14] rcu-tasks-trace: Let TASKS_TRACE_RCU_NO_MB
- default on without RCU_EXPERT
-Message-ID: <c8b467cc-a916-48c7-b969-9b35dd04724c@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260929-b4-rcu-tasks-preempt-qs-v6-0-c111ee02caca@toxicpanda.com>
- <20260929-b4-rcu-tasks-preempt-qs-v6-1-c111ee02caca@toxicpanda.com>
+	s=arc-20240116; t=1791311764; c=relaxed/simple;
+	bh=MJy1KO8C3nVlf5g5Aawz83/HQvIYLE9+MubyKFN09f4=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=laHmxz70+fXGz7+UHy2CRs0g3GrVYXDqGed2lHpRWMWZYcRhypQGSAOVSzww/2UmTdp3msfLp0fQcmYrwQFJhACENp72FzX9B0LqvwpeDJboocVjDCTCFRLF7rdB4nNuaWj+qE/LgfE+wUAW3QoZk3fFjqs2jteoy+JWtLsDXWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4dab94dc3e7so4963551b6e.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 11:36:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791311762; x=1791916562;
+        h=content-transfer-encoding:content-type:to:from:subject:message-id
+         :in-reply-to:date:mime-version:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=X5YGkPZ+I9bHxtgfGqV/v2znaGVJqsv7UmgalcOYRu8=;
+        b=TW+Nn9TP9SIFQL23v1lKVQGgeXRrrEiJDPJqAX4OXsb7m+OeSorEJMw5YgjNYOStYL
+         9YV/NRY4n/X2y2MWnyYrZFqdUWdGOD4yqWWJsDrr+w4GzSJ8XAGYe3r7vqH+VYGGk77R
+         KmaSKs+OiwweZz+2i0bwDwBZhvITcMCgbr9gxNaYDSElZEEQV/Ac7mOZUwg6tLdVqHtB
+         5t77hNSc0wcjkCRjsSZVFsCXPLEMgyxgbvQIkC7k2q6+9jA6+EkHhsQ1NE5NeSSSarvG
+         oRASMGE950AHlHgmO5LhPqDEmwnSUJig7puLyhhI9EfG27C/iibkc325gxdNoHmIQhWM
+         DR1A==
+X-Gm-Message-State: AFuF++lsOV+fLtqhkxG8PqY83+L58zMHR7QitrPycKhFFZWBInIQwTqZ
+	7aUeCUu66/aTPoZLYlEdb73b3iDIO+DtkhKpuM9B0llEAzlqZthQmYVY8HyJgLXvToI7HSyCqnN
+	5iPpAIFul4NJk00r5ll3vMTbvrC1DpvYmbnZ4ISOJMDtyAvt1e9Z+a4pdTQs=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929-b4-rcu-tasks-preempt-qs-v6-1-c111ee02caca@toxicpanda.com>
+X-Received: by 2002:a05:6808:4f2a:b0:4fb:ac9b:b067 with SMTP id
+ 5614622812f47-4fbac9bbd3emr1914959b6e.64.1791311761784; Tue, 06 Oct 2026
+ 11:36:01 -0700 (PDT)
+Date: Tue, 06 Oct 2026 11:36:01 -0700
+In-Reply-To: <20261006111946.2164-1-nsvatoslav515@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac53f91.9ad129c8.3ce5b3.0007.GAE@google.com>
+Subject: Re: [syzbot] [pm?] kernel BUG in mark_free_pages
+From: syzbot <syzbot+609c80047e3e808b465c@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, nsvatoslav515@gmail.com, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 29, 2026 at 05:07:18PM +0000, Josef Bacik wrote:
-> TASKS_TRACE_RCU_NO_MB defaults to ARCH_WANTS_NO_INSTR, on the grounds
-> (see 1a72f4bb6f3e) that architectures with noinstr entry code only ever
-> run tracing where RCU is watching and so can dispense with the read-side
-> smp_mb() in rcu_read_lock_trace() and friends.  But the option also
-> depends on RCU_EXPERT, and a Kconfig default is not applied to a symbol
-> whose dependencies are unmet, so on an ordinary RCU_EXPERT=n build of
-> such an architecture the option is simply absent and every Tasks Trace
-> reader pays for two full barriers that the architecture does not need.
-> 
-> Keep the prompt behind RCU_EXPERT, so that overriding the default in
-> either direction remains an expert decision, but let the default itself
-> apply unconditionally.  On x86-64 and arm64 defconfig this turns the
-> barriers off, as intended; architectures without ARCH_WANTS_NO_INSTR
-> are unchanged.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Hello,
 
-Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+syzbot tried to test the proposed patch but the build/boot failed:
 
-> ---
->  kernel/rcu/Kconfig | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/kernel/rcu/Kconfig b/kernel/rcu/Kconfig
-> index 332df7a7a634..e3cfe1fe5592 100644
-> --- a/kernel/rcu/Kconfig
-> +++ b/kernel/rcu/Kconfig
-> @@ -142,8 +142,8 @@ config TASKS_TRACE_RCU
->  	default n
->  
->  config TASKS_TRACE_RCU_NO_MB
-> -	bool "Override RCU Tasks Trace inclusion of read-side memory barriers"
-> -	depends on RCU_EXPERT && TASKS_TRACE_RCU
-> +	bool "Override RCU Tasks Trace inclusion of read-side memory barriers" if RCU_EXPERT
-> +	depends on TASKS_TRACE_RCU
->  	default ARCH_WANTS_NO_INSTR
->  	help
->  	  This option prevents the use of read-side memory barriers in
-> 
-> -- 
-> 2.55.0
-> 
+failed to copy binary to VM: failed to run ["ssh" "-p" "22" "-F" "/dev/null=
+" "-o" "UserKnownHostsFile=3D/dev/null" "-o" "IdentitiesOnly=3Dyes" "-o" "B=
+atchMode=3Dyes" "-o" "StrictHostKeyChecking=3Dno" "-o" "ConnectTimeout=3D10=
+" "root@10.128.1.101" "mkdir" "-p" "ci-upstream-kasan-gce-root-test-job-par=
+allel"]: exit status 255
+
+
+
+syzkaller build log:
+go env (err=3D<nil>)
+AR=3D'ar'
+CC=3D'gcc'
+CGO_CFLAGS=3D'-O2 -g'
+CGO_CPPFLAGS=3D''
+CGO_CXXFLAGS=3D'-O2 -g'
+CGO_ENABLED=3D'1'
+CGO_FFLAGS=3D'-O2 -g'
+CGO_LDFLAGS=3D'-O2 -g'
+CXX=3D'g++'
+GCCGO=3D'gccgo'
+GO111MODULE=3D'auto'
+GOAMD64=3D'v1'
+GOARCH=3D'amd64'
+GOAUTH=3D'netrc'
+GOBIN=3D''
+GOCACHE=3D'/syzkaller/.cache/go-build'
+GOCACHEPROG=3D''
+GODEBUG=3D''
+GOENV=3D'/syzkaller/.config/go/env'
+GOEXE=3D''
+GOEXPERIMENT=3D''
+GOFIPS140=3D'off'
+GOFLAGS=3D''
+GOGCCFLAGS=3D'-fPIC -m64 -pthread -Wl,--no-gc-sections -fmessage-length=3D0=
+ -ffile-prefix-map=3D/tmp/go-build1553598807=3D/tmp/go-build -gno-record-gc=
+c-switches'
+GOHOSTARCH=3D'amd64'
+GOHOSTOS=3D'linux'
+GOINSECURE=3D''
+GOMOD=3D'/syzkaller/jobs-2/linux/gopath/src/github.com/google/syzkaller/go.=
+mod'
+GOMODCACHE=3D'/syzkaller/jobs-2/linux/gopath/pkg/mod'
+GONOPROXY=3D''
+GONOSUMDB=3D''
+GOOS=3D'linux'
+GOPATH=3D'/syzkaller/jobs-2/linux/gopath'
+GOPRIVATE=3D''
+GOPROXY=3D'https://proxy.golang.org,direct'
+GOROOT=3D'/usr/local/go'
+GOSUMDB=3D'sum.golang.org'
+GOTELEMETRY=3D'local'
+GOTELEMETRYDIR=3D'/syzkaller/.config/go/telemetry'
+GOTMPDIR=3D''
+GOTOOLCHAIN=3D'auto'
+GOTOOLDIR=3D'/usr/local/go/pkg/tool/linux_amd64'
+GOVCS=3D''
+GOVERSION=3D'go1.26.0'
+GOWORK=3D''
+PKG_CONFIG=3D'pkg-config'
+
+git status (err=3D<nil>)
+HEAD detached at 57bbd979bc5
+nothing to commit, working tree clean
+
+
+tput: No value for $TERM and no -T specified
+tput: No value for $TERM and no -T specified
+Makefile:31: run command via tools/syz-env for best compatibility, see:
+Makefile:32: https://github.com/google/syzkaller/blob/master/docs/contribut=
+ing.md#using-syz-env
+go list -f '{{.Stale}}' -ldflags=3D"-s -w -X github.com/google/syzkaller/pr=
+og.GitRevision=3D57bbd979bc50a3acd0eac610ef944726ba358063 -X github.com/goo=
+gle/syzkaller/prog.gitRevisionDate=3D20261002-100947"  ./sys/syz-sysgen | g=
+rep -q false || go install -ldflags=3D"-s -w -X github.com/google/syzkaller=
+/prog.GitRevision=3D57bbd979bc50a3acd0eac610ef944726ba358063 -X github.com/=
+google/syzkaller/prog.gitRevisionDate=3D20261002-100947"  ./sys/syz-sysgen
+make .descriptions
+tput: No value for $TERM and no -T specified
+tput: No value for $TERM and no -T specified
+Makefile:31: run command via tools/syz-env for best compatibility, see:
+Makefile:32: https://github.com/google/syzkaller/blob/master/docs/contribut=
+ing.md#using-syz-env
+bin/syz-sysgen
+touch .descriptions
+GOOS=3Dlinux GOARCH=3Damd64 go build -ldflags=3D"-s -w -X github.com/google=
+/syzkaller/prog.GitRevision=3D57bbd979bc50a3acd0eac610ef944726ba358063 -X g=
+ithub.com/google/syzkaller/prog.gitRevisionDate=3D20261002-100947"  -o ./bi=
+n/linux_amd64/syz-execprog github.com/google/syzkaller/tools/syz-execprog
+mkdir -p ./bin/linux_amd64
+g++ -o ./bin/linux_amd64/syz-executor executor/executor.cc \
+	-m64 -O2 -pthread -Wall -Werror -Wparentheses -Wunused-const-variable -Wfr=
+ame-larger-than=3D16384 -Wno-stringop-overflow -Wno-array-bounds -Wno-forma=
+t-overflow -Wno-unused-but-set-variable -Wno-unused-command-line-argument -=
+static-pie -std=3Dc++17 -I. -Iexecutor/_include   -DGOOS_linux=3D1 -DGOARCH=
+_amd64=3D1 \
+	-DHOSTGOOS_linux=3D1 -DGIT_REVISION=3D\"57bbd979bc50a3acd0eac610ef944726ba=
+358063\"
+/usr/bin/ld: /tmp/ccVovhno.o: in function `Connection::Connect(char const*,=
+ char const*)':
+executor.cc:(.text._ZN10Connection7ConnectEPKcS1_[_ZN10Connection7ConnectEP=
+KcS1_]+0x386): warning: Using 'gethostbyname' in statically linked applicat=
+ions requires at runtime the shared libraries from the glibc version used f=
+or linking
+./tools/check-syzos.sh 2>/dev/null
+
+
+
+Tested on:
+
+commit:         69f80fef Merge tag 'ata-7.3-rc7' of git://git.kernel.o..
+git tree:       upstream
+kernel config:  https://syzkaller.appspot.com/x/.config?x=3D23e5acac5c98285=
+f
+dashboard link: https://syzkaller.appspot.com/bug?extid=3D609c80047e3e808b4=
+65c
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-=
+1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=3D1389d8355800=
+00
+
