@@ -1,225 +1,255 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38F261A9FBA
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 16:12:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2F649CF36
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 16:13:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791303154; cv=none; b=FLl2GC8MnAbtNLat8xpHUyOllpLiuPytZitiRE0hdAnUKDADBoqCAgii+t2a5w13MI4aSxxO7TirsYU0UZog+L2rAvWds+JCWHh3v6wuJZ10ykLhreKXBAugmgna5iTTPx54kKMZunSUa7HEehfxDN3gyBXCxXMi1J1oqvKlHdQ=
+	t=1791303195; cv=none; b=bxzEEu7OvC5KvudewRus+5UkNBjlg3rfXMxW+ZLnwzONP/+EGEKbkO0Mp2rU9z4Cr05CJLSHRUeeC7Vo9v/He5vDTurQAL7Zo4tvyHtw9LtfOsuRbaA7XJt+y2PBmzv5eQf3559E2UB5eCh6On2DAvEVaHqN+QBLbLyOtXEyEKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791303154; c=relaxed/simple;
-	bh=pzKjQW/5wv5ZV9V2mhGX3XNvxdEG4JnLPbjh3QDWwuY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y0Y8eFLsHBE1Gakm3z6UFhPwzQnqI7t8kbdKblSK3LApw2Zuq+I7lgPzRNeiUm1m3rbl2b0Dk/JjCBGZIpA06R9+om3UvOT5Rz4GBdGTC1AOXznCg5Q78aS4KWbOY2LoIsN/m2m9TMaBjPqLr1cQn5vgeJS3scudMsreISJBzVo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tMte3Lvf; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791303195; c=relaxed/simple;
+	bh=jx6nLeQVSmPOPzJY1Yy2Eu9eaUPIEu2vKLVp+Aq7yHE=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=Fg3ncF6B8Pl9wf7g+e9iJVQ45tGgPs3Im60cBG0IYgZCI9rbBNqwpTCNzP9MZcEemXP9EPkXb16Lsl7+/F/ljR1HaByvQf+b6RgNJbZ4mKzcN1gSRL1RnzmUiVvKjNEJvFmJqAg9OEU6qVNKNuJ6Gcu9EtvHVxltyCZsiB2bAV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=O4s9lqzM; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tMte3Lvf"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a171b677d2so6779015e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 09:12:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791303151; x=1791907951; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YK1JCuzca0AjqMNfZi2xFLLH8cZvTcTPq46uhTC4eYw=;
-        b=tMte3LvfXkONe7Dlmj11co8kzKVEOBEqgw0gR6Jo/EQJ6Gow9gUuwAMTk0Lj/a+juW
-         e3EBNNibrYX68bJYsBEcOgiFTnxoEBy5jjpCdfzgnohdZS1FLscwQAhi4lSAFBZBU2Fc
-         oAodKGiJaKmvIlMvh/yTs7XOkoSa0Hyse2waC/xEzyecx2LD7/a8t+LkVU93MxEdHE5a
-         YG/qw2669HWuUIrcwRYPSSqbcTMZFIsV7GaCFjCKrkUnkKbQqK5R+j79+H6MdStY2v8d
-         SRQwbgVafnZrNoURlD5zTE8YyoHs/kAJY2R+4CatUEzbZza3o24w98hVmWrwrk1P5kgf
-         CO6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791303151; x=1791907951;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YK1JCuzca0AjqMNfZi2xFLLH8cZvTcTPq46uhTC4eYw=;
-        b=1kGYfzU3dwC9RPxXzsUEG1ERZKepyTvb1x9brup3Ro8ysgbn8ZL9F3dzU9VBcHNXV0
-         RSQRZl5OVEfvW/X9vTkscJgu37OuUVQlCTcAjvyEN6QeztiFFxCHAMpG0Y+luWJFerO7
-         04zqiFieoq3ElhWiuFcFhz9En3DRvLU3tvbtnASqkgWtsVXlm9Bksm4N+paRiDh1xrhn
-         QXIvzoO498oumBYsZhNlCEdkSGhkZoLqfePHFI/fbP2/X8VrVjeCPN13vgDPGCEbIyrS
-         z22n1cMw+/1EqtpLYcxQvVXiFJBjumYa41OLd0RadVk81sN2MQrTxhO2IG2ircy9QAys
-         IwYg==
-X-Forwarded-Encrypted: i=1; AKwUvBxhgfKdrzn9CCkiSrKfklSd91WNzvFN5OQ2nMQ/hdtCT+8gQ+QT3NigIiBaNXcAdz2c4p3k+UsR4CDww04=@vger.kernel.org
-X-Gm-Message-State: AFuF++lMAMPPXIV/zQXDpQ62ALjFGny47mVkTWrOz5BPjM/4FTF46Ke5
-	xppIDXnRug4eavOthXRyXDyNocQttLf7fA3TrupxBDUpLR8mbiwTOl5uWuEJAxyWkwQGWw==
-X-Gm-Gg: AYBFou2JMcU0X74Dw7WzPi8K9nH9C9oqmVpUJ+GH7UlO7BkgkhtNJrEFxvVRSMUAjaM
-	K0kL935lHXkQ3wC4BqdRGoTP2poDm8C4uvA9Fp90V5psOklUgMJIj7e8uEvhoCpTwuOlsZhSWBG
-	Ma/mPjvkj1bBMm1dSRDQIvj1Ci71Vq6sEWokPQid6BGhDypUyOi4g4OVSQb3tae3Al8f2aeqryF
-	pEIWWhFaFPDuZZmdamoRZz0oGNGtCNjhG6khyKmyeeYCTuIF2WlZQdxOHR5KqIiHTrKsWCUAOT5
-	ffdDMv1oqFfU+fvhhSxgrvmiEBRdW9SX7NyjSAv+2Q54XN6QDQq3plcn3HwkEAyvSv86Si1d3Gy
-	Xx7NrzWAIyL/uWKkZbvlstIYbdUtfNbMglqhAl1ebtmqWzHgJ6uCFt/et18kQr5XwF9zILCv54F
-	qzh8ZsUV36zgTV+HiS3jnru3uv9e3zdiuhHMeztHqL3FgbfF083pEjZ8frAfSqX/vWWWzJE0vPr
-	RVzMdj//xV95pSmyJUMxMYxlKOrmJUzFaWYtFbX4x9i5eS+ce9lXm1p78EwowvYRF6Q65IZarl3
-	BrR+jg==
-X-Received: by 2002:a05:600c:468d:b0:49e:7a10:1b71 with SMTP id 5b1f17b1804b1-4a17b52d29fmr33481165e9.11.1791303151037;
-        Tue, 06 Oct 2026 09:12:31 -0700 (PDT)
-Received: from voyt-laptop-dell.fritz.box ([2001:9e8:bd51:6800:c199:bb10:b06d:d65])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178c49c35sm89242555e9.9.2026.10.06.09.12.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 09:12:29 -0700 (PDT)
-From: Dmitry Voytik <voytikd@gmail.com>
-To: Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>
-Cc: Nicolas Schier <n.schier@fritz.com>,
-	linux-kernel@vger.kernel.org,
-	linux-kbuild@vger.kernel.org,
-	Dmitry Voytik <voytikd@gmail.com>
-Subject: [PATCH v7] scripts/config: honor $KBUILD_OUTPUT by default
-Date: Tue,  6 Oct 2026 18:11:55 +0200
-Message-ID: <20261006161155.862736-1-voytikd@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="O4s9lqzM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791303193; x=1822839193;
+  h=date:from:to:cc:subject:message-id;
+  bh=jx6nLeQVSmPOPzJY1Yy2Eu9eaUPIEu2vKLVp+Aq7yHE=;
+  b=O4s9lqzM8HLkgZY7QLqgkNx11xskj7apm2ZyAnpoiMXDeeVKAMS+FX1f
+   obHRdDKRBFr3x1EHZNro5JbO56Ux48Gh6MezECJSXW2TfY6S0u+2437a1
+   4qKso0C9H2q33gXIbafkyjn+9y8qbpv9JmSgNHrh7wINOyqSwV9G1B5HA
+   ZlSuU2D162UGRgJJVS289mCrWqfBc7WCR/UWAVNpFXDi7ROwFJCda1mD/
+   gocYN3joRYhUqURHbSAbtYEG14SoJ4tk+ZhT0VD4eAG/crkFrgKZUlIOP
+   gMNDl0wWQTz1BYr2EwDKr1iHi7XFtgcMm092GBWd95kJEZ+LhKWIiy1nS
+   A==;
+X-CSE-ConnectionGUID: qpk0Sp9YSr2mKEbwIRTX/Q==
+X-CSE-MsgGUID: P6qc5/OkQOOJOSG61sCmsQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11927"; a="39540"
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="39540"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 09:13:13 -0700
+X-CSE-ConnectionGUID: WioHkA82QqWjb1FDb2YRhg==
+X-CSE-MsgGUID: 4uhTXp3gSkGPyqzZBxyAOw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="303466731"
+Received: from igk-lkp-server01.igk.intel.com (HELO d0de6c2a75a7) ([10.211.93.152])
+  by fmviesa002.fm.intel.com with ESMTP; 06 Oct 2026 09:13:11 -0700
+Received: from kbuild by d0de6c2a75a7 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xE7mv-000000001U7-1sGD;
+	Tue, 06 Oct 2026 16:13:09 +0000
+Date: Tue, 06 Oct 2026 18:12:43 +0200
+From: kernel test robot <lkp@intel.com>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: drivers/uio/uio_fsl_elbc_gpcm.c:323:19: sparse: sparse:
+ unsigned value that used to be signed checked against zero?
+Message-ID: <202610061847.h2hn65y5-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-If $KBUILD_OUTPUT is set, use it by default if --file is not passed.
+Hi Rosen,
 
-Fix the issue when the script silently updates a stale .config in
-the root directory, while the user expects ${KBUILD_OUTPUT}/.config
-to be updated.
-Handle properly if the config file is a relative path.
+FYI, the error/warning was bisected to this commit, please ignore it if it's irrelevant.
 
-The problem can be worked around with --file, but this is easy to miss,
-and is inconsistent with how the Makefile and other tools work
-(e.g., scripts/diffconfig).
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   69f80fef3153299d9c72c53d1d71eef6354b6926
+commit: c8295feb756f5e3ccf02c14a90a2ee0aed95e409 uio: fsl_elbc_gpcm: use platform helpers for resource and IRQ
+date:   10 weeks ago
+config: powerpc64-randconfig-r2304-20261006 (https://download.01.org/0day-ci/archive/20261006/202610061847.h2hn65y5-lkp@intel.com/config)
+compiler: powerpc64-linux-gcc (GCC) 16.1.0
+sparse: v0.6.5-rc1
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261006/202610061847.h2hn65y5-lkp@intel.com/reproduce)
 
-How to reproduce the issue:
-	make mrproper
-	export KBUILD_OUTPUT=.out
-	make defconfig
-	./scripts/config \
-	       -e CONFIG_UBSAN
-Error reported:
-	grep: .config: No such file or directory
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: c8295feb756f ("uio: fsl_elbc_gpcm: use platform helpers for resource and IRQ")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610061847.h2hn65y5-lkp@intel.com/
 
-How the patch was tested:
-	make mrproper
-	export KBUILD_OUTPUT=.out
-	make defconfig
-	grep "CONFIG_UBSAN=y" $KBUILD_OUTPUT/.config || echo "OK"
+sparse warnings: (new ones prefixed by >>)
+   drivers/uio/uio_fsl_elbc_gpcm.c:85:53: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected struct fsl_lbc_bank *bank @@     got struct fsl_lbc_bank [noderef] __iomem * @@
+   drivers/uio/uio_fsl_elbc_gpcm.c:85:53: sparse:     expected struct fsl_lbc_bank *bank
+   drivers/uio/uio_fsl_elbc_gpcm.c:85:53: sparse:     got struct fsl_lbc_bank [noderef] __iomem *
+   drivers/uio/uio_fsl_elbc_gpcm.c:89:43: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int const volatile [noderef] [usertype] __iomem *addr @@     got restricted __be32 * @@
+   drivers/uio/uio_fsl_elbc_gpcm.c:89:43: sparse:     expected unsigned int const volatile [noderef] [usertype] __iomem *addr
+   drivers/uio/uio_fsl_elbc_gpcm.c:89:43: sparse:     got restricted __be32 *
+   drivers/uio/uio_fsl_elbc_gpcm.c:93:43: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int const volatile [noderef] [usertype] __iomem *addr @@     got restricted __be32 * @@
+   drivers/uio/uio_fsl_elbc_gpcm.c:93:43: sparse:     expected unsigned int const volatile [noderef] [usertype] __iomem *addr
+   drivers/uio/uio_fsl_elbc_gpcm.c:93:43: sparse:     got restricted __be32 *
+   drivers/uio/uio_fsl_elbc_gpcm.c:104:53: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected struct fsl_lbc_bank *bank @@     got struct fsl_lbc_bank [noderef] __iomem * @@
+   drivers/uio/uio_fsl_elbc_gpcm.c:104:53: sparse:     expected struct fsl_lbc_bank *bank
+   drivers/uio/uio_fsl_elbc_gpcm.c:104:53: sparse:     got struct fsl_lbc_bank [noderef] __iomem *
+   drivers/uio/uio_fsl_elbc_gpcm.c:116:31: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int const volatile [noderef] [usertype] __iomem *addr @@     got restricted __be32 * @@
+   drivers/uio/uio_fsl_elbc_gpcm.c:116:31: sparse:     expected unsigned int const volatile [noderef] [usertype] __iomem *addr
+   drivers/uio/uio_fsl_elbc_gpcm.c:116:31: sparse:     got restricted __be32 *
+   drivers/uio/uio_fsl_elbc_gpcm.c:117:31: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int const volatile [noderef] [usertype] __iomem *addr @@     got restricted __be32 * @@
+   drivers/uio/uio_fsl_elbc_gpcm.c:117:31: sparse:     expected unsigned int const volatile [noderef] [usertype] __iomem *addr
+   drivers/uio/uio_fsl_elbc_gpcm.c:117:31: sparse:     got restricted __be32 *
+   drivers/uio/uio_fsl_elbc_gpcm.c:131:27: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int volatile [noderef] [usertype] __iomem *addr @@     got restricted __be32 * @@
+   drivers/uio/uio_fsl_elbc_gpcm.c:131:27: sparse:     expected unsigned int volatile [noderef] [usertype] __iomem *addr
+   drivers/uio/uio_fsl_elbc_gpcm.c:131:27: sparse:     got restricted __be32 *
+   drivers/uio/uio_fsl_elbc_gpcm.c:139:27: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int volatile [noderef] [usertype] __iomem *addr @@     got restricted __be32 * @@
+   drivers/uio/uio_fsl_elbc_gpcm.c:139:27: sparse:     expected unsigned int volatile [noderef] [usertype] __iomem *addr
+   drivers/uio/uio_fsl_elbc_gpcm.c:139:27: sparse:     got restricted __be32 *
+   drivers/uio/uio_fsl_elbc_gpcm.c:345:46: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int const volatile [noderef] [usertype] __iomem *addr @@     got restricted __be32 [noderef] __iomem * @@
+   drivers/uio/uio_fsl_elbc_gpcm.c:345:46: sparse:     expected unsigned int const volatile [noderef] [usertype] __iomem *addr
+   drivers/uio/uio_fsl_elbc_gpcm.c:345:46: sparse:     got restricted __be32 [noderef] __iomem *
+   drivers/uio/uio_fsl_elbc_gpcm.c:346:46: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int const volatile [noderef] [usertype] __iomem *addr @@     got restricted __be32 [noderef] __iomem * @@
+   drivers/uio/uio_fsl_elbc_gpcm.c:346:46: sparse:     expected unsigned int const volatile [noderef] [usertype] __iomem *addr
+   drivers/uio/uio_fsl_elbc_gpcm.c:346:46: sparse:     got restricted __be32 [noderef] __iomem *
+   drivers/uio/uio_fsl_elbc_gpcm.c:375:34: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int volatile [noderef] [usertype] __iomem *addr @@     got restricted __be32 [noderef] __iomem * @@
+   drivers/uio/uio_fsl_elbc_gpcm.c:375:34: sparse:     expected unsigned int volatile [noderef] [usertype] __iomem *addr
+   drivers/uio/uio_fsl_elbc_gpcm.c:375:34: sparse:     got restricted __be32 [noderef] __iomem *
+   drivers/uio/uio_fsl_elbc_gpcm.c:376:34: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int volatile [noderef] [usertype] __iomem *addr @@     got restricted __be32 [noderef] __iomem * @@
+   drivers/uio/uio_fsl_elbc_gpcm.c:376:34: sparse:     expected unsigned int volatile [noderef] [usertype] __iomem *addr
+   drivers/uio/uio_fsl_elbc_gpcm.c:376:34: sparse:     got restricted __be32 [noderef] __iomem *
+>> drivers/uio/uio_fsl_elbc_gpcm.c:323:19: sparse: sparse: unsigned value that used to be signed checked against zero?
+   drivers/uio/uio_fsl_elbc_gpcm.c:322:31: sparse: signed value source
 
-Test the basic usage:
-	./scripts/config -e CONFIG_UBSAN
-	grep "CONFIG_UBSAN=y" $KBUILD_OUTPUT/.config && echo "OK"
+vim +323 drivers/uio/uio_fsl_elbc_gpcm.c
 
-Test --refresh picks up correct config file by using $KBUILD_OUTPUT:
-	./scripts/config -d CONFIG_UBSAN
-	grep "CONFIG_UBSAN=y" $KBUILD_OUTPUT/.config && echo "FAIL"
-	./scripts/config --refresh -e CONFIG_UBSAN
-	grep "CONFIG_UBSAN=y" $KBUILD_OUTPUT/.config && echo "OK"
+   297	
+   298	static int uio_fsl_elbc_gpcm_probe(struct platform_device *pdev)
+   299	{
+   300		struct device_node *node = pdev->dev.of_node;
+   301		struct fsl_elbc_gpcm *priv;
+   302		struct uio_info *info;
+   303		char *uio_name = NULL;
+   304		struct resource *res;
+   305		void __iomem *base;
+   306		unsigned int irq;
+   307		u32 reg_br_cur;
+   308		u32 reg_or_cur;
+   309		u32 reg_br_new;
+   310		u32 reg_or_new;
+   311		int ret;
+   312	
+   313		if (!fsl_lbc_ctrl_dev || !fsl_lbc_ctrl_dev->regs)
+   314			return -ENODEV;
+   315	
+   316		/* map the memory resource */
+   317		base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
+   318		if (IS_ERR(base))
+   319			return PTR_ERR(base);
+   320	
+   321		/* get optional irq value */
+   322		irq = platform_get_irq(pdev, 0);
+ > 323		if (irq < 0)
+   324			return irq;
+   325	
+   326		/* allocate private data */
+   327		priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
+   328		if (!priv)
+   329			return -ENOMEM;
+   330		priv->dev = &pdev->dev;
+   331		priv->lbc = fsl_lbc_ctrl_dev->regs;
+   332	
+   333		/* get device tree data */
+   334		ret = get_of_data(priv, node, res, &reg_br_new, &reg_or_new,
+   335				  &uio_name);
+   336		if (ret)
+   337			return ret;
+   338	
+   339		/* allocate UIO structure */
+   340		info = devm_kzalloc(&pdev->dev, sizeof(*info), GFP_KERNEL);
+   341		if (!info)
+   342			return -ENOMEM;
+   343	
+   344		/* get current BR/OR values */
+   345		reg_br_cur = in_be32(&priv->lbc->bank[priv->bank].br);
+   346		reg_or_cur = in_be32(&priv->lbc->bank[priv->bank].or);
+   347	
+   348		/* if bank already configured, make sure it matches */
+   349		if ((reg_br_cur & BR_V)) {
+   350			if ((reg_br_cur & BR_MSEL) != BR_MS_GPCM ||
+   351			    (reg_br_cur & reg_or_cur & BR_BA)
+   352			     != fsl_lbc_addr(res->start)) {
+   353				dev_err(priv->dev,
+   354					"bank in use by another peripheral\n");
+   355				return -ENODEV;
+   356			}
+   357	
+   358			/* warn if behavior settings changing */
+   359			if ((reg_br_cur & ~(BR_BA | BR_V)) !=
+   360			    (reg_br_new & ~(BR_BA | BR_V))) {
+   361				dev_warn(priv->dev,
+   362					 "modifying BR settings: 0x%08x -> 0x%08x",
+   363					 reg_br_cur, reg_br_new);
+   364			}
+   365			if ((reg_or_cur & ~OR_GPCM_AM) != (reg_or_new & ~OR_GPCM_AM)) {
+   366				dev_warn(priv->dev,
+   367					 "modifying OR settings: 0x%08x -> 0x%08x",
+   368					 reg_or_cur, reg_or_new);
+   369			}
+   370		}
+   371	
+   372		/* configure the bank (force base address and GPCM) */
+   373		reg_br_new &= ~(BR_BA | BR_MSEL);
+   374		reg_br_new |= fsl_lbc_addr(res->start) | BR_MS_GPCM | BR_V;
+   375		out_be32(&priv->lbc->bank[priv->bank].or, reg_or_new);
+   376		out_be32(&priv->lbc->bank[priv->bank].br, reg_br_new);
+   377	
+   378		/* set all UIO data */
+   379		info->mem[0].name = devm_kasprintf(&pdev->dev, GFP_KERNEL, "%pOFn", node);
+   380		if (!info->mem[0].name)
+   381			return -ENODEV;
+   382	
+   383		info->mem[0].internal_addr = base;
+   384		info->mem[0].addr = res->start;
+   385		info->mem[0].size = resource_size(res);
+   386		info->mem[0].memtype = UIO_MEM_PHYS;
+   387		info->priv = priv;
+   388		info->name = uio_name;
+   389		info->version = "0.0.1";
+   390		if (irq) {
+   391			if (priv->irq_handler) {
+   392				info->irq = irq;
+   393				info->irq_flags = IRQF_SHARED;
+   394				info->handler = priv->irq_handler;
+   395			} else {
+   396				irq = 0;
+   397				dev_warn(priv->dev, "ignoring irq, no handler\n");
+   398			}
+   399		}
+   400	
+   401		if (priv->init)
+   402			priv->init(info);
+   403	
+   404		/* register UIO device */
+   405		if (uio_register_device(priv->dev, info) != 0) {
+   406			dev_err(priv->dev, "UIO registration failed\n");
+   407			ret = -ENODEV;
+   408			goto out_err2;
+   409		}
+   410	
+   411		/* store private data */
+   412		platform_set_drvdata(pdev, info);
+   413	
+   414		dev_info(priv->dev,
+   415			 "eLBC/GPCM device (%s) at 0x%llx, bank %d, irq=%d\n",
+   416			 priv->name, (unsigned long long)res->start, priv->bank,
+   417			 irq ? : -1);
+   418	
+   419		return 0;
+   420	out_err2:
+   421		if (priv->shutdown)
+   422			priv->shutdown(info, true);
+   423		return ret;
+   424	}
+   425	
 
-Test --file takes precedence over $KBUILD_OUTPUT and a relative
-path is handled properly:
-	./scripts/config -d CONFIG_UBSAN
-	mkdir .out2
-	cp .out/.config .out2/.my_config
-	grep "CONFIG_UBSAN=y" .out2/.my_config  && echo "FAIL"
-	./scripts/config --file .out2/.my_config --refresh \
-	       -e CONFIG_UBSAN
-	grep "CONFIG_UBSAN=y" .out2/.my_config && echo "OK"
-	ls .out/.out2 && echo "FAIL"
-	ls .out/.out && echo "FAIL"
-
-Test --file can accept files with hyphen:
-	./scripts/config -d CONFIG_UBSAN
-	cp .out/.config -- -my_config
-	grep "CONFIG_UBSAN=y" -- -my_config && echo "FAIL"
-	./scripts/config  --refresh \
-	       -e CONFIG_UBSAN --file -my_config
-	grep "CONFIG_UBSAN=y" -- -my_config && echo "OK"
-
-Signed-off-by: Dmitry Voytik <voytikd@gmail.com>
----
-v7:
- * Adressed https://sashiko.dev/#/patchset/20261006142337.821859-1-voytikd%40gmail.com
-v6:
- * Per Nathan Chancellor's suggestions, simplified
- * https://lore.kernel.org/lkml/179121581235.2275809.12565811683284940522.b4-review@b4/
-v5:
- * Per Nathan Chancellor's suggestion, improved handling $FN path by
-   realpath
- * https://lore.kernel.org/lkml/179097210878.309835.10523307262544578337.b4-review@b4/
- * Documented the new test scenario in the git commit message
-v4:
- * Addressed Nicolas Schier's comments - dropped the change how '--refresh'
-   is handled
- * Implemented conversion of $FN to the absolute path which helps with
-   '--refresh' and relative paths
- * Documented testing steps in the commit message
-v3:
- * Added an example in the commit message how to reproduce the issue
-v2:
- * Addressed comments by sashiko:
-   * https://sashiko.dev/#/patchset/20260920064350.17999-1-voytikd%40gmail.com
-   * use basename when --refresh is used
-   * remove echo which can be misleading when --file is passed
-v1:
- * https://lore.kernel.org/all/20260920064350.17999-1-voytikd@gmail.com/
----
- scripts/config | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
-
-diff --git a/scripts/config b/scripts/config
-index 32428ea909c2..1e29e449077c 100755
---- a/scripts/config
-+++ b/scripts/config
-@@ -130,13 +130,15 @@ on_exit() {
- trap on_exit EXIT
- 
- FN=.config
-+
-+
- CMDS=()
- while [[ $# -gt 0 ]]; do
- 	if [ "$1" = "--file" ]; then
- 		if [ "$2" = "" ]; then
- 			usage
- 		fi
--		FN="$2"
-+		FN=$(realpath -q -- "$2" || printf -- "%s\n" "$2")
- 		shift 2
- 	else
- 		CMDS+=("$1")
-@@ -144,6 +146,16 @@ while [[ $# -gt 0 ]]; do
- 	fi
- done
- 
-+# ignore $KBUILD_OUTPUT if "--file" option is present
-+if [[ "$FN" == ".config" && -n "$KBUILD_OUTPUT" ]]; then
-+	if [[ ! -d "$KBUILD_OUTPUT" ]]; then
-+		echo "KBUILD_OUTPUT is set but does not exist or is not a " >&2
-+		echo "directory. Create it before running $myname." >&2
-+		exit 1
-+	fi
-+	FN=$(realpath -- "$KBUILD_OUTPUT")/"$FN"
-+fi
-+
- set -- "${CMDS[@]}"
- if [ "$1" = "" ] ; then
- 	usage
-@@ -200,7 +212,7 @@ while [ "$1" != "" ] ; do
- 		;;
- 
- 	--state|-s)
--		if grep -q "# ${CONFIG_}$ARG is not set" $FN ; then
-+		if grep -q "# ${CONFIG_}$ARG is not set" "$FN" ; then
- 			echo n
- 		else
- 			V="$(grep "^${CONFIG_}$ARG=" $FN)"
-@@ -229,7 +241,7 @@ while [ "$1" != "" ] ; do
- 		;;
- 
- 	--refresh)
--		yes "" | make oldconfig KCONFIG_CONFIG=$FN
-+		yes "" | make oldconfig KCONFIG_CONFIG="$FN"
- 		;;
- 
- 	*)
--- 
-2.55.0
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
