@@ -1,136 +1,118 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com [157.90.84.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6026547072;
-	Tue,  6 Oct 2026 07:41:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C24122425B;
+	Tue,  6 Oct 2026 07:41:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=157.90.84.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791272507; cv=none; b=Nq5V4R/DrcLqnbSMpOkQg7faIeoXsYiC4Qhvsq/urcjAjUv569OZB4MV0ZPYWjA2AJPwkyyCzUVmrZOQv0YTlGQ1mGXM0Rng3TMOJR7o6jsys1OhorudVqqDyy6hDWFYa6fXf5z4hkO8kZgCHv8IwIWctJzEgbLc5codTocK2Tw=
+	t=1791272508; cv=none; b=K7F+9FQSdT+ta/cgHSkgJfSiYo4XQAtSJ2ExcfYsbFMx8ELsoX0iivXkuZTfAcgo5D297eU2IwGFXURCpvIaTDIerK/rNfjh0e2rVIMJ0aE/Kvog7FdOznF3kPyH6fdbRashvQ4j6Vk7lvDLUkpbJxznAqETrLF+wPixNr5x8hw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791272507; c=relaxed/simple;
-	bh=Jvs7bD7PA4yEwVd5cuhIyWWuagFCWt/2y23LxYYManc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=PGR2YC2el3sQYOi13OGutBH7bDBxSyZpdSbomrhhFRQ8GzgSOlkCDz1ETQSuc+iLC5jJDsiWU0lABeqeUcqrzNfTJwGpP6lfJ1oUXa3zfQaP2dhjzpxKHGJI+gYmuONBTOPZ9XoCcFmezuGofM+aKmvEDxwdkCojVxsVjwcYgQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=D+XhfEht; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791272508; c=relaxed/simple;
+	bh=YEdXLMNewdPNguOayzhbEP4Bdrk41CYn4l4TF727ReU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QW3C/FyZ1fuvatguBqLE1BqkVkRaSLQd6LRZ9UmNSp9hz1FhT1+D+JMNhw+WhReuu9RusmRgVWRVVmA37rsvoSz1fYkvbi9pvmMpow00CZNCI5Cps5ZGxhFvtD3gbuhlqifFN0oh1WPNczItNzmgwqzfc/uQEOZc04T9HLujnxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com; spf=pass smtp.mailfrom=tuxedocomputers.com; dkim=pass (1024-bit key) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b=lG3jQkb7; arc=none smtp.client-ip=157.90.84.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxedocomputers.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="D+XhfEht"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791272505; x=1822808505;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=Jvs7bD7PA4yEwVd5cuhIyWWuagFCWt/2y23LxYYManc=;
-  b=D+XhfEht05rjtlkk3M6k8wVn1MeudWGD1X+TFgr8HlOTQgaKcFPHO/BS
-   d+qSsvd5J+KCzmH2+WAJwALhOn4HKtFPU1SDhDIOOmifEuCWu9lS0rLD3
-   WRiVODjiXSMmjSPU7OudrNdhffpXAk2v3XEqnt2V0oSF/x6FkH8PIJR6J
-   VxkaNJsghAbJm8PtwobZhuSgVS029lc/mVsKsVpOB0gpoXupcASzzxBtq
-   SSSFPju0ejdB9rD+HXEjKqyJ0UEESC5MNA68V9enp1U/VTLU3JfuWUkSi
-   fqZDCxWrXL+XfrDOfeT96NaMRZqrn8rTnEj8c31VntIbopXI7LIs0Qvo9
-   A==;
-X-CSE-ConnectionGUID: nn24cThLRXCWVCkAwTSgcw==
-X-CSE-MsgGUID: QxF+oHeoSs26UgOOIKxbVA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="3722"
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="3722"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 00:41:44 -0700
-X-CSE-ConnectionGUID: NvKzBjS1SFGc6dKHvOE3lg==
-X-CSE-MsgGUID: 7jEUxuY8Qsiw/5ZQ1mJDrQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="285187984"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.59])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 00:41:41 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Yuho Choi <oss.patchbox@gmail.com>, Zhenyu Wang
- <zhenyuw.linux@gmail.com>, Zhi Wang <zhi.wang.linux@gmail.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Xiaolin
- Zhang <xiaolin.zhang@intel.com>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Yuho Choi
- <oss.patchbox@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v1] drm/i915/gvt: Don't replace a DMA mapping that is
- still in use
-In-Reply-To: <20261004212403.208681-1-oss.patchbox@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261004212403.208681-1-oss.patchbox@gmail.com>
-Date: Tue, 06 Oct 2026 10:41:39 +0300
-Message-ID: <5e03928e7817104f062e27f0b14d180549f209c2@intel.com>
+	dkim=pass (1024-bit key) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="lG3jQkb7"
+Received: from [10.224.208.2] (dynamic-176-002-031-164.176.2.pool.telefonica.de [176.2.31.164])
+	(Authenticated sender: a.erhardt@tuxedocomputers.com)
+	by mail.tuxedocomputers.com (Postfix) with ESMTPSA id 403152FC004D;
+	Tue,  6 Oct 2026 09:41:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
+	s=default; t=1791272496;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PDg68+TWSnbGkiXkjkvG+shcZWHw/a0FgpsyB3SZqV4=;
+	b=lG3jQkb7unCGmbQmiJnEXI1eMrE2P8X4+gppItpKfUHWqbNF3VauSB47n50vrGq37kErVC
+	ZI6CgD738vtL03/aPmEQbuWodPUiXy1EW9f4lUi024r9dgOp/6mjrbGS8rrgyzMMMsGsB8
+	CIi28FwQcP2W40oQ0AOzZXJgFDUqW6o=
+Authentication-Results: mail.tuxedocomputers.com;
+	auth=pass smtp.auth=a.erhardt@tuxedocomputers.com smtp.mailfrom=aer@tuxedocomputers.com
+Message-ID: <c76f4274-bcf6-4a56-908d-10e08405f5ea@tuxedocomputers.com>
+Date: Tue, 6 Oct 2026 09:41:35 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 4/6] platform/x86/tuxedo: Fix keyboard LED map ordering
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Werner Sembach <wse@tuxedocomputers.com>, Hans de Goede
+ <hansg@kernel.org>, platform-driver-x86@vger.kernel.org,
+ LKML <linux-kernel@vger.kernel.org>
+References: <20260928085448.9024-1-aer@tuxedocomputers.com>
+ <20260928085448.9024-5-aer@tuxedocomputers.com>
+ <c6592aba-a3af-f012-361f-52e29b070459@linux.intel.com>
+Content-Language: en-US
+From: Aaron Erhardt <aer@tuxedocomputers.com>
+In-Reply-To: <c6592aba-a3af-f012-361f-52e29b070459@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sun, 04 Oct 2026, Yuho Choi <oss.patchbox@gmail.com> wrote:
-> intel_gvt_dma_map_guest_page() unmaps and frees the cache entry of a
-> gfn when it is requested with a different size, and maps the page again.
-> The entry is still referenced: shadow GTT entries and dma-bufs keep
-> using its DMA address after the page is unpinned and the DMA mapping is
-> torn down. When the new mapping gets the same DMA address, their later
-> intel_gvt_dma_unmap_guest_page() calls also drop the references of the
-> new entry.
->
-> Keep the existing entry instead. A 2M mapping covers a 4K request for
-> its first page, so take a reference on it. If the entry is smaller than
-> the request, fail and let the caller split the 2M entry into 4K pages,
-> as it already does when a 2M mapping cannot be set up.
->
-> Fixes: 7366aeb77cd8 ("drm/i915/gvt: fix incorrect cache entry for guest page mapping")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
-> ---
-> Compile-tested only (x86_64 defconfig + DRM_I915_GVT_KVMGT, W=1, sparse).
+Am 05.10.26 um 16:06 schrieb Ilpo Järvinen:
+> On Mon, 28 Sep 2026, Aaron Erhardt wrote:
+> 
+>> The LED mappings in sirius_16_[iso|ansii]_kbl_map did contain a
+>> flipped line that caused LEDs to turn on in the wrong order when
+>> counting up the Lamp ID.
+>>
+>> Fixes: cfd84b3f419b
+> 
+> Please see Documentation/process/submitting-patches.rst how to format 
+> the Fixes tag properly.
+> 
+> You seem to also have not carried over Werner's Reviewed-by tags to a new 
+> version. Whenever you're submitting a new version of the series, collect 
+> the tags given to the previous version. (Only if you've done very major
+> changes to the patches, it may be warranted to not include tags given 
+> earlier.)
+> 
+> Generally, maintainer tools will only pick tags for the current version of 
+> the series (err'ing to the side of caution) which is why submitters are 
+> expected to do that when a new version gets posted.
+> 
 
-IOW, you're not hitting the issue yourself? How did you find the issue?
-Did you use LLM to write the patch?
+I read that exact document, but only the lower section about when and not how.
+Sorry for that. I'll fix both problems in the next series.
 
-BR,
-Jani.
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Aaron Erhardt <aer@tuxedocomputers.com>
+>> ---
+>>  drivers/platform/x86/tuxedo/nb04/wmi_ab.c | 8 ++++----
+>>  1 file changed, 4 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/platform/x86/tuxedo/nb04/wmi_ab.c b/drivers/platform/x86/tuxedo/nb04/wmi_ab.c
+>> index 8f1ffca0430d..2b985b030197 100644
+>> --- a/drivers/platform/x86/tuxedo/nb04/wmi_ab.c
+>> +++ b/drivers/platform/x86/tuxedo/nb04/wmi_ab.c
+>> @@ -232,8 +232,8 @@ static const struct tux_kbl_map_entry_t sirius_16_ansii_kbl_map[] = {
+>>  	{ 0x2e, { 246000,  67500, 5250 } },
+>>  	{ 0x2a, { 269500,  67500, 5250 } },
+>>  	{ 0x53, { 294500,  67500, 5250 } },
+>> -	{ 0x55, { 311200,  67500, 5250 } },
+>> -	{ 0x54, { 327900,  67500, 5250 } },
+>> +	{ 0x54, { 311200,  67500, 5250 } },
+>> +	{ 0x55, { 327900,  67500, 5250 } },
+>>  	{ 0x56, { 344600,  67500, 5250 } },
+>>  	{ 0x2b, {  31000,  85500, 5500 } },
+>>  	{ 0x14, {  51500,  85500, 5500 } },
+>> @@ -337,8 +337,8 @@ static const struct tux_kbl_map_entry_t sirius_16_iso_kbl_map[] = {
+>>  	{ 0x2e, { 246000,  67500, 5250 } },
+>>  	{ 0x2a, { 269500,  67500, 5250 } },
+>>  	{ 0x53, { 294500,  67500, 5250 } },
+>> -	{ 0x55, { 311200,  67500, 5250 } },
+>> -	{ 0x54, { 327900,  67500, 5250 } },
+>> +	{ 0x54, { 311200,  67500, 5250 } },
+>> +	{ 0x55, { 327900,  67500, 5250 } },
+>>  	{ 0x56, { 344600,  67500, 5250 } },
+>>  	{ 0x2b, {  31000,  85500, 5500 } },
+>>  	{ 0x14, {  51500,  85500, 5500 } },
+>>
+> 
 
->
->  drivers/gpu/drm/i915/gvt/kvmgt.c | 20 ++++++++------------
->  1 file changed, 8 insertions(+), 12 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
-> index ec62db5cc3675..9a3e305253469 100644
-> --- a/drivers/gpu/drm/i915/gvt/kvmgt.c
-> +++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
-> @@ -1626,19 +1626,15 @@ int intel_gvt_dma_map_guest_page(struct intel_vgpu *vgpu, unsigned long gfn,
->  		ret = __gvt_cache_add(vgpu, gfn, *dma_addr, size);
->  		if (ret)
->  			goto err_unmap;
-> -	} else if (entry->size != size) {
-> -		/* the same gfn with different size: unmap and re-map */
-> -		gvt_dma_unmap_page(vgpu, gfn, entry->dma_addr, entry->size);
-> -		__gvt_cache_remove_entry(vgpu, entry);
-> -
-> -		ret = gvt_dma_map_page(vgpu, gfn, dma_addr, size);
-> -		if (ret)
-> -			goto err_unlock;
-> -
-> -		ret = __gvt_cache_add(vgpu, gfn, *dma_addr, size);
-> -		if (ret)
-> -			goto err_unmap;
-> +	} else if (entry->size < size) {
-> +		/*
-> +		 * The smaller mapping may still be in use, so don't replace
-> +		 * it. Fail and let the caller map the range in smaller pages.
-> +		 */
-> +		ret = -EBUSY;
-> +		goto err_unlock;
->  	} else {
-> +		/* A mapping of the same or a larger size covers the request */
->  		kref_get(&entry->ref);
->  		*dma_addr = entry->dma_addr;
->  	}
->
-> base-commit: 7704c4c5bb127673b4f0ead839919db573559e38
-
--- 
-Jani Nikula, Intel
