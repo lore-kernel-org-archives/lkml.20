@@ -1,196 +1,115 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8423B39A7EF;
-	Tue,  6 Oct 2026 12:16:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mta0.migadu.com (out-26.mta0.migadu.com [91.218.175.26])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 465913E63A2
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 12:19:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.26
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791288987; cv=none; b=tWCYUsRtLdR58FmS414Ne9WX29uYMqqBTxOh79fhHAc7bxa+J/svYB3P6AfVcfY3R+v2q6soZGBevUSsvCbhonTu9yNgHj61J/Lw2sf13TVXrQ4Ou4HbE0NqptYPGndQGkobLbjC27p7QXMHC3Jb3smVauPpHHhlLgS11+DC08k=
+	t=1791289164; cv=none; b=MECgUpFt10i72fWe6S5ggVSJztgjCSaIGYmrHALi9Ia0DwimzKAAUp6L4wTreNXQJn1mkoIOC1nw+lP6GEfE5Lq7ihfEQTQ6+kC3H/T3NRuYHODX4bGsGOs/tb4XMKz797A+HMlspy8VeaogL4jPfDekfzbnBrQKeMHsfNxc9Ms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791288987; c=relaxed/simple;
-	bh=TBS5GBEQ+BQ1mfJ/fxBa32HZcsgKA+CW7tg1R0oCgqw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QgWC/PVWkNSdHhjc7X+pw75vNDmCFUqogceloiaTo6NqioGiSsMOMKmU/GOIZspy6tGNr9+bm0FwGHwysR61qkqR5xYO0wT0m58HTy1RhobadI9fyyrP226If1gjlHO3T6YsNi47ICwmf7cgl/oYmyE6li28m17TtG6Ul6YMrBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=jzckIVqE; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791289164; c=relaxed/simple;
+	bh=3hHU8L2POZNJGy3vALHqfv0rSAOQHEs0iJx+Kc2DoLw=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=KBGurNKbJ6Is6d8t33jmLNGa119FBFRtyM4wt4zYACXiXwWwIc70CC2m25uujPyOy6MQ+42VXGr/VItVzM5pUmsPOGrgW8Qd4Jkqm5buIXlJAFfiLhneIo2jrkY59QJ5bUyiSz9WQ0gQTLoLZ0AhbnercB2NXKBU8VTeA7YVXbc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Dea+f9kx; arc=none smtp.client-ip=91.218.175.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="jzckIVqE"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 745491516;
-	Tue,  6 Oct 2026 05:16:21 -0700 (PDT)
-Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D51F73F66F;
-	Tue,  6 Oct 2026 05:16:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791288984; bh=TBS5GBEQ+BQ1mfJ/fxBa32HZcsgKA+CW7tg1R0oCgqw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=jzckIVqEn6x7dUQWuh/LMixBqqMfPzPxRr2+z0EDMQN+GaRRYPotA//6f3z7yqkQN
-	 kr/bIlyMo68oM4bckrS8hgl+SYaDn+PqSxtZNPRhq+VEViy47pArx3Vpku30C6JNV+
-	 v6n8PvMIhi7vl0eWXEaX5cTPPf6/zCZyKwu69B7Y=
-Message-ID: <603b4f40-2a60-4bc5-8b98-ada7a52fead9@arm.com>
-Date: Tue, 6 Oct 2026 14:16:21 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Dea+f9kx"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=3hHU8L2POZNJGy3vALHqfv0rSAOQHEs0iJx+Kc2DoLw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791289160; v=1; x=1791893960;
+ b=Dea+f9kxtfX5sqciFVjSjN3ihPZ6XSmS7GUrzZdtBDbKVspaeqIdtvUk8ZgTPCq4kWM3itur
+ jBTPIYgOLv9J3YyeMF2TQeKaq3DQD09rbhcE2zDWdgjHewYUBTDW7aCddXmB5JkBUgkLA32Tlrq
+ 8lTtBzr5kbtq1P0MQrhDsL98=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 819c3038e7e603b7;
+	Tue, 06 Oct 2026 12:19:19 +0000
+X-Mizu-Trace-ID: 819c3038e7e603b7
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] serial: 8250_dw: Add Allwinner A733 UART
-To: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
- linux-serial@vger.kernel.org
-Cc: gregkh@linuxfoundation.org, jirislaby@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, andriy.shevchenko@linux.intel.com,
- ilpo.jarvinen@linux.intel.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev,
- Enzo Adriano <enzo.adriano.code@gmail.com>
-References: <20261005172538.398522-1-vinicius.eduardo.pedrosa@gmail.com>
- <20261005172538.398522-4-vinicius.eduardo.pedrosa@gmail.com>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20261005172538.398522-4-vinicius.eduardo.pedrosa@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Date: Tue, 06 Oct 2026 12:19:19 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Luka Gejak" <luka.gejak@linux.dev>
+Message-ID: <452b014a9d4c509260c79eef66a975a5f723c1e8@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH rtw-next v7 4/6] wifi: rtw88: 8723b: add the RTL8723B
+ chip driver
+To: "Bitterblue Smith" <rtl8821cerfe2@gmail.com>, "Ping-Ke Shih"
+ <pkshih@realtek.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, "Michael
+ Straube" <straube.linux@gmail.com>, "Peter Robinson"
+ <pbrobinson@gmail.com>, luka.gejak@linux.dev
+In-Reply-To: <3a57c874-ab57-4ca2-98a9-d5cf4fdf285b@gmail.com>
+References: <20261002073845.31486-1-luka.gejak@linux.dev>
+ <20261002073845.31486-5-luka.gejak@linux.dev>
+ <aa7d919d98304ee095990735f39095ac@realtek.com>
+ <DLWXWMOGZGX9.UANQJR9PZYWG@linux.dev>
+ <359ea3a6857d4aba9c83876a10f7f9e8@realtek.com>
+ <3a57c874-ab57-4ca2-98a9-d5cf4fdf285b@gmail.com>
 
-Hi,
+October 6, 2026 at 13:18, "Bitterblue Smith" <rtl8821cerfe2@gmail.com mai=
+lto:rtl8821cerfe2@gmail.com?to=3D%22Bitterblue%20Smith%22%20%3Crtl8821cer=
+fe2%40gmail.com%3E > wrote:
 
-about the rate settting ...
 
-On 10/5/26 19:25, Vinicius Pedrosa wrote:
-> The A733 UART is clocked from its bus clock gate, which can't change
-> rate. dw8250_set_termios() still gates it around a no-op clk_set_rate()
-> on every termios change. That stalls the character being shifted out
+>=20
+>=20On 06/10/2026 03:39, Ping-Ke Shih wrote:
+>=20
+>=20>=20
+>=20> Luka Gejak <luka.gejak@linux.dev> wrote:
+> >=20
+>=20> >=20
+>=20> > On Mon Oct 5, 2026 at 8:08 AM CEST, Ping-Ke Shih wrote:
+> > >=20
+>=20>  Luka Gejak <luka.gejak@linux.dev> wrote:
+> >=20
+>=20> >=20
+>=20> > [...]
+> > >=20
+>=20>  +/*
+> >  + * Shares the receive PHY status layout, the SDIO aggregation burst=
+ fields
+> >  + * and a few baseband registers with the RTL8703B; reuse that heade=
+r.
+> >  + */
+> >  +#include "rtw8703b.h"
+> >=20
+>=20>  Which layout you are using?
+> >  Should you move the layout to rtw8723x.h ?
+> >=20
+>=20> >=20
+>=20> > The layout I reuse is the RTL8703B receive PHY status structure, =
+struct
+> > >  phy_status_8703b, together with the SDIO aggregation burst fields =
+and four
+> > >  baseband registers.
+> > >=20
+>=20>=20=20
+>=20>  Let's use another patch to move the struct out of rtw8703b.h, and =
+rename
+> >  to phy_status_8723x for example.
+> >=20
+>=20The same struct could be used by other chips in the future, like
+> RTL8192EE/RTL8192EU and RTL8188FU/RTL8189FS.
+>
 
-So isn't that a bug somewhere else then? Why would it gate the clock to 
-set the rate? Shouldn't this decision be left to the CCF, where we have 
-CLK_SET_RATE_GATE and CLK_SET_RATE_UNGATE to describe the clock's 
-requirement? For instance the A733 manual says:
-"Note: The clock MUX/DIV provides glitch-free switching
-and supports dynamic configuration."
-So we can both change the mux and the divider without gating.
+It probably could. The layout is the vendor driver's
+phy_status_rpt_8192cd, used across the 8192cd generation of 11n chips.
 
-And secondly, why does the termios code gate the clock when it's 
-apparently not safe to do so, because the UART is not quiescent?
+I kept the 8723x name and rtw8723x.h for now because the only users in
+rtw88 today are the RTL8703B and the RTL8723B. When the RTL8192EE/EU
+or RTL8188FU/FS drivers are upstreamed they can be pointed at this
+struct and it can be renamed and moved then. Same way this patch makes
+for rtw8703b.h.
 
-And what is your use case here, exactly? Do you reconfigure the baud 
-rate while characters are incoming? That would garble characters anyway?
-
-One thing you could try: the binding and the code support separate bus 
-gate and baud rate clocks. So can you just expose CLK_APB1 as the baud 
-rate clock in the DT? This would allow to change the rate, which is also 
-beneficial, because at least on the current H6 generation U-Boot code 
-(clock_sun50i_h6.c) we set the UART APB to 24MHz, so limit ourselves to 
-1.5Mpbs. With APB1 set to 100 or 160 MHz, we could get higher baud 
-rates, and exposing the mux+divider clock should allow to set the rate. 
-I think the CCF would still need to negotiate with the other users, 
-which are I2C and PWM, but that's something to solve there.
-
-Cheers,
-Andre.
-
-  > and corrupts it on the wire. Use the existing SKIP_SET_RATE quirk, as
-> other SoCs with a fixed UART clock do.
-> 
-> Offset 0xc0 is the RS485 control register on this SoC (A733 User
-> Manual, UART_485_CTL), not DLF. dw8250_setup_port() writes all ones
-> there, reads back a nonzero 9-bit value and takes it for a 9-bit DLF.
-> Every later divisor change then writes the fractional divisor into the
-> RS485 control register. Add a NO_DLF quirk so dwlib skips that probe.
-> 
-> Signed-off-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-> ---
->   drivers/tty/serial/8250/8250_dw.c    | 13 +++++++++++++
->   drivers/tty/serial/8250/8250_dwlib.c | 22 ++++++++++++----------
->   drivers/tty/serial/8250/8250_dwlib.h |  1 +
->   3 files changed, 26 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
-> index ba414306c98a..ea33aa644cda 100644
-> --- a/drivers/tty/serial/8250/8250_dw.c
-> +++ b/drivers/tty/serial/8250/8250_dw.c
-> @@ -52,6 +52,7 @@
->   #define DW_UART_QUIRK_CPR_VALUE		BIT(5)
->   #define DW_UART_QUIRK_IER_KICK		BIT(6)
->   #define DW_UART_QUIRK_SKIP_EMPTY_FIFO_READ	BIT(7)
-> +#define DW_UART_QUIRK_NO_DLF		BIT(8)
->   
->   /*
->    * Number of consecutive IIR_NO_INT interrupts required to trigger interrupt
-> @@ -606,6 +607,8 @@ static void dw8250_quirks(struct uart_port *p, struct dw8250_data *data)
->   		p->serial_out = dw8250_serial_out38x;
->   	if (quirks & DW_UART_QUIRK_SKIP_SET_RATE)
->   		p->set_termios = dw8250_do_set_termios;
-> +	if (quirks & DW_UART_QUIRK_NO_DLF)
-> +		data->data.no_dlf = true;
->   	if (quirks & DW_UART_QUIRK_IS_DMA_FC) {
->   		data->data.dma.txconf.device_fc = 1;
->   		data->data.dma.rxconf.device_fc = 1;
-> @@ -892,6 +895,15 @@ static const struct dw8250_platform_data dw8250_skip_set_rate_data = {
->   	.quirks = DW_UART_QUIRK_SKIP_SET_RATE,
->   };
->   
-> +/*
-> + * The baud clock is the bus clock gate, whose rate cannot change, and offset
-> + * 0xc0 is the RS485 control register rather than DLF.
-> + */
-> +static const struct dw8250_platform_data dw8250_sun60i_a733_data = {
-> +	.usr_reg = DW_UART_USR,
-> +	.quirks = DW_UART_QUIRK_SKIP_SET_RATE | DW_UART_QUIRK_NO_DLF,
-> +};
-> +
->   static const struct dw8250_platform_data dw8250_intc10ee = {
->   	.usr_reg = DW_UART_USR,
->   	.quirks = DW_UART_QUIRK_IER_KICK,
-> @@ -913,6 +925,7 @@ static const struct dw8250_platform_data dw8250_tda54 = {
->   
->   static const struct of_device_id dw8250_of_match[] = {
->   	{ .compatible = "snps,dw-apb-uart", .data = &dw8250_dw_apb },
-> +	{ .compatible = "allwinner,sun60i-a733-uart", .data = &dw8250_sun60i_a733_data },
->   	{ .compatible = "cavium,octeon-3860-uart", .data = &dw8250_octeon_3860_data },
->   	{ .compatible = "marvell,armada-38x-uart", .data = &dw8250_armada_38x_data },
->   	{ .compatible = "renesas,rzn1-uart", .data = &dw8250_renesas_rzn1_data },
-> diff --git a/drivers/tty/serial/8250/8250_dwlib.c b/drivers/tty/serial/8250/8250_dwlib.c
-> index 9bb02a4ab11f..9c6f3d926ad5 100644
-> --- a/drivers/tty/serial/8250/8250_dwlib.c
-> +++ b/drivers/tty/serial/8250/8250_dwlib.c
-> @@ -209,16 +209,18 @@ void dw8250_setup_port(struct uart_port *p)
->   	}
->   	up->capabilities |= UART_CAP_NOTEMT;
->   
-> -	/* Preserve value written by firmware or bootloader  */
-> -	old_dlf = dw8250_readl_ext(p, DW_UART_DLF);
-> -	dw8250_writel_ext(p, DW_UART_DLF, ~0U);
-> -	reg = dw8250_readl_ext(p, DW_UART_DLF);
-> -	dw8250_writel_ext(p, DW_UART_DLF, old_dlf);
-> -
-> -	if (reg) {
-> -		pd->dlf_size = fls(reg);
-> -		p->get_divisor = dw8250_get_divisor;
-> -		p->set_divisor = dw8250_set_divisor;
-> +	if (!pd->no_dlf) {
-> +		/* Preserve value written by firmware or bootloader  */
-> +		old_dlf = dw8250_readl_ext(p, DW_UART_DLF);
-> +		dw8250_writel_ext(p, DW_UART_DLF, ~0U);
-> +		reg = dw8250_readl_ext(p, DW_UART_DLF);
-> +		dw8250_writel_ext(p, DW_UART_DLF, old_dlf);
-> +
-> +		if (reg) {
-> +			pd->dlf_size = fls(reg);
-> +			p->get_divisor = dw8250_get_divisor;
-> +			p->set_divisor = dw8250_set_divisor;
-> +		}
->   	}
->   
->   	reg = dw8250_readl_ext(p, DW_UART_UCV);
-> diff --git a/drivers/tty/serial/8250/8250_dwlib.h b/drivers/tty/serial/8250/8250_dwlib.h
-> index ee7a07fac0f6..ca0dfd6d056e 100644
-> --- a/drivers/tty/serial/8250/8250_dwlib.h
-> +++ b/drivers/tty/serial/8250/8250_dwlib.h
-> @@ -88,6 +88,7 @@ struct dw8250_port_data {
->   	/* Hardware configuration */
->   	u32			cpr_value;
->   	u8			dlf_size;
-> +	bool			no_dlf;		/* Offset 0xc0 is not DLF */
->   
->   	/* RS485 variables */
->   	bool			hw_rs485_support;
-
+Best regards,
+Luka Gejak
