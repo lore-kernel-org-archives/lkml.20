@@ -1,56 +1,56 @@
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 448183E7BA4
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 23:33:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8C894E4315
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 23:33:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791329593; cv=none; b=u08LamvzLVQ+JwHZetoZM8zzsfl2pruE6sy3Xn3NeyCFp8RJ7nHwcPg/YfP2fYVzolHWo1eql4HOx2dhu3vFR5SCLcl5FJZXw4uq2RccZ8Y091AmcsGopWhgO/LuMp48Xztu6iDm6EYXQMekdYzSMjOdhcsDdoVFlWnYxHlcgGQ=
+	t=1791329595; cv=none; b=K1/oaOY9UkEgekjR0rPz6vo7wENU13BoGS4z4/NaSsB8YoXEJ16t+HGR7Zmn4wvhODkOAcYKgRKnZCfmm0cGY6xsmxWe0qGJK2eJJNuG0vEBL1YC+OPpmdIldlnKuH+2sXzZx3cpljYo7NBZI6u7XwHqAfJRJ8TihLmL+AYJYYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791329593; c=relaxed/simple;
-	bh=6do5GILneM2SelSiDGSkhgGo9BTvgOAIY7d7Bg1SjQ8=;
+	s=arc-20240116; t=1791329595; c=relaxed/simple;
+	bh=0qjvB8OdXfnw5dOGUw3YkdBEmSXrOae8HI2nVPtSxvc=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=rJUK5Dv2byEM/uC75tgiOTR0FCYDSpktk/2w/NQLeG1gJcUgPkVRPzSjFdLIPhMLycfRpWuHGGZksP6meHUJdb6muxB+ht86tm2th8jZIUSdxLq4LtejgrUvBZbslCMQx5FHbwper30m4MO4H1G7n6RAZ2u9CJE+jaHOK0sA3rs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--praan.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=MnEnWh2f; arc=none smtp.client-ip=209.85.215.200
+	 To:Cc:Content-Type; b=Uj0MIoLxWDw52+GTSLjF+TQGWq57ZJrg0JO8WCROSWXc/FEaVbHXKAHfcH3cLqKH8i5bf+uCY+AhsZXyVo6Te7cfgkdFCYgNHZVhtVSNzIFRSuaIQrXwN/zV6oaYtmwYYGs6QLR3BeHE4OadHszRa1NT1P3WrBj7ESUX895adAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--praan.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UxwH3VsE; arc=none smtp.client-ip=209.85.215.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--praan.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="MnEnWh2f"
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cca35cf9f77so2002006a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 16:33:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UxwH3VsE"
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cd0cf3b1c70so155695a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 16:33:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791329588; x=1791934388; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1791329593; x=1791934393; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Uzjnm4DC8/yngbTXbJn1X0a1+gZkIVZaTLffWNrxWJE=;
-        b=MnEnWh2fR6g1/Zzg1XlOWgScAw+AQt1DDv2dqPeh/wfRdCXRJ4kPh3e2uOOe1gVAc6
-         uSRyBWI2PLCHM3h7GjbPRSAg/QCv2P1Ly34zAkdXv85tyZSuY881wgoeU9FxTVRLu3qo
-         yfVgXbpIbOY5gdxNLIwsGKen3+CKHErb2JfKlFF+AEx9fHcOt2Vbz8eLV9gQ6duWctaW
-         ujoR4ERDLpk8dZIu+CP1LYUt0lNoI3dG2kj3JBcjvdfejJ5an520et1SL1kTqQkyT4Ue
-         Hkc1H/WySsePnInMCowfSCQWij7R4pcg/Aq8yv7WZaFKqsZ0tDSk/b4QMXjCjGBQvKFq
-         ajzQ==
+        bh=Em2Xu7zpFNZOw/PR0iHa6bG/S6aI6uTipNSUQ/VAeRI=;
+        b=UxwH3VsEMrPeoqLzAb/AWVZ2YqCdDLmtrQw0snxOBhdnACAY00GYYBF/X/JcLz3Ij4
+         DwRcdRcL5nWPqRK8X9dy4Xq6tevdjcqO/GLXXZdYfabld/pENtQjBMDYDvb8P/xnM5xW
+         DCLBRwwL8Esp6blMKhqFu4RFstpp8R1pfzMKZIUXpJhEVpLgLABqBNpLDw5Nawzbi28H
+         Tc/jCCTjKX9sAj5V6OvP9sXafYkPbX4OYkCHEowzaJMN6eHSYWpMrHVzDkS/EK94WL9D
+         1+0heEI1si7UQ9+feeCw6XXU8GEADdknaTDO8neeT+WJdJuWGF3m1c8qz8LrHJSIEW/W
+         L+SQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791329588; x=1791934388;
+        d=1e100.net; s=20260707; t=1791329593; x=1791934393;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Uzjnm4DC8/yngbTXbJn1X0a1+gZkIVZaTLffWNrxWJE=;
-        b=W2cZXtzO/ATnG8cPn8T4VKtisbL9ROZgux5/fo2Vgh/xCr4vAvht2u/HQvUl9c3eG+
-         S434iemEa/QweiWgJGKlyGoNkD890yddqUqwMu+1uVNc4at/T5qVC0UJ3LS23mLfDCSU
-         b3I/yyMMO10p0/7ZRDesn0Wm1kUWZ2h1N3abwakECdWKpu3UdDZCrxreD1cSBUoM/Ha6
-         qVr9vD9G7uBchgFHzycFntc+17K09AjK7yXgK0pK7X6SSdrhXM1vW0oNRlxKppZfpiub
-         PALjG2Z/tYB+H3LfqkZNJcujzMWJkf+0+TLPtmUSjtl0V0VQXdtgq13QqO/XtU0ESPIx
-         LqrA==
-X-Forwarded-Encrypted: i=1; AKwUvBxmN1Ym6xLQh2k3uge+Xx/jb2FnBXwt21c9tQdk5hOOjituisDqvZ4jJ/kgSmkqidrcue5iLEWDeCMd5BA=@vger.kernel.org
-X-Gm-Message-State: AFuF++l+T21/EAD2+7WA1EUc0FFLYxPbPADxfAvIRdQ0Tv2O5rBd+6op
-	MlJNfZ9TEVASVMBf5tEFIC6hsNqNpVTW0wcxPBAXJXGWD8jH74DRHyTypBWNHYAaBFpeUAUOPy3
-	Gzw==
-X-Received: from pgbd18-n1.prod.google.com ([2002:a05:6a02:64d2:10b0:cc7:b263:342e])
- (user=praan job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:484:b0:3de:247d:73de
- with SMTP id adf61e73a8af0-3e133fffe0bmr404483637.19.1791329588288; Tue, 06
- Oct 2026 16:33:08 -0700 (PDT)
-Date: Tue,  6 Oct 2026 23:32:45 +0000
+        bh=Em2Xu7zpFNZOw/PR0iHa6bG/S6aI6uTipNSUQ/VAeRI=;
+        b=K8Frh5cgXlV0EdxINjsK2nSllXzaqS0HbPGHKI7/dgIMfELWBG4UjkwuMmaMfju3F/
+         M+x41AAiGr0VoywGBhTMoomz5E+JeWZxXBnOw/zgoX9hTAsRhYP4lz9atd34S/YdDkA2
+         14Le/xciKZOc57DbCU8UD5fx8ntGmykVXeEw3lCk8ZkR2rFVkHyp0I0tWcjWMI99ATfe
+         1CTiTZRfxglhAm+C0bQ0hlZSPSYDZrVwAgWl/EQOSWA7HNOp39kBvla14QvSM3bhZd0J
+         vR4m+6raBAXbsoRPZnvl50ExTXClcewXeEx0UJfyqsJFA4325Zy020v0FPQhSIX+USyz
+         M5vA==
+X-Forwarded-Encrypted: i=1; AKwUvBxTPIo96WRewQri810iIpW7fkNZg1Gz/FzXGavGAyfAf5eCdJyzhnBGmUMG16PNJ7TFjaaLyS62xQHC/zY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIWX+84Lp4giueYudzbNq7AuV7RZu+4zjTmqaZ114yrs7xvRwWu
+	K+Ab6B98sIFu3hvyxDLNWdrf8erxcYxNYBANN7tpPGVDsfSo5t2xR2egBiave6wqHhQYWvYKzG0
+	Bsg==
+X-Received: from pgkc15.prod.google.com ([2002:a63:ef4f:0:b0:ccc:5e44:a6cc])
+ (user=praan job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:da87:b0:3a8:80f4:98a7
+ with SMTP id 98e67ed59e1d1-3a8a1bd661fmr445058a91.24.1791329593068; Tue, 06
+ Oct 2026 16:33:13 -0700 (PDT)
+Date: Tue,  6 Oct 2026 23:32:47 +0000
 In-Reply-To: <20261006233248.705086-1-praan@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261006233248.705086-1-praan@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20261006233248.705086-6-praan@google.com>
-Subject: [RFC PATCH v1 5/8] nfs: tag READ/WRITE RPCs carrying P2PDMA pages
+Message-ID: <20261006233248.705086-8-praan@google.com>
+Subject: [RFC PATCH v1 7/8] nfs: allow LOCALIO for P2PDMA pages only as
+ aligned direct I/O
 From: Pranjal Shrivastava <praan@google.com>
 To: linux-nfs@vger.kernel.org, Trond Myklebust <trondmy@kernel.org>, 
 	Anna Schumaker <anna@kernel.org>
@@ -73,131 +74,141 @@ Cc: Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, linux-kernel
 	Pranjal Shrivastava <praan@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-A transport must know when an RPC's payload pages are P2PDMA memory,
-so it can move them by DMA or refuse the RPC.
+LOCALIO hands READs and WRITEs to the local filesystem, which can take
+P2PDMA pages only if its disk can DMA to them. Use LOCALIO for such I/O
+only if the filesystem's block device supports P2PDMA. Otherwise send a
+regular READ or WRITE RPC, as if LOCALIO were off.
 
-Check each page as nfs_generic_pgio() builds the page array, and
-record the result in nfs_pgio_args. The READ and WRITE encoders of
-every NFS version then set XDRBUF_P2PDMA on the buffer holding the
-payload.
-
-Additionally, avoid using READ_PLUS when the pages are P2PDMA memory.
+When the I/O is not a single DIO-aligned segment, LOCALIO falls back to
+buffered I/O, which copies the payload through the page cache via CPU
+accesses. Fail such I/O with -EINVAL instead.
 
 Signed-off-by: Pranjal Shrivastava <praan@google.com>
 ---
- fs/nfs/nfs2xdr.c        | 4 ++++
- fs/nfs/nfs3xdr.c        | 4 ++++
- fs/nfs/nfs4proc.c       | 3 +++
- fs/nfs/nfs4xdr.c        | 4 ++++
- fs/nfs/pagelist.c       | 2 ++
- include/linux/nfs_xdr.h | 1 +
- 6 files changed, 18 insertions(+)
+ fs/nfs/internal.h |  8 ++++++++
+ fs/nfs/localio.c  | 40 ++++++++++++++++++++++++++++++++++++++++
+ fs/nfs/pagelist.c |  3 +++
+ 3 files changed, 51 insertions(+)
 
-diff --git a/fs/nfs/nfs2xdr.c b/fs/nfs/nfs2xdr.c
-index 9eff09158518..5a8f2eccd068 100644
---- a/fs/nfs/nfs2xdr.c
-+++ b/fs/nfs/nfs2xdr.c
-@@ -628,6 +628,8 @@ static void nfs2_xdr_enc_readargs(struct rpc_rqst *req,
- 	rpc_prepare_reply_pages(req, args->pages, args->pgbase, args->count,
- 				NFS_readres_sz - NFS_pagepad_sz);
- 	req->rq_rcv_buf.flags |= XDRBUF_READ;
-+	if (args->p2pdma)
-+		req->rq_rcv_buf.flags |= XDRBUF_P2PDMA;
- }
- 
- /*
-@@ -668,6 +670,8 @@ static void nfs2_xdr_enc_writeargs(struct rpc_rqst *req,
- 
- 	encode_writeargs(xdr, args);
- 	xdr->buf->flags |= XDRBUF_WRITE;
-+	if (args->p2pdma)
-+		xdr->buf->flags |= XDRBUF_P2PDMA;
- }
- 
- /*
-diff --git a/fs/nfs/nfs3xdr.c b/fs/nfs/nfs3xdr.c
-index e745e78faab0..e39c58883a2a 100644
---- a/fs/nfs/nfs3xdr.c
-+++ b/fs/nfs/nfs3xdr.c
-@@ -946,6 +946,8 @@ static void nfs3_xdr_enc_read3args(struct rpc_rqst *req,
- 	rpc_prepare_reply_pages(req, args->pages, args->pgbase,
- 				args->count, replen);
- 	req->rq_rcv_buf.flags |= XDRBUF_READ;
-+	if (args->p2pdma)
-+		req->rq_rcv_buf.flags |= XDRBUF_P2PDMA;
- }
- 
- /*
-@@ -988,6 +990,8 @@ static void nfs3_xdr_enc_write3args(struct rpc_rqst *req,
- 
- 	encode_write3args(xdr, args);
- 	xdr->buf->flags |= XDRBUF_WRITE;
-+	if (args->p2pdma)
-+		xdr->buf->flags |= XDRBUF_P2PDMA;
- }
- 
- /*
-diff --git a/fs/nfs/nfs4proc.c b/fs/nfs/nfs4proc.c
-index beb659744760..443079f5adc9 100644
---- a/fs/nfs/nfs4proc.c
-+++ b/fs/nfs/nfs4proc.c
-@@ -5721,6 +5721,9 @@ static int nfs4_read_done(struct rpc_task *task, struct nfs_pgio_header *hdr)
- static bool nfs42_read_plus_support(struct nfs_pgio_header *hdr,
- 				    struct rpc_message *msg)
+diff --git a/fs/nfs/internal.h b/fs/nfs/internal.h
+index d6ea41a3f9b4..9338b5e0896a 100644
+--- a/fs/nfs/internal.h
++++ b/fs/nfs/internal.h
+@@ -476,6 +476,7 @@ extern struct nfsd_file *nfs_local_open_fh(struct nfs_client *,
+ 					   struct nfs_fh *,
+ 					   struct nfs_file_localio *,
+ 					   const fmode_t);
++struct nfsd_file *nfs_local_p2pdma_check(struct nfsd_file *localio);
+ extern int nfs_local_doio(struct nfs_client *,
+ 			  struct nfsd_file *,
+ 			  struct nfs_pgio_header *,
+@@ -495,6 +496,13 @@ nfs_local_open_fh(struct nfs_client *clp, const struct cred *cred,
  {
-+	/* P2PDMA payloads move only by DMA */
-+	if (hdr->args.p2pdma)
-+		return false;
- 	/* Note: We don't use READ_PLUS with pNFS yet */
- 	if (nfs_server_capable(hdr->inode, NFS_CAP_READ_PLUS) && !hdr->ds_clp) {
- 		msg->rpc_proc = &nfs4_procedures[NFSPROC4_CLNT_READ_PLUS];
-diff --git a/fs/nfs/nfs4xdr.c b/fs/nfs/nfs4xdr.c
-index 8b3d96b4a0f0..04765b56de28 100644
---- a/fs/nfs/nfs4xdr.c
-+++ b/fs/nfs/nfs4xdr.c
-@@ -2621,6 +2621,8 @@ static void nfs4_xdr_enc_read(struct rpc_rqst *req, struct xdr_stream *xdr,
- 	rpc_prepare_reply_pages(req, args->pages, args->pgbase,
- 				args->count, hdr.replen - pagepad_maxsz);
- 	req->rq_rcv_buf.flags |= XDRBUF_READ;
-+	if (args->p2pdma)
-+		req->rq_rcv_buf.flags |= XDRBUF_P2PDMA;
- 	encode_nops(&hdr);
+ 	return NULL;
+ }
++
++static inline struct nfsd_file *
++nfs_local_p2pdma_check(struct nfsd_file *localio)
++{
++	return NULL;
++}
++
+ static inline int nfs_local_doio(struct nfs_client *clp,
+ 				 struct nfsd_file *localio,
+ 				 struct nfs_pgio_header *hdr,
+diff --git a/fs/nfs/localio.c b/fs/nfs/localio.c
+index f42b6112a613..6c8f2d393c35 100644
+--- a/fs/nfs/localio.c
++++ b/fs/nfs/localio.c
+@@ -19,6 +19,7 @@
+ #include <linux/nfs_common.h>
+ #include <linux/nfslocalio.h>
+ #include <linux/bvec.h>
++#include <linux/blkdev.h>
+ 
+ #include <linux/nfs.h>
+ #include <linux/nfs_fs.h>
+@@ -290,6 +291,22 @@ nfs_local_open_fh(struct nfs_client *clp, const struct cred *cred,
+ }
+ EXPORT_SYMBOL_GPL(nfs_local_open_fh);
+ 
++/*
++ * LOCALIO moves P2PDMA pages only by DMA to and from the local disk.
++ * If that disk cannot do P2PDMA, put @localio and return NULL so the
++ * I/O is sent as a regular RPC instead.
++ */
++struct nfsd_file *nfs_local_p2pdma_check(struct nfsd_file *localio)
++{
++	struct file *file = nfs_to->nfsd_file_file(localio);
++	struct block_device *bdev = file_inode(file)->i_sb->s_bdev;
++
++	if (bdev && blk_queue_pci_p2pdma(bdev_get_queue(bdev)))
++		return localio;
++	nfs_local_file_put(localio);
++	return NULL;
++}
++
+ /*
+  * Ensure all page cache allocations are done from GFP_NOFS context to
+  * prevent direct reclaim recursion back into NFS via nfs_writepages.
+@@ -511,6 +528,17 @@ nfs_local_iters_init(struct nfs_local_kiocb *iocb, int rw)
+ 	iov_iter_bvec(&iocb->iters[0], rw, iocb->bvec, v, len);
  }
  
-@@ -2686,6 +2688,8 @@ static void nfs4_xdr_enc_write(struct rpc_rqst *req, struct xdr_stream *xdr,
- 	encode_putfh(xdr, args->fh, &hdr);
- 	encode_write(xdr, args, &hdr);
- 	req->rq_snd_buf.flags |= XDRBUF_WRITE;
-+	if (args->p2pdma)
-+		req->rq_snd_buf.flags |= XDRBUF_P2PDMA;
- 	if (args->bitmask)
- 		encode_getfattr(xdr, args->bitmask, &hdr);
- 	encode_nops(&hdr);
++/*
++ * P2PDMA payloads move only by DMA, never through the page cache, so the
++ * whole I/O must be a single DIO-aligned segment.
++ */
++static bool nfs_local_p2pdma_misaligned(struct nfs_local_kiocb *iocb)
++{
++	return iocb->hdr->args.p2pdma &&
++	       (atomic_read(&iocb->n_iters) != 1 ||
++		!iocb->iter_is_dio_aligned[0]);
++}
++
+ static void
+ nfs_local_hdr_release(struct nfs_pgio_header *hdr,
+ 		const struct rpc_call_ops *call_ops)
+@@ -732,6 +760,12 @@ static void nfs_local_do_read(struct nfs_local_kiocb *iocb,
+ 	nfs_local_pgio_init(hdr, call_ops);
+ 	hdr->res.eof = false;
+ 
++	if (nfs_local_p2pdma_misaligned(iocb)) {
++		nfs_local_pgio_done(iocb, -EINVAL);
++		nfs_local_pgio_release(iocb);
++		return;
++	}
++
+ 	INIT_WORK(&iocb->work, nfs_local_call_read);
+ 	if (nfs_local_defer_io())
+ 		queue_work(nfslocaliod_workqueue, &iocb->work);
+@@ -953,6 +987,12 @@ static void nfs_local_do_write(struct nfs_local_kiocb *iocb,
+ 
+ 	nfs_set_local_verifier(hdr->inode, hdr->res.verf, hdr->args.stable);
+ 
++	if (nfs_local_p2pdma_misaligned(iocb)) {
++		nfs_local_pgio_done(iocb, -EINVAL);
++		nfs_local_pgio_release(iocb);
++		return;
++	}
++
+ 	INIT_WORK(&iocb->work, nfs_local_call_write);
+ 	if (nfs_local_defer_io())
+ 		queue_work(nfslocaliod_workqueue, &iocb->work);
 diff --git a/fs/nfs/pagelist.c b/fs/nfs/pagelist.c
-index 71f0ce2bc4ea..3ec4e1e5fe1f 100644
+index ec535ed3051d..2d1d07c460fd 100644
 --- a/fs/nfs/pagelist.c
 +++ b/fs/nfs/pagelist.c
-@@ -970,6 +970,8 @@ int nfs_generic_pgio(struct nfs_pageio_descriptor *desc,
- 				if (pageused > pagecount)
- 					goto full;
- 				*pages++ = last_page = page;
-+				if (is_pci_p2pdma_page(page))
-+					hdr->args.p2pdma = true;
- 			}
- 		}
- 	}
-diff --git a/include/linux/nfs_xdr.h b/include/linux/nfs_xdr.h
-index c0e29b4dfa62..85cdee107559 100644
---- a/include/linux/nfs_xdr.h
-+++ b/include/linux/nfs_xdr.h
-@@ -685,6 +685,7 @@ struct nfs_pgio_args {
- 	__u32			count;
- 	unsigned int		pgbase;
- 	struct page **		pages;
-+	bool			p2pdma;		/* pages include P2PDMA memory */
- 	union {
- 		unsigned int		replen;			/* used by read */
- 		struct {
+@@ -1023,6 +1023,9 @@ static int nfs_generic_pg_pgios(struct nfs_pageio_descriptor *desc)
+ 					  &hdr->args.context->nfl,
+ 					  hdr->args.context->mode);
+ 
++		if (localio && hdr->args.p2pdma)
++			localio = nfs_local_p2pdma_check(localio);
++
+ 		if (NFS_SERVER(hdr->inode)->nfs_client->cl_minorversion)
+ 			task_flags = RPC_TASK_MOVEABLE;
+ 		ret = nfs_initiate_pgio(NFS_CLIENT(hdr->inode),
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
