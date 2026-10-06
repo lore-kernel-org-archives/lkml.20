@@ -1,211 +1,114 @@
-Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ABED339399
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 03:43:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791258196; cv=pass; b=UmScFPgfY17eCMEcCK8U+VkDTioy14ck0CkicGPB9qlkhn+Q71C2ipzZVs1YRtFvI1Jz2drY0Ih/pM1gz4zA6yA8Td1oG6Z6jgBjWMRZWh+QWovIxP3D/ZBvucKvEBdr7BwwNfpL59xgxEaIXRV2bvs8CbrN5Z2MvCJMon+aCqw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791258196; c=relaxed/simple;
-	bh=TE1M8Xp9r8nWKhc0pgoLmT0J1KG+EsmuYHdJ9qwlb4k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZHc7ZsIX3Osq+jxgBCAEG5ILM/LRHPuzGqjoZREpyrv22Twgm0mkgsXB6cO3N3T6PbmpusINay9l2V1dWRlGt2e+6Pz8B5ZkroaeGunobS4IyCT70Q29H8dw8Ndp3FBs9zOabaJ1jFMU1AbNK8HYqgZ/sS+fSz0NWtTT+ZYHYLU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PDDHg3a2; arc=pass smtp.client-ip=74.125.224.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE094332621;
+	Tue,  6 Oct 2026 03:43:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791258232; cv=none; b=q2UiD52MQY+8yWNCAD1cVU1vLYCgIzeUoDTE7oyOYq/P0Sj44w2hcLIrkz5a4mRpxAPVl3pT3FIUKpoFyZEwlVYbclVfn0Wd3HxY1wVzzUqN9iBxPfLfUt3AiaGCgwPq/xtpKKgzVPkUldFujLnsV4weUAhh77ja3ahmhiqkLw4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791258232; c=relaxed/simple;
+	bh=3tgkAQgFnZ1KpY58GWODV6fxFp7Qx3kbvjbBmjjBKTM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AwiixvpU0KnDpK+0PRkG6kZR3qJd+YAS7g4hkckcdWNPMQXdtuh+mLRDC0IlMARZTpDF9p8V65PUnQVgdNm/dcWSFQs+ZmEeINYx9O1lt5A2tbWstah1Nf8pzr7aJwZ9sDXtGzDNmKugk4av46sDfFzc6mdAhRKX1HMxW3Y49I4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kseey+5s; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PDDHg3a2"
-Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-677c1fc082bso1941197d50.3
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 20:43:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791258194; cv=none;
-        d=google.com; s=arc-20260327;
-        b=iPpFPZXsEAxb9fzLdh3qUvESqQRBhcGWVYb6OCOqyHq77Vp6B36N7zgCEShzWp6089
-         7lmHM0ez4y/0CVRa+AeqvrYMJEWLce5MZDkRX7mZWFHizJhNYHXTwc7u78zNE7z6zLCZ
-         Z8DiyeR7AmwX3h9gXWGBXmoP1Aw6K0pvXNVrl0RScMWoYbhN3dRTo1+nckN5NYpdyadO
-         RPr/WFzjsKGx7ZhGxF4zkp79UZbXi6hEFOrm9BLo12stZmBcfkg0unUcxPcAumZTQMXV
-         EV60TScfd1sOcTFLIJwY+qz/ABeIOn7EU8SqnT0I6SVH+E67X/EPPtbQJRbZ2kqhg0mG
-         uLgw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=BEXTeQGLzgEVv8xuPTN36lgrQGwcruNuHdFhXGEDQxE=;
-        fh=lu3S2JuUtYDC5nzF4mGC4oJwXAIZdXLfvJkswlBSw5Q=;
-        b=nig34XjCGcPR+o9ZFirMpzs+7tdLiyA2+Gwp+sjHsFzdY1NzdwcCm5PJbYACxjkfrD
-         1IoJHPcCcyGkuNwmoUh7LignR2/KB6DhkuiFi6CEbTOzpTbWtsSvrdOE7YsLrUMoNZWh
-         XgGNLRWqrM3dMdeWVQHjp0zgfFydox+ur1fdub+3uVp3WAJgFhpWgi4oBetjUjtKSYUS
-         MCbHYbWJBGGkUPmhW8ktwXSR+OylT4IhXyn2ocLwAem58MIHuSO5BPYzyvlL3Ocji5da
-         y3fiWJaA5QGpBF75AfangCVf7hGU7eEB+FzcPyKjbDCcZIEy/yQfTiGuODp4yUIGpgE/
-         Y+sA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791258194; x=1791862994; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BEXTeQGLzgEVv8xuPTN36lgrQGwcruNuHdFhXGEDQxE=;
-        b=PDDHg3a2LCqs+3XiRwyQt0AVuCeWE893FNKT0ilCYLizGNoF0Ro72mkC4XZ7pZiRGY
-         fJUrVp50i0p6gdpkFdWfuutcSlbokOt4n+OoPdfXMr/1jKQB3iIDQz4gotpKFoeyLBJC
-         f1wZCI1S6ch9Q0qU0LGW7r8Z589g7lh5Pam02mEIdrEHKdKURfYupRCAP9gWyuU+bDkD
-         0+Kj/582bszSJRZMz32uOfB3p37sk/FHyXl71OBivn/+XJaYCtOF/5Up5Ss/qOyvglRq
-         zr/ZJRrVMp/CcrlWGaBbwAoKhUPZaCkvuwOgFZSZE4cm4jpJ5nTC8x7ytU0pTATQuwcy
-         V1CQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791258194; x=1791862994;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BEXTeQGLzgEVv8xuPTN36lgrQGwcruNuHdFhXGEDQxE=;
-        b=E9sJqPp66vm+T2GCQHhCzy2ZuanRnrlzf1V7LqaWcnXwENIYueYsylQXAJft4nDV0Z
-         wQb9iAxpA+koXepjqDQ64e6V0FjWk3ZtqQGshc0HKsWr00khyhAwT1GHZQylWAwNcaLe
-         9cHZIbK0+yVt35x52iZKHmSXnqXzDXDKjyFrz9Rzb2VndMkITKKOSl2Lhx1Qm5cg87i7
-         JYy2FExbTPy8IT2MnDqQQv05TFfL4zpxJWNdK2KJYLKUief2mWXbg62OtIFKfy6+o6wj
-         ELr/mgM3aMM7MJJTasHBIR+X74CqE5LjvsbrKcmz7Z48FDu5nxUDeMDjo/DIuNxZd5nS
-         Q4/A==
-X-Forwarded-Encrypted: i=1; AKwUvByNMvpLw1Aj9L42zSTq34LGdB5Zhv94jMbRybpfU4+eeKd6tHcXdoXBU721Bcua44s79Rl2LmUCpPSmBSQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJalUwcdI8kK6WDTgbpCDi0J5hH9G4hO7+458iGR0BI0uscCC8n
-	YLt7beedjPENpRb79y5Qd0RDtW2yuACavSrYkpfvfs4p4l6XPfpFBMfGckhQKeCeEjc1EQ/ZzPA
-	2jhQL/jfkX52UFkEdL3Zlee7c9fuBCY8=
-X-Gm-Gg: AYBFou2UQ4LDpwMHtkaB4M1rwC6EhNWG0elrQSO9Ot2S48uYEA9WTlNkpys4Kgt3xpS
-	WF/a6VYjXf0EX4Qmz9jtSUOYyMwM//OCIRx+Nirp8z4CIeadjToYthEFoVMCQrqCQ2dPL5vwhgD
-	fn2qNAftEusfBT9uh537UMXE/jWG1pvyaY6AH+B+hESm7HdHGGBn/bw0w7/70WnYHdZd8b8u8OT
-	1/YDIAJs6G1c/YHbgH1gzQEEBikK2uFoOHkt+RI/c9MOfvN3gNkxqy9TMCVgScNh91Jtx2tAJCv
-	IBP+1kTz4wnzFcrei90RMH3f/leZSpeZ4+uWFeQZioMqYcaT49hAEG0W9x++M18Bty/v
-X-Received: by 2002:a05:690e:4145:b0:674:1336:7d5b with SMTP id
- 956f58d0204a3-677bd380447mr3369449d50.52.1791258193959; Mon, 05 Oct 2026
- 20:43:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kseey+5s"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791258230; x=1822794230;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=3tgkAQgFnZ1KpY58GWODV6fxFp7Qx3kbvjbBmjjBKTM=;
+  b=kseey+5sK5x4/yCKtoAEZ5jj7I5OJx+PoiTTPySS59QLxGZhMzmyIhsO
+   W0qFHdaIFtgnYa8MiTw3gUz8/T6o9BqEbosWMGp5FslU8EfJi/K5cfrWI
+   eHCGjqwL/H46tEmaFwOJu7g81WSJXqacSWZFUvNGuk7kbVWtuN/9sLDFF
+   Ws/85xAtr3RqOVGaNbU1FBmui1gs5sJdoXcP3gKXrsyf5Xt7Tjdw1alds
+   /HMDx0E9kTPpF9hrpzzD2bla58xXAVoPHrEwW/6FfI0sBm5cIgr7n68C3
+   ykNvWmMLchewhmSWOufpkHipMl8S+BMRelmIMGyzmFVplDAIvuzbZ1r1J
+   w==;
+X-CSE-ConnectionGUID: MPY+1KBcT/GayIuUkC2/Jw==
+X-CSE-MsgGUID: SHItgT5ASNaWiECorJDkGA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="94812289"
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="94812289"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 20:43:49 -0700
+X-CSE-ConnectionGUID: kPfbZEwwRryQKtQgZMlbLA==
+X-CSE-MsgGUID: rCb0w7q3R9Ccc2zH61qK/g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="276530544"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa007.fm.intel.com with ESMTP; 05 Oct 2026 20:43:45 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xDw5e-0000000017k-15jA;
+	Tue, 06 Oct 2026 03:43:42 +0000
+Date: Tue, 6 Oct 2026 11:42:52 +0800
+From: kernel test robot <lkp@intel.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Mikko Perttunen <mperttunen@nvidia.com>
+Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v2 4/7] drm/tegra: Add support for 8-bit CPU interface
+Message-ID: <202610061119.aQ5vg3Ez-lkp@intel.com>
+References: <20261004163114.181800-5-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261004055712.1293-1-yogeshgaur.83@gmail.com> <32152011-b196-4dc0-ba7e-495f2132ad15@fygo.io>
-In-Reply-To: <32152011-b196-4dc0-ba7e-495f2132ad15@fygo.io>
-From: Yogesh Gaur <yogeshgaur.83@gmail.com>
-Date: Tue, 6 Oct 2026 09:13:03 +0530
-X-Gm-Features: AclHuK-etZgMZhRThOtRlbtdP2ce2Ph0ESLyjNgIBlEnFN-xlVATRsrCZ1wzbZg
-Message-ID: <CAG6enPwFpBK=VyEPEnw9a26Yg+Gzt0enieHpYvnJz-v7L5ALyw@mail.gmail.com>
-Subject: Re: [PATCH] md: don't hand out the array before md_alloc() has added mddev->kobj
-To: yukuai@fygo.io
-Cc: Song Liu <song@kernel.org>, linux-raid@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Li Nan <magiclinan@didiglobal.com>, 
-	Xiao Ni <xiao@kernel.org>, Christoph Hellwig <hch@lst.de>, Hannes Reinecke <hare@suse.de>, 
-	Logan Gunthorpe <logang@deltatee.com>, syzbot+95eeb4ada2349a2170ea@syzkaller.appspotmail.com, 
-	stable@vger.kernel.org, "xiaobai050@gmail.com" <xiaobai050@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261004163114.181800-5-clamor95@gmail.com>
 
-On Mon, Oct 5, 2026 at 10:35=E2=80=AFPM yu kuai <yukuai@fygo.io> wrote:
->
-> Hi,
->
-> =E5=9C=A8 2026/10/4 13:57, Yogesh Gaur =E5=86=99=E9=81=93:
-> > md_alloc() publishes the gendisk before it is done setting the mddev up=
-:
-> >
-> >       disk->private_data =3D mddev;
-> >       ...
-> >       error =3D add_disk(disk);
-> >       if (error)
-> >               goto out_put_disk;
-> >
-> >       kobject_init(&mddev->kobj, &md_ktype);
-> >       error =3D kobject_add(&mddev->kobj, &disk_to_dev(disk)->kobj, "%s=
-", "md");
-> >
-> > add_disk() makes /dev/mdN openable, and md_open() only refuses the open
-> > when MD_CLOSING is set.  mddev comes from mddev_alloc() and is zeroed,
-> > so anything that gets in between add_disk() and kobject_add() sees an
-> > mddev->kobj that has never been through kobject_init() - no ktype, no
-> > kref, state_initialized clear.
-> >
-> > syzbot opens the array in that window and issues ADD_NEW_DISK:
-> >
-> >    kobject: '(null)' (ffff8880120640f0): is not initialized, yet kobjec=
-t_get() is being called.
-> >    WARNING: lib/kobject.c:642 at kobject_add_internal+0xea/0xcd0 lib/ko=
-bject.c:225
-> >     kobject_add_varg lib/kobject.c:374 [inline]
-> >     kobject_add+0x163/0x240 lib/kobject.c:426
-> >     bind_rdev_to_array+0x80c/0xdd0 drivers/md/md.c:2621
-> >     md_add_new_disk+0xe3b/0x1850 drivers/md/md.c:7684
-> >     md_ioctl+0x200a/0x2610 drivers/md/md.c:8499
-> >
-> > bind_rdev_to_array() is not the only way in.  md_run() calls
-> > sysfs_create_group(&mddev->kobj, &md_redundancy_group), and
-> > internal_create_group() has its own WARN_ON(!kobj->sd), so RUN_ARRAY in
-> > the same window warns too.  Guarding the individual callers would mean
-> > finding all of them; the window itself is what should not be reachable.
-> >
-> > Refuse the open until md_alloc() has added the kobject.  mddev->kobj.sd
-> > is NULL until kobject_add() creates the directory, and stays set for th=
-e
-> > rest of the mddev's life: commit ca39f7502425 ("md: fix mddev->kobj
-> > lifetime") dropped the explicit kobject_del() and lets the final put do
-> > the removal.  md.c already tests mddev->kobj.sd for "is this array
-> > published yet" in mddev_unlock() and md_run().
-> >
-> > This cannot deadlock against add_disk() itself: device_add_disk() only
-> > opens the disk to scan partitions when get_capacity(disk) is non-zero,
-> > and md_alloc() does not set the capacity - md_run() does, long after.
-> >
-> > Fixes: ca39f7502425 ("md: fix mddev->kobj lifetime")
-> > Reported-by: syzbot+95eeb4ada2349a2170ea@syzkaller.appspotmail.com
-> > Closes: https://syzkaller.appspot.com/bug?extid=3D95eeb4ada2349a2170ea
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: LLM
-> > ---
-> >   drivers/md/md.c | 9 +++++++++
-> >   1 file changed, 9 insertions(+)
-> >
-> > diff --git a/drivers/md/md.c b/drivers/md/md.c
-> > index 680b34a63cb3..e3326b78aef7 100644
-> > --- a/drivers/md/md.c
-> > +++ b/drivers/md/md.c
-> > @@ -8610,6 +8610,15 @@ static int md_open(struct gendisk *disk, blk_mod=
-e_t mode)
-> >       if (test_bit(MD_CLOSING, &mddev->flags))
-> >               goto out_unlock;
-> >
-> > +     /*
-> > +      * md_alloc() publishes the gendisk with add_disk() before it has
-> > +      * initialised and added mddev->kobj, so an array opened in that =
-window
-> > +      * would let ioctls reach a kobject that is still all zeroes.  Wa=
-it for
-> > +      * md_alloc() to finish rather than handing out the device early.
-> > +      */
-> > +     if (!mddev->kobj.sd)
-> > +             goto out_unlock;
-> > +
-> >       atomic_inc(&mddev->openers);
-> >       mutex_unlock(&mddev->open_mutex);
->
-> This is the same problem that I already replied in another thread, the sa=
-me solution
-> with different code.
->
-> Re: [PATCH] md: prevent opening an array before its sysfs kobject is
-> ready - yu kuai <https://lore.kernel.org/all/a19e3020-272b-4f93-8535-00fa=
-07002d91@fygo.io/#t>
->
+Hi Svyatoslav,
 
-Thanks Kuai. Yes just refusing the open would be going to move the
-race condition. I had missed earlier patch from xiaobai050, sorry for
-the duplicate.
+kernel test robot noticed the following build errors:
 
-I would send a v2 that holds reconfig_mutex from add_disk() through
-kobject_add() in md_alloc(), so an ioctl issued in that window waits
-instead of failing the open. RUN_ARRAY is covered as well, since
-md_run() also uses mddev->kobj and runs under same lock.
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on drm/drm-next linus/master v7.3-rc6 next-20261005]
+[cannot apply to tegra/for-next]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Thanks
-Yogesh
-> >
->
-> --
-> Thanks,
-> Kuai
+url:    https://github.com/intel-lab-lkp/linux/commits/Svyatoslav-Ryhel/drm-tegra-dc-Expand-available-registers-layouts/20261004-193108
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20261004163114.181800-5-clamor95%40gmail.com
+patch subject: [PATCH v2 4/7] drm/tegra: Add support for 8-bit CPU interface
+config: parisc-allmodconfig (https://download.01.org/0day-ci/archive/20261006/202610061119.aQ5vg3Ez-lkp@intel.com/config)
+compiler: hppa-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261006/202610061119.aQ5vg3Ez-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610061119.aQ5vg3Ez-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   hppa-linux-ld: drivers/gpu/drm/tegra/dbi.o: in function `tegra_dbi_driver_init':
+>> (.init.text+0x10): multiple definition of `init_module'; drivers/gpu/drm/tegra/drm.o:(.init.text+0x10): first defined here
+   hppa-linux-ld: drivers/gpu/drm/tegra/dbi.o: in function `tegra_dbi_driver_exit':
+>> (.exit.text+0x0): multiple definition of `cleanup_module'; drivers/gpu/drm/tegra/drm.o:(.exit.text+0x0): first defined here
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
