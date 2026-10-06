@@ -1,107 +1,122 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C88F4195C8
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 17:56:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95D403563F6
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 18:02:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.122
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791309381; cv=none; b=vEDyFzYTd3vAsLd+0ud9+Vy7QZ99g9NYbKyq+MBUGd1Vg80tOibuwU2GKhIHvr8HRFMJFBeOsFM4hcLFCcuDivM2WTuse24eAjJ/TPfYJemYV2FME1wcAS2qpB7U36TSV0oQ0a754atKzNkSddE2a8lsnUVS5mDOAi/J1hxPmq4=
+	t=1791309750; cv=none; b=NQGZttTx0Ih/r4uqGe23F7rDnu0CP2aYLru0EUln9eyeFR24TJq7JIdsUs/6YcAAc3bzoBolwRJ4sbhpu0hx74rtoxQbYCHqpM9PkeSwaunrBJcxtBIoSHeyig150eHrzeDxvxJGrjj+ejDjvluHUEC5UmBR4t7+us3vhDQT9ts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791309381; c=relaxed/simple;
-	bh=llVmwYCThXahMFx26Opanh1BZuCYg3gzsCzBC00ZxGw=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=ufig/035KSGOgpOHudAb9VNMvAW9mnXgv9hCmMBq7jiizc/dlrQEUfuDA2FMsYphR59FinBXu08djjeU3f+WTEjFTAg4qyGbSwAxIeKmuz+uxLRxRJQTwLe9brK3bWDb6LYkYI4h5nDeVYTc0BQBQyZBF0gU+sAv2tuNhYinnck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cIdx0N8v; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791309750; c=relaxed/simple;
+	bh=jnlchJcNHOTA3hCgCNu/QH0mNd666/ZUs0I8Qyb/Cuc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cLx1Lz9D2HQmyjPhwlRyqsgTSW/5u7LEx2fc0yX1FZuVWhwjPc2aCpDEA46snwMlUKBUJf+SQDsZHY2L7LuHC+rmv4gnjmxD1HLUVtxaKZrQ0s90goQ/NUYWL4OYDPqwJDyOswefk2FEGq5SM1bmtx3ZqgzH+St35anOdnC0sJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=iXCQQb7e; arc=none smtp.client-ip=185.125.188.122
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cIdx0N8v"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791309379; x=1822845379;
-  h=date:from:to:cc:subject:message-id;
-  bh=llVmwYCThXahMFx26Opanh1BZuCYg3gzsCzBC00ZxGw=;
-  b=cIdx0N8vtwWUnSfrLDX1jSQlCEHHCKbYwJGg9f25ntQUNaPHahesdzW5
-   VshIpI1iekJUq4JacHxYZ6a+yurNU1AUg29hBXNjaE7CFn6uXgCyJ8tKx
-   SoAqO39FYnYa0ZRSryMl+OC+8aRzj0MUonYWbqXDaESnSYqSqxZFwdfdk
-   ikYJ6AGoCeyho3T9Bfe9ilpIkT8FjDtKCc7Mdv+fzw8yI29YJuio51gt5
-   yPhX0WDmJKMq70QOMsdgJURzRkDer8A7tLwMwIwJ/RgjVifP9e3JCOXov
-   BzAAxLf0U1sGYm6y5rSOuCgiYHrI+SKfklytEBAEZHl5zJHHF8JJjxqub
-   w==;
-X-CSE-ConnectionGUID: DPQ41xuBS4inN3uUcB6wMQ==
-X-CSE-MsgGUID: kpLt6kt0QwCe+M5xs8jgKA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11927"; a="48610"
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="48610"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 10:56:18 -0700
-X-CSE-ConnectionGUID: lfjynqdaQH+PT4fiPxkdpw==
-X-CSE-MsgGUID: m9+7QKZ2RNKFFtcUvsNYkQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="1238758"
-Received: from igk-lkp-server01.igk.intel.com (HELO d0de6c2a75a7) ([10.211.93.152])
-  by fmviesa013.fm.intel.com with ESMTP; 06 Oct 2026 10:56:17 -0700
-Received: from kbuild by d0de6c2a75a7 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xE9Og-000000001aj-2zR9;
-	Tue, 06 Oct 2026 17:56:14 +0000
-Date: Tue, 06 Oct 2026 19:55:49 +0200
-From: kernel test robot <lkp@intel.com>
-To: "Hao-Yu Yang" <naup96721@gmail.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Peter Zijlstra <peterz@infradead.org>,
- Eric Dumazet <edumazet@google.com>
-Subject: mm/mempolicy.c:488:6-25: WARNING: atomic_dec_and_test
- variation before object free at line 496.
-Message-ID: <202610061946.Bx22ZFrw-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="iXCQQb7e"
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com [209.85.128.71])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id B80273F784
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 18:02:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1791309745;
+	bh=7VPKoVET0WZyi57RaxQihc41cTq7wyN7m0LKNzGgdxA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:In-Reply-To;
+	b=iXCQQb7eMUz6yrDWGGHjys9Hk8X8xESHiDdK6/Kw1dF0MeM+QNScH5KwV3Jiru7uF
+	 Gx3XEEURkz68rqkJCfMU1u3x1Su+wX0EDsw8ifCOQsNsa9VrZukipeU6EbpAM33eUd
+	 qnhBTHGGTwlKTqDva5gkhNAkYXEdKyHLP4BbTmeJo4xOImkJhWuSY3exE7Fr9biCUh
+	 7+r+kaLSsAcg6vTymSB7zs1R3Ss636pEAaDQMCAzBn8HLz46MjGk9n0mgAZx0sE1Kn
+	 q+0nQ6Whk8vMUozrz6XRNfAWeVPcVQH8L0lbWjbdmD/ea9KIUaDs9BSvoiWP0c0h7m
+	 B/R2HL7ZZMV8Tez/1Ir+ul61vzohbnvEgHf9i2D5U4FEpd3M8K1Esncvoiid/2E0fg
+	 z/ICOAD8F7rGui87lERnWMc+KiV5MQGvYwoxpW5BbJKt83cfA5DmKkNE6WHmfc5bpp
+	 DIADmnf2lu8n8sIfIeV46b2gryI1Jdr9QwHDKEOQRsMe0CSddmP5AdP1CFfKqfFLI8
+	 eX/Xq9fqh3ItsxIiUovEj5BmNs2Yf0Ve8RAlkKPKE2V2pZs/QY904cEBjyjTlV1J0W
+	 ETrvoryJpNi0GRL5jnjwsAwtQZga0m0BRszqa3yLo0yjYun4oD3axrKZ4O8eVbLx5d
+	 WHABfP7ahaGTatWHcyCxsSO0=
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a01b112fa2so45869875e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 11:02:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791309745; x=1791914545;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7VPKoVET0WZyi57RaxQihc41cTq7wyN7m0LKNzGgdxA=;
+        b=ibLg7YpucntDTMelhTgj6mKA+jstyY3E7XxWlfjbtZ5QocDxUTUM7XuGlVJUGGsu5h
+         xqKws0MZbuYakW2K6ZZdY0zN7P+Av4AbqbhGRawmB9C8lVgP2X8es7+K7X6PHYqNKWvB
+         rgDlsTQyRW6k3cqQbKVa3Qebn7rS6jjfWF/tDb6/M6jUCJCyi4RCFeXIa55XD9XHl91g
+         RZPj70CmMimaF1o3w+G/m/2UFja+fSxJJqLKknxBWIOz3R4d+F8+hXdwpaOR7bVRjQ7m
+         o7EAmNlcgt1HdGFvdk50zRFLugb1Lnl+okyBZ3IHIwvGL23cSmIx/hY8biqQpD2c0SHP
+         633g==
+X-Forwarded-Encrypted: i=1; AKwUvBw95WNodHHeJDgHFn7eyzHCzwjT9K4+FvM8EfqcZSyke6uCbh7D1vX1IuBRauoGPQ2MapZ2plyRdcDH1VY=@vger.kernel.org
+X-Gm-Message-State: AFuF++k7ExnR21LaDD+MP+i/t3AHxbsyda74H13u+pvRkKAG2p+BTMDt
+	C6o9lcPdqEmU040ls26+tq/yfJqklyUy7FrpGJ/emhpgfPYzCV7JoP8uzVyzIzks+pjnIi31R2j
+	CBkC9e8TlzYja1ChDltaKrmvUUCM+X/ct3BYApnldL8BwvL2DjBUPZKZP4yBeC14TTK/ayiMV/p
+	0iZ3ywNg==
+X-Gm-Gg: AYBFou2gLjNUb1NMMpwVEf3wzZ9RWQi/twCNba0XDq8OEP8fiS5Spku9sKyaOO3HzcQ
+	tRcBI9L5HWST6hCC+NLaHsA8o8Cq1dDzd9tsU45sfCu+qNu0tE7rkVROsmA+YPiUuUtFtyXHx3g
+	V/4sounqvuPUQLUz6RljKvVyQnpq0k/uVcapCcf+mLAeTlDUJ+fIRCgLIRUo7n5oW2K1vOz9/Go
+	JU24YNkaU1LociW5zBQv6gebui7IcoKDHxWkiDGEw+XZDz9mDcpYXtUbSTW/gFrBdt+Q3OZJxo/
+	KJpWrbgx2QhAdqd9kn0H18v4Wh6v5Ij4D2CDe5wnaOy/yDR8exrGO/DgRW1saBKeoDLH9nHwDUm
+	wWqLvjgQ=
+X-Received: by 2002:a05:600c:1c16:b0:4a1:7832:dfd6 with SMTP id 5b1f17b1804b1-4a17b5340c8mr40388865e9.5.1791309745299;
+        Tue, 06 Oct 2026 11:02:25 -0700 (PDT)
+X-Received: by 2002:a05:600c:1c16:b0:4a1:7832:dfd6 with SMTP id 5b1f17b1804b1-4a17b5340c8mr40388535e9.5.1791309744934;
+        Tue, 06 Oct 2026 11:02:24 -0700 (PDT)
+Received: from px13 ([2a06:5902:822:4600:6f35:9ac4:c6c9:f701])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f493761sm5540315e9.2.2026.10.06.11.02.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 11:02:24 -0700 (PDT)
+Date: Tue, 6 Oct 2026 19:02:22 +0100
+From: Chris Bainbridge <chris.bainbridge@canonical.com>
+To: Mike Rapoport <rppt@kernel.org>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Jason Miu <jasonmiu@google.com>, Pratyush Yadav <pratyush@kernel.org>, 
+	Alexander Graf <graf@amazon.com>, Ran Xiaokai <ran.xiaokai@zte.com.cn>, 
+	regressions@lists.linux.dev, linux-kernel@vger.kernel.org, kexec@lists.infradead.org, 
+	linux-mm@kvack.org
+Subject: Re: [BUG] KHO handover hangs when memmap reserves PMEM
+Message-ID: <asU2AD6DxGSD0ek4@px13>
+References: <asE0R_f2r2TL-3Sy@px13>
+ <asTTo3AFzQoqZLoP@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <asTTo3AFzQoqZLoP@kernel.org>
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   69f80fef3153299d9c72c53d1d71eef6354b6926
-commit: 190a8c48ff623c3d67cb295b4536a660db2012aa futex: Fix UaF between futex_key_to_node_opt() and vma_replace_policy()
-date:   6 months ago
-config: x86_64-randconfig-2100-20261006 (https://download.01.org/0day-ci/archive/20261006/202610061946.Bx22ZFrw-lkp@intel.com/config)
-compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
+On Tue, Oct 06, 2026 at 12:55:31PM +0200, Mike Rapoport wrote:
+> On Sat, Oct 03, 2026 at 06:02:27PM +0100, Chris Bainbridge wrote:
+> > Hello,
+> > 
+> > I am reporting a regression in KHO handover.
+> > 
+> > In the most recent Ubuntu 26.10 beta mini-ISO releases (2026-09-18 onwards),
+> > the first kernel reserves RAM for the downloaded ISO with a memmap directive
+> > such as memmap=<size>!4G, then kexecs a second kernel. On affected kernels, the
+> > first kernel reaches "kexec_core: Starting new kernel", but the second kernel
+> > produces no further output and QEMU spins at 100% CPU. On unaffected kernels,
+> > the second kernel starts and finds /dev/pmem0 with the expected "Persistent
+> > Memory (legacy)" range in /proc/iomem.
+> 
+> TO make sure I understand this correctly, you enable KHO in the builds of
+> the installer kernel and then the installer command line explicitly enables
+> KHO.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 190a8c48ff62 ("futex: Fix UaF between futex_key_to_node_opt() and vma_replace_policy()")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610061946.Bx22ZFrw-lkp@intel.com/
+Yes.
 
-cocci warnings: (new ones prefixed by >>)
->> mm/mempolicy.c:488:6-25: WARNING: atomic_dec_and_test variation before object free at line 496.
+> Is there anything you actually preserve with KHO when kexec'ing the second
+> kernel?
 
-vim +488 mm/mempolicy.c
-
-^1da177e4c3f415 Linus Torvalds   2005-04-16  484  
-52cd3b074050dd6 Lee Schermerhorn 2008-04-28  485  /* Slow path of a mpol destructor. */
-c36f6e6dff4d32e Hugh Dickins     2023-10-03  486  void __mpol_put(struct mempolicy *pol)
-52cd3b074050dd6 Lee Schermerhorn 2008-04-28  487  {
-c36f6e6dff4d32e Hugh Dickins     2023-10-03 @488  	if (!atomic_dec_and_test(&pol->refcnt))
-52cd3b074050dd6 Lee Schermerhorn 2008-04-28  489  		return;
-190a8c48ff623c3 Hao-Yu Yang      2026-03-13  490  	/*
-190a8c48ff623c3 Hao-Yu Yang      2026-03-13  491  	 * Required to allow mmap_lock_speculative*() access, see for example
-190a8c48ff623c3 Hao-Yu Yang      2026-03-13  492  	 * futex_key_to_node_opt(). All accesses are serialized by mmap_lock,
-190a8c48ff623c3 Hao-Yu Yang      2026-03-13  493  	 * however the speculative lock section unbound by the normal lock
-190a8c48ff623c3 Hao-Yu Yang      2026-03-13  494  	 * boundaries, requiring RCU freeing.
-190a8c48ff623c3 Hao-Yu Yang      2026-03-13  495  	 */
-190a8c48ff623c3 Hao-Yu Yang      2026-03-13 @496  	kfree_rcu(pol, rcu);
-52cd3b074050dd6 Lee Schermerhorn 2008-04-28  497  }
-f634f10809ec3d5 Shivank Garg     2025-08-27  498  EXPORT_SYMBOL_FOR_MODULES(__mpol_put, "kvm");
-52cd3b074050dd6 Lee Schermerhorn 2008-04-28  499  
-
-:::::: The code at line 488 was first introduced by commit
-:::::: c36f6e6dff4d32ec8b6da8f553933727a57a7a4a mempolicy trivia: slightly more consistent naming
-
-:::::: TO: Hugh Dickins <hughd@google.com>
-:::::: CC: Andrew Morton <akpm@linux-foundation.org>
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+No. kho=off is a valid workaround for the mini ISO. I only reported it
+as a regression here because this was working until the bisected commit
+was merged. If this is intended behaviour then it is not a problem.
