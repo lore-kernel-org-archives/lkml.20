@@ -1,108 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from cvsmtppost06.nm.naver.com (cvsmtppost06.nm.naver.com [114.111.35.102])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1206C383C92;
-	Tue,  6 Oct 2026 09:11:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70DA83859E2
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 09:13:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791277903; cv=none; b=DfMX4k8AxOmspUCpSAampMnYzMOEY7Pj96tmMiSDlTwPCVHfZSr44fWsvLibXxtGBU8yFPCtOgr73IQJlkR1rlL4roWRFRqb/HXmR9TeFej0Y1BXixaYDhMAc71Ee14S8fBN83EKYtHRHw8alFuJejAcjLwVl6pj10SKTWTqstw=
+	t=1791278031; cv=none; b=HVtrogEjdiwzmbJWjf7ZGnsbHHSF9FSVoqnquJctwCWX3LehtqzdUnG2W1XeM4mt8U1dTpkxKhr8eUVucdbz7DwalNaRqTjz5o4x9DNx2cizKqb7ansdBf7GShzBlQzHvud/4+1QDpOuNVmUMHpTEKiVfERmGsmr7GdLupJ3YmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791277903; c=relaxed/simple;
-	bh=cbmqXZc5eMw2f9iPbake+nwkrFkaYniZpHY6pZTni3o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jVGk1D7syh5RTuLKCrZyMjzyMkei+eqcnANzY0fV7eAad3rpifKtTt4NDUDgC1CV2r2kFHIZWqoicIBOxBBdUSxCoHsL7P/LTDhDDojWZwaY2Bdcky5iRYmDVYXNB7BIHyvaygWtvHGr5yoj6xm4jqGCgXijswHW0Bam3Ybsw+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MSajS507; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791278031; c=relaxed/simple;
+	bh=gctVEGpOf55hwdl58t+HTQhT5gCOh5kd2dk3y2EwGa8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=G46NWZOedjBwLsPRIMKTRodgYQR/px3DLo0ugJwYmWTxcVWRqRBJHeuIwemfDC5nipOYeqcW1QR/HqTWKKlXUGNrKl4ta6UsJVqlYfiU1NFO+v5iA+IOwlKmUfCcDkJQg1L7X2htXiaoOArdbF0Ns4C6u1kseXLD2IN81LPHbns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=Am7MuhiV; arc=none smtp.client-ip=114.111.35.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MSajS507"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 949F31F000FF;
-	Tue,  6 Oct 2026 09:11:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791277901;
-	bh=Og2rvTNwnBto8lUtTepzVbjqu8HwH5iPSkQnv6s94g0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MSajS507MvWZO3VztPOPMhxqDEUFJT8F7vZgEdHKjm5nw6v+yMdP00cBlzvCDRhmf
-	 fcTXu+zL6JcuEsSecRyelKpQmaxuBDSNtWAUiemYwCkAzJKH6/AKQevIWjFzQsqZ35
-	 fSzt2Ze3Jsmef+m6LE/2N1HFblc3sGa7tey4xPZ+XurPnOhMBLN1UXxVCGPKtK+8nD
-	 y3BFJGJivsHuyXj3wguG4ZgVjRFuSxK7+QEL8oYLYjgjrQB8pyhJWY3jatFViM+ES7
-	 +k14fIwoTigal3B4JBAPGCUnBRrVMf6+PoE74I2x0DtHKKlac6R8h5aO71hpI7q2VS
-	 fDWabn2yBzb8Q==
-Date: Tue, 6 Oct 2026 10:11:36 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Maulik Shah <maulik.shah@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: power: domain-idle-state: Add
- system-state
-Message-ID: <20261006-elfish-aloof-tuatara-5ccc5b@sudeepholla>
-References: <20261005-s2idle_state-v1-0-3c402c66f388@oss.qualcomm.com>
- <20261005-s2idle_state-v1-1-3c402c66f388@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="Am7MuhiV"
+Received: from cvsendbo030.nm ([10.112.20.49])
+  by cvsmtppost06.nm.naver.com with ESMTP id zp0bEFcDQoC23ubJ4rGAZA
+  for <linux-kernel@vger.kernel.org>;
+  Tue, 06 Oct 2026 09:13:47 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
+	t=1791278027; bh=gctVEGpOf55hwdl58t+HTQhT5gCOh5kd2dk3y2EwGa8=;
+	h=From:To:Subject:Date:Message-ID:From:Subject:Feedback-ID:
+	 X-Works-Security;
+	b=Am7MuhiVDmMGzqmyySuTsdqfvPJpdPO1Kdk4zSGawI4pTM3buHCN7y3vL/e7sl6or
+	 Ce1tkZ+uDBnScURnczgpMr9nOtk9SKoA6GV/KN2xMbBigHc4EfQRndk97R1OZA6Zhx
+	 khqc3a7DjByYBzqSLV5Ak/9scCG4EkB7/Aij27cYXOH0VECF+lQ6LSniuEfCuJwRR4
+	 AyDvc6AryJ7vw0QOPIoXZuCF8gQZ/NNNpPyyb04SORtBgQMrMmesIuR3yulipHM9Ig
+	 JyFWhGJvQHnBnm/L/vF1A6hgoZprovjOxRy1qHsue/FxVAbcYEfGJNvl7dkQ4+c9lV
+	 FSAe2sb0NGRAg==
+X-Session-ID: IvdhAuDFTiiE0Ff3WRPz+A
+X-Works-Send-Opt: OPRwpzGdjHmdKHFOMr39Ko3YKHmrjAudFqM9KqMqFxIYkEljxBmwjAg=
+X-Works-Smtp-Source: /dKdKoulFqJZ+HmXKoM9+6E=
+Received: from localhost.localdomain ([115.136.205.4])
+  by cvnsmtp010.nm.naver.com with ESMTP id IvdhAuDFTiiE0Ff3WRPz+A
+  for <multiple recipients>
+  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+  Tue, 06 Oct 2026 09:13:47 -0000
+From: sungbyeongchan <tjdqudcks0424@naver.com>
+To: Zhu Yanjun <zyjzyj2000@gmail.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>
+Cc: linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	security@kernel.org
+Subject: [BUG] RDMA/rxe: mapped SQ opcode indexes past opcode table
+Date: Tue,  6 Oct 2026 18:13:38 +0900
+Message-ID: <20261006091339.828901-1-tjdqudcks0424@naver.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261005-s2idle_state-v1-1-3c402c66f388@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 05, 2026 at 08:59:42PM +0530, Maulik Shah wrote:
-> Some domain idle states require system-wide coordination and are not
-> applicable while the platform is up and running.
-> 
-> Add a boolean system-state property to describe these states.
-> 
-> Assisted-by: Codex:GPT-6
-> Signed-off-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/power/domain-idle-state.yaml       | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/power/domain-idle-state.yaml b/Documentation/devicetree/bindings/power/domain-idle-state.yaml
-> index 4dd4f59bbbec..35dab3cd6aed 100644
-> --- a/Documentation/devicetree/bindings/power/domain-idle-state.yaml
-> +++ b/Documentation/devicetree/bindings/power/domain-idle-state.yaml
-> @@ -45,6 +45,12 @@ patternProperties:
->            state will yield power benefits, after overcoming the overhead while
->            entering the idle state.
->  
-> +      system-state:
-> +        description:
-> +          When present, this state requires system-wide coordination and is
-> +          not applicable while the platform is up and running.
-> +        type: boolean
-> +
+Hello,
 
-I would rather have a system wide QoS latency setting either h/w specific
-or it can be purely software policy that tells all these states to be off
-for normal CPU idle path.
+I found an unchecked opcode-table index in the RXE requester path.
 
->        arm,psci-suspend-param:
->          $ref: /schemas/types.yaml#/definitions/uint32
->          description: |
-> @@ -77,5 +83,13 @@ examples:
->          exit-latency-us = <40>;
->          min-residency-us = <80>;
->        };
-> +
-> +      domain_power_off: domain-power-off {
-> +        compatible = "domain-idle-state";
-> +        entry-latency-us = <100>;
-> +        exit-latency-us = <200>;
-> +        min-residency-us = <1000>;
+An RXE user QP exposes its send queue through mmap.  req_next_wqe()
+passes the userspace-controlled WQE opcode to wr_opcode_mask(), which
+indexes rxe_wr_opcode_info[] before checking whether the opcode is in
+range or implemented.
 
-Please provide some realistic values. I understand this is just example
-but way-off for a system level state. See your own platform values for
-reference.
+I reproduced this twice on commit
+ff47652a4b66c067c765a7ad464d930b5a9367cc.  An unprivileged uid/gid
+65534 client published UINT32_MAX as the opcode and woke the production
+requester.  Both KASAN boots reported the same four-byte global
+out-of-bounds read.  Changing only the opcode to a normal SEND reached
+the same requester without KASAN or an oops.
 
--- 
+The demonstrated impact is a kernel memory-safety violation detected by
+KASAN.  I did not demonstrate disclosure of the read value, a write
+primitive, a reliable crash on a non-instrumented kernel, code execution,
+or privilege escalation.
+
+I tested an unsigned upper-bound check before the opcode table lookup.
+It rejects negative signed values and values beyond the implemented
+table while preserving the normal invalid-WQE path.  The malicious case
+and normal SEND control were clean on the fixed kernel, and fixed A/B
+testing passed.
+
+I performed a best-effort public duplicate search through 2026-10-06
+and found no exact public report for this RXE opcode-table bounds issue.
+
+This report was prepared with AI assistance and is being treated as
+public under Documentation/process/security-bugs.rst.  A tested source
+reproducer, logs, configuration, and proposed patch are available to the
+maintainers on request; the reproducer is intentionally not attached to
+this public report.
+
+Assisted-by: LLM
+
 Regards,
-Sudeep
+sungbyeongchan
+
