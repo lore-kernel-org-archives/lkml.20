@@ -1,109 +1,107 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4E242BCF46
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 17:41:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791308521; cv=none; b=fLNxeTtfi2J0LAJkl+SbLNipZkWxsIGlC0I0ci2RHHxhk2WNZGmJp50eph3PQi5vYUD3EDUXQiZ7W6foIiouLp5t+WrXndB6UKBhrmQRx4a4xjx2dCCWPMPnmFGEZCkCq71MMcsrw880j1QuilPu5QFCbVVEEKlDlELbDelb4Us=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791308521; c=relaxed/simple;
-	bh=GDcNMrVLoFNBPvMfOqZBCsNTycLKXwKbd62d4/iwhmA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rFonNPUx/ef3N2a/SWfxGwZMvikYnZ1l6VYYcLT6AjW2II1oJGkPsllKjcasPD2mkX2lig3ukWBPi4S7PWhAGSRRHI/rF5VmztS9gN4hGHFsFue39x7ABEOZ7CmUhDwSZLmnn2OTXECaXANbYL8BQm6WcYEPProoUam2lxNwR8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KXb+DvP8; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C85C46E007
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 17:43:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791308609; cv=pass; b=lNmOgskmqCrFcU/DI6HKpeRC6Kh1KQW9f+cyJ/NRwHbWwHMMKlUGYVHOExMrP8VTSGXKldFQwjvQiYc8yFuEJXONnQG0wLAGth3NARb411+nt1Doc1ES0srfwciUTndI1ogFOjTUZUIUlu2EXP1I2JBMZzRCzxrOuC39WufMNO0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791308609; c=relaxed/simple;
+	bh=bd+1P41IO15ibhKPcrrSHKh5od+yEGZluTc0dwCbu94=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=nGv8+JahVVuGziD6VM4Q9obKlTp/Q8GPeVHjZm3DDTXG2t+tqZ6rjOn2/mQQ/EGBLI0Rqkinb6otuXG3wQanPTiaOerDe7K7KdlAOZVpKHzUj6b1hxcSXG5uEBeYvEJMSLoT73NsbBgSszC11bzAuKOYApAG33wg+312MGM0VyU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=O1hwaE5J; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KXb+DvP8"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3a0a55fa355so469291a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 10:41:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791308519; x=1791913319; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Lu6UPU56XojwtTlY93c0x5oAiTN6ULY7h5s2JWarDPs=;
-        b=KXb+DvP8AfRS/MEqoDyFDlIHxr3fGguK9lnSLgRLvi8u2z1G4ndCyt3bqr2upGc75p
-         nvQT4wFqSkEXsF81aURZUbktTJUKggMKNgrQGor719iovw66do7AwUfWV3LK1BK6aYFi
-         w+iAKcVlGralseammppkShJ8zIiRhWfMLfMtfD3kraQ/XDqOBmRn1alsism20B1jj1MS
-         YtBlnr1L7xGVTa+UeG1ODhhmph1GePw1+C7GUl2y+myJi/gwyI1+LQ6k5BvlUmt55rLT
-         I22MVnJHAfG4FS4pdVrNBxLB2fe6L7jxchPWwwjinDyFu9+FI3H/TbOeTjzRbjiu8obK
-         6lFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791308519; x=1791913319;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Lu6UPU56XojwtTlY93c0x5oAiTN6ULY7h5s2JWarDPs=;
-        b=n8TWN0a8W1+gOucCqyLnYaUNx3SUd4mAMvc/WbV41qTiVj7YPGJZwayD7ngCFhpg06
-         bLxdRHNq+lUvPGES2TKA4nO0CNWFbsgKDBg+m6plNIxpWcyYMFmiW39K9ckayVCiI2JD
-         BcP5RoXfr1ydNV36GUMzGBYkLbLVQs1DGl/VWxSwMOKNj2pTqok+8HmIEtub2VawJgEi
-         KQAJqdVYJr3QshpzBsnN2rUMxgNrKKiTea5w5iYD/tGPCJeYcnN6DbpOqpajEZneHCMI
-         Lt+xJnZsyqm8JGESND8qY+ptuZMZF7S1t0Zibyl4WRr3xKN1EiYwR3n5pr7h/69QBPZ+
-         RX0Q==
-X-Gm-Message-State: AFq9FYIVM6/zKvh8mAXj5q8WnbyibrzPqvNDMt2dyxEY/YSKmdz3ZnL+
-	Y5wgZnEKzumwMePdJRhthvtcvTObI5dXyjyLcC7jPkN6eJAWcyM4jXFNIySHGQnC
-X-Gm-Gg: AYBFou0gLyLMbWq86Tq4qdSzmQoo8VLBJLL3+JWeZcffj/dII6QXqtSeMBFbqrLrbwr
-	+uhGMNUk03MNLGcSqDnp87DWTNCEqfbHYFQEv+UOUDGBgMC/PYUA5hRceaA9PK5rdtt7mjh6t2w
-	6lJx0hUi6Vopi/t5hhwyJvnlHNmcu6MMKS4YXaZPOhhqcFsORdwFjVB3yrBSpypa6eLGXiuVaR1
-	vJGDshWoO8sJWJUXpZ/nj3B97vetlfnsaxxQQ+qQXUS6V4lpaCm/WxIMFuCdRLMMXCWffvPurx+
-	cAmt6bEeznWaOQ3zSZp67HDMr8/PY1qpHJ2HKiGZy/TnFcj3YTeZrnLNrWfaNVP2GtgLqDAPtFB
-	h5FJSB/hX3QoHmWRxd7Ffs5LbAdauwHUrkmzFK46GavqEtRnzXrfRxsjR0tp5TPmNTRga0QZmQo
-	xHeub10vLocTYDkZYBwEnVkbZYrVd+vrMvhxdM5nQNaYhPsUjQ1b8UCeoyw/Z4JSXYOsqxBWAOb
-	M+19HMZMUjk++Wc5oklJtsV0X70S0uIO5qk1i7RJOgR6qrwWLC02xanQNCwNhGvjheA/Y2fVjhL
-	qr8gsnaDU2om3tM9QS7ovcMnl42GfPMpyX0noLCA6sPz6k9d
-X-Received: by 2002:a17:90b:2641:b0:3a7:92c9:eacd with SMTP id 98e67ed59e1d1-3a89e9f07d3mr35851a91.0.1791308519038;
-        Tue, 06 Oct 2026 10:41:59 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a89b2814a0sm595266a91.8.2026.10.06.10.41.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 10:41:58 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-kernel@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rosen Penev <rosenp@gmail.com>
-Subject: [PATCH] uio: fsl_elbc_gpcm: make irq variable signed
-Date: Tue,  6 Oct 2026 10:41:57 -0700
-Message-ID: <20261006174157.44710-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="O1hwaE5J"
+ARC-Seal: i=1; a=rsa-sha256; t=1791308577; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=T9bl4cUIkS22dRQtrcTMJVNZLJuOn3qzuos94Z3aqx6XksT8amA5IsjhvkXVu4X6LSQ6w9H1fFk6CnP0Q0pkCe0HkMHrtk9kyFSw3s7JNJTr50pBzS6EYcyZvr+AaJAK6CfA5pz7r7YJ+LFYaikvvGwNVxsDKia1xHi37S2iGWA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791308577; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=KWPwI/TMLs4A5JfWID8+571hAk2AHT+uThGLpY/+9Nw=; 
+	b=MxIY0MWky3ZCMEGkcWQXISoy84Y3ETfOJikZUyMpwTHU3MA4g/IMzuM+fbOwE7upXVEZDYSwUot8+8Uo8T6ARSCamgy+i6MeYfMiJACKXr/4pybwZrpLMeuRSS9pT0v+gHHD3hXxds2NcOl8Bqoz2UGjH5wNKsGl8Fn/p74JA+M=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791308577;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Date:Date:Message-Id:Message-Id:Reply-To;
+	bh=KWPwI/TMLs4A5JfWID8+571hAk2AHT+uThGLpY/+9Nw=;
+	b=O1hwaE5JOdnYmV0IHkNvXmLy7FvvlXZ0wbM7DfNwFtcjzG0z5Qu8YDAM2Mqr0Xaz
+	5vApJjPv8+GvOaAvT9u0wpRMg7+lUMrTxpz5729PZqC4QurlXOXEGJgtCqj14G6JFH2
+	SHHPSmdfbY02p5qDHnVxqTADBzRMVi28QPhw8bjo=
+Received: by smtp.zohomail.com with SMTPS id 1791308576085608.6983948946888;
+	Tue, 6 Oct 2026 10:42:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v12 12/15] drm/panfrost: Skip cache flush/invalidate
+ when enabling perfcnt
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Steven Price <steven.price@arm.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Rob Herring <robh@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Faith Ekstrand <faith.ekstrand@collabora.com>, 
+ "Marty E. Plummer" <hanetzer@startmail.com>, 
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Collabora Kernel Team <kernel@collabora.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+In-Reply-To: <20261005185738.010bc483@fedora-61.home>
+References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
+ <20260929-claude-fixes-v12-12-62beb08de207@collabora.com>
+ <95174a67-0eee-4bf7-b883-9f1138c74a6f@arm.com>
+ <20261005103855.655f8199@fedora-61.home>
+ <5af99ba3-97e7-4a05-b91c-7d53a508b635@arm.com>
+ <20261005173741.445715f0@fedora-61.home>
+ <37422c77-ecdc-46a0-8896-3a5098417426@arm.com>
+ <20261005185738.010bc483@fedora-61.home>
+Date: Tue, 06 Oct 2026 18:42:50 +0100
+Message-Id: <179130857041.1018806.6898929931051346034.b4-reply@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=752;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=bd+1P41IO15ibhKPcrrSHKh5od+yEGZluTc0dwCbu94=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqxTMaQ/j2X9bykuJcr0RtX3bVvKBXqKcKdrI19
+ o2vNc6P6IGJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCasUzGgAKCRAOJn5M7lND
+ PZt/DACaTuYGeg1cxZ3bxDyA5nP1u7eiTOhBhKQ69eZ50mrN4Wkl4V4pR/j8ApsJGxHPMPRbRnJ
+ 6+ShlvIUwrvzCrrya08ZLGaww2P+3P7TtmvBx69CViMBuZgDbO+NyP9zdOHXUTBmJ05T0thqd6N
+ yydxbHi/LArocbdY9O9NTJZHq+7Y+Gq9xhaxQXjs3iUKh3OCdbsWNTvl1WwLRGu11qOfw8LAgCF
+ R7CG7/4L/7y6tekw/m756lemBhO10KdfUCB9zRZXvEK7vYiDUlG/zImMB+tFWCadSO6wkdiWyOp
+ hi+WznGA9Tkzgtmlh0Pz9G4ZzGQ+9GxcKwn0RmzXXR77uP2Y65/u4QHLnNHvx0eciqXX09pzSNG
+ Osmb4d++unvanDiR8EL40gCVGxuncbVncvY3bR9saAQ2O4YntaghG3APEG5DdrJ0uVRscHG78m8
+ QyU0j3ftTCIuDgBJcOsCeM5FGd1PThCmvwBZHO6nBJtEm1W+8YSnELl74rPKjA9QuNTUo=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
-The conversion to platform_get_irq() missed making irq signed as errors
-are returned as negative integers instead of 0.
+On 2026-10-05 18:57:38+02:00, Boris Brezillon wrote:
+> On Mon, 5 Oct 2026 17:05:14 +0100
+> Steven Price <steven.price@arm.com> wrote:
+> 
+> > On 05/10/2026 16:37, Boris Brezillon wrote:
+> > 
+> > Ah, yes that's true :) Although there's no need for us to do an
+> > invalidate on the unmap path...
+> 
+> My bad, I'm confusing Panfrost and Panthor here. There's indeed no L2
+> flush+inval on unmap in Panfrost. We do have an L2 flush+inval on map
+> (FLUSH_PT) that should cover this case though.
 
-Move variable to keep reverse christmas tree ordering.
-
-Fixes: c8295feb756f ("uio: fsl_elbc_gpcm: use platform helpers for resource and IRQ")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202610061847.h2hn65y5-lkp@intel.com/
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- drivers/uio/uio_fsl_elbc_gpcm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/uio/uio_fsl_elbc_gpcm.c b/drivers/uio/uio_fsl_elbc_gpcm.c
-index 08cb150fb12f..73528e8d73f6 100644
---- a/drivers/uio/uio_fsl_elbc_gpcm.c
-+++ b/drivers/uio/uio_fsl_elbc_gpcm.c
-@@ -303,12 +303,12 @@ static int uio_fsl_elbc_gpcm_probe(struct platform_device *pdev)
- 	char *uio_name = NULL;
- 	struct resource *res;
- 	void __iomem *base;
--	unsigned int irq;
- 	u32 reg_br_cur;
- 	u32 reg_or_cur;
- 	u32 reg_br_new;
- 	u32 reg_or_new;
- 	int ret;
-+	int irq;
- 
- 	if (!fsl_lbc_ctrl_dev || !fsl_lbc_ctrl_dev->regs)
- 		return -ENODEV;
--- 
-2.56.0
-
+But we're doing panfrost_mmu_flush_range() both at the end of maps and unmaps,
+so I wonder whether when you say we do L2 flush+inval on map, what you meant
+was when submit a new job, we force a flush+invalidate for the AS the job
+runs against.
