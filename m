@@ -1,201 +1,180 @@
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010070.outbound.protection.outlook.com [52.101.228.70])
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1424D381B0A;
-	Tue,  6 Oct 2026 09:52:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC8CD39D6FA;
+	Tue,  6 Oct 2026 09:53:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.152.168
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791280375; cv=fail; b=DOQrUMak4g331cgnmJnJF5MeQE5iF6qRb2HGJT0JUiLdI9+PWgmQXN22sUqAkxV3JLQhk5+ZQpr+eBRRkoq0oV8VvcOX+8AqB/NM9qS/N6hKpckSLjFxo1VYG6KgAwgWY/4G07MH6DAh4mzIsaJbNJ1Ql6hlMPllOlX0Ojmgufo=
+	t=1791280437; cv=fail; b=Kih0nMysaTar/NBa4kLHYk2ozmLl6Xtm2UIj1N/Bu7/9r3iB84utbcKo1yNzEYy4g59GcUA1p5/c4u18A7T2apgMxUzRHTfaZy0dQ76NaOc2fqdb3QrORIdKXRfNMOzbsrAEzhp8ccY9W9uHqYLZ20twWbKUkxJ16M4a5GN3XlQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791280375; c=relaxed/simple;
-	bh=9LtM6fDlOMHIHV/WHTmMuN1kLHaqSOoD5Jx9567OatU=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ECfqbXp6Ymt5DAMqWEzyl2FRsbu10m0SGQ8QHCJbpO9v5bykdFBG4dK1rqZlXqetrNLQ24ux4WBC5wp1lm2vxpE8c2sxr4kwuUkmIi7LKCCTlq8hTudn5fwZIesnU4lcJUYiHx4XtNa8zEK2Ah1rMYSdQurMPiXdtQxvPzhyk18=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=MRoYG5HN; arc=fail smtp.client-ip=52.101.228.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
+	s=arc-20240116; t=1791280437; c=relaxed/simple;
+	bh=ix96NjRYcA9JMK6eO9KvdC0/7F4/zNTLxPKbzInGGzs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FvksCl4VnpEE+oU5fdCRrf+hE3Dh1NnNot08sHNXJ8x9Y0OZn2hwwJJVMbZWXzRFu0M/vr4gbroPyF1gXRLXz/HjJUnKVTd4aP/j/4cTbJODFdbEfeB8RQXOQxuSlT6ZqD6t+q8feEIWQlEhV11CZKrm6huatlkV7vCekv9A0UA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=c3JFbexu; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=buWsd3N8; arc=fail smtp.client-ip=67.231.152.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="MRoYG5HN"
+	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="c3JFbexu";
+	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="buWsd3N8"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6965Hplv3392737;
+	Tue, 6 Oct 2026 04:53:51 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	PODMain02222019; bh=Zji8A2987OWPIOdeb7f8U2mOH/9315CEu/mVY0H0WX0=; b=
+	c3JFbexuCPLdLEKNR+BWPr5jn6Zb5aaZnLkxUwIgObR0aDq+ka7Ms/Qk6Kxaw1IE
+	//W8CTnC01P104F5ypqZZeTchIqpSmXU/CR4PCpU4xntToabbz60HZafeIq4pKw4
+	g5qV5OVge8bRdxiln+fT+ED9fIX7DKAnfEfGFyIAZo0M0FtiukcX39LdIHon9x2C
+	VAGTFma6xTGYbv3s1Avuo/JxFK957rE/3inc93Kt9eycZguBqpp5TWl+ESAErCTC
+	nwx4t3FjB9h7tGAlSjX4lujV3q8DNipC52MBwEbUcTWk/1scaj2IGtxEo+q1IfPW
+	FKb3IKf2YSx0K+jaNi0r8w==
+Received: from cy7pr03cu001.outbound.protection.outlook.com (mail-westcentralusazon11020113.outbound.protection.outlook.com [40.93.198.113])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4h2x4hbd8a-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 06 Oct 2026 04:53:51 -0500 (CDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=thvUAigVTMEjFFQgTm/7lN/vqtaRgp53AHLTUDhcaZnqLBenXOCMUH1GftznhRi8f94CShOT4kVnWKAeWresRnRzEG/na6EoRnUJuGOIIHYOCbOSPKDEjfnGUBCRROxMjfZ5ar93BlsOQweiCBMW/A9XUAfNM6lCjVVe6gzkDDZhb6pgI0/gUv80tYjPD+uknH+10kf4u8qclM8HvTeNjuj0fCRkzZwTwX2qU6iPcy5nD4Xp6AUKFP5H4e7n3P4XXu5OwgF8R8GWoBOkauHu8yZ1OE9UR52EsVtbWGFgTiZ2yQwqsQb3E5a/98NRMkbUCZWHGCFEY4ZJH+gr6n2Pzw==
+ b=UX6slRYRBPuFovmn9euDbf4K4u37PuRl3vcLpO8p9AYH9cjDBUO5wrYLkuFY99QlYHMqL7tjGety+L6cGZhUKFzL2FfnxzNhXM91ScEyHmnafMxz3zMfQG4IskvvQ6QgkQBzsP66Bwht5Slnm7k8cKQ9h6bKOI5a3F7uKHfIIGtZghql2I2bFyfeqr+nEeECWz1/m4o9Etkz9/KMfvL3T77RGKlenzSgXxDEBp0kpzQm0Vt/1PUfAvvvo59N7NwenXMqtVDIXAXpN1ZdYaETE2RwF0TLeJ2PfCHw6O/N1G2gfppAQQXKrsIxXmi5sfbW3hdoVQ0Oj1cuSoPIJN7srQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Y3XniGZuThcHRW1tMvQ9dHj7oebyGCwGhH+t1bGUrQI=;
- b=AVhHPHSBW9a+4Tvb9jsO2RZyoK/c49asS6hF6V3H0z7I4sELoB7H2jWvRKi+810kGdh5rMOOm6mFASxYeNCRn+HDUoko29CtxkNZN4tDJHEDKLqhrEoTbtlr8jL2Mg/z9l5bB+tLLP3SRoQBOG6v0WE7fvvKGSFrZjVvNY05mtNPeq25nvG/fmvkv5EkZdiavOG5V+yaPsZdagw/XN1O0a7dZN7QBlVuRCZcD+PqG5lhLC8ZrFc6EAqkhp+mtuozeLMmp2/Hah7BCIRJmPQYOImdMiXvq+mtZiP0RgVFtRfpRYvFJKD1cAU6a6L9J8geoSSNhMtwE+t+0tNM0/SNuA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=fujitsu.com; dmarc=pass action=none header.from=fujitsu.com;
- dkim=pass header.d=fujitsu.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
- s=selector1;
+ bh=Zji8A2987OWPIOdeb7f8U2mOH/9315CEu/mVY0H0WX0=;
+ b=FxxUNMR4JYMHkIbNUF3/Cvo2qivHq2F2g0KzE4CJqfo3TzD5aaj4IYxj6C31Xji3JYrr+MwFJsi/K0SdJlhTdRv2iRHwlY/IdaMz6vvgtq92K7jR+vCGV2PxmMyKcTKlgsC7dWvCnvQDGd8DfUilURbloOln5xkik2vnSRxpAbNxW5Xz7B6PKuTuqoHC0uSKvmGxSuoiQDxNx9pdoUflWNh7v8M2NQbHUzY2PS2Kqkhn7cijWyX75zZsLfc+jEWZN+tMJUvapspXU/t02eTRqm9+wr6nwkmpyAWk0clKc3jCAd7E/SiP4wdUKWHEw2bdLw7qnZ8mRlNFisMiBFyX+w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 84.19.233.75) smtp.rcpttodomain=cirrus.com
+ smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
+ action=oreject header.from=opensource.cirrus.com; dkim=none (message not
+ signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Y3XniGZuThcHRW1tMvQ9dHj7oebyGCwGhH+t1bGUrQI=;
- b=MRoYG5HNPHb0fWza5yahv07GtCKN/xfMl9T20ZMLbwpX6bAMdyqFCdDsXqznH9ikv3iM5GC8Yy/ocC9A3leH0BKuShUxbD26wB8FPTxyYOXM2uT/TGgTi01AHYerALYL1YcEeu4hMg/xY4+PpR/T4U0n7JATohRUt8/jXbw6mNyXCwNVEyNEZr43mORN17ZNxoamgosw1auemDQ6Wl4tl2O0hh+tFZBvTlojmfca6MREPYq4edxXRLGK7VCltkGWTcRBBsR2a/mds3fBF3At36zAg8JxXn/oln7ksKOfnwkb7trtQBOZShJ5J5EIcFnxD9dmVMuhD//jalEcljFQGA==
-Received: from TY7PR01MB15746.jpnprd01.prod.outlook.com (2603:1096:405:290::6)
- by TYCPR01MB11956.jpnprd01.prod.outlook.com (2603:1096:400:3e1::14) with
+ bh=Zji8A2987OWPIOdeb7f8U2mOH/9315CEu/mVY0H0WX0=;
+ b=buWsd3N8kjH99kSEiM8/HZ4eFNJa4c1Sf+8lBixsGNt6vwMKoR4zT1aSLSvkKa75+hGlOyhFqj9cgxXOzE4OluzxydjhIxurB21f50RWSW4GBSw38un9aNljdq6h1z6VU7820j4S4YoWYoz4gbdO52Hwax+PKKV2aDvmv2uziWg=
+Received: from MW4PR04CA0142.namprd04.prod.outlook.com (2603:10b6:303:84::27)
+ by PH7PR19MB6592.namprd19.prod.outlook.com (2603:10b6:510:1b3::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Tue, 6 Oct
- 2026 09:52:50 +0000
-Received: from TY7PR01MB15746.jpnprd01.prod.outlook.com
- ([fe80::bc79:d427:b0a9:a793]) by TY7PR01MB15746.jpnprd01.prod.outlook.com
- ([fe80::bc79:d427:b0a9:a793%5]) with mapi id 15.21.0472.016; Tue, 6 Oct 2026
- 09:52:50 +0000
-From: "Tomohiro Misono (Fujitsu)" <misono.tomohiro@fujitsu.com>
-To: 'Will Deacon' <will@kernel.org>
-CC: Catalin Marinas <catalin.marinas@arm.com>, Mark Rutland
-	<mark.rutland@arm.com>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
-	<skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Marc
- Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Radu Rendec
-	<radu@rendec.net>, "Kohei Enju (Fujitsu)" <enju.kohei@fujitsu.com>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-doc@vger.kernel.org"
-	<linux-doc@vger.kernel.org>, "linux-perf-users@vger.kernel.org"
-	<linux-perf-users@vger.kernel.org>
-Subject: RE: [PATCH 3/4] perf: arm_pmu: Add workaround for FUJITSU-MONAKA
- Erratum E#030002
-Thread-Topic: [PATCH 3/4] perf: arm_pmu: Add workaround for FUJITSU-MONAKA
- Erratum E#030002
-Thread-Index: AQHdUli9ajIjaEgYl0+XVgJJHVc2p7bqMucAgAYYAvA=
-Date: Tue, 6 Oct 2026 09:52:50 +0000
-Deferred-Delivery: Tue, 6 Oct 2026 09:52:50 +0000
-Message-ID:
- <TY7PR01MB15746A62C5592528FFDD45282E5952@TY7PR01MB15746.jpnprd01.prod.outlook.com>
-References: <20261002-monaka-fix-for-upstream-v1-0-4aec0b0cbe34@fujitsu.com>
- <20261002-monaka-fix-for-upstream-v1-3-4aec0b0cbe34@fujitsu.com>
- <ar-nPJyVzPcvbICa@willie-the-truck>
-In-Reply-To: <ar-nPJyVzPcvbICa@willie-the-truck>
-Accept-Language: ja-JP, en-US
-Content-Language: ja-JP
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_ActionId=e03b4fcc-d58a-49f7-8b04-f6c4c3949f6f;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_ContentBits=0;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_Enabled=true;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_Method=Standard;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_Name=FUJITSU-RESTRICTED?;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_SetDate=2026-10-06T09:48:12Z;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_SiteId=a19f121d-81e1-4858-a9d8-736e267fd4c7;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_Tag=10,
- 3, 0, 1;
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=fujitsu.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY7PR01MB15746:EE_|TYCPR01MB11956:EE_
-x-ms-office365-filtering-correlation-id: 04cb4c0a-d415-4c8a-72fe-08df238f957d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|38070700021|11063799006|5023799004|56012099006|4143699003|22082099003|10067099003|18002099003|6133799003|1580799027;
-x-microsoft-antispam-message-info:
- 4HqHy5B4T1GCZyLZvAmgdU7yKomq8GXV145dWZr2l7BE2T00DCushxfZgFYWTPEZzdy+T+9YWERiZL0kwFOtRp/Qi5lKuWWp+0peDD1B+f7qHNpUZY19xQJOHdwrwQ7v0x1IHTbtKRSprSEw5UI8gqe/M93Y+z+UKVcAMpAMS9r5ThZsaI9Hw83ksS8vkLfJ4tsUJZIjZMeY7BAngW8ZxyRoHi4p8gc6AmkP+Ce9JEzAnPr/sREatTzCe7towfO8eHoOudxWWHmYwQz1mNRoRXlOVIu4ZeoIL8VcQQsVuO+9Jzg5xaNlkmIgiOL1Z5+5F8p+ssO4hL5Y6+Ug7Ws1SaurDuepsO0sVWUXueJ6/PRyuCv0FNhnmfgbPrz+UtpEyVq0OapPbh3guebltMytWi2Ss/5kQdk7u21EUS1rBH0F4hnMKWLzuYzdH9v2zI1LFXUM57pz9v4XNBI1GmsfVcoYwWnoY/TaZ56QClilHxZVnHigJyr5zH36cVhy8huKAKLAxL2iX5I5Ash+dT4EX4Jox09lEHN1mpPhAJUM42JV8oMCZqH8/N6oB03dTkYzKNMgSQVe0czLjM/jPsw4e6mVFbDKNMjJbq2p9foW3WP41h4q1idvpnJ4/ekP8IsZg4+p3+preOJ86XGEnrLGM00v8L27nVYJ2e7V2rQxWZBY+IA8f4o5ayC7Iv/QmMrVebLOYg/HzK6L2iK/6D2rLWVz5X2qjF9VnCoAeQRXEUlf9bboYAKqM1HmBmQHOdfO
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:ja;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7PR01MB15746.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(38070700021)(11063799006)(5023799004)(56012099006)(4143699003)(22082099003)(10067099003)(18002099003)(6133799003)(1580799027);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-2022-jp?B?aTNKWjErQklpMmRRVFNkZDBNazJ3NytURy9pSTFaemlRVnNoZ0dQVTd4?=
- =?iso-2022-jp?B?OVFDV3IyZ2tvWmdudzVTVERqQXFPRzduVlE4U1p0Q1pHaU9UNFlCSU9W?=
- =?iso-2022-jp?B?ZnhTY3lOTWV0bFZjYmRLekk5c0pJSHFOaHlwZ1BTR1Z2NXM0QU1UWmFL?=
- =?iso-2022-jp?B?ck0vYzg1TXZ3R2ZUVi9KSkxLbmtHdVkzS3gwVFhxbERRd0tOUXp5Q0Vq?=
- =?iso-2022-jp?B?UGkrVW5xbXAvampibkRiT0V4WWZxY1IxM1Z3MXNrSWV6ai8vMnRsTmUz?=
- =?iso-2022-jp?B?b0QwTDJ3UnJsa1FPcWhud0FHaFRUeEVxRXBLN1FkUHBNTWNHN3JFQTJX?=
- =?iso-2022-jp?B?eXBIVVJpUmxiVWtKWFZyYW11TlBoaEJBbWVEb0xWbFJwSEwzZWVad1BP?=
- =?iso-2022-jp?B?bE9DZEY3dlppa0phVk1TbHhyelBnK200YWpoUHhxVVoxaUg4cG5NV3B2?=
- =?iso-2022-jp?B?ci9hT3VCa1AvNnZhM01jL29MWnNWL1E5L1RLNTNsZ05mUHdqa0Y3bHk1?=
- =?iso-2022-jp?B?QzBNVHdDemFEcUZIclJsUEJzc1Z3VFRpb21Iam1iclZUUko3SjdQQjZM?=
- =?iso-2022-jp?B?bDJDNzlQMFRBU2g0cHpjc2ZldHYxd2RxQ0ltMVlhd0o3UlhNUW0wMFdr?=
- =?iso-2022-jp?B?TzJTaFBSWWdBWWpoVytHdVJ0bkJyODJLSlBxY2RjT00rbDNTS0lnNk1S?=
- =?iso-2022-jp?B?RmtoeXVtcGVodGxVRks3UUZuZUE1T1Q0ckNVUXlRL1pLVUI3SjZTVUk3?=
- =?iso-2022-jp?B?UmZySEVuYm1iTnduMkhjd0JSQXhBQkZwN0p1TktPOU51ZktYVjhsUDlU?=
- =?iso-2022-jp?B?NVJDSVU2Zkd5dDVyVUNMNHdzN1d0MzluZWJNNXNZWTV5RGwwTFBiU09x?=
- =?iso-2022-jp?B?S3JVSGlsWkE5Sm9ISXdqcFFiVUdpRjRwa1dxOVpCOXBVcVY2M09WbklU?=
- =?iso-2022-jp?B?cUZ2Q0NYd05FNkcyYVgzMUJscUEwWEUvUUpVaFFnSDNOVzUzY2JLNy9v?=
- =?iso-2022-jp?B?OGNqcENreFV6WE9ENzFDQ2xEZG5wM1JEM2hYN2ZqQkd2eGdsc3FrTzdY?=
- =?iso-2022-jp?B?RGQva042T1NqNDUyUzRDZWVNY3c2Wnp0NGxNZzRCdWJPQnA5NjBaZ1pM?=
- =?iso-2022-jp?B?dWVpeGwxMm9SYUdVbmxZMnNkN1Jsc1ArY2ZUMDIrUWIyU1FUT09oYXhk?=
- =?iso-2022-jp?B?aWZ0Y0xRVFVOSVU5WVZvZTlvV25tWU0zdzMzNnJ2aFkyRFQ1T0M2aVI2?=
- =?iso-2022-jp?B?QlhxOGM5aUp0eW5teEFaUDJwOGJEdUZPSVU1VDFUT0plYjdLc05hZk1a?=
- =?iso-2022-jp?B?RjIzMWdGTkQzSmVTWXpsSUZLT3N3YVBJSGtZZzBBRlpKMGM1dFdnUTRy?=
- =?iso-2022-jp?B?eHg2NDl2UHJjTUxMbkczOXA4ai9iNzdTTmhNMEl2VFV0eWFtdmNmVWQ3?=
- =?iso-2022-jp?B?UWVVdDQwdWZIMTVJWjVhejVVWldRU2xzVXg5MTZrb09KL1RqR3BDeXZ0?=
- =?iso-2022-jp?B?Zjg4YUdIT3E1QklkQlRwLzFrdW11RGg1UEU4TFU5bnNNWGRaSlpKQk1L?=
- =?iso-2022-jp?B?QWlPZENVQzdveGZFMlAzMWJadXZKdUUvcGwwTUo4L3NkK2IvOFJ3M3dI?=
- =?iso-2022-jp?B?UVpIRVJ3UDlTZUMzQzF3NmVCbnFaajc1MmxIYlN5QkxkTkRoaExYd0dy?=
- =?iso-2022-jp?B?dzh5YWFTNHowWUNCb2xYMk9TZE1QTXk0N3dKa0ExM0xmM2pmVStJckJT?=
- =?iso-2022-jp?B?ck54WDhhWlVzbmJ4NEVFbStVbkovMU5SZXhuaVNDRkttSFU5QjVKakNO?=
- =?iso-2022-jp?B?eEgyV1pPOXQ5dEwrMmZXTVhvUmhTcjhTWFJQZ1JsSHZQSDZFTWpBTUlT?=
- =?iso-2022-jp?B?MGxlM1dzN29YcWNVMnJTWkxBbmFnVjRlTGdyb25ZcmVGRzdnQnRWWDJs?=
- =?iso-2022-jp?B?ZUZ6UFQwNzFFSU1rZzZkRzZVb3BYRWphVGF3L051MWptWDliTmhSSEhh?=
- =?iso-2022-jp?B?Z0hvRkpXbXlwaUdsUFd3d2tjSEZjV3dwV3RmdEdpdENzUXhyNzZzMmlh?=
- =?iso-2022-jp?B?cktobzlNd0FkbnZPMko0Q2tzbEtNUEU3ZUlONlhZeW9HcHAwSnNYUmhi?=
- =?iso-2022-jp?B?MWVjYzdLbElpcWxkRW9XRXNSTEp4bFIvT2Njb0ZKcWZGRFBSVDNVVlpt?=
- =?iso-2022-jp?B?b05aaXZJVEdJMVQzL1ZvOVJ5enpXd0U3V2p4MlRYWGUzZGwrMHNYd01q?=
- =?iso-2022-jp?B?MjlhYkR6N1FQay9sYzdSYzM4eUxjNWpBSm44Nzd3OXFQT2dPY2NpdERj?=
- =?iso-2022-jp?B?TjNwRllrSG45ZGJwdkFnNUZJa05KK0VQQ01KUWlyM0trQloyM29WdDdY?=
- =?iso-2022-jp?B?YmY0ay9vN0lYZmpTeWdxejBxNlhVQjFmaTFsMjUwdXNFUkVSczArQ2Ft?=
- =?iso-2022-jp?B?VmtXQjllZzNjMkp6dm5MeExtR0ZSSzVRSkJ1WVJOOGhKOUJ5VDZTTnlv?=
- =?iso-2022-jp?B?c29sYllGd3loTXlsM2phSWwwR0lNeE1BQU1YU25reDk3cGNOSXdmMjV6?=
- =?iso-2022-jp?B?NkkrOEFuUT0=?=
-Content-Type: text/plain; charset="iso-2022-jp"
-Content-Transfer-Encoding: quoted-printable
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Tue, 6 Oct
+ 2026 09:53:45 +0000
+Received: from EA8PEPF00000009.namprd05.prod.outlook.com
+ (2603:10b6:303:84:cafe::88) by MW4PR04CA0142.outlook.office365.com
+ (2603:10b6:303:84::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Tue, 6
+ Oct 2026 09:53:45 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
+ IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
+ not signed) header.d=none;dmarc=fail action=oreject
+ header.from=opensource.cirrus.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
+Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
+ EA8PEPF00000009.mail.protection.outlook.com (10.167.249.232) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.14
+ via Frontend Transport; Tue, 6 Oct 2026 09:53:44 +0000
+Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 04920406544;
+	Tue,  6 Oct 2026 09:53:42 +0000 (UTC)
+Received: from [198.90.208.11] (ediswws06.ad.cirrus.com [198.90.208.11])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id E085E820244;
+	Tue,  6 Oct 2026 09:53:41 +0000 (UTC)
+Message-ID: <d510a866-86c8-467a-8831-b373636874bf@opensource.cirrus.com>
+Date: Tue, 6 Oct 2026 10:53:41 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] ASoC: cs35l56/57/62/63: Use the correct SoundWire DP
+ for feedback
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, broonie@kernel.org
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+        patches@opensource.cirrus.com
+References: <20261005155235.1386525-1-rf@opensource.cirrus.com>
+ <32e25f8c-9c96-4385-9f5f-a7cf8b11ef57@linux.dev>
+Content-Language: en-GB
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+In-Reply-To: <32e25f8c-9c96-4385-9f5f-a7cf8b11ef57@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: EA8PEPF00000009:EE_|PH7PR19MB6592:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9698baac-134b-4497-971c-08df238fb5bc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|61400799027|82310400026|36860700016|10067099003|4143699003|11063799006|5023799004|56012099006|3023799007|6133799003|22082099003|16102099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	agWJFqqzUgz9HgCN0DedvctsbTeKbzk/xGVCav8NQTy0wExQAIdXY7VFbMIVqYj97zVL8FMevUD+wKtqsGhLSbrOO7diuxJp+tVBkKZms+zlLDyyJmBjjX/PX8BpF6fh7b4bgA++mf5t3LUCtaq+yB7MvN+g0slE//x8dFzdXPfz4jKktRCWoBfa41umGIvZimZvW4fIOlUs5CHg0LdKD8ZlC/hC9VZ4qKNwQs0oTXPIuwjmJVP/GixuRPbce4RbFnoK93kkPYZO4S3iZsfbmqmPqSQedG2KA6kNWy0EBnm64w0aVIPie6vzBhrANZCHejlnN6yK0SBfNbxnDtoFBNSZp97F+22ydrORC/tnR+XziodDjryVqqYzs/W4vOLXAIWvPX7CTIyo0AakL0LejHrzfh7QgAjjeT++NGt7A4bgPdEG69f5bH6c9YvV6/gJIKyAX3DMM5gynw8le7MpSpBFjCPMm85rTiLIBENTAycrr6iACGEhCNUzZdFHLq1nEdMQCvCZ15UASXYmB64Uj1OPDPWNkU5OZ7DMc8u+HmKfwYijqHYELtFLyjdaacNaYQwtuVZaQEjG60oJZNrgstb4J3R5hjWkY++BWoq86lQE9Q867XwXLResNtBcStyTYQ8Y/5AyMTUKs2RnHXiXBfNoIC4Dxo3L0EzgdOpmSPND22XSv0E81ZWTfFQ42tkVrdT4nuQB0zkUFjs+1KYBmA==
+X-Forefront-Antispam-Report:
+	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(61400799027)(82310400026)(36860700016)(10067099003)(4143699003)(11063799006)(5023799004)(56012099006)(3023799007)(6133799003)(22082099003)(16102099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	3KPiBSCaExLs1vQPE0B0+6Moo+C52N9SNE4fh/0NkAwcQwzDlYzGx2PuSQOCcGt0SkHf56Ogj/UQ+s293tF/XMO2dWzsSlQXZWyrljpj5uSPYXxyTSRDAT299MPSoSLGsT9I4STkDcORqOwTyBRmWBQ7cKKHPdNEKhw32RK9FVeG/55gIM+s7U6zlCXdUpCagDyF06wMBa84IzX1xgfQ348HNRScBzkvBNkVGI5WT6MnqADmK5p6767MNz97DmQnxO1kBPH/1y7sKK0sr0u4hABzp4BdaIWbt0Dt+lJrtoD5b70N+/VbpyCUkrHWGqE3r4s5o9DCynJrBTdFiW6PwUDcHM2XppmF3IwNx3jsD00FwMpaFcNtBwLMqsrIWUCRf7lQBrr2GEqjr4kMansU++Dhw6yd96Q7BLisMg0XNifKXDPbD0CUAAtymCTOA+Zy
 X-Exchange-RoutingPolicyChecked:
-	r6Jcgfho4mz2bYnRsfT/SlRwFwWVlgyg/PJ/Y0UqQog/bTsGE10vmClcvJYDqxk/ccGlz7qqF4OhoVRXyT8eCiocwXEjbHIGmP/VFFaiX7mUYKivKihofZ7z8+9hr/bnfyqCqz9kMWcqd3TUM5R5qFbEHhHOBSk64p2LN+UnmeeYF5ou1j4XhsIO5oWrvuVmf6+l2Wke9JA1Ujh6L+6rXmFoa/WKiTTQ7o7XEfnvJfjzx4oEBTwd5KIbs4P0YpkUupDG0WX8ZHhf/geWfXPTNYBKpHG14qRjEd9ELvgeDxdIP4NwFNTsf4r3+kvE7hpLsuch/8d68Ea9pfMKEPvHzA==
-X-OriginatorOrg: fujitsu.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY7PR01MB15746.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 04cb4c0a-d415-4c8a-72fe-08df238f957d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Oct 2026 09:52:50.4993
+	x67Vagl8F+lLge5ujqtM1qza1vO6PXDo09Tq3dzagbPAHjylNDVh7GnZgf3p03GcufVFJ0n91FQulCK0Pgb1MVhUMHwdRBaiC/rd68IISPGGZa3DfFPc7ZkopzhHzvka7ViYWDQ8kDaIFGn/n/6brG8CR6VaWLg/9EShJapo40qhBHL1onHr0Fhxcf6khU+EVFB8hhFqWWxi68UGTTtvW6BzGrNsWOSVRyPGGeIpNr1nVJvjswcqIicWMQLKU9ATObq1l9l7yV7xWgv8hAZAaTtPvKYGNw7t1tHMK7TakaBZp3jALypkDvReXAjwDPpCyi/3+EeJKUEbyiDdIGjezQ==
+X-OriginatorOrg: opensource.cirrus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 09:53:44.2885
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a19f121d-81e1-4858-a9d8-736e267fd4c7
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: oqn3qe4TybGLU6nbrknQNbGQrZJxH4pxPvcMh9R5dzwThjBDemp+7B/IxjBdnmXf/LXY8bVr3IBplPyZBXz1vxSlvxKyUORZt+TiGFSIciY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB11956
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9698baac-134b-4497-971c-08df238fb5bc
+X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-EA8PEPF00000009.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR19MB6592
+X-Authority-Analysis: v=2.4 cv=DuLDa2/+ c=1 sm=1 tr=0 ts=6ac4c52f cx=c_pps
+ a=H30LXO4bGSsCHJ4yv39IxA==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
+ a=Kl8oUV6wqCJAPYVHgv8A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDAzOSBTYWx0ZWRfXy/4PVDLYnBqP
+ Xre63o3t8WT2/rzl3q1Ewe5gvk3kxSt0fYkQ95YraZjs4lgWnrqGJJTFWaf62MQWklkNVF5oyfb
+ 2YMhPQrwoLoHrPniZN0ecL7d09CflE/kJ4neah1nwSJq4p/4m6rlrh0z5x41YV1qvZOdbP7rtXD
+ 6ICKP98uEPof79xI3mLvBrjwLQ3CEQSSnZyAshirVim1ygIplenUkbU/0bVHfnW12LaKpjuYtYr
+ EpxFY6lkkdkjtKJ/0dJONcH/Sz+5yll7nXpm3uviSgxqNywiP5qBiL5RICcj5ea627FQygVWVBV
+ NRB/ZtREygytPBe5bF8cJldkWdaaRmFCKAb48f7O07xfIK2PtFtweBMha+Wh6Ihh66jBBB1jqwg
+ DTV48flfzxTRkAgKVVQHPeclrzQysX2Eq20PF45TWdF2TsmYAritDc4uLNxCainV37IO4cX7u5q
+ odAHje3sMHC9qMKNEcA==
+X-Proofpoint-ORIG-GUID: hkn6N2kftS7Wb4oWqs0kLer8L4xovSYD
+X-Proofpoint-GUID: hkn6N2kftS7Wb4oWqs0kLer8L4xovSYD
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDAzOSBTYWx0ZWRfX/Oo3+0NVDjAC
+ i0u7PkxuB5ClfR78rmj8i+xw3pZtTMH2zTVf6FLNnCDh5C5aAO8ZGWJWykNHzKoMiYK6Z1Eclrn
+ +QJX2DJzBGvCj/LgX9wGNbcKkuxZ6nI=
+X-Proofpoint-Spam-Reason: safe
 
-Hi Will,
+On 05/10/2026 7:33 pm, Pierre-Louis Bossart wrote:
+> On 10/5/26 17:52, Richard Fitzgerald wrote:
+>> The amp feedback path (AEC) was incorrectly using SoundWire DP3.
+>> The firmware outputs SDCA OT25 feedback on DP4. DP3 is reserved for
+>> SDCA companion amp.
+>>
+>> This series adds a DAI for OT25 and switches the sdw machine driver
+>> to use the new DAI for the feedback path.
+> 
+> Is there any merit in keeping this DP3 exposed as a capture DAI, if
+> indeed it's intended to be a side connection for a companion chip?
 
-> Subject: Re: [PATCH 3/4] perf: arm_pmu: Add workaround for FUJITSU-MONAKA=
- Erratum E#030002
->=20
-> On Fri, Oct 02, 2026 at 07:26:51PM +0900, Tomohiro Misono wrote:
-> > FUJITSU-MONAKA Erratum E#030002 affects FUJITSU-MONAKA CPU.
-> >
-> > On affected FUJITSU-MONAKA CPUs, after a PMU event counter is
-> > stopped at a value just before overflow, an overflow might still
-> > be incorrectly detected, resulting interrupt storm in some case.
-> >
-> > Work around the erratum by avoiding programming PMU event counters
-> > with values within five counts of overflow.
->=20
-> What's the user-visible behaviour of this erratum? It's not entirely clea=
-r
-> to me why we need to do anything at all.
+I kept this patch to a minimum because it is a Fixes: so it must apply
+to older kernels.
 
-In short, this would cause a softlockup when using perf under certain condi=
-tions.
-Let me explain.
+However, you are correct. DP3 isn't used now. Not even on companion amp. 
+DP3 is a companion output from the amp (SDCA OT127), but Cirrus
+companion amp goes codec->amp so uses DP1 on the amp.
 
-The problem is that an overflow interrupt is incorrectly triggered regardle=
-ss of filter settings
-while the counter itself correctly counts events.
-For example, if the following conditions are met:
-  1) Running perf to count an event in user space only
-  2) The event can also occur in kernel space
-  3) The counter value is set just before the overflow (when using the -F o=
-ption, initial counter value is -1)
+When the driver was being written the SDCA spec and firmware behavior
+were not fully defined so pairing of the symmetrical DP1+DP3
+(for play+capture) was carried forward from previous amps. But SDCA
+doesn't provide any sort of UCM capability - widgets on the device have
+defined, fixed functionality that has to be preconfigured by the
+firmware to match what SDCA needs. Ultimately DP4 was more suitable for
+OT25. DP4 also works for loopback testing.
 
-when the kernel is about to return to user space after enabling the count,
-an overflow interrupt is incorrectly triggered by an event that occurred in=
- kernel space.
-Since the counter value is not updated (correctly), the interrupt handler d=
-oes nothing
-and returns with the same condition. This leads to another wrong interrupt
-and results in an interrupt storm and eventually a softlockup.
+Removing DP3 would also solve some other problems that the driver and
+firmware are both "owning" the registers. We originally attempted to
+sync this up, then gave up on that complexity and overwrite the register
+settings the firmware made.
 
-I will update the comments in v2.
-
-Best Regards,
-Tomohiro Misono
-
->=20
-> Will
