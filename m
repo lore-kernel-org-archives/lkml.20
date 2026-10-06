@@ -1,143 +1,158 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010011.outbound.protection.outlook.com [52.101.193.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 308A4463B7C
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 16:02:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791302530; cv=fail; b=ctAEIPOVLT/cxTnaAHHuy2cha0nW1FWw9JRHjzcYYyVdN6hmgfqhwdwt2lMEmJNa5rEkmD5Ca0chaaNo4qEhtOl0OQ741bm1EgBohmemsqcu7Tbylptj+OdbdLuL3fi/iru2BEshDOLEZRySDNkGb6S86WL9kGL+Nph21A10JxM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791302530; c=relaxed/simple;
-	bh=IzCuvDermfbAqixI1tF9iIeECbr9JYN5pVR8vz2Ww3w=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Yx/j2KBeABIcCwXB2AwdwQGFPx9mVu0J07CdjlXtvN5NR0tnKF5PUwsr+6gW/xkTF/nk8MYNyHTvIri7xVY1xwDYAc1MIJjH8OAXpZ9DJ0zTGq85zo0SYXwOCZdPWf+NP7RMPKOs2Lr6+jU2RjOFVJ/R+4gdWp9B1QIwwp7etQA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Oq2T8Xsy; arc=fail smtp.client-ip=52.101.193.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CB5A49E134
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 16:02:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791302580; cv=none; b=CN4Qz8Ldd4t1nzD3mE9zoNQy9wROadZK2bdb+J9mdtvh+fTDurU4PO+DZFMBLt54RaiB65jCTAM9PIaKtVKeHsAYDYQ3bglHbh8/67G1GSo2yQ9wIjnlBrODydMjXAa5t/ivIUyjd1DWbfSMbtGBdsl4k0V/JbA/7Lc0U0Nz/oY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791302580; c=relaxed/simple;
+	bh=eFY0EL/+0X6JOgjuwcgNPswP21gloYHJF0IpxpUkDLE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=jouHqQ3hhcrQbeAbmxzmnHAqRxIV7a33RCCsAWaiPR0rSSi6plrtLNy2b9HpmGw2COshSgj68sC06NdICwvMNtgSZJn7bwIWMyDBo7EDK1WHPeOdGG+RjHtwl7evJ/VrPa2ntAlk2ntG5FYVcYo+lqkaG9K0XmgXQRPBIEF3u4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=m54ieys2; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Oq2T8Xsy"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Gv1d7FriYnjuXRm/t9zHWANUEYJbArT4k1YshfX5MmjUYlfZJDxt3e1wVoyOsqX2rWCwErNhSmTflBJWOYzK9KI6gA10F4yPrf/C1z4a6e+DHzhmg+4Qmhzym/f/NuZpn3hW8TIwoMnnA6yvArrWuI/RoaH5X9Cpsj+lJXzI6GAGvvHxJyCXJxIq6bkVor42+P5LKXpLRYIs2qW3gdtJyQdx7NhjGsJsPm5JXLE2UYPX4ytigfMEIvb8lj/E4MkTyxxzC2gUfxOJ99FjfCs5UOs9Dp4j+iH//o79sjhawyJ8CuJvXyXG7SzlwZxshnh4xVe8LcIBHORwAleVCNvv2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=d79TqB0Mh6GOENO1NfAmMDznzg6KUxg3Q2hO1HRZ0L4=;
- b=SL+5poGXGSSpMSMy7Tpd9Z3cLuVubZ0aF446TLEOi4/QKDR4EEXkldc3fUFozm2e0g1oFQqjyXLXMt0vd9fTerwjWYoAsZJ6uTRi8OxgtnYbrgKl65G1oQMctbhl6o1q0KFlyWAcLRPKVdnQr4+kptAqRqjOntJhhzY1U2B9Y7CsrMOup1WwNIWdvAcfQhmYZFXdNxGuVUfFsvJYNXIq24Rb1AqSz7FAPNbjnfSQqkG0Z2Jms2TdMygOpvqxCUz40HABiO7JGPaHW7LhAn62SowqGh9nLC4oJVz+JnSM96x+WIcYzqlYUr1i+EYjcO9D4IdUQjGNAHmre0dME78DYg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=linux.dev smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=d79TqB0Mh6GOENO1NfAmMDznzg6KUxg3Q2hO1HRZ0L4=;
- b=Oq2T8XsyqW0j75i6DvNMP343wVMX5HR84lTNWvwQtfXcD2iNtuvMw7AxTeoUV9Uk/Z51/nLcDb9CiK+n6RlPHBvszve+b01hpM8N3SZVqxkOO4X+fk2vetVPyUZjM5Svl+N8Z3w+FiySAVbAuF9slVfv2mhIlmTd0MtmD0hmeDw=
-Received: from PH8PR21CA0003.namprd21.prod.outlook.com (2603:10b6:510:2ce::14)
- by PH7PR12MB7937.namprd12.prod.outlook.com (2603:10b6:510:270::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Tue, 6 Oct
- 2026 16:02:03 +0000
-Received: from CO1PEPF00012E63.namprd05.prod.outlook.com
- (2603:10b6:510:2ce:cafe::50) by PH8PR21CA0003.outlook.office365.com
- (2603:10b6:510:2ce::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Tue, 6
- Oct 2026 16:02:03 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CO1PEPF00012E63.mail.protection.outlook.com (10.167.249.72) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Tue, 6 Oct 2026 16:02:01 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 6 Oct
- 2026 11:02:00 -0500
-Received: from BLRDHSRIVAS.amd.com (10.180.168.240) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 6 Oct
- 2026 11:01:57 -0500
-From: Dheeraj Kumar Srivastava <dheerajkumar.srivastava@amd.com>
-To: <muchun.song@linux.dev>, <osalvador@suse.de>, <david@kernel.org>,
-	<akpm@linux-foundation.org>, <davidlohr@hp.com>, <linux-mm@kvack.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <dheerajkumar.srivastava@amd.com>, <Vasant.Hegde@amd.com>,
-	<bharata@amd.com>
-Subject: [PATCH v2] mm/hugetlb: use kvmalloc_objs for hugetlb_fault_mutex_table
-Date: Tue, 6 Oct 2026 21:31:28 +0530
-Message-ID: <20261006160128.31447-1-dheerajkumar.srivastava@amd.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="m54ieys2"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a061a13884so8232625e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 09:02:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=flipper.net; s=google; t=1791302576; x=1791907376; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=J8q1Zp2FdwvzE5fOrPSeuvqoT9vOFY1AG6osvW0MSLk=;
+        b=m54ieys2i8OUV1pRTbC4UJX124Lp/fhnxOQjoPIHoYI8Fr0os6szO2oPqfT9vqo6jr
+         Duym2aXiHQxPbBbk25TiraxniEmmz0R007ij4XEmR11kxwMW9ITjoV8An44UNRA+jkdH
+         +pCdBV75OKTB4ehBjWXyyS7DImnu3wuiIx6BTKQBgYjc/px+61Ta0mlks6EkBkTnvEXn
+         5+8FIxMcpJRQWKaq3fFZCMziSW0AXayZmakS0ZjN2bTLEcfs4YYor6Yhxky9+II0udyB
+         uUZxBk9B5m2Ah0RnnKi6hrLicUlDGWCNsy8i1Ldp8zrNtLt1yp6JxwjBzpHCZrG9XdnH
+         r2RQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791302576; x=1791907376;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=J8q1Zp2FdwvzE5fOrPSeuvqoT9vOFY1AG6osvW0MSLk=;
+        b=oVBGRMV1WbabaYBOE6OKJnSXdAwbaPsg7E10X+4y/4FafkJeghLaLGUMTGZ/1JfcSW
+         w94XfOi/8KH81kvMSMFBGNxNtrp3N19KljlIJDGEqhK4XwZ5AKzeC0ydaNDUS0KBfQJ2
+         OZtt9EkSTFlN83kQ6DdHp0bayzZcYlbG2psRe20bAS5M/Bvjmzh/s2WXigzdj2rz1Keo
+         Az/VHoXj/auo9hazX8UVQTqQbexdWWW43DtjS7uTrM7TP63Hk19rRIdF4Hzv8LdkOCRB
+         sIsbihRzSefDM8oPeCekvQGrq/YrsYPCN2zrobYVxrdQep1zalfKKKc2j2YMa9SPG1Lx
+         viSg==
+X-Forwarded-Encrypted: i=1; AKwUvBzZth09gvfKQiywz5T7k/uyV4U/vuecp5BWYAtAS+/BVb0lD0kQ3uwWxWxShk5G2LTyQrZAEQv07DJ1Y+A=@vger.kernel.org
+X-Gm-Message-State: AFuF++nB8sqZSOtAt8GxR2CWm9e/SM9pHC/d3x6BvUTUS9lxrl46Ox9q
+	FcBWlFNrNSsZoatCnvEBxsAZz250zl4jVS9ABlBPD1FqRD+njfKwAzdBsfC5Be/rfeY=
+X-Gm-Gg: AYBFou3tN5R/gLhVYqtJ6k5/XIzqbnj3NiHRU3lov1Rlx+F55hU95TDx8llWdghrqk4
+	eFk3i44tVulOH6ToZi3qaghlFBhB0QTzhESW/frxN+LiI83fwdZdMYUEREnvqCNsZ9PdirHhsC8
+	bn9wCt4Rgq3jHoqnEvKzc8dP5pHI55xd5WdGx2EFmD9yUTgap0CYIViGpEyhY+P3j7ltn66/C2F
+	DemAnTzO/8HtbkMDk3jhh1QCc9Tislra0oroDT4PueeIfz54DBrXhv9MCkBrTbHcAlLN1gVsVDb
+	aWSRxwkiGhSR8HBbUSnhmVe4z/sWfEXllgsgbyBeILS4Vgvbp0eHTZWoMvDfn9UpZ/iyqPJ91iB
+	a0L8XEide5X08Y5v/BfHmitivAsEStOgs3K2D3En+pBYWpnJc2+rDk5IMJWPSftObIvySEsugAD
+	mzhbr7/prETZUWFms4DaO/92mRRJgSLt2zSFu08xgxjKefk/7FdgWu8W/KS05MjrbXYI9o+Re80
+	Od8F9DDK6YjB4WNCNaXgwMqV53b
+X-Received: by 2002:a05:600c:2049:b0:4a0:2644:80db with SMTP id 5b1f17b1804b1-4a17b562c6cmr22905595e9.35.1791302576578;
+        Tue, 06 Oct 2026 09:02:56 -0700 (PDT)
+Received: from alchark-surface.localdomain ([193.85.242.110])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d2014asm369641f8f.38.2026.10.06.09.02.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 09:02:55 -0700 (PDT)
+From: Alexey Charkov <alchark@flipper.net>
+Subject: [PATCH v3 0/5] power: reset: syscon-reboot-mode: Add support for
+ Rockchip RK3576 reboot modes
+Date: Tue, 06 Oct 2026 20:02:38 +0400
+Message-Id: <20261006-b4-rk3576-reboot-mode-v3-0-6edba064693b@flipper.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb09.amd.com
- (10.181.42.218)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00012E63:EE_|PH7PR12MB7937:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3256f084-e39c-42fa-b038-08df23c328bd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|36860700016|376014|23010399003|10067099003|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	+Z0WxXTGJ4OaP7hNgh5ciZXBPcmWnN8V572+K5D7kyNL3yppx8Z02WJDraUS4QzK/myC6buAUWQuBW0dYkZj6IpEbeef8vjXmY5Fecv4r9MwtnLhMZes3N99Sig/2vZOX0iu7V4qEHlwSsPcRFKWCKnfhWdy02e/SPtdxv6Heqt+I0znkRWQ+CBByRif7RJJ+IGCDH3onlmu+7xz+KzctpcfzmTymYmRhOpU3zxKI/iRnyblmYNuXSBgCX52a+wb8gpfx018VsYsXvAl27qU+shPBd0woY/vi8LQHHxooeB6YbJDwmMa31G6p9LdQiAYC5ReOV4IRnTyUcSKRKdiqTUjByTMypt9zAmmbie4wuJ1XNcsrPPRwXoE9JxqsKa4CJ1KD56TvEcwcsZg3yLFPhTYSlS7o1d3N08lw19YJPRRo6QcUO5dU0wJDjyZImcERExEgBGZgluk8YU6FWi8FW3Fylkg1KN1Ik+AUiVVCcQKtplKrktQN5L5NonGV8HBCzeDhhYAzLc+Eo+/rQNxWyYU4jrCw1tUay/hDiFYTg9XRN8c7yPcczfh7gOADPehee4+PCZWeK5eZ9yYn8idRtUvoUppyBzpM5hZvPk2LIjGFeD2DT2aYQjthry7Uwszi35Baq+qOSr3IaNxuLKR0MDkLC3oKsaub5MFAVKJnQ4aO2/llOnc/j4Uohp7KjEtC/pEzVXm4tYL91EO0NA4CQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(23010399003)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	NWBw7QC3AkMmGz6xqxGLiGyLX0FycHNzCmwVkLvxRrdAqi0sPX/eSEHv2qKS3b/tW4VS0S65Vr5/GHkddRSPp7S5fEnHhsxX4eFB9oA5p806MT3eQocq9tDAhUmgUSo7slL7NPqwLNKdZJNPprS76e667cVMdkxj2gK8jEzumHs3Dogs3KHqHvoCBoD0KwkoXwmcBiG+fDLRYj/9Afrv1FRHsmO22DdCbu47mbL1h8Tl25pdQkbN7jNryXnut1Y9Qc/AMvcCTBvJ7w+WxVRHvX8RyV/EdZOfsAibu4VC5EmOSF/BoSKwzohdi1axbfHfRQPeR9SRvodMCeIw0Pw3k714LiP3JSecaS5I6vPvH88E+zhOlplfcfZRXRUSccA5n6N1EPiYEleWJFOBKSFA+VSv1YUDwwGymTjMlIjYQ8ljRUhR5F7uwdVuZRU9uShQ
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 16:02:01.8265
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3256f084-e39c-42fa-b038-08df23c328bd
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF00012E63.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7937
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNyw6CMBQFf4V0bU3pC3DlfxgXLb1IfVDS1kZD+
+ HcLbnRhXE5yzsyEAngLAe2KCXlINlg3ZGCbArW9Gk6ArcmMKKGSNLTGmmN/YaKS2IN2LuKbM4A
+ NqwkH1piOcJS/o4fOPlbv4fjmcNdnaOMiWxa9DdH55xpO5bL710glJlgKXktNmDa83HdXO47gt
+ wNEtFQS/fQ0vzw0e4RivFUVJVKob888zy9LK+Q7FgEAAA==
+X-Change-ID: 20260928-b4-rk3576-reboot-mode-d3804e39df04
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Sebastian Reichel <sre@kernel.org>
+Cc: Alexey Charkov <alchark@flipper.net>, 
+ Shawn Lin <shawn.lin@rock-chips.com>, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2803; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=eFY0EL/+0X6JOgjuwcgNPswP21gloYHJF0IpxpUkDLE=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWQdlV59fO6HO2LMB9oMc1MOdcTfnsIoI82R/TRb7remg
+ NKX0slnOiayMIhxMViKKbLM/bbEdqoR36xdHh5fYeawMoEMkRZpYAACFga+3MS8UiMdIz1TbUM9
+ QyMdYx0jBi5OAZjq9KkM/3MONbC/dohs2apfalN85pCjm2yd1pPstUdFlecfs7hx5SzDP7spJ20
+ qkwzzb1f+/ZzfrO0/1yh7qSbPXtnj37NCH95w4gMA
+X-Developer-Key: i=alchark@flipper.net; a=openpgp;
+ fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-On systems/VMs with a large number of CPUs (e.g. 4096), hugetlb_init()
-computes num_fault_mutexes = roundup_pow_of_two(8 * num_possible_cpus())
-= 32768.  The subsequent kmalloc for the mutex table can exceed
-MAX_PAGE_ORDER when struct mutex is enlarged by debug options like
-CONFIG_DEBUG_MUTEXES and CONFIG_DEBUG_LOCK_ALLOC, resulting in:
+Rockchip RK3576 supports reboots with a specified boot device priority
+mode, allowing one to override the board-defined strapping config and the
+OTP programmed priority setting.
 
-  WARNING: at __alloc_frozen_pages_noprof (order > MAX_PAGE_ORDER)
-  kernel BUG at mm/hugetlb.c (BUG_ON(!hugetlb_fault_mutex_table))
-  Kernel panic - not syncing: Fatal exception
+Supporting it requires several changes though:
+- The boot mode request needs to be forwarded via TF-A to the boot ROM
+  (upstream since TF-A commit 2a97ba20e901 ("feat(rk3576): forward any
+  boot ROM boot mode request on reset"))
+- Some power supplies need to be kept active across the reboot to prevent
+  early boot code from running into a synchronous abort
+- The magic values for each of the supported boot modes need to be defined
+  for the OS to use
 
-Switch to kvmalloc_objs() so the allocation falls back to vmalloc when
-the contiguous physical allocation is too large.  The table is only
-accessed by index, so virtual contiguity is sufficient.
+This series enables the above with the RK3576 EVB1 board as the example
+user. Other boards will likely need a close to identical change to make
+use of this functionality, but need testing.
 
-Fixes: 8382d914ebf7 ("mm, hugetlb: improve page-fault scalability")
-Signed-off-by: Dheeraj Kumar Srivastava <dheerajkumar.srivastava@amd.com>
+Signed-off-by: Alexey Charkov <alchark@flipper.net>
 ---
- mm/hugetlb.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes in v3:
+- Dropped Tested-by tags from bindings patches (Krzysztof)
+- Link to v2: https://patch.msgid.link/20260929-b4-rk3576-reboot-mode-v2-0-5a34ca72065a@flipper.net
 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index cea25773a6c9..6fc5c0bdb500 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -4177,7 +4177,7 @@ static int __init hugetlb_init(void)
- 	num_fault_mutexes = 1;
- #endif
- 	hugetlb_fault_mutex_table =
--		kmalloc_objs(struct mutex, num_fault_mutexes);
-+		kvmalloc_objs(struct mutex, num_fault_mutexes);
- 	BUG_ON(!hugetlb_fault_mutex_table);
- 
- 	for (i = 0; i < num_fault_mutexes; i++)
--- 
-2.25.1
+Changes in v2:
+- Fixed a leak of the dynamically allocated syscon_rbm->supplies (Sashiko)
+- Uninitialized access to supplies[].supply (Sashiko) is fixed separately in:
+  https://lore.kernel.org/all/20260929-regulator-get-all-v1-1-e887c66a47f1@flipper.net/
+- Link to v1: https://patch.msgid.link/20260928-b4-rk3576-reboot-mode-v1-0-65486b03bd41@flipper.net
+
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Heiko Stuebner <heiko@sntech.de>
+To: Sebastian Reichel <sre@kernel.org>
+Cc: Shawn Lin <shawn.lin@rock-chips.com>
+Cc: devicetree@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-rockchip@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-pm@vger.kernel.org
+
+---
+Alexey Charkov (5):
+      dt-bindings: soc: rockchip: add boot ROM download boot mode
+      dt-bindings: power: reset: syscon-reboot-mode: allow supplies
+      power: reset: syscon-reboot-mode: enable supplies for the next stage
+      arm64: dts: rockchip: add reboot-mode node to RK3576
+      arm64: dts: rockchip: name the reboot mode supplies on RK3576 EVB1
+
+ .../bindings/power/reset/syscon-reboot-mode.yaml   |  8 +++++
+ arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts   | 16 +++++++++
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi           | 36 +++++++++++++++++++
+ drivers/power/reset/syscon-reboot-mode.c           | 41 ++++++++++++++++++++++
+ include/dt-bindings/soc/rockchip,boot-mode.h       |  2 ++
+ 5 files changed, 103 insertions(+)
+---
+base-commit: eea3fef32a9cf36abcb5975a5a594e4135a6b026
+change-id: 20260928-b4-rk3576-reboot-mode-d3804e39df04
+
+Best regards,
+--  
+Alexey Charkov <alchark@flipper.net>
 
