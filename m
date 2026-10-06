@@ -1,159 +1,279 @@
-Received: from fhigh-b2-smtp.messagingengine.com (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013035.outbound.protection.outlook.com [40.107.159.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E31640B119
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 12:34:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.153
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791290059; cv=none; b=NXiEkjaEG2Yv1rT4Bynh92muscNGXfj2o6gqRQDdAVeiMLhMi3kcSHwAWXLWdo/eeN5tQyAevld+AoC0mMvU40obfbDc/5NRcZxsiW74G5SeL65JTX+ZOZPrkeqms9NwRd5/EeJt3bUtg8JTiWvcrZ1VTVfOHrrxXLyxXXZ3dYc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791290059; c=relaxed/simple;
-	bh=9ctN73TGCjWxiv4YlXHJU1PdzvATsPWWSGxUdUkbdYI=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=QuwpJn/qR2hrpiuza6rwmxTW3uDHAUqYdpl15bmRBU3xZ7AYTKX3vxegortpHkKPSmTP8jN2G8rbIGfHr4ivcrdzbNnhinvr8o6GxNcqdgbOOETz4JPHeAbSDStWdjbPWow0a8PvBY/mzHcQf+KAIyQIhrBdFtpFRbSasbtaciw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=lmT4PeCD; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=OssAzv/e; arc=none smtp.client-ip=202.12.124.153
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28ABC40B396;
+	Tue,  6 Oct 2026 12:34:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.35
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791290062; cv=fail; b=IXWoKC+QZOOXsJDfdsRKeRvo+zub2e7LfWIDkwLUbEuacA/8aO82VwPorIQ88AkrSipl9375gjkFI3VgogN4xv1+BiAQEUnSE32c+XP7mvFZ+b6TBhne+4KrwSjzNdX5cSCOUwkIdkyn7VPlrdA5XXy7BB3SeiYjsKBaWoLZegk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791290062; c=relaxed/simple;
+	bh=lLUTzb1fnBB4LC98rwr283TXXQtbqlObwtom/2k6GH8=;
+	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
+	 To:Cc:MIME-Version; b=Y6hHFssc/q8yWYQsqgU6pDOxc94sHck8K7dRZXwxCREOw2JLI3T35+fPQ2IAUduBgvRb/03q5iXiAvZpKYt0J5UTaDKIJlWEsfmzMlMfmYYdx7tT+7CaVmBCPBd0I3C9il0hJhQV5rJsztENS92twCoUfEYqjM2R6pW3aPtuAVo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=I+uQzUmp; arc=fail smtp.client-ip=40.107.159.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="lmT4PeCD";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="OssAzv/e"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id B4BDA7A0179
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 08:34:10 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Tue, 06 Oct 2026 08:34:10 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1791290048;
-	 x=1791376448; bh=hkIuxcqcXk0pW1RoPdYLN7kYT4Z6JkXVfbeMoVWxw6w=; b=
-	lmT4PeCDrFlnofGZ4PBEDIFUMZNzpp8rG7og00jC9m9ETbkxtbj9wptM40vdFTUy
-	Cc/ZAV67esA7KcaDwcq3Nrw4/f8Hug8snlFtzBJHnPj1jM+OiLjuJCLB3CAyG+0Q
-	S4xd2fybHWdzQIOJ2/p9lCOJBC2LJhWP6n0GPfh+c+Qi4pkX3z/l9M1SbMsvfTAq
-	vtOW84Q1+CGOJpCToWBFtlhhC010mCXLdX+VPUHwzjW4S9bDN41g4xC9DlzgfWc+
-	s3ls1lCQ+aqy6FZgEEJBwwSvrv6wXGsCiqaseaO4ATJgo9au8BTTROHg18V5rsuC
-	vlqfs8RVtKbzJVhbqhpLRw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791290048; x=
-	1791376448; bh=hkIuxcqcXk0pW1RoPdYLN7kYT4Z6JkXVfbeMoVWxw6w=; b=O
-	ssAzv/eSSgda+pz9KkkreDIc9XV3fkAVwpMo3Z3Zt1D56RfEVx8w0CpYVNoEEVyC
-	NVvejob2+crWMm47b6GpPmfFpMevFoaK6BQxa4vOXDDGuR33BnO0RjwlXevzfG2e
-	s4thV3qd0yqDGuVu/PbMv2r47NHfg8WSb1zTljkuI4kpJo8J25s028vNeLXEII2E
-	FPrUthW0Rwya5cwlGZ8FqwozeRBS4RsDS1vk/MKbOB1SCI3tRqQgy+BxjNbbJSwe
-	mT9ZrQ+liMnMwFmF8X+D1DvFNWwF4vwcdtjaxMCW0wX5SKjVJrF6/huakqQadba0
-	sQLh1tdK5DrdO0N0fONMA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791290048; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:gvHzMjo9IKWKLCWEDIQZMMUCi8eO+ai1a8Bhpnuq6GCc40M
-	b0u4sawiwz1/329+bVEqEslwL+5h5kyuR6ehy8O1ke8SKmo5zkduGQKOxadX0zoA
-	1gzle3bJ/26d4AKCT85Rz0rAFXKTk1ZSa2zGdaFsE8d+WsiLMQ5bavA1tRHal2kc
-	6EYz6bzv/MSqrc0J+qRxR9CVWoqYJSGWkF0digrBUF3Z2gS21YGlyr99oOoPVpau
-	q9OfeUIwebzlWzsFOjApUcJX2iK/FwYI3u9AA3zXuUaEjDha3mAdIBFSGw/brn+C
-	VCIrZTzr34v9V+bRSWkzqHk9RR4Izx6WfcoV20A==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:OgKf3LlVZ2IcwVn02qzWo3jRGu3vyQrO4/N+iq/uEqA=:9ctN73TGCjWxiv4YlXHJU1PdzvATsPWWSGxUdUkbdYI=;
-X-ME-Sender: <xms:vurEau4W-GVGs5GKKb4aPU8yRXIE_spPsuRUuBmpnTnOiU5gC5b6qw>
-    <xme:vurEaitrMrJqt2iiBTGiSX5kMCcxX104mbIXiJ8k5YlPBHqdR_iK8LwgeJZ6HoroL
-    sRcMGvHUeFtxO1MdTuRpwxJxLxsz8qLssJ4pDwbL8FbtNEO80T4oCvdvA>
-X-ME-Proxy-Cause: dmFkZTEapourW3Q5EdHjUkgnrE/J6kkwZGn/UfF1O+8cWVux1TWFiaqNkq9N45TtdTFu3u
-    SINqCFn1Oq1xhezdWmyiyGJcCWf+Ccx+rqWlOfBxtDpvzpfBB0QZKgEcKyop8fU3OHsWOu
-    gcLqtfNRvSq0Li7jyc9azj+tT/344IHsp+8Q89VUIGMMfvfBKJxcIISpHVWpmbkJoNQ1Wi
-    K1lMCXV+yC0k3wDEcRZmflvwEj06geJw0DdfPU+BRgWhiqc0+WP8oV5zJL5jp2CtAUcx4W
-    iK5Si/mUmhZh/GcgC1XljN/wmPhIUCx8RvIz8tNPDqb1UBR4KUlfMu9hdnX+USsRUB7UgI
-    TXXQ1yl2TEcvVi0Z3YYYbD6m/4R4GH6aFw999OuzQdDSBF/wYFt9KYKfQgAhP9T8oMlbA7
-    L2TMgOBJiA5G4CVOT6rhFj/8UYA4CS6i0MQgbnoIwjX6k/hdb272nCjzSBezj6S4Mr8U7V
-    /OlDLr+N+LsIh6Jq6K4eCSi4h1leatolW11h1LJTe7Fz0hp+J+G50D3uTx7b34O94kGOhU
-    vVut0zQEJ5dA+5Oi2RrLZdP3xa2ppfi0ti++aOmCwt2MBOdfr0WFVeoF4H8FExWHPE/PO3
-    rpCpIAs/cmQbmH+VC5yTmnVEcbyW8wEZeWdfvnnfXwsyPfM4gqR2ZR7CJAmA
-X-ME-Proxy: <xmx:v-rEalh_OnRD-O3zwvZJXRdCzFmFFU9AA9Ss4alN5vQKD3GlZMFaQg>
-    <xmx:v-rEaleWBw_8SjXLdtnEjXAvPl12Pquw9djjaIc-Uwo29axA2-4XsQ>
-    <xmx:v-rEaolAbMk8Ild5V7wwxoBRXX1HHlZZgTm3_qLkjsJ23ykL69HdMQ>
-    <xmx:v-rEaut2i2wHbPJphixOHSAcjfQZp025AK2-8VkIuqtkUN7sOGHtYA>
-    <xmx:wOrEamfIe8IF_evoymfMg0o3LzJP6WIZu_5hxFWPpURk14kJeS9j0e5m>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 7F98132A008E; Tue,  6 Oct 2026 08:34:06 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="I+uQzUmp"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cP37x7/h0gpMLImO+fnU1Z3OuTdXOSe1yg24wxu8R2NS30+ShxQ77SJGZqRyXLPZkJ/2IA6SEWvPoHDQrorawii/ZIF4/1FC/NXe0NtJK9igmUh17yegaHJPFr3wLUxz0qVKyCHfAQkblKVP+siQ79KRS0U+foZfPgineIZDXuhbuJDIF0m6Gt4TN9uS+YlOOds1GyqeMooKFvPN8YDsjfbLwL5bvV0Yeiv23lXqPm+ws14BecjApqCtG6gaiV2cglcMOwT9GoHn/uaCJcEgilVb8q96CXSzgjbQ7MDxpHi/kkgua7kYpbBvQthzvcMQ3tCDcOJDfC6x3oLYlm3KjQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fcglSZBRVts1rV1xHNEXg6w+mRG/aMKLkFrSJVtnxlk=;
+ b=YS2IsqdKmFQBBRCQNM53n5RT48zMEkMCSwnuqEhacWZR4BOLmMp64LigOUcTk4r4U8TxWkVaIqa8tboossHu6GutwiiZ1UtzxbnZGj+RozsWhGsbOV07bZk7cbP45MbfkdkqHveL59uSIPKIVDOkXkn/O54xeO4QOdkGVtmJ0dqsX5y+v71cog7WG18O3JDHe+SRic4G9nKWArFqrY0Zz/SDS4jYzXQTQhoS1Sxyev7HXT7FkhAXjEbjkhKJhZ3eP8jgS45ErnvDIXceIvJM/G5WC1mhgUXflM7aztYyzV+FlevnfUHpJb5CE/ZZEvCocx8yNgm3vzqvhb6wwdtngw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fcglSZBRVts1rV1xHNEXg6w+mRG/aMKLkFrSJVtnxlk=;
+ b=I+uQzUmpA+8V9ojA1rYt33bxAaa91gfae2ZICxnIxlMjwNdfz5IdcMm+bzRGuI0yr4EM/Ki4pUCOLSph0xH//XMhdwGonJi9Ub5bJps8wYt9VbWzUflV4WwA/NmBY5EB4TohiPTx3f9PrVdJQefdhESM9yJfznsaKq/uun0jln1HTOZb7AHawrQ0XcwwstYDetC7kHXD3FF11MTC1frZfTYhXTWp2b+YdAjlLWaUi8xwy8mKVB9qlGleOHZfOhqTtPdIIfVoVipySk7tBTKCg9W269Tp+B0v+Eju04dQBQZnNZojdpRjQ6yu4ZkghNhrf6epXx4XGhuM9Ct8/bohiA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by FRWPR04MB11246.eurprd04.prod.outlook.com (2603:10a6:d10:171::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Tue, 6 Oct
+ 2026 12:34:11 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0451.022; Tue, 6 Oct 2026
+ 12:34:10 +0000
+From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Date: Tue, 06 Oct 2026 20:31:08 +0800
+Subject: [PATCH v3 3/9] gpio: mxc: replace of_device_is_compatible() with
+ hwdata flags
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261006-gpio-mxc-cleanup-v3-3-129f93302a90@nxp.com>
+References: <20261006-gpio-mxc-cleanup-v3-0-129f93302a90@nxp.com>
+In-Reply-To: <20261006-gpio-mxc-cleanup-v3-0-129f93302a90@nxp.com>
+To: Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Shenwei Wang <shenwei.wang@nxp.com>, 
+ Andy Shevchenko <andy.shevchenko@gmail.com>
+Cc: linux-gpio@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Peng Fan <peng.fan@nxp.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: MA5P287CA0176.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1af::17) To AM8PR04MB7874.eurprd04.prod.outlook.com
+ (2603:10a6:20b:24d::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: ApDcdGHCsDIN
-Date: Tue, 06 Oct 2026 14:33:36 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Alexandre Belloni" <alexandre.belloni@bootlin.com>
-Cc: "Karl Mehltretter" <kmehltretter@gmail.com>, linux-rtc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Message-Id: <d07b4229-a5f8-47fc-9b1c-c4a7096959b4@app.fastmail.com>
-In-Reply-To: <202610051349454ed35b56@mail.local>
-References: <20260914212537.1452-1-kmehltretter@gmail.com>
- <7c020979-cf03-4ece-a7d4-b1475d1400c3@app.fastmail.com>
- <aqnHDxRIBncNH6qr@gmail.com>
- <59ba6707-c5d5-4fd8-9200-f910e61d9232@app.fastmail.com>
- <aq3R5QnCpu_fOq8g@gmail.com>
- <5515c266-f9cd-405f-b7a8-1ec45d9d902a@app.fastmail.com>
- <202609222137059e745547@mail.local>
- <d7825e87-93f2-4444-bf3b-45a4127de7a9@app.fastmail.com>
- <202610051349454ed35b56@mail.local>
-Subject: Re: [PATCH] rtc: class: Make the time32 hctosys limit configurable
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|FRWPR04MB11246:EE_
+X-MS-Office365-Filtering-Correlation-Id: 76031707-861b-4265-9941-08df23a61ef7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|19092799006|366016|7416014|376014|18002099003|22082099003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	IQQlYrUzYWE0IFbRN+s1p/IINo3/yxDc58kPUZa0H34mVg+BW8a7j2WNGnQ6gv7U1VrcnBQix1Un09KUIti/Vvwy5CxiagRDNJp0p47JQkcNCwJkHJiqil4u52hGB77UH38vaUpxk+iJQYYE7e3TCEKA8ZLbwnppoIhd3Gt+ATiN/yHitZGdtnpwN2pk9s0luL+ZeMUhY1LmoeXKJ/tVuYEzeh8UHMtfj5PRCDjaCPmbT1DZHukmGIAQWQE3y55ofM6jfIOD3CLPdtsnl+/57UzswXGd5TcWFfiYeVxzzcOmc6pDMKJQe95TJLcrFdnBdXEeqoiKgS1bUnTPujkZO+ZeLQYd/hv2r+wNQnSzc0m+nU1DtdVo8lXQEIqBPO0frsjeIifi4goZG6xQX7toAlyHafN/1JHRP6mdb6OYLNyz4xvOtrERCwZYUjWYHZ70Eq1kcq+67Er6oMU847ZRrs06mO2bCZUqIsnOot+4jXGYGbSa400jeNhVoqv4DOQ24xdI+HPpHbb8/9LrHtXHJi9BvC7CkMoxiabI/nvLEm1ZUTqbJ1F8Rb9H50zKFAVZ6pGy9wFRsVaD7+KPyFMJcSEVyRoZc8AM7frj5vHZ7BtzfXOu/uYY0mbsP2Qlo/2hwSIH6elHLxGelMODFqodL4QPeAqTmxDBmusPVIWFcfc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(19092799006)(366016)(7416014)(376014)(18002099003)(22082099003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UkRvMmVrN2tCamxoaXZKS3hCOXB2aTBidFEyNFBCOVJPaS84OEoyVElNeUQx?=
+ =?utf-8?B?YlVtRUZLS3dEOXNobVRXbEsrUUVhcmRteWNTZUJOQm1CRGxJN0tRYXBNM2VL?=
+ =?utf-8?B?Q2VtZVZSR3ZPaUdxQzZPWDZ1RGlKMFhQMUo0bnp1OFphbmpZNjNreVpSTmpF?=
+ =?utf-8?B?cnZKcXBqS3BMc3NEZHhBYktwbFZHNFFlRXhIQzQwV3RQYk5XYXFwM20wM1Z5?=
+ =?utf-8?B?QUJSanphbWpvU1crTGxKRElDZklDVFdvcWl4dktJUU9yVDJDeVoxMjhKdlU0?=
+ =?utf-8?B?bW5qNEcydnFhaVZraU9INWFadUxQNkUyRC9DL0lSWTE5V2lUazZDSzJYeWNn?=
+ =?utf-8?B?UzN5MnZtWEhqY2RHYU5Kd3FaRTU3cm9ZamJUWDhQT2FTQ05mUGdjdXBYSS8w?=
+ =?utf-8?B?M3p6Q2gxdEY5T3NGOENGdmJRWWRhU29oYTBneEsvQ0cxaVZrMXd1dTRIZWJB?=
+ =?utf-8?B?dVRsSlhwdDRhWnJiK29JS3Vrc3paRTRnY2Q3WHQ1RVhwb0FpL1NBZEkwRG1i?=
+ =?utf-8?B?amRPek9obWFWMWdtRSt2SzFQYVNhZC9WWU03RXpSVytuQ1QwV3AybW1KK2Jp?=
+ =?utf-8?B?aHdIcWFXZkIrcWV1MHhqdnRqcWdobnFkaFpUcVYyV1JERDg5bFFnaEFDMzZl?=
+ =?utf-8?B?QlIrN2E3N2pWWkd3Uzg0RVNYNitjb25aaWJ3UUY0NTRTSFFqQ3kwdDRwZWdF?=
+ =?utf-8?B?aWRQTEVVMDY0Tmh5OVBDQU9jQVRZMThpeHpUbjEvT01NbENRMGZxYmpmN241?=
+ =?utf-8?B?bmFWVm1xU2s0Z1IzQllHZzcvRHRXc3Q1RlRKRUJMcFd4cnRnZWtzQ1VqKzdk?=
+ =?utf-8?B?dzd1cmRVMXhhenNxckVDSHJoUkcyNzVjQmhQMTR6eW9ISGF5VG1GODlwYllv?=
+ =?utf-8?B?eGxiTEhGRmxNaHF3eVJocTJaNUhBLzgvdVFKQlJHV3BGNnpYL3E1SG16dGlU?=
+ =?utf-8?B?QXJKVWw2MVBJNVczaXRhcXl0bU9uL05UTVFBZmE2akRFYVl3dUNPekFGQldv?=
+ =?utf-8?B?Snc1RVJDNjA0eitoQkZlbDBCbVBNVkNOVkhFSGdhNlArZFdFYlgwQkxPcHFM?=
+ =?utf-8?B?bXZsbzZNR0d2UUpPQzZGVURnM00zRi9iU3ZPN3p4UElyMmswbmM3cG9nTWhL?=
+ =?utf-8?B?U3FBemNhMGdGVjMwRFd1NXJXQ1puOWY3SndPLzVRbHJ4d1VXU1dIbG9MY0Q3?=
+ =?utf-8?B?YzB0aityMDZmc2Y5RlhtNGZaQ0JDWTBjb2tJSHJlY2tyS3BpOW93MHdjTWJt?=
+ =?utf-8?B?NkhyaWZCSkZ6TGVMTzAyUHVIZjRqOHQ4OWVGQTRQbWZhMlZIcU0ybVV1NWJC?=
+ =?utf-8?B?ZTVPd0E4MjkvbEo4M0RTWVM4bmZlbVUrYVRUQXlFamVSZXN6REVhTHZIRUI0?=
+ =?utf-8?B?SjdGY0J1UkFlMEFGMHlORHl0azZPVUJiZmk3VVZyeGh3b21Bcmt1SFdKOU9X?=
+ =?utf-8?B?WVloRE05RWlnb0tGcDJQWklKRXRVUE83UkF5YTl5bkZqdENMWG85QnZuVmFu?=
+ =?utf-8?B?QmxKVTZweURpSjhWRXRSYmhKQjJrRmFydDV0SFdBZG54SVE3RXpqUllZU09G?=
+ =?utf-8?B?QzFrZEZudkR1Ti85Um9SNW9uaHdKcGE2WFFWeEIyM0t1ZVpXYzRSZTZENjhp?=
+ =?utf-8?B?c3BscHFMM0tuY2dncVJESzNtM012Um9VTkRSVVQ5WThvNlJMNXV4a20wTEI0?=
+ =?utf-8?B?N0o4czZEWWI1T3VMZ1ZHUXVpUG0zSlRUY3dZcEIxWFl5aWtTWlljbFN6MnJp?=
+ =?utf-8?B?UGYrYVpWcnVnb0xuMVRwSmFFSXo0N3JxWXpWTk1ZbWhhQ1NIeUlZZGYwTURq?=
+ =?utf-8?B?ZGxDQlVEa3Z1c2NMWDR5eWgxZ0sveTI3UWJOZTVpVEVVeHpvTlFFVmNGemFj?=
+ =?utf-8?B?L3JHKzVmOUFHNzRhNHRKVDB3UTVJaVhYOWExaTVXa3g4bE9OTjB4eTVXM1VQ?=
+ =?utf-8?B?QlM0RmR4MURJNG9XSmZvSlZyMklleE1KVjlPeU1BOVdpYkxnbFpmSTNOWkFW?=
+ =?utf-8?B?Z3FPUFhjQ0dqajlqT2ExMUMxWlFtUWo4RDFQM2xuSHFNc1RhWGZQRE4wWVdw?=
+ =?utf-8?B?ZmNSeVJaR1I1aGNGeVJ1OUFxRzlWbXBBV3dscHk5VG9YamMweXB0R3U3S2xT?=
+ =?utf-8?B?ZitXeEhPdTJWT2lONzg5UWt4anROL0JjdHFod1R1UE53ODlDWEhvQW1KaDJx?=
+ =?utf-8?B?dGJYRDA0Zk1zM2JNaEw0WTh5SnRUVW1XLzdnV0psT0c5aTdycXpiMlpOekJl?=
+ =?utf-8?B?c0tpYjEvaVdXZmxiRHhBS29SclBxMGFqWmt0VU80a1hKcU5saElLMDUvV3cw?=
+ =?utf-8?B?QkJDYXRCZEpDRFZMbDZVckUzMWVkOWZHVU56eTB0azUraG1OTjFxSlRtOTRs?=
+ =?utf-8?Q?7qVA38uroZz1j983sHhChIzJbbRybUgj7ww1C?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 76031707-861b-4265-9941-08df23a61ef7
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 12:34:10.4080
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: i4aP5g7nzzn0jTJR6hchLWsCgBGCUlIz4/1aEln53B8kTpybjpn5l4s15Rd9jo4uUUil/9rUqgBA2yj/qcWlxW2yZFz2m5Iy05TBmYxFPG0MXEUMYUPvLVgsmjij15oe
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRWPR04MB11246
 
-On Mon, Oct 5, 2026, at 15:49, Alexandre Belloni wrote:
-> On 24/09/2026 17:07:30+0200, Arnd Bergmann wrote:
->> On Tue, Sep 22, 2026, at 23:37, Alexandre Belloni wrote:
->> 
->> Not sure what exactly you are suggesting here. Do you mean we should
->> try again to address this in systemd in order to no longer need
->> the RTC_HCTOSYS hack?
->> 
->
-> Well I guess we'll get the same answer that this is too late in the boot
-> process.
+From: Peng Fan <peng.fan@nxp.com>
 
-Right
+Replace the runtime of_device_is_compatible() check for "fsl,imx7d-gpio"
+with a flags field in mxc_gpio_hwdata to move the power-off capability
+from a per-instance bool populated at probe time to static per-compatible
+data.
 
-> My proposed solution is to have a way to tell the kernel what size of
-> time_t userspace actually supports as there is no way to automatically
-> detect it. That's why I was thinking a kernel cmdline parameter would
-> fit. This would allow us to be 100% correct.
->
-> Else, I'm fine with your last proposal.
+Introduce MXC_GPIO_HAS_POWER_OFF and a dedicated imx7d_gpio_hwdata
+instance that carries it, along with a mxc_gpio_has_power_off() helper
+that replaces every former port->power_off test.
 
-Ok, thanks!
+While at it, factor the register offsets shared by imx35 and imx7d into
+a MXC_GPIO_HW_DATA_COMMON macro to avoid duplicating twelve identical
+initializers.
 
-A command line argument would work for me as well, if we can make it
-have a working default for the COMPAT_32BIT_TIME=n case.
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
+---
+ drivers/gpio/gpio-mxc.c | 50 ++++++++++++++++++++++++++++++-------------------
+ 1 file changed, 31 insertions(+), 19 deletions(-)
 
-We could of course combine a compile-time and boot-time flag, but
-there should not be any need for that.
+diff --git a/drivers/gpio/gpio-mxc.c b/drivers/gpio/gpio-mxc.c
+index 0013f73d23bf..5fbbfcebaa8f 100644
+--- a/drivers/gpio/gpio-mxc.c
++++ b/drivers/gpio/gpio-mxc.c
+@@ -33,6 +33,8 @@
+ #define IMX_SCU_WAKEUP_RISE_EDGE	6
+ #define IMX_SCU_WAKEUP_HIGH_LVL		7
+ 
++#define MXC_GPIO_HAS_POWER_OFF		BIT(0)
++
+ /* device type dependent stuff */
+ struct mxc_gpio_hwdata {
+ 	unsigned dr_reg;
+@@ -47,6 +49,7 @@ struct mxc_gpio_hwdata {
+ 	unsigned high_level;
+ 	unsigned rise_edge;
+ 	unsigned fall_edge;
++	unsigned int flags;
+ };
+ 
+ struct mxc_gpio_reg_saved {
+@@ -70,13 +73,26 @@ struct mxc_gpio_port {
+ 	struct device *dev;
+ 	u32 both_edges;
+ 	struct mxc_gpio_reg_saved gpio_saved_reg;
+-	bool power_off;
+ 	bool is_pad_wakeup;
+ 	unsigned long wakeup_pads;
+ 	u32 pad_type[32];
+ 	const struct mxc_gpio_hwdata *hwdata;
+ };
+ 
++#define MXC_GPIO_HW_DATA_COMMON	\
++	.dr_reg		= 0x00,	\
++	.gdir_reg	= 0x04,	\
++	.psr_reg	= 0x08,	\
++	.icr1_reg	= 0x0c,	\
++	.icr2_reg	= 0x10,	\
++	.imr_reg	= 0x14,	\
++	.isr_reg	= 0x18,	\
++	.edge_sel_reg	= 0x1c,	\
++	.low_level	= 0x00,	\
++	.high_level	= 0x01,	\
++	.rise_edge	= 0x02,	\
++	.fall_edge	= 0x03
++
+ static struct mxc_gpio_hwdata imx1_imx21_gpio_hwdata = {
+ 	.dr_reg		= 0x1c,
+ 	.gdir_reg	= 0x00,
+@@ -108,20 +124,19 @@ static struct mxc_gpio_hwdata imx31_gpio_hwdata = {
+ };
+ 
+ static struct mxc_gpio_hwdata imx35_gpio_hwdata = {
+-	.dr_reg		= 0x00,
+-	.gdir_reg	= 0x04,
+-	.psr_reg	= 0x08,
+-	.icr1_reg	= 0x0c,
+-	.icr2_reg	= 0x10,
+-	.imr_reg	= 0x14,
+-	.isr_reg	= 0x18,
+-	.edge_sel_reg	= 0x1c,
+-	.low_level	= 0x00,
+-	.high_level	= 0x01,
+-	.rise_edge	= 0x02,
+-	.fall_edge	= 0x03,
++	MXC_GPIO_HW_DATA_COMMON,
++};
++
++static struct mxc_gpio_hwdata imx7d_gpio_hwdata = {
++	MXC_GPIO_HW_DATA_COMMON,
++	.flags = MXC_GPIO_HAS_POWER_OFF,
+ };
+ 
++static inline bool mxc_gpio_has_power_off(struct mxc_gpio_port *port)
++{
++	return port->hwdata->flags & MXC_GPIO_HAS_POWER_OFF;
++}
++
+ #define GPIO_DR			(port->hwdata->dr_reg)
+ #define GPIO_GDIR		(port->hwdata->gdir_reg)
+ #define GPIO_PSR		(port->hwdata->psr_reg)
+@@ -142,7 +157,7 @@ static const struct of_device_id mxc_gpio_dt_ids[] = {
+ 	{ .compatible = "fsl,imx21-gpio", .data = &imx1_imx21_gpio_hwdata },
+ 	{ .compatible = "fsl,imx31-gpio", .data = &imx31_gpio_hwdata },
+ 	{ .compatible = "fsl,imx35-gpio", .data = &imx35_gpio_hwdata },
+-	{ .compatible = "fsl,imx7d-gpio", .data = &imx35_gpio_hwdata },
++	{ .compatible = "fsl,imx7d-gpio", .data = &imx7d_gpio_hwdata },
+ 	{ .compatible = "fsl,imx8dxl-gpio", .data = &imx35_gpio_hwdata },
+ 	{ .compatible = "fsl,imx8qm-gpio", .data = &imx35_gpio_hwdata },
+ 	{ .compatible = "fsl,imx8qxp-gpio", .data = &imx35_gpio_hwdata },
+@@ -448,9 +463,6 @@ static int mxc_gpio_probe(struct platform_device *pdev)
+ 	if (IS_ERR(port->clk))
+ 		return PTR_ERR(port->clk);
+ 
+-	if (of_device_is_compatible(np, "fsl,imx7d-gpio"))
+-		port->power_off = true;
+-
+ 	pm_runtime_get_noresume(&pdev->dev);
+ 	pm_runtime_set_active(&pdev->dev);
+ 	pm_runtime_enable(&pdev->dev);
+@@ -537,7 +549,7 @@ static int mxc_gpio_probe(struct platform_device *pdev)
+ 
+ static void mxc_gpio_save_regs(struct mxc_gpio_port *port)
+ {
+-	if (!port->power_off)
++	if (!mxc_gpio_has_power_off(port))
+ 		return;
+ 
+ 	port->gpio_saved_reg.icr1 = readl(port->base + GPIO_ICR1);
+@@ -550,7 +562,7 @@ static void mxc_gpio_save_regs(struct mxc_gpio_port *port)
+ 
+ static void mxc_gpio_restore_regs(struct mxc_gpio_port *port)
+ {
+-	if (!port->power_off)
++	if (!mxc_gpio_has_power_off(port))
+ 		return;
+ 
+ 	writel(port->gpio_saved_reg.icr1, port->base + GPIO_ICR1);
 
-> I guess this would leave us with
-> two unhandled cases:
->  - 64bit systems with 32 bit userspace that you said we don't want to
->    support
+-- 
+2.51.0
 
-Right, as far as I'm concerned this has always done what I want,
-so no need to change it.
-
->  - 32bit systems with 64bit time_t userspace that would not work
->    properly with the default configuration.
-
-At this point it's just part of the platform defconfig, and
-users can pick the setting.
-
-       Arnd
