@@ -1,74 +1,70 @@
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com [209.85.167.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8213937E5F5
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 22:04:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EB622D0617
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 22:06:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791324261; cv=none; b=QwgG4Ca1IvKWEzbI2FxmPVgAi+ERas9TuN5PTxuvB6OUDUZVGZmJvxQQZNmahb3OnGiQxu9WvYagYi8JOlI0GCNZoB6gx/ZJ6JT4FWLLoo2LievPRttV/y9uUwGMUqeQmCn32WeqByi6BaGqnoNX9hQrY4NpBI1je7wMxcla2ak=
+	t=1791324372; cv=none; b=LEvkDDNw6NK0Lcp+Kq/r1i1uQixIDAj4vkEfcSifMYXTqLDChR4fOREHYuVzuzVrIFT8NVCYXECBrDecyF92E9sCXyS6pZtmJ4Kw2nmUuYv95911AmQx88gGvbRQUq540JjiOm8+z0sD8WZjKAKoNnRco5O1ychbWyKQ642a1DE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791324261; c=relaxed/simple;
-	bh=Ob4B9ErJj3laID462V97S9hViHqoVwz3bwMMUM00Zpg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oD1iQepVFU7RbEh8NDlddY2lR3H5uCTQaBGFWziJKA0Iki9fB5PbIrjWYjDQwLjtLh98NQnqiHNmOohQ/NRQ4+wzmJJx+QeXquo+HQ2/5iMRZ39QFLqIfFM/OvyZJCOtJScEymCsoUP0igZe8XT4oMjTR1fkpC+swurbxeH41oA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ae8TNcjF; arc=none smtp.client-ip=74.125.82.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791324372; c=relaxed/simple;
+	bh=c/drCJen5LJMtn3pQqXT+RbL6rm/KkIjmd4Ej7ez9pk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=K8+JNlTzMiGMRTzLXPHAjQXtwKFboe9wx/stVxhSjM6zNa+XXq6OGOR3fVxvcYNphYb7FxS/zIh2/u2eKKONA0t20nZo3auserRLF041t1PlQDAREnUqBLBN7YU8v3/Ia3IlA84UCePbpAg6S9QhSJobw5V0s9pYr4QnjnGRYc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=Xb2csrNa; arc=none smtp.client-ip=209.85.167.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ae8TNcjF"
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-15ea896ddc8so1793810c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 15:04:20 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="Xb2csrNa"
+Received: by mail-oi1-f170.google.com with SMTP id 5614622812f47-4f59e61f295so794504b6e.3
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 15:06:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791324259; x=1791929059; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uzSq1/SWKt6eAAabhC/1HwXWrHReiFjmvFQFuOMGH5Y=;
-        b=ae8TNcjFTlYYqs6c/BfvrV+19T50T9XXK11GlCNgxoFc3oZRuX+hZuYv391nWsesGH
-         qvj9/wNqLoqDPktCg6wtjtWE6u477K/n7S5tjrpKM0aDd4IjDJ+p9oQ6OLaj3O3oh93r
-         tHmXcJEgyWNUTEZ/r+cz2sCPtqZACxaUUOm9yCXGRwHDVpECkF/lAHRj5uVFPKOJgTrY
-         t/L1WiF7DKz/mo3q9tNH+W3JzoNioMmz+F6VCsAxm8FxKR29fPzr7d837bCTipW62mnk
-         J7vPzAHVMstGSDGN0XDz553w5NiDPoNlEIqpQbOomUtmmNgzxyrMgNqyz1zgzDQ82vse
-         eCJA==
+        d=openai.com; s=google; t=1791324370; x=1791929170; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=r/J703MqDk74gwFcythehYWn182MykFiNjG1Hjsd4aM=;
+        b=Xb2csrNakjRLjNRB8ncODQgCjnoOrcaNFjigLK37WK34bGwgjwXqOvpC2rcBxHBszU
+         H0oQdbn1L42Xrh+UW9VMA0RzxO8GH2YWmt/mDXs4A3ty4Vh5CKc5ORPnDJ1hU2/O6Hbk
+         +/63XA/Debbbi+u98D1pGrHf2PAEt67OFkis0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791324259; x=1791929059;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uzSq1/SWKt6eAAabhC/1HwXWrHReiFjmvFQFuOMGH5Y=;
-        b=A9gKn1q8xd5wnEqOpmjea3jaWiphlMrtYE89V5itIToQk1EqgzyCSpuuKvocBpnHWe
-         aezgrEarJeLMrcw+cPdbgKUf0GoJTYDU/rZEPAi8MuzfccSWzg09WmKelEydKEOpX12n
-         D2drMbuoLzfGoCQIJo9LlNVLCd6zX9tvffTUbTbDDLtY7o01MJNUf+2wNCjADpjV7xL9
-         fAX35exOFWsNVMFsQVaAvhR9cQ2+VpgPrCcr3sOAmH62gYN4Uaos7KLXijY6wSFkarHW
-         6TUls0o+mOtxvzI0alaDmfK4LbsAzccUWDDYhPI266LMGBk4RUlariRqX7OpesTxco9E
-         ripg==
-X-Gm-Message-State: AFuF++muOzDLkgAAJf59Olg0DDgUdtJrF9BbNCpfOZJ9voWP5YGlfvdb
-	QeV5l5Az17vND9bMlmZ45AW91TetpLUp7mtj+BCLNanxvSRZCdCrfAn9/bTzGg==
-X-Gm-Gg: AYBFou0RCbpwiGoSlBiNkA7gs4eBVsGV7WC0sR7b0SlbNoyDv3sqhbKAVjcfBICeQ3Q
-	eBxSdqs/dKBRw4j927wkoxhbBndM0XvotUVwgKooRZUPi7nxHefrPF7vcp7E4INuY2NNePRWxIa
-	Jiof3/UdSGA5mDAADFLGUsyjL2imSlDYR0TXvR4cqfAC1RFAvoBSSjhoeqKCh+cpp3XLVk+dchL
-	l53BQEXSa0kwCWH+mAbVsm610WLEsUiGvLrlxfTrshXGyXSqO5PUtBd+V84FLeaTIMRDNR/hvgl
-	VGuKXLxpxlAULXEXuO6505m9ETsKnlzC0sEZNRr+vkQz89fgh5jasEAZg4QLdjSg0am2oMMvEf2
-	Bpba+gCuRRckzjsYj7nocVLCXWN30aZRtWWzK1fkv/chKY1jaP4lLUjzNYkRMrtjtZDLA+yat1h
-	4rtfdDmWuyj8xwqNdLw+ncnnZBEBfzSEpra3Lt1Ty13Xl/cfyXRUM5isQHhaNiURDug47CQg7PF
-	jiD52WPVD7+KSrDqFERNQt3ZjcaRd/E+3kbWR6/A0eDbDq/LJdzs9Ham1OncbuRVrkBKNWxe3Lr
-	WkincI/T9xlvx9qQsclojJFnt+l7RvTTzME8WN5bOX/Di74dXA==
-X-Received: by 2002:a05:701b:2302:b0:144:f4b9:9be4 with SMTP id a92af1059eb24-162055138dbmr198266c88.15.1791324259380;
-        Tue, 06 Oct 2026 15:04:19 -0700 (PDT)
-Received: from localhost.localdomain ([2401:ba80:a119:c570:bd30:a4e9:73e2:f35])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-16166121f2asm1493545c88.4.2026.10.06.15.04.15
+        d=1e100.net; s=20260707; t=1791324370; x=1791929170;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=r/J703MqDk74gwFcythehYWn182MykFiNjG1Hjsd4aM=;
+        b=g0mzI0EfvOg+r9ZltaS+r9csOqG+gWg41ayC+fKphR1vu8geooLPGNwQLZIcn1gy7R
+         Dg2r5sX2sIcGSi8UiRW2ehvrmIMwzURTKYDg0Mq37FS8tCQF6ryxJMYK3HUcE0H3qdge
+         COPvhwyPTOPdzkZ4pYfgA4mfKuWjRwxgjHoF0gNlPAtumR+imihS52fFTFRLXB6w9M6r
+         7H6V4nGtZQgUdgZJPtkIrjsfm1IMf9Zi1j6Nc+BNCKIVsdGdXelMQTY5MxQzRBDGv3rD
+         4OP8J5aQbIYQdojyon02gOvIzxVBOzMxO8s2X9dQvzSLErTsfgO0bszeDGO+v7Hzzrkn
+         NKpw==
+X-Gm-Message-State: AFuF++kuEG06/xpEzswOhi2XTz1IKfrcQDAZ0B+H/hlYTRXbALMiLQRm
+	w7qkcwum0T39LeEaQogE90M5h9YUVfZ/x6pFt9inUgo7qbQKCQlSExXKkYLcL+dTkrE=
+X-Gm-Gg: AYBFou0U0DcoX0GOugVP1S2hx5bPdh2o3uR6QaUNd60zxopf8mj7JGv1mSfhanh2Iex
+	dZGmOR4hk6ur9uCUfQUJRXkkIT4D8S9RVb951avti7D8xZ7hEQWD2ZvzdwJLl5WnTVl1jKNp5In
+	xew7jJ6PaEfJbwBsH3XOK4bLuCtaFaYP8DztQHea7Kv/55O6OVxA7F9YEVCCMnF/wNc/jBNl23U
+	iqCAMelZDqyO5QY9ZbmDFvlEmXhdCjaqdTiEsw7nhTgniXCP8feJCopBbJg1kOjehy1pcwEkSeq
+	hTRFSoyX+uUC2dfTqCkbgfNNUCMD/nwCa9iuhuXTy6y9kWrVyJZFIWq4b7W1dN31LxsK4PO55x6
+	BaHeTjQ6QSouB81kC4IaZhjlVXExUfU1LMBXZHl5UNAZxVbgmJ7G+FobuRX5o2e3QARQ/hCS7Pl
+	h44h6zi9ja4jZn3b6QYaQtdb78DtkLfcq9DcfH5/6a7jiqvvTWjC7ZGpuEnkq7D9Bnzk1hWaeHw
+	1A2vZ2+GGM+5CldN6d/THS3s0RWVNc8RlFK0/dNRJgTbmQDGt0M/Q4diYIXoYBH0FUQTEOKu5S7
+	SQ2ub51ddQ==
+X-Received: by 2002:a05:6808:13cf:b0:4c3:95d:91f1 with SMTP id 5614622812f47-4fc435fc500mr735773b6e.1.1791324370150;
+        Tue, 06 Oct 2026 15:06:10 -0700 (PDT)
+Received: from com-75606.corp.openai.org ([199.47.143.7])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4fc48e35ba6sm508311b6e.8.2026.10.06.15.06.09
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 06 Oct 2026 15:04:18 -0700 (PDT)
-From: iamzayn19 <iamzayn19@gmail.com>
-To: linux-kernel@vger.kernel.org
-Cc: David Laight <david.laight.linux@gmail.com>,
-	iamzayn19 <iamzayn19@gmail.com>
-Subject: [PATCH v2] scripts: bloat-o-meter: avoid shell parsing file names
-Date: Wed,  7 Oct 2026 03:04:08 +0500
-Message-ID: <20261006220408.24310-1-iamzayn19@gmail.com>
-X-Mailer: git-send-email 2.44.0
-In-Reply-To: <20260927081322.26a44ce0@pumpkin>
-References: <20260927081322.26a44ce0@pumpkin>
+        Tue, 06 Oct 2026 15:06:09 -0700 (PDT)
+From: Kyle Zeng <kylebot@openai.com>
+To: linux-crypto@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	herbert@gondor.apana.org.au,
+	davem@davemloft.net,
+	Kyle Zeng <kylebot@openai.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] crypto: algif_skcipher - Fix receive iterator advancement
+Date: Tue,  6 Oct 2026 15:05:23 -0700
+Message-ID: <20261006220523.31218-1-kylebot@openai.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,57 +73,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-bloat-o-meter receives file names directly from command-line arguments,
-but passes them to nm by interpolating them into a shell command
-string.
+af_alg_get_rsgl() advances the receive iterator by the full RX scatterlist
+length.  A non-final skcipher request then rounds that length down to a
+multiple of the cipher's chunksize without returning the unused suffix
+to the iterator.  If the receive loop processes another request, it
+writes past that suffix even though the returned byte count includes
+only the processed lengths.  The socket splice fallback can consequently
+publish uninitialized bytes from its newly allocated pages.
 
-Use subprocess with an argv list instead. This preserves the argument
-boundary for the input file name and avoids shell interpretation of the
-file name and tool invocation.
+Save the iterator before gathering the RX scatterlist.  After processing
+the request and releasing its resources, restore the iterator and advance
+it only by the successfully processed length.  This also leaves the
+iterator unchanged if gathering or processing the request fails.  Keep
+the existing cipher request lengths, continuation flags and scatterlist
+cleanup unchanged.
 
-This is a robustness cleanup for direct bloat-o-meter invocations rather
-than support for spaces in normal kbuild paths.
-
-Signed-off-by: iamzayn19 <iamzayn19@gmail.com>
+Fixes: e870456d8e7c ("crypto: algif_skcipher - overhaul memory management")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-6-astra
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
 ---
- scripts/bloat-o-meter | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ crypto/algif_skcipher.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/scripts/bloat-o-meter b/scripts/bloat-o-meter
-index 5868a8b..72edbb7 100755
---- a/scripts/bloat-o-meter
-+++ b/scripts/bloat-o-meter
-@@ -7,7 +7,7 @@
- # This software may be used and distributed according to the terms
- # of the GNU General Public License, incorporated herein by reference.
+diff --git a/crypto/algif_skcipher.c b/crypto/algif_skcipher.c
+index 1e61fe6e24b9..21d077a54dd5 100644
+--- a/crypto/algif_skcipher.c
++++ b/crypto/algif_skcipher.c
+@@ -107,6 +107,7 @@ static int _skcipher_recvmsg(struct socket *sock, struct msghdr *msg,
+ 	struct alg_sock *pask = alg_sk(psk);
+ 	struct af_alg_ctx *ctx = ask->private;
+ 	struct crypto_skcipher *tfm = pask->private;
++	struct iov_iter saved_iter = msg->msg_iter;
+ 	unsigned int bs = crypto_skcipher_chunksize(tfm);
+ 	struct af_alg_async_req *areq;
+ 	unsigned cflags = 0;
+@@ -193,6 +194,11 @@ static int _skcipher_recvmsg(struct socket *sock, struct msghdr *msg,
+ free:
+ 	af_alg_free_resources(areq);
  
--import sys, os, re, argparse
-+import argparse, re, subprocess
- from signal import signal, SIGPIPE, SIG_DFL
++	/* The RX SGL may be longer than the request actually processed. */
++	msg->msg_iter = saved_iter;
++	if (!err)
++		iov_iter_advance(&msg->msg_iter, len);
++
+ 	return err ? err : len;
+ }
  
- signal(SIGPIPE, SIG_DFL)
-@@ -31,8 +31,11 @@ def getsizes(file, format):
-     if args.prefix:
-         nm = "{}nm".format(args.prefix)
- 
--    with os.popen("{} --size-sort {}".format(nm, file)) as f:
--        for line in f:
-+    with subprocess.Popen([nm, "--size-sort", file], stdout=subprocess.PIPE,
-+                          text=True) as f:
-+        if f.stdout is None:
-+            return sym
-+        for line in f.stdout:
-             if line.startswith("\n") or ":" in line:
-                 continue
-             size, type, name = line.split()
-@@ -49,6 +52,7 @@ def getsizes(file, format):
-                 # statics and some other optimizations adds random .NUMBER
-                 name = re_NUMBER.sub('', name)
-                 sym[name] = sym.get(name, 0) + int(size, 16)
-+        f.wait()
-     return sym
- 
- def calc(oldfile, newfile, format):
+
+base-commit: fd179f8a05be3ccae366b9b96e176b51fbe54aab
 -- 
-2.44.0
+2.53.0
 
