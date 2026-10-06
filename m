@@ -1,138 +1,127 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FF5F3B6C00;
-	Tue,  6 Oct 2026 09:55:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9643E3CA4A3;
+	Tue,  6 Oct 2026 09:56:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791280521; cv=none; b=ou7CuMtqBM781alJ2EDsrEb8OxTXp0xS8WGanBVYhCPg8+jKxyilDzUTX2iObZj/ZNHMYE/vCA52fgnriXW4b87FfaFzcHmYHUDHG7mhsDz36VEZ4yqGkHMkvWtbFkZaFKBZxfXOQImqtFxYj5/E8sFRVWKJr7wqR0/Nsd02BGw=
+	t=1791280576; cv=none; b=mMRL9URCBAZvzyZR/cSCFBsrfB6FDS3t15F8+cQ/4F4vVCOQMCT9xE8HRd9dCIob5m4w/vIUhvK4ZiNfMhkRj/lUueYLSsjd1ncAtp2up5XqJZarvP0iS9Xkd7l/lKAaLUtUP/cefXRv71ahoSIzb8YpCD0+4B4FOSQVIFmKZEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791280521; c=relaxed/simple;
-	bh=r7dTzWnyb9LYxI9yO4JQVaNh1xZD+lxxhzUUxXuRi+U=;
-	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=jMG+RgBgGQrilKKcoaTSkQ2hoyhTEsV+GBekxU54vgfnAWaUDYRGyYjn9XXTU/wNMdEdlWvb/9QLCHB1SFGEcb7Wiyxamw8FAsf8QVAZbMufMU8Rk9ysxgqKZVuRf4M6rRqVsfQjGeubVFfguh2v0V+c8VYDmgs8HOGTJ72demQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=m9c9hcc0; arc=none smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1791280576; c=relaxed/simple;
+	bh=7otKa+GWApZeqC3ipf9Lr4+6RHqfIHCarUORzQocWA8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EdfKRqiJYYRe8YpMYGrqBfnH8GPy7X384rdaCwVmCnorHpchr0OIhRX3q3dAP0Y+YJ8RsC7F9hi18hRPpGqI/O6bFYrZGUZyLFBoguZjZ07Aj0pPUYpjZ6SmXBCdBhwHASH2ZXI2C2ILifUH13L5VVpUQZ2P/WUvcPZaK48k+kU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=a25U7s5C; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="m9c9hcc0"
-X-UUID: 01818932c16c11f18dc8c9802ae25ab1-20261006
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID; bh=tloYHaVbYNU0rRAf4/HuoJhNrp+JOWU7kTTUF5xT1v0=;
-	b=m9c9hcc0s17okh7Ck/7RJruZyLI/v/3fxQZ8Bti9xWMalm7xQl0BWWA+brCXSdmv27vCHdZbvxGb19bUhkcCPRKfPCfCipvkIW6QzGOZlcg0kNYqmsk1v5GCXt29VNLV1PeQNX/i+c7DNretKj1d7yLGVWZVPLiRpSCAiAB7yus=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.20,REQID:725242db-c0c9-4cd5-81bb-bf7183273503,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:291e20b,CLOUDID:8e630795-3103-4fdb-b79c-08de0e281a5d,B
-	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|836|865|888|898,TC:-5,Content:
-	0|15|50|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,
-	OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 01818932c16c11f18dc8c9802ae25ab1-20261006
-Received: from mtkmbs13n1.mediatek.inc [(172.21.101.193)] by mailgw02.mediatek.com
-	(envelope-from <alice.chao@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 537123793; Tue, 06 Oct 2026 17:55:05 +0800
-Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
- MTKMBS09N1.mediatek.inc (172.21.101.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Tue, 6 Oct 2026 17:55:03 +0800
-Received: from [10.233.130.16] (10.233.130.16) by mtkmbs11n1.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
- Transport; Tue, 6 Oct 2026 17:55:03 +0800
-Message-ID: <ac1b17147198b189e606083e181db8802b72fac1.camel@mediatek.com>
-Subject: Re: [PATCH 6.18.y] scsi: ufs: core: Re-arm the device command
- completion before submitting
-From: Alice Chao <alice.chao@mediatek.com>
-To: Bean Huo <beanhuo@iokpp.de>, <stable@vger.kernel.org>
-CC: <linux-scsi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<martin.petersen@oracle.com>, <James.Bottomley@HansenPartnership.com>,
-	<bvanassche@acm.org>, <avri.altman@sandisk.com>, <alim.akhtar@samsung.com>,
-	<wsd_upstream@mediatek.com>, <linux-mediatek@lists.infradead.org>,
-	<peter.wang@mediatek.com>, <chun-hung.wu@mediatek.com>,
-	<cc.chou@mediatek.com>, <chaotian.jing@mediatek.com>,
-	<tun-yu.yu@mediatek.com>, <naomi.chu@mediatek.com>, <ed.tsai@mediatek.com>
-Date: Tue, 6 Oct 2026 17:55:03 +0800
-In-Reply-To: <1912caf84d99bc2388960c907184f06689806ee6.camel@iokpp.de>
-References: <20260915052638.459390-1-alice.chao@mediatek.com>
-	 <1912caf84d99bc2388960c907184f06689806ee6.camel@iokpp.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="a25U7s5C"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791280575; x=1822816575;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=7otKa+GWApZeqC3ipf9Lr4+6RHqfIHCarUORzQocWA8=;
+  b=a25U7s5CPGslbE7X+okGKI8qnNMk6x/QlBBlLa9wZ3HhXDdjBwfe42/C
+   gHG680AFtIHjKWd4jkRH7gcHSPuUZf4neK/jSktfnVZOLsPLnPoT/xpqh
+   VtTcvtm7YtPz8/RV6w9D66tR8BdN1Mg3D1xzL5CVhI4oNiboyxzWB5No2
+   yss8nXsLGuEKSWfts3LTyo5fi2qrtO0KdEVtrO/SEILlK4T4XVc+8GSz2
+   Nu//PDTRcER834Losunazj+V6+piddyKmPNK9T3KZp2LMhpf0pQfGuP+V
+   /Pefkk4fqLFK2/+bk2zjS2NQjZJ6mDz7VXRp+lnRU9Sh6+RLCM9eZIUpx
+   Q==;
+X-CSE-ConnectionGUID: WpIf1IyhSd+fvv49WefEUg==
+X-CSE-MsgGUID: MZVoux4VRdmzmLvqksPhaw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="19401"
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="19401"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 02:56:14 -0700
+X-CSE-ConnectionGUID: qVNayI0VRya34JiFRZx3wQ==
+X-CSE-MsgGUID: szIgNtfbQSq7kNC5O0B13g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="305038549"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa001.fm.intel.com with ESMTP; 06 Oct 2026 02:56:12 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xE1u5-000000001Qu-3Qs7;
+	Tue, 06 Oct 2026 09:56:09 +0000
+Date: Tue, 6 Oct 2026 17:55:48 +0800
+From: kernel test robot <lkp@intel.com>
+To: Vyacheslav Yurkov via B4 Relay <devnull+V.Yurkov.EXT.bruker.com@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+Subject: Re: [PATCH 2/2] bus: add Altera timeout bridge driver
+Message-ID: <202610061734.ZXwVnIt2-lkp@intel.com>
+References: <20261003-feature-timeout-ip-v1-2-8837c311d571@bruker.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MTK: N
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261003-feature-timeout-ip-v1-2-8837c311d571@bruker.com>
 
-On Mon, 2026-10-05 at 13:54 +0200, Bean Huo wrote:
-> The late CQE can come after the re-arm:
->=20
-> timeout -> cleanup -> retry B -> re-arm -> send B -> A's CQE arrives,
-> and then B
-> is woken up early and fails, if B's own CQE in turn comes after C's
-> re-arm, C
-> fails the same way, and C may even read B's response as its own.
->=20
-> Whether this stops depends on device latency against our retry path,
-> not on the
-> patch.
->=20
+Hi Vyacheslav,
 
-You are right. Re-arming only covers a late CQE that arrives while no
-device command is in flight. The query retry wrappers resubmit right
-away, so the next re-arm will usually happen before the previous CQE
-lands, and the skew can cascade exactly as you describe. It is also
-worse than an early wakeup: every device command shares the reserved
-slot's response UPIU, so C can parse B's response as its own and
-return a wrong value rather than an error.
+kernel test robot noticed the following build errors:
 
-> The root cause is that all device commands share hba->reserved_slot
-> and the CQE
-> carries only the tag. Since a successful SQ cleanup must post an
-> ABORTED CQE,
-> could the MCQ timeout path wait for and consume that CQE before
-> returning -
-> EAGAIN?
->=20
+[auto build test ERROR on a74306e2e676f9775457366fc047a660fbf02f26]
 
-Agreed, that closes the window instead of narrowing it. In v2 the MCQ
-timeout path will:
+url:    https://github.com/intel-lab-lkp/linux/commits/Vyacheslav-Yurkov-via-B4-Relay/dt-bindings-bus-Add-binding-for-Altera-AXI-Timeout-Bridge/20261003-201919
+base:   a74306e2e676f9775457366fc047a660fbf02f26
+patch link:    https://lore.kernel.org/r/20261003-feature-timeout-ip-v1-2-8837c311d571%40bruker.com
+patch subject: [PATCH 2/2] bus: add Altera timeout bridge driver
+config: s390-allyesconfig (https://download.01.org/0day-ci/archive/20261006/202610061734.ZXwVnIt2-lkp@intel.com/config)
+compiler: s390-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261006/202610061734.ZXwVnIt2-lkp@intel.com/reproduce)
 
- - after the SQ cleanup, wait (bounded) for the reserved slot's CQE -
-   the ABORTED one, or the regular one if the command completed
-   anyway - before returning;
- - if no CQE shows up in time (e.g. cleanup failed, or
-   UFSHCD_QUIRK_MCQ_BROKEN_RTC), force a host reset and refuse device
-   commands outside the error handler until it has happened, so the
-   slot is not reused while that CQE can still arrive;
- - keep reinit_completion() at submission time as a safety net.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610061734.ZXwVnIt2-lkp@intel.com/
 
-> does this patch only covers a late CQE arriving while no device
-> command is in
-> flight. Did you test it with injected timeouts to see whether it
-> recovers?
->=20
+All errors (new ones prefixed by >>):
 
-Yes, v1 only covers that case. And no, I have not tested it with
-injected timeouts yet.
+   drivers/bus/altera-timeout-bridge.c: In function 'bridge_reg_read':
+>> drivers/bus/altera-timeout-bridge.c:60:18: error: implicit declaration of function 'readl' [-Wimplicit-function-declaration]
+      60 |         result = readl(driver_data->bridge_registers + offset);
+         |                  ^~~~~
+   drivers/bus/altera-timeout-bridge.c: In function 'bridge_reg_write':
+>> drivers/bus/altera-timeout-bridge.c:69:9: error: implicit declaration of function 'writel' [-Wimplicit-function-declaration]
+      69 |         writel(value, driver_data->bridge_registers + offset);
+         |         ^~~~~~
 
-Before posting v2 I will run it with injected device command timeouts
-in MCQ mode: periodic fake timeouts under a descriptor/attribute read
-loop, with the values checked against known-good ones, and the case
-where the CQE never arrives, to check that the host gets reset and
-device commands recover. This will also show whether our controller
-actually posts the ABORTED CQE after the SQ cleanup. I will run the
-same injection on v1 and on the unpatched kernel for comparison and
-put the results in the v2 changelog.
 
-Thanks for the careful review.
+vim +/readl +60 drivers/bus/altera-timeout-bridge.c
 
-Alice
+    53	
+    54	static u32
+    55	bridge_reg_read(struct altera_timeout_bridge_data *driver_data,
+    56			u32 offset)
+    57	{
+    58		u32 result;
+    59	
+  > 60		result = readl(driver_data->bridge_registers + offset);
+    61	
+    62		return result;
+    63	}
+    64	
+    65	static void bridge_reg_write(
+    66		struct altera_timeout_bridge_data *driver_data,
+    67		int offset, u32 value)
+    68	{
+  > 69		writel(value, driver_data->bridge_registers + offset);
+    70	}
+    71	
 
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
