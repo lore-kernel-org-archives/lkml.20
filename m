@@ -1,63 +1,63 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 755903D953F
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 09:34:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 255A53D954A
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 09:34:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791279273; cv=none; b=U0uiVD/MshDGrAK94ieABch3fdDRZ+tTs+3bpfhEABXOGHKXVkrW+82QA/z5IDuWT0bVDfkEeJuTbLnvjCMV2hbRNdyDD5LHuxHNxg6yY36VjkNbZu5eG8ItkCiGNn+5ByukygXXdTrNF9Po2C/stsIp4X0mvjUNAXfZ/xpKru8=
+	t=1791279286; cv=none; b=WcXE0vdkrDy4Useg8L6MDCDY3zTAZuwyKzIRKleBWqCklXejsxWB2NvXFWZ+FVogzTAtn98vnZGzfUw9gd8DhjVd5u86WTizjaCy+dSfzC7cQ/6IIjH6cqaDhRhxBh58BAYAj4KDX2dNgQVL7n5kxS64o6W0+RryRA9otX27KFM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791279273; c=relaxed/simple;
-	bh=Wztmnb+n43pJJ0UkKuH8A3Hbte7BsrS51rqKdvNwCbA=;
+	s=arc-20240116; t=1791279286; c=relaxed/simple;
+	bh=/17/pkxULwrR3ZWDh3pQ4IHMHFbrL/DqCQWuvTPfDW8=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=bORslCTa2kWiEdMlUJ9Dq66vUeGwqj1fIRit506N5dexjHhXCY6q7+R+T58jMqdD9J/PxG+FWLO13f3mDI6PMJ1tLR/27e3vUzjsCxCW/Y+HYcNm9WNlP1Ygyb2HjRiZHn9wT4Y2UZhFHPfLxvjC+pf5Y0/G7lZBOUmQjP6huH4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RQh8tHD0; arc=none smtp.client-ip=209.85.216.44
+	 MIME-Version; b=XGC4hEXZU2+uPaP56S271wScCSS9cP/T3t7s1uwWuwF+myQN2zagZFzZNSKV3B0RjSstyfvFPxEVXDazPds7RTOw4usG2QWMK5FQMdJoW2Rt3MX6IneRqmXSjQ9vmvEcfPuYYVrPt9hlx2X2mZ1rm4Ki3M6puwexZ18i0VBC1T0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UTUV2iiT; arc=none smtp.client-ip=209.85.216.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RQh8tHD0"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3856d6fbcb3so1395089a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 02:34:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UTUV2iiT"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3a0aaa0fd13so949280a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 02:34:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791279264; x=1791884064; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791279276; x=1791884076; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gxl12lnkjpIAZPhVHEuM71br75oaqFyLuKMKo+DSpAA=;
-        b=RQh8tHD0vbJBWcYWOb7xkDqaY7lchjvStsK6S1rE4Sel0CDiMwGYD6zCAvtHjJwlsA
-         G2vINRvxg9o9EUnBLp8bzuJDF83dG4qVyFcB/pzvWPMkxGqpx+HG9CUVoCzg9fNqqwYJ
-         trzMRmXomkBWKiyWt95wk17pVYpv6eZJSifB2WBj5y+KeITjRoSUiVWWkc5bmB5+/uLp
-         JC5EeOC4uUNW/dM1zc5UTRFsw9KpbrbKmRuStW6ayugJdmYwjN7yqgmebL2HOAZwVQHx
-         wVuCwNfBoNR9MfWYvbY7ROiFvytSQ94JZq+w4tDUULVRGa/B/OoQ6xY3xtIqssyI5Nzk
-         Dpmw==
+        bh=PXtWrw3kC77K/UONiyNs9faB1JpghxxGQKJgWYuGIxs=;
+        b=UTUV2iiTo+slfAUjtz5UZOrTgtPOOO/ulXRm6F2UdUN04zMOrRJXyx6g6o+i2zO1mN
+         oEVdl+4r3qgXvvvRr2WXgJh4VTyxPrk3i65Gs9zioazrUgeiHcHUKPhUdrXVsgUpeC/+
+         m/XZk4tqJNJqjic9IYy4RqVBUgRQEImxptWJt9qEAjIlFj/JlsQNlSPIzl1f7+s6LJFU
+         OyE+HocKFTLkKld5nkAf6WfCaloHpYu91nOmh9QqAhwUM+1IGAJxtAKDLA1ELgDSZS17
+         lVxTVfLej1Xwwiw9tCYO032m6am1fJ5fz9Rbp6bJ3Rq8XOIBdEzVUEyA/bb9Ug/ApArA
+         RKBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791279264; x=1791884064;
+        d=1e100.net; s=20260707; t=1791279276; x=1791884076;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gxl12lnkjpIAZPhVHEuM71br75oaqFyLuKMKo+DSpAA=;
-        b=nKgX8coyVULcVrwnCiHitVAry9z1yYw/EL5fDIwNcQ6BxkuHPKD/1jZ5M86N+OaHKY
-         Ht5yShev7agAt/XrUBsUnoqQA7oIe+6zT6Bev4iIMlrOC+RQyWj3W0suZt8VqyGEex6e
-         PV7LEQ+wz9Qfp2gX7Tf4N/qlxsN7m4hMac5FZuEHbvlbiSDy7f9+dv8Lm5OHc4L5EG9C
-         twb67URg6VLBiJ3TD/qTR0cHZUJTsXFQtrxWL5lRWqLuLoRjCVKtImn67A21/PRaIh8u
-         RZXAyA6MScwlox0+i/CAnleSaWbm4KV2hI8YDTSJ4AbmoLqnddEy/mWU5qv62mKZPdfC
-         qyVw==
-X-Forwarded-Encrypted: i=1; AKwUvBx0PwEYISkTLwc6VNuMiXJSOZxZc0uXYv5UUPYHLp4uqoEOtZPzt0VHuNOe5F2frCCUs5UmDvlNVCPeV9k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKqjEaIguy+pYLRluVuA1tnK9QLFacjtnchRlrtnVj3z4F8Vs1l
-	auSdEGEmi5EaJoOM2cCK+isyqKMuNyHrALucOlcC+zP0nfx2jP4KhEHRANzXZoqG
-X-Gm-Gg: AYBFou3++DhDBz6BeXt4n1ODK6EmS3HBxvuo8ptC0PNlavykD4iucPKSV3XMjlEkgYL
-	x6AAYLg+3MEI+J4nYLcmXh0WVFdGH+za7jbqwKp+8HCZ6XoKYOs5EdI2Kwkq/3zljhT4X6FISdG
-	k6SU3M9ZipkNAVp3W/kO1RIM5d+3tDBh4OVmOVjRqMDXltB+Pab+2uDWcIbsAOPDYxMTwyR96md
-	7e/h9BIWSqQdCUGm8/syE8bpB103v8myhScjPX7cHLgy+G3uDahy0hp2+6MrMoT7gN49Jcpsz8o
-	cMeMRgUd8rOcWVxCIsr1QrQoNSMaKtbLOIH3PphZjqHlUZ8WizoCMs7P70IoMGyCf2EncwZqmwe
-	9W22/jPRi9UQ+Z5anMQ0LWXMXl2Q4gU/WGIYRS4J0P1odfpybARr0Cds1mCZBLEogosfEA4XGNA
-	Ncstt2F5QHhbW1T8bhlTqLcbvDmvEDydw9pN8nrpwsMNPPC6etpeqCO1z5xML2RI2mXEalSA==
-X-Received: by 2002:a17:90b:2791:b0:3a6:d94d:e150 with SMTP id 98e67ed59e1d1-3a78717dee2mr8481523a91.23.1791279263758;
-        Tue, 06 Oct 2026 02:34:23 -0700 (PDT)
+        bh=PXtWrw3kC77K/UONiyNs9faB1JpghxxGQKJgWYuGIxs=;
+        b=bfDrfDrh4zr5Epe8Dg692h+3+s0Z3ZZ2fRUZy7J4MfdLU0v5ApKjKEDTOwqLyJimoF
+         sU3u9gTguEth7jind8HuEC9v5z3DPxXokT/PEyw5oSO42bmCLTssZX8eq2vjCriFFf0A
+         3VGOHY/Maaxd9DFKNt0UoMlKhR+pQ9ipzj4rp60n+5OzJclEaQjqebiKGCCWjGn/h4IC
+         HmK0IRvjMOelRzWaiaRnGtBMr8bq3gLLzBKu5SMFOr6dEhczgU1rlfQSOzUqmRmPUSRh
+         WVpd2B7cg50zs8hsLDo04mGqJZh2ebhCqaQvSZzfvhdr3O/TH08Tx8L7RP03Yj6fydGV
+         xkfQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxN9lXK86iKG2M3eGpJeeGelM0v4AQrTZibk3tLzZmKBbeAdg2Ay565dJizoEHVYy+USbiDAbm0G1gxAGY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLEd2hUmEg0zqpqaNToHMq/rnhsnr5o6iRIMlPe2r8c2tF9ddS5
+	HlsiGs2kl0CVTpvBNcJNQf53tx0C0S2LtRL5huvHOGpvIbJaGLgNY/jR
+X-Gm-Gg: AYBFou1c0XS2QytYnOxrWPWp0IwddnkfsG50pEZy8IZHkU+bBYmzEZaGESW2hYgP88m
+	qQ/VmO45N9Z4inFs/nf9CXtSQxcYTDddqsWBX0buT/uJLqACS2EL7dSzLvxwcvyiftn7EtvOgiz
+	A24qAuR4Lzf7s8mFnCtlIAsGZ7Op0d+vzP4JZoxA9FKowNsUAiewyFPe2StEqalr0rFnvvQRT+4
+	Lal1/k0xjUcjZEQBktD+YW3sBsLtVcZUowxg4hgybaT2sjNiZBodAB8YBr0y4uUZ6TTj+8nI/IE
+	21QVnP6yqJwqW2VChfAL2HI+s8dpvB2rlX0oUY4Zihb2Gondqlt44JC/UmC5snFUirnmKV1PW7c
+	dlGQ0OT4DbpNOTzFXJ8Ppg0GvWcc4DpQ+k7vJGiDWGDgqWnLwOzVRHvT56Ctqcr/Y8OPDfYpIDB
+	i8HIaEGXRn6qH6vMna8t/hpRYQdea0femggI5esdxKXAqqB/HxM1zhUXDLJrPxQEIPgUbcMQ==
+X-Received: by 2002:a17:90a:e707:b0:3a4:b418:94cf with SMTP id 98e67ed59e1d1-3a8734ecd7fmr672055a91.14.1791279276383;
+        Tue, 06 Oct 2026 02:34:36 -0700 (PDT)
 Received: from gmail.com ([188.253.12.30])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8543ab76bsm3905277a91.13.2026.10.06.02.34.19
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8543ab76bsm3905277a91.13.2026.10.06.02.34.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 02:34:23 -0700 (PDT)
+        Tue, 06 Oct 2026 02:34:36 -0700 (PDT)
 From: Jia Jia <physicalmtea@gmail.com>
 To: "Martin K . Petersen" <mkp@kernel.org>
 Cc: Jan Engelhardt <jengelh@inai.de>,
@@ -69,9 +69,9 @@ Cc: Jan Engelhardt <jengelh@inai.de>,
 	target-devel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Jia Jia <physicalmtea@gmail.com>
-Subject: [PATCH 1/8] scsi: target: take COMPARE AND WRITE data from the write half
-Date: Tue,  6 Oct 2026 17:33:31 +0800
-Message-Id: <20261006093338.27342-2-physicalmtea@gmail.com>
+Subject: [PATCH 4/8] scsi: target: copy a DIF insert tuple across prot sgs
+Date: Tue,  6 Oct 2026 17:33:34 +0800
+Message-Id: <20261006093338.27342-5-physicalmtea@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261006093338.27342-1-physicalmtea@gmail.com>
 References: <20261006093338.27342-1-physicalmtea@gmail.com>
@@ -83,211 +83,256 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-compare_and_write_callback() builds the write sgl as
-sg->offset + block_size on the first data sg. That offset is the end
-of the compare buffer, not the write buffer.
+sbc_dif_generate() walks each protection sg and stores an 8 byte
+t10_pi_tuple while j < sg->length.  The store is not limited to the
+bytes that remain in that sg.
 
-vhost-scsi keeps each descriptor inside one page. A 512-byte compare
-buffer placed at the end of a page makes offset + block_size equal to
-PAGE_SIZE, and the write then uses the next physical page. The kernel
-subsequently reads 512 bytes from that page. If the adjacent memory
-region happens to be a freed slab object, KASAN reports:
+vhost-scsi maps a protection buffer with iov_iter_get_pages2() and
+keeps each sg inside one page.  Eight PI bytes that start at page
+offset 4092 become two sg entries, 4 bytes at offset 4092 and 4 bytes
+at offset 0.  The first entry still takes the loop.  For DIF Type 1
+the ref_tag store is 4 bytes at paddr + 4, which is the next physical
+page.
 
-  BUG: KASAN: slab-use-after-free in copy_folio_from_iter_atomic
-  Read of size 512
+Software INSERT reaches this function when the fabric does not
+advertise DIN_INSERT or DOUT_INSERT.  vhost-scsi advertises only
+DIN_PASS and DOUT_PASS.  With fabric_prot_type 1, a READ is
+TARGET_PROT_DIN_INSERT and the generated tuple is written into the
+guest PI buffer.
 
-  compare_and_write_callback
-  __target_execute_cmd
-  sbc_execute_rw
-  fd_execute_rw
-  fd_do_rw
-  vfs_iter_write
-  copy_folio_from_iter_atomic
+Copy the 8 byte tuple across protection sg entries.  Four bytes at the
+end of one entry and four at the start of the next stay one tuple.  A
+tail with no following entry is left unwritten.  The walk maps each
+page with kmap_local_page().
 
-Skip the compare bytes and describe only the sg entries that hold the
-write half. A write that crosses an sg boundary stays in those entries
-instead of being forced into one slot.
+KASAN reports:
 
-Free that table with sg_free_table().  sg_alloc_table() chains once
-the write half has more entries than fit in one page, and kfree() of
-cmd->t_data_sg would drop only the first allocation.
+  BUG: KASAN: use-after-free in sbc_dif_generate+0x20c/0x640 [target_core_mod]
+  Write of size 4
 
-Fixes: d94e5a61357a ("target: fix COMPARE_AND_WRITE non zero SGL offset data corruption")
+  sbc_dif_generate
+  target_complete_ok_work
+  process_one_work
+  worker_thread
+  kthread
+  ret_from_fork
+  ret_from_fork_asm
+
+Fixes: 66a3d5bc47d2 ("target/sbc: Add sbc_dif_generate software emulation")
 Signed-off-by: Jia Jia <physicalmtea@gmail.com>
 ---
- drivers/target/target_core_sbc.c       | 100 +++++++++++++++++--------
- drivers/target/target_core_transport.c |  11 ++-
- 2 files changed, 80 insertions(+), 31 deletions(-)
+ drivers/target/target_core_sbc.c | 181 ++++++++++++++++++++++---------
+ 1 file changed, 132 insertions(+), 49 deletions(-)
 
 diff --git a/drivers/target/target_core_sbc.c b/drivers/target/target_core_sbc.c
-index 21f5cb86d70c..adef903652ac 100644
+index adef903652ac..12275ebad95c 100644
 --- a/drivers/target/target_core_sbc.c
 +++ b/drivers/target/target_core_sbc.c
-@@ -433,19 +433,74 @@ compare_and_write_do_cmp(struct scatterlist *read_sgl, unsigned int read_nents,
+@@ -1250,72 +1250,155 @@ sbc_execute_unmap(struct se_cmd *cmd)
  	return ret;
  }
  
 +/*
-+ * Data-out is compare bytes followed by write bytes.  Take the write
-+ * half from whatever sg entries hold it.  Do not add block_size onto
-+ * the first sg offset: that page may end before the write half.
++ * Copy one 8 byte PI tuple to or from the prot sg.  The data page sits
++ * above the prot map, so a prot sg change drops and restores it.  A
++ * short tail releases both maps and returns false.
 + */
-+static int sbc_caw_build_write_sg(struct sg_table *tbl,
-+				  struct scatterlist *data_sg,
-+				  unsigned int data_nents, unsigned int skip,
-+				  unsigned int len)
++static bool
++sbc_dif_prot_copy(struct scatterlist **psgp, void **paddrp,
++		  unsigned int *poffp, struct scatterlist **dsgp,
++		  void **daddrp, void *buf, bool to_prot)
 +{
-+	struct scatterlist *sg, *out;
-+	unsigned int nents = 0, left = len, left_skip = skip;
-+	unsigned int avail, chunk;
-+	int i;
++	struct scatterlist *psg = *psgp;
++	struct scatterlist *dsg = *dsgp;
++	void *paddr = *paddrp;
++	void *daddr = *daddrp;
++	unsigned int poff = *poffp;
++	unsigned int len = sizeof(struct t10_pi_tuple);
++	u8 *p = buf;
 +
-+	for_each_sg(data_sg, sg, data_nents, i) {
-+		if (!sg->length)
-+			continue;
-+		if (!left)
-+			break;
-+		if (left_skip >= sg->length) {
-+			left_skip -= sg->length;
-+			continue;
++	while (len) {
++		unsigned int take;
++
++		if (!psg || poff >= psg->length) {
++			if (daddr)
++				kunmap_local(daddr - dsg->offset);
++			if (paddr)
++				kunmap_local(paddr - psg->offset);
++			daddr = NULL;
++			paddr = NULL;
++			psg = psg ? sg_next(psg) : NULL;
++			if (!psg) {
++				*psgp = NULL;
++				*paddrp = NULL;
++				*daddrp = NULL;
++				return false;
++			}
++			poff = 0;
++			if (!psg->length)
++				continue;
++			paddr = kmap_local_page(sg_page(psg)) + psg->offset;
++			daddr = kmap_local_page(sg_page(dsg)) + dsg->offset;
 +		}
-+		avail = sg->length - left_skip;
-+		chunk = min(left, avail);
-+		nents++;
-+		left -= chunk;
-+		left_skip = 0;
-+	}
-+	if (!nents || left)
-+		return -EINVAL;
 +
-+	if (sg_alloc_table(tbl, nents, GFP_KERNEL))
-+		return -ENOMEM;
-+
-+	left = len;
-+	left_skip = skip;
-+	out = tbl->sgl;
-+	for_each_sg(data_sg, sg, data_nents, i) {
-+		if (!sg->length)
-+			continue;
-+		if (!left)
-+			break;
-+		if (left_skip >= sg->length) {
-+			left_skip -= sg->length;
-+			continue;
-+		}
-+		avail = sg->length - left_skip;
-+		chunk = min(left, avail);
-+		sg_set_page(out, sg_page(sg), chunk, sg->offset + left_skip);
-+		left -= chunk;
-+		left_skip = 0;
-+		out = sg_next(out);
++		take = min_t(unsigned int, len, psg->length - poff);
++		if (to_prot)
++			memcpy(paddr + poff, p, take);
++		else
++			memcpy(p, paddr + poff, take);
++		p += take;
++		poff += take;
++		len -= take;
 +	}
-+	return 0;
++
++	*psgp = psg;
++	*paddrp = paddr;
++	*poffp = poff;
++	*dsgp = dsg;
++	*daddrp = daddr;
++	return true;
 +}
 +
- static sense_reason_t compare_and_write_callback(struct se_cmd *cmd, bool success,
- 						 int *post_ret)
+ void
+ sbc_dif_generate(struct se_cmd *cmd)
  {
  	struct se_device *dev = cmd->se_dev;
- 	struct sg_table write_tbl = { };
- 	struct scatterlist *write_sg;
--	struct sg_mapping_iter m;
--	unsigned int len;
--	unsigned int block_size = dev->dev_attrib.block_size;
--	unsigned int compare_len = (cmd->t_task_nolb * block_size);
-+	unsigned int compare_len = (cmd->t_task_nolb * dev->dev_attrib.block_size);
- 	unsigned int miscmp_off = 0;
- 	sense_reason_t ret = TCM_NO_SENSE;
--	int i;
-+	int rc;
+-	struct t10_pi_tuple *sdt;
+-	struct scatterlist *dsg = cmd->t_data_sg, *psg;
++	struct scatterlist *dsg = cmd->t_data_sg;
++	struct scatterlist *psg = cmd->t_prot_sg;
+ 	sector_t sector = cmd->t_task_lba;
+ 	void *daddr, *paddr;
+-	int i, j, offset = 0;
++	unsigned int poff = 0;
++	int offset = 0;
+ 	unsigned int block_size = dev->dev_attrib.block_size;
  
- 	if (!success) {
- 		/*
-@@ -499,34 +554,19 @@ static sense_reason_t compare_and_write_callback(struct se_cmd *cmd, bool succes
- 	} else if (ret)
- 		goto out;
+-	for_each_sg(cmd->t_prot_sg, psg, cmd->t_prot_nents, i) {
+-		paddr = kmap_atomic(sg_page(psg)) + psg->offset;
+-		daddr = kmap_atomic(sg_page(dsg)) + dsg->offset;
++	if (!psg || !dsg)
++		return;
  
--	if (sg_alloc_table(&write_tbl, cmd->t_data_nents, GFP_KERNEL) < 0) {
--		pr_err("Unable to allocate compare_and_write sg\n");
--		ret = TCM_OUT_OF_RESOURCES;
-+	rc = sbc_caw_build_write_sg(&write_tbl, cmd->t_data_sg,
-+				    cmd->t_data_nents, compare_len,
-+				    compare_len);
-+	if (rc) {
-+		pr_err("Unable to build compare_and_write sg\n");
-+		if (rc == -ENOMEM)
-+			ret = TCM_OUT_OF_RESOURCES;
-+		else
-+			ret = TCM_LOGICAL_UNIT_COMMUNICATION_FAILURE;
- 		goto out;
- 	}
- 	write_sg = write_tbl.sgl;
+-		for (j = 0; j < psg->length;
+-				j += sizeof(*sdt)) {
+-			__u16 crc;
+-			unsigned int avail;
++	paddr = kmap_local_page(sg_page(psg)) + psg->offset;
++	daddr = kmap_local_page(sg_page(dsg)) + dsg->offset;
  
--	i = 0;
--	len = compare_len;
--	sg_miter_start(&m, cmd->t_data_sg, cmd->t_data_nents, SG_MITER_TO_SG);
--	/*
--	 * Currently assumes NoLB=1 and SGLs are PAGE_SIZE..
--	 */
--	while (len) {
--		sg_miter_next(&m);
--
--		if (block_size < PAGE_SIZE) {
--			sg_set_page(&write_sg[i], m.page, block_size,
--				    m.piter.sg->offset + block_size);
--		} else {
--			sg_miter_next(&m);
--			sg_set_page(&write_sg[i], m.page, block_size,
--				    m.piter.sg->offset);
--		}
--		len -= block_size;
--		i++;
--	}
--	sg_miter_stop(&m);
- 	/*
- 	 * Save the original SGL + nents values before updating to new
- 	 * assignments, to be released in transport_free_pages() ->
-@@ -535,7 +575,7 @@ static sense_reason_t compare_and_write_callback(struct se_cmd *cmd, bool succes
- 	cmd->t_data_sg_orig = cmd->t_data_sg;
- 	cmd->t_data_sg = write_sg;
- 	cmd->t_data_nents_orig = cmd->t_data_nents;
--	cmd->t_data_nents = 1;
-+	cmd->t_data_nents = write_tbl.nents;
+-			if (offset >= dsg->length) {
+-				offset -= dsg->length;
+-				kunmap_atomic(daddr - dsg->offset);
+-				dsg = sg_next(dsg);
+-				if (!dsg) {
+-					kunmap_atomic(paddr - psg->offset);
+-					return;
+-				}
+-				daddr = kmap_atomic(sg_page(dsg)) + dsg->offset;
+-			}
++	for (;;) {
++		struct t10_pi_tuple sdt;
++		struct scatterlist *mark_psg;
++		unsigned int mark_off;
++		__u16 crc;
++		unsigned int avail;
  
- 	cmd->sam_task_attr = TCM_HEAD_TAG;
- 	cmd->transport_complete_callback = compare_and_write_post;
-diff --git a/drivers/target/target_core_transport.c b/drivers/target/target_core_transport.c
-index dcfe94594916..3cae5ed67d41 100644
---- a/drivers/target/target_core_transport.c
-+++ b/drivers/target/target_core_transport.c
-@@ -22,6 +22,7 @@
- #include <linux/module.h>
- #include <linux/ratelimit.h>
- #include <linux/vmalloc.h>
-+#include <linux/scatterlist.h>
- #include <linux/unaligned.h>
- #include <net/sock.h>
- #include <net/tcp.h>
-@@ -2724,10 +2725,18 @@ static inline void transport_reset_sgl_orig(struct se_cmd *cmd)
- 	 * Check for saved t_data_sg that may be used for COMPARE_AND_WRITE
- 	 * emulation, and free + reset pointers if necessary..
- 	 */
-+	struct sg_table table = { };
+-			sdt = paddr + j;
+-			avail = min(block_size, dsg->length - offset);
+-			crc = crc_t10dif(daddr + offset, avail);
+-			if (avail < block_size) {
+-				kunmap_atomic(daddr - dsg->offset);
+-				dsg = sg_next(dsg);
+-				if (!dsg) {
+-					kunmap_atomic(paddr - psg->offset);
+-					return;
+-				}
+-				daddr = kmap_atomic(sg_page(dsg)) + dsg->offset;
+-				offset = block_size - avail;
+-				crc = crc_t10dif_update(crc, daddr, offset);
+-			} else {
+-				offset += block_size;
+-			}
++		if (poff >= psg->length && !sg_next(psg))
++			break;
+ 
+-			sdt->guard_tag = cpu_to_be16(crc);
+-			if (cmd->prot_type == TARGET_DIF_TYPE1_PROT)
+-				sdt->ref_tag = cpu_to_be32(sector & 0xffffffff);
+-			sdt->app_tag = 0;
++		mark_psg = psg;
++		mark_off = poff;
++		if (!sbc_dif_prot_copy(&psg, &paddr, &poff, &dsg, &daddr,
++				       &sdt, false))
++			return;
 +
- 	if (!cmd->t_data_sg_orig)
- 		return;
++		if (offset >= dsg->length) {
++			offset -= dsg->length;
++			kunmap_local(daddr - dsg->offset);
++			dsg = sg_next(dsg);
++			if (!dsg) {
++				kunmap_local(paddr - psg->offset);
++				return;
++			}
++			daddr = kmap_local_page(sg_page(dsg)) + dsg->offset;
++		}
  
--	kfree(cmd->t_data_sg);
-+	/*
-+	 * compare_and_write_callback() built this with sg_alloc_table().
-+	 * Above SG_MAX_SINGLE_ALLOC the tail is a separate allocation.
-+	 */
-+	table.sgl = cmd->t_data_sg;
-+	table.orig_nents = cmd->t_data_nents;
-+	sg_free_table(&table);
- 	cmd->t_data_sg = cmd->t_data_sg_orig;
- 	cmd->t_data_sg_orig = NULL;
- 	cmd->t_data_nents = cmd->t_data_nents_orig;
+-			pr_debug("DIF %s INSERT sector: %llu guard_tag: 0x%04x"
+-				 " app_tag: 0x%04x ref_tag: %u\n",
+-				 (cmd->data_direction == DMA_TO_DEVICE) ?
+-				 "WRITE" : "READ", (unsigned long long)sector,
+-				 sdt->guard_tag, sdt->app_tag,
+-				 be32_to_cpu(sdt->ref_tag));
++		avail = min(block_size, dsg->length - offset);
++		crc = crc_t10dif(daddr + offset, avail);
++		if (avail < block_size) {
++			kunmap_local(daddr - dsg->offset);
++			dsg = sg_next(dsg);
++			if (!dsg) {
++				kunmap_local(paddr - psg->offset);
++				return;
++			}
++			daddr = kmap_local_page(sg_page(dsg)) + dsg->offset;
++			offset = block_size - avail;
++			crc = crc_t10dif_update(crc, daddr, offset);
++		} else {
++			offset += block_size;
++		}
+ 
+-			sector++;
++		sdt.guard_tag = cpu_to_be16(crc);
++		if (cmd->prot_type == TARGET_DIF_TYPE1_PROT)
++			sdt.ref_tag = cpu_to_be32(sector & 0xffffffff);
++		sdt.app_tag = 0;
++
++		pr_debug("DIF %s INSERT sector: %llu guard_tag: 0x%04x app_tag: 0x%04x ref_tag: %u\n",
++			 (cmd->data_direction == DMA_TO_DEVICE) ?
++			 "WRITE" : "READ", (unsigned long long)sector,
++			 sdt.guard_tag, sdt.app_tag,
++			 be32_to_cpu(sdt.ref_tag));
++
++		if (psg != mark_psg) {
++			kunmap_local(daddr - dsg->offset);
++			kunmap_local(paddr - psg->offset);
++			psg = mark_psg;
++			paddr = kmap_local_page(sg_page(psg)) + psg->offset;
++			daddr = kmap_local_page(sg_page(dsg)) + dsg->offset;
+ 		}
++		poff = mark_off;
++		if (!sbc_dif_prot_copy(&psg, &paddr, &poff, &dsg, &daddr,
++				       &sdt, true))
++			return;
+ 
+-		kunmap_atomic(daddr - dsg->offset);
+-		kunmap_atomic(paddr - psg->offset);
++		sector++;
+ 	}
++
++	kunmap_local(daddr - dsg->offset);
++	kunmap_local(paddr - psg->offset);
+ }
+ 
+ static sense_reason_t
 -- 
 2.34.1
 
