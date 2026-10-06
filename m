@@ -1,139 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91A9137C930;
-	Tue,  6 Oct 2026 04:49:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87A5330ACF0
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 04:49:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791262141; cv=none; b=Q6M9h10YZi1FLYMhx6A0QX+ScUd1VLhw8uXR2XQ+7qqYONV+kb07IQqTur1vzoxKOE0hTV10mp4ES3oy3CUgat+vgQKv6dK4xz97PQU/wp/sf4Q62DxzjBjkQOubxEE7cNpZPS2vZklgn2ataUI1sz4ivyWhqvuZLpAU+/oN2AQ=
+	t=1791262194; cv=none; b=kJpQ2ZeuK4SlfIdboxxAPsncqTsQc8SiozVjT3HsyozmwwBjdXJDb9UdnKEKbkcKScmCncN4nFlcm2J1Fts1fH3mtLoCAEyF9h7ZJdwU362ER9NUA6nPnMqOkZD4DeRMcdlwDOKIlYCDZHZ+saWzA3XsPbmQSsb5z3oVxAcFwMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791262141; c=relaxed/simple;
-	bh=k10XiJLWnHpFsNMiWX4Pai7y/jGhozADPMYq2+PHjNM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=eA/pe7ElFgf1zfjBB9o6Q8yW4hel07DJGyqQvkhjDSL+Gezhetl4/HePG7VCx9QPoeKy0+yVBlX6oHXRX8VBozCYAdcHz8GPj5SSztikX5ai1+D4yJwrOvb6CpkC8oRp/H83XUzd16A7kCXyVaLkPL/qQuY3WvNxeU2FrnTSdPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AI5uQ8Rs; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791262194; c=relaxed/simple;
+	bh=AuKSq5zNoEPdcTVeayPv4nEkgGoFgwVt4mAnVV9DlsI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gzWIw/PZqZyYAO3RnKM2XMw6lAvmSmzhuSdYLINIO0b/tcNx90ubcBd0EXxHkWy8Q3/stclx5iySBN98WoY8o0rLgtIhb1rTR9ZUwNOaSz0Q+cJmQDjosgLLmLSRtiONzBeTx/K4Zisir04twPRmp+PgkWc3Yg4/MI+C+WStPEE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rYSiGKkW; arc=none smtp.client-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AI5uQ8Rs"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 001D4C4AF0B;
-	Tue,  6 Oct 2026 04:49:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791262141;
-	bh=k10XiJLWnHpFsNMiWX4Pai7y/jGhozADPMYq2+PHjNM=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=AI5uQ8RsFf4OYn9th+afVr2VW9OQiPkAVNI5WDVvq8j5SWkXSeGhwNaiflinUv3Tw
-	 Wv5uFdUBg8kdzLuTn+Gm9VuXFc6hndrDhcnU+8Q0NFUraX5GT6HPJw/BoqGyMA0jQ5
-	 v1LW79+LAFZvzR9yrWyYwrYpSeEnwAOpp3vsPR33DENIGiDpM4DQu1ZzC9fJUBoYe0
-	 p3VnzKd8tENcJ/NgCxdMsjG09cq6OuVJFijtiAOtRE0++FzeakiJsUR8T4InIqoWIz
-	 OnYv6Ziy4WkLZYF2jBGjqI/8vfEQ2VQnXFQlj11O68bfa0z0Qgffs/FfDiE1QvyQAI
-	 vh5BIbFcQVjYQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DFEF9CA5FFE;
-	Tue,  6 Oct 2026 04:49:00 +0000 (UTC)
-From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
-Date: Tue, 06 Oct 2026 07:48:58 +0300
-Subject: [PATCH] arm64: dts: rockchip: Add the fan tachometers to Kobol
- Helios64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rYSiGKkW"
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-31490970b97so173067eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 21:49:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791262193; x=1791866993; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YrEcoU9FcHdWMW/WvsPqp/tm10NVhSMWvPzpSIVGh4U=;
+        b=rYSiGKkW9Zg1QiIvUQZbBbwvqUxoMH1rCicktV6hbOBX6jtsUZaHzkC/xVWIVCmD9H
+         GvCDFkvBcJ+BEanOBx0cevccynvToIJBC7by63nan9UdZfGpMDOGmv/RdrfgCc4GX2tq
+         DlZDbmOcHhRIIGtfqI+kH7sHtQCdTJoAERKDViebOWXrIWBWPXGMDaJsb5ullbxvT3A0
+         Opnlu6hcRYCpzPB1q+Cq+4z80i0jsrKR1Mih8I8g+UON32iv2TFW9F9hjp2ioxWPJB03
+         cpKF9bTkV4JgnksFAvniSlgBRau41Pqwcr9SxxoZrT9lrjh7jCyX6L6yn++lcoyU21Pu
+         TdCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791262193; x=1791866993;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YrEcoU9FcHdWMW/WvsPqp/tm10NVhSMWvPzpSIVGh4U=;
+        b=M0JxyEix10ZmU6nzU07zzniyzGt7enPbxBL1obON5sbC2QfQQ93Bb8AWQjF6JfN5ue
+         3sp71qciZYElFkIlyKW5lXKay+4FcKUZmaZH9dou6M4SyQBBMgglc6zTDENvHTbocPWl
+         Jgt7zXmGz1eTr3C3ibCTxfSUKi0sTHtmeZo2jWig8Cqmv1C99mfIRS1gI6V/eopbh4Fg
+         wPaVuf2l1rw00wwyHSHSrCD+Bl1RYw/IMLKWfaUIkI5OAd7VMuJFx5hAtftgTNKU3rG6
+         Sf6GmtrUKvNGPHJZZSE+klrOKZD4OHxf3SCroBB2blktztzC6NV9FMMzeQTKGfiU0pNH
+         7lYg==
+X-Forwarded-Encrypted: i=1; AKwUvBwlCha13trl/fO0KBgLI7NN7MNH1cP4e9x+inF/2HjqhLuhoc4MX4qKq3kGqmSBmZ11cEe9IBHLdRTo9gs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKAxubYtmEeqCFR5lKfnVncnubTxbabqQuk86HRwD4TYPvIjEr/
+	btwbwdW7z+8Mbs2Xh/62inlKS/536dvhL5fBiGPdKaDcl34+mxVM1j5D
+X-Gm-Gg: AYBFou0AJTjBwi+sJIk3XpjygqIGIqvalLkPlbB6+LSzXOC5ujVtbtYZmgj72Xhj6qt
+	/uh3nGIvvQIV2I0yIai2XmWJSX+sWc7aXwZ1HPE2VylEXOl1c6bpTOV/L8xR0IO3DetoXsf5hnj
+	1HkSseNxI44TU1+m2adpi55scviil8sS8ALT7WbghFhgW5yHRe/udya+cqhyTYyV0N5DKttUFT7
+	YCvtGKlslmpkjlfkOVaj+npszx/0PSVVUzKlPIpPcvN/0DFLSrNaFZyWnZjCsRZHEGqkXVtAMS9
+	wkfNaRiW/6ik3MwP1i//OUEmUCJUgWxyQGRNvl0HBWRRcOeWHcF+JtZBsCWiLxWTMca++4/ejH5
+	dfCVwe/57r9t8z66WcdnZecQCd8rt7hAXkkwFp3obSBfbbiWytFO6Vf227M3R7W9nCC2IwS3Fur
+	u+r9E8+ejs+17IdYT+tChwDepe1SgaLM5a9MOxo4SOq2Oi0rZ86UVJUN4L71CCLkxuAvj9xnmfW
+	99RPtFR1HoaVt1j/vBUjDLK/wZbpzaAG1G2fq0aL0Vf96mnE8Ybb/9dWowE7e6p0ns=
+X-Received: by 2002:a05:693c:26cb:b0:351:4b50:4063 with SMTP id 5a478bee46e88-3514e383ee3mr193472eec.37.1791262192567;
+        Mon, 05 Oct 2026 21:49:52 -0700 (PDT)
+Received: from archlinux ([2405:201:1b:20ef:de2d:6e5b:74df:ad41])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35146abff39sm3568320eec.21.2026.10.05.21.49.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 21:49:52 -0700 (PDT)
+Date: Tue, 6 Oct 2026 10:19:45 +0530
+From: Krishna Chomal <krishna.chomal108@gmail.com>
+To: Shuwen Bao <baoshuwen2013@outlook.com>
+Cc: Hans de Goede <hansg@kernel.org>, 
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Emre Cecanpunar <emreleno@gmail.com>, 
+	Suryansh Singh <technosfan14@gmail.com>, Radhey Kalra <radheykalra901@gmail.com>, 
+	=?utf-8?B?S8O8csWfYXQgQWJheWzEsQ==?= <hello@kursatabayli.dev>, platform-driver-x86@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] platform/x86: hp-wmi: add support for OMEN 16-am2xxx
+ boards
+Message-ID: <asR9Q8Xia4ijLvXM@archlinux>
+References: <SI2PR04MB58957D08A31E56D73C751885A2862@SI2PR04MB5895.apcprd04.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261006-helios64-fan-tach-v1-1-1c87e72d42b2@iav.lv>
-X-B4-Tracking: v=1; b=H4sIALl9xGoC/x3MQQqAIBBA0avErBvQyVx0lWihNeZAWGhEEN09a
- fkW/z9QOAsXGJoHMl9SZE8Vum1gji6tjLJUAymyWimLkTfZizUYXMLTzRFp8WS87kirHmp3ZA5
- y/89xet8PxiNwOmMAAAA=
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2185; i=iav@iav.lv;
- h=from:subject:message-id;
- bh=UqldmxTMEF3J34R8VW6EVq9SH4TMYUR5K/t8pdza0BQ=;
- b=owGbwMvMwCVmNH1q96v4SmbG02pJDFlHanenbA14+VvTLSX709oLufKqi4QL2zzLT2+9INujO
- XPmyZezO0pZGMS4GGTFFFkmHNK4lbHk6l9/D/MHMHNYmUCGMHBxCsBEuMQY/oqYdqsrn5zZyfWU
- +afFrQKxgtd/fevNxdIzeGrWMihqqDH8Zo9YYGChJHJtnVGn6ozQxDmVIQ8PLrH99l9nwtK5Jy0
- jWQE=
-X-Developer-Key: i=iav@iav.lv; a=openpgp;
- fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
-X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
-X-Original-From: Igor Velkov <iav@iav.lv>
-Reply-To: iav@iav.lv
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+In-Reply-To: <SI2PR04MB58957D08A31E56D73C751885A2862@SI2PR04MB5895.apcprd04.prod.outlook.com>
 
-From: Igor Velkov <iav@iav.lv>
+On Sat, Sep 19, 2026 at 09:24:25AM +0800, Shuwen Bao wrote:
+>The HP HyperX OMEN 16-am2xxx (DMI board 8F1C, 26C1 platform cycle,
+>Arrow Lake-HXR) is listed in the OMEN Command Center device
+>capability table with DisplayName "HyperX OMEN 16" and the
+>"PerformanceControl" feature, but is missing from the kernel's
+>omen_thermal_profile_boards whitelist. The thermal profile path is
+>therefore not enabled and the embedded controller keeps the CPU
+>pinned at the default frequency cap while running Linux.
+>
+>Add 8F1C to the OMEN thermal profile board list. On this platform
+>the EC firmware also arms its own thermal profile revert timer (EC
+>offset 0x63, armed with 0x5a when performance is selected) and
+>switches back to the balanced profile once it expires, so also add
+>the board to omen_timed_thermal_profile_boards in order to have the
+>driver clear the timer and set the NOTIMER|TURBO flags when
+>switching to the performance profile. Testing further showed that
+>this board uses v0 commands, so also add it to
+>omen_thermal_profile_force_v0_boards.
+>
+>Tested on a HyperX OMEN 16-am2xxx: after loading the patched hp-wmi
+>module the platform_profile interface is exposed, and switching to
+>the performance profile raises the CPU from a ~2.9 GHz (P-core) /
+>2.6 GHz (E-core) cap to ~4.8 GHz / ~4.3 GHz under a single-thread
+>load. The EC then reports the performance profile (0x31) with the
+>NOTIMER|TURBO flags set (0x62=0x06) and the revert timer cleared
+>(0x63=0x00); a plain write of the profile without those flags
+>instead arms the timer (0x63=0x5a) and the profile reverts to
+>balanced when it expires.
 
-The tachometer outputs of both fan connectors reach the SoC through
-open-drain buffers, on GPIO4_C5 for P7 and GPIO4_C7 for P6, but the fan
-nodes do not describe them. pwm-fan therefore registers no fan1_input.
+Hi Shuwen Bao,
 
-Describe each line as the fan's interrupt. The board pulls both lines
-up, so configure the pins without internal bias.
+I was working a patch[1] involving omen_timed_thermal_profile_boards[]
+and needed some diagostic info. Would you mind attaching the acpidump
+for your board 8F1C?
 
-Tested on 7.3-rc6: fan1_input reads 0 with the fans stopped and rises
-with the duty cycle, to about 3500 rpm at full speed on both fans.
+Thanks!
 
-Assisted-by: LLM
-Signed-off-by: Igor Velkov <iav@iav.lv>
----
-Schematic, sheets 30 and 36:
-https://wiki.kobol.io/helios64/files/schematics/Helios64_Schematics_Rev1.2.pdf
----
- arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+[1]: https://lore.kernel.org/platform-driver-x86/asPy5Q5wNYaMzTqJ@archlinux/#m922ff6cf9a68285d2b0f64e578fd6d2d6fa573f4
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-index d146e5075b4f..63ad79b4c8ac 100644
---- a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-@@ -74,6 +74,10 @@ fan1 {
- 		compatible = "pwm-fan";
- 		pwms = <&pwm0 0 40000 0>;
- 		cooling-levels = <0 80 170 255>;
-+		interrupt-parent = <&gpio4>;
-+		interrupts = <RK_PC5 IRQ_TYPE_EDGE_FALLING>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&fan1_sense>;
- 	};
- 
- 	fan2 {
-@@ -81,6 +85,10 @@ fan2 {
- 		compatible = "pwm-fan";
- 		pwms = <&pwm1 0 40000 0>;
- 		cooling-levels = <0 80 170 255>;
-+		interrupt-parent = <&gpio4>;
-+		interrupts = <RK_PC7 IRQ_TYPE_EDGE_FALLING>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&fan2_sense>;
- 	};
- 
- 	gpio-keys {
-@@ -493,6 +501,16 @@ user1_btn: user1-btn {
- 		};
- 	};
- 
-+	fan {
-+		fan1_sense: fan1-sense {
-+			rockchip,pins = <4 RK_PC5 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+
-+		fan2_sense: fan2-sense {
-+			rockchip,pins = <4 RK_PC7 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
- 	gmac {
- 		gphy_reset: gphy-reset {
- 			rockchip,pins = <3 RK_PB7 RK_FUNC_GPIO &pcfg_output_low>;
-
----
-base-commit: 1892b1ccccb9d546903ad6a61ffb9e388acdec80
-change-id: 20261006-helios64-fan-tach-2db24b132105
-
-Best regards,
--- 
-Igor Velkov <iav@iav.lv>
-
-
+>Signed-off-by: Shuwen Bao <baoshuwen2013@outlook.com>
+>---
+> drivers/platform/x86/hp/hp-wmi.c | 3 +++
+> 1 file changed, 3 insertions(+)
+>
+>diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
+>index 615b4cf6fc45..f229da54366a 100644
+>--- a/drivers/platform/x86/hp/hp-wmi.c
+>+++ b/drivers/platform/x86/hp/hp-wmi.c
+>@@ -211,6 +211,7 @@ static const char * const omen_thermal_profile_boards[] = {
+> 	"8BAD",
+> 	"8C58",
+> 	"8E41",
+>+	"8F1C",
+> };
+>
+> /* DMI Board names of Omen laptops that are specifically set to be thermal
+>@@ -220,6 +221,7 @@ static const char * const omen_thermal_profile_boards[] = {
+> static const char * const omen_thermal_profile_force_v0_boards[] = {
+> 	"8607",
+> 	"8746", "8747", "8748", "8749", "874A",
+>+	"8F1C",
+> };
+>
+> /* DMI board names of Omen laptops that have a thermal profile timer which will
+>@@ -229,6 +231,7 @@ static const char * const omen_thermal_profile_force_v0_boards[] = {
+> static const char * const omen_timed_thermal_profile_boards[] = {
+> 	"8A15", "8A42",
+> 	"8BAD",
+>+	"8F1C",
+> };
+>
+> /* DMI Board names of Victus 16-d laptops */
+>-- 
+>2.53.0
+>
