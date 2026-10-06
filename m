@@ -1,103 +1,76 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010030.outbound.protection.outlook.com [52.101.61.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FD4433C1B7;
-	Tue,  6 Oct 2026 04:24:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 589C0356747
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 04:26:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.30
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791260650; cv=fail; b=OJvWzaduucffH+J1K3mcQlKyBSaGvCFf38dzvai4YLB1vfG3UwwHjTnbhf9gI2cKCXFPb1B6NiiJ89thBuQpt5IlDznPtzVPdRCnJPzrPPzbbYG3HDqiVfv0W0lZPX3NpNMJwzVNx4Sh/jwJ4YTn5wN2RmESNHhJZNY7mP2AUYA=
+	t=1791260766; cv=fail; b=jnQZCvqoqzPOBFQlqB6PvqTxJd90NO8p1+JRDLb/v+gpMZ/+7/ShDRJb7A/Z4AipavvaTCHKmvtjIzmtV3vUYjINBEa0MX89AxkaUvmTOjxC+CIkH7iN59nDm/1lhFOXmYzd8wgHVLstWJlRSVGiynNXJfxcSr0mB/9ouVyhIFM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791260650; c=relaxed/simple;
-	bh=mnBeodSJ0um1TI+PK9ZIlZhWjSUwZSFD1uT5YafSiQM=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=SEhGp23mcnetzdtbsyDeGq08Sn6LOIxesKomT9O/VD59sDSglGCbWOSPR6u7dPS7Hi1nyWVuuBtIYBaIrRPdzreBZVUOxrQ1IWcxn/tzFvYNuNrBoJgmo0McOj1W2oyVJoLN9ghGySozmGlha8QdYW2E07qLGt3Wmt9tIfAZ7zU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=PRUNUT6x; dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b=kHOnmGI8; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	s=arc-20240116; t=1791260766; c=relaxed/simple;
+	bh=S6szVLbngYoniMOzMGQdYZpcJZfegkAKjtT+6rDWtj8=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=HVuMyDFFAOxvntSPE1zooCNouiNi4TMztjmyRzymMohAscOioY41U4HmyqXTHAvpB7gwHKQGMJAHIQCDsQwJIXhO5tlBMUP5BeklFCq/TKWG2Fhm01F/kKe3dkA+Be7/rZEvRdt0MBZaJdkxo7aGM4OmLM3KQHws+FDGSbQ8htg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=n3yoZ23A; arc=fail smtp.client-ip=52.101.61.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="PRUNUT6x";
-	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b="kHOnmGI8"
-Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
-	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 696396oL1428681;
-	Mon, 5 Oct 2026 23:23:45 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=proofpoint-05-2026; bh=Ue6g5Z+IJxmuM
-	4YgN4o5fq3hyvpVZtMviz2+jAFFnc8=; b=PRUNUT6xTZb62rca+PCqQi50CkmZg
-	fyJLTDjcSW/ALTaKe7u4iQFLvR19LqjLsvNGh3mLilTwsLgYJcUO01znND6kUyaf
-	ocDhsDP4zANws0rbpEU8pqHhJF9gR09D2p4SBmrj+mJqbH7kji7dZd3R9+YeOvsI
-	v91iIYoR4lsKEvMhv9izFpWKCeauz4BQig2XWGXT9W4uNPtnKlt+132rsIxLTfNE
-	qNHcvgp9NaIPxYX+aqW5dEJqHVvakMWSuH+0QGlspqHchsOnmdJsEQLb/sy0halu
-	uiFvM8PP8B21tBAaAcxMLyuHbiEAmX2Hl+VmeBa1ip3jKExR4Geh+i2Uw==
-Received: from ph0pr06cu001.outbound.protection.outlook.com (mail-westus3azon11011068.outbound.protection.outlook.com [40.107.208.68])
-	by m0380145.ppops.net (PPS) with ESMTPS id 4h4d7dvprk-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 05 Oct 2026 23:23:45 -0500 (CDT)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="n3yoZ23A"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=y3pMjP5gipvGhVVnNs6Q0cxpiBo+meXyZNt+V6Sbnbeq3p6Ht4r/9YOgVasqJySsEHAEIbnwwJqxfBZm2GombN5ZKM+F7V1s/zGyTWfdG3nmDV1fLqFYW1Nx6UN7hP6mM75E/mqDhdehu9nqP33rfXq6Swnr/d/HYpBT9isA3DWB939Lagau27lSEqyc1YacfjvQHR2+i1mI20boTY6dfAhXy6hB+MuNYhbFAz7FzeQ3Ey38Dx5mXHYywEFlhcTh72iCzMP8H/cHxKhogVrEG1bVwl/aljmGfSi+g4g3MPUaI5xS7bkzuZ4NysIxI/jVdKPxMlCc6KH1l1lXN1TiRg==
+ b=B0R0aHJR576KkoMyaRlE5bnoW5RYPJtS+FCT03wKmbcTa7iMg8V7u1F3YvmfUwSMwkzEcsuDfwo5bpKyq21+km/5Z179BO6ts6XwTw4iaHClPYAEGYjzBYexq9KBkamQX2H6Pzy7V+rctC8+5lrzo4hbVi70Q6nmbbzV+ufoL8YKscJjYUUGknoL/nBAsBihMTEv+asF6P2tQdwgut9wPG2lT55Jk857h09JiSuwSK6pA0gY8wVEpxswV7C4Um5HcnujIR9sGeUtbx4nymW0jafZhIahvcbmS0yXX5oigSBA+Kmbaq3kJYl2b7XaStRN1jRSDKScSwfiig1T8/weDA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ue6g5Z+IJxmuM4YgN4o5fq3hyvpVZtMviz2+jAFFnc8=;
- b=uTjFrC8yV3i43Eu6wNN2jpU6nrCFiE47TzFDDqWmN07njvb8Rby1LPISQmem1Oe/+FL5m4TITMK5d4fDoG0GUDDUpIiw/IdTMueiQiBsVndndmB8/WK12c4Clx68OMe623ax6WoZXMg+xbDvxyfxJZDPF4uD42a5bTI3WQ/0ai+ANCABRmaaAR+SM01Sm4pRFqIEvEqKZL49a9wELdfzbUP8tpa/1MCZplJTywrAXQfR7OGwkxmVjBHuH/290tL+K2naRdUraiz2EVzAyaQ7Zhq0pYC3F9uw3/5yfkTdUe0NG7ba/4KoGB4jzNpQaad6OTy9Zxlvsf85R5e7vS0dqA==
+ bh=3ByoS7oK0zCQ4rVcO3Rg5utKtvMo/eF5Dp6DYGgAl4g=;
+ b=NFPGATj11TG7oIowUJuGPKpRp1t0uc98MSsz08AC1+Kl07JhfSJkC6DQvZgAiJI6GsGXn6ly+w1UD546hLSj1EExtirWRy2cu1KYj1DrwQu6H5ux6kZb/JafEaZSGy/DPom8JXWUhjd3fLLr7038EmSCeOhFILIYfQ/qtRK8PNKklzB7tsB1FXhpHZfjVpB0WA3jbV9TZsPmCnITwRKEbq/sG910Ie5hUQi5+Ztdg3MQUUgVwmpjAUU9O8QJ31n2SFMhL2XPB+rxw6Yxp2uOoX3g4CxZj3Jh4uBQPVDNVa82CzvhGvPsrr/Fnd9XOHKckfRg8Sx7vh81Q3ZZbAOC2A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.195) smtp.rcpttodomain=amd.com smtp.mailfrom=ti.com; dmarc=pass
- (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
- (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
+ 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ue6g5Z+IJxmuM4YgN4o5fq3hyvpVZtMviz2+jAFFnc8=;
- b=kHOnmGI8iCdFJ+seKaHZgOCyICjRsXWxbFoFBr83UJFN/KSA6bBT6ME1ukh/+C3bk1ENUH1xmKL+IlGBhccHRp3zOdJ5IRQoKNoaXc/+dLk5wWnVNGGISESRtuVmZ6k7Gf30tFqmg7UAXAzD8zDtZQ4g3KkUNniyEHYcV4FyP3w=
-Received: from DS1PR05CA0013.namprd05.prod.outlook.com (2603:10b6:8:457::13)
- by SA2PR10MB4540.namprd10.prod.outlook.com (2603:10b6:806:110::18) with
+ bh=3ByoS7oK0zCQ4rVcO3Rg5utKtvMo/eF5Dp6DYGgAl4g=;
+ b=n3yoZ23ASzpuL3p85/JTv1rjBXlYHGgddTYXZVQoHdFdCijv3hQYCkN56B+IUKtqOt4rUxe6IQHSaA3Npk4xxIJ5OsbMz8pEP6hpz4qDEUmvRXKnc4wme8wYn5snCSI5whfEovX5dSPA9mfi8Fb9O5XakbmaXIbCoS+UpdDhTCA=
+Received: from BN0PR02CA0046.namprd02.prod.outlook.com (2603:10b6:408:e5::21)
+ by CH2PR12MB9544.namprd12.prod.outlook.com (2603:10b6:610:280::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.14; Tue, 6 Oct
- 2026 04:23:38 +0000
-Received: from DM3PEPF000265BA.namprd04.prod.outlook.com
- (2603:10b6:8:457:cafe::4d) by DS1PR05CA0013.outlook.office365.com
- (2603:10b6:8:457::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Tue, 6
- Oct 2026 04:23:38 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Tue, 6 Oct
+ 2026 04:22:54 +0000
+Received: from BN2PEPF0000449F.namprd02.prod.outlook.com
+ (2603:10b6:408:e5:cafe::96) by BN0PR02CA0046.outlook.office365.com
+ (2603:10b6:408:e5::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Tue, 6
+ Oct 2026 04:22:54 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.23.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
-Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- DM3PEPF000265BA.mail.protection.outlook.com (10.167.23.247) with Microsoft
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN2PEPF0000449F.mail.protection.outlook.com (10.167.243.150) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Tue, 6 Oct 2026 04:23:38 +0000
-Received: from DLEE207.ent.ti.com (157.170.170.95) by lewvzet201.ext.ti.com
- (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 5 Oct
- 2026 23:23:35 -0500
-Received: from DLEE209.ent.ti.com (157.170.170.98) by DLEE207.ent.ti.com
- (157.170.170.95) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 5 Oct
- 2026 23:23:35 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE209.ent.ti.com
- (157.170.170.98) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Mon, 5 Oct 2026 23:23:35 -0500
-Received: from LTPW0EX92E.dhcp.ti.com (ltpw0ex92e.dhcp.ti.com [10.82.30.14])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6964NTH52472613;
-	Mon, 5 Oct 2026 23:23:30 -0500
-From: Niranjan Holalu Yogendra <niranjan.hy@ti.com>
-To: <linux-sound@vger.kernel.org>
-CC: <linux-kernel@vger.kernel.org>, <broonie@kernel.org>,
-        <ckeepax@opensource.cirrus.com>, <lgirdwood@gmail.com>,
-        <perex@perex.cz>, <tiwai@suse.com>, <cezary.rojewski@intel.com>,
-        <peter.ujfalusi@linux.intel.com>, <yung-chuan.liao@linux.intel.com>,
-        <kai.vehmanen@linux.intel.com>, <pierre-louis.bossart@linux.dev>,
-        <baojun.xu@ti.com>, <shenghao-ding@ti.com>, <sandeepk@ti.com>,
-        <v-hampiholi@ti.com>, Niranjan H Y <niranjan.hy@ti.com>,
-        Vijendar Mukunda
-	<Vijendar.Mukunda@amd.com>
-Subject: [PATCH v1] ASoC: amd: acp-legacy-mach: skip dai link for amp reference stream
-Date: Tue, 6 Oct 2026 09:53:15 +0530
-Message-ID: <20261006042315.1038-1-niranjan.hy@ti.com>
-X-Mailer: git-send-email 2.33.0.windows.2
+ 15.21.496.14 via Frontend Transport; Tue, 6 Oct 2026 04:22:54 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
+ 2026 23:22:48 -0500
+Received: from xsjdavidzha51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Mon, 5 Oct 2026 23:22:46 -0500
+From: David Zhang <yidong.zhang@amd.com>
+To: <quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
+	<max.zhen@amd.com>, <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+CC: David Zhang <yidong.zhang@amd.com>, <sonal.santan@amd.com>,
+	<mario.limonciello@amd.com>
+Subject: [PATCH V2 02/20] accel/amdxdna: Remove mmap for doorbell
+Date: Mon, 5 Oct 2026 21:22:12 -0700
+Message-ID: <20261006042230.547807-3-yidong.zhang@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261006042230.547807-1-yidong.zhang@amd.com>
+References: <yidong.zhang@amd.com>
+ <20261006042230.547807-1-yidong.zhang@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -108,125 +81,192 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PEPF000265BA:EE_|SA2PR10MB4540:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3766cbef-7f5e-4c6c-e1fc-08df23619837
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000449F:EE_|CH2PR12MB9544:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5045e074-8111-4f3a-c192-08df23617e33
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|7416014|23010399003|376014|56012099006|10067099003|18002099003|6133799003;
+	BCL:0;ARA:13230040|82310400026|23010399003|36860700016|1800799024|376014|10067099003|56012099006|4143699003|11063799006|6133799003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	h2SdaE+yhwP1Ty0QpcSheLw3YZudPZuwolb1Rkezs5jtd7mzLQP2Reg8W2CW67jPTrp1L1OX1gxxC3DalWAYaWyrKg2NaXRwKmYaprFvd6oydJvvPOdDcyT9tlXGmDqIFu+HxNfYEtR2hg4vfdOvPHbYuZERvy+f6rtB55VUJBXqmzRz2viP2HvcsbJYjJ0m2GDWAhVWF/pJtM3xNltF2u8NEELd7xbHUfz5Lmj6MUGXtp64Oj+rvrpgrrjS5nX27UcPl2b6/+3l4yjWokaKjzN7XK7qmtI/gTYxEscEDO0XczHguR/oFJDW+t/s+ZKSKPqsTbnjYrsWZDDJHjtUyjpgE+TqkXD8hvIEFw6ZayT+p6a8jDHHbve8HAepH4jU7eB5axdMyTX2pNmVIAH3AJ5KNHRhXFLTJNlNwHIFdUHC2nSxMYX+SWy94WLzq73dVJD44CJz7WM7umK0XMvkXPj/QyzcvU8iZLMgmM3jctvQwBvpLPFMv5I31uVLqnSFI/fGkst2jTkiSh1MinbZHb0OWzx2LFwbhVVHCjgUeKE99OlvZsh+717i0IILYY5ezp7QJSp0CYfGLsl4W3PTnqQv40ehkqcnfmV9A3lQI4pL6tls500LvsZzrEOVItE2NoB6cMgOFJxOFJb3/X+DGoEFTCdj+CZhr6iDoEOzJmZfzhXGUVapsoJ1T0lXLfAM3rLs2lbYOzHSRl2pM2cJBw==
+	o3AY/azpIEu/w+InhCc3pDpLu6sHA2sTq3kA2UclL4KAIo1MHTIhxKaCicEOirChvJjt/+6moFgUqZpFSK9sPnnmlsMXM+XQ2LVa8KS6t/nbk4XOFlb4rY5smc9dyV4+t5nlN9AHZp45HvL4cJh2xBqPLNC4PTvsiAzHrHrM/VOEECKECET0xy1y2KmmIK5ADmoAeLgqIoIsx8TI94MqLCS3U2yE9i2opC4AtG9g7b1ukQ1Ats0JBzxTusibQO1XvGlnCYdoETo1JElESG99fWeX+nklK5EWYGHaf1Br14UcT+AfujKCyOxtII2Auh32EV80oIVwbYZV6E912LnXAviExFkOygftCPWZ7MbJGCHgDToooJXwxP+vlAripVxLzdeQeyjpoIJ44DozMrtWDaAk2ehubUpJ5rK9W+K8dNvDp5+GxQX9ucXCIdmjNgMGPKVmYLMfklaX4vAzVCGQeYEHlhRKl0vqWWzYSJq+8aNRgjzmM79dElQ2fRiPQtmIjBgoLvXI0JcAv3JuKk9FMIOz1K19I4CopGDNLeExJlTcAkpb6pxFElVSrWX0Dcg3bIuoJbswz/OtFYoKrjNtdPs4FvRfsedNU38vuggCbWCHwEa/KyvoLfYZ/2RhoAvVQX00BD3sfq9x4QsZAtioxnIsrnLzpU51TbTpkLhGH4RZeESuiCjpfRv8LC1unzIXkOL/gxwNx88ftaC+nYtTWg==
 X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(7416014)(23010399003)(376014)(56012099006)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(36860700016)(1800799024)(376014)(10067099003)(56012099006)(4143699003)(11063799006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	PF49rJJd9YkZb91Y65O3sLLGRhfPGIwtS3hKe2MFtssg0ZX/t2ayGSW0ujjIHsPDMwcdlOBbcNgTCdqy+D6V8DnmBSyIbsK2jM4dFDiPw8BZVV9McoTJJsuFgsxVI631ZC3Sy09YKdvg8g8/Y1PZmQFzVhR3Xp3oLa++WOTeEuUUyHeuGjXKGzxC/OCZ1OY4Ev88keV0JJv15kiqZdUdXrgknEnHdxpWfPExNmDAkARSkfUnGV8zMmE+wug+FBF0bFJTQKvBk2cg2F9K8HzP8e/cvWyeU2aR+0yjsyffy94Pukj6kJBA+5EkIHW44SN8YSmOuxibaKTLDxcWT1OjJvPzHzR46EdboXB9nfWTjYh5vYMyxl6cnX8hO6ZLcb+9bP1IKbHxBl5oIpTep71u7RndPDm9EwTvtE/bwmDQTJh4dL4WMxUK0n1XNvdZ5+2O
-X-Exchange-RoutingPolicyChecked:
-	x3/styAdfj7VI/4B/EBJmAA/KZVxHr5/jgk62E2VIIXX+pojBU2DoJtBCwQH6UzP13uVhJ9O/0MryCgYA3lI2hZrnmg8TcsUUBX1/dNosdhfxc6Mx7nbMNni9zuwjEBcRkHUZm16b5Is3GHxQ9Yqj6YhaeZodeZaPYsMiMsjXMB8x9TcpPxmGkZi8+U/9LAvaZYhpqw3SHdok4/ATTfwzjNH07MNqsdxFyMrcKvTjazQ5Fr9HPShFCf5uEXsyBrK2GXzZI6eQ1VsWG930VPFCSJ0UzHqR0EQDtCLftNkv9hYpBonzz+f2mBC2bhrDb5S3hADpz4c3teuac6f+tf9PA==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 04:23:38.1584
+	WaBAMfCMcAhRST4D00eWwBCi7HNouYJwantLX9ZoeWEjTlFlcU+lJKWYsHe+CqqvU8zO/2E/v++V1Eez4APVPItAWJZPP/MIU9DoP7Qjb0XvMMbgznQq5t7KA9zLHuOJMpA5cNecaIXXfI5dOlc/I+gYDsRgiEWekiBR5uAgNgECx4/lYurQ9uHlnWJIHWLx71ltr97FzZOguWLNmPbdvNtn8yazbe5p9DfX0mDJ1ABcTNf0znpSGJmb4zoFQqvpKt59K0qJJtDoIpYEuwQG7rPhs2dylX9FRLNEhKtzOc8loRf0k3om9pofeGKk94DC17zfREECaekhVqiJV3Q8BxzLa3QNSQnoptdemvRbWCUmFR8EUUgbwPYNmOREGdVTN6JSWwV1+l+AydEuTGwywGgMLI4uYe8BW6q4qrvHFHIf1rPnYtT/Y8dtlPj26ELt
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 04:22:54.5593
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3766cbef-7f5e-4c6c-e1fc-08df23619837
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5045e074-8111-4f3a-c192-08df23617e33
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DM3PEPF000265BA.namprd04.prod.outlook.com
+	BN2PEPF0000449F.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR10MB4540
-X-Authority-Analysis: v=2.4 cv=AMeVrcbb c=1 sm=1 tr=0 ts=6ac477d1 cx=c_pps
- a=vivBcqwirDOV8GiKLGAusg==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=660iZSQnnn4A:10 a=s63m1ICgrNkA:10
- a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=gO1vWkAQAl3rybz1DQOp:22 a=sozttTNsAAAA:8 a=zd2uoN0lAAAA:8 a=QyXUC8HyAAAA:8
- a=e-5aWskjT6loJPdrAQ0A:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDAxNyBTYWx0ZWRfX64XjMplaJCYY
- uo94rUVnQfemDdkHrsseDhnDAOMZQWH0dPHMvSYYe0AtHVS3u90TjJ7JBxeEh/vzNcVPqkP/mI5
- ExsY1quOZxF6aSlfKMbzu8LA6KVNgeU=
-X-Proofpoint-ORIG-GUID: ZG5dPIZJXg94Y08FBTjxkMocuvzlQO5V
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDAxNyBTYWx0ZWRfX6qE+POlad7J3
- /UomRjkG0HvAPBoBClHzvslt8t2UvWp964PpVxTpp3XQBQPjwJoix8uRtC+jkz/P7BFUhvphVrs
- FGzy7b4nYWqgXKp3OHgTOKczi3fjKqeGIrYIQ7+zjCHwzhOY545PkF0r7r8PAyVBnnLYXQAFRiU
- aWfkpvekoqhLIYrytAxZ69hCNpwBXhSLHG315yDjCW2fsYMAqEC1jZHr4znan48RD7n0vR417tz
- BKVhmOqsW5eGvtHkJQ2q7mvKzwicW86RL321fgN8VtI6tzGmEP2yfop7SCrWfQyNj9oo/U9S4PP
- tK226/FxPNhS54iCJ4oJ7hd3+WrJ5WhPooY4yhvt2VjiCqbBgnC2Bua/qRQGouBMWuE95VPI0LG
- e8wsaHlhNoIy1ZSE3iRU3VdEVbLDoZ+1Kn80TVbMIZ29VuhHy7nsISo85Y5SyqXjbsfzUi+YsRH
- B872TG2g2KhiKH8ixZw==
-X-Proofpoint-GUID: ZG5dPIZJXg94Y08FBTjxkMocuvzlQO5V
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-06_01,2026-10-05_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0 bulkscore=0
- phishscore=0 priorityscore=1501 clxscore=1011 malwarescore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060017
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB9544
 
-From: Niranjan H Y <niranjan.hy@ti.com>
+Make kernel submission the default, so mapping the doorbell back to user
+space is not needed:
+- Remove .mmap handler and use standard drm_gem_mmap.
+- Set hwctx->doorbell_offset to AMDXDNA_INVALID_DOORBELL_OFFSET on
+  context creation so userspace does not receive a valid-looking BAR
+  offset.
 
-  Amps can provide reference stream to hosts DSP which
-can be used for input audio proocessing. But legacy AMD soc
-doesn't support such a feature. So skip adding the dai link
-for the same.
-
-Signed-off-by: Niranjan H Y <niranjan.hy@ti.com>
-Suggested-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Signed-off-by: David Zhang <yidong.zhang@amd.com>
 ---
- sound/soc/amd/acp/acp-sdw-legacy-mach.c | 32 +++++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
+ drivers/accel/amdxdna/aie4_ctx.c        | 20 +--------------
+ drivers/accel/amdxdna/aie4_pci.c        | 33 -------------------------
+ drivers/accel/amdxdna/aie4_pci.h        |  1 -
+ drivers/accel/amdxdna/amdxdna_pci_drv.c | 17 +------------
+ drivers/accel/amdxdna/amdxdna_pci_drv.h |  1 -
+ 5 files changed, 2 insertions(+), 70 deletions(-)
 
-diff --git a/sound/soc/amd/acp/acp-sdw-legacy-mach.c b/sound/soc/amd/acp/acp-sdw-legacy-mach.c
-index 1a05d4288..a8b62817b 100644
---- a/sound/soc/amd/acp/acp-sdw-legacy-mach.c
-+++ b/sound/soc/amd/acp/acp-sdw-legacy-mach.c
-@@ -265,6 +265,14 @@ static int create_sdw_dailink(struct snd_soc_card *card,
- 			if (!soc_end->dai_info->direction[stream])
- 				continue;
+diff --git a/drivers/accel/amdxdna/aie4_ctx.c b/drivers/accel/amdxdna/aie4_ctx.c
+index 8408b0d2696f..8157f2a6fd10 100644
+--- a/drivers/accel/amdxdna/aie4_ctx.c
++++ b/drivers/accel/amdxdna/aie4_ctx.c
+@@ -158,7 +158,7 @@ static int aie4_hwctx_create(struct amdxdna_hwctx *hwctx)
+ 	}
  
-+			/*
-+			 * skip adding reference stream for amp type
-+			 * as legacy AMD doesn't use the DSP.
-+			 */
-+			if (soc_end->dai_info->dai_type == SOC_SDW_DAI_TYPE_AMP &&
-+			    stream == SNDRV_PCM_STREAM_CAPTURE)
-+				continue;
-+
- 			int link_num = ffs(soc_end->link_mask) - 1;
+ 	priv->hw_ctx_id = resp.hw_context_id;
+-	hwctx->doorbell_offset = resp.doorbell_offset;
++	hwctx->doorbell_offset = AMDXDNA_INVALID_DOORBELL_OFFSET;
  
- 			cpus->dai_name = devm_kasprintf(dev, GFP_KERNEL,
-@@ -448,6 +456,30 @@ static int soc_card_dai_links_create(struct snd_soc_card *card)
+ 	return 0;
+ }
+@@ -313,21 +313,3 @@ int aie4_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq, u32 timeout)
  
- 	sdw_be_num = ret;
+ 	return ret <= 0 ? ret : 0;
+ }
+-
+-int aie4_hwctx_valid_doorbell(struct amdxdna_client *client, u32 vm_pgoff)
+-{
+-	struct amdxdna_hwctx *hwctx;
+-	unsigned long hwctx_id;
+-	int idx;
+-
+-	idx = srcu_read_lock(&client->hwctx_srcu);
+-	amdxdna_for_each_hwctx(client, hwctx_id, hwctx) {
+-		if (vm_pgoff == (hwctx->doorbell_offset >> PAGE_SHIFT)) {
+-			srcu_read_unlock(&client->hwctx_srcu, idx);
+-			return 1;
+-		}
+-	}
+-	srcu_read_unlock(&client->hwctx_srcu, idx);
+-
+-	return 0;
+-}
+diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
+index a58a83af42a4..db02d25e3f4a 100644
+--- a/drivers/accel/amdxdna/aie4_pci.c
++++ b/drivers/accel/amdxdna/aie4_pci.c
+@@ -518,38 +518,6 @@ static int aie4m_pcidev_init(struct amdxdna_dev *xdna)
+ 	return 0;
+ }
  
-+	/*
-+	 * Legacy AMD has no DSP, so AMP reference capture streams are not
-+	 * supported. Subtract them from num_devs so create_sdw_dailink()
-+	 * uses the correct count directly, and decrement sdw_be_num when
-+	 * all capture endpoints on a DAI are AMP type.
-+	 */
-+	for (int i = 0; i < num_ends; i++) {
-+		struct asoc_sdw_dailink *d = &soc_dais[i];
-+		struct asoc_sdw_endpoint *e;
-+
-+		if (!d->initialised)
-+			break;
-+		if (!d->num_devs[SNDRV_PCM_STREAM_CAPTURE])
-+			continue;
-+
-+		list_for_each_entry(e, &d->endpoints, list) {
-+			if (e->dai_info->direction[SNDRV_PCM_STREAM_CAPTURE] &&
-+			    e->dai_info->dai_type == SOC_SDW_DAI_TYPE_AMP)
-+				d->num_devs[SNDRV_PCM_STREAM_CAPTURE]--;
-+		}
-+		if (!d->num_devs[SNDRV_PCM_STREAM_CAPTURE])
-+			sdw_be_num--;
-+	}
-+
- 	/* enable dmic */
- 	if (soc_sdw_quirk & ASOC_SDW_ACP_DMIC)
- 		dmic_num = 1;
+-static int aie4_doorbell_mmap(struct amdxdna_client *client, struct vm_area_struct *vma)
+-{
+-	struct amdxdna_dev *xdna = client->xdna;
+-	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
+-	const struct amdxdna_dev_priv *npriv = xdna->dev_info->dev_priv;
+-	phys_addr_t res_start;
+-	unsigned long pfn;
+-	int ret;
+-
+-	if (!aie4_hwctx_valid_doorbell(client, vma->vm_pgoff)) {
+-		XDNA_ERR(xdna, "Invalid doorbell page offset 0x%lx", vma->vm_pgoff);
+-		return -EINVAL;
+-	}
+-
+-	if (vma_pages(vma) != 1) {
+-		XDNA_ERR(xdna, "can only map one page, got %ld", vma_pages(vma));
+-		return -EINVAL;
+-	}
+-
+-	res_start = pci_resource_start(pdev, xdna->dev_info->doorbell_bar) + npriv->doorbell_off;
+-	pfn = PHYS_PFN(res_start) + vma->vm_pgoff;
+-	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
+-	vm_flags_set(vma, VM_IO | VM_DONTEXPAND | VM_DONTDUMP);
+-	ret = io_remap_pfn_range(vma, vma->vm_start,
+-				 pfn,
+-				 PAGE_SIZE,
+-				 vma->vm_page_prot);
+-
+-	XDNA_DBG(xdna, "doorbell ret %d", ret);
+-	return ret;
+-}
+-
+ static int aie4_get_info(struct amdxdna_client *client, struct amdxdna_drm_get_info *args)
+ {
+ 	struct amdxdna_dev *xdna = client->xdna;
+@@ -661,7 +629,6 @@ const struct amdxdna_dev_ops aie4_vf_ops = {
+ 	.fini			= aie4_vf_fini,
+ 	.hwctx_init		= aie4_hwctx_init,
+ 	.hwctx_fini		= aie4_hwctx_fini,
+-	.mmap			= aie4_doorbell_mmap,
+ 	.cmd_wait		= aie4_cmd_wait,
+ 	.get_aie_info		= aie4_get_info,
+ };
+diff --git a/drivers/accel/amdxdna/aie4_pci.h b/drivers/accel/amdxdna/aie4_pci.h
+index 3fd5eace3ed7..c6219544dc0f 100644
+--- a/drivers/accel/amdxdna/aie4_pci.h
++++ b/drivers/accel/amdxdna/aie4_pci.h
+@@ -69,7 +69,6 @@ int aie4_attach_work_buffer(struct amdxdna_dev_hdl *ndev);
+ int aie4_hwctx_init(struct amdxdna_hwctx *hwctx);
+ void aie4_hwctx_fini(struct amdxdna_hwctx *hwctx);
+ int aie4_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq, u32 timeout);
+-int aie4_hwctx_valid_doorbell(struct amdxdna_client *client, u32 vm_pgoff);
+ 
+ /* aie4_sriov.c */
+ #if IS_ENABLED(CONFIG_PCI_IOV)
+diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+index d9e2e71d3e05..3140af69e29c 100644
+--- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
++++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+@@ -250,21 +250,6 @@ static int amdxdna_drm_set_state_ioctl(struct drm_device *dev, void *data, struc
+ 	return ret;
+ }
+ 
+-static int amdxdna_drm_gem_mmap(struct file *filp, struct vm_area_struct *vma)
+-{
+-	struct drm_file *drm_filp = filp->private_data;
+-	struct amdxdna_client *client = drm_filp->driver_priv;
+-	struct amdxdna_dev *xdna = client->xdna;
+-
+-	if (likely(vma->vm_pgoff >= DRM_FILE_PAGE_OFFSET_START))
+-		return drm_gem_mmap(filp, vma);
+-
+-	if (!xdna->dev_info->ops->mmap)
+-		return -EOPNOTSUPP;
+-
+-	return xdna->dev_info->ops->mmap(client, vma);
+-}
+-
+ static const struct drm_ioctl_desc amdxdna_drm_ioctls[] = {
+ 	/* Context */
+ 	DRM_IOCTL_DEF_DRV(AMDXDNA_CREATE_HWCTX, amdxdna_drm_create_hwctx_ioctl, 0),
+@@ -323,7 +308,7 @@ static const struct file_operations amdxdna_fops = {
+ 	.poll		= drm_poll,
+ 	.read		= drm_read,
+ 	.llseek		= noop_llseek,
+-	.mmap		= amdxdna_drm_gem_mmap,
++	.mmap		= drm_gem_mmap,
+ 	.show_fdinfo	= drm_show_fdinfo,
+ 	.fop_flags	= FOP_UNSIGNED_OFFSET,
+ };
+diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.h b/drivers/accel/amdxdna/amdxdna_pci_drv.h
+index a997d27a504d..84c8973e9197 100644
+--- a/drivers/accel/amdxdna/amdxdna_pci_drv.h
++++ b/drivers/accel/amdxdna/amdxdna_pci_drv.h
+@@ -57,7 +57,6 @@ struct amdxdna_dev_ops {
+ 	int (*resume)(struct amdxdna_dev *xdna);
+ 	int (*suspend)(struct amdxdna_dev *xdna);
+ 	int (*sriov_configure)(struct amdxdna_dev *xdna, int num_vfs);
+-	int (*mmap)(struct amdxdna_client *client, struct vm_area_struct *vma);
+ 	int (*hwctx_init)(struct amdxdna_hwctx *hwctx);
+ 	void (*hwctx_fini)(struct amdxdna_hwctx *hwctx);
+ 	int (*hwctx_config)(struct amdxdna_hwctx *hwctx, u32 type, u64 value, void *buf, u32 size);
 -- 
 2.34.1
 
