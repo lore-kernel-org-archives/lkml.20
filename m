@@ -1,399 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11020121.outbound.protection.outlook.com [52.101.228.121])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAC143B71DA;
-	Tue,  6 Oct 2026 08:46:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791276370; cv=none; b=ULzDK+pp2AKcbYB2hXkF3oQaXMuG4CtIr9rR3IJyxixFeVMIakf8ETSN7DB9a3FWJMaB6nKuifPmaCwkMOC9mTrj9uD23OkkIY77lJoB1utiDXDeyMGkiFry+o258BizDHr7/JxJl0kPxycRKSixk46mtV3a95BXGY7wQ+NiZL0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791276370; c=relaxed/simple;
-	bh=4IuTybBRhneT0g5b6KClGXQz4z3w9IVHnmEyuH6YHms=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=lfMw1jCp2mZXKaDuP2ZApXBQRWEo1nufXQ9JzT2FDq7nOrFIpQO7yDaXf0LBCzgS58uUmyEvj2KOiJb6s+LPuIBnB4AIDvUpNg4KfVZT5HZW1v4ZQ/z9CsXNesDd5PGZ6iXpLktpnMh+Q9kKqEmnhYaQtB2EJ0e/Y+AhWXjkWS4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cN+/sy7k; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E8B53B95F9;
+	Tue,  6 Oct 2026 08:46:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.121
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791276415; cv=fail; b=lakczZsbwIj4LvhGHJJ212ffKdvNicQrTlpzNVxaTFqiKPWLGvpbAmIZ94WYKpJGFJkDt/LWmgn+O690K/9cEoQWAvxgl0o6Kqc4AIw8pLacI6Kv1r2woCYtG2ty8Ve20NUtVDXELJB4lnmqMAMp/c16On546L0vN4ZMmgRlE1c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791276415; c=relaxed/simple;
+	bh=X9qiO79gsL3t/fM3a0BIGsTcb8cXgB6/Skh7UYns23k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Mr09CSyZCUe74U1yAAozq/dyBvNoUIO+OGf7opKGiN/Ev3pGdWodR3vd7rEVA+eFD3S0nD2lzylU8LIZnrOi0SXTQrnd7YKKhXtcLoWi2PPfgrzKJYcTGm4ZzzFaxOrKAqzg6L/gbLwx1QRlvfWA7iRGxDfWqt7tvIxvdFcUm6Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=WLyoqQzE; arc=fail smtp.client-ip=52.101.228.121
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cN+/sy7k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D3531F00893;
-	Tue,  6 Oct 2026 08:46:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791276368;
-	bh=teErlWB0kdY/VlDmsu0E6Z/6QD+HOCMgO9e88QE7GJ8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=cN+/sy7kRDEWoVl9VbigdX6Km5N0ju4sDk7MImuqNbacPjcfVV4BKd7gEm3e57taI
-	 ONp7J3E0ZFtIOoe8Ym8l1qFQbpgYDC8rSzuJu3hMsaSTCWdl037YB8ID5Uxku3Xj5M
-	 8RZFmxAkHE2/PCzX0PSnKiSjJQBxHsKa6mnAHkiAt3tyblmsclRw5XnHXJbxx7Uulp
-	 Gwvq9dJxzs/Ox1tq2CliqONHXO7CC3T23SRNPup3aSE673XgMwBTNFxIjv+7d2+Z9N
-	 R/ZyRDg80ADLG5ystJyu9O6sTCyvrFD7C4+8J5fDrNAcSJauvSg1tkwzVaAPYu+OIw
-	 tb+hgD30b+3sg==
-Subject: Re: [PATCH net] net: Fix Hole-196 vulnerability by dropping unicast
- ARP/IP in L2 BMC
-From: netdev-bot+sashiko@kernel.org
-To: starchang@google.com
-Cc: netdev@vger.kernel.org, dsahern@kernel.org, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net,
- linux-kernel@vger.kernel.org, wangroger@google.com
-Date: Tue, 06 Oct 2026 08:46:07 +0000
-Message-ID: <179127636762.434549.4437638002382249563@kernel.org>
-In-Reply-To: <20261002082336.608201-1-starchang@google.com>
-References: <20261002082336.608201-1-starchang@google.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="WLyoqQzE"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=c+6XeplXipQ+dOZIfawphf7pLaJXwnMCMFv+Vl4nksC6bH7DdEYsw1t+wb93l0g7pIteLZsCjcgXx/ezf8WugaNBuJbHV388JligpVNujXvRmkEGw9We+pIKMK+UpmuL1xQf1Zc+r0jN3Pca1Uxt5qmj8H8GToHCHgT1/S7muiFXBX3sOkAWsUeiKLv6f3I0i39cVtMs6JEPLiCZMu90U7GXxnvYXXJmkgwMer2raIR2kRcsjCut3npHORAo7t2+PQqZoVNwhoOfxO6tjDlcp0yZNAO2rCBH4hcK4aIP0hnW3toIaFFyzH2kUuDH9kOJZ9xMvhJWQQFMyKk14yeoJw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LM4wraq+LJjWGb2XCBeS2QJ8u02sXZhzXXlool2nOJM=;
+ b=MHje3B8bd8dbnL8WZLfRhPaXoW/IbdClDYED54fFMbBjdOGhtlKbeRHRPGod5BL2VXR3jNslU68KWGyd8pYYk6QUz/AZYO9H028/nYpWTzw6aZjwh6cWMo2aQ4fHjZ91p5HreIIKp4dtvCFWzigz/N2iOq3rIuf2RRkE7YxNzHridMrHrsuIxGcyN8m0iGYxfpmwHZhRdc5BI4Tml8CNBdUXCwOOtdYoyuw1eg88EL0GF1JfHmhzIlJLotmKPWVT4dc4L9TKtUul15aFtVn0fe8V2GULoNrpB1ys1AZ/wQthxHtelm5O4mtKrSNpolTMGy2lNRb5cZNOz316/w+Nvg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LM4wraq+LJjWGb2XCBeS2QJ8u02sXZhzXXlool2nOJM=;
+ b=WLyoqQzExXwE1LYIa1Uo5zLV0mwLXCkX/BkFGBakLQAks+/aALY3WNAh/BS2YUTAtJGSXPbCPvTDFGt0rp5W9QGrJzRAlAIy+DNDXL+sPeqmS4p943pr4rZODOAnyP3P4KYDsEvi7jX2jVBSPgUWoJrajhnDQL9rOgbLpKmX8T8=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
+ by OSCP286MB4983.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:341::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Tue, 6 Oct
+ 2026 08:46:47 +0000
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0472.016; Tue, 6 Oct 2026
+ 08:46:47 +0000
+From: Koichiro Den <den@valinux.co.jp>
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Jingoo Han <jingoohan1@gmail.com>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>,
+	Frank Li <Frank.Li@nxp.com>,
+	Niklas Cassel <cassel@kernel.org>,
+	Wilfred Mallawa <wilfred.mallawa@wdc.com>,
+	Serge Semin <fancer.lancer@gmail.com>,
+	linux-pci@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 01/18] PCI: dwc: Add Renesas to the RAS DES VSEC list
+Date: Tue,  6 Oct 2026 17:46:21 +0900
+Message-ID: <20261006084638.3821710-2-den@valinux.co.jp>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20261006084638.3821710-1-den@valinux.co.jp>
+References: <20261006084638.3821710-1-den@valinux.co.jp>
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TYCP301CA0046.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:400:384::10) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:325::11)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-Thank you for your contribution! Sashiko AI review found 9 potential
-issue(s) to consider.
-
-Critical: 0 · High: 1 · Medium: 6 · Low: 2
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The commit says ARP poisoning through L2 broadcast/multicast
-  frames was possible and claims to fix it.
-- [Medium] In ip_rcv_finish_core() (net/ipv4/ip_input.c), the new DHCP
-  exemption weakens the existing drop_unicast_in_l2_multicast protection.
-- [Medium] The documented ABI of the IPv4 sysctl
-  drop_unicast_in_l2_multicast (Documentation/networking/ip-…
-- [Medium] The patch adds net_warn_ratelimited() calls to RX paths that a
-  remote attacker can trigger: ip_rcv_finish_core() (IPv4),…
-- [Medium] The new is_valid_garp predicate in arp_process(), (sip == tip)
-  && tha && !memcmp(tha, sha, dev->addr_len), requires THA==SHA for both…
-- [Medium] The commit message says it drops 'unsolicited ARP Replies'
-  received over L2 BMC.
-- [Medium] In ip_rcv_finish_core() (net/ipv4/ip_input.c), the new code
-  reloads `iph = ip_hdr(skb)` only inside the success branch of…
-- [Low] The patch's subject is 'Fix Hole-196 vulnerability' and its body
-  lists defects in the existing drop_unicast_in_l2_multicast behaviour…
-- [Low] The new ARP drop branches in arp_process() jump to out_free_skb,
-  which calls plain kfree_skb(skb).
-
---
-
-net: Fix Hole-196 vulnerability by dropping unicast ARP/IP in L2 BMC
-
-This commit makes the drop_unicast_in_l2_multicast sysctl apply to ARP in
-arp_process(). It also exempts non-fragmented UDP traffic to port 68 from
-the IPv4 drop in ip_rcv_finish_core(), and adds rate-limited warnings and
-MIB counters for dropped frames.
-
-> net: Fix Hole-196 vulnerability by dropping unicast ARP/IP in L2 BMC
-
-[ ... ]
-
-> Signed-off-by: Star Chang <starchang@google.com>
-
-[Severity: Low]
-Should this have a Fixes: tag? The subject says it fixes a vulnerability,
-and the body lists gaps in the existing behaviour. The IPv4 enforcement
-being changed came from commit 12b74dfadb5a ("ipv4: add option to drop
-unicast encapsulated in L2 multicast"). There is also no sign of which
-tree (net or net-next) this is aimed at.
-
-The ARP filtering looks like new functionality rather than a fix. Would it
-make sense to split it out and send it to net-next on its own?
-
-> diff --git a/net/ipv4/arp.c b/net/ipv4/arp.c
-> index 60009d92e0710..f8e90f89ab620 100644
-> --- a/net/ipv4/arp.c
-> +++ b/net/ipv4/arp.c
-> @@ -791,6 +791,35 @@ static int arp_process(struct net *net, struct sock *sk, struct sk_buff *skb)
->  	    (!IN_DEV_ROUTE_LOCALNET(in_dev) && ipv4_is_loopback(tip)))
->  		goto out_free_skb;
->  
-> +/*
-> + * Hole-196 defense for ARP:
-> + * If drop_unicast_in_l2_multicast sysctl is enabled on this interface,
-> + * drop ARP Replies in L2 BMC frames, and ARP Requests in L2 BMC frames
-> + * that specify a non-zero unicast Target Hardware Address (tha).
-> + *
-> + * Legitimate Gratuitous ARP (GARP) and RFC 5227 Address Announcements
-> + * require (sip == tip) and tha matching sha (tha == sha). Only valid
-> + * GARP frames are exempted so they defer to DROP_GRATUITOUS_ARP below.
-> + */
-> +	if ((skb->pkt_type == PACKET_BROADCAST ||
-> +	     skb->pkt_type == PACKET_MULTICAST) &&
-> +	    IN_DEV_ORCONF(in_dev, DROP_UNICAST_IN_L2_MULTICAST)) {
-
-[Severity: Medium]
-Documentation/networking/ip-sysctl.rst still describes the IPv4 knob as:
-
-    drop_unicast_in_l2_multicast - BOOLEAN
-	Drop any unicast IP packets that are received in link-layer
-	multicast (or broadcast) frames.
-
-After this patch the same knob also filters ARP, which is not IP. And
-ip_rcv_finish_core() no longer drops "any" unicast IP, because UDP to
-port 68 is exempt.
-
-Should the documentation be updated to match? Systems that already have
-the knob enabled will get the new ARP filtering without having asked for
-it.
-
-> +		bool is_valid_garp = (sip == tip) && tha &&
-> +				     !memcmp(tha, sha, dev->addr_len);
-
-[Severity: Medium]
-Is this predicate consistent with arp_is_garp()? That function requires
-THA == SHA only for replies:
-
-net/ipv4/arp.c:arp_is_garp() {
-    ...
-	/* Gratuitous ARP _replies_ also require target hwaddr to be
-	 * the same as source.
-	 */
-	if (is_garp && ar_op == htons(ARPOP_REPLY))
-		is_garp =
-			...
-			tha &&
-			!memcmp(tha, sha, dev->addr_len);
-    ...
-}
-
-Here, a broadcast gratuitous request with sip == tip and a unicast THA
-that differs from SHA fails is_valid_garp. The is_valid_ether_addr(tha)
-check below then drops it, even with drop_gratuitous_arp disabled.
-
-Gratuitous replies with sip == tip and THA != SHA (for example a
-broadcast THA) are dropped by the reply check.
-
-Doesn't this conflict with the commit message, which says sip == tip
-announcements "defer to the DROP_GRATUITOUS_ARP sysctl"?
-
-The comment above also says GARP and RFC 5227 announcements "require ...
-tha matching sha". RFC 5227 actually says THA is ignored and should be
-zero. The kernel's own inetdev_send_gratuitous_arp() passes a NULL
-target_hw, and arp_create() encodes that as all zeros. Those frames get
-through only because is_valid_ether_addr() is false for a zero THA, not
-because of this exemption.
-
-Could the comment be corrected?
-
-> +
-> +		if (arp->ar_op == htons(ARPOP_REPLY) && !is_valid_garp) {
-> +			net_warn_ratelimited("Drop ARP Reply in L2 BMC on %s\n",
-> +					     dev->name);
-> +			goto out_free_skb;
-> +		}
-
-[Severity: Medium]
-The commit message says this drops "unsolicited ARP Replies". The code
-drops every non-GARP reply that arrives in a broadcast or multicast frame,
-including replies to a request this host sent. Nothing checks for a
-pending neighbour resolution. Is that intended?
-
-Later in arp_process(), broadcast replies are handled deliberately:
-
-		/* Broadcast replies and request packets
-		   do not assert neighbour reachability.
-		 */
-		if (arp->ar_op != htons(ARPOP_REPLY) ||
-		    skb->pkt_type != PACKET_HOST)
-			state = NUD_STALE;
-
-With the sysctl enabled, peers that answer with broadcast replies would
-become unreachable. IPv4 link-local hosts are one example, since RFC 3927
-section 2.5 requires ARP packets from a link-local source to be sent as
-link-layer broadcast.
-
-> +		if (dev->addr_len == ETH_ALEN && tha &&
-> +		    is_valid_ether_addr(tha) && !is_valid_garp) {
-> +			net_warn_ratelimited("Drop unicast THA ARP Req in L2 BMC on %s\n",
-> +					     dev->name);
-> +			goto out_free_skb;
-> +		}
-
-[Severity: High]
-Does this actually stop ARP poisoning through L2 broadcast frames? A
-normal forged request has THA 00:00:00:00:00:00 or ff:ff:ff:ff:ff:ff, and
-is_valid_ether_addr() is false for both. So a GTK-encrypted broadcast
-request like this passes the block:
-
-    sha = attacker MAC, sip = gateway IP, tip = victim IP, tha = 0
-
-For a local tip, arp_process() then reaches:
-
-				n = neigh_event_ns(&arp_tbl, sha, &sip, dev);
-
-and neigh_event_ns() always overrides:
-
-net/core/neighbour.c:neigh_event_ns() {
-    ...
-	if (neigh)
-		neigh_update(neigh, lladdr, NUD_STALE,
-			     NEIGH_UPDATE_F_OVERRIDE, 0);
-    ...
-}
-
-One frame is enough to replace the gateway's entry with the attacker's
-MAC.
-
-Requests with a non-local tip still override once LOCKTIME has expired:
-
-		override = time_after(jiffies,
-				      n->updated +
-				      NEIGH_VAR(n->parms, LOCKTIME)) ||
-			   is_garp;
-
-Valid GARPs (sip == tip, tha == sha) are exempted, and arp_is_garp() sets
-override for them. Unless drop_gratuitous_arp is also enabled, they can
-poison the cache directly too.
-
-The commit message says ARP poisoning via L2 BMC frames is being closed.
-Should the filter be reworked, or the claim narrowed?
-
-> +	}
-
-[Severity: Low]
-Both new ARP drops jump to out_free_skb:
-
-out_free_skb:
-	kfree_skb(skb);
-	return NET_RX_DROP;
-
-That records SKB_DROP_REASON_NOT_SPECIFIED and updates no counter. The
-IPv4 and IPv6 sites for the same sysctl use
-SKB_DROP_REASON_UNICAST_IN_L2_MULTICAST and IPSTATS_MIB_INHDRERRORS.
-
-The commit message says the patch will "increment MIB error counters
-(IPSTATS_MIB_INHDRERRORS) for dropped frames", but ARP drops are only
-logged. It also lists missing MIB stats as a gap, yet the err: label in
-ip6_rcv_core() already incremented IPSTATS_MIB_INHDRERRORS before this
-patch.
-
-Should the ARP drops use kfree_skb_reason() with
-SKB_DROP_REASON_UNICAST_IN_L2_MULTICAST?
-
-[ ... ]
-
-> diff --git a/net/ipv4/ip_input.c b/net/ipv4/ip_input.c
-> index 9860178752b8c..f863aa2930208 100644
-> --- a/net/ipv4/ip_input.c
-> +++ b/net/ipv4/ip_input.c
-> @@ -456,10 +456,33 @@ static int ip_rcv_finish_core(struct net *net,
-
-[ ... ]
-
->  		if (in_dev &&
->  		    IN_DEV_ORCONF(in_dev, DROP_UNICAST_IN_L2_MULTICAST)) {
-> -			drop_reason = SKB_DROP_REASON_UNICAST_IN_L2_MULTICAST;
-> -			goto drop;
-> +			bool is_dhcp_resp = false;
-> +
-> +			iph = ip_hdr(skb);
-> +			if (iph->protocol == IPPROTO_UDP && !ip_is_fragment(iph) &&
-> +			    pskb_may_pull(skb, iph->ihl * 4 + sizeof(struct udphdr))) {
-> +				const struct udphdr *uh;
-> +
-> +				iph = ip_hdr(skb);
-> +				uh = (const struct udphdr *)(skb_network_header(skb) +
-> +							    iph->ihl * 4);
-> +				if (uh->dest == htons(68))
-> +					is_dhcp_resp = true;
-
-[Severity: Medium]
-Doesn't this reopen part of what the sysctl used to block? Before the
-patch, every unicast IPv4 packet in an L2 BMC frame was dropped. Now any
-non-fragmented UDP datagram with destination port 68 is accepted. The
-source port, route type and payload are not checked.
-
-A GTK holder can again inject unicast UDP/68 datagrams into the local
-stack, such as a forged DHCPOFFER, ACK or NAK, or any other payload.
-
-Is there a DHCP server that sends unicast IP inside an L2 broadcast?
-RFC 2131 broadcast replies go to 255.255.255.255, which is RTN_BROADCAST
-and never reaches this branch. Unicast replies arrive as PACKET_HOST,
-which does not reach it either.
-
-Forwarding is not affected, because ip_forward() drops anything that is
-not PACKET_HOST. The exposure is limited to local delivery.
-
-> +			}
-> +
-> +			if (!is_dhcp_resp) {
-> +				net_warn_ratelimited("Drop unicast IP %pI4 in L2 BMC on %s\n",
-> +						     &iph->daddr, dev->name);
-
-[Severity: Medium]
-Can iph be stale here? It is reloaded only when pskb_may_pull() succeeds.
-When pskb_may_pull() returns false, %pI4 uses the iph loaded before the
-call. pskb_may_pull() can reallocate the head and still fail.
-
-pskb_may_pull_reason() calls skb_might_realloc() before it checks the
-length:
-
-include/linux/skbuff.h:pskb_may_pull_reason() {
-    ...
-	skb_might_realloc(skb);
-
-	if (likely(len <= skb_headlen(skb)))
-		return SKB_NOT_DROPPED_YET;
-
-	if (unlikely(len > skb->len))
-		return SKB_DROP_REASON_PKT_TOO_SMALL;
-    ...
-}
-
-With CONFIG_FAIL_SKB_REALLOC, skb_might_realloc() calls
-pskb_expand_head(), and the function then fails with PKT_TOO_SMALL for a
-UDP payload shorter than 8 bytes. Without fault injection,
-__pskb_pull_tail() can call pskb_expand_head() first and then return NULL
-if skb_clone() or pskb_pull() fails in the frag_list path.
-
-In both cases %pI4 reads 4 bytes from the freed head. Would reloading iph
-after the whole if block, or printing ip_hdr(skb)->daddr, fix this?
-
-> +				__IP_INC_STATS(net, IPSTATS_MIB_INHDRERRORS);
-> +				drop_reason = SKB_DROP_REASON_UNICAST_IN_L2_MULTICAST;
-> +				goto drop;
-> +			}
->  		}
->  	}
-
-> diff --git a/net/ipv6/ip6_input.c b/net/ipv6/ip6_input.c
-> index d332ec60f9150..816ee7874076b 100644
-> --- a/net/ipv6/ip6_input.c
-> +++ b/net/ipv6/ip6_input.c
-> @@ -278,6 +278,8 @@ static struct sk_buff *ip6_rcv_core(struct sk_buff *skb, struct net_device *dev,
->  	    (skb->pkt_type == PACKET_BROADCAST ||
->  	     skb->pkt_type == PACKET_MULTICAST) &&
->  	    READ_ONCE(idev->cnf.drop_unicast_in_l2_multicast)) {
-> +		net_warn_ratelimited("IPv6: Drop unicast IP %pI6c in L2 BMC on %s\n",
-> +				     &hdr->daddr, dev->name);
-
-[Severity: Medium]
-Is a warning appropriate on a path that any station in the BSS can
-trigger? This call, the IPv4 one in ip_rcv_finish_core() and the two in
-arp_process() all go through net_ratelimit(), which uses one global
-state:
-
-net/core/utils.c:
-DEFINE_RATELIMIT_STATE(net_ratelimit_state, 5 * HZ, 10);
-
-A remote sender can keep that budget used up. dmesg then fills with
-addresses the sender chooses, and unrelated networking warnings are
-suppressed.
-
-The IPv4 comment quotes RFC 1122 saying such datagrams should be silently
-discarded. These drops were also already visible before the patch through
-SKB_DROP_REASON_UNICAST_IN_L2_MULTICAST (the kfree_skb tracepoint and
-drop_monitor), and IPv6 already counted them in IPSTATS_MIB_INHDRERRORS.
-
-The commit message says they "were silently discarded without warnings
-or MIB stats". Is that accurate?
-
->  		SKB_DR_SET(reason, UNICAST_IN_L2_MULTICAST);
->  		goto err;
->  	}
-
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|OSCP286MB4983:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3c5f562f-b53f-4f44-e089-08df23865a53
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|366016|10070799003|23010399003|1800799024|10067099003|56012099006|921020|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	+kvVwlZrmEr5URRQaf2ulr97in2Trj8S07bYLFxoGUnAI9ysbAZxYtgxFVRFb69T19bAdJ7j6znc6Fdt8IxS4/LZRQyZ5OTa5DExErLbLpCjBvZTEvd2jndW/+Zz/I2bRE9syiEmeC1QWbUBgiBpkgnHxWG+fMb8YkBm9oOsfQ6bBeAefZ40t46YNsC6WmYuzh8iemGjCY22fQEy30B80UdGCMHv33h+dj+KiQrtV2Z5e41jdw9BJdt9y5GMSRa+q02ENobmbZ7lNyw1NuuzaEWRj0ZvyPfL3NjP7vx8M+oieDqw1R9+KSprXvMwsfvT4VfoIRVltrrixhAE6zRwkLhVvYjdqKFBtwmjWsfYQazlbr1pStXaf0V3kr9/r24sOrHGVm6QQuhHN2Irw9GgiTN/EusXxQYKmSHPSuDnv3IMYHX9b2ErOOxC0eKmAk/1CPxj8q+Jkkp81YyTHdSipXOnFcbuuPfDwpmHfoIoHtRXKT+bjhUC9Di1a4zIRSASYyF1yRCZ9j1LCd80VqsNcTuzRM3x95CgUNjTJQTFTkoPTptP7ozJ7PE+jFVzolPmk3qxhy/I1UPaNCFwG5TDZx5ktkxet9RKIInZSin66iiChAb0H2GgOdkFbPDHK8SMmtdW3C1jiDu2LUIPKJlUarFdEiUCDUhNT25he6oEvWUdeECxSEq0+2iDTRW4toUYtejQ8bHT0EDf6019ydBGKg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(10070799003)(23010399003)(1800799024)(10067099003)(56012099006)(921020)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?au5YFyu367pLHWOrEpNYhebfsezG9nYDnCZsHCECxIbYc+82Y63CftF+hWu/?=
+ =?us-ascii?Q?dYuGfl1/uW/KZ69VmS65FmCH8lmn+nVEQNqRkmGPTAgxJRanjwtD6StSCd1g?=
+ =?us-ascii?Q?yWNJr2XfSyXhSyz849spWpKA5Hb04OAVscqW4yHz5g+9GqmQ02O+WNyvcHCs?=
+ =?us-ascii?Q?ST9j2b8zWBjvW6cGIeRuWR0lSJz8Yzx9Rh3QBojLYxOZPg9D3/hzPveTAJbA?=
+ =?us-ascii?Q?jbK4XzMeencKELfDrhoY2Kvobfzq8CFb70VD2R1D7+ny+pHSjiAFG0kHvpZl?=
+ =?us-ascii?Q?PVCj9e/IK1vFbYNJ522Js34H3ymGUBsBl95rjtkr6NOHc6iRpY23ODS7Yagq?=
+ =?us-ascii?Q?Zhk+mqi+CHRf/aBx6LutYysIpct8qG+zy8s5jq4TYZ+eQ0IrWId+/0YNhXQ/?=
+ =?us-ascii?Q?iQIvRh8V7RVEG9TyIrcP/T9eTKK+3NXPvdO8EKUzIVJky+nFi4s2TYf942iA?=
+ =?us-ascii?Q?0vhrPwhuGFTdfQIRw1pmYp8XQOiNb7HOhbdMiAmJUFeWmfhfT56aazXlvFQL?=
+ =?us-ascii?Q?p1UEOuPpA3CUItIiTRcNJwMn0w28gCT0/pA0hfnu5ffRnAxXdq7dyzgr4tir?=
+ =?us-ascii?Q?Fug/qRL2g5xUjoL2Z3FrjG6G8BkP4yD0w77PRm8KebFI9+Nb5Z2sgW1A8BxJ?=
+ =?us-ascii?Q?8SxrBPvCjMx7CCwlYhUdRXLAVGS6krHkNDxepphMZKZzvu7QVFZ/jfIMDOyP?=
+ =?us-ascii?Q?95fdFMAIQ3QLKWo/3ijkgk+DHWunSraSjzUPWzm+kqB+INBVf70hUJ3iV3aN?=
+ =?us-ascii?Q?eON8/uOKjV8keq5t/AuMRBiR+zpjC8+caSGEivjAb19AEuuWLDZJzpwAYk4r?=
+ =?us-ascii?Q?SDRPpLyOiV+P3b/f9TGBPk+dFM5xjrF1R5Qy8r1CaKUfCX/yr5I4mlrr7syt?=
+ =?us-ascii?Q?ux3S8Vb14xE/QuutFaRxGRIAQspI6cbtUek5w7QNsQMoPosA/4zPv6ktydx+?=
+ =?us-ascii?Q?cS99UltqjqpSE8Un2NSZ/yg8kYkoVv4x8ubLcN4J3h9+h6MD9I35kgejO3Pj?=
+ =?us-ascii?Q?aBuWUfdKB59uMC38jDoBCGoqdD7bGmAXuCMCjDLJn/3ZyTnCWpzERyZIUtYp?=
+ =?us-ascii?Q?Bi8gWUR+b/w9KNL3gzFdYMyOliYROKs6n2thHVQPfqWmiuvzQJz5meFZcH4E?=
+ =?us-ascii?Q?TycSEnz5CZnG4Jmr1tkrL7LEq3Cas4fhbR2aoQfs+khayjW8MqAW68d/htq0?=
+ =?us-ascii?Q?jvvtaht0ugDXGQNSmueqLEMp95qFCU844V4s2UmIy4BHplEm5oieLTfyKc8Q?=
+ =?us-ascii?Q?Ah9K3LpOQubSCXt1jhP51MDPSGeVUgI6pHI7ZSKhGgYd0I9p7aY9hp8f3yu6?=
+ =?us-ascii?Q?qd70zH5UPurfZ5Ib1T1MEkI4k5fGhTxjBItGJ660D8TR70gCB8TPXOqR6j7P?=
+ =?us-ascii?Q?lIg8C39MHzQ1SzsFZa4Qs9fbtteYCtMRPdRwYtzTpBWvfZ7l1YozWsTO/YTz?=
+ =?us-ascii?Q?E+/bK+9P5rFtM35k57GLRo6aOGh8yQSHvYzDSLezUDM11oVPaChrZjtRx1t2?=
+ =?us-ascii?Q?IzxpBqIecpLo/7WocSJZnv5hfXrMt4CG/v0+VgTz302ECKNAvMlxBM4FLAIe?=
+ =?us-ascii?Q?Vs8IyZbV5CKkCoDr9HgjQHSJA7WJD7TVyyIRiU2+AZgnLfhAQQgN1Pj/14XM?=
+ =?us-ascii?Q?VOPK4H46L6rZJWqjSDCt6wHViDmdMoJz2/nez1vQZhUJQd1/+UeFN/dBUbqg?=
+ =?us-ascii?Q?KgSEmLxzegkoMjbyxkL5m++PdhGxQMuFElK7kAUBeqBv5rFO0oz3FJqZrUVq?=
+ =?us-ascii?Q?G7zxfsRurlqhTvYFsrlTBX/Tvzkb9S5acU1c6V+znLvsVqdzGIrD?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3c5f562f-b53f-4f44-e089-08df23865a53
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 08:46:45.9166
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YOwiWZDOL7wLh6ksJHOuwdzSwF9IlUhPrjBMMhgUEc+8J0ixtpOwUf6xszNEuM/z+pV0aY5NcVZ5YBA9UXCQUQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSCP286MB4983
+
+The Root Port on R-Car Gen4 SoCs (DWC 5.20a) carries the RAS DES capability
+with the stock DesignWare VSEC ID (0x02, rev 4), but vendor ID 0x1912 is
+not in dwc_pcie_rasdes_vsec_ids[]. Add Renesas to the list.
+
+Reviewed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Signed-off-by: Koichiro Den <den@valinux.co.jp>
+---
+Changes in v3:
+  - Clarify the SoC generation in the commit message. No code changes.
+
+ include/linux/pcie-dwc.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/include/linux/pcie-dwc.h b/include/linux/pcie-dwc.h
+index 097e806c714c..e5693895dbd5 100644
+--- a/include/linux/pcie-dwc.h
++++ b/include/linux/pcie-dwc.h
+@@ -38,6 +38,8 @@ static const struct dwc_pcie_vsec_id dwc_pcie_rasdes_vsec_ids[] = {
+ 	  .vsec_id = 0x02, .vsec_rev = 0x4 },
+ 	{ .vendor_id = PCI_VENDOR_ID_LECARC,
+ 	  .vsec_id = 0x02, .vsec_rev = 0x4 },
++	{ .vendor_id = PCI_VENDOR_ID_RENESAS,
++	  .vsec_id = 0x02, .vsec_rev = 0x4 },
+ 	{}
+ };
+ 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261002082336.608201-1-starchang%40google.com
+2.51.0
+
