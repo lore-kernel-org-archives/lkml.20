@@ -1,624 +1,235 @@
-Received: from mail-43103.protonmail.ch (mail-43103.protonmail.ch [185.70.43.103])
+Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B62045D5E7
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 15:25:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.103
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C0649C4D4;
+	Tue,  6 Oct 2026 15:25:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.230.196.243
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791300340; cv=none; b=gLBRVIh5p8QARGOfxz3EmrZEWtOJwaxyErMCidL/UyZdSrs+/gO2bd93bASiML7otB5hrRj1vQOaXpNO2CQkXf88fSgtzrK0DHbS7vZU+JUeXYkMeKUVnJmt+kzmvk/QUDgOgTGGlbz26GXGhM8cMMcpAfTVQspAkfa3ignYvPQ=
+	t=1791300361; cv=none; b=FgLYftIUIdK2zTl81BU+w8rehlP/kTPqLqmpqgmskWij6QMcM/8pxUbZXf9qLyzNUasFxDqkPMWdg8SAZdoSiF5JW4Xs9iGRIMJ5AWIibmeKMIdSaJ7cC5XLJ+5V5LtE+AAYVlOKmhwiDQCx9/IhEDbxeFGoiNA99dLAvxCmjHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791300340; c=relaxed/simple;
-	bh=TwzjjUqT9d5sWA9rFGD/PKsk51ePDAdgPbjN/vGmY8A=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UPkElHOuh16mHMBqsY1ojh+fk/yrgSH09pMVS+0SL9BANjd4f9t52e4O9I9GOiiQUhvgDpJXzkQbUpy5p1D6JBSmBGHtbT9cahSvInupximjIKknmcTKAfSwReZ+tx/Mc/iyXnnokqyhG5RkRAA+xgmH8hu2p2CJwOIEULyxYHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=T0dCVzy9; arc=none smtp.client-ip=185.70.43.103
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1791300361; c=relaxed/simple;
+	bh=IbpgRPvv51E1rfrtzZ2C+kaBclf2ARl+M1JlVjT8Lbo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=E3fFsHD1tettmYbcpOiq4/kVPGX9XWpaS9tz3h77o7XtytK++IuNLkAKuufX+gHueFh911KIN3MaI+yempPfV52N0TR7yGGL8prUMamzSmvkB+MzxK7x1zChynUyuTTtWL4t/h2PuJ7eSlzYHHFarUvOWCTWOPFyuXl7l3AP9MM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=fcETVPgK; arc=none smtp.client-ip=37.230.196.243
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="T0dCVzy9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1791300332; x=1791559532;
-	bh=YiE9UQwnW6BJ2ITpsxD8Qv0GpGQg+JyogHOn4SupnWE=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=T0dCVzy9+/UrvzclQyCv/CoUkkctsriDNK8IKIKBM/GVx4rKZoFVE9e8pO+0fmJcW
-	 kFKYqc+6UeD5JG1iQGEz1EdT0Cxp6Phym8ecyxGcMiHH5uu1WEZ4MU0ShmLAXY9Nuc
-	 PBOvhXD2pZLIhM3BuQ4K/J5BJ7i+/8wngAgNV0IRKOG2Dk15dli7ZZg5hPCloWMsp7
-	 v4jYoNnIK+ZeYkftMJJyYcFx55p30yoTehi7hsJL/QMB8qUrWkoam8CffQ4kVO9TTo
-	 LXVuwpd3l4ccQFT696t5XnmQrMNx84HpjjjsV4OUr1SN3U+pGFRZgREEo+ASlHHi2O
-	 XY9lW6X4gF2LA==
-Date: Tue, 06 Oct 2026 15:25:27 +0000
-To: tiwai@suse.de, Devin Christensen <dchristensen8@proton.me>
-From: Devin Christensen <dchristensen8@proton.me>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v4] ALSA: hda/ca0132: Add Sound BlasterX AE-5 external RGB LED strip support
-Message-ID: <20261006152520.1409881-1-dchristensen8@proton.me>
-In-Reply-To: <87mrsrorxc.wl-tiwai@suse.de>
-References: <20261005141244.2130023-1-dchristensen8@proton.me> <87mrsrorxc.wl-tiwai@suse.de>
-Feedback-ID: 45895322:user:proton
-X-Pm-Message-ID: b5e93509162421e57fd180b87a589114411095fe
+	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="fcETVPgK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1791300030;
+	bh=IbpgRPvv51E1rfrtzZ2C+kaBclf2ARl+M1JlVjT8Lbo=;
+	h=From:To:Cc:Subject:Date:From;
+	b=fcETVPgKasvErzYJN4kyfvx7cShhUyAnPwMPACjsINHZU3OtoP4Mqp6Anvo4qsu/Y
+	 V4eFSN6R3eLQNcQB5fOirgCIH64345eMiaVrbvjXV1YfOy+ouGFpCIK/pazLF642dt
+	 rdPLKyRAHm/oZBTQoHk7YGUZUe4R0yvfyEt/u+F+u7GRpAXZTEtzEpqpKdxqlBB2Hd
+	 QEfjSzBzpe7UuAPZPKerjvUZ+PaVDMEvkDGNimRBZyLjsrk1aOj4tbQxHABL2+bY8K
+	 x7RdTTSAL39vlDXb3yiy1YoW/tt6OOfqrfCUYHtk5jJHSpUYDSKZqKVF27JbTtQ5w5
+	 AOKrteywirysQ==
+Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 476BB2585E;
+	Tue,  6 Oct 2026 18:20:30 +0300 (MSK)
+Received: from new-mail.astralinux.ru (unknown [10.205.207.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
+	Tue,  6 Oct 2026 18:20:18 +0300 (MSK)
+Received: from rbta-msk-lt-169874.astralinux.ru (unknown [10.198.62.171])
+	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4hzg1G0sWTzD0g;
+	Tue, 06 Oct 2026 18:20:18 +0300 (MSK)
+From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+To: Daniel Lezcano <daniel.lezcano@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
+	Lukasz Luba <lukasz.luba@arm.com>,
+	Len Brown <lenb@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	stable@vger.kernel.org
+Subject: [PATCH] powercap: dtpm: Fix power limit distribution below the minimum power
+Date: Tue,  6 Oct 2026 18:15:18 +0300
+Message-Id: <20261006151519.126065-1-mdmitrichenko@astralinux.ru>
+X-Mailer: git-send-email 2.39.2
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-KSMG-AntiPhishing: NotDetected, bases: 2026/10/06 14:52:00
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 127 0.3.127 0884f7b061fa529b810563f359267cd65d2ec05c, {date_rfc_vio_soft_silent}, {Tracking_uf_ne_domains}, {Tracking_internal2}, {Tracking_from_domain_doesnt_match_to}, 127.0.0.199:7.1.2;new-mail.astralinux.ru:7.1.1;lore.kernel.org:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;astralinux.ru:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 206476 [Oct 06 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.27
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/06 12:04:00 #28658396
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected, bases: 2026/10/06 14:15:00
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
-The Sound BlasterX AE-5 and AE-5 Plus expose a 3-pin 5V addressable RGB
-header driven directly by the CA0113 PCIe-to-HD-Audio bridge. Rather
-than using the CA0132 DSP or MMIO GPIO, the CA0113 contains an
-autonomous HDA link sniffer that snoops a designated HDA DMA playback
-stream, extracts the 24-bit GRB color payload, and serializes it as
-800 kHz single-wire NRZ pulses to the strip (WS2812B protocol).
+DTPM represents the devices supporting the power limitation as a tree
+of nodes: the leaves are the devices themselves, like CPU performance
+domains or devfreq devices, and the intermediate nodes group their
+children.
 
-Expose the strip through volatile card control elements:
+When a power limit is set on an intermediate node, __set_power_limit_uw()
+distributes it among the children proportionally to their weights,
+which __dtpm_rebalance_weight() computes from the maximum power of the
+nodes only. So when the limit is close to the minimum power of the
+node, the share of a child having a high minimum power compared to its
+maximum power can be lower than its own minimum power.
 
-  "AE-5 LED Strip"        (RW, BYTES): 300-byte RGB payload representing
-                          up to 100 addressable LEDs (3 bytes per LED).
-  "AE-5 LED Strip Count"  (RW, INTEGER): Active LED count (1..100).
+For example, with a parent having two children, the first one with a
+power range of 80-1200 and the second one with a range of 400-3000, the
+parent's range is 480-4200. A limit of 500 gives a share of about 143
+to the first child and 357 to the second one, below its minimum power
+of 400. As the second child can't go below its lowest performance
+state, the actual power of the children exceeds the parent's limit,
+while it could have been met by giving 400 to the second child and 100
+to the first one.
 
-The controls are marked with IFACE_CARD and SNDRV_CTL_ELEM_ACCESS_VOLATILE
-so changes do not trigger unnecessary audio daemon wakeups or state
-restoration by alsactl.
+Moreover, such a share is lower than the power of the lowest
+performance state of the child, so set_pd_power_limit() in the CPU and
+devfreq backends reads out of the bounds of the energy model table.
+This out-of-bounds access is addressed in the backends by [1], which
+is still needed, as the share can also be too low when the minimum
+power of a child is stale, e.g. right after a CPU of its performance
+domain is brought online.
 
-Writes allocate an idle HDA playback stream, format a 32 KB DMA buffer
-populated with repeating WS2812 frames (preamble, audio words per LED,
-and reset gap), configure the CA0113 BAR2 serializers and stream-tag
-pin mux, and pulse the stream long enough for the reset latch to fire.
-Access is serialized with a per-spec mutex, and the controls are only
-registered on QUIRK_AE5 devices.
+The power limit of a node is never lower than the sum of the minimum
+power of its children, so a distribution where every child gets at
+least its minimum power always exists. When the share of a child is
+below its minimum power, give it its minimum power and take the
+difference from the siblings, proportionally to their headroom above
+their own minimum power. The distribution is unchanged when every
+share is at least the child's minimum power.
 
-The strip transport uses snd_hdac_dsp_prepare() / snd_hdac_dsp_cleanup(),
-which require CONFIG_SND_HDA_DSP_LOADER. All strip-related code and struct
-fields are conditionally compiled under
-IS_ENABLED(CONFIG_SND_HDA_DSP_LOADER), with a no-op stub for
-ae5_add_strip_controls() when disabled.
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-Signed-off-by: Devin Christensen <dchristensen8@proton.me>
+Link: https://lore.kernel.org/linux-pm/20260612062536.9147-1-elazarl@gmail.com/ [1]
+Fixes: a20d0ef97abf ("powercap/drivers/dtpm: Add API for dynamic thermal power management")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
 ---
-Went through the Sashiko report. Several were solid catches and are fixed
-in v4:
+ Documentation/power/powercap/dtpm.rst |  5 ++
+ drivers/powercap/dtpm.c               | 68 +++++++++++++++++++++------
+ 2 files changed, 58 insertions(+), 15 deletions(-)
 
-- Fixed the TOCTOU race in ae5_strip_find_stream(): marked s->opened =3D 1
-  under bus->reg_lock (and cleared on cleanup) so concurrent PCM playback
-  can't steal the stream out from under it.
-- Added a check for pm.err right after CLASS(snd_hda_power_pm, pm) to bail
-  out cleanly if powering up fails.
-- Propagated errors in the put callbacks instead of ignoring
-  ae5_strip_send_frame() failures, so userspace actually gets the error and
-  we don't commit unapplied state.
-- Used cpu_to_le32() when filling DMA buffer words for big-endian safety.
-- Dropped the manual SD_CTL interrupt mask clearing =E2=80=94 like Sashiko =
-pointed
-  out, snd_hdac_stream_start() overwrote it anyway, and no_period_wakeup
-  already prevents period interrupts.
-
-The other two points were false positives (ca0132_init_chip() only runs on
-probe, not resume; and the MMIO RMW collision cited code that doesn't exist
-in ca0113_mmio_command_set()).
-
-Thanks,
-Devin
-
-v4:
- - Reserve HDA stream by marking s->opened =3D 1 under bus->reg_lock in
-   ae5_strip_find_stream(), and clear on completion/error, preventing
-   TOCTOU race with concurrent PCM stream assignment.
- - Check pm.err after CLASS(snd_hda_power_pm, pm)(codec) to avoid MMIO/DMA
-   access on suspended or failed-to-resume devices.
- - Check return value of ae5_strip_send_frame() in control put callbacks,
-   propagating errors to userspace and avoiding uncommitted state divergenc=
-e.
- - Write DMA buffer words using cpu_to_le32() for big-endian architecture
-   safety.
- - Remove redundant/overwritten orig_sd_ctl save and interrupt mask clearin=
-g.
-
-v3:
- - Move #include <linux/dma-mapping.h> into main header block.
- - Check s->opened in ae5_strip_find_stream() to avoid stealing open stream=
-s.
- - Guard all strip code and struct members with IS_ENABLED(CONFIG_SND_HDA_D=
-SP_LOADER)
-   and provide a static inline stub for ae5_add_strip_controls().
- - Return 1 from put callbacks when values change (using memcmp on colors).
-
-v2:
- - Use CLASS(snd_hda_power_pm, pm)(codec) for RAII power management.
- - Switch userspace interface from sysfs to volatile card control elements
-   ("AE-5 LED Strip" and "AE-5 LED Strip Count").
-
- sound/hda/codecs/ca0132.c | 394 +++++++++++++++++++++++++++++++++++++-
- 1 file changed, 393 insertions(+), 1 deletion(-)
-
-diff --git a/sound/hda/codecs/ca0132.c b/sound/hda/codecs/ca0132.c
-index 0f8fb62f0..47aadd6f9 100644
---- a/sound/hda/codecs/ca0132.c
-+++ b/sound/hda/codecs/ca0132.c
-@@ -18,6 +18,7 @@
- #include <linux/types.h>
- #include <linux/io.h>
- #include <linux/pci.h>
-+#include <linux/dma-mapping.h>
- #include <asm/io.h>
- #include <sound/core.h>
- #include <sound/hda_codec.h>
-@@ -1060,6 +1061,8 @@ enum dsp_download_state {
-  * CA0132 specific
-  */
-=20
-+#define AE5_STRIP_MAX_LEDS 100
+diff --git a/Documentation/power/powercap/dtpm.rst b/Documentation/power/powercap/dtpm.rst
+index a38dee3d815b..997664da7ac7 100644
+--- a/Documentation/power/powercap/dtpm.rst
++++ b/Documentation/power/powercap/dtpm.rst
+@@ -99,6 +99,11 @@ When a power limitation is applied to a node, then it is distributed along the c
+    |
+    `-- pd2 (w=486) --> power_limit = 1519mW
+ 
++As the weights are based on the maximum power only, the share of a node
++can be lower than its minimum power. In this case, the node gets its
++minimum power and the difference is taken from its siblings,
++proportionally to their headroom above their own minimum power.
 +
- struct ca0132_spec {
- =09struct hda_gen_spec gen;
-=20
-@@ -1162,6 +1165,13 @@ struct ca0132_spec {
- =09 * Renames PlayEnhancement and CrystalVoice too.
- =09 */
- =09bool use_alt_controls;
-+
-+#if IS_ENABLED(CONFIG_SND_HDA_DSP_LOADER)
-+=09/* AE-5 WS2812 strip control */
-+=09struct mutex ae5_strip_mutex;
-+=09u32 ae5_strip_cur_colors[AE5_STRIP_MAX_LEDS];
-+=09int ae5_strip_cur_num_leds;
-+#endif
- };
-=20
- /*
-@@ -6846,6 +6856,15 @@ static int ca0132_alt_add_mic_boost_enum(struct hda_=
-codec *codec)
-=20
+ 
+ Flat description
+ ----------------
+diff --git a/drivers/powercap/dtpm.c b/drivers/powercap/dtpm.c
+index b7a65e543f19..402b18005a33 100644
+--- a/drivers/powercap/dtpm.c
++++ b/drivers/powercap/dtpm.c
+@@ -195,6 +195,28 @@ static int get_power_limit_uw(struct powercap_zone *pcz,
+ 	return 0;
  }
-=20
-+#if IS_ENABLED(CONFIG_SND_HDA_DSP_LOADER)
-+static int ae5_add_strip_controls(struct hda_codec *codec);
-+#else
-+static inline int ae5_add_strip_controls(struct hda_codec *codec)
-+{
-+=09return 0;
-+}
-+#endif
-+
- /*
-  * Add headphone gain enumerated control for the AE-5. This switches betwe=
-en
-  * three modes, low, medium, and high. When non-headphone outputs are sele=
-cted,
-@@ -7149,6 +7168,10 @@ static int ca0132_build_controls(struct hda_codec *c=
-odec)
-=20
- =09switch (ca0132_quirk(spec)) {
- =09case QUIRK_AE5:
-+=09=09err =3D ae5_add_strip_controls(codec);
-+=09=09if (err < 0)
-+=09=09=09return err;
-+=09=09fallthrough;
- =09case QUIRK_AE7:
- =09=09err =3D ae5_add_headphone_gain_enum(codec);
- =09=09if (err < 0)
-@@ -8316,8 +8339,370 @@ static void sbz_setup_defaults(struct hda_codec *co=
-dec)
- }
-=20
- /*
-- * Setup default parameters for the Sound BlasterX AE-5 DSP.
-+ * Sound BlasterX AE-5 External WS2812B RGB LED Strip Transport
-  */
-+#if IS_ENABLED(CONFIG_SND_HDA_DSP_LOADER)
-+#define AE5_STRIP_DMA_SIZE=09=090x8000
-+#define AE5_STRIP_TOTAL_WORDS=09=09(AE5_STRIP_DMA_SIZE / sizeof(u32))
-+#define AE5_STRIP_PREAMBLE_WORDS=095
-+#define AE5_STRIP_WORDS_PER_LED=09=094
-+#define AE5_STRIP_RESET_GAP_WORDS=0983
-+
-+#define CA0113_SERIALIZER_BASE(spec, ch)=09((spec)->mem_base + 0x42c + (ch=
-) * 0x40)
-+#define CA0113_SERIALIZER_CLK(spec, ch)=09=09((spec)->mem_base + 0x43c + (=
-ch) * 0x40)
-+#define CA0113_SERIALIZER_OUT(spec, ch)=09=09((spec)->mem_base + 0x454 + (=
-ch) * 0x40)
-+
-+static void ae5_strip_encode_24(u32 u, u32 *words)
-+{
-+=09/*
-+=09 * 24-bit pixel -> 4 x 32-bit audio words (6 bits per word).
-+=09 * Hardware audio serializer transmits MSB first (bits 31 down to 0).
-+=09 * For word i (i8 =3D 23, 17, 11, 5), bit_idx 0..5 (MSB to LSB within t=
-he word)
-+=09 * is placed at n =3D 29 - bit_idx * 4:
-+=09 *   Bit 0 -> 0b100 << n (375ns high, 1042ns low): BIT(n + 2)
-+=09 *   Bit 1 -> 0b111 << n (1083ns high, 333ns low): BIT(n + 2) | BIT(n +=
- 1) | BIT(n)
-+=09 */
-+=09int i8 =3D 23;
-+=09int i, bit_idx;
-+
-+=09for (i =3D 0; i < 4; i++) {
-+=09=09u32 out =3D 0;
-+
-+=09=09for (bit_idx =3D 0; bit_idx < 6; bit_idx++) {
-+=09=09=09int bit =3D (u >> (i8 - bit_idx)) & 1;
-+=09=09=09int n =3D 29 - bit_idx * 4;
-+
-+=09=09=09out |=3D (bit ? (BIT(2) | BIT(1) | BIT(0)) : BIT(2)) << n;
-+=09=09}
-+=09=09words[i] =3D out;
-+=09=09i8 -=3D 6;
-+=09}
-+}
-+
-+static struct hdac_stream *ae5_strip_find_stream(struct hda_codec *codec)
-+{
-+=09struct ca0132_spec *spec =3D codec->spec;
-+=09struct hdac_bus *bus =3D &codec->bus->core;
-+=09struct hdac_stream *s, *dsp =3D NULL, *first =3D NULL;
-+
-+=09guard(spinlock_irqsave)(&bus->reg_lock);
-+=09list_for_each_entry(s, &bus->stream_list, list) {
-+=09=09if (s->direction !=3D SNDRV_PCM_STREAM_PLAYBACK)
-+=09=09=09continue;
-+=09=09if (s->opened || s->running || s->locked)
-+=09=09=09continue;
-+=09=09if (!first)
-+=09=09=09first =3D s;
-+=09=09/* The DSP DMA consumes the DSP-loader stream (tag in dsp_stream_id)=
-. */
-+=09=09if (spec->dsp_stream_id && s->stream_tag =3D=3D spec->dsp_stream_id)
-+=09=09=09dsp =3D s;
-+=09}
-+
-+=09s =3D dsp ? dsp : first;
-+=09if (s)
-+=09=09s->opened =3D 1;
-+
-+=09return s;
-+}
-+
+ 
 +/*
-+ * Caller must hold spec->ae5_strip_mutex.
++ * Compute the share of the power limit of a node given to one of its
++ * children, based on the weight of the child.
 + */
-+static int ae5_strip_send_frame(struct hda_codec *codec, const u32 *grb_co=
-lors, int num_leds)
++static u64 __dtpm_child_share(struct dtpm *dtpm, struct dtpm *child,
++			      u64 power_limit)
 +{
-+=09struct ca0132_spec *spec =3D codec->spec;
-+=09struct hdac_bus *bus =3D &codec->bus->core;
-+=09struct snd_dma_buffer dmab;
-+=09struct hdac_stream *hstr =3D NULL;
-+=09unsigned int format, stream_tag;
-+=09u32 enc_words[4];
-+=09__le32 *dst;
-+=09int word_idx =3D 0;
-+=09int frame_words;
-+=09int led, w, i;
-+=09int retries =3D 20; /* ~100ms max */
++	/*
++	 * Integer division rounding will inevitably lead to a different
++	 * min or max value when set several times. In order to restore
++	 * the initial value, we force the child's min or max power every
++	 * time if the constraint is at the boundaries.
++	 */
++	if (power_limit == dtpm->power_max)
++		return child->power_max;
 +
-+=09if (!spec || !spec->mem_base)
-+=09=09return -ENODEV;
-+=09if (num_leds <=3D 0 || num_leds > AE5_STRIP_MAX_LEDS)
-+=09=09return -EINVAL;
++	if (power_limit == dtpm->power_min)
++		return child->power_min;
 +
-+=09lockdep_assert_held(&spec->ae5_strip_mutex);
-+
-+=09CLASS(snd_hda_power_pm, pm)(codec);
-+=09if (pm.err < 0)
-+=09=09return pm.err;
-+
-+=09/*
-+=09 * 44.1kHz, 24-bit, 2-channel format (0x4031) matches Windows CtxHda
-+=09 * HDAUDIO_STREAM_FORMAT.
-+=09 */
-+=09format =3D snd_hdac_stream_format(2, 24, 44100);
-+
-+=09for (;;) {
-+=09=09hstr =3D ae5_strip_find_stream(codec);
-+=09=09if (!hstr) {
-+=09=09=09if (--retries <=3D 0) {
-+=09=09=09=09codec_warn(codec, "AE5 strip: no free azx stream after retries=
-\n");
-+=09=09=09=09return -EBUSY;
-+=09=09=09}
-+=09=09=09usleep_range(5000, 10000);
-+=09=09=09continue;
-+=09=09}
-+
-+=09=09stream_tag =3D snd_hdac_dsp_prepare(hstr, format, AE5_STRIP_DMA_SIZE=
-, &dmab);
-+=09=09if ((int)stream_tag > 0)
-+=09=09=09break;
-+
-+=09=09/* Prepare failed (e.g. -EBUSY due to race with playback starting); =
-retry */
-+=09=09scoped_guard(spinlock_irq, &bus->reg_lock)
-+=09=09=09hstr->opened =3D 0;
-+
-+=09=09if (--retries <=3D 0) {
-+=09=09=09codec_warn(codec, "AE5 strip: snd_hdac_dsp_prepare failed %d\n",
-+=09=09=09=09   (int)stream_tag);
-+=09=09=09return (int)stream_tag;
-+=09=09}
-+=09=09usleep_range(5000, 10000);
-+=09}
-+
-+=09/* 1. Populate the 32KB DMA buffer with repeating WS2812 frames + reset=
- gaps */
-+=09memset(dmab.area, 0, AE5_STRIP_DMA_SIZE);
-+=09dst =3D (__le32 *)dmab.area;
-+
-+=09/* Words per frame: preamble + (num_leds * words_per_led) + reset gap *=
-/
-+=09frame_words =3D AE5_STRIP_PREAMBLE_WORDS + (num_leds * AE5_STRIP_WORDS_=
-PER_LED) +
-+=09=09      AE5_STRIP_RESET_GAP_WORDS;
-+
-+=09while (word_idx + frame_words <=3D AE5_STRIP_TOTAL_WORDS) {
-+=09=09/* Preamble per Windows CtxHda FUN_00042944 */
-+=09=09for (w =3D 0; w < AE5_STRIP_PREAMBLE_WORDS; w++) {
-+=09=09=09*dst++ =3D 0;
-+=09=09=09word_idx++;
-+=09=09}
-+=09=09/* LEDs */
-+=09=09for (led =3D 0; led < num_leds; led++) {
-+=09=09=09ae5_strip_encode_24(grb_colors[led], enc_words);
-+=09=09=09for (w =3D 0; w < AE5_STRIP_WORDS_PER_LED; w++) {
-+=09=09=09=09*dst++ =3D cpu_to_le32(enc_words[w]);
-+=09=09=09=09word_idx++;
-+=09=09=09}
-+=09=09}
-+=09=09/* Zero reset gap (> 1.8 ms; WS2812 requires > 50 us low) */
-+=09=09for (w =3D 0; w < AE5_STRIP_RESET_GAP_WORDS; w++) {
-+=09=09=09*dst++ =3D 0;
-+=09=09=09word_idx++;
-+=09=09}
-+=09}
-+=09while (word_idx < AE5_STRIP_TOTAL_WORDS) {
-+=09=09*dst++ =3D 0;
-+=09=09word_idx++;
-+=09}
-+=09/* Ensure DMA buffer writes are committed before triggering the HDA str=
-eam */
-+=09wmb();
-+
-+=09/* 2. Configure CA0113 BAR2 hardware registers */
-+=09/* Power up clocks (CtxHdb 0x141b7 / 0x14210) */
-+=09writel(readl(spec->mem_base + 0xc04) | 0x7, spec->mem_base + 0xc04);
-+
-+=09/* Base serializer initialization (CtxHdb 0x14ba4) */
-+=09writel(readl(spec->mem_base + 0x400) | 1, spec->mem_base + 0x400);
-+=09for (i =3D 0; i < 4; i++) {
-+=09=09writel(readl(CA0113_SERIALIZER_BASE(spec, i)) & ~1,
-+=09=09       CA0113_SERIALIZER_BASE(spec, i));
-+=09=09writel(0, CA0113_SERIALIZER_CLK(spec, i));
-+=09}
-+=09writel(readl(spec->mem_base + 0x408) | 1, spec->mem_base + 0x408);
-+=09writel(readl(spec->mem_base + 0x40c) | 1, spec->mem_base + 0x40c);
-+=09writel((readl(spec->mem_base + 0x410) & ~0xb) | 0x14, spec->mem_base + =
-0x410);
-+
-+=09/* Configure serializers 0..3 clocking (CtxHdb 0x14a6c) */
-+=09for (i =3D 0; i < 4; i++)
-+=09=09writel(readl(CA0113_SERIALIZER_CLK(spec, i)) | 0x33,
-+=09=09       CA0113_SERIALIZER_CLK(spec, i));
-+
-+=09/* BAR2 + 0x100 format & channel enables:
-+=09 * - base 0x70f
-+=09 * - bit 28 =3D 1 (24-bit audio format via CtxHdb 0x14f58)
-+=09 * - bits 29..31 =3D 1 (44.1 kHz sample rate via CtxHdb 0x14fa4)
-+=09 * - bits 4..7 =3D 0xf (stage 1 enables)
-+=09 * - bits 12..15 =3D 0xf (stage 2 enables)
-+=09 * =3D> 0x3000ff8f
-+=09 */
-+=09writel((readl(spec->mem_base + 0x100) & ~0xe000ffff) | 0x3000ff8f, spec=
-->mem_base + 0x100);
-+
-+=09/* Enable serializer output drivers for pins 0..3 (CtxHdb 0x14e94) */
-+=09for (i =3D 0; i < 4; i++)
-+=09=09writel(readl(CA0113_SERIALIZER_OUT(spec, i)) | 1,
-+=09=09       CA0113_SERIALIZER_OUT(spec, i));
-+
-+=09/* Route all channels 0..3 to stream_tag (CtxHdb 0x1502c) */
-+=09writel((stream_tag << 28) | (stream_tag << 20) | (stream_tag << 12) | (=
-stream_tag << 4),
-+=09       spec->mem_base + 0x104);
-+
-+=09/* Enable CA0113 MMIO GPIO 0 & 1 */
-+=09ca0113_mmio_gpio_set(codec, 0, true);
-+=09ca0113_mmio_gpio_set(codec, 1, true);
-+
-+=09codec_dbg(codec, "AE5 strip: send_frame: num_leds=3D%d stream_tag=3D%u =
-(0x%08x)\n",
-+=09=09  num_leds, stream_tag, readl(spec->mem_base + 0x104));
-+
-+=09/* 3. Trigger stream transmission on HDA link */
-+=09snd_hdac_dsp_trigger(hstr, true);
-+=09/*
-+=09 * WS2812 latches on the >50us reset gap after one frame. The 32KB buff=
-er holds ~64
-+=09 * repeating frame+reset cycles; at ~1.4ms/frame a 15ms run transmits ~=
-10 complete
-+=09 * cycles - more than enough to latch reliably. Keep it short so rapid =
-sysfs writes
-+=09 * (OpenRGB effects/theme changes) are not serialized behind a 1s block=
-ing sleep.
-+=09 */
-+=09usleep_range(15000, 20000);
-+=09snd_hdac_dsp_trigger(hstr, false);
-+=09codec_dbg(codec, "AE5 strip: trigger complete\n");
-+
-+=09/* Teardown: clear 0x104 pin mux back to 0 */
-+=09writel(0x00000000, spec->mem_base + 0x104);
-+
-+=09snd_hdac_dsp_cleanup(hstr, &dmab);
-+=09scoped_guard(spinlock_irq, &bus->reg_lock)
-+=09=09hstr->opened =3D 0;
-+
-+=09return 0;
++	return DIV_ROUND_CLOSEST_ULL(power_limit * child->weight, 1024);
 +}
 +
-+static int ae5_strip_ctl_info(struct snd_kcontrol *kcontrol,
-+=09=09=09      struct snd_ctl_elem_info *uinfo)
-+{
-+=09uinfo->type =3D SNDRV_CTL_ELEM_TYPE_BYTES;
-+=09uinfo->count =3D AE5_STRIP_MAX_LEDS * 3;
-+=09return 0;
-+}
+ /*
+  * Set the power limit on the nodes, the power limit is distributed
+  * given the weight of the children.
+@@ -226,26 +248,42 @@ static int __set_power_limit_uw(struct dtpm *dtpm, int cid, u64 power_limit)
+ 	if (dtpm->ops) {
+ 		dtpm->power_limit = dtpm->ops->set_power_uw(dtpm, power_limit);
+ 	} else {
++		u64 deficit = 0, headroom = 0;
 +
-+static int ae5_strip_ctl_get(struct snd_kcontrol *kcontrol,
-+=09=09=09     struct snd_ctl_elem_value *ucontrol)
-+{
-+=09struct hda_codec *codec =3D snd_kcontrol_chip(kcontrol);
-+=09struct ca0132_spec *spec =3D codec->spec;
-+=09int i;
++		/*
++		 * The weights are based on the maximum power only, so the
++		 * share of a child can be lower than its minimum power. In
++		 * this case, the child gets its minimum power and the
++		 * difference is taken from the siblings, proportionally to
++		 * their headroom above their own minimum power.
++		 */
++		list_for_each_entry(child, &dtpm->children, sibling) {
++			power = __dtpm_child_share(dtpm, child, power_limit);
++			if (power < child->power_min)
++				deficit += child->power_min - power;
++			else
++				headroom += power - child->power_min;
++		}
 +
-+=09guard(mutex)(&spec->ae5_strip_mutex);
-+=09for (i =3D 0; i < spec->ae5_strip_cur_num_leds; i++) {
-+=09=09u32 grb =3D spec->ae5_strip_cur_colors[i];
++		/*
++		 * The power limit of a node is never lower than the sum of
++		 * the minimum power of its children, so the headroom covers
++		 * the deficit except for rounding errors.
++		 */
++		deficit = min(deficit, headroom);
 +
-+=09=09ucontrol->value.bytes.data[i * 3 + 0] =3D (grb >> 8) & 0xff;
-+=09=09ucontrol->value.bytes.data[i * 3 + 1] =3D (grb >> 16) & 0xff;
-+=09=09ucontrol->value.bytes.data[i * 3 + 2] =3D grb & 0xff;
-+=09}
-+=09if (spec->ae5_strip_cur_num_leds < AE5_STRIP_MAX_LEDS)
-+=09=09memset(&ucontrol->value.bytes.data[spec->ae5_strip_cur_num_leds * 3]=
-, 0,
-+=09=09       (AE5_STRIP_MAX_LEDS - spec->ae5_strip_cur_num_leds) * 3);
-+=09return 0;
-+}
+ 		dtpm->power_limit = 0;
+ 
+ 		list_for_each_entry(child, &dtpm->children, sibling) {
+ 
+-			/*
+-			 * Integer division rounding will inevitably
+-			 * lead to a different min or max value when
+-			 * set several times. In order to restore the
+-			 * initial value, we force the child's min or
+-			 * max power every time if the constraint is
+-			 * at the boundaries.
+-			 */
+-			if (power_limit == dtpm->power_max) {
+-				power = child->power_max;
+-			} else if (power_limit == dtpm->power_min) {
++			power = __dtpm_child_share(dtpm, child, power_limit);
 +
-+static int ae5_strip_ctl_put(struct snd_kcontrol *kcontrol,
-+=09=09=09     struct snd_ctl_elem_value *ucontrol)
-+{
-+=09struct hda_codec *codec =3D snd_kcontrol_chip(kcontrol);
-+=09struct ca0132_spec *spec =3D codec->spec;
-+=09u32 colors[AE5_STRIP_MAX_LEDS];
-+=09int i, num_leds, change, ret;
-+
-+=09guard(mutex)(&spec->ae5_strip_mutex);
-+=09num_leds =3D spec->ae5_strip_cur_num_leds;
-+=09for (i =3D 0; i < num_leds; i++) {
-+=09=09u8 r =3D ucontrol->value.bytes.data[i * 3 + 0];
-+=09=09u8 g =3D ucontrol->value.bytes.data[i * 3 + 1];
-+=09=09u8 b =3D ucontrol->value.bytes.data[i * 3 + 2];
-+
-+=09=09colors[i] =3D ((u32)g << 16) | ((u32)r << 8) | (u32)b;
-+=09}
-+=09change =3D memcmp(spec->ae5_strip_cur_colors, colors,
-+=09=09=09sizeof(u32) * num_leds) !=3D 0;
-+=09ret =3D ae5_strip_send_frame(codec, colors, num_leds);
-+=09if (ret < 0)
-+=09=09return ret;
-+=09if (change)
-+=09=09memcpy(spec->ae5_strip_cur_colors, colors,
-+=09=09       sizeof(u32) * num_leds);
-+=09return change;
-+}
-+
-+static int ae5_strip_num_leds_info(struct snd_kcontrol *kcontrol,
-+=09=09=09=09   struct snd_ctl_elem_info *uinfo)
-+{
-+=09uinfo->type =3D SNDRV_CTL_ELEM_TYPE_INTEGER;
-+=09uinfo->count =3D 1;
-+=09uinfo->value.integer.min =3D 1;
-+=09uinfo->value.integer.max =3D AE5_STRIP_MAX_LEDS;
-+=09return 0;
-+}
-+
-+static int ae5_strip_num_leds_get(struct snd_kcontrol *kcontrol,
-+=09=09=09=09  struct snd_ctl_elem_value *ucontrol)
-+{
-+=09struct hda_codec *codec =3D snd_kcontrol_chip(kcontrol);
-+=09struct ca0132_spec *spec =3D codec->spec;
-+
-+=09guard(mutex)(&spec->ae5_strip_mutex);
-+=09ucontrol->value.integer.value[0] =3D spec->ae5_strip_cur_num_leds;
-+=09return 0;
-+}
-+
-+static int ae5_strip_num_leds_put(struct snd_kcontrol *kcontrol,
-+=09=09=09=09  struct snd_ctl_elem_value *ucontrol)
-+{
-+=09struct hda_codec *codec =3D snd_kcontrol_chip(kcontrol);
-+=09struct ca0132_spec *spec =3D codec->spec;
-+=09int val =3D ucontrol->value.integer.value[0];
-+=09int ret;
-+
-+=09if (val < 1 || val > AE5_STRIP_MAX_LEDS)
-+=09=09return -EINVAL;
-+
-+=09guard(mutex)(&spec->ae5_strip_mutex);
-+=09if (spec->ae5_strip_cur_num_leds =3D=3D val)
-+=09=09return 0;
-+=09ret =3D ae5_strip_send_frame(codec, spec->ae5_strip_cur_colors, val);
-+=09if (ret < 0)
-+=09=09return ret;
-+=09spec->ae5_strip_cur_num_leds =3D val;
-+=09return 1;
-+}
-+
-+static const struct snd_kcontrol_new ae5_strip_ctls[] =3D {
-+=09{
-+=09=09.iface =3D SNDRV_CTL_ELEM_IFACE_CARD,
-+=09=09.name =3D "AE-5 LED Strip",
-+=09=09.access =3D SNDRV_CTL_ELEM_ACCESS_READWRITE |
-+=09=09=09  SNDRV_CTL_ELEM_ACCESS_VOLATILE,
-+=09=09.info =3D ae5_strip_ctl_info,
-+=09=09.get =3D ae5_strip_ctl_get,
-+=09=09.put =3D ae5_strip_ctl_put,
-+=09},
-+=09{
-+=09=09.iface =3D SNDRV_CTL_ELEM_IFACE_CARD,
-+=09=09.name =3D "AE-5 LED Strip Count",
-+=09=09.access =3D SNDRV_CTL_ELEM_ACCESS_READWRITE |
-+=09=09=09  SNDRV_CTL_ELEM_ACCESS_VOLATILE,
-+=09=09.info =3D ae5_strip_num_leds_info,
-+=09=09.get =3D ae5_strip_num_leds_get,
-+=09=09.put =3D ae5_strip_num_leds_put,
-+=09},
-+};
-+
-+static int ae5_add_strip_controls(struct hda_codec *codec)
-+{
-+=09int i, err;
-+
-+=09for (i =3D 0; i < ARRAY_SIZE(ae5_strip_ctls); i++) {
-+=09=09err =3D snd_hda_ctl_add(codec, 0,
-+=09=09=09=09      snd_ctl_new1(&ae5_strip_ctls[i], codec));
-+=09=09if (err < 0)
-+=09=09=09return err;
-+=09}
-+=09return 0;
-+}
-+#endif /* CONFIG_SND_HDA_DSP_LOADER */
-+
- static void ae5_setup_defaults(struct hda_codec *codec)
- {
- =09struct ca0132_spec *spec =3D codec->spec;
-@@ -8741,6 +9126,10 @@ static void ca0132_init_chip(struct hda_codec *codec=
-)
- =09unsigned int on;
-=20
- =09mutex_init(&spec->chipio_mutex);
-+#if IS_ENABLED(CONFIG_SND_HDA_DSP_LOADER)
-+=09mutex_init(&spec->ae5_strip_mutex);
-+=09spec->ae5_strip_cur_num_leds =3D 10;
-+#endif
-=20
- =09/*
- =09 * The Windows driver always does this upon startup, which seems to
-@@ -9626,6 +10015,9 @@ static void ca0132_free(struct hda_codec *codec)
- #ifdef CONFIG_PCI
- =09if (spec->mem_base)
- =09=09pci_iounmap(codec->bus->pci, spec->mem_base);
-+#endif
-+#if IS_ENABLED(CONFIG_SND_HDA_DSP_LOADER)
-+=09mutex_destroy(&spec->ae5_strip_mutex);
- #endif
- =09kfree(spec->spec_init_verbs);
- =09kfree(codec->spec);
---=20
-2.55.0
-
++			if (power < child->power_min)
+ 				power = child->power_min;
+-			} else {
+-				power = DIV_ROUND_CLOSEST_ULL(
+-					power_limit * child->weight, 1024);
+-			}
++			else if (deficit)
++				power -= DIV64_U64_ROUND_UP(deficit *
++						(power - child->power_min),
++						headroom);
+ 
+ 			pr_debug("Setting power limit for '%s': %llu uW\n",
+ 				 child->zone.name, power);
+-- 
+2.43.0
 
