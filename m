@@ -1,245 +1,182 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA5BD456E15
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 13:17:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.9
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791292641; cv=fail; b=YUO4zu7OZRmx5oCLct1R5jd0hB9O28/6BpJMnFsaX7zr9eV4f8FEoY5Bd5Xx0OvwLe1X3CEJIL33KEgwNdxKGim79/rCKRge6BNq/aQVmPiXu6UEEMuFLqrgtAXKsT+eNJcPruTp5Xxs2DZ0PfPoKLkKLGpMBwT8SQuAEa59288=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791292641; c=relaxed/simple;
-	bh=0GLA4yWImMsRq/Awpf4QYjFLuvEEobTHqHFu7j1G+70=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=APhDSlTV2/GTBbK33LCJYZUYSOKfAUOs+4rUgB8vpN2dmNQlBojX+rrH2lX3CPRiLOE4Dvw1CgYLGFZGJEw6zqctVJfrX5+kiZD7WzGHpQG73jJSin4XfzNaWAqkCbTV91XwjVM+cF2VuQrPAqvw5XcdT1/4ips+fVLz5cGz6sA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iAJVq+Fd; arc=fail smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B59C24519BB;
+	Tue,  6 Oct 2026 13:17:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791292653; cv=none; b=Gq/mNm6P5O3WAl6JOM2KjsZQEf2orrDSilpqvgCZGCkA1NC4WF1oc5lH6geUz8sCRDPUwRU03YG8deEP4LGCxR5BL7PQdfg0BCY5ZCztH6/H3PMJR+YxJnwSp+m3Yjg4YUG5ZRlWhqRwxnsvCyLVyj99Qz9Kb5N27EWq776D3lQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791292653; c=relaxed/simple;
+	bh=QzAEcEVqY5gRpKDGkQWTS0Am9q6m2WzPJq+Jo6aq3N0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bPyFbEZEVtQrSjhqo10ct5vJuz73FwXujsICXXDsOscQhptt+Jt/8qT1qzZaeiGc/jKtVxayZGZgT2e1gER1NnOshAIhN/L/YIdAlde5X3CCVlf+tZ1wHdTOpQe8G6O31ivcF41uZsZdw63ijvuNSxPZixDXz0R4vnryokxTQww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LtHD/eHL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iAJVq+Fd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791292639; x=1822828639;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=0GLA4yWImMsRq/Awpf4QYjFLuvEEobTHqHFu7j1G+70=;
-  b=iAJVq+FdT1geHPsNTRx3IeqiyEVhhuG6xE/AZlEHW2XMUQ2df4l1gm6o
-   orkyATcBYLTI//q4ukMcvXeZ6ZsGIlaLgJt4SvElqvKuy8a5P/6GI1Bzn
-   txWIuwA/AL05ps4QkaL2NJH5duILs6ZBOA/0Whi/c8Gv5Ds6QTywY1IzM
-   b4FyuV/KRGO5mMAfkTP44XT0ftlWbytn1yU8zfc/M/hqEq8qmSwRwOdN4
-   BovsUrnuLeW1sORwHvfwt9AuLHTa+2GPw2CdPdt+dtaX4StHBLBNTtLSL
-   nqVtN3+DmjMcX+gD/NUaY/DVgdxI+x6BNm6yiG5qvEBIZTwY4jIeGR2Qo
-   g==;
-X-CSE-ConnectionGUID: bKJeBUqTQ+mB8lH+mpetdA==
-X-CSE-MsgGUID: fJw+/LZjR2GEb1gqih+3xA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="102651563"
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="102651563"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 06:17:18 -0700
-X-CSE-ConnectionGUID: 53K0haA4SLKTvvfugoRH9Q==
-X-CSE-MsgGUID: kjcGpTULQh+NxVBYraEWAA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="285252455"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 06:17:18 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 6 Oct 2026 06:17:18 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Tue, 6 Oct 2026 06:17:18 -0700
-Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.22) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 6 Oct 2026 06:17:17 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=k6RgnsUCdPEcrKxidR7fGLgty2yitd3M+tjNBp/lBT0kKteP03+QOoRi/6MwcL3ZeizT99GZl8ckvxgFJbmDUhHcwfv1HsOI1Av1r9NoYcLpJPX1+HqOzMQIb9SCQec8Dug3F9x7LXTYV+YsGUv8TsSVqID5fuJNHxVDmVNVp2Yd9wTHuBL+zcN0FrKKZsxSuzrH5LYoxtFgL1lHLca0vWL/MJFfuNMK2ZHxK/cFtOJWiyu+zcML0QTw8wIYktbpdxw7W5CkEFbiehGgeS6AtLku4YidEYfana3I+7UEj78Rsq6hawlHH5xPBBvRIXtCKas/E17b//DCkVLPuccy1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eksLqiRDj+eyEn8YV4bTIfmYMya/a3wCf7mOhUB8OMQ=;
- b=ixOd8Ouoeih92cm93W56oY+1SgWWqW2H4DXucUArBGT3/kdXea6IiHyQEZ+TN1xVJp+5XH0ihg9Dl7KK+NOexCSPKe4laz+wu55mWST102ZFqzuVgSMvCAcE9jDpAL/6CYDXMAmdO/a9IbqP7Pgi0l0cOW78yCIXM7D7lCT8gtshSpMYWJ1bwfMK6TkoDP0+BUVhIJBXHDk0JXyN20VdpIllXxxx5242f37x4iIYis34IrZ7L6MJDtcIb3sFbOvTYA6Fwgbb+u3R1l96TOCvdabstsu98dkjbU29fOsvmKihTIsxiZrJSmhGp4CVQKSvvPZT5xJkenyXL01Cw+SQ5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CH3PR11MB7180.namprd11.prod.outlook.com (2603:10b6:610:148::5)
- by PH7PR11MB6608.namprd11.prod.outlook.com (2603:10b6:510:1b3::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Tue, 6 Oct
- 2026 13:17:14 +0000
-Received: from CH3PR11MB7180.namprd11.prod.outlook.com
- ([fe80::70dc:90b2:50b4:31a8]) by CH3PR11MB7180.namprd11.prod.outlook.com
- ([fe80::70dc:90b2:50b4:31a8%7]) with mapi id 15.21.0451.026; Tue, 6 Oct 2026
- 13:17:14 +0000
-Date: Tue, 6 Oct 2026 09:16:58 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-CC: Raag Jadav <raag.jadav@intel.com>, Fan Wu <fanwu01@zju.edu.cn>,
-	<lucas.demarchi@intel.com>, <matthew.brost@intel.com>,
-	<thomas.hellstrom@linux.intel.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
-	<intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3] drm/xe/i2c: cancel the client work on remove
-Message-ID: <asT0yrAaAFThUudZ@intel.com>
-References: <20260928013030.612592-1-fanwu01@zju.edu.cn>
- <artYHzEMGPu26x3r@black.igk.intel.com>
- <ar5hcBKGhZDcNSKz@black.igk.intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <ar5hcBKGhZDcNSKz@black.igk.intel.com>
-X-ClientProxiedBy: SI2PR02CA0035.apcprd02.prod.outlook.com
- (2603:1096:4:195::22) To CH3PR11MB7180.namprd11.prod.outlook.com
- (2603:10b6:610:148::5)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LtHD/eHL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E04B1F000FF;
+	Tue,  6 Oct 2026 13:17:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791292652;
+	bh=1wl8U8qEevNauiC6J2pbvxkX7VYWlgHKM2aJW6iFkDQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LtHD/eHL3+f7Xjm+LpgVK4iEZwvZMs30aWje1TC6Rw7auT+o//+/5FhXSlE/t0N6k
+	 6H5rpCXKXDrvWESqmJF/yMebWW8oRaSZwLivBEE2hy5RMsf8T4oTpcv0udvRDFBz6P
+	 M+oPcyIa/szygwa7tTUBTPvBrxvMiJAAaRPFNj7sWd288Yf7WPxqcnoWo35x+7kdNM
+	 3xhA6lnJIDbCaq/BhmNfkDUW6a7Klw5dB9q4LrpfbdlZ5AzAU3aogIKkg8Z4NPpO05
+	 2QRM36Ma/E/BSvDFk5/wUqBEAVmHB5pZRSvqQBBsRu2sot4oUKKzKxSasKD3R4SvyR
+	 zOszerDR11zUg==
+Date: Tue, 6 Oct 2026 06:17:26 -0700
+From: Oliver Upton <oupton@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: maz@kernel.org, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com,
+	seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com,
+	vdonnefort@google.com, qperret@google.com, tabba@google.com
+Subject: Re: [PATCH v4] KVM: arm64: selftests: Check the pending SError state
+ in external_aborts
+Message-ID: <asT05hZqkMvVVnze@kernel.org>
+References: <20261006092841.2202109-1-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PR11MB7180:EE_|PH7PR11MB6608:EE_
-X-MS-Office365-Filtering-Correlation-Id: a1e6a3e3-6051-4ab9-e27d-08df23ac2264
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|22082099003|18002099003|4143699003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: oXheRPZvBai52tZiujvf+GJmf7Wh3O9Cbw3MuhCezG2GW9P9eNiCR5LNBd4PpvliFR00otQUJ2Zb1QDVCXvKVuH4RW8qn34uthqkreiz+aVVF+5ddiB/JWcDDlCZkNZMiCiWKDehcTQso8Z5VzCHJslSFlAs0oeNh8hyjyrwzIwJ7QPsY6uz6Bdho4rptGKSFUaOrYWMjkNamPMwouu00WcnKI4iPmGuVLb7zN5ImxQhmqJUUzRO9APKIOWG+9sGz1ZdyWeg5cPNYBW6/zz2AvQqKoPpQ+CDj80d+jKQhEUA0c84UYCXI36YK5XLKoQLvDM5E4mv56NexN87lRk1URrn94gnKZFZN499zWxRDUVzF5vyEdfKrCv9APoilr+7dyNh1sejR9jXHLKJuFrjvm6u5P4ltZpxjUH//aTvFNNpeFyHViqUp20TEJlJ0FdC0nuwOnYSPGVhqflgBjgfMfXjv9214IRNcRwJLYH04TPB3qdp4oU3oC1o9HWPr/aeW4rzHX9mBgeZnHVL6O2hG5L6Rym8tWf+V6d615eO/lESWLsmkUgR0g1kPcfgc58Mc7lJRT5lIgRnXmsH/oVncnXpT8ZDFNcphZmXaWD/cpnKZGclzaLB69BQJOk9kYSN
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR11MB7180.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(22082099003)(18002099003)(4143699003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?q3yPKp64PebFPkVdeUDE5hgjPiid6jWzXH+xyzrRBpJq69KqY/nOtcTJbTYQ?=
- =?us-ascii?Q?yVjwZaqC9Dr/tWFMOnXypKXWQIrRxb8CV5xQ06VAhdxN4VTHw+jHNqLYnYmh?=
- =?us-ascii?Q?pEhY+xyEv1R2vqC1zAXG6LELlDI7pMwDl2KPyA58b6MFnVgDsV6hq6vjIiGf?=
- =?us-ascii?Q?5V2RvpRL3o4uKgmL8CW0cerJtTPNc6km+oSkqH0QFM8NIW1MCuUESd5b0Pi1?=
- =?us-ascii?Q?bHOlPtitICANVgLGqyhJ0yyIFVcZEi5NRCL9r/USixtM7YKFmoaNmnAgD+7z?=
- =?us-ascii?Q?WINrzt7+QubE1sM/7U02o7aLtZUENqApf+TZfQt0uzK77BcXic8rwzXhQwt4?=
- =?us-ascii?Q?1BWA1FChu9rftSDKSbUaqa0+dTxvTTL1t86eMFcgVhIh72nruo3/II0GeS/6?=
- =?us-ascii?Q?ctK8ttx2YM3yXapALvbPQeY29x5eBKGU7abk5pVA/Qbgtr9XlZmYebu3sgdP?=
- =?us-ascii?Q?CA8/c8WhROuMrV8gyxrWGkw/BrhVyTSiIZYNRIO6nUGr79uMHbIHMGp/iKzr?=
- =?us-ascii?Q?pFhv3gTx4QxZ35Ps9GxK1Zs1A6Dy6OmEO+FzuP3u1+TAx7iXisAoNBT4RTD8?=
- =?us-ascii?Q?wyb+mwp06qtA6jwpYSLs1fGs9gGfCFpl6OJXm/PHNtid3WkIQjZWbbPEcr9V?=
- =?us-ascii?Q?gNI3htWuvd7sO7P0HfLpZi8E+MV0BytUFXKJ2X86hysSeXfA5B+kruFXfZYT?=
- =?us-ascii?Q?aasqaSWMVXqTX6xxHfchFT3oMGvmVimU0XVaTl0BSvK0KYJLPMvuml1RGhK5?=
- =?us-ascii?Q?PchmSP5VzKKfP4ZTblSjq29ejyeLTNQcgYgp5CUh5Q+/Axhyqzzqte3OtIzB?=
- =?us-ascii?Q?o8QrQSs24TvOcMDS6gYxm3ELpGQMXxbhz7h3ob5E49jNMrwa0zLNV+/wrnnI?=
- =?us-ascii?Q?bY54cshO2U65TXsj3pzuj5okc+z+LOieLC988yj5+jL+2tl5YNL6KVPh5cFS?=
- =?us-ascii?Q?kQtw4gRAbOW1KpmyIgOSa1Z8muU/c5GtI1+j4UwxQVsyQWGX2Y4IYPg1w2DC?=
- =?us-ascii?Q?18hQZQq+ukF06Xgktsd8aXZSmgssTSwjXDAzsybeqBdG104FmbhsD1RdE3zq?=
- =?us-ascii?Q?oTTXRf7CH4Z0yRge9U73DMwyvaEkbwBDLOhtwuDiGW6aklEMjeu6vpWSnPWU?=
- =?us-ascii?Q?zkzbeAL3yAa2Hv3tJtb2xFiahBX6q2JJwxTqYrLVYmEGnEWMzfqn2O09U3xJ?=
- =?us-ascii?Q?Gry9RppmZd3SJ6C5Fm+V5yAemp82GjiSeK2hIKKwYKrX/Y6B56+vcd4WxXLO?=
- =?us-ascii?Q?W03xgvxxBg40CRhi4PGw9OzKmoEe+HGCXWkMFzy20HhqR4A7mPHb9RfKrJpb?=
- =?us-ascii?Q?bxfZVhiMoSXnWRUzPDYMN8N5jQZ8b2BcQMh/dPlHmTRgwjoe53knSeq1PpRj?=
- =?us-ascii?Q?6WHYUjfaVguw2vbNBHuyl48El1n9JBH9/rRKHcIeCj0jFrFB2LDQSXOt/isV?=
- =?us-ascii?Q?LV2w5rtmvN5Gt9PNXgBlTUwFaTeyu8RTCRxds1x0cGTCpSw77axvUp4kmf/h?=
- =?us-ascii?Q?qimEpvcXW89PAA+oB6AsfjbHDTSVcKtdvOfVEip48/tUqoyYb7d7JVi9+yHa?=
- =?us-ascii?Q?WhtHnv7m2ttxrezuNNOATk75GimQsHQDizd8LtoSUXdmtyK1NQbGOLLNXonR?=
- =?us-ascii?Q?TwLBf38Xj9fAuG9kfNiNVsDPI3W3gYcg/jM05fwn/Fj/P/Lk8Isyo2h2O8T0?=
- =?us-ascii?Q?2NlyZLkI6cpJcMRK6Ay665L3abUgqxjbQVJIv2+6sA3PGKonYEfH84VU7v89?=
- =?us-ascii?Q?LCMadEJsz5Ad6g3ifxzWEZ1qYgDmMmU=3D?=
-X-Exchange-RoutingPolicyChecked: Fzdt3PLOuu0SrTzlVkKGjVb8lvKZBJvAXllwRYMter9F4cxDSfiAMBnQihKUzbKPr/ZL0rAPfTh12FlWkLIQg5CYgT6IPyDCP5N41CAdtwiKqhRUz1chW/4V4bqIrNNxdPup8arysEuI6/QVypGUlB5VBu9fbczNoy3EEwV+apIGxWTf+lu3YbNSzIN9jVMu33fRVreZ7FUQnLqcAwAdVfPR2cQ005DncdBjYteMkNkUMSr7uCAERorrHlaz33Ni/Pwawc9naPdXGIQ9SVXgRT2pVnrO4bfcCArcYJgjep3T8YukxKm6TnBe1IabINydeFi3O9rTLzdoruaLkex3eg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: a1e6a3e3-6051-4ab9-e27d-08df23ac2264
-X-MS-Exchange-CrossTenant-AuthSource: CH3PR11MB7180.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 13:17:13.9304
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GHAQxFhfQDVUVNydObldAEQruy0F4wVdiScsiAlv0CjQ7bj6ObhMpCZbDweFINxICYTmmZ37NHVyycdH34xh2w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6608
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261006092841.2202109-1-fuad.tabba@linux.dev>
 
-On Thu, Oct 01, 2026 at 03:34:40PM +0200, Heikki Krogerus wrote:
-> On Tue, Sep 29, 2026 at 08:18:07AM +0200, Raag Jadav wrote:
-> > + Heikki to comment on this.
-> > 
-> > On Mon, Sep 28, 2026 at 01:30:30AM +0000, Fan Wu wrote:
-> > > xe_i2c_notifier() stores the DesignWare adapter in i2c->adapter and
-> > > schedules i2c->work when the adapter is registered under the xe I2C
-> > > platform device, and xe_i2c_client_work() then instantiates the AMC
-> > > client device on that adapter.
-> > > 
-> > > xe_i2c_remove() tears down the AMC, unregisters the client devices,
-> > > the bus notifier and the adapter platform device, but it never drains
-> > > i2c->work. A work item that is still queued or running when the
-> > > adapter is unregistered dereferences i2c->adapter in
-> > > i2c_new_client_device() after platform_device_unregister() has
-> > > released the adapter. The work item is also embedded in the
-> > > devm-allocated struct xe_i2c, so a work item still queued after the
-> > > drm device devm unwind frees that allocation runs its callback on
-> > > freed memory.
-> > > 
-> > > The bus notifier is the only thing that schedules this work, and it is
-> > > unregistered after the client devices. An instance that is still queued
-> > > when the teardown runs can therefore write
-> > > i2c->client[XE_I2C_CLIENT_AMC] while the loop is unregistering and
-> > > clearing the same array, and an AMC client it instantiates late is only
-> > > cleaned up by the adapter's own child sweep in i2c_del_adapter().
-> > > 
-> > > Move bus_unregister_notifier() in front of the client teardown loop
-> > > and cancel the work right after it, so no new instance can be
-> > > scheduled and a queued instance is drained before the client array is
-> > > touched. A running instance still finds a live adapter, since the
-> > > adapter is unregistered later.
-> > > 
-> > > This issue was found by an in-house static analysis tool.
-> > > 
-> > > Fixes: f0e53aadd702 ("drm/xe: Support for I2C attached MCUs")
-> > > Link: https://lore.kernel.org/intel-xe/20260912085932.101598-1-fanwu01@zju.edu.cn/
-> > > Cc: stable@vger.kernel.org
-> > > Assisted-by: Codex:gpt-5.6
-> > > Co-developed-by: Song Li <songl@zju.edu.cn>
-> > > Signed-off-by: Song Li <songl@zju.edu.cn>
-> > > Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+On Tue, Oct 06, 2026 at 10:28:41AM +0100, Fuad Tabba wrote:
+> None of the external abort tests look at the vCPU events once the guest
+> is done, so an SError left pending after the guest took it, or dropped
+> while the guest had it masked, goes unnoticed.
 > 
-> LGTM
+> Read the vCPU events back at the end of every test that runs the guest.
+> The SError must still be pending in the masked case, with the injected
+> ESR when the vCPU has RAS, and no SError, injected or spurious, may be
+> pending in any of the others.
 > 
-> Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 
-pushed to drm-xe-next after passing CI.
+Reviewed-by: Oliver Upton <oupton@kernel.org>
 
-thank you all
+Thanks,
+Oliver
 
+> ---
+> The check that no SError is left pending after the guest took it is
+> what fails without commit 3708f6342f01 ("KVM: arm64: Sync HCR_EL2.VSE
+> back to the host vCPU under pKVM"), in kvmarm/next.
 > 
-> > > ---
-> > > 
-> > > Changes in v3:
-> > > - rebase onto drm-xe-next, after "drm/xe/i2c: Disable IRQ on unbind"
-> > > - discussion: Link: above points at the v2 thread
-> > > - unregister the bus notifier before the client teardown loop and
-> > >   cancel the work before the loop as well: v2 cancelled the work only
-> > >   after the loop, so an event arriving during the loop could still
-> > >   schedule the work to race with the array teardown and leak a freshly
-> > >   instantiated AMC client
-> > >  drivers/gpu/drm/xe/xe_i2c.c | 5 ++++-
-> > >  1 file changed, 4 insertions(+), 1 deletion(-)
-> > > 
-> > > diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
-> > > index f4f3819..b82caaf 100644
-> > > --- a/drivers/gpu/drm/xe/xe_i2c.c
-> > > +++ b/drivers/gpu/drm/xe/xe_i2c.c
-> > > @@ -324,12 +324,15 @@ static void xe_i2c_remove(void *data)
-> > >  	xe_i2c_irq_reset(xe);
-> > >  	xe_amc_exit(i2c);
-> > >  
-> > > +	/* Stop the notifier from arming the client work before teardown. */
-> > > +	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
-> > > +	cancel_work_sync(&i2c->work);
-> > > +
-> > >  	for (i = 0; i < XE_I2C_MAX_CLIENTS; i++) {
-> > >  		i2c_unregister_device(i2c->client[i]);
-> > >  		i2c->client[i] = NULL;
-> > >  	}
-> > >  
-> > > -	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
-> > >  	xe_i2c_unregister_adapter(i2c);
-> > >  	xe->i2c = NULL;
-> > >  }
-> > > 
+> Changes since v3 [1]:
+> - Check the SError pending state at the end of every test that runs the
+>   guest, and assert it is still pending, with the injected ESR, in the
+>   masked case (Oliver [2]).
 > 
+> [1] https://lore.kernel.org/all/20261005050349.836795-1-fuad.tabba@linux.dev/
+> [2] https://lore.kernel.org/all/asNdAXGkxagm88Su@kernel.org/
+> 
+>  .../selftests/kvm/arm64/external_aborts.c     | 20 +++++++++++++++++++
+>  1 file changed, 20 insertions(+)
+> 
+> diff --git a/tools/testing/selftests/kvm/arm64/external_aborts.c b/tools/testing/selftests/kvm/arm64/external_aborts.c
+> index 7836756a38a6c..1a858d0d82968 100644
+> --- a/tools/testing/selftests/kvm/arm64/external_aborts.c
+> +++ b/tools/testing/selftests/kvm/arm64/external_aborts.c
+> @@ -75,6 +75,17 @@ static void vcpu_inject_serror(struct kvm_vcpu *vcpu)
+>  	vcpu_events_set(vcpu, &events);
+>  }
+>  
+> +static void vcpu_assert_serror_pending(struct kvm_vcpu *vcpu, bool pending)
+> +{
+> +	struct kvm_vcpu_events events;
+> +
+> +	vcpu_events_get(vcpu, &events);
+> +	TEST_ASSERT_EQ(events.exception.serror_pending, pending);
+> +
+> +	if (pending && vcpu_has_ras(vcpu))
+> +		TEST_ASSERT_EQ(events.exception.serror_esr, EXPECTED_SERROR_ISS);
+> +}
+> +
+>  static void __vcpu_run_expect(struct kvm_vcpu *vcpu, unsigned int cmd)
+>  {
+>  	struct ucall uc;
+> @@ -134,6 +145,7 @@ static void test_mmio_abort(void)
+>  
+>  	vcpu_inject_sea(vcpu);
+>  	vcpu_run_expect_done(vcpu);
+> +	vcpu_assert_serror_pending(vcpu, false);
+>  	kvm_vm_free(vm);
+>  }
+>  
+> @@ -162,6 +174,7 @@ static void test_mmio_nisv(void)
+>  
+>  	TEST_ASSERT(_vcpu_run(vcpu), "Expected nonzero return code from KVM_RUN");
+>  	TEST_ASSERT_EQ(errno, ENOSYS);
+> +	vcpu_assert_serror_pending(vcpu, false);
+>  
+>  	kvm_vm_free(vm);
+>  }
+> @@ -185,6 +198,7 @@ static void test_mmio_nisv_abort(void)
+>  
+>  	vcpu_inject_sea(vcpu);
+>  	vcpu_run_expect_done(vcpu);
+> +	vcpu_assert_serror_pending(vcpu, false);
+>  	kvm_vm_free(vm);
+>  }
+>  
+> @@ -212,6 +226,7 @@ static void test_serror_masked(void)
+>  
+>  	vcpu_inject_serror(vcpu);
+>  	vcpu_run_expect_done(vcpu);
+> +	vcpu_assert_serror_pending(vcpu, true);
+>  	kvm_vm_free(vm);
+>  }
+>  
+> @@ -247,6 +262,7 @@ static void test_serror(void)
+>  
+>  	vcpu_inject_serror(vcpu);
+>  	vcpu_run_expect_done(vcpu);
+> +	vcpu_assert_serror_pending(vcpu, false);
+>  	kvm_vm_free(vm);
+>  }
+>  
+> @@ -288,6 +304,7 @@ static void test_s1ptw_abort(void)
+>  	*ptep |= bad_pa;
+>  
+>  	vcpu_run_expect_done(vcpu);
+> +	vcpu_assert_serror_pending(vcpu, false);
+>  	kvm_vm_free(vm);
+>  }
+>  
+> @@ -313,6 +330,7 @@ static void test_serror_emulated(void)
+>  	vcpu_run_expect_sync(vcpu);
+>  	vcpu_inject_serror(vcpu);
+>  	vcpu_run_expect_done(vcpu);
+> +	vcpu_assert_serror_pending(vcpu, false);
+>  	kvm_vm_free(vm);
+>  }
+>  
+> @@ -356,6 +374,7 @@ static void test_mmio_ease(void)
+>  
+>  	vcpu_inject_sea(vcpu);
+>  	vcpu_run_expect_done(vcpu);
+> +	vcpu_assert_serror_pending(vcpu, false);
+>  done:
+>  	kvm_vm_free(vm);
+>  }
+> @@ -395,6 +414,7 @@ static void test_serror_amo(void)
+>  	vcpu_run_expect_sync(vcpu);
+>  	vcpu_inject_serror(vcpu);
+>  	vcpu_run_expect_done(vcpu);
+> +	vcpu_assert_serror_pending(vcpu, false);
+>  	kvm_vm_free(vm);
+>  }
+>  
+> 
+> base-commit: fa22cd9947fc245d71bc40482f7f78eb0d5a4af0
 > -- 
-> heikki
+> 2.39.5
+> 
