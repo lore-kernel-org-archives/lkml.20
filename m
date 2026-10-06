@@ -1,211 +1,331 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E225213E89;
-	Tue,  6 Oct 2026 10:38:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99923ACA5A
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 10:39:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791283132; cv=none; b=UVPCqbwX+pGG/NsypS+gjKCylWEAwpLnbYZ+6bhC7gcZDcMsuDRt27/ASktijmx7Zruu7YddGOHb03XlVad2o6rqI7jdq80SoLpYEw4SZTP3JMuPpe3iVQOLSiI/lWuNsm26143nYkrn7mWTlYwvGvj4/pk5uYDulQkhZFTBKlg=
+	t=1791283142; cv=none; b=W/AGdNLS5cwYaODvzjIVre5/GJFBIhT2Ifu5Luq7+PImsv4ROrLrlhp5Gr+K/YWEIP3w4BMtvDfIcIyRLXJM7Q/zdgCtf7k2z+v66GPMCLQb6CQ9fESW9KuPT9JmLH6JM0EUaESPWiflba4IUM1lYrIjErN3/wnVBu/K+Cm+C34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791283132; c=relaxed/simple;
-	bh=H+1ObyLhlvd+nCxTBi5GvGK3ucz4aYmNYNXY5CKwWvE=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=TOf3vRfz4QT2OHCdI0LIu8go038AOj88e8BmTxJOI+QlSmZdGvfvmFCx26Mm2/jCUf6CakQ+l128zqEYWFBykMth69UdOeKPTXgDuxIP/tlyVB3JfORqhWuhsnGs1wk1Wq01ujX5XpHvAP0c2GNDKLxYG9Uwkpu+/6GhiBxyBjk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HmZSXQvn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791283142; c=relaxed/simple;
+	bh=5SBDIrzGAQEBhEnuVBvjyWjW+cvgWc+5Dhaw9jOzesI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AlhRfiw9TQnJ8rV7ARA3h4B0XewGdN1Wp9yQGGUHG2G4Ytz83iRJLt2eTFehcSQR+5hVyKzxNsVberf/yaoJdeG5kcw9eSDpHYk8NMIq7MeXFk8hWf9Gg9mJUtNwvUr4QR3tq5psL68ckbqrdg/8y7THZU4YL5wHo85HT3Tc/b8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pyX+UMUT; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HmZSXQvn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 221A01F000FF;
-	Tue,  6 Oct 2026 10:38:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791283131;
-	bh=G5O2Gdu6HO9FaMWnLVj3bL92m9RdctEjJTK22si55xc=;
-	h=Date:From:To:Cc:Subject;
-	b=HmZSXQvnxR12vXy6F187SDhPCZE2j27CR117izCgMt7ra9LN0c9F0hxXTn/s6fOO7
-	 oiE/EZZpsN9alKqOxZKo/vf9R40UTYW4giX4ZsZh6mhD6gtYa7yefWevBET36YS5h5
-	 LNKnia9p/Q0U2wE/zsca30A/jdlAqagaxVPEGKkF+FcPDUf81bV6Cc3B+FFyZ1OJmR
-	 IvDGW0ihHQR/QzlhV2NVSUYx8+jUkcYtzmbkG8S6EslokBuAdAfqtaJk532Q83GSiv
-	 TCI0ar9qXYnZ1/XAMxXPk4Kt0YCsA59kEt6ZhB0Duj5hwBZO/HyxvciudrGdKvGgJW
-	 A758SCN67IRMw==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 9D1941AC57CE; Tue, 06 Oct 2026 11:38:48 +0100 (BST)
-Date: Tue, 6 Oct 2026 12:38:48 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Baoquan He <hebaoquan@kylinos.cn>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: manual merge of the sound tree with the
- mm-nonmm-unstable tree
-Message-ID: <asTPuG6GxkRDR8Tf@sirena.co.uk>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pyX+UMUT"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48c45111bebso353200f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 03:39:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791283139; x=1791887939; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0PKrnSSgSMY6ZmA5twi9Nx86W77c8h087WtIxcCKmQ0=;
+        b=pyX+UMUTHn7PFHouaOVd5uID28UVxhEMuLqB0ZTWeMIiEL/lxyseo2TsVxQ+SsTo38
+         Fe8CiATIwr6F39IKuDhjJGeTpfb1Ma3UIRAP0DK2HQROEXXGqjnl3eh7SNPg0B6oCGUR
+         yxNe3JhaHg/+iaLHGseu7IMcUw3dwOd4I9mn3VH60JygeTtTtFdThMqePXYi4iz4rB41
+         5iEv6iKE+JlLuBYSgvzLGFFoeNE02RyXrXuFB4CsIz1rR5W96WwnekHVuCKYTeNsSn11
+         rtuTeDRSmyrdfqXUGVXxBe4v5NgYoG/AiuNvwakkbuP7EFT7FptA2cOw11y1Z4/sLHCO
+         okuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791283139; x=1791887939;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0PKrnSSgSMY6ZmA5twi9Nx86W77c8h087WtIxcCKmQ0=;
+        b=DaeFpaba3UZJqc5fD5GX1BSXBjyDEXAzKaEUHdpLwTTrdA5O5OEcGodFR5bw8nR6f/
+         9K0ui19eSifJtOXgb15KO2BkEwablPYdfVLk48A5NIXamrCd/XK02izHOWpXO7s/slL2
+         EoSDyVTW8ZPOn4HbvyGJNh0ZkcvWGc13CAJkcdzRY5OBo9sxMaEhdhANPM3sy7/P+HZk
+         IH9sE03N+FG8wU/k2kPaICPUYeTnw+6T1eyIVKO1lm0//5eKuNZY2qGgI2JYrgXmDjIp
+         wxrBQne3JMos4HMG871sgq+SxVLyJQa9jNgX9PUNGZyo6SkpqRdjlUXYw8scVPVi/I/c
+         LIMw==
+X-Forwarded-Encrypted: i=1; AKwUvBzrdV+8m4V6UrtOBGbgyZfg2SCSk6QaWHBCGDvfrTwykFB7YBaYbKh6S9aw+bANmoYDApeiTK987d3tL60=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJqST/WoX9ldfJ1Kx4zE3WD4ylOMr0VZWtfkZgXrBcK0Zmu0TXr
+	clCBFoGsZxaTpDeJ0qtgCFl0hBqIS8dd7K7CrQYE03XpqYF4XlEb5eAc
+X-Gm-Gg: AYBFou0gKJr9vz9e+AEt5BJKcrwJ/Kj5mpN7a/Dj2OvQSWbgmMLXwkqUI253iIwTkg8
+	DD7RLaP3Xugt0EbLGh8pdGLQ9HxzhbCoUQYwkp5X44RZY/9TB+9RwCV8frD4pGVtVq28dzXMtnV
+	1elZz8XZc/Wy/AdCRbXoEh1nbfEFFhKsujgy8V0WcB41POKXxbsPfTPRxNWzMy2qaoZEjnDdhP+
+	z/QMlV0UK04+05e1Hld1jced2eJjWrd/tkLvEag+yN+57fYKOIZT4joe6a7p8WIKp6wdn0t1Rwj
+	kkYmU/Aoji1+U+n+hdtJBBzrx61/yNifUVkPsI03CVSBilANGUa4icgalM7vECoSAHpG8leuEdr
+	6KQ0E/Lixro1VXNT3i92lwuCfT9DG5E8yUaY8v/n3x7BaUGQnUsis9rmfyvqV7cdjLKn23PMCj4
+	vIWEPXgyq8yqAvnYoA3rmQ5u/UK4yUxgUv9rkh8z+VR5cwn2Z2hnb09h++h3+cKfDX+OUapEp7p
+	Ks8NF2I7dsxnl1Wuc4=
+X-Received: by 2002:a05:6000:298e:20b0:485:8a47:5b91 with SMTP id ffacd0b85a97d-48c6d1ee143mr1211829f8f.46.1791283138652;
+        Tue, 06 Oct 2026 03:38:58 -0700 (PDT)
+Received: from fedora ([154.183.153.81])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c6cd717f8sm2526963f8f.48.2026.10.06.03.38.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 03:38:58 -0700 (PDT)
+From: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+To: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	linux@analog.com,
+	linux-iio@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Subject: [PATCH] staging: iio: adt7316: use kstrtobool() for sysfs boolean parsing
+Date: Tue,  6 Oct 2026 13:33:50 +0300
+Message-ID: <20261006103350.32853-1-abdelnasserhussein11@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="USavb+Dc0cRfA0og"
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
+Replace manual and unsafe character checks (e.g., buf[0] == '1') with the
+standard kstrtobool() API in sysfs store functions. This ensures proper
+handling of standard boolean inputs, fixes potential safety issues, and
+adheres to the Linux kernel coding style.
 
---USavb+Dc0cRfA0og
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+---
+ drivers/staging/iio/addac/adt7316.c | 94 +++++++++++++++++++++++------
+ 1 file changed, 77 insertions(+), 17 deletions(-)
 
-Hi all,
+diff --git a/drivers/staging/iio/addac/adt7316.c b/drivers/staging/iio/addac/adt7316.c
+index 20f6052cc7fb..21a1b811a142 100644
+--- a/drivers/staging/iio/addac/adt7316.c
++++ b/drivers/staging/iio/addac/adt7316.c
+@@ -246,12 +246,12 @@ static ssize_t adt7316_store_enabled(struct device *dev,
+ {
+ 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
+ 	struct adt7316_chip_info *chip = iio_priv(dev_info);
+-	int enable;
++	bool enable;
++	int ret;
+ 
+-	if (buf[0] == '1')
+-		enable = 1;
+-	else
+-		enable = 0;
++	ret = kstrtobool(buf, &enable);
++	if (ret)
++		return ret;
+ 
+ 	if (_adt7316_store_enabled(chip, enable) < 0)
+ 		return -EIO;
+@@ -285,13 +285,18 @@ static ssize_t adt7316_store_select_ex_temp(struct device *dev,
+ 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
+ 	struct adt7316_chip_info *chip = iio_priv(dev_info);
+ 	u8 config1;
++	bool req;
+ 	int ret;
+ 
+ 	if ((chip->id & ID_FAMILY_MASK) != ID_ADT75XX)
+ 		return -EPERM;
+ 
++	ret = kstrtobool(buf, &req);
++	if (ret)
++		return ret;
++
+ 	config1 = chip->config1 & (~ADT7516_SEL_EX_TEMP);
+-	if (buf[0] == '1')
++	if (req)
+ 		config1 |= ADT7516_SEL_EX_TEMP;
+ 
+ 	ret = chip->bus.write(chip->bus.client, ADT7316_CONFIG1, config1);
+@@ -482,10 +487,15 @@ static ssize_t adt7316_store_disable_averaging(struct device *dev,
+ 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
+ 	struct adt7316_chip_info *chip = iio_priv(dev_info);
+ 	u8 config2;
++	bool req;
+ 	int ret;
+ 
++	ret = kstrtobool(buf, &req);
++	if (ret)
++		return ret;
++
+ 	config2 = chip->config2 & (~ADT7316_DISABLE_AVERAGING);
+-	if (buf[0] == '1')
++	if (req)
+ 		config2 |= ADT7316_DISABLE_AVERAGING;
+ 
+ 	ret = chip->bus.write(chip->bus.client, ADT7316_CONFIG2, config2);
+@@ -521,10 +531,15 @@ static ssize_t adt7316_store_enable_smbus_timeout(struct device *dev,
+ 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
+ 	struct adt7316_chip_info *chip = iio_priv(dev_info);
+ 	u8 config2;
++	bool req;
+ 	int ret;
+ 
++	ret = kstrtobool(buf, &req);
++	if (ret)
++		return ret;
++
+ 	config2 = chip->config2 & (~ADT7316_EN_SMBUS_TIMEOUT);
+-	if (buf[0] == '1')
++	if (req)
+ 		config2 |= ADT7316_EN_SMBUS_TIMEOUT;
+ 
+ 	ret = chip->bus.write(chip->bus.client, ADT7316_CONFIG2, config2);
+@@ -559,10 +574,15 @@ static ssize_t adt7316_store_powerdown(struct device *dev,
+ 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
+ 	struct adt7316_chip_info *chip = iio_priv(dev_info);
+ 	u8 config1;
++	bool req;
+ 	int ret;
+ 
++	ret = kstrtobool(buf, &req);
++	if (ret)
++		return ret;
++
+ 	config1 = chip->config1 & (~ADT7316_PD);
+-	if (buf[0] == '1')
++	if (req)
+ 		config1 |= ADT7316_PD;
+ 
+ 	ret = chip->bus.write(chip->bus.client, ADT7316_CONFIG1, config1);
+@@ -597,10 +617,15 @@ static ssize_t adt7316_store_fast_ad_clock(struct device *dev,
+ 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
+ 	struct adt7316_chip_info *chip = iio_priv(dev_info);
+ 	u8 config3;
++	bool req;
+ 	int ret;
+ 
++	ret = kstrtobool(buf, &req);
++	if (ret)
++		return ret;
++
+ 	config3 = chip->config3 & (~ADT7316_ADCLK_22_5);
+-	if (buf[0] == '1')
++	if (req)
+ 		config3 |= ADT7316_ADCLK_22_5;
+ 
+ 	ret = chip->bus.write(chip->bus.client, ADT7316_CONFIG3, config3);
+@@ -640,13 +665,18 @@ static ssize_t adt7316_store_da_high_resolution(struct device *dev,
+ 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
+ 	struct adt7316_chip_info *chip = iio_priv(dev_info);
+ 	u8 config3;
++	bool req;
+ 	int ret;
+ 
+ 	if (chip->id == ID_ADT7318 || chip->id == ID_ADT7519)
+ 		return -EPERM;
+ 
++	ret = kstrtobool(buf, &req);
++	if (ret)
++		return ret;
++
+ 	config3 = chip->config3 & (~ADT7316_DA_HIGH_RESOLUTION);
+-	if (buf[0] == '1')
++	if (req)
+ 		config3 |= ADT7316_DA_HIGH_RESOLUTION;
+ 
+ 	ret = chip->bus.write(chip->bus.client, ADT7316_CONFIG3, config3);
+@@ -685,12 +715,17 @@ static ssize_t adt7316_store_AIN_internal_Vref(struct device *dev,
+ 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
+ 	struct adt7316_chip_info *chip = iio_priv(dev_info);
+ 	u8 config3;
++	bool req;
+ 	int ret;
+ 
+ 	if ((chip->id & ID_FAMILY_MASK) != ID_ADT75XX)
+ 		return -EPERM;
+ 
+-	if (buf[0] != '1')
++	ret = kstrtobool(buf, &req);
++	if (ret)
++		return ret;
++
++	if (!req)
+ 		config3 = chip->config3 & (~ADT7516_AIN_IN_VREF);
+ 	else
+ 		config3 = chip->config3 | ADT7516_AIN_IN_VREF;
+@@ -728,10 +763,15 @@ static ssize_t adt7316_store_enable_prop_DACA(struct device *dev,
+ 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
+ 	struct adt7316_chip_info *chip = iio_priv(dev_info);
+ 	u8 config3;
++	bool req;
+ 	int ret;
+ 
++	ret = kstrtobool(buf, &req);
++	if (ret)
++		return ret;
++
+ 	config3 = chip->config3 & (~ADT7316_EN_IN_TEMP_PROP_DACA);
+-	if (buf[0] == '1')
++	if (req)
+ 		config3 |= ADT7316_EN_IN_TEMP_PROP_DACA;
+ 
+ 	ret = chip->bus.write(chip->bus.client, ADT7316_CONFIG3, config3);
+@@ -767,10 +807,15 @@ static ssize_t adt7316_store_enable_prop_DACB(struct device *dev,
+ 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
+ 	struct adt7316_chip_info *chip = iio_priv(dev_info);
+ 	u8 config3;
++	bool req;
+ 	int ret;
+ 
++	ret = kstrtobool(buf, &req);
++	if (ret)
++		return ret;
++
+ 	config3 = chip->config3 & (~ADT7316_EN_EX_TEMP_PROP_DACB);
+-	if (buf[0] == '1')
++	if (req)
+ 		config3 |= ADT7316_EN_EX_TEMP_PROP_DACB;
+ 
+ 	ret = chip->bus.write(chip->bus.client, ADT7316_CONFIG3, config3);
+@@ -967,10 +1012,15 @@ static ssize_t adt7316_store_DA_AB_Vref_bypass(struct device *dev,
+ 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
+ 	struct adt7316_chip_info *chip = iio_priv(dev_info);
+ 	u8 dac_config;
++	bool req;
+ 	int ret;
+ 
++	ret = kstrtobool(buf, &req);
++	if (ret)
++		return ret;
++
+ 	dac_config = chip->dac_config & (~ADT7316_VREF_BYPASS_DAC_AB);
+-	if (buf[0] == '1')
++	if (req)
+ 		dac_config |= ADT7316_VREF_BYPASS_DAC_AB;
+ 
+ 	ret = chip->bus.write(chip->bus.client, ADT7316_DAC_CONFIG, dac_config);
+@@ -1006,10 +1056,15 @@ static ssize_t adt7316_store_DA_CD_Vref_bypass(struct device *dev,
+ 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
+ 	struct adt7316_chip_info *chip = iio_priv(dev_info);
+ 	u8 dac_config;
++	bool req;
+ 	int ret;
+ 
++	ret = kstrtobool(buf, &req);
++	if (ret)
++		return ret;
++
+ 	dac_config = chip->dac_config & (~ADT7316_VREF_BYPASS_DAC_CD);
+-	if (buf[0] == '1')
++	if (req)
+ 		dac_config |= ADT7316_VREF_BYPASS_DAC_CD;
+ 
+ 	ret = chip->bus.write(chip->bus.client, ADT7316_DAC_CONFIG, dac_config);
+@@ -1969,10 +2024,15 @@ static ssize_t adt7316_set_int_enabled(struct device *dev,
+ 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
+ 	struct adt7316_chip_info *chip = iio_priv(dev_info);
+ 	u8 config1;
++	bool req;
+ 	int ret;
+ 
++	ret = kstrtobool(buf, &req);
++	if (ret)
++		return ret;
++
+ 	config1 = chip->config1 & (~ADT7316_INT_EN);
+-	if (buf[0] == '1')
++	if (req)
+ 		config1 |= ADT7316_INT_EN;
+ 
+ 	ret = chip->bus.write(chip->bus.client, ADT7316_CONFIG1, config1);
+-- 
+2.54.0
 
-Today's linux-next merge of the sound tree got a conflict in:
-
-  sound/mips/snd-n64.c
-
-between commit:
-
-  d9202799374c2 ("ALSA: n64: don't use GFP_DMA when calling dma_alloc_coher=
-ent()")
-
-=66rom the mm-nonmm-unstable tree and commits:
-
-  e81f85fd3ca66 ("ALSA: mips: n64: Handle card removal properly")
-  2964a4aae2e04 ("ALSA: n64: don't use GFP_DMA when calling dma_alloc_coher=
-ent()")
-
-=66rom the sound tree (looks like this is just a race with me fetching the
-mm-nonmm-unstable tree and will go away tomorrow).
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --combined sound/mips/snd-n64.c
-index e2cf9df15d485,da889570cebcf..0000000000000
---- a/sound/mips/snd-n64.c
-+++ b/sound/mips/snd-n64.c
-@@@ -273,6 -273,15 +273,15 @@@ static const struct snd_pcm_ops n64audi
-  	.close =3D	n64audio_pcm_close,
-  };
- =20
-+ static void n64audio_free(struct snd_card *card)
-+ {
-+ 	struct n64audio *priv =3D card->private_data;
-+=20
-+ 	if (priv->ring_base)
-+ 		dma_free_coherent(card->dev, 32 * 1024, priv->ring_base,
-+ 				  priv->ring_base_dma);
-+ }
-+=20
-  /*
-   * The target device is embedded and RAM-constrained. We save RAM
-   * by initializing in __init code that gets dropped late in boot.
-@@@ -280,14 -289,14 +289,14 @@@
-   */
-  static int __init n64audio_probe(struct platform_device *pdev)
-  {
-- 	struct snd_card *card;
-+ 	struct snd_card *card __free(snd_card_free) =3D NULL;
-  	struct snd_pcm *pcm;
-  	struct n64audio *priv;
-  	int err, irq;
- =20
-- 	err =3D snd_card_new(&pdev->dev, SNDRV_DEFAULT_IDX1,
-- 			   SNDRV_DEFAULT_STR1,
-- 			   THIS_MODULE, sizeof(*priv), &card);
-+ 	err =3D snd_devm_card_new(&pdev->dev, SNDRV_DEFAULT_IDX1,
-+ 				SNDRV_DEFAULT_STR1,
-+ 				THIS_MODULE, sizeof(*priv), &card);
-  	if (err < 0)
-  		return err;
- =20
-@@@ -296,29 -305,24 +305,24 @@@
-  	spin_lock_init(&priv->chan.lock);
- =20
-  	priv->card =3D card;
-+ 	card->private_free =3D n64audio_free;
- =20
-  	priv->ring_base =3D dma_alloc_coherent(card->dev, 32 * 1024, &priv->ring=
-_base_dma,
-  					     GFP_KERNEL);
-- 	if (!priv->ring_base) {
-- 		err =3D -ENOMEM;
-- 		goto fail_card;
-- 	}
-+ 	if (!priv->ring_base)
-+ 		return -ENOMEM;
- =20
-  	priv->mi_reg_base =3D devm_platform_ioremap_resource(pdev, 0);
-- 	if (IS_ERR(priv->mi_reg_base)) {
-- 		err =3D PTR_ERR(priv->mi_reg_base);
-- 		goto fail_dma_alloc;
-- 	}
-+ 	if (IS_ERR(priv->mi_reg_base))
-+ 		return PTR_ERR(priv->mi_reg_base);
- =20
-  	priv->ai_reg_base =3D devm_platform_ioremap_resource(pdev, 1);
-- 	if (IS_ERR(priv->ai_reg_base)) {
-- 		err =3D PTR_ERR(priv->ai_reg_base);
-- 		goto fail_dma_alloc;
-- 	}
-+ 	if (IS_ERR(priv->ai_reg_base))
-+ 		return PTR_ERR(priv->ai_reg_base);
- =20
-  	err =3D snd_pcm_new(card, "N64 Audio", 0, 1, 0, &pcm);
-  	if (err < 0)
-- 		goto fail_dma_alloc;
-+ 		return err;
- =20
-  	pcm->private_data =3D priv;
-  	strscpy(pcm->name, "N64 Audio");
-@@@ -331,28 -335,19 +335,19 @@@
-  	strscpy(card->longname, "N64 Audio");
- =20
-  	irq =3D platform_get_irq(pdev, 0);
-- 	if (irq < 0) {
-- 		err =3D -EINVAL;
-- 		goto fail_dma_alloc;
-- 	}
-+ 	if (irq < 0)
-+ 		return -EINVAL;
-+=20
-  	if (devm_request_irq(&pdev->dev, irq, n64audio_isr,
-- 				IRQF_SHARED, "N64 Audio", priv)) {
-- 		err =3D -EBUSY;
-- 		goto fail_dma_alloc;
-- 	}
-+ 				IRQF_SHARED, "N64 Audio", priv))
-+ 		return -EBUSY;
- =20
-  	err =3D snd_card_register(card);
-  	if (err < 0)
-- 		goto fail_dma_alloc;
-+ 		return err;
- =20
-+ 	card =3D NULL; /* probe succeeded, don't release as error */
-  	return 0;
--=20
-- fail_dma_alloc:
-- 	dma_free_coherent(card->dev, 32 * 1024, priv->ring_base, priv->ring_base=
-_dma);
--=20
-- fail_card:
-- 	snd_card_free(card);
-- 	return err;
-  }
- =20
-  static struct platform_driver n64audio_driver =3D {
-
---USavb+Dc0cRfA0og
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCasTPtQAKCRAv73Ows9A4
-iXw9AP4pI8U+zXIobj9MDOt6qiVa5QZGM6AdSyIixdX+0IDSugD/Yqi3u8Lpviht
-Qvuk10qEEFFrIctKAgWuxkXKcZAU2gA=
-=NkCh
------END PGP SIGNATURE-----
-
---USavb+Dc0cRfA0og--
