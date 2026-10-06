@@ -1,307 +1,268 @@
-Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F1D1443E3B
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 12:57:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD4CA3B8D40;
+	Tue,  6 Oct 2026 12:57:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791291432; cv=none; b=JyuOFqg9IG4EvD8vAjEMzLE4LT7SWdGvGwzbF5kfkf4iACUjQh9fgO8GiHjxXbxQErQ3snoktUMyqWjZQqV5LjZNeCGbWjaoL927LkfpJjMgZFU3z5kd/BiAKQBDqBlW2KCDdkqpxkwIaFCpXT7P6p9ysgDKGOJevYR31T3V7B4=
+	t=1791291433; cv=none; b=smnLTdRfn4bF3pjZ3oP1foAKWB1c1OoAF/a+4z8RUgKG+Reu57wWV6g8cQDx1LFXJzGWDxTDGDctDwWQMMqCBKND2MrjbiMc9HXiYGUXoK2BUCE/gjcyED2tmIJE2kbMp8jSZkDWvt133M+MDSJqIJlP0ZtJU0GYYl7gAR8NPAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791291432; c=relaxed/simple;
-	bh=IQzkSqogxGGRgXN1GzMR82u/VoXXG/33SfL7HSbceGo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pcbWUiGjsTZZs/yjwX4p5Tf2w4KmQm99ltngLc20RYjpLFBdJTFvHGRAPUMKzFL7k5YT4fcmByH6RiGRCZf4WlZF6C8JOCgyWRQHMhD4os+6PTzm7oEQLxMO9YiyLe5hrHZYvYesWwtVQq42q2hKLfRG2n51JsXJ9hfsGjMv1OU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.219.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-917aca1aee5so39870646d6.2
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 05:57:09 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791291428; x=1791896228;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PDV5pXUD41N70RN2FIh7Yk5bKSGu8mBxzH82CLXiukw=;
-        b=KO25gDi2V6Il05+b+gtgkiMKdyrJL65dqUbCyWRdbnre32Xyz9jqruxMJ0swBcvJBq
-         vRkhqtA1rTXEYn2Zxh4U3s3xlX+zLLtRl9DofgCFP7XwlQTseTDYr4y/yEhrVW9F5qwZ
-         SdrF5svubYaf0ALL/tTn8H6PKRGKkdJwm12fN0uR9eN+ffKk7PYsJ8UuHyG/4JHNia7Z
-         jtXj+w4SBYxdYgsGLUaqvUs6R9gBlfhyvA4XVe5Ct1fB6FE/VutQImT53Od0k6bSrXhV
-         ptCrwor8xGviSvTNUFNuGKvl6CWEX2ljPctXEeySTi0/icokWhVhFeM9Q3sEGnuXiyp7
-         D6hw==
-X-Forwarded-Encrypted: i=1; AKwUvBwVtMjzSHcWsWu8vodN1v6Yk5EZydSOxGQP3Rpj4MZJhZXnhn3AtiLy8Jf2/KC/OcQ9T34x+r1dHPNVVco=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKWxy5cXlFwVLx3d3HxZDIEzzJQoj8rSsGJcvKHAvVzrCQ3KPZl
-	dtSaPMB9/ihclgPryvITt0H2YkirquaDhB1d87JQ+kSj1AxeWAo27rrH
-X-Gm-Gg: AYBFou3w7od8NEaQmtPe7pqgUx4DuD4weh4oLIQlAsJiPQy41O5E8/io3kEGPplBvUz
-	84ff+QNyqHZ/uohbWbfdF7jGfO+ug7H60Un67WGo3HiislMoeNvfqTCy1geY5XA0dSJfvyVTAvp
-	jPN8UOtALiGIb7aTWEdXfuoRrRkjrXvhfNbtHNDoIbFTJhp+8H+X9a+OCx4p4VmjyNgCIYqEibA
-	55iWvw5uBNrzDSNfK3EyGQef5jphZlnQSNtXX4SbTVlD6CixNuAXJUwzHA8N+1YxghGJsPTj1vR
-	DLkUWTq5OP45dmrvmkXkWKM4G0atgdcLYe5jnMUxsbWqJ3bUALJiEpeIfGnkTDp18AGp+MLXTB0
-	FKA3OiFTmALXy4nEo2I1cq8Heg5mYuvQD/SCBhjobQ0czckrNcA8kt3Vo1324TRZzGVGNp5yxU0
-	AD0l+e558v2EV+cOCoErod03uWBREw07aSGa1qaH96uFbiG9P6/DYJC6Z1kwuSbO290gPENS7dM
-	8ZhGd3CpsqeevNyBa84q6qXFYpc
-X-Received: by 2002:a05:6214:29ea:b0:919:557c:f0a5 with SMTP id 6a1803df08f44-9198b7a2b91mr25577606d6.23.1791291428077;
-        Tue, 06 Oct 2026 05:57:08 -0700 (PDT)
-Received: from localhost.localdomain ([2408:8352:470:235:7e7d:21ff:fedc:f409])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917e0c074desm112575806d6.38.2026.10.06.05.56.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 05:57:07 -0700 (PDT)
-From: Hongyu Xie <xiehongyu1@kylinos.cn>
-To: valentina.manea.m@gmail.com,
-	shuah@kernel.org,
-	gregkh@linuxfoundation.org
-Cc: i@zenithal.me,
-	bgmerrell@novell.com,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hongyu Xie <xiehongyu1@kylinos.cn>,
-	syzbot+b6f11035e572f08bc20f@syzkaller.appspotmail.com,
-	syzbot+a7edecbf389d11a369d4@syzkaller.appspotmail.com,
-	syzbot+bfa320b67fcbe2583c6f@syzkaller.appspotmail.com
-Subject: [PATCH] usbip: vhci_hcd: time out unanswered unlink requests
-Date: Tue,  6 Oct 2026 20:56:52 +0800
-Message-Id: <20261006125652.10296-1-xiehongyu1@kylinos.cn>
-X-Mailer: git-send-email 2.32.0
+	s=arc-20240116; t=1791291433; c=relaxed/simple;
+	bh=cC3V0/pX1MGQHaQL3/2zjT6wMupt2ITWzQZDAVfxVf0=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=TdGxWl6o9OjbBlsJmV/mH0v0+6N78+K8fI9CD/JtbaDYM4LEgKbcW+k1Mk5SbSl5O1P9aCr7vX5hAtp3ivailrz2lbLk+MHNKea/pwCSpoa7KIWgIyYp6k0AtTEhz7v1NRLT0eXqicAbZzlgZt0SoJeSNDzawgl7/arNF0GdQvo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=FCNR5RGm; arc=none smtp.client-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="FCNR5RGm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1791291431; x=1822827431;
+  h=from:subject:date:message-id:mime-version:
+   content-transfer-encoding:to:cc;
+  bh=cC3V0/pX1MGQHaQL3/2zjT6wMupt2ITWzQZDAVfxVf0=;
+  b=FCNR5RGmNQfmjQUAtYxbkLPpN4e171a0AYH5O4/EEVhc82o4eClv2uL1
+   2/MeKhrOG1tb6fwMWiDdUbPObrg6y5GiGY7Mpquq9AH6flR1urfo7EE0w
+   BX5j+V+0P/GX0WagB7g6Hn3VTlDBPbIISlHYzxkMEwnc5zUuD7EIbGUuY
+   55CLiGVNo248FPAw5svddFdGn7Vq7uSxBBuKLFstD8DsSiiBFnorrzHmc
+   Hlwb6sukenfAlt8GiWJ4Tk2iyaRf7Rtyzsh0GDOxeOVSslkv2SKoMYoKu
+   WNeDqNzNq2/2SWXFvo8/sTcEAcvQTyoyUmIJWSfZZ7yYjL+mfEe+/qykM
+   w==;
+X-CSE-ConnectionGUID: Jdv3J9axSG2H9yYBsabhPw==
+X-CSE-MsgGUID: M9Jp7LnMTI+cS22yFgKRHg==
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="231739343"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 05:57:10 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.87.151) by
+ chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.49; Tue, 6 Oct 2026 05:57:10 -0700
+Received: from ROU-LL-M19942.mpu32.int (10.10.85.11) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Tue, 6 Oct 2026 05:57:05 -0700
+From: Cyrille Pitchen <cyrille.pitchen@microchip.com>
+Subject: [PATCH v9 0/5] drm/microchip: add GFX2D support for SAM9X60 and
+ SAM9X75
+Date: Tue, 6 Oct 2026 14:56:32 +0200
+Message-ID: <20261006-cpitchen-mainline_gfx2d-v9-0-74bd3df2e183@microchip.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XR20rDQBAG4Fcpe21kZvbcK99DRDZ7aBZsEpISK
+ iXv7qagDZjo5T8w3z8wNzbGIceRHQ83NsQpj7lrS7BPB+Yb155ilUPJjIAkWMTK9/nim9hWZ5f
+ bj9zG91O6UqiU4hgtl+SSZmW7H2LK17v8+lZyk8dLN3zeiyZcpv+bE1ZQBZ1cjY4bjPHlnP3Q+
+ Sb3z747s8WdaG2ZfYuKpXxy3gapFNKWxX8sRBL7Fl8s0Ml4AZqM2rLEt6WgYPuWKFYiBBDoAhd
+ 8y5Jri+9bsljWB1eb5JS19ZalVhbBvqWKhQ6VDxg01GbL0g+LwO5buljgkaISDqyELcs8LEN//
+ NEUi2vDtZDSav7rrnmevwAUGt6E1gIAAA==
+X-Change-ID: 20250911-cpitchen-mainline_gfx2d-6631e9352af7
+To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	"Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+	<mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>,
+	"Alexandre Belloni" <alexandre.belloni@bootlin.com>, Claudiu Beznea
+	<claudiu.beznea@tuxon.dev>, Russell King <linux@armlinux.org.uk>
+CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	Cyrille Pitchen <cyrille.pitchen@microchip.com>, Conor Dooley
+	<conor.dooley@microchip.com>, Manikandan Muralidharan
+	<manikandan.m@microchip.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9009;
+ i=cyrille.pitchen@microchip.com; h=from:subject:message-id;
+ bh=cC3V0/pX1MGQHaQL3/2zjT6wMupt2ITWzQZDAVfxVf0=;
+ b=owGbwMvMwCXmf6yzKqEsVIbxtFoSQ9aRD5IKNw4d3/3A/cmv79PrsnRC7gsn1V6/dzDRJLKnN
+ 2mJ8qSlHaUsDGJcDLJiiiyH3mztzTz+6rHdK1EpmDmsTCBDGLg4BWAiLisYGY7LHS9w6lufdHj9
+ 25yFcz6q9sbm9c3gi14n8mtfS1RevzQjwzE7zvjouoerjCV8chv+XFdInKR8Xmii3rlJhhutizI
+ e8AAA
+X-Developer-Key: i=cyrille.pitchen@microchip.com; a=openpgp;
+ fpr=7A21115D7D6026585D0E183E0EF12AA1BFAC073D
 
-When the connection to the peer is alive, vhci_urb_dequeue() only queues
-a CMD_UNLINK PDU and relies on the peer to send RET_UNLINK (or
-RET_SUBMIT) before the unlinked URB is given back.  A peer that keeps
-the socket open but never answers therefore makes usb_kill_urb() wait
-forever.  The waiter is typically the hub work item, which runs with
-the shared address0_mutex held, so every later task that needs that
-mutex or the device lock chain - a second attach, usbfs open/release/
-ioctl, udev - piles up behind it and the whole USB stack wedges.
+Hi all,
 
-syzbot reports this shape in three long-lived bugs:
-  INFO: task hung in hub_port_init
-  INFO: task hung in hub_event
-  INFO: task hung in usbdev_release
+This series of patches adds GFX2D support.
+The GFX2D is a 2D GPU embedded in some Microchip SoCs such as the
+SAM9X60 and SAM9X75.
 
-Give every queued unlink request a deadline of its own and arm a
-per-device watchdog; when the watchdog fires, it tears the connection
-down through the existing error path (VDEV_EVENT_ERROR_TCP) if any
-request is still unanswered past its own deadline.  The teardown
-already knows how to give back every pending URB with -ENODEV, and a
-RET_UNLINK that arrives late (or never) after that is handled by the
-existing "already given back" paths.
+Patches have been developped on top the 'linux-6.12-mchp' branch of the
+https://github.com/linux4microchip/linux.git repository and tested on
+mainly on a sam9x75-curiosity board and also on a sam9x60-ek board.
 
-The watchdog is cancelled whenever no request is outstanding.  Queueing
-a request re-arms it to that request's deadline, so the callback does
-not trust the timer's expiry: it re-checks the outstanding requests
-against their own deadlines under priv_lock and becomes a no-op when
-none has run out.  A peer that answers promptly is therefore unaffected.
-Controller removal quiesces the device first - the event handler
-stops the per-device rx/tx threads and drains the pending events -
-and only then calls timer_shutdown_sync(), which also waits for a
-watchdog callback that is already running, so the callback cannot
-touch the controller after it is freed.
+Later, the patches have also been rebased on the 'linux-6.18-mchp'
+branch of the https://github.com/linux4microchip/linux.git repository
+then tested on a sam9x75-curiosity board.
 
-A similar fix was proposed as an RFC by the syzbot assisted-fix
-pipeline; this version arms a single per-device watchdog instead of a
-timer per unlink request.
+Finally, they have been rebased on top of the 'drm-misc-next' branch
+of the https://gitlab.freedesktop.org/drm/misc/kernel.git repository
+for mainlining. Hence, they have been tested on a sam9x75-curiosity
+board running a linux4microchip 26.04 image where the kernel + DTB
+have been replaced with the new kernel compiled from the 'drm-misc-next'
+branch (currently based on linux 7.3.0-rc4).
 
-Fixes: 04679b3489e0 ("Staging: USB/IP: add client driver")
-Reported-by: syzbot+b6f11035e572f08bc20f@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?id=58aef18c1ad93d87652f24a0bc7a74b6d98ac710
-Reported-by: syzbot+a7edecbf389d11a369d4@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?id=7ff8ae4abed51ff2354c1addb664143ec26ca588
-Reported-by: syzbot+bfa320b67fcbe2583c6f@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?id=048da78aba1a3a6139509492b2be505b2d223762
-Link: https://lore.kernel.org/all/1d6db53d-07ab-46ad-adc4-d09c95b2c83f@mail.kernel.org/
-Signed-off-by: Hongyu Xie <xiehongyu1@kylinos.cn>
+About the tests, the GFX2D driver was used with the M2D (Multi 2D)
+library: https://github.com/linux4sam/libm2d
+
+This is an open source library that abstracts 2D GPUs like the Microchip
+GFX2D and the Vivante GC520UL, providing graphics applications or
+libraries with a unified API, inspired from OpenGL but focused on 2D GPUs.
+The libm2d library itself relies on the libdrm library to send commands to
+the relevant DRM driver in the Linux kernel.
+The libm2d library has not been designed to be thread-safe. Indeed, it is
+intended to be used by a single thread for better performances.
+
+M2D comes with a m2d_test program to run basic unitary tests.
+In addition, libm2d has been integrated to two graphics frameworks:
+- EGT: https://github.com/linux4sam/egt
+- LVGL: https://github.com/lvgl/lvgl/pull/8729
+
+Tested the system suspend with the 'systemctl suspend' command.
+Tested the runtime pm with the 'egt_boards' application.
+
+BR,
+
+Cyrille
+
+Signed-off-by: Cyrille Pitchen <cyrille.pitchen@microchip.com>
 ---
- drivers/usb/usbip/vhci.h     |  8 ++++
- drivers/usb/usbip/vhci_hcd.c | 83 ++++++++++++++++++++++++++++++++++++
- drivers/usb/usbip/vhci_rx.c  |  2 +
- 3 files changed, 93 insertions(+)
+Changes in v9:
+- Rebased onto the 'drm-misc-next' branch on 2026-10-06.
+- Reworked patch 2 mainly based on sashiko comments:
+  + Used 'struct drm_gem_dma_object' as the new base for 'struct
+    mchp_gfx2d_gem_object'.
+  + Removed useless initialization of 'ret' in mchp_gfx2d_schedule().
+  + Changed type of 'struct drm_mchp_gfx2d_submit.num_rectangles' from
+    '__kernel_size_t' to '__u32'.
+  + Added missing support of special blend functions in blend commands.
+  + Added helper functions to {en,de}queue commands in the running list.
+  + Enabled the EXEND interrupt when partial or pending commands are
+    scheduled to make sure such commands can actually progress.
+  + Replaced pm_runtime_resume_and_get() with pm_runtime_get_noresume()
+    in mchp_gfx2d_thread().
+  + Added a comment about the 'BLEND_SREG' GPU internal register that
+    could be overwritten on SAM9X60 SoCs.
+  + Fixed integer truncation of the ROP mode in
+    mchp_gfx2d_set_rop_params() to prevent userspace from bypassing mask
+    validation.
+  + Added upper bound check for the number of rectangles in SUBMIT ioctl.
+  + Fixed mchp_gfx2d_cleanup_command_queue() to access hardware
+    registers only if the peripheral clock is enabled.
+  + Fixed potential corrumption of 'priv->wlist' by concurrent WAIT ioctls
+    on the same GEM object.
+  + Kept imported surface metadata immutable after first import.
+  + Changed type of 'next_id' from 'static uint32_t' to 'static
+    atomic_t' to avoid potential races.
+  + Replaced atomic_dec() with atomic_dec_return() in
+    mchp_gfx2d_gem_unref().
+  + Fixed potential corruption of the shared per-file 'rectangles' buffer
+    by concurrent SUBMIT ioctls on the same file descriptor.
+  + Fixed the potential Use-After-Free of GEM object in
+    mchp_gfx2d_ioctl_alloc_buffer().
+  + Made mchp_gfx2d_ioctl_sync_for_cpu() invalidate the CPU cache for
+    non-coherent buffers by calling dma_sync_single_for_cpu().
+  + Made mchp_gfx2d_ioctl_sync_for_gpu() clean the CPU cache for
+    non-coherent buffers by calling dma_sync_single_for_device().
+  + Replaced flush_cache_range() with flush_cache_mm() in
+    mchp_gfx2d_ioctl_sync_for_gpu() to manage the cache aliasing issue
+    on SAM9 (ARM926) without copying a 'struct vm_area_struct'.
+- Link to v8: https://lore.kernel.org/r/20260828-cpitchen-mainline_gfx2d-v8-0-378374559738@microchip.com
 
-diff --git a/drivers/usb/usbip/vhci.h b/drivers/usb/usbip/vhci.h
-index 5659dce1526e..6222283d9551 100644
---- a/drivers/usb/usbip/vhci.h
-+++ b/drivers/usb/usbip/vhci.h
-@@ -11,6 +11,7 @@
- #include <linux/list.h>
- #include <linux/spinlock.h>
- #include <linux/sysfs.h>
-+#include <linux/timer.h>
- #include <linux/types.h>
- #include <linux/usb.h>
- #include <linux/usb/hcd.h>
-@@ -44,6 +45,9 @@ struct vhci_device {
- 	struct list_head unlink_tx;
- 	struct list_head unlink_rx;
- 
-+	/* fires when the peer leaves an unlink request unanswered */
-+	struct timer_list unlink_timer;
-+
- 	/* vhci_tx thread sleeps for this queue */
- 	wait_queue_head_t waitq_tx;
- };
-@@ -65,6 +69,9 @@ struct vhci_unlink {
- 
- 	/* seqnum of the unlink target */
- 	unsigned long unlink_seqnum;
-+
-+	/* deadline enforced by the per-device unlink watchdog */
-+	unsigned long expires;
- };
- 
- enum hub_speed {
-@@ -124,6 +131,7 @@ extern struct attribute_group vhci_attr_group;
- 
- /* vhci_hcd.c */
- void rh_port_connect(struct vhci_device *vdev, enum usb_device_speed speed);
-+void vhci_stop_unlink_timer(struct vhci_device *vdev);
- 
- /* vhci_sysfs.c */
- int vhci_init_attr_group(void);
-diff --git a/drivers/usb/usbip/vhci_hcd.c b/drivers/usb/usbip/vhci_hcd.c
-index 39e8faf4c18c..220051339445 100644
---- a/drivers/usb/usbip/vhci_hcd.c
-+++ b/drivers/usb/usbip/vhci_hcd.c
-@@ -19,6 +19,15 @@
- #define DRIVER_AUTHOR "Takahiro Hirofuchi"
- #define DRIVER_DESC "USB/IP 'Virtual' Host Controller (VHCI) Driver"
- 
-+/*
-+ * How long to wait for RET_UNLINK after sending CMD_UNLINK.  A peer that
-+ * cannot answer an unlink request within a control-transfer timeout
-+ * (USB_CTRL_GET_TIMEOUT) worth of time is considered stuck, and the
-+ * connection is torn down so that URBs waiting for their unlink reply can
-+ * be given back instead of hanging their owners forever.
-+ */
-+#define VHCI_UNLINK_TIMEOUT_MS	5000
-+
- /*
-  * TODO
-  *	- update root hub emulation
-@@ -846,6 +855,67 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
- 	return ret;
- }
- 
-+/*
-+ * Is any queued unlink request past its own deadline?  Each request
-+ * carries the time by which the peer must have answered it, and the
-+ * timer may have been re-armed by a newer request before that, so the
-+ * callback decides by walking the lists rather than by the timer's own
-+ * expiry.
-+ */
-+static bool vhci_unlink_expired(struct vhci_device *vdev, unsigned long now)
-+{
-+	struct vhci_unlink *unlink;
-+
-+	list_for_each_entry(unlink, &vdev->unlink_tx, list)
-+		if (time_after_eq(now, unlink->expires))
-+			return true;
-+	list_for_each_entry(unlink, &vdev->unlink_rx, list)
-+		if (time_after_eq(now, unlink->expires))
-+			return true;
-+
-+	return false;
-+}
-+
-+static void vhci_unlink_timeout(struct timer_list *t)
-+{
-+	struct vhci_device *vdev = timer_container_of(vdev, t, unlink_timer);
-+	unsigned long flags;
-+	bool expired;
-+
-+	spin_lock_irqsave(&vdev->priv_lock, flags);
-+	expired = vhci_unlink_expired(vdev, jiffies);
-+	spin_unlock_irqrestore(&vdev->priv_lock, flags);
-+
-+	if (!expired)
-+		return;
-+
-+	dev_info(hcd_dev(vhci_hcd_to_hcd(vdev_to_vhci_hcd(vdev))),
-+		 "peer did not reply to an unlink request within %d msecs\n",
-+		 VHCI_UNLINK_TIMEOUT_MS);
-+
-+	/*
-+	 * Reuses the teardown path taken on other peer failures, which
-+	 * gives back all URBs waiting for their unlink reply.
-+	 */
-+	usbip_event_add(&vdev->ud, VDEV_EVENT_ERROR_TCP);
-+}
-+
-+/*
-+ * Stop the unlink watchdog once every queued unlink request is answered
-+ * or given back.  Safe from any context: a concurrent watchdog expiry
-+ * re-checks the per-request deadlines under vdev->priv_lock and becomes
-+ * a no-op.
-+ */
-+void vhci_stop_unlink_timer(struct vhci_device *vdev)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&vdev->priv_lock, flags);
-+	if (list_empty(&vdev->unlink_tx) && list_empty(&vdev->unlink_rx))
-+		timer_delete(&vdev->unlink_timer);
-+	spin_unlock_irqrestore(&vdev->priv_lock, flags);
-+}
-+
- /*
-  * vhci_rx gives back the urb after receiving the reply of the urb.  If an
-  * unlink pdu is sent or not, vhci_rx receives a normal return pdu and gives
-@@ -968,6 +1038,14 @@ static int vhci_urb_dequeue(struct usb_hcd *hcd, struct urb *urb, int status)
- 		/* send cmd_unlink and try to cancel the pending URB in the
- 		 * peer */
- 		list_add_tail(&unlink->list, &vdev->unlink_tx);
-+
-+		/* if the peer does not answer this request within the
-+		 * timeout, tear the connection down
-+		 */
-+		unlink->expires =
-+			jiffies + msecs_to_jiffies(VHCI_UNLINK_TIMEOUT_MS);
-+		mod_timer(&vdev->unlink_timer, unlink->expires);
-+
- 		wake_up(&vdev->waitq_tx);
- 
- 		spin_unlock(&vdev->priv_lock);
-@@ -1029,6 +1107,8 @@ static void vhci_device_unlink_cleanup(struct vhci_device *vdev)
- 
- 	/* give back URB of unanswered unlink request */
- 	vhci_cleanup_unlink_list(vdev, &vdev->unlink_rx);
-+
-+	vhci_stop_unlink_timer(vdev);
- }
- 
- /*
-@@ -1143,6 +1223,8 @@ static void vhci_device_init(struct vhci_device *vdev)
- 
- 	init_waitqueue_head(&vdev->waitq_tx);
- 
-+	timer_setup(&vdev->unlink_timer, vhci_unlink_timeout, 0);
-+
- 	vdev->ud.eh_ops.shutdown = vhci_shutdown_connection;
- 	vdev->ud.eh_ops.reset = vhci_device_reset;
- 	vdev->ud.eh_ops.unusable = vhci_device_unusable;
-@@ -1269,6 +1351,7 @@ static void vhci_stop(struct usb_hcd *hcd)
- 
- 		usbip_event_add(&vdev->ud, VDEV_EVENT_REMOVED);
- 		usbip_stop_eh(&vdev->ud);
-+		timer_shutdown_sync(&vdev->unlink_timer);
- 	}
- }
- 
-diff --git a/drivers/usb/usbip/vhci_rx.c b/drivers/usb/usbip/vhci_rx.c
-index a678e7c89837..32b1550839d2 100644
---- a/drivers/usb/usbip/vhci_rx.c
-+++ b/drivers/usb/usbip/vhci_rx.c
-@@ -179,6 +179,8 @@ static void vhci_recv_ret_unlink(struct vhci_device *vdev,
- 	}
- 
- 	kfree(unlink);
-+
-+	vhci_stop_unlink_timer(vdev);
- }
- 
- static int vhci_priv_tx_empty(struct vhci_device *vdev)
+Changes in v8:
+- Rebased onto the 'drm-misc-next' branch on 2026-08-28.
+- Collected Reviewed-by tags from Manikandan Muralidharan on patches 3
+  and 4
+- Replaced kzalloc() with kzalloc_obj() in patch 2 as suggested by
+  checkpatch.pl.
+- Link to v7: https://lore.kernel.org/r/20260209-cpitchen-mainline_gfx2d-v7-0-0c12e64a0950@microchip.com
+
+Changes in v7:
+- Rebased onto the 'drm-misc-next' branch on 2026-02-09.
+- Rewored patch 2:
+  + Reworked the former valid_pixel_format() function into the new
+    mchp_gfx2d_valid_buffer_params() function, which is called from both
+    the mchp_gfx2d_ioctl_{alloc,import}_buffer() functions and now checks
+    the `width` and `stride` parameters in addition to the `format` one.
+  + Added the mchp_gfx2d_valid_size() function, which is called from both
+    the mchp_gfx2d_ioctl_{alloc,import}_buffer() functions and checks
+    (`stride` * `height`) against `size` as suggested by Daniel Stone.
+- Link to v6: https://lore.kernel.org/r/20260120-cpitchen-mainline_gfx2d-v6-0-1a16cd1d70b8@microchip.com
+
+Changes in v6:
+- Shrank the size of the register set in the device tree from 0x4000
+  down to 0x100 (patches 1, 3 and 4).
+- Collected Reviewed-by and Acked-by tags from Nicolas Ferre on patches
+  1 and 5.
+- Rebased onto the 'drm-misc-next' branch on 2026-01-20.
+- Link to v5: https://lore.kernel.org/r/20260113-cpitchen-mainline_gfx2d-v5-0-9cdab8fa699b@microchip.com
+
+Changes in v5:
+- Fixed compilation issues in patch 2:
+  + Included <drm/drm_print.h> from mchp_gfx2d_cmd.c, mchp_gfx2d_drv.c
+    and mchp_gfx2d_gem.c.
+  + Replaced '.remove_new' with '.remove' in definition of 'struct
+    platform_driver mchp_gfx2d_platform_driver' to match the latest
+    definition of 'struct platform_driver'.
+  + Removed the '.date' member from the definition of 'struct drm_driver
+    mchp_gfx2d_drm_driver' since this 'date' member has been removed from
+    'struct drm_driver'.
+- Fixed typos in doxygen documentations of two functions:
+  + mchp_gfx2d_process_completed_commands()
+  + mchp_gfx2d_init_command_queue()
+- Link to v4: https://lore.kernel.org/r/20260112-cpitchen-mainline_gfx2d-v4-0-f210041ad343@microchip.com
+
+Changes in v4:
+- Rebased onto the 'drm-misc-next' branch on 2026-01-12.
+- Link to v3: https://lore.kernel.org/r/20251124-cpitchen-mainline_gfx2d-v3-0-607f8c407286@microchip.com
+
+Changes in v3:
+- Collected Acked-by tag from Conor Dooley on patch 1
+- Rebased onto the 'drm-misc-next' branch on 2025-11-24.
+- Link to v2: https://lore.kernel.org/r/20250918-cpitchen-mainline_gfx2d-v2-0-6cfac9d56612@microchip.com
+
+Changes in v2:
+- Renamed microchip,gfx2d.yaml into microchip,sam9x60-gfx2d.yaml.
+- Removed the 'clock-names' property from the DT bindings.
+- Renamed the GPU node from 'gfx2d' to 'gpu' in sam9x{60,7}.dtsi files.
+- Link to v1: https://lore.kernel.org/r/20250911-cpitchen-mainline_gfx2d-v1-0-d7fab1a381ee@microchip.com
+
+---
+Cyrille Pitchen (5):
+      dt-bindings: gpu: add bindings for the Microchip GFX2D GPU
+      drm/microchip: add a driver for the Microchip GFX2D GPU
+      ARM: dts: microchip: sam9x60: Add GFX2D GPU
+      ARM: dts: microchip: sam9x7: Add GFX2D GPU
+      ARM: configs: at91_dt_defconfig: enable GFX2D driver
+
+ .../bindings/gpu/microchip,sam9x60-gfx2d.yaml      |   46 +
+ MAINTAINERS                                        |   10 +
+ arch/arm/boot/dts/microchip/sam9x60.dtsi           |    8 +
+ arch/arm/boot/dts/microchip/sam9x7.dtsi            |    8 +
+ arch/arm/configs/at91_dt_defconfig                 |    1 +
+ drivers/gpu/drm/Kconfig                            |    1 +
+ drivers/gpu/drm/Makefile                           |    1 +
+ drivers/gpu/drm/microchip/Kconfig                  |   22 +
+ drivers/gpu/drm/microchip/Makefile                 |    8 +
+ drivers/gpu/drm/microchip/mchp_gfx2d_cmd.c         | 1925 ++++++++++++++++++++
+ drivers/gpu/drm/microchip/mchp_gfx2d_cmd.h         |  181 ++
+ drivers/gpu/drm/microchip/mchp_gfx2d_drv.c         |  363 ++++
+ drivers/gpu/drm/microchip/mchp_gfx2d_drv.h         |  134 ++
+ drivers/gpu/drm/microchip/mchp_gfx2d_gem.c         |  178 ++
+ drivers/gpu/drm/microchip/mchp_gfx2d_gem.h         |   78 +
+ drivers/gpu/drm/microchip/mchp_gfx2d_ioctl.c       |  334 ++++
+ drivers/gpu/drm/microchip/mchp_gfx2d_ioctl.h       |   17 +
+ include/uapi/drm/microchip_drm.h                   |  286 +++
+ 18 files changed, 3601 insertions(+)
+---
+base-commit: 4f2fb106c459e6b96ddfa542de40e517b5274c44
+change-id: 20250911-cpitchen-mainline_gfx2d-6631e9352af7
+
+Best regards,
 -- 
-2.32.0
+Cyrille Pitchen <cyrille.pitchen@microchip.com>
 
