@@ -1,169 +1,184 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA2C734D389
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 18:10:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 158FE883F;
+	Tue,  6 Oct 2026 18:16:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791310227; cv=none; b=GRH8KN9pBgxxpVYB2GB38dBFJW0zPClTD+hrtED5XEb6XiptD7RxYROBq6lo7Lh1IuK1t1c3t7/PoizOppjLFnyQkUFOMNPT8thqHS1xMtvSa85i+8fNzPWk8mScqqzlt2MeEBrB93wuBEqZx4KxljWOl/bnpQiOe38ufe+tUfo=
+	t=1791310573; cv=none; b=FEK/kKhKEdCQQYX0l1FSCKGnCH1X58pqyBFVBJLZH/4vbPqq7wnYr7l4ZnZ9Hfdprv83Ix2WyhCD/ViQQcnSfTgmnIhplgQrVpXMblYTM/meKmJMMpHL905bpGyPksBJBXMcHTp33zJIoj814BqEck3NK6/17qj9zEMV8gDyeWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791310227; c=relaxed/simple;
-	bh=mdAvhSYFoTp7Cs2GMsUdE4BQvlRRVZ9EkWvRIK+71cE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=C6n0NP7iAU0ui1TOPHOxFHlS+HMUz0Bt5qQj3F5pos0Q3D3ffDusbFzPcqrOADYzEagJM1b54LoaMOnERHVnO8uotUkyNf5gZUgeqcJNiQtWITJdcS8yWCXEeIBK0FwMPEo1tH0WU+x/MwlhAWY7l7Ym0dAy4/MqYsE5u9K8XgE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CxrfSvle; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791310573; c=relaxed/simple;
+	bh=GVXrQoPUcc7WDsKwrmLz+KgdZSVGTNk9TcBrOvYe7N4=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=OMgNQhuS39ggpAb0JHhNyrOwwynJc9N5c0VgERh8FWYWMbaFnAwbnmNTZHFs9RkAfSBi/Crrmnq3gAVXMRImcL3EWbIHjDor7smUAwc3MwqQQ8g32kIGFnbUKVbftRnVxQ9qrVgOzAHnm2b41aSv5hZFKG3IhTquup1CGDdtMk0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=vtelectron.com header.i=@vtelectron.com header.b=BAAdOqdv; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=duJio0fx; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CxrfSvle"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A4862C4AF61;
-	Tue,  6 Oct 2026 18:10:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791310226;
-	bh=mdAvhSYFoTp7Cs2GMsUdE4BQvlRRVZ9EkWvRIK+71cE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=CxrfSvleYtz/zYA/y7EtIgjN+dii7G/H+bI/fnlGUpkDTl5pHeadUezVPEhzhkQTr
-	 WoBRSCXu/TiOC6T8Fs2HtQpCGQqzWLfaLsZjwQ7w68QCsu1bfeJTPtb9LAM+s0bt9u
-	 /hU8GS36rDscQbdaXewVQH5xaURzXKGPACs7LC3WMURdiER1d/D1DvjB5qVUqmV19B
-	 9NvlGEceUQRCfpNlOK5L8RGEjPQKy69zclkV/TNaU/6tFIGFRGIetVO4L4SPVRbd7I
-	 EN0+B/EDGGq6A1GfJf6mPN7Y/BU3ZDngs0ZhBJ5SebfCve5nQ9l2eHDyRgGAn9boAM
-	 OahfiCsGwhjpA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 86867CA5FFE;
-	Tue,  6 Oct 2026 18:10:26 +0000 (UTC)
-From: Viorel Cernateanu via B4 Relay <devnull+vrilutza.gmail.com@kernel.org>
-Date: Tue, 06 Oct 2026 21:10:23 +0300
-Subject: [PATCH 2/2] x86/kmsan: Don't call instrumented code from
- kmsan_virt_addr_valid()
+	dkim=pass (2048-bit key) header.d=vtelectron.com header.i=@vtelectron.com header.b="BAAdOqdv";
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="duJio0fx"
+Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 696Hi4i33252028;
+	Tue, 6 Oct 2026 14:16:06 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:message-id:mime-version:subject:to; s=DKIM; bh=IYiBbJwoGqD7WNr+
+	I0Zm5NrUWdkzEJsNFHVTZHPICCs=; b=BAAdOqdv7Zcwzi8bxuoL/HSn2J8MDRsw
+	f4Zf4Dd96Nt2CWlCKZbT7I996bysQ1KbGGb23MFG8pBiUXfBEe32lyR1LRo0vUk4
+	5u7rEiyunTGRfUyNBs2Nu/f/B4cTC783QmNwnUewCcvzBxrZisfuCzxW5NdwcwSh
+	UBuKL4WLHQpXPtUGEq9NvgBF0Rv0t9i6q3fRR2bFBqm4If2YBmnu2RYVj4Hhq8o1
+	K4VeY3UtI8sCKwTwmu+uGrl799+IgXcI+PFg21/R2N+Y0mk62dIHWdab1c9GKOpg
+	yVeK0xVC2gxlbHse/BoiPjXS9Rx/F0A3s/+cNmqRS/soVGHbdP/gkQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=IYiBbJwoGqD7WNr+I0Zm5NrUWdk
+	zEJsNFHVTZHPICCs=; b=duJio0fxMAqoRbDhhj9OuOMMNQ2BCgtyTZVtgsz1kgY
+	IoM69doQB9LBxmh+4Y9EQwHIRjidRgrZwOjDxiQa8qOzIszv1Dq/C4axeFpxUMbt
+	3OVMa8LUhIX7mhhk+QqoZhOIG6mbSTw8lfCryITihKEnWTTBb1B/1TuZAvZXlRa2
+	++BHmhmU/BIV/EFGoetf5XGEV0N50MpEs5XlDTOz+eTEyX0/GHzF1H8Eiw2CM1LO
+	eQYDjp38yh3XiwKh331MsjwbG6PbICEU+HFPWbL8+HX23hqvhXFfGDdJ2ab/DicR
+	TbpyFC21NrRBPChmZ6Y3aEbtfT2qOljOiqR97j3pSFg==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4h4y34jhfr-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 06 Oct 2026 14:16:05 -0400 (EDT)
+Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 696IG4bP009938
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 6 Oct 2026 14:16:04 -0400
+Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
+ ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Tue, 6 Oct 2026 14:16:04 -0400
+Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
+ ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Tue, 6 Oct 2026 14:16:04 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Tue, 6 Oct 2026 14:16:04 -0400
+Received: from work.maxim-ic.internal ([10.66.6.193])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 696IFoYg000970;
+	Tue, 6 Oct 2026 14:15:53 -0400
+From: Marcelo Schmitt <marcelo.schmitt@analog.com>
+To: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux@analog.com>
+CC: <jic23@kernel.org>, <nuno.sa@analog.com>, <dlechner@baylibre.com>,
+        <andy@kernel.org>, <Michael.Hennerich@analog.com>, <robh@kernel.org>,
+        <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <corbet@lwn.net>,
+        <skhan@linuxfoundation.org>, <marcelo.schmitt1@gmail.com>
+Subject: [PATCH v4 00/13] iio: adc: ad4134: Enable greater sample rate data capture
+Date: Tue, 6 Oct 2026 15:15:44 -0300
+Message-ID: <cover.1791309733.git.marcelo.schmitt@analog.com>
+X-Mailer: git-send-email 2.39.2
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261006-kmsan-serie-v1-2-07fa860ef3de@gmail.com>
-References: <20261006-kmsan-serie-v1-0-07fa860ef3de@gmail.com>
-In-Reply-To: <20261006-kmsan-serie-v1-0-07fa860ef3de@gmail.com>
-To: Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>, 
- Dmitry Vyukov <dvyukov@google.com>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
- "H. Peter Anvin" <hpa@zytor.com>, Andrew Morton <akpm@linux-foundation.org>, 
- Peter Zijlstra <peterz@infradead.org>, Kees Cook <kees@kernel.org>
-Cc: Borislav Petkov <bp@suse.de>, kasan-dev@googlegroups.com, 
- linux-kernel@vger.kernel.org, Viorel Cernateanu <vrilutza@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791310225; l=3558;
- i=vrilutza@gmail.com; s=lenovo-20261005; h=from:subject:message-id;
- bh=F/6GUjkmsEc44iwXpibyU3cTQT3QQPi2x9clp1QmJzo=;
- b=y51UBSnmJzZIEzHgGtVEXtakgvcDvS200jITenXhWf3+S/ur2nvwf6xfTDURpod1nh+DcsgEQ
- spuh+Rn93yHCbI7GnTqs8yx/subE5qMz3otCzEy1YPIk9UViXDmEKfr
-X-Developer-Key: i=vrilutza@gmail.com; a=ed25519;
- pk=HttZd2ffphVYTK/pvlflateaij8E4SdPd6Y+xDQMqDU=
-X-Endpoint-Received: by B4 Relay for vrilutza@gmail.com/lenovo-20261005
- with auth_id=1115
-X-Original-From: Viorel Cernateanu <vrilutza@gmail.com>
-Reply-To: vrilutza@gmail.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-ORIG-GUID: a-x5l2RiUcJ3qRxKF_oz4grqVoaLFSz0
+X-Proofpoint-GUID: a-x5l2RiUcJ3qRxKF_oz4grqVoaLFSz0
+X-Authority-Analysis: v=2.4 cv=QYnzLcbv c=1 sm=1 tr=0 ts=6ac53ae5 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=uXIjobp8t2wMuQ0fPvqm:22 a=VwQbUJbxAAAA:8 a=gAnH3GRIAAAA:8
+ a=QfiHAWIskqYIEB46yxsA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA3MiBTYWx0ZWRfX5oIlA0fHRkUr
+ wyo1B2SFaiKgAxBeOqQ/AvkR9fciQokR6p696Zf8q3+3g34WO0fCCC9jHUtbuZy5uOmYqJjOGT8
+ YxA0N8H/lXsEuAAJkYkLxKsAg5TCTBeh8EvPNjvGmERypvFQtM69
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA3MiBTYWx0ZWRfX3+mE2T+i5g/C
+ sNdoKZo0cSAiXYV2E01VrBQhvdG+tSFqhc57B1/sQl30Xc+vvvTd5zKHuHPO8bnwYBTA2SZBr+v
+ fw8+eYE1QXtVkC31s19FM5uuwCGpThjnMF1orbxq5n4zn52MiZevGI6tP+DPCrb1TBxMoMYg/cu
+ 4AMCc2ttWpdmUL/kAnrka8Rw47XdRrG4tzL7VvCrT3qylaG3FX4KBImNuRbJl7pwgn/+eqfddhJ
+ gVEN24ps30CyV3h65LK0QgNMOpYhJOJ+YwDHgKDqLnMO621RjiXnjCuf2zKj4TDLZ6CqEfEt2jG
+ rfjl3WaH/RIhnCejVcun483ZhTo5XpL9dBi0vZSZZcVDjWyNg+fpDr0ivuKXCsrVr1JslxBxmVD
+ x65CuFMTr23tEu1OrCvRJNYozXA3uBBGbBV2RhmhpaeNuabCcdtoX2uatXd7lIwc+nNjNU2svqK
+ B8JdYERFr0EXlwoiGAw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-06_05,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 bulkscore=0 priorityscore=1501 lowpriorityscore=0 phishscore=0
+ suspectscore=0 clxscore=1015 impostorscore=0 spamscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060072
 
-From: Viorel Cernateanu <vrilutza@gmail.com>
+Extend AD4134 support to enable greater sample rate data capture. To achieve
+that, provide control of digital filter type selection. The default filter
+type on device power up only supports sample rates up to 374 kSPS. In addition
+to that, enable interfacing with AD4134 in SPI 4-wire mode that can support
+reading ADC sample data through multiple wires. Finally, use SPI offloading
+to speed up data transfers at up to 1.49 MSPS.
 
-With CONFIG_DEBUG_PREEMPT, a KMSAN kernel hangs silently right after
-KMSAN is enabled during boot.
+Features being added:
+- Data filter type selection.
+- Triggered buffer data read.
+- SPI 4-wire mode.
+- High speed data capture with SPI offloading.
+- Device tree doc updates.
 
-kmsan_virt_addr_valid() calls preempt_disable() and pfn_valid(), and
-pfn_valid() calls rcu_read_lock_sched(). With CONFIG_DEBUG_PREEMPT both
-end up in preempt_count_add(), which is instrumented. Its instrumentation
-looks up metadata, which calls kmsan_virt_addr_valid() again, and so on
-until the boot stack overflows.
+Minor improvements (introduced before the new features):
+- Sign extend sample data.
+- Update include list to comply with IWYU principles.
+- Serialize single-read operations.
+- Run shorter transfers when CRC is disabled.
 
-Use a copy of pfn_valid() that disables preemption with the notrace
-helpers instead. It is still an RCU-sched read-side critical section,
-and it avoids the instrumented preemption and RCU/lockdep helpers on
-this path.
+The updates in v4 are tackles all applicable suggestions from reviewers and from
+automated tests/reviews/AI.
 
-Fixes: f6564fce256a ("mm, kmsan: fix infinite recursion due to RCU critical section")
-Signed-off-by: Viorel Cernateanu <vrilutza@gmail.com>
-Link: https://lore.kernel.org/20240308043448.masllzeqwht45d4j@M910t
----
- arch/x86/include/asm/kmsan.h | 49 +++++++++++++++++++++++++++++---------------
- 1 file changed, 33 insertions(+), 16 deletions(-)
+Change log v3 -> v4:
+[device tree]
+- Properly specified vendor custom property, avoiding 'too few spaces after comma' warn.
+- Correctly restrained the value/number of spi-rx-bus-width lanes for
+  two-channel-chain use case.
+- Improved the constraint to also prevent specifying one-channel-chain or
+  two-channel-chain without #daisy-chained-devices.
+[IIO]
+- Fixed typo in code comment.
+- Now grabbing the whole data scan with a single SPI transfer.
+- Also request ODR GPIO for 4-wire mode when offload is not available.
+- Dropped second driver state mutex (access_lock). Triggered buffer handler is
+  already protected by IIO device mode lock.
+- Adjusted PWM approximation loop counter decrement.
+- No longer providing IIO channel separate INFO_RAW on offload setup.
+- Adjusted in_range() check to not error on maximum sample rate.
+- Minor adjust to AD4134 IIO Doc that made that 1 line shorter.
 
-diff --git a/arch/x86/include/asm/kmsan.h b/arch/x86/include/asm/kmsan.h
-index a71e84d6abab..17effe8be642 100644
---- a/arch/x86/include/asm/kmsan.h
-+++ b/arch/x86/include/asm/kmsan.h
-@@ -68,6 +68,38 @@ static inline bool kmsan_phys_addr_valid(unsigned long addr)
- 		return true;
- }
- 
-+/*
-+ * Same as pfn_valid(), but without rcu_read_lock_sched(). That one calls into
-+ * instrumented code: preempt_count_add() with CONFIG_DEBUG_PREEMPT or
-+ * CONFIG_TRACE_PREEMPT_TOGGLE, lock_acquire() with CONFIG_DEBUG_LOCK_ALLOC.
-+ * Instrumented code looks up metadata itself, so calling it from the metadata
-+ * lookup can recurse; with CONFIG_DEBUG_PREEMPT it does, until the stack
-+ * overflows.
-+ *
-+ * Disabling preemption still makes this an RCU-sched read-side critical
-+ * section. Preemption is re-enabled without a reschedule, as before, to
-+ * avoid entering the scheduler from the metadata lookup.
-+ */
-+static inline bool kmsan_pfn_valid(unsigned long pfn)
-+{
-+	struct mem_section *ms;
-+	bool ret;
-+
-+	if (PHYS_PFN(PFN_PHYS(pfn)) != pfn)
-+		return false;
-+
-+	if (pfn_to_section_nr(pfn) >= NR_MEM_SECTIONS)
-+		return false;
-+	ms = __pfn_to_section(pfn);
-+
-+	preempt_disable_notrace();
-+	ret = valid_section(ms) &&
-+	      (early_section(ms) || pfn_section_valid(ms, pfn));
-+	preempt_enable_no_resched_notrace();
-+
-+	return ret;
-+}
-+
- /*
-  * Taken from arch/x86/mm/physaddr.c to avoid using an instrumented version.
-  */
-@@ -75,7 +107,6 @@ static inline bool kmsan_virt_addr_valid(void *addr)
- {
- 	unsigned long x = (unsigned long)addr;
- 	unsigned long y = x - __START_KERNEL_map;
--	bool ret;
- 
- 	/* use the carry flag to determine if x was < __START_KERNEL_map */
- 	if (unlikely(x > y)) {
-@@ -91,21 +122,7 @@ static inline bool kmsan_virt_addr_valid(void *addr)
- 			return false;
- 	}
- 
--	/*
--	 * pfn_valid() relies on RCU, and may call into the scheduler on exiting
--	 * the critical section. However, this would result in recursion with
--	 * KMSAN. Therefore, disable preemption here, and re-enable preemption
--	 * below while suppressing reschedules to avoid recursion.
--	 *
--	 * Note, this sacrifices occasionally breaking scheduling guarantees.
--	 * Although, a kernel compiled with KMSAN has already given up on any
--	 * performance guarantees due to being heavily instrumented.
--	 */
--	preempt_disable();
--	ret = pfn_valid(x >> PAGE_SHIFT);
--	preempt_enable_no_resched();
--
--	return ret;
-+	return kmsan_pfn_valid(x >> PAGE_SHIFT);
- }
- 
- #endif /* !MODULE */
+Previous submissions:
+  v1: https://lore.kernel.org/linux-iio/cover.1788368334.git.marcelo.schmitt@analog.com/
+  v2: https://lore.kernel.org/linux-iio/cover.1789494473.git.marcelo.schmitt@analog.com/
+  v3: https://lore.kernel.org/linux-iio/cover.1790719424.git.marcelo.schmitt@analog.com/
 
+
+Marcelo Schmitt (13):
+  iio: adc: ad4134: Adjust register map range
+  iio: adc: ad4134: Sign extend sample data
+  iio: adc: ad4134: Update include list to comply with IWYU principles
+  iio: adc: ad4134: Serialize single-read operations
+  iio: adc: ad4134: Run shorter transfers when CRC is disabled
+  iio: adc: ad4134: Add support for digital filter type selection
+  iio: adc: ad4134: Support buffered data read
+  dt-bindings: iio: adc: adi,ad4134: Document SPI connection mode
+  dt-bindings: iio: adc: adi,ad4134: Document external multiplexer usage
+  iio: adc: ad4134: Support SPI 4-wire mode
+  dt-bindings: iio: adc: adi,ad4134: Document PWM usage
+  iio: adc: ad4134: Support high-speed data capture
+  Docs: iio: Add AD4134
+
+ .../bindings/iio/adc/adi,ad4134.yaml          | 110 ++-
+ Documentation/iio/ad4134.rst                  | 127 +++
+ Documentation/iio/index.rst                   |   1 +
+ MAINTAINERS                                   |   1 +
+ drivers/iio/adc/Kconfig                       |   8 +
+ drivers/iio/adc/ad4134.c                      | 773 +++++++++++++++++-
+ 6 files changed, 980 insertions(+), 40 deletions(-)
+ create mode 100644 Documentation/iio/ad4134.rst
+
+
+base-commit: 04434a1d0f311d76b1f15fa987918b471a0b8c6a
 -- 
 2.53.0
-
 
