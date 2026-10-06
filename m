@@ -1,140 +1,230 @@
-Received: from fhigh-a1-smtp.messagingengine.com (fhigh-a1-smtp.messagingengine.com [103.168.172.152])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74C3B3B0583
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 09:13:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 373CE3859E2;
+	Tue,  6 Oct 2026 09:14:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791278032; cv=none; b=VhN4v2ahCiMPdIwS2zVovv8Fy06lG2cuu7oL0UqS+2OB8IfIcoWT8PC0s9pUM+ZoHICoFFA+QXrx5UhcM4fOhSem58lvnEqiyIiHXgdn25STH0aM2qbZhe8vENSOrv4Uuyikk1EIQSkbu6sfcnsgbO1/M4sTw384i2Ju4ovcHUA=
+	t=1791278044; cv=none; b=YDm7EkQvunzEJJR+Z6Y+FTo7VHMo6Qth5g+EQkhPda4MDBWVDv8luonH4w2RMoIefFxASgRmlKwe4kMfd7QeXCQDNKXp/WXi5ZdjCqKd06JwyqSxVFqnWkFEnm/SafEGmettYDmJ8wRg9Fh7Krhu5YgUQbUZw3DzHdvvXGDzdB4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791278032; c=relaxed/simple;
-	bh=Uzht/gnnalOdKMOxMXIuqX3WZTTWDv2ShAnEFEPyhKE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UdDnKDJGQ6tCRIC1t2sCKA8MfzPrgAL35HQoFZp3MfUbOUOzXhUWYVIVoYU0PopfNYDfjd+QVrqA9wwEnCjUyEj6fvc0AKh95vCkfHTv/H1rGb22Wq4GJ0k2YGYKzv/r/uO+3I5HzFhE2pXTV8Vojj4smFEKQnV7YwasB6cxaEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=MYzNnMS7; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=e0MmQS2y; arc=none smtp.client-ip=103.168.172.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	s=arc-20240116; t=1791278044; c=relaxed/simple;
+	bh=DrxJkpjzyYGp2CHDwYW5JhpYSnS/x/10mxjjG2cWEhM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fYQpdezI8EI8cyLkijvlSdYbDMDyEpjlTB7BtIw0FKH3FXyQ/UOE2IDKKstnt8JDCI/eQ68fxkj7EntgQmVI8fBbYguleq+9EzGsAOjkqL3MuA7MlL+8elxcyNw5oiuZiU5ZjADFY3O+cis2glNEbrI2PbQzpLMOL7h8BHHcEvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=fDkoxYHk; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=vtmyViQ4; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=rVjdZGvS; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=R8xxy8iS; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="MYzNnMS7";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="e0MmQS2y"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 7FC7414000F8
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 05:13:49 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Tue, 06 Oct 2026 05:13:49 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1791278028; x=
-	1791364428; bh=MbQD73+crd7vZ9QKN8oet3vSF/p7ePpJtz6mLHHA2fo=; b=M
-	YzNnMS7ZN3wVSn2vEjszZQBWv/gqXaybvo1BuDsA24Dv1uYKul3eMDqRHrZ59TYg
-	NtM50AO+2d+0tzTVAU8OZGJhydpPVoNghkJc6ctrvMtP9EcrTenBLFhsNRfnOg67
-	RqkkUsqnJdYW8sHuIzL7LEnGDIoc2B1w6eHmwBTOuGI8Yrtx+KV8Ft3Inr3t2qFa
-	cmQ0UPhjVoM9AtN09FGMYD/bskoWSGztPDBUg7ez1AI6PJ+n+vgaUitsJZ20jDnw
-	Pe/caucJEeirWsGMsWpFyxJ8Pqluw2Sfqcnri6h6Ub3W+QEklscvlFznQdE+6CNJ
-	vu9LN2nfJAerHb7zCSJSw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1791278028; x=1791364428; bh=MbQD73+crd7vZ9QKN8oet3vSF/p7ePpJtz6
-	mLHHA2fo=; b=e0MmQS2yZZ9YatnShEldHczseY8u/Cl142cD7PJEap/5ee30t18
-	cCTSQo64oi7NTKBxMWcwM/uwx6zKhYqpjpRQCbL+DS9qTZO8p++CpZm3pFdqy7z1
-	m7kGmofudCFATpHNN69DDVYLq0DwBrc+S/Ie7OEPnHE8/LVSZEeFOcmcRUrHyU4V
-	Ql2v7l4P5Xr/uAZoJizz0kUFpRNcHPnTQcb36QMhJJDFRnBKolVvdqNbUkQJ5oJF
-	6oCn7XckLLuZovW8XclyLNFekxUGgiKqvb75kr1iavPEcP+HZAHk11IKxIALmO+L
-	1cPbtmpZr+zsoHTgt6n1yYYbteAZ1PWanrw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=shutemov.name a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791278028; d=shutemov.name;
-	mf=PGtpcmlsbEBzaHV0ZW1vdi5uYW1lPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:MoNRkOUEm5Xv2Tvqm+OlYRQd1O3MaDYonv69QMiiYjyiQcv
-	hUh+StAj5cLPo0XNyNm5ZreYJcJS2ejeSaBDqTfbTZSZwAcY9VqQwOW98zSqNloK
-	wbmBW3cbqXkjPjhrDiUpZvNOP1ATqxnhhSvpRmEGSoTn4SHfUA35Zti1YS8sLl6O
-	fk/oNYrbKm7UG7UYWYtiqyM70DVGJGGET6tmvSUZs2+0Nd7ParA2/P9vRJ5FMjCM
-	zl+VpXDY/qXQAT8RATPfIXF9yaInpnkXPqwCCdlbXxehBQIKno4iIVy3XQKqJJm7
-	MjcgUu4kXHBYwOPzUmJzEk/da9zF3w9Jt09i/JA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:3q1TEc8G3uI4UoP5ag6eEF2ixUYiG8Gk1JdkBHKwrdA=:Uzht/gnnalOdKMOxMXIuqX3WZTTWDv2ShAnEFEPyhKE=;
-X-ME-Sender: <xms:zLvEaqVNCUxN4ccW14K2KFK0QXb49TzWtFKDF2X0Q3dK_3wtar0Awg>
-    <xme:zLvEao9zRkn-NMYh0yjfoAD29xzWXLWX5GSiXabJIt3o3C8UJEVvHM9Qg9LDpmAwo
-    l3ibLGfyyBYHdjVTJNh3BlHf_naNTGXJX18e7MHyrO6S291WwAYPac>
-X-ME-Received: <xmr:zLvEanqvOAI6cptylGAfXrbHpne4ZOfMbXDqHxPDhrfTykLquREzv-kMKB4>
-X-ME-Proxy-Cause: dmFkZTGj5C67xIbzcGLTgoQok/07Sc/orEjUInqIagiNX5tzfNrUnfY1jc1lLJwh2gzo3d
-    GB698lLckGkQyvrNDBFvobDZ3AKW7HlEJvdeuEuAlIxo1NdMYrrrtakWUQIQiEjBN1B6ri
-    wKi6qEUiJkKlNVegjOAgd0kUGjoPwR2IgA2mVnAWW8VbDla5+6eFmaorfJUN0WOYRndIYz
-    ROX+4JJqCmnVpPn32jhHBxpZJszOIgw5BxKJ/vniHlQHUTPspDkZn8zhQw0awtlwixI2g3
-    ZQGvwVpHDDhkkyRNR5r0tSVt1oN1XUrc8PaZB0foWj2F5PK6JJDPxdNR/3G99Mnb2qvrMU
-    c56mQJWj6ObswPBB90YvyTCtHf3ox7HVMuKz78cItUQKSFqXMvsOUzU1YutPwP6Vp0EtNg
-    zvaHKJI42l7V9TJ0PtV+gPEm3VW6l5/XgGbg2LEQIqoNJRWGFRPjO6mVeUFvHnf0OZ+Y/f
-    4U0nHEL2QJASnnhk7mRiDdptzT/IKVcoui7jBiKWondtSYcFEB2DTr9KCNiVa0Et8B7VNL
-    CCwc12rO2qO9rgrLt9TDix40u9rQecSgc6cc+ZDifD2hr4+OZ8aP4oavNuhISU7/obNUNe
-    ypS3e2WxOARZDzI/ev8A/xhnLBLFoVPsYk/rnhA+zd8K2PQGzyCNC4G75z+A
-X-ME-Proxy: <xmx:zLvEakf-Avx6HemUgYgNU-z-6nJ1Dj7h71J20c7xNyFzfY5K1YmJmQ>
-    <xmx:zLvEam8XoTo7jDk2JIPuEvKlekuwb2Wra6wbYoGndj0ziiLHy6V3Jw>
-    <xmx:zLvEaubjvbvOevENtcRI8NnnvuQGwAnSNAYoy3j7xxCeaAi3M-bfsA>
-    <xmx:zLvEah1DQVwbKNt_l8_s6Ds1zH6SXTER3iNUcEET-o_Lok2Q9bTT9w>
-    <xmx:zLvEaphCg6igknTLamJgXfAoRArks9hx9dtkfEUFwPqBRd26TKKctBxG>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 6 Oct 2026 05:13:47 -0400 (EDT)
-Date: Tue, 6 Oct 2026 10:13:46 +0100
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Harry Yoo <harry@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH] mm: page_alloc: make defrag_mode retries follow the
- promoted order
-Message-ID: <asS6uQPZY_9r2uUG@thinkstation>
-References: <20260929174553.175333-1-kirill@shutemov.name>
- <arv8J7ysrdazJmfY@thinkstation>
- <ar0NRMxps8UErXaQ@thinkstation>
- <ar0Xbs9mEu-vUHvc@cmpxchg.org>
- <ar5rOHWwc_iPJF6C@thinkstation>
- <20261006081050.GA234057@cmpxchg.org>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="fDkoxYHk";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="vtmyViQ4";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="rVjdZGvS";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="R8xxy8iS"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 7BC42219BB;
+	Tue,  6 Oct 2026 09:13:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791278030; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=a/JP5/dW09R5F2dsXZl8YQmvtpMPAD0rEIwWS4AD5kE=;
+	b=fDkoxYHkVYr4W6YH5yRxqIrHXc73xkhaboCbMmp7NnxECOhN+ygj2bEuXWHiyJjf4bcz25
+	GlYx3gG3NI+koiifofzeISimtBXmpdYjoBl9AkXjldl9V027t7OHggmFD3BNolBpeaPrvB
+	HvJ2vhh5JinSm10f7+LvWSu4vywb2R8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791278030;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=a/JP5/dW09R5F2dsXZl8YQmvtpMPAD0rEIwWS4AD5kE=;
+	b=vtmyViQ4WfXPweEDJ5w+ZsSM5SFwt7aFu3EWSoegOPreAKK2a2T2+sFJ0GQcxfFoD1qHaB
+	3isnzYCxfZhOKzCw==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=rVjdZGvS;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=R8xxy8iS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791278026; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=a/JP5/dW09R5F2dsXZl8YQmvtpMPAD0rEIwWS4AD5kE=;
+	b=rVjdZGvSE0olqXazD1zG6dWnRSutvJyeQKYMWVEf6GWvAYMZUkExtbMdKyRb5auiZgjyAb
+	gXGBSR7uNdSvnkMINSXuXYNVE/hz5d+nXksnB9oBGu2Kj1Mbp+Ovdd8zVJrMemT5HmWXHr
+	zZ64AlYry1BzcMqIs8xRYsjhhR38OvM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791278026;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=a/JP5/dW09R5F2dsXZl8YQmvtpMPAD0rEIwWS4AD5kE=;
+	b=R8xxy8iSibgvaif20gQv6dsUZb+//Qwx97Yh+RMcUBpJH8DwCYTuamgYwOSJi0/XuYTYqX
+	evqFsO/OncL/4MCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CAE17136F2;
+	Tue,  6 Oct 2026 09:13:45 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id pR6EJsm7xGoXSgAAD6G6ig
+	(envelope-from <fmancera@suse.de>); Tue, 06 Oct 2026 09:13:45 +0000
+Message-ID: <ade9aa6a-ae47-4894-be43-2f32cc234afc@suse.de>
+Date: Tue, 6 Oct 2026 11:12:40 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261006081050.GA234057@cmpxchg.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 06/16 net-next v3] ipv4: udp: split IPv4 specific logic
+ into udp_ipv4.c
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, horms@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, edumazet@kernel.org, davem@davemloft.net,
+ johannes@sipsolutions.net, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260930135334.4739-7-fmancera@suse.de>
+ <179113455115.434549.17562988532168582470@kernel.org>
+Content-Language: en-US
+From: Fernando Fernandez Mancera <fmancera@suse.de>
+In-Reply-To: <179113455115.434549.17562988532168582470@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TAGGED_RCPT(0.00)[sashiko];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TO_DN_NONE(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Score: -3.01
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 7BC42219BB
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Flag: NO
 
-On Tue, Oct 06, 2026 at 10:10:50AM +0200, Johannes Weiner wrote:
-> Without counter indication, I would prefer to keep the tighter
-> guarantees. ISTR this mattered on some of my ext4 tests in the past
-> with the buffer locking.
 
-OK, v2 takes the priority floor and the COMPACT_SUCCESS retry limit
-from the requested order, with the explicit promoted order folded in.
 
-> >     Should defrag_mode treat MIGRATE_MOVABLE like ZONE_MOVABLE there and
-> >     move the page out at pin time? Ideally we might want to move it back
-> >     on unpin, but it can be done by compaction too.
+On 10/4/26 7:22 PM, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
 > 
-> Should it even be specific to defrag_mode? I suppose without it, the
-> poisoning from fallbacks would dominate by a landslide under
-> pressure. But these pins can mess with compactability long before
-> becoming capacity-bound.
+> Critical: 0 · High: 0 · Medium: 1 · Low: 0
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [Medium] When CONFIG_IPV4=n, udp4_gro_complete()
+>    (net/ipv4/udp_offload.c) returns -EAFNOSUPPORT for every merged IPv4…
+> 
+> --
+> 
+> ipv4: udp: split IPv4 specific logic into udp_ipv4.c
+> 
+> This commit moves the IPv4-specific UDP socket code out of udp.c and into
+> a new file, udp_ipv4.c. That covers lookup, input/output, multicast
+> delivery and the AF_INET udp_prot. The new file is built only when
+> CONFIG_IPV4 is enabled. Callers in af_inet.c, udp_bpf.c, udp_offload.c and
+> ipv6/udp.c get IS_ENABLED(CONFIG_IPV4) guards.
+> 
+>> diff --git a/net/ipv4/udp_offload.c b/net/ipv4/udp_offload.c
+>> index cf07c3c6611a2..bea037d6b4eb7 100644
+>> --- a/net/ipv4/udp_offload.c
+>> +++ b/net/ipv4/udp_offload.c
+>> @@ -958,6 +958,9 @@ INDIRECT_CALLABLE_SCOPE int udp4_gro_complete(struct sk_buff *skb, int nhoff)
+>>   	const struct iphdr *iph = (struct iphdr *)(skb->data + offset);
+>>   	struct udphdr *uh = (struct udphdr *)(skb->data + nhoff);
+>>
+>> +	if (!IS_ENABLED(CONFIG_IPV4))
+>> +		return -EAFNOSUPPORT;
+>> +
+> 
+> [Severity: Medium]
+> With CONFIG_IPV4=n, can this make every merged IPv4 UDP GRO packet get
+> dropped silently?
+> 
+> The IPv4 GRO offloads are still registered when IPv4 is disabled.
+> ipv4_offload_init() in af_inet.c still calls udpv4_offload_init() and
+> dev_add_offload(&net_hotdata.ip_packet_offload) with no guard. So
+> inet_gro_receive()->udp4_gro_receive()->udp_gro_receive() still runs for
+> IPv4 UDP packets.
+> 
+> The socket lookup there ends up in the new __udp4_lib_lookup() stub,
+> which returns NULL. Even so, udp_gro_receive() still aggregates:
+> 
+> 	if (skb->dev->features & NETIF_F_GRO_FRAGLIST)
+> 		NAPI_GRO_CB(skb)->is_flist = sk ? !udp_test_bit(GRO_ENABLED, sk) : 1;
+> 
+> 	if ((!sk && (skb->dev->features & NETIF_F_GRO_UDP_FWD)) ||
+> 	    (sk && udp_test_bit(GRO_ENABLED, sk)) || NAPI_GRO_CB(skb)->is_flist)
+> 		return call_gro_receive(udp_gro_receive_segment, head, skb);
+> 
+> At flush time, gro_complete()->inet_gro_complete()->udp4_gro_complete()
+> now returns -EAFNOSUPPORT, and gro_complete() in net/core/gro.c frees
+> the whole aggregate:
+> 
+> 	if (err) {
+> 		WARN_ON(&ptype->list == head);
+> 		kfree_skb(skb);
+> 		return;
+> 	}
+> 
+> The WARN_ON doesn't fire because a ptype was found, so all segments are
+> lost with no warning. This would affect an IPv6-only kernel that bridges
+> or forwards IPv4 UDP with NETIF_F_GRO_UDP_FWD or NETIF_F_GRO_FRAGLIST
+> enabled on the ingress device. Inner IPv4 carried in IPv6 tunnels would
+> be hit too.
+> 
+> The fraglist branch and the udp_gro_complete() path don't need IPv4
+> socket state. The only IPv4-only dependency looks like the
+> udp4_lib_lookup_skb reference. Would it work to stub or skip only the
+> lookup, for example with a NULL-returning udp4_lib_lookup_skb when
+> CONFIG_IPV4=n, and keep the rest of udp4_gro_complete()? Or should IPv4
+> UDP GRO receive also be disabled in that configuration, so packets
+> aren't aggregated only to be dropped at completion?
+> 
+> The later patch in the series, "ipv4: make CONFIG_IPV4 boolean", makes
+> this configuration selectable. udp4_gro_complete() and
+> ipv4_offload_init() are unchanged at the end of the series.
+> 
 
-Agreed, a pinned page in a movable block hurts compaction regardless of
-defrag_mode.
+I guess this is a good point. I will look more into it.
 
-It can make longterm pinning more expensive, but it is the right place
-to pay the cost.
+pw-bot: cr
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+>>   	/* do fraglist only if there is no outer UDP encap (or we already processed it) */
+>>   	if (NAPI_GRO_CB(skb)->is_flist && !NAPI_GRO_CB(skb)->encap_mark) {
+>>   		udp_set_len(uh, skb->len - nhoff);
+> 
+> [ ... ]
+> 
+
