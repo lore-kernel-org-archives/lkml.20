@@ -1,257 +1,318 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013035.outbound.protection.outlook.com [40.107.159.35])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8049841166E;
-	Tue,  6 Oct 2026 12:34:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.35
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791290072; cv=fail; b=TJxINtCZUD0IVpcm58U9WhkFl4JWxTnFSNVmrMRcVSbVm7R8zkZv0Vvd8ZxZu1BGHaW1CoTzvPcBOlc2rcJDCz3pJMZNLL0ktovcKahHWO4sFW+sYzSdnnKSvFkF98T4SnS8VBRGCJ4yh844xndseCxyGOKU64QsMrFmqordD2Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791290072; c=relaxed/simple;
-	bh=piEhlNjE9nPqnm0OJcbURMKUkzzUfhDKdc76irfcwdg=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=W9mq5awF0S9zT2jqUxmQDFgY73Az+kpJ7Tq2I8u4Dn3bjvhkWC0hhL4C9l460CS9HUjvK2H3+o1ELiQZjjivS4+wusBz2auBhQpOrEn0drOY300llw+wvHKTQRK9aeGQmCCkdrENAGQCu3rNAQgHjAUknIiaPudBoj2gJFxmmbI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=u33M7bXg; arc=fail smtp.client-ip=40.107.159.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4717B4119E3;
+	Tue,  6 Oct 2026 12:35:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791290109; cv=none; b=bpRFU5ZSdFn40Q/O66Anobi3nJsyPDDq23TJ0I0egZvASdF8Vn1Dpj4XSjX7NeedYixf2kvm3xzxprsqGScqIeNODvKevJWD6zTTc+H6eWElotrpvlL2+ObNQB06uuHAFkWvX51M77lAQbVzvl4RCqu5mQ+pOebfrDfZX14v2b4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791290109; c=relaxed/simple;
+	bh=okO//1OC5q5RSrh6WMC9iDoGxpZ9FQDabGRMzI/Nm70=;
+	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=G+pLtPDllaI3qjZeRACWvZeJZPgCDwTOsCDDY+bGDTDR4IeD8bAXemddQuU9tqQQD850G5xl2K+En3tu5Vs6/Xig0lrUZBylqdU/ohw9WiQFjeXslkdy+zLOGCXZ5Q3Q8BFCu0bVSOh8hUZCFD6mhk+9Mzzq+1hFGoMg3cVr2Gs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=YNfR4PgH; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="u33M7bXg"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eN6lRwJFU5KDiCBDM94PGXiJ4EdKfCaSrV2yVMJPrKVSjy6/XohW9xESyqOGImDnL2xLrAeMJqyBfVFRSlwPO5LBMxk+C+EiZpkdkboNIjTzeKI2UFDeuHIS46nqJ84kDbDJ3uGUUOXS9Wq58Fpjr6TTTCFVW+tQzNWHh1e1lm2aq2Zz9hMit+QGTyC0NkquTnnZ6gL7Ad9tceBdgkSDQNPndMfNsxABlAMkpySC6Ff7GX1e2VYhFvQqlrfHs6VArAnNR4aG389kl+piGUcY39+/tsifv7E4gL514hgVgASAVCQqTykA/x0s6iugukMyEIN4UzeCDr+8AjqD5qWhgA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=X7+kEYLjZj3kFP5TrCIWr1sXoAmtaqkd+3y4t354s6I=;
- b=OAantXXWE7MYvc/ZX/d6RfUdGilQYtMsM6UUx6bqzvONJ5sg2uWsQhDCK7iFDErlhsAXU4mi/v89gawu20/TB+sColKXNEC4fCZe0c9vJsdbUMRaFfewybyy4HmcFMmB7NLnjsz1yu/DDOBN47oJqh8BHjbNCWbVJJTs4zwduHLfg7+Ix8gBLP9OELwg417pKT5xu/VCT7XIIrBLnVjp/TTADw8W+GWgQfaXNWhuiwoek+c4Dj/xgSoXoexTZXO8EDyeb5valkt0MRJc9z9+Yd11vRfQk+c1zFP92JRxnKRZzbDrEtSIyBhUJXL/l24Ri55l7NW+peWD6hxuaKVQEg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X7+kEYLjZj3kFP5TrCIWr1sXoAmtaqkd+3y4t354s6I=;
- b=u33M7bXgZ8O5gBiXDJ6Y+Wi8fQs/P1IlorgXziu+7HVEqZ9CJSd2NgiVufzYYuRuspA6EmYgKH4z44gaVcHew80EeKPEKLhLaus5MWak28bEMrWjq1MrI6vYP1eJO0yPk7FiG+bUDSl7XXolzAXo3cef6JiY2SMxC+wzJc2IQ8mWf3nxT4chfCpHvYQJGGgi/XgDYXl8ksJWLZiQqXkpaE2zYwI5yMKBU3FBYG5XU6WBT/pf3ykoH+kaqX8rsOp5NsdAD9t05820iEIdb9jnp4L4bgpagpbd8Vlk+Y4+J1VJE/KVwrD2iHEqTbI/T4tc9on4ll8WNW1JHg6dfBLhzQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by FRWPR04MB11246.eurprd04.prod.outlook.com (2603:10a6:d10:171::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Tue, 6 Oct
- 2026 12:34:17 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0451.022; Tue, 6 Oct 2026
- 12:34:17 +0000
-From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Date: Tue, 06 Oct 2026 20:31:09 +0800
-Subject: [PATCH v3 4/9] gpio: mxc: convert pad wakeup compatible checks to
- hwdata flags
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261006-gpio-mxc-cleanup-v3-4-129f93302a90@nxp.com>
-References: <20261006-gpio-mxc-cleanup-v3-0-129f93302a90@nxp.com>
-In-Reply-To: <20261006-gpio-mxc-cleanup-v3-0-129f93302a90@nxp.com>
-To: Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Shenwei Wang <shenwei.wang@nxp.com>, 
- Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: linux-gpio@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Peng Fan <peng.fan@nxp.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: MA5PR01CA0202.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1b0::9) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="YNfR4PgH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1791290104; x=1822826104;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=okO//1OC5q5RSrh6WMC9iDoGxpZ9FQDabGRMzI/Nm70=;
+  b=YNfR4PgHbJno5vJ6T7Hwe1BAD3UfyeQ8v2EfTJf6+fOR4VkexCoKGzAB
+   ybEYsdcXcQJydQqscLJTIndQwu82kaJ8EJcqAwMNexgvVpWlvYh5qmYzE
+   /8zmRfD5QHo5ffw08zJ9NAXharPq5Y4QuC20qF5F4D5qrNTSTou8ZZxIB
+   gNwJQPXG5xgkB2nV5Qy8i1xEb8uvX0nW+4JZTC4PlS+t39t6lzs4/+7/O
+   G7CTsKjFrSNN5gtfzqPCMpvp2fUTn+K+oe3+Bw+IHB618uMOz8KsAA+hn
+   XqbxY4WCUXJu7C5HuVLv94pkJk1jFVPWhYSZDASAHB6O6/vDBdKxb/3As
+   Q==;
+X-CSE-ConnectionGUID: hmQu6HW7T3SnUf2azV1Z+Q==
+X-CSE-MsgGUID: WlD+0t1IQeSx8p7I1VKAew==
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="64640319"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 06 Oct 2026 05:35:00 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Tue, 6 Oct 2026 05:34:58 -0700
+Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Tue, 6 Oct 2026 05:34:55 -0700
+Message-ID: <b882df169d0b56a5d16f97ed44fcdb9baa2f7ed6.camel@microchip.com>
+Subject: Re: [PATCH net-next v13 6/9] net: dsa: lan9645x: add mac table
+ integration
+From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
+To: <netdev-bot+sashiko@kernel.org>
+CC: <UNGLinuxDriver@microchip.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
+	<davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
+	<pabeni@redhat.com>, <horms@kernel.org>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <woojung.huh@microchip.com>,
+	<linux@armlinux.org.uk>, <Steen.Hegelund@microchip.com>,
+	<daniel.machon@microchip.com>, <geert+renesas@glider.be>,
+	<magnus.damm@gmail.com>, <linux-kernel@vger.kernel.org>,
+	<netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-renesas-soc@vger.kernel.org>
+Date: Tue, 6 Oct 2026 14:34:54 +0200
+In-Reply-To: <179097566160.434549.9925459819174275044@kernel.org>
+References: <20260929-dsa_lan9645x_switch_driver_base-v13-6-827c2d3617f2@microchip.com>
+	 <179097566160.434549.9925459819174275044@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|FRWPR04MB11246:EE_
-X-MS-Office365-Filtering-Correlation-Id: 68e69075-d5d1-4341-e54f-08df23a62346
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|19092799006|366016|7416014|376014|18002099003|22082099003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	6rxivdAr8gg4ZJrhwi3OlzYo6bRZb9X55gJQQOFkHFVBzLZEkaaj23CM7EorcMpC5ydbf+bQKTTSSrSUf+22UfHEeLfow3k3I6AKXSfROTqtAfXZ/gLpbVolZChKVs/PkrCFsTsmvNokztmvFenO+yyu3rO1Bd8pYU3gBW0okPvTIyzRYtzR2Wtiz/6XDp9M6UdA7EWgy2CTHRhMnFZwOxJztTW154h/qhRz5zfpJVczRtFbRlc8R2U1JAuZEy1FOC5ipZ0LY+Kq5GeQqif3NJiqbOdv9vy2N3HVzQjx9fMbuzDt1xCWnhXNyreUKB3+1soNMClWelh/kZYY8UtBFDtF0dY5AHU5RNxSObkTzFHe/G1u6SeY04nEreVp+arPkE1jauKDXBEgw0NU5iQiU0nZwP605i8G7+XcJd7jP6Mbno8sYvFR6HW4Z/ylR7vwgatjyTPm+itCQKeLhwZS37Wlg/ZX3dRW856kZlwAV9oXQr3FI1QIEb7WEI/wN5weEBtVrPH/hL9ZZ9U1mCsrBaYwSK2dLrZcYrXCCISnDTJbzTrEymRoglASA0HixIhzxp6grtMStBq5sIXuhVFU0neBWt6xYuPVRMpeisNri962gacbZAJynNdS5J4eTIAE+hnSYYfENgthWw4ApDGPrsPI24Qop1QyVrg0OQWuGyg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(19092799006)(366016)(7416014)(376014)(18002099003)(22082099003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Znc3MEZWeWQyZGJVdFo1Q0lrZ2NzVnNML0lJYkQwZ0ZWNmQ3N1dwU0VOZDdi?=
- =?utf-8?B?d0tlZmttbU0zbk9Sb2dyL1Y1by8ySnJyOHhPVThMUG1DbWM5M2xuTWlFbmNi?=
- =?utf-8?B?cStUdVJubk52WXludmNDQ0RRYTJoeUwrZTNGeC9LUkovMXlLcm15Vk01MWVM?=
- =?utf-8?B?UG4yanhtRHVGbld6WXkxdS9vVnBxcndxajhHb1dNR2puNmVVdElHREtkNklu?=
- =?utf-8?B?eXVkejlKalpKMW9CcjBnR0NYcFpDRnpXWWRhVGNRT0luRHJrUUh5UVFmOWxv?=
- =?utf-8?B?a1J3cEl5QkcvOFBBaXdzei8wcUwxQjJPcVBxYjZCNFN1RHpJRE12ZDVlRFJv?=
- =?utf-8?B?cWtkT3hPbGVSNGpQUTdXY2RXOWl1aGFyM2szcFcvNi9YL1lmQmFWcVJEVzVk?=
- =?utf-8?B?b011Ujd4WklLQ3E2bXVxUHJRTjg2NFBScmcyWW9hczZhY0M4REw3aE93RmlW?=
- =?utf-8?B?cXNabUxnMFJXMWEzREw2Nzk3Zk5POVd0aHFVcWVuNTJPTFoxNWVkdDJPcUZr?=
- =?utf-8?B?UjFubkQvK01RTE9KQnE1TEcyekNjbk0xTkR1WkdQVUZzU2J5bkxoMDZkS2V2?=
- =?utf-8?B?YWx5Q2Y5OEF2MzE4Ui9XVkJXVGNDb2VtbHNyTjhlbWJ4SG9GNFFDRnFKa3Fl?=
- =?utf-8?B?eDlLMGxRSHN0aWQwM21Ndk16a1FsODRKVVRyRDNta0RSTnBGTUJhenFFelFq?=
- =?utf-8?B?dzhtWFRsTXkrakFSOGhtNnZQSWFlaERTSnNNWjBjc0Q0aUlNYzI0Vk0vWE9k?=
- =?utf-8?B?aDk1aUM4Rkp3VEhITWttdHZ1MG5NR2MxU0hBTm9GY0dObmR4VEoyNEx2cFJZ?=
- =?utf-8?B?VHJBck1iSmJzMm15SnVKY1VDQXlpN05IdGplaGx3eFV6ODdIbDlxYXZFTlFV?=
- =?utf-8?B?Yi93WkpONVlISHAxMUM0YWJqcm9SbWV5TjlNK2FHVjJZekFTbzgyVWV6eEZv?=
- =?utf-8?B?elBqQ0hWdzkrN2hYd011RlA1U0NZSCsrN0NScklUUWpNU1dqZ243NkoyS0dD?=
- =?utf-8?B?NmhsdmZCdXhIQzN5UlF0eVUzL3NuRnZ2YTg0MmdXUXdMK3BabXlRWTYzNXV3?=
- =?utf-8?B?QkNydEpwTDR2NzhZM3NBSVlEdXVoV0xkb2JsQjkrc3ZGYUlMZjQ3WHNHOEZj?=
- =?utf-8?B?S1RhOG5IajRxMS9KUDdsNEtybHFubWxqRGVmSUFLNXZyd1Z3ZWlTMFBzUHRm?=
- =?utf-8?B?UUtsSERyWHJXZzRTZ3U0bkVkTWpjeDl0MTI0WmpRcEhlUTU0bnU2d1BzYXZM?=
- =?utf-8?B?ZUVtVWdScE1wY1JVaUNDUndUUGRDdlltUExxRmJON0hKU2p1WEJwZ2NMQ2pj?=
- =?utf-8?B?cnUyWDdkMExOTnhSMVh6OXB1V0J4Q2U4T21HZmFVQTNaRmFVQTkxVDZzL2NE?=
- =?utf-8?B?cFljREE1VWFYVStJb3V0NERQeVYrYmRzYkM1cFhram1DSU04clZTcEFDSi83?=
- =?utf-8?B?YVlsRHdsTktGeUF0L2lTRHhsK3N4b0ZjSWtuVDBoWTFZL3lDM3FZeEpVejk1?=
- =?utf-8?B?cDdHeDN1NnowNGFWSnFCTHY1UmdsRHI3RiswK2dEOEI4b1p2UkF2a2NEN3cy?=
- =?utf-8?B?czB0Q0I1ck9MQ0ZQcUlkT25ROU05NnhSa1ZtQmp2a1Q5VCtyUU9ZNGhzMFpG?=
- =?utf-8?B?WVFjd1VsRlpRUFZHR3NZL2w0MlIyby9DTGt3V2JydVF0a0pJcEF4MkFXQytp?=
- =?utf-8?B?TnhZSUtENy9lbDF4TlBSTnlyUDdEalhIbE55REVvWm8rM0hEaTBPR3hjQXpo?=
- =?utf-8?B?TkJvMWFoT0laNHhXeGg4U0tWUEVMbi81MnFqMTVOZDN6MEhIbnJqMTdjQ2x3?=
- =?utf-8?B?MG56R3k5RUhEV3dhQ1Fob2pVUjFQOFFFTmlpa2dINkI2Uk56S2N5R1pucTYr?=
- =?utf-8?B?dmx3aWJaNHRBajAxMkxFMnJoV0pCSHVSWVhaSVp1Z2lwMHZ3V1NTMlg2ZjZF?=
- =?utf-8?B?b2lTMUJrMUpla1o5M25OWGRVZkUydC9GTng5YklSOGw3RHJKT1U5SHRrU0Mr?=
- =?utf-8?B?OVlyaGZKTmVvTkRkZFc5dW5zVFNHdVdZTGlzTnQrRXZDRjNhS2dpU1lqbEtS?=
- =?utf-8?B?NlFEa0sxY3VpOVp1aExlTVEwWGxpSU1TNmNWeVBBcGphc2xnMFRsNHVBY1cv?=
- =?utf-8?B?ODh4TFhMN3E5RzNpbW13bVlVM2cwQnVFTUFCd2hMamd0Q3piR3lTKy9GNWt2?=
- =?utf-8?B?L0FxdHFOU2QvZGw4SXIvYll4bzRwMVNwTno4c1B0M0pNNDVVREpJeDZsRzQ3?=
- =?utf-8?B?S09YZFpQRm1ZL3NIRHNIOU1HN3pLT21wckczRVc1cStLTFRVeHlEbnQ3V3Bq?=
- =?utf-8?B?aSt1SG5QdVZJa2JwbklSbU12clB4VE4wVTJITVJhbVJEcTZnSVlMcnV1amV4?=
- =?utf-8?Q?zdhXwLTvLN7hqdcITRg4wtUWxou+nS7MYw/T2?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68e69075-d5d1-4341-e54f-08df23a62346
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 12:34:17.5977
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: K6sGDvJJc2m0+0UYnhQ6rHnbRsWcO3fbVcDlXzGuas0no1f+6SIEi/b5Gqg/bwOVNbSgvOExyEqdw/R9gYBxvbFKQiGBYsgVP3X0pPRIby9/KfpQ1OQ2lprUnLMxbGUT
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRWPR04MB11246
 
-From: Peng Fan <peng.fan@nxp.com>
+On Fri, 2026-10-02 at 21:14 +0000, netdev-bot+sashiko@kernel.org wrote:
+> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
+e content is safe
+>=20
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider.
+>=20
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 1
+>=20
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>=20
+> - [Medium] For a non-zero VID, lan9645x_fdb_add() and lan9645x_fdb_del()
+>   map DSA_DB_PORT and DSA_DB_BRIDGE host entries to the same hardware=E2=
+=80=A6
+> - [Low] Each new MAC table sequence writes the key, the filter and the
+>   command through lan_wr().
+>=20
+> --
+>=20
+> net: dsa: lan9645x: add mac table integration
+>=20
+> This commit adds MAC table support to the lan9645x DSA driver. It adds
+> learn, forget, flush and GET_NEXT based dump helpers keyed on (vid, mac).
+> These are wired into the port_fast_age, port_fdb_dump, port_fdb_add and
+> port_fdb_del DSA callbacks.
+>=20
+> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_mac.c b/driver=
+s/net/dsa/microchip/lan9645x/lan9645x_mac.c
+> > new file mode 100644
+> > index 0000000000000..50ce1378b9dae
+> > --- /dev/null
+> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_mac.c
+> > @@ -0,0 +1,268 @@
+>=20
+> [ ... ]
+>=20
+> > +static void lan9645x_mac_select(struct lan9645x *lan9645x,
+> > +                             const unsigned char mac[ETH_ALEN],
+> > +                             unsigned int vid)
+> > +{
+> > +     u64 maddr =3D ether_addr_to_u64(mac);
+> > +
+> > +     lockdep_assert_held(&lan9645x->mact_lock);
+> > +
+> > +     lan_wr(ANA_MACHDATA_VID_SET(vid) |
+> > +            ANA_MACHDATA_MACHDATA_SET(upper_32_bits(maddr)),
+> > +            lan9645x,
+> > +            ANA_MACHDATA);
+> > +
+> > +     lan_wr(lower_32_bits(maddr),
+> > +            lan9645x,
+> > +            ANA_MACLDATA);
+> > +}
+>=20
+> [ ... ]
+>=20
+> > +static int __lan9645x_mact_learn(struct lan9645x *lan9645x, int port,
+> > +                              const unsigned char mac[ETH_ALEN],
+> > +                              unsigned int vid,
+> > +                              enum macaccess_entry_type type,
+> > +                              bool cpu_copy)
+> > +{
+> > +     lockdep_assert_held(&lan9645x->mact_lock);
+> > +
+> > +     lan9645x_mac_select(lan9645x, mac, vid);
+> > +
+> > +     lan_wr(ANA_MACACCESS_VALID_SET(1) |
+> > +            ANA_MACACCESS_DEST_IDX_SET(port) |
+> > +            ANA_MACACCESS_MAC_CPU_COPY_SET(cpu_copy) |
+> > +            ANA_MACACCESS_ENTRYTYPE_SET(type) |
+> > +            ANA_MACACCESS_MAC_TABLE_CMD_SET(CMD_LEARN),
+> > +            lan9645x, ANA_MACACCESS);
+> > +
+> > +     return lan9645x_mac_wait_for_completion(lan9645x, NULL);
+> > +}
+>=20
+> [Severity: Low]
+> Can a failed register write here be reported to DSA as a successful learn=
+?
+>=20
+> lan_wr() returns void and only calls WARN_ON_ONCE() when regmap_write()
+> fails. Suppose the ANA_MACACCESS command write is lost but the reads that
+> follow still work. Then lan9645x_mac_wait_for_completion() sees CMD_IDLE
+> immediately and returns 0:
+>=20
+>         err =3D lan9645x_rd_poll_timeout(lan9645x, ANA_MACACCESS, val,
+>                                        ANA_MACACCESS_MAC_TABLE_CMD_GET(va=
+l) =3D=3D
+>                                        CMD_IDLE);
+>=20
+> In that case lan9645x_fdb_add() returns success and the bridge marks the
+> entry as offloaded, but the table was never changed. The same applies to
+> CMD_FORGET in __lan9645x_mact_forget().
+>=20
+> What happens if only the ANA_MACHDATA or ANA_MACLDATA write in
+> lan9645x_mac_select() fails? Would CMD_LEARN or CMD_FORGET then act on a
+> stale key? That could be the previous operation's key, or whatever the
+> last GET_NEXT walk in lan9645x_mact_dsa_dump() left in the registers.
+>=20
+> lan9645x_mact_flush() has the same problem with its ANA_ANAGEFIL write:
+>=20
+>         lan_wr(ANA_ANAGEFIL_PID_EN_SET(1) |
+>                ANA_ANAGEFIL_PID_VAL_SET(port),
+>                lan9645x, ANA_ANAGEFIL);
+>=20
+> If that write fails, both CMD_AGE scans would run without the port
+> filter. Would that flush dynamic entries from every port instead of only
+> the requested one?
+>=20
+> This only happens if the parent MFD bus can fail a write while later
+> reads succeed. The parent driver is not in the tree, so that could not be
+> confirmed. The ocelot-family drivers follow the same lan_wr() convention.
+>=20
+> [ ... ]
+>=20
+> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/drive=
+rs/net/dsa/microchip/lan9645x/lan9645x_main.c
+> > index 6818b91f4bed2..5cb4f5fe13740 100644
+> > --- a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
+> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
+>=20
+> [ ... ]
+>=20
+> > @@ -360,6 +364,81 @@ static int lan9645x_port_vlan_del(struct dsa_switc=
+h *ds, int port,
+>=20
+> [ ... ]
+>=20
+> > +static int lan9645x_fdb_add(struct dsa_switch *ds, int port,
+> > +                         const unsigned char *addr, u16 vid,
+> > +                         struct dsa_db db)
+> > +{
+>=20
+> [ ... ]
+>=20
+> > +     if (dsa_port_is_cpu(dp) && !br &&
+> > +         dsa_fdb_present_in_other_db(ds, port, addr, vid, db))
+> > +             return 0;
+> > +
+> > +     if (!vid)
+> > +             vid =3D lan9645x_vlan_unaware_pvid(!!br);
+> > +
+> > +     dest =3D dsa_port_is_cpu(dp) ? PGID_CPU : port;
+> > +
+> > +     return lan9645x_mact_learn(lan9645x, dest, addr, vid, ENTRYTYPE_L=
+OCKED,
+> > +                                false);
+> > +}
+> > +
+> > +static int lan9645x_fdb_del(struct dsa_switch *ds, int port,
+> > +                         const unsigned char *addr, u16 vid,
+> > +                         struct dsa_db db)
+> > +{
+> > +     struct net_device *br =3D lan9645x_db2bridge(db);
+> > +     struct dsa_port *dp =3D dsa_to_port(ds, port);
+> > +     struct lan9645x *lan9645x =3D ds->priv;
+> > +
+> > +     if (IS_ERR(br))
+> > +             return PTR_ERR(br);
+> > +
+> > +     if (dsa_port_is_cpu(dp) && !br &&
+> > +         dsa_fdb_present_in_other_db(ds, port, addr, vid, db))
+> > +             return 0;
+> > +
+> > +     if (!vid)
+> > +             vid =3D lan9645x_vlan_unaware_pvid(!!br);
+> > +
+> > +     return lan9645x_mact_forget(lan9645x, addr, vid, ENTRYTYPE_LOCKED=
+);
+> > +}
+>=20
+> [Severity: Medium]
+> Could this forget a CPU port entry that another database still needs?
+>=20
+> For a non-zero vid, lan9645x_fdb_add() and lan9645x_fdb_del() map two
+> host entries with the same (vid, mac) to one hardware key pointing at
+> PGID_CPU: the DSA_DB_PORT one and the DSA_DB_BRIDGE one. Only vid 0 is
+> split, into HOST_PVID and UNAWARE_PVID by lan9645x_vlan_unaware_pvid().
+>=20
+> DSA refcounts the two entries separately on the CPU port, because
+> dsa_mac_addr_find() includes the db in its key. The shared-key guard only
+> matches entries of the same db type:
+>=20
+> net/dsa/dsa.c:dsa_fdb_present_in_other_db() {
+>     ...
+>         if (a->db.type =3D=3D db.type && !dsa_db_equal(&a->db, &db))
+>                 return true;
+>     ...
+> }
+>=20
+> So when a DSA_DB_PORT entry is deleted, the guard never sees a
+> DSA_DB_BRIDGE entry with the same key. For DSA_DB_BRIDGE deletions, the
+> !br check skips the guard entirely.
+>=20
+> One way to hit this:
+>=20
+> - swp1 is in a VLAN-aware bridge.
+> - swp1.100 is a VLAN upper whose MAC M differs from swp1's.
+> - dsa_user_vlan_rx_add_vid()->dsa_user_schedule_standalone_work(DSA_UC_AD=
+D)
+>   installs a DSA_DB_PORT host entry (M, 100).
+> - M is also a bridge host address in VID 100, which adds a DSA_DB_BRIDGE
+>   host entry (M, 100). This happens, for example, with br0 using vid 100
+>   self and the same MAC, or with a local entry of another port in VID 100=
+.
+>=20
+> Removing either entry, for example by taking swp1.100 down or deleting
+> the bridge VLAN, goes through:
+>=20
+> dsa_switch_host_fdb_del()
+>   dsa_port_do_fdb_del()
+>     lan9645x_fdb_del()
+>       dsa_fdb_present_in_other_db()   /* false, db types differ */
+>       lan9645x_mact_forget()          /* CMD_FORGET on (M, 100) */
+>=20
+> Wouldn't the hardware then lose the entry for the host address that is
+> still wanted?
+>=20
+> __lan9645x_port_set_host_flood() leaves the CPU out of PGID_UC when only
+> bridged ports request host flooding. Unicast to M in VID 100 could then
+> be dropped instead of reaching the host. The felix driver uses the same
+> pattern.
+>=20
 
-mxc_gpio_generic_config() and mxc_gpio_set_pad_wakeup() call
-of_device_is_compatible() on every invocation to determine pad wakeup
-capability and i.MX8QM-specific behavior.  These properties are
-invariant for the lifetime of the device.
+Correct, a DSA_DB_PORT and a DSA_DB_BRIDGE host entry with the same
+address and a non-zero VID map to one MAC table entry, and
+dsa_fdb_present_in_other_db() only considers databases of the same type.
+v14 replaces the check with one that walks the CPU port address list and
+compares the MAC table key each entry maps to, so the entry is only
+learned or forgotten when no other database uses that key.
 
-Extend the hwdata flags scheme introduced in the previous commit with
-MXC_GPIO_HAS_PAD_WAKEUP and MXC_GPIO_IS_IMX8QM, adding dedicated
-hwdata instances for imx8qm and imx8qxp (also used by imx8dxl).
-This replaces the repeated device tree string comparisons in the
-suspend/resume path with simple flag tests on static per-compatible
-data.
 
-While at it, clean up mxc_gpio_generic_config() to use a local ret
-variable for clarity instead of the == 0 comparison.
-
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
----
- drivers/gpio/gpio-mxc.c | 46 ++++++++++++++++++++++++++++++++++------------
- 1 file changed, 34 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/gpio/gpio-mxc.c b/drivers/gpio/gpio-mxc.c
-index 5fbbfcebaa8f..1bd9f5beae4a 100644
---- a/drivers/gpio/gpio-mxc.c
-+++ b/drivers/gpio/gpio-mxc.c
-@@ -34,6 +34,8 @@
- #define IMX_SCU_WAKEUP_HIGH_LVL		7
- 
- #define MXC_GPIO_HAS_POWER_OFF		BIT(0)
-+#define MXC_GPIO_HAS_PAD_WAKEUP		BIT(1)
-+#define MXC_GPIO_IS_IMX8QM		BIT(2)
- 
- /* device type dependent stuff */
- struct mxc_gpio_hwdata {
-@@ -132,6 +134,26 @@ static struct mxc_gpio_hwdata imx7d_gpio_hwdata = {
- 	.flags = MXC_GPIO_HAS_POWER_OFF,
- };
- 
-+static struct mxc_gpio_hwdata imx8qm_gpio_hwdata = {
-+	MXC_GPIO_HW_DATA_COMMON,
-+	.flags = MXC_GPIO_IS_IMX8QM | MXC_GPIO_HAS_PAD_WAKEUP,
-+};
-+
-+static struct mxc_gpio_hwdata imx8qxp_gpio_hwdata = {
-+	MXC_GPIO_HW_DATA_COMMON,
-+	.flags = MXC_GPIO_HAS_PAD_WAKEUP,
-+};
-+
-+static inline bool mxc_gpio_is_imx8qm(struct mxc_gpio_port *port)
-+{
-+	return port->hwdata->flags & MXC_GPIO_IS_IMX8QM;
-+}
-+
-+static inline bool mxc_gpio_has_pad_wakeup(struct mxc_gpio_port *port)
-+{
-+	return port->hwdata->flags & MXC_GPIO_HAS_PAD_WAKEUP;
-+}
-+
- static inline bool mxc_gpio_has_power_off(struct mxc_gpio_port *port)
- {
- 	return port->hwdata->flags & MXC_GPIO_HAS_POWER_OFF;
-@@ -158,9 +180,9 @@ static const struct of_device_id mxc_gpio_dt_ids[] = {
- 	{ .compatible = "fsl,imx31-gpio", .data = &imx31_gpio_hwdata },
- 	{ .compatible = "fsl,imx35-gpio", .data = &imx35_gpio_hwdata },
- 	{ .compatible = "fsl,imx7d-gpio", .data = &imx7d_gpio_hwdata },
--	{ .compatible = "fsl,imx8dxl-gpio", .data = &imx35_gpio_hwdata },
--	{ .compatible = "fsl,imx8qm-gpio", .data = &imx35_gpio_hwdata },
--	{ .compatible = "fsl,imx8qxp-gpio", .data = &imx35_gpio_hwdata },
-+	{ .compatible = "fsl,imx8dxl-gpio", .data = &imx8qxp_gpio_hwdata },
-+	{ .compatible = "fsl,imx8qm-gpio", .data = &imx8qm_gpio_hwdata },
-+	{ .compatible = "fsl,imx8qxp-gpio", .data = &imx8qxp_gpio_hwdata },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, mxc_gpio_dt_ids);
-@@ -576,15 +598,16 @@ static void mxc_gpio_restore_regs(struct mxc_gpio_port *port)
- static bool mxc_gpio_generic_config(struct mxc_gpio_port *port,
- 		unsigned int offset, unsigned long conf)
- {
--	struct device_node *np = port->dev->of_node;
-+	int ret;
-+
-+	if (!mxc_gpio_has_pad_wakeup(port))
-+		return false;
- 
--	if (of_device_is_compatible(np, "fsl,imx8dxl-gpio") ||
--	    of_device_is_compatible(np, "fsl,imx8qxp-gpio") ||
--	    of_device_is_compatible(np, "fsl,imx8qm-gpio"))
--		return (gpiochip_generic_config(&port->gen_gc.gc,
--						offset, conf) == 0);
-+	ret = gpiochip_generic_config(&port->gen_gc.gc, offset, conf);
-+	if (ret)
-+		return false;
- 
--	return false;
-+	return true;
- }
- 
- static bool mxc_gpio_set_pad_wakeup(struct mxc_gpio_port *port, bool enable)
-@@ -592,7 +615,6 @@ static bool mxc_gpio_set_pad_wakeup(struct mxc_gpio_port *port, bool enable)
- 	unsigned long config;
- 	bool ret = false;
- 	int i, type;
--	bool is_imx8qm = of_device_is_compatible(port->dev->of_node, "fsl,imx8qm-gpio");
- 
- 	static const u32 pad_type_map[] = {
- 		IMX_SCU_WAKEUP_OFF,		/* 0 */
-@@ -613,7 +635,7 @@ static bool mxc_gpio_set_pad_wakeup(struct mxc_gpio_port *port, bool enable)
- 		else
- 			config = IMX_SCU_WAKEUP_OFF;
- 
--		if (is_imx8qm && config == IMX_SCU_WAKEUP_FALL_EDGE) {
-+		if (mxc_gpio_is_imx8qm(port) && config == IMX_SCU_WAKEUP_FALL_EDGE) {
- 			dev_warn_once(port->dev,
- 				      "No falling-edge support for wakeup on i.MX8QM\n");
- 			config = IMX_SCU_WAKEUP_OFF;
-
--- 
-2.51.0
+> [ ... ]
+>=20
+> --
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
+set/20260929-dsa_lan9645x_switch_driver_base-v13-0-827c2d3617f2%40microchip=
+.com
 
