@@ -1,130 +1,94 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D677C46AF1A
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 13:31:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0BDA4195C8;
+	Tue,  6 Oct 2026 13:32:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791293501; cv=none; b=TnS/N8F1YX9t/CmtBz5Y8fOkP65HId1tCpTqbVPJpPKoEZqvfhWFgwH8aJ0Z3GllU7uxHNskhsBK/jWjadevgkBO/dmtR4Nc107EDMXyNGPhHnH7ECvHzRKar9wyI0jR+7JcV8WTWizTTgiuzlezIjlPQd+WK7BMT22mvWEbP9w=
+	t=1791293577; cv=none; b=fPUt7T/EwGEV5YFAIxqtE+dgbS4laA9dt/3ltTvhKSS6/9z63TSsWR/L0+rzkwdqRE2uPrFmIIheS9n9sKGc3U0Ox33O31vn5y/KEnhwuKNFSEte0hFVssIGtLUPeejKOZfqnRTof5VKV1jYYCrtzzGn1W7k5Gco6M/XtEh+OwY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791293501; c=relaxed/simple;
-	bh=hNd6bIyFAvlFxc6hjuFcDqVwVqg86Zvx1YHzqvt4tLo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ut2rJisV52lJEZ2z6n7yyQ3sLjFMyk/cb2jXjxgUrJb6ZCiXFwLbbP1vEgQB32LSZSBC9rJwK9HrasjBCaklqLf6fN3lUFPg+HvdK9QNXbJIpcx/V4PxjjFAzTyVAYOSSSBLP/LBdO2CBKAyv/TgvB6CzOtvJOnkUncqLO9c6Ys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iN6FhlcM; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791293577; c=relaxed/simple;
+	bh=rDBfT6pAvhNxalF+kSQQ02i8OGbRSXeGMZh1ZRM8VEs=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=b1MeNVf6+hMwrqt5DjJwRB6C/mFcLvl72mDkdHWx2JM17flxWaHb6OLsz3M3/mMUPAxVgjHnlBBAipT96xxwHCTx4ORN9jPxic+1mUODAp8tSioen4g/m7VmQa50XLPVqtpfaK0Vl0KejpCkWO1BoJXwAbow/Zw56XYjgWWLLCQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h8BaYucA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iN6FhlcM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791293498;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HHCKmh+GTex17viqHU7+p3b1kZPrhM46bDIsKbGkEho=;
-	b=iN6FhlcMHfOiqovo3X2/mZEXTZQS7gInkttQxxgz8zItn9oMs48FJ+RwRWD+Nv5cracv7q
-	HdYMVIluwIimznzQyFznCKkTFv7KY7+Jjv0IFyyZoYIxrQNFryUkhLRye5IWAPQVaBdRTm
-	PWOXPak+fHhiTr/BlRkWfZaWHH1tOho=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-638-OTKM4QN8Oh-vZU-WiirFxQ-1; Tue,
- 06 Oct 2026 09:31:37 -0400
-X-MC-Unique: OTKM4QN8Oh-vZU-WiirFxQ-1
-X-Mimecast-MFC-AGG-ID: OTKM4QN8Oh-vZU-WiirFxQ_1791293495
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 23CFD193E884;
-	Tue,  6 Oct 2026 13:31:35 +0000 (UTC)
-Received: from warthog.com (unknown [10.44.32.90])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 77A273001D2A;
-	Tue,  6 Oct 2026 13:31:31 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-To: netdev@vger.kernel.org
-Cc: David Howells <dhowells@redhat.com>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-afs@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Seungwon Bae <qotmddnjs@ajou.ac.kr>,
-	stable@vger.kernel.org
-Subject: [PATCH net v12 15/15] rxrpc: fix use-after-free in rxrpc_poke_conn()
-Date: Tue,  6 Oct 2026 14:30:07 +0100
-Message-ID: <20261006133011.531806-16-dhowells@redhat.com>
-In-Reply-To: <20261006133011.531806-1-dhowells@redhat.com>
-References: <20261006133011.531806-1-dhowells@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h8BaYucA"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 7520F1F000FF;
+	Tue,  6 Oct 2026 13:32:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791293575;
+	bh=6CZikXboQ4pJcmLiTLM5ulPxyvEM102hfSjAIL4v6vU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=h8BaYucACLeuFvkOnlGfyIh75DNQcKCrpxM0dABHEBNL9cA2ScG1G5IdfMJNBjaKt
+	 77fZ2SVWNl0zPmlQtmDq+w02mOnT149nxE/OWIFUmB1KiTDESmuC1MhjY1dFUhlFZd
+	 Mc23Akff+DL8RyVJPKKQTNwQFN2s6PrOzQ8A+vQ8RPu37LHJGOgjJbJcH//glHuBC8
+	 sLD6LpxWGDllIHhb2XUoQtQP/fQbpvRfPuKRFyeaEpLKe+qvtxfMGV0vYfAPfS2QBj
+	 Lkkc+WJlBfxS0v2CjTu9a8Jxb1wjR6b0JKNFKyG1VTcQXBS5z+xvwktxaR4wIfLXlD
+	 vrxSf+DLZs1Vw==
+From: Kevin Hilman <khilman@kernel.org>
+To: Maulik Shah <maulik.shah@oss.qualcomm.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
+ <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Daniel Lezcano
+ <daniel.lezcano@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org, Maulik Shah
+ <maulik.shah@oss.qualcomm.com>
+Subject: Re: [PATCH 0/3] pmdomain: Support system-suspend-only domain idle
+ states
+In-Reply-To: <20261005-s2idle_state-v1-0-3c402c66f388@oss.qualcomm.com>
+References: <20261005-s2idle_state-v1-0-3c402c66f388@oss.qualcomm.com>
+Date: Tue, 06 Oct 2026 06:32:55 -0700
+Message-ID: <7h7bjv0xa0.fsf@baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+Content-Type: text/plain
 
-From: Seungwon Bae <qotmddnjs@ajou.ac.kr>
+Maulik Shah <maulik.shah@oss.qualcomm.com> writes:
 
-rxrpc_poke_conn() takes a reference on the connection with no liveness
-check, unlike its sibling rxrpc_queue_conn() which gates on
-atomic_read(&conn->active) >= 0.  The per-connection timer is armed with
-no reference held for it, and rxrpc_put_connection() cancels it with a
-non-synchronous timer_delete() only after the refcount reaches 0.
-refcount_t saturates rather than resurrecting, so the connection can be
-kfree()d while still linked in local->conn_attend_q (nothing in teardown
-unlinks attend_link).  The rxrpc I/O thread then performs a UAF write
-(list_del_init) plus UAF reads and indirect calls through conn->security.
+[...]
 
-Reproduced on a KASAN + PREEMPT kernel: 56 "refcount_t: addition on 0"
-saturations at load, escalating to
+> All domain idle states described in devicetree are currently considered
+> during the regular idle path. This limits which states can be described in
+> devicetree. Due to hardware constraints, some domain idle states are only
+> applicable to system-wide suspend, including suspend-to-idle (s2idle).
+>
+> To allow these states to be described in DT and used only during system
+> suspend, this series adds a boolean system-state property to domain idle
+> state bindings and a corresponding system_state boolean in genpd. The
+> genpd governors skip these states during normal operation. The system
+> suspend selection path remains unchanged, allowing these states during
+> suspend while retaining the existing wakeup latency checks for s2idle.
+>
+> This series applies to cluster idle states with the "domain-idle-state"
+> compatible string managed by genpd and its governors, but can be extended
+> to CPU idle states with the "arm,idle-state" compatible string if the same
+> restriction is needed for CPUidle states too.
+>
+> Assisted-by: Codex:GPT-6
+> Signed-off-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
 
-  BUG: KASAN: slab-use-after-free in rxrpc_io_thread   Write of size 8
+Acked-by: Kevin Hilman <khilman@baylibre.com>
 
-AF_RXRPC socket creation (rxrpc_create) has no capability check, so this
-is reachable by an unprivileged user.
+Thank you for submitting this.  I have been considering how to add
+exactly this feature, so I add an enthusaistic +1 to the need for
+this feature.
 
-Guard rxrpc_poke_conn() with the same liveness/refcount check the sibling
-rxrpc_queue_conn() uses before taking the poke reference, so a connection
-past its last-active point is not poked/requeued after teardown began.
+On TI SoCs where we use s2idle, we have similar reasons to have
+domain-idle-states that should only be available during system-wide
+suspend-to-idle.
 
-Verified before/after on KASAN+PREEMPT at equal timer volume: 56
-saturations + 15 KASAN reports unpatched vs 0 and 0 patched.
+The current hack to supporting this is to just use absurdly high
+residency numbers for these system states such that the runtime CPUidle
+never picks the states.  But this is a hack, and is not describing the
+hardware, so I would much rather see a way to describe this in DT.
 
-Fixes: f2cce89a074e ("rxrpc: Implement a mechanism to send an event notification to a connection")
-Signed-off-by: Seungwon Bae <qotmddnjs@ajou.ac.kr>
-Signed-off-by: David Howells <dhowells@redhat.com>
-cc: Marc Dionne <marc.dionne@auristor.com>
-cc: Eric Dumazet <edumazet@google.com>
-cc: "David S. Miller" <davem@davemloft.net>
-cc: Jakub Kicinski <kuba@kernel.org>
-cc: Paolo Abeni <pabeni@redhat.com>
-cc: Simon Horman <horms@kernel.org>
-cc: linux-afs@lists.infradead.org
-cc: stable@vger.kernel.org
----
- net/rxrpc/conn_object.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Thanks,
 
-diff --git a/net/rxrpc/conn_object.c b/net/rxrpc/conn_object.c
-index 0ece717db0f8..1be50e0c9cee 100644
---- a/net/rxrpc/conn_object.c
-+++ b/net/rxrpc/conn_object.c
-@@ -34,7 +34,10 @@ void rxrpc_poke_conn(struct rxrpc_connection *conn, enum rxrpc_conn_trace why)
- 	spin_lock_irq(&local->lock);
- 	busy = !list_empty(&conn->attend_link);
- 	if (!busy) {
--		rxrpc_get_connection(conn, why);
-+		if (!rxrpc_get_connection_maybe(conn, why)) {
-+			spin_unlock_irq(&local->lock);
-+			return;
-+		}
- 		list_add_tail(&conn->attend_link, &local->conn_attend_q);
- 	}
- 	spin_unlock_irq(&local->lock);
-
+Kevin
