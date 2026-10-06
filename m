@@ -1,129 +1,68 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CF854503B;
-	Tue,  6 Oct 2026 21:52:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5163383982;
+	Tue,  6 Oct 2026 21:55:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791323563; cv=none; b=LYg9Ve8I+jgLcp4qE3dpYQR/nPeTiGSVeH5+QtxASSv6WMQqP3NFZZw+6VXljn5z5OEAPznxZ6PQR8aV74+8rIn/LDitwxCfPj7d0mMRKwSY8SfwMTWRrN29LbJI+RaJRC2slbSOFRxx79hpkddhEtrfXLoQG/vw/ltnqjMenrY=
+	t=1791323719; cv=none; b=bAmfHtekzWJWRQRbZYwWLc0ywiI+LpgMeWoTHyV3XvL3aR2y7ipSDyKE3NnehOutMy2sfLTZHnWy8Tj0ljuaNZ4DYEPy9L+awPy+OHY33K+08gzWqCUc2jIrCsR74v9WXjlZvEtAsr2vt61A/ZZnqKUyqN0R4osQ6uljkLAMw2s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791323563; c=relaxed/simple;
-	bh=8WqELfWbEpFkaQjWfNLiGN7TXH97AezydfEmkGPYzpk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dAydVFxoBQkfOF3qChONIy7b7x8UtC4LtDnBB4NpkT2rJZqhRjTyyLeadlIe5bDm8paCu9To2sCUmiTM9h0vejSnbULm9wNoLRPUgwCWmkc8+1QSYf3En5dR/GtUDfpO8JbyqnqQVQWH3YcBj9t6n5199MfqpHodBJodKPoYq9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ftqi5JxY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791323719; c=relaxed/simple;
+	bh=xHJ9hg4yHkDXfjW444BnDtWp5EuaiG7dT2iCEQzYgK4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OjHcAbXGTiBmS9+bFEagEUkx/n0x93KJlbKLzQWf5HL7M+M/PStM6+EfaBRBlDNHqdoKOCaCuCSpa3Zg/GW52AtgN9CUFGACdszsMpv04KiC12Gy033JMdOYUCmfTJSOnj0Nq5/kMm0rZIrU/LnhvqNIVzZShQMPbcmRa+hxXxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JNM4U+Ff; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ftqi5JxY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D5A61F0089B;
-	Tue,  6 Oct 2026 21:52:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JNM4U+Ff"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D69B1F0089B;
+	Tue,  6 Oct 2026 21:55:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791323562;
-	bh=aLltj2KeDqF9OosT0AEoWFskj5jYY5VnqnzaqsV3VgY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ftqi5JxYQ7+lOH0e3/qLZoDI1z82JKInnQfYcKqixAXYDv4KmRLetT2yf6MF8YU1u
-	 kUk9ToRlzIe8Nl1vp2TYck54k5ulwPMNvsOqte7ISHa1gh1TIEKVm+Z5mbwpXSF1AD
-	 crVr7MkSiyiM2du+fk37Zp93ECnO4ni6RGEVcicG7VzMtvaS8p6SOzT+i9R5N0nIz1
-	 /esNqVbVK14/jTVs7oNE7q6G/lw1RUNITEX+RT16CVY0u83mLVBpntBf5Str+DsaJe
-	 LT4RGmc1J/WMANFyagqs0E7dcbEUuVDQE0vhXKYthrpnZNsogcBHN1Y8oBt35CXUDx
-	 Enb5fk2CRE8Ww==
-Date: Tue, 6 Oct 2026 22:52:29 +0100
-From: Will Deacon <will@kernel.org>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
-	iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Robin Murphy <robin.murphy@arm.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Jiri Pirko <jiri@resnulli.us>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Mostafa Saleh <smostafa@google.com>,
-	Petr Tesarik <ptesarik@suse.com>,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Xu Yilun <yilun.xu@linux.intel.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
-	linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
-	x86@kernel.org
-Subject: Re: [PATCH v6 0/8] dma: swiotlb: Centralize default pool policy and
- sizing
-Message-ID: <asVtnRSeHRJr5mp3@willie-the-truck>
-References: <CGME20260924060823eucas1p1d27fbf57221c9b4c0e9831a9b0cdd7d3@eucas1p1.samsung.com>
- <20260924060756.1325156-1-aneesh.kumar@kernel.org>
- <ff4f59ea-6c51-41d6-a92d-d1dd205b1e78@samsung.com>
+	s=k20260515; t=1791323718;
+	bh=p6cFzmPVwnvLGajBYkemFKtr5g0mwddLRoGytSZpBcQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=JNM4U+FfrDsXu5990fwPYm6E29Rkx4Z2Jnv2SwaQHObk/terRWHB1dyEp0e6TARv3
+	 he5XCigWKBrVTsXRj+vBYmp+MOTpS18pIF/4QCPC8Oryq9OvaZvGZg/g3GgYXuIuhf
+	 J6Vr14biXn3SW9Igv5wQFFKarNudhjYVJ3TlNzsi3UV3+oYdOt5Zlvzx72+chr+lJA
+	 iTglIHE9dfWIxKGmIYtihtacHmp9QMlTBfYOKNbHXQbBIXJE0ZTypKLL6hNYRElVvp
+	 gWyctowbQSA+0XTQdJTU3vxFX9iVd4i/dcICnRKPyU6QCx2aYE+Kicch5b1UhOq3V6
+	 LWZgF1xyJm80A==
+Message-ID: <007d40e9-221f-4dcc-ab74-e2f1ff706dec@kernel.org>
+Date: Tue, 6 Oct 2026 23:55:11 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ff4f59ea-6c51-41d6-a92d-d1dd205b1e78@samsung.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] devres: Provide kmalloc_obj*-style API for
+ devm_kmalloc
+To: Kees Cook <kees@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, driver-core@lists.linux.dev,
+ linux-hardening@vger.kernel.org, Lorenzo Stoakes <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ David Hildenbrand <david@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org
+References: <20260914223212.i.829-kees@kernel.org>
+ <20260914223219.901347-2-kees@kernel.org>
+From: Danilo Krummrich <dakr@kernel.org>
+Content-Language: en-US
+In-Reply-To: <20260914223219.901347-2-kees@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 06, 2026 at 11:42:54PM +0200, Marek Szyprowski wrote:
-> On 24.09.2026 08:07, Aneesh Kumar K.V (Arm) wrote:
-> > This series centralizes swiotlb default-pool selection and sizing, and
-> > simplifies the initialization flags used to describe pool placement.
-> >
-> > The first patch replaces the addressing-limit argument with initialization
-> > flags and introduces explicit policies for the different reasons a default
-> > pool may be needed. Architectures now report DMA addressing constraints with
-> > SWIOTLB_INIT_ADDRESSING_LIMIT, while the core selects the corresponding pool
-> > policy.
-> >
-> > The second patch moves the reduced sizing used when the pool is needed only
-> > for unaligned kmalloc bouncing from arm64 and RISC-V into the swiotlb core.
-> >
-> > The third patch centralizes swiotlb sizing for memory-encrypted systems. It
-> > moves the existing x86 guest-sizing policy into the core. Host memory
-> > encryption retains the normal pool size, and a shared default pool is not
-> > selected solely for guest memory encryption when a restricted DMA pool is
-> > present.
-> >
-> > The fourth patch removes SWIOTLB_ANY. Pool placement is derived directly from
-> > SWIOTLB_INIT_ADDRESSING_LIMIT: pools required for limited DMA addressing are
-> > allocated below the architecture's low address limit, while other pools may
-> > be allocated anywhere in directly mapped memory. Xen continues to request a
-> > pool explicitly with SWIOTLB_INIT_REMAP without imposing a low-address
-> > constraint.
+On 15.09.26 00:32, Kees Cook wrote:
+> Mirroring the type-based allocation now in use for the kmalloc family of
+> APIs, provide the same for the devm_kmalloc family of APIs. This will
+> allow for future plumbing of type information (e.g. alignment) into the
+> underlying allocations. This immediately gains type check on return
+> values (instead of the prior "void *" return type).
 > 
-> 
-> I will give this patchset a chance in linux-next. If one feels that it still needs
-> to be improved or sees any other reason why it shouldn't be merged, let me know
-> asap.
-
-I think the restricted-dma pool heuristic is horribly naive, so please drop
-that part for now.
-
-Will
+> Signed-off-by: Kees Cook <kees@kernel.org>
+Reviewed-by: Danilo Krummrich <dakr@kernel.org>
