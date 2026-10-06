@@ -1,149 +1,93 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6376E30ACF0;
-	Tue,  6 Oct 2026 05:48:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 575B3377EAF
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 05:48:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.24
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791265715; cv=none; b=hrgIfWth0eSyWsEnTXAslPSqOllxSghj4zEfdI53WaOmutXezuI8GnMo13YPWiolvW9xnFz4MCM7JiHw9gx0W0GZP8+oV4HP/bePzNxOZxRIBAX3FsC2Km5IB0Pt1rR69hUXyp76NB1BVFE6P7EUfaioLDVs1HQUxC7bZzeDG3Y=
+	t=1791265732; cv=none; b=kwqLw8gHz8FQ6Bo3qx+88tdW2vWZeJiB0h7ux3lVl0hQNF6c68ne9Ks3z0zRysx5WUUKUppj+5miWahxycxlEkoJZa+VvtG2JC+d8OLoCYreUIBIZ+0WlNf8yGbjiPRAPNjI8agvSKCbL6j88gS+1INiyi3DEhygSd1L6DgBphQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791265715; c=relaxed/simple;
-	bh=bWFHcT3cQnXUfVn+E4GPd6ugdQHGNoy+3sAGbounbAc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uVuzFFGBOzSYM+h5K6saAT46LvWORakGsAp9GCQOvI42ZMfACT7yYjwDTunwNcyeHDBk3HPAm9q8+7hwDfUovcsCfvG9Esw7j1MkkIwqAWK1vbkPvo0N2dFlgWlfA+Eq5xz5cUp/KEFjBsF6uYi1RjvuqPOGBqoHXtqe4mNOvr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=tzbPh0+T; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1791265732; c=relaxed/simple;
+	bh=QxC3CPxmQGc7vcjk9S5d0nij7wuDioXkYk/OZ5aeW+M=;
+	h=Mime-Version:Subject:From:To:CC:In-Reply-To:Message-ID:Date:
+	 Content-Type:References; b=gucUhy9sXDIB2mlkb+6iUdjzqIZln7xFn6nwCjFL7iGVbO7k8n2EwPJrpnH5zWqjd/TaGVEAHp04n16g7MysBC+gAycXLphD3dm5mTDnmSph/8vAYUna02nwE8k95V/Rk3168A3ypRkNFPfBGzBkVH2XBLIdCf5DGHAWQxH25Kw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=nCGt/QBV; arc=none smtp.client-ip=203.254.224.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="tzbPh0+T"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hzQKM56kzz8twZ;
-	Tue, 06 Oct 2026 07:48:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1791265703;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=K/f9oCJzacuOtCMgIQ2RlyGSpR3oGeLxyRwyU9u3vJo=;
-	b=tzbPh0+TlNHJvmbQrUpGcz8Skkdq2EJqWqcDif/G3wj3HvVi5QLw6BNFgM+cfj1OCbZXfO
-	4v3U6JUw+86VZ7E7t2w2ErJVNrVnWvEGlwvEbH1wIU94vhQwKxi3wrV6F6dD/kx6qm6Wr5
-	sTbWz2W1mfprRrlf8A8IQ5uhuM+ll4ZPqT5Eu8Wzru2ckQA96Wnm2ayiOxbaQmuw+Cq8xK
-	nl/c8fDozTdRQjFNyAmBNCBdKizc8PwI2IK2AKnfX9cE7a75DNQ/0InH3JyAniZNkoO2VH
-	itbWCNXfibhPE2e8xwKPrbM4JS7vLofePYnAPL2h8WmIikMFo9maiqIjhjZlkw==
-Message-ID: <f4ca9c43-aaf8-4c15-9b29-363414779e41@mailbox.org>
-Date: Tue, 6 Oct 2026 07:20:11 +0200
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="nCGt/QBV"
+Received: from epcas2p3.samsung.com (unknown [182.195.41.55])
+	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20261006054848epoutp015d58c4ac21ba01163ead15be7f217987~b2rBqwoPT1997519975epoutp012
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 05:48:48 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20261006054848epoutp015d58c4ac21ba01163ead15be7f217987~b2rBqwoPT1997519975epoutp012
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791265728;
+	bh=QxC3CPxmQGc7vcjk9S5d0nij7wuDioXkYk/OZ5aeW+M=;
+	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
+	b=nCGt/QBVyjyXo61y1RrnPwBmOjWOhxHkI2WF9InPboRbeLJ9VbXOY45murtJUimAi
+	 T2UZFt1Y++pPuYIA8pGoFA05Dvie3IfChB9/auIKVJw2QQ7y9AC2kqACawAqPkWwDi
+	 OwXw09wMzZ1ZVkG5fUMDo9lOyu7i800pjzB4Dt40=
+Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
+	epcas2p3.samsung.com (KnoxPortal) with ESMTPS id
+	20261006054847epcas2p3bf8546ff659945993f035ca2109ffb47~b2rBLlEqa0946609466epcas2p3d;
+	Tue,  6 Oct 2026 05:48:47 +0000 (GMT)
+Received: from epcas2p2.samsung.com (unknown [182.195.38.202]) by
+	epsnrtp04.localdomain (Postfix) with ESMTP id 4hzQKq1PYMz6B9m9; Tue,  6 Oct
+	2026 05:48:47 +0000 (GMT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 15/15] arm64: dts: renesas: r8a779f0: Describe the PCIe
- AER interrupts
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
- Niklas Cassel <cassel@kernel.org>, Wilfred Mallawa
- <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>,
- linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260928165230.3397664-1-den@valinux.co.jp>
- <20260928165230.3397664-16-den@valinux.co.jp>
- <d9ffb9f3-ad89-4912-b863-637c838196cb@mailbox.org>
- <mtczl7e3tlwt26gj56wmvfeotuvd63dfpsmazo3yg4sqstyuhn@omeidmdgauzz>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <mtczl7e3tlwt26gj56wmvfeotuvd63dfpsmazo3yg4sqstyuhn@omeidmdgauzz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Mime-Version: 1.0
+Subject: RE:(2) [PATCH] xfs: map pNFS layouts to the end of the extent again
+Reply-To: daejun7.park@samsung.com
+Sender: Daejun Park <daejun7.park@samsung.com>
+From: Daejun Park <daejun7.park@samsung.com>
+To: "Darrick J. Wong" <djwong@kernel.org>
+CC: "cem@kernel.org" <cem@kernel.org>, "linux-xfs@vger.kernel.org"
+	<linux-xfs@vger.kernel.org>, "dai.ngo@oracle.com" <dai.ngo@oracle.com>,
+	"hch@lst.de" <hch@lst.de>, "dgc@kernel.org" <dgc@kernel.org>,
+	"sergeybashirov@gmail.com" <sergeybashirov@gmail.com>, "cel@kernel.org"
+	<cel@kernel.org>, "jlayton@kernel.org" <jlayton@kernel.org>,
+	"linux-nfs@vger.kernel.org" <linux-nfs@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Daejun Park
+	<daejun7.park@samsung.com>
+X-Priority: 3
+X-Content-Kind-Code: NORMAL
+In-Reply-To: <20261006051324.GV2705364@frogsfrogsfrogs>
+X-CPGS-Detection: blocking_info_exchange
+X-Drm-Type: N,general
+X-Msg-Generator: Mail
+X-Msg-Type: PERSONAL
+X-Reply-Demand: N
+Message-ID: <20261006054846epcms2p8ebfcaa89742030bfc07a7d1bb5ee3dfb@epcms2p8>
+Date: Tue, 06 Oct 2026 14:48:46 +0900
+X-CMS-MailID: 20261006054846epcms2p8ebfcaa89742030bfc07a7d1bb5ee3dfb
 Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: f7xtbstsca31pjg4c6b7uatdib6i1qhp
-X-MBO-RS-ID: da55d30359b515db82d
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-223,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261006003425epcms2p586728e55ff5f9bbabc506b672fc4a421
+References: <20261006051324.GV2705364@frogsfrogsfrogs>
+	<20261006003425epcms2p586728e55ff5f9bbabc506b672fc4a421@epcms2p5>
+	<CGME20261006003425epcms2p586728e55ff5f9bbabc506b672fc4a421@epcms2p8>
 
-On 10/5/26 7:11 PM, Koichiro Den wrote:
-> On Sat, Oct 03, 2026 at 10:00:13PM +0200, Marek Vasut wrote:
->> On 9/28/26 6:52 PM, Koichiro Den wrote:
->>> The PCIe controllers report Root Port AER notifications through
->>> intreq_pci0_lperr (SPI 421) and intreq_pci1_lperr (SPI 428),
->>> respectively, separately from the integrated MSI receiver interrupts.
->>> Describe these interrupts with the "aer" name so the controller driver
->>> can use them for Root Port error reporting.
->>>
->>> Append the new interrupts to preserve the existing interrupt indices.
->>>
->>> Reviewed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
->>> Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> 
-> Hi Marek,
-> 
->> Please also feel free to add this patch for R-Car V4H (performed cover
->> letter tests 2 and 3 on Retronix Sparrow Hawk)
->>
->> diff --git a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
->> b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
->> index 5284923b6cef7..8342d3c6f9881 100644
->> --- a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
->> +++ b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
->> @@ -801,8 +801,9 @@ pciec0: pcie@e65d0000 {
->>                          interrupts = <GIC_SPI 449 IRQ_TYPE_LEVEL_HIGH>,
->>                                       <GIC_SPI 450 IRQ_TYPE_LEVEL_HIGH>,
->>                                       <GIC_SPI 451 IRQ_TYPE_LEVEL_HIGH>,
->> -                                    <GIC_SPI 455 IRQ_TYPE_LEVEL_HIGH>;
->> -                       interrupt-names = "msi", "dma", "sft_ce", "app";
->> +                                    <GIC_SPI 455 IRQ_TYPE_LEVEL_HIGH>,
->> +                                    <GIC_SPI 454 IRQ_TYPE_LEVEL_HIGH>;
->> +                       interrupt-names = "msi", "dma", "sft_ce", "app",
->> "aer";
->>                          clocks = <&cpg CPG_MOD 624>, <&pcie0_clkref>;
->>                          clock-names = "core", "ref";
->>                          power-domains = <&sysc R8A779G0_PD_ALWAYS_ON>;
->> @@ -850,8 +851,9 @@ pciec1: pcie@e65d8000 {
->>                          interrupts = <GIC_SPI 456 IRQ_TYPE_LEVEL_HIGH>,
->>                                       <GIC_SPI 457 IRQ_TYPE_LEVEL_HIGH>,
->>                                       <GIC_SPI 458 IRQ_TYPE_LEVEL_HIGH>,
->> -                                    <GIC_SPI 462 IRQ_TYPE_LEVEL_HIGH>;
->> -                       interrupt-names = "msi", "dma", "sft_ce", "app";
->> +                                    <GIC_SPI 462 IRQ_TYPE_LEVEL_HIGH>,
->> +                                    <GIC_SPI 461 IRQ_TYPE_LEVEL_HIGH>;
->> +                       interrupt-names = "msi", "dma", "sft_ce", "app",
->> "aer";
->>                          clocks = <&cpg CPG_MOD 625>, <&pcie1_clkref>;
->>                          clock-names = "core", "ref";
->>                          power-domains = <&sysc R8A779G0_PD_ALWAYS_ON>;
->>
->> And a matching patch for R-Car V4M (boot tested, but the board has no PCIe
->> device plugged into the slot)
->>
->> diff --git a/arch/arm64/boot/dts/renesas/r8a779h0.dtsi
->> b/arch/arm64/boot/dts/renesas/r8a779h0.dtsi
->> index 5f9223a0f4468..a377aab3c8be0 100644
->> --- a/arch/arm64/boot/dts/renesas/r8a779h0.dtsi
->> +++ b/arch/arm64/boot/dts/renesas/r8a779h0.dtsi
->> @@ -683,8 +683,9 @@ pciec0: pcie@e65d0000 {
->>                          interrupts = <GIC_SPI 449 IRQ_TYPE_LEVEL_HIGH>,
->>                                       <GIC_SPI 450 IRQ_TYPE_LEVEL_HIGH>,
->>                                       <GIC_SPI 451 IRQ_TYPE_LEVEL_HIGH>,
->> -                                    <GIC_SPI 455 IRQ_TYPE_LEVEL_HIGH>;
->> -                       interrupt-names = "msi", "dma", "sft_ce", "app";
->> +                                    <GIC_SPI 455 IRQ_TYPE_LEVEL_HIGH>,
->> +                                    <GIC_SPI 454 IRQ_TYPE_LEVEL_HIGH>;
->> +                       interrupt-names = "msi", "dma", "sft_ce", "app",
->> "aer";
->>                          clocks = <&cpg CPG_MOD 624>, <&pcie0_clkref>;
->>                          clock-names = "core", "ref";
->>                          power-domains = <&sysc R8A779H0_PD_A2PCIPHY>;
-> 
-> Thanks! I'll add them as two separate patches in v3, with your Suggested-by.
-Thank you !
+On Mon, Oct 05, 2026 at 10:13:24PM -0700, Darrick J. Wong wrote:
+> I wonder, though, should the caller (i.e. NFS) do this trimming to
+> protect itself from other filesystems making the same mistake?
+
+I agree that nfsd needs a patch as well. nfsd4_block_proc_layoutget()
+could trim every extent after the first to start at the offset asked
+for, moving soff by the same amount for the written and unwritten ones.
+If that sounds right, I can send a patch for it.
+
+This patch still makes sense as it is. Mapping to the end of the extent
+can only be done in XFS, and with the trim in XFS as well, the stable
+fix does not depend on the nfsd patch. What the trim costs shows in the
+4 KiB random row of the table: 15 LAYOUTGETs instead of 1, with no
+clear change in I/Os done.
