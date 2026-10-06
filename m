@@ -1,193 +1,137 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from mail.hugovil.com (mail.hugovil.com [162.243.120.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A60149C4D2;
-	Tue,  6 Oct 2026 15:29:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A4762AE68;
+	Tue,  6 Oct 2026 15:29:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.120.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791300553; cv=none; b=kKp7v6/i+JRgIK0uz+7NDC6eb2lzWnC+jcJw5sxA6rfcgohRJPkNvQSWJ7iWqPPJoxJyuoSP0gzrgT6+nJL57kZMhXhN59WcnqXcDBZ/5vPcqKvGZQBqEo9xX+zvwKtuQ7yyuwr1foFtoodF9E7q1oScvI6HT+QkM21XdKOLvCU=
+	t=1791300584; cv=none; b=Vw9E9qgIC2dVv9B6HdM1UVfbrnzZ8NNnJMfnkleZxjnF0KR7ODr4uYf6FyHXCMnWTkL1zGzCCqxvtTp2fkMw7xdRXwdWsGybRJR42KTLQy0y1Zf8+wGF5TKZMEkxfpVArJCAOAgxkn0W1Ja4G/jHFXe0LafauxGrXApYs4a/Vr0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791300553; c=relaxed/simple;
-	bh=xEtJZDjPq3Ju9oR5UkVEoFO9DrVTQiUuxAiUuKEL348=;
-	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=BrbR0MvX6qeNk6fc8gpcKkrJG60AvYPDpaDSfsXsnhh7ZUCSDuK+/rDXZCQbK0K9tjJpeGXEA3R70/JvHdXp+/FNO1FIgxfTTkvvE8u8lD5YAjP75gHxkmC5DPE0ddSgK+0xiMsZiGDnB5+Uy17Ozt6KJRxW7kzkda7WkRB70WM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Cj49jyTW; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791300584; c=relaxed/simple;
+	bh=g8bv1+wIZP/QRUx1xtIJH/rS0/4yQSzFnGF09kc0t1Q=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=S76+iZKLxnRvT6KIHeCWk59ZApboi/Yc6CmOvwwEGXRY2jLEux7XhgDCFshf6CiOLSXF2qThqdgB140ZueNl32V+fgP2FF68xh7jUcsn9vBt3W8UWZgs2/p/D1xIT92me7JCAtsRhRUsnTorLu9wxpDccBCRzwuYq6v67qAcrXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com; spf=pass smtp.mailfrom=hugovil.com; dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b=vQKPFWcg; arc=none smtp.client-ip=162.243.120.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hugovil.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Cj49jyTW"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 696EZLdZ2182157;
-	Tue, 6 Oct 2026 15:29:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=xEtJZD
-	jPq3Ju9oR5UkVEoFO9DrVTQiUuxAiUuKEL348=; b=Cj49jyTWhEgXEBf/kbFtwv
-	XevPzkgcyvBWy4H/HwCjI92XWLyHR9WlEzipPDyJf3PoafnuIbYJe+jrmKr5sTNh
-	fzBagPUzfgO6R1HVdyV44mEmAgKzaCkyQGMBuJ8PjQY7VO0J2bKtK9O4/HSxb07e
-	beDWpFjoFfoHtnzxaryadNRI4SkicRjqUheJaJiAXROn/KEOKuBy+yvvcEACvfgF
-	UvgluFGoYg+y69djdBr0xlmFx4gzX+mH7wSW8d5Mgg8lDWB2qELAK0uc8PTXWNxS
-	NfVDU4T/476x480s23b82g5R1JnvMinhvAX1nmU19R1cye0diWpJjK7QM5SdW1Kg
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2scrgsjf-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 06 Oct 2026 15:29:11 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 696EHULi424975;
-	Tue, 6 Oct 2026 15:29:10 GMT
-Received: from smtprelay05.wdc07v.mail.ibm.com ([172.16.1.72])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h3eqya9ah-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 06 Oct 2026 15:29:10 +0000 (GMT)
-Received: from smtpav03.wdc07v.mail.ibm.com (smtpav03.wdc07v.mail.ibm.com [10.39.53.230])
-	by smtprelay05.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 696FT9m923986868
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 6 Oct 2026 15:29:09 GMT
-Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id F1B8658066;
-	Tue,  6 Oct 2026 15:29:08 +0000 (GMT)
-Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4B7FF58064;
-	Tue,  6 Oct 2026 15:29:06 +0000 (GMT)
-Received: from [9.87.140.229] (unknown [9.87.140.229])
-	by smtpav03.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Tue,  6 Oct 2026 15:29:06 +0000 (GMT)
-Message-ID: <30c16838f7f4681c72aada3864dc9f1a9e8e8326.camel@linux.ibm.com>
-Subject: Re: [PATCH v2 7/7] s390/pci: Drop the unused index argument of
- zpci_msi_clear_airq()
-From: Niklas Schnelle <schnelle@linux.ibm.com>
-To: Tobias Schumacher <ts@linux.ibm.com>, Gerd Bayer
- <gbayer@linux.ibm.com>,
-        Julian Ruess <julianr@linux.ibm.com>,
-        Farhan Ali
- <alifm@linux.ibm.com>,
-        Christian Borntraeger	 <borntraeger@linux.ibm.com>,
-        Halil Pasic <pasic@linux.ibm.com>,
-        Matthew Rosato	 <mjrosato@linux.ibm.com>
-Cc: Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sven Schnelle
- <svens@linux.ibm.com>, linux-s390@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-In-Reply-To: <20261005-s390_irq_domain_fixes-v2-7-d45b824874c0@linux.ibm.com>
-References: <20261005-s390_irq_domain_fixes-v2-0-d45b824874c0@linux.ibm.com>
-	 <20261005-s390_irq_domain_fixes-v2-7-d45b824874c0@linux.ibm.com>
-Autocrypt: addr=schnelle@linux.ibm.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 06 Oct 2026 17:28:05 +0200
+	dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b="vQKPFWcg"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hugovil.com
+	; s=default; h=Content-Transfer-Encoding:Mime-Version:Message-Id:Subject:Cc:
+	To:From:Date:subject:date:message-id:reply-to;
+	bh=x55jydplZIB8fjiWZCWr9QhfPtiWmP58Q4OUrPsWF+U=; b=vQKPFWcgNUbm+8/qUXoPweKllk
+	8z2q8DQ1hjv6VcK/9PsD0tDGcneamubQzyM8cJGYYn2UFK2TYpqs36M7OioCLfXj1aab/++x2bOti
+	9imfFyfCBmBPGUau/v2ZfIH9Z5QNxPm2Ew7DkyJaAHXqG52M2zcXqgb5F8QMpqFwVCMM=;
+Received: from [70.80.174.168] (helo=pettiford.lan)
+	by mail.hugovil.com with esmtpa (Exim 4.98.2)
+	(envelope-from <hugo@hugovil.com>)
+	id 1xE76h-000000007Kt-4BB5;
+	Tue, 06 Oct 2026 11:29:33 -0400
+Date: Tue, 6 Oct 2026 11:29:32 -0400
+From: Hugo Villeneuve <hugo@hugovil.com>
+To: Ilpo =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hui Peng
+ <benquike@gmail.com>, Jiri Slaby <jirislaby@kernel.org>, John Ogness
+ <john.ogness@linutronix.de>, Andy Shevchenko
+ <andriy.shevchenko@linux.intel.com>, linux-serial
+ <linux-serial@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v7 1/2] serial: core: fix baud rate fallback in
+ uart_get_baud_rate()
+Message-Id: <20261006112932.3b9c8acd3bc2bfcf1d17b264@hugovil.com>
+In-Reply-To: <5085df04-f813-8b3f-1d05-87d5bbf00499@linux.intel.com>
+References: <20260930125901.778868-1-benquike@gmail.com>
+	<20260930125901.778868-2-benquike@gmail.com>
+	<2026100156-watch-balsamic-32db@gregkh>
+	<5085df04-f813-8b3f-1d05-87d5bbf00499@linux.intel.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA2MCBTYWx0ZWRfX4JWEyxAkGi/L
- VJm1W+tGKaJyAmGpeOeE1jU6+dvYiPvNxvIp0kFIhcGdpm9an3q1vj5vfn0MaBpHwUT72M7FVVF
- ncBeqD5M6+rOddt3C//xHUgM5tTzezo=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA2MCBTYWx0ZWRfX32QAQjvrVa8o
- 0yEfTjN0e0RcqdtBmeVvOgT/62WabgDJc4OoIUTRRW++WLbfbnCUpIZmOboxsYd4/pidpCZC2TY
- 1vtl19OiYhl4ezJ4DPVQrXvSWx6ziFqLtTXl+xeUkiPZoQvlrDSgy9mWMJywrLZbTR8ZKlOgt2P
- jl6qNJZBAeb7X/UdLZLsJ/51OVYAVcAQaW+5OYW0Aff/AUuCeC+ZHaYJmqi/Uceg1cvd/kyuUTE
- Rymdxhi1DyBKRQu24SMm6rUXynu6FHHCE3FMSxCEECI/76QDM3L/GlvLWZ47aoh9wfgxzt4IEqJ
- EGUQBK5PHi4bd8SxZhfKJ4JqDLAMQeoZtXQPBDB9lrD0hitizkvX3nBP3ben6mHPlkDMLYfOgr1
- 5E6kJYjixbf+Mk8fSiVelB+DUnBZY/TJbDzPzY5IYLKOF31bl/vdSauajxN94wykKUQO2dlWNPj
- /HJQzCipeAYZOoECKbA==
-X-Proofpoint-GUID: wLE2Irpq9uU66jQDQww_pm1y-VNu7EFy
-X-Proofpoint-ORIG-GUID: wLE2Irpq9uU66jQDQww_pm1y-VNu7EFy
-X-Authority-Analysis: v=2.4 cv=B7osQ+tM c=1 sm=1 tr=0 ts=6ac513c7 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8
- a=GD8W1rJbHNz6WrJPDTMA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-06_04,2026-10-06_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 malwarescore=0 impostorscore=0 phishscore=0
- clxscore=1015 spamscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060060
+Mime-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+X-Spam_score: -2.0
+X-Spam_bar: --
 
-On Mon, 2026-10-05 at 14:03 +0200, Tobias Schumacher wrote:
-> zpci_msi_domain_free() passes its loop index to zpci_msi_clear_airq(),
-> which adds it to an offset that already accounts for it.
-> zpci_msi_domain_alloc() stores hwirq + i for each vector, so
-> zpci_decode_hwirq_msi_index() hands back msi_index + i and bit is
-> already zdev->msi_first_bit + msi_index + i.
->=20
-> The doubled index never selected a wrong entry. An irq domain's free()
-> callback is only ever invoked from irq_domain_free_irqs_hierarchy(),
-> which walks the range itself and passes a count of one. So, the loop in
-> zpci_msi_domain_free() runs once with an index of zero.
->=20
-> Drop the parameter and the addition.
->=20
-> No functional change.
->=20
-> Signed-off-by: Tobias Schumacher <ts@linux.ibm.com>
-> ---
+On Thu, 1 Oct 2026 12:46:05 +0300 (EEST)
+Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com> wrote:
 
-Good catch and a gppd explanation. Great work.
+> On Thu, 1 Oct 2026, Greg Kroah-Hartman wrote:
+>=20
+> > On Wed, Sep 30, 2026 at 12:59:00PM +0000, Hui Peng wrote:
+> > > When uart_get_baud_rate() is called with a baud rate exceeding the po=
+rt's
+> > > maximum supported speed (port->uartclk / 16), it clips baud to [min,
+> > > max - 1] and encodes it into termios via tty_termios_encode_baud_rate=
+().
+> > >=20
+> > > However, because the loop bound is for (try =3D 0; try < 2; try++), t=
+he
+> > > loop terminates immediately after try =3D=3D 1 without re-evaluating
+> >=20
+> > But try =3D=3D 1 should keep the loop going as it is < 2, right?  What =
+am I
+> > missing here?  Do I need more coffee?
+> >
+> > > baud =3D tty_termios_baud_rate(termios) for the clipped rate, hitting
+> > > WARN_ON(1) and returning 0, which then triggers a fatal divide-by-zero
+> > > (Oops: divide error) in uart_get_divisor():
+> > >=20
+> > >   WARNING: drivers/tty/serial/serial_core.c:548 at uart_get_baud_rate=
++0x136/0x260
+> > >   [ ... ]
+> > >   divide error: 0000 [#1] PREEMPT SMP KASAN
+> > >=20
+> > > Increase the retry count in uart_get_baud_rate() from 2 to 3 iteratio=
+ns so
+> > > that clipped baud rates are re-evaluated in the third iteration.
+> >=20
+> > What is the magic 2 here, and why turning it into a magic 3 somehow fix
+> > things?
+>=20
+> Hi Greg & Hui,
+>=20
+> First of all, I'm withdrawing my Reviewed-by from this!!!
+>=20
+> Lets hope the submitter can finally get his/her act together and not make=
+=20
+> unlisted changes between versions or send non-sense.
+>=20
+> While the code change is still fine, it seems the submitter (or more=20
+> likely AI) has changed the changelog from what I read when I reviewed=20
+> this. And the new one is way worse than it used to be so not being able=20
+> to follow what's going on is very understandable given the lackluster=20
+> explanation that remains.
+>=20
+>=20
+> What you're missing is that the baud returns happens within the loop, so:
+>=20
+> try =3D=3D 0: use new, if baud is out of bound and old is available, swit=
+ch to=20
+>           old
+> try =3D=3D 1: if old is also out of bounds, there's the last resort rule=
+=20
+>           towards the end of the loop which is applied forcing baud to th=
+e=20
+>           accetable range.
 
-Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
+Hi all,
+is it at all possible that old is out of bounds in the first place? If
+yes, is it something that should be fixed?
 
-Thanks,
-Niklas
+> try =3D=3D 2: loop exits =3D> WARN_ON(1) triggers.
+>=20
+> What we'd want to happen with try =3D=3D 2, is for it to use the return b=
+aud=20
+> which is within the loop body.
+
+Then should the "return 0" statement be modified to "return baud", and
+possibly the WARN_ON() removed? Then you wouldn't need to increase
+max try?
+
+
+--=20
+Hugo Villeneuve
