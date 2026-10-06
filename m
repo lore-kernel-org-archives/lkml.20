@@ -1,100 +1,53 @@
-Received: from mail-yx2-f40.google.com (mail-yx2-f40.google.com [74.125.224.168])
+Received: from mta1.migadu.com (out-56.mta1.migadu.com [95.215.58.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDA812F532F
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 00:21:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7DF73B1B4
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 00:23:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791246068; cv=none; b=JeEyBEElHEaLvZt/lOSsmK9yT1J0K15y59OA5ujVbfF6wliZQNmj14L+ibl0tV3fF5S5vbnBZGfCtMxLqmE1bYrUsBsFiYH9PfNfM2v87lYXvyOwfIbO/+bFPuiOCwEY9s71aHgNynePTYeTu5N6PiL9UR59gimT5CvYUYW1D4I=
+	t=1791246197; cv=none; b=dEHzyAEZROL/xFEVJpoxU0JDX6Isg67SZfB4RRqZi5WXWNbNPXCof2XR6r3gxHFJjrVUqBOQhX7Otvu43MN92ktnBV2B9R9WOAAF1JQay0xJOGIemHc/OyHkK9X/7YDoe99W8ufm8zD1UpvLASDaVtzSIIUs2KDKGri3Wk8+ZFM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791246068; c=relaxed/simple;
-	bh=5IHNNJEtUlKJEhnNbWbSN0wlvDwMgHAFZwu9RzbhX8A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UDDaP9YQErmKeRKunWiGNEo3aloD4XDbz+65bEFQvdhFuymg9E/B7Mfz156zbD//6yrR4cMnP3iwIqlvi9gWatRHh6c9CzxdTncvCy6SJUNUVOkvEElJ8sXorxcnDEZTUpqTsqk8+Kq/stRW19u+bInvOp/SvjG4s65AIHU+RX8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CazxQBap; arc=none smtp.client-ip=74.125.224.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791246197; c=relaxed/simple;
+	bh=qYGtmyOzc8QJF698ZKmKjTA6i8gvqtU2gG9Cr/NqVls=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y0EQRj44XsjyFyn6CRN3taVfZEqK87K9SzrgcQUjdACRHgpH3cTt0S5q7CKfz6lS5G9w6fM2Xw0QZGjRYFXBiS8ySFsknh4XQcgOqGcylswLn8ipYXeMRehaYEgYnaZbHH/pZ04sbFajYzpol43/j1eHgv6hU8nTmEsDMacxyQ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=VcYERI7s; arc=none smtp.client-ip=95.215.58.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CazxQBap"
-Received: by mail-yx2-f40.google.com with SMTP id 00721157ae682-8ab445ac183so24828947b3.3
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 17:21:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791246065; x=1791850865; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qiSLpzAIAwj1Vd6pAZ21vWt+EaPkWyZTSVtuKYzMJIY=;
-        b=CazxQBapYMbnxI0bZOOMrJjGk/DrIcMJO2xPzsoWiJFQ1AU0ryLxBSlOFM7LlG0wR+
-         5qAGIY/eWn6ZVhBoDPzsazTI+pmBwmL84x+Ur5zTkf6VXoVGRYeGwceqnSZEjFfJPoxS
-         ZaFocE4uah4VO57CiCbYyB2KnK3x+bIEVAtljrsLR6Yn2kZu7yK9QsSv0/QuoExoVux1
-         Eh+1WFwq/upcjSoAEfeEQMqd6Vgn3BLzrQNgl9Hdgyv0TF4ScX3Ixat9xUdr3GoJ48hr
-         HToesqaX9Xz4dxROS1UwiPrcKw2lNki4axw8P+pnVzCTYX3U0DDRUnkp2MLYWI70qHfJ
-         fvVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791246065; x=1791850865;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qiSLpzAIAwj1Vd6pAZ21vWt+EaPkWyZTSVtuKYzMJIY=;
-        b=a7Q9HxyvJjCYsFeL1+7yRvJ7kHGjF5HBqnMwF+aWAT+r7ToahUGng77rpqiNWDInGh
-         URbAgO0baSwwXUVQA/C7qWPU/yWpc2fZ1JM6nNbSQ3C0aFk8OeGNtX+IBDm1excT7Nnc
-         4lHhVdBaREZ74bfzZOL1lIHDLyONf+SUDA4PENWmZptRca/2rslPoDG1XMsuBtv2jRZQ
-         dx81lZ2SaRNHeIfYZaOM8Z5hI3+6/zbR+3WZrcRf/5NyeU5TsZZbNypwgJOr8toKqaZs
-         U84p05J3skr5TvvQlNr3IV3GXX0MFLA9BYsJfr6Kbh+ebIzukWZ/iDkNXpXqCMcEWIyM
-         wRhA==
-X-Forwarded-Encrypted: i=1; AKwUvBwhfe4iT9e4cLIVjIMGSjjbbLnNjuprVTKERu79MnDoUNKKdD5/R1REIpVksOvcaQW+tqHrV3Xj76dooYw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIMObTh7bCO1cwiEK6C7R+Scids32O2VEoWG5Cpl+Dr9jhzUDCj
-	kizxg8Zb3jFUvGP9V5BG4EcsWaqzfV2mpy4MY7NW5WhWqkYRFgs5dCim
-X-Gm-Gg: AYBFou1yZHYBOPb7cyufB6gVVpfrvJ/TZpsaGP4YwXER4POuJy0C56nQEKVztOEQqVZ
-	HerM0eRMaSBzHpSBdftYqciRJ09tybEFomfJ/NNTstmRyG0mn6fLdniC+ZyiZrCUyjplgQmzJej
-	3ZWMu/jlCMAD/1AdtOO2CvEdqhD77GCfk86E6zEkXpj891MT1HI4oY7irFIhljmToJ3eQrUfe38
-	nlEMXPNosyr2TXPP/1ZCbtTrtZhom6CSRWFCi1nwLlRoV0pgEeCOh2azUDFOYOozh+ah9WtS75/
-	JUYbHago0N9fEqfgredCJikCQmkpO3FZv3+cfeIiHUlCRqnvktdchcWET+8Tg8Q2NTlht/+A6xh
-	4xJV4MD9qWTExpBy0T6nvuJlSFNEmFr3ewwNP8lO7NHEx8KIhzba6ghMPemYn5jaZe/7shNjfL6
-	5aKGj5JPuQXZC7OriNGSTzIUr7ZBPPPY/jblER1BdbxmBXTlPjaLXjWNW5wH60IiiSakGI8MI3p
-	Q==
-X-Received: by 2002:a05:690c:dd6:b0:886:70a9:3ad2 with SMTP id 00721157ae682-8ae392b68e5mr56802557b3.15.1791246064581;
-        Mon, 05 Oct 2026 17:21:04 -0700 (PDT)
-Received: from zenbox ([2600:1700:18fb:6011:6dc9:4ffd:1851:60b1])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8ae33be0e58sm46636277b3.43.2026.10.05.17.21.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 17:21:03 -0700 (PDT)
-From: Justin Suess <utilityemal77@gmail.com>
-To: Christian Brauner <brauner@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Jan Kara <jack@suse.cz>,
-	NeilBrown <neil@brown.name>,
-	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Song Liu <song@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="VcYERI7s"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=qYGtmyOzc8QJF698ZKmKjTA6i8gvqtU2gG9Cr/NqVls=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791246191; v=1; x=1791850991;
+ b=VcYERI7s+zQszVu2cM1le84SH8QTg3xnoMpKvPe5SngAv6uMclMoYdPuc1U5pdzFVFOlSNWL
+ OcAYjp+l12zDRut4dSWiO/g8aUn0Fk0G2j9qbGtgmxXYoDuQ/BS4Ceoxb8uC8iTWGmmIk0F/9JK
+ XJ6nYsjkanAE8kPh7o/PPA2I=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 4818ba5c18e1714d;
+	Tue, 06 Oct 2026 00:23:11 +0000
+X-Mizu-Trace-ID: 4818ba5c18e1714d
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	chengming.zhou@linux.dev,
+	dsterba@suse.com,
+	hannes@cmpxchg.org,
 	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
-	Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E . Hallyn" <serge@hallyn.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	Amir Goldstein <amir73il@gmail.com>,
-	Mateusz Guzik <mjguzik@gmail.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Tingmao Wang <m@maowtm.org>,
-	Justin Suess <utilityemal77@gmail.com>
-Subject: [RFC PATCH bpf-next 12/12] selftests/bpf: exercise the lockless path ancestor iterator
-Date: Mon,  5 Oct 2026 20:20:19 -0400
-Message-ID: <20261006002020.2890858-13-utilityemal77@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261006002020.2890858-1-utilityemal77@gmail.com>
-References: <20261006002020.2890858-1-utilityemal77@gmail.com>
+	linux-mm@kvack.org,
+	nphamcs@gmail.com,
+	terrelln@fb.com,
+	yosry@kernel.org,
+	riel@surriel.com,
+	shakeel.butt@linux.dev,
+	alex@ghiti.fr,
+	senozhatsky@chromium.org,
+	kernel-team@meta.com
+Cc: Usama Arif <usama.arif@linux.dev>
+Subject: [PATCH 0/2] mm: zswap: reduce request contention on loads
+Date: Mon,  5 Oct 2026 17:22:49 -0700
+Message-ID: <20261006002307.2669023-1-usama.arif@linux.dev>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -103,222 +56,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Walk the same ancestry four ways and require the position counts to
-agree: lockless from a non-sleepable program, where the RCU critical
-section is implicit; lockless under an explicit bpf_rcu_read_lock();
-referenced; and the hybrid that walks lockless to the second position,
-hands it over to a referenced iteration, and resumes there - the
-escalated position therefore being walked twice, once per mode.
+Stores and loads share a per-CPU acomp request and mutex. A low-priority
+store can be preempted right after the compressor drops its stream
+lock, while it still holds the zswap mutex, and a higher-priority load
+on that CPU then waits for the store to run again. This follows the work
+from Sergey Senozhatsky's zram series which splits it for the same
+reason [1].
 
-The sleepable work the escalation exists for (d_path, an xattr read
-through the position's dentry) runs on the resumed iteration's first
-position, after bpf_rcu_read_unlock(), which is the only place a
-sleepable kfunc can run at all.
+Patch 1 gives compression and decompression separate requests, waits
+and mutexes, so loads no longer wait for stores, though they can still
+wait for each other. Patch 2 decompresses with an on-stack request when
+the algorithm is synchronous and needs no request context, which covers
+all in-tree software compressors, so those loads take no zswap lock.
+Asynchronous algorithms keep the per-CPU request and mutex. For software
+compressors the series allocates the same number of requests as before;
+each per-CPU context grows by 72 bytes, and the load path is about 270
+bytes deeper on x86-64.
 
-Signed-off-by: Justin Suess <utilityemal77@gmail.com>
----
- .../selftests/bpf/prog_tests/path_ancestors.c | 33 ++++++-
- .../selftests/bpf/progs/path_ancestors.c      | 89 ++++++++++++++++++-
- 2 files changed, 118 insertions(+), 4 deletions(-)
+The series does not fix two related cases:
+- Stores still serialize on the compression mutex, so a high-priority
+  task that reclaims (direct reclaim, MADV_PAGEOUT) can still wait for
+  a preempted store.
+- On PREEMPT_RT the codec stream locks are preemptible, so a load can
+  still wait for a preempted store inside the codec.
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/path_ancestors.c b/tools/testing/selftests/bpf/prog_tests/path_ancestors.c
-index 2de79673a13b..ce1ded844c3a 100644
---- a/tools/testing/selftests/bpf/prog_tests/path_ancestors.c
-+++ b/tools/testing/selftests/bpf/prog_tests/path_ancestors.c
-@@ -2,6 +2,7 @@
- /* Copyright (c) 2026 Justin Suess */
+The numbers below are the slowest read per run, as a median (min-max)
+of 5 runs. Each run is 12 seconds in a zstd VM with lazy preemption,
+vm.page-cluster=0 and swap on /dev/ram0. With 1 vCPU, four nice +10
+workers page memory out and read it back while a nice 0 task spins. A
+nice -19 reader pages out its own buffer and measures how long each
+read of it takes. With 8 vCPUs there are 16 workers, 8 spinning tasks
+and 8 readers.
+
+              Before series (ms)      With series (ms)
+  1 vCPU      22.3 (21.6-22.6)        0.97 (0.72-1.4)
+  8 vCPUs     314 (97-2542)           7.0 (5.0-98)
+
+Reads over 10 ms fell from 26-35 per run to none with 1 vCPU, and from
+3-18 per run to at most one with 8 vCPUs. The benchmark and test programs
+were written with the help of an LLM.
+
+[1] https://lore.kernel.org/all/20261005122036.718976-10-senozhatsky@chromium.org/
  
- #include <sys/stat.h>
-+#include <sys/xattr.h>
- #include <stdlib.h>
- #include <unistd.h>
- #include <test_progs.h>
-@@ -12,6 +13,8 @@ void test_path_ancestors(void)
- 	char base[] = "/tmp/path_ancestors_XXXXXX";
- 	struct path_ancestors *skel = NULL;
- 	char suba[280], subb[280];
-+	bool xattr_works;
-+	int err;
- 
- 	if (!ASSERT_OK_PTR(mkdtemp(base), "mkdtemp"))
- 		return;
-@@ -20,6 +23,12 @@ void test_path_ancestors(void)
- 	if (!ASSERT_OK(mkdir(suba, 0755), "mkdir_a"))
- 		goto out_rm;
- 
-+	/* Read back by the program at the escalated position (== base). */
-+	err = setxattr(base, "user.walk", "hello", 6, 0);
-+	xattr_works = !err;
-+	if (err && errno != EOPNOTSUPP && !ASSERT_OK(err, "setxattr"))
-+		goto out_rm;
-+
- 	skel = path_ancestors__open_and_load();
- 	if (!ASSERT_OK_PTR(skel, "open_and_load"))
- 		goto out_rm;
-@@ -31,14 +40,34 @@ void test_path_ancestors(void)
- 	if (!ASSERT_OK(mkdir(subb, 0755), "mkdir_b"))
- 		goto out;
- 
--	/* suba, base, /tmp, / at least. */
--	ASSERT_GE(skel->bss->ref_count, 3, "ref_count");
-+	ASSERT_EQ(skel->bss->test_err, 0, "test_err");
-+	ASSERT_EQ(skel->bss->escalate_err, 0, "escalate_err");
-+	/* suba, base, /tmp, / at least; equality across modes is the point. */
-+	ASSERT_GE(skel->bss->rcu_count, 3, "rcu_count");
-+	ASSERT_EQ(skel->bss->ref_count, skel->bss->rcu_count, "ref_vs_rcu");
-+	ASSERT_EQ(skel->bss->rcu_ns_count, skel->bss->rcu_count,
-+		  "nonsleepable_vs_rcu");
-+	/*
-+	 * The escalated position is walked twice: once lockless, then again
-+	 * as the resumed referenced iteration's first position.
-+	 */
-+	ASSERT_EQ(skel->bss->hybrid_count, skel->bss->rcu_count + 1,
-+		  "hybrid_vs_rcu");
-+	ASSERT_EQ(skel->bss->retry_flags, 0, "no_retry");
- 	ASSERT_EQ(skel->bss->ref_flags, 0, "ref_flags");
- 
- 	/* The acquired second position, used after its step was taken. */
- 	ASSERT_STREQ(skel->bss->second_path, base, "second_path");
- 	ASSERT_EQ(skel->bss->second_len, strlen(base) + 1, "second_len");
- 
-+	/* The escalated position is the walk's second one: base. */
-+	ASSERT_STREQ(skel->bss->escalated_path, base, "escalated_path");
-+	ASSERT_EQ(skel->bss->escalated_len, strlen(base) + 1, "escalated_len");
-+	if (xattr_works) {
-+		ASSERT_EQ(skel->bss->xattr_ret, 6, "xattr_len");
-+		ASSERT_STREQ(skel->bss->xattr_value, "hello", "xattr_value");
-+	}
-+
- out:
- 	path_ancestors__destroy(skel);
- out_rm:
-diff --git a/tools/testing/selftests/bpf/progs/path_ancestors.c b/tools/testing/selftests/bpf/progs/path_ancestors.c
-index af6b777e8bec..50ce0ce163dd 100644
---- a/tools/testing/selftests/bpf/progs/path_ancestors.c
-+++ b/tools/testing/selftests/bpf/progs/path_ancestors.c
-@@ -11,29 +11,74 @@ char _license[] SEC("license") = "GPL";
- 
- __u32 monitored_pid;
- 
-+int rcu_count;		/* positions seen by the pure lockless walk */
-+int rcu_ns_count;	/* ditto, from the non-sleepable program */
- int ref_count;		/* positions seen by the pure referenced walk */
-+int hybrid_count;	/* positions seen by the lockless+escalate walk */
-+int retry_flags;	/* BPF_PATH_ANCESTORS_RETRY observations */
- int ref_flags;		/* pos flags seen by the referenced walk */
- int second_len;		/* d_path length of the walk's second position */
-+int xattr_ret;		/* xattr read at the escalated position */
-+int escalated_len;	/* d_path length of the escalated position */
-+int escalate_err;	/* bpf_path_ancestors_legitimize() result */
-+int test_err;
- char second_path[256];
-+char escalated_path[256];
-+char xattr_value[16];
- 
- static bool monitored(void)
- {
- 	return (bpf_get_current_pid_tgid() >> 32) == monitored_pid;
- }
- 
-+/*
-+ * Lockless walk from a non-sleepable program: the RCU critical section is
-+ * implicit, no bpf_rcu_read_lock() needed.
-+ */
-+SEC("lsm/path_mkdir")
-+int BPF_PROG(rcu_nonsleepable, const struct path *dir, struct dentry *dentry,
-+	     umode_t mode)
-+{
-+	struct bpf_iter_path_ancestors_rcu rit;
-+
-+	if (!monitored())
-+		return 0;
-+
-+	bpf_iter_path_ancestors_rcu_new(&rit, (struct path *)dir, 0);
-+	while (bpf_iter_path_ancestors_rcu_next(&rit))
-+		rcu_ns_count++;
-+	retry_flags |= bpf_path_ancestors_rcu_pos_flags(&rit);
-+	bpf_iter_path_ancestors_rcu_destroy(&rit);
-+	return 0;
-+}
-+
- SEC("lsm.s/path_mkdir")
- int BPF_PROG(walk_modes, const struct path *dir, struct dentry *dentry,
- 	     umode_t mode)
- {
-+	struct bpf_iter_path_ancestors_rcu rit;
- 	struct bpf_iter_path_ancestors it;
-+	struct bpf_dynptr value_ptr;
- 	struct path *pos;
- 
- 	if (!monitored())
- 		return 0;
- 
- 	/*
--	 * Referenced walk: every position comes acquired, so it stays valid
--	 * for sleepable work and past the step that yielded it.
-+	 * Mode 1: pure lockless, under an explicit RCU critical section.
-+	 * Positions are borrowed, so nothing is released here.
-+	 */
-+	bpf_rcu_read_lock();
-+	bpf_iter_path_ancestors_rcu_new(&rit, (struct path *)dir, 0);
-+	while (bpf_iter_path_ancestors_rcu_next(&rit))
-+		rcu_count++;
-+	retry_flags |= bpf_path_ancestors_rcu_pos_flags(&rit);
-+	bpf_iter_path_ancestors_rcu_destroy(&rit);
-+	bpf_rcu_read_unlock();
-+
-+	/*
-+	 * Mode 2: pure referenced.  Every position comes acquired, so it
-+	 * stays valid for sleepable work and past the step that yielded it.
- 	 */
- 	bpf_iter_path_ancestors_new(&it, (struct path *)dir, 0);
- 	while ((pos = bpf_iter_path_ancestors_next(&it))) {
-@@ -45,5 +90,45 @@ int BPF_PROG(walk_modes, const struct path *dir, struct dentry *dentry,
- 		bpf_path_put(pos);
- 	}
- 	bpf_iter_path_ancestors_destroy(&it);
-+
-+	/*
-+	 * Mode 3: hybrid.  Walk lockless to the second position, then hand
-+	 * that position over to a referenced iteration which resumes there.
-+	 */
-+	bpf_rcu_read_lock();
-+	bpf_iter_path_ancestors_rcu_new(&rit, (struct path *)dir, 0);
-+	while (bpf_iter_path_ancestors_rcu_next(&rit)) {
-+		hybrid_count++;
-+		if (hybrid_count == 2)
-+			break;
-+	}
-+	escalate_err = bpf_path_ancestors_legitimize(&it, &rit);
-+	retry_flags |= bpf_path_ancestors_rcu_pos_flags(&rit);
-+	bpf_iter_path_ancestors_rcu_destroy(&rit);
-+	bpf_rcu_read_unlock();
-+
-+	if (escalate_err)
-+		test_err = 1;
-+
-+	/*
-+	 * Out of the RCU critical section.  The resumed iteration's first
-+	 * position is the escalated one, kept alive by the reference the
-+	 * iteration hands out, so sleepable work can run on it.
-+	 */
-+	while ((pos = bpf_iter_path_ancestors_next(&it))) {
-+		hybrid_count++;
-+		if (hybrid_count == 3) {
-+			escalated_len = bpf_path_d_path(pos, escalated_path,
-+							sizeof(escalated_path));
-+			bpf_dynptr_from_mem(xattr_value, sizeof(xattr_value),
-+					    0, &value_ptr);
-+			/* A trusted path's dentry is trusted, never NULL. */
-+			xattr_ret = bpf_get_dentry_xattr(pos->dentry,
-+							 "user.walk",
-+							 &value_ptr);
-+		}
-+		bpf_path_put(pos);
-+	}
-+	bpf_iter_path_ancestors_destroy(&it);
- 	return 0;
- }
+Usama Arif (2):
+  mm: zswap: use separate compression and decompression requests
+  mm: zswap: use stack requests for synchronous decompression
+
+ mm/zswap.c | 136 ++++++++++++++++++++++++++++++++++-------------------
+ 1 file changed, 88 insertions(+), 48 deletions(-)
+
 -- 
-2.55.0
+2.53.0-Meta
 
