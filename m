@@ -1,46 +1,46 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013020.outbound.protection.outlook.com [40.107.201.20])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011040.outbound.protection.outlook.com [40.93.194.40])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B791136C0C8
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 04:22:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FF6436C0C8
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 04:23:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.40
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791260576; cv=fail; b=r2B/0lkQAHN08q2F6J4NzrUKmI3I9j5xuAEp4jp6gijJJ/I7CUt3iSBKyFgXArE5Txn8rOgh0Y1ayVSNuFKu90UAqWuJqBWHLbjsTYMlHBon4yzf18jbpIkxer/y6iDvvjVKvgW1226BsYAxAeK2XnV9F8O1r+EUWk6CTj3aM2s=
+	t=1791260585; cv=fail; b=aanDP4mQRMC4Nn1be5+tNhCDbrfMiPN8+uyTbNOaj4jUI8PdrPCPIX+C3JyAKJp6omIE4tXOACWxdXPfQE+eue1AhBqRJWonLCV3MAM/frCdMqLUH8K6AxEJNUYdAM/py7TPacyGsYMGwLlSgRN+T21B6S9/hVHbp9CDJ0iJcP4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791260576; c=relaxed/simple;
-	bh=WUZKk22ux8GK3iaYPQmhn19Ejm3cXzk6JT/EVJQ93Gw=;
+	s=arc-20240116; t=1791260585; c=relaxed/simple;
+	bh=6BNRg1VO4KCv5CWN0liK2WV7dq/FEFHw25XVhH5w1AU=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RvwDN8YOfFihTI+6eqFKrLzEHYUr2e6BDY00wPYJyovUJq2pnQTC2OZ38GPwjWMFD16/y7eOQuawdAwX99vLNKH9ItAA/W45z8C9jnYQt+h5RRdZ8Z32m/eIABsPNm7O1MuQN6dIUgTkNAbHKPh/+7rf1DSmvhf40BOjSm890mw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ro5bDBtg; arc=fail smtp.client-ip=40.107.201.20
+	 MIME-Version:Content-Type; b=icZbOQITTYTf4/iXiQo4P0FFAn1mRM6Sbq/+H2joPZ9HYMBEBms3lJrxIA5ehcswmWxb21Kg2o91HxWqupzTUkjJ9GJ50eN+lxRukDA6yz7PL+BOthQ3qAXl1sQ1/OhETjol+w5IF6Cr1ZYZUf/6GvHjeDUqbwM9uEzpgyjuSgc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=QXxlYYsa; arc=fail smtp.client-ip=40.93.194.40
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ro5bDBtg"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="QXxlYYsa"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FWWs+SlbU4hQT43oBtJwTLi8ZbxOIYVMMq5tDLMJRIHINdpxBx5GvxYWLowLSWTaJZ/dY7+reyA2k8v8ITJYaG0GuRI68gRih6GBnilMO9CE9VHGQ1h8dlDhxuiZfxai3d7TjY4oZ2KXpewDWacEYblmpZT5zIO94Es0IZbmLZcMwRHOGZ2gytr4mYUYcCngj9vlCBLIPTDQYdTbVxJCvmN/wmICpOCi4GhNuLA1UFs3GuASMpAb4e8SbIMygSdKTgl/wIWTxidGO2560o9LSp+4K0QLtBLVux/gYaB9qMfT+AuM++TuEQVrZfIC7lg1q1FfOCPmwnySiTJ9TBELJA==
+ b=A2J5MCMC6ZGPGaUOxJVJIbhuYmAG8tzkEF7xCMgcVEr00BJjMUHrFe2+q/KQ55oHQImJAzWgWm3n4Dk1KK0VEreZjzs9rEo133sV6IWaEruhxwv0zOdAoa/Bdu1dbhOpBC1OdFYrD1DDv3fdqRi1YhMZLLOvy/0B+STFPlL7sk63VArhPvg1PHnXiO6WH/NQ+KDcalmIS8uLmmxg8zI9FRu9J/zYjSY3thSnDsK7FleMt3fu1fhYy6uv6IvWva7gh/uP6otVjEGKptI1hor8G0fh/Q4jOAvmQ741Em4VZPrjT/rcny3kFjo7Fbnt0qwZyx6g2Wn6A0gXynADGFizhw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=USEZ9Vq9X9/bvUoahsLbqlJDt9bC0WFukiuVAXa0dnU=;
- b=SBqqFsowM8CzvgBPm4nBtlqq9NYGAdQscmDJz2g8l4cH+vVjUroFIgoXVK1U9JVbUphbzUJZLq60ISw2/PVxkjLOtnr2iNzibZMq8eKerimyWKpzMKwvM5bUmOP3B0S0byws9w73qaNT7H3M2VO6gCaLFasju5aXOKsnJFvL4g3TIPZOwE6uTp57y8J52samzirPlyoXGy0UliYbUqkESeMuXfIk5V7sJosFFU+V44Vodkm9nu5bthaJ0wMwCXHNKUxQc9ztDSaEsbvIsB6occtsWMZY0xjvxWlRyK9vOLTXXiKjhoFbJBLc4CEmf5RoSa9USdT7xnD7+s5C0W+WVQ==
+ bh=0AXcHeiDxaTxkOVoHaOBICRsUxyXlGPKLsqdDLRMAX0=;
+ b=hDTK7+JTpgCB5ha+y/cEAYQnR1JLl2MlVLr8LTJrMrKIEIu/0Nn6qnkpVTnCIG0JrPOBexAV2WVu3eBw3LiaknvNtutsAQlrRABkl2Z5i/O+IdwTZD9Z/eEfk13CtMgdjGl4Vs0k6yIkn6R5UkIVtdMHz1fMIlNxooFS7YFTRSB7Q/cLcM4xZ/ZQIyBhABev3zkb8RohMf3mANjGy2tVrv01bGY5cFoUjsZlPS7PhZzwFA50d6bXpRP6mUvDjd+JhfutahzyLTFr+5F63kzngesFDVQ15iV3qEI6bcOkSkjLC6eOEMg4/XDZN3E/Gn3pIlS3rBxvgg9Z6AIwWX9Vjg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=USEZ9Vq9X9/bvUoahsLbqlJDt9bC0WFukiuVAXa0dnU=;
- b=ro5bDBtg9KJeofnU4YHzJV4ixUrWPp0qqrlzCsbtEgyS2kgCGVN1ZG5TUmxNGSl0e+EMdWx2MwtvK1xwmNbm+WCsZFMP76XDNESR6bdY1Y2iAgWR6W30QuubCbqOA84nprq/AoiDs0Jn2YhxTkiZ7Zm5reKU+W8cAsDiQ4nf1Mg=
-Received: from BN0PR02CA0036.namprd02.prod.outlook.com (2603:10b6:408:e5::11)
- by SJ0PR12MB8616.namprd12.prod.outlook.com (2603:10b6:a03:485::20) with
+ bh=0AXcHeiDxaTxkOVoHaOBICRsUxyXlGPKLsqdDLRMAX0=;
+ b=QXxlYYsaPmmpmdxYcrPNg/5vJi03nA1MuuN8/3aZ8IXG0MKWqsCpEJtwP45WXMEqMqV2fF2z7syd/k8rjfapuScpPYq/HQ7igUDQG2C8nobXlJewpi6+qRMeGUVmXgooDehcvBYM7ERq6RfsKBg3ez7Vj0rCySLMdW4usA22D1o=
+Received: from BN0PR02CA0034.namprd02.prod.outlook.com (2603:10b6:408:e5::9)
+ by SA5PPF5EA4322E1.namprd12.prod.outlook.com (2603:10b6:80f:fc04::8cc) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Tue, 6 Oct
- 2026 04:22:47 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Tue, 6 Oct
+ 2026 04:22:57 +0000
 Received: from BN2PEPF0000449F.namprd02.prod.outlook.com
- (2603:10b6:408:e5:cafe::84) by BN0PR02CA0036.outlook.office365.com
- (2603:10b6:408:e5::11) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:408:e5:cafe::c) by BN0PR02CA0034.outlook.office365.com
+ (2603:10b6:408:e5::9) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Tue, 6
- Oct 2026 04:22:47 +0000
+ Oct 2026 04:22:56 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,23 +50,23 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb08.amd.com (165.204.84.17) by
  BN2PEPF0000449F.mail.protection.outlook.com (10.167.243.150) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Tue, 6 Oct 2026 04:22:47 +0000
+ 15.21.496.14 via Frontend Transport; Tue, 6 Oct 2026 04:22:56 +0000
 Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
- 2026 23:22:47 -0500
+ 2026 23:22:51 -0500
 Received: from xsjdavidzha51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Mon, 5 Oct 2026 23:22:45 -0500
+ Transport; Mon, 5 Oct 2026 23:22:50 -0500
 From: David Zhang <yidong.zhang@amd.com>
 To: <quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
 	<max.zhen@amd.com>, <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
 	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
 CC: David Zhang <yidong.zhang@amd.com>, <sonal.santan@amd.com>,
-	<mario.limonciello@amd.com>
-Subject: [PATCH V2 01/20] accel/amdxdna: Rename NPU3 firmware files
-Date: Mon, 5 Oct 2026 21:22:11 -0700
-Message-ID: <20261006042230.547807-2-yidong.zhang@amd.com>
+	<mario.limonciello@amd.com>, Hayden Laccabue <hayden.laccabue@amd.com>
+Subject: [PATCH V2 06/20] accel/amdxdna: Add AIE version query to aie4_get_info
+Date: Mon, 5 Oct 2026 21:22:16 -0700
+Message-ID: <20261006042230.547807-7-yidong.zhang@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261006042230.547807-1-yidong.zhang@amd.com>
 References: <yidong.zhang@amd.com>
@@ -81,70 +81,150 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000449F:EE_|SJ0PR12MB8616:EE_
-X-MS-Office365-Filtering-Correlation-Id: 79400866-826b-4d9f-9a41-08df23617a21
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000449F:EE_|SA5PPF5EA4322E1:EE_
+X-MS-Office365-Filtering-Correlation-Id: d2813cb4-46a1-48ae-b986-08df23617f94
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|23010399003|82310400026|376014|10067099003|56012099006|4143699003|11063799006|22082099003|18002099003;
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|82310400026|36860700016|10067099003|11063799006|56012099006|6133799003|4143699003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	qo9lQ41Rzd2KXJGs7TYvO6eZ6KOR4hH2OWdYcT2X+QV5658iI73GAO8SeZPqRm8nfa2nJ68g2YjhnE+GagMCNfbVjtUwVW2fgoHvD5yGPotBm4qmarko89fzQFiSy2PgIE9JbeSsCEvyYfw2sUvloLum6cPeTgPNBxj8EiKhV+zmsYQSMg8gJSgSS8mk7xJ5QgzHnd8GdB0fjxMINfpwR84MRQN3hq6pUPVY7fYwNNyJPJ1Izw+g4ABpPhmiM0LV+/ubqqcw3AscXEgdQiMAs6zb5LxNuhJMMgwHEbhQusktmTjrMlHVrNzLzbzYKuqfKydYKZw6+yYtYon7+Tvl3cnr0EdRlmNj4VJv298tOcfGm/+R2sWarPnWUNALWcnVZm+u2JhfeAPJmyL79FSOL0B80XeqaP9Bf6FalKJmPUhEiEG+8as3U7XPPlEo6gP2qB1JTHK9fYOWIzWtMgLvV2o27L3MJwEnp8+3HlnFW6fBbFnowIDpnh9llC9wGJC5G7FklqwY40bO06GPJyplLBiVLePgGQIfqOSd5rhB90e81EVS54cyA1wRDi6Wv3rPtp8lPN5gs8+8rSTDXzD4/uccrQaRAGti5rbmmk6Pi2490vq8yb5HAgxIVOVlyK/pHrkUhjssvMTvmwco4oCHG1SItbbLl83DPiD/j1vcpN8FvtYl8ce4bSuNkZr89R5VJJHFbkkpQ9BuBqTQvHVFFQ==
+	vjQXLhHxAeNHuv4AjeyNFw88efNZ9Z+BOScBDhaTMvy3/Fwj21tMbAm/26TiAOhFVFYrRtatMkBJ2aCPUyDahuGlmoyTnvSkPk6IFW3XPufMqoBOXxjTsr15K1Q7KJchQir+iSYk+3hQ3V5+RcRyQGfVPiTRtkZKB3j4F4W1NhkiglI+xi94Gs6sXpaMwPKjouXWL59b+hh6Dv2/oBli7LQLQA7HVBQhCi+ik+YpJ4fu2wLjdv/7ARfzDf/Tu8tusuN7BfQE0HCZvtfF9T2pWEgJ9886rcBU+25UaEJ6pW6cR3JPTjssuJ1gLW7F9QZwr0YDL8Yz35jHS6+W3qk54vFw9mgFjv4KZSS0Uhag8xuJBZmnK/ERuRQKc1f2ZJbqMU1DcW/uRkU5vimps7/qM/HqhViJdjee5g2ruR3eqGC4frWsvV5kr0f35+YEpioVDbBrzl4AtnhWyu2nD/64G7cb7Stc3cfFy3b73K3m1JYP3KXi3tsDU7jABTQlfIkc/VxvQYmnLZjz8RWVnhfyjjXJYN3lq7uX0xRmoL9ABKTR2YEUwFLr8lE0ffqUqZkLcMVHuEf8v6pJxZLsxxqAHxe6kGYEZiznXcL+cS6lH4fRZQ0n5zBgc4uDkI2uBT5DIbaLaXSBkIo37ZrCi0hKmf1kb/+2KKbqyPxlmctFP3+e1qXrt1b8H6MlOlRR4YVV2tRWTSwtvvcVAxoZjpd2Cw==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(23010399003)(82310400026)(376014)(10067099003)(56012099006)(4143699003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(82310400026)(36860700016)(10067099003)(11063799006)(56012099006)(6133799003)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	ZwxjVUpIBKmI5EcAhetVOAQ34KLDTktXg3QYFrsRamR08n70l/Jjb1uH1/J2euZYHwILJ6/wun4v568iJR6rqk56ckEEheQyEve7w4NEXSnmUsBDnwA9odBoDggvmWSx+Nvji23Nk0ct4SyCMxqf77cE/bIJwAtpln2ln+mYY39rft6T1y6coq3JLpfZAv6Mlk/sr64LLYDfPUXzfRx5X9/UJ+d3ktzbHgal1sOYMfh5PK63+RE/xq7YzMPjbB9UHz6g1gf7MoVCdgMIby+xlaccMLFQpsRr1ZWmtmZIDFFPQoiiyQr6RSsCbRI4mJZe6JZMRnr2we6rejzJMZl0JEF699gPJuXhBCPb1+KDvUlanXqYBOrkMnyXL/JRFHbbCxT5FXntXvgIEaB7dSrpjy+KJPBdvM8zsieqnQAfneVBxbFO0VB34wy2Gc4cu1lc
+	RG2yGeVDCkJMa8JzmoLpYtTOObqW2kDrdvVHSxjLRqTzmWc75Ae7n26lHJw0qyFT0vRDiWn2rZHkTR1KCotI37pHH66bChAMYYFaQFG8tw2ZWFNDssZBF3HtwhNxlA8UUw1B7AbZv4t24zpPEF5N36fDdjTQic1IwQ1waXjpyXYQF/Wcop2Ve+L2Al5sSSeh2WJREjPkhbVHWNw3w9vvOv25vsCb31UbO6CGu4Ia0g8qtrAZSTpRvWN8hWPXphzy+c51a9vWpVs70mmx9Vw2j7tXRLzaDBwbJy3lEpjYv/fbRanrbmPVwr7MhB6lK05nBJWDUecwsBo0YVaY+lKoC5/9w7B3GcyDhpB+xiKoxtdPPUAiOk7Z2B10DQeRFVuPWH0EuERnlnCtCmDXiUUK2TCrEg5n3MkVgh8DXBgqiAQNyQk/az7nb5sJ9LabABLg
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 04:22:47.7270
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 04:22:56.8729
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 79400866-826b-4d9f-9a41-08df23617a21
+X-MS-Exchange-CrossTenant-Network-Message-Id: d2813cb4-46a1-48ae-b986-08df23617f94
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	BN2PEPF0000449F.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8616
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPF5EA4322E1
 
-The NPU3 firmware files will be released as npu.sbin and cert.sbin.
-Rename the current firmware names to match the firmware release names,
-and add MODULE_FIRMWARE() declarations for the new 17f2_10 npu.sbin and
-cert.sbin names.
+Add AIE version query via DRM_AMDXDNA_GET_INFO. The NPU firmware
+version query already existed internally; it is now also exposed
+through this ioctl alongside the new AIE version query.
 
+These versions are mandatory once released, the firmware management
+interfaces must support those queries in their stable version.
+Propagating any failure to abort device initialization is intentional.
+
+Co-developed-by: Hayden Laccabue <hayden.laccabue@amd.com>
+Signed-off-by: Hayden Laccabue <hayden.laccabue@amd.com>
 Signed-off-by: David Zhang <yidong.zhang@amd.com>
 ---
- drivers/accel/amdxdna/amdxdna_pci_drv.c | 2 ++
- drivers/accel/amdxdna/npu3_regs.c       | 4 ++--
- 2 files changed, 4 insertions(+), 2 deletions(-)
+ drivers/accel/amdxdna/aie4_message.c  | 20 ++++++++++++++++++++
+ drivers/accel/amdxdna/aie4_msg_priv.h | 11 +++++++++++
+ drivers/accel/amdxdna/aie4_pci.c      | 10 ++++++++++
+ drivers/accel/amdxdna/aie4_pci.h      |  2 ++
+ 4 files changed, 43 insertions(+)
 
-diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-index bb339e641416..d9e2e71d3e05 100644
---- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
-+++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-@@ -28,6 +28,8 @@ MODULE_FIRMWARE("amdnpu/17f0_20/npu.sbin");
- MODULE_FIRMWARE("amdnpu/1502_00/npu_7.sbin");
- MODULE_FIRMWARE("amdnpu/17f0_10/npu_7.sbin");
- MODULE_FIRMWARE("amdnpu/17f0_11/npu_7.sbin");
-+MODULE_FIRMWARE("amdnpu/17f2_10/npu.sbin");
-+MODULE_FIRMWARE("amdnpu/17f2_10/cert.sbin");
+diff --git a/drivers/accel/amdxdna/aie4_message.c b/drivers/accel/amdxdna/aie4_message.c
+index bdbd1d116b61..4814cbb1f2c5 100644
+--- a/drivers/accel/amdxdna/aie4_message.c
++++ b/drivers/accel/amdxdna/aie4_message.c
+@@ -75,6 +75,26 @@ int aie4_query_aie_metadata(struct amdxdna_dev_hdl *ndev,
+ 	return 0;
+ }
  
- /*
-  * 0.0: Initial version
-diff --git a/drivers/accel/amdxdna/npu3_regs.c b/drivers/accel/amdxdna/npu3_regs.c
-index d76b2e99c308..8d287ef32fff 100644
---- a/drivers/accel/amdxdna/npu3_regs.c
-+++ b/drivers/accel/amdxdna/npu3_regs.c
-@@ -43,8 +43,8 @@ static const struct amdxdna_fw_feature_tbl npu3_fw_feature_table[] = {
++int aie4_query_aie_version(struct amdxdna_dev_hdl *ndev,
++			   struct amdxdna_drm_query_aie_version *version)
++{
++	DECLARE_AIE_MSG(aie4_msg_aie4_version_info, AIE4_MSG_OP_AIE_VERSION_INFO);
++	struct amdxdna_dev *xdna = ndev->aie.xdna;
++	int ret;
++
++	ret = aie_send_mgmt_msg_wait(&ndev->aie, &msg);
++	if (ret)
++		return ret;
++
++	XDNA_DBG(xdna, "Query AIE version - major: %u minor: %u",
++		 resp.major, resp.minor);
++
++	version->major = resp.major;
++	version->minor = resp.minor;
++
++	return 0;
++}
++
+ int aie4_query_npu_firmware_version(struct amdxdna_dev_hdl *ndev,
+ 				    struct amdxdna_drm_query_firmware_version *fw_version)
+ {
+diff --git a/drivers/accel/amdxdna/aie4_msg_priv.h b/drivers/accel/amdxdna/aie4_msg_priv.h
+index b9f7c61f36e3..81842fa1d6ce 100644
+--- a/drivers/accel/amdxdna/aie4_msg_priv.h
++++ b/drivers/accel/amdxdna/aie4_msg_priv.h
+@@ -22,6 +22,7 @@ enum aie4_msg_opcode {
+ 	AIE4_MSG_OP_CREATE_HW_CONTEXT                = 0x30003,
+ 	AIE4_MSG_OP_DESTROY_HW_CONTEXT               = 0x30004,
+ 	AIE4_MSG_OP_AIE_TILE_INFO                    = 0x30006,
++	AIE4_MSG_OP_AIE_VERSION_INFO                 = 0x30007,
+ 
+ 	AIE4_MSG_OP_ATTACH_WORK_BUFFER               = 0x40001,
  };
+@@ -160,6 +161,16 @@ struct aie4_msg_aie4_tile_info_resp {
+ 	struct aie4_tile_info info;
+ } __packed;
  
- static const struct amdxdna_dev_priv npu3_dev_priv = {
--	.npufw_path             = "npu.dev.sbin",
--	.certfw_path            = "cert.dev.sbin",
-+	.npufw_path             = "npu.sbin",
-+	.certfw_path            = "cert.sbin",
- 	.mbox_bar		= NPU3_MBOX_BAR,
- 	.mbox_rbuf_bar		= NPU3_MBOX_BUFFER_BAR,
- 	.mbox_info_off		= NPU3_MBOX_INFO_OFF,
++struct aie4_msg_aie4_version_info_req {
++	__u32 resvd;
++} __packed;
++
++struct aie4_msg_aie4_version_info_resp {
++	enum aie4_msg_status status;
++	__u16 major;
++	__u16 minor;
++} __packed;
++
+ struct aie4_msg_query_cert_firmware_version_req {
+ 	__u32 resvd;
+ } __packed;
+diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
+index 880619e3a4a8..aea3edd51b4f 100644
+--- a/drivers/accel/amdxdna/aie4_pci.c
++++ b/drivers/accel/amdxdna/aie4_pci.c
+@@ -282,6 +282,10 @@ static int aie4_query(struct amdxdna_dev_hdl *ndev)
+ 	if (ret)
+ 		return ret;
+ 
++	ret = aie4_query_aie_version(ndev, &ndev->aie.version);
++	if (ret)
++		return ret;
++
+ 	ret = aie4_query_aie_metadata(ndev, &ndev->aie.metadata);
+ 	if (ret)
+ 		return ret;
+@@ -588,6 +592,12 @@ static int aie4_get_info(struct amdxdna_client *client, struct amdxdna_drm_get_i
+ 	case DRM_AMDXDNA_QUERY_AIE_METADATA:
+ 		ret = amdxdna_get_metadata(&ndev->aie, client, args);
+ 		break;
++	case DRM_AMDXDNA_QUERY_AIE_VERSION:
++		ret = amdxdna_get_aie_version(client, args, &ndev->aie.version);
++		break;
++	case DRM_AMDXDNA_QUERY_FIRMWARE_VERSION:
++		ret = amdxdna_get_firmware_version(client, args, &xdna->fw_ver);
++		break;
+ 	default:
+ 		XDNA_ERR(xdna, "Not supported request parameter %u", args->param);
+ 		ret = -EOPNOTSUPP;
+diff --git a/drivers/accel/amdxdna/aie4_pci.h b/drivers/accel/amdxdna/aie4_pci.h
+index 940e67347d74..5ae5e8427a3b 100644
+--- a/drivers/accel/amdxdna/aie4_pci.h
++++ b/drivers/accel/amdxdna/aie4_pci.h
+@@ -69,6 +69,8 @@ enum aie4_fw_feature {
+ /* aie4_message.c */
+ int aie4_query_aie_metadata(struct amdxdna_dev_hdl *ndev,
+ 			    struct amdxdna_drm_query_aie_metadata *metadata);
++int aie4_query_aie_version(struct amdxdna_dev_hdl *ndev,
++			   struct amdxdna_drm_query_aie_version *version);
+ int aie4_suspend_fw(struct amdxdna_dev_hdl *ndev);
+ int aie4_attach_work_buffer(struct amdxdna_dev_hdl *ndev);
+ int aie4_query_npu_firmware_version(struct amdxdna_dev_hdl *ndev,
 -- 
 2.34.1
 
