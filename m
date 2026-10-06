@@ -1,143 +1,105 @@
-Received: from mta1.migadu.com (out-174.mta1.migadu.com [95.215.58.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81B2D269D18
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 04:44:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0FA4255F28;
+	Tue,  6 Oct 2026 04:47:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791261891; cv=none; b=Xyciq3gNTj3U5z1n5gmmDzvu0n9YZ9WpEsIG23pIoAsnhVsI+o923J9aYKu1ugIznPOjgHgy4kBRVtKgrSnkQ/McWz+My60eUkwJhi9YgU/DAodAs6AO/pN2Ig0j0X8O5oj77EKw5bX+rdWh78QrFhdUuCA/KSwkqrsEoSaFGQY=
+	t=1791262077; cv=none; b=mQ+NqFoAb/X9tD57Jj0s+9MeOOTdg2BRdjT7MCdU6wSYJzii7/Rn1U9It4h2WoiJKZfSMSlbEXqDBd0LJW83Y7W/BKbk7oNq4XFkwnknm7KCCTugMTqKV/9lVT5ZwuT8Nunwv9VGWMHb2TJkOvFZZlvd7L9uEYvK8iz0d4aEXd0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791261891; c=relaxed/simple;
-	bh=LvTzX7cb6p8OiIRr0hc3ZNBGkEWS0lY1HmU+S902xDI=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=KFv+eHSz7Jdtyb5IhKLvzFxb5awVYBuGmcdDDY942AKaqwbrNfUYI06z5s6w5CJyX1HB1DFtp0g+pyT1K4VDb+8++/7dsmwyRDpLzndAtl3faJQ9sMRb6wWILTLz2JZr7lL7CWQnAvxB9D/kV+8nVglVRwUt0T/sof5rtqK7qS4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=L9/ahH42; arc=none smtp.client-ip=95.215.58.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791262077; c=relaxed/simple;
+	bh=oTyNBGv99KF9PBYy3pNQZ9Ld7UNz0+mPGHPDsHDgXrE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VxD75rnxY3mmsc+ufxkyBYqVZiDNu6NCsAlpfVai1GrKCPyT37fcaGzlOY+8sAQB6KJGAK1HAw6WMrOHCli1zltzCdtZLERTsSjF6LKNFGNsTDbWeIuzlYwC2MHuDbJ6zwpUtqgl+tQrZl9JDmhJVDCjycvao4HptmLbVHJJCmE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lUl8WgRJ; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="L9/ahH42"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=LvTzX7cb6p8OiIRr0hc3ZNBGkEWS0lY1HmU+S902xDI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791261887; v=1; x=1791866687;
- b=L9/ahH42QpQ76bewdLudH2X8cLc0qp9MaiKBr3Y9zcwlWO9FhKW7iuEy0hx69ZWuKdBx86iQ
- I2tYlZwHMEpkxycC/ofDqaIQoilWzws2n8ycmXVeVP92m0G+OkyhDe3FAqEY2H40FLwYHAPALxt
- H/GngO0dE+EFjP05FV8AqSIs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4802f2a4ace27c64;
-	Tue, 06 Oct 2026 04:44:46 +0000
-X-Mizu-Trace-ID: 4802f2a4ace27c64
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lUl8WgRJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791262075; x=1822798075;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=oTyNBGv99KF9PBYy3pNQZ9Ld7UNz0+mPGHPDsHDgXrE=;
+  b=lUl8WgRJN458cyPdd0PDeH48h3z1LfnC8EDMVJZyVnO3jBemcvOA7OAK
+   n7zVxoORqU5aa7PLNbzmQKPihl5caJ4UdlMvadusCp9x+ki22fIsSqgGq
+   XBrp1Zb3bI6GohXxvZaDV4qJ9g/B7Kz1iJHUDTitbNP0WrEgab7z/RfdI
+   5l8C5sI3AH+sdZPyBGIfwz0UGNg1orN3a5C99515mRijARb65yQLtnOXc
+   1B9i6czO73jhWO3OVxjXCwsozcRr753uxgw/6Ny8uG/SzSzzh8dz5E7ET
+   0V/IHikywZYNai9HbNbyZkZLl7zHgMmVr4g4NQLLgD/CJtaoGjOhhYXbU
+   g==;
+X-CSE-ConnectionGUID: AN1u2Jg9TTuVyXWsQqmuQw==
+X-CSE-MsgGUID: iAJcHgUsQbSbAG5w91z3Fg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="88576"
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="88576"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 21:47:54 -0700
+X-CSE-ConnectionGUID: V+MLLb8uTF+fu3kMyIkdMw==
+X-CSE-MsgGUID: pYgNTfN2TLiq5mrKus1LEQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="275695217"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa006.fm.intel.com with ESMTP; 05 Oct 2026 21:47:51 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xDx5g-000000001Aa-1cbt;
+	Tue, 06 Oct 2026 04:47:48 +0000
+Date: Tue, 6 Oct 2026 12:47:05 +0800
+From: kernel test robot <lkp@intel.com>
+To: Thomas Bonnefille <thomas.bonnefille@bootlin.com>,
+	Puranjay Mohan <puranjay@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	=?iso-8859-1?Q?Miqu=E8l?= Raynal <miquel.raynal@bootlin.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Thomas Bonnefille <thomas.bonnefille@bootlin.com>
+Subject: Re: [PATCH 2/2] iio: temperature: tmp117: add support for HIGH and
+ LOW alerts
+Message-ID: <202610061256.stF5y2PX-lkp@intel.com>
+References: <20261005-add-tmp117-notif-v1-2-c6cef6fad64c@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 06 Oct 2026 04:44:46 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Luka Gejak" <luka.gejak@linux.dev>
-Message-ID: <4d0885941b74480c7fd6399b9dff7ed64540a87e@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH rtw-next v4 2/4] wifi: rtw88: sdio: Track running state
- and cancel TX worker on stop
-To: "Ping-Ke Shih" <pkshih@realtek.com>, "Alastair D'Silva"
- <alastair@d-silva.org>, linux-wireless@vger.kernel.org, "Kalle Valo"
- <kvalo@kernel.org>
-Cc: "Martin Blumenstingl" <martin.blumenstingl@googlemail.com>, "Jernej
- Skrabec" <jernej.skrabec@gmail.com>, "Ulf Hansson" <ulfh@kernel.org>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- luka.gejak@linux.dev
-In-Reply-To: <6665409e1d374c1face4936b827a6a9d@realtek.com>
-References: <20261005084849.3109337-1-alastair@d-silva.org>
- <20261005084849.3109337-3-alastair@d-silva.org>
- <6665409e1d374c1face4936b827a6a9d@realtek.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261005-add-tmp117-notif-v1-2-c6cef6fad64c@bootlin.com>
 
-October 6, 2026 at 04:03, "Ping-Ke Shih" <pkshih@realtek.com mailto:pkshi=
-h@realtek.com?to=3D%22Ping-Ke%20Shih%22%20%3Cpkshih%40realtek.com%3E > wr=
-ote:
+Hi Thomas,
 
+kernel test robot noticed the following build errors:
 
->=20
->=20Alastair D'Silva <alastair@d-silva.org> wrote:
->=20
->=20>=20
->=20> When rtw_sdio_stop() disables interrupts, in-flight interrupt handl=
-ers or
-> >  delayed TX work may still run against a powered-down device.
-> >=20=20
->=20>  Track the operational state in rtwsdio->running (similar to PCI), =
-check it
-> >  at the entry of rtw_sdio_handle_interrupt() and rtw_sdio_tx_handler(=
-), and
-> >  cancel the TX worker synchronously in rtw_sdio_stop().
-> >=20=20
->=20>  Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation fo=
-r SDIO based chipsets")
-> >  Cc: stable@vger.kernel.org
-> >  Assisted-by: LLM
-> >  Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
-> >  ---
-> >  drivers/net/wireless/realtek/rtw88/sdio.c | 12 ++++++++++++
-> >  drivers/net/wireless/realtek/rtw88/sdio.h | 1 +
-> >  2 files changed, 13 insertions(+)
-> >=20=20
->=20>  diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/n=
-et/wireless/realtek/rtw88/sdio.c
-> >  index e39284b71837..d2f4d7e8bc83 100644
-> >  --- a/drivers/net/wireless/realtek/rtw88/sdio.c
-> >  +++ b/drivers/net/wireless/realtek/rtw88/sdio.c
-> >  @@ -1054,6 +1054,7 @@ static int rtw_sdio_8723bs_check_rqpn(struct r=
-tw_dev *rtwdev)
-> >=20=20
->=20>  static int rtw_sdio_start(struct rtw_dev *rtwdev)
-> >  {
-> >  + struct rtw_sdio *rtwsdio =3D (struct rtw_sdio *)rtwdev->priv;
-> >  u32 clear;
-> >=20=20
->=20>  if (rtw_is_8723bs(rtwdev)) {
-> >  @@ -1075,6 +1076,7 @@ static int rtw_sdio_start(struct rtw_dev *rtwd=
-ev)
-> >  rtw_write32(rtwdev, REG_SDIO_HISR, clear);
-> >  }
-> >=20=20
->=20>  + rtwsdio->running =3D true;
-> >=20
->=20Is there existing race between start/stop/interrupt? Need a lock?
->=20
->=20>=20
->=20> rtw_sdio_enable_interrupt(rtwdev);
-> >=20=20
->=20>  return 0;
-> >  @@ -1082,7 +1084,11 @@ static int rtw_sdio_start(struct rtw_dev *rtw=
-dev)
-> >=20=20
->=20>  static void rtw_sdio_stop(struct rtw_dev *rtwdev)
-> >  {
-> >  + struct rtw_sdio *rtwsdio =3D (struct rtw_sdio *)rtwdev->priv;
-> >  +
-> >  + rtwsdio->running =3D false;
-> >  rtw_sdio_disable_interrupt(rtwdev);
-> >  + cancel_delayed_work_sync(&rtwsdio->tx_handler_data->work);
-> >=20
->=20I think this is the major statement added by this patch, but I'm not =
-sure
-> if this is actually needed. (Maybe, Luka can help this)
->=20
+[auto build test ERROR on 551c722f40809618230001baccf219193e22fc5a]
 
-I=20will take a look at this series later during the day.
+url:    https://github.com/intel-lab-lkp/linux/commits/Thomas-Bonnefille/dt-bindings-iio-ti-tmp117-describe-interrupts-for-TMP117/20261005-164419
+base:   551c722f40809618230001baccf219193e22fc5a
+patch link:    https://lore.kernel.org/r/20261005-add-tmp117-notif-v1-2-c6cef6fad64c%40bootlin.com
+patch subject: [PATCH 2/2] iio: temperature: tmp117: add support for HIGH and LOW alerts
+config: um-randconfig-1000-20261006 (https://download.01.org/0day-ci/archive/20261006/202610061256.stF5y2PX-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261006/202610061256.stF5y2PX-lkp@intel.com/reproduce)
 
-> By 'git blame', the work is added by
-> 28eaf7971a20 ("wifi: rtw88: sdio: add TX back-pressure and retry on pag=
-e starvation")
->=20
->=20Maybe, the fixes tag should be 28eaf7971a20. I think there is no way =
-to apply this
-> to 65371a3f14e7 (your fixes tag)
->=20
->
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610061256.stF5y2PX-lkp@intel.com/
 
-Best=20regards,
-Luka Gejak
+All errors (new ones prefixed by >>, old ones prefixed by <<):
+
+>> ERROR: modpost: drivers/iio/temperature/tmp117.ko: symbol '__divdi3' undefined!
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
