@@ -1,135 +1,87 @@
-Received: from mail.avm.de (mail.avm.de [212.42.244.120])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16DBB4CA29D;
-	Wed,  7 Oct 2026 17:15:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.42.244.120
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E2A13AAF50;
+	Wed,  7 Oct 2026 17:15:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791393306; cv=none; b=jERFk5lpSd6HPkgrZI5NGP8P7gEOhqlKkey1fGv+KgbzuxzBixGdonSnA5th4N9WrsmOdLaxA9ncQGuNOgp/jfU9L3pyDF5XFiPARBMB7z3XzWsDYGpPDuzKHbDOQww3zWLwjgyj48pL0pUPtiTzjU8RybQ99MpiCBls1n/3GYM=
+	t=1791393333; cv=none; b=Is7QaYrgJqMcTBhxSjmRklhzDAZ8A3rUe6rgN0mgi86YtFgQYXNznWjJvl08oFlpMF5W5RnAuTZAKGILB1K+3jUyXdj8udLOd4qbAMaLxOkZL8rxRa8SOF47x8vv86/AlkD0Qt2hu9xD2GnRp872LRO9P94D8Q8+gW/pWGO9uwM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791393306; c=relaxed/simple;
-	bh=HzoohC9CE+rfa7l5/ifQdBRdAjPZ/4ke5XrSiNFX5dA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iBMiK9m/iq0yHtgmqYamEJhs//f+UHZ2/I5/In/WHvJEg8ru+sgIoqqQJ7C41qXAT9udtFjFsuA7e3xU0KBge6YvLTiZ1jw8NZf07R2t8zhbWOxnAaV3oYBW2zKCLTr1HCbEXpC/+xNSlme2H8CK8yzPDBYDLE+T79dmtBkstqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com; spf=pass smtp.mailfrom=fritz.com; dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b=JzZwoKwv; arc=none smtp.client-ip=212.42.244.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fritz.com
+	s=arc-20240116; t=1791393333; c=relaxed/simple;
+	bh=l7ksrUuuCrFADahNiGgjjX0cjZTD0/LzwDWvKyN3YR4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ke2QGcJajGAL+qewQV+vOksuhde0puJmzULxQ15vMDt6A9Q5a6op6NykRR4daH3LHpePhpOe38I1bCeUQ2K2OHkz7v4jfiwq8criG4rmeQDI5FHLm9lIBqyBiZqitQAaS/y8wyjL2TEW19yV3sBIAWKImCODSGodg3RwpmcnRAc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BqcVsecx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b="JzZwoKwv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fritz.com; s=mail;
-	t=1791392841; bh=HzoohC9CE+rfa7l5/ifQdBRdAjPZ/4ke5XrSiNFX5dA=;
-	h=From:To:Cc:Subject:Date:From;
-	b=JzZwoKwv7oc4PBRNW99Qq4XoWP9bi0vmLYRG4jIdXrM6d+9cTEJ4X4mhQs2GWpWP7
-	 Zw5EVoj91vq0245v07dDWJGdm0pkJLiljY+23Rp5CZZ9fhQw80iT2QNKfEAWOYdUbo
-	 A3PtbmBULvxelvzZAWZM+ycM3THWIfcTPYZTxslS8g974iWYVCJwdA6xcXDGqgKEu+
-	 1GP8qcrR54yH+h2IDYipYl3qBIR2ec8ZhDLypXv1eR+gBsh2eKmurKEMsPyuvkJ2HF
-	 0RM8d4IvwYgocndKKvWd6cny34xEedmrvZfsDo2PlWc2WnLHcFcSga+ETQnP87DtOz
-	 e60htQZjzArJw==
-Received: from [2001:bf0:244:244::71] (helo=mail.avm.de)
-	by mail.avm.de with ESMTP (eXpurgate 4.57.1)
-	(envelope-from <t.martitz@fritz.com>)
-	id 6ac67c49-0462-7f0000032729-7f000001a3ba-1
-	for <multiple-recipients>; Wed, 07 Oct 2026 19:07:21 +0200
-Received: from mail-auth.avm.de (dovecot-mx-01.avm.de [IPv6:2001:bf0:244:244::71])
-	by mail.avm.de (Postfix) with ESMTPS;
-	Wed,  7 Oct 2026 19:07:21 +0200 (CEST)
-From: Thomas Martitz <t.martitz@fritz.com>
-To: Simon Horman <horms@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org (open list:NETWORKING DRIVERS),
-	linux-kernel@vger.kernel.org (open list)
-Cc: Thomas Martitz <t.martitz@fritz.com>,
-	netdev@vger.kernel.org (open list:NETWORKING DRIVERS),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v6 0/1] macvlan: allow source mode devices along with passthru
-Date: Wed,  7 Oct 2026 19:06:35 +0200
-Message-ID: <20261007170638.2086790-1-t.martitz@fritz.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BqcVsecx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0EB31F000FF;
+	Wed,  7 Oct 2026 17:15:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791393332;
+	bh=IKPv1AXkbOVrLzSJbysUwydgPgY8ZEOPRGlNsK+wMds=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BqcVsecxmXNy4fg5mqGk7N0ypwHtyajS81nsbXd5i2Wu2JIBduH8S6XXVmRPLmT3g
+	 HKoSujXLfVVRD73FwlUyDSd4AOVs1oJDfsy3KwTF1RdwfXDRYgxe1P0uLaXkRlJ3jE
+	 lzsYtMv8NcvuHKlhWPA/VZFDRk5O4/3MfNIfxYhfUSD+9c3plZRiyFJCkjExVJYfsr
+	 IpcQPdJRGzG0qB3tzsOqSxtGfjOa/QC9cwlOkWIZvd046tDwLJDuGuQg25VISH2BPO
+	 g33ELEp6mj95IliGKNd/jRqTK5yLbX8wtTIqd2/p8jAe0hjq/rZ0pfdOEMZpRX8rlR
+	 YMjMUcStMfhQg==
+Date: Wed, 7 Oct 2026 19:15:29 +0200
+From: Harry Yoo <harry@kernel.org>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, 
+	Thomas Gleixner <tglx@linutronix.de>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+	Andrew Morton <akpm@linux-foundation.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Alexei Starovoitov <ast@kernel.org>, Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>, 
+	Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>, 
+	Jonathan Corbet <corbet@lwn.net>, David Hildenbrand <david@kernel.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	David Stevens <stevensd@google.com>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>, 
+	Shuah Khan <shuah@kernel.org>, Amery Hung <ameryhung@gmail.com>, 
+	Swaraj Gaikwad <swarajgaikwad1925@gmail.com>, Clark Williams <clrkwllms@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-mm@kvack.org, linux-rt-devel@lists.linux.dev, bpf@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, cgroups@vger.kernel.org
+Subject: Re: [RFC PATCH v2 0/3] locking, mm: Add atomic allocator trylocks on
+ RT
+Message-ID: <asZ8jmWNoGk5tYce@thinkpad>
+References: <20261005070625.8871-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: 149429::1791392841-52FAB94E-5FC8081B/0/0
-X-purgate-type: clean
-X-purgate-size: 2977
-X-purgate: This mail is considered clean (visit https://www.eleven.de for further information)
-X-purgate: clean
-X-pfmilter: host: postfix-mx-01  mail-id: 5EB27A0381  external: no
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261005070625.8871-1-kmehltretter@gmail.com>
 
-Hello,
+On Mon, Oct 05, 2026 at 09:06:22AM +0200, Karl Mehltretter wrote:
+> On PREEMPT_RT, a BPF task-storage program attached to sched_waking
+> can deadlock when kmalloc_nolock() obtains an rtmutex-backed allocator
+> spinlock while try_to_wake_up() holds p->pi_lock. Releasing the allocator
+> lock can enter priority-inheritance or wakeup code and re-enter scheduler
+> locking.
+> 
+> The first RFC [1] rejected every non-preemptible caller. That prevents the
+> deadlock, but it also rejects BPF arena allocation and faults under the
+> arena's ordinary raw lock.
+> 
+> This RFC instead adds an atomic owner state for bounded PREEMPT_RT spinlock
+> trylocks. Atomic acquisition succeeds only from the completely free state.
 
-we're trying to solve a use case on our devices where two SoC are
-connected on the same board, using the only available high-speed interface.
+Please don't skip discussion stage and jump into submitting a very
+intrusive change across locking and mm, assisted by LLM? :/
 
-One SoC runs the main Linux system including the full routing stack
-(FRITZ!OS) and the other SoC implements most of the GPON ONT side.
+I don't think attempts to tackle this problem will make progress without
+discussing and getting buy-in from (PREEMPT_RT) locking folks.
 
-The high-speed interface is of course also used for the user traffic.
-Therefore we must tell the inter-SoC traffic apart from the user traffic.
-
-We achieve this by matching the well-known MAC address of the ONT SoC.
-The user traffic passes through the ONT SoC without modifying MAC headers.
-Now we would like to use macvlan (with source mode devices) on the main
-SoC side for this but our routing stack requires the rx_handler to be
-available. Therefore macvlan is currently not an option.
-
-With this patch macvlan becomes an option because the current limitation
-of either "one passthru device" or "any other configuration" is relaxed
-for the combination of passthru and any number of source mode devices.
-
-This allows us to configure a source mode device for the other SoC and
-register an rx_handler for further processing on the passthru device.
-
-Thanks in advance!
-
----
-Changes in v6
-- Prevent passthru and source mac from having the same MAC (if both are UP)
-- Fix unbalanced promiscuity
-- Really prevent changing anything to passthru
-- Fix restoration of lowerdev MAC address
-
-Changes in v5
-- Properly respect "macvlan_addr_busy()" again for non-passthru  interfaces (and avoid calling anymore for passthru interfaces)
-- Guard NETDEV_CHANGEADDR from messing with the lower device
-  address during passthru interface removal
-- restore unicast address (dev_add_uc/_del_uc) handling> Changes in v4
-
-Changes in v4
-- Prevent macvlan_restore_mac() from changing the MAC address
-  of remaining source mode interfaces.
-- Set MACVLAN_F_PASSTHRU on the macvlan_port only after adding
-  the passthru interface truly succeeds.
-- Changing existing interfaces to passthru mode shouldn't become
-  allowed.
-
-Changes in v3
-- fix passthru port removal caused by passing the wrong 
-  device to macvlan_port_release_mac(). This was also
-  detected by syzbot.
-- macvlan_port_release_mac() is now named macvlan_restore_mac()
-  and gets passed a "struct macvlan_port" directly.
-- Link to v2: https://lore.kernel.org/netdev/20260709100512.1383421-1-t.martitz@fritz.com/
-
-Changes in v2:
-- changed several port-wide checks (macvlan_passthru()) to 
-  per-interface checks (vlan->mode == vlan->mode == MACVLAN_MODE_PASSTHRU)
-- correctly handle removing the passthru interface when there are still
-  source interfaces
-- Link to initial posting: https://lore.kernel.org/netdev/20260612092345.2352255-1-t.martitz@fritz.com/
----
-
-Thomas Martitz (1):
-  macvlan: allow source mode devices along with passthru
-
- drivers/net/macvlan.c | 107 ++++++++++++++++++++++++++++--------------
- 1 file changed, 73 insertions(+), 34 deletions(-)
+> A regular waiter sets HAS_WAITERS before waiting, which prevents a later
+> atomic owner from barging. Atomic release preserves HAS_WAITERS and does
+> not enter priority inheritance or wake a task. Preemption and local
+> interrupts remain disabled for the atomic-owner section.
 
 -- 
-2.54.0
-
+Cheers,
+Harry / Hyeonggon
