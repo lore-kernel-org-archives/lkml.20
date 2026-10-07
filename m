@@ -1,229 +1,125 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f1.google.com (mail-lr2-f1.google.com [74.125.230.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D1264B0E48;
-	Wed,  7 Oct 2026 13:28:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DE2628E0F
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 13:33:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791379736; cv=none; b=pgcABaQTOUe19kT/o2wu6mW0NCScqLcAoEjRT0f9YMkf4m4V2CjHqwfkp4Zvwr/y4mJk8yeifxcChsoYq6on8Gy7UMpW1A88fxKhKrkjIZiRz2B6flAZDXdQ+xLR/fIGby+k/dDqNG/Zm4H22CvPto8zuquHYfNowOw4VgwH5aw=
+	t=1791379997; cv=none; b=aXgazf4z6JPOjYi5NzHmS040qGV25BRtyJr4sj6FwIwLOZIDZ/m6+LSN4f3LjImR0U1ea1sYcqKI3vbbi+bcH+LPDr3IV2EHPK7V7u6Lb2LCZ7LpK0fbtPV0IOND5X6wQVq3w+Dq+rZTcjdzmCwbdITqEWZWUyslBqBEuaJhMPQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791379736; c=relaxed/simple;
-	bh=DFEJsFns0bljZn9HO22/k4JjjqcDhHnDPmz6Bu6tVfo=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=nHJpCOgjZIveVliOsfBJoCVeXjQPNtpu98Dx5iF+5jru9WzPEXYknqWNwBUjpHWYgoSjAkwJ2G9rx675f6z0f7L63qOW+LEbzXxh6jf/pEp4g0EGUWL2brMsNlIfXmpCVMnkwyXq10kOpXRQKaf2ZtQrm+Q1tX0LOf7On4H8CPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LnxnRVzs; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791379997; c=relaxed/simple;
+	bh=mKB4PEK+utWwRsA4INvr4RWhGUU8W4ZGbkGGmTIlL6Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=opotg9E7jxwiEJq0po6293Qa2dln+ALp9yvMZ+Z0R6Z4TkULK+REEBpWg/+zMaN+/xoEdLSsEsEorjjqAuXZ/xUE6ERlhhuejBx5gcBeocZQS/WaZniSzts0uiU/1CRimdsWXjFauWA/o9ynTJklSJxt/BT7YrvyRBWKSVUDBiI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OFj39vcI; arc=none smtp.client-ip=74.125.230.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LnxnRVzs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791379714; x=1822915714;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=DFEJsFns0bljZn9HO22/k4JjjqcDhHnDPmz6Bu6tVfo=;
-  b=LnxnRVzsZ7713L+8OMH2S10au9sS9BBCQkIsLZz0y7zsePU5t9EooEe+
-   C84p0yw8+B+6rxIXtasLcaCfnFq4tJNgzgDBg2njH2JV9ZF/eC9b84feA
-   Ve1RO2m9P+X+mbpDswW19aBJ+5Xt2CA9/nNGTRQp+gOBdcZY8xr/FLONw
-   VAZ65INixqHsoI4juhbOUcED5FNLmmmij10tzTh5cslCddWk6JJy3nm4d
-   zb1xNQhIDHdvFwTeqcuvk3b1xvqeSL9jOwE1ULB9LGuwlUaOWguBmqcLX
-   CbyV1fKb3kl9pmzseIUiLQyDRkrrCP+1YSWl5dAo8kSOtndKlG3eBzusY
-   g==;
-X-CSE-ConnectionGUID: c+ABJik5QkKfOCe2rZX5fA==
-X-CSE-MsgGUID: +HuWDPabR9WdN4bjw0N7HQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="242429"
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="242429"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 06:27:48 -0700
-X-CSE-ConnectionGUID: oWJ1MDNJTbWnw94iTQSKDA==
-X-CSE-MsgGUID: 64UiknF2QIGMuDVzfxldyg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="64314"
-Received: from crojewsk-ctrl.igk.intel.com ([10.237.149.0])
-  by fmviesa007.fm.intel.com with ESMTP; 07 Oct 2026 06:27:46 -0700
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-To: broonie@kernel.org,
-	linux-sound@vger.kernel.org
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	amade@asmblr.net,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OFj39vcI"
+Received: by mail-lr2-f1.google.com with SMTP id 38308e7fff4ca-3a772511049so25309871fa.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 06:33:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791379979; x=1791984779; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sXzba+xG1WBG1R2U3C2ihk+Wr/g1fNt8Yr32nUgb40w=;
+        b=OFj39vcI0skhEGDdCjRwir4DFHLkwnPCqRjAaStfgoSK8RVgW8EbxLeIoqrvQt5MgF
+         EBsZjuCUN4tW6OfaLqoS+hGG/In5QOqRPH7wgj5Yss5XrSgN/WfBhzTik/tdMtezv5H4
+         tQ7jv4f5k7B7+S21oXsDerAFqblZzogO7GfcHzOz6M1LYKJnm81qWcahhaB4650Gor0O
+         tfwbmZIiZCefq+xlN2SCpgz42YeJR+6Ruuyw4F1upiwD4xMcyuIev7+tlijLVL86zvqR
+         MZIlcjsFvVD1HBQAicmYfzit8s6Dc6j6dtX6PgKqbByIdPggYPWANJK0uHfwJzW/7eHh
+         tBCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791379979; x=1791984779;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sXzba+xG1WBG1R2U3C2ihk+Wr/g1fNt8Yr32nUgb40w=;
+        b=VmRJ1wEOU8Vvg6UZ1W0tpAmAHwKJ0KvBDgdImFztEIA3F2xo7NDCdM3sdbANu8Viww
+         cFjZHo2CDVmhFvHWeNT1jh9MnNkehPBzIGFsueA+PPzR/Ajg8k3sRtgqHzTxLIMRe/Ni
+         Vf7LfwKi+286VJQNphx/c040XqMO4NAuX9xDW+17f8UmyachlrsOiOg0xH4beVaa7N66
+         1Hj8279ATsG92/51z47qsDXwzwfquR9326j6yX2qc3mBRsLXq84kncfgEWtDrKNul8k3
+         kzMosT07mC0Ku0zpuEWaxdC8nH12xf37nmraBmRo2c3t0TO1VJ0WWaDYEsUn8Y1J9o9B
+         y3sA==
+X-Forwarded-Encrypted: i=1; AKwUvBzCyNIwZuNJlFb9h2LHgBDQ47o6RJn0rXLdoCmA34tyOA6+c45G2fUxGyIo/p6vDenu568HKfRxW+dVD98=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJA8gabcvB4hqSP1eOaAafVCnt0PH0ufDMvTAB/pa9bKWf4Nbab
+	hrkB3sL/ZHI1+rFgVykcI47S1KHuwcV5iXF0GJKlazCkkdOGmPO1dCS1
+X-Gm-Gg: AYBFou2B7GAF/u1GoOTugFdd/4QOsOVrKvm4QAJUq58jQ4l9Rx8LkzZZkCi/DAvovYr
+	l8n+qlZwT2mqAJQELWUI4flaT6jqqNJE0Vvrc75GhKb/JKXUIGwLdGKuTdVA1oVRlyo+JUhrGWM
+	6uqhpQnyXJ/hIgBOT20/lF/+jl8oghgnn1SkjJZZXXeJGuQU3l/q0RPXFnJK1kbW1xWxQ3g5e2k
+	GnQKTFZ2vs/0hzU2wRIQrzIJ2aczlr0MVlp+X2Ks2dvJEBuHcTHNc0OD1MFIpkDsLT7VWXJjJU9
+	4R6doc2yVKiTsZpKaapluiSZmm+CpRfAsaPSJzffYz9rI51FLWyBTGxhkZnS8xrUka+o33t0hou
+	uo97JwcJh3LHgbQFJOZqbE8m6Z/rGWJjBN63db6dOv/KpjqlFtZNAvMhVwW0goPHWdoVlmeov3G
+	MxbUqi8IR+rpOZtO7i3j6Fy6/0Wz0gAKRqt6fe9D7FQldGYvzkzyEs4w0L3DW4kmM4v0k0EA5Tz
+	2vb3kh8E9UsK572
+X-Received: by 2002:a05:6512:68c:b0:5bb:7b2a:5b2d with SMTP id 2adb3069b0e04-5bcd0708cd9mr821802e87.35.1791379979145;
+        Wed, 07 Oct 2026 06:32:59 -0700 (PDT)
+Received: from localhost.localdomain ([78.40.184.2])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bcd30a474csm33636e87.80.2026.10.07.06.32.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 06:32:57 -0700 (PDT)
+From: Roman Demidov <roman.demidov.nn@gmail.com>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	David Airlie <airlied@linux.ie>,
+	Daniel Vetter <daniel@ffwll.ch>,
+	Leo Liu <leo.liu@amd.com>,
+	James Zhu <James.Zhu@amd.com>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	kuninori.morimoto.gx@renesas.com,
-	Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: [PATCH 7/7] ASoC: core: Remove unused component-register members
-Date: Wed,  7 Oct 2026 15:33:53 +0200
-Message-Id: <20261007133353.455185-8-cezary.rojewski@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261007133353.455185-1-cezary.rojewski@intel.com>
-References: <20261007133353.455185-1-cezary.rojewski@intel.com>
+	lvc-project@linuxtesting.org,
+	Yinjie Yao <yinjie.yao@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10/5.15/6.1] drm/amdgpu/jpeg: set no_user_fence for JPEG v3.0 ring
+Date: Wed,  7 Oct 2026 16:32:43 +0300
+Message-ID: <20261007133244.121787-1-roman.demidov.nn@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-With the new component constructor, functions snd_soc_component_alloc(),
-snd_soc_component_set_name() and soc_component_initialize() become
-unused. Remove them and drop the generic macro as there is only one
-snd_soc_register_component() function.
+From: Yinjie Yao <yinjie.yao@amd.com>
 
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+commit a2baf12eec41f246689e6a3f8619af1200031576 upstream.
+
+JPEG rings do not support 64-bit user fence writes, reject CS
+submissions with user fences.
+
+Fixes: dfd57dbf44dd ("drm/amdgpu: add JPEG3.0 support for Sienna_Cichlid")
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Yinjie Yao <yinjie.yao@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 4d7d774f100efb5089c86a1fb8c5bf47c63fc9ef)
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
 ---
- include/sound/soc-component.h |  2 --
- include/sound/soc.h           |  8 +-----
- sound/soc/soc-component.c     | 19 ------------
- sound/soc/soc-core.c          | 54 ++++-------------------------------
- 4 files changed, 6 insertions(+), 77 deletions(-)
+Backport fix for CVE-2026-63846
 
-diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
-index f4d4f836269e..ac5e9412582e 100644
---- a/include/sound/soc-component.h
-+++ b/include/sound/soc-component.h
-@@ -297,9 +297,7 @@ struct snd_soc_component *snd_soc_component_new(struct device *dev, const char *
- int snd_soc_component_register(struct snd_soc_component *component,
- 			       struct snd_soc_dai_driver *dai_drv,
- 			       int num_dai);
--struct snd_soc_component *snd_soc_component_alloc(struct device *dev);
- 
--void snd_soc_component_set_name(struct snd_soc_component *component, const char *name);
- const char *snd_soc_component_name(struct snd_soc_component *component);
- 
- void snd_soc_component_set_priv(struct snd_soc_component *component, void *priv);
-diff --git a/include/sound/soc.h b/include/sound/soc.h
-index 553bb7e2be98..08fdee15dba7 100644
---- a/include/sound/soc.h
-+++ b/include/sound/soc.h
-@@ -447,15 +447,9 @@ static inline int snd_soc_resume(struct device *dev)
- }
- #endif
- int snd_soc_poweroff(struct device *dev);
--int snd_soc_register_component_c(struct snd_soc_component *component,
--			 const struct snd_soc_component_driver *component_driver,
--			 struct snd_soc_dai_driver *dai_drv, int num_dai);
--int snd_soc_register_component_d(struct device *dev,
-+int snd_soc_register_component(struct device *dev,
- 			       const struct snd_soc_component_driver *component_driver,
- 			       struct snd_soc_dai_driver *dai_drv, int num_dai);
--#define snd_soc_register_component(x, ...) _Generic((x),		\
--struct device * :		snd_soc_register_component_d, \
--struct snd_soc_component * :	snd_soc_register_component_c)(x, __VA_ARGS__)
- 
- int devm_snd_soc_register_component(struct device *dev,
- 			 const struct snd_soc_component_driver *component_driver,
-diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
-index 463ea227cac8..34efb270ce29 100644
---- a/sound/soc/soc-component.c
-+++ b/sound/soc/soc-component.c
-@@ -29,25 +29,6 @@ static inline int _soc_component_ret_reg_rw(struct snd_soc_component *component,
- 			   func, component->name, reg);
- }
- 
--struct snd_soc_component *snd_soc_component_alloc(struct device *dev)
--{
--	struct snd_soc_component *component = devm_kzalloc(dev, sizeof(*component), GFP_KERNEL);
--
--	if (!component)
--		return NULL;
--
--	component->dev = dev;
--
--	return component;
--}
--EXPORT_SYMBOL_GPL(snd_soc_component_alloc);
--
--void snd_soc_component_set_name(struct snd_soc_component *component, const char *name)
--{
--	component->name = name;
--}
--EXPORT_SYMBOL_GPL(snd_soc_component_set_name);
--
- const char *snd_soc_component_name(struct snd_soc_component *component)
- {
- 	return component->name;
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 93bc7fa32444..69181cc0258b 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -2560,35 +2560,6 @@ static void snd_soc_del_component_unlocked(struct snd_soc_component *component)
- 	list_del(&component->list);
- }
- 
--static int soc_component_initialize(struct snd_soc_component *component,
--				    const struct snd_soc_component_driver *driver)
--{
--	struct device *dev = component->dev;
--
--	component->dapm = snd_soc_dapm_alloc(dev);
--	if (!component->dapm)
--		return -ENOMEM;
--
--	INIT_LIST_HEAD(&component->dai_list);
--	INIT_LIST_HEAD(&component->dobj_list);
--	INIT_LIST_HEAD(&component->card_list);
--	INIT_LIST_HEAD(&component->list);
--	INIT_LIST_HEAD(&component->card_aux_list);
--	mutex_init(&component->io_mutex);
--
--	if (!component->name) {
--		component->name = snd_soc_fmt_single_name(dev, NULL);
--		if (!component->name) {
--			dev_err(dev, "ASoC: Failed to allocate name\n");
--			return -ENOMEM;
--		}
--	}
--
--	component->driver	= driver;
--
--	return 0;
--}
--
- struct snd_soc_component *snd_soc_component_new(struct device *dev, const char *name,
- 						const struct snd_soc_component_driver *driver)
- {
-@@ -2668,25 +2639,10 @@ int snd_soc_component_register(struct snd_soc_component *component,
- }
- EXPORT_SYMBOL_GPL(snd_soc_component_register);
- 
--int snd_soc_register_component_c(struct snd_soc_component *component,
--			const struct snd_soc_component_driver *component_driver,
--			struct snd_soc_dai_driver *dai_drv,
--			int num_dai)
--{
--	int ret;
--
--	ret = soc_component_initialize(component, component_driver);
--	if (ret < 0)
--		return ret;
--
--	return snd_soc_component_register(component, dai_drv, num_dai);
--}
--EXPORT_SYMBOL_GPL(snd_soc_register_component_c);
--
--int snd_soc_register_component_d(struct device *dev,
--				 const struct snd_soc_component_driver *component_driver,
--				 struct snd_soc_dai_driver *dai_drv,
--				 int num_dai)
-+int snd_soc_register_component(struct device *dev,
-+			       const struct snd_soc_component_driver *component_driver,
-+			       struct snd_soc_dai_driver *dai_drv,
-+			       int num_dai)
- {
- 	struct snd_soc_component *component;
- 
-@@ -2696,7 +2652,7 @@ int snd_soc_register_component_d(struct device *dev,
- 
- 	return snd_soc_component_register(component, dai_drv, num_dai);
- }
--EXPORT_SYMBOL_GPL(snd_soc_register_component_d);
-+EXPORT_SYMBOL_GPL(snd_soc_register_component);
- 
- /**
-  * snd_soc_unregister_component_by_driver - Unregister component using a given driver
+ drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
+index 323d68b2124f..f1957d4fa7a8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
+@@ -560,6 +560,7 @@ static const struct amd_ip_funcs jpeg_v3_0_ip_funcs = {
+ static const struct amdgpu_ring_funcs jpeg_v3_0_dec_ring_vm_funcs = {
+ 	.type = AMDGPU_RING_TYPE_VCN_JPEG,
+ 	.align_mask = 0xf,
++	.no_user_fence = true,
+ 	.vmhub = AMDGPU_MMHUB_0,
+ 	.get_rptr = jpeg_v3_0_dec_ring_get_rptr,
+ 	.get_wptr = jpeg_v3_0_dec_ring_get_wptr,
 -- 
-2.34.1
+2.53.0
 
