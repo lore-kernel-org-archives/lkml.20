@@ -1,155 +1,68 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD0923C6A57;
-	Wed,  7 Oct 2026 09:36:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E9F9476CF0;
+	Wed,  7 Oct 2026 09:36:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791365813; cv=none; b=CqW9n26lSNaJEXsh7HeaTB2XHWSDF/APxmEtkIbvZGjTCf+3trQdqYDaWG+2b/IRwZES21GMKKEw1Lxr/lDvYjxlH3PI+RLhRciNE8Ih/WABkt68Rvk2pzNhSLS+ERjbDoIkCwTQCPUIIDXmM1xZkBQ2VeVqDB9ECFpuX6yO1q0=
+	t=1791365817; cv=none; b=AlnnTgyy8hvtCKB97Q2B+e/ErYoho2ppFsp3lgoKW3d9iXka8JfgjJxjdrtKcFpKmrlo79Vi2MdMIG/L4zbyfnEB0POE/4SW7LvQMs0XLl3tgaCOpQ1YeThOaTM6kpV8/QF3W79ScNseyw6hOEqHDrjL+XEaUIWC491TLVxQOpU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791365813; c=relaxed/simple;
-	bh=6wlmBMug/czsODO6BZoaF+On6U3jjQlKqBL1Nax9BwY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AyhAxiKXMS1IiXj1XE+m15A9A08ZWh33OQOFiwiq3dhx4aVFd00lKd2x8B+SsG6DtpEaruwcTqRR7F6bZwMv8llC8ST/v+MFsEhdmTRJcDsWV8qYT6Xgr9lpeR4Qylf3wgPnX5Ht+Y0xhrl6blnquyLzxs9h+qelH9P+flUIOOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=nmCoNw19; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1791365817; c=relaxed/simple;
+	bh=GbUMDGByiIlcp+WrpWlazRAUcVLY3mPJK9tWMwQjoFU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=p+pJ3Hp8uKITcW0NJom44qxZOMRQtuxqqSSIE/OEbfROrvl+pzOP25EzoVzRyMJxONHaZeLbU8erYZiLHXXPOFYTSIzJtjdf6K0zergK3qYfwjCYEd2lE9dY1T6RMxbfoUKN2Y793sumon23imeJPs+eeSQoQP00JQvN1VX2mSE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o2NiXlCw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="nmCoNw19"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id F3D2B1A1152;
-	Wed,  7 Oct 2026 09:36:39 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C77856074B;
-	Wed,  7 Oct 2026 09:36:39 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B0F8B11D500A5;
-	Wed,  7 Oct 2026 11:36:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791365798; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=z20W5mUIAexQAlTa3dlGNHHX48Yvv7PgJnJT1HAMI0Q=;
-	b=nmCoNw19zCWapbVTqYNds9xg5iZW0txeUyi5eiclFAlFGe9N5b4Tp0nLOm2JZDfObXI7fL
-	cimytk5ukcnLEGqUTOVRang3096yrnQDeuwLER4drGFJlNhpFZXnbK0bsb8uinteL2ULal
-	1mGRVJsOGE0SbYWh/NbKAjebJlH9jFANexFuP1lAKPVYDDWdNsGXw86Tumf66UakPUsJbz
-	89bP900/JNv4FcIfqzRfATbNmoz9+c1Elip9aOXoIKUM770Az6L2YGKg9hHubsM46Kca1b
-	q/HAd48+3OZkLvkEIIqg5E+XFYQS5pDDX15GI/o1O8pCayMLceTwNWXDziL+Tg==
-Message-ID: <ea812192-184b-4726-9ff4-abeca3a3b498@bootlin.com>
-Date: Wed, 7 Oct 2026 11:36:32 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o2NiXlCw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FAC41F0089E;
+	Wed,  7 Oct 2026 09:36:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791365806;
+	bh=4DhdzIwt3MRMXaMV4Mj6A2R3zODdLzHgKo1UW7l68sU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=o2NiXlCwdU4gv6MFWdHENW5pLNJh35tkFSRuUzZrPS1mnmicHzbkYy1jHQ3HnsH0Z
+	 JYoUq4rMncg6icJmodIpK8LYzwRHkye7PNbrfgA76xdNJIGVZf7NNcsA19zYI666Gv
+	 T0wdGfCCXkYKiFtY5WYKDP9IW4ceaYe1pOJ4p3rK8mNsZsGR7qHZ72TsbLDoNLPx/M
+	 auVqwzQv5K9OKt+QeLk0VPirxFXb17AiNyvByWDqzrsl9kRM0UxYF5XIDkRMcuCUca
+	 LaHUNUfdbGYOwplUUK/D4o1/BSJcNhJ28FAF3K05jyBsyLqbOwntvmojBTARSaapCK
+	 kvMr+wnqeOsKQ==
+Date: Wed, 7 Oct 2026 11:36:41 +0200
+From: Nathan Chancellor <nathan@kernel.org>
+To: Bill Wendling <morbo@google.com>
+Cc: Kees Cook <kees@kernel.org>, ardb@kernel.org, gustavoars@kernel.org,
+	ndesaulniers@google.com, justinstitt@google.com, broonie@kernel.org,
+	elver@google.com, alan.maguire@oracle.com,
+	namjain@linux.microsoft.com, peterz@infradead.org,
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
+	llvm@lists.linux.dev
+Subject: Re: [PATCH v4] compiler_types: Allow opting out of __counted_by and
+ __counted_by_ptr
+Message-ID: <20261007093641.GA1527653@ax162>
+References: <20261005102518.2400984-1-morbo@google.com>
+ <20261006094358.2948476-1-morbo@google.com>
+ <202610060642.7C4125F@keescook>
+ <20261007090915.GA1504630@ax162>
+ <CAGG=3QXPAa-i4r3Vv6-q25A6EvsxGb5RDLn02z1=a5zo7W-7Vw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 4/7] net: stmmac: dwmac-meson8b: add support for
- the Amlogic T7
-To: Lucas Tanure <tanure@linux.com>, xianwei.zhao@amlogic.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261007082627.63807-1-tanure@linux.com>
- <20261007082627.63807-5-tanure@linux.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20261007082627.63807-5-tanure@linux.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAGG=3QXPAa-i4r3Vv6-q25A6EvsxGb5RDLn02z1=a5zo7W-7Vw@mail.gmail.com>
 
-Hi,
-
-On 10/7/26 10:26, Lucas Tanure wrote:
-> The glue registers on the T7 are laid out exactly as the G12A ones, RX
-> delay field included, so the T7 can reuse the G12A settings.
+On Wed, Oct 07, 2026 at 02:32:45AM -0700, Bill Wendling wrote:
+> Ard,
 > 
-> What it does not share is how the controller reaches memory. That path
-> runs through a pipeline stage with a gate of its own, and no other
-> device has any use for that gate. Nothing claims it, so it is switched
-> off as unused and a transfer that has started can never finish.
-> 
-> Without that gate the controller cannot do DMA at all, so it is
-> required rather than optional: a clear probe failure beats an
-> undiagnosable hang later.
-> 
-> Assisted-by: LLM
-> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-> Signed-off-by: Lucas Tanure <tanure@linux.com>
+> What's the reason why x86 doesn't need the KBUILD_CFLAGS flags? Is
+> there something that breaks things?
 
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+I think it is mostly historical. See Kees's series to address it:
 
-Maxime
+  https://lore.kernel.org/20261006204210.i.137-kees@kernel.org/
 
-> ---
->  .../ethernet/stmicro/stmmac/dwmac-meson8b.c   | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
-> index d73dfd0ac167..dd10d719ab84 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
-> @@ -81,6 +81,7 @@ struct meson8b_dwmac;
->  struct meson8b_dwmac_data {
->  	int (*set_phy_mode)(struct meson8b_dwmac *dwmac);
->  	bool has_prg_eth1_rgmii_rx_delay;
-> +	bool has_pipeline_clk;
->  };
->  
->  struct meson8b_dwmac {
-> @@ -402,6 +403,7 @@ static int meson8b_dwmac_probe(struct platform_device *pdev)
->  	struct plat_stmmacenet_data *plat_dat;
->  	struct stmmac_resources stmmac_res;
->  	struct meson8b_dwmac *dwmac;
-> +	struct clk *pipeline_clk;
->  	u32 tx_delay_ps;
->  	int ret;
->  
-> @@ -485,6 +487,13 @@ static int meson8b_dwmac_probe(struct platform_device *pdev)
->  	if (IS_ERR(dwmac->timing_adj_clk))
->  		return PTR_ERR(dwmac->timing_adj_clk);
->  
-> +	if (dwmac->data->has_pipeline_clk) {
-> +		pipeline_clk = devm_clk_get_enabled(dwmac->dev, "pipeline");
-> +		if (IS_ERR(pipeline_clk))
-> +			return dev_err_probe(dwmac->dev, PTR_ERR(pipeline_clk),
-> +					     "missing pipeline clock\n");
-> +	}
-> +
->  	ret = meson8b_init_rgmii_delays(dwmac);
->  	if (ret)
->  		return ret;
-> @@ -521,6 +530,12 @@ static const struct meson8b_dwmac_data meson_g12a_dwmac_data = {
->  	.has_prg_eth1_rgmii_rx_delay = true,
->  };
->  
-> +static const struct meson8b_dwmac_data meson_t7_dwmac_data = {
-> +	.set_phy_mode = meson_axg_set_phy_mode,
-> +	.has_prg_eth1_rgmii_rx_delay = true,
-> +	.has_pipeline_clk = true,
-> +};
-> +
->  static const struct of_device_id meson8b_dwmac_match[] = {
->  	{
->  		.compatible = "amlogic,meson8b-dwmac",
-> @@ -542,6 +557,10 @@ static const struct of_device_id meson8b_dwmac_match[] = {
->  		.compatible = "amlogic,meson-g12a-dwmac",
->  		.data = &meson_g12a_dwmac_data,
->  	},
-> +	{
-> +		.compatible = "amlogic,t7-dwmac",
-> +		.data = &meson_t7_dwmac_data,
-> +	},
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(of, meson8b_dwmac_match);
-
+-- 
+Cheers,
+Nathan
