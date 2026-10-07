@@ -1,115 +1,84 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DACA53C1D5B
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 05:19:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F95A3CFF5C;
+	Wed,  7 Oct 2026 05:20:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791350375; cv=none; b=ZDqdgFcvklesqOOL3swXzozHpsF1apAjZypTxBKk7ms21v0CsrT+kjPBCJHa4wvS5mwmM+fPG++BAdQs13fdjUaBcNHSO3DN5bnzDGflLVx5LNvJ8UAASq+rw/S9mTVzm2ZwRE5mJTgAANMvTi+klWwg/pRwPMrHaAfH9ugwIVU=
+	t=1791350404; cv=none; b=WPG9b4pr9bXkEKAxRVhhd4iP9FK1ZCp3aPEQKNoI+bOSOuzUOIZR2ELwstP+6MCqDs+8MrdNcptvUbMBegK5477sLfvQRXPP2xSHOhwYTCn7PXAhgeX87w8ghhXiLm1qf97EA9NwMAsMOC5z3YGYFgF9mwVBzQn/+pPPpqSWezg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791350375; c=relaxed/simple;
-	bh=pEBGEIuvQXUOhw2qs60K5A3Yyo97btH1M39qmx8g1LA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=VFcNV37JT+XiyDY4CsBa+sT9thjprO1zOxTazYt+4VUVKmZLG+74aHVYY9kuECgvUFSalB9vl4/qZKaqD7q3+P6AJEUGlezTTuQz1lxzaSQEUyKtT2/uDITXldEEZgmhE9fChHEE93jf7aqFX6zlv0sfdmEfbAA4jGdgMp7zsJY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aRNjMJrt; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791350404; c=relaxed/simple;
+	bh=2VhwS7uw2Z++4Dsbz0kj4i+d3dB/KB/XjgKBqichXKw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=gU55++25sqXxKFjV5Y8W2vRoymhzoLO73fd9yiBUz7C/wW9/G4qKqJsErJ0JKya405+Uis8imIO4sAcS3JPw5yMT2vdpBbbLsGBfVKw3qou3dkkRbfWiClYcs750uvV0499UfSvdMhBjakwy6Hbo+c9By/XOHJNMfeCoiB/mVT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=aLy2UZT6; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aRNjMJrt"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a0e1b0681bso9711205e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 22:19:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791350372; x=1791955172; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pEBGEIuvQXUOhw2qs60K5A3Yyo97btH1M39qmx8g1LA=;
-        b=aRNjMJrtflxUUYupJVRTJfoEKEf3YdHH+eiALtZwWZ/Hb/vEICmBhBs08MFbRwJ2V8
-         /dE0l5gaJYY8tveSU8KDvECtl7cKjLxF26xz5xw4TACWJAmQ7LbAD4DUlrZEixPn/j1s
-         tDNekUogp9ezbD/n+a97/TsNyYOGOaY/5DsL1/TO5u3/aK3Aoys6ergP6rI/cVK+MCPM
-         ak6pf+bAsiWXIDzRtVwu4MN9gfleq/Y4M96wWOZvpXy1K/kK0f2oWWut+/1PdVD07F1F
-         OeutOZcOH1ZteY6SOruuyupto42Jk3/u6GpLZ02zcFZzs31m64XvVA+wrmnO4TZf/1eg
-         MXQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791350372; x=1791955172;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pEBGEIuvQXUOhw2qs60K5A3Yyo97btH1M39qmx8g1LA=;
-        b=gLnSD1xZRRXEupSZQyze4icHUBHIXuYHcBZUzklJZ6Rpj6pRS7WtSJ+cOwovaVF5pL
-         WnLs+6wyrPoR+il86Sm9cGuZe6GrtneNjOv9fr5run5QiUJlIqIZVVGHNJi/xfuTm8BV
-         D2LUURBIwfgeQIA2Gq0B6f8vucpBzNSMCl1G0HhBHJJbcPYqrJuwz+jX2HbhpMTq98Eh
-         0TKbQN5NFDKmmkfuWOGckmzKaWkU+6sGc0o2XDdqXob3XVmNEIMk8mxDDnyDpJoVy7Fh
-         nnTODohLF4e0dPQTRNAgF6Guxo/DDul8ZFHHivokHLETNvElF8pa7b+zYpnhGMgbWql9
-         v++g==
-X-Forwarded-Encrypted: i=1; AKwUvBwkFsV3VIw8ctQXZub90QczkNAGBcM2L9KaGqojPW72P9oawLVlGS422fwOL0t6orXnInHAL5yjc938IKs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nnzjsmMA4ru0erC7JpsgKKSzjiz+o54cBqNEvp1To4CGuO0WOD
-	s4VgRfahiV8sJyvjic0mNRm5BzuVs/eEOG8eI2TKyvXQeH/zSwCbWKm0
-X-Gm-Gg: AYBFou1ggZZqwcYLb8JzcGclejPc8ggUiLLvjKY01q7NblSkPKL6UgkeX7xcQm6ubBk
-	/vQYSLq4O4IrMHPfGlCJYXRi2IraBEcTVEcBaYA0zIW3xDyeb9RuFRy1CX2wKj24WtC5z5/OElJ
-	+fGqFGEOeai/dgeBioW9RuO8Rmq94JVAjLiTffjBNpkqJ+yz0sFg/CnoYMMdmnvYDYxIULJoifz
-	53Mm+9LWjZjQEJ5WpFxKiM39LZCmeC04GEda4hZeck/hBd1OW7Dn/8D8Inz5JxhSNvRsLEJhsVY
-	DXUlRGlhg3qdcmOgDzE+2dZMorV4phZGtIKRxpFvafNs2DsMIb58s7rGnbUeOyypTsnd84Do6RW
-	rTPJ/DYvM6ATOHUz7VzsxXdQm3sKYyr57S/6pL5kO5ffdlJ+3TZeR5OB7RFUMOWI3CLEfu8ysz8
-	VbmjqlR0smFRkTinfU74LAn/Nyg1DDpPm6ok5Ez/X0zr42amktPTUTT8TOq2AnvRsZKXGqrhazJ
-	m7JDBSa/DHDhqF6d/fMUzP3jhgR+CXtGpeXTUFGrmNbxmTrNpYkgVDbedqXxFScNQRJyn3UEtqX
-	p3ZukHa6D/yT9UpNJuKtONb/gw74fsCT82C4swxuU5bs/1xWEt3ws0VgdYXYn1oaGdt1th4nhDp
-	zYuJaZ7c=
-X-Received: by 2002:a05:600c:8105:b0:4a0:20c7:6d4c with SMTP id 5b1f17b1804b1-4a180085f90mr13193475e9.0.1791350371849;
-        Tue, 06 Oct 2026 22:19:31 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a1e1-2201-60f4-32e0-4d59-5772.310.pool.telefonica.de. [2a02:3100:a1e1:2201:60f4:32e0:4d59:5772])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178a175aesm156822265e9.2.2026.10.06.22.19.30
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 06 Oct 2026 22:19:31 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Rob Clark <robin.clark@oss.qualcomm.com>,
-	sashiko-bot@kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-arm-msm@vger.kernel.org,
-	freedreno@lists.freedesktop.org,
-	Jianfeng Liu <liujianfeng1994@gmail.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFT 3/5] drm/msm: Extract out map/unmap helpers
-Date: Wed,  7 Oct 2026 07:19:24 +0200
-Message-Id: <20261007051924.39963-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20261006131920.6870D1F000FF@smtp.kernel.org>
-References: <20261006131000.81501-1-robin.clark@oss.qualcomm.com> <20261006131000.81501-4-robin.clark@oss.qualcomm.com> <20261006131920.6870D1F000FF@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="aLy2UZT6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:Date:Subject:MIME-Version:Content-Type:
+	Message-Id:To; bh=UTt+5FuHrUx1tCjYQAe2xq5MHeqwbx0v5ma8SnHJEo4=;
+	b=aLy2UZT6jvWoQi9OFVfuSokUwvYPHOOO1rshVWLTjgigNrXthCcegFSiUCmW23
+	h2CmblDihQCHqi5LoJf8M/0Cn8x2ScXt0WiF55iM3OSlAfectOx3e37z4QoDTMCo
+	eyVEBpYHFuA73e8L+yTAoG40lsWdwKE9rUbhSa+hhRW6k=
+Received: from 4F-GAME.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD332Ba1sVq7JaEDA--.27297S3;
+	Wed, 07 Oct 2026 13:19:26 +0800 (CST)
+From: Bob Hui <bg9oxa@163.com>
+Date: Wed, 07 Oct 2026 13:18:14 +0800
+Subject: [PATCH v8 1/2] dt-bindings: arm: rockchip: Add ALIENTEK
+ QuarkPi-CA2
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261007-quarkpi-ca2-v8-1-b83192bed07b@163.com>
+References: <20261007-quarkpi-ca2-v8-0-b83192bed07b@163.com>
+In-Reply-To: <20261007-quarkpi-ca2-v8-0-b83192bed07b@163.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: Andrew Lunn <andrew@lunn.ch>, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Bob Hui <bg9oxa@163.com>
+X-Mailer: b4 0.15.2
+X-CM-TRANSID:_____wD332Ba1sVq7JaEDA--.27297S3
+X-Coremail-Antispam: 1Uf129KBjvdXoWrKrW7Wr18Ar17Jw13WFy3urg_yoWDGrgEka
+	4xZF15WFyrJFyFgws8Aa1xGFyjqw47Krs7AF1UAF1UA34qyrs3KFZ5t343Aa4xCr43urn3
+	CFn5JryxXFnxGjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sR_pVbDUUUUU==
+X-CM-SenderInfo: lejz05rd6rljoofrz/xtbC+R7YRmrF1l4+VAAA30
 
-> Does this error path miss an IOTLB flush?
+Document the ALIENTEK QuarkPi-CA2, an RK3588S based single board
+computer.
 
-Yes. msm_iommu_pagetable_unmap() called iommu_flush_iotlb_all() after
-rollback. __do_map() now calls __do_unmap() directly and loses that
-flush.
+Assisted-by: Hermes:deepseek-v4-flash
+Signed-off-by: Bob Hui <bg9oxa@163.com>
+---
+ Documentation/devicetree/bindings/arm/rockchip.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-An arm64 QEMU/SMMUv3 test:
+diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Documentation/devicetree/bindings/arm/rockchip.yaml
+index a799bb843f74..a3191bb909b2 100644
+--- a/Documentation/devicetree/bindings/arm/rockchip.yaml
++++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
+@@ -182,6 +182,11 @@ properties:
+           - const: alientek,clrv1126f
+           - const: rockchip,rv1126
+ 
++      - description: Alientek QuarkPi-CA2 board
++        items:
++          - const: alientek,quarkpi-ca2
++          - const: rockchip,rk3588s
++
+       - description: Edgeble Neural Compute Module 2(Neu2) SoM based boards
+         items:
+           - const: edgeble,neural-compute-module-2-io   # Edgeble Neural Compute Module 2 IO Board
 
-- mapped one 4 KiB page,
-- hit -EEXIST on the second page, and
-- verified that rollback removed the first PTE.
+-- 
+2.34.1
 
-No stale translation was observed because the device had not accessed
-the mapping. This tested the low-level IOMMU sequence, not the MSM driver
-or Qualcomm hardware.
-
-Restoring iommu_flush_iotlb_all() on this error path preserves the old
-behavior.
-
-Karl
