@@ -1,81 +1,118 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAD2147D454;
-	Wed,  7 Oct 2026 13:01:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7A2849480A
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 13:02:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791378113; cv=none; b=HXf1E0gVuuxlunL7V6B9OYmmkq+378loZSPRvdLmQ0I7ekblnb37hJNqVISYQjuGbqGrT1ecC4PjafTjIIFPtYnom98GEg1RfvIqspVI2GrskdQY4aodgsmp+y7PfMuFOgF0Gf4COJgzjfLjQ95g48KcPnnU+NNYHcsPpCWSBGQ=
+	t=1791378138; cv=none; b=ZLP0x4ewWLK2DXfZE5g6QJcTfd/S8wKcxeEil7Wp5wKVTMYU64RYZGkoU9V9Px+Gr3szUPAM5r35jtxkVCq7LznChZPsdd5vEjTalv71PPWL1wObbZG+sSTrB+Vz2tlBpzZ9gHU4fOG0/j7dqY353tYRaEqkkRcGbzAH6A3TrCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791378113; c=relaxed/simple;
-	bh=O0EtaeY/6At1FiwpxnWcfkDfEcMW6xZEaO6fINS23AM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mNKriBR9dcM99b2DltaEO+0I+ayJQslSNCjAQRlOv/XXQWuFAfY4Sn2wlbRiyTdFLpI81YZfS4MOmFlrzFYytma0A0yncKDPJuWX2BoQH6lB74H0ly1YSbaWtNBmtBivECTeiqvnUvtq5u5HD/lPoytgUwNDbTDgGnqHamG7/Zg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=zU5ZvP25; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1791378138; c=relaxed/simple;
+	bh=EZ5/gT5NS263n6bnTPCUCWnWlWwXUq5llfncXBHtHvs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=j3HbYayiVE2PupSfc8rCAdzyAEmQI1Q/5wXhR6GFU/rPsKznG1KOXDMX16fty9CEv3aAjPgzCZSTOTpTq6DFjN1Lb471/shQcb23UyIsCtIP2m7ovDTl9id/6LZXgSKjgt7cbB4zN9gIF+KR7cJ/esvcSP+OoG/Y4EhyEogEmHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=MeK0V2ex; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="zU5ZvP25"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=6YP3nrzHNBPV4laVHmTWlcL0xqJ7r23M87T5OozmfTM=; b=zU5ZvP25ND/Pnn0/1VuaJCdY08
-	UffRk45r/0Ba3w0c/7bsl2unFhNjUeFg2U6bjfHSZQJ2YWsy5NRyJ0lHPQf/MGkB1x1tfw2JhHfqv
-	A6/GJqeHG0rX5ehWSZOIH50Z9Nqq1h5uwQKXKf/XKsPTMyi4U8RPjpSiNQSlK+gCOSjw=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xERGy-009SZ2-8w; Wed, 07 Oct 2026 15:01:28 +0200
-Date: Wed, 7 Oct 2026 15:01:28 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Lucas Tanure <tanure@linux.com>
-Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v2 0/7] Add ethernet support for the Amlogic T7
-Message-ID: <d23dfdf3-5837-459f-afd6-6c198a05c13c@lunn.ch>
-References: <20261007082627.63807-1-tanure@linux.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="MeK0V2ex"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a1698ea378so15313145e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 06:02:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791378130; x=1791982930; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oh5rIR08i4TyY7lq8CLJGXNhWlRCuOT//IfseSCZrK0=;
+        b=MeK0V2exHQs24zKBnJMEVqnbguT267QC2RCWXpEGu+6MwnrgFh0Bu6ogUaZF9A7Voo
+         UKLtnW1HWWOCrBuZA3eUUZzTMWd2ZBs6GfIjlzcLg9uPcEheK3VhJzASyCLV8dNc+w2V
+         +hZVhJElE2gfS7TAeYl2/qAPq63cN/w7tF5b+WBMBnRXluPes77Xza5/D1AtkZ+JWVyt
+         Lkp/5PnESLB/R036L8MUFmBu5OD6OL05l2F+c2MI6WWuUbnTJ1gi+9U2XdkUkUNwm4GR
+         Qm4BFKV8D+Z7AIiN9gZPeTtMoNo2/dXjd7vd4R0+Gm6o7W8tUa1qd1tA1MJSpSwvzbBD
+         gxKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791378130; x=1791982930;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oh5rIR08i4TyY7lq8CLJGXNhWlRCuOT//IfseSCZrK0=;
+        b=zerDRap7VCO+wvYZ5a/Auw4E6iXDaiKZgeJCKJGFzpXURZ9imQmX5j/ndohZ2xsPKz
+         C2Yl1ld4m6tfIvSwaBLGnNVXWuj5VAw9D/wUvdK9boGok61Q3nofFn6uRErv6TTGMmSJ
+         GxoD4M3YakvG3RV6WUf1d53Fwst5aCUeLuYdSWkjEKxfTCKCTRfMnk6JNHHkUf3bjvSz
+         O69z6F5Ne0MgDRIyamkwG9QpcO5vwaRAPxXC8zvsS4FjU22vym408AL4UWIm8SQfjUu6
+         icRMM+7Ii7BfzdnDeDIvJORilOmmyIL2IE6oaKzYCQRwWP376vZup2g+ZTltsCpIjGnc
+         tfkg==
+X-Forwarded-Encrypted: i=1; AKwUvBynC8TyVjNlzudxYXyX419WSASTEd4l7z98QZIv3F1kD1/3dBP8dv6Aa207jvszFzGRTB3S4L1r0x1ctWQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nOt3Od3+wZw6Vi9RpaH6grBq8cWm0n/GEeUyo+M/pcfaOst85W
+	lXQjZsiQYmtpc6oINSiji7toGz08ORqLlgkuG2xmS1vge61RXy1gTYwZVHAkLoA/8jc=
+X-Gm-Gg: AYBFou3KK45GGIMxbg8TQuM8w+cnc6Bg1UITXrCzEsuqMEzIPJikRhq2UeWGRrSs4Rs
+	DURG9kpI4yfvTbh1L1nN2uPt9XBJvN0DKR5mjBHvIlBVzEUjNE0Ua5wxu7kITHRmmKkziLeh8HN
+	wc88TvVJAEzddzjbMn7b6ij81EZZoLZPnoAfqTxYox1wt73VaJfW8LDMn7GXiKgcyVdhWRLW8Ya
+	PqBJeXxGl+AIqa0XXYxpSpbibVT7aAxHqixjRFumJxip5gI2eh7vtcVi2cK0CCoullXsoi/RkBV
+	UZUNqdxp4Gcmyb2+fbLD1YkFaj5mbZKwA5DJ3nyn2iiZCUZTGGtG9BxLNHwG4B3kDTHYIfqDMdu
+	zIzBzYkUTigh6y6Fu1ZbEpxYg23F6f1/nErIsXO/HRblphw4bjmKgEJtQFPcnGaBdAEhOCuupTr
+	4l3jl3rrbBlndpXl6t29otvRbp2CBWR6Bbee5SMAZrYB8TGVu1jIKRaaDZKI0AF4hlorTwLR/Pr
+	zfMd6kN
+X-Received: by 2002:a05:600c:3b0a:b0:4a0:276e:9efb with SMTP id 5b1f17b1804b1-4a1800ca1dcmr33410955e9.4.1791378129799;
+        Wed, 07 Oct 2026 06:02:09 -0700 (PDT)
+Received: from [10.11.12.111] ([79.115.63.240])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178c53299sm248055555e9.11.2026.10.07.06.02.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 07 Oct 2026 06:02:07 -0700 (PDT)
+Message-ID: <867bf9d7-f69d-4538-8de7-3a772015b486@linaro.org>
+Date: Wed, 7 Oct 2026 16:02:02 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261007082627.63807-1-tanure@linux.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mtd: spi-nor: reduce stack usage in spi_nor_parse_sfdp()
+To: Michael Walle <mwalle@kernel.org>,
+ David Laight <david.laight.linux@gmail.com>
+Cc: Arnd Bergmann <arnd@kernel.org>, Pratyush Yadav <pratyush@kernel.org>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Arnd Bergmann <arnd@arndb.de>, Takahiro Kuwano
+ <takahiro.kuwano@infineon.com>, HyeongJun An <sammiee5311@gmail.com>,
+ linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260915194203.3511147-1-arnd@kernel.org>
+ <DLKU0CTP0OES.30VZXJXDXRLNW@kernel.org> <20260921095924.2f845215@pumpkin>
+ <20260921114111.525a2257@pumpkin> <DLYMG0XY8T4Q.2B4KXOQ9QRM2F@kernel.org>
+Content-Language: en-US
+From: Tudor Ambarus <tudor.ambarus@linaro.org>
+In-Reply-To: <DLYMG0XY8T4Q.2B4KXOQ9QRM2F@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 07, 2026 at 09:26:20AM +0100, Lucas Tanure wrote:
-> The T7 pairs a Synopsys gigabit MAC with the same glue registers the
-> G12A has, but nothing described it. This adds the binding, the driver
-> support and the device tree nodes, and enables the port on the Khadas
-> VIM4.
+
+
+On 10/7/26 3:57 PM, Michael Walle wrote:
+> Hi Arnd,
 > 
-> Unlike the G12A, the controller reaches DRAM through a pipeline stage
-> with a gate of its own, sys_ampipe_eth. Nothing else claims it, so
-> clk_disable_unused switches it off and transfers stop.
+>>>> On Tue Sep 15, 2026 at 9:40 PM CEST, Arnd Bergmann wrote:  
+>>>>> From: Arnd Bergmann <arnd@arndb.de>
+>>>>>
+>>>>> Two large spi_nor_flash_parameter structures on a function stack
+>>>>> is really too much, and this can exceed an otherwise reasonable
+>>>>> frame limit:
+>>>>>
+>>>>> drivers/mtd/spi-nor/sfdp.c: In function 'spi_nor_parse_sfdp':
+>>>>> drivers/mtd/spi-nor/sfdp.c:1717:1: error: the frame size of 1600 bytes is larger than 1536 bytes [-Werror=frame-larger-than=]
 > 
-> v2 changes the RGMII delays, after review. phy-mode describes the
-> board, not which chip adds the delay, so this board is rgmii-id.
-> dwmac-meson8b did the opposite, and ignored the *-internal-delay-ps
-> properties. Patch 1 fixes that. The VIM4 needs it because the RTL8211F
-> transmit delay does not work here.
+> Will you resend a v2 with Davids proposal? I'd like to get this
+> fixed in this cycle. I could also take your patch and add Davids
+> proposal on top.
+> 
 
-What is special about the RTL8211F?
+Hi, Michael,
 
-     Andrew
+Arnd is probably busy at lpc. If no answer from him you can always take
+his patch, do the necessary amends and describe them in a [mw: blablah]
+section above your S-o-b line.
+
+Cheers,
+ta
