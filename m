@@ -1,64 +1,65 @@
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D5BC4AF175
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 13:47:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFFB44B489A
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 13:48:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791380889; cv=none; b=sIwXLFynSDbiD6xI44L1s9pMnD3WcJrKL/lWD+ncRSzNKt4o5KZ2fSrHlmsXTpHapkscxGQOYrYnzipDZZlrUw5mvBpvLIfjgNqCyRRKTlB+uyRjpQq5pqD0wOhVYEEG+qEp9NyJoBKI2MA86Z2ShQ7rivgaq45Rqfq6TDOWL5o=
+	t=1791380893; cv=none; b=Nl/355o7B+bQgsn/bs6B3cKAK88p0h70z/Pf8ea2mJ2lZ9Np+xnY1+LcL61ZKqK1RCKqhdYys90o28KRfdQPAd5xnchlJ8eJ6wE1gEHkUYHw5WS79eG1WPnVHf0Ohhjg3n0yVRfRhtZ2hhGxXxrpLwsRlFCD7RvTqisijqCoLzs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791380889; c=relaxed/simple;
-	bh=/HD88MhnKFAMDzoq9RntCSwhmhVSuHWz7WXu39Hvt54=;
+	s=arc-20240116; t=1791380893; c=relaxed/simple;
+	bh=I4PeQi4SmvyrZYhDDUSHgIx+IfnvBhcHBkpar0jUK/U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K+jmpiRwGm4cFWBjZhgrxYYwjPYSf+XT9Rj+ffrd+jP4f6vz55gOrP/CEh0sVvpNSTByEeX+Valwv2UsFCow5KXeoc+2djfmuxvMChJOCGGLoSsLud16ZNssZlNdbKnt4hJjl1UjEZ5m4/tPMVqwVxI2fBjZ29ECIRmEijjnWrY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IuAZYJUa; arc=none smtp.client-ip=74.125.82.182
+	 MIME-Version:Content-Type; b=Z+JCkrQBcUAS1/CEGehTO201uKGEn0M51EMhjLH28+yLqJlnYrp2DTNqA6v1Zdyfi72HK4zXr6mOvGjqavNm3yb8x3WTYZaKRu8tm8V9stC1XXAqu/l1wdAfcz5WNplANpQv+7DBcBJKcB6OAtFUQSeeclXMQ/sjdlcY2NsddFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KY8YODyU; arc=none smtp.client-ip=74.125.82.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IuAZYJUa"
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-35120d43ecaso6046853eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 06:47:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KY8YODyU"
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-34c4a0868b6so3640564eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 06:48:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791380877; x=1791985677; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sAKtW8GEm7vf+UvpgbiBVs6c9YCpJRP/yFtIzclq04Y=;
-        b=IuAZYJUarA50eAcBi2+IAYJfNyZqeCZJK5bDNoc8exp+DHWdBAtyvlnzGI9qpuOSnf
-         HTFmzjdDwxcnlNwwCkJWlAURbYaXuSMHQlFFJlkhbhyjxfCoblcCCGKJlBQ7ynqXU/ak
-         ps3UUJkrvHG/5b07YEPmu6qIsywiB/5BuO2pdJYn8LNAvRFDJsgKPsRT0ETQmxuOGwlo
-         ok3pFZDBjSQjCNdf3oRwI+RPy8J0zcxjAzoee6c5D85Ec38ycfJXTBlqS+q0nT4tolD8
-         5edlxvuEJxHCrHRey48z4DK8mjc8JXc03n+blhcyK8AHRIBgPuSMFyDpJb7qodNrx88d
-         fBtQ==
+        d=gmail.com; s=20251104; t=1791380882; x=1791985682; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TOZ68Zqd5ykdIjDqMFf3hngPNxsHC1naKT//wwj0pqw=;
+        b=KY8YODyUqIOH6CB81p5ahuVTAWYy7ma6MLfPnyTHm/wykJ8UtkyBD4vXkRgwpe1VHK
+         ckVnWcY+6pK8LJKxWW5HUcbYe42KZdTs4XE0MeEbmIMmCBnsy1e1YAecrgLiapmz7UAi
+         cDer4XRGS7bUjsRfpMEe9YiENbK3jG3aFp+p81pqH7hhVLqlVpLXRlwKoaSjRqBhUfay
+         6L6HjOaGSxvhd6Ds/10GkWquQAs5uBeYGhc//Lezng7/kJGAB4NNRZXkWxXoUNYyHg+U
+         ZZKblWCDpokzfaqU+7iVgjJepFEWCLXmFFhhVNWx8hIUa2C1yUeDr0k/V8OIj/a1SEii
+         3S5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791380877; x=1791985677;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sAKtW8GEm7vf+UvpgbiBVs6c9YCpJRP/yFtIzclq04Y=;
-        b=CLExqu0VI48qWywWXrcfGE7aPTBrtIQZQxq+PVWm7zTH6eXk63DF52GN/Oy/ojzVZx
-         b3ktTv+W5MKx+rEcOle4KE4XJdkPqTf8zef2t6FMndJ6r9U5valh4BFpGQsW3PG6b2A7
-         0SA1RCWu5rY2Jjt/9ka4BvRYWHuSjBN5X+FoM9FHPjB1H4W3OauCdSqi2F8HiqcGrv/u
-         eb597pV+sUBMuAC54Te+iibJ478m+yK+P/IUD7bY7aWFcesij3XjZHmOB6tfFpY/HvW3
-         Wat8pV/IMycvxdmb/DIURTfE+wDMWMORJRo5BDMKFFyFrV7HC47jXsIRlILkYloL+ln/
-         AFtw==
-X-Forwarded-Encrypted: i=1; AKwUvBxw4rD2QanRraB3DaBr6mHpSy72xBkIl+3qiloksE0InnjvNU/ijLluoIFLAEA8IJoOR2ZMa9ILFOK2k24=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLmqO0uZziexr8mkAvNKM348poIRfubdIuATiAmR1gahf250mLH
-	gX1lGA65OQfwSp8vSom79OHaXAqxFCRwM8q4aTkF5e9gEVsi+8Ap3lRC
-X-Gm-Gg: AYBFou1Z6ShBWMUVp4NU3SGGXwy/l7A9eRT3FqTarOKV8LM6HVg0aVOz223VttrOqrJ
-	IfJHqyCC0kkV40CxrmzpSZi9vvR6h4j6DdATq35m+ofpnAUh10OfmyK6GYZ58D6KFdkQEpizaN6
-	C2a/NCqeVeoUFZ3fzRfe1BymK3AV8O+vTCSO8xmEP1cHtJI2Gw7jy5OU24RAfuoGX9jhQ1ltQbv
-	zmf6Ptv8bfResZqd167gP3t4LivOybwrC9c4MMczGVY35zI0/UXzo0cb65nxl1VfU1yvIQuuyVN
-	3V2lCUPLYY/fAED9EQPi84qcMSSxlHzs7Itl70/5vtl22RmXMx4v0rVlKoouLgtqkp5LLOZDS7Q
-	N+sfmuJhZB5kTHotSsBXyQpGIh/gHEpu+KZ8Tu4jZsZgumUwnKPe8BuRdzp0EKKusGh1k8lhyBt
-	rrw/zzhTyr1fZJ9nSDW3e13FvK5epef3yL2gi3vvdyQoj9bc8qf1PhD+Fq/Xfgs+51yNJCvJQ2j
-	ncRNJZtc5YyMB0YbkAQcD76ikDwwWJ31vINhF97aeL9xR8=
-X-Received: by 2002:a05:7300:2728:b0:351:1222:7189 with SMTP id 5a478bee46e88-3515deffe63mr2519697eec.25.1791380876688;
-        Wed, 07 Oct 2026 06:47:56 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791380882; x=1791985682;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TOZ68Zqd5ykdIjDqMFf3hngPNxsHC1naKT//wwj0pqw=;
+        b=fGKkeBEOW7VQVETfkKiZfk3rGcl2/cm66hbmHysM6xVE3e1sbOYuWSQJfe5AjgAvO2
+         7FYjypcBbQbbWgqLImSQBhBYR9572aklnt5QgywDa9OawqG2CgJkcTCqIVxyTvIoqHOs
+         rNDFptFJMTUmBciwRkSVGJyRiULrh9hfs6tpCdhrErsEduTQz4mcOuCXeLDx7adnsojm
+         O2jB6vb126cdAmJ2lmH2+i/TzT61EtuVESU3IzKp129tVH6x/aOA3QfLM2R7mM+hZh2B
+         d3aRaKnZPoeI6L77xAPlNhORXnmIH5fA6/j8l/MO5o7jIDAwHvZIlm1DGgCsMbcE0XgO
+         O8Ww==
+X-Forwarded-Encrypted: i=1; AKwUvBz6uwBWvpqzCAc5JXFIG8Ew+VFgI5vR8wsFxn2vFGFHB4PHFsxKkoTG6Bt1xO47D7m0P+EKCOj9HVTezww=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLIaFfqVmowXsLDBroDb3HyuVbkmZTDIa6CO9pRqNxb0i/+j5WJ
+	+V4oGeRd8qlDytr37z4ekxE1mgaNOl/Akruzf22JUAbFUfHO6MarAiFJ
+X-Gm-Gg: AYBFou0lf4xS8bSrKfV/xXqHhL9Fy72F1wooKzc05BT+77/HHizuZ5kLlRxi/HpdxFh
+	oSFso1z+D+QsT95TioHOHK6YMwaJv2i55v6+IoK+H1VET+qZp+5Oaq0701UsLBHvbaRejTXYfOi
+	81EtBfP72TsUHQ1QSFiiQ4cfrRHCh97Yq/aH6J6gpW966aQPZdNIcvt9OLcLtPoT1NKuvRWHjzY
+	WbxMpox9dtxYn16eYIjyUpAGQZm0cyfnDqBoyubZNf2UyxyLAprwvHjBOMVCZuubjrTIKBz9z8T
+	hhQQLn1wM90LXvjnpeY+fEvSmT2bARdKmhsJFRX4g4wjelAW5tzHTDb+JvgZdDjxXiw2RjmbK+U
+	DnzaY0F+k2gM9LEqTbNgvtY/Zs1sobblpmK4HyAVw6hDYx+Yugd+gUeESf2K0PZAZr6R5FSNDDz
+	0/XfwXCFaduXfnXvtcWrV+BAGyZ+IAmCCCM3SopkywHYT6XLEZxcA29brnOywk3jOUTHmdvuIXO
+	4CCNKDpRH2+ir34IGhGuovcnSBaluTsXG1pUQ==
+X-Received: by 2002:a05:7300:de47:b0:350:c7e7:57a0 with SMTP id 5a478bee46e88-3514530ab4cmr5957045eec.24.1791380881436;
+        Wed, 07 Oct 2026 06:48:01 -0700 (PDT)
 Received: from fedora ([2a02:6ea0:c803:3091::12])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515aeb5c2esm7304472eec.10.2026.10.07.06.47.52
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515aeb5c2esm7304472eec.10.2026.10.07.06.47.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 06:47:56 -0700 (PDT)
+        Wed, 07 Oct 2026 06:48:00 -0700 (PDT)
 From: Muhammad Bilal <meatuni001@gmail.com>
 To: Jorge Lopez <jorge.lopez2@hp.com>,
 	Hans de Goede <hansg@kernel.org>,
@@ -67,10 +68,11 @@ Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
 	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
 	platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Muhammad Bilal <meatuni001@gmail.com>
-Subject: [PATCH v5 5/9] platform/x86: hp-bioscfg: fix off-by-one in password length check
-Date: Wed,  7 Oct 2026 18:47:07 +0500
-Message-ID: <20261007134711.473857-6-meatuni001@gmail.com>
+	Muhammad Bilal <meatuni001@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v5 6/9] platform/x86: hp-bioscfg: fix heap OOB in hp_enforce_single_line_input()
+Date: Wed,  7 Oct 2026 18:47:08 +0500
+Message-ID: <20261007134711.473857-7-meatuni001@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261007134711.473857-1-meatuni001@gmail.com>
 References: <20261007134711.473857-1-meatuni001@gmail.com>
@@ -80,42 +82,46 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-current_password and new_password hold MAX_PASSWD_SIZE bytes including
-the NUL, but validate_password_input() accepts a password of exactly
-MAX_PASSWD_SIZE characters when the firmware limits allow it.
-strscpy() then truncates it and fails with -E2BIG, which
-store_password_instance() ignores, so the write reports success with a
-truncated password stored.
+The store handlers copy the input with kstrdup(), which stops at the
+first NUL, but pass the full write size to
+hp_enforce_single_line_input(). With an embedded NUL the copy is
+shorter than count, so the helper reads, and can write one byte, past
+the allocation.
 
-For example, with a max_password_length of 64 or more, writing 64
-characters succeeds but only 63 are stored.
+Writing "A\0" followed by 4093 bytes of "B" to current_password makes
+memchr() scan 4093 bytes past a 2-byte copy. On an HP EliteBook 840 G2
+running Linux 7.2.7 all 100 such writes fail with -EINVAL although the
+input has no newline, so memchr() matched one in the heap. A userspace
+replica of the helper under ASan reports a 4095 byte read, 0 bytes
+after the 2-byte region, and is clean with this change.
 
-Reject lengths of MAX_PASSWD_SIZE or more.
+The input is a string, so only scan up to its first NUL.
 
-Compile tested only.
-
-Fixes: 8646a3b5ee3a ("platform/x86: hp-bioscfg: passwdobj-attributes")
+Fixes: a34fc329b189 ("platform/x86: hp-bioscfg: bioscfg")
+Cc: stable@vger.kernel.org
+Suggested-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
 ---
-Changes in v4:
- drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes in v5:
+ drivers/platform/x86/hp/hp-bioscfg/bioscfg.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
-index 96172342d4a0..af2635e31c0b 100644
---- a/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
-+++ b/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
-@@ -74,7 +74,7 @@ static int validate_password_input(int instance_id, const char *buf,
- 	if (is_current && !length)
- 		return 0;
+diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+index 754ab03bfd7b..84d75926d768 100644
+--- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
++++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+@@ -166,6 +166,8 @@ int hp_enforce_single_line_input(char *buf, size_t count)
+ {
+ 	char *p;
  
--	if (length > MAX_PASSWD_SIZE)
-+	if (length >= MAX_PASSWD_SIZE)
- 		return -E2BIG;
++	/* buf is a string, ignore anything after its first NUL */
++	count = strnlen(buf, count);
+ 	p = memchr(buf, '\n', count);
  
- 	if (password_data->min_password_length > length ||
+ 	if (p == buf + count - 1)
 -- 
 2.55.0
 
