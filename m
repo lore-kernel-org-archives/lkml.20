@@ -1,114 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0360468C33;
-	Wed,  7 Oct 2026 10:22:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0D363B38A2
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 10:22:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791368556; cv=none; b=nXWwS+U4xEgSRwIZfs2Ay7C1FFu4PIHmGiHwXgbB8Ue713zhB9PYFfbJENHPEPDp161kjDyXCaiRkz022LLyeUVrWeL+Cv4L/ZVvMf2YQ0g1hR1T5SDWYZTwMUKmRUerpmvYuoAXIYZfZFS6IC0o5mUKH7JxrrtlgMLwVhL8Sf4=
+	t=1791368588; cv=none; b=owtcmHBuy0SkOmypX+fcD/YvFayHF8Trp9J+Xuj/8tx8W2xUqTe6Atc10iCrIhxX/+WCYLEKbdkP6AMMc8MGDLBVlcapqNM0LqMkcVE561FY2pUbgfjWzFzU7uyacWEWNZebrGp57WVFrIcNYF4PiGVwfH0tRF2JIbxKxuFR1hs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791368556; c=relaxed/simple;
-	bh=sZcZ2Lkfhju22e9qIS2BXcwU6/Lwoej9bKkDvQzsH3E=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=qX7PZQsxJrEaAa08Mr6Jm3K7PmMxqpeOgaLPcA/qlXWtp0DBEYrexug8f1f8Vc1/VZSemVHwQ0HvABNTE6W0jXcde6Hrf+6bhGhxOprjr7i1qYS+Ay7W3yorx3q61OJFD9CglKnx6dTsojQLOa6Bn6uiXahudQUd9m1jAJzAev0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J1jKUodm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791368588; c=relaxed/simple;
+	bh=F54xiCetdpvrz4vgiBtSpiFLIWtTb1I9iqKAJNfnnFY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=h/FZAG+slr3Qug1gkc/NNxV0qFZ6aO3VBbPo2ZYV+hL0uVW/Mc98j5Mr/zTvI3rq7rmbvcyIJiQBR2nH12JQtdJsGwLUfQFHWLtpMx/rQVT34a/xUGI3if8gu9FWA5ZQfgth85EwPROeRm8DMcliyLqZf4nBelLgm5Ou8RzwOnM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=LLVtSrL4; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J1jKUodm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 222E31F0089C;
-	Wed,  7 Oct 2026 10:22:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791368545;
-	bh=t9z/0Q7Qn9h9T22cZ3CtXSL0njpjeg4aF7aOM1ALsuw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=J1jKUodmBu+VBZwChp40BcpqXOfNmEpR/KWwISyjvKmaAzfZVQurji52/wl+9Hxg1
-	 4xfe2auLS1wtDBS3L51V//dAJCz6Pfrb0Zy7f3/3Szg9Pb/k3pOoeQTYFU+KN+qWKQ
-	 cXdKsZADZ39BnDT7UbNIIAm0TOfzMVN79nJdjrrLZ/a9rNxVNy81eMdTQ/SooSCLRF
-	 S6t4t2zmr3yJPLEnacD4mo0JVMXgl7NNi3cmlWiA46l1VmsP3qfx85tZO+zsPleE/Y
-	 8z4VGlCm5o4t3kS7A5a2c6DZkMu2yGag3RjXrjAF6iExHdvB9JflGpdfamb8KFp+OR
-	 sH+vkXGVTm17Q==
-From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srini@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, 
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- Pratyush Meduri <mpratyus@qti.qualcomm.com>, 
- Mohit Sharma <mohit.sharma@oss.qualcomm.com>
-In-Reply-To: <20260923-vmid-v4-v6-0-3d61a0319b1c@oss.qualcomm.com>
-References: <20260923-vmid-v4-v6-0-3d61a0319b1c@oss.qualcomm.com>
-Subject: Re: [PATCH v6 0/4] ASoC: qcom: enable audio on stage-2 protected
- DSPs (mDSP)
-Message-Id: <179130111502.150114.14627451797945762193.b4-ty@b4>
-Date: Tue, 06 Oct 2026 17:38:35 +0200
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="LLVtSrL4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=1T
+	XlxLl74G0vZJit78lbEwFQKAorFZikf8iecNbpzco=; b=LLVtSrL4koqsyiK/9Z
+	HYfK6bT/ixMJyPRvvsfiL68AZlIcIteQXW/BNi7PwlFR0KyPQLBvI9r0Cf5AToxX
+	KFmVj37acbocRpN4WbfPlf2ppzpb2/RuFQCEPXhMwtT6jDggFJZ1LS5wGrcc7iCa
+	Uu3BuYDWW4nk11cAbxLV2y82k=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wBnjvRlHcZqLFSMCw--.58404S2;
+	Wed, 07 Oct 2026 18:22:29 +0800 (CST)
+From: Feiyu Wang <wangfeiyu_mc_code@163.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Feiyu Wang <wangfeiyu_mc_code@163.com>
+Subject: [PATCH] staging: rtl8723bs: fix logical continuation style
+Date: Wed,  7 Oct 2026 18:22:12 +0800
+Message-ID: <20261007102212.112463-1-wangfeiyu_mc_code@163.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2023; i=broonie@kernel.org;
- h=from:subject:message-id; bh=sZcZ2Lkfhju22e9qIS2BXcwU6/Lwoej9bKkDvQzsH3E=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqxh1YljsUnhntksZopCroHihzWh52QisMbc4vO
- /Lj0Q8bkYqJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCasYdWAAKCRAk1otyXVSH
- 0BZFB/9o7BNq9S5R35+7IRmVUUES380ic3VHMQz3KJ3SN0zvkoxqrSt5uDc44VaqRV2fJdhkr75
- K9EsubtobucKxrJ0CEdJVnc18o7t5YdrXry6J5Ht6+mzdUwPJSKr6uXpeBnNfh45EPYnNzo9Gql
- 13BfJMFG6bgd4MLNBhtQ1sybh/KkfUlBXdQl5F9Aosujozpe1Bh6ILdRTnq2PeqCFulCyeqQ5wV
- Q1RbAAwPPVxeO4HOxEyNCPHe2mcUKrrWCanM7EyKYrs0Z2CPR9bkZu9ZdKKx21i+VMvuHLJ9Kq6
- OVvfOoExjexjEHSn2B8ewaGHVmRBMKiy2FtyR41Cr32GeWCU
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wBnjvRlHcZqLFSMCw--.58404S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxuFy7GF1xXrWDXF1DWr1fXrb_yoW5XF4Upr
+	s5Ca4DKr1qgr13KFs3CF1kAFyfGw4rKryruFyrK3ZI9F92vF45Xrn0gF1avF4qqFyqqwsY
+	yF1kGw15W3W3AwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRlks9UUUUU=
+X-CM-SenderInfo: pzdqww5hl13s5pfbu0lgh6il2tof0z/xtbC7AWs62rGHWU80AAA3W
 
-On Wed, 23 Sep 2026 22:03:37 +0530, Ajay Kumar Nandam wrote:
-> ASoC: qcom: enable audio on stage-2 protected DSPs (mDSP)
-> 
-> On platforms such as Qualcomm Shikra, audio is served by the modem DSP
-> (mDSP) rather than the ADSP. The mDSP runs in a stage-2 protected context
-> and cannot use the SMMU, so the PCM buffers it consumes must live in
-> reserved-memory carveouts that are handed to the consumer VMIDs via a
-> hypervisor (SCM) memory assignment. This series adds that access model to
-> the q6apm DAI driver and its binding, alongside the existing stage-1/SMMU
-> (iommus) path, which is left untouched.
-> 
-> [...]
+Move logical operators to the end of the previous line to follow
+the kernel coding style, as reported by checkpatch.pl.
 
-Applied to
+Signed-off-by: Feiyu Wang <wangfeiyu_mc_code@163.com>
+---
+ .../staging/rtl8723bs/os_dep/ioctl_cfg80211.c  | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
-
-Thanks!
-
-[1/4] ASoC: qcom: q6apm: clear g_apm on driver removal
-      https://git.kernel.org/broonie/sound/c/be2172758f2b
-[2/4] ASoC: qcom: qdsp6: generalize GPR service domain
-      https://git.kernel.org/broonie/sound/c/d3ad9ee48425
-[3/4] ASoC: dt-bindings: qcom,q6apm-dai: add memory-region and relax iommus
-      https://git.kernel.org/broonie/sound/c/7ff0bdaf9292
-[4/4] ASoC: qcom: q6apm-dai: add SCM buffer assignment for mDSP platforms
-      https://git.kernel.org/broonie/sound/c/bb8afd437d79
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+diff --git a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
+index a715ac6aa6b9..5dfbb8d9f6ed 100644
+--- a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
++++ b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
+@@ -393,8 +393,8 @@ void rtw_cfg80211_indicate_connect(struct adapter *padapter)
+ 	struct wlan_network  *cur_network = &pmlmepriv->cur_network;
+ 	struct wireless_dev *pwdev = padapter->rtw_wdev;
+ 
+-	if (pwdev->iftype != NL80211_IFTYPE_STATION
+-		&& pwdev->iftype != NL80211_IFTYPE_P2P_CLIENT
++	if (pwdev->iftype != NL80211_IFTYPE_STATION &&
++	    pwdev->iftype != NL80211_IFTYPE_P2P_CLIENT
+ 	) {
+ 		return;
+ 	}
+@@ -462,8 +462,8 @@ void rtw_cfg80211_indicate_disconnect(struct adapter *padapter)
+ 	struct mlme_priv *pmlmepriv = &padapter->mlmepriv;
+ 	struct wireless_dev *pwdev = padapter->rtw_wdev;
+ 
+-	if (pwdev->iftype != NL80211_IFTYPE_STATION
+-		&& pwdev->iftype != NL80211_IFTYPE_P2P_CLIENT
++	if (pwdev->iftype != NL80211_IFTYPE_STATION &&
++	    pwdev->iftype != NL80211_IFTYPE_P2P_CLIENT
+ 	) {
+ 		return;
+ 	}
+@@ -971,8 +971,8 @@ static int cfg80211_rtw_get_station(struct wiphy *wiphy,
+ 	}
+ 
+ 	/* for infra./P2PClient mode */
+-	if (check_fwstate(pmlmepriv, WIFI_STATION_STATE)
+-		&& check_fwstate(pmlmepriv, _FW_LINKED)) {
++	if (check_fwstate(pmlmepriv, WIFI_STATION_STATE) &&
++	    check_fwstate(pmlmepriv, _FW_LINKED)) {
+ 		struct wlan_network  *cur_network = &pmlmepriv->cur_network;
+ 
+ 		if (memcmp((u8 *)mac, cur_network->network.mac_address, ETH_ALEN)) {
+@@ -1507,9 +1507,9 @@ static int rtw_cfg80211_set_wpa_ie(struct adapter *padapter, u8 *pie, size_t iel
+ 	}
+ 
+ 	/* TKIP and AES disallow multicast packets until installing group key */
+-	if (padapter->securitypriv.dot11_privacy_algrthm == _TKIP_
+-		|| padapter->securitypriv.dot11_privacy_algrthm == _TKIP_WTMIC_
+-		|| padapter->securitypriv.dot11_privacy_algrthm == _AES_)
++	if (padapter->securitypriv.dot11_privacy_algrthm == _TKIP_ ||
++	    padapter->securitypriv.dot11_privacy_algrthm == _TKIP_WTMIC_ ||
++	    padapter->securitypriv.dot11_privacy_algrthm == _AES_)
+ 		/* WPS open need to enable multicast */
+ 		/*  check_fwstate(&padapter->mlmepriv, WIFI_UNDER_WPS) == true) */
+ 		rtw_hal_set_hwreg(padapter, HW_VAR_OFF_RCR_AM, null_addr);
+-- 
+2.55.0
 
