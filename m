@@ -1,46 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD93641169F;
-	Wed,  7 Oct 2026 21:04:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B729C411F9F;
+	Wed,  7 Oct 2026 21:04:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791407051; cv=none; b=inB+BxGGfgas1bIv7tPmjf4DUxDuIA0ND19VB6lb0cm2/1F1cnOP+KV179staZ0UY1uvIyv8MUvNAX+iXW5ZJ2xdpk6rv6n8YO48jX+eae02ca1jT/B6BY1nXjjqOo6s+/th5F5XpbG38p/7dDsM49Q5pKKh1yheZYAiM6OfsPU=
+	t=1791407051; cv=none; b=aegcFSMyZhCYwIbAoBm70Fvfyybn5INIsbLekAQk6C5jxNSCv8YHZZTw/0RtMqJEyRIXhBey3RdGU6N3/lAEM7h8BHMbGsvJIler31KZV3hXqcH5kQQll4V95awwHi+e05eOCgF8eib5osS0w+d7nPs2PjEvM69Z9glbc8L+ZR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791407051; c=relaxed/simple;
-	bh=+NcX+b7yDvu4BE/EyrG89DSdiDt727HpSAk6yvMU9ow=;
+	bh=pWp5JbnYYpt64L1wGXymLGY9t0chYN2RvBc6rHJQzhk=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=dhag8yOCQzzryXvN7XwvOjsyTdgB5cUKzNmdVlh1Tcb64gVBfXE3RiqAV2k66pZUIJ/PJSm5S4JdxXSzAsbfAC7P1x82+koqfd06V2EAWNF0Dia0zxQR6n2vPibnNos0qsK4GfMcl9Soc6QmipwfCxBwTkI2oYMsLWHSkNWIV0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HT185MR2; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=AtdIOTuHZb6h90EPhezPlebLkvgLP6VU/+/le8nvLHFysXCY2kpgpl+WSSFSRD9poowUWxDSG6J3MSNt2VcJJq96jQaFESd8OzeGcQnGwCsfsTkTrZXvJSMBg/2LbkexmP2ZhRqll2WX96Q8b7v2RP0ElV+9GFfP6rmkPnbq+yE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BmJhHPZ1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HT185MR2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B75541F0089D;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BmJhHPZ1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D786C1F008A0;
 	Wed,  7 Oct 2026 21:04:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1791407049;
-	bh=rOzvgu2DgJgVMTpRb75TJD+Wb3bbc+jBfZKtCo1gXbE=;
+	bh=ECYm3BBMedbNXUWfWZ6kwF4nXV9MDEYykiWwhcoVANY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HT185MR27bFugOkVsb2OBoyzRP3/XwX77/H5eUL0rYMZpllIzTEuB9wJrnsyHi0Rv
-	 YjPSCFJ4sTVVjvB6UOcI5wL5FY/UotAISg4j97GeWG0iT2pG8tttn+srdEfQB24jZl
-	 n+6OSpMKnVRNwoLoQz7P2vHHLDp08EmuLQVHgpQ8lAD1LPi708aS82cnCfpHj5sduS
-	 qJ0HTxVJ32bR7gcdX+sf/grtxsxb1uSKa6c+O4nWEukYFvotb/wtIOvbo/EQhzNvfX
-	 cwLv/8CzPzQc1FYYXavypuRp8SXX99WSnih4jQMTR5xyfcaX/moHqZ5usYoiyPpp1J
-	 BkK7Zp5gcjX+A==
+	b=BmJhHPZ1F03H2Ui0nyj96LApbySPWXGYhqOPjrYeJ9gQT+hbtnS0BUFDRn1lLllHQ
+	 IRHJcdShZgzx8mIawJeTgu/jyHWd6qe60VANd+iFumD0r660NC4hny4WKSoqdgmTJa
+	 u5/BfaWjFKaX8APw1FwCrjxBlY9Tu59n/iM649dq/sBb2huB9E8ME6ttqVJlqVqexJ
+	 UbtY7G5EKzh3fKBZ8b3DgecfG8845mBQAWEPWy3DHc9NFBJEHG6PU7o9BoHo2/SLj3
+	 vT+m/rTcGKulh3HVNxqqJgoYqIJy1O5mqowLdPWolJq9ZYLOuQCYYSFeJavS8ilNeJ
+	 kxBlk3BhMn8qw==
 Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 5AADFCE26CA; Wed,  7 Oct 2026 14:04:09 -0700 (PDT)
+	id 5FF4FCE272D; Wed,  7 Oct 2026 14:04:09 -0700 (PDT)
 From: "Paul E. McKenney" <paulmck@kernel.org>
 To: rcu@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
 	kernel-team@meta.com,
 	rostedt@goodmis.org,
 	Kunwu Chan <kunwu.chan@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>,
 	Boqun Feng <boqun@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
 	"Paul E . McKenney" <paulmck@kernel.org>
-Subject: [PATCH v2 5/8] rcutorture: Add atomic SRCU lockdep support
-Date: Wed,  7 Oct 2026 14:04:05 -0700
-Message-Id: <20261007210408.1983713-5-paulmck@kernel.org>
+Subject: [PATCH v2 7/8] selftests/rcutorture: Fix double nerrs count in srcu_lockdep.sh
+Date: Wed,  7 Oct 2026 14:04:07 -0700
+Message-Id: <20261007210408.1983713-7-paulmck@kernel.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <f9cb7abd-db60-43f6-9392-27fe29abb75b@paulmck-laptop>
 References: <f9cb7abd-db60-43f6-9392-27fe29abb75b@paulmck-laptop>
@@ -54,142 +52,41 @@ Content-Transfer-Encoding: 8bit
 
 From: Kunwu Chan <kunwu.chan@gmail.com>
 
-Add three testtypes covering atomic SRCU lockdep behavior:
+When CONFIG_PROVE_LOCKING is missing, the deadlock-detection loop
+and the mixed-SRCU-readers section each increment nerrs once in
+the configuration check and again in the common error path,
+counting the same error twice.
 
-  testtype 4: atomic SRCU same-type deadlock
-  testtype 5: atomic SRCU + raw spinlock dependency cycle
-  testtype 6: synchronize_srcu_atomic() inside rcu_read_lock()
+Remove the stray increments so that each error advances nerrs
+by one.
 
-Co-developed-by: Zqiang <qiang.zhang@linux.dev>
-Signed-off-by: Zqiang <qiang.zhang@linux.dev>
 Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
 Acked-by: Boqun Feng <boqun@kernel.org>
-Reviewed-by: Joel Fernandes <joelagnelf@nvidia.com>
 Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
 ---
- kernel/rcu/rcutorture.c | 84 ++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 83 insertions(+), 1 deletion(-)
+ tools/testing/selftests/rcutorture/bin/srcu_lockdep.sh | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/kernel/rcu/rcutorture.c b/kernel/rcu/rcutorture.c
-index 51ed35f5aab17..35dc61d871b98 100644
---- a/kernel/rcu/rcutorture.c
-+++ b/kernel/rcu/rcutorture.c
-@@ -4662,6 +4662,17 @@ static DECLARE_RWSEM(rwsem7);
- static DECLARE_RWSEM(rwsem8);
- static DECLARE_RWSEM(rwsem9);
- 
-+static DEFINE_RAW_SPINLOCK(spin0);
-+static DEFINE_RAW_SPINLOCK(spin1);
-+static DEFINE_RAW_SPINLOCK(spin2);
-+static DEFINE_RAW_SPINLOCK(spin3);
-+static DEFINE_RAW_SPINLOCK(spin4);
-+static DEFINE_RAW_SPINLOCK(spin5);
-+static DEFINE_RAW_SPINLOCK(spin6);
-+static DEFINE_RAW_SPINLOCK(spin7);
-+static DEFINE_RAW_SPINLOCK(spin8);
-+static DEFINE_RAW_SPINLOCK(spin9);
-+
- DEFINE_STATIC_SRCU(srcu0);
- DEFINE_STATIC_SRCU(srcu1);
- DEFINE_STATIC_SRCU(srcu2);
-@@ -4673,6 +4684,17 @@ DEFINE_STATIC_SRCU(srcu7);
- DEFINE_STATIC_SRCU(srcu8);
- DEFINE_STATIC_SRCU(srcu9);
- 
-+DEFINE_STATIC_SRCU_ATOMIC(srcu0_atomic);
-+DEFINE_STATIC_SRCU_ATOMIC(srcu1_atomic);
-+DEFINE_STATIC_SRCU_ATOMIC(srcu2_atomic);
-+DEFINE_STATIC_SRCU_ATOMIC(srcu3_atomic);
-+DEFINE_STATIC_SRCU_ATOMIC(srcu4_atomic);
-+DEFINE_STATIC_SRCU_ATOMIC(srcu5_atomic);
-+DEFINE_STATIC_SRCU_ATOMIC(srcu6_atomic);
-+DEFINE_STATIC_SRCU_ATOMIC(srcu7_atomic);
-+DEFINE_STATIC_SRCU_ATOMIC(srcu8_atomic);
-+DEFINE_STATIC_SRCU_ATOMIC(srcu9_atomic);
-+
- static int srcu_lockdep_next(const char *f, const char *fl, const char *fs, const char *fu, int i,
- 			     int cyclelen, int deadlock)
- {
-@@ -4702,6 +4724,12 @@ static void rcu_torture_init_srcu_lockdep(void)
- 					  &rwsem5, &rwsem6, &rwsem7, &rwsem8, &rwsem9 };
- 	struct srcu_struct *srcus[] = { &srcu0, &srcu1, &srcu2, &srcu3, &srcu4,
- 					&srcu5, &srcu6, &srcu7, &srcu8, &srcu9 };
-+	raw_spinlock_t *spins[] = { &spin0, &spin1, &spin2, &spin3, &spin4,
-+				    &spin5, &spin6, &spin7, &spin8, &spin9 };
-+	struct srcu_struct *srcus_atomic[] = { &srcu0_atomic, &srcu1_atomic, &srcu2_atomic,
-+					       &srcu3_atomic, &srcu4_atomic, &srcu5_atomic,
-+					       &srcu6_atomic, &srcu7_atomic, &srcu8_atomic,
-+					       &srcu9_atomic };
- 	int testtype;
- 
- 	if (!test_srcu_lockdep)
-@@ -4812,11 +4840,65 @@ static void rcu_torture_init_srcu_lockdep(void)
- 	}
- #endif // #ifdef CONFIG_TASKS_TRACE_RCU
- 
-+	if (testtype == 4) {
-+		pr_info("%s: test_srcu_lockdep = %05d: SRCU_ATOMIC %d-way %sdeadlock.\n",
-+			__func__, test_srcu_lockdep, cyclelen, deadlock ? "" : "non-");
-+		if (deadlock && cyclelen == 1)
-+			pr_info("%s: Expect hang.\n", __func__);
-+		for (i = 0; i < cyclelen; i++) {
-+			j = srcu_lockdep_next(__func__, "srcu_read_lock_atomic",
-+					      "synchronize_srcu_atomic",
-+					      "srcu_read_unlock_atomic", i,
-+					      cyclelen, deadlock);
-+			idx = srcu_read_lock_atomic(srcus_atomic[i]);
-+			if (j >= 0)
-+				synchronize_srcu_atomic(srcus_atomic[j]);
-+			srcu_read_unlock_atomic(srcus_atomic[i], idx);
-+		}
-+		return;
-+	}
-+
-+	if (testtype == 5) {
-+		pr_info("%s: test_srcu_lockdep = %05d: SRCU_ATOMIC/raw_spinlock %d-way %sdeadlock.\n",
-+			__func__, test_srcu_lockdep, cyclelen, deadlock ? "" : "non-");
-+		for (i = 0; i < cyclelen; i++) {
-+			pr_info("%s: srcu_read_lock_atomic(%d), raw_spin_lock(%d), raw_spin_unlock(%d), srcu_read_unlock_atomic(%d)\n",
-+				__func__, i, i, i, i);
-+			idx = srcu_read_lock_atomic(srcus_atomic[i]);
-+			raw_spin_lock(spins[i]);
-+			raw_spin_unlock(spins[i]);
-+			srcu_read_unlock_atomic(srcus_atomic[i], idx);
-+
-+			j = srcu_lockdep_next(__func__, "raw_spin_lock",
-+					      "synchronize_srcu_atomic",
-+					      "raw_spin_unlock", i, cyclelen,
-+					      deadlock);
-+			raw_spin_lock(spins[i]);
-+			if (j >= 0)
-+				synchronize_srcu_atomic(srcus_atomic[j]);
-+			raw_spin_unlock(spins[i]);
-+		}
-+		return;
-+	}
-+
-+	if (testtype == 6) {
-+		pr_info("%s: test_srcu_lockdep = %05d: synchronize_srcu_atomic() inside rcu_read_lock() %d-way.\n",
-+			__func__, test_srcu_lockdep, cyclelen);
-+		for (i = 0; i < cyclelen; i++) {
-+			rcu_read_lock();
-+			synchronize_srcu_atomic(srcus_atomic[i]);
-+			rcu_read_unlock();
-+		}
-+		return;
-+	}
-+
- err_out:
- 	pr_info("%s: test_srcu_lockdep = %05d does nothing.\n", __func__, test_srcu_lockdep);
- 	pr_info("%s: test_srcu_lockdep = DNNL.\n", __func__);
- 	pr_info("%s: D: Deadlock if nonzero.\n", __func__);
--	pr_info("%s: NN: Test number, 0=SRCU, 1=SRCU/mutex, 2=SRCU/rwsem, 3=SRCU/Tasks Trace RCU.\n", __func__);
-+	pr_info("%s: NN: Test number, 0=SRCU, 1=SRCU/mutex, 2=SRCU/rwsem, 3=SRCU/Tasks Trace RCU, 4=SRCU_ATOMIC, ",
-+		__func__);
-+	pr_cont("5=SRCU_ATOMIC/raw_spinlock, 6=synchronize_srcu_atomic inside rcu_read_lock.\n");
- 	pr_info("%s: L: Cycle length.\n", __func__);
- 	if (!IS_ENABLED(CONFIG_TASKS_TRACE_RCU))
- 		pr_info("%s: NN=3 disallowed because kernel is built with CONFIG_TASKS_TRACE_RCU=n\n", __func__);
+diff --git a/tools/testing/selftests/rcutorture/bin/srcu_lockdep.sh b/tools/testing/selftests/rcutorture/bin/srcu_lockdep.sh
+index 72791499dd96b..3acaffe52c784 100755
+--- a/tools/testing/selftests/rcutorture/bin/srcu_lockdep.sh
++++ b/tools/testing/selftests/rcutorture/bin/srcu_lockdep.sh
+@@ -56,7 +56,6 @@ do
+ 			if ! grep -q '^CONFIG_PROVE_LOCKING=y' .config
+ 			then
+ 				echo "rcu_torture_init_srcu_lockdep:Error: CONFIG_PROVE_LOCKING disabled in rcutorture SRCU-P scenario"
+-				nerrs=$((nerrs+1))
+ 				err=1
+ 			fi
+ 			if test "$d" -ne 0 && test "$ret" -eq 0
+@@ -126,7 +125,6 @@ do
+ 	if ! grep -q '^CONFIG_PROVE_LOCKING=y' .config
+ 	then
+ 		echo "rcu_torture_init_srcu_lockdep:Error: CONFIG_PROVE_LOCKING disabled in rcutorture SRCU-P scenario"
+-		nerrs=$((nerrs+1))
+ 		err=1
+ 	fi
+ 	if test "$val" = 0xf && test "$ret" -eq 0
 -- 
 2.40.1
 
