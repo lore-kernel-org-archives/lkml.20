@@ -1,158 +1,140 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCCEA484230
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 09:13:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7DA147D93E;
+	Wed,  7 Oct 2026 09:19:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.153.30
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791364697; cv=none; b=D1M8vdB2N6Yh/2kDYx7Z8g1lkg6bmVC/KWREOTZThjjwu1tDlxsFBGckVeqRomPMvZmnVbfo0cGh1id94lyy5bDBTZkilOay0IPkYe/VUoWEqcd5a95k+strG9GZvrJqjw8QsS0leSmviq6Rl/80ORTzser7Y8JIFlNFMsh/OJg=
+	t=1791364827; cv=none; b=JSJZzFKcrHiIClljZqrpa3x67GZaKf9/6jmG2DP/RaEtWYn2GF90LkWtVUM3X/AFE8EFJXZuHfXVxYK7eoO4LpmqZaTqEV9ZxFBrOYU0+eiSxWKp/sLgu71eJyXbEWnJvjBQetOhbFUwDkzpFdxrZIriA64WHjY/c1kBj/63zsM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791364697; c=relaxed/simple;
-	bh=vP6HTc3BgErud3vpYJ5dvc1vGO3/WzphWp/Aia7nZmE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gZPVvqm2+7Q1OGTA1urbuVoPvRKhJRHyhDDVpvZIW+0oSvVF9QxL/9ixbdh3I0infDkBoGCdh33rotrUsq1gMjbsQHW588ZpXOmsWLNIC6QILVmBrTY4iYw3+DHpXxAoAyOwy8j5ZfTDoRGWzG320oXwflISEqUOpisdCp46LqM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z4DE3wv4; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791364827; c=relaxed/simple;
+	bh=mx72RKLjcZrcwpLvVNRInESNPOzqxluKeZEFzwq1hlk=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iBMJ/lx+VxiqUhhvVgDbPBe0BbKv7alcL9wqfSHAG1MLMMvhD2PTbyEbQeKGpftn5apVc2dmrtRH8IOOq0kZWEEPIoamaWOeQ77+DYhn3hStVjWF/cUzwRZ9BFeuktNHpHkmJt/v2uD4j73Pcf4O5B7JBa+mbcI2cm/Vka8nidg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fb.com; spf=pass smtp.mailfrom=meta.com; dkim=pass (2048-bit key) header.d=fb.com header.i=@fb.com header.b=lKIrOAUs; arc=none smtp.client-ip=67.231.153.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fb.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z4DE3wv4"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49ff680331aso39375365e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 02:13:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791364389; x=1791969189; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EKIJVEsx+Oi+88fJ8TTlph+GBhT516Y05xMo/gmGzZk=;
-        b=Z4DE3wv4myqBv/bbO5KPxjzubErxD0BEPDERpPa0rgCUoPGh/N0DvBI1hp8pphb9Hl
-         J9NnaeAZTev/wnBQTVbl0vPq322a0U0yleVKK40PbV6tv4y6iZ6t7VbscMl6bKg5APwq
-         dHoRm5YyXGWGdTHUV0gHUeTo1HsRj1tCJrpsAGJyyGG6Hlg+Um1+r9vsXrJYO6f/8RPM
-         3SqEv8+CmD5YcvGx4A5FAxo65nvzFjbCBIzWhwLgf89vb1G2QDJe+uVPvnnhPMC/m9DV
-         kfzUORWIrj2g88VFjlbjoqzVvBo7C2yKJTSpNvoVsmxrqM2ggLhGEZ5vr0NxYF3KGUog
-         i05Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791364389; x=1791969189;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EKIJVEsx+Oi+88fJ8TTlph+GBhT516Y05xMo/gmGzZk=;
-        b=fDnZlAMj5H3vW+QVdApppdWm6OhNa3kzoSkO7JIQo6sokVm/kblU52W+zEhAW7c6Ek
-         AEkDhjhqcMx3dySN7N2Ir6DqT42KuiXSi89sR8/qCuqAF3tRB+GFffOZkcJB+4MFHxhd
-         qCMXJ/hpYzRA7wReZM+r7iwkXkYnWdl3ZG162Yv4z3E+TFAzK18N7v8K21qNtd1+EhBf
-         OoflnLEgXAHjdY3b9Mi+bNfT2pJ28Fsnj9SfnTc28LlIBnKZfFMDKibzRS88i2KF7kBH
-         fQ1UjbljwKvnBoi8FzcgAF8oxKODGVPPKyMQtVanSjB1/bRvRDM2P+yF07ryYUT+vp1g
-         Y8Hw==
-X-Forwarded-Encrypted: i=1; AKwUvBxWRxBhjQN1zF6ULx9CcQvsoCZyvxWdz3TsKw9Vg0UbV9fD6lcol9hdUfvJ4pBYovigvc+cZtZE6lcZzDI=@vger.kernel.org
-X-Gm-Message-State: AFuF++miN7Qe74CpiQDazri/qKGgxUCBtNSSoQl8IeWMC9R6TKm01/Ib
-	2hZYBh3kmdoxwfS3sTElxD1/FcbKh/yNVekzwg6PNrSmByYusJC8eubY
-X-Gm-Gg: AYBFou1FMS9Oe5KfBXYwIguG5WEwl1QOujqYCY0w+5Lk8dIUU9ui+VNuvvzU3oJ2Obu
-	nDHMY4SWMOBgJgN/RKA4XZoc4UjbTiIjm/AQISNTvoKxrOUSdMv/4qWwoWnZk/9wmOha+W61ipy
-	S91YmH1DtTuJc1Vg8bL+NI1m1VewKcSZJflnhwhCv1RNdvauIxnaf1uKGmIQ55q1GotISBEFrHa
-	r9l1zLpy8uLJ5pbJwNApKvHM80muOtDfPJAxj67mfrJTaThR+ZLBVoAZ7QC0E05iqEstd+igm8k
-	Ym+jHPzzNSQ0+gg3nYIOZJfoltBrNZF9oazeOzKyMruovMsXUitq3QivOTskEd7mJuVsqN1OtRZ
-	mNjMFJMeNqBBltdx+cnqCdQbMRZm9zBRgf8CmqPwcd+poOMMPxzjlZFKvHUlVsAOJ8Qn+ykY2Ed
-	GBAZTfgW+VLwd8QAsWys9dzNf8eal7fuITdqNAku8Ca48fhYUaH+GNyGS+YfK4TN8fKYNgO7yH+
-	q0=
-X-Received: by 2002:a05:600d:2:b0:4a1:825a:5726 with SMTP id 5b1f17b1804b1-4a1825a595bmr6969805e9.31.1791364388267;
-        Wed, 07 Oct 2026 02:13:08 -0700 (PDT)
-Received: from PC ([176.229.9.157])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1822af9d5sm17617555e9.15.2026.10.07.02.13.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 02:13:06 -0700 (PDT)
-From: Jeremy Fareau <jeremy.fareau@gmail.com>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Kalle Valo <kvalo@kernel.org>,
-	Brian Norris <briannorris@chromium.org>,
-	Jeremy Fareau <jeremy.fareau@gmail.com>
-Subject: [PATCH wireless 2/2] wifi: rtw88: restore the control frame filter when the device is started
-Date: Wed,  7 Oct 2026 12:12:25 +0300
-Message-ID: <20261007091225.413-3-jeremy.fareau@gmail.com>
-X-Mailer: git-send-email 2.53.0.windows.2
-In-Reply-To: <20261007091225.413-1-jeremy.fareau@gmail.com>
-References: <20261007091225.413-1-jeremy.fareau@gmail.com>
+	dkim=pass (2048-bit key) header.d=fb.com header.i=@fb.com header.b="lKIrOAUs"
+Received: from pps.filterd (m0109331.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6977imAR3372905;
+	Wed, 7 Oct 2026 02:19:29 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pps82601-s2048-2026-q3; bh=mX2qf44RKus
+	dKKqzjfF89Sze+RRKoXcSpRRb/6+EfTU=; b=lKIrOAUsXaGb60G/mwVnszWF59u
+	qrHeZIudHnYW1Z39QsilYNXlIegwzHsCwyc1W8anMYzGAEp/xlJPBKfB2ze0/Kgi
+	HRqJ5hOs6DXx6xwSfVprfZDjmkVo8sQRS25RDOJUgHiUysFF2gklEdXnLV8Drz88
+	qiYrIQseKvjeZdQkixmCL47AOjHSN8uVagTWG9jHbzfGq/3eEzS/XSZLE25eE9l6
+	A2mXdApaGLUCfUybXaLZ2GMGQd/imFV4Wmm+8C0rbfjtMjQf/nVsDQBkAd5hh0rZ
+	XAyx6I1G6JgW4kyllNUNexobuBsuarb7f6E/s2HtAi0of/Pl9FIF14tHDOw==
+Received: from maileast.thefacebook.com ([163.114.135.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4h583ecem8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+	Wed, 07 Oct 2026 02:19:29 -0700 (PDT)
+Received: from devgpu015.cco6.facebook.com (2620:10d:c0a8:1b::2d) by
+ mail.thefacebook.com (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.49; Wed, 7 Oct 2026 09:19:27 +0000
+Date: Wed, 7 Oct 2026 02:19:21 -0700
+From: Alex Mastro <amastro@fb.com>
+To: Matt Evans <matt@ozlabs.org>
+CC: Sumit Semwal <sumit.semwal@linaro.org>,
+        Christian =?iso-8859-1?Q?K=F6nig?=
+	<christian.koenig@amd.com>,
+        Thomas Hellstrom <thellstrom@vmware.com>,
+        Zack
+ Rusin <zack.rusin@broadcom.com>,
+        Jani Nikula <jani.nikula@linux.intel.com>,
+        Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+        Rodrigo Vivi
+	<rodrigo.vivi@intel.com>,
+        Tvrtko Ursulin <tursulin@ursulin.net>, <linux-media@vger.kernel.org>,
+        <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>,
+        <linux-kernel@vger.kernel.org>, Alex
+ Williamson <alex@shazbot.org>
+Subject: Re: [PATCH] dma-buf: Annul dmabuf->file on file release
+Message-ID: <asYOmaPqwUOBdz0x@devgpu015.cco6.facebook.com>
+References: <f8efaabd-c06e-4f04-8cfa-489c148e37ba@ozlabs.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <f8efaabd-c06e-4f04-8cfa-489c148e37ba@ozlabs.org>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAzNiBTYWx0ZWRfX+vJYBhXUYmhs
+ cv+xUVskw4JIILxt4Amt+pntO7ktJwjjQosy0Z1h2yJuOUigKF8RiX8WyiMVAqcHscj35zl++f0
+ U9uVpXkoFO6JxwKKb+4np7jgsGlyWKvX4CMjnBzi/zEgWMFth9s6psfnekUGqYUppAFIm+F1GSN
+ /l+JSRF/jXV3g5xqB1SNqkGhbN75LBTs7Q50th3U/687qlbTjTWBd5nK1quHzmX6rFbuMjxXHLW
+ nvfzxyjU3OfY5Kw6Wzp0k4bF49dX69SQvQlcoHtANoVk7CTjJ/PsorzUIicZte6x5xYqmR82oYD
+ RCGGP9CvwQmFr5iwt7MUy77QsgXiC1qDwf6J+Mm6thMm/vILmw0uH9rNt/7CKv1zb8Iswu3+lXg
+ 6vg2/3ED9g0pGzpGX++XhEkgdTxIBBhfMBJbzIvEC9Y64FIMdzGM6Me26mYZBYiG/gs8Cd+Y1RE
+ ao5wp5uJ7UHkXDav/Pw==
+X-Authority-Analysis: v=2.4 cv=Wra+otfv c=1 sm=1 tr=0 ts=6ac60ea1 cx=c_pps
+ a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=7x6HtfJdh03M6CCDgxCd:22 a=wpfVPzegXHpEFt3DAXn9:22 a=pdWumD2k_P0FcMEzwbQA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAzNiBTYWx0ZWRfX9t0PuspR+KhH
+ 1eUyNtJZzddfFvAR7Ybh1v5HbIFiRapntHrGSTA8y/waprEJwPuZTFSvWbTYAJjTlfGIRMdWYlq
+ vq06Y/rW4HpeZS16CKOfzlST5KqKT1k=
+X-Proofpoint-ORIG-GUID: eeg3tIBh4UNsmIQOofeGo3RaPc7dgsEE
+X-Proofpoint-GUID: eeg3tIBh4UNsmIQOofeGo3RaPc7dgsEE
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-07_03,2026-10-06_03,2025-10-01_01
 
-Commit ed51a86b787f ("wifi: rtw88: Enable receiving control frames in
-monitor mode") writes REG_RXFLTMAP1 from configure_filter(), but that
-register is reset to the chip default by the chip's mac_init() during
-power_on().  mac80211 only calls ieee80211_ops::configure_filter() when
-its own filter flags change, so after a stop/start cycle the flags are
-unchanged and the control frame filter silently reverts: monitor mode
-stops delivering control frames again.
+On Tue, Oct 06, 2026 at 08:15:26PM +0100, Matt Evans wrote:
+>  static int dma_buf_file_release(struct inode *inode, struct file *file)
+>  {
+> +	struct dma_buf *dmabuf = file->private_data;
 
-Keep track of the value configure_filter() last asked for and restore
-it in rtw_core_start(), next to the RCR restore, which exists for the
-same reason.
+I think dmabuf can be NULL here if the dmabuf allocation fails during
+dma_buf_export().
 
-Measured on an RTL8814AU and an RTL8812AU in monitor mode on channel 6,
-40 s captures taken after a down/up cycle.  Control frames go from 0 to
-23184 and from 0 to 483 respectively; without this change both are 0.
+> +
+>  	if (!is_dma_buf_file(file))
+>  		return -EINVAL;
+> -	__dma_buf_list_del(file->private_data);
+> +	__dma_buf_list_del(dmabuf);
+> +	/* Must be observed by __get_file_rcu() before file_free() */
+> +	smp_store_mb(dmabuf->file, NULL);
 
-Fixes: ed51a86b787f ("wifi: rtw88: Enable receiving control frames in monitor mode")
-Assisted-by: LLM
-Signed-off-by: Jeremy Fareau <jeremy.fareau@gmail.com>
----
- drivers/net/wireless/realtek/rtw88/mac80211.c | 5 +++--
- drivers/net/wireless/realtek/rtw88/main.c     | 8 ++++++++
- drivers/net/wireless/realtek/rtw88/main.h     | 1 +
- 3 files changed, 12 insertions(+), 2 deletions(-)
+Resulting in NULL deref here -- guard with null check?
 
-diff --git a/drivers/net/wireless/realtek/rtw88/mac80211.c b/drivers/net/wireless/realtek/rtw88/mac80211.c
-index 827f38390969..84d869f1efe0 100644
---- a/drivers/net/wireless/realtek/rtw88/mac80211.c
-+++ b/drivers/net/wireless/realtek/rtw88/mac80211.c
-@@ -300,9 +300,10 @@ static void rtw_ops_configure_filter(struct ieee80211_hw *hw,
+>  	return 0;
+>  }
+
+via this path
+
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index d504c636dc29..557cd7a4c971 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -725,6 +725,7 @@ struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info)
+ 	if (!try_module_get(exp_info->owner))
+ 		return ERR_PTR(-ENOENT);
  
- 	if (changed_flags & FIF_CONTROL) {
- 		if (*new_flags & FIF_CONTROL)
--			rtw_write16(rtwdev, REG_RXFLTMAP1, 0xffff);
-+			rtwdev->hal.rxfltmap1_cur = 0xffff;
- 		else
--			rtw_write16(rtwdev, REG_RXFLTMAP1, rtwdev->hal.rxfltmap1);
-+			rtwdev->hal.rxfltmap1_cur = rtwdev->hal.rxfltmap1;
-+		rtw_write16(rtwdev, REG_RXFLTMAP1, rtwdev->hal.rxfltmap1_cur);
++	// succeeds
+ 	file = dma_buf_getfile(exp_info->size, exp_info->flags);
+ 	if (IS_ERR(file)) {
+ 		ret = PTR_ERR(file);
+@@ -739,6 +740,7 @@ struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info)
+ 	dmabuf = kzalloc(alloc_size, GFP_KERNEL);
+ 	if (!dmabuf) {
+ 		ret = -ENOMEM;
++		// go here
+ 		goto err_file;
  	}
- 	if (changed_flags & FIF_ALLMULTI) {
- 		if (*new_flags & FIF_ALLMULTI)
-diff --git a/drivers/net/wireless/realtek/rtw88/main.c b/drivers/net/wireless/realtek/rtw88/main.c
-index cd9254370fcc..ea61020a0622 100644
---- a/drivers/net/wireless/realtek/rtw88/main.c
-+++ b/drivers/net/wireless/realtek/rtw88/main.c
-@@ -1528,6 +1528,14 @@ int rtw_core_start(struct rtw_dev *rtwdev)
- 	/* rcr reset after powered on */
- 	rtw_write32(rtwdev, REG_RCR, rtwdev->hal.rcr);
  
-+	/* REG_RXFLTMAP1 is reset by the chip's mac_init() during power_on(),
-+	 * and mac80211 only calls ieee80211_ops::configure_filter() when its
-+	 * own filter flags change.  After a stop/start cycle the flags are
-+	 * unchanged, so restore the value configure_filter() last asked for.
-+	 */
-+	if (rtwdev->hal.rxfltmap1_cur)
-+		rtw_write16(rtwdev, REG_RXFLTMAP1, rtwdev->hal.rxfltmap1_cur);
-+
- 	ieee80211_queue_delayed_work(rtwdev->hw, &rtwdev->watch_dog_work,
- 				     RTW_WATCH_DOG_DELAY_TIME);
+@@ -771,6 +773,7 @@ struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info)
+ 	return dmabuf;
  
-diff --git a/drivers/net/wireless/realtek/rtw88/main.h b/drivers/net/wireless/realtek/rtw88/main.h
-index c6e981ba7986..5a9bcc4fdff9 100644
---- a/drivers/net/wireless/realtek/rtw88/main.h
-+++ b/drivers/net/wireless/realtek/rtw88/main.h
-@@ -1964,6 +1964,7 @@ struct rtw_sar {
- struct rtw_hal {
- 	u32 rcr;
- 	u16 rxfltmap1;
-+	u16 rxfltmap1_cur;
- 
- 	u32 chip_version;
- 	u8 cut_version;
--- 
-2.43.0
-
+ err_file:
++	// ends up calling dma_buf_file_release()
+ 	fput(file);
+ err_module:
+ 	module_put(exp_info->owner);
