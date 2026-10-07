@@ -1,81 +1,168 @@
-Received: from mta1.migadu.com (out-125.mta1.migadu.com [95.215.58.125])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBACF3FFAB0
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 06:49:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.125
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFF41547076
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 06:50:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791355778; cv=none; b=EgIB3P/gk57hzCM1hnh6aIaTdqlawbEtECRa2xch+ImbxX+ycNU7CJm57tnaYqFDEvBzmdZF1VIMWhqL6WrfjmebFeY1infHMAkVZe1KPR7V6p6OaEozNzrwv3elFqjWbezgjAtjlWXvTfB/JuQGEZnH2I4CNwwjLylq94exhxU=
+	t=1791355858; cv=none; b=DA2VffdpQpdMhU8b3EXPJ8Bggm5/rnn99f1QU56c2kd50Ih8VY5i/t+dp11uoOAGS6vHVXlpPZvPDMRr7+esKC12DWlna89yyRPiZizxvrG6TOIUcPsoNYl6cFnIncSi6dagBniAdr+LKAiaD6CqxeWrzN4uLnjl2pMTd+b3YLM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791355778; c=relaxed/simple;
-	bh=X2Kii5dEPpIGSKl4rtxnre0C8366Gz5L+2PnSejSm7w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Te1DVQ9BdQ89YjhLso1JarMafotUFA/O9ZPbLgAzVBGyhkO8foSBy8SKATKxFwankos7KXR+ezOcFCP8T+c9XbSRJXYDYzipLLFoAvmHqeIkQ64YJWycDfxHCyqa0nsObiqNl23379WUc/SFWNaA4OPDMTTl2ZVSERpuJEc5TwI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=aQsFok0i; arc=none smtp.client-ip=95.215.58.125
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791355858; c=relaxed/simple;
+	bh=Ni1lTQeRbFImYjymCCxoP08AlDfxpAcx3Qkva4hCzAs=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=l0JjpKRifq+IxhEO8IRpszANLkvLgOjIwdJOisjfDZm7QRcqHtnHmYiQTOQHigxr3OlkqIDv96LBGBZsV4bk3m34dkpUcGZ8cHjzavwqiHiuyBWNVIMUO7/JxqW2lEdcT+H68bRMP/x07TVQ9aiPt0hRVVxNEMROdENyDPP9Y6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VtFDngL9; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NWMBs1Xa; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="aQsFok0i"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=X2Kii5dEPpIGSKl4rtxnre0C8366Gz5L+2PnSejSm7w=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791355774; v=1; x=1791960574;
- b=aQsFok0ixLgKEUIxtueWJ8DePIb3Aob7vcSoTIldtFoCyruDzNTlWka+1L02Kl1epP5gr1Ud
- 1aEYFiLVCqFZpGhDbPoLH8SO+s4Hd4viV62n/qqIK+hHxyg210y+HxkGn1zGYTMECa/GzxVINLN
- fsgYwMkSAEh+QuPV60qHEaxg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 12565de92abcb202;
-	Wed, 07 Oct 2026 03:56:07 +0000
-X-Mizu-Trace-ID: 12565de92abcb202
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <8a8241c4-0e41-4ddd-aeef-b9ecb4f55d3a@linux.dev>
-Date: Wed, 7 Oct 2026 11:55:48 +0800
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VtFDngL9";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NWMBs1Xa"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6974lMZW3929606
+	for <linux-kernel@vger.kernel.org>; Wed, 7 Oct 2026 06:50:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=a11M7BngOPJoTkOyICJz2w
+	OVpKy80IFCeWDMdq/5uas=; b=VtFDngL9Xd28E4NoJrmFjjGzr8Pqu+AS18g+VG
+	pc/DFFYbIeE5u/mrUv+HZbP54JaRm/ov0XbVnhBk+LN5KFugFz009bRIZVH/b+NV
+	vOeR9HzpHfeFxPxkYvSokviYum59woQIRHfF7iLVyi63SYW7dYR0Zu89eJmiww+o
+	K2SwUQrkO6E62J+Nze89Srv+G13AVSBl49gX6uKaOv+ehrZO1wmrJb3krvmb1Zcv
+	P5dW0iPbbX+0zPgf1XzioqKLAWS0LJfuuZgxOA3X7sop/uIpS3AofjTuKwxHTS+G
+	DjL1ekgHlog64q6wJ6LQ9HdalpxhnqXL2QlgdGj+ZVFK4EjQ==
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5fc58awg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 06:50:55 +0000 (GMT)
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-139b62317d0so13097938c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 23:50:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791355854; x=1791960654; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=a11M7BngOPJoTkOyICJz2wOVpKy80IFCeWDMdq/5uas=;
+        b=NWMBs1Xa0pgD3b2GRK17XW3ZGUOw2q268Uykawfp7PEFuAPWyEKsbmw2GFfFo4MFmT
+         lOfLERAZDZgF1vJPOYHrN0gIYRPFwtgp0k2OX0CGmu+R0DqfKmyfOsBz8awU0YDrTPLV
+         LWX9wOubQv8dXSLE/fu6HL4ZWnn5HC3z1HNPB+XHm9FQYg79LdUGYW5JnEWeTHMaUuGA
+         90HsAO7DM7zschlLAn/Srmcud1uqkhVld1lZBjDGbpI4ZZTb8G7qclHZGcjt+x9LQDzm
+         WGv2oyc92Wx6Ausrl+e5A9yVWtUjoUPxDHXPVpWNulSvumDzR4tbkHWZJicEVniHfmR3
+         gEvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791355854; x=1791960654;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=a11M7BngOPJoTkOyICJz2wOVpKy80IFCeWDMdq/5uas=;
+        b=QEYYV6CnrzgoxxyWmFYLV8dDyUPxMRYSGuC9IeaZXWBv0nB+OEXOoEz3N3sXJaWfjl
+         U0T3E1CqWXnojWBAhNZ+K/pOmC79KFmYBWCrreJ1+XZ++IYJ+T44W9JBOZMFz7sSiFVK
+         Lam8w1C9WpUbQH3cxYBjQaz5f58SCBIlnGzPIt25kC5mX7CUTO8v+RjC+XIy3v468UNJ
+         oqTPtPmekiSfS2P6kja6l3ZzWqnsEt2lYlXbGQBwhXm2prN7NsF7MVaKkAYrsyqg7UKJ
+         W633RsXcSPgAfX70d0Opdl0dFHIHX51dkg9neGgAfdXkOa3hoOQF/pxFYjU6hDkE7eo4
+         0QEA==
+X-Forwarded-Encrypted: i=1; AKwUvByNN4lG4oKUlVunryfbP4TUkY8vHfmo6sKqCNNipy974XA3qDDdjZysb9jQecqjA1qGU2ZH739yn5aIPWM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nMyt/3jKEK2hljZXCkzNtnNYadDLvfzeAuJSWOCvwFU7YSCYte
+	ETOoFvMvX8ZklRiUSmCpjkFmTrc5IvLb7WCPqpIn0KwhCtSFJMTbr2gQIBWZ7kCUwtQWIA37ZCr
+	YJN+mFYO18KQQyvXeS5vSm0uIw2HOGGqHX0HfazsrqI6o2741nNNEKYrppH7EADSUo4E=
+X-Gm-Gg: AYBFou04QMafj0dAbKJGMZl7NbI684P6erUldmdh72QdPB+HHctnT7ee6FH11+dPAN4
+	4a3lDAKadFsCi8nNkTN9wau3QvlGRBQ9ytrAuxQWydwcfxnoVis+UjO9peUwp2k4B/4XOt2Z4B1
+	bm8mZ0lnabccggVavdUvG8r5xoUzek1AJn3mxLohu/hpcg2Wbn3CHciTQgcZQL9LDUljByEu7RD
+	RgheiLtVcMfhatWdQcUwFdn9qV9bda+SJNINcloBNaZpSLXwizydDsYIwFu4cC4vGGzNNdbp5Yk
+	UsyykTacTcoaT/yO2nEwIuEL2EzbVDAhk95U87c+qsodx8fexkDQvtPmP5a6VuxbcoLZn7f6x4R
+	I7xrX/RcziSJEI5CYK+ot+s1e6QUPi81m1uiBRvHPvSgbE7Qx0x8SC5CQJG3cx6COSgsU7vrvew
+	7WAVChgcPNKbVoxhvqKGuCwwW+q5Qlsj3hGo8=
+X-Received: by 2002:a05:7022:3a02:b0:143:26f9:33d4 with SMTP id a92af1059eb24-162079a5f27mr1774325c88.34.1791355854435;
+        Tue, 06 Oct 2026 23:50:54 -0700 (PDT)
+X-Received: by 2002:a05:7022:3a02:b0:143:26f9:33d4 with SMTP id a92af1059eb24-162079a5f27mr1774273c88.34.1791355853728;
+        Tue, 06 Oct 2026 23:50:53 -0700 (PDT)
+Received: from hu-kathirav-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1615f1ac8c5sm7374730c88.2.2026.10.06.23.50.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 23:50:53 -0700 (PDT)
+From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+Subject: [PATCH 0/4] Add Qualcomm's IPQ9650 APSS Clock Driver Support
+Date: Wed, 07 Oct 2026 12:20:43 +0530
+Message-Id: <20261007-ipq9650_apss_clk-v1-0-fd4c2b3cbdea@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2 3/3] tcp_cubic: fix divide by zero and endless
- loop on bad module params
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: netdev@vger.kernel.org, Eric Dumazet <edumazet@kernel.org>,
- Eric Dumazet <edumazet@google.com>, Neal Cardwell <ncardwell@google.com>,
- Kuniyuki Iwashima <kuniyu@google.com>, "David S. Miller"
- <davem@davemloft.net>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>,
- Stephen Hemminger <stephen@networkplumber.org>, linux-kernel@vger.kernel.org
-References: <20261001112948.322463-1-jiayuan.chen@linux.dev>
- <20261001112948.322463-4-jiayuan.chen@linux.dev>
- <20261005171227.2014f26e@kernel.org>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <20261005171227.2014f26e@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMPrxWoC/yXMQQqDMBBA0avIrBtIItHaq5QiGic6VWyaURHEu
+ xt1+Rb/b8AYCBleyQYBF2L6jRHqkYDtqrFFQU00aKkzWWgjyP+LzMiy8sylHXrh3FMbTNO8UQp
+ i5gM6Wq/l+3Ob5/qLdjo/sO8HEqeygnQAAAA=
+X-Change-ID: 20260925-ipq9650_apss_clk-ff825e337d11
+To: Georgi Djakov <djakov@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+        Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org,
+        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAyNyBTYWx0ZWRfX3e5xD0FYpqls
+ hWeojOH2sOaS/LEQyX5W9fLuW9fPGZhynGIIlvmCcdtqjKc9QTAMInxACjAQRhIqcj9zqvIxRbR
+ 6eddAyTeX7CvkfNv7VjsDTBG+SKsepM=
+X-Proofpoint-GUID: K4SFW5ptl0BBwdv74z_r1RcIyo51Qxrw
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAyNyBTYWx0ZWRfX6BHP4lrpE2Xf
+ rgxlOWTSHCT1ElJ3hdI8elrbKnlFU8UJu/hAtRdsz93p/MZggq4tHu9+ADpjbY9wRZfazUcEQMA
+ F/J5zd8DAfRcd3IeJKAfq9gNY6aWSSFZLxkmIfcTh8suD43aEgE1YX6XFoWwADGxhya8sxehlmT
+ sUL96LaFCxs1b2If377rnOdJWuh0OJNwI6uAYX0FKQQMPPZxxNM0ePNR/RcEHM/DhOMxygx25NF
+ CMisTZifk9tC7nyh4q3m5hkmCjJJ/BMCj+HilrT+V2fKqnmX51+OF+TWjSLPYTiOsOotTtlhUUU
+ MfXEFWnCK0ED/3yHpnU3WeD4np25FB74Y8f7rk10/VraCALlC5ubg8VC7fZo0lW/dRkyuZ7qQHZ
+ q8Ne+arcbO392+g3JIAP+phPJbgzAYt54VKx6K8LmR+00xEhtQ4g1Ag32iBY9YCShi52pwoKwaY
+ d3ZZDYEX9Iw8InFeyZA==
+X-Proofpoint-ORIG-GUID: K4SFW5ptl0BBwdv74z_r1RcIyo51Qxrw
+X-Authority-Analysis: v=2.4 cv=a6+lZkSF c=1 sm=1 tr=0 ts=6ac5ebcf cx=c_pps
+ a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=mshoYkgwlum6hxNOkgkA:9 a=QEXdDO2ut3YA:10
+ a=vBUdepa8ALXHeOFLBtFW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-07_02,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 adultscore=0 suspectscore=0 malwarescore=0
+ lowpriorityscore=0 bulkscore=0 spamscore=0 clxscore=1015 impostorscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610070027
 
+The APSS clock controller on IPQ9650 provides the CPU and L3 clocks. The
+four Cortex-A55 cores (silver), the Cortex-A78 core (gold) and the L3
+are each clocked by their own Zonda PLL, selected through a glitch-free mux
+whose parents are XO, GPLL0 and the corresponding PLL. Since the L3 has
+to scale along with the CPUs, the controller also registers an icc-clk
+provider in which both CPU clusters vote on the L3 clock.
 
-On 10/6/26 8:12 AM, Jakub Kicinski wrote:
-> On Thu,  1 Oct 2026 19:29:43 +0800 Jiayuan Chen wrote:
->> Subject: [PATCH net-next v2 3/3] tcp_cubic: fix divide by zero and endless loop on bad module params
-> if the LLM Medium severity complaint is true maybe also update
-> the subject? I thought there's an actual div by zero somewhere
-> but the commit msg seems to describe the inf loop
+Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+---
+Kathiravan Thirumoorthy (4):
+      interconnect: icc-clk: support N:1 master-to-slave topology
+      clk: qcom: clk-alpha-pll: Skip Zonda PLL configuration if already enabled
+      dt-bindings: clock: ipq9650-apss-clk: Add IPQ9650 apss clock controller
+      clk: qcom: apss-ipq9650: Add IPQ9650 APSS clock controller driver
 
+ .../bindings/clock/qcom,ipq9650-apss-clk.yaml      |  58 ++++
+ drivers/clk/qcom/Kconfig                           |   9 +
+ drivers/clk/qcom/Makefile                          |   1 +
+ drivers/clk/qcom/apss-ipq9650.c                    | 385 +++++++++++++++++++++
+ drivers/clk/qcom/clk-alpha-pll.c                   |   4 +
+ drivers/interconnect/icc-clk.c                     |  45 ++-
+ include/dt-bindings/clock/qcom,apss-ipq.h          |   5 +
+ include/dt-bindings/interconnect/qcom,ipq9650.h    |   4 +
+ 8 files changed, 504 insertions(+), 7 deletions(-)
+---
+base-commit: eea3fef32a9cf36abcb5975a5a594e4135a6b026
+change-id: 20260925-ipq9650_apss_clk-ff825e337d11
 
-
-Hi Kuba, sorry for the delay.
-
-The LLM is talking about (cwnd * beta_scale) wrapping, which needs
-cwnd >= 33M packets, way past the 1M limit this code documents. So
-the loop fix is fine.
-
-The div by zero is real: beta == 1024 in "/ (BICTCP_BETA_SCALE - beta)"
-and bic_scale == 0 in do_div(), both at init. The new range check in
-this patch rejects both, I just did not say "divide by zero" in the
-commit message.
-
-Want me to spell this out in the commit message? I can also add the
-READ_ONCE() Eric mentioned in the same respin.
+Best regards,
+--  
+Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 
