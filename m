@@ -1,149 +1,88 @@
-Received: from mail-wm2-f10.google.com (mail-wm2-f10.google.com [74.125.225.138])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80BAC42DA53
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 09:28:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69DB139891F;
+	Wed,  7 Oct 2026 09:29:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791365308; cv=none; b=DV33ptG/aLAvGB83rQkwsryrnHd5WJgAebqvYu3u9pg1MGO4exui/86OlHvfuS6GL1pvweuGermF+QQQkO5ntooM+OUSYiJWl+JrT31J5wtTUlEaD4Bq6oRgIi0GwFDJY7bP+CA1pDAzpdI4hSG3Z5Ysuio7aShCFRq/4UFxTN4=
+	t=1791365358; cv=none; b=F85z/nWyQfqHsH/KiZzfUurTnve+4PgcQXq5n/YB3H/0l2h+jzcQz7nQCVtt6wyiHywMJnb/J5dZH+8ArSIK65mZEKkGn33dGQmvbS+IScT+EBE2CvYQaAOngzENTVP7DqGQtFBmT3J4rwvf2PMNe08cURkTnGCMW6UNmPmZXSg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791365308; c=relaxed/simple;
-	bh=BXVesABP/l0w9gs9cGwYWUSxn4Yy0tpp8Ed1lo5/k3M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eAa6oMrJfr68w9pSZzfDnD7/ix0BjuwysVTESkYAbvGpTXEUNpnnZKqYS02Eja3vFobeeHFBpsslBp8jEUHhhx4R1PRRHwzsobhQD4JD0DDqyV7A00Z+U4FbBcLBXhtB0O+I6Z8q1TWZMkedFsd6mLpNK/mSG/q7+msFXfzovHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I39pQuPM; arc=none smtp.client-ip=74.125.225.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791365358; c=relaxed/simple;
+	bh=LhZg6aNeVmAeQJORhmXXI5psCyiE6Iz7uZ/YX5DC4Mg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qaUH4FGSiObnHsU/qCMI7CMT1rs4vZJ6gsGtWnHJT+KUZ3bIrK6r26CvzvOv9lShaL83kxxJvYiPEOW9Tg3M837SMlapvo6T2s7PBZsJrQ2lJhZ1OatkDLYHHOBfN0JBQX5xlaGUkdqGJZXIbyHwRaFkwn0Nbr4sk0xDL9IePUI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=W3LJw9rB; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I39pQuPM"
-Received: by mail-wm2-f10.google.com with SMTP id 5b1f17b1804b1-4a1657114dfso10032605e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 02:28:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791365290; x=1791970090; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aeP9LnNMW0XFzFwn1LZhyNEoudM26n+EG4TxrN/cfzc=;
-        b=I39pQuPMefb0B5dpJj0XLXCVTzw4Ll41nVCgoAeDEgj+XpW6DyrXH/qno3Hmjn3ZA0
-         zMLrVLrgv8iG1OysZOmg2OHRFU3m2qyC0jtZvwSTcRZ0GXU8pssChvffAetk2F0rwDIE
-         x+g+s+3rTjcACDCoIJxID5Kra+Iad2z4CU0idRGcVoXCQud1Dto2mW0UmACvfgVgfYlU
-         QmJ6IaYu/5Oh+slMkCcR9HGq8ToO+hxSQN0OEY6kV/CDP6rDCEk5bn5jBb8w5K1HOuOj
-         POB7IoXird9XT2pw6zKz6nWBNkhh0ysFQ7nDZ4G66iN2bJONGLWuAUq2+YyY7TVGXr+p
-         sknw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791365290; x=1791970090;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aeP9LnNMW0XFzFwn1LZhyNEoudM26n+EG4TxrN/cfzc=;
-        b=n08eLanhKiNvzGCN5JiDSQMhm1b8343bT+Xp7FsmuhN6WxWdXoEsPPFE3/+slurkkO
-         SY/GxLMkJVYYcvL6FbIrtD9/6FEErmIaAnHT0leuWdJAJ74AX+5csFGp+O5blrwrGWTP
-         OKucna1hglxUwsUQf+YAZ58nmaH6yy9JU9fdyc9mTWyTuqUNEshVLxkoASlTPPXgn3qp
-         s6cDnJARDnXvHvrWIhfwoZN0NECLLmkfSyLxl+m3c8cC+1kvA7/QTIn3EHYiNMuLKSmt
-         8VXsgGGVAi3tEZsPENA8xVvlGrKVTXj7RabX1YPsSiLuD3K5Zu0N6hPXU3oexEIFMieH
-         RIiw==
-X-Forwarded-Encrypted: i=1; AKwUvByDUtm9ThC5vYcR7D8P3Tb9gdZix8kYoxjzvzR0tSJnFmZ9pGXMzG49WgKEyIqnTlaUq18zyS2hikEYJcA=@vger.kernel.org
-X-Gm-Message-State: AFuF++m7SsqITu7Ud5oN94mbD/E46++6CaIopYSJYwH06BZ2a2n/1tXu
-	jOBfQbIAancv45eo0sLFh7lorRccIlRnWDDYY9JQEYXCnNwM4PbGzOFQ
-X-Gm-Gg: AYBFou09owF+nCtU+SpcN4NgPQuOuJXeihJoXaXtKZQ5Gc4MJQ6oW3nHlChuHJI5aV/
-	U7Iay+Afv+L32S7SO1V55RMqzZbVkPtCoUV91nz5SnNvdEjIbAS2eOkDr5lo+S/sEBg7o9HNEds
-	aYSGDoakTEXTQbZl1o/zmkjfalZERXQhzUnDD73Voy5mzs/O4x+Yjh+5GhqXN5Y+nGMM3Qdpaim
-	i/+eQw8eavek53l2tBD236OGGILRrVf44nAeXcbk+M5EnSgEj6pMHsABrHtb63wnk2xaRcM+2va
-	d3uvSU2oSfwFFRkU0YzaNNeSrjLtZJJfXzMCTtVg07Il7ANnex3DxV/VTeaWZsj3kBXFum7hsEk
-	mw5I4XtvQnvNjmg5awxXy5T0pTZtR2907MIvhuXXVtdu67cBHyqrJ1m2kfU2hnxPfBRld7+38u7
-	PoNMB52RQGxMOG6uy/jRG7lv5uV4kjR/s1iBNWmzsDamASvpom//fXAvVUcRoe0anSryC2/1ZqE
-	Pb+RSRxOb/Ux0UwR2FQ/fALo4qr/g6BC1xrM/NgHYCi8m/1DarWoSh/ntc3Kgr+SR9IYBX0Yajv
-	OSvWs3whbXlyRX/0gWSSCBEoIAQNeOXJDw==
-X-Received: by 2002:a05:600c:1c0d:b0:4a0:1efa:c74c with SMTP id 5b1f17b1804b1-4a18043c6a5mr29814735e9.20.1791365290293;
-        Wed, 07 Oct 2026 02:28:10 -0700 (PDT)
-Received: from lima-kernel.telekom.ip (84-115-220-212.cable.dynamic.surfer.at. [84.115.220.212])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f557bcbsm81016035e9.9.2026.10.07.02.28.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 02:28:09 -0700 (PDT)
-From: Jaeyeon Lee <jaeyeon.lee.dev@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Guillaume Morin <guillaume@morinfr.org>
-Cc: David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Breno Leitao <leitao@debian.org>,
-	Sarthak Sharma <sarthak.sharma@arm.com>,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jaeyeon Lee <jaeyeon.lee.dev@gmail.com>
-Subject: [PATCH v2] selftests/mm: hugetlb_madv_vs_map: fix TAP plan mismatches
-Date: Wed,  7 Oct 2026 11:28:01 +0200
-Message-ID: <20261007092801.35649-1-jaeyeon.lee.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="W3LJw9rB"
+Received: from [192.168.0.43] (chfd-03-b2-v4wan-176392-cust229.vm15.cable.virginm.net [82.19.20.230])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id A99DB2C6;
+	Wed,  7 Oct 2026 11:27:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1791365225;
+	bh=LhZg6aNeVmAeQJORhmXXI5psCyiE6Iz7uZ/YX5DC4Mg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=W3LJw9rB9hQwl792daoWDBoZ40IIIzqezghZbJyLTZ0REertsNTDutTqzrKV1OfMx
+	 D+gw8BUPP7noVoEbLvf5FukbJXz8DfxuSJ4aojpIxJQyu/5XxUBO7FUSRt7is6W+/i
+	 uF6M4bee3xw9G6w6GkYw2X5t0Lh5ejd+Ba+l/3tE=
+Message-ID: <f7987857-7516-4184-9a50-2b42a2d01234@ideasonboard.com>
+Date: Wed, 7 Oct 2026 10:28:58 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] dt-bindings: media: mali-c55: Allow wakeup source
+To: Linus Walleij <linusw@kernel.org>, Li Youhong <dayou5941@163.com>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>,
+ Nayden Kanchev <nayden.kanchev@arm.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260929-mali-c55-irq-supend-resume-v1-0-e3af34afff12@kernel.org>
+ <20260929-mali-c55-irq-supend-resume-v1-1-e3af34afff12@kernel.org>
+Content-Language: en-US
+From: Dan Scally <dan.scally@ideasonboard.com>
+In-Reply-To: <20260929-mali-c55-irq-supend-resume-v1-1-e3af34afff12@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The plan was raised from 1 to 3, but the HugeTLB setup check that may
-call ksft_exit_skip() still runs after ksft_set_plan(), so a setup
-failure reports one result against a plan of 3. Move ksft_set_plan()
-below the setup check.
+Hi Linus, thanks for the patchset
 
-Also, when the underflow check fails, or munmap() fails,
-test_underflow() jumps to err_cleanup and exits without reporting the
-remaining results. Report the munmap() failure as a test result and
-skip the final HugePages_Rsvd check in err_cleanup, so these failure
-paths report all 3 planned results.
+On 29/09/2026 13:02, Linus Walleij wrote:
+> The Mali-C55 interrupt can be wired as a wake source on platforms that
+> support it. Use the standard wakeup-source property.
 
-Fixes: 827149aad495 ("selftests/mm: hugetlb_madv_vs_map: add underflow test")
-Assisted-by: LLM
-Signed-off-by: Jaeyeon Lee <jaeyeon.lee.dev@gmail.com>
----
-Changes in v2:
-- Drop the duplicate ksft_perror() and report errno in
-  ksft_test_result_fail() (Sarthak Sharma).
+That's interesting! How's that work, though? In the RZ/V2H particularly the ISP is in an offline 
+mode, so I'm struggling to see how one could trigger the interrupt whilst the device is suspended, 
+since you'd need to instruct the IVC to queue a frame.
 
- tools/testing/selftests/mm/hugetlb_madv_vs_map.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Thanks
+Dan
 
-diff --git a/tools/testing/selftests/mm/hugetlb_madv_vs_map.c b/tools/testing/selftests/mm/hugetlb_madv_vs_map.c
-index 1d111f42dd59..0f6afb834dbf 100644
---- a/tools/testing/selftests/mm/hugetlb_madv_vs_map.c
-+++ b/tools/testing/selftests/mm/hugetlb_madv_vs_map.c
-@@ -168,7 +168,7 @@ void test_underflow(void)
- 
- 	/* First unmap, this will close the vma */
- 	if (munmap(huge_ptr, mmap_size) != 0) {
--		ksft_perror("munmap failed");
-+		ksft_test_result_fail("munmap failed: %s (%d)\n", strerror(errno), errno);
- 		goto err_cleanup;
- 	}
- 
-@@ -203,18 +203,20 @@ void test_underflow(void)
- 	if (waitpid(pid, NULL, 0) <= 0)
- 		ksft_exit_fail_perror("waitpid failed");
- 
-+	ksft_test_result_skip("HugePages_Rsvd check after child exit\n");
- 	ksft_exit_fail();
- }
- 
- int main(void)
- {
- 	ksft_print_header();
--	ksft_set_plan(3);
- 
- 	if (!hugetlb_setup_default_exact(1))
- 		ksft_exit_skip("This test needs one and only one page to execute. Got %lu\n",
- 			       hugetlb_free_default_pages());
- 
-+	ksft_set_plan(3);
-+
- 	test_madv_vs_map();
- 	test_underflow();
- 
--- 
-2.43.0
+> Assisted-by: LLM
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
+> ---
+>   Documentation/devicetree/bindings/media/arm,mali-c55.yaml | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/arm,mali-c55.yaml b/Documentation/devicetree/bindings/media/arm,mali-c55.yaml
+> index fc4fcd19922a..acd57799ccd0 100644
+> --- a/Documentation/devicetree/bindings/media/arm,mali-c55.yaml
+> +++ b/Documentation/devicetree/bindings/media/arm,mali-c55.yaml
+> @@ -20,6 +20,8 @@ properties:
+>     interrupts:
+>       maxItems: 1
+>   
+> +  wakeup-source: true
+> +
+>     clocks:
+>       items:
+>         - description: ISP Video Clock
+> 
 
