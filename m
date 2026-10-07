@@ -1,243 +1,494 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012026.outbound.protection.outlook.com [40.93.195.26])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFA97489FDD
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:51:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.26
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791913889; cv=fail; b=g4EcKcEvj310d9+9sJMkRwiG1ceGP7bY6qEhuSS50k21hQAkpKEVGexx1CuoFEDkaL4SqVmoGiEDXSDBNo8/M+Xr59V45md/5JoovgbpowMeFLXhgUcdXH+gxeFllWQQXlnQtyQbd6ukK1+LAC+GI7wSFz53FCpQ6B4banPz/lc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791913889; c=relaxed/simple;
-	bh=+QIwEiOhOqHRNgoZp/W5kBXPA1J1Wushhz0KV8UxGUw=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pBGOqaNkanfFZd/k8GAJ7M0QYGaflrZvkkXk1eg95l6jn1nzd5qLOYegQUmlEiLr9FwTcEA5Pqqe0XaHTfD+9lGNQIfRrr/Vaa5lKk0XNaZUQtTXsPIKtN0EWFa8wor6bgOAdzjQgNIDjJc6AHQ/TFzfyCLz//QxR4HKceTHc2s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=XAVNVMNe; arc=fail smtp.client-ip=40.93.195.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB0B45293E2
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:51:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791913890; cv=none; b=HsHuVlU2MJVjzuzwedjiRoqeXgiMU10taCfygWOzCouhnu/6AEDrK/MriBNnU5KXiY2XRbu6gjX2Y8kY0FCKpcYcME6Vmey/ap6BUxlJ0dnkLiXznwSqqG8lMxN1gXy5gFGX3Ani9a0nPfEEYCr494ekMtMmkNihUbv9JuzY+qU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791913890; c=relaxed/simple;
+	bh=FQumjHQziz2usahP6TJbb1/goQQH3Jlf6gf1zLp4j3o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gBn/JOSp+nGTnmXa6uVHBYKkq1DQ60hGkSmM0S7sFkThoIhZS9Uzr9YxvVbXAHPzHgzL8A9wM7/EgQqUbnjB3gNPEZ8s2Ya86kwnWSd8J3x78l9G/TmmvDSLtgUcbgL+3U1sxRi7PUwZ+VtZk5iQU/u9GFC0CmdVWZWZDhhnGlo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=r3AQvZ5G; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="XAVNVMNe"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CS2iyawNBm4mj96lftuljiPTmmz+yYOU1PJ0V+PyATnfGelbv1EAPcoDK70PNnoYIyLfYGYoyBFp0PUbp3ECjbB9kmUifUkCnmCZ9/Z8j4n/kkUIQUKvC6OcwXuCoR6Dq7jjhl7+eWrt8o3rYAkTwLy0ZPU4LpoFu67VmwpQxulc/B1tRL1b7s+oAYqZknGdqgkGFq+kaCaj8fSOCIWDKLKM9gqhyIlqf8hvPLQfg+F4W1l+ixf4trPF6x7LOzuOeeQt2DArhHOE6Qi+rl+IsE1/KSCFM9iqoeiIeSh2o584DriTV4FwIB3jD+6WZBiIa4xxlL3m6DiNZ4R5h9qM2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Hc+2yBSGwjL2He+cmSxMSDP+j0j9ionMb7nVpKMcjyY=;
- b=A307dNwLky+dISHXWqpZtGDGE6Zep6hM0qo1wVopiRULy6WCy69+IE71TrjDc3zq/hHxnRvMDcDnv8uPWnsxkrSw0LM7+SnB0Eq7odQgEuNIIiCSvPu46zBg1KLU3uQDQ26vQ0dopmxb9WHe4p5eJBiOCSP1u97ly8k6NArkJhhNOy8ov3MHSeAiI5jCSzfSZvYXxoUa4RWy/Z+Ogtt7znMxf/MT4948iSywdAKtT5qH7NQrJ2uIgDo1w+qQvugOfn+MYTjaS8OI048+ZrM3/XdxviQtlI3sjgkUQzcN6jtMOSxYm9PkRBFlywqs2qN2lfvTYjklDkqL/pQ1JlM0VQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=temperror (sender ip
- is 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com;
- dmarc=temperror action=none header.from=amd.com; dkim=none (message not
- signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Hc+2yBSGwjL2He+cmSxMSDP+j0j9ionMb7nVpKMcjyY=;
- b=XAVNVMNePvH9MnWZNxja58nWZOViuqiptON/3ckrqiMsHREoZjrdiZXmqLewcs4fsSTLelKaxsLjyJyB6p85t/DRJ7K+fpTQuf9QOUEeTPZwp/yf/FtS+YHuB17a74N9FUXsrET6CL3LJVMVqm0CNR+wSSgfRMk61qtECwTcSwA=
-Received: from PH0P220CA0019.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:d3::32)
- by MN6PR12MB8470.namprd12.prod.outlook.com (2603:10b6:208:46d::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.24; Tue, 13 Oct
- 2026 17:51:21 +0000
-Received: from CY6PEPF0000004B.namprd03.prod.outlook.com
- (2603:10b6:510:d3:cafe::62) by PH0P220CA0019.outlook.office365.com
- (2603:10b6:510:d3::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Tue, 13
- Oct 2026 17:51:21 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=temperror
- (sender IP is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not
- signed) header.d=none;dmarc=temperror action=none header.from=amd.com;
-Received-SPF: TempError (protection.outlook.com: error in processing during
- lookup of amd.com: DNS Timeout)
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY6PEPF0000004B.mail.protection.outlook.com (10.167.247.136) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Tue, 13 Oct 2026 17:51:19 +0000
-Received: from purico-9dcchost.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 13 Oct
- 2026 12:51:13 -0500
-From: Melody Wang <huibo.wang@amd.com>
-To: <x86@kernel.org>
-CC: LKML <linux-kernel@vger.kernel.org>, Tom Lendacky
-	<thomas.lendacky@amd.com>, <ardb@kernel.org>, Melody Wang
-	<huibo.wang@amd.com>
-Subject: [PATCH v4 1/7] x86/sev: Add support for Alternate Injection
-Date: Tue, 13 Oct 2026 17:50:48 +0000
-Message-ID: <fbfe17098b8ba7dd4e55746ae98da5f793549d43.1791912902.git.huibo.wang@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1791912902.git.huibo.wang@amd.com>
-References: <cover.1791912902.git.huibo.wang@amd.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="r3AQvZ5G"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 5E5BF1A121A
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:51:26 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 2B50060362
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:51:26 +0000 (UTC)
+Received: by mail.galae.net (Postcow, from userid 0)
+	id 93CE311D7188E; Tue, 13 Oct 2026 19:49:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791913885; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=Hb/g3Z5gV3DKZ5gCF8Y43lf2JaAk4JXwyN0WCZ3HOUg=;
+	b=r3AQvZ5Gc37Vb/sgzNIldU1qMxI897jlTKXtRDKh2kVfsjURTGLEEXK4fxPTA5frl7qvEY
+	XenY8M50BTXRVpN9io3sv0qvnLNrIBpdBUNmKYbq3rUxfhBudy7jskPbDSMQZZv6rW+GjT
+	chN9Qb3YBTCWRy+yg1JO2sJxUT/mkeX2lK3L14B09KNLvIfgRSaxkYKVxG9X61EG0Vz3Fu
+	TbLL3B3fVk/VteJV2zU+JqMTU34Uc6p6XtZwJDev1vdlpMapbP1lef6+dGWfczNBbE10NL
+	+eGFyTseAKrSZzVIertSb9zwU21CgJiFuNch8TjCeANjROPsDuK38pLuYJrnsw==
+Authentication-Results: mail.galae.net;
+	none
+Message-ID: <517a0416-3c48-4b38-865c-5c0b7e5bd143@bootlin.com>
+Date: Wed, 7 Oct 2026 11:35:11 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY6PEPF0000004B:EE_|MN6PR12MB8470:EE_
-X-MS-Office365-Filtering-Correlation-Id: cc56deb4-8ac5-4a69-f052-08df29529682
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|82310400026|36860700016|56012099006|11063799006|261009223027099003|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	/BrGO5RL7sIXiWCS5eH5ALhAz/Z2ZSS4Plct4EhB46Xo11k5pbszMhyTWENb9rLEoRBGxrAqXGRfto+VnqmtePLRBWrf8dlvjq35oESJ9r3T3J/7MbbJT68MLpyZkv+1t29jRX+mAIQFpBE9dF3/tv3zj+G6hM/jgZst4QHahvbdBSf2Ip9/Qdx2RQ+63rW2VnoYceuoQ5xgihV2TlvrMe2qxSoBs2JVFXBA0rpVKt+jHHHDaorNhbNNTcJKOC4tm9y3CCXdCgEI+KeFUhuAaM73iu8nf4voYKD7eZEvyPAZkEoGcd0Bv4uLW/4ZLYSXwt3QgcduBJn1SnWCwEvKdWfBJNSpliFxqqWGUKGDNvSBdWbI9Zc6hZKksSlBYCbjtayaaXRQMQ4ndsjkrYT/M9EsbNgSMX6st2ufh4f1RIMjgaqMPI0QdPCYLmHakhWli83/eJxezQ6LppnKAurN9n6t5ZfcLg/XYFX+R23rEBvS1epXe4IpAsa1Ss6SU95PcD0+zyMoQwMEzLcSVVp/v2rHbo2sA4eF7z3mkbQ/ifXXGuTlB8YACcC3hGZGDe+eiowZq9fMw+z8SEOaf2M04QhHyMsOThe3RNGCVCndrRSvMzA8v2avWzurrACbhwX3oKiCfmpXBw8zEWtsYHiyzrCOoVu1QrUf78tCbL+34dMjpkrVDe3Up6Eo5nbXoDLzxt4VZkAx7W/EJ+oKSAowLw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(82310400026)(36860700016)(56012099006)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	RZrP3hCGwbIfXa03TRs9r5655C6bTGROrtypcSA5m3hd9QzsOzh9LAYydfpGKxMmBobiImfrNV6LWJhgSR8tS5yCbMKz/8tOgs18nqmL9dxs5DwI6X/vxiztZ/dyWp33CPUUbb+IwUJ+09hJ/xrwM9l3XT+FC936kwNayq/2KDBIm2WPQGAFltOuWrANFWiN7ZAYGLUcCea8+hGOGOj4lHX58fOL9nhIRfT0Tg69DD/NXKgBvbkkRay12DCUeKOzJPhDDzTSf2cxE8FxUW9AKmYyowqi3QSisfHGCjPOYFjcnGKvf+obQVj6WA08pIhvZ1L1oCEzr8jz9Hl9gw7fKwhRKeaPSnc3ywyHTUm8e1FOuj46u0kLZvl52zCk7dH6bLrC3XdAvOVsXwRPZks/DobJvXBDBXA4d/neEoaYCQH686dCh0v1SjycTSX409Wm
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 17:51:19.8232
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc56deb4-8ac5-4a69-f052-08df29529682
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY6PEPF0000004B.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8470
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 1/7] net: stmmac: dwmac-meson8b: let the controller
+ apply the RGMII delays
+To: Lucas Tanure <tanure@linux.com>, xianwei.zhao@amlogic.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261007082627.63807-1-tanure@linux.com>
+ <20261007082627.63807-2-tanure@linux.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20261007082627.63807-2-tanure@linux.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: None
+X-Rspamd-Queue-Id: 93CE311D7188E
+X-Spamd-Result: default: False [1.37 / 30.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	BAYES_HAM(-1.03)[81.08%];
+	DATE_IN_PAST(1.00)[152];
+	MIME_GOOD(-0.10)[text/plain];
+	TAGGED_RCPT(0.00)[netdev,dt];
+	RCVD_COUNT_ZERO(0.00)[0];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_SIGNED(0.00)[bootlin.com:s=dkim];
+	FREEMAIL_TO(0.00)[linux.com,amlogic.com,lunn.ch,davemloft.net,kernel.org,redhat.com,linaro.org,baylibre.com,googlemail.com,gmail.com,foss.st.com];
+	BCC(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[21];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	MAILCOW_DOMAIN_HEADER_FROM(0.00)[bootlin.com];
+	URIBL_BLOCKED(0.00)[linux.com:email,linaro.org:email,localhost:rdns,localhost:helo,lunn.ch:email,st.com:email,davemloft.net:email,galae.net:url,infradead.org:email,baylibre.com:email,amlogic.com:email,bootlin.com:email,bootlin.com:mid,bootlin.com:url];
+	TO_DN_SOME(0.00)[]
 
-The Alternate Injection feature is a method to protect a SNP guest from
-malicious injection attacks. It allows the guest to control the
-interrupt injection.
+Hi Lucas,
 
-When this feature is enabled, interrupts are injected with the help of
-an agent called a Secure VM Service Module (SVSM) which executes in the
-security realm of the guest and uses Restricted Injection as the sole
-method to receive interrupts from the hypervisor.
+On 10/7/26 10:26, Lucas Tanure wrote:
+> RGMII needs a delay on each of its two clocks. A board can get it from
+> the length of its tracks, from the PHY, or from the controller.
+> "rgmii-id" in the device tree says the delay is added inside the chips
+> but not which chip adds it, and the generic tx-internal-delay-ps and
+> rx-internal-delay-ps properties name the controller.
+> 
+> This driver ignored those properties. In the "-id" modes it switched
+> its own delays off and left the whole job to the PHY, so a board that
+> asks the controller for one of them does not get it, and a board whose
+> PHY cannot supply that delay has no usable link at all.
+> 
+> Boards not using those properties behave as before.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Lucas Tanure <tanure@linux.com>
+> ---
+>  .../ethernet/stmicro/stmmac/dwmac-meson8b.c   | 46 ++++++++++++++++++-
+>  1 file changed, 44 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
+> index e4d5c41294f4..d73dfd0ac167 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
+> @@ -92,6 +92,8 @@ struct meson8b_dwmac {
+>  	struct clk			*rgmii_tx_clk;
+>  	u32				tx_delay_ns;
+>  	u32				rx_delay_ps;
+> +	bool				mac_tx_delay;
+> +	bool				mac_rx_delay;
+>  	struct clk			*timing_adj_clk;
+>  };
+>  
+> @@ -299,6 +301,22 @@ static int meson8b_init_rgmii_delays(struct meson8b_dwmac *dwmac)
+>  		delay_config = rx_adj_config;
+>  		break;
+>  	case PHY_INTERFACE_MODE_RGMII_ID:
+> +		/*
+> +		 * "rgmii-id" only says the delays are internal, not which
+> +		 * side applies them. The *-internal-delay-ps properties say
+> +		 * it is this controller, so leave ours switched on.
+> +		 */
+> +		if (dwmac->mac_tx_delay || dwmac->mac_rx_delay) {
+> +			delay_config = 0;
+> +			if (dwmac->mac_tx_delay)
+> +				delay_config |= tx_dly_config;
+> +			if (dwmac->mac_rx_delay)
+> +				delay_config |= rx_adj_config;
+> +			else
+> +				cfg_rxclk_dly = 0;
+> +			break;
+> +		}
+> +		fallthrough;
+>  	case PHY_INTERFACE_MODE_RMII:
+>  		delay_config = 0;
+>  		cfg_rxclk_dly = 0;
+> @@ -384,6 +402,7 @@ static int meson8b_dwmac_probe(struct platform_device *pdev)
+>  	struct plat_stmmacenet_data *plat_dat;
+>  	struct stmmac_resources stmmac_res;
+>  	struct meson8b_dwmac *dwmac;
+> +	u32 tx_delay_ps;
+>  	int ret;
+>  
+>  	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
+> @@ -409,9 +428,13 @@ static int meson8b_dwmac_probe(struct platform_device *pdev)
+>  	dwmac->dev = &pdev->dev;
+>  	dwmac->phy_mode = plat_dat->phy_interface;
+>  
+> +	/* the generic property is preferred over the vendor one */
+> +	if (!of_property_read_u32(pdev->dev.of_node, "tx-internal-delay-ps",
+> +				  &tx_delay_ps))
+> +		dwmac->tx_delay_ns = tx_delay_ps / 1000;
+>  	/* use 2ns as fallback since this value was previously hardcoded */
+> -	if (of_property_read_u32(pdev->dev.of_node, "amlogic,tx-delay-ns",
+> -				 &dwmac->tx_delay_ns))
+> +	else if (of_property_read_u32(pdev->dev.of_node, "amlogic,tx-delay-ns",
+> +				      &dwmac->tx_delay_ns))
+>  		dwmac->tx_delay_ns = 2;
+>  
+>  	/* RX delay defaults to 0ps since this is what many boards use */
+> @@ -424,6 +447,25 @@ static int meson8b_dwmac_probe(struct platform_device *pdev)
+>  			dwmac->rx_delay_ps *= 1000;
+>  	}
+>  
+> +	/*
+> +	 * Each property names one clock this controller delays itself. The
+> +	 * PHY must be asked for whatever is left, or the two would delay the
+> +	 * same clock and push it past the window.
+> +	 */
+> +	dwmac->mac_tx_delay = of_property_present(pdev->dev.of_node,
+> +						  "tx-internal-delay-ps");
+> +	dwmac->mac_rx_delay = of_property_present(pdev->dev.of_node,
+> +						  "rx-internal-delay-ps");
+> +
+> +	if (dwmac->phy_mode == PHY_INTERFACE_MODE_RGMII_ID) {
+> +		if (dwmac->mac_tx_delay && dwmac->mac_rx_delay)
+> +			plat_dat->phy_interface = PHY_INTERFACE_MODE_RGMII;
+> +		else if (dwmac->mac_tx_delay)
+> +			plat_dat->phy_interface = PHY_INTERFACE_MODE_RGMII_RXID;
+> +		else if (dwmac->mac_rx_delay)
+> +			plat_dat->phy_interface = PHY_INTERFACE_MODE_RGMII_TXID;
+> +	}
 
-Add support for Alternate Injection.
+There's a helper for that :
 
-Signed-off-by: Melody Wang <huibo.wang@amd.com>
----
- arch/x86/Kconfig                       | 14 ++++++++++++++
- arch/x86/boot/compressed/sev.c         |  2 +-
- arch/x86/coco/core.c                   |  3 +++
- arch/x86/coco/sev/core.c               |  2 +-
- arch/x86/include/asm/msr-index.h       |  4 ++--
- include/linux/cc_platform.h            |  8 ++++++++
- tools/arch/x86/include/asm/msr-index.h |  4 ++--
- 7 files changed, 31 insertions(+), 6 deletions(-)
+phy_fix_phy_mode_for_mac_delays(), passed as parameters the mode, and wether the mac
+inserts TX/RX delays, and it returns what you should hand out to the PHY :)
 
-diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
-index a47a6beebfe3..52d627bb33f4 100644
---- a/arch/x86/Kconfig
-+++ b/arch/x86/Kconfig
-@@ -496,6 +496,20 @@ config AMD_SECURE_AVIC
- 
- 	  If you don't know what to do here, say N.
- 
-+config AMD_ALTERNATE_INJ
-+	bool "Support Alternate Injection"
-+	depends on X86_X2APIC && AMD_MEM_ENCRYPT
-+	help
-+	  Enable AMD Alternate Injection support for SNP guests.
-+
-+	  The Alternate Injection feature of SEV-SNP enhances the security of
-+	  a confidential VM by preventing the untrusted host from presenting
-+	  unexpected interrupts or exceptions, while still preserving the
-+	  standard interrupt dispatch semantics inherent to the x86
-+	  architecture.
-+
-+	  If you don't know what to do here, say N.
-+
- config X86_POSTED_MSI
- 	bool "Enable MSI and MSI-x delivery by posted interrupts"
- 	depends on X86_64 && IRQ_REMAP
-diff --git a/arch/x86/boot/compressed/sev.c b/arch/x86/boot/compressed/sev.c
-index c6512f2ea31e..fc2029746c50 100644
---- a/arch/x86/boot/compressed/sev.c
-+++ b/arch/x86/boot/compressed/sev.c
-@@ -179,7 +179,7 @@ bool sev_es_check_ghcb_fault(unsigned long address)
- #define SNP_FEATURES_IMPL_REQ	(MSR_AMD64_SNP_VTOM |			\
- 				 MSR_AMD64_SNP_REFLECT_VC |		\
- 				 MSR_AMD64_SNP_RESTRICTED_INJ |		\
--				 MSR_AMD64_SNP_ALT_INJ |		\
-+				 MSR_AMD64_SNP_ALTERNATE_INJ |		\
- 				 MSR_AMD64_SNP_DEBUG_SWAP |		\
- 				 MSR_AMD64_SNP_VMPL_SSS |		\
- 				 MSR_AMD64_SNP_SECURE_TSC |		\
-diff --git a/arch/x86/coco/core.c b/arch/x86/coco/core.c
-index 989ca9f72ba3..aabda3ddc0e2 100644
---- a/arch/x86/coco/core.c
-+++ b/arch/x86/coco/core.c
-@@ -107,6 +107,9 @@ static bool noinstr amd_cc_platform_has(enum cc_attr attr)
- 	case CC_ATTR_SNP_SECURE_AVIC:
- 		return sev_status & MSR_AMD64_SNP_SECURE_AVIC;
- 
-+	case CC_ATTR_SNP_ALTERNATE_INJECTION:
-+		return sev_status & MSR_AMD64_SNP_ALTERNATE_INJ;
-+
- 	default:
- 		return false;
- 	}
-diff --git a/arch/x86/coco/sev/core.c b/arch/x86/coco/sev/core.c
-index eb2e853e950a..900a7ff8b639 100644
---- a/arch/x86/coco/sev/core.c
-+++ b/arch/x86/coco/sev/core.c
-@@ -78,7 +78,7 @@ static const char * const sev_status_feat_names[] = {
- 	[MSR_AMD64_SNP_VTOM_BIT]		= "vTom",
- 	[MSR_AMD64_SNP_REFLECT_VC_BIT]		= "ReflectVC",
- 	[MSR_AMD64_SNP_RESTRICTED_INJ_BIT]	= "RI",
--	[MSR_AMD64_SNP_ALT_INJ_BIT]		= "AI",
-+	[MSR_AMD64_SNP_ALTERNATE_INJ_BIT]	= "AI",
- 	[MSR_AMD64_SNP_DEBUG_SWAP_BIT]		= "DebugSwap",
- 	[MSR_AMD64_SNP_PREVENT_HOST_IBS_BIT]	= "NoHostIBS",
- 	[MSR_AMD64_SNP_BTB_ISOLATION_BIT]	= "BTBIsol",
-diff --git a/arch/x86/include/asm/msr-index.h b/arch/x86/include/asm/msr-index.h
-index 82ca6356dc62..297c7dec795c 100644
---- a/arch/x86/include/asm/msr-index.h
-+++ b/arch/x86/include/asm/msr-index.h
-@@ -728,8 +728,8 @@
- #define MSR_AMD64_SNP_REFLECT_VC	BIT_ULL(MSR_AMD64_SNP_REFLECT_VC_BIT)
- #define MSR_AMD64_SNP_RESTRICTED_INJ_BIT 5
- #define MSR_AMD64_SNP_RESTRICTED_INJ	BIT_ULL(MSR_AMD64_SNP_RESTRICTED_INJ_BIT)
--#define MSR_AMD64_SNP_ALT_INJ_BIT	6
--#define MSR_AMD64_SNP_ALT_INJ		BIT_ULL(MSR_AMD64_SNP_ALT_INJ_BIT)
-+#define MSR_AMD64_SNP_ALTERNATE_INJ_BIT	6
-+#define MSR_AMD64_SNP_ALTERNATE_INJ	BIT_ULL(MSR_AMD64_SNP_ALTERNATE_INJ_BIT)
- #define MSR_AMD64_SNP_DEBUG_SWAP_BIT	7
- #define MSR_AMD64_SNP_DEBUG_SWAP	BIT_ULL(MSR_AMD64_SNP_DEBUG_SWAP_BIT)
- #define MSR_AMD64_SNP_PREVENT_HOST_IBS_BIT 8
-diff --git a/include/linux/cc_platform.h b/include/linux/cc_platform.h
-index 559353ad64ac..80d9f1de2ae8 100644
---- a/include/linux/cc_platform.h
-+++ b/include/linux/cc_platform.h
-@@ -104,6 +104,14 @@ enum cc_attr {
- 	 * to run SEV-SNP guests with full Secure AVIC capabilities.
- 	 */
- 	CC_ATTR_SNP_SECURE_AVIC,
-+
-+	/**
-+	 * @CC_ATTR_SNP_ALTERNATE_INJECTION: AMD Alternate Injection enabled.
-+	 *
-+	 * A Secure VM Service Module (SVSM) has started the guest with
-+	 * Alternate Injection enabled.
-+	 */
-+	CC_ATTR_SNP_ALTERNATE_INJECTION,
- };
- 
- #ifdef CONFIG_ARCH_HAS_CC_PLATFORM
-diff --git a/tools/arch/x86/include/asm/msr-index.h b/tools/arch/x86/include/asm/msr-index.h
-index 18c4be75e927..e4eab2210518 100644
---- a/tools/arch/x86/include/asm/msr-index.h
-+++ b/tools/arch/x86/include/asm/msr-index.h
-@@ -721,8 +721,8 @@
- #define MSR_AMD64_SNP_REFLECT_VC	BIT_ULL(MSR_AMD64_SNP_REFLECT_VC_BIT)
- #define MSR_AMD64_SNP_RESTRICTED_INJ_BIT 5
- #define MSR_AMD64_SNP_RESTRICTED_INJ	BIT_ULL(MSR_AMD64_SNP_RESTRICTED_INJ_BIT)
--#define MSR_AMD64_SNP_ALT_INJ_BIT	6
--#define MSR_AMD64_SNP_ALT_INJ		BIT_ULL(MSR_AMD64_SNP_ALT_INJ_BIT)
-+#define MSR_AMD64_SNP_ALTERNATE_INJ_BIT	6
-+#define MSR_AMD64_SNP_ALTERNATE_INJ	BIT_ULL(MSR_AMD64_SNP_ALTERNATE_INJ_BIT)
- #define MSR_AMD64_SNP_DEBUG_SWAP_BIT	7
- #define MSR_AMD64_SNP_DEBUG_SWAP	BIT_ULL(MSR_AMD64_SNP_DEBUG_SWAP_BIT)
- #define MSR_AMD64_SNP_PREVENT_HOST_IBS_BIT 8
--- 
-2.43.0
+> +
+>  	if (dwmac->data->has_prg_eth1_rgmii_rx_delay) {
+>  		if (dwmac->rx_delay_ps > 3000 || dwmac->rx_delay_ps % 200) {
+>  			dev_err(dwmac->dev,
+
+This looks better, thanks for this :)
+
+Maxime
+text:
+Return-Path: <netdev+bounces-342286-maxime.chevallier=bootlin.com@vger.kernel.org>
+Delivered-To: maxime.chevallier@bootlin.com
+Received: from mail.galae.net ([172.22.1.253])
+	by 9e7fea892943 with LMTP
+	id gCS8EoUVxmqzXwwAtaWaaQ
+	(envelope-from <netdev+bounces-342286-maxime.chevallier=bootlin.com@vger.kernel.org>)
+	for <maxime.chevallier@bootlin.com>; Wed, 07 Oct 2026 11:48:53 +0200
+X-Original-To: maxime.chevallier@bootlin.com
+Received: from smtpin-01.galae.net (smtpin-01.galae.net [51.159.2.148])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.galae.net (Postcow) with ESMTPS id D4A4611D500F1
+	for <maxime.chevallier@bootlin.com>; Wed,  7 Oct 2026 11:48:52 +0200 (CEST)
+Authentication-Results: mail.galae.net;
+	dkim=pass header.d=bootlin.com header.s=dkim header.b="F6vLO8/J";
+	arc=pass ("subspace.kernel.org:s=arc-20240116:i=1");
+	dmarc=pass (policy=reject) header.from=bootlin.com;
+	spf=pass (mail.galae.net: domain of "netdev+bounces-342286-maxime.chevallier=bootlin.com@vger.kernel.org" designates 172.234.253.10 as permitted sender) smtp.mailfrom="netdev+bounces-342286-maxime.chevallier=bootlin.com@vger.kernel.org"
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com;
+	s=dkim; t=1791366533;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:
+	 list-unsubscribe:list-subscribe:dkim-signature;
+	bh=xQN3wQkVGd6JZIsxjTwgNRXi/qvLUOwJEvsQFsaSMuc=;
+	b=Qi6pce3VtYmTMb1Ew1UlNg9GwFxewjzDvcBgA6A6zaktaGT7lCXj5jhqjpT1R2Ilsfwv0Y
+	OQlrGc1i05r3RnxM3gyBfDwpqADD3N63DoWnitF8hQxKv6u0GGDZ//KgmKks/r0q7GbEA7
+	ifC3xuxbXqeGr58Kj7CrAiYiajgSb8i6rJoFQbUespcEZTVGOP0Gt6c+TKC4ryI675+slf
+	WFuTbc6/VkKMws+IKwUly81oufSb6RE2Blf4+ACVM278PGGoClgkZGyM2RcdhQMbZyH/b7
+	PLyxbH4NKFms3laoRWYWKzSgGxn0DKtzZv95P48YQrlnaxohc/ctxZCevf8lCg==
+ARC-Authentication-Results: i=2;
+	mail.galae.net;
+	dkim=pass header.d=bootlin.com header.s=dkim header.b="F6vLO8/J";
+	arc=pass ("subspace.kernel.org:s=arc-20240116:i=1");
+	dmarc=pass (policy=reject) header.from=bootlin.com;
+	spf=pass (mail.galae.net: domain of "netdev+bounces-342286-maxime.chevallier=bootlin.com@vger.kernel.org" designates 172.234.253.10 as permitted sender) smtp.mailfrom="netdev+bounces-342286-maxime.chevallier=bootlin.com@vger.kernel.org"
+ARC-Seal: i=2; s=dkim; d=bootlin.com; t=1791366533; a=rsa-sha256; cv=pass;
+	b=xWuimLhKlpaFMWkt2/Xr2UAD+5VCOeeOi/l924ahktq6WdC9XLcwTak4JbPDbW50jQTH+z
+	0Qlk3OOn9lq+YsLYHad64g6Xo+wu3B1DBPXIKlU+XAf/fQZLXL50AL+Z5AxwxjaoHGYcYL
+	zsUJFI+IpwrKk/dSCTj3m3eHQhb0Ney20tGchcBKXkX4MG4VEl2Fm5YDmrIqNvG0MFbSxp
+	HWKP4p8ECn/udbScNnXAnB1S7fpNrnUkupTzW8DRFF0Z9igjpyi5VJm7tY+GY1fEVDUIy3
+	J9BouEY42W5v4olMRLhFo7nIzcthtch429NIJbWXo/pxnIjHTvyWJEE9re960w==
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
+	by smtpin-01.galae.net (Postfix) with ESMTPS id 493643429DF
+	for <maxime.chevallier@bootlin.com>; Wed,  7 Oct 2026 09:48:52 +0000 (UTC)
+Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
+	by sea.lore.kernel.org (Postfix) with ESMTP id 26DD9456E0
+	for <maxime.chevallier@bootlin.com>; Wed,  7 Oct 2026 09:36:30 +0000 (UTC)
+Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C7EED47D45B;
+	Wed,  7 Oct 2026 09:35:41 +0000 (UTC)
+X-Original-To: netdev@vger.kernel.org
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84C02388369
+	for <netdev@vger.kernel.org>; Wed,  7 Oct 2026 09:35:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791365739; cv=none; b=h8PcMp5x/Fr/7hPhQ4dxsO1S7x33aa+qTZcdUnAZrixphIrgtiL9adJaCOF+gZfXzTLCkxGUPkaTpIwO/iaQQffJ7UnadVXqmxr6ajsPik4xueFznUW+XGwH01fCPO8mr6/Hia+F/KM6gZi2t/DXMECf3GtYg4nNZ3yrDXAeh2w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791365739; c=relaxed/simple;
+	bh=HZ4Yai8hHKkjGNwF1DyF5ppHLfujuiudOKsOWhFEiMA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TPOvKSIPlj2Eq5eRFZ06xfenPpaEgaSamE+rGTEJt2oDqBapSyOdsCype5fctrgscFPh5WyZlQMwRXTbjH1zX5OFEJHzLlwcSmsYXLBdIpEYpFzMfLemCzSMuPixg1cAJ5+hFswUgHr+HMlVCTfygXK5Y2Fitr9Eqpn7zgbDlcs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=F6vLO8/J; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 10CCD1A1152;
+	Wed,  7 Oct 2026 09:35:20 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D0BCE6074B;
+	Wed,  7 Oct 2026 09:35:19 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9C9EC11D5006E;
+	Wed,  7 Oct 2026 11:35:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791365718; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=xQN3wQkVGd6JZIsxjTwgNRXi/qvLUOwJEvsQFsaSMuc=;
+	b=F6vLO8/Jrxzbe/6VTfHp1fxHL49UWZ7bUNvCBV6S3aWj9qw4/Y+NYCnR+wXXtMVF21vtN8
+	6HO18hsdYrmSr3IcUe2mcYmZiNvV8UMqDzr+mA6xQj+34muF/6X8kXoalbJzvztH26FNBa
+	K5+OZbd3o0t/hlIz1fWptevr9i2LwGhB7MyPt4CWYzBcKhrRfHzLvkEgXBp/jTbEPTQObp
+	7oAGJRThN3DBQLRGYmhO2A1fjO10mSyM258NnQc7qDy09Vmq/uYJdtwgPHdNMHIZeMHZRC
+	JINJJrljNLVaiKtvTHsTbReOHINo7BhmDfAKbGYWXUNz9HNrGtFmjQExvdZfCQ==
+Message-ID: <517a0416-3c48-4b38-865c-5c0b7e5bd143@bootlin.com>
+Date: Wed, 7 Oct 2026 11:35:11 +0200
+Precedence: bulk
+X-Mailing-List: netdev@vger.kernel.org
+List-Id: <netdev.vger.kernel.org>
+List-Subscribe: <mailto:netdev+subscribe@vger.kernel.org>
+List-Unsubscribe: <mailto:netdev+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 1/7] net: stmmac: dwmac-meson8b: let the controller
+ apply the RGMII delays
+To: Lucas Tanure <tanure@linux.com>, xianwei.zhao@amlogic.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261007082627.63807-1-tanure@linux.com>
+ <20261007082627.63807-2-tanure@linux.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20261007082627.63807-2-tanure@linux.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
+X-Last-TLS-Session-Version: TLSv1.3
+X-Spamd-Result: default: False [-3.17 / 30.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	IP_REPUTATION_HAM(-1.41)[asn: 63949(-0.40), country: SG(-0.01), ip: 172.234.253.10(-1.00)];
+	BAYES_HAM(-1.09)[81.68%];
+	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[bootlin.com,reject];
+	R_DKIM_ALLOW(-0.20)[bootlin.com:s=dkim];
+	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
+	MAILLIST(-0.15)[generic];
+	MIME_GOOD(-0.10)[text/plain];
+	HAS_LIST_UNSUB(-0.01)[];
+	MX_GOOD(-0.01)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	URIBL_BLOCKED(0.00)[bootlin.com:mid,bootlin.com:dkim,linux.com:email,sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns];
+	RCVD_TLS_LAST(0.00)[];
+	RCPT_MAILCOW_DOMAIN(0.00)[bootlin.com];
+	MAILCOW_DOMAIN_HEADER_FROM(0.00)[bootlin.com];
+	RCPT_COUNT_TWELVE(0.00)[21];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[linux.com,amlogic.com,lunn.ch,davemloft.net,kernel.org,redhat.com,linaro.org,baylibre.com,googlemail.com,gmail.com,foss.st.com];
+	MIME_TRACE(0.00)[0:+];
+	BCC(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_FROM(0.00)[bounces-342286-maxime.chevallier=bootlin.com];
+	RBL_SENDERSCORE_REPUT_BLOCKED(0.00)[172.234.253.10:from];
+	DKIM_TRACE(0.00)[bootlin.com:+];
+	DNSWL_BLOCKED(0.00)[185.246.84.56:received,100.90.174.1:received,172.234.253.10:from,212.83.139.233:received,212.83.136.155:received];
+	NEURAL_HAM(-0.00)[-1.000];
+	PRECEDENCE_BULK(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[maxime.chevallier@bootlin.com,netdev@vger.kernel.org];
+	ARC_SIGNED(0.00)[bootlin.com:s=dkim:i=2];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[netdev,dt];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DWL_DNSWL_BLOCKED(0.00)[bootlin.com:dkim];
+	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	EXTERNAL_RELAY_AUTHENTICATED(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[7]
+X-Rspamd-Queue-Id: D4A4611D500F1
+
+Hi Lucas,
+
+On 10/7/26 10:26, Lucas Tanure wrote:
+> RGMII needs a delay on each of its two clocks. A board can get it from
+> the length of its tracks, from the PHY, or from the controller.
+> "rgmii-id" in the device tree says the delay is added inside the chips
+> but not which chip adds it, and the generic tx-internal-delay-ps and
+> rx-internal-delay-ps properties name the controller.
+> 
+> This driver ignored those properties. In the "-id" modes it switched
+> its own delays off and left the whole job to the PHY, so a board that
+> asks the controller for one of them does not get it, and a board whose
+> PHY cannot supply that delay has no usable link at all.
+> 
+> Boards not using those properties behave as before.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Lucas Tanure <tanure@linux.com>
+> ---
+>  .../ethernet/stmicro/stmmac/dwmac-meson8b.c   | 46 ++++++++++++++++++-
+>  1 file changed, 44 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
+> index e4d5c41294f4..d73dfd0ac167 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
+> @@ -92,6 +92,8 @@ struct meson8b_dwmac {
+>  	struct clk			*rgmii_tx_clk;
+>  	u32				tx_delay_ns;
+>  	u32				rx_delay_ps;
+> +	bool				mac_tx_delay;
+> +	bool				mac_rx_delay;
+>  	struct clk			*timing_adj_clk;
+>  };
+>  
+> @@ -299,6 +301,22 @@ static int meson8b_init_rgmii_delays(struct meson8b_dwmac *dwmac)
+>  		delay_config = rx_adj_config;
+>  		break;
+>  	case PHY_INTERFACE_MODE_RGMII_ID:
+> +		/*
+> +		 * "rgmii-id" only says the delays are internal, not which
+> +		 * side applies them. The *-internal-delay-ps properties say
+> +		 * it is this controller, so leave ours switched on.
+> +		 */
+> +		if (dwmac->mac_tx_delay || dwmac->mac_rx_delay) {
+> +			delay_config = 0;
+> +			if (dwmac->mac_tx_delay)
+> +				delay_config |= tx_dly_config;
+> +			if (dwmac->mac_rx_delay)
+> +				delay_config |= rx_adj_config;
+> +			else
+> +				cfg_rxclk_dly = 0;
+> +			break;
+> +		}
+> +		fallthrough;
+>  	case PHY_INTERFACE_MODE_RMII:
+>  		delay_config = 0;
+>  		cfg_rxclk_dly = 0;
+> @@ -384,6 +402,7 @@ static int meson8b_dwmac_probe(struct platform_device *pdev)
+>  	struct plat_stmmacenet_data *plat_dat;
+>  	struct stmmac_resources stmmac_res;
+>  	struct meson8b_dwmac *dwmac;
+> +	u32 tx_delay_ps;
+>  	int ret;
+>  
+>  	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
+> @@ -409,9 +428,13 @@ static int meson8b_dwmac_probe(struct platform_device *pdev)
+>  	dwmac->dev = &pdev->dev;
+>  	dwmac->phy_mode = plat_dat->phy_interface;
+>  
+> +	/* the generic property is preferred over the vendor one */
+> +	if (!of_property_read_u32(pdev->dev.of_node, "tx-internal-delay-ps",
+> +				  &tx_delay_ps))
+> +		dwmac->tx_delay_ns = tx_delay_ps / 1000;
+>  	/* use 2ns as fallback since this value was previously hardcoded */
+> -	if (of_property_read_u32(pdev->dev.of_node, "amlogic,tx-delay-ns",
+> -				 &dwmac->tx_delay_ns))
+> +	else if (of_property_read_u32(pdev->dev.of_node, "amlogic,tx-delay-ns",
+> +				      &dwmac->tx_delay_ns))
+>  		dwmac->tx_delay_ns = 2;
+>  
+>  	/* RX delay defaults to 0ps since this is what many boards use */
+> @@ -424,6 +447,25 @@ static int meson8b_dwmac_probe(struct platform_device *pdev)
+>  			dwmac->rx_delay_ps *= 1000;
+>  	}
+>  
+> +	/*
+> +	 * Each property names one clock this controller delays itself. The
+> +	 * PHY must be asked for whatever is left, or the two would delay the
+> +	 * same clock and push it past the window.
+> +	 */
+> +	dwmac->mac_tx_delay = of_property_present(pdev->dev.of_node,
+> +						  "tx-internal-delay-ps");
+> +	dwmac->mac_rx_delay = of_property_present(pdev->dev.of_node,
+> +						  "rx-internal-delay-ps");
+> +
+> +	if (dwmac->phy_mode == PHY_INTERFACE_MODE_RGMII_ID) {
+> +		if (dwmac->mac_tx_delay && dwmac->mac_rx_delay)
+> +			plat_dat->phy_interface = PHY_INTERFACE_MODE_RGMII;
+> +		else if (dwmac->mac_tx_delay)
+> +			plat_dat->phy_interface = PHY_INTERFACE_MODE_RGMII_RXID;
+> +		else if (dwmac->mac_rx_delay)
+> +			plat_dat->phy_interface = PHY_INTERFACE_MODE_RGMII_TXID;
+> +	}
+
+There's a helper for that :
+
+phy_fix_phy_mode_for_mac_delays(), passed as parameters the mode, and wether the mac
+inserts TX/RX delays, and it returns what you should hand out to the PHY :)
+
+> +
+>  	if (dwmac->data->has_prg_eth1_rgmii_rx_delay) {
+>  		if (dwmac->rx_delay_ps > 3000 || dwmac->rx_delay_ps % 200) {
+>  			dev_err(dwmac->dev,
+
+This looks better, thanks for this :)
+
+Maxime
 
