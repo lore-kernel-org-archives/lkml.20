@@ -1,199 +1,268 @@
-Received: from fhigh-a3-smtp.messagingengine.com (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BAFD3C819C
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 21:35:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42AFF3E7630
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 21:37:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791408938; cv=none; b=BE6xGaQoL2PbLXzbCU+ipMH8RFTc9VbP2oELwdOS3nL8Zp1z6JnM/xKPgbSXWqZKGKIQUFU9wgYZVkrm7l1xQQNbsqWE8SKy3nY4n0wN/xp7w/cbQizIzJlnnzDS38qaEukVR6f3XMYofoFD8ZBkMFeASufM6yGQC/og6Bh6WVM=
+	t=1791409042; cv=none; b=Ck4MX+e5cBn/6oCUpl9Xfy+gjAXPG5Y4xuTwPj4EZN1VCkQZnr4BFEM9TKgF9ZODSuOPgy2AaSUFUy2F4nDpbo0K2UQX8+yzYCqlSpKTho0axFtXjsIwFQnlafe7+ldTrRCcCT51f1YDeYKJHhWrNkb/lpw9h6Ai7Gh9INCXJZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791408938; c=relaxed/simple;
-	bh=wYsP8cX//0rpRYNJSb27S+esVIVihSU1dWHck+ptWIo=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:Subject:Content-Type; b=ATHSKmn0ArcCU2A79cs4OJHTwZjSuJy29DvGBya1ThfKCGVcMjwIJXIofb8oC2zOVuaL9vMB18zpjBlnWPsKvf8AOcYjxpRFSwrT2iZQMJ1K7+ratPmRqfpLdjSjikyY8Zfhcn6x220dfrohwWJwfn2b5DGh1WfTnxgUlpw9WDI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=cYGPI9KX; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Ar7EGNaQ; arc=none smtp.client-ip=103.168.172.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1791409042; c=relaxed/simple;
+	bh=97ANgKKmzJGc1t8bxIYGvVA+ch1ekaH1uFX9dZ2mx1c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=sZUG3+s5hanIBrK1K7Hayp5Z7H+ZOHISYwM8fl2x/PbpjMDwQftyOXdvFknMAK3B7s9mUPPjp27bvrA6YvxEJpDwNkJG2NWPbYrW7vVhcA74NoYkVtZiqj2CEx0c6toCKRoFzbRKOWeTnIgkHv6Cj063rJrdBLBuf/4wHG0LuAc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FwuIbypT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="cYGPI9KX";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Ar7EGNaQ"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 5FE381400167
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 17:35:34 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Wed, 07 Oct 2026 17:35:34 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:message-id:mime-version:reply-to
-	:subject:subject:to:to; s=fm1; t=1791408931; x=1791495331; bh=ZD
-	mP8DzJugW5eXodu1u8OXMJRWyqdoFMQGjudVwguv8=; b=cYGPI9KXhbCE7Gkvq/
-	66lWCmysX/OO1Dxffzb1WkQY7v4WBxsjqsWkZZ9Het6tbxTXPOLVCGZ+obzrl4oD
-	MHHNloaxh1LIQsyqZqoCUQw071jyIPUbaNTMsXoouoh2wdFw8WuXfLU/UExHydwa
-	cyPPCvnNb2yO9lBTdwqCFVg3FLO6ET4LScLvjqCH7B/EGHSYPgvLSChAXYKHV8na
-	kC51lZJlmqsXUmMEkfSGtsBHP3GaO83cPa/O3RHDqezMyFgKoyquGifL7jTHgmO7
-	8hJqVVVm7gzyzz6AKipr9jdnTc/lBG2juYXOVJLkC8Je5+XvNVYkz0bzB+ma2Ec0
-	2kLw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1791408931; x=1791495331; bh=ZDmP8DzJugW5eXodu1u8OXMJRWyq
-	doFMQGjudVwguv8=; b=Ar7EGNaQ3EB5n6LvjSl+UzryVQNL34Mb+451oHWaNvnj
-	pj9ai0fQiNexlFrku+uPcF7P/4c9lpo2Eh42F9upvFWlQ9THfbgVKK7csgyN5fsz
-	VpiVYepWXXi6wkuUlmPLwqpjXeVweqcPEppvlNiEuMlhe0e3ehdNGTDhcw6xqD7I
-	lNxlEF1S5CCcuudfPq5sCQ2gqhzi1dkWizCzYO6KtYnL+XzCm04gafAX2OfSQlSb
-	Q3bf0apv3CAzaol1hZo97ybUqTFUaw/uzpTMoOfRueMAi9MHajgsVTGRC8AOkkpN
-	F2onZY9HhSi8yNCaQyzSAeMwLh1aIzZFYYKxot1Qrw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791408931; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:itrXfeVOjWronNZ+zOiNG5Dxqc5QhPbfpUo0wH4R2iiQzGt
-	VGGOytlAnGOSCVDaqz/FOgN+Dx6J1Kdu9wgkjArHzdGui/iGB4FbZ2GutHVPo1vb
-	pOqbhlY1GgCs50IHBNfcwc954Mjv3d+aVQZSqx+baG91yC/n2tlHLxUIDd+Ws7as
-	JYQ576ALQgbdseBeKDuNsKAVk2GroPgNHbKOSWVredbFGoZURozpvn5S/FT+suHt
-	XdPPAj99zRLzoWt1LDMqrLEFC2vmbySmjZe3WPmAejfn1OffYgMtpCpBwLNA4h/k
-	DO5pddMYpFAa2zN65ioB+0Ul+JIXgdkU1WQF3Zg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=10;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:9RIeI19IAZDvn4hm6qyw4aDeAN8s4u31KcNaWRkoBkg=:wYsP8cX//0rpRYNJSb27S+esVIVihSU1dWHck+ptWIo=;
-X-ME-Sender: <xms:H7vGanqXgeKDC-yyKpM9Lb0kaZeiabSnFA77ekRRMGHkP0DJmaqXLg>
-    <xme:H7vGasfuSytRjJyhjFAPXNRQLGeo7D2LojqkZ9SY_D1WgjQlqGzeIeGeapOFVrEDF
-    0ugmkWE4mfOs79MJWQErQ8GUX8AfRHJjJoAyuOJUhS5yZ335nzDTNRN>
-X-ME-Proxy-Cause: dmFkZTFVcA5N6AxELDaRr8i1HexnWBvhEKMQ8baou8io56McBPAWDv3xqkYXj3kGTbmuYL
-    abVyTMMQ+JaZ4BqO1IawdKTUOBer4puvT/Ez2gwB/YaHWyV/1cTGGp1oL77ie6EmEb3bS8
-    fGZUaoX2wr5S8w4Lk0Ag798zK9TJs81OWrvQt60zxbPxGNjYOjzpTVB3V1ctA5NbaWmt+d
-    UIL4+Hl2pjJuTFX48+fDuKFWML9A+ecabJuy0w9nmFSbsajuzZM/9Bp65fR1QOJK1iSapP
-    5JyItNqqHF7BVKfrlS5OzHN+dM5zzOEFVAZWmbRUKgtR/FmleMx0ltvPzg507omKuzKYcm
-    YdKn5j7FqGudB9Rnm7P5BJeYkzLXI5b5PEZ30kHdrCbheI9v1XkABHrXI8lgjzxF1XJalI
-    Isp04p7KZgryNfYJIUars4v1hQFkwnuSjgGq8nfaw+xzdkNHJSoPdD925RjikrIleSvbM3
-    b2oXGmaVTm5DmwbrlBuXIPj+s2gwZNreckKap9R6PeEUViNp0ADpiW4vRhOSFUhXPT1p65
-    spztcfHiVGvclW6t40BxxauRkFJdBIRnoZWDPzLIGG2AQSuYRfIfUDGsaywoMnyXFKRp0C
-    znVsHmJbJe2cb60YiX6KxiNJD+CeZIbq+KFzNZTf8stM9G1HXiObIAKmWJCw
-X-ME-Proxy: <xmx:IbvGauMjFMIvm0MMfEJDhYjPqdKBYnxFcIZAlvXqRW4SQJz1KyO_lg>
-    <xmx:IbvGavM946inu2M7ORC4dNsJywJrLCS8E9lg-_GzpheZtEfbi4rJ0A>
-    <xmx:IbvGaniOsdMgDc3J-XY2gulvD49jndj5t9p9Non0dJNl3ARRpSzGzw>
-    <xmx:IbvGakvn6J2fzA1mnD8zmxZAg-UU26DWQocJuSNRzJSFq7wpX2BZ7w>
-    <xmx:I7vGamjkn4UU_g94cyHX8FYcePZaBgWhF8hIwmjlrGVTA5-rbEkNBYHj>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id BDE8332A008E; Wed,  7 Oct 2026 17:35:27 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FwuIbypT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D59B81F0089E
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 21:37:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791409040;
+	bh=UOE7Jbnn9tojgnUkTH49vAYggvweAK9gFAV1451BkhA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=FwuIbypT1BD/E3bQ/A22baQ11LqAHE8WYqLDxCPosy2949kKAu/bw1buAI7b5GPU2
+	 O+Su7qRvUn9PAJdgcqfqIV3SeENwMHDK2V/zrVBpDvB9sT+BDp22WDHwO2vSGsQAQ8
+	 ZblVHi+M+9o+lS7WbFHqWIQXxW73omtPaAPXK5TCh6YUPi3e2RtXfQTfpY0VHgrg3r
+	 bkKa+/2PG8c0V4FBsHYTnnuB0wqb0IzTsxknu1rLwwo/y9uDpX7yp+j99QTB7o/fx/
+	 gHzJB3BVdKL5/Bo7++cMoPs8r1FWmEifXau1V0VrJFOYih89LPTh2RhT9dpbizUkbt
+	 nevyyQtHrM8Ow==
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c1670dad7a8so840734166b.3
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 14:37:20 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxyFzNndKlLwyjPmsFY04f4WXgdUTrjZxkvOZaL6vdCiRzlGUFmS1MQAqdCLkpFjp94eN86kB1FQhRnCYk=@vger.kernel.org
+X-Gm-Message-State: AFuF++leP1diuUyq4Ql5gkqRZVHzSDdMgBbAdsRAapie3uvVPdzmtnUe
+	Q1EwzIy65nwPAOw19uOhMeN3Xz+kHUfuvsKaVbrwLMeCJo6sIvXZ7OhZzZG/yjEEaT4zU3aVJXA
+	JTCDnOdsJoVt8ZBYtFf67wk5OccgI85k=
+X-Received: by 2002:a17:907:6eab:b0:c2a:fcb7:62f2 with SMTP id
+ a640c23a62f3a-c317bdee527mr356663766b.19.1791409039712; Wed, 07 Oct 2026
+ 14:37:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AamXen0t4ZPg
-Date: Wed, 07 Oct 2026 23:35:07 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Linus Torvalds" <torvalds@linux-foundation.org>
-Cc: soc@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, "Stephen Boyd" <sboyd@kernel.org>,
- "Bjorn Andersson" <andersson@kernel.org>
-Message-Id: <1399951d-6afa-4977-8514-ed30c5a2c865@app.fastmail.com>
-Subject: [GIT PULL] soc: fixes for 7.3, part 2
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+References: <20261007153915.53429-1-alex@ghiti.fr>
+In-Reply-To: <20261007153915.53429-1-alex@ghiti.fr>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Wed, 7 Oct 2026 14:37:07 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zMHKmAQT8WBAd+kkQEjETVvyHhfbESzKHpXXPQJUB9nVw@mail.gmail.com>
+X-Gm-Features: AclHuK9UMP0A0o5RKveu-045r1R_Bso6sJPJj4MLUsXdKtvy9A7Qw5U_iJnA5BA
+Message-ID: <CAO9r8zMHKmAQT8WBAd+kkQEjETVvyHhfbESzKHpXXPQJUB9nVw@mail.gmail.com>
+Subject: Re: [PATCH v3] mm: bypass swap readahead for zswap
+To: Alexandre Ghiti <alex@ghiti.fr>, Kairui Song <kasong@tencent.com>
+Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, nphamcs@gmail.com, 
+	shikemeng@huaweicloud.com, baoquan.he@linux.dev, youngjun.park@lge.com, 
+	chengming.zhou@linux.dev, david@kernel.org, ljs@kernel.org, 
+	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
+	mhocko@suse.com, ryncsn@gmail.com, chrisl@kernel.org, baohua@kernel.org, 
+	usama.arif@linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The following changes since commit 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e:
+On Wed, Oct 7, 2026 at 8:39=E2=80=AFAM Alexandre Ghiti <alex@ghiti.fr> wrot=
+e:
+>
+> Commit 0bcac06f27d7 ("mm, swap: skip swapcache for swapin of synchronous
+> device") made SWP_SYNCHRONOUS_IO devices (e.g. zram) skip swap readahead.
+>
+> zswap is the same kind of in-memory, synchronous backend as zram, not a
+> swap device flagged SWP_SYNCHRONOUS_IO so it still goes through
+> swapin_readahead().
+>
+> Here are the results from bypassing readahead for zswap too: it was
+> measured with a kernel build (make -j16) in a memcg, zswap=3Dzstd, shrink=
+er
+> off, on Sapphire Rapids and 3 iterations.
+>
+>   768M memcg (sustained swap thrash):
+>     metric                 mm-new    + bypass    delta
+>     build time (s)          405.0       341.7    -15.6%
+>     zswap-in (GB)            79.5        53.0     -33%
+>     zswap-out (GB)          144.8       115.6     -20%
+>     swap readahead (pages)  6.79M       0.45M     -93%
+>     swap_ra hit (%)          72.1        89.9     +18pp
+>
+>   1G memcg (light pressure, build not memory-bound):
+>     metric                 mm-new    + bypass    delta
+>     build time (s)          177.7       176.0    ~same (no regression)
+>     zswap-in (GB)            10.2         7.5     -26%
+>     zswap-out (GB)           27.7        25.1      -9%
+>     swap readahead (pages)  1.07M       0.08M     -93%
+>     swap_ra hit (%)          68.6        87.2     +19pp
+>
+> Similar gains were observed on an AMD EPYC 7D13 host.
+>
+> The gain is from no longer prefetching pages that are pointless for an
+> in-memory backend: readahead inflates anon residency and thrashes the
+> page cache (file pages get evicted and re-read), lengthens each fault by
+> synchronously (de)compressing a cluster of neighbours, and adds
+> compression traffic when those extra pages are reclaimed.
+>
+> Bypassing swap readahead for zswap therefore makes sense.
 
-  Linux 7.3-rc5 (2026-09-27 13:55:01 -0700)
+No objection here, I am just thinking about Kairui's LPC presentation
+about how compressed swap can (in theory at least) still benefit from
+readahead: https://lpc.events/event/20/contributions/2421/attachments/2116/=
+4689/Better%20Anon%20(Swap)%20Readahead%20(2).pdf.
 
-are available in the Git repository at:
+Seems like a big portion of the fault cost is still outside of
+decompression and can benefit from readahead, but that isn't the case
+today. I assume any future improvements to readahead and re-enabling
+for zram would also cover zswap?
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git tags/soc-fixes-7.3-2
-
-for you to fetch changes up to 1fc2d80928b706147e371602dabd0ba927dfe4a3:
-
-  Merge tag 'tee-fix-for-v7.3' of git://git.kernel.org/pub/scm/linux/kernel/git/jenswi/linux-tee into arm/fixes (2026-10-03 23:33:02 +0200)
-
-----------------------------------------------------------------
-soc: fixes for 7.3, part 2
-
-There are fixes in three ares this time:
-
- - Four distinct issues in TEE firmware, all fairly minor
-
- - Five devicetree mistakes on NXP i.MX8, lx2160a and Qualcomm
-   based machines, one of these may cause file system corruption
-   from an incorrect SD card supply voltage
-
- - Five fixes for clk drivers on new Qualcomm platforms,
-   addressing issues with incorrect enable states
-
-----------------------------------------------------------------
-
-Note that the clk driver fixes should have gone through the
-clk subsystem tree, we had some miscommunication that led
-to me picking them up here but decided to leave them in here
-to avoid extra work for everyone while we're at lpc.
-
-
-Arnd Bergmann (6):
-      Merge tag 'qcom-clk-fixes-for-7.3' of https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux into arm/fixes
-      Merge tag 'qcom-arm64-fixes-for-7.3' of https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux into arm/fixes
-      Merge tag 'imx-fixes-7.3' of https://git.kernel.org/pub/scm/linux/kernel/git/frank.li/linux into arm/fixes
-      Merge tag 'optee-fixes-for-v7.3' of git://git.kernel.org/pub/scm/linux/kernel/git/jenswi/linux-tee into arm/fixes
-      Merge tag 'qcomtee-fix-for-v7.3' of git://git.kernel.org/pub/scm/linux/kernel/git/jenswi/linux-tee into arm/fixes
-      Merge tag 'tee-fix-for-v7.3' of git://git.kernel.org/pub/scm/linux/kernel/git/jenswi/linux-tee into arm/fixes
-
-Babanpreet Singh (1):
-      tee: qcomtee: fix kernel-doc warnings
-
-Dale Whinham (1):
-      arm64: dts: qcom: x1-denali: Fix microphone distortion
-
-Georgiy Osokin (1):
-      tee: shm: reject zero-sized allocations in tee_dyn_shm_alloc_helper()
-
-Imre Kaloz (1):
-      MAINTAINERS: update my email address
-
-Luca Weiss (3):
-      clk: qcom: gcc-eliza: Fix always-enabling PCIE_RSCC clocks
-      clk: qcom: gcc-hawi: Fix always-enabling PCIE_RSCC clocks
-      clk: qcom: gcc-kaanapali: Fix always-enabling PCIE_RSCC clocks
-
-Mahantesh Salimath (1):
-      tee: optee: ffa: support shared memory offsets on large-page kernels
-
-Shao-Fu Chen (1):
-      optee: register TEE devices only once fully initialized
-
-Stefano Radaelli (1):
-      arm64: dts: imx8mp-var-dart-sonata: Fix Sonata SD I/O supply
-
-Taniya Das (2):
-      clk: qcom: gpucc-glymur: Mark the GPU CX GDSC as votable
-      clk: qcom: gpucc-kaanapali: Mark the GPU CX GDSC as votable
-
-Vincent Jardin (3):
-      arm64: dts: lx2160a: fix incorrect pinmux
-      arm64: dts: lx2160a: fix IIC1 pinmux submask rejected by pinctrl-single
-      arm64: dts: lx2160a: fix the iic5 spi3 pinmux offset and value
-
- .mailmap                                           |  1 +
- MAINTAINERS                                        |  2 +-
- arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi      | 19 +++++++----
- .../boot/dts/freescale/imx8mp-var-dart-sonata.dts  |  1 +
- arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi  |  4 +--
- drivers/clk/qcom/gcc-eliza.c                       |  6 ++--
- drivers/clk/qcom/gcc-hawi.c                        |  6 ++--
- drivers/clk/qcom/gcc-kaanapali.c                   |  6 ++--
- drivers/clk/qcom/gpucc-glymur.c                    |  2 +-
- drivers/clk/qcom/gpucc-kaanapali.c                 |  2 +-
- drivers/tee/optee/ffa_abi.c                        | 38 +++++++++++++++-------
- drivers/tee/optee/optee_msg.h                      |  4 +--
- drivers/tee/optee/smc_abi.c                        | 17 +++++-----
- drivers/tee/qcomtee/async.c                        |  4 +--
- drivers/tee/qcomtee/qcomtee_msg.h                  |  2 +-
- drivers/tee/qcomtee/qcomtee_object.h               |  1 +
- drivers/tee/tee_shm.c                              |  4 +++
- 17 files changed, 76 insertions(+), 43 deletions(-)
+>
+> Suggested-by: Usama Arif <usama.arif@linux.dev>
+> Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
+> ---
+> Changes in v3:
+> - Go back to the RFC's single patch: readahead windows that mix zswap
+>   and disk entries will be dealt with later, the priority is to merge the
+>   zswap readahead bypass
+> - Move the check into a swap helper, swap_entry_synchronous(), instead
+>   of open-coding it in do_swap_page() (David)
+> - Bail out early when zswap was never enabled or the tree is empty, so
+>   disk-only systems pay a static branch (Kairui, Nhat)
+> - Reuse zswap_is_present() rather than adding zswap_present_test()
+>   (Yosry)
+> - Rebase on mm-new
+>
+> Changes in v2:
+> - Keep readahead, but overlap the decompression of zswap neighbours with
+>   the disk I/O of the window, and bypass it when the target needs no
+>   disk I/O (Yosry, Nhat, Barry)
+>
+> v2: https://lore.kernel.org/all/20260722163536.773166-1-alex@ghiti.fr/
+> RFC: https://lore.kernel.org/all/20260624075700.751467-1-alex@ghiti.fr/
+>
+>  include/linux/zswap.h |  6 ++++++
+>  mm/memory.c           |  4 ++--
+>  mm/swap.h             | 25 +++++++++++++++++++++++++
+>  mm/zswap.c            |  5 ++++-
+>  4 files changed, 37 insertions(+), 3 deletions(-)
+>
+> diff --git a/include/linux/zswap.h b/include/linux/zswap.h
+> index df6cafbe95dc..94746fb71bb6 100644
+> --- a/include/linux/zswap.h
+> +++ b/include/linux/zswap.h
+> @@ -35,6 +35,7 @@ void zswap_lruvec_state_init(struct lruvec *lruvec);
+>  void zswap_folio_swapin(struct folio *folio);
+>  bool zswap_is_enabled(void);
+>  bool zswap_never_enabled(void);
+> +bool zswap_is_present(swp_entry_t entry, unsigned int nr);
+>  #else
+>
+>  struct zswap_lruvec_state {};
+> @@ -73,6 +74,11 @@ static inline bool zswap_never_enabled(void)
+>         return true;
+>  }
+>
+> +static inline bool zswap_is_present(swp_entry_t entry, unsigned int nr)
+> +{
+> +       return false;
+> +}
+> +
+>  #endif
+>
+>  #endif /* _LINUX_ZSWAP_H */
+> diff --git a/mm/memory.c b/mm/memory.c
+> index 330cde31bf8b..396bc71a265f 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -5030,8 +5030,8 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
+>         if (folio)
+>                 swap_update_readahead(folio, vma, vmf->address);
+>         if (!folio) {
+> -               /* Swapin bypasses readahead for SWP_SYNCHRONOUS_IO devic=
+es */
+> -               if (data_race(si->flags & SWP_SYNCHRONOUS_IO))
+> +               /* Swapin bypasses readahead for SWP_SYNCHRONOUS_IO devic=
+es and zswap */
+> +               if (swap_entry_synchronous(si, entry))
+>                         folio =3D swapin_sync(entry, GFP_HIGHUSER_MOVABLE=
+,
+>                                             thp_swapin_suitable_orders(vm=
+f) | BIT(0),
+>                                             vmf, NULL, 0);
+> diff --git a/mm/swap.h b/mm/swap.h
+> index d5bf21f517dc..b8181bd056ee 100644
+> --- a/mm/swap.h
+> +++ b/mm/swap.h
+> @@ -94,6 +94,7 @@ static inline int mem_cgroup_swappiness(const struct me=
+m_cgroup *memcg)
+>
+>  #ifdef CONFIG_SWAP
+>  #include <linux/swapops.h> /* for swp_offset */
+> +#include <linux/zswap.h> /* for zswap_is_present */
+>  #include <linux/blk_types.h> /* for bio_end_io_t */
+>
+>  static inline unsigned int swp_cluster_offset(swp_entry_t entry)
+> @@ -336,6 +337,24 @@ struct folio *swapin_sync(swp_entry_t entry, gfp_t f=
+lag, unsigned long orders,
+>  void swap_update_readahead(struct folio *folio, struct vm_area_struct *v=
+ma,
+>                            unsigned long addr);
+>
+> +/**
+> + * swap_entry_synchronous - check if @entry is read synchronously
+> + * @si: the swap device of @entry
+> + * @entry: the swap entry
+> + *
+> + * SWP_SYNCHRONOUS_IO devices and zswap complete a read in the faulting
+> + * context, so swap readahead has no asynchronous I/O to overlap.
+> + *
+> + * Context: The caller must hold a reference on @si. The answer is a hin=
+t: the
+> + * entry can be written back from zswap or freed concurrently.
+> + */
+> +static inline bool swap_entry_synchronous(struct swap_info_struct *si,
+> +                                         swp_entry_t entry)
+> +{
+> +       return data_race(si->flags & SWP_SYNCHRONOUS_IO) ||
+> +              zswap_is_present(entry, 1);
+> +}
+> +
+>  #else /* CONFIG_SWAP */
+>
+>  static inline struct swap_cluster_info *swap_cluster_get_and_lock(
+> @@ -423,6 +442,12 @@ static inline void swap_update_readahead(struct foli=
+o *folio,
+>  {
+>  }
+>
+> +static inline bool swap_entry_synchronous(struct swap_info_struct *si,
+> +                                         swp_entry_t entry)
+> +{
+> +       return false;
+> +}
+> +
+>  static inline int swap_writeout(struct swap_io_ctx *ctx, struct folio *f=
+olio)
+>  {
+>         return 0;
+> diff --git a/mm/zswap.c b/mm/zswap.c
+> index eb3494491410..1dcf77d5edae 100644
+> --- a/mm/zswap.c
+> +++ b/mm/zswap.c
+> @@ -1605,12 +1605,15 @@ bool zswap_store(struct folio *folio)
+>   * change under it.
+>   * Return: true if at least one slot in the range is in zswap.
+>   */
+> -static bool zswap_is_present(swp_entry_t entry, unsigned int nr)
+> +bool zswap_is_present(swp_entry_t entry, unsigned int nr)
+>  {
+>         pgoff_t offset =3D swp_offset(entry);
+>         struct xarray *tree =3D swap_zswap_tree(entry);
+>         unsigned long index =3D offset;
+>
+> +       if (zswap_never_enabled() || xa_empty(tree))
+> +               return false;
+> +
+>         /*
+>          * A pinned range is at most SWAPFILE_CLUSTER slots and is aligne=
+d to
+>          * its own size, so one tree covers all of it and a single lookup=
+ is
+> --
+> 2.53.0-Meta
+>
+>
