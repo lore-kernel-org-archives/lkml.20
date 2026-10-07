@@ -1,102 +1,122 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BF134AF9E3;
-	Wed,  7 Oct 2026 13:28:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CB76D39989B
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 13:28:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791379711; cv=none; b=VkXLFgRCvKBSONg+LuCOYNGXgZxoUq7wAbdu93e92gofLajXJuqy5IGM9T9BFfVvopjCq0lHOSMJOGKf5gGzArwdS6DKmms5JHvnRoHv3rr/g1f4/pZwi3l5UYVgLHDKEfxBPHtHgMyWxW8XyaQnwSs7OUf+8pqmcM28xD1pjQY=
+	t=1791379714; cv=none; b=Hw+mIffjThKWCh4OPB32kpngH4Tg0hOoIQ9Uqy+csdPlXjil6hfRVFsVtWEWdboFBWjqwWyMjbpzs/NMgMSIjy2VEfPVCmvtz++LkI0qU7iE9XxWXxxH3pjk8CqDTPuBnMiHQ6Ib/nYpyCx8YyzjF2+aamiOQeke6CLq7Unmtuc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791379711; c=relaxed/simple;
-	bh=bQ9d7k+arNuVv3Fe/E0z6PwDaUvuC0+cxdYBBXRaETA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=oPmuuwsTETDRs5F2VYO9iht3QuDi4qCzka7sjlLfMCiWm+ghcLsdYngm/P6j//cir8Qgmj5XPWmnDWv159tnvF/y2FzicovRwfwRCer34sjP/MFCHfejbZzqcY9fFafPiQOs4kjoovkmWy5fbiL7J2KcoPzyFrqNQCjJ8JfxdyA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Fl/IMW+Q; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791379714; c=relaxed/simple;
+	bh=Jn7PJPGHlmYIPJnS8L1ETz+D8J64WDknXKE3E9/atik=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=W78j32kj1VD/zjwCKl4TKzutVKv+kzwOisuq/jDFynpUx2i04PYrtNwtJkFrf3sn8fqcOd/31xIc60wQpmAcGY/MnzhAoAWRd3CWtc8kBLtkhvqBTHqXv/9k+ZB5e+NqW3RZCyj8rYQ6Ef7LWxW/XMVq5c4nDbMctGnwIx94muI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=YBrGsEew; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Fl/IMW+Q"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791379695; x=1822915695;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=bQ9d7k+arNuVv3Fe/E0z6PwDaUvuC0+cxdYBBXRaETA=;
-  b=Fl/IMW+Qv4Jiha/fT/vM9Ef1bpt2fmki2q4N6XdcxhEVsrmsXlEmcW48
-   QIxgaZFQnL89UF8RNYVAwtEl+IyUCUjHBH3iQ8crbKF8NomSVjGQAYERw
-   LeN+RFkRhFfXWDpeuKZO3zN6FEti0W/NB+m8Fg6wRl43y/I2I5ybGHxgM
-   CXCPwfzNA856sTh/ktLhtIKWCLiFG81tBPh6TsNBiYfX17+1kSgSH8quZ
-   c3NHMbwjouVX8M2Cf0WZ2KE1R7emuZrfg6UiTXaxVZ/MjdPktjaPX8Z1Q
-   xrSyZAhscPYR0lMGIkxsjakwUVZK4dTmJztA7T0QQSK8BO0I8U/fiYMcs
-   g==;
-X-CSE-ConnectionGUID: v53mleZfQfK3gphJGBTLRQ==
-X-CSE-MsgGUID: 0ZlkxQb9Qk2hW8SDrPpYyw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="242416"
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="242416"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 06:27:45 -0700
-X-CSE-ConnectionGUID: yPv4o3vkQM2Nu86S+XWHaA==
-X-CSE-MsgGUID: U03BKuOzRA2xRApiKrM8cg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="64302"
-Received: from crojewsk-ctrl.igk.intel.com ([10.237.149.0])
-  by fmviesa007.fm.intel.com with ESMTP; 07 Oct 2026 06:27:43 -0700
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-To: broonie@kernel.org,
-	linux-sound@vger.kernel.org
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	amade@asmblr.net,
-	linux-kernel@vger.kernel.org,
-	kuninori.morimoto.gx@renesas.com,
-	Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: [PATCH 5/7] ASoC: Intel: catpt: Switch to snd_snd_component_new()
-Date: Wed,  7 Oct 2026 15:33:51 +0200
-Message-Id: <20261007133353.455185-6-cezary.rojewski@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261007133353.455185-1-cezary.rojewski@intel.com>
-References: <20261007133353.455185-1-cezary.rojewski@intel.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="YBrGsEew"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 827F91595;
+	Wed,  7 Oct 2026 06:28:13 -0700 (PDT)
+Received: from [10.57.75.203] (unknown [10.57.75.203])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 356773F66F;
+	Wed,  7 Oct 2026 06:28:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791379696; bh=Jn7PJPGHlmYIPJnS8L1ETz+D8J64WDknXKE3E9/atik=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=YBrGsEewRGcLUnFe5kHsA5c/x/j2mR6m1W05Cqa5wudduxNqbX2elplroYOekyLFm
+	 W4xmn+87MF3o7A93THziEkHML9MYzXd5IrIIw3SnyjcVkCXxWW0M4G4e885MgqGVk6
+	 szslq0oIcmKL3Jvzz7APATBKgocpAZgMGmwk5IYs=
+Message-ID: <65ce6b05-1afb-4b01-b529-fb218b154539@arm.com>
+Date: Wed, 7 Oct 2026 14:28:11 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 12/15] drm/panfrost: Skip cache flush/invalidate when
+ enabling perfcnt
+To: =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+ Rob Herring <robh@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Faith Ekstrand <faith.ekstrand@collabora.com>,
+ "Marty E. Plummer" <hanetzer@startmail.com>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>,
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
+ <20260929-claude-fixes-v12-12-62beb08de207@collabora.com>
+ <95174a67-0eee-4bf7-b883-9f1138c74a6f@arm.com>
+ <20261005103855.655f8199@fedora-61.home>
+ <5af99ba3-97e7-4a05-b91c-7d53a508b635@arm.com>
+ <20261005173741.445715f0@fedora-61.home>
+ <37422c77-ecdc-46a0-8896-3a5098417426@arm.com>
+ <179130812939.1018806.2045583346110052897.b4-reply@b4>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <179130812939.1018806.2045583346110052897.b4-reply@b4>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-snd_soc_component_alloc() leaves the component object in uninitialized
-state. Switch to the constructor function to retrieve and operate on
-object in sane state.
+On 06/10/2026 18:35, Adrián Larumbe wrote:
+> On 2026-10-05 17:05:14+01:00, Steven Price wrote:
+>> On 05/10/2026 16:37, Boris Brezillon wrote:
+>>
+>>> On Mon, 5 Oct 2026 16:06:02 +0100
+>>> Steven Price <steven.price@arm.com> wrote:
+>>>
+>>>
+>>> Hm, I'd say it's actually impossible because every unmap operation is
+>>> followed by a flush+inval of the GPU L2 and LSC, so for this stale
+>>> clean line to exist on the GPU side when a physical page is GPU-mapped
+>>> again, it would take a bug in the unmap logic or in the MMU HW, I
+>>> think. Am I missing something?
+>>
+>> Ah, yes that's true :) Although there's no need for us to do an
+>> invalidate on the unmap path...
+> 
+> Does that mean the panfrost_mmu_flush_range() we do at the end of panfrost_mmu_unmap()
+> is unnecessary? Is it because, as you said in a previous message, cache lines for
+> BOs referenced in a CS are always invalidates before anything else is executed?
 
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
----
- sound/soc/intel/catpt/pcm.c | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
+Sorry, I wasn't very clear on the wording here - we don't need an
+*invalidate* but we do need a *clean*. Midgard/Bifrost hardware doesn't
+really give us much control over cache operations - we tend to just
+clean everything and blow away the cache (because the GPU's caches are
+"small" it's not worth the complexity).
 
-diff --git a/sound/soc/intel/catpt/pcm.c b/sound/soc/intel/catpt/pcm.c
-index bbba0d959ea2..ca42bc531c6b 100644
---- a/sound/soc/intel/catpt/pcm.c
-+++ b/sound/soc/intel/catpt/pcm.c
-@@ -1073,13 +1073,9 @@ int catpt_register_plat_component(struct catpt_dev *cdev)
- {
- 	struct snd_soc_component *component;
- 
--	component = snd_soc_component_alloc(cdev->dev);
--	if (!component)
--		return -ENOMEM;
-+	component = snd_soc_component_new(cdev->dev, catpt_comp_driver.name, &catpt_comp_driver);
-+	if (IS_ERR(component))
-+		return PTR_ERR(component);
- 
--	snd_soc_component_set_name(component, catpt_comp_driver.name);
--
--	return snd_soc_register_component(component,
--					  &catpt_comp_driver,
--					  dai_drivers, ARRAY_SIZE(dai_drivers));
-+	return snd_soc_component_register(component, dai_drivers, ARRAY_SIZE(dai_drivers));
- }
--- 
-2.34.1
+> If we keep the invalidate at the end of the mmu path, then there would be no need
+> to mention that all counters being enabled is the ultimate reason why no initial
+> flush/invalidate is needed in the perfcnt enable path.
+
+Yes I think relying on all counters being enabled is a bad design. We
+can justify the change based on the existing flushes/invalidates we're
+doing.
+
+>>>>
+>>>
+>>> I suppose speculation pre-populating the caches with stale data would be
+>>> covered by the flush+inval we do after a map operation (this is
+>>> currently done in the unlock path regardless of the VM op, so both map
+>>> and unmap get it). I don't know, maybe the goal is to relax the flushing
+>>> policy around VM modifications in the future, but if things stay as
+>>> they are now, we can assume that a fresh BO being GPU-mapped guarantees
+>>> that no cacheline points to it until the first GPU access. But maybe
+>>> I'm missing something else...
+>>
+>> I have to admit I'm coming from experience on CPUs - there speculation
+>> means a CPU can load a cache line at basically any point. So the
+>> argument that a line cannot be in a cache almost never holds. GPUs (at
+>> least Mali GPUs) haven't quite got to the stage of CPUs.
+>>
+>> Thanks,
+>> Steve
+> 
+> 
 
