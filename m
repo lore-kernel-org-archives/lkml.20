@@ -1,95 +1,230 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E045B3909B8;
-	Wed,  7 Oct 2026 21:06:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BC013B7776
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 21:06:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791407220; cv=none; b=CmO6og5tjBhroMaklmp0kmh1qZDhyyFh53VB0/BE7rcxFXhAUk4Do2EGMkUdRbmKSoJ8nz6F2MXNN9Voj02ozw04bzhXNWd3g2jU5GH2wUc5xogCh4dtb4DZL9Avw/UBLx0JZB+tlYqoXFTfH3urtRSaacU0ZwvMe7eHemZdQr4=
+	t=1791407220; cv=none; b=N2J38uKASo86YEZwR0L3ikVJpiDrwqQkLdHkPf0wWfJ3zjEeC4ec5hNFeFj+mtRYfiwVb/e9YF8EtkvXOSqlo5A/dxMceEdw1ySpE/qqprlqqSi9xbGxrNS/IGw9mT3UvEsJd7tuZHMlTQh2yErkh7yBI2ocuFD8UG7FxUKyKfg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791407220; c=relaxed/simple;
-	bh=orJyM4gAkLXth7P1jWfqZCODM31Ti/75+/fEFd5k4y0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=K5gJs0OZWevyKl2rvXt1LJm5VbngObj9+xOcWt217/3weMPPbIlWCUsJbrfqqKaebHHzt1gD/X2Q9FDvpyG8NmqEnWpvLIzDRMaEHWpmODDxuD8gO917VYCEeYlfsE5J563fDjHZTA9s+COME0rX5wr2214psmsQUjYLPrTETTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OE58uRMd; arc=none smtp.client-ip=100.103.45.18
+	bh=1FcisK8P9jHgUgnlNM1jQOvy5bFk1A/el/4p9lnXeEo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bBmqlkHOliYNru0eUD5qoGoEhhgUj6WPpNfNXvipggzEuNQf8fbPyONZmZ3fa4C5l06KEJGhYOBMn1gFTKefLexfytdBAngoaw7uLjXhHQ1W6l5yeLxNQ1lffTdGvaQwiOAJwF35LaPIGuzYnQixQKTbPL4m7w2joBgnDJHQnXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gfWMDInk; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OE58uRMd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92C4F1F00893;
-	Wed,  7 Oct 2026 21:06:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791407217;
-	bh=yfEIqFetP+zMSGX0qAkYwfAKB8aIkopgdtGQykOUrq4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OE58uRMdt9mOERnYY0kV5VzyNC4WhQvp45Oka40jOlLGV5s3WC1gzPOkQtXVB2c43
-	 zWJ7zwb9qPiRO/ZSnjrP+Yx2hcG037tf8hYYZmoEXjqu59O1zi9ROTLxTkHCCy+Qmp
-	 uQ4/WJpnTDEwMlEoHAO+SB8xxpcEBMReXB/NPDlcyZMqXAg6fCpc9nb+SCKj+af28B
-	 hsdwP86kqMUrpconX/sFQi6DlVU5G9SVhyO/VrlhldVYHZfir7LQDxWLp1fpNA6Qnt
-	 7Wb08ULvbY769IY9ZVlgvGpyFT2pmPf3hQto7obJm8jYkEo/TluSzKeKV30XNXcsxo
-	 HLkAW3ZRQ5v/g==
-Date: Wed, 7 Oct 2026 16:06:56 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Josef Schlehofer <pepe.schlehofer@gmail.com>
-Cc: linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Lee Jones <lee@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Pavel Machek <pavel@kernel.org>, linux-leds@vger.kernel.org,
-	Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
-	devicetree@vger.kernel.org,
-	Marek =?iso-8859-1?Q?Beh=FAn?= <kabel@kernel.org>,
-	linux-api@vger.kernel.org, Rong Zhang <i@rong.moe>,
-	Andy Shevchenko <andy@kernel.org>
-Subject: Re: [PATCH v3 1/2] dt-bindings: leds: Add CZ.NIC Turris 1.x LED
- controller
-Message-ID: <179140721655.298625.8529136449283931541.robh@kernel.org>
-References: <20260928111907.72592-1-pepe.schlehofer@gmail.com>
- <20260928111907.72592-2-pepe.schlehofer@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gfWMDInk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791407219; x=1822943219;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=1FcisK8P9jHgUgnlNM1jQOvy5bFk1A/el/4p9lnXeEo=;
+  b=gfWMDInkZsMUmtVEE547ZsyBY0yYi3vFAddKmOL5uJEndv4L8aX2DZd/
+   ofMQJ5XET4yl4FRm27e2NvsCuI3GLXqCictD5xWxq+uq7v5j3PQ6oB5ee
+   fxPVW51h+hD1Wt5JftNPlK/8I++bb2Xy4KNqgljvvsoTxbHxiQlx1DZuF
+   3qbfuh5PMnoNk1Q5rTq+rCznLzphCiipSbkOvPgspQVO7CWOTBGcOivWc
+   bpKAF6WyudT/QYZ4OK2yGWtgu9LBKvS82S53F1UKLLHac/vcYHXyiND0l
+   +/hvdl1/grG3C48OElkxqogNo7qMIwKxWfRnOrXDdGTHjFBuIUIH5tNKS
+   Q==;
+X-CSE-ConnectionGUID: vipcuWzVQy+V54i5Ul6c3Q==
+X-CSE-MsgGUID: eOUXG93xRKaydQKv8j5uEA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="289398"
+X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
+   d="scan'208";a="289398"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 14:06:57 -0700
+X-CSE-ConnectionGUID: UORTnxvOStSNL0RGDVZY9w==
+X-CSE-MsgGUID: EhrF5DDqTeySHQNF2zICTw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
+   d="scan'208";a="282359632"
+Received: from rchatre-desk1.jf.intel.com ([10.165.154.99])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 14:06:55 -0700
+From: Reinette Chatre <reinette.chatre@intel.com>
+To: tony.luck@intel.com,
+	ben.horgan@arm.com,
+	james.morse@arm.com,
+	Dave.Martin@arm.com,
+	babu.moger@amd.com,
+	bp@alien8.de,
+	tglx@linutronix.de,
+	dave.hansen@linux.intel.com
+Cc: x86@kernel.org,
+	hpa@zytor.com,
+	fustini@kernel.org,
+	fenghuay@nvidia.com,
+	peternewman@google.com,
+	yu.c.chen@intel.com,
+	linux-kernel@vger.kernel.org,
+	patches@lists.linux.dev,
+	reinette.chatre@intel.com
+Subject: [PATCH v2 2/5] x86,fs/resctrl: Remove unnecessary non-linear MBA configuration check
+Date: Wed,  7 Oct 2026 14:06:44 -0700
+Message-ID: <54ee80a047388ed372f1e848eccbac930a9745be.1791406459.git.reinette.chatre@intel.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <cover.1791406459.git.reinette.chatre@intel.com>
+References: <cover.1791406459.git.reinette.chatre@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260928111907.72592-2-pepe.schlehofer@gmail.com>
 
+Writing a bandwidth value from user space is rejected if the MBA resource
+has non-linear delay values while the architecture indicates (via
+resctrl_membw::arch_needs_linear) it can only configure resources with
+linear delay values. Intel indicates this for MBA while AMD and MPAM do not.
 
-On Mon, 28 Sep 2026 13:19:06 +0200, Josef Schlehofer wrote:
-> From: Pali Rohár <pali@kernel.org>
-> 
-> Add a binding for the LED controller on the front panel of the CZ.NIC
-> Turris 1.x routers. The LEDs are controlled by the firmware of the
-> CZ.NIC CPLD, which is memory mapped on the local bus.
-> 
-> The turris1x.dts device tree, which is part of the mainline kernel since
-> v6.0, already references this compatible string.
-> 
-> Signed-off-by: Pali Rohár <pali@kernel.org>
-> Cc: Marek Behún <kabel@kernel.org>
-> Co-developed-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
-> Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
-> ---
-> 
-> Notes:
->     Changes in v3, by Josef Schlehofer:
->     - drop the file name and "binding" from the subject
->     - describe the hardware rather than the driver
->     - fix example indentation and use the merged turris1x.dts node
->     - set Josef Schlehofer as the binding maintainer
->     - constrain color to LED_COLOR_ID_RGB
->     - list the required controller and LED properties
->     - describe the register range and the LED order in the reg properties,
->       and put the SPDX expression in parentheses
->     - pass dt_binding_check with dtschema 2026.9
-> 
->     checkpatch asks whether MAINTAINERS needs updating for the new file.
->     The MAINTAINERS entry that covers it is added in 2/2, together with
->     the driver.
-> 
->  .../bindings/leds/cznic,turris1x-leds.yaml    | 132 ++++++++++++++++++
->  1 file changed, 132 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/leds/cznic,turris1x-leds.yaml
-> 
+This check can never fail. No Intel SKU supports non-linear delay values,
+and the placeholder for such support, rdt_get_mb_table(), is only called
+during enumeration and always fails. A non-linear Intel MBA resource is
+thus never marked as capable of allocation, and resctrl never exposes it
+to user space or attempts to configure it. Every Intel MBA resource capable
+of allocation has linear delay values, and AMD and MPAM never indicate a
+need for them.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Fail enumeration of a non-linear Intel MBA resource directly to make clear
+that it is not supported, and remove the check together with the
+resctrl_membw::arch_needs_linear property it relies on.
+
+Keep the informational message printed when such a system is encountered.
+While moving it, reword it to no longer refer to the removed mapping table,
+add the missing newline, and label the printed family value "family" instead
+of "cpu".
+
+Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
+---
+Changes since RFC v1:
+- Fix typo in changelog
+
+Changes since RFC v2:
+- Rework changelog.
+- Group all r->membw assignments together.
+
+Changes since v1:
+- Keep (and fix) existing pr_info() message if a non-linear platform
+  appears. (Chenyu)
+- Rework changelog.
+- Group rdt_resource::membw assignments together.
+---
+ arch/x86/kernel/cpu/resctrl/core.c | 42 +++++++-----------------------
+ fs/resctrl/ctrlmondata.c           |  8 ------
+ include/linux/resctrl.h            |  2 --
+ 3 files changed, 10 insertions(+), 42 deletions(-)
+
+diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
+index f9677e52790e..f96f7cf255d0 100644
+--- a/arch/x86/kernel/cpu/resctrl/core.c
++++ b/arch/x86/kernel/cpu/resctrl/core.c
+@@ -181,27 +181,6 @@ static inline void cache_alloc_hsw_probe(void)
+ 	rdt_alloc_capable = true;
+ }
+ 
+-/*
+- * rdt_get_mb_table() - get a mapping of bandwidth(b/w) percentage values
+- * exposed to user interface and the h/w understandable delay values.
+- *
+- * The non-linear delay values have the granularity of power of two
+- * and also the h/w does not guarantee a curve for configured delay
+- * values vs. actual b/w enforced.
+- * Hence we need a mapping that is pre calibrated so the user can
+- * express the memory b/w as a percentage value.
+- */
+-static inline bool rdt_get_mb_table(struct rdt_resource *r)
+-{
+-	/*
+-	 * There are no Intel SKUs as of now to support non-linear delay.
+-	 */
+-	pr_info("MBA b/w map not implemented for cpu:%d, model:%d",
+-		boot_cpu_data.x86, boot_cpu_data.x86_model);
+-
+-	return false;
+-}
+-
+ static __init bool __get_mem_config_intel(struct rdt_resource *r)
+ {
+ 	struct rdt_hw_resource *hw_res = resctrl_to_arch_res(r);
+@@ -212,18 +191,18 @@ static __init bool __get_mem_config_intel(struct rdt_resource *r)
+ 	cpuid_count(0x00000010, 3, &eax.full, &ebx, &ecx, &edx.full);
+ 	hw_res->num_closid = edx.split.cos_max + 1;
+ 	max_delay = eax.split.max_delay + 1;
+-	r->membw.max_bw = MAX_MBA_BW;
+-	r->membw.arch_needs_linear = true;
+-	if (ecx & MBA_IS_LINEAR) {
+-		r->membw.delay_linear = true;
+-		r->membw.min_bw = MAX_MBA_BW - max_delay;
+-		r->membw.bw_gran = MAX_MBA_BW - max_delay;
+-	} else {
+-		if (!rdt_get_mb_table(r))
+-			return false;
+-		r->membw.arch_needs_linear = false;
++
++	if (!(ecx & MBA_IS_LINEAR)) {
++		pr_info("Non-linear MBA delay values not supported for family:%d, model:%d\n",
++			boot_cpu_data.x86, boot_cpu_data.x86_model);
++		return false;
+ 	}
+ 
++	r->membw.delay_linear = true;
++	r->membw.max_bw = MAX_MBA_BW;
++	r->membw.min_bw = MAX_MBA_BW - max_delay;
++	r->membw.bw_gran = MAX_MBA_BW - max_delay;
++
+ 	if (boot_cpu_has(X86_FEATURE_PER_THREAD_MBA))
+ 		r->membw.throttle_mode = THREAD_THROTTLE_PER_THREAD;
+ 	else
+@@ -255,7 +234,6 @@ static __init bool __rdt_get_mem_config_amd(struct rdt_resource *r)
+ 
+ 	/* AMD does not use delay */
+ 	r->membw.delay_linear = false;
+-	r->membw.arch_needs_linear = false;
+ 
+ 	/*
+ 	 * AMD does not use memory delay throttle model to control
+diff --git a/fs/resctrl/ctrlmondata.c b/fs/resctrl/ctrlmondata.c
+index cafebdff70dc..4562072b8ba6 100644
+--- a/fs/resctrl/ctrlmondata.c
++++ b/fs/resctrl/ctrlmondata.c
+@@ -45,14 +45,6 @@ static bool bw_validate(char *buf, u32 *data, struct rdt_resource *r)
+ 	int ret;
+ 	u32 bw;
+ 
+-	/*
+-	 * Only linear delay values is supported for current Intel SKUs.
+-	 */
+-	if (!r->membw.delay_linear && r->membw.arch_needs_linear) {
+-		rdt_last_cmd_puts("No support for non-linear MB domains\n");
+-		return false;
+-	}
+-
+ 	ret = kstrtou32(buf, 10, &bw);
+ 	if (ret) {
+ 		rdt_last_cmd_printf("Invalid MB value %s\n", buf);
+diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
+index b63dc62690ca..66dc9813c888 100644
+--- a/include/linux/resctrl.h
++++ b/include/linux/resctrl.h
+@@ -249,7 +249,6 @@ enum membw_throttle_mode {
+  * @max_bw:		Maximum memory bandwidth value, used as the reset value
+  * @bw_gran:		Granularity at which the memory bandwidth is allocated
+  * @delay_linear:	True if memory B/W delay is in linear scale
+- * @arch_needs_linear:	True if we can't configure non-linear resources
+  * @throttle_mode:	Bandwidth throttling mode when threads request
+  *			different memory bandwidths
+  * @mba_sc:		True if MBA software controller(mba_sc) is enabled
+@@ -259,7 +258,6 @@ struct resctrl_membw {
+ 	u32				max_bw;
+ 	u32				bw_gran;
+ 	u32				delay_linear;
+-	bool				arch_needs_linear;
+ 	enum membw_throttle_mode	throttle_mode;
+ 	bool				mba_sc;
+ };
+-- 
+2.55.0
 
