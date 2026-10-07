@@ -1,47 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8CAB3B71A3;
-	Wed,  7 Oct 2026 13:27:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E0804AB1B2;
+	Wed,  7 Oct 2026 13:27:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791379691; cv=none; b=oyxpFQ9GQUuvGIGFe8TdCCTjMk2kJny1NQ9IMdjKaeozPx1xgGtFt1xDGWQ5WwibJobPkD0C6lLcVKuQVKBSnNZkHi1OiGSoZzBm4X1bCfrGesj2BWc7M6hC1ipnJfuBS1wYzvnHaAD4ECM7kZvgPa8TvSKXEEA2jLF5eEws1Ck=
+	t=1791379692; cv=none; b=UAVJXpAvBjgrYxLlnWg99Ro/C61DlrUZdgzBhes8z5nHAOZZIe3/gd/rQwZCamMF2BZG0FKdT1J4mGWNpKUodr8/ZOqv2nWxDRlQrxW/KKtW92/bhoYGJEKhQQcZiHx70q5r8bLJTBlZOVPIC3qKDmvW0VF2zdG21ehwZhz+qYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791379691; c=relaxed/simple;
-	bh=dqn5gPzm8g3TaLWmhg9RnX4KGvjSk/UXhRAz6ZdXq8g=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=tcg7psIDInTCIlKLKs5ZgtKHJM7XIs6yr0AdxjkFATEDNb0QOXU8Gb8KmkoFq1ifhbawiAIM6v21TD6NqK4rw5/Qz/pRg5POtCvZ8Kg1/LyKctHPn3IUtyWiv2qB662YvNf2CKHL+bqiRBtmVvswu2M/kyMWIPEMfXxEwHZXuSU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AyDErgIg; arc=none smtp.client-ip=198.175.65.21
+	s=arc-20240116; t=1791379692; c=relaxed/simple;
+	bh=AYcdg9YA3/cv8sdA+Bzkvao6+FKYL1mFyn5VXHU9WrQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=AM3+7QiJP7ndzwMsSgjKc3IIK0HHDyCk3Fxij05Pj3wzL8591S4InWqpF7Exk+j7EfAkjT7uyrSHECpjfLN4pGJkY2Jzp6LkQY8B0NFEzfdepUz9mOhXCe++BN1rTd7M0/kD6sHMKE0SbAU3pHMpJLO+3Uqj7UUqHzqR0p6tQnw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=e/dLDQdo; arc=none smtp.client-ip=198.175.65.21
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AyDErgIg"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="e/dLDQdo"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791379673; x=1822915673;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=dqn5gPzm8g3TaLWmhg9RnX4KGvjSk/UXhRAz6ZdXq8g=;
-  b=AyDErgIgeY9pHuLGZELSgKYyp3p8ZnWUhjzEIrqtCPLlCGg7m8I0Y/TO
-   ozW7+tjFxWf2RQ+HjwVNLCLELoTFytABszWvIoQ4Dn32JoAgI/8lDeadA
-   T4LfWnExEylzu9i5DeFnvnDdkq3uxowjnpzsJNtPEsCwZNKOAuiWdXGnG
-   k80aFR1BiV5WIQc5FpI0tiTrwPyWATHE1TV2eKYyW7xs+i8OvF6387cK8
-   AJuK9izViQ8rDgOGjGesZ3GHFU46aJxNnws4dcQaITY353/n62ACFK3oT
-   RM7NR3gWm+k0DQylaavelWOl3j2XNxTzkFYzmtsW2CxVRsA9tx4N6lCf/
-   A==;
-X-CSE-ConnectionGUID: qOsij63BSk2O7DZw3R8+GA==
-X-CSE-MsgGUID: VAjS4eNrSM+tNgkbnzLsDA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="242384"
+  t=1791379675; x=1822915675;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=AYcdg9YA3/cv8sdA+Bzkvao6+FKYL1mFyn5VXHU9WrQ=;
+  b=e/dLDQdo3BNqfrEzz3O63EhR3pjWFpvYL7MyCdH3sX09zIiL9bjmz4rQ
+   5J8Bn1/UDm1vVM7I22/vIsfd0L7IKsoqSUF/wsX/5GcVlyGRd9wUg34HK
+   feWbQBO0l9tb0HErklVO/sH2xGPvSiUBPVOBRNZAr881dTVCEyTPM1Z+a
+   ng+KfpEhKMRxM9UQkr+8hiUZdD7bm0qS5rYPx+5p/qUPs+4Mc9y58mxaw
+   5RIKfeGYZtVVMNwnvJBiZT6Y4Q7pKXK+fih+LteWONEtNT+u1zSReRUaL
+   pWEvLCiGyLIGqt5kpD80wRfEd2gy0e6ZiFi86Okc89yYDrE9nWiufMJ0I
+   Q==;
+X-CSE-ConnectionGUID: hhtbWKx/S5WWdhVKwzo5GQ==
+X-CSE-MsgGUID: yNNkvsAETCa5uq0s4fs0eA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="242396"
 X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="242384"
+   d="scan'208";a="242396"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 06:27:35 -0700
-X-CSE-ConnectionGUID: CYZaA+69Sc2O4zeJhLkESg==
-X-CSE-MsgGUID: 5v008PxGQZO+GKTYkdVvnA==
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 06:27:39 -0700
+X-CSE-ConnectionGUID: /RypGFJXRIe4XXBQqasx/g==
+X-CSE-MsgGUID: bKGWR2m1QLanqhCBY79D9w==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="64272"
+   d="scan'208";a="64283"
 Received: from crojewsk-ctrl.igk.intel.com ([10.237.149.0])
-  by fmviesa007.fm.intel.com with ESMTP; 07 Oct 2026 06:27:32 -0700
+  by fmviesa007.fm.intel.com with ESMTP; 07 Oct 2026 06:27:36 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: broonie@kernel.org,
 	linux-sound@vger.kernel.org
@@ -51,10 +52,12 @@ Cc: tiwai@suse.com,
 	linux-kernel@vger.kernel.org,
 	kuninori.morimoto.gx@renesas.com,
 	Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: [PATCH 0/7] ASoC: core: Create new components in sane state
-Date: Wed,  7 Oct 2026 15:33:46 +0200
-Message-Id: <20261007133353.455185-1-cezary.rojewski@intel.com>
+Subject: [PATCH 2/7] ASoC: core: Rename and export soc_component_add()
+Date: Wed,  7 Oct 2026 15:33:48 +0200
+Message-Id: <20261007133353.455185-3-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261007133353.455185-1-cezary.rojewski@intel.com>
+References: <20261007133353.455185-1-cezary.rojewski@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -63,60 +66,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-There is a gap between snd_soc_component_alloc() and
-snd_soc_register_component().  A driver that obtains a component object
-through snd_soc_component_alloc() receives an object in uninitialized
-state.  soc_component_initialize() is the function responsible for
-bringing it into a sane one but it is not accessible by the framework
-users.  Example of the uninitialized members are the lists e.g.:
-comp->dai_list.
-
-The framework shall prevent manipulation of uninitialized components.
-Introduce snd_soc_component_new() which acts as a constructor: allocates
-and initializes the component object before returning it to the caller.
-
-Given the quite recent discussion related to all things
-component-register [1], decided to stick to the "register" wording and
-renamed soc_component_add() to snd_soc_component_register().  With that,
-register/unregister pattern is kept.  At the same time, the update
-brings a clear division between:
+To keep the register/unregister pattern intact, rename to the function
+before exporting it. This concludes the registration update, leaving the
+following two options available to the callers:
 
 	1) snd_soc_component_register(component..)
 	2) snd_soc_register_component(dev..)
 
-A driver uses 1) when operating on pre-constructed component object
-explicitly and 2) when they want the ASoC framework to do everything for
-them.
+A driver uses 1) when attempting to register a pre-constructed
+component object explicitly and 2) when they want the ASoC framework to
+do the entire job for them.
 
-Parameter "name" is added to the ctor parameter list as it is one of the
-fields that is always initialized, see the 'if (!component->name)'
-within soc_component_initialize().  Private data on the other hand is
-not so opted out of including it.  And thus snd_soc_component_set_priv()
-remains intact.
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+---
+ include/sound/soc-component.h |  3 +++
+ sound/soc/soc-core.c          | 11 ++++++-----
+ 2 files changed, 9 insertions(+), 5 deletions(-)
 
-[1]: https://lore.kernel.org/all/87y0f2rz8l.wl-kuninori.morimoto.gx@renesas.com/
-
-
-Cezary Rojewski (7):
-  ASoC: core: Add component constructor
-  ASoC: core: Rename and export soc_component_add()
-  ASoC: dmaengine: Switch to snd_snd_component_new()
-  ASoC: topology-test: Switch to snd_snd_component_new()
-  ASoC: Intel: catpt: Switch to snd_snd_component_new()
-  ASoC: Intel: avs: Switch to snd_snd_component_new()
-  ASoC: core: Remove unused component-register members
-
- include/sound/soc-component.h         |  7 ++-
- include/sound/soc.h                   |  8 +--
- sound/soc/intel/avs/pcm.c             | 11 ++--
- sound/soc/intel/avs/probes.c          | 12 ++---
- sound/soc/intel/catpt/pcm.c           | 12 ++---
- sound/soc/soc-component.c             | 19 -------
- sound/soc/soc-core.c                  | 77 ++++++++++++---------------
- sound/soc/soc-generic-dmaengine-pcm.c | 18 +++----
- sound/soc/soc-topology-test.c         | 66 +++++++++++------------
- 9 files changed, 96 insertions(+), 134 deletions(-)
-
+diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
+index d51f71e2f334..f4d4f836269e 100644
+--- a/include/sound/soc-component.h
++++ b/include/sound/soc-component.h
+@@ -294,6 +294,9 @@ static inline int snd_soc_component_cache_sync(
+ 
+ struct snd_soc_component *snd_soc_component_new(struct device *dev, const char *name,
+ 						const struct snd_soc_component_driver *driver);
++int snd_soc_component_register(struct snd_soc_component *component,
++			       struct snd_soc_dai_driver *dai_drv,
++			       int num_dai);
+ struct snd_soc_component *snd_soc_component_alloc(struct device *dev);
+ 
+ void snd_soc_component_set_name(struct snd_soc_component *component, const char *name);
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index c4de336ab408..93bc7fa32444 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -2625,9 +2625,9 @@ struct snd_soc_component *snd_soc_component_new(struct device *dev, const char *
+ }
+ EXPORT_SYMBOL_GPL(snd_soc_component_new);
+ 
+-static int soc_component_add(struct snd_soc_component *component,
+-			     struct snd_soc_dai_driver *dai_drv,
+-			     int num_dai)
++int snd_soc_component_register(struct snd_soc_component *component,
++			       struct snd_soc_dai_driver *dai_drv,
++			       int num_dai)
+ {
+ 	struct snd_soc_card *card, *c;
+ 	int ret;
+@@ -2666,6 +2666,7 @@ static int soc_component_add(struct snd_soc_component *component,
+ 
+ 	return ret;
+ }
++EXPORT_SYMBOL_GPL(snd_soc_component_register);
+ 
+ int snd_soc_register_component_c(struct snd_soc_component *component,
+ 			const struct snd_soc_component_driver *component_driver,
+@@ -2678,7 +2679,7 @@ int snd_soc_register_component_c(struct snd_soc_component *component,
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	return soc_component_add(component, dai_drv, num_dai);
++	return snd_soc_component_register(component, dai_drv, num_dai);
+ }
+ EXPORT_SYMBOL_GPL(snd_soc_register_component_c);
+ 
+@@ -2693,7 +2694,7 @@ int snd_soc_register_component_d(struct device *dev,
+ 	if (IS_ERR(component))
+ 		return PTR_ERR(component);
+ 
+-	return soc_component_add(component, dai_drv, num_dai);
++	return snd_soc_component_register(component, dai_drv, num_dai);
+ }
+ EXPORT_SYMBOL_GPL(snd_soc_register_component_d);
+ 
 -- 
 2.34.1
 
