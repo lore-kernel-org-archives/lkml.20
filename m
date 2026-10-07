@@ -1,161 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0DF63CF1E7;
-	Wed,  7 Oct 2026 11:56:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4968E44D6B4;
+	Wed,  7 Oct 2026 11:56:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791374208; cv=none; b=RhFde+31qACa7TAx+9dRifTjHJbTF8LYfdqAMJXtpHAFfzSd109qIKw84y+JUQOL69yNJlw9w59wiWAwwwzI/yjzSyU6K8csJ7iEhDaLTiInrqxJRxjzNiIOhYellkVsBAUJqxiNTDqq2IPJ/avTjudYmBlxD53BmUbowe4EXkY=
+	t=1791374231; cv=none; b=rGukKAdcLlQbdNNuiBJbCf6bo6n7NHN8WTkX+5gKlN3+OvVkK1WPL+wDkNRkZxL/qWHy8wEszdaAwFLFhsP9+zwJcLlbtM/2H0Occ15ZuXQtRK6HZlQP6LnCB+y4ZuGA/kMQv4QR48pEA+69wStgCnSSkA9uDlMFGTolznNJTiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791374208; c=relaxed/simple;
-	bh=OkbGpd66+Nr9ShwHO3A+rLYZ3ox3/2jIuyWtiZPG3dU=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=r+OS1vGqgoSzH14YpaH+dhMTMTIKw/wgCoOUGqTEObsA6m7pcwAxQFvA9tt9OWsRyIaAV9TOayyeFiydcvqZX7EwmraAPIjG0pzesub2EhotviNEqMTWIzRhpsNFtNYqr2XnszEhqAPUTkKWCKsIKMH5h1kOAoqmH7pPmaLJprA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VczpgDLr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791374231; c=relaxed/simple;
+	bh=o2zzp/CXqD3o9N9LjQHPEjAmvrdw47DRLbkl13PtnIE=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=BhHOM28jjvCv2jRipR/dip9MnaOuTLTOyaXhe/swfDYqbMU7VRTuvFgkvZEJ/Cu2RMBKhggKFaaYBsvcB/vCABWD+98EcQAauxQFZ0xzdGKLBNF4H4FNFuJXtcTtXawgbkWrTEXE2wtgghR52ZhYHfpzE9W74weFDYl0WJKVnSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=vtelectron.com header.i=@vtelectron.com header.b=tPfsHv9X; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=MhrnbqqW; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VczpgDLr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D5BC1F0089B;
-	Wed,  7 Oct 2026 11:56:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791374193;
-	bh=jQs8AwO3syyOhI3liJkXTsOu5/M8XoKj9b56OonPAFU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VczpgDLr9GTfPXPwOOjO3h794xiHVdi89uIwcixFdqTK0qk7TNS6mTR3sGVo9+9fN
-	 EMM+EaHOJz3jk3GyJt77UWxjnbC/F05UqtT8J0kz4mjUrDoaKAfn/bKxtQqoCGV6Qc
-	 kbHNS1R96EWTtzFmEW9tYtPIef3BU1iIFQdTSqnIxQgYSCFo682v8pCcpVokxPc37E
-	 nCMOBX2retd49npX9NE4l8pbLWLxKZtN6K9u3kEjmCgZutoGLSzvV3wLtgmXqZRkxQ
-	 oQIJsGgKblPzCXd4J6cpqn9Y98w4ItmvZEl/B4cjDTrqFOGWxT5cQrocOznKWa5Y5s
-	 caBafrQd5MZFQ==
-Message-ID: <sashiko-outbox-162957@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 01/11] arm64, unwind: build kernel with sframe V3
- info
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Roman Gushchin" <roman.gushchin@linux.dev>, "Peter Zijlstra" <peterz@infradead.org>, "Dylan
- Hatch" <dylanbhatch@google.com>, "Steven Rostedt" <rostedt@goodmis.org>, "Josh
- Poimboeuf" <jpoimboe@kernel.org>, "Catalin Marinas" <catalin.marinas@arm.com>, "Jens
- Remus" <jremus@linux.ibm.com>, "Indu Bhagat" <ibhagatgnu@gmail.com>, "Will
- Deacon" <will@kernel.org>, "Jiri Kosina" <jikos@kernel.org>, "Weinan Liu" <wnliu@google.com>, "Mark
- Rutland" <mark.rutland@arm.com>
-Cc: linux-kernel@vger.kernel.org, linux-toolchains@vger.kernel.org, "Herbert
- Xu" <herbert@gondor.apana.org.au>, "Prasanna Kumar T S M" <ptsm@linux.microsoft.com>, joe.lawrence@redhat.com, live-patching@vger.kernel.org, "Song
- Liu" <song@kernel.org>, "Puranjay Mohan" <puranjay@kernel.org>, linux-arm-kernel@lists.infradead.org, "Randy
- Dunlap" <rdunlap@infradead.org>, "David S. Miller" <davem@davemloft.net>, "Mostafa
- Saleh" <smostafa@google.com>
-In-Reply-To: <20261007114335.440322-2-dylanbhatch@google.com>
-References: <20261007114335.440322-1-dylanbhatch@google.com>
- <20261007114335.440322-2-dylanbhatch@google.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 07 Oct 2026 11:56:31 +0000
+	dkim=pass (2048-bit key) header.d=vtelectron.com header.i=@vtelectron.com header.b="tPfsHv9X";
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="MhrnbqqW"
+Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697BXmn41257626;
+	Wed, 7 Oct 2026 07:56:54 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:message-id:mime-version:subject:to; s=DKIM; bh=LR7AbHg1WDHR+3rN
+	nTNDrddJaPvZWR8p1wxHrtwnTUw=; b=tPfsHv9XJ0s5uo6q33CKvD/2z5eFx32a
+	VoVmbdujBdxnOd2aG1SN/Ro81AdPdcdFKCkTZtHtB0y2LZJZal6IEpixPNazt5hu
+	56Rr3u9vt+ueQaW81Y4PfTf2Z2kPd+AfmTAdbC64tgSVMNJkfV53FFn1r7SWTNiu
+	aVJPJTN/7nNZt1YOT9KUwZ0BtpMsv8fE0YwX6W3LVvjpBzQSJKFsUZJKyeVl9LI9
+	GGRIghliQSfC/diFjTebA2URgxHa6V//bEOvAARwGnJaMXWFLg4miGHop9XOZ2SO
+	Q84L+0gvt4FXDS7mMkm9ZWAH1vBv1xzjlPb8Ec55VfY1OazLl/QZYQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=LR7AbHg1WDHR+3rNnTNDrddJaPv
+	ZWR8p1wxHrtwnTUw=; b=MhrnbqqWZqRlnZXJJMXliy+MA+vcn5rfFxyJlrHz0p2
+	eo7ta62jog8MgcGFDmKCBjGxSDKXJzA6j1yVxlcLkQReCx+l3gocwVA9laZKHXD5
+	QcE3fdUzFO5A5am/mjmTZjSvgEgLtq7iwr8dock3mYRCBj7RbtF3HJrmb4aVEivH
+	XQPBGXa73A+h1IxTvsrg8IHwb0s/3b2/rVGNwD4BnZR9fzuBLveFRbYvXd0/TNEY
+	td0VZxidVO3WSW+4Vc5EErWNBSMylQCnQhB9dNOmhK96YXQgIMiZPrUor2smzRIB
+	Uiioi0IrPOHByLr0ebDiCSq1dJSzrsDhttu4hWtBGCg==
+Received: from nwd2mta3.analog.com ([137.71.173.56])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4h591yc44y-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 07 Oct 2026 07:56:54 -0400 (EDT)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta3.analog.com (8.14.7/8.14.7) with ESMTP id 697Bur6A041602
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 7 Oct 2026 07:56:53 -0400
+Received: from ASHBCASHYB5.ad.analog.com (10.64.17.133) by
+ ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Wed, 7 Oct 2026 07:56:39 -0400
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
+ ASHBCASHYB5.ad.analog.com (10.64.17.133) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Wed, 7 Oct 2026 07:56:39 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Wed, 7 Oct 2026 07:56:39 -0400
+Received: from JSANTO12-L01.ad.analog.com ([10.65.60.206])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 697BuOwQ012192;
+	Wed, 7 Oct 2026 07:56:26 -0400
+From: Jonathan Santos <Jonathan.Santos@analog.com>
+To: <linux-kernel@vger.kernel.org>, <linux-spi@vger.kernel.org>
+CC: Jonathan Santos <Jonathan.Santos@analog.com>, <dlechner@baylibre.com>,
+        <broonie@kernel.org>, <nuno.sa@analog.com>,
+        <michael.hennerich@analog.com>, <jonath4nns@gmail.com>,
+        <andriy.shevchenko@intel.comls>
+Subject: [PATCH v3 0/2] spi: axi-spi-engine: fix stale SYNC IRQ pending
+Date: Wed, 7 Oct 2026 05:52:05 -0300
+Message-ID: <cover.1791361360.git.Jonathan.Santos@analog.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-ORIG-GUID: TwynuX7hgpfUHTe9wO3FpTN1OWP72HLZ
+X-Authority-Analysis: v=2.4 cv=N/S8hG9B c=1 sm=1 tr=0 ts=6ac63386 cx=c_pps
+ a=PpDZqlmH/M8setHirZLBMw==:117 a=PpDZqlmH/M8setHirZLBMw==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=uXIjobp8t2wMuQ0fPvqm:22 a=VwQbUJbxAAAA:8 a=gAnH3GRIAAAA:8
+ a=3EvmjnR45BohH-wPFtUA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDA0NyBTYWx0ZWRfX6GxZ5A+jodFv
+ Z43D1z0A6kWO5EHJUV3uvZm5GYiXn0i9dzUPiSmZWnCMnR5FDsp9nVkyL/4Sm9Iv+3PVSUWhFGe
+ F9cME+B/IYtzktQtAqU99uUmqzrVbj2WR+SbxMzg7HgQWPmqGzHapE6q5dGvTPNXHSmGLQW3xHt
+ 8PBfzdb11gM9oxBlji/IAMDChsa8oGl7KVaFu56CjcS9eaVkMmIbGM+a4wGZ6xa7pPydITifKDy
+ XuvqBt1PtxZ3EECKQqwkKprxJS0BPQ6OBKQX4Q4ayft7ZNG7zteQuEbsjfBNrMuMwswCL6h0P2B
+ 9UGDIr6QUkeelDLb7W1We73LzRbPZO89RqKGVdiFvN3Og+ZP3obZ2to459Iy2Lv5GuBJOuxO5YF
+ DhzTfxKA0+f7kPfxsLNo1njjEvXtYB0y8lwAwgTK9SnN5RZMZTkfQHFYyudrITb5ErjgWwxWmmD
+ eopNv7m53HuVcE8xJ5Q==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDA0NyBTYWx0ZWRfX/dgRcx8bfNeP
+ McCf+O78c+mBYmTO1NTLRKVmRFR78KF/oraxind3ALT5M5vZt0LFPEYpZafeNrO+8h9kc3+xjF6
+ zcaFs3MHulMqy1N9tcVlup0Ytbvtum2MHGnjGMlA7t5lBL6KK3UK
+X-Proofpoint-GUID: TwynuX7hgpfUHTe9wO3FpTN1OWP72HLZ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-07_04,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 phishscore=0 lowpriorityscore=0 adultscore=0
+ priorityscore=1501 spamscore=0 suspectscore=0 clxscore=1011 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070047
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] unwind: missing SFrame unwind information for Rust code
---
+Both spi_engine_setup() and spi_engine_trigger_enable() send a SYNC(1)
+command and poll SYNC_ID, but never clear INT_PENDING[SYNC] afterward.
+This leaves a stale pending bit that fires spuriously when INT_SYNC is
+enabled later by some driver, causing premature transfer completion at
+low SPI clock frequencies (more likely). Fix both functions by clearing
+the pending bit after polling.
 
-commit 531ea7668c66f4aab865a6399bb07911c3617223
-Author: Dylan Hatch <dylanbhatch@google.com>
+v3 summary:
+* Added a dummy read after the clear command to flush the posted writes
+  before dropping the lock.
+* Link to v2: https://lore.kernel.org/linux-spi/cover.1790731588.git.Jonathan.Santos@analog.com/T/#t
 
-arm64, unwind: build kernel with sframe V3 info
+v2 summary:
+* Replaced "Link" tag for "Closes" tag.
+* Included "Fixes" tag.
+* Added new patch applying similar fix for the spi_engine_trigger_enable(),
+  as pointed out by David.
+* While at it, replaced plain "1000" by "1 * USEC_PER_MSEC" for better
+  clarity.
+* Link to v1: https://lore.kernel.org/linux-spi/04d51e99b8cddce51113db933d806e83848f04f5.1788313558.git.Jonathan.Santos@analog.com/T/#t
+Jonathan Santos (2):
+  spi: axi-spi-engine: fix stale SYNC IRQ pending
+  spi: axi-spi-engine: fix stale SYNC IRQ pending in trigger_enable
 
-To generate a .sframe section, build with -Wa,--gsframe-3 flags. Also,
-add unwind-table options to ensure the necessary CFI directives are
-emitted by the compiler, but discard .eh_frame unless
-CONFIG_UNWIND_TABLES is explicitly enabled.
+ drivers/spi/spi-axi-spi-engine.c | 20 +++++++++++++++++---
+ 1 file changed, 17 insertions(+), 3 deletions(-)
 
-> diff --git a/Makefile b/Makefile
-> index 7c855e6fe5448..5c2ca98a86786 100644
-> --- a/Makefile
-> +++ b/Makefile
-[ ... ]
-> @@ -1197,6 +1197,14 @@ CFLAGS_GCOV	+=3D $(call try-run,\
->  endif
->  export CFLAGS_GCOV
-> =20
-> +# build with sframe table
-> +ifdef CONFIG_HAVE_UNWIND_KERNEL_SFRAME
-> +CC_FLAGS_SFRAME :=3D -Wa,--gsframe-3
-> +KBUILD_CFLAGS	+=3D $(CC_FLAGS_SFRAME)
-> +KBUILD_AFLAGS	+=3D $(CC_FLAGS_SFRAME)
 
-[Severity: Medium]
-When CONFIG_HAVE_UNWIND_KERNEL_SFRAME is enabled, the generation flag is
-added to C and ASM flags in Makefile, but no equivalent flag is passed to
-the Rust compiler.
+base-commit: 04434a1d0f311d76b1f15fa987918b471a0b8c6a
+-- 
+2.34.1
 
-Because rustc emits object files directly using its LLVM backend and
-currently lacks native SFrame emission, does it generate standard .eh_frame
-data instead of .sframe?
-
-> +export CC_FLAGS_SFRAME
-> +endif
-> +
->  # change __FILE__ to the relative path to the source directory
->  ifdef building_out_of_srctree
-[ ... ]
-> diff --git a/arch/arm64/Makefile b/arch/arm64/Makefile
-> index 6b005c8fef706..ae1c23579ad2f 100644
-> --- a/arch/arm64/Makefile
-> +++ b/arch/arm64/Makefile
-[ ... ]
-> @@ -55,7 +55,7 @@ KBUILD_CFLAGS	+=3D $(call cc-option,-mabi=3Dlp64)
->  KBUILD_AFLAGS	+=3D $(call cc-option,-mabi=3Dlp64)
-> =20
->  # Avoid generating .eh_frame* sections.
-> -ifneq ($(CONFIG_UNWIND_TABLES),y)
-> +ifeq ($(filter y, $(CONFIG_UNWIND_TABLES) $(CONFIG_HAVE_UNWIND_KERNEL_SF=
-RAME)),)
->  KBUILD_CFLAGS	+=3D -fno-asynchronous-unwind-tables -fno-unwind-tables
->  KBUILD_AFLAGS	+=3D -fno-asynchronous-unwind-tables -fno-unwind-tables
->  KBUILD_RUSTFLAGS +=3D -Cforce-unwind-tables=3Dn
-
-[Severity: Medium]
-In arch/arm64/Makefile, this change ensures that Rust continues generating
-unwind tables when SFrame is enabled. Does this mean Rust will continue to
-generate DWARF unwind tables since -Cforce-unwind-tables=3Dn is not applied
-when CONFIG_HAVE_UNWIND_KERNEL_SFRAME is enabled and CONFIG_UNWIND_TABLES
-is disabled?
-
-[ ... ]
-> diff --git a/arch/arm64/kernel/vmlinux.lds.S b/arch/arm64/kernel/vmlinux.=
-lds.S
-> index af1d720209764..eb1f54829503c 100644
-> --- a/arch/arm64/kernel/vmlinux.lds.S
-> +++ b/arch/arm64/kernel/vmlinux.lds.S
-[ ... ]
-> @@ -145,14 +145,25 @@ jiffies =3D jiffies_64;
->  #endif
-> =20
->  #ifdef CONFIG_UNWIND_TABLES
-> +
->  #define UNWIND_DATA_SECTIONS				\
->  	.eh_frame : {					\
->  		__pi___eh_frame_start =3D .;		\
->  		*(.eh_frame)				\
->  		__pi___eh_frame_end =3D .;		\
->  	}
-> +#define SFRAME_DISCARDS
-> +
-> +#elif defined(CONFIG_HAVE_UNWIND_KERNEL_SFRAME)
-> +
-> +#define UNWIND_DATA_SECTIONS
-> +#define SFRAME_DISCARDS *(.eh_frame)
-
-[Severity: Medium]
-When only CONFIG_HAVE_UNWIND_KERNEL_SFRAME is enabled and
-CONFIG_UNWIND_TABLES is disabled, the .eh_frame sections are explicitly
-discarded here in arch/arm64/kernel/vmlinux.lds.S.
-
-Since Rust code emits .eh_frame data instead of .sframe, does discarding
-these sections silently leave all compiled Rust objects without any unwind
-information? Could this break reliable stack unwinding across Rust frames?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261007114335.4403=
-22-1-dylanbhatch@google.com?part=3D1
