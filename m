@@ -1,176 +1,151 @@
-Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.53])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45E93411A1A
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 10:54:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.163.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9606945A2BD;
+	Wed,  7 Oct 2026 10:54:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791370476; cv=none; b=bDgF67I9GYwv6ZjqouvRaoIxODBWKB76dZMmEu4nOvMQaCbWXC2h7Wv4LH2gT2Mxm6GQGhhQkgYU6yLgQ0FLEBn2FFTKExDMaQs8f+Wdvn3CQ10Ay5aFDiSqaeZH2ipKqdfoYUcmmyqAo90ar+tR8T70FqWk/qSxru4oZ7lLbqw=
+	t=1791370480; cv=none; b=SR4F2H8rZzbuwR/iaQUnMRlJ8+d0friQqlzLdAgiyYEhqGbaZ7m2IXZmuYVUfV/X0L/zVz+Fr2lJ0XEDn7rgqrem25EqNLQ56kD8Iz1/b5G/1BFTHKf3MRfCo8fgKzio9JGgJnfal2GH13+IWoLVMt6C+ubZCx2dvv7JmKDVkSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791370476; c=relaxed/simple;
-	bh=lVL1sa32L2WhhG2u4wL0bheAxTpUNxznhSq1jWbfwhE=;
-	h=Message-ID:Date:From:To:Cc:Cc:Cc:Cc:Cc:Cc:Subject:In-Reply-To:
-	 References:MIME-Version:Content-Type; b=aXBmVpDgD/6D7RMyZO9Pk9o7a1Nxo60VMpVagM3tAkLqpy8781YihgE2OSQ3+FZb5Zq5N1ttsvTkfZrCIMU8A8Z+3hrZ5zkZJk9B7kb0GTC5aZlPKkPMmA9E9olhTZjxiZvx9b7d195L1klqnDXqAybuE9uxqTHTZvwEBu6lVuQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=aBGuuKeT; arc=none smtp.client-ip=43.163.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1791370480; c=relaxed/simple;
+	bh=V55R8SAuqlFQorvkL6orijSqh3O7uPPYrcF3c4x6/VA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iTadyd4UIy3cxEQjq1N5ZRBFOn0Gjrm7jDq3PoIzedS2Ega3E0N1BHwVjaKHWsXwbtS9T+XU+sTWW/gzMijDMq6TU9lvAxMfCJK3o+t+wfK+/0wwmo3KlfheGUP60wqKYs4PB82jUb0f9ORfIuU07FWlTjBDUbW+xdrdVPZ7Sk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lc494qjL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="aBGuuKeT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1791370438; bh=g24TrHG4vSFzqgRrypcxpgt4JUs+URbBEdgt9SFzlyc=;
-	h=Date:From:To:Cc:Cc:Cc:Cc:Cc:Cc:Subject:In-Reply-To:References;
-	b=aBGuuKeTtFD+hOaGl4OQ5lXfg/xbHLbp5+/NyJEt6ygb9c99Em+01x0iqgT+QgHp9
-	 JmgbOdZcEO/t6o6R6fUcQ2kdawoGrYePG+8bgtD3yguyTe01guxxCozFRFgv069QKk
-	 6+MC6zHRRgfpXvKmRZriaYglJtbuwnC8GbBP2Ojg=
-Received: from localhost ([39.144.128.134])
-	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
-	id D78096AA; Wed, 07 Oct 2026 18:53:56 +0800
-X-QQ-mid: xmsmtpt1791370436txn28ooh7
-Message-ID: <tencent_D96ED693B9D664B3CDD8943D920571929406@qq.com>
-X-QQ-XMAILINFO: NFhlv/8JdUU2fDPb69o/wz5iFm097WiZEaDlDy5XZ5MJRtskPuLk4IwWnLzu54
-	 L33Jfj/Eq/fEUiHbV3apQvAjNa/MQj4ApOvkvgrv4h9oTVQFSTJgWjRYacSAHez66uMKHlsFJswF
-	 iB2PFlLAOzqLXDvRN/sV1HaDdJu2V341Vs4TCjPtAmuA2ZdfaAgknaqFAyOXP0+zrSxFs85uRfBK
-	 0XrPW8Z1fLiO7voVwmogUMP86Pt/FUJfaZZnXuh5Kp1orURqMoyv2VSQ7DRzgfEna6CFe5xRJxBX
-	 dMvDMfHmVPELD8DsFkJrwaZztpgjfdAM0e+uyYq7JBBBMTzYV+BdKh7OmGVW6VX2f8iTAuCIgHhu
-	 zy/y863WTp5Ele5LZvVH/eHE6zutMiddbTQGrznALM6+YsxIgxJvCV7EqVO6bNrCIrYvLBCbNUkd
-	 kkQQ4KKStcHHJbyW4cDOgKNwWEgejFUhm1DNlEpZbl6F07zCp+ksGw2o+8kfz2EfpLNzq0oBRdEE
-	 RdRQCBp82eJcPYEJEzEswfknZrMJx+5dJbkDuW1I6qxoDY73saG1HzNug4BpFFb7MB0/oddEGepx
-	 PXJKErNAhgnMEq8NIl/mlPQ1oJFXmSlY6IklNmUqw3vG0Vd9z3C8a/USuFxX0VWHEBgpIatAiEF9
-	 DTbdrcHDW/UK/zlROBmM6O6O2Nuba09ySNeBj4sRduNGk8Qj1a3RtVv61HgfU5y0kbb8pxW050PK
-	 /ieR00NjVW5o+z9tF4TvRYa4BaEL8+cDzopD22G4oYfIba0HTguBC87qLjRSUknpOExvC3QkqOdo
-	 YH/HTfPb2C4LSheB/+xiat2VWX5Q4TkxTm+2whijB7/iX93TIESLMPSIK26AaryWZpCE+UNV3GdD
-	 yk9zFQYccWJeLT5L89kVlwlyvSu+ubWaY/lq3yYLt7Tpm+76NsT7TUQZF87vPrTriHw3Fktn743Z
-	 K8d6Vbz3S+4MVZ/N8fLOyVQRATmEQv7GC52/c8CKumV/1M5vD8/U6x0XZ0HnyuhV93VDVZlXHxqn
-	 Sg5T0eIQ==
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-Date: Wed, 07 Oct 2026 18:53:55 +0800
-X-OQ-MSGID: <89a3f484dd6c50d8d1026665039026ea@qq.com>
-From: Eason <1836949523@qq.com>
-To: Yuming Sun <wolf109909@outlook.com>
-Cc: platform-driver-x86@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: Mingyou Chen <qby140326@gmail.com>
-Cc: Hans de Goede <hdegoede@redhat.com>
-Cc: Ilpo Jarvinen <ilpo.jarvinen@linux.intel.com>
-Cc: Armin Wolf <W_Armin@gmx.de>
-Subject: Re: [RESEND PATCH 0/5] platform/x86: bitland-mifs-wmi: MIFS v2 firmware support (Xiaomi Book Pro 14 2026)
-In-Reply-To: <20260728180944.51356-1-wolf109909@outlook.com>
-References: <20260728180944.51356-1-wolf109909@outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lc494qjL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 776501F0089B;
+	Wed,  7 Oct 2026 10:54:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791370451;
+	bh=uA8p+MDOC9gzZwh78glwvS7UOOYTU0AmigEJLyE3mac=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Lc494qjL1xY90Qq8b3HA15YxTTdSqmiRIBIXHw+stWAENpxOc0o6ycgT+ojLUzmCp
+	 If/oGtK8sqWqWP1p1FeWjJo89tjgEjwaOed0er48LEvgcCN2Bdpc+a3NbhdBm8BwUj
+	 KsStxNosrZv9FCvaxqbkW10yhM+BU+xPw9pFRf/pcv7fR4zSYOCeQMx6IHPY7NguXs
+	 HZzlMaK0JBQ3i+MHU0mCk9mG/fbOV1LbmUKLdQsKfpt6TKM2ZLv5YkP3GbA37oWbiG
+	 wYDYA2ZLNshzWhSXgx3LnhVokOCoftFZnNSs4cNZ9JPhw50gbYcgND6lUnVo7240r7
+	 7hkxyDkDrCnsA==
+Date: Wed, 7 Oct 2026 13:54:09 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH v9 00/18] PCI/P2PDMA: Route peer-to-peer DMA by TLP class
+Message-ID: <20261007105409.GE7822@unreal>
+References: <20261006213650.GA716945@bhelgaas>
+ <20261007065644.GA738981@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261007065644.GA738981@bhelgaas>
 
-Hi Yuming,
+On Wed, Oct 07, 2026 at 01:56:44AM -0500, Bjorn Helgaas wrote:
+> On Tue, Oct 06, 2026 at 04:36:50PM -0500, Bjorn Helgaas wrote:
+> > On Wed, Oct 07, 2026 at 12:22:27AM +0300, Leon Romanovsky wrote:
+> > > On Tue, Oct 06, 2026 at 02:29:55PM -0500, Bjorn Helgaas wrote:
+> > > > On Thu, Oct 01, 2026 at 02:55:08PM +0300, Leon Romanovsky wrote:
+> > > > > PCI P2PDMA applies Request and Completion Redirect throughout both paths.
+> > > > > This misclassifies asymmetric and nested switches, and reports one answer
+> > > > > for every kind of TLP.
+> > > > > 
+> > > > > Three ACS controls act on TLP attributes the client chooses rather than
+> > > > > on the topology: Translation Blocking and Direct Translated P2P act on
+> > > > > a Request's Address Type, and Completion Redirect skips Completions carrying
+> > > > > Relaxed Ordering.
+> > > > > 
+> > > > > Evaluate each direction at the path divergence, decide every class from the
+> > > > > one walk, and treat a client with ATS enabled as translating unless its
+> > > > > driver declares per-mapping ATS.
+> > > > > 
+> > > > > This completes the P2PDMA side; dma-buf and mlx5 follow separately.
+> > > > > ...
+> > > > 
+> > > > > Leon Romanovsky (18):
+> > > > >       PCI/P2PDMA: Document the TLP attribute assumptions
+> > > > >       PCI/P2PDMA: Derive routing from directional ACS controls
+> > > > >       PCI: Reject unreadable ACS controls in isolation checks
+> > > > >       PCI/P2PDMA: Evaluate ACS controls at the path divergence
+> > > > >       PCI/P2PDMA: Document directional ACS routing
+> > > > >       PCI/P2PDMA: Collect the path's ACS controls before deciding
+> > > > >       PCI/P2PDMA: Answer routing per TLP class
+> > > > >       PCI/P2PDMA: Route Relaxed Ordering Completions directly
+> > > > >       PCI/P2PDMA: Reject Translated Requests blocked by Translation Blocking
+> > > > >       PCI/P2PDMA: Route Translated Requests under Direct Translated P2P
+> > > > >       PCI/P2PDMA: Log detailed ACS routing diagnostics
+> > > > >       PCI/P2PDMA: Add KUnit tests for the ACS routing decisions
+> > > > >       PCI/P2PDMA: Test the ACS P2P routing walk
+> > > > >       PCI: Add KUnit coverage for ACS isolation checks
+> > > > >       PCI/P2PDMA: Document TLP-class routing
+> > > > >       PCI/P2PDMA: Let a client declare that it selects ATS per mapping
+> > > > >       PCI/P2PDMA: Evaluate the ATS path for clients with ATS enabled
+> > > > >       PCI/P2PDMA: Test the routing of clients with ATS enabled
+> > > > > 
+> > > > >  Documentation/admin-guide/kernel-parameters.txt |  15 +-
+> > > > >  Documentation/driver-api/pci/p2pdma.rst         |  80 +++
+> > > > >  drivers/pci/Kconfig                             |  15 +
+> > > > >  drivers/pci/Makefile                            |   1 +
+> > > > >  drivers/pci/p2pdma.c                            | 719 ++++++++++++++++++--
+> > > > >  drivers/pci/pci.c                               |   7 +-
+> > > > >  drivers/pci/pci.h                               |  58 ++
+> > > > >  drivers/pci/pci_acs_test.c                      | 860 ++++++++++++++++++++++++
+> > > > >  drivers/pci/quirks.c                            |   6 +-
+> > > > >  include/linux/pci-p2pdma.h                      |  12 +-
+> > > > >  10 files changed, 1687 insertions(+), 86 deletions(-)
+> > > > > ---
+> > > > > base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
+> > > > > change-id: 20260821-fix-p2p-acs-v4-0-e72455e3a261
+> > > > > prerequisite-message-id: <20260830-batch-p2p-fixes-v1-0-5044e8dfbe2e@nvidia.com>
+> > > > > prerequisite-patch-id: 6b25c7fcf164cdfc14e9fac5b908d97fcf6509d7
+> > > > > prerequisite-patch-id: 0d083c281001365aae4b35544cf28891a6ab9a96
+> > > > > prerequisite-patch-id: bfd9dabf271f3cc9a3a61f46387d20c20311363d
+> > > > > prerequisite-patch-id: fad0275efc722830fc591509506c0a5e4f581073
+> > > > > prerequisite-patch-id: 0c83bee688fec1f6d1564654df7c630fa6a4a978
+> > > > 
+> > > > This seems like material for the PCI tree, but I'm not sure how to
+> > > > apply it.  It doesn't apply cleanly on the current pci/p2pdma
+> > > > (https://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git/log/?h=p2pdma),
+> > > > which does contain your series from
+> > > > 20260830-batch-p2p-fixes-v1-0-5044e8dfbe2e@nvidia.com.
+> > > > 
+> > > > I could probably fix the conflicts but I don't know why there should
+> > > > be conflicts, since the only commits on pci/p2pdma other than yours
+> > > > are a few trivial allow-list updates.
+> > > 
+> > > So maybe this is related to these trivial updates, my series was based
+> > > on the clean p2pdma branch:
+> > > https://git.kernel.org/pub/scm/linux/kernel/git/leon/linux-rdma.git/log/?h=fix-p2p-acs-v9
+> > 
+> > Ah, yeah, it must be the allow-list additions that I have but you
+> > don't.  I wouldn't have thought the offsets would have been a problem.
+> 
+> It applies fine if I move the Haswell and Alibaba allowlist patches t
+> to the end so the base matches fix-p2p-acs-v9, thanks.
 
-I would like to add a third affected machine to this report: the REDMI
-Book Pro 14 2026 (board TM2426, Core Ultra 5 338H, Panther Lake), BIOS
-RMAPT4B0P0909 (2026-05-21), EC firmware 1.9, originally running
-7.2.8-zen1-2-zen.
+Bjorn,
 
-It shows the same MIFS v2 firmware behaviour you describe, and your series
-addresses the two things that make this laptop unusable for suspend today.
+It is unclear to me if I should to resend.
 
-1) Suspend (s2idle) is aborted with -EINVAL by the driver's suspend hook.
-   Every attempt ends like this:
-
-     PM: suspend entry (s2idle)
-     bitland-mifs-wmi B60BFB48-3E5B-49E4-A0E9-8CFFE1B3434B-4: PM: dpm_run_callback(): bitland_mifs_wmi_suspend [bitland_mifs_wmi] returns -22
-     bitland-mifs-wmi B60BFB48-3E5B-49E4-A0E9-8CFFE1B3434B-4: PM: failed to suspend: error -22
-     PM: Some devices failed to suspend, or early wake event detected
-     systemd-sleep: Failed to put system to sleep. System resumed again: Invalid argument
-
-   /sys/power/suspend_stats on this machine:
-
-     failed_suspend   4
-     last_failed_dev  B60BFB48-3E5B-49E4-A0E9-8CFFE1B3434B-4
-     last_failed_errno -22
-     last_failed_step suspend
-     success          0
-
-   Since then I set up a disk swap file and verified all three sleep paths
-   locally with a minimal one-file change that follows the approach of your
-   patch 1/5 (never propagate the perf-mode query error from the suspend
-   hook), applied on top of a 7.2.9 tree (Arch linux-zen packaging of 7.2.9:
-   vanilla 7.2.9 plus the zen patchset):
-
-     * s2idle works again:
-
-         PM: suspend entry (s2idle)   18:13:51
-         PM: suspend exit             18:13:57
-         /sys/power/suspend_stats: success=1, failed_suspend=0
-
-     * hibernation works and the session is restored (same boot id before
-       and after; ~63-94 s offline including firmware POST):
-
-         systemd-hibernate.service: Finished System Hibernate
-         systemd-sleep: Successfully thawed unit 'user.slice'
-
-     * closing the lid does the right thing as well, with logind configured
-       for HandleLidSwitch=suspend-then-hibernate and HibernateDelaySec=1h:
-
-         Lid closed                                 18:31:00
-         PM: suspend entry (s2idle)                 18:31:00
-         PM: suspend exit                           18:32:01
-         sleep operation 'hibernate'                18:32:02
-         PM: hibernation: hibernation exit          18:33:47
-         (same boot id before and after the whole sequence)
-
-   I am happy to send the one-file diff, the full logs and the /sys/power
-   settings, or to test a revised version of this series.
-
-2) platform_profile registration fails, exactly as in your report:
-
-     platform_profile: Failed to get profile for handler bitland-mifs-wmi
-     platform_profile: Failed to get profile for handler bitland-mifs-wmi
-     platform_profile: Failed to get profile for handler bitland-mifs-wmi
-
-   /sys/class/platform_profile does not exist, so power-profiles-daemon
-   cannot read or set any profile.
-
-The firmware side matches your analysis as well - the missing ECON symbol
-shows up 40 times during a single boot:
-
-  ACPI BIOS Error (bug): Could not resolve symbol [\_SB.PC00.LPCB.Q_EC._STA.ECON], AE_NOT_FOUND
-  ACPI Error: Aborting method \_SB.PC00.LPCB.Q_EC._STA due to previous error (AE_NOT_FOUND)
-
-Both bitland_mifs_wmi and redmi_wmi are loaded on this machine, as in [1].
-
-One difference to the unit you tested: TM2426 does expose an ACPI lid
-device (PNP0C0D:00) and an input device "Lid Switch" with the SW_LID bit
-set (capabilities/sw = 1), so patch 4/5 may not be needed on this model.
-I have now verified that lid events do arrive here: logind logs "Lid closed."
-and performs the configured sleep action (see the sequence above). The
-firmware still reports a bogus lid state once per resume ("ACPI: button:
-[Firmware Bug]: Unexpected lid state reported by firmware"), which does not
-prevent the lid action from working.
-
-For completeness, one more observation from this board (possibly
-unrelated to MIFS): ACPI init takes about 6 seconds here. initcall_debug
-attributes it to ACPI object evaluation - e.g. 0.4-0.6 s per power
-resource, ~2.7 s in acpi_processor_driver_init and ~4.1 s in acpi_init.
-If the ECON/_STA problem is involved in that as well, I am happy to
-collect whatever data helps.
-
-I can provide further evidence (acpidump, full dmesg, DSDT disassembly of
-the WMAA method and the QFAN-related objects, longer suspend_stats) or run
-any test instructions you have. I can build and test kernels locally (the
-verification above was done with a hand-built 7.2.9 plus a 10-line diff),
-so I am also happy to test revised versions of this series, including on
-mainline, and report back.
-
-Thanks a lot for working on this - suspend being blocked was the biggest
-usability problem on this laptop.
-
-Note: the local testing and the preparation of this report were done with
-the assistance of a local AI assistant (DeepSeek Harness WebUI, deepseek-flash
-model); every command, log and result quoted above was actually executed on
-this machine and reviewed by me.
-
-Eason
-1836949523@qq.com
-
+Thanks
