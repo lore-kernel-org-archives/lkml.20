@@ -1,197 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3FE24534AD;
-	Wed,  7 Oct 2026 09:51:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B510A390214;
+	Wed,  7 Oct 2026 09:51:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791366689; cv=none; b=NfbuwYC7VRh49LGc+LnjmlD86AD4iqFlw0he7s1yEA7dz1A3JOXssqOW5FSPYLaTOIQ4Ahb/q1gTwqx7VoIi8GaBJFHYrdqLz0BM588rryYj6FW2XRzEwheaiNE85xwfuc2w/4rA9OM12dIBnLSnGsnhYgAikrY2I0iBGVKbyzc=
+	t=1791366705; cv=none; b=ietk8LQcoxHYtnQoF1h3qFtlsboahWzcXzb7WtPqMCuOxQAi/MIwFBx2bzRqZzABHaKcWwXD+2tUmmhM8fpmdRcQU9b4YwxfUZFZYrVYuniMIdAvVToR4qSBpFPrs6vBXz4yP3JgdVzbneQPd/McelOIuypltUSttGa932BMdG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791366689; c=relaxed/simple;
-	bh=LtRhB3/nWXvq6tuzqCA7rMyyY9+I83hH/iRsI/1S4xM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RxDQqMSztaY+YHm97YVqy8eHlZ/rju6ZQ/YGAbc2qmR9uooDoyIYlUvHyLye93Udix4gT2xrkeIr5WK2Q6JeZCKRU/N9zMWs6zn+Bk/XB9N3zchf2YjNVqfBtnTlR8NAx+QkqaFsvG8MbPJyJZaTVgAOQgd41fc7UGJXtMzwZoM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KzUM7Q3t; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791366705; c=relaxed/simple;
+	bh=mt+iq0lWCHzQfDYrfrlqEtd5P+ap0Q2mMhBWwH5H8S8=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=p+wFIY/jAIXqp4wS353DZOBHkMazlSFB5JG3tDxlf5ApJGg+CCqinr/SIwHov4OJ9B5493Uu3CRIDiOjbwvpcV0I0Ktt/VRtoEZVTlgUIPB6faOzJqw0GSGyk9DSu6eIqBw5zTxGn/B493BTWw5m6NlklcU/D7cNkO7+e5Ey3GQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fpAlJq6W; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KzUM7Q3t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1096A1F0089B;
-	Wed,  7 Oct 2026 09:51:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791366682;
-	bh=tOz45MFV4Kd6InTf2fNUwVjM1vD8FNKrSsFNkWG9jKY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KzUM7Q3tQ7f7gdBPajsnsVyfrl0X+VcgmmljBuwxnIyastOWSy9k503gClGgl/n0j
-	 j0FRiV24qhwVt0HxUfiGOTWf5LHku8NAMNwGjUWiOAWy8wTz67xbvljsKlDK66V5D3
-	 +XSOXXkAGBDplT0HzC/elsbLZ0rQTEk+olQrpe1J6YN3G/4PR8a5oUqXqQpIuCV3Sv
-	 B7dRFOrmTT1u0qr5H44oiazyrhZYcCg3Ui6LODgmStu2bvBx2CYSb4YwVEYpIJMK1h
-	 k/X6L45sUr5dGlKQlXOPRsUPF9Q4OpXOC+eoQGlIRak/BIgAtH/2OAJwsjBcLT0MER
-	 nZgIugSJzb7dg==
-Date: Wed, 7 Oct 2026 10:51:15 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Lucas Tanure <tanure@linux.com>
-Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v2 3/7] dt-bindings: net: amlogic,meson-dwmac: add
- amlogic,t7-dwmac
-Message-ID: <asYWEwjFO8g50o1i@squawk>
-References: <20261007082627.63807-1-tanure@linux.com>
- <20261007082627.63807-4-tanure@linux.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fpAlJq6W"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791366696; x=1822902696;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=mt+iq0lWCHzQfDYrfrlqEtd5P+ap0Q2mMhBWwH5H8S8=;
+  b=fpAlJq6WPD60vdmA7BB6BK03MIDlY3CiVYRnCaEAtXZxSGSlnCUm3236
+   be+dmS/nuQ8BWlCNTrGTr1tmpCCWZ1bx6Y54OKlY6vIjyN16PtNnWlVqP
+   j+W60QhDysAMzxpNUJaRcYFtDOfOsS7hg98fYgzZR8+i8jwbqXXXlqnJ9
+   cBcxcsEgF2xKeRe1/C4/tKbyPBT7FbO9adc7UoDjL0cTJ2cJTyPt9FBAJ
+   o5V5dIiccO4ETWTYDFwr8+6Tn37sYo40xBeSBpRGnsTP5xL/Nu//pRNUo
+   XShoxTadaciqe5ZqOQmFpomKxeaBMZieuVCUiwL+fm3kU0cWPK3bYG/vn
+   A==;
+X-CSE-ConnectionGUID: 3ihVVxCORFyRukF5NM3tDA==
+X-CSE-MsgGUID: RBHmERA0RKagm9pe2oyM0g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11927"; a="5199"
+X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
+   d="scan'208";a="5199"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 02:51:35 -0700
+X-CSE-ConnectionGUID: kaBsrKAkS+yZ1OBMmGXWjQ==
+X-CSE-MsgGUID: MGf0vOAkRRiC1Xg2PU0PqA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
+   d="scan'208";a="285490563"
+Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.246.150])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 02:51:32 -0700
+Message-ID: <1c9905719331e6229d0f8eb197f547dc060052fc.camel@linux.intel.com>
+Subject: Re: [PATCH v2] PCI: Disable not supported reset methods on DG1
+ 0x4905
+From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+To: Ville =?ISO-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>, 
+ Bjorn Helgaas <bhelgaas@google.com>
+Cc: linux-pci@vger.kernel.org, intel-gfx@lists.freedesktop.org, Joonas
+ Lahtinen	 <joonas.lahtinen@linux.intel.com>, Andi Shyti
+ <andi.shyti@linux.intel.com>,  Krzysztof Karas <krzysztof.karas@intel.com>,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
+ <krzysztof.niemiec@intel.com>, linux-kernel@vger.kernel.org
+Date: Wed, 07 Oct 2026 11:51:29 +0200
+In-Reply-To: <ap_nbJWGXWTI8ARq@intel.com>
+References: <20260907090249.1348552-2-janusz.krzysztofik@linux.intel.com>
+	 <ap_nbJWGXWTI8ARq@intel.com>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
+ 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qM3efczHaYFLahFS"
-Content-Disposition: inline
-In-Reply-To: <20261007082627.63807-4-tanure@linux.com>
 
---qM3efczHaYFLahFS
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Ville, Bjorn,
 
-On Wed, Oct 07, 2026 at 09:26:23AM +0100, Lucas Tanure wrote:
-> The T7 has the same ethernet glue as the G12A, but the controller
-> reaches memory through a pipeline stage that this SoC inserts in the
-> bus path. That stage has a gate of its own, which no other member of
-> the family has, and nothing else in Linux claims it. It is therefore
-> switched off as unused, and the port can then no longer finish a
-> transfer.
+On Tue, 2026-09-08 at 13:46 +0300, Ville Syrj=C3=A4l=C3=A4 wrote:
+> On Mon, Sep 07, 2026 at 10:59:18AM +0200, Janusz Krzysztofik wrote:
+> > DRM CI consistently reports failing device reset attempts on Intel DG1
+> > discrete graphics adapters.  Manual reproduction attempts allowed to
+> > narrow down the scope of that problem to a specific revision of that
+> > hardware, SKU 8086:4905.  It has been confirmed that both reset methods
+> > claimed by the device, i.e., flr and bus, suffer from that issue.
 >=20
-> Describing it needs a fourth clock, and the fourth clock of the
-> existing list drives the timing adjustment logic, which the T7 never
-> uses. So the T7 gets a list of its own with the gate in that place,
-> under the name the SD and eMMC controllers already use.
->=20
-> Assisted-by: LLM
-> Signed-off-by: Lucas Tanure <tanure@linux.com>
+> IIRC the documented workaround for the issue is some kind of magic
+> register write after the FLR to unblock some internal state machine,
+> but the CPU isn't allowed to do that write and instead it has to be
+> performed by the GuC. That means we'd somehow have to reinitialize
+> the GuC very early after the FLR, which sounds rather difficult.
 
-Didn't I ack the previous version?
+@Ville, thank you for providing details of the mentioned workaround (off-
+list).  I can see that workaround already included in GuC firmware, =C2=A0
+however, it doesn't fix the issue I'm trying to address here.  Then,=C2=A0
+disabling problematic PCI reset methods on the affected SKU, as proposed,=
+=C2=A0
+seems the only feasible solution left, I believe.
 
-What changed?
+@Bjorn, can you please get back to this patch and push it forward?
 
 Thanks,
-Conor.
+Janusz
 
-> ---
->  .../bindings/net/amlogic,meson-dwmac.yaml     | 47 +++++++++++++++++++
->  1 file changed, 47 insertions(+)
+
 >=20
-> diff --git a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.ya=
-ml b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
-> index 90ef79161ab1..96118b4d1560 100644
-> --- a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
-> +++ b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
-> @@ -23,6 +23,7 @@ select:
->            - amlogic,meson-gxbb-dwmac
->            - amlogic,meson-axg-dwmac
->            - amlogic,meson-g12a-dwmac
-> +          - amlogic,t7-dwmac
->    required:
->      - compatible
-> =20
-> @@ -57,6 +58,47 @@ allOf:
->              - const: clkin1
->              - const: timing-adjustment
-> =20
-> +  # The T7 applies the RGMII RX delay through PRG_ETH1 and never enables=
- the
-> +  # timing adjustment logic, so it has no timing-adjustment clock. What =
-it does
-> +  # need is the gate of the pipeline stage the controller reaches DRAM t=
-hrough.
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: amlogic,t7-dwmac
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: GMAC main clock
-> +            - description: First parent clock of the internal mux
-> +            - description: Second parent clock of the internal mux
-> +            - description:
-> +                clock of the pipeline stage inserted in the bus path bet=
-ween
-> +                the controller and the DRAM. Without it, the controller =
-cannot
-> +                complete DMA transfers.
-> +
-> +        clock-names:
-> +          items:
-> +            - const: stmmaceth
-> +            - const: clkin0
-> +            - const: clkin1
-> +            - const: pipeline
-> +
-> +  # Delay definitions for Meson8b and newer (including T7)
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - amlogic,meson8b-dwmac
-> +              - amlogic,meson8m2-dwmac
-> +              - amlogic,meson-gxbb-dwmac
-> +              - amlogic,meson-axg-dwmac
-> +              - amlogic,meson-g12a-dwmac
-> +              - amlogic,t7-dwmac
-> +    then:
-> +      properties:
->          amlogic,tx-delay-ns:
->            enum: [0, 2, 4, 6]
->            default: 2
-> @@ -106,6 +148,7 @@ allOf:
->            contains:
->              enum:
->                - amlogic,meson-g12a-dwmac
-> +              - amlogic,t7-dwmac
->      then:
->        properties:
->          rx-internal-delay-ps:
-> @@ -143,6 +186,10 @@ properties:
->                - amlogic,meson6-dwmac
->                - amlogic,meson8m2-dwmac
->            - const: snps,dwmac
-> +      - items:
-> +          - const: amlogic,t7-dwmac
-> +          - const: snps,dwmac-5.10a
-> +          - const: snps,dwmac
-> =20
->    reg:
->      items:
-> --=20
-> 2.56.0
->=20
-
---qM3efczHaYFLahFS
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasYWEwAKCRB4tDGHoIJi
-0gQiAQCnRNDWnYbBw+1lohiWh6F2GylN3jQDADGtPXSsfCKhvQEA4omhqA+mhCtG
-sD965n7CT9LfUf20zqI2y5eeBX/8Oww=
-=RzBf
------END PGP SIGNATURE-----
-
---qM3efczHaYFLahFS--
+> >=20
+> > Since consecutively failing device resets may lead to system hangs,
+> > disable both useless reset methods.  A respective CI test will then be
+> > skipped instead of aborting whole CI jobs.
+> >=20
+> > Suggested-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> > Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/118=
+14
+> > Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+> > Reviewed-by: Krzysztof Karas <krzysztof.karas@intel.com>
+> > Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+> > ---
+> > v2: Fix commit description wording (Andi)
+> >   - add Suggested-by: tag missing from v1,
+> >   - add collected Reviewed-by: tags.
+> >=20
+> >  drivers/pci/quirks.c | 5 +++++
+> >  1 file changed, 5 insertions(+)
+> >=20
+> > diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+> > index de9bbccda21fd..e55475374c6fd 100644
+> > --- a/drivers/pci/quirks.c
+> > +++ b/drivers/pci/quirks.c
+> > @@ -3811,6 +3811,9 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_TI, 0xb005=
+, quirk_no_bus_reset);
+> >   */
+> >  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_ASMEDIA, 0x1164, quirk_no_bus_r=
+eset);
+> > =20
+> > +/* Intel DG1 0x4905 may not recover from bus reset */
+> > +DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x4905, quirk_no_bus_res=
+et);
+> > +
+> >  static void quirk_no_pm_reset(struct pci_dev *dev)
+> >  {
+> >  	/*
+> > @@ -5597,6 +5600,7 @@ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x44=
+3, quirk_intel_qat_vf_cap);
+> >   * AMD Neural Processing Unit 0x1502 0x17f0
+> >   * Intel 82579LM Gigabit Ethernet Controller 0x1502
+> >   * Intel 82579V Gigabit Ethernet Controller 0x1503
+> > + * Intel DG1 Discrete Graphics Adapter 0x4905
+> >   * Mediatek MT7922 802.11ax PCI Express Wireless Network Adapter
+> >   * Mediatek MT7925 802.11be PCI Express Wireless Network Adapter
+> >   */
+> > @@ -5612,6 +5616,7 @@ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_AMD, 0x1502=
+, quirk_no_flr);
+> >  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_AMD, 0x17f0, quirk_no_flr);
+> >  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1502, quirk_no_flr);
+> >  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1503, quirk_no_flr);
+> > +DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x4905, quirk_no_flr);
+> >  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_MEDIATEK, 0x0616, quirk_no_flr);
+> >  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_MEDIATEK, 0x7925, quirk_no_flr);
+> > =20
+> > --=20
+> > 2.54.0
