@@ -1,130 +1,160 @@
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F730394EBA
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 08:44:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791362657; cv=pass; b=HBd8JoRvvySm6G7uE5OjIrr6OoG5DpKJtFL2zYgKCR32Q4yaKUw2tNZuACwdSiCmnCaz2JUqY2buFtkUkzuhThDRUle7qy14wNxbm/8x25oxtz4QqG0irPT5QvJT86XN3oWAx/yBRL/PFzumLYx3nt2nBI8CGxrb9s+/vu5z7c4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791362657; c=relaxed/simple;
-	bh=ShHUO7mPTrqlSS4cXnMvGeM4pkz1AlNdBLozhKe9y5E=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=uIK1sdIlmAHKuSlOHexpGTkZXwrUpppHBw/O8l0Ud22l6Pl163cGq3CdVirZaKvUUOX8Smpo5SwFCYrD6VmJ2KYtkyI9cJF0/l9bUgR8o+xPdz+mDUwfYzEldk6XG/VTAP/hw7Jh0rdP0LDWyKci0QtwEPTKTXuyXqzrYKj8Hms=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MQlUnKmv; arc=pass smtp.client-ip=209.85.160.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 450CF392821
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 08:44:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791362664; cv=none; b=eIRLY3T2xBLswajG3ScdvjDbPQ5TMjviBMZvee6/yLi5CAU+emgrqVI2qnthJ0h/B8W378jNHzsDj30MKq7nYlEjXDZ+3IJ1HVC22CtiPMmi9fBM79dAZgItfyFSBydWbb0XZgus5mjTE9G+PjiPQgiQE6EEcHBY9utEKU4yck4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791362664; c=relaxed/simple;
+	bh=f8ppXImX9GLqJ3LzAd8aDPZLN/xG7aYwJiHdu4ZY9Wk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=MWJeVWoeJRPYaT/H0QhJS4Ir0t1ex5HIr5uNA+UI9y3onXKox7Bdq5mChWzg/+kcqxPgghI4BXjdeiAQwhmLbF4IAx4L/ziBsVmCDwD+UV19p18tewmkMwk3O9s8pDxW3S4dEiErNloKOD/W/4a5I3Ypa2WMRgYH0JWBnWdVPj8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=JN3mBNSV; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MQlUnKmv"
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-533972e0cccso14054011cf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 01:44:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791362655; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KIzgXM57I75Uf2K8uOyWKT6NyW6cqaWcNy61LHRrsPxxrzHuedJo7byymppDGcnUlK
-         HqRc3NG0quoR/hpIUlkB2I4qxEaOcPbwfUhfZeBd4yePUEkFFqpQKmMU6qycFZOg/wf9
-         bVMy8RDaftJgWOaySeLtrjaon55oNeMGkUXeYt6yC0ruOJZH7SYKRuq6HAOkA6rolqzs
-         du6lct/fYuSSFBYWJr0ArdAJNjl65vZkWlIcBuJggaHGYH497KSj6ECMuPkdZlI6dgj2
-         a3qjgEDOqhB5TJWqbp8DJs3v/6eugq0V8ekp9hFjE6DxbdTRefsVzv/1ENjDX53cWQTy
-         6uJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=UQHkn3xShl+rCSGZ+dRdU7pRSbW50bIYa4iEZV1gMbo=;
-        fh=Bm7enYATSMaAgjcrplYv4HJU2CAuF218XlOigQSBf/Q=;
-        b=fPunT8M/AUayGiZ8oMKO6NG2t9lbwV22itgqwCJpRO7IEgTurP1ZjeZUBA6VZWvklA
-         iyYW+m3y34JxQAndB1T7mTdjpMQeraMsZ428VOn+KPH9jXtPgR59/tewEdI34d8tDvOQ
-         V5r+ACGZBr5xIT7Dq8QBuYDbLKEa8KSAyGLCU2Q2bFUvmT0Y2/B4jq7iZ/uJCgi4PLd4
-         S5AWJy99A4F28/NfUP00LxljCHXrX6hhXOp5KaR2LBTGnivXzQZ22CmjN8jkh3kEavqV
-         FO/acYbUpLPPIEvo9416XgVbzGiGMVBmfXQlHV/udKd3TwUTZaUfUn0lhVe2ekIHDYaT
-         AC4w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="JN3mBNSV"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a16bc2278aso11619615e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 01:44:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791362655; x=1791967455; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UQHkn3xShl+rCSGZ+dRdU7pRSbW50bIYa4iEZV1gMbo=;
-        b=MQlUnKmvb658lGt/htuFe9ydDaAsJ9BgktphEkMFGe+9WN/9EHwev9w2I39f2mAHmD
-         hsgE6R4vWibDhFdZrAOyj7fzgYeg4uWOb1r7oT+BcgnJRnSjUstAC8q0WBduLyCa+j08
-         WU5/27wLM3lXKfS4pDtFS0ZSdXBKN+HKSZlyCt2kUkGp3zBu1NYR7Kv3CGr3FjgWWntG
-         yl5STvbaOvJQXun5a0PQwIEdFwsNJoqgxEZKvXDYFMBlqhGJu3sDMyOTECNKQ3MIa4r0
-         F2wIqf3WOpfcYTux3pYAUuX2uRtbyX8Ksq85Pttmbvhv9xVGYGeJi4oXKA0ivZvL0qHP
-         MC3Q==
+        d=baylibre.com; s=google; t=1791362659; x=1791967459; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xLN68owvefwcvtwIzXYYcylLx8/qFYkuAE3rLVHaimo=;
+        b=JN3mBNSVSwenIz/qJPuDq0Iqebo+wWdCZ2I3D2O9SbzYA13+eHsUoS25iQIiE67qXb
+         gmY6gal0iZY9ElfZuupbNiMrJ1ru4SX5xAwHUFWRvt7g4rKyrXjuD9TzQlukgowYpd48
+         lU46x0HNz2rg5f9DuV0lz4cM692+d67OMKuA8+uDZwQ6OhkXHF929/ud37JNzNbhx8BB
+         g9p21hvKN82RAyGJXNPJJmyOo87dUQ3z1Qz3YXv8MW85kqHs8xJs7SZlAHIyzQjYZPvt
+         3O6ML226fmuNve4t1C3vnGoBrI5LU/mkSb+6iollPVopyrWNIOq/BL3xd0J4MO8cFsNI
+         T/BA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791362655; x=1791967455;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=UQHkn3xShl+rCSGZ+dRdU7pRSbW50bIYa4iEZV1gMbo=;
-        b=qqw9NVzw+JhFA7Wb7xSKGWpb6BFgxY2e5calEU1IrqTzfCF2Uvap5HFElWLb6kL8+k
-         B5QjVrBD7SEBGKaunFKqkX5rvNB6xs3Qu+0QsyyLUDLEHowifrC1aR7LJSORSZZDcGz4
-         15UMWiWusJq4sBWYbPflV13eBjwtmSxZueflnpwhC/QJqlCMW6EiBO3ySey3c466EZa0
-         3b2Wot+724BscdxrI1qS8gfqAQO+FJoknkwB43dn2Ab3lhr8F1H3mnarIDEhy7YJ+OnA
-         9GDN24GprlhOgHKyKof8GIXpQqH4AHStEmRNVNezNWOhYYMCW+LnpYaAb/Zsv9QEsBCc
-         OcDw==
-X-Forwarded-Encrypted: i=1; AKwUvBzjgZsUiFjeL7P2Us7xQhL9iDCZFC5nzqUfNoUBQcb8WUosB0LbFTCY7+/prjhUKPqc7wo6JP94Ml1Vxwk=@vger.kernel.org
-X-Gm-Message-State: AFuF++k1alFVqUzvo/6y/5YOPjWqla26jkTh7XM8J1Ms2wHfXIcXrhp9
-	yvw+eUJNFNGvvCwH/yGh5IlLbRFf341gYxZFDjqWjYBhxdJPWvv+NSQq/apeJJMQtZY8UZQY+v7
-	lBarB7ZkqV6R4cT9tiF6ZWPRpflxiOpyjTJcnRp0=
-X-Gm-Gg: AYBFou354B72WywS//9I7ikJlkGJklN126p1PpfVfHy3KpN9t+hG8Ht+b9vClqZXTMG
-	kk1e8vmUP9BPf6dItrIkGkI0q1P/bkrqghThPENeIU8gfo2Jl32dx0u68qpdYBiIMydH4f7L+j4
-	DKKYsuBkEjKQaSk+rCVNP1js9Dk7e/nk64c4w/4Dtu38Ifyy2Tu1pmIa2cnQNoWr2CAuB+bD365
-	pRiVdAa6jP3xXvEHKqP3QRtDkmnmM7lpG9RntHLFsCW0piXQfYGf03s8BP5DIXvLCAEO04YNYwn
-	FHCOmXPWmpWI20xF8a5pFz1vqlYhDcnERX1HO+lNL5apuPXR4SvorEV/eiSSb+7/WyOqUtaiD65
-	jAJa+u+QF9ckezW1LisDy3+/I6UBVaD6slnOAtBczzykQQAt+ZCH4h2euZrOuli6w4W++JAJ90v
-	3i1ojRH1cNl/8PofnGh/lLVPsKvnSUCl+5Zb32AzbPQhHsISt1mQCWfe5QpUkuwVIbAioQyd+Bb
-	X9t
-X-Received: by 2002:a05:622a:1806:b0:535:70c4:9a96 with SMTP id
- d75a77b69052e-535757e25b0mr24745931cf.76.1791362654939; Wed, 07 Oct 2026
- 01:44:14 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 7 Oct 2026 03:44:13 -0500
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 7 Oct 2026 03:44:13 -0500
+        d=1e100.net; s=20260707; t=1791362659; x=1791967459;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xLN68owvefwcvtwIzXYYcylLx8/qFYkuAE3rLVHaimo=;
+        b=Hpzxal2YwIFwdXysAloOpjw16a0PZ7m3FcRM0S9VFaFUADqGzS0zfDRoiNQYGZO8rm
+         kYkmuBsNx2pPcy66SZoOmUzs0QtQnzkffwWckHlokvHoLydyuxzhqrPgzTHfESx4d1wa
+         MyT6mwFjel3AmwBuPYqFAZ3s4xbjG/5RmMlOqKHcy6t2joAOYa9Vg85/HWZHvSGBCaJU
+         DwpOK7d80XnCOfjv17P/5joWq0P2bVrLk5VyXwqzMqIgm7kPwX9ZkU3uyM8DC4EQPLZz
+         75YVduTi7r+Iy8k8N+2CYG3jhAUfrEgGGJuopq+M1T1pB26HsrbS+g1oqCBRBdFlyWur
+         5NtA==
+X-Forwarded-Encrypted: i=1; AKwUvBxt2tBRLiXFs2JaERxaBD/2OqVjoFpZoSVkHgty6Ov15rBBgsEPY8P5kXq5SPJEnN7CwrBIbg2Ky/wWkms=@vger.kernel.org
+X-Gm-Message-State: AFuF++lpCfwqM1QxYerxwiivwjApxFwwV4hlvuDrIL6FOrMXWvuZdxRi
+	fTFmbPKbalp+q7e1yHJzUrz+r4yOWnEd8MFad6CRqWdqDo8M0cLrJ+xI5kMWGuM8o6Y=
+X-Gm-Gg: AYBFou3vOy+CHldQDMnFcGnHRFifkmWKkMe74wKzwwESJdru/ox+CKtIzWxiTJcffwV
+	KdisgOVZOCl9P4P/Dm3KO/xw5lkSYpdAif4XnEbvddaLftvvwUZyCoIqIFvCWt66PugRo01IZt4
+	fM9oKt0hSS7wxFaTsJ0AfaVTxVGUCFuzWqCuyEa/eIG0prtAuCLR0zU5uyEglIg86drWrfQBIWn
+	2PJnDyDhtbx3F1MtYzpC0XPcKcNBvAdSqMr1O6yQB6dqfRxQY0xMW3nP8PtnRGSpaqty5tIUGKu
+	2AFIZAR19LOXlAzXeSuCp26ra/CpKjYNAA85paMvx0b1+kxVo8+I7E4VEUFu6P2IT+Z8fpnKFyX
+	SJn4cfNPXckoLSq7Ba+fUT0y8I8HYkI9MM72o8iztIJtVMxogoB4kGNmNE1rkBJYZOnByUflyyX
+	k/qS4evL7AiGQnPYCwShNTHnr67K7T/TdLawmmA2eemalFoq987GDeJOOGBb1CLuqToDuTM9t6C
+	Z3y3Jf02y3XnYQ=
+X-Received: by 2002:a05:600c:5397:b0:4a0:258a:b25c with SMTP id 5b1f17b1804b1-4a1806648admr20104225e9.29.1791362659071;
+        Wed, 07 Oct 2026 01:44:19 -0700 (PDT)
+Received: from localhost (90-182-211-1.rcp.o2.cz. [90.182.211.1])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1803040cbsm25745595e9.4.2026.10.07.01.44.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 01:44:18 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Valerio Setti <vsetti@baylibre.com>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, Kevin
+ Hilman <khilman@baylibre.com>, Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Valerio Setti <vsetti@baylibre.com>
+Subject: Re: [PATCH v4 3/7] ASoC: meson: aiu-encoder-i2s: ensure clk divider
+ gets disabled in hw_free
+In-Reply-To: <20261001-audin-v4-3-2476646118b5@baylibre.com>
+References: <20261001-audin-v4-0-2476646118b5@baylibre.com>
+ <20261001-audin-v4-3-2476646118b5@baylibre.com>
+Date: Wed, 07 Oct 2026 10:44:17 +0200
+Message-ID: <1j5wzdzyqm.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Ting-Han Hou <ue081723@gmail.com>
-Date: Wed, 7 Oct 2026 03:44:13 -0500
-X-Gm-Features: AclHuK9fTQbtyZxD3wrfJLJ_jHQiU4Fw4p6ZmXpfoAwI_aLMJpQmgaQ1fIuWgfM
-Message-ID: <CA+NtrhQqXgjT+4eg6W4P94Hc=DqdV3gQXz3EKKCxWvdWzfND6A@mail.gmail.com>
-Subject: [PATCH] checkkconfigsymbols.py: Parse Git status output line by line
-To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>
-Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
 
-From: Ting-Han Hou <ue081723@gmail.com>
+On Thu 01 Oct 2026 at 18:06, Valerio Setti <vsetti@baylibre.com> wrote:
 
-tree_is_dirty() iterates over the string returned by execute() one
-character at a time. Its status check therefore examines filenames as
-well as the two status columns.
+> A recent Sashiko review [1] on this code revealed the following problem:
+>
+>   If a user opens both streams so snd_soc_dai_active(dai) evaluates to 2,
+>   and explicitly calls SNDRV_PCM_IOCTL_HW_FREE before closing them,
+>   snd_soc_dai_active(dai) remains 2. This skips disabling the clock
+>   divider.
+>   When the streams are subsequently closed, the ALSA core skips invoking
+>   hw_free again because the state was already changed to
+>   SNDRV_PCM_STATE_OPEN. This would leave the clock divider permanently
+>   enabled, potentially draining battery or blocking system suspend.
+>
+> This commit resolves this problem by using the 'clk_enabled' field of
+> 'struct gx_stream'. In particular when 'hw_free()' is called on a stream
+> the code check what is the status of the other stream and then only if
+> both are off the clock divider is disabled.
+>
+> [1]: https://lore.kernel.org/all/20260917212019.4ECE61F00893@smtp.kernel.org/
+>
+> Signed-off-by: Valerio Setti <vsetti@baylibre.com>
+> ---
+>  sound/soc/meson/aiu-encoder-i2s.c | 12 +++++-------
+>  1 file changed, 5 insertions(+), 7 deletions(-)
+>
+> diff --git a/sound/soc/meson/aiu-encoder-i2s.c b/sound/soc/meson/aiu-encoder-i2s.c
+> index 58dce9f08c9d..70ea39c77b32 100644
+> --- a/sound/soc/meson/aiu-encoder-i2s.c
+> +++ b/sound/soc/meson/aiu-encoder-i2s.c
+> @@ -219,16 +219,14 @@ static int aiu_encoder_i2s_hw_free(struct snd_pcm_substream *substream,
+>  				   struct snd_soc_dai *dai)
+>  {
+>  	struct gx_stream *ts = snd_soc_dai_get_dma_data(dai, substream);
+> +	struct gx_stream *other = snd_soc_dai_dma_data_get(dai, !substream->stream);
 
-An otherwise clean tree containing an untracked README is reported as
-dirty because its name contains letters matched by [URMADC]. This
-prevents --commit and --diff from running, whereas an untracked
-notes.txt does not trigger the check.
+Not sure about peeking on the other path like this :/
 
-Split the output into lines before examining the two status columns so
-that filenames do not affect the dirty-tree check.
+>  	struct snd_soc_component *component = dai->component;
+>  
+> -	/*
+> -	 * If this is the last substream being closed then disable the i2s
+> -	 * clock divider.
+> -	 */
+> -	if (snd_soc_dai_active(dai) <= 1)
+> -		aiu_encoder_i2s_divider_enable(component, 0);
+> -
+>  	if (ts->clk_enabled) {
+> +		/* Disable the clk divider only if also the other stream is not using it */
+> +		if (!other || !other->clk_enabled)
+> +			aiu_encoder_i2s_divider_enable(component, false);
+> +
 
-Fixes: b1a3f243485f ("checkkconfigsymbols.py: make it Git aware")
-Assisted-by: LLM
-Signed-off-by: Ting-Han Hou <ue081723@gmail.com>
----
- scripts/checkkconfigsymbols.py | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Looks like a race condition is possible here if one stream closes while
+the other one starts.
 
-diff --git a/scripts/checkkconfigsymbols.py b/scripts/checkkconfigsymbols.py
-index 36c920e71..9f7aed98d 100755
---- a/scripts/checkkconfigsymbols.py
-+++ b/scripts/checkkconfigsymbols.py
-@@ -245,7 +245,7 @@ def tree_is_dirty():
-     """Return true if the current working tree is dirty (i.e., if any file has
-     been added, deleted, modified, renamed or copied but not committed)."""
-     stdout = execute(["git", "status", "--porcelain"])
--    for line in stdout:
-+    for line in stdout.splitlines():
-         if re.findall(r"[URMADC]{1}", line[:2]):
-             return True
-     return False
+I think you need a common structure between the 2 paths (with a counter
+possibly) and it needs to be protected by a lock. 
+
+>  		clk_disable_unprepare(ts->iface->mclk);
+>  		ts->clk_enabled = false;
+>  	}
+>
+> -- 
+> 2.47.3
+>
+>
+> _______________________________________________
+> linux-amlogic mailing list
+> linux-amlogic@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-amlogic
+
+-- 
+Jerome
