@@ -1,145 +1,132 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59A3D3E7630;
-	Wed,  7 Oct 2026 21:37:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791409058; cv=none; b=Qqu7wJPJ8M2ueq3hus4lTrNYiQZmEtCQ4jOAUM5k4/DblXCCqxPOU+0XZLaObgOfbRZhcBEniXZmEV9/eizyix1zWIybf5G1mc3x0kBdYMdx866djty6DUsMSLc/+PybGOQq7Bwt9o9KBPOdNVRQA19ukZW6S2tDbCbcTTHJ/5I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791409058; c=relaxed/simple;
-	bh=8K5+op7yZCiGbAQjyUliFdoIbeNYZSJvs41dtTuNzLA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=btQyLzsZ7NLPzS2w+0025Z/KwUhBbzaz3gVxh0emeHAk1gz5pWjoUFhA5mbPmhwpbMdlJZ6J6KV/SPxztjjJuT7ouJOBlLdiweu8C5wnWZPRD7Lrw1RWMjkYneNhxY2QrWkJt3aP+g1fSevgCiw8BwxGdUUCK4VacHTgI4CoWZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=mkGOWdnQ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=mkIN2z0E; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=mkGOWdnQ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=mkIN2z0E; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ECEB414429
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 21:38:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791409084; cv=pass; b=FcdsOyYsTCxjdFfUnBKcLITVWyjwksdF7deWjVIopJ5x3DnRnV8XTK983RpXe4betI/k44iCVdOnJ3VGkk2epUoOR0Xlnz1cxyzYPl+TN8dJH+QouFSNDzZZWwGz9NeLkyfJzC1wPqe6ZRS5vbZsrVFJ7nTHJHiSBVOLiQif83s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791409084; c=relaxed/simple;
+	bh=NzcreaI1RFMvfvimJoOgzCzh1pxXnio4qwyB0Dh8ccs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fsZCl8WOVSGh74cwqOXRrh1Z9PgUHUkodUX5taTVt7gq5L5l++Cav3GbRkOlMXhyueOzAClqU5q/oOIC8JK22AoCoG8OYPMmicYXJ2lfHKyvNPclDpZVmHS6N1XHdVgAnEBs5rMol8porlWEh36OnPVm5JjR4vkKpRpSqAm3iAI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=INdkZyL4; arc=pass smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mkGOWdnQ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mkIN2z0E";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mkGOWdnQ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mkIN2z0E"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 064CC21BE9;
-	Wed,  7 Oct 2026 21:37:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791409055; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=QDoG8u04h7mpRz20yUPa0eb85sO0dlSnjNHPZgmGvoc=;
-	b=mkGOWdnQINXegrxcos7FlrpJX9fh9H9c29BMXZUMKewdzYIj/cuwHX6Q0zn2cOeac2h1ZE
-	K4o8/5llSDdbl4rpPA8hwAYCP7AfRj86or5KEmD9YzKyqqcwne+CFj+HxNYxHIJ4CM1SlL
-	6OEaCFtkjeh3gxREEPXMEJ0USflQXow=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791409055;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=QDoG8u04h7mpRz20yUPa0eb85sO0dlSnjNHPZgmGvoc=;
-	b=mkIN2z0EaWc3aBvb1NHoT8f92sdPEneLKQsNVn40lAzMsalggu61pqNxexyelofwt9dP1f
-	eRqnqfoPjzzdraCg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791409055; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=QDoG8u04h7mpRz20yUPa0eb85sO0dlSnjNHPZgmGvoc=;
-	b=mkGOWdnQINXegrxcos7FlrpJX9fh9H9c29BMXZUMKewdzYIj/cuwHX6Q0zn2cOeac2h1ZE
-	K4o8/5llSDdbl4rpPA8hwAYCP7AfRj86or5KEmD9YzKyqqcwne+CFj+HxNYxHIJ4CM1SlL
-	6OEaCFtkjeh3gxREEPXMEJ0USflQXow=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791409055;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=QDoG8u04h7mpRz20yUPa0eb85sO0dlSnjNHPZgmGvoc=;
-	b=mkIN2z0EaWc3aBvb1NHoT8f92sdPEneLKQsNVn40lAzMsalggu61pqNxexyelofwt9dP1f
-	eRqnqfoPjzzdraCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6F5BA13354;
-	Wed,  7 Oct 2026 21:37:34 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id /O3mEZ67xmpCFAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 07 Oct 2026 21:37:34 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: linux-sound@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH] ALSA: hda: Avoid dev_err() at probe error in vga_switcheroo handler
-Date: Wed,  7 Oct 2026 23:37:25 +0200
-Message-ID: <20261007213728.155092-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="INdkZyL4"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c2e2007dd8bso368344266b.2
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 14:38:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791409081; cv=none;
+        d=google.com; s=arc-20260327;
+        b=R7X2fRT83AjVHCmPxq55+vW/YZ8hMjwavgUC4nTF779PMtlMZcshSTCW+XEwr+OxT1
+         3e+Ua5be767R4q/jd1NEo+1U5SbaRHJy2iy9p7pPjVYacjEit8TNY6soxFST4uYJMs/Z
+         doOEPssXBXKectHPgOcNVrez/JkD188MERBPsjnMf4MwiC91l27RBduEPJjL4LO33JyG
+         B8kZyUUR8xxko3RAOMcH48yFyFzLHisUPsTGXCXR48h98VYfwYOQllmwwweYaHEGSYY8
+         Oy0B3qQ3mHgINUd69rJIgNS4Nxu/aBrNBWvgXGstXIkfHBL05RWI5cQ1lf8Nhpb3aqeb
+         ULdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=EYC06AXxDpIadMdoNjvj9ZAubZeaJFsW4WdTyw2S8TU=;
+        fh=khM2Q/mULm3YhkYXHSC2Bik4GJ4NXke73DjMUYgtGrk=;
+        b=NDfZfe3FSPjtvxXpv/p3xVft6xrJbhj6H88UlkYHHd6I07JxQohP3Gq6jk4tZt2pFr
+         P+VIw0ZfKGeeI8K7XVr5gd63OMe4a5I1d7WQZqCrp1oYpYlHlbH2w7CBO2CzfpU+xnHT
+         z+vVyk/tTddjlOEJddrgI8i4SpWY5jsFioTsAlp9GeZYZjBj2w7LpuQAVFEjyyk/PP6O
+         jstEdQas9vBhqp47V48c2VH3X1/g/BwOGOgExbUdj+tt3BlhOB2mpastiL2/fr0MiASv
+         dJcFJ5HG4NX1pnR/byGNriihwfTvH13EyTTDlwYXDZxOalSLqyZz2vGmxZadGRMQFbFg
+         Mshw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791409081; x=1792013881; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EYC06AXxDpIadMdoNjvj9ZAubZeaJFsW4WdTyw2S8TU=;
+        b=INdkZyL4guxAzfAcKevUe8XHzZ6mx2QeicPqSko69ScnZqAy59xB1SeLhJW0QP6PjF
+         ydqrs35E3Qsn0QOpWw2fRYNEdFLEVndLRQeLhdyfUR6yyJW04SgzC46ecPsRmU6aqasq
+         aHKgb5ekNeLa58Nq/9GobNmHBTkNlBhngSeVcAuUW62hYTAangN2RELtoqQI2DT+bASG
+         OOwBFSwBPuXJy+Hn4CYTboLCl+e9z2MQT6y0MiBfpJQVV7RE6Dj1spNXOO+wZuv3oe8C
+         9JiuQ8RSaL2Y5q1ILH16CFAhdS8ltneBtHPKRAOgk9MKW4+K8FT4NYX/uDN7cC//rNve
+         bP8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791409081; x=1792013881;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EYC06AXxDpIadMdoNjvj9ZAubZeaJFsW4WdTyw2S8TU=;
+        b=1btCprcNOgGWIuoRYv0ILChxhS4hT8h4sUDeZHeEoMCsrz2XG+cxSY8bmrJrHhmDDo
+         a4YUxdQf349cNSSAX562KawK8h9GF8zW/gfsG9/oNHv/p8hK+pMnj0nZpjvTG/zHk7cN
+         r6oPz37y6kolBwSIeSt/QS9CJ7wVq1u1uZV0awvVQFIZlXHJuPAoGPQm7z2R7xYTHZAf
+         x83pR4pPrmEadVRY4FT+oE8MiP12rChKemgqDobuZOlEPI7mpS4HD6W9gPX24nXy+yIn
+         YFrolutjtu/E8cKwQo7Bqj3iyRInCrLQnBNWDekKR1OZ1QGdeh0WPEB1jB5oW/vOs9K4
+         EQNA==
+X-Gm-Message-State: AFq9FYJMXY8gA5pv23DCSfJhumF/F+rZOHv83jFEK1KyHKyI+MairD8W
+	QQtfwMrfzAQCRvqhqvcPP3uYB7K81Ec8wpMRdM601H4yfRAVbzyWRPq5TWQo7saragmNJGz8z8o
+	z1GISe94NZ0bw4352dcWRofdhz6tjtBE=
+X-Gm-Gg: AYBFou2/kBK5pI2JrZWq48DLp6J6jxVZgNqJ3K1+qsz4OhvmqrlJJehas2giPWQUQ2H
+	IWKRZB9mIjKZVELLsSS6aufI47Iut0RY5cuvXKbcdqd7N4GaUabm4MUPNU59xBHWQxpZIbPqxio
+	8228R6Oh24yQISHCaauJHXgcK1FMpWKiYaf0TjyHZr8HVV+62CfDsrGS+VnTeQnUlow67eWls2I
+	ho/e++oSuZUM+LLChe1rePeqDyA5u2DzahV6c8HQu+dz5EDiOqpM4CRosZcsYH3NL4uDwZF8OKA
+	ShW6aXWwESWqgWskg6tzTDkGhIFWooQz91zZny/hIoxgTet7C/1z1v3OenSFu+aWx2bVtDvZhgN
+	0qwY5eOpP2tupoR0B8FchNQjbu2s7uVx4mVQfTaM90GVKbojIGkYcDV9leswRRoiBk+2qpzJSV7
+	+VKsQ=
+X-Received: by 2002:a17:907:7fa8:b0:c2d:c534:969c with SMTP id
+ a640c23a62f3a-c317bda9b83mr348405866b.21.1791409081382; Wed, 07 Oct 2026
+ 14:38:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Score: -2.80
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_DN_NONE(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCPT_COUNT_TWO(0.00)[2];
-	ARC_NA(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email]
+References: <20261007212314.969336-1-voytikd@gmail.com>
+In-Reply-To: <20261007212314.969336-1-voytikd@gmail.com>
+From: Dmitry Voytik <voytikd@gmail.com>
+Date: Wed, 7 Oct 2026 23:37:33 +0200
+X-Gm-Features: AclHuK8dWWKZmSjpIJHYzCSo6w3ggm4kF9-9AyeDKpnNH8fVKUNw8pXnfrlN-YI
+Message-ID: <CAAX90H2mnKHb0ZEpEgqOkjHU0y5maUbevYuo17gV3BtmYNtbdQ@mail.gmail.com>
+Subject: Re: [PATCH] alpha: remove a duplicate line in Makefile
+To: Matt Turner <mattst88@gmail.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Richard Henderson <richard.henderson@linaro.org>, Magnus Lindholm <linmag7@gmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-alpha@vger.kernel.org, 
+	Kent Was <waskent6@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The vga_switcheroo handler azx_vs_set_state() calls
-azx_probe_contine() for enabling the audio, and if an error happens
-during the probe, azx_probe_continue() releases its associated sound
-card object at the error path.  In return, azx_vs_set_state() tries to
-show an error via dev_err() with the card's device pointer, but since
-the card object is already gone, this can lead to a UAF.
+Sorry, forgot to add Magnus Lindholm <linmag7@gmail.com>
+Link: https://lore.kernel.org/all/20261007212314.969336-1-voytikd@gmail.com=
+/
 
-For avoiding the unneeded crash, replace the device for the error
-message with the original PCI device that is passed to
-azx_vx_set_state() itself.
-
-Fixes: 39173303c838 ("ALSA: hda: Free card instance properly at probe errors")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/hda/controllers/intel.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/sound/hda/controllers/intel.c b/sound/hda/controllers/intel.c
-index 24015c73a67f..0e47f7f0947c 100644
---- a/sound/hda/controllers/intel.c
-+++ b/sound/hda/controllers/intel.c
-@@ -1211,8 +1211,14 @@ static void azx_vs_set_state(struct pci_dev *pci,
- 		if (!disabled) {
- 			dev_info(chip->card->dev,
- 				 "Start delayed initialization\n");
--			if (azx_probe_continue(chip) < 0)
--				dev_err(chip->card->dev, "initialization error\n");
-+			if (azx_probe_continue(chip) < 0) {
-+				/* since the HD-audio driver got unbound /
-+				 * released upon error, we can't use card device
-+				 * any longer, so use pci device directly
-+				 */
-+				dev_err(&pci->dev, "%s: initialization error\n",
-+					__func__);
-+			}
- 		}
- 	} else {
- 		dev_info(chip->card->dev, "%s via vga_switcheroo\n",
--- 
-2.55.0
-
+On Wed, Oct 7, 2026 at 11:23=E2=80=AFPM Dmitry Voytik <voytikd@gmail.com> w=
+rote:
+>
+> Remove redundant duplicate line.
+>
+> Fixes: 234306038064 ("alpha: Fix bootpfile and bootpzfile make targets")
+> Reported-by: Kent Was <waskent6@gmail.com>
+> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=3D222101
+> Signed-off-by: Dmitry Voytik <voytikd@gmail.com>
+> ---
+>  arch/alpha/boot/Makefile | 1 -
+>  1 file changed, 1 deletion(-)
+>
+> diff --git a/arch/alpha/boot/Makefile b/arch/alpha/boot/Makefile
+> index d8dba85e606c..1ac823d93801 100644
+> --- a/arch/alpha/boot/Makefile
+> +++ b/arch/alpha/boot/Makefile
+> @@ -99,7 +99,6 @@ $(obj)/tools/bootph: $(obj)/bootpheader $(OBJSTRIP) FOR=
+CE
+>  $(obj)/tools/bootpzh: $(obj)/bootpzheader $(OBJSTRIP) FORCE
+>         $(call if_changed,objstrip)
+>
+> -LDFLAGS_bootloader   :=3D -static -T # -N -relax
+>  LDFLAGS_bootloader   :=3D -static -T # -N -relax
+>  LDFLAGS_bootpheader  :=3D -static -T # -N -relax
+>  LDFLAGS_bootpzheader :=3D -static -T # -N -relax
+> --
+> 2.55.0
+>
