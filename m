@@ -1,179 +1,121 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCF193D647F
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 12:00:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6CFE739DBC0;
+	Wed,  7 Oct 2026 12:01:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791374440; cv=none; b=Wmw0zDWFy1P4Z59XIkDFmSjGIIpigy9rH8r11gEYID4+wo+MvR2m8AMnZMEogeHSpU+TsWAeZ7oSAYwhkXF7Wzg6D1YuhL26Kq1gCIClfKDuRv1PO0ZRVjNodd68JS2L3DJunDDiwuPWtXnNx2q7eFAw61P9dL8FsU3wtVxX3qg=
+	t=1791374516; cv=none; b=RaoBK+WxL2pQXTif7/c0aKrfa/wzoWiVui5P48wtPve42qNnzQ3WGONySMb2wdNiS21paVZhh7XixXRBDolb4RLNcFE/HDobyrXII2Uho44DxWLjvFuBiQnGw4Hjt0gSC3IdOZTG6LWqvy8+zK6Ep2Vx5Ko2/maXOo4hAL94lk8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791374440; c=relaxed/simple;
-	bh=+1ZIUDEH1UMPylr8k3iwVs3/zYxLWFNlciH52DbTlUc=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=MLQy/L584Kv8ZjIkvPqgd0wnqfZ3sYFVufs54zIxN1nJ4EOE2SU0hReL7laXF55kyRENaD0Re9aoZ06PlpeL7Kc7k0eSrwomqXcSY99s0GYwEF1es35Q/NNwzsxr/8rtG/pwWtH25QLhjfldUQkMQfGhis/hGU9hqeno5af4il4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4f4612a1a5cso2621037b6e.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 05:00:30 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791374430; x=1791979230;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cPL7LsU0XdV5dZnyY11Ue59c/gkO7XrdWcOIpHOg7mM=;
-        b=Ib9e+gOOrBAB1HyHPM/47p/4hKl5m/FrzDq1leWflHMmUimixD6TCr1+2xc9tPy2LA
-         fs900jlLZi+T2V7HxOfPsSFJ1DwCELRMA112vdrJ8WBJEbhV8YcJrmy9KzU43nDKucPd
-         IpapiB6aLqlzAW+KDMtFIb2NpaEc5UUvdVH7k0PQw48nZyWy8Afv4zXIFBDVNVW8/5R2
-         OgNDD2zI4hBePfb7G2OYa0nIdhguE7WWsEXTGdlu7sgwCOyV8c7/8wPI+A7bgXcOSOxQ
-         oxprevN5cWp/quIzYSvbS9ss10sBRTq26wOM7nOzGumy0VqwxCBzjIO3lSfvZEMU1fmj
-         ecbg==
-X-Forwarded-Encrypted: i=1; AKwUvBxei9hkNnWpC6D3aTJE2rp4CQgmKDOLAkRpNnWgzl9snMkoXDlmA6vOL4SW6LuwPOJZ4h5a3/Bn6zFJwqo=@vger.kernel.org
-X-Gm-Message-State: AFuF++lOe6zE1dlMR9kl+0JKlqNDn6Wa0Zx/ZPRgu9ASRdW7K+dJOjyv
-	sGnCrlm4fzHQW7LSGYFy0uRNSiKptwYlL8XGoEWGt/AQGx52TsMLO0ybe586Yw71EvzV98nSnFx
-	pfM5Yg5LCsO/2gsMnuVYn2p/6/uUMW45lekXQIjtOfhexP0OiSdWT0UhvJd0=
+	s=arc-20240116; t=1791374516; c=relaxed/simple;
+	bh=fVxFt1CGQ1LaSt6H7lvlcV39UU1RhYn2V+45OkcADVE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=a++8Sx1Io02I7rCQCV1yC8ZGAuHgrS7/Yhurz1FWEf4ZOgte9dIet33R2eSM1bS+nEhpVha+KdEmRfvF4aawYLjjtaskF7ALaGWC7glbLGLInDYzSafnV8wgsLCGfWDkV77bcDDHGpnSvGbue8woY8FPGqc5yleKZ0qVP6tRvtc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=cgwT5fiD; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="cgwT5fiD"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 14B101595;
+	Wed,  7 Oct 2026 05:01:43 -0700 (PDT)
+Received: from [10.164.19.84] (a081061.arm.com [10.164.19.84])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 952693F66F;
+	Wed,  7 Oct 2026 05:01:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791374506; bh=fVxFt1CGQ1LaSt6H7lvlcV39UU1RhYn2V+45OkcADVE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=cgwT5fiDtyBCDxHzWCj4UX9zGaiMM1gi91eR1mllNLBjhmR2s/oVWsdfy7y6PGhlm
+	 +WIqKf29N21gX6bsO7zAVDkHvXIK5eV1oNBTmQym+jNyEegbUsJGLcQQmWpMxbeVVX
+	 3lWMblvRXoIBqaMUpp2zJYC0D7Zdi+FNWMgon3pU=
+Message-ID: <ce49e816-ae77-4c64-bd28-168d8ca52d8d@arm.com>
+Date: Wed, 7 Oct 2026 17:31:39 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1493:b0:4d6:9133:cfe2 with SMTP id
- 5614622812f47-4faaf252cc0mr4967039b6e.39.1791374429738; Wed, 07 Oct 2026
- 05:00:29 -0700 (PDT)
-Date: Wed, 07 Oct 2026 05:00:29 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac6345d.d03902a3.74d6f.0006.GAE@google.com>
-Subject: [syzbot] [usb?] BUG: unable to handle kernel paging request in usb_driver_release_interface
-From: syzbot <syzbot+863936f50214e843ae0c@syzkaller.appspotmail.com>
-To: dakr@kernel.org, driver-core@lists.linux.dev, gregkh@linuxfoundation.org, 
-	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, rafael@kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-
-Hello,
-
-syzbot found the following issue on:
-
-HEAD commit:    602042bf29f6 Merge tag 'wq-for-7.3-rc6-fixes' of git://git..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=155ae00d580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=929e4854a828f434
-dashboard link: https://syzkaller.appspot.com/bug?extid=863936f50214e843ae0c
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=10bd6715580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=14ae21c9580000
-
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-602042bf.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/c804d2e9b640/vmlinux-602042bf.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/d6cd162ae59e/bzImage-602042bf.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+863936f50214e843ae0c@syzkaller.appspotmail.com
-
-wwan wwan1: port wwan1mbim0 disconnected
-Oops: general protection fault, probably for non-canonical address 0xdffffc000000000b: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x0000000000000058-0x000000000000005f]
-CPU: 0 UID: 0 PID: 9 Comm: kworker/0:0 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Workqueue: usb_hub_wq hub_event
-RIP: 0010:klist_put+0x4d/0x1d0 lib/klist.c:212
-Code: c1 ea 03 80 3c 02 00 0f 85 74 01 00 00 48 b8 00 00 00 00 00 fc ff df 4c 8b 23 49 83 e4 fe 49 8d 7c 24 58 48 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 43 01 00 00 4c 89 e7 4d 8b 74 24 58 e8 cc ef 0c
-RSP: 0018:ffffc900000c7450 EFLAGS: 00010202
-RAX: dffffc0000000000 RBX: ffff888035673c80 RCX: 0000000000000000
-RDX: 000000000000000b RSI: ffffffff8bc8e645 RDI: 0000000000000058
-RBP: 0000000000000001 R08: 0000000000000000 R09: fffffbfff224ec84
-R10: ffffffff91276423 R11: 0000000000000000 R12: 0000000000000000
-R13: 0000000000000001 R14: ffffffff912763e0 R15: dffffc0000000000
-FS:  0000000000000000(0000) GS:ffff8880d5b4e000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007ffcc2839000 CR3: 000000003938c000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- klist_del lib/klist.c:230 [inline]
- klist_remove+0x14c/0x2e0 lib/klist.c:249
- __device_release_driver drivers/base/dd.c:1357 [inline]
- device_release_driver_internal+0x4fb/0x620 drivers/base/dd.c:1372
- usb_driver_release_interface+0x10e/0x190 drivers/usb/core/driver.c:643
- cdc_ncm_unbind+0x2ac/0x350 drivers/net/usb/cdc_ncm.c:1019
- usbnet_disconnect+0x1e2/0x300 drivers/net/usb/usbnet.c:1692
- usb_unbind_interface+0x1dd/0x9e0 drivers/usb/core/driver.c:461
- device_remove drivers/base/dd.c:618 [inline]
- device_remove+0x12a/0x180 drivers/base/dd.c:610
- __device_release_driver drivers/base/dd.c:1349 [inline]
- device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
- bus_remove_device+0x2bc/0x560 drivers/base/bus.c:664
- device_del+0x376/0x9b0 drivers/base/core.c:3965
- usb_disable_device+0x367/0x810 drivers/usb/core/message.c:1484
- usb_disconnect+0x2e2/0x9a0 drivers/usb/core/hub.c:2355
- hub_port_connect drivers/usb/core/hub.c:5425 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5725 [inline]
- port_event drivers/usb/core/hub.c:5889 [inline]
- hub_event+0x1bb1/0x4420 drivers/usb/core/hub.c:5971
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:klist_put+0x4d/0x1d0 lib/klist.c:212
-Code: c1 ea 03 80 3c 02 00 0f 85 74 01 00 00 48 b8 00 00 00 00 00 fc ff df 4c 8b 23 49 83 e4 fe 49 8d 7c 24 58 48 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 43 01 00 00 4c 89 e7 4d 8b 74 24 58 e8 cc ef 0c
-RSP: 0018:ffffc900000c7450 EFLAGS: 00010202
-RAX: dffffc0000000000 RBX: ffff888035673c80 RCX: 0000000000000000
-RDX: 000000000000000b RSI: ffffffff8bc8e645 RDI: 0000000000000058
-RBP: 0000000000000001 R08: 0000000000000000 R09: fffffbfff224ec84
-R10: ffffffff91276423 R11: 0000000000000000 R12: 0000000000000000
-R13: 0000000000000001 R14: ffffffff912763e0 R15: dffffc0000000000
-FS:  0000000000000000(0000) GS:ffff8880d5b4e000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000055557a2d0a28 CR3: 000000002c457000 CR4: 0000000000352ef0
-----------------
-Code disassembly (best guess):
-   0:	c1 ea 03             	shr    $0x3,%edx
-   3:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1)
-   7:	0f 85 74 01 00 00    	jne    0x181
-   d:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
-  14:	fc ff df
-  17:	4c 8b 23             	mov    (%rbx),%r12
-  1a:	49 83 e4 fe          	and    $0xfffffffffffffffe,%r12
-  1e:	49 8d 7c 24 58       	lea    0x58(%r12),%rdi
-  23:	48 89 fa             	mov    %rdi,%rdx
-  26:	48 c1 ea 03          	shr    $0x3,%rdx
-* 2a:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1) <-- trapping instruction
-  2e:	0f 85 43 01 00 00    	jne    0x177
-  34:	4c 89 e7             	mov    %r12,%rdi
-  37:	4d 8b 74 24 58       	mov    0x58(%r12),%r14
-  3c:	e8                   	.byte 0xe8
-  3d:	cc                   	int3
-  3e:	ef                   	out    %eax,(%dx)
-  3f:	0c                   	.byte 0xc
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] selftests/mm: hugetlb_madv_vs_map: fix TAP plan
+ mismatches
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Jaeyeon Lee <jaeyeon.lee.dev@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Guillaume Morin <guillaume@morinfr.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Shuah Khan <shuah@kernel.org>, Breno Leitao <leitao@debian.org>,
+ linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261007092801.35649-1-jaeyeon.lee.dev@gmail.com>
+ <022ec915-62ab-40d9-8705-90692e75acfb@kernel.org>
+Content-Language: en-US
+From: Sarthak Sharma <sarthak.sharma@arm.com>
+In-Reply-To: <022ec915-62ab-40d9-8705-90692e75acfb@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+On 10/7/26 3:46 PM, David Hildenbrand (Arm) wrote:
+> On 10/7/26 11:28, Jaeyeon Lee wrote:
+>> The plan was raised from 1 to 3, but the HugeTLB setup check that may
+>> call ksft_exit_skip() still runs after ksft_set_plan(), so a setup
+>> failure reports one result against a plan of 3. Move ksft_set_plan()
+>> below the setup check.
+>>
+>> Also, when the underflow check fails, or munmap() fails,
+>> test_underflow() jumps to err_cleanup and exits without reporting the
+>> remaining results. Report the munmap() failure as a test result and
+>> skip the final HugePages_Rsvd check in err_cleanup, so these failure
+>> paths report all 3 planned results.
+>>
+>> Fixes: 827149aad495 ("selftests/mm: hugetlb_madv_vs_map: add underflow test")
+>> Assisted-by: LLM
+>> Signed-off-by: Jaeyeon Lee <jaeyeon.lee.dev@gmail.com>
+>> ---
+>> Changes in v2:
+>> - Drop the duplicate ksft_perror() and report errno in
+>>   ksft_test_result_fail() (Sarthak Sharma).
+>>
+>>  tools/testing/selftests/mm/hugetlb_madv_vs_map.c | 6 ++++--
+>>  1 file changed, 4 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/tools/testing/selftests/mm/hugetlb_madv_vs_map.c b/tools/testing/selftests/mm/hugetlb_madv_vs_map.c
+>> index 1d111f42dd59..0f6afb834dbf 100644
+>> --- a/tools/testing/selftests/mm/hugetlb_madv_vs_map.c
+>> +++ b/tools/testing/selftests/mm/hugetlb_madv_vs_map.c
+>> @@ -168,7 +168,7 @@ void test_underflow(void)
+>>  
+>>  	/* First unmap, this will close the vma */
+>>  	if (munmap(huge_ptr, mmap_size) != 0) {
+>> -		ksft_perror("munmap failed");
+>> +		ksft_test_result_fail("munmap failed: %s (%d)\n", strerror(errno), errno);
+>>  		goto err_cleanup;
+>>  	}
+>>  
+>> @@ -203,18 +203,20 @@ void test_underflow(void)
+>>  	if (waitpid(pid, NULL, 0) <= 0)
+>>  		ksft_exit_fail_perror("waitpid failed");
+>>  
+>> +	ksft_test_result_skip("HugePages_Rsvd check after child exit\n");
+>>  	ksft_exit_fail();
+> 
+> That looks odd. SKIP + fail on the same path?
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+Seemed odd to me too when I read it. But it seems like one function
+contains 2 tests:
 
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+i) Check resv_hugepages when parent unmaps the VMA and child is holding
+the hugetlb page
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+ii) Check resv_hugepages when child exits
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
+So we're skipping the third test if the munmap fails or the second test
+fails. Skipping incase of munmap failure makes sense but I'm not sure
+about the case when the second test fails, ig this could still run in
+that case.
 
-If you want to undo deduplication, reply with:
-#syz undup
+Anyways, the original code also calls a ksft_exit_fail() in err_cleanup,
+so this skip is just preserving the TAP test count, else we'll get that
+planned tests != run tests message.
