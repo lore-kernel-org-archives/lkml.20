@@ -1,159 +1,143 @@
-Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 670E83F075E
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 17:36:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACC934508E9
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 17:36:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791394594; cv=none; b=n33eeyQmPrFe9fhiXMc0Y5Pf6E+MyxDvrzKeVeOFWqdlqrzVz6td7xBo8aeHCCkSibSBwZtqboVP8uIAG3iWsuS31CswicUuWN5/Dkm65uHuBKvIxClWVwJ34oG4m824Xil6QaHZuPF+IlRoUwH6I9bZy4avfw9dRvDIhMpajX4=
+	t=1791394595; cv=none; b=Ne0/6661ujH1vQDSLo8Ovc5jNQEigK8p1qwiLVnwJ1uyOi3+XyyBaKrvW91JvitxCScX8uePOdcVax7Cj5QNe2mraVX5f+RhqCDONAZIAwWrcr/Uq+9/683J0p4nzUoLbXfFbRpYnS8huiOa8awZQtLp5fJ9yyaxpgBYb79JBBM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791394594; c=relaxed/simple;
-	bh=cOHqmVUhQvoYFpyRXKtzKiBJLjArGS2XQUGFfv+fWvk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gm1d6wc7M2X6z/MXCz1ra1V4uIfOIEbAU6Vfiwgm87e3swd2irmJkcZBihzPk9cYMbb+RqLLSNA1PGg5BXQWGGRlxffS1n1GpuGcMLw7eFKuV83Z/0AT0qozceKJZDMgZXccgfmd+uIcyyN1F0LKAhXSmeR1YT0LgfltfD7oLtQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=l/FmnfS4; arc=none smtp.client-ip=209.85.219.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	s=arc-20240116; t=1791394595; c=relaxed/simple;
+	bh=xTc6+Pt0HIOzphR1+634CVvLaokHVF/vgtj5j9M3IHk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PeJlGFeB6Lq+pQXDC67bRE62Ed/saNdZfaoOUqnoUKaXpEvimVvXdhPdQdzVDMSWXXgLv+j0calU37E5S/Nsa9acip36DvvctVn+u7QpQhdJLhDeZK//4rwce6hRJjSY9vCqI1IyMinl9nJt58zzTacx8u8gLL35XrKM9DE8e2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J8dBWjfE; arc=none smtp.client-ip=209.85.210.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="l/FmnfS4"
-Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-9178aabd30dso21416976d6.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 10:36:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J8dBWjfE"
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-88bda150550so1315372b3a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 10:36:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1791394590; x=1791999390; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/VlqFGo0rooEVFXp50d0ZL1DlxYf9r8iYztQPM4wKJk=;
-        b=l/FmnfS4Cmxq4e3W5JBChJnJJPLK4k562w6xXu120UDOOW7AyFSJHxlKx2L3gBgrER
-         3NL66oX0McZssBE/OVQrMlnofGJFnbwhKBBoRKhowUEj+vxEOz0bXWKKU2VdmmenSXFt
-         rGdhbwEj4kPRgegab8DxkayUlfJ1wAZRTD11ql7DZCeBr/SD/8N1kMr1znWU2kOoFcZD
-         0zZL8xeNaX5xmwpXXq4z7Xo3udVnFbbku/3j1EloOK2x/sPsdPRj3x2emmHvxZfcRRgo
-         5sC9OAkYLz12Z4c2tNwneNJ2PyqmjjWKA3Sgiu/Xtqgz6o9RmO6mKhsMW7vXGVC0MvfG
-         nboQ==
+        d=gmail.com; s=20251104; t=1791394592; x=1791999392; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=T2dKA+grcHjFFGSBsQQkVj014EQjGGZzyE9asz2HkMk=;
+        b=J8dBWjfE5B020XVjlX8BspkAUj3w8hVNiAhZWPR4jRN8YFr8HhkiY2TOfJ4MtInlHe
+         78bKqUUDqLZYjZJYNJ/pJDqAhqE+HvO8Px+UsAg9DEumsiapY2WYtZ7lKphc7ktXfiWe
+         VTAB+OT9dxhPwewgiGdfMyfjy6FTlVyrOd8geGkChNEyVty1+SgaG/qHS0dPAxFkIidv
+         VpBXMXHsNphexQ3xGEUHg+TYOj5Uk13qtWrXK6CvBQXEkiyjOvnl5//w5/LnTNi1zRT6
+         Rlmefxe+bheUBZf0/VW/o2qFWEfG5q7Rc4aDJ9MmfQEAP4z50+LzrTmr/B/gGOwZ+AwJ
+         RF2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791394590; x=1791999390;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/VlqFGo0rooEVFXp50d0ZL1DlxYf9r8iYztQPM4wKJk=;
-        b=UWbexPEwK5irHb8ITqGgrbkuFh2Q2H9u0+3FtX1v0CSdLIGuCp4UJZGiO0NZXCOYjm
-         gQtI0j0qYEH5/olNuCOO7jMnu32WVczviIXq0gN0TCbyctfut4DE4xXDuT7lEIXJBdBl
-         gcn4D4WJSmnygxmZZ65KFPbSfmRmizzsCFQD6qFvptVcDSeHrdr3mm56+muXiPKSGCGW
-         cIRvFEXMZ8C1HrfT7ZrNa0mUNQBh105/crUUiDW5tp4ICnBJwwHPYIRDHZlMvXZwzBHq
-         nHV/XCbUbqfWWvZCBq6mPDoJbZ8viYeQbcq5EegPGITFZ7LoXty9EPfqaGKlX3/rMM9M
-         yhKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwhKw/sASI0S96y1xGbBVHfwPwclfMsbuCd57hY0/oM9FY/JEkeA0Eq5KwLXm0IwsXhYQ4ssU4vgABEm2E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKDJYhEkT45MWcSF1Tr+9Lpco9ZIVuG6pAxS25cBCuSnqld1tuH
-	qU5Stvlm0B4GuU0kZD4TxldIiCuZAAoaPjDq4ChKt5paYuGIHgb3NGx0q2zMBYi52V4=
-X-Gm-Gg: AYBFou3MHTlrOsj5g2m3V/qjg4OQw8FR/4+ngcUUBmptBdGEe86nRkuXZjhva2KVLMq
-	MybCsZ4mlvtQIYVKmFLgPRpPujiMyo81Z1lIIGuAWj2OlA38OyADvh16QCmkWMgpfTp4ZS0Y5vE
-	HG/wVWmFCSLvZcCJiD5+QmhvxMO44ldOiwmE3eseYpBcztQDCNVrhIhUZ+rNOFLY4ZFR4ejQAr4
-	NQy1YDbG/BMgoxh3DOCo8G8wWoO4Kr8UNnXwYlXF9h8yIPok+IzWl8iyE/6dQsBgQrf7pZnTGek
-	9elS/XWENMkBPkiJ5BrlPd9sKcpnu6XfFRjimsks/wNtVvEkLu8Cb57mD9kwAH/Ym1d+LArRTaR
-	Ja/NgLkuj86wg7WA1DmLuJ+1WOLgj3qO6hI+tAeexC346QHZImJdp4FyLGjYX0BI4cE4pq8x1tR
-	Y04ji/daCqhrsrzXFxDtkF37hpeVpapuooh3WZ9nX4UeStrW0VbZVz06LdcJsYIofJAYl+b0KG8
-	2ZXMFpFqdXLVRI=
-X-Received: by 2002:a05:6214:27ef:b0:914:4511:9271 with SMTP id 6a1803df08f44-91997829f28mr49446246d6.22.1791394590326;
-        Wed, 07 Oct 2026 10:36:30 -0700 (PDT)
-Received: from toxicpanda.com ([153.61.196.250])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91996cb6108sm25287516d6.13.2026.10.07.10.36.29
+        d=1e100.net; s=20260707; t=1791394592; x=1791999392;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=T2dKA+grcHjFFGSBsQQkVj014EQjGGZzyE9asz2HkMk=;
+        b=cI9EPQs+2RnLzv+N8/VI3bIQ5f/mEbzy1FMO3phJhZhm8eMPUP8Mk8SmTAEpJK8IpI
+         F5L/UraUmpM+9EVx/ZgAYpAh6jaNLE4gaepXcPK9p/F32FgiQLyC5J4+GEWvLtcCoqmh
+         uOjkC+bRtidUWAyU6TP5mqTBUAWWkKkMSLOEG7xweUs3hyd2w7hcE6RZhYbhDo4G11c8
+         TAFTO5QH8BwpKkDAUv2Wbm9/1aB1TLacecwizgvQ/MVQBcxdFsxm5ALhP2v4JlnLPoX2
+         lF+/s74o76fjC2wX7Q1Y6rneKjnD88o6lb/yebt1GtFnRpMRbU0A72q2gG4w9QXFFf9c
+         gD4A==
+X-Forwarded-Encrypted: i=1; AKwUvBx5NBGUitQBg3DOMEj5A1/X9clWjCj38EaWzHJ6mWATyv3wOK/9tqemeMaPIs6yCEed/RyU3W9HDkn+UoE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mbIXX7izP0HIdbXzlbuSBK0xZXrvQchpi1i7VfONXxiYo4BsqB
+	4aK1m+NOx9SL7VbH4M0+9rqsdLFh7r1mHmTpgf9KdI1pj1mhLCBGVCjz
+X-Gm-Gg: AYBFou2cQFipuIRVcLK8TX/YbJSD2pSpION4kjzVM9ewtjawveipf/MoHsIcS5m+vGJ
+	PVwfJ8yte+s77RZMsdBg3tUOR8ps/lzyi7OKiSHVM2iXKngGldGXSnlZHlNaBtN7OoEtH/1ZPwy
+	N3thkLgrZOIgxT6Zg5GyaWJzMz5jgj1W73QPwSNOH/AzMAIjaOpW3PIk0hKQXbHUJV5yv7SN+j8
+	Xzv6NYmNfquqzRydAqQDqvgruJ8GOec3+AaYuPZv+ey/1fkEwPf96HReh3tnZoYeQI2e7emWr9M
+	4jkl0yq5lvmaBlV0bS3glcELe94xPCQYcEzDXgAQTQamA1CEZ4zmrBdE3h+RW/hCxlTzJMm/ubN
+	rcwuApUX9KzvIJLnwX2oKgq9/8dxoe0Qs10vOu4kE9UaUp8z7GyB9UW2R6mlQT7I2rQpBzXOyx9
+	+SGRIo26DZniJPvCMv6T4GH7u/PanCP3lFu5LQ9HICAvZlgDGScyIkeUrwEdFRjRiYjNJhETaoF
+	LejsHgCNWEioPjJRGCUroIOMBo6dYpnXt0c8XiEIUA1Q4Dwjie1AhqKpo9HUPlEDVpsGIWji5Zh
+	IVcf9TUBboIUsSAgZwl6GR3hqpc0qqjWfOKcqq09yUkd1M3pA90EIgVRT98=
+X-Received: by 2002:a05:6a00:4394:b0:881:e626:74a6 with SMTP id d2e1a72fcca58-891b0f9246cmr2650565b3a.12.1791394591619;
+        Wed, 07 Oct 2026 10:36:31 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-892bbd8823bsm665809b3a.51.2026.10.07.10.36.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 10:36:29 -0700 (PDT)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Wed, 07 Oct 2026 17:36:07 +0000
-Subject: [PATCH net-next v2 8/8] net: skbuff: remove the BUG_ON()s from
- skb_shift()
+        Wed, 07 Oct 2026 10:36:30 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Chris Snook <chris.snook@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH net-next v2] net: ag71xx: Use default NAPI weight
+Date: Wed,  7 Oct 2026 10:36:28 -0700
+Message-ID: <20261007173628.657527-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261007-b4-skbuff-bug-on-v2-8-b9a5f732895b@toxicpanda.com>
-References: <20261007-b4-skbuff-bug-on-v2-0-b9a5f732895b@toxicpanda.com>
-In-Reply-To: <20261007-b4-skbuff-bug-on-v2-0-b9a5f732895b@toxicpanda.com>
-To: "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- bpf@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1791394570; l=2315;
- i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=cOHqmVUhQvoYFpyRXKtzKiBJLjArGS2XQUGFfv+fWvk=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
- JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QKvo7jLUt/Uh4c6yB2BExknoMr7WR6kKP9E8FPiHlgT7ctnX82eh4pVdQ+xX9F2Xqv/Or77tWZE
- BYH+maOhZ+gY=
-X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
- fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
+Content-Transfer-Encoding: 8bit
 
-skb_shift() has two BUG_ON()s.  The first fires if the caller asks to
-shift more than @skb holds.  Nothing has been touched yet, and returning
-0 already means "shifted nothing", which the TCP callers handle by
-falling back.  Return 0, with a DEBUG_NET_WARN_ON_ONCE() for debug
-kernels.
+Drop the custom NAPI weight and let netif_napi_add() use the core
+default.
 
-The second fires if the frags run out before @shiftlen does, but it
-only checks after the shift has been committed to both skbs, when
-there's nothing left to back out to.  The loop that builds the new frag
-layout only writes @tgt's frag slots past its nr_frags, and the one
-branch that modifies @skb's frags also finishes the shift.  So if the
-loop ends with bytes still left to shift, nothing visible has changed
-yet.  That's the same state the MAX_SKB_FRAGS bail-out inside the loop
-returns 0 from.  Move the check up to just before the commit and
-return 0 there the same way.
+The old comment claimed larger weights wasted cycles and cache, but
+recent RX and TX path changes altered those tradeoffs. Keep the driver
+on the standard default unless measurements show a device-specific value
+is needed.
+
+iperf3:
+
+Before:
+
+[ ID][Role] Interval           Transfer     Bitrate         Retr
+[  5][TX-C]   0.00-10.00  sec   327 MBytes   274 Mbits/sec   31            sender
+[  5][TX-C]   0.00-10.00  sec   325 MBytes   273 Mbits/sec                  receiver
+[  7][RX-C]   0.00-10.00  sec   170 MBytes   143 Mbits/sec    0            sender
+[  7][RX-C]   0.00-10.00  sec   170 MBytes   143 Mbits/sec                  receiver
+
+After:
+
+[ ID][Role] Interval           Transfer     Bitrate         Retr
+[  5][TX-C]   0.00-10.00  sec   341 MBytes   286 Mbits/sec   30            sender
+[  5][TX-C]   0.00-10.00  sec   338 MBytes   284 Mbits/sec                  receiver
+[  7][RX-C]   0.00-10.00  sec   184 MBytes   154 Mbits/sec    0            sender
+[  7][RX-C]   0.00-10.00  sec   184 MBytes   154 Mbits/sec                  receiver
 
 Assisted-by: LLM
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- net/core/skbuff.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+ v2: move out of patchset
+ drivers/net/ethernet/atheros/ag71xx.c | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
 
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index 629de22d98e4..7d23c2d10550 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -4331,7 +4331,10 @@ int skb_shift(struct sk_buff *tgt, struct sk_buff *skb, int shiftlen)
- 	int from, to, merge, todo;
- 	skb_frag_t *fragfrom, *fragto;
+diff --git a/drivers/net/ethernet/atheros/ag71xx.c b/drivers/net/ethernet/atheros/ag71xx.c
+index 4e4794c4dfdc..8a3c689f6825 100644
+--- a/drivers/net/ethernet/atheros/ag71xx.c
++++ b/drivers/net/ethernet/atheros/ag71xx.c
+@@ -40,11 +40,6 @@
+ #include <linux/io.h>
+ #include <net/selftests.h>
  
--	BUG_ON(shiftlen > skb->len);
-+	if (unlikely(shiftlen > skb->len)) {
-+		DEBUG_NET_WARN_ON_ONCE(1);
-+		return 0;
-+	}
+-/* For our NAPI weight bigger does *NOT* mean better - it means more
+- * D-cache misses and lots more wasted cycles than we'll ever
+- * possibly gain from saving instructions.
+- */
+-#define AG71XX_NAPI_WEIGHT	32
+ #define AG71XX_OOM_REFILL	(1 + HZ / 10)
  
- 	if (skb_headlen(skb))
- 		return 0;
-@@ -4411,6 +4414,14 @@ int skb_shift(struct sk_buff *tgt, struct sk_buff *skb, int shiftlen)
- 		}
+ #define AG71XX_INT_ERR	(AG71XX_INT_RX_BE | AG71XX_INT_TX_BE)
+@@ -1913,8 +1908,7 @@ static int ag71xx_probe(struct platform_device *pdev)
+ 		return err;
  	}
  
-+	/* The frags ran out before shiftlen did.  Nothing has been committed
-+	 * yet, so back out.
-+	 */
-+	if (unlikely(todo > 0)) {
-+		DEBUG_NET_WARN_ON_ONCE(1);
-+		return 0;
-+	}
-+
- 	/* Ready to "commit" this state change to tgt */
- 	skb_shinfo(tgt)->nr_frags = to;
+-	netif_napi_add_weight(ndev, &ag->napi, ag71xx_poll,
+-			      AG71XX_NAPI_WEIGHT);
++	netif_napi_add(ndev, &ag->napi, ag71xx_poll);
  
-@@ -4428,8 +4439,6 @@ int skb_shift(struct sk_buff *tgt, struct sk_buff *skb, int shiftlen)
- 		skb_shinfo(skb)->frags[to++] = skb_shinfo(skb)->frags[from++];
- 	skb_shinfo(skb)->nr_frags = to;
+ 	ag71xx_wr(ag, AG71XX_REG_MAC_CFG1, 0);
  
--	BUG_ON(todo > 0 && !skb_shinfo(skb)->nr_frags);
--
- onlymerged:
- 	/* Most likely the tgt won't ever need its checksum anymore, skb on
- 	 * the other hand might need it if it needs to be resent
-
 -- 
-2.55.0
+2.56.0
 
