@@ -1,91 +1,210 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.fris.de (mail.fris.de [116.203.77.234])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BDC93D813E;
-	Wed,  7 Oct 2026 13:07:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0A1D4908A9
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 13:07:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.77.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791378430; cv=none; b=c/EdHCHec+vhgkjIooTyK4VIJHNh4iNfCKIRoNZ7H30fcw3/eF+eSCSAqjcwFZ6BPnNSGzVgaqHo+1Tem7oXQ/l01Lt2sJCq3CIFsAA6L2eLdRhNgZBh/xPOVpqghyl8WlqCjiKRzZb37l5M/nvsuor/G/R8FR/+Fa2TxpneVog=
+	t=1791378444; cv=none; b=ozpGgbL0kN+RxtD+4sfYWDy99X6NH7SOMebTQ/RKOIR0JXsZC9QKhmuK+Ot04gJRbJG2LbZyPs6B8bYcErogTqTwWU0QV2hCtYA/3S/0So8/4APm8ClzKh2gplI9d9GMxI0/gOSoPEMmVgU0rvlsx0acCd+HI/6gH/2ykO52SlY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791378430; c=relaxed/simple;
-	bh=ayPSE+Y6CAfKuyH1Ek1gEM4Hw7Gq1/HwDAqp8sPGsaI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=olIz887Fo5pADwNthxzhJTgVE//Hxi2R6Rk2JT489rLz+G4UYfBctWZTaSLuCj3dZ+w0W9hg6Rw0QO8jznQ6j51TJTe69Nvzg1WcRoXZj0hPWrXYYIrGhWcenpbZ8Y82XhFKO396xJBE0KQA5AzhOU/cF/QT8SCMFG7ygXIgKCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ajMiwFDY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791378444; c=relaxed/simple;
+	bh=gre00c3iSzFEcfHXRMR6F/x3tSQeMdLNjg33XD6gYvA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ZQMEwU3dKsyLIELs6dh7NfCPiAVISkl/Ysqde8IQknTxhin729t1iUSaNJkQ5pRoeTjuCEmcUAXMmTjmsSfXcpdufAInhZzDWMPLYC9DkJoI1ZRchHceTAHNpkjXGjLyXKTz7fmngYSIqXC/H1W5gxz9p8jGoDBIbCyLVsF9Ldc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=qZiEc9IE; arc=none smtp.client-ip=116.203.77.234
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ajMiwFDY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7C881F0089B;
-	Wed,  7 Oct 2026 13:06:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791378423;
-	bh=Uq4+gSwVCA9riGGi/ppitQyXRBTdaQE5mWOuNhAJjtE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ajMiwFDYDqKVhwZy1GL8/TOAtxXo2jffYvMKf9f57XZ6HEwpoPQ9qD08h8uWRsoD3
-	 nNpPyLFDUaBf1Nx23T8mDOLujbS7aN5hD2cv90Lrjzm7AY9Fyw9jadFJXIH5XOGw3s
-	 Gj+Ivg4MJfLH61TO4RGkNNNakkMHop6Hbueh/iRPwJzOjaanMgucgg8t1g7TCxlhzk
-	 Ss4k8epI341uyzkQ3uryGR/tIvXBZv3XCCIrxaFFk43FF3SardgHnV9lZzMQhnS4qh
-	 o9B9YXrzh+qokQRyIyNArImyu0lCqUdCvIkEtgNf0c9cFCAVKAbTp4G2mtE0/KFg25
-	 Z5YfQKIa3KEAg==
-Date: Wed, 7 Oct 2026 15:06:55 +0200
-From: Brian Masney <masneyb@kernel.org>
-To: "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>
-Cc: Brian Masney <bmasney@redhat.com>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Felix Fietkau <nbd@nbd.name>,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Vinod Koul <vkoul@kernel.org>
-Subject: Re: [PATCH v2 0/2] clk: en7523: Add support for selecting SCU serdes
-Message-ID: <asZD79RRF4u5OJdn@x1g10>
-References: <20260915125226.20579-1-ansuelsmth@gmail.com>
- <179000484817.707534.5059164498545591038.b4-ty@b4>
- <CA+_ehUzrL9qHe92tE0CeaOMAD1LXGuK79t5mZGv+bp2sCas_sA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="qZiEc9IE"
+From: Frieder Schrempf <frieder@fris.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
+	t=1791378431;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=LMhoaReM34vJuMXEhKtWyidDdftLcQ1XkCiaDmwQDJ8=;
+	b=qZiEc9IEoSSz1MPxUQ6xFlrK1327jrR8r66aipxlT2Qc7lYgDsggzlP2m5atv8Gzs2OUTt
+	rPXlvzMcQVHOO+zUsUhfKyvFewEql9UKgpnU6vKSfmCcjWKCFdOILmBRcG7tiULKtETEvw
+	/1qTsyufaUcM4I3o3lGrHD2Tx8R5BQ6ZKUiOS3ejQ/4QRp7qPKY0NqIvVgwcemlnnLpS78
+	/zaECJ/W2Vj1jInBpAHxLjhN4BN7nXg5PjOdIXtaY7Ckn5cMLFxN1rQzLAkrAQTjCjkUi6
+	qtU5UUcLSnfRSnmT/tuiVGoWCwOAdrf3AgcwP6TriW9lYH5JePK134FcMvR4gg==
+Date: Wed, 07 Oct 2026 15:06:57 +0200
+Subject: [PATCH v2] mtd: spinand: Do not re-enable continuous reads vetoed
+ during variant selection
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CA+_ehUzrL9qHe92tE0CeaOMAD1LXGuK79t5mZGv+bp2sCas_sA@mail.gmail.com>
-User-Agent: Mutt/2.4.2 (2026-08-30)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261007-spinand-cont-read-supported-v2-1-4c63a0f8828a@kontron.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42NQQ7CIBBFr2JmLQZIq6kr72G6oDBYNAEyQxtN0
+ 7tL6wVcvp+X9xdgpIAM18MChHPgkGIFfTyAHU18oAiuMmipz0rKi+AcoolO2BSLIDRO8JRzooJ
+ 1c8br1svBNy3UQib04b3X7/2PeRqeaMuW3IwxcEn02e9ntXn/Pc1KKNEo5Y21snFdd3tVi1I8O
+ YR+Xdcvoi26KtkAAAA=
+X-Change-ID: 20261007-spinand-cont-read-supported-cdaf25f0bf45
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Frieder Schrempf <frieder.schrempf@kontron.de>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6579;
+ i=frieder.schrempf@kontron.de; h=from:subject:message-id;
+ bh=rxyaTlMsmoBUpJBGBYifzMJju/WwGYV7TyL34xQh9iI=;
+ b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JIeuY83dJydyTsl2PD+94w+xm/2VGaYRdZpZ81ofmibr+x
+ 55Kqa3tKGVhEONikBVTZJHit3htaxbrI3+sOgpmDisTyBAGLk4BmAhTByNDO1NcNbPx19VeG0I+
+ 9j7TfZKg2/z12jXBKjULqayYS47HGRnObj3y4ePXzHlllm+WJx3Tr3/K2hy9TsK02nLV0wueBUu
+ 5AQ==
+X-Developer-Key: i=frieder.schrempf@kontron.de; a=openpgp;
+ fpr=1A0F38EB3D365D4C1FC67B5A69761B25107C8216
 
-On Tue, Oct 06, 2026 at 01:23:36PM +0200, Christian Marangi (Ansuel) wrote:
-> Il giorno lun 21 set 2026 alle ore 17:34 Brian Masney
-> <bmasney@redhat.com> ha scritto:
-> >
-> >
-> > On Tue, 15 Sep 2026 14:52:22 +0200, Christian Marangi wrote:
-> > > clk: en7523: Add support for selecting SCU serdes
-> > >
-> > > This small series is a split from the Airoha AN7581 USB PHY series [1].
-> > >
-> > > [1] https://lore.kernel.org/all/20260702093812.15918-1-ansuelsmth@gmail.com/
-> > >
-> > > Changes v2:
-> > > - Rebase on top of linux-next
-> > > - Add review tag for Documentation patch
-> > >
-> > > [...]
-> >
-> > Applied, thanks!
-> >
-> > [1/2] dt-bindings: clock: airoha: Add PHY binding for Serdes port
-> >       commit: 11952173d8a180ac05641775f80bd6946327478f
-> > [2/2] clk: en7523: Add support for selecting the Serdes port in SCU
-> >       commit: 4e39820b601221997cb2220edc830f92367cdfc2
-> >
-> 
-> is it possible to have a stable branch/signed tag for phy subsystem?
-> Commit 11952173d8a180ac05641775f80bd6946327478f is needed
-> to permit correct compilation of a airoha usb phy driver.
+From: Frieder Schrempf <frieder.schrempf@kontron.de>
 
-Yes. I'll have to rebase the clk-next tree but it's no big deal.
+spinand_match_and_init() tries to disable continuous reads by clearing
+cont_read_possible when the fastest continuous read variant is slower
+than the fastest read from cache variant, or when no SSDR/ODTR continuous
+read variant is supported by the controller. However, at that point
+cont_read_possible has not been set yet, and spinand_cont_read_init(),
+which runs later during spinand_init(), unconditionally sets it to true
+for any chip implementing ->set_cont_read().
 
-I'm at Linux Plumbers right now and I'll send out an immutable tag in a
-day or two.
+As a result, continuous reads end up being used while
+op_templates->cont_read_cache is NULL. spinand_create_dirmap() then does
+not provide a secondary template and spinand_read_from_cache_op() falls
+back to the regular read from cache operation while the chip is in
+continuous read mode. On Winbond chips, which do not expect the column
+address in this mode, this misaligns the data returned.
 
-Brian
+The SSDR and ODTR variants are evaluated independently and the bus
+interface is only selected later on, so the decision cannot be taken in
+spinand_match_and_init(). For example, a quad-only W25N01JW attached to
+an octal DTR capable controller has no ODTR continuous read variant, but
+ends up using SSDR, where continuous reads work fine.
+
+Instead of clearing cont_read_possible, leave the continuous read
+template of the affected bus interface empty and remember whether the
+chip relies on dedicated continuous read operations. In
+spinand_cont_read_init(), which runs once the bus interface is known,
+only enable continuous reads for such chips if a continuous read
+template is available for the bus interface in use.
+
+Fixes: 6eb7c193e751 ("mtd: spinand: Use secondary ops for continuous reads")
+Assisted-by: LLM
+Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
+---
+I was using an LLM to check sync patches for U-Boot and the LLM reported
+a bug in the upstream kernel code. To me it looks like this is indeed a
+bug and the fix also looks correct to me, but I would like to mention, that
+this is purely LLM-generated and theoretical. I didn't verify the bug and
+the fix on actual hardware.
+
+@Miquel: Do you have a hardware setup that would be affected by this? Do
+you think there is a better fix?
+---
+Changes in v2:
+- Take the decision in spinand_cont_read_init() once the bus interface
+  is known, instead of using a single veto flag shared between SSDR and
+  ODTR. v1 wrongly disabled continuous reads e.g. for a W25N01JW on an
+  octal DTR capable controller (reported by Sashiko).
+- Drop the no-op cont_read_possible = false assignments.
+- Link to v1: https://patch.msgid.link/20261007-spinand-cont-read-supported-v1-1-411facc04d99@kontron.de
+
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Richard Weinberger <richard@nod.at>
+To: Vignesh Raghavendra <vigneshr@ti.com>
+Cc: linux-mtd@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/mtd/nand/spi/core.c | 23 +++++++++++++----------
+ include/linux/mtd/spinand.h |  4 ++++
+ 2 files changed, 17 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/mtd/nand/spi/core.c b/drivers/mtd/nand/spi/core.c
+index 95353777d7f7..11278820675c 100644
+--- a/drivers/mtd/nand/spi/core.c
++++ b/drivers/mtd/nand/spi/core.c
+@@ -993,9 +993,16 @@ static void spinand_cont_read_init(struct spinand_device *spinand)
+ 		 */
+ 		spinand_cont_read_enable(spinand, false);
+ 
++		/*
++		 * Chips needing dedicated continuous read operations can only
++		 * use continuous reads if such an operation was selected for
++		 * the bus interface in use.
++		 */
+ 		if ((engine_type == NAND_ECC_ENGINE_TYPE_ON_DIE ||
+ 		     engine_type == NAND_ECC_ENGINE_TYPE_NONE) &&
+-		    !spi_mem_controller_is_capable(ctlr, no_cs_assertion))
++		    !spi_mem_controller_is_capable(ctlr, no_cs_assertion) &&
++		    (!spinand->has_cont_read_variants ||
++		     spinand->op_templates->cont_read_cache))
+ 			spinand->cont_read_possible = true;
+ 	}
+ }
+@@ -1653,6 +1660,7 @@ int spinand_match_and_init(struct spinand_device *spinand,
+ 		spinand->read_retries = table[i].read_retries;
+ 		spinand->set_read_retry = table[i].set_read_retry;
+ 		spinand->set_randomizer = table[i].set_randomizer;
++		spinand->has_cont_read_variants = !!info->op_variants.cont_read_cache;
+ 
+ 		/* I/O variants selection with single-spi SDR commands */
+ 
+@@ -1700,12 +1708,10 @@ int spinand_match_and_init(struct spinand_device *spinand,
+ 				    (read_op->addr.dtr && !op->addr.dtr) ||
+ 				    read_op->data.buswidth > op->data.buswidth ||
+ 				    (read_op->data.dtr && !op->data.dtr))
+-					spinand->cont_read_possible = false;
+-				else
+-					spinand->ssdr_op_templates.cont_read_cache = op;
+-			} else {
+-				spinand->cont_read_possible = false;
++					op = NULL;
+ 			}
++
++			spinand->ssdr_op_templates.cont_read_cache = op;
+ 		}
+ 
+ 		/* I/O variants selection with octo-spi DDR commands (optional) */
+@@ -1733,10 +1739,7 @@ int spinand_match_and_init(struct spinand_device *spinand,
+ 		if (info->op_variants.cont_read_cache) {
+ 			op = spinand_select_op_variant(spinand, ODTR,
+ 						       info->op_variants.cont_read_cache);
+-			if (op)
+-				spinand->odtr_op_templates.cont_read_cache = op;
+-			else
+-				spinand->cont_read_possible = false;
++			spinand->odtr_op_templates.cont_read_cache = op;
+ 		}
+ 
+ 		return 0;
+diff --git a/include/linux/mtd/spinand.h b/include/linux/mtd/spinand.h
+index 5f4c00ae72a7..83f1036fe9bc 100644
+--- a/include/linux/mtd/spinand.h
++++ b/include/linux/mtd/spinand.h
+@@ -772,6 +772,9 @@ struct spinand_mem_ops {
+  *		suitable to use or not in general with this chip/configuration.
+  *		A per-transfer check must of course be done to ensure it is
+  *		actually relevant to enable this feature.
++ * @has_cont_read_variants: The chip needs dedicated continuous read from
++ *			    cache operations, which must then be available for
++ *			    the bus interface in use
+  * @set_cont_read: Enable/disable the continuous read feature
+  * @priv: manufacturer private data
+  * @fact_otp: SPI NAND factory OTP info.
+@@ -810,6 +813,7 @@ struct spinand_device {
+ 	int (*configure_chip)(struct spinand_device *spinand,
+ 			      enum spinand_bus_interface iface);
+ 	bool cont_read_possible;
++	bool has_cont_read_variants;
+ 	int (*set_cont_read)(struct spinand_device *spinand,
+ 			     bool enable);
+ 	int (*set_randomizer)(struct spinand_device *spinand,
+
+---
+base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
+change-id: 20261007-spinand-cont-read-supported-cdaf25f0bf45
+
+Best regards,
+--  
+Frieder Schrempf <frieder.schrempf@kontron.de>
+
