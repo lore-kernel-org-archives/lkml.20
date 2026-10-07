@@ -1,95 +1,95 @@
-Received: from mta0.migadu.com (out-159.mta0.migadu.com [91.218.175.159])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3372D48164A
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 10:44:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.159
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49654396D1A;
+	Wed,  7 Oct 2026 10:44:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791369907; cv=none; b=lNuKuKoPSxl7w3GxYOegh0P0bmvhCyvA0nKbOrFkgwIR1sgrs8BYFsrnpLnzdWeiQ4AE9noDecwBqzqRdDaTjQ0l5uG353ViIR5FgN3w8PJlYZw7Kw3KnOvu5rr5RC+GaIdKdpbessKfiBNCG9nAfUG76NCb3dmB3hYYclfFil8=
+	t=1791369914; cv=none; b=drg0fzYIyl/KaDO6VyRlZK3pJK3GeSo8EDr0q7MS/aH0y2M9GbDoCGVKaWvMJWZGRUFmbb+5cDIxXO6TZj/MMUdaQNfy5kKjlONdik6oEL8yhleSsZkfvDAWbIlmIHqiR7Rf4TUdYdtX702Ba9W2/A5PP6VXWebfWust6xSrqtw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791369907; c=relaxed/simple;
-	bh=/01lQesds7Qu15IlWJStcj8pAkrlNp3+XW9pTMK80Mw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QUKHebZ9pghSKKv0Ms0GdsPiwFmjqtIN8xLgnh7f2uaeOiwQnCh5rgeFY2RMaUibKRUCJmfHJKHSGpZ8jsOXNJRBvS7AWOMpKUVqLdwh4pAl6dyJhFbQoitxsIcvvwuHxamao5yF6T+CXuvsXLhRav0lPAc7NrQjlgZr7SfeAGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JlkVE86J; arc=none smtp.client-ip=91.218.175.159
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791369914; c=relaxed/simple;
+	bh=C4LdKU7+HfWE/hERxLoZZiaQeFCIAuMkWkI7tBvQlh8=;
+	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=SMNcHUcDFzjcf0eQ/H99InkFNp6dsP0KxwBLbxOU/nBIbqmD/Jlbd7U/5bZmafOHsRsLQW0Y13GhHCBdJUHIBUs4FUiHtaYJIw9Df1ev7OStkuSRZz6uoa2dhH8J7J7WBnEh72qJvJzv3ORpQ0EoQgv48sweYxIqK4nCyeWQWVM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=d90mys02; arc=none smtp.client-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JlkVE86J"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/01lQesds7Qu15IlWJStcj8pAkrlNp3+XW9pTMK80Mw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791369863; v=1; x=1791974663;
- b=JlkVE86J0VafOHNnmUq26erEyV18JLGA1cAm8W9Mj4WVpG3HChCa2t9OZrWDdeYR1XYr2FVz
- XSUTPOfH9bsptL4FQeWHsW3GvPsHHj6KRwYixuHvXXbpzv7bSU4Q+TXWbXPNypB6Ae8m1t0NK5S
- C+2J3g+Ilh/FF/zw+mG3ZlMQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6e62f30df9108b00;
-	Wed, 07 Oct 2026 10:44:23 +0000
-X-Mizu-Trace-ID: 6e62f30df9108b00
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5bcbb378fc9so7743e87.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 03:44:21 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzQBjT+cEnmDiob3inDuxGgEGmohEpdx3UiZX1b5EO2ZBX6prSZj92Lm6Eh6z2c+nxMycYfu1N4Fdz43U4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKNPf5tEtFSJT3PkdEdnvGzZU+iiE8O0E4/Az5QQjaQ5fHeytO6
-	QydWyySdAQWbuFqoXC+1IQHlcAQJuNWPQJVIqq+FpyuoJIwrGL4Scs4ZO+q0QYc0K1ZpXCXKQkX
-	DTLVzM8e1TQrc7EoTieF4O6ek4ZfDJTcQyWeExNFG
-X-Received: by 2002:a05:6512:2c9b:b0:5bb:27df:415f with SMTP id
- 2adb3069b0e04-5bcca969b08mr280500e87.15.1791369860573; Wed, 07 Oct 2026
- 03:44:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="d90mys02"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:To:From:Subject:Message-ID:Content-Transfer-Encoding:Sender:
+	Reply-To:Cc:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=qB5XLtUrKta+Vg2pME6/sZKkpQlF27LcMPib/SAbYdo=;
+	t=1791369870; x=1792579470; b=d90mys02wfcD/dKBm8sdqacClkkWGVtMs2eJypOjrxIgn5G
+	xw4Egvyt0gmLPL9tG+adDWrpan7Id56ZxzmDLHweAX+vvvrgHPghv79B4m5/piR1t0E6ugf2Qxbrw
+	JYCeNn4F6g7pdno4RaDBINkPEobbHT1FTQy4MbDdd6U1oE9h1lhvA4gOoUln45S2kmvsV6jTUgrKz
+	j1mWg4qrunsGUtgKo7FlR28MLDnLdziVlxYSZgjInGR/dAmPJEWx/oGVcAef0hip5aZqTaKYpw5If
+	EnWFxN+sZIS5bg2BvvR0SEj0pN7ii9qdde9ivJHp1fYKGYTDMUevZkJ3QD1I93SA==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1xEP8H-00000007zjt-1Ar9;
+	Wed, 07 Oct 2026 12:44:21 +0200
+Message-ID: <8733c371179651d5fa3f86dd28d8547e3994d3c2.camel@sipsolutions.net>
+Subject: Re: Missing signoff in the wireless tree
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Wireless <linux-wireless@vger.kernel.org>, linux-kernel@vger.kernel.org,
+ 	linux-next@vger.kernel.org
+Date: Wed, 07 Oct 2026 12:44:15 +0200
+In-Reply-To: <asYfk8onC1sBo23Y@sirena.co.uk>
+References: <asYfk8onC1sBo23Y@sirena.co.uk>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-b9irYMaiWFyxhZ9SO1a5"
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261007073537.2454351-1-suzuki.poulose@arm.com> <20261007073537.2454351-2-suzuki.poulose@arm.com>
-In-Reply-To: <20261007073537.2454351-2-suzuki.poulose@arm.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Wed, 7 Oct 2026 12:43:44 +0200
-X-Gmail-Original-Message-ID: <CA+EHjTy44W8srPO2y2MJT7nijeWcek-BLsiwYfSPXVOA8DpRCQ@mail.gmail.com>
-X-Gm-Features: AclHuK9bYO3-lIjbLvu1WEmia2gdqzHBdvJpWxSZu00WMWjDLerDBVC4C9fwiYI
-Message-ID: <CA+EHjTy44W8srPO2y2MJT7nijeWcek-BLsiwYfSPXVOA8DpRCQ@mail.gmail.com>
-Subject: Re: [PATCH v23 01/14] KVM: arm64: protected VM: Handle user writes to CNTVCT_EL0/CNTPCT_EL0
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org, 
-	will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, steven.price@arm.com, 
-	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com, 
-	joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev, 
-	gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, 
-	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, 
-	lpieralisi@kernel.org, enju.kohei@fujitsu.com, sudeep.holla@arm.com, 
-	jonathan.cameron@oss.qualcomm.com
+X-malware-bazaar: not-scanned
+X-malware-bazaar-2: OK
+
+
+--=-b9irYMaiWFyxhZ9SO1a5
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 7 Oct 2026 at 09:35, Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
->
-> Protected VMs doesn't allow setting offsets for virtual and physical
-> counters, as the offset is always fixed to 0. The VM ioctl is filtered
-> out based on the cap. However we don't prevent the userspace from trying
-> to write to the CNTVCT/CNTPCT registers. This would lead to KVM triggering
-> a WARN() in timer_set_offset() as the vm_offset pointer is set to NULL.
->
-> Fix this by always "fixing" the timer offsets to 0 and marking that the
-> timer offset is set in the kvm->arch.flags at KVM init time for protected
-> VMs. This prevents the access to the VM specific vm_offset at low cost.
-> A userspace writing to the CNT*CT_EL0 would observe success, without
-> any real effect. This is cleaner over spilling "*_is_protected()"
-> checks and "matches" what we really do in practise. i.e., always run
-> with "fixed counter offset of 0".
->
-> Reported by Sashiko
->
-> Link: https://lore.kernel.org/all/20260908164641.416911F00A3A@smtp.kernel.org
-> Fixes: f7d05ee84a6a ("KVM: arm64: Prevent host from managing timer offsets for protected VMs")
-> Suggested-by: Marc Zyngier <maz@kernel.org>
-> Reviewed-by: Gavin Shan <gshan@redhat.com>
-> Tested-by: Gavin Shan <gshan@redhat.com>
-> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+On Wed, 2026-10-07 at 12:31 +0200, Mark Brown wrote:
+> Commit
+>=20
+>   6d41af9b469a3 ("wifi: mt76: mt7996: fix uninitialized buf read in mt799=
+6_variant_fem_init()")
+>=20
+> is missing a Signed-off-by from its committer
 
-Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+Crap. That commit shouldn't even *exist*, but I'd made a mess the other
+day and apparently didn't quite fix it.
 
-Cheers,
-/fuad
+Thanks for the heads-up, I'll be rebasing wireless to fix it (again).
+
+johannes
+
+--=-b9irYMaiWFyxhZ9SO1a5
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEpeA8sTs3M8SN2hR410qiO8sPaAAFAmrGIn8ACgkQ10qiO8sP
+aAAu4g/+Nu5yQtBBdr6s8oWbh0asFQxTbnr4tw96eJkZsc43mQCJWB1QnGpEW5FI
+kBGuWF17J8OacgXZzmG+55bOl4evY7u7HuQ4q7MQXNyjMpblXkvEN13lYUwuTpLL
+cQNbhkfk0YZp512zeJi8mvD6WJdrRcO1VwcjdyeticgkIBW12paeZk0uxfeSOEst
+yF/7TV7CIT7AxR1EdC16avEAvauyyvi4gP40V0TJBeTYQM1fLYLMYvOfEdGDKzn7
+v4/In2UjKGrmNj6JtfSKXzwQEnmRXdti9v2fn147erSbxL5EUnLfkdcm4aEle7FO
+BvfkWS4rW8RYNyYR1lNZTqax1ft+TVAMjqHCsKHEzVvboBOBjVfaFrVlpFN+FaRr
+E5eeOkv0ndl2wqL0iT8z507bhjWUyZgNebV5GS2smHYYJV2DvTIU/P+nhIDRqaYN
+ntfbSq7mepK6jL/4SviJOBYzmnvYIr1bZu4SX9Gxh0U2Yb+F3FE5FFzkEVM71WNn
+Y2W50qBV+lg8BEOQUoNy4/rqj9uFwwUt7GC95KUFtib1OvWsNkAwRzeNkR6ogUMu
+La4Vkk513acFV6uJm5F7T5gFVnNKl30pJ0TITE/lDcmLVY0P0Vb4QPFKRk1V1ZRW
+5Pkt8vcdQgCAyR8fMcxsSBBHYHcRy5MbxQ/z12gpRPuGTF5Cc0k=
+=hKKG
+-----END PGP SIGNATURE-----
+
+--=-b9irYMaiWFyxhZ9SO1a5--
