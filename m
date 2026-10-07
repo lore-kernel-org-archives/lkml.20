@@ -1,135 +1,91 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41ABF4AA57E;
-	Wed,  7 Oct 2026 11:32:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F07B9486B80
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:32:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791372760; cv=none; b=Fs9IjDyvAm8j84tcqdLTjXZQR6fq4qsS+7n5lsAivUgy3hjUpiN5ke1DkM6q9nGI5n29rVzHxYztb/f7xU4Ul6A7OUw2lwdQzTH1fHAFW7GAVK2bfaeB9Ppiv1la6Jinrlq2OKy9QbSjDKxmjbgxMSqG3zovHih/KZiRGl4VI6s=
+	t=1791372763; cv=none; b=OAxwCKXgce/bcdj1iaEz7aYmmGxZJINP+CbCE7W9k+IOWS87n5C7poPs9eYRTede5JJ33oqcKRCI6uHlbvTmT4ApKSj4H1YChh4yp0pnx5MD/ObsRbeAr/yfvWPQIARuzY82RhDLk1BkliyN+xqR6XWS4tBPK/4+GlnwJDUZpOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791372760; c=relaxed/simple;
-	bh=jU8W3uTLLilw0+w2z/HfS8+JPAexnPEoxrs7IvvBv/o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M2u4AMgkDoGNZroAejBtZVF2V91nQBGqOU+wWwNXiWRaBfQAmCcYNTG0go6B5agPdcVboP+dFKhCg2TvDaiXbq+ydomV5+bvse1cKJtUq4DCKi/SfsjmcFi7eFW9njFz0XUNJgOV5FFcEd53o91PbCB55St5ga5zaNrC6LDUa1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=g6Ig8+eQ; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791372763; c=relaxed/simple;
+	bh=lUzsP+ZtkqnHNfHM6a8trWEqRIMXQwgu/jfvUEJgwzM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=km7PKfe2JyJB/Q55fvg7zQhla3TG4dwVGdRVS88gQ+/QXU4nFs9Spfshcdz/lvzBL9oKeLwU7E//cYCMpxlFu74lyfQ25t0JJuUogvm9Igb/IFzyR7/w+WjLIGwWjOKgLRhJ8hjRoUKXFyC6gOiCNAIhn3Wf8e+Skg2bd2OXLUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P0mNovaH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="g6Ig8+eQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791372745; x=1822908745;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=jU8W3uTLLilw0+w2z/HfS8+JPAexnPEoxrs7IvvBv/o=;
-  b=g6Ig8+eQ1WBSqETYfhylQtpGhQGBZPVm8ROdgXQrKRU1d+otGHlohCqb
-   903mvd589i6yYmKa/b+lnKkUqhBtLzVs7VYlVIN0YUMXKtecqPf5CHbhB
-   pr/vpVvUs/jNxh1s2xVG7Sd1yA89OJoEn2cYD9nBK/jcNiacyztePFQAE
-   Kv+n8sQdWn2TlN6D6iR8neu9bb6DwkJ9aCBOKG3RUQuiGoZVwsiY91VCy
-   bfKaNjy3AR3Cd/d6AIWYzb46k/3A0+ihzS1onUe3itvmEBq3GwHchnJd/
-   kNELYeA2Lo1iJ/DpEJiJ/OVfGQVh9GoHOObcrl2hLSp8715w5zOapuBHP
-   Q==;
-X-CSE-ConnectionGUID: P96szmPGTvKtTgUXytkbOA==
-X-CSE-MsgGUID: Eu2Dh8eUThO5BdKCdb/sKQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11927"; a="134712"
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="134712"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 04:32:24 -0700
-X-CSE-ConnectionGUID: F1D4gIqQRIKWj+TCENWYEA==
-X-CSE-MsgGUID: EcBYxUJsQx29EeyrLJa3+w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="33426"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa006.fm.intel.com with ESMTP; 07 Oct 2026 04:32:20 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xEPsf-000000002u4-0w5Q;
-	Wed, 07 Oct 2026 11:32:17 +0000
-Date: Wed, 7 Oct 2026 19:32:15 +0800
-From: kernel test robot <lkp@intel.com>
-To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Wesley Cheng <quic_wcheng@quicinc.com>,
-	Manu Gautam <mgautam@codeaurora.org>,
-	Stephen Boyd <sboyd@kernel.org>, Philipp Zabel <pza@pengutronix.de>
-Cc: oe-kbuild-all@lists.linux.dev, linux-arm-msm@vger.kernel.org,
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Subject: Re: [PATCH v5 6/6] phy: qcom: snps-femto-v2: Add IPQ9650 support
-Message-ID: <202610071946.Z4D9aPGU-lkp@intel.com>
-References: <20261006-phy-v5-6-cbe9330a6449@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P0mNovaH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 764CF1F0089F
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:32:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791372746;
+	bh=yuI1908oM85XvyraVfGo7n/valCJHZAHziFtWu1aTus=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=P0mNovaHcJCuq7f36kaX0J4ZDTJhGRrywGpCU5Zcnim+FIYlrOyEZ6JcLqzV1rC9g
+	 LgEtEwlV+c0A9Z+qnE76YT75b2Nhr3TdtMrbwFj9+7/dxDNThFXOtHzM+oUfHgXQ+N
+	 F0b2NLu3XIqIBx8Sr0cVsYSl4Ai6gM5r0BnR41nKNic5LOXgl1tU8LKfV95dnxKWN8
+	 yW1qZ0Z9gpe04Cjn8YkcWlXECuzJWqZmFzn4G2aL9qcwoURb3FRhu4YVssq8kxZhsZ
+	 xWGGKzShwWH8dMI4WAOIYvsoIalHwieuBZ4WIRvX6ssNdMC6xGejArYGWz6MeORdxP
+	 jA7L6tvrp2uaA==
+Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-6dfc4510440so1127318eaf.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 04:32:26 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxhNh3BdB+0QBhAJvw6NKK2ZN2VCBlblbrZYU/sVea1MIFTBFEWtWPjAbbkGM4MH1QU2vbFlj+86+Q/KdU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mEuT11ljbREwsKtaK2CXCnOLXKz9VHOdKHSON8BrGOmaQUTHpH
+	73xpAroE+68cOhYEvlgaIb4rmytPlaY4OmkqC23E7mwY9eROhl42RamVYN4xpMr8TkKEkoI5cRO
+	B68vKrNNjsnd7k59EP+xxpdOlM0LuqIk=
+X-Received: by 2002:a05:6820:f008:b0:6b6:aee6:c81f with SMTP id
+ 006d021491bc7-6e4a6e2049cmr4508804eaf.36.1791372745840; Wed, 07 Oct 2026
+ 04:32:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261006-phy-v5-6-cbe9330a6449@oss.qualcomm.com>
+References: <20260925-mt6735-pinctrl-v9-v10-2-cc042983c565@protonmail.com> <20260928132131.GA3950360-robh@kernel.org>
+In-Reply-To: <20260928132131.GA3950360-robh@kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 7 Oct 2026 13:32:06 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmUyYc2LBgM6R9mx2=d9Ez7kF26f2fiCuVomdYHq6msFA@mail.gmail.com>
+X-Gm-Features: AclHuK_cStZXxjDqaDn0NagMxIvgseHdySzJ25Pb7f5b3rzrUHjwiDYhKF_LOik
+Message-ID: <CAD++jLmUyYc2LBgM6R9mx2=d9Ez7kF26f2fiCuVomdYHq6msFA@mail.gmail.com>
+Subject: Re: [PATCH v10 2/6] dt-bindings: pinctrl: mediatek,mt6779-pinctrl:
+ Improve pinctrl subnode and property descriptions
+To: Rob Herring <robh@kernel.org>
+Cc: Yassine Oudjana <y.oudjana@protonmail.com>, Sean Wang <sean.wang@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Andy Teng <andy.teng@mediatek.com>, linux-mediatek@lists.infradead.org, 
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Varadarajan,
+On Mon, Sep 28, 2026 at 3:21=E2=80=AFPM Rob Herring <robh@kernel.org> wrote=
+:
+> On Fri, Sep 25, 2026 at 06:52:57PM +0000, Yassine Oudjana wrote:
 
-kernel test robot noticed the following build errors:
+> > Change "subnodes" to "subnode" in subnode description for better
+> > grammatical accuracy, wrap all descriptions at 80 characters, and remov=
+e
+> > literal style indicators from descriptions that don't need their new li=
+nes
+> > preserved.
+> >
+> > Signed-off-by: Yassine Oudjana <y.oudjana@protonmail.com>
+> > Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@coll=
+abora.com>
+> > Acked-by: Rob Herring <robh@kernel.org>
+> > ---
+> >  .../bindings/pinctrl/mediatek,mt6779-pinctrl.yaml         | 15 +++++++=
++-------
+> >  1 file changed, 8 insertions(+), 7 deletions(-)
+>
+> The threading is broken for this series...
 
-[auto build test ERROR on 15551282e82db772bfc862f96a8abf14a60f4ea5]
+Yeah I noticed, I just apply one at a time, such happens.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Varadarajan-Narayanan/dt-bindings-phy-qcom-qmp-usb-Add-IPQ9650-USB3-PHY/20261006-105915
-base:   15551282e82db772bfc862f96a8abf14a60f4ea5
-patch link:    https://lore.kernel.org/r/20261006-phy-v5-6-cbe9330a6449%40oss.qualcomm.com
-patch subject: [PATCH v5 6/6] phy: qcom: snps-femto-v2: Add IPQ9650 support
-config: i386-buildonly-randconfig-1003-20261007 (https://download.01.org/0day-ci/archive/20261007/202610071946.Z4D9aPGU-lkp@intel.com/config)
-compiler: gcc-13 (Debian 13.3.0-16) 13.3.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261007/202610071946.Z4D9aPGU-lkp@intel.com/reproduce)
+Yassine: look into using b4.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610071946.Z4D9aPGU-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c:39:49: error: implicit declaration of function 'FIELD_PREP_CONST' [-Werror=implicit-function-declaration]
-      39 | #define FSEL_24MHZ                              FIELD_PREP_CONST(FSEL_MASK, 2)
-         |                                                 ^~~~~~~~~~~~~~~~
-   drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c:449:60: note: in expansion of macro 'FSEL_24MHZ'
-     449 |         { USB2_PHY_USB_PHY_HS_PHY_CTRL_COMMON0, FSEL_MASK, FSEL_24MHZ },
-         |                                                            ^~~~~~~~~~
->> drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c:39:49: error: initializer element is not constant
-      39 | #define FSEL_24MHZ                              FIELD_PREP_CONST(FSEL_MASK, 2)
-         |                                                 ^~~~~~~~~~~~~~~~
-   drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c:449:60: note: in expansion of macro 'FSEL_24MHZ'
-     449 |         { USB2_PHY_USB_PHY_HS_PHY_CTRL_COMMON0, FSEL_MASK, FSEL_24MHZ },
-         |                                                            ^~~~~~~~~~
-   drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c:39:49: note: (near initialization for 'hs_6nm_phy_pre_tuning[3].val')
-      39 | #define FSEL_24MHZ                              FIELD_PREP_CONST(FSEL_MASK, 2)
-         |                                                 ^~~~~~~~~~~~~~~~
-   drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c:449:60: note: in expansion of macro 'FSEL_24MHZ'
-     449 |         { USB2_PHY_USB_PHY_HS_PHY_CTRL_COMMON0, FSEL_MASK, FSEL_24MHZ },
-         |                                                            ^~~~~~~~~~
-   cc1: some warnings being treated as errors
-
-
-vim +/FIELD_PREP_CONST +39 drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
-
-    33	
-    34	#define USB2_PHY_USB_PHY_HS_PHY_CTRL_COMMON0	(0x54)
-    35	#define SIDDQ					BIT(2)
-    36	#define RETENABLEN				BIT(3)
-    37	#define FSEL_MASK				GENMASK(6, 4)
-    38	#define FSEL_DEFAULT				(0x3 << 4)
-  > 39	#define FSEL_24MHZ				FIELD_PREP_CONST(FSEL_MASK, 2)
-    40	#define VATESTENB_MASK				GENMASK(1, 0)
-    41	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Yours,
+Linus Walleij
