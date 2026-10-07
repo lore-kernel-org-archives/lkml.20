@@ -1,56 +1,56 @@
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E45C495AE9
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:44:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0F294A2A76
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:44:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791373453; cv=none; b=f9rraTSZUmADw2kKAjicE65W/CwrDRVTX2pKAKwjl+H7VUG1f8uCsBButLua5AIeM4iX64rxABVPlZqqzkyR8dyQj8wy5jCFleYWX4V0mnOQ6OdEp+DbDMfoPrrpQbLSg16VleXrYlgG5MKH88ITNNwjcYn7O2fD4DGXu6XhTMA=
+	t=1791373457; cv=none; b=DYMCXPxElEZlgYPHAAuxAPdSGjAi/LcPviQ3ldIUS23vikdrWm/ffX8G+/He935qJh7eJmrlE/CnIogCMwGxQqaMz7VI0r8/UrcV0NZ68ZTA/ANOqgL/9N8UDhuraoetHkkNEnVN7FxfZLufcHRvH/FdN82//+ADz2g3ZpiCvbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791373453; c=relaxed/simple;
-	bh=gyW1ZCiBn2vk3+vROpBaXD3PdP2BT7iVSa2adEwcDhw=;
+	s=arc-20240116; t=1791373457; c=relaxed/simple;
+	bh=9otGNsuAvu+C9nOqBLqYzUvRo5+HMUNzJSPIQKaiCow=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=IoGKxs81ey9bP3lfVgSUno2U210Axwyw4vaXfglo4t2pb8BWHWb0XTZXW0g4t2rUPS7Wx9rppbMXpGt8Xazv4NTUUTJolsgmk1C6bUjw3qB3LcqJ9lwLwc8dG6vaAEGIQhp0gkJJa63gvycwrUdAEROpeaHgHmu3pmJtQAXotv8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--dylanbhatch.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Y7bTetHr; arc=none smtp.client-ip=209.85.215.200
+	 To:Cc:Content-Type; b=HUtrXQHh+aqeARUlzasEDSK+q00FvmHfGVyFjYueoLPnGa8fPjOqIjQC+mGRTvXa1WdmZtMRftJpzrHO3pRHvLJEcEucVxaunrDZ6vuk1wd5FhG3OREtYCEyp2s5RklvM4oG5eOjvpRhFy6Ro84sKTW/f+9+TldPDNDy9JIZSLo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--dylanbhatch.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ish0aGPZ; arc=none smtp.client-ip=209.85.210.200
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dylanbhatch.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Y7bTetHr"
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc1cdfb337eso2824317a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 04:44:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ish0aGPZ"
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-887c99013edso2817899b3a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 04:44:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791373439; x=1791978239; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1791373443; x=1791978243; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=tEhVH3BFD2TjsLmkDkgiwNlCGTM295XsbmIckPx7jns=;
-        b=Y7bTetHr30x5WF/DUo1B6f0Do2zyOh9xk9LpPmHFipsIDF/UFKXqJTMHXvQyJtYPAv
-         r5nzFLsChBDpRf0cOnMrOYhthwfqjG4BgZAgt2xVdS2WakDcfSEGc2Zuj14rdGVDZd5x
-         Cs+tMw4BwV3ujF+UkjZ9wrU61xc4DEkb28ASrFSK06tQsoy1dB39UJDOcoquiQHxsYP4
-         +PapCQ4hmy4DuK+9HkHNqk49Bg3GER1y6wF6zHzN7qUgBR4pNWYkKvTIqx9pRI4No390
-         JRuoH7llm7CkFIUmQwaYC5doaR7S6EMCwfmJAuCAuvD+gR/TaqKhyV5u7uBaOeJdIoly
-         FwEA==
+        bh=l81J79D4i1POsrCPf+Pwq64LjZ2oqmV8MJetLifQiQs=;
+        b=ish0aGPZwlOWsElTfmXU8aZ4rZPZahdm6rN8mJ931D7akbKCMVZ3a4dALUC7pKZktH
+         MnnXVmXYgwHDs4UK+0ZTittRklGBXSCHoNGb10lojQ9c/Z/jGCbUgjpKSK+2vbRvfqnR
+         ELIFu40MynISwGTzGsZVmiLz4KN6SgneHD8ZSt526vMsurk9AYmQXwg8c9YujvQVGymK
+         LJIKIB6AZbq38IN1dQ3RQdsfZBQQ9Nz9ADbRSnKtB6OQU/EP6ednQYCavdzEFAEThY6P
+         0EzMTM5G8z73LLbNPXo9GnB5Cp47DVwmOkXTSo4XN5uO0oORs2EphRigVAi9nwq9umTb
+         nTGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791373439; x=1791978239;
+        d=1e100.net; s=20260707; t=1791373443; x=1791978243;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tEhVH3BFD2TjsLmkDkgiwNlCGTM295XsbmIckPx7jns=;
-        b=VlIm3RBe/gbURskNzDGqWsGb8y/0X11LDDruIzuLhMpMajYP1B3y2fRI6iou4Qr+Nf
-         KFcxTTHtqtmFHlclQZ/wt1QfzKZaUT0PA1aPX+Zn8NSW+XuAcsEYsqd9UhgELCxlDb3v
-         UefA1/PefWxnfGuDofbXUfXrSZ02+BckFQBlUfx5d/3z8onBZrD6xzduP7Ximi5SlaBO
-         oT3R3cphktU17CX/rmuKZ4Ugk19PUVm5Wk2gznHKiT5Zbsh8dqmV2OuN6qTx5JJJaeCL
-         NcNt0lOayrDlwwehH7cvRD+wK/aHIzCSDnkxNIVb0c7AwiYwoodJ2SEK2ZcM1u0mgPRN
-         RZvA==
-X-Forwarded-Encrypted: i=1; AKwUvBxJYyh6w6iURybUMj6FjvTFYE7TgfrVjNgLbZrj/X7CdiHWUygQE16j3ejpCMaJp7ryFdx2D5eN4yDCY0s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIxs0N07Sv1AA7MdnMQfq4fCGtqy3O1KeIDVho9kHd3HYiwYkUB
-	ypSZl+AezHSEQ4ZZ1ZDzpHGnk8QK8px/bT7y2mPvp06d8njBAtbObjPkyB+ASjBJD3XKskb0kfq
-	MIfGIGNOdlHC0SDV86QwI+z3lDA==
-X-Received: from plbmf6.prod.google.com ([2002:a17:902:fc86:b0:2df:9a43:558b])
+        bh=l81J79D4i1POsrCPf+Pwq64LjZ2oqmV8MJetLifQiQs=;
+        b=CZO1CNzE5OmJR2FQd8zEDcio50Ann1qJxI0Wdfm2SklXUYuVp6gaUAJ/AJltQLpFfb
+         uEbRyO1UfMpXOzcN/IlXCUu8Eatzl/AZrA2TF+47q/Jp9jclWcHykHH33Xl8J59mAcY7
+         d0bEb1IF+cZkzob2ORe+AiQlLfFJOEsmY4dSVNUlzalm4mIs3GxtDRltyA97KTxvQ5Q0
+         Bvh5InH2IgLBxbE1LUpRQV6OpIPeccMognrbsfKLcOPdn66dDIavEF1YmBpgUkkHgzT/
+         ptDNCG0xpNWQAFv4unSVxVBm2WhtJ73ag/AYuvPjBnPDWw4NM9FV0LAMHVV6hkOEU5hf
+         jAfA==
+X-Forwarded-Encrypted: i=1; AKwUvBxS/gONVauwoC7iY8ISpKu4hR8k7oyjdgzJpOFgboYcUZt2rDbxMdrhs6abP93ugoflUIatfbegNFG67CU=@vger.kernel.org
+X-Gm-Message-State: AFuF++k1CRTIgsjrMSYJIDvvUe7FMBOiHz+TrJTDKC+sahh6Rkv0Aks/
+	yx9cJXgXFDbGz/JLnlI8il+g3ctDAPRxfrRZ7SzunA0BgzlCQaa1eAuEiJJD8tyVWcFdw4nOc6G
+	XHl11kw9hLEbaKRZJ+C4mUQqFiw==
+X-Received: from pfbfs11.prod.google.com ([2002:a05:6a00:818b:b0:880:3605:84e5])
  (user=dylanbhatch job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:902:ebc6:b0:2d0:cc92:f7a3 with SMTP id d9443c01a7336-2e5ffaa3b53mr18539905ad.2.1791373439065;
- Wed, 07 Oct 2026 04:43:59 -0700 (PDT)
-Date: Wed,  7 Oct 2026 11:43:31 +0000
+ 2002:a05:6a00:2995:b0:878:3507:8d5e with SMTP id d2e1a72fcca58-891b48f75edmr1559429b3a.37.1791373442790;
+ Wed, 07 Oct 2026 04:44:02 -0700 (PDT)
+Date: Wed,  7 Oct 2026 11:43:33 +0000
 In-Reply-To: <20261007114335.440322-1-dylanbhatch@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261007114335.440322-1-dylanbhatch@google.com>
 X-Mailer: git-send-email 2.56.0.360.g66cac248cb-goog
-Message-ID: <20261007114335.440322-8-dylanbhatch@google.com>
-Subject: [PATCH v8 07/11] sframe: Add debug helpers with object name
+Message-ID: <20261007114335.440322-10-dylanbhatch@google.com>
+Subject: [PATCH v8 09/11] arm64: entry: add unwind info for call_on_irq_stack()
 From: Dylan Hatch <dylanbhatch@google.com>
 To: Roman Gushchin <roman.gushchin@linux.dev>, Weinan Liu <wnliu@google.com>, 
 	Will Deacon <will@kernel.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
@@ -77,119 +77,79 @@ Cc: Dylan Hatch <dylanbhatch@google.com>, Prasanna Kumar T S M <ptsm@linux.micro
 	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>
 Content-Type: text/plain; charset="UTF-8"
 
-Include the object name for kernel .sframe sections, indicated with the
-format "(<module-name>)" or "(vmlinux)".
+From: Weinan Liu <wnliu@google.com>
 
+DWARF CFI (Call Frame Information) specifies how to recover the return
+address and callee-saved registers at each PC in a given function.
+Compilers are able to generate the CFI annotations when they compile
+the code to assembly language. For handcrafted assembly, we need to
+annotate them by hand.
+
+Frame pointers alone are usually sufficient to recover stack frames
+(without CFI), except at the exception boundary, where more information
+is needed to determine if the LR is live.
+
+Since an exception can be taken from call_on_irq_stack(), annotate it
+with CFI. The actual entry assembly functions are left untouched, since
+they are not expected to take exceptions themselves.
+
+Signed-off-by: Weinan Liu <wnliu@google.com>
 Suggested-by: Jens Remus <jremus@linux.ibm.com>
 Reviewed-by: Jens Remus <jremus@linux.ibm.com>
 Signed-off-by: Dylan Hatch <dylanbhatch@google.com>
 ---
- kernel/unwind/sframe.c       | 11 +++++++----
- kernel/unwind/sframe_debug.h | 34 ++++++++++++++++++++++++++++++++++
- 2 files changed, 41 insertions(+), 4 deletions(-)
- create mode 100644 kernel/unwind/sframe_debug.h
+ arch/arm64/kernel/entry.S | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/kernel/unwind/sframe.c b/kernel/unwind/sframe.c
-index c95fcb63e7eaf..2e8ff783de7d8 100644
---- a/kernel/unwind/sframe.c
-+++ b/kernel/unwind/sframe.c
-@@ -17,6 +17,7 @@
- #include <asm/sections.h>
+diff --git a/arch/arm64/kernel/entry.S b/arch/arm64/kernel/entry.S
+index f63049ac32dc6..3703acbeb16a5 100644
+--- a/arch/arm64/kernel/entry.S
++++ b/arch/arm64/kernel/entry.S
+@@ -30,6 +30,12 @@
+ #include <asm/asm-uaccess.h>
+ #include <asm/unistd.h>
  
- #include "sframe.h"
-+#include "sframe_debug.h"
- 
- static bool sframe_init __ro_after_init;
- struct sframe_section kernel_sfsec __ro_after_init;
-@@ -510,7 +511,7 @@ static int sframe_read_header(struct sframe_section *sec)
- 
- 	header_end = sec->sframe_start + sizeof(struct sframe_header);
- 	if (header_end >= sec->sframe_end) {
--		pr_debug("header struct doesn't fit in section\n");
-+		dbg_sec(sec, "header struct doesn't fit in section\n");
- 		return -EINVAL;
- 	}
- 
-@@ -520,12 +521,12 @@ static int sframe_read_header(struct sframe_section *sec)
- 	    shdr->preamble.version != SFRAME_VERSION_3 ||
- 	    !(shdr->preamble.flags & SFRAME_F_FDE_FUNC_START_PCREL) ||
- 	    shdr->auxhdr_len) {
--		pr_debug("bad/unsupported sframe header\n");
-+		dbg_sec(sec, "bad/unsupported sframe header\n");
- 		return -EINVAL;
- 	}
- 
- 	if (!shdr->num_fdes || !shdr->num_fres) {
--		pr_debug("no fde/fre entries\n");
-+		dbg_sec(sec, "no fde/fre entries\n");
- 		return -EINVAL;
- 	}
- 
-@@ -537,7 +538,7 @@ static int sframe_read_header(struct sframe_section *sec)
- 	fres_end   = fres_start + shdr->fre_len;
- 
- 	if (fres_start < fdes_end || fres_end > sec->sframe_end || fres_end < sec->sframe_start) {
--		pr_debug("inconsistent fde/fre offsets\n");
-+		dbg_sec(sec, "inconsistent fde/fre offsets\n");
- 		return -EINVAL;
- 	}
- 
-@@ -564,6 +565,7 @@ void __init init_sframe_table(void)
- 	}
- 
- 	sframe_init = true;
-+	dbg_print_header(&kernel_sfsec);
- }
- 
- #ifdef CONFIG_MODULES
-@@ -624,6 +626,7 @@ void sframe_module_init(struct module *mod, void *addr, unsigned int size)
- 
- 	/* Ensure SFrame is initialized when sframe_find() happens */
- 	smp_store_release(&mod->sframe_init, true);
-+	dbg_print_header(sec);
- }
- 
- #endif
-diff --git a/kernel/unwind/sframe_debug.h b/kernel/unwind/sframe_debug.h
-new file mode 100644
-index 0000000000000..f0bc2136eaad0
---- /dev/null
-+++ b/kernel/unwind/sframe_debug.h
-@@ -0,0 +1,34 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef _SFRAME_DEBUG_H
-+#define _SFRAME_DEBUG_H
++/*
++ * Do not generate .eh_frame.  Only generate .debug_frame and optionally
++ * .sframe (via assembler option --gsframe[-N]).
++ */
++	.cfi_sections .debug_frame
 +
-+#include <linux/sframe.h>
-+#include "sframe.h"
-+
-+#ifdef CONFIG_MODULES
-+
-+#define objname(sec) ((sec) == &kernel_sfsec					\
-+		     ? "vmlinux"						\
-+		     : container_of((sec), struct module, sframe_sec)->name)
-+
-+#else
-+
-+#define objname(...) "vmlinux"
-+
-+#endif
-+
-+#define dbg_sec(sec, fmt, ...)						\
-+	pr_debug("(%s): " fmt, objname(sec), ##__VA_ARGS__)
-+
-+static __always_inline void dbg_print_header(struct sframe_section *sec)
-+{
-+	unsigned long fdes_end;
-+
-+	fdes_end = sec->fdes_start + (sec->num_fdes * sizeof(struct sframe_fde_v3));
-+
-+	dbg_sec(sec, "SEC:0x%lx-0x%lx fdes:0x%lx-0x%lx fres:0x%lx-0x%lx ra_off:%d fp_off:%d\n",
-+		sec->sframe_start, sec->sframe_end, sec->fdes_start, fdes_end, sec->fres_start,
-+		sec->fres_end, sec->ra_off, sec->fp_off);
-+}
-+
-+#endif /* _SFRAME_DEBUG_H */
+ 	.macro	clear_gp_regs
+ 	.irp	n,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29
+ 	mov	x\n, xzr
+@@ -866,6 +872,7 @@ NOKPROBE(ret_from_fork)
+  * Calls func(regs) using this CPU's irq stack and shadow irq stack.
+  */
+ SYM_FUNC_START(call_on_irq_stack)
++	.cfi_startproc
+ 	save_and_disable_daif x9
+ #ifdef CONFIG_SHADOW_CALL_STACK
+ 	get_current_task x16
+@@ -876,6 +883,9 @@ SYM_FUNC_START(call_on_irq_stack)
+ 	/* Create a frame record to save our LR and SP (implicit in FP) */
+ 	stp	x29, x30, [sp, #-16]!
+ 	mov	x29, sp
++	.cfi_def_cfa 29, 16
++	.cfi_offset 29, -16
++	.cfi_offset 30, -8
+ 
+ 	ldr_this_cpu x16, irq_stack_ptr, x17
+ 
+@@ -891,9 +901,13 @@ SYM_FUNC_START(call_on_irq_stack)
+ 	 */
+ 	mov	sp, x29
+ 	ldp	x29, x30, [sp], #16
++	.cfi_restore 29
++	.cfi_restore 30
++	.cfi_def_cfa 31, 0
+ 	scs_load_current
+ 	restore_irq x9
+ 	ret
++	.cfi_endproc
+ SYM_FUNC_END(call_on_irq_stack)
+ NOKPROBE(call_on_irq_stack)
+ 
 -- 
 2.56.0.360.g66cac248cb-goog
 
