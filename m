@@ -1,199 +1,214 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011045.outbound.protection.outlook.com [52.101.62.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8003E3F3278
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 07:12:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791357128; cv=none; b=IQDTYbj1tqZ/yvF2Uejukb9SQwhIIUwRwS1pfaM+xMaVovF/Vbe2gF5JI/ljvT89xg8gCF7CKQqqAhzh8SUjYmL4IMGjiTtrflOjh4pRd0D/j2MBQ8zt7ITni8d5BAPCpb/B0nXGG/1hZrh7gJy5UeHr6ZV36VyiJYinPAjbrBI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791357128; c=relaxed/simple;
-	bh=qfIGU5Nv0gjACCKSPLGWnaMvD/NktpDCP2N4rY9QGv4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YWg7yUecVRkjcIeO4uIIZMZt3inyIVi8JmzNdILn6IgW5KwU+XQc0cBL1OowrhsIBrIp8scbqi2NvIRaYgaIo7mkCjbO9Pc3eAud+adHpEe8i7Iei4vLiQexreGgkxnhPO/Mar/69vawU9yVU3PBl5c4bO6/UTTPkW4rT1b3J+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IP25/w94; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Y4FuEBdX; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24CC925A655
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 07:16:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791357365; cv=fail; b=q+FsRiPVojbO2Q7NZvehEyCfWFSnShc2+zsvrq6JcQ7YHr4GovDObN3uECOQ9A3AU6HcrGU4XpZhedq64mE8ADeztcXfh21w6iEwDBdrcCMofH+E4fBNfKXwHK2PWol8DxaSyalKweNU2Kezq3TgAWplnM67EgVYifL3ErtIURw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791357365; c=relaxed/simple;
+	bh=iFqnT1x3NvnUDCUBE6LCJYkpc70HI5sidnm0IVGyenc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=OZ/oeFwkau6HmRhuxZYi8pvrallvw2hjlc6a5T+W5TUnUV08eiqSawo5hD1ozUY2GwgqWhREwXld9QTyaqzFglpjKlIHGCpcrY9JrRVOmqIcWSLmIPTY9UQ33PSnCTg/m5cHyETqvF/ZBNlVfQQ8UGiA98HKi1rcyEgxu2+NImc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=mWene5mM; arc=fail smtp.client-ip=52.101.62.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IP25/w94";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Y4FuEBdX"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69776XfH3213272
-	for <linux-kernel@vger.kernel.org>; Wed, 7 Oct 2026 07:12:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	3GX4DX9WHgkoCjexscTyxRsp0Y9v+fPY3Ro9VgKRBTc=; b=IP25/w94e84gY3+7
-	bAA0FSOYhxfaZT80uGMtUqAm36yFYmE6tYipp3D8zrmSAUXrpx4enx1uJI6qg1ta
-	hJW+JeVpJtgLdGFpVpnT+T/OBUz08P9h4fZkSD6xvd+vKAoNtL3WCgnsgEQn44fT
-	2WSB5a5sYOEDR+672T9xJPdddEmgsLlpPaUtJtS5fbw1O/j0Ipjaepdk5D5IIu/Y
-	TeP0BxnW2O3TN+na6G0Or2m9oO+sWABZXpsre+Hsum7UAJhp+c1dYqux2BzgoL91
-	PUIbC2n7JRwpANKNrCGRH9calDqkNfaizDud28fIJ0335JXW1t/CciCxW3xT5Fwr
-	wh1i7g==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5hdcr0hp-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 07:12:06 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39512608fb1so7089245a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 00:12:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791357125; x=1791961925; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3GX4DX9WHgkoCjexscTyxRsp0Y9v+fPY3Ro9VgKRBTc=;
-        b=Y4FuEBdX9SpPckmQ3YhqoCCr8/rT/X42woqrjrhAGvO2AU1WY0XtrkFW1vf+hyr9Vm
-         VGOOORal0ftD0ziomNVNfJ8N4g9vsM0sSkbdLsvb0rVK1SAtR3VVzbdCQjLepC18XGXu
-         ZmVggzi0d/E+4qclYdT8eAhRBfffadYUH8j1CqGz2AX1oJCkqi6jZgF7ZvYOwPbzRH07
-         qIvwNLaCadOVszCi+9NxJYaieOoNvF6r18fTpaWFSnL6CihSGtBMW0Kg/NIitmBYDyJw
-         wSC7piQ4Av1aDoCSkd7aFI2Omdw/H1HhqtEZGvhKCDTYa7MlcSPNScAa7gZZaYCkt6vY
-         yQ9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791357125; x=1791961925;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3GX4DX9WHgkoCjexscTyxRsp0Y9v+fPY3Ro9VgKRBTc=;
-        b=KaIvPRtKUztUJjydHaGQ5Gj7Rb6DkMY3Ui+bxfplIUzOsX6FlUC5NHQ1UIq+9p+3CI
-         5HkjDCy/1+nYnIWqClP3vk5gTn0IMlGJLQdYC0JIT2mBNtkS19ve29QWwQGmgY3vLJtE
-         cotP74Nuh0Rryb4BGimZgeTB4PeS0lYLvQsM64eUaUVxz4BdmYPA/6A37lCuOGu4sBtb
-         vC9Y7g5s0vhTjhdiD5OyDUccLbR+Pi2isbOf9m4fC087Gz2ExuyCXu0RM3TA0lr+eIue
-         p9XXG1ipk8fuZ05kwH40O8YvHfY1OzK29v7siOUH12lSro1wghryTZU1llChZh4yCHxa
-         hQjg==
-X-Forwarded-Encrypted: i=1; AKwUvBwGeAAxSQmCs9vSkiExuadj76kLhwG163I6TBSspkcMFQtXVL+NQo/F5BICGhtS5jz0YnSWU2OV1+f3bnk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLQ5gP7LvjB8s3Kxk5NZLVhL3ppV1Bd/A9tR93WnYf+HjhJzSXP
-	Y2Sgrcy1uH66kWvompKe3Oh6aeqNKGyYeAnQagctZW57XMGQ8EMS8h3h0i95B2uid0McC7tyLeI
-	R5mTXg8LBxmhOcQ8kQoV+D7Zk5vTa4cbW7jiJIZDs7biyJ75nH4ZmrbjpFtHXITxIkLk=
-X-Gm-Gg: AYBFou3LKgExjpP4mqhqGFARvmleX9eOOXP0QreH8BQcbrjBKRMvwuRJyYou0VotP2f
-	IyAb5HiXHt1uPjnLOcK5Rb4q+38Vjz9cgjJny0ujBTTV9IczjGW2t/93LyFCITVWPgaiOnn0WUb
-	XY1N416YMUN8EvwJ1eI7p1W7eabDP3iu3/Ugsgj2gL/CmalxlUtBiP/vrmsfudduEMr/Z1cz3yB
-	SL0zUt8vC1ORKMFksdgToyBKlWc+OURPL3e2PGKyddukTs+q1Z/zLt57sWCqmNKe/FqJCEhkVFZ
-	ra7GrksigGKMo8YllVuWgV4rmCN5tt7BMca9r6FDMCrh3NDQwH0uwMCIb074TzvKBodCJ8qkaAM
-	tEBdtwgx751ifiaTcMyFyzxnFG4dgLhsTRCLst/MnUoJFHzL5FsYnSNqPOv8/0xsPdXvsQ/n8ya
-	zLKmK5eM8fA+74h8cXrT2qv3vFEo4=
-X-Received: by 2002:a17:90b:3809:b0:3a7:8350:3faf with SMTP id 98e67ed59e1d1-3a8a17f850emr1227720a91.18.1791357125489;
-        Wed, 07 Oct 2026 00:12:05 -0700 (PDT)
-X-Received: by 2002:a17:90b:3809:b0:3a7:8350:3faf with SMTP id 98e67ed59e1d1-3a8a17f850emr1227675a91.18.1791357124810;
-        Wed, 07 Oct 2026 00:12:04 -0700 (PDT)
-Received: from [10.79.117.106] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a897a22610sm3843683a91.0.2026.10.07.00.11.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 07 Oct 2026 00:12:04 -0700 (PDT)
-Message-ID: <245e5eef-e18a-4ec5-b57c-65e561101351@oss.qualcomm.com>
-Date: Wed, 7 Oct 2026 12:41:55 +0530
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="mWene5mM"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=d5Ch2hXKnhE94oiahucyGsrK8dAbS8fh4Wx+RGi13IjdMZcrXRbZmQlQhLTopxnveYdCUujycev5vct1foKulR10inQMWpJglnw2UdxzLlAgWP/1UroYo8xKePlkCvGQ05Wh0uYQ0TgkUvlTL7e1ghaH5e+KmJ1MwnXIXV/cv9VBRwGBjYic3nhOjJ+C87x0CgSTTV38pi/Ppbb3wT50myWAbSbHypZVEwSJMVR4Fn9LSMzRBehaqdG8CZlDIo9BCQOS43X0iI+pQ1mE2eHypzD/Zf1eX0yYpn62BP2NTbV8wHmjuCLQgbbkx2l+0kdVuu6wABFA4vbvINzWHHDiCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2alSYpBJEWkBn4f64qrNH3zTCHmW2EMN5MqcqkqrDas=;
+ b=vSmgrmM5EGlzsuenQd+ePE8cGFD0gyKgujTr6bcKcNGGCFNyDj1WmUOp3xKzhflV1CEDGrDiAayQNm/MdjTudGeRbz7wL7a9ka2elCI2N8HB5yEIH/xAZCICY5IWpljL6/dI1a8AiUa1tMMtccXdx9Puzk1LzrX5zy4HkynwyGB/ankffY90nN0aqIR8lGWtUazN0Nvgj9+4KHsjgz6qD3rBVWN+p1PMfTlq5vcr8HctkdMBAkfVJAnBQl7/Kh4Pi8OvBYQeb0YmfudR5ThRGNXVuqE3FrOwP3oPEhCD6/3gu7sRNdEhiyyjlIP7ijgg/9IkuANf9DDUIyMcH+soHg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2alSYpBJEWkBn4f64qrNH3zTCHmW2EMN5MqcqkqrDas=;
+ b=mWene5mM8Fu5MATaodCjQFEnc1Qy6Gz2h92BD0G12cF54V+pdV+ZqyUcTAfUC30ulHh0ba815qIGQ1hfB/OucEHLt7MeDZQxoNDTrslJ73wLOyLZDPSP+4hc0JU3d01lOHtyieswVUsxbq9VQ+DcxRcCl1z5adIXz0JyoKFyEL38fq3XN5ONB0H3oFFOjYm/rXOAH6Ln6yZJFK8cz+5NDzzyiRQ3QLwVf/dv8m3i6DhAWRACeJUHZaC1SUiiT8no9C3UOJW5aZksAUpb3dSFd/cw0tTz/qBq1yUrvnHe9ZnlaB+znKxNEXonZtjBmh3iXJkLByWvMB42Nx5CoTYSFg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
+ by IA0PR12MB8645.namprd12.prod.outlook.com (2603:10b6:208:48f::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
+ 2026 07:15:55 +0000
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0496.015; Wed, 7 Oct 2026
+ 07:15:55 +0000
+Date: Wed, 7 Oct 2026 09:15:51 +0200
+From: Andrea Righi <arighi@nvidia.com>
+To: Tejun Heo <tj@kernel.org>
+Cc: David Vernet <void@manifault.com>, Changwoo Min <changwoo@igalia.com>,
+	John Stultz <jstultz@google.com>, sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 sched_ext/for-7.4] sched_ext: Keep proxy donors with
+ slice left on the local DSQ
+Message-ID: <asXxp0WabkwdB5aw@gpd4>
+References: <20261002221559.3090900-1-arighi@nvidia.com>
+ <09a36d7e76652beedcfb891b587a9c82@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <09a36d7e76652beedcfb891b587a9c82@kernel.org>
+X-ClientProxiedBy: VIUP296CA0078.AUTP296.PROD.OUTLOOK.COM
+ (2603:10a6:800:349::16) To BL1PR12MB5174.namprd12.prod.outlook.com
+ (2603:10b6:208:31c::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] dt-bindings: arm: qcom: Document Microsoft Surface
- Laptop 8th Edition
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Maximilian Luz
- <luzmaximilian@gmail.com>,
-        Hans de Goede <hansg@kernel.org>,
-        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-        Douglas Anderson <dianders@chromium.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-        Pankaj Patil <pankaj.patil@oss.qualcomm.com>
-Cc: Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
-        dri-devel@lists.freedesktop.org
-References: <20261006-mahua-surface-laptop-v1-0-406fc042162a@oss.qualcomm.com>
- <20261006-mahua-surface-laptop-v1-1-406fc042162a@oss.qualcomm.com>
-Content-Language: en-US
-From: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-In-Reply-To: <20261006-mahua-surface-laptop-v1-1-406fc042162a@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: aNvPVG58KuhRQrpu4AYfQ90cXouRYJpM
-X-Authority-Analysis: v=2.4 cv=aKFlOr9m c=1 sm=1 tr=0 ts=6ac5f0c6 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=yMhMjlubAAAA:8 a=EUspDBNiAAAA:8 a=jx5OK0JlhDPw0se3NWkA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAyOCBTYWx0ZWRfX7XVB+Lns7XXJ
- Lkb5ppIY0HV0Oy74Rr14IHIW4aE/IFf8MgFh9VQpZF041RqjRSHt2EhtkTudl5OW9zxSDITfDmK
- WFW69rfuJz817gYKWjhOm55PIv8shiA=
-X-Proofpoint-ORIG-GUID: aNvPVG58KuhRQrpu4AYfQ90cXouRYJpM
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAyOCBTYWx0ZWRfX7a8hS5sHahVP
- UhcInOOZKvyld3nCQKE+SGFxzxmSdDv05qzw1Zon98MEUCBHoUzJQhbtN70LQW+NTrdhhpPmHmF
- MvXRMgienHHBIbmAiY4wYUneMI+sT5kY9oJB1kRz6VAQGfEPSiSe8V5aV3ABXQsBK+txA1c0vGx
- N4BWXR0pM4iog7D8Iz8ARZLdKZk6YiI7//pvfCNEW8m1yZhFaB3Nh5tSes2FHoDi27qgLoQz3k3
- z7Dcy7cItEVBasa7FnkWp3HOIsreguTuIDT/rAEHu7LqicBjgtrQPW6V6qHVIgE5nK5eQS2cUT+
- FlsTUYTyxYscqKgJeaZGZkgNlfX6scaN0HWlz/zi0uEx9jgz0ApNNL6C/lVKNRTxf+GJJ4nxBzS
- vtO44pfuxwh1K4uIcU6FcvoZtkhAf9J/oCAswhsBHYPQ6RnpiZaKYWQWbZQNXOpMweUBMmH6aJw
- 3N8pwieRzOpeFe/RhFw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-07_02,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 malwarescore=0 priorityscore=1501 impostorscore=0
- bulkscore=0 adultscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070028
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|IA0PR12MB8645:EE_
+X-MS-Office365-Filtering-Correlation-Id: df3a5fe6-d987-40d1-ea96-08df2442d38b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|5023799004|11063799006|3023799007|10067099003|56012099006|4143699003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	25WgqvE+IhFH/BnGuXieKAuf402YHf7uKmKxbON3nL8GkDfTgkEd4ahkixKhJNm3aiVCRJXkwOo9g7rWb5QYRevp8ms89ounPd91yEr0/L/hvZl3vwPdLbxvs1how0d89x8Lm4EadyiXnjr/zhcEKSg1PoOxDpc3H5tDTLU/8lROq5dGt2xWBmGz5W9zpzmSqZR0LuH+IGT2vQDdX0HD3h1+MkCakaPKVXZgx3xNblLw5MTZX2ESxfAPECbJ1rhDLIuh9+WEd5C8BPO6u9I0x0RBTN2Z3p8D5qW8yryt/CjV5Tx5/zMppC/IPzlFGaO7ACEoh8qPJJFy4twRaLKV1ciPFgRqoW+KegSHDgTyJekfoSFTshjf39wKxU1/WW9B0nSBXkqvSO+8MqR5y5cjzWQaHwXiVcEvYWOghkQybp6/g+XPd7tK+xIoJKDyd6Oz7+DESIJW2NOzVNqDULCXUZnTSz81wJn5rPcWgiC74WAdqKtc9/oZEud0yVJuFnUOTkJCZH1EOcNhNpZMh18zTm5TEpRnYUtoLmzj4z0OIGn2H0RCaNT7c5YXZ2ir2BbNO/sCRQ+Npcjkf3mTzWgfwrWnP+gNahvLuP56jxkvv+EPv7HHttvmkTNu24cLZD8uDUA5c/5tkPARUXLnWGPy2H4j7w+g+JEzS2TGRfWfYDk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(5023799004)(11063799006)(3023799007)(10067099003)(56012099006)(4143699003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?iE6daJmO4Thi42rY2wr7tmXR9XyIGCoR2tnoOmOSRPj7KRawfSq0zCYqKZai?=
+ =?us-ascii?Q?wzF8U86rNrOJo5gt4VdVHMh0/PaOk6dUG/yxrpG8zhpULtb8ZEnk13uiTnn4?=
+ =?us-ascii?Q?VVJ1X5PpS/GrzYx6HDdiIjpdIXtc81Fqnq0e3EGRiV3sEdYCibsnCOmfDIbi?=
+ =?us-ascii?Q?9hbI8PnsFx6zhZL4yJ5sQsfE9jpOali6DVssSqkNTlD5XbiQGz9FzmmSIQQO?=
+ =?us-ascii?Q?maj834PdYclGfv5gG8rZLFq9NubALK2YD1CrEJLqlprU//AZEr2SxmzNZ7nu?=
+ =?us-ascii?Q?a/MDk74OYY4H559QGSItMWOZNoJsUUl2bLtSBe5OuK7++t/zD+9p0BZryYM2?=
+ =?us-ascii?Q?J23qej37uLJOHQKaFstpgEpuXdWQ0KwArN3ZSQkGWgcEbq8cdB0o7G6LBd5v?=
+ =?us-ascii?Q?pgV/sx3Fw4Abbco/ANi0Jnzk0nfPoKJuNDxVfBk//NrDlJF5NWUP57v5tlU6?=
+ =?us-ascii?Q?NI3UpW5lSNn2TOhaoDM1M4mJbIh7Xx/BkG61Oz/4y9+w4kJajjpK8E3+VNDA?=
+ =?us-ascii?Q?vQwDll4xQ6DcGQTQ11oc3wAy6MK2HBjuK9xh2hyPSSsb6WNEPAL8/tU8pj3B?=
+ =?us-ascii?Q?j8URHJxfWe1UurvWOTTxQ7TWoNnFaZsOXEzq8ae2UQxrbKPvG5OeVVYI8ePT?=
+ =?us-ascii?Q?43/h3OsG6YFbDShejGN+TBLlxL+2piXVJrVryzkzSe074f/Z0dUaSvWqr/e2?=
+ =?us-ascii?Q?FyM5VSQVchuyKAscyrwnexO5R1xniufA8aP7XeSTvk4MrAwHmGGs/CXY0FgP?=
+ =?us-ascii?Q?e1fSl7dnGouuEvIUw6b95CWVIX5fji3FPu+17i4JMjaQfLu28hHWYxDpUkT7?=
+ =?us-ascii?Q?G5Fg1eQH3DlZSgiCYz7qb0LqBV0kzULZW6hWIk9/26KEfKPuFf53OF2NO4tF?=
+ =?us-ascii?Q?XMq/yeID3+ijaQsR437ibnwCisdvsltWVhoo2rPV8ioFpnahgOAjfnUM87GH?=
+ =?us-ascii?Q?N3vcNHopQ6nyAOkgITc+HN/2W7KclW0b09MhHTkiEyE+qt+eY2brnRjCqfsb?=
+ =?us-ascii?Q?xq/hG1Rg6MJCpbeZ62DhcUPGb3cye2H5aa9iqA7quHxGbYR4cApMYYxB7v2y?=
+ =?us-ascii?Q?oIaJEtiy21WjgEtnpQAr8nS66pBWXg54y9sUv89aiiKdy0FtuAZtLerx6Y7y?=
+ =?us-ascii?Q?1AbZh/7LAoRMWYWtN75p9Q5M8ebydRjF/a3lkHu48FaKgLU0dE0FGCsOOBqT?=
+ =?us-ascii?Q?ak0fSP5XFoVSddRvUhuhf4AL+FiyondxqBcEabmC87+88LXEh4S+u1WEp7w/?=
+ =?us-ascii?Q?LkzRYGfM2BC4snZ1gyH2Gq/YfgVA5U52L07x76xryzv0Ahp3qAzm03lNEVwF?=
+ =?us-ascii?Q?yh503cD8DdNdZL64kfzYo2elb2gU4Z8VBB/65WiMXZxPY9+Tk31CsusldGAg?=
+ =?us-ascii?Q?1/yl8l16DbfPywqs+AUtpMBTGKgzDyaiKcLq7LgUrmiWsiJW+MNR88e9vEFF?=
+ =?us-ascii?Q?ISHoLD7RUmaVXQ6Gi7E5mHhWU49of+rulaxRqtf9Pv+Tqk1Nq9H605dZSheV?=
+ =?us-ascii?Q?moXIhl0B84IFTGFJrmWFUcGLwMb8agtIcEZWv9rB/cQGLhwLLEgBfuNMg9u6?=
+ =?us-ascii?Q?/7nTIdAofkkZio8u2xiUyq3G1vwLZlszQNO+lJ3XnQDaZbpvbhoZMDg3caJS?=
+ =?us-ascii?Q?muNdpuZh56OvsCajabMxxQPVLuL9o3z3yv1Dj7CUb30do2+MQqkt7KDZeTjd?=
+ =?us-ascii?Q?sV5iEYeIOo7G3OCoCinXsOsaEwWYhobN408nxo6FWqp4WopobJk8sngATx7K?=
+ =?us-ascii?Q?RNrUpw3QiA=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: df3a5fe6-d987-40d1-ea96-08df2442d38b
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 07:15:55.2706
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QDLh0Efcwxm9s4ZJuhX95AucmlSwEb48UeM05xoOBn6V8UcKy7iz6MtW8ahP8n3c/w1/3zZz0XcKkKohFjawDQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8645
 
+Hi Tejun,
 
-
-On 10/6/2026 3:20 PM, Gopikrishna Garmidi wrote:
-> Document the Mahua-based Microsoft Surface Laptop 13.8" 8th Edition.
+On Tue, Oct 06, 2026 at 10:28:34AM -1000, Tejun Heo wrote:
+...
+> On Sat, Oct 03, 2026 at 12:15:58AM +0200, Andrea Righi wrote:
+> > -			if (p->scx.flags & SCX_TASK_IMMED) {
+> > +			if ((p->scx.flags & SCX_TASK_IMMED) && !p->is_blocked) {
+> >  				p->scx.flags |= SCX_TASK_REENQ_PREEMPTED;
+> >  				scx_do_enqueue_task(rq, p, SCX_ENQ_REENQ, -1);
 > 
-> Signed-off-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-> ---
->   Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
->   1 file changed, 1 insertion(+)
+> Sorry, I steered this the wrong way. Exempting donors from IMMED entirely
+> overrides what the scheduler asked for on that task. An IMMED donor
+> preempted by a higher class now sits on this CPU's local DSQ until the CPU
+> gets back to it, where IMMED would have returned it to BPF to be placed
+> where it's picked and resolved right away. The donor and the owner it's
+> donating to end up waiting exactly where IMMED says they shouldn't.
 > 
-> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-> index 121ca557ce1e..eecc00e2a718 100644
-> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
-> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-> @@ -191,6 +191,7 @@ properties:
->   
->         - items:
->             - enum:
-> +              - microsoft,surface-laptop-8-13in
->                 - qcom,mahua-crd
->             - const: qcom,mahua
->   
+> I think the condition we want is to keep an IMMED donor local only when
+> it's about to be picked right away, which is the bookkeeping put from
+> proxy_resched_idle(), and to treat it like any other IMMED task otherwise.
+> That's what v1's proxy_put with PICK_PENDING did. Can we go back to that?
 
+Ack, we can restore PICK_PENDING so an IMMED donor stays local only for the
+bookkeeping put during proxy resolution. And a real preemption would return it
+to BPF via ops.enqueue().
 
+> The deferred scan then needs no blocked exemption: after the bookkeeping
+> put, the donor is first and the rq is headed to idle, so the existing
+> first && rq_is_open() test keeps it. The wakeup_preempt_scx() recheck
+> isn't needed either, as a donor is never left where an unblocked IMMED
+> task couldn't stay.
 
-Hi Krzysztof, Konrad,
+Agreed, we can remove the blocked-donor exemption from a deferred IMMED scan and
+the extra wakeup recheck.
 
-Before review, I'd appreciate your input on the naming.
+> 
+> > +					if (p->scx.flags & SCX_TASK_IMMED)
+> > +						enq_flags |= SCX_ENQ_IMMED;
+> 
+> Can you add a comment here? This reads as flag preservation, while the
+> reason is that scx_caps_for_enq() maps IMMED to SCX_CAP_ENQ_IMMED, so a
+> sub-sched holding only the base cap on the CPU can keep the donor local.
 
-Surface Laptop 8th Edition comes in three sizes [1]:
+Ok.
 
-   - 13 inch:   Snapdragon X2 Plus (6-core), UFS storage
-   - 13.8 inch: Snapdragon X2 Plus / X2 Elite (Mahua), NVMe
-   - 15 inch:   Snapdragon X2 Plus / X2 Elite
+> 
+> > -		if (next && sched_class_above(&ext_sched_class, next->sched_class) &&
+> > +		if (!p->is_blocked &&
+> > +		    next && sched_class_above(&ext_sched_class, next->sched_class) &&
+> >  		    scx_task_can_stay_on_cpu(rq, p)) {
+> 
+> I suggested this but I don't think donors should be excluded here. For a
+> scheduler without ENQ_LAST this never fires for a donor: dispatch_one()
+> keeps it through KEEP_LAST and refills its slice. A scheduler with
+> ENQ_LAST needs the signal on a donor as on any other last task: the CPU is
+> going idle with the task still queued and BPF has to trigger the
+> follow-up. Can you drop the !p->is_blocked?
 
-This series adds the 13.8 inch model only. I named it
-"microsoft,surface-laptop-8-13in" (mahua-microsoft-surface
--laptop-8-13in.dts), but that clashes with the real 13 inch model, which 
-is a different board (UFS instead of NVMe) and will need its own DTS.
+Ok, makes sense, a blocked donor should receive SCX_ENQ_LAST when its scheduler
+needs to arrange the follow-up scheduling event.
 
-I couldn't find a codename for these, so I can't follow the Laptop 7
-scheme (romulus13/15). Could you please suggest the naming you'd prefer
-for the compatible and DTS file name? I'll update it in v2.
+> 
+> The one put that changes is sched_proxy_block_task(), where
+> proxy_reset_donor() puts the still-queued donor with the owner's
+> execution context as @next. With a fair owner and a zeroed slice, that
+> takes the LAST branch and the WARN fires for a scheduler without
+> ENQ_LAST, on a legitimate path, so it needs handling along with the
+> above. One idea, which may or may not work: proxy_needs_return() dequeues
+> the donor before proxy_reset_donor() so that this put skips the QUEUED
+> block. If sched_proxy_block_task() can do the same, dequeue_block_task()
+> first, then the reset, then __block_task(), the put sees an unqueued task
+> and the ops.enqueue() and ops.dequeue() pair the current order generates
+> goes away too.
 
-[1] https://www.microsoft.com/en-in/surface/devices/surface-laptop
+I think we can do this without modifying sched/core.c, sched_ext can set an
+SCX_RQ_PROXY_BLOCKING flag around its calls to sched_proxy_block_task(). When
+proxy_reset_donor() invokes put_prev_task_scx(), that flag tells sched_ext not
+to reenqueue the donor and block_task() will dequeue it immediately afterward.
+This should avoid the transient enqueue/dequeue pair and the false ENQ_LAST
+warning.
+
+This is separate from v1's SCX_RQ_PROXY_PICK_PENDING, which needs to be
+re-introduced to distinguish the temporary proxy_resched_idle() put from a real
+preemption of an IMMED donor. SCX_RQ_PROXY_BLOCKING, instead, identifies a donor
+about to be blocked during a scheduler ownership change.
+
+So we need to add two rq flags in this way, SCX_RQ_PROXY_PICK_PENDING and
+SCX_RQ_PROXY_BLOCKING, but the whole logic stays in ext.c (with the flags
+dfinition in sched.h). Does this approach makes sense to you?
 
 Thanks,
-Gopikrishna
+-Andrea
