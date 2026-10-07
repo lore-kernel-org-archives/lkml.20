@@ -1,116 +1,89 @@
-Received: from sonic305-22.consmr.mail.ne1.yahoo.com (sonic305-22.consmr.mail.ne1.yahoo.com [66.163.185.148])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BB5A3D301D
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 20:45:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.185.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD31D3E49EC;
+	Wed,  7 Oct 2026 20:45:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791405904; cv=none; b=MEqgOAAYpEMjFpPy3Uz/63iQajd6o58bQMhJxwYSzwzTPR8ZGQwAOnlHI2803UhuRzgH+glBhRTCrMZ1MrUMzWJMQDEbaV98pAzcYlc2DyzSre3zC72Hnnm2RGOCDOCHNdkooFXr+HkzXJIjpf0n6vPvl1q079/1KMt9KAceI2U=
+	t=1791405914; cv=none; b=c2sBbG9MsR4i/Pit+RYULCBZMvx5GNT7Uzp1wr4002FKdRWHPpSkgjMV+RlCBHk/eRfPMEovG/uYfEqOahA6uLarRDmhgOk9SqeddIKZTprIOLOZB54Kfb77vRquKs2+EuRrbTTFrirQfos7QdeHzXKCPtlv+74ZBELuy4wUrUQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791405904; c=relaxed/simple;
-	bh=0TJUG9pu3Cn2+eiZJOCPJkkHRXEmXYRx2sBJ2Y78yBg=;
-	h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type:
-	 References; b=bvIZNu8oEh17m27syaj1hnDX4yzsxr9NohaO3AHLTtxfqHJ3bQFI8jPMZDl8BDS005QKhgi6jCscvJFNNSrfizuBz74EjQNBEdpETAEllUh1m0QSHzdfrKE43EDfm+7rcNPXdkXnmdgtWOs2Qq68pRDsv3DYcc+gj5/ITg5RpPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=WKAV5iNY; arc=none smtp.client-ip=66.163.185.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	s=arc-20240116; t=1791405914; c=relaxed/simple;
+	bh=YZc84RjPNXzLQTZU/gzVja2x+cv6M/QPck2bjGVhEZg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=i1pfkBJVRqIJXJ+5yVrb6pC2JeAgTasLDSfEXyqahciZ2+4Ta97x8pEQBBjxlw9dbtsCSQ2rsZSzoUx/fGx1Sf42bjOso5sZvdnXAoCBvRt9XC7TW6MCn1BVzyW2Ume2mgBxb1pZydOdlODrzccdXO3TPxAOOa8nVi7D0B8X6ks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iL2cZUVk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="WKAV5iNY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791405902; bh=OJ8pNG9qdSi9jb/9SeMyk+yHe0vCA/py3E7LD/TuWg8=; h=Date:To:From:Subject:References:From:Subject:Reply-To; b=WKAV5iNYya8ctNKHzNoBsYXJUX89yKzjwhP18fpxoprDhL4kln2Ydnunld85+baa8hLotqmkXGHuxYlMYXW19JOfMKQ/5P1sH+Fmk6+NkCFocfG45A2J4vqISLopizw7u9NeXCjTt/yIjZBAsLiI+i04haMrF5VY6ffS8sniqbXZ/eiJ3nfSFPRFgYrB7Pi6aBnKdHplfTFrvy9V/imKArEyD5I/3Z1H8y9jgGfJ3I50qUn1WXR184vmogsIOU9fqoZUppKxrRIyjfEo1Qu+oj7k2GAa+epeUJ2Iu70h9F/6XgXB0nPM+TPFLBp7MG8zepkQnrwTimIi7VfnZF3zmA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791405902; bh=oZ4tEF1Ha8YUq0Pl7s3SP3RPC5SLvP2kC/57TCqkl5P=; h=X-Sonic-MF:Date:To:From:Subject:From:Subject; b=kH/qXOFRUglxgALjbxusgRO9kpurrWNHozPHopg0z0SUzKzGUMTVEW1VBek328q7QnzX6546Rt6CmPLLStZUsNA1+sM+7nUSmykhF2utonRy9/R2jJWOlWr14gmHUNcMP779DSpIk33bkuB6hpgwLSCsODx1jCRc2FsHeXcB7g272gO1/+FJ8j+k8iOV8N1bdtvqa8R+mDp+sBgoxbHwX1C71KnxZsTTLx4V5L/eY2N8htDPkdMuFuu0QsPV1/DKrJSG52E66YVtccVr5Gc8rSgjaxkva5nsTDNCpXMWVKwz//FpBIQFUXUTCieeNYPvMw8E5aDVT6Ow2HYNUIgKzw==
-X-YMail-OSG: 4ln0jEkVM1nDpOHNpM7twu1v_sw4Ac1iL7DOU_eKvwX1XzYdQ70dh.YPOtyZ8ex
- 3cDlj1Zyj.1XnRT_GPAJctpElkr9r6fNjb3BtCNknnTqIhmP8IDlab8OS5unn9V6bbFDmorI4IqY
- lSrUC7wR4Yt9ddnFy_iqr3s.CSsr80dnAuNH6KbROQlxmBtDmESR9_b7bBuRF1IoC5D9SkmQ2lV1
- NPp11zkD4FAbzW2GmhPz3jH1o52Tb5cG33Fn5FYxnzoaOt8zhon515e.0ZpGxiHPn7AIHAEDVjNN
- ke5njT97DM8zJQxok_Qt79Oo4t..ibxqe5SlQILjV5hzz6YhCEsbtOVCyWBS147zVNYvR71nSV7X
- 48UtgrNIfXxodRaqVoZOBm.GNih5zeJnNslqdInNGVnL7ey.eJMvLAKxtt9fhY0bGIDkxbqY3pxF
- M.EiNb2IVPhHr8nXHqEnafOkxhOIGGKWEBG3Xphy7v1k6D_hDLdeF_aPssiaYXkDb42NHZ6vXHQ.
- qq5q.dttj45W__cDElkOKL7M8nKzd.0Chj1GPcJQ3Qn0mt475ajKdGJntnlXiXs21jOIQxIW16oz
- an6Un47RgngyvkySiFltaOh16YkKp2NTnHTlNbFyroOEfOfpFNkzMpAHfebDvSLZMxG2MEgPMly2
- vE1.gKM2DDOQn9gw4FMQDHBCZeL2UoWRaHpEtjQ1mQEe0BDctTNM3JuK0u4g3Psu58aMIeV0wKcW
- 1Img5.B9QsV69dmFxJruyv8O8eX0Qay7hyOZo.5qQl4wnTvqJM2wrk_1txUQBVt_6CAt61NYelKu
- 2Larb0.yxiir0YET3SNXkPFKGoZYvj9aIyVyAKVVaS94WTxRbEhTaBYDQX1y_GyQbAvmACB1VBck
- 7KFMmQWwC2Y7FMhwadK1PQ__7ooKh9cRTCIBYNG.SJbyTnNoudBGoK891vKoZRopeM7Lg0ZnpRb2
- EHb4msWkufekOR1nsHvunKfvOgD6IXrVYhnHo_VP24bt5Au77ctfaGMNLdmJ_uW.q8UPg_mXS6ny
- 2Bj8ZN1S1h_ALBa.qvISXxpedplQYxugShigCunrKunkkqsDHR_DqIkFSGSbwUszjgCz4kxon16.
- huZCF_hAY.bukWwV3INE.OV2P0yjrWiRXQtkcExvKry3xYTt0uwx83Q8U.119_rHCnOGQVmocF.k
- .5UMrzw8nnf4SnKxomMIU6xBo5GpwzPX_Bms8_ha.cU4WTBgk76C7OMef_gvhSWhrDcPqKFZKPzV
- GrrPGZse3wax2AJ8ji8QYjGO6YqqJpM6kuPUvl8fDYcNWB2.2NtEI7oV1yBnyUb.3RLfpVjxIDOf
- D2VumQe8NdzXY39Vr5RZZ10dFRe2y7OXU44Hi7276Ck.o4bNWr1w6t18QUKcz0J5Re..bwMvqkdY
- ZcJqYxfl5kaODsNwe335h1arWagY_Bbt7NNdQFCPZP2AcPP4s9Ye3RxGmF.cs24i2xWK0ICBR5.Z
- nSK6lIMuyrX.FUnloVk9ArF_KvGTlEceYO2Ig3rCxDD0dGTdWvbpEjYtg_pkNsiqu3snCsVXIMbZ
- eWctZiR67vxlt5wsOUiqTJHoY7L8mde1fCER2FGcO0Gz2rkvQBTGM9ax0m5yBTAwLndZm4WS0Pmk
- 58r2ZlSNMZZppxaLSrmiKPhxTAC0h_thzUUCjWoaKhMzXN3zz02vA3PS5VJv2UbRRXBHL0KL_j20
- Lb9TcGMl41uFGvta7fCHHjJiAO.mdIsZH3l.KD.OePZCLfiflmMuV4YMkbjkbw64JlqLj1UYFzTk
- uGQZPo7Q7T7q9XkZ1OPW4hFQJAwCvEWIn_8GppA1X2x_fpJPKPi3emS4JDM5xB98QFf9uFIOwuo2
- hY2ogmPc0DRbXzAyUFen.B0DffiMTTKPQ2gVPub1zYMxpKbBx8shls6PHRnL.nakDXFPSqfD2uQP
- rU89w.b1ipFg4Z4.CP2Z.36MbSgouWtp6SiO6NvhKjm9k_VGudbzm2dobJAbTodwCJPW4H_CVm5m
- D4X9011L2EUorbrKI7kl5s_7Ci4Kw1_cW5lC2FQ5OATxMt2ydvy8uCxvXc7G1KUjlU_RkMFyHy5L
- LjMwQXNCjymweo0pAaI6Euv8DIq2elYe8EbE4ybddMPABCRNKH81Iy835J2qSnZCQFI7HXsTPXHo
- XhkI4qtsvxH_YvssH0jCVZjy_.eKb2i8eKse1HpdslmRYG3FWb7qMZsTpLOnPDpUO0LWn5hajG37
- O6zoLFvgMfyUGxeCn2_5goi9GlqRTvDu9Z.t8WTqQNHA0tTTz43N2v7QIjwWaHR7BlVbc3eCJxhe
- AF8u8vMgL17NfndsuaOSTDB6nyvo-
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: 77ff1bad-b4a0-4591-b7a2-296957345f37
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic305.consmr.mail.ne1.yahoo.com with HTTP; Wed, 7 Oct 2026 20:45:02 +0000
-Received: by hermes--production-bf1-6d6877594b-7khjh (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID f16f9c62dd119540405e9b85040b9773;
-          Wed, 07 Oct 2026 20:34:42 +0000 (UTC)
-Message-ID: <84fc7483-b22d-45ea-a3b8-3285dc357265@yahoo.com>
-Date: Wed, 7 Oct 2026 22:34:36 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iL2cZUVk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74D721F00893;
+	Wed,  7 Oct 2026 20:45:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791405913;
+	bh=eBnSl7xTJxlcTr2sP/p6Mmh6N18lUIOEQa4wo/jObCM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=iL2cZUVkufzTcdsqa1iBkuJQ8CuE8Vs8/sGwZvuH4ZSGFfCKK5M6vfBVWwLwdzAI5
+	 KqRjTSoDEyjcFAxRScpHW/R8nOFA3jEz5oH7pporvUlfn6m3K/G0vZPp08Q7N6Utm5
+	 szoJG/jdwBlNNp5eegCtZJoPRSjw+nNeWssFw7ZbjrtumFeSYRkKr7fZeS4rGdz0v4
+	 lnZhf1WSSALL1pq9p7ql22Lnh4BwJ0/BqXwZU6YUcJNX0YdrB14UzwYc8laBHXy2by
+	 V51kpO8GRDFn9aHI5UAZiT4EePiQ1XjoFGA2fl/lMpLza3HG6FvFHNf+VjU64l2cWi
+	 B6zVv8uSA4SVw==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 26B58CE1716; Wed,  7 Oct 2026 13:45:13 -0700 (PDT)
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: rcu@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	rostedt@goodmis.org,
+	Longlong Xia <xialonglong@kylinos.cn>,
+	"Paul E . McKenney" <paulmck@kernel.org>
+Subject: [PATCH v2 02/10] rcu: fix shrink budget underflow in lazy_rcu_shrink_scan
+Date: Wed,  7 Oct 2026 13:45:03 -0700
+Message-Id: <20261007204511.1982646-2-paulmck@kernel.org>
+X-Mailer: git-send-email 2.40.1
+In-Reply-To: <df33a614-9c3d-423d-9d31-b1846cb1f1d6@paulmck-laptop>
+References: <df33a614-9c3d-423d-9d31-b1846cb1f1d6@paulmck-laptop>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: pl
-To: linusw@kernel.org, alsi@bang-olufsen.dk, andrew@lunn.ch,
- olteanv@gmail.com, kuba@kernel.org, davem@davemloft.net,
- edumazet@google.com, pabeni@redhat.com, linux@armlinux.org.uk,
- luizluca@gmail.com, maxime.chevallier@bootlin.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-Subject: [PATCH net-next 0/8] net: dsa: realtek: rtl8365mb: add support for
- RTL8367S-VB
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-References: <84fc7483-b22d-45ea-a3b8-3285dc357265.ref@yahoo.com>
-X-Mailer: WebService/1.1.26668 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Transfer-Encoding: 8bit
 
-This series adds support for the RTL8367S-VB (chip ID 0x6642) to the
-rtl8365mb driver. The chip belongs to a new "family D" that differs from
-the existing family C in its VLAN table layout, speed/RGMII configuration
-and SerDes (SDS13) handling.
+From: Longlong Xia <xialonglong@kylinos.cn>
 
-Patch 1 detects the chip and introduces the family D branch.
-Patches 2-4 add port speed, PVID read and RGMII mode configuration.
-Patches 5-6 add VLAN 4k table access and PVID set/clear.
-Patches 7-8 add SDS13 PCS support and re-latching of the SerDes.
+The lazy RCU shrinker decremented sc->nr_to_scan (unsigned long)
+and then tested the result with <= 0.  When a single CPU's lazy
+callback count exceeds the remaining budget, the subtraction wraps
+to a large positive value and the <= 0 comparison, which is
+equivalent to == 0 for an unsigned type, never fires again.  The
+scan loop then iterates through every nocb CPU instead of honouring
+the reclaim budget.
 
-Family C's functional behaviour is unchanged. The only change in a
-shared path is a mutex serializing SerDes register access, added in
-patch 8.
+Accumulate into count and stop once count >= nr_to_scan.
 
-Tested on TP-Link Archer AX55 v1 (RTL8367S-VB, CPU port over HSGMII to ipq5018)
-with bridge VLAN filtering and per-port PVIDs.
+Fixes: c945b4da7a448 ("rcu: Shrinker for lazy rcu")
+Assisted-by: Zcode:GLM-5.2
+Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
+Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
+---
+ kernel/rcu/tree_nocb.h | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-Mieczyslaw Nalewaj (8):
-  net: dsa: realtek: rtl8365mb: detect RTL8367S-VB
-  net: dsa: realtek: rtl8365mb: set speed for family D
-  net: dsa: realtek: rtl8365mb: get pvid for family D
-  net: dsa: realtek: rtl8365mb: set RGMII mode for family D
-  net: dsa: realtek: rtl8365mb: set and get vlan 4k for family D
-  net: dsa: realtek: rtl8365mb: set/clear pvid for family D
-  net: dsa: realtek: rtl8365mb: add family D SDS13 PCS support
-  net: dsa: realtek: rtl8365mb: re-latch the family D SerDes
-
- drivers/net/dsa/realtek/rtl8365mb.h      |  14 +
- drivers/net/dsa/realtek/rtl8365mb_main.c | 545 ++++++++++++++++++++---
- drivers/net/dsa/realtek/rtl8365mb_vlan.c | 304 ++++++++++---
- 3 files changed, 752 insertions(+), 111 deletions(-)
- create mode 100644 drivers/net/dsa/realtek/rtl8365mb.h
-
+diff --git a/kernel/rcu/tree_nocb.h b/kernel/rcu/tree_nocb.h
+index 19bb42672baf8..b6cfee4e50399 100644
+--- a/kernel/rcu/tree_nocb.h
++++ b/kernel/rcu/tree_nocb.h
+@@ -1332,9 +1332,8 @@ lazy_rcu_shrink_scan(struct shrinker *shrink, struct shrink_control *sc)
+ 		rcu_nocb_try_flush_bypass(rdp, jiffies);
+ 		rcu_nocb_unlock_irqrestore(rdp, flags);
+ 		wake_nocb_gp(rdp);
+-		sc->nr_to_scan -= _count;
+ 		count += _count;
+-		if (sc->nr_to_scan <= 0)
++		if (count >= sc->nr_to_scan)
+ 			break;
+ 	}
+ 
 -- 
-2.53.0
+2.40.1
 
