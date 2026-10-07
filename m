@@ -1,114 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D17E305692;
-	Wed,  7 Oct 2026 12:18:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34EFD481673
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 12:19:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791375508; cv=none; b=Udja6wic1AUDJNR9TAWD7zxomqw4bFObPx8icnX4C/5j85pH+UCCVptvdA+8mnlVAX+1RbegvFYx78Lo0DLz+Xrxd/OE3NL4Vx4m/z9eiS1wPSN1sELbglV35poXE/6uuHd2ZqF9TXaJm05/AAhHNwpCBHWkbnG1V1TPvppNq0o=
+	t=1791375605; cv=none; b=DwEVj2TWcE9jof5kO+v2end0A0FRgeIJU4d+8JOC+oSouE2e/bg6mwJqeOvJrFTEiG/37EpCcuqPROkMFDRxQWTfBOu20qbphNw3FPx05gGSv+x2iRdXTqktds3nsqakpIPL9lULwObo03CPzY43T5ZdrhwlrWOYGdyXPluyG3U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791375508; c=relaxed/simple;
-	bh=+vWVYeszz1wK1o8ezDWC6B5I+r/0UmJJAENpW+bVMpk=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=UpNu5GQas7QrhenrabrXO2+al8Fhv9xeusErQHRTrN5RMDGTZWMEnbzTiIbstcTDsOFHvv63BAQnAkfhGoEc9hMj2tb/c367vyx7HvXzW2crySqqKeSnwJXgDidGJwK5Sff+X+GXCqNQn7c523bLMwVw9FIV9GJLHDDU/CiwRjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=euozqhSF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791375605; c=relaxed/simple;
+	bh=HO0LJWosym4H8VYn4T/vc1pik5WpsxqAeFM1v1UkD90=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tDnfBJ5/Wx6GEo0FlkgCbWAIOUKJNH7ePK4Py6Rlyxbf7Y8CcWIh3J7Pzf5qCVd42V357R1ae4bXotDR6fgFX79e/tbv6CkkZiSI3aPavC5T5SR+lojgPNM1FJclbd8U7WZq+tWAECkY8jhTpDQ1jUADgDCRMDmYkY7DrwfPfg8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NDFK1RzY; arc=none smtp.client-ip=209.85.215.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="euozqhSF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3ABFE1F0089B;
-	Wed,  7 Oct 2026 12:18:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791375498;
-	bh=2WgWLAiPotutYayQG3trpdPvMIi0zMN+OiIn2PqYtBg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=euozqhSFQzcWnwMmFjHgWU9CQ0mRmnQ/1D4I+KBxZigk9xnWjARxsK7JZVR2odRko
-	 M7uAKQ+ZnGHyc5Bw3SYbVoM2TV8SA+mrf+7JM0mxUjBwSrHe30dT8j60lFGuKvhbgH
-	 jr+z075r7gGsj1avvxBkbsgCasm59loy0lYr47kiXLPk1EMD2xU2/2psHUTcLA80Y6
-	 tLAdrspaLYKQXCPufkliH2EcXJL45rIGwPAuPpbZne93fbmu3Ez4WwG7bx0fhw5d/X
-	 sO23nTup+cY08SZFL/7Cdf5XhChJ7GZHQSpaluQjJR/rdhlksim5K2/hznwDcX7xu1
-	 O6S7FIGvrY0Jw==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>
-Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Robin Murphy <robin.murphy@arm.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Mostafa Saleh <smostafa@google.com>,
-	Petr Tesarik <ptesarik@suse.com>,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Xu Yilun <yilun.xu@linux.intel.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
-	linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
-	x86@kernel.org
-Subject: Re: [PATCH v6 6/8] dma: swiotlb: Centralize memory-encryption pool
- sizing
-In-Reply-To: <asYZFXGyafRjjBS0@arm.com>
-References: <20260924060756.1325156-1-aneesh.kumar@kernel.org>
- <20260924060756.1325156-7-aneesh.kumar@kernel.org>
- <asVs3doaJ4WrT3M2@willie-the-truck> <asYZFXGyafRjjBS0@arm.com>
-Date: Wed, 07 Oct 2026 17:47:58 +0530
-Message-ID: <yq5atsmx3ds9.fsf@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NDFK1RzY"
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cc147d86bebso1014030a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 05:19:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791375592; x=1791980392; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YJgd37GAAGOynCuOtDFQNEeNDITfTTm77Q1swyZehk0=;
+        b=NDFK1RzYp4xTQxGdSDemhYDx9LD7ExjJ2qvx/Za02IRKz1ejkr6juKYpgH779tNnTD
+         86F1wUEFJIFNINZXGFoFtUVtDlsG5iyogdxvVSjrXc53IEzahQNQGy8JNZ8L5a54fj1a
+         SdEjYPCMaBwUS1376YAkwfN4P5JWJcXN7V2UnL90pcTf7d208NCxg/a18utoEh2gWFml
+         XDOhaTqamZ+sf3yIVlhwpTgka6Tkch+Y/fKCIlLsjiJanxENOaj29jfapnoyfmS7tq5P
+         ojGmRK6DBaxBcpva0F8HVJCRbKqHxVxaBogqNpsf+H0wWhS5jeCca6e0SxbeKAiBOVkn
+         eMeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791375592; x=1791980392;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YJgd37GAAGOynCuOtDFQNEeNDITfTTm77Q1swyZehk0=;
+        b=HPIUKwvyF7A+qvnxmrY92kQDawFaHru3IHX2zjKEJPRfnFKyNvUrOZBzH7FoCnm+yH
+         lEpgQg96W6qKaMeHpdZ9E5fa3KA1sKsWLsZeMG53KWsaaQZagE6tYNjfOh9IeIhskd43
+         WjUv4qm1dcUojVk/2OcV8Vp+eimMAlOZaVeTcLYIH+6ISyG1/lLTCWWryA0kNwsJAv0B
+         SwrT9JzvAovtz8ZuA2hF8RtI/RV8M+EMRQrH8uak+R0k/856KXKFD1Ptsr7Hrrf4ZmJU
+         9ypn+dOecysv0YnAuJu7Qw2qEEZi3xMkZU0cCoBrs879RNWoGjp1UmMgXJfrXyTiTcd/
+         stSA==
+X-Forwarded-Encrypted: i=1; AKwUvBydKN+ZdLLVNUCcbT+FDZIQdT94CfSJZ4sMJokDZ4uSUDBuOkSL+NC1Paw5xkBhT9lHaTLGKwfTjeuQ/tQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLNZTSDGkbUyDGlrnXgeZ/a4EM4czJ8AVZu9HKA4AQZr/Q9XIIy
+	vUUHcbAQKoMm+Pw3yrIZAOPa08N8P8N4+hS0Q6XIHt62CLiq7orAdye1
+X-Gm-Gg: AYBFou2s7qSMt+uYMSu/Dig1vNUuEOYoZLj1e+JcrvBmjnNSCUxstWTFKVvOQwSvfBI
+	S6z9zc2/ewOn0fS6sl81HDa9upbLJO3ngVqNLsj5Np4iuR+dDRWLVMO2wyJ3A/xhN/YeggKJqE5
+	iJTq96ZNBZqSm0Aodj9TRFVFci/3JchniIqn5C76QHdyz3aXeoCWGGx5xXcr9wHlN04SKqO5HBb
+	rBn41SZbMMRRcrjnDs9ne3gt42OyGjuT31yqTFKomnr+O2il/DlLIEeIURNZ8XRpZBHl+nnNvnO
+	HDDyB8Sd9+bVGrcmrZXGelBxcUpiDOs/issXPENjVLGC9ow4YcJfzUpEeLkPevVzXE9S8Y3EEo7
+	C6hlrqN70irIIsRfNFHJGhhr88dDgL99mIraJS5lX0MMJdrb9KpRgEcETxN6itRd9h18Ah2AcIl
+	MtZdtGDubDO6IlSEPwd+x/h7zu+Hz8LQwl8Lh+50TLjxV6UvyvXU326Q==
+X-Received: by 2002:a17:90b:3c85:b0:3a0:f4ee:d2b2 with SMTP id 98e67ed59e1d1-3a8a13e6bd1mr1312260a91.32.1791375591372;
+        Wed, 07 Oct 2026 05:19:51 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1000::8534])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a89d5e19c1sm1888589a91.0.2026.10.07.05.19.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 05:19:50 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Conor Dooley <conor.dooley@microchip.com>,
+	Daire McNamara <daire.mcnamara@microchip.com>,
+	Felix Gu <ustc.gu@gmail.com>,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>
+Subject: [PATCH v2] soc: mpfs: use kref cleanup on probe failure
+Date: Wed,  7 Oct 2026 20:17:43 +0800
+Message-ID: <20261007121743.192486-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-Catalin Marinas <catalin.marinas@arm.com> writes:
+After kref_init(), the device_get_match_data() failure path frees the
+mailbox channel and sys_controller directly, bypassing the matching
+kref_put() for the initial reference.
 
-> On Tue, Oct 06, 2026 at 10:49:17PM +0100, Will Deacon wrote:
->> On Thu, Sep 24, 2026 at 11:37:54AM +0530, Aneesh Kumar K.V (Arm) wrote:
+Use mpfs_sys_controller_put() on this path so that the initial
+reference established by kref_init() is released through the existing
+kref release callback.
 
- [ ... 22 lines skipped ... ] 
+Rename the error label to reflect that cleanup is now performed
+through the kref helper.
 
->
-> That said, such heuristics should have been a separate patch to make it
-> easier to review/drop.
->
+This issue was found by manual code inspection.
 
-I kept them in a single patch to avoid breaking bisection. Otherwise, an
-intermediate commit would allocate a swiotlb bounce buffer for pKVM.
+Fixes: 75ef23397558 ("soc: microchip: mpfs-sys-controller: fix resource leak on probe error")
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+v2:
+  - Add the missing Signed-off-by tag.
+  - Rename out_free_channel to out_put as suggested by Felix.
 
--aneesh
+ drivers/soc/microchip/mpfs-sys-controller.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/soc/microchip/mpfs-sys-controller.c b/drivers/soc/microchip/mpfs-sys-controller.c
+index 0400a01b2338..ef27e1083f0f 100644
+--- a/drivers/soc/microchip/mpfs-sys-controller.c
++++ b/drivers/soc/microchip/mpfs-sys-controller.c
+@@ -159,7 +159,7 @@ static int mpfs_sys_controller_probe(struct platform_device *pdev)
+ 	of_data = (struct mpfs_syscon_config *) device_get_match_data(dev);
+ 	if (!of_data) {
+ 		ret = dev_err_probe(dev, -EINVAL, "Error getting match data\n");
+-		goto out_free_channel;
++		goto out_put;
+ 	}
+ 
+ 	for (i = 0; i < of_data->nb_subdevs; i++) {
+@@ -173,8 +173,9 @@ static int mpfs_sys_controller_probe(struct platform_device *pdev)
+ 
+ 	return 0;
+ 
+-out_free_channel:
+-	mbox_free_channel(sys_controller->chan);
++out_put:
++	mpfs_sys_controller_put(sys_controller);
++	return ret;
+ out_free:
+ 	kfree(sys_controller);
+ 	return ret;
+-- 
+2.43.0
+
