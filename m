@@ -1,166 +1,226 @@
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D0A14D7D37
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 18:03:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A63B3CE4B1
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 18:04:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791396201; cv=none; b=C+K3xE/z8vvW8cW4pKmn8fA+N3TSf/No7JbyGfPkYfDvZTPJ/ceg62tmfQnPdRXU0vLipGK6+njmgPRgu/zhFVXIlOvQlHZibi0vLOtU2SUOvhBdRQWXfh8pEktALTUuztLBTUffE9OVBwUXW00UBiOPhlaRsM3GfytF5Rb2S1k=
+	t=1791396294; cv=none; b=d9mwF8KfHgu8fSW/zab5cPpzbWoMS0g1UV7rQ+Cnx9ICS2CvSM6VvAZb4+LzRAcayGbHNHa/qWM+abcC7X6dTFKvy7wtyxaN0+ugDTcsJcT+AxWH26gcOELrFhYNk/LNgHVkFlXiEKQUAXK9WeOtY3HnWoWBOjaAYbWHsL3BTZ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791396201; c=relaxed/simple;
-	bh=Ltv/RLIwQoMYY8n388CV2rbSvSpwVLlUtRxsUfEVhTk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dajLheYHOPmcRVowRJkSCe7HTClrQ5NVon4CKfpqXEBuwKhze5jrye6D8eDppPUIGpQj6fVO6XdWItVkCGX0o7G1Mp3Zz8fG+45xvwy5XIIUlJRQ8GunGalxWBBM7hxQ3mpr/8qH9jjIBJiA4wtdKeyrqnlA6TTtWhKYD4rJROE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nuro.ai; spf=pass smtp.mailfrom=nuro.ai; dkim=pass (2048-bit key) header.d=nuro.ai header.i=@nuro.ai header.b=agSw48Eo; arc=none smtp.client-ip=74.125.82.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nuro.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nuro.ai
+	s=arc-20240116; t=1791396294; c=relaxed/simple;
+	bh=Ixyh7XRyhmFYgTn02FEN67Vl1z80KRiOpAdNf/DUBjc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Uvkws2IBWIGagwAMNnE2PC7iL6HI0z2vgMKu1suKLZRmxVYsoLH6Nz8vw01HLVQuzUfM5TyrJoBrXRAUBfTw4hmHfCdvFCIrZFV3KDYzW79LcwykAWVMAekRZM+tdA3d8JlVWyv85ji4vT3OYUGjZomeie5xDBHaSmf3cGBK0qM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SzgIWJSP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eZaHuMMJ; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nuro.ai header.i=@nuro.ai header.b="agSw48Eo"
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-15354aa70e8so142460c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 11:03:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SzgIWJSP";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eZaHuMMJ"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697EtT00557541
+	for <linux-kernel@vger.kernel.org>; Wed, 7 Oct 2026 18:04:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	JykGVcXyDXA+2TTRuO2/QCItxRpkTMleFSqXf8Cjqh4=; b=SzgIWJSPJjjem8nE
+	cushvfrvkg22fkrce0c9vfE72gWIUGPdOIWJTPKKxKMcIBBucr2MxZxm1667OsHF
+	YBbItPv71AJx0au1yTR3JPAyG4j2mb9aZ81plf0pCTVykpWFrE3dSqZ5MZl24vul
+	JdPijzTq4P6H5i9a/RF9uo1nTnv2oB7/5CxbhZX5RdgHICjlY9MskRjks/Z/NPcI
+	b4sIlrdd2kxVvPlJuw/FxTeOQ+bly1FuHRhTgaMT849TsCV5m0Ujd9erIi6Sb58B
+	mfxvDzpFx5lHNnJb50slIBd6pV+23qGsBCHoKT9vMMqJ3Tp5YgCVh31nnEQz4hxE
+	eTYXTA==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5gvrtkag-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 18:04:52 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38e54b6556aso4181425a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 11:04:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nuro.ai; s=google; t=1791396199; x=1792000999; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qgm5+nCeTJXdCx0TLpkqzAsPIchFKXrgB4ZQJsFcySE=;
-        b=agSw48EoTLB3BFbR8/BWVUc2YkroUUm6eFvSSB5J/7f7YrMvStz5HeyI7F8y3Yigrh
-         r2Jjhfn7Vz0XEUkTIW1gYEVQ/9C2MlFJ0Lh9biA63mfYm/i3ITJdq9rOxGlNtUBtbqu2
-         v7supWllaRBqroWlBlvliWf8XM1X8gCrm+cKTpZmBHiNpA5h7WTq9g0QmdX5nFbfFi39
-         f95ciZmtCI12b8AkO1saClzN4OBVmLDCV7dqf4lhgFUcjlyJtEMOd4hRZJ/RGtDjluub
-         oR7P3hqpyjL78fKqTbvFjEypJ1aAdL75mkgz3Kje+gi+48oT2CI3oP3yVn/sSa6iDlfh
-         AqWg==
+        d=oss.qualcomm.com; s=google; t=1791396291; x=1792001091; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JykGVcXyDXA+2TTRuO2/QCItxRpkTMleFSqXf8Cjqh4=;
+        b=eZaHuMMJEHHEzntjdYTtwVAaf96+Cff1NM2wTvYyoggo04BVWioY42sM0WE7hk9sxL
+         ORqqtVuW6t+esxDZzqGDASczFvHDpe/CVtC6UoXol2QaqMKmN4MRqm3rfG2htOeFo3yv
+         Ph9TBr12oCVm+FXNr7UiqHmxjGzYfqrVP/Wz8Pvy4BmCvqkttwO9LJIm243cQToXbms5
+         pd3YGQECsOywCn2Z6RL2UKMYxgVpsBGJkXbOOwqGChyNHtS5njAoQs68sI1Z0Gdy8F+F
+         hLQ2gQ+PYbUeBq+CD3/+lwz5LN5xUEiYfbYaHhHaaKj9XLFMGGa4eySN+rrJTX2ZmrJz
+         hZQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791396199; x=1792000999;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791396291; x=1792001091;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qgm5+nCeTJXdCx0TLpkqzAsPIchFKXrgB4ZQJsFcySE=;
-        b=HDHlH2Tc2hh/d71KYOYcRduGV4ZHnAnM3+YKkPZRj3CJdfkbe6Y5trFFRURZb2VOFq
-         PxajDyhzyorQXoJQKOgcGGpsIBjth5Z3MqSQMmQj4PCHfppfYPnfObOjql5MU+4SRCdn
-         g7/Q6nMGxz8kvJw8vfzDeF0lx/AFoHJ21VQdzSlkXMM6GTKDXrhDEN3nm8ENuEZgUUw2
-         GPn6Grbjn8bpGpAacd4ahszhhE5F/5wbiCsJXezTW71cxW0e/ysp/t6kcTGGf4mL9xig
-         C8erv+8bUCi1l7zcci7sUxwbZqGJMDL7mLcMz3nrL2xOd+zB1zgnRhApHkDGyfIQTQI5
-         NJlQ==
-X-Forwarded-Encrypted: i=1; AKwUvByr9IxCpfsTAeAj7pI0hSavVfR5QyKmyAqJdEzfpBj3r83PxGFSnpyCGyXMcSz0SQNJIYasos0cgCQwt2o=@vger.kernel.org
-X-Gm-Message-State: AFuF++nr974NVAKFz0QjvGuOOsDAFr2BbaKbBB11hPJYU1yLIyPJp8Gt
-	qH0VCEDflvyxcso1N9d1nhJM2nqNOOt/sw1qpzhIcc4WMde49Yz9hGuOEsysMW6s4nM=
-X-Gm-Gg: AYBFou3frC+2jGA76+fqS6po10LtI7hmTFE0o+C76G1nIT42LN/8gHQ5VxX/k/hNLJq
-	cau2ikbFyQPLggNF3jNFD6nN+1kVlE+5CMXncS1M96rYxGNCkZYx6fbqQv8UUJ4oiwPj4uopjO5
-	8i4XzSLn/3p2AyVasIbxoUN8YN/FrXD5UCN9wGv9xr0i1VkjK0TjpuOlNRzfTuPQPy1hQd3c+2I
-	OiLko++roIuoRIkUbAzPNyEILpA+p1iK/yxM5W2+NP7YicD3JIJKKvpaI9AFzHfLnuvrZ2UWZB8
-	X6d4MQe4s7w9IWJVRyuo95t2tKLijy0wJYt6c8g4FTTGNH9yjK5iZQfvi12imhf4z6ch947Tn5W
-	oe7ASu0/qaolIKLgkVOby8338C85+457NC9y4vpLngcfzKMw0T5baDh++Hh9g98BaSPrG03YlVG
-	boZcmMxwSPOlqGYGWmQVbH826tu2bpMmn7S7JIPQ6mgefytaaF/nFLQzFJJnLIqarjTU0f6TayQ
-	brZKpVwZik=
-X-Received: by 2002:a05:7023:a56:20b0:148:4522:560c with SMTP id a92af1059eb24-16205bcce04mr3445142c88.11.1791396196809;
-        Wed, 07 Oct 2026 11:03:16 -0700 (PDT)
-Received: from jkain-desktop.corp.nuro.team ([64.124.43.154])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1616602b33asm7842425c88.3.2026.10.07.11.03.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 11:03:16 -0700 (PDT)
-From: Joseph Kain <jkain@nuro.ai>
-To: netdev@vger.kernel.org
-Cc: edumazet@kernel.org,
-	davem@davemloft.net,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	bigeasy@linutronix.de,
-	clrkwllms@kernel.org,
-	rostedt@goodmis.org,
-	linux-rt-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Joseph Kain <jkain@nuro.ai>
-Subject: [PATCH net] net: do not let defer_count outlive an empty defer_list
-Date: Wed,  7 Oct 2026 11:00:56 -0700
-Message-ID: <20261007180056.1394868-1-jkain@nuro.ai>
-X-Mailer: git-send-email 2.55.0
+        bh=JykGVcXyDXA+2TTRuO2/QCItxRpkTMleFSqXf8Cjqh4=;
+        b=16GLf8KCsxWJOnuGTyCMaF9pZ8F4uJlNBwGEVMKxpoYhsGhu5ru/sdVYTScEBomEKZ
+         VMU+iGNPrBTACLVYVeNJJKSYxbp6nDZXLKRmBxUFxH4MT1WcJi34Bvwp+9BK6+uN/l25
+         tc0YjQh8giK4RENDEf04scVB7Qwh4VpnyqaKzOkcXWMhQkcexcBAZ5ptVkGHD6zVcfic
+         VgaV0UCjygowl4CIoKUoVPhm54UjQt6ak+/r8T0U1tZubcejR25ZzdHe6IdFLi1j0Yrc
+         kan+f+GOCSAC86YltTDDo9ZMK66lOzVnr1h53EwxFumuYbACX2IW2oZgNxomalDbB+bF
+         udnA==
+X-Forwarded-Encrypted: i=1; AKwUvBxsyJiIXxa7xDdLX/6vuaKhi4Rm7Soynlagb1L36l2S58JZUbErPy6o4mM2tOdMoN1n9RZDJr4OryIvmb0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK9bDH8jowRaag/TFfmTeJIBPcauREuBUeidfjGzLREnq1o3qPC
+	PgXCElOR3G1Syp7HW7d5arzFzbx3qESFUDa/PkgD8rcdyhhW4+ZVXSqkJrTme3WyWDZe5medURU
+	gPvjByIXNTAZRdRHio9oM54ijzMEujFZjW4LLUB6Q6j/A0wcMK7WgR2tj5WHLkHOBSg0=
+X-Gm-Gg: AYBFou0zDPpm6KcyBmEWmpoaABv+QMzxoscRcJNoWZEqwXPUsFLgbnd5Eyupxd5h41t
+	A1jatNsIDe80OadBKLyZhmORJ4xo39fl0kGh9Y1QUZdpzsySKdR/2LdrJ7TLOXWL9oAJaeMWFla
+	J2EowfhSsHA2vhpuVit2hXqGXtOqiMnBrX2pPX3pDwf10rOYOgHs9cErE3d5++sKeiMoI6lmGei
+	7Y9p39FDU5SR5Mf+mdF7BU7JJlAUJ23tXTYIWqS7XN0VSQ92kdqQ1IWjSARIcDcyedjGvI/P78q
+	no/r9I/KAn5/0SzI1nYv5iLZkbuvpjXuWk8SEB0eIs3XiqHv+HQq4C6OLVPLqcKajKq/eeSXD0V
+	8K8NXlYTs2sEnT1VFrF6tFt9Dn8ng
+X-Received: by 2002:a17:90b:57ce:b0:3a4:fa1a:2b1d with SMTP id 98e67ed59e1d1-3a8a1c3ac39mr2378603a91.62.1791396290997;
+        Wed, 07 Oct 2026 11:04:50 -0700 (PDT)
+X-Received: by 2002:a17:90b:57ce:b0:3a4:fa1a:2b1d with SMTP id 98e67ed59e1d1-3a8a1c3ac39mr2378577a91.62.1791396290508;
+        Wed, 07 Oct 2026 11:04:50 -0700 (PDT)
+Received: from [192.168.1.12] ([223.230.93.214])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9f1a2508csm605492a91.3.2026.10.07.11.04.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 07 Oct 2026 11:04:49 -0700 (PDT)
+Message-ID: <a166844a-ba68-46b2-b37b-111ce54dbba3@oss.qualcomm.com>
+Date: Wed, 7 Oct 2026 23:34:37 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 09/21] ASoC: apple: Add macaudio machine driver
+To: James Calligeros <jcalligeros99@gmail.com>,
+        David Rhodes <david.rhodes@cirrus.com>,
+        Richard Fitzgerald <rf@opensource.cirrus.com>,
+        =?UTF-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>,
+        Matthias Brugger <matthias.bgg@gmail.com>,
+        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+        Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+        Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
+        Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+        Neal Gompa <neal@gompa.dev>, ajay.nandam@oss.qualcomm.com
+Cc: asahi@lists.linux.dev, linux-sound@vger.kernel.org,
+        patches@opensource.cirrus.com, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-mediatek@lists.infradead.org, Hector Martin <marcan@marcan.st>,
+        Sasha Finkelstein <k@chaosmail.tech>
+References: <20261004-macaudio-v2-0-7b47ed6335a8@gmail.com>
+ <20261004-macaudio-v2-9-7b47ed6335a8@gmail.com>
+Content-Language: en-US
+From: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+In-Reply-To: <20261004-macaudio-v2-9-7b47ed6335a8@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=W66txhWk c=1 sm=1 tr=0 ts=6ac689c4 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ZXy6yrx+fn+bJIgs5eQ1WQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=NwbpVL58AAAA:8 a=dOLNmq4gAAAA:8 a=pGLkceISAAAA:8 a=291MuZCLWqhcjKYDPAcA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22
+ a=tNWvAHffTtQgx3ZTRG8Q:22 a=_m6CO-mWuQdSFutSHjXj:22
+X-Proofpoint-ORIG-GUID: gTGOfTwl8snfF7M10IipXeP79aFO2MMp
+X-Proofpoint-GUID: gTGOfTwl8snfF7M10IipXeP79aFO2MMp
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDA3MiBTYWx0ZWRfX3kPS4De3Wrqg
+ xzRc4klJy4QwGB0DPVrKg1LgVD8PsOmpAoiMSW0uj6YR1xsG9YuJT8tJIZuV4V6ITWdtcOw/iB1
+ 1Mam+0nuXePa9EnagpwUKrEMmyrKgHxDxpSe1YAtE0Xamk2VE9Sbb5m0hCHPIX9SQItHa+MtljO
+ OOA6l2zQFwbPqmyQvytr4CldB+l0IbZsGrjwO7kpxRqYBrANzlHUAXRohVS0CdyT4zHRuQux6JH
+ LjKKqtjHgXSpzI/+0GECsIoVUeeAGsYN0UEtWU8z5v8v5jkikof+o41wkAEOAhlz90pbcUrnH5V
+ DPLr4eeAMqqEgSNcr4tkuMO+c1yqx/HLjqXSn7cl1/BPtCacZAeZIU+ZxS6OSxXYuWLmi35dkLi
+ d0ezcg1jIjSW0uWxK/4l2/eFvQStiAofHWY4GYbdxjXU12N2oXY8tR1XYLY7qOvTMpHggHJGze+
+ LdCJ2DweU3CS8/XDkKg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDA3MiBTYWx0ZWRfX7BoXcowDuW92
+ 6M9fZtbhXTD1EiH4BgoahvoSGHGMuS9Kh8niHHNt5i9yhwAldFFsxmX+gjiXVZM/TOq5m/h3C8e
+ Of1Hhjvmw1dFJTXHXaLNBd9wDTybGQg=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-07_05,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 phishscore=0 spamscore=0 bulkscore=0 clxscore=1015
+ malwarescore=0 impostorscore=0 suspectscore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070072
 
-__skb_defer_free_flush() can leave defer_count at or above skb_defer_max
-with an empty defer_list. That state is absorbing: every producer then
-takes the nodefer path without queueing, so the list never refills, and
-the flush keeps returning early without clearing. Deferred freeing stays
-off for that (cpu, node) until reboot, and cross-CPU frees fall back to
-the page allocator, which is the contention deferral exists to avoid.
 
-Two changes from commit 844c9db7f7f5 ("net: use llist for sd->defer_list")
-combine to produce it.
 
-skb_attempt_defer_free() now increments before testing the limit and does
-not undo the increment when it rejects, so a rejected free leaves the
-counter raised with nothing queued.
+On 10/4/2026 11:33 AM, James Calligeros wrote:
+> From: Martin Povišer <povik+lin@cutebit.org>
+> 
+> Apple Silicon Macs have a complex audio subsystem consisting
+> of an I2S peripheral (MCA) and multiple codecs of various
+> models and capabilities. Some machines have a basic mono
+> speaker with hardware downmix, while others have a very
+> intricate stereo system consisting of multiple codecs and
+> drivers per L/R channel. Some machines report voice coil
+> voltage and current information back to the SoC, and others
+> do not. All machines have a headset jack.
+> 
+> Add an ASoC machine driver for this platform.
+> 
+> To express all of this sanely, we initialise the correct
+> combinations of codecs/I2S ports as DAI backends and link
+> them to a synthetic frontend. Each frontend is linked to
+> a PCM, one for the headset codec and one for the speaker
+> system on the target machine.
+> 
+> Signed-off-by: Martin Povišer <povik+lin@cutebit.org>
+> Co-developed-by: Hector Martin <marcan@marcan.st>
+> Signed-off-by: Hector Martin <marcan@marcan.st>
+> Co-developed-by: Janne Grunau <j@jannau.net>
+> Signed-off-by: Janne Grunau <j@jannau.net>
+> Co-developed-by: Sasha Finkelstein <fnkl.kernel@gmail.com>
+> Signed-off-by: Sasha Finkelstein <fnkl.kernel@gmail.com>
+> Co-developed-by: James Calligeros <jcalligeros99@gmail.com>
+> Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
+> ---
+>   sound/soc/apple/Kconfig    |   18 +
+>   sound/soc/apple/Makefile   |    4 +
+>   sound/soc/apple/macaudio.c | 1699 +++++++++++++++++++++++++
+>   3 files changed, 1721 insertions(+)
+> 
 
-The flush clears defer_count before llist_del_all() rather than together
-with it under defer_lock as it did before. A remote producer that queues
-between the two has its skb drained by that same llist_del_all() but its
-increment retained, so the counter drifts upward until it reaches the
-limit.
+> +
+> +static int macaudio_be_trigger(struct snd_pcm_substream *substream, int cmd)
+> +{
+> +	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
+> +	struct macaudio_snd_data *ma = snd_soc_card_get_drvdata(rtd->card);
+> +	struct macaudio_link_props *props = &ma->link_props[rtd->dai_link->id];
+> +
+> +	guard(mutex)(&ma->be_link_mutex);
+> +
 
-Neither needs PREEMPT_RT. The drift needs no preemption at all: the
-flush normally runs in NAPI poll on the CPU that owns the list, while
-skb_attempt_defer_free() only ever defers to a remote CPU, so producers
-cannot be excluded by disabling preemption on the flusher. PREEMPT_RT
-only widens the window, because local_bh_disable() does not disable
-preemption, so the flusher can be scheduled out between the clear and
-the drain.
+This is in the DAI link `.trigger` callback, but I don't see the
+macaudio links being marked `.nonatomic = 1`.
 
-The latch is also reachable with no race at all:
+The default PCM trigger path can run with the stream lock held and IRQs
+disabled, so taking a normal mutex here can sleep in atomic context. If
+this state really needs a sleeping lock, should the affected links be
+marked nonatomic, or should the trigger path avoid the mutex?
 
-  sysctl -w net.core.skb_defer_max=1    # frees increment, then reject
-  sysctl -w net.core.skb_defer_max=128  # does not recover
-
-skb_defer_max has .extra1 = SYSCTL_ZERO and no .extra2, so 1 is settable.
-0 is safe, because proc_do_skb_defer_max() flips skb_defer_disable_key
-and the producer returns before incrementing, but that guard covers 0
-only. Recovering from the latched state needs a skb_defer_max above the
-accumulated count, which an operator has no way to determine.
-
-Drain before clearing, so the error can only under-read, is bounded by
-the producers in flight, and self-heals on the next flush. Clear the
-counter on the empty-list path as well, so no count can outlive an empty
-list and an already-stranded counter recovers.
-
-llist_empty() has already loaded that cache line, so the added read is
-free; the unlikely() keeps the store off the hot path, where it would
-otherwise bounce the line against remote producers.
-
-Found on an arm64 PREEMPT_RT system running the two commits backported to
-6.1. With skb_defer_max lowered, defer_count reached 788,888 on one host
-and 122,399 on another with the list empty throughout, and restoring the
-default did not re-enable deferral.
-
-Fixes: 844c9db7f7f5 ("net: use llist for sd->defer_list")
-Signed-off-by: Joseph Kain <jkain@nuro.ai>
----
- net/core/dev.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/net/core/dev.c b/net/core/dev.c
-index 18dc88990510..043a7f9166a9 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -6938,10 +6938,13 @@ static void __skb_defer_free_flush(struct skb_defer_node *sdn, int budget)
- 	struct llist_node *free_list;
- 	struct sk_buff *skb, *next;
- 
--	if (llist_empty(&sdn->defer_list))
-+	if (llist_empty(&sdn->defer_list)) {
-+		if (unlikely(atomic_long_read(&sdn->defer_count)))
-+			atomic_long_set(&sdn->defer_count, 0);
- 		return;
--	atomic_long_set(&sdn->defer_count, 0);
-+	}
- 	free_list = llist_del_all(&sdn->defer_list);
-+	atomic_long_set(&sdn->defer_count, 0);
- 
- 	llist_for_each_entry_safe(skb, next, free_list, ll_node) {
- 		prefetch(next);
--- 
-2.55.0
-
+> +	if (props->is_speakers && substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+> +		switch (cmd) {
+> +		case SNDRV_PCM_TRIGGER_START:
+> +		case SNDRV_PCM_TRIGGER_RESUME:
+> +		case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+> +			ma->bes_active |= BIT(rtd->dai_link->id);
+> +			break;
+> +		case SNDRV_PCM_TRIGGER_SUSPEND:
+> +		case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+> +		case SNDRV_PCM_TRIGGER_STOP:
+> +			ma->bes_active &= ~BIT(rtd->dai_link->id);
+> +			break;
+> +		default:
+> +			return -EINVAL;
+> +		}
+> +
+> +		schedule_work(&ma->lock_update_work);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
