@@ -1,99 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 001E0480331;
-	Wed,  7 Oct 2026 14:19:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69F5949B5A2
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 14:20:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791382750; cv=none; b=AdAbU4xd9CUcsxDhk/C53vGZqbGh982NjVki2KFg5AQmO7bsjm6nLSrZpvxNbAe/zIMtvldJXnbeggOOHQ/YXnYuzutiP46xClqRZzvH6QeKjUbq1BtFPz0UKYLAGzSHXwal3/TJnXC4/sca169fji5J+PlpAoi+N9jH4nJ7inA=
+	t=1791382814; cv=none; b=gV1DHGROx+5rAVHlvINm8n01ysghm08MG3XfyS4z5rhogFL8/A/BPy1czOP6UxpNFZPgz4o31rEoMRk+Ye93mbTkx46Dy36/b8+KZBcQgKehk2yKXlE+tfVF19PolY8SEViTDUEybP1m+iG7oXeaNhkawKLAehHcjQHH4Dar1R8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791382750; c=relaxed/simple;
-	bh=hwccp9lknY33tQPANQfx5TJJ57/QY3qWuFwvTxcy+5A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YMjwkDlm6GOwxp+Vl1VTj4P2jYo8vl0FBTTI83+YlARHPASe4vv+wi6+GMqxkqm53fEkClPWHzMiBp15Owcp0F78X71r+ACHAQ8jq5PqU+NwyoDbfKAo8jojrTOY8igDyZCZhS9W8hmlrGmRlug1jdz4pDVSMk4uNLbvsh0Bw20=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gk4XJlTj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791382814; c=relaxed/simple;
+	bh=FevSWJK9Syzx7poqCu6O++DrbI/Qs1QWh0ohA5zPVrk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=H6G5wNCgUihyrlZ8spwjKjlNqSY57HsKslFNqCoMdCAutWCQoZNnY4cJQ99hLnevNCeiiUSBIwmvRfHLX0xnL6gvMVUdb0EudYTp4BYz+Gr0Pdz9HjiL/mnnGaSw8giGqTEdvvS1w2zszipEVgzOnr+5V6vCA/+AVAC5x3BOSio=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=smartx.com; spf=none smtp.mailfrom=smartx.com; dkim=pass (2048-bit key) header.d=smartx-com.20251104.gappssmtp.com header.i=@smartx-com.20251104.gappssmtp.com header.b=ilN8Kdbo; arc=none smtp.client-ip=74.125.82.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=smartx.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=smartx.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gk4XJlTj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 831641F0089B;
-	Wed,  7 Oct 2026 14:19:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791382744;
-	bh=9E5douEvnl79iHjWkyFm82J2TQ2sXA9KpzAuoqF4t4M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gk4XJlTjQoSq2o6hSxLhwTu84JOe9R3yg1stHfUIJNJs/ZoJOFA12d714OGlTfGJT
-	 DbsyPQWsprKRYM4S1xW10HiR8XUmxWsxjz5fOwDxgDD/M/RiuyHcTqIWwPA5cA9TAN
-	 kgSlr3kASKMNNPzfDHSqn9qAp8QbUqYJ4joEbzZD/9Cryt+gqfCSDB8ex7J54r9F0T
-	 3NrXBEf3rSYAs0DdccebCaBy/hFuP2drjuWD9Y4bqtdIOE9pXE0RF4HV8f1W+wJoYl
-	 R9yIpzNuPeQlUQXHHKX76UnsroY6SyEVWpSzqEzOXWYTWLel1DB3FoCMumRMMJmPOB
-	 TbposgSKGkAhA==
-Date: Wed, 7 Oct 2026 15:18:59 +0100
-From: Will Deacon <will@kernel.org>
-To: Bui Duc Phuc <phucduc.bui@gmail.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, linux-perf-users@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] perf/arm-smmuv3: Propagate errors from optional IRQ
- lookup
-Message-ID: <asZU0waS4-lKy8uQ@willie-the-truck>
-References: <20260811041934.7609-1-phucduc.bui@gmail.com>
- <ar_fLAeFU4rmrwiH@willie-the-truck>
- <CAABR9nGqwTGcrr6bKsV5+0GYwkQoP0s_Tu6aTJrhJJW_ZRqFYg@mail.gmail.com>
- <asCyI2_CNSoDJy1w@willie-the-truck>
- <CAABR9nH3pkFB-htyrD-Z+iBBcYoVX4Z-hFa_binWCXg9_cHU6A@mail.gmail.com>
- <asISGdljsG86gUwb@willie-the-truck>
- <CAABR9nFMR+D0j5kYR+HwLBOHG4WF7PUDrqjE4Bt0-VTUacxmBg@mail.gmail.com>
- <asJlxV06xzDIgqW4@willie-the-truck>
- <CAABR9nFz65Yt-SeHAx-Gxe18c4i3Sb3b_H-zsr7d+wwK5gB=CQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=smartx-com.20251104.gappssmtp.com header.i=@smartx-com.20251104.gappssmtp.com header.b="ilN8Kdbo"
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-15168a20b47so1254510c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 07:20:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=smartx-com.20251104.gappssmtp.com; s=20251104; t=1791382807; x=1791987607; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zYps3KCVttLwho8YDfSTZ1UrhVzt/fY82tJd2iDL6Fg=;
+        b=ilN8Kdbo9lZiKwnx0qCpvZOE22igOLw+73h+s8+/3PEGhF9Oa1YBOYcRvSngUPsSfn
+         V4N/8U9vkG6n2u/QoOauG5mzuUkL+YUMxxdshG3K52WBwVV8E5mO1oXWO3Putiy7FJzt
+         Xe+C1/MIq/HOp/sD2T0ErMHiwQRGqzniClPBvkqhIG6UkFF60T4Zad4fSPnfnXTadcem
+         cBrkgW9WxKFbQoqWBCFM+XIgQxjhplQJrXKT+dQW4820VtQSZjb4A1c4g6bJ7MtIKKi9
+         yILrEBo4kAQIX8mz3Typ+a8j1NqhjFXqyfwLK5/rd5R9OGHGBeI8DwsVJ17t/ItQ8+Kf
+         PERw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791382807; x=1791987607;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zYps3KCVttLwho8YDfSTZ1UrhVzt/fY82tJd2iDL6Fg=;
+        b=YOThloGPPe8R9b/XXUaIysqzGVdgzc6vJ8lkshLg0ooNtGjqr+2cv5Yh61OfRFdqGR
+         WyUHRWDkmCarazVMnLiqfivoljwkex/Xly+dQxH2FAr85vHrvA/tSz5/qxKv7KdbROpr
+         XEcKZV70jkr4NCixnxVl3iZIbs7ywFkl1HJV7h7R2zlWU0K7+hPvkIrMNr3S+9V57Ddh
+         GQJWLhu7TcVTaT/c/VKi7YZ/+Yl8pJ2j4vNidIIqpIf4VyqFKvTlOUa121WU/xpmVtAP
+         63pvVe9hQKy/5vdHiEHv54iDiAuSWqfnTywL5lQvuFmTRwoy4NxJa1rp54ZC76SGh/jy
+         UIgw==
+X-Forwarded-Encrypted: i=1; AKwUvBxMDGOT5gwZm2ckRYwAGrndAheoY8iRlERWTm/nDVajAVuBya3fsaUtqSqvjS4QIGr9qk3X2wBy7iGUnDU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mOR0Okm5cljtqU0VJKuy56UYgJU5GaHj8rs/lXYt0GWdzM4Iyh
+	hZKQZmqdm9HAMyZJPEphCL0Zz7aeLOxyRiJKmLvKDa/PKZxLZeKP4W8Gprtx5lvOzvOavMaJbh6
+	h4HNtth7wsjNzG3+E3iz2xcx18q7eZT34RaeVg726vd9sYovjVhbutQm7C0Y=
+X-Gm-Gg: AYBFou36RmgVs6Wg6/QcWcrxFpnfv9HGQvcP9ktheiSl/G5X45vixN/MbyopHA3qUsJ
+	LO6Ljt7SCEtnsXMv7riEi5Hy9RJSgKbV2i1u2f8l0FQIGicxFRoGbV680qtFqMm984tWyL9fTLT
+	Yn26f3Xhw1ML0w8FB0vrqN/JfBvWRcVXqLEWgH2zu7MHYrSAySddlToa9NCx/mnT7SW3fnxUXkz
+	vpGN7w1U440ecEmU5oVtHQRMxG4PDzvmaS/Bu1bg4jw+dqDpBODJ5mRZmAMMqsrx5Y/B+Kxa2L/
+	cai1VDTKkDgScAuQ5QM/9OP54My2jXUZ+3tZbIsISzlaD87MhmSo+3oeuC1xB7HtKVrzKATCOoE
+	DgUqQmhCMSWC1aECk6SV6oPDuX1cqGjsVnbq2dMvXrO8zAYm8PC5V/t+6c1kpDLu66pncdS76bj
+	UyzYSrQnkAyMnNhJSnvaEIYRgOeBSahh+xUu5LfqqHNASouh0TFd3s2OCZIwvLd5uJqbSVuVcC2
+	YZTkukQiKFj1n7XuEn1RQ==
+X-Received: by 2002:a05:7023:a82:b0:146:85b9:970b with SMTP id a92af1059eb24-162079a691fmr2590983c88.39.1791382807133;
+        Wed, 07 Oct 2026 07:20:07 -0700 (PDT)
+Received: from localhost.localdomain ([23.148.204.128])
+        by smtp.googlemail.com with ESMTPSA id a92af1059eb24-16375a1f898sm3506357c88.0.2026.10.07.07.19.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 07:19:56 -0700 (PDT)
+From: Lei Chen <lei.chen@smartx.com>
+To: sathya.prakash@broadcom.com,
+	sreekanth.reddy@broadcom.com,
+	suganath-prabu.subramani@broadcom.com,
+	ranjan.kumar@broadcom.com
+Cc: James.Bottomley@HansenPartnership.com,
+	mkp@kernel.org,
+	MPT-FusionLinux.pdl@broadcom.com,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lei.chen@smartx.com
+Subject: [PATCH] scsi: mpt3sas: Fix debugfs setup error handling
+Date: Wed,  7 Oct 2026 22:19:51 +0800
+Message-ID: <20261007141951.417155-1-lei.chen@smartx.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAABR9nFz65Yt-SeHAx-Gxe18c4i3Sb3b_H-zsr7d+wwK5gB=CQ@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 05, 2026 at 03:02:29PM +0700, Bui Duc Phuc wrote:
-> > > > Sorry, but how is failing the probe possibly better than continuing without
-> > > > the optional interrupt? Add a diagnostic if you like, but aborting the probe
-> > > > feels completely unnecessary to me.
-> > > >
-> > >
-> > > My understanding is that the driver is designed to be generic and
-> > > support various hardware configurations, some with this resource (IRQ,
-> > > GPIO, clock, ...) and some without.
-> > >
-> > > If a configuration describes the resource, it means the board is
-> > > designed to use it. For that hardware the "optional" nature of the
-> > > driver no longer applies, so if we fail to get the resource the error
-> > > should be returned.
-> > >
-> > > A log alone is easy to miss, and the root cause still has to be found
-> > > and fixed later anyway. Failing the probe makes the problem visible
-> > > right away, when the board is being brought up.
-> >
-> > If you're doing bring-up, you should probably pay attention to the logs.
-> 
-> OK. Then we should probably write it as:
-> -------------------------------------------------------------------------
-> irq = platform_get_irq_optional(pdev, 0);
-> if (irq < 0 && irq != -ENXIO)
->         return dev_err_probe(pdev, irq, "failed to get irq\n");
+debugfs_create_dir() and debugfs_create_file() return error pointers on
+failure, but mpt3sas_setup_debugfs() only checks for NULL. As a result,
+setup continues after directory creation fails, and a failure to create
+ioc_dump leaves the per-adapter directory behind and still allows setup
+of host_recovery to proceed.
 
-Won't this bail on errors != ENXIO and != EPROBE_DEFER? I think we should
-only bail on EPROBE_DEFER. That's also more robust to changes in the error
-codes that platform_get_irq_optional() can return.
+Skip per-adapter setup if the driver debugfs root is unavailable, and
+use IS_ERR_OR_NULL() to check directory and file creation results so
+that the existing error paths also handle error pointers.
 
-> -------------------------------------------------------------------------
-> 
-> > If you're trying to use the device, you probably don't care about the
-> > interrupt.
-> 
-> If we're worried about returning an error here because it might cause
-> the device probe to fail, then shouldn't we hide errors from all
-> the other functions in probe() as well? :-)
+With the corrected error check, file creation failure removes the
+per-adapter directory. Clear the stored directory pointer as well so
+teardown does not attempt to remove the freed dentry again.
 
-Not really. Only the irq is optional; we really can't continue if something
-like ioremap() fails.
+Fixes: 2b01b293f359 ("scsi: mpt3sas: Capture IOC data for debugging purposes")
+Signed-off-by: Lei Chen <lei.chen@smartx.com>
+---
+ drivers/scsi/mpt3sas/mpt3sas_debugfs.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-Will
+diff --git a/drivers/scsi/mpt3sas/mpt3sas_debugfs.c b/drivers/scsi/mpt3sas/mpt3sas_debugfs.c
+index 183391f6b8d1..edaeccf538f4 100644
+--- a/drivers/scsi/mpt3sas/mpt3sas_debugfs.c
++++ b/drivers/scsi/mpt3sas/mpt3sas_debugfs.c
+@@ -120,11 +120,14 @@ mpt3sas_setup_debugfs(struct MPT3SAS_ADAPTER *ioc)
+ {
+ 	char name[64];
+ 
++	if (IS_ERR_OR_NULL(mpt3sas_debugfs_root))
++		return;
++
+ 	snprintf(name, sizeof(name), "scsi_host%d", ioc->shost->host_no);
+ 	if (!ioc->debugfs_root) {
+ 		ioc->debugfs_root =
+ 		    debugfs_create_dir(name, mpt3sas_debugfs_root);
+-		if (!ioc->debugfs_root) {
++		if (IS_ERR_OR_NULL(ioc->debugfs_root)) {
+ 			dev_err(&ioc->pdev->dev,
+ 			    "Cannot create per adapter debugfs directory\n");
+ 			return;
+@@ -134,10 +137,11 @@ mpt3sas_setup_debugfs(struct MPT3SAS_ADAPTER *ioc)
+ 	snprintf(name, sizeof(name), "ioc_dump");
+ 	ioc->ioc_dump =	debugfs_create_file(name, 0444,
+ 	    ioc->debugfs_root, ioc, &mpt3sas_debugfs_iocdump_fops);
+-	if (!ioc->ioc_dump) {
++	if (IS_ERR_OR_NULL(ioc->ioc_dump)) {
+ 		dev_err(&ioc->pdev->dev,
+ 		    "Cannot create ioc_dump debugfs file\n");
+ 		debugfs_remove(ioc->debugfs_root);
++		ioc->debugfs_root = NULL;
+ 		return;
+ 	}
+ 
+-- 
+2.43.0
+
