@@ -1,327 +1,151 @@
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FBF037F01C
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 06:02:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7F98360745;
+	Wed,  7 Oct 2026 06:03:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791352933; cv=none; b=DXmf/I5x8W98KFuAR9SS7qPi6W6T6HIzBAwdnH3M4XvLUbYiXeDAKAjAP4DHIFI/sP2+N/kTuHW8x0Jy40hsXsqbTukWAcNLS2zSth5OkMje32yT0Q2+bl288GvAm1+6m13cExS0at4jOYIVgtO2UhDxiDV2x3/COa9L1Q2Bj0c=
+	t=1791352984; cv=none; b=pvqjT6aPFgJEcbmiNRXPfCVHDHqCKF1syjFzqUay9kMcI41WEbgkyNi7jEs5yCiVNGcDLFHRKuZ0oGZWXqrGSalE3RRuCLj3olb4u/WkIHhZc+SN+n0wttDSRhx6ylxcRNPBT71I3p4Sfp9HTRNFD8yghJXtTG1/z4v5ssu5690=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791352933; c=relaxed/simple;
-	bh=rQfaCbBZLe4g1iOwgkblh3H4rtlzI9x5A6MeoY1dh5o=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=se3f1SV/sKlrOWe6RK9xqNvVi1FCdYhlRnTZDX2yoehP1V9Q9GQ1ie5IzojQxNqxVg151ybucGy+JCYnnw5uoVw4ov6FMv3bmnU+6jAp+t9mRVXBMTTxDJkX2U+NUlChbgoomhx+k3apC5b3sb5eDiLlhQXA1X5mMudU5hz0YBM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=XAv0bhof; arc=none smtp.client-ip=209.85.208.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	s=arc-20240116; t=1791352984; c=relaxed/simple;
+	bh=Twd4QPSMnhEAZ6eNYHQPUdwe08ccOUjpfOhnOIWIgcQ=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 References:In-Reply-To; b=IWxLMsTsRZVjDsIdOLdBAiAN0OY/kzXATeq2kxNoRFfmR8+KZx8dFb3NtgGjl8Q+Za2NxNkaGqTJvTGRIxDjTcPKTt0djM1gZYmPjlyOe0wBjON86BPtxgZbsLx218c5lEq6sD9i8BXzqWBaeIS/gePuQcPhzdjTHExqW7LpRgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=ec0v8xVG; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="XAv0bhof"
-Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-6aa82371cb7so4677957a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 23:02:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791352928; x=1791957728; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cXKngLXqd7wBtEapgw6gle8hlEt27JPb69mdqcAv6zU=;
-        b=XAv0bhof8aafa2NHQKEKFrJ+RAqiaQXS15+OOVtd/tRK82bkVL7E2iba8t2MBOiOLE
-         MqizSu2iU1PmSWyrtdzU6fAkn+gw1fOEB6PO1ZFugmJvWmCezPTDy+20MPsfk6FeT7rg
-         wO36VaBMOqsALRThmgjKMa8gvLu6KHYToXC1V8Rw1eVL/LNVYdbB7xc+CCVMi6SWFB+i
-         ShdoS3JZW3DTMSb2gjCWK5ZJEThzQ6Jsv3u+E/gaXDljGaYHpvhKApLKEFMHjGmmDvZS
-         /No15cajAXuFwYUtXddhAJHJM4pXQ/3hgb6F8eMOyJoOeZXABpLIJ4fGTdVh3rzfdzLE
-         N/lQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791352928; x=1791957728;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cXKngLXqd7wBtEapgw6gle8hlEt27JPb69mdqcAv6zU=;
-        b=ENbDSOdCEbvvvehdO5lLeuf69ELFFz3nBZAob63BtCflCw+veRlSwm7tOgzdLKvSvi
-         di41CP3c7yU70epH9jfRaqztCkM/T82a3ow6IpF6x+RhDsznrEYuQ/JYK9vTpvAz4Ct1
-         YE/tJrk4XZyVpHAvy0ey4i/4ZOs2OGi3tFMJDlq+77IQmNF6XK5DlwZe3ZbfQfNnwG/3
-         xZpnd68jFb00JAtub3x7QwuzUDx9P4i+ZHRcHKbfOGU0SUkF2ti7K1PwkSsIfunhD/oB
-         2RDECY36UZsj4Ji7qXSH2UqKkVY6NyTsqTH4V3Ue+snB64+7O6A1a8kGPu3F6qIGh0rY
-         Bm6w==
-X-Forwarded-Encrypted: i=1; AKwUvBx2SLBU3HjVXnVkJNw4lBCxacZbkw5chy1xmJnWPqaIGsIn6ZFM2w+vfCPS6474VbZzFK0T5vevTSIFLHA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLp41qkQQYPnzFrYkcK5IbHs57JPbxV3OTBl5t2QEHCtkNJ+o7w
-	zRHRBOahe2NTae6QvrDAXVuEn6A9yedMOgaRSR/24pNr4fkaMla9UNZ5WcAuNNLGlQMe2w/ji5x
-	PBDu2drz6driUHzDKJg==
-X-Received: from edfh25-n1.prod.google.com ([2002:a05:6402:a299:10b0:6af:f782:bcdf])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6402:2348:b0:6ac:b861:dab3 with SMTP id 4fb4d7f45d1cf-6aff47d68b6mr1042163a12.39.1791352928116;
- Tue, 06 Oct 2026 23:02:08 -0700 (PDT)
-Date: Wed, 07 Oct 2026 06:01:58 +0000
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ec0v8xVG"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6974aM8I1409150;
+	Wed, 7 Oct 2026 06:03:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=I5jlJn
+	E0No2ZIr3sR2xudJs8qzwwleE6Sl8rMLfLRW4=; b=ec0v8xVG7Wzn5XnpDGaDJ5
+	BkLmhpEg9Dp/ZOQFmGkKihJibmKunuiNmQr0QJ877JnHdnqk1zDHVhFfHpNhB31x
+	t9HqvsIqqPD1l0GUhsIVsJzYCA3T5e2TDW7Q2gZD5pdyv6ABCdo/akY4QxzC5B30
+	a9yhThvtmaQfu2nHyJmVw6WbxHkmbTVW8dS2MX1lte68Fo5hENJXq/Qgz6fMFGe8
+	1WwyCDtOsPoftJpz6y71pWkAA5SqX48+4wHwhNMR82Vyuh9sQeVXRTfbNDIqju89
+	aYu66r4Q44dTteeYTGsjHPI5kUIVogfduYGn6AH6+V9Putm7jwOMBbi9IQjaLVeQ
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2q4juat0-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 07 Oct 2026 06:03:02 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6974WZVJ100192;
+	Wed, 7 Oct 2026 06:03:01 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h5f3tr8s5-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 07 Oct 2026 06:03:01 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69762vME52560228
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 7 Oct 2026 06:02:58 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id E338A20043;
+	Wed,  7 Oct 2026 06:02:57 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 5A72E20040;
+	Wed,  7 Oct 2026 06:02:57 +0000 (GMT)
+Received: from localhost (unknown [9.111.168.1])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed,  7 Oct 2026 06:02:57 +0000 (GMT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAFXgxWoC/x3MwQqDMAyA4VeRnE1Jg2vBVxkerGYaBHWpjA3x3
- Vc8fof/PyGLqWRoqxNMPpp1Wwt8XcEw9+skqGMxMHHwRAHV3hiRMfXDsm92oPcxRWqaRA+Gku0 mL/3eyydEx+4H3XX9AX6Z/AhpAAAA
-X-Change-Id: 20261006-irq-7-2-backport-117b7044b052
-X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
-X-Developer-Signature: v=1; a=openpgp-sha256; l=11005; i=aliceryhl@google.com;
- h=from:subject:message-id; bh=rQfaCbBZLe4g1iOwgkblh3H4rtlzI9x5A6MeoY1dh5o=;
- b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBqxeBZelHrU8v5IqHLX+XnQ8LTujjZjPuKceE5C
- 5bXZMrWvLCJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCasXgWQAKCRAEWL7uWMY5
- RlmOD/sEQSWFAFRJsCQkyxoBeZ47XD5nT0/NWRDUX/5MKLrRYMVEdbhEdbUIc7WutoHzVGtqKro
- Crbvh4GFe4vqA4lwIg7hMPJAK6UHGfJ5qJUTRpTDqEhw0GZDhdWLD3Y5FvM3J0ueYCP4jvBKuSq
- H7DhVVR8MrJq5ZG/BM4/np1PQ+1EMt8rPUm+GAR3pe0jS5IrEQqmHSztihvxiIecl/3V/PpXsck
- zJdmFRLuJG/fNLS3JN8xHMGMzd/mhEexpFm6UXFupN5iCmBlCBBxPy/8Oq1tQuy2QETff0KUAyw
- 5y6teApRE0XDBnKjGXq+X83lcPZbf2gVxyVeYgNJcc4K23qcABenpKgz8L2Y/sPCQfgFCwrkqZd
- KaoglRyWAHorwvl6RuOlo5hi5kuMqSkIib3InwXFf72E/uXUBXtDShz8Xnz94lv5nQXeDRQpZOg
- djTGYGArmGqHIOvmwM3WknWIe1FMNMrISf7pvmiqt4Azoq3KVZBP9FSzJ2mSRpoBfEwT6cq9UZ7
- OapascmRGhg6cGdLFYtaVH+32F3oVLwG6TfiNyD12GG3JLt3cF+N+xuuPnRimLanZXqjajOaPaj
- fcl2OX6rd2q7avZDOzFBTd2JR7Z41o0Q/tqU4qUHbKYA4hSyCQCa/w728R2mc/ab7NABtwmqdKD xp5g7WeKKCCFc3w==
-X-Mailer: b4 0.14.3
-Message-ID: <20261007-irq-7-2-backport-v1-1-183f514f2aac@google.com>
-Subject: [PATCH 7.2.y] rust: irq: pass RegistrationInner as cookie to request_irq
-From: Alice Ryhl <aliceryhl@google.com>
-To: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Sasha Levin <sashal@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>
-Cc: Alexandre Courbot <acourbot@nvidia.com>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Benno Lossin <lossin@kernel.org>, 
-	"=?utf-8?q?Bj=C3=B6rn_Roy_Baron?=" <bjorn3_gh@protonmail.com>, Boqun Feng <boqun@kernel.org>, 
-	Boris Brezillon <boris.brezillon@collabora.com>, Eliot Courtney <ecourtney@nvidia.com>, 
-	Gary Guo <gary@garyguo.net>, Markus Probst <markus.probst@posteo.de>, 
-	Miguel Ojeda <ojeda@kernel.org>, "=?utf-8?q?Onur_=C3=96zkan?=" <work@onurozkan.dev>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Tamir Duberstein <tamird@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Alice Ryhl <aliceryhl@google.com>
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 07 Oct 2026 08:02:57 +0200
+Message-Id: <DLYDMSY53U6G.3SEUW3DCM70AZ@linux.ibm.com>
+From: "Tobias Schumacher" <ts@linux.ibm.com>
+To: "Niklas Schnelle" <schnelle@linux.ibm.com>,
+        "Tobias Schumacher"
+ <ts@linux.ibm.com>,
+        "Gerd Bayer" <gbayer@linux.ibm.com>,
+        "Julian Ruess"
+ <julianr@linux.ibm.com>,
+        "Farhan Ali" <alifm@linux.ibm.com>,
+        "Christian
+ Borntraeger" <borntraeger@linux.ibm.com>,
+        "Halil Pasic"
+ <pasic@linux.ibm.com>,
+        "Matthew Rosato" <mjrosato@linux.ibm.com>
+Cc: "Heiko Carstens" <hca@linux.ibm.com>, "Vasily Gorbik"
+ <gor@linux.ibm.com>,
+        "Alexander Gordeev" <agordeev@linux.ibm.com>,
+        "Sven
+ Schnelle" <svens@linux.ibm.com>, <linux-s390@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 4/7] s390/pci: Fix use-after-free race in zpci
+ floating interrupt cleanup
+X-Mailer: aerc HEAD-0d169b7
+References: <20261005-s390_irq_domain_fixes-v2-0-d45b824874c0@linux.ibm.com>
+ <20261005-s390_irq_domain_fixes-v2-4-d45b824874c0@linux.ibm.com>
+ <ff4e4c7cbd39dd457892589a5f75e9be0bcc060f.camel@linux.ibm.com>
+In-Reply-To: <ff4e4c7cbd39dd457892589a5f75e9be0bcc060f.camel@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: vn-bktPFFv58jOlubg4XYe-q0xb9XyK1
+X-Proofpoint-GUID: vn-bktPFFv58jOlubg4XYe-q0xb9XyK1
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAyMiBTYWx0ZWRfX4Hy/jl2hyyK0
+ XenSjvEGPYtch9Ynw9jot3UPC8V3uO0ioueBJ4nV8FDAVTxSOjuZXB032HKhLQTI+um1Cm8K92n
+ iG/k4CJz0AeRIyCymmLqWNTfvLM++8g=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAyMiBTYWx0ZWRfXz5NRqxr7XQwk
+ vqpNtOFNsUeocgTk5Disg7NZDhhr3XeQD6QcgmRUJ0ugV+EncnuTLtzqLs9qQzatCHReWYIFfSx
+ FhJAtRb8OQszuW2hBoork7hJaaojgTIhOCYEBOZmUWcYYWGhZaUAz1WQXVVIFLrx3UEUUWjS5Ut
+ XCfBq9J6mIgmS7l6A1rnLU/Z1ij5o/pBHhpuRVmolioJmQ/3zgGzIRW13vAey0Qb7WzfSCVbxwr
+ br7XcgloKsIu8W1rI9gdrPxy5Yeauz71yljH+51QgbP89csKWFZnVcxj8CoRXVgUje+isUSYu4S
+ hi2MRuFtxir1uKewOlIBkiyfir0BScconb5DozIV9VJuEF+9iSRedNlKZrIpGL6/s6cdsK/bFz5
+ 2M8h9HyhHhhmFOktQ1tbRol2di6zER6ofmJHlI0z/5qtd17teQQD6oMj4JzQAydI+3cGhz5X7Aw
+ WvZ9XUKVCexlH5p0Qug==
+X-Authority-Analysis: v=2.4 cv=eYeo7LEH c=1 sm=1 tr=0 ts=6ac5e096 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=A5doXAPnzZ6mdjI_Yh0A:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-07_02,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 clxscore=1015
+ spamscore=0 malwarescore=0 priorityscore=1501 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070022
 
-With commit ba268514ea14 ("rust: devres: fix race condition due to
-nesting"), Devres::new() returns Result<Self> by value instead of
-initializing in-place via PinInit. Because request_irq() is called
-inside Devres::new(), registration.inner is still uninitialized when the
-IRQ is enabled, so accessing registration.inner.device() in the IRQ
-callback can read uninitialized memory.
+On Tue Oct 6, 2026 at 9:23 PM CEST, Niklas Schnelle wrote:
+> On Mon, 2026-10-05 at 14:03 +0200, Tobias Schumacher wrote:
 
-Fix this by storing the Device and handler pointer in RegistrationInner
-and passing RegistrationInner as the IRQ cookie after its fields are
-initialized.
+> --- snip ---
 
-This is not needed in mainline because commit 98c63ce4d760 ("rust: irq:
-make Registration compatible with lifetime-bound drivers") removed
-Devres from irq::Registration and moved request_irq() after all fields
-are initialized.
+>> @@ -660,10 +664,12 @@ void __init zpci_irq_exit(void)
+>>
+>>  	if (irq_delivery =3D=3D DIRECTED) {
+>>  		for_each_possible_cpu(cpu) {
+>> -			airq_iv_release(zpci_ibv[cpu]);
+>> +			airq_iv_release(zpci_dibv[cpu]);
+>>  		}
+>> +		kfree(zpci_dibv);
+>> +	} else {
+>> +		kfree(zpci_ibv);
+>>  	}
+>> -	kfree(zpci_ibv);
+>>  	if (zpci_sbv)
+>>  		airq_iv_release(zpci_sbv);
+>>  	unregister_adapter_interrupt(&zpci_airq);
+>
+> This is pre-existing but my additional LLM review noticed it. It
+> seems like a theoretical race and against the reverse cleanup vs setup
+> rule, that kfree(zpci_ibv) is done before
+> unregister_adapter_interrupt().
 
-Fixes: 29e16fcd67ee ("rust: irq: add &Device<Bound> argument to irq callbacks")
-Fixes: ba268514ea14 ("rust: devres: fix race condition due to nesting")
-Signed-off-by: Alice Ryhl <aliceryhl@google.com>
----
-This is the 7.2 version of:
-https://lore.kernel.org/all/20261005-devres-6-18-backport-v1-5-06dcf0e592d5@google.com/
----
- rust/kernel/irq/request.rs | 89 ++++++++++++++++++++++++++++------------------
- 1 file changed, 54 insertions(+), 35 deletions(-)
+Good point. Since this goes back to the original adapter interrput code,
+I'll probably add a separate patch in v3.
 
-diff --git a/rust/kernel/irq/request.rs b/rust/kernel/irq/request.rs
-index f425fe12f7c8..d84a32ff0f7c 100644
---- a/rust/kernel/irq/request.rs
-+++ b/rust/kernel/irq/request.rs
-@@ -14,7 +14,7 @@
- use crate::irq::flags::Flags;
- use crate::prelude::*;
- use crate::str::CStr;
--use crate::sync::Arc;
-+use crate::sync::{aref::ARef, Arc};
- 
- /// The value that can be returned from a [`Handler`] or a [`ThreadedHandler`].
- #[repr(u32)]
-@@ -54,13 +54,18 @@ fn handle(&self, device: &Device<Bound>) -> IrqReturn {
- /// # Invariants
- ///
- /// - `self.irq` is the same as the one passed to `request_{threaded}_irq`.
--/// - `cookie` was passed to `request_{threaded}_irq` as the cookie. It is guaranteed to be unique
-+/// - `&self` was passed to `request_{threaded}_irq` as the cookie. It is guaranteed to be unique
- ///   by the type system, since each call to `new` will return a different instance of
- ///   `Registration`.
-+/// - `self.handler` points to a valid instance of the handler `T` that lives at least until
-+///   `Self::drop` completes.
- #[pin_data(PinnedDrop)]
- struct RegistrationInner {
-     irq: u32,
--    cookie: *mut c_void,
-+    dev: ARef<Device>,
-+    handler: *const c_void,
-+    #[pin]
-+    _pin: PhantomPinned,
- }
- 
- impl RegistrationInner {
-@@ -77,18 +82,22 @@ fn drop(self: Pin<&mut Self>) {
-         //
-         // Safe as per the invariants of `RegistrationInner` and:
-         //
--        // - The containing struct is `!Unpin` and was initialized using
-+        // - `RegistrationInner` is `!Unpin` and was initialized using
-         // pin-init, so it occupied the same memory location for the entirety of
-         // its lifetime.
-         //
-         // Notice that this will block until all handlers finish executing,
-         // i.e.: at no point will &self be invalid while the handler is running.
--        unsafe { bindings::free_irq(self.irq, self.cookie) };
-+        unsafe {
-+            bindings::free_irq(
-+                self.irq,
-+                core::ptr::from_mut::<Self>(self.get_unchecked_mut()).cast::<c_void>(),
-+            )
-+        };
-     }
- }
- 
--// SAFETY: We only use `inner` on drop, which called at most once with no
--// concurrent access.
-+// SAFETY: `RegistrationInner` has no interior mutability and `handler` points to a `Sync` handler.
- unsafe impl Sync for RegistrationInner {}
- 
- // SAFETY: It is safe to send `RegistrationInner` across threads.
-@@ -179,7 +188,7 @@ pub fn irq(&self) -> u32 {
- ///
- /// # Invariants
- ///
--/// * We own an irq handler whose cookie is a pointer to `Self`.
-+/// * We own an irq handler whose cookie is a pointer to `Self::inner`.
- #[pin_data]
- pub struct Registration<T: Handler> {
-     #[pin]
-@@ -206,10 +215,13 @@ pub fn new<'a>(
-             handler <- handler,
-             inner <- Devres::new(
-                 request.dev,
--                try_pin_init!(RegistrationInner {
--                    // INVARIANT: `this` is a valid pointer to the `Registration` instance
--                    cookie: this.as_ptr().cast::<c_void>(),
--                    irq: {
-+                try_pin_init!(&inner_this in RegistrationInner {
-+                    irq: request.irq,
-+                    dev: request.dev.into(),
-+                    // SAFETY: `this` is a valid pointer to the `Registration` instance.
-+                    handler: unsafe { &raw const (*this.as_ptr()).handler }.cast(),
-+                    _pin: PhantomPinned,
-+                    _: {
-                         // SAFETY:
-                         // - The callbacks are valid for use with request_irq.
-                         // - If this succeeds, the slot is guaranteed to be valid until the
-@@ -224,11 +236,10 @@ pub fn new<'a>(
-                                 Some(handle_irq_callback::<T>),
-                                 flags.into_inner(),
-                                 name.as_char_ptr(),
--                                this.as_ptr().cast::<c_void>(),
-+                                inner_this.as_ptr().cast::<c_void>(),
-                             )
-                         })?;
--                        request.irq
--                    }
-+                    },
-                 })
-             ),
-             _pin: PhantomPinned,
-@@ -261,13 +272,15 @@ pub fn synchronize(&self, dev: &Device<Bound>) -> Result {
- ///
- /// This function should be only used as the callback in `request_irq`.
- unsafe extern "C" fn handle_irq_callback<T: Handler>(_irq: i32, ptr: *mut c_void) -> c_uint {
--    // SAFETY: `ptr` is a pointer to `Registration<T>` set in `Registration::new`
--    let registration = unsafe { &*(ptr as *const Registration<T>) };
-+    // SAFETY: `ptr` is a pointer to `RegistrationInner` set in `Registration::new`
-+    let inner = unsafe { &*(ptr as *const RegistrationInner) };
-+    // SAFETY: `inner.handler` is a pointer to `T` set in `Registration::new`
-+    let handler = unsafe { &*inner.handler.cast::<T>() };
-     // SAFETY: The irq callback is removed before the device is unbound, so the fact that the irq
-     // callback is running implies that the device has not yet been unbound.
--    let device = unsafe { registration.inner.device().as_bound() };
-+    let device = unsafe { inner.dev.as_bound() };
- 
--    T::handle(&registration.handler, device) as c_uint
-+    T::handle(handler, device) as c_uint
- }
- 
- /// The value that can be returned from [`ThreadedHandler::handle`].
-@@ -396,7 +409,7 @@ fn handle_threaded(&self, device: &Device<Bound>) -> IrqReturn {
- ///
- /// # Invariants
- ///
--/// * We own an irq handler whose cookie is a pointer to `Self`.
-+/// * We own an irq handler whose cookie is a pointer to `Self::inner`.
- #[pin_data]
- pub struct ThreadedRegistration<T: ThreadedHandler> {
-     #[pin]
-@@ -423,10 +436,13 @@ pub fn new<'a>(
-             handler <- handler,
-             inner <- Devres::new(
-                 request.dev,
--                try_pin_init!(RegistrationInner {
--                    // INVARIANT: `this` is a valid pointer to the `ThreadedRegistration` instance.
--                    cookie: this.as_ptr().cast::<c_void>(),
--                    irq: {
-+                try_pin_init!(&inner_this in RegistrationInner {
-+                    irq: request.irq,
-+                    dev: request.dev.into(),
-+                    // SAFETY: `this` is a valid pointer to the `ThreadedRegistration` instance.
-+                    handler: unsafe { &raw const (*this.as_ptr()).handler }.cast(),
-+                    _pin: PhantomPinned,
-+                    _: {
-                         // SAFETY:
-                         // - The callbacks are valid for use with request_threaded_irq.
-                         // - If this succeeds, the slot is guaranteed to be valid until the
-@@ -442,11 +458,10 @@ pub fn new<'a>(
-                                 Some(thread_fn_callback::<T>),
-                                 flags.into_inner(),
-                                 name.as_char_ptr(),
--                                this.as_ptr().cast::<c_void>(),
-+                                inner_this.as_ptr().cast::<c_void>(),
-                             )
-                         })?;
--                        request.irq
--                    }
-+                    },
-                 })
-             ),
-             _pin: PhantomPinned,
-@@ -482,24 +497,28 @@ pub fn synchronize(&self, dev: &Device<Bound>) -> Result {
-     _irq: i32,
-     ptr: *mut c_void,
- ) -> c_uint {
--    // SAFETY: `ptr` is a pointer to `ThreadedRegistration<T>` set in `ThreadedRegistration::new`
--    let registration = unsafe { &*(ptr as *const ThreadedRegistration<T>) };
-+    // SAFETY: `ptr` is a pointer to `RegistrationInner` set in `ThreadedRegistration::new`
-+    let inner = unsafe { &*(ptr as *const RegistrationInner) };
-+    // SAFETY: `inner.handler` is a pointer to `T` set in `ThreadedRegistration::new`
-+    let handler = unsafe { &*inner.handler.cast::<T>() };
-     // SAFETY: The irq callback is removed before the device is unbound, so the fact that the irq
-     // callback is running implies that the device has not yet been unbound.
--    let device = unsafe { registration.inner.device().as_bound() };
-+    let device = unsafe { inner.dev.as_bound() };
- 
--    T::handle(&registration.handler, device) as c_uint
-+    T::handle(handler, device) as c_uint
- }
- 
- /// # Safety
- ///
- /// This function should be only used as the callback in `request_threaded_irq`.
- unsafe extern "C" fn thread_fn_callback<T: ThreadedHandler>(_irq: i32, ptr: *mut c_void) -> c_uint {
--    // SAFETY: `ptr` is a pointer to `ThreadedRegistration<T>` set in `ThreadedRegistration::new`
--    let registration = unsafe { &*(ptr as *const ThreadedRegistration<T>) };
-+    // SAFETY: `ptr` is a pointer to `RegistrationInner` set in `ThreadedRegistration::new`
-+    let inner = unsafe { &*(ptr as *const RegistrationInner) };
-+    // SAFETY: `inner.handler` is a pointer to `T` set in `ThreadedRegistration::new`
-+    let handler = unsafe { &*inner.handler.cast::<T>() };
-     // SAFETY: The irq callback is removed before the device is unbound, so the fact that the irq
-     // callback is running implies that the device has not yet been unbound.
--    let device = unsafe { registration.inner.device().as_bound() };
-+    let device = unsafe { inner.dev.as_bound() };
- 
--    T::handle_threaded(&registration.handler, device) as c_uint
-+    T::handle_threaded(handler, device) as c_uint
- }
-
----
-base-commit: 5fce161649b4d779d1b76d9fcd52dc77779774b8
-change-id: 20261006-irq-7-2-backport-117b7044b052
-
-Best regards,
--- 
-Alice Ryhl <aliceryhl@google.com>
+Thanks,
+Tobias
 
