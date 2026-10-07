@@ -1,140 +1,99 @@
-Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09E1D4AA3FF
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 14:18:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 001E0480331;
+	Wed,  7 Oct 2026 14:19:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791382708; cv=none; b=Hv08gS3O6qosz6bgP4bXP3YljOnro9wpRAKW8Ho0Q4k4HfJvxRA8OqeWIBvmEAOtg3cFQzPrx/zBc1ddfe9eANFPAh+w1W5n46HKtYpr+9SO695NLmX8PwuuoJtqkcUaG3CaZBZIie9WmwbTjBP6FzzfaUum2hyOYJKnD1Pp4ro=
+	t=1791382750; cv=none; b=AdAbU4xd9CUcsxDhk/C53vGZqbGh982NjVki2KFg5AQmO7bsjm6nLSrZpvxNbAe/zIMtvldJXnbeggOOHQ/YXnYuzutiP46xClqRZzvH6QeKjUbq1BtFPz0UKYLAGzSHXwal3/TJnXC4/sca169fji5J+PlpAoi+N9jH4nJ7inA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791382708; c=relaxed/simple;
-	bh=3jIritETAAQuv6kAdsHON0sENC6zIY9Enr0b/xxc6F0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Dza+urTmVXYX3a/33tStSktVhipGb3lxTIdvnaeUz+5DY+Oh9xv1NUqArR4tBrlK15/aKcNJ02qADgFGNi7Maw9rAf36L/uUg4I+e8P8YT5Lj19Lsz9KYqbS60eND8KzUbnqOVVCTdU+E/cKAMrxIVtahHADuPT7WagAVPwuYKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smartx.com; spf=pass smtp.mailfrom=smartx.com; dkim=pass (2048-bit key) header.d=smartx-com.20251104.gappssmtp.com header.i=@smartx-com.20251104.gappssmtp.com header.b=IbXNwKF9; arc=none smtp.client-ip=209.85.210.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smartx.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smartx.com
+	s=arc-20240116; t=1791382750; c=relaxed/simple;
+	bh=hwccp9lknY33tQPANQfx5TJJ57/QY3qWuFwvTxcy+5A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YMjwkDlm6GOwxp+Vl1VTj4P2jYo8vl0FBTTI83+YlARHPASe4vv+wi6+GMqxkqm53fEkClPWHzMiBp15Owcp0F78X71r+ACHAQ8jq5PqU+NwyoDbfKAo8jojrTOY8igDyZCZhS9W8hmlrGmRlug1jdz4pDVSMk4uNLbvsh0Bw20=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gk4XJlTj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=smartx-com.20251104.gappssmtp.com header.i=@smartx-com.20251104.gappssmtp.com header.b="IbXNwKF9"
-Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-824e6e6ed71so3051553a34.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 07:18:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=smartx-com.20251104.gappssmtp.com; s=20251104; t=1791382699; x=1791987499; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Jp1XCm/vj9IDzSYwv15Kh1QdqJQdJPhxMV80ssGGTGU=;
-        b=IbXNwKF9ylOBv81mY4efOGqk8aKxeWj4r7XaNJiw2YmtH8X8Eli8UizrhM7j71KUJT
-         W3RIo0TI6/hQf2PxvKCPAWxzVsU69lYOO+cOdWYb74nMMxZ6URF6aRYeI7NTgV2vQznb
-         DFRmhxJhoIR/zezNTrlUvrpns9Z/ZaJ9GW/UgvUWLJ8PAX90l0QWqp4KpOLALp7WfjYD
-         Pp/nCcHO2WOdXS8aYYlYUn+kGci+uv9ysI/h4wPA1dEMjJQOrA+/n+ifThm6zLn0QtCh
-         sYrbvWJH5qkOncOeCOEAqbnzLzWNU+9kR5swvf9jRt9Sddk0KceimCp6VLkK9KDgHDyP
-         JMOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791382699; x=1791987499;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Jp1XCm/vj9IDzSYwv15Kh1QdqJQdJPhxMV80ssGGTGU=;
-        b=iwYa7oQvzXOJZ3lo5rjJZjFVBvFSu2WilJykIbhE9zoCyKV98iBJ+ni87uAjSzOLlz
-         ZUFLbYoT7Ww7KMvvfTWoZQBmEZqjmi3NgX+vxwDQOBDbpR6LyarGMRqIUHilIoKVGvn7
-         fO+APB2xr8FGneMS/znYKr7nmVgaNl8cu0LD9my/dTe95sKSQikkPmD8NLkFFxZXAIbi
-         wk80IqLotQOWvgOjqMuLiFDcbDBr2H5K6e3nIuPXybJd5bRJglKMZl0iFCcRGy0KYz1W
-         l/+RVD48fGxU4MTpNkiOWM7MXLvap9oA8mKb50pHLrA4WsbC1aC8p1dQ8l3RrHYt9mdl
-         C26g==
-X-Forwarded-Encrypted: i=1; AKwUvBwo4Mp+p/XVHisVvmY0OhgYE3fDagDKFFpc0AxC55l4awrBlpuDjswf7d3e7SckNBvG7KYdUaqJoWOdrEY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mnzVUWoy98pckAvr71rYRfsPQE4+ZDcTqPOhubNgAs9286OsMr
-	o2oW8UdDyLe4ZV+uCwg5fMcWxYMaYDnmcm9DVBiK/nFHm2OCp/Jhj5eAYL6S3+JqTaWh1xwW0aZ
-	IDcBwyE7dmtsgazge1p5KgZqOPkznPjFinvMUopcZCRUt4etLC7lH3OIPXDQ=
-X-Gm-Gg: AYBFou0vCwejSxuY3P4XQE9Fq0R7FNGcbSTiUTlE5e2QWJtmJ3Sgy9KxAS/SO0CEpGZ
-	AX+7eUmsXQC0VUPPiFCmiw46qtV/nN/4yanbVYPaiZuDDkfqwIsO04aixzxJPNiqpfWn1ud/n6V
-	AXwyn5the0DQ0z+IMtuVwB9rGj74vk3OOHgN3bQQ3rf4+pyypOFyGS0gw8u95mJRDbL8behFuqy
-	5lLES2BJAiC5VAfpJYdct4xpEKH2C2sUEJn1w8IrauUVHm3TmPIYc3TqGDT33O4vPK5Gc9u0FmV
-	0Mh6tz1asOgK1XCRi3zm3YYmGktt3YIGVvwuC4a+O/zLzQvgt+8AxhjYEYOhupBRk8T5mm3L6vO
-	APK4ZIqUrghviv7W+UF3PFOC/OPF/6TSpwPESCYqRQVBto/AYoIYZDwS/++Jn98H8AzJfMudUdp
-	h1L0rJQhgVNrYkvncifsGfFX2LeccuI5sZPfjTzQvazYBGEO87naJiLQ+9hPmN4vC0IpYV5v6we
-	PUaaYZiOFInZqHNtTXa
-X-Received: by 2002:a05:6830:651a:b0:81c:5aac:798a with SMTP id 46e09a7af769-82acee8f351mr3093634a34.13.1791382699344;
-        Wed, 07 Oct 2026 07:18:19 -0700 (PDT)
-Received: from localhost.localdomain ([23.148.204.128])
-        by smtp.googlemail.com with ESMTPSA id 46e09a7af769-82ad9eeb5eesm2723670a34.2.2026.10.07.07.18.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 07:18:18 -0700 (PDT)
-From: Lei Chen <lei.chen@smartx.com>
-To: kashyap.desai@broadcom.com,
-	sumit.saxena@broadcom.com,
-	shivasharan.srikanteshwara@broadcom.com,
-	chandrakanth.patil@broadcom.com
-Cc: James.Bottomley@HansenPartnership.com,
-	mkp@kernel.org,
-	megaraidlinux.pdl@broadcom.com,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lei.chen@smartx.com
-Subject: [PATCH] scsi: megaraid_sas: Fix debugfs setup error handling
-Date: Wed,  7 Oct 2026 22:17:53 +0800
-Message-ID: <20261007141753.416672-1-lei.chen@smartx.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gk4XJlTj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 831641F0089B;
+	Wed,  7 Oct 2026 14:19:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791382744;
+	bh=9E5douEvnl79iHjWkyFm82J2TQ2sXA9KpzAuoqF4t4M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gk4XJlTjQoSq2o6hSxLhwTu84JOe9R3yg1stHfUIJNJs/ZoJOFA12d714OGlTfGJT
+	 DbsyPQWsprKRYM4S1xW10HiR8XUmxWsxjz5fOwDxgDD/M/RiuyHcTqIWwPA5cA9TAN
+	 kgSlr3kASKMNNPzfDHSqn9qAp8QbUqYJ4joEbzZD/9Cryt+gqfCSDB8ex7J54r9F0T
+	 3NrXBEf3rSYAs0DdccebCaBy/hFuP2drjuWD9Y4bqtdIOE9pXE0RF4HV8f1W+wJoYl
+	 R9yIpzNuPeQlUQXHHKX76UnsroY6SyEVWpSzqEzOXWYTWLel1DB3FoCMumRMMJmPOB
+	 TbposgSKGkAhA==
+Date: Wed, 7 Oct 2026 15:18:59 +0100
+From: Will Deacon <will@kernel.org>
+To: Bui Duc Phuc <phucduc.bui@gmail.com>
+Cc: Mark Rutland <mark.rutland@arm.com>, linux-perf-users@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] perf/arm-smmuv3: Propagate errors from optional IRQ
+ lookup
+Message-ID: <asZU0waS4-lKy8uQ@willie-the-truck>
+References: <20260811041934.7609-1-phucduc.bui@gmail.com>
+ <ar_fLAeFU4rmrwiH@willie-the-truck>
+ <CAABR9nGqwTGcrr6bKsV5+0GYwkQoP0s_Tu6aTJrhJJW_ZRqFYg@mail.gmail.com>
+ <asCyI2_CNSoDJy1w@willie-the-truck>
+ <CAABR9nH3pkFB-htyrD-Z+iBBcYoVX4Z-hFa_binWCXg9_cHU6A@mail.gmail.com>
+ <asISGdljsG86gUwb@willie-the-truck>
+ <CAABR9nFMR+D0j5kYR+HwLBOHG4WF7PUDrqjE4Bt0-VTUacxmBg@mail.gmail.com>
+ <asJlxV06xzDIgqW4@willie-the-truck>
+ <CAABR9nFz65Yt-SeHAx-Gxe18c4i3Sb3b_H-zsr7d+wwK5gB=CQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAABR9nFz65Yt-SeHAx-Gxe18c4i3Sb3b_H-zsr7d+wwK5gB=CQ@mail.gmail.com>
 
-debugfs_create_dir() and debugfs_create_file() return error pointers on
-failure, but megasas_setup_debugfs() only checks for NULL. As a result,
-setup continues after directory creation fails, and a failure to create
-raidmap_dump leaves the per-adapter directory behind.
+On Mon, Oct 05, 2026 at 03:02:29PM +0700, Bui Duc Phuc wrote:
+> > > > Sorry, but how is failing the probe possibly better than continuing without
+> > > > the optional interrupt? Add a diagnostic if you like, but aborting the probe
+> > > > feels completely unnecessary to me.
+> > > >
+> > >
+> > > My understanding is that the driver is designed to be generic and
+> > > support various hardware configurations, some with this resource (IRQ,
+> > > GPIO, clock, ...) and some without.
+> > >
+> > > If a configuration describes the resource, it means the board is
+> > > designed to use it. For that hardware the "optional" nature of the
+> > > driver no longer applies, so if we fail to get the resource the error
+> > > should be returned.
+> > >
+> > > A log alone is easy to miss, and the root cause still has to be found
+> > > and fixed later anyway. Failing the probe makes the problem visible
+> > > right away, when the board is being brought up.
+> >
+> > If you're doing bring-up, you should probably pay attention to the logs.
+> 
+> OK. Then we should probably write it as:
+> -------------------------------------------------------------------------
+> irq = platform_get_irq_optional(pdev, 0);
+> if (irq < 0 && irq != -ENXIO)
+>         return dev_err_probe(pdev, irq, "failed to get irq\n");
 
-Skip per-adapter setup if the driver debugfs root is unavailable, and
-use IS_ERR_OR_NULL() to check directory and file creation results so
-that the existing error paths also handle error pointers.
+Won't this bail on errors != ENXIO and != EPROBE_DEFER? I think we should
+only bail on EPROBE_DEFER. That's also more robust to changes in the error
+codes that platform_get_irq_optional() can return.
 
-With the corrected error check, file creation failure removes the
-per-adapter directory. Clear the stored directory pointer as well so
-teardown does not attempt to remove the freed dentry again.
+> -------------------------------------------------------------------------
+> 
+> > If you're trying to use the device, you probably don't care about the
+> > interrupt.
+> 
+> If we're worried about returning an error here because it might cause
+> the device probe to fail, then shouldn't we hide errors from all
+> the other functions in probe() as well? :-)
 
-Fixes: ba53572bf02d ("scsi: megaraid_sas: Export RAID map through debugfs")
-Signed-off-by: Lei Chen <lei.chen@smartx.com>
----
- drivers/scsi/megaraid/megaraid_sas_debugfs.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+Not really. Only the irq is optional; we really can't continue if something
+like ioremap() fails.
 
-diff --git a/drivers/scsi/megaraid/megaraid_sas_debugfs.c b/drivers/scsi/megaraid/megaraid_sas_debugfs.c
-index 81698cd83f5a..556e01fc25e8 100644
---- a/drivers/scsi/megaraid/megaraid_sas_debugfs.c
-+++ b/drivers/scsi/megaraid/megaraid_sas_debugfs.c
-@@ -126,13 +126,16 @@ megasas_setup_debugfs(struct megasas_instance *instance)
- 
- 	fusion = instance->ctrl_context;
- 
-+	if (IS_ERR_OR_NULL(megasas_debugfs_root))
-+		return;
-+
- 	if (fusion) {
- 		snprintf(name, sizeof(name),
- 			 "scsi_host%d", instance->host->host_no);
- 		if (!instance->debugfs_root) {
- 			instance->debugfs_root =
- 				debugfs_create_dir(name, megasas_debugfs_root);
--			if (!instance->debugfs_root) {
-+			if (IS_ERR_OR_NULL(instance->debugfs_root)) {
- 				dev_err(&instance->pdev->dev,
- 					"Cannot create per adapter debugfs directory\n");
- 				return;
-@@ -144,10 +147,11 @@ megasas_setup_debugfs(struct megasas_instance *instance)
- 			debugfs_create_file(name, S_IRUGO,
- 					    instance->debugfs_root, instance,
- 					    &megasas_debugfs_raidmap_fops);
--		if (!instance->raidmap_dump) {
-+		if (IS_ERR_OR_NULL(instance->raidmap_dump)) {
- 			dev_err(&instance->pdev->dev,
- 				"Cannot create raidmap debugfs file\n");
- 			debugfs_remove(instance->debugfs_root);
-+			instance->debugfs_root = NULL;
- 			return;
- 		}
- 	}
--- 
-2.43.0
-
+Will
