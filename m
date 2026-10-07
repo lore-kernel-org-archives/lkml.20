@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44C113612F8;
-	Wed,  7 Oct 2026 14:07:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B28F46C836;
+	Wed,  7 Oct 2026 14:07:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791382069; cv=none; b=qse90J1Ogk1aU8RcI8zW8Lo9ZBO8L9kaZ6hRH0Xmqdu+jOE5q9KMxYpGIJtTcGFp7cuHVNy/4nLwt0RhdVInQypkqkGPigX/uBD2McriCUIy/jOgf8BQ7JUYB34NTMfAdyFUIIYJ9l6pnX7gyvUvqDOlUHAT6J8RG2E7VUHF6f8=
+	t=1791382079; cv=none; b=i5eRg5unpZTFqiEC1skUJfke715zU1geCOmKLLpD6e8aunlfTgfa+VU8uNG0KEe+8wyor8Ho8wUj9ZbbyDZU5J33nZScva82QNPPii9zZonzqxJR5hlBPgvENmg1C4tk/XmXKrPLIydhgHgkVnEwdLlS4OB/mNKxVi5AIL85ZLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791382069; c=relaxed/simple;
-	bh=byJra/mhbvjn6vvLTSCsiex/wDMjB4Lgt46mHR3xXoQ=;
+	s=arc-20240116; t=1791382079; c=relaxed/simple;
+	bh=ja1Up43SZ/3MPlfP2V7EBtiEvMqxYzjRZu9YPWzQb3Q=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=idAjYIcSWf4Ik/fXp5qM2LOVLEBm7s1IK2MNV+IhP++d1b8+q1laq3rUU536Wd/BwOalXK/bSc4vPWYVfsaYpm6oikq785uurnLAHZEVuy3Sp23rb/lAs9/EOMS3gn6QSPIQWBDUG5JrY7HPXlsgOHZu2y3Vtm98m8JI8vt98b4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=blYtoeyN; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=F8ROouYyVNGFIQmhpLT5Xw4fUe48XKPt8nGlEfqonq8e7X8ldJFkdJw4Pn0i97Fgs3m9UphZIr+U2FfQtX7rKsdPoRMx/Z1pqCb7DRoMAvGrqcYy3r7q1UhKZGFzXJEEfRghM1j640ttriA7yz9RAyGSYi/pfQxPHnG3Zchsb5s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mk/jIbIy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="blYtoeyN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACB9A1F0089C;
-	Wed,  7 Oct 2026 14:07:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mk/jIbIy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9BE01F0089B;
+	Wed,  7 Oct 2026 14:07:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791382059;
-	bh=subN9fXal1rbbDmCoh2wFon5oJy0bFXUYgWzXB4tIwo=;
+	s=k20260515; t=1791382073;
+	bh=ja1Up43SZ/3MPlfP2V7EBtiEvMqxYzjRZu9YPWzQb3Q=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=blYtoeyNV3/0KC1wurnpUt2DCoYu3fxIn9aMCH+z9nKODfOpQRjOix7iZaOGfvYIq
-	 TJOJZQJ/H06Irbjva+P5UEz0e66sLmHqJAQuuuPd6/hhflaDk9UCDtYXxsBuumpUoU
-	 h/S54ogAvU1G3LwFn1y3/KHFY14s82dvB4kOX9vxE7t+eyeQUcOOHlRZ9JQgjcmmks
-	 eFbvWkYXfg6xvRuiwLDpjKd99YoIR8orx6cki3sD5prRXHyguYOpWUuGQlyWGQL4Ro
-	 X7qYtgq/zmtzg4ibEwJT54EgoyaqbFfHTz7Z4jtdwJwOf++V8eWm8/O7WfN3IRKAan
-	 lUnNCUNHbBenw==
-Date: Wed, 7 Oct 2026 15:07:34 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Pufan Jin <2254650260@qq.com>
-Cc: Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Michal Simek <michal.simek@amd.com>, Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, andrew@lunn.ch
-Subject: Re: [PATCH v2 2/3] dt-bindings: soc: xilinx: Add ALINX EdgeBoard FZ3A
-Message-ID: <20261007-f8618331a33d736d9343c7cb@squawk>
-References: <20261005173308.710986-1-2254650260@qq.com>
- <tencent_7F0804BD55E49660DCDB095C80B5330DC50A@qq.com>
+	b=mk/jIbIyceM5RO3mJbGwp7Qtm9k6cHp3UrgY3mUaBT3Lgi9jG8Ys/+ZlBDF7Ax9oW
+	 0Yv9iUwK90lQdcRagmWos/JqoeDqSm5oEQaI+P7Ju8doWtleKLP+ktlr/n+OxmSSdP
+	 n11ojH4iMwbJNDSAQ1ekOo+uq2cZW75Jlx1nnFZY+hjq+8joBZlIpFsCWYSWhmVoV4
+	 +54u0clcNPye+xmHpzrGBJzLbYobuo99qmxCZZxDtKpX1tWqXKCTOp92Phv8dssD7A
+	 y3XEFzxZsgV2I/oDeSkDC2lsDNPGvgeNkJ/4s9ZnEpSgTtsSl4vArzJwBB4D7JLjL+
+	 gyNKEpcymvX6Q==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id C04F3191F6B8; Wed, 07 Oct 2026 15:07:47 +0100 (BST)
+Date: Wed, 7 Oct 2026 16:07:47 +0200
+From: Mark Brown <broonie@kernel.org>
+To: Jisheng Zhang <jszhang@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-spi@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] spi: dt-bindings: snps,dw-apb-ssi: Add Synaptics
+ sl2610 spi
+Message-ID: <asZSM6IjVwWI1Klw@sirena.org.uk>
+References: <20261005152230.25294-1-jszhang@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,54 +45,35 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="BJUr87kyRYlZiMEn"
+	protocol="application/pgp-signature"; boundary="89qQJAeFMQW1Z3DW"
 Content-Disposition: inline
-In-Reply-To: <tencent_7F0804BD55E49660DCDB095C80B5330DC50A@qq.com>
+In-Reply-To: <20261005152230.25294-1-jszhang@kernel.org>
+X-Cookie: Use the Force, Luke.
 
---BJUr87kyRYlZiMEn
+
+--89qQJAeFMQW1Z3DW
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 06, 2026 at 01:33:07AM +0800, Pufan Jin wrote:
-> Document the ALINX EdgeBoard FZ3A compatible.
->=20
-> Signed-off-by: Pufan Jin <2254650260@qq.com>
+On Mon, Oct 05, 2026 at 11:22:30PM +0800, Jisheng Zhang wrote:
+> Add the compatible for the Synaptics SL2610 SoC SPI controllers, which
+> are compatible with the Synopsys DesignWare APB SSI.
 
-Modulo the prefix being acceptable,
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+This doesn't apply against current code, please check and resend.
 
-> ---
->  Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml b/D=
-ocumentation/devicetree/bindings/soc/xilinx/xilinx.yaml
-> index c9f99e0df..ad7c71f9b 100644
-> --- a/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml
-> +++ b/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml
-> @@ -46,6 +46,7 @@ properties:
-> =20
->        - items:
->            - enum:
-> +              - alinx,edgeboard-fz3a
->                - xlnx,zynqmp-zc1751
->            - const: xlnx,zynqmp
-> =20
-> --=20
-> 2.55.0
->=20
-
---BJUr87kyRYlZiMEn
-Content-Type: application/pgp-signature; name=signature.asc
+--89qQJAeFMQW1Z3DW
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasZSJgAKCRB4tDGHoIJi
-0iRYAQCwrSeFH3fkrrAHzKa+WPeGX9Iu7b19J5us6aluCRhOrwD/fMeQwAnSnjOW
-7RxEefWTd+r0Ra6ku1RJUFIMFNAmbQo=
-=9TV2
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrGUikACgkQJNaLcl1U
+h9CmwAf+IaKQ4+jQK5cDclljMMzkYApzHcRnMn5wiIXW37XdULkBUxdn4q++DTS0
+m8Pi4EgYdwowG2yxyfomBz0QbVHOX6XoXGjbuK/rKcmK8SL4mimKBgGJGhiSxlF5
+4ry3TGvnKSW7YxxLnb3N5BVgHT/CoIDeVlfpssTMgjabUNLpTG9OiHWPUIhCTeZn
+YOtXwPLBtbCdmOMfsKahqzAxJN8l9UnryIPOi0dKeC/+4u0HRMrzjfaPzYEJ2x1v
+LKwo5UhrGTgbQGJLEj+N9k5CqJr+2U8G0inj9JAUPzs/3lflyAgfQV5E+84Mg6C9
+u7tQ8Da2aXVqCZc4nltxXeQssteiSw==
+=1SjL
 -----END PGP SIGNATURE-----
 
---BJUr87kyRYlZiMEn--
+--89qQJAeFMQW1Z3DW--
