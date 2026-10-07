@@ -1,33 +1,33 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 03C4D434406
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 13:09:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 509B73A453B;
+	Wed,  7 Oct 2026 13:11:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791378588; cv=none; b=qtpY3o1uosfvLgRY6bFjQFifHJ1gyFvhTTkXSlzK5ptK2LHebhmJfTflXiB2HVLtFntRS/yH368C6r7QlvsALeVY5qK5gvZ/PLQjRizDifSs2CyBiSGbXUtgCZuK8FA1sEyoxPnIIT1WE3gjQU1VsFneKvhDiOczR6tKluaMZ+w=
+	t=1791378673; cv=none; b=MqVzD+wHe3ushr8e+hhbpxV6AUtpwqssvz7l4T9dH0B0JenSTdePozT/UIofu9JYZYEWK9vSqTdISXgw62L4NC+ZxvjZWfZkiFvtZwLKgSyEw8JNFKF98DbvgHZ0ELaoDrtKdLO2PK0br+wKvZBXouWlSsP+6g3Pwl8Nw8FfOMA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791378588; c=relaxed/simple;
-	bh=UTZVBvMKVq9bHDX2yhf6FOlhWljTZm8XMVowKeG9ev8=;
+	s=arc-20240116; t=1791378673; c=relaxed/simple;
+	bh=aQPC+Yw1LXnFEbwa2Z4tr5U+8DNSNTgby5HUOWLpEkQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LYojRtyq/vUUl6URRQ+E8run9N2LvXESAavH7/+HGSB+ck/nnA4F4KdNIbanj5bRcdV+0eHkDHmSGVNNKry81QS1FEpwHiMIIJzGXKUw93M33vfdP611CBkFPbukGfS4jd0lpu8hVWJiBKd+xnuLI245NNSyIwA8q5NQbYQa0EM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=oMaLe9yj; arc=none smtp.client-ip=217.140.110.172
+	 In-Reply-To:Content-Type; b=fmg8uhytqoetX6rL0rz58LTi0+QG7leM5Nc84EddqXOZZFu9Vqju691+eW6g33FEyBMNFQrwdofQH6MlMtuib9TVxLnjwCpYsF6f4EYiosViRB6o6Rh5J+ra4dXrD3mBmhnLh6FwTR4PROCjaRPq/RoHss5p6ro2JbhG5nRVugU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=U9sRHUeu; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="oMaLe9yj"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="U9sRHUeu"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8AD8C1595;
-	Wed,  7 Oct 2026 06:09:36 -0700 (PDT)
-Received: from [10.57.75.203] (unknown [10.57.75.203])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 596A73F66F;
-	Wed,  7 Oct 2026 06:09:37 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4A2031595;
+	Wed,  7 Oct 2026 06:11:01 -0700 (PDT)
+Received: from [10.57.10.153] (unknown [10.57.10.153])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9716E3F66F;
+	Wed,  7 Oct 2026 06:11:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791378579; bh=UTZVBvMKVq9bHDX2yhf6FOlhWljTZm8XMVowKeG9ev8=;
+	t=1791378664; bh=aQPC+Yw1LXnFEbwa2Z4tr5U+8DNSNTgby5HUOWLpEkQ=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=oMaLe9yjQREpK2+YoSuF0iz/+8bAYiu1vGiBIQTLnMVlcf5uBqgKl1Zy/SoIM3mdW
-	 tdTjJaVEAzRbhgnwjbxXi/sHjy6Se6ShriAlVDd2ltFfQimA5/h3EqxRs8QUa+iUsf
-	 26BYbCCvx/5SMBcm9i/X7ENeXCvI16xbNzXJC584=
-Message-ID: <00bd53b9-c6b6-4d84-aaeb-aeade3ffb3fb@arm.com>
-Date: Wed, 7 Oct 2026 14:09:35 +0100
+	b=U9sRHUeuLEhsrHnA+pCnGFP1F7eIFMBxSK4cMcQ48GUMGIU9jmj9OMP/kbwdDtvgD
+	 yX/7zMMyJMhwsw5oP8/tPZ4nnTt7cg2CobLtBcpJDqTc9DE6ehnevr3pGfCT/6m1ab
+	 T3SxDxXmEdhUeQFi7n2OIlMVc1ZRyxiihQX95zbI=
+Message-ID: <f88b3cf5-8312-453a-bbf6-c5cc3e5ac119@arm.com>
+Date: Wed, 7 Oct 2026 15:10:58 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,87 +35,49 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 12/15] drm/panfrost: Skip cache flush/invalidate when
- enabling perfcnt
-To: =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
- Rob Herring <robh@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Faith Ekstrand <faith.ekstrand@collabora.com>,
- "Marty E. Plummer" <hanetzer@startmail.com>,
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>,
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
- <20260929-claude-fixes-v12-12-62beb08de207@collabora.com>
- <95174a67-0eee-4bf7-b883-9f1138c74a6f@arm.com>
- <179130511905.1018806.3717655233851799587.b4-reply@b4>
-From: Steven Price <steven.price@arm.com>
+Subject: Re: [PATCH v23 02/14] KVM: arm64: Disable Steal time accounting for
+ protected guests
 Content-Language: en-GB
-In-Reply-To: <179130511905.1018806.3717655233851799587.b4-reply@b4>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+ will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+ aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+ joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev,
+ gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
+ alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
+ lpieralisi@kernel.org, enju.kohei@fujitsu.com, sudeep.holla@arm.com,
+ jonathan.cameron@oss.qualcomm.com
+References: <20261007073537.2454351-1-suzuki.poulose@arm.com>
+ <20261007073537.2454351-3-suzuki.poulose@arm.com>
+ <CA+EHjTyb3-QoLa6P-dGXVdMh9E_vO3p8HceH3TH8h8gPJSd1Kw@mail.gmail.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <CA+EHjTyb3-QoLa6P-dGXVdMh9E_vO3p8HceH3TH8h8gPJSd1Kw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 06/10/2026 17:45, Adrián Larumbe wrote:
-> On 2026-10-02 16:14:38+01:00, Steven Price wrote:
->> On 29/09/2026 04:44, Adrián Larumbe wrote:
+On 07/10/2026 11:51, Fuad Tabba wrote:
+> On Wed, 7 Oct 2026 at 09:35, Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
 >>
->>> The GPU cache flush/invalidate operation is unnecessary. First off, the
->>> GPU doesn't read off the perfcnt sample buffer, only writes into it, so
+>> PVTIME support is advertised by KVM_CAP_STEAL_TIME, which doesn't take into
+>> account the kvm instance. Even with that, a VMM could skip the CAP check
+>> and proceed to configure the PVTIME as we don't do further check on the
+>> DEVICE_CTRL. Tighten this up by passing the KVM instance around wherever
+>> possible and catch things early.
 >>
->> I don't think this is entirely true. The GPU performance counter unit
->> only writes the counters that are enabled, counters that share a cache
->> line but are not enabled are not written by the performance counter
->> unit, but if the L2 contains that cache line then the write can hit in
->> the L2 and dirty the entire line including stale data where the
->> unwritten cache line is.
+>> Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+>> Reviewed-by: Gavin Shan <gshan@redhat.com>
+>> Tested-by: Gavin Shan <gshan@redhat.com>
+>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
 > 
-> From the perspective of UM, is it bad if offsets into the perfcnt buffer
-> that stand for counters they did not enable contain undefined values?
+> Someone beat you to it. This is already in kvmarm/next as a5b0f36a045e :)
 
-There's two things to consider here:
+Thats fine, thanks for the pointer.
 
-* Does the UM care? The UM could write canary values to check that the
-GPU has actually filled in the counters. Replacing them with "undefined"
-values would break this behaviour. I'm not sure whether this is done -
-but it can be used to check that the hardware is actually writing the
-counter as expected.
+Cheers
+Suzuki
 
-* Is it a security hole? If the GPU cache was from when this BO was used
-by another context then this is obviously bad. As Boris pointed out this
-shouldn't be possible in the current driver if we're invalidating on unmap.
-
->> The upshot is that if the CPU has cleared a block of memory which the
->> GPU happens to have cached, then the "unused" counters may end up
->> showing the old data before the CPU cleared it (if they share a cache
->> line with an active counter).
->>
->> I have to admit it's probably somewhat academic given that Panfrost
->> doesn't expose the ability to control which counters are enabled...
->>
->> Is there a good reason for this patch (i.e. have you seen a performance
->> problem with doing the invalidate)? Otherwise I'd prefer we keep to the
->> safe route rather than trying to over optimise cache maintenance.
 > 
-> Like Boris said in a later reply, it was mostly about simplifying error handling
-> in the perfcnt enable path. We saw this initial clean being done and thought it
-> wasn't necessary.
-
-I think we need at least a comment explaining why this is safe. It does
-seem that as things currently stand we don't actually need it though.
-
-Thanks,
-Steve
-
->> Obviously in the fully coherent case the invalidate could be skipped (as
->> in the next patch).
->>
->> Thanks,
->> Steve
-> 
-> 
+> Cheers,
+> /fuad
 
