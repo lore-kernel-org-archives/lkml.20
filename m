@@ -1,340 +1,78 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C66004908C4
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 10:52:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20F2F39B4AF;
+	Wed,  7 Oct 2026 10:53:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791370401; cv=none; b=iF447hkBgSGN7vB832Bhuf+RgyVomjC+yjn0jCtXbsdxL/H6IsIBa/YQjZ2+SQMxBY/Vi/bJHTULdfL6xnfxjNYYbl1IOEOkBLyHSGgLoVI8woDSyAPj/HqYi03IWCwwzdttBFSJcukQYHVnXQM7ZhIhoTZn/dMhSUuzVYPAKhE=
+	t=1791370433; cv=none; b=s2XAwXJYZJVkC27c6tz/ayqGVKqLqTfhFfUei1E5mfwzt/WwcjElxi4sTVjJGHMdFJurXiKbK0yNo7NwzE7sTIhCY+9t/pafRUjxtFbFAEvMuU7ZnwL7ePVqpzmMuZxmWXmnfgPbpj3WxCw3lTxPCSYxvgUUMNRRQKoGRsKqmSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791370401; c=relaxed/simple;
-	bh=Lfk3z/9XBW9KBFUf735HqXRDByIh7ATabYIoLTvAS5A=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=UJfXK013Z6BiMdxbeI67IQf7Mv12QBxhFewl7qKRO0BVu1cMWnssvX/uPryKbC+wYQUjYrwAWzUoHcUHB4zoApY0yqWw1K08FCAzpG3FX4mJVrRFRfGKy6iT43pEEm2pQIYUPuasVmH+pqj95nm290f0QXZfwWvT06/xFHL321Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=WcA6PKtf; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791370433; c=relaxed/simple;
+	bh=yzVDZVj2uEzezJs+nadaDVA2RRODDD5RX0zsyDk0bDw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Wn5YepXxZH35PrZ5JF/hlMWb66ETHsUU3bekGjyBmzT/gCIiQ5ikdVzMa+qOZycL+u7pUlRWMg6GrRJn9xSXDXnT157Amvp5y1n9YJzapITvcWvHRUlXR25L4dOYfSnl8cWBNKF+Rb4W5NmN1DmYZrd6wZOU0gTq9xUiziZLHqo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bcPzy05p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="WcA6PKtf"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a02718da81so14006355e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 03:52:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791370367; x=1791975167; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NNNH9av8SFT8quNSTc63AF+CNNxl0BFefXFN7mUmANs=;
-        b=WcA6PKtfsKB/+aXMutOJtrBjEdu0iJUn8qqSmpl2hzSNb1jSzJV5uWEndYqmhci5B+
-         wxO6MjtX0iSpMG/QP7SSDUj0G3nv4QzbCrUonErLto9w3lLXI41CV9ojgyUnioHAfmUy
-         6LLyskkCm98vUVDsdjsrj65Ri4RQUez5GI9DJU28sbkO/8s0ruGkjqCILppOZAcZz8X9
-         SX9T+S+ioeSdIwvoh4xBxPk0A2g7t5B4vAcZua/g2SGVBu/hOLDu+N03poAZ4ab96n2p
-         XBkyDLiB8m1sUk3RfG8lZQrdeoevySjKbi6WwY2g5B431jmJXzYuFIT46IMg8nZ4nzRM
-         YFag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791370367; x=1791975167;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NNNH9av8SFT8quNSTc63AF+CNNxl0BFefXFN7mUmANs=;
-        b=KW+lTn90Pmgt7hM9L0Ps6CVCiSKI7EqfAjrTIrdpFX2nAKQJ6JXg8YrGX+HfP7OG9U
-         U7j+OB5j8P9g89x9V6M2L4aylw6Q9SJmwyoYFRvwtKhpQ6xUXtVFrA/QPIlks8o5puIb
-         IdkmPQ3TUo6f8UauP/OBfjhSgJWLSvY5gymBZu8qVnfnzPVq/R/A5ChfKNq+DbvgyOb0
-         /RBk5IlnehBI7Dv+/17OLKMP77/QIHiJ1Gh1CAGDycVnpjb7to1U4RrtcYwdaDa5iGEW
-         xFO7pPPtUc2ltcd4DLCIh3hQE2j1RSVfg4OSHKG9qJZQg+Clg8N3fxlkq6I78TxS4Tba
-         LayA==
-X-Forwarded-Encrypted: i=1; AKwUvByDl56i4MuRONuE0y/6k++R4hcRXNm9U0U8daInd41ZITQA7iCGQTVgGt1W+AldTzwapx1Oa2N6sZ/KEtM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kXzTNiogqHAJhw5u09fA1v9TJszy4SupYZ+jsd+IgxkY/8QUAF
-	Ps7/LdN4fPuKuKzxb/3UQxFGXpePER7wYALVw9cduYbI0Ajbr9h5qS5dISMOKnwpO2M=
-X-Gm-Gg: AYBFou03/sutXEdAkVzF2JOHgEZDU4MU1C7s9A1izUh8N5iNGBIat9GzQ9uKpgdECLf
-	TUJkoMn+7cwKlg0tT1UbSjy22+en4+8YDuT74Cm8kM/KeCuqos/2rag5c5xI5zaDd2TJuT+DxSN
-	3ulb9jyjJl3AlHmwcEPAXxN5TuoE/XD5rmxyUc1OUXrkPRJN38Gu7JYJR0bfpXu+OSEUqyNT6QD
-	NmnU2bdvd+FldOy6Sg4NlfYyx9bSX8n9sB2KliWfPMb8lnRam3XNBjU2Ek3J9+nerz+/Mt99tlE
-	5M1ZcVnuKus77UPEPF28D68PP+Vyf42rLlXGtvIUFJpnidbEt1CeFqfUPE3Aw2E6lATVKhyT+kV
-	0BeeAAVyxSscvWaCUnnDBLosxZt4xW1BMRNbetE985TfGB3OM4sKWvp61L+nG3kub+8OH3pQUFS
-	P4xM90ArJO0xpnEL+W++r0QaD9mezW8SEgDdttYk75L8YZKqX7SdcN8SF47/+bwmP93OVb1YIvz
-	w==
-X-Received: by 2002:a05:600c:3f08:b0:4a0:1723:2d8e with SMTP id 5b1f17b1804b1-4a1800ca17amr25117305e9.2.1791370366620;
-        Wed, 07 Oct 2026 03:52:46 -0700 (PDT)
-Received: from pop-os.local ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d31767sm5182781f8f.51.2026.10.07.03.52.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 03:52:46 -0700 (PDT)
-From: James Clark <james.clark@linaro.org>
-Date: Wed, 07 Oct 2026 11:52:13 +0100
-Subject: [PATCH v6 2/2] perf tests: mmap-basic: fix user rdpmc detection
- logic
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bcPzy05p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEC6F1F0089B;
+	Wed,  7 Oct 2026 10:53:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791370402;
+	bh=8UP2ng0XjxMFKsWAgf4LGIEwaqO8B0A7DdwcljBs1u0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bcPzy05p3PgqYJ0z0E2sRMJS9zLPgpUVplMS+AVHdn//Iv3N1bQ/OOuwTgDxPvpkW
+	 t+JIL5Cm2OnD5XTFQQelU81zhJUvRAaaoOTKI9fejLZjMl615xA2xb8LlmRbwEOCCh
+	 F+rZHnz6yctxYYVktnxoL2uyrqxOE7XQjDtWJSlNplriPVTp1uo5Pdfl3G+1gKZZ2P
+	 HXbNRmT9DmptlUzuZjlUZcZrLxtYbmMq4DPHorDlw+z8AMpj5PT0uwDeO1kUf7/kNK
+	 DAzuvVaqhjbimqmJwTR2y2leGtSRF6fe18v8bqSez6wIKZQfMifS8J7zDl4aZbyWae
+	 +ZgclaOqnHN1A==
+Date: Wed, 7 Oct 2026 12:53:18 +0200
+From: Vinod Koul <vkoul@kernel.org>
+To: Devendra K Verma <devverma@amd.com>
+Cc: mani@kernel.org, frank.li@kernel.org, den@valinux.co.jp,
+	dmaengine@vger.kernel.org, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, michal.simek@amd.com
+Subject: Re: [PATCH RESEND v2 0/2] Macro Ordering and Typo Correction
+Message-ID: <asYknhxjo8mo8CeG@parshuram>
+References: <20261007100336.4009004-1-devverma@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261007-rdpmc-detection-logic-v6-2-d7ed6a85f864@linaro.org>
-References: <20261007-rdpmc-detection-logic-v6-0-d7ed6a85f864@linaro.org>
-In-Reply-To: <20261007-rdpmc-detection-logic-v6-0-d7ed6a85f864@linaro.org>
-To: Ian Rogers <irogers@google.com>, Michael Petlan <mpetlan@redhat.com>, 
- Qiao Zhao <qzhao@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>
-Cc: Leo Yan <leo.yan@arm.com>, Peter Zijlstra <peterz@infradead.org>, 
- Ingo Molnar <mingo@redhat.com>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-riscv@lists.infradead.org, James Clark <james.clark@linaro.org>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261007100336.4009004-1-devverma@amd.com>
 
-RISC-V and Arm control userspace counter access through
-/proc/sys/kernel/perf_user_access. Add that as a fallback to
-set_user_read() so the test can exercise both enabled and disabled
-states on those platforms.
+On 07-10-26, 15:33, Devendra K Verma wrote:
+> These are minor and cosmetic changes.
+> 
+> o If the macros declaring the bit positions of a register
+>   are in order then it provides a good view. Corrected
+>   the ordering for once such register.
+> o Corrected the typo under the IP related data struct to
+>   have the correct name under respective IP structs.
+> 
+> Previous reviewed-by tags were part of the following
+> review:
 
-Document disabled, enabled and legacy states in user_read_state and fail
-on values outside the known 0-2 range. Preserve and restore any value in
-this range, rather than just 0 or 1.
+Please post a v3 after rebase on dma/next. As I told you code has
+changed and this does not apply and you posted the same thing again!
 
-Skip when the control files exist but can't be written to
-(USER_READ_ERR_PERM). We can't rely on always being able to write to
-them when an exclude_kernel=0 event can be opened because opening events
-might succeed for non-root users when perf_event_paranoid=-1.
-
-This test isn't run on unsupported platforms since the previous commit,
-so we can simplify the following things:
-
- * Test that cap_user_rdpmc is always equal to the requested state
-   rather than checking it only when disabled. As long as we stop
-   setting the cap in the attr unconditionally on Arm, this is ok.
-
- * Remove the USER_READ_UNKNOWN/rdpmc_supported fallback in the checks.
-   Now the expected state is always the one requested. USER_READ_UNKNOWN
-   only controls whether to skip restoration of the state on unsupported
-   platforms, so call it USER_READ_ERR_NO_FILE.
-
-Signed-off-by: Qiao Zhao <qzhao@redhat.com>
-[Re-write to fix bugs in set_user_read() and simplify tests]
-Assisted-by: Codex:GPT-6.1-Sol
-Signed-off-by: James Clark <james.clark@linaro.org>
----
- tools/perf/tests/mmap-basic.c | 137 +++++++++++++++++++++++++++++-------------
- 1 file changed, 94 insertions(+), 43 deletions(-)
-
-diff --git a/tools/perf/tests/mmap-basic.c b/tools/perf/tests/mmap-basic.c
-index 208cd889f23d..2d892a51a7f4 100644
---- a/tools/perf/tests/mmap-basic.c
-+++ b/tools/perf/tests/mmap-basic.c
-@@ -2,6 +2,7 @@
- #include <errno.h>
- #include <inttypes.h>
- #include <stdlib.h>
-+#include <unistd.h>
- 
- #include <fcntl.h>
- #include <linux/err.h>
-@@ -12,6 +13,8 @@
- #include <perf/evlist.h>
- #include <perf/mmap.h>
- 
-+#include <tools/config.h>
-+
- #include "cpumap.h"
- #include "debug.h"
- #include "event.h"
-@@ -182,50 +185,83 @@ static int test__basic_mmap(struct test_suite *test __maybe_unused, int subtest
- }
- 
- enum user_read_state {
--	USER_READ_ENABLED,
--	USER_READ_DISABLED,
--	USER_READ_UNKNOWN,
-+	USER_READ_ERR_PERM = -2,
-+	USER_READ_ERR_NO_FILE = -1,
-+
-+	USER_READ_DISABLED = '0',
-+	USER_READ_ENABLED = '1',
-+#if defined(__i386__) || defined(__x86_64__) || (defined(__riscv) && __riscv_xlen == 64)
-+	/* Unrestricted access on x86, legacy access on RISC-V. */
-+	USER_READ_LEGACY = '2',
-+#endif
-+	USER_READ_MAX
- };
- 
--static enum user_read_state set_user_read(struct perf_pmu *pmu, enum user_read_state enabled)
-+static enum user_read_state user_read_file_op(int fd, enum user_read_state enabled)
- {
- 	char buf[2] = {0, '\n'};
--	ssize_t len;
--	int events_fd, rdpmc_fd;
--	enum user_read_state old_user_read = USER_READ_UNKNOWN;
--
--	if (enabled == USER_READ_UNKNOWN)
--		return USER_READ_UNKNOWN;
--
--	events_fd = perf_pmu__event_source_devices_fd();
--	if (events_fd < 0)
--		return USER_READ_UNKNOWN;
-+	ssize_t len = read(fd, buf, 1);
-+	enum user_read_state old_user_read = USER_READ_ERR_NO_FILE;
- 
--	rdpmc_fd = perf_pmu__pathname_fd(events_fd, pmu->name, "rdpmc", O_RDWR);
--	if (rdpmc_fd < 0) {
--		close(events_fd);
--		return USER_READ_UNKNOWN;
--	}
--
--	len = read(rdpmc_fd, buf, sizeof(buf));
--	if (len != sizeof(buf))
-+	if (len <= 0) {
- 		pr_debug("%s read failed\n", __func__);
-+		goto out;
-+	}
- 
--	// Note, on Intel hybrid disabling on 1 PMU will implicitly disable on
--	// all the core PMUs.
--	old_user_read = (buf[0] == '1') ? USER_READ_ENABLED : USER_READ_DISABLED;
-+	old_user_read = buf[0];
- 
- 	if (enabled != old_user_read) {
--		buf[0] = (enabled == USER_READ_ENABLED) ? '1' : '0';
--		len = write(rdpmc_fd, buf, sizeof(buf));
-+		buf[0] = enabled;
-+		lseek(fd, 0, SEEK_SET);
-+		len = write(fd, buf, sizeof(buf));
- 		if (len != sizeof(buf))
- 			pr_debug("%s write failed\n", __func__);
- 	}
--	close(rdpmc_fd);
--	close(events_fd);
-+
-+out:
-+	close(fd);
- 	return old_user_read;
- }
- 
-+static enum user_read_state set_user_read(struct perf_pmu *pmu,
-+					  enum user_read_state enabled)
-+{
-+	int events_fd, fd;
-+	enum user_read_state ret = USER_READ_ERR_NO_FILE;
-+
-+	if (enabled == USER_READ_ERR_NO_FILE || enabled == USER_READ_ERR_PERM)
-+		return enabled;
-+
-+	events_fd = perf_pmu__event_source_devices_fd();
-+	if (events_fd >= 0) {
-+		fd = perf_pmu__pathname_fd(events_fd, pmu->name, "rdpmc", O_RDWR);
-+		if (fd >= 0) {
-+			/*
-+			 * Note, on Intel hybrid disabling on 1 PMU will implicitly
-+			 * disable on all the core PMUs.
-+			 */
-+			ret = user_read_file_op(fd, enabled);
-+			close(events_fd);
-+			return ret;
-+		} else if (errno == EACCES || errno == EROFS) {
-+			/* Permissions failure, flag the failure for a skip. */
-+			close(events_fd);
-+			return USER_READ_ERR_PERM;
-+		}
-+		close(events_fd);
-+	}
-+
-+	/* Fallback: perf_user_access interface (arm64, riscv, or similar) */
-+	fd = open("/proc/sys/kernel/perf_user_access", O_RDWR);
-+	if (fd >= 0)
-+		ret = user_read_file_op(fd, enabled);
-+	else if (errno == EACCES || errno == EROFS)
-+		ret = USER_READ_ERR_PERM;
-+
-+	return ret;
-+}
-+
-+
- static int test_stat_user_read(u64 event, enum user_read_state enabled)
- {
- 	struct perf_pmu *pmu = NULL;
-@@ -246,9 +282,6 @@ static int test_stat_user_read(u64 event, enum user_read_state enabled)
- 			.config	= perf_pmus__supports_extended_type()
- 			? event | ((u64)pmu->type << PERF_PMU_TYPE_SHIFT)
- 				: event,
--#ifdef __aarch64__
--			.config1 = 0x2,		/* Request user access */
--#endif
- 		};
- 		struct perf_evsel *evsel = NULL;
- 		int err;
-@@ -256,8 +289,28 @@ static int test_stat_user_read(u64 event, enum user_read_state enabled)
- 		bool mapped = false, opened = false, rdpmc_supported;
- 		struct perf_counts_values counts = { .val = 0 };
- 
-+		if (__is_defined(__aarch64__) && enabled == USER_READ_ENABLED)
-+			attr.config1 = 0x2;  /* Request user access */
- 
- 		pr_debug("User space counter reading for PMU %s\n", pmu->name);
-+
-+		if (saved_user_read_state == USER_READ_ERR_PERM) {
-+			pr_debug("User space counter reading for PMU %s [Failed to get user read state]\n",
-+				 pmu->name);
-+			ret = TEST_SKIP;
-+			goto cleanup;
-+		}
-+
-+		/* Check value is in the expected range */
-+		if (saved_user_read_state != USER_READ_ERR_NO_FILE &&
-+		    (saved_user_read_state < USER_READ_DISABLED ||
-+		     saved_user_read_state >= USER_READ_MAX)) {
-+			pr_err("User space counter reading for PMU %s [Unexpected current state %d]\n",
-+				pmu->name, saved_user_read_state);
-+			ret = TEST_FAIL;
-+			goto cleanup;
-+		}
-+
- 		/*
- 		 * Restrict scheduling to only use the rdpmc on the CPUs the
- 		 * event can be on. If the test doesn't run on the CPU of the
-@@ -301,21 +354,18 @@ static int test_stat_user_read(u64 event, enum user_read_state enabled)
- 			goto cleanup;
- 		}
- 
--		if (saved_user_read_state == USER_READ_UNKNOWN)
--			rdpmc_supported = pc->cap_user_rdpmc && pc->index;
--		else
--			rdpmc_supported = (enabled == USER_READ_ENABLED);
-+		rdpmc_supported = (enabled == USER_READ_ENABLED);
- 
--		if (rdpmc_supported && (!pc->cap_user_rdpmc || !pc->index)) {
--			pr_err("User space counter reading for PMU %s [Failed unexpected supported counter access %d %d]\n",
--				pmu->name, pc->cap_user_rdpmc, pc->index);
-+		if (rdpmc_supported && !pc->index) {
-+			pr_err("User space counter reading for PMU %s [index must be set when enabled %d]\n",
-+				pmu->name, pc->index);
- 			ret = TEST_FAIL;
- 			goto cleanup;
- 		}
- 
--		if (!rdpmc_supported && pc->cap_user_rdpmc) {
--			pr_err("User space counter reading for PMU %s [Failed unexpected unsupported counter access %d]\n",
--				pmu->name, pc->cap_user_rdpmc);
-+		if (rdpmc_supported != pc->cap_user_rdpmc) {
-+			pr_err("User space counter reading for PMU %s [cap should match requested state %d %d]\n",
-+				pmu->name, pc->cap_user_rdpmc, rdpmc_supported);
- 			ret = TEST_FAIL;
- 			goto cleanup;
- 		}
-@@ -363,7 +413,8 @@ static int test_stat_user_read(u64 event, enum user_read_state enabled)
- 			perf_evsel__munmap(evsel);
- 		if (opened)
- 			perf_evsel__close(evsel);
--		perf_evsel__delete(evsel);
-+		if (evsel)
-+			perf_evsel__delete(evsel);
- 
- 		/* If the affinity was changed, then put it back to all CPUs. */
- 		if (pmu->cpus != NULL) {
+> 
+> https://lore.kernel.org/all/aoW7vxy2lpXEbmRq@SMW015318/
+> https://lore.kernel.org/all/dx5jvko7ygrqugzkt3k74l3d7lk7iauikmxrzuhvn2b4bdv5ub@s2l6zl3alx3z/#t
+> 
+> Devendra K Verma (2):
+>   dmaengine: dw-edma: Sort Register Field Macros by Bit Position
+>   dmaengine: dw-edma: correct IP name in xilinx_cpm6_dma_data comment
+> 
+>  drivers/dma/dw-edma/dw-edma-pcie.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> -- 
+> 2.43.0
 
 -- 
-2.43.0
-
+~Vinod
