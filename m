@@ -1,147 +1,124 @@
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2355B46C836
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:23:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.49
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791372212; cv=none; b=ZTLs8We4OId3MmwLHuhRQgfP7VKnUnaS63RiPmsyXUuMs0JIgtkSJ2FTpkW2Hgs1noZL1jLpdkfyInZYwUXKzCfxtlwxcDOJ44llm1SjF0TxDJPGEGQFzwfFZ4Dr5wRRhtN68t0udjqqIOO3he0a+LL+6W2d6qgtspLHtiabyd0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791372212; c=relaxed/simple;
-	bh=2hwsUZK4ODMcka/Ebr9sKxEUtV9w7OkXEuWQZ+N18YE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mBNrAXC2LrZuhpZJ6hcBcPLGRIx38peiXnZvZdn6eneHWApBp3zrtWGQiV5bIpStXxmBLqPwoEIUVi57f/mmi2SM1WeeG/nlLy9bL99ymTSxPzqeVc1z8lbFwZtu6ZJVNT6I+QGE9Nfw4JE5EJFyNry9Kclu0dR0Zo1LMcBpErA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o9G0JFMD; arc=none smtp.client-ip=74.125.82.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA664480DC0
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:24:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791372296; cv=pass; b=GXEMSOKn65TbVsr9mrFNwamMq7BnFYJ0W1G6bu1Bp3UOZdlvsrvsQsU613HJ7POiXoJfQazEoMD5Q6Pv2EUA5inGpa0wBrjnYHadrdyi3xePv7YAYz2E7xwBHATh093R6JT+YH3STndKdfrzQDWnvLVvZfn7yLBxa0aL4UzTcNE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791372296; c=relaxed/simple;
+	bh=e6PnbIvoXOZFv6pPRVmqWiNMYIregQMXJAxqLvuHzdE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Jp7B35Jz1SrLAJ06/+LbOenVzYdDDv1eeLX9p6jc0zQmrZOlGnj0ImypJCKcS4LPttXUOlHP7y+8e16bwAeJ/UhSOiiuK7R3MvJCF7LH6Cxckw2RRgQ+OTt0BNIno0lrYjzlTZ1OwylT5B4fAvu+Fzwpc0YgImII3S2wnDVDP6U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=viYNep54; arc=pass smtp.client-ip=209.85.167.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o9G0JFMD"
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-141395927feso2487529c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 04:23:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="viYNep54"
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5bcbb378fc9so8052e87.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 04:24:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791372276; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RzQCC1N3+Ub0qPYn8x1SlUqMZ6EKUcZGtfwsmaLk1TeHqr6KX+YfZ7T9xZmE7M+N1U
+         O2rQDY4FeshSb8rnzs5Q1FySmxVNta6fOjwApGDhNbbWlFstVwWZL3uz3T7F6pqDmpAs
+         VZwOVcAZaYO31Z0HQsfxb2Xdy6nszBox7zxpqvVaVP4W+BzOIioi4RtV2AZlg5dwC4XD
+         pPEGofvX3W4/rDAG2TZiWYgYM1Zfx3SNbdcBrAP9Dw5T73hP29Y+Mme6T1oiO6NbRjKw
+         2ZjxHvjs1pKrPxwdtz5xrlXv5waT0b4H3kKkdExMTphcn80Ar9xhIHHtvDwXuTb8DC3k
+         /8PQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=e6PnbIvoXOZFv6pPRVmqWiNMYIregQMXJAxqLvuHzdE=;
+        fh=bIp9YApcBURWGbSurGW2GJDgJY3jwK+GBgQN0FmiIVQ=;
+        b=pzqoM8TFJgeN0btuQ/G/0FbpMW/XMNTj25k6pxkE6Gj2NL8DWTE18UyTK6a4gjRMh9
+         LRudN9EzoVMcpgI7lXoWCw12vzzEWLkQ0ZtJb+d3hEh53fonJKHVj7zXMJZiDLRCcgQE
+         9gFgRYQt5E0byAlgxzk5QBG4/9ZzB/xxjuGJmQkCibadpcf+8JlFhkC46RYj8MYJhRMz
+         ihyzwKnTmTUP2/+mLXHlNrBfET4dbO2E13gEApARwryXDP+O9wrY6OdrIX7Q+74W/CrV
+         mSpfRVcv4/e+Vns8QYVlyFGPSERm5+D53cfIJpJhmyoUQQhuuekKnVPbw3YMTO3sWsTo
+         sLag==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791372192; x=1791976992; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ecet2Ly9TeUCYQ0Ys/6vyvxrbNg36mAKtReMuHqWCLU=;
-        b=o9G0JFMDoktnW//TtCy7CyHRjmHKEikXiV0zKO62Hl+m0IPcGn1ksVw7YhUgA+s2TS
-         R7vRKoZEV2TmLg0PyOdduzDTKj4n5C2VaNuQQ3qnV46vW7SicT2RLJAQVZ7SySLWp8Mt
-         aKM6Sm+jPBoyBPg8r2gpx8CnU8hb4dbtvyF4v4OxEyTd2LS+oI6h1tbEojPqJJMU0pmK
-         QhmQSNN1Ro2Q1VZlkmFgY//tPPB/bDsw9WiM8lyOnn5EbWpGDAw3bHVR1IlibsDAe6Kp
-         lRXFRKnBqCXgRs/NH+dTguRCtdh5YALuMYYrXm7ujZX18VdodEht9TbaRr1iFIhtjdoq
-         UgBg==
+        d=google.com; s=20251104; t=1791372276; x=1791977076; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=e6PnbIvoXOZFv6pPRVmqWiNMYIregQMXJAxqLvuHzdE=;
+        b=viYNep54Y8bhDRmTRxuG0pzXcRCEzzH+gJi32PD7gChGRsdph9djpcd+wFH9oospc1
+         KOEbdGl9HYM7qTx1RQeGR5vzkhPzA2bewQwQcZGdanTd10BbQ/aywpjlizdyikCquzCt
+         nbrJ7SQwpJm/s1ADdIzthIekFFSAOl25/auq2j6rp6omXhja4cEMGTaIXtw7iB/oGXGa
+         7OZa26+o1M+XLuvu7uwX8jwge1+O2KRKNkZ+wr0JQOdj7g0c1tMz3WDS7a1nsSGTAxEu
+         /T2LdVJmo1J2qRrhIEU1YXPsDGTEOSDhLXwnC2NENW8Q/Heae2EZyWq51hSM3O2lhQZd
+         Oe/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791372192; x=1791976992;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ecet2Ly9TeUCYQ0Ys/6vyvxrbNg36mAKtReMuHqWCLU=;
-        b=w48i1hJJa9gmgzm1IygN9QmrHYi+cLRdNa/Grs8X6WsLAX+kFcJV1RrUvR1wO6S4hR
-         0oCqcHL4/V++nIpGvgf9QOjPGGZtCaZyS/AAM7VHZJICTb2QbsUozHs6qD4Lyw1mgRom
-         XzB5F7qOPzrKGQ7Cp2UeUEtHCilQpMB515IKBYJ91d9oBiLmqsDLHsG70A2TSe5nHCRh
-         +eTmqvbWFJuWDfYhZbPYYyGZU7U6v/5G6df0dvZ9wL5ioRP1oSFK/Qx9nRPgSyt8enrt
-         ylGOIlZNNIeYcvK9OFY/aX9jKjXFlsPa2rZL+qcTbW7c4Tz58P0fRXlU0CIrAx3VcScK
-         aaqw==
-X-Forwarded-Encrypted: i=1; AKwUvBw6zOrSizDH7rtbxjgGMGhrGasfgvp3RVvM2SbK2E6nkIvxzqoXOiGT79FW5GDrPBWREq0SjvmNuaoD5Xo=@vger.kernel.org
-X-Gm-Message-State: AFuF++lInxxDXbEBsyI+IY0cOLRZUqOclDQkbqSf5qTor6NqXzCa1gz0
-	2ZyrSLxfJEa3j1COHeJ+WhdweQSLYMQP5t0vY3PAXFyFDE9RtMjdTjd2
-X-Gm-Gg: AYBFou0GDw5IK9BKrVdXyVbTJGe564A2rtMO552tKNL6REuXJXPUNBpKclc3ySApShR
-	J7eGqqwU8tCPl1RjABvh8qRvd79TsdflrRVB8vgOXoKdf/eJgcXcf3+ZzuLWyQk8fw8j+1f338J
-	CMePPHcZJg/arEP56mI1DOI/kXFtowbWHpXyVYIZkwZ0iS8HxOLk3DxlfqzUz7ejL+tt/qg7gXM
-	TYnfThwZxfTRcQRsCCgYHqQW2v4cfruXNAovBC4X2vAA8t3JkPjWWGymN1B+PAbbhsGii+AL831
-	4mvK4h7CJrcqYeAvOmBC3fR0TirlsM7gJdtyyWyz1seWF1Y3H1RphA9av6OsAL6uSO8fBLCVOw7
-	206LmbBivL0hDHL6QNl5Rx92ulUXswjHOLW/FqJeyKnUd8YF8WDGW6bfexXAv8KsV74FDaByShz
-	leRmQFDD6MmLmcwasqg/gT9SEDdgDE2XJTteQrCQjrLPXr7Can8Bfmx4n3lsqc1Sj2z9Y9vBkzH
-	kYQJuBs0zEC/BONu7ukQw==
-X-Received: by 2002:a05:701b:2616:b0:13e:6efa:78f7 with SMTP id a92af1059eb24-162044bfdf4mr1689134c88.15.1791372191642;
-        Wed, 07 Oct 2026 04:23:11 -0700 (PDT)
-Received: from LAPTOP-450UDG4J ([223.185.133.64])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-16352800ed6sm3234698c88.9.2026.10.07.04.23.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 04:23:10 -0700 (PDT)
-From: Yogesh Gaur <yogeshgaur.83@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>
-Cc: Duoming Zhou <duoming@zju.edu.cn>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yogesh Gaur <yogeshgaur.83@gmail.com>,
-	syzbot+d627b1495de0e851be32@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH v2] media: siano: initialise the urb work once, not on every completion
-Date: Wed,  7 Oct 2026 16:52:57 +0530
-Message-ID: <20261007112257.1888-1-yogeshgaur.83@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <20261006124545.1778-1-yogeshgaur.83@gmail.com/>
-References: <20261006124545.1778-1-yogeshgaur.83@gmail.com/>
+        d=1e100.net; s=20260707; t=1791372276; x=1791977076;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=e6PnbIvoXOZFv6pPRVmqWiNMYIregQMXJAxqLvuHzdE=;
+        b=xQkYOcn5oNVXnOJJgk986v80P4xyB+ZGkPh/AWS6a31H6x4dU4dJr0AZD2LJ+ikIRk
+         a34lY6z6A8hrtBOmaUKIXBCPpdwuIGjKwU25I645/EFrHnxhxMcgDSns/yLJ43eRJMEI
+         7X1BeM7oa70V45P9QRCOdiBw0cgK8YIfBCKmSsSt4YbSC00iH1MnpajxsUuXWgETbufo
+         xIMyShCsVulWW8pQyN/T0ySyneTScqQ63OKST4KmX4z//mYyl57bLAEEjpKlLvTgfd2G
+         6wcFo/THBZZpORRenQlKpjPfdJDBiC6eyJcDzU08rrIe1XMFz3enVdsRmYHWilZToeLr
+         Po5w==
+X-Forwarded-Encrypted: i=1; AKwUvByH2btd/dDhM/qxj3mIu2dxBwaCgJVr9cMNuyRsK1D5pHqAi+b8gWX7DHW50ZYufwn7cNfF5D74syl0fLE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIjlP4PUwshCxji9zV/Wm45C6fCIEb7vD5fHWoa2vc91Tvs/4E5
+	L8js8/TKHtP3yxystwrAXPnyW7g5ikXmQ5kK/E6ZE3HC0J8+FTAevopQRab6ZNXXBederXhRdlz
+	9HoSJaKr5D7BaVlGSqPPG8MWiBjrp3LRXybYbaYJF
+X-Gm-Gg: AYBFou1ZZJ52jQVLEpEXZVlfvKAe6UzOmhhNVuRpfcDFOvI/nB/yRm8xhb+GTbxx91K
+	gFz7aihJQuKrCGSm+pceSkHZhyhuE9gzsjLh0X8c9yBUI8sGkyjKVITPGacJ8ITmZ70BFg7kqLK
+	w5EvpMPnJ+oFZ7HkGfluFYquzxNxK9p0lGKlKlfMc5zx51GuDBl9JQKNMRWsmz5OKpnlkhxkWpT
+	SuIxxA1YsdAcv996kFdOTYwL9n6sWoyYJzpfPLEFaqZbE3k3e3m4th8GbxuPgyW2NskqBZThQYx
+	u6foRc09CY7dTknqc9jy/fSe4lIaLWMdHEE+z5Ok96CdfeKfFa0itA==
+X-Received: by 2002:a05:6512:3f0d:b0:5ae:cf5f:4a88 with SMTP id
+ 2adb3069b0e04-5bcca857470mr320723e87.8.1791372275119; Wed, 07 Oct 2026
+ 04:24:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261007073537.2454351-1-suzuki.poulose@arm.com> <20261007073537.2454351-10-suzuki.poulose@arm.com>
+In-Reply-To: <20261007073537.2454351-10-suzuki.poulose@arm.com>
+From: Fuad Tabba <tabba@google.com>
+Date: Wed, 7 Oct 2026 13:23:58 +0200
+X-Gm-Features: AclHuK-AkPhTBNuRx-Nil52s88bZX1XXziZHk8i7cIYK8SeGo6JUTxyL14CKqt4
+Message-ID: <CA+EHjTwHBasTofGE5YQj0WfyN3v-uHykPxRL57AWJGhAO5Pojg@mail.gmail.com>
+Subject: Re: [PATCH v23 09/14] KVM: arm64: Consolidate stage2 unmap range into kvm_stage2_unmap_range
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org, 
+	will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, steven.price@arm.com, 
+	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com, 
+	joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev, 
+	gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, 
+	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, 
+	lpieralisi@kernel.org, enju.kohei@fujitsu.com, sudeep.holla@arm.com, 
+	jonathan.cameron@oss.qualcomm.com
+Content-Type: text/plain; charset="UTF-8"
 
-smsusb_onresponse() re-runs INIT_WORK() on surb->wq every time an URB
-completes, right before scheduling it.  INIT_WORK() resets work->data,
-which is where the workqueue keeps the work's state, including the
-"being cancelled" mark that cancel_work_sync() sets while it waits.
+On Wed, 7 Oct 2026 at 09:36, Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
+>
+> In preparation for adding VM specific backends for stage2 operations,
+> nuke __unmap_stage2_range() and fold the logic into
+> kvm_stage2_unmap_range(). Also, make kvm_unmap_gfn_range(), the only other
+> user of the __unmap_stage2_range() call the kvm_stage2_unmap_range(). Also,
+> while at it fix the comment to make it clear that mmu_lock must always be
+> held while unmapping. The code already mandates that and the two call paths
+> do have the write mmu_lock held.
+>
+> Later we would replace the logic in kvm_stage2_unmap_range() with VM
+> specific backends.
+>
+> No functional changes intended.
+>
+> Reviewed-by: Gavin Shan <gshan@redhat.com>
+> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
 
-smsusb_stop_streaming() kills the URB and then cancels the work.  If
-do_submit_urb() is running at that point it can resubmit the URB, and
-if that URB completes during the cancel, smsusb_onresponse()
-re-initialises the work, wiping the cancel mark, and queues it again.
-__flush_work() then finds a queued work where it expects an idle one:
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
 
-  smsusb:smsusb_init_device: smscore_start_device(...) failed
-  data & WORK_STRUCT_PWQ
-  WARNING: kernel/workqueue.c:4425 at __flush_work+0xc8f/0xd70 kernel/workqueue.c:4425
-   __cancel_work_sync+0xbf/0x110 kernel/workqueue.c:4568
-   smsusb_stop_streaming drivers/media/usb/siano/smsusb.c:183 [inline]
-   smsusb_term_device+0xdd/0x3d0 drivers/media/usb/siano/smsusb.c:345
-   smsusb_init_device drivers/media/usb/siano/smsusb.c:497 [inline]
-   smsusb_probe+0x1aba/0x2280 drivers/media/usb/siano/smsusb.c:575
-
-Initialise each work item once, next to the URB it resubmits, and only
-schedule it from the completion handler.  smsusb_stop_streaming() keeps
-its wq.func check, which still skips the URBs that were never set up
-when smsusb_init_device() fails early.
-
-Fixes: ebad8e731c1c ("media: usb: siano: Fix use after free bugs caused by do_submit_urb")
-Reported-by: syzbot+d627b1495de0e851be32@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=d627b1495de0e851be32
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
----
-Built with W=1 only; not runtime-tested.
-
-v2: Added Closes by
-v1: https://lore.kernel.org/all/20261006124545.1778-1-yogeshgaur.83@gmail.com/
-
- drivers/media/usb/siano/smsusb.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/media/usb/siano/smsusb.c b/drivers/media/usb/siano/smsusb.c
-index 0fdc2e0950b7..210c323c8232 100644
---- a/drivers/media/usb/siano/smsusb.c
-+++ b/drivers/media/usb/siano/smsusb.c
-@@ -143,7 +143,6 @@ static void smsusb_onresponse(struct urb *urb)
- 
- 
- exit_and_resubmit:
--	INIT_WORK(&surb->wq, do_submit_urb);
- 	schedule_work(&surb->wq);
- }
- 
-@@ -468,6 +467,7 @@ static int smsusb_init_device(struct usb_interface *intf, int board_id)
- 	/* initialize urbs */
- 	for (i = 0; i < MAX_URBS; i++) {
- 		dev->surbs[i].dev = dev;
-+		INIT_WORK(&dev->surbs[i].wq, do_submit_urb);
- 		dev->surbs[i].urb = usb_alloc_urb(0, GFP_KERNEL);
- 		if (!dev->surbs[i].urb)
- 			goto err_unregister_device;
--- 
-2.55.0.windows.5
-
+Cheers,
+/fuad
