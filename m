@@ -1,350 +1,91 @@
-Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-23.mta0.migadu.com [91.218.175.23])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F049242376C;
-	Wed,  7 Oct 2026 15:17:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791386247; cv=pass; b=Od4g/yV2NUKwq2Oq6B2gsrYII2pBDU7drR9BK57YgQJAXdCiAGskgJ/M9m8NA1jL9BF7foHFV6BGFAIncFNSbPQ6FsJBt0TQIOsFb1PYsjEcjcW/UNknH4p4ezPPt1zdkXitkfT82bGHEZ00d4NbvaD4aivcBakU8WtYgKTS6Gw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791386247; c=relaxed/simple;
-	bh=mGDLuGMDNAtgE6WUsuAF7gUypT0flnNh5odPtHGv7eY=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=h+4NXRMflh1TCwWFfnF2Ds21LYliIvl++trKCxkORkDt0SGOxfGtTiOJ3NgeeQilpB5P/rIOLGHWJyJPbYxJmIuuN0z/9qs4U4SLjHAcPI0KXsrec/1sayHhN//LHs5vdgcPm79q79w3xE+UVBnEmB1YVDmzinRtWH+sKHmwz7U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=louisalexis.eyraud@collabora.com header.b=Sm6aDuhP; arc=pass smtp.client-ip=165.173.180.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 443FD37E5D2
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 15:18:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.23
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791386319; cv=none; b=ClvHKtkWDV5VrpoDhZdbx+KTTlERJsydYBjfAJ7diugIFIDm2yz8sBXrmjOYhucyEbCTR7tPumZvO7RPFsGTo0zOBOYMrnnmekkVhs1IfV496mBMio6bxlLqGseyNM9LMe6uIr57YwBvV4zm/DVnUmaSgYDCDaTujN4UwIIpwI0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791386319; c=relaxed/simple;
+	bh=WfxnmXqZPqJh+A0ek5itXOZf1C/VdEvpiu7rHAaTZkI=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
+	 References:In-Reply-To; b=BKVbQxqagbX44y1Fjzi0so320gblYZxFc/oWBqHGokq2ylovbXMcRK4JnfnlvQjmnxDydTr2y7hqN+2D8hg1VKS6iR2TABbcTLHInk4a1OdtQsauNBk/XJqVcln7OhHv+Upxp34xHnvmPQOU6LobhlH5QlDR8arQyL5DUgkbHEg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=mRkVORWC; arc=none smtp.client-ip=91.218.175.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=louisalexis.eyraud@collabora.com header.b="Sm6aDuhP"
-ARC-Seal: i=1; a=rsa-sha256; t=1791386200; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=jY7hJ0dRVgsEvMXH8j9XUNfAqHe9b3NW1bVGNZJZTEVU0UBFyT6MpHfk8zSRbm7GtOaH2QrWLmgpblsabP4m+3v/vpv/S+KbwZGAcdwmeHiRnB+ABJlpiz1c8zA15TEjOok1ZuMlD0HZ9j53eJ2QRcTz77La+OQG94Ajaru/gp4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791386200; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=E2QYGdKlNHqVyVmJ+a4HH3py6V62qJ39qB+ljfaz3+E=; 
-	b=hvBpbBafVRYxi+iurLHe8vs/bigBUvfyr/tTDLeQ3k5HsV3Ukh0ZO7Adg7P+OYaSew1+42OYIfgwD0eClYW+zleqIPDwG1yhpgB+JjT6Bn3twN8GkDGpDzCbrzi+VK5F1e2dOCEGW5TXprqtO+ZjnPYAFwXmEMRomQqPWka+EwQ=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=louisalexis.eyraud@collabora.com;
-	dmarc=pass header.from=<louisalexis.eyraud@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791386200;
-	s=zohomail; d=collabora.com; i=louisalexis.eyraud@collabora.com;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
-	bh=E2QYGdKlNHqVyVmJ+a4HH3py6V62qJ39qB+ljfaz3+E=;
-	b=Sm6aDuhPtFtYEX6wir6YNyUq1F1StvEpw0/1pNM1Cr/WkiFWQvhciFzwUlxKP2Tq
-	Z3f/JsxqQTBpklzhy342IrTKAJtBkHMmwOJpidLYJnJBY1ykHV3HOlYFEt6BSeO+1qK
-	oVfSKR4Gnm+UyvdDVQwhpZbZCGcknivhpbHkvsLI=
-Received: by smtp.zohomail.com with SMTPS id 1791386197417427.99971218964686;
-	Wed, 7 Oct 2026 08:16:37 -0700 (PDT)
-Message-ID: <1af4b5461a80219d00a4be853c9111d60fe18f79.camel@collabora.com>
-Subject: Re: [PATCH net-next v2 2/7] net: stmmac: mediatek: simplify TX/RX
- delay handling in mt8195_set_delay
-From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>, Andrew Lunn	
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet	 <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
- Abeni	 <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Richard Cochran	 <richardcochran@gmail.com>, Matthias Brugger
- <matthias.bgg@gmail.com>,  AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>, Biao Huang
- <biao.huang@mediatek.com>, Maxime Coquelin	 <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: kernel@collabora.com, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, 	linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, 	linux-mediatek@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Date: Wed, 07 Oct 2026 17:16:31 +0200
-In-Reply-To: <47b9d9a2-18cb-4726-82f7-772d108b2ee8@bootlin.com>
-References: <20260924-dwmac-mediatek-mt8189-v2-0-430bd74d5ef9@collabora.com>
-	 <20260924-dwmac-mediatek-mt8189-v2-2-430bd74d5ef9@collabora.com>
-	 <47b9d9a2-18cb-4726-82f7-772d108b2ee8@bootlin.com>
-Organization: Collabora Ltd
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="mRkVORWC"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=WfxnmXqZPqJh+A0ek5itXOZf1C/VdEvpiu7rHAaTZkI=;
+ c=simple/simple; d=cknow-tech.com;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791386311; v=1; x=1791991111;
+ b=mRkVORWC1hIwSlDe5LyEe/cFGPbPCpSCPPUsgYQ1gop4V05yPW5B+toI0MqCl9zjMTzxbSc6
+ dfLg73/1xL6PcJ6v5zQUUa91k3i8t0rL8F4AHpnGz1FRtQXOvBFVM0Xqrd3wAxyVy37ktKU9inS
+ xmmyAt1UyY7dZU2o2/oyDfRH5bf1/oucveROG04sEyBgfJcoH5SQ9IdzfBdbr3UfeV4qqENaohc
+ Sz+2o5mpaJfGl52Mft6xL0GjRRigM5/eYoVeKV3YnExvGMjehBfwRVsMQzM6jn+ZPqhKE5qd1XM
+ PyA5dutcgTMOXs5TWm7W/3WzgMPUwhrVtyz6K2SvuscmA==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b441c3345877503e;
+	Wed, 07 Oct 2026 15:18:21 +0000
+X-Mizu-Trace-ID: b441c3345877503e
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-ZohoMailClient: External
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 07 Oct 2026 17:18:19 +0200
+Message-Id: <DLYPG0VDLX08.36QEI8PELLHV@cknow-tech.com>
+To: "Johannes Berg" <johannes@sipsolutions.net>,
+ =?utf-8?q?Fran=C3=A7ois_Roux?= <franzelfranzel@gmail.com>
+Cc: "Diederik de Haas" <diederik@cknow-tech.com>, "Emmanuel Grumbach"
+ <emmanuel.grumbach@intel.com>, <linux-wireless@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] wifi: nl80211: don't WARN on a missing self-managed
+ regdom
+From: "Diederik de Haas" <diederik@cknow-tech.com>
+X-Mailer: aerc 0.22.0-31-g5c1c510d2b65
+References: <20261006161744.3804-1-franzelfranzel@gmail.com>
+ <16aa99921c4e92e8d4da3c84aacbec2e673666aa.camel@sipsolutions.net>
+In-Reply-To: <16aa99921c4e92e8d4da3c84aacbec2e673666aa.camel@sipsolutions.net>
 
-Hi Maxime,
+On Wed Oct 7, 2026 at 4:55 PM CEST, Johannes Berg wrote:
+> On Tue, 2026-10-06 at 18:17 +0200, Fran=C3=A7ois Roux wrote:
+>> nl80211_get_reg_do() has a WARN_ON() for a self-managed wiphy without a
+>> private regdomain. Userspace can trigger it with a plain
+>> NL80211_CMD_GET_REG request.
+>>=20
+>> Drivers can register such a wiphy first and set its regdomain later.
+>> ath12k, for example, calls ieee80211_register_hw() and only then applies
+>> the regdomain with ath12k_regd_update(). iwd queries the regdomain of a
+>> new wiphy as soon as it shows up, so it can hit that window at boot:
+>>=20
+>>   WARNING: net/wireless/nl80211.c:10828 at nl80211_get_reg_do+0x1d0/0x1f=
+c [cfg80211], CPU#5: iwd/721
+>
+> I'm not a fan of this, I think the drivers should have the regdom ready.
+>
+>> The same trace has been reported with an Intel BE200 (iwlwifi).
+>
+> I _thought_ we fixed that issue.
 
-On Sun, 2026-10-04 at 15:43 +0200, Maxime Chevallier wrote:
-> Hey,
->=20
-> On 9/24/26 09:23, Louis-Alexis Eyraud wrote:
-> > The mt8195_set_delay function modifies at its beginning the TX and
-> > RX
-> > internal delay variables, located in the driver data, by dividing
-> > them by a constant (290) and restores their original values by
-> > multiplying them again at the function end. It is done in order to
-> > convert them into a step value, used by the hardware registers for
-> > setting these delays.
-> >=20
-> > But this is rather pointless to modify the driver data for that,
-> > while
-> > it could be done locally in the function. The original delay values
-> > cannot be used anymore (if needed) during mt8195_set_delay
-> > processing.
-> > Finally, they are altered after the function call if they are not a
-> > multiple of 290.
-> >=20
-> > So, simplify these delay variable handling by using local variables
-> > to
-> > convert them into the register value and use those in the write
-> > calls.
-> > Also, remove the two private conversion functions, that are not
-> > useful
-> > anymore and add definitions for MT8195 RX/TX delay maximum and
-> > divider
-> > values.
-> >=20
-> > Signed-off-by: Louis-Alexis Eyraud
-> > <louisalexis.eyraud@collabora.com>
->=20
-> Looking at this, seems like the 2712 support could benefit from the
-> same
-> cleanups you've done with the weird division / remultiplication.
->=20
-> That can be a separate cleanup though.
->=20
-> Maxime
->=20
-thanks for the review.
+If that fix is supposed to be in 7.3-rc6 (from Linus), then no.
+If that's a recent fix/patch which is f.e. slated for -next/7.4(-rc1),
+then can you point me to it? Happy to test it.
 
-I'll add an additional patch to do the same cleanup for MT2712
-in v3.
-
-Regards,
-Louis-Alexis
-
->=20
-> > ---
-> > =C2=A0.../net/ethernet/stmicro/stmmac/dwmac-mediatek.c=C2=A0=C2=A0 | 77
-> > ++++++++++------------
-> > =C2=A01 file changed, 36 insertions(+), 41 deletions(-)
-> >=20
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> > b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> > index 30ae0dba7fff..f7eb85110df0 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> > @@ -63,6 +63,11 @@
-> > =C2=A0#define MT8195_DLY_RMII_TXC_ENABLE	BIT(5)
-> > =C2=A0#define MT8195_DLY_RMII_TXC_STAGES	GENMASK(4, 0)
-> > =C2=A0
-> > +#define MT8195_DLY_RXC_STAGE_DIV	290 /* 290ps per stage */
-> > +#define MT8195_DLY_RXC_MAX		9280 /* 32 x 290ps */
-> > +#define MT8195_DLY_TXC_STAGE_DIV	290 /* 290ps per stage */
-> > +#define MT8195_DLY_TXC_MAX		9280 /* 32 x 290ps */
-> > +
-> > =C2=A0struct mac_delay_struct {
-> > =C2=A0	u32 tx_delay;
-> > =C2=A0	u32 rx_delay;
-> > @@ -293,39 +298,27 @@ static int mt8195_set_interface(struct
-> > mediatek_dwmac_plat_data *plat,
-> > =C2=A0	return 0;
-> > =C2=A0}
-> > =C2=A0
-> > -static void mt8195_delay_ps2stage(struct mediatek_dwmac_plat_data
-> > *plat)
-> > -{
-> > -	struct mac_delay_struct *mac_delay =3D &plat->mac_delay;
-> > -
-> > -	/* 290ps per stage */
-> > -	mac_delay->tx_delay /=3D 290;
-> > -	mac_delay->rx_delay /=3D 290;
-> > -}
-> > -
-> > -static void mt8195_delay_stage2ps(struct mediatek_dwmac_plat_data
-> > *plat)
-> > -{
-> > -	struct mac_delay_struct *mac_delay =3D &plat->mac_delay;
-> > -
-> > -	/* 290ps per stage */
-> > -	mac_delay->tx_delay *=3D 290;
-> > -	mac_delay->rx_delay *=3D 290;
-> > -}
-> > -
-> > =C2=A0static int mt8195_set_delay(struct mediatek_dwmac_plat_data *plat=
+Before I reported the/my issue with Intel BE200 [1] I did search a bit
+on the linux-wireless ML and saw some patches where ACPI was an (important?=
 )
-> > =C2=A0{
-> > =C2=A0	struct mac_delay_struct *mac_delay =3D &plat->mac_delay;
-> > -	u32 gtxc_delay_val =3D 0, delay_val =3D 0, rmii_delay_val =3D 0;
-> > -
-> > -	mt8195_delay_ps2stage(plat);
-> > +	u32 rx_delay_stage_val =3D mac_delay->rx_delay /
-> > MT8195_DLY_RXC_STAGE_DIV;
-> > +	u32 tx_delay_stage_val =3D mac_delay->tx_delay /
-> > MT8195_DLY_TXC_STAGE_DIV;
-> > +	u32 gtxc_delay_val =3D 0;
-> > +	u32 rmii_delay_val =3D 0;
-> > +	u32 delay_val =3D 0;
-> > =C2=A0
-> > =C2=A0	switch (plat->phy_mode) {
-> > =C2=A0	case PHY_INTERFACE_MODE_MII:
-> > -		delay_val |=3D FIELD_PREP(MT8195_DLY_TXC_ENABLE,
-> > !!mac_delay->tx_delay);
-> > -		delay_val |=3D FIELD_PREP(MT8195_DLY_TXC_STAGES,
-> > mac_delay->tx_delay);
-> > +		delay_val |=3D FIELD_PREP(MT8195_DLY_TXC_ENABLE,
-> > +					!!tx_delay_stage_val);
-> > +		delay_val |=3D FIELD_PREP(MT8195_DLY_TXC_STAGES,
-> > +					tx_delay_stage_val);
-> > =C2=A0		delay_val |=3D FIELD_PREP(MT8195_DLY_TXC_INV,
-> > mac_delay->tx_inv);
-> > =C2=A0
-> > -		delay_val |=3D FIELD_PREP(MT8195_DLY_RXC_ENABLE,
-> > !!mac_delay->rx_delay);
-> > -		delay_val |=3D FIELD_PREP(MT8195_DLY_RXC_STAGES,
-> > mac_delay->rx_delay);
-> > +		delay_val |=3D FIELD_PREP(MT8195_DLY_RXC_ENABLE,
-> > +					!!rx_delay_stage_val);
-> > +		delay_val |=3D FIELD_PREP(MT8195_DLY_RXC_STAGES,
-> > +					rx_delay_stage_val);
-> > =C2=A0		delay_val |=3D FIELD_PREP(MT8195_DLY_RXC_INV,
-> > mac_delay->rx_inv);
-> > =C2=A0		break;
-> > =C2=A0	case PHY_INTERFACE_MODE_RMII:
-> > @@ -336,16 +329,16 @@ static int mt8195_set_delay(struct
-> > mediatek_dwmac_plat_data *plat)
-> > =C2=A0			 * The ingress timing can be adjusted by
-> > RMII_RXC delay macro circuit.
-> > =C2=A0			 */
-> > =C2=A0			rmii_delay_val |=3D
-> > FIELD_PREP(MT8195_DLY_RMII_TXC_ENABLE,
-> > -						=C2=A0=C2=A0=C2=A0=C2=A0 !!mac_delay-
-> > >tx_delay);
-> > +						=C2=A0=C2=A0=C2=A0=C2=A0
-> > !!tx_delay_stage_val);
-> > =C2=A0			rmii_delay_val |=3D
-> > FIELD_PREP(MT8195_DLY_RMII_TXC_STAGES,
-> > -						=C2=A0=C2=A0=C2=A0=C2=A0 mac_delay-
-> > >tx_delay);
-> > +						=C2=A0=C2=A0=C2=A0=C2=A0
-> > tx_delay_stage_val);
-> > =C2=A0			rmii_delay_val |=3D
-> > FIELD_PREP(MT8195_DLY_RMII_TXC_INV,
-> > =C2=A0						=C2=A0=C2=A0=C2=A0=C2=A0 mac_delay-
-> > >tx_inv);
-> > =C2=A0
-> > =C2=A0			rmii_delay_val |=3D
-> > FIELD_PREP(MT8195_DLY_RMII_RXC_ENABLE,
-> > -						=C2=A0=C2=A0=C2=A0=C2=A0 !!mac_delay-
-> > >rx_delay);
-> > +						=C2=A0=C2=A0=C2=A0=C2=A0
-> > !!rx_delay_stage_val);
-> > =C2=A0			rmii_delay_val |=3D
-> > FIELD_PREP(MT8195_DLY_RMII_RXC_STAGES,
-> > -						=C2=A0=C2=A0=C2=A0=C2=A0 mac_delay-
-> > >rx_delay);
-> > +						=C2=A0=C2=A0=C2=A0=C2=A0
-> > rx_delay_stage_val);
-> > =C2=A0			rmii_delay_val |=3D
-> > FIELD_PREP(MT8195_DLY_RMII_RXC_INV,
-> > =C2=A0						=C2=A0=C2=A0=C2=A0=C2=A0 mac_delay-
-> > >rx_inv);
-> > =C2=A0		} else {
-> > @@ -361,9 +354,9 @@ static int mt8195_set_delay(struct
-> > mediatek_dwmac_plat_data *plat)
-> > =C2=A0				 * by RXC delay macro circuit.
-> > =C2=A0				 */
-> > =C2=A0				delay_val |=3D
-> > FIELD_PREP(MT8195_DLY_RXC_ENABLE,
-> > -
-> > 							!!mac_delay->rx_delay);
-> > +							!!rx_delay
-> > _stage_val);
-> > =C2=A0				delay_val |=3D
-> > FIELD_PREP(MT8195_DLY_RXC_STAGES,
-> > -							mac_delay-
-> > >rx_delay);
-> > +							rx_delay_s
-> > tage_val);
-> > =C2=A0				delay_val |=3D
-> > FIELD_PREP(MT8195_DLY_RXC_INV,
-> > =C2=A0							mac_delay-
-> > >rx_inv);
-> > =C2=A0			} else {
-> > @@ -372,9 +365,9 @@ static int mt8195_set_delay(struct
-> > mediatek_dwmac_plat_data *plat)
-> > =C2=A0				 * by TXC delay macro circuit.
-> > =C2=A0				 */
-> > =C2=A0				delay_val |=3D
-> > FIELD_PREP(MT8195_DLY_TXC_ENABLE,
-> > -
-> > 							!!mac_delay->rx_delay);
-> > +							!!rx_delay
-> > _stage_val);
-> > =C2=A0				delay_val |=3D
-> > FIELD_PREP(MT8195_DLY_TXC_STAGES,
-> > -							mac_delay-
-> > >rx_delay);
-> > +							rx_delay_s
-> > tage_val);
-> > =C2=A0				delay_val |=3D
-> > FIELD_PREP(MT8195_DLY_TXC_INV,
-> > =C2=A0							mac_delay-
-> > >rx_inv);
-> > =C2=A0			}
-> > @@ -384,12 +377,16 @@ static int mt8195_set_delay(struct
-> > mediatek_dwmac_plat_data *plat)
-> > =C2=A0	case PHY_INTERFACE_MODE_RGMII_TXID:
-> > =C2=A0	case PHY_INTERFACE_MODE_RGMII_RXID:
-> > =C2=A0	case PHY_INTERFACE_MODE_RGMII_ID:
-> > -		gtxc_delay_val |=3D
-> > FIELD_PREP(MT8195_DLY_GTXC_ENABLE, !!mac_delay->tx_delay);
-> > -		gtxc_delay_val |=3D
-> > FIELD_PREP(MT8195_DLY_GTXC_STAGES, mac_delay->tx_delay);
-> > +		gtxc_delay_val |=3D
-> > FIELD_PREP(MT8195_DLY_GTXC_ENABLE,
-> > +					=C2=A0=C2=A0=C2=A0=C2=A0
-> > !!tx_delay_stage_val);
-> > +		gtxc_delay_val |=3D
-> > FIELD_PREP(MT8195_DLY_GTXC_STAGES,
-> > +					=C2=A0=C2=A0=C2=A0=C2=A0 tx_delay_stage_val);
-> > =C2=A0		gtxc_delay_val |=3D FIELD_PREP(MT8195_DLY_GTXC_INV,
-> > mac_delay->tx_inv);
-> > =C2=A0
-> > -		delay_val |=3D FIELD_PREP(MT8195_DLY_RXC_ENABLE,
-> > !!mac_delay->rx_delay);
-> > -		delay_val |=3D FIELD_PREP(MT8195_DLY_RXC_STAGES,
-> > mac_delay->rx_delay);
-> > +		delay_val |=3D FIELD_PREP(MT8195_DLY_RXC_ENABLE,
-> > +					!!rx_delay_stage_val);
-> > +		delay_val |=3D FIELD_PREP(MT8195_DLY_RXC_STAGES,
-> > +					rx_delay_stage_val);
-> > =C2=A0		delay_val |=3D FIELD_PREP(MT8195_DLY_RXC_INV,
-> > mac_delay->rx_inv);
-> > =C2=A0
-> > =C2=A0		break;
-> > @@ -408,8 +405,6 @@ static int mt8195_set_delay(struct
-> > mediatek_dwmac_plat_data *plat)
-> > =C2=A0	regmap_write(plat->peri_regmap, MT8195_PERI_ETH_CTRL1,
-> > delay_val);
-> > =C2=A0	regmap_write(plat->peri_regmap, MT8195_PERI_ETH_CTRL2,
-> > rmii_delay_val);
-> > =C2=A0
-> > -	mt8195_delay_stage2ps(plat);
-> > -
-> > =C2=A0	return 0;
-> > =C2=A0}
-> > =C2=A0
-> > @@ -418,8 +413,8 @@ static const struct mediatek_dwmac_variant
-> > mt8195_gmac_variant =3D {
-> > =C2=A0	.dwmac_set_delay =3D mt8195_set_delay,
-> > =C2=A0	.clk_list =3D mt8195_dwmac_clk_l,
-> > =C2=A0	.num_clks =3D ARRAY_SIZE(mt8195_dwmac_clk_l),
-> > -	.rx_delay_max =3D 9280,
-> > -	.tx_delay_max =3D 9280,
-> > +	.rx_delay_max =3D MT8195_DLY_RXC_MAX,
-> > +	.tx_delay_max =3D MT8195_DLY_TXC_MAX,
-> > =C2=A0	.dma_bit_mask =3D 35,
-> > =C2=A0};
-> > =C2=A0
-> >=20
->=20
+part. That's why I (so) explicitly mentioned that my system does NOT have
+an ACPI based firmware (but U-Boot (with TF-A)).
+
+Cheers,
+  Diederik
+
+[1] https://lore.kernel.org/linux-wireless/DL5P72WYQVOQ.23G9D01OY3BAA@cknow=
+-tech.com/
