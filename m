@@ -1,225 +1,636 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA7E946A600
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 09:23:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DF2A481AB7
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 09:21:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791365069; cv=none; b=YNqcaW4pkfX1WgqcUai+2P4R5ErLUTk6cPWQKX0JvvXwNkPIP9AYqQCrHnhteovTJQj1cxfNczGiBeMOpXgEJ6ckmb+fGKaJ5SNFwWNC899x7Zt+3KhcsbyySq2URqTuqdA8n/bpryYZtSko4ddD694hvsXg8vIbQPsap+Cu+Pc=
+	t=1791365066; cv=none; b=ms2SXWr3BDKTzM5l0e+ls1VgwSKxQFcbFWLy0FWEBJSx3dNzvzefneursN9roB6fPOMFOMZKUIGR4yIcRPeA7l9Yi+bhk2U2eiwG9AFVtEH5xRLu/vY8zrIUnTB58/pQaZOyxjmyvmTv6OrEEajAREchMDZcVo0Xhk/GdYcUGYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791365069; c=relaxed/simple;
-	bh=36BExIcS3er/y0jorYgoz0YcrCOEOstH66XbKIRSceQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=G+vWu64Az/J+7F7344tgQkApjYXWTtUcSxcHtApz+XbWg+tpxs92q5OdSlHMuFQj5VGnlmV8sC+PPRjbKbu+yTcbdgcGRpyEO6ZxrIl9sxpR1nAObfb6Zh2hVNDvPq8n6RaiRUh/m4NsYmRDhoeyErCUwm7ZLbi2jtKysH2TL/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dL+TY5DM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Hi0qa8ID; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791365066; c=relaxed/simple;
+	bh=eqYRwonbRwjp4FIh9sN6VbsBjUmhWXOqslRucD1yfaU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=RRTEWFmPEnRuFJN4Dq3ex3Mf26URj5FT7HVXVMC+/h3uLb0OUuoIak7GKsRi2wmV7c9vqtIrAI3Lybg3YaQwpdtC1tIXgQUcgzTTosfnze/3Kd6pT55H0zbfK8nPEFSZNHXkIIUi9a5IFYOsGSov47kvnd2aztzIMFZ8WGUN7WY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W/EzAwSr; arc=none smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dL+TY5DM";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Hi0qa8ID"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6977jmWE3686138
-	for <linux-kernel@vger.kernel.org>; Wed, 7 Oct 2026 09:23:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	nfH7JOcpjrJI7edYv859MWGoxNpJwE5LbQPeiejX188=; b=dL+TY5DMr94OyHV1
-	zFtpHaewGEBY5fmV0lDs5JmKK+Y6M0QgFFPSsZLlhYD3jTa1NW5ZSCpCXh8cyBQV
-	jJnt5hFYcopZfUQ+Pm7W3XRh+mqLWIHXXM5DhWx1d0+WwcJj0nBoVzJuq4IuCUSq
-	wkgEa+Vb8jG7jMf6Z69pQk4P+Crsb7Y/YeM4FlMuCNF/IBNrwxj1oSYcDo137r+3
-	S5mo4ZoSGerUV0RrvPlaK84C45IZkhNP2Bm7XOab3SCDBc3nwwFxnOwZhUxJj0gP
-	eyzxQeRhY0Xk9yX8vt64WLlA8axwYVDAtowXnXcf6uZcLvg1dGuEGpmV8gfqVMrf
-	XEyXHQ==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5c609eyq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 09:23:56 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-890a9a4e168so1064225b3a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 02:23:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W/EzAwSr"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2dd9cbb661bso13054605ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 02:21:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791365035; x=1791969835; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791364901; x=1791969701; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=nfH7JOcpjrJI7edYv859MWGoxNpJwE5LbQPeiejX188=;
-        b=Hi0qa8IDT6pzf/rE6852JiwTP7A9IixDYYrvQEY3FgPgvaCM7yTHVIlbit1IVAv8Zv
-         KSbZ8nOrIhUfaq/dKJqscIv1/2M2x7ib5tFwwnoRt1iBVFZjc/sUhYuOzMFudrM8+6oM
-         onk0jTEBL64CRs1se8QnbeNI9PatyYlF2JvFU4fp2/uMdXFFCMh6Q/qdgGi7RdHkhSuo
-         diP3K4MmXlybtJsOYSV8w13lQbM782pM1GTa47N/9eRFixE7GOvL6I8cdJklst7f3sC+
-         rRm4Qv8JXcQHXahxjXkcIfPVY5MiTtxEgMPYQrs5adwZ5usZ3AKRIpe0I6H4+YFfnqjd
-         GhMg==
+        bh=zrkdW5GVJ+KoXFLPX9/Nux9uzqYJBmsLZ89lme6Nl68=;
+        b=W/EzAwSrSoPAtOVSzbwT1nwL39uXL6EavgVGlwu/axIWYwDGNRCsLR8Hwx+ThlYlKq
+         ffpppQ0iiJdzVSeIKlPKltjdVgm79kY3LM1B/UzmTyqQHczCAg5QlRUgqakPWCAc9SFB
+         s1657hR2FzOugL5uwI4TFnpIT2jZWUrMnONGyZHLdih5E43a/XQ3YB/1boxEQ7V/pHHQ
+         PJfIVlOr/2OWoI+TvWrDjOW68qhR1+rWIP5JTJn44gfQSI03svXMzYpeU4j6ZpaTvpHO
+         8TyCOEClQY2dgPQLz3CcsubyrbTvwUv2wcpbkZ8MbSpVRmEmE5u/1p/R1R0ahmfcyBe8
+         aGBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791365035; x=1791969835;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nfH7JOcpjrJI7edYv859MWGoxNpJwE5LbQPeiejX188=;
-        b=JPG7A8U/fM/X+v87sNxYyuB1DW5dNl/9CLRojurCH0iYIIP6Q4uCD/drFJ+A5FMjMh
-         0CDQiYtZUxAyScrW3qMGVNeHLNUtdD8xq0kyU0rjH/uZ/nbOu+gY6kndMO+tjilkUrD2
-         8FDQQvmPcU+G28jzDtzu0zxeU/xxhtm+qyvAh7pFSiDi5SioF6Kt3IhMPeHj4emsg3Aj
-         xPF36SMbQ5bicF8uvvZwh664I//FKLzt+fjpgvgZYgD9iRkEdW7tWVPjiChagpAQtWYw
-         mskUdc89cIPxy8o8f9idQYpwX9omet9C69tboA1wkC19PfSCrp7nrI/lZB5fNEzVFHKo
-         hITQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzXcteWd0On/oFEmsO/GD1sR+GTt/+JXEFZYrVVrFkErcje+X9uedFDEGNyh4FzJqUa2P5Dt5/sssg1Bik=@vger.kernel.org
-X-Gm-Message-State: AFuF++mOx63sZUwtzyy5x7hgoUC6zQRkgSCCgeCarUDR/X0sEzfSXM7r
-	rS3VWLHd05oF6hcZoU4iQQALwnzfUXUjgh8tWurunqbxclZU8kmtvkO+s4czSNSiPKxwKMBgWrj
-	ffC9CiXcbQ9ZPReUs3fTR1xEZFEAeja02nGPFioav880UewK+FlB0BqCAwB8dR1RLrmU=
-X-Gm-Gg: AYBFou29OyRE7wDU+y/aITdqXaOSmdaXFQcEYBUHuaOy6i4tc4WHE16th8eYckYs2vy
-	DNQYLHiY5ZP+NZIkf9P1slGOuTH0ql+DHAv4Y7CRCVVMgzl6yQv1sq3sjr9cEms+XeAEZ+6tycT
-	waK8pn9QO3nUWoHpjhlsJMbrFPDLPYHv3Y2goWgpcrdyAfUZZIJ5SdhePhJ39ki9ssPwrTkThjj
-	DrAM3KXahwK9g8KTYg9DrnTyIwvgCU7KYgBzooBqO+EDDPAlMseuOWL+wILjx6ReafJTA9Y07jZ
-	MDv8gqEv8NHcyMDoKTioPkyluwu1PX0+rQywGjd/gpwgnDAkJKHblRP/FYkHbNhhngiQSS22OT9
-	TQXNBy6n0QWumImo+frkst486DiVL0fsZzXBezt/u16JOWMtIExlgpd4JsTQFiVBeZtjOMceOs4
-	iisjislj65s3jVuIJUUVPUURs=
-X-Received: by 2002:a05:6a00:950a:b0:881:4b47:f30b with SMTP id d2e1a72fcca58-891b354d5d4mr1318712b3a.12.1791365035322;
-        Wed, 07 Oct 2026 02:23:55 -0700 (PDT)
-X-Received: by 2002:a05:6a00:950a:b0:881:4b47:f30b with SMTP id d2e1a72fcca58-891b354d5d4mr1318696b3a.12.1791365034890;
-        Wed, 07 Oct 2026 02:23:54 -0700 (PDT)
-Received: from hu-aarasahu-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89271257af8sm119128b3a.41.2026.10.07.02.23.52
+        d=1e100.net; s=20260707; t=1791364901; x=1791969701;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zrkdW5GVJ+KoXFLPX9/Nux9uzqYJBmsLZ89lme6Nl68=;
+        b=ZYStVdP3A2Y5hDobog5+vPwcVxLMyBgq+DNaz37BBwJRnAOQ9T81fLLrfS+PKMbA8O
+         6W69HpigDJyRvOWpJw5dQ/kFWJhfpnuX4fEkWfr2BUxZmsOyOtuff9zjZ+PyNtwLio8J
+         zztLqn4mGPiIGjlW/1tLcOUmo/X6NAqRrzqGloMuUO/Zd6IVtE9SDd9fP65aSVSs4geU
+         VXNgRofth4j8EESItJfQ4ybqMoTNs59Y7ofDNIi2jKHbLCYRDvYLMpLx/o4YSs3+d0U9
+         DQiLo958mhugIzSstzqNymnu5M3LS2MTyc1bcRtrZx4eH969NVi06UVh8IYzRijzD8HA
+         7olA==
+X-Gm-Message-State: AFq9FYKawQautSaTU8Zn5NqI8YaBx8AtSyfq9qo5GE8U8mPkkYiQP0Kf
+	xWOBxneswOee90zBosmeaplB4OXMM9orDIhGpQjZgoBGhGRYam4N7L6XW7VzDA==
+X-Gm-Gg: AYBFou0ji+A3v0LgoM307vULtmlFJGlfwCBexnPW32THSozWIN4GK6GhIDIxgslFMps
+	J5DatYRFnUqFAqYOhp7bW39/E8ws0iY+zKivg06EijQuuRtu1isryZqOpfaXgbMig0uBbkeN8T6
+	++cE/8Qxyk+NkGX7zM5AT5tArYqz3197A8QzXYO4lclAIUQUYZAIK1Z+BD4KVH4NV461q0HyA4Q
+	O4fbgyU9GLOy0t+OfOp7pq4BjFjwrYvrOa/RZuAp+D+A5AHgT5ywvpiDQUQnZs9wdUBkSl1yI1r
+	id5qHK4ssZvSrJ8zTu/Bv/UJzg+NmjcAJ+l0YSs5poBDKmXi+2ibBYfWNOuDOt6IFUt4r6cRyaV
+	yFeYe42AD7oAeuutAB6FvxmHcIGu/XRCvClM0v9GQWarowdVf1jU/Ry4UlTVd6akC7SVC3lrZej
+	Z0SYMf8yNwc+2qP/S4E0Xy043e4AdgAwdsNu88oWJc4iPNwhPmz4D80RH1z+qb/b3ekNqsL7Z4m
+	PBnIim0XugE6OWzMMRK4Z1bUnCuuEGtzsnC01X4
+X-Received: by 2002:a17:903:2c8:b0:2dd:c053:9c70 with SMTP id d9443c01a7336-2e6004f2a86mr15712595ad.38.1791364901200;
+        Wed, 07 Oct 2026 02:21:41 -0700 (PDT)
+Received: from hcdev-d520mt2.. (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e6046fe0e8sm7180675ad.25.2026.10.07.02.21.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 02:23:54 -0700 (PDT)
-From: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
-Date: Wed, 07 Oct 2026 14:53:32 +0530
-Subject: [PATCH ath-next 1/2] wifi: ath12k: Make RXDMA buffer ring size
- configurable per memory profile
+        Wed, 07 Oct 2026 02:21:40 -0700 (PDT)
+From: a0282524688@gmail.com
+To: lee@kernel.org,
+	Ming Yu <tmyu0@nuvoton.com>
+Cc: linux-kernel@vger.kernel.org,
+	Ming Yu <a0282524688@gmail.com>,
+	mfd@lists.linux.dev
+Subject: [PATCH v8 07/13] mfd: nct6694: Refactor USB-specific data into nct6694_usb_data
+Date: Wed,  7 Oct 2026 17:20:56 +0800
+Message-Id: <20261007092102.3768818-8-a0282524688@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261007092102.3768818-1-a0282524688@gmail.com>
+References: <20261007092102.3768818-1-a0282524688@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261007-mpp_ws-v1-1-739b1fb87d24@oss.qualcomm.com>
-References: <20261007-mpp_ws-v1-0-739b1fb87d24@oss.qualcomm.com>
-In-Reply-To: <20261007-mpp_ws-v1-0-739b1fb87d24@oss.qualcomm.com>
-To: Jeff Johnson <jjohnson@kernel.org>
-Cc: linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
-        linux-kernel@vger.kernel.org,
-        Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Proofpoint-ORIG-GUID: DzZOZEXx1KZ7VVSCx-tmqIuwPC9FOLXT
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAzNyBTYWx0ZWRfX22bJ8htpAH65
- MicKdAEC1dQyizgfDV+RN4ZDxeQyBzAcwRaP9rN0TVOq9rkeE1M2uIYYCsqmHWqJ/KW5Z+749ek
- VBordO/r8LSBMy0pYzb4nYEH923rWl0=
-X-Authority-Analysis: v=2.4 cv=PM+aavqC c=1 sm=1 tr=0 ts=6ac60fac cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=mg1aV8qigFYmQh57PbIA:9 a=QEXdDO2ut3YA:10
- a=OpyuDcXvxspvyRM73sMx:22
-X-Proofpoint-GUID: DzZOZEXx1KZ7VVSCx-tmqIuwPC9FOLXT
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAzNyBTYWx0ZWRfX6DdCYufkg3w3
- mU2LVYIB0tgr5OCHbUghA3IWttt5epfVRD+SxRVZKcDjNmfouxYrBMWDN2H/11Pn3f+Kp1qJ7b0
- 0wl5gJ3+2IicCpsF49KaC8jYw6Qu2X/qBPDehvgia84NE0pVXPAok4B4lybtpwhMvHTUA5m/XO9
- MrPvvUvLTcfBEK6FvifAOLpLfDixR+VbLJPVsukNNPJbsZZQPLli7uYsPGa6Ttwpitj+ZA/iJN6
- KoqKeRyY/nBf3lwkar9QdB2k6NZo6g1ulX5gYmvOErSKAjlrHF2AeNW7OqXchysc1FTnUAJaCCl
- InFOzuAZul7DYeMqQXFL+65Rm2dmjHQWOh6Ky4Dju+SeW5OaQSt8e/HqgQfw/5Td1vm0cAyQlms
- 3y0Nw7zLEYy9WoNC1/zdMuc68701CY+7aC5ED4ckxsiNSoelD2Wp0puqXZ1Olu3dcX9o0dVKjgB
- zxwNNBsNrt+2Tb1H+PQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-07_03,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 adultscore=0 bulkscore=0 phishscore=0
- malwarescore=0 suspectscore=0 priorityscore=1501 lowpriorityscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610070037
+Content-Transfer-Encoding: 8bit
 
-Currently, the RXDMA buffer ring size is hardcoded to 4096 and shared
-across all memory profiles. This prevents individual profiles from tuning
-the ring size based on their memory and performance requirements.
+From: Ming Yu <a0282524688@gmail.com>
 
-Add the RXDMA buffer ring size to the memory profile configuration and
-implement ath12k_dp_rxdma_buf_ring_size() static inline function to
-access the configured value. This allows different memory profiles to
-select an appropriate ring size based on available system resources.
+Separate the USB transport fields from the core nct6694 structure into
+a new nct6694_usb_data structure, which embeds struct nct6694 and is
+retrieved with container_of(). USB-only definitions are moved from the
+shared header into the USB driver.
 
-The function follows the pattern established in the previous patch for
-other DP profile parameters, taking struct ath12k_dp_profile_params
-pointer as argument.
+While at it, use consistent names for the USB device, the buffers and
+the core structure.
 
-Tested-on: QCN9274 hw2.0 PCI WLAN.WBE.1.6-01243-QCAHKSWPL_SILICONZ-1
-Tested-on: WCN7850 hw2.0 PCI WLAN.HMT.1.1.c7-00108-QCAHMTSWPL_V1.0_V2.0_SILICONZ_UPSTREAM-3
-Tested-on: QCC2072 hw1.0 PCI WLAN.COL.1.0.c2-00074-QCACOLSWPL_V1_TO_SILICONZ-1
+No functional change.
 
-Signed-off-by: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
+Signed-off-by: Ming Yu <a0282524688@gmail.com>
 ---
- drivers/net/wireless/ath/ath12k/core.c  | 2 ++
- drivers/net/wireless/ath/ath12k/dp.h    | 8 +++++++-
- drivers/net/wireless/ath/ath12k/dp_rx.c | 2 +-
- 3 files changed, 10 insertions(+), 2 deletions(-)
+Changes in v8:
+- Embedded struct nct6694 in nct6694_usb_data and dropped the priv
+  pointer.
+- Renamed udev to usb_dev, udata to usb_data, usb_msg to hdr_buf,
+  int_buffer to int_buf, int_in_urb to int_urb, and nct6694 to ddata.
 
-diff --git a/drivers/net/wireless/ath/ath12k/core.c b/drivers/net/wireless/ath/ath12k/core.c
-index e527b59ecba5..764e646d0090 100644
---- a/drivers/net/wireless/ath/ath12k/core.c
-+++ b/drivers/net/wireless/ath/ath12k/core.c
-@@ -54,6 +54,7 @@ ath12k_mem_profile_based_param ath12k_mem_profile_based_param[] = {
- 			.num_pool_tx_desc = 32768,
- 			.rx_desc_count = 12288,
- 			.rx_release_ring_size = 16384,
-+			.rxdma_buf_ring_size = 4096,
- 		},
- 	},
- [ATH12K_QMI_MEMORY_MODE_LOW_512_M] = {
-@@ -68,6 +69,7 @@ ath12k_mem_profile_based_param ath12k_mem_profile_based_param[] = {
- 			.num_pool_tx_desc = 16384,
- 			.rx_desc_count = 6144,
- 			.rx_release_ring_size = 8192,
-+			.rxdma_buf_ring_size = 4096,
- 		},
- 	},
- };
-diff --git a/drivers/net/wireless/ath/ath12k/dp.h b/drivers/net/wireless/ath/ath12k/dp.h
-index c53eac20b989..108e27dd5797 100644
---- a/drivers/net/wireless/ath/ath12k/dp.h
-+++ b/drivers/net/wireless/ath/ath12k/dp.h
-@@ -31,6 +31,7 @@ struct ath12k_dp_profile_params {
- 	u32 num_pool_tx_desc;
- 	u32 rx_desc_count;
- 	u32 rx_release_ring_size;
-+	u32 rxdma_buf_ring_size;
- };
+Changes in v7:
+- None.
+
+Changes in v6:
+- None.
+
+Changes in v5:
+- Split from the monolithic v4 patch to follow the single logical change
+  principle.
+
+ drivers/mfd/nct6694.c       | 243 +++++++++++++++++++++---------------
+ include/linux/mfd/nct6694.h |  26 +---
+ 2 files changed, 143 insertions(+), 126 deletions(-)
+
+diff --git a/drivers/mfd/nct6694.c b/drivers/mfd/nct6694.c
+index f9ae8476fcae..6d75b1485350 100644
+--- a/drivers/mfd/nct6694.c
++++ b/drivers/mfd/nct6694.c
+@@ -22,6 +22,34 @@
+ #include <linux/spinlock.h>
+ #include <linux/usb.h>
  
- #define DP_MON_PURGE_TIMEOUT_MS     100
-@@ -210,7 +211,6 @@ struct ath12k_pdev_dp {
- #define DP_REO_EXCEPTION_RING_SIZE	128
- #define DP_REO_CMD_RING_SIZE		256
- #define DP_REO_STATUS_RING_SIZE		2048
--#define DP_RXDMA_BUF_RING_SIZE		4096
- #define DP_RX_MAC_BUF_RING_SIZE		4096
- #define DP_RXDMA_REFILL_RING_SIZE	2048
- #define DP_RXDMA_ERR_DST_RING_SIZE	1024
-@@ -730,6 +730,12 @@ ath12k_dp_rx_release_ring_size(const struct ath12k_dp_profile_params *p)
- 	return p->rx_release_ring_size;
- }
- 
-+static inline u32
-+ath12k_dp_rxdma_buf_ring_size(const struct ath12k_dp_profile_params *p)
++#define NCT6694_VENDOR_ID	0x0416
++#define NCT6694_PRODUCT_ID	0x200B
++#define NCT6694_INT_IN_EP	0x01
++#define NCT6694_BULK_IN_EP	0x02
++#define NCT6694_BULK_OUT_EP	0x03
++
++#define NCT6694_URB_TIMEOUT	1000
++
++union __packed nct6694_usb_hdr {
++	struct nct6694_cmd_header cmd_header;
++	struct nct6694_response_header response_header;
++};
++
++struct nct6694_usb_data {
++	struct nct6694 core;
++	struct mutex access_lock;
++	struct usb_device *usb_dev;
++	struct urb *int_urb;
++	union nct6694_usb_hdr *hdr_buf;
++	void *data_buf;
++	__le32 *int_buf;
++};
++
++static struct nct6694_usb_data *to_nct6694_usb_data(struct nct6694 *ddata)
 +{
-+	return p->rxdma_buf_ring_size;
++	return container_of(ddata, struct nct6694_usb_data, core);
 +}
 +
- void ath12k_dp_vdev_tx_attach(struct ath12k *ar, struct ath12k_link_vif *arvif);
- void ath12k_dp_partner_cc_init(struct ath12k_base *ab);
- int ath12k_dp_pdev_alloc(struct ath12k_base *ab);
-diff --git a/drivers/net/wireless/ath/ath12k/dp_rx.c b/drivers/net/wireless/ath/ath12k/dp_rx.c
-index cfaf26ae2720..36be543b7c50 100644
---- a/drivers/net/wireless/ath/ath12k/dp_rx.c
-+++ b/drivers/net/wireless/ath/ath12k/dp_rx.c
-@@ -1699,7 +1699,7 @@ int ath12k_dp_rx_alloc(struct ath12k_base *ab)
- 	ret = ath12k_dp_srng_setup(ab,
- 				   &dp->rx_refill_buf_ring.refill_buf_ring,
- 				   HAL_RXDMA_BUF, 0, 0,
--				   DP_RXDMA_BUF_RING_SIZE);
-+				   ath12k_dp_rxdma_buf_ring_size(dp_params));
- 	if (ret) {
- 		ath12k_warn(ab, "failed to setup rx_refill_buf_ring\n");
+ static const struct mfd_cell nct6694_devs[] = {
+ 	MFD_CELL_NAME("nct6694-gpio"),
+ 	MFD_CELL_NAME("nct6694-gpio"),
+@@ -58,22 +86,22 @@ static const struct mfd_cell nct6694_devs[] = {
+ 	MFD_CELL_NAME("nct6694-rtc"),
+ };
+ 
+-static int nct6694_response_err_handling(struct nct6694 *nct6694, unsigned char err_status)
++static int nct6694_response_err_handling(struct nct6694 *ddata, unsigned char err_status)
+ {
+ 	switch (err_status) {
+ 	case NCT6694_NO_ERROR:
+ 		return 0;
+ 	case NCT6694_NOT_SUPPORT_ERROR:
+-		dev_err(nct6694->dev, "Command is not supported!\n");
++		dev_err(ddata->dev, "Command is not supported!\n");
+ 		break;
+ 	case NCT6694_NO_RESPONSE_ERROR:
+-		dev_warn(nct6694->dev, "Command received no response!\n");
++		dev_warn(ddata->dev, "Command received no response!\n");
+ 		break;
+ 	case NCT6694_TIMEOUT_ERROR:
+-		dev_warn(nct6694->dev, "Command timed out!\n");
++		dev_warn(ddata->dev, "Command timed out!\n");
+ 		break;
+ 	case NCT6694_PENDING:
+-		dev_err(nct6694->dev, "Command is pending!\n");
++		dev_err(ddata->dev, "Command is pending!\n");
+ 		break;
+ 	default:
+ 		return -EINVAL;
+@@ -84,7 +112,7 @@ static int nct6694_response_err_handling(struct nct6694 *nct6694, unsigned char
+ 
+ /**
+  * nct6694_read_msg() - Read message from NCT6694 device
+- * @nct6694: NCT6694 device pointer
++ * @ddata: NCT6694 device pointer
+  * @cmd_hd: command header structure
+  * @buf: buffer to store the response data
+  *
+@@ -94,60 +122,61 @@ static int nct6694_response_err_handling(struct nct6694 *nct6694, unsigned char
+  *
+  * Return: Negative value on error or 0 on success.
+  */
+-int nct6694_read_msg(struct nct6694 *nct6694, const struct nct6694_cmd_header *cmd_hd, void *buf)
++int nct6694_read_msg(struct nct6694 *ddata, const struct nct6694_cmd_header *cmd_hd, void *buf)
+ {
+-	union nct6694_usb_msg *msg = nct6694->usb_msg;
+-	struct usb_device *udev = nct6694->udev;
++	struct nct6694_usb_data *usb_data = to_nct6694_usb_data(ddata);
++	union nct6694_usb_hdr *hdr = usb_data->hdr_buf;
++	struct usb_device *usb_dev = usb_data->usb_dev;
+ 	u16 data_len = le16_to_cpu(cmd_hd->len);
+ 	int tx_len, rx_len, ret;
+ 
+ 	if (data_len > NCT6694_MAX_DATA_LEN)
+ 		return -EINVAL;
+ 
+-	guard(mutex)(&nct6694->access_lock);
++	guard(mutex)(&usb_data->access_lock);
+ 
+-	memcpy(&msg->cmd_header, cmd_hd, sizeof(*cmd_hd));
+-	msg->cmd_header.hctrl = NCT6694_HCTRL_GET;
++	memcpy(&hdr->cmd_header, cmd_hd, sizeof(*cmd_hd));
++	hdr->cmd_header.hctrl = NCT6694_HCTRL_GET;
+ 
+ 	/* Send command packet to USB device */
+-	ret = usb_bulk_msg(udev, usb_sndbulkpipe(udev, NCT6694_BULK_OUT_EP), &msg->cmd_header,
+-			   sizeof(*msg), &tx_len, NCT6694_URB_TIMEOUT);
++	ret = usb_bulk_msg(usb_dev, usb_sndbulkpipe(usb_dev, NCT6694_BULK_OUT_EP),
++			   &hdr->cmd_header, sizeof(*hdr), &tx_len, NCT6694_URB_TIMEOUT);
+ 	if (ret)
  		return ret;
-
+ 
+ 	/* Receive response packet from USB device */
+-	ret = usb_bulk_msg(udev, usb_rcvbulkpipe(udev, NCT6694_BULK_IN_EP), &msg->response_header,
+-			   sizeof(*msg), &rx_len, NCT6694_URB_TIMEOUT);
++	ret = usb_bulk_msg(usb_dev, usb_rcvbulkpipe(usb_dev, NCT6694_BULK_IN_EP),
++			   &hdr->response_header, sizeof(*hdr), &rx_len, NCT6694_URB_TIMEOUT);
+ 	if (ret)
+ 		return ret;
+ 
+-	if (rx_len != sizeof(msg->response_header)) {
+-		dev_err(nct6694->dev, "Expected response length %zu, but got %d\n",
+-			sizeof(msg->response_header), rx_len);
++	if (rx_len != sizeof(hdr->response_header)) {
++		dev_err(ddata->dev, "Expected response length %zu, but got %d\n",
++			sizeof(hdr->response_header), rx_len);
+ 		return -EIO;
+ 	}
+ 
+ 	/* Receive data packet from USB device */
+-	ret = usb_bulk_msg(udev, usb_rcvbulkpipe(udev, NCT6694_BULK_IN_EP), nct6694->data_buf,
+-			   data_len, &rx_len, NCT6694_URB_TIMEOUT);
++	ret = usb_bulk_msg(usb_dev, usb_rcvbulkpipe(usb_dev, NCT6694_BULK_IN_EP),
++			   usb_data->data_buf, data_len, &rx_len, NCT6694_URB_TIMEOUT);
+ 	if (ret)
+ 		return ret;
+ 
+ 	if (rx_len != data_len) {
+-		dev_err(nct6694->dev, "Expected received length %d, but got %d\n",
++		dev_err(ddata->dev, "Expected received length %d, but got %d\n",
+ 			data_len, rx_len);
+ 		return -EIO;
+ 	}
+ 
+-	memcpy(buf, nct6694->data_buf, data_len);
++	memcpy(buf, usb_data->data_buf, data_len);
+ 
+-	return nct6694_response_err_handling(nct6694, msg->response_header.sts);
++	return nct6694_response_err_handling(ddata, hdr->response_header.sts);
+ }
+ EXPORT_SYMBOL_GPL(nct6694_read_msg);
+ 
+ /**
+  * nct6694_write_msg() - Write message to NCT6694 device
+- * @nct6694: NCT6694 device pointer
++ * @ddata: NCT6694 device pointer
+  * @cmd_hd: command header structure
+  * @buf: buffer containing the data to be sent
+  *
+@@ -156,67 +185,68 @@ EXPORT_SYMBOL_GPL(nct6694_read_msg);
+  *
+  * Return: Negative value on error or 0 on success.
+  */
+-int nct6694_write_msg(struct nct6694 *nct6694, const struct nct6694_cmd_header *cmd_hd, void *buf)
++int nct6694_write_msg(struct nct6694 *ddata, const struct nct6694_cmd_header *cmd_hd, void *buf)
+ {
+-	union nct6694_usb_msg *msg = nct6694->usb_msg;
+-	struct usb_device *udev = nct6694->udev;
++	struct nct6694_usb_data *usb_data = to_nct6694_usb_data(ddata);
++	union nct6694_usb_hdr *hdr = usb_data->hdr_buf;
++	struct usb_device *usb_dev = usb_data->usb_dev;
+ 	u16 data_len = le16_to_cpu(cmd_hd->len);
+ 	int tx_len, rx_len, ret;
+ 
+ 	if (data_len > NCT6694_MAX_DATA_LEN)
+ 		return -EINVAL;
+ 
+-	guard(mutex)(&nct6694->access_lock);
++	guard(mutex)(&usb_data->access_lock);
+ 
+-	memcpy(&msg->cmd_header, cmd_hd, sizeof(*cmd_hd));
+-	msg->cmd_header.hctrl = NCT6694_HCTRL_SET;
+-	memcpy(nct6694->data_buf, buf, data_len);
++	memcpy(&hdr->cmd_header, cmd_hd, sizeof(*cmd_hd));
++	hdr->cmd_header.hctrl = NCT6694_HCTRL_SET;
++	memcpy(usb_data->data_buf, buf, data_len);
+ 
+ 	/* Send command packet to USB device */
+-	ret = usb_bulk_msg(udev, usb_sndbulkpipe(udev, NCT6694_BULK_OUT_EP), &msg->cmd_header,
+-			   sizeof(*msg), &tx_len, NCT6694_URB_TIMEOUT);
++	ret = usb_bulk_msg(usb_dev, usb_sndbulkpipe(usb_dev, NCT6694_BULK_OUT_EP),
++			   &hdr->cmd_header, sizeof(*hdr), &tx_len, NCT6694_URB_TIMEOUT);
+ 	if (ret)
+ 		return ret;
+ 
+ 	/* Send data packet to USB device */
+-	ret = usb_bulk_msg(udev, usb_sndbulkpipe(udev, NCT6694_BULK_OUT_EP), nct6694->data_buf,
+-			   data_len, &tx_len, NCT6694_URB_TIMEOUT);
++	ret = usb_bulk_msg(usb_dev, usb_sndbulkpipe(usb_dev, NCT6694_BULK_OUT_EP),
++			   usb_data->data_buf, data_len, &tx_len, NCT6694_URB_TIMEOUT);
+ 	if (ret)
+ 		return ret;
+ 
+ 	/* Receive response packet from USB device */
+-	ret = usb_bulk_msg(udev, usb_rcvbulkpipe(udev, NCT6694_BULK_IN_EP), &msg->response_header,
+-			   sizeof(*msg), &rx_len, NCT6694_URB_TIMEOUT);
++	ret = usb_bulk_msg(usb_dev, usb_rcvbulkpipe(usb_dev, NCT6694_BULK_IN_EP),
++			   &hdr->response_header, sizeof(*hdr), &rx_len, NCT6694_URB_TIMEOUT);
+ 	if (ret)
+ 		return ret;
+ 
+-	if (rx_len != sizeof(msg->response_header)) {
+-		dev_err(nct6694->dev, "Expected response length %zu, but got %d\n",
+-			sizeof(msg->response_header), rx_len);
++	if (rx_len != sizeof(hdr->response_header)) {
++		dev_err(ddata->dev, "Expected response length %zu, but got %d\n",
++			sizeof(hdr->response_header), rx_len);
+ 		return -EIO;
+ 	}
+ 
+ 	/* Receive data packet from USB device */
+-	ret = usb_bulk_msg(udev, usb_rcvbulkpipe(udev, NCT6694_BULK_IN_EP), nct6694->data_buf,
+-			   data_len, &rx_len, NCT6694_URB_TIMEOUT);
++	ret = usb_bulk_msg(usb_dev, usb_rcvbulkpipe(usb_dev, NCT6694_BULK_IN_EP),
++			   usb_data->data_buf, data_len, &rx_len, NCT6694_URB_TIMEOUT);
+ 	if (ret)
+ 		return ret;
+ 
+ 	if (rx_len != data_len) {
+-		dev_err(nct6694->dev, "Expected transmitted length %d, but got %d\n",
++		dev_err(ddata->dev, "Expected transmitted length %d, but got %d\n",
+ 			data_len, rx_len);
+ 		return -EIO;
+ 	}
+ 
+-	memcpy(buf, nct6694->data_buf, data_len);
++	memcpy(buf, usb_data->data_buf, data_len);
+ 
+-	return nct6694_response_err_handling(nct6694, msg->response_header.sts);
++	return nct6694_response_err_handling(ddata, hdr->response_header.sts);
+ }
+ EXPORT_SYMBOL_GPL(nct6694_write_msg);
+ 
+ static void usb_int_callback(struct urb *urb)
+ {
+-	struct nct6694 *nct6694 = urb->context;
++	struct nct6694 *ddata = urb->context;
+ 	__le32 *status_le = urb->transfer_buffer;
+ 	u32 int_status;
+ 	int ret;
+@@ -240,34 +270,34 @@ static void usb_int_callback(struct urb *urb)
+ 	while (int_status) {
+ 		int irq = __ffs(int_status);
+ 
+-		generic_handle_domain_irq_safe(nct6694->domain, irq);
++		generic_handle_domain_irq_safe(ddata->domain, irq);
+ 		int_status &= ~BIT(irq);
+ 	}
+ 
+ resubmit:
+ 	ret = usb_submit_urb(urb, GFP_ATOMIC);
+ 	if (ret)
+-		dev_warn(nct6694->dev, "Failed to resubmit urb, status %pe",  ERR_PTR(ret));
++		dev_warn(ddata->dev, "Failed to resubmit urb, status %pe",  ERR_PTR(ret));
+ }
+ 
+ static void nct6694_irq_enable(struct irq_data *data)
+ {
+-	struct nct6694 *nct6694 = irq_data_get_irq_chip_data(data);
++	struct nct6694 *ddata = irq_data_get_irq_chip_data(data);
+ 	irq_hw_number_t hwirq = irqd_to_hwirq(data);
+ 
+-	guard(spinlock_irqsave)(&nct6694->irq_lock);
++	guard(spinlock_irqsave)(&ddata->irq_lock);
+ 
+-	nct6694->irq_enable |= BIT(hwirq);
++	ddata->irq_enable |= BIT(hwirq);
+ }
+ 
+ static void nct6694_irq_disable(struct irq_data *data)
+ {
+-	struct nct6694 *nct6694 = irq_data_get_irq_chip_data(data);
++	struct nct6694 *ddata = irq_data_get_irq_chip_data(data);
+ 	irq_hw_number_t hwirq = irqd_to_hwirq(data);
+ 
+-	guard(spinlock_irqsave)(&nct6694->irq_lock);
++	guard(spinlock_irqsave)(&ddata->irq_lock);
+ 
+-	nct6694->irq_enable &= ~BIT(hwirq);
++	ddata->irq_enable &= ~BIT(hwirq);
+ }
+ 
+ static const struct irq_chip nct6694_irq_chip = {
+@@ -279,9 +309,9 @@ static const struct irq_chip nct6694_irq_chip = {
+ 
+ static int nct6694_irq_domain_map(struct irq_domain *d, unsigned int irq, irq_hw_number_t hw)
+ {
+-	struct nct6694 *nct6694 = d->host_data;
++	struct nct6694 *ddata = d->host_data;
+ 
+-	irq_set_chip_data(irq, nct6694);
++	irq_set_chip_data(irq, ddata);
+ 	irq_set_chip_and_handler(irq, &nct6694_irq_chip, handle_simple_irq);
+ 
+ 	return 0;
+@@ -310,9 +340,10 @@ static int nct6694_usb_probe(struct usb_interface *iface,
+ 		USB_DIR_IN | NCT6694_INT_IN_EP,
+ 		0
+ 	};
+-	struct usb_device *udev = interface_to_usbdev(iface);
++	struct usb_device *usb_dev = interface_to_usbdev(iface);
++	struct nct6694_usb_data *usb_data;
+ 	struct device *dev = &iface->dev;
+-	struct nct6694 *nct6694;
++	struct nct6694 *ddata;
+ 	unsigned int int_pipe;
+ 	int ret;
+ 
+@@ -320,58 +351,61 @@ static int nct6694_usb_probe(struct usb_interface *iface,
+ 	    !usb_check_int_endpoints(iface, int_ep_addr))
+ 		return -ENODEV;
+ 
+-	nct6694 = devm_kzalloc(dev, sizeof(*nct6694), GFP_KERNEL);
+-	if (!nct6694)
++	usb_data = devm_kzalloc(dev, sizeof(*usb_data), GFP_KERNEL);
++	if (!usb_data)
+ 		return -ENOMEM;
+ 
+-	nct6694->usb_msg = devm_kzalloc(dev, sizeof(union nct6694_usb_msg), GFP_KERNEL);
+-	if (!nct6694->usb_msg)
++	usb_data->hdr_buf = devm_kzalloc(dev, sizeof(*usb_data->hdr_buf), GFP_KERNEL);
++	if (!usb_data->hdr_buf)
+ 		return -ENOMEM;
+ 
+-	nct6694->data_buf = devm_kzalloc(dev, NCT6694_MAX_DATA_LEN, GFP_KERNEL);
+-	if (!nct6694->data_buf)
++	usb_data->data_buf = devm_kzalloc(dev, NCT6694_MAX_DATA_LEN, GFP_KERNEL);
++	if (!usb_data->data_buf)
+ 		return -ENOMEM;
+ 
+-	nct6694->int_buffer = devm_kzalloc(dev, sizeof(*nct6694->int_buffer), GFP_KERNEL);
+-	if (!nct6694->int_buffer)
++	usb_data->int_buf = devm_kzalloc(dev, sizeof(*usb_data->int_buf), GFP_KERNEL);
++	if (!usb_data->int_buf)
+ 		return -ENOMEM;
+ 
+-	nct6694->int_in_urb = usb_alloc_urb(0, GFP_KERNEL);
+-	if (!nct6694->int_in_urb)
++	usb_data->int_urb = usb_alloc_urb(0, GFP_KERNEL);
++	if (!usb_data->int_urb)
+ 		return -ENOMEM;
+ 
+-	nct6694->domain = irq_domain_create_simple(NULL, NCT6694_NR_IRQS, 0,
+-						   &nct6694_irq_domain_ops,
+-						   nct6694);
+-	if (!nct6694->domain) {
++	ddata = &usb_data->core;
++
++	ddata->domain = irq_domain_create_simple(NULL, NCT6694_NR_IRQS, 0,
++						 &nct6694_irq_domain_ops,
++						 ddata);
++	if (!ddata->domain) {
+ 		ret = -ENODEV;
+ 		goto err_urb;
+ 	}
+ 
+-	nct6694->dev = dev;
+-	nct6694->udev = udev;
++	ddata->dev = dev;
++	usb_data->usb_dev = usb_dev;
+ 
+-	ida_init(&nct6694->gpio_ida);
+-	ida_init(&nct6694->i2c_ida);
+-	ida_init(&nct6694->canfd_ida);
+-	ida_init(&nct6694->wdt_ida);
++	ida_init(&ddata->gpio_ida);
++	ida_init(&ddata->i2c_ida);
++	ida_init(&ddata->canfd_ida);
++	ida_init(&ddata->wdt_ida);
+ 
+-	spin_lock_init(&nct6694->irq_lock);
++	spin_lock_init(&ddata->irq_lock);
+ 
+-	ret = devm_mutex_init(dev, &nct6694->access_lock);
++	ret = devm_mutex_init(dev, &usb_data->access_lock);
+ 	if (ret)
+ 		goto err_ida;
+ 
+-	int_pipe = usb_rcvintpipe(udev, NCT6694_INT_IN_EP);
+-	usb_fill_int_urb(nct6694->int_in_urb, udev, int_pipe,
+-			 nct6694->int_buffer, sizeof(*nct6694->int_buffer), usb_int_callback,
+-			 nct6694, usb_pipe_endpoint(udev, int_pipe)->desc.bInterval);
++	int_pipe = usb_rcvintpipe(usb_dev, NCT6694_INT_IN_EP);
++	usb_fill_int_urb(usb_data->int_urb, usb_dev, int_pipe,
++			 usb_data->int_buf, sizeof(*usb_data->int_buf),
++			 usb_int_callback, ddata,
++			 usb_pipe_endpoint(usb_dev, int_pipe)->desc.bInterval);
+ 
+-	ret = usb_submit_urb(nct6694->int_in_urb, GFP_KERNEL);
++	ret = usb_submit_urb(usb_data->int_urb, GFP_KERNEL);
+ 	if (ret)
+ 		goto err_ida;
+ 
+-	usb_set_intfdata(iface, nct6694);
++	usb_set_intfdata(iface, ddata);
+ 
+ 	ret = mfd_add_hotplug_devices(dev, nct6694_devs, ARRAY_SIZE(nct6694_devs));
+ 	if (ret)
+@@ -380,30 +414,31 @@ static int nct6694_usb_probe(struct usb_interface *iface,
+ 	return 0;
+ 
+ err_mfd:
+-	usb_kill_urb(nct6694->int_in_urb);
++	usb_kill_urb(usb_data->int_urb);
+ err_ida:
+-	ida_destroy(&nct6694->wdt_ida);
+-	ida_destroy(&nct6694->canfd_ida);
+-	ida_destroy(&nct6694->i2c_ida);
+-	ida_destroy(&nct6694->gpio_ida);
+-	irq_domain_remove(nct6694->domain);
++	ida_destroy(&ddata->wdt_ida);
++	ida_destroy(&ddata->canfd_ida);
++	ida_destroy(&ddata->i2c_ida);
++	ida_destroy(&ddata->gpio_ida);
++	irq_domain_remove(ddata->domain);
+ err_urb:
+-	usb_free_urb(nct6694->int_in_urb);
++	usb_free_urb(usb_data->int_urb);
+ 	return ret;
+ }
+ 
+ static void nct6694_usb_disconnect(struct usb_interface *iface)
+ {
+-	struct nct6694 *nct6694 = usb_get_intfdata(iface);
+-
+-	mfd_remove_devices(nct6694->dev);
+-	usb_kill_urb(nct6694->int_in_urb);
+-	ida_destroy(&nct6694->wdt_ida);
+-	ida_destroy(&nct6694->canfd_ida);
+-	ida_destroy(&nct6694->i2c_ida);
+-	ida_destroy(&nct6694->gpio_ida);
+-	irq_domain_remove(nct6694->domain);
+-	usb_free_urb(nct6694->int_in_urb);
++	struct nct6694 *ddata = usb_get_intfdata(iface);
++	struct nct6694_usb_data *usb_data = to_nct6694_usb_data(ddata);
++
++	mfd_remove_devices(ddata->dev);
++	usb_kill_urb(usb_data->int_urb);
++	ida_destroy(&ddata->wdt_ida);
++	ida_destroy(&ddata->canfd_ida);
++	ida_destroy(&ddata->i2c_ida);
++	ida_destroy(&ddata->gpio_ida);
++	irq_domain_remove(ddata->domain);
++	usb_free_urb(usb_data->int_urb);
+ }
+ 
+ static const struct usb_device_id nct6694_ids[] = {
+diff --git a/include/linux/mfd/nct6694.h b/include/linux/mfd/nct6694.h
+index d46ae34a497e..0ab2bd3bfdc1 100644
+--- a/include/linux/mfd/nct6694.h
++++ b/include/linux/mfd/nct6694.h
+@@ -2,7 +2,8 @@
+ /*
+  * Copyright (C) 2025 Nuvoton Technology Corp.
+  *
+- * Nuvoton NCT6694 USB transaction and data structure.
++ * Nuvoton NCT6694 core definitions shared by the transport driver
++ * and the sub-device drivers.
+  */
+ 
+ #ifndef __MFD_NCT6694_H
+@@ -17,17 +18,9 @@
+ #define NCT6694_RPT_MOD		0xFF
+ #define NCT6694_GPIO_MOD	NCT6694_RPT_MOD
+ 
+-#define NCT6694_VENDOR_ID	0x0416
+-#define NCT6694_PRODUCT_ID	0x200B
+-#define NCT6694_INT_IN_EP	0x01
+-#define NCT6694_BULK_IN_EP	0x02
+-#define NCT6694_BULK_OUT_EP	0x03
+-
+ #define NCT6694_HCTRL_SET	0x40
+ #define NCT6694_HCTRL_GET	0x80
+ 
+-#define NCT6694_URB_TIMEOUT	1000
+-
+ /* Maximum data packet length the firmware accepts in a single command */
+ #define NCT6694_MAX_DATA_LEN	0x3F0
+ 
+@@ -87,11 +80,6 @@ struct __packed nct6694_response_header {
+ 	__le16 len;
+ };
+ 
+-union __packed nct6694_usb_msg {
+-	struct nct6694_cmd_header cmd_header;
+-	struct nct6694_response_header response_header;
+-};
+-
+ struct nct6694 {
+ 	struct device *dev;
+ 	struct ida gpio_ida;
+@@ -99,17 +87,11 @@ struct nct6694 {
+ 	struct ida canfd_ida;
+ 	struct ida wdt_ida;
+ 	struct irq_domain *domain;
+-	struct mutex access_lock;
+ 	spinlock_t irq_lock;
+-	struct urb *int_in_urb;
+-	struct usb_device *udev;
+-	union nct6694_usb_msg *usb_msg;
+-	void *data_buf;
+-	__le32 *int_buffer;
+ 	unsigned int irq_enable;
+ };
+ 
+-int nct6694_read_msg(struct nct6694 *nct6694, const struct nct6694_cmd_header *cmd_hd, void *buf);
+-int nct6694_write_msg(struct nct6694 *nct6694, const struct nct6694_cmd_header *cmd_hd, void *buf);
++int nct6694_read_msg(struct nct6694 *ddata, const struct nct6694_cmd_header *cmd_hd, void *buf);
++int nct6694_write_msg(struct nct6694 *ddata, const struct nct6694_cmd_header *cmd_hd, void *buf);
+ 
+ #endif
 -- 
 2.34.1
 
