@@ -1,232 +1,249 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F41F6390214;
-	Wed,  7 Oct 2026 08:40:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A0B33D0932;
+	Wed,  7 Oct 2026 08:41:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791362420; cv=none; b=DSW11ecpgcFKau8+LEn5w9DMJZOdqCBwPjqXg0U9BZUFHiTsS1wHPExIuzrMHMujZM6JbCrZJ3XrK6zkAE29IBdJCasxrmQ8OHtCaQJO+tXMa1oypKiXwwGw2hVwjvhMvERfYhzWpklsDg/t4/ZY5VERRm73amqIxo9/2VoWmcc=
+	t=1791362469; cv=none; b=FzbRA3ib937XXhks2uq4DU6EERFJhi74HaVjz2tGkKlP6d5AXdezs+pVENLPwbyTdn3KqCx/9iBw+9pvdvB6NdlKotjmRx3iuRZASOKFfqQ/J0RAw6k82cMJ/Rv2Ep50XL65zpRzWkHNlFNEfiTmQ19UOSHZzyQXYDNfV2y45Jo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791362420; c=relaxed/simple;
-	bh=PEVNK36szflynYRiFtJ8DSGqU/SUWUfhYjJ+ybQJOCg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nCiT211s44qWzmING0O+rGRwuZBw5xmv/EHM03+QGHiN9bSVtkHQHIr4dxS0JbcqlNV2aRn2dtn4+to0HO8dU1eRACKmsFecNfw7Fn50f6tOpKbtq94xNt/uaEUBgdacqOFJind/YGi2habyy0AnzX80nok07NR4f05HfVv1f70=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=kb06nAOc; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791362469; c=relaxed/simple;
+	bh=qyayPFhQigVFC6Kb9IXqLvySyYOntWHKscYJ5Gzrvto=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=dtgK0G26SiBBLa+l/CR0ABmXzlvFh7bbmuQVaVWqrclxVI+RLu22yKNFwfRh/E84qcok/kV5SP2/KlliPSUNHpFohD64HY00twy9uI+RfdJHAzuwSV/qxSknYGOCKiAoUi9s/5Q7JDf0KHagbAW5Snr4b72jno0J8R/dWtRyKGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=enfD7qU3; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="kb06nAOc"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69785t1D2036290;
-	Wed, 7 Oct 2026 08:40:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=ebMsP4e/AQ9DE+FcFrKyYmmWVKqe0JTWnM5KIJRIO
-	Ng=; b=kb06nAOcok2STGKhQ+u8PD8aqwPPHqzhbTt7LlqDZ7IySNIsDqHVk1WvM
-	Q/fqqMOCmTGYA62l0ElZTYsU7WrMRWaN7Ht7ZaH3XucMol5937gUQt34fzeufmTY
-	DYLGWKL5FNhq5+18Ew7+zJQwTOLzTeJnhdqZdiiTpWD5WUibgCwzRdUeqR3QjwoF
-	X+kQmGamwDSheixb2fFLuB2EIBSyRGeS2tnSZn2q1F1pfKJtwNz879X0Oh5/T3cg
-	tM+MZOaQC/U6+pcsMmj5j0eFRXaUDS0sjlYlM/wCXqmn7PzVSwsNgaKekgPSG/63
-	i2YUjsFpIdkUgtYPZNjyxOstnUeng==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2s74vhdr-1
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="enfD7qU3"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6977jWPG3298217;
+	Wed, 7 Oct 2026 08:40:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=c/ajrALwEA2F0inVKuNXto
+	qPqx51J/FlAp3YI+dE4NA=; b=enfD7qU3Nzgmn8tyb9ppF4HbadUvB/2wCt7ZVz
+	LZwwO+VmPMvdc15kSXTzDb8HDdSZwvz9DWGUabycfwGhbc2Pfqhy9War4PmZY+3V
+	5vw5QZZxDccHdtlJZzA70jmGnwj3kiAjyXuTffM9pWOlmEcpqHLTHs/+DPbXlCan
+	v5DdojdKPTlji/cHZizMIyVdGoogiu/7Dv6GIAzTyRyCM4eAu3s21ti7F0KToaN0
+	UAU3AQTgsS4hh6B0yzWo3E8I3NqmWclGCDUfoiI2G4eRn3wVN+g57GJW+OSmQ4Os
+	IC2UVmDxBgOOxRSxz/YQQVNA11guF1uylftIP42WttAnh8iQ==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5hdcr9dk-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 07 Oct 2026 08:40:10 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6977lVYa317047;
-	Wed, 7 Oct 2026 08:40:09 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h5f3trr9y-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 07 Oct 2026 08:40:09 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6978e1FG46465492
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 7 Oct 2026 08:40:01 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0F8442004E;
-	Wed,  7 Oct 2026 08:40:01 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B91E320040;
-	Wed,  7 Oct 2026 08:40:00 +0000 (GMT)
-Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with SMTP;
-	Wed,  7 Oct 2026 08:40:00 +0000 (GMT)
-Received: by tuxmaker.boeblingen.de.ibm.com (Postfix, from userid 56341)
-	id 93996160E2A; Wed, 07 Oct 2026 10:40:00 +0200 (CEST)
-From: Mahanta Jambigi <mjambigi@linux.ibm.com>
-To: mcgrof@kernel.org, petr.pavlu@suse.com, da.gomez@kernel.org,
-        samitolvanen@google.com, atomlin@atomlin.com
-Cc: linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-s390@vger.kernel.org, pasic@linux.ibm.com,
-        =wintera@linux.ibm.com, Mahanta Jambigi <mjambigi@linux.ibm.com>
-Subject: [PATCH] module: drain external refs before freeing a failed-init module
-Date: Wed,  7 Oct 2026 10:39:56 +0200
-Message-ID: <20261007083956.2488796-1-mjambigi@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
+	Wed, 07 Oct 2026 08:40:39 +0000 (GMT)
+Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69776m1R1872882;
+	Wed, 7 Oct 2026 07:06:48 GMT
+Received: from hu-ffaruque-hyd.qualcomm.com (hu-ffaruque-hyd.qualcomm.com [10.147.245.31])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTP id 69776m1q1872875;
+	Wed, 07 Oct 2026 07:06:48 +0000 (GMT)
+From: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+Subject: [PATCH v16 0/6] power: reset: Introduce the Power State Change
+ Reasons Recording (PSCRR) framework
+Date: Wed, 07 Oct 2026 12:36:35 +0530
+Message-Id: <20261007-pscrr-framework-v16-0-3642c277bebb@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-TM-AS-GCONF: 00
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHvvxWoC/x2MWwqAIBAArxL7naCWC3WV6MNsrSV6sEIF0d2TP
+ mdg5oFEwpSgLR4QOjnxvmUwWBYQZr9NpHjMAqy2qBtbqyMFERXFr3TtsqgxVsEgGodugFwdQpH
+ vf9n17/sBEhXPnWIAAAA=
+X-Change-ID: 20260924-pscrr-framework-df3c1661565b
+To: Sebastian Reichel <sre@kernel.org>, Benson Leung <bleung@chromium.org>,
+        Tzung-Bi Shih <tzungbi@kernel.org>,
+        Guenter Roeck <groeck@chromium.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Matti Vaittinen <mazziesaccount@gmail.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Oleksij Rempel <o.rempel@pengutronix.de>,
+        Pengutronix Kernel Team <kernel@pengutronix.de>
+Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev,
+        avaneesh.dwivedi@oss.qualcomm.com,
+        Umang Chheda <umang.chheda@oss.qualcomm.com>,
+        Ulf Hansson <ulfh@kernel.org>,
+        Faruque Ansari <faruque.ansari@oss.qualcomm.com>,
+        Sebastian Reichel <sebastian.reichel@collabora.com>,
+        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+        Bradley Morgan <brads@mainlining.org>,
+        Francesco Valla <francesco@valla.it>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>
+X-Mailer: b4 0.14.3
 X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: cA-hoxSmlQctmK6pgx3RulaMIQivw5QE
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAzNCBTYWx0ZWRfX+dOC4PhozQ+m
- CwhOyINgjOw+jQCsy7G8Ctkj2kkWg+p9Saa4EU3sT5nta3i3NEl6JziHaDUlw08fTPVEMAX+2pn
- kXFr/JsaBdf76zh02RysomwIliRbQzY=
-X-Proofpoint-GUID: S11_yxpFfkzfoZeSiWiwHkWZPnSHjAOl
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAzNCBTYWx0ZWRfX2v+/kIf9sPXS
- 4iEEwpmA1SrzxKvW32qkxING4DNX5ZNMF+/yLc2/vUlwOd+n+WnKsuhVcIqXeOOGdskTvybD+J2
- EIu5NoP4eQJMbYf1eE7tFxcQveQavbuI6fL40mQ5UVad0vJGzm2qRPb0CDCKtEohwPvMJsPLuNa
- b4BzsU5MzEUluw5FaHY7Hp7v0Tw+wGO31f2kK1xCiT0jGTIPlDWDTjq3sdCnjpU5LTFIpzCYwrb
- ZMXcktFkL30jo4uLiwUxODcIiQwC5RqvyjcxcaCUhi/o28K1GAplsLsvCE/MzYRHV7ECaQi2Mof
- sExCsH4am1oGknD1lRJriyMhNYheMr+qvfiNA6Mm0EvgMHGinhSfHhC1SRty33zSvw7XyD+GOLO
- 7IolCJMLJei0czOKP5XyOGdB136xpdRZtgEj9nE47BaVWn2KjcSffiB5IAn49XxRZGiUkNukjpL
- PHXX5lRvtkb1wbKiOuw==
-X-Authority-Analysis: v=2.4 cv=fM2sTpae c=1 sm=1 tr=0 ts=6ac6056a cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=HH9Xvdc2fvVvpujcZ5oA:9
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-GUID: wGp-MOBMBS6QSiUOPFfR2nd_a22kIAXA
+X-Authority-Analysis: v=2.4 cv=aKFlOr9m c=1 sm=1 tr=0 ts=6ac60588 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=NEAV23lmAAAA:8
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=QyXUC8HyAAAA:8 a=CLK3zoHpSqvGHLCE9XYA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAzNCBTYWx0ZWRfX0QJyss3tcbTa
+ 9vYYOPUW1ttRqkc3r63y14ePDoJhWMcDNQXQHAJCbclnOQnjZ2ElRY8pUQiwg6TP23gO5/gcqwk
+ vHXQyS+j2niGMgNq/3hRF6s6k0WXoFI=
+X-Proofpoint-ORIG-GUID: wGp-MOBMBS6QSiUOPFfR2nd_a22kIAXA
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAzNCBTYWx0ZWRfX3FUqojWwOO5V
+ 3fvUIo3fC+Qv1YF7RtcEA0lhZSwtRnbC1F2+mrmQ4DPqO+hkeBbzGcsDSC6kfXNpVnLgQomX1xR
+ P/B1XIwvN2WnsE6HATuB6BnjRC7lCn0GeuFPBxTPaKRN3qmbq84wm2g7JNAyefWkFcuXXQJkRhQ
+ aYxY1nAGjE6AJmdAmAXIQrtuKEJNQSPGzEH3lEh4HRrEpLZ7T0hzXWrLEjreHljNiunNS1GO+7m
+ HHKR8WXGQypbzUrTdcMKF0vkn6fhtrQkdVX6xNY3UJJtdCrfxz0aJZBMh86L2Z+9mBifCCogFC5
+ FIcDwM+6xnLgdkNaoZmJC9v9gg9Jx5aOqBZN7v76772hn32hEbB3HIseIYXGnzyk7BfvU7lrtid
+ 71MI+4bOKoEIz7HrQ9dkw110Njc39pkYNtBvZGexAkv/iQlQz/fLNuqtSGSZkhcmNtMigbtNAq/
+ aNZ9udvlU3VIWG4k8eQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-07_03,2026-10-06_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 priorityscore=1501 spamscore=0 lowpriorityscore=0
- phishscore=0 adultscore=0 malwarescore=0 clxscore=1011 suspectscore=0
+ suspectscore=0 phishscore=0 malwarescore=0 priorityscore=1501 impostorscore=0
+ bulkscore=0 adultscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070034
 
-When a module's __init makes it externally reachable (e.g. by registering=
- a
-protocol family or a bus driver) and a later __init step fails, do_init_m=
-odule()
-frees the module while callers that entered through that interface and ca=
-lled
-try_module_get() may still be executing module text.
+Hello all,
 
-The normal unload path in try_stop_module() refuses to proceed while
-module_refcount() is non-zero. The init-failure path has no such check an=
-d races
-to free_module() immediately after synchronize_rcu().
+A system power-state transition - a shutdown or a reboot - rarely has a
+single, unambiguous cause, and no one component sees the whole picture: the
+PMIC, the watchdog, the SoC reset registers, the bootloader and software each
+only know their own part, so there is no single source of truth.
 
-Fix it by waiting for all external references to drain before calling
-free_module(). Add a per-module struct completion refs_gone inside the ex=
-isting
-CONFIG_MODULE_UNLOAD block that is initialised in module_unload_init() an=
-d
-completed from module_put() when refcnt drops back to MODULE_REF_BASE and=
- the
-module state is MODULE_STATE_GOING. The fail: path calls wait_for_complet=
-ion()
-(guarded by the same #ifdef) after dropping the loader's own reference,
-replacing the previous implicit assumption that no external refs exist at=
- that
-point.
+PSCRR gives these sources one central place to report side by side. Every
+provider keeps its own view - several providers, and several reasons within a
+provider, can be reported at once and are deliberately not collapsed into a
+single "winning" cause (a bit of a minority report). On top of that it adds a
+software-backed recorder, so software-detected reasons - under-voltage,
+over-temperature, a watchdog pretimeout, a panic, a controlled reboot - are
+captured too and survive into the next boot.
 
-Also move wake_up_all(&module_wq) to before the drain so that concurrent =
-loaders
-blocked in module_patient_check_exists() are unblocked immediately once
-MODULE_STATE_GOING is visible, rather than after the drain completes.
+The NVMEM-cell binding a recorder needs to pick its storage is still
+deadlocked, and several projects already need the framework, so this v13
+posts the framework, its reboot/reason infrastructure and the sysfs
+documentation only; the provider drivers (NVMEM, PMIC, ...) and the tests
+follow separately once the binding is resolved. One built-in provider,
+reporting the bootloader's device-tree /chosen/reset-source, is kept so the
+framework is useful on its own without a new binding.
 
-Fixes: 1fb9341ac348 ("module: put modules in list much earlier.")
-Signed-off-by: Mahanta Jambigi <mjambigi@linux.ibm.com>
+For followup drivers, see:
+ https://github.com/olerem/linux-2.6/tree/v7.2/topic/pscr-v12
+
+Changes in v16:
+- Add Reviewed-by tags from Bradley Morgan (patches 2-4) and Daniel
+  Lezcano (patches 1-3).
+- Drop the unused PSCR_MAX_REASON macro - Daniel Lezcano.
+- Rename from "Invalid" to "Invalid reason" - Daniel Lezcano.
+- Link to v15: https://lore.kernel.org/r/20260924-pscrr-framework-v15-0-7af87107e0d3@oss.qualcomm.com
+
+Changes in v15:
+- Add static_assert() to keep psc_reason_descs and PSCR_REASON_COUNT in sync.
+- Fix pscrr error codes: use -EOPNOTSUPP for unsupported recording and -EINVAL
+  for unsupported reasons.
+- pscrr: add comments explaining safe lockless provider access in sysfs
+  callbacks (Matti Vaittinen)
+- Add Reviewed-by tags from Matti Vaittine.
+- Link to v14: https://lore.kernel.org/r/20260921-pscrr-framework-v14-0-a16290003b7c@oss.qualcomm.com
+
+Changes in v14:
+- Ignore v13, it was mistakenly posted as a reply to Oleksij's v12
+  patch series.
+
+Changes in v13:
+- Rework pscrr_provider_register() based on review feedback from Francesco Valla:
+  move the pscrr_root check before allocation and narrow pscrr_lock scope.
+- Carry the series forward with Faruque Ansari as author and Oleksij
+  Rempel as co-developer, and vice versa where required.
+- Link to v12: https://lore.kernel.org/r/20260731095959.296056-1-o.rempel@pengutronix.de
+
+Changes in v12:
+- Drop all provider drivers and their tests; post the framework alone. The
+  NVMEM-cell binding a recorder needs to pick its storage is still
+  deadlocked, and several projects already need the framework - so unblock
+  the core now and let the providers (NVMEM, PMIC, ...) follow separately.
+- Rework into a multi-provider design (per-provider /sys/kernel/pscrr/
+  directories); add reason tokens and a built-in /chosen/reset-source
+  provider.
+
+Changes in v11:
+- add missing break reported by kernel test robot <lkp@intel.com>
+
+Changes in v10:
+- add some add Reviewed-by tags
+- regulator_handle_critical: set pscr = PSCR_UNKNOWN for default case
+- make g_pscrr static
+
+Changes in v9:
+- Remove redundant pr_crit() messages before hw_protection_trigger()
+- Replace psc_reason_to_str() switch with static const string array
+- Mark psc_last_reason as static
+
+Changes in v8:
+- Use DEFINE_GUARD() and guard(g_pscrr) for scoped locking of the global
+  pscrr_core struct
+- Replace manual mutex_lock/unlock with automatic cleanup-based guard() usage
+- Centralize backend and locking state in struct pscrr_core
+- Prepare for future multi-backend support with clean encapsulation
+- Improve sysfs documentation
+
+Changes in v7:
+- document expected values in sysfs documentation
+- make write support optional
+
+Changes in v6:
+- add sysfs documentation
+- push core part of the reset reason into kernel/reboot.c
+
+Changes in v5:
+- fix compile with NVMEM=n and potential issues with NVMEM=m
+
+Changes in v4:
+- fix compile with CONFIG_PSCRR=n
+
+Changes in v3:
+- rework to remove devicetree dependencies
+- extend NVMEM to search devices and cells by names
+
+Changes in v2:
+- rename the framework from PSCR to PSCRR (last R is for Recorder)
+- extend the power-on reason header and reuse it for the detected reason
+- rebase on top of v6.8-rc1
+
+Signed-off-by: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
 ---
-Link: https://lore.kernel.org/all/5dc1fe2b-289e-4786-b9e9-e181dda8d4e9@li=
-nux.ibm.com/
-      [RFC] module: init-failure path can free a module with live
-      try_module_get() users
+Faruque Ansari (6):
+      power: Extend power_on_reason.h for upcoming PSCRR framework
+      reboot: hw_protection_trigger: use standardized numeric shutdown/reboot reasons instead of strings
+      reboot: add parsable tokens for power state change reasons
+      reboot: extend psc_reason with power-on and reset causes
+      power: reset: Introduce PSCR Recording Framework for Non-Volatile Storage
+      Documentation: Add sysfs documentation for PSCRR
 
- include/linux/module.h |  2 ++
- kernel/module/main.c   | 33 +++++++++++++++++++++++++++-----
- 2 files changed, 33 insertions(+), 2 deletions(-)
+ Documentation/ABI/testing/sysfs-kernel-pscrr | 108 +++++
+ MAINTAINERS                                  |  11 +
+ drivers/platform/chrome/cros_ec_lpc.c        |   2 +-
+ drivers/power/reset/Kconfig                  |   2 +
+ drivers/power/reset/Makefile                 |   1 +
+ drivers/power/reset/pscrr/Kconfig            |  33 ++
+ drivers/power/reset/pscrr/Makefile           |   2 +
+ drivers/power/reset/pscrr/pscrr.c            | 640 +++++++++++++++++++++++++++
+ drivers/regulator/core.c                     |  16 +-
+ drivers/regulator/irq_helpers.c              |   9 +-
+ drivers/thermal/thermal_core.c               |   3 +-
+ include/linux/power/power_on_reason.h        |   5 +
+ include/linux/pscrr.h                        | 107 +++++
+ include/linux/reboot.h                       | 108 ++++-
+ kernel/reboot.c                              | 169 ++++++-
+ 15 files changed, 1194 insertions(+), 22 deletions(-)
+---
+base-commit: 5c4d4169604b335c38bbc79bc1fc03042981fc6f
+change-id: 20260924-pscrr-framework-df3c1661565b
 
-diff --git a/include/linux/module.h b/include/linux/module.h
-index 96cc98568eea..0dee2ed02a2d 100644
---- a/include/linux/module.h
-+++ b/include/linux/module.h
-@@ -562,6 +562,8 @@ struct module {
- 	void (*exit)(void);
+Best regards,
+-- 
+Faruque Ansari <faruque.ansari@oss.qualcomm.com>
 
- 	atomic_t refcnt;
-+	/* Completed when refcnt drops to MODULE_REF_BASE on init failure. */
-+	struct completion refs_gone;
- #endif
-
- #ifdef CONFIG_CONSTRUCTORS
-diff --git a/kernel/module/main.c b/kernel/module/main.c
-index c1b34dc1e89a..655c693bd8e2 100644
---- a/kernel/module/main.c
-+++ b/kernel/module/main.c
-@@ -655,6 +655,7 @@ static int module_unload_init(struct module *mod)
- 	 * refcnt =3D=3D 0 means module is going.
- 	 */
- 	atomic_set(&mod->refcnt, MODULE_REF_BASE);
-+	init_completion(&mod->refs_gone);
-
- 	INIT_LIST_HEAD(&mod->source_list);
- 	INIT_LIST_HEAD(&mod->target_list);
-@@ -956,6 +957,14 @@ void module_put(struct module *module)
- 		ret =3D atomic_dec_if_positive(&module->refcnt);
- 		WARN_ON(ret < 0);	/* Failed to put refcount */
- 		trace_module_put(module, _RET_IP_);
-+		/*
-+		 * If refcnt just dropped to MODULE_REF_BASE and the module is going
-+		 * away due to an init failure, all external references are gone. Wake
-+		 * any thread waiting in the init-failure drain path.
-+		 */
-+		if (ret =3D=3D MODULE_REF_BASE &&
-+		    module->state =3D=3D MODULE_STATE_GOING)
-+			complete(&module->refs_gone);
- 	}
- }
- EXPORT_SYMBOL(module_put);
-@@ -3206,16 +3214,36 @@ static noinline int do_init_module(struct module =
-*mod)
- fail_free_freeinit:
- 	kfree(freeinit);
- fail:
--	/* Try to protect us from buggy refcounters. */
- 	mod->state =3D MODULE_STATE_GOING;
- 	synchronize_rcu();
-+
-+	/*
-+	 * Unblock concurrent loaders waiting in module_patient_check_exists() =
-on
-+	 * module_wq. finished_loading() returns true once state is GOING, so t=
-hey
-+	 * can now proceed. Do this before the drain below so a failed init del=
-ays
-+	 * only this task, not every other loader that raced to load the same
-+	 * module.
-+	 */
-+	wake_up_all(&module_wq);
-+
-+	/* Drop the loader's own reference taken in module_unload_init(). */
- 	module_put(mod);
-+
-+#ifdef CONFIG_MODULE_UNLOAD
-+	/*
-+	 * Wait for all external references taken before MODULE_STATE_GOING bec=
-ame
-+	 * visible to be released. module_put() completes refs_gone when refcnt
-+	 * drops to MODULE_REF_BASE. The hung-task detector will catch any modu=
-le
-+	 * whose error path leaks a reference.
-+	 */
-+	wait_for_completion(&mod->refs_gone);
-+#endif
-+
- 	blocking_notifier_call_chain(&module_notify_list,
- 				     MODULE_STATE_GOING, mod);
- 	klp_module_going(mod);
- 	ftrace_release_mod(mod);
- 	free_module(mod);
--	wake_up_all(&module_wq);
-
- 	return ret;
- }
---=20
-2.43.7
