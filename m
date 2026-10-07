@@ -1,150 +1,94 @@
-Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com [209.85.160.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E58C0331EDF
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 05:56:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55C1322157B;
+	Wed,  7 Oct 2026 05:56:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791352579; cv=none; b=iITIAho5904gj+g9pY3Sp7ThS8ys1A+frc6rcG9Li7/TaUabpd7yrdsSVMNi+g4uKuVsgasrkrf/ld/F41kEUWw+9BJk930MJ91Qm3OrFd/jOgsPaDPjFasgBAq3vArBsHBobPBPW5bdLQJp+4hKPUnGhVuJ60Wm3ygj3S3uUuE=
+	t=1791352591; cv=none; b=aVfiWuobps/UVE08BBhKVdas6aYmkBa/WpAArlNE0l7rIKRjkTeQIFNAxmRp5PCjXAhrtVhU2cfoVdfKxWjXgVe/zhOECnKX1Dr00B8IXTdEUR7iGNoQe3w/oyuqnRUGAYu3OSoH3io3F0nkZgMWCLYOBYYcYfOvLSrDEA2NKbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791352579; c=relaxed/simple;
-	bh=tN36ci4IovZxa177e6ZIcYcj/xxHlJyHAOWZAih5w4w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fb6Vjm69Ew+Sy1AOfJB1glvxk6tTDs+jXFawPJDCRWt4AL2qq1WP9i8eRPC9N4yQ4YHc7L3CkQDBQptqtijQMGRi1UaPmC7Z680SR1KOSQkP7rNwnccKsRT8n1bmWE/oBpO6Nd/mpn/IU5zIjZ5EqgZ0Pd80TWNubIeNP8PXxEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=G8aed7PZ; arc=none smtp.client-ip=209.85.160.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
+	s=arc-20240116; t=1791352591; c=relaxed/simple;
+	bh=mJktbMKqkWI+drqysq4fvT3ON0LQDXK0FthOfNETKSQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=eGyF2JimdpeqbP6CU6r9F41VKj1ELLOtPQ2GXxI86Om44pG0X0uj310DpHPtWjiW6AIf09sxn8Z5a920B+Hm6PFAMq25LG1+Nykpu01c91r05y1bh1GW5uSQadcSe/5IS+itL6Vf/IV5vd5TDgb9rcR+ZMC8M8UB9qcDkvxrkI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=JTA6umid; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="G8aed7PZ"
-Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-49e1d10ccbdso407525fac.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 22:56:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1791352576; x=1791957376; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VXBQtCNU8FUq8Qg2PYU28JD3k9JJVaiWZX17kjJP17A=;
-        b=G8aed7PZMlLTTD0ALVIFpoG5Hu8TLlFiy/czIU7jxg33jGDICKywZy5FVmAt5ON1hc
-         TUC2cp+XnlRLR5WKuOkfjVQzscMLdGf5k3lvtYpT/Oedj3DbcWEg1T5vxcgeJvlNJS6B
-         EgFoJBKeFOjETA4s//E2t/rqsOV+mdOn0b/7k=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791352576; x=1791957376;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VXBQtCNU8FUq8Qg2PYU28JD3k9JJVaiWZX17kjJP17A=;
-        b=zeMhqQ9xl2b1bZVjQ+1kTwONPd2sAWef+c+fqG+TScAGnyLMpKsFNO8QED/7hKwB0B
-         cQbYkJAdVGhGkxi3TBMZEic8z9Sfqra9QeTB5Q1ejAvhtX8Z6uNHlZsPwSVzd35P1CDY
-         5DkaSW1iEw+SlT/HFYArME8DEHQ8li2nE6iTIZHhH2fLO78XiM9NJw3YXz+nSirdY825
-         QIwhtqNoAN3TXuyYXBk6l2vMXKQfxznIsWo05ZmealN8LPOALTVBres+e96tsTAdp3lg
-         KhIbLMeJ5P5EnxPT3ahpY2wMvfEO6NEcVPTq2zezcSdrWxfV7WwGieEqAsONiyb01PSF
-         0G5A==
-X-Forwarded-Encrypted: i=1; AKwUvBz9/7LXV9WESqvsKbal8ROxmvG8cjCpmijoArCTTewXDHmjttRW/EHBqozlTsaRIrFoF8UiTSBO38xXlSE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lwq6HqoxIQQqRouSsXWVXoxp1INoyLigw1b8hYKUeKSnZLS38R
-	Mjz2BQ6PTjOuayCPk9gAdtU6cGg7afX8ZhWzHM/M5vGos51kP0noxDVCn/w3ikgjp/0=
-X-Gm-Gg: AYBFou3NVz/Z2YbDp/azjAJNKsVULhbYgSmQ0nnfaJmr6meiMHm6rXDQ+jbzjprwARR
-	khwBaH4g4zyvQBmJmiKy76gRkTOMGM6ust+DSGoqySKX+N2DpxYI5yJJiPRyDjbkWuli+5mVnVh
-	yMMqTAbO3mims37e7DAErmLfpktMmmd6grHGQTeV/FWu0EMeKGMYOR7U8fEjH3hbpIeaWawanbA
-	vUxtSGP+I6JTZP0kmaqdgxnxnHWqmTrDaV03NYRletP5n4eoirZnH+oySs1P/gaKqnRJaHXT2oy
-	2iyV5dYcuobMEAPEiOv6LHICaJ3Aa6e/PyqCBKXRaFF/5jwnIt1bFRGqvMX0sZgaPef3jwFTvv7
-	01+mokR2qg1Qtz53uk2ktoo9YWt08awPDjCTM/EqXO8zSorOaJRnk+8Jpm429fEXn721PqxiPP1
-	aHrRqy9reKP+Sa1XL0J+CZtAi8Lrb1/RAi3xxhYmUc9Es8HjnMoiUhK1/IOGdUAg96VA5DLj/9l
-	2rR7X0O3b4LNyqyZf8MZPqAUkXy0P1BGchKHkr0le81a+yTv5WND1q4U4A0vQ47
-X-Received: by 2002:a05:6871:2b16:b0:49e:3edb:987f with SMTP id 586e51a60fabf-4a2594c418dmr1203497fac.11.1791352575733;
-        Tue, 06 Oct 2026 22:56:15 -0700 (PDT)
-Received: from com-75606 ([199.47.143.7])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a2571cab91sm1335158fac.11.2026.10.06.22.56.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 22:56:15 -0700 (PDT)
-Date: Tue, 6 Oct 2026 22:56:12 -0700
-From: Kyle Zeng <kylebot@openai.com>
-To: Masami Hiramatsu <mhiramat@kernel.org>
-Cc: linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	rostedt@goodmis.org, outbounddisclosures@openai.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] tracing/filters: Check perf permissions before resolving
- .function
-Message-ID: <asXe_NWiBtGDXZVN@com-75606>
-References: <asXAxf0edslJI-Ge@com-75606>
- <20261007055225.32DDA1F0089B@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="JTA6umid"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=mJktbMKqkWI+drqysq4fvT3ON0LQDXK0FthOfNETKSQ=; b=J
+	TA6umidfbnDe6XzwB2s8epAmcjjHPTuUeMfOHmJVXhkWZw9eXbYmHWNIjV1brUZy
+	L9QpCmzLOUB6zZaBiLWw1JIyouGJXkSXfvu98LoLK8dUvX2/Pb+6I62govDCRfZC
+	KPjfFt3X0HaaEKpQ6jXiLGhHZ4Ma3BjjGSuAe8bqs4=
+Received: from taozj888$163.com ( [2409:8a20:22c4:8eb0:343f:2daa:6f8d:39d4]
+ ) by ajax-webmail-wmsvr-40-135 (Coremail) ; Wed, 7 Oct 2026 13:55:13 +0800
+ (CST)
+Date: Wed, 7 Oct 2026 13:55:13 +0800 (CST)
+From: taozj888  <taozj888@163.com>
+To: "Jacob Keller" <jacob.e.keller@intel.com>
+Cc: theo.lebrun@bootlin.com, "Conor Dooley" <conor.dooley@microchip.com>,
+	"Andrew Lunn" <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	"Eric Dumazet" <edumazet@google.com>,
+	"Jakub Kicinski" <kuba@kernel.org>,
+	"Paolo Abeni" <pabeni@redhat.com>,
+	"Haavard Skinnemoen" <hskinnemoen@atmel.com>,
+	"Jeff Garzik" <jeff@garzik.org>,
+	"open list:NETWORKING DRIVERS" <netdev@vger.kernel.org>,
+	"open list" <linux-kernel@vger.kernel.org>
+Subject: Re:Re: [PATCH net v3 0/1] brief description about the patch and its
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <d69249a8-210f-405d-9cd5-715245fecb8c@intel.com>
+References: <20261004133916.559956-1-taozj888@163.com>
+ <d69249a8-210f-405d-9cd5-715245fecb8c@intel.com>
+X-NTES-SC: AL_Qu2SA/+evU0q5SCRbekfm04bju07UMu2v/4l2Y9SOp9wjB7o6gYwQ19jPl3k/tKrLyeSrye4aDhI+M53XaxnWb8MjAo8Xe02rpUtbjWyl3VrIg==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261007055225.32DDA1F0089B@smtp.kernel.org>
+Message-ID: <66801d4d.16ab.1a114ee2256.Coremail.taozj888@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:hygvCgD3_6DB3sVqCRIcAA--.14498W
+X-CM-SenderInfo: hwdr6yqyyyqiywtou0bp/xtbC3QHzu2rF3sGTOAAA3P
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-On Wed, Oct 07, 2026 at 05:52:22AM +0000, Masami Hiramatsu wrote:
-> On Tue, 06 Oct 2026 20:47:17 -0700, Kyle Zeng <kylebot@openai.com> wrote:
-> > On Wed, Oct 07, 2026 at 03:44:20AM +0000, Masami Hiramatsu wrote:
-> > > On Tue, 06 Oct 2026 15:51:12 -0700, Kyle Zeng <kylebot@openai.com> wrote:
-> > > > perf_trace_event_perm() allows tracepoint counters that do not request
-> > > > PERF_SAMPLE_RAW without raw tracepoint permissions. A self-targeted,
-> > > > disabled event with exclude_kernel=1 can therefore reach the filter
-> > > > compiler even at perf_event_paranoid=2.
-> > > >
-> > > > The .function suffix accepts any field of sizeof(long) and resolves its
-> > > > operand through kallsyms_lookup_name() and kallsyms_lookup_size_offset().
-> > > > The success or failure of a numeric filter discloses whether an address
-> > > > belongs to a known kernel symbol range. On x86-64 this can be used to
-> > > > recover the randomized kernel image base. A named filter also exposes
-> > > > the resolved symbol range through the counter when the tracepoint field
-> > > > is controlled by the caller, as with a syscall argument.
-> > > >
-> > > > Pass the filter's perf origin to the predicate parser and require
-> > > > perf_allow_tracepoint() before resolving a .function operand. This uses
-> > > > the same sysctl, initial-namespace capability and LSM policy as raw
-> > > > tracepoint access, and closes both the numeric and named-symbol oracles.
-> > > > Do not change ordinary perf counting filters or filters created through
-> > > > the separately controlled tracefs interfaces.
-> > > 
-> > > Good catch!
-> > > 
-> > > >
-> > > > Fixes: e6745a4da964 ("tracing: Add a way to filter function addresses to function names")
-> > > > Cc: stable@vger.kernel.org
-> > > > Assisted-by: Codex:gpt-6-astra
-> > > 
-> > > nit: This should be 
-> > > 
-> > > Assisted-by: LLM
-> >
-> > Didn't know there was a change of convention. Should I send in a v2 or
-> > it will be picked up automatically?
-> 
-> We can change the tag when picking up, so you don't need to resend it only
-> for tag update. But for this patch, please update according to Sashiko's
-> comment.
-
-Thanks for the explanation.
-I just sent a v2: https://sashiko.dev/#/message/20261007050315.65139-1-kylebot%40openai.com
-
-Best,
-Kyle
-
-> 
->  https://lore.kernel.org/all/sashiko-outbox-162502@kernel.org/
-> 
-> Thanks,
-> 
-> >
-> > Thanks,
-> > Kyle
-> >
-> > > 
-> > > > Signed-off-by: Kyle Zeng <kylebot@openai.com>
-> > > 
-> > > Reviewed-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> > > 
-> > > Thanks!
-> > > 
-> > > 
-> > > -- 
-> > > Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> 
-> -- 
-> Masami Hiramatsu (Google) <mhiramat@kernel.org>
+CgoKCgoKCgoKCgoKCgpIaSBKYWNvYjoKClRoYW5rcy4KWmlqaW4gVGFvCgpBdCAyMDI2LTEwLTA3
+IDA1OjIzOjMzLCAiSmFjb2IgS2VsbGVyIiA8amFjb2IuZS5rZWxsZXJAaW50ZWwuY29tPiB3cm90
+ZToKPk9uIDEwLzQvMjAyNiA2OjM5IEFNLCB0YW96ajg4OEAxNjMuY29tIHdyb3RlOgo+PiBGcm9t
+OiB0YW96aWppbiA8dGFvemo4ODhAMTYzLmNvbT4KPj4gCj4+IAo+PiBUaGlzIHBhdGNoIGlzIHRp
+dGxlZCBhczoKPj4gICBuZXQ6IG1hY2I6IHJhdGUgbGltaXQgbmV0ZGV2IGVycm9yIGluZm8gcHJp
+bnQgaW4gdGhlIGRhdGEgcGF0aAo+PiAKPj4gQ2hhbmdlcyBzaW5jZSB2MToKPj4gCj4+IHYzOiAK
+Pj4gLSBhZGQgdGhpcyBjaGFuZ2UgbG9nIHNpbmNlIHYyIG1pc3NpbmcgaXQKPj4gLSBkcm9wIHRo
+ZSBibGFuayBsaW5lIGJldHdlZW4gdGhlIGFzc2lnbm1lbnQgc2VudGVuY2UgYW5kIHRoZSBjb21t
+aXQKPj4gICBpbmZvCj4+IAo+PiB2MjoKPj4gCj4+IC0gdXBkYXRlIHRoZSBjb21taXQgbWVzc2Fn
+ZSB3aXRoIHRoZSByZWFzb24gd2h5IHRoZSB1bmxpbWl0IHByaW50cyB3b3VsZAo+PiAgIGJvdGhl
+ci9kZWxheSBib290aW5nIHByb2Nlc3MKPj4gLSB1cGRhdGUgdGhlIGNvbW1pdCBtZXNzYWdlIHdp
+dGggdGhlIEZpeCBjb21taXQgaWQgcHJvdmlkZWQgd2hpY2ggaXMKPj4gICBzdWdnZXN0ZWQgYnkg
+VGiopm8gTGVicnVuPHRoZW8ubGVicnVuQGJvb3RsaW4uY29tPgo+PiAtIHVwZGF0ZSB0aGUgY29t
+bWl0IG1lc3NhZ2Ugd2l0aCB3aGF0IHBhY2tldCB0eXBlIHdvdWxkIHRyaWdnZXIgdGhlCj4+ICAg
+ZXJyb3IgcHJpbnRpbmdzIG1vcmUgZWFzaWx5Lgo+PiAKPj4gdjE6Cj4+IAo+PiAtIGluaXRpYWwg
+Y29tbWl0Cj4+IAo+Cj5Gb3Igc2luZ2xlIHBhdGNoZXMsIGl0IGlzIHR5cGljYWwgdG8gc2VuZCB0
+aGlzIGFzIHBhcnQgb2YgdGhlIHNhbWUKCj5tZXNzYWdlIGJlbG93IHlvdXIgY29tbWl0IG1lc3Nh
+Z2Ugd2l0aCAnLS0tJy4KCgpPSywgSSB3aWxsIGFkZCB0aGUgY2hhbmdlbG9nIGluIHRoZSBjb21t
+aXQgbWVzc2FnZSBiZWxvdyAnLS0tJyBpbiB0aGUgbmV4dCBwYXRjaC4+Cj5UbyBtYWtlIHRoYXQg
+ZWFzaWVyIHRvIGhhbmRsZSwgaWYgeW91IHVzZSBnaXQgZm9ybWF0LXBhdGNoIGFuZCBnaXQKPnNl
+bmQtZW1haWwgeW91IGNhbiB1c2UgLS1hbm5vdGF0ZSB3aXRoIGdpdCBzZW5kLWVtYWlsIHRvIGlu
+c2VydCB0aGUKPmNvbnRlbnRzIGJlZm9yZSBzZW5kaW5nIHRoZSBlbWFpbC4gSWYgeW91IHVzZSBi
+NCwgaXQgd2lsbCBhdXRvbWF0aWNhbGx5Cj5nZW5lcmF0ZSB0aGUgY29ycmVjdCBmb3JtYXQgZnJv
+bSBpdHMgY292ZXIgbGV0dGVyIGFuZCB0aGUgaW5kaXZpZHVhbCBwYXRjaC4KPgo+SWYgeW91IGRv
+IHNlbmQgYSBzdGFuZGFsb25lIGNvdmVyIGxldHRlciwgdGhlIHN1YmplY3Qgd291bGQgYmUgYmV0
+dGVyIGFzCj5qdXN0IHJlcGVhdGluZyB0aGUgc3ViamVjdCBmb3IgdGhlIGluZGl2aWR1YWwgcGF0
+Y2guCj4KPkkgZG9uJ3QgcmVjYWxsIGlmIG5ldGRldiBoYXMgYW55IGVuZm9yY2VkIG9yIGVuY29k
+ZWQgcG9saWN5IGhlcmUsIHNvCj50aGlzIGlzIGp1c3QgYSBjb21tZW50IHRvIGhvcGVmdWxseSBo
+ZWxwIGVhc2UgZnV0dXJlIGNvbnRyaWJ1dGlvbnMuCj4KPlRoYW5rcywKPkpha2UKPgo+PiBCZXN0
+IFJlZ2FyZHMsCj4+IAo+PiBaaWppbiBUYW8KPj4gIGRyaXZlcnMvbmV0L2V0aGVybmV0L2NhZGVu
+Y2UvbWFjYl9tYWluLmMgfCAxNCArKysrKysrKy0tLS0tLQo+PiAgMSBmaWxlIGNoYW5nZWQsIDgg
+aW5zZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMoLSkKPj4gCg==
