@@ -1,127 +1,209 @@
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D77D4B049F
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 13:47:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF8244B126A;
+	Wed,  7 Oct 2026 13:47:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791380877; cv=none; b=RdS9hqsu9TgQBCzb6HD9YmMs0Ov2+GOaBlyxL6lqHcP+uHAmGepzVAS8z8Fr5b+YLkUiAaOwOuAT1BprVRl6W81hIZnHg3o8jgXgMcuGrTGht8rYaxRZUiog9K3oXO/Mba/i54RYy5icYfvG3omg9Y8uWuzQOnOJoEnFaW2Pfes=
+	t=1791380881; cv=none; b=GK4zgdkwyfYsdJHChoiB87lhSXUleNOCiTASjKQ5fMMhPHfGkTLTsto/0RZExy/kh7vd42DkhTnV6YgP/4/dJFmxX+5sLoc914McH0q4uuPCDZOC3FhTkXKaz0PrhIXLiPXV6vNbrTvYS8wKPCC9DC0zeiVZurVdXAHiwMlwt0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791380877; c=relaxed/simple;
-	bh=AD4TAXmybw5qBrGEaCQw6Z7FjcyP4LWybfXWRYdPs6w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RD/hULUZczzkkCWWnPa3YnlUOI2MY+q/F7t6HRpJ8RmArvDxKrlotLRxuuShqR0NpiCWJ+iHApnaZRigR82nCcvH0zBy0Hhs9xqj3a7ojOQ7LECALOPnZ1AITnUPDHIZEXQFOsybMFxCjxTDpDeZhbElFs4PKPRZpeCjP1Dxtds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mqstUFK3; arc=none smtp.client-ip=74.125.82.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791380881; c=relaxed/simple;
+	bh=zArLKlc/BPYviuyu16AzvuWjXjN7hfU2jtHhHzVZStM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BtL11Hi+ZeZuwBTMtOvHdOTRtPGwt6nA6jR4Mo8jw/o6M/kwbPoTWJTu1tyDG0wIxlYL2GNrU7XXdNMcYEJ3bpM+QEHBj+8Gm++GKA0RiNDrm4XIMPh3rm71LQNTgeqKb1PL28rb0uw1woK4TZTWtmSEmiR5QmKpfFWJaq/CjtY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O6HZBQ85; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mqstUFK3"
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3515f9a5d25so1791894eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 06:47:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791380868; x=1791985668; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=J85O2LckhxsuXE9VLugeLGefrHve4tVD/epH1sMymxU=;
-        b=mqstUFK3GplB4fERevWh12mUiTSM4G/zHTddul4PKFJC3RLEc5GlP+yLuLdW92rL0b
-         0Qg+ez8GRKtVC0u82V5DuIa9S8ek7h75tSXtklXkBfcxwF58aP1KI9JpuBZ4aghjKN5Y
-         BB8azcyBSCd9z71t13apTfvn+LYbOiZh+Ff2uFAQ7ygFlilL7ga/IkDqLciSVvCVvWIU
-         PtcY0QlAr+FrTtCkAQTFijiBn6yJndE/rxXeL8Tfa1K7FoKd7i3C0G6kb4t+yfLhcwtx
-         y9Wv7YizrLMTLx4aEVxCpjNQjBYq9ou8r7ilnbMbHGgb35Dg+fZHduUG7zxfejt2dX5x
-         ZKgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791380868; x=1791985668;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=J85O2LckhxsuXE9VLugeLGefrHve4tVD/epH1sMymxU=;
-        b=iNlsG8FMnzvQb5T3SDmPvman5LzWUn2TzyeeIzBp+hJzpyG+KGwOyXQoD3Lfx5Ovj8
-         eBa0Fe04xC56t2fMqjzzN+rcHacWQdZnA/o6nKx1+ZLtDLIH4DSNZyr/Bw/C1noxM6/H
-         lm1OCTx2LK0ljZamdejqqxeTdF2IaYv/BdHS3VXEyDeeU076ty/c4x+MbH0xKwYlnnlB
-         bxOOHQ7eEiPqU2v6rEqigEYaNuQ/rl1WdP4F3rLjQ1OmSdM8RYA7IXhGZdmNYY5/xukP
-         ea6cr4XhRxBmeAb0Yc/2FxGSXMIVm+oVqwNc0fSR5dNYKro2W346zVhI89rGn8xeEGpB
-         h9XA==
-X-Forwarded-Encrypted: i=1; AKwUvBxX2kPVHZEn2OZPGv4t+U73k1Enomy1ORtVoiaEp89F1nwpyGfUfuTJoqFCMQdTd4nxwOf1QiazhtP1ETM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nWCEDkf4/E9ORsnSDl0MW91Pw7hRRtI9EvnsmQCGfPZVX+YZ/c
-	NL1K90WfKouPE8V/gY7NhQwZDU5x84/Y6S+SyJyIpUdmo0E0ryZ5mOY6
-X-Gm-Gg: AYBFou1QOSa5EMimFnj1u671/bOcXY7LgrilANgllBemzS22id+WGO5tdipZqYm+Tjw
-	wOoXjgE9aVO8tYwK3Z+dcTqD6/bWyUQdgbvP2g8MtC7tfxVdpandcr0VxFEudpHyR9jXPh9Hn8Z
-	j1cUNVgJWjxxk8iGy7412GM0R14BNp3al3DBhrePdzbGdsmtJPawd0D92LKownZaYVt1pZ/auwA
-	IrE0Dzuu4WsCQDdLnAkfNdCL8djAcoWXZ7NMmTMyXKibe5fBqNJJ6XK3bm3lx7fSGdOOANnWrFo
-	pK5u3lSvdO1LMGyEANkmUyXgYSoUq98Ug74yScDTNTNNYhe4hHzJa0ibMj9/SIhV/u0COXK/peg
-	XRDDVlrwTMj+IeAmgvgZgEnhnmPcDK8KiKrErMvtul4rRnDCpJrPmnTspOUQKtkkv2uf022LTWv
-	IWbhT6gxTlkYyJ8Z1h6VbjngFrAPmU4OeZVPPfhF1Ujq4NdWTGnPkJGFFZ/S2HrEKO0BmUCp5cc
-	EGZkIm9ZYn9CwzaXcv3GtjLf6FgfH5O9aAR
-X-Received: by 2002:a05:7300:ce02:b0:342:451b:c0cc with SMTP id 5a478bee46e88-3515dd83bcbmr2303371eec.6.1791380867624;
-        Wed, 07 Oct 2026 06:47:47 -0700 (PDT)
-Received: from fedora ([2a02:6ea0:c803:3091::12])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515aeb5c2esm7304472eec.10.2026.10.07.06.47.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 06:47:47 -0700 (PDT)
-From: Muhammad Bilal <meatuni001@gmail.com>
-To: Jorge Lopez <jorge.lopez2@hp.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Muhammad Bilal <meatuni001@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v5 3/9] platform/x86: hp-bioscfg: return -E2BIG from validate_password_input()
-Date: Wed,  7 Oct 2026 18:47:05 +0500
-Message-ID: <20261007134711.473857-4-meatuni001@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261007134711.473857-1-meatuni001@gmail.com>
-References: <20261007134711.473857-1-meatuni001@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O6HZBQ85"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CA331F0089B;
+	Wed,  7 Oct 2026 13:47:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791380871;
+	bh=EndcDYuYZFPo86frFhMu07n5NOlKZELpWsp9/YTTj4w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=O6HZBQ85bkZge2ZxJ5Fkhm/XMPYaxwbFiJsHQGs/JekNTNOHejiB5sTbxsdF8AQHA
+	 aBFFYFjOeu6gsfYbmsRtgwRSlcE8lVeOn5N4xbvlIH9lVYmPwrzbAdUu3Mie+iG1Rn
+	 ZD1EnlEYqSam5RIy51DCFG5p+0Qzjxg2FYB5xg0xRFIiy191eWnIkIPWKD413cqBg/
+	 45SLo6ZDABFCsX2ZgW7WhMOWHBFXhsjMjd2ktEGbXWPRHIdjutEaPKs0hyYoTm2zB4
+	 D4vobXc8ps3/MEgCAprmWV3iu+KrcKHLWDy44c8VdRMcwyewiEYZbEBmuy/+pI4+v4
+	 z+9+d1PugI2Ng==
+Date: Wed, 7 Oct 2026 08:47:50 -0500
+From: Rob Herring <robh@kernel.org>
+To: Olivier MOYSAN <olivier.moysan@foss.st.com>
+Cc: Conor Dooley <conor@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: iio: adc: add bindings for stm32 mdf
+ filter
+Message-ID: <20261007134750.GC2792240-robh@kernel.org>
+References: <20261001145702.2628429-1-olivier.moysan@foss.st.com>
+ <20261001145702.2628429-2-olivier.moysan@foss.st.com>
+ <20261001-tribesman-gauze-862e1ef0cdd8@spud>
+ <bb8af256-5a77-4215-9eeb-fbcd0cae1829@foss.st.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <bb8af256-5a77-4215-9eeb-fbcd0cae1829@foss.st.com>
 
-validate_password_input() returns the positive INVALID_BIOS_AUTH on
-rejection. store_password_instance() skips the store on nonzero ret,
-but its final "return ret < 0 ? ret : count" treats the positive value
-as success, so userspace sees count instead of an error.
+On Wed, Oct 07, 2026 at 11:01:28AM +0200, Olivier MOYSAN wrote:
+> Hi Conor,
+> 
+> Thanks for the review
+> 
+> On 10/1/26 20:32, Conor Dooley wrote:
+> > On Thu, Oct 01, 2026 at 04:56:45PM +0200, Olivier Moysan wrote:
+> > > Add bindings that describes STM32 MDF settings to support
+> > > digital filtering for Pulse Density Modulation (PDM) microphones
+> > > and analog sigma delta modulators.
+> > > 
+> > > Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+> > > ---
+> > >   .../bindings/iio/adc/st,stm32-mdf-adc.yaml    | 383 ++++++++++++++++++
+> > >   1 file changed, 383 insertions(+)
+> > >   create mode 100644 Documentation/devicetree/bindings/iio/adc/st,stm32-mdf-adc.yaml
+> > > 
+> > > diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-mdf-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stm32-mdf-adc.yaml
+> > > new file mode 100644
+> > > index 000000000000..f2fbc3e150e8
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-mdf-adc.yaml
+> > > @@ -0,0 +1,383 @@
+> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > +%YAML 1.2
+> > > +---
+> > > +$id: http://devicetree.org/schemas/iio/adc/st,stm32-mdf-adc.yaml#
+> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > +
+> > > +title: STMicroelectronics STM32 Multi-function Digital Filter (MDF) ADC
+> > > +
+> > > +maintainers:
+> > > +  - Olivier Moysan <olivier.moysan@foss.st.com>
+> > > +
+> > > +description: |
+> > > +  STM32 MDF ADC is a sigma delta analog-to-digital converter dedicated to
+> > > +  interface external sigma delta modulators to STM32 micro controllers.
+> > > +
+> > > +properties:
+> > > +  compatible:
+> > > +    enum:
+> > > +      - st,stm32mp25-mdf
+> > > +      - st,stm32mp23-mdf
+> > > +
+> > > +  reg:
+> > > +    minItems: 1
+> > > +    maxItems: 2
+> > 
+> > This needs an items list here. The size of the regions seems like crap
+> > to begin with...
+> > 
+> > > +
+> > > +  clocks:
+> > > +    maxItems: 1
+> > > +
+> > > +  clock-names:
+> > > +    description: Internal clock used for MDF digital processing.
+> > > +    items:
+> > > +      - const: ker_ck
+> > 
+> > This is pointless when you only have one.
+> > 
+> 
+> I agree that it could be dropped. However, it is useful for using
+> devm_regmap_init_mmio_clk.
 
-Return -E2BIG for an invalid password length.
+I don't know what that function is/does, but that's not justification 
+for bindings. Maybe you need a helper that handles a single clock. Or 
+that function could take a NULL string for single clock? 
 
-Tested on HP EliteBook 840 G2 (Fedora 44, Linux 7.2.7): writing 999
-bytes to current_password returned 999 before this change.
+> 
+> > > +
+> > > +  "#clock-cells":
+> > > +    enum: [0, 1]
+> > 
+> > Why is this not fixed? Also why are parts of your own device consuming
+> > the clocks?
+> > 
+> > > +
+> > > +  clock-output-names:
+> > > +    description: |
+> > > +      CCK0 and CCK1 are optional output clocks, which share the same clock frequency,
+> > > +      but can be gated independently to save power.
+> > > +    minItems: 1
+> > > +    maxItems: 2
+> > > +    oneOf:
+> > > +      - items:
+> > > +          - const: cck0
+> > > +      - items:
+> > > +          - const: cck1
+> > > +      - items:
+> > > +          - const: cck0
+> > > +          - const: cck1
+> > > +
+> > > +  clock-frequency:
+> > > +    description: |
+> > > +      Common clock frequency (Hz) for CCK0 and CCK1 output clocks.
+> > > +      The frequency must be a multiple of the "ker_ck" clock frequency.
+> > > +    maximum: 25000000
+> > 
+> > Should not be needed, the consumers request what they need.
+> > 
+> 
+> The CCKx clock frequency depends on the maximum rate supported by the sigma
+> delta converters (for instance a digital mic) and the expected decimation
+> ratio on the bitstream. Typically this determines the frequency on the SPI
+> bus.
+> This rate is defined statically and shared by the CCKx clocks. So IMHO, as
+> this rate is unique, it can look strange to let the consumer define it.
+> Moreover, it seems to me that clock-frequency is already used to configure
+> the frequency of a provider in some other bindings.
+> For instance: Documentation/devicetree/bindings/clock/silabs,si570.yaml
+> So, it's not clear for me, what is the restriction on clock-frequency
+> property.
+> > > +
+> > > +  ranges: true
+> > > +
+> > > +  clock-ranges: true
+> > > +
+> > > +  resets:
+> > > +    maxItems: 1
+> > > +
+> > > +  reset-names:
+> > > +    items:
+> > > +      - const: mdf
+> > > +
+> > > +  access-controllers:
+> > > +    $ref: /schemas/types.yaml#/definitions/phandle-array
+> > > +    description: |
+> > > +      Phandle to the rifsc device to check access right.
+> > > +
+> > > +  power-domains:
+> > > +    maxItems: 1
+> > > +
+> > > +  st,interleave:
+> > > +    description: |
+> > > +      List of phandles of interleaved filters. The indexes of interleaved filters must be
+> > > +      consecutives starting from 0 (i.e in range [0..N]). The samples from interleaved filters
+> > > +      are muxed in a single channel and retrieved through the device associated to the filter 0.
+> > > +      The filters 1..N have to be enabled, but inherit their configuration from filter 0.
+> > > +    $ref: /schemas/types.yaml#/definitions/phandle-array
+> > 
+> > No idea what these even are, but this is probably not the right way to
+> > represent the relationship between devices. They're apparently ADCs, but
+> > this is also an ADC so I'm not sure what's going on here at all.
 
-Fixes: 8646a3b5ee3a ("platform/x86: hp-bioscfg: passwdobj-attributes")
-Cc: stable@vger.kernel.org
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
----
-Changes in v3:
- drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+I don't under it either, but regardless phandle-array needs constraints 
+on the items. It's really a matrix with array of phandle+args arrays.
 
-diff --git a/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
-index 9b989ef756ea..8018ccb2b439 100644
---- a/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
-+++ b/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
-@@ -70,12 +70,13 @@ static int validate_password_input(int instance_id, const char *buf)
- 		length--;
- 
- 	if (length > MAX_PASSWD_SIZE)
--		return INVALID_BIOS_AUTH;
-+		return -E2BIG;
- 
- 	if (password_data->min_password_length > length ||
- 	    password_data->max_password_length < length)
--		return INVALID_BIOS_AUTH;
--	return SUCCESS;
-+		return -E2BIG;
-+
-+	return 0;
- }
- 
- ATTRIBUTE_N_PROPERTY_SHOW(is_enabled, password);
--- 
-2.55.0
-
+Rob
