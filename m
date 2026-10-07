@@ -1,222 +1,242 @@
-Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 843424AF165;
-	Wed,  7 Oct 2026 16:34:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.56.87.5
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791390885; cv=pass; b=QMoyzRCGiwC9Pf0XDBvpQIhZe4RKKx1zk+yXdsSSNqbc6kiZDDJ5+TKupsxWyxKl9yxao5lbmJAiOXIAKxIqe9UazQtc1Zgo0fMWrS3OixRZzqR+xrg2atuSWNzc+CeKHkoPmJl0cGJJEZTrgfCCpOZ9h0bNnEFqDDOvL8r+3nI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791390885; c=relaxed/simple;
-	bh=zWZ8FsXv6P2pM5aRRcbjwFhBPvqExbHMMrdKWPrYp+w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QQwQdmaiEGfOoQd8S6TCexblB2RfR5djEWVWHOuG8zd7gVhNK/nNyq0PWGWNMpdsO1zakprUtiG1FFaZvYfNd+hZYXvb6rh6Rj8B8+jbqX2IOZSugYHegYjGScrvwsV60To38A9gBExETvoDYjJWREKem9VbGnyZSoad1vMVKjw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it; spf=pass smtp.mailfrom=valla.it; dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b=lUK2DFzZ; dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b=rGQH2Jt/; arc=pass smtp.client-ip=185.56.87.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E4BD416873
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 16:37:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791391048; cv=none; b=FyHEgNoVE5IZQinDK2WRGpw4xoEd82esWdRrOmuoSetnvO17rWprkZP1Z9yGG4SLqcPUC27JfhR1FRz52Iq+RAvQ1hYp7vEOjnKL9nBIVKVbnEeDu3l1P4ac7fhScJYnj+8Aenc2f68VwUQJPSkhOSOvuln99FoT8O0Ty4iWQ+c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791391048; c=relaxed/simple;
+	bh=nVxKF4JUnFA8pYDHYkDQgqgrgnBto0O4WtcNzT812io=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tUxAs4ViKh9tWCvbAKOehRsO1oUmdd8gLHkEHhbJ6aBGJ21EOcSo8tKYTduQpwN6ppfhV6109r6LJOO/V4cXkMP+VUCra84rMi2xfcBXbpjgi2G5v2yzMt69OKpkLlHImF6rs1WU0DmGKtKb8RbyYUjH4Ve6k5M9FXdAeqquG70=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jT/PU6R7; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b="lUK2DFzZ";
-	dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b="rGQH2Jt/"
-ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-mzd6.prod.antispam.mailspamprotection.com; s=arckey; t=1791390883;
-	 b=Lo/KVuZplQWcM9Yhx2ti3uPr41aycF4PdHXoVwCFot+1ZemFoHsBkPDc7lnEzIyAlGb4ZBQL9r
-	  gQ3rszGA9wYnEZSu7JEeWSZqHcfiEZMxYjmjTzWGTCTgLX0jHbmJQd//CRQvKtXcYdLLCpnZXh
-	  ecJhsrvUTd93ziJaw7fKlAfdLsNLTazeIY1a8D1syB/XHI5tGkbjkxtSPqYPGgML/pzj/snA/V
-	  cyNv5nv6jQlUHFMak+0c5Nnlt8wcmlZbB/WKERs7GIPFH7VUBI6hJlx+Ndm0jSmih4/pAZloQM
-	  o8Bczd+LpbKVdWi7KElKFKiSJExPXCZ25t1LWs6l8roKNA==;
-ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-mzd6.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-mzd6.prod.antispam.mailspamprotection.com; s=arckey; t=1791390883;
-	bh=zWZ8FsXv6P2pM5aRRcbjwFhBPvqExbHMMrdKWPrYp+w=;
-	h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:
-	  From:Date:DKIM-Signature:DKIM-Signature;
-	b=BrO5ZiHp7Rau76si7nn5E3+aWdElxxDuCw9BRAU4Ah81eLORJpXeWolfHboBkzB+cLVN/IFnVt
-	  w9DXuQPmY6ng3BruVF/CwFm0FGmWGvtxZx/eVS1PUtg5ZvOUkt8q/4lbCxajfJ5dtKbgFkQTCg
-	  7XQptF/3GR9zqSqZyBYsD8yLAoX4UI2tY3wgAushW8+F2xxNfZb3F7/uJ4xJfoz9Zw8UOwIO3q
-	  gn40XWXwZzGlTPVLW7VJT5yonSB2S1BBQdMCGRodIqeYYC+tPjTCPAHNIQa/rPnnwsxToCcDyO
-	  IHNccEu/7kOa0FVPplQiScz4r0KbAjrhUMmRHIiG2LtivA==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
-	:Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	List-Unsubscribe:Content-Transfer-Encoding;
-	bh=tLwUzAmQhGSL3Ue4ZR+yc6YJqjUkv8c/LUizgFvUpEU=; b=lUK2DFzZ4QOrzCd0Em0wHo1JCZ
-	UbVT59eM6O2EzMokczOIXMUZBrzxMXxYhvldh5ipSdEwpRp62S21+KTZcB147ItsT9IZOkQT4lPbA
-	Xv/5XgxhEG8PfUkaAJiPeU/etvQ+Y6r4HvmmNzOOHBsONL6RuO4y10ceuCxp27V0T7Vo=;
-Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
-	by instance-europe-west4-mzd6.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xEUbD-00000008Nno-2cDf;
-	Wed, 07 Oct 2026 16:34:36 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
-	s=default; h=Subject:Cc:To:From:Date:list-help:list-unsubscribe:
-	list-subscribe:list-post:list-owner:list-archive;
-	bh=tLwUzAmQhGSL3Ue4ZR+yc6YJqjUkv8c/LUizgFvUpEU=; b=rGQH2Jt/bpeF930y+rHYkN2zf8
-	97TtVSvsaaG5aGcB4PZfyMk7r2RX3uiBz38jxRRTSPle16p8V/ICrwQiDPiognt0S2z0kAnDjDYyP
-	KOckZczNOgULzyrqXvYBnhG1X2IVXykdOIdCVq4OfsXhbomC4NP/QV3KzGUgCqn84S2E=;
-Received: from [79.14.200.104] (port=64271 helo=bywater)
-	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xEUau-00000000MYn-3hbM;
-	Wed, 07 Oct 2026 16:34:17 +0000
-Date: Wed, 7 Oct 2026 18:34:14 +0200
-From: Francesco Valla <francesco@valla.it>
-To: Rob Herring <robh@kernel.org>
-Cc: Mathieu Poirier <mathieu.poirier@linaro.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
-	Robin Murphy <robin.murphy@arm.com>, Mark Brown <broonie@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	virtualization@lists.linux.dev, imx@lists.linux.dev, iommu@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH RFC 08/12] dt-bindings: remoteproc: add remoteproc-virtio
-Message-ID: <asZ0KdG7lloNwDfx@bywater>
-References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
- <20260916-remoteproc_virtio_map-v1-8-dac8c5eb4aa9@valla.it>
- <arKhbxi3Snbt1_Mn@p14s>
- <arLZj2DxBazf3wMd@bywater>
- <20261006183910.GA2890477-robh@kernel.org>
- <CANLsYkwhrqk0nQNFuP_5aMYQCLGsLrzm-z9YP+Fvv-C1Ug8trg@mail.gmail.com>
- <20261007134206.GB2792240-robh@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jT/PU6R7"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3a865731ee4so1835603a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 09:37:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791391047; x=1791995847; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zzmCTlN2LKpQDlGX69irecctA25CCs8mwLmZ5GzVuOQ=;
+        b=jT/PU6R795cHyNLYNdCOHMxVBj9kA0pQuW27xjM+kCrL+mkO5/KW50zrMwsIOqJ2rV
+         F6r1Aeb5NakLhcZ8EVG37qXvDupssRFlblKU17T8EyUdipgruLM1xL4Eqe1cEt+hEIcN
+         t4naVjRUEklNORrXabTei6bQq2E1spytnByC2eG9/7CYzWvYQzG04h92ByzZHbm/g46O
+         2uTfN++I5p+URCVbR2ZQg1n1hU6s/JxdlMCALhTNDHYIkTpSefsJEyMEkqhVjIhaUt6w
+         o8+m06n+GnaDGRwDGGJkbuQJqnT8KBfB8ow8Cxe6PelIRGPF2j6tYEMF59jkGdiQWt9o
+         nRAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791391047; x=1791995847;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zzmCTlN2LKpQDlGX69irecctA25CCs8mwLmZ5GzVuOQ=;
+        b=TcTSUZufeviACrKJpzQYOGB3N66vFGRcUqjL475hiBsFx+nEJ4HktTqCWcy4N9tb+n
+         FB8ChY/yr5W7DZeC6bC9NW8kcI65gzSoBI/6rpUIOSisTNU0rhOXepp7uRchE3bjleXA
+         Ka7LUL+Gg4HUauF31ATaCfL4ZKV+r8FdccuINdivugLChyPnleGo9o4yq8yx9G9yHQRQ
+         1K1Wn14ltuRDXxToocd1wp4opW2J9WjHNU/B98MGy6cKnm+dr4737uYP08FSiAcf4ujO
+         ArsPdJzkaBXksz2Nz4cGWSv9umD7PAj466uzmvhv3V7DPdYsQnkifKh3W28oW9MmpbGx
+         1MgA==
+X-Forwarded-Encrypted: i=1; AKwUvBwJRy7gtbgqiOL71HwFzU0wNEqVsTn27h2Nvjbq5/PkBV7I7UQkw6Askb47iS8NCteb/izgJpxL8pIxjDw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIR6QgDKR8nM78oUX3x6dcu/dirbzBm/LNM3pAFES+nXhLQahWd
+	HUgKb+GzC+pHBvfDk9fG4H3KLtiHEtUydZb+4XR47Ch0/1o6AwAubutv
+X-Gm-Gg: AYBFou2hM8788Hmf41vOjSGoPA6ynVbNl25PuphgesjDtB3hbfiLc7ozrvYUQiGebR1
+	tBAQcxmNFwBdkES1Ek6FRX5MohhgAHLI+4TWGqMz0do6mSZrgruIDbPGBqjvwoHgV7rirSUBMle
+	DBUN4EuO7rmf8OxnrmTozgRUYmVbsRMH21MJHhh9RMXu/tHHJpyNqDPBpQJuYiRq/DDc1Uz91XZ
+	Jw+Nb59Ia3EggBKjaj3UkBXf0JF1cDDJkIMqPZ5q2WUqH0RDj4FzxV81MFNG61ASpuG27HqJ7iy
+	qTIY2P+CMRG1NUgk8gDNooF2wIVW4q0WOfo6a3h71nuKn0XY7adSsTNrbAoYckrVhkhEh9m8UjI
+	6mpUpTs5BZRBUkYMZM6TZaWoy/XTyprpmtwRZt2rKCEQBb6Xs9ONtkXsl+lg4p86/W8S5GR66If
+	s5jPcg1pNsiC6kSDs74qSLC2bm75Nk6HNM7gbVsV8XDT3xnX1Lc92Pr3gKj9BZ3URYZJNIc9ppA
+	1efF67WmKsaVMUNQDkqJ+/FI6NInxtukuVetrPONZCQA6zf/Cx/f4fMKAR54o7ffo0b+ErXNc4c
+	4Jeei4MMZiNPNhxqpFolMP0HiMkrF2s/HZLiGvxG7IyZMg==
+X-Received: by 2002:a17:90b:2e90:b0:3aa:548f:eb7d with SMTP id 98e67ed59e1d1-3aa548ff22emr28279a91.20.1791391046569;
+        Wed, 07 Oct 2026 09:37:26 -0700 (PDT)
+Received: from LAPTOP-97G9G880.domain.name ([106.222.201.193])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9d94ef876sm262958a91.0.2026.10.07.09.37.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 09:37:24 -0700 (PDT)
+From: Karthikeyan KS <karthiproffesional@gmail.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	Mike Christie <michael.christie@oracle.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Stefan Hajnoczi <stefanha@redhat.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	virtualization@lists.linux.dev,
+	kvm@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Karthikeyan KS <karthiproffesional@gmail.com>,
+	John Hubbard <jhubbard@nvidia.com>
+Subject: [PATCH] vhost-scsi: use FOLL_PIN for DMA page pinning
+Date: Wed,  7 Oct 2026 16:37:16 +0000
+Message-ID: <20261007163716.707102-1-karthiproffesional@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261007134206.GB2792240-robh@kernel.org>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - esm19.siteground.biz
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - valla.it
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-SGantispam-id: 277590c51d18866cf78171bb6a57e18c
-X-AntiAbuse: ID - 277590c51d18866cf78171bb6a57e18c
-AntiSpam-DLS: false
-AntiSpam-DLSP: 
-AntiSpam-DLSRS: 
-AntiSpam-TS: 1.0
-CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
-CFBL-Feedback-ID: 1xEUbD-00000008Nno-2cDf-feedback@antispam.mailspamprotection.com
-Authentication-Results: outgoing.instance-europe-west4-mzd6.prod.antispam.mailspamprotection.com;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
+Content-Transfer-Encoding: 8bit
 
-Hello Rob,
+vhost_scsi_map_to_sgl() pins guest buffer pages via
+iov_iter_get_pages2() (FOLL_GET), which does not prevent
+copy-on-write or page migration while DMA is in flight. Switch to
+iov_iter_extract_pages() (FOLL_PIN), which does.
 
-On Wed, Oct 07, 2026 at 08:42:06AM -0500, Rob Herring wrote:
-> On Tue, Oct 06, 2026 at 06:51:52PM -0600, Mathieu Poirier wrote:
-> > On Tue, 6 Oct 2026 at 12:39, Rob Herring <robh@kernel.org> wrote:
-> > >
-> > > On Tue, Sep 22, 2026 at 09:44:20PM +0200, Francesco Valla wrote:
-> > > > On Tue, Sep 22, 2026 at 09:40:31AM -0600, Mathieu Poirier wrote:
-> > > > > On Wed, Sep 16, 2026 at 11:10:53PM +0200, Francesco Valla wrote:
-> > > > > > Add a new binding to describe remoteproc-provided virtio devices; while
-> > > > > > these are discovered through a resource table parsed by the remoteproc
-> > > > > > infrastructure at runtime, their description can be needed to probe
-> > > > > > non-discoverable buses (such as I2C) or to link consumers and suppliers.
-> > > > > >
-> > > > > > Each vdev is described by a dedicated "group" node, which then includes
-> > > > > > a virtio-device node, which binding is already existent and used by
-> > > > > > virtio-mmio. Each vdev shall be stattically linked to a "group" node
-> > > > > > using its index inside the resource table as the reg property of the
-> > > > > > node; this permits to have multiple instances of the same type of
-> > > > > > device.
-> > > > > >
-> > > > > > The binding is intended to be generic and adopted by any remoteproc
-> > > > > > provider.
-> > > > > >
-> > > > > > Signed-off-by: Francesco Valla <francesco@valla.it>
-> > > > > > ---
-> > > > > >  .../bindings/remoteproc/remoteproc-virtio.yaml     | 89 ++++++++++++++++++++++
-> > > > > >  1 file changed, 89 insertions(+)
-> > > > > >
-> > > > > > diff --git a/Documentation/devicetree/bindings/remoteproc/remoteproc-virtio.yaml b/Documentation/devicetree/bindings/remoteproc/remoteproc-virtio.yaml
-> > > > > > new file mode 100644
-> > > > > > index 000000000000..c4a0d84b1460
-> > > > > > --- /dev/null
-> > > > > > +++ b/Documentation/devicetree/bindings/remoteproc/remoteproc-virtio.yaml
-> > > > > > @@ -0,0 +1,89 @@
-> > > > > > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> > > > > > +%YAML 1.2
-> > > > > > +---
-> > > > > > +$id: http://devicetree.org/schemas/remoteproc/remoteproc-virtio.yaml#
-> > > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > > > > +
-> > > > > > +title: Virtio devices over remoteproc
-> > > > > > +
-> > > > > > +description: |
-> > > > > > +  Virtio devices ("vdevs") can be exposed using the remoteproc infrastructure
-> > > > > > +  and its resource table. For some of them, a device tree node might be needed
-> > > > > > +  to describe remote undiscoverable hardware and/or connect consumers and
-> > > > > > +  providers.
-> > > > > > +
-> > > > > > +maintainers:
-> > > > > > +  - Francesco Valla <francesco@valla.it>
-> > > > > > +
-> > > > > > +properties:
-> > > > > > +  virtio:
-> > > > > > +    description: Contains a group of Virtio devices exposed by the remoteproc.
-> > > > > > +
-> > > > > > +    properties:
-> > > > > > +      '#address-cells':
-> > > > > > +        const: 1
-> > > > > > +
-> > > > > > +      '#size-cells':
-> > > > > > +        const: 0
-> > > > > > +
-> > > > > > +    patternProperties:
-> > > > > > +      "^vdev@[0-9a-f]+$":
-> > > > > > +        type: object
-> > > > > > +
-> > > > > > +        properties:
-> > > > > > +          reg:
-> > > > > > +            description: Virtio device index inside the resource table.
-> > >
-> > 
-> > There are 2 configurations we need to account for: (1) each device
-> > located behind the remote processor gets its own set of virtqueues and
-> > adheres to the virtio specifications.  This is the configuration
-> > targeted by this thread.  The other configuration (2), discussed in
-> > the other thread, involves virtio piggy-backed over RPMSG.  The hope
-> > is to represent both configurations using the same bindings.  For (1),
-> > virtio devices will be advertised in the resource table and for (2),
-> > virtio devices will be announced via the existing remoteproc namespace
-> > service.
-> > 
-> > > Who/what defines the resource table?
-> > 
-> > The resource table is part of the firmware image and is parsed by the
-> > remoteproc core.  For (1), as presented in this set, "reg" links the
-> > entry in the resource table with the device definition in the DT.  For
-> > (2), the definition is also a device index, but said index is
-> > communicated to the remoteproc core using a namespace announcement
-> > rather than the resource table.
-> > 
-> > I hope to establish bindings for configuration (1) and merge that work
-> > first.  Once that is done we can extend it to cover (2).
-> 
-> "Defined by firmware" is all I needed. Please make sure the binding 
-> patches include this information or I'll forget and just ask again.
->
+Cc: Jason Wang <jasowangio@gmail.com>
+Cc: Mike Christie <michael.christie@oracle.com>
+Cc: John Hubbard <jhubbard@nvidia.com>
+Cc: Michael S. Tsirkin <mst@redhat.com>
+Cc: virtualization@lists.linux.dev
+Signed-off-by: Karthikeyan KS <karthiproffesional@gmail.com>
+---
+ drivers/vhost/scsi.c | 49 ++++++++++++++++++++++++++++++--------------
+ 1 file changed, 34 insertions(+), 15 deletions(-)
 
-I'll include this detail in the next version of the bindings; I'm always
-working on .rst documentation to add to the next version of the patchset.
-
-> Rob
-
-Regards,
-Francesco
+diff --git a/drivers/vhost/scsi.c b/drivers/vhost/scsi.c
+index 7a1f39a327da..e14b4da4ea9c 100644
+--- a/drivers/vhost/scsi.c
++++ b/drivers/vhost/scsi.c
+@@ -115,6 +115,8 @@ struct vhost_scsi_cmd {
+ 	u32 tvc_sgl_count;
+ 	u32 tvc_prot_sgl_count;
+ 	u32 copied_iov:1;
++	u32 tvc_need_unpin:1;
++	u32 tvc_prot_need_unpin:1;
+ 	const void *read_iov;
+ 	struct iov_iter *read_iter;
+ 	struct scatterlist *sgl;
+@@ -433,8 +435,13 @@ static void vhost_scsi_release_cmd_res(struct se_cmd *se_cmd)
+ 
+ 			if (tv_cmd->copied_iov)
+ 				__free_page(page);
+-			else
+-				put_page(page);
++			else if (tv_cmd->tvc_need_unpin)
++				unpin_user_page(page);
++			/*
++			 * Else: iov_iter_extract_pages() took neither a ref
++			 * nor a pin on this page (ITER_KVEC/BVEC/etc), so
++			 * there is nothing to release here.
++			 */
+ 		}
+ 		kfree(tv_cmd->read_iter);
+ 		kfree(tv_cmd->read_iov);
+@@ -443,8 +450,8 @@ static void vhost_scsi_release_cmd_res(struct se_cmd *se_cmd)
+ 	if (tv_cmd->tvc_prot_sgl_count) {
+ 		for_each_sgtable_sg(&tv_cmd->prot_table, sg, i) {
+ 			page = sg_page(sg);
+-			if (page)
+-				put_page(page);
++			if (page && tv_cmd->tvc_prot_need_unpin)
++				unpin_user_page(page);
+ 		}
+ 		sg_free_table_chained(&tv_cmd->prot_table, vs->inline_sg_cnt);
+ 	}
+@@ -773,7 +780,8 @@ vhost_scsi_get_cmd(struct vhost_virtqueue *vq, u64 scsi_tag)
+ 
+ static void vhost_scsi_revert_map_iov_to_sgl(struct iov_iter *iter,
+ 					     struct scatterlist *curr,
+-					     struct scatterlist *end)
++					     struct scatterlist *end,
++					     bool need_unpin)
+ {
+ 	size_t revert_bytes = 0;
+ 	struct page *page;
+@@ -782,7 +790,8 @@ static void vhost_scsi_revert_map_iov_to_sgl(struct iov_iter *iter,
+ 		page = sg_page(curr);
+ 
+ 		if (page) {
+-			put_page(page);
++			if (need_unpin)
++				unpin_user_page(page);
+ 			revert_bytes += curr->length;
+ 		}
+ 		/* Clear so we can re-use it for the copy path */
+@@ -812,9 +821,9 @@ vhost_scsi_map_to_sgl(struct vhost_scsi_cmd *cmd,
+ 	size_t offset;
+ 	unsigned int n, npages = 0;
+ 
+-	bytes = iov_iter_get_pages2(iter, pages, LONG_MAX,
+-				VHOST_SCSI_PREALLOC_UPAGES, &offset);
+-	/* No pages were pinned */
++	bytes = iov_iter_extract_pages(iter, &pages, LONG_MAX,
++				VHOST_SCSI_PREALLOC_UPAGES, 0, &offset);
++	/* No pages were extracted */
+ 	if (bytes <= 0)
+ 		return bytes < 0 ? bytes : -EFAULT;
+ 
+@@ -837,7 +846,7 @@ vhost_scsi_map_to_sgl(struct vhost_scsi_cmd *cmd,
+ 		    cmd->tvc_sgl_count > BIO_MAX_VECS) {
+ 			WARN_ONCE(true,
+ 				  "vhost-scsi detected misaligned IO. Performance may be degraded.");
+-			goto revert_iter_get_pages;
++			goto revert_iter_extract_pages;
+ 		}
+ 
+ 		sg_set_page(sg, pages[npages++], n, offset);
+@@ -849,14 +858,17 @@ vhost_scsi_map_to_sgl(struct vhost_scsi_cmd *cmd,
+ 	*sgl = sg;
+ 	return npages;
+ 
+-revert_iter_get_pages:
+-	vhost_scsi_revert_map_iov_to_sgl(iter, *sgl, sg);
++revert_iter_extract_pages:
++	vhost_scsi_revert_map_iov_to_sgl(iter, *sgl, sg,
++			is_prot ? cmd->tvc_prot_need_unpin : cmd->tvc_need_unpin);
+ 
+ 	iov_iter_revert(iter, bytes);
+ 	while (bytes) {
+ 		n = min_t(unsigned int, PAGE_SIZE, bytes);
+ 
+-		put_page(pages[npages++]);
++		if (is_prot ? cmd->tvc_prot_need_unpin : cmd->tvc_need_unpin)
++			unpin_user_page(pages[npages]);
++		npages++;
+ 		bytes -= n;
+ 	}
+ 
+@@ -926,6 +938,7 @@ vhost_scsi_copy_iov_to_sgl(struct vhost_scsi_cmd *cmd, struct iov_iter *iter,
+ 	}
+ 
+ 	cmd->copied_iov = 1;
++	cmd->tvc_need_unpin = 0;
+ 	return 0;
+ 
+ err:
+@@ -950,11 +963,17 @@ vhost_scsi_map_iov_to_sgl(struct vhost_scsi_cmd *cmd, struct iov_iter *iter,
+ 	struct scatterlist *sg = sg_table->sgl;
+ 	int ret;
+ 
++	if (is_prot)
++		cmd->tvc_prot_need_unpin = iov_iter_extract_will_pin(iter);
++	else
++		cmd->tvc_need_unpin = iov_iter_extract_will_pin(iter);
++
+ 	while (iov_iter_count(iter)) {
+ 		ret = vhost_scsi_map_to_sgl(cmd, iter, sg_table, &sg, is_prot);
+ 		if (ret < 0) {
+ 			vhost_scsi_revert_map_iov_to_sgl(iter, sg_table->sgl,
+-							 sg);
++					sg, is_prot ? cmd->tvc_prot_need_unpin :
++						      cmd->tvc_need_unpin);
+ 			return ret;
+ 		}
+ 	}
+@@ -1392,7 +1411,7 @@ vhost_scsi_handle_vq(struct vhost_scsi *vs, struct vhost_virtqueue *vq)
+ 		/*
+ 		 * If T10_PI header + payload is present, setup prot_iter values
+ 		 * and recalculate data_iter for vhost_scsi_mapal() mapping to
+-		 * host scatterlists via get_user_pages_fast().
++		 * host scatterlists via iov_iter_extract_pages().
+ 		 */
+ 		if (t10_pi) {
+ 			if (v_req_pi.pi_bytesout) {
+-- 
+2.43.0
 
