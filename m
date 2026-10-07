@@ -1,78 +1,73 @@
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBF3C2264AB
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 04:08:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFC283446A7
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 04:10:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791346118; cv=none; b=UNDJGTSXkymaVWag7yiKIKXB+0s1oQenNoGWPZvKD+N/goDH/Xii6id/Bp5oyhE8e3MNqSt2dCZJC/1UBbn9uyXkvdykFY7dXnMos3kNwCGUVRXMLSHChASh8kglD2psCpDoeXN26Z8p7NsgrWGsVMzjESjjKpXZc2Oq5dYPajI=
+	t=1791346239; cv=none; b=gqoe8m2U0tM95ATexRF9Tj+R8AGR/QD+BgBy8HGYqId+kmuSFLBIZh76EPoQhQVZtSmxMKWyngdRctSHEnL0tHs7z+RL7kpj+q1pmgAlVR8Y/H138eG8cLd5hGaSs/AnpNUkxkxsXOOzOECbe0IbeHvkVRuikW3wITB3Hozsih0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791346118; c=relaxed/simple;
-	bh=ZeUSlO6QG/0suKKj6v4gTeXtxcfO7uYhj5F1UK0pwoA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aKCHYuBzwDZUUP3K2cFwuvAKpAxtaps2NuUueXcsVlMzEikSzD+gu4oMaFlVGu5eF7TYaNcptkkL4nm7/agWA4HQ9ZCmxdRMnc2pizFbEDwFFWPxCsKZqDIv8pJYwbF3Bei77avMjZ7m9HlV2pxjKFp3tlmEgk9/BurN7Nbytmk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WX1c1m+T; arc=none smtp.client-ip=209.85.215.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791346239; c=relaxed/simple;
+	bh=Dehgm5K17KIypaeoxVLrFfQbIbVwDYhVkmn2kILdwV0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ftm0s9AwuCIVR6emo/+YepxRUVuEZ+6WuUjwYZlVAeXxwPXqRDG0OtTIzliepauLyWKFT0Y3VxMw6WF/jwaL6t3u6yQAgZFklhn5oEng5DUM39CBcIESOQSWIrHL4yYRKrGP02MQWX36kZPDAY1xmiQOixZezhjmTPeSX4x/P2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=TyUpRJ0f; arc=none smtp.client-ip=209.85.210.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WX1c1m+T"
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc7cc8aafe6so628349a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 21:08:36 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="TyUpRJ0f"
+Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-82503732024so584308a34.3
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 21:10:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791346116; x=1791950916; darn=vger.kernel.org;
+        d=openai.com; s=google; t=1791346236; x=1791951036; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aavgm8XuyoOvFfWK19tQpulJeFqNL3Mu2MGTeCERXYU=;
-        b=WX1c1m+TZQeHjwcZ/WqsRO8fqp3NtNvRwoE8bUVvShmxF9yZwfJ4/uJlzJkxNUlnZR
-         thUwvGk/m72cSbpZCVFJx+AgnaD7qRYAN0t6brPRI1SR0mWzkhfz0hZeo0pIMJyzvBcb
-         jgo50XuRj2GfXlBEnONEH0S3WES9w0fvqAEm9QSoVz1ahXNW0RDJ+PcwQit68Cu0edYN
-         kWlxfkmtct8injqiUBeYLTyodishXwLs0c0y/hVFpHwCyBosKrTvl2vl0nfCes1GNdii
-         rkJeY0nsw0sHg9tgFFIpAWiU8sHBcWr5z6EIxF/Gg39+nRqydDKY2n3bkc+1P7MeAyor
-         229Q==
+        bh=MBRXZKUt5w8de+h8RL2geRZW1pbP7GywRMbabudOQ+U=;
+        b=TyUpRJ0fkdV7w7jhnkamoD2M5Np6Sj0eylTDuC8ZZ5I1yuide3B2q69m7EKm9IGsB+
+         W5TgQSdzZxFsNTm/vURpVBsRwlNSc4qpNvJvTduUdNaXLrtbLO7DnqERnfoHqtwI/+4m
+         KgmDEIhD1yZyk7SrGEz/DWqbpAWgV12+c2zTI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791346116; x=1791950916;
+        d=1e100.net; s=20260707; t=1791346236; x=1791951036;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=aavgm8XuyoOvFfWK19tQpulJeFqNL3Mu2MGTeCERXYU=;
-        b=laEunvRZW5xBXOSQXFm5ge2FDqRAMhKOkCrL46eFSU1m50McraI1lU15xQUK2+CLtR
-         CKlHjvs9F3JbCN+Z2yX9xUYd/05dB54hu+wUZjBIM9v0qA64VaJccukcmctbxN398BV+
-         J5ar1hsBmh6e+sdtFKfQW68zG1IWg26+oBg0GcOVwg3C3JJ+KDIGkRJuIGPj0t0aTQuh
-         Zbx/xoUc4yUZPyAMCTjJ64WRxwxcz3yr6NTS1Axtf9RBdFMqEI1wqno1R1VVp1/srVqP
-         P6caNZkOJ/ShyJnsC9h7YDxGoHGNr3do5qPV/KMjSDwp4LyLhW2Xlhf2LwjipiVLrn8w
-         75zQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwKp29mr6B+ax1fd5AmrvGlzCBihyJl/7LZA2qfmlovRnR3yiiNbFCXo+RcpHJNFxV4F0WmBeVwh+TB6WY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ2ZOiZJn+FfbiQeQpQWLnNe8F4TNX9z91JXOte79Ph2bx/bu3g
-	7VE+KF5Vjq5q/5Cbc3z1CUhnyKf4742+Oh+GHRfB+Ln+/FIkjmmTN64I
-X-Gm-Gg: AYBFou0e72QWeGXNqd5f7Yw5SBMFCMgfa5uJHzhrlPEpnrtJq7cThys1WgA244Mc/1d
-	CUkOHRxQHEYUkh4RCpxt+hovE9q50K9iKZERn9plKAfQHZX/untOWcf+qptdnwQthX02yKiyTPs
-	vCmZxHV8rmh+z2szViHVMfsj220qQgMoJBmlEYoDxWIfO8Ik4Vq++q4dIP1l/wztLtV9XHs9rdo
-	w2kJLI2du/A6+zK7vSXQAkEEL+xCncsGTwa7qp77GqcYE8s+gWvlnrLYQVobK6i2oAmnFsQgz8w
-	lodrRVr3iMe6HLNtKn6SmTtTipFhepmMwVKakaVBM02MO9X5wqeIb0nGFor+r2eXGl/xXiNGi+j
-	UUucuore8Pk1wXiz1ASdUxzRLE6y3Xm+qTaGYePO0m9pha19I3Fax/nOL3jWj2yXbCaSq3HSDtd
-	XjgIzQmR1GPHO4I6HpPRaP4GYRREMHEConVpvxYvoD5rZePCzbsowpIrI6FI+4R+HUP/h3d2hWX
-	wQ5pcT3Wp8rVyRavVRwIbQCXpky0xWs+w==
-X-Received: by 2002:a17:90b:37d0:b0:3a8:5d57:a5eb with SMTP id 98e67ed59e1d1-3a8a19478d4mr827067a91.15.1791346116045;
-        Tue, 06 Oct 2026 21:08:36 -0700 (PDT)
-Received: from jubuntu-dev.. (125-227-154-99.hinet-ip.hinet.net. [125.227.154.99])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a89b7727a1sm2476237a91.17.2026.10.06.21.08.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 21:08:35 -0700 (PDT)
-From: Hsiu-Hsien Lee <swinds24@gmail.com>
-To: Theodore Ts'o <tytso@mit.edu>,
-	linux-ext4@vger.kernel.org
-Cc: Jan Kara <jack@suse.cz>,
-	Andreas Dilger <adilger.kernel@dilger.ca>,
-	Harshad Shirwadkar <harshadshirwadkar@gmail.com>,
-	Baokun Li <libaokun@linux.alibaba.com>,
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Zhang Yi <yi.zhang@huawei.com>,
-	linux-kernel@vger.kernel.org,
-	Hsiu-Hsien Lee <swinds24@gmail.com>
-Subject: [PATCH v2] ext4: don't fail journal recovery on an incomplete fast commit
-Date: Wed,  7 Oct 2026 12:08:29 +0800
-Message-ID: <20261007040829.2074386-1-swinds24@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=MBRXZKUt5w8de+h8RL2geRZW1pbP7GywRMbabudOQ+U=;
+        b=12YKehAACeys4Jlo+trIAK+JnedlM9fJmZCqyr4cmLA/usSFgR3FjdhoTLh3ykjRQZ
+         biGdePqeH916/gdvk7miiDnNOCXrv3fWt0OlGXjIqO0fJfQfzoBIetNqzGSdCTcwdedS
+         xorbYJDiCm+6qXbhdyBrKC/sEAUfpcw6vuDoNnJJVhU6bkvsD76U/S8VZjBsZL7/iTSD
+         uqgI93N4Ras/ZHxPng30slbhVziy0nryDABy8SrtoshxpiyJhEbZoldA7Ao8eJ/k3zIw
+         xfZ9nLUEHRgcM9/BC4c+7NCau1x4qnZMFPWCHw+Iy+/IazstoDNZA6wK6lM0SLY33MFg
+         vt/g==
+X-Gm-Message-State: AFuF++kGP9FJAmMhKEfLLbKIT0aq1dI1slnwmcKD73i3RWnIi2uD+Glb
+	MbFsNQ4yExe51+hIylZrthtY3ot5HsihiSrUXgc1doAeV86z36+KC2skeDPMFj49SwClKWT5guL
+	88IGqhHPVnA==
+X-Gm-Gg: AYBFou2WdQvVYs1TXH09WQeykSNU3Kaqc+G440qXH6pB5WXb3eCcXe2d7xgBI8Jji9j
+	H6XxSr5lZml/zkcQPXu58sVtWLPRm4DS9bO2GHXvYWknZzAEiu30tgt7DqfbUF0V5kjyNwYn7iH
+	WdP8wMhPT3lTnwYdErJKHFJaHJ0D9sO4p18gTim/MTLW50sJARog62bWMqVjJP6vEW+6A87p6+B
+	IqW8GcFrU3bp2uQC9jTS9/kBh67H0CgFSOLtU+fbRGW3cec1zdSvUCtlEbGnwVEvSJX2S+bWxUL
+	qiqjp3KCgYnUAG2ydrKi8/z0Tl7pbwdE0xuobbHYZHzLu+sRkj5vvGrYifyE9mfUfRErhJmTMCX
+	0gPDwedUchQjep5QozvLKUU65QMxf46K+QyeV5E+Uf8rcJ0LSXITN3QVj0LSkf8HVTvQ68PsXSR
+	JU56dthBLEv2yXmSnw8DLYn0/p9BNS5ZsBdNSn5OjoztbwYeoNVq8heN9jqThVuxmcm1sWi8kIt
+	ZncR1MaPX8a3RDTwME3o1BjSHd/kfGLMJqvt2Qt83kZPCXihvxUkqnkTAzqpHFQlznXu2SVF90=
+X-Received: by 2002:a05:6830:6485:b0:81c:e3de:d194 with SMTP id 46e09a7af769-82acefa6e00mr2083117a34.10.1791346236482;
+        Tue, 06 Oct 2026 21:10:36 -0700 (PDT)
+Received: from com-75606.corp.openai.org ([199.47.143.7])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-82adcb187c8sm1864670a34.22.2026.10.06.21.10.35
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 06 Oct 2026 21:10:36 -0700 (PDT)
+From: Kyle Zeng <kylebot@openai.com>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	outbounddisclosures@openai.com,
+	Kyle Zeng <kylebot@openai.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] mm/khugepaged: flush deferred unmaps before dropping a failed folio
+Date: Tue,  6 Oct 2026 21:10:01 -0700
+Message-ID: <20261007041001.43181-1-kylebot@openai.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,116 +76,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If the system crashes while the first fast commit after a full commit is
-being written, the fast commit area can hold the head of that fast
-commit without a valid tail.  ext4_fc_replay_scan() treats this as an
-error as long as no valid tail has been seen: an invalid tag length or
-an unknown tag returns -ECANCELED, a tail with a wrong tid or checksum
-returns -EFSBADCRC.  jbd2_journal_recover() then fails, the file system
-can be mounted neither read-write nor read-only, and the regular journal
-transactions committed before the fast commit are not replayed either:
+collapse_file() can fail its reference-count or dirty-folio check after
+unmapping with TTU_BATCH_FLUSH.  Both paths put back the isolated folio,
+then unlock it and drop the lookup reference before reaching the common
+try_to_unmap_flush().
 
-  JBD2: journal recovery failed
-  EXT4-fs (sdb): error loading journal
+The page-cache reference does not keep the folio stable once the lock is
+released.  Another collapse can replace and free it.  With its PTEs
+already gone, that collapse cannot flush the first task's per-task TLB
+batch, and retract_page_tables() skips short or unaligned VMAs.  A CPU
+can therefore retain a user translation to the freed folio.  This has
+been reproduced with unprivileged MADV_COLLAPSE on a memfd.
 
-The tail is written last and fsync() does not return before it has
-completed, so an incomplete fast commit was never reported as durable.
-Handle it like jbd2 handles a transaction without a valid commit block:
-stop the scan and replay what is valid.  This is already what happens
-when an earlier fast commit in the area has a valid tail.
+Flush at out_unlock while the lookup reference and folio lock are still
+held.  The common flush continues to cover the accumulated pagelist on
+both success and rollback, preserving batching on successful collapses.
 
-Reproducer, with the power cut emulated by copying the device while it
-is mounted:
-
-  mkfs.ext4 -O fast_commit /dev/sdb
-  mount /dev/sdb /mnt; mkdir /mnt/d
-  create 20 files in /mnt/d; sync
-  write a fragmented file and modify the 20 files, fsync one file
-      (one fast commit spanning several blocks)
-  copy /dev/sdb while still mounted, then zero the block holding the
-  fast commit tail in the copy
-  mount the copy
-
-Without this patch the mount fails as above.  With it, the mount
-succeeds, the state after sync is recovered and e2fsck finds no errors.
-The same holds when a full commit precedes the torn fast commit, in
-which case the full commit is now replayed as well.
-
-Fixes: 8016e29f4362 ("ext4: fast commit recovery path")
-Assisted-by: Claude Opus 5.5
-Signed-off-by: Hsiu-Hsien Lee <swinds24@gmail.com>
+Fixes: 6d9df8a5889c ("mm/thp: collapse_file() do try_to_unmap(TTU_BATCH_FLUSH)")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
 ---
 Changes in v2:
-- Drop the warning and the helper, use ext4_debug() and set the return
-  value inline (Jan Kara)
-- v1: https://lore.kernel.org/linux-ext4/20261006070005.1209234-1-swinds24@gmail.com/
+- Use Assisted-by: LLM.
+- Explain that the common flush is a no-op after out_unlock flushes.
 
-Testing: re-tested on 6.6.y with the same crash images used for v1 and
-for the unpatched baseline (identical files).  Without the patch, all
-torn first-fast-commit variants fail to mount rw and ro with "JBD2:
-journal recovery failed".  With v2, all of them mount rw and ro, the
-state of the last full commit is recovered and e2fsck -fn is clean.
-Images with intact fast commits, or with a torn fast commit after a
-valid one, behave the same with and without the patch.  The tail was
-torn by zeroing whole blocks, so only the invalid tag length path was
-exercised.
+ mm/khugepaged.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
- fs/ext4/fast_commit.c | 21 +++++++++++++++------
- 1 file changed, 15 insertions(+), 6 deletions(-)
-
-diff --git a/fs/ext4/fast_commit.c b/fs/ext4/fast_commit.c
-index 0cac890cf370..165950e2b7d9 100644
---- a/fs/ext4/fast_commit.c
-+++ b/fs/ext4/fast_commit.c
-@@ -2443,6 +2443,12 @@ static bool ext4_fc_value_len_isvalid(struct ext4_sb_info *sbi,
-  * It returns a negative error to indicate that there was an error. At the end
-  * of a successful scan phase, sbi->s_fc_replay_state.fc_replay_num_tags is set
-  * to indicate the number of tags that need to replayed during the replay phase.
-+ *
-+ * An invalid tag or a tail that does not match ends the scan without an error.
-+ * This is what a fast commit that was only partially written before a crash
-+ * looks like.  Its tail is written last and fsync() does not return before
-+ * the tail is on disk, so such a fast commit was never reported as durable and
-+ * is simply dropped, like jbd2 drops a transaction without a commit block.
-  */
- static int ext4_fc_replay_scan(journal_t *journal,
- 				struct buffer_head *bh, int off,
-@@ -2489,8 +2495,9 @@ static int ext4_fc_replay_scan(journal_t *journal,
- 		val = cur + EXT4_FC_TAG_BASE_LEN;
- 		if (tl.fc_len > end - val ||
- 		    !ext4_fc_value_len_isvalid(sbi, tl.fc_tag, tl.fc_len)) {
--			ret = state->fc_replay_num_tags ?
--				JBD2_FC_REPLAY_STOP : -ECANCELED;
-+			ext4_debug("Scan phase, invalid tag length, blk %lld\n",
-+				   bh->b_blocknr);
-+			ret = JBD2_FC_REPLAY_STOP;
- 			goto out_err;
- 		}
- 		ext4_debug("Scan phase, tag:%s, blk %lld\n",
-@@ -2530,8 +2537,9 @@ static int ext4_fc_replay_scan(journal_t *journal,
- 				state->fc_regions_valid =
- 					state->fc_regions_used;
- 			} else {
--				ret = state->fc_replay_num_tags ?
--					JBD2_FC_REPLAY_STOP : -EFSBADCRC;
-+				ext4_debug("Scan phase, invalid tail, blk %lld\n",
-+					   bh->b_blocknr);
-+				ret = JBD2_FC_REPLAY_STOP;
- 			}
- 			state->fc_crc = 0;
- 			break;
-@@ -2551,8 +2559,9 @@ static int ext4_fc_replay_scan(journal_t *journal,
- 				EXT4_FC_TAG_BASE_LEN + tl.fc_len);
- 			break;
- 		default:
--			ret = state->fc_replay_num_tags ?
--				JBD2_FC_REPLAY_STOP : -ECANCELED;
-+			ext4_debug("Scan phase, unknown tag %d, blk %lld\n",
-+				   tl.fc_tag, bh->b_blocknr);
-+			ret = JBD2_FC_REPLAY_STOP;
- 		}
- 		if (ret < 0 || ret == JBD2_FC_REPLAY_STOP)
- 			break;
--- 
-2.43.0
-
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index 75639298efc2..e1a5890818ad 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -2478,6 +2478,11 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+ 		index += folio_nr_pages(folio);
+ 		continue;
+ out_unlock:
++		/*
++		 * The folio may have been unmapped with TTU_BATCH_FLUSH.
++		 * Flush before releasing the lock and our last reference.
++		 */
++		try_to_unmap_flush();
+ 		folio_unlock(folio);
+ 		folio_put(folio);
+ 		goto xa_unlocked;
+@@ -2488,9 +2493,8 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+ xa_unlocked:
+ 
+ 	/*
+-	 * If collapse is successful, flush must be done now before copying.
+-	 * If collapse is unsuccessful, does flush actually need to be done?
+-	 * Do it anyway, to clear the state.
++	 * Flush before copying the folios, or releasing them in rollback.
++	 * This is a no-op if out_unlock already flushed the batch.
+ 	 */
+ 	try_to_unmap_flush();
+ 
