@@ -1,48 +1,48 @@
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F8C63D669C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F82A3D6497;
 	Wed,  7 Oct 2026 17:20:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791393658; cv=none; b=nPICQ6Cu5K8UHXgEtdI1QqW4bMsZ4QMfS38NrWXJbX4si3ZS3D8WuAxZ/VTq0VbTNeF10ylVkpjtj9lPnCBUhRjgfrkr0wwEnm1P/XvDNKC6q9wnXkW8M95Kr+B2q4ml5IWb5vKNPMPf58qaOhV89eymWjue7/HHzSeNBV+1uSM=
+	t=1791393658; cv=none; b=LyRWHCDoweqO5xu0W0QXGbuJfZGnBLKHf3SdEN6GXne/IaeizN2dcV9Fqvnu3gwvPZGVRCEInbRxxuAAWerIoWwVmZr8+OFpXn7UrlhqsXwnMODQeHRtQRbMKnpwzKPi7PT02BkixGX/fzbHURGPQpHNnt1IH9d3YZc0pchDpR0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791393658; c=relaxed/simple;
-	bh=jPv63eF6snabXno7qEfL2NmSKhlkcHUqtbMade2iPpI=;
+	bh=YqsnHd7mgXrbP3on9xTRcJHOT3e4K84a6q4VAP74nXI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NwmJPTslaGCiR0hkMFPaqeuHwIQmsIVEKKx/KY0XNouvblzCGCOo0dnhHpqrmAi8CrJErQJ9z1ihhkeCF5RCkBOXuIog5Aw4gmdYFwZJDs2ShvJA3GHcYLcPsEzKve3tkhAKcYhBx93NGjzXMSoBqhro4AEDN4EHF5Ds+nJbX7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=vGkHuUDR; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ElzHGwvM; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=vGkHuUDR; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ElzHGwvM; arc=none smtp.client-ip=195.135.223.130
+	 MIME-Version; b=SaqCZM58TtmpMtmk4vDRu7vj6SPwaRnh54nfCFpaybRIM0GAjKe3yDbo/ozUgzQ+P8JbiasykBoVEkLw5I8jaHCZadnUa2SBdqSDh0NOYT+tGryrNVKBZGQR2S9d+w8GTNxNGsHJ+h/8VXGzYe4/pbLg0hhvAEyZk3WjVuxrRLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=U9h/rtG9; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=HFc8CIXy; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=U9h/rtG9; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=HFc8CIXy; arc=none smtp.client-ip=195.135.223.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="vGkHuUDR";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ElzHGwvM";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="vGkHuUDR";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ElzHGwvM"
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="U9h/rtG9";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="HFc8CIXy";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="U9h/rtG9";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="HFc8CIXy"
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id A563B21BB6;
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 9E34B21B8E;
 	Wed,  7 Oct 2026 17:20:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
 	t=1791393655; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=TgECiuSHOc97TgFEPAMUyz18J8VIRBtN9EGbyBJZgIs=;
-	b=vGkHuUDRAxmMcwdMcrESxDYCBtKSJ0ybZGJ+rlYCT6F1Z3o8UxEt8mdTf0zq5eghZW/xPz
-	ilTsXSbQUzMqAdFuD4tRqpXfSabMkQ9quZUrSPDXHuGZtXPsw719apr9Azzd8xycIE8Fnn
-	ay+T1IwwgCfiCJ/3mvwGI9vtXakZ+DQ=
+	bh=W1DSXp1I8N0A+7fDn9otSB2AsAUUUDwp/+SW1Cnn1S4=;
+	b=U9h/rtG9BDAgNu8vGfX90Xi8Y4CXk8ioPYKvnHyLdRTHZOm7w2iBeyWXWpIqUf8FyKJ3xY
+	r8n2xlSgfBfIs71+dGck69d/tuCh7WzWM0BHHYKGURmOXfAO2v+unRwvcUWUyXeqEMNKlM
+	2yshGXYTu8LO9/bBBEKk9DYU9xh3Llg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
 	s=susede2_ed25519; t=1791393655;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=TgECiuSHOc97TgFEPAMUyz18J8VIRBtN9EGbyBJZgIs=;
-	b=ElzHGwvMIpokgdGLzIogsbfQLfFx8O2HMbqN7wZy+1h0kLw2Wq86BqesXK0fRDZJq6XoBX
-	TjQTiuac4XZT2lCg==
+	bh=W1DSXp1I8N0A+7fDn9otSB2AsAUUUDwp/+SW1Cnn1S4=;
+	b=HFc8CIXyzXE4PJRvzWnqkmRT5qb9IfFXfwqMFF9ODqKVUWQOz2oW5rRIB+ZW7RFBgD9pPe
+	/xR9Lhi5pZt2vsCQ==
 Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
@@ -50,35 +50,35 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=TgECiuSHOc97TgFEPAMUyz18J8VIRBtN9EGbyBJZgIs=;
-	b=vGkHuUDRAxmMcwdMcrESxDYCBtKSJ0ybZGJ+rlYCT6F1Z3o8UxEt8mdTf0zq5eghZW/xPz
-	ilTsXSbQUzMqAdFuD4tRqpXfSabMkQ9quZUrSPDXHuGZtXPsw719apr9Azzd8xycIE8Fnn
-	ay+T1IwwgCfiCJ/3mvwGI9vtXakZ+DQ=
+	bh=W1DSXp1I8N0A+7fDn9otSB2AsAUUUDwp/+SW1Cnn1S4=;
+	b=U9h/rtG9BDAgNu8vGfX90Xi8Y4CXk8ioPYKvnHyLdRTHZOm7w2iBeyWXWpIqUf8FyKJ3xY
+	r8n2xlSgfBfIs71+dGck69d/tuCh7WzWM0BHHYKGURmOXfAO2v+unRwvcUWUyXeqEMNKlM
+	2yshGXYTu8LO9/bBBEKk9DYU9xh3Llg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
 	s=susede2_ed25519; t=1791393655;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=TgECiuSHOc97TgFEPAMUyz18J8VIRBtN9EGbyBJZgIs=;
-	b=ElzHGwvMIpokgdGLzIogsbfQLfFx8O2HMbqN7wZy+1h0kLw2Wq86BqesXK0fRDZJq6XoBX
-	TjQTiuac4XZT2lCg==
+	bh=W1DSXp1I8N0A+7fDn9otSB2AsAUUUDwp/+SW1Cnn1S4=;
+	b=HFc8CIXyzXE4PJRvzWnqkmRT5qb9IfFXfwqMFF9ODqKVUWQOz2oW5rRIB+ZW7RFBgD9pPe
+	/xR9Lhi5pZt2vsCQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 18BCD139B1;
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 09729139AF;
 	Wed,  7 Oct 2026 17:20:55 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 8rcALXZ/xmp1CgAAD6G6ig:T4
+	id 8rcALXZ/xmp1CgAAD6G6ig:T3
 	(envelope-from <tiwai@suse.de>); Wed, 07 Oct 2026 17:20:55 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: linux-sound@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH v3 3/8] ALSA: hda: Fix potential UAF for gating jack
-Date: Wed,  7 Oct 2026 19:20:39 +0200
-Message-ID: <20261007172051.13240-4-tiwai@suse.de>
+Subject: [PATCH v3 2/8] ALSA: pcm: Fix TOCTOU state overwrite in snd_pcm_drop()
+Date: Wed,  7 Oct 2026 19:20:38 +0200
+Message-ID: <20261007172051.13240-3-tiwai@suse.de>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261007172051.13240-1-tiwai@suse.de>
 References: <20261007172051.13240-1-tiwai@suse.de>
@@ -89,9 +89,9 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
 X-Spam-Score: -2.80
 X-Spam-Level: 
-X-Spam-Flag: NO
 X-Spamd-Result: default: False [-2.80 / 50.00];
 	BAYES_HAM(-3.00)[100.00%];
 	MID_CONTAINS_FROM(1.00)[];
@@ -103,7 +103,7 @@ X-Spamd-Result: default: False [-2.80 / 50.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ARC_NA(0.00)[];
 	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	MIME_TRACE(0.00)[0:+];
@@ -112,45 +112,48 @@ X-Spamd-Result: default: False [-2.80 / 50.00];
 	RCVD_COUNT_TWO(0.00)[2];
 	RCVD_TLS_ALL(0.00)[]
 
-snd_hda_jack_set_gating_jack() assigns gated and gating variables from
-the succeeding calls of snd_hda_jack_tbl_get().  This works normally,
-but the second call might kick off the reallocation of the jack table,
-hence the first pointer might become invalid, which leads to a UAF.
+snd_pcm_drop() checks the current state at the beginning, and bails
+out if it's in an invalid state (OPEN or DISCONNECTED).  However,
+since the check is done before the PCM stream lock, this can lead to a
+Time-of-Check to Time-of-Use (TOCTOU) race against the other forcible
+state change like the device disconnection like below:
 
-For avoiding that pitfall, this patch changes the code to two phases:
-the first to only create two entries, and the second phase to get the
-pointers from the table, so that no relocation can happen any longer.
+  CPU 0				CPU 1
+  -----				-----
+  snd_pcm_drop()
+    runtime->state check
+				snd_pcm_dev_disconnect()
+				guard(pcm_stream_lock_irq)
+				runtime->state = SNDRV_PCM_STATE_DISCONNECTED
+    guard(pcm_stream_lock_irq)
+    snd_pcm_stop(SNDRV_PCM_STATE_SETUP) <== inconsistent state
 
-Fixes: 0619ba8c17b1 ("ALSA: hda - Allow jack state to depend on another jack")
+For avoiding the inconsistent state change, this patch moves the
+runtime state check inside the stream lock guard.
+
 Reported-by: Sashiko <sashiko-bot@kernel.org>
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/hda/common/jack.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ sound/core/pcm_native.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/hda/common/jack.c b/sound/hda/common/jack.c
-index 1d6b0f0e6f27..c3efab3b5bfe 100644
---- a/sound/hda/common/jack.c
-+++ b/sound/hda/common/jack.c
-@@ -389,12 +389,15 @@ EXPORT_SYMBOL_GPL(snd_hda_jack_detect_enable);
- int snd_hda_jack_set_gating_jack(struct hda_codec *codec, hda_nid_t gated_nid,
- 				 hda_nid_t gating_nid)
- {
--	struct hda_jack_tbl *gated = snd_hda_jack_tbl_new(codec, gated_nid, 0);
--	struct hda_jack_tbl *gating =
--		snd_hda_jack_tbl_new(codec, gating_nid, 0);
-+	struct hda_jack_tbl *gated, *gating;
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+index 6efaebc7f8b4..defbb2977efe 100644
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -2289,11 +2289,11 @@ static int snd_pcm_drop(struct snd_pcm_substream *substream)
+ 		return -ENXIO;
+ 	runtime = substream->runtime;
  
- 	WARN_ON(codec->dp_mst);
-+	if (!snd_hda_jack_tbl_new(codec, gated_nid, 0) ||
-+	    !snd_hda_jack_tbl_new(codec, gating_nid, 0))
-+		return -ENOMEM;
++	guard(pcm_stream_lock_irq)(substream);
+ 	if (runtime->state == SNDRV_PCM_STATE_OPEN ||
+ 	    runtime->state == SNDRV_PCM_STATE_DISCONNECTED)
+ 		return -EBADFD;
  
-+	gated = snd_hda_jack_tbl_get_mst(codec, gated_nid, 0);
-+	gating = snd_hda_jack_tbl_get_mst(codec, gating_nid, 0);
- 	if (!gated || !gating)
- 		return -EINVAL;
- 
+-	guard(pcm_stream_lock_irq)(substream);
+ 	/* resume pause */
+ 	if (runtime->state == SNDRV_PCM_STATE_PAUSED)
+ 		snd_pcm_pause(substream, false);
 -- 
 2.55.0
 
