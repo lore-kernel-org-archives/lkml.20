@@ -1,226 +1,179 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D08AD49EC4B
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:59:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCF193D647F
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 12:00:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791374362; cv=none; b=ih4fOhp0bKZf74Iem9zUAXjZBtt/RDATp6qMOCp8Dkvka0rAH37oSa/V5jb8ecMjZ6oMJO+HI+JYBYMhqWkKHdDfMQmItZmlxqOjM1f79h7q6+nGSFqX7NpIcHnDEmIRnX5GtnZxsV5r25FIFXdbp+Yw7BfPONH/lutLEwMjMPg=
+	t=1791374440; cv=none; b=Wmw0zDWFy1P4Z59XIkDFmSjGIIpigy9rH8r11gEYID4+wo+MvR2m8AMnZMEogeHSpU+TsWAeZ7oSAYwhkXF7Wzg6D1YuhL26Kq1gCIClfKDuRv1PO0ZRVjNodd68JS2L3DJunDDiwuPWtXnNx2q7eFAw61P9dL8FsU3wtVxX3qg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791374362; c=relaxed/simple;
-	bh=6I9/o2fsb95RZ/cdcrjocTXvh86feiHHlbzI4OFSZMY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XHng0T4XwAuNY1tOAji2Z7wWWuk5fZs0+YKKpDGPD4nZ7ndDCHdXCdQwdLIwqRSDlJGK7AfuookZz/7bftqLY6Ivqdi9JKCxi9pj4i8VquwIAvFG4f9ZvNjTampXAG/1JfPVqQDQIKeFG0o6CkUN5n1KuCABp3HJSJXnrd9kysQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CoJmO1R8; arc=none smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CoJmO1R8"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3a4c80d3d5aso2049099a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 04:59:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791374350; x=1791979150; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8tVHCGk2Xwqu+yf2mIq4Pai4+4x8BJRwBsQH1o/snK8=;
-        b=CoJmO1R8F8CJItqw63omdckmRq37yMTeAWntqNbMESDHgmtyncR1PbKgSsADCJiiwd
-         odPePWV0/UgnY+j3ODuvLKHam6GSygFqzL0IKKZr4/8/u3OdZWzR6K/k0HyGfP0NLC+i
-         zvLUwtMBJv51crxCG08T8RM6K9cNFJ09WQowzShTKWSmohkkp3hjxC+eI5PscMKXM/mJ
-         265DQVSrV7AfbhwP6w890rwuZTZifBa4G4kxYIHllXk5n7jPEgvyREXANw7/Jx+G+Fu6
-         Lh3Q33Bsxz/7BR6kuvn6mpcIv0dUA4NBiFwFv6y6pmALU1lZYSvWPYJQrsgMEtvAtHpG
-         HhOQ==
+	s=arc-20240116; t=1791374440; c=relaxed/simple;
+	bh=+1ZIUDEH1UMPylr8k3iwVs3/zYxLWFNlciH52DbTlUc=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=MLQy/L584Kv8ZjIkvPqgd0wnqfZ3sYFVufs54zIxN1nJ4EOE2SU0hReL7laXF55kyRENaD0Re9aoZ06PlpeL7Kc7k0eSrwomqXcSY99s0GYwEF1es35Q/NNwzsxr/8rtG/pwWtH25QLhjfldUQkMQfGhis/hGU9hqeno5af4il4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4f4612a1a5cso2621037b6e.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 05:00:30 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791374350; x=1791979150;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:x-gm-gg
+        d=1e100.net; s=20260707; t=1791374430; x=1791979230;
+        h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8tVHCGk2Xwqu+yf2mIq4Pai4+4x8BJRwBsQH1o/snK8=;
-        b=iGzGdUuiZyWbIIsyQQ1p6oJSmpOhaYd2OEZIvQ1fazLoUumVxj2ot+M4aYRA0xs5sR
-         uCS3b+8Lheds97LvbDi03nJ7uXoWuXtKJ8wL/Jltfp1T6ITk5c6nbT09EkQ6ZE4K3ssP
-         +IweDsRRZMPeUgXXB1rPdUtbCJ8O1Hp81AruSuBkmmBm8eiPNP/Ryd0RsdyTVPU2LaNN
-         VsljmSURVQqeXSAOptljASKofsI08KstwE1rWFjv0c8UfkKDD6eHoci8rLi6qR+hbgM+
-         FSokfp0HdM2S8vQrYBTlQJxK3XLsVXhM32u2cGrksYTXN7U5jIMnBmEGCWqVOFWeel3e
-         PK6A==
-X-Forwarded-Encrypted: i=1; AKwUvBw065zrUlc3qRsnmb7dTTULJyc3vL37m2mSUSV6d2Td35NGDuWA6kJeoK0c7nltct5/nWiAuPMBYZNZibY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKHSR5MZLqub5IVZMN7+5jStxSeW68F3KtuMgxPGoaNL7Lbxvur
-	g/N/k24yb4enATHiZFQaPgRLmMLxTVH+Q94G9RWqdJ1R+l/KuRKISQNo
-X-Gm-Gg: AYBFou3ncOhKAcXXi10YYKG75ZOgqT8gorcKeL5PNwum0CSjkjbF2dwEdwPtrAanm09
-	9zbEpjQuoCwUUgVfjvLILveQvkJ/0XJk4t3E/if4V5+hAacIUSbWT6iM51Hwlk8OBv+AzpGriwK
-	LX92mE923OVxry9Bzh2QNlDtUMxwWBSQDdvXYl15C4p91nhnYo5wuPK8cxfp47vJ7lF+i9ApNRl
-	jRspSUv4rnyoBOCgcr9SCQ8u7ljqkz+aM5Mh3yHqx7Z1y1yJEE08A5kCpPRA7kGBNL9arhbSQc8
-	XGRHAqldsyeNGP5R+h8IZn8EvQ5gA918BJOkO82n0Wjw+rQgCLdEByeuUc9cDrVafSwBczDWOMU
-	f6abHKqPKOcFl9U5x2DG3hURMhw6hn/rf8lZkEC9wK3rGbEjafYFDvnrD+w4JaBeRYXKnPpMI0H
-	wg5ds1rz7Yua5oyGn2zM6ax2HwilFH779ZiUUWGMzJjEgpYp24snrx5JjGQTWTYLeDY7CA4z99i
-	AtKzlxz5h1sgllFwynL1jfko18fjejHJct2CycGIsbBUxGwVItCF6SnyWx8ejGGqNtLpATEMAkH
-X-Received: by 2002:a17:90b:4a44:b0:3a5:37e7:7118 with SMTP id 98e67ed59e1d1-3a8a0741012mr1801667a91.16.1791374349943;
-        Wed, 07 Oct 2026 04:59:09 -0700 (PDT)
-Received: from m-upc-A520M-HDV.lan (oki-109-236-14-10.jptransit.net. [109.236.14.10])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8987b09e2sm4456582a91.2.2026.10.07.04.59.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 04:59:09 -0700 (PDT)
-Sender: Yuyang Huang <uyoko90@gmail.com>
-From: Yuyang Huang <sigefriedhyy@gmail.com>
-To: Yuyang Huang <sigefriedhyy@gmail.com>
-Cc: Ajay Singh <ajay.kathat@microchip.com>,
-	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	"David S. Miller" <davem@davemloft.net>,
-	David Ahern <dsahern@kernel.org>,
-	Donald Hunter <donald.hunter@gmail.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Jacob Keller <jacob.e.keller@intel.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Kees Cook <kees@kernel.org>,
-	Kory Maincent <kory.maincent@bootlin.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
-	Nikolaos Gkarlis <nickgarlis@gmail.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Sabrina Dubroca <sd@queasysnail.net>,
-	Shuah Khan <shuah@kernel.org>,
-	Simon Horman <horms@kernel.org>,
-	Stanislav Fomichev <sdf.kernel@gmail.com>,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	Willem de Bruijn <willemb@google.com>,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: [PATCH net-next v10 6/6] selftests: net: test AF_PACKET multicast dumps
-Date: Wed,  7 Oct 2026 20:58:21 +0900
-Message-ID: <20261007115821.11332-7-sigefriedhyy@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261007115821.11332-1-sigefriedhyy@gmail.com>
-References: <20261007115821.11332-1-sigefriedhyy@gmail.com>
+        bh=cPL7LsU0XdV5dZnyY11Ue59c/gkO7XrdWcOIpHOg7mM=;
+        b=Ib9e+gOOrBAB1HyHPM/47p/4hKl5m/FrzDq1leWflHMmUimixD6TCr1+2xc9tPy2LA
+         fs900jlLZi+T2V7HxOfPsSFJ1DwCELRMA112vdrJ8WBJEbhV8YcJrmy9KzU43nDKucPd
+         IpapiB6aLqlzAW+KDMtFIb2NpaEc5UUvdVH7k0PQw48nZyWy8Afv4zXIFBDVNVW8/5R2
+         OgNDD2zI4hBePfb7G2OYa0nIdhguE7WWsEXTGdlu7sgwCOyV8c7/8wPI+A7bgXcOSOxQ
+         oxprevN5cWp/quIzYSvbS9ss10sBRTq26wOM7nOzGumy0VqwxCBzjIO3lSfvZEMU1fmj
+         ecbg==
+X-Forwarded-Encrypted: i=1; AKwUvBxei9hkNnWpC6D3aTJE2rp4CQgmKDOLAkRpNnWgzl9snMkoXDlmA6vOL4SW6LuwPOJZ4h5a3/Bn6zFJwqo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lOe6zE1dlMR9kl+0JKlqNDn6Wa0Zx/ZPRgu9ASRdW7K+dJOjyv
+	sGnCrlm4fzHQW7LSGYFy0uRNSiKptwYlL8XGoEWGt/AQGx52TsMLO0ybe586Yw71EvzV98nSnFx
+	pfM5Yg5LCsO/2gsMnuVYn2p/6/uUMW45lekXQIjtOfhexP0OiSdWT0UhvJd0=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:1493:b0:4d6:9133:cfe2 with SMTP id
+ 5614622812f47-4faaf252cc0mr4967039b6e.39.1791374429738; Wed, 07 Oct 2026
+ 05:00:29 -0700 (PDT)
+Date: Wed, 07 Oct 2026 05:00:29 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac6345d.d03902a3.74d6f.0006.GAE@google.com>
+Subject: [syzbot] [usb?] BUG: unable to handle kernel paging request in usb_driver_release_interface
+From: syzbot <syzbot+863936f50214e843ae0c@syzkaller.appspotmail.com>
+To: dakr@kernel.org, driver-core@lists.linux.dev, gregkh@linuxfoundation.org, 
+	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, rafael@kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Dump the link-layer multicast addresses of a dummy device and verify
-that ifa_index restricts the dump to that device, that the all-hosts
-address joined on link up is listed without IFA_F_GLOBAL, that an
-address added with SIOCADDMULTI is listed with IFA_F_GLOBAL and
-IFA_MC_USERS, and that IFA_TARGET_NETNSID dumps another netns.
+Hello,
 
-Signed-off-by: Yuyang Huang <sigefriedhyy@gmail.com>
-Reviewed-by: Nicolas Dichtel <nicolas.dichtel@6wind.com>
+syzbot found the following issue on:
+
+HEAD commit:    602042bf29f6 Merge tag 'wq-for-7.3-rc6-fixes' of git://git..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=155ae00d580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=929e4854a828f434
+dashboard link: https://syzkaller.appspot.com/bug?extid=863936f50214e843ae0c
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=10bd6715580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=14ae21c9580000
+
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-602042bf.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/c804d2e9b640/vmlinux-602042bf.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/d6cd162ae59e/bzImage-602042bf.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+863936f50214e843ae0c@syzkaller.appspotmail.com
+
+wwan wwan1: port wwan1mbim0 disconnected
+Oops: general protection fault, probably for non-canonical address 0xdffffc000000000b: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000058-0x000000000000005f]
+CPU: 0 UID: 0 PID: 9 Comm: kworker/0:0 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Workqueue: usb_hub_wq hub_event
+RIP: 0010:klist_put+0x4d/0x1d0 lib/klist.c:212
+Code: c1 ea 03 80 3c 02 00 0f 85 74 01 00 00 48 b8 00 00 00 00 00 fc ff df 4c 8b 23 49 83 e4 fe 49 8d 7c 24 58 48 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 43 01 00 00 4c 89 e7 4d 8b 74 24 58 e8 cc ef 0c
+RSP: 0018:ffffc900000c7450 EFLAGS: 00010202
+RAX: dffffc0000000000 RBX: ffff888035673c80 RCX: 0000000000000000
+RDX: 000000000000000b RSI: ffffffff8bc8e645 RDI: 0000000000000058
+RBP: 0000000000000001 R08: 0000000000000000 R09: fffffbfff224ec84
+R10: ffffffff91276423 R11: 0000000000000000 R12: 0000000000000000
+R13: 0000000000000001 R14: ffffffff912763e0 R15: dffffc0000000000
+FS:  0000000000000000(0000) GS:ffff8880d5b4e000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007ffcc2839000 CR3: 000000003938c000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ klist_del lib/klist.c:230 [inline]
+ klist_remove+0x14c/0x2e0 lib/klist.c:249
+ __device_release_driver drivers/base/dd.c:1357 [inline]
+ device_release_driver_internal+0x4fb/0x620 drivers/base/dd.c:1372
+ usb_driver_release_interface+0x10e/0x190 drivers/usb/core/driver.c:643
+ cdc_ncm_unbind+0x2ac/0x350 drivers/net/usb/cdc_ncm.c:1019
+ usbnet_disconnect+0x1e2/0x300 drivers/net/usb/usbnet.c:1692
+ usb_unbind_interface+0x1dd/0x9e0 drivers/usb/core/driver.c:461
+ device_remove drivers/base/dd.c:618 [inline]
+ device_remove+0x12a/0x180 drivers/base/dd.c:610
+ __device_release_driver drivers/base/dd.c:1349 [inline]
+ device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
+ bus_remove_device+0x2bc/0x560 drivers/base/bus.c:664
+ device_del+0x376/0x9b0 drivers/base/core.c:3965
+ usb_disable_device+0x367/0x810 drivers/usb/core/message.c:1484
+ usb_disconnect+0x2e2/0x9a0 drivers/usb/core/hub.c:2355
+ hub_port_connect drivers/usb/core/hub.c:5425 [inline]
+ hub_port_connect_change drivers/usb/core/hub.c:5725 [inline]
+ port_event drivers/usb/core/hub.c:5889 [inline]
+ hub_event+0x1bb1/0x4420 drivers/usb/core/hub.c:5971
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+ process_scheduled_works kernel/workqueue.c:3479 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:klist_put+0x4d/0x1d0 lib/klist.c:212
+Code: c1 ea 03 80 3c 02 00 0f 85 74 01 00 00 48 b8 00 00 00 00 00 fc ff df 4c 8b 23 49 83 e4 fe 49 8d 7c 24 58 48 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 43 01 00 00 4c 89 e7 4d 8b 74 24 58 e8 cc ef 0c
+RSP: 0018:ffffc900000c7450 EFLAGS: 00010202
+RAX: dffffc0000000000 RBX: ffff888035673c80 RCX: 0000000000000000
+RDX: 000000000000000b RSI: ffffffff8bc8e645 RDI: 0000000000000058
+RBP: 0000000000000001 R08: 0000000000000000 R09: fffffbfff224ec84
+R10: ffffffff91276423 R11: 0000000000000000 R12: 0000000000000000
+R13: 0000000000000001 R14: ffffffff912763e0 R15: dffffc0000000000
+FS:  0000000000000000(0000) GS:ffff8880d5b4e000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055557a2d0a28 CR3: 000000002c457000 CR4: 0000000000352ef0
+----------------
+Code disassembly (best guess):
+   0:	c1 ea 03             	shr    $0x3,%edx
+   3:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1)
+   7:	0f 85 74 01 00 00    	jne    0x181
+   d:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
+  14:	fc ff df
+  17:	4c 8b 23             	mov    (%rbx),%r12
+  1a:	49 83 e4 fe          	and    $0xfffffffffffffffe,%r12
+  1e:	49 8d 7c 24 58       	lea    0x58(%r12),%rdi
+  23:	48 89 fa             	mov    %rdi,%rdx
+  26:	48 c1 ea 03          	shr    $0x3,%rdx
+* 2a:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1) <-- trapping instruction
+  2e:	0f 85 43 01 00 00    	jne    0x177
+  34:	4c 89 e7             	mov    %r12,%rdi
+  37:	4d 8b 74 24 58       	mov    0x58(%r12),%r14
+  3c:	e8                   	.byte 0xe8
+  3d:	cc                   	int3
+  3e:	ef                   	out    %eax,(%dx)
+  3f:	0c                   	.byte 0xc
+
+
 ---
- tools/testing/selftests/net/rtnetlink.py | 73 +++++++++++++++++++++++-
- 1 file changed, 71 insertions(+), 2 deletions(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/tools/testing/selftests/net/rtnetlink.py b/tools/testing/selftests/net/rtnetlink.py
-index dc8c77db48974..5534ade056a5c 100755
---- a/tools/testing/selftests/net/rtnetlink.py
-+++ b/tools/testing/selftests/net/rtnetlink.py
-@@ -5,13 +5,18 @@ import socket
- import struct
- import time
- from lib.py import bkg, ip, ksft_exit, ksft_run, ksft_eq, ksft_ge, ksft_true, KsftSkipEx
--from lib.py import ksft_not_in, ksft_not_none
-+from lib.py import ksft_in, ksft_not_in, ksft_not_none
- from lib.py import CmdExitFailure, NetNS, NetNSEnter, RtnlAddrFamily, RtnlRouteFamily
- from lib.py import defer
- 
- IPV4_ALL_HOSTS_MULTICAST = b'\xe0\x00\x00\x01'
- IPV4_TEST_MULTICAST = b'\xef\x01\x01\x01'
- IPV6_TEST_MULTICAST = bytes.fromhex('ff020000000000000000000000000123')
-+ETH_ALL_HOSTS_MULTICAST = bytes.fromhex('01005e000001')
-+ETH_TEST_MULTICAST_STR = '01:00:5e:01:01:01'
-+ETH_TEST_MULTICAST = bytes.fromhex(ETH_TEST_MULTICAST_STR.replace(':', ''))
-+ETH_PEER_MULTICAST_STR = '01:00:5e:02:02:02'
-+ETH_PEER_MULTICAST = bytes.fromhex(ETH_PEER_MULTICAST_STR.replace(':', ''))
- 
- 
- def _users_for(rtnl: RtnlAddrFamily, family: int, grp: bytes, ifindex: int):
-@@ -105,6 +110,69 @@ def dump_mcaddr6_check() -> None:
-                 s2.close()
- 
- 
-+def dump_mcaddr_l2_check() -> None:
-+    """
-+    Verify link-layer multicast addresses in an AF_PACKET RTM_GETMULTICAST
-+    dump: the ifa-index filter, mc-users, the global flag and
-+    target-netnsid.
-+    """
-+
-+    with NetNS() as ns, NetNSEnter(str(ns)):
-+        for ifname in ("dummy1", "dummy2"):
-+            ip(f"link add name {ifname} type dummy")
-+            ip(f"link set {ifname} up")
-+        dev_idx = socket.if_nametoindex("dummy1")
-+        ip(f"maddr add {ETH_TEST_MULTICAST_STR} dev dummy1")
-+
-+        rtnl = RtnlAddrFamily()
-+        defer(rtnl.close)
-+        addresses = rtnl.getmulticast(
-+            {"ifa-family": socket.AF_PACKET, "ifa-index": dev_idx},
-+            dump=True)
-+
-+        # dummy2 has entries as well, only dummy1 may be listed
-+        ksft_eq({addr['ifa-index'] for addr in addresses}, {dev_idx},
-+                "AF_PACKET multicast dump ignored ifa-index filter")
-+
-+        entries = {addr['multicast']: addr for addr in addresses}
-+
-+        # Bringing an Ethernet device up joins 224.0.0.1, which maps
-+        # to 01:00:5e:00:00:01 in the device multicast list.
-+        all_hosts = entries.get(ETH_ALL_HOSTS_MULTICAST)
-+        ksft_not_none(all_hosts,
-+                      "dummy1 does not have the all-hosts link-layer address")
-+        if all_hosts is not None:
-+            ksft_not_in('global', all_hosts['flags'],
-+                        "protocol entry is global")
-+
-+        static = entries.get(ETH_TEST_MULTICAST)
-+        ksft_not_none(static, "dummy1 does not have the SIOCADDMULTI address")
-+        if static is not None:
-+            ksft_eq(static['mc-users'], 1,
-+                    "unexpected mc-users for the SIOCADDMULTI address")
-+            ksft_in('global', static['flags'],
-+                    "SIOCADDMULTI entry is not global")
-+
-+        # target-netnsid dumps another netns, ifa-index is relative to it
-+        with NetNS() as peer:
-+            ip(f"netns set {peer} 5")
-+            ip("link add name dummy3 type dummy", ns=peer)
-+            ip("link set dummy3 up", ns=peer)
-+            ip(f"maddr add {ETH_PEER_MULTICAST_STR} dev dummy3", ns=peer)
-+            peer_idx = ip("link show dummy3", json=True, ns=peer)[0]['ifindex']
-+
-+            addresses = rtnl.getmulticast(
-+                {"ifa-family": socket.AF_PACKET, "target-netnsid": 5,
-+                 "ifa-index": peer_idx}, dump=True)
-+            ksft_eq({(addr['ifa-index'], addr['target-netnsid'])
-+                     for addr in addresses}, {(peer_idx, 5)},
-+                    "target-netnsid did not dump the peer netns")
-+            # dummy1 in this netns can have the same ifindex as dummy3
-+            ksft_in(ETH_PEER_MULTICAST,
-+                    {addr['multicast'] for addr in addresses},
-+                    "target-netnsid did not dump the peer device")
-+
-+
- def ipv4_devconf_notify() -> None:
-     """
-     Configure an interface and set ipv4-devconf values through netlink
-@@ -424,7 +492,8 @@ def ipv6_verify_inter_scope_addr_order() -> None:
- 
- 
- def main() -> None:
--    ksft_run([dump_mcaddr_check, dump_mcaddr6_check, ipv4_devconf_notify,
-+    ksft_run([dump_mcaddr_check, dump_mcaddr6_check, dump_mcaddr_l2_check,
-+              ipv4_devconf_notify,
-               ipv6_route_del_reason_expired,
-               ipv6_route_del_reason_ra_withdrawn,
-               ipv6_route_del_reason_absent,
--- 
-2.43.0
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
