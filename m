@@ -1,113 +1,195 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B0FB49A3C8
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 10:49:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB0B13D34B3;
+	Wed,  7 Oct 2026 10:49:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791370213; cv=none; b=rDDUt0IW/iBl9VCVOLS6IWvZfT1M49J/tTcOTcV4DX+ZcYrcxRMJMdFN6jm01wIjLsW23p7KPjQszbPbb12Lf3873bExr0TAJanC2vn9hyUwHyngIDmstpUYp2/9frvIuS3Ec5LV7goEZM8PtRRKDo1bkghC3roDjZDu6pIyi0E=
+	t=1791370219; cv=none; b=kjRu2D8GOInbRljigfiYpA92k4jAfaEko6x6cjwWoSqthZgJBMZ0OgI8orcjTqwYw/aRLZ/fE0GxPNdL7FAwd6KFFmsBUPMBIzvpbTElfqN//hFn22tT/CK2nxBBCk8Ptfl4M5veZgHZIMM04B99qdHfnNFcd60wIojUyzdlw5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791370213; c=relaxed/simple;
-	bh=JRP8CU54RL1e7Jil5HXwWG/cGwsBF5GNPmAGfU9OqWo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HG/OSlHL2fawhAAp2+Jm++nYpgAUdB2IriModt7RvUvcqGrFuThgrFZ23haSL8NFPB0995FIhDk/4MzvB0A4POyOcLZDxSgpz/IHEN54YxVhRraKK++kx+yRYx0PDHoaeKBwSN5NWmUVWjcSvDd7ALuO9jkniVZJ2dWjjiCy7aY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LFf1oTOf; arc=none smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791370219; c=relaxed/simple;
+	bh=xa7GPJf/5YzalSIzFrhjj9fOOO4caqXjlSgmFxKr/Uc=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gM6qKlr11sJpDQm/I9rkW/plKplt0ljODgj7zapeIx91EpHyMz1mBGP58iCWSf1htmSMKbofo/yCOmH5GOI/UpqjPbZWZhqts5bhoG9BQmHwRGt4F/tqxZ0wISR2StRdiXDZ7cr6xSL69SvoNbbMxo7bJkNg2g+Yhew+uNvdPJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=V1OJEA5g; arc=none smtp.client-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LFf1oTOf"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3a8a63785a1so349219a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 03:49:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791370168; x=1791974968; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9Z8eRhir2+9ggHPXk1/kOSteQHGP26i6yzCMLHKZ/DQ=;
-        b=LFf1oTOfRU9du5EQRbnlMvTi3/OTjCzreVil8yDUBphfHOmhYG3C82KDG85WGnvxj/
-         TSWcDMt4uURN+//ap0DQKONNFgzNlFvitHjPy+gG9YHVNqM3uj3GjE83exfa4N8eCb90
-         PHWB6bRlPSGkI7ausG+xHrVwW4pcOZLhEFbH914aq2Dj8rOwy/YdxLqpJ6SziHsAd27h
-         A83SOfDCrx2qTpKgJ9pLG7qNiyVXMqHeIVKynkqANDSLGSEuJAsKO5irHsJ1RgSN0XFf
-         0qqfKJ60RDcnVp9f1Ob/+81m7VdoINvZY/Lt748CBTDKO7PIaWUIER3m2VfmTb+V2qHB
-         tbZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791370168; x=1791974968;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9Z8eRhir2+9ggHPXk1/kOSteQHGP26i6yzCMLHKZ/DQ=;
-        b=Of512Pyev2MO5YR9yj8488zSMYb4CfyY8iZgO2ORAjC/o//gwJWaBqPMUPb/OjwwcC
-         EB4gDh3pU3gnNnj21QaANRh8PIqq4nncyoYyYtrcb4olgb8+t//MlnPKftLABAVdGy+T
-         j8sTFc5FToZpa5EQYGmzyrwIPH19TiqvKL4RBL2OIt58oWqLAAlpmU/T4yHIAxaJ1wZC
-         DeLE5MJRHtEYwD06jZFso45S+pBfeYMROnYqF/spQ59UI4u8NIQtSjwWvTpijRjDCzcq
-         uqIfcRGRLk4ZppCz3cnuV05QaEW0sHGiBzaYk8R1Qz4ev0pblT+5TJz6QOepc/N3EjMv
-         qowQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx6tfjV1YJyVzbx10tjSgdXjVYVn0s5dOgtvnsPSteZg4eDtX3BNdMdnNOBPWVJ+gNzKI6LMnK7mOFGEr8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJoRTMjAy0sEOQlqhfsqs8eB6LaDm+QlKwmjVY5sM2tjHzqH3TV
-	1eoVQL3JQFl6k4Zzo+2aCvx+H2pw73LZSDEH50g1yHwgw9NFBt6Q34+g
-X-Gm-Gg: AYBFou2ICf2Od2bDQyYZ2eLDnkX7E3CQOG34K6I8MQRPxY7R5gpA3tpMfGzC7aQ3Ohq
-	FjZpWWaYlqmv1D6Oblu0e0st3CrgsXkH02qPXfmkwZI9vJZYYY95nDaM9d8W1/5pA7JONQFeBYr
-	TzOf89RPkEfEIthWLzmfHsA9jfI1otPQvmmQ4KV73LL1s75Mw79ZE53/noHZLmadjK4R3KDKx00
-	gdmcFWmxO7vmPlfQHERtTnHnx/1oYSA2oyBRwEGMyaszLSpjYlAryU1sztvlXbR+m37M0nVD52+
-	nH46PRZQQPD5SYtWtY5wVHiLmbSbNDLCmmEV6XMa8iQ1iTEVp0u9wodivgzQ28FnPX3ISgGqpkJ
-	SaoCKF/SGia0pmygneNnCN93RUpWEeP0M1SEfSJkm/VkB8Pxf/0cXGzoiZFR73rLJaipj7Idfcm
-	k8XNxcAgZLUAi3spkI7MVm6Y/46ZEvsGhFyNJRAIQlw+AfzWDU/sjJj1IvRv10V+g8WpuwW0aEh
-	DEQmCSuAjzyM5OkKx6/+vlabDzjqrXvgM8jkgICDr3OV5RRevuLiDlEDnXV97FRbxA/xvRndIRe
-	AfAq8+eqhQNkkQ==
-X-Received: by 2002:a17:90b:390a:b0:3a4:cbaf:f152 with SMTP id 98e67ed59e1d1-3a8a0ba8708mr1338116a91.33.1791370168228;
-        Wed, 07 Oct 2026 03:49:28 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8533aba95sm10781337a91.2.2026.10.07.03.49.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 03:49:27 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	linux-leds@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Jacek Anaszewski <jacek.anaszewski@gmail.com>,
-	Dan Murphy <dmurphy@ti.com>,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH] leds: lm3532: propagate enable GPIO errors
-Date: Wed,  7 Oct 2026 17:49:15 +0700
-Message-ID: <20261007104915.507801-1-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="V1OJEA5g"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1791370179; x=1822906179;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=xa7GPJf/5YzalSIzFrhjj9fOOO4caqXjlSgmFxKr/Uc=;
+  b=V1OJEA5gi2bpdnc5u2KlVMQESwy08gGPM/s8CfFR+0KhaY8qvRETzKDx
+   pmlBUraNggA8p8nY+VQf4NgywjoeuHpPr0A1D1i8G0/H4F1gEmn0plB0B
+   ytPnYPWxYa5gJwW5Wwi571DIMwheIBnHxt8wda1UzStS37MtetbFUtp3k
+   zsvgFLHrjErZ3wTDv/U26UTEgx+idWSYyhYOTDKStlbjZ0uj3ZdjhxMi5
+   YwybL+IOtlneaP6fUOexePmxIDu1tA4L5V3aZ/uyS0xFZ9qWW+2fwHHvY
+   +oAUi5ibsJMocfnxg0Rt0QYcIHy4GjRI05sL9bKimFlzpbm15y623jl3m
+   Q==;
+X-CSE-ConnectionGUID: KFIgPLjrQ2mJudFnxTwwhw==
+X-CSE-MsgGUID: VKI0oHsISvKy8ZCsHSCwUg==
+X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
+   d="scan'208";a="63749271"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 07 Oct 2026 03:48:36 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Wed, 7 Oct 2026 03:48:35 -0700
+Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Wed, 7 Oct 2026 03:48:34 -0700
+Date: Wed, 7 Oct 2026 12:48:33 +0200
+From: Daniel Machon <daniel.machon@microchip.com>
+To: Myeonghun Pak <mhun512@gmail.com>
+CC: <netdev@vger.kernel.org>, <andrew+netdev@lunn.ch>, <davem@davemloft.net>,
+	<edumazet@kernel.org>, <kuba@kernel.org>, <pabeni@redhat.com>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>,
+	<ae878000@gmail.com>
+Subject: Re: [PATCH net v2] net: nixge: stop IRQ producers before draining
+ DMA error tasklet
+Message-ID: <20261007104833.4ukkys7rnmv7ki5i@DEN-DL-M70577.microsemi.net>
+References: <20261004042702.1130389-1-mhun512@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261004042702.1130389-1-mhun512@gmail.com>
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+Hi,
 
-devm_gpiod_get_optional() returns NULL when the optional GPIO is not
-present, but may return -EPROBE_DEFER or other errors.
+> The TX and RX IRQ handlers can reschedule dma_err_tasklet after
+> tasklet_kill(), allowing it to access rings freed by nixge_stop().
+> 
+> Free both IRQs before killing the tasklet. Since pending recovery can
+> restart DMA, mask channel interrupts and wait for a DMA reset to finish
+> before releasing the rings. Clearing RUNSTOP alone does not ensure that
+> outstanding DMA accesses have completed.
+> 
+> If reset times out, retain the DMA buffers and reject subsequent opens
+> to prevent those buffers from being freed or their pointers overwritten.
 
-lm3532_parse_node() currently treats GPIO lookup errors as if the GPIO
-were not present.
+The subject only covers the IRQ/tasklet reorder. Whats described here is really
+two separate fixes - should this be two patches?
 
-Check the return value and propagate errors from the enable GPIO lookup.
+> 
+> Fixes: 492caffa8a1a ("net: ethernet: nixge: Add support for National Instruments XGE netdev")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> ---
+> Changes in v2:
+> - Wait for DMA reset completion; retain buffers and reject reopen on timeout.
+> 
+> Based on net commit 6dc989ea46b96ce170840174b4a38c4a387fb005.
+> No hardware testing was performed.
+> 
+>  drivers/net/ethernet/ni/nixge.c | 33 ++++++++++++++++++++++++++++++---
+>  1 file changed, 30 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/ni/nixge.c b/drivers/net/ethernet/ni/nixge.c
+> index 230d5ff..878ca67 100644
+> --- a/drivers/net/ethernet/ni/nixge.c
+> +++ b/drivers/net/ethernet/ni/nixge.c
+> @@ -185,6 +185,7 @@ struct nixge_priv {
+>         void __iomem *dma_regs;
+> 
+>         struct tasklet_struct dma_err_tasklet;
+> +       bool dma_stop_failed;
+> 
+>         int tx_irq;
+>         int rx_irq;
+> @@ -391,7 +392,7 @@ out:
+>         return -ENOMEM;
+>  }
+> 
+> -static void __nixge_device_reset(struct nixge_priv *priv, off_t offset)
+> +static int __nixge_device_reset(struct nixge_priv *priv, off_t offset)
+>  {
+>         u32 status;
+>         int err;
+> @@ -407,6 +408,8 @@ static void __nixge_device_reset(struct nixge_priv *priv, off_t offset)
+>                                      1000);
+>         if (err)
+>                 netdev_err(priv->ndev, "%s: DMA reset timeout!\n", __func__);
+> +
+> +       return err;
+>  }
+> 
+>  static void nixge_device_reset(struct net_device *ndev)
+> @@ -869,6 +872,10 @@ static int nixge_open(struct net_device *ndev)
+>         struct phy_device *phy;
+>         int ret;
+> 
+> +       /* A failed stop retained buffers which DMA may still be using. */
+> +       if (priv->dma_stop_failed)
+> +               return -EIO;
+> +
+>         nixge_device_reset(ndev);
+> 
+>         phy = of_phy_connect(ndev, priv->phy_node,
+> @@ -911,6 +918,7 @@ static int nixge_stop(struct net_device *ndev)
+>  {
+>         struct nixge_priv *priv = netdev_priv(ndev);
+>         u32 cr;
+> +       int ret;
 
-Fixes: bc1b8492c764 ("leds: lm3532: Introduce the lm3532 LED driver")
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
----
- drivers/leds/leds-lm3532.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+nit: RXT
 
-diff --git a/drivers/leds/leds-lm3532.c b/drivers/leds/leds-lm3532.c
-index b51496910b08..a3bc9680dc4c 100644
---- a/drivers/leds/leds-lm3532.c
-+++ b/drivers/leds/leds-lm3532.c
-@@ -560,7 +560,8 @@ static int lm3532_parse_node(struct lm3532_data *priv)
- 	priv->enable_gpio = devm_gpiod_get_optional(&priv->client->dev,
- 						   "enable", GPIOD_OUT_LOW);
- 	if (IS_ERR(priv->enable_gpio))
--		priv->enable_gpio = NULL;
-+		return dev_err_probe(&priv->client->dev, PTR_ERR(priv->enable_gpio),
-+				     "failed to get enable GPIO\n");
- 
- 	if (priv->enable_gpio) {
- 		ret = devm_add_action(&priv->client->dev, gpio_set_low_action, priv);
--- 
-2.43.0
-
+> 
+>         netif_stop_queue(ndev);
+>         napi_disable(&priv->napi);
+> @@ -920,6 +928,7 @@ static int nixge_stop(struct net_device *ndev)
+>                 phy_disconnect(ndev->phydev);
+>         }
+> 
+> +       /* Stop DMA while the completion IRQ handlers are still installed. */
+>         cr = nixge_dma_read_reg(priv, XAXIDMA_RX_CR_OFFSET);
+>         nixge_dma_write_reg(priv, XAXIDMA_RX_CR_OFFSET,
+>                             cr & (~XAXIDMA_CR_RUNSTOP_MASK));
+> @@ -927,11 +936,29 @@ static int nixge_stop(struct net_device *ndev)
+>         nixge_dma_write_reg(priv, XAXIDMA_TX_CR_OFFSET,
+>                             cr & (~XAXIDMA_CR_RUNSTOP_MASK));
+> 
+> -       tasklet_kill(&priv->dma_err_tasklet);
+> -
+> +       /* Remove both producers before draining the error tasklet. */
+>         free_irq(priv->tx_irq, ndev);
+>         free_irq(priv->rx_irq, ndev);
+> 
+> +       tasklet_kill(&priv->dma_err_tasklet);
+> +
+> +       /* Error recovery may have restarted DMA and enabled interrupts. */
+> +       cr = nixge_dma_read_reg(priv, XAXIDMA_RX_CR_OFFSET);
+> +       nixge_dma_write_reg(priv, XAXIDMA_RX_CR_OFFSET,
+> +                           cr & ~(XAXIDMA_CR_RUNSTOP_MASK | XAXIDMA_IRQ_ALL_MASK));
+> +       cr = nixge_dma_read_reg(priv, XAXIDMA_TX_CR_OFFSET);
+> +       nixge_dma_write_reg(priv, XAXIDMA_TX_CR_OFFSET,
+> +                           cr & ~(XAXIDMA_CR_RUNSTOP_MASK | XAXIDMA_IRQ_ALL_MASK));
+> +
+> +       /* Either channel's reset quiesces the entire AXI DMA engine. */
+> +       ret = __nixge_device_reset(priv, XAXIDMA_TX_CR_OFFSET);
+> +       if (ret) {
+> +               /* Retain DMA buffers and prevent a subsequent open replacing them. */
+> +               priv->dma_stop_failed = true;
+> +               netdev_err(ndev, "DMA stop failed; retaining DMA buffers\n");
+> +               return ret;
+> +       }
+> +
+>         nixge_hw_dma_bd_release(ndev);
+> 
+>         return 0;
+> --
+> 2.53.0
+> 
+> 
