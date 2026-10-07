@@ -1,191 +1,167 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011019.outbound.protection.outlook.com [52.101.52.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE7C4BD378
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 15:29:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.19
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791386970; cv=fail; b=mKlVYEOlm0gr5UGZJWaVFphtgiV/l9OwuzhvZ7AZwugO2pYLABdtWiKsRmMUGpTxV3LfJqCr4eTHWo9ElzrFRJiqt3NzUgJodp3YJ8GsSaD8ZxFeLtILLtq6Dd2P8/5CLGregjkGz+YmNZE8Tk9ZhJ/t/fi1l+fRD/z597m9wFs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791386970; c=relaxed/simple;
-	bh=nhiaayr6+eRAaXhQFCgpXOB+PrUbUc1tQp/2ywvDmIU=;
-	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
-	 In-Reply-To:MIME-Version; b=dWJvUMKvodKxBlN1fW+4rrwZyEJkFHbYYfR4yNKaiKRbyjNd4cbjt22NYFMzCtbydciWBbx1m1wpG5wZLmG7TrWwpaQfdovO2HN0By2+Z/NusX6sJDpWEB3n7shX2AFxKEViA6Kq1XNiU2zMjLj5Im9JJFsp7is0VfjX3xLpmIA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=DD1EUKZL; arc=fail smtp.client-ip=52.101.52.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85A954B95D2
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 15:30:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.175
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791387027; cv=none; b=MmiCWnCnyQsrHJF7zJkSWMMO0ELNQzEQW1bMyMPfAMcSuD/CtwKx7PKI5IbNuRun07siaoitNEROc+GKg8+jDKecc7ihlqNogMvqumXGnLMcDvJMkqWz/+uyci2KlCTkPh7jyFhrjWmky8GS794UE48+SPEjVPl4NgZlq6oa4F0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791387027; c=relaxed/simple;
+	bh=5kpnZ69rpIeJK7I/vVJI1/Sd58TTWJsQUlkCNqKOhyI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JdIR9rEEKyuC4k5lJ8LBZZl3+9+sIWv/TjdqD6gO5JXYY5nBxnw6JEFnTjNxrryw4h5jTKC7o8t9k5MAaw/e69vwvchAKZzQdQ5IHF9HxvPlu2/nfE6A3qOrhiZmxo5M3HnuhuL2RKiB34ZPf93t//vR9Wne/4IZXZ/wmPaBVIM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com; spf=pass smtp.mailfrom=amutable.com; dkim=pass (2048-bit key) header.d=amutable-com.20251104.gappssmtp.com header.i=@amutable-com.20251104.gappssmtp.com header.b=YnRLPHMi; arc=none smtp.client-ip=209.85.128.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amutable.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="DD1EUKZL"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ByApR1vvEhYbxgp96sf+0Y5iynOpNBJqqlrabIiLfGOgBVHAj4Gn0pSjJqtrF6IDIC9bKW7XayLx4UvpZRfRCcS71Sb9Ws9H/mhZHjRaeOGaiV8fFMz41UQr/cZC79FXFIhYiR0iPg7MkyLZGif/3OLFx+QIELMJdM1dBF8ogr9TxgzfP26glWzyJ4dl2o9LADKqgjR+MZT67rJMLP4rid+tM3ETFulcYR6GorB0G0xkN7RbCteDM83C4o77FQ46pDjR0ofHWKYVghJfA8VLUP9ybjYuzTVvYJoPR7TDeyhCnVHS3JYee5NdW/GIYYyMWge8hJbRSVM9pBkAasGTeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qz85Dk0BKnQg1xkZo4YmLVVhLiRQFjdfKkKk4qoiayg=;
- b=wdnUG/2mZ0MMbWyVbtYUZK7wM0xyFJg9LJabpx3vg98BIT4NJv20O29QIYFdfK4IoYUwM6ql4N6H/8RKMzTZjJq8fiN+haS4tx4mpbrH/qFpUYYK+i7PIo99BfMPqP3CyvMVCINL2Nabz2AdJqZEqOIeTOBmhae15nBaSech47tqBYjo6/tI5Ff9kScrRiR9A0Rdv1mEa7Ft4uRnXnmENbugUDrNpBMWNAsQf+JxfjZI/6nVoSjpfSgzQx28PVopn3U0a9+M2XlvFQW5bAqkaAzUIQsj8d1I9oHATXm3IBnkUuhN8cm+N2/LBhR2Ujqaqmg6TsxfxuTP+omjV8Y4Dw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qz85Dk0BKnQg1xkZo4YmLVVhLiRQFjdfKkKk4qoiayg=;
- b=DD1EUKZLHbOetCPJ8NnK0UIH/PkVobt6oS/Y/0z/bSvj4dsgjeO7ROO6lOetEUp2MYtsh6sOse6GIiSHK4wAOh5c38HnALgCSwd67aR9p5q/gWh1u4MrNCfsvX2DUnVI3zCMvUKN4looDvfOyf7eYG1zcQ1H6dz97Z3aTEnknnfK/tYnVLUJNHVX2M+YGYkf7yCtuW6QZG4cu/wgYTBQuCORGJ75qaJN4RFsz9G1sLj1BXcjKO5NIKTX4EqOd7juC5oDNj0ezMbcULEldQxSQeyVYuzNx8hx/tXwCeRarTA6M23ikz8189ItNSg9rYO35nTk2DjnXdmKg5RNBim7mA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by IA3PR12MB660778.namprd12.prod.outlook.com (2603:10b6:208:61d::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Wed, 7 Oct
- 2026 15:29:17 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0472.016; Wed, 7 Oct 2026
- 15:29:17 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 08 Oct 2026 00:29:15 +0900
-Message-Id: <DLYPOE6YLNWU.2PDPIJN9TDEGD@nvidia.com>
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Thorsten Blum" <blum@kernel.org>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Gary Guo" <gary@garyguo.net>, "Timur Tabi"
- <ttabi@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>, "Tim
- Kovalenko" <tim.kovalenko@proton.me>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] gpu: nova-core: firmware: fwsec: use zeroed() to
- zero-pad buffers
-References: <20261007080708.124563-2-blum@kernel.org>
-In-Reply-To: <20261007080708.124563-2-blum@kernel.org>
-X-ClientProxiedBy: TY4P301CA0082.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:36f::14) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key) header.d=amutable-com.20251104.gappssmtp.com header.i=@amutable-com.20251104.gappssmtp.com header.b="YnRLPHMi"
+Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-8ac9d666d4eso42791127b3.3
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 08:30:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amutable-com.20251104.gappssmtp.com; s=20251104; t=1791387019; x=1791991819; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fxMsGMJoi15xhCerKdZHKbDFnpM/+Dr7cx060hZaVDo=;
+        b=YnRLPHMiCGr5unS/o2c2EHvTVZtDLbNOMEOwpd1emzZ9X7nI/Gocgnbxthvcq+VLnu
+         m48QAP1/vPGB9oDTrrKC7Bo+unLlCLwhVA0saPLhPW1jvSP4ewxx2JLky82lJE975xJj
+         SCKdzRZDTnb2ISXI9sBkydjuiJhmpwYY1hI3Ey7dgIVXcoRJN+4tgwR3HB0ggPXc4MOa
+         9NlCL+H8UUddsFhIjUecIk0R+RAZ8hkEGx4AbJspsUeCI08jOlOBawdMppoeN/t5r5Ur
+         3RGfeYp0YyHPy74bXPTdoANsMdK8g5jDlk5C8I3+7FptOoV35TKSO8aDhYI4BtN+aCJg
+         67Pw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791387019; x=1791991819;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fxMsGMJoi15xhCerKdZHKbDFnpM/+Dr7cx060hZaVDo=;
+        b=xx8MisWen2uYHmTn239UrzyFygG+AoRewW+0dUubXOQaG9XHhfSiaaExeVzFZjGTJT
+         x8mkgL3rdjOiIUpzLejejvOYlXChMhuRojyWylWnrgn90y2KIKw20AEsaBZm3Au2lcEH
+         GWDwvAs1eAV51F+dCkKc5vNmMnlX6mE29bpjmfSnxL6PdyPzqAbaGyMr3RgD0tCfdWV5
+         agdse6Yy0PGng288LZZ82mKkcCwQDyELuYsw6EG79mgEE2FNg1M6LxSSoPAKqyrh5TAJ
+         BUQa7x0t0FcSi6QlQvYSo7NdjdMALXeAPIBdRbT793mhkla75JXruDOQLmdp4XfEr9JH
+         6Icw==
+X-Forwarded-Encrypted: i=1; AKwUvBy6EPGGGfwT9qVcZwKKi43ZJ9kIcVaVFX+MPLfhD+pEtX7F2lfxz2zjzwuwxwuwhU3YW+IQPbo7mHDPxwI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKf0P+jLKuv93vnMyVkwHF1UWfTZa5GXCp9hNUHeMH04QtWttbX
+	gAjNEhXmtDZeCq8c/jJOtcQRvOMZzmwQahhwDsujr6XAYRLO6Um9+w6WRZR7shHJN1bg
+X-Gm-Gg: AYBFou2hBMwY+gyFoDw+72mN5hBrX7ut/cpU0f6Pl2+gxiuDznJHb1cJdDLJ4rp6GgW
+	A/el9JMNEhlGb8wmxrPAnAjXjrwindOL8Bbsc+ARCsWj2gsGmuDKV6adNHnEjiGXKMXzqQ+r/Q/
+	NFzzTWhoAJL6vadr5xMD+MZkjp1UpNR4s//l3hxr1A3EZ/Zypk/L7uZ2DX2dbH/40HJIIbdPdYb
+	1RLbJNu0CbeD8zk3U85OMImDeX7hl678X5q4VlxfumT2RTVd5F/xxFm6WJM0EK8UGWIHYzjsHiv
+	HITMWLXBxK/q5AYVfbfyocuSbKfgPiOjjyMZAKt1nhskydkjISpnHlMAHj5SI2tJLVcMLcO/knN
+	RWQMPNEuisBAqf3XPuGQe/IWNbkFKrERnqzhHxqNzxYzLAjirnvDHV9FRAJ89dxTqybQDZLZdIX
+	kk28sv3KIgldb4avwmSmFu66qOCNzL9oiCazkErIgGFWT0WMIWwETsVSOL2h1Wmzl1Ga/6CDv6F
+	lU2eDOmQJx3J+By2jBK94dw4hUXo4OJg8ATLjoNrgo=
+X-Received: by 2002:a05:690c:6b01:b0:873:5bb2:6c3d with SMTP id 00721157ae682-8b05b14e894mr18727417b3.68.1791387018749;
+        Wed, 07 Oct 2026 08:30:18 -0700 (PDT)
+Received: from toolbx (104-53-165-62.lightspeed.stlsmo.sbcglobal.net. [104.53.165.62])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b05a9b8806sm9897427b3.1.2026.10.07.08.30.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 08:30:18 -0700 (PDT)
+Date: Wed, 7 Oct 2026 10:30:14 -0500
+From: Andrew Halaney <andrew@amutable.com>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: David Howells <dhowells@redhat.com>, Alasdair Kergon <agk@redhat.com>, 
+	Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>, 
+	Benjamin Marzinski <bmarzins@redhat.com>, Paul Moore <paul@paul-moore.com>, 
+	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
+	Eric Biggers <ebiggers@kernel.org>, "Theodore Y. Ts'o" <tytso@mit.edu>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, dm-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	keyrings@vger.kernel.org, linux-security-module@vger.kernel.org, bpf@vger.kernel.org, 
+	fsverity@lists.linux.dev, linux-doc@vger.kernel.org, 
+	"Christian Brauner (Amutable)" <brauner@kernel.org>
+Subject: Re: [PATCH 1/3] keys: add KEY_SPEC_DM_VERITY_KEYRING
+Message-ID: <asZlNEFdvidvMdJ5@toolbx>
+References: <aqyiCavj3xeNqyAo@kernel.org>
+ <20260914-ajhalaney-dmverity-key-identifier-v1-0-01922dc1366a@amutable.com>
+ <20260914-ajhalaney-dmverity-key-identifier-v1-1-01922dc1366a@amutable.com>
+ <715249.1789718726@warthog.procyon.org.uk>
+ <aq2VxlttdlTNlHo6@toolbx>
+ <arYzQN1ViuiCBemo@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|IA3PR12MB660778:EE_
-X-MS-Office365-Filtering-Correlation-Id: 801fe9a6-d056-4902-4d29-08df2487c047
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|10070799003|18002099003|10067099003|22082099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	jIgJcCTg9G9RVUnLLoplsSKLsSbKOe6xwJAEtSGoMuPG1iZxcnn6eKAUXsRXCgSxEOpu/5VLz44yF3fA/B8sPEnSzdHrqw6DetBPzy+KBRBgXlGAC+vFhRG+sIgzw2F1oHumL/RgqwkKX8fvALdpMvLNpAaSADQX9fW7PUfsHSp6113cSPd3o0ipm54oAx8IKYAYB5ji8HSd45IRfAzSxGSg89USsPp6hVaf+IpLRZMd3TqwRJUBOIbSskXZL8qkpZu/RZrhvAznzE8ET1i8dWM87zwB69YK/RGPzAAoFe7me9mwW9dx9GFNreDb6v2jujcMK58PLI6tRzygX+ZPB6nhXXWQgWJsKN5rTTf/41g+qn6Aolk59w5egzcxCbZYGNuJqOc01wocc4DugCnXoa0r8MG9dmBFAnhMOfvzhGVCYcBlx+sWYAPvMWXyMVRpKwURzfOArlNChatbpbUXKHLDcqYV/2BYAapw6DvwgPeH/Tgwx0/npYwTIe9xztABby6MTCoYuXKKFoBrRpteNsVByq9F7CSRec8hyysNkwEXqVVkRGC21XXy8mIndLwWl2WcFVGzeS7QLlpPP4KBGum6/jgdCoakG4fedSB9qUY5XTqWXDPe65dtiva3Gi7W9fq3TDKAtzzmWNfsJ/KN5YR2M21hDWZPYoLmK6OqZr0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(10070799003)(18002099003)(10067099003)(22082099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?a2xLSzkzVVNZMVR1NkZIbTNIS2tiejNhUVM4VkRQcUp6ZFdHeWp4UUViOWFh?=
- =?utf-8?B?a0NzNFR4M1Vrenp5U2JGS0RycDgzSjgwYjE1R0xtOU1GWng1QVZTaTZISHRN?=
- =?utf-8?B?aFhwbzJqNEdENWhYN3J5L3pjVG5jcENhVXhhajVacjVxcC84WjR2THpaNXdq?=
- =?utf-8?B?YUNlOUdSL01ibWZaY3Qzb0cyVkhzM1dsbEhOcElQNDZ3aTFnbnBDWjV2MktH?=
- =?utf-8?B?NGNnQy9Vb1ZUNEhjNFJWdzgvNDVOcUI5dFRGbnpzamVZYkQ3M1BMeTdMcTFC?=
- =?utf-8?B?N3I1Skk1eENmYk5ZTE4wb0RpMjdFd1h1a2cweENyU0l0OEs2QUo0T0Z6SGVY?=
- =?utf-8?B?WDh3REQ0N2VvTEd6TVplaURrQ0ZwR0MrVDZyMjdmaXYxNVc1UGlCMXF0Tkpp?=
- =?utf-8?B?bzRrRWpuS3NmOVhkRWx5ZVIvVyt2ajM2eVI4a3NYYnc0NW5CdFRoS09hV1hz?=
- =?utf-8?B?YTdOc3UrZ3hOUHRtNjNXbGwrUHEyNitISlpFSnBwRy81NEEwOUNyVjZQMWZi?=
- =?utf-8?B?QjN2a3M5bVZuVCtPSHVLRmNzcVZDQWI2ZjRQa0RnZDdzL3QvRWxTNXF0TUY2?=
- =?utf-8?B?U3VONVFPcUNtRlk5ZEhBKzQ5OWRCL2l2ZUJQbHI4V25qK1VDdGdiOEZUaGxy?=
- =?utf-8?B?WE5wTEJTcVBpK1VuK25wdU9aTWs4U3FxaVVuWmVVYXByY0FXejlFZ0d6d0pv?=
- =?utf-8?B?dk5hVTQ4MUN6c3ZRQjZacVZCYWhqLzJJSWlBSm1xQmZnTWRDR3FiQmRvSUo3?=
- =?utf-8?B?TGhwU25kK1VpMklkSFNJY1hHbHVjbzdLRHVibGorR1NNRlBVTVF2TFZIelUr?=
- =?utf-8?B?ODkzSlFId1NoYmhwbk5TOWJlaVhnR0phSWZqZFZPV0sxTkJFZDk1RFZicDlY?=
- =?utf-8?B?SG5XZ0lvR0R4dHh5QjFLY09iZVc0cmcxbUl4YU5LYkluZ3FwQ3RYT3lHR25k?=
- =?utf-8?B?eURjb3FOZk4rNDBXam9kdGNUUSswc0Z4OWg0UnpmZ0NWTVQ5bmZLR3hrUTVY?=
- =?utf-8?B?bWh0OXhoTWZ2dUk2LzJ1eUhsamZjSEVJSVk4S1pzUmpBRzlNNkRnNkU1eUd0?=
- =?utf-8?B?cnZoalByODZDVUJyc0VZYjE1dXNKM2NNTDc0Z1ZvMnBjem9ReU5peERSb3l6?=
- =?utf-8?B?WDNMeUtGT21sQzBmZGdNQTY2T1pLczhzTzFwaVFrN1BnRHNHNW4va1gwSVBE?=
- =?utf-8?B?VHZoL3YxNE1Wb0QrTzVQanVmR0orN09LdHJRa1RBVVNNeWswVEFvVkRtVU1Y?=
- =?utf-8?B?T2IxbU9DSUZIcUpvcVVUSTllQUF0NUovaERoMGp4bnI1SisvVDlaZ0VodlU4?=
- =?utf-8?B?Ri9EaXR5S3VPczlITkZuREZtVFZEcWtDQkpOMWFLdmxVdVhyUm9vQUZVV09j?=
- =?utf-8?B?djhiaEdOV0RsREJQUHl0M1VkanNMVjlXbjNuenVqWVYxOVVDVFZXRHRnaEVi?=
- =?utf-8?B?WHZWREMrSkRZTjFlODFBUDlPU3g5cVNjWWlTbzhsWnJxVmF6OUUxczVJeS8z?=
- =?utf-8?B?bnNFdEZpR0hIRGFVaVVrc2hnQXU3Rkc2VmZmV21sdlFVNW1YTUowd0JmRjRK?=
- =?utf-8?B?cStNVG8vM3ZBQ1dXWWVXc1VOMFlMYktTaGc2dmZhdVRCUitrUXhYaU45bEVI?=
- =?utf-8?B?THRJdXUyMDh5ZWJUZmRLVURyVVVoelFFOHpRYW94aHpmVi9qOE92aVN1eFBG?=
- =?utf-8?B?Z3FyVXlxSlhLV1U3UTNReDRhaG43cW5zSXFxSzJ1eEt6MUlyZ1M4d0ZOVHNt?=
- =?utf-8?B?Ui91QzNuN2dHMkIvMWlZVnIrdEkrTGRIMVgwOUt0YVB1TmlHNTd2a2hxNFNS?=
- =?utf-8?B?TThEeWhJbEdyanBINVN0ZTlzblJYZUxKWnBwYzV3SmpUcFE0OXlIbVNqMTMv?=
- =?utf-8?B?QVVCNjFjK3FiOHR5QjR1c1VNdFJOemh6R0txRmtxNzBRQXFYYUxoSXFhemoy?=
- =?utf-8?B?VVBtaVVQVWJQNTJ1WU1vUGFaNjF2NDdYRG1Bclgzb0xyaG5BSEdzT2MzMTJI?=
- =?utf-8?B?VEFrMjJwNXB5bXMzdFZjZklFdXhGMGc5UUJhTUdvMVliZEY1WWtJeitzMm04?=
- =?utf-8?B?WlZISU50d3loeDZVVlpQbUtkZlN3bHhDbGphZllrdVFuaXpoNFMzSVhHbm5p?=
- =?utf-8?B?UVppSU84d3RybmZPNTlSQUFhVHRhVmdaaklaOWNwVDlYOGdQOTJ6eElxeWxM?=
- =?utf-8?B?Q1dlelRpQkE5RUdOWmFZZG9mSzdCeHcvTmZZcWNSWlN5ZDZkNm1VSWdyQXZp?=
- =?utf-8?B?S3Bid3U0MGlpRWppNE0yajBZUGtPaHpiWjZkb3MzekVBb09GcGNjN3NmYlpJ?=
- =?utf-8?B?b0NvdmhMYUFIWjAxemYycEg2STdqa25KS0c5ZlVtc2M3VDBEekplbnV5aXZ2?=
- =?utf-8?Q?z0icdPmjYFcONZvgzJLqTE58rYDkPtEH+mbRuSzpYd18E?=
-X-MS-Exchange-AntiSpam-MessageData-1: 9c4oHJpvj5Beyg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 801fe9a6-d056-4902-4d29-08df2487c047
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 15:29:17.6087
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hrqt7QXra9lrY5s0E1SK97FpnTPHYETzF92oA2sS+Y6vmeZ5fc5Ld8V3NxrEotAA+OyxoaooKbynW8HVBcAB+g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR12MB660778
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arYzQN1ViuiCBemo@kernel.org>
 
-On Wed Oct 7, 2026 at 5:07 PM JST, Thorsten Blum wrote:
-> Use KVec::zeroed() to allocate the zero-padded microcode buffer and copy
-> the bootloader code into it. Also use KVVec::zeroed() to initialize the
-> firmware object's leading zero padding.
->
-> Signed-off-by: Thorsten Blum <blum@kernel.org>
-> ---
-> Changes in v2:
-> - Add a // PANIC comment to copy_from_slice() (Danilo)
-> - v1: https://lore.kernel.org/r/20261006100442.80432-3-blum@kernel.org/
-> ---
->  drivers/gpu/nova-core/firmware/fwsec/bootloader.rs | 10 ++++------
->  1 file changed, 4 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs b/drivers=
-/gpu/nova-core/firmware/fwsec/bootloader.rs
-> index ec4d92317a93..1aa08ae8de78 100644
-> --- a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
-> +++ b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
-> @@ -137,10 +137,9 @@ pub(crate) fn new(
->                  .align_up(Alignment::new::<{ falcon::MEM_BLOCK_ALIGNMENT=
- }>())
->                  .ok_or(EINVAL)?;
-> =20
-> -            let mut ucode =3D KVec::with_capacity(aligned_code_size, GFP=
-_KERNEL)?;
-> -            ucode.extend_from_slice(code, GFP_KERNEL)?;
-> -            ucode.resize(aligned_code_size, 0, GFP_KERNEL)?;
-> -
-> +            let mut ucode =3D KVec::zeroed(aligned_code_size, GFP_KERNEL=
-)?;
-> +            // PANIC: ucode is sliced to code.len(); code.len() <=3D ali=
-gned_code_size.
-> +            ucode[..code.len()].copy_from_slice(code);
+On Fri, Sep 25, 2026 at 11:39:28AM +0300, Jarkko Sakkinen wrote:
+> On Fri, Sep 18, 2026 at 02:59:49PM -0500, Andrew Halaney wrote:
+> > On Fri, Sep 18, 2026 at 09:05:26AM +0100, David Howells wrote:
+> > > Jarkko Sakkinen <jarkko@kernel.org> wrote:
+> > > 
+> > > > This is great for discussion but what we want for the commit message
+> > > > is just motivation and resolution.
+> > > 
+> > > Actually, I think it's useful that Andrew wrote up the issues in the commit
+> > > message - and I think it shows part of the motivation.  The 'writing a fake
+> > > /proc/keys line in the description' is something I hadn't considered.
+> > 
+> > I'll defer to what you all want in the message here, I found it valuable
+> > but I trend on the side of overly verbose admittedly!
+> > 
+> > > 
+> > > > I don't think we need all this just to say that /proc/keys in a racy
+> > > > query mechanism for production, which is an issue for dm-verity, given
+> > > > that nothing else is available.
+> > > 
+> > > I think at some point, we will need a system call to search all for all
+> > > accessible keys matching certain criteria by actually walking the key
+> > > database.  The problem there is that there may be multiple hits, so we may
+> > > need something like:
+> > > 
+> > > 	int count = find_key(key_serial_t start_id,
+> > > 			     const char *type, const char *desc_prefix,
+> > > 			     key_serial_t *results, size_t results_size,
+> > > 			     unsigned int flags);
+> > > 
+> > > Allowing you to do:
+> > > 
+> > > 	key_serial_t dm_key;
+> > > 	int n = find_key(0, "keyring", ".dm_verity", &dm_key, 1,
+> > > 			 FIND_KEY_EXACT_DESC);
+> > > 
+> > > This wouldn't be as fast as a direct lookup since it would have to walk the
+> > > key tree, doing name comparisons and perm checks on each key of the type.
+> > > 
+> > > > And secondly special keys are meant for implicit keyrings so isn't
+> > > > that all there's to it?
+> > > 
+> > > I have no particular objection to setting aside a block of negative key IDs
+> > > for special keyrings that need to be accessed a lot - though I would make
+> > > common reg/unreg functions that take the ID to be registered and, say, set the
+> > > block at -257..-512.  Moving the BFP keyring to -257 and DM to -258.
+> > 
+> > To be clear are you suggesting I do that for v2 here? Happy to make the
+> > change and add some reuse to the registration functions, etc. I'm
+> > guessing its fine to change the bpf id since its still only in -next?
+> > 
+> > The only awkward bit with making that more generic is that dm-verity
+> > isn't __ro_after_init since its coming from a module possibly, and
+> > because of the module usage I also protected it with a spinlock in case
+> > someone's accessing it while you unload the module. Could just use one
+> > spinlock for the whole generic array, and drop the __ro_after_init I
+> > suppose.
+> > 
+> > Let me know if I'm not following properly!
+> 
+> I just read David's response and I think he made fair arguments,
+> and patches look fine to me.
+> 
+> David, did you have anything? I could pick these.
+> 
+> Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+> 
 
-As I mentioned on the previous revision, I think not inserting panic
-sites should take priority over other considerations. Besides this code
-effectively writes he `code` area twice (not that this is a big
-concern).
+Gentle ping :)
 
-I guess if we want to introduce a new `Vec` API to cover this better, it
-should be some kind of constructor cloning a slice - `from_slice` maybe?
+Are we happy with these to get picked up?
 
->              ucode
->          };
-> =20
-> @@ -162,8 +161,7 @@ pub(crate) fn new(
->                      .ok_or(EOVERFLOW)?
->              };
-> =20
-> -            let mut firmware_obj =3D KVVec::new();
-> -            firmware_obj.extend_with(align_padding, 0u8, GFP_KERNEL)?;
-> +            let mut firmware_obj =3D KVVec::zeroed(align_padding, GFP_KE=
-RNEL)?;
-
-This hunk is fine though.
+Thanks,
+Andrew
