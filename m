@@ -1,78 +1,40 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010022.outbound.protection.outlook.com [52.101.56.22])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CCD047AF4D;
-	Wed,  7 Oct 2026 10:17:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.22
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791368289; cv=fail; b=m1jhTqhaptN8wKf3uX5VW/07UTdqQLFDHFa5CrxckceOlw4v7XgfzqA5+SjAdufD11oV4T+87qJhCs1E3+z2fgB+CVcOPvptffTdJvw+eD+sxHGcf8gtpalvD5/hlffwgSBgfNi+l+Oqm4j+eUvCgOOe4eSDPFXoWj9uR+UosfQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791368289; c=relaxed/simple;
-	bh=SwDVSQIY4kGw/7ct85Gw0xkEYagR2xra+GHprJJguPU=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=vFQfdpiD8nnEm1U1qucKCJgiBSSnw6S1UezT/BZ1gkDN6U4HlDJ28CfefD36jkg8L7uK1b/EGfKcN2s4gF/J2VV/37xy+W6RaZ67V8Xbue2YAJWwTfYRFsB0+A/wopqBxFruXCYAWblEijiqcDE2+TH0oRCHQs8ABdHkiuOwWIM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=OeEovIjT; arc=fail smtp.client-ip=52.101.56.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04C923CDBB1;
+	Wed,  7 Oct 2026 10:18:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791368307; cv=none; b=JHqVBkHSFMxFLZQZtQ8klEWGHDOolfx8zaxadV6wK/S7bz+lVlQ3jpSEagYbCD+JyGs1et1PV2GHUt7CrX343wQzTg9owqwMkuX1nI6p1tH0GjpGMRgE4Uf0IkJxtA/SiSIGJkWOHACaMkB8nNpTLmg15QfayrLTHorDkulfGq8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791368307; c=relaxed/simple;
+	bh=fmWtLviZNIW+qMbJn6rdp4dXagZ9rYsEjMtPSmHTyyc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FBRCsVxqRstjRDrhLmR5iDH/CmJqv0/5AjySzWXLmrQGoj/WkIGaty+EWsbKLrRfa6MI24TOGxhBC+kAbi3Qb2y2v8ElR8M30lsxOc98tqpdzwAE1r448nB/lF7KUDXOVqPWQrJd2I1fN+iNbAQdKUKE9cWCLdTi5PUr7iwN5Fo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lD3zrkMu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="OeEovIjT"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=g6kjNke7dA7vXMS3zB6SNoBllnvRBWHK+Imt2VDXEaC8whPjH6qH+kQ7PlI70ibBy69ecojqX0XnWCLfQC5hgUb9JgeLK15Y8IoCWH4q8dO89PKZZPYakyjQQFUSNGqKSHx+72rq+LMAiTDSrn0n5nCv4kuibd5HE9RODoG5e4nVE7QAEqemWRjXK0pJlFFtlgQz6pSn5MOWybCEP5+jFu0zg90jPurVCfa91xQeibrViGf/i5xPP7tBZsvi9LBgcGDWRdicc7cwwAuclnMa3eZ8jxiMN958x12gx4wkNq3DdRN73hGtOZztgAIT91j8c2Q/7J4PUCrcteyIqeCkqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ii0eiGaRuiT9eyha7YGaDyozAWCRRRTd6zBkdZ6lesY=;
- b=ZOBYlBhDaoSDKblT+V6ygQSrraKfSsxkhYs3fMJmo1HyafKevCM327lNvqkGLDrKrBMRsAetlHbb4xDJX0QYNwLbSxFmmZNrwmUwt9Yac+uDMmhczRCbTKb+OCPu3hBip8yviGcNc75Bf7VhVvP8R3JYOhQZJzYVaUjMNl5sTKi4vkWkdAt/CltBSm8IHUa9z/+CIOj5dJRuoRyh2KKpRGczJlUfgiHctsG0Y1v0/kR5MbMF7EZzEUdc71WlUP8MA2rDKDBAitdQ1NbvQyDyFbY87px5y8hTqNMvIILPIKHgRvF1yFN1MdOo0Fl5IjwbsNkpXeFYwKEaPLG7GIZZRg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ii0eiGaRuiT9eyha7YGaDyozAWCRRRTd6zBkdZ6lesY=;
- b=OeEovIjTgokhH4rjPoC3Zc7ap2Ps+tI8CvwfHeZfTORjpfzY55qI3RqVvQ75QNxJXcYKSSHcmOF3togxXCI5qAyrkfjlvvbBUTB/Cyo0BbJH/1B+ZyNHLeG5F/NSjrZHF8yopqt8fAAu3r1KFfkYIAmuENZA670xxXHx9ZQCUTk=
-Received: from SJ0PR03CA0038.namprd03.prod.outlook.com (2603:10b6:a03:33e::13)
- by PH7PR12MB7257.namprd12.prod.outlook.com (2603:10b6:510:205::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.16; Wed, 7 Oct
- 2026 10:03:49 +0000
-Received: from SJ1PEPF00002314.namprd03.prod.outlook.com
- (2603:10b6:a03:33e:cafe::83) by SJ0PR03CA0038.outlook.office365.com
- (2603:10b6:a03:33e::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Wed, 7
- Oct 2026 10:03:49 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF00002314.mail.protection.outlook.com (10.167.242.168) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Wed, 7 Oct 2026 10:03:49 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
- 2026 05:03:45 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
- 2026 05:03:44 -0500
-Received: from xhddevverma40x.xilinx.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49
- via Frontend Transport; Wed, 7 Oct 2026 05:03:42 -0500
-From: Devendra K Verma <devverma@amd.com>
-To: <mani@kernel.org>, <vkoul@kernel.org>, <frank.li@kernel.org>,
-	<den@valinux.co.jp>
-CC: <dmaengine@vger.kernel.org>, <linux-pci@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <michal.simek@amd.com>, <devverma@amd.com>
-Subject: [PATCH RESEND v2 2/2] dmaengine: dw-edma: correct IP name in xilinx_cpm6_dma_data comment
-Date: Wed, 7 Oct 2026 15:33:36 +0530
-Message-ID: <20261007100336.4009004-3-devverma@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261007100336.4009004-1-devverma@amd.com>
-References: <20261007100336.4009004-1-devverma@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lD3zrkMu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E6861F0089B;
+	Wed,  7 Oct 2026 10:18:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791368296;
+	bh=8j7tiOc7jQFSptVfi+4uGv4apzCx288nGLyqEctpiJ0=;
+	h=From:To:Cc:Subject:Date;
+	b=lD3zrkMulro5KNP8c655lTxTYZRFMXsiVv4Lz1lwj9qaudCHhtM6XzHjgIjMjOBFl
+	 a8LS3Nrekr652Vq0UxPDYgSNQjZCALCN0behnWNG6bQgrmgY8PhVBrdnvNMPwNTgUl
+	 VVvnkZcTM3MWvr2KOrvaL1WzPXoZU6cqIdBImKDyR8jG0L/UZ5Kmz8fEXX5s/xxCDO
+	 56v0S4+jjXBZNogvbdpfkxORvv3/2rOL53lSNbaswEePo+82NFwmrSzEtQraG4UbQg
+	 X//0R7JAoKylGEEQejPTBXejhT+Qn5/mJTiNjkZy66lfdtRDJK3vNORhCzFYYsCytD
+	 xp+7ICxFknmLA==
+From: Chao Yu <chao@kernel.org>
+To: jaegeuk@kernel.org
+Cc: linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	Chao Yu <chao@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] f2fs: zone: fix to avoid bio split on sequential zone
+Date: Wed,  7 Oct 2026 10:18:12 +0000
+Message-ID: <20261007101812.2348510-1-chao@kernel.org>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,56 +42,111 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002314:EE_|PH7PR12MB7257:EE_
-X-MS-Office365-Filtering-Correlation-Id: 85466b6e-6880-4712-b295-08df245a48d1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|376014|1800799024|36860700016|23010399003|82310400026|22082099003|18002099003|56012099006|10067099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
- 3aYYULCZk1foTMMFhtNbwE5miZ5bGQ6TR49JMWEWsizTah6hLCw7nwN6N7Uw93VvmcUOvYpqItEFqJu/ZN76uPjfjo7xnwwvf5KZz+5aI2XaZxCNqDsjdgNblC/C46r/KT6ydxF5Jdpqg3MPRHXwOyivSuvi1oB3fAiUv8Pu1kTLJrm63WWbKy+HvH0RwWDVVqnBAl89T8Ze16rBELQitkT7+JForztBEzg3paTijHs2zKvlNTu9PaEmRMxomzYtwjHQr4wbMyZANNSPNkUTlNOWOjKEelKnY6Ne1Ybo8xr4TwsakRAqsrFC6T0BqOAc1cdBfov2KbMsmH+eHffDFQhEcKKgpCLfjbli/EGfzXbi9dsRV9uw0QgVxYgn1ZCj86YFgJ2mW4hTM6BOFoa2MWIPPL32xyyrA98H2fgF96YhGjFCYTr94xUcS+g7f9HMR6cePYdS6B3/OW+YqztQWzJMdzxX9jX0XqcUt7xquWqwBil1bz5ejJhMjkBhIwhbQgRF5ODf97+ZzyfRPM4M8uAMmp2yglNO7URszmQT/BP2p2VKedYRyJ1QcneO3ZIy8q23Fn8IfL1/aPeTrOI0ueNsFjDuF/IC4KKTTv7grzjNq8D6aE2vGd3tbDmXt0WO+A1+t+KEMMDmVkqI38nJdZ16CJSvdKaIT9k8E0LYiL4O2iwiRvnduNGyLixbBK6/G1GtBM6czSMOkaK5UTrqvw==
-X-Forefront-Antispam-Report:
- CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(36860700016)(23010399003)(82310400026)(22082099003)(18002099003)(56012099006)(10067099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- WxJlCg1hdmoQhysLjZpPQlwtGplRAj2vHP9ZrszauBIobxUmZRkfnH3NnsVbvDyr8L6lTGL4amj9UXKc7Rxkb7vXAmiaCKiT08iYIqVfOOvcKPStvybg0iaI+xD/iI9MQb5mhJNNErj7ZKjvpOyggA9WoRd6S+pzmfhUHufc6YBlTeQq2B2j3y6gTIPSfM7TjkkVgDyGNkFlRJKWqPW+jckk756QnIuenl6sEDwfM1lA938/n576ofSot3YRZSzL/BLWbWDq8iP/0JnzWgOTe/hxvEWTxBO0wk/V1tMGrVOhFhjUKGqmED2budOF08A+nyctXwXsUwh5IJbOqDddwWBoG2fhewYh/d4Io09LoH2IId6HWQbgApsLp/s3B0YRacVz8MsSVxoOuI+p2IGZulgLNd52/+B+0wkxYkLntdH6J5OynCA9oIzi68To76q/
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 10:03:49.6217
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 85466b6e-6880-4712-b295-08df245a48d1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
- SJ1PEPF00002314.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7257
 
-Replace 'MDB' with 'CPM6' in the xilinx_cpm6_dma_data comment to
-fix the IP name typo.
-No functional change.
+From: Chao Yu <chao@kernel.org>
 
-Signed-off-by: Devendra K Verma <devverma@amd.com>
+In the block layer, bio_split_to_limits() splits a bio if it exceeds
+any underlying queue limits:
+1. queue_max_sectors: Splits bios larger than the transfer limit. This
+   limit is set by the device driver/DMA controller (max_hw_sectors) and
+   device-mapper targets. When flushing dirty pages (governed by VFS
+   writeback_chunk_size() and f2fs nr_pages_to_skip()), f2fs merges
+   contiguous pages into bios up to 512KB (1024 sectors) or more without
+   checking queue_max_sectors, which will be split if the device or DM
+   target enforces a smaller limit.
+2. queue_max_segments: Splits bios exceeding scatter-gather segment
+   limits. f2fs allocates bios with up to 256 pages, exceeding the
+   128-segment limit of DM targets (dm-default-key/dm-crypt) if pages
+   are discontiguous.
+3. chunk_sectors: Splits bios crossing chunk/zone boundaries. In f2fs,
+   section_size strictly matches zone_size, and block allocation never
+   spans across section boundaries, so bios never cross chunk_sectors.
+
+Crucially, when bio_split_to_limits() splits a bio, bio_submit_split()
+submits the tail half via submit_bio_noacct() before returning the head
+half to the caller. On a sequential zoned device, this causes the tail
+bio to arrive at the zone write plug before the head:
+
+  dm-3: zone 7: prepare_bio wp mismatch: bio sector 30720 offset 2048
+  != wp_offset 248, len 248
+
+The write plug rejects the out-of-order tail with BLK_STS_IOERR, causing
+f2fs_stop_checkpoint() and remounting the filesystem read-only:
+
+2026-09-30T22:09:23.725678+08:00 localhost kernel: CPU: 9 UID: 0 PID: 243 Comm: kworker/9:1H Not tainted 6.12.81-gb3ef518fb26d #5
+2026-09-30T22:09:23.725750+08:00 localhost kernel: Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
+2026-09-30T22:09:23.725753+08:00 localhost kernel: Workqueue: dm-3_zwplugs blk_zone_wplug_bio_work
+2026-09-30T22:09:23.725756+08:00 localhost kernel: Call Trace:
+2026-09-30T22:09:23.725758+08:00 localhost kernel:  <TASK>
+2026-09-30T22:09:23.725758+08:00 localhost kernel:  dump_stack_lvl+0x4d/0x70
+2026-09-30T22:09:23.725759+08:00 localhost kernel:  f2fs_stop_checkpoint+0x1df/0x5d0
+2026-09-30T22:09:23.725759+08:00 localhost kernel:  ? blk_zone_wplug_bio_work+0x4eb/0x740
+2026-09-30T22:09:23.725760+08:00 localhost kernel:  f2fs_cache_write_end_io+0x545/0x6e0
+2026-09-30T22:09:23.725761+08:00 localhost kernel:  blk_zone_wplug_bio_work+0x4eb/0x740
+2026-09-30T22:09:23.725762+08:00 localhost kernel:  process_one_work+0x5c6/0xde0
+2026-09-30T22:09:23.725764+08:00 localhost kernel:  ? assign_work+0x124/0x4e0
+2026-09-30T22:09:23.725765+08:00 localhost kernel:  worker_thread+0x403/0xb70
+2026-09-30T22:09:23.725765+08:00 localhost kernel:  ? __kthread_parkme+0x82/0x140
+2026-09-30T22:09:23.725766+08:00 localhost kernel:  ? __pfx_worker_thread+0x10/0x10
+2026-09-30T22:09:23.725766+08:00 localhost kernel:  kthread+0x235/0x2e0
+2026-09-30T22:09:23.725767+08:00 localhost kernel:  ? recalc_sigpending+0x128/0x1d0
+2026-09-30T22:09:23.725767+08:00 localhost kernel:  ? __pfx_kthread+0x10/0x10
+2026-09-30T22:09:23.725769+08:00 localhost kernel:  ret_from_fork+0x2f/0x70
+2026-09-30T22:09:23.725769+08:00 localhost kernel:  ? __pfx_kthread+0x10/0x10
+2026-09-30T22:09:23.725770+08:00 localhost kernel:  ret_from_fork_asm+0x1a/0x30
+2026-09-30T22:09:23.725771+08:00 localhost kernel:  </TASK>
+2026-09-30T22:09:23.725771+08:00 localhost kernel: F2FS-fs (dm-0): Stopped filesystem due to reason: 3
+
+To prevent write bios destined for sequential zones from being split:
+1. In __bio_alloc(), bound npages to bdev_max_segments(bdev) for writes to
+   sequential zone areas.
+2. In page_is_mergeable(), check queue_max_segments() and queue_max_sectors()
+   for sequential zone areas, so f2fs will not merge beyond the queue limits.
+
+Fixes: 52763a4b7a21 ("f2fs: detect host-managed SMR by feature flag")
+Fixes: 664ba972df9b ("f2fs: use BIO_MAX_PAGES for bio allocation")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chao Yu <chao@kernel.org>
 ---
- drivers/dma/dw-edma/dw-edma-pcie.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/f2fs/data.c | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/dma/dw-edma/dw-edma-pcie.c b/drivers/dma/dw-edma/dw-edma-pcie.c
-index 006dea7d6322..762a693ab55b 100644
---- a/drivers/dma/dw-edma/dw-edma-pcie.c
-+++ b/drivers/dma/dw-edma/dw-edma-pcie.c
-@@ -146,7 +146,7 @@ static const struct dw_edma_pcie_data xilinx_mdb_data = {
- };
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index 4bfa301a5df6..15c6af8515f3 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -536,6 +536,10 @@ static struct bio *__bio_alloc(struct f2fs_io_info *fio, int npages)
+ 	struct bio *bio;
  
- static const struct dw_edma_pcie_data xilinx_cpm6_dma_data = {
--	/* MDB registers location */
-+	/* CPM6 registers location */
- 	.rg.bar				= BAR_0,
- 	.rg.off				= SZ_4K,	/*  4 Kbytes */
- 	.rg.sz				= SZ_8K,	/*  8 Kbytes */
+ 	bdev = f2fs_target_device(sbi, fio->new_blkaddr, &sector);
++	/* avoid reversed IO if bio is split due to exceeding max_segments */
++	if (npages > 1 && !is_read_io(fio->op) &&
++	    f2fs_is_sequential_zone_area(sbi, fio->new_blkaddr))
++		npages = min_t(int, npages, bdev_max_segments(bdev));
+ 	bio = bio_alloc_bioset(bdev, npages,
+ 				fio->op | fio->op_flags | f2fs_io_flags(fio),
+ 				GFP_NOIO, &f2fs_bioset);
+@@ -892,7 +896,19 @@ static bool page_is_mergeable(struct f2fs_sb_info *sbi, struct bio *bio,
+ 		return false;
+ 	if (last_blkaddr + 1 != cur_blkaddr)
+ 		return false;
+-	return bio->bi_bdev == f2fs_target_device(sbi, cur_blkaddr, NULL);
++	if (bio->bi_bdev != f2fs_target_device(sbi, cur_blkaddr, NULL))
++		return false;
++	/* avoid reversed IO if bio is split due to exceeding max_segments/sectors */
++	if (f2fs_is_sequential_zone_area(sbi, cur_blkaddr)) {
++		struct request_queue *q = bdev_get_queue(bio->bi_bdev);
++
++		if (bio->bi_vcnt >= queue_max_segments(q))
++			return false;
++		if (bio_sectors(bio) + (F2FS_BLKSIZE(sbi) >> SECTOR_SHIFT) >
++				queue_max_sectors(q))
++			return false;
++	}
++	return true;
+ }
+ 
+ static bool io_type_is_mergeable(struct f2fs_bio_info *io,
 -- 
-2.43.0
+2.49.0
 
