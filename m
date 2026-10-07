@@ -1,48 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C863914FE;
-	Wed,  7 Oct 2026 13:28:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D1264B0E48;
+	Wed,  7 Oct 2026 13:28:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791379731; cv=none; b=sgquA962ZbujfCGgMBm52tuO2IeJc0TBAgisSL3rUlzQvXkj9eyDqteIR727A2x3P0fH8Tp+MN0VPc1fC6VFiKB2YmGpd2aNW7RP/lDX0tRjziNxBWZJBCrdMWleMhL72v6tA2huraIgo8sg5VMtBnF01sr47/i+UJu1Vw25QSM=
+	t=1791379736; cv=none; b=pgcABaQTOUe19kT/o2wu6mW0NCScqLcAoEjRT0f9YMkf4m4V2CjHqwfkp4Zvwr/y4mJk8yeifxcChsoYq6on8Gy7UMpW1A88fxKhKrkjIZiRz2B6flAZDXdQ+xLR/fIGby+k/dDqNG/Zm4H22CvPto8zuquHYfNowOw4VgwH5aw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791379731; c=relaxed/simple;
-	bh=3GDHlgF3hdF5zlWK7EeqD5ESUv9U59Ugt3ToPYIw8g4=;
+	s=arc-20240116; t=1791379736; c=relaxed/simple;
+	bh=DFEJsFns0bljZn9HO22/k4JjjqcDhHnDPmz6Bu6tVfo=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=CPdcgTI0H7B24Ew9Mbm0TwHiGDGuYuPU7qISSLLJQId1DcvGM7KWEoZRhTIMvV/6U2ntCD2IGqOHb0Wo7dxpIEtiaoArYyTD4kxnaWEGvlIJ8fOoEJTH9iIaBAWTIFu1dc6xb7m4SNrg1DGaPESeoyplNlmCIAPZKnlL96TBVLc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Yce44Vc4; arc=none smtp.client-ip=198.175.65.21
+	 MIME-Version; b=nHJpCOgjZIveVliOsfBJoCVeXjQPNtpu98Dx5iF+5jru9WzPEXYknqWNwBUjpHWYgoSjAkwJ2G9rx675f6z0f7L63qOW+LEbzXxh6jf/pEp4g0EGUWL2brMsNlIfXmpCVMnkwyXq10kOpXRQKaf2ZtQrm+Q1tX0LOf7On4H8CPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LnxnRVzs; arc=none smtp.client-ip=198.175.65.21
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Yce44Vc4"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LnxnRVzs"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791379712; x=1822915712;
+  t=1791379714; x=1822915714;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=3GDHlgF3hdF5zlWK7EeqD5ESUv9U59Ugt3ToPYIw8g4=;
-  b=Yce44Vc4M7Zs+RNJvI269GqliO5X/nCvu/CnHEUFDwB03ypog5w1sTZ8
-   /RHDqgSi9Ek+ZOv8ksJXqSl9xaeK+eRX9ovhZiohYp49JJKi0+VDbiCPW
-   aVDtBbw5daqIvkcBT0Rko4JoZsoccgQAriH+9l2c7TZiBQ/lLA7iEZQqP
-   31lx5h+I5qYA6e2/kw7/glpL8X/ubyRT8fmIlBuKa3eA2BxrfBu6hgtzT
-   YAPXGbcNOyH14zZSKlSXBuf2zMxWzKN0tIHlWdvLpl6IMpWdAKbTKYbPs
-   pgxZx8nD794CJdg4IzGIu8QMbKh5mC8kZxDOdYdKGGKpoEW3RQja/Wir9
-   Q==;
-X-CSE-ConnectionGUID: eHhiW5zETFiOiyxAhlwYEw==
-X-CSE-MsgGUID: q4G0p9YFTOaaoMZKAuBk+g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="242422"
+  bh=DFEJsFns0bljZn9HO22/k4JjjqcDhHnDPmz6Bu6tVfo=;
+  b=LnxnRVzsZ7713L+8OMH2S10au9sS9BBCQkIsLZz0y7zsePU5t9EooEe+
+   C84p0yw8+B+6rxIXtasLcaCfnFq4tJNgzgDBg2njH2JV9ZF/eC9b84feA
+   Ve1RO2m9P+X+mbpDswW19aBJ+5Xt2CA9/nNGTRQp+gOBdcZY8xr/FLONw
+   VAZ65INixqHsoI4juhbOUcED5FNLmmmij10tzTh5cslCddWk6JJy3nm4d
+   zb1xNQhIDHdvFwTeqcuvk3b1xvqeSL9jOwE1ULB9LGuwlUaOWguBmqcLX
+   CbyV1fKb3kl9pmzseIUiLQyDRkrrCP+1YSWl5dAo8kSOtndKlG3eBzusY
+   g==;
+X-CSE-ConnectionGUID: c+ABJik5QkKfOCe2rZX5fA==
+X-CSE-MsgGUID: +HuWDPabR9WdN4bjw0N7HQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="242429"
 X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="242422"
+   d="scan'208";a="242429"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 06:27:47 -0700
-X-CSE-ConnectionGUID: EUxqhdZmT1enUnQ2o11CnA==
-X-CSE-MsgGUID: vOsZ70PtQMudN5uPSUrUMQ==
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 06:27:48 -0700
+X-CSE-ConnectionGUID: oWJ1MDNJTbWnw94iTQSKDA==
+X-CSE-MsgGUID: 64UiknF2QIGMuDVzfxldyg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="64309"
+   d="scan'208";a="64314"
 Received: from crojewsk-ctrl.igk.intel.com ([10.237.149.0])
-  by fmviesa007.fm.intel.com with ESMTP; 07 Oct 2026 06:27:44 -0700
+  by fmviesa007.fm.intel.com with ESMTP; 07 Oct 2026 06:27:46 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: broonie@kernel.org,
 	linux-sound@vger.kernel.org
@@ -52,9 +52,9 @@ Cc: tiwai@suse.com,
 	linux-kernel@vger.kernel.org,
 	kuninori.morimoto.gx@renesas.com,
 	Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: [PATCH 6/7] ASoC: Intel: avs: Switch to snd_snd_component_new()
-Date: Wed,  7 Oct 2026 15:33:52 +0200
-Message-Id: <20261007133353.455185-7-cezary.rojewski@intel.com>
+Subject: [PATCH 7/7] ASoC: core: Remove unused component-register members
+Date: Wed,  7 Oct 2026 15:33:53 +0200
+Message-Id: <20261007133353.455185-8-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261007133353.455185-1-cezary.rojewski@intel.com>
 References: <20261007133353.455185-1-cezary.rojewski@intel.com>
@@ -66,73 +66,164 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-snd_soc_component_alloc() leaves the component object in uninitialized
-state. Switch to the constructor function to retrieve and operate on
-object in sane state.
+With the new component constructor, functions snd_soc_component_alloc(),
+snd_soc_component_set_name() and soc_component_initialize() become
+unused. Remove them and drop the generic macro as there is only one
+snd_soc_register_component() function.
 
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/avs/pcm.c    | 11 +++++------
- sound/soc/intel/avs/probes.c | 12 ++++--------
- 2 files changed, 9 insertions(+), 14 deletions(-)
+ include/sound/soc-component.h |  2 --
+ include/sound/soc.h           |  8 +-----
+ sound/soc/soc-component.c     | 19 ------------
+ sound/soc/soc-core.c          | 54 ++++-------------------------------
+ 4 files changed, 6 insertions(+), 77 deletions(-)
 
-diff --git a/sound/soc/intel/avs/pcm.c b/sound/soc/intel/avs/pcm.c
-index 2d7ced953fde..6dd2b938baaa 100644
---- a/sound/soc/intel/avs/pcm.c
-+++ b/sound/soc/intel/avs/pcm.c
-@@ -1399,10 +1399,6 @@ int avs_register_component(struct device *dev, const char *name,
- 	if (!acomp)
- 		return -ENOMEM;
+diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
+index f4d4f836269e..ac5e9412582e 100644
+--- a/include/sound/soc-component.h
++++ b/include/sound/soc-component.h
+@@ -297,9 +297,7 @@ struct snd_soc_component *snd_soc_component_new(struct device *dev, const char *
+ int snd_soc_component_register(struct snd_soc_component *component,
+ 			       struct snd_soc_dai_driver *dai_drv,
+ 			       int num_dai);
+-struct snd_soc_component *snd_soc_component_alloc(struct device *dev);
  
--	acomp->base = snd_soc_component_alloc(dev);
--	if (!acomp->base)
--		return -ENOMEM;
--
- 	comp_name = devm_kstrdup(dev, name, GFP_KERNEL);
- 	if (!comp_name)
- 		return -ENOMEM;
-@@ -1411,10 +1407,13 @@ int avs_register_component(struct device *dev, const char *name,
+-void snd_soc_component_set_name(struct snd_soc_component *component, const char *name);
+ const char *snd_soc_component_name(struct snd_soc_component *component);
  
- 	drv->use_dai_pcm_id = !obsolete_card_names;
+ void snd_soc_component_set_priv(struct snd_soc_component *component, void *priv);
+diff --git a/include/sound/soc.h b/include/sound/soc.h
+index 553bb7e2be98..08fdee15dba7 100644
+--- a/include/sound/soc.h
++++ b/include/sound/soc.h
+@@ -447,15 +447,9 @@ static inline int snd_soc_resume(struct device *dev)
+ }
+ #endif
+ int snd_soc_poweroff(struct device *dev);
+-int snd_soc_register_component_c(struct snd_soc_component *component,
+-			 const struct snd_soc_component_driver *component_driver,
+-			 struct snd_soc_dai_driver *dai_drv, int num_dai);
+-int snd_soc_register_component_d(struct device *dev,
++int snd_soc_register_component(struct device *dev,
+ 			       const struct snd_soc_component_driver *component_driver,
+ 			       struct snd_soc_dai_driver *dai_drv, int num_dai);
+-#define snd_soc_register_component(x, ...) _Generic((x),		\
+-struct device * :		snd_soc_register_component_d, \
+-struct snd_soc_component * :	snd_soc_register_component_c)(x, __VA_ARGS__)
  
--	snd_soc_component_set_name(acomp->base, comp_name);
-+	acomp->base = snd_soc_component_new(dev, comp_name, drv);
-+	if (IS_ERR(acomp->base))
-+		return PTR_ERR(acomp->base);
-+
- 	snd_soc_component_set_priv(acomp->base, acomp);
- 
--	return snd_soc_register_component(acomp->base, drv, cpu_dais, num_cpu_dais);
-+	return snd_soc_component_register(acomp->base, cpu_dais, num_cpu_dais);
+ int devm_snd_soc_register_component(struct device *dev,
+ 			 const struct snd_soc_component_driver *component_driver,
+diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
+index 463ea227cac8..34efb270ce29 100644
+--- a/sound/soc/soc-component.c
++++ b/sound/soc/soc-component.c
+@@ -29,25 +29,6 @@ static inline int _soc_component_ret_reg_rw(struct snd_soc_component *component,
+ 			   func, component->name, reg);
  }
  
- static struct snd_soc_dai_driver dmic_cpu_dais[] = {
-diff --git a/sound/soc/intel/avs/probes.c b/sound/soc/intel/avs/probes.c
-index 2e4063b743ba..483e151dfd66 100644
---- a/sound/soc/intel/avs/probes.c
-+++ b/sound/soc/intel/avs/probes.c
-@@ -298,17 +298,13 @@ int avs_register_probe_component(struct avs_dev *adev, const char *name)
- 	struct snd_soc_component *component;
- 	const char *comp_name;
- 
--	component = snd_soc_component_alloc(adev->dev);
+-struct snd_soc_component *snd_soc_component_alloc(struct device *dev)
+-{
+-	struct snd_soc_component *component = devm_kzalloc(dev, sizeof(*component), GFP_KERNEL);
+-
 -	if (!component)
+-		return NULL;
+-
+-	component->dev = dev;
+-
+-	return component;
+-}
+-EXPORT_SYMBOL_GPL(snd_soc_component_alloc);
+-
+-void snd_soc_component_set_name(struct snd_soc_component *component, const char *name)
+-{
+-	component->name = name;
+-}
+-EXPORT_SYMBOL_GPL(snd_soc_component_set_name);
+-
+ const char *snd_soc_component_name(struct snd_soc_component *component)
+ {
+ 	return component->name;
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index 93bc7fa32444..69181cc0258b 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -2560,35 +2560,6 @@ static void snd_soc_del_component_unlocked(struct snd_soc_component *component)
+ 	list_del(&component->list);
+ }
+ 
+-static int soc_component_initialize(struct snd_soc_component *component,
+-				    const struct snd_soc_component_driver *driver)
+-{
+-	struct device *dev = component->dev;
+-
+-	component->dapm = snd_soc_dapm_alloc(dev);
+-	if (!component->dapm)
 -		return -ENOMEM;
 -
- 	comp_name = devm_kstrdup(adev->dev, name, GFP_KERNEL);
- 	if (!comp_name)
- 		return -ENOMEM;
- 
--	snd_soc_component_set_name(component, comp_name);
-+	component = snd_soc_component_new(adev->dev, comp_name, &avs_probe_component_driver);
-+	if (IS_ERR(component))
-+		return PTR_ERR(component);
- 
--	return snd_soc_register_component(component,
--					  &avs_probe_component_driver,
--					  probe_cpu_dais, ARRAY_SIZE(probe_cpu_dais));
-+	return snd_soc_component_register(component, probe_cpu_dais, ARRAY_SIZE(probe_cpu_dais));
+-	INIT_LIST_HEAD(&component->dai_list);
+-	INIT_LIST_HEAD(&component->dobj_list);
+-	INIT_LIST_HEAD(&component->card_list);
+-	INIT_LIST_HEAD(&component->list);
+-	INIT_LIST_HEAD(&component->card_aux_list);
+-	mutex_init(&component->io_mutex);
+-
+-	if (!component->name) {
+-		component->name = snd_soc_fmt_single_name(dev, NULL);
+-		if (!component->name) {
+-			dev_err(dev, "ASoC: Failed to allocate name\n");
+-			return -ENOMEM;
+-		}
+-	}
+-
+-	component->driver	= driver;
+-
+-	return 0;
+-}
+-
+ struct snd_soc_component *snd_soc_component_new(struct device *dev, const char *name,
+ 						const struct snd_soc_component_driver *driver)
+ {
+@@ -2668,25 +2639,10 @@ int snd_soc_component_register(struct snd_soc_component *component,
  }
+ EXPORT_SYMBOL_GPL(snd_soc_component_register);
+ 
+-int snd_soc_register_component_c(struct snd_soc_component *component,
+-			const struct snd_soc_component_driver *component_driver,
+-			struct snd_soc_dai_driver *dai_drv,
+-			int num_dai)
+-{
+-	int ret;
+-
+-	ret = soc_component_initialize(component, component_driver);
+-	if (ret < 0)
+-		return ret;
+-
+-	return snd_soc_component_register(component, dai_drv, num_dai);
+-}
+-EXPORT_SYMBOL_GPL(snd_soc_register_component_c);
+-
+-int snd_soc_register_component_d(struct device *dev,
+-				 const struct snd_soc_component_driver *component_driver,
+-				 struct snd_soc_dai_driver *dai_drv,
+-				 int num_dai)
++int snd_soc_register_component(struct device *dev,
++			       const struct snd_soc_component_driver *component_driver,
++			       struct snd_soc_dai_driver *dai_drv,
++			       int num_dai)
+ {
+ 	struct snd_soc_component *component;
+ 
+@@ -2696,7 +2652,7 @@ int snd_soc_register_component_d(struct device *dev,
+ 
+ 	return snd_soc_component_register(component, dai_drv, num_dai);
+ }
+-EXPORT_SYMBOL_GPL(snd_soc_register_component_d);
++EXPORT_SYMBOL_GPL(snd_soc_register_component);
+ 
+ /**
+  * snd_soc_unregister_component_by_driver - Unregister component using a given driver
 -- 
 2.34.1
 
