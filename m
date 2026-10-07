@@ -1,305 +1,410 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B565D1D89EF
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 17:09:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90B2936DA00;
+	Wed,  7 Oct 2026 17:11:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791392957; cv=none; b=pzJAcyNa/ZoFBVfSEwpDwKVqU9QJDhEEfJgsM1vPIkQai//bFrFebAW89pumg71s/acCoiooN3QLthoN1FAPP5F2EMtKzj+kuLCQSpDUFuBcZgdRBuSpkW6ZGeMNtbB6wR2F1MvMrw+fq56NJy9i2rjToSr2kc69oedTzVxhLco=
+	t=1791393072; cv=none; b=LdOd+IGN5hid+s2GWKv1ad99PlDuUtFj//odEeuKn5vfGoIN2WrRLBD0nyHOxwYyBVTlZOEEy5Dt1WJGuqJudJEIzxcAp6cDNuLuXL1UtSp0tpVjhNU0AAi32uhXV/8fn2jyWDmiJ6sh8x83TG4XaQpzhG1TTNbD1hTsivvruPY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791392957; c=relaxed/simple;
-	bh=Up2+48gQIDhv1GVocYfuchoari9m++oMyFYjjhkde6U=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=FkyQrR0U1RvGsCFbTt7OxkVdS8cEKkhROW3Ec52l43Vg1GGU6XGf4e2m9+TWjb1nh4xPJTPCkUK7DvLQF9eOhiD7M6L5laQp60ESnTe3Q6o47/3IBxHqTIuTVC22cBKjjqulKFlpyg3KD5sSBFEGoS/t6eQ1S3WUzE/3+HDYfaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UYNE9iht; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791393072; c=relaxed/simple;
+	bh=BMLwsLzFjLZ6w22GsxcUnP3peuDjbzLwrT8N0rvit80=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rIiB16qamwMFJSxmylwnHx0IPr8vwhQxaCKfntnquK+br1t+0wT2QypF83xxfH6fAV4XE47mJ2ePrTIe99tZOXRDWYifLLKpUPbSSZ/2cmWZzD1PqactSQPb89PuNJ+VopPuOU2s5hM2MqDiMuOcqemuPjJQjPY5nuJGe+TXxR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Sr5WwG6A; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=fFk/UCuM; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Sr5WwG6A; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=fFk/UCuM; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UYNE9iht"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3a4c80d3d5aso2405948a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 10:09:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791392955; x=1791997755; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9qisrSG06fr32K9n7D91imi7L0ftpnSuohblQxn5SCk=;
-        b=UYNE9ihtzrnEqH2MT40TuX3FpsjYuTaldUCTvtuh+VQJoyw5I7sarb0C8EQnaXRQzM
-         o0KqLHkynYsXeiZgXzUA78BN/J5Pp+lECh93bhX/Nxs3Q1ZZBKAic7pX9l9hhqWmQPN3
-         48rPT9jYECBcf/YMPz1iht809JykS6IRCNfYQLVYQ+YM/fF15FUZzLDdP3D++o7pTFcf
-         3fH2Wg1pcWdrTbQBcPH1AFhO6V5ahFvTPQgkeuYIu302cGn5xFh4XZYhi4+afC1Lw1fO
-         bWMcMPYkcuIY7dz7/DJ2dJuWat+agWAHClRt1xgW0t5awOUGRRK4T3zA7szU96zOV0YB
-         KMgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791392955; x=1791997755;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9qisrSG06fr32K9n7D91imi7L0ftpnSuohblQxn5SCk=;
-        b=l1XW4bYYsSM2DBJnI5IrBRSwY+Fc4jIV/0pxxpSmK9bn1HluFUPi130Xd5EGAkrrEc
-         lu2QiJ/rzmM/sM7HBvpdeyOYz2YIFr5G4fLEAxnj9dW+yv6lBk1OxRlWAvI5lm3foIWu
-         qVsrbvpIEM3iHFXQR1H2muwCtI70s/ZHdtMb99X3cBI1J1i3d1ydBHXYhlOSKPGIXi6O
-         eO0HmGNXPLWkcA8qcSUOhFF7uSI4wyjHYqSlXsafu5+R/bbGbs5qai3a0GgobvUPz9Jm
-         /KHm3q/qHKK1cH2KDGv7PR+rxmEXkR07BE0teDAWoKcxUgd1rb7O76ATwkbVLu/K//F+
-         O+lg==
-X-Forwarded-Encrypted: i=1; AKwUvByCfJzApiGCFx9Z899hLU/cJDH6hEeVw0lKYDxd8EAxZ+T7ik89mA2CGqaSnLADw4t83qYkk3P4C+98j5M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJkR08G2fO4bArr/qVkkpUzl1fZ7frgZeKx6yHrCkeF3mW+/GzW
-	AbdWmF3Ze9bZwYwosgKvY/kjlUjKDyIo3dG6+si+apzdTpaHRqFnfmJ/
-X-Gm-Gg: AYBFou1IPSw2SioiYM9Pa0ili8W3JPkIDx3xMHovR2/zeBa5l1+e6NKBzH+6KfXJ3rW
-	NyAkrfj6GL+vBkJ+ZuvY1ERVv5Q5ASEBsbiwzVlnJuUiH46x/VYafYqjL7TLiFwOazTTxXMcLXX
-	wSvVEOYwWAidpE3WNJlFIw6O1PTEhrAK4y5xrFTE4X3u6Whq0I25vMb3k3bSA02jY1m90NjSI5l
-	DQuYk1ibr7Sv+ovYDsMmKH8MPBmrXPLT3WMi75Dj/mbCrIB8UVx/Stt6JrZhelBzh9Vt1vsEThJ
-	Qliv+85op9SAocNKmFvE4oroRc+mwN9uAb1DECWKrfJmUqlpvUDBP31DEUsFBfwQIzUQCFDMv+a
-	CYQMrL+YgLmtgvx6YRF2sh+hZ7jYKJWr+R+ZTvcKAaqtoaGtrtSb96AvMlIfzTSFZIUMQVJ5zDi
-	BGrCUJSJCs6x33Hir/zIjdCpDNFEVDQ8nxWOIoMYtxmNtXYfMPiO6YlLd/ugTOFmB1TiEd4LjJJ
-	Q==
-X-Received: by 2002:a17:90b:5903:b0:3a6:d851:21e5 with SMTP id 98e67ed59e1d1-3a89f64976dmr2348538a91.4.1791392954916;
-        Wed, 07 Oct 2026 10:09:14 -0700 (PDT)
-Received: from [127.0.1.1] ([2602:ffe4:407:394:fbc8:92d6:904c:5de9])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9ff7ab32bsm297405a91.3.2026.10.07.10.09.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 10:09:14 -0700 (PDT)
-From: vineash <vineash30640@gmail.com>
-To:
- peterz@infradead.org, mingo@redhat.com, acme@kernel.org, namhyung@kernel.org
-Cc: kan.liang@linux.intel.com, mark.rutland@arm.com,
- alexander.shishkin@linux.intel.com, jolsa@kernel.org, irogers@google.com,
- adrian.hunter@intel.com, james.clark@linaro.org,
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2] perf/core: Fix double put of the system-wide perf_ctx_data
- reference
-Date: Thu, 08 Oct 2026 01:08:32 +0800
-Message-ID: <179139291278.1120510.13167877618594247003@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Sr5WwG6A";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="fFk/UCuM";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Sr5WwG6A";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="fFk/UCuM"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 0B38D21BBA;
+	Wed,  7 Oct 2026 17:11:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791393068; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=sVeUwK6dDNG0pAlRf04aXiitKEUoQgncZnpv11W/1cc=;
+	b=Sr5WwG6ARUzj1+xOE7xyatwbbVmp6mOdunRVzB5sKJ3S+LuFo59F9GcftHrbuDL2bAVEsX
+	7qVeBQ8eXAYVFbwFPgoI7MD6sJ5/EIH9QTPjqxJBJFKjjT2QV6PVSuqyMLCf9rIldRhwmc
+	UixrE8FyW02zkfyCdNw6B/Tkn+IbrHI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791393068;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=sVeUwK6dDNG0pAlRf04aXiitKEUoQgncZnpv11W/1cc=;
+	b=fFk/UCuMZzVKY0INgJ+NWkigwcdN8sqcl9HPLJcyt+uwEEBX5vfdjA94R2CaUHd3UpcLXZ
+	we7bSGU5UZgHomDg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Sr5WwG6A;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="fFk/UCuM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791393068; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=sVeUwK6dDNG0pAlRf04aXiitKEUoQgncZnpv11W/1cc=;
+	b=Sr5WwG6ARUzj1+xOE7xyatwbbVmp6mOdunRVzB5sKJ3S+LuFo59F9GcftHrbuDL2bAVEsX
+	7qVeBQ8eXAYVFbwFPgoI7MD6sJ5/EIH9QTPjqxJBJFKjjT2QV6PVSuqyMLCf9rIldRhwmc
+	UixrE8FyW02zkfyCdNw6B/Tkn+IbrHI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791393068;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=sVeUwK6dDNG0pAlRf04aXiitKEUoQgncZnpv11W/1cc=;
+	b=fFk/UCuMZzVKY0INgJ+NWkigwcdN8sqcl9HPLJcyt+uwEEBX5vfdjA94R2CaUHd3UpcLXZ
+	we7bSGU5UZgHomDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D55D513354;
+	Wed,  7 Oct 2026 17:11:07 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id ZupcLSt9xmrUfgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 07 Oct 2026 17:11:07 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: linux-sound@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH v2] ALSA: hda: Use linked list for jack table
+Date: Wed,  7 Oct 2026 19:10:54 +0200
+Message-ID: <20261007171057.7462-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_NONE(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:email,suse.de:dkim];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RCPT_COUNT_TWO(0.00)[2];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Action: no action
+X-Spam-Score: -3.01
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 0B38D21BBA
 
-The reference on a task's perf_ctx_data that belongs to the system-wide
-events (cd->global) can be put twice. __detach_global_ctx_data() puts it
-when the last system-wide event goes away, and perf_event_exit_task()
-puts it again when the task exits. perf_event_exit_task() runs without
-global_ctx_data_rwsem and never clears cd->global, so nothing stops both
-paths from putting the same reference:
+So far we've used snd_array infrastructure for managing the
+hda_jack_tbl elements, but it turned out that this may lead to a UAF
+when a different order of destruction procedure is applied; namely,
+each hda_jack_tbl object creates a snd_jack object and sets the
+private_data pointing to the hda_jack_tbl, and private_free to release
+it.  It looks harmless, but since snd_array may reallocate the whole
+table at growing, the formerly referred jack pointer may become stale.
 
-  CPU0                               CPU1 (task T exiting)
-  __detach_global_ctx_data()
-    cd->global = 0;
-    detach_task_ctx_data(T)
-      refcount_dec_and_test() == true
-                                     perf_event_exit_task(T)
-                                       detach_task_ctx_data(T)
-                                         cd = T->perf_ctx_data;
-                                         // still set: underflow
-                                         refcount_dec_and_test()
-      try_cmpxchg(&T->perf_ctx_data,
-                  &cd, NULL)
+Fortunately, currently there is no call pattern that triggers this
+issue, so it's only hypothetical, but we should address it in anyway.
 
-This shows up as:
+There are several ways to address this, and at this time, we rather
+redesign the hda_jack_tbl allocations: instead of snd_array(), do a
+normal kmalloc() + linked list.  There will be more kmalloc calls than
+the original code, but as the number of jacks are usually at most
+handful, it must not be a problem.  This change allows us the
+persistent jack pointer, so no stale pointer access can happen any
+longer.
 
-  refcount_t: underflow; use-after-free.
-  WARNING: lib/refcount.c:28 at refcount_warn_saturate+0xc9/0x120
-   detach_task_ctx_data+0x1db/0x4a0
-   do_exit+0x6a9/0x2bb0
-   do_group_exit+0xd3/0x2a0
-   get_signal+0x266a/0x26d0
+This also fixes another reported issue about the stale jack pointer
+reference in snd_hda_jack_tbl_new(), too.
 
-When the exit path puts first, the warning comes from
-__detach_global_ctx_data(), via perf_release() or via the error path of
-perf_event_open().
-
-An unprivileged user can open this window with the default
-perf_event_paranoid=2. For a CPU-wide event that requests a branch call
-stack, perf_event_alloc() calls attach_perf_ctx_data() before
-find_get_context() rejects the event with -EACCES, and the error path
-then runs detach_global_ctx_data().
-
-Treat the global reference as a one-shot token. Claim cd->global with
-xchg() in both __detach_global_ctx_data() and perf_event_exit_task(), and
-put the reference only if the claim succeeded. Also take the reference
-before setting cd->global in attach_global_ctx_data() and
-perf_event_alloc_task_data(). Otherwise the exit path could put a
-reference that has not been taken yet.
-
-attach_global_ctx_data() checks PF_EXITING without anything that keeps
-the task from exiting right after the check. If perf_event_exit_task()
-then looks at cd->global before the attach side sets it, nobody puts the
-global reference and the perf_ctx_data leaks once the task is gone. The
-reuse path in attach_task_ctx_data() has the same problem. Set ->global
-with xchg() in both places and check PF_EXITING again afterwards; if the
-task is exiting, claim ->global back and put the reference. The exit
-path sets PF_EXITING before its xchg(), and both xchg() calls are fully
-ordered, so at least one side sees the other and exactly one of them
-puts the reference.
-
-perf_event_exit_task() no longer puts the reference of a non-global
-perf_ctx_data. That reference belongs to the per-task events, and they
-put it when they are freed.
-
-Fixes: 506e64e710ff ("perf: attach/detach PMU specific data")
-Assisted-by: Claude:claude-opus-5-5 syzkaller
-Signed-off-by: vineash <vineash30640@gmail.com>
+Fixes: 31ef22579302 ("ALSA: hda - Integrate input-jack stuff into kctl-jack")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
-Changes in v2:
-- Close the race between attach_global_ctx_data() and an exiting task
-  that the Sashiko review pointed out. The new helper
-  attach_task_global_ctx_data() sets ->global with xchg() and checks
-  PF_EXITING again; the reuse path in attach_task_ctx_data() had the
-  same problem and now uses it too.
-- Read cd->global with READ_ONCE() in attach_global_ctx_data(); the
-  stores now go through xchg(), so they no longer race with the exit
-  path as plain accesses.
-- perf_event_alloc_task_data() is unchanged. It runs from
-  perf_event_fork() before wake_up_new_task(), so the child cannot be in
-  perf_event_exit_task() yet, and it holds global_ctx_data_rwsem for
-  read, which keeps __detach_global_ctx_data() and
-  attach_global_ctx_data() away from that child's cd->global.
+v1->v2: fix potential UAF with private_free call
 
-v1: https://lore.kernel.org/all/179105852659.1844849.16381123619267169417@gmail.com/
+ include/sound/hda_codec.h       |  6 ++-
+ sound/hda/common/codec.c        |  1 -
+ sound/hda/common/hda_jack.h     |  1 +
+ sound/hda/common/jack.c         | 79 ++++++++++++++++++---------------
+ sound/soc/sof/intel/hda-codec.c |  4 +-
+ 5 files changed, 51 insertions(+), 40 deletions(-)
 
-Tested on next-20261002 (x86_64, KASAN and kmemleak) with the syzkaller
-reproducer (15 minutes, about 63k programs) and the unprivileged one
-(15 minutes, about 185k rejected perf_event_open() calls racing with
-fork and exit): no warnings, and kmemleak finds nothing.
-
-The race fixed in v2 is too narrow to hit in a plain run, so I also
-tested it with an mdelay(50) added right after the PF_EXITING check in
-attach_global_ctx_data() (debug only). The test keeps a child's
-perf_ctx_data alive with a per-task event, opens a CPU-wide event, and
-lets the child exit while the attach is in that window; 100 rounds, with
-the exit timing swept so that about 80 rounds land in the window:
-
-  v1 + delay: 49 perf_ctx_data leaked (kmemleak)
-  v2 + delay:  0 leaked, no warnings
-
-This only covers attach_global_ctx_data(); the reuse path in
-attach_task_ctx_data() gets the same helper but is not exercised here.
-
- kernel/events/core.c | 66 ++++++++++++++++++++++++++++++++++----------
- 1 file changed, 51 insertions(+), 15 deletions(-)
-
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index a34ff4cb4..cc187cf9b 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -5422,6 +5422,27 @@ static inline void perf_free_ctx_data_rcu(struct perf_ctx_data *cd)
- 	call_rcu(&cd->rcu_head, __free_perf_ctx_data_rcu);
- }
+diff --git a/include/sound/hda_codec.h b/include/sound/hda_codec.h
+index 1d05f991f2ce..c7f29ad64e02 100644
+--- a/include/sound/hda_codec.h
++++ b/include/sound/hda_codec.h
+@@ -28,6 +28,7 @@ struct hda_codec;
+ struct hda_pcm;
+ struct hda_pcm_stream;
+ struct hda_codec_ops;
++struct hda_jack_tbl;
  
-+static void detach_task_global_ctx_data(struct task_struct *p);
-+
-+/*
-+ * Hand a reference on @cd, which the caller already holds, to the
-+ * system-wide events.
-+ *
-+ * perf_event_exit_task() drops that reference only if it finds ->global set,
-+ * and it does not take global_ctx_data_rwsem. If @p started exiting after
-+ * the caller checked PF_EXITING, the exit path may already have looked at
-+ * ->global. Both xchg() calls are fully ordered, so either the exit path
-+ * sees ->global set or we see PF_EXITING here; whoever clears ->global then
-+ * puts the reference.
-+ */
-+static void attach_task_global_ctx_data(struct task_struct *p,
-+					struct perf_ctx_data *cd)
-+{
-+	xchg(&cd->global, 1);
-+	if (READ_ONCE(p->flags) & PF_EXITING)
-+		detach_task_global_ctx_data(p);
-+}
-+
- static int
- attach_task_ctx_data(struct task_struct *task, struct kmem_cache *ctx_cache,
- 		     bool global, gfp_t gfp_flags)
-@@ -5459,9 +5480,9 @@ attach_task_ctx_data(struct task_struct *task, struct kmem_cache *ctx_cache,
- 		}
+ /*
+  * codec bus
+@@ -274,7 +275,8 @@ struct hda_codec {
+ 				 struct hda_codec *codec, hda_nid_t nid);
  
- 		if (refcount_inc_not_zero(&old->refcount)) {
--			if (global)
--				old->global = true;
- 			free_perf_ctx_data(cd); /* unused */
-+			if (global)
-+				attach_task_global_ctx_data(task, old);
- 			return 0;
- 		}
+ 	/* jack detection */
+-	struct snd_array jacktbl;
++	struct hda_jack_tbl *jacktbl, *jacktbl_last; /* linked list head/tail */
++	int jacktbl_used; /* number of jacktbl elements */
+ 	unsigned long jackpoll_interval; /* In jiffies. Zero means no poll, rely on unsol events */
+ 	struct delayed_work jackpoll_work;
  
-@@ -5497,9 +5518,10 @@ attach_global_ctx_data(struct kmem_cache *ctx_cache)
- 			if (p->flags & PF_EXITING)
- 				continue;
- 			cd = rcu_dereference(p->perf_ctx_data);
--			if (cd && !cd->global) {
--				cd->global = 1;
--				if (!refcount_inc_not_zero(&cd->refcount))
-+			if (cd && !READ_ONCE(cd->global)) {
-+				if (refcount_inc_not_zero(&cd->refcount))
-+					attach_task_global_ctx_data(p, cd);
-+				else
- 					cd = NULL;
- 			}
- 			if (!cd) {
-@@ -5569,19 +5591,33 @@ detach_task_ctx_data(struct task_struct *p)
- 		perf_free_ctx_data_rcu(cd);
- }
+@@ -519,7 +521,7 @@ void snd_hda_update_power_acct(struct hda_codec *codec);
  
-+/*
-+ * Drop the reference owned by the system-wide events, if @p still holds one.
-+ *
-+ * Both __detach_global_ctx_data() and perf_event_exit_task() may try to drop
-+ * it concurrently; claiming ->global with xchg() makes sure only one of them
-+ * does, otherwise the refcount is decremented twice.
-+ */
-+static void detach_task_global_ctx_data(struct task_struct *p)
-+{
-+	struct perf_ctx_data *cd;
-+
-+	scoped_guard (rcu) {
-+		cd = rcu_dereference(p->perf_ctx_data);
-+		if (!cd || !xchg(&cd->global, 0))
-+			return;
-+	}
-+
-+	detach_task_ctx_data(p);
-+}
-+
- static void __detach_global_ctx_data(void)
+ static inline bool hda_codec_need_resume(struct hda_codec *codec)
  {
- 	struct task_struct *g, *p;
--	struct perf_ctx_data *cd;
- 
- 	scoped_guard (rcu) {
--		for_each_process_thread(g, p) {
--			cd = rcu_dereference(p->perf_ctx_data);
--			if (cd && cd->global) {
--				cd->global = 0;
--				detach_task_ctx_data(p);
--			}
--		}
-+		for_each_process_thread(g, p)
-+			detach_task_global_ctx_data(p);
- 	}
- }
- 
-@@ -9459,8 +9495,8 @@ perf_event_alloc_task_data(struct task_struct *child,
- 		}
- 
- 		if (!cd->global) {
--			cd->global = 1;
- 			refcount_inc(&cd->refcount);
-+			cd->global = 1;
- 		}
- 	}
- 
-@@ -14901,7 +14937,7 @@ void perf_event_exit_task(struct task_struct *task)
- 	 * attach_global_ctx_data() will skip over this task, but otherwise
- 	 * attach_task_ctx_data() will observe PF_EXITING.
- 	 */
--	detach_task_ctx_data(task);
-+	detach_task_global_ctx_data(task);
+-	return !codec->relaxed_resume && codec->jacktbl.used;
++	return !codec->relaxed_resume && codec->jacktbl_used;
  }
  
  /*
+diff --git a/sound/hda/common/codec.c b/sound/hda/common/codec.c
+index c61fd79c48f3..b79346d01021 100644
+--- a/sound/hda/common/codec.c
++++ b/sound/hda/common/codec.c
+@@ -921,7 +921,6 @@ snd_hda_codec_device_init(struct hda_bus *bus, unsigned int codec_addr,
+ 	snd_array_init(&codec->driver_pins, sizeof(struct hda_pincfg), 16);
+ 	snd_array_init(&codec->cvt_setups, sizeof(struct hda_cvt_setup), 8);
+ 	snd_array_init(&codec->spdif_out, sizeof(struct hda_spdif_out), 16);
+-	snd_array_init(&codec->jacktbl, sizeof(struct hda_jack_tbl), 16);
+ 	snd_array_init(&codec->verbs, sizeof(struct hda_verb *), 8);
+ 	INIT_LIST_HEAD(&codec->conn_list);
+ 	INIT_LIST_HEAD(&codec->pcm_list_head);
+diff --git a/sound/hda/common/hda_jack.h b/sound/hda/common/hda_jack.h
+index e9b9970c59ed..a06b315e4b05 100644
+--- a/sound/hda/common/hda_jack.h
++++ b/sound/hda/common/hda_jack.h
+@@ -44,6 +44,7 @@ struct hda_jack_tbl {
+ 	int type;
+ 	int button_state;
+ 	struct snd_jack *jack;
++	struct hda_jack_tbl *next;
+ };
+ 
+ struct hda_jack_keymap {
+diff --git a/sound/hda/common/jack.c b/sound/hda/common/jack.c
+index c3efab3b5bfe..6b8aa1a6c008 100644
+--- a/sound/hda/common/jack.c
++++ b/sound/hda/common/jack.c
+@@ -76,12 +76,11 @@ static u32 read_pin_sense(struct hda_codec *codec, hda_nid_t nid, int dev_id)
+ struct hda_jack_tbl *
+ snd_hda_jack_tbl_get_mst(struct hda_codec *codec, hda_nid_t nid, int dev_id)
+ {
+-	struct hda_jack_tbl *jack = codec->jacktbl.list;
+-	int i;
++	struct hda_jack_tbl *jack;
+ 
+-	if (!nid || !jack)
++	if (!nid)
+ 		return NULL;
+-	for (i = 0; i < codec->jacktbl.used; i++, jack++)
++	for (jack = codec->jacktbl; jack; jack = jack->next)
+ 		if (jack->nid == nid && jack->dev_id == dev_id)
+ 			return jack;
+ 	return NULL;
+@@ -98,12 +97,11 @@ struct hda_jack_tbl *
+ snd_hda_jack_tbl_get_from_tag(struct hda_codec *codec,
+ 			      unsigned char tag, int dev_id)
+ {
+-	struct hda_jack_tbl *jack = codec->jacktbl.list;
+-	int i;
++	struct hda_jack_tbl *jack;
+ 
+-	if (!tag || !jack)
++	if (!tag)
+ 		return NULL;
+-	for (i = 0; i < codec->jacktbl.used; i++, jack++)
++	for (jack = codec->jacktbl; jack; jack = jack->next)
+ 		if (jack->tag == tag && jack->dev_id == dev_id)
+ 			return jack;
+ 	return NULL;
+@@ -113,12 +111,11 @@ EXPORT_SYMBOL_GPL(snd_hda_jack_tbl_get_from_tag);
+ static struct hda_jack_tbl *
+ any_jack_tbl_get_from_nid(struct hda_codec *codec, hda_nid_t nid)
+ {
+-	struct hda_jack_tbl *jack = codec->jacktbl.list;
+-	int i;
++	struct hda_jack_tbl *jack;
+ 
+-	if (!nid || !jack)
++	if (!nid)
+ 		return NULL;
+-	for (i = 0; i < codec->jacktbl.used; i++, jack++)
++	for (jack = codec->jacktbl; jack; jack = jack->next)
+ 		if (jack->nid == nid)
+ 			return jack;
+ 	return NULL;
+@@ -142,12 +139,19 @@ snd_hda_jack_tbl_new(struct hda_codec *codec, hda_nid_t nid, int dev_id)
+ 
+ 	if (jack)
+ 		return jack;
+-	jack = snd_array_new(&codec->jacktbl);
++	jack = kzalloc_obj(*jack);
+ 	if (!jack)
+ 		return NULL;
+ 	jack->nid = nid;
+ 	jack->dev_id = dev_id;
+ 	jack->jack_dirty = 1;
++	if (!codec->jacktbl)
++		codec->jacktbl = jack;
++	else
++		codec->jacktbl_last->next = jack;
++	codec->jacktbl_last = jack;
++	codec->jacktbl_used++;
++
+ 	if (existing_nid_jack) {
+ 		jack->tag = existing_nid_jack->tag;
+ 
+@@ -158,7 +162,7 @@ snd_hda_jack_tbl_new(struct hda_codec *codec, hda_nid_t nid, int dev_id)
+ 		 */
+ 		jack->jack_detect = existing_nid_jack->jack_detect;
+ 	} else {
+-		jack->tag = codec->jacktbl.used;
++		jack->tag = codec->jacktbl_used;
+ 	}
+ 
+ 	return jack;
+@@ -166,10 +170,9 @@ snd_hda_jack_tbl_new(struct hda_codec *codec, hda_nid_t nid, int dev_id)
+ 
+ void snd_hda_jack_tbl_disconnect(struct hda_codec *codec)
+ {
+-	struct hda_jack_tbl *jack = codec->jacktbl.list;
+-	int i;
++	struct hda_jack_tbl *jack;
+ 
+-	for (i = 0; i < codec->jacktbl.used; i++, jack++) {
++	for (jack = codec->jacktbl; jack; jack = jack->next) {
+ 		if (!codec->bus->shutdown && jack->jack)
+ 			snd_device_disconnect(codec->card, jack->jack);
+ 	}
+@@ -177,22 +180,31 @@ void snd_hda_jack_tbl_disconnect(struct hda_codec *codec)
+ 
+ void snd_hda_jack_tbl_clear(struct hda_codec *codec)
+ {
+-	struct hda_jack_tbl *jack = codec->jacktbl.list;
+-	int i;
++	struct hda_jack_tbl *jack, *jack_next;
+ 
+-	for (i = 0; i < codec->jacktbl.used; i++, jack++) {
++	for (jack = codec->jacktbl; jack; jack = jack_next) {
+ 		struct hda_jack_callback *cb, *next;
+ 
+-		/* free jack instances manually when clearing/reconfiguring */
+-		if (!codec->bus->shutdown && jack->jack)
+-			snd_device_free(codec->card, jack->jack);
++		jack_next = jack->next;
++
++		if (jack->jack) {
++			/* fingers away from stale data */
++			jack->jack->private_data = NULL;
++			jack->jack->private_free = NULL;
++			/* free jack instances manually when clearing/reconfiguring */
++			if (!codec->bus->shutdown)
++				snd_device_free(codec->card, jack->jack);
++		}
+ 
+ 		for (cb = jack->callback; cb; cb = next) {
+ 			next = cb->next;
+ 			kfree(cb);
+ 		}
++		kfree(jack);
+ 	}
+-	snd_array_free(&codec->jacktbl);
++
++	codec->jacktbl = codec->jacktbl_last = NULL;
++	codec->jacktbl_used = 0;
+ }
+ 
+ #define get_jack_plug_state(sense) !!(sense & AC_PINSENSE_PRESENCE)
+@@ -238,10 +250,9 @@ static void jack_detect_update(struct hda_codec *codec,
+  */
+ void snd_hda_jack_set_dirty_all(struct hda_codec *codec)
+ {
+-	struct hda_jack_tbl *jack = codec->jacktbl.list;
+-	int i;
++	struct hda_jack_tbl *jack;
+ 
+-	for (i = 0; i < codec->jacktbl.used; i++, jack++)
++	for (jack = codec->jacktbl; jack; jack = jack->next)
+ 		if (jack->nid)
+ 			jack->jack_dirty = 1;
+ }
+@@ -478,19 +489,17 @@ EXPORT_SYMBOL_GPL(snd_hda_jack_set_button_state);
+ void snd_hda_jack_report_sync(struct hda_codec *codec)
+ {
+ 	struct hda_jack_tbl *jack;
+-	int i, state;
++	int state;
+ 
+ 	/* update all jacks at first */
+-	jack = codec->jacktbl.list;
+-	for (i = 0; i < codec->jacktbl.used; i++, jack++)
++	for (jack = codec->jacktbl; jack; jack = jack->next)
+ 		if (jack->nid)
+ 			jack_detect_update(codec, jack);
+ 
+ 	/* report the updated jacks; it's done after updating all jacks
+ 	 * to make sure that all gating jacks properly have been set
+ 	 */
+-	jack = codec->jacktbl.list;
+-	for (i = 0; i < codec->jacktbl.used; i++, jack++)
++	for (jack = codec->jacktbl; jack; jack = jack->next)
+ 		if (jack->nid) {
+ 			if (!jack->jack || jack->block_report)
+ 				continue;
+@@ -758,10 +767,10 @@ EXPORT_SYMBOL_GPL(snd_hda_jack_unsol_event);
+  */
+ void snd_hda_jack_poll_all(struct hda_codec *codec)
+ {
+-	struct hda_jack_tbl *jack = codec->jacktbl.list;
+-	int i, changes = 0;
++	struct hda_jack_tbl *jack;
++	int changes = 0;
+ 
+-	for (i = 0; i < codec->jacktbl.used; i++, jack++) {
++	for (jack = codec->jacktbl; jack; jack = jack->next) {
+ 		unsigned int old_sense;
+ 		if (!jack->nid || !jack->jack_dirty || jack->phantom_jack)
+ 			continue;
+diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
+index fd371850b0d6..91f7ca22a4a7 100644
+--- a/sound/soc/sof/intel/hda-codec.c
++++ b/sound/soc/sof/intel/hda-codec.c
+@@ -89,7 +89,7 @@ void hda_codec_jack_wake_enable(struct snd_sof_dev *sdev, bool enable)
+ 		list_for_each_codec(codec, hbus) {
+ 			/* only set WAKEEN when needed for HDaudio codecs */
+ 			mask |= BIT(codec->core.addr);
+-			if (codec->jacktbl.used)
++			if (codec->jacktbl_used)
+ 				val |= BIT(codec->core.addr);
+ 		}
+ 	} else {
+@@ -118,7 +118,7 @@ void hda_codec_jack_check(struct snd_sof_dev *sdev)
+ 		 * Wake up all jack-detecting codecs regardless whether an event
+ 		 * has been recorded in STATESTS
+ 		 */
+-		if (codec->jacktbl.used)
++		if (codec->jacktbl_used)
+ 			pm_request_resume(&codec->core.dev);
+ }
+ EXPORT_SYMBOL_NS_GPL(hda_codec_jack_check, "SND_SOC_SOF_HDA_AUDIO_CODEC");
 -- 
-2.25.1
+2.55.0
 
