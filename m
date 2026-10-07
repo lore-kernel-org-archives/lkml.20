@@ -1,102 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sonic305-22.consmr.mail.ne1.yahoo.com (sonic305-22.consmr.mail.ne1.yahoo.com [66.163.185.148])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FB9237DEA8;
-	Wed,  7 Oct 2026 20:45:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BB5A3D301D
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 20:45:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.185.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791405904; cv=none; b=OboxU3fbR1ewrern0PFY6u5ji3oQJtysD97uMUeBzvjsnYfbsfYe+W8fhlnTjrqereMikLUzg7Wg3OZ6wCqtAD5QAfLpp1JHvd1F5SMmSiZ2WDT6HrxDrt6W7/HsKN8TQ5spivJcmqp3FAxx9tLay4G7H/HqbQSKfROefYBrbMo=
+	t=1791405904; cv=none; b=MEqgOAAYpEMjFpPy3Uz/63iQajd6o58bQMhJxwYSzwzTPR8ZGQwAOnlHI2803UhuRzgH+glBhRTCrMZ1MrUMzWJMQDEbaV98pAzcYlc2DyzSre3zC72Hnnm2RGOCDOCHNdkooFXr+HkzXJIjpf0n6vPvl1q079/1KMt9KAceI2U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791405904; c=relaxed/simple;
-	bh=N3+nWEgxtcfiIiUwZhUc5izpXeRqDTFuURJx+9f8Eus=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=cjUs5MYhl3SdQhjqvYhIyC0ZEEN9ZkGLSadx3xNbIqS19QMfLvZMh+8NNqp9XsEqh1qQ2pVFgj4FvzbeB2+UeelZNWVJhfx2rQBrdxQ9r/nTQ5C2VzCsckrEunUHGKHIKIkWCIHZbv2T3FGjcU7xYiYIwr2hHeyJ3zOVJKnbuFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TC+MzKa0; arc=none smtp.client-ip=100.103.45.18
+	bh=0TJUG9pu3Cn2+eiZJOCPJkkHRXEmXYRx2sBJ2Y78yBg=;
+	h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type:
+	 References; b=bvIZNu8oEh17m27syaj1hnDX4yzsxr9NohaO3AHLTtxfqHJ3bQFI8jPMZDl8BDS005QKhgi6jCscvJFNNSrfizuBz74EjQNBEdpETAEllUh1m0QSHzdfrKE43EDfm+7rcNPXdkXnmdgtWOs2Qq68pRDsv3DYcc+gj5/ITg5RpPQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=WKAV5iNY; arc=none smtp.client-ip=66.163.185.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TC+MzKa0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B3C31F000FF;
-	Wed,  7 Oct 2026 20:45:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791405903;
-	bh=BRawPLi7IhriJG9LEf4ROYinnxMjkk458OuwTHyTWt8=;
-	h=Date:From:To:Cc:Subject:Reply-To;
-	b=TC+MzKa0RzdAeanrcLgTafqlMQSApM1iZPxi/7aQcjM1kZ2BNZ3FPsCRYu8VmY4uR
-	 ogex/SBhsA3bpnIVquwqV3B2+sVa/XfECLDpFcnMnU+XvVB6qqq1Fa9ikJ7SAIsLlc
-	 6V6MBd9rYitYsNNaHsxgh7eI824TGrSsyOwu59GbZ8dYvQQ1pNBkoUeuypRbV4/tQW
-	 WTtbBkVINh2OaCOctM3jXpue61sQBDxym7qozovv2P+3d8mn5BKjDMH2K6huKkiXBT
-	 k5s7zCZwAlnhPsEw9HkcLFZyul8u8MNxnKAE6bX/TLpuCZ54Ll6lBbipV6/HGSuVJB
-	 o3W+rWFaMBYiw==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 93F73CE0D79; Wed,  7 Oct 2026 13:45:02 -0700 (PDT)
-Date: Wed, 7 Oct 2026 13:45:02 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: rcu@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, rostedt@goodmis.org
-Subject: [PATCH v2 0/10] Miscellaneous RCU updates for v7.4
-Message-ID: <df33a614-9c3d-423d-9d31-b1846cb1f1d6@paulmck-laptop>
-Reply-To: paulmck@kernel.org
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="WKAV5iNY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791405902; bh=OJ8pNG9qdSi9jb/9SeMyk+yHe0vCA/py3E7LD/TuWg8=; h=Date:To:From:Subject:References:From:Subject:Reply-To; b=WKAV5iNYya8ctNKHzNoBsYXJUX89yKzjwhP18fpxoprDhL4kln2Ydnunld85+baa8hLotqmkXGHuxYlMYXW19JOfMKQ/5P1sH+Fmk6+NkCFocfG45A2J4vqISLopizw7u9NeXCjTt/yIjZBAsLiI+i04haMrF5VY6ffS8sniqbXZ/eiJ3nfSFPRFgYrB7Pi6aBnKdHplfTFrvy9V/imKArEyD5I/3Z1H8y9jgGfJ3I50qUn1WXR184vmogsIOU9fqoZUppKxrRIyjfEo1Qu+oj7k2GAa+epeUJ2Iu70h9F/6XgXB0nPM+TPFLBp7MG8zepkQnrwTimIi7VfnZF3zmA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791405902; bh=oZ4tEF1Ha8YUq0Pl7s3SP3RPC5SLvP2kC/57TCqkl5P=; h=X-Sonic-MF:Date:To:From:Subject:From:Subject; b=kH/qXOFRUglxgALjbxusgRO9kpurrWNHozPHopg0z0SUzKzGUMTVEW1VBek328q7QnzX6546Rt6CmPLLStZUsNA1+sM+7nUSmykhF2utonRy9/R2jJWOlWr14gmHUNcMP779DSpIk33bkuB6hpgwLSCsODx1jCRc2FsHeXcB7g272gO1/+FJ8j+k8iOV8N1bdtvqa8R+mDp+sBgoxbHwX1C71KnxZsTTLx4V5L/eY2N8htDPkdMuFuu0QsPV1/DKrJSG52E66YVtccVr5Gc8rSgjaxkva5nsTDNCpXMWVKwz//FpBIQFUXUTCieeNYPvMw8E5aDVT6Ow2HYNUIgKzw==
+X-YMail-OSG: 4ln0jEkVM1nDpOHNpM7twu1v_sw4Ac1iL7DOU_eKvwX1XzYdQ70dh.YPOtyZ8ex
+ 3cDlj1Zyj.1XnRT_GPAJctpElkr9r6fNjb3BtCNknnTqIhmP8IDlab8OS5unn9V6bbFDmorI4IqY
+ lSrUC7wR4Yt9ddnFy_iqr3s.CSsr80dnAuNH6KbROQlxmBtDmESR9_b7bBuRF1IoC5D9SkmQ2lV1
+ NPp11zkD4FAbzW2GmhPz3jH1o52Tb5cG33Fn5FYxnzoaOt8zhon515e.0ZpGxiHPn7AIHAEDVjNN
+ ke5njT97DM8zJQxok_Qt79Oo4t..ibxqe5SlQILjV5hzz6YhCEsbtOVCyWBS147zVNYvR71nSV7X
+ 48UtgrNIfXxodRaqVoZOBm.GNih5zeJnNslqdInNGVnL7ey.eJMvLAKxtt9fhY0bGIDkxbqY3pxF
+ M.EiNb2IVPhHr8nXHqEnafOkxhOIGGKWEBG3Xphy7v1k6D_hDLdeF_aPssiaYXkDb42NHZ6vXHQ.
+ qq5q.dttj45W__cDElkOKL7M8nKzd.0Chj1GPcJQ3Qn0mt475ajKdGJntnlXiXs21jOIQxIW16oz
+ an6Un47RgngyvkySiFltaOh16YkKp2NTnHTlNbFyroOEfOfpFNkzMpAHfebDvSLZMxG2MEgPMly2
+ vE1.gKM2DDOQn9gw4FMQDHBCZeL2UoWRaHpEtjQ1mQEe0BDctTNM3JuK0u4g3Psu58aMIeV0wKcW
+ 1Img5.B9QsV69dmFxJruyv8O8eX0Qay7hyOZo.5qQl4wnTvqJM2wrk_1txUQBVt_6CAt61NYelKu
+ 2Larb0.yxiir0YET3SNXkPFKGoZYvj9aIyVyAKVVaS94WTxRbEhTaBYDQX1y_GyQbAvmACB1VBck
+ 7KFMmQWwC2Y7FMhwadK1PQ__7ooKh9cRTCIBYNG.SJbyTnNoudBGoK891vKoZRopeM7Lg0ZnpRb2
+ EHb4msWkufekOR1nsHvunKfvOgD6IXrVYhnHo_VP24bt5Au77ctfaGMNLdmJ_uW.q8UPg_mXS6ny
+ 2Bj8ZN1S1h_ALBa.qvISXxpedplQYxugShigCunrKunkkqsDHR_DqIkFSGSbwUszjgCz4kxon16.
+ huZCF_hAY.bukWwV3INE.OV2P0yjrWiRXQtkcExvKry3xYTt0uwx83Q8U.119_rHCnOGQVmocF.k
+ .5UMrzw8nnf4SnKxomMIU6xBo5GpwzPX_Bms8_ha.cU4WTBgk76C7OMef_gvhSWhrDcPqKFZKPzV
+ GrrPGZse3wax2AJ8ji8QYjGO6YqqJpM6kuPUvl8fDYcNWB2.2NtEI7oV1yBnyUb.3RLfpVjxIDOf
+ D2VumQe8NdzXY39Vr5RZZ10dFRe2y7OXU44Hi7276Ck.o4bNWr1w6t18QUKcz0J5Re..bwMvqkdY
+ ZcJqYxfl5kaODsNwe335h1arWagY_Bbt7NNdQFCPZP2AcPP4s9Ye3RxGmF.cs24i2xWK0ICBR5.Z
+ nSK6lIMuyrX.FUnloVk9ArF_KvGTlEceYO2Ig3rCxDD0dGTdWvbpEjYtg_pkNsiqu3snCsVXIMbZ
+ eWctZiR67vxlt5wsOUiqTJHoY7L8mde1fCER2FGcO0Gz2rkvQBTGM9ax0m5yBTAwLndZm4WS0Pmk
+ 58r2ZlSNMZZppxaLSrmiKPhxTAC0h_thzUUCjWoaKhMzXN3zz02vA3PS5VJv2UbRRXBHL0KL_j20
+ Lb9TcGMl41uFGvta7fCHHjJiAO.mdIsZH3l.KD.OePZCLfiflmMuV4YMkbjkbw64JlqLj1UYFzTk
+ uGQZPo7Q7T7q9XkZ1OPW4hFQJAwCvEWIn_8GppA1X2x_fpJPKPi3emS4JDM5xB98QFf9uFIOwuo2
+ hY2ogmPc0DRbXzAyUFen.B0DffiMTTKPQ2gVPub1zYMxpKbBx8shls6PHRnL.nakDXFPSqfD2uQP
+ rU89w.b1ipFg4Z4.CP2Z.36MbSgouWtp6SiO6NvhKjm9k_VGudbzm2dobJAbTodwCJPW4H_CVm5m
+ D4X9011L2EUorbrKI7kl5s_7Ci4Kw1_cW5lC2FQ5OATxMt2ydvy8uCxvXc7G1KUjlU_RkMFyHy5L
+ LjMwQXNCjymweo0pAaI6Euv8DIq2elYe8EbE4ybddMPABCRNKH81Iy835J2qSnZCQFI7HXsTPXHo
+ XhkI4qtsvxH_YvssH0jCVZjy_.eKb2i8eKse1HpdslmRYG3FWb7qMZsTpLOnPDpUO0LWn5hajG37
+ O6zoLFvgMfyUGxeCn2_5goi9GlqRTvDu9Z.t8WTqQNHA0tTTz43N2v7QIjwWaHR7BlVbc3eCJxhe
+ AF8u8vMgL17NfndsuaOSTDB6nyvo-
+X-Sonic-MF: <namiltd@yahoo.com>
+X-Sonic-ID: 77ff1bad-b4a0-4591-b7a2-296957345f37
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic305.consmr.mail.ne1.yahoo.com with HTTP; Wed, 7 Oct 2026 20:45:02 +0000
+Received: by hermes--production-bf1-6d6877594b-7khjh (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID f16f9c62dd119540405e9b85040b9773;
+          Wed, 07 Oct 2026 20:34:42 +0000 (UTC)
+Message-ID: <84fc7483-b22d-45ea-a3b8-3285dc357265@yahoo.com>
+Date: Wed, 7 Oct 2026 22:34:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Content-Language: pl
+To: linusw@kernel.org, alsi@bang-olufsen.dk, andrew@lunn.ch,
+ olteanv@gmail.com, kuba@kernel.org, davem@davemloft.net,
+ edumazet@google.com, pabeni@redhat.com, linux@armlinux.org.uk,
+ luizluca@gmail.com, maxime.chevallier@bootlin.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+Subject: [PATCH net-next 0/8] net: dsa: realtek: rtl8365mb: add support for
+ RTL8367S-VB
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+References: <84fc7483-b22d-45ea-a3b8-3285dc357265.ref@yahoo.com>
+X-Mailer: WebService/1.1.26668 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
-Hello!
+This series adds support for the RTL8367S-VB (chip ID 0x6642) to the
+rtl8365mb driver. The chip belongs to a new "family D" that differs from
+the existing family C in its VLAN table layout, speed/RGMII configuration
+and SerDes (SDS13) handling.
 
-This series provides miscellaneous RCU updates for v7.4:
+Patch 1 detects the chip and introduces the family D branch.
+Patches 2-4 add port speed, PVID read and RGMII mode configuration.
+Patches 5-6 add VLAN 4k table access and PVID set/clear.
+Patches 7-8 add SDS13 PCS support and re-latching of the SerDes.
 
-1.	Update stallwarn.rst based on RCU Tasks Trace as SRCU.
+Family C's functional behaviour is unchanged. The only change in a
+shared path is a mutex serializing SerDes register access, added in
+patch 8.
 
-2.	fix shrink budget underflow in lazy_rcu_shrink_scan, courtesy
-	of Longlong Xia.
+Tested on TP-Link Archer AX55 v1 (RTL8367S-VB, CPU port over HSGMII to ipq5018)
+with bridge VLAN filtering and per-port PVIDs.
 
-3.	Don't panic on already-ended RCU CPU stalls.
+Mieczyslaw Nalewaj (8):
+  net: dsa: realtek: rtl8365mb: detect RTL8367S-VB
+  net: dsa: realtek: rtl8365mb: set speed for family D
+  net: dsa: realtek: rtl8365mb: get pvid for family D
+  net: dsa: realtek: rtl8365mb: set RGMII mode for family D
+  net: dsa: realtek: rtl8365mb: set and get vlan 4k for family D
+  net: dsa: realtek: rtl8365mb: set/clear pvid for family D
+  net: dsa: realtek: rtl8365mb: add family D SDS13 PCS support
+  net: dsa: realtek: rtl8365mb: re-latch the family D SerDes
 
-4.	Add running and boosted indications to RCU task stall dump.
+ drivers/net/dsa/realtek/rtl8365mb.h      |  14 +
+ drivers/net/dsa/realtek/rtl8365mb_main.c | 545 ++++++++++++++++++++---
+ drivers/net/dsa/realtek/rtl8365mb_vlan.c | 304 ++++++++++---
+ 3 files changed, 752 insertions(+), 111 deletions(-)
+ create mode 100644 drivers/net/dsa/realtek/rtl8365mb.h
 
-5.	Fix typo "upto" in comment, courtesy of Hemanth Selam.
+-- 
+2.53.0
 
-6.	Drop the private tick-internal.h include from tree.c, courtesy
-	of Bradley Morgan.
-
-7.	Make userspace barrier hook drain kvfree_rcu work, courtesy of
-	Matthias Goergens.
-
-8.	Fix the rcuread_is_dead reference in rcuref_read() kernel-doc,
-	courtesy of Karl Mehltretter.
-
-9.	Disable callback contend/collapse messages by default.
-
-10.	Drop the address space qualifier from the dereference macros,
-	courtesy of Ricardo Ribalda.
-
-Changes since v1:
-https://lore.kernel.org/all/7dc2d858-44cc-4efa-8e94-1fe27d691f2b@paulmck-laptop/
-
-o	Add patch 10.
-
-o	Add tags.
-
-						Thanx, Paul
-
-------------------------------------------------------------------------
-
- Documentation/admin-guide/kernel-parameters.txt   |    7 +++++
- b/Documentation/RCU/stallwarn.rst                 |   22 ++++++----------
- b/Documentation/admin-guide/kernel-parameters.txt |    9 ++++--
- b/include/linux/compiler.h                        |   17 ++++++++++++
- b/include/linux/rcupdate.h                        |   10 +++----
- b/include/linux/rcuref.h                          |    2 -
- b/kernel/rcu/srcutree.c                           |    2 -
- b/kernel/rcu/tasks.h                              |   15 ++++++++---
- b/kernel/rcu/tree.c                               |    1 
- b/kernel/rcu/tree_exp.h                           |    2 -
- b/kernel/rcu/tree_nocb.h                          |    3 --
- b/kernel/rcu/tree_plugin.h                        |    2 -
- b/kernel/rcu/tree_stall.h                         |   12 ++++++--
- kernel/rcu/tree.c                                 |   30 ++++++++++++++--------
- kernel/rcu/tree_stall.h                           |   24 ++++++++++++++++-
- 15 files changed, 111 insertions(+), 47 deletions(-)
