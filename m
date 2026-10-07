@@ -1,233 +1,122 @@
-Received: from mail-4320.protonmail.ch (mail-4320.protonmail.ch [185.70.43.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EA773D0927
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 18:30:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 844E134B40F
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 18:31:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791397843; cv=none; b=Rma8xPUx578tBx6vnNLxd4R5hQP+Eho1l05aNs2bvQLzwvCAciRczzhvV66FCfdR4IURJvNYPDVRMu1lng6PPyj6FNXIQyCVX7sv5D8H/LePoo1FvM2eT1gi5cxW2eG5JZiJteRDaA7J0GsQYx2Bv1GVhTZDdXg0aX6WHXvA3n4=
+	t=1791397903; cv=none; b=l9+0hdQZMMNZTRQuLMtkEXWW3buzBBbwXrDZiy3ttX3WvQCgJ0jalUKGC0k7T7inULFirbsk3ZYlHFHKBOmJturqjzelOZkVPMva3n7T1p6qlruEnjb+5Kt4sCbL7xdoYuZYglnHqe7CdwLIT/nPfe5wpvbkypl6HXmmTZp1pqQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791397843; c=relaxed/simple;
-	bh=dty6bX0TpqfNox09g+PEjq/uh4bZ25fulB3qoljVxg4=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ES7XnDQJhYlX9rqbJzwtTLa5/ThSLb6jc4gCfNkG2KProKsbUNYxh3e2AtmR6WHUS74s82NIqOqellfK23a5kQ42YrmfJ9PeGt9ieWXxJGrhP/WnxaOrSLpA3HlBcSsL2adq9jt5your3v5XNT4x9tKnHKmpTNx9V34KiyNCrLk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kylegospodneti.ch; spf=pass smtp.mailfrom=kylegospodneti.ch; dkim=pass (2048-bit key) header.d=kylegospodneti.ch header.i=@kylegospodneti.ch header.b=xA668s1m; arc=none smtp.client-ip=185.70.43.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kylegospodneti.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylegospodneti.ch
+	s=arc-20240116; t=1791397903; c=relaxed/simple;
+	bh=ylbfZCyJ5GnjuZAJ6qCynAVt6R/JcI2NvNY/tgpcmdE=;
+	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=U+n9u0qbwFcAnW7mk9nQG8PbHMrge9WZNBUizEuOMXGokhdsGMGzvL9MNzAdpEhvQmufk4D4O+1fFFyBVuNK0dZ+eE6wNlERrntxToLsk6PQR9wI/tVsYTRyAK5O9sssUGtPVIbQxnxEOb8beHJ/jQAGz75fPXxZXRKASa5sHp8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VxoJ7Kew; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kylegospodneti.ch header.i=@kylegospodneti.ch header.b="xA668s1m"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kylegospodneti.ch;
-	s=protonmail3; t=1791397831; x=1791657031;
-	bh=2t5dWYok++vN5ZNtz+zSTrrC5vV7C3n+OBQtO99L+SY=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=xA668s1mWMKk3NyBIY/tX09oF/IE1Weq2p/rHCIIicoaO/pz1Kc/8Tt8M5XpGjg6r
-	 RZAwLnzWK86xPSJjvVApuYrOnZgeC3nrS5BZ/JYNvPS8n1npU5PCcDGyEk42xKpofy
-	 GYrgOe0oDGnIy1HLGi7N5GR2AwRKbtyEjeyJfgmcis/U0ywdMpjVsb1vPT4Sn15od6
-	 kD6Sl51zF1xo/hvkr24MWKicQOjMCG/rTmme8+OGH5IyotYf6S5VfoCdgDGHgzbItS
-	 bWkBQyuLmPVLaDi+ZNYmqgRWBPVw5qJpYanXLttpsONcGKmcnA+uxBSuZLqPBVwAEf
-	 DvOHWZwHWn3mg==
-Date: Wed, 07 Oct 2026 18:30:27 +0000
-To: Mario Limonciello <mario.limonciello@amd.com>
-From: Kyle Gospodnetich <me@kylegospodneti.ch>
-Cc: Giovanni Gherdovich <ggherdovich@suse.cz>, Huang Rui <ray.huang@amd.com>, Perry Yuan <perry.yuan@amd.com>, K Prateek Nayak <kprateek.nayak@amd.com>, "Rafael J . Wysocki" <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] cpufreq/amd-pstate: Supply nominal/lowest freq for TRX40-based motherboards
-Message-ID: <bK7n7j4SGpNNcHzUh7I63T_Ozbd5u6wVHdVlpa3Ym76UQs2PhQDtaREPYuFsHMKZku0B9v2-d8A9PdeBRx_0l0xUZ9gt--wxwyI4-sTKfyM=@kylegospodneti.ch>
-In-Reply-To: <1c6ba221-a73c-4793-aac6-b38d6e573295@amd.com>
-References: <20261007144150.15113-1-ggherdovich@suse.cz> <27b226c7-f30b-4863-96e6-6798232863c5@amd.com> <nfzkXrDTHHjIW_SUzjPg0gOHamPmFkMiNw8Xyzu1ET_un0fM-tmdI3ChdnOkXAkrh_nX4jiwmzCK6GgWwOsfDti3ta-vlRMihfH4dGUgBCU=@kylegospodneti.ch> <a387ee24-ef09-4983-865c-47ef43fa0964@amd.com> <N6r-1w2v2oSkh5ABRHMoj9_YQ7F7eICWqD2rdyL7M1SmbVzhiK0plLXBCzZbDmO8M6w28qHy--pue6kfl1k8B-j03x5f6VYC2DlQ_spmIpc=@kylegospodneti.ch> <DC1J2LrrQ6hdyQJ_ThQRfGrnzKLI5qCCQYGA5I2LhASN8j8MLcpfvJ2T4Qn_8xmO2TB4MW9Sl6LyQKkuANWwowWXafKbEqJ8pXEBEnmE2yA=@kylegospodneti.ch> <1c6ba221-a73c-4793-aac6-b38d6e573295@amd.com>
-Feedback-ID: 27885724:user:proton
-X-Pm-Message-ID: cc20ce1c6cab4a540163e6012be786c38e9a9a7c
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VxoJ7Kew"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48c45111bebso1507186f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 11:31:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791397901; x=1792002701; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:subject:cc:to:from:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IToOWKpumlGzZBC6qdR+iudjHnT2yIgjEO2gIjThpfI=;
+        b=VxoJ7KewMRQqipwnaTSTsUQJZBCYjdjCJO27HHQzC8rzblvYQCNBWwm9lxBnSRCW3l
+         FjY7niIxrQdTJvgpMxD6h9hBO3bvVwdBuy2sv2VjcUEKTT+mLM56P1a51PCr9Wx7eCYy
+         EaNEqpATIPWB9GPS2IFhwksJMaLOEsUvFkFEDE3XhUVkEu/MjU0CkwT8behNodS0NSoD
+         RtX6aye9b/OZS70ayI/0/zQ1AJUx+jlgwTav56AAcf2SvPEEdvf5J8XxW6dp9WbMJl12
+         NxkqmKFXaDqW6vFxi4amD6yIqVOwVal3qHCM2CGidV8m694U8Bw/wbAjkLgiYN+mxyof
+         wIxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791397901; x=1792002701;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:subject:cc:to:from:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IToOWKpumlGzZBC6qdR+iudjHnT2yIgjEO2gIjThpfI=;
+        b=ONnS5BELPdvK5YluCutxbaW2GT/lmzGngqhxalaC7nYJZZWmrqHD+2RpoD7mX88DL2
+         FibFGHUDb/kWJNjbJNt9YOMlFDMLFAp60CbuLiTpS32PcIqnHxKB7mV+OAbtWQHekmS6
+         pMUIkiWFORzQYKEEL2ZEvA0cC+k74KgtA+TgCM8+LT7CD5TsKr2GQsGxXjUuDLWkdntA
+         92KJgNnOQ8pwnFLizhbhkZPtUAJ8ajuZoeKeC0cmKaIbPPmXCCeI7mDGewa5fOR42YCe
+         Tcf7AsL2OEqnv1gJUQPBK1geO6MaKvDsLwXbIn8R+E/EdaT5ZDmd2OqEHXi+C+JOVrOV
+         yfDg==
+X-Forwarded-Encrypted: i=1; AKwUvBzmVoMQc844Ykxjgj002nghsQQrHvB2/rDh0UxQpposqD7YBOdlWNIiezBHkRFTQLnq5DUBw/zYNR/09Hs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kJ/ccavCfDcDu5DtOqrU89CeG7+6tqjc2iXZ77xG9dF2DD8iBw
+	ME5QTMT4JrVzDiuM8ti9ZvcX8MC6gGdaljQA0DSmC1LCicrTjl3vxjk9gA8L7A==
+X-Gm-Gg: AYBFou1GjtYWJvxJI7QYKqmFm/SZKPlqrC6r7vIEzIU3g9iBfL36J4cdAcJJ2303d96
+	ntZTS1AUtEdjG2RyFy95GPjCcvW+FKEKQ67ztaLWn2QUp19OBgiSTMAuoDtXYK3RFA/7U8nPNdq
+	UhiV5DOzqj4rrVjJH26XFj6r7JsafqfGw41umL6Tm4LcDnjIxEfGRQVGsoSMoWgu49A3aUgqUkt
+	f7NEWJdu/g38jUy6+7EwEcFtxKGTH/ABfanXGtrFU2tZHYb0lSH0stuIukCfwND51RregDojtSg
+	kmuudAFC+2Y2ewS4iDHL2bQePS4rUweAhix1ODU1GDSiImOP6XN+PG4IqMNHv5G4dbwBalsAFxS
+	jXk7LiY0CxyqM+zGzNPJg2b7XQf34E7NaQxJ/W0kfGP9CIsOtpMYYluacVkeG7tisxASNLHYUvp
+	Ac0D0mZ9ascLv8ExC1lA0tSydQlXOOUAGBfxnxWQpJXOcOFk9ixqG2ZgAA/BbaAPY5Qx01eW0e3
+	VAaFFYaxVKfRFmnKCVEV3tD59eDpga3Y3PQjYmAb7wnsm+A9MsKGk+ecsJc+qUgv1f9kQMNjz5I
+X-Received: by 2002:a05:600c:5254:b0:4a0:1b15:8852 with SMTP id 5b1f17b1804b1-4a180310d31mr52003625e9.16.1791397900694;
+        Wed, 07 Oct 2026 11:31:40 -0700 (PDT)
+Received: from Ansuel-XPS. (host-87-20-252-14.retail.telecomitalia.it. [87.20.252.14])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71bd7644sm6990762f8f.7.2026.10.07.11.31.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 11:31:40 -0700 (PDT)
+Message-ID: <6ac6900c.57ea3510.27c6b6.f79d@mx.google.com>
+X-Google-Original-Message-ID: <asaQCSKjW-43Wp5m@Ansuel-XPS.>
+Date: Wed, 7 Oct 2026 20:31:37 +0200
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Joe Perches <joe@perches.com>
+Cc: Andy Whitcroft <apw@canonical.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] checkpatch: report warning with files ending with
+ blank lines
+References: <20261007122837.2995-1-ansuelsmth@gmail.com>
+ <e8ef6959a0cb7093cfe4933da99fdfb5567f5354.camel@perches.com>
+ <6ac678df.04a8e9ff.23fe56.b815@mx.google.com>
+ <a098c4e66a4cabd61b8a7c933db7f21ad5648d5b.camel@perches.com>
+ <6ac6876f.31081df4.3ada42.ff1e@mx.google.com>
+ <3e05a868415881335dec29a5d73f7994393f7409.camel@perches.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3e05a868415881335dec29a5d73f7994393f7409.camel@perches.com>
 
-Looks like it's finally fixed with that last BIOS release, it's been years!
-
-Platform Firmware Information
-=09Vendor: American Megatrends International, LLC.
-=09Version: 1.A4
-=09Release Date: 06/15/2026
-
-cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_driver
-amd-pstate-epp
-
-And no performance issues. Thanks!
-
-
-On Wednesday, October 7th, 2026 at 11:08 AM, Mario Limonciello <mario.limon=
-ciello@amd.com> wrote:
-
-> OK, let's wait and see what happens after you upgrade.  New versions of
-> FW and the behavior please.
->=20
-> On 10/7/26 12:43, Kyle Gospodnetich wrote:
-> > Missed one,
-> >
-> > Release Date: 05/17/2022
-> >
-> >
-> > On Wednesday, October 7th, 2026 at 10:36 AM, Kyle Gospodnetich <me@kyle=
-gospodneti.ch> wrote:
-> >
-> >> AMD Ryzen Threadripper 3960X
-> >> MSI TRX40-PRO-10G
-> >> https://www.msi.com/Motherboard/TRX40-PRO-10G/support
-> >> I am using 7C60v1A3(Beta version), I will update to the latest today -=
-- just learning that exists.
-> >> dmidecode reports that as:
-> >> Vendor: American Megatrends International, LLC.
-> >> Version: 1.80
-> >>
-> >> I've had to disable pstate with:
-> >> amd_pstate.enable=3D0 initcall_blacklist=3Damd-pstate
-> >>
-> >> Without that my system grinds to a hault, takes upwards of 15 minutes =
-just to hit the desktop.
-> >>
-> >> Thanks, let me know if anything else is needed.
-> >> -Kyle Gospodnetich
-> >>
-> >>
-> >> On Wednesday, October 7th, 2026 at 8:06 AM, Mario Limonciello <mario.l=
-imonciello@amd.com> wrote:
-> >>
-> >>> Kyle,
-> >>>
-> >>> Can you please confirm more about your system?  System Model, vendor,
-> >>> BIOS version, BIOS vendor, CPU model.
-> >>>
-> >>> Thanks,
-> >>>
-> >>> On 10/7/26 10:04, Kyle Gospodnetich wrote:
-> >>>> Yes this does appear to be the same problem, thank you!
-> >>>>
-> >>>> -------- Original Message --------
-> >>>> On Wednesday, 10/07/26 at 07:56 Mario Limonciello <mario.limonciello=
-@amd.com> wrote:
-> >>>> + Kyle
-> >>>>
-> >>>> Kyle,
-> >>>>
-> >>>> By chance is this the same system that you were talking to me about =
-offline?
-> >>>>
-> >>>>
-> >>>>
-> >>>> On 10/7/26 09:41, Giovanni Gherdovich wrote:
-> >>>>> Some motherboard based on the TRX40 chipset has been reported to sh=
-ip
-> >>>>> firmware lacking lowest and nominal frequency values in the
-> >>>>> _CPC ACPI package. That is, it supports CPPC V2 but not CPPC V3.
-> >>>>> Firmware updates aren't available.
-> >>>>
-> >>>> Can you please add more information about the vendor/model of the MB=
-, etc?
-> >>>>>
-> >>>>> amd-pstate requires explicit knowledge of nominal frequency, so it
-> >>>>> can't load on this hardware. The driver already has a mechanism (th=
-e
-> >>>>> so-called "quirks") to accommodate for missing nominal freq in ACPI
-> >>>>> tables, so here we use it to match against CPU family, model, core
-> >>>>> count, and BIOS version.
-> >>>>
-> >>>> Yeah; it's intended for this specific case of really old hardware th=
-at
-> >>>> the BIOS isn't going to fix it.
-> >>>>
-> >>>> I don't understand why core count matters though.
-> >>>>
-> >>>>>
-> >>>>> Signed-off-by: Giovanni Gherdovich <ggherdovich@suse.cz>
-> >>>>> ---
-> >>>>>     drivers/cpufreq/amd-pstate.c | 31 +++++++++++++++++++++++++++++=
-++
-> >>>>>     1 file changed, 31 insertions(+)
-> >>>>>
-> >>>>> diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pst=
-ate.c
-> >>>>> index 8bfd46d60843..532ff16dd076 100644
-> >>>>> --- a/drivers/cpufreq/amd-pstate.c
-> >>>>> +++ b/drivers/cpufreq/amd-pstate.c
-> >>>>> @@ -145,6 +145,11 @@ static struct quirk_entry quirk_amd_7k62 =3D {
-> >>>>>     =09.lowest_freq =3D 550,
-> >>>>>     };
-> >>>>>
-> >>>>> +static struct quirk_entry quirk_amd_ryzen_threadripper_3000_24c =
-=3D {
-> >>>>> +=09.nominal_freq =3D 3800,
-> >>>>> +=09.lowest_freq =3D 550,
-> >>>>> +};
-> >>>>> +
-> >>>>>     static inline u8 freq_to_perf(union perf_cached perf, u32 nomin=
-al_freq, unsigned int freq_val)
-> >>>>>     {
-> >>>>>     =09u32 perf_val =3D DIV_ROUND_UP_ULL((u64)freq_val * perf.nomin=
-al_perf, nominal_freq);
-> >>>>> @@ -174,6 +179,22 @@ static int __init dmi_matched_7k62_bios_bug(co=
-nst struct dmi_system_id *dmi)
-> >>>>>     =09return 0;
-> >>>>>     }
-> >>>>>
-> >>>>> +static int __init dmi_matched_trx40_bios_bug(const struct dmi_syst=
-em_id *dmi)
-> >>>>> +{
-> >>>>> +=09/**
-> >>>>> +=09 * Match the Ryzen Threadripper 3000 series, 24-core SKU, sTRX4=
- socket / TRX40 chipset.
-> >>>>> +=09 */
-> >>>>> +=09if (boot_cpu_data.x86 =3D=3D 0x17 &&
-> >>>>> +=09    boot_cpu_data.x86_model >=3D 0x30 && boot_cpu_data.x86_mode=
-l <=3D 0x3F &&
-> >>>>> +=09    topology_num_cores_per_package() =3D=3D 24) {
-> >>>>
-> >>>> Does the number of cores actually matter?  Do you mean to say if you
-> >>>> swap the CPU to another part CPPC works?
-> >>>>
-> >>>>> +=09=09quirks =3D dmi->driver_data;
-> >>>>> +=09=09pr_info("Overriding nominal and lowest frequencies for %s\n"=
-, dmi->ident);
-> >>>>
-> >>>> The BIOS bug specifically is lack of values, not invalid values, rig=
-ht?
-> >>>> Just want to make sure I'm following this right.
-> >>>>
-> >>>>> +=09=09return 1;
-> >>>>> +=09}
-> >>>>> +
-> >>>>> +=09return 0;
-> >>>>> +}
-> >>>>> +
-> >>>>>     static const struct dmi_system_id amd_pstate_quirks_table[] __i=
-nitconst =3D {
-> >>>>>     =09{
-> >>>>>     =09=09.callback =3D dmi_matched_7k62_bios_bug,
-> >>>>> @@ -184,6 +205,16 @@ static const struct dmi_system_id amd_pstate_q=
-uirks_table[] __initconst =3D {
-> >>>>>     =09=09},
-> >>>>>     =09=09.driver_data =3D &quirk_amd_7k62,
-> >>>>>     =09},
-> >>>>> +=09{
-> >>>>> +=09=09.callback =3D dmi_matched_trx40_bios_bug,
-> >>>>> +=09=09.ident =3D "AMD Ryzen Threadripper 3000",
-> >>>>> +=09=09.matches =3D {
-> >>>>> +=09=09=09DMI_MATCH(DMI_BIOS_VENDOR,  "American Megatrends Internat=
-ional"),
-> >>>>> +=09=09=09DMI_MATCH(DMI_BIOS_VERSION, "2.80"),
-> >>>>> +=09=09=09DMI_MATCH(DMI_BIOS_DATE,    "05/17/2022"),
-> >>>>> +=09=09},
-> >>>>> +=09=09.driver_data =3D &quirk_amd_ryzen_threadripper_3000_24c,
-> >>>>> +=09},
-> >>>>>     =09{}
-> >>>>>     };
-> >>>>>     MODULE_DEVICE_TABLE(dmi, amd_pstate_quirks_table);
-> >>>>
-> >>>
-> >>>
->=20
+On Wed, Oct 07, 2026 at 11:30:20AM -0700, Joe Perches wrote:
+> On Wed, 2026-10-07 at 19:54 +0200, Christian Marangi wrote:
+> > Yes if you think about this, this will read the last line of the .patch,
+> > not the last line of a new file that will be generated by the .patch.
+> > 
+> > diff --git a/MAINTAINERS b/MAINTAINERS
+> > index 70a11f2ff61d..0b9946c532af 100644
+> > --- a/MAINTAINERS
+> > +++ b/MAINTAINERS
+> > @@ -785,3 +785,9 @@ S:	Maintained
+> >  F:	Documentation/devicetree/bindings/spi/airoha,en7581-snand.yaml
+> >  F:	drivers/spi/spi-airoha-snfi.c
+> >  
+> > +AIROHA USB PHY DRIVER
+> > +M:	Christian Marangi <[ansuelsmth@gmail.com](mailto:ansuelsmth@gmail.com)>
+> > +L:	[linux-arm-kernel@lists.infradead.org](mailto:linux-arm-kernel@lists.infradead.org) (moderated for non-subscribers)
+> > +S:	Maintained
+> > +F:	Documentation/devicetree/bindings/phy/airoha,an7581-usb-phy.yaml
+> > +
+> > -- 
+> > 2.55.0
+> > 
+> > It's to catch situation like this. Example for entire new file or adding
+> > stuff at the end of a file, where a new line is introduced.
+> > 
+> > git am will complain about this.
 > 
+> It seems there's something odd about the patch content
+> as there aren't any context lines after the addition.
+> 
+> How was it generated ?
+
+It was just an example, it's not the full patch. Just the last patch.
+
+-- 
+	Ansuel
