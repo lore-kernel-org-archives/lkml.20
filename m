@@ -1,57 +1,47 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53E5E49D5B1;
-	Wed,  7 Oct 2026 13:06:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BDC93D813E;
+	Wed,  7 Oct 2026 13:07:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791378384; cv=none; b=oJ/iYKJbrHT6kL2Eml2jv/imHzyamfG1m5h1yocnQacz6db/+INbQink9Qk6BsMOChx9ls+ekW/vgJbh80UnNWdfTp63ZoVrMostQ8fr9JrN+zatX2ikZ+qCKGce/HHGy+PKH/xgTfICZmuWBJqM2mSZ2YyKGnWMgepnNEG9dOc=
+	t=1791378430; cv=none; b=c/EdHCHec+vhgkjIooTyK4VIJHNh4iNfCKIRoNZ7H30fcw3/eF+eSCSAqjcwFZ6BPnNSGzVgaqHo+1Tem7oXQ/l01Lt2sJCq3CIFsAA6L2eLdRhNgZBh/xPOVpqghyl8WlqCjiKRzZb37l5M/nvsuor/G/R8FR/+Fa2TxpneVog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791378384; c=relaxed/simple;
-	bh=4YJ9Fqv+a1prb8DIM4jaQKEQUeWO3GSzk37YSQ+zLO0=;
+	s=arc-20240116; t=1791378430; c=relaxed/simple;
+	bh=ayPSE+Y6CAfKuyH1Ek1gEM4Hw7Gq1/HwDAqp8sPGsaI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lRc6xb6vPPFUEkaYpDDTQzWh6po+J8EAQXl8C8paTTrez0kvGoFKOMZ7TGUF0+4+yocB84TimvDVnoIZ3KCmOWcN18nwEDY9FZbtli6YXNu34n+UBrddayeiRtxOaO+6NzumVDRqUKWC5khSI8wvQVOv+qxy8knGzllWHMbwBAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=vxCdmjaO; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=olIz887Fo5pADwNthxzhJTgVE//Hxi2R6Rk2JT489rLz+G4UYfBctWZTaSLuCj3dZ+w0W9hg6Rw0QO8jznQ6j51TJTe69Nvzg1WcRoXZj0hPWrXYYIrGhWcenpbZ8Y82XhFKO396xJBE0KQA5AzhOU/cF/QT8SCMFG7ygXIgKCg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ajMiwFDY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="vxCdmjaO"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=dM8Ub3SEr1kn1ORAaVqDqRmpkV1kv8aYkI640BFSIsY=; b=vxCdmjaO7QZi+Fum3RHxWGGW/O
-	f3nVrVz45O9O7GHhJuuD1yk6uNnxxTwSBzklwEg/niuUSTt0Ipxes2p8OYbLsTbhbWG2Z1ANWpMsH
-	1JZ9L3YdexYCnlV9dajqVdpTLndChmSFUBehbecdg8sNwAbYViijrq6DaqpPNE7+LVPs=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xERLO-009Scc-Ku; Wed, 07 Oct 2026 15:06:02 +0200
-Date: Wed, 7 Oct 2026 15:06:02 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Lucas Tanure <tanure@linux.com>
-Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ajMiwFDY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7C881F0089B;
+	Wed,  7 Oct 2026 13:06:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791378423;
+	bh=Uq4+gSwVCA9riGGi/ppitQyXRBTdaQE5mWOuNhAJjtE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ajMiwFDYDqKVhwZy1GL8/TOAtxXo2jffYvMKf9f57XZ6HEwpoPQ9qD08h8uWRsoD3
+	 nNpPyLFDUaBf1Nx23T8mDOLujbS7aN5hD2cv90Lrjzm7AY9Fyw9jadFJXIH5XOGw3s
+	 Gj+Ivg4MJfLH61TO4RGkNNNakkMHop6Hbueh/iRPwJzOjaanMgucgg8t1g7TCxlhzk
+	 Ss4k8epI341uyzkQ3uryGR/tIvXBZv3XCCIrxaFFk43FF3SardgHnV9lZzMQhnS4qh
+	 o9B9YXrzh+qokQRyIyNArImyu0lCqUdCvIkEtgNf0c9cFCAVKAbTp4G2mtE0/KFg25
+	 Z5YfQKIa3KEAg==
+Date: Wed, 7 Oct 2026 15:06:55 +0200
+From: Brian Masney <masneyb@kernel.org>
+To: "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>
+Cc: Brian Masney <bmasney@redhat.com>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v2 3/7] dt-bindings: net: amlogic,meson-dwmac: add
- amlogic,t7-dwmac
-Message-ID: <ba762ae7-db95-41da-bb77-b72b85b68334@lunn.ch>
-References: <20261007082627.63807-1-tanure@linux.com>
- <20261007082627.63807-4-tanure@linux.com>
+	Conor Dooley <conor+dt@kernel.org>, Felix Fietkau <nbd@nbd.name>,
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Vinod Koul <vkoul@kernel.org>
+Subject: Re: [PATCH v2 0/2] clk: en7523: Add support for selecting SCU serdes
+Message-ID: <asZD79RRF4u5OJdn@x1g10>
+References: <20260915125226.20579-1-ansuelsmth@gmail.com>
+ <179000484817.707534.5059164498545591038.b4-ty@b4>
+ <CA+_ehUzrL9qHe92tE0CeaOMAD1LXGuK79t5mZGv+bp2sCas_sA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -60,40 +50,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261007082627.63807-4-tanure@linux.com>
+In-Reply-To: <CA+_ehUzrL9qHe92tE0CeaOMAD1LXGuK79t5mZGv+bp2sCas_sA@mail.gmail.com>
+User-Agent: Mutt/2.4.2 (2026-08-30)
 
-On Wed, Oct 07, 2026 at 09:26:23AM +0100, Lucas Tanure wrote:
-> The T7 has the same ethernet glue as the G12A, but the controller
-> reaches memory through a pipeline stage that this SoC inserts in the
-> bus path. That stage has a gate of its own, which no other member of
-> the family has, and nothing else in Linux claims it. It is therefore
-> switched off as unused, and the port can then no longer finish a
-> transfer.
+On Tue, Oct 06, 2026 at 01:23:36PM +0200, Christian Marangi (Ansuel) wrote:
+> Il giorno lun 21 set 2026 alle ore 17:34 Brian Masney
+> <bmasney@redhat.com> ha scritto:
+> >
+> >
+> > On Tue, 15 Sep 2026 14:52:22 +0200, Christian Marangi wrote:
+> > > clk: en7523: Add support for selecting SCU serdes
+> > >
+> > > This small series is a split from the Airoha AN7581 USB PHY series [1].
+> > >
+> > > [1] https://lore.kernel.org/all/20260702093812.15918-1-ansuelsmth@gmail.com/
+> > >
+> > > Changes v2:
+> > > - Rebase on top of linux-next
+> > > - Add review tag for Documentation patch
+> > >
+> > > [...]
+> >
+> > Applied, thanks!
+> >
+> > [1/2] dt-bindings: clock: airoha: Add PHY binding for Serdes port
+> >       commit: 11952173d8a180ac05641775f80bd6946327478f
+> > [2/2] clk: en7523: Add support for selecting the Serdes port in SCU
+> >       commit: 4e39820b601221997cb2220edc830f92367cdfc2
+> >
 > 
-> Describing it needs a fourth clock, and the fourth clock of the
-> existing list drives the timing adjustment logic, which the T7 never
-> uses. So the T7 gets a list of its own with the gate in that place,
-> under the name the SD and eMMC controllers already use.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Lucas Tanure <tanure@linux.com>
-> ---
->  .../bindings/net/amlogic,meson-dwmac.yaml     | 47 +++++++++++++++++++
->  1 file changed, 47 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
-> index 90ef79161ab1..96118b4d1560 100644
-> --- a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
-> +++ b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
-> @@ -23,6 +23,7 @@ select:
->            - amlogic,meson-gxbb-dwmac
->            - amlogic,meson-axg-dwmac
->            - amlogic,meson-g12a-dwmac
-> +          - amlogic,t7-dwmac
+> is it possible to have a stable branch/signed tag for phy subsystem?
+> Commit 11952173d8a180ac05641775f80bd6946327478f is needed
+> to permit correct compilation of a airoha usb phy driver.
 
-Since you are adding a new compatible, lets cleanly fix up the RGMII
-delay mess for this compatible. Skip all the existing code touching
-RGMII delays and add new code which is invoked when this compatible is
-seen.
+Yes. I'll have to rebase the clk-next tree but it's no big deal.
 
-	Andrew
+I'm at Linux Plumbers right now and I'll send out an immutable tag in a
+day or two.
+
+Brian
