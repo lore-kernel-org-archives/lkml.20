@@ -1,250 +1,161 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FE6749A3AF;
-	Wed,  7 Oct 2026 14:47:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CC1D4A64FD;
+	Wed,  7 Oct 2026 14:47:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791384461; cv=none; b=sV2lMxvCNtmhbvIH6k//Ug/hDkSqUgu5pRdR5LqpBFoDtvfnIhVBUp0P1xk7D2R0mH4aZN7UV1DXslymMD9Eg7dxi7ReblCJFqQMLkzQLlWeR1qIghQGVJ7yjbYpj4VMPknCXiX2x8L/3iZ5qES1TjRShcnzqK4+m8G0PXkv5zU=
+	t=1791384484; cv=none; b=N9ulwFXRyuKRIV3riL0OaqutYKFKP13aV5NbOrHjPLd4KXRSW3Rn+1CgT812QIA6JARqReCQKoHLrKsE7N8SindELs+yPsHpXWkkoWrZ4KHXKT7E2Nd5S/7JvjZgmp1ys0Hd/SWAL5siL/XLtGmZVNUPvNe81K6GKVmNq0g9o1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791384461; c=relaxed/simple;
-	bh=dvs0ZxldVWFmXwk6Vij5f773w7gdmh2jQfo6Je9h2Ro=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Sz0hbsDyF1YbxZAShadUtbFFTHVO5kgC4dLdsTltwaUgzcvKCFuY2eBXq7fGGoDzu340LhEEAi0HozWp/3NqArJZTXLehT9EPQAyxeCSq7RIt9RjizI0kxqeVqIL0597TYYb6kFNTd1THuYYBnMQjBD6kzdLBuynEW3h3DFP3FM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WZI9//to; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791384484; c=relaxed/simple;
+	bh=4YeYZbFxnnTq8Zxe0UN52ijygm+ZPz4pkrUEfc8nidw=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=MffyIlp37glr3MgoxJM8kG7Z1dkNGjFdwMKVXsshnsGnyPOFngKBGJbibABAH5V0EWMDlENs36+cp7X9YlBLXbzruhSjbgA/CfzI3b4fd6buQjT/+2hfdbQF3XHBCjx+Fw9SIOKy+F14vzkKnoGB1ebt+2bQ9zbvw6cEcdq7jlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RAn56DuT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WZI9//to"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FA3A1F000FF;
-	Wed,  7 Oct 2026 14:47:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RAn56DuT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03E2F1F00893;
+	Wed,  7 Oct 2026 14:47:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791384457;
-	bh=06RGgKlxhI3vAlMgeGy/b7SYRVhXDEzCGrCMBv0sed8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WZI9//toGvDYZoaT/CLNRjlb+05x69EuOQOyTUl41rGutzmGprFywCX/2xoeMMji7
-	 DZL3b/aWJAGOnycWSqfitcUWLoUVX+DGr5xLV8E8SF8kpBcjGpcOueAU5YI/PnO1l+
-	 HNnkhTqhCUQdxxd5Ue8SkCD3ZiTkfIs78m2Q0LQwd7IQcB2E1pvMUu8/KmI6OEP+ix
-	 VBq0jG7bf5LjSkSt5thIezqbBaw0CdPydD9fjlu1OlBmqed1vEBs3HMNFoa5CiOwlM
-	 yjRoHARUEZJRAV1iCI1KjB5NmHNSfa5iqb1bL47GQ0rUYv/XsTLBKdqe0FNyjJEm+r
-	 Jdt0oZ+DiIU8g==
-Date: Wed, 7 Oct 2026 15:47:31 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Joshua Yeong <joshua.yeong@starfivetech.com>
-Cc: broonie@kernel.org, lgirdwood@gmail.com, rahul@summations.net,
-	anup@brainfault.org, lftan.linux@gmail.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, pjw@kernel.org,
-	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/3] dt-bindings: regulator: Add RPMI voltage service
- bindings
-Message-ID: <20261007-5a8b6f7be01bd3d8c7aed8e1@squawk>
-References: <20261007100022.2512187-1-joshua.yeong@starfivetech.com>
- <20261007100022.2512187-2-joshua.yeong@starfivetech.com>
+	s=k20260515; t=1791384477;
+	bh=3iuGpjmarbI9GgEn3JVwAh/zaf69Y3XK1GSiAdhyTbc=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=RAn56DuTwSfTSEd6JBSKuGIHoKD4fed+0X1G9tDZoYs/PFo7YeGmGN/8sEfsUZ8cA
+	 RD/rSii8WqxQWWVzQlSlYlSV5Q4EQmD2VVY/4l/masTl97iTbb71t+ztBUDSk5NXYI
+	 oh5ah7JBg04uHITicJembFyaORhpCHf20HxHet6nKJDP7yOO5qmIPNDXnxx6EjvKRM
+	 p21m9hTJAyvryqdK2iSq6vtvXbhsOrc6HqrWvz+8GvL1oOb/iUMEZ5mMDMgEWDP4mM
+	 mWRfWrGT3Dq0n+v6ILB0Iz10P58EJ4RdR7jg1MsYHBSDryFxLjOhet+4jYK3QxoEfK
+	 nEL4Jqoec540w==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jqnVNRoY4Gnsz1e7"
-Content-Disposition: inline
-In-Reply-To: <20261007100022.2512187-2-joshua.yeong@starfivetech.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2 1/1] kbuild: record real-prereqs in .cmd files
+From: Nicolas Schier <nsc@kernel.org>
+To: Luis Augenstein <luis.augenstein@tngtech.com>
+Cc: nathan@kernel.org, nsc@kernel.org, linux-kbuild@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, akpm@linux-foundation.org, 
+ gregkh@linuxfoundation.org, kstewart@linuxfoundation.org, 
+ maximilian.huber@tngtech.com
+In-Reply-To: <20260828085441.156386-2-luis.augenstein@tngtech.com>
+References: <20260828085441.156386-1-luis.augenstein@tngtech.com>
+ <20260828085441.156386-2-luis.augenstein@tngtech.com>
+Date: Wed, 07 Oct 2026 16:46:02 +0200
+Message-Id: <179138436214.145576.15291381959921627967.b4-review@b4>
+X-Mailer: b4 0.17-dev-fde28
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3524; i=nsc@kernel.org;
+ s=20250924; h=from:subject:message-id;
+ bh=4YeYZbFxnnTq8Zxe0UN52ijygm+ZPz4pkrUEfc8nidw=;
+ b=owEBbQKS/ZANAwAKAQdSCnAWJhJpAcsmYgBqxlsszJE4nTrWC1aOAOM3/4UpBiEKPlq+LQ0IM
+ LA2zphrKQGJAjMEAAEKAB0WIQSHQTenhzckp4G+wsYHUgpwFiYSaQUCasZbLAAKCRAHUgpwFiYS
+ aRyHD/9edsSQG4OslPZv1VmW51qNJRNW7DRTO7PA2yg39cGvccZodCINJHX0Iq7G9OTZjZr1XKu
+ 1Ze0u/u220wJmBNcKeRwfz8aGHcysSoNR7USG/lRr+xDAod36xjaCgTfvUsFruljM5ixdBf4szw
+ o4pYb7QKUp88bS8ftu0kVEgWaSApwXRh8y/Vfy1yEyjO6sUp8BFWCAbwcEY3O+ybauecmG1wvoH
+ VlsEFZO7Byl+9NLeMWB9EYvWPSzIzVJJBqX+2u/jvIeTqDDIknKQ/cqleO38WgyG3rKjmgfzBev
+ s0+fNxv/MhYn1wEvcW23ayrwB9sruhwduU8VsuT4IOHPr/tAgwAUVCbrVXdLra5ret61yJFqvCw
+ qGycLvVaG2I2pb78Ei5UqLdS6E0YuZ7+hlSuasyHyFRlhSJxjj2IW2b8L6RU4fm3jQ9aN2L61+C
+ P0932hqjYV770GYKUaBvuDmgc3gFMCW0Atl7cCVF6DK2vVaC0o2BMUp78qnQXS3anNuY3/pXWui
+ Bd8QVAKpeCfjtORGgkPnTfUrg4fND2KydCv/bIW+NSd9AOl4ubRkvcTckCfPXXsX1vUcMaXCcZl
+ QNIFsE17QfomntFPzuva1oiZnqYcvpFdSIUPM5vMuiWi6jtgshRkOqS1Nqmc9b02f0bGVqdHTNc
+ lSa07MfXuzyOTsQ==
+X-Developer-Key: i=nsc@kernel.org; a=openpgp;
+ fpr=18ED52DBE34F860EE9FBC82B7D97093255A0CE7F
 
---jqnVNRoY4Gnsz1e7
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+First of all, sorry for the very long delay.  I finally had a first view
+and tests on the patch, but I haven't tested in depth yet.  Some
+first-round feedback:
 
-On Wed, Oct 07, 2026 at 06:00:18PM +0800, Joshua Yeong wrote:
-> Add device tree bindings for the RISC-V Platform Management Interface
-> (RPMI) voltage service group, both for the supervisor-facing regulator
-> controller and for the SBI MPXY channel which the SBI implementation
-> uses to expose the service group.
->=20
-> Signed-off-by: Joshua Yeong <joshua.yeong@starfivetech.com>
+> Record $(real-prereqs), the non-phony prerequisites of the target, in a
+> new metadata field:
+> 
+>     make_prereqs_<target> := <prerequisites>
+> 
+> Write the field from both cmd_and_savecmd and cmd_and_fixdep.
+>
+> Update scripts/make_fit.py to read only savedcmd_* instead of parsing the
+> complete .cmd file.
+
+This sounds like a good thing; but I can't find that in the diff.
+
+While at it, you changed the handling of deps in fixdep -- I think in a
+good way.  I'd like to see this in three steps:
+
+  * Limit make_fit's parsing to savedcmd_
+  * Update fixdeps handling of 'deps_'
+  * Add 'make_prereqs_<target>' support to Kbuild.include and fixdep
+
+> Ignore make_prereqs_* in KernelSbom.
+
+I know this makes sense to fit the every-interface-needs-a-user rule,
+but I don't like to add a dummy consumer here to match that rule.
+
+Why do you defer the actual implementation in the SBOM scripts?  From my
+point of view, the introduction of 'make_prereqs_<target>' looks good
+and I don't see a reason for waiting with the corresponding SBOM
+implementation.
+
+> 
+> Link: https://lore.kernel.org/r/a01233b9-23a2-4666-91ed-f1cf030dcb9f@tngtech.com
+> Assisted-by: Cursor:GPT-5.6 Sol
+
+The new rule wants:
+
+    Assisted-by: LLM 
+
+instead, cp. https://git.kernel.org/stable/c/816d9992d9ed434ec52cfbd63080d518e535a41b
+
+> Co-developed-by: Maximilian Huber <maximilian.huber@tngtech.com>
+> Signed-off-by: Maximilian Huber <maximilian.huber@tngtech.com>
+> Signed-off-by: Luis Augenstein <luis.augenstein@tngtech.com>
 > ---
-> Based on the RPMI device power series ("Add RISC-V RPMI device power
-> service support"), which has been applied for next. The cover letter
-> links the mail saying so.
+>  scripts/Kbuild.include                  |   9 +-
+>  scripts/basic/fixdep.c                  | 159 ++++++++++++++++++++----
+>  scripts/make_fit.py                     |   2 +-
+>  scripts/sbom/sbom/cmd_graph/cmd_file.py |   4 +
+>  4 files changed, 148 insertions(+), 26 deletions(-)
+>
+> diff --git a/scripts/Kbuild.include b/scripts/Kbuild.include
+> index 8c311b997e24..6daa244ba0ef 100644
+> --- a/scripts/Kbuild.include
+> +++ b/scripts/Kbuild.include
+> @@ -181,6 +181,9 @@ endif
+>  # (needed for the shell)
+>  make-cmd = $(call escsq,$(subst $(pound),$$(pound),$(subst $$,$$$$,$(cmd_$(1)))))
+>  
+> +# prerequisites to record in .cmd files, excluding those covered in deps_*
+> +cmd-prereqs = $(call escsq,$(filter-out $(deps_$@), $(real-prereqs)))
+> +
+>  # Find any prerequisites that are newer than target or that do not exist.
+>  # PHONY targets skipped in both cases.
+>  # If there is no prerequisite other than phony targets, $(newer-prereqs) becomes
+> @@ -198,14 +201,16 @@ if_changed = $(if $(if-changed-cond),$(cmd_and_savecmd),@:)
+>  
+>  cmd_and_savecmd =                                                            \
+>  	$(cmd);                                                              \
+> -	printf '%s\n' 'savedcmd_$@ := $(make-cmd)' > $(dot-target).cmd
+> +	printf '%s\n\n%s\n' 'savedcmd_$@ := $(make-cmd)'                    \
+> +		'make_prereqs_$@ := $(cmd-prereqs)' > $(dot-target).cmd
 
-What actual basis on that does this patch have?
-It's just the same pattern, but this pattern applies to clks etc etc
-too.
+Just bike-shedding:  I think the main points are tiny bit easier to read
+this way:
 
-> diff --git a/Documentation/devicetree/bindings/regulator/riscv,rpmi-volta=
-ge.yaml b/Documentation/devicetree/bindings/regulator/riscv,rpmi-voltage.ya=
-ml
-> new file mode 100644
-> index 000000000000..3be47703af5b
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/regulator/riscv,rpmi-voltage.yaml
-> @@ -0,0 +1,130 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/regulator/riscv,rpmi-voltage.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: RISC-V RPMI voltage service group based regulator controller
-> +
-> +maintainers:
-> +  - Joshua Yeong <joshua.yeong@starfivetech.com>
-> +
-> +description: |
-> +  The RISC-V Platform Management Interface (RPMI) [1] defines a
-> +  messaging protocol which is modular and extensible. The supervisor
-> +  software can send/receive RPMI messages via SBI MPXY extension [2]
-> +  or some dedicated supervisor-mode RPMI transport.
-> +
-> +  The RPMI specification [1] defines voltage service group for accessing
-> +  and controlling the voltage domains managed by a platform
-> +  microcontroller. The supervisor software can access RPMI voltage
-> +  service group via SBI MPXY channel or some dedicated supervisor-mode
-> +  RPMI transport.
-> +
-> +  The voltage domains are discovered at runtime from the platform
-> +  microcontroller, which reports the name, the level format, the support=
-ed
-> +  levels and the always-on capability of each one, so none of that is
-> +  described here.
-> +
-> +  A consumer names a domain through a "<name>-supply" phandle to a child=
- of
-> +  the optional "regulators" container, whose "reg" is the domain's RPMI
-> +  DOMAIN_ID. A domain without such a child is still registered, but has =
-no
-> +  node for a consumer to point at:
-> +
-> +    codec {
-> +            compatible =3D "vendor,codec";
-> +            vdd-supply =3D <&volt2_reg>;
-> +    };
-> +
-> +  A child may also say what the board permits the rail to supply, which =
-the
-> +  platform microcontroller has no way to express. A child that gives no
-> +  voltage constraint leaves the rail free to move within the levels the
-> +  domain advertises.
-> +
-> +  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +  References
-> +  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +  [1] RISC-V Platform Management Interface (RPMI) v1.0 (or higher)
-> +      https://github.com/riscv-non-isa/riscv-rpmi/releases
-> +
-> +  [2] RISC-V Supervisor Binary Interface (SBI) v3.0 (or higher)
-> +      https://github.com/riscv-non-isa/riscv-sbi-doc/releases
-> +
-> +properties:
-> +  compatible:
-> +    description:
-> +      Intended for use by the supervisor software.
-> +    const: riscv,rpmi-voltage
-> +
-> +  mboxes:
-> +    maxItems: 1
-> +    description:
-> +      Mailbox channel of the underlying RPMI transport or SBI message pr=
-oxy channel.
-> +
-> +  regulators:
-> +    type: object
-> +    additionalProperties: false
-> +    description:
-> +      Optional container giving discovered domains a node of their own, =
-for
-> +      consumers to reference and for board level constraints.
-> +
-> +    properties:
-> +      "#address-cells":
-> +        const: 1
-> +
-> +      "#size-cells":
-> +        const: 0
-> +
-> +    patternProperties:
-> +      "^regulator@[0-9a-f]+$":
-> +        type: object
-> +        $ref: regulator.yaml#
-> +        unevaluatedProperties: false
-> +
-> +        properties:
-> +          reg:
-> +            maxItems: 1
-> +            description:
-> +              RPMI DOMAIN_ID of the voltage domain this node describes.
-> +
-> +        required:
-> +          - reg
-> +
-> +    required:
-> +      - "#address-cells"
-> +      - "#size-cells"
-> +
-> +required:
-> +  - compatible
-> +  - mboxes
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    rpmi-voltage {
-> +        compatible =3D "riscv,rpmi-voltage";
-> +        mboxes =3D <&mpxy_mbox 0x1004 0x0>;
-> +
-> +        regulators {
-> +            #address-cells =3D <1>;
-> +            #size-cells =3D <0>;
-> +
-> +            // A node only so that a consumer can name the domain with a
-> +            // "<name>-supply". Its voltage stays free to move within the
-> +            // advertised levels.
+ cmd_and_savecmd =							\
+ 	$(cmd);								\
+	printf '%s\n'							\
+		'savedcmd_$@ := $(make-cmd)' ''				\
+		'make_prereqs_$@ := $(cmd-prereqs)' > $(dot-target).cmd
 
-I think this is incorrectly worded. I think it should say something like
-"A supply where the voltage is free to move within the levels advertised
-by the domain". The "A node only" wording is just hard to understand.
+Take it or just keep your version, as you like.
 
-> +            volt1_reg: regulator@1 {
-> +                reg =3D <1>;
-> +            };
-> +
-> +            // A board level constraint. Equal bounds pin the rail, so t=
-he
-> +            // supervisor applies 1.8V and refuses to move it afterwards.
 
-I'd skip the detail on how all regulators work, I'd rather "A supply
-where board-level constraints apply in addition to those advertised by
-the domain" or something like that.
 
-Cheers,
-Conor.
 
-> +            volt2_reg: regulator@2 {
-> +                reg =3D <2>;
-> +                regulator-min-microvolt =3D <1800000>;
-> +                regulator-max-microvolt =3D <1800000>;
-> +            };
-> +        };
-> +    };
-> +...
-> --=20
-> 2.43.0
->=20
+All in all, this looks good to me. Thanks
 
---jqnVNRoY4Gnsz1e7
-Content-Type: application/pgp-signature; name=signature.asc
+-- 
+Nicolas
 
------BEGIN PGP SIGNATURE-----
-
-iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasZbfwAKCRB4tDGHoIJi
-0jFwAQDK1c1W651sxPGJY367Zo6Xnw7s9dQaJyKiyTvSZ1ghdQD+J6hM745+DaSy
-ea/br6QCDazjXJ1rJ48v/d1veCo6oAM=
-=JWUo
------END PGP SIGNATURE-----
-
---jqnVNRoY4Gnsz1e7--
