@@ -1,77 +1,87 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C6663CF047;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F8C63D669C;
 	Wed,  7 Oct 2026 17:20:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791393658; cv=none; b=AU8mTmqKPiuArMFlLozyQmWnr9XSMexK8b/d/ZpgHQqCENJ41TJD9sChLljtAZ0awV1atyvKGMRmbRE1CQJPnoyHjLPxpMIyk69WtW8kBdMlC7aT6NCmXssFDKDNbdOf13pP2qp/bjG337r8YMRVjC3DO5i0opz+iAJKL9cVb+U=
+	t=1791393658; cv=none; b=nPICQ6Cu5K8UHXgEtdI1QqW4bMsZ4QMfS38NrWXJbX4si3ZS3D8WuAxZ/VTq0VbTNeF10ylVkpjtj9lPnCBUhRjgfrkr0wwEnm1P/XvDNKC6q9wnXkW8M95Kr+B2q4ml5IWb5vKNPMPf58qaOhV89eymWjue7/HHzSeNBV+1uSM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791393658; c=relaxed/simple;
-	bh=7oM31t3HwopHDhlZZEF9la4w/9oYEmKPMuETEDxShmM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rKnV3UG5sJ5sVdEJCFYiQJaRCK/zaB51dHtWpuhkg/eBzJx5m3xF2mlerOTX6+rHokqB3ZYCasQ2WDvlEppEqg2kPqZYdAFTNxoGZS6xH0XOSh6916jLlFYWBVsTwYCTLpL+wBL7uHIADRRkuRKagfs0KPAbwm8k2J1q6zppHqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=yazpDFiZ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=fUyzZRkG; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=yazpDFiZ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=fUyzZRkG; arc=none smtp.client-ip=195.135.223.131
+	bh=jPv63eF6snabXno7qEfL2NmSKhlkcHUqtbMade2iPpI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NwmJPTslaGCiR0hkMFPaqeuHwIQmsIVEKKx/KY0XNouvblzCGCOo0dnhHpqrmAi8CrJErQJ9z1ihhkeCF5RCkBOXuIog5Aw4gmdYFwZJDs2ShvJA3GHcYLcPsEzKve3tkhAKcYhBx93NGjzXMSoBqhro4AEDN4EHF5Ds+nJbX7I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=vGkHuUDR; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ElzHGwvM; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=vGkHuUDR; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ElzHGwvM; arc=none smtp.client-ip=195.135.223.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="yazpDFiZ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="fUyzZRkG";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="yazpDFiZ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="fUyzZRkG"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="vGkHuUDR";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ElzHGwvM";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="vGkHuUDR";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ElzHGwvM"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 444971F444;
+	by smtp-out1.suse.de (Postfix) with ESMTPS id A563B21BB6;
 	Wed,  7 Oct 2026 17:20:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
 	t=1791393655; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=GYp5WsjRQB9EFfe6K4pZece2pmmgbczQC7CvgAb6oJk=;
-	b=yazpDFiZ+JmIGQ926GXk3C+1n6qfHPPtJTaJDxbVn/x8WPb5OdHW1OkXpcL2VerkrM89/T
-	8hymBSaXZ25kHzQ5J2Z3zztUE8Q0tGL60gK0dn78GvnMBX5Bz4fk2oTHzkHLa0qYb5ASVY
-	8lsLsWZmwleFGiYMLyayz03OYn+w64Y=
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TgECiuSHOc97TgFEPAMUyz18J8VIRBtN9EGbyBJZgIs=;
+	b=vGkHuUDRAxmMcwdMcrESxDYCBtKSJ0ybZGJ+rlYCT6F1Z3o8UxEt8mdTf0zq5eghZW/xPz
+	ilTsXSbQUzMqAdFuD4tRqpXfSabMkQ9quZUrSPDXHuGZtXPsw719apr9Azzd8xycIE8Fnn
+	ay+T1IwwgCfiCJ/3mvwGI9vtXakZ+DQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
 	s=susede2_ed25519; t=1791393655;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=GYp5WsjRQB9EFfe6K4pZece2pmmgbczQC7CvgAb6oJk=;
-	b=fUyzZRkGPp57X7W8tfGI7w5yIadfWXYBiFZt0wBhDFqFC4N7rVQj5mx6RcKjFBYM5ZhZSl
-	JNTXLGBzd6d4XQCQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=yazpDFiZ;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=fUyzZRkG
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TgECiuSHOc97TgFEPAMUyz18J8VIRBtN9EGbyBJZgIs=;
+	b=ElzHGwvMIpokgdGLzIogsbfQLfFx8O2HMbqN7wZy+1h0kLw2Wq86BqesXK0fRDZJq6XoBX
+	TjQTiuac4XZT2lCg==
+Authentication-Results: smtp-out1.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
 	t=1791393655; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=GYp5WsjRQB9EFfe6K4pZece2pmmgbczQC7CvgAb6oJk=;
-	b=yazpDFiZ+JmIGQ926GXk3C+1n6qfHPPtJTaJDxbVn/x8WPb5OdHW1OkXpcL2VerkrM89/T
-	8hymBSaXZ25kHzQ5J2Z3zztUE8Q0tGL60gK0dn78GvnMBX5Bz4fk2oTHzkHLa0qYb5ASVY
-	8lsLsWZmwleFGiYMLyayz03OYn+w64Y=
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TgECiuSHOc97TgFEPAMUyz18J8VIRBtN9EGbyBJZgIs=;
+	b=vGkHuUDRAxmMcwdMcrESxDYCBtKSJ0ybZGJ+rlYCT6F1Z3o8UxEt8mdTf0zq5eghZW/xPz
+	ilTsXSbQUzMqAdFuD4tRqpXfSabMkQ9quZUrSPDXHuGZtXPsw719apr9Azzd8xycIE8Fnn
+	ay+T1IwwgCfiCJ/3mvwGI9vtXakZ+DQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
 	s=susede2_ed25519; t=1791393655;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=GYp5WsjRQB9EFfe6K4pZece2pmmgbczQC7CvgAb6oJk=;
-	b=fUyzZRkGPp57X7W8tfGI7w5yIadfWXYBiFZt0wBhDFqFC4N7rVQj5mx6RcKjFBYM5ZhZSl
-	JNTXLGBzd6d4XQCQ==
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TgECiuSHOc97TgFEPAMUyz18J8VIRBtN9EGbyBJZgIs=;
+	b=ElzHGwvMIpokgdGLzIogsbfQLfFx8O2HMbqN7wZy+1h0kLw2Wq86BqesXK0fRDZJq6XoBX
+	TjQTiuac4XZT2lCg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DCF5013354;
-	Wed,  7 Oct 2026 17:20:54 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 18BCD139B1;
+	Wed,  7 Oct 2026 17:20:55 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 8rcALXZ/xmp1CgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 07 Oct 2026 17:20:54 +0000
+	id 8rcALXZ/xmp1CgAAD6G6ig:T4
+	(envelope-from <tiwai@suse.de>); Wed, 07 Oct 2026 17:20:55 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: linux-sound@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH v3 0/8] ALSA: Fix some bugs reported by Sashiko
-Date: Wed,  7 Oct 2026 19:20:36 +0200
-Message-ID: <20261007172051.13240-1-tiwai@suse.de>
+Subject: [PATCH v3 3/8] ALSA: hda: Fix potential UAF for gating jack
+Date: Wed,  7 Oct 2026 19:20:39 +0200
+Message-ID: <20261007172051.13240-4-tiwai@suse.de>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261007172051.13240-1-tiwai@suse.de>
+References: <20261007172051.13240-1-tiwai@suse.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,78 +89,68 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Spam-Score: -2.80
+X-Spam-Level: 
 X-Spam-Flag: NO
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-3.01 / 50.00];
+X-Spamd-Result: default: False [-2.80 / 50.00];
 	BAYES_HAM(-3.00)[100.00%];
 	MID_CONTAINS_FROM(1.00)[];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
 	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
 	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
 	RCPT_COUNT_TWO(0.00)[2];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
 	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
-	RCVD_TLS_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_EQ_ENVFROM(0.00)[];
 	TO_DN_NONE(0.00)[];
 	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Action: no action
-X-Spam-Score: -3.01
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 444971F444
+	RCVD_TLS_ALL(0.00)[]
 
-Hi,
+snd_hda_jack_set_gating_jack() assigns gated and gating variables from
+the succeeding calls of snd_hda_jack_tbl_get().  This works normally,
+but the second call might kick off the reallocation of the jack table,
+hence the first pointer might become invalid, which leads to a UAF.
 
-here is the revised patch series of the previous fix series.
-Now Sashiko reports the existing bugs, I took a look, grabbed a few
-critical ones, and here are the fix patches.  About a half are about
-core stuff and a few about USB-audio mixers.
+For avoiding that pitfall, this patch changes the code to two phases:
+the first to only create two entries, and the second phase to get the
+pointers from the table, so that no relocation can happen any longer.
 
+Fixes: 0619ba8c17b1 ("ALSA: hda - Allow jack state to depend on another jack")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/hda/common/jack.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-Takashi
-
-v1: https://lore.kernel.org/20261006134035.478529-1-tiwai@suse.de
-v2: https://lore.kernel.org/20261007093638.1049688-1-tiwai@suse.de
-
-v1->v2: fix mutex() scope in USB mixer mutex in patch 5.
-v2->v3: covering selector unit with mutex, destroy the mixer mutex in patch 5
-	fix MAX_CHANNELS check in patch 7
-
-===
-
-Takashi Iwai (8):
-  ALSA: seq: Drop the bogus RCU guard from clientptr()
-  ALSA: pcm: Fix TOCTOU state overwrite in snd_pcm_drop()
-  ALSA: hda: Fix potential UAF for gating jack
-  ALSA: usb-audio: Fix invalid UAC2/3 mixer unit matrix evaluation
-  ALSA: usb-audio: Fix data race at mixer_ctl_feature_info()
-  ALSA: pcmtest: Fix a bogus pointer read in snd_pcmtst_pcm_pointer()
-  ALSA: usb-audio: Fix mixer bitmap cache over 32 channels
-  ALSA: core: Add missing barriers for power_ref vs card->shutdown
-
- sound/core/init.c              |   4 +
- sound/core/pcm_native.c        |   2 +-
- sound/core/seq/seq_clientmgr.c |  21 ++---
- sound/drivers/pcmtest.c        |   3 +-
- sound/hda/common/jack.c        |   9 +-
- sound/usb/mixer.c              | 146 +++++++++++++++++++++++----------
- sound/usb/mixer.h              |   3 +-
- sound/usb/mixer_scarlett.c     |  18 ++--
- sound/usb/mixer_us16x08.c      |  20 ++---
- 9 files changed, 143 insertions(+), 83 deletions(-)
-
+diff --git a/sound/hda/common/jack.c b/sound/hda/common/jack.c
+index 1d6b0f0e6f27..c3efab3b5bfe 100644
+--- a/sound/hda/common/jack.c
++++ b/sound/hda/common/jack.c
+@@ -389,12 +389,15 @@ EXPORT_SYMBOL_GPL(snd_hda_jack_detect_enable);
+ int snd_hda_jack_set_gating_jack(struct hda_codec *codec, hda_nid_t gated_nid,
+ 				 hda_nid_t gating_nid)
+ {
+-	struct hda_jack_tbl *gated = snd_hda_jack_tbl_new(codec, gated_nid, 0);
+-	struct hda_jack_tbl *gating =
+-		snd_hda_jack_tbl_new(codec, gating_nid, 0);
++	struct hda_jack_tbl *gated, *gating;
+ 
+ 	WARN_ON(codec->dp_mst);
++	if (!snd_hda_jack_tbl_new(codec, gated_nid, 0) ||
++	    !snd_hda_jack_tbl_new(codec, gating_nid, 0))
++		return -ENOMEM;
+ 
++	gated = snd_hda_jack_tbl_get_mst(codec, gated_nid, 0);
++	gating = snd_hda_jack_tbl_get_mst(codec, gating_nid, 0);
+ 	if (!gated || !gating)
+ 		return -EINVAL;
+ 
 -- 
 2.55.0
 
