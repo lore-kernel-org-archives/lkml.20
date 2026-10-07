@@ -1,226 +1,130 @@
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9F7C4D956C
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 18:13:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.181
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791396803; cv=none; b=blDDeRI26yO4+3nTG7b6KHokzx29AJITGn/8ZZ0oDF5MeHhHySaQcsH9YYXMzSJkk1AyTUSNnOnH6nB5E+wyTVxc5eVPxsF5SWBRD/IBv3iuXx6ztHPO2sXFn3sdUdnpgeTY86fHkl2PQ6J/owhN+d39m7eJ/D8ysPjjHZrPQt0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791396803; c=relaxed/simple;
-	bh=fGnUR8pUz0Yu+aH9Y53oe0ise/KSrMTwoNWwfc8dHCE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Oe1C4ZnjAoSRMElUfHuY3yT2fM3WzQfESgoV3WT7XGsJDRuGxHo/GB3Lv/xbhqxX0aS6ARuNAStSMmAm0HQwIO8tr+v5rNtPE20lMijYI8MH8+XqH1s0OePITfpqJua2yTFCba9tTQuw/LA6K5Nw4rp52XvlkavKqcESdfpF69k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j1+R92gU; arc=none smtp.client-ip=209.85.208.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43FD24DD3BE
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 18:13:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791396814; cv=pass; b=QoVlsUEbB6eAkq0cllEP6sss9IHMPn4PgCITmciy89vy6j/68fXHQy7OZpBcd3qxl9+fl2yXcGC+Pp6p/i8WPJecwYmreswy2Jk/b/T4jIKTFmjnm+EB89kAsTEdcrJMTf7sDR6iE3P2r8qSphTbtY31x99eHhsOV1gyQsNe6Ag=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791396814; c=relaxed/simple;
+	bh=0wykPVPExtMfhxKcAfrp0hErspx+nh4RqrQTL2Nlv20=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XO+SDeQo30uUCLwnNWx1FoJqu2lpl1qV+48OwPKU8MKapHYFxHLdBugn7HacPm1GwK0exvC/la2kgo4z4akE0R27V/t0d1xmrrm118rcGA8kAZgRQ/8TgIpCP+RBv8/0cdb+x0Y313dqBd+l87iqF6ER4YmCh62Dqq+s2hXoQX4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=qI63g4X0; arc=pass smtp.client-ip=209.85.208.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j1+R92gU"
-Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3a5a26c8412so12876481fa.3
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 11:13:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="qI63g4X0"
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6ae14cdc63aso1409a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 11:13:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791396811; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ThOrvBtAjBVhH4ByJS3+hoEMEXRFtu+7iZrDX87tBtrWJyUcC/uEEUi1Kgpm5CItjQ
+         5PST/fTxefYZts3gw23NPA1pfd6OTi+SN8fSSpHBPDffI+/U3kmOIYGEMt/G6fRzGe/t
+         rMY2wefyLuJn/npmr425E1XEgrBnM5i5e0ve47DOJvgNDEuUENQHiRp9lNkM/LeXnK+y
+         9bHJUrMIwenlLmMleQtyoFvAIRtsyzAzQKFyl3519HxGribsMLBe1IYIEKgYG/FK3bRc
+         L6qyU+lUQBZ/9Emk/QvF8tQf6MR90YHOzLLbEXmKDqVYayu7Hq8WNuFRoXO1wuYAQnQs
+         lG2g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=WxmdSGUkA1DO3egL6WOHUvJBsfcKWsZyIgmusUzN/4E=;
+        fh=sDgtXl7smkBXLgId97V27+7gLBjw74u3vScRZJUQk2M=;
+        b=P1XIoRiraMqDxx7DDP9ZBLvPtd/kBh5vj7ZuZ7SKARxET9Vqj5gRMZVX6TxHPJXM/Q
+         jCqIe5YYMvQuSSE/E4B6vEEYHvp8Z+up+YliF6DrGlcpSvcCB/Vd+uksZHtWM+rz6i9R
+         SFhRLjHWUcWw0UjdtujfUZHn8qmSYLHL7fT4w8He6u2k0u2AMafy81gZnaYGUD5bN1rA
+         Yr/75d7cloMUil8xFGA3JZ98RXMRFGYF+h088rmeO0YzKg7F89O1UCJ4k15cp6zl2UoX
+         wiro+xnUeDTKV0Vpsb3fA3FK/IDcxoyaPxDc8zx15Ayt95mVu2w/bqV/cf/1kw6lBqWp
+         fx+w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791396800; x=1792001600; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZGrnPWUOyDg0C0yJ/lqCgfFWPjcx0fkqwSZpB/L+ihw=;
-        b=j1+R92gUvD7VlUNXCd3GUl5TWYoOVgXxvG1cNYSdmOhQ5BYJzkAJA/yTFchR2t1NAD
-         K1UNzZZ3o3xtdM1gQCpWxT20av2Pvny16KBz2LKq03L5RGh2cJhto+gNX9cpu7iHa7w+
-         knwcXqL6Fj2Xa9AvOmujDCZ4a3NuLQdYe88tT4RniDuJcALAWuJs2+dlb3ms3YKXS7HJ
-         djR3tlo2rgI/ROj4WavlFlt544eNqWS0tLPjyVMwUzqs7gRN4vZUZnp3ZAXadXZAP/ou
-         okwbbFCykBP6aUJRXA0GV9nlOOp51OeeoE6kvI4aWG2zI0dupeTrGhLG6FYEbpixM3iN
-         lKRg==
+        d=google.com; s=20251104; t=1791396811; x=1792001611; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WxmdSGUkA1DO3egL6WOHUvJBsfcKWsZyIgmusUzN/4E=;
+        b=qI63g4X02xZmzfuK56jJO3gVELnPNwY9BOz6Ihn9TOyI9AFwgoQpwvzlDVvUiTwqsR
+         AmObwXOxqTNnE5VY2JJ3rydhVx4IznQ2Sjuaq3D6MJ1xyntwKriG0DDL/EB0tnwEA/X4
+         qb5gBrTars9FqNksC5PdJHCjyQ8+heR5SIZrrFTno6yMEi8WJ2UbYRuAwqmRBkDFVDaH
+         5ABPrkvOyauYd0aHCygF7I0CcghUbtcdIBKoYUWe+nWfd6lsnbGpUNbajMDnkOUxOeS+
+         cUM5DbhQJQ2deHOs4ppxIxLEEPnjJZQAB93gyUda/bjyROXErAFAj4bc/vW9i/osz03P
+         QuSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791396800; x=1792001600;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZGrnPWUOyDg0C0yJ/lqCgfFWPjcx0fkqwSZpB/L+ihw=;
-        b=bHmTpnAtAR+Tmp+EsPA9nxuKDBLFwEyLYeuLkfqHx/6rVuEfIoGhCp3e8WKD2DmBGZ
-         6gfat1sUlVXtNYgg/P9IIbm9fbZfv6baS1xQSMSMdcUxSyr3uYixTdj9lPYdNBbNWs51
-         ecR4EDnhyk95ESQHWLb1Tuu144UDvrtCxlIR7EKLYfH5zRatcFZfOQBbrX2B4BXnOD41
-         XhxeHNb/wvtl3ZrpaBmEPEMQStEEnESbOyXmuDV/vA8HsOTuver9ya1U6V0xSouh2fuj
-         800MKBo6hMoslbYtPWJ/H6UouJKQAHpEkiKv7Tq901J2cckhJPrC8+4mw5c8a8jH2Ysz
-         nMTQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwJpqL+5gphWT7qq9JSBBkjN4JEHE327IoyP0kzBlpuXwqkGQg3CmuWVYbLzPaaKYJWSpiC8DLPSDP4Aqk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJsoaqKc1I3A2K4iqpNJTyAlIp6CKZTmThQnznJprTVvmTDsgaM
-	whWHw6l9EORva6xeNr5fRhsx/JKv1sVHjatesHSGeSSvv6Ytm8sUqS1F
-X-Gm-Gg: AYBFou0ly9TvNqQYBGXF49GPWsQEYgDRXsNb0rl+p3FZ4KlgXUu8SzjtsBY8x4t6Xz6
-	2hW7M19E7FBU4hlTjwnmFAxka6phv/f9m+w4eCjPY465aT0vtQ8TrO5ALb6SLHICskkC/3D+CTz
-	eFZoncfGyNDw8QxYz/rP7HToURIDdpg5oOy5/X9WNlTyKr6ngXuNVU7brts2u3c+xEeR8McDiMc
-	USLq3qMpM5fWTkYETJofIP2XorC+I9e1LvBuu/ACEf8lU12mxV39livo/scnCXB/CexFrBhko4e
-	i97Fudc6FCKPD+rQSKZCr91eJO8UOzG15r8LkMHQfEtdiEwr4GGr7EuIptwb3mmNqVTAjObBcEI
-	qGSsIIjN5mkczkTYTfNkPkK+y5u9HV4CMkP3U6Vw6B1FHeciJVM8YY8PtBnDf5n+/O6O5xktwzn
-	Fe9kLsPQ3eBR+undNabdmBAogXcB07csAvJE4hMVzdWkq9iz1C4vJdRN1hqc3eraYiM6hJgk/Ha
-	VUfV17lsXCMCl7zZWRpV7v9HvsVD3k6Myw8B9s8H9FRRw8AlDYK
-X-Received: by 2002:a2e:a7ca:0:b0:3a9:8546:ee13 with SMTP id 38308e7fff4ca-3a9a2cf70camr7501791fa.19.1791396799446;
-        Wed, 07 Oct 2026 11:13:19 -0700 (PDT)
-Received: from localhost.localdomain (95-24-167-79.broadband.corbina.ru. [95.24.167.79])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9a1d59661sm9000041fa.18.2026.10.07.11.13.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 11:13:18 -0700 (PDT)
-From: Maxim Skokov <skokovmaksimevg@gmail.com>
-To: bpf@vger.kernel.org
-Cc: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	martin.lau@linux.dev,
-	eddyz87@gmail.com,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	memxor@gmail.com,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	shuah@kernel.org,
-	vadim.fedorenko@linux.dev,
-	netdev@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Maxim Skokov <skokovmaksimevg@gmail.com>
-Subject: [PATCH bpf 2/2] selftests/bpf: Cover test_run csum validation after bpf_skb_change_tail()
-Date: Wed,  7 Oct 2026 21:12:42 +0300
-Message-ID: <20261007181249.352831-3-skokovmaksimevg@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261007181249.352831-1-skokovmaksimevg@gmail.com>
-References: <20261007181249.352831-1-skokovmaksimevg@gmail.com>
+        d=1e100.net; s=20260707; t=1791396811; x=1792001611;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WxmdSGUkA1DO3egL6WOHUvJBsfcKWsZyIgmusUzN/4E=;
+        b=DTm/9PDJv0o02oFGWEHGOSPU6h9n05mbryuSgv7fX7deyDlLoZTZlou1Q8gF65ldJv
+         zIAo66k51qE65zrjAnR+J2W8KI4MWC/WsoaYWtgbmtkuICdeNuCWh8+IGwaFcCcNUQxr
+         k0XkQXWgu7tTa8KLRorXdFauYv3fTte/OQeQecI8u/1RHusTHdSyFDuU6E4Oycb0YyhR
+         yW0zKdCW87cW7DDOULJ2OGhfIoXPbT7FRz45FaG94Yy9IjI7Ocs9exENAR3HlwMrADXe
+         YagEfPQaFBO6U36YVajWZhh8aaHFcqJ1z21cJcgTzUQE3V21f3Q6dR9NV0n43R5iJmVV
+         L7ww==
+X-Forwarded-Encrypted: i=1; AKwUvBwNa7cEzn3A/hSJO8WPbQCcmu8eyIqr562ZnO3FcpFwPLo42YIQ+tXJPEBCHbI3uXmh3w0AgkNNHeTtJss=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK9cX7osjNKZEWo4ArLPO47SMlEvrCGXd+DvwKpYJ/fsr58RCxs
+	NBm0mned5JdflH2pwIwqDPSohPpMtVh3Ni5ZRWSnJqhfvkeO/7DYFuWvXmhx6g/boyeYxpcr00T
+	dslWTKvUI7Z0dma6XJK0YY3Lx3rsy4Hl29Q2RqaGn
+X-Gm-Gg: AYBFou1lUhDtv5iSAz/JLyEeh07dUV+v0rw/D75vyWHuu0V/BkLNQhC/fzrKpFIIxMD
+	5WanULa8N01F4gOgQBgoW3Yd1R8jQCqT4v4rOMrNs1ycD7TC/rAMvuzJMvJa/M68DfFMzIBJ9rq
+	108t8zrk0MNXjFVpWRc1NR4ZdldyPWpdxJXU9iAnAgqsW82lnOfL8iR8DpGeV6XUxzg+tIgh3q+
+	riUaGbQZcth5CWzAhDRbLxI+ur48g8yTzsY0QIpLRqxhsulVzLo5W4C3SIaL7/ZVdnKe0rTSMvE
+	mpPtupziQryow2llmRjluYIN1odUEPcB/1t7UJZhtAoZMgXcvPxFjA==
+X-Received: by 2002:aa7:c38f:0:b0:6a6:7dff:61ab with SMTP id
+ 4fb4d7f45d1cf-6afdca6dbcbmr143558a12.15.1791396810631; Wed, 07 Oct 2026
+ 11:13:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261007-b4-skb-copy-csum-stale-bytes-v1-1-adbbde033fb3@toxicpanda.com>
+In-Reply-To: <20261007-b4-skb-copy-csum-stale-bytes-v1-1-adbbde033fb3@toxicpanda.com>
+From: Mina Almasry <almasrymina@google.com>
+Date: Wed, 7 Oct 2026 11:13:17 -0700
+X-Gm-Features: AclHuK-_n_A8xp8YB-RDEaIVKPCVRrxiagUfshfsGewdeFBoQIHEykC2h8UN_Ns
+Message-ID: <CAHS8izNHr1o922jw05y5wmFr-Ac3+VxfybX-LMOng6cXeP8Yrw@mail.gmail.com>
+Subject: Re: [PATCH net] net: skbuff: don't leave stale bytes in skb_copy_and_csum_bits()
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Willem de Bruijn <willemb@google.com>, Kaiyuan Zhang <kaiyuanz@google.com>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add BPF_F_TEST_SKB_CHECKSUM_COMPLETE tests for tc programs that move the
-skb out of CHECKSUM_COMPLETE with bpf_skb_change_tail():
+On Wed, Oct 7, 2026 at 10:29=E2=80=AFAM Josef Bacik <josef@toxicpanda.com> =
+wrote:
+>
+> When skb_copy_and_csum_bits() reaches unreadable frags it returns 0
+> after copying only the linear part, and the rest of the caller's buffer
+> is left as it was.  The callers copy into a buffer that is about to go
+> out on the wire: an ICMP error quoting the offending packet, or a
+> driver's TX bounce buffer in skb_copy_and_csum_dev().  Neither buffer
+> is zeroed beforehand, so whatever was in memory there gets sent.
+>
+> Zero the part of the buffer we didn't fill.  The checksum usually
+> won't match the data any more, so the receiver will usually drop the
+> packet, but either way it no longer carries anything it shouldn't.
+> Only zero for a positive @len, a negative one from a broken caller must
+> not turn into a huge memset().
+>
+> Fixes: 65249feb6b3d ("net: add support for skbs with unreadable frags")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 
-- change_tail_trim trims the last 4 bytes of pkt_v4. They hold the
-  non-zero tcp.urg_ptr, so the stale skb->csum no longer matches the
-  packet.
-- change_tail_grow_write appends 4 zero bytes, which on their own do
-  not change the sum, and then writes a byte with BPF_F_RECOMPUTE_CSUM.
-  That write can no longer update skb->csum.
+Reviewed-by: Mina Almasry <almasrymina@google.com>
 
-Both return -EBADMSG without the preceding test_run fix and pass with
-it.
+We probably need some better csum handling with unreadable skbs
+eventually. I took a shortcut in the initial implementation and
+returned an invalid csum because there was no way to return error from
+the csum functions. With LLMs now this is probably easier to fix.
 
-Also add store_no_recompute as a negative test. It writes a byte
-without BPF_F_RECOMPUTE_CSUM, so the skb stays CHECKSUM_COMPLETE with a
-stale skb->csum, and test_run must keep returning -EBADMSG. This checks
-that the validation still runs for CHECKSUM_COMPLETE skbs. The passing
-case, a CHECKSUM_COMPLETE skb whose checksum is updated correctly, is
-already covered by test_skb_pkt_end.
-
-Assisted-by: LLM
-Signed-off-by: Maxim Skokov <skokovmaksimevg@gmail.com>
----
- .../bpf/prog_tests/skb_csum_complete.c        | 39 ++++++++++++++++
- .../selftests/bpf/progs/skb_csum_complete.c   | 44 +++++++++++++++++++
- 2 files changed, 83 insertions(+)
- create mode 100644 tools/testing/selftests/bpf/prog_tests/skb_csum_complete.c
- create mode 100644 tools/testing/selftests/bpf/progs/skb_csum_complete.c
-
-diff --git a/tools/testing/selftests/bpf/prog_tests/skb_csum_complete.c b/tools/testing/selftests/bpf/prog_tests/skb_csum_complete.c
-new file mode 100644
-index 0000000000000..919f24dbacd3d
---- /dev/null
-+++ b/tools/testing/selftests/bpf/prog_tests/skb_csum_complete.c
-@@ -0,0 +1,39 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include <test_progs.h>
-+#include <network_helpers.h>
-+#include "skb_csum_complete.skel.h"
-+
-+static void run(struct bpf_program *prog, int expected_err)
-+{
-+	LIBBPF_OPTS(bpf_test_run_opts, topts,
-+		.data_in = &pkt_v4,
-+		.data_size_in = sizeof(pkt_v4),
-+		.repeat = 1,
-+		.flags = BPF_F_TEST_SKB_CHECKSUM_COMPLETE,
-+	);
-+	int err;
-+
-+	err = bpf_prog_test_run_opts(bpf_program__fd(prog), &topts);
-+	if (!ASSERT_EQ(err, expected_err, "test_run"))
-+		return;
-+	if (!expected_err)
-+		ASSERT_EQ(topts.retval, 0, "retval");
-+}
-+
-+void test_skb_csum_complete(void)
-+{
-+	struct skb_csum_complete *skel;
-+
-+	skel = skb_csum_complete__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "skel_open_and_load"))
-+		return;
-+
-+	if (test__start_subtest("change_tail_trim"))
-+		run(skel->progs.change_tail_trim, 0);
-+	if (test__start_subtest("change_tail_grow_write"))
-+		run(skel->progs.change_tail_grow_write, 0);
-+	if (test__start_subtest("store_no_recompute"))
-+		run(skel->progs.store_no_recompute, -EBADMSG);
-+
-+	skb_csum_complete__destroy(skel);
-+}
-diff --git a/tools/testing/selftests/bpf/progs/skb_csum_complete.c b/tools/testing/selftests/bpf/progs/skb_csum_complete.c
-new file mode 100644
-index 0000000000000..8e8d53530899a
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/skb_csum_complete.c
-@@ -0,0 +1,44 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include <vmlinux.h>
-+#include <bpf/bpf_helpers.h>
-+
-+SEC("tc")
-+int change_tail_trim(struct __sk_buff *skb)
-+{
-+	/* Drops CHECKSUM_COMPLETE. skb->csum still covers the trimmed bytes,
-+	 * which hold the non-zero tcp.urg_ptr of pkt_v4, so it no longer
-+	 * matches the packet.
-+	 */
-+	if (bpf_skb_change_tail(skb, skb->len - 4, 0))
-+		return 1;
-+	return 0;
-+}
-+
-+SEC("tc")
-+int change_tail_grow_write(struct __sk_buff *skb)
-+{
-+	__u8 val = 0xab;
-+
-+	/* Drops CHECKSUM_COMPLETE. The new bytes are zero and do not change
-+	 * the sum, but the write below can no longer update skb->csum.
-+	 */
-+	if (bpf_skb_change_tail(skb, skb->len + 4, 0))
-+		return 1;
-+	if (bpf_skb_store_bytes(skb, skb->len - 1, &val, sizeof(val),
-+				BPF_F_RECOMPUTE_CSUM))
-+		return 2;
-+	return 0;
-+}
-+
-+SEC("tc")
-+int store_no_recompute(struct __sk_buff *skb)
-+{
-+	__u8 val = 0xab;
-+
-+	/* skb stays CHECKSUM_COMPLETE, but skb->csum is not updated. */
-+	if (bpf_skb_store_bytes(skb, skb->len - 1, &val, sizeof(val), 0))
-+		return 1;
-+	return 0;
-+}
-+
-+char _license[] SEC("license") = "GPL";
--- 
-2.47.3
-
+--=20
+Thanks,
+Mina
