@@ -1,283 +1,192 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010016.outbound.protection.outlook.com [52.101.193.16])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B9047F783;
-	Wed,  7 Oct 2026 12:05:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791374751; cv=fail; b=rqqI+wrknCG/staJPcfCrZlOpt4q8kUTww26epHtAuTMqbPRpe0gWiE8Wii/9mnavXqa6hKV+ncwVe8WmoF6EESLHotoQCtXH553P0R/m3GUId9epIaGkz3JmEanHiyws1MBmVgBQf3wr1qWlJUCI+m8KF2+FNIml2P28uwF70A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791374751; c=relaxed/simple;
-	bh=UYHA17biKoJfQO/1LJ2yZYn1br6/WbVnERyKi3oInAA=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=ABtMLEpvdGfu3d5oHvsfeEspWVImL5UxiaLGLa4wSK11EJabiSUGm/hw34BHe2WZBSd1/58hv/uGIH61Cp8Y7+9SKLg0AE+7CuRMlL0OKANABpEPQke74LYXN75Ra67Lb/tbdUiwbCNxoNEqsH50BEA0QPNUTnUBBE1YwRyCeYc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=DMdTr2MF; arc=fail smtp.client-ip=52.101.193.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F25F4119F4;
+	Wed,  7 Oct 2026 12:06:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791374808; cv=none; b=oiC+TfELL/dT02ATVk2mjeaTcjHrpfLMdxM9czKCAC17XPDbWMpBvaPXGa5gjRYUjiz+SHYlukBHPdIahk/1amWcANatCjOWVzBROFfIxiMepppWrom3enMhK9fIEnfu4TFj+Ih46NpqJJG8C3bCsHL6Be7SvRYN6rsTlhVRt1s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791374808; c=relaxed/simple;
+	bh=wKlJ2DHRqIhAdaST3wmyUh3jO4bx9A65bBiPfUs5SF4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=k7YmW0+usy0wuBaw7AIjEK8Df/SRMRqrM6hfJ7JetV3oegRuXRemNiY5hqWNtJfiFnv/tZtzlj1HdxfQC6q4asSxyXQBEesVHt8fvSg4E5xcPZP8jQQnHd4I/cvCRQoRmekAKLqGSG5edcOdVpJOJMQ2DPhbrgrfvxBsdMrvvdM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=nY8gB82m; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="DMdTr2MF"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Fcrqr8r+3i2kMLnHZdO2q0SFnwebBdeyT78gm0KT05Ha6DOruwdaH+GBs3tHG2JjEvfw+dqMq6QJf0T25/1TowMidR/MPL+7zSljL9bh/ydVvSRlg0HVJ6F45EYukF3UBsNG0o38cYKCcQ5y0uJaWD448tNCh/ZsM7wkRBoWcPSHIDt848FL569DfGjkvcNrpMvEoYj2Ik8xiKBbRChvZo7Env80bBRc3rIYPlyhrjj29zLRtNOq/mnUSyQhiRz+8CdRdKdGyXE+1b1gZa2o34sisSwosSRZgot8AzjFIqA3IU1vzUUK1uC+i7Y+Ok+ljl5DnW+k1anKCkU/umE32Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=E196s1UkZHTTn7POnkAishoEP0BvtZJxKx4aBw4xJrI=;
- b=U4wW5dChNex2IlrNnxOP4PXduZ/tjjTFhkHBp0VmNocBj4D/NZ8xJZ0QPvi9SAakVlG6JGm2VWPg021Jpv8kRExjS4eKe4jU3/pAhLtZIye/SjJUSSzYkmoWfDVpdMnztVCpf2gPgZs7ZeNjwmT6dgiyJ6ZxqBTr15wCYs72Y7y4AGTxcV/J1Pt5TGrecIJPmBubSQqUA5ZSTX68tKq5cOkK7dTf8R3mJnINFJ+lDi7gskl1b24zNxlu0cT7g3rPTV8Mgm4+isaKB+/ZoTS1uSXliTztq+Ps8RuQoFz77tqShrMpWY5ZZUXi+pIwLWstQac4Ajvy5fSxPdYWftGbbw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E196s1UkZHTTn7POnkAishoEP0BvtZJxKx4aBw4xJrI=;
- b=DMdTr2MFVfvb8VnpJh3BlKR8BDLe2IEaoaiE9+qKth3Qxwn2e9ssetEiklQoCwLRnvpyTeAMoP8ya6i+YNzciyIAxO98e+tk/HRqdKEljcoI1QPdx0CTA4wwboJvIkqcVuKobXAAYYPflw548hymMd1jaYoYQGZrmJqGGyYXcrEWZsqzKA16B9TLODQfXnW3EZKQpD9UCknd2wCkQeFpszrmH+X4n0Y3iuUFwvVWo5I2tCvWIWVs6cMjp4DnO8dYbohEs1aL9tdFIIrRWTgTXC71kNL0GFEh3E35sArgVQ906mw87kvmmY0BDOB0/obZfhmYCi5/GFogPoLC1wIBAA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by CHAPR12MB999248.namprd12.prod.outlook.com (2603:10b6:610:2ff::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
- 2026 12:05:31 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0472.016; Wed, 7 Oct 2026
- 12:05:31 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 07 Oct 2026 21:05:28 +0900
-Message-Id: <DLYLCD5IPKGZ.2DMT37GPHPP74@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
- <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v3 7/8] gpu: nova-core: add NVKV typed decoding
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-References: <20260928-b4-nvkv-v3-0-f04504c262c2@nvidia.com>
- <20260928-b4-nvkv-v3-7-f04504c262c2@nvidia.com>
-In-Reply-To: <20260928-b4-nvkv-v3-7-f04504c262c2@nvidia.com>
-X-ClientProxiedBy: OS3P286CA0119.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:604:1f7::15) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="nY8gB82m"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697BZw1U597192;
+	Wed, 7 Oct 2026 12:06:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=aHl/f0
+	PxPOIXzHvjNa4odrw4F9RL3GJE/YaGipHz4b0=; b=nY8gB82meMmTOa0VlPxwqB
+	K759TAqpHozvq2V4vl0/9zY3qmX5pIlfd3HvvG9TsftaNvtMSBTBlwaIEOMCcXl9
+	FTqVFvUuc6xfu9FIsSmqH/J0O0CrfTD2bMqON7DBXwgBO9jBvUG6rq0y0f83LlFq
+	e3OgFEhJ+fdlZKKqOpW/PDpR3qDjsh79ef9pBAQ0TOIMp8u4ziqituh/1oEuWQx0
+	prJmnAZS7Y2gecuJjUfdix4kZKeIEbnMz//n5SBHIhswzCfZPMz+mdPNWi5wVHLk
+	rZW64k017ni/sNZRbTScjNWUaSJabKpmtdBMMhazldVAJ8ndtF7D5cnOai9eVmbA
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2scrn8n2-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 07 Oct 2026 12:06:29 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 697BlaWg1808466;
+	Wed, 7 Oct 2026 12:06:28 GMT
+Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h3cdvxj2j-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 07 Oct 2026 12:06:28 +0000 (GMT)
+Received: from smtpav01.wdc07v.mail.ibm.com (smtpav01.wdc07v.mail.ibm.com [10.39.53.228])
+	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 697C6RZj18940464
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 7 Oct 2026 12:06:27 GMT
+Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 44E495806C;
+	Wed,  7 Oct 2026 12:06:27 +0000 (GMT)
+Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A838658066;
+	Wed,  7 Oct 2026 12:06:25 +0000 (GMT)
+Received: from [9.61.89.182] (unknown [9.61.89.182])
+	by smtpav01.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Wed,  7 Oct 2026 12:06:25 +0000 (GMT)
+Message-ID: <f50d6afd-a54d-4bd9-a745-6bced1e6e86a@linux.ibm.com>
+Date: Wed, 7 Oct 2026 08:06:25 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|CHAPR12MB999248:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6f474cc4-fa6b-4c49-8d01-08df246b48b2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|10070799003|7416014|23010399003|376014|56012099006|5023799004|4143699003|11063799006|22082099003|10067099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	6/eWntS5paoyfBokQMVLc5C87HobF//bM4ycfS78/iPs5wDNtQG7EsnmB/nIJ/gJDb5dB3prbsbusxwg/6uArAGWz0UsSiNk41c1BawGhTm/+HrGd6VZ1cts5HcATYKCbDIAQwnYni29arGcKHfoqSL+YjYLEUwtVvU0pCeDL2/XZARaW/s8+j+INcMvGJarXLEUSI6lGjaczcUqjs12ExaHdSEWGkp0MbCNMt749unRQUBUonzPYAcnaJMX/i1vJWzcFfgk4mmDN8xh9HmaQsEURD8KudWVYHPfLpK3Pce/psx3dKWWxY4tbVhPZPgQFn9VZGwDc8veO7zmGhkTDaBcDhwbmHXmLwid+vZK2prTZ7ajdFFK5VRN0zd62G6JLGln/pKe6k+Tf97WpOE5eFZ8GgUAl3rLUfgo4QJ96JpkAoc1jaOsDTnF8t1mt9UI1ZjzogNsWM+9dtRnxRPz2oDKPKmPyDF+3v1FUXCO4DeC6NHV2DGwKSkt8s6vD7mDlrHilJG1G/AMoV/VVe5TAiuzj3Flr7pvsvanHeWg/LnvtBno43X1nxr/ZEoenbOJMv4e6kVbwacsZNELSW8YaykpGACL0nTiUFPF3fRcdFxnQZvOSoCDY1V3Q0l3DecavxBcdQyNWLXNNS2M0THwON2SbNAUGmEesOHNg56NuKs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(10070799003)(7416014)(23010399003)(376014)(56012099006)(5023799004)(4143699003)(11063799006)(22082099003)(10067099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VFR1emN3MjdJYUUxWndRL2VTd0pVeUlVZkZVZyt6UjhoUm9Mb3BJTC9sN3NN?=
- =?utf-8?B?MkZDeVBOdlBQQVNOUWpGV2hQYzNRa3JpQVRWOGY2VmZYTm0zcXdSeDBLMk9X?=
- =?utf-8?B?TjJrSFV3Mk13dm5ielBxeDgyL3ZYUDNZaUJHTU96M1JRWEovbGJJekIxdTRL?=
- =?utf-8?B?VVBMVW5xUHpvRlN1RUUrcVJMOW91aUpCVldIa2xqWkNubjFJNk1IcHEvQm5C?=
- =?utf-8?B?clVod2xESXRUNjJ3dmdsMTNwZk5VeHNndkU2Sis5S0tIOEkyTUE4S2lJYXZN?=
- =?utf-8?B?Q1FuQ1pJclY2WFZmZ0N4Z29Oekx2ZmRGY0FSZDFRdkRJTjNBOWlTYk1vcVNH?=
- =?utf-8?B?VGJJb2FHa0hUYzh4OStpcmtjbUlXS09BOXVueXJ3Z1BQbUVNeTBQT1hoSkpP?=
- =?utf-8?B?ei9LUzRCSmtWT0RuaEFkRnN5OW95a3RTRytCOUFmaE9UNVhFMFZPVmlGcEhh?=
- =?utf-8?B?NThBNm1TSjZ5WVhRazVVa0YxelltcjVnaVZGbkt4SWV0YThVSCswdGJEWWgv?=
- =?utf-8?B?dEZiR2hmOThkMDloS01KdmpjZkM3dzl3U3J4WGN0MGM5bUVxZ3g5SUkyTDBV?=
- =?utf-8?B?VFZMb3ZPL0ZJSGJJUng5V0N5SW0vVlljRkR4MEQ0MGZ6ckhjbWd0WWlpNFMx?=
- =?utf-8?B?d3RwMnhuaDh4NDFtd0t4RFovSit3Q0ZMMTN0Nkw1VEt5SkJGTVlxbUVGMlZq?=
- =?utf-8?B?ZmMwU0N5aHBFZnZLeXZKdkpIbTNXeWhWSUFtS3lNS2FJdStpTjNkNTJOV1ow?=
- =?utf-8?B?VktlVi9id3BBdG9aeWJmL3BUL0tvaCtyNUVwcmp3ZXFKL0FnVXp2anI3dXFW?=
- =?utf-8?B?cXZPamk0QkVwWG0veDhmc2VqWkFTaWV4czhEazU2SVhadVNjQ1QzYkxVNjB4?=
- =?utf-8?B?d1BTM1ZVbitpWjVITzNrSjdLQ09SVUQ2Slp5TkVIU1JnbHpURmlWS2pjNER5?=
- =?utf-8?B?TEpXb3BxVlFzcURNOVRZNUwwbjlQcVEvOUM5TU1hUDBzZlI4N053SGkrS0Jh?=
- =?utf-8?B?bmNQTndJb25QMzFwN3dSWkw3N0IxMmNRUjdlKzU2SXpTVWxhWTlNaG5IMU9J?=
- =?utf-8?B?dHo1RVp6NEN1VEJTTkNNTGxGYTRHSlBRNThNMzFRS0RhT1pMNGNYbTVPQXF0?=
- =?utf-8?B?c1dSRWNlVXBSRDFzc1N2bXNNYmJvYm1DbUJ2dGU1bEVna25acG43a0FiZGNS?=
- =?utf-8?B?WG1VeUllWm1NYW1aRDlENzZ2WFFLbGRBN1VTNjFDMjdEVHZLVzhVdVJmWWlx?=
- =?utf-8?B?dXJlZWdPK09uYUFBeUpxdHZHeWIrSlhabFdnaHI5TGdmMjlnNTJ1UVgzbG53?=
- =?utf-8?B?NTYzSmIxNXk0Wm84bUFrcXhGRjgyWDBtK21UNCtSNXhSaTNuOUVhWEpHQ1hP?=
- =?utf-8?B?d29ObDN6dDVDdWR2V3NvSVVTSS9FMGVFTjJncDBWbFM4WE1YZnNUckVEQVZQ?=
- =?utf-8?B?K0JxTUoyNlRWWHVpcWpvSENFREl2cGRqYzFIVGRleld5SVIxeldqV0NoNlVQ?=
- =?utf-8?B?Zm5raDJWNDdaVU1HeUo2eVUyN3B1UTQwM1ZtNUE0R2Fzc0RqOEliaWVEZUNz?=
- =?utf-8?B?aTFTcDFma09wVldvbFZtb2U5QUdoZFlEY0wxdUtkckFIdVBvTldEdWtUNGdU?=
- =?utf-8?B?a3V0WDY4MmZIU284TnJRWGYzajJvSURtVG1BZnBkRUVVSE9YWmRmdHpHTU5x?=
- =?utf-8?B?SlRwR1ZHbVZaMDhrWTdFbXltaFd3OVYzWUtXV0FpMFRnUUprNlg2NUNkZG5k?=
- =?utf-8?B?UERLSTBXL3JQaFpvdEJNU0Q3RWkyYUJaakpITXVCSGJnVzJyWFZ0SzRHUEt3?=
- =?utf-8?B?dTBhVjFZbGJWZ0RDSDFobXpWQi9uOGdxNDdGYjl3TnpSd3VTcWxnSzdtSkZW?=
- =?utf-8?B?Z1dmcE8rMEE4VHhBNUFoaTlNaXhObWhwNXFuUXdzMC95TG1IUWVyejJlVE1P?=
- =?utf-8?B?cnZ3enA2Zk53M3BBVWRNQk9Pb2JJNG9idXgwK21SVExrZHladkdtMjAva01N?=
- =?utf-8?B?UjBhTTBlSi9TaUwzbUsvV3VadTJHam04VUx1SDM5ZnJtRExQMTU3WVhJaHNX?=
- =?utf-8?B?eG5nZVdTTkk3M0lKUG82S3N1Z0QyeTRhZ1ZhN215djRJcVdIUnhtblpJa3Ba?=
- =?utf-8?B?R2VuZU1IK0JnOVZSWDlNZ2V0ckErNEhDM2daMGllZHRwMlpiSm95VEl2RWNK?=
- =?utf-8?B?ZTY2WFVicVF3OWpjMExMaTNjYUNsckJYMy9ZVVJ4MGRkNWd4dW5MdGQ4aEVV?=
- =?utf-8?B?U3BOd2MwdzVMbDVOVWlSNHFUeDhuZ2grL05iaEdWYzFXT3VBTFJ0OTB2eGJ1?=
- =?utf-8?B?ODVmanVMZ2luMGM5bEhEZHZEZlorVHl4WmltdmxnWjUwdEN1cVJYWWtFMC9B?=
- =?utf-8?Q?Y6xcV0UJ/Y84LUDtXPc4cdsveXHLQVingUnEas61i7LqC?=
-X-MS-Exchange-AntiSpam-MessageData-1: aB0xEfqsEhJ92Q==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6f474cc4-fa6b-4c49-8d01-08df246b48b2
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 12:05:31.1532
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kG3CDLURbMHzUI+SEbvAdp/PxA7YCgQLRhJt5RG9uK0/IWdlGyG5HRZEgyms2PTlsO28Ug50MzRY93T20whoeg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CHAPR12MB999248
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 14/15] s390/vfio-ap: Add 'migratable' feature to sysfs
+ 'features' attribute
+To: "Jason J. Herne" <jjherne@linux.ibm.com>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org, kvm@vger.kernel.org
+Cc: borntraeger@de.ibm.com, mjrosato@linux.ibm.com, pasic@linux.ibm.com,
+        alex@shazbot.org, kwankhede@nvidia.com, fiuczy@linux.ibm.com,
+        pbonzini@redhat.com, frankja@linux.ibm.com, imbrenda@linux.ibm.com,
+        agordeev@linux.ibm.com, hca@linux.ibm.com, gor@linux.ibm.com
+References: <20260807221834.562851-1-akrowiak@linux.ibm.com>
+ <20260807221834.562851-15-akrowiak@linux.ibm.com>
+ <8b8dc348-ac31-4dbe-a518-9563d5414f09@linux.ibm.com>
+Content-Language: en-US
+From: Anthony Krowiak <akrowiak@linux.ibm.com>
+In-Reply-To: <8b8dc348-ac31-4dbe-a518-9563d5414f09@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDA0OCBTYWx0ZWRfXyWGCSb1DwN4B
+ W43Me398UhcyI1+tt/pyMh3PDkvI20RcpiOOKamD783aPQMQlErKwHFSD/3T9FFJ3TvD4X/z0vE
+ eKxM8qekhtiBuivO4StsiwU94DPfbb8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDA0OCBTYWx0ZWRfX1pZr28jah2fO
+ SGA78iSjdQdtYcpso/efUJR3++MMXWDZPIKiSskHr6HqIIThJ07kRR2lyfJOX4yXBu9zuBTAQtM
+ SwrULto+sKOwRMnIoW9/HqjcPrxvwVfToJoQj3Xrcy6zmXtX4IL3PMy4gfnLEY6Qde5J0NddZ4p
+ YllUIOCwBG9RAlcI1VswWnDcR8Bt00M/KodaGgkGiO4YDYwo6BKtRPKcdqTGWtmIjY1VOQkoKXk
+ +urqu32Z0B2tXhL6in9hwAXxLldmn+tD22/JLPRfL5BC7XTx43XQ7+PLIOwe3IxcVbyMCM7DPKr
+ lqE2pBbquk/VqQBF+dRbrEUT/8Comfs2Xw/Eb3hnrNHfdN15n92dVi6193M4WiMvV/cF1X0iab9
+ 9N+rv4zsGH5mQXTyd8gwrJRCVFTTm8yIyNjfWiBBr95VYSGMLlMkNgEi8WVJ1+KBwfY8MyjVYFv
+ EGRnfdNdhexYDSZN+BQ==
+X-Proofpoint-GUID: F7R09YOK10rAc8pjJIWzD_wfBnm8eEAm
+X-Proofpoint-ORIG-GUID: F7R09YOK10rAc8pjJIWzD_wfBnm8eEAm
+X-Authority-Analysis: v=2.4 cv=B7osQ+tM c=1 sm=1 tr=0 ts=6ac635c5 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8
+ a=qnWB845URLmzp39-Ai4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-07_04,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 malwarescore=0 impostorscore=0 phishscore=0
+ clxscore=1015 spamscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070048
 
-Sorry, some follow-up comments after my previous review.
 
-On Mon Sep 28, 2026 at 5:42 PM JST, Eliot Courtney wrote:
-> Similar to the typed encoding layer, add some decoding type machinery.
-> Add a simple macro `nvkv_decode!` which implements `Schema` for a struct
-> by composing visit calls to each member. Add some common `Schema` kinds,
-> such as `Array` which collects an array value into a fixed maximum size
-> array, and `Required` which fails a decode if the value is not sent.
+
+On 8/20/26 9:01 AM, Jason J. Herne wrote:
 >
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
-> ---
->  drivers/gpu/nova-core/gsp/nvkv.rs        |  11 +-
->  drivers/gpu/nova-core/gsp/nvkv/decode.rs | 622 +++++++++++++++++++++++++=
-+++++-
->  2 files changed, 628 insertions(+), 5 deletions(-)
 >
-> diff --git a/drivers/gpu/nova-core/gsp/nvkv.rs b/drivers/gpu/nova-core/gs=
-p/nvkv.rs
-> index 7ac3a459a98b..5791df07a7fa 100644
-> --- a/drivers/gpu/nova-core/gsp/nvkv.rs
-> +++ b/drivers/gpu/nova-core/gsp/nvkv.rs
-> @@ -9,7 +9,7 @@
->  //! function calls will map to some struct - for example, f(GPU_NAME_STR=
-ING_KEY, 0, b"some gpu")
->  //! naturally maps to storing a &str with the GPU name.
-> =20
-> -#![expect(unused_imports)]
-> +#![cfg_attr(not(CONFIG_KUNIT), expect(unused_imports))]
->  #![cfg_attr(not(CONFIG_KUNIT), expect(unused_macros))]
-> =20
->  use core::{
-> @@ -23,7 +23,8 @@
->  use kernel::{
->      alloc::{
->          allocator::KVmalloc,
-> -        Allocator, //
-> +        Allocator,
-> +        ArrayVec, //
->      },
->      bitfield,
->      num::Bounded,
-> @@ -148,6 +149,12 @@ fn default() -> Self {
->      }
->  }
-> =20
-> +/// A schema field for an array value under the NVKV key `KEY_ID`.
-> +#[repr(transparent)]
+> On 8/7/26 6:18 PM, Anthony Krowiak wrote:
+>> Add the 'migratable' feature to the features provided by the sysfs
+>> /sys/devices/vfio_ap/matrix/feature attribute to indicate that migration
+>> of vfio devices is supported. Since live guest migration is not 
+>> supported
+>> for SE guests, the 'migratable' feature will not be included when the
+>> feature attribute is displayed.
+>>
+>> Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
+>> ---
+>>   drivers/s390/crypto/vfio_ap_drv.c | 14 +++++++++++++-
+>>   1 file changed, 13 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/s390/crypto/vfio_ap_drv.c 
+>> b/drivers/s390/crypto/vfio_ap_drv.c
+>> index 8e69ed286bb9..abfb34421d74 100644
+>> --- a/drivers/s390/crypto/vfio_ap_drv.c
+>> +++ b/drivers/s390/crypto/vfio_ap_drv.c
+>> @@ -26,9 +26,21 @@ MODULE_LICENSE("GPL v2");
+>>   struct ap_matrix_dev *matrix_dev;
+>>   debug_info_t *vfio_ap_dbf_info;
+>>   +#define VFIO_AP_DRV_FEATURES    "guest_matrix hotplug ap_config 
+>> migratable"
+>> +#define SE_GUEST_FEATURES    "guest_matrix hotplug ap_config"
+>> +
+>>   static ssize_t features_show(struct device *dev, struct 
+>> device_attribute *attr, char *buf)
+>>   {
+>> -    return sysfs_emit(buf, "guest_matrix hotplug ap_config\n");
+>> +    /*
+>> +     * If the system running is an SE guest, it will support a 
+>> different
+>> +     * set of features; for example, it will not support live guest
+>> +     * migration
+>> +     */
+>> +    if (ap_is_se_guest())
+>> +        return sysfs_emit(buf, "%s\n", SE_GUEST_FEATURES);
+>
+> ap_is_se_guest() is defined like this:
+> is_prot_virt_guest() && ap_sb_available();
+>
+> is_prot_virt_guest() makes sense, this tells is this is actually a 
+> secured guest.
+>
+> But ap_sb_available() "Returns 1 if secure binding facility is 
+> available".
+>
+> What do we want to happen here if is_prot_virt_guest() = TRUE while 
+> ap_sb_available() = FALSE? Have you considered this scenario?
+>
+> Also, the code would be a bit more extendible if you emitted the 
+> static string of always supported features, and then if(se) emit the 
+> string of se support features prepended with a space. Then new feature 
+> updates only have a single string to modify, so no risk of 
+> accidentally missing one.
 
-I see that `#[repr(transparent)]` is used several times in this series,
-but is there a need for it? Same for the many `#[inline]`s, here I feel
-like letting the compiler arrange things as it wants might be the better
-call. I know I suggested downgrading from always-inline to just inline,
-so maybe we should go all the way here. These are very likely to be
-inlined anyway, and worst case I don't think a function call would
-induce a big cost.
+Is this what you had in mind?
 
-<...>
-> +impl<T: Default, const KEY_ID: KeyId> Schema for Key<T, KEY_ID> {
-> +    type Target =3D T;
-> +
-> +    #[inline]
-> +    fn init() -> impl Init<Self> {
-> +        Self::default()
-> +    }
-> +
-> +    #[inline]
-> +    fn finish(&mut self) -> impl Init<Self::Target, Error> + '_ {
-> +        Ok(core::mem::take(&mut self.0))
-> +    }
-> +}
+#define VFIO_AP_BASE_FEATURES "guest_matrix hotplug ap_config"
+#define VFIO_AP_SE_EXCLUDED_FEATURES "migration"
 
-Both methods return the built value on the stack, which is fine when we
-only deal with scalars but technically we could also store larger
-values. How about a `const_assert!` ensuring we don't go beyond, say, 32
-bytes for the size of `T` and `Target`?
+if (ap_is_se_guest)
+     sysfs_emit(buf, "%s\n", VFIO_AP_BASE_FEATURES);
+else
+     sysfs_emit(buf, "%s %s\n", VFIO_AP_SE_EXCLUDED_FEATURES);
 
-<...>
-> +/// A schema field for a key that must be present.
-> +///
-> +/// `finish` fails with `EINVAL` if no value arrived for the key.
-> +#[repr(transparent)]
-> +pub(crate) struct Required<T, const KEY_ID: KeyId>(Key<Option<T>, KEY_ID=
->);
-> +
-> +impl<T, const KEY_ID: KeyId> Schema for Required<T, KEY_ID> {
-> +    type Target =3D T;
-> +
-> +    #[inline]
-> +    fn init() -> impl Init<Self> {
-> +        Self(None.into())
-> +    }
-> +
-> +    #[inline]
-> +    fn finish(&mut self) -> impl Init<Self::Target, Error> + '_ {
-> +        (self.0).0.take().ok_or(EINVAL)
 
-I've experimented a bit with my earlier suggestion of having a wrapping
-`Required` type because I wasn't so sure it would work, but it seems to
-be indeed doable! Here is my draft implementation:
+>
+> Also, I'd consider using "migrate" or "migration" as they match 
+> existing feature designations better. We did not use hotpluggable :)
+>
+>> +
+>> +    /* Return all features supported by the vfio_ap device driver */
+>> +    return sysfs_emit(buf, "%s\n", VFIO_AP_DRV_FEATURES);
+>>   }
+>>   static DEVICE_ATTR_RO(features);
+>
+>
 
-pub(crate) struct Required<S: Schema> {
-    inner: S,
-    parsed: bool,
-}
-
-impl<S: Schema> Schema for Required<S> {
-    type Target =3D S::Target;
-
-    fn init() -> impl Init<Self> {
-        init!(Self { inner <- S::init(), parsed: false })
-    }
-
-    fn finish(&mut self) -> impl Init<Self::Target, Error> + '_ {
-        // Reset `self.parsed` to make the schema empty again per the metho=
-d contract.
-        let parsed =3D core::mem::take(&mut self.parsed);
-        self.inner
-            .finish()
-            .chain(move |_| if parsed { Ok(()) } else { Err(EINVAL) })
-    }
-}
-
-impl<'data, S: Schema + Visit<'data>> Visit<'data> for Required<S> {
-    fn visit(&mut self, key: KeyId, index: Index, value: DecoderValue<'data=
->) -> Result<bool> {
-        let consumed =3D self.inner.visit(key, index, value)?;
-        self.parsed |=3D consumed;
-        Ok(consumed)
-    }
-}
-
-You need to convert all the `Required<T, ...>` into `Required<Key<T,
-...>>`, but this reads more logically I think, and now you can combine
-`Required` with more types. I believe you could also implement
-`Optional` in a similar way.
-
-(you will also need to add a `#[derive(Default)]` to `FbRegionFlags` on
-the next patch, but that's not a big deal since it wraps a primitive
-type anyway)
