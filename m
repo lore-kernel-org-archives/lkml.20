@@ -1,132 +1,122 @@
-Received: from mail-lr2-f3.google.com (mail-lr2-f3.google.com [74.125.230.67])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4752B4AF9E3
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 13:26:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.67
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8CAB3B71A3;
+	Wed,  7 Oct 2026 13:27:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791379635; cv=none; b=q0XLHaVg/j3mJ2Fg6z/tpQzGss/rUnfWz98TGx5YPLGdpl1ZGW/UYwR2mMFwDgfJHDDNka2KoVm9Ex0DtwtHCfNc3BfyardXMOJJJco2SN/zIm9B5eWTVc/AkVzhjd3ul1k0OgblT/nRy1N3rSzunTQB2iI4bqyt280CioOLn8o=
+	t=1791379691; cv=none; b=oyxpFQ9GQUuvGIGFe8TdCCTjMk2kJny1NQ9IMdjKaeozPx1xgGtFt1xDGWQ5WwibJobPkD0C6lLcVKuQVKBSnNZkHi1OiGSoZzBm4X1bCfrGesj2BWc7M6hC1ipnJfuBS1wYzvnHaAD4ECM7kZvgPa8TvSKXEEA2jLF5eEws1Ck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791379635; c=relaxed/simple;
-	bh=9FFiBZzNjNWizqOL3HznxfsDwaJdYIPdTLjkyHpckoU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=gXbML3RVtsNEbZKxGIMY7S2B0KN1qLsxiglmwxKphRscQW79OwLKyPVruzWCj94Zjo5cz1NZdZbelG4DrMf2swgtKX51ly5+BZ1KmxfU1Yw80zcZXzR2VxifVFBP1jN3pRHQGQ+4rHeIetIlnO+yxALIxP6aq9b2qg1fMpEJPn8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Phn8VEFb; arc=none smtp.client-ip=74.125.230.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791379691; c=relaxed/simple;
+	bh=dqn5gPzm8g3TaLWmhg9RnX4KGvjSk/UXhRAz6ZdXq8g=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=tcg7psIDInTCIlKLKs5ZgtKHJM7XIs6yr0AdxjkFATEDNb0QOXU8Gb8KmkoFq1ifhbawiAIM6v21TD6NqK4rw5/Qz/pRg5POtCvZ8Kg1/LyKctHPn3IUtyWiv2qB662YvNf2CKHL+bqiRBtmVvswu2M/kyMWIPEMfXxEwHZXuSU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AyDErgIg; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Phn8VEFb"
-Received: by mail-lr2-f3.google.com with SMTP id 38308e7fff4ca-3a77df9781eso23106221fa.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 06:26:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791379616; x=1791984416; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GDQwNh3Y7ViZN9kSjBt6rSxx3bjORoWLA033ou0tHZw=;
-        b=Phn8VEFb6xWOkHeeaUtUMeN1rdzOKNssukJec3P+McjRuy1frUzt2Ydk7nXScKlGNA
-         vZ+80p8gSADAV3DT8Cxp+Dr17X94ZbyTLX0eqgYQtnEx7cZVnVTOLoTkAGWfjmK2aA6v
-         EOVBj2bwt9uRyaEQmJ0q9nRaw32aErgGeClKCf9tJ25l9P8DGu2DHzVVcTu9QzM7/w9/
-         zAiuBKH8AYaqEWd6rVCnQMjzFZApFGnxfHY86RlzBiSnhoSh00EfBURJEyeb7GM+/4ld
-         gHlgdJsSkauJBjG+EhPeW7rr3HKccDC/WCnSJM/jPemfBmeLAec4gmKThp1P4kS3n8Ib
-         9f5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791379616; x=1791984416;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GDQwNh3Y7ViZN9kSjBt6rSxx3bjORoWLA033ou0tHZw=;
-        b=rcVXvFIbFF2qqxZygmglgF3xDssZs9igYeWFCcMTeqbDWJb5uEqJ/UHfJlm3N79sli
-         VdfAfQq+BEMZal1sNSa4cPopJcHaWyJACTAxhcq+/8Q0FFXgrHvVAlG/guZyOt79GcKc
-         0b+TXdXLJv8LOKtHvmwiDgKvcTi69cq8vUXeblNkHfYnpnjJDR8gZEZLksSAlz95WDsb
-         M3SmLjnaJsckX/taxoDkDFUKxpIb4h/ySre4KuhMghb/1MjYGKpJpHPpqibujpCaYMio
-         4I1r2sNvrbWaueABO8ZBrlc96cNzGgnHel7EFNMIRtZO3RzV5DBuw3zcT4zpE7wx4s7U
-         zQ9w==
-X-Forwarded-Encrypted: i=1; AKwUvBzuImIVQn0VMmTBPDxlT5BejNlaaVHDHR55wVIRgcG9OYViBLG+ZSdd8dcT69YmtXOQDLaW3Z0tTsho79E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI+8mINFFCinv58plUwCQdmEIFhYMngHcceXHds4xTPmAMB7zlc
-	qLvMr3HBNq2aqKsKy94BmsFhCwdpDnQQWOZROTZVWClkqZIbLZAL2ynp
-X-Gm-Gg: AYBFou0cjg+sDsjvFs5xFgWSMNvdt7XKniomCyAQ+V11ZRfPfqfTnd8HdAsV7sUot9Z
-	RXsMZ+OCiweXzNygqlm+mV8M55KSxF7Wwon9wRyfS61Hj/j5qoiyidIQZAN17f44Z66dv7/vGZ/
-	5gNNlOyzEN4ouM20/hgbQ5ApeyMeeK02vXH3U+Ma1VCsDD9q0+rE7sD19qstmEN/i/tTOg6LjGa
-	tJPNAOIrrUCADWKaqgdeAFzHHQyJa2ffsXkUd3docsFTg1zx5mvMQPUhhGW5Ofd4v3spWk+EeBz
-	lsTU3KrAAPDC1anVcXFL19j3+ir7wDCQnyNFqtr8iSdbtNUSurFiY6HvWID6Y9ecKi6eTdt0YE9
-	Ksxk+LlkusN2HjZ/aSIavh5jolz05NdkRNSsgUujSTIsj7fO4UIKyBD9u7Ulxuod+eYCD5SQjDm
-	j4No/QiYk2X8RO2IF+FaUusjbXxsukvzJhJsQiBFWWIYYa8o++emCXx12+Wif7ywxTUme7wYykh
-	DFiKzEo+JJY8/cy
-X-Received: by 2002:a05:6512:3a87:b0:5bc:b962:ccb2 with SMTP id 2adb3069b0e04-5bcd074b8f1mr877734e87.63.1791379616009;
-        Wed, 07 Oct 2026 06:26:56 -0700 (PDT)
-Received: from localhost.localdomain ([78.40.184.2])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bcd3083558sm32201e87.39.2026.10.07.06.26.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 06:26:52 -0700 (PDT)
-From: Roman Demidov <roman.demidov.nn@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	David Airlie <airlied@linux.ie>,
-	Daniel Vetter <daniel@ffwll.ch>,
-	Leo Liu <leo.liu@amd.com>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AyDErgIg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791379673; x=1822915673;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=dqn5gPzm8g3TaLWmhg9RnX4KGvjSk/UXhRAz6ZdXq8g=;
+  b=AyDErgIgeY9pHuLGZELSgKYyp3p8ZnWUhjzEIrqtCPLlCGg7m8I0Y/TO
+   ozW7+tjFxWf2RQ+HjwVNLCLELoTFytABszWvIoQ4Dn32JoAgI/8lDeadA
+   T4LfWnExEylzu9i5DeFnvnDdkq3uxowjnpzsJNtPEsCwZNKOAuiWdXGnG
+   k80aFR1BiV5WIQc5FpI0tiTrwPyWATHE1TV2eKYyW7xs+i8OvF6387cK8
+   AJuK9izViQ8rDgOGjGesZ3GHFU46aJxNnws4dcQaITY353/n62ACFK3oT
+   RM7NR3gWm+k0DQylaavelWOl3j2XNxTzkFYzmtsW2CxVRsA9tx4N6lCf/
+   A==;
+X-CSE-ConnectionGUID: qOsij63BSk2O7DZw3R8+GA==
+X-CSE-MsgGUID: VAjS4eNrSM+tNgkbnzLsDA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="242384"
+X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
+   d="scan'208";a="242384"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 06:27:35 -0700
+X-CSE-ConnectionGUID: CYZaA+69Sc2O4zeJhLkESg==
+X-CSE-MsgGUID: 5v008PxGQZO+GKTYkdVvnA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
+   d="scan'208";a="64272"
+Received: from crojewsk-ctrl.igk.intel.com ([10.237.149.0])
+  by fmviesa007.fm.intel.com with ESMTP; 07 Oct 2026 06:27:32 -0700
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: broonie@kernel.org,
+	linux-sound@vger.kernel.org
+Cc: tiwai@suse.com,
+	perex@perex.cz,
+	amade@asmblr.net,
 	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	Yinjie Yao <yinjie.yao@amd.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15/6.1] drm/amdgpu/jpeg: set no_user_fence for JPEG v2.5 ring
-Date: Wed,  7 Oct 2026 16:26:46 +0300
-Message-ID: <20261007132647.121360-1-roman.demidov.nn@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	kuninori.morimoto.gx@renesas.com,
+	Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: [PATCH 0/7] ASoC: core: Create new components in sane state
+Date: Wed,  7 Oct 2026 15:33:46 +0200
+Message-Id: <20261007133353.455185-1-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Yinjie Yao <yinjie.yao@amd.com>
+There is a gap between snd_soc_component_alloc() and
+snd_soc_register_component().  A driver that obtains a component object
+through snd_soc_component_alloc() receives an object in uninitialized
+state.  soc_component_initialize() is the function responsible for
+bringing it into a sane one but it is not accessible by the framework
+users.  Example of the uninitialized members are the lists e.g.:
+comp->dai_list.
 
-commit 79405e774ede411c6b47ed41c651e40b92de64a2 upstream.
+The framework shall prevent manipulation of uninitialized components.
+Introduce snd_soc_component_new() which acts as a constructor: allocates
+and initializes the component object before returning it to the caller.
 
-JPEG rings do not support 64-bit user fence writes, reject CS
-submissions with user fences.
+Given the quite recent discussion related to all things
+component-register [1], decided to stick to the "register" wording and
+renamed soc_component_add() to snd_soc_component_register().  With that,
+register/unregister pattern is kept.  At the same time, the update
+brings a clear division between:
 
-Fixes: 14f43e8f88c5 ("drm/amdgpu: move JPEG2.5 out from VCN2.5")
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Yinjie Yao <yinjie.yao@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 3216a7f4e2642bda5fd14f57586e835ae9202587)
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
----
-Backport fix for CVE-2026-63847
+	1) snd_soc_component_register(component..)
+	2) snd_soc_register_component(dev..)
 
- drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c | 2 ++
- 1 file changed, 2 insertions(+)
+A driver uses 1) when operating on pre-constructed component object
+explicitly and 2) when they want the ASoC framework to do everything for
+them.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-index f87d0f6ffc93..a094dd138c0d 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-@@ -641,6 +641,7 @@ static const struct amd_ip_funcs jpeg_v2_6_ip_funcs = {
- static const struct amdgpu_ring_funcs jpeg_v2_5_dec_ring_vm_funcs = {
- 	.type = AMDGPU_RING_TYPE_VCN_JPEG,
- 	.align_mask = 0xf,
-+	.no_user_fence = true,
- 	.vmhub = AMDGPU_MMHUB_1,
- 	.get_rptr = jpeg_v2_5_dec_ring_get_rptr,
- 	.get_wptr = jpeg_v2_5_dec_ring_get_wptr,
-@@ -671,6 +672,7 @@ static const struct amdgpu_ring_funcs jpeg_v2_5_dec_ring_vm_funcs = {
- static const struct amdgpu_ring_funcs jpeg_v2_6_dec_ring_vm_funcs = {
- 	.type = AMDGPU_RING_TYPE_VCN_JPEG,
- 	.align_mask = 0xf,
-+	.no_user_fence = true,
- 	.vmhub = AMDGPU_MMHUB_0,
- 	.get_rptr = jpeg_v2_5_dec_ring_get_rptr,
- 	.get_wptr = jpeg_v2_5_dec_ring_get_wptr,
+Parameter "name" is added to the ctor parameter list as it is one of the
+fields that is always initialized, see the 'if (!component->name)'
+within soc_component_initialize().  Private data on the other hand is
+not so opted out of including it.  And thus snd_soc_component_set_priv()
+remains intact.
+
+[1]: https://lore.kernel.org/all/87y0f2rz8l.wl-kuninori.morimoto.gx@renesas.com/
+
+
+Cezary Rojewski (7):
+  ASoC: core: Add component constructor
+  ASoC: core: Rename and export soc_component_add()
+  ASoC: dmaengine: Switch to snd_snd_component_new()
+  ASoC: topology-test: Switch to snd_snd_component_new()
+  ASoC: Intel: catpt: Switch to snd_snd_component_new()
+  ASoC: Intel: avs: Switch to snd_snd_component_new()
+  ASoC: core: Remove unused component-register members
+
+ include/sound/soc-component.h         |  7 ++-
+ include/sound/soc.h                   |  8 +--
+ sound/soc/intel/avs/pcm.c             | 11 ++--
+ sound/soc/intel/avs/probes.c          | 12 ++---
+ sound/soc/intel/catpt/pcm.c           | 12 ++---
+ sound/soc/soc-component.c             | 19 -------
+ sound/soc/soc-core.c                  | 77 ++++++++++++---------------
+ sound/soc/soc-generic-dmaengine-pcm.c | 18 +++----
+ sound/soc/soc-topology-test.c         | 66 +++++++++++------------
+ 9 files changed, 96 insertions(+), 134 deletions(-)
+
 -- 
-2.53.0
+2.34.1
 
