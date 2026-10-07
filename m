@@ -1,270 +1,125 @@
-Received: from sonic317-32.consmr.mail.ne1.yahoo.com (sonic317-32.consmr.mail.ne1.yahoo.com [66.163.184.43])
+Received: from sonic.asd.mail.yahoo.com (sonic-asso1-0020.asd.mail.yahoo.com [34.2.90.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852993932F9
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 20:51:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.184.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D1213932F9
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 20:51:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.2.90.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791406269; cv=none; b=FE7Rta4Yr6PfYhLl7IikmN3lTHHUwBxOJP4Kmaqw20z8zr1fA3c0qPmhDcttjdZv1QP8IW3elSot15NJIWH9mOfmomOm76vth9D9wHKgSEGfmRStPpUXcaYAi8n0YrAY0EUAN2oS1hEUSR5I4/O1+Hyi1HGDbsL7TxIJr8nSBxE=
+	t=1791406286; cv=none; b=fCn6f8ynjDwVpSt70oEh5KgUlAB9GVbqAh2fXI5lG/iDUyEQjk0puNqprLqqRNtajIekFkHPTlTIyHKMFtZmulW60j/OyjXYklsDGDCocEEztvB/JdtBklNbsZ40IgMRLK94r5av+W9ewY0axpqH22jEJUyRETML+pGhreGyLSM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791406269; c=relaxed/simple;
-	bh=6T96oYT7zGa2dhkVb+D4GJAntXs3vXLAL0gIr2plLeg=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
-	 In-Reply-To:Content-Type; b=DixtirWhqmu0SYH73Y1Qzvr0/DNaajSc9Mvdgm4VwIRemt4GHBNQPs+J+leF7ARptuqNy/GyOzQaQWUWSGBYB0v3k9cCmqEMwdBXmygtk6428A2z2/uiUV1AwbxSRG/pXCriAyItX/sGY4ludJKumKHooC5eIusE0+k5uvcoeeU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=JTpt3YZ3; arc=none smtp.client-ip=66.163.184.43
+	s=arc-20240116; t=1791406286; c=relaxed/simple;
+	bh=rxFBALBPTY1RUMpju+vDz4IJa6RsK6gHijCBdFBtRsM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:References; b=TdJN6hy3c55rt1wktNsQjbr/F1FG1ulekYCtHUBs7FIUctgDn+5eXUqyudB6p9dXYW1faH+iu/oA/j3PCtZ8Mz8u2VMck3BO0fvCGx7N67Gj++IDI04v9YRY06eTQv9d3Ni2hSjuonQYvd+2nk4ovnuh2Cpn5JHSsupgbqgGuuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=Cp0svJm3; arc=none smtp.client-ip=34.2.90.19
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="JTpt3YZ3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791406267; bh=qFpiFw6MgSdv37Ns6VH+LneeKQYBHkufBN/Uv0eIRlc=; h=Date:Subject:From:To:References:In-Reply-To:From:Subject:Reply-To; b=JTpt3YZ3jTnzcnp42YptdOOJNfuyAXpUHQV0vvctM0K1fMryD+b2MuzXf2CWUedlzZoF6uZ6ShAAT956xtL7ZzPXNAHf17RkSmqD0sbIddyNMEyxVlxXSz7vyVwLJq7zhoA4dNZsVpA4VQuMVdNwrqwNvH/mhWNpGshTQFVe4l1+94CPG1iOYW4RQf9KLpp7Q/H5BOWG/HIGIDQwieLNicFAgWK9HTt6R+CE6rtV1k8OrHiabsZPc1UHKtC9HlHRon33U2JnYmynEbaFcuU+0QzvGCRhYL9Fl2vzfbrHx3LZyhlc/iApKhn0ras6Zpg0yw69HP9goj2xchpFtFFC2w==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791406267; bh=bkYEfLNNTb/xFpXM5w9oNdHEZkxFQyzDaWmIURBWluH=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=hT8nUTuFD72TlZDmw47jxqmKbRiYRpa3ShPooD8xEWJEbKPiBa7qH5c+o2Yvl+vhLL8daGnMp+zz+CAFbq6OU75flViM4RxkoPfmLr8eCgawQDew6VditHLZ8aKcpWTRwv3YeId5LeS0j6dyoSJkAhFmB5gFET+hOLHMI13aBBQGfHyaVKKpNYxqM6A9ubSRZBN5LToPNUceTRix5avSifOTVtkUNn+RhCAHOthSfqc90LCV4TI9L0ovJy77vayzq8NPwk9oPWVLpXlumkBB4hH7gprwvPk3LUkjdJTKBWngT+Sha3hxKfyI+P5nwWUqzePP4+7bSg/7Qau7UHcjRg==
-X-YMail-OSG: ZeBSfIwVM1m6q1jaSQipZxQe9R7tVsnEL13sQk6zJ6QwZxqAqHjtu_efXi9sCHM
- _fYEYcbnqf2H9aCRiASMF4ewOwnlk6RXEwYqoUJ7AIZvOkRxTXx3F8uSiP4diWyzhI_g5DzdBBlP
- nXFjIyIz9y25YDIT0gSr3WHJLpl88SjYfbauaClYcLEn2ea..oxQTddhB._YCZ0v4NrbAfC53fr9
- XUTR2RH0CKNlH9wJPjeLULe_vgxBufzsg3FlzIJaSncjR33MwWk8aToJ47hM0zEgQOMHqz90Z.QQ
- EFaC.KFT.stQdo6P4Nc229_.wYWjzhMK8Wo5KzNR70nYXq1eO5b1EEDcB_2GruynlXT_VIdoGjY0
- c6u_DGstqmIMd1SKv8AqoEZQNzOe0e3Kn40odHMECTlu2UXiETA4U3gbxBCXs2GL_9zeHdE3O4rZ
- oeVt02lYTF9ZtRfx0PHqWzslrkybynUt2rbCAxCo8BDYbCNuyObPU6Ue.dvCQ0kIbGSbafhvscr1
- lqEAbwmUGU2YukgiEUqOsvdeVcJ2o7GaHLUEPJELbvef_2VTyvg5av1.fQr89L3YQHe.AfMgS5YS
- TP22WOHlQZAd3aJ1LZFJplw37fMSzBU8efz99onwXq4H68pLeMQFst4uxoKaWxCtyPf4ZCTDSfBk
- KsSnSWDFfDizpMn.LZsI81xYXO_pQIaBdCrRcoBVYTFVibb95WNlne_MnRWjuzi7bdNHPJlm40ez
- Ht1rujqGVW3dXYNYZe.pICDChn75uhhz2GTYujed4JhT_DaGiokSW.WmGC9C53jxiy7i12ikxI7s
- iTtfKbwFFbXnMre8_iXe.kUk3qLZ2Gr19EeSY4eFSzfBN6W.HIGO8fZA0RahKObkBPmR3pCe_T01
- guxQChpJENhR5j4lxHDTpDTmuqTuwakCABdGjCr8csMxzdpRIJsgQYLu7FgMgQzwm3ZJ_KoDRfNG
- NZ_NDWqBvcLeEgZP6XZObbuisD8mDss28ow583DkowmDekCNfMf3a4GPDNoJGtYPi.h9RE5ZgliT
- 8fOANnrnAB7QjUKnz6mtbPEoCzZpUS23PeJmOKTqHOg9.XPIFJmJioe462qS9zyNMB3LoxE7Hrab
- .WvD6uhB2CFoUHI5L1.7Wsg_Y6Sn0BkfkceUv2tbX_jH4KzlW2GXz2pr9dOh7pK5cW6g9FzIqxi3
- OOn.DdYVb7v.5Dqq2tOa1yeDfEPpLwbRSiQQz.59df4WUE6zzuP1cmY8M2sMa39ZfG7FQoRYOuNJ
- RQxJO9zq8zlnmAM1iE7AJofJucDQ8xRXBovPotX.A7kdKsc5agpEDIjlCitxy7bQT0qaqSUhsfh.
- 5eDHvnp0JrubMc3IKR61dVpwc.GvZ633tUydlfzVyWH8V1jinxPLCgr01R2AiMJ0eW3AZ8.P3kLP
- igjFdgxgSpChaE0Z.fVLpKZi5VEug1EPbm21ZwAypM.VwIppBYe_sOryan6.eMMqPSxk23YrWEd5
- dTahdmLV0crKQqZ94U1klV6uSBR7BCKuTUGzM_t44P21jqDS_3m4jUtDUwXNNc57Ht8b0DFFloIU
- VR7iSr9TgLRPM0H4OL77etQeyn1mbjckI1l1nLEYYF7h7dvYNE9kGyDfCq3Cja0C.9FH.OiUGV.Q
- oEpzxzn9S385QOAPaQGRIgqYmQRBqpOh0_8I8h1rs1n3wN4hRGaI69IULAA.qE4ZCjuV9SsXu9.A
- .HuyDu2CzWAP1uBKkngH1JSgr_seHcBX6FQP1vKsKOIZRzW0or93QdSKZNm74yTxS8WvT87slflc
- KAL7NBO.W42ZWbaGH.Log3IJ.pumDqV60ASvohPPuCstTkAKh6CLCLRuckIeIIbZPrkyA0Fa2B5N
- Ek7D5QcTC53JqUkO0HZYHt4CWvhIY1nn6B3Ipor2a8SVMIHzAOFKnCDYhaE.DwE.xEf_DBaaYK3H
- JnIsX1j.vVPQqXnCyy9XCZ.Vc2uWuEzf1.CFCMptPgJMPGASjsI4f4OPrjmU22XIF4XhjRpjDNXv
- ddAImD6jMr07oczUMABgV0pZj0IXwBG_S.UunwZTy.RterJWD3ErYFwzk6G3gySBFZHL0gAcsifT
- Atl6fvTf41AqKtQwGaiTpwXJ3kC61KgvJQB1vwNDqzAUpfz0Q2nlf_CTXnaVmO7TVXQSPnJ8ZDFO
- 3kZ10jaVVMTeZs8ZRuk9LKfX1WHu85vyKxDHq8cG.Ae2eAJf5jtEgjNdjM.BhOysrsAFIJ9wjRD2
- qou7BfEwUx_8mKUKwgosBdNXW0zxwtZL0ObloSUmhdWEDDNz35fp5TFqNQFLqNHodkhqyZl1LWCv
- xE3Pgy4Td4JNhsXRmrTB7Af9eHhbCf.Lwlx9S4xUn
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: 597bde85-3dae-4343-b9f7-04d1d50be182
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic317.consmr.mail.ne1.yahoo.com with HTTP; Wed, 7 Oct 2026 20:51:07 +0000
-Received: by hermes--production-ir2-5dd9bf4598-c2rmk (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID f787a731988db98a092d4ac9acd4d1ec;
-          Wed, 07 Oct 2026 20:40:51 +0000 (UTC)
-Message-ID: <7d9de37c-841f-4dee-9a60-f22d6e2846bf@yahoo.com>
-Date: Wed, 7 Oct 2026 22:40:48 +0200
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="Cp0svJm3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791406281; bh=ImTorsRQNhMdTDKCNNnzzSmUx5dJ55T/lsthkrf3/7I=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=Cp0svJm3IFl//7autp8PjFl+V7z1+zR1T71hFQzc4WBQskKxT1+sVr30vZkfIMu/qf+cyBuDthyLEbOAeL8sf7uvQRb03iexi7ikeQl8FfT3oJpe3aguoFre/RDhprgosZF5nfewskNGy5KPwRLMGk0zrLaCq51SGyMMabMZKiy21+XAXW5Rw6O4ViQJvHIk+rrnRcO3jWvyrEeVEu737fLgmOSozCR5spsJzcu8aftZuiHWNGH5yQU9ik13+zl7aI+wKrSaslWZV+CQEePcGg663Dm1cVtsqgSUZO7e/r9uK+ZOmsic8132e2BNb3Grie3l8WxfbneEPBnIsoYRZg==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791406281; bh=VOtGqr0CXqcrX/JoCcmpg/cQzGTlHse/EvXf0NbHcnH=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=ag6n63ZrVBZshIjI9NNdlxkjiQGM4s0UC+fCexK3jRgsd8xa/EdZUtMM2s2shT0+opGQVEab1hBwc0eho7B22nlW0YTwoPYqYWrZ+i5Pu39gqEIkHnaN6pcEs4W9E8/znD/mPQYOi+vNO8cexyDxzO8Gsxywudc/6JUlFmeW1nzgCv0Da24f+QuegMzDeims0MpKh/racDpO4ot4rmGadUtfLBkv++Ko47EXNDIhiaMsSTeUWsnssqETgI3aP0otss0JSCzqyXE3BAfs5PASzRH0hUke8z7i3KYEDGJrJMK+8Q5mTx7uAbJW9LXOAwk/ZAd8Sf1ObSUBEPvtoIoacA==
+X-YMail-OSG: BUgbAPQVM1moyNlDLW5yw8KxyKk.WprXtMcW8R79Z4k1qC6LdmFWjHXXAycIkkX
+ dSHpBW80F82ucif5kaclm1rw8J9UnFWidNHVP5JYtzuYglfqAzHT6myE_YKnVrC9EIQC5nZRg11D
+ mKn5ybLcXciKgWzo7xo.cXKZRbdQiIQ8EqoSvM3infBcTMykiXnHhj7WATEBDHhtj4nOYQo.pyz2
+ .QopbgYH2wPxOH9O4S.3MS3h.K_gm5uS.2_N0Z9el4ZoISJtYDfCyzCoTExDakaqLc1DqfAvxpfF
+ TlMa6vCBFGF1b6Vr_vSV5XrTOxQ7jVh8GKrbSVFSxwQcdMiZ5BcC7gaEXAcvgw2NJWs3xJyhXoAF
+ bFJg.u3jVXh7TNP039YN6Pl_jTHTX9QB9uizgC7vjthYlbnUxm0yqo5any4twEdA2VofkcjnlQFo
+ qSyZxrNoOrGUc.a360ciIll1CI774VM9L9VrZdegKXKJmqlNvMdn7.quLqFiD5BcLoRlpjWJ5v0Y
+ NzsOf3CikC1nAZoTPL6cgu2rjr5Cc.HKldAKMod1FBEwCTmCuIDGVxbX2fnc77Vej3zI1tpUY7wX
+ TkMzANVlx0gxgEfpgWoZTzkhTX_4giQEOpn2n8Yjyt9CdltH9TLOOBCBcIkjrvxkouHbZzn0WMqZ
+ PQSCKH716KYiRQjQmb7hyDwy2B.o0XM.sfmKdQ6FQ0uu.FaUy5sLm0WRucMauFn26Zj3S6siyloB
+ iEUj7W2pGpJxtjWeqhSbmhKWjGyzPri5iQHl9l1sK5tDIQVgQdICq4N_8ynOKVKRwjX5eKG60q0Z
+ dMUHnlFDurHjPUSX4PVtT8seBnyjkhVbeAfKTw9HKThT2ZQlnceK12OWGU3sxi3bSnK775FXwZWW
+ c6L59Ewxp4utlVng9I7SpgTWXg3M82wy6tP5sr68lt9ybl9GD_9aiYlqKU43rVn_np9bgwDtCKa2
+ vvh18IAV1gP.pHnqz1YWBUNsSG.d7Zj3TyDGv2eWypO31E.nzeXywPXzzhsdD2vk_VI2KGeNnmUb
+ n7rp5aBnzSJPYyZl.rAX1crSdrpsR_XbMRmpJSNj6FAGC3APbrYC5kOb3.yiJluGm_Is1_kEvzLs
+ 5nEvMWh5c1QAWgITvjBZ3U8g5UdJ46FrLvjM7PUajSu.l9QuQKonx1DjH0GrY512QvPIgu5gW1ZN
+ nNSbDaitDdhlgXzftBPpO7dKHeWgTCrlDpNH1bQuahbNSCM3In8GUuQVk.hV3Lr.97MhYJkGSs5u
+ UFmtA4gcpefZV8LPeTMQnanKxTyeCM965Zzb1tGKPvzYCZ2fS7.crJv_be_hulIw7TsIerfRj5Yd
+ eIrk2xp6eOZI3WS1ZniAPP4Gzq5kbMRBBqICW2X4hQTpyRfVb4ulDCco9B.zIJF__nZcCa4zzE6i
+ sSGw4KCSB_OkZbbmQt4CeG2OroqDEGEpGNQjvwSsxn.S9y.QRitE86eFAzlyBXSK6BYX91_gnSZQ
+ Zm12EG3hI8VS35jQ_VtyBY2pH.qaWVgOYOO6Zdx.Ifc0f_ln5FVwyroE51m48elOZ8yg8EdusTyd
+ 5eBrKsGOWvXAjgIBxzZLUt_y0ywgJQJt_0Gb8Xng.BOPxfxzqzVj62MeXmq05WKVC0TrFJgLb993
+ sniGQ95dzYmtmCz8bQ.e__NGW_Kr5ueZ4dfNTlgZ2oUlQe7K64sjLzuKo_4afWI5ezcK4G9LSYFD
+ EnTZ79s9f4IgA2raA.eo21509nfe0Pk.tVoR3E7tqJyIBT3DM2NQD.BRjlbJH7Y2oPXL3wfVgdQ2
+ 0mUwKRiEXMxmWc_uomVvMhrIksgrwccpG48XJALLeD7QcCz3iUBgu0FlpcJYk.C9DlX7zNXQOXpb
+ Vyhg6Zh7RppqEjjDpKEIh34WFMlyvRnhMovrTGOU6OMdFW2XW8nEHxJ0sEYv1BxWGiUUFBslhElm
+ qrbHTq9yMQddXSmNvGqJXASOgRzf32urn2JPbuLeIahiJaswToJNBuY0kPNE1cb_VM2lWh427CdG
+ 8jOwc_AgM4jH83fkFVd.kisqbR_6tPhQ_CCObF.GosRE2fQ--
+X-Sonic-MF: <m.abubakar365@yahoo.com>
+X-Sonic-ID: 98935a8e-1e5f-45a6-ac7a-202085a466c5
+Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-asso1-prod-sonicconsumer-svc-102 with HTTP; Wed, 7 Oct 2026 20:51:21 +0000
+Received: from dip106.lsn.bf1.yahoo.com ([67.195.177.115])
+          by hello (SMTP) with SMTP ID 91bb27b55516d1fb42642a09b5dc36d3;
+          Wed, 07 Oct 2026 20:51:14 +0000 (UTC)
+From: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	m.abubakar365@yahoo.com
+Subject: [PATCH v6 0/2] iio: pressure: add Sensirion SDP31 driver
+Date: Thu,  8 Oct 2026 01:51:02 +0500
+Message-ID: <20261007205104.4694-1-m.abubakar365@yahoo.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH net-next 6/8] net: dsa: realtek: rtl8365mb: set/clear pvid for
- family D
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-To: linusw@kernel.org, alsi@bang-olufsen.dk, andrew@lunn.ch,
- olteanv@gmail.com, kuba@kernel.org, davem@davemloft.net,
- edumazet@google.com, pabeni@redhat.com, linux@armlinux.org.uk,
- luizluca@gmail.com, maxime.chevallier@bootlin.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <84fc7483-b22d-45ea-a3b8-3285dc357265@yahoo.com>
-Content-Language: pl
-In-Reply-To: <84fc7483-b22d-45ea-a3b8-3285dc357265@yahoo.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26668 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Transfer-Encoding: 8bit
+References: <20261007205104.4694-1-m.abubakar365.ref@yahoo.com>
 
-The RTL8367S-VB (family D) has no working VLAN member-config (MC)
-table in hardware. rtl8365mb_vlan_port_get_pvid() was already fixed
-to read PVID directly from its dedicated per-port register, but
-rtl8365mb_vlan_pvid_port_set() and rtl8365mb_vlan_pvid_port_clear()
-still went through the MC-index allocation path meant for family C,
-which on family D hardware writes into the wrong register/field
-(colliding with the neighbouring port's real PVID register) and reads
-back a VLAN MC table that does not exist on this silicon.
+This series adds support for the Sensirion SDP3x family of differential
+pressure sensors (SDP31, SDP32 and SDP33), I2C devices that also report
+temperature.
 
-Add a direct-VID fast path for both functions, mirroring what was
-already done for the getter, and skip the MC table entirely for
-family D.
+The SDP3x uses a completely different I2C command protocol from the
+already supported SDP500, so extending the sdp500 driver does not make
+sense.
 
-Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
----
- drivers/net/dsa/realtek/rtl8365mb_vlan.c | 136 +++++++++++++++++++++++
- 1 file changed, 136 insertions(+)
+Patch 1 adds the device tree binding.
+Patch 2 adds the IIO driver, which exposes differential pressure and
+temperature channels and validates each measurement using the sensor's
+CRC-8 checksum. The SDP32 and SDP33 differ from the SDP31 only in range
+and use it as a fallback compatible; the scale factor is read from the
+sensor at runtime. Tested on an SDP31 wired to the I2C bus of a
+Raspberry Pi 4.
 
-diff --git a/drivers/net/dsa/realtek/rtl8365mb_vlan.c b/drivers/net/dsa/realtek/rtl8365mb_vlan.c
-index 0466e8c..da517b1 100644
---- a/drivers/net/dsa/realtek/rtl8365mb_vlan.c
-+++ b/drivers/net/dsa/realtek/rtl8365mb_vlan.c
-@@ -810,6 +810,64 @@ rtl8365mb_vlan_port_set_framefilter(struct realtek_priv *priv,
- 				  val);
- }
- 
-+/*
-+ * rtl8365mb_vlan_pvid_port_set_direct() - Configure a port's PVID as a raw
-+ * VID written to its dedicated register, for chip families without a
-+ * working VLAN MC table (RTL8365MB_FAMILY_D)
-+ *
-+ * Reads back the previous PVID and frame filter first so both can be
-+ * restored if enabling the new PVID fails partway through, matching
-+ * the rollback behavior of the family-C implementation above.
-+ *
-+ * Context: Can sleep. Must be called with &priv->vlan_lock held.
-+ * Return: 0 on success, or a negative error code on failure.
-+ */
-+static int rtl8365mb_vlan_pvid_port_set_direct(struct realtek_priv *priv,
-+					       int port, u16 vid)
-+{
-+	enum rtl8365mb_frame_ingress prev_accepted_frame;
-+	u32 prev_pvid;
-+	int ret;
-+
-+	ret = regmap_read(priv->map, RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
-+			  &prev_pvid);
-+	if (ret) {
-+		dev_err(priv->dev, "Failed to read current PVID\n");
-+		return ret;
-+	}
-+	prev_pvid &= RTL8365MB_D_VLAN_PVID_CTRL_MASK;
-+
-+	ret = rtl8365mb_vlan_port_get_framefilter(priv, port, &prev_accepted_frame);
-+	if (ret) {
-+		dev_err(priv->dev, "Failed to get current framefilter\n");
-+		return ret;
-+	}
-+
-+	ret = regmap_update_bits(priv->map, RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
-+				 RTL8365MB_D_VLAN_PVID_CTRL_MASK,
-+				 vid & RTL8365MB_D_VLAN_PVID_CTRL_MASK);
-+	if (ret) {
-+		dev_err(priv->dev, "Failed to set port PVID\n");
-+		return ret;
-+	}
-+
-+	/* Changing accept frame is what enables PVID (if not enabled before) */
-+	ret = rtl8365mb_vlan_port_set_framefilter(priv, port,
-+						  RTL8365MB_FRAME_TYPE_ANY_FRAME);
-+	if (ret) {
-+		dev_err(priv->dev, "Failed to set port frame filter\n");
-+		goto undo_pvid_write;
-+	}
-+
-+	return 0;
-+
-+undo_pvid_write:
-+	(void)regmap_update_bits(priv->map, RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
-+				 RTL8365MB_D_VLAN_PVID_CTRL_MASK, prev_pvid);
-+	(void)rtl8365mb_vlan_port_set_framefilter(priv, port, prev_accepted_frame);
-+	return ret;
-+}
-+
- /*
-  * rtl8365mb_vlan_pvid_port_set() - Configure a port's PVID and associated
-  * VLANMC entry
-@@ -839,6 +897,13 @@ int rtl8365mb_vlan_pvid_port_set(struct dsa_switch *ds, int port, u16 vid,
- 
- 	lockdep_assert_held(&priv->vlan_lock);
- 
-+	/* This chip family has no VLAN MC table - PVID is a raw VID in a
-+	 * dedicated per-port register, and there is no separate membership
-+	 * table entry to allocate/track.
-+	 */
-+	if (rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D)
-+		return rtl8365mb_vlan_pvid_port_set_direct(priv, port, vid);
-+
- 	/* Read the old PVID exclusively to undo in case of error */
- 	ret = rtl8365mb_vlan_get_pvid_mc(priv, port, &prev_vlanmc_idx,
- 					 &prev_vlanmc);
-@@ -918,6 +983,74 @@ undo_vlan_mc_port_set:
- 	return ret;
- }
- 
-+/*
-+ * rtl8365mb_vlan_pvid_port_clear_direct() - Remove a port's raw-VID PVID
-+ * configuration, for chip families without a working VLAN MC table
-+ * (RTL8365MB_FAMILY_D)
-+ *
-+ * Reads back the previous frame filter first so it can be restored if
-+ * clearing the PVID register fails.
-+ *
-+ * Context: Can sleep. Must be called with &priv->vlan_lock held.
-+ * Return: 0 on success, or a negative error code on failure.
-+ */
-+static int rtl8365mb_vlan_pvid_port_clear_direct(struct dsa_switch *ds,
-+						 int port, u16 vid)
-+{
-+	enum rtl8365mb_frame_ingress prev_accepted_frame;
-+	struct realtek_priv *priv = ds->priv;
-+	bool filtering;
-+	u32 cur_pvid;
-+	int ret;
-+
-+	ret = regmap_read(priv->map, RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
-+			  &cur_pvid);
-+	if (ret) {
-+		dev_err(priv->dev, "Failed to read current PVID\n");
-+		return ret;
-+	}
-+
-+	/* Port is not using this VID as PVID. Nothing to remove. */
-+	if ((cur_pvid & RTL8365MB_D_VLAN_PVID_CTRL_MASK) != vid)
-+		return 0;
-+
-+	filtering = dsa_port_is_vlan_filtering(dsa_to_port(ds, port));
-+
-+	/* Changing accept frame is what really removes PVID. But only do
-+	 * that if VLAN filtering is enabled.
-+	 */
-+	if (filtering) {
-+		ret = rtl8365mb_vlan_port_get_framefilter(priv, port,
-+							  &prev_accepted_frame);
-+		if (ret) {
-+			dev_err(priv->dev, "Failed to get current framefilter\n");
-+			return ret;
-+		}
-+
-+		ret = rtl8365mb_vlan_port_set_framefilter(
-+			priv, port, RTL8365MB_FRAME_TYPE_TAGGED_ONLY);
-+		if (ret) {
-+			dev_err(priv->dev, "Failed to set port frame filter\n");
-+			return ret;
-+		}
-+	}
-+
-+	ret = regmap_update_bits(priv->map, RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
-+				 RTL8365MB_D_VLAN_PVID_CTRL_MASK, 0);
-+	if (ret) {
-+		dev_err(priv->dev, "Failed to set port PVID to 0\n");
-+		goto undo_set_framefilter;
-+	}
-+
-+	return 0;
-+
-+undo_set_framefilter:
-+	if (filtering)
-+		(void)rtl8365mb_vlan_port_set_framefilter(priv, port,
-+							  prev_accepted_frame);
-+	return ret;
-+}
-+
- /*
-  * rtl8365mb_vlan_pvid_port_clear() - Remove a port's PVID configuration
-  * @ds: dsa switch instance
-@@ -941,6 +1074,9 @@ int rtl8365mb_vlan_pvid_port_clear(struct dsa_switch *ds, int port, u16 vid)
- 
- 	lockdep_assert_held(&priv->vlan_lock);
- 
-+	if (rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D)
-+		return rtl8365mb_vlan_pvid_port_clear_direct(ds, port, vid);
-+
- 	ret = rtl8365mb_vlan_get_pvid_mc(priv, port, &vlanmc_idx,
- 					 &vlanmc);
- 	if (ret) {
+Changes since v5:
+- dt-bindings: drop the literal block marker from the description.
+- driver: drop the mod_devicetable.h include and re-wrap the
+  sdp31_read_measurement() prototype.
+- Use the plain "Assisted-by: LLM" form of the tag.
+- Collect Reviewed-by tags from Krzysztof (patch 1) and Andy (patch 2).
+- Fix the links to earlier versions below; previous cover letters
+  pointed at wrong Message-IDs.
+
+v1: https://lore.kernel.org/linux-iio/20260919223854.13437-1-m.abubakar365@yahoo.com/
+v2: https://lore.kernel.org/linux-iio/20260920164724.32019-1-m.abubakar365@yahoo.com/
+v3: https://lore.kernel.org/linux-iio/20260926154118.5471-1-m.abubakar365@yahoo.com/
+v4: https://lore.kernel.org/linux-iio/20260928215422.3720-1-m.abubakar365@yahoo.com/
+v5: https://lore.kernel.org/linux-iio/20261003160949.4657-1-m.abubakar365@yahoo.com/
+
+Muhammad Abu Bakar (2):
+  dt-bindings: iio: pressure: add Sensirion SDP31
+  iio: pressure: add Sensirion SDP31 driver
+
+ .../iio/pressure/sensirion,sdp31.yaml         |  51 ++++
+ MAINTAINERS                                   |   6 +
+ drivers/iio/pressure/Kconfig                  |  11 +
+ drivers/iio/pressure/Makefile                 |   1 +
+ drivers/iio/pressure/sdp31.c                  | 243 ++++++++++++++++++
+ 5 files changed, 312 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/pressure/sensirion,sdp31.yaml
+ create mode 100644 drivers/iio/pressure/sdp31.c
+
 -- 
-2.53.0
+2.43.0
 
