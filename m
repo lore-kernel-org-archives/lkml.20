@@ -1,295 +1,132 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 541E34DAF8B;
-	Wed,  7 Oct 2026 18:11:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791396699; cv=pass; b=Rao0A2CQtlzOueA8Flt3N3HCP3A9EpW9nxDmajCXMG63FypqfnFyMcWE7vrZyhNp+GbYbnxMHhzE0WswK/Y0BoIIfI4Ym2hpapHV/kYmytdOa292Zm3CivuCACno0wGfb0OwtsdhrnGE0dmPmxqEEpGuqzyTiqOuaOoFnFpm7rg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791396699; c=relaxed/simple;
-	bh=8ama43F2m9XQ9c9w9CXwIDBP8GTnt3eNipwqM9UDoqE=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=QSnuL9nl2UvBmMY27VqZUVMSGhgBY4D6ZxdwQ5epsSNYbY6Nn0qCIBxFQXjCW5gq8SBM/Os0zZSaUIslPxLpzfksjQkutnwwviDNOxNWtrshBPwAMU39e1bJTCHvWo1Rhn1mTMdqqO/lTtpbpV5hlCm+RdvoNytBjORNV5Tz+KA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=OMADvrwT; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07FC44DBD9B
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 18:12:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791396757; cv=none; b=H8BG7Zmdbp0vyJKN81AXmsJVV/HL9oYl0PrLGtryg37IqGpWCdZShGZkxZmFqWuh9phZRTqH6wnto/iMd0YELXz9gpp3vpgTmSOnGL2Jg1lfCvm0Q+asg7sVbW9i4K1wCh6SUQQrf+y8C/76JIz6LqQS0pQGxTD3yMjRKx4WI1I=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791396757; c=relaxed/simple;
+	bh=Eb8kM8V9UZqAw0KzgDYT0NopEv+l/SYxpht3rBesG7A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lUQGqV/F/KfePT/5b1SJwVo3tiV9xYI0SGk+qPCsODT5QR3PWDGhofV4w95ZhQqevgLk1MnQkOcG0vQILbMPYONsErjWmGkvwIC3E3QXsqnklum2+y/6Wa3YwF0Xsy4Rpnu4SqoFtbaEIUheQwtI+OGHkADNUfVkaKDoRj2zTbY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WEnAep3p; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="OMADvrwT"
-ARC-Seal: i=1; a=rsa-sha256; t=1791396688; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=ExwuP+VgQHgfjTYePgW7XjFQcxutlvBfNMviN6x1XKMVHZfnSHjdpJzCBHjCCaDNr4IqwbuUvZ014ak5xzok4IHxHhWiMuHUi7eemdjWX+vrG558VsxnkgkOfR/66VqFbrLq3gsH/KIEE7364yPtlGbMjbShdd0g+tq5gvkromY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791396688; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=ZINVWcK2PACkQR71DtzcaFfpiXIIhWjLCAs8VRgO0OU=; 
-	b=Lc3XJbgEYab+cJUKVU674HnKAbw9PbW/5bgDb4oFzbgRwM3Ir+80x5pY7jmXV0vycfdHTGtFsdGcjX1lTw6BhPD4fLKh7kaL2JXU6UCXajFa6HoSHfRCYr1xVm8r7QU+yfVFLKP7VKsia0g4Z0SzS15B9PW7JjeTnxglrYVulXU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791396688;
-	s=zmail2048; d=rong.moe; i=i@rong.moe;
-	h=Date:Date:From:From:To:To:CC:Subject:Subject:In-Reply-To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To:Cc;
-	bh=ZINVWcK2PACkQR71DtzcaFfpiXIIhWjLCAs8VRgO0OU=;
-	b=OMADvrwTyyAe6CA1mAdnd6pP17oDs/R8Kg+fIv/NlHSdJ65h2IYm/m6KUuqB7nEV
-	oAvOWhJ3iYZ5fTOaNoTKVrMlakfjfSfxQIhuhTXGHdePnaFQuQ0mhXv81JzVTUoSaIe
-	sB0SwsGBtbM4h0K5xPc361qzW4R0uxBE/UTtFzfWbn+Zw25qt/2DJ3FYzfCl8CmyS52
-	5Yqv8DqFzp+/K4piC3y7R+t26h9zx5BJXWxei8KYv6ElUN9paHhNSV7VO41O4nTrh3m
-	fr2hze/cbUap/Rz+VQxpLdm7f4wWvOuFURftCM7Sj+VgW1jlSeckwbfz5vsKsiAXg8U
-	xQTndCdZOQ==
-Received: by smtp.zohomail.com with SMTPS id 1791396685949844.7214764798108;
-	Wed, 7 Oct 2026 11:11:25 -0700 (PDT)
-Date: Thu, 08 Oct 2026 02:11:19 +0800
-From: Rong Zhang <i@rong.moe>
-To: =?ISO-8859-1?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
-CC: Mark Pearson <mpearson-lenovo@squebb.ca>,
- "Derek J. Clark" <derekjohn.clark@gmail.com>,
- Hans de Goede <hansg@kernel.org>, Armin Wolf <W_Armin@gmx.de>,
- Charles <hanker007@gmail.com>, platform-driver-x86@vger.kernel.org,
- LKML <linux-kernel@vger.kernel.org>
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_3/9=5D_platform/x86=3A_lenovo-w?=
- =?US-ASCII?Q?mi-capdata=3A_Defer_mutex_initialization?=
-User-Agent: Thunderbird for Android
-In-Reply-To: <af408357-f912-53a4-9259-8244a82d335d@linux.intel.com>
-References: <20260914-lwmi-wmi-new-api-v1-0-7a400f2f69f8@rong.moe> <20260914-lwmi-wmi-new-api-v1-3-7a400f2f69f8@rong.moe> <af408357-f912-53a4-9259-8244a82d335d@linux.intel.com>
-Message-ID: <E714CB23-287D-4F91-8315-D5CE5D38841C@rong.moe>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WEnAep3p"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a021c809e3so21678305e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 11:12:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791396754; x=1792001554; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SmdRitxTTgFdGJeHgGQ6RNQbSBJ7pC2HNIG3s7QSzuM=;
+        b=WEnAep3pVUR29Nh487tCOHw5fic+P+PQuLzV5BpYTiy6ld+cugQWi0IyghwbkHyIWS
+         9O/ken87ChJ0ZVuz1LgYcCTJdZab0fTGZXiFEWCTODhH50tvvw5shh4X3myCf2JZHtEG
+         KQOCt28zRyXoIjOjV4DWljnHJmjxFzFPzkb+W8Fk9YBuHSt4brMyilWmp+Z8WVC462b4
+         Ex6C7mBPsplj4Vvir1IdFh+naR2Xx1JWEawzhNFUi4YgdLoNOxwP9W6uAaeTllGdWI2w
+         OR2VOVCidRcmJMIB1VNP3axHvbeohTsGRtLf6rE9M5vng++SuRahtT1voMxGEe7/o2pM
+         Tltw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791396754; x=1792001554;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SmdRitxTTgFdGJeHgGQ6RNQbSBJ7pC2HNIG3s7QSzuM=;
+        b=G7ttV9i+chQLkVkAPkoIrqfBSI8hcahRjJTbRvyJVUH1/Hy474TzuaMzbTTAAMrfI2
+         JIywjYn4/0XCBljt8jMCx5Shb+/mZb8QkYhLmmRNvRYVyBeYYuqIzuztc+/Sda/2he5H
+         /oyL7m8r37D2ux/8ASiFrljBkCLyfin8yeH4S4yxuoq+BtDxJx33TxmIzofPkAxgsfC9
+         xDNmyrUs6aU03e4lg73WuloK1CBOq4Qdy2esWSPFHMFWXG2fUteZYRWAvd8YUvyhFUlZ
+         vsiUkUYfYOGcbVr9v0csbpSWjOpYHPfL+ktsqkyg7Y9jGK3fcs7C4Wqm9VtMpj7FrqUC
+         rx+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBy4EkaZUS4wghm1jtNR2IueVB5sfeSHMJTBtTcR56U5r3586sFUvpQKnP5svlcZruvzEUG1TU6MfEPl400=@vger.kernel.org
+X-Gm-Message-State: AFuF++miZj9z1i4RG22RQJpuoX8kPjUnZ1yK7Vb3XUvvntonTPuLhkg6
+	xG5CufkECfYhI0A2JaY5Gkn371Q6mOndcDLYg7NrOsLc/AnOoHGEW/xH
+X-Gm-Gg: AYBFou3/uEkjtxG9s74n2sUFQJzV7nZUM6p2Rcz91ir+vKpNDK6qjORnVjT3CZ99OgG
+	mo8L7ku8s3KnPlrE0MxUGCfUgMc3PIhdxflHfTn8xjFBsFMztpOExklR//IcQarT0byYzrURVhv
+	aJK6GVy3AcQgAY8uccEbiSQbVizDj7NSAVvX1qi4JlesZ0RIYa3FP3a+C6FOxM1lVxL4GAo8o7u
+	UJDBpXbGh+I6sVFfJ8kVow6AS60Ttag5ipDMqtjOrzrBmAhJbtUN8HZhdQRxEmuCHTykpehsnvu
+	lkZG8JcAZF3HEUpjd3tdyKjUHoI7sUu6rSLeYufliscffFGc42XQMRHvlJTeZ0YpWcidAhV5xsQ
+	o8s5fKC1pRVXK9tMLunw3Zfpak+om1UeGnZtWs2Z4x5u3x8dK3lp44iZs9lbHdfnhBjHdRJ/ITZ
+	PcQgVuT1qnis9l0A8sVxQI8ZhrmxBOW5sIM5agie1TDM2iwuvx68Uw8lH2WcIZX149lJkX9wA6/
+	hZ+jydr5mBKXUPuv8XRVXVZvifM/LVZig==
+X-Received: by 2002:a05:600c:6749:b0:4a0:251f:a726 with SMTP id 5b1f17b1804b1-4a180455d47mr54022405e9.24.1791396754013;
+        Wed, 07 Oct 2026 11:12:34 -0700 (PDT)
+Received: from osama ([2a02:908:182:d1a0:b456:28a3:bd59:abb6])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1843e3356sm7115815e9.14.2026.10.07.11.12.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 11:12:33 -0700 (PDT)
+From: Osama Abdelkader <osama.abdelkader@gmail.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Akash Goel <akash.goel@arm.com>,
+	Chia-I Wu <olvaffe@gmail.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Cc: Osama Abdelkader <osama.abdelkader@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/panthor: Fix TOCTOU race between GROUP_REGISTERED check and erase
+Date: Wed,  7 Oct 2026 20:12:19 +0200
+Message-ID: <20261007181220.2418060-1-osama.abdelkader@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 
-Hi Ilpo,
+panthor_group_destroy() checks the GROUP_REGISTERED mark and then calls
+xa_erase() without holding the xarray lock across both. If the handle is
+destroyed by another thread in between, and a concurrent GROUP_CREATE
+reuses the freed ID, the first destroy erases and releases the new,
+still-initializing group, leading to a use-after-free in
+panthor_group_create().
 
-=E4=BA=8E 2026=E5=B9=B410=E6=9C=886=E6=97=A5 GMT+08:00 00:25:07=EF=BC=8C"I=
-lpo J=C3=A4rvinen" <ilpo=2Ejarvinen@linux=2Eintel=2Ecom> =E5=86=99=E9=81=93=
-=EF=BC=9A
-> On Mon, 14 Sep 2026, Rong Zhang wrote:
->=20
-> > In the following changes, priv->list may be freed if the first call to
-> > lwmi_cd_cache() fails due to WMI/ACPI errors, so the list_mutex must b=
-e
-> > initialized after it in order not to break lockdep, as there is no
-> > devm_mutex_destroy()=2E Considering that the first call to lwmi_cd_cac=
-he()
-> > doesn't need serialization as there is no other reader or writer this
-> > early, the initialization of list_mutex can be deferred=2E
-> >=20
-> > Therefore, initialize list_mutex only after the first call to
-> > lwmi_cd_cache() succeeds, otherwise it remains uninitialized and can b=
-e
-> > devm_kfree()-ed=2E
-> >=20
-> > Signed-off-by: Rong Zhang <i@rong=2Emoe>
-> > ---
-> >  drivers/platform/x86/lenovo/wmi-capdata=2Ec | 80 ++++++++++++++++++++=
-+++--------
-> >  1 file changed, 60 insertions(+), 20 deletions(-)
-> >=20
-> > diff --git a/drivers/platform/x86/lenovo/wmi-capdata=2Ec b/drivers/pla=
-tform/x86/lenovo/wmi-capdata=2Ec
-> > index 880ac444c206=2E=2E0123ec8f7b53 100644
-> > --- a/drivers/platform/x86/lenovo/wmi-capdata=2Ec
-> > +++ b/drivers/platform/x86/lenovo/wmi-capdata=2Ec
-> > @@ -91,6 +91,7 @@ struct lwmi_cd_priv {
-> >  	struct wmi_device *wdev;
-> >  	struct cd_list *list;
-> >  	struct dentry *debugfs_dir;
-> > +	bool initialized;
-> > =20
-> >  	/*
-> >  	 * A capdata device may be a component master of another capdata dev=
-ice=2E
-> > @@ -588,14 +589,14 @@ static void lwmi_cd_debugfs_remove(struct lwmi_c=
-d_priv *priv)
-> >  /* =3D=3D=3D=3D=3D=3D=3D=3D WMI interface =3D=3D=3D=3D=3D=3D=3D=3D */
-> > =20
-> >  /**
-> > - * lwmi_cd_cache() - Cache all WMI data block information
-> > + * __lwmi_cd_cache() - Cache all WMI data block information locklessl=
-y
-> >   * @priv: lenovo-wmi-capdata driver data=2E
-> >   *
-> > - * Loop through each WMI data block and cache the data=2E
-> > + * Loop through each WMI data block and cache the data locklessly=2E
-> >   *
-> >   * Return: 0 on success, or an error=2E
-> >   */
-> > -static int lwmi_cd_cache(struct lwmi_cd_priv *priv)
-> > +static int __lwmi_cd_cache(struct lwmi_cd_priv *priv)
-> >  {
-> >  	size_t size;
-> >  	int idx;
-> > @@ -617,7 +618,6 @@ static int lwmi_cd_cache(struct lwmi_cd_priv *priv=
-)
-> >  		return -EINVAL;
-> >  	}
-> > =20
-> > -	guard(mutex)(&priv->list->list_mutex);
-> >  	for (idx =3D 0; idx < priv->list->count; idx++, p +=3D size) {
-> >  		union acpi_object *ret_obj __free(kfree) =3D NULL;
-> > =20
-> > @@ -635,14 +635,37 @@ static int lwmi_cd_cache(struct lwmi_cd_priv *pr=
-iv)
-> >  	return 0;
-> >  }
-> > =20
-> > +/**
-> > + * lwmi_cd_cache() - Cache all WMI data block information
-> > + * @priv: lenovo-wmi-capdata driver data=2E
-> > + *
-> > + * Loop through each WMI data block and cache the data=2E
-> > + *
-> > + * Return: 0 on success, or an error=2E
-> > + */
-> > +static int lwmi_cd_cache(struct lwmi_cd_priv *priv)
-> > +{
-> > +	if (!priv->initialized)
-> > +		return __lwmi_cd_cache(priv);
-> > +
-> > +	switch (priv->info->type) {
-> > +	case LENOVO_CAPABILITY_DATA_01:
-> > +		break;
-> > +	default:
-> > +		return -EINVAL;
-> > +	}
-> > +
-> > +	guard(mutex)(&priv->list->list_mutex);
-> > +	return __lwmi_cd_cache(priv);
-> > +}
-> > +
-> >  /**
-> >   * lwmi_cd_fan_list_alloc_cache() - Alloc and cache Fan Test Data lis=
-t
-> >   * @priv: lenovo-wmi-capdata driver data=2E
-> > - * @listptr: Pointer to returned cd_list pointer=2E
-> >   *
-> >   * Return: count of fans found, or an error=2E
-> >   */
-> > -static int lwmi_cd_fan_list_alloc_cache(struct lwmi_cd_priv *priv, st=
-ruct cd_list **listptr)
-> > +static int lwmi_cd_fan_list_alloc_cache(struct lwmi_cd_priv *priv)
-> >  {
-> >  	struct cd_list *list;
-> >  	size_t size;
-> > @@ -688,6 +711,9 @@ static int lwmi_cd_fan_list_alloc_cache(struct lwm=
-i_cd_priv *priv, struct cd_lis
-> >  	if (!list)
-> >  		return -ENOMEM;
-> > =20
-> > +	list->count =3D count;
-> > +	priv->list =3D list;
-> > +
-> >  	for (idx =3D 0; idx < count; idx++) {
-> >  		/* Do not calculate array index using count, as it may be truncated=
-=2E */
-> >  		list->cd_fan[idx] =3D (struct capdata_fan) {
-> > @@ -697,8 +723,7 @@ static int lwmi_cd_fan_list_alloc_cache(struct lwm=
-i_cd_priv *priv, struct cd_lis
-> >  		};
-> >  	}
-> > =20
-> > -	*listptr =3D list;
-> > -	return count;
-> > +	return 0;
-> >  }
-> > =20
-> >  /**
-> > @@ -714,7 +739,7 @@ static int lwmi_cd_alloc(struct lwmi_cd_priv *priv=
-)
-> >  {
-> >  	struct cd_list *list;
-> >  	size_t list_size;
-> > -	int count, ret;
-> > +	int count;
-> > =20
-> >  	count =3D wmidev_instance_count(priv->wdev);
-> > =20
-> > @@ -726,11 +751,7 @@ static int lwmi_cd_alloc(struct lwmi_cd_priv *pri=
-v)
-> >  		list_size =3D struct_size(list, cd01, count);
-> >  		break;
-> >  	case LENOVO_FAN_TEST_DATA:
-> > -		count =3D lwmi_cd_fan_list_alloc_cache(priv, &list);
-> > -		if (count < 0)
-> > -			return count;
-> > -
-> > -		goto got_list;
-> > +		return lwmi_cd_fan_list_alloc_cache(priv);
-> >  	default:
-> >  		return -EINVAL;
-> >  	}
-> > @@ -739,17 +760,32 @@ static int lwmi_cd_alloc(struct lwmi_cd_priv *pr=
-iv)
-> >  	if (!list)
-> >  		return -ENOMEM;
-> > =20
-> > -got_list:
-> > -	ret =3D devm_mutex_init(&priv->wdev->dev, &list->list_mutex);
-> > -	if (ret)
-> > -		return ret;
-> > -
-> >  	list->count =3D count;
-> >  	priv->list =3D list;
-> > =20
-> >  	return 0;
-> >  }
-> > =20
-> > +/**
-> > + * lwmi_cd_finalize() - Finalize the capability data initialization
-> > + * @priv: lenovo-wmi-capdata driver data=2E
-> > + *
-> > + * Return: 0 on success, or an error code=2E
-> > + */
-> > +static int lwmi_cd_finalize(struct lwmi_cd_priv *priv)
-> > +{
-> > +	int ret;
-> > +
-> > +	if (priv->list) {
-> > +		ret =3D devm_mutex_init(&priv->wdev->dev, &priv->list->list_mutex);
-> > +		if (ret)
-> > +			return ret;
-> > +	}
-> > +
-> > +	priv->initialized =3D 1;
->=20
-> Don't you need a barrier to ensure these are really done in the correct=
-=20
-> order?
->=20
+Do the mark check and erase atomically under xa_lock().
 
-Indeed=2E Will add appropriate release-acquire barriers=2E
+Fixes: eec7e23d848d ("drm/panthor: Prevent potential UAF in group creation")
+Cc: stable@vger.kernel.org
+Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+---
+ drivers/gpu/drm/panthor/panthor_sched.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-ACK to all comments to other patches=2E Thanks a lot for reviewing!
+diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+index 0493858e55d7..a343c5180e01 100644
+--- a/drivers/gpu/drm/panthor/panthor_sched.c
++++ b/drivers/gpu/drm/panthor/panthor_sched.c
+@@ -3770,12 +3770,18 @@ int panthor_group_destroy(struct panthor_file *pfile, u32 group_handle)
+ 	struct panthor_group_pool *gpool = pfile->groups;
+ 	struct panthor_device *ptdev = pfile->ptdev;
+ 	struct panthor_scheduler *sched = ptdev->scheduler;
+-	struct panthor_group *group;
++	struct panthor_group *group = NULL;
+ 
+-	if (!xa_get_mark(&gpool->xa, group_handle, GROUP_REGISTERED))
+-		return -EINVAL;
++	/*
++	 * Check the mark and erase the entry atomically, so a concurrent
++	 * destroy + create can't make us erase a group that's still being
++	 * initialized and happens to reuse the same handle.
++	 */
++	xa_lock(&gpool->xa);
++	if (xa_get_mark(&gpool->xa, group_handle, GROUP_REGISTERED))
++		group = __xa_erase(&gpool->xa, group_handle);
++	xa_unlock(&gpool->xa);
+ 
+-	group = xa_erase(&gpool->xa, group_handle);
+ 	if (!group)
+ 		return -EINVAL;
+ 
+-- 
+2.53.0
 
-Thanks,
-Rong
-
-> > +	return 0;
-> > +}
-> > +
-> >  /**
-> >   * lwmi_cd_setup() - Cache all WMI data block information
-> >   * @priv: lenovo-wmi-capdata driver data=2E
-> > @@ -768,7 +804,11 @@ static int lwmi_cd_setup(struct lwmi_cd_priv *pri=
-v)
-> >  	if (ret)
-> >  		return ret;
-> > =20
-> > -	return lwmi_cd_cache(priv);
-> > +	ret =3D lwmi_cd_cache(priv);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	return lwmi_cd_finalize(priv);
-> >  }
-> > =20
-> >  /**
-> >=20
-> >=20
->=20
