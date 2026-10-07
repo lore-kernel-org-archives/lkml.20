@@ -1,80 +1,71 @@
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAC3E39902D
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 14:16:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E1D736F90C
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 14:16:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791382571; cv=none; b=mwuq3sbJ8+0tmowx1TEqzdUt3Ev3BBXa9Uq4osENqSbGS/J+p41n1dMLaZzAaXz4ucifY3hW8+ljyHwg7tP8h2fy1wfIsmYM/vpGEymGi3baVdLtkhZKA2StGvzUN0aZjqI7O7jYsIi03H7YpVS+AQPEhk7bACmDx4UXkqJkWQE=
+	t=1791382621; cv=none; b=G6X1zbdjCcOBn/+VaK0+1TOEwBx30nuzZ/T83JydmFeLtHQN86qDP3mG5SOmHP8138RV8ixOCrNZpgm2z7LMfjpr1ebWPWlIp0UMRum3Os9YX7WNAeUB3qyAAnYMsw/wSnO4mhI9DWyuJ/s8kj1AGsZmT1rsk5g8F4q9EtoGrog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791382571; c=relaxed/simple;
-	bh=em0Q1tXDM9gdGpwolJt86ETVFZgxUN4/VENRvrcVISc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DsxXwsRDIja2T1hsSV/+bM3bNIm+1861o7rMk6vlLvk+SO70shuAs2+UeoGzmg6FhhSJ/CDS1I3UOK9h6rQ4y9Vt/rfF+X6+SWAMZ2K90Sp3C8gvMlQs7wnQDAL+jnPMn8JEnGZe7At4nKJK/6l5+k3ebjKM7o0PsvtsLHzRDDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=phOhwuN8; arc=none smtp.client-ip=209.85.160.171
+	s=arc-20240116; t=1791382621; c=relaxed/simple;
+	bh=Qmkf+XiGZRy30vGcRvQw4oCFml7R+FQ4UhT7npyZ/iY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MF2dwKK+CzUxUgDjQqcY4fBZGzIdHx1aITcREaoISfYp4y78/PD3rMTEsr0pJTcFSeMA9cKAe/fxZFXYDlV1MKU/PEo3Rsd0iNTMeKDrJJQUa1I7oi8PUXSIt7yavy7pFKTSvIk3CFOWQLpcE2apM3dlN78VuygEYD5+a0LqZuI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p5q6yfo4; arc=none smtp.client-ip=209.85.210.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="phOhwuN8"
-Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-5351e6a2230so14563011cf.3
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 07:16:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p5q6yfo4"
+Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-7f84a55e31aso1548839a34.2
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 07:16:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791382565; x=1791987365; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791382606; x=1791987406; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WRti667jeSRhARCPDfXNMpJ3JE2wRVrSoYMAVxfOv7Y=;
-        b=phOhwuN8r5PdJMD2yTuJ1Hv8gByn67REvGvib83YvhnRGuS5ZdWX6d3Z8Eh77XdoSa
-         l4HnwYu7g9rtNkpTbLPRxiscTBy00n1tnCYEvYrpsHvSEdj+NncjR/ehAaMGZiN8IU/w
-         r6KW4TKBduPEMd/oP12FqHXKOKI+QZOhSsZ6Q/t8XRnN8N+MNkuPKDeKtw2jhyczYmCs
-         OvVUnNNBvYilPpBG6ZcrRoBSGKzDFH12euv5FOX0xK31RXct0LdTY1hXOhSOlZNvkU68
-         sxsISjcWzIQII6dqTuBTwDcV/rliunDVGkSGs6CMDMvRFtBIf2khxOL0t1heP/mqaZjU
-         fF3Q==
+        bh=jgfFU4PoWoQaUk98vWn6gXhkSnB1yU0D/q7IV/OvUeI=;
+        b=p5q6yfo4AjoekKy2BPgPXnZ8jVojhWWEts9/jCh3R0Jit6Z6a09O6THePg1rk3RcmX
+         3jn1MmiZmhL6GICR58kEdimoK6sd4mu8YmvJ2JeiIGOoxEqiPAWtTw8suNsmK6M0vX/s
+         TtjSKZcN0RurG8HaE0F18SdGQt++8neOhN1AFERlpJbbfPwibCzA6ptDWkY4TGDzHZhb
+         bok/Qi6LZ5Ufyk6wa7Lfft5oruCbK9dwEmtYapoAlJ+64HZLFamefjD4DwBgEOdNgAfY
+         ARVuf/aGdV6ad24qTYN+fWpmK0IraMTd38Ia6/6xIph7ogMDDokuBh3K2EmzPXd82HIC
+         +PLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791382565; x=1791987365;
+        d=1e100.net; s=20260707; t=1791382606; x=1791987406;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WRti667jeSRhARCPDfXNMpJ3JE2wRVrSoYMAVxfOv7Y=;
-        b=wGXJl2eXKT3nM/19xJUGQ4jwierJfD4afaVTCDhH71yu78eFQ0WTPxJx5+GB7FCuxB
-         rERhIO+ol401BdhriAIfX4j1bEVj1Jw7LGm5ZrS4qKSwO6xFrUS++SRdNhn3s+xMIbR6
-         WgHNdgeNSAMoRvNVR3aKEHz63enWvX7rWu5S2halznXq8wln5ARNFqossrWpdfMXTvcx
-         BdmXqsos6mP11EA6EysV7ncScW6JFQJul7higZZtVBmPF3UBJksoeFxaNLcx7qSF/mio
-         e2Q6ln1Z7KfHqpzx3TcELRtoh20q+1pDsgDi4UQTrlFGi1OG0JLol3a7+G0QmKO2HRZw
-         Fd8w==
-X-Forwarded-Encrypted: i=1; AKwUvBxMux8euySE0f8Nc9hFlhE5y2/fgYzdsHGVssYIrSEhithAFGogZNWLwoYKGGD0ewF+cNPdgHkY9FZol6A=@vger.kernel.org
-X-Gm-Message-State: AFuF++koWhcUzgXr58xTK+emAEYTrfigkKpQRGV7bDbj2X5ews8wXypr
-	CCgSr73UPxs3Ls2hWK11jgd/gKrnwlet/wBmIedQAMo3IXRUXJHrvLNgJb7jrezX
-X-Gm-Gg: AYBFou1GLGkPUALKGgvy2KRY93n6RNE3wrnp0YZYZ6l6Jl2gmAndIj//NeR9Lymj6aO
-	tKQzBy2J1ZKaWY7rGXjVPeI63A/kKTfzVAy1tGVeJAT4ewPk0NTwJsx/d2ft80UpfoiftzODvxo
-	Zyplnd4wAnCnB7EtiK1kY5/y+cIKVZSH0pIEQcTRQB3Ot3H9wAwOaUD6EN4ERN2GUa4yDLs/f9e
-	9zTKrBZAw9ImkiidTO3ppdjy2JwOQdvzAdnXNuuWzIruHSASnJ606KEoZ0mK/1ONRxW96nrlR0J
-	eIwfD33Kzuo8iRDBBpsvQuY8aV570y3D6Zm9X76tQhfeKmOKTyOR9kt+9ZCLCMh5MldVX1MIl/0
-	QeriMwExsrQE/O5xXUyvVaC6/Q2/zkdQaijU9eU8W1OWPgUSOVf31/9LB6GX8CCMzVXru+84oBz
-	w78BrmH8N9Cn5a4y65lSkrN4udMQKsxb4VOxoOEZO7vVt+uq0X4RW1DQ2zvf742NovtB5dGG9sC
-	FRYNsCN0KN05nSpw9Nkwq7Ph1TjzG4SaUuhlpFQ3ls1y+ZCcsqv357eUvJibVXTeMKeBrOoSPJf
-	rqSCJK8h
-X-Received: by 2002:a05:620a:4629:b0:93e:96cb:3083 with SMTP id af79cd13be357-93e9b76d319mr419482085a.33.1791382564280;
-        Wed, 07 Oct 2026 07:16:04 -0700 (PDT)
-Received: from security.cs.northwestern.edu (security.cs.northwestern.edu. [165.124.184.136])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93e99104308sm229406385a.16.2026.10.07.07.16.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 07:16:03 -0700 (PDT)
-From: Ziyi Guo <guoziyi114@gmail.com>
-To: palmer@dabbelt.com,
-	pjw@kernel.org,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	samuel.holland@sifive.com,
-	thecharlesjenkins@gmail.com
-Cc: debug@rivosinc.com,
-	zong.li@sifive.com,
-	vulab@iscas.ac.cn,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Ziyi Guo <guoziyi114@gmail.com>
-Subject: [PATCH] riscv: refuse PMLEN=16 when its tag bits overlap the canonical VA sign bit
-Date: Wed,  7 Oct 2026 14:15:58 +0000
-Message-Id: <20261007141558.2914604-1-guoziyi114@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        bh=jgfFU4PoWoQaUk98vWn6gXhkSnB1yU0D/q7IV/OvUeI=;
+        b=D5cG7RG2MHjkHpojaiWDd4EQ1kzUwWHD3/bqBzqgYy7d3MH68kS8rSygX4nMErhyPA
+         rG8VO6wTmT/Dy9clVsMpFqk/bMCDz3PYRCzmal/PXdXvi4PbKu5ZcGFnI4E8GKwSpORi
+         itac6KtMnIZq5Li+m7Q4KskcKrokJ7rvBkJOlpd3ZEp831jDKuzcPbxIN4mVRDzSi5mR
+         2v/rQrOQglSTnfCy1pNpqn/6XJKaoDRx9X8KP2sU3BD0vFq99wbxC9UnSPPUfy5tEqzs
+         4L7z3P0ULnvSq7uu9Quf6hP+xvC8HhjGc7KhNsDZcGRAtMlvbgyRx1x0u3Nme5jG2uIT
+         dK1w==
+X-Forwarded-Encrypted: i=1; AKwUvBzovpBZvo8wv/bvnX7ugtMpjcvL4RVTvpdJTR8Ey32vLJipSvBic3ZdGXOm+EBmijhnZVoNhLdXIQZmtwE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nPyT7dSsr5WEdYTJXRV/7/Pl3LjCWCzHLJZKGWFNHGCIEmRLGx
+	+IEoIY8oyyjGfCzrj7x5sOK+ss8LHwGpe5FWPmaoQnMdEsu7Ti97KWn8
+X-Gm-Gg: AYBFou1jZrsVGaP3qc3tlEoEYgyzArfiqWHLz4pNhj4G83kEBCg6lMpeRPphmfyUymx
+	TclhUXLSHjIRefF3ubywznDi0f7v/ziU930/5bEOmxRPefEWSXQ8+D8gdUX3/hZy0W9UKoVQWn5
+	9grtcVr1Hk6HJAjRxrN+pXYPr3koVp//7M+PaFaO89h9Vs7Y3HCsle8CdCNSXy+1A1UgtXsrsKW
+	pYqk12y06HivGFTR9NK0RgR+bu4+nOPuHOJIBsPSz359/7vdCh/makIOT9byNphnhcbtlr/Mw7N
+	TQ9cPRRDk5vTJcEcn+2xgonp1exnXeAGfnUOtssVJhgBZtBk/mZZ5znkZLgmbDgJaeN7zLlskkl
+	Ti3g/OS+OwsWdujqWT0ffTKdyp5kzeJzqia5SqjrMkqt5E9x7FE08PLLYcLwHOPeyEE0JR/qYe1
+	2oDLTmBinnj29VbiKmFoFjCPMC0ppfi8ecKpFWGMKhut5z0PouqwXNOil4cuvt5N2vRt1d4jJWG
+	Lu1kEYawaLE7+JpoXNg0D42GkVbfYJDR7FZPQGr
+X-Received: by 2002:a05:6830:4884:b0:81a:9522:f00f with SMTP id 46e09a7af769-82acee9056bmr2732551a34.6.1791382606170;
+        Wed, 07 Oct 2026 07:16:46 -0700 (PDT)
+Received: from MacBookPro.taile6ac9b.ts.net ([123.113.35.89])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-82adc3f6d5asm2899704a34.12.2026.10.07.07.16.40
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 07 Oct 2026 07:16:45 -0700 (PDT)
+From: kai zhang <zhangkai.cool@gmail.com>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>
+Cc: linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] PCI/P2PDMA: Add Intel 0x6f00 host bridge to the whitelist
+Date: Wed,  7 Oct 2026 22:15:58 +0800
+Message-ID: <20261007141558.59852-1-zhangkai.cool@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,71 +74,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The tagged address ABI lets userspace enable pointer masking (Supm) and
-request a PMLEN of 7 or 16.  access_ok() validates untagged_addr(ptr),
-which strips the top PMLEN bits and sign-extends from bit 63 - PMLEN.
-Supervisor-mode accesses are not subject to the U-mode pointer masking,
-so any site that dereferences a user pointer without re-applying
-untagged_addr() -- e.g. the futex atomics and the unsafe_*() accessors,
-operates on the raw, still-tagged address.
+For P2P paths routed through a host bridge, the P2PDMA core consults a
+whitelist of known-good hardware. Add Intel 8086:6f00 with
+REQ_SAME_HOST_BRIDGE so the entry permits peers only below the same host
+bridge.
 
-When the canonical VA sign bit (bit VA_BITS - 1) falls inside the masked
-tag field, i.e. VA_BITS > 64 - PMLEN, an unprivileged task can craft a
-pointer whose untagged form is a valid user address (so access_ok()
-passes) but whose raw form is a canonical *kernel* VA.  Among the
-supported configurations this is only Sv57 + PMLEN=16 (48 < 57): the tag
-field [63:48] covers the Sv57 sign bit (56), so the pointer can name any
-address in the linear map and a raw dereference becomes an arbitrary
-kernel read/write.  Sv39/Sv48 are not reachable (the raw address is
-non-canonical and faults) and Sv57 + PMLEN=7 is fine (the tag stays
-above the sign bit).
+The bridge was tested on a single-socket Intel Xeon E5-2697A v4 system
+with two PCIe GPUs below different Root Ports of the same host bridge.
+Without the whitelist entry, peer access was rejected before a transfer
+was issued. With the entry, 64 MiB peer transfers completed in both
+directions with data integrity verified while the IOMMU used translated
+mode.
 
-It is triggerable and can be reproduced today under QEMU, which emulates
-Supm and Sv57 (tested with qemu-system-riscv64 11.1.0, -cpu
-rv64,sv57=on,supm=on): on an otherwise unmodified kernel an unprivileged
-prctl(PR_SET_TAGGED_ADDR_CTRL, PMLEN=16) succeeds, after which a futex on
-a tagged linear-map pointer, whose untagged form passes access_ok(), 
-performs the atomic on the kernel address.
-
-Only advertise PMLEN=16 when its tag bits sit entirely above the
-canonical VA sign bit (PMLEN <= 64 - VA_BITS).  have_user_pmlen_16 is the
-single gate used by both the prctl() and ptrace() paths, so this closes
-the reachability for every such accessor at once.
-
-This bounds reachability rather than fixing the individual raw
-dereferences; the futex / unsafe_*() paths should additionally untag the
-user pointer after access_ok() so that tagged pointers work there as the
-ABI intends.
-
-Link: https://lore.kernel.org/all/a25d01cd-e21d-4e51-9d24-6cc41589c041@sifive.com/
-Fixes: 09d6775f503b ("riscv: Add support for userspace pointer masking")
-Signed-off-by: Ziyi Guo <guoziyi114@gmail.com>
+Assisted-by: LLM
+Signed-off-by: kai zhang <zhangkai.cool@gmail.com>
 ---
- arch/riscv/kernel/process.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ drivers/pci/p2pdma.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/riscv/kernel/process.c b/arch/riscv/kernel/process.c
-index 7cc5a6a5c020..afaeaaa247c2 100644
---- a/arch/riscv/kernel/process.c
-+++ b/arch/riscv/kernel/process.c
-@@ -433,7 +433,16 @@ static int __init tagged_addr_init(void)
- 	 */
- 	csr_clear(CSR_ENVCFG, ENVCFG_PMM);
- 	have_user_pmlen_7 = try_to_set_pmm(ENVCFG_PMM_PMLEN_7);
--	have_user_pmlen_16 = try_to_set_pmm(ENVCFG_PMM_PMLEN_16);
-+	/*
-+	 * PMLEN=16 masks bits [63:48].  On Sv57 that overlaps the canonical VA
-+	 * sign bit (bit 56), so a tagged user pointer whose untagged form
-+	 * passes access_ok() can still name a canonical kernel VA when
-+	 * dereferenced raw (the futex and unsafe_*() accessors do exactly
-+	 * that).  Only offer a PMLEN whose tag bits stay above the sign bit,
-+	 * i.e. PMLEN <= 64 - VA_BITS; this refuses only Sv57 + PMLEN=16.
-+	 */
-+	have_user_pmlen_16 = try_to_set_pmm(ENVCFG_PMM_PMLEN_16) &&
-+			     VA_BITS <= 64 - PMLEN_16;
- 
- 	if (!register_sysctl("abi", tagged_addr_sysctl_table))
- 		return -EINVAL;
+diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
+index 9334eb314663..84413920e39b 100644
+--- a/drivers/pci/p2pdma.c
++++ b/drivers/pci/p2pdma.c
+@@ -542,6 +542,7 @@ static const struct pci_p2pdma_whitelist_entry {
+ 	/* Intel Xeon E5/Core i7 */
+ 	{PCI_VENDOR_ID_INTEL,	0x3c00, REQ_SAME_HOST_BRIDGE},
+ 	{PCI_VENDOR_ID_INTEL,	0x3c01, REQ_SAME_HOST_BRIDGE},
++	{PCI_VENDOR_ID_INTEL,	0x6f00, REQ_SAME_HOST_BRIDGE},
+ 	/* Intel Xeon E7 v3/Xeon E5 v3/Core i7 */
+ 	{PCI_VENDOR_ID_INTEL,	0x2f00, REQ_SAME_HOST_BRIDGE},
+ 	{PCI_VENDOR_ID_INTEL,	0x2f01, REQ_SAME_HOST_BRIDGE},
 -- 
-2.34.1
+2.54.0 (Apple Git-157)
 
