@@ -1,68 +1,68 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 944CA47FAF3
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 09:01:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B88548822E
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 09:02:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791363850; cv=none; b=hm80ImoVVxA3DNdsGKM0hwrvm1QT/RqJ6tladzH+R+Jz4SYOfKfHBMOH+tMeHcDsJZBIAWeGfkt/1174oS6YE35ghLVGBeQwZZNCW0o5X9zeTRgT3Rw7fGFL9km1ojPJfxWhBZhVgTPMCCCaqB4nYh2RHnsAYF0goGd3TU+Pwis=
+	t=1791363888; cv=none; b=nsi96pywSDG4yOm2GAq8K85zUn5rKksbNkp3afyKFuJTHOfBS71w033OWlm0Di8q9ivAugXVDjHAeZJ4BzQutPzyy+QvN3hGjmZ20LMUCM9sCe2M8iLsSeJMStbM2ErtFM1lspbr42cIOSjA8PxxaZC0YuNM5TkmbiPkCxrdNtE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791363850; c=relaxed/simple;
-	bh=a61iNzjTlj5EYjp8kMT4hI97L5A1x3WL1zMjpyRYt0A=;
+	s=arc-20240116; t=1791363888; c=relaxed/simple;
+	bh=V1+LIzhsNCYGghySNC0huQ8BjohirEoPB9lOPfSjmNM=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=MT+GEvUiVTI48XO1HMLPAev7S/AjFSVau1gmzjx0zRSU1sFCBOtPKDj9DoMXrtlSIAdNDb0ay3bB+2nUlDnHJpjIk3hznQKXzzP0ppG1shSrdLu15zfSU9/l1YHUbPm6Iy/6F9hR7JQS5evE6Qo84YvVASV4leKi/mzUsPJNTWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=fail (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WDWj4aLP reason="signature verification failed"; arc=none smtp.client-ip=205.220.168.131
+	 MIME-Version; b=fd1WyOlUxN/ZINJgBU6iC7mljOSKIncRhc7Vk/Bu1u3jloaD3NVLwn9GbjTEhkypfNXO7Yg8OxLJZWm4OKuyKT6YWiYA76ifnl1YuB0TbHggKhSOCXK72/roF3LuM8ABOJYVOEty5LkwvD2PgclqQtoEB7Wb+GrzcPQB9rJYexI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=fail (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=I2/FpBNM reason="signature verification failed"; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WDWj4aLP"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6977jbaN119022
-	for <linux-kernel@vger.kernel.org>; Wed, 7 Oct 2026 09:01:39 GMT
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="I2/FpBNM"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6977jm7R2711354
+	for <linux-kernel@vger.kernel.org>; Wed, 7 Oct 2026 09:02:13 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=wZo1SiuyUeG
-	k0p1Dd0+8C0DK4QKg6hk7x9uPquKwVbQ=; b=WDWj4aLPwLPsXTRbJpZNQ3ubKjf
-	ywysf3NfMlpxRLwZO96JJ7eJYKS8XC5Q/0eflt4TCUOCTd39ZmJpFPDXvJqisGgn
-	czOURB9ORPqXjr3qNyUEGL3M1oQV2+YrtiIZcR+W6y3z+m6caYd7i64XoRP8UlYT
-	+oS8EzBcdXqbOUeCMuX69W4/3S9P3hoDPJmNiJQsm6p66pOgHQ2wB25SkFllQGaQ
-	gddMZ/7YD4JKqvBPygGcc76/hwIJxg9Jk/bYcQug5NPAubSaHAZRLpxJUcBcoPHX
-	BxDQuvQXpiw7nPpQPAjId19qImpgHaKF8fRfibbZ0A9qe2z3jbdhkCFd5HA==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5fc58r24-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=wAbK+q4lPjl
+	daIW60C/b3RXYI3mjruIC3tTZr7L08yQ=; b=I2/FpBNMsAE2T7Myntk2s+fk+xz
+	mXWDmacwlp+99yQAGAUARMVGXFpnRb8gotJd/M9zLKP7VxV/A7u734it/SpN24L6
+	H0A0rII5hb2kkBPN0uTD/hKa6oPrht12k6vyq0MQRtqARQDw3AQEOxm1CxpkSBKu
+	gSCzO3Q1S8F2VhITuJqF1M+rvi5TJAU4I2sjkAcFVFtvG6vwOrwebv6t3Ia94Iml
+	TNvwkO//uJmImKmEtCHkGjXNRxIXvjZKHT86AVP8Es12jRyB0hLzJdlv2p9F6U1M
+	ts+qRBkemifnj9EBOmOis5ynAPOPBiU+u6Q74x/fEyc68l1FgGg37mTe+yQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5c1s1d65-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 09:01:39 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-9179a2035a4so37007226d6.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 02:01:39 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 09:02:13 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93a082c014aso738910685a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 02:02:13 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791363698; x=1791968498;
+        d=1e100.net; s=20260707; t=1791363732; x=1791968532;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wZo1SiuyUeGk0p1Dd0+8C0DK4QKg6hk7x9uPquKwVbQ=;
-        b=raG2D8zlijma5B4zUMq342Vy9PVctZbKEKc4f2uwmOtsMT3UuPupIB0OdxjIq5ad8M
-         RX8aW//GUkfc2bdGNuzcmHOhJtPEOcDyv0aVpUbIoeQhUgkuJxz/M4yB+jJp3IteDsV6
-         1vW1fNTW7nowsG3zO+kvdp1lfqaUT9EAycrH7Tj3wXe1HuSHobpYIYd17ecHAboU5hwW
-         0paLsfIhgOYIY3gvTxGIZLvhJ6DKcNLJzocHkYo6R26QR+oyWVxQiFL48lZQTk7Qw9nB
-         E71THYAT54/blrm5AGXakw7TIrE/8DO2c5xL0413GxqHXipBleUXLNQhs2NpdVzzxWQw
-         gQng==
-X-Forwarded-Encrypted: i=1; AKwUvBwYbs8vk2+AsRuZhg4ZwZiwKyIoeW8UhTyt9FSNKdQtkJhmc8B5ebUMTj5++NCutfQ3t56H7Ho0sLjviHQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mwo53hPPNL3x+0t+JbIeAx/Kr1PF5imLtSwPfrGxCTdTLxg9xT
-	7iWvuB4Ira2yv9sVre4faGag2d2TIdq13TXeiZuRPrNlrgR2GArfnViORxXqkXj/4CCZYWg2QzM
-	soKhVKoQFva4QIMps6fzwnTu/ETdO+OdrbUqt2UP8KGKIBNnNXfM7IIlt4JNNzH9y9B8=
-X-Gm-Gg: AYBFou3GlxB67HtrSOp5h+QlBNwbDendKJ6D6rlM+vSiM/hVN3H1TIsYlghcjDFOhaZ
-	lTJ+QeYyc0IPDClBOKxOMP8UjWgl+3LykAwuFEa9/TAaVPxNycNAmk6uwm3OpCe85uCxG4imqyb
-	AKLo4n5vV4QLmAFza7AbOjSA+Xy9JNxONd634KaQjTuOqKVacQmD6Edi5zWZvl6P0+nKWWvegIt
-	FuPsT0zdVtle8wlsQTESF+LRpf6AkZiRsXxkCafVBM6hi1eZ3aCeotYQFab1bO/MpnWwBieahcf
-	XyZp3doWHjdUJyUwQhNOdYqYeJGheDNAbsCFwkp3mqjX9rnFE1yKPBIT0qU=
-X-Received: by 2002:a05:620a:711c:b0:93c:ab5e:2314 with SMTP id af79cd13be357-93e85ff6e47mr1009188785a.7.1791363698162;
-        Wed, 07 Oct 2026 02:01:38 -0700 (PDT)
-X-Received: by 2002:a05:620a:711c:b0:93c:ab5e:2314 with SMTP id af79cd13be357-93e85ff6e47mr1009182985a.7.1791363697651;
-        Wed, 07 Oct 2026 02:01:37 -0700 (PDT)
+        bh=wAbK+q4lPjldaIW60C/b3RXYI3mjruIC3tTZr7L08yQ=;
+        b=bzAujcOe++1RySLO6YGxO9AwPiOevsOzWx5cIONL6c233DY1PiQ0jj/GGBuqlW8TqF
+         3Almrdnt2Y5qUU6Wu8pkRBtn9xrcB26rW64iTQqlfiLYI1WQBiSJBn1K3tsFtO5FyCzN
+         RICeIhvN7AO4pwX/ZRPhyBGUbFFGKWH0gP5qGdHv/9UK4ZIzUZcR2jpBqHrUG2FD/UTR
+         pS+XF4hbWTGPhpDfA7l4J52z89pG8Lquyng0rfv5bEasdDv1qwCVkZtD1keRdzbxuNKJ
+         U219k4NyVpFl13VRLy4sS0i0ewKi/4XvO4gi1wV4yb+eLWV25MwgzSLOZ7Mnlms8zwty
+         maQw==
+X-Forwarded-Encrypted: i=1; AKwUvBxL3FAs+wyCv3r7SpJ6CY+XSmXlw5MndUY9n5Ufh398zGcMVMB8udIWqLtKXGzyMxU2u3IAo2j5Ei3/bvE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mQArVHxG/S3y4+JdyxWWW6+PjKDKj7Rj47I98IFp1Mshxhu1WH
+	21ltDQ/9NervVwnM6CUKym3Rjvl7LDHrYhvLN5ofruRepor91rCGpeWP5GZeqGvjZau2KOd4PCu
+	nkMMaNPZShZaccxzTlmAFTtaeu8xg7Ow3PnCCNENgmCr05eBlqEQmW6Smb7gwLKm1Mfg=
+X-Gm-Gg: AYBFou1hoD+YgW4rp2SP+6yXZrPDCYwzVe51paoGRTiHFP3NWeg2AafjQmQ8m3YzgI0
+	ELRxuJliE49zYADlqZQj9rH0FchRa8qOlXHMIUev84v1hOARBpd4Ol9nr1Vk8qpm+A8nsRAQKIt
+	4yGe82h07tlRUj0jZVku4EgbVXA3EY4x1JXlKzp3pU/wFkOz6Rkvr5zc91fYrVNqOPNv3PY6JHt
+	f64RzrAaS8cr/m8hEYASHNUHAeC4AFqfqG28/gI8T2Q8Cycv9+cDKxRtw6XpY+0YjPD8RC/qiYL
+	eXI7hdGwY4YxaHB9koXfnVL4u+MTQUFXNc77SJRClcLtZp3DKIii6cScqFE=
+X-Received: by 2002:a05:620a:660a:b0:93e:9808:2e1b with SMTP id af79cd13be357-93e98082ea4mr447763485a.40.1791363732333;
+        Wed, 07 Oct 2026 02:02:12 -0700 (PDT)
+X-Received: by 2002:a05:620a:660a:b0:93e:9808:2e1b with SMTP id af79cd13be357-93e98082ea4mr447757485a.40.1791363731820;
+        Wed, 07 Oct 2026 02:02:11 -0700 (PDT)
 Received: from lin-0843.qualcomm.com ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3188d412besm4197366b.80.2026.10.07.02.01.34
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3188d412besm4197366b.80.2026.10.07.02.02.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 02:01:36 -0700 (PDT)
+        Wed, 07 Oct 2026 02:02:10 -0700 (PDT)
 From: Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
         Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -90,9 +90,9 @@ Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
         pshrotri@qti.qualcomm.com, johannes.goede@oss.qualcomm.com,
         linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH RESEND 14/45] media: qcom: camss: video: add managed streaming callbacks
-Date: Wed,  7 Oct 2026 12:00:10 +0300
-Message-Id: <20261007090041.3732717-15-gjorgji.rosikopulos@oss.qualcomm.com>
+Subject: [PATCH RESEND 24/45] arm64: dts: qcom: use SM8250 IFE resources
+Date: Wed,  7 Oct 2026 12:00:20 +0300
+Message-Id: <20261007090041.3732717-25-gjorgji.rosikopulos@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261007090041.3732717-1-gjorgji.rosikopulos@oss.qualcomm.com>
 References: <20261007090041.3732717-1-gjorgji.rosikopulos@oss.qualcomm.com>
@@ -103,114 +103,53 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfX8y4a1GS5sxgA
- pKqJWuL9+qYA/u9+Dg+9eRaC23Ksqh97sQsnu+SlvO22hW9tT7V2knj4i9qap0OysAx+YtzP/Uq
- HiokcJvK1yVmsH5ZxZ2QyPWotcPFVYM=
-X-Proofpoint-GUID: efnsGIcUtd-SSnpB7WjvgIu8dOoU8rrY
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfX1e1v11i4vPEg
- q67EGtMfnLmJnfOVJLU6hj5//ISJsw5kJJOVWabElyCda1i2z27e3bNO+aIaZD022YU99yKhYST
- DF5f8cDyqpaK32BpR699YvFiKx9WE/DcAqoKZMoktE1A2I1WkaVOqfbFCz+K5RmTCUMeBCNx1ZS
- YagM0LxtHXh06tqOAo/yks2+lRoayJdU9dej+6940ohDECm1bj5saaj9L1u3+iZqqfM5gSgj5ow
- Mfh1+LTTgMNpEMcjY+fww4H/af1KEIzUa3uMk9z2DuOtPiYPqDeuWCwLUbehq8bEmOThTS8bNXz
- oT+jFw07qQB9/YprcKQ14sOR+XOVOluypKWf9JzsmRf6eYOHfPC1lEp9basXn5CZd1DJsFnzWUQ
- h5j13xLjBuz3PNnutfAa/zAF41mY5P54J5HYo8lxJ7doIRDSVJiCxnoEJMDz7PGRAdIxB/llhxC
- L0ViG4yWpk/gvd/yxrg==
-X-Proofpoint-ORIG-GUID: efnsGIcUtd-SSnpB7WjvgIu8dOoU8rrY
-X-Authority-Analysis: v=2.4 cv=a6+lZkSF c=1 sm=1 tr=0 ts=6ac60a73 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+X-Proofpoint-ORIG-GUID: vfvK8oOIJvE5g5b0i9sBUhpMsYLiSt2d
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfX+NPDG6v21XnX
+ ayyzqpZ7+2zn1nLsiUInvuwTL9KbpKfnfbb7PrSkQw/DeUa98EQ0WS1Z4Vo+S49rBz3iaWv5xPk
+ UbkoqzDmKlIMEYAAvQbJGnxXbQiyM5/mhyRQa+iAy1P5qNMbUl3Ljeg8B/PRou6c2yImjgafyXy
+ 0cL8elwr8txZThkOAytAlfjiWBHEeLq+1+N5rds7gQ+ojNF5dXEPMUGRTxgAUz8c2Cyennwr7ak
+ 4KkuW6GjlyxjcXRHH/7odtZcjDjHFqunKrTZvheg0Eb4sDtalSyrlOd1iHznvWhhWcZ9OcDtXyH
+ YVmjO9Fuq6M4r1wpL0ZSrI6Croc7sEvOh8S8Jti826psMGIyF6aI4ypXcXmu8jeE3zxR+flS8Gb
+ ns2sRRjpMkh73mNsH4k112K6qAzEe9SXNAnxCpGdZlZhfdnSSC3MYwWd1yj+j5Yzwo5afVjkvrA
+ zGELrUEpq04WdthHNgw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfX7XVTqWx92BO2
+ oqRivB3xMoRc5A+Tp9qEce/eHlqCE8aH3MkwY9WlZzwfM/xGGszZdR3zd2t0MgXPg8w8jNKiS83
+ 1wSApNCHyHhg1ZjV3xRAkeMHLsAipFo=
+X-Proofpoint-GUID: vfvK8oOIJvE5g5b0i9sBUhpMsYLiSt2d
+X-Authority-Analysis: v=2.4 cv=NatzRGD4 c=1 sm=1 tr=0 ts=6ac60a95 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
  a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8 a=WDhTVHpYbZKqloR8QRsA:9
- a=iYH6xdkBrDN1Jqds4HTS:22
+ a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8 a=ucHQKD9_QHzbuw8IWkIA:9
+ a=NFOGd7dJGGMPyQGDc5-O:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-07_03,2026-10-06_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 suspectscore=0 malwarescore=0
- lowpriorityscore=0 bulkscore=0 spamscore=0 clxscore=1015 impostorscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610070035
+ bulkscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0 spamscore=0
+ clxscore=1015 priorityscore=1501 impostorscore=0 phishscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070035
 
 From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 
-Allow a CAMSS video node to start and stop streaming and select its
-buffer type. Keep the existing path when callbacks are absent.
-
 Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 ---
- drivers/media/platform/qcom/camss/camss-video.c | 17 ++++++++++++++++-
- drivers/media/platform/qcom/camss/camss-video.h |  2 ++
- 2 files changed, 18 insertions(+), 1 deletion(-)
+ arch/arm64/boot/dts/qcom/sm8250.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-video.c b/drivers/media/platform/qcom/camss/camss-video.c
-index 803e5ce9b9fd..cb9e08e9ff7e 100644
---- a/drivers/media/platform/qcom/camss/camss-video.c
-+++ b/drivers/media/platform/qcom/camss/camss-video.c
-@@ -159,6 +159,7 @@ static int video_buf_init(struct vb2_buffer *vb)
- 	struct sg_table *sgt;
- 	unsigned int i;
+diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+index 90f8b091634e..21550d25ebe8 100644
+--- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+@@ -4487,7 +4487,7 @@ cci1_i2c1: i2c-bus@1 {
+ 		};
  
-+	memset(buffer->addr, 0, sizeof(buffer->addr));
- 	for (i = 0; i < format->num_planes; i++) {
- 		sgt = vb2_dma_sg_plane_desc(vb, i);
- 		if (!sgt)
-@@ -303,6 +304,14 @@ static int video_start_streaming(struct vb2_queue *q, unsigned int count)
- 	if (ret < 0)
- 		goto error;
+ 		camss: camss@ac6a000 {
+-			compatible = "qcom,sm8250-camss";
++			compatible = "qcom,sm8250pix-camss";
+ 			status = "disabled";
  
-+	if (video->ops->start_streaming) {
-+		ret = video->ops->start_streaming(video, count);
-+		if (ret < 0)
-+			goto error;
-+
-+		return 0;
-+	}
-+
- 	src_pad = media_pad_remote_pad_first(sink_pad);
- 	if (src_pad && is_media_entity_v4l2_subdev(src_pad->entity))
- 		subdev = media_entity_to_v4l2_subdev(src_pad->entity);
-@@ -370,6 +379,11 @@ static void video_stop_streaming(struct vb2_queue *q)
- 	struct v4l2_subdev *subdev = NULL;
- 	int ret;
- 
-+	if (video->ops->stop_streaming) {
-+		video->ops->stop_streaming(video);
-+		goto stop_pipeline;
-+	}
-+
- 	src_pad = media_pad_remote_pad_first(sink_pad);
- 	if (src_pad && is_media_entity_v4l2_subdev(src_pad->entity))
- 		subdev = media_entity_to_v4l2_subdev(src_pad->entity);
-@@ -382,6 +396,7 @@ static void video_stop_streaming(struct vb2_queue *q)
- 	if (ret)
- 		dev_err(video->camss->dev, "Video pipeline stop failed: %d\n", ret);
- 
-+stop_pipeline:
- 	video_device_pipeline_stop(vdev);
- 
- 	video->ops->flush_buffers(video, VB2_BUF_STATE_ERROR);
-@@ -766,7 +781,7 @@ int msm_video_register(struct camss_video *video, struct v4l2_device *v4l2_dev,
- 	q->drv_priv = video;
- 	q->mem_ops = &vb2_dma_sg_memops;
- 	q->ops = &msm_video_vb2_q_ops;
--	q->type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
-+	q->type = video->type;
- 	q->io_modes = VB2_DMABUF | VB2_MMAP | VB2_READ;
- 	q->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_MONOTONIC;
- 	q->buf_struct_size = sizeof(struct camss_buffer);
-diff --git a/drivers/media/platform/qcom/camss/camss-video.h b/drivers/media/platform/qcom/camss/camss-video.h
-index d3e56e240a88..f62a72c29a5a 100644
---- a/drivers/media/platform/qcom/camss/camss-video.h
-+++ b/drivers/media/platform/qcom/camss/camss-video.h
-@@ -31,6 +31,8 @@ struct camss_video_ops {
- 	int (*queue_buffer)(struct camss_video *vid, struct camss_buffer *buf);
- 	int (*flush_buffers)(struct camss_video *vid,
- 			     enum vb2_buffer_state state);
-+	int (*start_streaming)(struct camss_video *vid, unsigned int count);
-+	void (*stop_streaming)(struct camss_video *vid);
- };
- 
- struct camss_video {
+ 			reg = <0 0x0ac6a000 0 0x2000>,
 -- 
 2.34.1
 
