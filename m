@@ -1,160 +1,155 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60CF2471D17
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 09:22:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A77239CCE3
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 09:21:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791364997; cv=none; b=D46+Ylb0gc8qWyNdqivzXGWj6N9W21yMRgTZoGkOfnZdkpt+Brd94V6p1VMJaa9Yctfm72cxJfiIJUpZBYVZdbyqVUP1cjIyAI7jG7FIfrgAi9fi/ePMcjOpja/49F/Twj55CZ3GenNiefjwWGXUuUxZTCGCMvVZXoEP4QFwFtg=
+	t=1791365009; cv=none; b=R0ieBxz5RI3mbp+GE50ufEjaolz8Yheu2VRkKIvygSsw/MMcg2kMT5YO4cScNRMkJdaf4DfRnXFJpA0Gc40Zl96dNFWUzzQF1dghRrSCXQ8fYq53fyzJawnxfXmg1HernLMroH7/sB4MwxIhZUuBSel4v2OQtJP6L2dcQnmawa0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791364997; c=relaxed/simple;
-	bh=49loMnyNZXHZDHY6ztGRcoRDezmZT04atOA8t1D0ziA=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=J9n/XMLQxFn8+HB151rleMdnsZdwRdjl5rd+JYGR6suLTiabwsvtGhR++URchUKksfbkGS1GXkQaxevxd9jxo5AOUIZ6lnvprqIH95OVqKVniKjVvsvTl9rmqII0HqOxpKi3ak7687j8c1+WPWeoxfM6KE6iaO5N3VXqY7hguVA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=fbDkFjd4; arc=none smtp.client-ip=209.85.208.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1791365009; c=relaxed/simple;
+	bh=d0YA/mOtU9gtdFlzULhJnmKciSi4FjAwPe07XrQJ3Ak=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=lCccebVtqovVIPhi/Op6tMSDx6jLjlcM1ainpwDs/nZRO/uNfUkTWr86k3KnFRwaQHzSVIzlotctdOXz+4BQVW+m1zJBGhoZ2i1lcgXd/Wi3slSozIwetZoi0rEiT1KLmiSMCxdGlPohSnOYuyMQAkWfDBmFp++W9EKwHZfE4lA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h3WBWwrf; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="fbDkFjd4"
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6af9befd04cso5270120a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 02:22:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h3WBWwrf"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2dd9cbb661bso13055855ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 02:21:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1791364958; x=1791969758; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
-         :content-language:references:cc:to:from:subject:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=IoO2GmgQqTbMIzbKjbtZGqeaqfQkkwtp1dXjhHu5kRk=;
-        b=fbDkFjd41UkA7k2HqyH0LTg1uWTMqSET/3QlPobgmrScSYCeELOTmbf5mRCJN70w21
-         PIfZNGpW3e8cWNxSUFmKsjsnMwVwXYWSNryuyBbMAA+PyYTrNuz0Q4u2OtFPctOE5Ecn
-         v9DRGDzOORAYIKp2MFbLgsqKjgyXtbsZbzy/cQBCdlsUzerkiBqYKf/1A15xZ3/DyGV0
-         KULVneYwmBM3WzZ8qZfCT1goL1cT0Rt1mAgZGNcjh+DIjRf4D5DgM/+L8hn/BPrzUHsB
-         +GWGWGNBoRLJQg57bI263k9etLOCv2RuAm5eUNPUIoVSThdZRt6BVREZnB1lnjl2ICbg
-         wl2g==
+        d=gmail.com; s=20251104; t=1791364914; x=1791969714; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YE0R4zsEX//GEmygpcVf0XYVSLwXzC42OSXnTiFb//w=;
+        b=h3WBWwrfJA9VRBjDSToW0joxh3ttnYTse3UUx1KrRUdd+EtK8ijvBT7044w1kD+Pnm
+         rrjmslwNaTDwjHlZG8TQKNvyzCDV9vD6AB1NEr4lcB88Mh1+DnDRKMkdXVymInAgBhqz
+         WjpvaTT3RcCT7hpFfzQ6pWKMMKW2yWcYlJTA3sq+SuXtzUHzmZj7CQVwUDvsKR4vYEgq
+         HZ/gZvtT1/h+G6XG1y9ob3hYHjUCz2/+YivowwYVa8/rWge97gPi4JoATEOGB/z1iegx
+         O6J5RaOUNQumZdM1jcWI1MDju2wz3jKTfTERyiLNuCy/I+BVkRPmLiGm7axhI0RK6yka
+         UJzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791364958; x=1791969758;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
-         :content-language:references:cc:to:from:subject:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=IoO2GmgQqTbMIzbKjbtZGqeaqfQkkwtp1dXjhHu5kRk=;
-        b=sxUpP+/RO82MN8vFbSNHCQqrmTVb4TTiVGv22c1NNfumjHXeZBWyXpYgQzHn6qM8j+
-         VAg/eT2N4fxlK+0GB6kqTQvYeIrKzd9PxpUmqC242JIzh5XaCday/ZEhbWvs2QKlb7zs
-         rZfDEtD6SSr/YVYQI2Efkl50gs30oprgPkEp2OOVe7++lGn7CGqSetACnMiHJDJjR8Kh
-         ahdnfP3DI9zQbbbsktUhu3LVvUeEvXhpUv+ENeiqKUafX7uKyDZ/Hrs2nGAm7q/4I7vg
-         /Z8FgBb+OHlpNDEowD4kJsvZEUzgOh4SLI1vftS90Nk+DpyPGl4LzxnUAjEnKZRddzxP
-         TH9g==
-X-Forwarded-Encrypted: i=1; AKwUvBy30+xuru0uE0OVPmgYOG6y9R/G9OTCbPy5sCfgSigQNp7EjsHs/o752j0oTa75yv48BI+3KTnmcr2TFDU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lrEHRdRE9L1SW0qU8uNUvngFAQTpuwnAl+g1ajd3RPRxJcs6vs
-	M5hzQFcdjqKBCZ/Zgbd2VeyRawn0pPU7yZ6EU5TXfcpnuhp7x/RO1wxHlEdyv5k/c1A=
-X-Gm-Gg: AYBFou08E10FrDW/Ksox+/IYvd6QxGtRidcuHl8OSLTHlyBVL6RxtXTgHdKvZJx6cig
-	EEJT20XbnC4nC70FjebizFVRvh0jbKL9qpo9erHNIaIgHjZF1/UjozkAjvuKQgoVfL1GiaEGOHe
-	AuQ3ABuAr66NK3Ur43HVH4GKcg2he2UzTr0ke0xU9q+hMK2JAh+OMX6wgQQnuycyVDPXYuWngN7
-	jj7fgFSRaR1/0QgJXwu3I96EDe164ooqMXLXyaBKbA3mSg2qvAgVSeIwzjb31vUAUFVRBvxsqYu
-	i6H7bdXsMt1Lr37rm4TLU+GFYDBtnI6VKP8LFiP6GfkhMZGOw7HsUz7ULtpniXO9v5ccbad4pH7
-	OPGWS9bpMc1ki000r1Ju6fWWK64xFgQhXL5adIgjp7tIywzYkASXwfGy07WhIodqZvLKlJCY3JM
-	l+5kypcxUcj4W5YXWYy8Jn6G2Zq9GBZrUWGXDJtyW7oMdu2+WVMD/b901uCF0y3ao=
-X-Received: by 2002:a17:907:6d1f:b0:c2a:704c:8c74 with SMTP id a640c23a62f3a-c317c080ff4mr157588066b.28.1791364958384;
-        Wed, 07 Oct 2026 02:22:38 -0700 (PDT)
-Received: from [172.16.0.229] ([159.196.52.54])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8921cbe37desm440650b3a.37.2026.10.07.02.22.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 07 Oct 2026 02:22:37 -0700 (PDT)
-Message-ID: <896c621b-441f-4d46-96b9-fcc209d78a7f@suse.com>
-Date: Wed, 7 Oct 2026 19:52:31 +1030
+        d=1e100.net; s=20260707; t=1791364914; x=1791969714;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YE0R4zsEX//GEmygpcVf0XYVSLwXzC42OSXnTiFb//w=;
+        b=ARxAOUjO2MNF8I6/UpBxRXzGovpdCzbmzL6W1E2mrAuzbkPm82njoPwqgLTLafKShq
+         cjnc85CqBwR4dN5pfuL8zdsaHjbyI5zQREFBtcLGjyBmZnT6gNYLYxXP5x6K4zhgJjF0
+         o5pZMf+KCiwe6U+W25vcegTpUkVUMu0wjYrUnVvWUmrLQL6vNZJL67gwWPb6wiwm1QW3
+         AgLJ2evJNegr5GKfdp6UVgiuRthekRE8Kuj5ARg6nHgFamFLtqsmxvbWXhWAzKEo9qzZ
+         aVdQIjn5Q68SKH4QVLTFZIJ8xtVkmDsezPrs/JzIFsPPBUfW5e2qVomjGtEN4tLknelH
+         KJbQ==
+X-Gm-Message-State: AFq9FYKGnkEMqWzalJEs14v16D/pm5ddqhY6T2ovbpj3U0mPV+x6jbih
+	VotO6IKKfSrfGKD3xF/Qo+gfu/4j2v38Btmvf49Y0qYxsDGu2tFMIlEy
+X-Gm-Gg: AYBFou1lhVWwv1RAjzJgVpHYe+cQHLYr+QOWdvDoc/X5O70LQ1qRwo7qMLzFrHbDS9h
+	KuE1gk6OgmKw8QHwdGv5JfWFEy2CVJBI0C/EMVRoDvw1npFqdJqyMNLO2MfHWxR8qvaioYPkxU9
+	hl0u9qe0WlHPZtfpkaxS+ncmtNLLVY3o5jZ8eU8h4opnXE/2GXIHlIpC5LLDcWmfirlDACr/4+d
+	qud993sS9FBYc6yvk2TQVHyxK2bHqmXlprtGQSf9vk9NVKWViwRn2g9nc3xRa2Ktt25wyN6yzxr
+	3cg2JDZ/XsHTEDnPU4GQfvLcI/iwhiQE+w8W8VEz3f0yhJGpChjrv2LR1xMGXvefQUuN0QwYWUc
+	DC7Ad67eU92/VGI+5Z3yL4II3NTkthYCtCz9rnyCEHHICkNVYlSv7CZQyiCZW+PSsiAwQ81P+uA
+	tLtB2yYql4nl1GVdkyp6OovE/2uCj692i55tuap+y0J7w37jY7QaGtoCJor+fiQb5TtNyKxtBef
+	HqigqwoqcAF0q4CZStTk4fPI2IQ4R0bCGgXIH9v
+X-Received: by 2002:a17:902:cece:b0:2dd:c053:9c6c with SMTP id d9443c01a7336-2e6004e89d2mr14736725ad.34.1791364914009;
+        Wed, 07 Oct 2026 02:21:54 -0700 (PDT)
+Received: from hcdev-d520mt2.. (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e6046fe0e8sm7180675ad.25.2026.10.07.02.21.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 02:21:53 -0700 (PDT)
+From: a0282524688@gmail.com
+To: lee@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Ming Yu <a0282524688@gmail.com>,
+	mfd@lists.linux.dev
+Subject: [PATCH v8 12/13] mfd: nct6694: Add a Kconfig symbol for the USB transport
+Date: Wed,  7 Oct 2026 17:21:01 +0800
+Message-Id: <20261007092102.3768818-13-a0282524688@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261007092102.3768818-1-a0282524688@gmail.com>
+References: <20261007092102.3768818-1-a0282524688@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] btrfs: fix use-after-free on quota enable allocation
- failure
-From: Qu Wenruo <wqu@suse.com>
-To: pavankumaryalagada@gmail.com, dsterba@suse.com
-Cc: mason@kernel.org, fdmanana@suse.com, shuah@kernel.org,
- linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
- syzbot+947286c775f432b073a8@syzkaller.appspotmail.com
-References: <20261007090656.20609-1-pavankumaryalagada@gmail.com>
- <4851139b-6cd0-4b1a-9a6e-1af947d49098@suse.com>
-Content-Language: en-US
-Autocrypt: addr=wqu@suse.com; keydata=
- xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
- 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
- 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
- 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
- gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
- AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
- FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJqqw0NBQkUl/JeAAoJEMI9kfOh
- Jf6o/xYH/3AaWnGSq58XnY/T3/YYjr6g+TUZxa7MPyiYTELNpNlvmNlbtbAL0nW0LNvkeiqf
- SmYA+xkwY4RbxnZYQK0H5iv2w1eqa9qqFZb4bIBRmTapu26GEEkpad0W0ZhoSPMO8bV2Bwkf
- YdtPZQLaeUKvHZqNqBKnmtRLQj2Cgy3kuXX3bEGvWjzUOxPUSCj/S++JWBewMdMBPT62vZM0
- 3156gfn5mHA94s2p+NFJoWkERY+JPTMu9NISkpD7yuGhXN88qd/aqD0RrlhxvKsrQogdPwn9
- vP18FGG3CRlHtOvOLVoY5NKSOWTDc+o+8t2XEETFTGbKYTcqeTzi4SxhvBLtTinOwE0EWdWB
- rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
- Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
- E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
- vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
- g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
- AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXWBBQkQ/lrSAAoJEMI9kfOhJf6o
- cakH+QHwDszsoYvmrNq36MFGgvAHRjdlrHRBa4A1V1kzd4kOUokongcrOOgHY9yfglcvZqlJ
- qfa4l+1oxs1BvCi29psteQTtw+memmcGruKi+YHD7793zNCMtAtYidDmQ2pWaLfqSaryjlzR
- /3tBWMyvIeWZKURnZbBzWRREB7iWxEbZ014B3gICqZPDRwwitHpH8Om3eZr7ygZck6bBa4MU
- o1XgbZcspyCGqu1xF/bMAY2iCDcq6ULKQceuKkbeQ8qxvt9hVxJC2W3lHq8dlK1pkHPDg9wO
- JoAXek8MF37R8gpLoGWl41FIUb3hFiu3zhDDvslYM4BmzI18QgQTQnotJH8=
-In-Reply-To: <4851139b-6cd0-4b1a-9a6e-1af947d49098@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+From: Ming Yu <a0282524688@gmail.com>
 
+Now that the sub-device drivers only access the device through regmap,
+the core no longer depends on USB.
 
-在 2026/10/7 19:47, Qu Wenruo 写道:
-> 
-> 
-> 在 2026/10/7 19:36, pavankumaryalagada@gmail.com 写道:
->> From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
->>
->> The quota root remains on the transaction's dirty root list when
->> kzalloc_obj() fails and btrfs_quota_enable() releases it without
->> aborting the transaction. Later add_root_to_dirty_list() then accesses
->> the freed dirty_list, causing a slab-use-after-free.
->>
->> Abort the transaction on allocation failure to clean up the dirty
->> root before releasing the quota root.
->>
->> Reported-by: syzbot+947286c775f432b073a8@syzkaller.appspotmail.com
->> Closes: https://syzkaller.appspot.com/bug?extid=947286c775f432b073a8
->> Fixes: 8d54518b5e52 ("btrfs: qgroup: pre-allocate btrfs_qgroup to 
->> reduce GFP_ATOMIC usage")
->> Signed-off-by: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
-> 
-> Reviewed-by: Qu Wenruo <wqu@suse.com>
-> 
->> ---
->>   fs/btrfs/qgroup.c | 1 +
->>   1 file changed, 1 insertion(+)
->>
->> diff --git a/fs/btrfs/qgroup.c b/fs/btrfs/qgroup.c
->> index f68b696b4bf7..42be06675c90 100644
->> --- a/fs/btrfs/qgroup.c
->> +++ b/fs/btrfs/qgroup.c
->> @@ -1204,6 +1204,7 @@ int btrfs_quota_enable(struct btrfs_fs_info 
->> *fs_info,
->>       prealloc = kzalloc_obj(*prealloc, GFP_NOFS);
->>       if (!prealloc) {
->>           ret = -ENOMEM;
->> +        btrfs_abort_transaction(trans, ret);
->>           goto out_free_path;
+Build the USB transport under a new MFD_NCT6694_USB symbol and keep
+MFD_NCT6694 for the core. MFD_NCT6694_USB defaults to MFD_NCT6694 so
+that existing configurations keep the USB transport enabled.
 
-BTW, you are on an older branch.
+Signed-off-by: Ming Yu <a0282524688@gmail.com>
+---
+Changes in v8:
+- New patch. Split out of v7 "Rename driver to nct6694-usb and update
+  Kconfig"; MFD_NCT6694 remains the user visible core symbol and
+  MFD_NCT6694_USB defaults to it to keep existing configurations
+  working.
 
-The latest for-next branch has the commit "btrfs: qgroup: merge error 
-labels in btrfs_quota_enable()", which changed the branch.
+ drivers/mfd/Kconfig  | 20 ++++++++++++++++----
+ drivers/mfd/Makefile |  2 +-
+ 2 files changed, 17 insertions(+), 5 deletions(-)
 
-Next time check the MAINTAINERS file to grab the latest devel branch.
-
->>       }
->>       qgroup = add_qgroup_rb(fs_info, prealloc, BTRFS_FS_TREE_OBJECTID);
-> 
+diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
+index a0d9d6ccfb0c..de7d2171f514 100644
+--- a/drivers/mfd/Kconfig
++++ b/drivers/mfd/Kconfig
+@@ -1167,18 +1167,30 @@ config MFD_NCT6694
+ 	tristate "Nuvoton NCT6694 support"
+ 	select MFD_CORE
+ 	select REGMAP
+-	depends on USB
+ 	help
+-	  This enables support for the Nuvoton USB device NCT6694, which shares
++	  This enables support for the Nuvoton NCT6694, which shares
+ 	  peripherals.
+ 	  The Nuvoton NCT6694 is a peripheral expander with 16 GPIO chips,
+ 	  6 I2C controllers, 2 CANfd controllers, 2 Watchdog timers, ADC,
+ 	  PWM, and RTC.
+-	  This driver provides core APIs to access the NCT6694 hardware
+-	  monitoring and control features.
++	  This driver provides the core support shared by the transport
++	  interface drivers, at least one of which must be enabled.
+ 	  Additional drivers must be enabled to utilize the specific
+ 	  functionalities of the device.
+ 
++config MFD_NCT6694_USB
++	tristate "Nuvoton NCT6694 USB interface support"
++	depends on MFD_NCT6694 && USB
++	default MFD_NCT6694
++	help
++	  This enables support for the Nuvoton NCT6694 connected through
++	  its USB interface. The driver uses USB bulk transfers to send
++	  commands to the device firmware and an interrupt transfer to
++	  receive its interrupt status.
++
++	  To compile this driver as a module, choose M here: the module
++	  will be called nct6694-usb.
++
+ config MFD_OCELOT
+ 	tristate "Microsemi Ocelot External Control Support"
+ 	depends on SPI_MASTER
+diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
+index dfd81356b485..a42b99250454 100644
+--- a/drivers/mfd/Makefile
++++ b/drivers/mfd/Makefile
+@@ -125,7 +125,7 @@ obj-$(CONFIG_MFD_MC13XXX_I2C)	+= mc13xxx-i2c.o
+ obj-$(CONFIG_MFD_PF1550)	+= pf1550.o
+ 
+ obj-$(CONFIG_MFD_NCT6694)	+= nct6694-core.o
+-obj-$(CONFIG_MFD_NCT6694)	+= nct6694-usb.o
++obj-$(CONFIG_MFD_NCT6694_USB)	+= nct6694-usb.o
+ 
+ obj-$(CONFIG_MFD_CORE)		+= mfd-core.o
+ 
+-- 
+2.34.1
 
