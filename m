@@ -1,71 +1,89 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2FC4448B9D;
-	Wed,  7 Oct 2026 12:27:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7CF347CA72;
+	Wed,  7 Oct 2026 12:27:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791376057; cv=none; b=abH0f4apXQKWgCSDz/twOFoOyKLs8Y+NK3wsGlKaabx74HTnq3NYAxQOEnWJD1KkFc8ew+qzuP05KQdgj+LKdAfAoPgxumHC9Y4AlU70chkC6ytxxzR1sUoQOY+dE7uwJ3qPcM0zzJo986eu46wu8Rd6OaknzhNCKXEW4WeGeds=
+	t=1791376058; cv=none; b=XIgkFlfnKDXQ+885sh7sp1tIXG2a2qLtxJtpLrpRx0ehz7RrBzuFgrTEYBoDoPfcizSaVui9zq6Rb/e8bFQ4ypLPB36wgeV2Id8+JUcfzOB0jsl6NE+NRI0/nffdtXhe+2C4hW0/gw7EtiDax0QCGaFUfZwEMsFjxfI1mmUQx0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791376057; c=relaxed/simple;
-	bh=U6GyF6lRYjgCEWmvhFJzyWk0fj3jt82DEmRclZ2q0GE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bnB5PsLkTbiGHThmqRnR+PXLoyGEGbCITYqBDjo+UXg1UQJTippX4LbqArh/iZntjwxtB5VxI8caGMfl/kJ0ddsPnkMqixCec1uBsU9+tRUsfcxdaY1yanNYzZKu6p4zqlTRBfMPjp2MffyrRrq1C6zsI8hFJ9fds8+Ym6MNOy8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=rjbxcm2+; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1791376058; c=relaxed/simple;
+	bh=UtZRZiQgkWCtP62yXpq2Ma6eG37YOSOc+h24+aSIx5I=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=YEnm3TsK4JnwStqz42zwiY9j/QsHGR284qG+pvIItufVRDcYKxfLwq1j0G9TRc3l8vd1NUROOEg0MKnFqL59w7LH/rE1jePUuW12VFC8U+ys3vlOfGxk/wUGK33tY3cMDHWmNEkx7YzNPgbfRFovANeCM/Y1sre3r3VOwoKiHeI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fY3OCVL5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="rjbxcm2+"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=dufBJ1mHa9n28EXq+40OD+8yYER3Wv9RK13RjqUDC34=; b=rjbxcm2+M8g/K9G5qLyXzzB379
-	mBG2qOMUB8XtymbdtE/8ricwS3GhO6KFjeOsRkhasqG6ARBerQaBoxHe/7fWOHvRu7U8KQZ6jJ0RI
-	JBL1CySC5s5qmEbWJruIEk13OopzQ3rV/YvYsevFmV1E4W9gDgvYmkgX42taSIg1kyo8=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xEQk0-009SAY-4M; Wed, 07 Oct 2026 14:27:24 +0200
-Date: Wed, 7 Oct 2026 14:27:24 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Aldo Ariel <qwe.aldo@gmail.com>
-Cc: wei.fang@nxp.com, frank.li@nxp.com, shenwei.wang@nxp.com,
-	imx@lists.linux.dev, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	sashiko-bot@kernel.org
-Subject: Re: Re: [PATCH net v2] net: fec: reject oversized fragments before
- bounce-buffer memcpy
-Message-ID: <36643418-851b-4cbf-ab73-8e3fa09f8715@lunn.ch>
-References: <a230cd62-db31-4128-acfa-93501d30aa39@lunn.ch>
- <CAP48HfuR9_d2KZ7ygG4fMq5ekSb2zaaiEzo_fq_mOWODN5Os6A@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fY3OCVL5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 450841F0089B;
+	Wed,  7 Oct 2026 12:27:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791376044;
+	bh=1BsbcNHXax6I8CCFf6LcipFwcMcz8PqmA1oSsq6Pwzc=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=fY3OCVL55b7IJFL5LZ6nEe2TZPa1HWNoswBFt3dPFAW7MAX2kzxoDnWV8S9Sw6HJg
+	 0j9GPVVEuTSEsMvFGmYX3kmwnqHKnFGGZwuzX4y60NGJParlf9c2opjG8Oj34rSTnz
+	 9pYPwCZADDWs87eYd0kc3k99iGJDtRx+8wwcSCB56hFR7HLhcpGbaFHQJep89cxx4S
+	 XEAqIlSNo2uq1Fv1orYN6N885pt5aLjPmqBf2IKlYWnLEaIRWCsMKlBguttD6Rx+uQ
+	 xCUtOpWfV+4Xj7DoJeE/UiNX0Y2yskLUFVpiCiTWOahZr2J8/jrdr3IDJZ6g1vxuJn
+	 eygVMBsHxydrQ==
+From: Nathan Chancellor <nathan@kernel.org>
+To: Nicolas Schier <nsc@kernel.org>, Ting-Han Hou <ue081723@gmail.com>
+Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <CA+NtrhQqXgjT+4eg6W4P94Hc=DqdV3gQXz3EKKCxWvdWzfND6A@mail.gmail.com>
+References: <CA+NtrhQqXgjT+4eg6W4P94Hc=DqdV3gQXz3EKKCxWvdWzfND6A@mail.gmail.com>
+Subject: Re: [PATCH] checkkconfigsymbols.py: Parse Git status output line
+ by line
+Message-Id: <179137578902.1530818.14446580399575550007.b4-ty@b4>
+Date: Wed, 07 Oct 2026 14:23:09 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAP48HfuR9_d2KZ7ygG4fMq5ekSb2zaaiEzo_fq_mOWODN5Os6A@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1361; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=UtZRZiQgkWCtP62yXpq2Ma6eG37YOSOc+h24+aSIx5I=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFnHrFaEfYpo/9N5PiC8xDF2yhL9iZd+m/J2hi1/9eNYd
+ pbxwpUhHaUsDGJcDLJiiizVj1WPGxrOOct449QkmDmsTCBDGLg4BWAiTZsY/jvet9ORlNJ0Wfli
+ 7xbDb3823yiTKfOqme4tFS29ja9S/DIjw4HrrPL3rvSL6Dodnt5XJ/nn5evT3y79Vl+muqDz++K
+ t1XwA
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-On Wed, Oct 07, 2026 at 05:17:20AM -0700, Aldo Ariel wrote:
-> Hi Andrew, Wei, Shenwei,
-> 
-> Thank you for the review. Shenwei confirmed that bounce buffers are
-> only available on i.MX28 and cannot coexist with jumbo frames. That
-> means the overflow path I described (jumbo fragments exceeding
-> FEC_ENET_TX_FRSIZE) is not reachable in practice: on i.MX28 the
-> max_mtu stays below the bounce buffer capacity.
-> 
-> Given that, should I respin as a defense-in-depth guard (with the
-> goto label fixed per Wei's note), or would you prefer I withdraw the
-> patch?
+On Wed, 07 Oct 2026 03:44:13 -0500, Ting-Han Hou wrote:
+> checkkconfigsymbols.py: Parse Git status output line by line
 
-I suggest adding a comment somewhere to explain that jumbo frames and
-bounce buffers are mutually exclusive by hardware design.
+Applied to
 
-We don't use defensive code, because that suggests we don't actually
-understand the code!
+  https://git.kernel.org/pub/scm/linux/kernel/git/kbuild/linux.git kbuild-next-unstable
 
-	   Andrew
+Thanks!
+
+[1/1] checkkconfigsymbols.py: Parse Git status output line by line
+      https://git.kernel.org/kbuild/c/72a61a7fef954
+
+That said, if you are only discovering and fixing these bugs by telling
+an LLM "please find and fix a bug for me", please use some judgement on
+whether the problem is more of a theoretical one versus something that a
+developer would run into the real world. Our time as Kbuild maintainers
+is rather valuable, so having to look at a bunch of LLM generated
+patches that fix bugs that nobody is likely to hit is not a good use of
+it. A lot of these scripts are infrequently used or written for fairly
+narrow use cases, so they might have problems against certain input that
+is just not expected in practice.
+
+Please look out for regression or issue reports or other follow up
+comments, as they may result in the patch/series getting dropped or
+reverted. Patches applied to an "unstable" branch are accepted pending
+wider testing in -next and any post-commit review; they will generally
+be moved to the main branch in a week if no issues are found.
+
+Best regards,
+-- 
+Cheers,
+Nathan
+
+
