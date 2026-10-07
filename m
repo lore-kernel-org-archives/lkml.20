@@ -1,111 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com [209.85.160.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73CC839989B;
-	Wed,  7 Oct 2026 11:07:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791371299; cv=none; b=HIm9A4c39KzYWU+B4fcLcqMd1qABaH8fCcW0V4kEX5BIJ65uStBBi4uPaWEZTbd9zS6MKN3l1hiuNBCfoNNLxf+V1kcRqFtfH0PsKHCgGwfMHqcu6Jrb7wyVgfBYCS0SHYz5WlfrRXSKXxhTlMOCZIyIzf5wiWtfBwhw2YgZ9Vg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791371299; c=relaxed/simple;
-	bh=DSbJymk0gWnbHQSC6y3Nu8rY3jbUnmfMMuuFYccMJW4=;
-	h=Content-Type:Date:Message-Id:To:From:Subject:Cc:Mime-Version:
-	 References:In-Reply-To; b=PPrQ03CU7bsPOc9IwvHhrZQO5rbu4ZtNKanNr+dy6Vuw7/kg2lqttJuCSzNL5b2HW1puem7dRZly/Ce/vvKNDaFqRfYHWq74PqcWbE6jzw1FhoKTqpi5J/6FUMNCuTP+IRdDr/osn1HiUniiY7RCnPeJt+CNstZWBNfPG2jy+tU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a60E6mMc; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63539470EB9
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:08:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791371314; cv=pass; b=QOtgzUALrPbLv4jpIQjX/h7+xvpyY7BiiUfpZle5Ci46ST9GUr7D+Pgo6/jgkI9kpOjasGxaDJa0vMG/XDq7slAd+uxN3Yo41FZ2hE3iOhT7nYJLLgo4jPzsXHLLQJi/v4ObSBOGXO7QUPSHQziMmOAO9vMAXGizy/SL7nI9DxM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791371314; c=relaxed/simple;
+	bh=tGowDxQJeXivQdDvAJkErb5jW7cMlEy5ohNQ/yw/K1c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pTZIuVr79n/5V5Ft5/incgs4z50XfwIZ40IAHLRghlvA6GmwPw52hCjQPlmidOzOPVOFymci3XaW3u+ajZfFk3j+zPgQQtvRumD3v1yRhAMYaAvmeibk0JYFOyVxfyJnkrNXemEQjBRLV5QiyVtB7D5X2PtAJOPAucUzCWcki0k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=bisWipT3; arc=pass smtp.client-ip=209.85.160.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a60E6mMc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19A101F0089B;
-	Wed,  7 Oct 2026 11:07:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791371273;
-	bh=ljC43KL5RO/8GvoMWGmdRQIkkbtNDJ/LqKDfZGbJnxU=;
-	h=Date:To:From:Subject:Cc:References:In-Reply-To;
-	b=a60E6mMcl8fntzCQRmOmBRKfBDeabV70CNYzsGHBciez/NQ3b1bVxhS8JdrdVfqIZ
-	 6SoRgXzJ8706+N+BlrYFH1ICCqdXzwH9eeSOrZmpjRT2fIhE5Mwneqru1wRCfOcmqO
-	 lwH542in34SmGvSHEXDPKHjRhNjJNwM+7xvmQyiOzOz7+FOrqVQebmTiMAGkP44mIN
-	 hOs1V0hmP2Z05+IjPatq7gb6G3jW0V9U3EFlDkUVA8cgjbpw4T29qOsOVf1IwWqn20
-	 MunD7vdwxGBy+CBls7DTViSb+F5bVFWkbNJGh9IzJQBwo+8rJscWAbfCel3iWWN/ov
-	 vr9mtpfVjS1ag==
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 07 Oct 2026 13:07:49 +0200
-Message-Id: <DLYK485WJPQ8.349OCC3FOJNFL@kernel.org>
-To: "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH] pinctrl: mcp23s08: reject devices without match data
-Cc: "Linus Walleij" <linusw@kernel.org>, "Kim Phillips"
- <kim.phillips@freescale.com>, "jiale yao" <19888972804@163.com>, "Mark
- Brown" <broonie@kernel.org>, <linux-spi@vger.kernel.org>, "Biju Das"
- <biju.das.jz@bp.renesas.com>, "linux-gpio@vger.kernel.org"
- <linux-gpio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, <ukleinek@kernel.org>
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="bisWipT3"
+Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-49dd13a91d0so1237022fac.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 04:08:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791371295; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hsRGLcz9vfCD1FeeUwJyxxUIbGCgkwAyiWvGlilKjFlr9xeL+fN0B7iS+zMJGp+eQi
+         ueOvYjkQG0/d5WMpQ1AzdEYOD5UgYJhd5U1JsLKxmh0bExfoai6gZsqk2TL7N9zDoZFF
+         C36pQP0gK8+c+3ktztIz65i34O9l6Rv6vJo7K0DVx5CpIXSbJkg3sPi1SxamNLknQ6kG
+         mbONUQa8QWJkuwTNo0KIhHWUEwt5COCSNhdAKfCU07y2WfVYETl0AqV8wFgDAKx1j1ei
+         qyd3E++mblcpBhdOYAbNEFSSLyzaeRwEQtcxba7F+fPqaexRY31B/KJOAdO586KEn+sb
+         v6uw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=RAu/Imf170djptZMOt8TN6cvFYKGz4NYBJqNFsnVtSI=;
+        fh=c2TL7QwBL9Drp4AXWYzgFBhgeJX2xxBfnUspRxc2Tig=;
+        b=RayeOHQxxYEzmiY8OwhSzbLjM/eVNTKB+8HhAO2lBZJ+NbpOqHdcpYXOs6Sx8CsZjF
+         i4Y/boTUnZcYwE6+NvkSPRMQvG4hjGN2LkWZxRa5enN8DEkGd6UK9rFs91sObpSSWEzA
+         nIp4A6K4RfwzEvdNSNLFVrzlsmE3mrf/5tHeAq5mALCUVvTiAs4z5XA9q91zh12Bp6Ot
+         nKxrz+XbKRnbS/zqy5cHpDfkpF7mFLuo/PLltpuiujfjNUIM8OybYAVVIhXWPlX7bAMO
+         jmWeecR2R5TKzrMvaAoCdrPGx8ykxSHtIV2Pa3UypIwXCsZ9hK6T8qJrLxqLRmJ+CK0U
+         vHzA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1791371295; x=1791976095; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RAu/Imf170djptZMOt8TN6cvFYKGz4NYBJqNFsnVtSI=;
+        b=bisWipT3zxoJetwXafJPXK325wh96k7+SRemCOtC5YqbUDmU8N+tbMzQq5Nx/nWSuc
+         9Ot95KD21EuhFUovjxuwKWGX7nmvHV3iWulheUKILkrseazz4uWjYVcdlGOPhyc7CmFQ
+         oPPp/VEqFyjohgRtSukkypCIBBewFrREA6+O6nGyDIYTPVX1hx9n2fY4RAxOuWYzAO+V
+         9xJLsrKboLDrtBUCw5XSzrkVf+y5X2j7W84Qd52guiz9qg7w2RlvsDr0/FG/LD/rzBw7
+         5M8akiQURIC1ngyWNY9Is081haUtCPLcrarOmOyXL+F3UwWqJ8gKkOSZBUOf0xXrlZlT
+         CtVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791371295; x=1791976095;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=RAu/Imf170djptZMOt8TN6cvFYKGz4NYBJqNFsnVtSI=;
+        b=zQDJJ+IOgKQg+dy2EArMTFGHiLXihDoogwm7PeZX0CctB858Reciua1+zxoORmLIy/
+         eH8PVqSkg+fg/wmL8D1Hkf2y4X/6lHQquvJwNSHlmsTAAatzGKRxiyRa6sKjmjHAmktX
+         QIN0nqzMDwd9eO+AKAaWend6QyeTIwRtdn+NDJngPKQTCHJahb9VQ30NCaSYKIVDTH0l
+         35Ag9XQaS7h6yS9I/avWDUMbgnN6jH96osbfajY6eYoWjGbykJmnuQ8YYb2j9Gu+EgKA
+         go5+Epo9jzXqUNfM5LyN/sNX1bK/bUMIat6f1jzSzWigmn2TTNqh8TX68GXqnfbFlOHU
+         RxCw==
+X-Forwarded-Encrypted: i=1; AKwUvBy1ousDhu9iIVaOMJmALMioLqu4xsFmLmjmzQOkRtsIfD6qt23Drm5ex64Taff8Q/MBd47sSE38oF2T1dM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIXMmjEovhp0WqUrcUiNPNa9D4SDqZf148SXLPEca8yof+7ZABC
+	13wek4rfG9PahFkpVKVu0dDQ6CcdabkQpY2Eo7LECd8Szvyb36LDxSOZQuHeaOZATS3s+JHGlgN
+	wNleS4hSSlinWCzPecFb62dTl5/9YlFw9cSH2rYrErA==
+X-Gm-Gg: AYBFou3jFs++he1JRLTiXe2Y2vQP51ys+S3La5iGxOA5ACPNnhWKu91NCGoEx/H4oy8
+	FpXXN8STnCtgd2q0ZnOScy/QfWvgnnpPDIOqlZueOtwgSRPMfG+w9idpbxUlXs8Zf+1yC0q2P+m
+	kXh+e08aepKO/HRPy2qj3dIK7+eJKA6US5lE1vK5icWehJwNgrvsMCWsFfPpM1Q7nJGfg4aqmNN
+	4Iwpl5XXAkLKXIRk8STTTJ8hRNuyqtBQgpox6c3SknOuEV/1HKHUa2A5iHSWQMUUit/a85b1PAN
+	rcFYk5cxJwero0PjAt5oBEC+dRTqS2vnJ9mbJooG5rMJNgCw679WnfcewNA8PtmEENdPwbL42ql
+	3tahP+8ybJ9HG68GAb4WE9oo66gPaJK5t6MUI5sIy+Iw3/AWNB1AjCNcG59VlHWx6A93kf4da
+X-Received: by 2002:a05:6870:16ea:b0:491:7c1c:c24d with SMTP id
+ 586e51a60fabf-4a25950e29bmr1768930fac.30.1791371294988; Wed, 07 Oct 2026
+ 04:08:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-References: <20260925133804.2231004-1-yaojiale02@163.com>
- <TY3PR01MB11346E0C01A9337A3AF4D97DC868F2@TY3PR01MB11346.jpnprd01.prod.outlook.com> <34472b57.1961.1a0dd3dff12.Coremail.19888972804@163.com> <TY3PR01MB113461CE3C9EB4A175879F5BD868D2@TY3PR01MB11346.jpnprd01.prod.outlook.com> <1186ef64.63b1.1a0e6e70a59.Coremail.19888972804@163.com> <CAD++jLnVna-E61Z1GiKKX9G0Q+1CMq4GYi8p7vjKzeEtroAFdA@mail.gmail.com> <ar9WM0ZtDJD2H5Ii@ashevche-desk.local> <CAD++jL=eGjhCM8Xa=T08rPSGpH4p5dsajZa569gsObJma3yZ6g@mail.gmail.com> <ar-FDqxMC3F-zkPB@ashevche-desk.local> <CAD++jLnia-GyvS57-q2NOTWrqXWC12-HDbU6qsUiWEqOgTPX_Q@mail.gmail.com> <asILHNE0iDP2jVVR@ashevche-desk.local>
-In-Reply-To: <asILHNE0iDP2jVVR@ashevche-desk.local>
+MIME-Version: 1.0
+References: <20261007104940.507820-1-phucduc.bui@gmail.com> <20261007104940.507820-4-phucduc.bui@gmail.com>
+In-Reply-To: <20261007104940.507820-4-phucduc.bui@gmail.com>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Wed, 7 Oct 2026 12:07:58 +0100
+X-Gm-Features: AclHuK8jNyu4J6aY8nFRvuolKmkC7r_xwYmvV_NX-kpPSA3dASsF-X4_A_0WY2g
+Message-ID: <CAPY8ntDCR+Bgc+z3-ApNk-rU9gZwtmgSON=FnSO+6qAeyrQt7A@mail.gmail.com>
+Subject: Re: [PATCH 3/3] media: i2c: ov5647: propagate pwdn GPIO errors
+To: phucduc.bui@gmail.com
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Shunqian Zheng <zhengsq@rock-chips.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Walter Werner Schneider <contact@schnwalter.eu>, 
+	Jacopo Mondi <jacopo@jmondi.org>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Luca Weiss <luca@lucaweiss.eu>, 
+	Hans Verkuil <hverkuil@kernel.org>, Roman Kovalivskyi <roman.kovalivskyi@globallogic.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun Oct 4, 2026 at 10:15 AM CEST, Andy Shevchenko wrote:
-> +Cc: Danilo
-> (as you were involved in cleaning this up in the past and being co-mainta=
-iner
->  of driver core)
+On Wed, 7 Oct 2026 at 11:50, <phucduc.bui@gmail.com> wrote:
 >
-> On Sun, Oct 04, 2026 at 01:06:07AM +0200, Linus Walleij wrote:
->> On Fri, Oct 2, 2026 at 12:19=E2=80=AFPM Andy Shevchenko
->> <andriy.shevchenko@linux.intel.com> wrote:
->> > On Fri, Oct 02, 2026 at 11:52:41AM +0200, Linus Walleij wrote:
->> > > On Fri, Oct 2, 2026 at 8:59=E2=80=AFAM Andy Shevchenko
+> From: bui duc phuc <phucduc.bui@gmail.com>
 >
-> ...
+> devm_gpiod_get_optional() may return -EPROBE_DEFER or other errors,
+> but ov5647_probe() currently converts them to -EINVAL.
 >
->> > > The entire name of the thing feels like debugfs-footgun
->> > > territory for example.
->> >
->> > Yeah, I can't find neither a thing on LWN.net nor in the in-tree docum=
-entation.
->> > The only useful piece of information is (in kernel-doc of struct bus_t=
-ype):
->> >
->> >   driver_override
->> >     Set to true if this bus supports the driver_override mechanism, wh=
-ich
->> >     allows userspace to force a specific driver to bind to a device vi=
-a a sysfs
->> >     attribute.
->>=20
->> This whole thing is weird, but OK.
->>=20
->> Since we have a ton of drivers depending on match data we either
->> have to patch them all to bail out if match data is NULL (like this
->> patch does) or, which is equivalent, opt out of driver_override
->> that much is certain.
->>=20
->> What I don't get is what this is intended for. What is the use case?
->> The commit says this is for VFIO. Shouldn't it be opt-in and turned
->> on only for VFIO then?
+> Use dev_err_probe() to propagate the original error from the pwdn GPIO
+> lookup.
+>
+> Fixes: b050791d287a ("media: ov5647: Add support for PWDN GPIO.")
+> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 
-I think VFIO could use a different (less generic) mechanism that is more
-integrated with the corresponding bus to e.g. allow userspace to decide to =
-get a
-PF bound to a VFIO driver for passthrough.
+Thanks for the patch.
 
-The existing driver_override is convinient for this case, but ideally we wa=
-nt to
-express that a driver can only be bound to the corresponding host and VFIO
-drivers.
+Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 
-I think the situation for SPI is pretty similar.
-
-Unfortunately, it is a uAPI already, so we can't really get rid of it.
-
-But I agree that we should be more defensive about this and make it a drive=
-r
-opt-in. Uwe already prepared a patch for this [1].
-
-[1] https://lore.kernel.org/driver-core/0f7446324f6a0c8f0153d6532d92a6eeecd=
-6a308.1790612298.git.u.kleine-koenig@baylibre.com/
+> ---
+>  drivers/media/i2c/ov5647.c | 7 +++----
+>  1 file changed, 3 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/media/i2c/ov5647.c b/drivers/media/i2c/ov5647.c
+> index 3facf92b3841..b3049761a5fb 100644
+> --- a/drivers/media/i2c/ov5647.c
+> +++ b/drivers/media/i2c/ov5647.c
+> @@ -1186,10 +1186,9 @@ static int ov5647_probe(struct i2c_client *client)
+>
+>         /* Request the power down GPIO asserted. */
+>         sensor->pwdn = devm_gpiod_get_optional(dev, "pwdn", GPIOD_OUT_HIGH);
+> -       if (IS_ERR(sensor->pwdn)) {
+> -               dev_err(dev, "Failed to get 'pwdn' gpio\n");
+> -               return -EINVAL;
+> -       }
+> +       if (IS_ERR(sensor->pwdn))
+> +               return dev_err_probe(dev, PTR_ERR(sensor->pwdn),
+> +                                    "Failed to get 'pwdn' gpio\n");
+>
+>         ret = ov5647_configure_regulators(dev, sensor);
+>         if (ret)
+> --
+> 2.43.0
+>
