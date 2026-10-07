@@ -1,120 +1,223 @@
-Received: from mta0.migadu.com (out-109.mta0.migadu.com [91.218.175.109])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42F4E490BE7
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 10:56:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.109
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9315348F844;
+	Wed,  7 Oct 2026 10:56:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791370600; cv=none; b=TZAmbek3mMHSGnKDc8BZM7b8qaaSQFXCUOjTvYqI3v4DyoVSJfN23WPg6M9jCecu7CR6m8RjWMwDwBGP5NEO2A3ALaXqUp1nj9XeTIMfMCzhlhbgLDJD/hbA2V3//D2ZCN1iYPNLd+x+HUwh4HEHgwcXYKuTFDo4c/6GiQsKEk0=
+	t=1791370627; cv=none; b=N9hYvSLF5q9l/AQDNGSIXU0KE9KB97MNvT43KyocF67sd83fgc/cQmubKj/oEPlm5Z8RhTIytJkCCaeyixavVgRFF0SrJrF8Ba2hFho+DiXm1hfBHchUwgob81rWuB4ktfixQfWPAHqS1hNijdiGZMU79eAYsNCYA4UuphNCmng=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791370600; c=relaxed/simple;
-	bh=GxCPlE57Cq/icBi/tQSzj1Ld7BdDAW/pW97e/uehP3s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rCDNcOv2/hfyQSw8jG0/ukDNbYzSwUBvIq4D6DLZ6oZrYxBfCtKqNdBT7mERnVKjVeSaRvSjL9+WdcndPI5IwqGq0iN8cWSN5dTX60jTzfPcVh5sNOfFF8i0X0zQPTa4P2RZnOpcpIqhNTTthLRR4/Cnh8jCgvteAHIHFNU0D6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=flhXYIJJ; arc=none smtp.client-ip=91.218.175.109
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791370627; c=relaxed/simple;
+	bh=re5/vtBq8yw/jifXhYlUrjdqPXF8WnZK08qok5bzY1Q=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=a4OH74HnhdOjDxHprfFs6DxaNEz1s1Bg6KZhN6piYAF+OIyzwq7Lf1I5dzCsF6xwK3Oc4b+JYH0T81VBOP4B52w4RzvZWIPUct1EGVaq6nrOSMBvO8pxXIbKgLt2oGF1gy8Z+l4e6IbgNMkBctmmQarGJ5iDyhOVk7UJSMQo7ug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cjzM1WAb; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="flhXYIJJ"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=GxCPlE57Cq/icBi/tQSzj1Ld7BdDAW/pW97e/uehP3s=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791370575; v=1; x=1791975375;
- b=flhXYIJJkXhCfJmFDZobYSAR8JMjoqIeTErzUj59Z8BB1rYHeLIJfpnVvhxbSSDm25XYippy
- +11zYotNAnNt7Yu5VNJoQx5Z+rFxpGZTjWyVU5D3lWVgw6v332Ohf2qwRLXmDTXsGVczAPNZEGo
- +71rpL4/UBSb0uRjGDLlrox8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 23a8dc82b3a969ab;
-	Wed, 07 Oct 2026 10:56:14 +0000
-X-Mizu-Trace-ID: 23a8dc82b3a969ab
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <209aaa32-7763-42d8-83e0-470066c880dd@linux.dev>
-Date: Wed, 7 Oct 2026 12:56:10 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cjzM1WAb"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6977jbkF3298317;
+	Wed, 7 Oct 2026 10:56:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	nbaZT9ZclFk/IbdX3+0WEBhlYkLn3GXBRn54MSdCcBw=; b=cjzM1WAbmLE4tqdK
+	CwwSkWv2+3vNK6devKDddfGeMjPFZja3sx+bkDOTHnwxS5vvdl622tDjTZ0K/5SI
+	GyUpQjeSRFCZXDm5J+HDivN+xSrKltlV+KFi0KoHotHFf9LObXsbRZZSSYUagPpp
+	4cl8zl6IDAdf428Cn2ZG92KZF3n2MpBJRzO+aS3n9b/Mdj1ErCwZJcAGNUY8ivoH
+	4PVAyXZFZ7085fuT6508I7EavN0kQiMrVf6kGOjUtqEGbE9lwN2Ud3lMsXrTzqNA
+	aVW8ykfFP7I13onk/7uqUM4YSuu/9dn9gt2esiS23zKzJNPp+xfN2v7SjtBRtbTH
+	90UCCw==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5hdcrqha-29
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 07 Oct 2026 10:56:02 +0000 (GMT)
+Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69776o7I1872925;
+	Wed, 7 Oct 2026 07:06:51 GMT
+Received: from hu-ffaruque-hyd.qualcomm.com (hu-ffaruque-hyd.qualcomm.com [10.147.245.31])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTP id 69776m1u1872875;
+	Wed, 07 Oct 2026 07:06:50 +0000 (GMT)
+From: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+Date: Wed, 07 Oct 2026 12:36:39 +0530
+Subject: [PATCH v16 4/6] reboot: extend psc_reason with power-on and reset
+ causes
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] mm: zswap: reduce request contention on loads
-To: Nhat Pham <nphamcs@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, chengming.zhou@linux.dev,
- dsterba@suse.com, hannes@cmpxchg.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, terrelln@fb.com, yosry@kernel.org, riel@surriel.com,
- shakeel.butt@linux.dev, alex@ghiti.fr, senozhatsky@chromium.org,
- kernel-team@meta.com
-References: <20261006002307.2669023-1-usama.arif@linux.dev>
- <CAKEwX=N3ks2O-dCYPRif3NnHQckdVqLiPGRn03GkCuEE+FVgtQ@mail.gmail.com>
-Content-Language: en-US
-From: Usama Arif <usama.arif@linux.dev>
-In-Reply-To: <CAKEwX=N3ks2O-dCYPRif3NnHQckdVqLiPGRn03GkCuEE+FVgtQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261007-pscrr-framework-v16-4-3642c277bebb@oss.qualcomm.com>
+References: <20261007-pscrr-framework-v16-0-3642c277bebb@oss.qualcomm.com>
+In-Reply-To: <20261007-pscrr-framework-v16-0-3642c277bebb@oss.qualcomm.com>
+To: Sebastian Reichel <sre@kernel.org>, Benson Leung <bleung@chromium.org>,
+        Tzung-Bi Shih <tzungbi@kernel.org>,
+        Guenter Roeck <groeck@chromium.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Matti Vaittinen <mazziesaccount@gmail.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Oleksij Rempel <o.rempel@pengutronix.de>,
+        Pengutronix Kernel Team <kernel@pengutronix.de>
+Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev,
+        avaneesh.dwivedi@oss.qualcomm.com,
+        Umang Chheda <umang.chheda@oss.qualcomm.com>,
+        Ulf Hansson <ulfh@kernel.org>,
+        Faruque Ansari <faruque.ansari@oss.qualcomm.com>,
+        Bradley Morgan <brads@mainlining.org>
+X-Mailer: b4 0.14.3
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-GUID: ax5MUkkm_mQSYjnnlNnBniRTMY9nARL8
+X-Authority-Analysis: v=2.4 cv=aKFlOr9m c=1 sm=1 tr=0 ts=6ac62542 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=pGLkceISAAAA:8
+ a=OuZLqq7tAAAA:8 a=EUspDBNiAAAA:8 a=Vje9-6R8i_NmrIIDdkYA:9 a=QEXdDO2ut3YA:10
+ a=AKGiAy9iJ-JzxKVHQNES:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDA0MyBTYWx0ZWRfX/SJWWVXrG8tP
+ 9DJZa/RZBNU6tztbPeSj+VayHTOpA20tPoX/X/m5fTKy4YHtYqdnXzlRzbsNqPrk7q6ukV/bD0P
+ tTH3fBbTZhdBJ30YZOttpfXOGuNNeeI=
+X-Proofpoint-ORIG-GUID: ax5MUkkm_mQSYjnnlNnBniRTMY9nARL8
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDA0MyBTYWx0ZWRfXzyUUdMkkX4ZC
+ MaKAz92AAKbeuwCVsGDnNcJBpZjm/QFbz7aojjJ6rf57j5ftMpWEPZ4kVfV+ljYJxqpFr9QLHE5
+ vTmPNZuadrJs226swA7GUXUn+LAwCSmk5Q6CSroqKgvy274JlVUdVSvEKMewx+uXCAUx0MYrd0v
+ iBN88ct2BvPTqsqNPVJrfW7BplQQPfGSI+jbuNny2LLdZ4Q8XvdxJYtoWaUFctnAo6+FCgJsexY
+ i/gsz7fBVege6PcOGJIotn08btdbg/bMPqaJSHZpNREfb4uoZojrNINL8GibQ3hznEy4wOB1G3Q
+ jWQyiIgaaPHhKWk/Blzlre/u3VXjbXicHDEwadzIfolVm9iJ0QYlxqVFNZXYYBpNnD5+f9OcN2L
+ 9mdujXspG17t2c2bgRaW4wKOiBT6lIwmNIecdOrCIGN1ZyNKu8UhV3/jwtyRjqDwO+/XEn0NfLw
+ HJdfVuIs7sBD6OJ0VKg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-07_03,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 malwarescore=0 priorityscore=1501 impostorscore=0
+ bulkscore=0 adultscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070043
 
+psc_reason covered only the protection reasons. Extend it to mirror the
+full POWER_ON_REASON_* vocabulary - power-on, watchdog, software,
+external, RTC, reset button, CPU clock and crystal failures - so a
+provider can report why the system last powered on, not only why it was
+shut down. New values are appended to keep the existing numeric ABI.
 
+Co-developed-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Reviewed-by: Matti Vaittinen <mazziesaccount@gmail.com>
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Signed-off-by: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
 
-On 06/10/2026 11:35, Nhat Pham wrote:
-> On Tue, Oct 6, 2026 at 2:23 AM Usama Arif <usama.arif@linux.dev> wrote:
->>
->> Stores and loads share a per-CPU acomp request and mutex. A low-priority
->> store can be preempted right after the compressor drops its stream
->> lock, while it still holds the zswap mutex, and a higher-priority load
->> on that CPU then waits for the store to run again. This follows the work
->> from Sergey Senozhatsky's zram series which splits it for the same
->> reason [1].
->>
->> Patch 1 gives compression and decompression separate requests, waits
->> and mutexes, so loads no longer wait for stores, though they can still
->> wait for each other. Patch 2 decompresses with an on-stack request when
->> the algorithm is synchronous and needs no request context, which covers
->> all in-tree software compressors, so those loads take no zswap lock.
->> Asynchronous algorithms keep the per-CPU request and mutex. For software
->> compressors the series allocates the same number of requests as before;
->> each per-CPU context grows by 72 bytes, and the load path is about 270
->> bytes deeper on x86-64.
->>
->> The series does not fix two related cases:
->> - Stores still serialize on the compression mutex, so a high-priority
->>   task that reclaims (direct reclaim, MADV_PAGEOUT) can still wait for
->>   a preempted store.
-> 
-> Any reasons why we cannot tackle this too? Or just one at a time?
+changes v16:
+- Add Reviewed-by tag from Bradley Morgan.
+changes v15:
+- add a static_assert() tying ARRAY_SIZE(psc_reason_descs) to
+  PSCR_REASON_COUNT, so a future enum addition without a matching
+  table entry fails the build instead of silently reading a hole
+  (Matti Vaittinen)
+- Add Reviewed-by tags from Matti Vaittinen.
+changes v12:
+- new patch
+---
+ include/linux/reboot.h | 34 +++++++++++++++++++++++++++++++---
+ kernel/reboot.c        | 12 ++++++++++++
+ 2 files changed, 43 insertions(+), 3 deletions(-)
 
-Stores need more than a request. The compression mutex also protects
-the per-CPU PAGE_SIZE output buffer, which has to stay ours until
-zs_obj_write() copies it out, since zs_malloc() needs the compressed
-length first. Loads stopped using that buffer in e2c3b6b21c77f, so an
-on-stack request was enough for them, but the buffer is too big for
-the stack.
+diff --git a/include/linux/reboot.h b/include/linux/reboot.h
+index b0fac2258413..a3ca139f48c1 100644
+--- a/include/linux/reboot.h
++++ b/include/linux/reboot.h
+@@ -227,9 +227,28 @@ extern void orderly_reboot(void);
+  *	notify value ACPI_NOTIFY_CROS_EC_PANIC on ChromeOS EC hardware); the
+  *	kernel only relays that report, see cros_ec_lpc_acpi_notify().
+  *
++ * @PSCR_POWER_ON: Regular cold power-on (e.g. via a PMIC power-on request).
++ *
++ * @PSCR_WATCHDOG: Reset caused by a watchdog timeout.
++ *
++ * @PSCR_SOFTWARE: Software-initiated reset or reboot.
++ *
++ * @PSCR_EXTERNAL: Reset asserted through an external pin or reset input.
++ *
++ * @PSCR_RTC: Wake-up or power-on triggered by the RTC.
++ *
++ * @PSCR_RESET_BUTTON: Reset triggered by a user reset button.
++ *
++ * @PSCR_CPU_CLK_FAIL: Reset caused by a CPU clock failure.
++ *
++ * @PSCR_XTAL_FAIL: Reset caused by a crystal oscillator failure.
++ *
+  * @PSCR_REASON_COUNT: Number of defined power state change reasons. This
+  *	value is useful for range checking and potential future extensions
+  *	while maintaining compatibility.
++ *
++ * The reasons mirror the POWER_ON_REASON_* strings in
++ * <linux/power/power_on_reason.h>; keep the two in sync when extending.
+  */
+ enum psc_reason {
+ 	PSCR_UNKNOWN,
+@@ -238,9 +257,18 @@ enum psc_reason {
+ 	PSCR_REGULATOR_FAILURE,
+ 	PSCR_OVER_TEMPERATURE,
+ 	PSCR_EC_PANIC,
+-
+-	/* Number of reasons */
+-	PSCR_REASON_COUNT,
++	/* Append new reasons here; the numeric order is ABI. */
++	PSCR_POWER_ON,
++	PSCR_WATCHDOG,
++	PSCR_SOFTWARE,
++	PSCR_EXTERNAL,
++	PSCR_RTC,
++	PSCR_RESET_BUTTON,
++	PSCR_CPU_CLK_FAIL,
++	PSCR_XTAL_FAIL,
++
++	/* Number of reasons. Must remain the last member. */
++	PSCR_REASON_COUNT
+ };
+ 
+ const char *psc_reason_to_str(enum psc_reason reason);
+diff --git a/kernel/reboot.c b/kernel/reboot.c
+index f153b6349369..613a6ecb5808 100644
+--- a/kernel/reboot.c
++++ b/kernel/reboot.c
+@@ -7,7 +7,9 @@
+ 
+ #define pr_fmt(fmt)	"reboot: " fmt
+ 
++#include <linux/array_size.h>
+ #include <linux/atomic.h>
++#include <linux/build_bug.h>
+ #include <linux/ctype.h>
+ #include <linux/export.h>
+ #include <linux/kexec.h>
+@@ -1102,7 +1104,17 @@ static const struct psc_reason_desc psc_reason_descs[] = {
+ 	[PSCR_REGULATOR_FAILURE] = { "regulator-failure", POWER_ON_REASON_REGULATOR_FAILURE },
+ 	[PSCR_OVER_TEMPERATURE]	 = { "over-temperature",  POWER_ON_REASON_OVER_TEMPERATURE },
+ 	[PSCR_EC_PANIC]		 = { "ec-panic",	  POWER_ON_REASON_EC_PANIC },
++	[PSCR_POWER_ON]		 = { "power-on",	  POWER_ON_REASON_REGULAR },
++	[PSCR_WATCHDOG]		 = { "watchdog",	  POWER_ON_REASON_WATCHDOG },
++	[PSCR_SOFTWARE]		 = { "software",	  POWER_ON_REASON_SOFTWARE },
++	[PSCR_EXTERNAL]		 = { "external",	  POWER_ON_REASON_EXTERNAL },
++	[PSCR_RTC]		 = { "rtc",		  POWER_ON_REASON_RTC },
++	[PSCR_RESET_BUTTON]	 = { "reset-button",	  POWER_ON_REASON_RST_BTN },
++	[PSCR_CPU_CLK_FAIL]	 = { "cpu-clock-failure", POWER_ON_REASON_CPU_CLK_FAIL },
++	[PSCR_XTAL_FAIL]	 = { "crystal-failure",	  POWER_ON_REASON_XTAL_FAIL },
+ };
++static_assert(ARRAY_SIZE(psc_reason_descs) == PSCR_REASON_COUNT,
++	      "psc_reason_descs[] must have an entry for every psc_reason");
+ 
+ /**
+  * psc_reason_to_str - Human-readable label for a power state change reason.
 
-> 
->> - On PREEMPT_RT the codec stream locks are preemptible, so a load can
->>   still wait for a preempted store inside the codec.
-> 
-> Acked.
-> 
->>
->> The numbers below are the slowest read per run, as a median (min-max)
->> of 5 runs. Each run is 12 seconds in a zstd VM with lazy preemption,
->> vm.page-cluster=0 and swap on /dev/ram0. With 1 vCPU, four nice +10
->> workers page memory out and read it back while a nice 0 task spins. A
->> nice -19 reader pages out its own buffer and measures how long each
->> read of it takes. With 8 vCPUs there are 16 workers, 8 spinning tasks
->> and 8 readers.
->>
->>               Before series (ms)      With series (ms)
->>   1 vCPU      22.3 (21.6-22.6)        0.97 (0.72-1.4)
->>   8 vCPUs     314 (97-2542)           7.0 (5.0-98)
->>
->> Reads over 10 ms fell from 26-35 per run to none with 1 vCPU, and from
->> 3-18 per run to at most one with 8 vCPUs. The benchmark and test programs
->> were written with the help of an LLM.
-> 
-> Great find, Usama!
-
-Thanks for the reviews!
-
-
+-- 
+2.34.1
 
