@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD5A73F106B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD3CA3EC2FF;
 	Wed,  7 Oct 2026 20:45:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791405914; cv=none; b=N3/tnBhNC30xTpAW6VrACkmgtdi8bsYLds9dmodbe7gHjXlcz1nFjAknJdpzM4qpuK7LaDgNRtcp2CZoJrUPio0IKcbYZLrwKZjZ4QBPqlKG/52ElsRuonJoCVThE7iVhD6bO+nSRYcSt+ngK2KAb1EfzYSGHzWl5LHSjo+Se4Q=
+	t=1791405914; cv=none; b=hdTJ+GGX6IXOFCirNVqR27KeTULgqUzKXMjWHAnHL+ACUIU1KSbR3mCBuA1d2p+o9tK4EU+uC9OyAh24pQlWQrCL1X6h9Tj1AsGuV8svY3OX9V1eLOJO6kud7oZcnoT6Usafxdp4C3orpsyhC7NhAoRZMlpxnWBVGNeu53Tqzxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791405914; c=relaxed/simple;
-	bh=wGZ4qan7/j/8qTLzj3/b9p7Ohjp1uGrM2QuuZUYZwt8=;
+	bh=z/4rr+KDx1LEWNRbAPN0WayNMm7IGVD7gz/AhBku0zY=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=AoYDPhpjcUBjXE91zY+oYrv6RNIWN7SCa1PmDKzQyfD18fx58U/akx5aOgIJjrSFh0Ih8ByMLlqlrgh78QB2waWOSlzo+DIjZLweolNpVabDuuKAm2PC7TmVVx67eJwTZw37s67tdcir3QBcBgktdqpUfjGhgWM4xsffI/2Tn8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C+x04BSa; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=lVTdHI5H8bp47PpCfrd5Vjo6+tPK1XqvCxxC5suWDcg1iC2rrwBI0cAPEM2iYCknHDLBes2mADtSeBOjSSOe9mFgBs4liHzLTeNe3AIy0F65q7qfyF3dYxiIDGioyB7kgB4oOFnzR/lhSBECd+3gGRyCZyZ3rifVWkYqtLbuGu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NtLRyixv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C+x04BSa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A69A1F000FF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NtLRyixv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 961311F00899;
 	Wed,  7 Oct 2026 20:45:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1791405913;
-	bh=aAlK4qyzR12Nz1UmiH1dkwwVv6ZGAmCATRLIWlWGkcI=;
+	bh=/iNO+8ie2nrE8OqoU3fGnSkJAbqrW9dj3DKud6f8rf8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=C+x04BSar6rEA09mRsN49rP9ir6UkRZ0zX+n3cvD+RV92VsFJltqM80miV1LozO4t
-	 YluLvC2muACxZ4SiUm21lABQ2Xrefod5bPTywFS3M75XuO+Fn/NzN+NBg3pPJzf8Bt
-	 00KaSwMBkXjFO+tzyRcTBxthIruSy11xuxo2UaVIdE8UPxVukKa0ZMrbwmoC35MCoR
-	 MKyxeopIzhBcEsRpK73QDVnvGTYI5T5f5ezl5llaYw6qNX7y/TITTISz+v51TrfvsD
-	 cO+GER+XppyBz/V6SBBmOFGWVv4DrhH1wLs0B1kJvTJJsVSYwdrxR/dSqtSJkVgCHr
-	 yCpUhbFScbsYg==
+	b=NtLRyixvuXvJTMyPUI7nFHPiDmAOUbzuILc+zvOIHObS7fj/ufAJmfpxIfncX0iOU
+	 jIXelyatatj1cMw4BLFJx8kiNqqXdqoQKzxYNIciuN8llc+epyCECwDZ6RcJ2NUTsL
+	 U4wgjvMutxNGV765UNG1DmWXZorze7xkcNN1dVM6W1ZQz8X2WRkRjQV+gl/fSUUPSK
+	 tKWak8a/88jGJ0vi3YJoEv77StLd2+pNrDOg9errBn9Ir2uuuBfBcy78eiRGBXTsSV
+	 z3huXV4BY5jOyF5P4p9JWzJbPKgLpc5WnTWUhKGqSX/jRQl0nlpVv9tdb2f3J9uX86
+	 AHQ21rgDNMITQ==
 Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 23B6BCE0D79; Wed,  7 Oct 2026 13:45:13 -0700 (PDT)
+	id 2C13DCE1DC2; Wed,  7 Oct 2026 13:45:13 -0700 (PDT)
 From: "Paul E. McKenney" <paulmck@kernel.org>
 To: rcu@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
 	kernel-team@meta.com,
 	rostedt@goodmis.org,
-	"Paul E. McKenney" <paulmck@kernel.org>
-Subject: [PATCH v2 01/10] doc: Update stallwarn.rst based on RCU Tasks Trace as SRCU
-Date: Wed,  7 Oct 2026 13:45:02 -0700
-Message-Id: <20261007204511.1982646-1-paulmck@kernel.org>
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Bradley Morgan <brads@mainlining.org>,
+	Kunwu Chan <kunwu.chan@gmail.com>
+Subject: [PATCH v2 04/10] rcu: Add running and boosted indications to RCU task stall dump
+Date: Wed,  7 Oct 2026 13:45:05 -0700
+Message-Id: <20261007204511.1982646-4-paulmck@kernel.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <df33a614-9c3d-423d-9d31-b1846cb1f1d6@paulmck-laptop>
 References: <df33a614-9c3d-423d-9d31-b1846cb1f1d6@paulmck-laptop>
@@ -48,61 +50,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Now that RCU Tasks Trace has been re-implemented in terms of SRCU,
-update stallwarn.rst to remove obsolete verbiage about RCU Tasks Trace
-stall warnings.
+Currently, rcu_print_task_stall() will dump out the PID, RCU reader
+nesting level, the rcu_special structure's flags, and whether or not
+that reader is on the ->blkd_tasks list.  When debugging RCU priority
+boosting, it is also good to know whether the stalled RCU reader is
+currently running and whether it is currently being RCU priority boosted.
+This commit therefore adds this information to the output.
 
+[ paulmck: Apply kernel test robot feedback. ]
+[ paulmck: Apply feedback from Arnd Bergmann and kernel test robot. ]
+
+Link: https://lore.kernel.org/all/20260925133922.1356404-1-arnd@kernel.org/
+Link: https://lore.kernel.org/all/202609261005.GrnaXBXT-lkp@intel.com/
 Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
+Tested-by: Kunwu Chan <kunwu.chan@gmail.com>
 ---
- Documentation/RCU/stallwarn.rst | 22 +++++++++-------------
- 1 file changed, 9 insertions(+), 13 deletions(-)
+ kernel/rcu/tree_plugin.h |  2 --
+ kernel/rcu/tree_stall.h  | 24 ++++++++++++++++++++++--
+ 2 files changed, 22 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/RCU/stallwarn.rst b/Documentation/RCU/stallwarn.rst
-index d7c8eff633174..a986358a5c279 100644
---- a/Documentation/RCU/stallwarn.rst
-+++ b/Documentation/RCU/stallwarn.rst
-@@ -122,10 +122,11 @@ warnings:
- 	of RCU CPU stall warnings, eventually leading to the realization
- 	that the CPU had failed.
+diff --git a/kernel/rcu/tree_plugin.h b/kernel/rcu/tree_plugin.h
+index 743c16247fc05..ae5d21bae7bc0 100644
+--- a/kernel/rcu/tree_plugin.h
++++ b/kernel/rcu/tree_plugin.h
+@@ -11,8 +11,6 @@
+  *	   Paul E. McKenney <paulmck@linux.ibm.com>
+  */
  
--The RCU, RCU-sched, RCU-tasks, and RCU-tasks-trace implementations have
--CPU stall warning.  Note that SRCU does *not* have CPU stall warnings.
--Please note that RCU only detects CPU stalls when there is a grace period
--in progress.  No grace period, no CPU stall warnings.
-+The RCU and RCU-tasks implementations have CPU stall warning.  Note that
-+SRCU does *not* have CPU stall warnings, and now that RCU-tasks-trace
-+is implemented in terms of SRCU, neither does it.  Please note that
-+RCU only detects CPU stalls when there is a grace period in progress.
-+No grace period, no CPU stall warnings.
- 
- To diagnose the cause of the stall, inspect the stack traces.
- The offending function will usually be near the top of the stack.
-@@ -213,21 +214,16 @@ RCU_STALL_RAT_DELAY
- rcupdate.rcu_task_stall_timeout
- -------------------------------
- 
--	This boot/sysfs parameter controls the RCU-tasks and
--	RCU-tasks-trace stall warning intervals.  A value of zero or less
--	suppresses RCU-tasks stall warnings.  A positive value sets the
--	stall-warning interval in seconds.  An RCU-tasks stall warning
--	starts with the line:
-+	This boot/sysfs parameter controls the RCU-tasks stall warning
-+	interval.  A value of zero or less suppresses RCU-tasks stall
-+	warnings.  A positive value sets the stall-warning interval
-+	in seconds.  An RCU-tasks stall warning starts with the line:
- 
- 		INFO: rcu_tasks detected stalls on tasks:
- 
- 	And continues with the output of sched_show_task() for each
- 	task stalling the current RCU-tasks grace period.
- 
--	An RCU-tasks-trace stall warning starts (and continues) similarly:
+-#include "../locking/rtmutex_common.h"
 -
--		INFO: rcu_tasks_trace detected stalls on tasks
--
+ static bool rcu_rdp_is_offloaded(struct rcu_data *rdp)
+ {
+ 	/*
+diff --git a/kernel/rcu/tree_stall.h b/kernel/rcu/tree_stall.h
+index 93ba31a619b67..803a56af3259f 100644
+--- a/kernel/rcu/tree_stall.h
++++ b/kernel/rcu/tree_stall.h
+@@ -11,6 +11,8 @@
+ #include <linux/kvm_para.h>
+ #include <linux/rcu_notifier.h>
+ #include <linux/smp.h>
++#include <linux/rtmutex.h>
++#include "../locking/rtmutex_common.h"
  
- Interpreting RCU's CPU Stall-Detector "Splats"
- ==============================================
+ //////////////////////////////////////////////////////////////////////////////
+ //
+@@ -305,6 +307,8 @@ struct rcu_stall_chk_rdr {
+ 	int nesting;
+ 	union rcu_special rs;
+ 	bool on_blkd_list;
++	bool rcu_rdr_running;
++	int rcu_rdr_boosted;
+ };
+ 
+ /*
+@@ -313,6 +317,7 @@ struct rcu_stall_chk_rdr {
+  */
+ static int check_slow_task(struct task_struct *t, void *arg)
+ {
++	struct rcu_node *rnp;
+ 	struct rcu_stall_chk_rdr *rscrp = arg;
+ 
+ 	if (task_curr(t))
+@@ -320,6 +325,19 @@ static int check_slow_task(struct task_struct *t, void *arg)
+ 	rscrp->nesting = t->rcu_read_lock_nesting;
+ 	rscrp->rs = t->rcu_read_unlock_special;
+ 	rscrp->on_blkd_list = !list_empty(&t->rcu_node_entry);
++	rscrp->rcu_rdr_running = task_curr(t);
++	rscrp->rcu_rdr_boosted = 0;
++	if (rscrp->on_blkd_list) {
++		rnp = READ_ONCE(t->rcu_blocked_node);
++		raw_spin_lock_rcu_node(rnp); /* irqs already disabled. */
++		if (rnp == READ_ONCE(t->rcu_blocked_node)) {
++			if (rt_mutex_owner(&rnp->boost_mtx.rtmutex) == t)
++				rscrp->rcu_rdr_boosted = 1;
++		} else {
++			rscrp->rcu_rdr_boosted = 2;
++		}
++		raw_spin_unlock_rcu_node(rnp); /* irqs remain disabled. */
++	}
+ 	return 0;
+ }
+ 
+@@ -357,12 +375,14 @@ static int rcu_print_task_stall(struct rcu_node *rnp, unsigned long flags)
+ 		if (task_call_func(t, check_slow_task, &rscr))
+ 			pr_cont(" P%d", t->pid);
+ 		else
+-			pr_cont(" P%d/%d:%c%c%c%c",
++			pr_cont(" P%d/%d:%c%c%c%c%c%c",
+ 				t->pid, rscr.nesting,
+ 				".b"[rscr.rs.b.blocked],
+ 				".q"[rscr.rs.b.need_qs],
+ 				".e"[rscr.rs.b.exp_hint],
+-				".l"[rscr.on_blkd_list]);
++				".l"[rscr.on_blkd_list],
++				".R"[rscr.rcu_rdr_running],
++				".B?"[rscr.rcu_rdr_boosted]);
+ 		lockdep_assert_irqs_disabled();
+ 		put_task_struct(t);
+ 		ndetected++;
 -- 
 2.40.1
 
