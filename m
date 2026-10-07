@@ -1,254 +1,182 @@
-Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com [209.85.210.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BBB63D5C31
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 05:03:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15F8C351C10;
+	Wed,  7 Oct 2026 05:03:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791349405; cv=none; b=gBLnyYjqphGouGdqGtGVyhjF0hed29vu9W0dZoodLJsHyarizmHq9naH7UrUWZpNtZummL06QGxRG+uIf5hPboZMIlnVuhs8dTTfePAV7NeC8bzOoPp8xyAR1q+Pj8V/DRhKCzk1kX/hSsRZnkUmAokQ2w/ZZjercvW9AFIVPjg=
+	t=1791349437; cv=none; b=IucNpV5F+p/w9T0tnalxMNPqt1uUR0uG2nbCc9XGIeJlKFgUt68iIk4zgCLKbqaOavy+qBLjB0PswyiEbzOe/zCUbNCRuz1DN2bN7YjKIeQw5EN1wljkwFX68h/oeV4+X4XJr4Bkag3dVKmBraCuxEyIzkVwyQeOdtUxe3PKDIw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791349405; c=relaxed/simple;
-	bh=2xFrY7BGe4dGVsrgnRpdoh/SZXPw4g2jRk6yGOXKQrI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dobf9AHKU1vVD9pY6n0vWTgevMVItDh0Dgml0y0FWZzAojSPAq0NIiHU8i+OnT2Hufj5u2yz6XCphAe5D4+8RYGL6mAK5ytKDTk+xU51qlGzr9O8BJctXNNj5FOiqseT4iYQMHly1lPENagcnG/BlwIylje+Y2XLMvyB6kEhm1k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=X0ogNrCD; arc=none smtp.client-ip=209.85.210.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
+	s=arc-20240116; t=1791349437; c=relaxed/simple;
+	bh=HrxPrYsRT6rlkfcwoT1sUdkzsUIXpnHfaOUTqVxYOeI=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=bWhUGNNiIOchzcWpQTaUX5qkWj7JT/xXoNtVbcJDFs4O1tA33jXsbFoqPIA8A+oCAaOtJV/7bLIOmjOe4evzyDqGhgCzFDHoIRBHq4bj45dP7uQnpx1UTEluE5AM+dA2AN1lNw5x/eHhOA7nz1nF/caUcvLiZhTyWcyAom0lPnI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=aB1YlcKV; arc=none smtp.client-ip=130.133.4.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="X0ogNrCD"
-Received: by mail-ot1-f42.google.com with SMTP id 46e09a7af769-81c5aac8478so803713a34.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 22:03:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1791349403; x=1791954203; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=amWm7rhDqpybZwDdXjCeI1rmEdf0wmiwfyrZDawQrxU=;
-        b=X0ogNrCDYQLG4uIXJBNpr+fdxSxz5YVic6Fs99W+roRjZwjMVfYEfGAoZwxnyk4T3v
-         k8uS93zm5izlitbvdrfLnpZo3NAzowLdjbEZAesgHg1KuO62Nu/w2ca9dSj5r2LFNiXY
-         7GBgECUhY5jPpuQAGTgmWaYy634SmtrOSXNp0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791349403; x=1791954203;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=amWm7rhDqpybZwDdXjCeI1rmEdf0wmiwfyrZDawQrxU=;
-        b=mEjNg2bUTQOtrfUmkIcH6U7kDYld8PO+4N+xRVQPnoDC1dkKj9InUDyBCl8brmVxLw
-         8riGcnzEe0zw5oOxzrmnJKayJBLF2na0cFO59pFgRI32uBBDO5WkcYTQaQQyxFeMbcfL
-         h/dlEO1DKEkMntE8mUB7VtbpbRe2RSxo2F+uEDRkuf9MwC8owIqGAh+qrjCLyDQHH5i6
-         c9yqfpsyTHXrc9mvo9pU7nLG+jJ/JturmF8h+Fx/wuqi0xxobCoXjPf+Tj6vfC1v/Ywf
-         8tk6zMqCwwQilwjzTsurqi7rUslwNCcRYRiiVlVOmnFGtCa0ujSgF7DLEkGPpLjY+xPr
-         bWwg==
-X-Gm-Message-State: AFuF++kVUe1Tdu/hM8kWIXc9ecdezki5wc9jS7lKtgaQMT2lnXue3mfp
-	yIWNnWxBDhCYeU7O1lXQ38LSFiOHXu03Fq8e1u7oymvdGE4rVrpvCE/RsqIHFxk9zBL7QTi4IuL
-	/1g3UCLzodw==
-X-Gm-Gg: AYBFou1zc/qgWGuAoh+LHfn5z8zLg/D0TnDB+pw0izad/LkSWLy1xoejP8KjBbUft7I
-	/PbxCQ//AduAGSsmddiM2d2OyZGbTrZ8WBBBhXK2fd3n7UMWV2bRXQjkSiEUCxcs01OK2sj09BB
-	lSgfDw/pH0UUyXzan5rMfi1FnaBB1TaJhzpxTWl9VWN9UzYzSaGxKEV9CglIOKZ3YWl3jCpcV2T
-	6EmmmK+ohiNqMp0MrNGzb5qX4qchcfRm/ZZhj5m4dnnuGk18XBZ/B7EyoEhPohHnNfuBxbgYE3Y
-	pK8xk+Oto0zbqXxN4r1v1pbkEv74MXlON9zrK8sJUJT+iNRHpKYUQGs6gvSgp4SYygh6o3oC9NJ
-	9Aa84G5NlTs66QtCCo/URxaPJoI9baxdwj8RvMFoeZB51bZv3nJAh6cJQs1Y1BrEHvsWbtngZ2f
-	HdAX2abEYC+2/ebXkk5hXKiMo70e/s/hrHD18sS3bWDOPiayXG3aD8HDDqX/SGXC7YpvL00btwu
-	VsbXY90ZR7gQqSjmCsHwZ5fUTgrTEPGeTBO3nSsoCag1mK48fTIhgiqbZK1FvZpSUO9XO3kzw0=
-X-Received: by 2002:a05:6830:4906:b0:823:e626:2765 with SMTP id 46e09a7af769-82ad0acd461mr2158934a34.31.1791349402837;
-        Tue, 06 Oct 2026 22:03:22 -0700 (PDT)
-Received: from com-75606.corp.openai.org ([199.47.143.7])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-82adc3f12f0sm1578270a34.13.2026.10.06.22.03.20
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 06 Oct 2026 22:03:21 -0700 (PDT)
-From: Kyle Zeng <kylebot@openai.com>
-To: linux-trace-kernel@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	rostedt@goodmis.org,
-	mhiramat@kernel.org,
-	outbounddisclosures@openai.com,
-	Kyle Zeng <kylebot@openai.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] tracing/filters: Check perf permissions before accessing kernel data
-Date: Tue,  6 Oct 2026 22:03:15 -0700
-Message-ID: <20261007050315.65139-1-kylebot@openai.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="aB1YlcKV"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+	References; bh=JgKVOr3//Y1BtigImTWrriv6FmQt9qqx/tARqp6KMNA=; t=1791349433;
+	x=1791954233; b=aB1YlcKVd1As2DX8sBsmU/3MUrQWJcQORyv7l/k6Fhg0mdpxehh7e8NnAcS1J
+	wd+73h2+jmGkrM9yOVy3gxPnOi+RzZPMfuf73tjowyLrLHNX9P61IBFXut+L+7RL9spzp7qhDNX1k
+	LmpnDMd1gCvXVTbpZlGARv4wb3z/A9I6CwDNrao2JYP0hs4ANflre7v70zdmfz7Rd+xqICr16GaOc
+	33zqy/ijBWH54QXAxvxzQtIkOrgQddSLqcz3Exm5aj7uRGtorY4OpmL+KwZcuxPbajtSCkqDMJ55V
+	PaBGdpTZL2TxKR5Zn+e0+3tR10G4+egCBkK7HV+sHoRwR6tVGw==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+          by outpost.zedat.fu-berlin.de (Exim 4.100)
+          with esmtps (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@zedat.fu-berlin.de>)
+          id 1xEJoj-00000002trN-2Bbb; Wed, 07 Oct 2026 07:03:49 +0200
+Received: from p5b13a90a.dip0.t-ipconnect.de ([91.19.169.10] helo=suse-laptop.fritz.box)
+          by inpost2.zedat.fu-berlin.de (Exim 4.100)
+          with esmtpsa (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@physik.fu-berlin.de>)
+          id 1xEJoj-00000003rIa-1ESO; Wed, 07 Oct 2026 07:03:49 +0200
+Message-ID: <8f3cf9ae2df4d6c23787850a18e62bc8dfadfa9a.camel@physik.fu-berlin.de>
+Subject: Re: [PATCH] sh: lib: Restore r4 in shift helpers
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Florian Fuchs <fuchsfl@gmail.com>, Rich Felker <dalias@libc.org>, 
+	linux-sh@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Yoshinori Sato <yoshinori.sato@nifty.com>, linux-kernel@vger.kernel.org
+Date: Wed, 07 Oct 2026 07:03:48 +0200
+In-Reply-To: <20261006224440.04ab3693@pumpkin>
+References: <20260714104147.2016549-1-fuchsfl@gmail.com>
+		<85c4e0b40ec4b52b73c1525c2340cdaf31fd7d6a.camel@physik.fu-berlin.de>
+		<e2d4c042a53eddc1ea8d800e171e6c59c9d3f7e1.camel@physik.fu-berlin.de>
+		<asU-6UBmN4OjNsLV@lithos>
+		<cfaeee0744ee2e2148114ff5c65f74311b7479f2.camel@physik.fu-berlin.de>
+	 <20261006224440.04ab3693@pumpkin>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
 
-perf_trace_event_perm() allows tracepoint counters that do not request
-PERF_SAMPLE_RAW without raw tracepoint permissions. A self-targeted
-event with exclude_kernel=1 can therefore reach the filter compiler even
-at perf_event_paranoid=2.
+On Tue, 2026-10-06 at 22:44 +0100, David Laight wrote:
+> On Tue, 06 Oct 2026 20:54:30 +0200
+> John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de> wrote:
+>=20
+> > Hi Florian,
+> >=20
+> > On Tue, 2026-10-06 at 20:33 +0200, Florian Fuchs wrote:
+> > > On 06 Oct 07:41, John Paul Adrian Glaubitz wrote: =20
+> > > > > Please correct me if I'm wrong, but after reading the code in [1]=
+, it looks
+> > > > > to me as your patch doesn't preserve r4 but it's actually storing=
+ it into
+> > > > > r0 to be used by the selected shift sequence. =20
+> > >=20
+> > > Yes, the value is copied to r0 for the shift sequence to use, but onl=
+y after
+> > > the r4 original value has been popped back into r4.
+> > >=20
+> > > The shift sequence themselfs only operate on r0 and then rts, so noth=
+ing
+> > > touches r4 after this point.
+> > >=20
+> > > So the caller gets the original r4 back, which is what GCC expects.
+> > >  =20
+> > > > > With the previous code, r4 is pushed onto the stack first but not=
+ restored
+> > > > > before the shift sequence is jumped to, so what your patch does n=
+ot make sure
+> > > > > that r4 is restored across the complete call of the shift helper =
+but rather
+> > > > > restore the input value in r4 from the stack before calling the j=
+ump sequence. =20
+> > >=20
+> > > Yes, it needs the selected shift sequence to not touch r4 as well.
+> > >  =20
+> > > > Could you comment on this and maybe rephrase your commit message if=
+ you agree
+> > > > with my analysis? The patch itself is fine, but I think the descrip=
+tion is
+> > > > somewhat inaccurate. =20
+> > >=20
+> > > I think your analysis is correct. The selected shift sequences don't =
+touch=20
+> > > other register beside r0, so I think it is currently not necessary to=
+ make
+> > > sure that r4 survives the complete call, even if the selected sequenc=
+e would
+> > > touch r4.
+> > >=20
+> > > Is it more accurate or which aspect would need a better message, or d=
+o
+> > > you dislike the "across the whole call" aspect? While the patch doesn=
+'t
+> > > really make sure r4 is always preserved, it reflects the behaviour af=
+ter
+> > > the patch.
+> > >=20
+> > > 	Commit 940d4113f330 ("sh: New gcc support") reuses r4 as scratch for
+> > > 	the jump table offset and pops the saved value into r0 in the jmp
+> > > 	delay slot, so the helpers return with r4 still holding the table
+> > > 	byte. GCC can keep a live value in r4 across the call, which leads t=
+o
+> > > 	runtime data corruption.
+>=20
+> I'm sure you can write that more concisely.
 
-The .function suffix resolves its operand through kallsyms. The result
-of a numeric filter discloses whether an address belongs to a known
-kernel symbol range, allowing the randomized kernel image base to be
-recovered. A named filter also exposes the resolved range through the
-counter when the tracepoint field is controlled by the caller.
+In what sense?
 
-Pointer-string filters expose kernel memory in the same way. A caller
-can supply a kernel address as the filename argument to openat() and
-install a string filter on sys_enter_openat. Without .ustring, the
-filter uses strncpy_from_kernel_nofault() on that address. Whether the
-counter increments reveals whether the kernel bytes match the pattern.
-The nofault copy prevents faults but does not authorize disclosure.
+> > > 	GCC calls __ashlsi3, __ashrsi3 and __lshrsi3 with a special conventi=
+on:
+> > > 	value in r4, result in r0, and only r0 and T clobbered.
+>=20
+> That misses out the other value passed in r5.
 
-Pass the filter's perf origin to the predicate parser and require
-perf_allow_tracepoint() before resolving a .function operand or creating
-a kernel-pointer string predicate. This uses the existing sysctl,
-initial-namespace capability and LSM policy for raw tracepoint access.
-Keep ordinary counting filters, explicit user-string predicates and
-filters created through the separately controlled tracefs interfaces
-unchanged.
+Well, technically yes. But I assume Florian omitted it because the change m=
+ainly
+concerns r4. But yes, r5 could be mentioned as the number of shifts paramet=
+er.
 
-Fixes: e6745a4da964 ("tracing: Add a way to filter function addresses to function names")
-Fixes: 5967bd5c4239 ("tracing: Let filter_assign_type() detect FILTER_PTR_STRING")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
----
-Changes in v2:
-- Require raw-tracepoint permission for kernel-pointer string filters
-  as well as .function predicates, preserving explicit .ustring filters.
-- Add the pointer-string Fixes tag and describe the confirmed
-  sys_enter_openat counter oracle.
+> What is T?
 
- kernel/trace/trace_events_filter.c | 41 ++++++++++++++++++++++--------
- 1 file changed, 31 insertions(+), 10 deletions(-)
+T is the test bit of the status register.
 
-diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
-index 2b46ca536045..84d4a4fe56ad 100644
---- a/kernel/trace/trace_events_filter.c
-+++ b/kernel/trace/trace_events_filter.c
-@@ -1625,12 +1625,18 @@ static int filter_pred_fn_call(struct filter_pred *pred, void *event)
- 	}
- }
- 
-+struct filter_parse_data {
-+	struct trace_event_call *call;
-+	bool is_perf;
-+};
-+
- /* Called when a predicate is encountered by predicate_parse() */
- static int parse_pred(const char *str, void *data,
- 		      int pos, struct filter_parse_error *pe,
- 		      struct filter_pred **pred_ptr)
- {
--	struct trace_event_call *call = data;
-+	struct filter_parse_data *pdata = data;
-+	struct trace_event_call *call = pdata->call;
- 	struct ftrace_event_field *field;
- 	struct filter_pred *pred = NULL;
- 	unsigned long offset;
-@@ -1687,6 +1693,16 @@ static int parse_pred(const char *str, void *data,
- 		i += len;
- 	}
- 
-+	/* Even counting filters can disclose kernel addresses and data. */
-+	if (pdata->is_perf &&
-+	    (function || (!ustring && field->filter_type == FILTER_PTR_STRING))) {
-+		ret = perf_allow_tracepoint();
-+		if (ret) {
-+			parse_error(pe, ret, pos + i);
-+			return ret;
-+		}
-+	}
-+
- 	while (isspace(str[i]))
- 		i++;
- 
-@@ -2205,8 +2221,12 @@ static int calc_stack(const char *str, int *parens, int *preds, int *err)
- static int process_preds(struct trace_event_call *call,
- 			 const char *filter_string,
- 			 struct event_filter *filter,
--			 struct filter_parse_error *pe)
-+			 struct filter_parse_error *pe, bool is_perf)
- {
-+	struct filter_parse_data data = {
-+		.call = call,
-+		.is_perf = is_perf,
-+	};
- 	struct prog_entry *prog;
- 	int nr_parens;
- 	int nr_preds;
-@@ -2232,7 +2252,7 @@ static int process_preds(struct trace_event_call *call,
- 		return -EINVAL;
- 
- 	prog = predicate_parse(filter_string, nr_parens, nr_preds,
--			       parse_pred, call, pe);
-+			       parse_pred, &data, pe);
- 	if (IS_ERR(prog))
- 		return PTR_ERR(prog);
- 
-@@ -2281,7 +2301,7 @@ static int process_system_preds(struct trace_subsystem_dir *dir,
- 		if (!filter->filter_string)
- 			goto fail_mem;
- 
--		err = process_preds(file->event_call, filter_string, filter, pe);
-+		err = process_preds(file->event_call, filter_string, filter, pe, false);
- 		if (err) {
- 			filter_disable(file);
- 			parse_error(pe, FILT_ERR_BAD_SUBSYS_FILTER, 0);
-@@ -2377,6 +2397,7 @@ static void create_filter_finish(struct filter_parse_error *pe)
-  * @call: trace_event_call to create a filter for
-  * @filter_string: filter string
-  * @set_str: remember @filter_str and enable detailed error in filter
-+ * @is_perf: filter is being created for a perf event
-  * @filterp: out param for created filter (always updated on return)
-  *           Must be a pointer that references a NULL pointer.
-  *
-@@ -2391,7 +2412,7 @@ static void create_filter_finish(struct filter_parse_error *pe)
-  */
- static int create_filter(struct trace_array *tr,
- 			 struct trace_event_call *call,
--			 char *filter_string, bool set_str,
-+			 char *filter_string, bool set_str, bool is_perf,
- 			 struct event_filter **filterp)
- {
- 	struct filter_parse_error *pe = NULL;
-@@ -2405,7 +2426,7 @@ static int create_filter(struct trace_array *tr,
- 	if (err)
- 		return err;
- 
--	err = process_preds(call, filter_string, *filterp, pe);
-+	err = process_preds(call, filter_string, *filterp, pe, is_perf);
- 	if (err && set_str)
- 		append_filter_err(tr, pe, *filterp);
- 	create_filter_finish(pe);
-@@ -2418,7 +2439,7 @@ int create_event_filter(struct trace_array *tr,
- 			char *filter_str, bool set_str,
- 			struct event_filter **filterp)
- {
--	return create_filter(tr, call, filter_str, set_str, filterp);
-+	return create_filter(tr, call, filter_str, set_str, false, filterp);
- }
- 
- /**
-@@ -2476,7 +2497,7 @@ int apply_event_filter(struct trace_event_file *file, char *filter_string)
- 		return 0;
- 	}
- 
--	err = create_filter(file->tr, call, filter_string, true, &filter);
-+	err = create_filter(file->tr, call, filter_string, true, false, &filter);
- 
- 	/*
- 	 * Always swap the call filter with the new filter
-@@ -2721,7 +2742,7 @@ int ftrace_profile_set_filter(struct perf_event *event, int event_id,
- 	if (event->filter)
- 		return -EEXIST;
- 
--	err = create_filter(NULL, call, filter_str, false, &filter);
-+	err = create_filter(NULL, call, filter_str, false, true, &filter);
- 	if (err)
- 		goto free_filter;
- 
-@@ -2868,7 +2889,7 @@ static __init int ftrace_test_event_filter(void)
- 		int err;
- 
- 		err = create_filter(NULL, &event_ftrace_test_filter,
--				    d->filter, false, &filter);
-+				    d->filter, false, false, &filter);
- 		if (err) {
- 			printk(KERN_INFO
- 			       "Failed to get filter for '%s', err %d\n",
+> > >=20
+> > > 	Pop the saved value back into r4 before the jmp and copy it to r0 in
+> > > 	the delay slot. The shift sequences only operate on r0, so r4 is now
+> > > 	preserved across the whole call. =20
+>=20
+> That seems unnecessary detail for a commit message.
+> Why not just:
+> 	GCC uses a special calling convention for __ashlsi3, __ashrsi3 and
+> 	__lshrsi3 that requires all registers except r0 (which contains the
+> 	result) be preserved.
+> 	Commit 940d4113f330 ("sh: New gcc support") reused r4 as a scratch
+> 	register leading to data corruption.
+> 	Change the code so that r4 is preserved.
 
-base-commit: 602042bf29f6efde39cfb5fdd9289bf4854bc0c5
+Well, I wanted the description to be more explicit as it helps understand
+what's going on easier.
+
+> If you are reading sh assembler you should know it has delay slots
+> after branches.
+> (I've not looked at it before, but it is the only way the code could
+> be valid.)
+
+I don't see how mentioning that is adding too much information.
+
+Adrian
+
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
