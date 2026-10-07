@@ -1,241 +1,273 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41B1C233929
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 03:25:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791343522; cv=none; b=iYNWqqB/kt1XaUp3CLcu09w8pqxGLl7QX9L3tjt7znNv6B0AxWhsEFbwCzdnL37y8D0od+CMTY1Q33H+pO2q+eHNiCa7oy3KFSGl/AkLSOJdW+FeDGokDvwD8PCqbDqOKBK11XQjJxE5u/lari0j5+jRxHbJzRnW7iLRTQYjCjE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791343522; c=relaxed/simple;
-	bh=TPohYjm1V8x75cgKx5ONjFui0qm3rfLa18jSDO9R78U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BAsI/YqtcH/99iUwpUUVS0Uc09m/A0WSM5C3dPO0lEL3Y8RU1J8U2O5G4VZAmNv/B5h7uS2UxRagOutZel5zywqfWE/7GvQBcKguh0VkcJRbBVEIX1zjO8C7RKuwv9LIXN3yu4uwI2G06wSP5q/RknYt28uwzmAUw/tWp9dxoKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=wi91ixbL; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E09E72192FA
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 03:30:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791343834; cv=pass; b=UkXTt7Gm0h2chUIznD40bLtLhZVWZ8FLXqFXpsDHjozbPwBX0kAFughJeczbS1Dd3OHCnybtujfjj6/PHcPh15fiqfaTV8vukOSkCrrxSBurwSFKk2sLw1lvwOPdeFP3UR6UELPKHJ7AWoXGU7svKs4DdDMbVtL2nqhiy3/fpYg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791343834; c=relaxed/simple;
+	bh=UJjG7YQB/XZoKvnWM5FDfqOIQ0JIYp5rinf2O9Fj9J8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KutKWQwToT3EvzfzcgPwF0Z8ZAWGTX9D/T1pEiMlSorZ6x/gvnHuovHRJXCtNH3m5hR0iENhTM+Ti3As23h4CT/oJHi26TBQ2DNQ75r+Rfij44PUxTVFNE1XsL6mC4Mt+8a1pGq6oXH4ozjnODFP9iLDYBs/0nzJPM2Ti0DhQDE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SMXNPD0g; arc=pass smtp.client-ip=74.125.224.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="wi91ixbL"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3a4b9732d5aso1410934a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 20:25:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SMXNPD0g"
+Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-677d35fd168so1434139d50.3
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 20:30:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791343831; cv=none;
+        d=google.com; s=arc-20260327;
+        b=owEhvhmu8ny4NjADKAmkn9KgAp2OHphPYuz+dZlOTH/MgV+WmwkckIsYS/Y2JZikZp
+         YzDgozkkv7wgwEL5gfEaqYDmNGUH+l6nUwTO35MvFuomB1YD45rEsZ5FKRBPMO57nJeT
+         pwi5oeoAAnfiT2h15+J3HdDLQaj7164fT9P35lR6kLdLLh1u1D3NEovLdKi//5B+y+Fx
+         wyhnzj5NXnS2WGm9ue+XW6IfCbvV8WHCAFYUW5FNfiEMZFWpGzEVphry+eQOkeF1Ahz6
+         0MoTJcM6qrXf7xwvfqVuueZDnY888ZsBDLwpzmBYAu5cm+yQ9AWA5OQ/FZtmJb778NxS
+         QKaQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bj7qdb9JKHM+aQdEnEvqhywIWqaQWXOgPRxHvLl5wx0=;
+        fh=v7Xx8dklrHIEWGg6L4Jn5EkvhWrauINL16sl97mWHWY=;
+        b=hcadm6ceIgLCbcylzFZUET49nHpkiA2ZnjbSidvS72IPx9uDNK0P4dtOCpyhsC7K7F
+         vZuZhHJuReaKRSc2FbStn7G2HC6/VlKWqJyUZhG3yxmvPBcqS0O2LPMvOS2woyfzEOVO
+         Wl39STK0iHRfzWqf38/NVB8ErVNj5270lptCoNfBI2Ic2Y3xUxc8/EoygPJLtOhE2eNx
+         Od4xErb7TDK0FcTesBhlZKXGbqWG9FPZEg+ppOGu+58YgeUKClq2yK8dzleUT4QHn+m2
+         RfkmDd11pAkB+BCgkqrBe9LTkfFSqBZdzyLNmnj50mVumWloSpmbrGr6GyUxoVHsfmGo
+         hSKg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791343519; x=1791948319; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=y1QV4x32p4s0q/rMsfynBUDdaugSDJj3zH60UDSCAiE=;
-        b=wi91ixbL/UUKh0RFcBCsl+UXqzyq107Y3WlWTlJNtP8iUfHBu5fPOyra1hC77ubkBk
-         bG9EZb5aCfPnOrqQJRxKgTsoFlLIHMHr6pkGaSGHlzqPldZfgpPb8YmEWHgcC2BcBLN/
-         vqP/k1FttSfq60g3cxr5+i0JT+VlnePsXV4fcwUZ1zsQskrVYK/wf+fU3ShZhsGVyP+M
-         hGwvvbT/aS5nxpDVVdw2w5XEjpNgp2vbdIyCMwwiQnOtDCCPZfUQL24SeMaQq350d5vm
-         k1Rc4IhSFrjRZVrYak6uNjyrmDhORxFYYZF22Qt65XJ76RkPei2oTTT3lH3kG327VVJK
-         +jOw==
+        d=gmail.com; s=20251104; t=1791343831; x=1791948631; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bj7qdb9JKHM+aQdEnEvqhywIWqaQWXOgPRxHvLl5wx0=;
+        b=SMXNPD0gFhuA4J/xULHLAr2v38jGdJ0BvV+NdQ0d7ttBKyACqGioEUnpNxJvPm5hAM
+         lGTJHUEmZL2L4QLuYIqEyJa1JscX6lrMJ/oTm5gus45JiZF1Uk/ueCHCQDtquj8RVu+C
+         sICxGoe7/J3iDpnL4PfKbYlH54j1uAeAaPSEtA1JqLksx84eskOuE1/3S0c8Q6zjoIYm
+         wKVBRVuv5BKmHAxZzGhksZSJGw6NTXCZZbsYG0bsAnzEHwQIui3ZjdGFq7Jgu6mjfm7S
+         f9hLhkj820zC+ISCtoL1SWSY+nt5Eb+/JyEAfLF+io2w7U5ukkLHH8xCY0dne3g6Vpod
+         zZQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791343519; x=1791948319;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=y1QV4x32p4s0q/rMsfynBUDdaugSDJj3zH60UDSCAiE=;
-        b=2HHc+oDNzs4G/9PyW+59g2Kyh6AECgnTaPiQK3jdDR1sTo7uqqncSkMRCNqSIJmYKr
-         eb3WMDU4o5VS1At5hu3UVAWvXrTkU2EmOHHLsijbzgyy68/alAGpfFewRlp0ywluIJZa
-         uMNay6VpwKdmikgXGN+2mBo2sagtGLlnMiPblG0nUQTYuJYXH99hMhEYLqcg7MIkolcI
-         r1iV4iggTHxtCThptM3qBxD6Uu1s/FhATODPZLzeHhQ3IIWh3Jm6zJ4rpq5XPtT2sAiP
-         BGUsCC2PqbiFPO3qr+gIzlTfy/VHsBMB9+JWFV1TjiMq3YAvZCt4LdjoALQGrvgeu+26
-         VczQ==
-X-Forwarded-Encrypted: i=1; AKwUvBznIgp2Kcw1cSJRfq0S10aD6gI+/iRypMLva7Ab6Xuq4iXna4NQMgOqPgnpEAfSW/D36o9jiZz5x3sAzrE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI0OYRjnf7hX7XzOFWkGXvoZg78bGOzsKRgIVfCw3lzfOrc87+O
-	sWxT6XMFDGkUSAkBFkiudW4IXItaaRMoPTqv/FKL3pyaz+uipaUpXk/Yt0QynwFEcLw=
-X-Gm-Gg: AYBFou2v+UpcqwnrJGSR5C92XXMxmBEU/fhUOGsuKE2r5viFD1AszraUloS9c9pjkVD
-	6rq3ak0nwMUlMeybp8viytRrB/lFm8PM2tcyvhc6V+v5Y0u5+qh3bP1jnpKjst3u8vmfsejVbTc
-	IJQHAtFIC6Osia2v6aFVB3PSVpVk3BGaMoPrpV4RHk8/WySI9L7IBNxUDpQpUbT8wL3LIMLM4G/
-	rplJ70x2DWGG2ECF6DsRArdN5KzJkOZ+/1CXNezCydMaDhutiNRMiF+JB5XWWp9y9iuUr2GSiN7
-	T9q4BERnyWTaUfFXotUzjhfrauzRhzTOOxSd5985fVxhY49JHqyDGIFxPZT22OrR32r6WZ+QNLq
-	zbWEJDFQCMfNnc8008hgzzPTcEzFJA1ltGbpI6eeWa/M22g9ZBnSlcn+E8fjyBRRTDya9YVgpmS
-	1P6EJr21YGEgfO8DBfD6Q9XokWG6nQKuXSpq/adOS69Dj4iJP4a0GoWXs5b8TGOG+UohHziCiq0
-	k2AbSU=
-X-Received: by 2002:a17:90a:6096:b0:3a8:a1b0:3e0c with SMTP id 98e67ed59e1d1-3a8a1b03f77mr525594a91.13.1791343519374;
-        Tue, 06 Oct 2026 20:25:19 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8543deb6dsm7951257a91.16.2026.10.06.20.25.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 20:25:19 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: michael.christie@oracle.com,
-	martin.petersen@oracle.com,
-	lduncan@suse.com,
-	cleech@redhat.com,
-	James.Bottomley@HansenPartnership.com
-Cc: linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: [PATCH v2] scsi: libiscsi_tcp: check that a read got the data the target claimed
-Date: Wed,  7 Oct 2026 12:25:01 +0900
-Message-ID: <20261007032501.640372-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1791343831; x=1791948631;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bj7qdb9JKHM+aQdEnEvqhywIWqaQWXOgPRxHvLl5wx0=;
+        b=hqpJVm+KLZJb8I6SlQIVUhxBGT94fzI/L3r6Vy7uinUF/QwSRdXcDuECMlWviASGqy
+         v5lnX9PFKosbZfg9VZhsOPBO1dpB4U4y7Uz6zKg08O9y9OvF0eaOtCH+Ve+Vtxc4X/Sd
+         xr/5xrFIUlLZmY5N81bAS5zLo04vR2lz0RPS5qqvYMsg9BLyYOUfei3uBi64y2gT/XC3
+         rcioBhbqs9EsVUhyJAaSx6QVv1NQHgxwnjjjARKSR1yse6FSVnOWwIqLAerzYR5sZQEV
+         NNuUEYMZ96+LstjXpr5b8qr9CToRYyqu/oqUT44NMs23W6wpFVjhxSM+ySumzwR1ZMF8
+         8Fzg==
+X-Forwarded-Encrypted: i=1; AKwUvBzNv14xE7qoW3o0KyC5dUkWQ2UnAf9c0YHF+Zfgi7oXYKE51p3tkhacCeYi3clwY0BuZEIXQ8Up62zbKOo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKAp96WJ0uVIdoPvlknGGnW5KrobXedh99uABdsfZ2QnewSgtUY
+	l79nrQuVCCqRy3OzGr+NhWFjq8KuD6Vd/pqK0TEL2LM5D4ocl7S+Wf1oTzPLUs5yYe0dNiV3q41
+	gHJBxqykyspdM2zaH0UClkiO4FLGoF9w=
+X-Gm-Gg: AYBFou1HCtkzlbu9QZa7yytznvl3gQ+RRhzr5fN0cZC7mS1G3jSl77Ey1t+OL7jat1q
+	HvAWN6lUdhiP9Oi8jeblqJoAfUdFKAoINPatDFRWOzVixyxe0E6pMTq2VAEO4Jio94nrzxuNHfC
+	HMDeIg32ltOm0Klt2pYfuJYVQ7oI4gcJh1CURXxc+VyQt+frKyRoT16sXxJTXXGyNUIefH4IBPL
+	owbSBSyv2hCV8eIrTsjwX63Nkc+83WyTK3YM2Da7BaSN/SKChfMmT+C8SIroZBKrZnzrtpbNwDv
+	9Q5gb9YtraQtOpPy8CmOUngBgzZRblqbEYAsPRgwUcj8006FeTCHf2IW
+X-Received: by 2002:a05:690e:b82:b0:677:d251:ccd9 with SMTP id
+ 956f58d0204a3-6790a2e4aaemr706401d50.48.1791343830632; Tue, 06 Oct 2026
+ 20:30:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261006070005.1209234-1-swinds24@gmail.com> <s3rlm3edtb4hfcggiqkqotywfhobjnwmc2v373nwvkwihitstg@66kypvunlqqm>
+In-Reply-To: <s3rlm3edtb4hfcggiqkqotywfhobjnwmc2v373nwvkwihitstg@66kypvunlqqm>
+From: Hsiu-Hsien Lee <swinds24@gmail.com>
+Date: Wed, 7 Oct 2026 11:30:18 +0800
+X-Gm-Features: AclHuK_ceOw_gBw80HWG9dguUdx4fCwV1VJRW3JaZysAs4dIBQAAHlWXB_Up5xk
+Message-ID: <CACi0_7afNW5KNZVNL40GUrCL9+Ly6oDrKPA-hNu2RQ_u51UZ+w@mail.gmail.com>
+Subject: Re: [PATCH] ext4: don't fail journal recovery on an incomplete fast commit
+To: Jan Kara <jack@suse.cz>
+Cc: "Theodore Ts'o" <tytso@mit.edu>, linux-ext4@vger.kernel.org, 
+	Andreas Dilger <adilger.kernel@dilger.ca>, Harshad Shirwadkar <harshadshirwadkar@gmail.com>, 
+	Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
+	Ritesh Harjani <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-A target can finish a read without sending the data.  iscsi_tcp_data_in()
-bounds each Data-In PDU against the command buffer but never adds them up,
-so a completion that declares no underflow is believed and the command
-ends with DID_OK.  The pages keep whatever they held.
+Thanks for the review. It makes sense, and I'll drop the warning and the
+helper and use ext4_debug() in v2.
 
-Over a 1 MiB pread of a file that had never been read, 999424 bytes came
-back as the contents of an unrelated file the same process had written
-earlier.  pread() returned 1048576 and errno was 0.
+- Jerry
 
-Count the payload per task.  Require each Data-In to continue where the
-last one ended, and at completion compare the total with the buffer
-length, less the residual when an underflow is declared.  A read can end
-on a Data-In or on a SCSI Response, so check both.  Writes are untouched.
 
-Fixes: a081c13e39b5 ("[SCSI] iscsi_tcp: split module into lib and lld")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
-v2: take back_lock once on the SCSI Response path and make the counter
-    uint32_t, both per Mike Christie's review.
-
-On "was it built over another patch?" - no, v1 was generated against
-v7.2-rc5 directly.  It stopped applying because c1dea15f819cd ("scsi:
-libiscsi_tcp: Bound SCSI Response data segment to the connection
-buffer") folded ISCSI_OP_SCSI_CMD_RSP into the shared response case,
-which is the block v1's last hunk patched.  This version leaves that
-fold alone and applies the check inside the shared case, so the data
-segment bound stays in one place.
-
-v1: https://lore.kernel.org/all/20260814121428.359541-1-yhlee@isslab.korea.ac.kr/
- drivers/scsi/libiscsi_tcp.c | 69 ++++++++++++++++++++++++++++++++++++-
- include/scsi/libiscsi_tcp.h |  1 +
- 2 files changed, 69 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/scsi/libiscsi_tcp.c b/drivers/scsi/libiscsi_tcp.c
-index d35f93451ee9b..6d8ace85c51ca 100644
---- a/drivers/scsi/libiscsi_tcp.c
-+++ b/drivers/scsi/libiscsi_tcp.c
-@@ -467,6 +467,37 @@ void iscsi_tcp_cleanup_task(struct iscsi_task *task)
- }
- EXPORT_SYMBOL_GPL(iscsi_tcp_cleanup_task);
- 
-+/**
-+ * iscsi_tcp_check_data_in - verify a read received the data the target claimed
-+ * @task: scsi command task
-+ * @flags: flags of the PDU carrying the status
-+ * @residual: residual count of that PDU
-+ *
-+ * ISCSI_FLAG_CMD_UNDERFLOW and ISCSI_FLAG_DATA_UNDERFLOW share a value, so the
-+ * Data-In and SCSI Response paths both use this.
-+ */
-+static int iscsi_tcp_check_data_in(struct iscsi_task *task, u32 flags,
-+				   u32 residual)
-+{
-+	struct iscsi_tcp_task *tcp_task = task->dd_data;
-+	struct scsi_cmnd *sc = task->sc;
-+	unsigned int expected;
-+
-+	if (!sc || sc->sc_data_direction == DMA_TO_DEVICE)
-+		return 0;
-+
-+	expected = sc->sdb.length;
-+	if (flags & ISCSI_FLAG_DATA_UNDERFLOW) {
-+		if (residual > expected)
-+			return 0;
-+		expected -= residual;
-+	}
-+	if (tcp_task->data_in_bytes == expected)
-+		return 0;
-+
-+	return ISCSI_ERR_DATALEN;
-+}
-+
- /**
-  * iscsi_tcp_data_in - SCSI Data-In Response processing
-  * @conn: iscsi connection
-@@ -491,7 +522,7 @@ static int iscsi_tcp_data_in(struct iscsi_conn *conn, struct iscsi_task *task)
- 		iscsi_update_cmdsn(conn->session, (struct iscsi_nopin*)rhdr);
- 
- 	if (tcp_conn->in.datalen == 0)
--		return 0;
-+		goto status;
- 
- 	if (tcp_task->exp_datasn != datasn) {
- 		ISCSI_DBG_TCP(conn, "task->exp_datasn(%d) != rhdr->datasn(%d)"
-@@ -509,7 +540,17 @@ static int iscsi_tcp_data_in(struct iscsi_conn *conn, struct iscsi_task *task)
- 		return ISCSI_ERR_DATA_OFFSET;
- 	}
- 
-+	if (tcp_task->data_offset != tcp_task->data_in_bytes)
-+		return ISCSI_ERR_DATA_OFFSET;
-+
-+	tcp_task->data_in_bytes += tcp_conn->in.datalen;
-+
- 	conn->datain_pdus_cnt++;
-+
-+status:
-+	if (rhdr->flags & ISCSI_FLAG_DATA_STATUS)
-+		return iscsi_tcp_check_data_in(task, rhdr->flags,
-+					       be32_to_cpu(rhdr->residual_count));
- 	return 0;
- }
- 
-@@ -783,6 +824,31 @@ iscsi_tcp_hdr_dissect(struct iscsi_conn *conn, struct iscsi_hdr *hdr)
- 			break;
- 		}
- 
-+		if (opcode == ISCSI_OP_SCSI_CMD_RSP) {
-+			struct iscsi_scsi_rsp *rsp = (struct iscsi_scsi_rsp *)hdr;
-+
-+			spin_lock(&conn->session->back_lock);
-+			task = iscsi_itt_to_ctask(conn, hdr->itt);
-+			if (!task) {
-+				spin_unlock(&conn->session->back_lock);
-+				return ISCSI_ERR_BAD_ITT;
-+			}
-+			rc = iscsi_tcp_check_data_in(task, rsp->flags,
-+						     be32_to_cpu(rsp->residual_count));
-+			if (rc) {
-+				spin_unlock(&conn->session->back_lock);
-+				return rc;
-+			}
-+			if (tcp_conn->in.datalen) {
-+				spin_unlock(&conn->session->back_lock);
-+				iscsi_tcp_data_recv_prep(tcp_conn);
-+				return 0;
-+			}
-+			rc = __iscsi_complete_pdu(conn, hdr, NULL, 0);
-+			spin_unlock(&conn->session->back_lock);
-+			break;
-+		}
-+
- 		/* If there's data coming in with the response,
- 		 * receive it to the connection's buffer.
- 		 */
-@@ -995,6 +1061,7 @@ int iscsi_tcp_task_init(struct iscsi_task *task)
- 
- 	BUG_ON(kfifo_len(&tcp_task->r2tqueue));
- 	tcp_task->exp_datasn = 0;
-+	tcp_task->data_in_bytes = 0;
- 
- 	/* Prepare PDU, optionally w/ immediate data */
- 	ISCSI_DBG_TCP(conn, "task deq [itt 0x%x imm %d unsol %d]\n",
-diff --git a/include/scsi/libiscsi_tcp.h b/include/scsi/libiscsi_tcp.h
-index ef53d4bea28a0..a6e63db75d674 100644
---- a/include/scsi/libiscsi_tcp.h
-+++ b/include/scsi/libiscsi_tcp.h
-@@ -66,6 +66,7 @@ struct iscsi_tcp_conn {
- 
- struct iscsi_tcp_task {
- 	uint32_t		exp_datasn;	/* expected target's R2TSN/DataSN */
-+	uint32_t		data_in_bytes;	/* Data-In payload received */
- 	int			data_offset;
- 	struct iscsi_r2t_info	*r2t;		/* in progress solict R2T */
- 	struct iscsi_pool	r2tpool;
-
-base-commit: 2c3418fffa9d037b2038a6db48be63f9e2291806
--- 
-2.43.0
-
+Jan Kara <jack@suse.cz> =E6=96=BC 2026=E5=B9=B410=E6=9C=887=E6=97=A5=E9=80=
+=B1=E4=B8=89 =E4=B8=8A=E5=8D=8812:08=E5=AF=AB=E9=81=93=EF=BC=9A
+>
+> On Tue 06-10-26 15:00:05, Hsiu-Hsien Lee wrote:
+> > If the system crashes while the first fast commit after a full commit i=
+s
+> > being written, the fast commit area can hold the head of that fast
+> > commit without a valid tail.  ext4_fc_replay_scan() treats this as an
+> > error as long as no valid tail has been seen: an invalid tag length or
+> > an unknown tag returns -ECANCELED, a tail with a wrong tid or checksum
+> > returns -EFSBADCRC.  jbd2_journal_recover() then fails, the file system
+> > can be mounted neither read-write nor read-only, and the regular journa=
+l
+> > transactions committed before the fast commit are not replayed either:
+> >
+> >   JBD2: journal recovery failed
+> >   EXT4-fs (sdb): error loading journal
+> >
+> > The tail is written last and fsync() does not return before it has
+> > completed, so an incomplete fast commit was never reported as durable.
+> > Handle it like jbd2 handles a transaction without a valid commit block:
+> > stop the scan and replay what is valid.  This is already what happens
+> > when an earlier fast commit in the area has a valid tail.  Log a
+> > warning so that the dropped fast commit is visible.
+> >
+> > Reproducer, with the power cut emulated by copying the device while it
+> > is mounted:
+> >
+> >   mkfs.ext4 -O fast_commit /dev/sdb
+> >   mount /dev/sdb /mnt; mkdir /mnt/d
+> >   create 20 files in /mnt/d; sync
+> >   write a fragmented file and modify the 20 files, fsync one file
+> >       (one fast commit spanning several blocks)
+> >   copy /dev/sdb while still mounted, then zero the block holding the
+> >   fast commit tail in the copy
+> >   mount the copy
+> >
+> > Without this patch the mount fails as above.  With it, the mount
+> > succeeds, the state after sync is recovered and e2fsck finds no errors.
+> > The same holds when a full commit precedes the torn fast commit, in
+> > which case the full commit is now replayed as well.
+> >
+> > Fixes: 8016e29f4362 ("ext4: fast commit recovery path")
+> > Assisted-by: Claude Opus 5.5
+> > Signed-off-by: Hsiu-Hsien Lee <swinds24@gmail.com>
+> > ---
+> >  fs/ext4/fast_commit.c | 36 +++++++++++++++++++++++++++++-------
+> >  1 file changed, 29 insertions(+), 7 deletions(-)
+> >
+> > diff --git a/fs/ext4/fast_commit.c b/fs/ext4/fast_commit.c
+> > index 0cac890cf370..5649447b9524 100644
+> > --- a/fs/ext4/fast_commit.c
+> > +++ b/fs/ext4/fast_commit.c
+> > @@ -2427,6 +2427,26 @@ static bool ext4_fc_value_len_isvalid(struct ext=
+4_sb_info *sbi,
+> >       return false;
+> >  }
+> >
+> > +/*
+> > + * The fast commit area ends with an invalid tag or a tail that does n=
+ot
+> > + * match.  This is how a fast commit that was only partially written b=
+efore
+> > + * a crash looks like: its tail is written last and fsync() only retur=
+ns
+> > + * after the tail write has completed, so nobody was told that this fa=
+st
+> > + * commit is durable and it can simply be dropped, the same way jbd2 d=
+rops
+> > + * a transaction without a valid commit block.  Everything up to the l=
+ast
+> > + * valid tail is still replayed.
+> > + */
+> > +static int ext4_fc_replay_scan_end(struct super_block *sb,
+> > +                                struct ext4_fc_replay_state *state,
+> > +                                int off, const char *reason)
+> > +{
+> > +     if (!state->fc_replay_num_tags)
+> > +             ext4_msg(sb, KERN_WARNING,
+> > +                      "ignoring incomplete fast commit at block %d: %s=
+",
+> > +                      off, reason);
+>
+> I don't think there's need to print any message when discovering incomple=
+te
+> fast commit. As you mention, it is a perfectly normal situation (similarl=
+y
+> as incomplete normal transaction we spot in a journal). I'd perhaps just
+> print ext4_debug() message (and I don't think conditioning on
+> fc_replay_num_tags makes sense in that case. So probably just drop the
+> helper function and print the debug message and set the return value
+> inline...
+>
+>                                                                 Honza
+>
+> > +     return JBD2_FC_REPLAY_STOP;
+> > +}
+> > +
+> >  /*
+> >   * Recovery Scan phase handler
+> >   *
+> > @@ -2440,7 +2460,9 @@ static bool ext4_fc_value_len_isvalid(struct ext4=
+_sb_info *sbi,
+> >   * This function returns JBD2_FC_REPLAY_CONTINUE to indicate that SCAN=
+ is
+> >   * incomplete and JBD2 should send more blocks. It returns JBD2_FC_REP=
+LAY_STOP
+> >   * to indicate that scan has finished and JBD2 can now start replay ph=
+ase.
+> > - * It returns a negative error to indicate that there was an error. At=
+ the end
+> > + * It returns a negative error to indicate that there was an error. An=
+ invalid
+> > + * or incomplete fast commit at the end of the area is not an error, s=
+ee
+> > + * ext4_fc_replay_scan_end(). At the end
+> >   * of a successful scan phase, sbi->s_fc_replay_state.fc_replay_num_ta=
+gs is set
+> >   * to indicate the number of tags that need to replayed during the rep=
+lay phase.
+> >   */
+> > @@ -2489,8 +2511,8 @@ static int ext4_fc_replay_scan(journal_t *journal=
+,
+> >               val =3D cur + EXT4_FC_TAG_BASE_LEN;
+> >               if (tl.fc_len > end - val ||
+> >                   !ext4_fc_value_len_isvalid(sbi, tl.fc_tag, tl.fc_len)=
+) {
+> > -                     ret =3D state->fc_replay_num_tags ?
+> > -                             JBD2_FC_REPLAY_STOP : -ECANCELED;
+> > +                     ret =3D ext4_fc_replay_scan_end(sb, state, off,
+> > +                                                   "invalid tag length=
+");
+> >                       goto out_err;
+> >               }
+> >               ext4_debug("Scan phase, tag:%s, blk %lld\n",
+> > @@ -2530,8 +2552,8 @@ static int ext4_fc_replay_scan(journal_t *journal=
+,
+> >                               state->fc_regions_valid =3D
+> >                                       state->fc_regions_used;
+> >                       } else {
+> > -                             ret =3D state->fc_replay_num_tags ?
+> > -                                     JBD2_FC_REPLAY_STOP : -EFSBADCRC;
+> > +                             ret =3D ext4_fc_replay_scan_end(sb, state=
+, off,
+> > +                                                           "invalid ta=
+il");
+> >                       }
+> >                       state->fc_crc =3D 0;
+> >                       break;
+> > @@ -2551,8 +2573,8 @@ static int ext4_fc_replay_scan(journal_t *journal=
+,
+> >                               EXT4_FC_TAG_BASE_LEN + tl.fc_len);
+> >                       break;
+> >               default:
+> > -                     ret =3D state->fc_replay_num_tags ?
+> > -                             JBD2_FC_REPLAY_STOP : -ECANCELED;
+> > +                     ret =3D ext4_fc_replay_scan_end(sb, state, off,
+> > +                                                   "unknown tag");
+> >               }
+> >               if (ret < 0 || ret =3D=3D JBD2_FC_REPLAY_STOP)
+> >                       break;
+> > --
+> > 2.43.0
+> >
+> --
+> Jan Kara <jack@suse.com>
+> SUSE Labs, CR
