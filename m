@@ -1,64 +1,64 @@
-Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com [209.85.222.44])
+Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com [209.85.217.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF5AE4E2F15
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 19:09:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCF714E36D8
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 19:09:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791400146; cv=none; b=ah/vGBqAR7fuT9YyZDcxNA91a6Dw3AnRW22ry07cm1r2/J/GnLUuT0l7DDlx3g8BF1G5lwiEJSS+ESmNuIChuLrwWljsl3Vw8ZRfjvUfoOGqsLgu6XcK+S/NYl/9HRqY0xGTAf2vzDQOIocAeQEwPT2o1w7q2E2Vd0ngxrYkdB4=
+	t=1791400158; cv=none; b=P19/+WyGVrqwKXhGMbIzz39I3c8A6W8UtLGxjFdwu3IGmAvFEhfbGrEndjDWYtLnHMK+oEWbBRtV44LG8vq36fGV6pfYRxL0zVFmp8QGdL4XPQX0XROC6w1aKyAUmutZjQH2RHwfhqm07634zedzkVt106wBaio57xLLYbe7cyQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791400146; c=relaxed/simple;
-	bh=iJkeGInQrupIy6oMsoBKTzD0zoE27RuX3rTCqlOsJfI=;
+	s=arc-20240116; t=1791400158; c=relaxed/simple;
+	bh=YvW9dw5fFHxAdlhk6wrXy+00S8Q5Vo/Aemaq0ZekxxU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=X4aCEdGQgfEZds+ZLPxSrK2Z9rIDUYmUrIY4zTCfOBl+iyhVMuTyyqQtE8ul9jI6o5r8Vj9LEQl9y8nItVEDCEOJ3DQ8ApqkF7LNp3Gc73RuRb5TKx8XXZ3HPEyEQjxPEh+1yjzTMQ2/yoeoilVMULj26V4hbq5qDiwvxjs47Vw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=llZ397uL; arc=none smtp.client-ip=209.85.222.44
+	 MIME-Version; b=atn45m+IdEf6x18fcOwqVC9jLs65pJCirBNXk2l5caQnaVNHTtO0FxS0GIhdDBMy0nOuxo84SlaLtRAEZTjPmNmD/bFZqbuFhVc8gRFKFgiHvwvOLASX3IOg9GxobfuyIPxtOmS6fjKPtXlclmvnM9akEGh2bqG+nNrM+JOmGL8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G8do94Ma; arc=none smtp.client-ip=209.85.217.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="llZ397uL"
-Received: by mail-ua1-f44.google.com with SMTP id a1e0cc1a2514c-98c7ad684d3so1902754241.3
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 12:09:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G8do94Ma"
+Received: by mail-vs1-f46.google.com with SMTP id ada2fe7eead31-7ca917f9f52so357590137.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 12:09:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791400142; x=1792004942; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791400154; x=1792004954; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sEqPaS/GrQ6qJN5JtLX8YXiHg8lw0aSyV6DuwPEBEkY=;
-        b=llZ397uL06p11WoqxjFS3g7w7wsonyyxPEh6ot0MK/VUCZoBKzZ1kXaFBO0En9gsyz
-         vdy2jPtfK3pU6MHy9bseKFKpYrCvrXBH84j/JiGWxy7VO3eDZzvc2zCGvnx7QiestSMS
-         9ik7dxoWc9RjKF0cSaecF3XNDJP2V5W8/OAF3W+TIyqst+Hqw0czD+Kb3wl2zsZsmzgf
-         O/cnxJzSXv+IbiiUxEC2Eqz48F4Z8wov4A1/SgUK6XSM/qVOu9yjQIb/WcXVN65QD/OI
-         3DRgdiDBMpck7JNLro2dx5V+qt6eLy8F1ptUwCtK8yzLCA5W40ruXX6bKiSHHPG9begH
-         ikRg==
+        bh=2ClTpzuXeB4RP4HWBkTbikHD8qrVDr9ORCmPMhJeh4g=;
+        b=G8do94MaZdilUyUD51DlgGeCdM4G3fuuQsgvkQxUrxBGiDBRTgvcVX8QA2gBc4zNge
+         wnrUQ0Td/qXUwijnKU4/1XqUkERmpVRoNnlIsN+NdyKnfF4iU7JPq0hWt/sVWbBTPC9u
+         nCzBsmUPoT9wtZIWjueQ4cDZ+jO/yiMAaLwVsemuU4hH3UxEtAKSnWMdB0PBdliVIx+H
+         7vOqOASg268GpV/NdA4bahGA+dPHlcMjM9NHxsBoLtn2HlV7bGemsN5tXpIXBCi72O+B
+         F/07+y1/Iy21IhimNFGyig0dtsYPxFKFYIvZAadxWyumtvxl7N8SEggpwua7CPFDyjJW
+         4vvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791400142; x=1792004942;
+        d=1e100.net; s=20260707; t=1791400154; x=1792004954;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sEqPaS/GrQ6qJN5JtLX8YXiHg8lw0aSyV6DuwPEBEkY=;
-        b=Bm73n7sk+M+6srZeABYe2cVj6BauwoCH7J3oQY0XzgE3T6+qaE07x1wg4DCXeyVAjk
-         uSzGuTpqRfsnEe9HfdVvZrXeUaKxxw64G2FLjbSO9QXKwlAJXz3npPaf4N6CZmlXlsGC
-         sE+vdOuCIFnV/LZeCn2X6qOUGjLHoGwNZHhklz5Ot40svZetdQmdqAxJb4kB7wX2Aiws
-         +CbOGZTZz/uEXHAloR32P8c00Lo+kgYXE4nELf/F6Vn54Ch+RxMoUnp+yDTGyaCkrbZP
-         X+mqSM7Qv3Y0D1oJeyezHUc68YKVxyf7ZnIjU2CO0hfmsgZg9Meo6Wwn1PeIZzdkebKd
-         jL5A==
-X-Forwarded-Encrypted: i=1; AKwUvBztRzi99trXXxNHOQDi5j2NjmPhYY2rPIpbfAG3tQw4hMNXyK8m8xX2KD0Nc1GHioms/eZSYzX0aQZ88jY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIdjbvXane4+1zGZq47eeEktYz/pPuKUknQl9oLDoGlYcAVFqoM
-	BCjdCLkDLAwGf1EvPvb/hyVjGmp5J+k0Pg2m582op9wyxNB9M6b6jCYe
-X-Gm-Gg: AYBFou1Fk4EycNqY3Md1c8J7SNeSTaoV8bNPzi7PzpP+qESbW5QPD8zOh0j3GE3V9rm
-	/UhCKd7KwvjT/xhhlLVjp3OmOn+D/JOa7kVcpCzrR/O24BdcCfDXTTth2hPLwF+KdFhlEfF9Gvh
-	RffDkojWEySkeqwP+Qe/3BcqxtigOWne+jJO7vsU2TYZgv1OUAx1k1Ql6gkqGdEWbMv6dGdAOUq
-	/a0JHJXbIC6jXJSBXV/9cQCF+amKXbjuIPRvVMxlHln0X8zhfYC+qcX+5CY5jHiMjg9O1r9FekV
-	cFgdLXLOdoeftlFvqXlu4L3y65Rpul3o1+ED0dGRXx3XV99YLa/rMnDTnSdawqfcGSWu953YGLq
-	VP4KkseoYtCFqhLOydTF6zNj9WiyvX/fyGu8TCb/cfHvkcKMR3RUvZxgLtMJWhe8SjixKIoncqd
-	1/fjXKgFx5Fi/Cmn10g0C5lvyYuD9hUbQcgdHaT9guylDfprYxr2Rc4cqAm11zP58PYedfW4d/k
-	jQAujIE/ENdUUvt/Xo=
-X-Received: by 2002:a05:6102:f8a:b0:7b5:b51:63ae with SMTP id ada2fe7eead31-7ca38cb570emr1179104137.26.1791400141218;
-        Wed, 07 Oct 2026 12:09:01 -0700 (PDT)
+        bh=2ClTpzuXeB4RP4HWBkTbikHD8qrVDr9ORCmPMhJeh4g=;
+        b=0ga4mGKY4JTljoR3BA9fcf+bRArkL2jY5ttZxrWOHeuQzKSlxMVjF968tE8WFNAtRy
+         1/sMKB6tynLx354pbJVCEMOWcLkA+zmI8CzfKAElEshzqMT3O+7Fa18KpV8T1c9PSjth
+         0LcLvnj5lztyp5CHo9b01EBAzSkFhTLLROTVoBm4jrNo4peM9iZ9dgSmE0c+/a2U8VR/
+         dahq791ovDMUg0VJnFY4ZLLZ+sM8+LJ1MlRY6FKTu/yW9xQssHNXVAZ11owU0Hmvx0J4
+         Evs30A9Sa1JFMqUZ9uqYiwHe/4n4rrWKr5uNrO6COBGDi5hibIrjC3EiKROG0YbHILcP
+         J2Hw==
+X-Forwarded-Encrypted: i=1; AKwUvBwII8zY/GWtolrpWBgPoJB0oAHd/MNPplCa1YuCOyfG7SO8PfJHRCEN6WU5SfCkZYq+Ms38NaYn5kIwkl0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIIgdEg/8XW0iQoHMnOADhI23jR3qz1EC1bpq9Twf3fLlY1NWwh
+	l4zxlVynjMKiN+Z8fwAggdFnxbzSIaX3bmKWLhAEe8xEmAjIKA+B9d1C
+X-Gm-Gg: AYBFou15ABXZeYvZu7YXg7yPtWAa4BsFxgxJLCZo3dxGMsCQhU47KUhpYf6PBt3n0p9
+	rqwZny/VO6omqUht+mmtRR8MTaeVpZ4guOGyogrGL1xLlrX6s6qbM3Ww/3NWBCmk7SIlTznQFbx
+	xApCmHlj9VZXQ4SrtZZd4/zHXYLjr139nOImu68bDyWAJM7+VuHl80/eYb0cfNzbiSXj6mpSaju
+	QgxaqnVBPek79Cz2/6/30uo2LhZYZ9K84GuIGFXK+vvTtH1VsYt00DHQIsFekVVsf3Q1qvQaAIk
+	SFTho/r4nvM6TVv1Ro8FsIjqwInYeYG8Fq8ihMpAj0fge5mfTduJGHq6oNG+Q5xqKnjrSdfYhgT
+	/d4uizlAqft9Nqyqo9ft0VFgYyE1Iajnr8LUNDJhuIkggtYKRjVWjbzjd+7WzsNEf0E7skYKXlc
+	Wdrl7y4Zg4d+0TXgZxD+NTTUQkoWG43Gc5tJw9TIDGksWMb4E9MyiJIkMAU6tzrZ9G54vW7E/FH
+	AUKXbmd3d3mK0NBKG8=
+X-Received: by 2002:a05:6102:54ac:b0:7bc:696f:a5fb with SMTP id ada2fe7eead31-7ca38e1fda9mr1027964137.29.1791400153259;
+        Wed, 07 Oct 2026 12:09:13 -0700 (PDT)
 Received: from emedev.tailf75c28.ts.net ([74.244.222.41])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7ca218138c6sm2456787137.12.2026.10.07.12.08.55
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7ca218138c6sm2456787137.12.2026.10.07.12.09.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 12:09:00 -0700 (PDT)
+        Wed, 07 Oct 2026 12:09:12 -0700 (PDT)
 From: Emerson Busson <emersonbusson@gmail.com>
 To: mhklinux@outlook.com
 Cc: kys@microsoft.com,
@@ -74,9 +74,9 @@ Cc: kys@microsoft.com,
 	linux-kernel@vger.kernel.org,
 	linux-hyperv@vger.kernel.org,
 	netdev@vger.kernel.org
-Subject: [PATCH v2 10/14] hv: vmbus: pin buffer pages across UIO mmap to close the reclaim race
-Date: Wed,  7 Oct 2026 16:07:48 -0300
-Message-ID: <20261007190752.336426-11-emersonbusson@gmail.com>
+Subject: [PATCH v2 12/14] hv: netvsc: allocate RNDIS request descriptors with kvzalloc_obj()
+Date: Wed,  7 Oct 2026 16:07:50 -0300
+Message-ID: <20261007190752.336426-13-emersonbusson@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261007190752.336426-1-emersonbusson@gmail.com>
 References: <20261007190752.336426-1-emersonbusson@gmail.com>
@@ -88,1815 +88,546 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-UIO maps the channel ring, the send/receive buffers, the interrupt
-page and the monitor page directly into userspace. Those maps are
-built from page arrays that the reclaim worker can free once the
-buffer owner is released: the snapshot taken in the mmap path and
-the moment the new VMA holds its own references are not the same
-instant, so a reclaim in that window frees pages a mapping is about
-to publish.
+struct rndis_request embeds two RNDIS_EXT_LEN protocol tails.
+RNDIS_EXT_LEN is HV_HYP_PAGE_SIZE, so the two tails alone are 8 KiB and
+the struct is just over KMALLOC_MAX_CACHE_SIZE. kzalloc_obj() therefore
+needs an order-2 compound page for every RNDIS control request, which can
+fail under buddy fragmentation.
 
-Add vmbus_buffer_pin_pages() and vmbus_buffer_unpin_pages(). Pinning
-takes a reference on every page of a vmbus_buffer and refuses to
-start once reclaiming has begun or the owner leaked for good. Every
-field of the returned struct vmbus_buffer_pin is read under
-vmbus_buffer_owners_lock, the lock that publishes and clears the
-owner and the page array. The pin carries the page array, its length
-and the mapping-protection state of the pages being pinned, so a
-mapper never has to look at the buffer descriptor again: a concurrent
-vmbus_release_buffer() can clear that descriptor while the pin still
-holds the pages alive.
+Use kvzalloc_obj() and kvfree() so allocation can fall back to vmalloc.
+RNDIS control payloads are sent as GPA-direct page buffers, however, so a
+vmalloc-backed descriptor cannot be described by one virt_to_phys() PFN.
+Build one hv_page_buffer per Linux/Hyper-V page and resolve vmalloc backing
+with vmalloc_to_page(). Linear allocations use virt_to_page(). This keeps
+the GPA list valid and preserves the existing per-range DMA mapping for
+isolated guests.
 
-The pin cannot be dropped when mmap_prepare() returns.
-mmap_action_map_kernel_pages() only stores the page-array pointer, and
-the mapping takes its own folio references inside insert_pages(),
-which runs after the hook. Dropping the pin therefore waits for the
-VMA to be established or for the attempt to be abandoned. Release is
-one-shot: both can run.
+Keep both protocol tails unchanged. The response is copied after
+request->response_msg into response_ext, within the existing
+sizeof(struct rndis_message) + RNDIS_EXT_LEN bound.
 
-Two surfaces need two ownership contracts, because fs/kernfs/file.c
-rejects a VMA whose vm_ops carry .close: kernfs has to replace the set
-with its own and cannot wrap close. That check runs after the .mmap
-hook has already succeeded, so a successful sysfs mapping cannot carry
-an abandon path in vm_ops at all.
+Adds a fifth named RNDIS request KUnit case. It builds GPA descriptors from
+a vmalloc buffer that crosses a page boundary and checks every PFN, offset,
+and length against the backing pages. The existing cases retain the
+allocation-size, response-layout, zeroing, request-id, and cleanup checks.
 
-The /dev/uioN character device is not a kernfs path. It installs
-hv_uio_pin_vm_ops (.mapped and .close) and a struct hv_uio_pin, and
-drops the pin on whichever of the two runs first. The "ring" sysfs bin
-attribute installs no vm_ops and hands a bare struct vmbus_buffer_pin
-to hv_mmap_ring_buffer_wrapper(), a synchronous legacy .mmap that owns
-it across __compat_vma_mmap() and releases it exactly once when that
-returns: success is safe because insert_pages() has already taken a
-folio reference per page, failure is safe because the attempt is over.
+Rollback trigger: revert if the vmalloc page-buffer KUnit case fails or an
+exact-source fragmented rebind shows malformed GPA descriptors from this
+path.
 
-The legacy .mmap error path frees the VMA without calling vma_close(),
-and a failure in mmap_action_prepare() never reaches
-compat_set_vma_from_desc(). The wrapper therefore installs the
-per-VMA state before __compat_vma_mmap() when a contract does carry
-close(), so that abandon path stays reachable.
-
-The ring-buffer sysfs mmap and the UIO mmap_prepare hook share one
-page-selection and validation path. Buffer-backed regions are
-described only by their owning buffer at selection time; the page
-array and the protection state come from the locked pin snapshot and
-from nowhere else. The interrupt and monitor pages are snapshot as
-struct page * at probe, where the backing is guaranteed to still
-exist, and are not buffer-backed so they take no pin.
-
-The mapping KUnit cases cover the range check, the ring mmap path, the
-per-map region selection, the mmap_prepare hook, the pin spanning the
-mapped() boundary, close() before mapped() including a second close
-and a foreign private_data, the absence of .close on the sysfs ops, a
-successful buffer-backed character-device map, pin release on prepare
-failure, pin release when the mapping is abandoned after prepare,
-pages kept alive by the pin across a concurrent buffer release, and
-the protection snapshot surviving a cleared descriptor. They are
-included from uio_hv_generic.c so they can reach the static helpers
-without exporting them.
-
-Disconnect an open channel after unregistering UIO callbacks. An
-eventual fd close cannot call .release after unregister, so removal must
-close the channel before releasing its ring and external buffers. Mapped
-pages retain their folio references until VMA close; disconnect failure
-leaves host ownership uncertain and retained. Test open, already closed,
-repeated and failed disconnection through the same helper used by
-remove.
-
-Hold the UIO notifier device reference across unregister and channel
-disconnect. If the last fd closes in that interval, an in-flight channel
-callback can still notify the UIO device until disconnect synchronizes
-callbacks.
-
-Use ordinary VMBus rescind device unregistration instead of a private
-UIO rescind callback. The callback previously outlived a UIO-to-netvsc
-rebind and interpreted netvsc private data as UIO, panicking in
-uio_event_notify when the host removed the restored adapter. A callback
-reset or null check cannot synchronize that race. Generic unregister
-already withdraws UIO info and wakes blocked readers with EIO/POLL_HUP.
-Add an actual registered UIO withdrawal test verifying reader wakeup and
-info removal while a device reference keeps the notifier alive.
-
-Add actual synchronous-wrapper/MM success and partial-insertion cases
-with KUnit-managed memory. Read the inserted bytes, check VMA and bridge
-references, then unmap. A wrapper-unpin mutation fails both cases. The
-controlled prepare callback uses production pin acquisition; full
-retained-owner and confidential integration remain separate.
-
+Fixes: 5b54dac856cb ("hyperv: Add support for virtual Receive Side Scaling (vRSS)")
 Signed-off-by: Emerson Busson <emersonbusson@gmail.com>
 ---
- drivers/hv/channel.c                   |  92 +++
- drivers/hv/vmbus_drv.c                 |  49 +-
- drivers/hv/vmbus_mmap_test.c           | 145 ++++
- drivers/uio/Kconfig                    |  11 +
- drivers/uio/uio.c                      |  20 +
- drivers/uio/uio_hv_generic.c           | 321 ++++++++-
- drivers/uio/uio_hv_generic_mmap_test.c | 875 +++++++++++++++++++++++++
- include/linux/hyperv.h                 |  24 +
- 8 files changed, 1512 insertions(+), 25 deletions(-)
- create mode 100644 drivers/hv/vmbus_mmap_test.c
- create mode 100644 drivers/uio/uio_hv_generic_mmap_test.c
+ drivers/net/hyperv/Kconfig              |  12 ++
+ drivers/net/hyperv/Makefile             |   1 +
+ drivers/net/hyperv/hyperv_net.h         |  43 ++++-
+ drivers/net/hyperv/rndis_filter.c       | 117 ++++++++-----
+ drivers/net/hyperv/rndis_request_test.c | 216 ++++++++++++++++++++++++
+ 5 files changed, 349 insertions(+), 40 deletions(-)
+ create mode 100644 drivers/net/hyperv/rndis_request_test.c
 
-diff --git a/drivers/hv/channel.c b/drivers/hv/channel.c
-index 7eb9ea814ef4..2793ca1b7f32 100644
---- a/drivers/hv/channel.c
-+++ b/drivers/hv/channel.c
-@@ -1145,6 +1145,98 @@ void vmbus_release_buffer(struct vmbus_buffer *buffer)
- }
- EXPORT_SYMBOL_GPL(vmbus_release_buffer);
- 
-+/**
-+ * vmbus_buffer_pin_pages - snapshot a buffer's pages and hold references
-+ * @buffer: buffer whose pages the caller is about to map
-+ * @pin: out parameter filled entirely under the owners lock
-+ *
-+ * Take a reference on every page of @buffer and fill @pin with the page
-+ * array, the page count and the mapping-protection state that describe
-+ * them. The references close the window between the snapshot and the
-+ * point where a new mapping holds its own: the reclaim worker refuses to
-+ * free pages whose folio reference count is above one, and refuses to
-+ * start at all once it has begun reclaiming. Call
-+ * vmbus_buffer_unpin_pages() after the mapping holds its own references.
-+ *
-+ * Every field of @pin is read under vmbus_buffer_owners_lock so the
-+ * caller never has to look at @buffer again. In particular @pin->decrypted
-+ * is the protection state of the pages being pinned, not of whatever
-+ * @buffer looks like after a concurrent vmbus_release_buffer() has
-+ * cleared it.
-+ *
-+ * Return: 0 on success, -ENODEV if the pages are gone or reclaim
-+ * has already taken ownership of them.
-+ */
-+int vmbus_buffer_pin_pages(struct vmbus_buffer *buffer,
-+			   struct vmbus_buffer_pin *pin)
-+{
-+	struct vmbus_buffer_retained *owner;
-+	u32 i;
+diff --git a/drivers/net/hyperv/Kconfig b/drivers/net/hyperv/Kconfig
+index 982964c1a9fb..226728fd77d7 100644
+--- a/drivers/net/hyperv/Kconfig
++++ b/drivers/net/hyperv/Kconfig
+@@ -6,3 +6,15 @@ config HYPERV_NET
+ 	select NLS
+ 	help
+ 	  Select this option to enable the Hyper-V virtual network driver.
 +
-+	/*
-+	 * The owner and page array are published and cleared under
-+	 * vmbus_buffer_owners_lock (see vmbus_release_buffer()). Reading
-+	 * either outside that lock lets a concurrent release free the array
-+	 * while this loop still walks it.
-+	 */
-+	mutex_lock(&vmbus_buffer_owners_lock);
-+	owner = buffer->owner;
-+	if (!buffer->pages || !buffer->page_cnt) {
-+		mutex_unlock(&vmbus_buffer_owners_lock);
-+		return -ENODEV;
-+	}
-+
-+	if (owner && (owner->reclaiming || owner->permanent_leak)) {
-+		mutex_unlock(&vmbus_buffer_owners_lock);
-+		return -ENODEV;
-+	}
-+
-+	for (i = 0; i < buffer->page_cnt; i++) {
-+		if (WARN_ON_ONCE(!buffer->pages[i])) {
-+			while (i--)
-+				put_page(buffer->pages[i]);
-+			mutex_unlock(&vmbus_buffer_owners_lock);
-+			return -ENODEV;
-+		}
-+		get_page(buffer->pages[i]);
-+	}
-+
-+	pin->pages = buffer->pages;
-+	pin->page_count = buffer->page_cnt;
-+	/*
-+	 * Only the shared-page path populates the chunk array, and that is
-+	 * the path that decrypts each chunk before mapping it. Read it here
-+	 * so the protection state cannot disagree with the pages pinned.
-+	 */
-+	pin->decrypted = !!buffer->chunks;
-+	mutex_unlock(&vmbus_buffer_owners_lock);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(vmbus_buffer_pin_pages);
-+
-+/**
-+ * vmbus_buffer_unpin_pages - drop references taken by vmbus_buffer_pin_pages
-+ * @pin: pin filled by vmbus_buffer_pin_pages(), or NULL
-+ *
-+ * Idempotent: a pin that has already been released, or a NULL pin, is a
-+ * no-op. Release is one-shot because a VMA can be established and then
-+ * torn down, and the abandon path must not put the same pages twice.
-+ */
-+void vmbus_buffer_unpin_pages(struct vmbus_buffer_pin *pin)
-+{
-+	unsigned long i;
-+
-+	if (!pin || !pin->pages)
-+		return;
-+
-+	for (i = 0; i < pin->page_count; i++)
-+		put_page(pin->pages[i]);
-+	pin->pages = NULL;
-+	pin->page_count = 0;
-+}
-+EXPORT_SYMBOL_GPL(vmbus_buffer_unpin_pages);
-+
- static struct page *vmbus_alloc_pages_node(void *context, int nid,
- 					   gfp_t gfp,
- 					   unsigned int order)
-diff --git a/drivers/hv/vmbus_drv.c b/drivers/hv/vmbus_drv.c
-index bce835c4a015..198b43d24051 100644
---- a/drivers/hv/vmbus_drv.c
-+++ b/drivers/hv/vmbus_drv.c
-@@ -1929,6 +1929,7 @@ static int hv_mmap_ring_buffer_wrapper(struct file *filp, struct kobject *kobj,
- {
- 	struct vmbus_channel *channel = container_of(kobj, struct vmbus_channel, kobj);
- 	struct vm_area_desc desc;
-+	struct vmbus_buffer_pin *pin;
- 	int err;
- 
- 	/*
-@@ -1940,9 +1941,55 @@ static int hv_mmap_ring_buffer_wrapper(struct file *filp, struct kobject *kobj,
- 	if (err)
- 		return err;
- 
--	return __compat_vma_mmap(&desc, vma);
-+	/*
-+	 * This is a kernfs bin attribute. kernfs_fop_mmap() rejects a VMA
-+	 * whose vm_ops carry .close, because kernfs has to replace the set
-+	 * with its own and cannot wrap close. So the prepare callback has
-+	 * to pick one of two ownership contracts, and this wrapper honors
-+	 * whichever it installed. Each contract has exactly one release
-+	 * site, reached on every outcome.
-+	 *
-+	 * With vm_ops, the callback handed the per-VMA state to an abandon
-+	 * path in vm_ops->close and typically to vm_ops->mapped. Install
-+	 * both before __compat_vma_mmap() so a failure in
-+	 * mmap_action_prepare() still reaches close(): that path never runs
-+	 * compat_set_vma_from_desc(), and the legacy .mmap error path frees
-+	 * the VMA without calling close() on its own. __compat_vma_mmap()
-+	 * installs the same values again on its way to the action. Note
-+	 * that such a set is rejected by kernfs after this returns, so a
-+	 * prepare callback that wants a successful mapping must not choose
-+	 * this contract.
-+	 *
-+	 * Without vm_ops, desc.private_data is a plain struct
-+	 * vmbus_buffer_pin and this wrapper is its only owner. Release it
-+	 * when __compat_vma_mmap() returns: on success insert_pages() has
-+	 * already taken a folio reference for every page the VMA maps, and
-+	 * on failure the attempt is over. Clear vma->vm_private_data first
-+	 * so the freed pin is never reachable from the VMA that outlives
-+	 * this call.
-+	 */
-+	if (desc.vm_ops) {
-+		vma->vm_ops = desc.vm_ops;
-+		vma->vm_private_data = desc.private_data;
-+
-+		err = __compat_vma_mmap(&desc, vma);
-+		if (err && vma->vm_ops && vma->vm_ops->close)
-+			vma->vm_ops->close(vma);
-+		return err;
-+	}
-+
-+	pin = desc.private_data;
-+	err = __compat_vma_mmap(&desc, vma);
-+	vma->vm_private_data = NULL;
-+	vmbus_buffer_unpin_pages(pin);
-+	kfree(pin);
-+	return err;
- }
- 
-+#if IS_ENABLED(CONFIG_HYPERV_VMBUS_KUNIT_TEST)
-+#include "vmbus_mmap_test.c"
-+#endif
-+
- static struct bin_attribute chan_attr_ring_buffer = {
- 	.attr = {
- 		.name = "ring",
-diff --git a/drivers/hv/vmbus_mmap_test.c b/drivers/hv/vmbus_mmap_test.c
-new file mode 100644
-index 000000000000..50b961f2b782
---- /dev/null
-+++ b/drivers/hv/vmbus_mmap_test.c
-@@ -0,0 +1,145 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Included beside the production sysfs wrapper; no VMBus device is touched. */
-+#include <kunit/test.h>
-+#include <linux/mman.h>
-+#include <linux/uaccess.h>
-+
-+struct vmbus_mmap_test_context {
-+	struct vmbus_channel channel;
-+	struct page *pages[3];
-+	struct page *blocker;
-+};
-+
-+static void vmbus_mmap_test_put_page(void *page)
-+{
-+	__free_page(page);
-+}
-+
-+static struct page *vmbus_mmap_test_page(struct kunit *test, u8 value)
-+{
-+	struct page *page = alloc_page(GFP_KERNEL);
-+
-+	if (!page)
-+		return NULL;
-+	if (kunit_add_action_or_reset(test, vmbus_mmap_test_put_page, page))
-+		return NULL;
-+	memset(page_address(page), value, PAGE_SIZE);
-+	return page;
-+}
-+
-+static int vmbus_mmap_test_prepare(struct vmbus_channel *channel,
-+				   struct vm_area_desc *desc)
-+{
-+	struct vmbus_buffer_pin *pin;
-+	int ret;
-+
-+	pin = kzalloc_obj(*pin);
-+	if (!pin)
-+		return -ENOMEM;
-+	ret = vmbus_buffer_pin_pages(&channel->ringbuffer, pin);
-+	if (ret) {
-+		kfree(pin);
-+		return ret;
-+	}
-+	mmap_action_map_kernel_pages(desc, desc->start, pin->pages,
-+				     pin->page_count);
-+	desc->vm_ops = NULL;
-+	desc->private_data = pin;
-+	return 0;
-+}
-+
-+static struct vmbus_mmap_test_context *
-+vmbus_mmap_test_context(struct kunit *test)
-+{
-+	struct vmbus_mmap_test_context *ctx;
-+	unsigned int i;
-+
-+	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
-+	if (!ctx)
-+		return NULL;
-+	for (i = 0; i < ARRAY_SIZE(ctx->pages); i++) {
-+		ctx->pages[i] = vmbus_mmap_test_page(test, 0x61 + i);
-+		if (!ctx->pages[i])
-+			return NULL;
-+	}
-+	ctx->blocker = vmbus_mmap_test_page(test, 0xcc);
-+	if (!ctx->blocker)
-+		return NULL;
-+	ctx->channel.mmap_prepare_ring_buffer = vmbus_mmap_test_prepare;
-+	ctx->channel.ringbuffer.pages = ctx->pages;
-+	ctx->channel.ringbuffer.page_cnt = ARRAY_SIZE(ctx->pages);
-+	return ctx;
-+}
-+
-+static void vmbus_mmap_test_action(struct kunit *test, bool partial)
-+{
-+	struct vmbus_mmap_test_context *ctx = vmbus_mmap_test_context(test);
-+	struct vm_area_struct *vma;
-+	unsigned long start;
-+	unsigned int i;
-+	u8 value = 0;
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_NULL(test, ctx);
-+	start = kunit_vm_mmap(test, NULL, 0, 3 * PAGE_SIZE, PROT_READ | PROT_WRITE,
-+			      MAP_SHARED | MAP_ANONYMOUS, 0);
-+	KUNIT_ASSERT_NE(test, start, 0UL);
-+	KUNIT_ASSERT_LT(test, start, (unsigned long)TASK_SIZE);
-+
-+	mmap_write_lock(current->mm);
-+	vma = find_vma(current->mm, start);
-+	if (!vma) {
-+		mmap_write_unlock(current->mm);
-+		KUNIT_FAIL(test, "managed VMA missing");
-+		return;
-+	}
-+	if (partial) {
-+		ret = vm_insert_page(vma, start + PAGE_SIZE, ctx->blocker);
-+		if (ret) {
-+			mmap_write_unlock(current->mm);
-+			KUNIT_FAIL(test, "owned blocking PTE could not be installed");
-+			return;
-+		}
-+	}
-+	ret = hv_mmap_ring_buffer_wrapper(vma->vm_file, &ctx->channel.kobj,
-+					  NULL, vma);
-+	KUNIT_EXPECT_EQ(test, ret, partial ? -EBUSY : 0);
-+	KUNIT_EXPECT_NULL(test, vma->vm_private_data);
-+	KUNIT_EXPECT_NULL(test, vma->vm_ops);
-+	for (i = 0; i < ARRAY_SIZE(ctx->pages); i++)
-+		KUNIT_EXPECT_EQ(test, page_ref_count(ctx->pages[i]),
-+				partial && i ? 1 : 2);
-+	KUNIT_EXPECT_EQ(test, page_ref_count(ctx->blocker), partial ? 2 : 1);
-+	mmap_write_unlock(current->mm);
-+
-+	/* The first insertion really happened, including on the partial error. */
-+	KUNIT_EXPECT_EQ(test, copy_from_user(&value, (void __user *)start, 1), 0UL);
-+	KUNIT_EXPECT_EQ(test, value, (u8)0x61);
-+	KUNIT_ASSERT_EQ(test, vm_munmap(start, 3 * PAGE_SIZE), 0);
-+	for (i = 0; i < ARRAY_SIZE(ctx->pages); i++)
-+		KUNIT_EXPECT_EQ(test, page_ref_count(ctx->pages[i]), 1);
-+	KUNIT_EXPECT_EQ(test, page_ref_count(ctx->blocker), 1);
-+}
-+
-+static void vmbus_sysfs_mmap_success_test(struct kunit *test)
-+{
-+	vmbus_mmap_test_action(test, false);
-+}
-+
-+static void vmbus_sysfs_mmap_partial_insert_test(struct kunit *test)
-+{
-+	vmbus_mmap_test_action(test, true);
-+}
-+
-+static struct kunit_case vmbus_mmap_test_cases[] = {
-+	KUNIT_CASE(vmbus_sysfs_mmap_success_test),
-+	KUNIT_CASE(vmbus_sysfs_mmap_partial_insert_test),
-+	{}
-+};
-+
-+static struct kunit_suite vmbus_mmap_test_suite = {
-+	.name = "hyperv-vmbus-mmap",
-+	.test_cases = vmbus_mmap_test_cases,
-+};
-+
-+kunit_test_suite(vmbus_mmap_test_suite);
-diff --git a/drivers/uio/Kconfig b/drivers/uio/Kconfig
-index 9242e77385c6..0a01906bd6cd 100644
---- a/drivers/uio/Kconfig
-+++ b/drivers/uio/Kconfig
-@@ -148,6 +148,17 @@ config UIO_HV_GENERIC
- 
- 	  If you compile this as a module, it will be called uio_hv_generic.
- 
-+config UIO_HV_GENERIC_KUNIT_TEST
-+	bool "Tests for the UIO Hyper-V generic mmap" if !KUNIT_ALL_TESTS
-+	depends on UIO_HV_GENERIC && KUNIT=y
++config HYPERV_NET_KUNIT_TEST
++	bool "Build Hyper-V netvsc KUnit tests"
++	depends on HYPERV_NET && KUNIT
 +	default KUNIT_ALL_TESTS
 +	help
-+	  Enable KUnit tests for the UIO Hyper-V generic mmap paths.
-+	  The tests are included from uio_hv_generic.c so they can
-+	  reach the static page-selection helpers. Select this option
-+	  only if you will boot the kernel for the purpose of running
-+	  unit tests (e.g. under UML or qemu). If unsure, say N.
++	  Build the netvsc KUnit test suites into the hv_netvsc object.
++	  Built into the module rather than as a separate one so the
++	  cases can reach the internal helpers declared in hyperv_net.h
++	  without exporting them.
 +
- config UIO_DFL
- 	tristate "Generic driver for DFL (Device Feature List) bus"
- 	depends on FPGA_DFL
-diff --git a/drivers/uio/uio.c b/drivers/uio/uio.c
-index f8fa20522660..4767ed0661f7 100644
---- a/drivers/uio/uio.c
-+++ b/drivers/uio/uio.c
-@@ -857,7 +857,27 @@ static int uio_mmap(struct file *filep, struct vm_area_struct *vma)
- 		ret = idev->info->mmap_prepare(idev->info, &desc);
- 		if (ret)
- 			goto out;
-+
-+		/*
-+		 * Install the per-VMA state before __compat_vma_mmap() so a
-+		 * failure in mmap_action_prepare() still reaches close(). That
-+		 * path never runs compat_set_vma_from_desc(), and the legacy
-+		 * .mmap error path frees the VMA without calling close() on
-+		 * its own. __compat_vma_mmap() installs the same values again
-+		 * on its way to the action.
-+		 *
-+		 * close() must be safe to call without a prior mapped() when
-+		 * it tears down state mmap_prepare() installed. Drivers that
-+		 * leave vm_ops alone have nothing to tear down here.
-+		 */
-+		if (desc.vm_ops) {
-+			vma->vm_ops = desc.vm_ops;
-+			vma->vm_private_data = desc.private_data;
-+		}
-+
- 		ret = __compat_vma_mmap(&desc, vma);
-+		if (ret && vma->vm_ops && vma->vm_ops->close)
-+			vma->vm_ops->close(vma);
- 		goto out;
- 	}
++	  If unsure, say N.
+diff --git a/drivers/net/hyperv/Makefile b/drivers/net/hyperv/Makefile
+index 0db7ccaec4a4..6f1abc756fde 100644
+--- a/drivers/net/hyperv/Makefile
++++ b/drivers/net/hyperv/Makefile
+@@ -2,3 +2,4 @@
+ obj-$(CONFIG_HYPERV_NET) += hv_netvsc.o
  
-diff --git a/drivers/uio/uio_hv_generic.c b/drivers/uio/uio_hv_generic.c
-index b40e80e19c6c..91cb25d019be 100644
---- a/drivers/uio/uio_hv_generic.c
-+++ b/drivers/uio/uio_hv_generic.c
-@@ -25,6 +25,7 @@
- #include <linux/uio_driver.h>
- #include <linux/netdevice.h>
+ hv_netvsc-y := netvsc_drv.o netvsc.o rndis_filter.o netvsc_trace.o netvsc_bpf.o
++hv_netvsc-$(CONFIG_HYPERV_NET_KUNIT_TEST) += rndis_request_test.o
+diff --git a/drivers/net/hyperv/hyperv_net.h b/drivers/net/hyperv/hyperv_net.h
+index a15cb2460344..6492e7e93ded 100644
+--- a/drivers/net/hyperv/hyperv_net.h
++++ b/drivers/net/hyperv/hyperv_net.h
+@@ -210,14 +210,25 @@ struct rndis_device {
+ 	u8 rss_key[NETVSC_HASH_KEYLEN];
+ };
+ 
++#define RNDIS_EXT_LEN HV_HYP_PAGE_SIZE
+ 
+-/* Interface */
++/* Full definitions are below, after the RNDIS message format. */
++struct rndis_request;
+ struct rndis_message;
++
++/* Interface */
+ struct ndis_offload_params;
+ struct netvsc_device;
+ struct netvsc_channel;
+ struct net_device_context;
+ 
++struct rndis_request *get_rndis_request(struct rndis_device *dev,
++					u32 msg_type, u32 msg_len);
++void put_rndis_request(struct rndis_device *dev, struct rndis_request *req);
++int rndis_build_page_buffers(const void *data, u32 len,
++			     struct hv_page_buffer *page_bufs,
++			     u32 *page_buf_cnt);
++
+ extern u32 netvsc_ring_bytes;
+ 
+ int netvsc_workqueue_init(void);
+@@ -1779,6 +1790,36 @@ struct rndis_message {
+ 	union rndis_message_container msg;
+ };
+ 
++/*
++ * RNDIS request descriptor. Declared here so the KUnit cases can reach
++ * the layout the response-copy bound in rndis_filter_receive_resp()
++ * relies on. The two RNDIS_EXT_LEN tails are what make the object
++ * larger than KMALLOC_MAX_CACHE_SIZE.
++ */
++struct rndis_request {
++	struct list_head list_ent;
++	struct completion  wait_event;
++
++	struct rndis_message response_msg;
++	/*
++	 * The buffer for extended info after the RNDIS response message. It's
++	 * referenced based on the data offset in the RNDIS message. Its size
++	 * is enough for current needs, and should be sufficient for the near
++	 * future.
++	 */
++	u8 response_ext[RNDIS_EXT_LEN];
++
++	/* Simplify allocation by having a netvsc packet inline */
++	struct hv_netvsc_packet	pkt;
++
++	struct rndis_message request_msg;
++	/*
++	 * The buffer for the extended info after the RNDIS request message.
++	 * It is referenced and sized in a similar way as response_ext.
++	 */
++	u8 request_ext[RNDIS_EXT_LEN];
++};
++
+ 
+ /* Handy macros */
+ 
+diff --git a/drivers/net/hyperv/rndis_filter.c b/drivers/net/hyperv/rndis_filter.c
+index 9b6c44979b4e..1ce40baa2d23 100644
+--- a/drivers/net/hyperv/rndis_filter.c
++++ b/drivers/net/hyperv/rndis_filter.c
+@@ -16,6 +16,7 @@
  #include <linux/if_ether.h>
+ #include <linux/netdevice.h>
+ #include <linux/if_vlan.h>
 +#include <linux/mm.h>
- #include <linux/skbuff.h>
- #include <linux/hyperv.h>
+ #include <linux/nls.h>
  #include <linux/vmalloc.h>
-@@ -55,6 +56,8 @@ struct hv_uio_private_data {
- 	struct uio_info info;
- 	struct hv_device *device;
- 	atomic_t refcnt;
-+	struct page *int_pages[1];
-+	struct page *monitor_pages[1];
+ #include <linux/rtnetlink.h>
+@@ -27,31 +28,6 @@
  
- 	struct vmbus_buffer recv_buffer;
- 	char	recv_name[32];	/* "recv_4294967295" */
-@@ -121,51 +124,310 @@ static void hv_uio_channel_cb(void *context)
- 	uio_event_notify(&pdata->info);
+ static void rndis_set_multicast(struct work_struct *w);
+ 
+-#define RNDIS_EXT_LEN HV_HYP_PAGE_SIZE
+-struct rndis_request {
+-	struct list_head list_ent;
+-	struct completion  wait_event;
+-
+-	struct rndis_message response_msg;
+-	/*
+-	 * The buffer for extended info after the RNDIS response message. It's
+-	 * referenced based on the data offset in the RNDIS message. Its size
+-	 * is enough for current needs, and should be sufficient for the near
+-	 * future.
+-	 */
+-	u8 response_ext[RNDIS_EXT_LEN];
+-
+-	/* Simplify allocation by having a netvsc packet inline */
+-	struct hv_netvsc_packet	pkt;
+-
+-	struct rndis_message request_msg;
+-	/*
+-	 * The buffer for the extended info after the RNDIS request message.
+-	 * It is referenced and sized in a similar way as response_ext.
+-	 */
+-	u8 request_ext[RNDIS_EXT_LEN];
+-};
+-
+ static const u8 netvsc_hash_key[NETVSC_HASH_KEYLEN] = {
+ 	0x6d, 0x5a, 0x56, 0xda, 0x25, 0x5b, 0x0e, 0xc2,
+ 	0x41, 0x67, 0x25, 0x3d, 0x43, 0xa3, 0x8f, 0xb0,
+@@ -78,16 +54,27 @@ static struct rndis_device *get_rndis_device(void)
+ 	return device;
  }
  
-+/* Function used for mmap of the ring buffer sysfs interface. */
-+static bool hv_uio_mmap_range_valid(unsigned long map_pages,
-+				    pgoff_t offset,
-+				    unsigned long pages)
-+{
-+	return pages && offset < map_pages && pages <= map_pages - offset;
-+}
-+
-+struct hv_uio_mmap_region {
-+	struct page **pages;
-+	unsigned long page_count;
-+	struct vmbus_buffer *buffer;
-+	bool decrypted;
-+};
-+
-+static int hv_uio_mmap_get_region(struct hv_uio_private_data *pdata,
-+				  unsigned int map_index,
-+				  struct hv_uio_mmap_region *region)
-+{
-+	struct hv_device *dev = pdata->device;
-+	struct vmbus_channel *channel = dev->channel;
-+
-+	if (map_index >= MAX_UIO_MAPS || !pdata->info.mem[map_index].size)
-+		return -EINVAL;
-+
-+	/*
-+	 * Buffer-backed regions are not described here. Their page array
-+	 * and protection state are only meaningful as the locked snapshot
-+	 * from vmbus_buffer_pin_pages(): reading the descriptor outside
-+	 * that lock can describe a buffer a concurrent release has already
-+	 * cleared. Only the owning buffer is selected at this stage.
-+	 */
-+	region->buffer = NULL;
-+	region->pages = NULL;
-+	region->page_count = 0;
-+	region->decrypted = false;
-+
-+	switch (map_index) {
-+	case TXRX_RING_MAP:
-+		if (channel->state != CHANNEL_OPENED_STATE)
-+			return -ENODEV;
-+		region->buffer = &channel->ringbuffer;
-+		return 0;
-+	case INT_PAGE_MAP:
-+		region->pages = pdata->int_pages;
-+		region->page_count = ARRAY_SIZE(pdata->int_pages);
-+		region->decrypted = false;
-+		break;
-+	case MON_PAGE_MAP:
-+		region->pages = pdata->monitor_pages;
-+		region->page_count = ARRAY_SIZE(pdata->monitor_pages);
-+		region->decrypted = true;
-+		break;
-+	case RECV_BUF_MAP:
-+		region->buffer = &pdata->recv_buffer;
-+		return 0;
-+	case SEND_BUF_MAP:
-+		region->buffer = &pdata->send_buffer;
-+		return 0;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	if (!region->pages || !region->page_count)
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
-+static int hv_uio_mmap_prepare_pages(struct vm_area_desc *desc,
-+				     struct page **pages,
-+				     unsigned long page_count,
-+				     pgoff_t offset,
-+				     bool decrypted)
-+{
-+	unsigned long nr_pages = vma_desc_pages(desc);
-+
-+	if (!vma_desc_test(desc, VMA_SHARED_BIT))
-+		return -EINVAL;
-+
-+	if (!pages || !hv_uio_mmap_range_valid(page_count, offset, nr_pages))
-+		return -EINVAL;
-+
-+	vma_desc_set_flags(desc, VMA_DONTEXPAND_BIT, VMA_DONTDUMP_BIT);
-+	if (decrypted)
-+		desc->page_prot = pgprot_decrypted(desc->page_prot);
-+
-+	mmap_action_map_kernel_pages(desc, desc->start, pages + offset,
-+				     nr_pages);
-+	return 0;
-+}
-+
- /*
-- * Callback from vmbus_event when channel is rescinded.
-- * It is meant for rescind of primary channels only.
-+ * mmap_action_map_kernel_pages() only stores the page-array pointer. The
-+ * mapping takes its own folio references inside insert_pages(), which runs
-+ * after the prepare callback has returned. Dropping the pin therefore has
-+ * to wait for the VMA to be established (mapped) or for the attempt to be
-+ * abandoned. Release is one-shot: the establish and abandon paths can both
-+ * be reached for the same attempt.
-+ *
-+ * Two surfaces, two ownership contracts. /dev/uioN is a character device,
-+ * so kernfs is not in the path and vm_ops->close is a legal abandon path.
-+ * The sysfs "ring" bin attribute is kernfs: fs/kernfs/file.c rejects any
-+ * VMA whose vm_ops carry .close, because kernfs has to wrap the operations
-+ * and cannot wrap close. That surface installs no vm_ops at all and its
-+ * synchronous legacy .mmap wrapper owns the pin for the whole window.
-  */
--static void hv_uio_rescind(struct vmbus_channel *channel)
-+#define HV_UIO_PIN_MAGIC 0x48565049UL /* "HVPI" */
-+
-+struct hv_uio_pin {
-+	unsigned long magic;
-+	struct vmbus_buffer_pin snap;
-+};
-+
-+static void hv_uio_pin_release(void *data)
+-static struct rndis_request *get_rndis_request(struct rndis_device *dev,
+-					     u32 msg_type,
+-					     u32 msg_len)
++struct rndis_request *get_rndis_request(struct rndis_device *dev,
++					u32 msg_type,
++					u32 msg_len)
  {
--	struct hv_device *hv_dev = channel->device_obj;
--	struct hv_uio_private_data *pdata = hv_get_drvdata(hv_dev);
-+	struct hv_uio_pin *pin = data;
+ 	struct rndis_request *request;
+ 	struct rndis_message *rndis_msg;
+ 	struct rndis_set_request *set;
+ 	unsigned long flags;
  
-+	if (!pin)
-+		return;
- 	/*
--	 * Turn off the interrupt file handle
--	 * Next read for event will return -EIO
-+	 * close() can be reached with a private_data that this driver did
-+	 * not install. A foreign pointer must not be freed or unpinned.
- 	 */
--	pdata->info.irq = 0;
-+	if (pin->magic != HV_UIO_PIN_MAGIC)
-+		return;
-+	pin->magic = 0;
-+	vmbus_buffer_unpin_pages(&pin->snap);
-+	kfree(pin);
-+}
- 
--	/* Wake up reader */
--	uio_event_notify(&pdata->info);
-+static int hv_uio_pin_vma_mapped(unsigned long start, unsigned long end,
-+				 pgoff_t pgoff, const struct file *file,
-+				 void **vm_private_data)
-+{
+-	request = kzalloc_obj(struct rndis_request);
 +	/*
-+	 * insert_pages() has taken a folio reference for every page the
-+	 * VMA now maps, so the reclaim worker can no longer free them
-+	 * under the mapping. The bridge pin is done.
++	 * struct rndis_request embeds two RNDIS_EXT_LEN (4 KiB) protocol
++	 * tails and is larger than KMALLOC_MAX_CACHE_SIZE, so
++	 * kzalloc_obj() needs an order-2 compound page. That high-order
++	 * allocation can fail under buddy fragmentation. kvzalloc_obj()
++	 * keeps the zeroing semantics while allowing vmalloc backing when
++	 * a suitable kmalloc allocation is unavailable. The request payload
++	 * is sent as GPADL-direct page buffers, so rndis_filter_send_request()
++	 * must describe each backing page instead of assuming virt_to_phys()
++	 * yields one contiguous physical range.
 +	 */
-+	hv_uio_pin_release(*vm_private_data);
-+	*vm_private_data = NULL;
-+	return 0;
-+}
++	request = kvzalloc_obj(struct rndis_request);
+ 	if (!request)
+ 		return NULL;
  
-+static void hv_uio_pin_vma_close(struct vm_area_struct *vma)
+@@ -115,8 +102,8 @@ static struct rndis_request *get_rndis_request(struct rndis_device *dev,
+ 	return request;
+ }
+ 
+-static void put_rndis_request(struct rndis_device *dev,
+-			    struct rndis_request *req)
++void put_rndis_request(struct rndis_device *dev,
++		       struct rndis_request *req)
+ {
+ 	unsigned long flags;
+ 
+@@ -124,7 +111,8 @@ static void put_rndis_request(struct rndis_device *dev,
+ 	list_del(&req->list_ent);
+ 	spin_unlock_irqrestore(&dev->request_lock, flags);
+ 
+-	kfree(req);
++	/* Paired with the kvzalloc_obj() in get_rndis_request(). */
++	kvfree(req);
+ }
+ 
+ static void dump_rndis_message(struct net_device *netdev,
+@@ -221,27 +209,78 @@ static void dump_rndis_message(struct net_device *netdev,
+ 	}
+ }
+ 
++int rndis_build_page_buffers(const void *data, u32 len,
++			     struct hv_page_buffer *page_bufs,
++			     u32 *page_buf_cnt)
 +{
- 	/*
--	 * With rescind callback registered, rescind path will not unregister the device
--	 * from vmbus when the primary channel is rescinded.
--	 * Without it, rescind handling is incomplete and next onoffer msg does not come.
--	 * Unregister the device from vmbus here.
-+	 * Reached with the pin still held when the VMA is torn down before
-+	 * mapped() ran (an insert_pages() failure, or a merge that never
-+	 * calls mapped), and with nothing left to do when it already ran.
- 	 */
--	vmbus_device_unregister(channel->device_obj);
-+	hv_uio_pin_release(vma->vm_private_data);
-+	vma->vm_private_data = NULL;
-+}
++	const u8 *addr = data;
++	u32 count = 0;
 +
-+/*
-+ * Character-device surface only. The sysfs ring must never adopt this set:
-+ * see the kernfs contract above.
-+ */
-+static const struct vm_operations_struct hv_uio_pin_vm_ops = {
-+	.mapped = hv_uio_pin_vma_mapped,
-+	.close = hv_uio_pin_vma_close,
-+};
-+
-+/*
-+ * Install @snap as the VMA's per-mapping state under @ops. Consumes @snap:
-+ * returns 0 with the pin owned by @desc and @snap cleared, or -ENOMEM with
-+ * the references dropped here. The caller must not drop the references on
-+ * the success path: mapped() and close() own them from here.
-+ */
-+static int hv_uio_pin_install(struct vm_area_desc *desc,
-+			      const struct vm_operations_struct *ops,
-+			      struct vmbus_buffer_pin *snap)
-+{
-+	struct hv_uio_pin *pin;
-+
-+	pin = kzalloc_obj(*pin);
-+	if (!pin) {
-+		vmbus_buffer_unpin_pages(snap);
-+		return -ENOMEM;
-+	}
-+	pin->magic = HV_UIO_PIN_MAGIC;
-+	pin->snap = *snap;
-+	snap->pages = NULL;
-+	snap->page_count = 0;
-+
-+	desc->vm_ops = ops;
-+	desc->private_data = pin;
-+	return 0;
-+}
-+
-+static int hv_uio_mmap_prepare(struct uio_info *info,
-+			       struct vm_area_desc *desc)
-+{
-+	struct hv_uio_private_data *pdata = info->priv;
-+	struct hv_uio_mmap_region region;
-+	struct vmbus_buffer_pin pin = {};
-+	struct page **pages;
-+	unsigned long page_count;
-+	bool decrypted;
-+	int ret;
-+
-+	/* UIO encodes the map index in pgoff; mmap offsets start at the map. */
-+	if (desc->pgoff >= MAX_UIO_MAPS)
++	if (!data || !len || !page_bufs || !page_buf_cnt)
 +		return -EINVAL;
 +
-+	ret = hv_uio_mmap_get_region(pdata, desc->pgoff, &region);
++	*page_buf_cnt = 0;
++
++	while (len) {
++		struct page *page;
++		phys_addr_t phys;
++		u32 offset, chunk;
++		unsigned long page_offset = offset_in_page(addr);
++
++		if (count == MAX_PAGE_BUFFER_COUNT)
++			return -E2BIG;
++
++		if (is_vmalloc_addr(addr))
++			page = vmalloc_to_page(addr);
++		else if (virt_addr_valid(addr))
++			page = virt_to_page(addr);
++		else
++			return -EFAULT;
++
++		if (!page)
++			return -EFAULT;
++
++		phys = page_to_phys(page) + page_offset;
++		offset = offset_in_hvpage(phys);
++		chunk = min_t(u32, len, PAGE_SIZE - page_offset);
++		chunk = min_t(u32, chunk, HV_HYP_PAGE_SIZE - offset);
++
++		page_bufs[count].pfn = phys >> HV_HYP_PAGE_SHIFT;
++		page_bufs[count].offset = offset;
++		page_bufs[count].len = chunk;
++
++		addr += chunk;
++		len -= chunk;
++		count++;
++	}
++
++	*page_buf_cnt = count;
++	return 0;
++}
++
+ static int rndis_filter_send_request(struct rndis_device *dev,
+ 				  struct rndis_request *req)
+ {
+ 	struct hv_netvsc_packet *packet;
+-	struct hv_page_buffer pb;
++	struct hv_page_buffer page_bufs[MAX_PAGE_BUFFER_COUNT];
++	u32 page_buf_cnt;
+ 	int ret;
+ 
+ 	/* Setup the packet to send it */
+ 	packet = &req->pkt;
+ 
+ 	packet->total_data_buflen = req->request_msg.msg_len;
+-	packet->page_buf_cnt = 1;
+-
+-	pb.pfn = virt_to_phys(&req->request_msg) >> HV_HYP_PAGE_SHIFT;
+-	pb.len = req->request_msg.msg_len;
+-	pb.offset = offset_in_hvpage(&req->request_msg);
++	ret = rndis_build_page_buffers(&req->request_msg,
++				       req->request_msg.msg_len,
++				       page_bufs, &page_buf_cnt);
 +	if (ret)
 +		return ret;
-+
-+	/*
-+	 * Buffer-backed maps race with the reclaim worker: the page
-+	 * array and the pages themselves can be freed between the
-+	 * selection above and the mapping below. Hold references until
-+	 * the VMA holds its own. The pin is also the only safe source of
-+	 * the protection state: it is taken in the same critical section
-+	 * that reads the page array.
-+	 */
-+	if (region.buffer) {
-+		ret = vmbus_buffer_pin_pages(region.buffer, &pin);
-+		if (ret)
-+			return ret;
-+		pages = pin.pages;
-+		page_count = pin.page_count;
-+		decrypted = pin.decrypted;
-+	} else {
-+		pages = region.pages;
-+		page_count = region.page_count;
-+		decrypted = region.decrypted;
-+	}
-+
-+	ret = hv_uio_mmap_prepare_pages(desc, pages, page_count, 0, decrypted);
-+	if (ret) {
-+		if (region.buffer)
-+			vmbus_buffer_unpin_pages(&pin);
-+		return ret;
-+	}
-+
-+	if (!region.buffer)
-+		return 0;
-+
-+	return hv_uio_pin_install(desc, &hv_uio_pin_vm_ops, &pin);
- }
++	packet->page_buf_cnt = page_buf_cnt;
  
--/* Function used for mmap of the ring buffer sysfs interface. */
- static int
--hv_uio_ring_mmap_prepare(struct vmbus_channel *channel, struct vm_area_desc *desc)
-+hv_uio_ring_mmap_prepare(struct vmbus_channel *channel,
-+			 struct vm_area_desc *desc)
- {
--	unsigned long pages = vma_desc_pages(desc);
-+	struct vmbus_buffer *buffer = &channel->ringbuffer;
-+	struct vmbus_buffer_pin *pin;
- 	pgoff_t offset = desc->pgoff;
-+	int ret;
+ 	trace_rndis_send(dev->ndev, 0, &req->request_msg);
  
- 	if (channel->state != CHANNEL_OPENED_STATE)
- 		return -ENODEV;
--	if (offset >= channel->ringbuffer_pagecount ||
--	    pages > channel->ringbuffer_pagecount - offset)
--		return -EINVAL;
+ 	rcu_read_lock_bh();
+-	ret = netvsc_send(dev->ndev, packet, NULL, &pb, NULL, false);
++	ret = netvsc_send(dev->ndev, packet, NULL, page_bufs, NULL, false);
+ 	rcu_read_unlock_bh();
  
--	mmap_action_map_kernel_pages(desc, desc->start,
--				     channel->ringbuffer.pages + offset, pages);
-+	pin = kzalloc_obj(*pin);
-+	if (!pin)
-+		return -ENOMEM;
-+
-+	ret = vmbus_buffer_pin_pages(buffer, pin);
-+	if (ret) {
-+		kfree(pin);
-+		return ret;
-+	}
-+
-+	ret = hv_uio_mmap_prepare_pages(desc, pin->pages, pin->page_count,
-+					offset, pin->decrypted);
-+	if (ret) {
-+		vmbus_buffer_unpin_pages(pin);
-+		kfree(pin);
-+		return ret;
-+	}
-+
-+	/*
-+	 * Install no vm_ops. kernfs_fop_mmap() returns -EINVAL for a VMA
-+	 * whose vm_ops carry .close, and a successful mapping still has to
-+	 * survive that check, so this surface cannot carry an abandon path
-+	 * in vm_ops at all. The caller is hv_mmap_ring_buffer_wrapper(),
-+	 * a synchronous legacy .mmap: it holds @pin across
-+	 * __compat_vma_mmap() and frees it when that returns, exactly once,
-+	 * on every outcome. desc->private_data is a plain
-+	 * struct vmbus_buffer_pin for that wrapper to release.
-+	 */
-+	desc->vm_ops = NULL;
-+	desc->private_data = pin;
- 	return 0;
- }
- 
-+/* Caller has withdrawn UIO callbacks before removing its backing memory. */
-+static int hv_uio_disconnect_if_open(struct vmbus_channel *channel,
-+				     int (*disconnect)(struct vmbus_channel *))
-+{
-+	if (channel->state != CHANNEL_OPENED_STATE)
-+		return 0;
-+
-+	return disconnect(channel);
-+}
-+
-+#if defined(CONFIG_UIO_HV_GENERIC_KUNIT_TEST)
-+#include "uio_hv_generic_mmap_test.c"
-+#endif
-+
- /* Callback from VMBUS subsystem when new channel created. */
- static void
- hv_uio_new_channel(struct vmbus_channel *new_sc)
-@@ -216,7 +478,6 @@ hv_uio_open(struct uio_info *info, struct inode *inode)
- 	if (atomic_inc_return(&pdata->refcnt) != 1)
- 		return 0;
- 
--	vmbus_set_chn_rescind_callback(dev->channel, hv_uio_rescind);
- 	vmbus_set_sc_create_callback(dev->channel, hv_uio_new_channel);
- 
- 	ret = vmbus_connect_ring(dev->channel,
-@@ -272,6 +533,7 @@ hv_uio_probe(struct hv_device *dev,
- 	pdata->info.name = "uio_hv_generic";
- 	pdata->info.version = DRIVER_VERSION;
- 	pdata->info.irqcontrol = hv_uio_irqcontrol;
-+	pdata->info.mmap_prepare = hv_uio_mmap_prepare;
- 	pdata->info.open = hv_uio_open;
- 	pdata->info.release = hv_uio_release;
- 	pdata->info.irq = UIO_IRQ_CUSTOM;
-@@ -290,12 +552,15 @@ hv_uio_probe(struct hv_device *dev,
- 		= (uintptr_t)vmbus_connection.int_page;
- 	pdata->info.mem[INT_PAGE_MAP].size = HV_HYP_PAGE_SIZE;
- 	pdata->info.mem[INT_PAGE_MAP].memtype = UIO_MEM_LOGICAL;
-+	pdata->int_pages[0] = virt_to_page(vmbus_connection.int_page);
- 
- 	pdata->info.mem[MON_PAGE_MAP].name = "monitor_page";
- 	pdata->info.mem[MON_PAGE_MAP].addr
- 		= (uintptr_t)vmbus_connection.monitor_pages[1];
- 	pdata->info.mem[MON_PAGE_MAP].size = HV_HYP_PAGE_SIZE;
- 	pdata->info.mem[MON_PAGE_MAP].memtype = UIO_MEM_LOGICAL;
-+	pdata->monitor_pages[0] =
-+		virt_to_page(vmbus_connection.monitor_pages[1]);
- 
- 	if (channel->device_id == HV_NIC) {
- 		ret = vmbus_alloc_buffer_owned(channel, RECV_BUFFER_SIZE, false,
-@@ -372,12 +637,20 @@ static void
- hv_uio_remove(struct hv_device *dev)
- {
- 	struct hv_uio_private_data *pdata = hv_get_drvdata(dev);
-+	int ret;
- 
- 	if (!pdata)
- 		return;
- 
- 	hv_remove_ring_sysfs(dev->channel);
-+	/* Keep event notification alive until channel callbacks are stopped. */
-+	get_device(&pdata->info.uio_dev->dev);
- 	uio_unregister_device(&pdata->info);
-+	/* unregister prevents the eventual fd close from calling .release. */
-+	ret = hv_uio_disconnect_if_open(dev->channel, vmbus_disconnect_ring);
-+	if (ret)
-+		dev_err(&dev->device, "channel disconnect failed: %d\n", ret);
-+	put_device(&pdata->info.uio_dev->dev);
- 	hv_uio_cleanup(dev, pdata);
- 
- 	vmbus_free_ring(dev->channel);
-diff --git a/drivers/uio/uio_hv_generic_mmap_test.c b/drivers/uio/uio_hv_generic_mmap_test.c
+ 	return ret;
+diff --git a/drivers/net/hyperv/rndis_request_test.c b/drivers/net/hyperv/rndis_request_test.c
 new file mode 100644
-index 000000000000..615df78b266e
+index 000000000000..6affa916e74e
 --- /dev/null
-+++ b/drivers/uio/uio_hv_generic_mmap_test.c
-@@ -0,0 +1,875 @@
-+// SPDX-License-Identifier: GPL-2.0
++++ b/drivers/net/hyperv/rndis_request_test.c
+@@ -0,0 +1,216 @@
++// SPDX-License-Identifier: GPL-2.0-only
 +/*
-+ * KUnit tests for the UIO Hyper-V generic mmap paths.
++ * KUnit tests for RNDIS request descriptor allocation.
 + *
-+ * This file is included from uio_hv_generic.c so the cases can reach the
-+ * static helpers that select, validate and pin the mapped pages.
-+ *
-+ * Two ownership contracts are under test:
-+ *   - the /dev/uioN character-device path installs hv_uio_pin_vm_ops
-+ *     (.mapped + .close) and a struct hv_uio_pin;
-+ *   - the sysfs "ring" bin attribute cannot, because kernfs_fop_mmap()
-+ *     rejects a vm_operations_struct that carries .close. That path
-+ *     installs no vm_ops and hands a bare struct vmbus_buffer_pin to its
-+ *     synchronous .mmap wrapper, which is the single release site.
++ * Built into the hv_netvsc object rather than a separate module so the
++ * cases can reach the internal helpers declared in hyperv_net.h
++ * without exporting them.
 + */
 +#include <kunit/test.h>
++#include <linux/hyperv.h>
++#include <linux/mm.h>
++#include <linux/slab.h>
++#include <linux/stddef.h>
++#include <linux/vmalloc.h>
++
++#include "hyperv_net.h"
++
++static int rndis_test_device_init(struct rndis_device *dev)
++{
++	memset(dev, 0, sizeof(*dev));
++	atomic_set(&dev->new_req_id, 0);
++	spin_lock_init(&dev->request_lock);
++	INIT_LIST_HEAD(&dev->req_list);
++	return 0;
++}
 +
 +/*
-+ * Release exactly what hv_mmap_ring_buffer_wrapper() releases after
-+ * __compat_vma_mmap() returns: the bare pin's references, then the pin.
++ * The premise of the kvzalloc_obj() conversion: the descriptor embeds
++ * two RNDIS_EXT_LEN protocol tails and sits past
++ * KMALLOC_MAX_CACHE_SIZE, so kzalloc_obj() reached kmalloc_large() and
++ * took an order-2 compound page on the subchannel open path. If the
++ * struct ever drops back inside the cache, the conversion stops being
++ * about high-order allocation and this assertion is the reminder.
 + */
-+static void sysfs_pin_release(struct vmbus_buffer_pin *pin)
++static void rndis_request_size_premise_test(struct kunit *test)
 +{
-+	vmbus_buffer_unpin_pages(pin);
-+	kfree(pin);
-+}
-+
-+static void hv_uio_ring_mmap_range_test(struct kunit *test)
-+{
-+	KUNIT_EXPECT_TRUE(test, hv_uio_mmap_range_valid(8, 0, 8));
-+	KUNIT_EXPECT_TRUE(test, hv_uio_mmap_range_valid(8, 4, 4));
-+	KUNIT_EXPECT_FALSE(test, hv_uio_mmap_range_valid(8, 8, 1));
-+	KUNIT_EXPECT_FALSE(test, hv_uio_mmap_range_valid(8, 7, 2));
-+	KUNIT_EXPECT_FALSE(test, hv_uio_mmap_range_valid(8, 0, 0));
-+	KUNIT_EXPECT_FALSE(test,
-+			   hv_uio_mmap_range_valid(8, U64_MAX, 1));
-+}
-+
-+static void hv_uio_ring_mmap_prepare_test(struct kunit *test)
-+{
-+	struct vmbus_channel channel = {
-+		.state = CHANNEL_OPENED_STATE,
-+		.ringbuffer = {
-+			.page_cnt = 8,
-+		},
-+	};
-+	struct page *pages[8] = {};
-+	struct page *chunks[1] = {};
-+	struct vmbus_buffer_pin *pin;
-+	struct vm_area_desc desc = {
-+		.start = PAGE_SIZE,
-+		.end = 5 * PAGE_SIZE,
-+		.pgoff = 2,
-+		.page_prot = PAGE_SHARED,
-+	};
-+	unsigned int i;
-+	int ret;
-+
-+	/* Mapping pins real pages; the array cannot hold NULL entries. */
-+	for (i = 0; i < ARRAY_SIZE(pages); i++) {
-+		pages[i] = alloc_page(GFP_KERNEL);
-+		KUNIT_ASSERT_NOT_NULL(test, pages[i]);
-+	}
-+
-+	channel.ringbuffer.pages = pages;
-+	channel.ringbuffer.chunks = chunks;
-+	vma_desc_set_flags(&desc, VMA_SHARED_BIT);
-+	ret = hv_uio_ring_mmap_prepare(&channel, &desc);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_EQ(test, desc.action.type, MMAP_MAP_KERNEL_PAGES);
-+	KUNIT_EXPECT_PTR_EQ(test, desc.action.map_kernel.pages, &pages[2]);
-+	KUNIT_EXPECT_EQ(test, desc.action.map_kernel.nr_pages, 4UL);
-+	KUNIT_EXPECT_TRUE(test, vma_desc_test(&desc, VMA_DONTEXPAND_BIT));
-+	KUNIT_EXPECT_TRUE(test, vma_desc_test(&desc, VMA_DONTDUMP_BIT));
-+	KUNIT_EXPECT_EQ(test, pgprot_val(desc.page_prot),
-+			pgprot_val(pgprot_decrypted(PAGE_SHARED)));
-+
++	KUNIT_EXPECT_GT(test, sizeof(struct rndis_request),
++			(size_t)KMALLOC_MAX_CACHE_SIZE);
 +	/*
-+	 * The sysfs surface installs no vm_ops at all: see the kernfs
-+	 * contract in the comment at the top of this file. The wrapper
-+	 * holds the pin and is the only thing that releases it.
++	 * The copy bound in rndis_filter_receive_resp() is
++	 * sizeof(struct rndis_message) + RNDIS_EXT_LEN. That is exactly
++	 * the response_msg + response_ext tail of the object. A reorder
++	 * or a resize of either member makes the bound lie.
 +	 */
-+	KUNIT_EXPECT_NULL(test, desc.vm_ops);
-+	pin = desc.private_data;
-+	KUNIT_ASSERT_NOT_NULL(test, pin);
-+	KUNIT_EXPECT_TRUE(test, pin->decrypted);
-+	KUNIT_EXPECT_EQ(test, pin->page_count, ARRAY_SIZE(pages));
-+	sysfs_pin_release(pin);
-+
-+	desc.vma_flags = EMPTY_VMA_FLAGS;
-+	KUNIT_EXPECT_EQ(test, hv_uio_ring_mmap_prepare(&channel, &desc), -EINVAL);
-+	vma_desc_set_flags(&desc, VMA_SHARED_BIT);
-+
-+	desc.start = PAGE_SIZE;
-+	desc.end = 3 * PAGE_SIZE;
-+	desc.pgoff = 7;
-+	KUNIT_EXPECT_EQ(test, hv_uio_ring_mmap_prepare(&channel, &desc), -EINVAL);
-+
-+	channel.state = CHANNEL_OPEN_STATE;
-+	KUNIT_EXPECT_EQ(test, hv_uio_ring_mmap_prepare(&channel, &desc), -ENODEV);
-+
-+	for (i = 0; i < ARRAY_SIZE(pages); i++)
-+		__free_page(pages[i]);
-+}
-+
-+static void hv_uio_mmap_region_select_test(struct kunit *test)
-+{
-+	struct hv_uio_private_data pdata = {};
-+	struct vmbus_channel channel = {
-+		.state = CHANNEL_OPENED_STATE,
-+	};
-+	struct hv_device dev = {
-+		.channel = &channel,
-+	};
-+	struct hv_uio_mmap_region region;
-+	struct page *ring_pages[4] = {};
-+	struct page *recv_pages[3] = {};
-+	struct page *send_pages[2] = {};
-+	struct page *chunks[1] = {};
-+	int ret;
-+
-+	pdata.device = &dev;
-+	pdata.info.mem[TXRX_RING_MAP].size =
-+		ARRAY_SIZE(ring_pages) * PAGE_SIZE;
-+	pdata.info.mem[INT_PAGE_MAP].size = HV_HYP_PAGE_SIZE;
-+	pdata.info.mem[MON_PAGE_MAP].size = HV_HYP_PAGE_SIZE;
-+	pdata.info.mem[RECV_BUF_MAP].size =
-+		ARRAY_SIZE(recv_pages) * PAGE_SIZE;
-+	pdata.info.mem[SEND_BUF_MAP].size =
-+		ARRAY_SIZE(send_pages) * PAGE_SIZE;
-+	channel.ringbuffer.pages = ring_pages;
-+	channel.ringbuffer.page_cnt = ARRAY_SIZE(ring_pages);
-+	channel.ringbuffer.chunks = chunks;
-+	pdata.int_pages[0] = ring_pages[0];
-+	pdata.monitor_pages[0] = ring_pages[1];
-+	pdata.recv_buffer.pages = recv_pages;
-+	pdata.recv_buffer.page_cnt = ARRAY_SIZE(recv_pages);
-+	pdata.recv_buffer.chunks = chunks;
-+	pdata.send_buffer.pages = send_pages;
-+	pdata.send_buffer.page_cnt = ARRAY_SIZE(send_pages);
-+
-+	/*
-+	 * Buffer-backed maps are described only by their owning buffer.
-+	 * The page array and the protection state are deliberately absent
-+	 * here: reading them outside vmbus_buffer_owners_lock can describe
-+	 * a buffer a concurrent release has already cleared. The locked
-+	 * pin snapshot is the only safe source.
-+	 */
-+	ret = hv_uio_mmap_get_region(&pdata, TXRX_RING_MAP, &region);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_PTR_EQ(test, region.buffer, &channel.ringbuffer);
-+	KUNIT_EXPECT_NULL(test, region.pages);
-+	KUNIT_EXPECT_EQ(test, region.page_count, 0UL);
-+	KUNIT_EXPECT_FALSE(test, region.decrypted);
-+
-+	ret = hv_uio_mmap_get_region(&pdata, INT_PAGE_MAP, &region);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_NULL(test, region.buffer);
-+	KUNIT_EXPECT_PTR_EQ(test, region.pages, &pdata.int_pages[0]);
-+	KUNIT_EXPECT_FALSE(test, region.decrypted);
-+
-+	ret = hv_uio_mmap_get_region(&pdata, MON_PAGE_MAP, &region);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_NULL(test, region.buffer);
-+	KUNIT_EXPECT_PTR_EQ(test, region.pages, &pdata.monitor_pages[0]);
-+	KUNIT_EXPECT_TRUE(test, region.decrypted);
-+
-+	ret = hv_uio_mmap_get_region(&pdata, RECV_BUF_MAP, &region);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_PTR_EQ(test, region.buffer, &pdata.recv_buffer);
-+	KUNIT_EXPECT_NULL(test, region.pages);
-+	KUNIT_EXPECT_EQ(test, region.page_count, 0UL);
-+	KUNIT_EXPECT_FALSE(test, region.decrypted);
-+
-+	ret = hv_uio_mmap_get_region(&pdata, SEND_BUF_MAP, &region);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_PTR_EQ(test, region.buffer, &pdata.send_buffer);
-+	KUNIT_EXPECT_NULL(test, region.pages);
-+	KUNIT_EXPECT_EQ(test, region.page_count, 0UL);
-+	KUNIT_EXPECT_FALSE(test, region.decrypted);
-+
 +	KUNIT_EXPECT_EQ(test,
-+			hv_uio_mmap_get_region(&pdata, MAX_UIO_MAPS, &region),
-+			-EINVAL);
-+	channel.state = CHANNEL_OPEN_STATE;
++			offsetofend(struct rndis_request, response_ext),
++			offsetof(struct rndis_request, response_msg) +
++				sizeof(struct rndis_message) + RNDIS_EXT_LEN);
 +	KUNIT_EXPECT_EQ(test,
-+			hv_uio_mmap_get_region(&pdata, TXRX_RING_MAP, &region),
-+			-ENODEV);
-+}
-+
-+static void hv_uio_mmap_prepare_test(struct kunit *test)
-+{
-+	struct hv_uio_private_data *pdata;
-+	struct vmbus_channel channel = {
-+		.state = CHANNEL_OPENED_STATE,
-+	};
-+	struct hv_device dev = {
-+		.channel = &channel,
-+	};
-+	struct page *pages[4] = {};
-+	struct page *chunks[1] = {};
-+	struct vm_area_desc desc = {
-+		.start = PAGE_SIZE,
-+		.end = 3 * PAGE_SIZE,
-+		.pgoff = RECV_BUF_MAP,
-+		.page_prot = PAGE_SHARED,
-+	};
-+	unsigned int i;
-+	int ret;
-+
-+	/* Mapping pins real pages; the array cannot hold NULL entries. */
-+	for (i = 0; i < ARRAY_SIZE(pages); i++) {
-+		pages[i] = alloc_page(GFP_KERNEL);
-+		KUNIT_ASSERT_NOT_NULL(test, pages[i]);
-+	}
-+
-+	pdata = kunit_kzalloc(test, sizeof(*pdata), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, pdata);
-+	vma_desc_set_flags(&desc, VMA_SHARED_BIT);
-+	pdata->device = &dev;
-+	pdata->info.priv = pdata;
-+	pdata->info.mem[RECV_BUF_MAP].size = ARRAY_SIZE(pages) * PAGE_SIZE;
-+	pdata->recv_buffer.pages = pages;
-+	pdata->recv_buffer.page_cnt = ARRAY_SIZE(pages);
-+	pdata->recv_buffer.chunks = chunks;
-+
-+	ret = hv_uio_mmap_prepare(&pdata->info, &desc);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_EQ(test, desc.action.type, MMAP_MAP_KERNEL_PAGES);
-+	KUNIT_EXPECT_PTR_EQ(test, desc.action.map_kernel.pages, &pages[0]);
-+	KUNIT_EXPECT_EQ(test, desc.action.map_kernel.nr_pages, 2UL);
-+	/*
-+	 * The protection state comes from the locked pin snapshot, not
-+	 * from a second read of the buffer descriptor. chunks is set, so
-+	 * the snapshot says decrypted.
-+	 */
-+	KUNIT_EXPECT_EQ(test, pgprot_val(desc.page_prot),
-+			pgprot_val(pgprot_decrypted(PAGE_SHARED)));
-+	KUNIT_EXPECT_TRUE(test, vma_desc_test(&desc, VMA_DONTEXPAND_BIT));
-+	KUNIT_EXPECT_TRUE(test, vma_desc_test(&desc, VMA_DONTDUMP_BIT));
-+	/*
-+	 * Character-device maps can carry an abandon path: kernfs is not
-+	 * in this path, so .close is legal here and illegal on "ring".
-+	 */
-+	KUNIT_EXPECT_PTR_EQ(test, desc.vm_ops, &hv_uio_pin_vm_ops);
-+	KUNIT_ASSERT_NOT_NULL(test, desc.vm_ops->mapped);
-+	KUNIT_ASSERT_NOT_NULL(test, desc.vm_ops->close);
-+	/* Buffer-backed maps leave the pin held for mapped()/close(). */
-+	KUNIT_ASSERT_NOT_NULL(test, desc.private_data);
-+	hv_uio_pin_release(desc.private_data);
-+	desc.private_data = NULL;
-+
-+	desc.vma_flags = EMPTY_VMA_FLAGS;
-+	KUNIT_EXPECT_EQ(test, hv_uio_mmap_prepare(&pdata->info, &desc), -EINVAL);
-+
-+	desc.pgoff = INT_PAGE_MAP;
-+	pdata->info.mem[INT_PAGE_MAP].size = HV_HYP_PAGE_SIZE;
-+	pdata->int_pages[0] = pages[0];
-+	desc.end = 2 * PAGE_SIZE;
-+	desc.page_prot = PAGE_SHARED;
-+	vma_desc_set_flags(&desc, VMA_SHARED_BIT);
-+	ret = hv_uio_mmap_prepare(&pdata->info, &desc);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_PTR_EQ(test, desc.action.map_kernel.pages,
-+			    &pdata->int_pages[0]);
-+	KUNIT_EXPECT_EQ(test, pgprot_val(desc.page_prot),
-+			pgprot_val(PAGE_SHARED));
-+	/* int_pages is not a vmbus_buffer, so nothing is pinned. */
-+	KUNIT_EXPECT_NULL(test, desc.private_data);
-+
-+	desc.pgoff = MON_PAGE_MAP;
-+	pdata->info.mem[MON_PAGE_MAP].size = HV_HYP_PAGE_SIZE;
-+	pdata->monitor_pages[0] = pages[1];
-+	desc.page_prot = PAGE_SHARED;
-+	ret = hv_uio_mmap_prepare(&pdata->info, &desc);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_PTR_EQ(test, desc.action.map_kernel.pages,
-+			    &pdata->monitor_pages[0]);
-+	KUNIT_EXPECT_EQ(test, pgprot_val(desc.page_prot),
-+			pgprot_val(pgprot_decrypted(PAGE_SHARED)));
-+	KUNIT_EXPECT_NULL(test, desc.private_data);
-+
-+	desc.pgoff = SEND_BUF_MAP;
-+	pdata->info.mem[SEND_BUF_MAP].size = PAGE_SIZE;
-+	pdata->send_buffer.pages = pages;
-+	pdata->send_buffer.page_cnt = ARRAY_SIZE(pages);
-+	desc.page_prot = PAGE_SHARED;
-+	vma_desc_set_flags(&desc, VMA_SHARED_BIT);
-+	ret = hv_uio_mmap_prepare(&pdata->info, &desc);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	/* send_buffer has no chunks, so the snapshot says encrypted. */
-+	KUNIT_EXPECT_EQ(test, pgprot_val(desc.page_prot),
-+			pgprot_val(PAGE_SHARED));
-+	KUNIT_ASSERT_NOT_NULL(test, desc.private_data);
-+	hv_uio_pin_release(desc.private_data);
-+	desc.private_data = NULL;
-+
-+	for (i = 0; i < ARRAY_SIZE(pages); i++)
-+		__free_page(pages[i]);
++			offsetofend(struct rndis_request, request_ext),
++			offsetof(struct rndis_request, request_msg) +
++				sizeof(struct rndis_message) + RNDIS_EXT_LEN);
 +}
 +
 +/*
-+ * The reclaim race this driver closes is a lifetime question: the pin has
-+ * to span the gap between mmap_prepare() returning and insert_pages()
-+ * taking its own folio references. Dropping it inside the prepare hook
-+ * leaves the pages freeable before the mapping exists.
-+ *
-+ * This is the character-device contract: mapped() and close() share the
-+ * release, and release is one-shot.
++ * kvzalloc_obj() keeps the zeroing kzalloc_obj() provided. The two
++ * protocol tails are the fields a response is copied into; a stale
++ * tail is a stale response.
 + */
-+static void hv_uio_pin_lifetime_test(struct kunit *test)
++static void rndis_request_alloc_zeroed_test(struct kunit *test)
 +{
-+	struct hv_uio_private_data *pdata;
-+	struct vmbus_channel channel = {
-+		.state = CHANNEL_OPENED_STATE,
-+	};
-+	struct hv_device dev = {
-+		.channel = &channel,
-+	};
-+	struct page *pages[4] = {};
-+	struct page *chunks[1] = {};
-+	struct vm_area_desc desc = {
-+		.start = 0,
-+		.end = 4 * PAGE_SIZE,
-+		.pgoff = RECV_BUF_MAP,
-+		.page_prot = PAGE_SHARED,
-+	};
-+	struct vm_area_struct *vma;
-+	unsigned int i;
-+	int ret;
++	struct rndis_device dev;
++	struct rndis_request *req;
 +
-+	for (i = 0; i < ARRAY_SIZE(pages); i++) {
-+		pages[i] = alloc_page(GFP_KERNEL);
-+		KUNIT_ASSERT_NOT_NULL(test, pages[i]);
-+	}
++	KUNIT_ASSERT_EQ(test, rndis_test_device_init(&dev), 0);
++	req = get_rndis_request(&dev, RNDIS_MSG_INIT, 0x20);
++	KUNIT_ASSERT_NOT_NULL(test, req);
 +
-+	pdata = kunit_kzalloc(test, sizeof(*pdata), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, pdata);
-+	pdata->device = &dev;
-+	pdata->info.priv = pdata;
-+	pdata->info.mem[RECV_BUF_MAP].size = ARRAY_SIZE(pages) * PAGE_SIZE;
-+	pdata->recv_buffer.pages = pages;
-+	pdata->recv_buffer.page_cnt = ARRAY_SIZE(pages);
-+	pdata->recv_buffer.chunks = chunks;
++	KUNIT_EXPECT_EQ(test, req->response_ext[0], 0);
++	KUNIT_EXPECT_EQ(test, req->response_ext[RNDIS_EXT_LEN - 1], 0);
++	KUNIT_EXPECT_EQ(test, req->request_ext[0], 0);
++	KUNIT_EXPECT_EQ(test, req->request_ext[RNDIS_EXT_LEN - 1], 0);
++	KUNIT_EXPECT_EQ(test, req->response_msg.msg_len, 0U);
 +
-+	vma_desc_set_flags(&desc, VMA_SHARED_BIT);
-+	ret = hv_uio_mmap_prepare(&pdata->info, &desc);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
++	put_rndis_request(&dev, req);
++}
++
++/* Request ids come from a per-device counter and the list tracks the live set. */
++static void rndis_request_id_lifecycle_test(struct kunit *test)
++{
++	struct rndis_device dev;
++	struct rndis_request *req0, *req1;
++	struct rndis_request *cursor;
++	unsigned int n = 0;
++
++	KUNIT_ASSERT_EQ(test, rndis_test_device_init(&dev), 0);
++
++	req0 = get_rndis_request(&dev, RNDIS_MSG_INIT, 0x20);
++	KUNIT_ASSERT_NOT_NULL(test, req0);
++	req1 = get_rndis_request(&dev, RNDIS_MSG_QUERY, 0x20);
++	KUNIT_ASSERT_NOT_NULL(test, req1);
 +
 +	/*
-+	 * Prepare must hold a reference on every page: the mapping is not
-+	 * installed until insert_pages() runs after the hook returns.
++	 * get_rndis_request() stamps the id through the set_req template,
++	 * which shares the union slot with every other request body. Read
++	 * it back through the same member the producer used.
 +	 */
-+	for (i = 0; i < ARRAY_SIZE(pages); i++)
-+		KUNIT_EXPECT_EQ(test, page_ref_count(pages[i]), 2);
++	KUNIT_EXPECT_EQ(test,
++			req0->request_msg.msg.set_req.req_id, 1U);
++	KUNIT_EXPECT_EQ(test,
++			req1->request_msg.msg.set_req.req_id, 2U);
 +
-+	KUNIT_EXPECT_PTR_EQ(test, desc.vm_ops, &hv_uio_pin_vm_ops);
-+	KUNIT_ASSERT_NOT_NULL(test, desc.private_data);
-+
-+	/* mapped(): the mapping holds its own refs, so the pin is released. */
-+	ret = desc.vm_ops->mapped(desc.start, desc.end, 0, NULL,
-+				  &desc.private_data);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_NULL(test, desc.private_data);
-+	for (i = 0; i < ARRAY_SIZE(pages); i++)
-+		KUNIT_EXPECT_EQ(test, page_ref_count(pages[i]), 1);
-+
-+	/* close() after mapped() must not unpin again. */
-+	vma = kunit_kzalloc(test, sizeof(*vma), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, vma);
-+	vma->vm_ops = desc.vm_ops;
-+	vma->vm_private_data = desc.private_data;
-+	desc.vm_ops->close(vma);
-+	for (i = 0; i < ARRAY_SIZE(pages); i++)
-+		KUNIT_EXPECT_EQ(test, page_ref_count(pages[i]), 1);
-+
-+	for (i = 0; i < ARRAY_SIZE(pages); i++)
-+		__free_page(pages[i]);
-+}
-+
-+/*
-+ * The abandonment path: when the mapping is torn down before mapped() ran
-+ * (insert_pages() failure, or a merge that never calls mapped()), close()
-+ * must still drop the pin. A foreign private_data must be left alone.
-+ */
-+static void hv_uio_pin_close_before_mapped_test(struct kunit *test)
-+{
-+	struct hv_uio_private_data *pdata;
-+	struct vmbus_channel channel = {
-+		.state = CHANNEL_OPENED_STATE,
-+	};
-+	struct hv_device dev = {
-+		.channel = &channel,
-+	};
-+	struct page *pages[2] = {};
-+	struct page *chunks[1] = {};
-+	struct vm_area_desc desc = {
-+		.start = 0,
-+		.end = 2 * PAGE_SIZE,
-+		.pgoff = RECV_BUF_MAP,
-+		.page_prot = PAGE_SHARED,
-+	};
-+	struct vm_area_struct *vma;
-+	unsigned int i;
-+	int ret;
-+
-+	for (i = 0; i < ARRAY_SIZE(pages); i++) {
-+		pages[i] = alloc_page(GFP_KERNEL);
-+		KUNIT_ASSERT_NOT_NULL(test, pages[i]);
-+	}
-+
-+	pdata = kunit_kzalloc(test, sizeof(*pdata), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, pdata);
-+	pdata->device = &dev;
-+	pdata->info.priv = pdata;
-+	pdata->info.mem[RECV_BUF_MAP].size = ARRAY_SIZE(pages) * PAGE_SIZE;
-+	pdata->recv_buffer.pages = pages;
-+	pdata->recv_buffer.page_cnt = ARRAY_SIZE(pages);
-+	pdata->recv_buffer.chunks = chunks;
-+
-+	vma_desc_set_flags(&desc, VMA_SHARED_BIT);
-+	ret = hv_uio_mmap_prepare(&pdata->info, &desc);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_ASSERT_NOT_NULL(test, desc.private_data);
-+
-+	vma = kunit_kzalloc(test, sizeof(*vma), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, vma);
-+	vma->vm_ops = desc.vm_ops;
-+	vma->vm_private_data = desc.private_data;
-+	desc.vm_ops->close(vma);
-+
-+	for (i = 0; i < ARRAY_SIZE(pages); i++)
-+		KUNIT_EXPECT_EQ(test, page_ref_count(pages[i]), 1);
-+
-+	/* A second close is a no-op, not a double unpin. */
-+	desc.vm_ops->close(vma);
-+	for (i = 0; i < ARRAY_SIZE(pages); i++)
-+		KUNIT_EXPECT_EQ(test, page_ref_count(pages[i]), 1);
-+
-+	/* A pointer this driver did not install must not be freed. */
-+	vma->vm_private_data = &pages[0];
-+	desc.vm_ops->close(vma);
-+	for (i = 0; i < ARRAY_SIZE(pages); i++)
-+		KUNIT_EXPECT_EQ(test, page_ref_count(pages[i]), 1);
-+
-+	for (i = 0; i < ARRAY_SIZE(pages); i++)
-+		__free_page(pages[i]);
-+}
-+
-+/*
-+ * The kernfs contract, named. fs/kernfs/file.c returns -EINVAL for a VMA
-+ * whose vm_ops carry .close, and it performs that check after the .mmap
-+ * hook has already succeeded. A successful sysfs mapping therefore cannot
-+ * carry an abandon path in vm_ops at all.
-+ */
-+static void sysfs_ring_mmap_ops_have_no_close(struct kunit *test)
-+{
-+	struct vmbus_channel channel = {
-+		.state = CHANNEL_OPENED_STATE,
-+		.ringbuffer = {
-+			.page_cnt = 1,
-+		},
-+	};
-+	struct page *pages[1] = {};
-+	struct page *chunks[1] = {};
-+	struct vmbus_buffer_pin *pin;
-+	struct vm_area_desc desc = {
-+		.start = 0,
-+		.end = PAGE_SIZE,
-+		.pgoff = 0,
-+		.page_prot = PAGE_SHARED,
-+	};
-+	int ret;
-+
-+	pages[0] = alloc_page(GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, pages[0]);
-+	channel.ringbuffer.pages = pages;
-+	channel.ringbuffer.chunks = chunks;
-+	vma_desc_set_flags(&desc, VMA_SHARED_BIT);
-+
-+	ret = hv_uio_ring_mmap_prepare(&channel, &desc);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	/* The exact predicate kernfs_fop_mmap() applies must be false. */
-+	KUNIT_EXPECT_NULL(test, desc.vm_ops);
-+	KUNIT_EXPECT_FALSE(test, desc.vm_ops && desc.vm_ops->close);
-+
-+	pin = desc.private_data;
-+	KUNIT_ASSERT_NOT_NULL(test, pin);
-+	sysfs_pin_release(pin);
-+
-+	__free_page(pages[0]);
-+}
-+
-+/*
-+ * The character-device counterpart: a buffer-backed map prepares and
-+ * installs the ops that carry the abandon path, then mapped() releases.
-+ */
-+static void uio_buffer_mmap_success(struct kunit *test)
-+{
-+	struct hv_uio_private_data *pdata;
-+	struct vmbus_channel channel = {
-+		.state = CHANNEL_OPENED_STATE,
-+	};
-+	struct hv_device dev = {
-+		.channel = &channel,
-+	};
-+	struct page *pages[2] = {};
-+	struct page *chunks[1] = {};
-+	struct vm_area_desc desc = {
-+		.start = 0,
-+		.end = 2 * PAGE_SIZE,
-+		.pgoff = RECV_BUF_MAP,
-+		.page_prot = PAGE_SHARED,
-+	};
-+	unsigned int i;
-+	int ret;
-+
-+	for (i = 0; i < ARRAY_SIZE(pages); i++) {
-+		pages[i] = alloc_page(GFP_KERNEL);
-+		KUNIT_ASSERT_NOT_NULL(test, pages[i]);
-+	}
-+
-+	pdata = kunit_kzalloc(test, sizeof(*pdata), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, pdata);
-+	pdata->device = &dev;
-+	pdata->info.priv = pdata;
-+	pdata->info.mem[RECV_BUF_MAP].size = ARRAY_SIZE(pages) * PAGE_SIZE;
-+	pdata->recv_buffer.pages = pages;
-+	pdata->recv_buffer.page_cnt = ARRAY_SIZE(pages);
-+	pdata->recv_buffer.chunks = chunks;
-+
-+	vma_desc_set_flags(&desc, VMA_SHARED_BIT);
-+	ret = hv_uio_mmap_prepare(&pdata->info, &desc);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_EQ(test, desc.action.type, MMAP_MAP_KERNEL_PAGES);
-+	KUNIT_EXPECT_PTR_EQ(test, desc.vm_ops, &hv_uio_pin_vm_ops);
-+	KUNIT_ASSERT_NOT_NULL(test, desc.private_data);
-+
-+	for (i = 0; i < ARRAY_SIZE(pages); i++)
-+		KUNIT_EXPECT_EQ(test, page_ref_count(pages[i]), 2);
-+
-+	ret = desc.vm_ops->mapped(desc.start, desc.end, 0, NULL,
-+				  &desc.private_data);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_NULL(test, desc.private_data);
-+	for (i = 0; i < ARRAY_SIZE(pages); i++)
-+		KUNIT_EXPECT_EQ(test, page_ref_count(pages[i]), 1);
-+
-+	for (i = 0; i < ARRAY_SIZE(pages); i++)
-+		__free_page(pages[i]);
-+}
-+
-+/*
-+ * A prepare that refuses must not leave references behind. Each failure
-+ * mode is checked against the page reference count, which is the only
-+ * externally visible record of a leaked pin.
-+ */
-+static void sysfs_mmap_prepare_failure_releases_pin(struct kunit *test)
-+{
-+	struct vmbus_channel channel = {
-+		.state = CHANNEL_OPENED_STATE,
-+		.ringbuffer = {
-+			.page_cnt = 2,
-+		},
-+	};
-+	struct page *pages[2] = {};
-+	struct page *chunks[1] = {};
-+	struct vm_area_desc desc = {
-+		.start = 0,
-+		.end = 2 * PAGE_SIZE,
-+		.pgoff = 0,
-+		.page_prot = PAGE_SHARED,
-+	};
-+	unsigned int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(pages); i++) {
-+		pages[i] = alloc_page(GFP_KERNEL);
-+		KUNIT_ASSERT_NOT_NULL(test, pages[i]);
-+	}
-+	channel.ringbuffer.pages = pages;
-+	channel.ringbuffer.chunks = chunks;
-+
-+	/* Not shared: refused before anything is pinned. */
-+	KUNIT_EXPECT_EQ(test, hv_uio_ring_mmap_prepare(&channel, &desc), -EINVAL);
-+	for (i = 0; i < ARRAY_SIZE(pages); i++)
-+		KUNIT_EXPECT_EQ(test, page_ref_count(pages[i]), 1);
-+
-+	/* pgoff past the end of the pin: refused before anything is pinned. */
-+	vma_desc_set_flags(&desc, VMA_SHARED_BIT);
-+	desc.pgoff = 2;
-+	KUNIT_EXPECT_EQ(test, hv_uio_ring_mmap_prepare(&channel, &desc), -EINVAL);
-+	for (i = 0; i < ARRAY_SIZE(pages); i++)
-+		KUNIT_EXPECT_EQ(test, page_ref_count(pages[i]), 1);
-+
-+	/* Channel not open: refused before anything is pinned. */
-+	desc.pgoff = 0;
-+	channel.state = CHANNEL_OPEN_STATE;
-+	KUNIT_EXPECT_EQ(test, hv_uio_ring_mmap_prepare(&channel, &desc), -ENODEV);
-+	for (i = 0; i < ARRAY_SIZE(pages); i++)
-+		KUNIT_EXPECT_EQ(test, page_ref_count(pages[i]), 1);
-+
-+	for (i = 0; i < ARRAY_SIZE(pages); i++)
-+		__free_page(pages[i]);
-+}
-+
-+/*
-+ * Prepare succeeded and the pin is installed, but the mapping never
-+ * becomes established (insert_pages() fails part-way, or the attempt is
-+ * otherwise abandoned). The wrapper is the only owner on this surface and
-+ * releases with one unpin plus one free, whether or not any VMA ever held
-+ * the pages. This proves the object it is handed is fully releasable that
-+ * way, and that releasing twice is not possible to observe.
-+ */
-+static void sysfs_mmap_partial_insert_failure_releases_pin(struct kunit *test)
-+{
-+	struct vmbus_channel channel = {
-+		.state = CHANNEL_OPENED_STATE,
-+		.ringbuffer = {
-+			.page_cnt = 3,
-+		},
-+	};
-+	struct page *pages[3] = {};
-+	struct page *chunks[1] = {};
-+	struct vmbus_buffer_pin *pin;
-+	struct vm_area_desc desc = {
-+		.start = 0,
-+		.end = 3 * PAGE_SIZE,
-+		.pgoff = 0,
-+		.page_prot = PAGE_SHARED,
-+	};
-+	unsigned int i;
-+	int ret;
-+
-+	for (i = 0; i < ARRAY_SIZE(pages); i++) {
-+		pages[i] = alloc_page(GFP_KERNEL);
-+		KUNIT_ASSERT_NOT_NULL(test, pages[i]);
-+	}
-+	channel.ringbuffer.pages = pages;
-+	channel.ringbuffer.chunks = chunks;
-+	vma_desc_set_flags(&desc, VMA_SHARED_BIT);
-+
-+	ret = hv_uio_ring_mmap_prepare(&channel, &desc);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	pin = desc.private_data;
-+	KUNIT_ASSERT_NOT_NULL(test, pin);
-+	for (i = 0; i < ARRAY_SIZE(pages); i++)
-+		KUNIT_EXPECT_EQ(test, page_ref_count(pages[i]), 2);
-+
-+	/* The wrapper's abandon path: one unpin, one free. */
-+	sysfs_pin_release(pin);
-+	for (i = 0; i < ARRAY_SIZE(pages); i++)
-+		KUNIT_EXPECT_EQ(test, page_ref_count(pages[i]), 1);
-+
-+	for (i = 0; i < ARRAY_SIZE(pages); i++)
-+		__free_page(pages[i]);
-+}
-+
-+/*
-+ * The window the pin exists to close. Between the snapshot and the point
-+ * where the mapping holds its own references, a concurrent
-+ * vmbus_release_buffer() can drop the buffer's reference to each page.
-+ * The pin must keep the pages alive for the whole window, and must be the
-+ * thing that drops the last reference.
-+ */
-+static void sysfs_mmap_release_during_insert_keeps_pages_alive(struct kunit *test)
-+{
-+	struct vmbus_channel channel = {
-+		.state = CHANNEL_OPENED_STATE,
-+		.ringbuffer = {
-+			.page_cnt = 2,
-+		},
-+	};
-+	struct page *pages[2] = {};
-+	struct page *chunks[1] = {};
-+	struct vmbus_buffer_pin *pin;
-+	struct vm_area_desc desc = {
-+		.start = 0,
-+		.end = 2 * PAGE_SIZE,
-+		.pgoff = 0,
-+		.page_prot = PAGE_SHARED,
-+	};
-+	unsigned int i;
-+	int ret;
-+
-+	for (i = 0; i < ARRAY_SIZE(pages); i++) {
-+		pages[i] = alloc_page(GFP_KERNEL);
-+		KUNIT_ASSERT_NOT_NULL(test, pages[i]);
-+	}
-+	channel.ringbuffer.pages = pages;
-+	channel.ringbuffer.chunks = chunks;
-+	vma_desc_set_flags(&desc, VMA_SHARED_BIT);
-+
-+	ret = hv_uio_ring_mmap_prepare(&channel, &desc);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	pin = desc.private_data;
-+	KUNIT_ASSERT_NOT_NULL(test, pin);
-+	for (i = 0; i < ARRAY_SIZE(pages); i++)
-+		KUNIT_EXPECT_EQ(test, page_ref_count(pages[i]), 2);
++	list_for_each_entry(cursor, &dev.req_list, list_ent)
++		n++;
++	KUNIT_EXPECT_EQ(test, n, 2U);
 +
 +	/*
-+	 * Concurrent release: the buffer drops its own reference to each
-+	 * page. The pages must still be alive, held only by the pin, so a
-+	 * mapping that is mid-insert cannot walk freed memory.
++	 * put_rndis_request() is the cleanup path every error and
++	 * timeout branch takes. It unlinks before it frees.
 +	 */
-+	for (i = 0; i < ARRAY_SIZE(pages); i++)
-+		__free_page(pages[i]);
-+	for (i = 0; i < ARRAY_SIZE(pages); i++)
-+		KUNIT_EXPECT_EQ(test, page_ref_count(pages[i]), 1);
-+	KUNIT_EXPECT_PTR_EQ(test, pin->pages, &pages[0]);
-+	KUNIT_EXPECT_EQ(test, pin->page_count, ARRAY_SIZE(pages));
++	put_rndis_request(&dev, req0);
++	n = 0;
++	list_for_each_entry(cursor, &dev.req_list, list_ent)
++		n++;
++	KUNIT_EXPECT_EQ(test, n, 1U);
++	KUNIT_EXPECT_TRUE(test,
++			  list_first_entry(&dev.req_list, struct rndis_request,
++					   list_ent) == req1);
 +
-+	/* The pin is what drops the last reference. */
-+	sysfs_pin_release(pin);
++	put_rndis_request(&dev, req1);
++	KUNIT_EXPECT_TRUE(test, list_empty(&dev.req_list));
 +}
 +
 +/*
-+ * KCA-23: the protection state has to travel with the pin. The snapshot is
-+ * taken in the same critical section as the page array, so a later
-+ * vmbus_release_buffer() clearing the descriptor cannot change what this
-+ * mapping is told about the pages it holds.
++ * A request left on the list after a completed exchange is a leak of
++ * the descriptor and of its slot in the outstanding set. Repeated
++ * get/put cycles must return to the empty list every time.
 + */
-+static void ring_mmap_release_preserves_protection_snapshot(struct kunit *test)
++static void rndis_request_put_cleanup_test(struct kunit *test)
 +{
-+	struct vmbus_channel channel = {
-+		.state = CHANNEL_OPENED_STATE,
-+		.ringbuffer = {
-+			.page_cnt = 1,
-+		},
-+	};
-+	struct page *pages[1] = {};
-+	struct page *chunks[1] = {};
-+	struct vmbus_buffer_pin pin = {};
++	struct rndis_device dev;
++	struct rndis_request *req;
++	int i;
++
++	KUNIT_ASSERT_EQ(test, rndis_test_device_init(&dev), 0);
++
++	for (i = 0; i < 4; i++) {
++		req = get_rndis_request(&dev, RNDIS_MSG_INIT, 0x20);
++		KUNIT_ASSERT_NOT_NULL(test, req);
++		KUNIT_EXPECT_FALSE(test, list_empty(&dev.req_list));
++		put_rndis_request(&dev, req);
++		KUNIT_EXPECT_TRUE(test, list_empty(&dev.req_list));
++	}
++}
++
++/*
++ * kvzalloc_obj() may return a vmalloc address under fragmentation. RNDIS
++ * requests are GPA-direct packets, so each backing page must be represented
++ * explicitly instead of deriving a single PFN with virt_to_phys().
++ */
++static void rndis_request_vmalloc_page_buffers_test(struct kunit *test)
++{
++	struct hv_page_buffer page_bufs[MAX_PAGE_BUFFER_COUNT];
++	const u32 data_len = 16;
++	u8 *allocation = vzalloc(2 * PAGE_SIZE);
++	const u8 *cursor;
++	phys_addr_t phys;
++	u32 count = 0, remaining = data_len, i;
 +	int ret;
 +
-+	pages[0] = alloc_page(GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, pages[0]);
-+	channel.ringbuffer.pages = pages;
-+	channel.ringbuffer.chunks = chunks;
-+
-+	ret = vmbus_buffer_pin_pages(&channel.ringbuffer, &pin);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_TRUE(test, pin.decrypted);
-+	KUNIT_EXPECT_EQ(test, pin.page_count, 1UL);
-+
-+	/*
-+	 * A concurrent release clears the descriptor. The pin must still
-+	 * describe the pages it holds, not the cleared descriptor.
-+	 */
-+	channel.ringbuffer.chunks = NULL;
-+	channel.ringbuffer.pages = NULL;
-+	channel.ringbuffer.page_cnt = 0;
-+	KUNIT_EXPECT_TRUE(test, pin.decrypted);
-+	KUNIT_EXPECT_PTR_EQ(test, pin.pages, &pages[0]);
-+	KUNIT_EXPECT_EQ(test, pin.page_count, 1UL);
-+
-+	vmbus_buffer_unpin_pages(&pin);
-+	KUNIT_EXPECT_NULL(test, pin.pages);
-+	KUNIT_EXPECT_EQ(test, pin.page_count, 0UL);
-+
-+	/* A buffer that never took the shared-page path is not decrypted. */
-+	channel.ringbuffer.pages = pages;
-+	channel.ringbuffer.page_cnt = 1;
-+	channel.ringbuffer.chunks = NULL;
-+	ret = vmbus_buffer_pin_pages(&channel.ringbuffer, &pin);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_FALSE(test, pin.decrypted);
-+	vmbus_buffer_unpin_pages(&pin);
-+
-+	__free_page(pages[0]);
-+}
-+
-+static unsigned int hv_uio_disconnect_calls;
-+static int hv_uio_disconnect_result;
-+
-+static int hv_uio_test_disconnect(struct vmbus_channel *channel)
-+{
-+	hv_uio_disconnect_calls++;
-+	channel->state = CHANNEL_OPEN_STATE;
-+	return hv_uio_disconnect_result;
-+}
-+
-+static void hv_uio_remove_disconnects_open_channel_test(struct kunit *test)
-+{
-+	struct vmbus_channel channel = { .state = CHANNEL_OPEN_STATE };
-+
-+	hv_uio_disconnect_calls = 0;
-+	hv_uio_disconnect_result = 0;
-+	KUNIT_EXPECT_EQ(test, hv_uio_disconnect_if_open(&channel,
-+							hv_uio_test_disconnect), 0);
-+	KUNIT_EXPECT_EQ(test, hv_uio_disconnect_calls, 0U);
-+	channel.state = CHANNEL_OPENED_STATE;
-+	KUNIT_EXPECT_EQ(test, hv_uio_disconnect_if_open(&channel,
-+							hv_uio_test_disconnect), 0);
-+	KUNIT_EXPECT_EQ(test, channel.state, CHANNEL_OPEN_STATE);
-+	KUNIT_EXPECT_EQ(test, hv_uio_disconnect_calls, 1U);
-+	KUNIT_EXPECT_EQ(test, hv_uio_disconnect_if_open(&channel,
-+							hv_uio_test_disconnect), 0);
-+	KUNIT_EXPECT_EQ(test, hv_uio_disconnect_calls, 1U);
-+
-+	channel.state = CHANNEL_OPENED_STATE;
-+	hv_uio_disconnect_result = -EIO;
-+	KUNIT_EXPECT_EQ(test, hv_uio_disconnect_if_open(&channel,
-+							hv_uio_test_disconnect), -EIO);
-+	KUNIT_EXPECT_EQ(test, hv_uio_disconnect_calls, 2U);
-+}
-+
-+static int hv_uio_test_reader_wake(struct wait_queue_entry *wait,
-+				   unsigned int mode, int flags, void *key)
-+{
-+	unsigned int *wakes = wait->private;
-+
-+	(*wakes)++;
-+	return 1;
-+}
-+
-+static void hv_uio_unregister_wakes_reader_test(struct kunit *test)
-+{
-+	struct uio_info info = {
-+		.name = "hv-uio-withdrawal-test",
-+		.version = "1",
-+		.irq = UIO_IRQ_CUSTOM,
-+	};
-+	struct uio_device *idev;
-+	struct device *parent;
-+	wait_queue_entry_t wait;
-+	unsigned int wakes = 0;
-+	int ret;
-+
-+	parent = root_device_register("hv-uio-withdrawal-test");
-+	KUNIT_ASSERT_FALSE(test, IS_ERR(parent));
-+	ret = uio_register_device(parent, &info);
-+	if (ret) {
-+		root_device_unregister(parent);
-+		KUNIT_FAIL(test, "UIO registration failed: %d", ret);
++	if (!allocation) {
++		KUNIT_FAIL(test, "could not allocate vmalloc test buffer");
 +		return;
 +	}
-+	idev = info.uio_dev;
-+	get_device(&idev->dev);
-+	init_waitqueue_func_entry(&wait, hv_uio_test_reader_wake);
-+	wait.private = &wakes;
-+	add_wait_queue(&idev->wait, &wait);
 +
-+	uio_unregister_device(&info);
-+	KUNIT_EXPECT_PTR_EQ(test, idev->info, NULL);
-+	KUNIT_EXPECT_EQ(test, wakes, 1U);
-+	remove_wait_queue(&idev->wait, &wait);
-+	put_device(&idev->dev);
-+	root_device_unregister(parent);
++	cursor = allocation + PAGE_SIZE - 8;
++	ret = rndis_build_page_buffers(cursor, data_len, page_bufs, &count);
++	KUNIT_EXPECT_EQ(test, ret, 0);
++	if (ret)
++		goto out;
++
++	KUNIT_EXPECT_EQ(test, count, 2U);
++	for (i = 0; i < count; i++) {
++		struct page *page = vmalloc_to_page(cursor);
++		unsigned long page_offset = offset_in_page(cursor);
++		u32 offset, chunk;
++
++		if (!page) {
++			KUNIT_FAIL(test, "vmalloc test buffer has no backing page");
++			goto out;
++		}
++
++		phys = page_to_phys(page) + page_offset;
++		offset = offset_in_hvpage(phys);
++		chunk = min_t(u32, remaining, PAGE_SIZE - page_offset);
++		chunk = min_t(u32, chunk, HV_HYP_PAGE_SIZE - offset);
++
++		KUNIT_EXPECT_EQ(test, page_bufs[i].pfn,
++				(u64)(phys >> HV_HYP_PAGE_SHIFT));
++		KUNIT_EXPECT_EQ(test, page_bufs[i].offset, offset);
++		KUNIT_EXPECT_EQ(test, page_bufs[i].len, chunk);
++
++		cursor += chunk;
++		remaining -= chunk;
++	}
++	KUNIT_EXPECT_EQ(test, remaining, 0U);
++
++out:
++	vfree(allocation);
 +}
 +
-+static struct kunit_case hv_uio_ring_mmap_test_cases[] = {
-+	KUNIT_CASE(hv_uio_unregister_wakes_reader_test),
-+	KUNIT_CASE(hv_uio_remove_disconnects_open_channel_test),
-+	KUNIT_CASE(hv_uio_ring_mmap_range_test),
-+	KUNIT_CASE(hv_uio_ring_mmap_prepare_test),
-+	KUNIT_CASE(hv_uio_mmap_region_select_test),
-+	KUNIT_CASE(hv_uio_mmap_prepare_test),
-+	KUNIT_CASE(hv_uio_pin_lifetime_test),
-+	KUNIT_CASE(hv_uio_pin_close_before_mapped_test),
-+	KUNIT_CASE(sysfs_ring_mmap_ops_have_no_close),
-+	KUNIT_CASE(uio_buffer_mmap_success),
-+	KUNIT_CASE(sysfs_mmap_prepare_failure_releases_pin),
-+	KUNIT_CASE(sysfs_mmap_partial_insert_failure_releases_pin),
-+	KUNIT_CASE(sysfs_mmap_release_during_insert_keeps_pages_alive),
-+	KUNIT_CASE(ring_mmap_release_preserves_protection_snapshot),
++static struct kunit_case rndis_request_test_cases[] = {
++	KUNIT_CASE(rndis_request_size_premise_test),
++	KUNIT_CASE(rndis_request_alloc_zeroed_test),
++	KUNIT_CASE(rndis_request_id_lifecycle_test),
++	KUNIT_CASE(rndis_request_put_cleanup_test),
++	KUNIT_CASE(rndis_request_vmalloc_page_buffers_test),
 +	{}
 +};
 +
-+static struct kunit_suite hv_uio_ring_mmap_test_suite = {
-+	.name = "hyperv-uio-mmap",
-+	.test_cases = hv_uio_ring_mmap_test_cases,
++static struct kunit_suite rndis_request_test_suite = {
++	.name = "hyperv-rndis-request",
++	.test_cases = rndis_request_test_cases,
 +};
 +
-+kunit_test_suite(hv_uio_ring_mmap_test_suite);
-diff --git a/include/linux/hyperv.h b/include/linux/hyperv.h
-index 0f482ed5c776..f0e8f1af8e75 100644
---- a/include/linux/hyperv.h
-+++ b/include/linux/hyperv.h
-@@ -1248,6 +1248,30 @@ int vmbus_alloc_buffer_owned(struct vmbus_channel *channel,
- 
- void vmbus_release_buffer(struct vmbus_buffer *buffer);
- 
-+/**
-+ * struct vmbus_buffer_pin - locked snapshot of a buffer's mappable pages
-+ * @pages: page array owned by the buffer
-+ * @page_count: number of pages in @pages
-+ * @decrypted: backing pages are in the decrypted (host-shared) state
-+ *
-+ * vmbus_buffer_pin_pages() fills every field under
-+ * vmbus_buffer_owners_lock. A mapper reads only this snapshot and must
-+ * not re-read the buffer descriptor afterwards: vmbus_release_buffer()
-+ * clears the descriptor under that same lock while the pin still holds
-+ * the pages alive, so a later descriptor read describes the cleared
-+ * descriptor rather than the pages this mapper holds.
-+ */
-+struct vmbus_buffer_pin {
-+	struct page **pages;
-+	unsigned long page_count;
-+	bool decrypted;
-+};
-+
-+int vmbus_buffer_pin_pages(struct vmbus_buffer *buffer,
-+			   struct vmbus_buffer_pin *pin);
-+
-+void vmbus_buffer_unpin_pages(struct vmbus_buffer_pin *pin);
-+
- void vmbus_reset_channel_cb(struct vmbus_channel *channel);
- 
- extern int vmbus_recvpacket(struct vmbus_channel *channel,
++kunit_test_suite(rndis_request_test_suite);
 -- 
 2.43.0
 
