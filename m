@@ -1,450 +1,176 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011051.outbound.protection.outlook.com [52.101.57.51])
+Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CBC748BD3B;
-	Wed,  7 Oct 2026 10:53:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791370464; cv=fail; b=L+r/0Xdb6qvWcTQFPH2oPLuK45kUEGPCAsY1I8h8PD1haSMTpr7YzdJ+vcuXFkU9b2hx5v6L3daYEGF6yqKTNWtRmEV3Z335N6OFtbcE7WH7QSHjsaCzvKOZ0Kcwvc+J9j4GZMJC/6QWFd83RXzgNbCcS9RwbxgRxdmwYqkFqXo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791370464; c=relaxed/simple;
-	bh=7F4JBdriMNFCTLz9iBnde01gtoveOW5VDF35wxWj8fM=;
-	h=Content-Type:Date:Message-Id:To:Cc:Subject:From:References:
-	 In-Reply-To:MIME-Version; b=Kj6jLqFz4E63MDljMrfedyereY2LgguvrLqTLjICXWcJ3BmkUndQhX/IH6Ip6l0bGuBYStkBJ8nEN6DbyqNGATx4JpXHMiza2fQGbxFWPd7qLPNGNQIPcB+HaE5qES9qgIIP/b9P+uDld2n/N7aEWjMPxi3R6tWX9PBNMA8jShg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=pvkd/8zq; arc=fail smtp.client-ip=52.101.57.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45E93411A1A
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 10:54:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.163.128.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791370476; cv=none; b=bDgF67I9GYwv6ZjqouvRaoIxODBWKB76dZMmEu4nOvMQaCbWXC2h7Wv4LH2gT2Mxm6GQGhhQkgYU6yLgQ0FLEBn2FFTKExDMaQs8f+Wdvn3CQ10Ay5aFDiSqaeZH2ipKqdfoYUcmmyqAo90ar+tR8T70FqWk/qSxru4oZ7lLbqw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791370476; c=relaxed/simple;
+	bh=lVL1sa32L2WhhG2u4wL0bheAxTpUNxznhSq1jWbfwhE=;
+	h=Message-ID:Date:From:To:Cc:Cc:Cc:Cc:Cc:Cc:Subject:In-Reply-To:
+	 References:MIME-Version:Content-Type; b=aXBmVpDgD/6D7RMyZO9Pk9o7a1Nxo60VMpVagM3tAkLqpy8781YihgE2OSQ3+FZb5Zq5N1ttsvTkfZrCIMU8A8Z+3hrZ5zkZJk9B7kb0GTC5aZlPKkPMmA9E9olhTZjxiZvx9b7d195L1klqnDXqAybuE9uxqTHTZvwEBu6lVuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=aBGuuKeT; arc=none smtp.client-ip=43.163.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="pvkd/8zq"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QVO8fr5qqDF0sGN4fp8WGuBMh30ytBKEDgAKsxiA8jspiefX+eBKqMMkfNuJPdl3NOQeu6iBsUL5w0jfRXFPB6c34tSHOq8e9F8oMcRMi2RRK7D+qMrIcXtaS/uGC9wt6C65GH7J9+RbUEzlesQatS8+Nz5+XehZdy9n9mlA74hhV6Hofs/jQD4KM3n1F00o919KMymtusf5MmFkGUy5JXBZQC2r1d4Fj7RbKAVKTQhYdzaYbHaxHU2sRZ32HlBiMz3nTDUxr7xlrUPDR6SBZH7ZNdzfkICVvDJvm9cUpVYUzOq3wShBrqKWPwhl9BxsoKhx3DnaALvYeISWKlYv3w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZcT2XfApKGeLvQtJP5AKPLt/DnmFNFIHa+rUJ9hvYXQ=;
- b=hkFncSH+pyyVIH5/55act1mkKbqgZcTXZYC5fA5b9sk2MZ24rGHbk1+3bRdb7rEinhjw3FcU3Ei1pe/x6+pJyqv9jqOPbS078nFew58iSPGc4BoQB2+porB6dOTSayJ2AADP1TykjwXx25KZCsPSkfD6iUv++HR1ejLOjR9wH9iHPljpJ1kdXPv9w3mJHm4aEAQFc1dkiiPkTrNKetSJLQhThYW4j+2pVDyFFtO23JqG2xNZm39ZEzqxU8n1gYVC9GZUtXr6R8DPkyOaPNJ815/lrccscuLWw0NRMKjuokSdDarIuFyPeniHCPs5abCRKw0woM9lM4Ud5912GfBY9A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZcT2XfApKGeLvQtJP5AKPLt/DnmFNFIHa+rUJ9hvYXQ=;
- b=pvkd/8zqvQjkA9V2L9M73Axs7MeiFP3f1KHlRHGVXOEe4mkvvxu3w+H+5pjU4h8TOGm8w6ruOnwXPqjudSkHWtEHuEkek9uJFf2A3ylnH2cV9W4OwMEEKzV4qWZFRHW8u+3887oKmmOD035yNw0pOv5MbyJsW+J3W2FVrW3FEdeclQYrTBk0HqiP483yXt8IBl+RQX3rpAIx4BnNmEnv+eEuyaeTwktYIC6K2E9JaG7i47a2gHvC12r+iluQePsZ7jFsSwb0IGAQyuCPY6M4eDbbL+S0NlYn1mYsdeA27crOznhrhfa+2X49GLBIPvcqgKGTv152m4tb3CKaF7aVvg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by CH0PR12MB8580.namprd12.prod.outlook.com (2603:10b6:610:192::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Wed, 7 Oct
- 2026 10:53:48 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0472.016; Wed, 7 Oct 2026
- 10:53:47 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 07 Oct 2026 19:53:44 +0900
-Message-Id: <DLYJTG5QTTLF.1LPXNI4K9UU87@nvidia.com>
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
- <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v3 8/8] gpu: nova-core: add NVKV GSP_INIT schemas
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-References: <20260928-b4-nvkv-v3-0-f04504c262c2@nvidia.com>
- <20260928-b4-nvkv-v3-8-f04504c262c2@nvidia.com>
-In-Reply-To: <20260928-b4-nvkv-v3-8-f04504c262c2@nvidia.com>
-X-ClientProxiedBy: TY4P301CA0011.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:26f::11) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="aBGuuKeT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1791370438; bh=g24TrHG4vSFzqgRrypcxpgt4JUs+URbBEdgt9SFzlyc=;
+	h=Date:From:To:Cc:Cc:Cc:Cc:Cc:Cc:Subject:In-Reply-To:References;
+	b=aBGuuKeTtFD+hOaGl4OQ5lXfg/xbHLbp5+/NyJEt6ygb9c99Em+01x0iqgT+QgHp9
+	 JmgbOdZcEO/t6o6R6fUcQ2kdawoGrYePG+8bgtD3yguyTe01guxxCozFRFgv069QKk
+	 6+MC6zHRRgfpXvKmRZriaYglJtbuwnC8GbBP2Ojg=
+Received: from localhost ([39.144.128.134])
+	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
+	id D78096AA; Wed, 07 Oct 2026 18:53:56 +0800
+X-QQ-mid: xmsmtpt1791370436txn28ooh7
+Message-ID: <tencent_D96ED693B9D664B3CDD8943D920571929406@qq.com>
+X-QQ-XMAILINFO: NFhlv/8JdUU2fDPb69o/wz5iFm097WiZEaDlDy5XZ5MJRtskPuLk4IwWnLzu54
+	 L33Jfj/Eq/fEUiHbV3apQvAjNa/MQj4ApOvkvgrv4h9oTVQFSTJgWjRYacSAHez66uMKHlsFJswF
+	 iB2PFlLAOzqLXDvRN/sV1HaDdJu2V341Vs4TCjPtAmuA2ZdfaAgknaqFAyOXP0+zrSxFs85uRfBK
+	 0XrPW8Z1fLiO7voVwmogUMP86Pt/FUJfaZZnXuh5Kp1orURqMoyv2VSQ7DRzgfEna6CFe5xRJxBX
+	 dMvDMfHmVPELD8DsFkJrwaZztpgjfdAM0e+uyYq7JBBBMTzYV+BdKh7OmGVW6VX2f8iTAuCIgHhu
+	 zy/y863WTp5Ele5LZvVH/eHE6zutMiddbTQGrznALM6+YsxIgxJvCV7EqVO6bNrCIrYvLBCbNUkd
+	 kkQQ4KKStcHHJbyW4cDOgKNwWEgejFUhm1DNlEpZbl6F07zCp+ksGw2o+8kfz2EfpLNzq0oBRdEE
+	 RdRQCBp82eJcPYEJEzEswfknZrMJx+5dJbkDuW1I6qxoDY73saG1HzNug4BpFFb7MB0/oddEGepx
+	 PXJKErNAhgnMEq8NIl/mlPQ1oJFXmSlY6IklNmUqw3vG0Vd9z3C8a/USuFxX0VWHEBgpIatAiEF9
+	 DTbdrcHDW/UK/zlROBmM6O6O2Nuba09ySNeBj4sRduNGk8Qj1a3RtVv61HgfU5y0kbb8pxW050PK
+	 /ieR00NjVW5o+z9tF4TvRYa4BaEL8+cDzopD22G4oYfIba0HTguBC87qLjRSUknpOExvC3QkqOdo
+	 YH/HTfPb2C4LSheB/+xiat2VWX5Q4TkxTm+2whijB7/iX93TIESLMPSIK26AaryWZpCE+UNV3GdD
+	 yk9zFQYccWJeLT5L89kVlwlyvSu+ubWaY/lq3yYLt7Tpm+76NsT7TUQZF87vPrTriHw3Fktn743Z
+	 K8d6Vbz3S+4MVZ/N8fLOyVQRATmEQv7GC52/c8CKumV/1M5vD8/U6x0XZ0HnyuhV93VDVZlXHxqn
+	 Sg5T0eIQ==
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+Date: Wed, 07 Oct 2026 18:53:55 +0800
+X-OQ-MSGID: <89a3f484dd6c50d8d1026665039026ea@qq.com>
+From: Eason <1836949523@qq.com>
+To: Yuming Sun <wolf109909@outlook.com>
+Cc: platform-driver-x86@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Mingyou Chen <qby140326@gmail.com>
+Cc: Hans de Goede <hdegoede@redhat.com>
+Cc: Ilpo Jarvinen <ilpo.jarvinen@linux.intel.com>
+Cc: Armin Wolf <W_Armin@gmx.de>
+Subject: Re: [RESEND PATCH 0/5] platform/x86: bitland-mifs-wmi: MIFS v2 firmware support (Xiaomi Book Pro 14 2026)
+In-Reply-To: <20260728180944.51356-1-wolf109909@outlook.com>
+References: <20260728180944.51356-1-wolf109909@outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|CH0PR12MB8580:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3e339849-9401-4acb-1b50-08df24614394
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|366016|10070799003|3023799007|13003099007|4143699003|56012099006|6133799003|11063799006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	FbQS2IH0WcLrqGPYk84JgvONccOsJP50AU3rrJ/NMKJ34OnzJacCQVsM8DFOK9EiA+yUdbgyp53cqikByQtVk+4/i02D6LCAlN16J9Z3w3Mmtl0VwyMgbW0jrxhJRfZNVsxhXdFtUNfkg9gvJjLhVjT7Wno4JAGyWZ6HiFcX/+0024C1537D1uQ+90nGTtEz2KtPZYkeBtSdtfPgESxE+pQr/xCbxkVEhHfwqavaLwyRsk02KnnEJgr4rmKxCNShzNKPZf7iXTEjVzzTXpvwjpaEggtzH/egAK/My4DkD9nIEZVuQ2BFL69smRcc4KiF47uiMXjubSXtOzOHECQEO23Vo+GNY8IUTRezsqU22kkeLjPdR7HUCw4d248YwQOtTkV7UNWoAg3tyjTWNQkUVV4iTR0cETH1ChSQr8KvtjUApLgGFZJYJfMYe7BT6zQNdl8Yliyv3XxWC6rVXEm0W9DS6hmEuDacgG+useTlgAJQHuam8YaEXwmTv0erGfEesfRnrhT5OkUtTsTjRT3KYj/76QX7JkNc7gbABSb1GB7M+XayQgRmN9m1YVcGw8DPCwL24m63Pr5x6XV72olYsfXI7dW5Sb3iadXAhW1mdkMdTDZRuLIPbz1E/tBkXJ2A98y9LqN6vGV+Uqxq4vlyt1e4lB8WAJU3ARLIWzrF1yg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(10070799003)(3023799007)(13003099007)(4143699003)(56012099006)(6133799003)(11063799006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RFd5NkE0dUdhcTBNaEhvdGZFbzh4SUkrUU5GOFhyZDdOOGNEUXM4YkdLZTIv?=
- =?utf-8?B?cGNLNG15dXhqSG5LN1VQSU5XUm5NMVh3WGpZWnNDV1hhVFFPTmdPYUNvMjVV?=
- =?utf-8?B?KzRodCtKS1Nla3FCeGxLTE1lOHh2M1o3MUpBQklhcDBNL1pDMzVtcTIyMndV?=
- =?utf-8?B?aUdRd2RYb0ZWZ2Q4UUdGUlNjbGQxRHJXMDhHV0VYWWt6V05JRjk4WXNWS3dT?=
- =?utf-8?B?SGhTM1pFdTZocUNOQTNlaksrSlJ0bWI5V0lLUmlzZUk2S2psUTJMY29EUTBE?=
- =?utf-8?B?SDZkUk9Ob2VHeUJ1QjNjT3B6SXlBMmhib1ViR0RubGhiS2FPUFVwZ01Ka2R6?=
- =?utf-8?B?VERHRVlIVE14OEk2K2sxWjNjMW94eUFSOEZvOWtxMGRtd05uTFQwV1FkTkpJ?=
- =?utf-8?B?ZUN5RTZMTm5yb3ozOHdvZU5lYU9GaUhLNEJzREVYMFhqVHBhSlBJdVRpVUZj?=
- =?utf-8?B?dEl0WWZUNXg4OTlvMGQ2S3dlaHV6eWpUUHNtcG4zRzY3b2tFRWJ2MmxaWVZL?=
- =?utf-8?B?NkYva25UcHBvemFaRzlMWTZDWWhjaE9Id21zVnNIeE80WGN5K0xCSWxXNXd5?=
- =?utf-8?B?QS8yUm5iWnZGZ0lxdE1laWp1enB2QkxucEduZ0RwRUtOUmUyVjZuUmZwbXVp?=
- =?utf-8?B?dkpSakZ3cDZyRFlvQm5yZnhXcHFxdFVkTzYxbFlNdzAweHRwZFFISC9jU2kw?=
- =?utf-8?B?V0FRcjNXdVA5NEhhL0Q5eHRYMHh2T2FHUGlab3MwTDVnSmt2RkY0eUQ5cks3?=
- =?utf-8?B?RmpWWDR2U01ISkFZbTc0aUhReHM1d0xFQ05oaGNlamdZdmtWTDA0NlpCSnpR?=
- =?utf-8?B?Um9WbUQ0b3U4Vngyc3o2WklLbVcydWJzR2lsWjRJRFRYT0pYRmNjY0JodGNU?=
- =?utf-8?B?TmNlV2h0VGFXekEvMktRaDFrL3FNSWRpYjg0cFBPRW55Y3M3dEdLSkxiTWgw?=
- =?utf-8?B?NkJNWURuRlE0R0ZEbzBMS2F0T29BWTNTUi8yQkNIUjU1S2JHVzRaWkV0RVp5?=
- =?utf-8?B?WU55KzlnaHhqNDRWOHlVUFdTRGIxdkszU2lKbWszUjF5djZDdmtHZkR6SUxi?=
- =?utf-8?B?WWRoMnN2ZjUyb0NVQzd2N010N1hzS1lLd1hQY2RnOW9lOUFtMFpSRnJDZ3N5?=
- =?utf-8?B?bWlhR0dCUWlkOWVmYURjWHhmTnBqb1pWbVY1U3RQOGxhTWduaG0zWTM0VGdR?=
- =?utf-8?B?WVRycmJueUh6My9QVldrNEFGUmhIY1RldDkvKytFV0Vwd25DNVdzMEx0U1N0?=
- =?utf-8?B?VXhtN2IvY3hDWlZKQmFGc200WnlSek8xUmY1WlFnWGZwVnhuU3pwTlg1dyt2?=
- =?utf-8?B?MDJVcjNqN2JlVmM1eDYvd0dnd3ppZ2JpZXV4ZVlnck9vY210M1dNM2kxODZS?=
- =?utf-8?B?VHdYVHE1Q2JkTkdOWFVWcGJBNXN5cHJmblc3dWVaVStQTTY0NzVWVU1TeTlq?=
- =?utf-8?B?VVVtWFpOOW9MSUNDUnNvVHlwNTg1RFNac05MbUNsZkZUU1dCajEwZkY2VDVx?=
- =?utf-8?B?RmxlV1Q4QnJsM1lKU1Zzb29uOWRTQVM2cDhpM2tuMXlUemFoY0hWYXcxaDJT?=
- =?utf-8?B?MjF6Z1ordGRCMDl4dmVFb1h6YkF0dmVxcW0vK0hGL0lnN0JLUzZpNEUwdmpO?=
- =?utf-8?B?RzFBUmFZaVhqRTdMYXhKZDlxdmJiRjIzTnQrZzJSd1pBSmRBM1k4TTVNZVpm?=
- =?utf-8?B?RlJPMzlaQmw0eUdkUXkyL293VlpPaExXYUZTN1lEMmc4aWQ3enZEM1BWcXJU?=
- =?utf-8?B?ZGMraHlJSWRLTDh2dDdzSi82cHNCQjYwcVEza1pyR1ZtZU1ZaGxNQnBxdVQw?=
- =?utf-8?B?Qi9NYmxvUFpoL0N5NzdGZXRSMFZGMEZsMEhDNjZPR2JOb3NmWUFhLzR6aU9m?=
- =?utf-8?B?VFlZSEhWeWIrb3VnNEx5K0NpbUJTUC9FNS91RWNTbkZJY2NTWVo0TlM3cE5y?=
- =?utf-8?B?MHJyeTFzNnNZaVRXazQ4ZVJGcTBLaTlqOXhqU3k1RTRYV01sSmZvVlR2U05X?=
- =?utf-8?B?RUswT3NXYXJFdmpZVkdzSitCZy9DRWYzTWZlUDlNNzJGVHVKOVhwZDhzajU0?=
- =?utf-8?B?Q3BiblpVL2ZaRkFHZm11QStBY3h3aGl3dnRkZExMaWwwY0xCV0c2N0xKNEpF?=
- =?utf-8?B?aytXL2VabE1jckZUN25rV29lN1dZcWZ0WnlOU3UwQlBsVDhNR2gyUU9TWlRq?=
- =?utf-8?B?aVBrTE9jTVZTYXp1b05yOGJJRWNXMmRWV24xTnBGaWZ6MTRhVjRuNDc2a1pD?=
- =?utf-8?B?ZTJNUG9qNUNmNWpZeFBUc3IycnJkcjI0amVxWTFTZ3k3Ukw3UURXYTJ3cEta?=
- =?utf-8?B?eURtQmdGZSs2SWZNeEdwZWpkOE5MWnpIVWRuK1BWV05NdUpNdUNvNExWcVJW?=
- =?utf-8?Q?WdnpVfo9a5i5vOt9S5SVcD9ZAGy7HuPHyF157x4y/jt1u?=
-X-MS-Exchange-AntiSpam-MessageData-1: pAuPISGDJMOsRA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3e339849-9401-4acb-1b50-08df24614394
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 10:53:47.6409
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nQaS892UOZY3DEXPBlLFOYyqFLp+ftJdycqa4wPP/Qi23k3D/MKDHDk4GlRfhb1xDliQa2IOaFhFP5tlxAF5Rw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8580
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon Sep 28, 2026 at 5:42 PM JST, Eliot Courtney wrote:
-> Add the first user of NVKV encode/decode which is the request and
-> response for GSP init. For now this is exercised via unit tests. Later
-> patches will support GMCAPI in `Cmdq` and use these messages.
->
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
-> ---
->  drivers/gpu/nova-core/gsp/fw/commands.rs | 447 +++++++++++++++++++++++++=
-+++++-
->  drivers/gpu/nova-core/gsp/nvkv.rs        |   3 -
->  drivers/gpu/nova-core/gsp/nvkv/decode.rs |   1 +
->  drivers/gpu/nova-core/gsp/nvkv/encode.rs |   1 +
->  4 files changed, 448 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/nova-core/gsp/fw/commands.rs b/drivers/gpu/nova-=
-core/gsp/fw/commands.rs
-> index 32856ff74183..02de225af917 100644
-> --- a/drivers/gpu/nova-core/gsp/fw/commands.rs
-> +++ b/drivers/gpu/nova-core/gsp/fw/commands.rs
-> @@ -4,6 +4,8 @@
->  use core::ops::Range;
-> =20
->  use kernel::{
-> +    alloc::ArrayVec,
-> +    bitfield,
->      device,
->      pci,
->      prelude::*,
-> @@ -15,7 +17,21 @@
-> =20
->  use crate::{
->      gpu::Chipset,
-> -    gsp::GSP_PAGE_SIZE,
-> +    gsp::{
-> +        nvkv::{
-> +            nvkv_decode,
-> +            nvkv_encode,
-> +            Accumulated,
-> +            Array,
-> +            DecoderValue,
-> +            Encodable,
-> +            Encoder,
-> +            Key,
-> +            KeyId,
-> +            Required, //
-> +        },
-> +        GSP_PAGE_SIZE, //
-> +    },
->      num::IntoSafeCast, //
->  };
-> =20
-> @@ -230,3 +246,432 @@ unsafe impl AsBytes for UnloadingGuestDriver {}
->  // SAFETY: This struct only contains integer types for which all bit pat=
-terns
->  // are valid.
->  unsafe impl FromBytes for UnloadingGuestDriver {}
-> +
-> +/// The host CPU architecture.
-> +#[derive(Clone, Copy)]
-> +pub(crate) enum HostArch {
-> +    None =3D 0,
-> +    X86_64 =3D 1,
-> +    Ppc64le =3D 2,
-> +    Arm =3D 3,
-> +    Aarch64 =3D 4,
-> +    Riscv64 =3D 5,
-> +}
-> +
-> +// TODO[FPRI]: This is a temporary solution to be replaced with the corr=
-esponding derive macros once
-> +// they land.
-> +impl TryFrom<u32> for HostArch {
-> +    type Error =3D Error;
-> +
-> +    fn try_from(value: u32) -> Result<Self> {
-> +        match value {
-> +            0 =3D> Ok(Self::None),
-> +            1 =3D> Ok(Self::X86_64),
-> +            2 =3D> Ok(Self::Ppc64le),
-> +            3 =3D> Ok(Self::Arm),
-> +            4 =3D> Ok(Self::Aarch64),
-> +            5 =3D> Ok(Self::Riscv64),
-> +            _ =3D> Err(EINVAL),
-> +        }
-> +    }
-> +}
-> +
-> +impl From<HostArch> for u32 {
-> +    fn from(value: HostArch) -> Self {
-> +        value as u32
-> +    }
-> +}
-> +
-> +nvkv_encode! {
-> +    /// A GSP registry entry.
-> +    struct RegKey {
-> +        key_name: Key<&'static [u8], { Self::REGKEY_NAME_KEY }>,
-> +        key_value: Key<u32, { Self::REGKEY_VALUE_U32_KEY }>,
-> +    }
-> +}
-> +
-> +impl RegKey {
-> +    // Define the Key IDs read/written by GSP.
-> +    const REGKEY_NAME_KEY: KeyId =3D 0x3070;
-> +    const REGKEY_VALUE_U32_KEY: KeyId =3D 0x3071;
+Hi Yuming,
 
-I guess the `REGKEY` prefix is unneeded here since it's the name of the
-wrapping type. If we want a common prefix, let's use `KEY`, e.g.
-`KEY_NAME`? Although we might not even need these at all - please see my
-last comment on this patch.
+I would like to add a third affected machine to this report: the REDMI
+Book Pro 14 2026 (board TM2426, Core Ultra 5 338H, Panther Lake), BIOS
+RMAPT4B0P0909 (2026-05-21), EC firmware 1.9, originally running
+7.2.8-zen1-2-zen.
 
-> +}
-> +
-> +impl Encodable for KVVec<RegKey> {
-> +    fn encode(&self, encoder: &mut Encoder) -> Result {
-> +        for regkey in self {
-> +            regkey.encode(encoder)?;
-> +        }
-> +        Ok(())
-> +    }
-> +}
-> +
-> +nvkv_encode! {
-> +    /// SR-IOV virtual function information.
-> +    struct VfInfo {
-> +        total_vfs: Key<u32, { Self::VF_TOTAL_VFS_KEY }>,
-> +        first_vf_offset: Key<u32, { Self::VF_FIRST_VF_OFFSET_KEY }>,
-> +        flags: Key<u64, { Self::VF_FLAGS_KEY }>,
-> +        first_bar0_address: Key<u64, { Self::VF_FIRST_BAR0_ADDRESS_KEY }=
->,
-> +        first_bar1_address: Key<u64, { Self::VF_FIRST_BAR1_ADDRESS_KEY }=
->,
-> +        first_bar2_address: Key<u64, { Self::VF_FIRST_BAR2_ADDRESS_KEY }=
->,
-> +    }
-> +}
-> +
-> +impl VfInfo {
-> +    // Define the Key IDs read/written by GSP.
-> +    const VF_TOTAL_VFS_KEY: KeyId =3D 0x0080;
-> +    const VF_FIRST_VF_OFFSET_KEY: KeyId =3D 0x0081;
-> +    const VF_FLAGS_KEY: KeyId =3D 0x1003;
-> +    const VF_FIRST_BAR0_ADDRESS_KEY: KeyId =3D 0x1050;
-> +    const VF_FIRST_BAR1_ADDRESS_KEY: KeyId =3D 0x1051;
-> +    const VF_FIRST_BAR2_ADDRESS_KEY: KeyId =3D 0x1052;
-> +}
+It shows the same MIFS v2 firmware behaviour you describe, and your series
+addresses the two things that make this laptop unusable for suspend today.
 
-That's a bit of boilerplate. Ideally we would have this `#[nvkv(key =3D
-value)]` notation (without the bidirectional feature) you mentioned in
-[1] that takes the literal value and defines a constant to access it,
-but I guess that's more rework than we want for now.
+1) Suspend (s2idle) is aborted with -EINVAL by the driver's suspend hook.
+   Every attempt ends like this:
 
-[1] https://lore.kernel.org/DLIHSKKUVP7V.153Z4TTEYFL3Y@nvidia.com
+     PM: suspend entry (s2idle)
+     bitland-mifs-wmi B60BFB48-3E5B-49E4-A0E9-8CFFE1B3434B-4: PM: dpm_run_callback(): bitland_mifs_wmi_suspend [bitland_mifs_wmi] returns -22
+     bitland-mifs-wmi B60BFB48-3E5B-49E4-A0E9-8CFFE1B3434B-4: PM: failed to suspend: error -22
+     PM: Some devices failed to suspend, or early wake event detected
+     systemd-sleep: Failed to put system to sleep. System resumed again: Invalid argument
 
-> +
-> +nvkv_encode! {
-> +    /// Payload of the `GSP_INIT` command.
-> +    // TODO: expect() doesn't work here due to Self:: reference, fixed i=
-n 1.97.0
-> +    // https://github.com/rust-lang/rust/pull/154377
-> +    #[cfg_attr(not(CONFIG_KUNIT), allow(dead_code))]
-> +    struct GspInitRequest {
-> +        pci_device_id: Key<u32, { Self::PCI_DEVICE_ID_KEY }>,
-> +        pci_sub_device_id: Key<u32, { Self::PCI_SUBDEVICE_ID_KEY }>,
-> +        pci_revision_id: Key<u32, { Self::PCI_REVISION_ID_KEY }>,
-> +        pci_config_mirror_base: Key<u32, { Self::PCI_CONFIG_MIRROR_BASE_=
-KEY }>,
-> +        pci_config_mirror_size: Key<u32, { Self::PCI_CONFIG_MIRROR_SIZE_=
-KEY }>,
-> +        host_arch: Key<HostArch, { Self::HOST_ARCH_KEY }, u32>,
-> +        bus_device_func: Key<u64, { Self::NV_DOMAIN_BUS_DEVICE_FUNC_KEY =
-}>,
-> +        regkeys: KVVec<RegKey>,
-> +        vf_info: Option<VfInfo>,
-> +    }
-> +}
-> +
-> +impl GspInitRequest {
-> +    // Define the Key IDs read/written by GSP.
-> +    const PCI_DEVICE_ID_KEY: KeyId =3D 0x0001;
-> +    const PCI_SUBDEVICE_ID_KEY: KeyId =3D 0x0002;
-> +    const PCI_REVISION_ID_KEY: KeyId =3D 0x0003;
-> +    const PCI_CONFIG_MIRROR_BASE_KEY: KeyId =3D 0x0010;
-> +    const PCI_CONFIG_MIRROR_SIZE_KEY: KeyId =3D 0x0011;
-> +    const HOST_ARCH_KEY: KeyId =3D 0x0070;
-> +    const NV_DOMAIN_BUS_DEVICE_FUNC_KEY: KeyId =3D 0x1020;
-> +}
-> +
-> +// Decode:
-> +
-> +// Should decode with UnknownKeyPolicy::Ignore.
-> +nvkv_decode! {
-> +    /// Schema for the `GSP_INIT` response.
-> +    // TODO: expect() doesn't work here due to Self:: reference, fixed i=
-n 1.97.0
-> +    // https://github.com/rust-lang/rust/pull/154377
-> +    #[cfg_attr(not(CONFIG_KUNIT), allow(dead_code))]
-> +    struct GspInitResponseSchema =3D> GspInitResponse {
-> +        gpu_name:
-> +            Array<u8, { GspInitResponse::MAX_GPU_NAME_LEN }, { Self::GPU=
-_NAME_STRING_KEY }>,
-> +        fb_regions: Accumulated<FbRegionSchema>,
-> +        bar1_pde_base: Required<u64, { Self::BAR1_PDE_BASE_KEY }>,
-> +        vmmu_segment_size: Key<u64, { Self::VMMU_SEGMENT_SIZE_KEY }>,
+   /sys/power/suspend_stats on this machine:
 
-Is this ok to have `vmmu_segment_size` not `Required`?
+     failed_suspend   4
+     last_failed_dev  B60BFB48-3E5B-49E4-A0E9-8CFFE1B3434B-4
+     last_failed_errno -22
+     last_failed_step suspend
+     success          0
 
-> +    }
-> +}
-> +
-> +impl GspInitResponseSchema {
-> +    // Define the Key IDs read/written by GSP.
-> +    const GPU_NAME_STRING_KEY: KeyId =3D 0x2000;
-> +    const BAR1_PDE_BASE_KEY: KeyId =3D 0x1020;
-> +    const VMMU_SEGMENT_SIZE_KEY: KeyId =3D 0x1050;
-> +}
-> +
-> +/// Payload of the `GSP_INIT` response.
-> +struct GspInitResponse {
-> +    gpu_name: ArrayVec<u8, { Self::MAX_GPU_NAME_LEN }>,
-> +    fb_regions: KVVec<FbRegion>,
-> +    bar1_pde_base: u64,
-> +    vmmu_segment_size: u64,
-> +}
-> +
-> +impl GspInitResponse {
-> +    const MAX_GPU_NAME_LEN: usize =3D 64;
-> +}
-> +
-> +nvkv_decode! {
-> +    /// Schema for one FB region of the `GSP_INIT` response.
-> +    struct FbRegionSchema =3D> FbRegion {
-> +        base: Required<u64, { Self::BASE_KEY }>,
-> +        limit: Required<u64, { Self::LIMIT_KEY }>,
-> +        flags: Required<FbRegionFlags, { Self::FLAGS_KEY }>,
-> +        tag: Required<u32, { Self::TAG_KEY }>,
-> +    }
-> +}
-> +
-> +impl FbRegionSchema {
-> +    // Define the Key IDs read/written by GSP.
-> +    const BASE_KEY: KeyId =3D 0x1011;
-> +    const LIMIT_KEY: KeyId =3D 0x1012;
-> +    const FLAGS_KEY: KeyId =3D 0x0012;
-> +    const TAG_KEY: KeyId =3D 0x0013;
-> +}
-> +
-> +bitfield! {
-> +    /// FB region attribute flags.
-> +    struct FbRegionFlags(u32) {
-> +        0:0 support_compressed =3D> bool;
-> +        1:1 support_iso =3D> bool;
-> +        2:2 protected =3D> bool;
-> +    }
-> +}
-> +
-> +impl TryFrom<DecoderValue<'_>> for FbRegionFlags {
-> +    type Error =3D Error;
-> +
-> +    fn try_from(value: DecoderValue<'_>) -> Result<Self> {
-> +        if let DecoderValue::Scalar32(v) =3D value {
-> +            Ok(v.into())
-> +        } else {
-> +            Err(EINVAL)
-> +        }
-> +    }
-> +}
-> +
-> +/// One FB memory region.
-> +struct FbRegion {
-> +    base: u64,
-> +    limit: u64,
-> +    flags: FbRegionFlags,
-> +    tag: u32,
-> +}
-> +
-> +#[kunit_tests(nova_core_fw_commands)]
-> +mod tests {
+   Since then I set up a disk swap file and verified all three sleep paths
+   locally with a minimal one-file change that follows the approach of your
+   patch 1/5 (never propagate the perf-mode query error from the suspend
+   hook), applied on top of a 7.2.9 tree (Arch linux-zen packaging of 7.2.9:
+   vanilla 7.2.9 plus the zen patchset):
 
-These tests below mostly re-check the same things as the previous
-patches, only with different data. I am not sure they bring much new
-coverage, except maybe nested structs (which we could/should also cover
-in the previous patches anyway). I think we would have more value (and
-less code) if we covered the things newly tested to the tests of patches
-4-7, and dropped the test module here altogether. Because if we follow
-the pattern, then we will repeat these tests again and again for every
-command we support, which is going to result in tons of redundant tests
-at the end of the day.
+     * s2idle works again:
 
-Another incentive for not having more tests here: they are the only
-other user of the key constants, outside of the `nvkv_decode` and
-`nvkv_encode` macros themselves. If we can get rid of them then the
-macros become the only users of these consts, and in that case why not
-replace
+         PM: suspend entry (s2idle)   18:13:51
+         PM: suspend exit             18:13:57
+         /sys/power/suspend_stats: success=1, failed_suspend=0
 
-    pci_device_id: Key<u32, { Self::PCI_DEVICE_ID_KEY }>,
-    ...
-    const PCI_DEVICE_ID_KEY: KeyId =3D 0x0001;
+     * hibernation works and the session is restored (same boot id before
+       and after; ~63-94 s offline including firmware POST):
 
-with just
+         systemd-hibernate.service: Finished System Hibernate
+         systemd-sleep: Successfully thawed unit 'user.slice'
 
-    pci_device_id: Key<u32, 0x0001>,
+     * closing the lid does the right thing as well, with logind configured
+       for HandleLidSwitch=suspend-then-hibernate and HibernateDelaySec=1h:
 
-as it is clear from that line alone that `0x0001` is the key for
-`pci_device_id`. Bonus, the unsightly brackets required because we
-reference `Self` can also go away.
+         Lid closed                                 18:31:00
+         PM: suspend entry (s2idle)                 18:31:00
+         PM: suspend exit                           18:32:01
+         sleep operation 'hibernate'                18:32:02
+         PM: hibernation: hibernation exit          18:33:47
+         (same boot id before and after the whole sequence)
+
+   I am happy to send the one-file diff, the full logs and the /sys/power
+   settings, or to test a revised version of this series.
+
+2) platform_profile registration fails, exactly as in your report:
+
+     platform_profile: Failed to get profile for handler bitland-mifs-wmi
+     platform_profile: Failed to get profile for handler bitland-mifs-wmi
+     platform_profile: Failed to get profile for handler bitland-mifs-wmi
+
+   /sys/class/platform_profile does not exist, so power-profiles-daemon
+   cannot read or set any profile.
+
+The firmware side matches your analysis as well - the missing ECON symbol
+shows up 40 times during a single boot:
+
+  ACPI BIOS Error (bug): Could not resolve symbol [\_SB.PC00.LPCB.Q_EC._STA.ECON], AE_NOT_FOUND
+  ACPI Error: Aborting method \_SB.PC00.LPCB.Q_EC._STA due to previous error (AE_NOT_FOUND)
+
+Both bitland_mifs_wmi and redmi_wmi are loaded on this machine, as in [1].
+
+One difference to the unit you tested: TM2426 does expose an ACPI lid
+device (PNP0C0D:00) and an input device "Lid Switch" with the SW_LID bit
+set (capabilities/sw = 1), so patch 4/5 may not be needed on this model.
+I have now verified that lid events do arrive here: logind logs "Lid closed."
+and performs the configured sleep action (see the sequence above). The
+firmware still reports a bogus lid state once per resume ("ACPI: button:
+[Firmware Bug]: Unexpected lid state reported by firmware"), which does not
+prevent the lid action from working.
+
+For completeness, one more observation from this board (possibly
+unrelated to MIFS): ACPI init takes about 6 seconds here. initcall_debug
+attributes it to ACPI object evaluation - e.g. 0.4-0.6 s per power
+resource, ~2.7 s in acpi_processor_driver_init and ~4.1 s in acpi_init.
+If the ECON/_STA problem is involved in that as well, I am happy to
+collect whatever data helps.
+
+I can provide further evidence (acpidump, full dmesg, DSDT disassembly of
+the WMAA method and the QFAN-related objects, longer suspend_stats) or run
+any test instructions you have. I can build and test kernels locally (the
+verification above was done with a hand-built 7.2.9 plus a 10-line diff),
+so I am also happy to test revised versions of this series, including on
+mainline, and report back.
+
+Thanks a lot for working on this - suspend being blocked was the biggest
+usability problem on this laptop.
+
+Note: the local testing and the preparation of this report were done with
+the assistance of a local AI assistant (DeepSeek Harness WebUI, deepseek-flash
+model); every command, log and result quoted above was actually executed on
+this machine and reviewed by me.
+
+Eason
+1836949523@qq.com
+
