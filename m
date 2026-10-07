@@ -1,364 +1,193 @@
-Received: from outbound-ip199b.ess.barracuda.com (outbound-ip199b.ess.barracuda.com [209.222.82.137])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E041C4E01E1;
-	Wed,  7 Oct 2026 18:23:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=209.222.82.137
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791397420; cv=fail; b=XgAjJ5NAaDB5DGEPxNVLR0AOUtqq33HL6PnGXo3/9xuZ8vMUv8C8X1RkJcGhzLKssJggIiNhb48bLOHzK14EhIjczsKIOcdkNeLvBgoDm2u6V3bBH/WWsZrRU9E4fms6U34Zg+FLowQKtwI+piMGAOBs86vvqYYjGxJJHCbU5Ec=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791397420; c=relaxed/simple;
-	bh=remErAr2D6WHA1qvLu6xKv8BMOaWojhWjrFyWN8HXNs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=oHW6eUJpXQmWJjKb19pNCXGTjlMSJ4hnJSv2O+ICZ+kq11DdtyFAHhdH66mUs5JH4gYbesSdjX+AD+JnPed2Q/clpqU4uAXROKGVF0QWSJHyBjg6VWElh+xpQSvfluWN0Q9MFdDPFNfOU3D6wTC1qGWPJ7oZVNXoZFnGS9OHJVw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opengear.com; spf=pass smtp.mailfrom=digi.com; dkim=pass (2048-bit key) header.d=opengear.com header.i=@opengear.com header.b=eCgh1bNu; arc=fail smtp.client-ip=209.222.82.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opengear.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C5094DD3AA
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 18:23:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791397433; cv=none; b=G2zE/QbbS5ae62d7Sy/tVbt2VfQks8DXGk7E5sgghf8z9jJ1/wFjqXFrB49wc3O9AoXybEn+LZDQtgKloSYWohNnK1eWfgrYm1k8zEmW86tXlDyBpwzwhK1mP9QxxK59jti6Tp7GgWvpct5pSzvXlPcxpt2KmRzsIxW09hXERWM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791397433; c=relaxed/simple;
+	bh=7p1E68LhKBh6yTqP7m6fWj1obK2raK41V5zAFLXEVsE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SIflbXbPJvwRBAg0sMWI65tU//yELYv+BP8uq3e0v1lNx6n+VOhP1TPSNllmaOGWFZHSeVO3aMJE0IVeTA4xG6zdWBXmpse3ZeEJpq57kjzthNRHKHNrcyK71HQUUx+PUtSnOSIwrhrMfpCypw7khDxg3bMUp53q9PkFCHAv5eQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FGEjaKTK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=X2LG2uLG; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=opengear.com header.i=@opengear.com header.b="eCgh1bNu"
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11021127.outbound.protection.outlook.com [52.101.57.127]) by mx-outbound21-220.us-east-2b.ess.aws.cudaops.com (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO); Wed, 07 Oct 2026 18:23:24 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JxypSwFOZzw56eQiMOgNGDLmyK8TLifXsNfQ/H31m1zmfwcEito3af2uMjcgymF4YT5h7k1hvJtdNNpExDh6Go43B+dyeEvV+TkFoxqFxyxs0y0HnjNOwAHSYoVt0V6xvD+iucwkgnBCieVfEU4Wxg1C2bmztTSRO8rUCNf5R2vLgGE9oao/3anust/3cCewnju2OwWNZuZmszeVgawnbNaQr5c8AzXHUxEwgkHRET6GqZIwp4Lp+hZw0WITlQ0hBIfTZnJp2r+5QZZC8SQUCtpts3pl1U5NnIK/VoVbEVXVD+5h7Hq3CErZg+Pr7RoJG6f8BF+llo/yxPQwCGz5UQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pGa6bKQdXkYyhkrfB/M6eZx4meiGUWPlzJHJN8maNWI=;
- b=r45OuYxty05MUI2P//zSNEhv/zYk7CXXIByjYoG0idvbJRz6xAPPiIC4Ko0UZlSos5R/jy1yIUGg7dU8/PyvMLPFJJQ0YU6jEilYVtTkdlyoSS9IR9kdcqbheMENn5w9tofPlcdnwKCMwg/+kHKNTKsTmFvcfFzbHb/Hj8lTX2HztRPFm1AJ+q05aM4R4NQEohKL/lfWtyzzLtazkAZE9Nc98m4DW61mngD3hlxmsdkmkXGtwlmpeI3ygG5HW2/NdVBrVWCazqFIoqkuE/1NBeajb8U8MaoWdJIp46m7XO1Zr8rvhaeyyhohvD0Rpa8VfZkg1G4Avj+pwGGEZVFyhw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=digi.com; dmarc=pass action=none header.from=opengear.com;
- dkim=pass header.d=opengear.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=opengear.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pGa6bKQdXkYyhkrfB/M6eZx4meiGUWPlzJHJN8maNWI=;
- b=eCgh1bNuSKUa+mXDzsmVSccnnN1SC8mSqyUU3gaGszIlmaS2BInVuhxIki4SvTAmARl4UbliNZkPEdFJI/ET90VbV2YhABWKeO/Jp0RziWpZmhuHmLLJELoZEIwyZ438WDlWepcIHUix1f7Zblx4G+KNR+q+TyNggB2qxeM+wE6v7zsFJaOUHMEpmnGIWqVW3yYW/cEjNO4grsE+FRvjyot3QANyGt7dyj+D/WA0pxDXuQtNfvAmAIRm0ar2DAMFq7NTABQ+EVL3iwmZ4aLbNBRiwlkxcKo0siDOEKCdGLBBh3VtcCORaepYpXzVhIitBTuuAiTX5FeftVE5PyRIuQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=opengear.com;
-Received: from MWHPR1001MB2095.namprd10.prod.outlook.com
- (2603:10b6:301:32::34) by CY5PR10MB6142.namprd10.prod.outlook.com
- (2603:10b6:930:36::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.6; Wed, 7 Oct 2026
- 18:22:44 +0000
-Received: from MWHPR1001MB2095.namprd10.prod.outlook.com
- ([fe80::3933:62ac:2729:f017]) by MWHPR1001MB2095.namprd10.prod.outlook.com
- ([fe80::3933:62ac:2729:f017%7]) with mapi id 15.21.0496.010; Wed, 7 Oct 2026
- 18:22:44 +0000
-From: Peter Hunt <peter.hunt@opengear.com>
-To: loic.poulain@oss.qualcomm.com,
-	ryazanov.s.a@gmail.com
-Cc: johannes@sipsolutions.net,
-	mani@kernel.org,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
-	mhi@lists.linux.dev,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Peter Hunt <peter.hunt@opengear.com>
-Subject: [PATCH net-next v8 1/2] net: wwan: core: propagate modem control signals to port drivers
-Date: Wed,  7 Oct 2026 12:22:37 -0600
-Message-ID: <20261007182238.1154851-2-peter.hunt@opengear.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261007182238.1154851-1-peter.hunt@opengear.com>
-References: <20261007182238.1154851-1-peter.hunt@opengear.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR03CA0141.namprd03.prod.outlook.com
- (2603:10b6:a03:33c::26) To MWHPR1001MB2095.namprd10.prod.outlook.com
- (2603:10b6:301:32::34)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FGEjaKTK";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="X2LG2uLG"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697IArgr1621560
+	for <linux-kernel@vger.kernel.org>; Wed, 7 Oct 2026 18:23:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	HzfN1dEYOJJZLs2bxJwMzeI90eUiWQZ53IXN9K6O594=; b=FGEjaKTKiTMns4jc
+	ySHa7nijzGtMIzNX1sSiTKtCsnriO7FROVZ3uqr95gbCSh1QEPWJTvdAjroTzvh7
+	vYcPaHGJ6Ni6uDM+Kqv0tkvF65ayaBCtGgwTBk9gPPqQX5HrxgEOAVQtIbMNMQMj
+	Oo91QuNpT9Dnx1I0182YQ5mOj09u9Wpx0oK/t9LZzDnhtmCbBYnMGadTb8IYul7F
+	3Svyd2viG0xYmLfiWAq2CXnj9ztrwoWhjfIZQs/5z909hqEd8GRhoJ5FtXQHXuTv
+	PhFEUlCW70YfasD5eZZt+1tvYLBw8YdQm5heGuDGBChfTtry9UsR+gRyN4xv+I4o
+	b0OzSQ==
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5suhrf8n-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 18:23:51 +0000 (GMT)
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-8246ed0039aso5496813a34.3
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 11:23:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791397431; x=1792002231; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HzfN1dEYOJJZLs2bxJwMzeI90eUiWQZ53IXN9K6O594=;
+        b=X2LG2uLGJEq6wAeCZyI5/qEsfM95FZMEBuumFBqCOES/qOHLzTIyAn8IUhAxnKvLYd
+         C5tB89gQxqkRcQ4j6JrEHBq/46Hvx40vv8FshM0UL16GXGCaeQs+qbknBtJu8uV2rYr5
+         VTjNIMnef1jmnMYpSLzJi+A3HHnoBRMccu2dYFwdme+ZT7Tro2h2lDKRox8Yor/i1qnG
+         pWSZVRz13CzzTu9hOnGdz1ZAkQ01uWcKddvD0JJeRBMn1+giF203b+2tTthdvGJ2bSIW
+         dm81Nc15+uIxSv9v+fBey/HB0hSpAm9tXZkxOq+EnLI/kyWbCk6WR1hDYPBfg1dQqkQh
+         YxHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791397431; x=1792002231;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HzfN1dEYOJJZLs2bxJwMzeI90eUiWQZ53IXN9K6O594=;
+        b=vRYj/un6LlFQrg+wKCvNZhUHVPQoijvq6qTwMRXcphQDjUzIeGIsdEMoXU/xNb8dU8
+         qsZH7n49ioeh6W/z4VFrdy+20oBt2yz4uygMJckfoZQoI3lrcvO388y5zZ0ODdwPOxFr
+         u21eM8vgrpq7M88mpHu1aUpZY0B2wv/1FICZstJoSIpLDEyIgfc54xZlGXSqatwbzMt6
+         ohcE+3nF7ppzdbJqeHH9/Tyq38D1Ls2Efm1K3/cDC/bOCnoMbcEa37vQ3jTboXZaabf7
+         rxKAHop47e6JroEto+tkyAn+q+LPd0q0tj+QWcVg9izEiy25KUJJcPMhqzZXZc9+6zMn
+         vD/w==
+X-Forwarded-Encrypted: i=1; AKwUvByUpxtkmNcl48Li1zPZnIUMiJl8wzdOP2M7B6bZ6/gvPwylb6ABm9WemW4tFj4ZKZq9a0V0oLmSBeIYJqo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mowOkw4LPB2Ld2TGXV58uPRCfWYw980nRnYmPxSRrSKg6G7Axj
+	Dyt2OXT3p412jLDbqKhLZ7ZesY7i1bSkxQOvZrYIvydnWxnuI9Ndgjc8d9wA8XMV5YxDT5sFepD
+	qYTpNmlzZylN6RWo1IlLjb6cUo5Hmj9H7q0nWQ6KIO9dCxpNC+diRi696Rm/ks4spjyYcqnPQkT
+	A=
+X-Gm-Gg: AYBFou07COYzeLUwydEZ7ONk7ik+T+E6/aCMo7rDBlNiG4qaL7t337N5tFLi79IEHE8
+	OfHaFbJJLEOwYoWziTEAWUjsaEdGclJ3TxWEj07ogG3ChxjfvgfAP+A1yp4zxX20DNYOIJcCUs9
+	mYd6JRuLRwys20dwi5pTZcEr5kaWoUqUz5J79fMcz5yuQWBOTt4hY9HlO7APkO5pVayU0hZ+1JE
+	7XYfqvKHVt1e7SFZaFlclHIOc42dmpTIymVjcPO+SU3QqYYf9+fxU0+UM/yw8BiZHsOxZv/JgRs
+	K+afIXkuDnF362ij0RG4sCncOddNyLLvJGKyV0W5GuyL5UfQVt+s5lheKHcZcBUvEa5T/69QcoO
+	jAaH5RI2uouhjPB+O3gib+Tcp+QlZ
+X-Received: by 2002:a05:6820:4dce:b0:6cd:3ffc:e339 with SMTP id 006d021491bc7-6e7a825135bmr2885010eaf.87.1791397430608;
+        Wed, 07 Oct 2026 11:23:50 -0700 (PDT)
+X-Received: by 2002:a05:693c:894f:20b0:351:69e8:d419 with SMTP id 5a478bee46e88-35169e8d438mr1958297eec.22.1791397050030;
+        Wed, 07 Oct 2026 11:17:30 -0700 (PDT)
+Received: from [192.168.1.12] ([223.230.93.214])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-351735e316fsm980093eec.11.2026.10.07.11.17.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 07 Oct 2026 11:17:29 -0700 (PDT)
+Message-ID: <126c4b96-f50a-4ea3-8df3-a7118870a5a0@oss.qualcomm.com>
+Date: Wed, 7 Oct 2026 23:47:18 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWHPR1001MB2095:EE_|CY5PR10MB6142:EE_
-X-MS-Office365-Filtering-Correlation-Id: a150988b-cc57-4b8b-6244-08df249ffa81
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|7416014|18002099003|22082099003|11063799006|6133799003|3023799007|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	6INI1dhr+ZR3ZmCeS0DekAHtTUV7rzKwitMvrUan3a/MgC6RjZMeevoIgzUA9D80DMQ4cb56KQnaGATF+TtzcdYjuP250r+0382DGHdvtw5wlLEG0g5S52gpQsgHJ/cJm/HqoOrNqA5Sx+yvI1jQ8EyWSUh/HPB1GLZTGjsGiWfP0uo4Ah1U7jT7Le0UZXQPvSgCCiga95sYEvcuwFQV8oNTzUI0PouYqaNwUhNiRX8gCZ0v6XG2dDLIzKvDnB2e9JS4Tpn8skOXqqhDc3T/ctOQfHWnHLYxeAZo1CXFX017XUW85Uzs5CVzUuBmhRx/CIIPqvz/ETBe7QUQb9Fjq4p2YIT9wuFL1Y0Z817+Ir8qoQHuhaJYCQBUk97ifCysnvHJNUB3/ksb++ulO9ta5fqhxKD0vjwNfeH4u2f2vNA9CgCvg+mzgrM1LmJvr6EOlDVVb7EZxpT0cYbphkBZ3PJX7Mf8UaLpMZJhxMM2oCFoIlkTiXL5ms9cvAK8WqiLq8JzXR/vHVz1x17Ag0udUxnFAyGQNYWOOypA2FDxj+UZpbGxOCCOtDKQUMgrdyUtERZFF1s/uYaLdbWLNnW7KMTvoYBNSb9StQrMEOSttYg4reMqrmNoxbL1zkDnA0yICNnxJi3IUbD4nosDna5H0X6zVk11X8CPEsY1W3xa4hY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MWHPR1001MB2095.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(7416014)(18002099003)(22082099003)(11063799006)(6133799003)(3023799007)(10067099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Rxy92bKAnfxXa8C5deakdlf8BECArk9tI90Nvf5h1tRPDCrQoB0zKRy5s6Cw?=
- =?us-ascii?Q?mvESsPhnf1hLJoM7Tx1hkRDKOcy5klvW4WMCTzCQyhFe/8MIOJXChfXzYlXW?=
- =?us-ascii?Q?ewhL8l8foc+Dr52xUaRlsoWfb5rMZnFkITcuk0Wy/WM0d3nWlB+eoap4CrpW?=
- =?us-ascii?Q?KjCklk9D70lX5u9Y0hbw5hGQ4+lH8Gt7tU2Egy9MsVPwp11K5vgF4cEhpGXA?=
- =?us-ascii?Q?SmFHzBx2DGlE5DA4GdbLi+rOW0cxQ3SMW1lNfpo9VN13QiP+TA4Jz1KU+1rr?=
- =?us-ascii?Q?6slSPjFVDfVqt31c0CwiKDlyG3v330x5pCmd2pZopcXsoKiVoBigVLBggr0f?=
- =?us-ascii?Q?sGbtEry0N7GVRLSdvP0RRu31OJlsiKPRjzuU8OpPEetv4YzcSjM1Y9wiP7eF?=
- =?us-ascii?Q?nOwKZkvGqS/0bfq4vbThwa/hhTxks1fcxEIT+xznyRci8XLshRzsTcw1UiG3?=
- =?us-ascii?Q?jLSGI2VDOwE1GFzTRerIBgj2mcQ43r8CfNbpaVdfX4i3X0ylMcYL7Td6gLfd?=
- =?us-ascii?Q?fwxyUKGs4P6riThkvT4DBEn3hFNaG7WaTcZVtNUyk+g5FxLU5dZgpRZ3P1rD?=
- =?us-ascii?Q?IjTjPFoIUch8FsD1YVTyWUg4xS/h61sTQOYbbTLgeeJz0EDNDW7CJogtQO6L?=
- =?us-ascii?Q?Sx5hflfvsyy4kfQrUuxjhF+9fU8iKbiU/WvfFiQgTLd7WKGF+8TBnpWflmNn?=
- =?us-ascii?Q?s8Y8JTjFlkwbt6duGvVruHCdbBtAfttz34GGYbyc5TOS6Q1Vo5S5FrDhe8zz?=
- =?us-ascii?Q?c2RgVkMCEHFGIaO22opKgsu6pmDrb2O5v20Rn6XnltDMUkYVOSsDTEm9+Nqe?=
- =?us-ascii?Q?1agy3YDWSSn0z7I6nAeqsBiIZ6vfbT3uupRM0h7hgkD1sNKRsas5ijIrnreo?=
- =?us-ascii?Q?Eb/R5gOXEFLRk51BIMJKuTdMdHe2eOhTw928Dw0EGU17/5kZ7eDH2VVlscYQ?=
- =?us-ascii?Q?g/JzhNH5VXVvBeDZsYdRe0kHJqR/6g19tBjUZ0PLvHCHViVaFdfPg1vrA0nj?=
- =?us-ascii?Q?Dh2qV67uZqO1bhYKaOgjvOHZZMFFYiEGQSJmFDlc2rGnzQPNIo4WS8Y7kGpE?=
- =?us-ascii?Q?IPp9n+pN4bOoeHFX9/n0RSrkvG/9/EQTpO64jp0+OUdQN1cGvQjooXagkU6b?=
- =?us-ascii?Q?xlTvFXK9fgBNqZnTvnzVO6vBcHSXra06MZcsIoZgNhHBcwBSKga0XG8wblWi?=
- =?us-ascii?Q?F+zvmCqPQTxSTeE2U2dhTRo4n7FgGI2FsbHS4t4RB9T3qtUMCXLiW6/ZkjKO?=
- =?us-ascii?Q?k1J+VBqhTRx7RkjUcqFgwEpo5PYaz56tKIC61hxKCZAuzw91IwDKip+fM+12?=
- =?us-ascii?Q?8KplMkdCX4B9MYhAcGEsy5HhnVapchmBS5bbHzuJgqX/u5C1D7UpUPrHqML/?=
- =?us-ascii?Q?1k+9Q5p0EeyaL+Z9piHDL2uX9+MjBfPSXEQ36caP+1sNtwGPpFKpRpcLAiyh?=
- =?us-ascii?Q?DhI3XiG6Vx9hKOein33jzEMA4rQphreqE6oQrCCwI5MvuA/xjO2xJP9cQa9W?=
- =?us-ascii?Q?AZV5kwMdK+513tgnzAQhpsNl9ER4LIUUCtqnTomD0HUyKNWahjxB8zaBDPqd?=
- =?us-ascii?Q?25Tgb71fe5GHh4s/QSUovBSbD+GNa3ZY1dv1bG6BUlCv+m8yP+ZnXMi2m1lD?=
- =?us-ascii?Q?C2LQcD45U/IBJS/4qY5CjCARvPbwct/nLNSLBYlypBRoGW6fNpNRNNixmGvR?=
- =?us-ascii?Q?8pn88aCnnDXFKDwX/6gb1cVmAAHJgvAdxlZp2PbrIvHj3hE8?=
-X-Exchange-RoutingPolicyChecked:
-	30o9amQ8kXIbWd1qnHoeEZ/3NM2GmHiSbJsxGTcMQXiy5zBPLQ2V9RkMXFKQZkWId9Y0Ocb7QEeZTeqKY43sTT5166ZNcdiGcLoaFBjBjZlbEPQ/yNLnIMM8xQPWEY/t0VwelGPX4XSgDKmM804C8u0U/WpMBQ32wwszF4einCmHDYzEhhpR6astEmjeLJFxGDr1CdzwSRNEDWjsDSOHl2RPu13+PwWTJa+kajtY+GaIib4lTCRXOKu5FO2foJF7fTmtdUh/u+c8YuQNp6C/bx6gUMu1WzSwJplAVGdXXi8HkzyVPsN0vqz2ojRJCC4MiFFK1FYzdNBB5DYq2gYfnQ==
-X-OriginatorOrg: opengear.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a150988b-cc57-4b8b-6244-08df249ffa81
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2095.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 18:22:43.2823
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: abb4cdb7-1b7e-483e-a143-7ebfd1184b9e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2pnmIO+9ihv6ZvRdqhlhJjLAzyiE/DaysFyal9ZFZsdQtBsBFB1XrHdNsHnAOLt5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR10MB6142
-X-BESS-ID: 1791397404-105596-9031-19931-1
-X-BESS-VER: 2019.1_20260924.1519
-X-BESS-Apparent-Source-IP: 52.101.57.127
-X-BESS-Parts: H4sIAAAAAAACA4uuVkqtKFGyUioBkjpK+cVKVhZGFkZAVgZQMMnQ3NA40cLY3C
-	LF3DQtKS3NxCw5zcjS0DjJINXIPNVSqTYWAEZTHS5BAAAA
-X-BESS-Outbound-Spam-Score: 0.00
-X-BESS-Outbound-Spam-Report: Code version 3.2, rules version 3.2.2.276674 [from 
-	cloudscan12-9.us-east-2a.ess.aws.cudaops.com]
-	Rule breakdown below
-	 pts rule name              description
-	---- ---------------------- --------------------------------
-	0.00 BSF_BESS_OUTBOUND      META: BESS Outbound 
-X-BESS-Outbound-Spam-Status: SCORE=0.00 using account:ESS112744 scores of KILL_LEVEL=7.0 tests=BSF_BESS_OUTBOUND
-X-BESS-BRTS-Status:1
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 10/21] arm64: dts: apple: t8103-j274: Add
+ speaker/headset jack nodes
+To: James Calligeros <jcalligeros99@gmail.com>,
+        David Rhodes <david.rhodes@cirrus.com>,
+        Richard Fitzgerald <rf@opensource.cirrus.com>,
+        =?UTF-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>,
+        Matthias Brugger <matthias.bgg@gmail.com>,
+        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+        Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+        Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
+        Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+        Neal Gompa <neal@gompa.dev>, ajay.nandam@oss.qualcomm.com
+Cc: asahi@lists.linux.dev, linux-sound@vger.kernel.org,
+        patches@opensource.cirrus.com, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-mediatek@lists.infradead.org
+References: <20261004-macaudio-v2-0-7b47ed6335a8@gmail.com>
+ <20261004-macaudio-v2-10-7b47ed6335a8@gmail.com>
+Content-Language: en-US
+From: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+In-Reply-To: <20261004-macaudio-v2-10-7b47ed6335a8@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: AQknhMyihwyD7uWfY7k95n-HCsaQkgKC
+X-Proofpoint-ORIG-GUID: AQknhMyihwyD7uWfY7k95n-HCsaQkgKC
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDA3MyBTYWx0ZWRfXxxUk8M4ov4Tw
+ 0uMfb3PHFaicJfnGnI+njTnOySVusrZiLJ6SYLRr7oa2nmeO058x8X4bamYCnFMvElUeOGnszgm
+ cFzzuxLRdOO/jiLRlXh9+z51H/70VSs=
+X-Authority-Analysis: v=2.4 cv=e9qT2qp/ c=1 sm=1 tr=0 ts=6ac68e37 cx=c_pps
+ a=7uPEO8VhqeOX8vTJ3z8K6Q==:117 a=ZXy6yrx+fn+bJIgs5eQ1WQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=pGLkceISAAAA:8 a=UKJZ3Gop6vG71Bmy1WEA:9 a=QEXdDO2ut3YA:10
+ a=EXS-LbY8YePsIyqnH6vw:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDA3MyBTYWx0ZWRfX7JON6AzTg4/P
+ 4zkCSXYB2pjsCLL1z4L9AXgyFhUV6mi0bXEwibAnpzJ3o6D8AtqqbBWXm3Bqan+NPbJN2ntGJOz
+ ggfJgibRs9wTcLqjYDpakkmsJLcJqised7mOV3SkOpX24e5bxCK3jK6amReNYs62GUmu8KohufP
+ W2pgSUfptPSb5n/gau/W5rOlqu5oSgWmnm5dCNth2xWSJZmMGbTsHdhs2DQVUVtnwsnTDmdJ7nX
+ kzFvUWB+cSrWVepf+mBVkDJOxGCSQa/a8Zo2CGjFBw/SkJMCyEdOLk7Jcxd15Ya4IbvPmGXggNW
+ +ZVm/4MoTstgXVD23slfh1uMjcTlfwdedw3ZA5J0xh61D3fAL/QsZJ4FbCBv7XHNM+FSo3k/LOf
+ 2yrQm1Vs3/YcGn/LjaO9IgdMnDGMoGr3OhQNg/zN6eAQnXI94MQxb135XjuXX/bEKZpa4VwXU8X
+ TAVXBokOoNW/RYNjKdA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-07_06,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 spamscore=0 lowpriorityscore=0 impostorscore=0 phishscore=0
+ bulkscore=0 priorityscore=1501 clxscore=1015 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070073
 
-The WWAN character device emulates the TTY modem-control ioctls
-(TIOCMGET/TIOCMSET/TIOCMBIC/TIOCMBIS) for AT and QCDM ports, but the
-result is only stored in port->at_data.mdmbits and never reaches the port
-driver. A driver therefore cannot act on the host raising or dropping
-DTR/RTS, even though some modems depend on it (e.g. they withhold
-unsolicited AT result codes until the host asserts DTR).
 
-Add an optional ->dtr_rts(port, mdmbits) operation to struct wwan_port_ops.
-Drivers that implement it receive the full TIOCM bitmask so they can assert
-or de-assert DTR and RTS independently. The wwan core tracks the full TIOCM
-bitmask in port->at_data.mdmbits and calls ->dtr_rts when it changes, gated
-on WWAN_PORT_AT to match the open/close raise/drop behaviour.
 
-Also raise DTR/RTS in wwan_port_op_start on first open of an AT port when
-the driver implements ->dtr_rts, and drop them in wwan_port_op_stop on
-last close if HUPCL is set in the port's termios. This mirrors TTY
-semantics and means individual drivers do not need to implement this
-themselves. As on a TTY, HUPCL defaults to on for AT ports, and userspace
-can clear it with TCSETS to keep DTR asserted across close, for example so
-that closing the port does not end a call on a modem set to AT&D1/AT&D2.
+On 10/4/2026 11:33 AM, James Calligeros wrote:
+> The M1 Mac mini integrates Apple-specific variants of the TI TAS2770
+> and Cirrus CS42L42. Add these nodes and advertise them to the machine
+> driver via the sound node.
+> 
+> Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
+> ---
+>   arch/arm64/boot/dts/apple/t8103-j274.dts | 67 +++++++++++++++++++++++++
+>   1 file changed, 67 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/apple/t8103-j274.dts b/arch/arm64/boot/dts/apple/t8103-j274.dts
+> index 1212852251e0..6121e3a89a0f 100644
+> --- a/arch/arm64/boot/dts/apple/t8103-j274.dts
+> +++ b/arch/arm64/boot/dts/apple/t8103-j274.dts
+> @@ -75,4 +75,71 @@ &i2c2 {
+>   	status = "okay";
+>   };
+>   
+> +/* Audio codecs */
+> +&i2c1 {
+> +	status = "okay";
+> +
+> +	speaker: codec@31 {
+> +		compatible = "ti,tas5770l";
+> +		reg = <0x31>;
 
-at_data.mdmbits is protected by data_lock. In the ioctl path the ->dtr_rts
-call is deferred until ops_lock is held, where mdmbits is re-read under
-data_lock, so the value passed to the driver always reflects the committed
-bitmask under ops_lock and is serialised against concurrent ioctls and
-against port removal (which nulls port->ops under ops_lock).
+The binding documents "ti,tas5770l" in 
+'Documentation/devicetree/bindings/sound/ti,tas2770.yaml', but I only 
+see 'ti,tas2770' in the OF match table in 'sound/soc/codecs/tas2770.c'.
 
-wwan_remove_port() also drops DTR/RTS before ->stop() when a port is
-removed while still open, regardless of HUPCL since the device is going
-away. The raise and drop paths go through two small helpers, which do
-the AT port and ->dtr_rts checks and pass the driver the resulting
-bitmask.
+Is the expectation that this node should bind through the TAS2770 
+driver? If so, should this either use a generic fallback compatible, for 
+example:
 
-Signed-off-by: Peter Hunt <peter.hunt@opengear.com>
----
-v8: Add wwan_port_raise_dtr_rts() as the counterpart of
-    wwan_port_drop_dtr_rts() and move the open-path handling there, move
-    the AT port and ->dtr_rts checks into both helpers, use
-    scoped_guard() for data_lock (Loic Poulain)
-v7: Drop DTR/RTS on last close only if HUPCL is set, and default HUPCL on
-    for AT ports. Pass the masked mdmbits rather than 0 from
-    wwan_remove_port(), via a helper shared with the close path. Both
-    from the Sashiko review of v6
-v6: Rebase onto net-next. Snapshot mdmbits under data_lock before calling
-    ->dtr_rts from wwan_port_op_start()/wwan_port_op_stop(), rather than
-    reading it after data_lock has been released
-v5: Change ->dtr_rts signature from bool to unsigned int mdmbits so DTR
-    and RTS can be driven independently; re-read mdmbits inside ops_lock
-    in the ioctl path to close a concurrent-ioctl ordering race; add
-    de-assert call to wwan_remove_port() for the hot-unplug case; update
-    kernel-doc to note the op is AT-only and describe the mdmbits argument
-v4: Protect at_data.mdmbits in wwan_port_op_start/stop under data_lock;
-    release data_lock and acquire ops_lock with a NULL check before calling
-    ->dtr_rts from the ioctl path; gate ioctl ->dtr_rts on WWAN_PORT_AT to
-    match open/close behaviour; reduce boolean to TIOCM_DTR only
-v3: Replace ->tiocmget/->tiocmset with ->dtr_rts(port, bool on) modelled
-    on tty_port_operations.dtr_rts; raise/drop DTR/RTS in
-    wwan_port_op_start/stop rather than in the driver (Loic Poulain)
----
- drivers/net/wwan/wwan_core.c | 69 ++++++++++++++++++++++++++++++++++--
- include/linux/wwan.h         |  3 ++
- 2 files changed, 70 insertions(+), 2 deletions(-)
+compatible = "ti,tas5770l", "ti,tas2770";
 
-diff --git a/drivers/net/wwan/wwan_core.c b/drivers/net/wwan/wwan_core.c
-index ffbcf11e4e68..4206649d4b45 100644
---- a/drivers/net/wwan/wwan_core.c
-+++ b/drivers/net/wwan/wwan_core.c
-@@ -655,6 +655,10 @@ struct wwan_port *wwan_create_port(struct device *parent,
- 	init_waitqueue_head(&port->waitqueue);
- 	mutex_init(&port->data_lock);
- 
-+	/* AT ports hang up on last close by default, as a TTY does */
-+	if (type == WWAN_PORT_AT)
-+		port->at_data.termios.c_cflag = HUPCL;
-+
- 	port->dev.parent = &wwandev->dev;
- 	port->dev.type = &wwan_port_dev_type;
- 	dev_set_drvdata(&port->dev, drvdata);
-@@ -679,12 +683,52 @@ struct wwan_port *wwan_create_port(struct device *parent,
- }
- EXPORT_SYMBOL_GPL(wwan_create_port);
- 
-+/* Raise DTR/RTS on first open of an AT port, as a TTY does. Called with
-+ * ops_lock held.
-+ */
-+static void wwan_port_raise_dtr_rts(struct wwan_port *port)
-+{
-+	unsigned int bits;
-+
-+	if (port->type != WWAN_PORT_AT || !port->ops->dtr_rts)
-+		return;
-+
-+	scoped_guard(mutex, &port->data_lock) {
-+		port->at_data.mdmbits |= TIOCM_DTR | TIOCM_RTS;
-+		bits = port->at_data.mdmbits;
-+	}
-+
-+	port->ops->dtr_rts(port, bits);
-+}
-+
-+/* Drop DTR/RTS on an AT port. Called with ops_lock held. On last close
-+ * the lines are only dropped if HUPCL is set, as for a TTY, on port
-+ * removal they are always dropped.
-+ */
-+static void wwan_port_drop_dtr_rts(struct wwan_port *port, bool hupcl_only)
-+{
-+	unsigned int bits;
-+
-+	if (port->type != WWAN_PORT_AT || !port->ops->dtr_rts)
-+		return;
-+
-+	scoped_guard(mutex, &port->data_lock) {
-+		if (hupcl_only && !(port->at_data.termios.c_cflag & HUPCL))
-+			return;
-+		port->at_data.mdmbits &= ~(TIOCM_DTR | TIOCM_RTS);
-+		bits = port->at_data.mdmbits;
-+	}
-+
-+	port->ops->dtr_rts(port, bits);
-+}
-+
- void wwan_remove_port(struct wwan_port *port)
- {
- 	struct wwan_device *wwandev = to_wwan_dev(port->dev.parent);
- 
- 	mutex_lock(&port->ops_lock);
- 	if (port->start_count) {
-+		wwan_port_drop_dtr_rts(port, false);
- 		port->ops->stop(port);
- 		port->start_count = 0;
- 	}
-@@ -759,8 +803,11 @@ static int wwan_port_op_start(struct wwan_port *port)
- 	if (!port->start_count)
- 		ret = port->ops->start(port);
- 
--	if (!ret)
-+	if (!ret) {
- 		port->start_count++;
-+		if (port->start_count == 1)
-+			wwan_port_raise_dtr_rts(port);
-+	}
- 
- out_unlock:
- 	mutex_unlock(&port->ops_lock);
-@@ -773,8 +820,10 @@ static void wwan_port_op_stop(struct wwan_port *port)
- 	mutex_lock(&port->ops_lock);
- 	port->start_count--;
- 	if (!port->start_count) {
--		if (port->ops)
-+		if (port->ops) {
-+			wwan_port_drop_dtr_rts(port, true);
- 			port->ops->stop(port);
-+		}
- 		skb_queue_purge(&port->rxq);
- 		clear_bit(WWAN_PORT_EXCLUSIVE, &port->flags);
- 	}
-@@ -980,6 +1029,7 @@ static long wwan_port_fops_at_ioctl(struct wwan_port *port, unsigned int cmd,
- 				    unsigned long arg)
- {
- 	int ret = 0;
-+	bool call_dtr_rts = false;
- 
- 	mutex_lock(&port->data_lock);
- 
-@@ -1036,6 +1086,8 @@ static long wwan_port_fops_at_ioctl(struct wwan_port *port, unsigned int cmd,
- 			port->at_data.mdmbits |= mdmbits;
- 		else
- 			port->at_data.mdmbits = mdmbits;
-+		if (port->type == WWAN_PORT_AT)
-+			call_dtr_rts = true;
- 		break;
- 	}
- 
-@@ -1061,6 +1113,19 @@ static long wwan_port_fops_at_ioctl(struct wwan_port *port, unsigned int cmd,
- 
- 	mutex_unlock(&port->data_lock);
- 
-+	if (call_dtr_rts) {
-+		unsigned int bits;
-+
-+		mutex_lock(&port->ops_lock);
-+		if (port->ops && port->ops->dtr_rts) {
-+			mutex_lock(&port->data_lock);
-+			bits = port->at_data.mdmbits;
-+			mutex_unlock(&port->data_lock);
-+			port->ops->dtr_rts(port, bits);
-+		}
-+		mutex_unlock(&port->ops_lock);
-+	}
-+
- 	return ret;
- }
- 
-diff --git a/include/linux/wwan.h b/include/linux/wwan.h
-index 1e0e2cb53579..57406139304e 100644
---- a/include/linux/wwan.h
-+++ b/include/linux/wwan.h
-@@ -57,6 +57,8 @@ struct wwan_port;
-  * @tx_blocking: Optional blocking routine that sends WWAN port protocol data
-  *               to the device.
-  * @tx_poll: Optional routine that sets additional TX poll flags.
-+ * @dtr_rts: Optional routine that updates the modem control lines to match
-+ *           @mdmbits (a TIOCM_* bitmask). Only called for WWAN_PORT_AT ports.
-  *
-  * The wwan_port_ops structure contains a list of low-level operations
-  * that control a WWAN port device. All functions are mandatory unless specified.
-@@ -70,6 +72,7 @@ struct wwan_port_ops {
- 	int (*tx_blocking)(struct wwan_port *port, struct sk_buff *skb);
- 	__poll_t (*tx_poll)(struct wwan_port *port, struct file *filp,
- 			    poll_table *wait);
-+	void (*dtr_rts)(struct wwan_port *port, unsigned int mdmbits);
- };
- 
- /** struct wwan_port_caps - The WWAN port capbilities
--- 
-2.43.0
+or add `ti,tas5770l` to the driver's OF match table?
 
+
+> +		interrupts-extended = <&pinctrl_ap 182 IRQ_TYPE_LEVEL_LOW>;
+> +		shutdown-gpios = <&pinctrl_ap 181 GPIO_ACTIVE_HIGH>;
+> +		#sound-dai-cells = <0>;
+> +		ti,imon-slot-no = <0>;
