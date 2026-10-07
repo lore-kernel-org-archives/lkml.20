@@ -1,106 +1,73 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010050.outbound.protection.outlook.com [52.101.193.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F17D48164A;
-	Wed,  7 Oct 2026 09:05:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B16495AF1;
+	Wed,  7 Oct 2026 09:06:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.50
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791364008; cv=fail; b=J/E9wD94GbpftlA9Fl9QGPr5vnjiSDrb8IhKhYe5YKnpiMk960t7Q4uu7FFZvll9guJm+7Iv3ppsChvJ1/gvhqe0zmz8d+GO5wEdgq1CjdCTLLV+RfCs/ASXsBXOyqoGLvr9L8PuUKU4kGhAXlvtW5CBNHVrb4EUw5dQ8lBjo1E=
+	t=1791364017; cv=fail; b=FbJhIxRAs/vBW6UXgj9ibQ6qW8HnF6YyRvas3G8YQ3itKV9OZV8qzhkjvuzmj48dy+kfFb/KmoPyeVeIIeOXK9J/+p1Epv9vwbzaWSOACT2q3qbtvyfRW3NtC1MerR1mKbqJm0oNMttIoGiNfIzGMTjTptCfu4iTI6Ng5VIYd0Y=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791364008; c=relaxed/simple;
-	bh=Vl8Ekx2s64eWL7DAWcyByLEGayGhF3iXoYWG8dpIDHU=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=ix9AyOywLnvbeGh66oKLIjI7VKVRBWm1D9FTk+aJg8Cmr1hhgI6D2IezOxI3cYMLZQtcX14ivO3GeWBxaPZqSwlrD03wI3iWNujFv+mkZ7Y+CzuEf8N88qWCvD81nyVIWx92v0kBdrlGpnTiJ4nqy81zocLjdq3jyt7+UWORj3s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=R9CXrBbt; arc=fail smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791364017; c=relaxed/simple;
+	bh=jDcNznOAArcFiz8xAav/fVy3ij7DLV5/JkBsEuis64w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=DVfhiN+4xUN+motldzOtwWUUPdibGUaM9pdpZpULL3vOOVi4qmD1nnUgWfEaj0iC1npy8U3KrVueVMHOZy4yO5Fl3u7XcBIrkKY3J5POiDQizznQwFhJP+z0cdCBdJVJ2WARFYnDKgkfIkNfap13mVCS0z+XH+bEQaXMKeEvUA0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Ntb4U0n9; arc=fail smtp.client-ip=52.101.193.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="R9CXrBbt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791363912; x=1822899912;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=Vl8Ekx2s64eWL7DAWcyByLEGayGhF3iXoYWG8dpIDHU=;
-  b=R9CXrBbtKubH14XOGSUwE6xFC6KQLFvvaPDEYtHJbKE8Ww8u+k7DeK5k
-   WL41XhJe1DF8r0CchYblTAO48FQsrHl2jWAotadjYMmLA0l8g9djFneAG
-   Y5GHcnGJUoel7L3UCJ8aFUI6FvBBQdbcuPXC4mlHh4EQJj+990Hy8JDte
-   WlRlc+h7wW7HmMWhbZWSmc+ugkzmWTf5WZIhgcJU+UzuBt6qAulg8Dvll
-   CFihYt3+D858nHL82QIKXrR+jzgsQY1gQx0n8owjsTlB2ytns/1RMIqBk
-   ZYuLn25Vgr/CatOeZlxnx+pA4gu7zMdLiS05b/yQikQF3Z8y2NvGWlYqn
-   A==;
-X-CSE-ConnectionGUID: ELwaZIwdSrao9Kw3mdfcUA==
-X-CSE-MsgGUID: s08aDWd9SzK5Rpdl55p1tw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11927"; a="17393"
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="17393"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 02:05:11 -0700
-X-CSE-ConnectionGUID: A2RS7pPZQ4muDK8C6fkrDg==
-X-CSE-MsgGUID: BsGoDMShQGSquadxHvm8sg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="1505171"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by fmviesa011.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 02:05:10 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 7 Oct 2026 02:05:09 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Wed, 7 Oct 2026 02:05:09 -0700
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.26)
- by edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 7 Oct 2026 02:05:09 -0700
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Ntb4U0n9"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=b4amJYIcbTFg0N8SeCEksKoKV48TtmB/yskwpjvzeAoHp738W6QfSPiMG+K2fHSOpsxPoVkwjRfoyukYDe7b/uDyJ8p6gcsFaIT6a3AIAV4sZiCAzVV/i6iz29Uk9DIPuOmnx6H6QhrLuFixWpoaq6QjCNzI3DSJ5/YsLTtUFHY2sBeoNAe9oPRVFrVw2StaFNjl9Z3b9BUnPThUKF8Pr1mXPdZ0diWNUwPaClSUyLmRfOGkLyniaSB+B2DAPG4SAbQW6Hi0H0JGKT+uSPvE4VwaSzYvZ+dtnSenkANRgnTf35V8JY49mq0bdCa2jGpKHsttMF3gu4hERy6BYV6mmQ==
+ b=wfdQwV90H0OD9ZacSStBEndJAX1R4iq5DoJev5Cm8689AbQWbao+uGbMeLkb7od4b2mujQ1xOeo+J6aXbwNWD5U8ocuxyIh/H1ZIcVc07/O7Qsv4ZJ6nNxAZ+gZGBQ9ClOvSOwMo/zYvaW4N//hXQJKGu8xzwJsBRyrUe/xjFpmQrSrFtyzhdG2RObr3BkKu/2IKwSNpvtQmoN/gvCsK+rm7dvDsBkxfnBqxiAPsF6Yt3sGo623W2J4IR0hpxXP64OREblZIzqKB5guT78YqiZ0RBImbG5ZNpDYFyT7ktMNo07B3lXqWgwQFjXb+GXcDJHMTE1SypRpMer1UMac/1Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uEJ8GWENdsxFH1YQlj/4kU/a5fOA79gVWTPNDSirrO8=;
- b=UQ/Nm7Bc3ISlDvM63sVC37vt4Y36U68uaozGNxcoIOETFhafQuCMNyW0F2lvw6kLoOxx6l7gY3ryBn4iSJCugXDBYFyAYd0dHag4o/Q80fX3TPKgDEG8SM+bEJvAdpD1sYiFem5rnSi9nA2EI8r5oplcXRcUVG4BB+0l2R2O4AVPJT5uvkikgomMF9/tzjLFo5cGABAfA65JjgJ2wvHbtCf7r3imSucIX+b7IiNfRotLHsGTXx7KIgT6So6VOF/fYPHZb3BfU4gkZwrJjRGs6F8WOj5psAC4KrI6apAO6BY/q9qWPWD9suWI4VyvWMniLgKk5fiRfZC2/ZAcJOJiNQ==
+ bh=ym7Cgc9lfaST3vCgYAFqBUwBX3nfwTSY+N7mmwDRxoA=;
+ b=gSlehxRB9Yk1V0U90ycRxC52QXE10gnhamHdv4AeCMFqJniqfR3h+gmTo2zA5jCd2YroJe+vOI8/HcKU3UnzlwtRADIpdXgxDej4vF+gNA8awoIouQSHcYC0XwZ8u2pbv+bHhDc7isrNq3XB13kSiBkspejps5dmYiXw4ZDgDdamRcOZT/i7apdR/2NNN3EvLvyMT8T29LT1TD7F8Uc7E6dBRMmsgU2IQKcC7NhHPto6gY+mRhAwoS1YuUm9sSukVDUMWe5nBAa70N5KmSql41FrUM+nM8nFf1q27mAVIq5nWa7xKH5CUCKXEiL40HwNZPIa9/s/HePBGFkNHasgaA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ym7Cgc9lfaST3vCgYAFqBUwBX3nfwTSY+N7mmwDRxoA=;
+ b=Ntb4U0n9u7HAvLDG/rB3EE7cRMRE7Tine9rp1dNpvgv4KZkvPZUTM9PWTVUoesUuSWfs3/+bIfewhtX0Py8YtsVu8bO0ZczinIgcfUGwJ47TH1oHeJIEUNGz+FCkSyLo5GNLEJpO9o/pYgSVjf7ipMt4WLXH7RosCva+b//4pREbySiG6zrUng51cQpm9JMDtnfVamgMKzn54SOKHewYObmid387s2DAY2jiV31YTKutS4sUGT6CZcL7FsA/9nT2VIYYve54bOczAanYHbMoXMLgoq2bOk4MSJXXhoJ/RQnjc2XEM4GpfoBwmVF+v4mAVT6jj2qldutAOIrEs/ZpfA==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from IA1PR11MB7198.namprd11.prod.outlook.com (2603:10b6:208:419::15)
- by LV2PR11MB727748.namprd11.prod.outlook.com (2603:10b6:408:413::20) with
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB2370.namprd12.prod.outlook.com (2603:10b6:207:47::27)
+ by DS0PR12MB7509.namprd12.prod.outlook.com (2603:10b6:8:137::8) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
- 2026 09:05:06 +0000
-Received: from IA1PR11MB7198.namprd11.prod.outlook.com
- ([fe80::2c4e:e92a:4fa:a456]) by IA1PR11MB7198.namprd11.prod.outlook.com
- ([fe80::2c4e:e92a:4fa:a456%3]) with mapi id 15.21.0472.015; Wed, 7 Oct 2026
- 09:05:05 +0000
-Message-ID: <1b5d7223-345a-4197-97c7-9e715f0b76ea@intel.com>
-Date: Wed, 7 Oct 2026 12:04:59 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] mmc: sdhci-esdhc-imx: map unsupported driver type to
- Type B
-To: Ian Ray <ian.ray@gehealthcare.com>, Haibo Chen <haibo.chen@nxp.com>, "Ulf
- Hansson" <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>, Sascha Hauer
-	<s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Shawn Lin <shawn.lin@rock-chips.com>,
-	Kamal Dasu <kamal.dasu@broadcom.com>
-CC: <stable@vger.kernel.org>, <linux-mmc@vger.kernel.org>,
-	<imx@lists.linux.dev>, <s32@nxp.com>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>
-References: <20261007070313.863-1-ian.ray@gehealthcare.com>
-Content-Language: en-US
-From: Adrian Hunter <adrian.hunter@intel.com>
-Organization: Intel Finland Oy, Registered Address: c/o Alberga Business Park,
- 6 krs, Bertel Jungin Aukio 5, 02600 Espoo, Business Identity Code: 0357606 -
- 4, Domiciled in Helsinki
-In-Reply-To: <20261007070313.863-1-ian.ray@gehealthcare.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: DUZPR01CA0283.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:4b7::17) To IA1PR11MB7198.namprd11.prod.outlook.com
- (2603:10b6:208:419::15)
+ 2026 09:05:54 +0000
+Received: from BL0PR12MB2370.namprd12.prod.outlook.com
+ ([fe80::86cf:c3ec:2cf5:74c8]) by BL0PR12MB2370.namprd12.prod.outlook.com
+ ([fe80::86cf:c3ec:2cf5:74c8%5]) with mapi id 15.21.0496.010; Wed, 7 Oct 2026
+ 09:05:54 +0000
+From: Richard Cheng <icheng@nvidia.com>
+To: jic23@kernel.org,
+	dave@stgolabs.net,
+	dave.jiang@intel.com,
+	alison.schofield@intel.com,
+	vishal.l.verma@intel.com,
+	iweiny@kernel.org,
+	ming.li@zohomail.com,
+	icheng@nvidia.com
+Cc: kaihengf@nvidia.com,
+	kobak@nvidia.com,
+	newtonl@nvidia.com,
+	kristinc@nvidia.com,
+	linux-cxl@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH v2 1/3] cxl/mem: Separate provider registration from region attachment
+Date: Wed,  7 Oct 2026 17:05:37 +0800
+Message-ID: <20261007090540.43817-2-icheng@nvidia.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261007090540.43817-1-icheng@nvidia.com>
+References: <20261007090540.43817-1-icheng@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI2P153CA0002.APCP153.PROD.OUTLOOK.COM
+ (2603:1096:4:140::16) To BL0PR12MB2370.namprd12.prod.outlook.com
+ (2603:10b6:207:47::27)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -108,137 +75,426 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR11MB7198:EE_|LV2PR11MB727748:EE_
-X-MS-Office365-Filtering-Correlation-Id: d135829c-616f-45d4-a7f2-08df24521431
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2370:EE_|DS0PR12MB7509:EE_
+X-MS-Office365-Filtering-Correlation-Id: d2e035df-73fe-4c1e-2ca3-08df24523137
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|11063799006|10067099003|56012099006|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: FeGNMG536DNr5Pljz1FjusgXd2oJr+IQQEJNjPu6YF75BhDmYLPrp2EK3ofsbGPr2f4RELwU0d8BfL37eER484vAq/RkI/YN/pt1qZNwjhS/v+sNIy9LMlqOMHrGSCp6PWH37sXxKgNlbUeAubCYxVZWxdGYvGnH/WzD1ktXFBUZgoyGn1B+4TOCqUaHFs4aYiqohBlJ/U4V7qtBIfJAp+qIV08nYK7OTdhqFhYykc45dSQDMw/1nBhaIP29KLC0H6/6jXUdMnWtEq/XPd40a9ycmeU9+zHiLILt9qTMhk3aU7NXpjMo5ovjUBiwsPTXD0knkXXRDjMFr8Xu7BVj60+0CQMaFep7FH1xM90+ZZ+MvD7VQsa9y+1mWftwVMjG/mNmZNshmM6B5uuEKUekFlZjl19aVxTg3Yo1Fvcqyl/Im9Jy9shW+UOBvZaAX8+NRjQNpINdVHlxvG+B0xLrmNszsD5sSGO+pbDUh/Cie1/MKyoNw/qGNe1MG9BNAvz9qu41s1RFZQbd7SFo8/t0VQE6ek2dWPFtcrVlHD0fu08bPfHhqivBvAm+bgWFCzYAIfcXF7aZB8pZ5mAhxSvn+wyjzTMThg58zQsi9xjZVWITPicga9OjBiOBJhTT5/KKW0UzNnNPpJXw7UNgvHklakey4CIiti5yf/i6c0+wE2M=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR11MB7198.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(11063799006)(10067099003)(56012099006)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|6133799003|18002099003|22082099003|10067099003|3023799007|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	p1GZKkqYfzqJBOKVz+07d/XWr3Wnfkj/FkRjSBO1mthR6GDplvb+Xog3Z+0YjYY06dQqwdqbOcag+3RHAqMakTAkaXyR85TBlB/25hxZpsMn3gwASYNA8xlCqVVZeDiHGOGpma/h8vi/y9aU7sHv99AT5YVkxc48wZzD/AhfGeUujpgj9Hb3GKYlcx85kKzHtk4YMwJMFthxHBOKlqFD6BQJkG0Koi5OTa7UuOroZwzj7lME4T/g3iu/FH73BaUTaH4EEaB1Dd1jaYutat6QDhEPu1KBm4eSStUGyZ2iyQYCPi9Pr9vzs/8ob/FwhWTh6mrqWDoKW+sem1cgFzGgb/N7LwLRwcTB+0IDtKdGrsDFSiccheQulIO22lDfPCsofy4RKQ6r7vXf5CmGp/VHiE3te2V+Cj2lZKTAC7A3hZ+va9jBxxNcgaL09SuJ4KIvZhwj39jgLj+v/UmvvctI+nKuYWMwkJzz1CC8ndhwCE7hD0DctBaO60Xk7JNJIyhiGCqZ3SC783Vuq9Ydb958XSWwfanz4lI7HSBVEutvKGAYIKwI8mu7rh7Q4lnEWGM3LxTbBSUYZeYvdfIybt2iTuzAhIY8RZnBJqOKeEWneQ/M943VP1YS1i5x5Np05UV9Lnes1wNpjTJEC44sVec0oqxFJa/Y57/Cf+AUNI5Xpmw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR12MB2370.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(6133799003)(18002099003)(22082099003)(10067099003)(3023799007)(11063799006)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dndzVzBKeXFpRDBuOVhER2JZQS83NkhubDBsUnQzTHdsYnp5TFE0cWNMb0NZ?=
- =?utf-8?B?UGlES3ZjeC9UcTcrTUx0U0R5LzhaellkQ0hnOW5keVJTVUQ2NndlUUVpcFow?=
- =?utf-8?B?T01UbzljNHZpQllsTTZxNEN3dUkrZkY5NDhQQjd0K3pFNit0aXBTSk1KZm5J?=
- =?utf-8?B?N25DR2JNb09CVE5rMDVlY0lNY011MVQxaGlLQ29rQjEyb3BkQU1mZXA2N3FC?=
- =?utf-8?B?RUc2eXVXa1V0YVdoQU1ieDM2WVBGOWo3alUwRi9wbWJYbkFBclJ2V1NYdEQr?=
- =?utf-8?B?aXZHR3BGb0wxRWdDWlBuZUdYK1JZWTVvU0dZZjNCWmNVRzAvVGFtMDU2TXF3?=
- =?utf-8?B?OVBuclNqaXBpOGlWTHhIVzhaajcwaHJ5WVQ4WVgxZWJMTWtrVHhsb3dRbmRK?=
- =?utf-8?B?dUNCYmJLM0U3dnVjTi9NTEVSRTJOMVpIa01IZ0pPcklUc1JRSHY0b1laOHE5?=
- =?utf-8?B?Q256UU45MElpd1pKWVBRTUFNLzU0TlRVcXNPK3YrSThOMDVTNlUrc1N3U0Jo?=
- =?utf-8?B?UFFVaWpmQUxEWHRPTGtQcC8vQmFXWDRhc2FQNkx5SVNFSlRCSDJkNWlxNTB5?=
- =?utf-8?B?RmVkZHFIVFdSZllnNjV4VWRIN3dZenR5WWcxOGhzZmZ2VkZzN3BCOTJmWVcv?=
- =?utf-8?B?NHltYWhLKzgxUElxR0hleXZrQjJnZGN5M09IYW9ZcWRnUmxwdUl5eVRrTUpU?=
- =?utf-8?B?dFNwM3pOakFWU1MvNVMvUWJCQjVNSmYvMzRVZTJaWEJzTjJIc2hubWJYZmhv?=
- =?utf-8?B?aEN4MWRWQ2pwaER2cHp6NlQ5VlJQVmNwaDNMcHBSR00rMWZxSktneUJlL0hB?=
- =?utf-8?B?Zm1JYXQvT3lpVDlKYVBBZURwR2phQ2tJdWlMUVRLMVNVVEY0REFVQWpvNG0y?=
- =?utf-8?B?K255VEQrSlpLcDRSUUdjTVlhdW5pRFJOWk1kYmNIYjVoaFhCbnZpK25DUkNI?=
- =?utf-8?B?K1hhK1p6VWpDSTFkeENFMFM1bXZLWisxTkxNOG84OWJMeVFMcWJqMm1nRkNG?=
- =?utf-8?B?aGU3b21yOENKNXNINFhidHFFY08wV0hBTi8yUnRUY0VBekFscFdyRkp1UDdG?=
- =?utf-8?B?d3Jod3hsTWRobThXRWhlOC9RVC9SdzA2WHNCWGlPTVloZkVRY2Q0cjVEZWxp?=
- =?utf-8?B?SDF3YVRDR3hHNzFaV3lucm96QXBkQm11MDhDOEdCZWl2bmhudjYvaHVWejN2?=
- =?utf-8?B?VWx4SThQOXREV0lscVZoVUZ6OUx1TUtHVCtEM0x1OXo5RjZJYjZDRk1ISm0z?=
- =?utf-8?B?S3ZXV2tITTYzL0daZnJIVnQ0WDh5MklsSUw5VkNjSk5uZXA3NE5xOW5Xb0Rp?=
- =?utf-8?B?L1RSd0tHeXdlWG5zUGx2ajVvcXU1NW5OWVVwRjBBR0RFRmVDUEwyWDNpbUgx?=
- =?utf-8?B?L1BRM0t0aEVHd1BtUlBFeXZXSnEvaUVoOGsvc3lRVk1OMVY0ekk2ZXVaN01u?=
- =?utf-8?B?bVM0VUMxTlB6WGoyNUFpV2JVNWJ5MnJzRzBzb2c0aDdFQWplNUZYY2ZGY1gy?=
- =?utf-8?B?UEJBTzJvZXJiNGFPTlhFdVg3TGc4eElSbGlGQ1JzTG0vOFhvVGd5c1V5ZmR3?=
- =?utf-8?B?cnQvVVJORXJpcnFmcVl3U2ViVklTUmt1bG15eFkzUm9wNUFqaG1pT3U1cGxF?=
- =?utf-8?B?MDJoSGRXVmlKbXB3Qy9nSElkakpwUkk0NXpPUVRFKzRKU2Y1YlFaZ2UxMTBU?=
- =?utf-8?B?cWQrd0VWYUk0c1VjTW1UNGVjQWlkNFViekZPbUJLampoa2RUR1hnNy9vWk9W?=
- =?utf-8?B?RzZZRUJ1eVZWTTY5cmpWS3llZ1FmM2xxMUIxSUJPSktWdElaOWgraDRQTDJB?=
- =?utf-8?B?MFRGVHZQdllUR3R2SXY2cGJiUjZKZkc0am5sNkdTQ05kNklLeU01dmN1OEg5?=
- =?utf-8?B?dDh0dTNZUE1ZaG9FQXh5TXY2YVBKWjJZZXM4RFZ2Yld4alpHVk13VCtRcjlQ?=
- =?utf-8?B?WHZyQ1kwUVYrdzUyeGQ1TU1WR1dDODRXbkxaWEc0L0xpVDhNZUluQ25jVzhv?=
- =?utf-8?B?eS9wdElHYUkvWXBmM0FXS0ZtN1RDWC9tYmJuV0pCaHBxbUd2Y2RPUkhWbVVE?=
- =?utf-8?B?dHpleXNPM1hDMVFlRDBYK082SXVnVlJNNkJBektJTWVYN3ZyY3dVMmwzYkVC?=
- =?utf-8?B?dThEZmU2NnNzZ2NXMG9PRGp3djFBdnl4bnBBb0JMNHVnUnBoMytQZklPRW4x?=
- =?utf-8?B?Ym52eTQ4bkNHUFhucmxDYlNMRDNtREQxMkgwWW9jVlppTUZIRUIwR2wrekh6?=
- =?utf-8?B?M2EweGdLQVhISUFZejJmZCtmVHRIaUpFTEk4ejUwVi9wcDVqdUZ6VUJwcXlF?=
- =?utf-8?B?VDh5bDZhRkFjYkYxY2VqSFQyeERzUzZFb1FyeHE1dFlmWjdBVEczUmI5R2ZO?=
- =?utf-8?Q?SlA3cvrh9onqgs7U=3D?=
-X-Exchange-RoutingPolicyChecked: AELlQhu64xpIiSVQGDX+pN8ErSESHzYzkXRdFxVtqO3Vf8HV27Dxl4TaSL2+k408AIibDaoGWBVpUdMdkoOtZH0Yh1SDdmkYEo0lFNOY+SSnweRsZ7WXDwJp0zLNAkiUzNkPK35CD00C94HDpf4tYuYvIix5M+GGTroMEWIrCORDfjVDrIbWUD4QOXUj8Hirn9PPADgTcld8+uaMlZDjpCEsmqlyAySf15oV+nXm82noCeiy/SfIzofp9a8iqS8eyA7NllThpC4FN1pEE5jR8fkvGnFZOtxrrV06hJAR1NPwjeYp0lIa7pRhdxt2LaUHSJdWP6s0qdxpQQnihlpQ7g==
-X-MS-Exchange-CrossTenant-Network-Message-Id: d135829c-616f-45d4-a7f2-08df24521431
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR11MB7198.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?18Trko2AYHB60YwnkvH8PV4N/mXGvrXXbBvLnE6gi8ynSlkMhjoaX+MuxFJa?=
+ =?us-ascii?Q?xSjNeJbAwEAZyhmavF9jrJk5rkevndYHQGPKoCWVbmMCleaGZdfyApnXMX+L?=
+ =?us-ascii?Q?0GLBqlABooo4mNmkvSCnM414hEFrfLjHNb0SRMZ+/Lf3qBBOg0CdtkKuvD7w?=
+ =?us-ascii?Q?KYftvoyvyxmP8nHiERr/Mv9JhkBqN1XqL0znigKSIX+Np//h8P6OgiTaTPGp?=
+ =?us-ascii?Q?hmTQ61rHgtroAsg9WsKA/YblvR4AecXuN/ssSWIf4zLt+WGAb27WqLHUauy3?=
+ =?us-ascii?Q?sQ6ufXVKDKYj4ZAhKB1j6TfMLRUxvxjPXVmLnKXbiYHesYjHx7LGacRDoaE9?=
+ =?us-ascii?Q?A0xVMpMw4HunBs11kHR529HC4wxt7ruxNs8dI/+gAlx9P8GZxgimRPuWFVgR?=
+ =?us-ascii?Q?ekxcixUWnW+xuN+kUm8YCQ5FILrGY8TT/muEpIWBpKyybKtLt8/h+RxSXuXL?=
+ =?us-ascii?Q?wtZrb3HmLd3exWnxoE8c/m+KQhqNcLTePF2slp0xyPa1SOF8OEXL59esZaed?=
+ =?us-ascii?Q?yqzxs+SarP06Ak61QGTm7o79nVeqUKtLYrWP1h8MtXsR6eP2DZ8GDMfcHSOo?=
+ =?us-ascii?Q?fz94O1whdO5sr80RjecvTRHEdrReSnqofKDhDtPn/o/Kmw62jtDK99JmS79+?=
+ =?us-ascii?Q?6iDjoy6L5TAZDLpbVsO4PwPNvHa7E6g3xdd7hoVEMH5KZkesSzCNw3pUz1Dw?=
+ =?us-ascii?Q?xjF9jxm+2jxdLjInAXNuyTdXhGpTM0gIyi/GAn4cbNUsLWiIrnUcIqq2sIyg?=
+ =?us-ascii?Q?5s8wh/yGekWsyVZZRGQ69X9V1zZJ/qMJP+c5FkBGvBYSoVuJPdiwGx9ho27U?=
+ =?us-ascii?Q?GZBES4Mj4lNhD0qDyolehaw80B58lfWakSE5Sn9AJCf7voq66xLCuHLOBb85?=
+ =?us-ascii?Q?y1EuFqn6X/cB4dmYnVdJY9vXZZQi84CuESKxtvQXUsO5hVx5tm1K6UlqYk0A?=
+ =?us-ascii?Q?59usLOnRh4cYuXSneUgEHvpuHkeOqgTqmOnZTHd8nRrkZ3KblJQx6J9lB6Lg?=
+ =?us-ascii?Q?FEqRJPCLQzNEtojH21hxWyZ/1bt8WD2+/dHQqXvnMQ0ColtaMkw3/IFcvzQU?=
+ =?us-ascii?Q?1hgWVGty3IXBEYTISe0diquRDO0CQixMWz67x3njEa1W4UYEQ4udbbCbo3C+?=
+ =?us-ascii?Q?/rDc+69OUI3xlJq6fYuD/H1BL2zcPi11CMXeRx5JNsjfPeLFBIyaL/rvmtb+?=
+ =?us-ascii?Q?vgqbSWFTSmCzOtg7hW9/AFgz2Svd6f0dnmgTVGPyPfpynMMxP6AmNbAP6Isg?=
+ =?us-ascii?Q?E2elbnMp54dfcBC+NTXQk8ZMJGIomur5Q9fAokkPJcWxV+w1x2mQKdaynigC?=
+ =?us-ascii?Q?AlHxUMCKRj9KHQCtQKc1MFsG4NN8iuducMTJRV/61Y86jurbE6HfeBKn09Es?=
+ =?us-ascii?Q?tzqwTFztfMOFFnp2efrxIrYot2TIXAwOcRYUEarylBuYqznjckEPG7ns8mEG?=
+ =?us-ascii?Q?nSJh7hyWyBsiJU/Olr3ruk9GbaXNDA+LLkXG6DZKpY0/cbH2M8kBbXqwWolx?=
+ =?us-ascii?Q?IPzP8zQB0OEz0+p00hhaFh2K8yEa4wWLtjyz1l/dnhWpkSYZUSUvf4fN7mJv?=
+ =?us-ascii?Q?t6Gqj+LTTrJdcIw31hJ6J8zd5rFHviIaoIkaYP4ZDW/s7F3Tu7H/cHtNZ+ck?=
+ =?us-ascii?Q?TegNej/woPQR/BFXRNJ0uHiJfr0OobuWsXOnmQQMbOHSYGdBjEZlwA4jM3vy?=
+ =?us-ascii?Q?W4vpMBgKMxuXslZHJMCPYm+QDxEldwIW3a9nAiVEed1Pvu4qNWmS9cYmKzop?=
+ =?us-ascii?Q?5obgtVajEw=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d2e035df-73fe-4c1e-2ca3-08df24523137
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2370.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 09:05:05.7320
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 09:05:54.4734
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FtGQLmRJ7HqMRDyuLZ71GqLWVNRDZdtC+qqPm4+Vm53WGiMUZ1hTYVabs7UvzPUSyIJNIW/I19WPgUwqWhvt2w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR11MB727748
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: YTpLgeaOwK36uyNSGbjs28nD0sq3EKS2BtBx1bLKKmpCAu2d3jQnJoYjNi48rtThWxftJ/EpQJiZVTh7rNac9Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7509
 
-On 07/10/2026 10:03, Ian Ray wrote:
-> Since commit 5a52c5701a67 ("mmc: core: Fix host controller programming
-> for fixed driver type"), the eMMC driver strength is passed directly to
-> mmc_set_driver_type(), which propagates the value through ios.drv_type
-> all the way to sdhci_set_ios().  For value 4, SDHCI correctly warns:
-> 
->   mmc2: invalid driver type, default to driver type B
-> 
-> The host driver type has no effect on this controller: esdhc_writew_le()
-> never programs the driver-type field of SDHCI_HOST_CONTROL2.  Hook
-> set_ios() and force drv_type to the always-valid Type B, so that SDHCI
-> never sees an unsupported value.
-> 
-> Tested on i.MX8MP (usdhc3, eMMC in HS400) with
-> `fixed-emmc-driver-type = <4>`: the warning is gone and the HS_TIMING
-> register contains 0x43 as expected.
-> 
-> Fixes: 5a52c5701a67 ("mmc: core: Fix host controller programming for fixed driver type")
-> Link: https://lore.kernel.org/all/20260926122908.866-1-ian.ray@gehealthcare.com/
-> Cc: stable@vger.kernel.org
-> Suggested-by: Adrian Hunter <adrian.hunter@intel.com>
-> Signed-off-by: Ian Ray <ian.ray@gehealthcare.com>
+devm_cxl_probe_mem() requires a committed region when registering a
+provider-owned memdev. If FW has not created a region, registration
+fails before the provider can use the endpoint topology to provision
+one.
 
-Acked-by: Adrian Hunter <adrian.hunter@intel.com>
+Make the attachment probe callback optional while retaining a non-NULL
+descriptor to preserve provider ownership and handling of CXL link loss.
+Install endpoint cleanup for FW-discovered provider regions even when
+the provider never requests attachment.
 
-> ---
-> v2 -> v3: Force drv_type to Type B unconditionally;
->           hook set_ios() for all esdhc variants, not only usdhc (since
->           the driver-type field is ignored in all variants);
->           reword comments.
-> 
-> v1 -> v2: Move fix from mmc core to sdhci-esdhc-imx driver per review
->           (see "Link:" above); always provide a valid host driver type.
-> 
->  drivers/mmc/host/sdhci-esdhc-imx.c | 17 +++++++++++++++++
->  1 file changed, 17 insertions(+)
-> 
-> diff --git a/drivers/mmc/host/sdhci-esdhc-imx.c b/drivers/mmc/host/sdhci-esdhc-imx.c
-> index 6ab59d3e346f..931e383748a9 100644
-> --- a/drivers/mmc/host/sdhci-esdhc-imx.c
-> +++ b/drivers/mmc/host/sdhci-esdhc-imx.c
-> @@ -1142,6 +1142,20 @@ static void esdhc_reset_tuning(struct sdhci_host *host)
->  	}
->  }
->  
-> +static void sdhci_esdhc_imx_set_ios(struct mmc_host *mmc, struct mmc_ios *ios)
-> +{
-> +	/*
-> +	 * This controller has no driver-type control: esdhc_writew_le()
-> +	 * discards the driver-type field when writing SDHCI_HOST_CONTROL2.
-> +	 * The programmed value is therefore irrelevant, but SDHCI rejects
-> +	 * non-SD values such as 4 (eMMC 40 ohm, from fixed-emmc-driver-type).
-> +	 * Force an always-valid Type B.
-> +	 */
-> +	ios->drv_type = MMC_SET_DRIVER_TYPE_B;
-> +
-> +	sdhci_set_ios(mmc, ios);
-> +}
-> +
->  static void usdhc_init_card(struct mmc_host *mmc, struct mmc_card *card)
->  {
->  	struct sdhci_host *host = mmc_priv(mmc);
-> @@ -1952,6 +1966,9 @@ static int sdhci_esdhc_imx_probe(struct platform_device *pdev)
->  		host->max_timeout_count = 0xF;
->  	}
->  
-> +	/* No SDHCI driver type control */
-> +	host->mmc_host_ops.set_ios = sdhci_esdhc_imx_set_ios;
-> +
->  	if (imx_data->socdata->flags & ESDHC_FLAG_MAN_TUNING)
->  		sdhci_esdhc_ops.platform_execute_tuning =
->  					esdhc_executing_tuning;
+This establishes the registration and attachment APIs needed for
+explicit region provisioning without introducing region creation or
+allocation policy.
+
+Signed-off-by: Richard Cheng <icheng@nvidia.com>
+---
+Changelog:
+
+v1 -> v2:
+- Rework the patch into a registration/attachment refactor, following
+  Alejandro's request to separate region provisioning from memdev
+registration.
+- Add devm_cxl_register_mem() to establish a provider-owned memdev and
+  its endpoint without requiring a comitted region.
+- Add devm_cxl_attach_mem_region() to obtain the HPA range of an
+  existing committed, single-target region after registration.
+- Make the region probe callback optional while preserving provider
+  ownership, synchronous endpoint setup, and hdling of CXL link loss.
+---
+ drivers/cxl/core/region.c | 146 ++++++++++++++++++++++++++------------
+ drivers/cxl/cxlmem.h      |  22 ++++--
+ drivers/cxl/mem.c         |  69 +++++++++++++++++-
+ include/cxl/cxl.h         |   2 +
+ 4 files changed, 188 insertions(+), 51 deletions(-)
+
+diff --git a/drivers/cxl/core/region.c b/drivers/cxl/core/region.c
+index 5ef0ca0694ff..7a64a730587d 100644
+--- a/drivers/cxl/core/region.c
++++ b/drivers/cxl/core/region.c
+@@ -4111,67 +4111,123 @@ static int first_mapped_decoder(struct device *dev, const void *data)
+ 	return 0;
+ }
+ 
+-/*
+- * Runs in cxl_mem_probe context after successful endpoint probe, assumes the
+- * simple case of single mapped decoder per memdev.
+- */
+-int cxl_memdev_attach_region(struct cxl_memdev *cxlmd)
++static int unregister_memdev_region(struct device *dev, void *data)
+ {
+-	struct cxl_attach_region *attach =
+-		container_of(cxlmd->attach, typeof(*attach), attach);
+-	struct cxl_port *endpoint = cxlmd->endpoint;
+ 	struct cxl_endpoint_decoder *cxled;
+ 	struct cxl_region *cxlr;
+-	int rc;
+ 
+-	/* hold endpoint lock to setup autoremove of the region */
++	if (!is_endpoint_decoder(dev))
++		return 0;
++
++	cxled = to_cxl_endpoint_decoder(dev);
++	scoped_guard(rwsem_read, &cxl_rwsem.region) {
++		cxlr = cxled->cxld.region;
++		if (!cxlr)
++			return 0;
++		get_device(&cxlr->dev);
++	}
++
++	/* Unregistration needs the region write lock. */
++	endpoint_unregister_region(cxlr);
++	return 0;
++}
++
++static void endpoint_unregister_regions(void *data)
++{
++	struct cxl_port *endpoint = data;
++
++	device_for_each_child(&endpoint->dev, NULL, unregister_memdev_region);
++}
++
++int cxl_memdev_setup_region_cleanup(struct cxl_memdev *cxlmd)
++{
++	struct cxl_port *endpoint = cxlmd->endpoint;
++
++	device_lock_assert(&cxlmd->dev);
++	if (IS_ERR_OR_NULL(endpoint))
++		return -ENXIO;
++
+ 	guard(device)(&endpoint->dev);
+-	if (!endpoint->dev.driver)
++	if (!endpoint->dev.driver || endpoint->dead)
+ 		return -ENXIO;
+-	guard(rwsem_read)(&cxl_rwsem.region);
+-	guard(rwsem_read)(&cxl_rwsem.dpa);
+ 
+ 	/*
+-	 * TODO auto-instantiate a region, for now assume this will find an
+-	 * auto-region
++	 * Endpoint probe may discover provider-owned firmware regions even if
++	 * the provider never requests their HPA range. Run before decoder
++	 * teardown so those regions are unregistered, not just detached.
+ 	 */
+-	struct device *dev __free(put_device) =
+-		device_find_child(&endpoint->dev, NULL, first_mapped_decoder);
+-
+-	if (!dev) {
+-		dev_dbg(cxlmd->cxlds->dev, "no region found for memdev %s\n",
+-			dev_name(&cxlmd->dev));
+-		return -ENXIO;
+-	}
++	return devm_add_action_or_reset(&endpoint->dev,
++				      endpoint_unregister_regions, endpoint);
++}
++EXPORT_SYMBOL_FOR_MODULES(cxl_memdev_setup_region_cleanup, "cxl_mem");
+ 
+-	cxled = to_cxl_endpoint_decoder(dev);
+-	cxlr = cxled->cxld.region;
++/* Caller holds the memdev lock; attach to a single mapped decoder. */
++int cxl_memdev_attach_region(struct cxl_memdev *cxlmd, struct range *hpa_range)
++{
++	struct cxl_port *endpoint = cxlmd->endpoint;
++	struct cxl_endpoint_decoder *cxled;
++	struct cxl_region *cxlr;
++	int rc;
+ 
+-	if (cxlr->params.state < CXL_CONFIG_COMMIT) {
+-		dev_dbg(cxlmd->cxlds->dev,
+-			"region %s not committed for memdev %s\n",
+-			dev_name(&cxlr->dev), dev_name(&cxlmd->dev));
++	device_lock_assert(&cxlmd->dev);
++	if (IS_ERR_OR_NULL(endpoint))
+ 		return -ENXIO;
+-	}
+ 
+-	if (cxlr->params.nr_targets > 1) {
+-		dev_dbg(cxlmd->cxlds->dev,
+-			"Only attach to local non-interleaved region\n");
++	/* hold endpoint lock to setup autoremove of the region */
++	guard(device)(&endpoint->dev);
++	if (!endpoint->dev.driver || endpoint->dead)
+ 		return -ENXIO;
+-	}
+ 
+-	/* Only teardown regions that pass validation, ignore the rest */
+-	get_device(&cxlr->dev);
+-	rc = devm_add_action_or_reset(&endpoint->dev,
+-				      endpoint_unregister_region, cxlr);
+-	if (rc)
+-		return rc;
++	scoped_guard(rwsem_read, &cxl_rwsem.region) {
++		guard(rwsem_read)(&cxl_rwsem.dpa);
+ 
+-	attach->hpa_range = (struct range) {
+-		.start = cxlr->params.res->start,
+-		.end = cxlr->params.res->end,
+-	};
+-	return 0;
++		struct device *dev __free(put_device) =
++			device_find_child(&endpoint->dev, NULL,
++					  first_mapped_decoder);
++		if (!dev) {
++			dev_dbg(cxlmd->cxlds->dev,
++				"no region found for memdev %s\n",
++				dev_name(&cxlmd->dev));
++			return -ENXIO;
++		}
++
++		cxled = to_cxl_endpoint_decoder(dev);
++		cxlr = cxled->cxld.region;
++		if (cxlr->params.state < CXL_CONFIG_COMMIT) {
++			dev_dbg(cxlmd->cxlds->dev,
++				"region %s not committed for memdev %s\n",
++				dev_name(&cxlr->dev), dev_name(&cxlmd->dev));
++			return -ENXIO;
++		}
++
++		if (cxlr->params.nr_targets > 1) {
++			dev_dbg(cxlmd->cxlds->dev,
++				"Only attach to local non-interleaved region\n");
++			return -ENXIO;
++		}
++		if (!cxlr->params.res)
++			return -ENXIO;
++
++		/* Only teardown regions that pass validation, ignore the rest. */
++		if (!devm_is_action_added(&endpoint->dev,
++					  endpoint_unregister_region, cxlr)) {
++			get_device(&cxlr->dev);
++			rc = devm_add_action(&endpoint->dev,
++					     endpoint_unregister_region, cxlr);
++			if (rc)
++				break;
++		}
++
++		*hpa_range = (struct range) {
++			.start = cxlr->params.res->start,
++			.end = cxlr->params.res->end,
++		};
++		return 0;
++	}
++
++	/* devm_add_action() failed; teardown needs the region write lock. */
++	endpoint_unregister_region(cxlr);
++	return rc;
+ }
+ EXPORT_SYMBOL_FOR_MODULES(cxl_memdev_attach_region, "cxl_mem");
+ 
+diff --git a/drivers/cxl/cxlmem.h b/drivers/cxl/cxlmem.h
+index c401e3a1af06..8c050bc308bd 100644
+--- a/drivers/cxl/cxlmem.h
++++ b/drivers/cxl/cxlmem.h
+@@ -97,6 +97,13 @@ static inline bool is_cxl_endpoint(struct cxl_port *port)
+ 	return is_cxl_memdev(port->uport_dev);
+ }
+ 
++/**
++ * struct cxl_memdev_attach - provider ownership and CXL link requirements
++ * @probe: optional region probe callback, called with the memdev locked
++ *
++ * A non-NULL descriptor requires successful synchronous endpoint setup and
++ * preserves provider ownership even when no region probe is requested.
++ */
+ struct cxl_memdev_attach {
+ 	int (*probe)(struct cxl_memdev *cxlmd);
+ };
+@@ -107,8 +114,8 @@ struct cxl_memdev_attach {
+  * @hpa_range: physical address range of the region
+  *
+  * For the common simple case of a CXL device with private (non-general purpose
+- * / "accelerator") memory, enumerate firmware instantiated region, or
+- * instantiate a region for the device's capacity. Destroy the region on detach.
++ * / "accelerator") memory, enumerate a firmware-instantiated region and
++ * report its range. Destroy the region on detach.
+  */
+ struct cxl_attach_region {
+ 	struct cxl_memdev_attach attach;
+@@ -116,12 +123,19 @@ struct cxl_attach_region {
+ };
+ 
+ #ifdef CONFIG_CXL_REGION
+-int cxl_memdev_attach_region(struct cxl_memdev *cxlmd);
++int cxl_memdev_attach_region(struct cxl_memdev *cxlmd, struct range *hpa_range);
++int cxl_memdev_setup_region_cleanup(struct cxl_memdev *cxlmd);
+ #else
+-static inline int cxl_memdev_attach_region(struct cxl_memdev *cxlmd)
++static inline int cxl_memdev_attach_region(struct cxl_memdev *cxlmd,
++					   struct range *hpa_range)
+ {
+ 	return -EOPNOTSUPP;
+ }
++
++static inline int cxl_memdev_setup_region_cleanup(struct cxl_memdev *cxlmd)
++{
++	return 0;
++}
+ #endif
+ 
+ struct cxl_memdev *devm_cxl_add_classdev(struct cxl_dev_state *cxlds);
+diff --git a/drivers/cxl/mem.c b/drivers/cxl/mem.c
+index 3959ec963026..aa08d88ab104 100644
+--- a/drivers/cxl/mem.c
++++ b/drivers/cxl/mem.c
+@@ -172,7 +172,10 @@ static int cxl_mem_probe(struct device *dev)
+ 	}
+ 
+ 	if (cxlmd->attach) {
+-		rc = cxlmd->attach->probe(cxlmd);
++		if (cxlmd->attach->probe)
++			rc = cxlmd->attach->probe(cxlmd);
++		else
++			rc = cxl_memdev_setup_region_cleanup(cxlmd);
+ 		if (rc)
+ 			return rc;
+ 	}
+@@ -215,6 +218,68 @@ struct cxl_memdev *devm_cxl_add_classdev(struct cxl_dev_state *cxlds)
+ }
+ EXPORT_SYMBOL_NS_GPL(devm_cxl_add_classdev, "CXL");
+ 
++/**
++ * devm_cxl_register_mem - Register a provider-owned CXL memory device
++ * @cxlds: CXL device state to associate with the memdev
++ *
++ * Establish the CXL port topology and endpoint synchronously, without requiring
++ * a committed region. The provider retains ownership of its memory, including
++ * any firmware-discovered regions, and must detach if the CXL link is lost.
++ *
++ * The parent of the resulting device and the devm context for allocations is
++ * @cxlds->dev. Returns the registered memdev or an ERR_PTR() on failure.
++ */
++struct cxl_memdev *devm_cxl_register_mem(struct cxl_dev_state *cxlds)
++{
++	struct cxl_memdev_attach *attach;
++
++	attach = devm_kzalloc(cxlds->dev, sizeof(*attach), GFP_KERNEL);
++	if (!attach)
++		return ERR_PTR(-ENOMEM);
++
++	return __devm_cxl_add_memdev(cxlds, attach);
++}
++EXPORT_SYMBOL_NS_GPL(devm_cxl_register_mem, "CXL");
++
++/**
++ * devm_cxl_attach_mem_region - Attach a registered memdev to its region
++ * @cxlmd: provider-owned memdev returned by devm_cxl_register_mem()
++ * @hpa_range: CXL.mem physical address range result
++ *
++ * Attach to an existing committed, single-target region. This does not create
++ * or program a region. Repeated attachment to the same region returns the same
++ * range without adding another cleanup action. Failure leaves the memdev
++ * registered so that the provider can decide how to proceed.
++ *
++ * The region is removed when the endpoint detaches. Returns zero on success or
++ * a negative errno; @hpa_range is empty on failure.
++ */
++int devm_cxl_attach_mem_region(struct cxl_memdev *cxlmd,
++			       struct range *hpa_range)
++{
++	if (!hpa_range)
++		return -EINVAL;
++	*hpa_range = DEFINE_RANGE(0, -1);
++
++	if (!cxlmd->attach)
++		return -EINVAL;
++
++	guard(device)(&cxlmd->dev);
++	if (!cxlmd->dev.driver || !cxlmd->cxlds)
++		return -ENXIO;
++
++	return cxl_memdev_attach_region(cxlmd, hpa_range);
++}
++EXPORT_SYMBOL_NS_GPL(devm_cxl_attach_mem_region, "CXL");
++
++static int cxl_probe_mem_region(struct cxl_memdev *cxlmd)
++{
++	struct cxl_attach_region *attach =
++		container_of(cxlmd->attach, typeof(*attach), attach);
++
++	return cxl_memdev_attach_region(cxlmd, &attach->hpa_range);
++}
++
+ /**
+  * devm_cxl_probe_mem - Add a CXL memory device and probe its region
+  * @cxlds: CXL device state to associate with the memdev
+@@ -242,7 +307,7 @@ struct cxl_memdev *devm_cxl_probe_mem(struct cxl_dev_state *cxlds,
+ 
+ 	*attach = (struct cxl_attach_region) {
+ 		.attach = {
+-			   .probe = cxl_memdev_attach_region,
++			   .probe = cxl_probe_mem_region,
+ 		},
+ 		.hpa_range = { 0, -1 },
+ 	};
+diff --git a/include/cxl/cxl.h b/include/cxl/cxl.h
+index 802b143de83d..3019e3ea5f09 100644
+--- a/include/cxl/cxl.h
++++ b/include/cxl/cxl.h
+@@ -224,6 +224,8 @@ struct cxl_dev_state *_devm_cxl_dev_state_create(struct device *dev,
+ 						      sizeof(drv_struct), mbox);	\
+ 	})
+ 
++struct cxl_memdev *devm_cxl_register_mem(struct cxl_dev_state *cxlds);
++int devm_cxl_attach_mem_region(struct cxl_memdev *cxlmd, struct range *hpa_range);
+ struct cxl_memdev *devm_cxl_probe_mem(struct cxl_dev_state *cxlds,
+ 				      struct range *range);
+ 
+-- 
+2.43.0
 
