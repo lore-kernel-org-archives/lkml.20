@@ -1,136 +1,127 @@
-Received: from relay13.grserver.gr (relay13.grserver.gr [178.156.171.147])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A28A94B04AF
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 10:57:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.156.171.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 546BD490BF1
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 10:58:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791370708; cv=none; b=lFUG/7339wqI3OsLaSVDXWXCuIeV0Ug4HKNhJovBYvJdWU6/TEP5Nk2LV2ezvNbM9ZPHsOS8OS7alHaHgfgb0x8vZ1ZFDhkG+OR3XrmHMCh7BEnTfxWSNnMD5WLarohlGo99sD6eEd5yvD1A6TIJlyAfNF5+kcHixljJ7+uZ9Pg=
+	t=1791370736; cv=none; b=AXNekou3hO9aFEfcKspjXEpEXRlTyQGJ1QmzHymtOuCMSLOQY81r9aAmDGVU+YZmlZffNcS3dNZQ+5Ya3z1QWP5YL2ljJApQY1ezRYJ5NtlLK4ozs+bJnnl9vXNIyWaaARRUoCsNG1Xt01awUBdFsZJEbpVZeSQTg7/pkgXjf7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791370708; c=relaxed/simple;
-	bh=LWqH4rnKhkaeqZsMRrWYyA8Vi+baDRXZJhcaHBpXDjY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RZb+UyJ65PEDJKj3hVBDpOtiKIqdHZ4RG5D+bl5vj5rNUvz/lvdqmRVLitlS55lB+YNdXcBNLZt+gHIzrUBGZdXkxT3hMriw+6DZpVPpcS2eq+DJPTlAD+/4diBbyeeSiW1jgpAoJSvTebQpA3Br3vm1K+mpCf5yISUDG9vzywQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev; spf=pass smtp.mailfrom=antheas.dev; dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b=nGWBHaeX; arc=none smtp.client-ip=178.156.171.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
+	s=arc-20240116; t=1791370736; c=relaxed/simple;
+	bh=/E9g8Zq6ZHA390itBopgaOROzf4hRCmz4PSg6sFW9DM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fYWlSi5Oxo5YB6Cp1lKzqOGzIvm9DgqZQCpLtklL421BprY8Vs00xWqkD1hEu0WE6or3Kz67S1+a/ijOaN/B9h38VugaHAt97ZQATcnByF/VW9/p5/VzUyS5tyXfXMsUdBEX/kf8tY+7KsmoPECC4wq8ax3tetM/s+3Qwh0Qfkg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ClavKX2Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b="nGWBHaeX"
-Received: from relay13 (localhost [127.0.0.1])
-	by relay13.grserver.gr (Proxmox) with ESMTP id D68965E5FD
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 13:57:49 +0300 (EEST)
-Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by relay13.grserver.gr (Proxmox) with ESMTPS id 231DE5E54D
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 13:57:49 +0300 (EEST)
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	by linux3247.grserver.gr (Postfix) with ESMTPSA id 801B6202BB2
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 13:57:47 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
-	s=default; t=1791370668;
-	bh=ddvlJM2l+2DMR1hq6/JuDx9Ck+W72pk1Eaag+1Bwh1A=;
-	h=Received:From:Subject:To;
-	b=nGWBHaeXAIwp9tozsRL2DHziNOq2Vo6tMtY7dUAU8FZfE778BDouRPUZiaPDfwbkE
-	 QnanTwARg9x4zGei/4zt4AW0iaMGD36dcZ+hn5XO7lswYI6oumm9fROQLL8oqpehHk
-	 7ymuunXP2xkCXiMWDWxdeQH1o04laIR5xWKNZKfj6WK2JbbtBMenWSjYSnkE/HR0JT
-	 xWQgbKKj0qVxLdYSry3/MDaQ2wf2wQKjCVkCjFXHyYFvWPD0YsuFxX92wRmfKIs+yh
-	 JX6Fy3yihe79ewJpErvfjlzEIjmc+hgjccSfVwteWN46evPkWtC2DxzAJFuGJo0xUQ
-	 zjK8UxMyrewLg==
-Authentication-Results: linux3247.grserver.gr;
-        spf=pass (sender IP is 209.85.214.178) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pl1-f178.google.com
-Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-2e60f9af6e6so3598915ad.3
-        for <linux-kernel@vger.kernel.org>;
- Wed, 07 Oct 2026 03:57:47 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBzn9TSpl4AQdsx+eovyiosJ2VbYQ4UqBKPt1uLko/8EVnyxU3BjQG5vzoQACzTbL0TfnDk5s2jlR51yOQA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIkSG0huJJ2AXUM+RolLdj5hbXVDqQeF+wxkhdn3/kncSJ2qxZH
-	YY4agRgzBfP++Kvgxid9aZe07fi0CRDR5kFj1aiO+F1hG2wyikE5CePNk3EUdbPatt8PYnO0rub
-	G9gWgL8v80//aDnl1ic74aihbE0kg0eU=
-X-Received: by 2002:a17:903:3c2b:b0:2e2:d26c:df9f with SMTP id
- d9443c01a7336-2e6003c5d79mr19039435ad.51.1791370666132; Wed, 07 Oct 2026
- 03:57:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ClavKX2Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5744B1F0089C;
+	Wed,  7 Oct 2026 10:58:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791370712;
+	bh=QsH2WQ9SDQqQQ5HhyQhB+EQpXO/5OEUEiipsXMuuiTg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ClavKX2Yh5C1NgfFlXnAGS9n2b7ylvpH2CPkf+F7/BcQWTKgLxoCWVWDgOL5edYb5
+	 60xjfocL0vskCdqhPyyZLRLTjkELQ+RSaP83s06muJYb5CX6PFh1Qr2qr8l5rHgdC0
+	 9wrx3/cmczbtxRoI5n4rOU/OMLNadMngtO9Mn6OyfCTsVeSPOFU7ADNnN9oCvCzeB+
+	 rzhu9aJKSVVkaEVX8Z2CGUAGFGGmup2j9BjGWBGmoirsKCrysLpnTaXRcINJKtGf13
+	 0F/5nDU00m2YnBy+oq+oH945efjM9sTQzQrkP7PaoAWzOKnfvV/Q/89hvr1YS6kT0D
+	 UMiCPFHhm7yrA==
+Message-ID: <f0af8a33-fb19-45ec-9a52-4bb8579867e9@kernel.org>
+Date: Wed, 7 Oct 2026 12:58:27 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: 
- <CAGwozwG0F88Ah8AEYf2u2BM-4bP+QnZe5p1qTFb4_H5acvaFkA@mail.gmail.com>
- <arfpV7IXRAHREMzO@laps>
- <CAGwozwHY7FsYQZaNf22S-nWGPkc4qekk3H=Hno5a0d0iWVtSJw@mail.gmail.com>
- <arhtsrVb82vr6U-p@laps>
- <CAGwozwE5pJaW14ePjeUQ_w=i1W-Kg=QQOzLY_33qV0W-Urmgjw@mail.gmail.com>
- <arkiyMt2NIydrPhE@laps>
- <CAGwozwGc62HAJnLeYL+jq_PnJq1LsV3Ex9LtQTE1pX3144MdtA@mail.gmail.com>
- <arvFBqreU0qahkXx@laps>
- <CAGwozwEfN7cUZm8usUsSR2bu23ux57QCPxyXJRfwv0tU34gEkQ@mail.gmail.com>
- <CAGwozwHOttyNkC=sdVFCZYKZzhSE=cmUMgNd7cukpEE-WXm9Vw@mail.gmail.com>
- <asYINZIUxBL8I4n9@laps>
-In-Reply-To: <asYINZIUxBL8I4n9@laps>
-From: Antheas Kapenekakis <lkml@antheas.dev>
-Date: Wed, 7 Oct 2026 12:57:34 +0200
-X-Gmail-Original-Message-ID: 
- <CAGwozwFfS8qzy9K_WZRWJ_3UD_8YR6MVn6QZ1HaKPSNVsyHVLQ@mail.gmail.com>
-X-Gm-Features: AclHuK_BeZbeRs6xrVuF5xmld8_euALCHxim7-h_g1D573GzFHOgEnKcEC6QxnA
-Message-ID: 
- <CAGwozwFfS8qzy9K_WZRWJ_3UD_8YR6MVn6QZ1HaKPSNVsyHVLQ@mail.gmail.com>
-Subject: Re: [PATCH] docs: add AGENTS.md as a symlink to README
-To: Sasha Levin <sashal@kernel.org>
-Cc: corbet@lwn.net, workflows@vger.kernel.org, linux-doc@vger.kernel.org,
-	skhan@linuxfoundation.org, rdunlap@infradead.org,
-	linux-kernel@vger.kernel.org, "kees@kernel.org" <kees@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-X-PPP-Message-ID: 
- <179137066812.274959.1116075252667833463@linux3247.grserver.gr>
-X-PPP-Vhost: antheas.dev
-X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
-X-Virus-Status: Clean
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mm/gup: document unlocked invariant in
+ fixup_user_fault
+To: =?UTF-8?B?Tmjhuq10IEFuaCBOZ3V54buFbiBEdXk=?= <neganhat@gmail.com>
+Cc: akpm@linux-foundation.org, jgg@ziepe.ca, jhubbard@nvidia.com,
+ peterx@redhat.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20261004125601.c06953a6f0660df9859b0c2a@linux-foundation.org>
+ <20261005093756.22709-1-neganhat@gmail.com>
+ <645204ff-6c50-4ef3-9070-78ac602560b1@kernel.org>
+ <CAFJkwZx9zmz2sxMyByFbYgfCi9zMN+iLxKrypKBCZY9NsLQz1g@mail.gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <CAFJkwZx9zmz2sxMyByFbYgfCi9zMN+iLxKrypKBCZY9NsLQz1g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, 7 Oct 2026 at 10:52, Sasha Levin <sashal@kernel.org> wrote:
->
-> On Tue, Sep 29, 2026 at 06:10:42PM +0200, Antheas Kapenekakis wrote:
-> >The kernel forces you to have a local version file, otherwise it adds
-> >a .test wart. At least on Fedora. So there is precedent for requiring
-> >the user to create a file to disable some default behavior.
-> >
-> >Similarly, you swap this series into a two parter.
-> >
-> >The first patch gitignores agents.md.
-> >
-> >The second patch adds a phony rule to the makefile that symlinks
-> >agents.md to the coding assistants rst or similar if it does not
-> >exist. People that do not want that, like me, touch that file. Not to
-> >the current readme, please. Be reasonable. Yes the coding assistants
-> >rst file is not ideal either but that can be fixed later.
->
-> But then you would need to run make to "generate" the symlink, which would not
-> normally happen.
+On 10/5/26 13:22, Nhật Anh Nguyễn Duy wrote:
+> Hi David,
+> 
 
-We would make the dependency part of a basic rule, so it runs whenever
-someone e.g., compiles a kernel. Yes a naked checkout would not have
-it, but after an initial make it would appear.
+Hi,
 
-Something like:
+> Thanks for taking the time to review.
+> 
+> My motivation came from running Smatch over fixup_user_fault(), which flagged
 
-AGENTS.md:
-  ln -s Documentation/process/coding-assistants.rst AGENTS.md
+just like the (at least) 2 previous reports. One from them from 2021 IIRC where
+Linus even rejected a code change.
 
-basic-dependency: ... AGENTS.md
+> the dereference as a potential NULL pointer issue. Because the relationship
+> between FAULT_FLAG_ALLOW_RETRY and the unlocked pointer is subtle when
+> first reading through the path, I initially misread it as an unguarded
+> dereference in v1.
+> 
+> When Andrew pointed out the invariant, I thought documenting it might help
+> future readers or newer contributors who hit the same static analysis warning.
+> 
+> If adding a comment isn't the right approach here, would you prefer leaving
+> the implicit contract as-is, or is an explicit runtime check (such as
+> VM_WARN_ON_ONCE) something more fitting?
+We want to silence smatch. Either fix smatch or find a reasonable way to stop it
+from reporting things that are simply not true.
 
-This would cause the file to be created only if it does not exist.
-since : is empty afterwards, the rule only runs when AGENTS.md does
-not exist and does not replace any existing ones.
+-- 
+Cheers,
 
-Best,
-Antheas
-
-> --
-> Thanks,
-> Sasha
->
-
+David
