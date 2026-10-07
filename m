@@ -1,239 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44B4B41D4E9;
-	Wed,  7 Oct 2026 20:59:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FA3741A766;
+	Wed,  7 Oct 2026 20:59:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791406771; cv=none; b=euxg3RFMF3U9JpqJJjgHVtHexmc4+4epznYrKkGDJaerPO8vaxJKWpjVD7Z6CrEQPFOT/YhZ9Kg0GqIb/H1j94hDZYH9eRZO3pgWF8QM81tnEJA/Vh2WxPooOtPWx/p2cDrVSQiaPcQPK1AMtN5g5+Oq9nlpnh6UnqrV7g79EnE=
+	t=1791406792; cv=none; b=a44hSaZ/rPNwGzncoJn49e5UmT3Q41psVCqBiUNfD/wwsQ8umMjJ1cYLazdwsCvquMlYeaA85SuALI1kuPyE/d1rjNyWxalqzvmOA3Mene5WsgXw2QtWefcUeUVZI6dwk5CpvvOdsr1lHo5m+igUp71Bx3V1VEPOTCddrBml+yc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791406771; c=relaxed/simple;
-	bh=qW1U9Tn8sK00tRSmwW7M3RoWBLdQ73Pbxw0EUOM1+M4=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=PmpSg9TVGcesAeXJJnp7/yf4gHmZctDLgecj+6yGsQC7hS+924hUZGOHz8Sng0HPI9GfYIfo7Mg48Gapfyqe/lW79dWdWKYktDMMtRiLZnHhtAyGfoAgZleD/ICpSSttBC6UQg2Rnk7cdHS7In4vq5xr9UlHi38Y2sztwkWngnw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jVHnGw+M; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791406792; c=relaxed/simple;
+	bh=tU67LunbAVxcJF/HZHBTpn4xW7i4imG6asrV5eXa508=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ciuBxM0onTiMCnXv9oaCTTLBKKf1ZelHflsZIwwPqP3L//SKKwjGR1aP64DRJ/GpKFL69zTMZJPu83+4L5aDbaukfxGM34alYkcjs29dYVyBI6Ol5m6HhkrpsK9gb1BqSIiAocCNpqihUupmgYDnIWsGjtG0z+YW/HAIIUsg8JM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=m4IiJccD; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jVHnGw+M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F12A51F008A4;
-	Wed,  7 Oct 2026 20:59:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791406766;
-	bh=HTJa96a9LFFoiQCN8tL5p628hYSm3JYsH8jXk8jtbzs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jVHnGw+MmXnVbM2MfShThMMVuGbn93Mg0ppz64izTvnuKnu4UPGH1dr5ws3MFUd6y
-	 oBqW7yHJZKK22r36g6i3oE9Tyt1idvm+kx5tFlDqDbSQwSCe1AHxoVF8xsn5/suNKr
-	 /vDQE2Rd2Dkba3PmQQVRIvL/2ski000D01TSrHn+2QnSUt/Ju1ohQMIvgEoyUsSSy6
-	 NdG+IuXPDhJs1UfpXDU0RYlLAgW9UobaTBrKPu+7h/dMVDlY8k143T3uvIbm369DsI
-	 GtSFJ6+mO1JxA9gcqPGEzA0FFZNilnMjeg8J8B1Msh8Dwg02Ac0lcOHu/30PlnAhAA
-	 23Z9VZK+no36g==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 44FCCCE39A0; Wed,  7 Oct 2026 13:59:25 -0700 (PDT)
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: rcu@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	rostedt@goodmis.org,
-	Kunwu Chan <kunwu.chan@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>,
-	Boqun Feng <boqun@kernel.org>,
-	"Paul E . McKenney" <paulmck@kernel.org>
-Subject: [PATCH v2 21/21] srcutree: Preserve IRQ state in synchronize_srcu_atomic() callchain
-Date: Wed,  7 Oct 2026 13:59:24 -0700
-Message-Id: <20261007205924.1983367-21-paulmck@kernel.org>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <546c81a7-f677-4d8e-a304-746b227058b0@paulmck-laptop>
-References: <546c81a7-f677-4d8e-a304-746b227058b0@paulmck-laptop>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="m4IiJccD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791406789; x=1822942789;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=tU67LunbAVxcJF/HZHBTpn4xW7i4imG6asrV5eXa508=;
+  b=m4IiJccDOkFPPfJD74v6tLJ4WQJ57KNBJHFyJxaMen6JQpEtJ+x7xCDJ
+   B5djbk4Jvn6N4JmkOT+eG7iIUULuVlH42zyXxJ9N/DY8T4+zEc/sWTyVL
+   3pJNk/CsAeN8l4RnAFupiMcy7WoHz3HR3E8TfvZbewTskoNbvxyJhZ6M7
+   0op/bbj34hpbXaDZvLFTBcUAaTfoBq/SR+8PRqXIfKVDIF1jeJaMQqpld
+   POnb6YM6kZqnl1s0Yx0P4X0rsly6JXMjOgIPQUgTUxrx+GFuwH85QFYzz
+   FwLiwt5Z6S22t3I0UYe0H+Ya34App1vZb00K9aSlJS9E3qUR0GByVkRQ/
+   g==;
+X-CSE-ConnectionGUID: zaQCt1P9R4iza1p2YoFePg==
+X-CSE-MsgGUID: kkV1zicUQ8+XUq2gkRNcBA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="67344"
+X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
+   d="scan'208";a="67344"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 13:59:49 -0700
+X-CSE-ConnectionGUID: UOzN6fUMQHigZZqPLAyH7w==
+X-CSE-MsgGUID: jMvqQRr1SGm4aidLiDQX4w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
+   d="scan'208";a="163093"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.61])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 13:59:44 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 0C0D7121BA5;
+	Wed, 07 Oct 2026 23:59:45 +0300 (EEST)
+Date: Wed, 7 Oct 2026 23:59:45 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Bingbu Cao <bingbu.cao@amd.com>,
+	Antti Laakso <antti.laakso@linux.intel.com>,
+	German Pablo Lindo <germanpapulindez@gmail.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Divyamani Tripathi <divyamani.tripathi@intel.com>,
+	Manik Bajpai <manik.bajpai@intel.com>
+Subject: Re: [PATCH] media: staging/ipu7: snoop ISYS writes to capture buffers
+Message-ID: <asaywQrMq-GSrI2r@kekkonen.localdomain>
+References: <20261007183311.24637-1-lsa.uz@pm.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261007183311.24637-1-lsa.uz@pm.me>
 
-From: Kunwu Chan <kunwu.chan@gmail.com>
+Cc Manik and Divyamani.
 
-synchronize_srcu_atomic() may be called with interrupts disabled, but
-its callchain uses raw_spin_lock_irq_rcu_node() /
-raw_spin_unlock_irq_rcu_node(), which unconditionally enables
-interrupts on unlock. This can incorrectly change the caller's IRQ
-state.
+On Wed, Oct 07, 2026 at 06:33:34PM +0000, Sergey Lebedev wrote:
+> The driver sets is_snoop = 0 on the ISYS output pin, so the ISYS writes
+> capture buffers without snooping the CPU caches. vb2 syncs each buffer
+> for the CPU, but on x86 the DMA API takes the device to be coherent and
+> that sync does nothing. A CPU that read a buffer before then reads cache
+> lines of that buffer's earlier frame, which show as horizontal streaks
+> wherever the scene moves.
+> 
+> Set is_snoop on the capture pin, not only for metadata as the TODO had
+> it: the CPU reads pixel data too. IPU6 sets snoopable on its pins.
+> 
+> Tested on a Surface Pro 11 (Lunar Lake IPU7), reading every frame with
+> the CPU. With a VD55G0 at 644x604 and 320x240 in 8-bit mono, frames
+> holding rows of the buffer's previous fill went from 301 of 698 and 684
+> of 697 to none. With an OV13858 in raw at 4224x3136, about 790 MB/s, 300
+> frames came at 29.95 fps without a gap either way.
+> 
+> Fixes: a516d36bdc3d ("media: staging/ipu7: add IPU7 input system device driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
+> ---
+> Tested with the bit as a module parameter, both values in one boot, on
+> this driver plus Ruslan Koreev's monochrome formats [1], which the
+> VD55G0 needs. No row ever equalled the same row of the frame before it.
+> A clflush of each buffer before reading, later than any buf_finish could
+> run, still left 61 and 24 such rows of 101352 and 46389 (another boot);
+> with is_snoop set, none. At 4224x3136 no row was stale even without
+> snoop: four 26 MB buffers do not stay in the cache. Not tested on IPU 7.5.
+> 
+> The ipu6 driver's IPU7 path, drivers/media/pci/intel/ipu6/ipu7-fw-isys.c,
+> also used for IPU8, memsets the pin and leaves is_snoop at 0 too.
+> Released kernels drive IPU7 only with this driver, hence the stable tag.
+> I can send the same change for the ipu6 path, untested here.
+> 
+> [1] https://lore.kernel.org/linux-media/20260924171820.1179823-5-koreev.r@gmail.com/
+> 
+>  drivers/staging/media/ipu7/ipu7-isys-video.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/drivers/staging/media/ipu7/ipu7-isys-video.c b/drivers/staging/media/ipu7/ipu7-isys-video.c
+> index 8c6730833f2..13968caf64d 100644
+> --- a/drivers/staging/media/ipu7/ipu7-isys-video.c
+> +++ b/drivers/staging/media/ipu7/ipu7-isys-video.c
+> @@ -407,8 +407,7 @@ static int ipu7_isys_fw_pin_cfg(struct ipu7_isys_video *av,
+>  	output_pin->link.pbk_slot_id = IPU_MSG_LINK_PBK_SLOT_ID_DONT_CARE;
+>  	output_pin->link.dest = IPU_INSYS_OUTPUT_LINK_DEST_MEM;
+>  	output_pin->link.use_sw_managed = 1;
+> -	/* TODO: set the snoop bit for metadata capture */
+> -	output_pin->link.is_snoop = 0;
+> +	output_pin->link.is_snoop = 1;
+>  
+>  	/* output pin crop */
+>  	output_pin->crop.line_top = 0;
+> -- 
+> 2.54.0
+> 
+> 
 
-Use the irqsave/irqrestore variants for the locks in this callchain
-so that the caller's IRQ state is preserved.
-
-Co-developed-by: Zqiang <qiang.zhang@linux.dev>
-Signed-off-by: Zqiang <qiang.zhang@linux.dev>
-Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
-Acked-by: Boqun Feng <boqun@kernel.org>
-Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
----
- kernel/rcu/srcutree.c | 42 +++++++++++++++++++++++-------------------
- 1 file changed, 23 insertions(+), 19 deletions(-)
-
-diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
-index 7890f7c7c2ee7..c8209aa6552a1 100644
---- a/kernel/rcu/srcutree.c
-+++ b/kernel/rcu/srcutree.c
-@@ -985,6 +985,7 @@ static void srcu_gp_end(struct srcu_struct *ssp, bool is_atomic)
- 	bool cbs;
- 	bool last_lvl;
- 	int cpu;
-+	unsigned long flags;
- 	unsigned long gpseq;
- 	int idx;
- 	unsigned long mask;
-@@ -999,7 +1000,7 @@ static void srcu_gp_end(struct srcu_struct *ssp, bool is_atomic)
- 		mutex_lock(&sup->srcu_cb_mutex);
- 
- 	/* End the current grace period. */
--	raw_spin_lock_irq_rcu_node(sup);
-+	raw_spin_lock_irqsave_rcu_node(sup, flags);
- 	idx = rcu_seq_state(sup->srcu_gp_seq);
- 	WARN_ON_ONCE(idx != SRCU_STATE_SCAN2);
- 	if (srcu_gp_is_expedited(ssp))
-@@ -1010,7 +1011,7 @@ static void srcu_gp_end(struct srcu_struct *ssp, bool is_atomic)
- 	gpseq = rcu_seq_current(&sup->srcu_gp_seq);
- 	if (ULONG_CMP_LT(sup->srcu_gp_seq_needed_exp, gpseq))
- 		WRITE_ONCE(sup->srcu_gp_seq_needed_exp, gpseq);
--	raw_spin_unlock_irq_rcu_node(sup);
-+	raw_spin_unlock_irqrestore_rcu_node(sup, flags);
- 	if (!is_atomic)
- 		mutex_unlock(&sup->srcu_gp_mutex);
- 	/* A new grace period can start at this point.  But only one. */
-@@ -1048,12 +1049,12 @@ static void srcu_gp_end(struct srcu_struct *ssp, bool is_atomic)
- 	if (!(gpseq & counter_wrap_check))
- 		for_each_possible_cpu(cpu) {
- 			sdp = per_cpu_ptr(ssp->sda, cpu);
--			raw_spin_lock_irq_rcu_node(sdp);
-+			raw_spin_lock_irqsave_rcu_node(sdp, flags);
- 			if (ULONG_CMP_GE(gpseq, sdp->srcu_gp_seq_needed + 100))
- 				sdp->srcu_gp_seq_needed = gpseq;
- 			if (ULONG_CMP_GE(gpseq, sdp->srcu_gp_seq_needed_exp + 100))
- 				sdp->srcu_gp_seq_needed_exp = gpseq;
--			raw_spin_unlock_irq_rcu_node(sdp);
-+			raw_spin_unlock_irqrestore_rcu_node(sdp, flags);
- 		}
- 
- 	/* Callback initiation done, allow grace periods after next. */
-@@ -1061,16 +1062,16 @@ static void srcu_gp_end(struct srcu_struct *ssp, bool is_atomic)
- 		mutex_unlock(&sup->srcu_cb_mutex);
- 
- 	/* Start a new grace period if needed. */
--	raw_spin_lock_irq_rcu_node(sup);
-+	raw_spin_lock_irqsave_rcu_node(sup, flags);
- 	gpseq = rcu_seq_current(&sup->srcu_gp_seq);
- 	if (!rcu_seq_state(gpseq) &&
- 	    ULONG_CMP_LT(gpseq, sup->srcu_gp_seq_needed)) {
- 		WARN_ON_ONCE(ssp->srcu_reader_flavor & SRCU_READ_FLAVOR_ATOMIC);
- 		srcu_gp_start(ssp);
--		raw_spin_unlock_irq_rcu_node(sup);
-+		raw_spin_unlock_irqrestore_rcu_node(sup, flags);
- 		srcu_reschedule(ssp, 0);
- 	} else {
--		raw_spin_unlock_irq_rcu_node(sup);
-+		raw_spin_unlock_irqrestore_rcu_node(sup, flags);
- 	}
- 
- 	/* Transition to big if needed, but never for atomic SRCU. */
-@@ -1220,10 +1221,11 @@ static void srcu_funnel_gp_start(struct srcu_struct *ssp, struct srcu_data *sdp,
- static bool try_check_zero(struct srcu_struct *ssp, int idx, int trycount)
- {
- 	unsigned long curdelay;
-+	unsigned long flags;
- 
--	raw_spin_lock_irq_rcu_node(ssp->srcu_sup);
-+	raw_spin_lock_irqsave_rcu_node(ssp->srcu_sup, flags);
- 	curdelay = !srcu_get_delay(ssp);
--	raw_spin_unlock_irq_rcu_node(ssp->srcu_sup);
-+	raw_spin_unlock_irqrestore_rcu_node(ssp->srcu_sup, flags);
- 
- 	for (;;) {
- 		if (srcu_readers_active_idx_check(ssp, idx))
-@@ -2023,6 +2025,7 @@ EXPORT_SYMBOL_GPL(srcu_batches_completed);
-  */
- static void srcu_advance_state(struct srcu_struct *ssp, bool is_atomic)
- {
-+	unsigned long flags;
- 	int idx;
- 
- 	if (!is_atomic)
-@@ -2040,10 +2043,10 @@ static void srcu_advance_state(struct srcu_struct *ssp, bool is_atomic)
- 	 */
- 	idx = rcu_seq_state(smp_load_acquire(&ssp->srcu_sup->srcu_gp_seq)); /* ^^^ */
- 	if (idx == SRCU_STATE_IDLE) {
--		raw_spin_lock_irq_rcu_node(ssp->srcu_sup);
-+		raw_spin_lock_irqsave_rcu_node(ssp->srcu_sup, flags);
- 		if (ULONG_CMP_GE(ssp->srcu_sup->srcu_gp_seq, ssp->srcu_sup->srcu_gp_seq_needed)) {
- 			WARN_ON_ONCE(rcu_seq_state(ssp->srcu_sup->srcu_gp_seq));
--			raw_spin_unlock_irq_rcu_node(ssp->srcu_sup);
-+			raw_spin_unlock_irqrestore_rcu_node(ssp->srcu_sup, flags);
- 			if (!is_atomic)
- 				mutex_unlock(&ssp->srcu_sup->srcu_gp_mutex);
- 			return;
-@@ -2053,7 +2056,7 @@ static void srcu_advance_state(struct srcu_struct *ssp, bool is_atomic)
- 			WARN_ON_ONCE(ssp->srcu_reader_flavor & SRCU_READ_FLAVOR_ATOMIC);
- 			srcu_gp_start(ssp);
- 		}
--		raw_spin_unlock_irq_rcu_node(ssp->srcu_sup);
-+		raw_spin_unlock_irqrestore_rcu_node(ssp->srcu_sup, flags);
- 		if (idx != SRCU_STATE_IDLE) {
- 			if (!is_atomic)
- 				mutex_unlock(&ssp->srcu_sup->srcu_gp_mutex);
-@@ -2069,10 +2072,10 @@ static void srcu_advance_state(struct srcu_struct *ssp, bool is_atomic)
- 			return; /* readers present, retry later. */
- 		}
- 		srcu_flip(ssp);
--		raw_spin_lock_irq_rcu_node(ssp->srcu_sup);
-+		raw_spin_lock_irqsave_rcu_node(ssp->srcu_sup, flags);
- 		rcu_seq_set_state(&ssp->srcu_sup->srcu_gp_seq, SRCU_STATE_SCAN2);
- 		ssp->srcu_sup->srcu_n_exp_nodelay = 0;
--		raw_spin_unlock_irq_rcu_node(ssp->srcu_sup);
-+		raw_spin_unlock_irqrestore_rcu_node(ssp->srcu_sup, flags);
- 	}
- 
- 	if (rcu_seq_state(READ_ONCE(ssp->srcu_sup->srcu_gp_seq)) == SRCU_STATE_SCAN2) {
-@@ -2119,6 +2122,7 @@ void synchronize_srcu_atomic(struct srcu_struct *ssp)
- {
- 	unsigned long srcu_state;
- 	struct srcu_usage *sup = ssp->srcu_sup;
-+	unsigned long flags;
- 	unsigned long rdm0, rdm1;
- 	unsigned long unlocks0, unlocks1;
- 
-@@ -2149,9 +2153,9 @@ void synchronize_srcu_atomic(struct srcu_struct *ssp)
- 	}
- 
- 	// One last check for others doing our work for us under the lock.
--	raw_spin_lock_irq_rcu_node(sup);
-+	raw_spin_lock_irqsave_rcu_node(sup, flags);
- 	if (poll_state_synchronize_srcu(ssp, srcu_state)) {
--		raw_spin_unlock_irq_rcu_node(sup);
-+		raw_spin_unlock_irqrestore_rcu_node(sup, flags);
- 		atomic_set(&sup->srcu_atomic_gp_flag, 0);
- 		preempt_enable();
- 		return;
-@@ -2162,7 +2166,7 @@ void synchronize_srcu_atomic(struct srcu_struct *ssp)
- 	smp_store_release(&sup->srcu_gp_seq_needed, srcu_state); // See srcu_funnel_gp_start().
- 	ASSERT_EXCLUSIVE_WRITER(ssp->srcu_sup->srcu_gp_seq);
- 	srcu_gp_start(ssp);
--	raw_spin_unlock_irq_rcu_node(sup);
-+	raw_spin_unlock_irqrestore_rcu_node(sup, flags);
- 
- 	//
- 	// Fastpath:  If there are no readers at all, neither grace-period
-@@ -2200,9 +2204,9 @@ void synchronize_srcu_atomic(struct srcu_struct *ssp)
- 		// poll_state_synchronize_srcu() working, all under ->lock
- 		// and ->srcu_atomic_gp_flag, which excludes concurrent
- 		// sequence-number updates.
--		raw_spin_lock_irq_rcu_node(sup);
-+		raw_spin_lock_irqsave_rcu_node(sup, flags);
- 		rcu_seq_end(&sup->srcu_gp_seq);
--		raw_spin_unlock_irq_rcu_node(sup);
-+		raw_spin_unlock_irqrestore_rcu_node(sup, flags);
- 		WARN_ON_ONCE(!poll_state_synchronize_srcu(ssp, srcu_state));
- 		atomic_set_release(&sup->srcu_atomic_gp_flag, 0);
- 		preempt_enable();
 -- 
-2.40.1
-
+Sakari Ailus
