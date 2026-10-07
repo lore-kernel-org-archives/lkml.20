@@ -1,169 +1,167 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CE213BF679;
-	Wed,  7 Oct 2026 17:55:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0DED3BF679
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 17:56:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791395727; cv=none; b=dMQPXH3jy95oPMX5dhRU8Mgyc8usqkN93OzzmJ+bD8GuI6Nv07dUfYwtceNhkp/zg9geGUw5x+6B7pODlclLYEDUmeLG9v1Pp2BjBoPPNOjGodTdswRvtf6J73L9GRFWP61MO0czKZfgdzO2ZBH2dpMaSIScw50dLYjjjsZJeQk=
+	t=1791395762; cv=none; b=sdcdWImiWual3sKthGQgFgzrvpqbuQ+qs8R0bRPcjVC4ozrFqJBijRmiGGdh21WhExqOUlmD1GzliFVguBPzKustrsChU8DgIGaXgRhj0UaiLkkmhKNW7wxEeO90ioMBfUogq6dDrJChiAE+h4nMEHSxH+qmftZWiNCD+FCu+bM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791395727; c=relaxed/simple;
-	bh=C9yfwdCFUFaflhWGnqJx++BjuGQaVBswaweZexH+PSs=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=pYrWoltCil8zbzP7nCAN4GXgGqX6U3rtNl+q1zJ9XFiKGBCfEZmS/IyDiPNf9clASEpAm5G7/W/1CC1gKv6/DsjVJ0JBYQrjD7Ih0/ZX1iFtKib76Yd9jDxoqVR8HC9g8TeyzBNiu3PGm9CiH9dV3FnSAjAaeU0y6y3ny4kdjTw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DU1MWTWI; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791395762; c=relaxed/simple;
+	bh=A37dHJSUMP/nvKcIqGBinBiB2RmDmS9OMtLDSfYEGv4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Z/M9aOnHUYm8zCQKSf2/sqEF66dAh3kR7FRVjeZlGWEZqUukr/JvG75nFc46qvTZ1lLZvjdEVWOOqdDpCUQlxXm00hoJVu5LlzLmx37fG4EYmK4aipo+EUEPKnI+QMVLiG73YI9n//EOieIo0ajpdjzRkCPKoQHqVavW5yjcz20=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=DPY+usRr; arc=none smtp.client-ip=209.85.160.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DU1MWTWI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791395726; x=1822931726;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=C9yfwdCFUFaflhWGnqJx++BjuGQaVBswaweZexH+PSs=;
-  b=DU1MWTWIIxl8q2UDRcOmJZIiLPwkUnKiUg0CPnrQlD69RKXi4NBSKjOF
-   wuHVyE1r7fON6yKv70wS6aIEAlM6pBAG/rraNEztaQq50lz7iNbJ565p4
-   vlKuP4L3Hbo597ZqABzT+0Kwok1HcXuRgASngZ1N2PrwWJAwtq4AoZVEh
-   q1M/auJFvIhmnVrA0+PhvJDl1FEE4qN2eY9NufsULl1E9/LLDfFHHBz63
-   UCOWN/FzyOuzz9p//QwZQJ2HVtBAht9NVbhKj2AOMnsXUSXqV3+Gbvfsy
-   0dOULaFc3brIEU0hWm7Ly62f8380WXGjMQ9KModjnCI0sBbe4B3vfe2mq
-   w==;
-X-CSE-ConnectionGUID: XvWPACqERG6Gfovhe7pEww==
-X-CSE-MsgGUID: XNkHU5nKRYCcRfFA3PyMPg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="67305"
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="67305"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 10:55:16 -0700
-X-CSE-ConnectionGUID: fMvzl4HuTBa1zKTdtBZMvQ==
-X-CSE-MsgGUID: CA2CNo/vT1u4VDB5k2ZQfQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="285591577"
-Received: from unknown (HELO [10.241.243.185]) ([10.241.243.185])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 10:55:15 -0700
-Message-ID: <62547ac28298442a246abe0471647e36518a93cb.camel@linux.intel.com>
-Subject: Re: [PATCH 11/18 v2] sched/fair: Support not wakeup case in
- select_idle_sibling
-From: Tim Chen <tim.c.chen@linux.intel.com>
-To: Vincent Guittot <vincent.guittot@linaro.org>, mingo@redhat.com, 
-	peterz@infradead.org, juri.lelli@redhat.com, dietmar.eggemann@arm.com, 
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
- vschneid@redhat.com, 	kprateek.nayak@amd.com, linux-kernel@vger.kernel.org,
- lukasz.luba@arm.com, 	rafael@kernel.org, linux-pm@vger.kernel.org,
- tj@kernel.org, void@manifault.com, 	arighi@nvidia.com, changwoo@igalia.com,
- sched-ext@lists.linux.dev
-Cc: qyousef@layalina.io, christian.loehle@arm.com, pierre.gondois@arm.com, 
-	sshegde@linux.ibm.com
-Date: Wed, 07 Oct 2026 10:55:15 -0700
-In-Reply-To: <20261002154415.2270586-12-vincent.guittot@linaro.org>
-References: <20261002154415.2270586-1-vincent.guittot@linaro.org>
-	 <20261002154415.2270586-12-vincent.guittot@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="DPY+usRr"
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-5338f65913dso46013211cf.2
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 10:56:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=toxicpanda.com; s=google; t=1791395760; x=1792000560; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=xmwkg4obehY78DK/gvFot3vkf85Y9oVRiaNJ/eUX4mE=;
+        b=DPY+usRrPG8xvaf/hqKH98V5v7geHLSyZs17F0G33Yu8FaUo0ZuZtWBbpFKoor9xvl
+         UFISfg7Sw809fVckekivoFtY+rjJi+T+Cmru0qX7ZSBqJSlXu3IF3My/tJAsm/isXZNM
+         /vW6xK4X5NRQuNXcTHOBjJCCPujMmt4akKFoIM37KmWn0tJN9HNEn79laW/pN1y4McVY
+         vhLwiebiSV9gJzDK6+7nCDpz5WL5/LMJ6cHVKUnY9meIyLk8RjT168CmjVSbAde6Jg8C
+         CK4q1ov76TNLtS9TtbXKkJFbf8lgQ5F1k0SOWS0uplpCZXYlQIEMfPUbPVtXgOlOzwNu
+         5CBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791395760; x=1792000560;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=xmwkg4obehY78DK/gvFot3vkf85Y9oVRiaNJ/eUX4mE=;
+        b=f80Rc2VyHVGGO8vvJH2k557ORcE8PJ12Qe6DGJihQU03pKQoHB+y+YRHPhfTTMHqFz
+         oXtGt0cNMZXCB7vFFmNWtx6DDJq6VCowuY+6qMuvwFeN3IBExeanlpJu1OZdIPPKZe+J
+         Ub6RYaLvRx/cuIxrcjgaWThecjVwElS2fJlo7G5oIQK1cgGDo3AgrO9RATgSemdxzfQD
+         scSpCTC63MnVjN/Rx6Wl53BIWXSSXdEqZwsHC7gAmbQs/zDEtab9oJ0isRr8EU+ujnM9
+         OkHCL83ezzN6IfWebx8+CjvMjD4EFTY/0AB7nTmd6tQerS+uUYsHJjiVK1CatY2Qj8nm
+         /R8A==
+X-Forwarded-Encrypted: i=1; AKwUvByP8wfRY2lT8C+oE4k7n37uzoSNcdOFZwN/COUNVvJW6w6GmY+Ec/xCu90ugOmwkKLlrQLZIRg75z8R9e8=@vger.kernel.org
+X-Gm-Message-State: AFuF++l6PYHUPKncs4dNtID+CMEapwzlxoObETeg5kz+UbVzJAIoOM51
+	PS3mTZZvg7ow3XTLUsSK0ABUzb1N+rA7gN7VGtNeHIEud0gwLSXkjDa1cffHLH55txc=
+X-Gm-Gg: AYBFou15dxMl8YIS9gO5wID/ZP+VoNwOrs8f2T9Ox1nDXxN/gnqRpETXELv3ZKC/v3c
+	1mIldoPmsTJ6QN3gpEfheL4xXtcymed01usIIdGBOQuOecUf8Irhmq7WKHEbIBNV0yGPFFk6bSi
+	nx209oE3/UkupHnh2qS0jZLuxGhh0O0yuxxm6umjBiX7W2Hd8lbQL/53NIZyAY+J87QhO7+z8ry
+	gjZNuwhu1zm6hcpmdS15LZE6fZHH29dQKyO1tJfInLFKndoOZaqqj15hIePsWC6FPkEg3FXkxLu
+	bYmrb1BRHAN/qXEv4Bq9utCsnpdNfrCGFCZBYAsEFXDbL28cmFtzwoOxnA83N5FNI/j6ZSpMWXG
+	+RR1E+hXN2M/Y4JUekNrLLQUnQxJOSDQ+B6vxEKCskmDsP6fbQ8IZQQ2s5lGHrsjWEDwqPi0X02
+	+QuNrVj6iIH2c7eHOZqSNiWUuP3mpFIM1FZwa4S4tBc3IzwMeWu9JFP2O360UUCi0NNfQZVOzZp
+	VKpU6bfzV+CSOk=
+X-Received: by 2002:a05:622a:228f:b0:532:d202:3280 with SMTP id d75a77b69052e-53575587ed0mr53145321cf.17.1791395759016;
+        Wed, 07 Oct 2026 10:55:59 -0700 (PDT)
+Received: from toxicpanda.com ([153.61.196.242])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5357211719csm25090341cf.16.2026.10.07.10.55.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 10:55:58 -0700 (PDT)
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Wed, 07 Oct 2026 17:55:40 +0000
+Subject: [PATCH net] xen/netfront: drop RX packets with a short Ethernet
+ header
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261007-b4-xen-netfront-short-head-v1-1-12d7113a7e4e@toxicpanda.com>
+X-B4-Tracking: v=1; b=H4sIAJyHxmoC/3WNzQrCMBCEX6Xs2aVpiUF9FekhP1sTkaRkoxRK3
+ 92knj3Ox8w3GzDlQAy3boNMn8AhxRqGUwfW6/ggDK5mGMWoBiEUGokrRYxU5pxiQfYpF/SkHcr
+ z5UrkalEpqIIl0xzWQ36HOoDpB/ltnmRL07aa0Uxoso7WN/RaeiP7A/45gn3/ApL5MHK4AAAA
+X-Change-ID: 20261006-b4-xen-netfront-short-head-4589eed26166
+To: Juergen Gross <jgross@suse.com>, 
+ Stefano Stabellini <sstabellini@kernel.org>, 
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Chris Wright <chrisw@sous-sol.org>, 
+ Jeremy Fitzhardinge <jeremy@xensource.com>, Jeff Garzik <jeff@garzik.org>
+Cc: xen-devel@lists.xenproject.org, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1791395753; l=2871;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=A37dHJSUMP/nvKcIqGBinBiB2RmDmS9OMtLDSfYEGv4=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QBma8pM3Gytl7OfKxBBYVgGtx7BbS2eOhz5s1BtEXfNAHtDhR2In+nspjxyU+mEHrN5zQE+wIHz
+ sHiMpR5ErGQA=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-On Fri, 2026-10-02 at 17:44 +0200, Vincent Guittot wrote:
-> With push callback mecanism, select_task_rq_fair can be called for a task
-> that is already enqueued. Task into account this case when choosing idle
-> CPU.
->=20
-> Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
-> ---
->  kernel/sched/fair.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
->=20
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index 6ed3e5bb7fd6..38eb80dbd1a4 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -7974,10 +7974,13 @@ static int choose_sched_idle_rq(struct rq *rq, st=
-ruct task_struct *p)
->  	return sched_idle_rq(rq) && !task_has_idle_policy(p);
->  }
-> =20
-> +static int idle_cpu_without(int cpu, struct task_struct *p);
-> +
->  static int choose_idle_cpu(int cpu, struct task_struct *p)
->  {
->  	return available_idle_cpu(cpu) ||
-> -	       choose_sched_idle_rq(cpu_rq(cpu), p);
-> +	       choose_sched_idle_rq(cpu_rq(cpu), p) ||
-> +	       idle_cpu_without(cpu, p);
->  }
-> =20
->  static void
+handle_incoming_queue() pulls pull_to bytes into the head before
+calling eth_type_trans().  pull_to is the length of the first RX slot,
+capped at RX_COPY_THRESHOLD, and that length comes from the backend.
+Nothing checks it against ETH_HLEN.
 
+If the first slot is shorter than ETH_HLEN and more slots follow, the
+head ends up shorter than an Ethernet header while skb->len is longer,
+and eth_type_trans() BUG()s in __skb_pull().  If the whole packet is
+shorter than ETH_HLEN, eth_type_trans() reads the header past the end
+of the data instead.
 
-Hi Vincent,
+Pull at least ETH_HLEN, and drop the packet if that fails, which also
+drops packets too short to hold an Ethernet header.  This also checks
+the return value of the pull, which was ignored.
 
-One concern I have is that many CPUs will try to push
-their tasks onto the same idle CPU and causes over stacking.
+Fixes: 0d160211965b ("xen: add virtual network device driver")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+---
+I found this reading the code while going through the callers of
+__pskb_pull_tail().  To check it I ran a guest under QEMU's KVM Xen
+emulation with QEMU's xen_nic backend changed to split some frames
+across several RX slots.  Without this patch, a frame with an 8 byte
+first slot followed by a second slot hits the BUG() at
+include/linux/skbuff.h in eth_type_trans(), called from xennet_poll().
+With it, frames with a 1-13 byte first slot arrive intact, frames
+shorter than an Ethernet header are dropped and counted in rx_errors,
+and ordinary traffic is unaffected.
 
-idle_cpu_without() doesn't check nr_running. Its comment says:
-
-         * rq->nr_running can't be used but an updated version without the
-         * impact of p on cpu must be used instead. The updated nr_running
-         * be computed and tested before calling idle_cpu_without().
-
-and update_sg_wakeup_stats() does this:
-
-        if (!nr_running && idle_cpu_without(i, p))
-
-choose_idle_cpu() calls it without that test. So a CPU that runs its
-idle task but already has a queued task is now idle for every caller:
-the target, prev and recent_used_cpu checks, __select_idle_cpu(),
-select_idle_smt() and select_idle_capacity(). This affects wakeups
-too, not only pushes.
-
-For a wakeup to an idle CPU, the wakelist usually sets ttwu_pending,
-which idle_cpu_without() checks. A push enqueues the task directly, so
-after a push the destination stays idle for everyone until it
-schedules. If it wakes up from a deep idle state, this can take a
-while, and other CPUs can push or wake their tasks onto it in the
-meantime.
-
-The fixup below removes p from nr_running when p is queued on the CPU,
-and calls idle_cpu_without() only when nothing else is queued. The
-tick case that this patch is for still works: p is the only task, so
-its CPU is still idle without it.
-
-It is build tested only.
+There's a net-next series converting the other __pskb_pull_tail()
+callers in drivers, including the one in xennet_fill_frags().  It
+doesn't touch handle_incoming_queue(), so the two don't conflict.
 
 Thanks,
-Tim
+Josef
+---
+ drivers/net/xen-netfront.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/xen-netfront.c b/drivers/net/xen-netfront.c
+index 2ed673649c48..d269457e839e 100644
+--- a/drivers/net/xen-netfront.c
++++ b/drivers/net/xen-netfront.c
+@@ -1234,8 +1234,16 @@ static int handle_incoming_queue(struct netfront_queue *queue,
+ 	while ((skb = __skb_dequeue(rxq)) != NULL) {
+ 		int pull_to = NETFRONT_SKB_CB(skb)->pull_to;
+ 
+-		if (pull_to > skb_headlen(skb))
+-			__pskb_pull_tail(skb, pull_to - skb_headlen(skb));
++		/* pull_to comes from the first slot's length, which the
++		 * backend controls.  Make sure the head holds at least an
++		 * Ethernet header for eth_type_trans().
++		 */
++		if (!pskb_may_pull(skb, max(pull_to, ETH_HLEN))) {
++			kfree_skb(skb);
++			packets_dropped++;
++			queue->info->netdev->stats.rx_errors++;
++			continue;
++		}
+ 
+ 		/* Ethernet work: Delayed to here as it peeks the header. */
+ 		skb->protocol = eth_type_trans(skb, queue->info->netdev);
 
 ---
-
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 3eb8a0170902..cb00f24a58fa 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -7978,9 +7978,16 @@ static int idle_cpu_without(int cpu, struct task_str=
-uct *p);
-
- static int choose_idle_cpu(int cpu, struct task_struct *p)
- {
-+       struct rq *rq =3D cpu_rq(cpu);
-+       unsigned int nr_running =3D rq->nr_running;
-+
-+       /* idle_cpu_without() needs nr_running without p */
-+       if (task_cpu(p) =3D=3D cpu && task_on_rq_queued(p))
-+               nr_running--;
-+
-        return available_idle_cpu(cpu) ||
--              choose_sched_idle_rq(cpu_rq(cpu), p) ||
--              idle_cpu_without(cpu, p);
-+              choose_sched_idle_rq(rq, p) ||
-+              (!nr_running && idle_cpu_without(cpu, p));
- }
-
- static void
+base-commit: d5a007b9b457c915ab1a53227e8939e4018aa97a
+change-id: 20261006-b4-xen-netfront-short-head-4589eed26166
 
