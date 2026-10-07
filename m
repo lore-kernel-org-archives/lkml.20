@@ -1,28 +1,29 @@
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 700F74BA1E1;
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 754124BD37C;
 	Wed,  7 Oct 2026 15:34:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791387273; cv=none; b=phN1j/sMhuCBK5iYscpuxF27YE2keq9hYUUhV510WqZh+w7qZ5eosD8VWczramYiUo1uJSwwqhfs7fB+zpHVDygi7zEYzC79y/QgAVLuAREEeSBEU/KVBICrpO17eM1qb+jKShqb5ieoxDRsg02x81SSa2O5fbnjBDjze5Q1OfU=
+	t=1791387274; cv=none; b=NwQ4SK8NGGGUY+KiqVLEUSlxEU0c4DWToIUiDlwDSfh5DbgKV1ISlwQGjeVpornC/y3zhnE9SBPIsv2alhrwIMD3dvxhm/iNqQg+Cg4A/S0Te8o3/UiSsk9XbSb3TdMJyBZyCq/RQexITavHU+nvWgoY/LrWEKiN2i8mo8GnoWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791387273; c=relaxed/simple;
-	bh=sJPC+6KqEiiYcLwYM5XpJuVIQep/HsjJoVlUvGEgAd4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kjJEtFqj3zZrakWtsn4HKyAC59vVb95FTDEAnL80OYSX8d/MXGyApOGqvm29Owg98bNjrG3dw1rYfKv7kwJ3Xl9hhvm/1rbZg87Dy+qAGD6XXyb9/0ZYn7Lw6Ye3VRThQ5aMQHD9/OgS23t0VFdE1xZKBAwXJNEDb0iSjajk3G4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=UF7LrUob; arc=none smtp.client-ip=13.77.154.182
+	s=arc-20240116; t=1791387274; c=relaxed/simple;
+	bh=6/lw29IxUSitNNE20VI+J51upvmRx5FiZTiBibYqssk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Xt//auvSCMHh4PY1I3jyjR4f0zISa3LRhWQWn4D8uWIC/j5lpAach9woQ1XPL1GE+aHnu+Nq0CMh64PFWqdKLJAkAW0ahSMmgw0XdTISngtYDfgF3e8pnXFPRTqKhe6zs08E5Yy8MvA0USPD/PWk+ragwU5VsqUmijNwCsxzQcU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=GGkNI2dZ; arc=none smtp.client-ip=13.77.154.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="UF7LrUob"
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="GGkNI2dZ"
 Received: by linux.microsoft.com (Postfix, from userid 1186)
-	id C492A20B7166; Wed,  7 Oct 2026 08:33:30 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com C492A20B7166
+	id 0497420B716B; Wed,  7 Oct 2026 08:33:30 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 0497420B716B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1791387210;
-	bh=xgaAkx66IrA/fboS29JwalNhauKWU0sJvD8sU16dDf0=;
-	h=From:To:Cc:Subject:Date:From;
-	b=UF7LrUobsYLr6BowMqLwaLAtNIUIBBMxdZVjx4zJrcEtLIj5w0lSxZ2edl5PmpNOj
-	 nPibXEZBRVm5qpnSz4V0OuTEREKQmwDGibRTxOFAFeyP5/Jw8oLyecrYjT0B0C9/KW
-	 YZzlrgMW4DiJbyJYwSiSdeH9tLECP1eKH8KkegZ0=
+	s=default; t=1791387211;
+	bh=n2IGg1Hi4OTKKSy1O2yKSarHCqkPm67myTAcgqodvG0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=GGkNI2dZpzrq+BIug9cPKs6/18yv52ds+ai6kw8thtdshL2D3/kXc2Hi9XkKhzV4x
+	 yiQvFpFWzNrO8FqOB2ssi2kT7KjmfMXyfMbAVfLKTKCQEn2StT/hEKZ+ynuflATG7O
+	 lQFyS8yr6UAggDMt9DFeM8egf5FMqudsDF1iZexc=
 From: Konstantin Taranov <kotaranov@linux.microsoft.com>
 To: kotaranov@microsoft.com,
 	snsanghvi@microsoft.com,
@@ -31,10 +32,12 @@ To: kotaranov@microsoft.com,
 	leon@kernel.org
 Cc: linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH rdma-next v3 00/10] RDMA/mana_ib: Add kernel RC and fast registration support
-Date: Wed,  7 Oct 2026 08:33:20 -0700
-Message-ID: <20261007153330.2979799-1-kotaranov@linux.microsoft.com>
+Subject: [PATCH rdma-next v3 04/10] RDMA/mana_ib: Maintain kernel RC QP state
+Date: Wed,  7 Oct 2026 08:33:24 -0700
+Message-ID: <20261007153330.2979799-5-kotaranov@linux.microsoft.com>
 X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20261007153330.2979799-1-kotaranov@linux.microsoft.com>
+References: <20261007153330.2979799-1-kotaranov@linux.microsoft.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,52 +48,106 @@ Content-Transfer-Encoding: 8bit
 
 From: Konstantin Taranov <kotaranov@microsoft.com>
 
-Add kernel RC QPs and fast-registration MRs to the MANA RDMA driver
-for kernel consumers such as NVMe/RDMA and NFS/RDMA.
+Update mana_ib_modify_qp_state() to support RC QPs. Initialize the
+packet, message, and frame counters for use by work requests.
 
-Implement QP creation and state management, work request posting,
-completion processing, error handling, and queue draining. Kernel RC
-QPs require extended-WQE and power-of-two-SQ hardware support.
+Arm the requester receive queue at the initial PSN so that a CQE is
+generated when the specified PSN is acknowledged, indicating send
+completions.
 
-Tested with krping, NVMe/RDMA, and NFS/RDMA, including RC send and
-receive error recovery with krping and NVMe/RDMA.
-
-v3:
-- Patch 07: Mask arm_psn to 24 bits before ringing the doorbell.
-- Patch 08: Exclude userspace QPs from kernel software-state handling
-  and CQ error-list insertion, and unlink UC QPs during destruction.
-
+Signed-off-by: Konstantin Taranov <kotaranov@microsoft.com>
+---
 v2:
-- Patch 03: Validate fixed-WQE capacity for the header, OOB and SGEs.
-- Patch 04: Preserve UC QP modification support.
-- Patch 08: Skip software CQ notifications for direct-polling CQs.
-- Patch 09: Flush that ERR work during QP teardown.
-- Patch 10: Limit drain callbacks to RC QPs and avoid completion
-  callbacks for direct-polling CQs.
+- Preserve IB_QPT_UC handling in mana_ib_modify_qp().
 
-Konstantin Taranov (10):
-  RDMA/mana_ib: Allocate and map fast-registration MRs
-  RDMA/mana: Create and destroy kernel RC QPs
-  net/mana: Extend GDMA encoding for new RDMA WQEs
-  RDMA/mana_ib: Maintain kernel RC QP state
-  RDMA/mana_ib: Post receive WRs on kernel RC QPs
-  RDMA/mana_ib: Post send and memory-management WRs on RC QPs
-  RDMA/mana_ib: Poll RC completions using PSN and FSN progress
-  RDMA/mana_ib: Flush and notify CQs when kernel QPs enter ERR
-  RDMA/mana_ib: Handle error CQEs for RC QPs
-  RDMA/mana_ib: Drain kernel receive and send queues
+ drivers/infiniband/hw/mana/mana_ib.h |  5 +++++
+ drivers/infiniband/hw/mana/qp.c      | 22 ++++++++++++++++++++--
+ include/net/mana/gdma.h              |  2 ++
+ 3 files changed, 27 insertions(+), 2 deletions(-)
 
- drivers/infiniband/hw/mana/cq.c               | 243 ++++++++++-
- drivers/infiniband/hw/mana/device.c           |   4 +
- drivers/infiniband/hw/mana/main.c             |   8 +-
- drivers/infiniband/hw/mana/mana_ib.h          | 135 +++++-
- drivers/infiniband/hw/mana/mr.c               |  84 +++-
- drivers/infiniband/hw/mana/qp.c               | 342 ++++++++++++++-
- drivers/infiniband/hw/mana/shadow_queue.h     |  22 +
- drivers/infiniband/hw/mana/wr.c               | 385 ++++++++++++++++++
- .../net/ethernet/microsoft/mana/gdma_main.c   |  55 ++-
- include/net/mana/gdma.h                       |  38 +-
- 10 files changed, 1280 insertions(+), 36 deletions(-)
-
+diff --git a/drivers/infiniband/hw/mana/mana_ib.h b/drivers/infiniband/hw/mana/mana_ib.h
+index 61af35bf0e40..f8d9feee0abe 100644
+--- a/drivers/infiniband/hw/mana/mana_ib.h
++++ b/drivers/infiniband/hw/mana/mana_ib.h
+@@ -263,7 +263,12 @@ struct mana_ib_qp {
+ 	/* The port on the IB device, starting with 1 */
+ 	u32 port;
+ 	u32 sq_psn;
++	u32 sq_ssn;
++	u32 sq_fsn;
++	u16 sq_rsn;
++	bool pending_mmq_fence;
+ 	bool sq_sig_all;
++	enum ib_mtu mtu;
+ 
+ 	/* Serializes receive WR posting. */
+ 	spinlock_t rq_lock;
+diff --git a/drivers/infiniband/hw/mana/qp.c b/drivers/infiniband/hw/mana/qp.c
+index 1dc5b078b4ff..65b0ebf4df3f 100644
+--- a/drivers/infiniband/hw/mana/qp.c
++++ b/drivers/infiniband/hw/mana/qp.c
+@@ -744,8 +744,10 @@ static void mana_remove_qp_from_cqs(struct mana_ib_qp *qp, bool reset)
+ 	spin_lock_irqsave(&send_cq->cq_lock, flags);
+ 	list_del_init(&qp->send_err_node);
+ 	/* Keep shadow reset serialized with hardware polling and SW flushing. */
+-	if (reset)
++	if (reset) {
+ 		reset_shadow_queue(&qp->shadow_sq);
++		reset_shadow_queue(&qp->shadow_mmq);
++	}
+ 	spin_unlock_irqrestore(&send_cq->cq_lock, flags);
+ 
+ 	spin_lock_irqsave(&recv_cq->cq_lock, flags);
+@@ -1028,11 +1030,16 @@ static int mana_ib_gd_modify_qp(struct ib_qp *ibqp, struct ib_qp_attr *attr,
+ static void mana_ib_modify_qp_state(struct ib_qp *ibqp, struct ib_qp_attr *attr,
+ 				    int attr_mask, struct ib_udata *udata)
+ {
++	struct mana_ib_dev *mdev = container_of(ibqp->device, struct mana_ib_dev, ib_dev);
+ 	struct mana_ib_qp *qp = container_of(ibqp, struct mana_ib_qp, ibqp);
++	struct gdma_queue *rq;
+ 
+ 	if (udata)
+ 		return;
+ 
++	if (attr_mask & IB_QP_PATH_MTU)
++		qp->mtu = attr->path_mtu;
++
+ 	if (attr_mask & IB_QP_STATE) {
+ 		switch (attr->qp_state) {
+ 		case IB_QPS_RESET:
+@@ -1043,8 +1050,19 @@ static void mana_ib_modify_qp_state(struct ib_qp *ibqp, struct ib_qp_attr *attr,
+ 		}
+ 	}
+ 
+-	if (attr_mask & IB_QP_SQ_PSN)
++	if (attr_mask & IB_QP_SQ_PSN) {
++		qp->sq_ssn = 1;
++		qp->sq_rsn = 1;
++		qp->sq_fsn = 1;
+ 		qp->sq_psn = attr->sq_psn;
++		qp->pending_mmq_fence = false;
++
++		if (qp->ibqp.qp_type == IB_QPT_RC) {
++			rq = qp->rc_qp.queues[MANA_RC_RECV_QUEUE_REQUESTER].kmem;
++			mana_gd_wq_ring_doorbell_ext(mdev_to_gc(mdev), rq, attr->sq_psn,
++						     SET_ARM_BIT, MANA_PSN_CLIENT_OFFSET);
++		}
++	}
+ }
+ 
+ int mana_ib_modify_qp(struct ib_qp *ibqp, struct ib_qp_attr *attr,
+diff --git a/include/net/mana/gdma.h b/include/net/mana/gdma.h
+index 508da28591ae..fd0ec8fc44d5 100644
+--- a/include/net/mana/gdma.h
++++ b/include/net/mana/gdma.h
+@@ -605,6 +605,8 @@ struct gdma_cqe {
+ 
+ #define GDMA_EQE_OWNER_BITS 3
+ 
++#define MANA_PSN_CLIENT_OFFSET 0x8
++
+ union gdma_eqe_info {
+ 	u32 as_uint32;
+ 
 -- 
 2.43.0
