@@ -1,139 +1,191 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011024.outbound.protection.outlook.com [52.101.62.24])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D57438494
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 22:49:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0D6635E1AA
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 22:54:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.24
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791413382; cv=pass; b=Y2RJz4kgUKyLGVg8GM/jz42H9vU0OX5VLuDl24qLNYKGjx9qlj+x77kIwasFAIuCOr22O44nuG+m+7UL8cV5100frs4m/NPfbYKoJqI1tkZg+AUyE+PhHOtbUpjCm8sA/GSqUWpIKiBnW+b3QysAk05EkkkKqvIvwykcf7tRzYo=
+	t=1791413680; cv=fail; b=TeGz1JQCERfBeIcouVJwAWomHHt8NJ2/qU2w+8l+Hwo1Inwu4yUzFP236Nugp2VMeoFWXWeYGOLwgtPFF6Z3u4WCwCcNsel6RlNFi/KT0jwhFNXe4/LPifNdGzpgmHuWsRQYcPUiUubPmT1BGBZp8rExQOWHQR9/v+h+BjdWXOQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791413382; c=relaxed/simple;
-	bh=ueCAdNXKfuApdpHhwX8s1J3H4MHF9wnTt+I0E6rVefA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BhI2lzA6NAqn5+ibKbhH8xTLMCoQy1cy3JFd/TvNMkZCWnzBjadR9TthAKRN5odGnZxXJKHtlOP5A6XFHw8L8F3u5qH4FS7ybd1s2vrh8A6QqNhufA8wagJVTRkSAhS/ClczV6AbbKIar4XBi3Y6LSYcbSQ5PoLWmaI9T0aegFc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TJwb2LLC; arc=pass smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1791413680; c=relaxed/simple;
+	bh=HN5HAVJV7l7Ql74PKkrQwjOIwTce8zNnUaOpB8SdjsI=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=fTkf0fFEOMfSCcw6b7DKoP4XpULL0sTgw/zmxQqyIi2qcCaq/DdMunVLnA+MZmx1CKVADCI2umRXb2lSykTo3XprmmdkdN3ws3NG8Y2VtOGM63XVKwtGLlH2vSgnM6iv13MoZ9ar5s1xi9YFqbot6CALmcbofhjHwRU/o8KzKKk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=PEWAzmTV; arc=fail smtp.client-ip=52.101.62.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TJwb2LLC"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a021c28046so8435e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 15:49:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791413377; cv=none;
-        d=google.com; s=arc-20260327;
-        b=l00VIAnrFTggjhYX+ITsNIDgw4Bg2NMiaiS97hjqgUF6S2ocBQEW4VJpHGJM1EVWzo
-         /ADi+paA/k7nzP2f+2v5nr02vfu3q9Ni4ngjcrC6BDhE/X1NBwX8mkC6I+u5iwu6N6kd
-         Qfi0BoVkKLfk/j++jtklRmJZV4zr/Eo9DNn8tnPc/WRU9oCtlCOsRt3um7/SZHti50mH
-         jXIS6DKb/1K3LOSqr7th/KND3olZt34VcnLHbvBASEJza+VKT8/Dr3zpz4fbJKbc5u23
-         4C7d1pFfnwUFRW2pZCQbFKgGYzKD0VtJKuK8vna0yCTDPSGjNWF8w+HWkYTxB+G3j8YL
-         oNoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=U16op2Ui0JYvgEISwYX/iyuFKgIG9pLc1vhaX2SV2us=;
-        fh=H/uDYimaUtc3prAF+VekHsIMRyn96mOmzwT4+9kZJJg=;
-        b=hcbYz9D6nEu5lJFkf7EwEbHke7myxe08zc4dm1f/8x4vYTgeTgqwF00IZi8wDhsDGd
-         wV3i1LFsjLBOMdIlMwVzBKxAocqxVpW1lgX+/ylQ0JZ/d1xMa+nQhp1nuX4vKjSjaEtg
-         Y4wd/NlNd3SDaeHT/nAUk1JwQU355DvSkM4PwXnR64vQzWyYRKZOmroICzuKUnhecOHa
-         /wv6p5+voRqdMJ4JPKluCShhrmZ29CeCkwLFkHPCAh7r2wPac5NhsRACqm9arXH33IGE
-         Kkn5aJ2U8TS4yVb7R7zTRu220yGcOMewOCt3/KS0cnB5njl23BJw4a42ppizz9aNwn2a
-         areg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791413377; x=1792018177; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=U16op2Ui0JYvgEISwYX/iyuFKgIG9pLc1vhaX2SV2us=;
-        b=TJwb2LLCpCpayGPJIWk69Jbnt6FTIdrcTTjq1SVBhAefZ05nq7NU6FIclCHxoWt0XG
-         TTPoV5di/HXCOme+XWgC6+FbwptRbT9uLwNssyOzVyXiEZ3bmFwahdxl/hLITqiS6sBr
-         KdfMMTuitA6GO1eCyq3kxqX8Z3vAYg0eyAZ0VHVcJc/xh+v9KOYoipYeFNi+If+7Pqyl
-         Wfp1h9+RCkdBDnWKUsQJGLXsnmN3mTSWNuhjW1YQI+yeDeX/Eb8xqNQdhB0TJrD5dPGW
-         YHQZk1TBLSBxaxbMUSvA6vLJ5MRXiMAdsHuq1Vk0JZ3Is2VSYCYeIVepg+lRoAqz4bfC
-         4pjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791413377; x=1792018177;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=U16op2Ui0JYvgEISwYX/iyuFKgIG9pLc1vhaX2SV2us=;
-        b=GEBFPvhU0J9zmp9Qx61vRdxjpm4ESIk+FcGtswkpuJ81oFWUw5WigVg5skb0AoJ5kB
-         eNQ3UMZBloybR3EWsBPZmE9u0uCdS/s4cZYUlseIMR/xxMUAbr62a9XGhG8vJPAtS2ss
-         /j9egdglBd0c+Uo75EZiP571Znd70slBiy8SPudfCnqREHFBlnSqFZlulA7+EfOhOI+v
-         rGW/5p+8mfV279tplzVNTm3sAgED01HtGhxaGQvqKbtVPEI4vJNhM4N8rWS3/RVKoePZ
-         zT5BcNGMF/mrOWOtd8dXy2KTAGKYKM7Et+VwZheaOHEqm6RcNwd9XFp5Pocobnk4//4J
-         8fiA==
-X-Forwarded-Encrypted: i=1; AKwUvBxv4U+4ZO6v0qjSTkqphUzizMYxaR1be8m3JusNaV6fgB/3QFtUMXaiqBqfZZymS99m9okvjgTDpnHcqGs=@vger.kernel.org
-X-Gm-Message-State: AFuF++m3J+o06wr5lryFiYCXJOLXwgDs0HYbcFFcvf72EwGwbqd2eanT
-	9OnlogbREIMmRrAGVPFacsBXbeogk62xjYZDId6dJKZyQV92+w3RcVDNTmEifRCpMTByyz/AKOc
-	TfgbKuGNjfASnfMMRkwHXAIueYCsHahdwWJPjTeOI
-X-Gm-Gg: AYBFou1y3l8v8I51krg+j1twuIapnt6rFqWAx8LsYvZ394yreKK/g79GwHWphLN3G4j
-	eLVRbnIXWY7cYqcpAd1N0K02owTImUgLA6KfYcDsAzKTWJcaLebbq/GZ9jZY903MtI/kHSP8rsH
-	OhKxBHavmSIP1pM2rL2CY545C1yUoHHFkQoGrqIFXLax4CdyXatZubFcSuiiRQ2Az354ACWx6+t
-	valRaAgH5A0NRdndBNa0CLL+67fEf/H8SxAiL8vqtk1cFQo/IuMhxtF4akuER54BViymN8A0kIz
-	WAiv+Z5qTMkN38yUcCwLLR/bw61chwQCRlM8/NxOEa7jxuUxZ+A5
-X-Received: by 2002:a05:600c:2154:b0:49c:ff18:79bd with SMTP id
- 5b1f17b1804b1-4a18591a665mr105865e9.9.1791413376953; Wed, 07 Oct 2026
- 15:49:36 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="PEWAzmTV"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VjEnhNJ+JNsZxLBX6krSKsuiYF3lllK6TwQtWtX8/OoICLsoF4o8EBM3WanR7cH8O6Zq8J7bRBtg54O6oR1BfLAu0oHrTX1CNfrTs/t7OJ8zkiRxMn8GNUComJ+Wr6kXsTGh1RdeC/W+481MnieS4T4i+36iTAj2tNDOa86XQuO/fPLETnuLjyfr8n4oWGw2gJmlu+1S/Y2ect9jzZGh0ywIUGQjEg29dcdk1szZoSNm7xI33gXqQt90B+tqu5Hx8Sd3J81H1MCf40C0feXag9Jg2N1YaYaMhmd60jYmN4wWnGLSL1zkpMcgHVhke4/mPxqUS9aymJZ+CDlHCeqOug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lVWMVmPC1+rtgb86s3LNrhdE0iCl1BR74LWikVSRZW8=;
+ b=HGZxNYY7uiCXAzFie+wW9u9xL0fGVqXskW4jbKujx9yXn5XVlD0w+X20tjwwl/wHWDa3z0PA3IpLWw1h6VwtZ68k+bJsc6BFr84RJwQFX/W8ZWNG+bboBY8jyVHuDbasjrF/kCILyPpPwfOBS0MjPq5bQJszvI0+t9KLn7eeE8CcvHzr1+sFLFZta2y/k80I/IAo0dEx0kq1rsQvI+SVxUS3CpUKQLRnHV/MR0bn3IPHa+7jUcS7UpOUJ1xYLBdezqyIbJVjSFieUseyVPZklzJAurmudHslvYEEmqVIq2s5w9afKJXrBq5iMlqRb+FsQbjy2LTjl+LX/uL5uoiguQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lVWMVmPC1+rtgb86s3LNrhdE0iCl1BR74LWikVSRZW8=;
+ b=PEWAzmTVseGZSr6Bt+XBum1FTMGsLKwPHvtKkkPAkk6VBj8Zh+qpsi3RBB2IJLhjqCHfktz/207AfxRkkDbAW+Tbt2gD747fdgTPXisFhrit9oRM6XDK7N2rmaZ4ivBFDvxsRSGwsE9qFwItsNSNK38qnOU8RzXsm+82702YIOU=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from IA1PR12MB9062.namprd12.prod.outlook.com (2603:10b6:208:3aa::14)
+ by CY5PR12MB6526.namprd12.prod.outlook.com (2603:10b6:930:31::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Wed, 7 Oct
+ 2026 22:54:21 +0000
+Received: from IA1PR12MB9062.namprd12.prod.outlook.com
+ ([fe80::28c6:3cbd:6e97:5257]) by IA1PR12MB9062.namprd12.prod.outlook.com
+ ([fe80::28c6:3cbd:6e97:5257%6]) with mapi id 15.21.0496.015; Wed, 7 Oct 2026
+ 22:54:21 +0000
+Message-ID: <c97f9acf-79e3-4e02-9e54-1f0db0a72fc4@amd.com>
+Date: Wed, 7 Oct 2026 15:54:17 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V2 14/20] accel/amdxdna: Implement AIE4 command packet
+ building and submission
+To: Eva Crystal <0xiviel@gmail.com>, quic_jhugo@quicinc.com,
+ karol.wachowski@linux.intel.com, max.zhen@amd.com, lizhi.hou@amd.com,
+ ogabbay@kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: sonal.santan@amd.com, mario.limonciello@amd.com, wendy.liang@amd.com
+References: <20261006042230.547807-15-yidong.zhang@amd.com>
+ <20261006071245.197376-1-0xiviel@gmail.com>
+Content-Language: en-US
+From: "Zhang, Yidong (David)" <yidong.zhang@amd.com>
+In-Reply-To: <20261006071245.197376-1-0xiviel@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR13CA0106.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c5::21) To IA1PR12MB9062.namprd12.prod.outlook.com
+ (2603:10b6:208:3aa::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261001135711.934152-1-guoziyi114@gmail.com>
-In-Reply-To: <20261001135711.934152-1-guoziyi114@gmail.com>
-From: Sami Tolvanen <samitolvanen@google.com>
-Date: Wed, 7 Oct 2026 15:48:59 -0700
-X-Gm-Features: AclHuK-OHjmAc40mDjPz8eYhHrh9Q8RxrfmmtdzMZsmdMbZL56s7kGmmUzZWIM8
-Message-ID: <CABCJKuf=ExB_=Qwowtx-jtiKG_ZXyqPkxK09maGjReUZs6EP_w@mail.gmail.com>
-Subject: Re: [PATCH] riscv: entry: gate shadow call stack reload on
- sstatus.SPP, not tp
-To: Ziyi Guo <guoziyi114@gmail.com>
-Cc: palmer@dabbelt.com, pjw@kernel.org, aou@eecs.berkeley.edu, alex@ghiti.fr, 
-	wangruikang@iscas.ac.cn, debug@rivosinc.com, conor.dooley@microchip.com, 
-	namcao@linutronix.de, zong.li@sifive.com, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA1PR12MB9062:EE_|CY5PR12MB6526:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1cede6e8-5dc5-499b-598e-08df24c5ecec
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|366016|23010399003|18002099003|22082099003|5023799004|11063799006|4143699003|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	AqdbNWjRN/FAJM8jqB5eBrOti5fH0wQ4Bcfmwd2Rw7Fs2fa2r+M+an8+XOZ+biZdAV9aBmg2IFkCQYxw3TB5mMj+476pNbMa447Ra+7l0KLtfMnXEqcah+uG8n0QO6ZkZtWP3CSiT4sWs/+DJV934STmAhGFuVpN8VgebedTw71IpLirs/92uwVR1cPzekajMTgrBvCGNtW0rWHhx3CmZjhUiol37Ioyle2bU/Ri5OmHtQB4gAiFteq4bpkiCgp0ZIiCgfxE9AywL/NG8Uu8BOpbn9xwZkrU3kiOcmdx6JTZVIV/OyqaPwxbdihpcmkGGVC9oqn/DWtnXx364k6BA4X0QPOJgfpVhbkmwsp5TcdBxcoMxgF5izEZKINUACxJ4rS3qRvofMl6yNkcVRhUZpqoQzAATAmhsE5MNwtmJBt7kU5SLvQJBeUTnMtHZcGF39gXOw5YPhOKSd+A4fqiKrDKIpaItAuBi/cq7D4Ld2U8uW3OvOHLdUU14YEwgm+instoM3VaYJ+2mB/Luq88rb0yNZp2wI6Cwjcn1pfHOvfXKZLcqqqiZXu4inrCs4xYG3rm4q6RXWH9B/KyYuKu85JVNH1j11+p2AwQwI9rimA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR12MB9062.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(18002099003)(22082099003)(5023799004)(11063799006)(4143699003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SUdLUng4UHNRZ3IxclVyUmwwRmtOcy9Bd1pDSTFKMEdSNVdzODREemNVS0N2?=
+ =?utf-8?B?UDRYUzJ6c3ZMZXRvWVdzc3cwMkpmWkdvRlZNamlwVUFvbDZUWVIvOG5XYmdo?=
+ =?utf-8?B?VktsNFFuMkFndWN6NFEyTlNWWXdEcWM1S3poSTRWNlJXelAzQ0RaV2c4bHZh?=
+ =?utf-8?B?TXpvSWE2R0VkYkYzNWlFZnVVMGd2dzRDdDNpSkdTNjJvRzBmY1RBSEh0Z0k4?=
+ =?utf-8?B?VVZITkFVaUFoRXRLdy9ma2lVc2E2UXhYdm1vZEdXcHBMNWc1S3JzcmJpK1lq?=
+ =?utf-8?B?cDA0N2RDTnAwdHR4NmdKN2w2cTkyUlh5VkhJL0JjNjNNODFHcVN2RDYxUWFx?=
+ =?utf-8?B?VXNsRithS0Q5WUJrUy91YzBNTUVOYmNDYjJXZkpDbEV2YVIrZVpWL0J5TXJ2?=
+ =?utf-8?B?STMvVVNOTFB6TTBFbFMvRVN3OGdZZCtMeG9tZlFyNUdLWTJFb0dGbXVjdklH?=
+ =?utf-8?B?RU40azFYUlVqVWZBVWlQNkVLb1hlMEVIT09paWlLNzIvcjV6cHZEWDB4Nm9G?=
+ =?utf-8?B?Uk5NVmhmVUQzbzVtcWhMYmcwbCtlN01xTTllV1d6Tm94bUxTV0hNQjVsS3Bi?=
+ =?utf-8?B?czdrQzRFSnRmait0SmN5V3hjYks0cmEzRW1mWm4rODVaYm1GZDlieE1aVU5z?=
+ =?utf-8?B?dzJ4TzEwWU9rd0Y0YXBRT09jYXZ6N3o4TFM4YUpKNEo3N20ydFBMVTJNVTVq?=
+ =?utf-8?B?OXgzbVZPd25sQ1RSaWVpd2ovdnNlaGxMV3FMRWpFYnIrdFFjdFpBbjlhNWJk?=
+ =?utf-8?B?Y2tGaU42M0JWZmM2Tm1xeTUyMjEwaWp6UjQ0MlpiL3B4ZVN4ZEY5NnFkSEpa?=
+ =?utf-8?B?RncxNjUySjlmdkE3MFM0bDAyYkMvTWJCRFpKaUFoN2N0bnM1b2FYRk1xN3JI?=
+ =?utf-8?B?YUllSlRRUFZFb3VWcXNmU2FTR1k1bFptbFEyeTRRQnAyMHZYKzVVZTBkVlY4?=
+ =?utf-8?B?cHVHMUNZSFZaOGRONEJkU25CN2lLT2tSZ25jOW9nZHlwZHJrU0krVS9WRDEx?=
+ =?utf-8?B?QSs5Wmt3dXRiazZxMUFQYmxaNERWQ3FudmtwemJjQWRKb3hWVDQ0a05SSXUz?=
+ =?utf-8?B?dFRDWHQ2N1V5QWl4MlpvWFR0UTBGQ29HWEU0cGozUU1uZDFpc2ZnbDQ1d1Ir?=
+ =?utf-8?B?TDNqYUR6SlByWlhuN1dxNkhnRGFaZVU1RDNOOGRjYUJVTVNoTkhhdFc4Ukhu?=
+ =?utf-8?B?WjlQM3VZYWlqMmsvS3J2UHpGcVBPeEdoWVNKU0hTSlVYblRZaGFwdE1nYWUr?=
+ =?utf-8?B?WW9MaWR6YnJ1SVd5bGZNNlhkVkdGZlpEeXo5Y2RPN29LcXBBWWgybmFvUjls?=
+ =?utf-8?B?eXJJbFk2L25CRnpGcU4xMFF6bXJ1QSt2Q0NpRG56Z2NOSkVkd05VWHVnV3pV?=
+ =?utf-8?B?ZW1hYUQ4TktTLzRCRVF6SXNPcHNoOGJkWG9tUmxjNGFkY2JVZ0QzRXg2Q2dN?=
+ =?utf-8?B?VmtRTmxwZ21mb3kraGJNbGM2dUpjeU42bndKcTJmU0N3MmltWlAvTUNUNyt2?=
+ =?utf-8?B?OVk4akhaMHhnQVZpVVJ0RWtSb3Zhc2hwTDZ5YlNsTTAzVlFONkplYkg4azRj?=
+ =?utf-8?B?U25xalNhV1pCVmhwS1NYeWNFbGpYQ1c3VEwvazNsdkthMm5JS0ZIYlBDdGc0?=
+ =?utf-8?B?RnMwMGd0VlM5eW5TNW8vMGJkMThRRTBVVjYyMWw0M0RsUG4zM29uZENGREpS?=
+ =?utf-8?B?VWJpRTd1WkZSNHozVEg5eE1Obko0dHhQR0xxbnZ4NjBObmpVTXB2ZjZjOTNk?=
+ =?utf-8?B?a1BqYUw0Tzg2Y2FEQ2QrUzZKVEhXdlpob0FtblFPSmxpa1cxUngxWWVIdWtG?=
+ =?utf-8?B?SVkxQzVKVFVIUGtNY0gvSElkLzJsNFFFcy9zVWZIWDNzMXozNWtuV3ptUFN6?=
+ =?utf-8?B?M2lsdFpUWTV5WHc4bTRESmNad2JsZUh6cUdhcm1sWXdDU21udEs2ZWhkSm16?=
+ =?utf-8?B?ZXBoTGdTMnVsSTRnZURodktTOGRtOXVQT0pPRENPaWNqZTRyNFFSRGdhSzhC?=
+ =?utf-8?B?SEF4UlowOTE5R2RzRkYzVFhTUFlUbVV0UXpqMTJoVkltM1VPY1BoMkNBbEM0?=
+ =?utf-8?B?bzRQdHRmcytpdDh6S1B4Yng3cWVudUtVZGpPelBNam5MVUF0bW94Qy9UUlcx?=
+ =?utf-8?B?MktKUE1GaExLeHU3emdyakIwWW9neUx6STBZRk5hUmkrZ21CQStJME9iV0hy?=
+ =?utf-8?B?MUhCQ1hhTHY5elg5YWVLc1laYjRDNDc5cHZDeXRlRUNiYTczNDVDZ0hja1ly?=
+ =?utf-8?B?SDE1YlBueXJEOXhJN0hmUy90S09NdFkrQXNYRXpZcjhmSWtmaDlRUEh3cXM3?=
+ =?utf-8?B?L0tTSkJIMStlSDdFaDRIWTdpUnRCNWNYWmZDL0Q3VXJ3dkVmRkhDdz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1cede6e8-5dc5-499b-598e-08df24c5ecec
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB9062.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 22:54:21.4624
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: V+eIfr5OPq7LweWDBtawk2NGOiuX438XWnL3FIGnw5cZtHK23R8JNtK4Mf3WeMJ77cAPGHuuAX6YyIE+9hsOxw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6526
 
-On Thu, Oct 1, 2026 at 6:57=E2=80=AFAM Ziyi Guo <guoziyi114@gmail.com> wrot=
-e:
->
-> Under CONFIG_SHADOW_CALL_STACK, handle_exception() reloads the kernel
-> shadow call stack pointer (gp) only when the trap came from userspace.
-> It made that decision with scs_load_current_if_task_changed, which
-> compares the trap-time tp (read back from sscratch into s5) against the
-> current tp:
->
->         beq     \prev, tp, _skip_scs
->         scs_load_current
-> _skip_scs:
->
-> tp is a user-writable register.  A user task that sets tp to the
-> linear-map address of its own task_struct (&current) before trapping
-> makes the comparison succeed (can achieve by brute force with KASLR
-> enable under our test), so the kernel skips scs_load_current and
-> keeps running with the gp that userspace left in place.  Under
-> CONFIG_SHADOW_CALL_STACK gp is the shadow call stack pointer and
-> load_global_pointer is a no-op, so the compiler-emitted
-> "sd ra, -8(gp)" / "ld ra, -8(gp)" in every non-leaf function then write
-> to, and return through, an attacker-controlled address -- an
-> unprivileged kernel arbitrary-write and control-flow-hijack primitive.
-> The poisoned gp is saved to task_struct.scs_sp on return, so the reload
-> is skipped on every subsequent entry as well.
->
-> Decide "came from userspace" from the hardware sstatus.SPP bit (already
-> in s1 at this point) instead of from tp, mirroring the check that
-> ret_from_exception already uses a few instructions later.  SPP is
-> written by hardware on trap entry and cannot be forged from U-mode.
-> Legitimate behaviour is unchanged: user entries (SPP=3D0) reload the task
-> shadow call stack, nested kernel entries (SPP=3D1) skip it.
->
-> Fixes: d1584d791a29 ("riscv: Implement Shadow Call Stack")
-> Signed-off-by: Ziyi Guo <guoziyi114@gmail.com>
 
-Reviewed-by: Sami Tolvanen <samitolvanen@google.com>
+On 10/6/2026 12:12 AM, Eva Crystal wrote:
+> On Mon, Oct 05, 2026 at 09:22:24PM -0700, David Zhang wrote:
+>
+>> +/* Job timeout detection (TDR) will guarantee the fence signalling */
+>> +static void job_worker(struct work_struct *work)
+>> +{
+>> +	struct amdxdna_hwctx_priv *priv =
+>> +		container_of(work, struct amdxdna_hwctx_priv, job_work);
+>> +	struct amdxdna_hwctx *hwctx = priv->hwctx;
+>> +	struct amdxdna_sched_job *job;
+>> +
+>> +	while ((job = peek_running_job(hwctx))) {
+>> +		wait_till_seq_completed(hwctx, job->seq);
+>> +		if (get_read_index(hwctx) > job->seq) {
+>> +			dequeue_running_job(hwctx, job);
+>> +			/* Abort partially submitted jobs; complete fully submitted ones. */
+>> +			if (job->aie4_job_state != AIE4_JOB_STATE_SUBMITTED)
+>> +				job_abort(job);
+>> +			else
+>> +				job_complete(job);
+>> +static void job_done(struct amdxdna_sched_job *job)
+>> +{
+>> +	job->aie4_job_state = AIE4_JOB_STATE_DONE;
+>> +	dma_fence_signal(job->fence);
+>> +	/* Release submitter mm reference taken at submit. */
+>> +	mmput_async(job->mm);
+>> +	kref_put(&job->refcnt, aie4_job_release);
+>> +}
+> The get_read_index(hwctx) > job->seq test here reads a value userspace can write, and this patch is the first to let it release resources rather than just end a wait.
+>
+> priv->umq_read_index = &qhdr->read_index is already in drm-misc-next (drivers/accel/amdxdna/aie4_ctx.c:212 at 34e9ab018249), but there its only consumer was check_cmd_done() from aie4_cmd_wait() and aie4_vf_ops had no .cmd_submit, so forging it only ended your own wait early. Here it decides dma_fence_signal(), mmput_async() and the BO reference drops in aie4_job_release().
+>
+> The queue is userspace's own BO: hwctx->umq_bo_hdl is args->umq_bo from CREATE_HWCTX (drivers/accel/amdxdna/amdxdna_ctx.c:252) and is mmappable read-write (drivers/accel/amdxdna/amdxdna_gem.c:1409), so the submitter shares the pages the driver vmaps. valid_queue_index() bounds it only against the kernel copy priv->write_index, so any value in [write_index - 32, write_index] passes and one store retires every outstanding job. Nothing else is consulted: cert_comp_isr() (drivers/accel/amdxdna/aie4_pci.c:114) only calls wake_up_all(), and aie4 has no per-job mailbox handler.
+>
+> I may be overstating the impact. I found no kernel memory corruption: no driver allocation's free is gated on a job fence, and the queue BO reference drops in aie4_hwctx_fini(), after hwctx_stop() has done the synchronous aie4_msg_destroy_context(). User pages look covered, since SVA is the default and the core invalidates device TLBs on every mm invalidation (drivers/iommu/iommu-sva.c:341). What is left is cross-process integrity: job->out_fence sits in every argument BO's reservation as DMA_RESV_USAGE_WRITE and those export as dma-buf (drivers/accel/amdxdna/amdxdna_gem.c:680), so an importer is told the NPU is done when it is not. I cannot tell from source whether CERT keeps executing packets it already fetched once the host moves read_index past them; if it stops, this is self inflicted only. You have the hardware.
+>
+> Would a driver owned completion word work, device mapped but not user mapped? Or could CERT report the count in a register or mailbox message the ISR reads?
+Hi Eva,
 
-Sami
+The forging read_index only signals that process's own job fences, the 
+impact is self-inflicted.
+We cannot change the hw/fw at this moment. The CERT fw access memory 
+with user space address, thus the memory need to be user mapped.
+
+>
+> Separately: abo->mem.map_invalid is set in the MMU notifier (drivers/accel/amdxdna/amdxdna_gem.c:247) and at mmap time for imported BOs (drivers/accel/amdxdna/amdxdna_gem.c:505), but cleared only in aie2_populate_range() (drivers/accel/amdxdna/aie2_ctx.c:1145), static and called only from aie2_cmd_submit(). On aie4 it is never cleared, so aie4_cmd_submit() returns -EINVAL for that BO's remaining life. An imported dma-buf argument BO that userspace mmapped starts with the flag set and can never be submitted.
+
+I missed merge one patch which rename the aie2_populate_range to 
+amdxdna_populate_range. I got this patch in V3 that both aie2 and aie4 
+both call this common API.
+
+/David
+
+> Eva Crystal (0xiviel)
+> XSource Security
+> https://xsourcesec.com
+>
