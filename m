@@ -1,142 +1,257 @@
-Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013016.outbound.protection.outlook.com [52.101.72.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 891B34A2E21
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 10:50:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.148
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791370280; cv=none; b=sl9kTebBBi37tC4ky+GkiqxS5OM8njRrJLNBRD2ziGAxEyw69WSUNWy5wJtedS/9tKkMmfHFe9Oi1Lgcj9PcSOv4MS08fDt4AvYefrCyeuhGbX5g72g3DAL/qDtfcxXMPi+Cq+5xK+/p+iktzhoQlKgLe5rNqm95A3/BsMy1eYQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791370280; c=relaxed/simple;
-	bh=tUvTRzVcNc49ZvK3Xd4e3G3ohTQ2V8/eGQTEBw6pJ40=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=buC4pLiSNCal/YBoen8vHwESpAqa2EZfRt7alRn8KaxCS0UTgeTN5LMU44rP02PXnwKJkLOvoCps42gCBb/oxBSg3RlTemg6TV02WDNkc57XsC83f9w2ZU7UPymE51IoFxaK54Po9Fw+5V86k0jro06yEP+AoSpry50rI1e/+Eg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=luxpz+JK; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=BpBVawMx; arc=none smtp.client-ip=103.168.172.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC1584A1DF3;
+	Wed,  7 Oct 2026 10:50:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.16
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791370277; cv=fail; b=BS+7BP9aYqMhoM5jl45R5PuCeny6/GpQ9awycb3iuueY+VQ5Bp8E0aCjhcAB/qnzWfmlvHeHkIMHZk3eh7WURY6j9l6a8wJszEgeSdXFb6RKf/jUZ51B8wZY5dFezwAoWJAsCE8GGnAHAKgwrbEbhacbKEBoXrke2H8KCM+COPM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791370277; c=relaxed/simple;
+	bh=jWKI7C6JO2fyGnWnhSzg+2N4LANlH+tqv3dJ/liH7hY=;
+	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
+	 To:Cc:MIME-Version; b=WWxtU455kQgC43iLM+Xt6zyJjX+oEA7j8Z16XB8t+jIHL70oZbxxvBh+Y6Jm60qvjfY44kd6d1YzonA1C/RWB7Mrfj6p+nyzLInvrDEKxTMJCJ1uGI2gp3nFTrAIvg1eP7QqjtY+z3vUaJSh8Bu0t6d6Gnnc7xt5RXsdEf7v9NU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=qCGiyyz8; arc=fail smtp.client-ip=52.101.72.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="luxpz+JK";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="BpBVawMx"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.phl.internal (Postfix) with ESMTP id 54EF2EC0295
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 06:50:46 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Wed, 07 Oct 2026 06:50:46 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1791370242;
-	 x=1791456642; bh=tUvTRzVcNc49ZvK3Xd4e3G3ohTQ2V8/eGQTEBw6pJ40=; b=
-	luxpz+JK/so1T4nu5eVbt+zi5bbCWMXh7XfVsjY+pEIkTmttnuG2eHDakOcyI1hS
-	5OS3e5I4EiWEq5pWFubWi83IOGZhIPLLupLiyPbggpB/r1LxNuoTJsnosIfN0spj
-	yIvXLpQ9GS5/b486K0wRIXIGEolat52MujsVWStlbKxm8bTf30StkHHj/knj9Kp7
-	w8AO5gFkEH6nv2a2jU/OA2PUGUzXsIAjzexWD6OjnCBcW3w22FSnKCmapmWnuL6g
-	D6Us7/tmpJgGSSQho3BvLTa9KB4ZWI+zEg5pSU4Z18zPp/EzNUw6zI2dYe+yBljc
-	sZ1mQGY97s/3PPqJCQwAGg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791370242; x=
-	1791456642; bh=tUvTRzVcNc49ZvK3Xd4e3G3ohTQ2V8/eGQTEBw6pJ40=; b=B
-	pBVawMxj7pQn0MOAGXjomdjs4Upd0nXrOLr2Xw6e327Dq43F9G8w5nGB6vjrGPuf
-	IS1nMz/dTpK7E8Z5HM3mkySkEl+XAUW805eYmGK42dMtr6gSF2KauNll2ZB9MmHI
-	NIq/no/AP0s6pLsObf2HtGzFbJEM8wY67VAKM+uLgSffbxECf5ny/2l4B9xKUdA+
-	6zlBlT7+FosxJ77oUHMkdgszH4FAyHVaCAYZpCGm9VMAnhqow7Jvg/BPtjsuh+lz
-	nmlZBQg8wePjhl44FwOq74othf9oAvvqXkk1aoba8Yt+M6cPSmEEv9EcVKrrZB8S
-	sZJgIufs/3+RVLxElOHbA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791370242; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:kuV9z4YOIL3KwMoOPPxXyBkCCx8WCAl1y7Io34+wTAdsgRC
-	1lgcOAFTxIkCYth0jFzFQiEmfoC15ekewMRMwfSwjoZWqEm4amKHfQrIfRvqES6n
-	7ZS2p6JHjr1vdy3QdOdJ1khWK3pZQYcQjn5OD8LnWKGyd9ibVVtmSOhJACU41f6/
-	QntCLapghwMoliSbkI5UaoUGCL16+nq/fTzbnHdBcAmddG12fwNsGJFVZm5tgAGH
-	KqFkrCwLxHSppOQtbgO98DrtK28a5FAhQMnDLRtX4i9/qSon4SLH70sSR8D5+eGL
-	QyHH0pz9zuC5bA18psslq7ENPK5kOYKAw8QdsIg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:nd24rqhvMwr6YzhdLjP9PgBHBvlm6O2Q6PbWisaeCY4=:tUvTRzVcNc49ZvK3Xd4e3G3ohTQ2V8/eGQTEBw6pJ40=;
-X-ME-Sender: <xms:_yPGatu7HrdFc6uxI1K-ZwjUIsEx59CiUXODR-AweqoAvTJsieAGZg>
-    <xme:_yPGahSST4h6fmscfkV81xV4YxKGAD57U1TmYZNDXRsrXY9isk3zfuThUtn3LkQUl
-    O8p05otqlpBw7KyWqC3HulwEM1YgfvkqhFT5wfGEUVkkKB3m_ibB6g>
-X-ME-Proxy-Cause: dmFkZTGRqXlOKiOoDNay6f9ANtWsHoTGY+XwXgCCKh9gl3enreMC84wkqMt99EzViSemkP
-    f5ODRap5IDJUixiJdxjgKS1q8T+wTFM4ZKUK8Ym2GdQa+ZzJWidwn0WVVRzf8mAK0rRLim
-    DN3+sSy4M3BCbOagBm90WzMDH/p41rnf9QH7x4VHabUq/pN0qo1wPwsILS+Ggbn7Lko7I5
-    WnpKUE4mRZIcYGd5xYzbr9n4apO6jh7PyhucM3qwYQKJBp59KOPtJZ+4b+cn3mF3FPJPZy
-    Y8VbmbX43AkBSHFMt+fxNmlHXVFDp+PV1frtvEINe3dHG6zmd7DCzzkd2x6O+NTblPt5tP
-    NbPea+Fn4c85gW8592lRLC1KYTG10wbsSyu8v4KNUsqiz+dpnR+6TWfTPSfFL98in2k1qH
-    cnDS95RvWknhOVUccMvy7Tc7HFtQly5KuxdIwXeTcUnlIvNgGeumq18/gxdzp4NnY47SQc
-    H56ufF9wPjRTMgN1Jve3uY0mjPNpmQUIaha/vzoLWKbaQLMuMXmDlRcDnHRB0t51XUkO4+
-    LJ6tHiTITG3O4OnKW8ChQ/wg3jgZdzFO05ePlx+PoTApBBXvsk8WLwZpy5fGsQQlW7jd7f
-    dae/G+MvGK6MNVp5YN1phNQdVGHmewdLXB+813nh3rJcN6GOCc0ca/OoDYzg
-X-ME-Proxy: <xmx:ACTGahOpBMJGAKDZ5a-BeysouPXRJgxeDkR0coSpRrbVUA-zAQMxFA>
-    <xmx:ACTGav8MHwSXI-fA_-GbGx2A4mxmmR2nvdvpjE364MppycIyAB4gaQ>
-    <xmx:ACTGaifzvEaaYiiwuVStMMCGpj7OcYDpLXh2RPgZwA5Jtq1CvYreiA>
-    <xmx:ACTGauxxkA3eodhaHcg_tfrv7CdrcZz3XO9BQ4QCKJTItJqZOdC4rg>
-    <xmx:AiTGarX01y-UF7xY2LNEQPV_1PlP1OEtWdx3TEb5zTD2XbNEBREEE34a>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 79C8132A0093; Wed,  7 Oct 2026 06:50:39 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="qCGiyyz8"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vq9cRIqg0Ih6lqLW76ex7s2XY1nbGC/SIiVvPNocQtLD6auYgI/vdgSp0j2eR0A7r2nnpJJw1vjHClEw48vjV6IFuTiBBQJxhlYVf18XFeQBqqtyHTG9WOltlslcxNi/X4DP3Eoy8ss529enwC6G3SdufHxuXa60/4Ezm/+hwVgnFnnaS5ma9YX9tWZ5JyEWwdSsG4PptrDb1dPJuIjEgiPHaV7ceaeK++JhBC2KTSYVugZAigIwPAfzdzEeeDy6Gson6aroQvtK7S17lhTHOFwEgMwwtUp4w0uRft7lTRDuxN84sRhUxgnYDStSwYaUbcBAY/wTgQ2tIoRnKGaZHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=34j+RrZIcOKcbfOqT4ZXAE59bQZ0GBx9e8eDLhdXKX8=;
+ b=lVib30SNwOC0KYUFpW1KvurM4Uj0ToeTN30v0Vw85Pg+mrQVR9rYDMpU07ye/vzGKdGW69/QYjnTgkgLp3ZfU1o+Osocb93GUKoqtoRQdLNZk+aFXF2m+xYMeoNAwJSZIsF76rcSv9NLnEYot5ZFFsL4H/gtdCIPyCfmDtazUuSxWorhlwrVXVe5odqChY1ZhquklMa9Ydh3VFepJJRsdJI4+O4w2vN8U4ZJn2Ldk3eyiA1a55LHd73RJDLHZss9ABshPiqepWajl7GEwy1U6HF54RcCIouNVIrwffeJ7iYzQ9HxNMNpseJX4a4TvDqlMVIFYK45WS5i2xJNF6bbxA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=34j+RrZIcOKcbfOqT4ZXAE59bQZ0GBx9e8eDLhdXKX8=;
+ b=qCGiyyz8QFxoXS+GELTTRYkP+LMASMPTC2H4x9oZI5QS8eBB/YPsR96UPXWkTjiAuWTEXE3Ev/X9zbePhIVzuJDNijud9FRnasdULBtnTvBm/5GF3slbdPh768lsf+mpXfYsOq2/dsRWqggUKIUwqauE7AuXSkgyeokve4CMPRN/hlPcetL83Ogf3APS6cGLwnwxxoFAuNgJbb8gid26ZEB8icpDL3vnM7sKL1FDy5BueClysyGiazYHL5EYv5i5KGXacVibLtpYPXPtNyHRH8WgClaYRg2/DRtAvfovMFPPLQgUH8BiN9um+0OjhPSsntR9GO6rUwEpQ5ERSgsyLg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by GV2PR04MB11738.eurprd04.prod.outlook.com (2603:10a6:150:2d4::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
+ 2026 10:47:35 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0451.022; Wed, 7 Oct 2026
+ 10:47:34 +0000
+From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Date: Wed, 07 Oct 2026 18:44:20 +0800
+Subject: [PATCH v4 05/10] gpio: mxc: convert pad wakeup compatible checks
+ to hwdata flags
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261007-gpio-mxc-cleanup-v4-5-c9f5a8b50df9@nxp.com>
+References: <20261007-gpio-mxc-cleanup-v4-0-c9f5a8b50df9@nxp.com>
+In-Reply-To: <20261007-gpio-mxc-cleanup-v4-0-c9f5a8b50df9@nxp.com>
+To: Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Shenwei Wang <shenwei.wang@nxp.com>, 
+ Andy Shevchenko <andy.shevchenko@gmail.com>
+Cc: linux-gpio@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Peng Fan <peng.fan@nxp.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: SI2PR01CA0009.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:191::18) To AM8PR04MB7874.eurprd04.prod.outlook.com
+ (2603:10a6:20b:24d::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: A2-lVq8nTGlc
-Date: Wed, 07 Oct 2026 12:50:18 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Kunwu Chan" <kunwu.chan@gmail.com>,
- "Anna-Maria Gleixner" <anna-maria@linutronix.de>,
- "Frederic Weisbecker" <frederic@kernel.org>,
- "Ingo Molnar" <mingo@kernel.org>, "Thomas Gleixner" <tglx@kernel.org>
-Cc: Linux-Arch <linux-arch@vger.kernel.org>, linux-kernel@vger.kernel.org,
- "Paul E. McKenney" <paulmck@kernel.org>
-Message-Id: <66d8d340-ff50-4fcb-bf19-05fa68c27238@app.fastmail.com>
-In-Reply-To: <20261007022859.60101-2-kunwu.chan@gmail.com>
-References: <20261007022859.60101-1-kunwu.chan@gmail.com>
- <20261007022859.60101-2-kunwu.chan@gmail.com>
-Subject: Re: [PATCH v3 1/2] rwonce: Add READ_ONCE_THIS_CPU() and WRITE_ONCE_THIS_CPU()
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|GV2PR04MB11738:EE_
+X-MS-Office365-Filtering-Correlation-Id: 31127f97-b35f-4324-b105-08df24606561
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|19092799006|366016|11063799006|10067099003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	ho7eAT3VSQsmuQY53W0qNivo0+OnjuMe6F5pJMqCeNqziOmtU5Jah0qpFtzi9CykPq37Ib6UUWEBjdDlZMld9N6p3jInUb4/rT6ChPNhLM82PHxl8qrujZ0viuZNtqCw/eA8lVhIlECOr6QjRxKK+wjkHwGVPcgF9j1y4b9wAF86FLveKRIAwolIaiEjedyrcSnqCvSOIPjMVMBVxAs5T1jyy6i8C0twepoRCJtcQFgtBr/D7VIbpyqKzM774YWc684Zx/6/3AnY1gy7LXy7gjI85OECb9E7j7O/NiXCfFCDUoBmCVgO0hYIULQI/y/rjMxo95sINSI/S+hZdRslAHYvU7vOAXnwXs8nBYV56fHsoMBeN5YQnp8l89YTYPPKlwd9t5MEonzSMApZKDv+9E5jWqOqlHQb9Oo4ECfh57TSvF6Lyjhrf1dtvyezWpUtoT+YINiU5KPjl6AUnymaYOJnghLmqAUMeHtpldWM8RJQqIbvR4NJnLblhGLbSJlkRqvOusZb2FmrZRSeSrhaSS82dxzXHKdGA4qFYOKWubHXIPncks3eVUM8h4uxhnOuTZqmyxielUkIY43maKcdhZx2eoCIC646LPer/yhPaNJV+GNZzsOMk7ioaqjJ3xE4YdA0u9zNHKqPXqLvlI89D28RYMEqmiWsNiQsTcJ/oeA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(19092799006)(366016)(11063799006)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZUJpMkQwNk9aelUxTXF3TDZycHBnbUdEMDJBZGZMeFBmMDdDYWJGZEJDV3I4?=
+ =?utf-8?B?R25KR3pNeTVkYmVYOTVYUW5KeDVHNFNvM2tudkpKRmFoelBISHgxa3J4b0J5?=
+ =?utf-8?B?dFdleGdiUDNhT3VZQktzYnkzcmYxZm5ZdEN6Znh5alhERXJIRzB0Y0ZZWTJs?=
+ =?utf-8?B?SXBlZ0lwZ1lxTUNvS1R6VUk4dUZkS2MvUWxBMXFMOVV3QlVaSWJOWUY0RW1H?=
+ =?utf-8?B?RmRPTGZwUjlhRFhXTGJWQitCRGhHeUdaQnNYVXRFbENXR3VjWHZ3Nm1WdmlX?=
+ =?utf-8?B?T2FvZk5tN2Z6QVl6ckszS21KNkg3WDJPUmJWNjBMb1l1dGx3M2FzZ1VBTnFB?=
+ =?utf-8?B?S2lvaFJ5VEFYeUMrS2JiNXgvQi9uaEZLMzcrOW5jR3QvYnZXaW9uRHpVWmpR?=
+ =?utf-8?B?T2xjWTdqdzdhc1NyMmc2cnJyb2ordXFaK0o1eGR6NzV3WUplOXhkWS94MHBj?=
+ =?utf-8?B?NlBKbktZWDhiSGdLWWV1NDBFT0ltdjVRSnNHMEVJaTF5MGtEQWlYd0pYKzA4?=
+ =?utf-8?B?RXVyM3pxbXdOR25HWFlvM2hML0kvTjhEQlJMZnNKOWtFd0xZOFVXYURjczhF?=
+ =?utf-8?B?L09uekRwWWdnRENHbVlpNkorWStjUUZmMEdMUEowK0s5ZzdEU3UzUlNRRW5K?=
+ =?utf-8?B?UmxvWktYOVFtVTU3c2R5VXBmYnFUVFdadGNOUUcwSFQxWEh3djdvZVlhajl3?=
+ =?utf-8?B?MzZKeDNTSXhyeW13VWQ4c0Z1REZDdHV6R3JleXFiSkFDQVZCc0dybmJEZE1F?=
+ =?utf-8?B?MjcyVFRIY0E4aStjcGdPTUFVa1A2SkVRdVFpaHJqbzRHV1hLWDJpcFlIb045?=
+ =?utf-8?B?MCtrNE82UVI0QSt3TVBtOHZKRit1UEpmTTAySHl6cmRyWXFFTDBzQTFJU2JW?=
+ =?utf-8?B?aTFFSTdEZldUbXc4Umt1YnJxbE81d29PODJTYVZZbHlFaHoxMzZMT29XY0Nu?=
+ =?utf-8?B?eHBGTHJpQ2V1Y2I3eEc1RzhRQks1WE9HNUNQeDAwT25ZbzA2RmdxM1FjaVVJ?=
+ =?utf-8?B?T1Z3ckFOeTg3NnVHSjlZZldueW0vNnIxbzlGcWhuSWQyaitGZmMzeVpWNGdV?=
+ =?utf-8?B?a0pOVk1mYVVtazBuMFJRWjZYS1JyL1dGSWlZSi9PbE1KTmt2QU4xajdxUTZk?=
+ =?utf-8?B?UXBwbUtmVGlEc04xUTk3dy94L1o1OS80TlAvUHNleC91bGZCNUpnN3JHbDMr?=
+ =?utf-8?B?akZoWHh1bXg5ekJuWnBZUzNBQVl4N3lsckVzRVVaUis0MFBEODRFZ0lvcXBG?=
+ =?utf-8?B?czBobmM3cnJCVmxIOTNiblQ2QVlNL1c3eG1FWXlaNmVKOFBKbkYvVkw5eHRn?=
+ =?utf-8?B?cGRHREFSbndPRzM4bFRRUXVRZGFVV0F3YzNocDFPYTVCTVpEbjhRR0FzdXpa?=
+ =?utf-8?B?K2V3VUtEWnhLUW0yRGdJMExUenJRc2xDSXVKaDVPbEJqSVlVb2tDRTFUU21v?=
+ =?utf-8?B?ZXRhcUJrRXpSdzAyOHdmVzcyMmh3UHRqZ1pzSU5tV2w4ZGpQUEFOU1czQndq?=
+ =?utf-8?B?TDRhcUFuZmd2cVZVRTdocUhBVUdhQTFRaGpSMUp0ekhISlVZZVVsUTBUREpG?=
+ =?utf-8?B?bmU1SGtDNllJMWQveEV6TDhKaG9uYTVCUUt5YVc2TVNZYWI2YUZiUkthK3lp?=
+ =?utf-8?B?WVBkLzRsV21qNWZYU2hhQmw4cERQb2M1SVhyNUQ1YjVRV3BmQVliZjdwd25F?=
+ =?utf-8?B?NUUwNWtXR0hzOHBMYmZBb3JyLy9HbTEzRlJsUEVTaEx0MWtSdWliOHhmWGcw?=
+ =?utf-8?B?OWhROS9sTE92N2lSU2FDdFIyQmNuT2dLbFhwaytNamJPZnRkTzhOM3EyaU42?=
+ =?utf-8?B?VHM2T3Y5YjQ3bFBESzJ4dGIyajNCSDhUVHhoRHlEMWQySkp1VWQwU3dEM0VM?=
+ =?utf-8?B?UGFQTVU4M1ljU2RSMjJWWHNZYzc5MENTbGpzNkZXMURmb1MwS1BjOWgra3VW?=
+ =?utf-8?B?QVFXQ2hnaGZvK0FQTi9zT2pSSE5ydWlaNEs0TmpzOFZsTDFvY1hJb1UvMm5S?=
+ =?utf-8?B?UUdMQ0NwdFZVcFBwWTdob1lZRGk5ZmhvSTl3cjVKQmhmR2dGZ2F4TDJyUzR3?=
+ =?utf-8?B?VWZKZndGWlBvSmtDc2VCb1krVkVGRCtmSXFLL1ZTbkduN0lUSnN0TFl4WmJq?=
+ =?utf-8?B?Nm9CczI2aS9aOUZyR0RMNzlnVjBKanppZmVDY0pERXFISWQvY0RXcEJMcjBX?=
+ =?utf-8?B?QnRDeitZVU5BbWpOKzdCVGlHM3dQTmkvVHNIU1hjbEY2NUVvcElQbHNrMVow?=
+ =?utf-8?B?OUpoS2hTT0puVm16WFdCaFBxWlJOSzJlN21JbFJ4U2NXb0FGUHhRWjk4Qnla?=
+ =?utf-8?B?SjZIQjdacnhLVlplRzU4Q0x1Y1hHYmJVbmR3dkFoei9ZcWFCMklJTmIzTTBU?=
+ =?utf-8?Q?T5eXPMijV6yrdFhmIvwj2dynM4v+Ig27b2NO+?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 31127f97-b35f-4324-b105-08df24606561
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 10:47:34.8914
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9a3MQ4DpG9cCivXPmZH54dSaq9ktJsCpOS4+ks281nnKmNOMIprQa6ymreaOsEtQEIHtsgP8nnwiwTsrVqyjTYb/Evc4QHbuoe/hODvQH45A9c+7LTp0NTUq8qz666PS
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR04MB11738
 
-On Wed, Oct 7, 2026, at 04:28, Kunwu Chan wrote:
-> Per-CPU variables are sometimes accessed from different execution
-> contexts on the same CPU, typically task context and an interrupt or
-> NMI handler.
->
-> A plain READ_ONCE() or WRITE_ONCE() marks such an access as an
-> intentional race but does not express where the racing accesses are
-> expected to come from. This distinction allows concurrency tools such
-> as KCSAN to tell an intentional same-CPU context race apart from an
-> access that may race across CPUs.
->
-> Add READ_ONCE_THIS_CPU() and WRITE_ONCE_THIS_CPU() to identify accesses
-> to a per-CPU variable which are intended to race only with accesses
-> from other execution contexts on the same CPU. For now, they are
-> simple wrappers around READ_ONCE() and WRITE_ONCE(), so generated code
-> and tool behaviour are unchanged.
->
-> Suggested-by: Thomas Gleixner <tglx@kernel.org>
-> Suggested-by: Paul E. McKenney <paulmck@kernel.org>
-> Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
-> Acked-by: Frederic Weisbecker <frederic@kernel.org>
-> Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+From: Peng Fan <peng.fan@nxp.com>
 
-No objections here, but since I missed the background, I don't
-see what a future implementation of the new macros might do
-that is different from the existing macros, maybe you can still
-clarify that.
+mxc_gpio_generic_config() and mxc_gpio_set_pad_wakeup() call
+of_device_is_compatible() on every invocation to determine pad wakeup
+capability and i.MX8QM-specific behavior.  These properties are
+invariant for the lifetime of the device.
 
-For taking this through something other than my asm-generic tree:
+Extend the hwdata flags scheme introduced in the previous commit with
+MXC_GPIO_HAS_PAD_WAKEUP and MXC_GPIO_IS_IMX8QM, adding dedicated
+hwdata instances for imx8qm and imx8qxp (also used by imx8dxl).
+This replaces the repeated device tree string comparisons in the
+suspend/resume path with simple flag tests on static per-compatible
+data.
 
-Acked-by: Arnd Bergmann <arnd@arndb.de>
+While at it, clean up mxc_gpio_generic_config() to use a local ret
+variable for clarity instead of the == 0 comparison.
+
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
+---
+ drivers/gpio/gpio-mxc.c | 46 ++++++++++++++++++++++++++++++++++------------
+ 1 file changed, 34 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/gpio/gpio-mxc.c b/drivers/gpio/gpio-mxc.c
+index c08f0b59d284..5da603569d88 100644
+--- a/drivers/gpio/gpio-mxc.c
++++ b/drivers/gpio/gpio-mxc.c
+@@ -34,6 +34,8 @@
+ #define IMX_SCU_WAKEUP_HIGH_LVL		7
+ 
+ #define MXC_GPIO_HAS_POWER_OFF		BIT(0)
++#define MXC_GPIO_HAS_PAD_WAKEUP		BIT(1)
++#define MXC_GPIO_IS_IMX8QM		BIT(2)
+ 
+ /* device type dependent stuff */
+ struct mxc_gpio_hwdata {
+@@ -132,6 +134,26 @@ static struct mxc_gpio_hwdata imx7d_gpio_hwdata = {
+ 	.flags = MXC_GPIO_HAS_POWER_OFF,
+ };
+ 
++static struct mxc_gpio_hwdata imx8qm_gpio_hwdata = {
++	MXC_GPIO_HW_DATA_COMMON,
++	.flags = MXC_GPIO_IS_IMX8QM | MXC_GPIO_HAS_PAD_WAKEUP,
++};
++
++static struct mxc_gpio_hwdata imx8qxp_gpio_hwdata = {
++	MXC_GPIO_HW_DATA_COMMON,
++	.flags = MXC_GPIO_HAS_PAD_WAKEUP,
++};
++
++static inline bool mxc_gpio_is_imx8qm(struct mxc_gpio_port *port)
++{
++	return port->hwdata->flags & MXC_GPIO_IS_IMX8QM;
++}
++
++static inline bool mxc_gpio_has_pad_wakeup(struct mxc_gpio_port *port)
++{
++	return port->hwdata->flags & MXC_GPIO_HAS_PAD_WAKEUP;
++}
++
+ static inline bool mxc_gpio_has_power_off(struct mxc_gpio_port *port)
+ {
+ 	return port->hwdata->flags & MXC_GPIO_HAS_POWER_OFF;
+@@ -158,9 +180,9 @@ static const struct of_device_id mxc_gpio_dt_ids[] = {
+ 	{ .compatible = "fsl,imx31-gpio", .data = &imx31_gpio_hwdata },
+ 	{ .compatible = "fsl,imx35-gpio", .data = &imx35_gpio_hwdata },
+ 	{ .compatible = "fsl,imx7d-gpio", .data = &imx7d_gpio_hwdata },
+-	{ .compatible = "fsl,imx8dxl-gpio", .data = &imx35_gpio_hwdata },
+-	{ .compatible = "fsl,imx8qm-gpio", .data = &imx35_gpio_hwdata },
+-	{ .compatible = "fsl,imx8qxp-gpio", .data = &imx35_gpio_hwdata },
++	{ .compatible = "fsl,imx8dxl-gpio", .data = &imx8qxp_gpio_hwdata },
++	{ .compatible = "fsl,imx8qm-gpio", .data = &imx8qm_gpio_hwdata },
++	{ .compatible = "fsl,imx8qxp-gpio", .data = &imx8qxp_gpio_hwdata },
+ 	{ /* sentinel */ }
+ };
+ MODULE_DEVICE_TABLE(of, mxc_gpio_dt_ids);
+@@ -575,15 +597,16 @@ static void mxc_gpio_restore_regs(struct mxc_gpio_port *port)
+ static bool mxc_gpio_generic_config(struct mxc_gpio_port *port,
+ 		unsigned int offset, unsigned long conf)
+ {
+-	struct device_node *np = port->dev->of_node;
++	int ret;
++
++	if (!mxc_gpio_has_pad_wakeup(port))
++		return false;
+ 
+-	if (of_device_is_compatible(np, "fsl,imx8dxl-gpio") ||
+-	    of_device_is_compatible(np, "fsl,imx8qxp-gpio") ||
+-	    of_device_is_compatible(np, "fsl,imx8qm-gpio"))
+-		return (gpiochip_generic_config(&port->gen_gc.gc,
+-						offset, conf) == 0);
++	ret = gpiochip_generic_config(&port->gen_gc.gc, offset, conf);
++	if (ret)
++		return false;
+ 
+-	return false;
++	return true;
+ }
+ 
+ static bool mxc_gpio_set_pad_wakeup(struct mxc_gpio_port *port, bool enable)
+@@ -591,7 +614,6 @@ static bool mxc_gpio_set_pad_wakeup(struct mxc_gpio_port *port, bool enable)
+ 	unsigned long config;
+ 	bool ret = false;
+ 	int i, type;
+-	bool is_imx8qm = of_device_is_compatible(port->dev->of_node, "fsl,imx8qm-gpio");
+ 
+ 	static const u32 pad_type_map[] = {
+ 		IMX_SCU_WAKEUP_OFF,		/* 0 */
+@@ -612,7 +634,7 @@ static bool mxc_gpio_set_pad_wakeup(struct mxc_gpio_port *port, bool enable)
+ 		else
+ 			config = IMX_SCU_WAKEUP_OFF;
+ 
+-		if (is_imx8qm && config == IMX_SCU_WAKEUP_FALL_EDGE) {
++		if (mxc_gpio_is_imx8qm(port) && config == IMX_SCU_WAKEUP_FALL_EDGE) {
+ 			dev_warn_once(port->dev,
+ 				      "No falling-edge support for wakeup on i.MX8QM\n");
+ 			config = IMX_SCU_WAKEUP_OFF;
+
+-- 
+2.51.0
+
