@@ -1,192 +1,157 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4C7A3E51F9
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 05:59:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC8B622157B
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 06:01:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791352792; cv=none; b=F7orUW62fBIqVAsOOZP9GDNCdEo0C6xEhx3PdDyI4tUiTYzl3lENxOSiQwT5UfssEWinWDaaT4dell9t1CdMs2URDhRHfV71n7AGQCL4hNeKn7gYZIfdVOaP1ojf3SOqEKEWwRzTydrOrUd+5F9+UOfhmuHSg9ygYBQV779tP94=
+	t=1791352873; cv=none; b=m+wpHUGSC4kLBQVB7p9AmxuLKzvJxoV3nXLOQ4mGQzRLbCSbQe3lgECEVDhmZ1Igjec9jnVw+XlXHF8RR8cMKwJ2QtlwjowPkOBrl0nZNCEyE+iWfuIBoybqmU3zxBt/TOEfJg6HSMMuep5pqohz9c3XjJOoa4gCAZbj3KtFIy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791352792; c=relaxed/simple;
-	bh=MwBpIpYrSPFxTbkIfoUADmu1fef0nYoc+dMugb5PlAc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HFS/Swcxu0FXrL+EC/HAM55A43CxoGTBo9ripH3kg6MX6IJo5xWMqznipLrPuxP9u4BavhV6tIJ7aTQ8rsjSQiRGyO5YWHqYn3SV3IBcMw/nZU33hBjTrZejWeoxoq/OjBg9+6hAVP3e8CbX0QH+ThUCh/IT74KTEdcwABK/9Z8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NQt5wOXp; arc=none smtp.client-ip=209.85.216.46
+	s=arc-20240116; t=1791352873; c=relaxed/simple;
+	bh=44gmmM9oEH5/TVerkgLJ1mXkmCq7t1aLZaAtaClW8/k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gWCu6cWrpEkIh9NkF5ehrVkLn5Kbi7nwK7iDCH4JO1cAqN+9XDLrNRPKpMF44J8Jlc1SvaSN53+gcrpn5X2aS+393/vO+O43D/RS6gpi0qQg/6TGI+6To8exoKGv+0d4d8DFbzdsnViaMsRfA2trRWZJcYJJxH/+3j5OlGnc4Ew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DDSCJQVt; arc=none smtp.client-ip=209.85.160.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NQt5wOXp"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3a02551822eso1462090a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 22:59:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DDSCJQVt"
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-533972e0cccso12827791cf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 23:01:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791352790; x=1791957590; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VkYzG21Yn8djlHNaCJzAzQuNMZXAhnyVeMJo3kZ+SUo=;
-        b=NQt5wOXpjN4PoBhqVjEWssTEgk9yJ22Ifc/O0WLGiJYRW0e+nB318BRulWXSmxmgDu
-         nULli7hzFqlY0rVZefz+JuXMtT2NKZGjJyRyqQWnGiUuUpOKVKO/mMkvaQRsiBKUsMuJ
-         9Y8pjrm8dtB0wNpquz74bUX58/ISGpaClRXGAxTiOdggaeWoL9UXrkCXlwXiQvJcmfcF
-         7Gpyy0+wa92PoB0LjmJMw3cjimcLrTT5afn9aJtphpZ3HxzLSvE2UYPf8PLuwuE7TOQb
-         o4shEUCiGVHRQuNBq3lRef3Qf4ADXubyGJCqgv/nVh0nnJZ3zwmWlTXZozD8qYN+Y75c
-         00Vw==
+        d=gmail.com; s=20251104; t=1791352871; x=1791957671; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Nfq/HGRukfZcQBpC30XOdveBT0IdwDENsOU1DxIVVJg=;
+        b=DDSCJQVthpfjYG7ohZTHgwatt6RJFFXnzT9IbzUVqRo35PU8MwwLDGmSnwE/fZLu4A
+         wsmNkpHIw13cwsFMBdphj0BIJaxeevcB/zvRHQsqsHOjkYFdrOIF8HszH6rra05o2cp/
+         Er0fx3n+PiMYW1SjCAdWuqb0Vyol6BemtAMc6ia656tXKXuZchvCJgLYYYjHH4lnRGeJ
+         yTmK3HJSQA2WuPFeyJ85MNGDaZt4FGKbLqS+/ghBEBj08EVfJk27N7mC0PTwN32iyR/i
+         itgkxdPtkMP4v3yihLwAxchVLb5lRc7fKtIoXONkkPDwxWe+IHNoNb1GB3MhhC/PLGAS
+         Ds3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791352790; x=1791957590;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791352871; x=1791957671;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VkYzG21Yn8djlHNaCJzAzQuNMZXAhnyVeMJo3kZ+SUo=;
-        b=mISKs0swXyZ7Yj75ptxqVqxBWf6WnPRIZmOOIdHBmTgtbcc5zvqacCMdS8g9I6YWeG
-         0WNKynAiA7ko3BsKq0FJmSfAeeotQ8qV0LIGlBCpCYtuqXuaIcNhs46ONcZLLJwi+msI
-         fC0QooSHYxk+lOqcCUinCcZWXk5CDGvStBOgk621g2HB4McEALBen4IT82iIy3pmFasi
-         4gh+rjF5dSslwdX8u2eHok0K1VZJUteqcplU/76sZelRip9mWVDvglsCEI03oK4hgk1b
-         Dw5EBC/iyXQS4bhGGbeX3Ip4SaLVLSSOGzgCWwG9VVu6vHTudS47f1vQKPOIXeI0Xww6
-         vxzw==
-X-Forwarded-Encrypted: i=1; AKwUvBxHy2ZGxe+7Di576NnjLI7/B148bBDnu/jo317WeYEoJTYjS9pJFdAcARQXF/h8mOuZrJvPjK1dPwP5DJY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI+MV9txBmkMi+V0j4JhLBiJlNSbvjGuhgX2GG/UcaOiaSHvBjp
-	22QQX06P+HC1z9C0Aen46HqRtzcpDj5OqjjV96mEw2HCnD8dHcpDpYi1
-X-Gm-Gg: AYBFou0PR3xzrONCdYWEDrBkryGNYsCXcE2GNGREaRZsk2caJZBQCiENIVNCKbdxUYy
-	3K0trdrfzltQ+XZQ19yMQtr7XdnSKw8ehMPxU2ne4pRTzTi67dln2GBkClPYybjeyav0D2BnsQN
-	1cs/QsnzyN52lzobfSTDH9KoOVS/fJmzwjKW3FNb4Ds17Ph+ziNF5XmnhyK5FCx76mU4ArkEUL/
-	9QKT6PjP/Ov01THos3/UIWP+S2DjRCqF1aqRR1/FWUkLfkCMY9EKOLdGdbhh0fs9ciuo56tW2yb
-	/PMNYEeWz6mJXSh0CsqiOnbxWE72fLbjp3nCUe2Qd85zdIaqWgaSlWNyFK7M6yTMez181bSoEOq
-	tuTb5VUO8vXOtISr+FrBpwdpUGSFfhAhwSLIwdolpwC2rJFGq8XuJrHHFfIJ2Dwe6bfQ8Jn/yVI
-	Y5UhpeG6BULlhRQ/sdfXe/3dQcyuuJKOwkKiL7LXk4j/tG02yXzEmPb30446pw7ZhpgwzWfK5n2
-	+upCkl9/h7+HBNhHBG8x8Gb8gk=
-X-Received: by 2002:a17:90b:3949:b0:3a0:b12f:b51b with SMTP id 98e67ed59e1d1-3a854636ecbmr3123635a91.40.1791352789882;
-        Tue, 06 Oct 2026 22:59:49 -0700 (PDT)
-Received: from kfuzz ([202.120.234.33])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd0a8b0616esm884856a12.6.2026.10.06.22.59.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 22:59:49 -0700 (PDT)
-From: Yiming Qian <yimingqian591@gmail.com>
-To: Nikolay Aleksandrov <razor@blackwall.org>,
-	Ido Schimmel <idosch@nvidia.com>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	bridge@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yiming Qian <yimingqian591@gmail.com>
-Subject: [PATCH net] net: bridge: don't under-estimate the VLAN tunnel info size
-Date: Wed,  7 Oct 2026 05:59:37 +0000
-Message-ID: <20261007055939.63100-1-yimingqian591@gmail.com>
-X-Mailer: git-send-email 2.50.1
+        bh=Nfq/HGRukfZcQBpC30XOdveBT0IdwDENsOU1DxIVVJg=;
+        b=lmqUYT6z/fX+ffxupQmcO9EvhW/DfsG7E9LYdJ2wlCARK8i5d3ge00+SxilM4Y815X
+         kUEyY3dQGtjJklL1V2TZH9KnqM3a2vbUwvnf+AzTkj0ZimOp/9iy9zkTin8r+Jh+DG73
+         6XIHx3L9D5NilXveKB4uWiLqzlYE4ImaH5DiOqs7RDrsrQdmXxoZMjtZ1uSlFM5dj/dS
+         k+qJUowseQhyP3/MY6Pn7VzcdMVy3NTu/ExBfGBbmDL30CpSAEDjqZNlLqrtudbQ34VJ
+         KHOS4HfnfsIlRaZ1iDgp1sIb6NoCfuGJU6R8TOdaHoS8/va6FPGKFXyg4tZH5iQ8BR4X
+         oMcA==
+X-Forwarded-Encrypted: i=1; AKwUvBzfoFE2ijyY+NkX+Ux4Ls5GtgLVZ/qscJZnCpuTinxe161G4KDVjnkVgx12W0QwIIoeticHtFQLFF5aFM8=@vger.kernel.org
+X-Gm-Message-State: AFuF++m1hA9dZvltIfEJLKdqDte0wi0fJY/RunyEfFbYjpjuJfwEa9no
+	X+83lnMPkj4pCtA+fbE3x1AZgPyJC69S5857iFajCU8kGxACofHc85w3
+X-Gm-Gg: AYBFou3HgbWzgY3R9SX3KC+b8sHRpEGKKpV6f1CyZiLxJCS7vUAan1sbGFVqOo1Mhin
+	lqNIgBaecsAAa3MX1cBA7YAW95Jv4C9XvSuXzMO/fAzr4sbPm4PoKVxEAp5e93S1NxwPFbGKNoE
+	6psAX7srcixMDuAYwu0x5gvHZGuum7qYcqvBwpn60MrFe8xrMfBO9z4YZ454C9SLa0PQ6CswRnQ
+	/jDGiN81YWlzZuIk17amD0mVulBwpiKD/GJ+/11O7KKEZTENZifQnlEtUSnkWcHMQARRX2H7auC
+	S8+IYEv+MIn8P4OyEqjqG1w3LCW2OPRQEyGcRAD6M/pRVS1Tp0JfBMDb6DU9tPxIwl85206KqxN
+	/A5oknevnMnmkss0L26ut9Z12g0ntJfjrprJy9Se9/sLYhxCNRGPQ3kBmaHqhVPM6d9x8JGZuYU
+	1CvBX/PZ0rT1n6l7uIn4sWAVIF4rLqLlfJJ+6ME7XvEPNbs4xO7abPnWx27r58b2OgGBVtlp7Mu
+	qu1ZamODHUtv0bPySlSb4mPUT1hK5Iip01sQlSMsab9lmw5pgA2oUrFi43un+DIsfNIu8FU/020
+	wOoW9BYAfgrDxi3v3c1vCfqHA/ob/gE=
+X-Received: by 2002:a05:622a:4d44:b0:535:1241:965f with SMTP id d75a77b69052e-535756ac39bmr20079451cf.40.1791352870621;
+        Tue, 06 Oct 2026 23:01:10 -0700 (PDT)
+Received: from ?IPV6:2003:ea:8f23:8600:d56a:6e66:bc:e98e? (p200300ea8f238600d56a6e6600bce98e.dip0.t-ipconnect.de. [2003:ea:8f23:8600:d56a:6e66:bc:e98e])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5357217327asm12835161cf.22.2026.10.06.23.01.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 06 Oct 2026 23:01:10 -0700 (PDT)
+Message-ID: <9777c133-0d46-4efe-88d7-8a519f38b0f8@gmail.com>
+Date: Wed, 7 Oct 2026 08:01:06 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v1 1/1] r8169: disable EEE on RTL8168h/8111h
+To: Dennis Piecha <d.piecha@ymail.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>,
+ "patchwork-bot+netdevbpf@kernel.org" <patchwork-bot+netdevbpf@kernel.org>
+Cc: "andrew@lunn.ch" <andrew@lunn.ch>,
+ "nic_swsd@realtek.com" <nic_swsd@realtek.com>,
+ "davem@davemloft.net" <davem@davemloft.net>,
+ "edumazet@kernel.org" <edumazet@kernel.org>,
+ "kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com"
+ <pabeni@redhat.com>, "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ "kernel@pengutronix.de" <kernel@pengutronix.de>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>
+References: <20260925071040.2137178-1-o.rempel@pengutronix.de>
+ <179081461327.2189941.5041238879527277665.git-patchwork-notify@kernel.org>
+ <503211732.1051249.1791285565321@mail.yahoo.com>
+Content-Language: en-US
+From: Heiner Kallweit <hkallweit1@gmail.com>
+In-Reply-To: <503211732.1051249.1791285565321@mail.yahoo.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-br_info_notify() sizes the notification skb with br_nlmsg_size() and then
-fills it with br_fill_ifinfo().  If the fill does not fit, br_info_notify()
-does WARN_ON(err == -EMSGSIZE) because that is supposed to mean a bug in
-br_nlmsg_size().
+On 06.10.2026 13:19, Dennis Piecha wrote:
+> Hi Oleksij,
+> 
+> I tested this on the affected machine with a Home Assistant OS test
+> build that includes the patch (kernel 6.18.54-haos).
+> 
+> Hardware: Intel NUC11ATKPE, RTL8168h/8111h (XID 541), FRITZ!Box 6690
+> as link partner, no VLANs.
+> 
+> With the patch the NIC reports EEE as not supported and the RX stall
+> is gone: more than 4 hours without a single drop, everything on
+> defaults, no workaround. Before, on 6.18.52 without the patch, it
+> stalled every 7-20 minutes.
+> 
 
-br_nlmsg_size() (via br_get_link_af_size_filtered() and
-br_get_vlan_tunnel_info_size()) only accounts for the VLANs that have a
-tunnel mapping at that moment, while br_fill_vlan_tunnel_info() emits an
-attribute for every VLAN that has one by the time it runs.  br_info_notify()
-also runs without RTNL (e.g. from br_forward_delay_timer_expired()), so
-tunnel mappings added or removed under RTNL between the size calculation and
-the fill make the fill need more room than was reserved:
+I'm pretty sure that EEE was active for this chip version in earlier times.
+Are you sure it's not an issue on the link partner side? Did you test with a
+switch between your system and the FRITZ!Box?
 
-  WARNING: net/bridge/br_netlink.c:660 at br_info_notify+0x13f/0x150
-  ...
-  Call Trace:
-   <IRQ>
-   br_forward_delay_timer_expired+0x1b3/0x1f0
-   call_timer_fn+0x2d/0xd0
-   __run_timer_base+0x5ba/0x7d0
-   run_timer_softirq+0x31/0x60
-   handle_softirqs+0x17f/0x570
-  ...
-  Kernel panic - not syncing: kernel: panic_on_warn set ...
-
-Size the tunnel info for the maximum number of attributes that
-br_fill_vlan_tunnel_info() can emit for the VLAN group instead of for the
-mappings that are currently installed.  Consecutive VIDs with consecutive
-tunnel IDs are compressed into two attributes, so the fill never emits more
-attributes than there are usable VLANs, which keeps br_nlmsg_size() an upper
-bound of what the fill needs.
-
-Fixes: efa5356b0d97 ("bridge: per vlan dst_metadata netlink support")
-Cc: Yiming Qian <yimingqian591@gmail.com>
-Signed-off-by: Yiming Qian <yimingqian591@gmail.com>
----
- net/bridge/br_netlink_tunnel.c | 44 ++++++++++++----------------------
- 1 file changed, 15 insertions(+), 29 deletions(-)
-
-diff --git a/net/bridge/br_netlink_tunnel.c b/net/bridge/br_netlink_tunnel.c
-index e7eceab5b515d..74627323711c1 100644
---- a/net/bridge/br_netlink_tunnel.c
-+++ b/net/bridge/br_netlink_tunnel.c
-@@ -35,39 +35,25 @@ bool vlan_tunid_inrange(const struct net_bridge_vlan *v_curr,
- 	return (be32_to_cpu(tunid_curr) - be32_to_cpu(tunid_last)) == 1;
- }
- 
--static int __get_num_vlan_tunnel_infos(struct net_bridge_vlan_group *vg)
-+/* Upper bound of the number of IFLA_BRIDGE_VLAN_TUNNEL_INFO attributes that
-+ * br_fill_vlan_tunnel_info() can emit for @vg.
-+ *
-+ * br_info_notify() is also called without RTNL (e.g. from the STP timers), so
-+ * the set of VLANs that have a tunnel mapping can change between the size
-+ * calculation done by br_nlmsg_size() and the actual fill.  Account for the
-+ * maximum instead of the currently used mappings: consecutive VIDs with
-+ * consecutive tunnel IDs are compressed into two attributes, so the fill never
-+ * emits more attributes than there are usable VLANs in the group.
-+ */
-+static int __get_max_num_vlan_tunnel_infos(struct net_bridge_vlan_group *vg)
- {
--	struct net_bridge_vlan *v, *vtbegin = NULL, *vtend = NULL;
-+	struct net_bridge_vlan *v;
- 	int num_tinfos = 0;
- 
--	/* Count number of vlan infos */
- 	list_for_each_entry_rcu(v, &vg->vlan_list, vlist) {
- 		/* only a context, bridge vlan not activated */
--		if (!br_vlan_should_use(v) || !v->tinfo.tunnel_id)
--			continue;
--
--		if (!vtbegin) {
--			goto initvars;
--		} else if ((v->vid - vtend->vid) == 1 &&
--			   vlan_tunid_inrange(v, vtend)) {
--			vtend = v;
--			continue;
--		} else {
--			if ((vtend->vid - vtbegin->vid) > 0)
--				num_tinfos += 2;
--			else
--				num_tinfos += 1;
--		}
--initvars:
--		vtbegin = v;
--		vtend = v;
--	}
--
--	if (vtbegin && vtend) {
--		if ((vtend->vid - vtbegin->vid) > 0)
--			num_tinfos += 2;
--		else
--			num_tinfos += 1;
-+		if (br_vlan_should_use(v))
-+			num_tinfos++;
- 	}
- 
- 	return num_tinfos;
-@@ -81,7 +67,7 @@ int br_get_vlan_tunnel_info_size(struct net_bridge_vlan_group *vg)
- 		return 0;
- 
- 	rcu_read_lock();
--	num_tinfos = __get_num_vlan_tunnel_infos(vg);
-+	num_tinfos = __get_max_num_vlan_tunnel_infos(vg);
- 	rcu_read_unlock();
- 
- 	return num_tinfos * __get_vlan_tinfo_size();
--- 
-2.34.1
+> Since 6.18.y stable is affected (that's where the PHY EEE fix was
+> backported), it would be great to see this there too.
+> 
+> Tested-by: Dennis Piecha <d.piecha@ymail.com>
+> 
+> Thanks for the fix!
+> Dennis
+> 
+> 
+> 
+> 
+> 
+> 
+> Am Donnerstag, 1. Oktober 2026 um 02:30:16 MESZ hat <patchwork-bot+netdevbpf@kernel.org> Folgendes geschrieben: 
+> 
+> 
+> 
+> 
+> 
+> Hello:
+> 
+> This patch was applied to netdev/net.git (main)
+> by Jakub Kicinski <kuba@kernel.org>:
+> 
+> On Fri, 25 Sep 2026 09:10:40 +0200 you wrote:
+>> Force EEE off on the RTL8168h/8111h (RTL_GIGA_MAC_VER_46) at PHY connect
+>> with phy_disable_eee().
+>>
+>> Commit 202fef9bbbf5 ("net: phy: realtek: fix EEE advertisement write on
+>> the internal PHY MMD path") made EEE actually advertise on the generic
+>> Realtek PHY; the write had been a no-op before. On the RTL8168h that
+>> un-masks a latent defect: once EEE negotiates, RX silently stalls after
+>> ~7-20 minutes. The carrier stays up, no counter or dmesg moves, and only
+>> "ip link set down/up" recovers it; disabling EEE keeps the link stable.
+>>
+>> [...]
+> 
+> Here is the summary with links:
+> - [net,v1,1/1] r8169: disable EEE on RTL8168h/8111h
+> https://git.kernel.org/netdev/net/c/3cdeaef1754a
+> 
+> You are awesome, thank you!
 
