@@ -1,236 +1,254 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1CFA370ADC;
-	Wed,  7 Oct 2026 21:47:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791409676; cv=none; b=R2BiAEi2xWlkvcfIIIp8j3ti94sVS3GChISowI6Fy2nm7hNT6lm+iOmhYfRGgjhZm3m9BwFuhH1oBoWVd9dHUC71FEPoOD7Qwt+W9svG+dDUT+RPBP2/NOZTjc5SAyHMdVh3pz9tJIblmWv6PWQ7y+qenRQYpkxchv+CAjzSqGE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791409676; c=relaxed/simple;
-	bh=SlpNA/HPfDr+tYE2NMiXG+o6GwHEjei6oFw1bAiDzXo=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=b93N3y1HVsfmg942k9NfDyo4FLM6bMCV7QWVlLY+BMOyfPVG8Z9nDMLqYypnLLqwg19+wvCsmta7zxxKnhnq1sT2srLy7wxGKu+xvh7gjr2I3q3gW6R+lvtCYP1imzTiRDvYmbTsZQls4XIFMOkHjPit+UP0DPVNeRWWG1Jd8Pw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mANypWB+; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D68CD20D4FC
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 21:49:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791409784; cv=pass; b=UGwHq7hGu9IvTjx4WfNI47thwt6sS/Ig4auFecOTLCQDajT9rSsJH4AbyJY27zKX5qTtyom9fYWkFZ3rl42o+si+dCsJ3fn/M5rlKW20kFoJa3APnO8fG47KqPO7giXNObld8ZreKPUnB6kNwC+d0BPKfHnMyFK8Lh1dzEMT+Q0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791409784; c=relaxed/simple;
+	bh=iUfeVPFcJRl2l483RVn1FexTtf702f8k8YD91745DT0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pF1RL4MXaidUL51nJmfXhN8AKD5thBRpitu18unAmIbz0GmcP19vGsnfAr4LjngimqO/VfIymF55PodroFZHAMppz0GqfW9AInr4PKBIeSLYCIdsugtgWaZiKuJQB4Wx8dlCVMqKBEtVFfFz0A/Q8s0t15GVa7MTOUQziUc4fKs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=P7du2heG; arc=pass smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mANypWB+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20E111F00893;
-	Wed,  7 Oct 2026 21:47:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791409674;
-	bh=m+qk3tRtyxiz9qz093U3ajms9ku/87UZsBqKgXlb4hQ=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=mANypWB+4/bW7RLhnlauC9I2CbC3lxZ1cLtl5M4s2+bNs+QgtNnrnoj9K+GyCsdDj
-	 ElO8sNJHAhA99a78vETSI89OH+Qya27LgQ2VoSsVxRbaJJObcQVJ2CC+jF+kLMUpOm
-	 JCKmUqYG4J7+waDyviuzPYWtYV/eN9KSDNc9pUGjtJSj+03erntBGhtpyyY7ZfpXit
-	 PkG4IVTvIV+2wZXkrq6pUb9YrSfIs08dGcUYML4Mx9lyXqC/IzQir5JN1FkLY1+3Xw
-	 VvKaN8Iuoxim3mUWNpLOBJGbQwNT0yqNpu7qlhrf6Vl6UVqQMQm0KXvpbG5gV/TvxU
-	 GZ/HNWgnN8R6g==
-Subject: Re: [PATCH net v2 2/2] ptp: vclock: preserve time across failed
- physical clock samples
-From: netdev-bot+sashiko@kernel.org
-To: james.hilliard1@gmail.com
-Cc: netdev@vger.kernel.org, pabeni@redhat.com, kuba@kernel.org,
- richardcochran@gmail.com, andrew+netdev@lunn.ch, yangbo.lu@nxp.com,
- edumazet@kernel.org, davem@davemloft.net, linux-kernel@vger.kernel.org
-Date: Wed, 07 Oct 2026 21:47:53 +0000
-Message-ID: <179140967368.434549.18300768385033162106@kernel.org>
-In-Reply-To: <20261005-ptp-vclock-sampling-v2-2-8ed12d4d10af@gmail.com>
-References: <20261005-ptp-vclock-sampling-v2-2-8ed12d4d10af@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="P7du2heG"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48c4be28b82so2100917f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 14:49:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791409780; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WYImqTPpDooRfW3xwtzv3JvgBWkZU+IzgflF+snlBXo4tmuHxjVt1Q+OIzngVLLO/g
+         8hytHJ0gdxAw2z9b6LAJOYOAmvwCB1QoBEBOSDdj/t+v6LfnX31wNhGlioMMgltVqJnQ
+         Uk285FD/I0ybZsYaMemZZRSO9U20UWM0BtoePSDOdXiwKfTHqrgpHQWPnbpoElGgisde
+         N5vD6h+yrgZX/RQvLOb5HYH3qMpydXu8AFj8rOOyuUyW6rosusQxKI4wecjGfBOjPvw1
+         SCnU55EFARNlMAiKMm2K2EWsIyGiuwGT2gnLvoiQKIqsxjP3XNMPzyVZAoixU3Jh3r98
+         E4fQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Dz2+W8ZDe1ZO58k707wXjnIbgkdV89r041+gMmUvvKQ=;
+        fh=XKGKzkgWkACGTE1NY+PbUPY5GUAUxwQ4GeHJhvqJN7g=;
+        b=UtEdt/byWZDfl5n+Rd4loaEzW6QqkVebUhyjXUC8yWokYAWfDIAFZUNM4P0wib7YJ6
+         7ioLf/5H/O3fqmIWpOTdywSSDRXJC66Sz4VqB6Ljv4wAzDEMogRRvf3iDN3dB4mCZS6J
+         PCwBaVmzXb6YeAlR9pgEtNMw8jyNBI4jzjdtgeqBGyVvxzehGOzSE2PMmJuFbu03ngFv
+         W9DuoOCKhx8pBm85K7VJKAa/t38JoY7/y5c946JHIzcIoqCCJlXyYfuhgY7TVlrQb9ef
+         19vg+7j+1+bUXE8unMg6bpT4SQxJttEugZlLPJwtF4Qf32Ju0gy3ORCFezlVNmUK7o/C
+         Cl8A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791409780; x=1792014580; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Dz2+W8ZDe1ZO58k707wXjnIbgkdV89r041+gMmUvvKQ=;
+        b=P7du2heGRRe0NdxFmkQLnmpZhVk6IdKQBDPC/Y+UQy0PXijq9nuRtFz/ETBT6HKKq+
+         sSsQ+P18FwQQVyRn4D51kzd/Cf0YyU62abyqfNRchaTz5EGHGvqw7Xn4qbeiHw9JBc6P
+         eMeYBjLQ08NerlnwSiDNIWCuMiFsin/+26zzaoDcpDmP4gcA1dkS7kiVN0aoWbMXMNUb
+         xegC1bik2ULslvOVb1hmlw4o+2Xx6OgwROwONx9xPwkbgV9PcmMHM62uJ5y6c7qGKBNX
+         Rh93fibkDk3ttVRb7iN+VKVmAxfs/lUrJ/D0Xea3XtxxYGbbAX3FC+dQcxxg9CBmBAnP
+         JVEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791409780; x=1792014580;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Dz2+W8ZDe1ZO58k707wXjnIbgkdV89r041+gMmUvvKQ=;
+        b=uoLnQYwOGCUvNYv4pAGMaQzUhIQntAMbYZZkmGlhRkbjnzhEGo4dKGVky9wHUkiYxi
+         P7Z+fNj6Wh2+PvWXRQgiR849wQ9zOj7zvsr+yDUU9m3yJNloA5e3sjQW4i4QCAx0ad+I
+         E2VxqVy6KYXTRfG7mZqmknGB/325fa9Hauqf5JT6h7EE1JKKYbfu7Bz/9f+A5gscDdrs
+         GPIyDmjKOGEZLqvpDkiirtoY6CoSxYQNwCcrTGKTWCTpfX80/0X5qx1Atz8DYzsQr1F6
+         r3K/QMV+s11eMmLvTY2e0F7KjM2+kauVIRR4iNswPWj1K4PBBLKAHGLOAarT1U8rfusI
+         TWKg==
+X-Forwarded-Encrypted: i=1; AKwUvBzhN6Q3b8FAcCASIE2n+0nBMQnjIhnLu+WgiP7BuyPNCR4xla/jfa0Kralg9H0kyRO558PhYVXNxzpEK2E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIT/Rji80Ja3G8yL1UmbRQw1iPMiKpgX7LJDes/XEbXoV4x9xbn
+	RWKxQNopfoBqdAwtDPGSTSR5VNA7qs/v4nmpowUKhFPkKBMZrBQLKjllO6KwwC1Agh8aLIh86X3
+	E7+Uxzc4oZPt0O//cxTTUoQ5Y9COMPT7I/+OpcS2F
+X-Gm-Gg: AYBFou0du6bEMLCGd5vmI6r4rN7h1iBsc3J4jlNFr7lNpCE8w/1trZb9DGHYVnZTwin
+	HoZnOdNlpQeeMfEUgRIxxSvskY0gQQax97EVqf/pOLfYL6HB8r9KTwemPH6gQZqNIu42iiRei9g
+	vVzUxVj6lR4HXnPO7rT5DkWM55QS2eeoiCyFnT/qvNP2cLVwcI0NX4Z1k2kzzEwltLO+RURJmBX
+	Zcl4F2UJBBJ/rpVDzqp5HYz4NPMqInG3kb3AHCpn97DaA0GvCZgwhFh7Jcn2CpIf/hfR0FDGO+w
+	IwPpSSzUQ7i4rhH6Wh+dPsXIYNvnT5dtcP0XFdxQW+Ne8Y3UrQFBZ5HmL+w5mk7TUQQN+VKa260
+	cEWM7H8aehp1gcd5JUko8gM/vTnX7JfFCo8DfgaQMjo0eoU6Tkpf/Ox7MH956l99OT1fqRPZ0uq
+	SouA==
+X-Received: by 2002:a5d:64c4:0:b0:48b:f92:1f75 with SMTP id
+ ffacd0b85a97d-48c7289726emr6747670f8f.48.1791409779287; Wed, 07 Oct 2026
+ 14:49:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20261007-b4-landlock-fix-domain-fortify-panic-v1-1-042e9108f5f8@oss.qualcomm.com>
+In-Reply-To: <20261007-b4-landlock-fix-domain-fortify-panic-v1-1-042e9108f5f8@oss.qualcomm.com>
+From: Nick Desaulniers <ndesaulniers@google.com>
+Date: Wed, 7 Oct 2026 14:49:28 -0700
+X-Gm-Features: AclHuK-XtGI88zcQiAtV3bin7-xktDfZZWB8sWf-q8RSqTy-N84xG7PdKD2ogLk
+Message-ID: <CAKwvOd=nPgEm=AZbEu12Eb90GtRUThY6YAjSiHHuNVHP8TZHwg@mail.gmail.com>
+Subject: Re: [PATCH] landlock: Move the domain layer counter out of the
+ anonymous union
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>, Bill Wendling <morbo@google.com>, 
+	Tingmao Wang <m@maowtm.org>, Nathan Chancellor <nathan@kernel.org>, Kees Cook <kees@kernel.org>
+Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>, Justin Stitt <justinstitt@google.com>, 
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, llvm@lists.linux.dev, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Wed, Oct 7, 2026 at 9:28=E2=80=AFAM Abel Vesa <abel.vesa@oss.qualcomm.co=
+m> wrote:
+>
+> With Clang 20 and CONFIG_FORTIFY_SOURCE, stacking Landlock domains can
+> trigger a fortify panic in the handled_masks copy in inherit_ruleset():
+>
+>   __fortify_panic
+>   landlock_merge_ruleset
+>   __arm64_sys_landlock_restrict_self
+>
+> Clang miscalculates the location of the __counted_by counter in the
 
-Critical: 0 · High: 0 · Medium: 1 (1) · Low: 1
+Thanks for the patch.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Would you consider this a bug in clang, or an error in how the
+__counted_by attribute is applied?
 
-- [Medium] The new comment above ptp_vclock_convert() says "Physical
-  clock samples already contain full-width nanoseconds", and the new…
-- [Low] The patch adds a new way for vclock creation to fail:
-  ptp_vclock_sample() calls getcycles64() before registering the clock,…
+If the former, then a bug report against upstream llvm-project/ and a
+link to that bug report would be appreciated.  Then Bill can take a
+look.
 
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but:
-  ptp_convert_timestamp() never treats a zero (absent) hardware…
+Or if this was a known issue specific to clang 20, then we should have
+a link to the fix (or consider bumping counted_by support to the
+compiler version that is bug free).
 
---
+> anonymous structure nested inside the domain's union.  In an arm64 build,
+> __builtin_dynamic_object_size(domain->handled_masks, 1) reads offset 40
+> (the first handled_masks entry) instead of offset 36 (num_layers).
+> Because the destination domain is zero-initialized and its masks have not
+> yet been populated, FORTIFY sees a zero-sized destination and rejects the
+> copy of the parent's layers.
+>
+> Move num_layers and handled_masks to the top level of landlock_domain so
+> that Clang uses the correct counter.
+>
+> Assisted-by: LLM
+> Fixes: bd3a19800dd1 ("landlock: Add counted_by in landlock_domain")
+> Reported-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Co-developed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> ---
+> Move the domain layer counter and flexible array out of the anonymous
+> union to work around Clang 20 reading the wrong counter for __counted_by.
+> This fixes the FORTIFY panic when copying the parent domain's layer stack=
+.
+>
+> Based on next-20260930. Validated arm64 Landlock object builds with
+> Clang 20 and GCC 14, with CONFIG_FORTIFY_SOURCE enabled, and checked the
+> counter load in Clang-generated code. Not boot-tested.
+> ---
+>  security/landlock/domain.h | 48 +++++++++++++++++++---------------------=
+------
+>  1 file changed, 20 insertions(+), 28 deletions(-)
+>
+> diff --git a/security/landlock/domain.h b/security/landlock/domain.h
+> index caa3d19d2c43..5e65ab004f62 100644
+> --- a/security/landlock/domain.h
+> +++ b/security/landlock/domain.h
+> @@ -216,37 +216,29 @@ struct landlock_domain {
+>                 /**
+>                  * @work_free: Enables to free a domain within a lockless
+>                  * section.  This is only used by landlock_put_domain_def=
+erred()
+> -                * when @usage reaches zero.  The fields @usage, @num_lay=
+ers and
+> -                * @handled_masks are then unused.
+> +                * when @usage reaches zero.  The field @usage is then un=
+used.
+>                  */
+>                 struct work_struct work_free;
+> -               struct {
+> -                       /**
+> -                        * @usage: Number of credentials referencing this
+> -                        * domain.
+> -                        */
+> -                       refcount_t usage;
+> -                       /**
+> -                        * @num_layers: Number of layers that are used in=
+ this
+> -                        * domain.  This enables to check that all the la=
+yers
+> -                        * allow an access request.
+> -                        */
+> -                       u32 num_layers;
+> -                       /**
+> -                        * @handled_masks: Contains the subset of filesys=
+tem and
+> -                        * network actions that are restricted by a domai=
+n.  A
+> -                        * domain saves all layers of merged rulesets in =
+a stack
+> -                        * (FAM), starting from the first layer to the la=
+st one.
+> -                        * These layers are used when merging rulesets, f=
+or user
+> -                        * space backward compatibility (i.e. future-proo=
+f), and
+> -                        * to properly handle merged rulesets without
+> -                        * overlapping access rights.  These layers are s=
+et once
+> -                        * and never changed for the lifetime of the doma=
+in.
+> -                        */
+> -                       struct access_masks
+> -                               handled_masks[] __counted_by(num_layers);
+> -               };
+> +               /**
+> +                * @usage: Number of credentials referencing this domain.
+> +                */
+> +               refcount_t usage;
+>         };
+> +       /**
+> +        * @num_layers: Number of layers that are used in this domain.  T=
+his
+> +        * enables to check that all the layers allow an access request.
+> +        */
+> +       u32 num_layers;
+> +       /**
+> +        * @handled_masks: Contains the subset of filesystem and network =
+actions
+> +        * that are restricted by a domain.  A domain saves all layers of=
+ merged
+> +        * rulesets in a stack (FAM), starting from the first layer to th=
+e last
+> +        * one.  These layers are used when merging rulesets, for user sp=
+ace
+> +        * backward compatibility (i.e. future-proof), and to properly ha=
+ndle
+> +        * merged rulesets without overlapping access rights.  These laye=
+rs are
+> +        * set once and never changed for the lifetime of the domain.
+> +        */
+> +       struct access_masks handled_masks[] __counted_by(num_layers);
+>  };
+>
+>  static inline access_mask_t
+>
+> ---
+> base-commit: 6c2cb8b8b843d216ab549b678a0d8831c43153e0
+> change-id: 20261007-b4-landlock-fix-domain-fortify-panic-510367f8cfe3
+>
+> Best regards,
+> --
+> Abel Vesa <abel.vesa@oss.qualcomm.com>
+>
 
-ptp: vclock: preserve time across failed physical clock samples
 
-This patch drops the cyclecounter/timecounter from the PTP virtual clock.
-It now samples the parent PHC directly, returns read errors to the caller,
-and tracks time with a full 64-bit nanosecond anchor plus fractional ns.
-It also changes n_vclocks_store() to unregister clocks that were only
-partly created when a request to create several vclocks fails.
-
-> diff --git a/drivers/ptp/ptp_vclock.c b/drivers/ptp/ptp_vclock.c
-> index 84cb527f59ccc..52201c6b4d1f7 100644
-> --- a/drivers/ptp/ptp_vclock.c
-> +++ b/drivers/ptp/ptp_vclock.c
-
-[ ... ]
-
-> @@ -42,21 +44,74 @@ static void ptp_vclock_hash_del(struct ptp_vclock *vclock)
->  	synchronize_srcu(&vclock_srcu);
->  }
->  
-> +/*
-> + * Physical clock samples already contain full-width nanoseconds. Do not
-> + * truncate them to a 32-bit counter: failed reads can postpone a refresh
-> + * beyond its wrap period. Use a wide multiply and retain fractional ns.
-> + * Packet timestamps may precede the last sample; conversion must not move
-> + * the clock's anchor in that case. The caller holds vclock->lock.
-> + */
-> +static u64 ptp_vclock_convert(struct ptp_vclock *vclock, u64 cycles, u64 *frac)
-> +{
-> +	u64 delta = cycles - vclock->cycles;
-> +	bool backwards = delta > S64_MAX;
-
-[Severity: Medium]
-Is the "full-width nanoseconds" statement true for every getcycles64 or
-getcyclesx64 provider? The kernel-doc in include/linux/ptp_clock_kernel.h
-only says @getcycles64 "Reads the current free running cycle counter from
-the hardware clock". It gives no unit or width.
-
-For example, mlx5_ptp_getcyclesx() returns raw internal timer ticks:
-
-drivers/net/ethernet/mellanox/mlx5/core/lib/clock.c:mlx5_ptp_getcyclesx() {
-    ...
-	cycles = mlx5_read_time(mdev, sts, false);
-	*ts = ns_to_timespec64(cycles);
-    ...
-}
-
-The same driver treats those ticks as frequency-scaled and masks them to
-41 bits in mlx5_timecounter_init():
-
-	timer->cycles.mult = clocksource_khz2mult(dev_freq,
-						  timer->cycles.shift);
-	timer->nominal_c_mult = timer->cycles.mult;
-	timer->cycles.mask = CLOCKSOURCE_MASK(41);
-
-Scaling raw mlx5 ticks 1:1 as ns is older than this patch. What this patch
-changes is the wrap handling. The old CYCLECOUNTER_MASK(32) arithmetic
-worked with any provider counter that was at least 32 bits wide. The new
-code takes a full 64-bit delta and treats delta > S64_MAX as a backwards
-step.
-
-If a provider's counter wraps below 2^63, would ptp_vclock_convert() see
-the wrap as a backward step and move the virtual clock back by the whole
-wrap period? It isn't clear from the code whether the mlx5 hardware counter
-really wraps at 41 bits. Even so, should the comment and the callback
-contract be updated, or should this kind of wrap be handled?
-
-> +	u64 nsec, rem;
-> +
-> +	if (backwards)
-> +		delta = -delta;
-> +	nsec = mul_u64_u32_shr(delta, vclock->mult, PTP_VCLOCK_CC_SHIFT);
-> +	rem = (delta * vclock->mult) & PTP_VCLOCK_FRAC_MASK;
-> +	if (backwards) {
-> +		nsec = vclock->nsec - nsec - (rem > *frac);
-> +		*frac = (*frac - rem) & PTP_VCLOCK_FRAC_MASK;
-> +	} else {
-
-[ ... ]
-
-> @@ -214,6 +255,11 @@ struct ptp_vclock *ptp_vclock_register(struct ptp_clock *pclock)
->  
->  	mutex_init(&vclock->lock);
->  
-> +	if (ptp_vclock_sample(vclock, &vclock->cycles)) {
-> +		kfree(vclock);
-> +		return NULL;
-> +	}
-> +
-
-[Severity: Low]
-When getcycles64() fails here, the driver's error code is lost.
-ptp_vclock_register() returns NULL, and n_vclocks_store() jumps to
-err_register without touching err:
-
-drivers/ptp/ptp_sysfs.c:n_vclocks_store() {
-	int err = -EINVAL;
-    ...
-			vclock = ptp_vclock_register(ptp);
-			if (!vclock)
-				goto err_register;
-    ...
-}
-
-So a transient -EIO, -EBUSY or -EAGAIN from the parent PHC, for example
-during a NIC reset, reaches userspace as -EINVAL. That looks like an
-invalid value was written to n_vclocks.
-
-The commit message says failures from clock operations are now propagated.
-Could this path pass the real error back as well, for example by returning
-an ERR_PTR from ptp_vclock_register()? The ptp_clock_register() and
-allocation failure paths already flattened their errors to -EINVAL before
-this patch. The rollback in err_register looks fine; only the errno is
-affected.
-
->  	vclock->clock = ptp_clock_register(&vclock->info, &pclock->dev);
->  	if (IS_ERR_OR_NULL(vclock->clock)) {
->  		kfree(vclock);
-
-[ ... ]
-
-> @@ -293,7 +338,8 @@ ktime_t ptp_convert_timestamp(const ktime_t *hwtstamp, int vclock_index)
->  
->  		if (mutex_lock_interruptible(&vclock->lock))
->  			break;
-> -		vclock_ns = timecounter_cyc2time(&vclock->tc, ns);
-> +		frac = vclock->frac;
-> +		vclock_ns = ptp_vclock_convert(vclock, ns, &frac);
-
-[Severity: Medium]
-This is a pre-existing issue and was not introduced by this patch, but
-ptp_convert_timestamp() never treats a zero hardware timestamp as "no
-timestamp".
-
-__sock_recv_timestamp() converts the value before it checks for zero:
-
-net/socket.c:__sock_recv_timestamp() {
-    ...
-		if (tsflags & SOF_TIMESTAMPING_BIND_PHC)
-			hwtstamp = ptp_convert_timestamp(&hwtstamp,
-							 READ_ONCE(sk->sk_bind_phc));
-
-		if (hwtstamp) {
-			tss.ts[2] = hwtstamp;
-    ...
-}
-
-Take a socket with SOF_TIMESTAMPING_BIND_PHC that also sets
-SOF_TIMESTAMPING_RX_SOFTWARE or SOCK_RCVTSTAMP. It reaches this code even
-for packets that have no hardware timestamp.
-
-With ns == 0, delta = 0 - vclock->cycles is above S64_MAX, so the backwards
-branch runs. ptp_vclock_convert() then returns vclock->nsec minus the
-scaled anchor, which is non-zero. Is that value reported to userspace in
-tss.ts[2] as a valid hardware timestamp?
-
-The old timecounter_cyc2time() also returned a non-zero value here, within
-about two seconds of the vclock time. This patch only changes how far off
-the value is. Would it make sense to return 0 when *hwtstamp is 0?
-
->  		mutex_unlock(&vclock->lock);
->  		break;
->  	}
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261005-ptp-vclock-sampling-v2-0-8ed12d4d10af%40gmail.com
+--=20
+Thanks,
+~Nick Desaulniers
