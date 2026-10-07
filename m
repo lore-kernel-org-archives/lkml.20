@@ -1,69 +1,69 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 754A84A6897
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 10:52:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C66004908C4
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 10:52:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791370398; cv=none; b=bXi0qxtFcsmQrFpZnA3gCXPz5Bym0kUJKM6tjPrACcWuD91yZkLq4qPFjhnzqjJiiVsyk21xiYuF3+ffzbZC/LmZIAxV7GypEESF7QUr0/OrgNYpyPYmhFck5sgK4JAH75OS8cLg4wTRNpXEwyazC5N+Y22iGDVIxxamHvgF7lk=
+	t=1791370401; cv=none; b=iF447hkBgSGN7vB832Bhuf+RgyVomjC+yjn0jCtXbsdxL/H6IsIBa/YQjZ2+SQMxBY/Vi/bJHTULdfL6xnfxjNYYbl1IOEOkBLyHSGgLoVI8woDSyAPj/HqYi03IWCwwzdttBFSJcukQYHVnXQM7ZhIhoTZn/dMhSUuzVYPAKhE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791370398; c=relaxed/simple;
-	bh=S2uUX2Fk8n+vP/qgMl3qIzP8JEsoknNWZdUieCr5bPk=;
+	s=arc-20240116; t=1791370401; c=relaxed/simple;
+	bh=Lfk3z/9XBW9KBFUf735HqXRDByIh7ATabYIoLTvAS5A=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=I/QmMGWm0DBzgXgRiZsjpBAILw3GYlFHt/hkBHNb1wPjWe+KdEAWIRfqKZcGoQs1zX0KmOXFRRlDSZD6vZ0eRxOEFwroFo7BSctUUb/jalrzbUOn3QzA8Z6aoqPqoFIN1i6cl5zd8Vx5Ijdo/eWY/wlCjNHq0vQLbScmOjYAFE0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=YeMxNrvs; arc=none smtp.client-ip=209.85.221.45
+	 In-Reply-To:To:Cc; b=UJfXK013Z6BiMdxbeI67IQf7Mv12QBxhFewl7qKRO0BVu1cMWnssvX/uPryKbC+wYQUjYrwAWzUoHcUHB4zoApY0yqWw1K08FCAzpG3FX4mJVrRFRfGKy6iT43pEEm2pQIYUPuasVmH+pqj95nm290f0QXZfwWvT06/xFHL321Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=WcA6PKtf; arc=none smtp.client-ip=209.85.128.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="YeMxNrvs"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48afcfc4bf5so3254588f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 03:52:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="WcA6PKtf"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a02718da81so14006355e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 03:52:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791370365; x=1791975165; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1791370367; x=1791975167; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NRTKpE752UBxEVvsukPxz0g+FDjlA3TSMkGVEa1/WS8=;
-        b=YeMxNrvsXIbz/EQEMrM/nybThVdsvgOf1veUzIsXYapu6R9ZQBxUjbpcMgG8i9Vlvg
-         Lgt4jcgka59fJld5DQbWku3L2aBTyzb2PjiidqOu/wtjQQb6wCBrMd5iiIXXhxPl1HDd
-         0MCODKQz6KqJQW6+7HRaot7XVnpAgSYzkBrZOPnALmaFzRFd/E81dKpnw+QviJ4PpRIT
-         L6EDXJagdnoTxP7Gi5Y1ZTs6wqx/IduWQw4g5WiM3Rk8J8s/j9BQOnlOr85qCDHxdHX/
-         SwcvutFiGmvrR+nWZJz2GvkWPcJkJE1T9z79srwNzzkNHy74zqVkA/gwD24JtkZvc2AS
-         yaXA==
+        bh=NNNH9av8SFT8quNSTc63AF+CNNxl0BFefXFN7mUmANs=;
+        b=WcA6PKtfsKB/+aXMutOJtrBjEdu0iJUn8qqSmpl2hzSNb1jSzJV5uWEndYqmhci5B+
+         wxO6MjtX0iSpMG/QP7SSDUj0G3nv4QzbCrUonErLto9w3lLXI41CV9ojgyUnioHAfmUy
+         6LLyskkCm98vUVDsdjsrj65Ri4RQUez5GI9DJU28sbkO/8s0ruGkjqCILppOZAcZz8X9
+         SX9T+S+ioeSdIwvoh4xBxPk0A2g7t5B4vAcZua/g2SGVBu/hOLDu+N03poAZ4ab96n2p
+         XBkyDLiB8m1sUk3RfG8lZQrdeoevySjKbi6WwY2g5B431jmJXzYuFIT46IMg8nZ4nzRM
+         YFag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791370365; x=1791975165;
+        d=1e100.net; s=20260707; t=1791370367; x=1791975167;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NRTKpE752UBxEVvsukPxz0g+FDjlA3TSMkGVEa1/WS8=;
-        b=c+w1FiaT4KNzwnY+kd1OEh32qv2jokuA7Ps1ufBkXOk+GTK84DaWnJ4UJN/Oxsg3sQ
-         M9yq6pEC8Z4n6pfdx99yylsxke9ooa6q4TKN711kkmonUaoKtPxtFIwYY1wEpd6rV6Cj
-         EQsv0599Sz8h5WIA103NAjFXAN/wVkTrZaO4/ZRLEGvjIUlTarICmLbrZkKysxneIEu+
-         CtE/ZMQ8ZBkdT36smLJIyYrC6JH1+8L63PejiojQC8IRhM8ZUnGJ1xHfjbcBdzyUzTbC
-         pU1ptRBBpoQMZ8177au7cMbadhn/BZwNpRDCg0J6VYy5O0PNO6vwZGMid4FDbbjXP+P1
-         b0Ew==
-X-Forwarded-Encrypted: i=1; AKwUvBzQ/rokXAtYTV8BlA5/AwdGTx2BDMfHZMVvtNYy1QiWPP3TGxIyFQ9tyN3OWvQtINELdXu+9uEqunKZ05o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKL2xFsg2TgRPiJdK5CaBrNBanBATYgQW+4uYGuM3cokzX2AA0H
-	/AyBB5TOWGxuoD2Y/lLZN1SdDMwtQAdOYrV9WNge796acgIjclYfi1c9bWleFlsK7pU=
-X-Gm-Gg: AYBFou0Z6sUBD3/zbcxNb2J/NojLZYKra3Aown4MeN0xDGcXoBYSK65Sh9FZpT2PsfN
-	ctcS2K+WeUqwoAqoDsqVTPJwFU3CJuG3t9fplkt1GGJsPhUrsFLrnCW23gNTH5KyR67A+rR60a4
-	IgDFfHjnW0MhE9RM2u33cib33dN8d4c8P11wc8K6HDeVqQ54sqvd4yukg0VPKworNihwEvy1xBm
-	m9myGAZUerjalv59vvDaogBBK1vNhg99bmNUqrVEWkR9F5XGqfMcSclsy2PA2wnKHMHtbWSUTOd
-	NnDxNQwTF4C9KX7YAc/aMy4h9w4QymGXiBCb0j2deuVLB0wMwYH+d+wCOeRh74D2OEsolErjM4d
-	pom3WiN1epd40luDirdVcXz9BWufw0WXe4czJT0Uqml8axklGwlD86nPgf6sXwq2GiaNiWh9zhO
-	p3xi0C9yA+jHMt/PAX8ADrbI1LTYKNqKMyoADzD1ALvGPAznuFLIzhLb09PVoxcZs/0O8fdCYzc
-	hRusEEu8GPh
-X-Received: by 2002:a05:6000:46d6:b0:488:83b1:16a1 with SMTP id ffacd0b85a97d-48c727288b1mr2055193f8f.7.1791370365226;
-        Wed, 07 Oct 2026 03:52:45 -0700 (PDT)
+        bh=NNNH9av8SFT8quNSTc63AF+CNNxl0BFefXFN7mUmANs=;
+        b=KW+lTn90Pmgt7hM9L0Ps6CVCiSKI7EqfAjrTIrdpFX2nAKQJ6JXg8YrGX+HfP7OG9U
+         U7j+OB5j8P9g89x9V6M2L4aylw6Q9SJmwyoYFRvwtKhpQ6xUXtVFrA/QPIlks8o5puIb
+         IdkmPQ3TUo6f8UauP/OBfjhSgJWLSvY5gymBZu8qVnfnzPVq/R/A5ChfKNq+DbvgyOb0
+         /RBk5IlnehBI7Dv+/17OLKMP77/QIHiJ1Gh1CAGDycVnpjb7to1U4RrtcYwdaDa5iGEW
+         xFO7pPPtUc2ltcd4DLCIh3hQE2j1RSVfg4OSHKG9qJZQg+Clg8N3fxlkq6I78TxS4Tba
+         LayA==
+X-Forwarded-Encrypted: i=1; AKwUvByDl56i4MuRONuE0y/6k++R4hcRXNm9U0U8daInd41ZITQA7iCGQTVgGt1W+AldTzwapx1Oa2N6sZ/KEtM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kXzTNiogqHAJhw5u09fA1v9TJszy4SupYZ+jsd+IgxkY/8QUAF
+	Ps7/LdN4fPuKuKzxb/3UQxFGXpePER7wYALVw9cduYbI0Ajbr9h5qS5dISMOKnwpO2M=
+X-Gm-Gg: AYBFou03/sutXEdAkVzF2JOHgEZDU4MU1C7s9A1izUh8N5iNGBIat9GzQ9uKpgdECLf
+	TUJkoMn+7cwKlg0tT1UbSjy22+en4+8YDuT74Cm8kM/KeCuqos/2rag5c5xI5zaDd2TJuT+DxSN
+	3ulb9jyjJl3AlHmwcEPAXxN5TuoE/XD5rmxyUc1OUXrkPRJN38Gu7JYJR0bfpXu+OSEUqyNT6QD
+	NmnU2bdvd+FldOy6Sg4NlfYyx9bSX8n9sB2KliWfPMb8lnRam3XNBjU2Ek3J9+nerz+/Mt99tlE
+	5M1ZcVnuKus77UPEPF28D68PP+Vyf42rLlXGtvIUFJpnidbEt1CeFqfUPE3Aw2E6lATVKhyT+kV
+	0BeeAAVyxSscvWaCUnnDBLosxZt4xW1BMRNbetE985TfGB3OM4sKWvp61L+nG3kub+8OH3pQUFS
+	P4xM90ArJO0xpnEL+W++r0QaD9mezW8SEgDdttYk75L8YZKqX7SdcN8SF47/+bwmP93OVb1YIvz
+	w==
+X-Received: by 2002:a05:600c:3f08:b0:4a0:1723:2d8e with SMTP id 5b1f17b1804b1-4a1800ca17amr25117305e9.2.1791370366620;
+        Wed, 07 Oct 2026 03:52:46 -0700 (PDT)
 Received: from pop-os.local ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d31767sm5182781f8f.51.2026.10.07.03.52.43
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d31767sm5182781f8f.51.2026.10.07.03.52.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 03:52:44 -0700 (PDT)
+        Wed, 07 Oct 2026 03:52:46 -0700 (PDT)
 From: James Clark <james.clark@linaro.org>
-Date: Wed, 07 Oct 2026 11:52:12 +0100
-Subject: [PATCH v6 1/2] perf tests: mmap-basic: Only test userspace reading
- on supported platforms
+Date: Wed, 07 Oct 2026 11:52:13 +0100
+Subject: [PATCH v6 2/2] perf tests: mmap-basic: fix user rdpmc detection
+ logic
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261007-rdpmc-detection-logic-v6-1-d7ed6a85f864@linaro.org>
+Message-Id: <20261007-rdpmc-detection-logic-v6-2-d7ed6a85f864@linaro.org>
 References: <20261007-rdpmc-detection-logic-v6-0-d7ed6a85f864@linaro.org>
 In-Reply-To: <20261007-rdpmc-detection-logic-v6-0-d7ed6a85f864@linaro.org>
 To: Ian Rogers <irogers@google.com>, Michael Petlan <mpetlan@redhat.com>, 
@@ -88,104 +88,252 @@ Cc: Leo Yan <leo.yan@arm.com>, Peter Zijlstra <peterz@infradead.org>,
  linux-riscv@lists.infradead.org, James Clark <james.clark@linaro.org>
 X-Mailer: b4 0.15.2
 
-mmap_user_read_instr() and mmap_user_read_instr_disabled() are the same
-test for platforms that libperf doesn't support userspace counter
-reading for. Only run the 'enabled' test for platforms that do support
-it in order to simplify it in the next commit and not run the same test
-twice. The test can then assert stronger guarantees and have fewer edge
-cases to handle as we know it only runs in places where
-'rdmpc_supported' will be true.
+RISC-V and Arm control userspace counter access through
+/proc/sys/kernel/perf_user_access. Add that as a fallback to
+set_user_read() so the test can exercise both enabled and disabled
+states on those platforms.
 
-"unsupported" hasn't been a relevant skip reason since
-commit 588d22b40480 ("perf test: Expand user space event reading (rdpmc)
-tests") added the UNKNOWN fallback for unsupported platforms. Remove it
-and leave only "permissions".
+Document disabled, enabled and legacy states in user_read_state and fail
+on values outside the known 0-2 range. Preserve and restore any value in
+this range, rather than just 0 or 1.
 
+Skip when the control files exist but can't be written to
+(USER_READ_ERR_PERM). We can't rely on always being able to write to
+them when an exclude_kernel=0 event can be opened because opening events
+might succeed for non-root users when perf_event_paranoid=-1.
+
+This test isn't run on unsupported platforms since the previous commit,
+so we can simplify the following things:
+
+ * Test that cap_user_rdpmc is always equal to the requested state
+   rather than checking it only when disabled. As long as we stop
+   setting the cap in the attr unconditionally on Arm, this is ok.
+
+ * Remove the USER_READ_UNKNOWN/rdpmc_supported fallback in the checks.
+   Now the expected state is always the one requested. USER_READ_UNKNOWN
+   only controls whether to skip restoration of the state on unsupported
+   platforms, so call it USER_READ_ERR_NO_FILE.
+
+Signed-off-by: Qiao Zhao <qzhao@redhat.com>
+[Re-write to fix bugs in set_user_read() and simplify tests]
+Assisted-by: Codex:GPT-6.1-Sol
 Signed-off-by: James Clark <james.clark@linaro.org>
 ---
- tools/perf/tests/mmap-basic.c | 51 ++++++++++++++++---------------------------
- 1 file changed, 19 insertions(+), 32 deletions(-)
+ tools/perf/tests/mmap-basic.c | 137 +++++++++++++++++++++++++++++-------------
+ 1 file changed, 94 insertions(+), 43 deletions(-)
 
 diff --git a/tools/perf/tests/mmap-basic.c b/tools/perf/tests/mmap-basic.c
-index 5cec7644952c..208cd889f23d 100644
+index 208cd889f23d..2d892a51a7f4 100644
 --- a/tools/perf/tests/mmap-basic.c
 +++ b/tools/perf/tests/mmap-basic.c
-@@ -378,13 +378,13 @@ static int test_stat_user_read(u64 event, enum user_read_state enabled)
- 	return ret;
+@@ -2,6 +2,7 @@
+ #include <errno.h>
+ #include <inttypes.h>
+ #include <stdlib.h>
++#include <unistd.h>
+ 
+ #include <fcntl.h>
+ #include <linux/err.h>
+@@ -12,6 +13,8 @@
+ #include <perf/evlist.h>
+ #include <perf/mmap.h>
+ 
++#include <tools/config.h>
++
+ #include "cpumap.h"
+ #include "debug.h"
+ #include "event.h"
+@@ -182,50 +185,83 @@ static int test__basic_mmap(struct test_suite *test __maybe_unused, int subtest
  }
  
--static int test__mmap_user_read_instr(struct test_suite *test __maybe_unused,
-+static int __maybe_unused test__mmap_user_read_instr(struct test_suite *test __maybe_unused,
- 				      int subtest __maybe_unused)
- {
- 	return test_stat_user_read(PERF_COUNT_HW_INSTRUCTIONS, USER_READ_ENABLED);
- }
- 
--static int test__mmap_user_read_cycles(struct test_suite *test __maybe_unused,
-+static int __maybe_unused test__mmap_user_read_cycles(struct test_suite *test __maybe_unused,
- 				       int subtest __maybe_unused)
- {
- 	return test_stat_user_read(PERF_COUNT_HW_CPU_CYCLES, USER_READ_ENABLED);
-@@ -406,42 +406,29 @@ static struct test_case tests__basic_mmap[] = {
- 	TEST_CASE_REASON("Read samples using the mmap interface",
- 			 basic_mmap,
- 			 "permissions"),
--	TEST_CASE_REASON_EXCLUSIVE("User space counter reading of instructions",
--			 mmap_user_read_instr,
+ enum user_read_state {
+-	USER_READ_ENABLED,
+-	USER_READ_DISABLED,
+-	USER_READ_UNKNOWN,
++	USER_READ_ERR_PERM = -2,
++	USER_READ_ERR_NO_FILE = -1,
 +
- #if defined(__i386__) || defined(__x86_64__) || defined(__aarch64__) || \
- 			 (defined(__riscv) && __riscv_xlen == 64)
--			 "permissions"
--#else
--			 "unsupported"
--#endif
--		),
-+	/*
-+	 * libperf only supports userspace read for these platforms, see
-+	 * tools/lib/perf/mmap.c
-+	 */
-+	TEST_CASE_REASON_EXCLUSIVE("User space counter reading of instructions",
-+				   mmap_user_read_instr,
-+				   "permissions"),
- 	TEST_CASE_REASON_EXCLUSIVE("User space counter reading of cycles",
--			 mmap_user_read_cycles,
--#if defined(__i386__) || defined(__x86_64__) || defined(__aarch64__) || \
--			 (defined(__riscv) && __riscv_xlen == 64)
--			 "permissions"
--#else
--			 "unsupported"
-+				   mmap_user_read_cycles,
-+				   "permissions"),
- #endif
--		),
-+
-+	/* Counter read via userpage fallback is supported on all platforms */
- 	TEST_CASE_REASON_EXCLUSIVE("User space counter disabling instructions",
--			 mmap_user_read_instr_disabled,
--#if defined(__i386__) || defined(__x86_64__) || defined(__aarch64__) || \
--			 (defined(__riscv) && __riscv_xlen == 64)
--			 "permissions"
--#else
--			 "unsupported"
--#endif
--		),
-+				   mmap_user_read_instr_disabled,
-+				   "permissions"),
- 	TEST_CASE_REASON_EXCLUSIVE("User space counter disabling cycles",
--			 mmap_user_read_cycles_disabled,
--#if defined(__i386__) || defined(__x86_64__) || defined(__aarch64__) || \
--			 (defined(__riscv) && __riscv_xlen == 64)
--			 "permissions"
--#else
--			 "unsupported"
--#endif
--		),
-+				   mmap_user_read_cycles_disabled,
-+				   "permissions"),
-+
- 	{	.name = NULL, }
++	USER_READ_DISABLED = '0',
++	USER_READ_ENABLED = '1',
++#if defined(__i386__) || defined(__x86_64__) || (defined(__riscv) && __riscv_xlen == 64)
++	/* Unrestricted access on x86, legacy access on RISC-V. */
++	USER_READ_LEGACY = '2',
++#endif
++	USER_READ_MAX
  };
  
+-static enum user_read_state set_user_read(struct perf_pmu *pmu, enum user_read_state enabled)
++static enum user_read_state user_read_file_op(int fd, enum user_read_state enabled)
+ {
+ 	char buf[2] = {0, '\n'};
+-	ssize_t len;
+-	int events_fd, rdpmc_fd;
+-	enum user_read_state old_user_read = USER_READ_UNKNOWN;
+-
+-	if (enabled == USER_READ_UNKNOWN)
+-		return USER_READ_UNKNOWN;
+-
+-	events_fd = perf_pmu__event_source_devices_fd();
+-	if (events_fd < 0)
+-		return USER_READ_UNKNOWN;
++	ssize_t len = read(fd, buf, 1);
++	enum user_read_state old_user_read = USER_READ_ERR_NO_FILE;
+ 
+-	rdpmc_fd = perf_pmu__pathname_fd(events_fd, pmu->name, "rdpmc", O_RDWR);
+-	if (rdpmc_fd < 0) {
+-		close(events_fd);
+-		return USER_READ_UNKNOWN;
+-	}
+-
+-	len = read(rdpmc_fd, buf, sizeof(buf));
+-	if (len != sizeof(buf))
++	if (len <= 0) {
+ 		pr_debug("%s read failed\n", __func__);
++		goto out;
++	}
+ 
+-	// Note, on Intel hybrid disabling on 1 PMU will implicitly disable on
+-	// all the core PMUs.
+-	old_user_read = (buf[0] == '1') ? USER_READ_ENABLED : USER_READ_DISABLED;
++	old_user_read = buf[0];
+ 
+ 	if (enabled != old_user_read) {
+-		buf[0] = (enabled == USER_READ_ENABLED) ? '1' : '0';
+-		len = write(rdpmc_fd, buf, sizeof(buf));
++		buf[0] = enabled;
++		lseek(fd, 0, SEEK_SET);
++		len = write(fd, buf, sizeof(buf));
+ 		if (len != sizeof(buf))
+ 			pr_debug("%s write failed\n", __func__);
+ 	}
+-	close(rdpmc_fd);
+-	close(events_fd);
++
++out:
++	close(fd);
+ 	return old_user_read;
+ }
+ 
++static enum user_read_state set_user_read(struct perf_pmu *pmu,
++					  enum user_read_state enabled)
++{
++	int events_fd, fd;
++	enum user_read_state ret = USER_READ_ERR_NO_FILE;
++
++	if (enabled == USER_READ_ERR_NO_FILE || enabled == USER_READ_ERR_PERM)
++		return enabled;
++
++	events_fd = perf_pmu__event_source_devices_fd();
++	if (events_fd >= 0) {
++		fd = perf_pmu__pathname_fd(events_fd, pmu->name, "rdpmc", O_RDWR);
++		if (fd >= 0) {
++			/*
++			 * Note, on Intel hybrid disabling on 1 PMU will implicitly
++			 * disable on all the core PMUs.
++			 */
++			ret = user_read_file_op(fd, enabled);
++			close(events_fd);
++			return ret;
++		} else if (errno == EACCES || errno == EROFS) {
++			/* Permissions failure, flag the failure for a skip. */
++			close(events_fd);
++			return USER_READ_ERR_PERM;
++		}
++		close(events_fd);
++	}
++
++	/* Fallback: perf_user_access interface (arm64, riscv, or similar) */
++	fd = open("/proc/sys/kernel/perf_user_access", O_RDWR);
++	if (fd >= 0)
++		ret = user_read_file_op(fd, enabled);
++	else if (errno == EACCES || errno == EROFS)
++		ret = USER_READ_ERR_PERM;
++
++	return ret;
++}
++
++
+ static int test_stat_user_read(u64 event, enum user_read_state enabled)
+ {
+ 	struct perf_pmu *pmu = NULL;
+@@ -246,9 +282,6 @@ static int test_stat_user_read(u64 event, enum user_read_state enabled)
+ 			.config	= perf_pmus__supports_extended_type()
+ 			? event | ((u64)pmu->type << PERF_PMU_TYPE_SHIFT)
+ 				: event,
+-#ifdef __aarch64__
+-			.config1 = 0x2,		/* Request user access */
+-#endif
+ 		};
+ 		struct perf_evsel *evsel = NULL;
+ 		int err;
+@@ -256,8 +289,28 @@ static int test_stat_user_read(u64 event, enum user_read_state enabled)
+ 		bool mapped = false, opened = false, rdpmc_supported;
+ 		struct perf_counts_values counts = { .val = 0 };
+ 
++		if (__is_defined(__aarch64__) && enabled == USER_READ_ENABLED)
++			attr.config1 = 0x2;  /* Request user access */
+ 
+ 		pr_debug("User space counter reading for PMU %s\n", pmu->name);
++
++		if (saved_user_read_state == USER_READ_ERR_PERM) {
++			pr_debug("User space counter reading for PMU %s [Failed to get user read state]\n",
++				 pmu->name);
++			ret = TEST_SKIP;
++			goto cleanup;
++		}
++
++		/* Check value is in the expected range */
++		if (saved_user_read_state != USER_READ_ERR_NO_FILE &&
++		    (saved_user_read_state < USER_READ_DISABLED ||
++		     saved_user_read_state >= USER_READ_MAX)) {
++			pr_err("User space counter reading for PMU %s [Unexpected current state %d]\n",
++				pmu->name, saved_user_read_state);
++			ret = TEST_FAIL;
++			goto cleanup;
++		}
++
+ 		/*
+ 		 * Restrict scheduling to only use the rdpmc on the CPUs the
+ 		 * event can be on. If the test doesn't run on the CPU of the
+@@ -301,21 +354,18 @@ static int test_stat_user_read(u64 event, enum user_read_state enabled)
+ 			goto cleanup;
+ 		}
+ 
+-		if (saved_user_read_state == USER_READ_UNKNOWN)
+-			rdpmc_supported = pc->cap_user_rdpmc && pc->index;
+-		else
+-			rdpmc_supported = (enabled == USER_READ_ENABLED);
++		rdpmc_supported = (enabled == USER_READ_ENABLED);
+ 
+-		if (rdpmc_supported && (!pc->cap_user_rdpmc || !pc->index)) {
+-			pr_err("User space counter reading for PMU %s [Failed unexpected supported counter access %d %d]\n",
+-				pmu->name, pc->cap_user_rdpmc, pc->index);
++		if (rdpmc_supported && !pc->index) {
++			pr_err("User space counter reading for PMU %s [index must be set when enabled %d]\n",
++				pmu->name, pc->index);
+ 			ret = TEST_FAIL;
+ 			goto cleanup;
+ 		}
+ 
+-		if (!rdpmc_supported && pc->cap_user_rdpmc) {
+-			pr_err("User space counter reading for PMU %s [Failed unexpected unsupported counter access %d]\n",
+-				pmu->name, pc->cap_user_rdpmc);
++		if (rdpmc_supported != pc->cap_user_rdpmc) {
++			pr_err("User space counter reading for PMU %s [cap should match requested state %d %d]\n",
++				pmu->name, pc->cap_user_rdpmc, rdpmc_supported);
+ 			ret = TEST_FAIL;
+ 			goto cleanup;
+ 		}
+@@ -363,7 +413,8 @@ static int test_stat_user_read(u64 event, enum user_read_state enabled)
+ 			perf_evsel__munmap(evsel);
+ 		if (opened)
+ 			perf_evsel__close(evsel);
+-		perf_evsel__delete(evsel);
++		if (evsel)
++			perf_evsel__delete(evsel);
+ 
+ 		/* If the affinity was changed, then put it back to all CPUs. */
+ 		if (pmu->cpus != NULL) {
 
 -- 
 2.43.0
