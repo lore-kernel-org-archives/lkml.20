@@ -1,222 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10D69395AF2;
-	Wed,  7 Oct 2026 09:47:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A34283D3CE3
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 09:49:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791366455; cv=none; b=iCIDHicquUs99RUO9C0JXwRgA9OVwCTY8696IsoS6j50Z/hhJkWKM0QzpuBDsHIYW19ylEHABJiUus8mDVeun3YMmLZVmZT31rqF8poT00QsTLFg2WD6AWiHZXGujLO5CnyrxQ/p3seGB4V2p0eYYtw/sQhsJFvT8Ob0SgFncBk=
+	t=1791366558; cv=none; b=jAYwx1sq/2kBEQ3h9HqjAOBOPME1j51GXd4fuzrXVBx8iW/vEW12AXgKLVUmz/f0X86MlLZHJn4UhYPelmwlISaR5jgx8CxIp8J14zYE4VGSrhHuQfsUJBLr2M2q7JRmvrh0b5jTLZjmGBFQzRMnqssRikx2gMCpiwPNavErKHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791366455; c=relaxed/simple;
-	bh=MI7nzD7itjW5CD3PEi3m4rfppLLIWuVo4w29NRTu5Ps=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A18ab7BdFaOa564DGv291VEFXPODLEO2EM2b9m9r9OPoKKAsl3f1jRZ2FBZy9LwKKPhgXjGLAZoWB/8XaenK9piJYVVxQCmD5bqG8f6H7CPAgFtfcPxWXshxi9bYE5C6NQkpLk1aOlstuJv73dbZQ6VSmw559UxagRVRstsof7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fai2JdxQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791366558; c=relaxed/simple;
+	bh=0sEpBHImgtBxz8uqC365DtivvPzhsstSwHsRYHYQ4t4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=u9WfBK60o0VlrfahsyoObFv5LGHDtFUxjUUVDQvuGSdn6dYnX69FzhDGn7n1Oo1wevUT1BYESALtpCBLd1sEBfQbwVc/yoTEiatf5qlCD7sNpY3vOhKOKICq327thQ3azG+CMYiZmPOfyNVOA0Kmw0dbVdabV3pTmxcmwTLQZ6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=rKBJxCJS; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fai2JdxQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEB331F0089B;
-	Wed,  7 Oct 2026 09:47:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791366444;
-	bh=WKfTrq8VHIA+znChlNb3NuZ60B46dqCeKbF4f81115I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fai2JdxQg2GTZDr/VvQZVCO9hLiWsjmsp3kCspc8fuKK4Idhvb8afxieuvkYwQyYm
-	 EROdJ2PNOewRKi2TlzftYwYAKyOzWDZOqcN/uIKMcnbgV4RmoSWKvkrrjXqOH103u4
-	 pkW/zLZZoKah5esAFQs3D/dVu6u2y5mvWBDTVdUYX8sUlAMw/6TGZqWNoZl9+0sMb5
-	 XRIYEsb8pFZMI07mxgwGXu32WJ+4ExSOAeE3Q6diCbSoyE+fYRs6OFJ8RwEG+2QP6M
-	 t5VGgOEOdwhnOdt+AfIzlhYUJpGyLhxBjp3rfpsYz8tJfVVrUI3imhuR0jMSWv7pUP
-	 MBSrx6oIQcWWw==
-Date: Wed, 7 Oct 2026 11:47:09 +0200
-From: Carlos Maiolino <cem@kernel.org>
-To: NeilBrown <neil@brown.name>
-Cc: Miklos Szeredi <miklos@szeredi.hu>, 
-	Amir Goldstein <amir73il@gmail.com>, Kees Cook <kees@kernel.org>, 
-	Joel Granados <joel.granados@kernel.org>, Richard Weinberger <richard@nod.at>, 
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>, Johannes Berg <johannes@sipsolutions.net>, 
-	Breno Leitao <leitao@debian.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Jan Harkes <jaharkes@cs.cmu.edu>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Namjae Jeon <linkinjeon@kernel.org>, 
-	Hyunchul Lee <hyc.lee@gmail.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Jeff Layton <jlayton@kernel.org>, Jan Kara <jack@suse.cz>, 
-	linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-unionfs@vger.kernel.org, linux-um@lists.infradead.org, codalist@coda.cs.cmu.edu, 
-	coda@cs.cmu.edu, linux-mm@kvack.org, ntfs@lists.linux.dev, 
-	linux-xfs@vger.kernel.org
-Subject: Re: [PATCH 1/7] VFS/xfs/ntfs: drop parent lock across
- d_alloc_parallel() in d_add_ci()
-Message-ID: <asYVApB1jdBYj9tN@cronus.toxiclabs.cc>
-References: <20260929034158.1455429-1-neilb@ownmail.net>
- <20260929034158.1455429-2-neilb@ownmail.net>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="rKBJxCJS"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a061a13884so13957525e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 02:49:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791366547; x=1791971347; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KCLuNr5Jl4WbBQBGA8ZScNaP6xA2JOMpqFLldkWVSHk=;
+        b=rKBJxCJS66UM2veHqCI1TbI+fZfaHwd4eP6Gu4swccjbzbpvgp6Rud1/IufdLNsjGw
+         l6NN/lgL7o2ZPPhB8dtPcrTdBIXsn0KhuBplwK2+N5Cnj0u+mwwS0rlAs71oxerGwqWo
+         lxoJ0DuE6A1WResD171qmlH49cB6pT0UnqhRIh1MHBL6sq6nTcJN0Ri+KXuzICgtfG3T
+         SxrXfd1NwZrinvmxuusS9kQ7OvNe/GVpHyEiWFcGaowIB7CdDJaDhQWqr0w6rEQ/1A4F
+         9eFU0aaQM+DdfmXIkuQaj50sQ8Zub9QWO2c8QARR6aJdvlNj+ObGY7qTYEKftyj/MRQM
+         Uluw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791366547; x=1791971347;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KCLuNr5Jl4WbBQBGA8ZScNaP6xA2JOMpqFLldkWVSHk=;
+        b=UsWcYor7xYa9y/uzTK2kNAFQhhAXL90zsFkiqb5Y3m9JSYZMZjtEh6qMqlrm2uqW/Y
+         CKhhkcsPIwXamHI3hx+Tgfp4s9agvzSc7SKBsYeQcEzAZW50n37zpSRnoqUB2qnw4R/e
+         g1ToXGF+63iwQZgLf5mjyn1Ekf7GGpSHkMgQJYtgF/lklrdCr2103W1fqo/Gw/lTNIfh
+         fmWh/Oa98g+bDBmoeV9rC4NNwENx7J+piCN8gMogD9nPxE4V2Ri5pEjhViBtNCYmrBV7
+         GJI4F/Y3/nwykmxNgBFt+aBDQncACSBs/0oB6Zdx0AzyeurbtiuFOCGk2oWEP9hYAJ3Y
+         jISQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzBeQAqGZO2iq8SZ+rg2kgPurBxjdxjQVpU9kH/VxJvsDLI1zHp4uzal2BSP/S/LINhy9cby7iBs0aI/PU=@vger.kernel.org
+X-Gm-Message-State: AFuF++l396HNTTHE3c32yMmJXQcFvhEY050oz+OiRAkA8Utx/ktfjhG4
+	XS93nt5oicfBYwxWUq0abt+6sDCvdGf2dvjAc/VIv9l+TbQ3trUeNIkn3odTalnP2oE=
+X-Gm-Gg: AYBFou1pv8YXZg2e8QBm3qknsFh8yFi2VTIQHswzLGhCR437UZvZ4DJ0iHoiQbiAqzz
+	yr12ujwEQ2hSe3m9KpD0qjcE1JKE1CG9sSVZJYjcQW8LgMgCa6YJnDQNKMeImADMDWVIZ3y8OIL
+	zCq4KdiW01NqfQNrmp9rqY6jeUCXz4lVe7t+WDmbuUj5HyPcDzlJamb6oYgziaSISzW+87wljvf
+	d/Iu+3P+/4CGOVEdB8V/MnhoTxVhj4PJNWDUXzSmANM0KaEeElfL5v+16n3vz53DgkC3FOs0wP/
+	AmOwYmxOzizkKaixtOgg9LM/qMMcdcTllSe3rN9EScb0ekqBsEjL2LJ2lEv6/ftyMHKdzCehJxR
+	SKX8TL+BNmlT/LqmEflpdB4Q7hB+PIOiNblVATMDMkH/uKo3wB1LxyZyN3sA6ILaf/rtuT5o4Iw
+	lvLDiWvtzofORFZONvqDy9gcp6eHqAJKjdHEG6tXekMAb7Lr4pCIwfe3SpO6LWRndvIzGzFuRT2
+	gluuh0ZiD7G
+X-Received: by 2002:a05:600c:19d0:b0:4a0:1f51:ba2d with SMTP id 5b1f17b1804b1-4a18045373dmr21395025e9.22.1791366546591;
+        Wed, 07 Oct 2026 02:49:06 -0700 (PDT)
+Received: from [192.168.9.72] ([185.249.114.148])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a180932dd4sm20918875e9.4.2026.10.07.02.49.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 07 Oct 2026 02:49:06 -0700 (PDT)
+Message-ID: <2bb9dda6-4a13-4da8-b17d-3bee6ecf9bba@linaro.org>
+Date: Wed, 7 Oct 2026 11:49:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929034158.1455429-2-neilb@ownmail.net>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 26/45] dt-bindings: media: qcom,sa8775p-camss: add pixel
+ path variant
+To: Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+ Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, hariram.purushothaman@oss.qualcomm.com,
+ pshrotri@qti.qualcomm.com, Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+ johannes.goede@oss.qualcomm.com, konradybcio@kernel.org
+References: <20261006223953.3382273-1-gjorgji.rosikopulos@oss.qualcomm.com>
+ <20261006223953.3382273-27-gjorgji.rosikopulos@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-US
+In-Reply-To: <20261006223953.3382273-27-gjorgji.rosikopulos@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 29, 2026 at 01:36:01PM +1000, NeilBrown wrote:
-> From: NeilBrown <neil@brown.name>
+On 07/10/2026 00:39, 
+Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com wrote:
+> From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 > 
-> A proposed change will invert the lock ordering between
-> d_alloc_parallel() and inode_lock() on the parent.
-> When that happens it will not be safe to call d_alloc_parallel() while
-> holding the parent lock - even shared.
+> Document qcom,sa8775p-camss-pix for CAMSS configurations that use IFE
+> pixel paths. Keep qcom,sa8775p-camss for the legacy VFE resources.
 > 
-> We don't need to keep the parent lock held when d_add_ci() is run - the
-> VFS doesn't need it as dentry is exclusively held due to
-> DCACHE_PAR_LOOKUP and the filesystem has finished its work.
-> 
-> So drop and reclaim the lock (shared or exclusive as determined by
-> LOOKUP_SHARED) to avoid future deadlock.
-> 
-> Signed-off-by: NeilBrown <neil@brown.name>
+> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 > ---
-
-XFS bits are really small, but anyway, if needed, feel free to add:
-
-Reviewed-by: Carlos Maiolino <cmaiolino@redhat.com>
-
->  Documentation/filesystems/porting.rst |  7 ++++++
->  fs/dcache.c                           | 32 +++++++++++++++++++++++----
->  fs/ntfs/namei.c                       |  2 +-
->  fs/xfs/xfs_iops.c                     |  2 +-
->  include/linux/dcache.h                |  3 ++-
->  5 files changed, 39 insertions(+), 7 deletions(-)
+>   .../devicetree/bindings/media/qcom,sa8775p-camss.yaml         | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
 > 
-> diff --git a/Documentation/filesystems/porting.rst b/Documentation/filesystems/porting.rst
-> index 4e015f1bf1f8..f6a38bd9c68e 100644
-> --- a/Documentation/filesystems/porting.rst
-> +++ b/Documentation/filesystems/porting.rst
-> @@ -1409,3 +1409,10 @@ use only if you have no alternative.
->  The .create inode_operation no longer receives the 'excl' arg.  It must
->  always assume the file does not already exist.  If the filesystem needs
->  to be involved in non-exclusive create, it should provide atomic_open.
-> +
-> +---
-> +
-> +**mandatory**
-> +
-> +d_add_ci() must now be passed the flags arguemnt that was given to ->lookup
-> +
-> diff --git a/fs/dcache.c b/fs/dcache.c
-> index 83790c7a4dee..61e0896dc077 100644
-> --- a/fs/dcache.c
-> +++ b/fs/dcache.c
-> @@ -2383,6 +2383,7 @@ EXPORT_SYMBOL(d_obtain_root);
->   * @dentry: the negative dentry that was passed to the parent's lookup func
->   * @inode:  the inode case-insensitive lookup has found
->   * @name:   the case-exact name to be associated with the returned dentry
-> + * @lookup_flags: flags passed to ->lookup
->   *
->   * This is to avoid filling the dcache with case-insensitive names to the
->   * same inode, only the actual correct case is stored in the dcache for
-> @@ -2395,9 +2396,10 @@ EXPORT_SYMBOL(d_obtain_root);
->   * the exact case, and return the spliced entry.
->   */
->  struct dentry *d_add_ci(struct dentry *dentry, struct inode *inode,
-> -			struct qstr *name)
-> +			struct qstr *name, unsigned int lookup_flags)
->  {
->  	struct dentry *found, *res;
-> +	bool must_unlock = false;
->  
->  	/*
->  	 * First check if a dentry matching the name already exists,
-> @@ -2409,24 +2411,46 @@ struct dentry *d_add_ci(struct dentry *dentry, struct inode *inode,
->  		return found;
->  	}
->  	if (d_in_lookup(dentry)) {
-> +		/*
-> +		 * We are holding parent lock and so don't want to wait
-> +		 * for a d_in_lookup() dentry.  We can safely drop the
-> +		 * parent lock and reclaim it as we have exclusive
-> +		 * access to dentry as it is d_in_lookup() (so
-> +		 * ->d_parent is stable) and we are near the end
-> +		 * ->lookup() and will shortly drop the lock anyway.
-> +		 * We cannot retake the lock while the new dentry is in-lookup
-> +		 */
-> +		if (lookup_flags & LOOKUP_SHARED)
-> +			inode_unlock_shared(d_inode(dentry->d_parent));
-> +		else
-> +			inode_unlock(d_inode(dentry->d_parent));
-> +		must_unlock = true;
->  		found = d_alloc_parallel(dentry->d_parent, name);
->  		if (IS_ERR(found) || !d_in_lookup(found)) {
->  			iput(inode);
-> -			return found;
-> +			goto out_unlock;
->  		}
->  	} else {
->  		found = d_alloc(dentry->d_parent, name);
->  		if (!found) {
->  			iput(inode);
->  			return ERR_PTR(-ENOMEM);
-> -		} 
-> +		}
->  	}
->  	res = d_splice_alias(inode, found);
->  	if (res) {
->  		d_lookup_done(found);
->  		dput(found);
-> -		return res;
-> +		found = res;
->  	}
-> +	if (!must_unlock)
-> +		return found;
-> +out_unlock:
-> +	d_lookup_done(dentry);
-> +	if (lookup_flags & LOOKUP_SHARED)
-> +		inode_lock_shared(d_inode(dentry->d_parent));
-> +	else
-> +		inode_lock_nested(d_inode(dentry->d_parent), I_MUTEX_PARENT);
->  	return found;
->  }
->  EXPORT_SYMBOL(d_add_ci);
-> diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
-> index 7091b2496fac..61cfa4e16586 100644
-> --- a/fs/ntfs/namei.c
-> +++ b/fs/ntfs/namei.c
-> @@ -309,7 +309,7 @@ static struct dentry *ntfs_lookup(struct inode *dir_ino, struct dentry *dent,
->  		}
->  		nls_name.hash = full_name_hash(dent, nls_name.name, nls_name.len);
->  
-> -		dent = d_add_ci(dent, dent_inode, &nls_name);
-> +		dent = d_add_ci(dent, dent_inode, &nls_name, flags);
->  		kfree(nls_name.name);
->  		return dent;
->  
-> diff --git a/fs/xfs/xfs_iops.c b/fs/xfs/xfs_iops.c
-> index 4a3299abf774..fd480c0e4147 100644
-> --- a/fs/xfs/xfs_iops.c
-> +++ b/fs/xfs/xfs_iops.c
-> @@ -368,7 +368,7 @@ xfs_vn_ci_lookup(
->  	/* else case-insensitive match... */
->  	dname.name = ci_name.name;
->  	dname.len = ci_name.len;
-> -	dentry = d_add_ci(dentry, VFS_I(ip), &dname);
-> +	dentry = d_add_ci(dentry, VFS_I(ip), &dname, flags);
->  	kfree(ci_name.name);
->  	return dentry;
->  }
-> diff --git a/include/linux/dcache.h b/include/linux/dcache.h
-> index adf239f8205f..97d11f5e6a7b 100644
-> --- a/include/linux/dcache.h
-> +++ b/include/linux/dcache.h
-> @@ -267,7 +267,8 @@ struct dentry *d_duplicate(struct dentry *dentry);
->  /* weird procfs mess; *NOT* exported */
->  extern struct dentry * d_splice_alias_ops(struct inode *, struct dentry *,
->  					  const struct dentry_operations *);
-> -extern struct dentry * d_add_ci(struct dentry *, struct inode *, struct qstr *);
-> +extern struct dentry * d_add_ci(struct dentry *, struct inode *, struct qstr *,
-> +				unsigned int);
->  extern bool d_same_name(const struct dentry *dentry, const struct dentry *parent,
->  			const struct qstr *name);
->  extern struct dentry *d_find_any_alias(struct inode *inode);
-> 
-> base-commit: 3879f51857325da9bf3cfb073280257cd16ae067
-> -- 
-> 2.50.0.107.gf914562f5916.dirty
-> 
+> diff --git a/Documentation/devicetree/bindings/media/qcom,sa8775p-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sa8775p-camss.yaml
+> index 48f280e99809..9206c7cfe197 100644
+> --- a/Documentation/devicetree/bindings/media/qcom,sa8775p-camss.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,sa8775p-camss.yaml
+> @@ -14,7 +14,9 @@ description:
+>   
+>   properties:
+>     compatible:
+> -    const: qcom,sa8775p-camss
+> +    enum:
+> +      - qcom,sa8775p-camss-pix
+> +      - qcom,sa8775p-camss
+>   
+>     reg:
+>       maxItems: 22
+
+I don't get why a new compat is required.
+
+Please look at my RFC - there's no DT depends at all in that.
+
+The existing CAMSS node has been designed around the IFE SID - not by 
+accident - I've been pushing this for months - to prepare the ground for 
+not needing DT churn to enable IFE.
+
+Sorry NAK to this.
+
+---
+bod
