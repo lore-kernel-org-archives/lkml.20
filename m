@@ -1,134 +1,105 @@
-Received: from mta1.migadu.com (out-89.mta1.migadu.com [95.215.58.89])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6252041D10D
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 07:43:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CF4341C30F;
+	Wed,  7 Oct 2026 07:43:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791359037; cv=none; b=LQrbpsakutwXCPxxb8O8ZgyZyc+IOOhuBdxu5fwtrN5D7A/R+oPz3gP/XK4lTe+xOAt4T+6ErB/oCJPHBrOBP3hDZsdvOYIXQmZ1PyiZOblt2EeXn9aEeksMLJ0swXDNEbxwaeJ10bAp53e3VSw7C+z3t+7PkbxJk74f8RRLWzo=
+	t=1791359045; cv=none; b=mUHmlGPyednDRRmnnCPuwGI22tOu58lbY8KzK5Y37SOV6TBNPDFIZLamB5Gx+KZzuJfeQ+ANK7AIdEdL0EZUf8PRxMbkD0DaPNGqzaYGGM51p1tAef0oH2cIFSb9qOx7IFilM1r4Ah3oK4CVOF25JGKpa3C0YkVXKYHy+V6lCf8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791359037; c=relaxed/simple;
-	bh=o5+OZlVLtUCueg4cXgDkgvR3WZIRFrS7EESmuvL0q6I=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gM0THBdHf/L0qABmNqoZ3aCBLxmDKYD3w4ygl47g7RXPPxIaCSi00hsomteQNP/jEN/x6RcnrVSHF2MzlcD/QkE+JJD9Gi6xIDy0OCVKcme1y8Yg54neH7CmeEShSy9g9K3QPttvaLiN5nLPC4c9r1uk3oOsogrjpuRHZEpmGlA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=p9z5cMoK; arc=none smtp.client-ip=95.215.58.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791359045; c=relaxed/simple;
+	bh=HnI9Orr9cFzycjkpUEC5RPW2/zW7ejSYjCFK4MnW6ik=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hb/aEvQLLG6LtjfMjMwJRVhdKwGeK0jrt5UiwvTsbPieyojcxWE7p8RWvX41YgC5s7ROyTuczj4vhm9fCyKW8m8amOogqcyrdgNTAdTjzFGFAbpODXJ2KAUZHbir9oXp3zvJLwrbaV5a47OnDqELFFZOpO3iruNobHdetCQY2is=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aFNJjI2H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="p9z5cMoK"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=o5+OZlVLtUCueg4cXgDkgvR3WZIRFrS7EESmuvL0q6I=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791359028; v=1; x=1791963828;
- b=p9z5cMoKnUpUC9MuvKJPww+ITLMjNNk/VCks2+H+ZbmHvxDbnsYROtnnsp3T3C/xa+G9NT1k
- wGpj0CLIwMkDd3jRPStACpEqLoUoCi0zSVWsZIhR5xYUJeaLjU3ilX9df1PLWoncR21ka/OrRCX
- TAVvqFJiHDNO7n14obyJ8ZVE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 781d49e7d095f2d5;
-	Wed, 07 Oct 2026 07:43:47 +0000
-X-Mizu-Trace-ID: 781d49e7d095f2d5
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>
-Cc: Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Zenghui Yu <zenghui.yu@linux.dev>,
-	Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
-	Will Deacon <will@kernel.org>,
-	Fuad Tabba <tabba@google.com>,
-	kvmarm@lists.linux.dev,
-	kvm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH v2 0/3] KVM: arm64: timers: Program CVAL from the current count when the hardware won't apply the offset
-Date: Wed,  7 Oct 2026 08:43:40 +0100
-Message-Id: <20261007074343.324269-1-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aFNJjI2H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EB251F0089C;
+	Wed,  7 Oct 2026 07:43:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791359035;
+	bh=e10A52x8eNlaxr8y/42fRB7ZGuOuiwnvD+s8zuy+cZc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=aFNJjI2HN5zYP+wGvdq0gTjxVQeS58dPwkFtQTceZrRXzlyOa+XZXocBo5oF5MYRM
+	 YHSsXYhSrfT71ShRbctGTD+MMbpSBM8nX8NmTBkLibsieIlhPpguCh8srFcNKvS4au
+	 yF0dryWnvzdlwgmGbyeyCcI2dzscWIwbjPnjGp6kifTj4cGrTdf1XMgY72jAPw4sNB
+	 ZhlFsEldW8scrJa4k3SQghw47/vX6b/T8emjrtp7G1iMNdjv/7qWjHPKQHX7Anczl7
+	 OvNV2kjJe24xgi2Vj4vsBP2rn9QiiJ01rA33xxw8CMOflS3OMjs0HJKfWy4r9gyM/y
+	 ljpC0P91mNLIA==
+Message-ID: <4818da7c-be7e-4f97-b5a3-bee05ada500a@kernel.org>
+Date: Wed, 7 Oct 2026 09:43:49 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v1 1/2] net: netmem: document netmem and memory
+ provider design in comments
+To: Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org
+Cc: "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ John Fastabend <john.fastabend@gmail.com>,
+ Stanislav Fomichev <sdf@fomichev.me>, Luigi Rizzo <lrizzo@google.com>,
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+ Pavel Begunkov <asml.silence@gmail.com>
+References: <20261005004958.3603059-1-almasrymina@google.com>
+ <20261005004958.3603059-2-almasrymina@google.com>
+Content-Language: en-US
+From: Jesper Dangaard Brouer <hawk@kernel.org>
+In-Reply-To: <20261005004958.3603059-2-almasrymina@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi folks,
-
-Changes since v1 [1]:
-  - Patch 3 programs the new case's CVAL as an absolute value near the
-    wrap instead of a negative TVAL, so a host stall between the
-    counter and timer writes can't make it fire. (Sashiko)
-
-A guest timer can fail to fire, or fire early, once the guest's counter
-is far enough from the host's. Where the hardware won't apply the
-offset itself (the physical timer without CNTPOFF_EL2, a CNTPOFF_EL2
-host while TGE is set, the virtual timer on x1e), KVM adds it to CVAL
-and lets the hardware compare the sum against the raw counter. The
-timer condition is an unsigned compare, and adding the offset to both
-sides of it preserves it only while both sums wrap or neither does: a
-guest whose counter is ahead of the host's by more than CVAL has an
-expired timer that never fires, and one behind it can have a far-future
-timer fire at once.
-
-Patch 1 computes the programmed value from the current count instead,
-and returns a guest hypervisor's own physical CVAL from memory where it
-used to subtract the offset from the hardware value. Patch 2 does the
-same for the virtual CVAL read on x1e, which has returned CVAL + offset
-since the workaround landed. Patch 3 adds the second case, a guest
-behind the host with a far-future timer, to arch_timer_edge_cases.
-
-So far it has only shown up in the selftest, which moves the guest
-counter half its range away from the host's. On a VHE host without
-CNTPOFF_EL2 arch_timer_edge_cases hangs in its physical cval = 0 cases
-until the vCPU is next loaded, which is what Zenghui saw on a
-Kunpeng920 [2]. On a CNTPOFF_EL2 host (QEMU, here) the same cases
-livelock instead. Both go away with patch 1. The arithmetic is wrong
-for any offset once one sum wraps and the other doesn't, and the fix
-for the selftest's case should be the fix for all of them.
-
-Tested with arch_timer_edge_cases on QEMU with [3], which has since been
-merged, under VHE, nVHE and pKVM, and under VHE with CNTPOFF_EL2 removed
-by id_aa64mmfr0.ecv=1, the host class Zenghui hit. Under VHE with patch
-1 reverted the new case fails. QEMU's TCG had a separate bug with the
-same offsets, which [3] fixes. Without it the test stalls under nVHE and
-pKVM as well, where KVM emulates the physical timer and patch 1 changes
-nothing. Not exercised here: patch 1's x1e paths in timer_save_state()
-and timer_restore_state() and all of patch 2, since nothing here runs on
-an x1e, and patch 1's CNTP_CVAL_EL0 read in kvm_hyp_handle_timer(),
-which only a guest hypervisor with a physical offset on a host without
-CNTPOFF_EL2 reaches.
-
-Patch 1 carries Cc: stable for the hang and the livelock.
-
-Based on Linux 7.3-rc3 (fd73f4a665989; also applies to kvmarm/next
-f91b534e81f23).
-
-Cheers,
-/fuad
-
-[1] https://lore.kernel.org/all/20260921140427.2211373-1-fuad.tabba@linux.dev/
-[2] https://lore.kernel.org/r/460258be-0102-e922-c342-4e87cd94b9e5@huawei.com
-[3] https://lore.kernel.org/r/20260921074451.3158645-1-fuad.tabba@linux.dev
-
-Fuad Tabba (3):
-  KVM: arm64: timers: Compute an offset-applied CVAL from the current
-    count
-  KVM: arm64: nv: Read a guest hypervisor's CNTV_CVAL_EL0 from memory on
-    x1e
-  KVM: arm64: selftests: Test a timer set past the counter's wrap
-
- arch/arm64/kvm/arch_timer.c                   | 27 +++++++++----------
- arch/arm64/kvm/hyp/vhe/switch.c               | 21 +++++++++------
- include/kvm/arm_arch_timer.h                  | 15 +++++++++++
- .../kvm/arm64/arch_timer_edge_cases.c         | 25 +++++++++++++++++
- 4 files changed, 65 insertions(+), 23 deletions(-)
 
 
-base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
--- 
-2.39.5
+On 10/5/26 02:49, Mina Almasry wrote:
+> Clarify the netmem, memory provider, page_pool, and skb fragment design
+> principles in header and code comments:
+> 
+> - Memory providers allocate struct net_iov or struct page, cast them to
+>    netmem_ref, and pass them to page_pool; page_pool, drivers, and the
+>    core stack operate on netmem_ref and must not downcast to page or
+>    net_iov outside dedicated netmem helpers.
+> - Memory providers are not restricted to net_iov and may supply
+>    page-backed netmems.
+> - net_iov is not inherently unreadable; future readable net_iov types
+>    are allowed.
+> - Per-provider logic belongs in memory_provider_ops, and per-netmem-type
+>    logic belongs in netmem helpers.
+> - All frags in an skb must share the same backing netmem memory type,
+>    and skbs with different frag memory types must not be coalesced.
+> 
+> Cc: Luigi Rizzo <lrizzo@google.com>
+> Cc: Björn Töpel <bjorn@kernel.org>
+> Cc: Stanislav Fomichev <sdf@fomichev.me>
+> Cc: Pavel Begunkov <asml.silence@gmail.com>
+> Signed-off-by: Mina Almasry <almasrymina@google.com>
+> ---
+>   include/linux/skbuff.h                  |  4 ++++
+>   include/net/netmem.h                    | 29 ++++++++++++++++---------
+
+./scripts/get_maintainer.pl --file include/net/netmem.h
+
+Returns "maintainer:NETWORKING [GENERAL]"
+
+>   include/net/page_pool/helpers.h         | 18 ++++++++++-----
+>   include/net/page_pool/memory_provider.h |  8 +++++++
+>   include/net/page_pool/types.h           |  6 ++---
+>   net/core/skbuff.c                       |  3 +++
+>   6 files changed, 50 insertions(+), 18 deletions(-)
+
+Changes LGTM.
+
+I suggest that you Mina is added the MAINTAINERS for PAGE POOL.
+And do we want a new section for NETMEM ?
+
+Acked-by: Jesper Dangaard Brouer <hawk@kernel.org>
 
