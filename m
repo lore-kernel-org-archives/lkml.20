@@ -1,203 +1,185 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010058.outbound.protection.outlook.com [52.101.61.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2A7F279329
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 07:03:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791356600; cv=none; b=Y4S6c9QPq4a580DFw8KIy8XViiFofvLHDx5KRSxxvuznMP/MEAcwiAc1ZXLAz5laXCuAhZ/k2mPAwpKjtfQFoLL0twJ3RwIB49UN5jM31Yx2XkUM6mXnHpAKkIv1UsClgVenqU8SwyA3P27Ai/pelCkr3kJ+LUNOfeQLq19fg0c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791356600; c=relaxed/simple;
-	bh=ogEzu6UuBrOBMLU1YQ+/foOwKAGOPzGySwOnvVrCrBo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F9OzoUxTCtoi3VDGeQZlT0QxM+dsejeN1cxzn7eaVnA7SZZT7tk/09OkRMNPeqLYVSias6DUd1QU4eEpQuldUa5UWTUr1cIkH6IidJ96zwz0PHMYzzxAYTSXIYAnR6bsv1ut+8l0s+509KJC4q7gnzgCzje+85kRj7lAAdDicds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TVE1ICbm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YBESaM6c; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 833A9360EFA;
+	Wed,  7 Oct 2026 07:03:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.58
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791356611; cv=fail; b=F1EaI2OigJSnDysrwtNyo0cT9KgJTBynMd62mmpl2D5Zx9RKmMRcnkBk7Qp8GRFOgf91xj30wgxlMv8jFpHNde4jYcP21viw9S8yK20Vug2WnvXyJ41L0W14QB8d+W3Z6Vs/n9FGE5w5Ww9+OiANmlclXY2hZXuNgNZ3Jruui4I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791356611; c=relaxed/simple;
+	bh=rgJ4QiBPEUYKKSBxlXOkbdt5q/l76Mke3AB/fMdnyng=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=XL9RKl78nAPDb+FTyyAPBp3g6sCv17n0a1UjrfcRi+k9Tw6ELHuPjcqDgTNa8ImbioaPbti4fi++vvoSmY3p57w35fvAO60OW9qs5C4+4nGSM902G+U2YezAd1oxRyKDMbxd87ynNqcuWV5RvLKoA3vCNUWz6JqEsHHdaXJdBgE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gehealthcare.com; spf=pass smtp.mailfrom=gehealthcare.com; dkim=pass (2048-bit key) header.d=gehealthcare.com header.i=@gehealthcare.com header.b=T55Z3AzW; arc=fail smtp.client-ip=52.101.61.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gehealthcare.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gehealthcare.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TVE1ICbm";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YBESaM6c"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6976VSlM3649924
-	for <linux-kernel@vger.kernel.org>; Wed, 7 Oct 2026 07:03:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=821v8tlX6UL8RPAzc5juUnjm
-	9WDDhS722BB+xkV9YBs=; b=TVE1ICbmkkYZgbIAKI8aLQQJ2Lt4g0HPSHosjhhx
-	azh1mwSx6toh4aavK/8l7SoSDOdXqJi+EripNJZkG/yjLm3Z4qX2HxNlSDATwWz4
-	R6QMGM0dBxX43rz2SRex2ANNnwkUC8EVrpemw92PtQOWg476WwSPAtlun/4JS5cr
-	xoax+OAdsjDaCyLtkszMq4f85bZXGqsvSgoolpNOvG1JJv+wB3i0Bu2kH0LN+kh7
-	SfZZBBHD5dO04iS/+1OUwlKlq7QHyLDVVBmIZInV6uk+3bR1IKtdFlx86HwOREja
-	Btvay3mRBjCCiudYaANZ5qG5uT9mxIN2LuoLYd1/RAJvZQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5gvrr3m4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 07:03:18 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-9308eafb465so897817585a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 00:03:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791356598; x=1791961398; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=821v8tlX6UL8RPAzc5juUnjm9WDDhS722BB+xkV9YBs=;
-        b=YBESaM6cJ1AuXWJvTp34xtcvB9eCnImE5b60bRG+hj5FrKsgRfGP/ncIbDNKAV9WKl
-         z8yiV6U6D+BZmwAPPpnm7cbolkU/9yoHY9Pb/Ct3qLjEztHPHLW3wJhg1yPden6k6NUL
-         MxEgVV5ClDy1AWFfTPQI0DpN3wUGxXr4tLUvw/CIWDtW/dPf9DsIgIGvJ+lj3E0AYbck
-         mS54szkiX4tTFzB17V5ET9czDQ5AP+yWPFriUWKmnbhj9IXSIrP+KPEcKRMLuJbpmxJ5
-         M4V3StCCHxjqS6JfX4c79jgA6j1uYYFLqEt7+mMXP5Kg32mb81/bYejMWlk8/cZlq+r0
-         fLng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791356598; x=1791961398;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=821v8tlX6UL8RPAzc5juUnjm9WDDhS722BB+xkV9YBs=;
-        b=M5gdRRCqWNhEfIQg941VP8KpT4YIIS+hePamzqmcXnoDv8KdA6aG1gv3S77JLxDnhi
-         KrXF1hjLFsNEEuqwn+Hb4uSARonMMtLAlnuFz/qQ51kxwBJWambCVYZ8bsOrIBHoH9mC
-         MhxC5V5bY5HEN0gSFg87fX+hR74u5yvVJ2OzHIZ4C6eejqTdfuFPi1q5PrH4kRTONQbV
-         tV1kSEyout3oefMA0VNvpvNUkAfArEh0MHMf9ZF3rcPoso4h1PscsvNLwv4sGGfgBfFv
-         YPYszx/kq4yC/fNKC9TPJ2Qqnc+VG2lgGORfXpZ63hvPDRlsn1milSqwJJGr5gdHfrIj
-         nsMw==
-X-Forwarded-Encrypted: i=1; AKwUvBxR6JAehq21sKc0KiQWstehywi7yfCcvVZBB7cm7bxxlnVmGfRn36URsg6wLi+8Eb2rwc5/5bbpJAwQaOk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mor12F6eo3Djgr34J9U7x2RExWcQamby75L7u6o7kIWrSpAO+3
-	E2QcjGt1RFWG4cDdTwK5ZWCGuZOZTkDg4oFaVK/4Aikg6WgyS8QaozNAl9kPISrRxhz48bo7kzE
-	I4fa7ZPtlodKH99INjN0MN4gjzh/yp3qSWf5xE0dGIuo1ma+ZlSEzw5DiVQIUWL6Yl+I=
-X-Gm-Gg: AYBFou03s6kAYRmZ3H5fas6U9O6l9xYJuFRdlq/Du1sQKaq8PTKG98Iup304S8iVKYC
-	DL+kXJvmhDaVTrxtwazx+Dwws9UTVzWUnQ2TwpVH2B26fyAQVv7cS/lcqYbhvtoZPDbm0VQvsr+
-	igAiX0MAlKAAlbZCS1VHHhfjFrajsuUZLia1vNF/qBV+ajE3CJi6xtHPox2DR3qLD7HyRjJs4sE
-	i1iKYVa4NT1h/im5uPQKS5bQJT8w2t26u3Eb4vXXkn2ZU6LvxvsXPHWPtlZ//mLbZAo7nMbG9ma
-	PMsfRLJFinjCiGDFhf7Ngry1qxvBIrTNL5IBjqhD8c49fw8hZPMW7mgtMQ4oLS+A7B5W1Wi817c
-	arh8UH7Ag1EGP1hNLCOBmQoa3XbVnULhMr697+b3rqTeOSBHWC7q3fUF/lXvPHR6pKPBkwXZdcb
-	he7aEygciYS+4n
-X-Received: by 2002:a05:620a:46a6:b0:93e:9807:9785 with SMTP id af79cd13be357-93e9b829e93mr263581585a.70.1791356597942;
-        Wed, 07 Oct 2026 00:03:17 -0700 (PDT)
-X-Received: by 2002:a05:620a:46a6:b0:93e:9807:9785 with SMTP id af79cd13be357-93e9b829e93mr263574285a.70.1791356597214;
-        Wed, 07 Oct 2026 00:03:17 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bccfe9d3e2sm417662e87.58.2026.10.07.00.03.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 00:03:15 -0700 (PDT)
-Date: Wed, 7 Oct 2026 10:03:13 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Muzaffer Kadir <muzafferkadir@mainlining.org>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Amit Kucheria <amitk@kernel.org>,
-        Thara Gopinath <thara.gopinath@gmail.com>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Kees Cook <kees@kernel.org>,
-        Tony Luck <tony.luck@intel.com>,
-        "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
-        Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-        David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
-        linux-pm@vger.kernel.org, linux-input@vger.kernel.org
-Subject: Re: [PATCH v4 4/7] thermal: qcom: tsens: Add support for MSM8952
- tsens
-Message-ID: <ze6klawno4rge2276cqwdiutvwbcnd7yby2l2x2gubwone36sg@zk3odztmoojw>
-References: <20261006-msm8952-initial-support-v4-0-ecdcc1ac620c@mainlining.org>
- <20261006-msm8952-initial-support-v4-4-ecdcc1ac620c@mainlining.org>
- <suzsbvsdlfrfsnvaerphqdycaaaiu5inh5uw5wups4jmfozkbt@n4lsb5pfdhbw>
- <f0b58a7b-6257-4dc3-b0f3-eba76ecc774f@mainlining.org>
+	dkim=pass (2048-bit key) header.d=gehealthcare.com header.i=@gehealthcare.com header.b="T55Z3AzW"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KCd/M9ZVZuC/Z2q2I2OFyMnNzNnq+YjlDIuuBrbmIDKY2+WWnJp+A09nyijBbLDWnek8TC08lpRUxE+saqxQWWvi8QJhBOA2/T1VVbakhqMQRvkxQgEsdlCA2av5fiMSsKhvxfbinUGXXRWNsHTZV1YR0RGSpx6orzucGwqTBoxjaeDf63yY5nUVKUT83cJVtKnj8fALEas9tsRe15cMyMOZR5wNT8OOi8xwwRLYeGy4HX7Z6uGl1X9ApiCbbAqvBBzGDJVy+GC6STg8U0kj75DUHAkrkG05PwfoMrwIoH7X3MOYNKPZ+CgGPAKTioAT3a1o4EcHJGOPcUeXjbQdlg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=txmoDk/ds2V4BjTKqJdf0tNY0fBbXynWMop4yiCdJ5U=;
+ b=GpFG0qP4imARbT15nJYJ/60UmnTciLJRHkFLfKAtkemLWfQntit8W7Y6535e5+9QquVQLfjfThDJX3WL40M3a0IGs8h9LhUVTTe2+fTHbpAOL4WXaz/qGeyGwj1LhvraMTeog6kiZscLUYYIdGzwzM4/TiVYrTWy58mDtmTpj9RUcjLP8333EXEHxBLwN9R5Bzc9vTKd43rk5AvAFIw8tjIXtqBf7Iyexwvz6fJzAUDBGL1gTPvhEz8OyUcYHgwMkn75p2t9QXZAuRk4raxLis5AlaXh/fUCeQLIPzfKri84Hr6MzvFD8jvtMrYkMsdZ/x+cqc7/hiOE5sHev6qWtg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 165.85.157.49) smtp.rcpttodomain=vger.kernel.org
+ smtp.mailfrom=gehealthcare.com; dmarc=fail (p=quarantine sp=quarantine
+ pct=100) action=quarantine header.from=gehealthcare.com; dkim=none (message
+ not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gehealthcare.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=txmoDk/ds2V4BjTKqJdf0tNY0fBbXynWMop4yiCdJ5U=;
+ b=T55Z3AzW8yOTfiyHR3lUiObU+qaSZfEdEDuoBGylWREqHSV2EZafMAl2u+CHszy2fDI+paUZzWb18P/tutmm5miWEUpjbXhJHL0rVrrQqUMa3oNSaMT1jeM+9dtE9Vcb8dA2vBTqUVwXhsfHHJov+OY4oW3BRAB2GF3dptag1VCh98X7jZHQ2rr/f5QABmZIN0+LBfWxNd0y55U+c4D24z1nzecdzYZOyXVTtkwGZvvAxH6aIr6Kwmn2U4ZZ0t2R1Le/Rt5fghPdPpZ3ZV8I852Iv1ozT6EGG4yCd207ux8m1I3CXvjhdEfqP7MEGAjLYyO5tsYoAF5MESh/xBAybA==
+Received: from DS1P223CA0005.NAMP223.PROD.OUTLOOK.COM (2603:10b6:8:453::13) by
+ CH9PR22MB454451.namprd22.prod.outlook.com (2603:10b6:610:33b::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
+ 2026 07:03:19 +0000
+Received: from CY7PEPF000000F3.namprd05.prod.outlook.com
+ (2603:10b6:8:453:cafe::2f) by DS1P223CA0005.outlook.office365.com
+ (2603:10b6:8:453::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.21 via Frontend Transport; Wed, 7
+ Oct 2026 07:03:19 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 165.85.157.49) smtp.mailfrom=gehealthcare.com; dkim=none (message not
+ signed) header.d=none;dmarc=fail action=quarantine
+ header.from=gehealthcare.com;
+Received-SPF: Fail (protection.outlook.com: domain of gehealthcare.com does
+ not designate 165.85.157.49 as permitted sender)
+ receiver=protection.outlook.com; client-ip=165.85.157.49;
+ helo=atlrelay1.compute.ge-healthcare.net;
+Received: from atlrelay1.compute.ge-healthcare.net (165.85.157.49) by
+ CY7PEPF000000F3.mail.protection.outlook.com (10.167.247.151) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.496.14 via Frontend Transport; Wed, 7 Oct 2026 07:03:19 +0000
+Received: from zeus.fihel.lab.ge-healthcare.net (zoo13.fihel.lab.ge-healthcare.net [10.168.174.111])
+	by builder1.fihel.lab.ge-healthcare.net (Postfix) with ESMTP id EDC311A2D0;
+	Wed,  7 Oct 2026 10:03:15 +0300 (EEST)
+From: Ian Ray <ian.ray@gehealthcare.com>
+To: Adrian Hunter <adrian.hunter@intel.com>,
+	Haibo Chen <haibo.chen@nxp.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	Kamal Dasu <kamal.dasu@broadcom.com>
+Cc: Ian Ray <ian.ray@gehealthcare.com>,
+	stable@vger.kernel.org,
+	linux-mmc@vger.kernel.org,
+	imx@lists.linux.dev,
+	s32@nxp.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] mmc: sdhci-esdhc-imx: map unsupported driver type to Type B
+Date: Wed,  7 Oct 2026 10:03:12 +0300
+Message-ID: <20261007070313.863-1-ian.ray@gehealthcare.com>
+X-Mailer: git-send-email 2.49.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f0b58a7b-6257-4dc3-b0f3-eba76ecc774f@mainlining.org>
-X-Authority-Analysis: v=2.4 cv=W66txhWk c=1 sm=1 tr=0 ts=6ac5eeb6 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=Oh2cFVv5AAAA:8
- a=OuZLqq7tAAAA:8 a=EUspDBNiAAAA:8 a=FwduPMDodLxw-pZHfsYA:9 a=CjuIK1q_8ugA:10
- a=IoWCM6iH3mJn3m4BftBB:22 a=7KeoIwV6GZqOttXkcoxL:22 a=AKGiAy9iJ-JzxKVHQNES:22
-X-Proofpoint-ORIG-GUID: hnRO-eq3bYgJKJxpI7xIOF2HzvHebLCP
-X-Proofpoint-GUID: hnRO-eq3bYgJKJxpI7xIOF2HzvHebLCP
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAyNyBTYWx0ZWRfXwZLfUMmYZxqi
- viC/bJRBDFy4r81hzc0Prze6TFVfEuLlF/uF4x+taSeerD6Elq5tebZL8+EcKtxSI21yA/mbo74
- wsIsb98PE4e5uYeDLcQ/rpN75MR20G8RzAlGKjMh/EGeaiqltUAZJkqyFeQrmjvfFnQ6FI8r7V7
- NWMvpuEaVaib4czJoQTrjTBdbmSKgTQIzsf0qghMUmx+JlsPSnF/ZU6pzDD6uUyEZRL0N03u5Aj
- TzYvFxDJVkmjQDrgds+87iK2NC2EOl/+22cO6C12pkuzbHEaFXY2NOXw84b5O+ahdqgqmyXts+r
- i9+XAq9rM4alB2MYjF/ITXT6ALNRtjx4I4KsM+oBbS2tMXFoUDDRBx1hkqJWEOL9y5iqmf6hgJR
- /pHaNkB5coQTXqtq1QB89otuCfEWQc6wxax2BAXOiUDYxJoFOaTfymsJyc3UMaRHGllRi88nmVq
- Vunq+WIfZXi5XUDxtUA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAyNyBTYWx0ZWRfX2fYs7i4Cngaf
- YA+bc0qcjCiVIKRkPPEWr+vtrf92Bgkm58PyAIyCwCfAuNvGE1HPE2kY9/FSr1GQy0550JuTuR/
- 9B4osNhTC7Xemqq+DKMNSjdALwwnwd4=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-07_02,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 phishscore=0 spamscore=0 bulkscore=0 clxscore=1015
- malwarescore=0 impostorscore=0 suspectscore=0 priorityscore=1501 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070027
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY7PEPF000000F3:EE_|CH9PR22MB454451:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 9fad16c6-e719-4c84-ff43-08df24411196
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|376014|82310400026|23010399003|18002099003|13003099007|11063799006|6133799003|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	Ej0xbdRhY7DQAK+mTNkBr8R6C+3nyv9f5ru6zX98Ot5sHIwszfKdYpeo3DTV3x9SCFfVSS0LKIo2RN6Gn/JuVNlIvQGHRK9F0mFWr4NV6qwahv+fDoTY/6bwsPRm8Zhy0wnZOmrkxB8661b1qClWccsClsUULBsOBuIIqcfjecUc0cgvsbV349ofJt1g+wPO4OK56tYv2/2ouzRtDWtnRYOH/DNKRjvVW3P3/TDmzUOBFLSPWOiT+KFIsBAFgGtY4jDmWgNtbnRDQWJelL3FmHbYANbV/EcqxyYy13CBInyy8tQIQwqqFhsGDQFcOmYkMxcEHzfwEW87PtVT7NdticeZuzwKdHxAjScXHsCpsidGllz8hvCGLLka2kvy+5Xw7P5LE2LwyaVbl+otlRSpHNqVkw14nF6wP2SQARob7xvfuytb6AkMBfoO/JwMHW4DNw/cQTsCRNyeUVSQGm4e0GFeuIMAjl/YzYw548tqZjWm5tkAlLuv5iVc1W3QdVKC9NTnCFxzKQrdd1JKnVJ1331W+g6cwt63DQbOnAh5m472erJMvQmiakodDb6/SAXlnyTZPYi8+6vgomBBpzFbpAKYovB6EW2UBXFX7yF+4XUovgPSH8fmuQYBo99CsGrMrfP2V5+Voc5OzAgfXNHQ2kyBCstGgwvi2iN9L1Rj3TotqbBEj5cM+0ul8uWTxXhq1CJJ5bzk7Hn/eOX30agy/Q==
+X-Forefront-Antispam-Report:
+	CIP:165.85.157.49;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:atlrelay1.compute.ge-healthcare.net;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(23010399003)(18002099003)(13003099007)(11063799006)(6133799003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	twt2k50VTCy+6rpG2LhyGn9MYyZ5Wi/nNLJZ3dhWcsqN1uuks0OiRtZyd8b+1TeeGqCMoZ8mkkv9gbNF79kZSY0NpNTBx5E6671fU6YBe43hjTFo6WrEgNxd5GjWtoOTSrIaSzoCaviIaF6Ykby0S0Pl6D/dC1W7EYtxx8WA9KIJAnu2BFu6nblXFyNovAmZWjG8hji69wjAq4HEJNnBj3w3bEWVbB7XzzlKHEooKDuhOceLaPWOF5y1P5Xt+hVaICndqwevjCb4HMImmVek6eZ06b9SIGTtat4u0+1Fxoq8NG1Tl5mI8deu7FYhu7ju/6WRXq4GaAkf1GyKVvFysMcDcYXNp5RV2b6wFFx2MZ+vDBsm95Al5d2wqP4e8Dcn6YmOGS82Ss38sfLLZB2eFJI7NKNnFPx1qxulUFYB7I6uZW19khJtTpqRQDqT2VxM
+X-OriginatorOrg: gehealthcare.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 07:03:19.2940
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9fad16c6-e719-4c84-ff43-08df24411196
+X-MS-Exchange-CrossTenant-Id: 9a309606-d6ec-4188-a28a-298812b4bbbf
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=9a309606-d6ec-4188-a28a-298812b4bbbf;Ip=[165.85.157.49];Helo=[atlrelay1.compute.ge-healthcare.net]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-CY7PEPF000000F3.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH9PR22MB454451
 
-On Tue, Oct 06, 2026 at 04:49:12PM +0300, Muzaffer Kadir wrote:
-> On Tue, 6 Oct 2026 16:19:04 +0300, Dmitry Baryshkov wrote:
-> > On Tue, Oct 06, 2026 at 03:15:11PM +0300, Muzaffer Kadir via B4 Relay wrote:
-> >> From: Muzaffer Kadir <muzafferkadir@mainlining.org>
-> >>
-> >> Add support for tsens v1 block that exists on MSM8952
-> >> with 11 tsens sensors. Sensor Offsets and slope values
-> >> are taken from downstream.
-> >>
-> >> Link: https://android.googlesource.com/kernel/msm.git/+/refs/tags/android-wear-7.0.0_r0.3/drivers/thermal/msm-tsens.c#1621
-> >> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
-> >> ---
-> >>  drivers/thermal/qcom/tsens-v1.c | 44 +++++++++++++++++++++++++++++++++++++++++
-> >>  drivers/thermal/qcom/tsens.c    |  3 +++
-> >>  drivers/thermal/qcom/tsens.h    |  2 +-
-> >>  3 files changed, 48 insertions(+), 1 deletion(-)
-> >>
-> >> diff --git a/drivers/thermal/qcom/tsens-v1.c b/drivers/thermal/qcom/tsens-v1.c
-> >> index faa5d00788ca..f4201748ea29 100644
-> >> --- a/drivers/thermal/qcom/tsens-v1.c
-> >> +++ b/drivers/thermal/qcom/tsens-v1.c
-> >> @@ -145,6 +145,37 @@ static const struct reg_field tsens_v1_regfields[MAX_REGFIELDS] = {
-> >>  	[TRDY] = REG_FIELD(TM_TRDY_OFF, 0, 0),
-> >>  };
-> >>  
-> >> +static int __init init_8952(struct tsens_priv *priv)
-> >> +{
-> >> +	for (int i = 0; i < priv->num_sensors; ++i)
-> >> +		priv->sensor[i].slope = 3200;
-> > 
-> > Where are these values coming from? The driver that you pointed out
-> > reads them from the QFPROM (like other tsens platforms do).
-> 
-> Hi Dmitry,
-> 
-> Slope is coming from this:
-> https://android.googlesource.com/kernel/msm.git/+/refs/tags/android-wear-7.0.0_r0.3/arch/arm/boot/dts/qcom/msm8952.dtsi#550
-> 
-> calib_offset values are coming from these:
-> https://android.googlesource.com/kernel/msm.git/+/refs/tags/android-wear-7.0.0_r0.3/drivers/thermal/msm-tsens.c#1756
-> https://android.googlesource.com/kernel/msm.git/+/refs/tags/android-wear-7.0.0_r0.3/drivers/thermal/msm-tsens.c#1800
-> 
-> Should I drop them?
+Since commit 5a52c5701a67 ("mmc: core: Fix host controller programming
+for fixed driver type"), the eMMC driver strength is passed directly to
+mmc_set_driver_type(), which propagates the value through ios.drv_type
+all the way to sdhci_set_ios().  For value 4, SDHCI correctly warns:
 
-The slope you are setting matches the SLOPE_DEFAULT, so I guess it can
-be removed.
+  mmc2: invalid driver type, default to driver type B
 
-With that in place:
+The host driver type has no effect on this controller: esdhc_writew_le()
+never programs the driver-type field of SDHCI_HOST_CONTROL2.  Hook
+set_ios() and force drv_type to the always-valid Type B, so that SDHCI
+never sees an unsupported value.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Tested on i.MX8MP (usdhc3, eMMC in HS400) with
+`fixed-emmc-driver-type = <4>`: the warning is gone and the HS_TIMING
+register contains 0x43 as expected.
 
+Fixes: 5a52c5701a67 ("mmc: core: Fix host controller programming for fixed driver type")
+Link: https://lore.kernel.org/all/20260926122908.866-1-ian.ray@gehealthcare.com/
+Cc: stable@vger.kernel.org
+Suggested-by: Adrian Hunter <adrian.hunter@intel.com>
+Signed-off-by: Ian Ray <ian.ray@gehealthcare.com>
+---
+v2 -> v3: Force drv_type to Type B unconditionally;
+          hook set_ios() for all esdhc variants, not only usdhc (since
+          the driver-type field is ignored in all variants);
+          reword comments.
 
+v1 -> v2: Move fix from mmc core to sdhci-esdhc-imx driver per review
+          (see "Link:" above); always provide a valid host driver type.
+
+ drivers/mmc/host/sdhci-esdhc-imx.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+
+diff --git a/drivers/mmc/host/sdhci-esdhc-imx.c b/drivers/mmc/host/sdhci-esdhc-imx.c
+index 6ab59d3e346f..931e383748a9 100644
+--- a/drivers/mmc/host/sdhci-esdhc-imx.c
++++ b/drivers/mmc/host/sdhci-esdhc-imx.c
+@@ -1142,6 +1142,20 @@ static void esdhc_reset_tuning(struct sdhci_host *host)
+ 	}
+ }
+ 
++static void sdhci_esdhc_imx_set_ios(struct mmc_host *mmc, struct mmc_ios *ios)
++{
++	/*
++	 * This controller has no driver-type control: esdhc_writew_le()
++	 * discards the driver-type field when writing SDHCI_HOST_CONTROL2.
++	 * The programmed value is therefore irrelevant, but SDHCI rejects
++	 * non-SD values such as 4 (eMMC 40 ohm, from fixed-emmc-driver-type).
++	 * Force an always-valid Type B.
++	 */
++	ios->drv_type = MMC_SET_DRIVER_TYPE_B;
++
++	sdhci_set_ios(mmc, ios);
++}
++
+ static void usdhc_init_card(struct mmc_host *mmc, struct mmc_card *card)
+ {
+ 	struct sdhci_host *host = mmc_priv(mmc);
+@@ -1952,6 +1966,9 @@ static int sdhci_esdhc_imx_probe(struct platform_device *pdev)
+ 		host->max_timeout_count = 0xF;
+ 	}
+ 
++	/* No SDHCI driver type control */
++	host->mmc_host_ops.set_ios = sdhci_esdhc_imx_set_ios;
++
+ 	if (imx_data->socdata->flags & ESDHC_FLAG_MAN_TUNING)
+ 		sdhci_esdhc_ops.platform_execute_tuning =
+ 					esdhc_executing_tuning;
 -- 
-With best wishes
-Dmitry
+2.47.3
+
