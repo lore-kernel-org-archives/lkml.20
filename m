@@ -1,155 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com [209.85.221.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E6474915BC;
-	Wed,  7 Oct 2026 14:33:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E8E387364
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 14:33:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791383600; cv=none; b=MrMS5cBNOXreo877hByxt0utHOEmZthBcz8H6bLqLWpfN/wnL7Fk/BUR/UyvgqB6PqU4FBEw23UzXVbxU5VSNRY3JOKtQi5FW8XwdSL9fmUyWwBFOW3iQWYZYL7JMiUty+/I+SQDUq0b3JjJ1XMzw8CnSAC9jzq/2+hYWZ5+QX8=
+	t=1791383616; cv=none; b=NiKpm1d4q8a1oa77zhhgzLNqHj3/JLxZ6B0xi2Oee0BoXpghQArRrdfiD2iQ9cIAA2ynrWxcpT+oYsWxO17HpuhXtXzYF9pOE7E6V/G7rAFNPxCwwWuEe2V2TcTdaWvbgeyNTBSywZtCK0z5EHRgfvLHEkAuOr2cyNa87q5eBeQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791383600; c=relaxed/simple;
-	bh=aLph5sUndoTN3nczdDoZA2kTMuvyEill4ZzdOLZrZ2E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XQ/Wn6Ybcg/DRI17+juXIXaT0n4IUoPE/6YgjL2qjtr2V6nxTMbNCSAqHSoCjIKvVpcvlL3WGSh6xxtX0YgnFj9liMopZzKFqPMexjacCtJPg/V9/AA5LeVSZOQLu7Y+Ucknv1WPeE6od87+JtplsesNIbocQ6DHKtCrnNUEczs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wp5yiz7F; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791383616; c=relaxed/simple;
+	bh=e+VgyD6SZLSBmSGzU3Bto41OTsHMD52dBjAauy1481k=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=Kq8Q/22sEWeuUvwwRc1XbbzwybH1RsFpotWEmfj+FkliTkvWqxEhdNz8BUDxAMsSkZ68SaRedIA+A1ANMT/qrVfI7fNiXid6KiNMz8oByVgl3fBt91zOLfgPtw3w9QgxjiNhc0ggf1zoC4yB4JGM5MnsJxX0LBXZ6No/J8L/okU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=lqtEdxTG; arc=none smtp.client-ip=209.85.221.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wp5yiz7F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 022DE1F0089B;
-	Wed,  7 Oct 2026 14:33:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791383596;
-	bh=MnVpOMa/A/9KOxtJhbCxt7dzW/Oxp49fSXL9sK+W888=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Wp5yiz7FSnXP8YbANW2fUpYkIKtiRhCjxpqevHsX0ptzxDUNeLOv/aykt3RMVAuG3
-	 sPoohRkX2WfRPLR4Omwn16wK9xzd+uYZj7al/rldsar6v9wmWINKiKx3v3amwYSGXP
-	 +vtKj94f/lABqBmdsij0UaMPfcTVSJJHFbNoFnPGC4/j0PY4/WWgrl+yjxiZXUPb/C
-	 o/4L0laXeNaQzLHS4+wFYM8FjE8UrtIabUkiNo8/p5frr7yR+cukrXD2d+mR40KdKE
-	 dKMhWg+aIiNIdAyCXOncGsR38IuJkILritikd7fTdvKHte+oFKIzsB3SLG2S44jp5M
-	 U/7sRmBMITIaA==
-Date: Wed, 7 Oct 2026 15:33:10 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Coia Prant <coiaprant@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>, linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v13 1/2] dt-bindings: phy: rockchip: naneng-combphy: add
- rockchip,sgmii-mac-sel property
-Message-ID: <20261007-9753b5de7344a15472337c6d@squawk>
-References: <20261006162807.2843858-1-coiaprant@gmail.com>
- <20261006162807.2843858-2-coiaprant@gmail.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="lqtEdxTG"
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48c46582442so2122495f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 07:33:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791383611; x=1791988411; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/TOyKHfLc6kuyaXAU2rSomHrXK5rbC2R871XYjmy88o=;
+        b=lqtEdxTGDzcyiKZDlgs7tQhnA/QxN3/6GrWuVRhrnUEb76jODPZfOGrhIzpp4eXXLx
+         of8jIHYaeeRqo9Z3wex3z4cGfybRr9RyxQToALIktBqOkXq7zgsrKatAj2LM2zeVQ0c4
+         489qRa5I+oPEyA2QqhjSIhdsLNIFscWw2h9JOnKk4m9xyJwkjYGcV/zpL7+Vqxkv2GAV
+         RPzENSmIw7B9whEUBuNPgLx09EuqGwBZdPa0rm0u7tykAytIJvOVVm7H/ZAD7DR8dx7F
+         bJxhXsmN7SjO3u9pBLUeKvBB2iTNYbLpAWZeSh45hG4Igde8OsWzeuEC+oj9bTWCx0rk
+         8XZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791383611; x=1791988411;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/TOyKHfLc6kuyaXAU2rSomHrXK5rbC2R871XYjmy88o=;
+        b=CZDl6j95nGVkuG1GHqUsSHoo8BbicXQxhYLXciQW7cfqo8HNv4WSA6IqmwNGKSfiJt
+         LXhP19+Y8oPwSRpUNbsXqk1qfWYjX73EX8prUJa2wRX2Dd82xEjU/3Ki9T6NGS6c8ulW
+         6rPYeinw6lTu/KxBD1vRElM1UnTD8ZR2YluqDJd1/S71EPzWeskCkuyGqDA3vXNh/AGC
+         pBBM90iZiWLiPKuyGkpJn8jcQZ+NF1nFOQdiaD9lHtcAYpm5IWhNIh7tP353H9B1ofrk
+         S5pAJu8fcNttcR80TmzVFDhxBNV33U+/BJiSm79pyp2i53Rqqv7zmcw+vAMfePcT9mRb
+         qdyw==
+X-Forwarded-Encrypted: i=1; AKwUvByeJ5MMzNjdelja0FsTkNMXaLbyr9C+wyKasibplFLVpoB77721pU2bEETdtgg+sWZ4hmU5MZynO/AcUE0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKHe0aslp5k3jLNocTWDFSDAcHlcHWcJ0rZ8TqqE6UxU7gjP9AW
+	UFcMdvZ2o7AUCURD5EId4gvw8umc/NKcAg3QXgxAtPZGGKH/Hq6abaXVzQ2EfoGKR9zwqXX2HX8
+	DSHDkqzBQ8Ug8cCw4zw==
+X-Received: from wrbaz28.prod.google.com ([2002:adf:e19c:0:b0:48c:607d:f1e3])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6000:612:b0:48a:fbd2:c2b6 with SMTP id ffacd0b85a97d-48c728ab756mr4072442f8f.55.1791383610361;
+ Wed, 07 Oct 2026 07:33:30 -0700 (PDT)
+Date: Wed, 07 Oct 2026 14:33:25 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bYpco44aYbz7Qmdh"
-Content-Disposition: inline
-In-Reply-To: <20261006162807.2843858-2-coiaprant@gmail.com>
+Mime-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIADZYxmoC/x3MwQqDMAwA0F+RnBdo6timvzI8uDZugZFKUkQQ/
+ 31lx3d5BzibsMPYHWC8iUvRBrp0kD6zvhklN0MM8UYh3PElmtkwFfXylTxXxrorriZaHRPFnoj 5sVwHaMdqvMj+/5/Tef4AZhFLD28AAAA=
+X-Change-Id: 20261007-binder-consolidate-txn-prints-c12311ee8f49
+X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1220; i=aliceryhl@google.com;
+ h=from:subject:message-id; bh=e+VgyD6SZLSBmSGzU3Bto41OTsHMD52dBjAauy1481k=;
+ b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBqxlg47RNG2y3+qPIPORV9w+ffgXQgFfhQYtIyL
+ w6m+8ER7k2JAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCasZYOAAKCRAEWL7uWMY5
+ RmQmEAC5dLLwAjv468ldydHbUA+JwoOt27t+0kfWDQRYGyzcncAS3AgZQe8Q1MozW+Qtj6Z1+pr
+ gPF+l7y0G0WBZZDi/ZgD7lNYefoUz5c6qakJU5ejdGxooHQC2geYTUfAU22nxKPMdCkFQDE9Ug/
+ Z4b7ZyXBf7+0MbPgLuvbgrvo0wndbVFjQagksEL9Fu+yRPXr8H2B/5UTcycRc5rijqypMcezLoQ
+ ZWQ4bkq4ZRWxCE4tvNoOvBaxXyuNzCbcZqJuqRy0jZiQfyFOdicBVaPkdBxEfvlI5L+9NHuh0qe
+ OcPt2fCyjv4ckFDVcD0HBIjZEwGK4RNduOSIPrhYDShXwCkQOlpcQRzD/b3mPbgh2mjyTWTdvrr
+ YpAr2roxkiH9YbZbSmX8RjbQQyJ8dxAN4xAj05q+Rkgv9WxzO/7SLAhyk20pyJxhSanGT2Rhm16
+ 0NxvgbHlTO9bhsV4BsZ9U2u6sT4ubmQ/KnY8FEcGTyCwoRPzMYQVuV1nkX44UotCmuta4J93XMg
+ XosdmkgYmF64SV7hC6JgTm3jW15AY66hB5w0KPp2C9IQcSKVzqiIKb6zscOsZ22YBqTShaziYtk
+ v7fyrwFI2b64cV4j2ocAhUZbNa+HDVpfy7LbWm8CW65C9i2lXnQ28uoMrziJZuSKu8LhRW/ojVE fDIGDjTJND5LK3g==
+X-Mailer: b4 0.14.3
+Message-ID: <20261007-binder-consolidate-txn-prints-v1-0-c1032ed3221f@google.com>
+Subject: [PATCH 0/3] rust_binder: consolidate transaction failure prints
+From: Alice Ryhl <aliceryhl@google.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Carlos Llamas <cmllamas@google.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	"=?utf-8?q?Bj=C3=B6rn_Roy_Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	"=?utf-8?q?Onur_=C3=96zkan?=" <work@onurozkan.dev>, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Alice Ryhl <aliceryhl@google.com>
+Content-Type: text/plain; charset="utf-8"
 
---bYpco44aYbz7Qmdh
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This series is split out from "Rate limited printing for Rust" [1] so it
+can be routed through char-misc-next independently.
 
-On Wed, Oct 07, 2026 at 12:28:05AM +0800, Coia Prant wrote:
-> On RK3568, the SGMII interface can be routed to either GMAC0 or
-> GMAC1 via the pipe_sgmii_mac_sel bit in the pipe GRF registers.
->=20
-> Add the optional "rockchip,sgmii-mac-sel" property to allow the
-> device tree to select which GMAC controller is used for SGMII.
->=20
-> The property takes a value of 0 (GMAC0) or 1 (GMAC1). The hardware
-> reset value is 1 (GMAC1), but this can be overridden by setting the
-> property to 0 for boards where SGMII is connected to GMAC0.
->=20
-> If this property is absent, the driver leaves the routing unchanged.
->=20
-> This is necessary for boards such as the Ariaboard Photonicat, where
-> the SGMII interface is connected to GMAC0 and needs to be explicitly
-> configured.
+Patch 1 implements ZeroableOption for Error so that Option<Error> can be
+stored in structs deriving Zeroable. Patch 2 updates TransactionInfo to
+store Option<Error> instead of a raw i32 errno, and Patch 3 consolidates
+the transaction failure prints into a single debug print.
 
-I've written about 3 responses to this and deleted them all.
+Link: https://lore.kernel.org/r/20261007-pr-ratelimited-v6-0-f14accd4ea3b@google.com [1]
 
-This feels like something that should be set by some existing mechanism,
-like the phys property, or by the mac driver when it realises it is in
-sgmii mode - but I think neither actually fits here? The latter doesn't
-work since you need to differentiate between instances there anyway,
-which requires some info, and the former doesn't work with phy-cells
-being 1, since that 1 cell is needed for the phy mode itself.
-The other thing is pinctrl, while there's no "pin" here, it's
-determining routing within the soc which is the realm of pinctrl,
-probably pinctrl-single. But I think that's just really way
-over-complicating everything... Plus, Rob didn't yell about this aspect
-of things when he yelled about the other things you were doing, so
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+Signed-off-by: Alice Ryhl <aliceryhl@google.com>
+---
+Alice Ryhl (3):
+      rust: error: implement ZeroableOption for Error
+      rust_binder: store Option<Error> in TransactionInfo
+      rust_binder: consolidate transaction failure prints
 
-Thanks,
-Conor.
+ drivers/android/binder/error.rs       |  4 --
+ drivers/android/binder/thread.rs      | 78 +++++++++++++++--------------------
+ drivers/android/binder/transaction.rs | 28 ++++---------
+ rust/kernel/error.rs                  |  4 ++
+ 4 files changed, 47 insertions(+), 67 deletions(-)
+---
+base-commit: d47322a612daf8e97b2e5e4dbbabdff27080c1ec
+change-id: 20261007-binder-consolidate-txn-prints-c12311ee8f49
 
->=20
-> Signed-off-by: Coia Prant <coiaprant@gmail.com>
-> ---
->  .../bindings/phy/phy-rockchip-naneng-combphy.yaml   | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/phy/phy-rockchip-naneng-co=
-mbphy.yaml b/Documentation/devicetree/bindings/phy/phy-rockchip-naneng-comb=
-phy.yaml
-> index 379b08bd9e97a..442a1df193ad2 100644
-> --- a/Documentation/devicetree/bindings/phy/phy-rockchip-naneng-combphy.y=
-aml
-> +++ b/Documentation/devicetree/bindings/phy/phy-rockchip-naneng-combphy.y=
-aml
-> @@ -80,6 +80,15 @@ properties:
->      description:
->        Some additional pipe settings are accessed through GRF regs.
-> =20
-> +  rockchip,sgmii-mac-sel:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    enum: [0, 1]
-> +    description:
-> +      Select gmac0 or gmac1 to be used as SGMII controller.
-> +      Set this to 0 to route SGMII to GMAC0.
-> +      Set this to 1 to route SGMII to GMAC1.
-> +      If this property is absent, the driver leaves the routing unchange=
-d.
-> +
->    "#phy-cells":
->      const: 1
-> =20
-> @@ -105,6 +114,10 @@ allOf:
->            maxItems: 1
->          reset-names:
->            maxItems: 1
-> +        rockchip,sgmii-mac-sel: true
-> +    else:
-> +      properties:
-> +        rockchip,sgmii-mac-sel: false
->    - if:
->        properties:
->          compatible:
-> --=20
-> 2.47.3
->=20
+Best regards,
+-- 
+Alice Ryhl <aliceryhl@google.com>
 
---bYpco44aYbz7Qmdh
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasZYGgAKCRB4tDGHoIJi
-0i7pAQCEHLUbeUseRijomPdK42ASMNkHPbzWqVbVEJD+RePnsAEAsqjwg12DjFm0
-FP34Zhrf7NpGU/snBsueFHKAd/JzuwU=
-=7ky/
------END PGP SIGNATURE-----
-
---bYpco44aYbz7Qmdh--
