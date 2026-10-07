@@ -1,35 +1,46 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35F193D9DAC;
-	Wed,  7 Oct 2026 06:25:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5B993F5BFA;
+	Wed,  7 Oct 2026 06:25:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791354327; cv=none; b=kR97Nl8IgqcQlrw4W1JBSGALEGG/jH+mfgX3++5cj9aEpTg9CqbFbbamIrtKRggSJJJsKjbU5492ZrNWTMwD2MLJMtIatvFQahgN/lwxIBdR0M8cyseEVzwiblAMIMw4ibTh6exDeYbrNYqTcPHMC+1XTNngzBtjVrokkDt3lgk=
+	t=1791354357; cv=none; b=HVlMYa8pNsHyB1P1ouMF8qM7t0mKHSHOVOBvV294YNK1IgaxZrH1iHZ8uYqwoZ/cqSiPlQxrSSXQgTqPWSC3FoJQIaRWsJh+sTVU1rIvxF279RAGTdRzD/1PlEn+RmEm5eBLpMFdgD4O9gNW7bwSw5jSy5cO4HMZ1PylM0BT+cQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791354327; c=relaxed/simple;
-	bh=/uPd5NySCOy42SqeiauxedVJtr5HTm2epUe2L5pQVUA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dBLx+5QvuBKiX/XUd2Q2pNhh6OgbMHL7/xYmLPfDDJdxW2b7nJ523P6YC4oiTJYJlPBk9x0eCR8i03lI8olksxssBF95iZK7RgOLu6l4AA2wD1nKPMghycQmWKRyf9X1Ne7Q23ugYSiQG3K1IQDMriEPCHazABIRxFYXiOEynI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=OEVEFzv8; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791354357; c=relaxed/simple;
+	bh=IHX18+Z8DCxWdJ/mJd1fhwAHjvsQaKKztpdPLqxruYo=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=XdTxFC5/KFMHbldjIZl0VyS1txXDj6mj8jp4lbU/5Q3gsvGxjuNRAotP2YKs8xHHkQC/MFIRhn/NuFVcdWIQ8xLuyBD29S5tAUURqaX4+0Vq0Ud8Vao4As+epwSwzSLt57Vi8CgO2tznnkhTQgZkb6yUl3CHIihFxUW+QGtDGWs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=QFWTUzwg; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="OEVEFzv8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
-	Content-Type; bh=MmWP2vge6LnbvH4d8lOidjYjO9CgllmRxPD5ReASLWE=;
-	b=OEVEFzv8GIFiONK0sMa2bA+z4jE8QtTDMzEzqkg8gicZS0MFORRFug+t+b0mu2
-	w0jI9lp4yjwqJD1qrhb/xmrRYsjBphfILhQSoax55XxbQ9VSYtyXC7ze6ztVI+Nm
-	GceES9Ivw2ji4ZMSfGbtW2w8MM8/p86FaPXg6fDPs56ig=
-From: Bob Hui <bg9oxa@163.com>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, sashiko-reviews@lists.linux.dev
-Subject: Re: [PATCH v8 2/2] arm64: dts: rockchip: Add ALIENTEK QuarkPi-CA2
-Date: Wed, 07 Oct 2026 14:24:43 +0800
-Message-ID: <179135428374.23998.13252521177249770220@163.com>
-In-Reply-To: <sashiko-outbox-162642@kernel.org>
-References: <20261007-quarkpi-ca2-v8-0-b83192bed07b@163.com> <20261007-quarkpi-ca2-v8-2-b83192bed07b@163.com> <sashiko-outbox-162642@kernel.org>
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="QFWTUzwg"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:from:
+	content-type:references:reply-to;
+	bh=ONxxEHM8gGb9JpDSIAVzRshPOv6r6+W1oSBPlfvg+Gc=; b=QFWTUzwgblCuBwXDRCe3VfXeBw
+	mUYPUYH5UCS1O3L/hTIYHpLnRKhGC0tYjhNz2uwPhUJqrb11wj4jh8b55b+IcyfIk3iVLBv3hHSGQ
+	IEtPIPvfpDNTKz5vENtOWJCU0WA+kyMDgRSiQdaJ2/vvtMzSzxRQW4ZL6WKbz0QTNNz6NsSTgOVn3
+	HoACIuVYA1L57C4TyBZGBfYFCC2YZpjfXKtVU/H0T1CJNgC9zEjdEJILUFv/VzSfNy/whzFlmHQGj
+	lEu3fx/stuZ1c0lSlCPwDiThS2CB288nH6M6O2MBqeLjDooxU96hyYoO6rtskBAqaog+zFMLm2icv
+	+zqA+pDQ==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xEL63-00000001T2D-1ZpX;
+	Wed, 07 Oct 2026 14:25:48 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 07 Oct 2026 17:25:47 +1100
+Date: Wed, 7 Oct 2026 17:25:47 +1100
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: ansuelsmth@gmail.com, atenart@kernel.org, davem@davemloft.net,
+	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, runyu.xiao@seu.edu.cn,
+	jianhao.xu@seu.edu.cn
+Subject: Re: [PATCH] crypto: inside-secure: initialize EIP93 state before
+ requesting IRQ
+Message-ID: <asXl69ABi0_1ZKIJ@gondor.apana.org.au>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,26 +48,34 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:QCgvCgDnT32r5cVqwrrxDA--.58191S2
-X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUj1v3UUUUU
-X-CM-SenderInfo: lejz05rd6rljoofrz/xtbC3gywHmrF5az8XQAA37
+Content-Disposition: inline
+In-Reply-To: <20260930092551.2976763-1-runyu.xiao@seu.edu.cn>
+X-Newsgroups: apana.lists.os.linux.cryptoapi,apana.lists.os.linux.kernel
 
-Hi,
+Runyu Xiao <runyu.xiao@seu.edu.cn> wrote:
+> devm_request_threaded_irq() can invoke the handler as soon as
+> registration starts.  The EIP93 probe currently requests the IRQ
+> before allocating the descriptor rings and initializing the tasklet,
+> locks, and IDR used by the handler.
+> 
+> Initialize the software and hardware state, and disable the device
+> interrupts, before requesting the IRQ.  The existing interrupt enable
+> remains after successful IRQ registration.
+> 
+> Fixes: 9739f5f93b78 ("crypto: eip93 - Add Inside Secure SafeXcel EIP-93 crypto engine support")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> ---
+> drivers/crypto/inside-secure/eip93/eip93-main.c | 12 ++++++------
+> 1 file changed, 6 insertions(+), 6 deletions(-)
 
-Thank you for the review, that is a good catch on the wording.
+Please check
 
-To answer the question: the board does have two LEDs.  One is the work LED
-(GPIO1_D7, heartbeat trigger) that the gpio-leds node describes; the second
-one is a power indicator that is hardwired and not software controllable,
-so it has no device tree node.  Nothing is missing from the description -
-the sentence is accurate, it just reads as if both LEDs were
-software-controlled.
-
-I will make the wording explicit if another revision becomes necessary, but
-no functional change is needed here.
+https://sashiko.dev/#/patchset/20260930092551.2976763-1-runyu.xiao%40seu.edu.cn
 
 Thanks,
-Bob
-
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
