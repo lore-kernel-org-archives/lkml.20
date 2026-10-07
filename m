@@ -1,140 +1,248 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010029.outbound.protection.outlook.com [52.101.61.29])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 579F0547054;
-	Wed,  7 Oct 2026 20:18:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.29
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791404307; cv=fail; b=iCdCn7Yl74ZRt+c1pE2J/hgKbZQCsjSZ9oI2AwU93ophjRTlfKL3ThzJ4NROLV42JCssOJ3iDgZYlgUqD6qfpiIwhGREW6xazp8MKBz2gNpqiCxLmwDbUkr9jpL5mw1/3G8wAOfLZDwwEByxROrtzPc0dMnKYslpxNe4iA+KOmA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791404307; c=relaxed/simple;
-	bh=vuAc5c57T7/wMIYyWz7P5G+qNZS5RcsnbQFD7rMF/A8=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hbUFRwiVD8v1+eimfGoIgoFtHMmVQwRBzpAovpFh4YM2SpOw9H5lWlrH7pnnk3HYngWSTbxK8db8K9nD7zWTDiQ6cRPlIEhkm96jV6st9KzYkHQt4Ts6Ogg3Y3xupqHBRJjY9bt2l54GVxPtS8Hbxk22a6tFRaqsd2ObbsIs8Ts=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=nrtsK0VD; arc=fail smtp.client-ip=52.101.61.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D699547054
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 20:18:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791404316; cv=none; b=eFgZjc9pqnkB+88FVLW8wC/JlxKCBEX0yhfWxDTGosWhjPSwjqPx/uDM9BmvgyrMlZVyhwQb+tXS9XwvIFpqESdbNxr65K9vo+GO1BHv8T/wu+qmsBC0Czl1KB2rHLAL1aso/jiVnpnicfPcdxFSCt0D9gjM8RstpwEZLQncSPI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791404316; c=relaxed/simple;
+	bh=Mm0fG/P6PzrdX8Rjw2ojzv5keGjmPaoO1yPnuUJtTyA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LSBVE+X8S09Zx4Q01H2ftvXOOH9MD0PC8azFk1CFFJxJW7uocEtjJrUS5iknwS9NpDv53KAefeGpF4/LVqFtNfGf201XuT6lC/CBlMqefp9Rb0HUuX/Xh5NRD3LCJ12ADAn+Y8CaOWGTPxn6pcUG0Oo2b3/fCmbrAsqby5Jl29o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RM4ZIGtl; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="nrtsK0VD"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eUjyQBe8n2quevaZcij6zMJfj5S30ZJshMoQ0TCjoMkQcjlluGEkDgRsshjdijV/nWW1bsaf/FIfaJqj8Mh9aM/s+dOZSDBG28E4q5QPfUJj9PjEem/sx+Hxhf6IKc4TdNBP1VPcZ6gXnrXUb2NhzEZCNpk2eKqiWxcfhucjlhwKzp1n27YcOX+MfMEdcKowe5CtJT/MCjr2PGOAN2CpMNx9AQt6UWxAJ9wEmIWEbWbWbxu2sKXe82xDJqukw2FRz9SZYd9fEC7t57qlKWkBHQb++qf03h1KvusjJsc5APvOmQsAA9Lu7QPLe1qvNUVnx1FkmI6QSuR30723nR93XQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9zeMijoPUBTctuNIPymPjqlMt9Lrq4OIe2peFUwF79g=;
- b=eCwwaMIRSygfnfjjC+icS1bYEsWruKGAUBbjxiLcsICEfPWcd4/8/AJ/+fyBAYVF1EFUNQj16h/fTYm4MKlCMZWHaXInBc5/Ylqkc+L1QqcbdAdyJeXtDsvvlU1uJGyhwW7PzwKPqr0It/8N5vYfhDL3V9kPQ528WRhMqS37X0R4SpGOZTzLQ/3hD+orvLsPgjhVJtYmnNm60EMO7OQoSp0ANs345iCkYXxRhYpwy2waUgtOsbqhBfYsOJ+KSv44pFJXNjGVrbzSd25uukgE7HN4zgGUSAf3L543WE0BRizw93TJuWhdHo2C6xEIbbMsQrkPr2ytAtZq6hS4d0JQXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=google.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9zeMijoPUBTctuNIPymPjqlMt9Lrq4OIe2peFUwF79g=;
- b=nrtsK0VDROhKBz0LZBWvAR7yYZxBVKCuXot4ivLCWxG3Ff6oZxFzMxd5h/JKURv9hcRnTDxAIK1HuT4/NubkQewWf8a5q8QyIOnM0ay+lcene+Gkz0mQdQOKLI0YP0imwq9OXAClsScESOsb29Ii9gPPAurFuvm6a0sV092WcG5Hf+cgy4l1xF2poOyn2sUqzW8vQMJtBV28Md38GMjMv8cqZbVpKo4/UQxLLYyWZ8LUhfuG8yw8n3CXtt5OFlFXlwoN6dqNFdZBT5UQ8y3Rr4YnGwjXSnhk7aHZgFBv0kRHWqAbkubhi7yYbjW+gQ2ll2WEZ9TiffD1ca2g1wY7IQ==
-Received: from BN0PR02CA0034.namprd02.prod.outlook.com (2603:10b6:408:e5::9)
- by SA3PR12MB7901.namprd12.prod.outlook.com (2603:10b6:806:306::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Wed, 7 Oct
- 2026 20:18:08 +0000
-Received: from BN1PEPF0000468B.namprd05.prod.outlook.com
- (2603:10b6:408:e5:cafe::4b) by BN0PR02CA0034.outlook.office365.com
- (2603:10b6:408:e5::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Wed, 7
- Oct 2026 20:18:07 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- BN1PEPF0000468B.mail.protection.outlook.com (10.167.243.136) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Wed, 7 Oct 2026 20:18:07 +0000
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
- 2026 13:17:37 -0700
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by rnnvmail202.nvidia.com
- (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
- 2026 13:17:36 -0700
-Received: from nvidia.com (10.127.8.9) by mail.nvidia.com (10.129.68.8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
- Transport; Wed, 7 Oct 2026 13:17:35 -0700
-Date: Wed, 7 Oct 2026 13:17:32 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: Samiullah Khawaja <skhawaja@google.com>
-CC: David Woodhouse <dwmw2@infradead.org>, Lu Baolu
-	<baolu.lu@linux.intel.com>, Joerg Roedel <joro@8bytes.org>, Will Deacon
-	<will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, YiFei Zhu
-	<zhuyifei@google.com>, Pranjal Shrivastava <praan@google.com>, Robin Murphy
-	<robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>, Alex Williamson
-	<alex@shazbot.org>, Shuah Khan <shuah@kernel.org>, <iommu@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>, Pratyush Yadav
-	<pratyush@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, "David
- Matlack" <dmatlack@google.com>, Andrew Morton <akpm@linux-foundation.org>,
-	Vipin Sharma <vipinsh@google.com>
-Subject: Re: [PATCH v5 14/18] iommufd: Implement ioctl to mark HWPT for
- preservation
-Message-ID: <asao3APyx7fkL1TN@nvidia.com>
-References: <20260921004834.2601285-1-skhawaja@google.com>
- <20260921004834.2601285-15-skhawaja@google.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RM4ZIGtl"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3a7cfe8f761so4878a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 13:18:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791404315; x=1792009115; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fCLbHGwsWnPpim7MfXHsc24iqNdo+Md2nOyN7gtEbes=;
+        b=RM4ZIGtlWZHj5NMJLROosomMK+9W0sWyBsVkV1pNA+jZpCoWEHUXa4OO/A0SgY2xHg
+         fMXFVdlREPKB+L2obx27WauF5v77oByxNRtyAkUELlwKi9dw7DWTbeL8j9HpnYTcKQ4i
+         W76oDHKvlaihZ07nNbFRIrcSgB9kqmKpPyn7RtsMXWwiiHz9A7wvv988hY9drqFRnrB3
+         pIdqlvg7pEfEKm+Pd6zCNPzG7k9DvNRbxDiLH1mSqrUV3ikWRORcCd1pTCUWQHe4M7zu
+         jpHUSJ4N8qHUHq6OWq+9z2LGrGyR68IuuSSU/LNjTbx025KREeaPdphJK6HsNQdEcEfg
+         y3Fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791404315; x=1792009115;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fCLbHGwsWnPpim7MfXHsc24iqNdo+Md2nOyN7gtEbes=;
+        b=izlcKG3RRSTkKMMjGLiSXrYLf9BqmQSWONHnSjIwlg9BCX1t17e3dYDgOKuc8nc0of
+         YmZI4N/s1txIKISbZA4aSnG6DHd0gGqCq0Y9xAzbXUq+k79ese2IvTeMXZI8YH6hqMrJ
+         hdZTUUgnSMFWNEIUnW1PkNkvk38UFso0VO4Ojt/FanlWqRt7r852SgDarGrJtRRQkG9W
+         pRj50lKd1XJfFdTOCQsyPVjacs1vMSPEZIRqvbwGtJxSbSakl6Ww7UbLjKMUU39qz4tu
+         7V+J2+VIHRyEttvJkGdUqUk8x3h/AJJL19SL+Evz9bRKzf/cTR+A6yjBMCknH+tKxRBe
+         GR5g==
+X-Forwarded-Encrypted: i=1; AKwUvByNvWei+hMoYr3wnHKs+D/8kSODmyKXVLkhUwJBgUD1d79FwgR1iLT8ZU9f0mbZC8SeZmV32aLNJmyRBF4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIVP1ziSc8iHATjZliGjlytTdCznIcd790Qft9wK0ns2CPq2SmS
+	4+yhjOakqhhGALzWW9BMOoT5xvhz0CxRCnhWJLDY8DOL2n9X1d5nRovb
+X-Gm-Gg: AYBFou07RtPZpf7wk7/NsE68MrT50EoT7nIjv9LBNOSYozktWDIZzKeRc9sD4NrX/l5
+	ptZcTB6GwOZd5CE4ZxT7AOE6P66dxXq96jZnhIQxWoY0fME54x+JOzDwgGvSBUKs7mk2DhBgGHa
+	p32b3d+M4brHcx6LFPBsI1lBDxgRDh0W+npj5hl92dna8TzWPzO+a29cEYjoyzQSGRpC7ixx2Yt
+	jqzmg8XGN4dSZBfaihcon/eBGQ6vmjT6rFI1RiNsloAV22y38a///FUg0W8Og5OqfWFfz/a6vsx
+	jdtAk6cJX3xqCBnWRgofOh65efGkokpWXb890iMPkwRLfJpOUxzwkJdh2Fos6jckaipcqanX3ss
+	25P3YdSHwFanfRrzA+c8qorCMKsykiIB8sESbnNCpFeiHX51qarujdJAzpWX2hfzb0YgWcV5bhu
+	edjgAtSM2UbYO2whDrF/tSUtlB2CI13V4mfJGofgWrdQmS6oR4grGqLIFuZVwZDC29s/YhRBqGw
+	pPxokvsP+LAaZ8XolKG42TCOC35fjgY9R9CZEflgRXh23YakGxQb1Ls80H8GHUYHyROZNer2kT9
+	M0B3X+TMkVVY0A==
+X-Received: by 2002:a17:90a:c88b:b0:3a8:63da:44b5 with SMTP id 98e67ed59e1d1-3aaed7e77a6mr144349a91.24.1791404314693;
+        Wed, 07 Oct 2026 13:18:34 -0700 (PDT)
+Received: from 4470NRD-ASU.ssi.samsung.com (c-24-19-224-150.hsd1.wa.comcast.net. [24.19.224.150])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9ff7ab034sm967623a91.4.2026.10.07.13.18.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 13:18:34 -0700 (PDT)
+From: Anisa Su <anisa.su887@gmail.com>
+X-Google-Original-From: Anisa Su <anisa.su@samsung.com>
+To: linux-cxl@vger.kernel.org
+Cc: nvdimm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Dan Williams <djbw@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Ira Weiny <iweiny@kernel.org>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Fan Ni <nifan.cxl@gmail.com>,
+	Li Ming <ming.li@zohomail.com>,
+	Benjamin Cheatham <benjamin.cheatham@amd.com>,
+	Gregory Price <gourry@gourry.net>,
+	Richard Cheng <icheng@nvidia.com>,
+	Anisa Su <anisa.su@samsung.com>
+Subject: [PATCH v15 0/8] DCD Prep Series
+Date: Wed,  7 Oct 2026 13:16:33 -0700
+Message-ID: <20261007201828.952-1-anisa.su@samsung.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260921004834.2601285-15-skhawaja@google.com>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF0000468B:EE_|SA3PR12MB7901:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2d0331a1-ccc2-495e-27d0-08df24b019ee
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700016|23010399003|1800799024|7416014|82310400026|18002099003|22082099003|4143699003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	h1NYFRU/QSLoW9kUEYvKes5q9lxsrHK7WfJkLiZB2RKRJ+yai7uc8sPgmAe+dUhpYqJbAoYj4/9inxZI8ST5Iz59wbvBbIYGWgtU67ORB8CZaVEHitjn+CLZPVIISjNxrLLjeiResOX4Yf1Ubd8GVgRbOZB/KWMsJi8if9lo7JWYiahHqsjBV1OrO1+kAC/4YgWzXsHFpsGS7iJAAq27/q+hjgX68SLvohl+6qOUftPO7P3Ha/sDsmzDEIR8mcWZ2NfU7p2mbpOM6RvTRcDHMlUXTmtY2vBAGhyylBur/FVZYJ2j37GK2fShfwqDeNwNOZrZkNYqBMr80PxmPMDcCSQ/ftj9HzwYN85mXdmiWEuu5QmHTlL30sMzsftlYq5GoDcg0p0ZlfBruFq9Cjkb4MzsfOO78FQeGCmqlgtNfXKlGe5A8i5C2LcAwhMmd3/E5HjQT+o4wtHCvfyvBB/X/owaw3q6LyUnJtdC/WPs2JI+5d8C/lMz6rLzQcQL11YgTngy1nurJPuHsbSpO97LLO/Z5o3gpVc9dULodX0yoclha3QVSC9uRm36jteGCY/jYrLukKNmACiT/TkW9J7jF2t9j9+EZV275U/rlv9sYdN6Hw6W8CMRe0Oci3rbbYhGvTBYQSGJRsOVWLpkf6k0qJK1v7Fp+g0oabrasFPA9h1cAijkJ0KLPbjCdoSyJILsQMI1JpKsKBFvM3sDrid3cw==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(36860700016)(23010399003)(1800799024)(7416014)(82310400026)(18002099003)(22082099003)(4143699003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Pckpze12GBqKjl49SP11pQag5jhAEgGBaZPAGtk4uBFcH/AQPCGiUx4XvBr+FblikZ3ov+32s4FBNWPBr1JVQVgZc17bemuP2M9hCQKxLDiNodngjYUmoGeRXkSK0aESaRFm9eHVUBUjk58DJ401MY8LhC/cqMRKjLDx9Qo54n1Q/LOIuZojRCsTV2oZ4uQ28VDb0gpxS6kFcDu7MoBs5qbgnZKDPFYaJ74VTCt6QWbHTxM52E0SvsOxfyl+AxB7pZ6TF46nMCHVm7j8Wu/kH6jovzCQcq+xITOHZYIilVyn3zJhyiohYYtVCZlNWqBEyMAOrPXj5y761jAcCvmrrmC2Nm3tFt+Vl9St80dvv2kgtgmrBR5GlcPXQLx79h25628KmdR9st38mNAKBhPeFL3TP+QkjABBMQ7Q91d3Iy3sGlNFRD3Lfeko0+9t2hYg
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 20:18:07.5979
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d0331a1-ccc2-495e-27d0-08df24b019ee
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF0000468B.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7901
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 21, 2026 at 12:48:30AM +0000, Samiullah Khawaja wrote:
-> +int iommufd_hwpt_liveupdate_mark_preserve(struct iommufd_ucmd *ucmd)
-> +{
-> +	struct iommu_hwpt_liveupdate_mark_preserve *cmd = ucmd->cmd;
-> +	struct iommufd_hwpt_paging *hwpt_target;
-> +	struct iommufd_hwpt_paging *hwpt_paging;
+These are the first eight patches of the Dynamic Capacity Device (DCD)
+series. They set up: DCD enumeration, CDAT handling for DC partitions,
+the event interrupt plumbing, a preparatory refactor, and
+documentation of the DPA partition layout. They stand alone and keep DCD
+disabled. They are not dependent on the rest of the series.
 
-I'd move hwpt_paging inside xa_for_each_marked() and rename it to
-"hwpt_marked". Then, hwpt_target can be simply "hwpt".
+Patch 1 detects the 48h command set and then leaves mds->dcd_supported
+false. The flag is only turned on by the series that adds DCD event
+handling, so every DCD specific path added here is shut off at runtime:
+cxl_configure_dcd() never runs, no DC partition is created, no DCD
+interrupt is armed, and the CXL_PARTMODE_DYNAMIC_RAM paths are
+unreachable. The intent is to land the enumeration and plumbing while
+the extent to DAX pipeline is still under review.
 
-> +
-> +/**
-> + * struct iommu_hwpt_liveupdate_mark_preserve - ioctl(IOMMU_HWPT_LIVEUPDATE_MARK_PRESERVE)
-> + * @size: sizeof(struct iommu_hwpt_liveupdate_mark_preserve)
-> + * @hwpt_id: Iommufd object ID of the target HWPT
+Based on v7.3-rc6
 
-HW pagetable ID to preserve for liveupdate
+v14: https://lore.kernel.org/linux-cxl/20260918203049.7273-1-anisa.su@samsung.com/T/#m0b6ade9da2d4fefa8aab3bb7db7c29516bc3f955
 
-Nicolin
+v14 -> v15 Changes:
+===================
+The first and only supported DC partition's DPA resource name is still
+dynamic_ram_1 because the partition's sysfs directory comes from the DPA
+resource name. So it would show up as /sys/bus/.../dynamic_ram_1/
+No sysfs patches are in this series, those come later.
+
+ - Patch 1: cxl/mbox: Flag support for Dynamic Capacity Devices (DCD)
+        - No change.
+
+ - Patch 2: cxl/mem: Read dynamic capacity configuration from the device
+        - Renamed partition mode from CXL_PARTMODE_DYNAMIC_RAM_1 to
+	  CXL_PARTMODE_DYNAMIC_RAM.
+	  The mode should only describe the capacity type, not the number of
+	  the partition. The _1 looks to be an artifact from v8 to v9, when we
+	  went from supporting all 8 partitions down to limiting to 1.
+	  The first and only supported DC partition's DPA resource name is still
+	  dynamic_ram_1 because the partition's sysfs directory comes from the DPA
+	  resource name. So it would show up as /sys/bus/.../dynamic_ram_1/
+	  when the sysfs patches from the rest of the series are added.
+
+ - Patch 3: cxl/cdat: Gather DSMAS data for DCD partitions
+        - Disable DCD when the DC partition has no valid DSMAS entry:
+          no CDAT, CDAT parse failure, or no entry matching the
+          partition. A DCD shall describe its DC partition in a DSMAS
+          (CXL r4.0 9.13.3), so rather than run with unknown attributes
+          the device keeps its static capacity and loses DCD (Richard,
+          Dave).
+        - DSLBIS is optional. cxl_cdat_endpoint_process() treated zero
+          DSLBIS entries as a parse failure, which with the change above
+          would have disabled DCD on a device with a perfectly valid
+          DSMAS. An empty DSLBIS no longer fails the parse, and
+          cxl_port_perf_data_calculate() skips DSMAS entries that have
+          no DSLBIS coordinates so the QTG _DSM is never evaluated with
+          zero bandwidth
+        - cxl_memdev_apply_dsmas() takes an enum cxl_dsmas_apply
+          (FLAGS / FLAGS_PERF) instead of a bool so the call sites say
+          what is applied (Dave).
+        - The DSMAS read-only flag (CDAT 1.04, Flags bit 6) is recorded
+          on the partition alongside shareable. (Jonathan)
+
+ - Patch 4: cxl/events: Split event msgnum configuration from irq setup
+        - No code change.
+
+ - Patch 5: cxl/pci: Factor out interrupt policy check
+        - No code change.
+
+ - Patch 6: cxl/mem: Configure dynamic capacity interrupts
+        - CXLDEV_EVENT_STATUS_STANDARD_LOGS names the four standard
+          logs (INFO | WARN | FAIL | FATAL) that cxl_event_drain_mask()
+          and the cxl_test mock's probe-time drain spelled out long-hand
+          (Dave/Jonathan)
+        - On platforms where BIOS owns the event logs, a failed Get or
+          Set Event Interrupt Policy now disables DCD instead of failing
+          the memdev probe. Before this series that path never reached
+          the mailbox on such a platform; DCD is now the only reason it
+          does, so a failure there costs DCD, not the device. With OS
+          owned logs the commands remain fatal to probe as before
+          (Sashiko).
+
+ - Patch 7: cxl/core: Enforce partition order/simplify partition calls
+        - No change.
+
+ - Patch 8: Documentation/cxl: Document DPA partition layout and
+   ordering rules
+        - No change.
+
+Review status
+=============
+Dropped all tested-by tags for patches 1-8
+
+Patch 2: Dropped all Review tags.
+
+Patch 3: Dropped all Review tags.
+
+Patch 6: Dropped all Review tags.
+
+Patch organization
+==================
+ 1-3: enumerate DCD command support, read the DC configuration, and pick
+      up DSMAS data for DC partitions.
+ 4-6: split event msgnum configuration from irq setup, factor out the
+      interrupt policy check, then configure the DCD event interrupt.
+   7: preparatory refactor -- enforce partition order while collapsing
+      the ram/pmem specific partition helpers into one.
+   8: document the DPA partition layout the previous patches enforce,
+      and where Linux is stricter than the specification.
+
+Testing
+=======
+This series leaves mds->dcd_supported false on purpose, so
+cxl_configure_dcd(), cxl_dev_dc_identify() and cxl_dc_check() are
+unreachable at runtime as posted. The tests below are done with the rest
+of the series on top, otherwise testing would not yield any meaningful
+results.
+
+HW:
+Waiting on results from partner team.
+
+cxl_test:
+ndctl's cxl suite against cxl_test (7.3.0-rc6, CXL as modules)
+16 of 17 pass, cxl-features.sh skips for lack of FWCTL, and
+cxl-dcd.sh passes.
+
+QEMU:
+Tested extent add/release and DAX device create/destroy.
+Tested that expected errors are printed from malformed Get DC Configuration
+payload.
+
+Anisa Su (1):
+  Documentation/cxl: Document DPA partition layout and ordering rules
+
+Ira Weiny (7):
+  cxl/mbox: Flag support for Dynamic Capacity Devices (DCD)
+  cxl/mem: Read dynamic capacity configuration from the device
+  cxl/cdat: Gather DSMAS data for DCD partitions
+  cxl/events: Split event msgnum configuration from irq setup
+  cxl/pci: Factor out interrupt policy check
+  cxl/mem: Configure dynamic capacity interrupts
+  cxl/core: Enforce partition order/simplify partition calls
+
+ .../driver-api/cxl/linux/cxl-driver.rst       |  35 +++
+ Documentation/driver-api/cxl/maturity-map.rst |   4 +
+ drivers/cxl/core/cdat.c                       |  97 +++++-
+ drivers/cxl/core/hdm.c                        |  24 +-
+ drivers/cxl/core/mbox.c                       | 285 ++++++++++++++++++
+ drivers/cxl/core/memdev.c                     |  94 ++++--
+ drivers/cxl/cxl.h                             |  14 +-
+ drivers/cxl/cxlmem.h                          |  88 +++++-
+ drivers/cxl/mem.c                             |   2 +-
+ drivers/cxl/pci.c                             | 176 +++++++++--
+ include/cxl/cxl.h                             |  29 +-
+ tools/testing/cxl/test/mem.c                  |   2 +-
+ 12 files changed, 761 insertions(+), 89 deletions(-)
+
+
+base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
+-- 
+2.43.0
+
