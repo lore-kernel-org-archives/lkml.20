@@ -1,273 +1,225 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77402471268
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 09:21:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA7E946A600
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 09:23:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791365062; cv=none; b=IqWg+4lg6ux38n7eybP/xH5E769T0qqv6gRdrZHVcab4Qu2J6CcFHZWBnGOG3TGnGEsLXma6H7uDA7GwpCa02LN3YcVYJUFdIXeLwwtYrAi7NphSubPk2lQiq+2OXbOjiDohsRmLy8yXKEizATQ0UbEeovLUBryAqtMVBfxtptI=
+	t=1791365069; cv=none; b=YNqcaW4pkfX1WgqcUai+2P4R5ErLUTk6cPWQKX0JvvXwNkPIP9AYqQCrHnhteovTJQj1cxfNczGiBeMOpXgEJ6ckmb+fGKaJ5SNFwWNC899x7Zt+3KhcsbyySq2URqTuqdA8n/bpryYZtSko4ddD694hvsXg8vIbQPsap+Cu+Pc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791365062; c=relaxed/simple;
-	bh=DKZd5zj4U2TgetJHc/qNyMz8PvP5tloeU/TQpqZnxnY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=mpHC+6KtirJoFmJew7KaXsPUM5/CI5inB259ReCIH+m4kGrDlYvIpL142EhmtIhHtjGjXHLKEySUfFj6YKax6LbOfuUXmw4CwnO2CwqG507KRrmDVXtoKgtHF/J/6Sq8QQ7K17W3Rq9qMtpD2Muzr/FgoOedrgDrRZP9TXzwoFA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S2A7PKhr; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791365069; c=relaxed/simple;
+	bh=36BExIcS3er/y0jorYgoz0YcrCOEOstH66XbKIRSceQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=G+vWu64Az/J+7F7344tgQkApjYXWTtUcSxcHtApz+XbWg+tpxs92q5OdSlHMuFQj5VGnlmV8sC+PPRjbKbu+yTcbdgcGRpyEO6ZxrIl9sxpR1nAObfb6Zh2hVNDvPq8n6RaiRUh/m4NsYmRDhoeyErCUwm7ZLbi2jtKysH2TL/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dL+TY5DM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Hi0qa8ID; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S2A7PKhr"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2d71d1cc8b2so9351475ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 02:21:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dL+TY5DM";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Hi0qa8ID"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6977jmWE3686138
+	for <linux-kernel@vger.kernel.org>; Wed, 7 Oct 2026 09:23:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	nfH7JOcpjrJI7edYv859MWGoxNpJwE5LbQPeiejX188=; b=dL+TY5DMr94OyHV1
+	zFtpHaewGEBY5fmV0lDs5JmKK+Y6M0QgFFPSsZLlhYD3jTa1NW5ZSCpCXh8cyBQV
+	jJnt5hFYcopZfUQ+Pm7W3XRh+mqLWIHXXM5DhWx1d0+WwcJj0nBoVzJuq4IuCUSq
+	wkgEa+Vb8jG7jMf6Z69pQk4P+Crsb7Y/YeM4FlMuCNF/IBNrwxj1oSYcDo137r+3
+	S5mo4ZoSGerUV0RrvPlaK84C45IZkhNP2Bm7XOab3SCDBc3nwwFxnOwZhUxJj0gP
+	eyzxQeRhY0Xk9yX8vt64WLlA8axwYVDAtowXnXcf6uZcLvg1dGuEGpmV8gfqVMrf
+	XEyXHQ==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5c609eyq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 09:23:56 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-890a9a4e168so1064225b3a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 02:23:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791364903; x=1791969703; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1791365035; x=1791969835; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JWEoBcTanLI/xOOEjBUzFe/ubT0LTWC3gtU2OGQUs4Q=;
-        b=S2A7PKhrGRTnvtBPAWFqeixXh5dG7sNlX40AawnW6QtWbc4jlv3/E0+tVSOCEtZML2
-         eq/y5FBQWCbybTcuEv8GcYPVxa/iIkBsdEuqRVA9PL8gUrrMwuRq+HEnPijtbwhl6tkV
-         6mfu6WggUqAuu84isXzAYqK4V2jZ3ZoqixLL780K+h42WNukw610lkfHSzoYTWXwVZ7b
-         1X8Nw/4GEbv4dRfDQMtLEiMofRTTgya+96hMb5JBi3e68mgCxhEPrswRuKtJ32GtHRVo
-         8jQ1ZjEwKEcBTWInRnXcAc2zYbWNgc9JSGUpv0jAuaOWoADLiCYrijB7CmlYQcv7uWsc
-         3ppw==
+        bh=nfH7JOcpjrJI7edYv859MWGoxNpJwE5LbQPeiejX188=;
+        b=Hi0qa8IDT6pzf/rE6852JiwTP7A9IixDYYrvQEY3FgPgvaCM7yTHVIlbit1IVAv8Zv
+         KSbZ8nOrIhUfaq/dKJqscIv1/2M2x7ib5tFwwnoRt1iBVFZjc/sUhYuOzMFudrM8+6oM
+         onk0jTEBL64CRs1se8QnbeNI9PatyYlF2JvFU4fp2/uMdXFFCMh6Q/qdgGi7RdHkhSuo
+         diP3K4MmXlybtJsOYSV8w13lQbM782pM1GTa47N/9eRFixE7GOvL6I8cdJklst7f3sC+
+         rRm4Qv8JXcQHXahxjXkcIfPVY5MiTtxEgMPYQrs5adwZ5usZ3AKRIpe0I6H4+YFfnqjd
+         GhMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791364903; x=1791969703;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JWEoBcTanLI/xOOEjBUzFe/ubT0LTWC3gtU2OGQUs4Q=;
-        b=ryKDmFG6fnX2Wp8rVBrEYhOZHPhRXwygQITrJ66OilXlc2z1XMtTTPxCP71D2M3ccY
-         A/WBvjklZfBez2fBdrJhZlW4AObsE8rt9czzBeNX1u8qENpddEtvWWx04mPDTIlX/BHO
-         ocTEZB/vboCSrOVTeW6PORaYjoEGC4niNoifK7bwxUPU91edPijcnKBS444fZmM9PWFQ
-         wKeW1m2lpPcSvmYHH24sjDKz+hGPVjkro0gC3RFQ0ebCAcgbNT+L2/zLTpnvpsmKcz80
-         Lu2jAQLZ+oQGvWO2lQMizy+lqibcujKBQAMzt0KGPNNPi5D0lb1esEWYo/2WWZetP2WW
-         /QWQ==
-X-Gm-Message-State: AFq9FYLvUpYM5tAS0W7PZ1RdYtSNOEmfGOo/nnM/K+JadxZy4v09b7Gm
-	ov2gQv3yAjvqpjiusudmtcQ8/Tt4IJDW1ZQiFGLwYVa6d+fpeRHAKsNV
-X-Gm-Gg: AYBFou0b/KdrysFIPQnADri2lerURxrpIRtq6Mw1f4jZYRIj1bXwdgsx2wKSfs/uBsI
-	14XC6cuX742nIF8WRsMAtSXWyIryZICqD/O29hHX9f4dukyGkkjGp8STR+ajoqEzZpBHV1NZ4um
-	jEQfHJFzczR+GGbwijY8OXgUsC+gNOWO1Iq4BMk3ai8dJtKqHwIqY3j8uwFEfHtuMwwRan4Qn4O
-	3ZVehRfefNA6Dimy95zs3K1oj8n6GgJHj9AJrMHY/IwoTq79P6xlNsY3yRkP7KUFqLo4T9THstz
-	cNwfhmc/86W9ACjiXU4z+y4t8DQf6YPi9E6uO9WBFLGmmUY2x9Xe5yq8go8g8g5v3UqEmKgtPek
-	rc6Sw6p8SglaQD1PUvtdsnh2JfqOxSrs9h0B1Hkd+i6tPlTvUR0VVh8j+YuKM+K+5KgZW9ujzeA
-	SjI4G7GUM9Na0hdpwgT8rAxo1X/UKAVCX5UZ43iXCDBOIGwcLpVdpbZFX7jRYyk7kEvxvwuMXaP
-	5DUL5ke8eaaKSkcyPEENZ3kKzCFVQ0qu3KIhCsm
-X-Received: by 2002:a17:902:e885:b0:2dd:7646:35cd with SMTP id d9443c01a7336-2e5ff85264dmr16965995ad.0.1791364903452;
-        Wed, 07 Oct 2026 02:21:43 -0700 (PDT)
-Received: from hcdev-d520mt2.. (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e6046fe0e8sm7180675ad.25.2026.10.07.02.21.41
+        d=1e100.net; s=20260707; t=1791365035; x=1791969835;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nfH7JOcpjrJI7edYv859MWGoxNpJwE5LbQPeiejX188=;
+        b=JPG7A8U/fM/X+v87sNxYyuB1DW5dNl/9CLRojurCH0iYIIP6Q4uCD/drFJ+A5FMjMh
+         0CDQiYtZUxAyScrW3qMGVNeHLNUtdD8xq0kyU0rjH/uZ/nbOu+gY6kndMO+tjilkUrD2
+         8FDQQvmPcU+G28jzDtzu0zxeU/xxhtm+qyvAh7pFSiDi5SioF6Kt3IhMPeHj4emsg3Aj
+         xPF36SMbQ5bicF8uvvZwh664I//FKLzt+fjpgvgZYgD9iRkEdW7tWVPjiChagpAQtWYw
+         mskUdc89cIPxy8o8f9idQYpwX9omet9C69tboA1wkC19PfSCrp7nrI/lZB5fNEzVFHKo
+         hITQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzXcteWd0On/oFEmsO/GD1sR+GTt/+JXEFZYrVVrFkErcje+X9uedFDEGNyh4FzJqUa2P5Dt5/sssg1Bik=@vger.kernel.org
+X-Gm-Message-State: AFuF++mOx63sZUwtzyy5x7hgoUC6zQRkgSCCgeCarUDR/X0sEzfSXM7r
+	rS3VWLHd05oF6hcZoU4iQQALwnzfUXUjgh8tWurunqbxclZU8kmtvkO+s4czSNSiPKxwKMBgWrj
+	ffC9CiXcbQ9ZPReUs3fTR1xEZFEAeja02nGPFioav880UewK+FlB0BqCAwB8dR1RLrmU=
+X-Gm-Gg: AYBFou29OyRE7wDU+y/aITdqXaOSmdaXFQcEYBUHuaOy6i4tc4WHE16th8eYckYs2vy
+	DNQYLHiY5ZP+NZIkf9P1slGOuTH0ql+DHAv4Y7CRCVVMgzl6yQv1sq3sjr9cEms+XeAEZ+6tycT
+	waK8pn9QO3nUWoHpjhlsJMbrFPDLPYHv3Y2goWgpcrdyAfUZZIJ5SdhePhJ39ki9ssPwrTkThjj
+	DrAM3KXahwK9g8KTYg9DrnTyIwvgCU7KYgBzooBqO+EDDPAlMseuOWL+wILjx6ReafJTA9Y07jZ
+	MDv8gqEv8NHcyMDoKTioPkyluwu1PX0+rQywGjd/gpwgnDAkJKHblRP/FYkHbNhhngiQSS22OT9
+	TQXNBy6n0QWumImo+frkst486DiVL0fsZzXBezt/u16JOWMtIExlgpd4JsTQFiVBeZtjOMceOs4
+	iisjislj65s3jVuIJUUVPUURs=
+X-Received: by 2002:a05:6a00:950a:b0:881:4b47:f30b with SMTP id d2e1a72fcca58-891b354d5d4mr1318712b3a.12.1791365035322;
+        Wed, 07 Oct 2026 02:23:55 -0700 (PDT)
+X-Received: by 2002:a05:6a00:950a:b0:881:4b47:f30b with SMTP id d2e1a72fcca58-891b354d5d4mr1318696b3a.12.1791365034890;
+        Wed, 07 Oct 2026 02:23:54 -0700 (PDT)
+Received: from hu-aarasahu-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89271257af8sm119128b3a.41.2026.10.07.02.23.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 02:21:43 -0700 (PDT)
-From: a0282524688@gmail.com
-To: lee@kernel.org,
-	Ming Yu <tmyu0@nuvoton.com>
-Cc: linux-kernel@vger.kernel.org,
-	Ming Yu <a0282524688@gmail.com>,
-	mfd@lists.linux.dev
-Subject: [PATCH v8 08/13] mfd: nct6694: Rename USB transport functions with _usb_ prefix
-Date: Wed,  7 Oct 2026 17:20:57 +0800
-Message-Id: <20261007092102.3768818-9-a0282524688@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261007092102.3768818-1-a0282524688@gmail.com>
-References: <20261007092102.3768818-1-a0282524688@gmail.com>
+        Wed, 07 Oct 2026 02:23:54 -0700 (PDT)
+From: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
+Date: Wed, 07 Oct 2026 14:53:32 +0530
+Subject: [PATCH ath-next 1/2] wifi: ath12k: Make RXDMA buffer ring size
+ configurable per memory profile
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261007-mpp_ws-v1-1-739b1fb87d24@oss.qualcomm.com>
+References: <20261007-mpp_ws-v1-0-739b1fb87d24@oss.qualcomm.com>
+In-Reply-To: <20261007-mpp_ws-v1-0-739b1fb87d24@oss.qualcomm.com>
+To: Jeff Johnson <jjohnson@kernel.org>
+Cc: linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+        linux-kernel@vger.kernel.org,
+        Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Proofpoint-ORIG-GUID: DzZOZEXx1KZ7VVSCx-tmqIuwPC9FOLXT
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAzNyBTYWx0ZWRfX22bJ8htpAH65
+ MicKdAEC1dQyizgfDV+RN4ZDxeQyBzAcwRaP9rN0TVOq9rkeE1M2uIYYCsqmHWqJ/KW5Z+749ek
+ VBordO/r8LSBMy0pYzb4nYEH923rWl0=
+X-Authority-Analysis: v=2.4 cv=PM+aavqC c=1 sm=1 tr=0 ts=6ac60fac cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=mg1aV8qigFYmQh57PbIA:9 a=QEXdDO2ut3YA:10
+ a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-GUID: DzZOZEXx1KZ7VVSCx-tmqIuwPC9FOLXT
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAzNyBTYWx0ZWRfX6DdCYufkg3w3
+ mU2LVYIB0tgr5OCHbUghA3IWttt5epfVRD+SxRVZKcDjNmfouxYrBMWDN2H/11Pn3f+Kp1qJ7b0
+ 0wl5gJ3+2IicCpsF49KaC8jYw6Qu2X/qBPDehvgia84NE0pVXPAok4B4lybtpwhMvHTUA5m/XO9
+ MrPvvUvLTcfBEK6FvifAOLpLfDixR+VbLJPVsukNNPJbsZZQPLli7uYsPGa6Ttwpitj+ZA/iJN6
+ KoqKeRyY/nBf3lwkar9QdB2k6NZo6g1ulX5gYmvOErSKAjlrHF2AeNW7OqXchysc1FTnUAJaCCl
+ InFOzuAZul7DYeMqQXFL+65Rm2dmjHQWOh6Ky4Dju+SeW5OaQSt8e/HqgQfw/5Td1vm0cAyQlms
+ 3y0Nw7zLEYy9WoNC1/zdMuc68701CY+7aC5ED4ckxsiNSoelD2Wp0puqXZ1Olu3dcX9o0dVKjgB
+ zxwNNBsNrt+2Tb1H+PQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-07_03,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015 adultscore=0 bulkscore=0 phishscore=0
+ malwarescore=0 suspectscore=0 priorityscore=1501 lowpriorityscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610070037
 
-From: Ming Yu <a0282524688@gmail.com>
+Currently, the RXDMA buffer ring size is hardcoded to 4096 and shared
+across all memory profiles. This prevents individual profiles from tuning
+the ring size based on their memory and performance requirements.
 
-Add a _usb_ prefix to the USB transport functions, tables and driver
-name to mark them as USB specific, in preparation for the core and HIF
-transport added in later patches.
+Add the RXDMA buffer ring size to the memory profile configuration and
+implement ath12k_dp_rxdma_buf_ring_size() static inline function to
+access the configured value. This allows different memory profiles to
+select an appropriate ring size based on available system resources.
 
-Keep nct6694_{read,write}_msg() as static inline wrappers in the shared
-header so that the sub-device drivers remain untouched; they are removed
-once the regmap-based transport abstraction is in place.
+The function follows the pattern established in the previous patch for
+other DP profile parameters, taking struct ath12k_dp_profile_params
+pointer as argument.
 
-No functional change.
+Tested-on: QCN9274 hw2.0 PCI WLAN.WBE.1.6-01243-QCAHKSWPL_SILICONZ-1
+Tested-on: WCN7850 hw2.0 PCI WLAN.HMT.1.1.c7-00108-QCAHMTSWPL_V1.0_V2.0_SILICONZ_UPSTREAM-3
+Tested-on: QCC2072 hw1.0 PCI WLAN.COL.1.0.c2-00074-QCACOLSWPL_V1_TO_SILICONZ-1
 
-Signed-off-by: Ming Yu <a0282524688@gmail.com>
+Signed-off-by: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
 ---
-Changes in v8:
-- None.
+ drivers/net/wireless/ath/ath12k/core.c  | 2 ++
+ drivers/net/wireless/ath/ath12k/dp.h    | 8 +++++++-
+ drivers/net/wireless/ath/ath12k/dp_rx.c | 2 +-
+ 3 files changed, 10 insertions(+), 2 deletions(-)
 
-Changes in v7:
-- None.
-
-Changes in v6:
-- New patch replacing the v5 function-pointer transport abstraction:
-  rename the exported I/O functions with an _usb_ prefix and add
-  transitional inline nct6694_{read,write}_msg() wrappers in the shared
-  header so sub-device drivers stay untouched in this commit.
-
- drivers/mfd/nct6694.c       | 40 ++++++++++++++++++++-----------------
- include/linux/mfd/nct6694.h | 22 ++++++++++++++++++--
- 2 files changed, 42 insertions(+), 20 deletions(-)
-
-diff --git a/drivers/mfd/nct6694.c b/drivers/mfd/nct6694.c
-index 6d75b1485350..83e9c7ac9bee 100644
---- a/drivers/mfd/nct6694.c
-+++ b/drivers/mfd/nct6694.c
-@@ -50,7 +50,7 @@ static struct nct6694_usb_data *to_nct6694_usb_data(struct nct6694 *ddata)
- 	return container_of(ddata, struct nct6694_usb_data, core);
- }
- 
--static const struct mfd_cell nct6694_devs[] = {
-+static const struct mfd_cell nct6694_usb_devs[] = {
- 	MFD_CELL_NAME("nct6694-gpio"),
- 	MFD_CELL_NAME("nct6694-gpio"),
- 	MFD_CELL_NAME("nct6694-gpio"),
-@@ -86,7 +86,7 @@ static const struct mfd_cell nct6694_devs[] = {
- 	MFD_CELL_NAME("nct6694-rtc"),
+diff --git a/drivers/net/wireless/ath/ath12k/core.c b/drivers/net/wireless/ath/ath12k/core.c
+index e527b59ecba5..764e646d0090 100644
+--- a/drivers/net/wireless/ath/ath12k/core.c
++++ b/drivers/net/wireless/ath/ath12k/core.c
+@@ -54,6 +54,7 @@ ath12k_mem_profile_based_param ath12k_mem_profile_based_param[] = {
+ 			.num_pool_tx_desc = 32768,
+ 			.rx_desc_count = 12288,
+ 			.rx_release_ring_size = 16384,
++			.rxdma_buf_ring_size = 4096,
+ 		},
+ 	},
+ [ATH12K_QMI_MEMORY_MODE_LOW_512_M] = {
+@@ -68,6 +69,7 @@ ath12k_mem_profile_based_param ath12k_mem_profile_based_param[] = {
+ 			.num_pool_tx_desc = 16384,
+ 			.rx_desc_count = 6144,
+ 			.rx_release_ring_size = 8192,
++			.rxdma_buf_ring_size = 4096,
+ 		},
+ 	},
+ };
+diff --git a/drivers/net/wireless/ath/ath12k/dp.h b/drivers/net/wireless/ath/ath12k/dp.h
+index c53eac20b989..108e27dd5797 100644
+--- a/drivers/net/wireless/ath/ath12k/dp.h
++++ b/drivers/net/wireless/ath/ath12k/dp.h
+@@ -31,6 +31,7 @@ struct ath12k_dp_profile_params {
+ 	u32 num_pool_tx_desc;
+ 	u32 rx_desc_count;
+ 	u32 rx_release_ring_size;
++	u32 rxdma_buf_ring_size;
  };
  
--static int nct6694_response_err_handling(struct nct6694 *ddata, unsigned char err_status)
-+static int nct6694_usb_err_handling(struct nct6694 *ddata, unsigned char err_status)
- {
- 	switch (err_status) {
- 	case NCT6694_NO_ERROR:
-@@ -111,7 +111,7 @@ static int nct6694_response_err_handling(struct nct6694 *ddata, unsigned char er
+ #define DP_MON_PURGE_TIMEOUT_MS     100
+@@ -210,7 +211,6 @@ struct ath12k_pdev_dp {
+ #define DP_REO_EXCEPTION_RING_SIZE	128
+ #define DP_REO_CMD_RING_SIZE		256
+ #define DP_REO_STATUS_RING_SIZE		2048
+-#define DP_RXDMA_BUF_RING_SIZE		4096
+ #define DP_RX_MAC_BUF_RING_SIZE		4096
+ #define DP_RXDMA_REFILL_RING_SIZE	2048
+ #define DP_RXDMA_ERR_DST_RING_SIZE	1024
+@@ -730,6 +730,12 @@ ath12k_dp_rx_release_ring_size(const struct ath12k_dp_profile_params *p)
+ 	return p->rx_release_ring_size;
  }
  
- /**
-- * nct6694_read_msg() - Read message from NCT6694 device
-+ * nct6694_usb_read_msg() - Read message from NCT6694 device
-  * @ddata: NCT6694 device pointer
-  * @cmd_hd: command header structure
-  * @buf: buffer to store the response data
-@@ -122,7 +122,9 @@ static int nct6694_response_err_handling(struct nct6694 *ddata, unsigned char er
-  *
-  * Return: Negative value on error or 0 on success.
-  */
--int nct6694_read_msg(struct nct6694 *ddata, const struct nct6694_cmd_header *cmd_hd, void *buf)
-+int nct6694_usb_read_msg(struct nct6694 *ddata,
-+			 const struct nct6694_cmd_header *cmd_hd,
-+			 void *buf)
- {
- 	struct nct6694_usb_data *usb_data = to_nct6694_usb_data(ddata);
- 	union nct6694_usb_hdr *hdr = usb_data->hdr_buf;
-@@ -170,12 +172,12 @@ int nct6694_read_msg(struct nct6694 *ddata, const struct nct6694_cmd_header *cmd
- 
- 	memcpy(buf, usb_data->data_buf, data_len);
- 
--	return nct6694_response_err_handling(ddata, hdr->response_header.sts);
-+	return nct6694_usb_err_handling(ddata, hdr->response_header.sts);
- }
--EXPORT_SYMBOL_GPL(nct6694_read_msg);
-+EXPORT_SYMBOL_GPL(nct6694_usb_read_msg);
- 
- /**
-- * nct6694_write_msg() - Write message to NCT6694 device
-+ * nct6694_usb_write_msg() - Write message to NCT6694 device
-  * @ddata: NCT6694 device pointer
-  * @cmd_hd: command header structure
-  * @buf: buffer containing the data to be sent
-@@ -185,7 +187,9 @@ EXPORT_SYMBOL_GPL(nct6694_read_msg);
-  *
-  * Return: Negative value on error or 0 on success.
-  */
--int nct6694_write_msg(struct nct6694 *ddata, const struct nct6694_cmd_header *cmd_hd, void *buf)
-+int nct6694_usb_write_msg(struct nct6694 *ddata,
-+			  const struct nct6694_cmd_header *cmd_hd,
-+			  void *buf)
- {
- 	struct nct6694_usb_data *usb_data = to_nct6694_usb_data(ddata);
- 	union nct6694_usb_hdr *hdr = usb_data->hdr_buf;
-@@ -240,11 +244,11 @@ int nct6694_write_msg(struct nct6694 *ddata, const struct nct6694_cmd_header *cm
- 
- 	memcpy(buf, usb_data->data_buf, data_len);
- 
--	return nct6694_response_err_handling(ddata, hdr->response_header.sts);
-+	return nct6694_usb_err_handling(ddata, hdr->response_header.sts);
- }
--EXPORT_SYMBOL_GPL(nct6694_write_msg);
-+EXPORT_SYMBOL_GPL(nct6694_usb_write_msg);
- 
--static void usb_int_callback(struct urb *urb)
-+static void nct6694_usb_int_callback(struct urb *urb)
- {
- 	struct nct6694 *ddata = urb->context;
- 	__le32 *status_le = urb->transfer_buffer;
-@@ -398,7 +402,7 @@ static int nct6694_usb_probe(struct usb_interface *iface,
- 	int_pipe = usb_rcvintpipe(usb_dev, NCT6694_INT_IN_EP);
- 	usb_fill_int_urb(usb_data->int_urb, usb_dev, int_pipe,
- 			 usb_data->int_buf, sizeof(*usb_data->int_buf),
--			 usb_int_callback, ddata,
-+			 nct6694_usb_int_callback, ddata,
- 			 usb_pipe_endpoint(usb_dev, int_pipe)->desc.bInterval);
- 
- 	ret = usb_submit_urb(usb_data->int_urb, GFP_KERNEL);
-@@ -407,7 +411,7 @@ static int nct6694_usb_probe(struct usb_interface *iface,
- 
- 	usb_set_intfdata(iface, ddata);
- 
--	ret = mfd_add_hotplug_devices(dev, nct6694_devs, ARRAY_SIZE(nct6694_devs));
-+	ret = mfd_add_hotplug_devices(dev, nct6694_usb_devs, ARRAY_SIZE(nct6694_usb_devs));
- 	if (ret)
- 		goto err_mfd;
- 
-@@ -441,20 +445,20 @@ static void nct6694_usb_disconnect(struct usb_interface *iface)
- 	usb_free_urb(usb_data->int_urb);
- }
- 
--static const struct usb_device_id nct6694_ids[] = {
-+static const struct usb_device_id nct6694_usb_ids[] = {
- 	{ USB_DEVICE_AND_INTERFACE_INFO(NCT6694_VENDOR_ID, NCT6694_PRODUCT_ID, 0xFF, 0x00, 0x00) },
- 	{ }
- };
--MODULE_DEVICE_TABLE(usb, nct6694_ids);
-+MODULE_DEVICE_TABLE(usb, nct6694_usb_ids);
- 
- static struct usb_driver nct6694_usb_driver = {
--	.name		= "nct6694",
--	.id_table	= nct6694_ids,
-+	.name		= "nct6694-usb",
-+	.id_table	= nct6694_usb_ids,
- 	.probe		= nct6694_usb_probe,
- 	.disconnect	= nct6694_usb_disconnect,
- };
- module_usb_driver(nct6694_usb_driver);
- 
--MODULE_DESCRIPTION("Nuvoton NCT6694 core driver");
-+MODULE_DESCRIPTION("Nuvoton NCT6694 USB transport driver");
- MODULE_AUTHOR("Ming Yu <tmyu0@nuvoton.com>");
- MODULE_LICENSE("GPL");
-diff --git a/include/linux/mfd/nct6694.h b/include/linux/mfd/nct6694.h
-index 0ab2bd3bfdc1..61155f9832b0 100644
---- a/include/linux/mfd/nct6694.h
-+++ b/include/linux/mfd/nct6694.h
-@@ -91,7 +91,25 @@ struct nct6694 {
- 	unsigned int irq_enable;
- };
- 
--int nct6694_read_msg(struct nct6694 *ddata, const struct nct6694_cmd_header *cmd_hd, void *buf);
--int nct6694_write_msg(struct nct6694 *ddata, const struct nct6694_cmd_header *cmd_hd, void *buf);
-+int nct6694_usb_read_msg(struct nct6694 *ddata,
-+			 const struct nct6694_cmd_header *cmd_hd,
-+			 void *buf);
-+int nct6694_usb_write_msg(struct nct6694 *ddata,
-+			  const struct nct6694_cmd_header *cmd_hd,
-+			  void *buf);
-+
-+static inline int nct6694_read_msg(struct nct6694 *ddata,
-+				   const struct nct6694_cmd_header *cmd_hd,
-+				   void *buf)
++static inline u32
++ath12k_dp_rxdma_buf_ring_size(const struct ath12k_dp_profile_params *p)
 +{
-+	return nct6694_usb_read_msg(ddata, cmd_hd, buf);
++	return p->rxdma_buf_ring_size;
 +}
 +
-+static inline int nct6694_write_msg(struct nct6694 *ddata,
-+				    const struct nct6694_cmd_header *cmd_hd,
-+				    void *buf)
-+{
-+	return nct6694_usb_write_msg(ddata, cmd_hd, buf);
-+}
- 
- #endif
+ void ath12k_dp_vdev_tx_attach(struct ath12k *ar, struct ath12k_link_vif *arvif);
+ void ath12k_dp_partner_cc_init(struct ath12k_base *ab);
+ int ath12k_dp_pdev_alloc(struct ath12k_base *ab);
+diff --git a/drivers/net/wireless/ath/ath12k/dp_rx.c b/drivers/net/wireless/ath/ath12k/dp_rx.c
+index cfaf26ae2720..36be543b7c50 100644
+--- a/drivers/net/wireless/ath/ath12k/dp_rx.c
++++ b/drivers/net/wireless/ath/ath12k/dp_rx.c
+@@ -1699,7 +1699,7 @@ int ath12k_dp_rx_alloc(struct ath12k_base *ab)
+ 	ret = ath12k_dp_srng_setup(ab,
+ 				   &dp->rx_refill_buf_ring.refill_buf_ring,
+ 				   HAL_RXDMA_BUF, 0, 0,
+-				   DP_RXDMA_BUF_RING_SIZE);
++				   ath12k_dp_rxdma_buf_ring_size(dp_params));
+ 	if (ret) {
+ 		ath12k_warn(ab, "failed to setup rx_refill_buf_ring\n");
+ 		return ret;
+
 -- 
 2.34.1
 
