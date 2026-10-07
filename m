@@ -1,111 +1,184 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D3D33BD64A;
-	Wed,  7 Oct 2026 12:59:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A61FC415F2A
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 12:59:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791377970; cv=none; b=swQbe3ezpgjAmaF8kHjEiShh625JHuwdkumylGi8HBXLHLXBLZ+MdSludZRK6gdN7B0TqBTNLj4BFhwg1JZHXua7fxAHfTQxBKu1kw8awBe0eloKprprpShxMfUZXlsjzTDsndAgpwe2GoIeKbgDFu5sJnYr8SZxXDTBPR4cP/k=
+	t=1791377982; cv=none; b=Ij9lDl2+JLjH3/B8FeI/N4PnJiSZmu+z9TrB9OqNK9tWFT4jZ94xP6EtEnzAQybUxwo1pQ+SjloXWig1LnvIQuEObjWgKc3KSVLjqLmCSk3JZRY4oBoDjQ/GFw9g/lhLA29DGx1J0tFFvZuIzzH/ng417M9Ryqb9CODPSrXglYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791377970; c=relaxed/simple;
-	bh=dwR3gHAwZrUlbJdpWYscVbEmULgrTOfq08+7cc5P/XM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ups1lwlSld16GqMOS7M2iVpRJs3XiNz/qdPswbWgFcTiU74RyGfVuLGJTJSRUgjY8ZDxlF36wBWIBwlTbEOfoysuGHgRfYLGTtDup9lX7P/kY7Po131hNcMpQVL96dSe7AHqamMqxND09s2yDjSeUjjPZiq2/x7m3WSWhRSR+jM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EZgvNs+7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791377982; c=relaxed/simple;
+	bh=pGfLDpKk3/1ZjeYb4FJ9B8DIgZuH7Vw697Sv9z/d/KA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=eeettB0yAeUMSpOq/V7LYmb1NrWQatDOYpMEiig5dLOprBtaT5RyS25V4rY8vR5i1Nsna4whiDeHwvTQoo6qRv5vyRq0Op4nDyXePtpKdhF570ylJGtED/m7vWgGV1Yq+CHcL+ibJ+c+U9n90EdOAXQ6PFKqkEmqhTtI5A4hAng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EITmbD50; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EZgvNs+7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C0F51F0089B;
-	Wed,  7 Oct 2026 12:59:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791377959;
-	bh=dwR3gHAwZrUlbJdpWYscVbEmULgrTOfq08+7cc5P/XM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EZgvNs+7KV/3y0yBb6ZoBJJqh7YzO3nfMCDqmPeXmK6DaiouIQDadghSTjRcACi/2
-	 HULuc2RxEc57Jmnn1ubL3ISW1lJuwmn57sn7FBi+jTg+O7todNEnVPgrNxrx88jiDd
-	 qtRzaDSQ4TaYVExYFgs292X5lRCcIKyyUa+WuXBEn/1yL2s9gdUdRQ2ASfVZKQ5w0D
-	 zVnTuBh+7A0Jft/lWl2gRN9v5KT6E0uzKmqcGjcqWiDb0Qa6Fa7ac5dwFDbNOBFaR/
-	 Ab5fXSFarOAzb/0/W6y4mzhhILxd5DFaBruQV47oogqVwU+K65XMH80aq+UD5LzvHW
-	 ljFjw3fnmLC/w==
-Date: Wed, 7 Oct 2026 13:59:11 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Lucas Tanure <tanure@linux.com>
-Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v2 3/7] dt-bindings: net: amlogic,meson-dwmac: add
- amlogic,t7-dwmac
-Message-ID: <20261007-634979008f45ea7ff444d41b@squawk>
-References: <20261007082627.63807-1-tanure@linux.com>
- <20261007082627.63807-4-tanure@linux.com>
- <asYWEwjFO8g50o1i@squawk>
- <CAJX_Q+3nHRH--pJHxv6PqwpVYTdFAqG1bQdB5=DT6jgLsFKO=Q@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EITmbD50"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49e73611928so13213855e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 05:59:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791377969; x=1791982769; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DwND9tREEv6TWlH8EeJ9EjioQzwdF+35qv5THb2SeOg=;
+        b=EITmbD50PzpVmy/yxJsCnsB90AnECJ/I2my4LsifdmgltE/Qn0pSUCu+rhiSP+fDF4
+         E7nxJqMX1Gr9iO4ZF9kSt79HfyFAj3KjIlTT/iBfUjiGEvyFGyMJXqQtxHPlrm1V1xVm
+         sDSySLXPQ6JQQPds9KB/NGzhYyOJcu80YM5Qt4tIkX3KWdeJKmus9El0dam18jQMUbxc
+         2v5dcKgktfvZCfQR8m59UW8TXYOW886GjqDZkzsHb+FZS5U6w33UZyVcU8GJk7zFO8/X
+         cBl10sT5fpp81vrdE7L9/GuJCMLUXYoSQstJi1W4db1Y/DoDryDeZ2hjT+MRK2rl+Mmd
+         J57g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791377969; x=1791982769;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DwND9tREEv6TWlH8EeJ9EjioQzwdF+35qv5THb2SeOg=;
+        b=Sb9uV6VpYmGYAfKnXVz05Z8GePKSYWN3uE6Cyh3a3HGIlh2vvZhE2M/jJTMWTsSHP2
+         OfMt1X4RILNrO3rEt38LStpEoK4/ziHXpNkYe7FDbIyCWBn/i+SzN4EH605cdC6YNgss
+         CTepUtYb5HX2wL63xYJ+JHXTwDAVwUb1NBfdvRrDIXfm8ryrG2cvglHPiPFo7bW4kz8j
+         lfM8B3yIMS0wyHuYpuoTm0aSY2a/icyRENhKuUSwwyhFBwqq6Abfa1qIZTkn+V2U0QEE
+         7Y5kReBeClZw4looXuvsC8VS+lIvxmh1yPOPlCPJg5pwNkd3OlludhLjjTIgh1DUsFS9
+         /b6w==
+X-Forwarded-Encrypted: i=1; AKwUvBxj4vpAggiGESSKhCemRBZXz0kJA9CE5myGpUPptM/9Na2RdBzaFDvQ1+/4RL4uMj6ddX4NCHeXE624TLU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kraiUDr3235Cc+NVTqhQkBnSfl8ykgb32/4gwGIpfB0yhWwBhT
+	KVqkcVjDsIAlAuM1ONwp80LhKN0UfHwrElDGWKddVfD1YcfwQsUwp17g
+X-Gm-Gg: AYBFou2H42NDM7kK3tpGru4oheUHTTydqg/cqISLl8Ge142DB9qfRr6t36WQ7QRWJ5S
+	Lf9pPeTCfzHOtq2ZIRImwpGzfM+ejaeei9rd+pGlPdCN3HsCgoTvmRLPHh139H87PbPMdTFUNZm
+	LwsBXKQbM0gWwD732ncYvpn/T6AaHK9JFgpEDiOjAYm2UOfNx4xi4In/QMryWHKzAFElA4OlG7M
+	2UF80pS/N8c99Hx8d2Pmq73D7LA4/ubmPn+khBuK4uIkPBzxeSk0guGE5nIQe5MEKBlsQOeemCz
+	ip0sCdNxPVuCCLBX5Jtj53WltU8sIH1bls/P8L1BSHhJxF0tPhwAn2/dmkh8FLeUMkrtBo5icZa
+	Ktn/gj/tAbUhoybTpJYAqkjfzztqXgBwgYOhrXBjQrb3OnC55rpYfgadrE8aAdfXFlkumXUz1xa
+	mu3uj4+QjE3bUpDPHaoEFsw3lIPGP+1oyGBkcb39du0mlg2wf9iVMqBPc6AGpKBBbqPh5H2+epf
+	To2k4iAv7MJlnOsIkHwQGFAVu/09CetlZmNYbjfeNw=
+X-Received: by 2002:a05:600c:154c:b0:4a1:6282:1cf3 with SMTP id 5b1f17b1804b1-4a18043b284mr38575475e9.9.1791377968690;
+        Wed, 07 Oct 2026 05:59:28 -0700 (PDT)
+Received: from PF5R4XJL.retailmedia.com (284035233.box.freepro.com. [82.96.134.200])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a17f493761sm105304145e9.2.2026.10.07.05.59.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 05:59:28 -0700 (PDT)
+From: Erwan Velu <erwanaliasr1@gmail.com>
+To: platform-driver-x86@vger.kernel.org
+Cc: Naveen Krishna Chatradhi <naveenkrishna.chatradhi@amd.com>,
+	Carlos Bilbao <carlos.bilbao@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 3/4] platform/x86/amd/hsmp: Expose socket attributes from the platform driver
+Date: Wed,  7 Oct 2026 14:59:07 +0200
+Message-ID: <20261007125908.321186-4-erwanaliasr1@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261007125908.321186-1-erwanaliasr1@gmail.com>
+References: <20261007125908.321186-1-erwanaliasr1@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Zbkq0YzkpeyE441M"
-Content-Disposition: inline
-In-Reply-To: <CAJX_Q+3nHRH--pJHxv6PqwpVYTdFAqG1bQdB5=DT6jgLsFKO=Q@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
---Zbkq0YzkpeyE441M
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+From: Erwan Velu <e.velu@criteo.com>
 
-On Wed, Oct 07, 2026 at 11:34:54AM +0100, Lucas Tanure wrote:
-> On Wed, Oct 7, 2026 at 10:51=E2=80=AFAM Conor Dooley <conor@kernel.org> w=
-rote:
-> >
-> > On Wed, Oct 07, 2026 at 09:26:23AM +0100, Lucas Tanure wrote:
-> > > The T7 has the same ethernet glue as the G12A, but the controller
-> > > reaches memory through a pipeline stage that this SoC inserts in the
-> > > bus path. That stage has a gate of its own, which no other member of
-> > > the family has, and nothing else in Linux claims it. It is therefore
-> > > switched off as unused, and the port can then no longer finish a
-> > > transfer.
-> > >
-> > > Describing it needs a fourth clock, and the fourth clock of the
-> > > existing list drives the timing adjustment logic, which the T7 never
-> > > uses. So the T7 gets a list of its own with the gate in that place,
-> > > under the name the SD and eMMC controllers already use.
-> > >
-> > > Assisted-by: LLM
-> > > Signed-off-by: Lucas Tanure <tanure@linux.com>
-> >
-> > Didn't I ack the previous version?
-> Sorry, I didn't receive one.
+The platform driver only exposes metrics_bin, so on systems without the
+HSMP ACPI object, attributes such as pwr_current_active_freq_limit are
+missing although the driver can send the same HSMP messages as the ACPI
+one.
 
-Hmm, thought I had sent one.
+Register the /sys/devices/amd_hsmp/socketN devices from the platform
+driver too, so both drivers expose the same attributes at the same
+location. The legacy amd_hsmp/socketN/metrics_bin files are kept.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+The devices are torn down by a devres action added after
+hsmp_pltdrv_release(), so they are gone before the socket array they
+reference is released, and they are registered before /dev/hsmp so a
+probe failure leaves nothing behind.
 
---Zbkq0YzkpeyE441M
-Content-Type: application/pgp-signature; name=signature.asc
+Assisted-by: claude-opus-5-5
+Signed-off-by: Erwan Velu <e.velu@criteo.com>
+---
+ Documentation/arch/x86/amd_hsmp.rst  | 16 ++++++++++------
+ drivers/platform/x86/amd/hsmp/plat.c | 20 ++++++++++++++++++++
+ 2 files changed, 30 insertions(+), 6 deletions(-)
 
------BEGIN PGP SIGNATURE-----
+diff --git a/Documentation/arch/x86/amd_hsmp.rst b/Documentation/arch/x86/amd_hsmp.rst
+index aba4a009bd8d..954e938eea3d 100644
+--- a/Documentation/arch/x86/amd_hsmp.rst
++++ b/Documentation/arch/x86/amd_hsmp.rst
+@@ -57,11 +57,16 @@ In-kernel integration:
+ HSMP sysfs interface
+ ====================
+ 
+-The ACPI driver exposes its per socket sysfs files in a per socket
+-directory created at /sys/devices/amd_hsmp/socket%d/.
++Both the ACPI and plat drivers expose the same set of per socket sysfs
++files in a per socket directory created at /sys/devices/amd_hsmp/socket%d/.
+ 
+-For backward compatibility, the files are also available under
+-/sys/devices/platform/AMDI0097:0X/.
++For backward compatibility, the files are also available at their
++historical locations:
++
++* ACPI driver: all the files of this section under
++  /sys/devices/platform/AMDI0097:0X/.
++* plat driver: metrics_bin only, under
++  /sys/devices/platform/amd_hsmp/socket%d/.
+ 
+ 1. Metrics table binary sysfs
+ 
+@@ -69,8 +74,7 @@ AMD MI300A MCM provides GET_METRICS_TABLE message to retrieve
+ most of the system management information from SMU in one go.
+ 
+ The metrics table is made available as hexadecimal sysfs binary file
+-under per socket sysfs directory created at
+-/sys/devices/platform/amd_hsmp/socket%d/metrics_bin
++/sys/devices/amd_hsmp/socket%d/metrics_bin
+ 
+ Note: lseek() is not supported as entire metrics table is read.
+ 
+diff --git a/drivers/platform/x86/amd/hsmp/plat.c b/drivers/platform/x86/amd/hsmp/plat.c
+index e9b2b809c0f5..03317f342c69 100644
+--- a/drivers/platform/x86/amd/hsmp/plat.c
++++ b/drivers/platform/x86/amd/hsmp/plat.c
+@@ -222,9 +222,18 @@ static void hsmp_pltdrv_release(void *data)
+ 	hsmp_pdev->sock = NULL;
+ }
+ 
++static void hsmp_pltdrv_sock_devs_release(void *data)
++{
++	u16 i;
++
++	for (i = 0; i < hsmp_pdev->num_sockets; i++)
++		hsmp_sock_dev_unregister(&hsmp_pdev->sock[i]);
++}
++
+ static int hsmp_pltdrv_probe(struct platform_device *pdev)
+ {
+ 	int ret;
++	u16 i;
+ 
+ 	hsmp_pdev->sock = devm_kcalloc(&pdev->dev, hsmp_pdev->num_sockets,
+ 				       sizeof(*hsmp_pdev->sock),
+@@ -253,6 +262,17 @@ static int hsmp_pltdrv_probe(struct platform_device *pdev)
+ 		return ret;
+ 	}
+ 
++	ret = devm_add_action_or_reset(&pdev->dev, hsmp_pltdrv_sock_devs_release, NULL);
++	if (ret)
++		return ret;
++
++	for (i = 0; i < hsmp_pdev->num_sockets; i++) {
++		ret = hsmp_sock_dev_register(&hsmp_pdev->sock[i]);
++		if (ret)
++			dev_warn(&pdev->dev, "Failed to register HSMP socket%u device: %d\n",
++				 i, ret);
++	}
++
+ 	ret = hsmp_misc_register(&pdev->dev);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "Failed to register misc device\n");
+-- 
+2.53.0
 
-iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasZCCgAKCRB4tDGHoIJi
-0o/uAQDH6PB4FUDRgOVLQKFmYjwcQt2CXCVjVxTNOzUqkxslCQEAyqjDGZUbFb3t
-Rx4Z3kIt/JfIveShRWhBuUi6Iqkvrgc=
-=rJrd
------END PGP SIGNATURE-----
-
---Zbkq0YzkpeyE441M--
