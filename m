@@ -1,80 +1,81 @@
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com [209.85.221.69])
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E8E387364
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 14:33:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 610B44AF14F
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 14:33:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791383616; cv=none; b=NiKpm1d4q8a1oa77zhhgzLNqHj3/JLxZ6B0xi2Oee0BoXpghQArRrdfiD2iQ9cIAA2ynrWxcpT+oYsWxO17HpuhXtXzYF9pOE7E6V/G7rAFNPxCwwWuEe2V2TcTdaWvbgeyNTBSywZtCK0z5EHRgfvLHEkAuOr2cyNa87q5eBeQ=
+	t=1791383620; cv=none; b=PsPAK91aJTCcEBtb7ZIvOFHRRGsOLGYvKZT5JaCDD/G3Uv3qcIkp9OCEmZqP1KQT+Bz+20SvqDApT1Dfiga8qdEzXP9GHh4lk3eCDOagWqJ8OORaom1KCNqsCuSQK++MUzTs8TE7QcfCd5g3QNp7vtTjXDaxvMnmbQmm+HUC++Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791383616; c=relaxed/simple;
-	bh=e+VgyD6SZLSBmSGzU3Bto41OTsHMD52dBjAauy1481k=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=Kq8Q/22sEWeuUvwwRc1XbbzwybH1RsFpotWEmfj+FkliTkvWqxEhdNz8BUDxAMsSkZ68SaRedIA+A1ANMT/qrVfI7fNiXid6KiNMz8oByVgl3fBt91zOLfgPtw3w9QgxjiNhc0ggf1zoC4yB4JGM5MnsJxX0LBXZ6No/J8L/okU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=lqtEdxTG; arc=none smtp.client-ip=209.85.221.69
+	s=arc-20240116; t=1791383620; c=relaxed/simple;
+	bh=7yYnTkDLzueMSUsYZysN1eVLm4bkwc3Fym28lNXfUtA=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=FSLAHyeo00VeQNPTWmfSW8LVi/rJZXwN+Rmr6bMJYxQ8XeYHFGuY2hTw2tEt8lqSy/s4LyD8JN2NypIOEEdJM/XfksMCiVbzByJINeEVEUh/et7rLJDwaXd0aEoJevotK2cpPSADs5vlwKRITDppfsaYeYWBHap0/Cp+bkW8NnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=stQrNy6Z; arc=none smtp.client-ip=209.85.128.69
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="lqtEdxTG"
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48c46582442so2122495f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 07:33:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="stQrNy6Z"
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a1612c4b80so40137195e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 07:33:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791383611; x=1791988411; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/TOyKHfLc6kuyaXAU2rSomHrXK5rbC2R871XYjmy88o=;
-        b=lqtEdxTGDzcyiKZDlgs7tQhnA/QxN3/6GrWuVRhrnUEb76jODPZfOGrhIzpp4eXXLx
-         of8jIHYaeeRqo9Z3wex3z4cGfybRr9RyxQToALIktBqOkXq7zgsrKatAj2LM2zeVQ0c4
-         489qRa5I+oPEyA2QqhjSIhdsLNIFscWw2h9JOnKk4m9xyJwkjYGcV/zpL7+Vqxkv2GAV
-         RPzENSmIw7B9whEUBuNPgLx09EuqGwBZdPa0rm0u7tykAytIJvOVVm7H/ZAD7DR8dx7F
-         bJxhXsmN7SjO3u9pBLUeKvBB2iTNYbLpAWZeSh45hG4Igde8OsWzeuEC+oj9bTWCx0rk
-         8XZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791383611; x=1791988411;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1791383613; x=1791988413; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/TOyKHfLc6kuyaXAU2rSomHrXK5rbC2R871XYjmy88o=;
-        b=CZDl6j95nGVkuG1GHqUsSHoo8BbicXQxhYLXciQW7cfqo8HNv4WSA6IqmwNGKSfiJt
-         LXhP19+Y8oPwSRpUNbsXqk1qfWYjX73EX8prUJa2wRX2Dd82xEjU/3Ki9T6NGS6c8ulW
-         6rPYeinw6lTu/KxBD1vRElM1UnTD8ZR2YluqDJd1/S71EPzWeskCkuyGqDA3vXNh/AGC
-         pBBM90iZiWLiPKuyGkpJn8jcQZ+NF1nFOQdiaD9lHtcAYpm5IWhNIh7tP353H9B1ofrk
-         S5pAJu8fcNttcR80TmzVFDhxBNV33U+/BJiSm79pyp2i53Rqqv7zmcw+vAMfePcT9mRb
-         qdyw==
-X-Forwarded-Encrypted: i=1; AKwUvByeJ5MMzNjdelja0FsTkNMXaLbyr9C+wyKasibplFLVpoB77721pU2bEETdtgg+sWZ4hmU5MZynO/AcUE0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKHe0aslp5k3jLNocTWDFSDAcHlcHWcJ0rZ8TqqE6UxU7gjP9AW
-	UFcMdvZ2o7AUCURD5EId4gvw8umc/NKcAg3QXgxAtPZGGKH/Hq6abaXVzQ2EfoGKR9zwqXX2HX8
-	DSHDkqzBQ8Ug8cCw4zw==
-X-Received: from wrbaz28.prod.google.com ([2002:adf:e19c:0:b0:48c:607d:f1e3])
+        bh=3eFBvcoNf1j+MWtzWga2AOfx4ORJ4p8JbpHFXtfrLRs=;
+        b=stQrNy6Zvlw48PZej0O4Qb42ZdugpJsqEt55BEz2FAxbth0GkVE02L4uP04/fHVoZg
+         wji/Nk//1vy9dGEU44Bx8qhdY/CSyMEMGigICRvzZPRXqnWtKZWLnLvdCI6G6rBSvpZD
+         y72bI074ARvvq2lrVs09JLRwbvOrpLtdejcQOnOJrui/LCNgLquAhnjO35jzMjhm1q8i
+         F4UgqUuLmNzeSxj3PCfXJuTdk9rnffIKkNUej3DgVttqvLQnGvl9NJalG9MvA4Dn1shP
+         CIqfkL9kt22PzLtp0m7tfsoA1WQT1Zfv2SK6yULb+811bajWuTSP5gyUaG3REIxiZ7zv
+         jsSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791383613; x=1791988413;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3eFBvcoNf1j+MWtzWga2AOfx4ORJ4p8JbpHFXtfrLRs=;
+        b=E8L4wqonaUJ+Qnr4SLRAzrAYhhPnQAhLAPIaRfFPbW1uRHrDZO0JNh7bdEd/umy4La
+         aCHCU1QBsXxOuf6Bw5hgjkQFIzmYMtSHmuiLO42c/0+zutEjZwzc1iM/PyH0jQ6d0bhl
+         t+PutThyppDmAJLY2spdST4TmnHUVS7os5rGCrIQaz8BHe7RjU7HNaTpnJoyumd4Spsg
+         BkFp74MrRwAVS1qJDfR9xBb9blGt2aJ7/2wP7lgOUrmNDMmeXogA6/QLnpUqnBqFmGpU
+         H7y52srcrYxyAOB/eVHqsXSkw3UZpK7w2QQGuRvDCphZpiOmZBOApFr9qi34W/3HEtZR
+         cb3w==
+X-Forwarded-Encrypted: i=1; AKwUvBxpIg+bS3LHbEoOSfeFC14DVkr2SvKsJP0XNGiuHs/70jfrswP13Fsht0Rhe1Nw/dgVIWs2lKH8w/ZEzIg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lcwjCv/u483hN5rj4086kPr5J04wcLqHzhmfh/4WzxLdaPUwOi
+	g78iHGTY8t4cnA8z6v6fZf/ADPsTZmb43IoLYEOMU4fkWE8wS5dw2qh6d4njuI80hAgCyreJoKz
+	3q7KFRakaqMAWrRJSoQ==
+X-Received: from wmpr35.prod.google.com ([2002:a05:600c:3223:b0:4a1:7ed0:848b])
  (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6000:612:b0:48a:fbd2:c2b6 with SMTP id ffacd0b85a97d-48c728ab756mr4072442f8f.55.1791383610361;
- Wed, 07 Oct 2026 07:33:30 -0700 (PDT)
-Date: Wed, 07 Oct 2026 14:33:25 +0000
+ 2002:a05:600c:64c9:b0:4a1:6992:f861 with SMTP id 5b1f17b1804b1-4a1800d417dmr38827685e9.1.1791383613372;
+ Wed, 07 Oct 2026 07:33:33 -0700 (PDT)
+Date: Wed, 07 Oct 2026 14:33:27 +0000
+In-Reply-To: <20261007-binder-consolidate-txn-prints-v1-0-c1032ed3221f@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIADZYxmoC/x3MwQqDMAwA0F+RnBdo6timvzI8uDZugZFKUkQQ/
- 31lx3d5BzibsMPYHWC8iUvRBrp0kD6zvhklN0MM8UYh3PElmtkwFfXylTxXxrorriZaHRPFnoj 5sVwHaMdqvMj+/5/Tef4AZhFLD28AAAA=
-X-Change-Id: 20261007-binder-consolidate-txn-prints-c12311ee8f49
+References: <20261007-binder-consolidate-txn-prints-v1-0-c1032ed3221f@google.com>
 X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1220; i=aliceryhl@google.com;
- h=from:subject:message-id; bh=e+VgyD6SZLSBmSGzU3Bto41OTsHMD52dBjAauy1481k=;
- b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBqxlg47RNG2y3+qPIPORV9w+ffgXQgFfhQYtIyL
- w6m+8ER7k2JAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCasZYOAAKCRAEWL7uWMY5
- RmQmEAC5dLLwAjv468ldydHbUA+JwoOt27t+0kfWDQRYGyzcncAS3AgZQe8Q1MozW+Qtj6Z1+pr
- gPF+l7y0G0WBZZDi/ZgD7lNYefoUz5c6qakJU5ejdGxooHQC2geYTUfAU22nxKPMdCkFQDE9Ug/
- Z4b7ZyXBf7+0MbPgLuvbgrvo0wndbVFjQagksEL9Fu+yRPXr8H2B/5UTcycRc5rijqypMcezLoQ
- ZWQ4bkq4ZRWxCE4tvNoOvBaxXyuNzCbcZqJuqRy0jZiQfyFOdicBVaPkdBxEfvlI5L+9NHuh0qe
- OcPt2fCyjv4ckFDVcD0HBIjZEwGK4RNduOSIPrhYDShXwCkQOlpcQRzD/b3mPbgh2mjyTWTdvrr
- YpAr2roxkiH9YbZbSmX8RjbQQyJ8dxAN4xAj05q+Rkgv9WxzO/7SLAhyk20pyJxhSanGT2Rhm16
- 0NxvgbHlTO9bhsV4BsZ9U2u6sT4ubmQ/KnY8FEcGTyCwoRPzMYQVuV1nkX44UotCmuta4J93XMg
- XosdmkgYmF64SV7hC6JgTm3jW15AY66hB5w0KPp2C9IQcSKVzqiIKb6zscOsZ22YBqTShaziYtk
- v7fyrwFI2b64cV4j2ocAhUZbNa+HDVpfy7LbWm8CW65C9i2lXnQ28uoMrziJZuSKu8LhRW/ojVE fDIGDjTJND5LK3g==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2793; i=aliceryhl@google.com;
+ h=from:subject:message-id; bh=7yYnTkDLzueMSUsYZysN1eVLm4bkwc3Fym28lNXfUtA=;
+ b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBqxlg5g83qZuMylpNIDat+dHdR6bJPs2va6ac08
+ ZsG4+gQVXaJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCasZYOQAKCRAEWL7uWMY5
+ RjsIEACbB8svpZNFa9U5Py17pB9wR8DWlzldpnGpY5hnhIy0cPiYkXYCBEYHocu+d97SBiixD7m
+ 5eTZR65YfViawQ48eEt5ivy4AjDIV3PIzUMSbawBdvP5WSNSxOidD7z3oKwTSzOqUFise6qnNAQ
+ cBZz/6t2LdWYmnfhovcvli8g2wScwN8UiP1gpqEAqhbtsKUOani+HJCg+AbWLXdn3OtrK3WBpH8
+ 7XqfjsKZQcobkqGhPsGnMpL71m16wukor1jgcrgJr+yZMABb4v0miwOfUjQQE8UVzht+4a79cFM
+ YrLEm6b4mlU60A+iaZRcARicyZXHcs9V0OjP0zFTif+IENB45Rwze2hXqMUKuhOg0nIa6FlLLrv
+ 0+nDrzfan3LKj6u6qb9fxvRGHyqa7r5IV+hf8I6JYw9ONvWke6cJrRv9ZE0o05dgpDypnI5udIj
+ uGFh6/FCfU6mR93Fi4/vEF4wN1C81ZTq3h9I+40Ux6O54eBFVU3AJEuRZBVjPfrnq9gkiK9brCW
+ SQXzyaRByp8uLCMolt+iMdo3SSMD0k/VPCTnMtr7v5eftPYR/x+oVcHPC9S/unF3KgsnMTY+RLL
+ fYPYSdA+6sZbuSTLgozGcl96Di/Qi7OeANUKm/mjOnhKJn00KFbK5aC8hj/hzTvJV0RAnQg4YqW ORGHVdpB66vgsVA==
 X-Mailer: b4 0.14.3
-Message-ID: <20261007-binder-consolidate-txn-prints-v1-0-c1032ed3221f@google.com>
-Subject: [PATCH 0/3] rust_binder: consolidate transaction failure prints
+Message-ID: <20261007-binder-consolidate-txn-prints-v1-2-c1032ed3221f@google.com>
+Subject: [PATCH 2/3] rust_binder: store Option<Error> in TransactionInfo
 From: Alice Ryhl <aliceryhl@google.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Carlos Llamas <cmllamas@google.com>
 Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
@@ -86,33 +87,67 @@ Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <ga
 	linux-kernel@vger.kernel.org, Alice Ryhl <aliceryhl@google.com>
 Content-Type: text/plain; charset="utf-8"
 
-This series is split out from "Rate limited printing for Rust" [1] so it
-can be routed through char-misc-next independently.
-
-Patch 1 implements ZeroableOption for Error so that Option<Error> can be
-stored in structs deriving Zeroable. Patch 2 updates TransactionInfo to
-store Option<Error> instead of a raw i32 errno, and Patch 3 consolidates
-the transaction failure prints into a single debug print.
-
-Link: https://lore.kernel.org/r/20261007-pr-ratelimited-v6-0-f14accd4ea3b@google.com [1]
+Store Option<Error> instead of a raw i32 errno in TransactionInfo so
+that the Error value can be used directly when formatting transaction
+failures without having to reconstruct it from the integer errno.
 
 Signed-off-by: Alice Ryhl <aliceryhl@google.com>
 ---
-Alice Ryhl (3):
-      rust: error: implement ZeroableOption for Error
-      rust_binder: store Option<Error> in TransactionInfo
-      rust_binder: consolidate transaction failure prints
+ drivers/android/binder/thread.rs      | 6 +++---
+ drivers/android/binder/transaction.rs | 8 ++++++--
+ 2 files changed, 9 insertions(+), 5 deletions(-)
 
- drivers/android/binder/error.rs       |  4 --
- drivers/android/binder/thread.rs      | 78 +++++++++++++++--------------------
- drivers/android/binder/transaction.rs | 28 ++++---------
- rust/kernel/error.rs                  |  4 ++
- 4 files changed, 47 insertions(+), 67 deletions(-)
----
-base-commit: d47322a612daf8e97b2e5e4dbbabdff27080c1ec
-change-id: 20261007-binder-consolidate-txn-prints-c12311ee8f49
+diff --git a/drivers/android/binder/thread.rs b/drivers/android/binder/thread.rs
+index e5ae3b0e56c5..5bb7ae2f7920 100644
+--- a/drivers/android/binder/thread.rs
++++ b/drivers/android/binder/thread.rs
+@@ -1333,8 +1333,8 @@ fn transaction(self: &Arc<Self>, cmd: u32, reader: &mut UserSliceReader) -> Resu
+             if err.reply != BR_TRANSACTION_COMPLETE {
+                 info.reply = err.reply;
+                 info.error_line = Some(err.line);
+-                if let Some(source) = &err.source {
+-                    info.errno = source.to_errno();
++                if let Some(source) = err.source {
++                    info.errno = Some(source);
+ 
+                     {
+                         let mut inner = self.inner.lock();
+@@ -1476,7 +1476,7 @@ fn reply_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> BinderResult {
+             orig.from
+                 .deliver_reply(Err(BR_FAILED_REPLY), &orig, Some(ee));
+             info.reply = BR_FAILED_REPLY;
+-            info.errno = param;
++            info.errno = err.source;
+             info.error_line = Some(err.line);
+             err.reply = BR_TRANSACTION_COMPLETE;
+             err
+diff --git a/drivers/android/binder/transaction.rs b/drivers/android/binder/transaction.rs
+index e627522141b8..d934c6821b15 100644
+--- a/drivers/android/binder/transaction.rs
++++ b/drivers/android/binder/transaction.rs
+@@ -136,7 +136,11 @@ fn new(info: &TransactionInfo, ctx: &crate::Context) -> Self {
+             offsets_size: info.offsets_size,
+             return_error_line: if failed { info.error_line } else { None },
+             return_error: if failed { info.reply } else { 0 },
+-            return_error_param: if failed { info.errno } else { 0 },
++            return_error_param: if failed {
++                info.errno.map_or(0, |e| e.to_errno())
++            } else {
++                0
++            },
+             context_name,
+         }
+     }
+@@ -254,7 +258,7 @@ pub(crate) struct TransactionInfo {
+     pub(crate) offsets_size: usize,
+     pub(crate) buffers_size: usize,
+     pub(crate) target_handle: u32,
+-    pub(crate) errno: i32,
++    pub(crate) errno: Option<Error>,
+     pub(crate) reply: u32,
+     pub(crate) error_line: Option<ErrorLocation>,
+     pub(crate) oneway_spam_suspect: bool,
 
-Best regards,
 -- 
-Alice Ryhl <aliceryhl@google.com>
+2.56.0.rc1.315.gc6ed9934b7-goog
 
