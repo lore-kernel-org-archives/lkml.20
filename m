@@ -1,64 +1,66 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6678944C4F2
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:58:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D76344CF22
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:58:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791374322; cv=none; b=rk2EKAl9NObYNWeusHfv3lkpls5VdXvwYLMYDjfRKRW1LzFJExNE8s4zzQppnnXA7zJu9mb9kTyIpkIkPq5QUmhj/Vimz4w8TpVqRYkBmLLex9nmNv+qG0Af4+kTv3HFCKgpm69OMDpdJ73z4bbweFeeZLrIiLhT8XXZDt8T/uw=
+	t=1791374327; cv=none; b=gIYJZD8kfoC6kSCYFe9hPLxNx44B25HQHMU0JA3GVaRS5niGqyHrQh7aPX7C148tzOspEGntCRUnh7LYuTj/p3kSQ8gFBGfbt3ODqNwJMt0SVLu78bq8Oxbw1BfkKxuA6Yi0ORMGLTuy0PfJg7H/DiDkhws7/FEaZS9BtoNcUx4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791374322; c=relaxed/simple;
-	bh=1QxYc7EDHNuG4nVpYQSE/XwKYhWItsefX+0U1GWt1t0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Rdj3TLi7PGLLpvzfLLrq8cvmVEvtc0yAf3Ck3ABEEd2Y/I1UgjIHHPlE4ZZc3cPW5vThIutJ2pptiq5LfNjxmbC7h//r5xs6L7YseMDTo1SHG2v+gZJQnEqBC3Tm7CoiEP5c5m/Z+JhAxT5//5CruRSBt+MDlGD09bb4opscyvE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jTRASdET; arc=none smtp.client-ip=209.85.216.41
+	s=arc-20240116; t=1791374327; c=relaxed/simple;
+	bh=s7RHTsXfEOg+gwqThuTUUiknVQDtwJu49s4s8eAwliU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Nz6AQPptQLwUzKYZvP6emFGd/FVf3I9J7QUqGzK3NS/b+qNf52pOptxuz22a81Iy/OEAXs6Dg8X1A8vL275l3FuSSHx49IlcqqAIrGozMwOOnq6jwpPvPnH4npofSYwSqaYrIn8iHT6wuMiwKEvFFvVkXOa2wBAYXfeOHXdAqz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SIzPxpTI; arc=none smtp.client-ip=209.85.216.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jTRASdET"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3a6cf104827so1098369a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 04:58:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SIzPxpTI"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3a813079a55so902984a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 04:58:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791374312; x=1791979112; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mfZX49TMx4xg+lBfGFXkga09/sEL5fzSy7qIyNAFXaM=;
-        b=jTRASdETGYrYAyXHMFtukoGW8V7FFznYjaGX5NTopcvA5xbiNmoar+Ii91gBSi2XkM
-         7cDqcZNTHCEXrQSMOCF/paxyngsPwLUT9EsNSu6LQr0wrbTRnOcxeqV3Nn0E8A5Pj8E6
-         dLt5fZWbwoBcGlZhaQzxaxzGTb5SRbiojkP64ROVpTm0pneFYtTDEnEOddpItSx9W4G6
-         6ryw3AxPlUnVjhQM0Dn8iblrN0RKx6UNKEoTrlvCmEVYWT9+Ym+lDwODN3Mbc7GDGXtB
-         1dsur9cluA8yGW2Q+Tsx/IHU9GYu5g1CZLtGykB+r3+eaCsHkdDojaxybCzZtXbJXPef
-         HLBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791374312; x=1791979112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791374319; x=1791979119; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mfZX49TMx4xg+lBfGFXkga09/sEL5fzSy7qIyNAFXaM=;
-        b=dVQ8/wMpe3+1OUwm5xN3+Raph/Tp2tomklIq8N1D25ENhItwto1g/A1dAo0lZ5I9Cb
-         oJitUhE7tbDygDIibHwtq1xvNmXDTmGqEOi/xhtnDBjXTGuCbRlaHZjDf1eeX0HOxmqW
-         uq/bDmeVk33SekpKH7j/PJwguK+1PdmJVY/oIXQ1MPEt2hNiUj/vouYQ6X4CsSDbisyi
-         UB+G9sxlHi2WomeIJUenK4lb0TOgcRqlBUZSLhT+U5sDWdj7W1LsUFQpsgElbIsHHP+A
-         Lg0dk4+LSOs3xwPZniXLN9vkYzTP7PxPQdYoVP2kgcJHYxvVZaz8yKJQ+fX22HYEV9Ac
-         8M9w==
-X-Forwarded-Encrypted: i=1; AKwUvBwjnz24QdG1mdYreED0n7QunzMOtLpFLthhs1B4GhKcXYE098WJTZ6MoQ414Vm+zf3N6Rr9cm8oI6x7mH8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJhBBz0WLHXX87dNTKpHjRCt/KwQVFfCjrbTDRhKgCWDyxEXf76
-	5hv2Yn2ZHK6E4geAidezE57w1qu2mmrRDWiIhg1rhtZHuxRb8P+4wkjl
-X-Gm-Gg: AYBFou0lIJBhfjeKIgWC+BUPvnFeK32VpGh3AZmaCLeJfu4C1EKQwa8OHncILNJHoH1
-	K4ZxFyG19xALPEN6cDxHY+BnH3Y8XH4yo4fNN5WdBvtarM3cKXyNSzge3p8kI8DcJl3BCzo0xcC
-	2+sTktDmkxdY3h+1L/aQ3Y19VATceMMSrQHPlOdup1s1GUMcLfKNeUnvt2EqTVEpCjuyzVlKdee
-	IPH8QFHKKOTcIWdboucJCq2TcL+6pQOTCp2pNz3lJwAF8gHZgPSlDKPK5F7smgqKZLyh3t0891U
-	WtyCdXPhcOBlpwIzBevFnhRvub7nDKGjI2pgZHX5RClMuQgEcGKfrGNjUntbGvtQuZfMtQ2Tg4P
-	fVUpt22bttIxEWFkCdIMXsfpj2dUxQ1W7UYq36FrTDuL5euOE1J1fw3Zzea965zaRDezxUc7DdZ
-	vaNk3KkphTDBf9YASEY1JfD9sHO0RFqYWui0C5REHMWDTh43CTcDVVj4YfGQJ+e36DF59ZKv6VA
-	sxjp0Q1+K9Qm5aB79KINhuQ5/aTNQrbcFjFgZFAJlHbv5QAOPCQ7Lf8FfXXyXRBCAKUspheA+K7
-	VEIqE6RSnT8=
-X-Received: by 2002:a17:90b:3143:b0:3a8:6e99:8044 with SMTP id 98e67ed59e1d1-3a89e8e2f3fmr1586403a91.0.1791374312103;
-        Wed, 07 Oct 2026 04:58:32 -0700 (PDT)
+        bh=IEgFM2qnyZ26U72V739p3+vOc5ZxhizwkmlzBdho0QE=;
+        b=SIzPxpTIhtpspFxN5a67mVTrA/+OHpoJoUQTDH/zBZoeC5U/NCOzsR7FHRHKdWrhXt
+         +A57W8WxQAZQbtAgcdGCV5fgz9v8/LjRSldDsf3x3hQd9Ww0FdVvz7h2oyKt/Hj97FlO
+         JudV/Jduycabm0zwjatpQjw5PaSPTrCcoDZxvEFArkGDT5AusE2yOAw2YtdgN9DR61fC
+         iXHzK80TjLPgV7gJQGS7GjCWxtobW8F4d3pqWUZZSvZwayLpbi0aVY0CBFMgeLajxuMc
+         sgPzx0HQfw0xIwrimjvgyj+owx8LhkGzwg7a0yD1Rb+OLvsnTi17E8xKaapDaqtFRarf
+         AESA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791374319; x=1791979119;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IEgFM2qnyZ26U72V739p3+vOc5ZxhizwkmlzBdho0QE=;
+        b=rnNpILXXs+k12m9o0ixK4CO1n6bkdr8WJ+eI3UOcU5humElo+fn8a79/B0ffqGf02/
+         sgLdROFjYpy/xCOf4JwszpHAzU9Hm+9IYoKyIZBOB7oqsJmPgTr881pl8ZTXphtrz/AI
+         pmHp40YcBCpySbXvCmuDneOgaS90xDACgcDJjTk+eFkLErNxDwup0P9t88a67dLpkXxz
+         CeA169qvSqTG+1+QLXLXaaIT+KiFWCon5gz1bmgOcAyxsiuCe8j8BK+hVQ+nHeLb7Zgu
+         G1VNTyASu05Vu4nLtlCiWF+Dp8Kz6Bf+OWyCe/7kKaVr3TzX+0Q6JYMqCmZIcL8vpaji
+         lXXA==
+X-Forwarded-Encrypted: i=1; AKwUvBxPCtU3zWjom+PbV7Fxk8MEQMNiPLvMyS3+C/QN3E/R23w9NZ1wzGecq8TL6sLVbCqSgYcmNnlL+thVsmY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIOlwpnA/ayb2LLW51bvf07jQBjpGDq8qjj4TkiULu5Xkg5Sv6v
+	huVW5g8BwVmkAIivIHRu/bBzioLY4bfByEdkkiNaZOOl8l+pRb6u3R0F
+X-Gm-Gg: AYBFou1O2Y9jVnyeMilegg9Rirj1smsYAF+nDJePqZ46BIQmDRFH4jPtrW/gWuFdErW
+	PcltzuN7FD8elmJM6Bx87M9EOlmaWjwOv2OENonYhysFeySq3hUB+xDJAF5ygoeuAikfjjKOVEk
+	g3rMvZzjYVbtaNR4TRBCEClKzmxk0URhMGOPUBBVdrDk/fZ5meRTof0D9RYG4xGOsyisylanitr
+	ihldVeS0MVGz0Lme/EfjkXvQKN5L3BoM3LRgC9+LxZJWkTPgM31w0+o6wtTau7B5o3Injs8bdqs
+	9umxJer5LBrCI9TQIZqpgfIPOiz0X0QCh9clXfZN7etAdFlSLN24f3Wt1BWY1MWzKdNX5HUJPBp
+	WaJaFQaF65S19rWtP9BXXZsnXzvXaRMNMcqfDRGmQwmiGrw65+G2A67SdKUBRp7upU+LReSanUx
+	palDVWccYjWhES1EpsGkecXyeY8cAKFqxBFRIJy+D0VSfOviWlz1oykj3IBrci1jmiknyoCbj+X
+	DY6o+Zj+bf4E5NZly9eG2k+prZgcPRrNLSyQ1pi+doOT+/PtER6fL66KiqW3gZE4W7v4vPJQH2z
+	tikIRaCiVBU=
+X-Received: by 2002:a17:90b:534c:b0:3a2:bb9f:f87d with SMTP id 98e67ed59e1d1-3a8a0e2bad1mr1081798a91.21.1791374318558;
+        Wed, 07 Oct 2026 04:58:38 -0700 (PDT)
 Received: from m-upc-A520M-HDV.lan (oki-109-236-14-10.jptransit.net. [109.236.14.10])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8987b09e2sm4456582a91.2.2026.10.07.04.58.25
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8987b09e2sm4456582a91.2.2026.10.07.04.58.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 04:58:31 -0700 (PDT)
+        Wed, 07 Oct 2026 04:58:37 -0700 (PDT)
 Sender: Yuyang Huang <uyoko90@gmail.com>
 From: Yuyang Huang <sigefriedhyy@gmail.com>
 To: Yuyang Huang <sigefriedhyy@gmail.com>
@@ -90,10 +92,12 @@ Cc: Ajay Singh <ajay.kathat@microchip.com>,
 	linux-kselftest@vger.kernel.org,
 	linux-wireless@vger.kernel.org,
 	netdev@vger.kernel.org
-Subject: [PATCH net-next v10 0/6] rtnetlink: dump link-layer multicast addresses
-Date: Wed,  7 Oct 2026 20:58:15 +0900
-Message-ID: <20261007115821.11332-1-sigefriedhyy@gmail.com>
+Subject: [PATCH net-next v10 1/6] netlink: specs: rt-addr: fix the type of target-netnsid
+Date: Wed,  7 Oct 2026 20:58:16 +0900
+Message-ID: <20261007115821.11332-2-sigefriedhyy@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261007115821.11332-1-sigefriedhyy@gmail.com>
+References: <20261007115821.11332-1-sigefriedhyy@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -102,109 +106,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-"ip maddr show" prints link-layer, IPv4 and IPv6 entries. The IPv4 and
-IPv6 ones come over netlink today, with IFA_MC_USERS for the user count.
-The link-layer list, dev->mc, is only exported via /proc/net/dev_mcast,
-so iproute2 and other users still parse procfs for it.
+The kernel parses IFA_TARGET_NETNSID as NLA_S32 and rt-link.yaml
+declares its target-netnsid as s32, but rt-addr.yaml has it as binary.
 
-This series adds the AF_PACKET family to RTM_GETMULTICAST so that the
-link-layer multicast addresses are reported the same way. Patch 4 dumps
-dev->mc in the ifaddrmsg format of the IPv4 and IPv6 dumps: IFA_MULTICAST
-carries the address, IFA_MC_USERS the reference count and a new
-IFA_F_GLOBAL flag marks entries added explicitly, the "static" column of
-/proc/net/dev_mcast. ifa_index limits the dump to one device and
-IFA_TARGET_NETNSID selects another netns. Patches 2 and 3 add a
-generation counter for dev->mc changes so a multi-part dump reports
-NLM_F_DUMP_INTR like the IPv4 and IPv6 ones. Patches 1 and 5 update the
-rt-addr spec and patch 6 adds a selftest.
+Signed-off-by: Yuyang Huang <sigefriedhyy@gmail.com>
+Reviewed-by: Nicolas Dichtel <nicolas.dichtel@6wind.com>
+Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+---
+ Documentation/netlink/specs/rt-addr.yaml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-AF_PACKET dumps returned -EOPNOTSUPP before, so iproute2 can keep the
-procfs fallback for older kernels. The iproute2 side is ready and will
-be posted once this is in.
-
-Changes in v10:
-- Rename the list owner to mc_dev and set it for dev->mc only
-- Sample cb->seq once after the walk and check it once per round,
-  like rtnl_dump_ifinfo()
-- Read the count through netdev_hw_addr_list_count() in the helpers
-  file, note the init exception in the _count comment
-- Fix the FDB remark in the dump message, bridge and macvlan use the
-  default FDB dump
-- Say in the spec doc that AF_INET and AF_INET6 honour target-netnsid
-  with NETLINK_GET_STRICT_CHK only
-- Drop the Reviewed-by tags of patches 3 and 4 after the rework
-
-Changes in v9:
-- Change the count of a netdev_hw_addr_list through helpers only and
-  rename it to _count, as its own patch
-- Use the count helpers in __hw_addr_splice() too
-- Note in the spec doc that the header checks are unconditional for
-  AF_PACKET only
-
-Changes in v8:
-- Set the owner of every list a device has, not only dev->mc, and
-  check for dev->mc in one place when bumping the counter
-- Add __hw_addr_count_inc/dec/reset() so a change of list->count and
-  the counter bump stay together
-
-Changes in v7:
-- Add a per netns generation counter bumped on dev->mc changes and fold
-  it into cb->seq, dev_base_seq alone did not cover the dumped entries
-- Sample cb->seq under the address lock of each device and again when a
-  dump round ends, so the NLMSG_DONE check sees a change too
-
-Changes in v6:
-- Move the dump to net/core/dev_addr_lists.c next to the dev->mc
-  helpers
-- Stamp cb->seq from dev_base_seq and check dump consistency
-- Let an unexpected dump error propagate instead of skipping
-- Check for an address only present in the peer netns in the
-  target-netnsid selftest, the peer and local ifindex can be equal
-- Document the ifa-index filter and the zero header fields in the spec
-
-Changes in v5:
-- Filter the target-netnsid selftest dump by ifa-index, a new netns
-  also contains the fallback tunnel devices
-
-Changes in v4:
-- Reset the resume offset when the device the dump stopped at is gone
-- Use a tracked netns reference (put_net_track)
-- Say ifa-family must be set in the spec doc, drop the AF_UNSPEC remark
-- Close the netlink socket and guard the checks in the selftest
-- Drop the Fixes tag
-
-Changes in v3:
-- Report the static bit as a new IFA_F_GLOBAL flag in IFA_FLAGS
-  instead of IFA_F_PERMANENT
-- Support IFA_TARGET_NETNSID and test it
-- Describe global_use accurately, it is also set by dev_mc_add_excl()
-- Fix the target-netnsid type in the rt-addr spec, as its own patch
-
-Changes in v2:
-- Always validate the request header, not only with strict checking
-- Use a single "with" statement in the selftest (ruff)
-
-Yuyang Huang (6):
-  netlink: specs: rt-addr: fix the type of target-netnsid
-  net: change netdev_hw_addr_list count through helpers
-  net: add a generation counter for dev->mc changes
-  net: add AF_PACKET multicast dumps
-  netlink: specs: rt-addr: document AF_PACKET multicast dumps
-  selftests: net: test AF_PACKET multicast dumps
-
- Documentation/netlink/specs/rt-addr.yaml      |  21 +-
- .../net/ethernet/cavium/octeon/octeon_mgmt.c  |   4 +-
- .../net/wireless/microchip/wilc1000/netdev.c  |   8 +-
- include/linux/netdevice.h                     |  11 +-
- include/net/net_namespace.h                   |   1 +
- include/uapi/linux/if_addr.h                  |   1 +
- net/core/dev_addr_lists.c                     | 245 +++++++++++++++++-
- net/core/dev_addr_lists_test.c                |  18 +-
- net/core/rtnetlink.c                          |   2 +
- net/mac80211/driver-ops.h                     |   2 +-
- tools/testing/selftests/net/rtnetlink.py      |  73 +++++-
- 11 files changed, 351 insertions(+), 35 deletions(-)
-
+diff --git a/Documentation/netlink/specs/rt-addr.yaml b/Documentation/netlink/specs/rt-addr.yaml
+index 0ecbd24c890c6..17ead22034515 100644
+--- a/Documentation/netlink/specs/rt-addr.yaml
++++ b/Documentation/netlink/specs/rt-addr.yaml
+@@ -119,7 +119,7 @@ attribute-sets:
+         type: u32
+       -
+         name: target-netnsid
+-        type: binary
++        type: s32
+       -
+         name: proto
+         type: u8
 -- 
 2.43.0
 
