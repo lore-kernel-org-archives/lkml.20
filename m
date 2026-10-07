@@ -1,66 +1,67 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3E4E356A12
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 06:24:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74EDC3603E9
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 06:24:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791354253; cv=none; b=j7xIDseXjXPtggh0G5HW09EdjCiCOvpS7kLjygqs5g08GYom/BjP3BZuZlwzRiPSwXBR3TqgolE+N4M/UndZ6OD40Mx0e4rMEc/qmm1J5CxL45emvUnbBrTuTHVYBGqaMvIT5y2ejHvLXuy5jcJqRR6ajG+YKqtfrsQ7TcYbT/w=
+	t=1791354255; cv=none; b=KoMXAOpdXmBobjfYFOeJ0T0arT1hFjNTrtDZ3T01HEMREW1XYVNnCpf9YXf6qahNyYkjTel1H8GqrOp+Skfvoi+GSqKicR9wNb6D9J2NX7/XJ7TDh7KxuNGWSSunhiTfA91tuu3rN/Pb2KkOTuBuacNvETXMjBtxnD1sf13X9Us=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791354253; c=relaxed/simple;
-	bh=kFkUB9JMmamFMPVjw4kHxB2PL/LKqChP+4PfGUIXYy0=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Fg7dgkKjqKYdfwO+cpwQEZ7Zra2inEtL3s+jMfqeOszu7bMsO89jF1pIS+srDcslQg2Ne4Nn12wMmI6AKtrqQugPBBrDblcbeWWyzlq9qkbSSs/KPRfAHVacCS2q87CdXyqZn9OChryLt0fLn1sibOHwUSNodGvXWeiI1RP8lzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j4yNZUYr; arc=none smtp.client-ip=209.85.214.175
+	s=arc-20240116; t=1791354255; c=relaxed/simple;
+	bh=H5yUNGmr3Aofw0RsQ85oedlEqimTgluIr9D9n1UacwI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=RNODD27epfCIFUmAW7tBaH7UjrUAblRDVO+ivGjjL8FrmQCnrlD8hlA1xfnBXQqmXiKnN03S1PbZMzR2fnuJS2KMwiGu3t6uC9qeBXdALsbwo8C6BITwjrLXtOEXdLU7nD546qZuUoSc+izTPjSgSD+kbDSMp0Qg9+8MgUfVUrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tCamS0oh; arc=none smtp.client-ip=209.85.214.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j4yNZUYr"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e60f9af6e6so1825655ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 23:24:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tCamS0oh"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e4b5d94277so10107285ad.3
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 23:24:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791354252; x=1791959052; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=RtO3NtbRo/3Bu2ksyEYckCsBeXypsAqVn6J8VkJKvcA=;
-        b=j4yNZUYrbJClyR58G6BsrbXFdQLeMHg6xQdEpUoCGxy9CdEH38rHJBsCjj5m7As7eX
-         thU1tZOOK0lVBtTwHLojzg2lE58QvsGipIyc4aI8Wog6rs8ZKlEi0Mxt9E7vkqVJy573
-         Oo7m2SzA8guQHW25hj+qdTfpc9tFSSVIWRVfWYGawec7T+SYf0pfoGGnY4GmOehvc5yY
-         YwoJXZ8NPLYsLbdtcKymNURI4BuNBJ1b3htp3yjTIgQWXqo6Y/rDJ25YegubTDtX7ezi
-         Zsabs3kmpDOXKGGvS3ljFIPhdPcj6xNXtFLzduplRvr1AVTIfGouYivBLSSSn9x2GcHU
-         +iOw==
+        d=gmail.com; s=20251104; t=1791354253; x=1791959053; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Eldn3SZXEz251aQtu8wp0lwT440swzXtTcbwTv8zgRM=;
+        b=tCamS0oh8c+NVn4PVl/SLc8wWBt5hfxZ35TujCOeZ6ecW8xHqkjx/lvr7yf9zqW0KM
+         GzsyHjU5iLQlcTSW/EfO1dZAAQvWJv6V0fAzsLbpvesxxJU+ItyfNa9dQFnYusRLQs29
+         js5fgzPHYLDessrpHg8sgrdtotfQsh1gCEFLDVKwahK1TjM6Iptd5nH849rm+Z2OlYds
+         yPNOWg37Qi2tEhmgFDhsCMrYyb75Ajvgcw9y/N3aS+qooB5MH17sLLrawIHLQPCgx/C4
+         F1q64SPYByQS0Of9HGR3U/HJgOyX+arfmz/hqwjNTTfvxrbHVZkdM7zzUkSXdnovt8oN
+         JH0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791354252; x=1791959052;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=RtO3NtbRo/3Bu2ksyEYckCsBeXypsAqVn6J8VkJKvcA=;
-        b=q63jNnommQZbZhMNu2duUSMyGhb7Oz5A4iGcgl3QTDwj1JKiMup8As19K2zTZ4AWtC
-         2mLe6QUTbIj00ikEEVIq7utrGautUMfvdQACkN7RXxQh3AUuM5vce412AOIQFG+nH1fX
-         54mya23oeYV6/PjKcpCfUmRDvv6VJwU2uxTMtEGxVqGS79uQLwWonhwGprbbAF9BEdmr
-         Eqf6LZFRnXWgdaIMi172SZN4QnLuY7v4sHJXd+4WQrTHUuCWCi/Z3w3OodMuykm1QD5i
-         Z1N5e7BOJ4mQL/an3oM8Hgi0RN4Clc7menAI7Dqb12VpOvXptlD8IcSHqY/8fIPzGj1p
-         9Nvw==
-X-Forwarded-Encrypted: i=1; AKwUvBz4+RAHqHlkRtixr2VqppobuE2ftJkxfr9fHMUEQ68yiE6A3SWcvSVfE65fnVV3j0Hsj5QmZK3nT2UT9kk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJw/6umDwVpJOs+HHvaBEihppKRNeIYiUnWMsypzY9g8ZtsQpVV
-	Yi7mMQuBlUyJQ1uDZRjW+5n/4lve4/V6ARImvNmRbvlFvUvos2k8jVar
-X-Gm-Gg: AYBFou19vK3b40MPu2davR3oJVTrUB76S6I91aYEqzLwa9hhVEQ2w6NXHb9gK1/O7DN
-	sZWZXdC07ntQ5Rwb6mV/32kBwBRL8O+uP2++G7o3X1FrTh/Cmx4Yt5pI9wTJqXbC7pV3/GyTjaV
-	N/34G9R2NsseMiJQiSqX4AlPD+3Q2UpRaa35Blz5sLVn2qDxFqkcOC0N+GlHqHXy7HgsxGdzCqy
-	Q9LjbxeFPp1iFmlug2oO1v9vR9xUt7DxScFBlsDHx/SLaYTOXQTLGc3UjZEpgoBHUfwSdYd1CWv
-	zjbuGeb7XdcHShOq6dGOJRsEVUTz6PMAtBjN3JW/qjkb7zc7hqcWczaASMJq71IA7/eS0OQHy0E
-	LICbPqLaZCjVqGXAL0XZRjMBhMO1gOP8PhqJIbq/Ll8bbibYFSDKHZWVLWGEsCR4XiJ8+5ebQrH
-	rFyWrtSt4S2gg8huMj1Tl6SogajFpI0ObMFl6F4+3mqDMCuRvRo4my6mzs8LKM8d1HfNAtJQ==
-X-Received: by 2002:a17:902:dac9:b0:2e5:356b:b0c1 with SMTP id d9443c01a7336-2e60038d656mr13217325ad.37.1791354251831;
-        Tue, 06 Oct 2026 23:24:11 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791354253; x=1791959053;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Eldn3SZXEz251aQtu8wp0lwT440swzXtTcbwTv8zgRM=;
+        b=kq+7VssOMKYe/MGcal9VLThLsutc4ovuu4MBH2yJ7BBSXn2hU5INbJ/4LI5wZBt8gt
+         Vf4bmqCu6NHPbpn+g1jeLtA3VYwoBGCGEEjaCM6CCLms+27MkFPQ4pNuBFxDebBElJT1
+         MZUZswU4k8UNfPyUNDSknpLxQG8cdz5tJL9CcSry48rxLzrXlRNQnuhoXuD72UGqZZTG
+         y124QAl8vileZDeVjPIvsTbyiujFIjOhYby4B+TFqNU2u3nfQFlMu+WMIZ8SKEtByHB8
+         WHCYpxIWiwHY0mFpM/NNVqHb3ILlvOOWgU51JFODtQcHXKibfZsTmR3vvbKndFHikARP
+         1UKg==
+X-Forwarded-Encrypted: i=1; AKwUvBw7DyTOeU/P91caYuncR6djCZHHxDCQo7oG4BQsZdxW3PjlVzgplB8XJSJbEcYN2AKOu3dZ+WKHlyad4Bs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLBRttUl+rAmRJyXh8tZH8hTwoNvZyPJQSgVaUR6e01mu3Nbg09
+	lCGIdtTRmmbJtMdZN6GGSZSf/qr8s0Ex0zAXzyZck6I5SOiJZBGC9Q5S
+X-Gm-Gg: AYBFou1fpdJWZR6bowAp34LTAgduF66P8o5llAahA0QdFXZAanD4Wn39Fk3Me3glT0u
+	2E+by/TtPftlDwa/Zolr5YER+kdevEH94G2q7agZJmikZ/PYa6LjIYxu0ElwiiPzR5J8ZhOff3B
+	rOORUG8l49AdSpUygQmoNAf4hlgxgQkITpakPPpI7LLKsuIY8MgPVF4KACCOI6+pAfZueg16jHv
+	eSUaNIk85TgE4YRy7eyk9uNAkDSCj+4g+GNBDoqJaC9nGSCHy9EfGzeVN7r9yKYt5UYPQdK282p
+	zcDTayt4CBAn9jeuSQeg1duEa3fOnlji0qQ2G8FBbbfZeu12tnbcu3HWBuGISTv1sthLPOGoxR6
+	lCgtD3mcDqiNEA++0wY+CKUDP0MBjHAcJLtsKzs8cG1C9lf/KNyoFRwAEmWYn7Pb5vqvQCt5YLv
+	zwRxKJhp8bE/7iPxDOjLw+cDwX8t0zNSyL76P0Y+pPFUB5Vfl+kg9AvHJdMyUNtemj9e/fPA==
+X-Received: by 2002:a17:903:1ae6:b0:2dd:c100:4b87 with SMTP id d9443c01a7336-2e600580aeemr13377715ad.62.1791354252844;
+        Tue, 06 Oct 2026 23:24:12 -0700 (PDT)
 Received: from [10.1.2.130] ([67.185.120.12])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e60482ccb3sm5303515ad.51.2026.10.06.23.24.10
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e60482ccb3sm5303515ad.51.2026.10.06.23.24.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 23:24:11 -0700 (PDT)
+        Tue, 06 Oct 2026 23:24:12 -0700 (PDT)
 From: Kir Kolyshkin <kolyshkin@gmail.com>
-Subject: [PATCH v3 0/2] mount: add OPEN_TREE_DROP_MNTNS_MOUNTS
-Date: Tue, 06 Oct 2026 23:23:55 -0700
-Message-Id: <20261006-nsfs-prune-rfc-v3-0-adb97ea52868@gmail.com>
+Date: Tue, 06 Oct 2026 23:23:56 -0700
+Subject: [PATCH v3 1/2] mount: add OPEN_TREE_DROP_MNTNS_MOUNTS
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,10 +70,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/13MwQ6CMAzG8VchPVuzFMeCJ9+DcIBZoIkMsumiI
- Xt3B4kXj/8232+DwF44wLXYwHOUIIvLUZ4KsFPnRka55wZSVKmaNLowBFz9yzH6wSL3ZLUxte4
- tQR6tngd5H2DT5p4kPBf/OfxI+/VHVf9UJFSoS73/FF/Y3Ma5k8fZLjO0KaUvBMBe06wAAAA=
-X-Change-ID: 20260925-nsfs-prune-rfc-eb2c57795bc2
+Message-Id: <20261006-nsfs-prune-rfc-v3-1-adb97ea52868@gmail.com>
+References: <20261006-nsfs-prune-rfc-v3-0-adb97ea52868@gmail.com>
+In-Reply-To: <20261006-nsfs-prune-rfc-v3-0-adb97ea52868@gmail.com>
 To: Christian Brauner <brauner@kernel.org>, 
  Alexander Viro <viro@zeniv.linux.org.uk>, Aleksa Sarai <cyphar@cyphar.com>
 Cc: Jan Kara <jack@suse.cz>, Jeff Layton <jlayton@kernel.org>, 
@@ -84,106 +84,90 @@ Cc: Jan Kara <jack@suse.cz>, Jeff Layton <jlayton@kernel.org>,
  containers@lists.linux.dev, Kir Kolyshkin <kolyshkin@gmail.com>
 X-Mailer: b4 0.14.3
 
-crun, a container runtime, recently started using OPEN_TREE_NAMESPACE to
-set up the container's mount namespace, and open_tree(OPEN_TREE_CLONE)
-for the sources of its bind mounts.  This turns out not to work on hosts
-that have a mount namespace pinned anywhere below such a source: the
-recursive clone picks the pinned namespace up, and move_mount(2) then
-refuses to attach the tree with ELOOP from check_for_nsfs_mounts().
+A recursive open_tree(OPEN_TREE_CLONE) copies the nsfs mounts of any
+mount namespaces pinned below the source.  When the clone is attached
+inside a mount namespace younger than a pinned one, move_mount(2) fails
+with ELOOP from check_for_nsfs_mounts(), per the rule from commit
+8823c079ba71 ("vfs: Add setns support for the mount namespace") that
+prevents mount namespace reference loops.
 
-The rule behind that goes back to commit 8823c079ba71 ("vfs: Add setns
-support for the mount namespace"), which requires "all bind mounts be of
-a younger mount namespace into an older mount namespace" so that mount
-namespace reference loops cannot form.  OPEN_TREE_NAMESPACE ends up on
-the wrong side of it by construction: the namespace it creates is younger
-than everything else on the system, so from inside it every pinned
-namespace is older.
+This breaks container runtimes that use OPEN_TREE_NAMESPACE, such as
+crun [1].  The new namespace is younger than everything else, so bind
+mounting e.g. the host root fails on any host that pins a mount namespace
+(snapd does, under /run/snapd/ns).  By the time it fails, setns() has
+already run and userspace cannot recover: the host tree is out of reach,
+and the offending mounts cannot be unmounted from the detached copy.
 
-By the time this fails there is nothing userspace can do.  setns() has
-already run, so the host tree is unreachable by path; it is unreachable
-through a fd saved beforehand as well, since mount(2) requires the source
-to live in the current mount namespace; and the offending mounts cannot
-be dropped from the detached copy first, because umount(2) requires
-check_mnt().  So a runtime cannot fall back to the pivot_root() path at
-that point -- it has to predict the situation before setns(), which is
-what crun now does, at the cost of the optimization on every such host.
+copy_mnt_ns() and create_new_namespace() already leave these mounts
+behind; only get_detached_copy() copies them.  Add an open_tree() flag to
+drop them from the clone, as suggested by Aleksa [2].  Locked nsfs mounts
+are dropped the same way copy_mnt_ns() does it, so nothing new is exposed.
 
-This is not a corner case: snapd pins mount namespaces under
-/run/snapd/ns, so on Ubuntu it affects any container that bind mounts the
-host root, which is not uncommon [2].
+Keep it opt-in: open_tree(OPEN_TREE_CLONE) plus move_mount(2) is how
+mount --rbind works through a file descriptor, and in the caller's own
+or an older namespace such mounts remain usable.
 
-Every other path that crosses a mount namespace boundary already leaves
-these mounts behind: copy_mnt_ns() passes CL_COPY_UNBINDABLE | CL_EXPIRE,
-and create_new_namespace() passes no CL_COPY_MNT_NS_FILE either -- the
-latter deliberately, per the comment added in commit 9b8a0ba68246
-("mount: add OPEN_TREE_NAMESPACE"): "When creating a new mount namespace
-we don't want to copy over mounts of mount namespaces to avoid the risk
-of cycles".  Only get_detached_copy() asks for them, inherited from the
-unconditional CL_COPY_MNT_NS_FILE that predates that exception.
+The flag requires AT_RECURSIVE, since a non-recursive clone has no
+submounts to drop, and OPEN_TREE_CLONE or OPEN_TREE_NAMESPACE.  With the
+latter it is a no-op, so a runtime can pass it with any recursive
+open_tree() call.
 
-Patch 1 adds a flag so a caller can ask for a clone without them, as
-suggested by Aleksa when the exception was introduced [1]:
-
-    I kind of think this is a somewhat theoretical issue but I don't
-    think we'll be bitten by it. My gut feeling is that I'd prefer this
-    to be an OPEN_TREE_* flag that you have to set (so we can support
-    this in the future) but that's kinda ugly too...
-
-Keep it opt-in rather than changing the default.  A clone attached in the
-caller's own namespace, or in an older one, keeps such mounts usable, and
-open_tree(OPEN_TREE_CLONE) plus move_mount(2) is what mount --rbind is
-through a file descriptor, so dropping them by default would make
-mount --rbind / /mnt silently lose /run/snapd/ns/*.mnt on a live system.
-Only a caller heading into a younger namespace, where the tree is refused
-anyway, has reason to ask for this.
-
-The flag requires AT_RECURSIVE: a non-recursive clone has no submounts,
-so there is nothing to drop.  With OPEN_TREE_NAMESPACE, which never
-copies these mounts, the flag is accepted and has no effect, so a runtime
-can pass it with any recursive open_tree() call.
-Locked nsfs mounts are skipped the same way copy_mnt_ns() already skips
-them, so this exposes nothing new.
-
-Containers observe no difference: set up the traditional way, with
-unshare(CLONE_NEWNS) and pivot_root(), they see no nsfs mounts under a
-recursive bind of the host root today.
-
-Tested by booting the patched kernel in qemu and running the selftests in
-tools/testing/selftests/filesystems/open_tree_ns: 19 pass (including
-the two new cases), 12 skip (all in the existing tests), none fail.
-Without the flag, move_mount() fails exactly as described, with ELOOP.
-
-Patch 2 adds the selftests.
-
-Changes since v2:
- - require AT_RECURSIVE, reject the flag with EINVAL without it (Andrei)
-
-Changes since v1:
- - split into the kernel change and the selftest (Christian)
- - rename OPEN_TREE_SKIP_MNTNS to OPEN_TREE_DROP_MNTNS_MOUNTS (Christian)
- - shorten the commit message
-
-v2: https://lore.kernel.org/linux-fsdevel/20260926-nsfs-prune-rfc-v2-0-53509260e4e7@gmail.com/
-v1: https://lore.kernel.org/linux-fsdevel/20260923205028.711077-1-kolyshkin@gmail.com/
-
-[1] https://lore.kernel.org/all/2026-01-07-oldest-grim-captions-spills-ywC2O3@cyphar.com/
-[2] https://github.com/containers/crun/issues/2262
-
+Link: https://github.com/containers/crun/issues/2262 [1]
+Link: https://lore.kernel.org/all/2026-01-07-oldest-grim-captions-spills-ywC2O3@cyphar.com/ [2]
+Assisted-by: Claude:claude-opus-5
 Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
 ---
-Kir Kolyshkin (2):
-      mount: add OPEN_TREE_DROP_MNTNS_MOUNTS
-      selftests/filesystems: test OPEN_TREE_DROP_MNTNS_MOUNTS
+ fs/namespace.c             | 16 ++++++++++++++--
+ include/uapi/linux/mount.h |  1 +
+ 2 files changed, 15 insertions(+), 2 deletions(-)
 
- fs/namespace.c                                     |  16 +-
- include/uapi/linux/mount.h                         |   1 +
- .../filesystems/open_tree_ns/open_tree_ns_test.c   | 193 +++++++++++++++++++++
- 3 files changed, 208 insertions(+), 2 deletions(-)
----
-base-commit: b5a051f6b840d48f159166ef073d3021989bfb50
-change-id: 20260925-nsfs-prune-rfc-eb2c57795bc2
+diff --git a/fs/namespace.c b/fs/namespace.c
+index ae5dc64f8b45..bb776622a4aa 100644
+--- a/fs/namespace.c
++++ b/fs/namespace.c
+@@ -3062,7 +3062,8 @@ static struct mnt_namespace *get_detached_copy(const struct path *path, unsigned
+ 			ns->seq_origin = src_mnt_ns->ns.ns_id;
+ 	}
+ 
+-	mnt = __do_loopback(path, (flags & AT_RECURSIVE), CL_COPY_MNT_NS_FILE);
++	mnt = __do_loopback(path, (flags & AT_RECURSIVE),
++			    (flags & OPEN_TREE_DROP_MNTNS_MOUNTS) ? 0 : CL_COPY_MNT_NS_FILE);
+ 	if (IS_ERR(mnt)) {
+ 		emptied_ns = ns;
+ 		return ERR_CAST(mnt);
+@@ -3204,7 +3205,18 @@ static struct file *vfs_open_tree(int dfd, const char __user *filename, unsigned
+ 
+ 	if (flags & ~(AT_EMPTY_PATH | AT_NO_AUTOMOUNT | AT_RECURSIVE |
+ 		      AT_SYMLINK_NOFOLLOW | OPEN_TREE_CLONE |
+-		      OPEN_TREE_CLOEXEC | OPEN_TREE_NAMESPACE))
++		      OPEN_TREE_CLOEXEC | OPEN_TREE_NAMESPACE |
++		      OPEN_TREE_DROP_MNTNS_MOUNTS))
++		return ERR_PTR(-EINVAL);
++
++	/*
++	 * Only meaningful when a tree is copied recursively: a non-recursive
++	 * clone has no submounts to drop.  OPEN_TREE_NAMESPACE never copies
++	 * pinned mount namespaces, so there the flag is a no-op.
++	 */
++	if ((flags & OPEN_TREE_DROP_MNTNS_MOUNTS) &&
++	    (!(flags & AT_RECURSIVE) ||
++	     !(flags & (OPEN_TREE_CLONE | OPEN_TREE_NAMESPACE))))
+ 		return ERR_PTR(-EINVAL);
+ 
+ 	if ((flags & (AT_RECURSIVE | OPEN_TREE_CLONE | OPEN_TREE_NAMESPACE)) ==
+diff --git a/include/uapi/linux/mount.h b/include/uapi/linux/mount.h
+index 2204708dbf7a..ac865edac517 100644
+--- a/include/uapi/linux/mount.h
++++ b/include/uapi/linux/mount.h
+@@ -63,6 +63,7 @@
+  */
+ #define OPEN_TREE_CLONE		(1 << 0)	/* Clone the target tree and attach the clone */
+ #define OPEN_TREE_NAMESPACE	(1 << 1)	/* Clone the target tree into a new mount namespace */
++#define OPEN_TREE_DROP_MNTNS_MOUNTS	(1 << 2)	/* Drop mntns mounts from the clone */
+ #define OPEN_TREE_CLOEXEC	O_CLOEXEC	/* Close the file on execve() */
+ 
+ /*
 
-Best regards,
 -- 
-Kir Kolyshkin <kolyshkin@gmail.com>
+2.55.0
 
