@@ -1,74 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F1741DE1B
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 14:31:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2A8139EF1C;
+	Wed,  7 Oct 2026 14:31:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791383466; cv=none; b=dE6P6r1VtvR4WHx6SJmqZAXJdGExmV3vcgkXuLKymmTsn8g9wiZUstvMVk6QOOpkoKcMjAJe7Ng0rkLNXF2WYhPtwx/UHyO1GgEBlvYOvDmgbZdj+VkMyQ+LQ1dAS0aZK5yoQZ95qN4tHG/7Ei8wiLJrJ8K4DLyFzmjaGDC9OQg=
+	t=1791383508; cv=none; b=LOJMk9deUBtan6YTGfygbuD6ypJPL+VdA4ThrA7Pr+GHFouAXLZEIPJx1w1H7j/WpCjuCRaOWEJY6384io5giTZK0NEmLs7vJnzeE+Y8/YACNzBfjLfXRwLvsGaNAzdlWwfwmePF3r+FcKab9cEbqXOwRgS0TbzuXO0mPZRCOts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791383466; c=relaxed/simple;
-	bh=CZwo2SjLQAnRqNhxm/dE6Jll5seKYhyoAeShlqewf3o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bWORT4wfLRq8wGYapp184HC99Cewx+ZUvo41g2p5UPZaJy3tVoK9ke8Kl3q5k3H+vKdK5PtPWFwqJ5LzL9LA4/BmJxu6qP5jfYZxUYCMN2w/2FI/CLSa+GmujcYTI5cA/eZArXJjYUDfabjdkHNJmNUecA7gvoIgU8BNwMtkNAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M6R5HtY3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791383508; c=relaxed/simple;
+	bh=EWOXX0pSdVpVw0OMH8V6abkv3BIwXFK0qW0lRd/OYK4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e9+xVZGMaE42DzrjY9NeNsIGfxEnnLnrRgo2HNvexzzsr+cTFg217MuL92v1Dhzm/Iu/6iRDhE98WEwmhEFN+hBCLmRU/B6USMqPG9ysFizrseqEDDTKEMlUMUIg/DzUQFP/Le/1r+tdKv12Dg2G7+rrtXCRzIYyd1/Zv6LLMrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fvkQA9AR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M6R5HtY3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6E5C1F0089B;
-	Wed,  7 Oct 2026 14:31:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fvkQA9AR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42D1D1F0089C;
+	Wed,  7 Oct 2026 14:31:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791383462;
-	bh=QLlG6oxieSL0p4PDzPMxZn7nV9OG767QOiP3EOIwymo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=M6R5HtY3LSN7F5e9vulKAKZ3yQzD9jllXuRdm3vj8+bKUbyy09Fr6MFB/J2OKEmJK
-	 ucuBnrh8EbjRU7DCjxpe99c4EQxMozHIbLvQa8OG9wgrimJEkyV0KacRiuYEg9/heE
-	 +7lhXYGs/L7z11TQq7wFMztpyEUDbsb9YF1rJwrVYVF8cAG2poFCxq6A8cglMqb72i
-	 CQiNhQCI8sFNIKV/RUXSTh/clphr+/w3ZBeRhfWWNLDZqdAFe20P4d9BEVne1joKsm
-	 7SZdmERzoWhwnfK6Ck/nAO2QyEymg0jCp99ngQ3KWEh7LnEiu8hUWhVXyXMcUIz51f
-	 Ooo6DnJnGpIag==
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Liviu Dudau <liviu.dudau@arm.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Weigang He <geoffreyhe2@gmail.com>
-Cc: Sudeep Holla <sudeep.holla@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Lee Jones <lee@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] ARM: vexpress: fix two device_node refcount leaks
-Date: Wed,  7 Oct 2026 15:30:55 +0100
-Message-ID: <179138341052.606716.9871329893441157602.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260925173252.933705-1-geoffreyhe2@gmail.com>
-References: <20260925173252.933705-1-geoffreyhe2@gmail.com>
+	s=k20260515; t=1791383503;
+	bh=mVdNjo/aJq7ORJIk7eTcpj5IV+csgIa9+cL62v3XkAU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fvkQA9ARbrEG6VR4KEwjSRrfOi0xyixaPV0x+kDwWYZW8tFswTwcusfBL4ubBaLSr
+	 q3gzEu7CB1dZJDHsMms4vA7Els7Iz+ZaJLDpT1C4lA+y/DKg+pznLTwZGUfNw7VedH
+	 Ccd+YUrArLgz094DZKHyqEfzncOzmJBFfx9r97lkfaJf9vSx5ZTK4XqJmYTixv+waz
+	 VU/+MkzOKsNDSt3M0Mf5seAOTwsZg3FSAULjFcme7cXczflXB5PJaf3D2/KGXWIyZE
+	 pl0fIck59YPsS0hsu2W0QUZw7bP5njy/3ftBJLG5yRwiFLbhM1JAATQwXQnewXD5zo
+	 TJgEYa0gSDlHw==
+Date: Wed, 7 Oct 2026 15:31:37 +0100
+From: Simon Horman <horms@kernel.org>
+To: fredrik.nyberg@volvocars.com
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	linux-usb@vger.kernel.org, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Jose Alonso <joalonsof@gmail.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net] net: usb: ax88179_178a: fix rx frame length for
+ non-last packets
+Message-ID: <20261007143137.GQ83879@horms.kernel.org>
+References: <20261002-ax88179-rx-len-v1-1-f01a2a295079@volvocars.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002-ax88179-rx-len-v1-1-f01a2a295079@volvocars.com>
 
-On Sat, 26 Sep 2026 03:32:50 +1000, Weigang He wrote:
-> The Versatile Express SMP bring-up path leaks two device_node references
-> during boot:
+On Fri, Oct 02, 2026 at 02:28:57PM +0200, Fredrik Nyberg via B4 Relay wrote:
+> From: Fredrik Nyberg <fredrik.nyberg@volvocars.com>
 > 
->   - vexpress_flags_set() (mach-versatile/v2m.c) leaks the
->     "arm,vexpress-sysreg" node obtained via of_find_compatible_node().
->   - vexpress_smp_dt_prepare_cpus() (mach-versatile/platsmp-vexpress.c)
->     leaks the SCU node obtained via of_find_matching_node().
+> Commit 4ce62d5b2f7a ("net: usb: ax88179_178a: stop lying about
+> skb->truesize") replaced skb_clone() with a copy into a new skb for
+> every packet of a bulk-in transfer except the last one. The copy skips
+> the 2-byte IP alignment pseudo header but still copies pkt_len bytes,
+> and pkt_len includes that header. Each of these frames is therefore
+> delivered with two extra trailing bytes: the 0xeeee pseudo header of
+> the next slot when the frame ends on an 8-byte boundary, or slot
+> padding otherwise. The last packet is still trimmed to pkt_len - 2.
 > 
-> [...]
+> IPv4 and IPv6 trim the extra bytes, so most traffic is unaffected.
+> Anything that relies on the frame length is not. MACsec takes the ICV
+> from the last 16 bytes and drops every such frame as InPktsNotValid. In
+> our setup that was 0.2-1.2% of received MACsec frames, depending on how
+> many frames shared a transfer, including service discovery multicast.
+> 
+> Allocate and copy pkt_len - 2 bytes, like the last-packet path.
+> 
+> Fixes: 4ce62d5b2f7a ("net: usb: ax88179_178a: stop lying about skb->truesize")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Fredrik Nyberg <fredrik.nyberg@volvocars.com>
 
-Applied to sudeep.holla/linux (for-next/vexpress/fixes), thanks!
-
-[1/2] ARM: vexpress: fix device_node refcount leak in vexpress_flags_set()
-      https://git.kernel.org/sudeep.holla/c/62b9ae8ae4a7
-[2/2] ARM: vexpress: fix device_node refcount leak in vexpress_smp_dt_prepare_cpus()
-      https://git.kernel.org/sudeep.holla/c/27b98d331f1d
--- 
-Regards,
-Sudeep
+Reviewed-by: Simon Horman <horms@kernel.org>
 
