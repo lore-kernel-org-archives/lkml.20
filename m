@@ -1,167 +1,69 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5943845563C
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 12:59:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCF3E4A33F5;
+	Wed,  7 Oct 2026 12:59:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791377992; cv=none; b=LyYv3XxWt03YbDvsII1IHMHQtFOgRJmNE0THJd8p80FUYAqJ1yi7Cjyzp2x5bRHYuqQZUczPC6Iu4NfdIommEbILBfz2tkKUN/xtg9zzD6zv00yjidv/APxHE+3LCSd9W4FDF8JDtf0emk7T6tIqJMvWOhdF8XKodUeLhep8s1M=
+	t=1791378001; cv=none; b=tWOWrJTARlIAHSqo8lCy4opTAejjHU36i619QKmt/cbgV6lQVix+tvGXdA/3kILyXYZF1FOr9JZw+XVciNs4a042DI2cHkOXysl9ikhTMO+cb6OY2qFMUIn4xQvN5B4SIy5Krg/Mpx928j/IoAK6m1XRaitloNmrdQzR+VgkI5U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791377992; c=relaxed/simple;
-	bh=w9+dbflpGrP5lNfDxCYItkizUPQnVZj6g3uERwIv6gY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=e5KFExkZic43bc+vYMAZudMix7+X5oyLtzDIVV1RIqyEtyN/Cbqbs0lvAWulqtR/0f6uoZFsKygyS1kAi7wEvp04STlZvi4ZX6vjDIZe1pyzrv2ydeKhTZWxqOo5Vv6KYI41spkNn0xQcl9o/EiXCALUJGsYOOln8S5m3WLfmaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mHPtGfX4; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791378001; c=relaxed/simple;
+	bh=fj464vjBR2tNbqnS46pUy4Usm7oC7hnfneL/awpF84Y=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=VuDE6cGmTB9rtn3GMfH4C5nlSKFV6O7iyEY+9wJgpCVas2czFtQpunxpyCwUBeJSVPQ+uDUDJT0xjmXQJRydz2yy6WZwKmIOomOVB1EYnqPm4nXefwGymA2IOnzV8ZKZzvTPjmv7sex6pRWS5N+u1g2wOgeSJMpOT2J6pSvOvqQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=NIOIQOvF; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=8RmG4i31; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mHPtGfX4"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a02753c04fso10002445e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 05:59:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791377969; x=1791982769; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/9czbEOZYdKU/0Bo/8kPwWGE/910Wk4cEmK2RLuZ54k=;
-        b=mHPtGfX49XxbRO68poikFH9vXs3bRd+7ak5tCAFXenggYxhWkLiX3XB0bWs2MvH2nq
-         iAHWQXJjnOi12Q+1n1wjImg57xVSVH0LAijXQa2ca0trFshvVdjYf9F6NGYZ65Bmbbu4
-         9JMMC+0sxbHuB9K31jkKkZIvn8eGYX9N9vN98Cc0QIiyvW+cN6MTfsSrYKRjesKpZf1J
-         iHBvsTsuEPmCnyyN3ZZc+Ne1P6PfvX/y7CtK9GlOFSsuGqY3T0o5x/PYujeE0iqOGvzr
-         D5ue7DilGnSquw9CkitnA1b4kWvMGhkBAndP8HgsOSvE9/S1FVa/sfkBi1ef5UWE6nJY
-         WA8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791377969; x=1791982769;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/9czbEOZYdKU/0Bo/8kPwWGE/910Wk4cEmK2RLuZ54k=;
-        b=PBcWqUAifpIjOIYeB79RprTuuIUa8fYf/ONnOhNNH0tlFYIEj+qze0O5IJrw4lkrW3
-         PoqpCeGFnLNFNn2GMd9oxCCO3cLz8ks85Tm9OIURuCqlxX2L0Mm5kByQOvzFHlmnTXCD
-         lDj9ykLE5Kpd4cOG8heRY2XbfcNB/GCx1wOgHeNnNGCQCSHj/Bbw9KrF4gusLZoBQH8T
-         uOBP3fQ0QFuInWzHD0TQCJGED7MsyZiFmJ7dOHG/VVQXmxbB/QiFrfkTOF9+XkQ316Hl
-         3FicRaLrffkTAh0/Di7DUnB7eWtUhgDgNS8yG4JJ1AtvQOefSuOr2hqJWLoG3g5FC5Nt
-         PVGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwCYKvS+AwsYA3Fa+s/xfXLLFhtmQuCtJGbL64Y4cTtJbnejzDA2K+LkK3gajzyRKScLToaSqeuZNud6zo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nCVK6zoBd0Rm21bvrbQuj+uHfQSW7ITd6Sdy4yufzMmm5bOTfs
-	3Rl5mMxA1CMmfa/91AaiKydyulO+5br0zT2NF+9sdAXzDPRiFsqLDCjwX8rTxq2h
-X-Gm-Gg: AYBFou2Tm+TN2Jd3yKt7qCxjYrPrPrrC2hDOHxP9Ncd+iJMni7Se7TRHd9zYlKU3enr
-	9EbtT51iLT4BmCcAbnkhF6qmhfckJkxD+kB3dacLstn6q9ZnwSpob3EqTjjqbKBAFStIFlNVc2m
-	7uiS3FZ23m0HX5Og5eZaFBAjzqT7LEosAifuFu9IcIyg3z/52T3J0a1+aQ+JukZyaMdIdkHR/8E
-	atgzzpcz0umInlmhQMqDuDCHTNoJIJGt2HEWME6+6MvFiCSekhzqo/KMUvhzYJ7c57atSdn0hoC
-	1BUexTX0sUABKj2/T7cqFJKLJTrlrhNKdNSVXiSdXXNgTadb7CfmXV6LQzmJSQS8hDmZH3p2lBr
-	jqJx+XIeFNa+c8ovDqm1MEEoTdZN3sWiN895YxoGFeH4IGrsV685FTYmRSnXFckPO+tZDZAlNeM
-	M+rehzcNgj1dJww56cpqkuimd5eaMemxwSq5ufMzkd9G7fFfB4Uu8wzUxu1VIH/IP1xOem/2Zou
-	sFQAxbgKrT9eH2ZmDhiPuIlaXmvaPGhjXmut9bUf8c=
-X-Received: by 2002:a05:600c:1d0e:b0:4a1:7703:e549 with SMTP id 5b1f17b1804b1-4a18043b9c6mr32320735e9.26.1791377969328;
-        Wed, 07 Oct 2026 05:59:29 -0700 (PDT)
-Received: from PF5R4XJL.retailmedia.com (284035233.box.freepro.com. [82.96.134.200])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a17f493761sm105304145e9.2.2026.10.07.05.59.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 05:59:28 -0700 (PDT)
-From: Erwan Velu <erwanaliasr1@gmail.com>
-To: platform-driver-x86@vger.kernel.org
-Cc: Naveen Krishna Chatradhi <naveenkrishna.chatradhi@amd.com>,
-	Carlos Bilbao <carlos.bilbao@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 4/4] platform/x86/amd/hsmp: Add pwr_current_active_freq_limit_source_raw
-Date: Wed,  7 Oct 2026 14:59:08 +0200
-Message-ID: <20261007125908.321186-5-erwanaliasr1@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261007125908.321186-1-erwanaliasr1@gmail.com>
-References: <20261007125908.321186-1-erwanaliasr1@gmail.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="NIOIQOvF";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="8RmG4i31"
+From: Nam Cao <namcao@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1791377988;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fj464vjBR2tNbqnS46pUy4Usm7oC7hnfneL/awpF84Y=;
+	b=NIOIQOvFKG94r4k9j9XXUpSNN6DLdKuZDzGTY33D/dCbJ0V4PQf/1J3FVEpEnN4X/oxEE5
+	7lDOJatLH03r2b3OF/E/BQn0e74ZDEO8P93jWZjYkIz1nfnn2fZVfA0htTsVIZEGx9pB2A
+	wN9BNUjVhsXmV3w7prm3VQj4Omxa8G806UsrsuoEylL3QLeZ6yB6vrMgj8r/vs1qXmtoqa
+	KTdlxRS/aE3bzgdMHIi2EuUt+7QlVwYgz6Xvej57YH4QbGKK8u2er3d/XZ30Tma7hAb4kc
+	X1yQ8ayAwZU9YxT/Ato2/rx/3DVcZSkX5cXkvgmkPiD8HsaZGeoUn5qMuHtz2Q==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1791377988;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fj464vjBR2tNbqnS46pUy4Usm7oC7hnfneL/awpF84Y=;
+	b=8RmG4i31CSVcn/3jS1xzpHNpawYQeXCBTclAuKnJhkH+xxGOk4LrthPmJdOd5d0TOeA9Qo
+	BcdLlCEgeFEYCrDQ==
+To: Gabriele Monaco <gmonaco@redhat.com>, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, Steven Rostedt
+ <rostedt@goodmis.org>, Gabriele Monaco <gmonaco@redhat.com>
+Cc: Alexei Starovoitov <alexei.starovoitov@gmail.com>, Wen Yang
+ <wen.yang@linux.dev>, Tobias Schaffner <tobias.schaffner@siemens.com>,
+ Viktor Malik <vmalik@redhat.com>
+Subject: Re: [PATCH v2 09/15] tools/rv: Copy stripped bpf_atomic.h from
+ libarena
+In-Reply-To: <20261001152042.124445-10-gmonaco@redhat.com>
+References: <20261001152042.124445-1-gmonaco@redhat.com>
+ <20261001152042.124445-10-gmonaco@redhat.com>
+Date: Wed, 07 Oct 2026 14:59:46 +0200
+Message-ID: <87ld89wtrx.fsf@yellow.woof>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-From: Erwan Velu <e.velu@criteo.com>
+Gabriele Monaco <gmonaco@redhat.com> writes:
+> Add bpf_atomic.h including atomic read/write macros like READ_ONCE() and
+> try_cmpxchg(). This version is a stripped down copy of the one currently
+> present in selftests/bpf/libarena.
 
-pwr_current_active_freq_limit_source reports the active frequency limit
-sources as a list of names, one per line, which metrics exporters have
-to parse and map back to a value.
+Instead of this, what do you think about using C11's atomic stuffs? I
+prefer standardized stuff when it is an option.
 
-Add pwr_current_active_freq_limit_source_raw, reporting the same source
-bitmask as a single hexadecimal value. Exporters only need a plain
-integer conversion, and its interpretation can be centralized in the
-monitoring stack, e.g. with Grafana value mappings, instead of being
-decoded on each server.
-
-The bit assignment is defined by the HSMP specification and is stable:
-new limit sources are only appended, existing bits never change meaning.
-A given value therefore has a single interpretation, whatever the
-platform or kernel version it comes from.
-
-Assisted-by: claude-opus-5-5
-Signed-off-by: Erwan Velu <e.velu@criteo.com>
----
- Documentation/arch/x86/amd_hsmp.rst   |  4 ++++
- drivers/platform/x86/amd/hsmp/sysfs.c | 18 ++++++++++++++++++
- 2 files changed, 22 insertions(+)
-
-diff --git a/Documentation/arch/x86/amd_hsmp.rst b/Documentation/arch/x86/amd_hsmp.rst
-index 954e938eea3d..66dbf506db05 100644
---- a/Documentation/arch/x86/amd_hsmp.rst
-+++ b/Documentation/arch/x86/amd_hsmp.rst
-@@ -109,6 +109,10 @@ Following sysfs files are available at /sys/devices/amd_hsmp/socket%d/.
-   in MHz.
- * pwr_current_active_freq_limit_source: Source of current active frequency
-   limit.
-+* pwr_current_active_freq_limit_source_raw: Source of current active
-+  frequency limit, as a hexadecimal bitmask. Bits 0 to 7 are, in order:
-+  cHTC-Active, PROCHOT, TDC limit, PPT Limit, OPN Max, Reliability Limit,
-+  APML Agent, HSMP Agent.
- 
- ACPI device object format
- =========================
-diff --git a/drivers/platform/x86/amd/hsmp/sysfs.c b/drivers/platform/x86/amd/hsmp/sysfs.c
-index e9e91b640b2a..fa1cf8dc3b6f 100644
---- a/drivers/platform/x86/amd/hsmp/sysfs.c
-+++ b/drivers/platform/x86/amd/hsmp/sysfs.c
-@@ -274,6 +274,21 @@ static ssize_t hsmp_freq_limit_source_show(struct device *dev, struct device_att
- 	return len;
- }
- 
-+static ssize_t hsmp_freq_limit_source_raw_show(struct device *dev,
-+					       struct device_attribute *attr, char *buf)
-+{
-+	struct hsmp_sys_attr *hattr = to_hsmp_sys_attr(attr);
-+	struct hsmp_socket *sock = dev_get_drvdata(dev);
-+	u32 data;
-+	int ret;
-+
-+	ret = hsmp_msg_get_nargs(sock->sock_ind, hattr->msg_id, &data, 1);
-+	if (ret)
-+		return ret;
-+
-+	return sysfs_emit(buf, "0x%04lx\n", FIELD_GET(FREQ_SRC_IND_MASK, data));
-+}
-+
- static const struct bin_attribute  hsmp_metric_tbl_attr = {
- 	.attr = { .name = HSMP_METRICS_TABLE_NAME, .mode = 0444},
- 	.read = hsmp_metric_tbl_acpi_read,
-@@ -307,6 +322,8 @@ HSMP_DEV_ATTR(pwr_current_active_freq_limit, HSMP_GET_SOCKET_FREQ_LIMIT,
- 	      hsmp_freq_limit_show, 0444);
- HSMP_DEV_ATTR(pwr_current_active_freq_limit_source, HSMP_GET_SOCKET_FREQ_LIMIT,
- 	      hsmp_freq_limit_source_show, 0444);
-+HSMP_DEV_ATTR(pwr_current_active_freq_limit_source_raw, HSMP_GET_SOCKET_FREQ_LIMIT,
-+	      hsmp_freq_limit_source_raw_show, 0444);
- 
- static struct attribute *hsmp_dev_attr_list[] = {
- 	&hattr_c0_residency_input.dattr.attr,
-@@ -323,6 +340,7 @@ static struct attribute *hsmp_dev_attr_list[] = {
- 	&hattr_clk_fmin.dattr.attr,
- 	&hattr_pwr_current_active_freq_limit.dattr.attr,
- 	&hattr_pwr_current_active_freq_limit_source.dattr.attr,
-+	&hattr_pwr_current_active_freq_limit_source_raw.dattr.attr,
- 	NULL
- };
- 
--- 
-2.53.0
-
+Nam
