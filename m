@@ -1,221 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D87B0421229;
-	Wed,  7 Oct 2026 21:20:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C00273B14C9
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 21:23:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791408053; cv=none; b=Po2iuO95Qyw0WxG/hmk4hwkSlnAshHBzLYf1mbZysMszwXSEWWusYUsIR2Iu/2G7FnHRVU0OuObT+6UpbLRQfrmOJOsm7ZFCiTDp7xzCeOiwOgeaMVdIQ6gNtvjUvyCqeQmmckkiR4lQcAFIkjglynFahG6DCnyavvz6yWS2I+w=
+	t=1791408219; cv=none; b=i2E8P7keW6agXermXqj98s05mzflpLELg9r5QkURxBjhUJuOn4ngssvSMooyX5N7DsF87JKHexm4L6xiKIY3LB5CQzFwNWjO6nP5hHdkWvtVtkaA32GmgGI6eoqN5degZ/wN8BsQhXebyGnLd/E46wlmJWphFt1ncqrY+E5fvsU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791408053; c=relaxed/simple;
-	bh=tkxparI7BMhsSeem0UAU2WFDXKjLq0jgOlpX8F393hA=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=R9i5c7svXKM0s+D1kzJ2enhJ+ZfArrOi853c4hhneqyEu6kstbxM7F2w0XgHDMe/irpjQv47vrGD3dMQnGhJ9h8Wb9rAS+oa0VlXzNJ5kOriNcY9YdMHqj9GiIvyj/7HrNUmxF6kvq+oSQjk51xRs1v1A0YeraXPN/13mTabACs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mdWP4qC6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791408219; c=relaxed/simple;
+	bh=3ieiHI/Mp/GNcGFX02Qg6gwoLtt+hpQKuZUcqNDGkSU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OWlIyCrqmpksosDaUtmsO6KPrePOYIUd3+k5UVu3hJPltzz4twWFKaESjctbdui06hK20NzqADcp58LUJpL58adonF5mMJi3bH/weJpbynxOF53/sZYKgemrgQo5ljj+mfcgAwtkSkpCnEJNxX4HS1+E8060ZXzjRf+3l8hPtA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G+4bPP9k; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mdWP4qC6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D55751F00893;
-	Wed,  7 Oct 2026 21:20:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791408050;
-	bh=ZaNGiYiohI5xp7M93pAOKm2idsiAlCo1RqFZxjCDoIY=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=mdWP4qC6w6GwAMIDGmB6gcmFCeWeXCZXBA4cUi/nqrmu8GKefLtc8kPnpPIIaCPtw
-	 3Pt8lb1qtIXNgRfls3fgYDqkysRuj7xXdQGpsKYUIMAKFvPmHhtZMwE5Q0B+5nLJFq
-	 6JZhRGbtUOVNfXTSQkAlPl9oUEeGd+fsQkeJeBV5Um7XC7WSmn5vlDyf+Rac/ALxBp
-	 ee1CQjWtB4s2THh8lUI5CYh/Yfxj5hW2wxGr7JpN9RIVPMt9h5C9GA6AIqQNO68hZU
-	 ijvZqUs8EdR1YzSl89Gijpuj4pXCZfHMJl84dKIqJFgLM0AJK7MHXZ7P6zaZttUPXY
-	 sMRB1bWiovEUg==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id F0CA9F40067;
-	Wed,  7 Oct 2026 17:20:48 -0400 (EDT)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Wed, 07 Oct 2026 17:20:48 -0400
-X-ME-Sender: <xms:sLfGanu9ZSFpTR_RbR5PkN8TftBmx39xJ05qPW3uUYdURu6o77Pkfw>
-    <xme:sLfGajQDgdOAJd53AZmdwpodkx-CjWnKGBaKzDq01Hn-JPvlksMa2urmQkaBUJlbs
-    oA30e00CcakcobOaj4eG7HUGBxl9RueBgxtDPvhz6nKe9Axk9GZFHY>
-X-ME-Proxy-Cause: dmFkZTGbCQ3CoQxq1JYlRBJlx4nYDcB45vlD7SywSbfRFOjcilb4a6kevJWcJQAsrOm40d
-    LacIlvhZ8EgT6mWPw6z/WvYrdq6+U3X3dJfGwJQWPI+SwMRDa3HUWcS4a633X8YnlCx+T4
-    GjIEir6SXJpqvL4T5hTO87I8QNdUHjBo6CTIxieHrF1/Uijj2R2l5QAHXf8vnBs5y/fe3d
-    JpYPTwZvxvUHwImekZhhDEoDSAsXmJ2b6cEahMBcI021ETYoUZ0GEnSJnuemTJ6QWqX9dg
-    G701auymbts8n8YniDTGaL867b6EF0SQ5FfYk/Qw6QZGHEmIPZ8NVbAdlvR8oGunreXLC3
-    7JZM3DNzZGl25wTr2bMYrpr6Bx8NiO6YGYE4J9Rf62xts8gqCBF/HLFyT5PbCuX1oLxI1P
-    w+HQY8guROTYv3okcrc59XX8udOmrEgqXSocau38N/SzRHdABsYeDPb8YAZDcl9snvs0uO
-    8gB1IqKWai0covcRbjngKciRNCdBPnn5ysijWHhT90/1xWxT/01XrK2tMI1ZAaLn2iCI2R
-    efkfyYrvI2ECj9fjFkuSfY6d4gOwKifu/fnxPVhPKfN1wm5XyU9gjV/J3OCxvOwMfEZeo8
-    mkYlFdr7dvAORYytVwv2YiXQhR8W8olpJhcqA56ieK/vm/IWP+fBbUs/QQrw
-X-ME-Proxy: <xmx:sLfGauntOyvI3Kne1BjWvwZ9z32VYSG5y-TAAbUlVBBCc9LkzsPWEQ>
-    <xmx:sLfGatZxofe8ovA6KCfufUofJLu6L4jbcp1ufdpagQOv4rrcMfZhHg>
-    <xmx:sLfGasTG9htLjzOdwOFZmuY8kjkhOVygg53UDnB6yl7My1RT_QQDVg>
-    <xmx:sLfGavUYCofkmfDdRIzDnwxg3H_9p71XK7lmRQDCCw9OJ-F_8207Pg>
-    <xmx:sLfGajZG5h2Gogx3nPmjMDJi82ZkRp9Wt3Bd3mT8J2wyqzbl0eZIwGQI>
-Feedback-ID: ifa6e4810:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id CE117780075; Wed,  7 Oct 2026 17:20:48 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G+4bPP9k"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a16bc2278aso17538845e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 14:23:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791408216; x=1792013016; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aOHdvDth2vK4aVaNOG+jUkLGd78RtGCVNS/yVM6geL4=;
+        b=G+4bPP9kssXIg2LigkBWmvG10TxDgeyqCH3mjwQgy/49QzcLVxH908HB0v+JIKvW4A
+         IQbj3q0pUblFRSI1n3HAM9hMvmWOyaX0OEB8TTNmTfl2u3w6Qmb1Ac2VfdF8PTZB7na8
+         52x8F2wolIer3Urv1sExr9d6Q0ItYv/scdfIGgmWMzuHuxqwvYdEX+o/rHd/fnqQ3NPq
+         jdS7nxWcTajbgmNa+L/3+mnAF035+hAcMBcXXJj9d+43k0TBpORK6L80hMGS6D4u3cw2
+         1QDPD5d+FgnlMFA8/AO238HItRWWA+vXpoy6f+dCTIciXpNvdWwos9mew0TTmgn56Ai8
+         CvTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791408216; x=1792013016;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aOHdvDth2vK4aVaNOG+jUkLGd78RtGCVNS/yVM6geL4=;
+        b=H4yavWCXyhbdVyTB/zeoBzuvIlKUdTxqZ00xXZjW+t8dhXsvz1ROsONx8AgiiqFPYG
+         oYArd7ActfecZWhNpCazRr828zdSAYZ0RbJi9p0sHRoagANw6uKh1of5fPFzEjSFnmQj
+         xkx7n2+ihqQFGCphE5p+MBQdv3HrRjzSn8W8uMn8Si2tdZ1GFcK0Q73yRPtDFV3nPKKh
+         Nkm5Ob93la+tMz8DQI365H4v55yFQzU3kGBLhbbYWTgR4bXMxrien5pJpk/VBEl4iHsR
+         fd88QUMXkfW02jZ8vUnanTBfdy02F3IidlopcUtOxAG3NH0bZGNTEVt3txqfqGO5DINw
+         gP9w==
+X-Gm-Message-State: AFuF++n3uEq6w7vk4IaFTPm59FVExYIQ1rKSQ9zYEfed0Z0dYX5hMFs8
+	Xb4GgFwCFq+TzJiYzGqVD31vG3hcv1HAgcMZhMTYtMJSOANkCPF3RQIQ
+X-Gm-Gg: AYBFou0JMVHuj9/DXf0DYe3979pleDNs3d7hXWfI0oYoKbM7DH0N1xKzb9BwtJGsSgC
+	olFf2z6jiArWm4MQFfUw62qYoRznitLg1X/ZKr55zrdZnNtO9Za0quX1A9nNVxx54zduthd4yC2
+	AuIvyKMxi8exDQuOxXMTRr6UBgMxH6EWOEcgexPZ/KkV70VN+ZOOw2t1SXFNwRaWi1UQ21eRDaT
+	CqNFSubKq/xfnXUHPf2WmCEvnNnnqlXFN5L1DLdCMY4hqjBAuWokmuKTqzM0QB+Q93WZ0Z3xwX0
+	0Jn7QokdZY3Tea+ny0UxMeJVYIwkrqdqRtFjDW/0gT3IOwSeevnzVOg0IycMnsinvEn1FVmQVmE
+	lfBl0GDG9EF5ljcuYL2jtn0szqG5jA2sWu1h9rI03xv3HulSYvO5Qnn/A8b6pIYzV+QYvV1nD4M
+	WPV++tTFz7xaIrFTJsd8nlPyXDe9hIvSMCNqa+Qh6wb4HVmSFP1UZNRWmiClLhJSUbSG2fcHLhr
+	wEio1liikGpYN78SiDkSZ73/o56qThvmPmkxa9vUUfvFPoL86xERVPq3P5RvHDSWJsLi5P/
+X-Received: by 2002:a05:600c:5252:b0:4a0:1aa0:7cfa with SMTP id 5b1f17b1804b1-4a18041c4b2mr61608045e9.12.1791408215819;
+        Wed, 07 Oct 2026 14:23:35 -0700 (PDT)
+Received: from voyt-laptop-dell.fritz.box ([2001:9e8:bd59:2b00:37fe:a06c:16fc:545])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18445b6b9sm18424395e9.8.2026.10.07.14.23.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 14:23:35 -0700 (PDT)
+From: Dmitry Voytik <voytikd@gmail.com>
+To: Matt Turner <mattst88@gmail.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Richard Henderson <richard.henderson@linaro.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-alpha@vger.kernel.org,
+	Dmitry Voytik <voytikd@gmail.com>,
+	Kent Was <waskent6@gmail.com>
+Subject: [PATCH] alpha: remove a duplicate line in Makefile
+Date: Wed,  7 Oct 2026 23:23:14 +0200
+Message-ID: <20261007212314.969336-1-voytikd@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: Aicf_QbpfWdV
-Date: Wed, 07 Oct 2026 17:20:28 -0400
-From: "Chuck Lever" <cel@kernel.org>
-To: "Pranjal Shrivastava" <praan@google.com>
-Cc: linux-nfs@vger.kernel.org, "Trond Myklebust" <trondmy@kernel.org>,
- "Anna Schumaker" <anna@kernel.org>, "Jeff Layton" <jlayton@kernel.org>,
- linux-kernel@vger.kernel.org, "Christoph Hellwig" <hch@lst.de>,
- "Logan Gunthorpe" <logang@deltatee.com>, "Jason Gunthorpe" <jgg@ziepe.ca>,
- linux-pci@vger.kernel.org, linux-rdma@vger.kernel.org,
- "Shivaji Kant" <shivajikant@google.com>, "Tom Talpey" <tom@talpey.com>,
- "Leon Romanovsky" <leon@kernel.org>,
- "Unnati Sachan" <unnatisachan@google.com>
-Message-Id: <4af1c065-538a-45eb-ad56-6517c29dd126@slotpi15m67>
-In-Reply-To: <20261006233248.705086-1-praan@google.com>
-References: <20261006233248.705086-1-praan@google.com>
-Subject: Re: [RFC PATCH v1 0/8] nfs: PCI P2PDMA for O_DIRECT over RDMA
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/6/26 7:32 PM, Pranjal Shrivastava wrote:
-> Enable NFS O_DIRECT to and from PCI peer-to-peer DMA (P2PDMA) memory
-> on RDMA mounts. This replaces the initial RFC [1] and builds on the
-> Direct I/O modernization series [2].
+Remove redundant duplicate line.
 
-Hi Praan,
+Fixes: 234306038064 ("alpha: Fix bootpfile and bootpzfile make targets")
+Reported-by: Kent Was <waskent6@gmail.com>
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=222101
+Signed-off-by: Dmitry Voytik <voytikd@gmail.com>
+---
+ arch/alpha/boot/Makefile | 1 -
+ 1 file changed, 1 deletion(-)
 
-Good to see this moving.
-
-
-> 6. pNFS: excluded for now. Route P2PDMA I/O through the MDS, or let
->    each layout driver opt in?
->
-> Known issue: the pNFS check happens at extraction. If a mount gains
-> pNFS afterwards (e.g. after migration), a rescheduled WRITE could
-> reach a layout driver. I plan to decide once per O_DIRECT call and
-> force the MDS path when P2PDMA pages are allowed.
-
-I think we need to have a path to supporting DS I/O with P2PDMA.
-
-The deployment sites that want P2PDMA O_DIRECT are the same sites
-running flexfiles, and flexfiles with a co-located DS is where
-LOCALIO actually offers quite a benefit. So for question 6 I'd say:
-layout driver opt-in, flexfiles first, and the flexfiles LOCALIO
-path is part of that.
-
-Although it is fine for a prototype, forcing the MDS path will
-always be the slow path. Can v1 be designed so the follow-on is
-additive? As posted it might not be. The P2PDMA refusals sit in
-the MDS-only pgio path and at page extraction, and the decision is
-made once and never revisited where the RPC is built.
-
- - The krb5i/krb5p refusal is in nfs_pgio_prepare(). Flexfiles and
-   filelayout install their own rpc_call_prepare, so a DS RPC never
-   sees it and gets as far as call_encode, where gss_wrap() encrypts
-   device memory in place before xprtrdma has a chance to refuse.
-
- - ff_layout_read_pagelist() and ff_layout_write_pagelist() open an
-   nfsd_file through ff_local_open_fh() without going through
-   nfs_local_p2pdma_check().
-
-If the auth refusal lives in the RPC client (any XDRBUF_P2PDMA
-buffer under an RPCAUTH_AUTH_DATATOUCH flavor) and the rest lives
-in the transport, then every RPC gets checked no matter who built
-it, and enabling flexfiles later is a small series on top instead
-of reworking already-merged code.
-
-
-> 1. Layering: "RDMA transport, !pNFS" is only a hint, and each RPC
->    re-checks its transport. Should the transport advertise P2PDMA
->    capability up front instead? That would also allow LOCALIO on
->    TCP mounts, which this series refuses.
-
-Yes, please. LOCALIO never goes near the NIC, so a TCP mount has
-no reason to be refused. Advertise the capability and keep the
-per-RPC check as the backstop; that covers both cases.
-
-
-> 5. LOCALIO: the check uses sb->s_bdev, which misses multi-device
->    filesystems. Is there a better way to ask whether a file can do
->    P2PDMA? Should misaligned I/O fall back to an RPC instead of
->    failing with -EINVAL?
-
-s_bdev turns out to be the smaller part of this. I went looking
-for ways LOCALIO could still CPU-touch the payload after the
-checks pass, and found these:
-
-o  ext4 and xfs both retry a direct write as buffered when the DIO
-   path returns -ENOTBLK (fs/ext4/file.c, fs/xfs/xfs_file.c).
-   nfs_local_p2pdma_misaligned() only guards the NFS-side split.
-   Once the write reaches the local filesystem, that fallback
-   copies the P2PDMA pages through the page cache and nothing
-   reports it.
-
-o  The queue feature doesn't say anything about what the
-   filesystem does with the data. btrfs checksums every data page
-   on write and verifies on read unless nodatasum, so an aligned
-   DIO on btrfs reads the pages with the CPU. Plain O_DIRECT on
-   btrfs has the same exposure today, since bio_iov_iter_get_pages()
-   gates on the same queue feature, so this isn't something the
-   series introduced. But it does mean the cover's claim that every
-   CPU-touching path refuses the I/O isn't true on btrfs.
-
-o  nfs_local_p2pdma_check() tests the queue feature but not whether
-   the page's provider can reach the disk's DMA device.
-   blk_dma_map_iter_start() rejects an unreachable provider with
-   BLK_STS_INVAL. That shows up in nfs_local_read_done() as -EINVAL,
-   gets logged as an alignment failure, and fails the I/O. There's
-   no RPC retry at that point, so the comment's "sent as a regular
-   RPC instead" doesn't hold here, and the same I/O would have
-   worked over the NIC.
-
-o  sb->s_bdev, as you noted: wrong for XFS realtime, btrfs
-   multi-device, and dm/md stacks, and wrong in both directions.
-
-I don't see a clean fix for 1 or 2. The VFS does not have a "DIO
-or fail" knob, and a filesystem's data path isn't visible from the
-block queue. Perhaps for v1, drop LOCALIO for P2PDMA pages and
-bring it back under a filesystem allowlist when the flexfiles
-work needs it.
-
-On alignment: yes, fall back to an RPC. Decide inside
-nfs_local_p2pdma_check() from offset, count and
-bdev_logical_block_size(), and return NULL when it doesn't line up.
-The RDMA path has no alignment requirement, so returning -EINVAL
-here makes LOCALIO strictly worse than not having it. That change
-also lets you delete the two duplicated error exits.
-
-
-Nits:
-
-8/8 doesn't build with CONFIG_NFS_V4=n. nfs_direct_extract_pages()
-calls pnfs_enabled_sb(), which is only defined inside the
-IS_ENABLED(CONFIG_NFS_V4) block in fs/nfs/pnfs.h, and the #else
-branch has no stub.
-
-In rpcrdma_marshal_req(), a P2PDMA WRITE is forced to
-rpcrdma_readch without checking that head and tail fit the inline
-send threshold. The READ side checks rpcrdma_nonpayload_inline();
-the WRITE side should too, or fall back to a Position Zero Read
-chunk, or return -EREMOTEIO. From code audit.
-
-On a server returning READ data inline despite the Write chunk:
-you're right that RFC 8166 section 4.3.2.2 requires the responder
-to use the offered chunk, so failing the RPC is correct. It does
-surface as a per-RPC "RPC call returned error 121" printk from
-call_status(), though. A tracepoint and a quiet error path would
-be better.
-
-A short LOCALIO write restarts via nfs_local_pgio_restart() with
-offset and count advanced, and the residual can then fail the
-alignment check with -EINVAL after most of the bytes have landed.
-
-The same three-line P2PDMA guard appears in xs_local, xs_udp and
-xs_tcp send_request. One check in xprt_request_transmit() keyed on
-a transport flag would cover the socket transports and anything
-that comes later.
-
-
+diff --git a/arch/alpha/boot/Makefile b/arch/alpha/boot/Makefile
+index d8dba85e606c..1ac823d93801 100644
+--- a/arch/alpha/boot/Makefile
++++ b/arch/alpha/boot/Makefile
+@@ -99,7 +99,6 @@ $(obj)/tools/bootph: $(obj)/bootpheader $(OBJSTRIP) FORCE
+ $(obj)/tools/bootpzh: $(obj)/bootpzheader $(OBJSTRIP) FORCE
+ 	$(call if_changed,objstrip)
+ 
+-LDFLAGS_bootloader   := -static -T # -N -relax
+ LDFLAGS_bootloader   := -static -T # -N -relax
+ LDFLAGS_bootpheader  := -static -T # -N -relax
+ LDFLAGS_bootpzheader := -static -T # -N -relax
 -- 
-Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
+2.55.0
+
