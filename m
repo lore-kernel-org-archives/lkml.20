@@ -1,109 +1,72 @@
-Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E1D736F90C
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 14:16:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 757B24ABBC4;
+	Wed,  7 Oct 2026 14:18:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791382621; cv=none; b=G6X1zbdjCcOBn/+VaK0+1TOEwBx30nuzZ/T83JydmFeLtHQN86qDP3mG5SOmHP8138RV8ixOCrNZpgm2z7LMfjpr1ebWPWlIp0UMRum3Os9YX7WNAeUB3qyAAnYMsw/wSnO4mhI9DWyuJ/s8kj1AGsZmT1rsk5g8F4q9EtoGrog=
+	t=1791382702; cv=none; b=owaYI/rMs03zZoIoUVOVmEACLV7OR0X935UV776KYux2kiXn9wz/OykNaf+Pm76xWdbxAU+tlp7HD7jvklL+LZDFFMMgoN/INDqUV6H4BPsinE7dTM9Uci/183jNyebQ8cFpcUw+8VSKFK5w4KnxI+rnQmhkMwLLcEQ55nGopOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791382621; c=relaxed/simple;
-	bh=Qmkf+XiGZRy30vGcRvQw4oCFml7R+FQ4UhT7npyZ/iY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MF2dwKK+CzUxUgDjQqcY4fBZGzIdHx1aITcREaoISfYp4y78/PD3rMTEsr0pJTcFSeMA9cKAe/fxZFXYDlV1MKU/PEo3Rsd0iNTMeKDrJJQUa1I7oi8PUXSIt7yavy7pFKTSvIk3CFOWQLpcE2apM3dlN78VuygEYD5+a0LqZuI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p5q6yfo4; arc=none smtp.client-ip=209.85.210.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791382702; c=relaxed/simple;
+	bh=2Q6TyLD3uLpZohDA6/cj4lYgsrlfmmoWbnSyKIbr4N0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=B+VD38lYYgEPwdDmBfurPvkt0saSV66nilrOxestz16Ds+6cqXjXVuSdHLPFkNV9pPBvygM7WkDyp3qXNwRGqQXl4sZJIEdXoJSboocE8DPHQlSEwip4MG8RBVV3POuzpovA6sQYmn0hKBOXBM4etbMzG457gDX39GhAlZWINuo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ci4a7Tpj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p5q6yfo4"
-Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-7f84a55e31aso1548839a34.2
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 07:16:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791382606; x=1791987406; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jgfFU4PoWoQaUk98vWn6gXhkSnB1yU0D/q7IV/OvUeI=;
-        b=p5q6yfo4AjoekKy2BPgPXnZ8jVojhWWEts9/jCh3R0Jit6Z6a09O6THePg1rk3RcmX
-         3jn1MmiZmhL6GICR58kEdimoK6sd4mu8YmvJ2JeiIGOoxEqiPAWtTw8suNsmK6M0vX/s
-         TtjSKZcN0RurG8HaE0F18SdGQt++8neOhN1AFERlpJbbfPwibCzA6ptDWkY4TGDzHZhb
-         bok/Qi6LZ5Ufyk6wa7Lfft5oruCbK9dwEmtYapoAlJ+64HZLFamefjD4DwBgEOdNgAfY
-         ARVuf/aGdV6ad24qTYN+fWpmK0IraMTd38Ia6/6xIph7ogMDDokuBh3K2EmzPXd82HIC
-         +PLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791382606; x=1791987406;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jgfFU4PoWoQaUk98vWn6gXhkSnB1yU0D/q7IV/OvUeI=;
-        b=D5cG7RG2MHjkHpojaiWDd4EQ1kzUwWHD3/bqBzqgYy7d3MH68kS8rSygX4nMErhyPA
-         rG8VO6wTmT/Dy9clVsMpFqk/bMCDz3PYRCzmal/PXdXvi4PbKu5ZcGFnI4E8GKwSpORi
-         itac6KtMnIZq5Li+m7Q4KskcKrokJ7rvBkJOlpd3ZEp831jDKuzcPbxIN4mVRDzSi5mR
-         2v/rQrOQglSTnfCy1pNpqn/6XJKaoDRx9X8KP2sU3BD0vFq99wbxC9UnSPPUfy5tEqzs
-         4L7z3P0ULnvSq7uu9Quf6hP+xvC8HhjGc7KhNsDZcGRAtMlvbgyRx1x0u3Nme5jG2uIT
-         dK1w==
-X-Forwarded-Encrypted: i=1; AKwUvBzovpBZvo8wv/bvnX7ugtMpjcvL4RVTvpdJTR8Ey32vLJipSvBic3ZdGXOm+EBmijhnZVoNhLdXIQZmtwE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nPyT7dSsr5WEdYTJXRV/7/Pl3LjCWCzHLJZKGWFNHGCIEmRLGx
-	+IEoIY8oyyjGfCzrj7x5sOK+ss8LHwGpe5FWPmaoQnMdEsu7Ti97KWn8
-X-Gm-Gg: AYBFou1jZrsVGaP3qc3tlEoEYgyzArfiqWHLz4pNhj4G83kEBCg6lMpeRPphmfyUymx
-	TclhUXLSHjIRefF3ubywznDi0f7v/ziU930/5bEOmxRPefEWSXQ8+D8gdUX3/hZy0W9UKoVQWn5
-	9grtcVr1Hk6HJAjRxrN+pXYPr3koVp//7M+PaFaO89h9Vs7Y3HCsle8CdCNSXy+1A1UgtXsrsKW
-	pYqk12y06HivGFTR9NK0RgR+bu4+nOPuHOJIBsPSz359/7vdCh/makIOT9byNphnhcbtlr/Mw7N
-	TQ9cPRRDk5vTJcEcn+2xgonp1exnXeAGfnUOtssVJhgBZtBk/mZZ5znkZLgmbDgJaeN7zLlskkl
-	Ti3g/OS+OwsWdujqWT0ffTKdyp5kzeJzqia5SqjrMkqt5E9x7FE08PLLYcLwHOPeyEE0JR/qYe1
-	2oDLTmBinnj29VbiKmFoFjCPMC0ppfi8ecKpFWGMKhut5z0PouqwXNOil4cuvt5N2vRt1d4jJWG
-	Lu1kEYawaLE7+JpoXNg0D42GkVbfYJDR7FZPQGr
-X-Received: by 2002:a05:6830:4884:b0:81a:9522:f00f with SMTP id 46e09a7af769-82acee9056bmr2732551a34.6.1791382606170;
-        Wed, 07 Oct 2026 07:16:46 -0700 (PDT)
-Received: from MacBookPro.taile6ac9b.ts.net ([123.113.35.89])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-82adc3f6d5asm2899704a34.12.2026.10.07.07.16.40
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 07 Oct 2026 07:16:45 -0700 (PDT)
-From: kai zhang <zhangkai.cool@gmail.com>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>
-Cc: linux-pci@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ci4a7Tpj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDDE81F0089C;
+	Wed,  7 Oct 2026 14:18:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791382695;
+	bh=YhLZA+AJA1YfgnKDUQ6nvL29mk+XE4H4nO30XJalByI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Ci4a7Tpj0x/0Ol3ZzVv4nQ100yOL+xXIGI0GJrdSHDGwfF+JPBAV3uCVnOVN53R4Q
+	 8ULu53zf5UxgE16/zKN5NKoGN6CGaxfxHLIYGzZdpjQupB9NsC5kmZH0Z+KXfPfS1J
+	 3CjO4ujsf8L9/lPyDgvefQ3RC5WuKrenqSjD4zuw0p5ZwNCYJ2nmMXZuroajoUwgfu
+	 8et6sh82OFb1SSByAbiUcSeQO+FWTAemZ+m7P/QdxBD519L8p2/Vyl8o6AXA4OclNd
+	 jnHt5YT7eiGuMqJnGvcsIgHjMURMiNZih99E0CvPX94bge9QlAjW+am5wjJyy7c44V
+	 rZOZqCC4kka+w==
+From: Danilo Krummrich <dakr@kernel.org>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Yang Yingliang <yangyingliang@huawei.com>,
+	Luben Tuikov <ltuikov89@gmail.com>,
+	driver-core@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] PCI/P2PDMA: Add Intel 0x6f00 host bridge to the whitelist
-Date: Wed,  7 Oct 2026 22:15:58 +0800
-Message-ID: <20261007141558.59852-1-zhangkai.cool@gmail.com>
-X-Mailer: git-send-email 2.54.0
+Subject: Re: [PATCH] kobject: Fix the kobj_set_name reference in kset_register() kernel-doc
+Date: Wed,  7 Oct 2026 16:18:10 +0200
+Message-ID: <20261007141810.46083-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20260911222029.7267-1-kmehltretter@gmail.com>
+References: <20260911222029.7267-1-kmehltretter@gmail.com>
+X-Patch-Reply: applied
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-For P2P paths routed through a host bridge, the P2PDMA core consults a
-whitelist of known-good hardware. Add Intel 8086:6f00 with
-REQ_SAME_HOST_BRIDGE so the entry permits peers only below the same host
-bridge.
+On Sat, 12 Sep 2026 00:20:29 +0200, Karl Mehltretter wrote:
+> [PATCH] kobject: Fix the kobj_set_name reference in kset_register() kernel-doc
 
-The bridge was tested on a single-socket Intel Xeon E5-2697A v4 system
-with two PCIe GPUs below different Root Ports of the same host bridge.
-Without the whitelist entry, peer access was rejected before a transfer
-was issued. With the entry, 64 MiB peer transfers completed in both
-directions with data integrity verified while the IOMMU used translated
-mode.
+Applied, thanks!
 
-Assisted-by: LLM
-Signed-off-by: kai zhang <zhangkai.cool@gmail.com>
----
- drivers/pci/p2pdma.c | 1 +
- 1 file changed, 1 insertion(+)
+  Branch: driver-core-testing
+  Tree:   git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core.git
 
-diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-index 9334eb314663..84413920e39b 100644
---- a/drivers/pci/p2pdma.c
-+++ b/drivers/pci/p2pdma.c
-@@ -542,6 +542,7 @@ static const struct pci_p2pdma_whitelist_entry {
- 	/* Intel Xeon E5/Core i7 */
- 	{PCI_VENDOR_ID_INTEL,	0x3c00, REQ_SAME_HOST_BRIDGE},
- 	{PCI_VENDOR_ID_INTEL,	0x3c01, REQ_SAME_HOST_BRIDGE},
-+	{PCI_VENDOR_ID_INTEL,	0x6f00, REQ_SAME_HOST_BRIDGE},
- 	/* Intel Xeon E7 v3/Xeon E5 v3/Core i7 */
- 	{PCI_VENDOR_ID_INTEL,	0x2f00, REQ_SAME_HOST_BRIDGE},
- 	{PCI_VENDOR_ID_INTEL,	0x2f01, REQ_SAME_HOST_BRIDGE},
--- 
-2.54.0 (Apple Git-157)
+[1/1] kobject: Fix the kobj_set_name reference in kset_register() kernel-doc
+      commit: 3aac49b236c1
 
+      [ Also drop the misplaced braces in "allocated by()". - Danilo ]
+
+The patch will appear in the next linux-next integration (typically within 24
+hours on weekdays).
+
+The patch is in the driver-core-testing branch and will be promoted to
+driver-core-next after validation.
