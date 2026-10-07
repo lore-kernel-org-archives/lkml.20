@@ -1,214 +1,307 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011045.outbound.protection.outlook.com [52.101.62.45])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24CC925A655
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 07:16:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791357365; cv=fail; b=q+FsRiPVojbO2Q7NZvehEyCfWFSnShc2+zsvrq6JcQ7YHr4GovDObN3uECOQ9A3AU6HcrGU4XpZhedq64mE8ADeztcXfh21w6iEwDBdrcCMofH+E4fBNfKXwHK2PWol8DxaSyalKweNU2Kezq3TgAWplnM67EgVYifL3ErtIURw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791357365; c=relaxed/simple;
-	bh=iFqnT1x3NvnUDCUBE6LCJYkpc70HI5sidnm0IVGyenc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=OZ/oeFwkau6HmRhuxZYi8pvrallvw2hjlc6a5T+W5TUnUV08eiqSawo5hD1ozUY2GwgqWhREwXld9QTyaqzFglpjKlIHGCpcrY9JrRVOmqIcWSLmIPTY9UQ33PSnCTg/m5cHyETqvF/ZBNlVfQQ8UGiA98HKi1rcyEgxu2+NImc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=mWene5mM; arc=fail smtp.client-ip=52.101.62.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FADA361964;
+	Wed,  7 Oct 2026 07:16:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791357381; cv=none; b=b9R/mZy9JwX5QiRJTphIE8qXD7qaXATKla3834SrtGj+2EwQMNz7zq0aRYCWGDCuMfHH5bRKjJxzDRHC78NDFSYU/9MUkypLYU/B/dYiivi1hqjdK+UY4W8oPlz3l+MnaQd3/7i/gBWejU3QFY61TdZfLtI4MntfkYS9Vc5SjXo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791357381; c=relaxed/simple;
+	bh=5E1YdPYNxrxlmJb7N/3LVqUih6w8umL5k1TB5y0EXks=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=aA9YN4Dbhno7xm92PZ8YHGcRBDr69eghoJOYBYtEAxDXE+GUneOAMYS8RIGOJnItM2tBSMb59e+d8i7YRkT9pRldvUPx+OGlYogGKM7RuD69fWr8/SnqWlndGirROf01hU2iYb9je/IrrLc1MzNbfDYHRKS1SOmiiprCQw4yp/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=WOoAClt0; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="mWene5mM"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=d5Ch2hXKnhE94oiahucyGsrK8dAbS8fh4Wx+RGi13IjdMZcrXRbZmQlQhLTopxnveYdCUujycev5vct1foKulR10inQMWpJglnw2UdxzLlAgWP/1UroYo8xKePlkCvGQ05Wh0uYQ0TgkUvlTL7e1ghaH5e+KmJ1MwnXIXV/cv9VBRwGBjYic3nhOjJ+C87x0CgSTTV38pi/Ppbb3wT50myWAbSbHypZVEwSJMVR4Fn9LSMzRBehaqdG8CZlDIo9BCQOS43X0iI+pQ1mE2eHypzD/Zf1eX0yYpn62BP2NTbV8wHmjuCLQgbbkx2l+0kdVuu6wABFA4vbvINzWHHDiCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2alSYpBJEWkBn4f64qrNH3zTCHmW2EMN5MqcqkqrDas=;
- b=vSmgrmM5EGlzsuenQd+ePE8cGFD0gyKgujTr6bcKcNGGCFNyDj1WmUOp3xKzhflV1CEDGrDiAayQNm/MdjTudGeRbz7wL7a9ka2elCI2N8HB5yEIH/xAZCICY5IWpljL6/dI1a8AiUa1tMMtccXdx9Puzk1LzrX5zy4HkynwyGB/ankffY90nN0aqIR8lGWtUazN0Nvgj9+4KHsjgz6qD3rBVWN+p1PMfTlq5vcr8HctkdMBAkfVJAnBQl7/Kh4Pi8OvBYQeb0YmfudR5ThRGNXVuqE3FrOwP3oPEhCD6/3gu7sRNdEhiyyjlIP7ijgg/9IkuANf9DDUIyMcH+soHg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2alSYpBJEWkBn4f64qrNH3zTCHmW2EMN5MqcqkqrDas=;
- b=mWene5mM8Fu5MATaodCjQFEnc1Qy6Gz2h92BD0G12cF54V+pdV+ZqyUcTAfUC30ulHh0ba815qIGQ1hfB/OucEHLt7MeDZQxoNDTrslJ73wLOyLZDPSP+4hc0JU3d01lOHtyieswVUsxbq9VQ+DcxRcCl1z5adIXz0JyoKFyEL38fq3XN5ONB0H3oFFOjYm/rXOAH6Ln6yZJFK8cz+5NDzzyiRQ3QLwVf/dv8m3i6DhAWRACeJUHZaC1SUiiT8no9C3UOJW5aZksAUpb3dSFd/cw0tTz/qBq1yUrvnHe9ZnlaB+znKxNEXonZtjBmh3iXJkLByWvMB42Nx5CoTYSFg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
- by IA0PR12MB8645.namprd12.prod.outlook.com (2603:10b6:208:48f::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
- 2026 07:15:55 +0000
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0496.015; Wed, 7 Oct 2026
- 07:15:55 +0000
-Date: Wed, 7 Oct 2026 09:15:51 +0200
-From: Andrea Righi <arighi@nvidia.com>
-To: Tejun Heo <tj@kernel.org>
-Cc: David Vernet <void@manifault.com>, Changwoo Min <changwoo@igalia.com>,
-	John Stultz <jstultz@google.com>, sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 sched_ext/for-7.4] sched_ext: Keep proxy donors with
- slice left on the local DSQ
-Message-ID: <asXxp0WabkwdB5aw@gpd4>
-References: <20261002221559.3090900-1-arighi@nvidia.com>
- <09a36d7e76652beedcfb891b587a9c82@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <09a36d7e76652beedcfb891b587a9c82@kernel.org>
-X-ClientProxiedBy: VIUP296CA0078.AUTP296.PROD.OUTLOOK.COM
- (2603:10a6:800:349::16) To BL1PR12MB5174.namprd12.prod.outlook.com
- (2603:10b6:208:31c::19)
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="WOoAClt0"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A0520A05A6;
+	Wed,  7 Oct 2026 09:16:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1791357376; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=H+892iwYnv2DoP/1OhMRPFuKuZ+WbCeYyL17h5PvAbg=;
+	b=WOoAClt0bKmC5PvEWYFBzIly1tZJRNzyZO/+QDjdjTLA2nQwvJBNBXfjSTTJpsf84nKhuC
+	PyLPxrtLymJ5YJmonRwnWEN30HAuWWkoMn4HkOQp6sRYWvDo7dMN8otc23RbRTw3SFWMZ4
+	5HBjGq9b/U/Z2BSMdfxQDpQA9nYeYIUzIIuMDoLM/hc3BfEboID2rvDNq0mh7O/vETpp9L
+	zRiYbSqgdpwa9a1FiflbTU9Uc2jlP0S+IEi08tztUp9kNGpvlJu8pDNJXs5TDZ/liM5XY3
+	s4XBPIIvy53MZKsBh9tA8z1vbNf/+Eyz5sBi4plq/dHpSW94roA/GwrC9/3Mrw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|IA0PR12MB8645:EE_
-X-MS-Office365-Filtering-Correlation-Id: df3a5fe6-d987-40d1-ea96-08df2442d38b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|5023799004|11063799006|3023799007|10067099003|56012099006|4143699003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	25WgqvE+IhFH/BnGuXieKAuf402YHf7uKmKxbON3nL8GkDfTgkEd4ahkixKhJNm3aiVCRJXkwOo9g7rWb5QYRevp8ms89ounPd91yEr0/L/hvZl3vwPdLbxvs1how0d89x8Lm4EadyiXnjr/zhcEKSg1PoOxDpc3H5tDTLU/8lROq5dGt2xWBmGz5W9zpzmSqZR0LuH+IGT2vQDdX0HD3h1+MkCakaPKVXZgx3xNblLw5MTZX2ESxfAPECbJ1rhDLIuh9+WEd5C8BPO6u9I0x0RBTN2Z3p8D5qW8yryt/CjV5Tx5/zMppC/IPzlFGaO7ACEoh8qPJJFy4twRaLKV1ciPFgRqoW+KegSHDgTyJekfoSFTshjf39wKxU1/WW9B0nSBXkqvSO+8MqR5y5cjzWQaHwXiVcEvYWOghkQybp6/g+XPd7tK+xIoJKDyd6Oz7+DESIJW2NOzVNqDULCXUZnTSz81wJn5rPcWgiC74WAdqKtc9/oZEud0yVJuFnUOTkJCZH1EOcNhNpZMh18zTm5TEpRnYUtoLmzj4z0OIGn2H0RCaNT7c5YXZ2ir2BbNO/sCRQ+Npcjkf3mTzWgfwrWnP+gNahvLuP56jxkvv+EPv7HHttvmkTNu24cLZD8uDUA5c/5tkPARUXLnWGPy2H4j7w+g+JEzS2TGRfWfYDk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(5023799004)(11063799006)(3023799007)(10067099003)(56012099006)(4143699003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?iE6daJmO4Thi42rY2wr7tmXR9XyIGCoR2tnoOmOSRPj7KRawfSq0zCYqKZai?=
- =?us-ascii?Q?wzF8U86rNrOJo5gt4VdVHMh0/PaOk6dUG/yxrpG8zhpULtb8ZEnk13uiTnn4?=
- =?us-ascii?Q?VVJ1X5PpS/GrzYx6HDdiIjpdIXtc81Fqnq0e3EGRiV3sEdYCibsnCOmfDIbi?=
- =?us-ascii?Q?9hbI8PnsFx6zhZL4yJ5sQsfE9jpOali6DVssSqkNTlD5XbiQGz9FzmmSIQQO?=
- =?us-ascii?Q?maj834PdYclGfv5gG8rZLFq9NubALK2YD1CrEJLqlprU//AZEr2SxmzNZ7nu?=
- =?us-ascii?Q?a/MDk74OYY4H559QGSItMWOZNoJsUUl2bLtSBe5OuK7++t/zD+9p0BZryYM2?=
- =?us-ascii?Q?J23qej37uLJOHQKaFstpgEpuXdWQ0KwArN3ZSQkGWgcEbq8cdB0o7G6LBd5v?=
- =?us-ascii?Q?pgV/sx3Fw4Abbco/ANi0Jnzk0nfPoKJuNDxVfBk//NrDlJF5NWUP57v5tlU6?=
- =?us-ascii?Q?NI3UpW5lSNn2TOhaoDM1M4mJbIh7Xx/BkG61Oz/4y9+w4kJajjpK8E3+VNDA?=
- =?us-ascii?Q?vQwDll4xQ6DcGQTQ11oc3wAy6MK2HBjuK9xh2hyPSSsb6WNEPAL8/tU8pj3B?=
- =?us-ascii?Q?j8URHJxfWe1UurvWOTTxQ7TWoNnFaZsOXEzq8ae2UQxrbKPvG5OeVVYI8ePT?=
- =?us-ascii?Q?43/h3OsG6YFbDShejGN+TBLlxL+2piXVJrVryzkzSe074f/Z0dUaSvWqr/e2?=
- =?us-ascii?Q?FyM5VSQVchuyKAscyrwnexO5R1xniufA8aP7XeSTvk4MrAwHmGGs/CXY0FgP?=
- =?us-ascii?Q?e1fSl7dnGouuEvIUw6b95CWVIX5fji3FPu+17i4JMjaQfLu28hHWYxDpUkT7?=
- =?us-ascii?Q?G5Fg1eQH3DlZSgiCYz7qb0LqBV0kzULZW6hWIk9/26KEfKPuFf53OF2NO4tF?=
- =?us-ascii?Q?XMq/yeID3+ijaQsR437ibnwCisdvsltWVhoo2rPV8ioFpnahgOAjfnUM87GH?=
- =?us-ascii?Q?N3vcNHopQ6nyAOkgITc+HN/2W7KclW0b09MhHTkiEyE+qt+eY2brnRjCqfsb?=
- =?us-ascii?Q?xq/hG1Rg6MJCpbeZ62DhcUPGb3cye2H5aa9iqA7quHxGbYR4cApMYYxB7v2y?=
- =?us-ascii?Q?oIaJEtiy21WjgEtnpQAr8nS66pBWXg54y9sUv89aiiKdy0FtuAZtLerx6Y7y?=
- =?us-ascii?Q?1AbZh/7LAoRMWYWtN75p9Q5M8ebydRjF/a3lkHu48FaKgLU0dE0FGCsOOBqT?=
- =?us-ascii?Q?ak0fSP5XFoVSddRvUhuhf4AL+FiyondxqBcEabmC87+88LXEh4S+u1WEp7w/?=
- =?us-ascii?Q?LkzRYGfM2BC4snZ1gyH2Gq/YfgVA5U52L07x76xryzv0Ahp3qAzm03lNEVwF?=
- =?us-ascii?Q?yh503cD8DdNdZL64kfzYo2elb2gU4Z8VBB/65WiMXZxPY9+Tk31CsusldGAg?=
- =?us-ascii?Q?1/yl8l16DbfPywqs+AUtpMBTGKgzDyaiKcLq7LgUrmiWsiJW+MNR88e9vEFF?=
- =?us-ascii?Q?ISHoLD7RUmaVXQ6Gi7E5mHhWU49of+rulaxRqtf9Pv+Tqk1Nq9H605dZSheV?=
- =?us-ascii?Q?moXIhl0B84IFTGFJrmWFUcGLwMb8agtIcEZWv9rB/cQGLhwLLEgBfuNMg9u6?=
- =?us-ascii?Q?/7nTIdAofkkZio8u2xiUyq3G1vwLZlszQNO+lJ3XnQDaZbpvbhoZMDg3caJS?=
- =?us-ascii?Q?muNdpuZh56OvsCajabMxxQPVLuL9o3z3yv1Dj7CUb30do2+MQqkt7KDZeTjd?=
- =?us-ascii?Q?sV5iEYeIOo7G3OCoCinXsOsaEwWYhobN408nxo6FWqp4WopobJk8sngATx7K?=
- =?us-ascii?Q?RNrUpw3QiA=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: df3a5fe6-d987-40d1-ea96-08df2442d38b
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 07:15:55.2706
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QDLh0Efcwxm9s4ZJuhX95AucmlSwEb48UeM05xoOBn6V8UcKy7iz6MtW8ahP8n3c/w1/3zZz0XcKkKohFjawDQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8645
+Date: Wed, 07 Oct 2026 09:16:15 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: netdev-bot+sashiko@kernel.org
+Cc: opendmb@gmail.com, florian.fainelli@broadcom.com,
+ bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dave.stevenson@raspberrypi.com, justin.chen@broadcom.com,
+ pierremarinleclercq88@gmail.com
+Subject: Re: [PATCH net-next v2 7/7] net: bcmgenet: reassemble jumbo frames
+ from status block fragments
+In-Reply-To: <179132614439.434549.8289444609097315292@kernel.org>
+References: <20261006-nb-genet-mtu-nn-v2-v2-7-c4be21151912@tipi-net.de>
+ <179132614439.434549.8289444609097315292@kernel.org>
+Message-ID: <6bfa3380b5f5b91ae5bc8b37b22bdb85@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Tejun,
+Dear Clashiko
 
-On Tue, Oct 06, 2026 at 10:28:34AM -1000, Tejun Heo wrote:
-...
-> On Sat, Oct 03, 2026 at 12:15:58AM +0200, Andrea Righi wrote:
-> > -			if (p->scx.flags & SCX_TASK_IMMED) {
-> > +			if ((p->scx.flags & SCX_TASK_IMMED) && !p->is_blocked) {
-> >  				p->scx.flags |= SCX_TASK_REENQ_PREEMPTED;
-> >  				scx_do_enqueue_task(rq, p, SCX_ENQ_REENQ, -1);
+On 7.10.2026 00:35, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 4 potential
+> issue(s) to consider.
 > 
-> Sorry, I steered this the wrong way. Exempting donors from IMMED entirely
-> overrides what the scheduler asked for on that task. An IMMED donor
-> preempted by a higher class now sits on this CPU's local DSQ until the CPU
-> gets back to it, where IMMED would have returned it to BPF to be placed
-> where it's picked and resolved right away. The donor and the owner it's
-> donating to end up waiting exactly where IMMED says they shouldn't.
+> Critical: 0 · High: 1 · Medium: 2 · Low: 1
 > 
-> I think the condition we want is to keep an IMMED donor local only when
-> it's about to be picked right away, which is the bookkeeping put from
-> proxy_resched_idle(), and to treat it like any other IMMED task otherwise.
-> That's what v1's proxy_put with PICK_PENDING did. Can we go back to that?
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let 
+> patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your 
+> reply
+> (one such reply per series is enough).
+> 
+> - [High] Use-after-free read of the last status block in
+>   bcmgenet_desc_rx() when CRC forwarding is on.
+> - [Medium] TX descriptor length can overflow the 12-bit length field 
+> once
+>   the MTU goes past about 4 KB.
+> - [Medium] Short SOP descriptor followed by continuation fragments can
+>   reach BUG() in eth_type_trans().
+> - [Low] The comment on bcmgenet_pkt_rdy_thld() is now stale.
+> 
+> --
+> 
+> net: bcmgenet: reassemble jumbo frames from status block fragments
+> 
+> The hardware splits a frame longer than the packet ready threshold 
+> across
+> several descriptors, each with its own status block. This patch 
+> reassembles
+> those descriptors into one skb by attaching the later ones as page 
+> frags.
+> It also raises max_mtu on v2+ to ENET_MAX_JUMBO_MTU, which is derived 
+> from
+> the 14-bit UMAC_MAX_FRAME_LEN.
+> 
+>> diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c 
+>> b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+>> index e8f86374c7cd8..faa13f12ce7e6 100644
+>> --- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+>> +++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+>> @@ -84,11 +84,8 @@
+>>  				      ENET_THLD_MAX * ENET_THLD_UNIT, \
+>>  				      ENET_THLD_PAGE_LEN)
+>> 
+>> -/* Largest MTU that fits one descriptor, with room for a VLAN tag so 
+>> a VLAN
+>> - * interface can use the parent MTU.
+>> - */
+>> -#define ENET_MAX_MTU		(ENET_THLD_MAX_LEN - GENET_RBUF_ALIGN - \
+>> -				 ETH_HLEN - VLAN_HLEN)
+>> +/* UMAC_MAX_FRAME_LEN is 14 bits wide and counts the FCS */
+>> +#define ENET_MAX_JUMBO_MTU	(GENMASK(13, 0) - ENET_FRAME_OVERHEAD)
+> 
+> [Severity: Medium]
+> This limit comes from the UMAC frame length only. Once bcmgenet_probe()
+> sets max_mtu to it, the TX path can see MTUs up to 16347. Can the TX
+> descriptor length field hold buffers that large?
+> 
+> bcmgenet_xmit() still maps the linear head and each page frag as a 
+> single
+> descriptor. It writes the size into len_stat with no mask, cap or 
+> split:
+> 
+> bcmgenet_xmit() {
+>     ...
+> 		len_stat = (size << DMA_BUFLENGTH_SHIFT) |
+> 			   (priv->hw_params->qtag_mask << DMA_TX_QTAG_SHIFT);
+>     ...
+> }
+> 
+> The only in-tree description of that field says it is 12 bits wide:
+> 
+> bcmgenet.h:
+> /* Tx/Rx Dma Descriptor common bits*/
+> #define DMA_BUFLENGTH_MASK		0x0fff
+> #define DMA_BUFLENGTH_SHIFT		16
+> 
+> At jumbo MTU, skb_headlen() can approach 16 KB, plus the 64-byte TSB 
+> that
+> bcmgenet_add_tsb() adds. TCP frags of around 9 KB are also common.
+> 
+> If the field really is 12 bits, would the length wrap modulo 4096, with 
+> the
+> upper bits spilling into bits 31:28? Would that truncate or corrupt the
+> frame on the wire? Before this patch the largest TX buffer was about 
+> 3.9 KB.
+> 
+> Separately, bcmgenet_init_tx_ring() still sets DMA_RING_BUF_SIZE from
+> priv->rx_buf_len, which is at most about 3.9 KB:
+> 
+> bcmgenet_init_tx_ring() {
+>     ...
+> 	bcmgenet_tdma_ring_writel(priv, index,
+> 				  ((size << DMA_RING_SIZE_SHIFT) |
+> 				   priv->rx_buf_len), DMA_RING_BUF_SIZE);
+>     ...
+> }
+> 
+> Is that setting still valid now that one TX descriptor can be several 
+> times
+> larger? Could the commit message say whether the TX descriptor length 
+> and
+> the TX buffer size limits allow more than 4095 bytes?
 
-Ack, we can restore PICK_PENDING so an IMMED donor stays local only for the
-bookkeeping put during proxy resolution. And a real preemption would return it
-to BPF via ops.enqueue().
-
-> The deferred scan then needs no blocked exemption: after the bookkeeping
-> put, the donor is first and the rq is headed to idle, so the existing
-> first && rq_is_open() test keeps it. The wakeup_preempt_scx() recheck
-> isn't needed either, as a donor is never left where an unblocked IMMED
-> task couldn't stay.
-
-Agreed, we can remove the blocked-donor exemption from a deferred IMMED scan and
-the extra wakeup recheck.
+Not 12 bits, see v1. Frames up to 8998 bytes in one descriptor went
+out intact. Will add a note in the commit message...
 
 > 
-> > +					if (p->scx.flags & SCX_TASK_IMMED)
-> > +						enq_flags |= SCX_ENQ_IMMED;
+> [ ... ]
 > 
-> Can you add a comment here? This reads as flag preservation, while the
-> reason is that scx_caps_for_enq() maps IMMED to SCX_CAP_ENQ_IMMED, so a
-> sub-sched holding only the base cap on the CPU can keep the donor local.
+>> @@ -2333,6 +2330,54 @@ static int bcmgenet_rx_refill(struct 
+>> bcmgenet_rx_ring *ring,
+>>  	return 0;
+>>  }
+>> 
+> 
+> [ ... ]
+> 
+>> +/* A frame longer than the threshold arrives in several descriptors, 
+>> each with
+>> + * its own status block. Only the first one carries a header, so hand 
+>> the page
+>> + * of every later one to the frame already being collected. Returns 
+>> the frame
+>> + * once EOP is in, NULL while more descriptors are expected or once 
+>> the frame
+>> + * had to be dropped.
+>> + */
+> 
+> [Severity: Low]
+> This isn't a bug, but the comment above bcmgenet_pkt_rdy_thld() now 
+> looks
+> stale:
+> 
+> /* Receive threshold in register units. Covers the alignment bytes and 
+> the
+>  * frame, but not the status block, which the hardware adds on top.
+>  */
+> 
+> With max_mtu raised to ENET_MAX_JUMBO_MTU, any MTU above about 3.5-3.8 
+> KB
+> is clamped to ENET_THLD_MAX_LEN / ENET_THLD_UNIT. The threshold then no
+> longer covers the frame, which contradicts the comment here. Should 
+> that
+> comment be updated?
 
-Ok.
+Ack.
 
 > 
-> > -		if (next && sched_class_above(&ext_sched_class, next->sched_class) &&
-> > +		if (!p->is_blocked &&
-> > +		    next && sched_class_above(&ext_sched_class, next->sched_class) &&
-> >  		    scx_task_can_stay_on_cpu(rq, p)) {
+> [ ... ]
 > 
-> I suggested this but I don't think donors should be excluded here. For a
-> scheduler without ENQ_LAST this never fires for a donor: dispatch_one()
-> keeps it through KEEP_LAST and refills its slice. A scheduler with
-> ENQ_LAST needs the signal on a donor as on any other last task: the CPU is
-> going idle with the task still queued and BPF has to trigger the
-> follow-up. Can you drop the !p->is_blocked?
+>> @@ -2490,8 +2556,18 @@ static unsigned int bcmgenet_desc_rx(struct 
+>> bcmgenet_rx_ring *ring,
+>>  		skb_reserve(skb, GENET_RSB_PAD);
+>>  		__skb_put(skb, len - GENET_RSB_PAD);
+>> 
+>> -		if (priv->crc_fwd_en) {
+>> -			skb_trim(skb, skb->len - ETH_FCS_LEN);
+>> +		if (unlikely(!(dma_flag & DMA_EOP))) {
+>> +			ring->frag_head = skb;
+>> +			goto next;
+>> +		}
+> 
+> [Severity: Medium]
+> Could a short SOP head lead to BUG() in eth_type_trans()?
+> 
+> For an SOP descriptor the only length check is len >= GENET_RSB_PAD 
+> (66). A
+> descriptor with SOP and no EOP that carries fewer than ETH_HLEN frame 
+> bytes
+> would still become ring->frag_head. Later descriptors are then added as
+> frags.
+> 
+> Nothing calls pskb_may_pull() before this line after deliver:
+> 
+> 		skb->protocol = eth_type_trans(skb, priv->dev);
+> 
+> If the linear part has fewer than 14 bytes and frags are present,
+> __skb_pull() would see skb->len < skb->data_len and call BUG().
+> 
+> bcmgenet_pkt_rdy_thld() keeps the threshold at ENET_THLD_DEFAULT (2048
+> bytes) or more. Correct hardware should therefore always fill an SOP
+> descriptor without EOP to around 2 KB. Reaching this would take a
+> malformed status block from the MAC, so this is hardening rather than a
+> path reachable from the network.
+> 
+> Would it be worth checking that an SOP descriptor without EOP holds at
+> least ETH_HLEN frame bytes?
 
-Ok, makes sense, a blocked donor should receive SCX_ENQ_LAST when its scheduler
-needs to arrange the follow-up scheduling event.
+AFAIU the MAC never does that, but as it is one compare, I can add it...
 
 > 
-> The one put that changes is sched_proxy_block_task(), where
-> proxy_reset_donor() puts the still-queued donor with the owner's
-> execution context as @next. With a fair owner and a zeroed slice, that
-> takes the LAST branch and the WARN fires for a scheduler without
-> ENQ_LAST, on a legitimate path, so it needs handling along with the
-> above. One idea, which may or may not work: proxy_needs_return() dequeues
-> the donor before proxy_reset_donor() so that this put skips the QUEUED
-> block. If sched_proxy_block_task() can do the same, dequeue_block_task()
-> first, then the reset, then __block_task(), the put sees an unqueued task
-> and the ops.enqueue() and ops.dequeue() pair the current order generates
-> goes away too.
+>> +
+>> +deliver:
+>> +
+>> +		if (priv->crc_fwd_en &&
+>> +		    unlikely(pskb_trim(skb, skb->len - ETH_FCS_LEN))) {
+>> +			BCMGENET_STATS64_INC(stats, dropped);
+>> +			dev_kfree_skb_any(skb);
+>> +			goto next;
+>>  		}
+>> 
+>>  		/* Set up checksum offload */
+> 
+> [Severity: High]
+> Can this read the status block from a page that has already been freed?
+> 
+> For a reassembled frame, status still points to page_address(rx_page) +
+> rx_offset of the EOP descriptor. bcmgenet_add_frag() has already given 
+> that
+> page to the skb as its last frag.
+> 
+> When crc_fwd_en is set, pskb_trim() on this non-linear skb goes through
+> ___pskb_trim(). That can release the page in two ways.
+> 
+> First, if the EOP descriptor carries 4 or fewer frame bytes, the last 
+> frag
+> is released with skb_frag_unref(). A non-SOP len of 64-68 passes the
+> min_len check.
+> 
+> Second, skb->sk is NULL, so skb_condense() runs. It may pull the 
+> remaining
+> frag data into the head and free every frag.
+> 
+> The page then goes back through napi_pp_put_page(). If it cannot be
+> recycled (pfmemalloc, remote NUMA node, or full cache and ring), it can 
+> be
+> returned to the page allocator via page_pool_return_netmem().
+> 
+> The very next statements read the status block:
+> 
+> 		/* Set up checksum offload */
+> 		if (dev->features & NETIF_F_RXCSUM) {
+> 			rx_csum = (__force __be16)(status->rx_csum & 0xffff);
+> 
+> The value read there is then used as CHECKSUM_COMPLETE. Before this 
+> patch
+> the skb was always linear and status pointed into the head buffer, 
+> which
+> skb_trim() never frees.
+> 
+> Should rx_csum be read before pskb_trim() is called?
 
-I think we can do this without modifying sched/core.c, sched_ext can set an
-SCX_RQ_PROXY_BLOCKING flag around its calls to sched_proxy_block_task(). When
-proxy_reset_donor() invokes put_prev_task_scx(), that flag tells sched_ext not
-to reenqueue the donor and block_task() will dequeue it immediately afterward.
-This should avoid the transient enqueue/dequeue pair and the false ENQ_LAST
-warning.
+Yes, will fix it.
 
-This is separate from v1's SCX_RQ_PROXY_PICK_PENDING, which needs to be
-re-introduced to distinguish the temporary proxy_resched_idle() put from a real
-preemption of an IMMED donor. SCX_RQ_PROXY_BLOCKING, instead, identifies a donor
-about to be blocked during a scheduler ownership change.
-
-So we need to add two rq flags in this way, SCX_RQ_PROXY_PICK_PENDING and
-SCX_RQ_PROXY_BLOCKING, but the whole logic stays in ext.c (with the flags
-dfinition in sched.h). Does this approach makes sense to you?
-
-Thanks,
--Andrea
+---
+pw-bot: cr
