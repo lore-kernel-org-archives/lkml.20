@@ -1,243 +1,72 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43D9A4582E0
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 08:55:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88905418340;
+	Wed,  7 Oct 2026 08:56:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791363323; cv=none; b=vE3Fuww9jKxtn+RC28qPDSukK7fffQiBg3taOPH9VyNo/GvNE/BcFORYiDnQiuZ8S3aP+UAiNenhj4TFWmhBNGz1Gw82wBkNjtMfjnrUzm4s11Ek8KPjmnRc79JlhSkhtVvLClTg3PrF97KCzjgwws7PlYqejVhlKm8svVjerDE=
+	t=1791363375; cv=none; b=UXq2mHgfcqvtCdZKIF7hTNaiMT5ljuCuSSP2Gg+J0c5NJu657jBwYVuyFGFB9wytp1IDfx0WxAapLveMLtkruemsTMvGbn1oJkZ6HhSJfgG1G/wopL2MTed7GpG+AeyWMx+eqaulNominjjxdjN9/HSa90XIDSRHrcZA1nbxgNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791363323; c=relaxed/simple;
-	bh=5eZ1a4SXgjAw/gIolKNVttasFyWnY6HVJDL80VkEzXY=;
+	s=arc-20240116; t=1791363375; c=relaxed/simple;
+	bh=T80pmibn7aSi6N9hDzJvCBDoLXDCN4HDH9fhrQVJ60g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FWlGj6KkqPmAVBHYEA5DoJmngVG6xmOrM8ZheRLceCDZ4kqIifx2s0N4a52Sv9nLchO38q/vsD55Cz8UzlahuwZRWU+05hTqZK0VN7uEr2oW3GWzIqvyt7KoEblVS5fOM+R43wA3HRSm7PxsaiBGRLNV8YFwjmyeHH9yA5rR504=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ABvmK8ny; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:MIME-Version; b=m2bpGziowGOD4IqwgT/d8yo+SSnd1R1b9V/+Sed5gjNllrChBA6Gn1a7kpzCqKEWqNzwDY4soe99MHpf1rfTINhs5p3J0MXT35HApOURNKIJE3CPcQLyveVcjPldLf8CqFMte+Pdlp4dT8h3/hi7x6mj+iprp/cJTpI2zm7YoLM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=odVzmI6J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ABvmK8ny"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a16aaf2067so43063385e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 01:55:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791363320; x=1791968120; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=U6kvoE+4LLN3yBq8dBOtqw46aC8PWIBlFeTpXdaK5sQ=;
-        b=ABvmK8nyGmXXQE7Ot0CbymsJPc+c03a/tQLyo62jANzMk+wyWija8wM/R9wr9k+UUw
-         ElSADbAAL6GskNfhqkzkVBATYrOk2MAJCpOQ4ZmB5sRptW8TQarHW9uxUsT//IucvKn+
-         iUCe9fjE93iia6lVO8WW0+w/iIV953M+IxYbyPOVSrhBlU99GEZX5bIQKYhjO2eiWL0T
-         D154WrVPCFjhN/Hi01f6EpMfMqys66b5+DQPFWEZ6foa14idyhKix4sa61OcF9x8yOoT
-         qHVgW+mZKRYUnYgw0jkaBx5Tv55hayAVu3qHlydCLOYT07VyX9VDibYQosshULOM5dyO
-         KDZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791363320; x=1791968120;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=U6kvoE+4LLN3yBq8dBOtqw46aC8PWIBlFeTpXdaK5sQ=;
-        b=ovorF76bAqUzd9JQ85M6/fHoEoPmCa9RTf5+t6MBxyws8/nAt4a9lezZrJejirKUL1
-         D5svojOywGm0iEdRNpD7R/ESQIu1lCDyIqECnYLjSUswzCpYds+u3c7rYoUea0TL/RGI
-         93IXY8sGohYH2+4PxMaedXA7C2Tk9LhRtk+00hag4jSOABMyzNehGV9YK3n8h+Op4/R9
-         cb1GgSW4nIgLQFqzpNO4TfDL1iw6mz8zCKaFgVjMo02dEzMZWAp7U+AKMcvbbajC9uai
-         SR9I1bdbGYYOjcpPb7yMY6VfB1xGcGmoaKgqhKHj4doESS6tB7k2zrSCmZH/dyC33u+o
-         P26g==
-X-Forwarded-Encrypted: i=1; AKwUvByLeXv7dwBo+soGEJ3mhmyN+yl6vnl3ofPIQqVyXLxU6cu3Ih7Ddwpa2ZJIZfvaOwWrgMQDWPP4EYu8tvk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lfQsHtD4aVD1UH92xmewVlfBoD8Z+VFmUFoz6Ue8QDA07YeDCW
-	7mTHVHNV/uC1JS0s+cRLPqunEtfkrqVJNGlPCnEpBmi9ub4EJo5xKkWo
-X-Gm-Gg: AYBFou3DeaGpWNS9GTkyuav1nUp/mQGnntx7LEuBkqFRHVKKd1/abSX9+97ettXqfix
-	vlqp7doUyqS88m1ah69gTS9JRRAFwONLAlzTRWuFt6mM2VbyGfh4Tf3nxIP9keKTm5oCvXzOhHQ
-	HiEwuwtATFrPfEI++H8/nHlqt5yogQtXCQfO+7nCo3OuTqDZPrd3tX3vswe2wUWMCF4G5668U6o
-	dI+qi0HOmIn7FACgTCRA0x/QpfE+Dh9sgA2Ng0l3ujnIspHi+glBd4N/VwvflbNMDS2vqqz3+iD
-	OYPCmZNO0w/bJnWH8ujQmZsJTFyRQJVpNbhyi12R6HDI7pXYExeIcy6XMHIMCtQ18isxdd0E+lB
-	nJG+WjaEebnhEsmPr+cqJtaaIgLstjaGjx6S3oWNAmPdGh8uPogeFeU0FQsvPjkc1AZqOyjK5YG
-	6XkFRhZm1NycCcXlxJGz40KNFniK761tYQy6FQqeTDfRm+UuAiuNWkYGoPg95tBviRGkPvHgR0G
-	+JjIPgoECqrNaMmZ+E=
-X-Received: by 2002:a05:600c:810a:b0:4a1:7baa:7303 with SMTP id 5b1f17b1804b1-4a1802eb4b1mr22567935e9.7.1791363320452;
-        Wed, 07 Oct 2026 01:55:20 -0700 (PDT)
-Received: from xeon ([188.163.112.76])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f493761sm81709225e9.2.2026.10.07.01.55.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 01:55:19 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Svyatoslav Ryhel <clamor95@gmail.com>,
-	Jacek Anaszewski <jacek.anaszewski@gmail.com>
-Cc: linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 3/3] leds: aat1290: Add support for AAT1270 Current Regulator for Flash LEDs
-Date: Wed,  7 Oct 2026 11:54:57 +0300
-Message-ID: <20261007085457.98762-4-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261007085457.98762-1-clamor95@gmail.com>
-References: <20261007085457.98762-1-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="odVzmI6J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4472D1F0089B;
+	Wed,  7 Oct 2026 08:56:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791363374;
+	bh=ZCAoLYZlSrLohEk+mBrzJi43HvKosm2TxiN/tMhp9/s=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=odVzmI6J3aG13jtfoB+xU8DJnQc2Z73iZZ9UfV9ouNOhz6s2l5yFfnmqmvq2CqzaS
+	 6u0CpkgM+sOIJFkuOot22Cizd4yku7ftPaZ4WN8KrD8Z0L57lPmT2t9kLP6DeMp0jY
+	 IHdUwIz6rJxWy6nr6PFY2mdNxsqruaQuFBE6z2vx1fIKqcH3QXQFM6OcklbMgpON7N
+	 uoV+niBOmxCuiWbGDiAqSja5gr8/LxyFRq3VrQ8qW2WaaHQqsbAV30S3K1/cl0zWOx
+	 4E4fVmuz1bdEoSYORIkyRmYYCURgflxOEWQ6rfikLS38XuJPJtJoHSEVyq3NSGQRpQ
+	 GYwMArtEqrGow==
+From: netdev-bot+sinfo@kernel.org
+To: Nicolai Buchwitz <nb@tipi-net.de>
+Cc: Doug Berger <opendmb@gmail.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Justin Chen <justin.chen@broadcom.com>,
+ Pierre-Marin Leclercq <pierremarinleclercq88@gmail.com>,
+ Florian Fainelli <f.fainelli@gmail.com>
+Subject: Re: [PATCH net-next v3 0/8] net: bcmgenet: support larger MTUs
+Date: Wed, 07 Oct 2026 08:56:12 +0000
+Message-ID: <179136337262.2527009.9220130121409362777@kernel.org>
+In-Reply-To: <20261007-nb-genet-mtu-nn-v2-v3-0-74a796c019ce@tipi-net.de>
+References: <20261007-nb-genet-mtu-nn-v2-v3-0-74a796c019ce@tipi-net.de>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The AAT1270 is quite similar to the AAT1290, but it does not support the
-Advanced Simple Serial Control (AS2C) used in the AAT1290. The AAT1270
-uses an earlier version of AS2C, namely Simple Serial Control, which lacks
-address-sending capabilities.
+Hi!
 
-Differentiate the chips by using a description structure with a flag to
-indicate if AS2C is supported, placing all AS2C-only features under a
-conditional check.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- drivers/leds/flash/leds-aat1290.c | 66 ++++++++++++++++++++++---------
- 1 file changed, 47 insertions(+), 19 deletions(-)
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-diff --git a/drivers/leds/flash/leds-aat1290.c b/drivers/leds/flash/leds-aat1290.c
-index 49251cfd33509..773cdcc73a9e1 100644
---- a/drivers/leds/flash/leds-aat1290.c
-+++ b/drivers/leds/flash/leds-aat1290.c
-@@ -43,9 +43,6 @@
- #define AAT1290_FLASH_TM_NUM_LEVELS	16
- #define AAT1290_MM_CURRENT_SCALE_SIZE	15
- 
--#define AAT1290_NAME			"aat1290"
--
--
- struct aat1290_led_config_data {
- 	/* maximum LED current in movie mode */
- 	u32 max_mm_current;
-@@ -59,6 +56,13 @@ struct aat1290_led_config_data {
- 	enum led_brightness max_brightness;
- };
- 
-+struct aat1290_led_chip_info {
-+	/* led controller name */
-+	const char *name;
-+	/* Advanced Simple Serial Control support */
-+	bool as2c;
-+};
-+
- struct aat1290_led {
- 	/* platform device data */
- 	struct platform_device *pdev;
-@@ -74,6 +78,10 @@ struct aat1290_led {
- 	struct gpio_desc *gpio_fl_en;
- 	/* EN|SET pin  */
- 	struct gpio_desc *gpio_en_set;
-+
-+	/* led controller description */
-+	const struct aat1290_led_chip_info *info;
-+
- 	/* movie mode current scale */
- 	int *mm_current_scale;
- 	/* device mode */
-@@ -101,15 +109,17 @@ static void aat1290_as2cwire_write(struct aat1290_led *led, int addr, int value)
- 
- 	udelay(AAT1290_FLEN_OFF_DELAY_TIME_US);
- 
--	/* write address */
--	for (i = 0; i < addr; ++i) {
--		udelay(AAT1290_EN_SET_TICK_TIME_US);
--		gpiod_direction_output(led->gpio_en_set, 0);
--		udelay(AAT1290_EN_SET_TICK_TIME_US);
--		gpiod_direction_output(led->gpio_en_set, 1);
--	}
-+	if (led->info->as2c) {
-+		/* write address */
-+		for (i = 0; i < addr; ++i) {
-+			udelay(AAT1290_EN_SET_TICK_TIME_US);
-+			gpiod_direction_output(led->gpio_en_set, 0);
-+			udelay(AAT1290_EN_SET_TICK_TIME_US);
-+			gpiod_direction_output(led->gpio_en_set, 1);
-+		}
- 
--	usleep_range(AAT1290_LATCH_TIME_MIN_US, AAT1290_LATCH_TIME_MAX_US);
-+		usleep_range(AAT1290_LATCH_TIME_MIN_US, AAT1290_LATCH_TIME_MAX_US);
-+	}
- 
- 	/* write data */
- 	for (i = 0; i < value; ++i) {
-@@ -150,16 +160,18 @@ static int aat1290_led_brightness_set(struct led_classdev *led_cdev,
- 		led->movie_mode = false;
- 	} else {
- 		if (!led->movie_mode) {
--			aat1290_as2cwire_write(led,
--				AAT1290_MM_CURRENT_RATIO_ADDR,
--				AAT1290_MM_TO_FL_1_92);
-+			if (led->info->as2c)
-+				aat1290_as2cwire_write(led,
-+					AAT1290_MM_CURRENT_RATIO_ADDR,
-+					AAT1290_MM_TO_FL_1_92);
- 			led->movie_mode = true;
- 		}
- 
- 		aat1290_as2cwire_write(led, AAT1290_MOVIE_MODE_CURRENT_ADDR,
- 				AAT1290_MAX_MM_CURR_PERCENT_0 - brightness);
--		aat1290_as2cwire_write(led, AAT1290_MOVIE_MODE_CONFIG_ADDR,
--				AAT1290_MOVIE_MODE_ON);
-+		if (led->info->as2c)
-+			aat1290_as2cwire_write(led, AAT1290_MOVIE_MODE_CONFIG_ADDR,
-+					       AAT1290_MOVIE_MODE_ON);
- 	}
- 
- 	mutex_unlock(&led->lock);
-@@ -178,7 +190,8 @@ static int aat1290_led_flash_strobe_set(struct led_classdev_flash *fled_cdev,
- 	mutex_lock(&led->lock);
- 
- 	if (state) {
--		aat1290_set_flash_safety_timer(led, timeout->val);
-+		if (led->info->as2c)
-+			aat1290_set_flash_safety_timer(led, timeout->val);
- 		gpiod_direction_output(led->gpio_fl_en, 1);
- 	} else {
- 		gpiod_direction_output(led->gpio_fl_en, 0);
-@@ -475,6 +488,10 @@ static int aat1290_led_probe(struct platform_device *pdev)
- 	fled_cdev->ops = &flash_ops;
- 	led_cdev = &fled_cdev->led_cdev;
- 
-+	led->info = device_get_match_data(dev);
-+	if (!led->info)
-+		return -ENODEV;
-+
- 	ret = aat1290_led_get_configuration(led, &led_cfg, &sub_node);
- 	if (ret < 0)
- 		return ret;
-@@ -489,7 +506,7 @@ static int aat1290_led_probe(struct platform_device *pdev)
- 	aat1290_init_flash_timeout(led, &led_cfg);
- 
- 	init_data.fwnode = of_fwnode_handle(sub_node);
--	init_data.devicename = AAT1290_NAME;
-+	init_data.devicename = led->info->name;
- 
- 	/* Register LED Flash class device */
- 	ret = led_classdev_flash_register_ext(&pdev->dev, fled_cdev,
-@@ -528,8 +545,19 @@ static void aat1290_led_remove(struct platform_device *pdev)
- 	mutex_destroy(&led->lock);
- }
- 
-+static const struct aat1290_led_chip_info aat1290_info = {
-+	.name = "aat1290",
-+	.as2c = true,
-+};
-+
-+static const struct aat1290_led_chip_info aat1270_info = {
-+	.name = "aat1270",
-+	.as2c = false,
-+};
-+
- static const struct of_device_id aat1290_led_dt_match[] = {
--	{ .compatible = "skyworks,aat1290" },
-+	{ .compatible = "skyworks,aat1290", .data = &aat1290_info },
-+	{ .compatible = "skyworks,aat1270", .data = &aat1270_info },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, aat1290_led_dt_match);
--- 
-2.53.0
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
