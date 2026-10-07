@@ -1,116 +1,104 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B31835838E
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 05:23:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93EF12C026C
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 05:24:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791350618; cv=none; b=cOeWT0VzXL2mzZOdMNpqVSeeg4Su8SQgP+p89j6y9btPMlRdjrKjIgMf12ETpJRv7nuM3yPIj2U0x+sqfpu7tpdmMjjIOkdY0sST+iwaS50pAUU+JECjxIoZeFEAljNqstLZ4SUbagWyWow8aBCZY4pkDPJTuCyOSDGush8l5Gs=
+	t=1791350653; cv=none; b=eF9/ZBE6S0IIBJPhRT+jf/DUz11RJ0iW11TqH730z3JeReZALgP/kfPc/6Ax+9MldMQ6gpMN6zzdA8l34HFGfvn7sUQf1ozhh4w1xCrTu45S+CnHE6cBd9wOQnsukyEZfbAlTvzr6iwQ7EKCK1aUGQwigEBkQmFufRZL/FEB0Q0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791350618; c=relaxed/simple;
-	bh=98Toql8uimBayK1E+NqY8v40sZgD/pBFYRUHJ7qfUNI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=iX2B1Hd3gDyZ2+KdZFXTss6f+oBECd5RvF/7z/G+QSg4aO2xGKG3XHeKy39ynVFdb8XzF/owuoX3jtjJoBAu6nsTqtXRsKcuxsOecoYT3P4f1NW2M76BjrMQtFbcaatyJFbtqC0qHP6DyNSBG9OaVX0FmyzZ2Bx5Z60/3QVFcKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XWPGF7xK; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791350653; c=relaxed/simple;
+	bh=yBxhH1X8FwRDNynk9/Cf8yfzteLxe/rZbDYYuZW3AA8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Uyvc84z43BWvOqVujspQjJu9STjLAqC67+ZjrFeYgEcEzksppg2UBULFLwzr3oxVGp3ltQtWwGuKm9Jf0jz1IEqm0YIwvVx2xU+W1vuETZGjjd3ls8dn+ucPCgT3Rvdg8txFWC05+X7o4ccIhLKRj6US9vv3M1F63uG2Lbuy5ms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=exrT79PJ; arc=none smtp.client-ip=209.85.210.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XWPGF7xK"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a021c809e3so14179295e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 22:23:37 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="exrT79PJ"
+Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-8253bc5a613so2530280a34.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 22:24:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791350615; x=1791955415; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=x/R+pCgI2rA8DLvVd3Hp39WUeD8ue9hp8M4OoGV9/5s=;
-        b=XWPGF7xK5dCeh++EE8SdZ9VsioOl73IaVgNMM3sxJLhxW2M+i+8+N+qygzwgmdJief
-         OCeJdnrTPibMVY4XV5HsZQyYjbAeyLkgGXTh4LHFexokGVw3uHnpTUaCbhttBwsKmoYZ
-         Ax6kq5X6tpHIMEosYDSR/hBQk7go/XmNTPXtCQRKkUrWypP9WzkM8F5UgBoARMIyqJy8
-         AKGo3NsXleKfuSbNP295dc240buc/9LFjqdT9+Lkh0pVDhRGNTbZeDrd22xzEpeSPp38
-         2shyS+jjUjtIGikC+XTkcgVCUU9Ky17akbOXAJePd14gbdVmazv3A0n1q3CORz3L6OkH
-         M0Hw==
+        d=openai.com; s=google; t=1791350651; x=1791955451; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nSsHXzg/zAiuljQrmabDi2S1XxlM4/g5SvdsTjxLDkA=;
+        b=exrT79PJafB4ahJeTPpuAHZZPWNNrBccMsjPXvqBmCyjSxT86AQCaxLfnsQ9QJWbcr
+         F0RocTo+5uOm9mFaTlMn4SG1VEY4kFPDZrvcd/7x8MsTopkg+rAytffZPvfJUQ7iSXsR
+         wC1XRt5EJ5t8qU5q3Vdi2qgSEVbACLGYqYmzo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791350615; x=1791955415;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=x/R+pCgI2rA8DLvVd3Hp39WUeD8ue9hp8M4OoGV9/5s=;
-        b=yqHHLcI9DXJCD8CjolU7vfoCCoefZf1/PF9sGFukmvQ63bW5eWE1DtPt1mt0uAsGL+
-         YIVHq9sbZMhVZp05T8RUyoxYs3DQglpeiD6qTOfUz8EnN4fRVH1wnbG6JEr3Nl3XwZZO
-         VyAw0oHB7Oo9WFw5UBW2TRouNcuTMPFYVdRLwVgKI6xkM4EaTBf95be+L75mUFihR58A
-         pIaWx0lQfNyyXKiYGPUDDbpCCWkSotpN7UHdh6LxQhP84njyPRf9L6D4Ix99YLDTh+6P
-         GW6g2qALXo41XIU4z804MEt9kUJjYKF84a71zcBHXdLqqL+cZ8tdFY7rRlNUUre38OGI
-         s4qQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzN9ulMzqWUqXRgJb2pnH6d+nbyTrLuvGJ6SBOsYjduB/LGOy+g/DV5BJsJwp+fmAD97oCGd/v8+UbehZ8=@vger.kernel.org
-X-Gm-Message-State: AFuF++m46+wZm8Icqc0c9SbmNtWHkwpi5meknjpw898d4/KPtqHDKNgz
-	D7RSoeZHOrbSJs3fROlDxOl2iY5PgqA6xjqQl9wPwY+CjWCRO8hHcE7M
-X-Gm-Gg: AYBFou2Ehyfks27Pw6E18RhD6vzDCFvrOOyyboNYbD5NVZS1uJiBIzhZ0IrPZgeaj8U
-	85Prsu+zK9Vnx/UuHQb6JxmGXTySegjFdJ1u6top/6fPBTQe6/fLQqEVnvUwXM92twQ+pSLPy0d
-	dSOwaCfrhP36F/hP3bHSZ0S5En4o9Q8qRgHvUHc4NtfMLZbhI8RLThfNUfJ2bwPpZjPxd1uQ/0I
-	syarDzpcmNktb9Arkc8T8XvFJRTQCS3h7H8IKF7t+5+tCH+KhHGkYADd1uN8trFB0GiWRys55UA
-	F2u6ufEMz/vtqNdurvGlfcfoRwYbp8QXwSb0WJjqfMgGIn5NKKBFVgEfh/ZtNQVxJ+04EBukJAs
-	Ft7F+xwk+dQrDb0F8r6TAXEgmwW7o9CGQyFxQwt0XdbAqoAnBOZK5MK/O0PVdQ26p4LD/4JAPrh
-	7OVpMHTN1XtARuYGfeqk5a0rwLKho8upSEF6dW4yUZC9U3bZjPGlYKShCMAK/6H0FmLVHXm8e+3
-	FhY/YjSmu4gHORSWsmKtHelBs3U7GACHFfKpdiq7F/yf2bhvjNEM8JQR6ORifHkj+ggAln9WYSi
-	lXhT+Meby5sscx7E30929+M82SHTsx6uUNGGXHFB7OF22xZsEVxTQtk7dYKlpNJ7Hbg5ODd+HQ8
-	Dzn5c4xA=
-X-Received: by 2002:a05:600c:c16d:b0:4a1:7bd4:d07d with SMTP id 5b1f17b1804b1-4a18067f68cmr11531475e9.34.1791350615217;
-        Tue, 06 Oct 2026 22:23:35 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a1e1-2201-60f4-32e0-4d59-5772.310.pool.telefonica.de. [2a02:3100:a1e1:2201:60f4:32e0:4d59:5772])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f54a55esm34907585e9.3.2026.10.06.22.23.33
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 06 Oct 2026 22:23:34 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Rob Clark <robin.clark@oss.qualcomm.com>,
-	sashiko-bot@kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-arm-msm@vger.kernel.org,
-	freedreno@lists.freedesktop.org,
-	Jianfeng Liu <liujianfeng1994@gmail.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFT 4/5] drm/msm: Convert iommu map/unmap to helpers
-Date: Wed,  7 Oct 2026 07:23:30 +0200
-Message-Id: <20261007052330.39998-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20261006132545.8BFD51F000FF@smtp.kernel.org>
-References: <20261006131000.81501-1-robin.clark@oss.qualcomm.com> <20261006131000.81501-5-robin.clark@oss.qualcomm.com> <20261006132545.8BFD51F000FF@smtp.kernel.org>
+        d=1e100.net; s=20260707; t=1791350651; x=1791955451;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nSsHXzg/zAiuljQrmabDi2S1XxlM4/g5SvdsTjxLDkA=;
+        b=DKCQXGZZh6+gz/R0l5p+/NmL1UBKQVyBTieuPyTM6nskcmAzKSCvMCeA5IV3Af9Lbh
+         xV17in5cVc30hxMGDvmCgtJFxMARFTh4cZF314I3u8sV+hSCH7IIabkOleV+Jz4/jb8h
+         uzCyAnt/M24dkugQKkCPh7jfCoMVQMlT59kbU8IZZPUNICsW/ntR+l9Y3xFcsfGrxF5v
+         g3W3QvWsLWQZUOy07YxRjQNTnjSFu/DlW+1dKjg9rPLdgTc3Y39Asv7hCkxqgkD/p4s3
+         BOIkAxV4e1Avg9hcgHUmk3sg+dNuQHSkCNI+w6rJ+btGw6z/FQ9aA6dVJISmV+f+kbwp
+         m9NA==
+X-Forwarded-Encrypted: i=1; AKwUvByZC6UDemtawoel41bmNY2aL0P6/ZH0EABV2vwwStD8cAazSY0be6kiUwBlW61AAG/zwWvh7Jj6qSSgqU8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lR+yZiHhbvaT3+ib3YyBEOJ5S8xNz1ewqwHBxeR2Qzi7szAA91
+	6zNqOxvlor65ozXnt4MhO5gkbq9NxRMHJ+f8XN/fE412fNpvHWlkM/3/JEQD3I+KfeHcW3XbIc+
+	zV4OnDYoEXw==
+X-Gm-Gg: AYBFou2HlRlUINOmag1NEJhRz0IchtwI5NfRiIPUV+dIdfjaY37ZwP19P4EsDe1PMwF
+	pIPhdnFWRH4+/NJ+qPq3nExFCxtkgf59JAUJ86d+1kwh5oHkbKY9CLb4M/gbtbd5PWw3B0zwR/H
+	VWmxhhYnalGhGk6rf+T6dLHbNLVtngx6cnxpw9m26NsuOgjJKNHKCj19t2mJcybAm1UGQDtNlKG
+	CV2RD4vG3u3MI1DRaQV/yLQiYUkDvAVti8WQ1Qrr7wNmRmrzWlLoNRIiuIV6C8qQoF3dPO63PCS
+	tgdTY9Rc3DlJ1cf1dL+ZrArMnISXpbu1rIxri1y3BPk433zUZ+q9gj1aKbn7B/7SRKiJhEQATz7
+	KtJKxyUV1tZGxxKa32e70lJuMKm09thbSO8Dp0lOfpp+tvrFaGh0JpVadnjSn/IcIDPX7zQDfpb
+	zlAk2njE/Ra1WV4t+8es/04zq0y4yJ14Br1JFWsp5FgalPLolS4caw8vgR+I7d65aQhpwWbDmlH
+	V7E+Ep6PIWggUxbN5zbcLlg4m1bpIZ2dHxJ9DqXTmayMNvjxKlNmC+VkiNOr/3x
+X-Received: by 2002:a05:6830:2302:b0:81a:9522:f007 with SMTP id 46e09a7af769-82ace793d07mr2045456a34.5.1791350651470;
+        Tue, 06 Oct 2026 22:24:11 -0700 (PDT)
+Received: from com-75606 ([199.47.143.7])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-82ad9ef4a8esm1882490a34.1.2026.10.06.22.24.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 22:24:11 -0700 (PDT)
+Date: Tue, 6 Oct 2026 22:24:07 -0700
+From: Kyle Zeng <kylebot@openai.com>
+To: netdev-bot+sinfo@kernel.org
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+	pabeni@redhat.com, outbounddisclosures@openai.com
+Subject: Re: [PATCH net] netlink: avoid hashing the network namespace pointer
+Message-ID: <asXXd4Xb8yCZFIqy@com-75606>
+References: <20261006224149.50498-1-kylebot@openai.com>
+ <179132696042.2231598.3001993287250723765@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179132696042.2231598.3001993287250723765@kernel.org>
 
-> By passing NULL for iotlb_gather, does this bypass the IOMMU driver's TLB
-> gathering and flushing mechanism?
+On Tue, Oct 06, 2026 at 10:49:20PM +0000, netdev-bot+sinfo@kernel.org wrote:
+> Hi!
+> 
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+> 
+>  - Whether the issue was actually triggered, or is only theoretical
+>    (e.g. found by code inspection). If it was triggered please include
+>    the symptoms, like the stack trace or error messages.
+> 
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
+> 
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
 
-Yes. On arm64 QEMU/SMMUv3, unmap_pages(..., NULL) returned 4096 after
-device DMA populated the IOTLB, but the next DMA still reached the old
-page. It faulted after an explicit IOTLB flush.
+I have a PoC for this issue and the symptom is that it can lead to
+information leak (kernel text pointer).
 
-Using iommu_unmap() invalidated the translation:
-
-	return iommu_unmap(domain, iova, pgsize * pgcount);
-
-> It appears this replaces iommu_map_sgtable() with a call to __do_map(),
-> but there is no declaration or definition of __do_map() available.
->
-> [...]
->
-> Similar to the mapping path, is __do_unmap() actually defined?
-
-Patch 3 defines both helpers. msm_iommu.o builds with all five patches.
-
-Karl
+Best,
+Kyle
