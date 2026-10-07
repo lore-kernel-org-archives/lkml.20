@@ -1,171 +1,103 @@
-Received: from sonic317-32.consmr.mail.ne1.yahoo.com (sonic317-32.consmr.mail.ne1.yahoo.com [66.163.184.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D032351C3B
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 20:49:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.184.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 837683D903B
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 20:50:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791406167; cv=none; b=MsmyyHaBWt9hQsV/L/DYM3kJZlf2ghNcY0mLwsaZY4eIatMEdJzJbuiC9oTPSiDhmNKd6zgggpgwwJsM/wKVSeBqco2oLk9RLxB/POyewcjO+tcsitMEvuRwFWQzQZn8CGhrRdX3N4BPOb9yR6cpFWcsV1Mq5euqADzCy3Ai1ng=
+	t=1791406203; cv=none; b=Zr5f2t9VKkpf67Ht131iRy7FjHAFMuMriN07F6VoYOp0UZR5StpWy5rBSEyrTNCp2AcFlGfX8cUA0b3+uXt6+rCnfqQyBGNXzUsyy2HgX/jjAz8CZajh93ZR7xUq8AGUqwypM7bc1QzbniwQAT8E3aCBJk15cIibb7yVNNatGHo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791406167; c=relaxed/simple;
-	bh=rxm4kNS/vSXQmw2rlLcYYDA/aMHsymbtXCorzD1cNSE=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
-	 In-Reply-To:Content-Type; b=rQsMb71UQ+QSJKkRAYd6xl5/LrXf04a8wawCR2sCDDZO64sboRUkMR+xkeck20ODLau/KYY6Nzt8P0Cu5Pju2FK54hL1+sB/Vw+jI0sNaQO0wqtYm9uSaeIAQf26Xps9B4XdWAdVcSQ+7ND7bS3kM6zsrTwl44vNk940NHspVtI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=dZLSXWAX; arc=none smtp.client-ip=66.163.184.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	s=arc-20240116; t=1791406203; c=relaxed/simple;
+	bh=tfHm66Gdvigp4+Dpx1G99dFShms5gdFpsR8mrMbrbxc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=elZxVFBjNoBRc1NFDP7erlrrnJOyhS978r1CdxfQ7CqqP3E+QFp3x67ILL4NSle2elLIxli4G8uG3eEyFLbDHZJi9n2XWpq4ZRvt/OUmElyl1SyfdE7YHyCozGvmgaedOQu+xC+m/0WuYUey0wWxvSFZEVbsFHuJQCbIs48CfFA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fPw1231d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="dZLSXWAX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791406165; bh=RbAzeT1WsRn0PMFyu28kb5JmbFrF/tzavm1qIyi5cr4=; h=Date:Subject:From:To:References:In-Reply-To:From:Subject:Reply-To; b=dZLSXWAXSJ2T43ENQhiUzXviE/8F/N9JljWoPuM6+A7cZ9q4ZuuAF3XIxziMDO1iQNsuRhgbQnZXJNK0Yz88L2zONbFAaPfv9LhsAU6SkZvpd0hZvCK/UpM3Op4L/q2zSNNpelH9nrG41NUrsH87LRnLcP5Aj8jzkuFh+Oa5Nx4ivncm80i9UZYbKof/5Y6RLYzZANLz7lPbaIj3gYvFIfftKjDVEHtIMdXFhxwr1BkmU1fg2mydOAiOUaLwltj3f5cLXsHkVvixxpuQuXLhFzNwfowcy02YZAG1ccbPUC1T9UTWsvdWXLW1CsQHCZCazbECujRPlFFLk1KZ/30hBA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791406165; bh=pgYAEmRuNZPZCQrZJDzm1YguLAL09R2xfV1fdzpbcNM=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=WyLGFF+f3U12aamas21KJ9skjiJoqfV5RamvrRtoq2+76fKiHyKMeO1/3JD9RjohaRruS/S1pTRRTtM47M2rTcOKCj7Ck9aZ8tu5TmhHm7Wx78OJs8NI4dygKiwDew8omg/CseJGhCmS/o4bKwTftlfSeeGRM/VoORzSLp/uDBxa+j1T/r9nzioMpuq6BnlCbZfsRWcBWmo+eQYb/mQzS6hCyHWtBgQjsa6cp/0hxC0pDaywinf/rDSdufNy3jsMFgRwYovScipoYGvMJcK2LPSWWaIsOfWn+dm61l/efAyTmBeRt5qmvLLxt3AXItowdc7oT881wMhIMOKsogfcpQ==
-X-YMail-OSG: VlgYR8kVM1nsaMDIz486865bRKEGJxC7GUYE8R5FElt2u9UCXonC3ZkfLML0ZBh
- c2EypCmNTkv20uSThtRXBtHeUc_USeANWOFGfGQkN6EB6bw8dSTJK4ylzkOQ_aW_i38tFGiPyn2s
- BlQXgWQKTdOEKZ4kW.Xgi6Nk2nLmrJZgfEtU_Wib3pdqZUQ.y.6OKktIw5.68HOtQYLVt2VrnCkN
- 5hT9kFCmq_zfUBWK8v8yxfkjO9jEVHqMB76DbYb4mT2Yo.EQpesAYk1Fc7qo9eZT7ovo97MC9s_Y
- J8nkYaIuRbkZUGjAGZXg6dEgz.g9cHRnXZpHsO1Sj2D_GDYlVxlpIGeKLk8ox0gXAXHY8t9VWLzO
- B96oY0ffFTuWvFygioHeYsUItPLJDrn2O9sNXGwpKPjiXISZs.Ye2QyA9HlAbjZpYGYkyCse9Glx
- HjGzlzKpbVmPMmA.nxm45dgBm9VyHXpM8fTKQImHd4nM_zcSbyZ1w13q0pQYK2YJkNrNRxj2i0iS
- RtBDvODnaQmdl8AQ0lVkg5n48hT5do.QIFe16Z7IAbzC8wL_VtsbYlP0qh7f79PCE7IS.Rm5Hu.K
- kiK25QvVxfC7yw9D3WqVwsZwwCnpJ03TIr0Ek349Y9crP9jHY1SR.zDnj8gYsPteZIQbdheoOMgC
- jcOaaYJIchG97RwtdDJlXtsvFIFqdzWAbpJjC0VbBeSbD_Kt7DzzJoMxm3jwU6YgVxSGQWebQGgh
- BPZewzlyEaITXfVf0t_YPsrK6Lm44Fh.f2E80B72XO2hxRcUsK3fzCwHoQbSEKZs30nnlShlNIqy
- 0qdpyn_.BqIxLZA9VNEbK5iN0tRzceQq.NKUCFL3qtW.i1OvEUVK7XFTROt479Ekk.tv0dBEA5bT
- SrQqUR2AGEz8Z9SjR_AIgl1nzWnwJwzFZ03ROPVR8KKj8uYkFr9Dhxwd2oHvR3MvIZo.0bM6lz.y
- fljh_NdoOuFH.LPK1.gyJa8XuqEbLkTxh79uf73Z6gVVTwnFfLH3yTscsgFBecxHdWFHE.dFn7Zj
- ARTrE2DejVm.cSF0D8xgxs7Ulx2G1II49Xx949TDh8tlfZgOeS2u_IGbNsY58pwQ_u1ksbL3Zrlv
- WrsLmID0fHBhFDWD_VE_yVB1aOiLAko0QodMVw_LTVCCmuszLnOFVgqZb7oQkXcISrPUl_x8YonG
- Wi0pxBTTDcoRwJ.RNUaWuVFtVflIjpyJ1KDVpYfCwh1AnzhvwyoVp8pXtcWFrgTyl_br_iOsZHky
- 0YCIVrBjl_XD9vkpr2XPCOzy1mNk_ApgKRvG9U31pzczSWbimV6avyKWWj2Co46u8p5OiTzEMQfs
- TxlKZ8F81UHVttgVOLUsdGWxzq0G.g79hLx7KY9kj28HlaJxe4Z9AGmQ9k3oUzDlRvS6Pb5Ioi9Y
- 8E2KxBcTpG0SKhet5RtYYWwQNlYhmezjl1DbRALZajN3vhaKaHW0zdf1cMWgVaj8_SSXolyboLJA
- znX2Q7Mrt9H5RDDBYcOgHsqbefpjibq91ou_gVu0He12FRTPJMo2hTh69HOkRFk17S0.pE4yOmIA
- mToJnRRVaKhe07er9W1tPOTh3t2vSgoO8ar_6HNCAmCDniQA.iiBYvqoQQ96ZeX2qMZnNG2oHICO
- VZqDMm6ZOErYmLOtaI_BEmwipyGb7Gqn6ETC9T2fUkPXBo64__9tl6ZQLkjmJkHpCY5pOUiB.dnm
- CnhscYNdPr4lcSnC4WeoTXfjDOAyVUD861UlwAaLPDjEY_xu679a4FkGDyH0tfNvtzo_jjRzNfyd
- C0oBOquA4HI0xsmQwBo6JD2.M5Xc50xL5TgG9H5xuHrMDc0caYfS2k5gAlo4D5lx5_vArwsB5pWq
- BbL1C_R9jKcYmLCfGlNhsGwTwEXT1FiZ24Jc9yRFGF7dyUgdchr8bzmU4q6S.2bd2mRTs7ceipjq
- iuLJHXNxoAw.KBLnutTPlaKqGUlX9FJrnevtmwmwqrbsfoVLGZD6vrzDlvSpJeij0sK9Ab5igez2
- NIdKwf3l8c1QvTt5ciM8sCYuj0xtT3kg5AeT9rClDZ2SEPd2OgDUYsW0sDguQNMS3tP9lElHCaDY
- sc0.89V2UR1T2e0VVp4gWg2kieyj.84DhksbVXIED5tPnxbyBDlFrkNsKO.j0QEl7_BveD6JU52s
- .aJZfNOpg0CG_v4NCC51DrbHPMofcyoF5ehB9jwZmt0KQKRlvPs_rurlbDlLOhEuhU5la.qbzh24
- ig6CVDDSfDMH.sh1GwHNsUfYDiDUC5VhedjXGUqfvWn95YDvpQLX7JqVgsZ8O9pTKYYfUHnhbMZU
- jc5.UMrSK.HoyzeeEaLloSFwlLsI2jz_zsqDksCY_
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: 9082bdfe-39c0-4c99-9f53-01ee97ff7357
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic317.consmr.mail.ne1.yahoo.com with HTTP; Wed, 7 Oct 2026 20:49:25 +0000
-Received: by hermes--production-ir2-5dd9bf4598-vvk7z (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID e8db9e01f4a3ba1dbe1cee89d9a5d5f1;
-          Wed, 07 Oct 2026 20:39:06 +0000 (UTC)
-Message-ID: <dd78e00b-c161-4915-a917-3b5694139621@yahoo.com>
-Date: Wed, 7 Oct 2026 22:39:03 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fPw1231d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A0D91F00893;
+	Wed,  7 Oct 2026 20:50:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791406202;
+	bh=dQaAiC92VC3y4wHmfhWBjbCmKU1NnxGhX4yNLwuEUR8=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=fPw1231d+UpFoeYm2b5Abf2aTEqy7dNmBj3fZ1Yzi1R7iWt6sAikyRRDNmzePDvP8
+	 SkfifuD/0xLJB1dXMpvKHRTEpScSIbH7GwzgZ0mxL9QA3RrLMDMbCZ601t1fA5XzLT
+	 l2UsbZylLQzwxahMBVmihsHTBxg6tQBCuCPn7DZILKCVYQ1OtAqi9fcd6jViqeoHPy
+	 eSyRTykGDtJYatuPFIdv/VNaAZ+8L8/b6H7ADJTbkpiao9ErxlgWR0P5sozBUB0Tfw
+	 Sg930yP9pdkalD2U3OuExX/uBYBDrrzIr1At/IYYIvPtMA1Oz98DQpRdsNWjenA4lD
+	 QViTEm0QeWIOA==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 149F6CE0D79; Wed,  7 Oct 2026 13:50:02 -0700 (PDT)
+Date: Wed, 7 Oct 2026 13:50:02 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Bradley Morgan <brads@mainlining.org>
+Cc: linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/5] Provide two-byte cmpxchg() emulation
+Message-ID: <fd9032cc-c47f-40f9-9a20-727d4238cbc6@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <7f398d4a-7fae-4382-9cc4-8627e8aa912b@paulmck-laptop>
+ <CC142478-7313-4A97-A876-897E97042D88@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH net-next 4/8] net: dsa: realtek: rtl8365mb: set RGMII mode for
- family D
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-To: linusw@kernel.org, alsi@bang-olufsen.dk, andrew@lunn.ch,
- olteanv@gmail.com, kuba@kernel.org, davem@davemloft.net,
- edumazet@google.com, pabeni@redhat.com, linux@armlinux.org.uk,
- luizluca@gmail.com, maxime.chevallier@bootlin.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <84fc7483-b22d-45ea-a3b8-3285dc357265@yahoo.com>
-Content-Language: pl
-In-Reply-To: <84fc7483-b22d-45ea-a3b8-3285dc357265@yahoo.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26668 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CC142478-7313-4A97-A876-897E97042D88@mainlining.org>
 
-Forcing RGMII mode on extension interface 1 within family D silicon
-demands an alternative muxing and clock delay path. The driver needs
-to explicitly reset the hardware TX clock delay line
-(EXT1_RGMII_TX_DLY) and evaluate the top-level configuration register
-mux. If the internal MAC4 block is not occupying extension 1, the
-RGMII/MII pin mux matrix must be bound to MAC7, disabling the
-conflicting SerDes 1 lane in the process.
+On Wed, Oct 07, 2026 at 09:44:02PM +0100, Bradley Morgan wrote:
+> On 7 October 2026 21:36:01 BST, "Paul E. McKenney" <paulmck@kernel.org>
+> wrote:
+> >Hello!
+> 
+> [OFF-LIST]
 
-Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
----
- drivers/net/dsa/realtek/rtl8365mb_main.c | 42 ++++++++++++++++++++++++
- 1 file changed, 42 insertions(+)
+Well, off of most lists, anyway!  Been there, done that!  ;-)
 
-diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
-index 910e868..c638c20 100644
---- a/drivers/net/dsa/realtek/rtl8365mb_main.c
-+++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
-@@ -334,6 +334,12 @@
- #define   RTL8365MB_SDS_OPTION_ARM_KEY		0x0249
- #define RTL8365MB_SDS_OPTION_REG		0x13C1
- 
-+#define RTL8365MB_D_SDS_MISC_MODE_FIELD_MASK		GENMASK(4, 0)
-+/* Shared "disable" encoding for both SDS_MISC's and SDS1_MISC0's
-+ * 5-bit mode fields.
-+ */
-+#define RTL8365MB_D_PORT_SDS_MODE_DISABLE		0x1f
-+
- /* Embedded DW8051 microcontroller control registers. The microcontroller
-  * can run firmware to manage the SerDes link, but this driver keeps it in
-  * reset and disabled: phylink already performs the link management that
-@@ -459,6 +465,15 @@
- #define   RTL8365MB_PORT_MISC_CFG_VLAN_EGRESS_MODE_MASK		GENMASK(5, 4)
- #define   RTL8365MB_PORT_MISC_CFG_CONGESTION_SUSTAIN_TIME_MASK	GENMASK(3, 0)
- 
-+#define RTL8365MB_D_REG_EXT_TXC_DLY				0x13f9
-+#define   RTL8365MB_D_EXT1_RGMII_TX_DLY_MASK			GENMASK(5, 3)
-+
-+#define RTL8365MB_D_REG_TOP_CON0				0x1d70
-+#define   RTL8365MB_D_MAC7_SEL_EXT1_MASK			BIT(13)
-+#define   RTL8365MB_D_MAC4_SEL_EXT1_MASK			BIT(12)
-+
-+#define RTL8365MB_D_REG_SDS1_MISC0				0x1d78
-+
- /**
-  * enum rtl8365mb_vlan_egress_mode - port VLAN egress mode
-  * @RTL8365MB_VLAN_EGRESS_MODE_ORIGINAL: follow untag mask in VLAN4k table entry
-@@ -1208,6 +1223,7 @@ static int rtl8365mb_ext_config_rgmii(struct realtek_priv *priv, int port,
- 	struct dsa_port *dp;
- 	int tx_delay = 0;
- 	int rx_delay = 0;
-+	u32 data;
- 	u32 val;
- 	int ret;
- 
-@@ -1277,6 +1293,32 @@ static int rtl8365mb_ext_config_rgmii(struct realtek_priv *priv, int port,
- 	if (ret)
- 		return ret;
- 
-+	if (rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D && extint->id == 1) {
-+		ret = regmap_update_bits(priv->map,
-+					 RTL8365MB_D_REG_EXT_TXC_DLY,
-+					 RTL8365MB_D_EXT1_RGMII_TX_DLY_MASK, 0);
-+		if (ret)
-+			return ret;
-+		/* Configure RGMII/MII mux to port 7 if UTP_PORT4 is not RGMII mode */
-+		ret = regmap_read(priv->map, RTL8365MB_D_REG_TOP_CON0, &data);
-+		if (ret)
-+			return ret;
-+		if ((data & RTL8365MB_D_MAC4_SEL_EXT1_MASK) == 0) {
-+			ret = regmap_update_bits(priv->map,
-+						 RTL8365MB_D_REG_TOP_CON0,
-+						 RTL8365MB_D_MAC7_SEL_EXT1_MASK,
-+						 RTL8365MB_D_MAC7_SEL_EXT1_MASK);
-+			if (ret)
-+				return ret;
-+		}
-+		ret = regmap_update_bits(priv->map,
-+					 RTL8365MB_D_REG_SDS1_MISC0,
-+					 RTL8365MB_D_SDS_MISC_MODE_FIELD_MASK,
-+					 RTL8365MB_D_PORT_SDS_MODE_DISABLE);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	return 0;
- }
- 
--- 
-2.53.0
+> I mean, I did what you wanted, hmm?
 
+You did just fine.
+
+							Thanx, Paul
+
+> >This series provides emulation of two-byte cmpxchg().  Note that this
+> >does not (yet) allow free use of atomic operations on two-byte operands
+> >in core code because there are still a few supported systems that do not
+> >have two-byte store instructions.  However, this emulation does permit use
+> >of wide range of two-byte atomic operations, so is worth putting forward.
+> >
+> >This series is being reposted on request in order to ease testing efforts.
+> >
+> >The individual patches are as follows:
+> >
+> >1.	Add two-byte cmpxchg emulation function, courtesy of Bradley
+> >	Morgan.
+> >
+> >2.	sh: Emulate two-byte cmpxchg, courtesy of Bradley Morgan.
+> >
+> >3.	ARC: Emulate two-byte cmpxchg, courtesy of Bradley Morgan.
+> >
+> >4.	csky: Emulate two-byte cmpxchg, courtesy of Bradley Morgan.
+> >
+> >5.	xtensa: Emulate two-byte cmpxchg, courtesy of Bradley Morgan.
+> >
+> >#1 and #2 have the acks required to go into the upcoming v7.4 merge
+> >window.
+> >
+> >						Thanx, Paul
+> >
+> >------------------------------------------------------------------------
+> >
+> > arch/arc/include/asm/cmpxchg.h    |    3 +++
+> > arch/csky/include/asm/cmpxchg.h   |    9 +++++++++
+> > arch/sh/include/asm/cmpxchg.h     |    2 ++
+> > arch/xtensa/include/asm/cmpxchg.h |    1 +
+> > include/linux/cmpxchg-emu.h       |    4 +++-
+> > lib/cmpxchg-emu.c                 |   38
+> > ++++++++++++++++++++++++++++++++++----
+> > 6 files changed, 52 insertions(+), 5 deletions(-)
+> 
+> --- Thanks!
+> "I'm not a very positive person" - Linus torvalds
