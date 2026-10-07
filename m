@@ -1,136 +1,117 @@
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B9DB395240
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 21:45:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791409511; cv=pass; b=HUbvEJKdE1AufBZhBpAFJKYY63XGNKPanRuFIyMNuA+6Y2ObqYAZVrr1TTIwiOOF3ASpWQXceDX/iVTesNMV117JZWv+Tvi6juij7vkoniJaICEe/5dRtupq7unRcxU6bKGDZPGBY+OOCWBTjEncwXeTchzajdme0dHVcROx3Rg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791409511; c=relaxed/simple;
-	bh=3b6Rc5/htYCJctJO6KumkwjdUFIPDEZUAt9Ksy8zy5U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uiT6cuQW/MisqXuh8e0C7QognZU3Dk5zqAsPjPJYu1BZUvG8CuAwS+sXxc9/zydb6HTi/VN7TgIqawLP1h3LgTeKjjUN4nRyFZCijqhhg597LeWC4FGmx+KHDrClaAJEo9AkCqhCNUTntb75fSrGgEgFdKjyXm1jKzp91mXCHio=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=ZQJER1hU; arc=pass smtp.client-ip=165.173.182.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEA5F27E1DC;
+	Wed,  7 Oct 2026 21:47:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791409674; cv=none; b=itDpNNi78utcstZzRHyjkjJlRwhPKUAhNug6/10tPOGdCjsJGmj+9I4rNWfzJhokJOXov9TqwRQ5hcxHFhM00syXn52BivdS0ArDlRUlDDxoMhAQLTMHN2RA9QPZrECOT/lz0rjL7YazOjJqPEKX6l8MUQKSbfFn8qUY5HhidoA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791409674; c=relaxed/simple;
+	bh=iCuEgTy3fWk8SL88SbuVaHRBc8KZTRoMUnGDJiOoXMM=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=VUv3yIqZGPOtZvOvaj0LOGOdl3LZEivqS2jJvPRMLbpjDQdJyjkR9jWV1hE16N0Xo56uoQuWzAQCpggJndyN9tgr0mTvcXnw+XBaPHIMMlABNR45cuMo09OLzJKd8x9FZwqqtuHQ6zzt+9h5zB1ha7eDg/7QNQLupomvAdBE40E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f0zFdIRi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="ZQJER1hU"
-ARC-Seal: i=1; a=rsa-sha256; t=1791409482; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=VmLYWhSzgnezPjGJ4M9d9Rb5GHvw+4+TblzvznrsbQX5MloUM21hCzBhtbMDXDddLQS8xUEl/VNOAryu2//yQcXqCb85tl0p36tjKryb3fGS+GNaQPzhnPsLC57a0tNPHEf0EPxJuMrni/uD2BUvU8L8tFA0u1t335iCzndA76s=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791409482; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=kGvUDiLie0dPMCDwrW6Vkkj/cP8ggVC9Hknrr+6OM28=; 
-	b=jLonqA0kH/5mo4SVt/L8rrQMvJtIp8D1PqZR6/pdF+21BipE1SCBRBKgN9E0qU3bQkmPGk/iROJK5XDCi5txB4D6JiH4HvUfn6Qr5pOBje9/FXSkXDV3jDGZc+u4oiGYSNV05IUhFZQ1In5zOi5fTp043Dei0cp5yag4Thw8D7U=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
-	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791409482;
-	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=kGvUDiLie0dPMCDwrW6Vkkj/cP8ggVC9Hknrr+6OM28=;
-	b=ZQJER1hU6AXDyit5wU9gfobSu6mZNV5z741FIzNSkqRjaO5xXdmhkRkE819HQDt+
-	Kp+LSdD+XxJVFBVnEfTaF0/UUmHIw+0cO7XDXPgOETUwBoD144mMFtWb4MJxfqC4qDc
-	Gj4q2UFK9GY5IinEFOw839Yv2r5UJ5aVt2wAgwLI=
-Received: by smtp.zohomail.com with SMTPS id 1791409480437494.77731485644426;
-	Wed, 7 Oct 2026 14:44:40 -0700 (PDT)
-Message-ID: <ce72b2f5-1343-44e9-89fe-e2de4efb7e9c@collabora.com>
-Date: Thu, 8 Oct 2026 00:44:34 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f0zFdIRi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F08F51F000FF;
+	Wed,  7 Oct 2026 21:47:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791409673;
+	bh=ZZLzBrm9AgpobsusQS1OCG+MADJektCGs465QeVYBJk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=f0zFdIRinkfZRcKlHGvTCQ24VejwnRSrAPssUQij3ZaEtVV9hF57pF0C1BOYlOD9C
+	 Poh7UJ5X8OgR7l6/ujHwqBMQSeUwlEW2yieO51cfYFy21lu8UIYPvYsvyHJHri7lSL
+	 NnmgxDw7eBM9PwX1pu0ARYqaKeJq2UpDBAtn5f+E8DMkRY5SX6BFFQJhemPhA0hZU7
+	 8dapqwbcl1fZ4U9RYPfNEE4Yf2J5v2pIMneMOuV5rlBUW4rHn4hd645v3XXzjzdESa
+	 YWtq4z9a9UhVwrszEzX7atU+LcVa3ZIy1mCffnIH/nmEFirSp2U4Z1CP+1JEAAiXZw
+	 ruq17fWQVZ9AA==
+Subject: Re: [PATCH net v2 1/2] ptp: drain virtual clock sysfs operations
+ before unregistering children
+From: netdev-bot+sashiko@kernel.org
+To: james.hilliard1@gmail.com
+Cc: netdev@vger.kernel.org, pabeni@redhat.com, kuba@kernel.org,
+ richardcochran@gmail.com, andrew+netdev@lunn.ch, yangbo.lu@nxp.com,
+ edumazet@kernel.org, davem@davemloft.net, linux-kernel@vger.kernel.org
+Date: Wed, 07 Oct 2026 21:47:52 +0000
+Message-ID: <179140967248.434549.15357420235192842364@kernel.org>
+In-Reply-To: <20261005-ptp-vclock-sampling-v2-1-8ed12d4d10af@gmail.com>
+References: <20261005-ptp-vclock-sampling-v2-1-8ed12d4d10af@gmail.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND] drm/virtio: expose GEM memory statistics through
- fdinfo
-To: shechenglong <shechenglong@xfusion.com>, David Airlie
- <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org, stone.xulei@xfusion.com,
- chenjialong@xfusion.com
-References: <20260922094455.1799-1-shechenglong@xfusion.com>
- <20260928133635.1835-1-shechenglong@xfusion.com>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20260928133635.1835-1-shechenglong@xfusion.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
 
-On 9/28/26 16:36, shechenglong wrote:
-> virtio-gpu does not expose per-client GEM memory usage through DRM
-> fdinfo, leaving monitoring tools unable to account for buffers owned by a
-> client.
-> 
-> Wire up the DRM fdinfo helpers and use drm_show_memory_stats() to report
-> the standard drm-total-memory, drm-shared-memory and drm-active-memory
-> fields for GEM objects referenced by each DRM file.
-> 
-> Tested on a QEMU/KVM guest with virtio-gpu. After running:
-> 
->   modetest -M virtio_gpu -s 40:1024x768
-> 
-> the DRM file descriptor of the modetest process shows the following in
-> /proc/<pid>/fdinfo/<fd>:
-> 
->   drm-driver:         virtio_gpu
->   drm-client-id:      8
->   drm-pdev:           0000:00:02.0
->   drm-total-memory:   3 MiB
->   drm-shared-memory:  3 MiB
-> 
-> Signed-off-by: shechenglong <shechenglong@xfusion.com>
-> Signed-off-by: chenjialong <chenjialong@xfusion.com>
-> ---
->  drivers/gpu/drm/virtio/virtgpu_drv.c | 13 ++++++++++++-
->  1 file changed, 12 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
-> index 2aaa7cb0808..d43d7ddac60 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_drv.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
-> @@ -323,7 +323,17 @@ MODULE_AUTHOR("Dave Airlie <airlied@redhat.com>");
->  MODULE_AUTHOR("Gerd Hoffmann <kraxel@redhat.com>");
->  MODULE_AUTHOR("Alon Levy");
-> 
-> -DEFINE_DRM_GEM_FOPS(virtio_gpu_driver_fops);
-> +static void virtio_gpu_show_fdinfo(struct drm_printer *p,
-> +                                  struct drm_file *file)
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
+
+Low priority / nit picks for your consideration:
+
+- [Low] The commit message gives the wrong reason for the
+  is_virtual_clock guard in ptp_vclock_remove_sysfs()…
+
+--
+
+ptp: drain virtual clock sysfs operations before unregistering children
+
+This commit removes the n_vclocks sysfs attribute at the start of
+ptp_clock_unregister(), before the virtual clock children are walked. Doing
+so blocks new n_vclocks stores and drains any that are already running, so a
+concurrent store can no longer unregister the same child a second time.
+Virtual clocks skip the removal through an is_virtual_clock check.
+
+> diff --git a/drivers/ptp/ptp_sysfs.c b/drivers/ptp/ptp_sysfs.c
+> index dc398c6b75284..53388b1231980 100644
+> --- a/drivers/ptp/ptp_sysfs.c
+> +++ b/drivers/ptp/ptp_sysfs.c
+> @@ -263,6 +263,12 @@ static ssize_t n_vclocks_store(struct device *dev,
+>  }
+>  static DEVICE_ATTR_RW(n_vclocks);
+>  
+> +void ptp_vclock_remove_sysfs(struct ptp_clock *ptp)
 > +{
-> +       drm_show_memory_stats(p, file);
+> +	if (!ptp->is_virtual_clock)
+> +		device_remove_file(&ptp->dev, &dev_attr_n_vclocks);
 > +}
-> +
-> +static const struct file_operations virtio_gpu_driver_fops = {
-> +       .owner = THIS_MODULE,
-> +       DRM_GEM_FOPS,
-> +       .show_fdinfo = drm_show_fdinfo,
-> +};
-> 
->  static const struct drm_driver driver = {
->         /*
-> @@ -347,6 +357,7 @@ static const struct drm_driver driver = {
-> 
->         .gem_create_object = virtio_gpu_create_object,
->         .fops = &virtio_gpu_driver_fops,
-> +       .show_fdinfo = virtio_gpu_show_fdinfo,
-> 
->         .ioctls = virtio_gpu_ioctls,
->         .num_ioctls = DRM_VIRTIO_NUM_IOCTLS,
-> --
-> 2.43.0
 
-Usefulness of this change is dubious. VirtIO-GPU has different types of
-RAM, I'd expect them all represented properly instead of only shmem.
+[Severity: Low]
+This isn't a bug, but the commit message gives what looks like the wrong
+reason for this guard:
+
+  Virtual clocks have no such attribute and must not remove the parent
+  attribute when being deleted by its active store.
+
+When a vclock is deleted from the parent's active store, the path is:
+
+n_vclocks_store()->unregister_vclock()->ptp_vclock_unregister()->
+  ptp_clock_unregister(vclock->clock)->ptp_vclock_remove_sysfs()
+
+Here ptp->dev is the virtual clock's own device, not the parent's.
+device_remove_file() only acts on that device's directory. It cannot reach
+the parent's n_vclocks attribute.
+
+ptp_is_attribute_visible() also never creates the attribute for virtual
+clocks:
+
+	} else if (attr == &dev_attr_n_vclocks.attr ||
+		   attr == &dev_attr_max_vclocks.attr) {
+		if (ptp->is_virtual_clock)
+			mode = 0;
+
+Without the guard, device_remove_file() would just find nothing and
+kernfs_remove_by_name_ns() would return -ENOENT. There is no self-drain of
+the parent's attribute for the guard to prevent.
+
+Could the commit message say instead that the guard only skips a no-op
+removal on virtual clocks, which never have n_vclocks? As written, it
+reads as though the guard is what stops the parent's active store from
+draining itself.
 
 -- 
-Best regards,
-Dmitry
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261005-ptp-vclock-sampling-v2-0-8ed12d4d10af%40gmail.com
