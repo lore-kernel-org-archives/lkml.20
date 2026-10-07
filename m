@@ -1,107 +1,90 @@
-Received: from sender5-pp-o94.zoho.com (sender5-pp-o94.zoho.com [165.173.182.94])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A09A49CF42;
-	Wed,  7 Oct 2026 12:08:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.94
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791374907; cv=pass; b=GeaBMEVyDwKwr/82ZPG94XsOy4cqdWMElNvax6fRitpBEwfg5Qc77+qqEAkSSjWBAtSd5q5ZR1C7CEyFz4xmF2dqjf2MuQ7QSZfDInYlkgPca3sdeDTBxI6QVL9eYvpRVhMBu34S4BiXPiqfw9FnU7auc/CT4N6Kpb0eNk9GEU8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791374907; c=relaxed/simple;
-	bh=KRN5aUoBT6yvcY7O4JyYd5G1G6gDhqkgVMCgSeJbvNM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mwvM/wSG3u8snmqaLTOktRqD9FfxyvdFXlmR/EvcInLkwrGZnTv3Gird4UsiXvSgtT30HK6oBO+DIGf4nfNiugDaygO+E1PiZgELOkj+S/z2etEn8pXjArycTsFYwOju6+0SS1aE93Vm+EQ1hQcmhMylg829ZiK/4M3dNdNTfKw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=ming.li@zohomail.com header.b=ZY3ITvKg; arc=pass smtp.client-ip=165.173.182.94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 261DB49158C;
+	Wed,  7 Oct 2026 12:08:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791374927; cv=none; b=c+Fkvjz8P1Ci9DWys72Rjq7hKH62jUa5NcSF0Gepj/8ZTGm3Dahu5McuqKiRZlw/Hmt/9K9wFDHpRk7hvd4V4NHUAQDBlUEajhdfWV9dps29pO2N5QwMsi/9gWRdeMSe0Lqn0u2Q4t5oUVpmYOj8NzoqzLHIg83dBezbGa0pKYU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791374927; c=relaxed/simple;
+	bh=n6O2tTMXptdBxyvW61b5jo40KgT3use+/BoCKR1n1Zc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=IJmLJsFYF9qleWN+VFvNfqA4PaU2RbbvX5VHPv95Mhc41g6aSvwSC1uV+fogY0XyQLzGhC1BM/X2/M9EfmGg7+QsLLAhHbMD28NdixgHTti3ANqddZm9MFSdzU6XZzqZ6iT/1T1Z0TNx2Kewqumo70wFzcDJyf9ViBoyPishyu0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BJ8x+/dh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zohomail.com header.i=ming.li@zohomail.com header.b="ZY3ITvKg"
-ARC-Seal: i=1; a=rsa-sha256; t=1791374876; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=HQtt+hGOtkINnmmSqfuJv66DQNPtui0WTpXLacyuGkwaxKoVoDzC+2664uOhmmfshqG0/LGB94vBSHg5hv2oF/us6E+nmSm/DlZyy0YyGHbsGSD/O/UfbY/uIyje5bvvjxsrjDzE0KoouPgL3pvrGZCtuVFkR22s5X20S0XNW1k=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791374876; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=YDK+eVt9z7jRcDCuoLKKEPAz6CTTIjzqCw6nYaxWFUo=; 
-	b=DyD7RTtmF5YMYtuRiolLCpZDT2xv2BQ8hFeOHWU5Dsr/nVoNPoexdJyo4f40d35VYyG8534opljdjS3WNeBEbtAliG2CM1oZSDNejzdXneuEKilQOd/SMCElrOh4OPRaDi8oKE93hcYah9igUjf4mfZc49WjGoLdhIF/awkxygc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=zohomail.com;
-	spf=pass  smtp.mailfrom=ming.li@zohomail.com;
-	dmarc=pass header.from=<ming.li@zohomail.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791374876;
-	s=zm2022; d=zohomail.com; i=ming.li@zohomail.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Feedback-ID:Message-Id:Reply-To;
-	bh=YDK+eVt9z7jRcDCuoLKKEPAz6CTTIjzqCw6nYaxWFUo=;
-	b=ZY3ITvKgdmfAjd2WVOLOK6GSg2cSyewIJRVmd2ft1tdpPuqmbonRZR0+GxhAkgiE
-	AmCECSovVs9IMOKcDBgJbFDkSw80ibnoH+XEaJ08DYHqEYqiO0FDB/aidyYUfHI4cJu
-	KFmP2LpSdDTTy3FVHOXpCGiANaKmeRqLaCxti3MI=
-Received: by smtp.zohomail.com with SMTPS id 1791374874789244.05969337523243;
-	Wed, 7 Oct 2026 05:07:54 -0700 (PDT)
-Message-ID: <fb3dd8b9-438c-4cca-9811-6bc47efee873@zohomail.com>
-Date: Wed, 7 Oct 2026 20:07:47 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BJ8x+/dh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D46B51F0089C;
+	Wed,  7 Oct 2026 12:08:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791374918;
+	bh=eXYCbGv/F5Vt1j/YtSf4+kukmf2z4zJPoM7b8kguA9A=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=BJ8x+/dhRv33KPE2HySL7S7CKpaUFP7Q8CmhydKnZ8PI0MWnayQVrgjG55RDsYIri
+	 d7XiSYzE2OEanIGU5gVJAB3/Ncreo6UgL+nnXO3vwjElLRXnmhUsOTLij9gUnnTQY4
+	 fGu9zB7evqlvtpHWam+/dGj9wWXe9v7+NIQEIxixPNbgE9FHvvTlF1iBkTPH2/d2zU
+	 iiRo2ECbi1KE+Lj+T7wvqEhWoNxpxVK4+2rJaktSGlDF3tuA1wvrvyjpMOkrNqBC9n
+	 vbROrCy0SUj+tPn3M7KBDLW/1H1tId2R+O7GBEIRXFbbwTmknTywAtuHj4IpMxbpzC
+	 oqPgSODKrEtAg==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xEQRo-00000000G5C-2nan;
+	Wed, 07 Oct 2026 12:08:37 +0000
+From: Marc Zyngier <maz@kernel.org>
+To: Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Quentin Perret <qperret@google.com>,
+	Mark Rutland <mark.rutland@arm.com>
+Subject: Re: [PATCH v3] KVM: arm64: Only emulate an SError's entry for vCPUs with NV
+Date: Wed,  7 Oct 2026 13:08:34 +0100
+Message-ID: <179137490041.698747.10587011555353009441.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261007080833.371899-1-fuad.tabba@linux.dev>
+References: <20261007080833.371899-1-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v14 01/16] cxl: Drop stale decoder interleave limit
- comment
-To: Srirangan Madhavan <smadhavan@nvidia.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>,
- Davidlohr Bueso <dave@stgolabs.net>, Ira Weiny <ira.weiny@intel.com>,
- Jonathan Cameron <jic23@kernel.org>, Vishal Verma
- <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
- alwilliamson@nvidia.com,
- Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
- Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
- Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
- linux-tegra@vger.kernel.org,
- Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-References: <20261001092227.3004747-1-smadhavan@nvidia.com>
- <20261001092227.3004747-2-smadhavan@nvidia.com>
-From: Li Ming <ming.li@zohomail.com>
-In-Reply-To: <20261001092227.3004747-2-smadhavan@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Feedback-ID: zu080112270568025c6b11d8de7c4fec200000de64e2ac7ec75c8a0427ea90bee38664b83f6ba0a7c3c9653f:ZohoMail
-X-Zoho-CM-AccountID: abd763e7b9fa23acf4f42a44f9876d2d993e05abdb9290f9ccb1008c977bf7f0
-X-ZohoMailClient: External
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, fuad.tabba@linux.dev, catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, vdonnefort@google.com, qperret@google.com, mark.rutland@arm.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+
+On Wed, 07 Oct 2026 09:08:33 +0100, Fuad Tabba wrote:
+> kvm_inject_serror_esr() emulates an SError's exception entry when the
+> host's copy of PSTATE says SErrors are unmasked, although only NV needs
+> this, for a nested context whose guest hypervisor owns the vSError. A
+> protected vCPU's PSTATE lives at EL2, and the VMM can unmask SErrors in
+> the host's copy before the first run, so KVM emulates the entry on that
+> copy and the guest never takes the SError.
+> 
+> [...]
+
+Applied to next, thanks!
+
+[1/1] KVM: arm64: Only emulate an SError's entry for vCPUs with NV
+      commit: 3bd107ed6b23de45b861e7f0c151d7fba59d721a
+
+Cheers,
+
+	M.
+-- 
+Without deviation from the norm, progress is not possible.
 
 
-在 2026/10/1 17:22, Srirangan Madhavan 写道:
-> CXL 2.0 added 16-way memory interleaving, making the comment that the
-> specification supports only 8-way interleaving stale. Remove the comment
-> without changing CXL_DECODER_MAX_INTERLEAVE.
->
-> Suggested-by: Jonathan Cameron <jic23@kernel.org>
-> Link: https://lore.kernel.org/linux-cxl/20260912003057.3db9335c@jic23-hlaptop/
-> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
-> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-> Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-Reviewed-by: Li Ming <ming.li@zohomail.com>
-
-> ---
->   drivers/cxl/cxl.h | 4 ----
->   1 file changed, 4 deletions(-)
->
-> diff --git a/drivers/cxl/cxl.h b/drivers/cxl/cxl.h
-> index 3ef0810ab86b..9e0500d56866 100644
-> --- a/drivers/cxl/cxl.h
-> +++ b/drivers/cxl/cxl.h
-> @@ -269,10 +269,6 @@ enum cxl_decoder_type {
->   	CXL_DECODER_HOSTONLYMEM = 3,
->   };
->   
-> -/*
-> - * Current specification goes up to 8, double that seems a reasonable
-> - * software max for the foreseeable future
-> - */
->   #define CXL_DECODER_MAX_INTERLEAVE 16
->   
->   #define CXL_QOS_CLASS_INVALID -1
->
-> base-commit: fef22d37d47043b63e4007f2f5fe762fa21fae0c
