@@ -1,138 +1,132 @@
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB47B4AAC51
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 13:25:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C30264AA598;
+	Wed,  7 Oct 2026 13:25:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791379521; cv=pass; b=FIg3Hqf94kDq05/B8ug5IG4Jtdt+BAPNskg9EylA8Rs1ujhtDyN6pbdsezilEFmwvCCJ+4R7fpfmUBel8PAtPPFh3c3sqy2rSLVz0ZCxJgU4ORhz20Hnf1XfEYKEH+w8yUJwZSvo9uQEBklXr7oKSj4idZgYGpGya9E+tbqISVY=
+	t=1791379552; cv=pass; b=JCG/X6d7SStFO52yrVKO5G57T17knN3Ki7D9gWCN6tCuSJDTfDtDVeC0v9EtNQ6cvayuYc94hqRyifb48pPPmPJWFX2KGn3KYPbsvfs0XPtO7bYMU9ZMOWQmJrHanlT9NdYHTrnQfxG65mnwUG1DU+6PtyiE7C2v030v74NGCP4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791379521; c=relaxed/simple;
-	bh=r4+e5uMoZNj7ZCkw8C4enM+dD5yuNoZmNknGMAbiFK8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=n4IcgdYvJELgrGjmd1xuSUV0HWsLg2NHlVLAViCaPnyPrCKYFuk/iedbgHat48M8RTjpTxiUn0iGkNtLwf1TuoD4dLmYX+UYMoc+IBiDIkm6OoRW0ruvFPEO1oCimG2JpYSlPaIlRXg6prfqu4xDBb7iIBacNXRog+iM2pWzHfQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=XK+mHN/m; arc=pass smtp.client-ip=209.85.208.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1791379552; c=relaxed/simple;
+	bh=LKaBawnOrn5fMkx9UKu815xxeUdtkS2sVALgatYC15o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ppc8kMHKVuIFvAPv6UtAI/FOF7d2Mj/u9Mz5EyEXLZ5/J6rNqj2P8GwjFSJdCMFZDf2SsJKsmRa0hS1DLNVX/454LHIV37W0w45LXbvT6TrO08QGBMIEtEVe91USyH/E04wibMX1j5j3CcR3BZH0IJGQW4H3/H3fu4EIYSx1F3M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=OZfAAxjU; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="XK+mHN/m"
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6ab0140ecb2so13117a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 06:25:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791379502; cv=none;
-        d=google.com; s=arc-20260327;
-        b=szI96KWhFRum4XUSmwCclQbSM4T9n4y1pPtJhQt8O8Ysn0eeC2PPjWmyxBGpN5rw9o
-         RGnkospAeRoqOaveJ6syaMIo/db22P0+jUvSc/Vh11dMevu+wDuo6WtCwPsX6uN/OO6e
-         eUu7dfxeNNExB3EsA84l2XKnJ04RmENAbeP3enu0nyIuvY+jl1D6zfaREqgOsVl0eLDj
-         FRhXYypxINKiLKqwwhom4k2g3XyO7M510sbzKSA/w/hzBIbozk/KYzCOvfo75y9tHbOP
-         1GvWRYzsEZbo4a1KiqPmufz50ZsVlvTCfzVgfN3Vrc7OQY7YeqxrsZ3h0a+CgjRC6DAC
-         maNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=s+dZR8dpXP94j/qSyFaGO59voLN46gwiqCeuh+llQbw=;
-        fh=W2KqV6h8IwYCUskHzm6rho/BGhN1ODCRX/iV69kEHAQ=;
-        b=B9zm4WTqW3Lg+dYMnCIPv4mmT61SzdhesRdXq733ScjhQAX7fOXq5UAP0X7+ahbWRu
-         JPJ/iFahywrvYkJkmEDSAIEPplV8ys+3Aa9wKsqhWucsl7q5nAjOHSoUF0VFswlH3av5
-         ppOD5N8gw9oJR+HcKl1FciUT6KaeXWqtU1NvoNhtpkYwem//6vVE59gQrMsDfLzvfNL6
-         fFgrhaD4pJ7iui8sX5/400eZCwUqOLBfUw93Qey9tvmb511krwWgPV0eICZwO2ppStZr
-         uDt9iIInQlgq7EjGpSMUS1gqIkjXZPWWlNrlBBHQpacxRhldGq3u0qIeQ1OCHU1BHdhD
-         l/Gw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791379502; x=1791984302; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=s+dZR8dpXP94j/qSyFaGO59voLN46gwiqCeuh+llQbw=;
-        b=XK+mHN/m7/8PWCczVBf6jI9GNg8P5wIcvPEWJiSQ39whhXyU16GXTZxtoHP4bZILwF
-         fbzHnnyusPhBuPJ9aPzAptHzCjJiIWe6m+y7N14H953mreW1xMYqR3xO/W2B+VOvIf97
-         q0d9cy36G0RfmdM35f/Y7jTmLS+9/HGIb3r1n8nWrmNBa3ossJ0ioKWjk+qynEmXPxML
-         5JhIvkmtbXxt2eJhBiUJT4omnSlWdkqLc8sbShJDKATk0jtb99o3Umc5A17uTfjCgjRN
-         vDNhBbZe6+FH3YtQUYuhVDLis/gSgDVmOLZ6E5NlYr9OZyeL5mI1xj8GdKLCjrG5hnB3
-         xhLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791379502; x=1791984302;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=s+dZR8dpXP94j/qSyFaGO59voLN46gwiqCeuh+llQbw=;
-        b=y5iWWy9kK71Z6KrJYux0Qcuaq5LdTTpn9ZUfl4qhKjFo5JL8NWX8mGQCDi+5S9LEAg
-         52MQDxyRdqGMty9OWsv+HG16RRTg6xOH2JAT6o+XAqtrrUdVCLFRgwgwUOGCX2Bo73yf
-         6tmjKwtyLQ8/kuO15QFTPidUNvpGBzjlvKeB2pAw7egGkAHXt76yG3SpR9hDWcXGWnkE
-         VnqXW0YelzbYRFQth2R3scGRCjHxXhqw3EURIYi3mSY5dRKqeXJonCwojSIHa1CwxQgO
-         RDwczPBWYUE4TPhXYqq2veAT+j6Zi+D+shUgszdJ2AGLFOsgIsbcV38BDRQ4HtdllO6B
-         z0AQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzM3CwmDjUtUJy0lD2lrjVrlwag1sRiMsH82PalgcWFPwkuUo6UBnYUgy4pJQvZ/OvFHlOL8rMB12mlQZc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIOMeEQt7D2oCOytsJHrEX6+Qa3go09m9oTSFkEVe7lNTx7L9Qi
-	lCZlODAbNM9zJ1Muxg5I82T6Pb9CgvjESLdVTmHrb7wGhKeVvSt7T0iwUnIrEY/wghqN45m4bN/
-	jvhFpByrKa4u8EonzjmmPS1tdAUmrmvjHUZr+UQ1Z
-X-Gm-Gg: AYBFou1KRA9afP+GxjeFdEz9d9wFhqIkE/ZiIKveKpWFDHaC1kqaH5BH02N6EG5XCuW
-	VW9jKVQZ9tE9Yx0Vn+SojyrCJSIiIIFcKYjcR7MJ0Nc1S/YzlRSrl70jTPOB9UXQmCSkvQwU4I/
-	KgTa4sD2Iff42Lev1ZNd3xvZoyDYdLSVoZCQEpTilmjOa34yCxkRCIqW6wask5Tkmx5EG0Nw7U3
-	4VtWclu+Y8HZDoVYU5W75xZjCKaj2GccO+u5Gi0FjmLJfc0ib6qOm1O8bPEROMHFy5tdmCDaYfY
-	YtopskAAPv12/CEZYhg58q8jySPHQLdUNt9/WZOrheUNf0OB9ZvGerVwrnrX/gnwvb7Zdna6qc0
-	cupGCRlaToAswKzofhnuzPQ9g3+mAe3GFygUROCTOWENSyQ==
-X-Received: by 2002:aa7:d651:0:b0:6a7:ef64:8a12 with SMTP id
- 4fb4d7f45d1cf-6afdce59686mr112735a12.10.1791379501100; Wed, 07 Oct 2026
- 06:25:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="OZfAAxjU"
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 9BAA320238F;
+	Wed, 07 Oct 2026 15:25:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1791379534;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CASj4ghHAeR3XLISvynRB2j1qVq65D/wFBbPtv5sijU=;
+	b=OZfAAxjUvgErVftMdhkzExrL9jadJU16C7WP5vSdhQhvFJwNw2SOsXdD/LgHEjjmw0bWRe
+	/LUzIuFVYPyDqy0CIoP6A9rBVYqyrOeMNmigAFEA1rVTRCwmxRVGAH9srGNrd4amaco2Zx
+	79wuOiBdfe4fe19AwYnaSUXU6KnupraWzO6h/wS2ypZDmli+L4QAb3f44cUdJS5VIA7E2z
+	VTBkyOVck3oTHq4asHn/ibgCeHbdRR4yTp4SliZk/4XVDNic2K91X5DJksIzHPV9oLBkv4
+	2xLUfUI67igrYxXdGeYhhQegiFmao9NAABX23IisD3LaXBev9VYarGJTt0htdw==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1791379534; a=rsa-sha256;
+	cv=none;
+	b=eWox0GVB9RwnNAn/PjKkjiQyINYMl1Tobc3Jf2p1NXiKW6N12JECIHwyU26o9fCf5B1yku
+	Al6WngNYm1FJ1czj+WysHfe/5bcIgGTlYhC973mNkFR/BcuQzbjYyhYt/9v4ccUJwcm7zQ
+	q4scy1aoQRTLuxOtSqsB7hjRNpCUVJ4o9iMGABIVNNExDMrISMuH3qHKjoEWfQdRnkQC+t
+	fTBJfAKiCqKyLv1veDZwn0QQUQKdDUnNpd2++lAbH3+FgKXgixZyDRZiKWhxh4s6L7koG9
+	0cxRM5bSIaJE/rmfgYPcjBWpNplTfh3s8rr3R4H9Z902SCpT06cm/BnbH4ittA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1791379534;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CASj4ghHAeR3XLISvynRB2j1qVq65D/wFBbPtv5sijU=;
+	b=I52Oe3aIFsff3/E15M3I1dzutmc32I7E9LV8sLSDSzR3iHhGFO5wyG59wQyg97raAVSO67
+	+aM508UM9j1rAapbylrZppgqV8Rq8Hn2dpnPOF2h0RK38tCO66fSIu7ZUn8dQkkcOAMtHp
+	jAHrvd1us3DCuwWGBP06lEgiEJSAwZZMXoy2ebu+HHtD4/5QX+uETH79lRaPZMy76WM2g8
+	F7usGMvfWg/UJS+FVFh1rfjW8mybsHi+/UetTBcgSNe5Rn0eMityXaEO8mSUEVxtwGN14F
+	fbwQFtZ8io/owSQpd29X+TYfD2Iymj9xHR3Y3Xf6oJ+A/64DT3eDnp7+H8ROFg==
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xEReI-004iwW-1j;
+	Wed, 07 Oct 2026 15:25:34 +0200
+Received: from pengutronix.de (90-182-211-1.rcp.o2.cz [90.182.211.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 1D17C5BBAD6;
+	Wed, 07 Oct 2026 13:25:34 +0000 (UTC)
+Date: Wed, 7 Oct 2026 15:25:33 +0200
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: =?utf-8?B?U3TDqXBoYW5l?= Grosjean <stephane.grosjean@free.fr>
+Cc: mailhol@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-can@vger.kernel.org, kernel@pengutronix.de, s grosjean <s.grosjean@peak-system.fr>, 
+	kuba@kernel.org
+Subject: Re: [PATCH can-next 6/7] can: peak_usb: Add bus error reporting for
+ the PCAN-USB FD family
+Message-ID: <20261007-deft-mustard-kingfisher-9000d0-mkl@pengutronix.de>
+References: <20261005-ancient-viper-of-swiftness-c884c3-mkl@pengutronix.de>
+ <597196165.930416749.1791299468914.JavaMail.root@zimbra65-e11.priv.proxad.net>
+ <20261007-nostalgic-wapiti-of-fascination-ee80b0-mkl@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261001112948.322463-1-jiayuan.chen@linux.dev>
- <20261001112948.322463-4-jiayuan.chen@linux.dev> <20261005171227.2014f26e@kernel.org>
- <8a8241c4-0e41-4ddd-aeef-b9ecb4f55d3a@linux.dev>
-In-Reply-To: <8a8241c4-0e41-4ddd-aeef-b9ecb4f55d3a@linux.dev>
-From: Neal Cardwell <ncardwell@google.com>
-Date: Wed, 7 Oct 2026 09:24:36 -0400
-X-Gm-Features: AclHuK_1-cUyFKx6jZtZU4vlXGTcJYuoZ3KG5mU-35Npv3ExhuQay5q_SWlPEsg
-Message-ID: <CADVnQykSb=trXtxeC1zMDYH7naS_w0h7hkN=v2RSJqe3z0OyxQ@mail.gmail.com>
-Subject: Re: [PATCH net-next v2 3/3] tcp_cubic: fix divide by zero and endless
- loop on bad module params
-To: Jiayuan Chen <jiayuan.chen@linux.dev>
-Cc: Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org, 
-	Eric Dumazet <edumazet@kernel.org>, Eric Dumazet <edumazet@google.com>, 
-	Kuniyuki Iwashima <kuniyu@google.com>, "David S. Miller" <davem@davemloft.net>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Stephen Hemminger <stephen@networkplumber.org>, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="juxu7vhqzmuumzv6"
+Content-Disposition: inline
+In-Reply-To: <20261007-nostalgic-wapiti-of-fascination-ee80b0-mkl@pengutronix.de>
+
+
+--juxu7vhqzmuumzv6
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH can-next 6/7] can: peak_usb: Add bus error reporting for
+ the PCAN-USB FD family
+MIME-Version: 1.0
 
-On Wed, Oct 7, 2026 at 2:49=E2=80=AFAM Jiayuan Chen <jiayuan.chen@linux.dev=
-> wrote:
->
->
-> On 10/6/26 8:12 AM, Jakub Kicinski wrote:
-> > On Thu,  1 Oct 2026 19:29:43 +0800 Jiayuan Chen wrote:
-> >> Subject: [PATCH net-next v2 3/3] tcp_cubic: fix divide by zero and end=
-less loop on bad module params
-> > if the LLM Medium severity complaint is true maybe also update
-> > the subject? I thought there's an actual div by zero somewhere
-> > but the commit msg seems to describe the inf loop
->
->
->
-> Hi Kuba, sorry for the delay.
->
-> The LLM is talking about (cwnd * beta_scale) wrapping, which needs
-> cwnd >=3D 33M packets, way past the 1M limit this code documents. So
-> the loop fix is fine.
->
-> The div by zero is real: beta =3D=3D 1024 in "/ (BICTCP_BETA_SCALE - beta=
-)"
-> and bic_scale =3D=3D 0 in do_div(), both at init. The new range check in
-> this patch rejects both, I just did not say "divide by zero" in the
-> commit message.
->
-> Want me to spell this out in the commit message? I can also add the
-> READ_ONCE() Eric mentioned in the same respin.
+On 07.10.2026 14:55:58, Marc Kleine-Budde wrote:
+> I think this is the best way to move forward! As these issues are found
+> by bots, the current consensus is to mainline them via net-next. I think
+> you should add a Fixes tag. I'm not sure if we should add stable on Cc.
+> For now try without and let's see what the humans and the bots say to
+> this approach. :)
 
-Yes, please spell that out in the commit message, and please also add
-the READ_ONCE() Eric mentioned in the same respin.
+What do you think about registering yourself and maybe role address at
+Peak (e.g.: socketcan@peak-system.fr) in the MAINTAINERS file? This way
+you get access to a database with all issues sashiko found in your
+subsystem.
 
-Thanks,
-neal
+regards,
+Marc
+
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+
+--juxu7vhqzmuumzv6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCasZISwAKCRDMOmT6rpmt
+0hdsAP4jBprP/4J/4cyqG/b+uohyvCEYUOcr9wAukTZ7iFPMCwEA23Nybg0lyIUb
+zFk4cp0wLLlunaF2UbpAYXdyjd2Euww=
+=1A3P
+-----END PGP SIGNATURE-----
+
+--juxu7vhqzmuumzv6--
