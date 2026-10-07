@@ -1,143 +1,283 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 81A0848A2BF;
-	Wed,  7 Oct 2026 12:05:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791374729; cv=none; b=DylZw/KyJvQH3+iBc8N9jwuvPP08tv1Emv90+LlOswQWMN9RMbiqGzjpxkQTyGaHPH495J12ilt3reC17eX7aXCod8tprChb6iQMW89WpJtUK4Ow0q9X5a9s0FWl8lBvGHFCLdnikfxJbyC4wkmsgzvMDntRfKsz0urZBzX/FKk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791374729; c=relaxed/simple;
-	bh=+CqlKRuxWhCNd/6RlB/y7ZkipZeN9V9w02zVNtoOi4g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=d1Mx/76PjNUs3umZwWNpEUOxPCbZl3/2JYXtoDduXjYVsb8m7FdfeFXfQeD4rRaCr/9vZtCUsp40RzaD9LQqXuvvB8YgCj1iyOg0t4QUCPrFgK6N4pixbdrbdEcqxRCXBY5n5hop4sncZwQkGRczWZkfdtIMBMw5d8HE01//D/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=CarkZlSX; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010016.outbound.protection.outlook.com [52.101.193.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B9047F783;
+	Wed,  7 Oct 2026 12:05:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.16
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791374751; cv=fail; b=rqqI+wrknCG/staJPcfCrZlOpt4q8kUTww26epHtAuTMqbPRpe0gWiE8Wii/9mnavXqa6hKV+ncwVe8WmoF6EESLHotoQCtXH553P0R/m3GUId9epIaGkz3JmEanHiyws1MBmVgBQf3wr1qWlJUCI+m8KF2+FNIml2P28uwF70A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791374751; c=relaxed/simple;
+	bh=UYHA17biKoJfQO/1LJ2yZYn1br6/WbVnERyKi3oInAA=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=ABtMLEpvdGfu3d5oHvsfeEspWVImL5UxiaLGLa4wSK11EJabiSUGm/hw34BHe2WZBSd1/58hv/uGIH61Cp8Y7+9SKLg0AE+7CuRMlL0OKANABpEPQke74LYXN75Ra67Lb/tbdUiwbCNxoNEqsH50BEA0QPNUTnUBBE1YwRyCeYc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=DMdTr2MF; arc=fail smtp.client-ip=52.101.193.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="CarkZlSX"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 299F01595;
-	Wed,  7 Oct 2026 05:05:16 -0700 (PDT)
-Received: from [10.163.146.249] (unknown [10.163.146.249])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A67DB3F763;
-	Wed,  7 Oct 2026 05:05:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791374719; bh=+CqlKRuxWhCNd/6RlB/y7ZkipZeN9V9w02zVNtoOi4g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=CarkZlSXkb6HrXh+4mCVYAk3uqLflEL8f25PTNZeVo7p3cdeKq7/VpP1RwHIiOUP3
-	 ygdxKcZV2M766tXWr/KeeXozcz0Oc8RWaY7L7jAv5MZV+s5/y56D1mgOd+/O0vdPCL
-	 DuuPejMfVgapSFJwfPgVvp6MbrR0bA9IEFdE/e2k=
-Message-ID: <d9f31316-38fb-4841-9050-8a9f3a042847@arm.com>
-Date: Wed, 7 Oct 2026 17:35:09 +0530
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="DMdTr2MF"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Fcrqr8r+3i2kMLnHZdO2q0SFnwebBdeyT78gm0KT05Ha6DOruwdaH+GBs3tHG2JjEvfw+dqMq6QJf0T25/1TowMidR/MPL+7zSljL9bh/ydVvSRlg0HVJ6F45EYukF3UBsNG0o38cYKCcQ5y0uJaWD448tNCh/ZsM7wkRBoWcPSHIDt848FL569DfGjkvcNrpMvEoYj2Ik8xiKBbRChvZo7Env80bBRc3rIYPlyhrjj29zLRtNOq/mnUSyQhiRz+8CdRdKdGyXE+1b1gZa2o34sisSwosSRZgot8AzjFIqA3IU1vzUUK1uC+i7Y+Ok+ljl5DnW+k1anKCkU/umE32Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=E196s1UkZHTTn7POnkAishoEP0BvtZJxKx4aBw4xJrI=;
+ b=U4wW5dChNex2IlrNnxOP4PXduZ/tjjTFhkHBp0VmNocBj4D/NZ8xJZ0QPvi9SAakVlG6JGm2VWPg021Jpv8kRExjS4eKe4jU3/pAhLtZIye/SjJUSSzYkmoWfDVpdMnztVCpf2gPgZs7ZeNjwmT6dgiyJ6ZxqBTr15wCYs72Y7y4AGTxcV/J1Pt5TGrecIJPmBubSQqUA5ZSTX68tKq5cOkK7dTf8R3mJnINFJ+lDi7gskl1b24zNxlu0cT7g3rPTV8Mgm4+isaKB+/ZoTS1uSXliTztq+Ps8RuQoFz77tqShrMpWY5ZZUXi+pIwLWstQac4Ajvy5fSxPdYWftGbbw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=E196s1UkZHTTn7POnkAishoEP0BvtZJxKx4aBw4xJrI=;
+ b=DMdTr2MFVfvb8VnpJh3BlKR8BDLe2IEaoaiE9+qKth3Qxwn2e9ssetEiklQoCwLRnvpyTeAMoP8ya6i+YNzciyIAxO98e+tk/HRqdKEljcoI1QPdx0CTA4wwboJvIkqcVuKobXAAYYPflw548hymMd1jaYoYQGZrmJqGGyYXcrEWZsqzKA16B9TLODQfXnW3EZKQpD9UCknd2wCkQeFpszrmH+X4n0Y3iuUFwvVWo5I2tCvWIWVs6cMjp4DnO8dYbohEs1aL9tdFIIrRWTgTXC71kNL0GFEh3E35sArgVQ906mw87kvmmY0BDOB0/obZfhmYCi5/GFogPoLC1wIBAA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by CHAPR12MB999248.namprd12.prod.outlook.com (2603:10b6:610:2ff::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
+ 2026 12:05:31 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0472.016; Wed, 7 Oct 2026
+ 12:05:31 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 07 Oct 2026 21:05:28 +0900
+Message-Id: <DLYLCD5IPKGZ.2DMT37GPHPP74@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
+ <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v3 7/8] gpu: nova-core: add NVKV typed decoding
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+References: <20260928-b4-nvkv-v3-0-f04504c262c2@nvidia.com>
+ <20260928-b4-nvkv-v3-7-f04504c262c2@nvidia.com>
+In-Reply-To: <20260928-b4-nvkv-v3-7-f04504c262c2@nvidia.com>
+X-ClientProxiedBy: OS3P286CA0119.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:604:1f7::15) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] [PATCH v3 7/7] sched/eevdf: Move to a single
- runqueue
-To: Mike Galbraith <efault@gmx.de>, Chen Yu <yu.c.chen@intel.com>,
- kprateek.nayak@amd.com
-Cc: Peter Zijlstra <peterz@infradead.org>, mingo@kernel.org,
- longman@redhat.com, chenridong@huaweicloud.com, juri.lelli@redhat.com,
- vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
- bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, tj@kernel.org,
- hannes@cmpxchg.org, mkoutny@suse.com, cgroups@vger.kernel.org,
- linux-kernel@vger.kernel.org, jstultz@google.com, qyousef@layalina.io,
- Ryan Roberts <ryan.roberts@arm.com>, chen.yu@linux.dev
-References: <20260605105513.354837583@infradead.org>
- <20260605124052.227463677@infradead.org>
- <bd81bbec-ee59-401a-bec6-116196ad3a34@arm.com> <arQCykkkCnADu5ek@chenyu-dev>
- <128e93ca1424630546e39f9e9c1377f8185f7644.camel@gmx.de>
- <arnbKNWNIIEcQ0a-@chenyu-dev>
- <4d4f5fdee4d1f462ba3490a6b3921006285e7fcc.camel@gmx.de>
-Content-Language: en-US
-From: Aishwarya Rambhadran <aishwarya.rambhadran@arm.com>
-In-Reply-To: <4d4f5fdee4d1f462ba3490a6b3921006285e7fcc.camel@gmx.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|CHAPR12MB999248:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6f474cc4-fa6b-4c49-8d01-08df246b48b2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|10070799003|7416014|23010399003|376014|56012099006|5023799004|4143699003|11063799006|22082099003|10067099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	6/eWntS5paoyfBokQMVLc5C87HobF//bM4ycfS78/iPs5wDNtQG7EsnmB/nIJ/gJDb5dB3prbsbusxwg/6uArAGWz0UsSiNk41c1BawGhTm/+HrGd6VZ1cts5HcATYKCbDIAQwnYni29arGcKHfoqSL+YjYLEUwtVvU0pCeDL2/XZARaW/s8+j+INcMvGJarXLEUSI6lGjaczcUqjs12ExaHdSEWGkp0MbCNMt749unRQUBUonzPYAcnaJMX/i1vJWzcFfgk4mmDN8xh9HmaQsEURD8KudWVYHPfLpK3Pce/psx3dKWWxY4tbVhPZPgQFn9VZGwDc8veO7zmGhkTDaBcDhwbmHXmLwid+vZK2prTZ7ajdFFK5VRN0zd62G6JLGln/pKe6k+Tf97WpOE5eFZ8GgUAl3rLUfgo4QJ96JpkAoc1jaOsDTnF8t1mt9UI1ZjzogNsWM+9dtRnxRPz2oDKPKmPyDF+3v1FUXCO4DeC6NHV2DGwKSkt8s6vD7mDlrHilJG1G/AMoV/VVe5TAiuzj3Flr7pvsvanHeWg/LnvtBno43X1nxr/ZEoenbOJMv4e6kVbwacsZNELSW8YaykpGACL0nTiUFPF3fRcdFxnQZvOSoCDY1V3Q0l3DecavxBcdQyNWLXNNS2M0THwON2SbNAUGmEesOHNg56NuKs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(10070799003)(7416014)(23010399003)(376014)(56012099006)(5023799004)(4143699003)(11063799006)(22082099003)(10067099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VFR1emN3MjdJYUUxWndRL2VTd0pVeUlVZkZVZyt6UjhoUm9Mb3BJTC9sN3NN?=
+ =?utf-8?B?MkZDeVBOdlBQQVNOUWpGV2hQYzNRa3JpQVRWOGY2VmZYTm0zcXdSeDBLMk9X?=
+ =?utf-8?B?TjJrSFV3Mk13dm5ielBxeDgyL3ZYUDNZaUJHTU96M1JRWEovbGJJekIxdTRL?=
+ =?utf-8?B?VVBMVW5xUHpvRlN1RUUrcVJMOW91aUpCVldIa2xqWkNubjFJNk1IcHEvQm5C?=
+ =?utf-8?B?clVod2xESXRUNjJ3dmdsMTNwZk5VeHNndkU2Sis5S0tIOEkyTUE4S2lJYXZN?=
+ =?utf-8?B?Q1FuQ1pJclY2WFZmZ0N4Z29Oekx2ZmRGY0FSZDFRdkRJTjNBOWlTYk1vcVNH?=
+ =?utf-8?B?VGJJb2FHa0hUYzh4OStpcmtjbUlXS09BOXVueXJ3Z1BQbUVNeTBQT1hoSkpP?=
+ =?utf-8?B?ei9LUzRCSmtWT0RuaEFkRnN5OW95a3RTRytCOUFmaE9UNVhFMFZPVmlGcEhh?=
+ =?utf-8?B?NThBNm1TSjZ5WVhRazVVa0YxelltcjVnaVZGbkt4SWV0YThVSCswdGJEWWgv?=
+ =?utf-8?B?dEZiR2hmOThkMDloS01KdmpjZkM3dzl3U3J4WGN0MGM5bUVxZ3g5SUkyTDBV?=
+ =?utf-8?B?VFZMb3ZPL0ZJSGJJUng5V0N5SW0vVlljRkR4MEQ0MGZ6ckhjbWd0WWlpNFMx?=
+ =?utf-8?B?d3RwMnhuaDh4NDFtd0t4RFovSit3Q0ZMMTN0Nkw1VEt5SkJGTVlxbUVGMlZq?=
+ =?utf-8?B?ZmMwU0N5aHBFZnZLeXZKdkpIbTNXeWhWSUFtS3lNS2FJdStpTjNkNTJOV1ow?=
+ =?utf-8?B?VktlVi9id3BBdG9aeWJmL3BUL0tvaCtyNUVwcmp3ZXFKL0FnVXp2anI3dXFW?=
+ =?utf-8?B?cXZPamk0QkVwWG0veDhmc2VqWkFTaWV4czhEazU2SVhadVNjQ1QzYkxVNjB4?=
+ =?utf-8?B?d1BTM1ZVbitpWjVITzNrSjdLQ09SVUQ2Slp5TkVIU1JnbHpURmlWS2pjNER5?=
+ =?utf-8?B?TEpXb3BxVlFzcURNOVRZNUwwbjlQcVEvOUM5TU1hUDBzZlI4N053SGkrS0Jh?=
+ =?utf-8?B?bmNQTndJb25QMzFwN3dSWkw3N0IxMmNRUjdlKzU2SXpTVWxhWTlNaG5IMU9J?=
+ =?utf-8?B?dHo1RVp6NEN1VEJTTkNNTGxGYTRHSlBRNThNMzFRS0RhT1pMNGNYbTVPQXF0?=
+ =?utf-8?B?c1dSRWNlVXBSRDFzc1N2bXNNYmJvYm1DbUJ2dGU1bEVna25acG43a0FiZGNS?=
+ =?utf-8?B?WG1VeUllWm1NYW1aRDlENzZ2WFFLbGRBN1VTNjFDMjdEVHZLVzhVdVJmWWlx?=
+ =?utf-8?B?dXJlZWdPK09uYUFBeUpxdHZHeWIrSlhabFdnaHI5TGdmMjlnNTJ1UVgzbG53?=
+ =?utf-8?B?NTYzSmIxNXk0Wm84bUFrcXhGRjgyWDBtK21UNCtSNXhSaTNuOUVhWEpHQ1hP?=
+ =?utf-8?B?d29ObDN6dDVDdWR2V3NvSVVTSS9FMGVFTjJncDBWbFM4WE1YZnNUckVEQVZQ?=
+ =?utf-8?B?K0JxTUoyNlRWWHVpcWpvSENFREl2cGRqYzFIVGRleld5SVIxeldqV0NoNlVQ?=
+ =?utf-8?B?Zm5raDJWNDdaVU1HeUo2eVUyN3B1UTQwM1ZtNUE0R2Fzc0RqOEliaWVEZUNz?=
+ =?utf-8?B?aTFTcDFma09wVldvbFZtb2U5QUdoZFlEY0wxdUtkckFIdVBvTldEdWtUNGdU?=
+ =?utf-8?B?a3V0WDY4MmZIU284TnJRWGYzajJvSURtVG1BZnBkRUVVSE9YWmRmdHpHTU5x?=
+ =?utf-8?B?SlRwR1ZHbVZaMDhrWTdFbXltaFd3OVYzWUtXV0FpMFRnUUprNlg2NUNkZG5k?=
+ =?utf-8?B?UERLSTBXL3JQaFpvdEJNU0Q3RWkyYUJaakpITXVCSGJnVzJyWFZ0SzRHUEt3?=
+ =?utf-8?B?dTBhVjFZbGJWZ0RDSDFobXpWQi9uOGdxNDdGYjl3TnpSd3VTcWxnSzdtSkZW?=
+ =?utf-8?B?Z1dmcE8rMEE4VHhBNUFoaTlNaXhObWhwNXFuUXdzMC95TG1IUWVyejJlVE1P?=
+ =?utf-8?B?cnZ3enA2Zk53M3BBVWRNQk9Pb2JJNG9idXgwK21SVExrZHladkdtMjAva01N?=
+ =?utf-8?B?UjBhTTBlSi9TaUwzbUsvV3VadTJHam04VUx1SDM5ZnJtRExQMTU3WVhJaHNX?=
+ =?utf-8?B?eG5nZVdTTkk3M0lKUG82S3N1Z0QyeTRhZ1ZhN215djRJcVdIUnhtblpJa3Ba?=
+ =?utf-8?B?R2VuZU1IK0JnOVZSWDlNZ2V0ckErNEhDM2daMGllZHRwMlpiSm95VEl2RWNK?=
+ =?utf-8?B?ZTY2WFVicVF3OWpjMExMaTNjYUNsckJYMy9ZVVJ4MGRkNWd4dW5MdGQ4aEVV?=
+ =?utf-8?B?U3BOd2MwdzVMbDVOVWlSNHFUeDhuZ2grL05iaEdWYzFXT3VBTFJ0OTB2eGJ1?=
+ =?utf-8?B?ODVmanVMZ2luMGM5bEhEZHZEZlorVHl4WmltdmxnWjUwdEN1cVJYWWtFMC9B?=
+ =?utf-8?Q?Y6xcV0UJ/Y84LUDtXPc4cdsveXHLQVingUnEas61i7LqC?=
+X-MS-Exchange-AntiSpam-MessageData-1: aB0xEfqsEhJ92Q==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6f474cc4-fa6b-4c49-8d01-08df246b48b2
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 12:05:31.1532
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kG3CDLURbMHzUI+SEbvAdp/PxA7YCgQLRhJt5RG9uK0/IWdlGyG5HRZEgyms2PTlsO28Ug50MzRY93T20whoeg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CHAPR12MB999248
 
-Hi all,
+Sorry, some follow-up comments after my previous review.
 
-Thanks for the suggestions. I ran a couple of follow-up tests on the
-same AWS Graviton3 (m7g.metal) setup with v7.3-rc4:
-
-1. Disable WA_WEIGHT:
-echo NO_WA_WEIGHT > /sys/kernel/debug/sched/features
-
-2. Use the "smp" cgroup mode:
-echo smp > /sys/kernel/debug/sched/cgroup_mode
-
-Both tests were run with 20 repeats across 2 boot sessions. Below are
-the request latency p99 results for schbench configurations discussed
-earlier (usec, smaller is better):
-
-message-thread:16, worker-thread:16
-v7.2 = 662869
-v7.3-rc4 = 969557
-NO_WA_WEIGHT = 958541
-smp = 723098
-
-message-thread:64, worker-thread:4
-v7.2 = 730453
-v7.3-rc4 = 942251
-NO_WA_WEIGHT = 740454
-smp = 818483
-
-message-thread:32, worker-thread:4
-v7.2 = 74251
-v7.3-rc4 = 56725
-NO_WA_WEIGHT = 59008
-smp = 82053
-
-For the m:16 t:16 case that I originally bisected, disabling WA_WEIGHT
-does not materially change the regression. Switching to cgroup_mode=smp,
-however, recovers most of it.
-
-The m:64 t:4 case behaves differently. Disabling WA_WEIGHT brings the
-p99 latency almost back to the v7.2 value, while using smp mode gives
-a partial recovery.
-
-There is also an interesting result with m:32 t:4, which was one of the
-configurations that improved with v7.3-rc4. That improvement is mostly
-preserved with NO_WA_WEIGHT, but disappears with cgroup_mode=smp.
-
-So this does not seem to point to WA_WEIGHT alone as the cause of the
-original regression. The results seem consistent with the workload/load-
-dependent behavior discussed in this thread, where weight calculation
-and resulting placement decisions can help some schbench configurations
-while hurting others.
-
-For the original m:16 t:16 regression in particular, the larger recovery
-with cgroup_mode=smp also seems consistent with Prateek's observation
-that the older weight calculation performs closer to the hierarchical
-pick.
-
-Overall, the results suggest that the latency changes are sensitive to
-the workload configuration and the weight calculation being used, rather
-than being a uniform regression from the single-runqueue change.
-It would be interesting to understand whether this variation across
-load points is an expected consequence of the new weight calculation,
-or whether there is still scope to avoid the larger p99 regressions.
-
-Thanks,
-Aishwarya
-
-On 28/09/26 6:30 PM, Mike Galbraith wrote:
-> On Mon, 2026-09-28 at 11:12 +0800, Chen Yu wrote:
->> According to my test last week, stacking the waker and wakee on the same CPU brings
->> a big improvement on my machine, iff the memory bandwidth is saturated. By comparison,
->> if the memory bandwidth is low, stacking the wakee on top of the waker causes harm.
-> Ditto CPU wise.  The impact of even modest waker/wakee concurrency is
-> considerable.  For much of netperf, the post-wakeup tail becomes a CPU
-> service latency injection for the wakee when unnecessarily stacked.
-> While cache misses sting, those hurt.
+On Mon Sep 28, 2026 at 5:42 PM JST, Eliot Courtney wrote:
+> Similar to the typed encoding layer, add some decoding type machinery.
+> Add a simple macro `nvkv_decode!` which implements `Schema` for a struct
+> by composing visit calls to each member. Add some common `Schema` kinds,
+> such as `Array` which collects an array value into a fixed maximum size
+> array, and `Required` which fails a decode if the value is not sent.
 >
-> As box approaches saturation, stacking of somewhat synchronous stuff
-> becomes a better bet.  Aiming for having only waker's tail between
-> wakee and CPU has decent chance of being a winner in a box full of
-> wider obstacles.
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> ---
+>  drivers/gpu/nova-core/gsp/nvkv.rs        |  11 +-
+>  drivers/gpu/nova-core/gsp/nvkv/decode.rs | 622 +++++++++++++++++++++++++=
++++++-
+>  2 files changed, 628 insertions(+), 5 deletions(-)
 >
-> 	-Mike
+> diff --git a/drivers/gpu/nova-core/gsp/nvkv.rs b/drivers/gpu/nova-core/gs=
+p/nvkv.rs
+> index 7ac3a459a98b..5791df07a7fa 100644
+> --- a/drivers/gpu/nova-core/gsp/nvkv.rs
+> +++ b/drivers/gpu/nova-core/gsp/nvkv.rs
+> @@ -9,7 +9,7 @@
+>  //! function calls will map to some struct - for example, f(GPU_NAME_STR=
+ING_KEY, 0, b"some gpu")
+>  //! naturally maps to storing a &str with the GPU name.
+> =20
+> -#![expect(unused_imports)]
+> +#![cfg_attr(not(CONFIG_KUNIT), expect(unused_imports))]
+>  #![cfg_attr(not(CONFIG_KUNIT), expect(unused_macros))]
+> =20
+>  use core::{
+> @@ -23,7 +23,8 @@
+>  use kernel::{
+>      alloc::{
+>          allocator::KVmalloc,
+> -        Allocator, //
+> +        Allocator,
+> +        ArrayVec, //
+>      },
+>      bitfield,
+>      num::Bounded,
+> @@ -148,6 +149,12 @@ fn default() -> Self {
+>      }
+>  }
+> =20
+> +/// A schema field for an array value under the NVKV key `KEY_ID`.
+> +#[repr(transparent)]
 
+I see that `#[repr(transparent)]` is used several times in this series,
+but is there a need for it? Same for the many `#[inline]`s, here I feel
+like letting the compiler arrange things as it wants might be the better
+call. I know I suggested downgrading from always-inline to just inline,
+so maybe we should go all the way here. These are very likely to be
+inlined anyway, and worst case I don't think a function call would
+induce a big cost.
+
+<...>
+> +impl<T: Default, const KEY_ID: KeyId> Schema for Key<T, KEY_ID> {
+> +    type Target =3D T;
+> +
+> +    #[inline]
+> +    fn init() -> impl Init<Self> {
+> +        Self::default()
+> +    }
+> +
+> +    #[inline]
+> +    fn finish(&mut self) -> impl Init<Self::Target, Error> + '_ {
+> +        Ok(core::mem::take(&mut self.0))
+> +    }
+> +}
+
+Both methods return the built value on the stack, which is fine when we
+only deal with scalars but technically we could also store larger
+values. How about a `const_assert!` ensuring we don't go beyond, say, 32
+bytes for the size of `T` and `Target`?
+
+<...>
+> +/// A schema field for a key that must be present.
+> +///
+> +/// `finish` fails with `EINVAL` if no value arrived for the key.
+> +#[repr(transparent)]
+> +pub(crate) struct Required<T, const KEY_ID: KeyId>(Key<Option<T>, KEY_ID=
+>);
+> +
+> +impl<T, const KEY_ID: KeyId> Schema for Required<T, KEY_ID> {
+> +    type Target =3D T;
+> +
+> +    #[inline]
+> +    fn init() -> impl Init<Self> {
+> +        Self(None.into())
+> +    }
+> +
+> +    #[inline]
+> +    fn finish(&mut self) -> impl Init<Self::Target, Error> + '_ {
+> +        (self.0).0.take().ok_or(EINVAL)
+
+I've experimented a bit with my earlier suggestion of having a wrapping
+`Required` type because I wasn't so sure it would work, but it seems to
+be indeed doable! Here is my draft implementation:
+
+pub(crate) struct Required<S: Schema> {
+    inner: S,
+    parsed: bool,
+}
+
+impl<S: Schema> Schema for Required<S> {
+    type Target =3D S::Target;
+
+    fn init() -> impl Init<Self> {
+        init!(Self { inner <- S::init(), parsed: false })
+    }
+
+    fn finish(&mut self) -> impl Init<Self::Target, Error> + '_ {
+        // Reset `self.parsed` to make the schema empty again per the metho=
+d contract.
+        let parsed =3D core::mem::take(&mut self.parsed);
+        self.inner
+            .finish()
+            .chain(move |_| if parsed { Ok(()) } else { Err(EINVAL) })
+    }
+}
+
+impl<'data, S: Schema + Visit<'data>> Visit<'data> for Required<S> {
+    fn visit(&mut self, key: KeyId, index: Index, value: DecoderValue<'data=
+>) -> Result<bool> {
+        let consumed =3D self.inner.visit(key, index, value)?;
+        self.parsed |=3D consumed;
+        Ok(consumed)
+    }
+}
+
+You need to convert all the `Required<T, ...>` into `Required<Key<T,
+...>>`, but this reads more logically I think, and now you can combine
+`Required` with more types. I believe you could also implement
+`Optional` in a similar way.
+
+(you will also need to add a `#[derive(Default)]` to `FbRegionFlags` on
+the next patch, but that's not a big deal since it wraps a primitive
+type anyway)
