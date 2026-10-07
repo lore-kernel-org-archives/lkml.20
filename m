@@ -1,220 +1,153 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010008.outbound.protection.outlook.com [52.101.193.8])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 355393C2B92;
-	Wed,  7 Oct 2026 05:49:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.8
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791352153; cv=fail; b=gvvmrRyWfLyPYmBv6yg7Wkr9U8XUjwW7tHnIHBW0TydAB1jTOCGUIw9DbtOV71eeB5qFalzXWQyCdDBMgrrbSOMurNxNirgnnDDsRnbbLnwZW+/FThzmbyeG+O8BEPVSvBPgbZk+U6bU8Idsrq2MaUfphaa2ZZ4Jeo1vrfuY8J0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791352153; c=relaxed/simple;
-	bh=Fq85IhFfwXtkiyXR5JT4shoORAa1oB7aAmTZ+++SrlY=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HuMKyG02yEIEmIZj1Nrp1o6o1wWn957+WWpEsLzcrrEvg1m3KtcVqQLnqxufuhuf2E15iThHIm5XYNil0fKXtq0aGvIT56HK1MjHKBbv+Qrnl4uz5pLLltW6E44xQWEZ5lBSym9pjjBs1xu0u5mBooDAwtAflcO8AD7tszuYZTE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=cyQZr/mB; arc=fail smtp.client-ip=52.101.193.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D957360745;
+	Wed,  7 Oct 2026 05:50:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791352237; cv=none; b=lMgHeXa/4DP+hVG2NP9pKZjoNvO9x3SjlvN7nCeZFXviXB/fL/8+HikoR2FCBy9R9otVIpi3M1pn6eb7nwCaZiuVyRULUOhKnz1INazQ3LcSP4VJv9JhApx8/f5izxNwitfNGdnnQWxz4aBrtAthPt2UrLax1xL7ysA6XtMT9lo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791352237; c=relaxed/simple;
+	bh=fZTDNsKn1HKr9A/yk8Fri+buAgm9cLfacIEi8U2WN5w=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=PZLzNGc0hzSdhF/nohx7CkYuRX8r7ixEJfEi4LZ5uZ0+a8RCsK/tS5pCA3//iH68INPGRqaONm88XI/d2dz67XkI2VJPP2w3pq+Lj8b6FbfX+Amw27D+jXKx/6jknbrYL1vZlW+R4SDSxx715d83N7kbTOzWJBbqosHLO2GVkcY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=VU22Ne7I; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="cyQZr/mB"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Wd+xRBcTSUpZT19I/np8CCeI6/ivnBHqSQaL0lWhqCgJyX+pgksBlKR8MECusXwd/o6Pg3G3mBUqVtKv9n6cQjSIwVNIByrrv5Ojnn0hURkWVobYAh2sKprqNNbQwZ7nSRb+C2k3HUKPzTARQHiP44dGarsDo4xHOg7+efpH5bPjBVyCBQ533sQzwntZYhU2HnqhAtnDQuJuVWanFELkbP+fIUL0rPimdq+Btl9TogOgYxFjYmxyDzwH2aePssAilKbuRJE8i+Mm0QuwoIyCJhNfRKfs5wb9MAJN+oPhXSYFues2NiZ8XJwkTPVm9YBta//seQcfLMck7bs0vH9FAQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vSzNi4EvVutdnMmQvgPasnsayTAsAXITzEa7HikOenI=;
- b=UsYmSWs1NCa+cdxZT0YGUdYS5p0Mtv6niM1TPeeg+e2iPlWyCeafeBd2k6Y5GxjLawX2u1YvgJluLD/ZtZFsI5zSDLGtLc5g6cuLKoF0HLrQPVIHIWEkqCW//gRdfPvm8BviOzt6nwjdstM/6YzCWo272BcXoTlj/tXhXx2+lzu0EvLvtXX7ICCclugI/eDWgLY5u0tnuRDTh+GhS/j23wEck+Ma+wH1u6xVmpohotCPeB3iPic3VQKQdQcYmt3VXorGBJasl0egk7+blsJiHlKnDRNvmmHqYEk7SmDmulehToLhEXtU2dhJeLMaUdoJwb1FLhuUC0f3xND/jD+8ww==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lunn.ch smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vSzNi4EvVutdnMmQvgPasnsayTAsAXITzEa7HikOenI=;
- b=cyQZr/mBEZHC2s33AznneNhHcKEkCQ1mWhTmyZMC5NaFQ5tVap6+gp8ZxQz1tAtQoIVQ6AjrNHJoblbo9124Q1qHgHkYppg3rW6xtaFLtSKXn1s2U+YN7V0f/WvFu5wdEwR7c9qogYrfrTo7tMOFECRG5Me2wlFJhGjvroIrf7o=
-Received: from BN9P223CA0012.NAMP223.PROD.OUTLOOK.COM (2603:10b6:408:10b::17)
- by MN0PR12MB6248.namprd12.prod.outlook.com (2603:10b6:208:3c0::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Wed, 7 Oct
- 2026 05:49:04 +0000
-Received: from BN1PEPF00004685.namprd03.prod.outlook.com
- (2603:10b6:408:10b:cafe::62) by BN9P223CA0012.outlook.office365.com
- (2603:10b6:408:10b::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Wed, 7
- Oct 2026 05:49:04 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF00004685.mail.protection.outlook.com (10.167.243.86) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Wed, 7 Oct 2026 05:49:04 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
- 2026 00:49:03 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
- 2026 00:49:02 -0500
-Received: from xhdvineethc40.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Wed, 7 Oct 2026 00:48:58 -0500
-From: Vineeth Karumanchi <vineeth.karumanchi@amd.com>
-To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>, "David S. Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
-	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Michal Simek
-	<michal.simek@amd.com>, Harini Katakam <harini.katakam@xilinx.com>, "Florian
- Fainelli" <f.fainelli@gmail.com>, Kedareswara rao Appana <appanad@xilinx.com>
-CC: <netdev@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <vineeth.karumanchi@amd.com>, <git@amd.com>
-Subject: [PATCH net v2 2/2] net: phy: xilinx-gmii2rgmii: Restore PHY driver on remove
-Date: Wed, 7 Oct 2026 11:18:44 +0530
-Message-ID: <20261007054844.529363-3-vineeth.karumanchi@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261007054844.529363-1-vineeth.karumanchi@amd.com>
-References: <20261007054844.529363-1-vineeth.karumanchi@amd.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="VU22Ne7I"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6974Zd6X1408319;
+	Wed, 7 Oct 2026 05:50:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=4vBjNV
+	+/119ZZ4i+mhS1W6SmCgBr9Vd6CdJHam1SOrQ=; b=VU22Ne7Ibk71xi1EZSCE8o
+	jnVLqeuJfG2exIMMamqSsOo20kUfXA84ykUxT4h8roA5mpdJC+znGnrsUDx4U3Qh
+	SJppP0dBCEsYCL/eSBOZCxiZW381Yy1gv/L8b8sPNwtpxzDLOefz4XzhcINVewcv
+	9XiCQd0iBLN1sZfMKFbykb2yWq93Hi8BLKoY17CwFlBTUHwBbi9Qbar5RChP8p2U
+	lMJA/9YxaDMRzkoq4HqSyKmOrFGyD8z+3FUHs4hXYC0YoVuw9ynS8rDi6JmbQhb3
+	YcLBJVfarf9rq1GqNKnZELFzRR3S4pPiuSyj6M8Ope4mDrXZ8IzbgR1nsQr3fpyg
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2q4ju9j4-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 07 Oct 2026 05:50:34 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6974Wp4m100626;
+	Wed, 7 Oct 2026 05:50:34 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h5f3tr7p5-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 07 Oct 2026 05:50:33 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6975oU4k34537786
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 7 Oct 2026 05:50:30 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0D72E20040;
+	Wed,  7 Oct 2026 05:50:30 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7C5BE20043;
+	Wed,  7 Oct 2026 05:50:29 +0000 (GMT)
+Received: from localhost (unknown [9.111.168.1])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed,  7 Oct 2026 05:50:29 +0000 (GMT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00004685:EE_|MN0PR12MB6248:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0cc702be-5a26-46c5-647c-08df2436b20f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|82310400026|36860700016|1800799024|921020|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	uSQDJEabm3A2qQzhgC4I6+moeo1r4O3fkSVcBw+ws6MI72DmGOcaeNb0VgL4fy+vG/jZpiqsc1nMukP/BUG/TuwwFo1UznEz0kfsNCuVJs3G6DM6IOsnSQtMv3L7I1qV0Vn3qCLaPYUedXzVhDHd5CxGzoCHMODxqprgQvjHlBYpBt+tmryWTXkW6OrxIPChYRBY68OjbaypycnM2tOwDf5qNW95nszXmp6KtotaeoGSETvcHOox8dQuCqNMqf4hhf2Vp563VG/qfZGoWHip90GrvQWAbygpp3eQIxNz+1i7VdJ4EQiStXNI2FZQ+Ev2kdVWARGsBbvSzVycu1VXSovBKum9i8JIxL5f38c6YSMzJ/uxJozkZG11oUvuvKURGgbq9AnSyWW1Et0/vbE/Ef8dRvZmuaIuKa8Ff7+qBKst4fy8nHFiYNsDQb3cfc4w9kyZUJwHei5ETHg2Tmvc/CgdjSUT2mZqgXwpY3heGv+R927IBFO2OTo5oZ9EiX3L1j/Hv/7oCn/paTy2jHQAzRK2z11DFtAEMfO6bXsPnmuplLUvAfHK5xzK7LZ2lkwrHOA16WNz9NRg0ZxVfZXuM6D6Dm18Vn28Wt/pKprqpU70Aez9gheRDUYstcr2/dS1FzhMI5VHC9NOUrZbWqQxVXRJ2YMkB+ktQ6fqanZ7PyQR1F2hc+93m8GpubpQDVCpTNhGZHngK4942dNSgv1AFg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(82310400026)(36860700016)(1800799024)(921020)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	1BAKOIkZ/NIbHNMg7ku5X2UMyaILeA+k+PxS9HrCRhgyKVXZu0SN+Ks/jS/64dXnSCJotU9asxYWOakNDWra1tvhU1Dg6GtsDM2JodBlCySqAEdfxSQ48B7Z35h+zqsFZjOs5y2kXTKGartVqwXfHGttFm+Ly8do6GN/oMDhvFWVF+9K+QUrR3NO17sFNn9018wNTaSVA4NyY5/CGWSvBBuSrJexXjwM1pVGxAqPTSSu5paD9X/QPGvQ4IulQKR1qq02HP0P+fKgDkBO05SI5p59CSlHLwQ2DzY9jA4AyHophzGCQJZi5LHhWwoTlSalo1n0M083d8VFzK7mXgkmmXauVEztGbWqfG6u6j1nmZ+ZucmoEi13CB+KdOGrWVroMWl4n09IrbEP0kWin2ztUfj4nNMpLiH5LW1jrSI+kswbxCOhluUOGN8nu8ixzEPn
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 05:49:04.3661
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0cc702be-5a26-46c5-647c-08df2436b20f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF00004685.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6248
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 07 Oct 2026 07:50:29 +0200
+Message-Id: <DLYDD9DCCRNK.38E4BO92F0JJB@linux.ibm.com>
+Cc: "Heiko Carstens" <hca@linux.ibm.com>, "Vasily Gorbik"
+ <gor@linux.ibm.com>,
+        "Alexander Gordeev" <agordeev@linux.ibm.com>,
+        "Sven
+ Schnelle" <svens@linux.ibm.com>, <linux-s390@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 4/7] s390/pci: Fix use-after-free race in zpci
+ floating interrupt cleanup
+From: "Tobias Schumacher" <ts@linux.ibm.com>
+To: "Niklas Schnelle" <schnelle@linux.ibm.com>,
+        "Tobias Schumacher"
+ <ts@linux.ibm.com>,
+        "Gerd Bayer" <gbayer@linux.ibm.com>,
+        "Julian Ruess"
+ <julianr@linux.ibm.com>,
+        "Farhan Ali" <alifm@linux.ibm.com>,
+        "Christian
+ Borntraeger" <borntraeger@linux.ibm.com>,
+        "Halil Pasic"
+ <pasic@linux.ibm.com>,
+        "Matthew Rosato" <mjrosato@linux.ibm.com>
+X-Mailer: aerc HEAD-0d169b7
+References: <20261005-s390_irq_domain_fixes-v2-0-d45b824874c0@linux.ibm.com>
+ <20261005-s390_irq_domain_fixes-v2-4-d45b824874c0@linux.ibm.com>
+ <9551e60c73649927fb80e20230883551fa03c5a2.camel@linux.ibm.com>
+In-Reply-To: <9551e60c73649927fb80e20230883551fa03c5a2.camel@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: bNXr_JoK64RBUrNyJhcHYATsBMg6MolV
+X-Proofpoint-GUID: bNXr_JoK64RBUrNyJhcHYATsBMg6MolV
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAyMiBTYWx0ZWRfX7RGj4Mg59Vqx
+ gVjIaC+Q4xevOtX6HjgR5xQ9Z99xcJBfelezGyn/CvqkIzlEy6ta9AaqHO41XFBKqWYY2oXqpq4
+ WHEMUuROx8KACyI1MZIAeyy0p9/MsXA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAyMiBTYWx0ZWRfX1Qf9fW9mIoxL
+ jtgpyc6jb6ZYO4691cYJKDhrU01y73HDmGJ4WH4TQzt8pX+aOQI7RYbxT6bseEmqKbggei1zEJ7
+ HZ4O1qRN7Wb6TvNC2xGtVFpWNs14iGb8eR7VfgLGXRU+hugljeXMNG0oy2LwJnBYCKixu2vHCkm
+ ttzSyM9Ps6gyDhM4VA1w+4UOfwFzjXJqypm0n0ZuW/wNZ22z/Fnjw8tvVOsJgHCPw/EBK9mLoCj
+ D5T2lD2N6OwA6WOKeAJRKLDBTIN7OyUSeIgFosbLrdCNMFDUrdR93BR1CC6OxfU7tiaEQMVNP/0
+ Ald0cCUpd8jisSlA2VGe4gUtfot/bxpdN0X8gtg9Lcgwqt3PreAJDuOhJPZ0MNqhxWAs7V0Wbk+
+ u5E+D4EeWZLdOF7csRU8oIQv9pbKg+lDh1SHKNE/RiYkRPnWBgDZkB5xpebpsKcqxZWXp07Nzrh
+ I6JJJkjmH5cRRfqJU+Q==
+X-Authority-Analysis: v=2.4 cv=eYeo7LEH c=1 sm=1 tr=0 ts=6ac5ddaa cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=6k-qjkouZABmtyerVUgA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-07_02,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 clxscore=1015
+ spamscore=0 malwarescore=0 priorityscore=1501 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070022
 
-The GMII-to-RGMII converter replaces phydev->drv with a modified copy
-of the attached PHY driver. This copied driver is embedded in the
-converter's private data and is released when the converter is
-removed.
+On Tue Oct 6, 2026 at 5:18 PM CEST, Niklas Schnelle wrote:
+> On Mon, 2026-10-05 at 14:03 +0200, Tobias Schumacher wrote:
 
-Without a remove callback, phydev->drv continues to point to the freed
-copy after the converter is unbound. A subsequent PHY operation can
-dereference this stale pointer and result in a use-after-free.
+-- snip --
 
-With Generic KASAN enabled, unbinding only the converter while the
-external PHY remains active produces the following report (abridged):
+>> zpci_ibv served both delivery modes, indexed by summary bit under
+>
+> Nit: Maybe more precisely and matching the comment: "=E2=80=A6, indexed b=
+y
+> function under FLOATING and =E2=80=A6"?
 
-  BUG: KASAN: slab-use-after-free in phy_check_link_status+0x2d8/0x338
-  Read of size 8 at addr ffff000006c359b0 by task kworker/2:0/27
-  Workqueue: events_power_efficient phy_state_machine
-  Call trace:
-   phy_check_link_status+0x2d8/0x338
-   _phy_state_machine+0xdc/0xa4c
-   phy_state_machine+0x2c/0x70
-   process_one_work+0x554/0xe44
-   worker_thread+0x6d0/0x1180
-   kthread+0x2e8/0x5d4
-   ret_from_fork+0x10/0x20
+Agreed, will change that for v3.
 
-  Allocated by task 55:
-   ...
-   devm_kmalloc+0xac/0x2ac
-   xgmiitorgmii_probe+0xa0/0x37c
-   mdio_probe+0x68/0xb4
-   ...
+> --- snip ---
 
-  Freed by task 642:
-   ...
-   kfree+0x14c/0x38c
-   release_nodes+0xb4/0x1e0
-   devres_release_all+0x140/0x1f4
-   device_unbind_cleanup+0x20/0x190
-   device_release_driver_internal+0x344/0x460
-   device_driver_detach+0x3c/0x54
-   unbind_store+0xe0/0xf8
-   ...
+>>  static void zpci_msi_teardown_floating(struct zpci_dev *zdev)
+>>  {
+>> +	rcu_assign_pointer(zpci_ibv[zdev->aisb], NULL);
+>> +	synchronize_rcu();
+>> +	airq_iv_free_bit(zpci_sbv, zdev->aisb);
+>> +
+>>  	airq_iv_release(zdev->aibv);
+>>  	zdev->aibv =3D NULL;
+>> -	airq_iv_free_bit(zpci_sbv, zdev->aisb);
+>
+> Not sure why the aisb free moved to before the aibv release? The commit
+> message only explains why it is after the synchronize_rcu(). This way
+> it's also not in the opposite order of the allocation.
 
-Store the converter private data in its own MDIO device and add a
-remove callback. Restore the attached PHY's original driver only if
-phydev->drv still points to the converter's copy. Hold phydev->lock to
-serialize the restore against PHY callbacks that take that mutex.
+No reason, this ordering change is a leftover of a previous fix attempt.
+I'll move it back so the teardown mirrors the allocation again for v3.
 
-Also release the device reference acquired by of_phy_find_device().
-
-Fixes: f411a6160bd4 ("net: phy: Add gmiitorgmii converter support")
-Signed-off-by: Vineeth Karumanchi <vineeth.karumanchi@amd.com>
----
-Changes in v2:
-- Restore the original PHY driver only if phydev->drv still points to
-  the converter's copy.
-- Update the comment and commit message to describe serialization against
-  PHY callbacks that hold phydev->lock.
-
-Link to v1: https://lore.kernel.org/netdev/20261001074718.3944521-1-vineeth.karumanchi@amd.com/
-
- drivers/net/phy/xilinx_gmii2rgmii.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
-
-diff --git a/drivers/net/phy/xilinx_gmii2rgmii.c b/drivers/net/phy/xilinx_gmii2rgmii.c
-index 61f71e977a57..9dcdb91cd441 100644
---- a/drivers/net/phy/xilinx_gmii2rgmii.c
-+++ b/drivers/net/phy/xilinx_gmii2rgmii.c
-@@ -128,10 +128,27 @@ static int xgmiitorgmii_probe(struct mdio_device *mdiodev)
- 	priv->conv_phy_drv.read_status = xgmiitorgmii_read_status;
- 	priv->conv_phy_drv.set_loopback = xgmiitorgmii_set_loopback;
- 	priv->phy_dev->drv = &priv->conv_phy_drv;
-+	mdiodev_set_drvdata(mdiodev, priv);
- 
- 	return 0;
- }
- 
-+static void xgmiitorgmii_remove(struct mdio_device *mdiodev)
-+{
-+	struct gmii2rgmii *priv = mdiodev_get_drvdata(mdiodev);
-+
-+	/*
-+	 * Restore the original driver only if the converter's copy is still
-+	 * installed. Serialize against PHY callbacks that hold phydev->lock.
-+	 */
-+	mutex_lock(&priv->phy_dev->lock);
-+	if (priv->phy_dev->drv == &priv->conv_phy_drv)
-+		priv->phy_dev->drv = priv->phy_drv;
-+	mutex_unlock(&priv->phy_dev->lock);
-+
-+	put_device(&priv->phy_dev->mdio.dev);
-+}
-+
- static const struct of_device_id xgmiitorgmii_of_match[] = {
- 	{ .compatible = "xlnx,gmii-to-rgmii-1.0" },
- 	{},
-@@ -140,6 +157,7 @@ MODULE_DEVICE_TABLE(of, xgmiitorgmii_of_match);
- 
- static struct mdio_driver xgmiitorgmii_driver = {
- 	.probe	= xgmiitorgmii_probe,
-+	.remove	= xgmiitorgmii_remove,
- 	.mdiodrv.driver = {
- 		.name = "xgmiitorgmii",
- 		.of_match_table = xgmiitorgmii_of_match,
--- 
-2.43.0
-
+Thanks,
+Tobias
