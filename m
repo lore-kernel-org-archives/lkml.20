@@ -1,193 +1,160 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BC7B48383C;
-	Wed,  7 Oct 2026 10:29:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD8BA46984E
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 10:29:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791369006; cv=none; b=ehcxOEiEmBsUvEJqWZbvXpBaqZGj4Ls3dY3OeTS6JnM/jDpTE29/ZxXthGnLA3UER9RbmajxjlYii0tyAD6YqHl9ZFZXujbn0zChy27nVmZ2/KubtEtJrphW5ImGjCaMPQP3RjjY4UQQHFYINokuYRv/5AfETRlAe5dtMkW/S8A=
+	t=1791369012; cv=none; b=jCZ+OwSOg4PrbC5vj1p82A9WcenPQ2m2iaYohWmfJuuuxDhOqOf3r9dQmLJuySkofEc4NRvJNwG6WK99fY43rm9v2TFZUuPSN4dXSyVmJwi3E6+qLHioSZSj55+k15zWIR2JbqeiFCAVDK9G5RqEKl0Ck+w9aTwniLZZYy/LA+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791369006; c=relaxed/simple;
-	bh=YLAMddstn1TdC6dj6d62pz8vG6y5Ko1Mdg4jA91wFoM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=egiSuN4I9tXmsMckhLR064BOw402h0QO/5IoYkAQxLOAfsLhzM0hF/as4A9OC32SHhurrLE5C1ggTJsnTPD4Bs0hu8ntAEzswF0D1Wl+3Z+4T+0LocK/gBjHuT1+l+W/0yB8U9vGk0GdhbIAF1UEyHtphPE/nkwXEj181jKwv6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=t04kAcBz; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1791369012; c=relaxed/simple;
+	bh=VU+1mCWqo7+B67ddwoUD1gZe5snWq20ItfRTexL+qjo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gBodQLJK4+/qSRriW7kCCXX7HP6Mkz/HV2Jo6isIE6sFfcaXVcpU2QNX2oqRzJ8a/nvH8zlsyXbiLXgazI1NJy8gD88OnlGzI0GXCgUslejgP6Le1jWUiePrrjFA+eQjEoIDhgu8d/cKAOZR6DFMdb9Ec9W7lJEbQuPcqGpTH0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mtPPqZEF; arc=none smtp.client-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="t04kAcBz"
-Received: from [192.168.0.43] (chfd-03-b2-v4wan-176392-cust229.vm15.cable.virginm.net [82.19.20.230])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C5CAE1494;
-	Wed,  7 Oct 2026 12:27:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1791368875;
-	bh=YLAMddstn1TdC6dj6d62pz8vG6y5Ko1Mdg4jA91wFoM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=t04kAcBzACKzy1qQVQE84iYj/deeMsQjAAszWheD38x/xRSICsri6ov3jcCqx93w/
-	 tOBgzX0870WeUj+OXh/pi7Gn+7Oxp2AYBzaA0O6yeAtlaXgasAtdHAkVNiwwCmJ/tl
-	 tMr6QWl36hrHxykQdDlXtfc+xamMqeU3ZL4qEPtk=
-Message-ID: <d458c817-85d8-435d-9da5-2aee7b09fc34@ideasonboard.com>
-Date: Wed, 7 Oct 2026 11:29:48 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mtPPqZEF"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-88aea027391so1975822b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 03:29:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791368997; x=1791973797; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LSdEPaTFMwA4pJZC+adjE3HC41fXyUvfQa8u0qcPt5U=;
+        b=mtPPqZEFuEIIPgmsmct/v/UdBkffF0fMInWWUpwfyUDMCkeEKk3FSNeZjWHVmA5VQf
+         7juBjQVdfcW4OYwwCNHsqxUqo0PvGPdH8G7I+tuHcBTlA3CetKrLNQQY3KrO5h2nGLeq
+         eAow3U99eal4Ka0ZNtUVpQLngsgj2T1ku9lCTR6bnDcww7JUlJBbun90Jy30ztWNdl4J
+         OF3E4+njHtoRgsiRNXn+D7jgUlpIZMX7kHQad8HCOoVkE7GuT1I+AsM4/0T0aW2s7bAJ
+         71t7H7P8re9pV9NbZYcDCJWcoBMTT75cYyvUkj/2B4cxt8mSLLPci5vZyBU1IGofvwaj
+         0jpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791368997; x=1791973797;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LSdEPaTFMwA4pJZC+adjE3HC41fXyUvfQa8u0qcPt5U=;
+        b=ii+36peznLYjjGIfySMULWgXBUgcZFUZlw4q/7e7JLBQRAagzTmJRhenbLF9oRtc2A
+         KUWgmPRxOu3Y+YSvsYgzzs3gCHUqOV6FZnQTbJa9JNyrmkYvd4Ly2Hx+YtH2j9hPS0IK
+         S6V44uIpQ4wMx3VLGDaYLJiG3ybwx+rz9GufJLVuykNiHj4+p+TgMqCgphhSB7ua279m
+         vw5lR905CM3zVDklDqCG2ASIMBgayebl/0GlanzGSlJOcRcZZz7/tbtkKiCq6pqR0/EH
+         iBF/SCsHAoGV69xdR6pwPAIavClvVP91vR7uaVrOW6ObN/GYDYzG2jc9FMIZnp6dTnbs
+         pvkg==
+X-Forwarded-Encrypted: i=1; AKwUvBw3wO99GtXbF/UTToxbdB5KYtWM5xN5MynYmfi/NeWG74tS2TQYI1j5cFhJVyyZWXO+3JBS912smXdMrRY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kzVIQizLWTGaEX/HbptizrZaHh7noM+00DC+JA8SpkkV4/SsgU
+	AH5gakTLtsjyOBTWeVfW4JnyjQZJqBYchIEA0Kd6IYmRi6w3VomNiK2I
+X-Gm-Gg: AYBFou0cQhOZs5+x6fbxOguX2mZRz93YJjx/Fmvcsbmn4Jz7uf8MrdEhjp1XABD5a5/
+	M3Ib3SEU6sLZycDcOepNYHAUdw2vs+2lPco/7vQ2NO0Zo8dmL84cbQCFL/99oPsWu1fDSgflg1G
+	adwnlK7Y6I0NHMGHlCFp2LbDQR64bI0Vndy2irdPDO4yBponEJMGt9uvZpB5Ql792Sca2Ho4/Mu
+	L7B8lxqxY1ucozriILaXyWoXHqsFE93x6QWrEjQ5spnf3BU5A158l9jQG7Qs0hnwxG0WZg/J4Is
+	34AYRlDsZ93dIhErdC+gp2SIBquDX+ykeYVJYpMNrgIl1IfU4VfUAphj8GyXDqOK2noxXdU0jjO
+	P/e0VTq9suOBoZsGHGz2d3Mks4+GQ1KOOkXvrm+M7xeNn9FlnQIu6EclBDr6EU/cnAqfq4zvtZW
+	aZbHdM6diDFDcrS0iFTk+9lFZtrTCqDH3SF8q635nDsP5eupPG9FPgg33khjeOTUZ8H7U9K/GnG
+	1VNcrvw9mtb+133IAM+Zs0oI/Q=
+X-Received: by 2002:a05:6a00:852:b0:891:6aeb:84fc with SMTP id d2e1a72fcca58-891b3f28e06mr1514627b3a.22.1791368996941;
+        Wed, 07 Oct 2026 03:29:56 -0700 (PDT)
+Received: from obadmin-Precision-3680.atlascopco.group ([167.103.3.1])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-891894f75c4sm1102953b3a.38.2026.10.07.03.29.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 03:29:55 -0700 (PDT)
+From: Sahaj Chaudhari <sahaj123.sc@gmail.com>
+To: shuah@kernel.org
+Cc: linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sahaj Chaudhari <sahaj123.sc@gmail.com>
+Subject: [PATCH] selftests/prctl: Test PR_SET_MM_AUXV terminator
+Date: Wed,  7 Oct 2026 16:00:33 +0530
+Message-ID: <20261007103033.1549957-1-sahaj123.sc@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] media: mali-c55: Fix frame sequence numbers on
- dual-pipe hardware
-To: David Carlier <devnexen@gmail.com>,
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Nayden Kanchev <nayden.kanchev@arm.com>,
- Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260930174621.791831-1-devnexen@gmail.com>
-Content-Language: en-US
-From: Dan Scally <dan.scally@ideasonboard.com>
-In-Reply-To: <20260930174621.791831-1-devnexen@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi David
+Verify that a shortened vector supplied through PR_SET_MM_AUXV has a
+valid AT_NULL terminator when exposed through /proc/self/auxv. This
+catches stale AUXV entries left beyond the supplied vector.
 
-On 30/09/2026 18:46, David Carlier wrote:
-> The single frame_sequence counter in struct mali_c55_isp is incremented
-> in mali_c55_set_plane_done(), which runs once per completed buffer per
-> capture device rather than once per frame. Hardware fitted with the
-> downscale pipe always hits this: mali_c55_pipeline_ready() refuses to
-> start the ISP unless both the full-resolution and the downscale queues
-> are streaming, so the counter advances twice per frame.
-> 
-> Each video node then reports sequence numbers 0, 2, 4, ..., which
-> userspace reads as a dropped frame between every pair of frames, and the
-> two pipes never number the same frame alike, contrary to
-> Documentation/admin-guide/media/mali-c55.rst. The V4L2_EVENT_FRAME_SYNC
-> event and the statistics and parameters buffers only read the counter,
-> so their sequence numbers stop identifying a frame too.
-> 
-> Increment the counter once per frame, when the ISP start interrupt is
-> handled, and stamp each capture buffer when mali_c55_set_next_buffer()
-> programs it, as it is written out during the following frame. Stamping
-> at completion would be off by one whenever DONE(n) and START(n+1) are
-> handled in the same interrupt, since ISP_START is processed first. Hold
-> the counter at UINT_MAX while the ISP is stopped, as the first buffers
-> are programmed before it starts, so the first frame gets sequence zero.
-> 
-> Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: David Carlier <devnexen@gmail.com>
-> ---
+Signed-off-by: Sahaj Chaudhari <sahaj123.sc@gmail.com>
+---
+ tools/testing/selftests/prctl/.gitignore      |  1 +
+ tools/testing/selftests/prctl/Makefile        |  1 +
+ .../testing/selftests/prctl/pr_set_mm_auxv.c  | 42 +++++++++++++++++++
+ 3 files changed, 44 insertions(+)
+ create mode 100644 tools/testing/selftests/prctl/pr_set_mm_auxv.c
 
-I think this approach is fine. In v1 Jacopo said that he'd rather handle it with per-output counters 
-though; @Jacopo, do you mean there that you'd rather an independent sequence counter for the FR and 
-DS outputs?
-
-Thanks
-Dan
-
-> v2:
->   - Stamp the buffer sequence in mali_c55_set_next_buffer() instead of
->     at completion, which broke when START(n+1) and DONE(n) are handled
->     together (Jacopo)
->   - Reset the counter when the ISP stops instead of when it starts
-> 
-> v1: https://lore.kernel.org/r/20260801205311.386692-1-devnexen@gmail.com
-> ---
->   drivers/media/platform/arm/mali-c55/mali-c55-capture.c | 5 +++--
->   drivers/media/platform/arm/mali-c55/mali-c55-common.h  | 4 ++++
->   drivers/media/platform/arm/mali-c55/mali-c55-core.c    | 1 +
->   drivers/media/platform/arm/mali-c55/mali-c55-isp.c     | 3 ++-
->   4 files changed, 10 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
-> index ff01553026fb..fa073ce4b2bd 100644
-> --- a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
-> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
-> @@ -413,6 +413,9 @@ void mali_c55_set_next_buffer(struct mali_c55_cap_dev *cap_dev)
->   		return;
->   	}
->   
-> +	/* The buffer is written out during the frame following this one. */
-> +	buf->vb.sequence = cap_dev->mali_c55->isp.frame_sequence + 1;
-> +
->   	pix_mp = &cap_dev->format.format;
->   
->   	mali_c55_cap_dev_update_bits(cap_dev, MALI_C55_REG_Y_WRITER_MODE,
-> @@ -457,7 +460,6 @@ void mali_c55_set_next_buffer(struct mali_c55_cap_dev *cap_dev)
->   void mali_c55_set_plane_done(struct mali_c55_cap_dev *cap_dev,
->   			     enum mali_c55_planes plane)
->   {
-> -	struct mali_c55_isp *isp = &cap_dev->mali_c55->isp;
->   	struct mali_c55_buffer *buf;
->   
->   	scoped_guard(spinlock, &cap_dev->buffers.processing_lock) {
-> @@ -476,7 +478,6 @@ void mali_c55_set_plane_done(struct mali_c55_cap_dev *cap_dev,
->   
->   	/* If the other plane is also done... */
->   	buf->vb.vb2_buf.timestamp = ktime_get_boottime_ns();
-> -	buf->vb.sequence = isp->frame_sequence++;
->   	vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_DONE);
->   }
->   
-> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-common.h b/drivers/media/platform/arm/mali-c55/mali-c55-common.h
-> index 13a3e9dc4243..50f2b7a85f62 100644
-> --- a/drivers/media/platform/arm/mali-c55/mali-c55-common.h
-> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-common.h
-> @@ -76,6 +76,10 @@ struct mali_c55_isp {
->   	struct media_pad *remote_src;
->   	/* Mutex to guard vb2 start/stop streaming */
->   	struct mutex capture_lock;
-> +	/*
-> +	 * Sequence of the frame being processed, incremented at SOF. Held at
-> +	 * UINT_MAX while stopped so the first frame gets sequence 0.
-> +	 */
->   	unsigned int frame_sequence;
->   };
->   
-> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-> index fb81141d1653..be562156b295 100644
-> --- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-> @@ -573,6 +573,7 @@ static irqreturn_t mali_c55_isr(int irq, void *context)
->   	for_each_set_bit(i, &interrupt_status, MALI_C55_NUM_IRQ_BITS) {
->   		switch (i) {
->   		case MALI_C55_IRQ_ISP_START:
-> +			mali_c55->isp.frame_sequence++;
->   			mali_c55_isp_queue_event_sof(mali_c55);
->   
->   			mali_c55_set_next_buffer(&mali_c55->cap_devs[MALI_C55_CAP_DEV_FR]);
-> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-isp.c b/drivers/media/platform/arm/mali-c55/mali-c55-isp.c
-> index e128adf6ee37..dd3bce287a3d 100644
-> --- a/drivers/media/platform/arm/mali-c55/mali-c55-isp.c
-> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-isp.c
-> @@ -342,7 +342,6 @@ static int mali_c55_isp_enable_streams(struct v4l2_subdev *sd,
->   
->   	src_sd = media_entity_to_v4l2_subdev(isp->remote_src->entity);
->   
-> -	isp->frame_sequence = 0;
->   	ret = mali_c55_isp_start(mali_c55, state);
->   	if (ret) {
->   		dev_err(mali_c55->dev, "Failed to start ISP\n");
-> @@ -380,6 +379,7 @@ static int mali_c55_isp_disable_streams(struct v4l2_subdev *sd,
->   	isp->remote_src = NULL;
->   
->   	mali_c55_isp_stop(mali_c55);
-> +	isp->frame_sequence = UINT_MAX;
->   
->   	return 0;
->   }
-> @@ -584,6 +584,7 @@ int mali_c55_register_isp(struct mali_c55 *mali_c55)
->   	int ret;
->   
->   	isp->mali_c55 = mali_c55;
-> +	isp->frame_sequence = UINT_MAX;
->   
->   	v4l2_subdev_init(sd, &mali_c55_isp_ops);
->   	sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE | V4L2_SUBDEV_FL_HAS_EVENTS;
-> 
-> base-commit: 95f76f51937fdfb0fc1e14cae606b1ef574a56f3
+diff --git a/tools/testing/selftests/prctl/.gitignore b/tools/testing/selftests/prctl/.gitignore
+index 05d5e31661dfd..089af0296aeca 100644
+--- a/tools/testing/selftests/prctl/.gitignore
++++ b/tools/testing/selftests/prctl/.gitignore
+@@ -4,3 +4,4 @@ disable-tsc-on-off-stress-test
+ disable-tsc-test
+ set-anon-vma-name-test
+ set-process-name
++pr_set_mm_auxv
+diff --git a/tools/testing/selftests/prctl/Makefile b/tools/testing/selftests/prctl/Makefile
+index e770e86fad9ac..a21811a8f6a06 100644
+--- a/tools/testing/selftests/prctl/Makefile
++++ b/tools/testing/selftests/prctl/Makefile
+@@ -6,6 +6,7 @@ override ARCH := $(shell echo $(ARCH) | sed -e s/i.86/x86/ -e s/x86_64/x86/)
+ ifeq ($(ARCH),x86)
+ TEST_PROGS := disable-tsc-ctxt-sw-stress-test disable-tsc-on-off-stress-test \
+ 		disable-tsc-test set-anon-vma-name-test set-process-name
++TEST_GEN_PROGS := pr_set_mm_auxv
+ all: $(TEST_PROGS)
+ 
+ include ../lib.mk
+diff --git a/tools/testing/selftests/prctl/pr_set_mm_auxv.c b/tools/testing/selftests/prctl/pr_set_mm_auxv.c
+new file mode 100644
+index 0000000000000..934ff480c0f4d
+--- /dev/null
++++ b/tools/testing/selftests/prctl/pr_set_mm_auxv.c
+@@ -0,0 +1,42 @@
++// SPDX-License-Identifier: GPL-2.0
++#include <elf.h>
++#include <errno.h>
++#include <fcntl.h>
++#include <sys/prctl.h>
++#include <unistd.h>
++
++#include "kselftest_harness.h"
++
++TEST(set_mm_auxv_terminator)
++{
++	unsigned long auxv[] = {
++		AT_UID, 0x1111,
++		AT_GID, 0x2222,
++	};
++	unsigned long result[64];
++	ssize_t len;
++	int fd;
++
++	if (prctl(PR_SET_MM, PR_SET_MM_AUXV, (unsigned long)auxv,
++		  sizeof(auxv), 0)) {
++		if (errno == EPERM)
++			SKIP(return, "requires CAP_SYS_RESOURCE");
++		ASSERT_EQ(errno, 0);
++	}
++
++	fd = open("/proc/self/auxv", O_RDONLY);
++	ASSERT_GE(fd, 0);
++
++	len = read(fd, result, sizeof(result));
++	close(fd);
++
++	ASSERT_GE(len, (ssize_t)(6 * sizeof(unsigned long)));
++	EXPECT_EQ(result[0], (unsigned long)AT_UID);
++	EXPECT_EQ(result[1], 0x1111UL);
++	EXPECT_EQ(result[2], (unsigned long)AT_GID);
++	EXPECT_EQ(result[3], 0x2222UL);
++	EXPECT_EQ(result[4], (unsigned long)AT_NULL);
++	EXPECT_EQ(result[5], 0UL);
++}
++
++TEST_HARNESS_MAIN
+-- 
+2.43.0
 
