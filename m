@@ -1,165 +1,121 @@
-Received: from mail.fris.de (mail.fris.de [116.203.77.234])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68CE64A5EA1
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 12:40:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.77.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A86F63CBE89
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 12:40:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791376812; cv=none; b=FY/Vlk55rxSjK7vTgW7try/Vo5HlvR3MtpRVDQWDxirBB7FoTBwWl+4aPycF/87pr5u7iKq8ic50codUKji6hoc4SU7LlU5QD6E65TpzfAaxuXKN6h6ahLKWxhxAv8nrfMBCjf0xu3ARiTn8be0Hy3Z1eN/nClLxaXYthplMAd4=
+	t=1791376818; cv=none; b=kEzOVko1G9Yhtw84lPb6bNEHxjLN6I16bBDyXHo7K7J8liY/KDRFajHU+tnh1WN6uBgfwWsfVMb/Q5wrIFBKaB0ChpYCX9y2lBoan6rzlvURTJOzNqg6ZhC9WrtFfigivEL3EqJ2PGdPBrDebuUHcueZA5rviY01Na98rIaSk60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791376812; c=relaxed/simple;
-	bh=m9+u0d9Xazs/df5fkpdv5Sw4ZwcWGpSF9sWm0loWmfc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=n0OakiAZjjIjxm7aYXYzq79MXtk50PrwUXcXQqnVFO2WDV2iQMjdOhXHBVrwOHsYUQvU2thQFwobxMCaBrg1qUPAt+Xh5+vIYWRQvhlt1dFC710lI7VYpZcuqbobpsp5y+B2vwMAPL5np+daR06huKekMlXvHEU4o7b4rkw3bP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=Tvks570H; arc=none smtp.client-ip=116.203.77.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fris.de
+	s=arc-20240116; t=1791376818; c=relaxed/simple;
+	bh=gvlnRPbIuQpBNlIetJA1tcoffwd0qPM41kLziATxBNQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NeFdiA7zFX2SOMvUNf5eYG+th/zt8v1nmdg3rm4iQerHk27MkCjkYZuM/uFWn50OAgsVJP94/toffoKUN3bh3FMEyeAxC/FqJG/Q+QaZVH+V32K4OUc0FCiKTvp6OIQVSnJNRnrqexnpU2m1N+HbBVY6SNjZk8MGiob4RZJ5g+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XTPXz2PY; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="Tvks570H"
-From: Frieder Schrempf <frieder@fris.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
-	t=1791376208;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=WHMsdtMcyk+8Q+f7Ua8bIT0rYNbiiZ8R6YG0j+dFBSk=;
-	b=Tvks570HmrX/sOyHn2IezEuj4Eqk9Bce38YRQJWwnkCY11jA1euIfHUOCakHoMdeLgCXDW
-	rHokY57wex0pRoY8qZ+8XZ5srNc7OLYFckVZK/65Nb+bRVjGOuVTHpH8G81wGHMv6T5sIP
-	zkMVd4yT/j4LGDkBoEzO1LjW0+4/Q31Yzfu6Sq5rkcxj5gMPZCQzE4L9wJVw3DNXsuHdQZ
-	w3hAKEQ4oan9lvWE75XiZSn+PjRSbVvj2WBsDznPmuMBC+bIA0AfP4/oaZ7KRFoE2wSd10
-	pEDgOxyDOMVoce1HFQcyFW55kNOj8nKhH4Wh2vVogMqiUqR4eT/WQTPpqMS77A==
-Date: Wed, 07 Oct 2026 14:29:56 +0200
-Subject: [PATCH] mtd: spinand: Do not re-enable continuous reads vetoed
- during variant selection
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XTPXz2PY"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e5fb79cefaso6542365ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 05:40:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791376807; x=1791981607; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lJssbI+xGs6ktfsC6Xw3DX5y7Ljs3Vvy25+XSMvy+cY=;
+        b=XTPXz2PYjgwqLYr/+KzYv1mgR6TQ93ZOQ85RnJchI3nMOQx5cq/fwUHtAESlF71XpC
+         a3xa3vUXerbShiA9FAbBNBLA47tv0zHBqfvwnYMXCEFXNCgParFFax+RUqNx3AjCjVoW
+         a/in+Mqzf8rnhDp+F5+FP0kff69nmS8C+JjFAXj8LESgMPc6xbSbl3NxHFzpIKRx/c/S
+         Pl+AjSa3nVsP3qpxY4EiXrtTVAgU1bwLS1J0EATgr6XHYJNAx/gnIjAaxPdp7kfV07bf
+         dnT/SZlAA+VmrdCp0JLcachYIElvHzfo1Tmzc0wTVF0Cxe2GIDOdbfev4TmWuHZa7mIQ
+         qF4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791376807; x=1791981607;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lJssbI+xGs6ktfsC6Xw3DX5y7Ljs3Vvy25+XSMvy+cY=;
+        b=ZD4Vr9UWkG6fgwwNnViGsTyDocArvfGHN8+ysly9jcKMwP3a3HuQAbacJHrONzLziI
+         uwcRqvdM8Fv/8E4bctfhTSyjA+4OW0KxvUKsp4xUtWL0V0odHcFoH3R9dJJVXuIz2+hj
+         2nS9mx8HmsjS2tSRKdUYY5mnTQfz5DhHW3BQLOQkLlsanhMfmY2yu1Cx+LQ5SUrvJBXl
+         ZWU6ZcQ6jvviIi1wDdABT/v8GCMAmZHLcWvez55ZrqPnivP5BQ/NrjfJXxJW/Ed3KfDZ
+         xlYEJSUQLQgsNdXQd9rY5BPFJSRyBUNk4zGw2YraohmclsnRr0fal4M3JDXIe+0+AknN
+         R6zQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzz4rwCUcv4X9LcLkCiZTASSc8XkIOShKlbbrzPzOj5yWvUWn4SkRKeIMdSStBfnICZRY3xHcbqsXmDLOY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKV0RF+D3HYP2zdCE2CHw2vnZQ8PoIQIM6EqNzhZiu45QiWlpwI
+	7ZAeVFhxBsKyD6FIiqsY9Uk6qnjh2SHiAZUCrTURgz1JncyKv3mOCuse
+X-Gm-Gg: AYBFou0EDj+lVNSpAxh3Q2MzEwXEnNeWocFDvb37dpxdfx1CqdKmRWg8LWAG2eUx6ni
+	BdnkuIv+/VdFJaKSnwUlf3HWS2/OMe+SF8ZnWYK0w9nlAhp9b+xXNxVJDsKX2+QjzPcKvT3tajO
+	fRSsFo0DSYnNzcXytOYyKHwuX+gUrX6uYFHGRPA+q+XtPMmkTgEKAzZ6dhGS0knJr3FHC7JNUTB
+	kO2BZOV62t8kFENZ+6wsiQk9wZLs9W3EFzlOMn5fgqITvRdONOZftVmDyuSYoK2VxZbZPjpSjFu
+	4eohJa50kWOz+0mqVkWfXau89242qkclCy3p2+AqWJqY6/j52gDt6nKF9YFuyVgo7qfxPpLZxLp
+	fyAw+nJZljTNyr7kmhT4+K2DugsOmp31XJoF//g6PScha2RqMMBKyxStAWtCp1AMK+zKf0I7BdT
+	b1GkbXRS6ctoFjwsTQUMVovksNMO301hsyoi/mO9fZ2ESg1MoCG7SLW/ij9nSsdxvKTC/iaDpBu
+	ywsVnoRH/hcwE4=
+X-Received: by 2002:a17:903:248:b0:2e3:cac:3868 with SMTP id d9443c01a7336-2e60050922cmr15218765ad.24.1791376806392;
+        Wed, 07 Oct 2026 05:40:06 -0700 (PDT)
+Received: from DESKTOP-NM9EKIA ([125.134.240.130])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e6046fd284sm9675095ad.15.2026.10.07.05.40.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 05:40:05 -0700 (PDT)
+From: Joonhoe Kim <26rote@gmail.com>
+To: andersson@kernel.org,
+	linusw@kernel.org,
+	brgl@kernel.org
+Cc: konrad.dybcio@oss.qualcomm.com,
+	jingyi.wang@oss.qualcomm.com,
+	linux-arm-msm@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] pinctrl: qcom: kaanapali: add the I2C strong pull-up bit
+Date: Wed,  7 Oct 2026 21:40:01 +0900
+Message-ID: <20261007124001.1724-1-26rote@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261007-spinand-cont-read-supported-v1-1-411facc04d99@kontron.de>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQrCMAyA4VcZORvoilPwVcRD16YaD2lJOhHG3
- t1uHr//8K9gpEwGt2EFpQ8bF+kYTwPEV5AnIadu8M5fRueuaJUlSMJYpKFSSGhLrUUb9ZZC9lN
- 2cz5P0A9VKfP3uN8ff9syvym2fQnb9gMFs2NdfwAAAA==
-X-Change-ID: 20261007-spinand-cont-read-supported-cdaf25f0bf45
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Frieder Schrempf <frieder.schrempf@kontron.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4434;
- i=frieder.schrempf@kontron.de; h=from:subject:message-id;
- bh=AGtlnWnwwn/wJDdwmj4K1iSV5CIBncvnLXETXmWNH1w=;
- b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JIeuYtX994fLAgrWfdZXiHF07m3It1vyX/yb84WvowVIFF
- k2Ny+EdpSwMYlwMsmKKLFL8Fq9tzWJ95I9VR8HMYWUCGcLAxSkAE1nHxPCH61dd9uyJToYeqVNO
- T2RnSri1i7Hd7VeTxb0XBsfmJDquZPifZaOpwWBgaGTxhrnww7kjT11zjpeUuvxpFprP5Dtx3iU
- 2AA==
-X-Developer-Key: i=frieder.schrempf@kontron.de; a=openpgp;
- fpr=1A0F38EB3D365D4C1FC67B5A69761B25107C8216
+Content-Transfer-Encoding: 8bit
 
-From: Frieder Schrempf <frieder.schrempf@kontron.de>
+The Kaanapali TLMM has the I2C pull-up control in bit 13 of the pin
+config register, like SM8550, SM8650 and X1E80100, but the driver does
+not describe it, so "bias-pull-up = <2200>" cannot select the strong
+pull-up.
 
-spinand_match_and_init() clears cont_read_possible when the fastest
-continuous read variant is slower than the fastest read from cache
-variant, or when no SSDR/ODTR continuous read variant is supported by
-the controller. However, at that point cont_read_possible has not been
-set yet, and spinand_cont_read_init(), which runs later during
-spinand_init(), unconditionally sets it to true for any chip
-implementing ->set_cont_read().
+The downstream kernel sets it on the camera CCI pins (config 0x2007).
+On a Lenovo TB323FU tablet, with only the weak pull-up every CCI
+transfer on the two sensor buses times out; with bit 13 set the sensors
+answer and their chip IDs read correctly.
 
-As a result, continuous reads end up being used while
-op_templates->cont_read_cache is NULL. spinand_create_dirmap() then does
-not provide a secondary template and spinand_read_from_cache_op() falls
-back to the regular read from cache operation while the chip is in
-continuous read mode. On Winbond chips, which do not expect the column
-address in this mode, this misaligns the data returned.
-
-Track the decision in a dedicated cont_read_unsupported flag and check it
-in spinand_cont_read_init() before enabling continuous reads.
-
-Fixes: 6eb7c193e751 ("mtd: spinand: Use secondary ops for continuous reads")
+Fixes: 35ff9c6b318a ("pinctrl: qcom: add the tlmm driver for Kaanapali platforms")
 Assisted-by: LLM
-Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
+Signed-off-by: Joonhoe Kim <26rote@gmail.com>
 ---
-I was using an LLM to check sync patches for U-Boot and the LLM reported
-a bug in the upstream kernel code. To me it looks like this is indeed a
-bug and the fix also looks correct to me, but I would like to mention, that
-this is purely LLM-generated and theoretical. I didn't verify the bug and
-the fix on actual hardware.
+The board uses it as "bias-pull-up = <2200>" on the CCI pin states; the
+Kaanapali CCI nodes in the CAMSS series (v18) use plain bias-pull-up,
+which keeps the weak pull-up.
 
-@Miquel: Do you have a hardware setup that would be affected by this? Do
-you think there is a better fix?
----
- drivers/mtd/nand/spi/core.c | 9 +++++----
- include/linux/mtd/spinand.h | 5 +++++
- 2 files changed, 10 insertions(+), 4 deletions(-)
+Tested on v7.3-rc4 with a test switch that clears bit 13 when the pin
+state is applied, rebinding both CCI controllers each time: with bit 13
+cleared the two sensors and the VCM on those buses failed with CCI
+timeouts 3 times out of 3, with it set they probed 3 times out of 3.
 
-diff --git a/drivers/mtd/nand/spi/core.c b/drivers/mtd/nand/spi/core.c
-index 95353777d7f7..e83341290ec3 100644
---- a/drivers/mtd/nand/spi/core.c
-+++ b/drivers/mtd/nand/spi/core.c
-@@ -995,7 +995,8 @@ static void spinand_cont_read_init(struct spinand_device *spinand)
- 
- 		if ((engine_type == NAND_ECC_ENGINE_TYPE_ON_DIE ||
- 		     engine_type == NAND_ECC_ENGINE_TYPE_NONE) &&
--		    !spi_mem_controller_is_capable(ctlr, no_cs_assertion))
-+		    !spi_mem_controller_is_capable(ctlr, no_cs_assertion) &&
-+		    !spinand->cont_read_unsupported)
- 			spinand->cont_read_possible = true;
- 	}
- }
-@@ -1700,11 +1701,11 @@ int spinand_match_and_init(struct spinand_device *spinand,
- 				    (read_op->addr.dtr && !op->addr.dtr) ||
- 				    read_op->data.buswidth > op->data.buswidth ||
- 				    (read_op->data.dtr && !op->data.dtr))
--					spinand->cont_read_possible = false;
-+					spinand->cont_read_unsupported = true;
- 				else
- 					spinand->ssdr_op_templates.cont_read_cache = op;
- 			} else {
--				spinand->cont_read_possible = false;
-+				spinand->cont_read_unsupported = true;
- 			}
- 		}
- 
-@@ -1736,7 +1737,7 @@ int spinand_match_and_init(struct spinand_device *spinand,
- 			if (op)
- 				spinand->odtr_op_templates.cont_read_cache = op;
- 			else
--				spinand->cont_read_possible = false;
-+				spinand->cont_read_unsupported = true;
- 		}
- 
- 		return 0;
-diff --git a/include/linux/mtd/spinand.h b/include/linux/mtd/spinand.h
-index 5f4c00ae72a7..2c90426c4000 100644
---- a/include/linux/mtd/spinand.h
-+++ b/include/linux/mtd/spinand.h
-@@ -772,6 +772,10 @@ struct spinand_mem_ops {
-  *		suitable to use or not in general with this chip/configuration.
-  *		A per-transfer check must of course be done to ensure it is
-  *		actually relevant to enable this feature.
-+ * @cont_read_unsupported: Set by the core during I/O variant selection when
-+ *			   continuous reads cannot be used with the selected
-+ *			   variants. Prevents @cont_read_possible from being
-+ *			   set later on.
-  * @set_cont_read: Enable/disable the continuous read feature
-  * @priv: manufacturer private data
-  * @fact_otp: SPI NAND factory OTP info.
-@@ -810,6 +814,7 @@ struct spinand_device {
- 	int (*configure_chip)(struct spinand_device *spinand,
- 			      enum spinand_bus_interface iface);
- 	bool cont_read_possible;
-+	bool cont_read_unsupported;
- 	int (*set_cont_read)(struct spinand_device *spinand,
- 			     bool enable);
- 	int (*set_randomizer)(struct spinand_device *spinand,
+ drivers/pinctrl/qcom/pinctrl-kaanapali.c | 1 +
+ 1 file changed, 1 insertion(+)
 
----
-base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
-change-id: 20261007-spinand-cont-read-supported-cdaf25f0bf45
-
-Best regards,
---  
-Frieder Schrempf <frieder.schrempf@kontron.de>
+diff --git a/drivers/pinctrl/qcom/pinctrl-kaanapali.c b/drivers/pinctrl/qcom/pinctrl-kaanapali.c
+index e95ac064b84c..e9351e29d38e 100644
+--- a/drivers/pinctrl/qcom/pinctrl-kaanapali.c
++++ b/drivers/pinctrl/qcom/pinctrl-kaanapali.c
+@@ -37,6 +37,7 @@
+ 		.mux_bit = 2,			\
+ 		.pull_bit = 0,			\
+ 		.drv_bit = 6,			\
++		.i2c_pull_bit = 13,		\
+ 		.egpio_enable = 12,		\
+ 		.egpio_present = 11,		\
+ 		.oe_bit = 9,			\
+-- 
+2.43.0
 
