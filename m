@@ -1,82 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A37A1287247;
-	Wed,  7 Oct 2026 20:42:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C9073F86E1
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 20:42:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791405763; cv=none; b=LYabSV7RQexsmHx55wj3wXYlFpyO7PLnH46lx+yi+9yRrJzXDKrsny1aDLsYfo/hh8JWadq3t0Ejpb9omjCBoOdZS35L9Fve6lTJDhGKNjbnMENk4LJ2TGZo/6bkQs8wZHGcLMxBMRef2eoUBa8j2s4FtWLuOEJcCCScZJjzESQ=
+	t=1791405772; cv=none; b=hxJG4toKf7zVA5JkfnCLPxGEN10tG8CcgdoMLNKJoWaO+8Gox7zP6wtC8wt8uE5EvFtFTKlmMjHg/+RroX4UGs8fTQu8SSTvPVPfQsxaYGZNwz/RAbK1BaZWpenxUbNJUkKCIbMdCXmkZsSw0FR7AUkjkE53i89rFD551QnF4IM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791405763; c=relaxed/simple;
-	bh=RX+fjINUQ6huh0rjLHVb16n0uIUjjm3B6Rn6jEJ/GS4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aZwgA5tDRuxw36o4NK6oJOB7Y9Jtdg642ibwOUwVhreSOm0tz7I0MATXrMN9AHbpMC7MMBK/jzj3qMqmF6mRMAWdXnB0j2+WVdwd81ena2FbXQZ41k85Tf7j0TQEyFlntFcDpZ5n1HY7P20cBYEC8RnM6jzGCdaGyS9mIdAgZkE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KvUYiOFs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791405772; c=relaxed/simple;
+	bh=TFY9tOSQZG6cW9Xz19R1Fsu14/FrS6A0ND2sm7laFW4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=utKyJggSUBQKcFDvljj64R9x0XdI9sXsxLumO/7WR1SfkF0MeIrRjJVC3Zp2YyyzjxKZAoeaEDN2kz4Yd57ai9Kf+ZKRlHFTNA5sAJ7+O754laMoBgAkQiIJMkwT00vxO/1JIqoMX8RFhnSlOOnhCTHXIQSdY3stTlnann7DHVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=eBCnAp8c; arc=none smtp.client-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KvUYiOFs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29FC21F000FF;
-	Wed,  7 Oct 2026 20:42:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791405762;
-	bh=T8442lJkY7Lf9rBKc2eNGU5jRTu+8wvBzMXbThdM18s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KvUYiOFs6V/3qqe/oxGL84rADUbCuaih1YjyUE+IpUjGvJ/nbz9ubCNoPyX7IecoG
-	 vb/3ROlQNkIoeYLn573aa4tKNJ4fxrKCWLSLFQunRgjJs51MfMf7wZr1sB3Ws/uTpp
-	 mAnT3O5ZT78GwQLeVOtyT37gRUnjzPBzkTaTUC/sSDgOAOwxlsW6c9+ZI+61YIBvsB
-	 wHVfFSsYWRV6UdKhZIL96LPJcVw/GNBgZM8XsivIQwSc6pnXX+mlgvHLrMM09kfAck
-	 opjw7Dc6ZHOEd/4BjWbJsXBg/KEaDLjkS1qti7RmpUiY/HvVtkXOVZ5gV4MGLz3HN5
-	 xJRS6PBKSdKXg==
-Date: Wed, 7 Oct 2026 15:42:41 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
-Cc: Lee Jones <lee@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
-	Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, mfd@lists.linux.dev,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>, Guenter Roeck <linux@roeck-us.net>,
-	linux-arm-msm@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="eBCnAp8c"
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-15756f82e8aso1453422c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 13:42:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1791405771; x=1792010571; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2w44cogeP+44QvieTFJ7kjVK03e1YaQy1nQzOi9xKiA=;
+        b=eBCnAp8cjMxB/xqiy0AqummU7qNdD+P0rnAm3da40rx0RbUi1iIYCP8l6jYraUfBT2
+         Nx2bWgviVV17/JeoOJt5KT72lpYX91nPb5gheTWq9njdCARPeiDbQdu5JsuIAnNhkMGZ
+         /XZzhXiVM+VL+Qv0JgHBqYfea1esAmG6QBQA2MGuDoqXuVlzhAoWbtkrsHEApxfVWCA+
+         4fCIck7ErAlXq8gfVUUlsW8n1Vbfhba7zNpttLA87nF/PsCgEqcKZXAmbb2WHZSVYMgR
+         HmbJyiVfv71qCkTXT966yn0IXowRKPCh/K3YiuUFTMXwlVf6Kf85xj6tF13bI7trBJU7
+         3iLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791405771; x=1792010571;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2w44cogeP+44QvieTFJ7kjVK03e1YaQy1nQzOi9xKiA=;
+        b=Cu5UY++5ehTgDS6q1OEjst4abX9P7S/75qGrLKd9mc6ObMCetUbHe1e1hBbyt3mqBS
+         0FgdtQBh9S847xelHrlEx6eHhRHe72gsz3xygsVdFVzWzg/vCV0VjbuymnOkTdt0jE65
+         2EzdQ6rJl8Pe9Y9DGoqidJlYuYeLiihLSqtItE4kc5U4WmKzpZ1ZtwkL887JcJSPjscM
+         jQ9R+Ml9K1xDcasfRsCco4KetBCnkfxAclDE/aZP33vzo3Ccu70qGHuj5jL2n/NwKmr3
+         Jx/EkDqVWMiXAdRd2A2HzhrJdhV4AJtRKYDUh9luxC40OqfC2mZouZMwxP0VdziGVRsd
+         KE4w==
+X-Forwarded-Encrypted: i=1; AKwUvBySP1MaWdcQcIqDw5pIs+KAFwYYqe2HHZlMI1oFLjSgPFDctvkZpjDz+OKTnRcrOREsWvwCKoLFjz3siyw=@vger.kernel.org
+X-Gm-Message-State: AFuF++n+WEAPTFO8xSAVMvPHwwxBic1dLTlBfBqqQLTqUNPZ28sb2VBo
+	klQtb2OpQatbvoLXhjhFu2Fv/ZACignG84b2Z8tFYAVLXWa18CkMz1YFMPH4nVjqSw8=
+X-Gm-Gg: AYBFou3lltaWeufySdDWcl8GdK74MgPoKXeKhQB2uYTsJmhYNBuMZBNy8/8Ko6B8F1Y
+	588HIMaeBUxZWFehFIbzkSZcr9/ECLMBsrp2EOiHFtqNaii1rjjvcPB7y54HaEQIgsyh2vjISwu
+	ncrO5/wVHNGEFIext5SbvnSIUJJWXlA9wN5wue7uJMGoUttyrdF4h/P0hTgfJxYlUWyiGmegL7/
+	R31vlHG/qckACVOnsO16XTP45kQfvEa/teuAElLpV9c9lDHD2mkTzYFi+se4amFf9WYYI8bhQig
+	MKRsjCPc2kp6IlrYV4NDSTnLvqwX5r02XPqb4ylHbBiFHHvxfobHleFPjYe6AaSbMdmSjbrNISy
+	132LsshVLe2c5o3DR1Kgbye/GRyDDF7YfjK8Q466y4kAwXIJ40E8J/8/qe4vqM5yrxswwEJ9E9t
+	7lw7RMm7eRdG1UDBvmxkBKPyHAjUZEksC/PTUG/iZp/LBDxzrDPJKZL8x4vsNYJED0h5YNIsOFp
+	mJCrvt0FaVBMNycZ3GfxEswompwUOytlEHoSy9CzBDHnNkBE2No216pQfVYmEdiqm0toQPL8A5k
+	qP6fCdQ=
+X-Received: by 2002:a05:7022:b0d4:b0:14c:c588:ac21 with SMTP id a92af1059eb24-1659f86d360mr411370c88.9.1791405770312;
+        Wed, 07 Oct 2026 13:42:50 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:7854:1520:fd4f:2a94])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-16167ef2e54sm7586938c88.10.2026.10.07.13.42.48
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 07 Oct 2026 13:42:49 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Artem Dinaburg <artem@trailofbits.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Helge Deller <deller@kernel.org>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	Helge Deller <deller@gmx.de>,
+	John Johansen <john.johansen@canonical.com>,
+	Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	apparmor@lists.ubuntu.com,
+	linux-security-module@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-Subject: Re: [PATCH v4 01/12] dt-bindings: hwmon: Describe Qualcomm BCL
- hardware
-Message-ID: <179140576107.228529.5861781130037006600.robh@kernel.org>
-References: <20261005-qcom-bcl-hwmon-v4-0-50b9a8c730b7@oss.qualcomm.com>
- <20261005-qcom-bcl-hwmon-v4-1-50b9a8c730b7@oss.qualcomm.com>
+	Georgia Garcia <georgia.garcia@canonical.com>
+Subject: [PATCH 6.6.y 0/2] apparmor: backport CVE-2026-45893, CVE-2026-46254
+Date: Wed,  7 Oct 2026 16:42:21 -0400
+Message-ID: <20261007204226.47033-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261005-qcom-bcl-hwmon-v4-1-50b9a8c730b7@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
+Hi Greg, Sasha, and maintainers,
 
-On Mon, 05 Oct 2026 17:54:02 +0530, Manaf Meethalavalappu Pallikunhi wrote:
-> Qualcomm SPMI PMIC BCL (Battery Current Limiting) is a safety feature
-> that monitors battery or system voltage and current to alert system
-> for overcurrent or undervoltage conditions.
-> 
-> It provides:
-> - Real-time voltage and current monitoring
-> - Configurable thresholds per channel
-> - Hardware interrupts when thresholds are violated
-> 
-> Add a devicetree binding to describe the BCL on Qualcomm's PMICs.
-> 
-> Add sensor type to SPMI device list for BCL device.
-> 
-> Signed-off-by: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
-> ---
->  .../bindings/hwmon/qcom,pm7250b-bcl.yaml           | 69 ++++++++++++++++++++++
->  .../devicetree/bindings/mfd/qcom,spmi-pmic.yaml    |  4 ++
->  MAINTAINERS                                        |  7 +++
->  3 files changed, 80 insertions(+)
-> 
+I'm working through the smaller CVE backports still missing from 6.6.y.
+These 2 upstream changes belong together for CVE-2026-45893,
+CVE-2026-46254. They must be applied in this order because the later change
+depends on or completes the earlier one.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+The complete series is already present in 6.12.y, 6.18.y, and 7.2.y.
+These fixes also affect 6.1.y, which will need a separate backport; this
+series is only for 6.6.y.
+
+Could you please consider this series for 6.6.y?
+
+Thanks,
+Artem Dinaburg
+
+Series:
+  1. AppArmor: Allow apparmor to handle unaligned dfa tables
+  2. apparmor: Fix & Optimize table creation from possibly unaligned memory
 
