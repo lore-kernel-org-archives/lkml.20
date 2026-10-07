@@ -1,156 +1,125 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 535FE448382
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 08:51:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E5A645C710
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 08:51:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791363102; cv=none; b=d0ONH7PHvzoe0totxjmrEqHMnXdPyn2yNargdZOM4TTRvDsLWCwkRauCvWPxtb3WyJnQ8K7MstMgjIuaGycMDplwsHsZCjAh5+TEyyoRsI82f5nepFsG8XxEqfOJ7/OM4yPDPDlWiO/rzrTQoGucLCbZ6hhp3qnRE5NDtOVxW/Y=
+	t=1791363104; cv=none; b=s8GwjfnyiCrjFgSmdmdelcWBIYNPudX8wVjgXljE7ovvTKIyBbBRCbhV0bvJuiVWU/YoZGn+B1kdYskLR5hgVosd/gPvIMfaibNbZt7mznMpribBolJRoxfx3ETLGkzK9DkqE8d047MOpCmoP+mMDdarwTdaUEQtGhwi8n0ePUQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791363102; c=relaxed/simple;
-	bh=CiCPHoKbA7QwOLstlzHIyTwZHiWB29u57jr15U2ffdY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Z7Y7dI346tYCS8yvDzTijmhNcDa1xnEneD10Z92daZ7HUc+S5d7Fg+pmxZHNwtDCFu1JTo7QUm034m9idO7fKq1NWhpyJFm6RaXIDH6ySLN9TmQrUHyROfH5ikrLAMwNHyOEwRPLxamHrpf90ov/Hu8s3nGiQyOmVK6nwpClV/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=U4OpEcQk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YfPNoujj; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791363104; c=relaxed/simple;
+	bh=DH0tJcbPsXOPYXRyuqzxn0kEpezPHDDjwZ70r+XMCJY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TLE279RhfJD/Ech2Tbk8Sl8DYH1t+xQkt7XgmeqOYAYG1hUgAbrE5Zv/KIZZKheMjc9KYogo4xrdnbhnVtglmY2wjvBWjgTxH+nGbPgxS2E6cGhSkiB32hYZR27WheHHRBskHKB20UtIQ6bTo/Wy7RZ9POfwvCmd+wYi2aNy48I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=JtdDYRb1; arc=none smtp.client-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="U4OpEcQk";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YfPNoujj"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6977jgud3334712
-	for <linux-kernel@vger.kernel.org>; Wed, 7 Oct 2026 08:51:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	YRMO/BIFTS6t5KCadnTGwzkaBkcMRT2kVp1MYvn8vlI=; b=U4OpEcQkQIQ4z5ej
-	X4PJJ8RUbYDn3oovYkwGFkhHWi6r5CyCyPlzQ/d05CTJCrQ6IKSAfCgYAA6rW5Jz
-	giHiRMXWfsdCljgvOd4zpvdcxeU8JHTfljCgbK1WD0kNzZ+4giroSrHf6q3uXj3g
-	yEApDeVOHzVf42ENaGHa1nIdV2GZ7zWB2FcQNdVi+BVEhhk/Yeu+bhE2chvvWspc
-	k/uqDJtOeQTeQP7fqxW1foOGAbfVOCN6Con/wxoYOxxKrz0zs/dYC6gSwQKknrJW
-	y33M3sgngOmOpox9KbL8Gv3+7NiE171C7tRE/1PSxnEDdT6ErsD/Y2oD/VtIo6YY
-	94AQGQ==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h546239pb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 08:51:40 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3a4e36d5a77so3895554a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 01:51:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="JtdDYRb1"
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-34ceab2900eso2521492eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 01:51:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791363100; x=1791967900; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YRMO/BIFTS6t5KCadnTGwzkaBkcMRT2kVp1MYvn8vlI=;
-        b=YfPNoujjzYkqOobFz5aB1TDTBYPTrnIW8H+psjxkZreV/LyLZOl0EX31al7GwGCDFs
-         UHS8YIYn3ag5ONpgmIrGWMvsSt5I7JB6Zws1QcWujpmRqaHVagdTuT0wuem3xf+Ak7/m
-         OLo93p9xxWGOEfPa2g9F+7ehJq6NXNBltyhnYe4FzgsHFRek0xRHO3BIiFnmVawg2Xxb
-         3CdRHlJdLUiYbmHqoShxwZ9ZIrglrH3ZfDMcRmkanc4rPwf2sXiNbNuStlDBsLEMlozd
-         T+M25qsOCJ0YWpIe6TMCaQgCnMMqU4AhDDrKJ2So0kz5QhKtXXY5S+rOzUeGUALOZvYN
-         plLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791363100; x=1791967900;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=sifive.com; s=google; t=1791363091; x=1791967891; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=YRMO/BIFTS6t5KCadnTGwzkaBkcMRT2kVp1MYvn8vlI=;
-        b=J1LuCZl9C5IknYfhS/g750mFA4YD99ONIlFilpFFhnMHLxx+MpJf/K48SJokB+u37Y
-         v2+aPVjoRUlEmJGhWwxReqHyLGIPbFqKDXweIdYpWxayGFZcPZPMR9xC3XLUvKUJSPwC
-         jH/EzjoDaoTy8RpkggqyYbRsCLbRK/wPG/8MR8MTSRfDTX+X09l0Td909QpkVVDYXyp2
-         K41BERb/Um5/lyLvb2SQeE26kJ5QBk+qnUt2cLBvV5udaZsUu2/zdkzcp6y/bUwHoLJh
-         Ewqw+WBiI48dqk30bGDEH6N8EAA8ZtizYDG4ZT7RXZC1B3/t2O+a156OV6SPB5tZf0Uv
-         fWXg==
-X-Forwarded-Encrypted: i=1; AKwUvBwwPdYKXUl5Il4WVFOndIDdgcfMWD3R36iLoiJAW/c6YoEnqLLINA/iFFrEkzkhUhbEveY+f+Fh/wzgkT4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJsBl0xAEiqkmtB8B15dLDtNnfyxTIw8kTxke65cVu/SquCUPa4
-	jZ1ZLGw/stblEd2WW0c5R5Ot9KUAK8saRatao8wSRfLniEA+KnhGbASg0Ob8OcUF+AodEGuuywD
-	LUXMadVb2yOEvDdAjAzPNEP5LZcjOGMQ9usRn0QHO9TtAkfRZmtLTdcMe2IeSvOd6ODGe3clsOd
-	0=
-X-Gm-Gg: AYBFou3t3CIwZKXvyeDEfVLARx1Pmaguvb0mi02TSg9lJtoBE9rwYW6fGUvrhnLTR5l
-	TWEDSaPVTyp7O6hIcIoZ1gN5pU3BuGOoGa87Xk2YQzMG7Y1BFi2eva5ZDACOIQsC42Wy7Y5IE0n
-	FhmrDLABK8ZPC1ziuxyJUhWV4cLpKco4VXXU7WIi+Be11LEEDFUuaJLlL3Jy19kd6JNjwXSHwho
-	L4o9Fn1eKqUafrdV5dpODM4wJwNxw/L12fdQZkvAgYhIoJXAwGh6ZXBYI6T0JK4iKCP6xtHiCBz
-	ziXkk0EJK6wZrSmd0ONOP+GOad3tCudATCu1sw7HoOyaFDApfVPug/KGjmAUYsLmevY0YxRfC7t
-	hPxHFF6gENpQ4BLh315E88R6ZcWhvVLq0
-X-Received: by 2002:a17:90a:c883:b0:3a0:bf0a:c9da with SMTP id 98e67ed59e1d1-3a8a1bbf160mr1409071a91.47.1791363099946;
-        Wed, 07 Oct 2026 01:51:39 -0700 (PDT)
-X-Received: by 2002:a17:90a:c883:b0:3a0:bf0a:c9da with SMTP id 98e67ed59e1d1-3a8a1bbf160mr1409044a91.47.1791363099481;
-        Wed, 07 Oct 2026 01:51:39 -0700 (PDT)
-Received: from [10.217.219.98] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e60482cab0sm6760885ad.50.2026.10.07.01.51.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 07 Oct 2026 01:51:39 -0700 (PDT)
-Message-ID: <57f068a0-41fa-4986-8702-8fd3d6dc0976@oss.qualcomm.com>
-Date: Wed, 7 Oct 2026 14:21:31 +0530
+        bh=e/sQhRikHvQy+tFDRD+cXFmdlH5Y2NFpBNiPzBCd5xQ=;
+        b=JtdDYRb1JVLMIAkgPE/oc9J2jozGekIiMqXndzvX01Pg7rh10S8fAuRt184hr/Cuii
+         SbPjS99J9KBqrHjECtgS6veP23ecW3jbh/cBRUr+olWnpY4D+7/XWH8j8vkYcskKAZkF
+         vkxe2OxKa2hU2J8ug1fbdLMMj6cKXmnuZe6Vgvo7zdNEdAiNRaeEJK6oQCqUbPSmIco/
+         zbgV6FOxYbVmthF+xGcgURjRvFaG/tWAFdct3bT/poOtqpNgQ4X+idifeOVRaaPV43Fq
+         0gy32xy/4E8nQ4deoRCzHciz9R6Fqwf29pNKtnAUtz7oK9o+xFg9AbibZiHj4KdrMdoy
+         bmAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791363091; x=1791967891;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=e/sQhRikHvQy+tFDRD+cXFmdlH5Y2NFpBNiPzBCd5xQ=;
+        b=whcpJuND3Je81LdYR7ID3GdEATbmb+kciTj1/q2c/aBIZ3kTuFe5gqdY7CuvJXOTQV
+         4Vx7XLkPFXNCV27TLRgYOZxhrWuTG2NlXK3kYKlf9hLygHEVYm4oNtgYCf4Cm0nMW3dS
+         gdVblzN0EqOaWzl4BT7Yq+u2XvD0YqGUPqn9pSvbznPsxfKSNa7pwHO3pwG7bq4/tu/+
+         vNeXkNYCfbcWEJ1aN9+cTq+T+PS9I325GBzZLz2V3pe5YLh2q+AsVNsHPcM8IYoPk86t
+         fHSiuh0EKU3GjRZToe8tYXU9IXaYlGg+V2fN4GDAssiI2L2CTlDG4EodoZwL66MF28+M
+         XKTw==
+X-Forwarded-Encrypted: i=1; AKwUvBxEWibhnRizRG110/GYoDGmKApciICbRD1Q0rJIN1/GnvtPVKWE0+gzHoftMhnKkCwAXMlcXj0aQBG10MQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lnSM69jTYzEDNz5k43suavAOevZP8dogqhlTZOLAeWh8Q0bKH4
+	4SwlqVIF+MFpoJ+yilDll9FOOPzT+oM04JNvU6d1MC8/r6FoiTQFjLNGqA/q9WsbCnQ=
+X-Gm-Gg: AYBFou3XnCMnxtzlT4kgbQbfDuQqAsigTthv+hqQ0h4//Vi0j32rM42iLLNkkICBuFy
+	dQdn9WD2pgas+NOwXGmHPAAhniPSdGG2n1vZ7Iaw3bg0bdEKfH/Qv2Yb7d7ThTzabH7doH+lDX9
+	rlWifKi3Ux6iRognCz63yr/DmGznVvavZ1xGOJc/KB/9NAqP6dUC7xVpFHrtn+33q9CWAOSAfH9
+	JSt8g/p8aBd4RaqFebnQjK9l6ERHIweBRHDEzubMYZU2ocxn8sUiH74HAWjtvGBUdhGEl3YCBv9
+	JLOnKOnOKuOljXgGjrp2gGLphz5ylLd9MCkTdqVN9pB2/G7RIyyoq+IHO/e0gZFFoZTO3RT6/I9
+	u4GaZP+udZQSoumidEDc3AVlLnFm/u6e84lwfBis9kr1xT6dJeYwG+qN687hEYiqcFFKvHlGM+l
+	D2i7zWBf+nrzjqt/3/541+Vel5A3kyXPGvwzprxGohMDEpQKY76wNBjexPfBTXVa7nhV/4tP2VL
+	4tfuZx5xHIOdoC2ra3P
+X-Received: by 2002:a05:701b:2719:b0:14e:8ae9:87c8 with SMTP id a92af1059eb24-161fe497e3cmr1456351c88.1.1791363091401;
+        Wed, 07 Oct 2026 01:51:31 -0700 (PDT)
+Received: from sw06.internal.sifive.com ([4.53.31.132])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-163e3c5bed6sm396251c88.7.2026.10.07.01.51.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 01:51:31 -0700 (PDT)
+From: Samuel Holland <samuel.holland@sifive.com>
+To: Paul Walmsley <pjw@kernel.org>,
+	Anup Patel <anup@brainfault.org>,
+	Atish Patra <atish.patra@linux.dev>
+Cc: Palmer Dabbelt <palmer@dabbelt.com>,
+	linux-kernel@vger.kernel.org,
+	kvm-riscv@lists.infradead.org,
+	linux-riscv@lists.infradead.org,
+	Andy Chiu <tchiu@tenstorrent.com>,
+	Samuel Holland <samuel.holland@sifive.com>
+Subject: [PATCH 3/3] RISC-V: KVM: Decouple vector prctl state from VM ISA
+Date: Wed,  7 Oct 2026 01:51:18 -0700
+Message-ID: <20261007085126.222688-4-samuel.holland@sifive.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20261007085126.222688-1-samuel.holland@sifive.com>
+References: <20261007085126.222688-1-samuel.holland@sifive.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/9] soc: qcom: geni-se: Remove OPP rate reset from
- resource deactivation
-To: Praveen Talari <praveen.talari@oss.qualcomm.com>,
-        konrad.dybcio@oss.qualcomm.com, Sudeep Holla <sudeep.holla@kernel.org>,
-        Cristian Marussi <cristian.marussi@arm.com>,
-        Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Jiri Slaby <jirislaby@kernel.org>, Mark Brown <broonie@kernel.org>,
-        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
-        Andi Shyti <andi.shyti@kernel.org>
-Cc: chandana.chiluveru@oss.qualcomm.com, arm-scmi@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-serial@vger.kernel.org, linux-spi@vger.kernel.org,
-        linux-i2c@vger.kernel.org
-References: <20260827-derive_clk_perf_tbl_from_perf_domain_opp_table-v2-0-091697dbeb02@oss.qualcomm.com>
- <20260827-derive_clk_perf_tbl_from_perf_domain_opp_table-v2-4-091697dbeb02@oss.qualcomm.com>
-Content-Language: en-US
-From: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
-In-Reply-To: <20260827-derive_clk_perf_tbl_from_perf_domain_opp_table-v2-4-091697dbeb02@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: TkB_ADcQdMY9gEiKRBZcFaVf_Zr-noZx
-X-Authority-Analysis: v=2.4 cv=ZZiIpcVA c=1 sm=1 tr=0 ts=6ac6081c cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=9QLVM3U_lBk_t3napV8A:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfX5z8fenF6rZiK
- K0dNW4avkb6ZfHIHboNY8wXbVRsCwQY052sNV8s6+yPPeTss3rFW5+3BTIRDv4zgyN6iEb7KnYO
- +DLhJNiXI9JmEzV4Vn+9Y0uSQSy3gGE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfXxBYJ5snhMeZC
- HcUnbFIxG3WDqoVjDE7PyDBpyTBThnxUOvrxiSBcr596bqo1GXJyhpIy4vKg7k3mk7I16gTQO1O
- uojeaLnY4mqppimICDy3JrhsG+HW/f+1L8cFqC8zu2uKPANHaBaOEnN9dIH67kDQ3bK8lHaxcYt
- Z9KRXY4fY9bfaivSvtfUoNOyf4fYKkKmGW8NyXhsmky4CRSdCdGhCGPcYA1vkCfOXV+ylSR6pcT
- L2+JUwwCP0gantpqpzriNPJ2WFEXJWHssIAcdsSsgKOH8G5rAIY8Tzrj+055hIDZrftYPGsf0X/
- 7fj83b6Jzv7aLo4gzZrROTrKxxuIjVZiKvgP5GSP7od3hpz6Tp63PcoiiwJf+K/Q8N4QPLzlJ/l
- jlI0UOSuumtHvNtCe23I8lzCYJPiiqn4/YEO1kKJo/x6KxldzyS82tWkJfdt5xsFfJFCOAOUv/w
- 1xjQq7arLNfx+UbUnww==
-X-Proofpoint-ORIG-GUID: TkB_ADcQdMY9gEiKRBZcFaVf_Zr-noZx
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-07_03,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 priorityscore=1501 impostorscore=0 bulkscore=0
- phishscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070035
+Content-Transfer-Encoding: 8bit
 
+The ability to prevent userspace from executing vector instructions was
+provided as a escape hatch for software that was broken by adding vector
+state to the signal context. This was hooked up to KVM so a process that
+could not use V in userspace also could not create a KVM VM with V in
+the ISA.
 
+Remove this connection as it does not really help with any compatibility
+concerns. A VMM that does not understand V will not include it in the
+virtual machine's ISA.
 
-On 8/27/2026 11:29 PM, Praveen Talari wrote:
-> Remove the dev_pm_opp_set_rate(se->dev, 0) call from
-> geni_se_resources_deactivate().
-> 
-> OPP resource management should be controlled by the consumer driver.
-> Additionally, clocks are already disabled by geni_se_clks_off(), making
-> the OPP rate reset unnecessary during resource deactivation.
-> 
-> Signed-off-by: Praveen Talari <praveen.talari@oss.qualcomm.com>
-> ---
-Reviewed-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
+---
+
+ arch/riscv/kvm/isa.c | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/arch/riscv/kvm/isa.c b/arch/riscv/kvm/isa.c
+index 971f44655100a..447c778bf850e 100644
+--- a/arch/riscv/kvm/isa.c
++++ b/arch/riscv/kvm/isa.c
+@@ -9,7 +9,6 @@
+ #include <linux/nospec.h>
+ #include <linux/pgtable.h>
+ #include <asm/kvm_isa.h>
+-#include <asm/vector.h>
+ 
+ #define KVM_ISA_EXT_ARR(ext)		\
+ [KVM_RISCV_ISA_EXT_##ext] = RISCV_ISA_EXT_##ext
+@@ -159,8 +158,6 @@ bool kvm_riscv_isa_enable_allowed(unsigned long ext)
+ 		 * Guest OS can use Svadu only when host OS enable Svadu.
+ 		 */
+ 		return arch_has_hw_pte_young();
+-	case KVM_RISCV_ISA_EXT_V:
+-		return riscv_v_vstate_ctrl_user_allowed();
+ 	default:
+ 		break;
+ 	}
+-- 
+2.52.0
+
