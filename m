@@ -1,84 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-125.mta1.migadu.com [95.215.58.125])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B8C3BB109
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 06:49:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBACF3FFAB0
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 06:49:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.125
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791355752; cv=none; b=oWBYx2IDO4kCO71cvUNYhR2u/k9eVxlyDt+QHNw6N8M2jvmWmjjdda3UxrMu99EpJql48NoCmBdkUMX9Z7F1II8ITC4NJPUfEJsnksq42xteBkuBCrJdmyJ595X6jnXJ8ts0yvpQ5gEWaz0mqaN4G6a7Cup+Q5Yg69tfiKwpTa0=
+	t=1791355778; cv=none; b=EgIB3P/gk57hzCM1hnh6aIaTdqlawbEtECRa2xch+ImbxX+ycNU7CJm57tnaYqFDEvBzmdZF1VIMWhqL6WrfjmebFeY1infHMAkVZe1KPR7V6p6OaEozNzrwv3elFqjWbezgjAtjlWXvTfB/JuQGEZnH2I4CNwwjLylq94exhxU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791355752; c=relaxed/simple;
-	bh=kVXuH7H4PDcskImrivyP/VtzUO54yTkMmhV+cSg/PdA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=I0ytS6tilHMfScrPT7v9qlJeU5ZxQyFXW7dw4rbsI++/U2B65OfpBCxy4w5VslmRLO/VRD6z5XoiKFemGa0n3pj+Q9oqmMWunByioVrMsI4T1wiHa92Q8sxYVepn1Zy1H9NwxRo1yYblKAenEBeQfX9TalLn53l569WUsgZWrLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dg/APZQ9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791355778; c=relaxed/simple;
+	bh=X2Kii5dEPpIGSKl4rtxnre0C8366Gz5L+2PnSejSm7w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Te1DVQ9BdQ89YjhLso1JarMafotUFA/O9ZPbLgAzVBGyhkO8foSBy8SKATKxFwankos7KXR+ezOcFCP8T+c9XbSRJXYDYzipLLFoAvmHqeIkQ64YJWycDfxHCyqa0nsObiqNl23379WUc/SFWNaA4OPDMTTl2ZVSERpuJEc5TwI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=aQsFok0i; arc=none smtp.client-ip=95.215.58.125
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dg/APZQ9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3CA91F0089D
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 06:49:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791355751;
-	bh=kVXuH7H4PDcskImrivyP/VtzUO54yTkMmhV+cSg/PdA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=dg/APZQ9ejy4HmKPDmWJ49DQjYI8eWTCX2U9HoU5cpY3x9Rp89PIqyA8NLJL0FwtJ
-	 GMzK4tUOwWk49yYln+oGbbud0wd+E1ne0Fmx4u/kimPS1vwfpbRml7GQ+ixnK3WLy5
-	 adZ7iVP2QncNkxmIKC3Dhq6N3u2YYx+tYwo97iXjIw81UJ7iupGbyvfRCJaeqOgE3+
-	 VTVO/i9lEVYeS//KnuemuoJQ9Bhbgdxg47sJreGtLXkIMBl+Vr5niUOqlFYNtkozg9
-	 mGCFqSQyXN8Tou3REIxsoHqM2zX/h5J9SJoWUqMbRVurUKh76v8oQHNBpM1OPIMfQC
-	 G4LuA1C3AaIVA==
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5ba7ed32ccdso4163475e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 23:49:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxg4ukuCPZ1HHhYi1os67VtvAp9KNKAUgBwqI5B1KN3TIiDMgUcV1uoxH5P0vvl3QqI+PHyMLYcPRCA36k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLU241ldRrUFXEM/3ZUmmfk8ueiBcT7VtHlslczUMI+39hJ2BUU
-	ctPe/ZIGWAUlWvzuZfvsWvHpRkOQ3OSGihgSUDJM5w2/laSuVolW4bJAj7n9aOCzsjVJn9RiZbm
-	k5IusqYiX7JXE8+iuoRdLay693nqUuUk=
-X-Received: by 2002:ac2:51cb:0:b0:5ba:3443:aa2e with SMTP id
- 2adb3069b0e04-5bcd06dde9emr392580e87.21.1791355749772; Tue, 06 Oct 2026
- 23:49:09 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="aQsFok0i"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=X2Kii5dEPpIGSKl4rtxnre0C8366Gz5L+2PnSejSm7w=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791355774; v=1; x=1791960574;
+ b=aQsFok0ixLgKEUIxtueWJ8DePIb3Aob7vcSoTIldtFoCyruDzNTlWka+1L02Kl1epP5gr1Ud
+ 1aEYFiLVCqFZpGhDbPoLH8SO+s4Hd4viV62n/qqIK+hHxyg210y+HxkGn1zGYTMECa/GzxVINLN
+ fsgYwMkSAEh+QuPV60qHEaxg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 12565de92abcb202;
+	Wed, 07 Oct 2026 03:56:07 +0000
+X-Mizu-Trace-ID: 12565de92abcb202
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <8a8241c4-0e41-4ddd-aeef-b9ecb4f55d3a@linux.dev>
+Date: Wed, 7 Oct 2026 11:55:48 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917-scmi-pinctrl-generics-v2-0-3eeee364257f@oss.qualcomm.com>
-In-Reply-To: <20260917-scmi-pinctrl-generics-v2-0-3eeee364257f@oss.qualcomm.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 7 Oct 2026 08:48:56 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkgBKDvbxsnhsBE_Qqs6TA8how4J2jvKm=tdpx4P+4JdA@mail.gmail.com>
-X-Gm-Features: AclHuK9LebUk8FXXJTxUAdYqh6ANC6YbZR1Kg-AkYL0dvrplEgSlwXOq9S4AtEE
-Message-ID: <CAD++jLkgBKDvbxsnhsBE_Qqs6TA8how4J2jvKm=tdpx4P+4JdA@mail.gmail.com>
-Subject: Re: [PATCH v2 0/3] pinctrl: scmi: Replace get function and group info
- with generic callbacks
-To: Alex Tran <alex.tran@oss.qualcomm.com>
-Cc: Sudeep Holla <sudeep.holla@kernel.org>, Cristian Marussi <cristian.marussi@arm.com>, 
-	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v2 3/3] tcp_cubic: fix divide by zero and endless
+ loop on bad module params
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: netdev@vger.kernel.org, Eric Dumazet <edumazet@kernel.org>,
+ Eric Dumazet <edumazet@google.com>, Neal Cardwell <ncardwell@google.com>,
+ Kuniyuki Iwashima <kuniyu@google.com>, "David S. Miller"
+ <davem@davemloft.net>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>,
+ Stephen Hemminger <stephen@networkplumber.org>, linux-kernel@vger.kernel.org
+References: <20261001112948.322463-1-jiayuan.chen@linux.dev>
+ <20261001112948.322463-4-jiayuan.chen@linux.dev>
+ <20261005171227.2014f26e@kernel.org>
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+In-Reply-To: <20261005171227.2014f26e@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 18, 2026 at 12:56=E2=80=AFAM Alex Tran <alex.tran@oss.qualcomm.=
-com> wrote:
 
-> This series refactors the SCMI pinctrl driver to eliminate metadata
-> getter callbacks to be replaced with pinctrl and pinmux generics
-> provided by the pinctrl core.
->
-> Previously, the driver implemented its own get_functions_count,
-> get_function_name, get_function_groups, get_groups_count,
-> get_group_name, and get_group_pins callbacks, which required
-> maintaining driver metadata like the functions and count.
->
-> The pinctrl core already has support to store and manage this
-> topology in the pinctrl_dev via its own internal radix trees.
-> By registering functions and groups at probe time using
-> pinmux_generic_add_function and pinctrl_generic_add_group, the
-> driver can delegate group and function metadata management to
-> the core.
->
-> Signed-off-by: Alex Tran <alex.tran@oss.qualcomm.com>
+On 10/6/26 8:12 AM, Jakub Kicinski wrote:
+> On Thu,  1 Oct 2026 19:29:43 +0800 Jiayuan Chen wrote:
+>> Subject: [PATCH net-next v2 3/3] tcp_cubic: fix divide by zero and endless loop on bad module params
+> if the LLM Medium severity complaint is true maybe also update
+> the subject? I thought there's an actual div by zero somewhere
+> but the commit msg seems to describe the inf loop
 
-Patches applied!
 
-Yours,
-Linus Walleij
+
+Hi Kuba, sorry for the delay.
+
+The LLM is talking about (cwnd * beta_scale) wrapping, which needs
+cwnd >= 33M packets, way past the 1M limit this code documents. So
+the loop fix is fine.
+
+The div by zero is real: beta == 1024 in "/ (BICTCP_BETA_SCALE - beta)"
+and bic_scale == 0 in do_div(), both at init. The new range check in
+this patch rejects both, I just did not say "divide by zero" in the
+commit message.
+
+Want me to spell this out in the commit message? I can also add the
+READ_ONCE() Eric mentioned in the same respin.
+
