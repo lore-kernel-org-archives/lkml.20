@@ -1,201 +1,95 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 729C83D9DA1;
-	Thu,  8 Oct 2026 07:19:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31B333D9DD4;
+	Thu,  8 Oct 2026 07:19:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791443952; cv=none; b=D4qFA+Sdphhpz74MNI/TQJvxYW30+dv+7cQRNFZueoTXmI9IxdPV4ui3rCvLer1Sq5vGi5+UwlmtDHK6JQ9nBYMEu29Zuo2FpW4+cd+Lb/op53bS7ViPu1gV6IeFaC+pUMEQ2TztAmuYzrti1EaGM+WLFtJjVktKNwN0x0sxQ0I=
+	t=1791443960; cv=none; b=uwIo6F9tjFWVeOwFhYUDKJaanT+2fa7gj9TepX012A5eBx/hHDXgB4gTX2mBX61kMguRzf9OC1rve18uG9R3gRcKlzwgEfTDr2lwObmsLkVRdJb6Rr45PPzAVc6UmtAM50UuvkUY6zdoYaXhGsjP/BQzsiw25riB9vFN5QCbZ/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791443952; c=relaxed/simple;
-	bh=pu/nrqsqtDMgA6JK/zAlz7mCgAyzCUzFFBH8rJHi5lI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Rr2uprPRT1DUln6w697UBcmDqZxVvCxDXZBhD/JArju9p32HtZ48ND9B8hPxro9CH9k4xY78jX679ToG5wqg9u7Q6RSKlKGj1LBIYzYBZa/VTKiwBRWi7/0DS8QHaWJjufBxqQFMJeGrXDyAoRMeyq/V9Ic7g/s7QB1dQ8yWwvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 4FF481F786;
-	Thu,  8 Oct 2026 07:19:08 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
-	none
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 03D5113354;
-	Thu,  8 Oct 2026 07:19:07 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id k583MutDx2pxcQAAD6G6ig
-	(envelope-from <jgross@suse.com>); Thu, 08 Oct 2026 07:19:07 +0000
-From: Juergen Gross <jgross@suse.com>
-To: linux-kernel@vger.kernel.org,
-	linux-ide@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>
-Subject: [PATCH v4 04/13] drivers/ata: Stop using 32-bit MSR interfaces
-Date: Thu,  8 Oct 2026 09:18:30 +0200
-Message-ID: <20261008071839.2247074-5-jgross@suse.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261008071839.2247074-1-jgross@suse.com>
-References: <20261008071839.2247074-1-jgross@suse.com>
+	s=arc-20240116; t=1791443960; c=relaxed/simple;
+	bh=8RaKJJa88G/U43Om9GWKyuM7R61X/xlktmHdGJHrtew=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Q3OcAoCrSLsW/sFogqn1ZfMn+25LvgtvNZ1PsUoPQE4AH9xyXx5KpzEI7zFQ4xZ037KGDoDlXeC7pzAci2B0gOe7TLsxBeb6MlIowZTS4Pn2bdhsbSE0z8VsoFXj2mPcC2hX1V42WHv9dtJMy1O2sKJTbwah29NkT3zkKBuWC0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LQsfXGtd; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LQsfXGtd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1F241F00893;
+	Thu,  8 Oct 2026 07:19:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791443952;
+	bh=LSxPZEPR5SziIXhK2HrZDL72qyLOyeEGstZGusBKpNM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=LQsfXGtdDAq5hxoRYFNW5Bc7NQI+wkUEG7tOAvMv450ED0QbJr+NjFOIOEW0tqXCg
+	 0JFra5nKNM5H+TIHlvq0la45Xz/b8+3jCWG6mvZZp9QcYX/zCYhD20jHfcC36J/4KH
+	 Rvn1vvl3UwijR664CP0qb0Z/wlAdkgd6lrDEP2wi3wNubzBNZzfYb/mwRYgk7XVT1c
+	 x+9/O6+fzwKtxkw7NMV49CBCUS+YGoGmnl39/KsFBRyO/9Xpp4GGUGJOqJdnZtHwy8
+	 SlCE3MO+FMBUjLy5X6Bnzhc9MU3biOun1q7E4QKy7JEz/5OSKvJjTsFs2AqcUfNV1v
+	 YBk27Mf8I7bRA==
+From: Mark Brown <broonie@kernel.org>
+To: Alain Volmat <alain.volmat@foss.st.com>, 
+ Pin-Hao Chen <billy920225@gmail.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ =?utf-8?q?Cl=C3=A9ment_Le_Goffic?= <clement.legoffic@foss.st.com>, 
+ linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20261005220528.7199-1-billy920225@gmail.com>
+References: <20261005220528.7199-1-billy920225@gmail.com>
+Subject: Re: [PATCH] spi: stm32: fix double free of SRAM buffer on MDMA
+ fallback
+Message-Id: <179138619954.2423942.17574965828667602495.b4-ty@b4>
+Date: Wed, 07 Oct 2026 17:16:39 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Pre-Result: action=no action;
-	module=replies;
-	Message is reply to one we originated
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 4FF481F786
-X-Spam-Level: 
-X-Rspamd-Pre-Result: action=no action;
-	module=replies;
-	Message is reply to one we originated
-X-Rspamd-Action: no action
-X-Spam-Score: -4.00
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1132; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=8RaKJJa88G/U43Om9GWKyuM7R61X/xlktmHdGJHrtew=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqx0PqnniUR/n8Cc0GizO4cmryq7XxHYvsVWhR2
+ Isr9QXQfHmJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCasdD6gAKCRAk1otyXVSH
+ 0PEMB/9jChwCIe3aM1b6h8T/3EjY6c0rCpzb8LBIjBXSH+I3C5muPF31tDmpJbZlA2rInp3S+54
+ rrA2HswRABIZY0iAnIXZVh5efFl219B4cVRO7IuAfbKdl81A/do86DIal7ucBKyojoKV8w9CX77
+ F4EvzTeWzGD+N4pqlHYl5lOzdOeSmBuuw4QZAaEV/Y7gXuYKAio9Dd5xS5VHUP1ZrsuF0hQOfHI
+ rdyALx0PiErmOjBiUuqIXk9eDY1EvWzkjSExiKNZDlAnYbULFwnb3KYa5UrnSaVtPoIC4tgCyOr
+ cdsb7teB6Dzj8b5TqPgDmJ23v8//S2LQLYeHBHxtiyIVuYMK
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-The 32-bit MSR interfaces rdmsr() and wrmsr() are planned to be
-removed. Use the related 64-bit variants instead.
+On Tue, 06 Oct 2026 06:05:28 +0800, Pin-Hao Chen wrote:
+> spi: stm32: fix double free of SRAM buffer on MDMA fallback
 
-In drivers/ata/pata_cs5536.c don't redefine rdmsr() and wrmsr() as
-empty macros for avoiding misuse, but guard the affected code via
-a simple #ifdef.
+Applied to
 
-Switch pio_cmd_timings[] to a u32 type array in order to avoid a cast
-to u32 when constructing final MSR values.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Acked-by: Niklas Cassel <cassel@kernel.org>
----
-V2:
-- avoid sign extension when using wrmsrq() (Sashiko bot)
-V3:
-- use a u32 array for pio_cmd_timings (David Laight)
----
- drivers/ata/pata_cs5535.c | 24 ++++++++++++------------
- drivers/ata/pata_cs5536.c | 17 ++++++++---------
- 2 files changed, 20 insertions(+), 21 deletions(-)
+Thanks!
 
-diff --git a/drivers/ata/pata_cs5535.c b/drivers/ata/pata_cs5535.c
-index d793fc441b46..512f9728224f 100644
---- a/drivers/ata/pata_cs5535.c
-+++ b/drivers/ata/pata_cs5535.c
-@@ -87,10 +87,10 @@ static void cs5535_set_piomode(struct ata_port *ap, struct ata_device *adev)
- 	static const u16 pio_timings[5] = {
- 		0xF7F4, 0xF173, 0x8141, 0x5131, 0x1131
- 	};
--	static const u16 pio_cmd_timings[5] = {
--		0xF7F4, 0x53F3, 0x13F1, 0x5131, 0x1131
-+	static const u32 pio_cmd_timings[5] = {
-+		0xF7F40000, 0x53F30000, 0x13F10000, 0x51310000, 0x11310000
- 	};
--	u32 reg, __maybe_unused dummy;
-+	u32 reg;
- 	struct ata_device *pair = ata_dev_pair(adev);
- 
- 	int mode = adev->pio_mode - XFER_PIO_0;
-@@ -102,16 +102,16 @@ static void cs5535_set_piomode(struct ata_port *ap, struct ata_device *adev)
- 		cmdmode = min(mode, pairmode);
- 		/* Write the other drive timing register if it changed */
- 		if (cmdmode < pairmode)
--			wrmsr(ATAC_CH0D0_PIO + 2 * pair->devno,
--				pio_cmd_timings[cmdmode] << 16 | pio_timings[pairmode], 0);
-+			wrmsrq(ATAC_CH0D0_PIO + 2 * pair->devno,
-+			       pio_cmd_timings[cmdmode] | pio_timings[pairmode]);
- 	}
- 	/* Write the drive timing register */
--	wrmsr(ATAC_CH0D0_PIO + 2 * adev->devno,
--		pio_cmd_timings[cmdmode] << 16 | pio_timings[mode], 0);
-+	wrmsrq(ATAC_CH0D0_PIO + 2 * adev->devno,
-+	       pio_cmd_timings[cmdmode] | pio_timings[mode]);
- 
- 	/* Set the PIO "format 1" bit in the DMA timing register */
--	rdmsr(ATAC_CH0D0_DMA + 2 * adev->devno, reg, dummy);
--	wrmsr(ATAC_CH0D0_DMA + 2 * adev->devno, reg | 0x80000000UL, 0);
-+	rdmsrq(ATAC_CH0D0_DMA + 2 * adev->devno, reg);
-+	wrmsrq(ATAC_CH0D0_DMA + 2 * adev->devno, reg | 0x80000000UL);
- }
- 
- /**
-@@ -129,16 +129,16 @@ static void cs5535_set_dmamode(struct ata_port *ap, struct ata_device *adev)
- 	static const u32 mwdma_timings[3] = {
- 		0x7F0FFFF3, 0x7F035352, 0x7F024241
- 	};
--	u32 reg, __maybe_unused dummy;
-+	u32 reg;
- 	int mode = adev->dma_mode;
- 
--	rdmsr(ATAC_CH0D0_DMA + 2 * adev->devno, reg, dummy);
-+	rdmsrq(ATAC_CH0D0_DMA + 2 * adev->devno, reg);
- 	reg &= 0x80000000UL;
- 	if (mode >= XFER_UDMA_0)
- 		reg |= udma_timings[mode - XFER_UDMA_0];
- 	else
- 		reg |= mwdma_timings[mode - XFER_MW_DMA_0];
--	wrmsr(ATAC_CH0D0_DMA + 2 * adev->devno, reg, 0);
-+	wrmsrq(ATAC_CH0D0_DMA + 2 * adev->devno, reg);
- }
- 
- static const struct scsi_host_template cs5535_sht = {
-diff --git a/drivers/ata/pata_cs5536.c b/drivers/ata/pata_cs5536.c
-index 73e81e160c91..61d232a82b5e 100644
---- a/drivers/ata/pata_cs5536.c
-+++ b/drivers/ata/pata_cs5536.c
-@@ -32,11 +32,8 @@
- static int use_msr;
- module_param_named(msr, use_msr, int, 0644);
- MODULE_PARM_DESC(msr, "Force using MSR to configure IDE function (Default: 0)");
-+#define MAYBE_USE_MSR
- #else
--#undef rdmsr	/* avoid accidental MSR usage on, e.g. x86-64 */
--#undef wrmsr
--#define rdmsr(x, y, z) do { } while (0)
--#define wrmsr(x, y, z) do { } while (0)
- #define use_msr 0
- #endif
- 
-@@ -85,22 +82,24 @@ static const struct dmi_system_id udma_quirk_dmi_table[] = {
- 
- static int cs5536_read(struct pci_dev *pdev, int reg, u32 *val)
- {
-+#ifdef MAYBE_USE_MSR
- 	if (unlikely(use_msr)) {
--		u32 dummy __maybe_unused;
--
--		rdmsr(MSR_IDE_CFG + reg, *val, dummy);
-+		rdmsrq(MSR_IDE_CFG + reg, *val);
- 		return 0;
- 	}
-+#endif
- 
- 	return pci_read_config_dword(pdev, PCI_IDE_CFG + reg * 4, val);
- }
- 
--static int cs5536_write(struct pci_dev *pdev, int reg, int val)
-+static int cs5536_write(struct pci_dev *pdev, int reg, u32 val)
- {
-+#ifdef MAYBE_USE_MSR
- 	if (unlikely(use_msr)) {
--		wrmsr(MSR_IDE_CFG + reg, val, 0);
-+		wrmsrq(MSR_IDE_CFG + reg, val);
- 		return 0;
- 	}
-+#endif
- 
- 	return pci_write_config_dword(pdev, PCI_IDE_CFG + reg * 4, val);
- }
--- 
-2.55.0
+[1/1] spi: stm32: fix double free of SRAM buffer on MDMA fallback
+      https://git.kernel.org/broonie/spi/c/0c5b0c3eb1d6
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
