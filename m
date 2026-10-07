@@ -1,46 +1,46 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCC28412C17
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 21:06:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A56D38D017
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 21:07:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791407222; cv=none; b=g4+u9upAxEoy5sc0bIHiQpMmGNa/4ph+IiL7z0hPMf9Ib+WGVhzaRlPOCerN66+eoc3QK0Yhb0SLgf2as30r8p+IwgH1Tpljt8Nv5LlPel4kpRnQ2n6rMVBV67dvgvQL5WbLH1Z3WmqHiYz1FWO0UdCOW/G67MZieXLyuuir4cg=
+	t=1791407225; cv=none; b=cXYWxoHnl5eYHGxomM6eGDxu0PyjXtkwvxtOP4wzgQOGfc8OwlDtjqKC3AR0EH5qP5lArZ+zXNxuyBFLcXPoHmYkZunGx3rKhoOfy2sgwqaqGGOkGGjFk67sCxMG3aYvxRSWZfRErCyxJQZ21epOTdd4AhDFYFGPYfbhQUyIWo0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791407222; c=relaxed/simple;
-	bh=0e6cU2OQhRHhItQ9RF39pFteWYF7gZvw3RLLsx+K2RA=;
+	s=arc-20240116; t=1791407225; c=relaxed/simple;
+	bh=6p2FfMDEwU0rhmwfCD+gHz05+um9TEuyv/mw9S/rHCE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Yb6V/QiKp8jtXQPfYvjXVLv3k15CyRSGmy5pR6tyNjSD9FxGK25k4ghqhRq2Y/tDWdYNVo+ViuKhRMwmrKSSklvCo3YHvXIPhUp+TnPJa8e2S4K0P6Ycep+PkdKF6XledVCsKyO8KVWUjMG2EGipY/zqHMiurvXOxnP6xwzgsL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=INA9u0D6; arc=none smtp.client-ip=192.198.163.19
+	 MIME-Version; b=RtU7ZjGJQvP91L05nqOmAs662eV6ijXZMi6meuy1Q2WhOxzE6N/4+LoonywWdN1j3UdAMAx3LBDvLAa6drO2vQIV8a9fkaUAgqq6C89zf1AGkrV5pxB5d5WPPiTFJaWBefvuEg5aPewAJm7FX4PW7PAMAWhsMb/Loxz2sL1/bEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Q0ox8yxF; arc=none smtp.client-ip=192.198.163.19
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="INA9u0D6"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Q0ox8yxF"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791407220; x=1822943220;
+  t=1791407221; x=1822943221;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=0e6cU2OQhRHhItQ9RF39pFteWYF7gZvw3RLLsx+K2RA=;
-  b=INA9u0D6JeQp4GpmrUMbRAqZtJzdur3VIjBZJDxdYkZU4fVLAB482V+F
-   HXMMs1NKfLdtbemj4e7VpCueIIx5YTAmpZ+BPs3CyLvnBlR6DQGZ0O7/Z
-   h7knwyWM5qCbye4frc/pSdDf/qzKs+6ReypLL1eBexiZn39KVaXLAdvyI
-   VAkXHQY306J4nlorbMkNwSFausaMyghXV2iQD2Yi8YbhKFgnliU+U1Rw5
-   bVCW19/0ZZH3vvOAQQ9z4VxP0ADsGPSttNEiLuGQYVLliEtxcpSW+PUUx
-   f7zziArhX2XGp7e0cDN6dbwKLb/HW+fvGCuW0PzE6kdtIbOL10DyXMNeB
-   Q==;
-X-CSE-ConnectionGUID: F8KSTm5hQxat5SumYR5cDA==
-X-CSE-MsgGUID: Oyi45nydRy+7+1ZWO/wZiQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="289409"
+  bh=6p2FfMDEwU0rhmwfCD+gHz05+um9TEuyv/mw9S/rHCE=;
+  b=Q0ox8yxFrXt2O/a+eRr7bSSdlHdXyydl4K+IqRFfXzG/h3fbj407iD7O
+   NpTRsRIbljnWLPkv+QwNGiVZBw3vY1W/vFEfS2ZzWcfZKfl9Sqh7hUiwz
+   Hv6a9Sv/rlF15ZRnL6Pbeg0gNUg0VFEieu180+iZ12Ur0LCW3U+9GmoBH
+   Zz1LYkfHVy+LN5mBoL1gfpKuviGHAV45Z3WUnOxB8HB4kWSToxRIw1Xwv
+   4Fpsei+1ErS79a3JUCeY/Rn7r1lIHRZKxLMab2F8AciL1Ohd87etcoDYn
+   PD7xFCYQ/4x7D+Qa4w2Q+KfidLF5m51dAeJ/xcco/j69HV8uMmaoe9grg
+   w==;
+X-CSE-ConnectionGUID: NzDzXKoGTYGaEHdv/aYGzA==
+X-CSE-MsgGUID: DKe2RUPgRN6D5NcpfELIFA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="289419"
 X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
-   d="scan'208";a="289409"
+   d="scan'208";a="289419"
 Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 14:06:57 -0700
-X-CSE-ConnectionGUID: rAuF4s8qTpS/aflp+UvW1Q==
-X-CSE-MsgGUID: t/An+oNnTxOxgcY3i32sMw==
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 14:06:58 -0700
+X-CSE-ConnectionGUID: JlFpePC4TXiR8WJ39tl6rQ==
+X-CSE-MsgGUID: vLVTt5x7SgicntcdNH0Uuw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
-   d="scan'208";a="282359658"
+   d="scan'208";a="282359682"
 Received: from rchatre-desk1.jf.intel.com ([10.165.154.99])
   by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 14:06:56 -0700
 From: Reinette Chatre <reinette.chatre@intel.com>
@@ -61,9 +61,9 @@ Cc: x86@kernel.org,
 	linux-kernel@vger.kernel.org,
 	patches@lists.linux.dev,
 	reinette.chatre@intel.com
-Subject: [PATCH v2 3/5] x86,fs/resctrl: Move MSR_IA32_L{2,3}_QOS_CFG scope property to x86 resource
-Date: Wed,  7 Oct 2026 14:06:45 -0700
-Message-ID: <c873c62e78f335df6f7b99cb0cf0ccbcdd62b09e.1791406459.git.reinette.chatre@intel.com>
+Subject: [PATCH v2 4/5] fs/resctrl: Drop unnecessary is_mba_linear() helper
+Date: Wed,  7 Oct 2026 14:06:46 -0700
+Message-ID: <816855328d87740b2cb720215d222702abba4b0f.1791406459.git.reinette.chatre@intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1791406459.git.reinette.chatre@intel.com>
 References: <cover.1791406459.git.reinette.chatre@intel.com>
@@ -75,150 +75,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-MSR_IA32_L{2,3}_QOS_CFG enable code and data prioritization on x86. On
-Intel the registers have the scope of the associated cache while on AMD
-they have CPU scope. The scope is recorded as a property of the cache
-resource's control, of which each cache resource currently supports only
-one.
+is_mba_linear() assumes it operates on the MBA resource and returns whether
+the resource's delay values are linear. There is only one caller that
+separately makes the same assumption.
 
-The scope of MSR_IA32_L{2,3}_QOS_CFG is only relevant to x86. Even so, the
-property is found among the resctrl filesystem's cache properties while only
-x86 code sets and reads it. Keeping the property with the cache control
-properties would also duplicate it across all controls of a resource when
-resources support multiple controls.
-
-Make the scope of MSR_IA32_L{2,3}_QOS_CFG a property of the x86 hardware
-resource and name it for the registers it describes now that it no longer
-needs to be generic.
+Avoid duplicating the resource assumptions and let the only caller access
+the needed property directly.
 
 Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
+Reviewed-by: Chen Yu <yu.c.chen@intel.com>
+Reviewed-by: Ben Horgan <ben.horgan@arm.com>
 ---
-Changes since RFC v1:
-- Remove stray ";" in kernel-doc comment.
-
-Changes since RFC v2:
-- Rewrite changelog, shorten subject.
-- Rework comment instead of copy&paste the original.
-- Rename property to be more specific now that it does not need to aim
-  for generic resctrl filesystem support.
+Changes from RFC v1:
+- RFC v1 made bandwidth delay a resource property. That change was dropped
+  and this cleanup is all that remained.
 
 Changes since v1:
-- Update kernel-doc to make clear property is only relevant to cache
-  resources.
-- Rewrite changelog.
+- Add Chenyu and Ben's Reviewed-by tags.
+- Clarify "resource is linear" vs. "resource's delay values are linear".
 ---
- arch/x86/kernel/cpu/resctrl/core.c     | 7 ++++---
- arch/x86/kernel/cpu/resctrl/internal.h | 4 ++++
- arch/x86/kernel/cpu/resctrl/rdtgroup.c | 4 +++-
- include/linux/resctrl.h                | 3 ---
- 4 files changed, 11 insertions(+), 7 deletions(-)
+ fs/resctrl/rdtgroup.c | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
 
-diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
-index f96f7cf255d0..e647c3aa065a 100644
---- a/arch/x86/kernel/cpu/resctrl/core.c
-+++ b/arch/x86/kernel/cpu/resctrl/core.c
-@@ -444,6 +444,7 @@ static int get_domain_id_from_scope(int cpu, enum resctrl_scope scope)
+diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+index 68be9b903ac6..821c6e2b10f4 100644
+--- a/fs/resctrl/rdtgroup.c
++++ b/fs/resctrl/rdtgroup.c
+@@ -2577,11 +2577,6 @@ mongroup_create_dir(struct kernfs_node *parent_kn, struct rdtgroup *prgrp,
+ 	return ret;
+ }
  
- static void domain_add_cpu_ctrl(int cpu, struct rdt_resource *r)
+-static inline bool is_mba_linear(void)
+-{
+-	return resctrl_arch_get_resource(RDT_RESOURCE_MBA)->membw.delay_linear;
+-}
+-
+ static int mba_sc_domain_allocate(struct rdt_resource *r, struct rdt_ctrl_domain *d)
  {
-+	struct rdt_hw_resource *hw_res = resctrl_to_arch_res(r);
- 	int id = get_domain_id_from_scope(cpu, r->ctrl_scope);
- 	struct rdt_hw_ctrl_domain *hw_dom;
- 	struct list_head *add_pos = NULL;
-@@ -466,7 +467,7 @@ static void domain_add_cpu_ctrl(int cpu, struct rdt_resource *r)
- 		d = container_of(hdr, struct rdt_ctrl_domain, hdr);
+ 	u32 num_closid = resctrl_arch_get_num_closid(r);
+@@ -2621,7 +2616,7 @@ static bool supports_mba_mbps(void)
+ 	struct rdt_resource *r = resctrl_arch_get_resource(RDT_RESOURCE_MBA);
  
- 		cpumask_set_cpu(cpu, &d->hdr.cpu_mask);
--		if (r->cache.arch_has_per_cpu_cfg)
-+		if (hw_res->qos_cfg_has_cpu_scope)
- 			rdt_domain_reconfigure_cdp(r);
- 		return;
- 	}
-@@ -1001,7 +1002,7 @@ static __init void rdt_init_res_defs_intel(void)
- 
- 		if (r->rid == RDT_RESOURCE_L3 ||
- 		    r->rid == RDT_RESOURCE_L2) {
--			r->cache.arch_has_per_cpu_cfg = false;
-+			hw_res->qos_cfg_has_cpu_scope = false;
- 			r->cache.min_cbm_bits = 1;
- 		} else if (r->rid == RDT_RESOURCE_MBA) {
- 			hw_res->msr_base = MSR_IA32_MBA_THRTL_BASE;
-@@ -1020,8 +1021,8 @@ static __init void rdt_init_res_defs_amd(void)
- 
- 		if (r->rid == RDT_RESOURCE_L3 ||
- 		    r->rid == RDT_RESOURCE_L2) {
-+			hw_res->qos_cfg_has_cpu_scope = true;
- 			r->cache.arch_has_sparse_bitmasks = true;
--			r->cache.arch_has_per_cpu_cfg = true;
- 			r->cache.min_cbm_bits = 0;
- 		} else if (r->rid == RDT_RESOURCE_MBA) {
- 			hw_res->msr_base = MSR_IA32_MBA_BW_BASE;
-diff --git a/arch/x86/kernel/cpu/resctrl/internal.h b/arch/x86/kernel/cpu/resctrl/internal.h
-index e3cfa0c10e92..670ce9272b51 100644
---- a/arch/x86/kernel/cpu/resctrl/internal.h
-+++ b/arch/x86/kernel/cpu/resctrl/internal.h
-@@ -125,6 +125,9 @@ struct msr_param {
-  * @mon_scale:		cqm counter * mon_scale = occupancy in bytes
-  * @mbm_width:		Monitor width, to detect and correct for overflow.
-  * @cdp_enabled:	CDP state of this resource
-+ * @qos_cfg_has_cpu_scope:	Only for the L2 and L3 resources: true if
-+ *				MSR_IA32_L{2,3}_QOS_CFG has CPU scope, false if
-+ *				the scope matches the associated cache.
-  * @mbm_cntr_assign_enabled:	ABMC feature is enabled
-  * @sdciae_enabled:	SDCIAE feature (backing "io_alloc") is enabled.
-  *
-@@ -140,6 +143,7 @@ struct rdt_hw_resource {
- 	unsigned int		mon_scale;
- 	unsigned int		mbm_width;
- 	bool			cdp_enabled;
-+	bool			qos_cfg_has_cpu_scope;
- 	bool			mbm_cntr_assign_enabled;
- 	bool			sdciae_enabled;
- };
-diff --git a/arch/x86/kernel/cpu/resctrl/rdtgroup.c b/arch/x86/kernel/cpu/resctrl/rdtgroup.c
-index 5ffa39fa86fa..6e4eeccd4891 100644
---- a/arch/x86/kernel/cpu/resctrl/rdtgroup.c
-+++ b/arch/x86/kernel/cpu/resctrl/rdtgroup.c
-@@ -131,6 +131,7 @@ static void l2_qos_cfg_update(void *arg)
- 
- static int set_cache_qos_cfg(int level, bool enable)
- {
-+	struct rdt_hw_resource *hw_res;
- 	void (*update)(void *arg);
- 	struct rdt_ctrl_domain *d;
- 	struct rdt_resource *r_l;
-@@ -151,8 +152,9 @@ static int set_cache_qos_cfg(int level, bool enable)
- 		return -ENOMEM;
- 
- 	r_l = &rdt_resources_all[level].r_resctrl;
-+	hw_res = resctrl_to_arch_res(r_l);
- 	list_for_each_entry_rcu(d, &r_l->ctrl_domains, hdr.list, lockdep_is_cpus_held()) {
--		if (r_l->cache.arch_has_per_cpu_cfg)
-+		if (hw_res->qos_cfg_has_cpu_scope)
- 			/* Pick all the CPUs in the domain instance */
- 			for_each_cpu(cpu, &d->hdr.cpu_mask)
- 				cpumask_set_cpu(cpu, cpu_mask);
-diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
-index 66dc9813c888..b6b4519a5190 100644
---- a/include/linux/resctrl.h
-+++ b/include/linux/resctrl.h
-@@ -215,8 +215,6 @@ struct rdt_l3_mon_domain {
-  * @shareable_bits:	Bitmask of shareable resource with other
-  *			executing entities
-  * @arch_has_sparse_bitmasks:	True if a bitmask like f00f is valid.
-- * @arch_has_per_cpu_cfg:	True if QOS_CFG register for this cache
-- *				level has CPU scope.
-  * @io_alloc_capable:	True if portion of the cache can be configured
-  *			for I/O traffic.
-  */
-@@ -225,7 +223,6 @@ struct resctrl_cache {
- 	unsigned int	min_cbm_bits;
- 	unsigned int	shareable_bits;
- 	bool		arch_has_sparse_bitmasks;
--	bool		arch_has_per_cpu_cfg;
- 	bool		io_alloc_capable;
- };
- 
+ 	return (resctrl_is_mbm_enabled() &&
+-		r->alloc_capable && is_mba_linear() &&
++		r->alloc_capable && r->membw.delay_linear &&
+ 		r->ctrl_scope == rmbm->mon_scope &&
+ 		!rmbm->mon.mbm_cntr_assignable);
+ }
 -- 
 2.55.0
 
