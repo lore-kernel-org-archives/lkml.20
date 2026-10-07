@@ -1,84 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC9953B27F4;
-	Wed,  7 Oct 2026 10:10:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D24AE470122;
+	Wed,  7 Oct 2026 10:11:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791367862; cv=none; b=MH2ncgJBO1WWdQIP+fiT+FffDYZ9nl4BpRMcoGNtwJ2680LIbV2/Rxcr3fNS917rxxl7M4HcjTKjeHatuH10np8OTRMvG81BMCVjikrSufSVhIhTXxdd2HWh8wX24MPmyV0H4b4y8v5xXKO2sb/sqPffnR/8WlxAOipG+Rz3x88=
+	t=1791367884; cv=none; b=R70egJDpJDjyujHTvx4SaQ01JMg+stvsvqBTU6EcZWE7ggBVpdY7hY8s7pH0Vst0FnA7SingcgrGuZL2bo65HuMQ3MNuZ/BZWG6slCM2S8GKjAIiMN4R6A2UcQBWfRduyoeMkMA+MuWpjHtXGziyDyqMfdSR73/0uXeC7WgYOzo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791367862; c=relaxed/simple;
-	bh=H6VlnTbZoLL0Obq0sGmwrhxmClOhWmlxdkyvCn6fuNc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-Id; b=uHmhvtpg9YrMEpHJd3LYlTTFcmNGEduDkq8sQ+AjFeg9mcSoddjr8JfhW/c9i5CeTr5TPbAywR6oK0Jh/3GGW3mIfwwhxQ53a/g/Uw90kRwRWMORtjVxpRsUoubHmYlIFiNxEMD4P3L2teR0iyKUS+etWpbD2dhCQIFpnXPxsaE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jCXa1iDf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791367884; c=relaxed/simple;
+	bh=AqLm+L3n4IQW15T8UugQRnIhFWHy32aVb9lIFK8Wzmg=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=HWmOJwgJxhrAIfCLv+q8rhc0GBXx5d8YwLBgq7woJ5vKkVDEh1qwnj52qlbt/91oO8EEh3U42rYs1ZERIzjlc7FlHrwxwxMekGiGZBCqxRRL3hSqLvhaafQoocH8v3mIsAn7bz1k/Kf/mcp7UN4NrpWE1kJ/IBcfRVAuj3n69H0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hnnzdEMv; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jCXa1iDf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED9881F0089C;
-	Wed,  7 Oct 2026 10:10:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791367852;
-	bh=vOH7ltGy6XiraLDUQDCsPzWkSHpFX75ZD94gqqUETbU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jCXa1iDfV8UMCscd2lbZpzbIFmsTnq7vZ68C73AZQ33jMXrhhlW8ekI66jHC7R4GF
-	 MlMzDwECzX68tSy1uw+amWMFeqYddn4T3wJiFhjmJvwpWzT81Vn9UFHvRKnkGiqZRX
-	 GDe05ifiChkDEpkQc3QmqtA2CWVPTrKvL2JJslo/SkB4b4CtIlTMgyToQEQNwpu+ih
-	 B36Sucq3OIfS/WhgxWBMwKQ+fL5ysA2v6Bl6sp8r6JRfwYPxA7+fzQD0R58eELZSGA
-	 rRLmTxw7sVTGrol3jXwItnC3sizRJRPSLPlXKGViXOCLlF4oevlwQOX9kpI+KQQINy
-	 nl7rHQeGGaevw==
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: kylebot@openai.com
-Cc: linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
- rostedt@goodmis.org, mhiramat@kernel.org, outbounddisclosures@openai.com,
- Kyle Zeng <kylebot@openai.com>
-Subject: Re: [PATCH] tracing: Restrict perf filters that read kernel strings
-Date: Wed, 07 Oct 2026 10:10:48 +0000
-In-Reply-To: <20261006224005.49636-1-kylebot@openai.com>
-References: <20261006224005.49636-1-kylebot@openai.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hnnzdEMv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791367875; x=1822903875;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=AqLm+L3n4IQW15T8UugQRnIhFWHy32aVb9lIFK8Wzmg=;
+  b=hnnzdEMvJRQ6gK6pXcTedXQQ317uY+0lJaPo2TCLkjXp/pw4BmljxM4d
+   5RyTxtJh5Mtn0SlDT9b351dP1Pmjn93AwHQCeOiQyOx5hokP6Eg4tFzpa
+   ikkLR5DDzqoDv1SmqmJQh8qEPKoNLx6ymA7WMJdMGEjMiBnzJcFqmtmP7
+   3SF+9a2blgK1KUQJjwrzD6bHSPklKcuWLzo80xUtahru4nOSDzBfpdi7K
+   OWgli6oVZYOmTB7/cKvKnP9I00tyDFbWaxVWol1Bd8SoAp5lORiJ9bqt2
+   oLiKGUxZTDBTAzvbYKBCOU/JrKbccSacvgrN1fpr1mN0Cy4yDJqXVu7co
+   w==;
+X-CSE-ConnectionGUID: OZ79qn/XQyGIo4kVdmF/1g==
+X-CSE-MsgGUID: 212L8BKSRsi2YXYjYIuing==
+X-IronPort-AV: E=McAfee;i="6800,10657,11927"; a="8886"
+X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
+   d="scan'208";a="8886"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 03:11:14 -0700
+X-CSE-ConnectionGUID: 9I7T9LLLSKSnYchsmh3ESA==
+X-CSE-MsgGUID: qUBe7+5NTrKXlAoKQ6yhPA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
+   d="scan'208";a="21904"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.13])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 03:11:11 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Wed, 7 Oct 2026 13:11:07 +0300 (EEST)
+To: Shuwen Bao <baoshuwen2013@outlook.com>
+cc: Hans de Goede <hansg@kernel.org>, 
+    Krishna Chomal <krishna.chomal108@gmail.com>, 
+    Emre Cecanpunar <emreleno@gmail.com>, 
+    Suryansh Singh <technosfan14@gmail.com>, 
+    Radhey Kalra <radheykalra901@gmail.com>, 
+    =?UTF-8?Q?K=C3=BCr=C5=9Fat_Abayl=C4=B1?= <hello@kursatabayli.dev>, 
+    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2] platform/x86: hp-wmi: add support for OMEN 16-am2xxx
+ boards
+In-Reply-To: <SI2PR04MB58958F552F0DDCC81D90CD41A2942@SI2PR04MB5895.apcprd04.prod.outlook.com>
+Message-ID: <c2ae2ed7-c5fd-9318-386a-276802e9e7ae@linux.intel.com>
+References: <SI2PR04MB58957D08A31E56D73C751885A2862@SI2PR04MB5895.apcprd04.prod.outlook.com> <179122230394.27048.9839062081057759183.b4-ty@b4> <SI2PR04MB58958F552F0DDCC81D90CD41A2942@SI2PR04MB5895.apcprd04.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <20261007101050.ED9881F0089C@smtp.kernel.org>
+Content-Type: text/plain; charset=US-ASCII
 
-On Tue, 06 Oct 2026 15:40:05 -0700, Kyle Zeng <kylebot@openai.com> wrote:
-> A task-bound, counting-only syscall tracepoint can be opened without
-> permission to read raw kernel tracepoint data. Setting exclude_kernel
-> does not prevent its filter from running: perf_syscall_enter() submits
-> the saved user-mode registers.
->
-> Pointer-string filters use FILTER_PRED_FN_PCHAR by default, which reads
-> through strncpy_from_kernel_nofault(). For sys_enter_openat, for example,
-> the filename field comes directly from a syscall argument. An
-> unprivileged caller can pass a kernel address, install a filter such as
-> 'filename ~ "Linux version*"', and use the event count to test the
-> contents of kernel memory, even with perf_event_paranoid=2.
->
-> Check the compiled filter before installing it and require the same
-> kernel and raw-tracepoint permissions as access to raw kernel tracepoint
-> data for FILTER_PRED_FN_PCHAR. Inspect every predicate so that other
-> events, operators, and boolean expressions cannot bypass the check.
-> Return the permission error through the existing cleanup path before
-> publishing the filter.
->
-> Keep user-pointer (.ustring) and record-local predicates available under
-> the existing policy. This leaves tracefs filtering and authorized kernel
-> string filtering unchanged.
->
-> Fixes: 5967bd5c4239 ("tracing: Let filter_assign_type() detect FILTER_PTR_STRING")
-> Assisted-by: Codex:gpt-6-astra
-> Signed-off-by: Kyle Zeng <kylebot@openai.com>
+On Wed, 7 Oct 2026, Shuwen Bao wrote:
 
-Looks good to me.
+> Hi Ilpo,
+> 
+> Following Krishna's review, I have sent a v3 of this patch which moves
+> board 8F1C from the thermal profile board list to
+> hp_wmi_feature_boards[], mapped to omen_v1_legacy_board_params:
+> 
+> https://lore.kernel.org/platform-driver-x86/
+> SI2PR04MB589508E55CCCD8E26E53E4DBA2942@SI2PR04MB5895.apcprd04.prod.outlook.com/
+> 
+> Since the v2 commit is currently applied in review-ilpo-next, could you
+> please drop it from that branch and take v3 instead? Otherwise the board
+> would end up listed in both places.
 
-Reviewed-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Hi,
 
-Thanks,
+I've dropped the commit now but I'll process new patches later, not now.
 
+> Sorry for the extra churn, and thanks for your time.
+
+No problem at all, it happens all the time we need to reconsider 
+something to get things done the best way possible.
+
+Thanks.
 
 -- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+ i.
+
