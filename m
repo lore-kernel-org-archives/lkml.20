@@ -1,613 +1,231 @@
-Received: from mail-106119.protonmail.ch (mail-106119.protonmail.ch [79.135.106.119])
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011049.outbound.protection.outlook.com [52.101.62.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD1FA37A4AB
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 16:32:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.119
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791390757; cv=none; b=oGEsLeQmPSsG5yIIth7td0ryK9MtxfoqYKbY0GHfYAgXQA2AF+8LiBpR+TVyPBy4DAjsnpE84HEL6T1nTITPPmKZ287xr3YI/GZDUp/QpapCV84JULwsl3/7ADkr196MakFH+BsThBcTelc/QJJX1SpKlqRKMyOEG9/ZpPhy25o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791390757; c=relaxed/simple;
-	bh=W6AnEZMSPK4gfU5mRZnciisNPE+2MuFs12OCsFJRvmM=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=d6me4QmiA4U6FTdqBURUttzcLIsLgXRjqZvOXoojeUrVpOQbFW2yk61X9CRONaVj6qHAXAFR0Qq/m4zlKV5pskod3TESkLUtLzt9jjVcX7w4G9/AB1G7WznKn+Dcm4QBIo8ZWxiO/xVVlbWIGl7LkgCo0KLhsDyP6KGoxTDF1zQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=WkBPBIC1; arc=none smtp.client-ip=79.135.106.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 334247404E;
+	Wed,  7 Oct 2026 16:34:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791390868; cv=fail; b=bgtejj8XLwSs2UZDOG/oV+EJNhnHF+3w0ieGS6TNBv7G53Cdx77ekeUH9sUdVwbtRQ93DpXvQEsP+4LKeLMWhOVflC02aQcjIl8B9s/hilSEU+zJk+IbLo79S5tfAogo9dhxbWeO17oKI3EVSkrAb2mj33hbGYb/CuZXo5ifbnE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791390868; c=relaxed/simple;
+	bh=5IVFkApmNNDqsx3Hz+kDXIfVBOXdXzxksSluB1O9Ifs=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=Y/wHOv7xRy5zeLFQCM0fHbtg+viBOhNiz1g8r0AN5yGRkNkLp3GaItTBIzvCp3li8bPQXqhU9q9M/d8Pmh6PnwdnXMqmgLCX1ytBCmm9Bk2zHkhSMmHnUOFPSEYycikHi0F+Tg/zTuq1nJM73qGD49qodJIVp0xoifcI2pBgN2I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=WXpakY39; arc=fail smtp.client-ip=52.101.62.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="WkBPBIC1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=4x2ow5ljtjbw3hplheentgfmim.protonmail2; t=1791390741;
-	x=1791649941; bh=um/MWEinqxCvpmwJ3KG/Y2wDcHMbrP2w+5dgfERQ2Tw=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=WkBPBIC12GeoNfkUUoI9G1AmqTxxftyTSpusbkd5W1IKUSfNvGMEss68mB7jnQLO4
-	 eApII0CrUYchFyof8fejb5El4YwTXE1MaWgMqXXTAEjXylmb6QmIctNHHK+eS7+DE4
-	 d7jmF+FR4dIPD+BXDDyedlpHDQx++CKn1GuxG6MbOxRM/2zbr+mM1xuIBBNcIgaHfp
-	 lRxvwOrYkK/MXKXEFBizkHAsqWS9XIXtzj0ZgHru3YwLs4L634MMKwWVFi01JobcFF
-	 f3wSN2QJBwgbNr4wfovE/qPjUsp40PxCKvTNcXFTWAQaXZ2aOdtm+RxGx59rk3kClY
-	 BMXGWs8M7105A==
-Date: Wed, 07 Oct 2026 16:32:14 +0000
-To: tiwai@suse.de, Devin Christensen <dchristensen8@proton.me>
-From: Devin Christensen <dchristensen8@proton.me>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v5] ALSA: hda/ca0132: Add Sound BlasterX AE-5 external RGB LED strip support
-Message-ID: <20261007163207.2621040-1-dchristensen8@proton.me>
-In-Reply-To: <20261006152520.1409881-1-dchristensen8@proton.me>
-References: <20261005141244.2130023-1-dchristensen8@proton.me> <87mrsrorxc.wl-tiwai@suse.de> <20261006152520.1409881-1-dchristensen8@proton.me>
-Feedback-ID: 45895322:user:proton
-X-Pm-Message-ID: 4cbfe35e6d2eb7a18adb499af58d3f8067d591a1
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="WXpakY39"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cxYx0ao3VI4wNaj+PXvjpzZBN7B6iZFKRFmIq4XjDYJ8pBK2Ok4Nzbvx+fb5WlgMShwZ1qeHtsiAxmYolQ8U5TyNbmqPPP4h1nQEGyKxMilNcaXtJh9lz47vVlsgKKCzF0yTL/HO3bGHn94gGy95UejlfTChHwtwcFHMtce6AKkxK9emqBKmZnqNZ4NIrugVceJ9HCRE2ApQ5tGw9WiMe3H94QSs5jXN8lqjZH3OX6aDaQ15MUjVJbC8aJ+3RzCdXbpOCEACxObQQDbRguKlFeo5zTXLmHx8E/kyKP5QR9WyUEx5AkUoo/XvEHzuyyWX8fHAocij1TsfNBrTeUZgww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=P6Kam31Ry9DLDVSMrVyFH6cMoYWY8c3nDK/1SOenqpM=;
+ b=VPRDgp0jH9OJua8tk5zOMWv/rexMMFb+h3DwKPNl61rtZJhG2pYUKbJSJVex0eQfnMCPfYVjKDIfsY5xDAQZJ2fdZhZPfYyQrds4/PR/GqBzD4HnSuZ7m8qmmWjF5zKNjzf4Yh5VBK0zD7QWNr+6LHaFGX3Uk0EiTtqm3DKCpKvOKWwCJ0vQI7g64/j8KTRkoVFWA4AwQ0b+qPwGfY6yWl5WfBV/Cqd/wbBi9OAWAd66gCV4DWwNxDakSWwbol2/l0cluHz2l7rMzR6kLLQ6BVmZq+P64Y0Jku8R5gahS6sY79atQxdtB+7VWrmkjagXr/ueeh4d6QXApaemh6u/Dw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=P6Kam31Ry9DLDVSMrVyFH6cMoYWY8c3nDK/1SOenqpM=;
+ b=WXpakY39+QdPdEW1vkErrXmAAViawX07De0phl0aaphXxHPixIAiIjH5K8UhH6nR8jmmWcXJmMrZuwhbislf6pwk8abErmeulLeGDN0WAknKRrnkM5/5u4oybO0hNv7rK/YOAH8upj16Rd2KmqQlDg24YoGqsjHbRjVXgEBkBKI=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com (2603:10b6:208:314::17)
+ by MN0PR12MB6054.namprd12.prod.outlook.com (2603:10b6:208:3ce::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Wed, 7 Oct
+ 2026 16:33:24 +0000
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1]) by BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1%5]) with mapi id 15.21.0496.015; Wed, 7 Oct 2026
+ 16:33:24 +0000
+Message-ID: <45209a1b-5e52-4c50-a755-04affe312360@amd.com>
+Date: Wed, 7 Oct 2026 11:33:21 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/3] x86/resctrl: Fix ABMC counter programming
+To: Reinette Chatre <reinette.chatre@intel.com>, tony.luck@intel.com,
+ bp@alien8.de
+Cc: x86@kernel.org, Dave.Martin@arm.com, james.morse@arm.com, corbet@lwn.net,
+ skhan@linuxfoundation.org, rdunlap@infradead.org, tglx@kernel.org,
+ mingo@redhat.com, dave.hansen@linux.intel.com, hpa@zytor.com,
+ kas@kernel.org, rick.p.edgecombe@intel.com, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-coco@lists.linux.dev, kvm@vger.kernel.org
+References: <cover.1790976400.git.babu.moger@amd.com>
+ <95bbc2e322ac18e2566c4963b7e6d13ac8485e20.1790976400.git.babu.moger@amd.com>
+ <f4a82716-5107-4f39-8c9f-94374f188857@intel.com>
+Content-Language: en-US
+From: Babu Moger <babu.moger@amd.com>
+In-Reply-To: <f4a82716-5107-4f39-8c9f-94374f188857@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DS3P220CA0003.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:8:45f::17) To BL1PR12MB5320.namprd12.prod.outlook.com
+ (2603:10b6:208:314::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5320:EE_|MN0PR12MB6054:EE_
+X-MS-Office365-Filtering-Correlation-Id: d9c53ad9-c69b-4172-120e-08df2490b536
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|7416014|376014|3023799007|10067099003|56012099006|6133799003|5023799004|4143699003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	Zr5jXQt1KfzYIYqtso/ZqzIhyyh0B1Oo6QnGX8aNsv7e9HT4hW+/b9hNdH2NpekNttBBgMyoDGpoUYs89bMtv/DpRPaGth8fAGJSF1Bu08+qV3HGhUDINulIcy0tMYKTot2i7TVB/n+Vlm8iy1pc3j8S4QKiYIePhzkf3XjbYKThtdjWHHjXz2BPmYL4IHai3D5NSJhzWYQfk0zBmje2ULRwzaWI7UIXpZG6+YNoRzB1K5q/Lo6cNPUMXmBMB+93yIyG3Swz5ETmHy9D3Jg01NASyhA56TfS3/mr1yfJWibueDPISrnioap8uDa6k5vl7axQk8dzcXitWfEa3N7hn2+VtzA6YGOwN2R7GzUTWaPzIdniKkruklM+V7EWmSgtv+CCRtvcqTs9RKGiTYRGOvhE95hXgK8sqKvZSsfMK0sYJUGZCCcFAGAJuh9isJG+N/sSvmgknZL48bRLIqyC0LQWIpA+D/5nkxr7jhBZMw3TgXh0k7cs2n0d401mCjxnAHre/M/kDg2v2p+Jld7OpD1CKgISG2sIPE84rh/TYL9CpwtMUWI5nCrfkGdj+Ag9bp9F8ZruJK7tgSGvIq2Bi7jKipp6H4ozGYD9uSlSJgJ5mw2b+8ZS+WcVav7MVkYxfZy2YH9pInDS5k0Kfg4b1D0PltOCKFFCpaRT+MS2mt0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5320.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(7416014)(376014)(3023799007)(10067099003)(56012099006)(6133799003)(5023799004)(4143699003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?L2FlVktRV0VKbWc4a1Y5RVBDTjNuK1cvMDQ0Vzk5WVRjVG1KN3ViM1R0MGJK?=
+ =?utf-8?B?OVlnZTFkNm9sQmRzTXJVNjgxZm9IQnRyVnQ0L08xV2hrcXVrK25nd3MwLzV2?=
+ =?utf-8?B?bEt4V0FyZDE3aW1ud1hvblNVZzF4bGJUYWhSc2RUKzR6dXdydWFaTHJZY3Za?=
+ =?utf-8?B?TjB3UTltOGkvTmo5ZGt6RGhpT3dzajBPcWs4dnU5VXhoajJVblprV3IvckFI?=
+ =?utf-8?B?SWJKT3pHNW9JNm5id3BlSXVqOXlGUWtQNG14bGVueTd6NVFzOVRpYm0xanJh?=
+ =?utf-8?B?dzJyTkQ0UVRIcnBTdVAvQnM3dGFETitMMzBHdlZLbXh4NFNlTFVBdXlOVmJT?=
+ =?utf-8?B?bnprb0lBaURHQ0pSQ2w2NnRDV2xUQ3ZySjJ6Sldrak9JSFY0ZXE3YWFacHA2?=
+ =?utf-8?B?cWdMTDh0YWhFaEp6bU1iaEVvekFhV1gzOGpPS011YWlrbTI5enVVV0hyUEpi?=
+ =?utf-8?B?c2ZySHhlUEtJRjZsWjhlUGwxa0VPNFo0M05JOGZGekN1TVJRL3lsYzNuaCth?=
+ =?utf-8?B?MEozSVMwS1JHVWpnMUpZL0V6SlpXczJyelRZTmRDK25ha2tJNXZVdUpjNGl3?=
+ =?utf-8?B?UGFrL0tnMWhNcGQzbXIxYS82UmROaWVaVUErQlZzVlN1dXZzNkRXL05QMDRj?=
+ =?utf-8?B?Z0ZWWFhVRXlPN3ArSXZJM1ZId3JaQUhkZWFFd1JnTVgyNUIzZklkSU55RFlG?=
+ =?utf-8?B?bGNuRU5lRW1HdTFyVzRkWlEzV1I0ODB5UFJnY0xaV1F4UURROWlwa1U4bVpx?=
+ =?utf-8?B?NUxMYjAxRG4xeVBvZGJ1SlRONnBwYWJDTGNOZFlXaGZKRDM5SFM3VWY4RFVn?=
+ =?utf-8?B?YjVBTDJONFlIOU95Rm1ZR3BseGp0Y01FYWplei84ei9WTk5CRXhNQnVIMnRa?=
+ =?utf-8?B?ZmNFUGpGcnZ4UEFHMHVCQ2U5c1RqYzRGMzVuRTJGUjE0cTA2bTh6ZEtkZElr?=
+ =?utf-8?B?NlhLaVdOVXdYOGczQ3M2NVdodWdWOG1mNzE2UDg4ZGZpc2pEb3F2VUpNeTRI?=
+ =?utf-8?B?VEw4WncwQVRvTGpFT0lXdE1LS09BbER1M3pMdkdJOXlmTnJaNUdQSjRUdEFF?=
+ =?utf-8?B?QXhuZjRiT3Y0N3lJSUVmdFdPVEZ0VllaZkFYZExyVWQ2VVBVV3hzUE1kSk5S?=
+ =?utf-8?B?dGcxdjNHMVgrTEdMYnRzdUI5Nyt0SjVGMDVWTW5JcjQ1SEtXWERoaGllVjhL?=
+ =?utf-8?B?VEw2WkpmanRvSGJDUEdSSldsQVFrUVJjSmo4YXpuQ0dERGRMOEpSdmYzbEZE?=
+ =?utf-8?B?a2NLZVNzYjJZVjRmZW1uOVY5QXErZkdCa29pWDJoZ2k2anN3Qkc4aWVobGVo?=
+ =?utf-8?B?ZkRaN2NlWWVtM0pER21VeVZjVnUzOTZZbUswTGV1bEZ0aWhwNUk2a3RPQTM2?=
+ =?utf-8?B?M0tiN00yM2tDNzJTUkVMNGhwRW82ZDZzRGMyU0svWG9sN1NEeG5VYmhzeEY4?=
+ =?utf-8?B?RVpzVGtISXJIY2ZYWmFZRnZmRFZJbHVPRnFJaHFTUUpxTWxTMm1icE04NkR5?=
+ =?utf-8?B?QXEvNi9aMTNWTlNUM3lGeDRPbk5FdU5kUEhhYTJ2UFUyWTYwTDA5dzhQaDlU?=
+ =?utf-8?B?TzdJcVRFTGVFdmkwbVZhNW93dEQvYXJkRno1dkt5Q2NmWDMyR1VZM1A5RG1D?=
+ =?utf-8?B?THFnZmw3R3ArMUZNVXFUMFRpRXJhVHNTV0ltMXNPQWhVL0c0b3ZEaDF5cGJB?=
+ =?utf-8?B?blJkcUNkS3djUmFRNFJJOVBUa1BMdW9uL0dqL3BKeWtHb3J3cGtPZ0ZFQXlK?=
+ =?utf-8?B?ME1yVUUzR05wYXl0ZnBjSkovSU5Rb3oyS2p5MU0zWVlML1NiSTFLWkRXai9j?=
+ =?utf-8?B?SitKelhKOXdMVmhlOHowcmdqMG1SUFYvT3hMbTRzQUlGU1VBbUU1cUJ4Rm9z?=
+ =?utf-8?B?T0N5MDJMZ2xUVW1JYTVsMDdVNlUvODlDQjEySkR1M0FMM0NqK0p4eTBiWWVY?=
+ =?utf-8?B?a2dOdjRtK1ZzL0c4Znh6c2I2dVQvWWRLQVhRWkJGVktmcWJPSVh2Vjc4M21h?=
+ =?utf-8?B?ZG4xSUorMWdxT3hveTBFU003OE1HNHZnckJFck1JTTZJeEc5bU1uOENmVlY0?=
+ =?utf-8?B?U0lxRkZqelVkM2tBOHhyNEwreWRZbFhoUnpJMC9tTjR2djJxdTFQbW5xSmF3?=
+ =?utf-8?B?SHM0VTJ0YlpHUEtSVzlLQXBSbjd0NGhsVmFVeTd5RVYwOFlaNll3WmcyMzhJ?=
+ =?utf-8?B?M0grM1IrSGxkYlBzemRQK2lXMnM5S1JGU0lsdmthQUpJd2RZRXZSR293ZjZL?=
+ =?utf-8?B?TUhQOEZKNEhlMzBJMjBNZHhNV2F6YldTdWgxTFVvRHpJUmwyTnY3bllJbmRZ?=
+ =?utf-8?Q?GXcaXtBpzVS56nzL7W?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d9c53ad9-c69b-4172-120e-08df2490b536
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5320.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 16:33:24.6404
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lGq8iG4YqsC9IqO0x6ZosKMgURcqatKnlrTdcbFR2eQ+R4L2N1z/tXVbYGDpH9WU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6054
 
-The Sound BlasterX AE-5 and AE-5 Plus expose a 3-pin 5V addressable RGB
-header driven directly by the CA0113 PCIe-to-HD-Audio bridge. Rather
-than using the CA0132 DSP or MMIO GPIO, the CA0113 contains an
-autonomous HDA link sniffer that snoops a designated HDA DMA playback
-stream, extracts the 24-bit GRB color payload, and serializes it as
-800 kHz single-wire NRZ pulses to the strip (WS2812B protocol).
+Hi Reinette,
 
-Expose the strip through volatile card control elements:
+Thanks for the quick review.
 
-  "AE-5 LED Strip"        (RW, BYTES): 300-byte RGB payload representing
-                          up to 100 addressable LEDs (3 bytes per LED).
-  "AE-5 LED Strip Count"  (RW, INTEGER): Active LED count (1..100).
+On 10/6/26 12:47, Reinette Chatre wrote:
+> Hi Babu,
+> 
+> On 10/2/26 2:26 PM, Babu Moger wrote:
+>> AMD's Assignable Bandwidth Monitoring Counters (ABMC) are configured via
+>> MSR_IA32_L3_QOS_ABMC_CFG. The architecture [1] received an update that
+>> expands the counter ID field (l3_qos_abmc_cfg.split.cntr_id) from 5 to 12
+> 
+> This describes an architecture change as a code change (l3_qos_abmc_cfg)?
+> 
+> The subject also claims a "fix" but above establishes this just as an update because
+> of architecture change without making clear what the problem needing fixing is.
+> using the tip guidance when writing changelog will ensure that problem description
+> is always clear.
 
-The controls are marked with IFACE_CARD and SNDRV_CTL_ELEM_ACCESS_VOLATILE
-so changes do not trigger unnecessary audio daemon wakeups or state
-restoration by alsactl.
+Ack.>
+>> bits.
+>>
+> 
+>> Use the updated field width. The number of supported counters is enumerated
+> 
+> The second sentence of above paragraph seems out of place as it seems to add
+> in a bit of additional context as part of the rest of the paragraph that describes
+> the fix.
+> 
+>> separately. Mark this as a fix to the original ABMC support to avoid
+> 
+> Tag can speak for itself, just focus on describing the problem being fixed.
+> 
+> The problem and fix are fused together making it difficult to see what is being
+> fixed here. Placing problem in its own paragraph helps to make this clear.
+> 
+>> misconfigurations caused by truncating counter IDs on hardware that
+>> supports a large number of counters.
+>>
+>> Also limit the number of supported counters to the maximum value that can
+>> be represented by the 12-bit cntr_id field if hardware reports more than
+>> 12 bits.
+> 
+> This is the actual fix though but is added as an afterthought?
+> 
 
-Writes allocate an idle HDA playback stream, format a 32 KB DMA buffer
-populated with repeating WS2812 frames (preamble, audio words per LED,
-and reset gap), configure the CA0113 BAR2 serializers and stream-tag
-pin mux, and pulse the stream long enough for the reset latch to fire.
-Access is serialized with a per-spec mutex, and the controls are only
-registered on QUIRK_AE5 devices.
+Yea.
 
-The strip transport uses snd_hdac_dsp_prepare() / snd_hdac_dsp_cleanup(),
-which require CONFIG_SND_HDA_DSP_LOADER. All strip-related code and struct
-fields are conditionally compiled under
-IS_ENABLED(CONFIG_SND_HDA_DSP_LOADER), with a no-op stub for
-ae5_add_strip_controls() when disabled.
+>>
+>> The AMD64 Architecture Programmer's Manual [1], available at [2], will be
+>> updated in a future revision to document the expanded cntr_id field.
+> 
+> 
+> Consider an example changelog like below that aims to follow the x86 changelog
+> guidelines:
+> 
+> AMD's Assignable Bandwidth Monitoring Counters (ABMC) are configured via
+> MSR_IA32_L3_QOS_ABMC_CFG; MSR_IA32_L3_QOS_ABMC_CFG.cntr_id selects which counter
+> the configuration applies to. The number of counters a platform supports (the
+> number of possible values written to MSR_IA32_L3_QOS_ABMC_CFG.cntr_id) is
+> enumerated separately via CPUID.
+> 
+> On a platform that enumerates more than 32 counters, writing a counter ID
+> through the current 5-bit encoding truncates the ID and misprograms ABMC.
+> 
+> The AMD64 Architecture Programmer's Manual [1], available from [2], has been
+> updated to widen MSR_IA32_L3_QOS_ABMC_CFG.cntr_id from 5 bits to 12 bits (the
+> published revision 3.41 does not yet reflect this; a future revision will). The
+> CPUID enumeration reports the maximum counter ID in a 16-bit field and can
+> still report more counters than a 12-bit MSR_IA32_L3_QOS_ABMC_CFG.cntr_id
+> can address.
+> 
+> Widen MSR_IA32_L3_QOS_ABMC_CFG.cntr_id to 12 bits to match the architecture. Cap
+> the enumerated counter count at BIT(12) so every counter ID resctrl uses can be
+> written to MSR_IA32_L3_QOS_ABMC_CFG.cntr_id without truncation.
+> 
+> 
 
-Signed-off-by: Devin Christensen <dchristensen8@proton.me>
----
-Updated to v5 to preserve colors across LED count changes:
+Looks good.
 
-- Parse, compare, and cache the full 100-LED payload (AE5_STRIP_MAX_LEDS)
-  in ae5_strip_ctl_put() and ae5_strip_ctl_get(), passing only the active
-  count to ae5_strip_send_frame(). This avoids discarding colors for
-  inactive LEDs when userspace configures the strip before increasing
-  the count.
+>>
+>> [1] AMD64 Architecture Programmer's Manual Volume 2: System Programming,
+>>      Publication #24593, Revision 3.41, Section 19.3.3.3 "Assignable
+>>      Bandwidth Monitoring (ABMC)"
+>>
+>> Fixes: 84ecefb76674 ("x86/resctrl: Add data structures and definitions for ABMC assignment")
+>> Signed-off-by: Babu Moger <babu.moger@amd.com>
+>> Cc: stable@vger.kernel.org
+>> Link: https://bugzilla.kernel.org/show_bug.cgi?id=206537 # [2]
+>> ---
+> Patch looks good to me.
+  Thank you.
 
-Thanks,
-Devin
-
-v5:
- - Parse, compare, and cache the full 100-LED payload (AE5_STRIP_MAX_LEDS)
-   in ae5_strip_ctl_put() and ae5_strip_ctl_get(), passing only the active
-   count to ae5_strip_send_frame(). This preserves colors for inactive
-   LEDs when userspace configures the strip before increasing the count.
-
-v4:
- - Reserve HDA stream by marking s->opened =3D 1 under bus->reg_lock in
-   ae5_strip_find_stream(), and clear on completion/error, preventing
-   TOCTOU race with concurrent PCM stream assignment.
- - Check pm.err after CLASS(snd_hda_power_pm, pm)(codec) to avoid MMIO/DMA
-   access on suspended or failed-to-resume devices.
- - Check return value of ae5_strip_send_frame() in control put callbacks,
-   propagating errors to userspace and avoiding uncommitted state divergenc=
-e.
- - Write DMA buffer words using cpu_to_le32() for big-endian architecture
-   safety.
- - Remove redundant/overwritten orig_sd_ctl save and interrupt mask clearin=
-g.
-
-v3:
- - Move #include <linux/dma-mapping.h> into main header block.
- - Check s->opened in ae5_strip_find_stream() to avoid stealing open stream=
-s.
- - Guard all strip code and struct members with IS_ENABLED(CONFIG_SND_HDA_D=
-SP_LOADER)
-   and provide a static inline stub for ae5_add_strip_controls().
- - Return 1 from put callbacks when values change (using memcmp on colors).
-
-v2:
- - Use CLASS(snd_hda_power_pm, pm)(codec) for RAII power management.
- - Switch userspace interface from sysfs to volatile card control elements
-   ("AE-5 LED Strip" and "AE-5 LED Strip Count").
-
- sound/hda/codecs/ca0132.c | 391 +++++++++++++++++++++++++++++++++++++-
- 1 file changed, 390 insertions(+), 1 deletion(-)
-
-diff --git a/sound/hda/codecs/ca0132.c b/sound/hda/codecs/ca0132.c
-index 0f8fb62f0..896091c11 100644
---- a/sound/hda/codecs/ca0132.c
-+++ b/sound/hda/codecs/ca0132.c
-@@ -18,6 +18,7 @@
- #include <linux/types.h>
- #include <linux/io.h>
- #include <linux/pci.h>
-+#include <linux/dma-mapping.h>
- #include <asm/io.h>
- #include <sound/core.h>
- #include <sound/hda_codec.h>
-@@ -1060,6 +1061,8 @@ enum dsp_download_state {
-  * CA0132 specific
-  */
-=20
-+#define AE5_STRIP_MAX_LEDS 100
-+
- struct ca0132_spec {
- =09struct hda_gen_spec gen;
-=20
-@@ -1162,6 +1165,13 @@ struct ca0132_spec {
- =09 * Renames PlayEnhancement and CrystalVoice too.
- =09 */
- =09bool use_alt_controls;
-+
-+#if IS_ENABLED(CONFIG_SND_HDA_DSP_LOADER)
-+=09/* AE-5 WS2812 strip control */
-+=09struct mutex ae5_strip_mutex;
-+=09u32 ae5_strip_cur_colors[AE5_STRIP_MAX_LEDS];
-+=09int ae5_strip_cur_num_leds;
-+#endif
- };
-=20
- /*
-@@ -6846,6 +6856,15 @@ static int ca0132_alt_add_mic_boost_enum(struct hda_=
-codec *codec)
-=20
- }
-=20
-+#if IS_ENABLED(CONFIG_SND_HDA_DSP_LOADER)
-+static int ae5_add_strip_controls(struct hda_codec *codec);
-+#else
-+static inline int ae5_add_strip_controls(struct hda_codec *codec)
-+{
-+=09return 0;
-+}
-+#endif
-+
- /*
-  * Add headphone gain enumerated control for the AE-5. This switches betwe=
-en
-  * three modes, low, medium, and high. When non-headphone outputs are sele=
-cted,
-@@ -7149,6 +7168,10 @@ static int ca0132_build_controls(struct hda_codec *c=
-odec)
-=20
- =09switch (ca0132_quirk(spec)) {
- =09case QUIRK_AE5:
-+=09=09err =3D ae5_add_strip_controls(codec);
-+=09=09if (err < 0)
-+=09=09=09return err;
-+=09=09fallthrough;
- =09case QUIRK_AE7:
- =09=09err =3D ae5_add_headphone_gain_enum(codec);
- =09=09if (err < 0)
-@@ -8316,8 +8339,367 @@ static void sbz_setup_defaults(struct hda_codec *co=
-dec)
- }
-=20
- /*
-- * Setup default parameters for the Sound BlasterX AE-5 DSP.
-+ * Sound BlasterX AE-5 External WS2812B RGB LED Strip Transport
-  */
-+#if IS_ENABLED(CONFIG_SND_HDA_DSP_LOADER)
-+#define AE5_STRIP_DMA_SIZE=09=090x8000
-+#define AE5_STRIP_TOTAL_WORDS=09=09(AE5_STRIP_DMA_SIZE / sizeof(u32))
-+#define AE5_STRIP_PREAMBLE_WORDS=095
-+#define AE5_STRIP_WORDS_PER_LED=09=094
-+#define AE5_STRIP_RESET_GAP_WORDS=0983
-+
-+#define CA0113_SERIALIZER_BASE(spec, ch)=09((spec)->mem_base + 0x42c + (ch=
-) * 0x40)
-+#define CA0113_SERIALIZER_CLK(spec, ch)=09=09((spec)->mem_base + 0x43c + (=
-ch) * 0x40)
-+#define CA0113_SERIALIZER_OUT(spec, ch)=09=09((spec)->mem_base + 0x454 + (=
-ch) * 0x40)
-+
-+static void ae5_strip_encode_24(u32 u, u32 *words)
-+{
-+=09/*
-+=09 * 24-bit pixel -> 4 x 32-bit audio words (6 bits per word).
-+=09 * Hardware audio serializer transmits MSB first (bits 31 down to 0).
-+=09 * For word i (i8 =3D 23, 17, 11, 5), bit_idx 0..5 (MSB to LSB within t=
-he word)
-+=09 * is placed at n =3D 29 - bit_idx * 4:
-+=09 *   Bit 0 -> 0b100 << n (375ns high, 1042ns low): BIT(n + 2)
-+=09 *   Bit 1 -> 0b111 << n (1083ns high, 333ns low): BIT(n + 2) | BIT(n +=
- 1) | BIT(n)
-+=09 */
-+=09int i8 =3D 23;
-+=09int i, bit_idx;
-+
-+=09for (i =3D 0; i < 4; i++) {
-+=09=09u32 out =3D 0;
-+
-+=09=09for (bit_idx =3D 0; bit_idx < 6; bit_idx++) {
-+=09=09=09int bit =3D (u >> (i8 - bit_idx)) & 1;
-+=09=09=09int n =3D 29 - bit_idx * 4;
-+
-+=09=09=09out |=3D (bit ? (BIT(2) | BIT(1) | BIT(0)) : BIT(2)) << n;
-+=09=09}
-+=09=09words[i] =3D out;
-+=09=09i8 -=3D 6;
-+=09}
-+}
-+
-+static struct hdac_stream *ae5_strip_find_stream(struct hda_codec *codec)
-+{
-+=09struct ca0132_spec *spec =3D codec->spec;
-+=09struct hdac_bus *bus =3D &codec->bus->core;
-+=09struct hdac_stream *s, *dsp =3D NULL, *first =3D NULL;
-+
-+=09guard(spinlock_irqsave)(&bus->reg_lock);
-+=09list_for_each_entry(s, &bus->stream_list, list) {
-+=09=09if (s->direction !=3D SNDRV_PCM_STREAM_PLAYBACK)
-+=09=09=09continue;
-+=09=09if (s->opened || s->running || s->locked)
-+=09=09=09continue;
-+=09=09if (!first)
-+=09=09=09first =3D s;
-+=09=09/* The DSP DMA consumes the DSP-loader stream (tag in dsp_stream_id)=
-. */
-+=09=09if (spec->dsp_stream_id && s->stream_tag =3D=3D spec->dsp_stream_id)
-+=09=09=09dsp =3D s;
-+=09}
-+
-+=09s =3D dsp ? dsp : first;
-+=09if (s)
-+=09=09s->opened =3D 1;
-+
-+=09return s;
-+}
-+
-+/*
-+ * Caller must hold spec->ae5_strip_mutex.
-+ */
-+static int ae5_strip_send_frame(struct hda_codec *codec, const u32 *grb_co=
-lors, int num_leds)
-+{
-+=09struct ca0132_spec *spec =3D codec->spec;
-+=09struct hdac_bus *bus =3D &codec->bus->core;
-+=09struct snd_dma_buffer dmab;
-+=09struct hdac_stream *hstr =3D NULL;
-+=09unsigned int format, stream_tag;
-+=09u32 enc_words[4];
-+=09__le32 *dst;
-+=09int word_idx =3D 0;
-+=09int frame_words;
-+=09int led, w, i;
-+=09int retries =3D 20; /* ~100ms max */
-+
-+=09if (!spec || !spec->mem_base)
-+=09=09return -ENODEV;
-+=09if (num_leds <=3D 0 || num_leds > AE5_STRIP_MAX_LEDS)
-+=09=09return -EINVAL;
-+
-+=09lockdep_assert_held(&spec->ae5_strip_mutex);
-+
-+=09CLASS(snd_hda_power_pm, pm)(codec);
-+=09if (pm.err < 0)
-+=09=09return pm.err;
-+
-+=09/*
-+=09 * 44.1kHz, 24-bit, 2-channel format (0x4031) matches Windows CtxHda
-+=09 * HDAUDIO_STREAM_FORMAT.
-+=09 */
-+=09format =3D snd_hdac_stream_format(2, 24, 44100);
-+
-+=09for (;;) {
-+=09=09hstr =3D ae5_strip_find_stream(codec);
-+=09=09if (!hstr) {
-+=09=09=09if (--retries <=3D 0) {
-+=09=09=09=09codec_warn(codec, "AE5 strip: no free azx stream after retries=
-\n");
-+=09=09=09=09return -EBUSY;
-+=09=09=09}
-+=09=09=09usleep_range(5000, 10000);
-+=09=09=09continue;
-+=09=09}
-+
-+=09=09stream_tag =3D snd_hdac_dsp_prepare(hstr, format, AE5_STRIP_DMA_SIZE=
-, &dmab);
-+=09=09if ((int)stream_tag > 0)
-+=09=09=09break;
-+
-+=09=09/* Prepare failed (e.g. -EBUSY due to race with playback starting); =
-retry */
-+=09=09scoped_guard(spinlock_irq, &bus->reg_lock)
-+=09=09=09hstr->opened =3D 0;
-+
-+=09=09if (--retries <=3D 0) {
-+=09=09=09codec_warn(codec, "AE5 strip: snd_hdac_dsp_prepare failed %d\n",
-+=09=09=09=09   (int)stream_tag);
-+=09=09=09return (int)stream_tag;
-+=09=09}
-+=09=09usleep_range(5000, 10000);
-+=09}
-+
-+=09/* 1. Populate the 32KB DMA buffer with repeating WS2812 frames + reset=
- gaps */
-+=09memset(dmab.area, 0, AE5_STRIP_DMA_SIZE);
-+=09dst =3D (__le32 *)dmab.area;
-+
-+=09/* Words per frame: preamble + (num_leds * words_per_led) + reset gap *=
-/
-+=09frame_words =3D AE5_STRIP_PREAMBLE_WORDS + (num_leds * AE5_STRIP_WORDS_=
-PER_LED) +
-+=09=09      AE5_STRIP_RESET_GAP_WORDS;
-+
-+=09while (word_idx + frame_words <=3D AE5_STRIP_TOTAL_WORDS) {
-+=09=09/* Preamble per Windows CtxHda FUN_00042944 */
-+=09=09for (w =3D 0; w < AE5_STRIP_PREAMBLE_WORDS; w++) {
-+=09=09=09*dst++ =3D 0;
-+=09=09=09word_idx++;
-+=09=09}
-+=09=09/* LEDs */
-+=09=09for (led =3D 0; led < num_leds; led++) {
-+=09=09=09ae5_strip_encode_24(grb_colors[led], enc_words);
-+=09=09=09for (w =3D 0; w < AE5_STRIP_WORDS_PER_LED; w++) {
-+=09=09=09=09*dst++ =3D cpu_to_le32(enc_words[w]);
-+=09=09=09=09word_idx++;
-+=09=09=09}
-+=09=09}
-+=09=09/* Zero reset gap (> 1.8 ms; WS2812 requires > 50 us low) */
-+=09=09for (w =3D 0; w < AE5_STRIP_RESET_GAP_WORDS; w++) {
-+=09=09=09*dst++ =3D 0;
-+=09=09=09word_idx++;
-+=09=09}
-+=09}
-+=09while (word_idx < AE5_STRIP_TOTAL_WORDS) {
-+=09=09*dst++ =3D 0;
-+=09=09word_idx++;
-+=09}
-+=09/* Ensure DMA buffer writes are committed before triggering the HDA str=
-eam */
-+=09wmb();
-+
-+=09/* 2. Configure CA0113 BAR2 hardware registers */
-+=09/* Power up clocks (CtxHdb 0x141b7 / 0x14210) */
-+=09writel(readl(spec->mem_base + 0xc04) | 0x7, spec->mem_base + 0xc04);
-+
-+=09/* Base serializer initialization (CtxHdb 0x14ba4) */
-+=09writel(readl(spec->mem_base + 0x400) | 1, spec->mem_base + 0x400);
-+=09for (i =3D 0; i < 4; i++) {
-+=09=09writel(readl(CA0113_SERIALIZER_BASE(spec, i)) & ~1,
-+=09=09       CA0113_SERIALIZER_BASE(spec, i));
-+=09=09writel(0, CA0113_SERIALIZER_CLK(spec, i));
-+=09}
-+=09writel(readl(spec->mem_base + 0x408) | 1, spec->mem_base + 0x408);
-+=09writel(readl(spec->mem_base + 0x40c) | 1, spec->mem_base + 0x40c);
-+=09writel((readl(spec->mem_base + 0x410) & ~0xb) | 0x14, spec->mem_base + =
-0x410);
-+
-+=09/* Configure serializers 0..3 clocking (CtxHdb 0x14a6c) */
-+=09for (i =3D 0; i < 4; i++)
-+=09=09writel(readl(CA0113_SERIALIZER_CLK(spec, i)) | 0x33,
-+=09=09       CA0113_SERIALIZER_CLK(spec, i));
-+
-+=09/* BAR2 + 0x100 format & channel enables:
-+=09 * - base 0x70f
-+=09 * - bit 28 =3D 1 (24-bit audio format via CtxHdb 0x14f58)
-+=09 * - bits 29..31 =3D 1 (44.1 kHz sample rate via CtxHdb 0x14fa4)
-+=09 * - bits 4..7 =3D 0xf (stage 1 enables)
-+=09 * - bits 12..15 =3D 0xf (stage 2 enables)
-+=09 * =3D> 0x3000ff8f
-+=09 */
-+=09writel((readl(spec->mem_base + 0x100) & ~0xe000ffff) | 0x3000ff8f, spec=
-->mem_base + 0x100);
-+
-+=09/* Enable serializer output drivers for pins 0..3 (CtxHdb 0x14e94) */
-+=09for (i =3D 0; i < 4; i++)
-+=09=09writel(readl(CA0113_SERIALIZER_OUT(spec, i)) | 1,
-+=09=09       CA0113_SERIALIZER_OUT(spec, i));
-+
-+=09/* Route all channels 0..3 to stream_tag (CtxHdb 0x1502c) */
-+=09writel((stream_tag << 28) | (stream_tag << 20) | (stream_tag << 12) | (=
-stream_tag << 4),
-+=09       spec->mem_base + 0x104);
-+
-+=09/* Enable CA0113 MMIO GPIO 0 & 1 */
-+=09ca0113_mmio_gpio_set(codec, 0, true);
-+=09ca0113_mmio_gpio_set(codec, 1, true);
-+
-+=09codec_dbg(codec, "AE5 strip: send_frame: num_leds=3D%d stream_tag=3D%u =
-(0x%08x)\n",
-+=09=09  num_leds, stream_tag, readl(spec->mem_base + 0x104));
-+
-+=09/* 3. Trigger stream transmission on HDA link */
-+=09snd_hdac_dsp_trigger(hstr, true);
-+=09/*
-+=09 * WS2812 latches on the >50us reset gap after one frame. The 32KB buff=
-er holds ~64
-+=09 * repeating frame+reset cycles; at ~1.4ms/frame a 15ms run transmits ~=
-10 complete
-+=09 * cycles - more than enough to latch reliably. Keep it short so rapid =
-sysfs writes
-+=09 * (OpenRGB effects/theme changes) are not serialized behind a 1s block=
-ing sleep.
-+=09 */
-+=09usleep_range(15000, 20000);
-+=09snd_hdac_dsp_trigger(hstr, false);
-+=09codec_dbg(codec, "AE5 strip: trigger complete\n");
-+
-+=09/* Teardown: clear 0x104 pin mux back to 0 */
-+=09writel(0x00000000, spec->mem_base + 0x104);
-+
-+=09snd_hdac_dsp_cleanup(hstr, &dmab);
-+=09scoped_guard(spinlock_irq, &bus->reg_lock)
-+=09=09hstr->opened =3D 0;
-+
-+=09return 0;
-+}
-+
-+static int ae5_strip_ctl_info(struct snd_kcontrol *kcontrol,
-+=09=09=09      struct snd_ctl_elem_info *uinfo)
-+{
-+=09uinfo->type =3D SNDRV_CTL_ELEM_TYPE_BYTES;
-+=09uinfo->count =3D AE5_STRIP_MAX_LEDS * 3;
-+=09return 0;
-+}
-+
-+static int ae5_strip_ctl_get(struct snd_kcontrol *kcontrol,
-+=09=09=09     struct snd_ctl_elem_value *ucontrol)
-+{
-+=09struct hda_codec *codec =3D snd_kcontrol_chip(kcontrol);
-+=09struct ca0132_spec *spec =3D codec->spec;
-+=09int i;
-+
-+=09guard(mutex)(&spec->ae5_strip_mutex);
-+=09for (i =3D 0; i < AE5_STRIP_MAX_LEDS; i++) {
-+=09=09u32 grb =3D spec->ae5_strip_cur_colors[i];
-+
-+=09=09ucontrol->value.bytes.data[i * 3 + 0] =3D (grb >> 8) & 0xff;
-+=09=09ucontrol->value.bytes.data[i * 3 + 1] =3D (grb >> 16) & 0xff;
-+=09=09ucontrol->value.bytes.data[i * 3 + 2] =3D grb & 0xff;
-+=09}
-+=09return 0;
-+}
-+
-+static int ae5_strip_ctl_put(struct snd_kcontrol *kcontrol,
-+=09=09=09     struct snd_ctl_elem_value *ucontrol)
-+{
-+=09struct hda_codec *codec =3D snd_kcontrol_chip(kcontrol);
-+=09struct ca0132_spec *spec =3D codec->spec;
-+=09u32 colors[AE5_STRIP_MAX_LEDS];
-+=09int i, num_leds, change, ret;
-+
-+=09guard(mutex)(&spec->ae5_strip_mutex);
-+=09for (i =3D 0; i < AE5_STRIP_MAX_LEDS; i++) {
-+=09=09u8 r =3D ucontrol->value.bytes.data[i * 3 + 0];
-+=09=09u8 g =3D ucontrol->value.bytes.data[i * 3 + 1];
-+=09=09u8 b =3D ucontrol->value.bytes.data[i * 3 + 2];
-+
-+=09=09colors[i] =3D ((u32)g << 16) | ((u32)r << 8) | (u32)b;
-+=09}
-+=09change =3D memcmp(spec->ae5_strip_cur_colors, colors,
-+=09=09=09sizeof(spec->ae5_strip_cur_colors)) !=3D 0;
-+=09num_leds =3D spec->ae5_strip_cur_num_leds;
-+=09ret =3D ae5_strip_send_frame(codec, colors, num_leds);
-+=09if (ret < 0)
-+=09=09return ret;
-+=09if (change)
-+=09=09memcpy(spec->ae5_strip_cur_colors, colors,
-+=09=09       sizeof(spec->ae5_strip_cur_colors));
-+=09return change;
-+}
-+
-+static int ae5_strip_num_leds_info(struct snd_kcontrol *kcontrol,
-+=09=09=09=09   struct snd_ctl_elem_info *uinfo)
-+{
-+=09uinfo->type =3D SNDRV_CTL_ELEM_TYPE_INTEGER;
-+=09uinfo->count =3D 1;
-+=09uinfo->value.integer.min =3D 1;
-+=09uinfo->value.integer.max =3D AE5_STRIP_MAX_LEDS;
-+=09return 0;
-+}
-+
-+static int ae5_strip_num_leds_get(struct snd_kcontrol *kcontrol,
-+=09=09=09=09  struct snd_ctl_elem_value *ucontrol)
-+{
-+=09struct hda_codec *codec =3D snd_kcontrol_chip(kcontrol);
-+=09struct ca0132_spec *spec =3D codec->spec;
-+
-+=09guard(mutex)(&spec->ae5_strip_mutex);
-+=09ucontrol->value.integer.value[0] =3D spec->ae5_strip_cur_num_leds;
-+=09return 0;
-+}
-+
-+static int ae5_strip_num_leds_put(struct snd_kcontrol *kcontrol,
-+=09=09=09=09  struct snd_ctl_elem_value *ucontrol)
-+{
-+=09struct hda_codec *codec =3D snd_kcontrol_chip(kcontrol);
-+=09struct ca0132_spec *spec =3D codec->spec;
-+=09int val =3D ucontrol->value.integer.value[0];
-+=09int ret;
-+
-+=09if (val < 1 || val > AE5_STRIP_MAX_LEDS)
-+=09=09return -EINVAL;
-+
-+=09guard(mutex)(&spec->ae5_strip_mutex);
-+=09if (spec->ae5_strip_cur_num_leds =3D=3D val)
-+=09=09return 0;
-+=09ret =3D ae5_strip_send_frame(codec, spec->ae5_strip_cur_colors, val);
-+=09if (ret < 0)
-+=09=09return ret;
-+=09spec->ae5_strip_cur_num_leds =3D val;
-+=09return 1;
-+}
-+
-+static const struct snd_kcontrol_new ae5_strip_ctls[] =3D {
-+=09{
-+=09=09.iface =3D SNDRV_CTL_ELEM_IFACE_CARD,
-+=09=09.name =3D "AE-5 LED Strip",
-+=09=09.access =3D SNDRV_CTL_ELEM_ACCESS_READWRITE |
-+=09=09=09  SNDRV_CTL_ELEM_ACCESS_VOLATILE,
-+=09=09.info =3D ae5_strip_ctl_info,
-+=09=09.get =3D ae5_strip_ctl_get,
-+=09=09.put =3D ae5_strip_ctl_put,
-+=09},
-+=09{
-+=09=09.iface =3D SNDRV_CTL_ELEM_IFACE_CARD,
-+=09=09.name =3D "AE-5 LED Strip Count",
-+=09=09.access =3D SNDRV_CTL_ELEM_ACCESS_READWRITE |
-+=09=09=09  SNDRV_CTL_ELEM_ACCESS_VOLATILE,
-+=09=09.info =3D ae5_strip_num_leds_info,
-+=09=09.get =3D ae5_strip_num_leds_get,
-+=09=09.put =3D ae5_strip_num_leds_put,
-+=09},
-+};
-+
-+static int ae5_add_strip_controls(struct hda_codec *codec)
-+{
-+=09int i, err;
-+
-+=09for (i =3D 0; i < ARRAY_SIZE(ae5_strip_ctls); i++) {
-+=09=09err =3D snd_hda_ctl_add(codec, 0,
-+=09=09=09=09      snd_ctl_new1(&ae5_strip_ctls[i], codec));
-+=09=09if (err < 0)
-+=09=09=09return err;
-+=09}
-+=09return 0;
-+}
-+#endif /* CONFIG_SND_HDA_DSP_LOADER */
-+
- static void ae5_setup_defaults(struct hda_codec *codec)
- {
- =09struct ca0132_spec *spec =3D codec->spec;
-@@ -8741,6 +9123,10 @@ static void ca0132_init_chip(struct hda_codec *codec=
-)
- =09unsigned int on;
-=20
- =09mutex_init(&spec->chipio_mutex);
-+#if IS_ENABLED(CONFIG_SND_HDA_DSP_LOADER)
-+=09mutex_init(&spec->ae5_strip_mutex);
-+=09spec->ae5_strip_cur_num_leds =3D 10;
-+#endif
-=20
- =09/*
- =09 * The Windows driver always does this upon startup, which seems to
-@@ -9626,6 +10012,9 @@ static void ca0132_free(struct hda_codec *codec)
- #ifdef CONFIG_PCI
- =09if (spec->mem_base)
- =09=09pci_iounmap(codec->bus->pci, spec->mem_base);
-+#endif
-+#if IS_ENABLED(CONFIG_SND_HDA_DSP_LOADER)
-+=09mutex_destroy(&spec->ae5_strip_mutex);
- #endif
- =09kfree(spec->spec_init_verbs);
- =09kfree(codec->spec);
---=20
-2.55.0
+Babu
 
 
