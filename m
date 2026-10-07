@@ -1,76 +1,87 @@
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF5E33D7D69;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D759C3D669C;
 	Wed,  7 Oct 2026 17:25:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791393960; cv=none; b=BPgxF1Fg74CQbbMHlrmd+0g/bGFPsfuW7W83IbfaMQEyzylgWvY0e2OBrVEtgQMs8vXaZ1QKji8f0vnhrA0wGFRFxw7e1W4XU5DsaCuv3qKtalg2Q4PIdy4KNeP2lsCjbUIinrz7kCcK/oNcQOoeVSAlNM+eDCN1TAZ6X1XY/0E=
+	t=1791393960; cv=none; b=JmrNv7Wc4BxHqPAN+w9Fab7aUeTl9YGgZcPEx6pz6xIJAqYlPHJOHyEVC/NcptsKV9lrUk8MH9Bv/gwM04zNzNQyPt4YaAXa519n6NpZpLG5g+kt/LfUNOFK1WB/HyfgPwzwLb0mXzJSY8DneJNt29o47OPCDWS0o3E/YA4D3Ls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791393960; c=relaxed/simple;
-	bh=ZHCxd6j+ubw+VHTSnpg2t/K/wK724PytOgVFD4NRXMg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pV5NnQT+nCqcpMDk3qaHhu7UR769aJPfhprEcEhWDfk64eWlBf+0Pa2hgHlqK7zfwH9rMva0JG/4mJbm175nePZNonG0mQUDiebDxqqOac6Z/doS3Rra5JxaM3WqA9+oQhaMf3ilccWe4N66tHZAClMmtV9zwtgjYDYNv43kkdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Lik1XdD3; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=d1uctMgk; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Lik1XdD3; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=d1uctMgk; arc=none smtp.client-ip=195.135.223.130
+	bh=AJpIlvNxhqmn9XGnc9J97bI5+utbIVM4+PfI8+CvlAw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EqXbMQNACw/AVwiBzZrRJYtvgjD5TB0sS91SGsd1e4dQeZpIZdHq2/1gAqze0nUE0EF8d4Jkr/hI2vfsoFkA9c2IaoLzoRuVL44OGyBJmiAnZraOjWjeM2Xiw6d2oNoLCN2OWhkPq9In5NJKQbeMfgaxLNNHRWrfySyP/sJNPG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=YHmCaEXM; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Kzo5aPTo; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=YHmCaEXM; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Kzo5aPTo; arc=none smtp.client-ip=195.135.223.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Lik1XdD3";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="d1uctMgk";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Lik1XdD3";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="d1uctMgk"
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="YHmCaEXM";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Kzo5aPTo";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="YHmCaEXM";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Kzo5aPTo"
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id DB3DB21BA8;
-	Wed,  7 Oct 2026 17:25:56 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 1918C21BB6;
+	Wed,  7 Oct 2026 17:25:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791393956; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=gE5pHt6oRjw55uFKpw8/W8kLDof2fBOi36GLTphDHWA=;
-	b=Lik1XdD3vzvPzQXMP8pDkwBD171tEzRsH3kTlKTUS6GjipNHfyYQHf35Rpm7dWa6mZ5mRA
-	2fyCq5blRqzcOXDTr5rWmKKu1BzaJTYW3k4HEe6EqF7Vp1gtZGvW4fohmJUG6x4aDX8qbq
-	0dwUaeeCtqbLmkZP7YnL8Km6+qJCqt8=
+	t=1791393957; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YFS1mV4nOBNSXEoN71tZkGwugBFlvbBhoS5mz/1SLWw=;
+	b=YHmCaEXMMd/h3/Bj0DcxwNiT2ZTfOg2ppYomMZHgvRhFzw1vb4tvzSaJzYBxTnDdhYjn9r
+	P2cI9ESfVwh9iEdC+TD+lFzE/PQHlcox0oGl/mUCPV0UisxBJsLMGj12yVXCBs5Qdr8SiD
+	9qncmCOnsAsogLifOb121UG3YwzNOIQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791393956;
+	s=susede2_ed25519; t=1791393957;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=gE5pHt6oRjw55uFKpw8/W8kLDof2fBOi36GLTphDHWA=;
-	b=d1uctMgkNmjuXpM+GIaNiXv2WX2h4mKLs3hRDJisf+ibtVSbvYhEoJGbfzmOQdQEFCubju
-	aS9lUoH3JYaGOyAg==
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YFS1mV4nOBNSXEoN71tZkGwugBFlvbBhoS5mz/1SLWw=;
+	b=Kzo5aPToHI6w3nWHWVWQl9V0C5QK0oO72O/jSEJ5jZPpRdAt7c59ISLdwwsXz577QqUM03
+	Fyd5bhBYX5pAQ9Bw==
 Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791393956; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=gE5pHt6oRjw55uFKpw8/W8kLDof2fBOi36GLTphDHWA=;
-	b=Lik1XdD3vzvPzQXMP8pDkwBD171tEzRsH3kTlKTUS6GjipNHfyYQHf35Rpm7dWa6mZ5mRA
-	2fyCq5blRqzcOXDTr5rWmKKu1BzaJTYW3k4HEe6EqF7Vp1gtZGvW4fohmJUG6x4aDX8qbq
-	0dwUaeeCtqbLmkZP7YnL8Km6+qJCqt8=
+	t=1791393957; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YFS1mV4nOBNSXEoN71tZkGwugBFlvbBhoS5mz/1SLWw=;
+	b=YHmCaEXMMd/h3/Bj0DcxwNiT2ZTfOg2ppYomMZHgvRhFzw1vb4tvzSaJzYBxTnDdhYjn9r
+	P2cI9ESfVwh9iEdC+TD+lFzE/PQHlcox0oGl/mUCPV0UisxBJsLMGj12yVXCBs5Qdr8SiD
+	9qncmCOnsAsogLifOb121UG3YwzNOIQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791393956;
+	s=susede2_ed25519; t=1791393957;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=gE5pHt6oRjw55uFKpw8/W8kLDof2fBOi36GLTphDHWA=;
-	b=d1uctMgkNmjuXpM+GIaNiXv2WX2h4mKLs3hRDJisf+ibtVSbvYhEoJGbfzmOQdQEFCubju
-	aS9lUoH3JYaGOyAg==
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YFS1mV4nOBNSXEoN71tZkGwugBFlvbBhoS5mz/1SLWw=;
+	b=Kzo5aPToHI6w3nWHWVWQl9V0C5QK0oO72O/jSEJ5jZPpRdAt7c59ISLdwwsXz577QqUM03
+	Fyd5bhBYX5pAQ9Bw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 850BB13354;
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9558F139AC;
 	Wed,  7 Oct 2026 17:25:56 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id p6IPF6SAxmqXDwAAD6G6ig
+	id p6IPF6SAxmqXDwAAD6G6ig:T2
 	(envelope-from <tiwai@suse.de>); Wed, 07 Oct 2026 17:25:56 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: linux-sound@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH v3 0/7] ALSA: Fix yet more bugs reported by Sashiko
-Date: Wed,  7 Oct 2026 19:25:18 +0200
-Message-ID: <20261007172533.14667-1-tiwai@suse.de>
+Subject: [PATCH v3 1/7] ALSA: seq: Fix missing direction and ump_group handling in 32bit compat ioctl
+Date: Wed,  7 Oct 2026 19:25:19 +0200
+Message-ID: <20261007172533.14667-2-tiwai@suse.de>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261007172533.14667-1-tiwai@suse.de>
+References: <20261007172533.14667-1-tiwai@suse.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,13 +97,13 @@ X-Spamd-Result: default: False [-2.80 / 50.00];
 	MID_CONTAINS_FROM(1.00)[];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
 	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
 	MIME_GOOD(-0.10)[text/plain];
 	RCPT_COUNT_TWO(0.00)[2];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ARC_NA(0.00)[];
 	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	MIME_TRACE(0.00)[0:+];
@@ -101,40 +112,64 @@ X-Spamd-Result: default: False [-2.80 / 50.00];
 	RCVD_COUNT_TWO(0.00)[2];
 	RCVD_TLS_ALL(0.00)[]
 
-Hi,
+I forgot to cover the two new fields, direction and ump_group, in
+struct snd_seq_port_info for the 32bit compat ioctls of
+SNDRV_SEQ_IOCTL_GET_PORT_INFO & co, which ended up with the garbage
+copies in those fields.  Add the handling of those two fields in the
+compat layer.
 
-here is yet another series of bug fixes for low-handing fruis that
-have been reported by Sashiko recently as the existing bugs.
+Also, avoid over-copying the 64bit snd_seq_port_info but only the first
+part (before the field kernel); this avoids the copy of kernel-space
+garbage value in the reserved field.
 
-While reviewing the previous patchset, yet another issues were
-discovered, so we fix them here, too.
+Fixes: ff166a9d19fa ("ALSA: seq: Add port direction to snd_seq_port_info")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/core/seq/seq_compat.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
-
-Takashi
-
-v1: https://lore.kernel.org/20261006174002.703431-1-tiwai@suse.de
-v2: https://lore.kernel.org/20261007094234.1051316-1-tiwai@suse.de
-
-v1->v2:
- - pcmtest leak fix was refactored significantly (patch 2)
- - A simplification for pcmtest device is added (patch 3)
- - A new fix for memory leak for proc handler (patch 4)
- - The fix for aloop goto was done differently (patch 5)
-
-v2->v3:
- - avoid copying garbage (patch 1)
- - add card->shutdown check (patch 4)
-
-===
-
- sound/core/info.c              |  3 +-
- sound/core/init.c              | 14 +++---
- sound/core/seq/seq_clientmgr.c |  6 +--
- sound/core/seq/seq_compat.c    | 15 ++++--
- sound/drivers/aloop.c          | 11 ++++-
- sound/drivers/pcmtest.c        | 87 ++++++++--------------------------
- 6 files changed, 51 insertions(+), 85 deletions(-)
-
+diff --git a/sound/core/seq/seq_compat.c b/sound/core/seq/seq_compat.c
+index 80110501da6f..57aaa39afb9d 100644
+--- a/sound/core/seq/seq_compat.c
++++ b/sound/core/seq/seq_compat.c
+@@ -25,7 +25,9 @@ struct snd_seq_port_info32 {
+ 	u32 kernel;			/* reserved for kernel use (must be NULL) */
+ 	u32 flags;		/* misc. conditioning */
+ 	unsigned char time_queue;	/* queue # for timestamping */
+-	char reserved[59];		/* for future use */
++	unsigned char direction;	/* port usage direction (r/w/bidir) */
++	unsigned char ump_group;	/* 0 = UMP EP (no conversion), 1-16 = UMP group number */
++	char reserved[57];		/* for future use */
+ };
+ 
+ static int snd_seq_call_port_info_ioctl(struct snd_seq_client *client, unsigned int cmd,
+@@ -40,7 +42,9 @@ static int snd_seq_call_port_info_ioctl(struct snd_seq_client *client, unsigned
+ 
+ 	if (copy_from_user(data, data32, sizeof(*data32)) ||
+ 	    get_user(data->flags, &data32->flags) ||
+-	    get_user(data->time_queue, &data32->time_queue))
++	    get_user(data->time_queue, &data32->time_queue) ||
++	    get_user(data->direction, &data32->direction) ||
++	    get_user(data->ump_group, &data32->ump_group))
+ 		return -EFAULT;
+ 	data->kernel = NULL;
+ 
+@@ -50,9 +54,12 @@ static int snd_seq_call_port_info_ioctl(struct snd_seq_client *client, unsigned
+ 	if (err < 0)
+ 		return err;
+ 
+-	if (copy_to_user(data32, data, sizeof(*data32)) ||
++	if (copy_to_user(data32, data,
++			 offsetof(struct snd_seq_port_info32, kernel)) ||
+ 	    put_user(data->flags, &data32->flags) ||
+-	    put_user(data->time_queue, &data32->time_queue))
++	    put_user(data->time_queue, &data32->time_queue) ||
++	    put_user(data->direction, &data32->direction) ||
++	    put_user(data->ump_group, &data32->ump_group))
+ 		return -EFAULT;
+ 
+ 	return err;
 -- 
 2.55.0
 
