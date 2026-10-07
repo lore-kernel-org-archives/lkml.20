@@ -1,251 +1,281 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010031.outbound.protection.outlook.com [52.101.61.31])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC242388878;
-	Wed,  7 Oct 2026 11:25:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.31
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791372344; cv=fail; b=DAKktIDq1+45FQ5hsFJolNBKV2sgDYYV1JTJ+FrJztiPOeEsxG5df+LaCSwOFuLLdoh+UmdLCsQ9xR0o1YOhJ6iNsWPyEh04mjGzfp+d24cn3tNPk6T9aXkj8yGxm7AlOk5jQ286d5Sn+ueQriSIC0IFmtFyvmbWD/eAXxjYjVg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791372344; c=relaxed/simple;
-	bh=jRNx/IGTFCQAAHOCu6bkGMAFBmqL3odB69hoJ4nUTVk=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=E5L6iJxv5mRaj8GKoYL+Y4P2N6Sn/BoPa4xetWRT39/zs6TKUYsz9oruZ1OmTfjwfdCs75EYLwoIo/Q2Blhk0F8fW/vuol2INNAR2la/mSITs5SIQ3rwZscYB3cqJHnGITUv06In70pzGakbW9JMLvTBBVzrEvWokM2AfkBqJPo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Lbib4CWH; arc=fail smtp.client-ip=52.101.61.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C88F54973B5
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:25:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791372373; cv=none; b=YR/GcA3thUDRJHkvreIHfsghhgVqrykdSk1pJ64uEbmm97mI+hJNHvUyRV7d1J5yy5rrk0bWzd0Z528LiPJq5P4j3PJeUTMgF+qMbiX7bSmvDUCnL75wkDGg/LPXG8taTwLLOM1BgBsWY9wE/m54Lp1KS2icUZT+BaDjLOv16UY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791372373; c=relaxed/simple;
+	bh=KJnbpRVIHloDGfDhE5+fXC557tLNYH9I8hBo5WFW5oo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gpJ0uL4w9qBg2OTSHFbh51ev+bPe+zXQNzhHYbRs5m6ESDugDRm1z0hwMcDscPsFcb0fs6yAGc4rx980++vjX6sezhtwvwOVJ4JVReiyN61xwUrPSl5hWo56gCvPg/CIJhAnp5SNVV1bCZ8UEtAlcPJsTUQhMEiQgq8FtJWXapI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hbZWwd4f; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jZzcI4WR; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Lbib4CWH"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OwPn7fUYC50Xrp+epWz/JBa9ISYoo9FATrWHDjdrzYeb0PWgSVuf+6syUaFlm4CJzjAuB+Tn1vRrBEXI7cejOJqe+IF08e4EaGFbNzIuhiVKZ/eI/FIX+nUARIvSTagQlZ5xLgntJjb0wE6PUyorIJuIRflbYHQ8JlWOdg5hjdBBFGx6nPFX3yjGOzJxL9r1xP9QFRZk0b23ENVc45W2ZoL2CxOodQpjfFHHeRZlQ6WAGHhpTZP1bv1updjCzSnkvLQRLa3sW6bbZs+eXdu0xryNi0Yl22FovkjlwWjWY9XxOtiKLuU3eGpYTMWoFjKASInKQmHXFKXbdYtlh3l5TQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xXEiZH9nIoRIzjG+ZNjr0J1RW2yaY0gJvodWoSP4WXw=;
- b=Yep84XdnnmqeUSj72+l11uQe75CNqZ8JB63JS47/mBs7jspuFrLVxye3lPKMMubTok8mxNanCTJsK8DLpGn2UZv7hcVc/lDAyqeP1n158ByRRUcBxqOoVHEWiBQoCKkqvgjdqB2+OskB/TfXo4TG6G7ZcTeVIPwMZ69HfBnPzR911Yir3dH7omJ7SckQSxLovBdEeeKjmInzUgm/7I1EVLn6kbeywCVAQHUso7OmvbUZX+ZEN3Y1N3Y6YAYN3UgCZTDaMQqj8nx8kN+99gpiClxxnd2a3ghikIdetqlVSp+X5vMMg+BdeTAAR+NjR47Jct6wyDWLu1X8q+yITiEXGw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xXEiZH9nIoRIzjG+ZNjr0J1RW2yaY0gJvodWoSP4WXw=;
- b=Lbib4CWHm8uLH9PXr7251O4FcLVy9/r4nynwjtzZ4p5z4lNgxXpdAZnNGrYWilL+l63fEvAihjBFBK+szhn/6Qj1rjXlnUd5BY9qdX3gIyLIoB5OtCiiBqEnOs2vfMdROdxXDIRKksrYRafXi8ICsJJ69qNiDIWPJEaTsxHKo/A=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA1PR12MB7366.namprd12.prod.outlook.com (2603:10b6:806:2b3::8)
- by MW4PR12MB7262.namprd12.prod.outlook.com (2603:10b6:303:228::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Wed, 7 Oct
- 2026 11:25:08 +0000
-Received: from SA1PR12MB7366.namprd12.prod.outlook.com
- ([fe80::ec75:5e87:d973:77e6]) by SA1PR12MB7366.namprd12.prod.outlook.com
- ([fe80::ec75:5e87:d973:77e6%5]) with mapi id 15.21.0496.015; Wed, 7 Oct 2026
- 11:25:07 +0000
-Message-ID: <6ef05629-255d-4a45-958e-7bbdd3c62a79@amd.com>
-Date: Wed, 7 Oct 2026 16:55:00 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] firmware: arm_scmi: skip empty CLOCK_DESCRIBE_RATES
- replies
-To: Sudeep Holla <sudeep.holla@kernel.org>
-Cc: Jay Buddhabhatti <jay.buddhabhatti@amd.com>, cristian.marussi@arm.com,
- arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, git@amd.com
-References: <20261001114538.671755-1-jay.buddhabhatti@amd.com>
- <20261001-persimmon-wallaby-of-popularity-c29bf3@sudeepholla>
- <00a75d3c-f863-4ed2-aa3f-a6668e5f74f0@amd.com>
- <20261005-powerful-skilled-caterpillar-e2fdeb@sudeepholla>
-Content-Language: en-US
-From: Jay Buddhabhatti <jbuddhab@amd.com>
-In-Reply-To: <20261005-powerful-skilled-caterpillar-e2fdeb@sudeepholla>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN5PR01CA0040.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:264::6) To SA1PR12MB7366.namprd12.prod.outlook.com
- (2603:10b6:806:2b3::8)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hbZWwd4f";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jZzcI4WR"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6977jmAQ3686155
+	for <linux-kernel@vger.kernel.org>; Wed, 7 Oct 2026 11:25:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	asNdnnn+jFtAWyz3FKWehQEy/53BJ1c+C7uY4v6X2c0=; b=hbZWwd4f45taM7oR
+	1t/YxBlNIjROoMvoLxe0gQSim8xIGFobL9WRamvq9/R82/Y+TltHr2PAUJJ0H+Cv
+	HaL084GfrENxafIPOUFc2pdpG79at5prnlP3qor8IIp+/Q3knXd+NIcsaOvQtZky
+	zdaYb4wf7K6GAnlGUkcOCufrBOLB/oHIKlWJ7QlbxIWyj7OFQ85TPvCIuWC6W9ih
+	BfA/WJxsIJfFX9k4oBIXuy1Vk+53Hr/pWqE+XkCjZfEcEXj6HvTk+uJOPVp0CFnj
+	7mg0WpoTEk5zoY25BTy1NK5oDKltaas/XPKjwVkr9eJbsoN332Qlc01uvfon59mY
+	8ggRLA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5c609uts-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 11:25:56 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93e92aad34aso305479485a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 04:25:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791372356; x=1791977156; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=asNdnnn+jFtAWyz3FKWehQEy/53BJ1c+C7uY4v6X2c0=;
+        b=jZzcI4WRejp4T9gRzvqbaV2utjFnTyPORCUuwovl9dbL/cau3iVx1ekUuGkj6PKjqZ
+         PAv+YtYfrs8tEXIE/w0a5gqcxfQZ04tGfRmkqsSDSEGEsxPt1se5ZXR7+Datwl43vf1q
+         Vlz6a6k/r2RhGYOyoe/iz99KYqZVocQD8b69x7PfbmRROW8izG/+j19XjZHzUO70b5ig
+         Y0ifOvkxfRrJbNtMcUSMaj0Cm5nimgq9dRvl6WS42/cuyQx4D+E4GhEGjEvadhlOfL58
+         QS9cvoMB+y8jEl5u9vIQYv8xsnZCmXn6ODNavIHaHtkCYFewdNAZVMcTxTU23d9OkWLs
+         z0JQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791372356; x=1791977156;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=asNdnnn+jFtAWyz3FKWehQEy/53BJ1c+C7uY4v6X2c0=;
+        b=Y4D5/C9PwuiFfCHRCYFEIV9m9It6j6xUUMlM8hI1pQttIZSI+SvZwJz1o9/Kreb6y7
+         yMiQFdGvdsZyYvFfkxyA29holQksf1ZJVifdSIPOHaaUExBx3J4bI3dABeV8JY5FuWAH
+         HLcMktmz4GXDOL43l0pJ3LUm73ZlIWOpnGQXWFCFaPmZycuMfmDhLb47M3lM+rydbETP
+         kZWUt4bF0P1OBA8QkGyUKaJ1FVOu/TFuzrVMYnFgPVvzKt3GIfiC0k2pt1kG2/bnHZrD
+         SLS5YK8QeXNgeDqYSqU+UiTSOpfsWnVjjdvwdqGDdx2CXbdnkYeqGDXim77PwmwWBcEh
+         hm5Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzvPom6y8eG9lgJSskHM1EkdOdpv4KdqwVeBjeGWBSHAgsYollOrwFObFoXAyqyHP8ZLlcj150AneCruGw=@vger.kernel.org
+X-Gm-Message-State: AFuF++keiKE5iZJLDnarmdV9XCTBf4eyUhcVjYEhgtHjaWG7ScXfOsLd
+	P6cBep3djLzF7aNPiU3Gm/ycWJmnn4O+Kt3B28zei7gqvO/SxlBHesUxYQAOh21v4Ff765kLcXg
+	jTyH6IhYqo/578t7GH+xEP6VSeeTmXz/jQamC3AKg0FLxLlGRv35sfbQ3LQ0WRAZVIag=
+X-Gm-Gg: AYBFou3nUk2tJ0KhfWqC62b+Z97wruwUfz7SlXlZCsa9iMxaaVvzOvk2qeKdNE0W6cc
+	+8gevxWBrP4xZ+CjMLef3dI0BKhhDC6R5by6t3+wqCvjoJg/e+ryce3kjTeL6e5rSvWG7gx19nD
+	oRMVLN7dnvmbiLVKd+wqEJb8k0wB0murLBY+M5p6R92v5u2GGqqEcKBAeL4xxSJ+RBTZXJ1/gP1
+	lXtvMZ3LEFqEyDVFrWlW481RNl+YZjYA1vDE6JmUBZG/P3nfQ+4oePoQUc7gQKWos7CjAMWTZjS
+	82aYYY5kKj/AnbsEn7ojb/fTBeQMr0uiiGEGd65Foj+rngkts4ILbPbS8CeY5wOm3f8AIqSMJW5
+	bbFIz7wTO0/4TRTa1JBOYv4+N/By+gX1HrnGYfWln
+X-Received: by 2002:a05:620a:40c4:b0:93c:ba2a:6c03 with SMTP id af79cd13be357-93e9b71c7c1mr368526385a.21.1791372350863;
+        Wed, 07 Oct 2026 04:25:50 -0700 (PDT)
+X-Received: by 2002:a05:620a:40c4:b0:93c:ba2a:6c03 with SMTP id af79cd13be357-93e9b71c7c1mr368493185a.21.1791372345970;
+        Wed, 07 Oct 2026 04:25:45 -0700 (PDT)
+Received: from [192.168.25.64] ([94.155.124.210])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f4482c4sm111196265e9.0.2026.10.07.04.25.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 07 Oct 2026 04:25:44 -0700 (PDT)
+Message-ID: <647cdc36-d6ba-407f-9eb3-f3b34ad9df4d@oss.qualcomm.com>
+Date: Wed, 7 Oct 2026 14:25:42 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA1PR12MB7366:EE_|MW4PR12MB7262:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4ed6d8a8-f3a0-4ff6-7c68-08df2465a435
-X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|56012099006|10067099003|11063799006|6133799003|3023799007|22082099003|4143699003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	vMON+Z9EbTrUdqN28lsZLDUmkyMTvY1QYiGefOPoB2DJwGZzOdh8FyFVZ9xq/+SHKEg4wrm3PGfy6UpXSeBMFausM1lv8KG9PhdKsR7PJ6ytIc/5gM7eeq5pRgMqiYnDtd2l7RdJHOibLQuOoUGMu+eHTUW9awUF5EqKoZgIsHOVmCIpTfGnqvJnqPSVA8qwh/k9t+ePgQ7c1Vfjd+i5siuX+bPDwCdu5burFK8lhkv77v5NYnNvtKIVlcUgn2RSWxMSTdAucWNJdNz2Y9TdJZkYL/x9oNIpB5tjTlVaLrfTKQ6uQzLZwQviDMy349JOrj3Zdwtni5Fc/JEWnovyaywJ5K98M+hEwMTvhYA7Yj2nhkX7uD2HcsGBzXIvfpqXCSSSuBqV6bMuI3oMk4A96AvSeXvEiox/hcbmbA8ULxHWIlTJvWbxfCUGI0Wx3vmbXFmYNfKsRlhU+F7D1TND2wOO7a7Ucw0oNBYBZdVnag/4qm3ZqC9y3NL5bZEfWjvxD+zDW+ebGKxEBv8ue1zgP4/i4tMI05i0I1oFjFLOVkexzUFSsQhFyUX4y6ADx6/sALG5xWLMWzNEillNZ5MYzBCBPCqUFJsAExptLitTIwrUVbLje4MaxPoLeTUfOyXpfjqkcu2yCYOubG9a4xFlM3RKdfD+tXbN6y5Sz6iEBKA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR12MB7366.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(56012099006)(10067099003)(11063799006)(6133799003)(3023799007)(22082099003)(4143699003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QU55VVUwTDhOVkxlK1FZSzBZTUJPeklITXpOVlFyNGZ6ZnFNZ0p1VTBXd08y?=
- =?utf-8?B?YUpNRktqYnNmSnRsOGVlUEloTXVjREFWaFFsQlVNUE5lREt1SXFGOU1xSUpE?=
- =?utf-8?B?eEFiRHltR0lQTXVsdTU3c3UySW1ORllJa0dGQk1IdWUwcnZLdGpQRWdHMlZ0?=
- =?utf-8?B?cHhQNDdKSWRObk1BVEt3ajFRVDJDa2RiVkwvNGFKRGhhK3g0eUxGbk9PKzQx?=
- =?utf-8?B?SG1ldXFvUnhjSTlYMUVRQWxvaWpaS0FnRUxLMHYwbnk4cnNNdW9RTWFRVi9K?=
- =?utf-8?B?UkVCbjB3c2dWdEhVejRnQXZFM2RQWEZDUmQvNzhPN1p0cHRQMzJEQVdGTnZh?=
- =?utf-8?B?ZStrL2hvcW5PMkFkZklRakllays1L1RTaVBRcFRKajRrU3ZIa1o4ODdPL3NT?=
- =?utf-8?B?VXlsSUVtSHJ0Y3crblVCZVFrUExBbnY3U3A4VlBoTzFvdVRYaTk0RU9rQnJF?=
- =?utf-8?B?N3l3WndSY1JsRXpJaENDZXdPSlVRaDVBeVU3RDVzektLRVJYVmhId2x1dCtu?=
- =?utf-8?B?NkduWEtjdlhtRTRRdEQ3UTBsdGJlTGRWRnF3R2RCRnRZUE91WGtXUDVuK3Z2?=
- =?utf-8?B?bC82OFZoMktCZmFqMGJwSGV0N3h6WHduR3ozUnc2MVEwa0ttc2doeGxJWlJI?=
- =?utf-8?B?eUsweXQxWWRENDNFQ0FDOHNnQUVDb0pxY241UmFKMVluWmtUalF3eW9HTjRU?=
- =?utf-8?B?YTZCZ2ZzWUxpbUNNUEFaSnp3SlZ0SlJ3TnlrMnBQaitHOXg4Z0VXYThTNWE5?=
- =?utf-8?B?MlBFNDk3WTYwekdHdEFCTGNYcU1tdnhWUkJFa0V3Z0RiTDg5KzdNejE0MytK?=
- =?utf-8?B?bjBJTFRscVJDOGNvdFRmVURJNDU4L2tWM1NzcnV6MWl3c1NXVDk5OElqeDh1?=
- =?utf-8?B?dWkwT1NsbUI5UndiODRtaVNlWVZzWFE2TFphcHN5UjZGSk1GbDFHNUFkNGtt?=
- =?utf-8?B?MzkzZVZGSEJWdjZNMnBORm1oUDVNQWNLYmhuZFE4TTZEZ0dyZzBnNFQxcEg5?=
- =?utf-8?B?YW1GOC85VERLTGNnMFlmZy9WZ2JSZ211Sm43Sk5qampzT1kxeFEyZE9ZZ1hN?=
- =?utf-8?B?Wk5Db3hIMGhsRFNZY1ZsUktZWWhjUTdvQmhLRGVGd0hxcU9QV1dnd1lORENj?=
- =?utf-8?B?VTcrQjVzQXNQa3hUNk5uajFPTVFReUlUNlFnUmtQVy9sQ2dsRzVSVTBIbnZX?=
- =?utf-8?B?MEFkOG5ZMWgwMjQyaUZPeXdtYlZDWUxmcjl5Y2JEOGVMM0YvMWs3NlZ6cmNQ?=
- =?utf-8?B?bStmZDZmMnoxejh5aXZkTUlXQ3pWWTVsWENjWHZLalQ4dzhWVkRkb3ZZaDJX?=
- =?utf-8?B?WngzVjZvSHZUMlRiNlhzTEtYUHVjOUlMQzBGNWZoMjU5NkFEMFVpaFk0VnBU?=
- =?utf-8?B?QVRBNFZFaHl6cmY3RUxYVW1GQlFRMTY3VDRya0sreVVmbS9BVzZBK0lSMEZY?=
- =?utf-8?B?UklPdTg3NUJyMjJTVUFZazJkN08vb01MWTZSQ3p2dzRCS3ZuZ3ZINUI4TVVI?=
- =?utf-8?B?bWU0RjUrbWdGejR5M2U4bnhWN2lBdVpNWnBtZ05JTXhsVEpZVzZxNy81aEFo?=
- =?utf-8?B?VWlnRzFJVkUwQVdtNjlRcDQwTFNVbllPeTh5QlZEOFdjTGxwQUc2NjhHYjN6?=
- =?utf-8?B?L0o0eVNWazAvOERBdnI0dWZ6S3RpSVhVTm0rOEFRZWxZa3dlOCtTN0NrNThI?=
- =?utf-8?B?NjM4KzVaSndCdXJBSVVpUzBoWWdOVDhiaS9qK2gwMXgxbmh5LzViaERXZDZY?=
- =?utf-8?B?S0JBN2RmQVl4cTFZdVp1ZW91S2czR3FEaXNGdjNFMkhpazZCMkRPY1d0VjlB?=
- =?utf-8?B?RDFId0F6RG54SWxVc3ZVOFBJQ1BMYzIxUnZQMFB5MkVPQzZ5eENCS09EMDIx?=
- =?utf-8?B?SmkxS2hzMkRVclRFcjBQK0xXa3lhM3g2K0FkWjI3dHE2cjl5RkZnODNhbnJX?=
- =?utf-8?B?KzJYejVWcHVMR29QNitiT2daZWNTcVYyMlkyR1VVQmgxNzc2MGVEN2d0M2h0?=
- =?utf-8?B?bVZySnJ3dEhPcVVpL0dPdmo4SzhBK1dHdWllanNUZThnanI0V2ZnUDl0aDF2?=
- =?utf-8?B?TDYrTWZrSFBDYXBMeUxwR3RPczBtWXRKSUR2N2NNdXZBc2JOd05zK2hkWDRN?=
- =?utf-8?B?VldiU1liTTRISGtUMlpqTmdBTzI0N2pQeUt0NDhnNkJZaEdtYi9iUUUzL0pG?=
- =?utf-8?B?RXlramhJd1JUdWxsTEZlR2hZQkYxempUaS9hTElxbUNnNFd4VWUxenc2WmdD?=
- =?utf-8?B?SUppKzNJSXgrallIUDIyZW1sRHUzbk9JeFo5ejlpYVR6UmNaQWcxWUNFeHha?=
- =?utf-8?Q?tzfDFYMEl6DQumw8zv?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ed6d8a8-f3a0-4ff6-7c68-08df2465a435
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB7366.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 11:25:07.7254
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OcEtrqMFqIpx+oRZNNvSZeuxh1+y8uDBc4I7GKxmtQN6fAgLFKAd2Yl5yf1M6U9l47hLAiNSVjLJnjShT6WSng==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7262
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 18/74] media: qcom: camss: vfe: Add helper
+ vfe_bus_v3_packer_fmt()
+To: Bryan O'Donoghue <bod@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+        Daniel Scally <dan.scally@ideasonboard.com>,
+        Keke Li <keke.li@amlogic.com>,
+        Richard Acayan <mailingradian@gmail.com>,
+        Hans Verkuil
+ <hverkuil@kernel.org>,
+        Gjorgji Rosikopulos <quic_grosikop@quicinc.com>,
+        Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>,
+        Robert Foss
+ <rfoss@kernel.org>,
+        Milen Mitkov <quic_mmitkov@quicinc.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+ <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-18-ed985aefd611@kernel.org>
+Content-Language: en-US
+From: "Gjorgji Rosikopulos (Consultant)"
+ <gjorgji.rosikopulos@oss.qualcomm.com>
+In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-18-ed985aefd611@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: aX8dkccwEjzeqijpFNNU4iB7_-au8SKL
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDA0NSBTYWx0ZWRfX4tr1d0KYrPTO
+ rgqvWmD0oniXYt/1emFMKpvHMAd73N84oz6ScgXCYtTZfc89uCg5UB/hzIMRNpPPdnJOPCdtNC9
+ GA8SX6oDVg1sektueOPpC7W7UEDcl8M=
+X-Authority-Analysis: v=2.4 cv=PM+aavqC c=1 sm=1 tr=0 ts=6ac62c44 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=eGCDHFSXubCXFTSSGhjuOA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=F-lHOqjDzm0Mqe-WZYMA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-GUID: aX8dkccwEjzeqijpFNNU4iB7_-au8SKL
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDA0NSBTYWx0ZWRfX8s6GXi4KZGw0
+ WAJjTaG+J2y2lsF36g84uAx69glOTdkKHUzUCXQsT1+4EiClckzAoVNeZmJkQYzZtguy6w6ithH
+ qnNQuR5ZPqmwxktGBJLzmN4zYKPMlFWF2Vxd/8fq3pSjc5W2g7zS7TAfW0hTQj6V84oHhQESsRH
+ JX33RsNOh++y8hDagsIkxAgmZR5c1okh7dwLAQHWrEyQqumFc6VR3oxZFv6Zs3RpiO9L9Jc5Ysz
+ 67uXDVqw5FgjCkV1Na2n+pd9dTQmiGrOG0Qw9RPyCGVRVTdK0+DfCeRfqt7TyHYw+q7u/ktwNrM
+ 4guzIV1P1WUc429KO4VIhcc4WnBV4liyk0BRhd55zG5i3fRrFE7a+Ux9eDqxvGvzwrmnrnF5VIK
+ XpPIC5StWXDk/DTphUj1Na9mlpIbYy2HaDw9TMuwYdsqIV4OWZwD2Wf5UJr5BFEa1ILKHu6SKSP
+ azo4nJVfGVWEsd59WJQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-07_03,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015 adultscore=0 bulkscore=0 phishscore=0
+ malwarescore=0 suspectscore=0 priorityscore=1501 lowpriorityscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610070045
 
-Hi Sudeep,
+Hi Bryan,
 
-On 10/5/2026 9:01 PM, Sudeep Holla wrote:
-> On Mon, Oct 05, 2026 at 06:06:09PM +0530, Jay Buddhabhatti wrote:
->> Hi Sudeep,
->>
->> Thanks for the review. Please find my response inline.
->>
->> On 10/1/2026 8:14 PM, Sudeep Holla wrote:
->>> On Thu, Oct 01, 2026 at 04:45:38AM -0700, Jay Buddhabhatti wrote:
->>>> Some platforms advertise reserved or uninstantiated clock IDs that still
->>>> succeed CLOCK_DESCRIBE_RATES with zero rates. After dynamic rate
->>>> allocation, kcalloc(0) returns ZERO_SIZE_PTR and protocol init then
->>>> dereferences rates[0], which panics.
->>>>
->>>> Do not allocate or index the rate array when the firmware reports an
->>>> empty list, so unused IDs are skipped instead of taking down the SCMI
->>>> clock provider.
->>>>
->>>> Fixes: 62ba967595e0 ("firmware: arm_scmi: Make clock rates allocation dynamic")
->>>> Signed-off-by: Jay Buddhabhatti <jay.buddhabhatti@amd.com>
->>>> ---
->>>> The SCMI server is the source of this zero rate and successful response
->>>> and it should be fixed in SCMI server. This defensive check in Linux is
->>>> still useful because firmware responses must be validated before
->>>> de-referencing dynamically allocated data, The panic is a Linux
->>>> regression introduced by dynamic rate allocation; previous fixed array
->>>> tolerated the same response and other SCMI implementations could return
->>>> the same unexpected response.
->>>> ---
->>>>    drivers/firmware/arm_scmi/clock.c | 18 ++++++++++++++++++
->>>>    1 file changed, 18 insertions(+)
->>>>
->>>> diff --git a/drivers/firmware/arm_scmi/clock.c b/drivers/firmware/arm_scmi/clock.c
->>>> index 0278705d809e..8934a95527e2 100644
->>>> --- a/drivers/firmware/arm_scmi/clock.c
->>>> +++ b/drivers/firmware/arm_scmi/clock.c
->>>> @@ -8,6 +8,7 @@
->>>>    #include <linux/math64.h>
->>>>    #include <linux/module.h>
->>>>    #include <linux/limits.h>
->>>> +#include <linux/slab.h>
->>>>    #include <linux/sort.h>
->>>>    #include "protocols.h"
->>>> @@ -484,6 +485,13 @@ iter_clk_describe_update_state(struct scmi_iterator_state *st,
->>>>    	if (!st->max_resources) {
->>>>    		unsigned int tot_rates = st->num_returned + st->num_remaining;
->>>> +		/*
->>>> +		 * Unused/reserved clock IDs return 0 rates. kmalloc(0)
->>>> +		 * returns ZERO_SIZE_PTR and must not be dereferenced.
->>>> +		 */
->>>> +		if (!tot_rates)
->>>> +			return 0;
->>>> +
->>>>    		p->clkd->r.rates = devm_kcalloc(p->dev, tot_rates,
->>>>    						sizeof(*p->clkd->r.rates), GFP_KERNEL);
->>>>    		if (!p->clkd->r.rates)
->>>> @@ -505,6 +513,9 @@ iter_clk_describe_process_response(const struct scmi_protocol_handle *ph,
->>>>    	struct scmi_clk_ipriv *p = priv;
->>>>    	const struct scmi_msg_resp_clock_describe_rates *r = response;
->>>> +	if (ZERO_OR_NULL_PTR(p->clkd->r.rates))
->>>> +		return -EPROTO;
->>>> +
->>>>    	p->clkd->r.rates[p->clkd->r.num_rates] = RATE_TO_U64(r->rate[st->loop_idx]);
->>>>    	/* Count only effectively discovered rates */
->>>> @@ -622,6 +633,13 @@ scmi_clock_describe_rates_get(const struct scmi_protocol_handle *ph,
->>>>    	if (ret)
->>>>    		return ret;
->>>> +	/*
->>>> +	 * Some platforms expose reserved clock IDs with an empty
->>>> +	 * CLOCK_DESCRIBE_RATES reply. Do not dereference rates[].
->>>> +	 */
->>>> +	if (!clkd->r.num_rates || ZERO_OR_NULL_PTR(clkd->r.rates))
->>>> +		return 0;
->>>> +
->>>
->>> I expect the Clock rate control bit to be unset in the permissions for
->>> these clock, else it may be dangerous to do this. Please add that check.
->>
->> I will add that check in new version. If the Clock rate control bit is set,
->> Linux clears its local copy by setting rate_ctrl_forbidden. The clock
->> remains registered, but clk-scmi does not install set_rate and
->> scmi_clock_rate_set() returns -EACCES. This avoids exposing rate changes
->> when no valid rates were described.
->>
+On 10/5/2026 8:13 PM, Bryan O'Donoghue wrote:
+> vfe_bus_v3_packer_fmt()'s job in life is to translate a given v4l2 pixel
+> format and plane into the appropriate bus packing format for v3 class
+> hardware.
 > 
-> You did mention this is issue in the firmware. If the generic solution(once
-> agreed upon) doesn't work on your platform, then you need to fix it with
-> a quirk I am afraid. I will let you propose the patch and take it from there.
+> Other versions are currently not covered.
+> 
+> Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+> ---
+>  drivers/media/platform/qcom/camss/camss-vfe.c | 53 +++++++++++++++++++++++++++
+>  drivers/media/platform/qcom/camss/camss-vfe.h | 32 ++++++++++++++++
+>  2 files changed, 85 insertions(+)
+> 
+> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
+> index 5b5201b55a485..c95fe5b0b05fc 100644
+> --- a/drivers/media/platform/qcom/camss/camss-vfe.c
+> +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+> @@ -370,6 +370,59 @@ const struct camss_formats vfe_formats_pix_845 = {
+>  	.formats = formats_pix_845
+>  };
+>  
+> +u32 vfe_bus_v3_packer_fmt(u32 v4l2_fmt, u8 plane, u8 align_shift)
+> +{
+> +	switch (v4l2_fmt) {
+> +	case V4L2_PIX_FMT_NV12:
+> +	case V4L2_PIX_FMT_NV12M:
+> +	case V4L2_PIX_FMT_NV16:
+> +		return VFE_BUS_WM_PACKER_FMT_V3_PLAIN_8_LSB_MSB_10;
+> +	case V4L2_PIX_FMT_NV21:
+> +	case V4L2_PIX_FMT_NV21M:
+> +	case V4L2_PIX_FMT_NV61:
+> +		return plane ? VFE_BUS_WM_PACKER_FMT_V3_PLAIN_8_LSB_MSB_10_ODD_EVEN
+> +			     : VFE_BUS_WM_PACKER_FMT_V3_PLAIN_8_LSB_MSB_10;
+> +
+> +	case V4L2_PIX_FMT_SRGGB10P:
+> +	case V4L2_PIX_FMT_SGRBG10P:
+> +	case V4L2_PIX_FMT_SGBRG10P:
+> +	case V4L2_PIX_FMT_SBGGR10P:
+> +		return VFE_BUS_WM_PACKER_FMT_V3_MIPI10;
+> +	case V4L2_PIX_FMT_SRGGB12P:
+> +	case V4L2_PIX_FMT_SGRBG12P:
+> +	case V4L2_PIX_FMT_SGBRG12P:
+> +	case V4L2_PIX_FMT_SBGGR12P:
+> +		return VFE_BUS_WM_PACKER_FMT_V3_MIPI12;
+> +	case V4L2_PIX_FMT_SRGGB14P:
+> +	case V4L2_PIX_FMT_SGRBG14P:
+> +	case V4L2_PIX_FMT_SGBRG14P:
+> +	case V4L2_PIX_FMT_SBGGR14P:
+> +		return VFE_BUS_WM_PACKER_FMT_V3_MIPI14;
+> +
+> +	case V4L2_PIX_FMT_SRGGB10:
+> +	case V4L2_PIX_FMT_SGRBG10:
+> +	case V4L2_PIX_FMT_SGBRG10:
+> +	case V4L2_PIX_FMT_SBGGR10:
+> +		return VFE_BUS_WM_PACKER_FMT_V3_PLAIN_16_10BPP |
+> +		       BIT(align_shift);
+> +	case V4L2_PIX_FMT_SRGGB12:
+> +	case V4L2_PIX_FMT_SGRBG12:
+> +	case V4L2_PIX_FMT_SGBRG12:
+> +	case V4L2_PIX_FMT_SBGGR12:
+> +		return VFE_BUS_WM_PACKER_FMT_V3_PLAIN_16_12BPP |
+> +		       BIT(align_shift);
+> +
+> +	case V4L2_PIX_FMT_SRGGB8:
+> +	case V4L2_PIX_FMT_SGRBG8:
+> +	case V4L2_PIX_FMT_SGBRG8:
+> +	case V4L2_PIX_FMT_SBGGR8:
+> +		return VFE_BUS_WM_PACKER_FMT_V3_PLAIN_8;
+> +	}
+> +
+> +	WARN_ONCE(1, "no packer format for 0x%08x\n", v4l2_fmt);
+> +	return VFE_BUS_WM_PACKER_FMT_V3_PLAIN_128;
+> +}
+> +
+>  static u32 vfe_src_pad_code(struct vfe_line *line, u32 sink_code,
+>  			    unsigned int index, u32 src_req_code)
+>  {
+> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/media/platform/qcom/camss/camss-vfe.h
+> index 089f525b98cf5..98d403a71cf95 100644
+> --- a/drivers/media/platform/qcom/camss/camss-vfe.h
+> +++ b/drivers/media/platform/qcom/camss/camss-vfe.h
+> @@ -56,6 +56,27 @@ enum vfe_line_id {
+>  	VFE_LINE_NUM_MAX = 4
+>  };
+>  
+> +enum vfe_packer_format_v3 {
+> +	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_128 = 0,
+> +	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_8,
+> +	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_8_ODD_EVEN,
+> +	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_8_LSB_MSB_10,
+> +	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_8_LSB_MSB_10_ODD_EVEN,
+> +	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_16_10BPP,
+> +	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_16_12BPP,
+> +	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_16_14BPP,
+> +	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_16_16BPP,
+> +	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_32,
+> +	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_64,
+> +	VFE_BUS_WM_PACKER_FMT_V3_TP_10,
+> +	VFE_BUS_WM_PACKER_FMT_V3_MIPI10,
+> +	VFE_BUS_WM_PACKER_FMT_V3_MIPI12,
+> +	VFE_BUS_WM_PACKER_FMT_V3_MIPI14,
+> +	VFE_BUS_WM_PACKER_FMT_V3_MIPI20,
+> +	VFE_BUS_WM_PACKER_FMT_V3_PLAIN32_20BPP,
+> +	VFE_BUS_WM_PACKER_FMT_V3_MAX,
+> +};
 
-Agreed, Linux should not override the platform permissions. I'll drop
-that in v2. If CLOCK_DESCRIBE_RATES returns no rates, v2 accepts the
-reply only if:
+I think all wm configurations should be separated in separate bus or wm
+abstraction and move those per version of the wm/bus.
 
-  - the clock has no name. clk-scmi already skips unnamed clocks via
-    scmi_clock_info_get(), so these are never registered, or
-  - the platform reports rate control as not allowed. The clock is kept
-    for enable/disable and no set_rate is installed.
-
-Otherwise it logs an error and invalidates the clock, so that it is not
-registered with an undefined rate range.
-
-The de-reference fixes from v1 stay as they are, since they
-avoid the panic in all cases.
-
-I checked our platform SCMI server: all the reserved IDs that return an
-empty rate list also return an empty name, so they were never exposed
-by clk-scmi. With v2 they are skipped silently, and every clock that is
-exposed has a valid rate list, so I don't think a quirk is needed.
-
-Does this sound reasonable to you? If so, I'll post v2.
-
-Thanks,
-Jay
+> +
+>  struct vfe_output {
+>  	u8 wm_num;
+>  	u8 wm_idx[3];
+> @@ -315,4 +336,15 @@ int vfe_enable_output_v2(struct vfe_line *line);
+>  int vfe_queue_buffer_v2(struct camss_video *vid,
+>  			struct camss_buffer *buf);
+>  
+> +/*
+> + * vfe_bus_v3_packer_fmt
+> + *
+> + * @v4l2_fmt: v4l2 format
+> + * @plane: plane for the given format
+> + * @align_shift: bit position of the PLAIN16 LSB alignment flag
+> + *
+> + * Return: the bus packer format for the register
+> + */
+> +u32 vfe_bus_v3_packer_fmt(u32 v4l2_fmt, u8 plane, u8 align_shift);
+> +
+>  #endif /* QC_MSM_CAMSS_VFE_H */
 > 
 
