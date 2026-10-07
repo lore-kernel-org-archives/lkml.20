@@ -1,164 +1,150 @@
-Received: from MM0P280CU009.outbound.protection.outlook.com (mail-swedensouthazon11021105.outbound.protection.outlook.com [52.101.76.105])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D96FC4AB1C5;
-	Wed,  7 Oct 2026 12:54:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.76.105
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791377682; cv=fail; b=PV9Qob8RiyRzdQgQ7LWhBd6hmycvqPlaZBhMO0WoqnUzpkl+OO1i9iQl7qVU208kWkmCWMlXwa+McRdLm5oujK6xftIZzXzh0+/jBkrNMucNI1DPSCM9T7DnFpnfhUMGuQKer+qh9+uItUwpBTxNI95wROCU+I3rybivkgDevig=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791377682; c=relaxed/simple;
-	bh=SlSnvZyNg3vZ3banbkttHyGc9Cx6gHvac+JT/e8d8mE=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=F7PG5wsREulzISjVZBFO1JA8FNvYUbcX7QK4Bs/lomQdTDcbXpKnrK1i/kWBxp6+mcnJOM4w/KW7ByEygC6AJMkaPIw4ApvB75D8NpkT8FJBNuOkgwWTlliTpqfVgWfYSfL242H2r85EjMFbjKnFMjTo0xP3sNRKEr5yo5m0K3I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=permerror header.from=gaisler.com; spf=pass smtp.mailfrom=gaisler.com; dkim=pass (2048-bit key) header.d=gaisler.com header.i=@gaisler.com header.b=ChONQHe5; arc=fail smtp.client-ip=52.101.76.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=gaisler.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gaisler.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0C2573D333B
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 12:55:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791377713; cv=none; b=nmrUgZwotdD0FGYIRfWcUE9mtvrVaK9zlztjnlBM/SzsXCIjMR1YCYpcpgGacNGvvFb2cGB6D5zQL14b9pdNlHVIWYURrEqt5WWaqbJTs5MkKY0XldKAYw67tjLbqHR3H6ImuSsx/2BmYEZgRG2w2DVDK7HLXab8j9ONKdq+WoQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791377713; c=relaxed/simple;
+	bh=SSWZdtrdsZxmDgfG4fuiuGi1BNumHXdCgfUzd/V3Vdo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=H5FcQnsf/xEf9PMY4sWid7eBJNHvcMWwj7/nbZM9qsFc3MpAQVLLEWwSza0WBz7uitd36jUN7c3Gw7yG9Hd4J+Jp5GcceDcbGFoArWNnsDiJDhFm/62H3BYFB+9GePwT93tKontMUYmi3LBnxn5vdxXoksBrMZLRudFqg9KcblE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=UvVLNXow; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gaisler.com header.i=@gaisler.com header.b="ChONQHe5"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OOAnBfMMvHkdhBgbEfknHsyfia9xn8395k1Syl6E3FstmrHO6fFICkcJlHQPiyAc7AXWjCEhH8yJw9BpVt7ZH1W1GOTbZPp3L/jiQMZmWqQsdLNRSfHcCaq+x9nKARobh8OZPd4/k6AWtxq8MkII2xFy1Qi5djYaxLlAd3U/g1CQgGnqLRB7s4LbmYH5SGitQavHryA1zDsBgM1+k/FdDPD/RuqNcg82wmRYWCaYS1MKB6pSo3q3Qg8w/SBrq/TUvjPYrN9s58Q8kwH9atVcowHIeDg31MeFnqGiPc5s7jyUIEOArmFfiQzsyG12hob4AGC0gr0KS+txtxzULISR9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=d5rqg/Z/sA3BXP0HwUpbcUC9lAlrYJIja7QKmwutfaM=;
- b=A2rXmpZ4G//yP/n2yjx8d35IRdCKaKK8PnhWvaWYJX0YluFdPw2A9+N9OrciBfb+3fSUNQ4x5jJQ6YhTf/ne4UIk2syi4JyN8ZWTwDYTaTKpZRbtR+sUoT5CS2XrWaJwDCULEy7osqedsY7ZkaVP1QQKJ+TtAg5pnpLdCwmkWE66jDzUDYw4TDxXixYDE2aluJFAVoZTRc7SPY3oos+CnVSpD3Vz0/d39Gp5uVKPzIuLma9zQsp6kTlFe89PH+3B8aG7Bch3cf3dmGwaAyCBOAcA674HAP/H7LqIQnwVQUexOr3gfRRu3ugtuzaGYFOTMhG7BpEr0OsnsxSgD1sZeg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=gaisler.com; dmarc=pass action=none header.from=gaisler.com;
- dkim=pass header.d=gaisler.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gaisler.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=d5rqg/Z/sA3BXP0HwUpbcUC9lAlrYJIja7QKmwutfaM=;
- b=ChONQHe51AyrgpnSBrvVFer0CVUQ1QXiOwGq8ZaO3GAITL3aZPnnH6FKl++X2+mhGNx/ZpChHmS1v8oWZYb0Zi0DcmOlhW4ain0JBY8RQguogcsS7XL1W3MlckVrvdxqWCg9o8WjcZgCmLK7EPbY9qRPvmZ6apXZ7J21Td+QvBW4bLbCnc3SQbtJDHvfFytYmhkKd+jh2OrffMg3Guu1VDRNqMX2tpTf8hGIfRt1sC/4JfYlrYq8w07cul35ROLrC++a4BmP4SpSPOjcNIlUZwAxLPRsEWou/bFYhMnLeFeRccqnRbuu8/Ck5jjmTirtUzB6KrFQe9RaFx/tI8puRg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=gaisler.com;
-Received: from MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM (2603:10a6:190:2f::5)
- by MM0P280MB0422.SWEP280.PROD.OUTLOOK.COM (2603:10a6:190:11::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
- 2026 12:54:25 +0000
-Received: from MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM
- ([fe80::1f13:f10:e16b:7939]) by MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM
- ([fe80::1f13:f10:e16b:7939%4]) with mapi id 15.21.0472.016; Wed, 7 Oct 2026
- 12:54:25 +0000
-Message-ID: <52b4a6fd-173e-4596-ac1b-0b1d80fd5ace@gaisler.com>
-Date: Wed, 7 Oct 2026 14:54:23 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 0/3] Introduce arch_do_panic
-To: Andrew Morton <akpm@linux-foundation.org>,
- Mete Durlu <meted@linux.ibm.com>
-Cc: Petr Mladek <pmladek@suse.com>, Heiko Carstens <hca@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev
- <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, "David S. Miller"
- <davem@davemloft.net>, Bradley Morgan <include@grrlz.net>,
- linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org,
- sparclinux@vger.kernel.org
-References: <20260831-arch_do_panic-v6-0-a1e170a9e7fd@linux.ibm.com>
- <20260831171906.7520833ab8ac40d0369b0228@linux-foundation.org>
-Content-Language: en-US
-From: Andreas Larsson <andreas@gaisler.com>
-In-Reply-To: <20260831171906.7520833ab8ac40d0369b0228@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: GVZP280CA0013.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:150:272::17) To MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:190:2f::5)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="UvVLNXow"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E8DDB1595;
+	Wed,  7 Oct 2026 05:55:00 -0700 (PDT)
+Received: from [10.57.75.203] (unknown [10.57.75.203])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9CDC23F763;
+	Wed,  7 Oct 2026 05:55:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791377704; bh=SSWZdtrdsZxmDgfG4fuiuGi1BNumHXdCgfUzd/V3Vdo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=UvVLNXowNrVRYz2maj3a9hLTrvHDX3Nf5+3YoF6tby0e7AAiHHPA9i1+/GSFgS5Q6
+	 bGu3T7XdGKTww+lF+FLnLPCuJ6BLZn4yGWHAL6R0uF/u3aFonixhdOuh23Pj1JOlTH
+	 CUAqqlthf3/N6P9Fz6W2Rupkp5lJAyDvbTnHf7fc=
+Message-ID: <72338d88-ece1-49ac-af01-ba1e363d53d7@arm.com>
+Date: Wed, 7 Oct 2026 13:54:58 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MM0P280MB495062:EE_|MM0P280MB0422:EE_
-X-MS-Office365-Filtering-Correlation-Id: fcb7cae9-ec57-4828-b8f5-08df24721d73
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|7416014|366016|23010399003|22082099003|18002099003|4143699003|11063799006|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	TZC1QM9otH+W0KWTmiHgeRup5fXGqYvk69Sw0nY2nshmwKiKc2ElDmH+OG1WCdLKtUkO0vNPx4JX0pxt/VDZlo8+uH7qD+UKcm5vQzRVtcGvdMdtyb8xpV0VkCu2tuC/J2J+idRxd61I54+Jv56OtlM4C6cBPhsCXOKLVCrhz1NPUI6ODAuRIWrQsSZiOHvToyRy88GMMFI2RO9Fx08G2OpNacDtlL3ZU5yc3rBCHfCZxh1E8nEtygt0VleD3hMmxa8ZvvzAvuQzwUOVDnkvUhSKrgIIthGPDqX1kR4ZquZ6kCZqgYOLW3e6yOakLV1qnwg/Ka6wN7CzvGBYt+x9tT/WlGpOtjFwh/yJavSblYFHBXz5Ej5R9ybL0RmFB1fCZ/KbyUFH2U3vdIIwMR96K4rttSl8zk2sxoJhveTs4SzcrO67NNsF//n3QJ2gooGUUH6YXrj2wnweO7gnk40ULrmPSjuq/XM8DezAzGa10tv+V0liA22zksmMpY53C/YpKX+WOol7X56YvBU77pnotjfTTSlChmVkyWnewtNErCaR5Gl2cBS+Zf48mhLfBGsymjmSO0n9RvpQ+u6Tv350vd6PunTfE0FzpmhW/levyBBPxqWCfA3LcS9Aj4R16I413NfZv7PB+SFJWhx+wo4mLdba54fC08OCV1+ciIm84+Y=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(366016)(23010399003)(22082099003)(18002099003)(4143699003)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?T0ZHT3lHYzY0SU00RWtjZExvVXQ1dmE1WlhzVTkreFp3UC9WenRYaVM0WHBB?=
- =?utf-8?B?ckZzTTQ4dURJbTFEQnlOc3JiREJmSWcxa3VHSGViSHI4Y1ZhQk1YdzVWVE9q?=
- =?utf-8?B?aFg1ZFI4R096anl0a0JPUDlEM3ZuN0txUHJmdHo4NlFvNFZNV01hZ3pvQ1Jo?=
- =?utf-8?B?aHdoaE5ZdVVsUXBuT0VyRll0VVdHL1ovdUxwdWlJdDBIcWE0ZklTTlJIdzBi?=
- =?utf-8?B?bGNHTnh0d0t0KzZKQ0U5U2Q2NFdnV0pMZFZYVElVY2ZNUkl2NEphZ2hEQVBv?=
- =?utf-8?B?Tmh0R1duT2JGaFdadlhJS0Q2STB2S2ZkSUt2N2dwK2k5L1lHNVFzdm5vVmNX?=
- =?utf-8?B?Q2hyWUE0NFBJQ3dGSDRpUjlyQWR4NmZxQ0o0SnlqdCtXYSt1bGlSaHUwWWdG?=
- =?utf-8?B?NWhBVEFqRHptSTFvVUhxN0NuM0JtazdoK1pXOUs1VEdNNGlnYjEzVlhtY29K?=
- =?utf-8?B?aVJGOVkwemNlcDZJNzV6R2NYek85WEp4eFl0Y05oSkVKOE1Ya2JObGZFWHRX?=
- =?utf-8?B?OXM2bFdSSFhqUFpVdjdhYmpKMGNMaVF6S3AzNnU0VXBIQnpuSjh1bm9oeGZO?=
- =?utf-8?B?czZBcFdOMGVELzhTK3BaUEtlMjNncUI2K0JwV2N0QXN0dGFuNHkxSEZ1U0JF?=
- =?utf-8?B?bTMvV0g4OE5Bd3RGWHpUMisvTDdyOGpQN3pPQ0NaVmdhOEZ4aGMwUmxiT1pq?=
- =?utf-8?B?OUQzREdNK2NmL0RLeTJSLzdVMVl3TVdadjEzU3NNWHRDRklUWkZNdkhrNUZI?=
- =?utf-8?B?dVZxZG1VQ3hFM1B2MDArNEJjL25FK200MzFXS2dUdmlwc3A4WTN5VUJhTEl4?=
- =?utf-8?B?WGYxZlRPTWhjaEt3T2o0RWdDbjJET1grY1ZMUGdLSjY2OGpZOVFPU2xtSVp6?=
- =?utf-8?B?OG5sNkt3VjI0Q3duL3RoNC9yNnZROG1XREdLWHJVb0thb0IvRCtxWnliRk4y?=
- =?utf-8?B?WDhxMndjWjZrd0xGTHFITXVKY21WZTh6eFlaeXhkUmxvdVNDck5zakJQVDE4?=
- =?utf-8?B?ZkxNdjUyNElVb2dkdFJiajVoVGJqUFJYeGwxdzRVWUhjTVZHMllvU3k2Szhn?=
- =?utf-8?B?aENvUU9UMDNXbzF0ZHI4MjRlckxZUjhkVVVPd3drZU13cVdBdVNYVXBlQmZs?=
- =?utf-8?B?WHlDNzlnZWVDOFZpMUJZUGRxcE9qT01MbFlRV0ViUHM5L241OXU1Tk5YeGR4?=
- =?utf-8?B?TlQ2RlVIay9aWXZtMFEwYUcrZmhHQ3VFRU53Q1ZjTFZBRTFVSUtHNFR2Qmtp?=
- =?utf-8?B?NnJrdFE4cXgreXhCMGFnKzlQUVV3c2xNRnFaeWhCeHZXdUNQYTlma011VEpP?=
- =?utf-8?B?T3UxQmhTWHhwdmE5SmhrWlgxakxWNHdxNy96QW51b1V2WHJBR21DQ1R5N0pX?=
- =?utf-8?B?cHE0RUFxdi83UEVaS0Y0QUhZYjBRSUo3WTZCR0M1dWZpemxnNFBRcHVqbTk0?=
- =?utf-8?B?dDlZbGF2cEZmOWNHS1FJeUdCcXVvcURGbnlXTFhLU1JFajBvbXZvQ1d0cFNP?=
- =?utf-8?B?VUFoQnVadnJ3ay9nbTBrTEpPbEZNRlcxWWlUczU5dklzeTYxNnFXWEVrblI3?=
- =?utf-8?B?a1h1cGFldG9RYzBWMFdwd0M0OHNZQjZSejFoR1dwOTFlVEtJMnJCeWoxMWRG?=
- =?utf-8?B?UHNaMjhwbnprUkg3OTJPYTJIN05sMmtmS05nK0dQWmdPaVI1ZTRNdUpCRjhG?=
- =?utf-8?B?VHkxeUoyempSMFVnZCtCZXdDdUJ4aUNPS0JQV05SSWZQN3pjQXFXeldseFE0?=
- =?utf-8?B?Rk5Mc09wMnNCNFNWN0QrNThNbDBEcHZDemQ4cWtEK2E1SmZNUzdLVFBmRjVa?=
- =?utf-8?B?emRoUWRub1lZbHdnamkzSHNRTDNqTnpRb2R0VDBLTkJxeGhrK1RXYjlqQzU2?=
- =?utf-8?B?TElWdzgyV0U2dURaRzd1TGpaWEtKb3VlYXNjTEhnSG9hVlhvL3ZlZ2UvYWRp?=
- =?utf-8?B?bUhjbTFpTTQ0Ull1dHdpVWptZ25MV3dITWRPSHFsOHoyWHZKV3N5dUQvZXBz?=
- =?utf-8?B?VW1HbldFMkRhM2NOcjIwQUVJUlVFcWtCWTNidDZ6RTN5d0YrN3MrVkdsaFBT?=
- =?utf-8?B?MzNqRDRET2IyMTdCMEgrRDB2RGZtcUlmS1kxbmJMdlRwMStETmdQZ1Z4dDJG?=
- =?utf-8?B?S3o0UU40UW1TeTZmMlVoOUdRWTBHclBLUUs5azd2a0FFZTVIRjFLbnJsM2RQ?=
- =?utf-8?B?Y1RjeEdRY01WQ0tvYzN2VlFEeGgwcjhsMGlwejJNTGkyKzBmbVVyVVBBMWhy?=
- =?utf-8?B?dDhJUXZoRE00MVJSdnJhalNYaDcxN0w1K1ZYTFhPMjNiOENJbnk0ODRWbm51?=
- =?utf-8?B?NFdZZ2dRZUxYN1ovbWQ0Q2hlb2Z5OWZ1eHNmVENVRG9rNVlkeHN6RGVRRHlv?=
- =?utf-8?Q?ZHKP7pjasU9FQVfY=3D?=
-X-OriginatorOrg: gaisler.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fcb7cae9-ec57-4828-b8f5-08df24721d73
-X-MS-Exchange-CrossTenant-AuthSource: MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 12:54:25.0122
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 91fa4a59-2167-458a-8318-e45d80469d7e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cPA+Rz8HE/3LGyHNF2HOXYeIwXWVi1KvxTC17oL+FkIMtzxTw9lTl/D2qxgjSYdPc8pm9j6VPbLIzUBTQIx4/ET7JpkVFBolYbvO8ZH8plI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MM0P280MB0422
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 10/15] drm/panfrost: Add debugfs knob for manually
+ triggering a GPU reset
+To: =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+ Rob Herring <robh@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Faith Ekstrand <faith.ekstrand@collabora.com>,
+ "Marty E. Plummer" <hanetzer@startmail.com>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>,
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
+ <20260929-claude-fixes-v12-10-62beb08de207@collabora.com>
+ <1930451a-97e7-4029-91b4-45989e954d7a@arm.com>
+ <179129388241.1018806.5773521934450351426.b4-reply@b4>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <179129388241.1018806.5773521934450351426.b4-reply@b4>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 2026-09-01 02:19, Andrew Morton wrote:
-> On Mon, 31 Aug 2026 11:57:14 +0200 Mete Durlu <meted@linux.ibm.com> wrote:
+On 06/10/2026 14:38, Adrián Larumbe wrote:
+> On 2026-10-02 16:10:43+01:00, Steven Price wrote:
+>> On 29/09/2026 04:44, Adrián Larumbe wrote:
+>>
+>>> This will be of great help when testing potential races between the GPU
+>>> reset sequence and other parts of the code accessing HW registers.
+>>>
+>>> We must also disable the reset work item rather than simply cancelling
+>>> it, to prevent the knob from triggering another reset when the device
+>>> is being removed.
+>>>
+>>> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+>>> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+>>> ---
+>>>  drivers/gpu/drm/panfrost/panfrost_device.c | 42 ++++++++++++++++++++++++++++++
+>>>  drivers/gpu/drm/panfrost/panfrost_job.c    |  2 +-
+>>>  2 files changed, 43 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
+>>> index 09a5752a3f40..94d2de341838 100644
+>>> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+>>> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+>>> @@ -2,6 +2,7 @@
+>>>  /* Copyright 2018 Marty E. Plummer <hanetzer@startmail.com> */
+>>>  /* Copyright 2019 Linaro, Ltd, Rob Herring <robh@kernel.org> */
+>>>  
+>>> +#include <linux/debugfs.h>
+>>>  #include <linux/clk.h>
+>>>  #include <linux/reset.h>
+>>>  #include <linux/platform_device.h>
+>>> @@ -595,9 +596,50 @@ EXPORT_GPL_DEV_PM_OPS(panfrost_pm_ops) = {
+>>>  };
+>>>  
+>>>  #ifdef CONFIG_DEBUG_FS
+>>> +static int reset_get(void *data, u64 *val)
+>>> +{
+>>> +	struct panfrost_device *pfdev =
+>>> +		container_of(data, struct panfrost_device, base);
+>>> +
+>>> +	*val = atomic_read(&pfdev->reset.pending);
+>>> +	return 0;
+>>> +}
+>>> +
+>>> +static int reset_set(void *data, u64 val)
+>>> +{
+>>> +	struct panfrost_device *pfdev =
+>>> +		container_of(data, struct panfrost_device, base);
+>>> +	int ret = pm_runtime_get_if_active(pfdev->base.dev);
+>>> +
+>>> +	if (!ret)
+>>> +		return 0;
+>>> +
+>>> +	panfrost_device_schedule_reset(pfdev);
+>>> +	flush_work(&pfdev->reset.work);
+>>> +
+>>> +	/* ret < 0 means runtime PM for the device is disabled, so we
+>>> +	 * only need to return the PM reference in the opposite case
+>>> +	 */
+>>> +	if (ret > 0)
+>>> +		pm_runtime_put(pfdev->base.dev);
+>>> +
+>>> +	return 0;
+>>> +}
+>>
+>> NIT: If this wasn't debugfs I'd be complaining that you're ignoring
+>> 'val' and so this isn't very extensible. But hey, it's debugfs... so:
+>>
+>> Reviewed-by: Steven Price <steven.price@arm.com>
 > 
->> Replace architecture-specific ifdef sections in vpanic() with a clean
->> arch_do_panic() hook. Currently s390 and sparc embed their panic
->> handlers directly in vpanic() using preprocessor conditionals, making
->> the common code path harder to maintain.
+> I looked into the available debugfs attribute definition macros and none of them provide
+> a wrapper that avoid passing the input value when the attribute is to be understood as
+> an action rather than a device property. My understanding is that because debugfs doesn't
+> become part of the device's uAPI, we can do pretty much whatever we want with it.
+> However, on a second thought, maybe in the future we'll want to extend the knob so that
+> it performs resets in different ways, and would want to keep backwards compatibility with
+> UM binaries that expect certain input values to stand for specific actions.
 > 
-> Nice little cleanup, thanks.
-> 
->>  arch/s390/kernel/traps.c  |  7 +++++++
->>  arch/sparc/kernel/setup.c |  9 +++++++++
->>  include/linux/panic.h     |  2 ++
->>  kernel/panic.c            | 15 +++------------
->>  4 files changed, 21 insertions(+), 12 deletions(-)
-> 
-> Why do cleanups make the kernel bigger.  It's often that way.
-> 
-> I'll scoop it up.  An ack from sparc people would be nice, please.
+> I'll change it so that all value other than '1' are returned with -EINVAL.
 
-Tested-by: Andreas Larsson <andreas@gaisler.com>
-Acked-by: Andreas Larsson <andreas@gaisler.com>
+That would be my preference, but like you say this is debugfs so we
+don't consider it part of uAPI. Mostly it seems a bit odd that you could
+read the value, get 0 (i.e. no reset), write it back and that would
+trigger a reset. But equally this isn't the sort of file which you'd
+expect a read-modify-write operation to work on, so it's not a big deal.
 
-Cheers,
-Andreas
+Thanks,
+Steve
 
