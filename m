@@ -1,130 +1,133 @@
-Received: from mta1.migadu.com (out-199.mta1.migadu.com [95.215.58.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay11.grserver.gr (relay11.grserver.gr [78.46.171.57])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14C073A8732
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:02:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77C473D3D12
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:04:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.46.171.57
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791370982; cv=none; b=mAcDYH98iEMvUBb957v3Je9zrCwNh2nKNizTz1wqxrJ+fQg8wWX+fNWIJ5UFqzAWsjUBoXKuo8qIoF0AjjGIgcnNcHfb5vNRzyHjTWCHwSPnhhq0oq+JXunvQvOpMlGkPTopfAKUmevkYLB1aB8pb+B2WS6wFbWA5QVo559JnmE=
+	t=1791371071; cv=none; b=OBPP5RuqAuSlZbjkth6oc5qa+HQNO60Zc2xduco+IE7HGGBJCpgKgfPjQVBrU17SSFTOIKuOuUau6WJpYj9AozXLPrK/RsZbY/dhG7xDuo31vVJI+I2R2YdddBPvfKdl9kRcu/jAL4XDEypnBIepC9j2NW2xI4x2eKmdElt6V68=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791370982; c=relaxed/simple;
-	bh=kbp4UUDGxBCJYQv99MekkXfWeMMWcYb62G5irxFuKAk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TP4hElPV7UOhX3B9vZ6qt7cCJ4bt0VTt2VTGwQog3IaStQSKWDkDiZgbmH2QiRUxYiY7apT4VCiPpjRJGjZqGZX3viNws6oC39ZmdRbDqyUOlh1YUqhzvoJZxL+GRJJWrs4/O1wyaX64MRVWnRoGOnv7izsssO786iTfiNSiMWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gqULa/IK; arc=none smtp.client-ip=95.215.58.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791371071; c=relaxed/simple;
+	bh=qHQ93L30NFby/srZDdySh0m2e+fnRmBBePN03ypWWIU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YD6dFyCoqKEi1qp2ZI+/HUxqpo0nmuxF7CN3kuoe32+qg+GgF6ksPengpjQfQdaLJeHWsp4I/c9+tSWjNekoOQ81JoKgpDNviMsoF+NHxM29ULA22Fr2xTHKwf5q+W/HysTFMtGKIEtlsPOnISQaqOTOPzU5imOfPzftVBh00Cg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev; spf=pass smtp.mailfrom=antheas.dev; dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b=ks6GxPvt; arc=none smtp.client-ip=78.46.171.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gqULa/IK"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=kbp4UUDGxBCJYQv99MekkXfWeMMWcYb62G5irxFuKAk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791370954; v=1; x=1791975754;
- b=gqULa/IKXohH3ONV3vkGKAYyCyHyc+FdbYqhucikc7V8Rl8xOAs3ebxY8uMjy9B+XsfLPE31
- PRRCXdTXIfwjJgPKyeMPDdkYIpmUu0kmbulnqqnAFb01rzGcKnA+ZmUmW9SCT2VH/pHyqBV5k6s
- ZI3gFFmO/YCoOwYjqpEMkIhA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id fcf850624a10237b;
-	Wed, 07 Oct 2026 11:02:34 +0000
-X-Mizu-Trace-ID: fcf850624a10237b
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <65503b6e-5038-4709-8f16-cd7922286963@linux.dev>
-Date: Wed, 7 Oct 2026 13:02:25 +0200
+	dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b="ks6GxPvt"
+Received: from relay11 (localhost.localdomain [127.0.0.1])
+	by relay11.grserver.gr (Proxmox) with ESMTP id A5FC1C4FB3
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 14:03:52 +0300 (EEST)
+Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by relay11.grserver.gr (Proxmox) with ESMTPS id DE8A8C4FB6
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 14:03:51 +0300 (EEST)
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	by linux3247.grserver.gr (Postfix) with ESMTPSA id 26328202BBF
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 14:03:51 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
+	s=default; t=1791371031;
+	bh=/ORScLc1VcbIK5JR1EFjJBMDK2APU9vpafe9mtl+7XU=;
+	h=Received:From:Subject:To;
+	b=ks6GxPvtiTKZMBrbHw/jO1Y+pjLYbya87NOGY+bHBHPs9RuxxQ1WoUWDhF+UFLpoL
+	 Eocdd2T97OI15Di9jmkkMFFtz5jBLXmerxzAnFnTgSDjb8J0wxhnMXhlr0oQV+Vnbh
+	 Q0HaP/RUoFzfT3yIktwsu9pzQgH2DC/Dc6n7p9EOdnxDJfx6sXa8qWkv35M1PThb5H
+	 H9V9x2pJXlQLxn5OSTVQMODqg2To5Fn0+DFjwJDiNtDQcgu27FG7+Cvm63Dzjw2eHv
+	 u5dbrxszK4C91WrzMlIErJXz9mnZfKDk55lQswYzLXcFW2xaY/EVw6jeGd7kOQvklD
+	 ZElD/brttw1HQ==
+Authentication-Results: linux3247.grserver.gr;
+        spf=pass (sender IP is 209.85.214.179) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pl1-f179.google.com
+Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
+Received: by mail-pl1-f179.google.com with SMTP id
+ d9443c01a7336-2db710396ffso10063105ad.1
+        for <linux-kernel@vger.kernel.org>;
+ Wed, 07 Oct 2026 04:03:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwyQkI2gdgTWm2iDY9FS48sHwCpjNr9ccdLkyTaiLjhX1l/d7LGJe4sVi+9iOseij/say9jdJd+MF16MfI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJPfofh/DSuGAw8M2UytJSNI8CM39kcEeZg2xhU/EIdfzH2wOuu
+	fTRtSCbTT+0/UCm3pDjMWX7rxfXV9c90vQ8QsxTuhNeAhD5SG2aS5KOhcFPjbCHskWXgY1j0M2l
+	2qGfF82pZEGjl35wciF0puMvB/0T9zD8=
+X-Received: by 2002:a17:903:1965:b0:2e4:b6b5:b305 with SMTP id
+ d9443c01a7336-2e5c4f13f83mr34551555ad.2.1791371029771; Wed, 07 Oct 2026
+ 04:03:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] mm: zswap: use separate compression and decompression
- requests
-To: Nhat Pham <nphamcs@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, chengming.zhou@linux.dev,
- dsterba@suse.com, hannes@cmpxchg.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, terrelln@fb.com, yosry@kernel.org, riel@surriel.com,
- shakeel.butt@linux.dev, alex@ghiti.fr, senozhatsky@chromium.org,
- kernel-team@meta.com
-References: <20261006002307.2669023-1-usama.arif@linux.dev>
- <20261006002307.2669023-2-usama.arif@linux.dev>
- <CAKEwX=O=QNWUCTn9kcCwu9V3pTrSwTj8SMCMS6Z-8fwhGjrkdA@mail.gmail.com>
-Content-Language: en-US
-From: Usama Arif <usama.arif@linux.dev>
-In-Reply-To: <CAKEwX=O=QNWUCTn9kcCwu9V3pTrSwTj8SMCMS6Z-8fwhGjrkdA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <179122226568.6.10663878730330541363.1670962442@8alias.com>
+ <P3C8cUq--F-9@tutamail.com>
+ <179122346529.6.9250312386131579603.1671009695@8alias.com>
+In-Reply-To: <179122346529.6.9250312386131579603.1671009695@8alias.com>
+From: Antheas Kapenekakis <lkml@antheas.dev>
+Date: Wed, 7 Oct 2026 13:03:37 +0200
+X-Gmail-Original-Message-ID: 
+ <CAGwozwGQvRbwg82M4Myv4GQJhCPEhjyN__6DJ8UdMb8o0V_Zcg@mail.gmail.com>
+X-Gm-Features: AclHuK-cXbFB-0vE-IM4fcBx-I70z_Em108_XAEikMcFAi55s8GX1AAXMfJVxqc
+Message-ID: 
+ <CAGwozwGQvRbwg82M4Myv4GQJhCPEhjyN__6DJ8UdMb8o0V_Zcg@mail.gmail.com>
+Subject: Re: [RESEND] ALSA: hda/tas2781: TP3407SA evidence for the January
+ custom calibration address patch
+To: linux-kernel.supreme403@8alias.com
+Cc: tiwai@suse.com, "Ding, Shenghao" <shenghao-ding@ti.com>, perex@perex.cz,
+ baojun.xu@ti.com,
+	kevin-lu@ti.com, sen@ti.com, matthew.schwartz@linux.dev,
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-PPP-Message-ID: 
+ <179137103138.308136.8414771598714403164@linux3247.grserver.gr>
+X-PPP-Vhost: antheas.dev
+X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
+X-Virus-Status: Clean
 
+On Mon, 5 Oct 2026 at 20:04, <linux-kernel.supreme403@8alias.com> wrote:
+>
+> Hi Antheas and sound/TI maintainers,
+>
+> Resending as plain text because LKML rejected the previous message for co=
+ntaining an HTML part.
+> ...
+> Limits: only the primary amplifier was read on hardware, and the final re=
+gister snapshot was taken idle. The listening result is subjective; there i=
+s no calibrated SPL measurement or controlled same-volume A/B. Current main=
+line and for-next were not built and booted as full kernels.
+>
+> Unlike the January Ally X test, this machine's OEM and firmware layouts d=
+iffer. This report does not claim to fix the Ally X's separate symptom. Com=
+mit 4fe238513407 introduced the custom-node parser with the BASIC-only assi=
+gnment and appears to be the appropriate Fixes target.
+>
+> DSP SHA256:
+>   a29f522c22cdb203eb1af84846838b5ef76c3a2c721760c7a898dd35f9ce1430
+> Public firmware:
+> https://gitlab.com/kernel-firmware/linux-firmware/-/raw/20260410/ti/audio=
+/tas2781/TAS2XXX10A40.bin
+> Original patch:
+> https://lore.kernel.org/all/20260107093134.583873-1-lkml@antheas.dev/
+>
+> OpenAI Codex (LLM) assisted with diagnosing the quiet speakers, validatin=
+g the existing patch, preparing a local reproducer and drafting this hardwa=
+re report. The kernel change is your January proposal.
 
+The Ally X had a different issue so we never merged that fix. The
+commit body would need to be amended but we should be able to merge
+this.
 
-On 06/10/2026 11:47, Nhat Pham wrote:
-> On Tue, Oct 6, 2026 at 2:23 AM Usama Arif <usama.arif@linux.dev> wrote:
->>
->> Stores and loads serialize on the same per-CPU acomp request and mutex.
->> A low-priority store can be preempted as soon as the compressor drops
->> its stream lock, while it still holds the mutex. A higher-priority load
->> on that CPU then waits until the store runs again, which can take a
->> long time when other tasks are runnable.
->>
->> Give compression and decompression their own request, completion wait
->> and mutex. Since commit e2c3b6b21c77f ("mm: zswap: use SG list
->> decompression APIs from zsmalloc"), the per-CPU buffer is only used for
->> compression. The two requests can share the per-CPU transform: no
->> in-tree implementation modifies transform state while (de)compressing,
->> and shared codec state has its own locking. Loads can still wait for
->> each other on the decompression mutex, and stores still serialize on
->> the compression mutex.
->>
->> This follows the proposal from Sergey Senozhatsky for the same split
->> for zram [1].
-> 
-> Thanks, zram peeps :P
-> 
->>
->> [1] https://lore.kernel.org/all/20261005122036.718976-10-senozhatsky@chromium.org/
->>
->> Signed-off-by: Usama Arif <usama.arif@linux.dev>
-> 
-> Code mostly LGTM. Just one question:
-> 
-> [...]
-> 
->> -        * If there was an error in allocating @acomp_ctx->req, it
->> -        * would be set to NULL.
->> -        */
->> -       if (acomp_ctx->req)
->> -               acomp_request_free(acomp_ctx->req);
->> -
->> -       acomp_ctx->req = NULL;
->> +       acomp_request_free(acomp_ctx->comp.req);
->> +       acomp_ctx->comp.req = NULL;
->> +       acomp_request_free(acomp_ctx->decomp.req);
->> +       acomp_ctx->decomp.req = NULL;
-> 
-> Hmm do we not have to null check here anymore? Does
-> acomp_request_free() handle NULL itself too?
+Does anyone else have any suggestions? If not I can plan to resend the
+fix in a few days. I will not be able to do the testing for it (no
+affected devices)
 
-Yes, since v6.15 it starts with "if (!req || ...) return;", so the
-check in acomp_ctx_free() was redundant.
+Antheas
 
-
-> 
-> For instance, taking the code blob below:
-> 
->> -       /* acomp_request_alloc() returns NULL in case of an error. */
->> -       acomp_ctx->req = acomp_request_alloc(acomp_ctx->acomp);
->> -       if (!acomp_ctx->req) {
->> +       if (zswap_acomp_req_init(&acomp_ctx->comp, acomp_ctx->acomp) ||
->> +           zswap_acomp_req_init(&acomp_ctx->decomp, acomp_ctx->acomp)) {
->>                 pr_err("could not alloc crypto acomp_request %s\n",
->>                        pool->tfm_name);
-> 
-> Here, we can success with the comp's req but fail with the decomp's req, right?
-
-Right. decomp.req is then NULL, as zswap_acomp_req_init() stores what
-acomp_request_alloc() returned, and acomp_ctx_free() frees comp.req
-and skips decomp.req. After patch 2, decomp.req also stays NULL for
-synchronous algorithms, since the per-CPU contexts are zeroed, and
-acomp_ctx_free() relies on the same NULL handling.
-
+> Assisted-by: LLM
+>
+> Thanks,
+> assembledev
+>
+>
 
