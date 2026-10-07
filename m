@@ -1,68 +1,68 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF92249365D
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 09:02:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8096D46D55C
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 09:02:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791363825; cv=none; b=cEzq3terStmdEF9fpZk86ulQnHobpeZyuGO/5Zvjciy1+Ds4PZXHvDIjMoLMIJjSYm0I6zywSewmQsLcjkVMzsOAm57CxlIdyBvrImeeBLgSOU92D1qH0qYKc2TUESZ6TsqkK3GoQYrP0wmL/6QwPlSPEwtPiEVosqbuk1A0XuU=
+	t=1791363827; cv=none; b=frIO2H8Bymi6FZswCCVskFGaNCwrZRi0OcQMsvqvjn5PNwecNILSH9YMzJjx5tUhhdR4Dtz7kR8+/cc+AQ+p6KveKPWvpq5hYa4HkK2hUweAzGJ3ERMvEOhn+vbQZqSrJYem1K7fJ+JR5MOfnSx4+f0tPPTtOkvgLSfBQ8UDEk4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791363825; c=relaxed/simple;
-	bh=lOmfvyw3XlxTtLP3rd4+jL2YmaWRT6O45D7rsJBBOvI=;
+	s=arc-20240116; t=1791363827; c=relaxed/simple;
+	bh=6Y6z1JDeisJ2Nl0/RT2ILCUl8kE590RGswDtsPSxnfQ=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=sXv7favnrfjSd7BNd0FP28xLcZW9MEBVcnd0lpX6iUgUbCmV50qnGbijAdWREvwX+cU/xyfuzwaVd+lNlWPMuBkkEWipIrgqyK4Y+3VknWH/f33cPTVdoRcpBPmx6p23egvXP0oFchBGew6KLBA/fC9hzlBLJTXrE6S9LfrIpgo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=fail (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FE+zUkud reason="signature verification failed"; arc=none smtp.client-ip=205.220.180.131
+	 MIME-Version; b=pf8JRmBpnnQH9jbF+eQoW6tAoKwFNpFYevcEQ2tQ4IVRtV8L8zHqhRKcZs13dsErYlZxhXtkQdyjp+lBLdEmI7cmlpDQSFtjB8v1RqD9Ca1W/S9qPRhsr+tcrx5ZW+rRYV07ol77tGms5fptso7ZHcC9mk1BWxMhX5sSGoMg/4c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=fail (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Sn0+CLcJ reason="signature verification failed"; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FE+zUkud"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6977jgGr3194107
-	for <linux-kernel@vger.kernel.org>; Wed, 7 Oct 2026 09:02:58 GMT
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Sn0+CLcJ"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6977jYiE3810943
+	for <linux-kernel@vger.kernel.org>; Wed, 7 Oct 2026 09:02:06 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=LdndrdMM61X
-	79e5QOlAFoauUr7WYD/MqS5dFJt6wZas=; b=FE+zUkuddFs0KpypwXPqPghqFmO
-	lSpNbhS2TQjjfybKvUjfL5NR59o6Ds59KmaQL1lxqkyM/wcsPfEqvIPDgsXaktCW
-	mCAelTEHb1dF8OzIzQ/uoApE81hT8bXJ28ZUN1uIO3LxXDjCc0D10keMjG3IhMgo
-	wO8KRzDH3OMYqcp0uOfw69Vo+rSm4WdtBYxrsEHJP+LNP66jGqfZmsdx2sT43aGR
-	tV3cy/9mmwZO9r1NHD3J0A8AxAlnSg5ng2P997yLc7q4Nb8MSGD04dxkt4ULv42E
-	KP1cyMxkp2wrykBwbrhF7PJwoC5KcqVHdu27VNlHplYn76Szg2OKU3qqKjg==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h541ukh6d-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=1Wprkf4GoAH
+	etdPZnQoqyiufpWRYQl51t90Ivzv6Nlo=; b=Sn0+CLcJ12M7Ims03pjAQzMxsY/
+	7Xe4uhqTKxDUmYnz6Zu5h8xzk+aSRFbCLeCEFEgEqeuNZiuMy53HiEFmA80ZmOOy
+	UuDL5O3+xElLrTU6CP68TV2cwybIJoHNGCztKMXPhFoSOXVUxbTRN+oiGbcYursI
+	hZWifqjsflYi0RxzzTvFcP9rRBng8VIpemZUlVYodKGHCXCr6mq1/96gj4t7qzUm
+	8rS7z/eZBfIQdXxxw2VG/uTVwfgyv1hn8UeOdDNAw3nrDDl7ZatSzR6UqAnRO23K
+	SJDKj2l0iVF2rRhIF3yLZonEz2I8YoymhRiWzY7VI7/OMI9Jj2zCJEThs2w==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5gvrrg4m-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 09:02:58 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93ca4a2b9c4so843436085a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 02:02:58 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 09:02:06 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93caf6c528aso610332885a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 02:02:06 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791363778; x=1791968578;
+        d=1e100.net; s=20260707; t=1791363725; x=1791968525;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LdndrdMM61X79e5QOlAFoauUr7WYD/MqS5dFJt6wZas=;
-        b=DcMO3BN8JfvVdRCp0pOT/LLiPVXyPLFJyVXyUjvF/wpgrMgKL7WSOIB9uYGSzKZ2iC
-         zTOVnLb+BU1iYswwURJOZQuLxsbzinYdnwOPgnJfAqcw3Y8WOrDRD2uHkpD2tzflcA2A
-         2glgcbrHWt6oQa263bCuMm43QL/HvIqRYTTESBp+VG3xqh5tWBN7kdK7V5hAf5t3R7Ge
-         eh0692D5OS8/6S5Fk17lZxA7EiISVJ9PjR4NoTPs90YAl2niDloEY7weaGZ3tuSxPsZa
-         18lcubCaSL8sYtGiaMenGIxS+Al9VnkAHGqzm//n57GnGOhQdwp4UtOvjyQzo/ucebQD
-         Fv1g==
-X-Forwarded-Encrypted: i=1; AKwUvBznw9s1h0rjUGzJAzvL33U4bYy/6+up7qnQLRzipoa2P6mGpvvtmsfAufuEQxX0qTLiqiHwP8jAAfAW9O4=@vger.kernel.org
-X-Gm-Message-State: AFuF++muFhMBjuh9xJaQD0d2rTpUOk4TS3vWH2xqqvA4bYaFTP7XE2RR
-	GpwhqX+MDSxcTEIacYqpJUqIWrR0rB9SMYO2topTHH1wVcKJVnLakmxUwm0EOTJaH4FtC2mu9uk
-	CB/YkK2Du1Bji2GC1F/9VP8G3+ZwJ/ZYpjFB/gKrlop/9i0cYYH8nJhPAvO17O66GgBk=
-X-Gm-Gg: AYBFou0sbgdqlaNiltNZioQXozxV5kLEe4j5JrKnEISINgUTW/DKmympq1FSmL0g6Mh
-	JPZ350rxy9Z8unjlthQzonjpYAOWXzHFV2QBC6HRDKDp8hXXLEOQFNKM9JLUX+yYcGle8MWQJ4+
-	a8hJRhFwxiTEPVkMkeqSzEQdfuAeCfJqznc1mps7waiNqaxVdbG4FKWn5mwCbJTlsRR2QFRjh6t
-	+hzsj1/rdCigYtp1vrjWiPITJ5c9kfH9k2usPwbOwmKCwXWhtIaco760CKRXgG5sdRu+hjcgonb
-	NMdvM+RhcfnrqeZUj8EXb1bUDsiRuwxxMYiJhReiRwceFtSgXo3KkLI68q0=
-X-Received: by 2002:a05:620a:2853:b0:93c:7582:14e4 with SMTP id af79cd13be357-93e9b7b9d91mr270480385a.40.1791363777402;
-        Wed, 07 Oct 2026 02:02:57 -0700 (PDT)
-X-Received: by 2002:a05:620a:2853:b0:93c:7582:14e4 with SMTP id af79cd13be357-93e9b7b9d91mr270472985a.40.1791363776884;
-        Wed, 07 Oct 2026 02:02:56 -0700 (PDT)
+        bh=1Wprkf4GoAHetdPZnQoqyiufpWRYQl51t90Ivzv6Nlo=;
+        b=PpU9IWF4O03myACMyMK9FoMBJEMaIPCCB3uUA6uXhiBHGCb5cfoyuL1lU/ZMc/DFep
+         GiYvvQkdLNBELZr47Ee/q/XEJO6oInJrBeE4i1NjxbmHJxT569BajIG7RXSaP+SR7W8z
+         kWrXWWDW15VA6zyg7CWyuLHkc6SaryNGU0iuH8MVV9y4hN7zRWM3M11hBVjGcXbyra7f
+         bZcq6l+K0ar5OrGKueckEt8v8jJ82dvw3/bnLI8x13QHBMNe60eE6AVsLQH74l7pVzI4
+         nKnLRGqpU/6h8lp9h95vfKjmjNsuTr3roYqZBJBb2swT8MeZiSics45pIVxubK7DHWvr
+         GSGg==
+X-Forwarded-Encrypted: i=1; AKwUvByjDKWq02fubNaKmt2Qlsig640AJzr+vPajwb7ejPs1OWZKuo9C5S0KdMbLGUZS74EIixtXbUb4niGaODw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nCfGvS2lAh9wU1D6XllIAcRiYp4n19bWoprDr8iA6fBvy16Wwx
+	5+cR03SmairIkI6/fV/c5yXXzYNNvd/kCl/oy1MJe5Cy+goEjLb5EATiA5GRNiU+S1GnrZr4U/J
+	/kz/cM25Akd5ZN6uxqRjt4kZzgKll9EQM5qyIYG/FniXregVC5QUDDEFQoihpfeVJZUU=
+X-Gm-Gg: AYBFou1p8W1xk5yW4VGrkdEyHj4NhPZ2hdh9nl9wycpKa3bY1jKGHgbeevteSyu5AaH
+	c2GZpYGLBwotTJINm5Wa2YHoRtVGiTGTR0B9G5ONBOZYBRIDPXTdutzNFCyYKR9S/Lv9Dd865xw
+	HjTWPztJyfyiuXrr7ZyAjkHCBcMlNhv4LmPLAUoxVPHAiSJNuVzFz8qF96WJpfVcDZ6dRtEOi/B
+	OaxTOcnawFsg06/MMHQUrbJzZvoyH4C3zVUB4ibffck1kMQq6GQa/5IvSIJC6/FbSgP8zYnG3NQ
+	VVqxKpuoCuDL+7+xfWjtDknjNDRsjLaYqiyMIg/1YJMS6VAqz8F2Fz7Vvyo=
+X-Received: by 2002:a05:620a:8807:b0:93e:458b:6f2b with SMTP id af79cd13be357-93e9b6ff7bfmr284556185a.29.1791363725286;
+        Wed, 07 Oct 2026 02:02:05 -0700 (PDT)
+X-Received: by 2002:a05:620a:8807:b0:93e:458b:6f2b with SMTP id af79cd13be357-93e9b6ff7bfmr284548885a.29.1791363724650;
+        Wed, 07 Oct 2026 02:02:04 -0700 (PDT)
 Received: from lin-0843.qualcomm.com ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3188d412besm4197366b.80.2026.10.07.02.02.53
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3188d412besm4197366b.80.2026.10.07.02.02.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 02:02:55 -0700 (PDT)
+        Wed, 07 Oct 2026 02:02:03 -0700 (PDT)
 From: Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
         Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -89,11 +89,10 @@ Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
         Robert Foss <rfoss@kernel.org>, hariram.purushothaman@oss.qualcomm.com,
         pshrotri@qti.qualcomm.com, johannes.goede@oss.qualcomm.com,
         linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Prashant Shrotriya <prashant.shrotriya@oss.qualcomm.com>
-Subject: [PATCH RESEND 38/45] media: qcom: camss: sa8775p: add gamma parameters
-Date: Wed,  7 Oct 2026 12:00:34 +0300
-Message-Id: <20261007090041.3732717-39-gjorgji.rosikopulos@oss.qualcomm.com>
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH RESEND 22/45] media: v4l2: add Qualcomm IFE parameters format
+Date: Wed,  7 Oct 2026 12:00:18 +0300
+Message-Id: <20261007090041.3732717-23-gjorgji.rosikopulos@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261007090041.3732717-1-gjorgji.rosikopulos@oss.qualcomm.com>
 References: <20261007090041.3732717-1-gjorgji.rosikopulos@oss.qualcomm.com>
@@ -104,158 +103,69 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 8NTDqXJwC3MuxN0gcBREksn5U0WwUZa-
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfX0PeXU3Igp+dH
- rAN/YWgMfqu9v+MocBokkm1eeLZFx93WhhXszZxWaczqMJ37Sl9s0vgeQcCTF4OtstDgCephyMK
- ZTCr9XIUihE1CVEUuKa2+jAwmLgeVYY=
-X-Authority-Analysis: v=2.4 cv=XZYcX455 c=1 sm=1 tr=0 ts=6ac60ac2 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+X-Authority-Analysis: v=2.4 cv=W66txhWk c=1 sm=1 tr=0 ts=6ac60a8e cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
  a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8 a=fErnbXRPH48mtnlGaVIA:9
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfXxQ1oi3N4eC9z
- kWm4nx2u/Yddwjx7xC+l2lXDoHuSTJARyB83SVayRQBOQ4UrvYOinShDJkowqhGiyNEsepVuvOw
- jfcbXTSF+OpOoBfduf1NxsO5V2tIjk3a5X+Y+wNkTTOKRfY3GljbUFFwZK2HJwGeX+hD64R4j6e
- fLsCI7r0nVAFugYWug1oxaVlA3BFRZTIKZ1kZlTsTA+9gyLsJDED97V+heCqakCJP51LQQ8M01W
- tiQMS6TFLTbB410DgosNzj3nSpyp8Jlwxx+3wt3q2p8BDMHkP2Z9z0XxpGcsK9/G4hHQ+FTPOYI
- 0GYRREx3qbZCF2+uTTILbPwNuQtlYF2xlxnflPSTqQAAydJgzfVwHrtXBhIegh0/xH/3PvbhJ7F
- OSfK5odTMOlvgrBvTT1LpSpBaUYYcZR7BExpVaZ+oKTnl5cC3exr32tD4FmDCwxF0Dmx5Um3E+I
- fFJZvsYjb5qjPrUavCQ==
-X-Proofpoint-ORIG-GUID: 8NTDqXJwC3MuxN0gcBREksn5U0WwUZa-
+ a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8 a=1ys7_V7Nn-5Y8TJEc3AA:9
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-ORIG-GUID: Ae8BK3yDtCOodB9SPTS0Gmlu_nC-jfdF
+X-Proofpoint-GUID: Ae8BK3yDtCOodB9SPTS0Gmlu_nC-jfdF
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfXzSFLpksG4E+4
+ yZTEyZ2aTG2Nee4oQ2IN3ivrQQDKMa5ZI7zGO24gzFSgeBf25MecwI/8pTva4I3DtwBQKZVAI1P
+ xheLw7XVnCtmejTIYSRozkHKjETBBcv50nu08yC8woL1RpPPfIAkxo8gQkY6fePaQnYnqnmsOiS
+ qSqs54GefltbHnp8txzXIUyW+S8OzPTE9dFZLH8ciUPPMyXA4tpN+m+hy89ntvjQ5vi5hE3RreH
+ gbKPYXITlskS3qtuVN3//ENVxgegnDyjluxd2GubJGOmx4IPwsQIvZ/JVJoZAvm0jSrvyhiasNZ
+ Wj1mEJMKEN8KJ0ncwCkqjVjm3K/rYXFu/QaOy0z69rpV8puGUNgtZDqc4iWLY+HoFX7FietZVfu
+ 0o/Kb8iQlhXiCyaBRfBJSZPxCjI8ngOJPM9wCj84G8NHE8tmPKxFHza9Ii9lYJzJ7aod5PJ42KZ
+ N9HMZ4J5+fsmghkbqSg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfX5qhGQmvLzqPe
+ 31oSgh8oCNGjKZ2YKNlon3Cm8HWbOn94LTk7kb5BqsKZtgey0owsoyZBd4GmlRS7VvSIIx7hz/b
+ aOgrrW/q9lBv3XIr7XnGTieV6Pewj2E=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-07_03,2026-10-06_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 priorityscore=1501 impostorscore=0 bulkscore=0 suspectscore=0
- clxscore=1015 phishscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
+ lowpriorityscore=0 phishscore=0 spamscore=0 bulkscore=0 clxscore=1015
+ malwarescore=0 impostorscore=0 suspectscore=0 priorityscore=1501 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070035
 
-From: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
+From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 
-Program the red, green, and blue gamma tables from IFE parameter
-buffers. Upsample each userspace table to the hardware table size.
+Describe Qualcomm IFE parameter buffers with the QCF0 metadata format.
 
-Signed-off-by: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
-Co-developed-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-Signed-off-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-Co-developed-by: Prashant Shrotriya <prashant.shrotriya@oss.qualcomm.com>
-Signed-off-by: Prashant Shrotriya <prashant.shrotriya@oss.qualcomm.com>
 Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 ---
- .../platform/qcom/camss/camss-ife-mod-v41x.c  | 73 +++++++++++++++++++
- 1 file changed, 73 insertions(+)
+ drivers/media/v4l2-core/v4l2-ioctl.c | 3 +++
+ include/uapi/linux/videodev2.h       | 1 +
+ 2 files changed, 4 insertions(+)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-ife-mod-v41x.c b/drivers/media/platform/qcom/camss/camss-ife-mod-v41x.c
-index df21ea4040df..77d33c05cc6e 100644
---- a/drivers/media/platform/qcom/camss/camss-ife-mod-v41x.c
-+++ b/drivers/media/platform/qcom/camss/camss-ife-mod-v41x.c
-@@ -159,6 +159,15 @@
- #define IFE_MOD_V41X_LSC_LUT_SEL_RED		0x1
- #define IFE_MOD_V41X_LSC_LUT_SEL_BLUE		0x2
+diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-core/v4l2-ioctl.c
+index b7173a258225..581ed9d74b82 100644
+--- a/drivers/media/v4l2-core/v4l2-ioctl.c
++++ b/drivers/media/v4l2-core/v4l2-ioctl.c
+@@ -1470,6 +1470,9 @@ static void v4l_fill_fmtdesc(struct v4l2_fmtdesc *fmt)
+ 	case V4L2_META_FMT_QC_IFE_STAT_3A:
+ 		descr = "Qualcomm IFE 3A Statistics";
+ 		break;
++	case V4L2_META_FMT_QC_IFE_PARAMS:
++		descr = "Qualcomm IFE Parameters";
++		break;
+ 	case V4L2_META_FMT_C3ISP_PARAMS:	descr = "Amlogic C3 ISP Parameters"; break;
+ 	case V4L2_META_FMT_C3ISP_STATS:		descr = "Amlogic C3 ISP Statistics"; break;
+ 	case V4L2_META_FMT_MALI_C55_PARAMS:	descr = "ARM Mali-C55 ISP Parameters"; break;
+diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
+index 4a0748b60a15..52ad260e65c8 100644
+--- a/include/uapi/linux/videodev2.h
++++ b/include/uapi/linux/videodev2.h
+@@ -878,6 +878,7 @@ struct v4l2_pix_format {
  
-+/* Gamma LUT (GLUT) offset, registers and bitfields */
-+#define IFE_MOD_V41X_GLUT_OFFSET		0x5f00
-+#define IFE_MOD_V41X_GLUT_MODULE_CFG		0x60
-+#define IFE_MOD_V41X_GLUT_CFG_EN		BIT(0)
-+#define IFE_MOD_V41X_GLUT_LUT_SEL_NONE		0x0
-+#define IFE_MOD_V41X_GLUT_LUT_SEL_G		0x1
-+#define IFE_MOD_V41X_GLUT_LUT_SEL_B		0x2
-+#define IFE_MOD_V41X_GLUT_LUT_SEL_R		0x3
-+
- static void mod_v41x_wb_gain_config(struct ife_pp_ctx *ctx)
- {
- 	void __iomem *base = ctx->base + IFE_MOD_V41X_WB_GAIN_OFFSET;
-@@ -355,6 +364,58 @@ static void mod_v41x_lsc_apply(struct ife_pp_ctx *ctx,
- 	}
- }
+ /* Vendor specific - used for Qualcomm IFE camera sub-system */
+ #define V4L2_META_FMT_QC_IFE_STAT_3A	v4l2_fourcc('Q', 'C', 'F', '1') /* IFE 3A Statistics */
++#define V4L2_META_FMT_QC_IFE_PARAMS	v4l2_fourcc('Q', 'C', 'F', '0') /* IFE 3A Parameters */
  
-+static void mod_v41x_glut_enable(struct ife_pp_ctx *ctx)
-+{
-+	void __iomem *base = ctx->base + IFE_MOD_V41X_GLUT_OFFSET;
-+	u32 value;
-+
-+	value = readl_relaxed(base + IFE_MOD_V41X_GLUT_MODULE_CFG);
-+	value |= IFE_MOD_V41X_GLUT_CFG_EN;
-+	writel_relaxed(value, base + IFE_MOD_V41X_GLUT_MODULE_CFG);
-+}
-+
-+static void mod_v41x_glut_disable(struct ife_pp_ctx *ctx)
-+{
-+	void __iomem *base = ctx->base + IFE_MOD_V41X_GLUT_OFFSET;
-+	u32 value;
-+
-+	value = readl_relaxed(base + IFE_MOD_V41X_GLUT_MODULE_CFG);
-+	value &= ~IFE_MOD_V41X_GLUT_CFG_EN;
-+	writel_relaxed(value, base + IFE_MOD_V41X_GLUT_MODULE_CFG);
-+}
-+
-+static void mod_v41x_glut_config(struct ife_pp_ctx *ctx,
-+				 const struct camss_ife_params_gamma_256 *cfg)
-+{
-+	void __iomem *base = ctx->base + IFE_MOD_V41X_GLUT_OFFSET;
-+
-+	mod_v41x_dmi_write(base, IFE_MOD_V41X_GLUT_LUT_SEL_G, cfg->table_g,
-+			   CAMSS_IFE_GAMMA_256_SIZE);
-+	mod_v41x_dmi_write(base, IFE_MOD_V41X_GLUT_LUT_SEL_B, cfg->table_b,
-+			   CAMSS_IFE_GAMMA_256_SIZE);
-+	mod_v41x_dmi_write(base, IFE_MOD_V41X_GLUT_LUT_SEL_R, cfg->table_r,
-+			   CAMSS_IFE_GAMMA_256_SIZE);
-+
-+	/*
-+	 * The last table's auto-incremented DMI_DATA writes only land in LUT
-+	 * RAM once DMI_LUT_CFG.LUT_SEL changes value again - without this,
-+	 * the final (R) table silently never commits and GLUT reads back
-+	 * black on that channel. Deselect the LUT once more to flush it.
-+	 */
-+	writel_relaxed(IFE_MOD_V41X_GLUT_LUT_SEL_NONE, base + IFE_MOD_V41X_DMI_LUT_CFG);
-+}
-+
-+static void mod_v41x_glut_apply(struct ife_pp_ctx *ctx,
-+				const struct camss_ife_params_gamma_256 *cfg, bool enable)
-+{
-+	if (enable) {
-+		mod_v41x_glut_config(ctx, cfg);
-+		mod_v41x_glut_enable(ctx);
-+	} else {
-+		mod_v41x_glut_disable(ctx);
-+	}
-+}
-+
- static void mod_v41x_awb_bg_config(struct ife_pp_ctx *ctx,
- 				   const struct camss_pp_cfg *cfg)
- {
-@@ -571,6 +632,14 @@ static void mod_v41x_params_apply_lsc(void *priv, const union camss_ife_params_b
- 	mod_v41x_lsc_apply(ctx, &block->lsc, enable);
- }
- 
-+static void mod_v41x_params_apply_gamma(void *priv, const union camss_ife_params_block *block)
-+{
-+	struct ife_pp_ctx *ctx = priv;
-+	bool enable = block->header.flags & V4L2_ISP_PARAMS_FL_BLOCK_ENABLE;
-+
-+	mod_v41x_glut_apply(ctx, &block->gamma_256, enable);
-+}
-+
- static const struct v4l2_isp_params_block_type_info mod_v41x_params_type_info[] = {
- 	[CAMSS_IFE_PARAMS_COLOR_CORRECT] = {
- 		.size = sizeof(struct camss_ife_params_color_correct),
-@@ -578,11 +647,15 @@ static const struct v4l2_isp_params_block_type_info mod_v41x_params_type_info[]
- 	[CAMSS_IFE_PARAMS_LSC] = {
- 		.size = sizeof(struct camss_ife_params_lsc),
- 	},
-+	[CAMSS_IFE_PARAMS_GAMMA_256] = {
-+		.size = sizeof(struct camss_ife_params_gamma_256),
-+	},
- };
- 
- static const camss_ife_params_handler_fn mod_v41x_params_handlers[] = {
- 	[CAMSS_IFE_PARAMS_COLOR_CORRECT] = mod_v41x_params_apply_ccm,
- 	[CAMSS_IFE_PARAMS_LSC] = mod_v41x_params_apply_lsc,
-+	[CAMSS_IFE_PARAMS_GAMMA_256] = mod_v41x_params_apply_gamma,
- };
- 
- static_assert(ARRAY_SIZE(mod_v41x_params_handlers) ==
+ /* Vendor specific - used for C3_ISP */
+ #define V4L2_META_FMT_C3ISP_PARAMS	v4l2_fourcc('C', '3', 'P', 'M') /* Amlogic C3 ISP Parameters */
 -- 
 2.34.1
 
