@@ -1,207 +1,274 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E5A84908BF;
-	Wed,  7 Oct 2026 14:29:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 349264B04A8
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 14:30:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791383398; cv=none; b=YSuWyEq/43Wx6G1Nwoeyrx6Yw0Fcc+hgrOBJVf9gfShuMJXR59JywlMdlv6hu3LxWy1mYT4XjfXl41cvktbrWMYZqUXVzRgtwhiIs9EvBr8t0cAS5mUO3E0F27ef0Ln4bYAY/E8OAKSeEzf+QlyUVMHLbQeDtbGSopt6ywSrJDI=
+	t=1791383406; cv=none; b=AefZOowu0JO+dc6W3bPNwTqWsEgzCHXSN7x+noRXCfuHdj1suW8B159crQJisYUWPBkjkscR5sDWuy/DfHaVHtG9SQDHWK6zGRfZ4BVESYBibjDH/QbsAaFTA3daCxuOBOEgCCeM+ZDDzOuhiNkFX6yV5ECqMfWGt2GH+SQCBSc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791383398; c=relaxed/simple;
-	bh=4ANnpVbEXQv2/qq1sKn2RQUrT4135fUF8Xn8/ajn1+4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iOhQJ8QHmoiZXoBpF9j6z8u01VboFN37YtZQV2blmyaV2G+1FRS/JvEut/5rkgnMQLFsfqnaKVgGav7SPiFSOT/GBDm/P7O8sOVHWSHuxWn9O+suIpWCt8rdy8obH7d/Ygb5OLYk+1qqXXD4TQ6ajRzKUazMZpATnquCqlPphwo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=lMQEKyHw; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
+	s=arc-20240116; t=1791383406; c=relaxed/simple;
+	bh=YdwXa+gYPV2xPSIZFSFUvZVHY6ZdJN0bSPvFhhGvJQc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CQtIov1001wgSYtIgmp1fQoIqYeDikz8EcJlSOwkwFrcSvvtW5wdlUBz2V1LhgecBZWrk71jHI19ILXqcJvmxhEqY5dz+SKTcDX0OnGH5qMpIrBmnGTZ9lX8kzX0Wy8kiwApQZEQ+svl/Aumwqh5gNmG2zVT16HHssueAAzOGuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=d7DZedTW; arc=none smtp.client-ip=91.189.121.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="lMQEKyHw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
-	s=201707; t=1791383388;
-	bh=Frpe7KmlVXJrC4zHZSKF2Mb/ze/JwniZ8DHdvKQpV94=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=lMQEKyHwZiapfiOzmHPYvVqwZG1khVfN0a7UrqVgeGec+b+1BU/f8EdP3fmelmMRo
-	 RdsTbHThPjUk0Ky1DUexTowrEmt9aATSh9FOL2f0zGfyqG/78z6Bk3nqqV3qO1wSXY
-	 tPHcPef9IVXHvtT1RUWizsSgqfSffpN793poi2WKGZ9YOStBZBmxssEgpGcn0+9Hy9
-	 5PIsini3bi46sitQYR9NYf2YnM/FI+6J72fE2F3d3/WbWB72OekHX9L6ZZ+xIk7iBC
-	 u8VSWEdjtYsF3x3l/Bbqea8pPc/JXJR14wxZ/n+Bbm9ULloSmKTERY71pa1ArmkNcO
-	 t08CXZBMNCZKg==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by mail.ozlabs.org (Postfix) with ESMTPSA id 4j0FrP3sN6z4w2b;
-	Thu, 08 Oct 2026 01:29:41 +1100 (AEDT)
-Message-ID: <af2e03ca-718e-40c9-b604-8035eb8f30bd@ozlabs.org>
-Date: Wed, 7 Oct 2026 15:29:37 +0100
+	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="d7DZedTW"
+From: Stian Halseth <stian@itx.no>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
+	t=1791383398;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=gukTut55doiAIV/L2DTCknRd5UGNYzDqxIrYIRuSdpk=;
+	b=d7DZedTWMsICLOFTGjrtaMLbnwqJpUgnLbby597Ebwcss8hqARWraf1AlFcRLmWBl+Uh1a
+	cy72JTBb/8fR6wX5OtSiPwzIDVeIMXrRLcSXRQDuL296SGG5PzwQSYt1ipcuZ7OPdHeBQy
+	cysEbg21/jDV94H7c44WwKnMPd+3dcE=
+To: Frederic Weisbecker <frederic@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>
+Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	regressions@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] sched/cputime: Don't account idle time twice after dyntick-idle
+Date: Wed,  7 Oct 2026 16:29:50 +0200
+Message-ID: <20261007142950.547604-1-stian@itx.no>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf: Annul dmabuf->file on file release
-Content-Language: en-GB
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Thomas Hellstrom <thellstrom@vmware.com>,
- Zack Rusin <zack.rusin@broadcom.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- Alex Mastro <amastro@fb.com>, Alex Williamson <alex@shazbot.org>
-References: <f8efaabd-c06e-4f04-8cfa-489c148e37ba@ozlabs.org>
- <7e8b332d-04a9-418a-95f4-de3cbd8b8a33@amd.com>
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <7e8b332d-04a9-418a-95f4-de3cbd8b8a33@amd.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Christian,
+On idle exit the dyntick-idle accounting accounts the time up to now,
+then the tick is restarted on its old period. The first tick accounts a
+whole TICK_NSEC to whatever runs, although the part of that period
+before the idle exit has just been accounted as idle time, or with
+IRQ_TIME_ACCOUNTING as IRQ time. That is up to a full tick per idle
+exit, and /proc/stat reports more idle time than wall time.
 
-On 07/10/2026 08:51, Christian König wrote:
-> Hi Matt,
-> 
-> On 10/6/26 21:15, Matt Evans wrote:
->> The dmabuf release path is split between file and dentry release:
->> dma_buf_file_release() is called shortly before the file is freed, and
->> dma_buf_release() calls an exporter's dmabuf->ops->release when the
->> dentry is freed.  However, the dentry can outlive the file (for
->> example, if opened with O_PATH), meaning .release might be called some
->> time after the file is freed.
->>
->> This presents a window, when closing a DMABUF file, in which
->> dmabuf->file points to freed memory yet .release op has not yet been
->> called.
->>
->> For VFIO, if a buffer's .release has not been called it's considered
->> still active and subject to move/cleanup.  If so, it attempts to
->> get_file_active() on dmabuf->file: a file close with dentry held open
->> will call this function with a stale pointer, a UAF.
->>
->> To make this pattern safe, set dmabuf->file to NULL in
->> dma_buf_file_release() to reflect that the associated file is now dead
->> even if the DMABUF is not yet gone.  A get_file_active() ... fput()
->> sequence concurrent with a file close will only execute as one of:
->>
->>  - Gets the file before file_ref_put() (dmabuf->file valid)
->>  - Observes dmabuf->file pointing to a file, but it's DEAD (no file)
->>  - Observes dmabuf->file = NULL (no file)
->>
->> Originally, drivers could assume dmabuf->file was valid until .release
->> was called from fops->release.  This assumption was no longer valid
->> after 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
->> dentry_ops"), which moved the callback to the dentry release (by which
->> point the file might have been freed).  With this commit, drivers must
->> still consider that dmabuf->file could be NULL before .release.
-> 
-> Oh well, really good catch. And that problem is wider than this.
->> Fixes: 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to dentry_ops")
->> Signed-off-by: Matt Evans <matt@ozlabs.org>
-> 
-> We seriously need a CC: stable here.
+Record how much of the current tick period dyntick-idle has accounted,
+and leave it out of the tick that ends the period.
 
-I knew I forgot something :(
- >> ---
->>
->> Hi,
->>
->> This issue was found (by Claude Opus 5.5) in the context of VFIO's
->> DMABUF export path.  VFIO iterates live DMABUFs with a
->> get_file_active()/fput() block, which now becomes safe if the file is
->> closed (and memory freed!) yet DMABUF .release hasn't yet occurred.
->>
->> However, there are a couple of other places that directly use
->> dmabuf->file and seem able to race a closing file (i.e. without holding
->> the file reference)?  If this is so, they'd be a UAF today; with this
->> patch that goes away, but instead of a stale pointer dmabuf->file could
->> be NULL:
->>
->> 1. drivers/gpu/drm/vmwgfx/ttm_object.c:get_dma_buf_unless_doomed()
->>
->>  file_ref_get(&dmabuf->file->f_ref); on a non-refcounted DMABUF
->>
->> The commit message of 90ee6ed776c0 ("fs: port files to file_ref") hints
->> this might be more subtle than replacing it with a get_file() variant
->> (so as to accept a NULL file *).
->>
->> 2. drivers/gpu/drm/i915/gvt/dmabuf.c:intel_vgpu_get_dmabuf()
->>
->>  gvt_dbg_dpy(... file_count(dmabuf->file) ...);
->>
->>
->> Respective vmwgfx & i915 maintainers, what is your view?
->> Or, indeed, if anyone sees any other questionable uses of dmabuf->file.
-> 
-> *sigh* we had multiple occasions suggesting to add a dma_buf_get_rcu()/active() because exporters wanted to keep their DMA-buf on linked lists or other container structures.
-> 
-> That was always rejected because the DMA-buf framework had never guaranteed that such things work correctly exactly because of those lifetime issues here. In other words nobody thought that through and document what should happen when etc...
-> 
-> So the use cases in vmgfx and i915 are just the tip of the iceberg :)
+Fixes: cf6444c3e1bb7 ("tick/sched: Unify idle cputime accounting")
+Link: https://lore.kernel.org/all/20261004142724.3896396-1-stian@itx.no/
+Signed-off-by: Stian Halseth <stian@itx.no>
+---
+v3:
+- Warn if now < tick_start (Frederic)
+- Read and clear the overlap with plain accesses instead of
+  __this_cpu_xchg() (Frederic)
+- Store the forwarded expiry in ts->last_tick, so that the tick restart
+  that follows does not forward it again (Frederic)
+- Drop the tick_nohz_full_cpu() check, vtime_generic_enabled_this_cpu()
+  covers it (Frederic)
 
-Yay :)
+Retested on the SPARC T7-1 and the x86_64 KVM guest, also with
+nohz_full=1, without IRQ_TIME_ACCOUNTING and with highres=off. Same
+results as v2.
 
-> My suggestion is to get this patch reviewed and backported first and then come up with a dma_buf_get_active() function including documentation and comments and test case to make sure that this feature works *and* keeps working.
-> 
-> One minor comment below, apart from that the patch itself looks good to me.
+v2: https://lore.kernel.org/all/20261005194010.168299-1-stian@itx.no/
+v1: https://lore.kernel.org/all/20261004184701.4112237-1-stian@itx.no/
 
-This makes sense to me, thank you for the context also.
+ include/linux/kernel_stat.h |  7 +++++--
+ kernel/sched/cputime.c      | 39 +++++++++++++++++++++++++++++++------
+ kernel/time/tick-sched.c    | 22 ++++++++++++++++-----
+ 3 files changed, 55 insertions(+), 13 deletions(-)
 
-Just to make sure I thoroughly understand, do you envisage a 
-dma_buf_get_active() to take both a reference on a dmabuf and its 
-corresponding dmabuf->file so such users can move to a pattern of get-
-test-use-put on the file portion too?  Sorry if it's a silly question, 
-I'm not sure what to search for.
-
->>  drivers/dma-buf/dma-buf.c | 6 +++++-
->>  1 file changed, 5 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
->> index 4c9add51f9ef..726639130477 100644
->> --- a/drivers/dma-buf/dma-buf.c
->> +++ b/drivers/dma-buf/dma-buf.c
->> @@ -193,11 +193,15 @@ static void dma_buf_release(struct dentry *dentry)
->>  
->>  static int dma_buf_file_release(struct inode *inode, struct file *file)
->>  {
->> +    struct dma_buf *dmabuf = file->private_data;
->> +
->>      if (!is_dma_buf_file(file))
->>          return -EINVAL;
-> 
-> I would do the casting only after the check.
-> 
-> On the other hand this function is a callback of the file_operations so checking if file->ops is really pointing to the file operations is completely superfluous.
-> 
-> So if you want to remove the check instead I'm perfectly fine with that as well.
-
-I had given the unfamiliar code the benefit of the doubt, but this did 
-look a bit suspect!  Will do, thanks.
-
-
-Matt
-
-PS: I should've mentioned that Alex Mastro has kindly built a reproducer 
-using a VFIO DMABUF export and dentry-held-open scenario.  KASAN will 
-detect the UAF:
-
- https://github.com/opsound/vfio-dmabuf-lab/blob/main/tests/vfio_dmabuf_opath_uaf_test.c
-
-> 
-> Regards,
-> Christian.
-> 
->>  
->> -    __dma_buf_list_del(file->private_data);
->> +    __dma_buf_list_del(dmabuf);
->>  
->> +    /* Must be observed by __get_file_rcu() before file_free() */
->> +    smp_store_mb(dmabuf->file, NULL);
->>      return 0;
->>  }
->>  
-> 
+diff --git a/include/linux/kernel_stat.h b/include/linux/kernel_stat.h
+index 9ca6c2259dfea..6e252048b5ade 100644
+--- a/include/linux/kernel_stat.h
++++ b/include/linux/kernel_stat.h
+@@ -40,6 +40,9 @@ struct kernel_cpustat {
+ 	seqcount_t	idle_sleeptime_seq;
+ 	u64		idle_entrytime;
+ 	u64		idle_stealtime[2];
++	u64		idle_dyntick_entry;
++	u64		idle_tick_period;
++	u64		idle_tick_overlap;
+ #endif
+ 	u64		cpustat[NR_STATS];
+ };
+@@ -111,7 +114,7 @@ static inline unsigned long kstat_cpu_irqs_sum(unsigned int cpu)
+ #ifdef CONFIG_HAVE_VIRT_CPU_ACCOUNTING_IDLE
+ 
+ static inline void kcpustat_dyntick_start(u64 now) { }
+-static inline void kcpustat_dyntick_stop(u64 now) { }
++static inline void kcpustat_dyntick_stop(u64 now, u64 tick_start) { }
+ static inline void kcpustat_irq_enter(u64 now) { }
+ static inline void kcpustat_irq_exit(u64 now) { }
+ static inline bool kcpustat_idle_dyntick(void) { return false; }
+@@ -132,7 +135,7 @@ static inline u64 kcpustat_field_iowait(int cpu)
+ #else /* !CONFIG_HAVE_VIRT_CPU_ACCOUNTING_IDLE */
+ 
+ extern void kcpustat_dyntick_start(u64 now);
+-extern void kcpustat_dyntick_stop(u64 now);
++extern void kcpustat_dyntick_stop(u64 now, u64 tick_start);
+ extern void kcpustat_irq_enter(u64 now);
+ extern void kcpustat_irq_exit(u64 now);
+ extern u64 kcpustat_field_idle(int cpu);
+diff --git a/kernel/sched/cputime.c b/kernel/sched/cputime.c
+index 06bddaa738e52..faac7c2066d84 100644
+--- a/kernel/sched/cputime.c
++++ b/kernel/sched/cputime.c
+@@ -381,9 +381,9 @@ void thread_group_cputime(struct task_struct *tsk, struct task_cputime *times)
+  * softirq as those do not count in task exec_runtime any more.
+  */
+ static void irqtime_account_process_tick(struct task_struct *p, int user_tick,
+-					 int ticks)
++					 u64 cputime)
+ {
+-	u64 other, cputime = TICK_NSEC * ticks;
++	u64 other;
+ 
+ 	/*
+ 	 * When returning from idle, many ticks can get accounted at
+@@ -418,7 +418,7 @@ static void irqtime_account_process_tick(struct task_struct *p, int user_tick,
+ 
+ #else /* !CONFIG_IRQ_TIME_ACCOUNTING: */
+ static inline void irqtime_account_process_tick(struct task_struct *p, int user_tick,
+-						int nr_ticks) { }
++						u64 cputime) { }
+ #endif /* !CONFIG_IRQ_TIME_ACCOUNTING */
+ 
+ #if defined(CONFIG_NO_HZ_COMMON) && !defined(CONFIG_HAVE_VIRT_CPU_ACCOUNTING_IDLE)
+@@ -468,18 +468,38 @@ static void kcpustat_idle_start(struct kernel_cpustat *kc, u64 now)
+ 	write_seqcount_end(&kc->idle_sleeptime_seq);
+ }
+ 
+-void kcpustat_dyntick_stop(u64 now)
++void kcpustat_dyntick_stop(u64 now, u64 tick_start)
+ {
+ 	struct kernel_cpustat *kc = kcpustat_this_cpu;
+ 
+ 	if (!vtime_generic_enabled_this_cpu()) {
+ 		WARN_ON_ONCE(!kc->idle_dyntick);
++		if (kc->idle_tick_period != tick_start) {
++			kc->idle_tick_period = tick_start;
++			kc->idle_tick_overlap = 0;
++		}
++		tick_start = max(tick_start, kc->idle_dyntick_entry);
++		if (!WARN_ON_ONCE(now < tick_start))
++			kc->idle_tick_overlap += now - tick_start;
+ 		kcpustat_idle_stop(kc, now);
+ 		kc->idle_dyntick = false;
+ 		vtime_dyntick_stop();
+ 	}
+ }
+ 
++/*
++ * The first tick after dyntick-idle covers a period that the dyntick-idle
++ * accounting may already have accounted in part.
++ */
++static inline u64 kcpustat_tick_overlap(void)
++{
++	struct kernel_cpustat *kc = kcpustat_this_cpu;
++	u64 overlap = kc->idle_tick_overlap;
++
++	kc->idle_tick_overlap = 0;
++	return overlap;
++}
++
+ void kcpustat_dyntick_start(u64 now)
+ {
+ 	struct kernel_cpustat *kc = kcpustat_this_cpu;
+@@ -487,6 +507,7 @@ void kcpustat_dyntick_start(u64 now)
+ 	if (!vtime_generic_enabled_this_cpu()) {
+ 		vtime_dyntick_start();
+ 		kc->idle_dyntick = true;
++		kc->idle_dyntick_entry = now;
+ 		kcpustat_idle_start(kc, now);
+ 	}
+ }
+@@ -555,6 +576,11 @@ u64 kcpustat_field_iowait(int cpu)
+ }
+ EXPORT_SYMBOL_GPL(kcpustat_field_iowait);
+ #else
++static inline u64 kcpustat_tick_overlap(void)
++{
++	return 0;
++}
++
+ static u64 kcpustat_field_dyntick(int cpu, enum cpu_usage_stat idx,
+ 				  bool compute_delta, ktime_t now)
+ {
+@@ -695,12 +721,13 @@ void account_process_tick(struct task_struct *p, int user_tick)
+ 	if (kcpustat_idle_dyntick())
+ 		return;
+ 
++	cputime = TICK_NSEC - kcpustat_tick_overlap();
++
+ 	if (irqtime_enabled()) {
+-		irqtime_account_process_tick(p, user_tick, 1);
++		irqtime_account_process_tick(p, user_tick, cputime);
+ 		return;
+ 	}
+ 
+-	cputime = TICK_NSEC;
+ 	steal = steal_account_process_time(ULONG_MAX);
+ 
+ 	if (steal >= cputime)
+diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
+index 6c3fea3867139..4e293f81e4dc1 100644
+--- a/kernel/time/tick-sched.c
++++ b/kernel/time/tick-sched.c
+@@ -763,12 +763,18 @@ static ktime_t tick_forward_now(ktime_t expires, ktime_t now)
+ 	return expires + TICK_NSEC;
+ }
+ 
++static void tick_nohz_forward_last_tick(struct tick_sched *ts, ktime_t now)
++{
++	if (now >= ts->last_tick)
++		ts->last_tick = tick_forward_now(ts->last_tick, now);
++}
++
+ static void tick_nohz_restart(struct tick_sched *ts, ktime_t now)
+ {
+-	ktime_t expires = ts->last_tick;
++	ktime_t expires;
+ 
+-	if (now >= expires)
+-		expires = tick_forward_now(expires, now);
++	tick_nohz_forward_last_tick(ts, now);
++	expires = ts->last_tick;
+ 
+ 	if (tick_sched_flag_test(ts, TS_FLAG_HIGHRES)) {
+ 		hrtimer_start(&ts->sched_timer,	expires, HRTIMER_MODE_ABS_PINNED_HARD);
+@@ -1329,6 +1335,12 @@ unsigned long tick_nohz_get_idle_calls_cpu(int cpu)
+ 	return ts->idle_calls;
+ }
+ 
++static void tick_nohz_dyntick_stop(struct tick_sched *ts, ktime_t now)
++{
++	tick_nohz_forward_last_tick(ts, now);
++	kcpustat_dyntick_stop(now, ts->last_tick - TICK_NSEC);
++}
++
+ void tick_nohz_idle_restart_tick(void)
+ {
+ 	struct tick_sched *ts = this_cpu_ptr(&tick_cpu_sched);
+@@ -1341,7 +1353,7 @@ void tick_nohz_idle_restart_tick(void)
+ 		 * no tiny amount of idle time is accounted twice.
+ 		 */
+ 		ts->idle_entrytime = ktime_get();
+-		kcpustat_dyntick_stop(ts->idle_entrytime);
++		tick_nohz_dyntick_stop(ts, ts->idle_entrytime);
+ 		tick_nohz_restart_sched_tick(ts, ts->idle_entrytime);
+ 	}
+ }
+@@ -1385,7 +1397,7 @@ void tick_nohz_idle_exit(void)
+ 
+ 	if (tick_sched_flag_test(ts, TS_FLAG_STOPPED)) {
+ 		now = ktime_get();
+-		kcpustat_dyntick_stop(now);
++		tick_nohz_dyntick_stop(ts, now);
+ 		tick_nohz_idle_update_tick(ts, now);
+ 	}
+ 
+-- 
+2.43.0
 
