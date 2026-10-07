@@ -1,167 +1,111 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65B5035C6BA;
-	Wed,  7 Oct 2026 05:34:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 253A3347BD4;
+	Wed,  7 Oct 2026 05:37:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791351264; cv=none; b=FtaKWkLnSBfYouFkb3qsC7Zbsta6sn+zfmZeL3Gp+q14unYMNUCYTMlqyWnh4t8BPzOJ7nWA/AYb9vixQz3aY08O1rPBLLgsMnf9aaEm1mRSTKMjvi396sCQE+i0dK1xo3KQSqsevv1XpsibFy3JDHKLQAOUJpnjDWEg7sauFL0=
+	t=1791351430; cv=none; b=tghL/5FVInESzXfxzl7qW4iWuA87diEXyBhc4lEc8z3AI7tGJ/Bc92l7fof1somTJvLuokpACu9hKBmBnUqbUBgKkjgcRWpmhFSNm9GDZW6oIs/vJxTMVPM+xgijgWUFlP+7vzVUQo+y4IbPUwVR4tfGDLI0sW62jaRoVyu7YGs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791351264; c=relaxed/simple;
-	bh=xyjZnBApJh1Pg/RZkDZQCAwfYmoEf1X5Cjwmtu80k8A=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=AW/KP/2HF3pGgoc18ZV/b/WsgigQk6rohsZ3R8rWXaYFFPiu8hmUFK6e0bHvlokMaa887C6ENLYhPpYogTUYF82Cch096qC3aZeXo1NhEAdsA+h9NdELpYgjUNepXxW7wJzwJHo5drQ+8PAdHkakuKKe1KCS3rRjNlRWwUmRhdI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=jG+OzBpU; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791351430; c=relaxed/simple;
+	bh=YUEF36lohVn++/a1MgPSbr0QkpLsQ4/6zzWsufvCZEM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hoZun5wTiNK9DWMurIIkUqjX1aryTUfnQKUlvR1zjeCK1TEAJc1aJY1uMMTi6w5eTKwZPHi333lHTXcY9GBZn6qmal7QNNYoh+6x1V5igs3LrtlhaCIkc7/DHfptd52Nf/oysEdMDo811nSqJWhCqRGaNofLSWmC+a5ctk7Thho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A/74R4Na; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="jG+OzBpU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version:
-	Content-Type; bh=MQx9JXZA88cBn8283aVngoS/qRY5gYd6ZRe8OYcIRqk=;
-	b=jG+OzBpUB8rPVauyQjjSGIYzhWjLKampbH21p3auWoWTFpMUKV/0IrL+JdTbzh
-	u9GWTsZw3W1QVf9jFIO5SBO/WWHBluh6Z4023Z/X0My0UitHmqRSlDP3mh6Noqws
-	Bp/s9Jg4AbkEAk4U9TJLSrV1Zg5S0jqIUoMjx4+HGEWso=
-Received: from u2.. (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3xxp_2cVqlGm3Cw--.16818S2;
-	Wed, 07 Oct 2026 13:32:48 +0800 (CST)
-From: taozj888@163.com
-To: theo.lebrun@bootlin.com
-Cc: taozijin <taozj888@163.com>,
-	stable@vger.kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Jeff Garzik <jeff@garzik.org>,
-	Haavard Skinnemoen <hskinnemoen@atmel.com>,
-	netdev@vger.kernel.org (open list:NETWORKING DRIVERS),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH net v4] net: macb: rate limit netdev error info print in the data path
-Date: Wed,  7 Oct 2026 05:32:11 +0000
-Message-Id: <20261007053211.572073-1-taozj888@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A/74R4Na"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BBBD1F0089B;
+	Wed,  7 Oct 2026 05:37:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791351428;
+	bh=tcSxhOiDrp3UQQKkfUKaBm9Y3n2G1K7iOTeVkE1Aipk=;
+	h=From:To:Cc:Subject:Date;
+	b=A/74R4NaKVGFHIHsgQ8GvofUVsKiOCpxInv65lfAjDpnYl0kXpfe/oA2pYmwuurK9
+	 3/Tvl8Zfj5xvVc/80y/deA1a1w5o98x44EpCsI/dtH5qoZvbVjkNgKZjhntSNXNq3G
+	 78M7MdxoPm6sO0/bBQG2MTcj/Ogsqzg3N4AtpgmXNMxqaAOIT479C6l+FufCviIsdN
+	 sy2wsC3Ly1yVgNtM27ZSU8ucNjo2haTKDfGuGgzFVeHkguUL0yB/hdLHHeP2TdEshu
+	 tRte9V8NUgCTtBzDl9o/4Cn+rJbe1bBlKBhsMFfZupmsOxV3UB5HB7/T13ufDUlCwF
+	 xsjNAGPHIbLCg==
+From: Claudiu Beznea <claudiu.beznea@kernel.org>
+To: lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	mani@kernel.org,
+	robh@kernel.org,
+	bhelgaas@google.com,
+	p.zabel@pengutronix.de
+Cc: claudiu.beznea@tuxon.dev,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Subject: [PATCH v6 0/9] PCI: rzg3s-host: Add PCIe hotplug support
+Date: Wed,  7 Oct 2026 08:36:36 +0300
+Message-ID: <20261007053645.1391545-1-claudiu.beznea@kernel.org>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3xxp_2cVqlGm3Cw--.16818S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXFWrAry3tw18ZF1rGr1xXwb_yoWrJr1xpa
-	yUA3s8Ww4kJr47Aas7tr10yF1rZr98tryUWrWkKw1Yqw15Zr90gFWagryY9FW8Gas3A3WF
-	yF1UZFZFka1kZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0ziFoGJUUUUU=
-X-CM-SenderInfo: hwdr6yqyyyqiywtou0bp/xtbC3gCiamrF2YBOBgAA3o
 
-From: taozijin <taozj888@163.com>
+From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
-Now the MACB ethernet driver print the netdev error information
-directly by netdev_err(), which would lead to a large number of
-error information print if there was a significant number of
-error or just jumbo packets exceeding the MTU received when booting.
-For example, it would print a large number of:
+Hi,
 
-macb PHYT0036:00 eth0: not whole frame pointed by descriptor
-macb PHYT0036:00 eth0: not whole frame pointed by descriptor
-...
+Series adds hotplug support for the rzg3s-host driver. This is a
+continuation of the series John posted initially at [1]. Along with it,
+prerequisites fixes and cleanup patches were added.
 
-in gem_rx() by received a large number of packets without
-RX_EOF flag set, especially with unknown packet
-type that would penetrate the hardware offload for the IP packets.
+Thank you,
+Claudiu
 
-The unlimited prints here would greatly bother and delay
-the system booting process unless the source stop sending
-packets since they occupy the console output bandwidth and
-other processes have to wait for the completion of printing those
-messages.
+Changes in v6:
+- addressed review comments as follows:
+- added patch 7/9 ("PCI: rzg3s-host: Add helper to wait for link up")
+- adopted the approach from pciehp and saved DSN of the connected
+  device and, based on it, take decision if the bus devices need to be
+  removed + rescanned
+- in case of link up and !list_empty(&bus->devices) remove first the
+  devices from the bus and re-scan (adopted the approach from pciehp)
+- with the new approach cleared the link IRQ (before enabling it) in
+  probe, and resume paths
 
-So rate limit the netdev error information print in the receive
-and transmit data path.
+Changes in v5:
+- collected tags
+- added patch 3/9 ("PCI: rzg3s-host: Select PCI_HOST_COMMON")
+- addressed sashiko review comments (detailed in individual patches)
 
-Fixes: 89e5785fc8a6 ("[PATCH] Atmel MACB ethernet driver")
-Cc: stable@vger.kernel.org
+Changes in v4:
+- simplified comments in patch 2/8
+- kept only DL_UpDown changes in patch 7/8
+- added patch 8/8 for the .reset_root_port() support
 
-Signed-off-by: Zijin Tao <taozj888@163.com>
----
-Changes since v1:
+Changes in v3:
+- added patches 1-6
+- re-worked patch 7 to use struct pci_host_bridge::reset_root_port() API
 
-v4:
+[1] https://lore.kernel.org/all/20260630141720.3938514-1-john.madieu.xa@bp.renesas.com/
 
-- Update the commit message for the target fix id to 89e5785fc8a6
-as suggested by Nicolai Buchwitz<nb@tipi-net.de>
-- Update the patch with the changelog added in the patch itself
+Claudiu Beznea (8):
+  PCI: rzg3s-host: Follow hardware manual clock/reset initialization
+    order
+  PCI: rzg3s-host: Fix runtime PM handling in the NOIRQ suspend/resume
+    phase
+  PCI: rzg3s-host: Drop nop instructions
+  PCI: rzg3s-host: Move host configuration code together
+  PCI: rzg3s-host: Move suspend/resume code into dedicated functions
+  PCI: rzg3s-host: Move IRQ domain setup code
+  PCI: rzg3s-host: Add helper to wait for link up
+  PCI: rzg3s-host: Add bridge::reset_root_port()
 
-v3:
+John Madieu (1):
+  PCI: rzg3s-host: Re-enumerate the bus on PCIe link-state changes
 
-- add this change log since v2 missing it
-- drop the blank line between the assignment sentence and the commit
-  info
+ drivers/pci/controller/Kconfig           |   1 +
+ drivers/pci/controller/pcie-rzg3s-host.c | 952 ++++++++++++++++-------
+ 2 files changed, 673 insertions(+), 280 deletions(-)
 
-v2:
-
-- update the commit message with the reason why the unlimit prints would
-  bother/delay booting process
-- update the commit message with the Fix commit id provided which is
-  suggested by Théo Lebrun<theo.lebrun@bootlin.com>
-- update the commit message with what packet type would trigger the
-  error printings more easily.
-
-v1:
-
-- initial commit
-
- drivers/net/ethernet/cadence/macb_main.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 8e5c034dc3a4..ca60960bec36 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -1617,16 +1617,16 @@ static int gem_rx(struct macb_queue *queue, struct napi_struct *napi,
- 		count++;
- 
- 		if (!(ctrl & MACB_BIT(RX_SOF) && ctrl & MACB_BIT(RX_EOF))) {
--			netdev_err(bp->netdev,
--				   "not whole frame pointed by descriptor\n");
-+			if (net_ratelimit())
-+				netdev_err(bp->netdev, "not whole frame pointed by descriptor\n");
- 			bp->netdev->stats.rx_dropped++;
- 			queue->stats.rx_dropped++;
- 			break;
- 		}
- 		skb = queue->rx_skbuff[entry];
- 		if (unlikely(!skb)) {
--			netdev_err(bp->netdev,
--				   "inconsistent Rx descriptor chain\n");
-+			if (net_ratelimit())
-+				netdev_err(bp->netdev, "inconsistent Rx descriptor chain\n");
- 			bp->netdev->stats.rx_dropped++;
- 			queue->stats.rx_dropped++;
- 			break;
-@@ -1829,7 +1829,8 @@ static int macb_rx(struct macb_queue *queue, struct napi_struct *napi,
- 		unsigned long flags;
- 		u32 ctrl;
- 
--		netdev_err(bp->netdev, "RX queue corruption: reset it\n");
-+		if (net_ratelimit())
-+			netdev_err(bp->netdev, "RX queue corruption: reset it\n");
- 
- 		spin_lock_irqsave(&bp->lock, flags);
- 
-@@ -2102,7 +2103,8 @@ static int macb_interrupt_misc(struct macb_queue *queue, u32 status)
- 
- 	if (status & MACB_BIT(HRESP)) {
- 		queue_work(system_bh_wq, &bp->hresp_err_bh_work);
--		netdev_err(netdev, "DMA bus error: HRESP not OK\n");
-+		if (net_ratelimit())
-+			netdev_err(netdev, "DMA bus error: HRESP not OK\n");
- 		macb_queue_isr_clear(bp, queue, MACB_BIT(HRESP));
- 	}
- 
 -- 
-2.34.1
+2.43.0
 
