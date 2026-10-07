@@ -1,118 +1,147 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-wm2-f6.google.com (mail-wm2-f6.google.com [74.125.225.134])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7A2849480A
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 13:02:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32BB64825B2
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 13:04:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.134
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791378138; cv=none; b=ZLP0x4ewWLK2DXfZE5g6QJcTfd/S8wKcxeEil7Wp5wKVTMYU64RYZGkoU9V9Px+Gr3szUPAM5r35jtxkVCq7LznChZPsdd5vEjTalv71PPWL1wObbZG+sSTrB+Vz2tlBpzZ9gHU4fOG0/j7dqY353tYRaEqkkRcGbzAH6A3TrCE=
+	t=1791378259; cv=none; b=tC+8lUMuP3lRNjv6PYU9tOIBODeNyRxkWPWGo+PYn/6XWs/W9xBetyxESxfgjl6vgORnZgnDb5vU6YNaLWWGiP3hzbCHas7PDHaBFKK62DtJJ1AFs79av6CjYseL99G8LxrLckfh117DzITbUrouFt7TYNZxJ9e134QsNoL0XgM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791378138; c=relaxed/simple;
-	bh=EZ5/gT5NS263n6bnTPCUCWnWlWwXUq5llfncXBHtHvs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=j3HbYayiVE2PupSfc8rCAdzyAEmQI1Q/5wXhR6GFU/rPsKznG1KOXDMX16fty9CEv3aAjPgzCZSTOTpTq6DFjN1Lb471/shQcb23UyIsCtIP2m7ovDTl9id/6LZXgSKjgt7cbB4zN9gIF+KR7cJ/esvcSP+OoG/Y4EhyEogEmHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=MeK0V2ex; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791378259; c=relaxed/simple;
+	bh=Xeblf6RefeP4xLbOLjn3rcWi09bg/RvtTBMwTZjkW2c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=TOkH/7QSCTR+Iv1LPiGQ4Ds40crea4mjD91EM4roRujsLkyH3HvRvNJlX1sZtSjr0TJxejqsXJ2Vin6ukpkh7NuhFSyU2Pv+2rmkBtjvaHNzHBdrN7NU1v3J+9BOHueGtRNbi9ebKENNEauSKP8Q0YeqqvSG6RsfRsuZJP0umUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B5sepHvx; arc=none smtp.client-ip=74.125.225.134
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="MeK0V2ex"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a1698ea378so15313145e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 06:02:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B5sepHvx"
+Received: by mail-wm2-f6.google.com with SMTP id 5b1f17b1804b1-49fe4ca1052so8287775e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 06:04:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791378130; x=1791982930; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1791378250; x=1791983050; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=oh5rIR08i4TyY7lq8CLJGXNhWlRCuOT//IfseSCZrK0=;
-        b=MeK0V2exHQs24zKBnJMEVqnbguT267QC2RCWXpEGu+6MwnrgFh0Bu6ogUaZF9A7Voo
-         UKLtnW1HWWOCrBuZA3eUUZzTMWd2ZBs6GfIjlzcLg9uPcEheK3VhJzASyCLV8dNc+w2V
-         +hZVhJElE2gfS7TAeYl2/qAPq63cN/w7tF5b+WBMBnRXluPes77Xza5/D1AtkZ+JWVyt
-         Lkp/5PnESLB/R036L8MUFmBu5OD6OL05l2F+c2MI6WWuUbnTJ1gi+9U2XdkUkUNwm4GR
-         Qm4BFKV8D+Z7AIiN9gZPeTtMoNo2/dXjd7vd4R0+Gm6o7W8tUa1qd1tA1MJSpSwvzbBD
-         gxKQ==
+        bh=Wtfk6Lo3EsHBs+T8tzPIBV8ntCV/DDfwOlEBXJdzuvY=;
+        b=B5sepHvxgzc1zxlfj1WMRiYgxAZxttvlQTIWHk0duXAP4JDWGKhZqOdMC7E6MFtzxp
+         K5Rask59t9Zkes7lsqtbhExe39gIqjG0kVQgKSY3z0BakMdB/tHio5TrrK+sssqo+Egl
+         aqLZgNlUhPcMYY4kDqSg1nEe7G6MThoVZcFmmjGKiidr2kLFsWuPskJn9LJWi8SDVv0d
+         L1Lzlsye5bDonyMZBfygcACFw6hDnGotAMpznMZrCN00rShkrJREXtErNajzCA4qg5zq
+         GGXk/ILuwiyC+GCNViZcNd7sW+9yN+xHhz/l4BLguHS7VNLwy4GkTKrO15OeUGgA450b
+         hp+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791378130; x=1791982930;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oh5rIR08i4TyY7lq8CLJGXNhWlRCuOT//IfseSCZrK0=;
-        b=zerDRap7VCO+wvYZ5a/Auw4E6iXDaiKZgeJCKJGFzpXURZ9imQmX5j/ndohZ2xsPKz
-         C2Yl1ld4m6tfIvSwaBLGnNVXWuj5VAw9D/wUvdK9boGok61Q3nofFn6uRErv6TTGMmSJ
-         GxoD4M3YakvG3RV6WUf1d53Fwst5aCUeLuYdSWkjEKxfTCKCTRfMnk6JNHHkUf3bjvSz
-         O69z6F5Ne0MgDRIyamkwG9QpcO5vwaRAPxXC8zvsS4FjU22vym408AL4UWIm8SQfjUu6
-         icRMM+7Ii7BfzdnDeDIvJORilOmmyIL2IE6oaKzYCQRwWP376vZup2g+ZTltsCpIjGnc
-         tfkg==
-X-Forwarded-Encrypted: i=1; AKwUvBynC8TyVjNlzudxYXyX419WSASTEd4l7z98QZIv3F1kD1/3dBP8dv6Aa207jvszFzGRTB3S4L1r0x1ctWQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nOt3Od3+wZw6Vi9RpaH6grBq8cWm0n/GEeUyo+M/pcfaOst85W
-	lXQjZsiQYmtpc6oINSiji7toGz08ORqLlgkuG2xmS1vge61RXy1gTYwZVHAkLoA/8jc=
-X-Gm-Gg: AYBFou3KK45GGIMxbg8TQuM8w+cnc6Bg1UITXrCzEsuqMEzIPJikRhq2UeWGRrSs4Rs
-	DURG9kpI4yfvTbh1L1nN2uPt9XBJvN0DKR5mjBHvIlBVzEUjNE0Ua5wxu7kITHRmmKkziLeh8HN
-	wc88TvVJAEzddzjbMn7b6ij81EZZoLZPnoAfqTxYox1wt73VaJfW8LDMn7GXiKgcyVdhWRLW8Ya
-	PqBJeXxGl+AIqa0XXYxpSpbibVT7aAxHqixjRFumJxip5gI2eh7vtcVi2cK0CCoullXsoi/RkBV
-	UZUNqdxp4Gcmyb2+fbLD1YkFaj5mbZKwA5DJ3nyn2iiZCUZTGGtG9BxLNHwG4B3kDTHYIfqDMdu
-	zIzBzYkUTigh6y6Fu1ZbEpxYg23F6f1/nErIsXO/HRblphw4bjmKgEJtQFPcnGaBdAEhOCuupTr
-	4l3jl3rrbBlndpXl6t29otvRbp2CBWR6Bbee5SMAZrYB8TGVu1jIKRaaDZKI0AF4hlorTwLR/Pr
-	zfMd6kN
-X-Received: by 2002:a05:600c:3b0a:b0:4a0:276e:9efb with SMTP id 5b1f17b1804b1-4a1800ca1dcmr33410955e9.4.1791378129799;
-        Wed, 07 Oct 2026 06:02:09 -0700 (PDT)
-Received: from [10.11.12.111] ([79.115.63.240])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178c53299sm248055555e9.11.2026.10.07.06.02.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 07 Oct 2026 06:02:07 -0700 (PDT)
-Message-ID: <867bf9d7-f69d-4538-8de7-3a772015b486@linaro.org>
-Date: Wed, 7 Oct 2026 16:02:02 +0300
+        d=1e100.net; s=20260707; t=1791378250; x=1791983050;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Wtfk6Lo3EsHBs+T8tzPIBV8ntCV/DDfwOlEBXJdzuvY=;
+        b=B+aivuwdpi6amtGzFTfWao/f7b7mRPagyADI35WONHD3wGrHdojFRPjOc3sYkS3Vt1
+         a4yWP8HWN44ugJnpEk9m92jQbYDO+jRSa1heTwWNnMcZcfPGWtEEh04LOo0DcbgN4bNq
+         2XtjcxTuKG0/xhEF0tlg9Apbyi9NKS2Z5cnQJ4KaqzcURvCfPBwG2CTgb11G5G3UWs5G
+         Qcur3g+oQ89sHFaLOIZReJP81TCWxXabNE6TfQE6GDdXvuRFiBE32bDN5fGSHEDTUjGJ
+         CTUH7tVbw0k85sRji+zJKxuiU170ajcdqaGNuEZzqsKG079idpQk1paNWT1seYaaubtV
+         Q5Og==
+X-Forwarded-Encrypted: i=1; AKwUvBxKd5PLWGLGbMvBvv/McAHvb2PpVD9ykf/p6YfmhTEw6Kc1MqoziW24kzs6NciEjzyBjTvFyU9jd1/Uy+g=@vger.kernel.org
+X-Gm-Message-State: AFuF++k4c9RmsI40xkx+KLytgWH/huMeBPUnOKmFVPq3WOaRp+Yp+Dwa
+	FaoVUq8u3XZw7SV5KtXyHK1+YAH1nJ9QNaVRKN3KsdaMgP3kVaU0DPXP
+X-Gm-Gg: AYBFou1TPJND1IFGob9i9DnOUgw9vd3XlXy4y3hYGmo6zTrumCmtpzJ5K7Yo8cU8DT5
+	J4W4NayxXsBkfcanZB2IcJ8c+vtNj/tqWUF7PV145auY8ZtCHonZOgK5QK6Bikt0Twmr9J0oScJ
+	heFvG/ELNDq9xcsdBTYRklOeILAV5vX9rjznNE2DpJhT3YqXkKLEZyddFhe318hgPOx13XiOTWW
+	InSZ8kbQOx8AOUoXF85rK+LeDGhRs2JJ5/o+xhe1tjG78ZGJMloqkgjne3aJ8nFbbR6zJPBJMsW
+	o20jxw5OKoAXO1uVO0MQHelhTxY01wANfleelAuAP98ik+x+85ifnq8Y0ofJK2HIH5Jaj4i/W/6
+	UAsnKM0dJuyGZ02wbQi/WXCEBio+JwcHfZjm1Sr1CadW0yAl5sa9rs7q1T/3jfZGmsVQ6t34DTV
+	a5UD7iPh3oUL4EYdJn+IxgDdNiXu8MKyPBROvczy96a4Occko84HR7vkKc/LMBPcUESUV8vxKKV
+	hApysYQwEc7Os0T
+X-Received: by 2002:a05:600c:c166:b0:49f:ce73:5e94 with SMTP id 5b1f17b1804b1-4a18065ab85mr38007345e9.34.1791378249855;
+        Wed, 07 Oct 2026 06:04:09 -0700 (PDT)
+Received: from localhost.localdomain ([78.40.184.2])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f4482c4sm120825195e9.0.2026.10.07.06.04.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 06:04:07 -0700 (PDT)
+From: Roman Demidov <roman.demidov.nn@gmail.com>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Zi Shen Lim <zlim.lnx@gmail.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Martin KaFai Lau <kafai@fb.com>,
+	Song Liu <songliubraving@fb.com>,
+	Yonghong Song <yhs@fb.com>,
+	John Fastabend <john.fastabend@gmail.com>,
+	KP Singh <kpsingh@kernel.org>,
+	netdev@vger.kernel.org,
+	bpf@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	Puranjay Mohan <puranjay@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10/5.15] bpf, arm64: Fix off-by-one in check_imm signed range check
+Date: Wed,  7 Oct 2026 16:03:54 +0300
+Message-ID: <20261007130355.119579-1-roman.demidov.nn@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mtd: spi-nor: reduce stack usage in spi_nor_parse_sfdp()
-To: Michael Walle <mwalle@kernel.org>,
- David Laight <david.laight.linux@gmail.com>
-Cc: Arnd Bergmann <arnd@kernel.org>, Pratyush Yadav <pratyush@kernel.org>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Arnd Bergmann <arnd@arndb.de>, Takahiro Kuwano
- <takahiro.kuwano@infineon.com>, HyeongJun An <sammiee5311@gmail.com>,
- linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260915194203.3511147-1-arnd@kernel.org>
- <DLKU0CTP0OES.30VZXJXDXRLNW@kernel.org> <20260921095924.2f845215@pumpkin>
- <20260921114111.525a2257@pumpkin> <DLYMG0XY8T4Q.2B4KXOQ9QRM2F@kernel.org>
-Content-Language: en-US
-From: Tudor Ambarus <tudor.ambarus@linaro.org>
-In-Reply-To: <DLYMG0XY8T4Q.2B4KXOQ9QRM2F@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+From: Daniel Borkmann <daniel@iogearbox.net>
 
+commit 1dd8be4ec722ce54e4cace59f3a4ba658111b3ec upstream.
 
-On 10/7/26 3:57 PM, Michael Walle wrote:
-> Hi Arnd,
-> 
->>>> On Tue Sep 15, 2026 at 9:40 PM CEST, Arnd Bergmann wrote:  
->>>>> From: Arnd Bergmann <arnd@arndb.de>
->>>>>
->>>>> Two large spi_nor_flash_parameter structures on a function stack
->>>>> is really too much, and this can exceed an otherwise reasonable
->>>>> frame limit:
->>>>>
->>>>> drivers/mtd/spi-nor/sfdp.c: In function 'spi_nor_parse_sfdp':
->>>>> drivers/mtd/spi-nor/sfdp.c:1717:1: error: the frame size of 1600 bytes is larger than 1536 bytes [-Werror=frame-larger-than=]
-> 
-> Will you resend a v2 with Davids proposal? I'd like to get this
-> fixed in this cycle. I could also take your patch and add Davids
-> proposal on top.
-> 
+check_imm(bits, imm) is used in the arm64 BPF JIT to verify that
+a branch displacement (in arm64 instruction units) fits into the
+signed N-bit immediate field of a B, B.cond or CBZ/CBNZ encoding
+before it is handed to the encoder. The macro currently tests for
+(imm > 0 && imm >> bits) || (imm < 0 && ~imm >> bits) which admits
+values in [-2^N, 2^N) — effectively a signed (N+1)-bit range. A
+signed N-bit field only holds [-2^(N-1), 2^(N-1)), so the check
+admits one extra bit of range on each side.
 
-Hi, Michael,
+In particular, for check_imm19(), values in [2^18, 2^19) slip past
+the check but do not fit into the 19-bit signed imm19 field of
+B.cond. aarch64_insn_encode_immediate() then masks the raw value
+into the 19-bit field, setting bit 18 (the sign bit) and flipping
+a forward branch into a backward one. Same class of issue exists
+for check_imm26() and the B/BL encoding. Shift by (bits - 1)
+instead of bits so the actual signed N-bit range is enforced.
 
-Arnd is probably busy at lpc. If no answer from him you can always take
-his patch, do the necessary amends and describe them in a [mw: blablah]
-section above your S-o-b line.
+Fixes: e54bcde3d69d ("arm64: eBPF JIT compiler")
+Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
+Reviewed-by: Puranjay Mohan <puranjay@kernel.org>
+Link: https://lore.kernel.org/r/20260415121403.639619-2-daniel@iogearbox.net
+Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
+---
+Backport fix for CVE-2026-53036
 
-Cheers,
-ta
+ arch/arm64/net/bpf_jit_comp.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/net/bpf_jit_comp.c b/arch/arm64/net/bpf_jit_comp.c
+index e98fe8c006cc..b67764f8a5f1 100644
+--- a/arch/arm64/net/bpf_jit_comp.c
++++ b/arch/arm64/net/bpf_jit_comp.c
+@@ -494,8 +494,8 @@ static int build_insn(const struct bpf_insn *insn, struct jit_ctx *ctx,
+ 	int ret;
+ 
+ #define check_imm(bits, imm) do {				\
+-	if ((((imm) > 0) && ((imm) >> (bits))) ||		\
+-	    (((imm) < 0) && (~(imm) >> (bits)))) {		\
++	if ((((imm) > 0) && ((imm) >> ((bits) - 1))) ||		\
++	    (((imm) < 0) && (~(imm) >> ((bits) - 1)))) {	\
+ 		pr_info("[%2d] imm=%d(0x%x) out of range\n",	\
+ 			i, imm, imm);				\
+ 		return -EINVAL;					\
+-- 
+2.53.0
+
