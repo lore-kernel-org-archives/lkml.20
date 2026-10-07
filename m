@@ -1,334 +1,277 @@
-Received: from mail-pl1-f226.google.com (mail-pl1-f226.google.com [209.85.214.226])
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD2D438D3F0
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 19:29:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 588403F9F25
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 19:31:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791401398; cv=none; b=mVfhZpPK5gz5Tb4WuPXCB2tEafUuA+UEXdK1GD4jTzO8wDRhe4T9qWuGsSlh6NRKc+Yd9f01Twm4oBmmimi2C6sDjvfPt8lDcAHvRxh5yUclkegrloWsxO74ISnaZGzTaHnAQaoeXQkwyP7Iw7H47VWibDYYzx2sJg7P0sgrwFU=
+	t=1791401501; cv=none; b=U6Sb131qrfCB4BpYqDQz5vxLEmzxAp55vgZEmEd0ga4rwCEkiHGst9bmffF4vYvEEPLlwDaXPtf0vtkndOjkDU1qk+6k+lkH/0hFmFQNYZ3yaiLgjoRtWn/w9izgo3n+E3GXBE5enlJDAYy+DsM/3q0bPzjGUbc1RU6mHoyXxxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791401398; c=relaxed/simple;
-	bh=V8SptUM6rwYCaSTro9raRIzwtbqhGdI2kSFmhkFU+ek=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HxsKRfcB0iDR9bW8QEFMArP4P6Q6+pfMOeLufOlZHxOynRx+K5Wxem8VpmunQOjfK7IhtLs48bJ3TL98UynPN85G5RBZy3MKnxstcVsV/oDaQFu8BGCsA6h+9VnuHBeroVE0X2gc3oKLD73VByp9M0ouKrB1uiIa107Go3KY8do=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=KOguQjGZ; arc=none smtp.client-ip=209.85.214.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1791401501; c=relaxed/simple;
+	bh=sPf4XkyKHL5C/iZQhm5GFAQoQfQC9eB63ArM/UykqbY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AgsEZsiV1bmCnYF46p/mJAsXAlxmXzdz+NwzcohcNu6j9tU9w27mzsP5P+Auo4gwGisrneMvmW4IzntBPRyDl1uSIJBOO7O6AloHv4c/Ps/uF4GaZ9EugDOwPm9u8uXhF7ax6+1YnM7v84MPMK6eMfVQQtJ4C2r3dmOVMo4UFHg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XCY265FO; arc=none smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="KOguQjGZ"
-Received: by mail-pl1-f226.google.com with SMTP id d9443c01a7336-2dd1dcdcf95so12969785ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 12:29:56 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791401396; x=1792006196;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vENQeaEQS1mDS5b6W4vJY9IL+14McPgRpGuZgHmvJS8=;
-        b=SLNfu55VQPOOS51BqPxEx/UpCKk4GvRKwWC+H49xoQXjeFL3CrFxqjL7NANdgpETRt
-         yXpoGOdfHjdJcUB14maqIOF3f/UKdhqC1dx8WMNLDap1uOOtrcNTpfWfvcTYG6WTvVkz
-         eezguldKPvkjcXz9no9OF/y1cCdK6EV4id/XZbPaWNjZ5vx52p1ocd+zv/KTbLieOpXP
-         KZGD4HF/b+d57dfysnm1g8cpig/edFeMc+f1AAlxQ598sDwxjX5/s2Ba9VIlU+Eev6Oh
-         hNLQk6bCq/cRag4rq1lqOHlgonHOQ6TlDxAx/Yu/MAPnnppQ4iLKoSobLueyYxm7/sm5
-         KV5A==
-X-Forwarded-Encrypted: i=1; AKwUvBzevOcXjmjCDkyGKbheapEcVNvB9VPm/pLi7ObDaonFLifeNrYDObwYiHDKbqdcp+gZQhonG6pBuRwqI2Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIXfuivCfPEduUMLQH24G9UYz/fw2rrnc1wAGuMQ+vOYnq8OZIP
-	gmpviW9w+ajBdQzlPNwXxDd9nsV2S/Q92RQMErk4HEFgh8mTlhqk6ETgmrjDdHIMecGOLUGzw8L
-	B+VF3mO2N7Evwuc3YnJxs50T4AA1TIZUJiW9DU/1mU4yJ8BM1P1nrxnWsnxdwghX0eqUU9oGuae
-	uxKLnFlYyK91S86wrIbzLi8hS3qKcdFsofPQFCc3QGGLIjqFoC/amMpKBZUPC+zcZmEg6EGBkdb
-	45+wwP2ZovB6EjN
-X-Gm-Gg: AYBFou2KhVhW06U3CGNSgRLRMtyWw60Mg+bjnuBVLUVcrNkp9+z5QYXS6Sx34e2sGYC
-	X5MpHXHqoPGz3YkPZgJOoPz+0kHaK9X+5ybXSYkP7UOpMBBQJuW/3vDpUKOaYFtsAGxJelYPoor
-	8EnxRQS0oC/7GnM2lvbEJLuuXk6FBK18ffKP9ayBRCk9MKk/3HKzkuVKjwkHH7jKehQQkWggOlj
-	LQyAC9Fm1OcLxjcIEicu9v+3Y6oDpJwunYsvFO993itUkjlqXBwEff5syhn0BBY0cmHVTXLTZCk
-	ypq+XZrozoeeiv0H2jsQyhKAoq2tlSTn+6O9GEBhPToe3UCHcDlaR+H3/naDBgGF6m8R1cXRLBT
-	4a1STk9UCnBsAGVWdWgEB2gCit0mv2kKHqgPOILEeoaSLKSNrqiHdCu8h7xHMMbbS5ilg17g0Ep
-	g74X3Ku3exqA5EkYNfFXb6/EY1hOxsWDBg2b4=
-X-Received: by 2002:a17:903:2311:b0:2e5:debe:cb4b with SMTP id d9443c01a7336-2e7ffed33f8mr888745ad.10.1791401395926;
-        Wed, 07 Oct 2026 12:29:55 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
-        by smtp-relay.gmail.com with ESMTPS id d9443c01a7336-2e60484981bsm1272565ad.52.2026.10.07.12.29.55
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 07 Oct 2026 12:29:55 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-lf1-f71.google.com with SMTP id 2adb3069b0e04-5ba41c0265dso2074825e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 12:29:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XCY265FO"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2e623eda81cso4206395ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 12:31:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1791401393; x=1792006193; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vENQeaEQS1mDS5b6W4vJY9IL+14McPgRpGuZgHmvJS8=;
-        b=KOguQjGZRzZ+cVNKT/ZXmKI5tK9bIsrfiouyBfbuKCOfcwgJZBS3ttuBn9MaP+LdAB
-         Rl2/b4NcKE/LuNYiLTG9O8/r3A5CYrcpJHagmRTH0feK+CdTFSrXVXHkEF7rJvYrG7IS
-         nbViiz/1lvwjIeizw2nxUB/oJcsrEnmdTuw0Y=
-X-Forwarded-Encrypted: i=1; AKwUvBw/t1Kfo/tvqbMiWqbVFHMWydQM6N71xMjRX1G0jc1GZdImBZrnCVL6ymUYTmaGG/HQ5RxV0EDzf9mK8Y4=@vger.kernel.org
-X-Received: by 2002:a05:6512:ac8:b0:5b6:19c9:d7b7 with SMTP id 2adb3069b0e04-5bcd06ad842mr1106527e87.26.1791401393471;
-        Wed, 07 Oct 2026 12:29:53 -0700 (PDT)
-X-Received: by 2002:a05:6512:ac8:b0:5b6:19c9:d7b7 with SMTP id
- 2adb3069b0e04-5bcd06ad842mr1106509e87.26.1791401392877; Wed, 07 Oct 2026
- 12:29:52 -0700 (PDT)
+        d=gmail.com; s=20251104; t=1791401500; x=1792006300; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+a6G9l8U8LHfxZ8VgLGKsGq7UAi+F+l/ig1DUT9bFV4=;
+        b=XCY265FOG1fhVHTerlbKOdVyk26Cqg6w6y1uo+rG1YmyfMUx8bLcXGBFUNY9X9+oAF
+         tXy66gAr/OaZp7n/mULgmbBzu24pCQnbraZLeo6FaqSbB7RD+99gOwJy1YDrT5R6/VO3
+         6HYUqQoHWKgmzf8BI8thYYBhoCkNbQ6uGH3fBZCLcbH7aLTIOiafBFQPOpdjVnwxtwXU
+         6x4qNqNJIg2M5DLLau+R+3IkbBf0FbwfqTB9fL7i/+/uDWynh3Wj1WV6IUQUsRjJZ44K
+         M5vBzpgR5JBJY/CDHvvPEBm1qGW2N7k2Ft1wZiJgRFXUbbwbtqNN+PdW9jLGGwj/qlrh
+         YfeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791401500; x=1792006300;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+a6G9l8U8LHfxZ8VgLGKsGq7UAi+F+l/ig1DUT9bFV4=;
+        b=CBLn4OgPZ45XFGfYXzTP9fJ48EPMAwxv1EG91ez52Z1HpUyP5YRB62C8ITUXB71hZG
+         fiX40eUxlYVeJxC+mKo45k/mAVlLI0CccnhLC5GsIKP9JgiK6/rxSLEl6IG2lcvX5Mk6
+         6K0YMEbjTPB1JDZm+3JvfVzd2BKVlqzhFXjVQwPQB4ehKru/lJiLYMIoNOmVWzJsqHs+
+         PbAxpi0Fj4//xgpVz5WabVvfFSzb0Kh+P40YEk7s7RdXs3KBGpin+9FCNfJgtGj5aL3J
+         P6ClWQU7YXUoFYHrIzR3z895JX9YMZEQYVmneymx11RbSLMb3d0FbARNQoXsdTO1TIgi
+         RcTA==
+X-Gm-Message-State: AFq9FYIxgWt7oS+XyFrIRN2tws3sMBmIVyKq5FJbq1Bi+0yTPCxn+AAk
+	zOsLIGnMobhPKQccO1fejjGx5ZbZXYh7RdF0vdc+wYmQYGcEz72lclgilyNQwPve
+X-Gm-Gg: AYBFou0zKfdwElMxK7PebhP0z7R7EGkuKHmCKjx7bCNdEcCokMOUCAspr0J6X/7aYIo
+	jF2QDDmrwhz0FDuOYFLaDMbBgaG20qAisCU0NUoNK+73vDsBkUKaL/ci7cD04W6hoLZ7gbuUpud
+	VuMo06UwEtrilCJY/bqpcJ11Chn+yxf4pedD9G0AnP/m/qLlUfDxZOfyNE+SGsxQL5WGEZI987T
+	62Mgw3DJRzJOhT/H8WAmd0XNOaH/WH0vrNpUHJbWYNvwnSxmKLPI09RNgBIk7v7u2H7geMn2UXC
+	UheAGCfyELwx5309HfYTEI9CWk/aHL01CGL3LuMuFEoGBPTQrmpw5WknGJWvymt0Sci/JafgVpf
+	G+gs2arqeUjyvh9cGQxdPEub5BKXc/slmrsyARwHCk7uuWqp/FjJ7vINavuzYC+dtOqxlDOtjTt
+	TSbp9lVuMewbHdKAkW4lOZu/i4ZJS7JausM9jD05jyJnuxWbUpkPewgH3nYfc8MothmdvuskhuS
+	jY297/izDoKYHvImHS00h01Gr53NuVCuwY74pGlCvocHSqfrS4nubYG3qn0hyIPGR9j6v0mhMRO
+	+fR3uISEXsRCgwk=
+X-Received: by 2002:a17:903:3846:b0:2df:a4d8:57ad with SMTP id d9443c01a7336-2e60057831dmr28952575ad.72.1791401499570;
+        Wed, 07 Oct 2026 12:31:39 -0700 (PDT)
+Received: from f2fs-test.c.googlers.com.com (225.134.16.34.bc.googleusercontent.com. [34.16.134.225])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e60482d316sm16125975ad.49.2026.10.07.12.31.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 12:31:38 -0700 (PDT)
+From: Daeho Jeong <daeho43@gmail.com>
+To: linux-kernel@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	kernel-team@android.com
+Cc: Daeho Jeong <daehojeong@google.com>
+Subject: [PATCH] f2fs: cache: wake up the writeback thread while checkpoint is disabled
+Date: Wed,  7 Oct 2026 19:31:31 +0000
+Message-ID: <20261007193131.1785199-1-daeho43@gmail.com>
+X-Mailer: git-send-email 2.56.0.360.g66cac248cb-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910165221.7558-1-michaltoma@sicoop.com> <20260910165221.7558-3-michaltoma@sicoop.com>
-In-Reply-To: <20260910165221.7558-3-michaltoma@sicoop.com>
-From: Zack Rusin <zack.rusin@broadcom.com>
-Date: Wed, 7 Oct 2026 15:29:40 -0400
-X-Gm-Features: AclHuK9szXVhXziyRSH3KZ3-xYzz3YLU8TTvRktN3bkH9vjXnH8pBTxlZjP70b0
-Message-ID: <CABQX2QMOJs24-YL8vD5oiFy3sZj0DkbZPy++z-HYeOi-OApy9g@mail.gmail.com>
-Subject: Re: [PATCH v2 2/3] drm/vmwgfx: Release PRIME import in the BO destroy path
-To: Michal TOMA <michaltoma@sicoop.com>
-Cc: bcm-kernel-feedback-list@broadcom.com, ian.forbes@broadcom.com, 
-	maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
-	airlied@gmail.com, simona@ffwll.ch, sumit.semwal@linaro.org, 
-	christian.koenig@amd.com, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	linaro-mm-sig@lists.linaro.org, stable@vger.kernel.org
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="000000000000bad017065d452361"
+Content-Transfer-Encoding: 8bit
 
---000000000000bad017065d452361
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+From: Daeho Jeong <daehojeong@google.com>
 
-On Thu, Sep 10, 2026 at 12:52=E2=80=AFPM Michal TOMA <michaltoma@sicoop.com=
-> wrote:
->
-> drm_gem_prime_import_dev() attaches to a foreign dma-buf, takes a
-> reference with get_dma_buf(), maps the attachment and, once
-> vmw_prime_import_sg_table() has created the TTM buffer object, stores
-> the attachment in obj->import_attach. Drivers that import this way have
-> to undo it by calling drm_prime_gem_destroy() when the object is freed.
->
-> vmwgfx never does. The TTM destroy callback, vmw_bo_free(), only calls
-> drm_gem_object_release() and kfree(). For every imported dma-buf, the
-> sg mapping, the attachment and the dma-buf reference are leaked when
-> the last GEM reference goes away, and the exporter's backing pages stay
-> pinned until reboot.
->
-> Any process that can open the vmwgfx render node can hit this by
-> importing a dma-buf from another exporter, for example with
-> DRM_IOCTL_PRIME_FD_TO_HANDLE. It showed up as a memory drain on a
-> VirtualBox VMSVGA guest running a Plasma 6.7 Wayland session with the
-> host's 3D acceleration off. KWin 6.7 wraps wl_shm client buffers in
-> udmabufs and imports them through EGL on llvmpipe, and it keeps many of
-> those imports referenced while it runs, which is a separate userspace
-> problem. Restarting the compositor did not give the memory back,
-> though: with about 1.5 GiB of client buffers imported, killing KWin
-> left 211 udmabufs in /sys/kernel/debug/dma_buf/bufinfo with a refcount
-> of 1, still attached to the vmwgfx device, after every userspace
-> reference was gone. Their pages are no longer mapped or in any page
-> cache, so reclaim and swap cannot free them.
->
-> Call drm_prime_gem_destroy() for imported objects before
-> drm_gem_object_release(), as amdgpu, radeon and nouveau do in their TTM
-> destroy callbacks, and include <drm/drm_prime.h> for it. The check is
-> safe on the import error path: drm_gem_prime_import_dev() only sets
-> obj->import_attach after gem_prime_import_sg_table() succeeded, so a
-> buffer object destroyed before that point is not unmapped, detached or
-> put a second time. ttm_bo_release() tears down the TTM backing and
-> drops the reservation lock before calling the destroy callback, which
-> fits the _unlocked unmap done by drm_prime_gem_destroy().
->
-> The leak was found by walking /proc/kpageflags, which attributed the
-> missing memory to orphaned shmem pages. Those matched the udmabuf
-> objects in dma_buf/bufinfo, and the remaining reference was traced to
-> the missing PRIME teardown. It was confirmed without a compositor using
-> a small reproducer: create a memfd, wrap it with UDMABUF_CREATE, import
-> it with DRM_IOCTL_PRIME_FD_TO_HANDLE on the vmwgfx render node, close
-> the GEM handle and every file descriptor, then check bufinfo.
->
-> Build tested on drm-misc-fixes (4600b4d1a9ee) with the openSUSE 7.2.3
-> config and W=3D1: drivers/gpu/drm/vmwgfx/ builds without warnings before
-> and after the change, and checkpatch.pl --strict is clean. Runtime
-> tested on a VirtualBox 7.2 VMSVGA guest with kernel 7.2.3, whose vmwgfx
-> sources for the files involved are identical to drm-misc-fixes, using a
-> vmwgfx.ko built from them with this change. With the reproducer, all 8
-> imported udmabufs stayed pinned without the change and none with it,
-> with 3D acceleration both on and off. With KWin on llvmpipe, killing
-> the compositor now released 84 of 92 udmabufs (610 MiB) within 10
-> seconds, where the same test on the unpatched driver released none.
->
-> Fixes: b32233acceff ("drm/vmwgfx: Fix prime import/export")
-> Cc: stable@vger.kernel.org # v6.6+
-> Assisted-by: LLM
-> Signed-off-by: Michal TOMA <michaltoma@sicoop.com>
-> ---
-> Reproducer (results and environment are in the cover letter). Compare
-> the 4 MiB udmabuf entries in /sys/kernel/debug/dma_buf/bufinfo before
-> and after: without this patch all 8 remain, with count 1 and still
-> attached to the vmwgfx device.
->
-> #!/usr/bin/env python3
-> import fcntl, os, struct
-> N, SIZE =3D 8, 4 * 1024 * 1024
-> UDMABUF_CREATE     =3D 0x40187542  # _IOW('u', 0x42, struct udmabuf_creat=
-e)
-> PRIME_FD_TO_HANDLE =3D 0xC00C642E  # DRM_IOWR(0x2e, struct drm_prime_hand=
-le)
-> GEM_CLOSE          =3D 0x40086409  # DRM_IOW(0x09, struct drm_gem_close)
-> render =3D os.open('/dev/dri/renderD128', os.O_RDWR | os.O_CLOEXEC)
-> udm =3D os.open('/dev/udmabuf', os.O_RDWR | os.O_CLOEXEC)
-> for i in range(N):
->     mfd =3D os.memfd_create(f'prime-leak-{i}', os.MFD_ALLOW_SEALING)
->     os.ftruncate(mfd, SIZE)
->     fcntl.fcntl(mfd, fcntl.F_ADD_SEALS, fcntl.F_SEAL_SHRINK)
->     create =3D bytearray(struct.pack('IIQQ', mfd, 1, 0, SIZE))
->     dfd =3D fcntl.ioctl(udm, UDMABUF_CREATE, create)
->     ph =3D bytearray(struct.pack('IIi', 0, 0, dfd))
->     fcntl.ioctl(render, PRIME_FD_TO_HANDLE, ph)
->     handle =3D struct.unpack('IIi', ph)[0]
->     fcntl.ioctl(render, GEM_CLOSE, bytearray(struct.pack('II', handle, 0)=
-))
->     os.close(dfd)
->     os.close(mfd)
-> os.close(udm)
-> os.close(render)
->
-> The same loop without the PRIME_FD_TO_HANDLE/GEM_CLOSE step frees
-> every udmabuf, so the leak is specific to the vmwgfx import.
->
->  drivers/gpu/drm/vmwgfx/vmwgfx_bo.c | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c b/drivers/gpu/drm/vmwgfx/=
-vmwgfx_bo.c
-> index 9c7a73c0b..56bc94edc 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-> @@ -30,6 +30,7 @@
->  #include "vmwgfx_drv.h"
->  #include "vmwgfx_resource_priv.h"
->
-> +#include <drm/drm_prime.h>
->  #include <drm/ttm/ttm_placement.h>
->
->  /**
-> @@ -69,6 +70,8 @@ static void vmw_bo_free(struct ttm_buffer_object *bo)
->                 vmw_surface_unreference(&vbo->dumb_surface);
->         }
->         WARN_ON(!RB_EMPTY_ROOT(&vbo->res_tree));
-> +       if (drm_gem_is_imported(&vbo->tbo.base))
-> +               drm_prime_gem_destroy(&vbo->tbo.base, vbo->tbo.sg);
->         drm_gem_object_release(&vbo->tbo.base);
->         WARN_ON(vbo->dirty);
->         kfree(vbo);
-> --
-> 2.55.0
->
+Dirty node and meta caches are written back by the cache writeback
+thread and by checkpoint. The thread wakes up every cache_wb_interval
+(5 seconds by default) and writes at most 512 node caches and one
+contiguous run of meta caches. Checkpoint, which f2fs_balance_fs_bg()
+triggers when there are too many dirty caches, writes the rest.
 
-This looks right to me, but it must not be backported on its own:
-without patch 1 and the unbind fix above, releasing the import turns
-the leak into a crash. Please spell that dependency out here, not just
-in patch 1.
+While checkpoint is disabled, checkpoint does not run: f2fs_sync_fs()
+returns early and f2fs_balance_fs() returns before doing anything. So
+dirty node caches pile up without a limit. They are kmalloc'd, and the
+shrinker skips dirty entries, so this memory cannot be reclaimed. When
+node and meta blocks were in the page cache, the dirty pages were
+counted as dirty page cache, and the flusher threads wrote them back in
+the background.
 
-z
+A checkpoint=disable test that remounts the filesystem with
+checkpoint=disable and runs fsstress -p 32 for 300 seconds left about
+160K dirty node caches (2.7GB of kmalloc-16k) with 16KB blocks and
+about 226K with 4KB blocks in QEMU, and drop_caches freed none of them.
 
---000000000000bad017065d452361
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
+While checkpoint is disabled, wake up the thread from
+f2fs_mark_cache_dirty() once there are as many dirty node or meta
+caches as f2fs_write_node_caches() and f2fs_write_meta_caches() collect
+before writing, and let the thread go on without waiting while that is
+still true and each round writes some of them. Each round writes the
+same number of caches as before. Split nr_caches_to_collect() out of
+nr_caches_to_skip() to share these numbers without the dirty_exceeded
+check.
 
-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
-6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
-SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
-uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
-Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
-b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
-dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
-BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
-Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
-oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
-A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
-A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
-s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
-SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
-QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
-fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
-iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
-3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
-91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
-06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
-b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
-VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
-VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIOJP
-C24vtsqdlKUwkuWmyUYl4NFvR6EkTGETdyaZ23MWMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MTAwNzE5Mjk1M1owXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
-ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAFwB5xHsqoeJHOhxqFAzZMbcIX6wlg+V8n7zdy1G
-dxHtLuFBO5FeSdvSlRU95r2AUmBLHRyBUZP1Nfiq92D6p/8CLeWEkR4MJK6akCmBP+WVtI1plzkg
-LQwDJBTMP7uTVFpBJofDvwhNSn5hpJ6PN0Y5+UNvzUgkikulEYtoudDGe8uwyQPRVohhho0I72Tq
-j6aBWgh8ubMqtNXn9M1u4H0wnejYvcFn7aEfO9jxxwCIR8m0TypfcY8LcHpRcDau4AfINZKjH7Hu
-PGmK79Jxwq0tgn7F0QbhvGrEiQ37lQPcPQtRQhhUS3jRLu37VCmL4jxWOj2klQWEjhQd6ffEy6M=
---000000000000bad017065d452361--
+With this, the same test keeps about 4K dirty node caches with both
+4KB and 16KB blocks. Nothing changes while checkpoint is enabled.
+
+Fixes: 7a1cf2a76b71 ("f2fs: cache: use meta cache")
+Fixes: 493b9dc8b52c ("f2fs: cache: use node cache")
+Signed-off-by: Daeho Jeong <daehojeong@google.com>
+---
+ fs/f2fs/cache.c   | 59 +++++++++++++++++++++++++++++++++++++++++++++--
+ fs/f2fs/cache.h   |  1 +
+ fs/f2fs/segment.h | 13 +++++++----
+ 3 files changed, 67 insertions(+), 6 deletions(-)
+
+diff --git a/fs/f2fs/cache.c b/fs/f2fs/cache.c
+index 04b5408cbc5..6b6f49fae25 100644
+--- a/fs/f2fs/cache.c
++++ b/fs/f2fs/cache.c
+@@ -61,6 +61,42 @@ void f2fs_cache_update_tag(struct f2fs_cached_block *entry,
+ 	spin_unlock_irqrestore(&cache->tree_lock, flags);
+ }
+ 
++/*
++ * While checkpoint is disabled, checkpoint does not write back dirty node and
++ * meta caches, and the writeback thread is the only one that writes them. Tell
++ * whether there are as many dirty caches as f2fs_write_node_caches() and
++ * f2fs_write_meta_caches() collect before writing, so that the thread should
++ * write them now instead of every cache_wb_interval.
++ */
++static bool f2fs_cache_wb_needed(struct f2fs_sb_info *sbi)
++{
++	if (likely(!is_sbi_flag_set(sbi, SBI_CP_DISABLED)))
++		return false;
++
++	return get_nr_caches(sbi, F2FS_DIRTY_NODES) >=
++				nr_caches_to_collect(sbi, NODE) ||
++		get_nr_caches(sbi, F2FS_DIRTY_META) >=
++				nr_caches_to_collect(sbi, META);
++}
++
++static void f2fs_wake_cache_wb_thread(struct f2fs_sb_info *sbi)
++{
++	struct f2fs_cache_kthread *cache_thread = &sbi->cache_thread;
++
++	if (!f2fs_cache_wb_needed(sbi))
++		return;
++
++	/* pairs with smp_store_release() in f2fs_start_cache_wb_thread() */
++	if (!smp_load_acquire(&cache_thread->cache_wb_task))
++		return;
++
++	if (READ_ONCE(cache_thread->cache_wb_urgent))
++		return;
++
++	WRITE_ONCE(cache_thread->cache_wb_urgent, true);
++	wake_up(&cache_thread->cache_wb_wq);
++}
++
+ bool f2fs_mark_cache_dirty(struct f2fs_cached_block *entry)
+ {
+ 	struct f2fs_cached_block_list *cache = entry->cache;
+@@ -81,6 +117,7 @@ bool f2fs_mark_cache_dirty(struct f2fs_cached_block *entry)
+ 		f2fs_cache_update_tag(entry, F2FS_CACHE_TAG_NONE,
+ 						F2FS_CACHE_TAG_DIRTY);
+ 		inc_cache_count(cache->sbi, type);
++		f2fs_wake_cache_wb_thread(cache->sbi);
+ 		return true;
+ 	}
+ 
+@@ -679,10 +716,13 @@ static int f2fs_cache_writeback_kthread(void *data)
+ 
+ 	while (!kthread_should_stop()) {
+ 		unsigned int interval = cache_thread->cache_wb_interval;
++		s64 nr_dirty;
+ 
+ 		wait_event_freezable_timeout(*wq,
+-				kthread_should_stop(),
++				kthread_should_stop() ||
++				READ_ONCE(cache_thread->cache_wb_urgent),
+ 				msecs_to_jiffies(interval));
++		WRITE_ONCE(cache_thread->cache_wb_urgent, false);
+ 
+ 		if (kthread_should_stop())
+ 			break;
+@@ -699,10 +739,23 @@ static int f2fs_cache_writeback_kthread(void *data)
+ 		if (!sb_start_write_trylock(sbi->sb))
+ 			continue;
+ 
++		nr_dirty = get_nr_caches(sbi, F2FS_DIRTY_NODES) +
++				get_nr_caches(sbi, F2FS_DIRTY_META);
++
+ 		f2fs_write_meta_caches(sbi);
+ 		f2fs_write_node_caches(sbi);
+ 
+ 		sb_end_write(sbi->sb);
++
++		/*
++		 * Each round writes a limited number of caches. Go on without
++		 * waiting while there are still many dirty caches, as long as
++		 * this round wrote some of them.
++		 */
++		if (f2fs_cache_wb_needed(sbi) &&
++			get_nr_caches(sbi, F2FS_DIRTY_NODES) +
++			get_nr_caches(sbi, F2FS_DIRTY_META) < nr_dirty)
++			WRITE_ONCE(cache_thread->cache_wb_urgent, true);
+ 	}
+ 	return 0;
+ }
+@@ -719,6 +772,7 @@ int f2fs_start_cache_wb_thread(struct f2fs_sb_info *sbi)
+ 
+ 	init_waitqueue_head(&cache_thread->cache_wb_wq);
+ 	cache_thread->cache_wb_interval = DEF_DIRTY_CACHE_TIMEOUT;
++	cache_thread->cache_wb_urgent = false;
+ 	snprintf(name, sizeof(name), "f2fs_writeback-%u:%u",
+ 			MAJOR(dev), MINOR(dev));
+ 
+@@ -726,7 +780,8 @@ int f2fs_start_cache_wb_thread(struct f2fs_sb_info *sbi)
+ 	if (IS_ERR(task))
+ 		return PTR_ERR(task);
+ 
+-	cache_thread->cache_wb_task = task;
++	/* pairs with smp_load_acquire() in f2fs_wake_cache_wb_thread() */
++	smp_store_release(&cache_thread->cache_wb_task, task);
+ 	return 0;
+ }
+ 
+diff --git a/fs/f2fs/cache.h b/fs/f2fs/cache.h
+index 6c4db910d76..1d0216d2128 100644
+--- a/fs/f2fs/cache.h
++++ b/fs/f2fs/cache.h
+@@ -232,6 +232,7 @@ struct f2fs_cache_kthread {
+ 	struct task_struct *cache_wb_task;
+ 	wait_queue_head_t cache_wb_wq;
+ 	unsigned int cache_wb_interval;
++	bool cache_wb_urgent;		/* write back without waiting */
+ };
+ 
+ int f2fs_start_cache_wb_thread(struct f2fs_sb_info *sbi);
+diff --git a/fs/f2fs/segment.h b/fs/f2fs/segment.h
+index 526764ba31a..58804e9cc29 100644
+--- a/fs/f2fs/segment.h
++++ b/fs/f2fs/segment.h
+@@ -983,11 +983,8 @@ static inline bool sec_usage_check(struct f2fs_sb_info *sbi, unsigned int secno)
+  * 512 blocks (2MB) * 8 for nodes, and
+  * 256 blocks * 8 for meta are set.
+  */
+-static inline int nr_caches_to_skip(struct f2fs_sb_info *sbi, int type)
++static inline int nr_caches_to_collect(struct f2fs_sb_info *sbi, int type)
+ {
+-	if (bdi_wb_dirty_exceeded(sbi->sb->s_bdi))
+-		return 0;
+-
+ 	if (type == DATA)
+ 		return BLKS_PER_SEG(sbi);
+ 	else if (type == NODE)
+@@ -998,6 +995,14 @@ static inline int nr_caches_to_skip(struct f2fs_sb_info *sbi, int type)
+ 		return 0;
+ }
+ 
++static inline int nr_caches_to_skip(struct f2fs_sb_info *sbi, int type)
++{
++	if (bdi_wb_dirty_exceeded(sbi->sb->s_bdi))
++		return 0;
++
++	return nr_caches_to_collect(sbi, type);
++}
++
+ /*
+  * When writing cache asynchronously, align nr_to_write to BIO_MAX_VECS.
+  */
+-- 
+2.56.0.360.g66cac248cb-goog
+
