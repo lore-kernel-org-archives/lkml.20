@@ -1,34 +1,35 @@
 Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5C9E448382;
-	Wed,  7 Oct 2026 08:51:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4F3D46985D;
+	Wed,  7 Oct 2026 08:51:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791363116; cv=none; b=dVcPpI/qMF551jiMxa3SAknqZOiZOjwH9IqXOUw7bycPB9hoFlZphsRJaSHM+K7oJUS7G3wjPNDRUuXX6I9HFq2zXxm1KPQgMcZ9L83kC4/2cileEpblp+6wRoTO0YA/2i2MkNRvfeQgNg+04fmpYH/qJhUiOdak/cKi4pA29IQ=
+	t=1791363119; cv=none; b=R0Gb+EbJce1hMoIwNhZRUa7gFNP3D3jV5tS78/auqx9Z3nb0n91ztsH+tV9TnVSbpRxdehgparSaH0KKhUglpaLhhp5Acm8nZMFdNDKne3Gu82Cs2P0BDnzwrN3dbbzZjav473LSs8SHZHTIUfSid8EPoT8ExkkUb9j/JsJUjfk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791363116; c=relaxed/simple;
-	bh=MYGuRXy7lGZCB6o6TeVe2fQ7G4jNmPZGrQ8vTB2ziDM=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=QTYgra14cSKM+JmSgPOpuha7aS+O77vPriInID/mhPtGFg9X2weroZZ9d1zuyCyyjcomvlS8iuuFHZDuWRcaAKK9/BHJwWi1EqlU7QZlP4zrSZaenfwmZEwG58884Vv74mLfgGjjuoO1fpNmB3BUTqGWbfeaR+hUU74TkeZBcpk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=botISDJ8; arc=none smtp.client-ip=194.13.80.246
+	s=arc-20240116; t=1791363119; c=relaxed/simple;
+	bh=XOjPIN7Tpc/561S8JXjXBPa/Jlq/JXNn4+F/UargJ90=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=YJ0EFzpmRdMURyraMOQm4Q8ooeKYWDqsvUKgYniLXPG82JS0nBZ6yJCgsI2LdYUID2BG2oQ4J1DjC1T6BIrZ4jAjCBjDY8My0ahfdSq5wa4C56NujoMjDjRAZhPUYdUQ8H8wQhJ57ViK2TvZb6uOfiwNn/THGFg3IJl49FbH9Hw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=KhWEmJ4Y; arc=none smtp.client-ip=194.13.80.246
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="botISDJ8"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 93259A05A5;
-	Wed,  7 Oct 2026 10:51:46 +0200 (CEST)
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="KhWEmJ4Y"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3A5CBA1551;
+	Wed,  7 Oct 2026 10:51:54 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1791363109; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=ACvoHAWsETCADGs/MbWJXSMy2xKA39f76uQB4C2XjW8=;
-	b=botISDJ8W4AkwIIm0rlJsl2xl55Q5oSAzS5WZ3qHlL7La8PkCoNrD1QkhiMQ9F/rhHQbMh
-	0qTR3eKUYfKIqISTCUuZKVl+Vp9mHI2R1H16SZj+g2ENls28rtZHhIhzpnUo5EhucSsefS
-	WtB40TB2Basz6oUXABfmucaA/7/oU1K8eFgF1uV9/TKVWWrncOmpJnh+4zf4Qlon2XquW4
-	pepV/srph+J6SKrulM63ujDotYlbrrgeedUsuXBKUDuScg/+xfyf8SVTTLSJvwxr3iLQL1
-	2ZpaX5Qb4oDfRc9HLpdWavFo6DPND+L3g1sE9N/EQPMMICHy4x/CA15Rwuqw4A==
+	t=1791363114; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=AhxdxoZEO1uHW3WVLFGddDH0kg4MQA2LczGFpGzv9wg=;
+	b=KhWEmJ4YlcvUksOeuri0VOHiCEhT4aEErZEHJnG7iwyxe0E9VjvmuCU7XADRPdcrsYJBac
+	aCT0CUI+ErSZIAcZal5PZAQA2lEYnkXlHhxW6qVJCokPqo9thpfLekfj6t9bNMBT7FMm98
+	DfkWXDUOBr2VzJNSfnB98L16HM6MJP1LLcAVyiz6jh+EPzDGLyq3gSNEC7d93khrSRgUte
+	vdiEzX9YNb918VUIg3TZdRJDG8Bey1lk1IozUnlQPyk9VlPYk0mnh60kDxRQmKkVtEGsL1
+	SMohwjzpJLKAJlj92lhNCrj70exAmioDU8SACAL2aCnlDZhHbGmJQVIfxL3Fjg==
 From: Nicolai Buchwitz <nb@tipi-net.de>
-Subject: [PATCH net-next v3 0/8] net: bcmgenet: support larger MTUs
-Date: Wed, 07 Oct 2026 10:51:23 +0200
-Message-Id: <20261007-nb-genet-mtu-nn-v2-v3-0-74a796c019ce@tipi-net.de>
+Date: Wed, 07 Oct 2026 10:51:30 +0200
+Subject: [PATCH net-next v3 7/8] net: bcmgenet: allow the MTU to be changed
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,11 +38,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NQQ6CMBAF0KuQrh3TDtAEV97DuLDtALOwEFobD
- OHu1q40MS5//vw3mwi0MAVxqjaxUOLAk8+hPlTCjjc/ELDLWaBEraRE8AYG8hThHh/gPSSERqJ
- pSfe11L3Iw3mhnteCXsT71NMaxTU3I4c4Lc/yLanS/4OTAgmddla7trGG6Bx55szFo6MCJvxE9
- E8EM2IbQ6hUqzqF38i+7y9re36xBQEAAA==
-X-Change-ID: 20261002-nb-genet-mtu-nn-v2-402b5e6f306f
+Message-Id: <20261007-nb-genet-mtu-nn-v2-v3-7-74a796c019ce@tipi-net.de>
+References: <20261007-nb-genet-mtu-nn-v2-v3-0-74a796c019ce@tipi-net.de>
+In-Reply-To: <20261007-nb-genet-mtu-nn-v2-v3-0-74a796c019ce@tipi-net.de>
 To: Doug Berger <opendmb@gmail.com>, 
  Florian Fainelli <florian.fainelli@broadcom.com>, 
  Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
@@ -56,91 +55,173 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
 X-Mailer: b4 0.16.0
 X-Last-TLS-Session-Version: TLSv1.3
 
-Larger MTU aka. jumbo frames are requested often by Raspberry Pi users, but
-the hardware has its quirks with larger frames, so it never got done. Dave
-Stevenson's PoC [1] had the receive side working and Justin checked the RTL
-what the hardware does with long frames, which got me past the rest.
+The driver never sets dev->max_mtu, so the MTU is stuck at ETH_DATA_LEN.
 
-GENET never sets dev->max_mtu, and the packet ready thresholds cut frames
-off at their 2048 byte reset default. With this the receive dropped them as
-fragmented and transmit never sent them out. See commit messages of the
-patches for more details.
+One descriptor reaches as far as the packet ready threshold, so derive the
+maximum from it. The threshold registers are 8 bit in units of 16 bytes and
+want a multiple of the 256 byte burst size. A descriptor is one page and
+also holds skb_shared_info behind the frame. On 4K pages the page is the
+tighter limit and leaves 3564 bytes. That includes room for a VLAN tag so a
+VLAN interface can run at the parent MTU.
 
-Patch 1 fixes a transmit error exit that left queued frames unpublished,
-the padding in patch 6 adds two more of them. Patches 2 to 5 and 7
-implement the MTU as far as one descriptor reaches (3564 bytes with 4K
-pages). Patch 6 pads around a transmit quirk where a frame ending just past
-the threshold stops the transmitter [3]. Patch 8 reassembles the fragments
-the hardware produces above it, which gets the ceiling to 16347 [2].
+Resize the buffers and rewrite the registers in place. The PHY keeps
+running and the link stays up.
 
-Tested on a CM4 (GENET v5). MTU 1500 is unchanged, MTU 9000 reaches 991/987
-Mbit/s. Pierre-Marin Leclercq tested on a Pi 4 (also GENET v5) with various
-MTU sizes.
+A failed allocation retries at the previous size. If that fails too, take
+the interface down. Running on rings that were never allocated is worse.
 
-[1] https://github.com/raspberrypi/linux/pull/7614
-[2] https://github.com/raspberrypi/linux/pull/7617#issuecomment-5669564355
-[3] https://github.com/raspberrypi/linux/pull/7617#issuecomment-5735557324
-
+Suggested-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Link: https://github.com/raspberrypi/linux/issues/5561
 Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+Tested-by: Pierre-Marin Leclercq <pierremarinleclercq88@gmail.com>
 ---
-Changes in v3 (all from clashiko):
-- new patch 1: ring the doorbell on the transmit drop exits, the last
-  frame of an xmit_more batch left the earlier ones unpublished
-- patch 6 (pad) now precedes the max_mtu change, a bisect between them
-  could stall the transmitter on large page kernels, the
-  ENET_MAX_FRAME_LEN(mtu) helper moves into patch 5 for that
-- patch 6: mention the checksum fallback in the commit message
-- patch 8: read the status block before the FCS trim, pskb_trim() can
-  release the page it lives in
-- patch 8: drop a start descriptor without end that cannot hold the
-  Ethernet header
-- patch 8: threshold comment, note on the TX descriptor length
-- Link to v2: https://lore.kernel.org/r/20261006-nb-genet-mtu-nn-v2-v2-0-c4be21151912@tipi-net.de
+ drivers/net/ethernet/broadcom/genet/bcmgenet.c | 83 +++++++++++++++++++++++++-
+ drivers/net/ethernet/broadcom/genet/bcmgenet.h |  1 +
+ 2 files changed, 83 insertions(+), 1 deletion(-)
 
-Changes in v2:
-- patch 5: resync the PHY state machine after the MTU restart, a latched
-  link event was lost and an internal PHY is never polled (v1-4)
-- patch 6: move the checksum fallback here from patch 7, a bisect between
-  them dropped checksummed frames on large page kernels
-- patch 6: note the trailer limitation of the padding
-- patch 7: pskb_trim() for the FCS trim, a reassembled frame is paged
-- patch 7: latch frag_drop on a continuation without a start, the counter
-  inflated per descriptor
-- comment and commit message corrections in patches 2, 4 and 5
-- Link to v1: https://lore.kernel.org/r/20261002-nb-genet-mtu-nn-v2-v1-0-96dc6d54cbee@tipi-net.de
+diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+index 17c8318c2038..6d21ac2d78d5 100644
+--- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
++++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+@@ -84,6 +84,12 @@
+ 				      ENET_THLD_MAX * ENET_THLD_UNIT, \
+ 				      ENET_THLD_PAGE_LEN)
+ 
++/* Largest MTU that fits one descriptor, with room for a VLAN tag so a VLAN
++ * interface can use the parent MTU.
++ */
++#define ENET_MAX_MTU		(ENET_THLD_MAX_LEN - GENET_RBUF_ALIGN - \
++				 ETH_HLEN - VLAN_HLEN)
++
+ /* Tx/Rx DMA register offset, skip 256 descriptors */
+ #define WORDS_PER_BD(p)		(p->hw_params->words_per_bd)
+ #define DMA_DESC_SIZE		(WORDS_PER_BD(priv) * sizeof(u32))
+@@ -3547,6 +3553,7 @@ static int bcmgenet_open(struct net_device *dev)
+ 
+ 	bcmgenet_netif_start(dev, true);
+ 
++	priv->datapath_up = true;
+ 	netif_tx_start_all_queues(dev);
+ 
+ 	return 0;
+@@ -3605,7 +3612,11 @@ static int bcmgenet_close(struct net_device *dev)
+ 
+ 	netif_dbg(priv, ifdown, dev, "bcmgenet_close\n");
+ 
+-	bcmgenet_netif_stop(dev, false);
++	/* A failed MTU change can have torn the datapath down already */
++	if (priv->datapath_up) {
++		bcmgenet_netif_stop(dev, false);
++		priv->datapath_up = false;
++	}
+ 
+ 	/* Really kill the PHY state machine and disconnect from it */
+ 	phy_disconnect(dev->phydev);
+@@ -3853,6 +3864,71 @@ static int bcmgenet_change_carrier(struct net_device *dev, bool new_carrier)
+ 	return 0;
+ }
+ 
++static int bcmgenet_change_mtu(struct net_device *dev, int new_mtu)
++{
++	struct bcmgenet_priv *priv = netdev_priv(dev);
++	unsigned int old_mtu = dev->mtu;
++	int ret;
++
++	if (!netif_running(dev)) {
++		WRITE_ONCE(dev->mtu, new_mtu);
++		priv->rx_buf_len = bcmgenet_rx_buf_len(new_mtu);
++		return 0;
++	}
++
++	/* The watchdog trips on an idle queue once the rings are gone */
++	netif_device_detach(dev);
++
++	/* Only the buffers and the MTU registers change, leave the PHY up */
++	bcmgenet_netif_stop(dev, false);
++	priv->datapath_up = false;
++
++	WRITE_ONCE(dev->mtu, new_mtu);
++	priv->rx_buf_len = bcmgenet_rx_buf_len(new_mtu);
++	bcmgenet_set_mtu_regs(priv, new_mtu);
++
++	ret = bcmgenet_init_dma(priv, true);
++	if (ret) {
++		/* Retry the size that was allocated a moment ago */
++		WRITE_ONCE(dev->mtu, old_mtu);
++		priv->rx_buf_len = bcmgenet_rx_buf_len(old_mtu);
++		bcmgenet_set_mtu_regs(priv, old_mtu);
++		if (bcmgenet_init_dma(priv, true)) {
++			/* Nothing left to run on. Take the interface down so
++			 * that close and suspend do not tear it down twice.
++			 */
++			netdev_err(dev, "failed to restore MTU %u, closing\n",
++				   old_mtu);
++			netif_close(dev);
++
++			/* Mark the device present again, __dev_open()
++			 * refuses a detached one. The queues stay stopped
++			 * because the interface is down by now.
++			 */
++			netif_device_attach(dev);
++			return ret;
++		}
++	}
++
++	bcmgenet_hfb_restore(priv);
++	bcmgenet_netif_start(dev, false);
++
++	/* bcmgenet_netif_start() only restores the link interrupt */
++	if (bcmgenet_has_mdio_intr(priv))
++		bcmgenet_intrl2_0_writel(priv, UMAC_IRQ_MDIO_EVENT,
++					 INTRL2_CPU_MASK_CLEAR);
++
++	/* A link event latched while the interrupts were off is gone. Internal
++	 * PHYs on GENET v1-v4 are not polled, so resync the state machine.
++	 */
++	phy_mac_interrupt(dev->phydev);
++
++	priv->datapath_up = true;
++	netif_device_attach(dev);
++
++	return ret;
++}
++
+ static const struct net_device_ops bcmgenet_netdev_ops = {
+ 	.ndo_open		= bcmgenet_open,
+ 	.ndo_stop		= bcmgenet_close,
+@@ -3864,6 +3940,7 @@ static const struct net_device_ops bcmgenet_netdev_ops = {
+ 	.ndo_set_features	= bcmgenet_set_features,
+ 	.ndo_get_stats64	= bcmgenet_get_stats64,
+ 	.ndo_change_carrier	= bcmgenet_change_carrier,
++	.ndo_change_mtu		= bcmgenet_change_mtu,
+ };
+ 
+ /* GENET hardware parameters/characteristics */
+@@ -4217,7 +4294,11 @@ static int bcmgenet_probe(struct platform_device *pdev)
+ 	/* Mii wait queue */
+ 	init_waitqueue_head(&priv->wq);
+ 	bcmgenet_hfb_init(priv);
++
++	/* v1 cannot program the thresholds, so it stays at the default MTU */
+ 	priv->rx_buf_len = bcmgenet_rx_buf_len(dev->mtu);
++	if (!GENET_IS_V1(priv))
++		dev->max_mtu = ENET_MAX_MTU;
+ 	INIT_WORK(&priv->bcmgenet_irq_work, bcmgenet_irq_task);
+ 
+ 	priv->clk_wol = devm_clk_get_optional(&priv->pdev->dev, "enet-wol");
+diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.h b/drivers/net/ethernet/broadcom/genet/bcmgenet.h
+index ac1d0aab5d75..a4933a5d3823 100644
+--- a/drivers/net/ethernet/broadcom/genet/bcmgenet.h
++++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.h
+@@ -632,6 +632,7 @@ struct bcmgenet_priv {
+ 	unsigned autoneg_pause:1;
+ 	unsigned tx_pause:1;
+ 	unsigned rx_pause:1;
++	unsigned datapath_up:1;
+ 
+ 	/* MDIO bus variables */
+ 	wait_queue_head_t wq;
 
-To: Doug Berger <opendmb@gmail.com>
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-To: Nicolai Buchwitz <nb@tipi-net.de>
-To: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>
-To: "David S. Miller" <davem@davemloft.net>
-To: Eric Dumazet <edumazet@kernel.org>
-To: Jakub Kicinski <kuba@kernel.org>
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: Florian Fainelli <f.fainelli@gmail.com>
-Cc: netdev@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-
----
-Nicolai Buchwitz (8):
-      net: bcmgenet: ring the doorbell when the last frame of a batch is dropped
-      net: bcmgenet: let the caller decide whether to start the PHY
-      net: bcmgenet: allow a continuation descriptor without the alignment pad
-      net: bcmgenet: rename ENET_MAX_MTU_SIZE to ENET_MAX_FRAME_LEN
-      net: bcmgenet: derive the receive buffer length from the MTU
-      net: bcmgenet: pad transmit frames out of the packet ready window
-      net: bcmgenet: allow the MTU to be changed
-      net: bcmgenet: reassemble jumbo frames from status block fragments
-
- drivers/net/ethernet/broadcom/genet/bcmgenet.c | 368 ++++++++++++++++++++++---
- drivers/net/ethernet/broadcom/genet/bcmgenet.h |  21 +-
- 2 files changed, 342 insertions(+), 47 deletions(-)
----
-base-commit: a5e7d8e446af9803e37a3b6a4d416fb41178348f
-change-id: 20261002-nb-genet-mtu-nn-v2-402b5e6f306f
-
-Best regards,
---  
-Nicolai Buchwitz <nb@tipi-net.de>
+-- 
+2.53.0
 
