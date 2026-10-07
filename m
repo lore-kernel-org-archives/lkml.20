@@ -1,209 +1,71 @@
-Received: from sender5-pp-o94.zoho.com (sender5-pp-o94.zoho.com [165.173.182.94])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E6033B3C1F;
-	Wed,  7 Oct 2026 12:22:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.94
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791375760; cv=pass; b=h8iUCGJgJdQ336RVfSKt/y84fzuFT7kUYmwi6vgPV1+HOezwgJHH+CTkD0jng7zbQxGNHjYOtzu4HEtAW7lnurZlYXKbSCcbizuonk0IAc1n+POSLAFfUBPmnwYuMBbPJEIP20HjFznBeKNTHqzNDlBsldAgAHCpC5vgtUyMT9U=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791375760; c=relaxed/simple;
-	bh=5Hu7k3zor8Y0oaxsc5i78N1awXT+GQwHIa9Znf6Wu+4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZUIUXkqa7uQHYlYmm1FVSjyZbfp8JAaW9KPrfjmRHgtCLP9QoX40TfOS6P4A/S4pJMnOD8qLGl8ZIaSCgouRalsWY4d8CK8v5DgRfzemlnN4VQmx2tyca/iVus2mhfQoOhcs+x2UAMdLdJSC8B2bNZvfhKuQr+OsZK+AnAxIRXU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=ming.li@zohomail.com header.b=NyNxBEep; arc=pass smtp.client-ip=165.173.182.94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2FC4448B9D;
+	Wed,  7 Oct 2026 12:27:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791376057; cv=none; b=abH0f4apXQKWgCSDz/twOFoOyKLs8Y+NK3wsGlKaabx74HTnq3NYAxQOEnWJD1KkFc8ew+qzuP05KQdgj+LKdAfAoPgxumHC9Y4AlU70chkC6ytxxzR1sUoQOY+dE7uwJ3qPcM0zzJo986eu46wu8Rd6OaknzhNCKXEW4WeGeds=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791376057; c=relaxed/simple;
+	bh=U6GyF6lRYjgCEWmvhFJzyWk0fj3jt82DEmRclZ2q0GE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bnB5PsLkTbiGHThmqRnR+PXLoyGEGbCITYqBDjo+UXg1UQJTippX4LbqArh/iZntjwxtB5VxI8caGMfl/kJ0ddsPnkMqixCec1uBsU9+tRUsfcxdaY1yanNYzZKu6p4zqlTRBfMPjp2MffyrRrq1C6zsI8hFJ9fds8+Ym6MNOy8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=rjbxcm2+; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zohomail.com header.i=ming.li@zohomail.com header.b="NyNxBEep"
-ARC-Seal: i=1; a=rsa-sha256; t=1791375741; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=ae66PRcMLrO4V8kRLZLDcKWgQMdLohkasluzHz6OC3/J+Frx17aj9b0X7RSTOsEbY1FGavVXr12RIgYGNmI5Recy27bpNdjahtGtGP3WiLhZoLrZZ8ySB0NJvlse9zWpEFXMUZ+YxgEi0MJ91CsDERHUvn4jZ2oHAbpZVHmGz6w=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791375741; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=kWUH5zCnwtHKT9DajdHooYjxbLxwc75pG2nsy2b/FaQ=; 
-	b=Yzl2gUuxKLbK/pPdYMogUcQPVJwSWxIUJvSFaMLxGs9MQ+DCG0pO1y7+Br6O5VbNvL2iJ+EoasgcdUWIUff1F0BLF1UxI7Uk5X+L1yj3Zw/sws0cuAFXoEaa7TmnN1JJOZu1MokzIbMJUaTjDbnUN/l6D/mSX4+3sTB7f9wRoBs=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=zohomail.com;
-	spf=pass  smtp.mailfrom=ming.li@zohomail.com;
-	dmarc=pass header.from=<ming.li@zohomail.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791375741;
-	s=zm2022; d=zohomail.com; i=ming.li@zohomail.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Feedback-ID:Message-Id:Reply-To;
-	bh=kWUH5zCnwtHKT9DajdHooYjxbLxwc75pG2nsy2b/FaQ=;
-	b=NyNxBEepNGx7dDQmV+4mgPHNbkV8krL7gUZEz0D42t63fhpWzNzMWwLsqjAIqjfB
-	4H+HqTKBg4cJ6iCkfTVfmm6n3XzT0XEvl8uqYo2Qio/3yrf14NI6aDLbisib3WrHPBv
-	/yv8aQFOSQThUKYyvrjtWQvyYMTOIMCEVpfWtX4A=
-Received: by smtp.zohomail.com with SMTPS id 1791375740669490.5174696368306;
-	Wed, 7 Oct 2026 05:22:20 -0700 (PDT)
-Message-ID: <4d2c765a-0d77-49f9-8e6e-4d80137df513@zohomail.com>
-Date: Wed, 7 Oct 2026 20:22:12 +0800
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="rjbxcm2+"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=dufBJ1mHa9n28EXq+40OD+8yYER3Wv9RK13RjqUDC34=; b=rjbxcm2+M8g/K9G5qLyXzzB379
+	mBG2qOMUB8XtymbdtE/8ricwS3GhO6KFjeOsRkhasqG6ARBerQaBoxHe/7fWOHvRu7U8KQZ6jJ0RI
+	JBL1CySC5s5qmEbWJruIEk13OopzQ3rV/YvYsevFmV1E4W9gDgvYmkgX42taSIg1kyo8=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xEQk0-009SAY-4M; Wed, 07 Oct 2026 14:27:24 +0200
+Date: Wed, 7 Oct 2026 14:27:24 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Aldo Ariel <qwe.aldo@gmail.com>
+Cc: wei.fang@nxp.com, frank.li@nxp.com, shenwei.wang@nxp.com,
+	imx@lists.linux.dev, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	sashiko-bot@kernel.org
+Subject: Re: Re: [PATCH net v2] net: fec: reject oversized fragments before
+ bounce-buffer memcpy
+Message-ID: <36643418-851b-4cbf-ab73-8e3fa09f8715@lunn.ch>
+References: <a230cd62-db31-4128-acfa-93501d30aa39@lunn.ch>
+ <CAP48HfuR9_d2KZ7ygG4fMq5ekSb2zaaiEzo_fq_mOWODN5Os6A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v14 02/16] cxl: Share CXL port upstream PCI device lookup
-To: Srirangan Madhavan <smadhavan@nvidia.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>,
- Davidlohr Bueso <dave@stgolabs.net>, Ira Weiny <ira.weiny@intel.com>,
- Jonathan Cameron <jic23@kernel.org>, Vishal Verma
- <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
- alwilliamson@nvidia.com,
- Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
- Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
- Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
- linux-tegra@vger.kernel.org,
- Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-References: <20261001092227.3004747-1-smadhavan@nvidia.com>
- <20261001092227.3004747-3-smadhavan@nvidia.com>
-From: Li Ming <ming.li@zohomail.com>
-In-Reply-To: <20261001092227.3004747-3-smadhavan@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Feedback-ID: zu08011227bd73bd4de56559d6cf118e6a000083ad411aff8fb21b81e6504122147652043bead2f787d0c34e:ZohoMail
-X-Zoho-CM-AccountID: abd763e7b9fa23acf4f42a44f9876d2d993e05abdb9290f9ccb1008c977bf7f0
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAP48HfuR9_d2KZ7ygG4fMq5ekSb2zaaiEzo_fq_mOWODN5Os6A@mail.gmail.com>
 
+On Wed, Oct 07, 2026 at 05:17:20AM -0700, Aldo Ariel wrote:
+> Hi Andrew, Wei, Shenwei,
+> 
+> Thank you for the review. Shenwei confirmed that bounce buffers are
+> only available on i.MX28 and cannot coexist with jumbo frames. That
+> means the overflow path I described (jumbo fragments exceeding
+> FEC_ENET_TX_FRSIZE) is not reachable in practice: on i.MX28 the
+> max_mtu stays below the bounce buffer capacity.
+> 
+> Given that, should I respin as a defense-in-depth guard (with the
+> goto label fixed per Wei's note), or would you prefer I withdraw the
+> patch?
 
-在 2026/10/1 17:22, Srirangan Madhavan 写道:
-> read_cdat_data() resolves a CXL port's upstream device to its backing PCI
-> device. HDM cache updates need the same mapping.
->
-> Factor the lookup into cxl_port_get_uport_pci_dev() and return a referenced
-> PCI device to make caller ownership explicit.
->
-> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
-> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-> Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+I suggest adding a comment somewhere to explain that jumbo frames and
+bounce buffers are mutually exclusive by hardware design.
 
-Reviewed-by: Li Ming <ming.li@zohomail.com>
+We don't use defensive code, because that suggests we don't actually
+understand the code!
 
-
-pci.h provides a __free() based cleanup function for pci_dev_put().
-
-I think you can use "struct pci_dev *pdev __free(pci_dev_put) = 
-cxl_port_get_uport_pci_dev(port);" and drop all pci_dev_put() below.
-
-> ---
->   drivers/cxl/core/core.h |  1 +
->   drivers/cxl/core/pci.c  | 19 +++++--------------
->   drivers/cxl/core/port.c | 26 ++++++++++++++++++++++++++
->   3 files changed, 32 insertions(+), 14 deletions(-)
->
-> diff --git a/drivers/cxl/core/core.h b/drivers/cxl/core/core.h
-> index 35eaf636adc9..983d7690c3a5 100644
-> --- a/drivers/cxl/core/core.h
-> +++ b/drivers/cxl/core/core.h
-> @@ -157,6 +157,7 @@ long cxl_pci_get_latency(struct pci_dev *pdev);
->   int cxl_pci_get_bandwidth(struct pci_dev *pdev, struct access_coordinate *c);
->   int cxl_port_get_switch_dport_bandwidth(struct cxl_port *port,
->   					struct access_coordinate *c);
-> +struct pci_dev *cxl_port_get_uport_pci_dev(struct cxl_port *port);
->   
->   static inline struct device *port_to_host(struct cxl_port *port)
->   {
-> diff --git a/drivers/cxl/core/pci.c b/drivers/cxl/core/pci.c
-> index 9d807c1a002c..99c8b02d42e5 100644
-> --- a/drivers/cxl/core/pci.c
-> +++ b/drivers/cxl/core/pci.c
-> @@ -564,26 +564,13 @@ static unsigned char cdat_checksum(void *buf, size_t size)
->    */
->   void read_cdat_data(struct cxl_port *port)
->   {
-> -	struct device *uport = port->uport_dev;
-> +	struct pci_dev *pdev = cxl_port_get_uport_pci_dev(port);
->   	struct device *dev = &port->dev;
->   	struct pci_doe_mb *doe_mb;
-> -	struct pci_dev *pdev = NULL;
-> -	struct cxl_memdev *cxlmd;
->   	struct cdat_doe_rsp *buf;
->   	size_t table_length, length;
->   	int rc;
->   
-> -	if (is_cxl_memdev(uport)) {
-> -		struct device *host;
-> -
-> -		cxlmd = to_cxl_memdev(uport);
-> -		host = cxlmd->dev.parent;
-> -		if (dev_is_pci(host))
-> -			pdev = to_pci_dev(host);
-> -	} else if (dev_is_pci(uport)) {
-> -		pdev = to_pci_dev(uport);
-> -	}
-> -
->   	if (!pdev)
->   		return;
->   
-> @@ -591,6 +578,7 @@ void read_cdat_data(struct cxl_port *port)
->   				      CXL_DOE_PROTOCOL_TABLE_ACCESS);
->   	if (!doe_mb) {
->   		dev_dbg(dev, "No CDAT mailbox\n");
-> +		pci_dev_put(pdev);
->   		return;
->   	}
->   
-> @@ -598,6 +586,7 @@ void read_cdat_data(struct cxl_port *port)
->   
->   	if (cxl_cdat_get_length(dev, doe_mb, &length)) {
->   		dev_dbg(dev, "No CDAT length\n");
-> +		pci_dev_put(pdev);
->   		return;
->   	}
->   
-> @@ -625,11 +614,13 @@ void read_cdat_data(struct cxl_port *port)
->   	port->cdat.table = buf->data;
->   	port->cdat.length = length;
->   
-> +	pci_dev_put(pdev);
->   	return;
->   err:
->   	/* Don't leave table data allocated on error */
->   	devm_kfree(dev, buf);
->   	dev_err(dev, "Failed to read/validate CDAT.\n");
-> +	pci_dev_put(pdev);
->   }
->   EXPORT_SYMBOL_NS_GPL(read_cdat_data, "CXL");
->   
-> diff --git a/drivers/cxl/core/port.c b/drivers/cxl/core/port.c
-> index 625e4aa427db..5dc2815d82d8 100644
-> --- a/drivers/cxl/core/port.c
-> +++ b/drivers/cxl/core/port.c
-> @@ -34,6 +34,32 @@
->   static DEFINE_IDA(cxl_port_ida);
->   static DEFINE_XARRAY(cxl_root_buses);
->   
-> +/**
-> + * cxl_port_get_uport_pci_dev - get the PCI device for a port's upstream device
-> + * @port: CXL port to map to a PCI device
-> + *
-> + * Return: A referenced PCI device, or NULL if the upstream device is not PCI.
-> + * The caller must release the returned reference with pci_dev_put().
-> + */
-> +struct pci_dev *cxl_port_get_uport_pci_dev(struct cxl_port *port)
-> +{
-> +	struct device *uport = port->uport_dev;
-> +	struct device *host;
-> +
-> +	if (is_cxl_memdev(uport)) {
-> +		struct cxl_memdev *cxlmd = to_cxl_memdev(uport);
-> +
-> +		host = cxlmd->dev.parent;
-> +	} else {
-> +		host = uport;
-> +	}
-> +
-> +	if (!host || !dev_is_pci(host))
-> +		return NULL;
-> +
-> +	return pci_dev_get(to_pci_dev(host));
-> +}
-> +
->   /*
->    * The terminal device in PCI is NULL and @platform_bus
->    * for platform devices (for cxl_test)
+	   Andrew
