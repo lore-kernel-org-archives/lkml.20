@@ -1,192 +1,252 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011042.outbound.protection.outlook.com [40.107.208.42])
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011022.outbound.protection.outlook.com [40.107.208.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20B9C3446CA;
-	Wed,  7 Oct 2026 03:48:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65887369D47;
+	Wed,  7 Oct 2026 03:52:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.22
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791344922; cv=fail; b=s9QvOOCZE5THxA2o4bLuDvNR7Jv2SDnLo6EmtfRCwUGO+FtObVO5N9bzJEedYmSRPaXDm1xe+/pTp+gCUtUxSAueSQD0CcjMko+9jgnCUfiAEsxpQa5SAB9LvsG6E7FxDNCPJNT8E0O0o4PuiY0gdftiY0nPK1B2i2YL5xz3yHM=
+	t=1791345131; cv=fail; b=eteEWnOStpQ2IrwQ2n0y7aJI0cebu8TKUN/qtNjQ1ufNQHRD0e3arMZJ24Lt8IBsioqThHEFOiAikwRIgAzSzVXXHDbgkLASUmJKaA5ix8gdVyVgr9It2zdgfmV5XGjiCzhg4gWxXbmsGoSVq2GfX+g5IAZ5/wsg0/fA+CqCaBU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791344922; c=relaxed/simple;
-	bh=PDTfDsex8TuwW6O+BqCfkmeQxuAtbOUelrFDZW+v0QM=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=YomCdXfTwq3jXow8YGpq2AdLb3YUUz7QX3GsaG+v0SyPLe09EZyP/YImP79ltvEtpAOWwNSGr5dMf6Y8iVRX9eyRr+j28GArYs7XGXJcsuBoOkLHyNYEnrTWyfbqeIFPg/bYbvoKPk4SbpEuHK/twa1UsQDxeA8r8zWl45B5MWg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=TNpvaxm0; arc=fail smtp.client-ip=40.107.208.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1791345131; c=relaxed/simple;
+	bh=ctgq2OTu6zhisIKWUDw8cpqngQCApJFVZb+9FcfjZIA=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=exRyhU2H2DKbgtAEJ1nVMzPQPsfm+5CoVwy7UnsB/ZoiaQGzyc/mbnMjy2UmqwTQlPv2kdLzWrNa8w50YE4uE2FDBLbdl5taE1oIp5gARwrPLaueRNliS9kViXrLUEWAEi81/XJjK+qZJFoIUBkERZKo8iTRmIaw/YYDhuaabnQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=OAYGMNsg; arc=fail smtp.client-ip=40.107.208.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="TNpvaxm0"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="OAYGMNsg"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tM8mqhDnlTnziSLeM5xn6tmYS9uOS4EeEJMtsI1pzu1OYrU+l6LKOuizCW2Ohn03XBZHU3bIWqfIUAb6wPNBBh2XCkTXNiKu0bYNBdRTPZXJF583SnWGGszn4xUAkysSGzrGESIOzlSYEEa4i9mFw/yHPMyYbmgklt3mDBMhONfZAgdPaxDe7PEa4+m2CE45v6eicwhPemSgPyfgwjFNfDbTsBHVJClORhgnGJefywKpEWim2feaH0DxBO3pZgDs+cpCBDKCTJOZVoqYvQgiYoqg6b5BghxbuG7I8cHYs+9qb+7ZaMnq2nNi9Tx5R8LKjbM1tCGL3eJ9IdFFsyjJsQ==
+ b=JtlEvfQTccbbwetc/XuwGNtUgF4q+cxYSO/z4Um4bSTj32VGiGOpvofvT0d0ddOASKiGRoGQZNz14oSmJ9I//wqAUzLsfutPGW3X6uKnf7nfdEyaOJE97/uegotJmFuwZeqJJXQaqbMYkJAnPf9rMzXY/7HaO84xneWPTBVjIMy1o38ZW3lTj5z0jBeumHuuwnLCcO02XLOS8W0BllQ67i0xXXvFoY2/uMyEaPRhhduBNi6qtcu3CVAwdhSzlUq4n5TFft66BmLNick5IwtJJu4oFF02KfYuOtCmNbXVBdWo/z9G0+dyvpXQgMFGPhOR5OF7bW0lf4QIPKCqKCciuw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0zPgaAStAQIEjux19u433yL9prUuWq9T4Ax4Xfdp9+g=;
- b=lcchXhsyryLuhuC0Cq7zKrvv/e1Kt89hMYyTFHOVmb4SdxHtKuUKKxDdSJenR9DFTwbxF8CU2VbXJ1HAOTuOZKtTGXH22RuvsiAjowe70lAXeozJzq+98nzRBikq9bmh+4/iRfeilDlWvjXhytmGdWUHgcEDFi7IdbMZDZQwx1NwOiK0+p6r4Qe0K7AHYvpTTi0FrpUP92poniVYEv1elZqIpNkOMcNGhu0bZlX3tqAHUAkEdJzVBhr2WPzJI6SFkBhSuXJaQuza6fSHb/k0EgLcb3s91Xr2BXi0ya08IWGsPQf8oU0NWkerlK13nNTLthH0zzJTt6eRY94G2oAWoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=vZ+DC0JoMWhS7jo9SIJsTqdVce7Oa/joX/iBL2Qpb8M=;
+ b=vquob4HHr4JAe9hPZ8uMCYwODHgzadTOoxQ8jVCLq23b0QYdpkAIAblIaZPRrYRWydaqLDYSRkDSIx57MJcoXuSeNUOriofaCxOLmwVywiyZx91NlUj5clnpeLaRt8rxRH+LoL9raO6nEiuYCe5Cojr03e37+B82OUrtbo0w1bfZKIWFBgELcBIXKghV++qVOLCLZ9IrlLu5z4o0ceWXmBrNcdIhlRzA+MoUMvod0+YXbin2oYSKceMIbANFTA51rMUjTr71DZbbvU+1CA7JDvBJ0Tt4yDtx/0wMm+VFRwlkOcrOEPpJV2jwmqOcY0M9KbClUnH0kKc4mLLzegcLhw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=infradead.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0zPgaAStAQIEjux19u433yL9prUuWq9T4Ax4Xfdp9+g=;
- b=TNpvaxm0wD/50JbnzkijlD+7wFvv04oz/kTEfIXn3OYapz5hfa8wTtt41Sstq49vJxcRK/4F/EdsEpq0NHvuVGpa4EaG7iDuLuCUnPbFSyKX9qCUOYPiNg625/Y4ARVSQVXt4xhLQm4k/1/hIJqXjInuHNhnRGLfWOccOTuA9cw3e492ZtdoKIrMsU0CcAJIJKwjlf49SyEecVtr51CVHA1qvQ63hzbTMpI0XyO4wvfk/GsEwKgN70sq1EtTwkJniaULYROeKmQu5TomLUHACuA2adDfU/7NZKkQWQnUTwJUFKXkqUged6iK4W+4a42AvxHd4Jpfs2UlEwA5bHgwZQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by SA0PR12MB4446.namprd12.prod.outlook.com (2603:10b6:806:71::18) with
+ bh=vZ+DC0JoMWhS7jo9SIJsTqdVce7Oa/joX/iBL2Qpb8M=;
+ b=OAYGMNsggaWudo2WmxfLDOr4m5v2LO0dvdx8j5vOiQQRkQgVSYvz5OmdpJEIMWDbIZLR7tYCt4Bs7hxtJvmahdwIIamG74QK6hPvMDwxyfqhDkN4400rSc5NIiE5mAyURSQLA1ePGfmxhwUTvlvUIsqaOwWJqP3MQAtNmLFjWyg=
+Received: from BLAPR03CA0010.namprd03.prod.outlook.com (2603:10b6:208:32b::15)
+ by DS0PR12MB7850.namprd12.prod.outlook.com (2603:10b6:8:146::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
- 2026 03:48:37 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0472.016; Wed, 7 Oct 2026
- 03:48:36 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 07 Oct 2026 12:48:33 +0900
-Message-Id: <DLYARWONCNC4.16TY7TATZG2DX@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
- <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v3 4/8] gpu: nova-core: add NVKV encoder
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-References: <20260928-b4-nvkv-v3-0-f04504c262c2@nvidia.com>
- <20260928-b4-nvkv-v3-4-f04504c262c2@nvidia.com>
- <DLYAO1NDXB2L.3NUUCWAWFK188@nvidia.com>
-In-Reply-To: <DLYAO1NDXB2L.3NUUCWAWFK188@nvidia.com>
-X-ClientProxiedBy: TYWPR01CA0028.jpnprd01.prod.outlook.com
- (2603:1096:400:aa::15) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.19; Wed, 7 Oct
+ 2026 03:52:06 +0000
+Received: from BN1PEPF00018073.namprd04.prod.outlook.com
+ (2603:10b6:208:32b:cafe::3a) by BLAPR03CA0010.outlook.office365.com
+ (2603:10b6:208:32b::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Wed, 7
+ Oct 2026 03:52:06 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF00018073.mail.protection.outlook.com (10.167.245.201) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.496.14 via Frontend Transport; Wed, 7 Oct 2026 03:52:05 +0000
+Received: from BLRKPRNAYAK.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 6 Oct
+ 2026 22:51:59 -0500
+From: K Prateek Nayak <kprateek.nayak@amd.com>
+To: Peter Zijlstra <peterz@infradead.org>, Chen Yu <yu.c.chen@intel.com>, "Tim
+ Chen" <tim.c.chen@linux.intel.com>, Ingo Molnar <mingo@redhat.com>, Juri
+ Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>,
+	"Andrew Morton" <akpm@linux-foundation.org>, Arnd Bergmann <arnd@arndb.de>,
+	<linux-kernel@vger.kernel.org>, <linux-arch@vger.kernel.org>,
+	<linux-s390@vger.kernel.org>, <linuxppc-dev@lists.ozlabs.org>,
+	<linux-mips@vger.kernel.org>, <loongarch@lists.linux.dev>,
+	<driver-core@lists.linux.dev>, Huacai Chen <chenhuacai@kernel.org>
+CC: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
+	<rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman
+	<mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, Shrikanth Hegde
+	<sshegde@linux.ibm.com>, K Prateek Nayak <kprateek.nayak@amd.com>, "WANG
+ Xuerui" <kernel@xen0n.name>
+Subject: [RFC PATCH v3.1 04/13] LoongArch: Configure sbm topology during SMP preparation
+Date: Wed, 7 Oct 2026 03:51:35 +0000
+Message-ID: <20261007035135.3819-1-kprateek.nayak@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261001192849.74788-5-kprateek.nayak@amd.com>
+References: <20261001192849.74788-5-kprateek.nayak@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|SA0PR12MB4446:EE_
-X-MS-Office365-Filtering-Correlation-Id: ec5bf76e-d262-45e5-14d0-08df2425ddc1
+X-MS-TrafficTypeDiagnostic: BN1PEPF00018073:EE_|DS0PR12MB7850:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4d264537-46a1-488c-0378-08df24265ac7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|7416014|10070799003|376014|1800799024|56012099006|11063799006|4143699003|10067099003|18002099003|22082099003|6133799003|3023799007;
+	BCL:0;ARA:13230040|23010399003|7416014|1800799024|82310400026|376014|36860700016|921020|10067099003|11063799006|22082099003|56012099006|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	90M6xq9t6rMBN9k2odk0U3nOomx8ta2OFdCHJG4nNYzeSlSEoDZ/GYYK4ZwdD0YBIkAmLikxfrBUaDBFGMN3YuqDaNLCUfIMcWoRB00/Ps01sOyiXdHLqlxWRulyf7w95OygPe8UMFrZxSwo9YpE2yfWDlpoUSPaTuCUEVk/H4NWm5N6k7MpndoqMga0gmyt6WJYHAvq130I3fmBKcpdN29cgb0GkRdQ8cW4heWAqyXHJM8o5PZSYbNarTy3uKedBvxf0jABJrJXWtdEcb7dsWSrkRSkYrhL1S4FlLF49tQLP8XLQUnfSPu4E7Z+0Y8nDu/efTQ9e69FLsSiOUaBJaE7x8UzDNh0TWK164N+S9SjJFL85x/qlCKjSt1ofL6a5IK4B7YbBKCI5gd3BuDmsT5Spwr8xXZ3iAOxnHd/bV93tkPeids+70XmjPDTqvC3aCUq9z5S5cV08hyV1wc+0+eQkfMIl0SvkFpEvJBF+FFVYJmnXWak5Bgp6ObCW6PmK+u8jvlcFPAat7lmdkx8mHtW8pUnIN+gfXYC+0fvErWO82PmbmMljbKnSkmZHj4LKriOJrB2tebmHICc8BkWcLJ9thpUziVJoPz8NKR5EJK3iKf6lLOBUbbSMEXGwpkksTJ0Ixb5eITOAyy7z83FG1KNCU5399/v6qL7r84Yyos=
+	IRkiWmf3yyh7o284aps0SmufpgRetKtwzV6/Pq5yNtVBM0MQ9IXbL2FNkxSdNH9/IMU7dViI+us3/0JoHAu1b0bzXoaNPQ9IPQMpkz3UEqPxi4MNplJCceDlaX5CXJym0It4L0NsOK/6s4S+MTIspBLBza7EHNHLEA/VXxE1bqqaNvU8Lf956W5ryLYR4PUMxO8PDaOLyC55L+xp3grpHJe5/dwWtMPdiB53vICGOeRSdTj/W8/vC11ZfBBUHIaop1Q9f1C28GnJfvW93nyGdITWOIpjslcaXFdAliPBAvYYbVtuQz+Ji1xC7mYUNbHtpRbS4dYbWgzaIreW1tr1Ol17NNB2Xj0mvG9fxFUJTw/4UFngpO6qHG8EcKBTPbbZWEpaH80HFktLlis+Zi5aEKvSakhvbUnUdp/yTQQhltmkwN9qRsXoFk0tswR6LHybqQ4QpDt520+2Rjg98fbxc9ti8CtLSGwi9wXHdPmF/hBsmtA4jNwhReQDK3BBXz2aGkek+xBS8IsEwY948on1+TEBIShyUfuQcsiaV+bjjLKqhWuMYWr/oU30f6jSlWnLVAm5E8Ksvvvrw926GhtEtT0UeLpqkppcKmDkid5vDH0XL9jKyPhwA6/zW6XdsmL0W1WCr5TUOi8tMP6+2v8HehBiQIFTpt+Ze7CjXWa56hBMxV2Gd6LVw+yG2mEj0PHccvK0cF6dWony3H/a2HluDuDKq9VRK+y+tRbeKipIPw5J4ICImtwHRFc2eDOztLQX
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(10070799003)(376014)(1800799024)(56012099006)(11063799006)(4143699003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(1800799024)(82310400026)(376014)(36860700016)(921020)(10067099003)(11063799006)(22082099003)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NVhBcUsrZnhNa1dWMHhvWndCbitxOXh4WjAyUG1CNlBZK3hlc1J0VHJ1L1Fz?=
- =?utf-8?B?Skg2WlpnczBnVDBEcmdlQVdpaCtvd2hoYWZ1WE5sVkwrMWF1Q3pGSTV4YmQ0?=
- =?utf-8?B?b0ZNQm92SG1LQWR1Sml5UVJXakNPTmFGS0lOaUhzeGNVa3gzRVVHcVFCQ0Vl?=
- =?utf-8?B?eVI0bDY3NHhycHlWdllnMG1rOUFnK0FJQlJNcU9nVm1QOFRBYUFXQ1VlUWlp?=
- =?utf-8?B?bU5kekVTMVJVUk1KQlBCVWNqV2xuaGlLaUtkZWUvWitCMDVISlRJS2pmZnhr?=
- =?utf-8?B?SmdjUFpXM0RRbVVVS0UxdDhONjRNNkxVM0VrUkM5U1d6QjloYmoxUmVVY0Ns?=
- =?utf-8?B?VERpVHBaYy8rK1c4aHdQV1VXVHRFZDhyMldFWUU0RWFEdWh5WTRpSmJpU0xr?=
- =?utf-8?B?MVRvVVVPekhQNUE0cGxWeVViQld5em5HclBuampIYVA4SHhjSU1CaHBCRExp?=
- =?utf-8?B?NW5oWXFSTXJBS1VSSVhSQWxPc2QzYlIxNTl0T0VHZEdIREhhWjYzald2ZW14?=
- =?utf-8?B?K3lWNm1RSGNsczFvYVZJclhrbHVuUUZvM0RsaEZSTzU2Y0lqZHovbjZQQUp1?=
- =?utf-8?B?dnhkN0xxUVR5bE1mYUhScGl3Zm90aTZyeTdlMldKRndvaHhOUmQxUEZpRmR6?=
- =?utf-8?B?aldMN3V6NVpMeGZjc243aVhvRnhxR1REQXU0L1ZIY1hwUnJKV0Q2a0lLdFRm?=
- =?utf-8?B?eWF1VGFadWZhZVVjWFdjODRuQVQzbnpoVk5tY2FaMUNZSndnVTJYdEdwR3hh?=
- =?utf-8?B?ZkI5ckdSZDA2eElyaWJ2REkyZC9TR1NKQVlUdTlMb2ZrUVUzeWhjOWdFTWFq?=
- =?utf-8?B?SFNXZE5OSFlOWWJYL3FoRXNjdkZrUy84OEVlUjZCZjkxa3A3bWxCNEt2dU1t?=
- =?utf-8?B?VzlkNVVBZVpmQ3JhVzl6dnBKejhLWUxyb2VlOHlMUmpDZmx6U2RTNE1ITEVx?=
- =?utf-8?B?OVVaeDdxK3VwV0FtSnRPR0NaNytYdm1yTXl6UFZEaXFwc2d6dE5od2ZNVE14?=
- =?utf-8?B?T2hSZkVKVWpBeTdieWthZlgzL2svYVdmejc0cXpsVUlSUUZCdTFmSjRYWmd0?=
- =?utf-8?B?NUwrZHRiUy9uQjhNTlN5Ym9GRmRWNTFFeUZqaUVYeFZDR0dmOTc2VG5UTk90?=
- =?utf-8?B?Q2VjbTNsdUNSWnUxblMwMXpUOTRqUzlOWjk1YXV3OUJQZTZkaThwNjdKVkdo?=
- =?utf-8?B?K1k0VVBXWVA1aXBYZ3BubExzbCtrWGc5WjdSNGYyOUZjV1RNdEZXWTR1c3hq?=
- =?utf-8?B?TzlTejV2QUdKMXBqa0xBNEN0bUMzZXpTUXowYlJ3QXhTaitSY2k2Z0N6YnJG?=
- =?utf-8?B?ZHdYUE9NaHRZK0U4K0oxRHA5c2R3SENQdXhsQ3FZVGRWY09vZWY3L3FWRU4x?=
- =?utf-8?B?K0k0T2dDK3JSN0hOQ1UxVWZrSWNVYWt2Q2wwRmgwODBoWEZvSXhYVnZHNVpx?=
- =?utf-8?B?eHZaYVozMnN2ZUVWVWtBeElldzdwUVI5ZUJ1dGRTaGY0bDlQV3dyV09rbi9H?=
- =?utf-8?B?eGhOdExIR0hLVUpnMGwvUTRsaW1lTHpYYkQ1bGpmbUlRT1JKczNVN005QkpP?=
- =?utf-8?B?TjhwLzk5U0VqS1F0aTVjbzZEV2kzU1BncUhycENJVjFaTmxmVlNrdGJ1SytY?=
- =?utf-8?B?YzFGMTRJZlZNeGhWNzRwRlZMdGxHNUZvbzV6MlJkUzcyZ0dqY3FtUHJaVzZn?=
- =?utf-8?B?MDVpTnFIT2JIbjVsMllFRUhhbWlUY095THJ4bXM2RWVIYy9PdmUrRDVDRlRF?=
- =?utf-8?B?MGR3b3dPR3RleXRVUkR5WGowRVlKRHM4QWRPK05UdUs5V1ZLc0pVRGJyVlYz?=
- =?utf-8?B?cVNYTXNwbE15VzRxMFdrVGpmZk5WVnFNeEpJMlZqM0RoY0pJQm9oQS8vdGxm?=
- =?utf-8?B?UW9rTmY3Y1MvYWRWQklQYzFKeGVENGcvVFZmdTVtRXBUNUhtV05nYjVOTFRS?=
- =?utf-8?B?YmRIdWhhSGRGelJQY3QxQnRSREM3VHBVOGtLTzVDSVZNVTk0c1VwaFRHMlUv?=
- =?utf-8?B?MlJzcUJpTzFpbktybkFLUElQQUp4d2ppNVRobHVlOHZydG9iaW5aekRmNnB4?=
- =?utf-8?B?TTZXQ1MvR2t1SWltb0RScU1rQnc5L3U2a3ltSzloMW1tUHlmWHVhaUFtbW93?=
- =?utf-8?B?b2E2L0wxaGVLVDZLT2o3ZDVIM2EwSWFDUkFMelNST3RVeDFqUWNEeENvemFM?=
- =?utf-8?B?cmxkUFNvMk9zM1hGVlB5aTdwM0dQMUs1bnUybVpxM0dvQzNDVjl4QWNJOCs1?=
- =?utf-8?B?cFY3ditlOUQxa0lMcnh0N0kvWG0rSWJmbnZyNUZtNEUvV0tzcGFVeDZCam5J?=
- =?utf-8?B?QzhlTEZ3bWRzYm9nTHdqRFYrdmluRkw1UHZGTmxkdGNZRWdkZkhNUzNUdnFu?=
- =?utf-8?Q?iUggRTd3oWogxUToMZgBEyER6LTka7vcSiapYxAZRR1L/?=
-X-MS-Exchange-AntiSpam-MessageData-1: H6SoGcXXkDJ/CQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec5bf76e-d262-45e5-14d0-08df2425ddc1
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 03:48:36.4361
+	o8Yfs8RA2sGVSuVhTXM8TpUpZxt5pX7IfTK/UYInrW0/M6zOlDTuODa3jqa0B/Wu2027v/nQu7AH+NIlH7TozFi1cKiI4u8GgTuNcvL7WQfPBGf4uAfuIY3MJLpTdBC1AdEMJqxLCaNsKLihHyuHHzzvHf46NQUx53KFpPm1lNUokMVM3u3cBhrEgXHSU1Lolw6dUtptaISc2rHuOYNdyPmcxu807fjATfeGkiGmFj3ZYa8AcQeNzJ2rBIY/lrRZZxZqbMM+P5sNL1NyKzRvsrketuVrAWQdGSKNeYBqsajLe2LB95cWpjzSwD0mWclgZizEMWAKmWQGcVmA0PLCawz5zhIo36BYg+zSwUsPnJgiE7oKmqPJlzsgwEsCFx/H1Evb5ZcUuMx1B6znKhwxmpbUxA3coYqBWJHFiESv/Dk52Yf0iI9Ewtk17sEQVIkz
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 03:52:05.9817
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Oh94morPZw8xGMcg7PsvWwsR3akdRMSQjh33oK7MUB2PhzAJjzwfCPl+Fv+ZiwithwtMbiCsKXdzIfhJeyGEpg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4446
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4d264537-46a1-488c-0378-08df24265ac7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF00018073.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7850
 
-On Wed Oct 7, 2026 at 12:43 PM JST, Alexandre Courbot wrote:
-> On Mon Sep 28, 2026 at 5:42 PM JST, Eliot Courtney wrote:
-> <...>
->> +impl EncodedStream {
->> +    /// Creates an empty stream.
->> +    fn new() -> Self {
->> +        // INVARIANT: An empty stream's byte length is 0, a multiple of=
- `size_of::<u64>()`.
->> +        Self(Vec::new())
->> +    }
->> +
->> +    /// Appends a single `u64` to the stream.
->> +    fn push_u64(&mut self, value: u64) -> Result {
->> +        // INVARIANT: Appending `size_of::<u64>()` bytes keeps the byte=
- length a multiple of
->> +        // `size_of::<u64>()`.
->> +        Ok(self.0.extend_from_slice(&value.to_ne_bytes(), GFP_KERNEL)?)
->> +    }
->> +
->> +    /// Appends `data` as bytes to the stream, zero-padded to a `u64` b=
-oundary.
->> +    fn extend_with_padding<T: IntoBytes + Immutable + ?Sized>(&mut self=
-, data: &T) -> Result {
->> +        let bytes =3D data.as_bytes();
->> +        let padded =3D bytes.len().next_multiple_of(size_of::<u64>());
->> +        // Reserve so that a failed allocation can't leave the invarian=
-t violated.
->> +        self.0.reserve(padded, GFP_KERNEL)?;
->> +        self.0.extend_from_slice(bytes, GFP_KERNEL)?;
->> +        // INVARIANT: The padding ensures the total length remains a mu=
-ltiple of
->> +        // `size_of::<u64>()`.
->> +        Ok(self.0.extend_with(padded - bytes.len(), 0u8, GFP_KERNEL)?)
->> +    }
->> +}
->> +
->> +// The Deref to `&[u64]` relies on this alignment guarantee.
->
-> nit: `Deref`
->
-> ... and that's all I could find on this patch. I particularly like how
-> the examples have turned out!
+Configure the sparsebitmask (sbm) topology for multi-node processors
+once SRAT is parsed and early_cpu_to_node() mappings are stable.
 
-... although maybe the Sashiko comments are worth considering too. Nova
-does depend on little-endian, but it probably wouldn't cost us much to
-e.g. call `to_le_bytes` instead of `to_ne_bytes` to make the code more
-portable.
+The _PXM mappings are not reliable for disabled CPUs, and the worst case
+scenario is considered where the disabled CPUs can either form their own
+NUMA node (increases num_instances) or joins the node with the largest
+CPU count (increases max_cpus_per_instance).
+
+Since the final topology cannot be predicted at boot time, both are
+incremented with the count of disabled CPUs to account for topology
+going either ways.
+
+The sbm core will limit traversals to the nodes that are onlined and it
+is acceptable to overshoot the final limits.
+
+Signed-off-by: K Prateek Nayak <kprateek.nayak@amd.com>
+---
+Changelog rfc v3 .. rfc v3.1:
+
+o Alternate scheme to use disabled CPUs to find the worst case topology
+  instead of relying of incorrect changes to SRAT parsing. 
+
+This was cross-compiled and tested on QEMU with:
+
+  qemu-system-loongarch64 \
+  -machine virt \
+  -m 4G \
+  -cpu la464 \
+  -smp sockets=2,cores=8 \
+  -bios QEMU_EFI.fd \
+  -kernel arch/loongarch/boot/vmlinuz.efi \
+  -initrd ramdisk \
+  -serial stdio \
+  -append "root=/dev/ram rdinit=/sbin/init console=ttyS0,115200" \
+  -object memory-backend-ram,size=2G,id=mem0 \
+  -object memory-backend-ram,size=2G,id=mem1 \
+  -numa node,nodeid=0,memdev=mem0,cpus=0-7 \
+  -numa node,nodeid=1,memdev=mem1,cpus=8-15
+  ...
+
+The incorrect SRAT parsing changes from v3 Patch 03/13 is no longer
+required with this alternate fallback.
+---
+
+ arch/loongarch/kernel/smp.c | 52 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 52 insertions(+)
+
+diff --git a/arch/loongarch/kernel/smp.c b/arch/loongarch/kernel/smp.c
+index d4b5d1b6bb01..6cf1f5ada038 100644
+--- a/arch/loongarch/kernel/smp.c
++++ b/arch/loongarch/kernel/smp.c
+@@ -15,6 +15,7 @@
+ #include <linux/interrupt.h>
+ #include <linux/irq_work.h>
+ #include <linux/profile.h>
++#include <linux/sbm.h>
+ #include <linux/seq_file.h>
+ #include <linux/smp.h>
+ #include <linux/threads.h>
+@@ -73,6 +74,10 @@ static cpumask_t cpu_llc_shared_setup_map;
+ /* representing cpus for which core maps can be computed */
+ static cpumask_t cpu_core_setup_map;
+ 
++/* sbm setup data - only needed during init */
++static cpumask_t cpu_sbm_setup_map __initdata;
++static int __node_thread_count[NR_CPUS] __initdata;
++
+ struct secondary_data cpuboot_data;
+ static DEFINE_PER_CPU(int, cpu_state);
+ 
+@@ -362,10 +367,17 @@ void __init loongson_smp_setup(void)
+ 	pr_info("Detected %i available CPU(s)\n", loongson_sysconf.nr_cpus);
+ }
+ 
++int arch_sbm_cpu_instance_id(int cpu)
++{
++	return cpu_to_node(cpu);
++}
++
+ void __init loongson_prepare_cpus(unsigned int max_cpus)
+ {
+ 	int i = 0;
++	int disabled_cpus = 0;
+ 	int threads_per_core = 0;
++	int num_sbm_instances, max_threads_per_instance = 1;
+ 
+ 	parse_acpi_topology();
+ 	cpu_data[0].global_id = cpu_logical_map(0);
+@@ -388,6 +400,46 @@ void __init loongson_prepare_cpus(unsigned int max_cpus)
+ 
+ 	per_cpu(cpu_state, smp_processor_id()) = CPU_ONLINE;
+ 	cpu_smt_set_num_threads(threads_per_core, threads_per_core);
++
++	for_each_possible_cpu(i) {
++		unsigned int node = early_cpu_to_node(i);
++		bool found = false;
++		int j;
++
++		if (node == NUMA_NO_NODE) {
++			disabled_cpus++;
++			continue;
++		}
++
++		for_each_cpu(j, &cpu_sbm_setup_map) {
++			if (node == early_cpu_to_node(j)) {
++				found = true;
++				break;
++			}
++		}
++
++		if (!found) {
++			cpumask_set_cpu(i, &cpu_sbm_setup_map);
++			__node_thread_count[i] = 1;
++			continue;
++		}
++
++		__node_thread_count[j] += 1;
++		max_threads_per_instance = max(max_threads_per_instance,
++					       __node_thread_count[j]);
++	}
++
++	/*
++	 * In case of disabled CPUs, expect them to either show up as a
++	 * new node or get added to the largest NUMA node.
++	 *
++	 * XXX: Is there a way to establish the correct CPU <-> node
++	 * relation for CPUs that have disabled APIC?
++	 */
++	num_sbm_instances = cpumask_weight(&cpu_sbm_setup_map) + disabled_cpus;
++	max_threads_per_instance += disabled_cpus;
++
++	sbm_set_topology(num_sbm_instances, max_threads_per_instance);
+ }
+ 
+ /*
+-- 
+2.34.1
+
