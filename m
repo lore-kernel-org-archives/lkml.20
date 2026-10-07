@@ -1,138 +1,251 @@
-Received: from sender6-pp-g123.zoho.com (sender6-pp-g123.zoho.com [165.173.180.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com [209.85.208.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC3AD5B206;
-	Wed,  7 Oct 2026 03:35:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.123
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791344145; cv=pass; b=SSbeQ84WQuLAKnmprhCtqyDh20JNny4LenTg8Ed+35C5e4b9qM9lk5SK7EgCMo9YztNXhfcvXSe3NUzWN4U4EGkueylGgoYOqZzN9XRhB4jg7X//ybnOdRT4lT+lASK06ILCgzSoEG1wfaDrkBJZzwc/jiR7WBQ0PA2K9yLggf0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791344145; c=relaxed/simple;
-	bh=tT28eRbBX/xWqcGm7Vdom8PM07D1NYc0Wz80OC3tjzw=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 References:In-Reply-To; b=u3oVNeZPw5KD5x7pkNTXG0wIu7beprWrnY57Gmv0a5JvRQbeAnID5GsdMA3FxjVArzoG6TZ1rP3GEGsmQtAhQLMDJzPOL2v1xZ81EtBSwZeN5sus2wECqcaTaAG3Lp8eZ2M/yM+6KQL1IAUfB9AUc6cKeRgDhV4y4qejSHYE15I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=ngjjKCMT; arc=pass smtp.client-ip=165.173.180.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84ED95FDA7
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 03:38:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.70
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791344322; cv=none; b=rbhCs34eE4hyL7C45a44EosZ15uUiIk7Z6IpJQPOixXbs+UvTg/0BLG956fVkwddtbpMxO0+9FrGxL37pO53va2YnYDhSM3gO5MSPRjvvHsm0vuVhoXFerBLMnMuNUFt8So6RWibiFYjeOPGdUoFvMAOcPc4/Xt1L/q7bqB6Cg8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791344322; c=relaxed/simple;
+	bh=8hD0fGxiblq14EYWxIMYfwJOOb/tCLl+EmAEZSf3/NE=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=Tv2SiErsDyLc58oyuQYSiJYfR1xM/OSa+Mjfp8kp9hmwCgNqrkmpH4bOLduiM/LMBlHj6yW0cvJU0bYBWGsLiKlKjC95xA+p3/awkFkpa9+gSYPeuHgKkbuhvKzkytBlxYqZpRqeeJh2/w2pSokVFnIVMpU79nwA3Ibm5/8OkgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--mmaslanka.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=pByW5YeF; arc=none smtp.client-ip=209.85.208.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--mmaslanka.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="ngjjKCMT"
-ARC-Seal: i=1; a=rsa-sha256; t=1791344101; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=EMt2HxZjGxKqN3KMja356Ejlm4RJ3ba7GuoEX6EUHQ11KKvVi/AlTLXrVwZkxPQFoHXC2LwGWUjI5cwh53QZConfu700rGSNok0yINxejDfgC4WPDw5S0pJqMo6zSdJiN0CpO7ReMGrXY/KVAefrmvMEFgrCdz1MsMrReBIMc90=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791344101; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=7EEv66TfkkqDC0vBD6k5R4XJT1WUveDu+xqFWjFMwS8=; 
-	b=l09IKvPiFoQMX2AX3F1fOIWVtTXZREcVQyzldMWz0+tZ8xOSQYyblRiDWkWmxg4EZ5zBLoXBv3b9B0s6Z0q2Fny0MWidmzBKZsDWz4s/sdjCyBYR5a6VNIQn40ecbW82JoQ9oCDbnNvyOF0d5ymxtqwYHoXTK3mqdQn+11WsUOo=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=pigmoral.tech;
-	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
-	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791344101;
-	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
-	h=Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Date:Message-Id:Message-Id:To:To:Cc:Cc:Subject:Subject:From:From:In-Reply-To:Reply-To;
-	bh=7EEv66TfkkqDC0vBD6k5R4XJT1WUveDu+xqFWjFMwS8=;
-	b=ngjjKCMToI6FGmexYDJ/b1KiQmPlOSMsEgTrZ1Bj27Cu5QVcCjFprimUKNkf1sYU
-	A5Bksc5nvWbdRiJ5nUGNCEssIHzFQgZ9YVyrNw6nk+G1S4Q6xuauG+CvM6kkgkftsNq
-	RzjUMpRmbx+tDp0XBw4HCwVTxhtGOhNEnUh06Anw=
-Received: by smtp.zohomail.com with SMTPS id 1791344099855931.7368458013717;
-	Tue, 6 Oct 2026 20:34:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="pByW5YeF"
+Received: by mail-ed1-f70.google.com with SMTP id 4fb4d7f45d1cf-6a9a19c8bdbso2567851a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 20:38:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791344319; x=1791949119; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XnBm9HRZVtBiwOoRqt9XUwCrohQCxPilT75YPZPRctY=;
+        b=pByW5YeFMGmbResvIud2UCD8+keOk60jSdq2seg19K3VYVqr9/GvdN2p8xd6FFezUK
+         NIsvF6p/U29o8zLHt8lqjLAza8jGG+VIBccsxHB5j/MMGiS4BfLqctcB5exEcq+9fgtQ
+         5PQmak27b+Hn09QwQ8OMqfqJqzza+vWj+pPXkGaJ9CzT3JQp1Xqfi/eZm8jCbSn8YR1S
+         5RZlPzJu8cA3MsyfZ2tK5Pz7E8ERuSQo2RW5VAKxcKpryptzLIXlHgOL3uVWZgOE2kYr
+         53e4KdKalES4+x2I+fYFk2ptgvWDqyloz2ZsBdDaywyoRoZKyI9jxlR/xWdJtw1vFsRp
+         eV+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791344319; x=1791949119;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XnBm9HRZVtBiwOoRqt9XUwCrohQCxPilT75YPZPRctY=;
+        b=vdaIx4Iw8fC4kl2AJhx5IA3Lijwu5xuitaoCXql3KTe9THlxkxhk/0EUlEIaVS7UdG
+         zFFESaaLce58d4Mi3WeoiuWG3m7jmlP1Ybj6FqozjDbl+NpEehScBlB9x3mgvaubEmKK
+         OuXtqManML0Z0s2B/22K8/hjFvyIW25076jTon6j5zap3adMhQNZSlSO3LgnH2Uo1c9c
+         l5hjmLKDZjkUXJ+rGirAj+tltVMwOGiMaLfcX58BFpNbKE1i6/y4y7vDoiCzhs/I6pu+
+         Ys1jDuU6gGIZpHcxzZhwZYdokvXhzIXKURJjUUPpW6tB7Fv5vfNWwIMg21DN6dUy2+QE
+         8LjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzm0ltbjjJgX5lZJLSlK/k3m42erAsBWzkvXp/RBJWYKWy30KCTS007YjIk0zckCXxnwcH8lXN9qm52rRs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLHpAsM4C5hBDNu5Xlg9rmdLl+/DAdSfUQB17EUugYVJznvtxq7
+	aqnhskuTnoz+kzwvSxpeb55Gb0a7/yq8c7k0aVWDHBfvujUuBmof0paa8Uz/x1WehoSDtfRbxxQ
+	p624kqxRXEjWcDN/NGA==
+X-Received: from edew13-n2.prod.google.com ([2002:a05:6402:a20d:20b0:6ac:b3cf:2b80])
+ (user=mmaslanka job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6402:2546:b0:6aa:e251:ecb4 with SMTP id 4fb4d7f45d1cf-6aff3745871mr900193a12.2.1791344318296;
+ Tue, 06 Oct 2026 20:38:38 -0700 (PDT)
+Date: Wed,  7 Oct 2026 05:38:37 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 07 Oct 2026 11:34:49 +0800
-Message-Id: <DLYAHDTH3129.3AYF0OSHL8RJ8@pigmoral.tech>
-To: "Vinicius Pedrosa" <vinicius.eduardo.pedrosa@gmail.com>, "Junhui Liu"
- <junhui.liu@pigmoral.tech>, "Stephen Boyd" <sboyd@kernel.org>, "Brian
- Masney" <bmasney+clk@redhat.com>, "Jerome Brunet"
- <jbrunet+clk@baylibre.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Chen-Yu Tsai" <wens@kernel.org>, "Jernej Skrabec"
- <jernej.skrabec@gmail.com>, "Samuel Holland" <samuel@sholland.org>,
- "Philipp Zabel" <p.zabel@pengutronix.de>, "Paul Walmsley" <pjw@kernel.org>,
- "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
- "Alexandre Ghiti" <alex@ghiti.fr>, "Richard Cochran"
- <richardcochran@gmail.com>
-Cc: <linux-clk@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-sunxi@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- <netdev@vger.kernel.org>, "Jerome Brunet" <jbrunet@baylibre.com>, "Enzo
- Adriano" <enzo.adriano.code@gmail.com>, "Andre Przywara"
- <andre.przywara@arm.com>, "Norman Herms" <dockseed@proton.me>
-Subject: Re: [PATCH v5 3/8] clk: sunxi-ng: a733: Add PRCM CCU
-From: "Junhui Liu" <junhui.liu@pigmoral.tech>
-X-Mailer: aerc 0.22.0
-References: <20260930-a733-clk-v5-0-11175b41cd2d@pigmoral.tech>
- <20260930-a733-clk-v5-3-11175b41cd2d@pigmoral.tech>
- <20261005183038.417798-1-vinicius.eduardo.pedrosa@gmail.com>
-In-Reply-To: <20261005183038.417798-1-vinicius.eduardo.pedrosa@gmail.com>
-X-ZohoMailClient: External
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20261007033837.708119-1-mmaslanka@google.com>
+Subject: [PATCH v2] platform/chrome: cros_ec_typec: Poll for role swap completion
+From: Marek Maslanka <mmaslanka@google.com>
+To: Benson Leung <bleung@chromium.org>, 
+	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>, Jameson Thies <jthies@google.com>, 
+	Andrei Kuchynski <akuchynski@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>
+Cc: Guenter Roeck <groeck@chromium.org>, Radu Vele <raduvele@google.com>, 
+	chrome-platform@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Marek Maslanka <mmaslanka@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Vinicius,
+Depending on the EC USB-C stack (TCPMv2 vs PDC), EC_CMD_USB_PD_CONTROL
+with a role swap request may either block until the swap completes or
+queue the request asynchronously for the EC PD task and return the
+current (pre-swap) role in the immediate response. On platforms where
+the EC handles the swap asynchronously, checking resp.role right after
+issuing the swap command sees the old role and fails with -EIO before
+the USB PD handshake completes.
 
-Thanks for testing.
+If the immediate response does not yet reflect the target role, poll
+EC_CMD_USB_PD_CONTROL with USB_PD_CTRL_SWAP_NONE until the target role
+is reached while connected, or until ROLE_SWAP_TIMEOUT_MS expires. The
+timeout mirrors PD_ROLE_SWAP_TIMEOUT used by the TCPM port manager,
+since a PR_Swap may legitimately take seconds when the partner answers
+with Wait and the initiator retries.
 
-On Tue Oct 6, 2026 at 2:30 AM CST, Vinicius Pedrosa wrote:
-> Hi Junhui,
->
-> On Wed Sep 30, 2026 at 1:26 AM CST, Junhui Liu wrote:
->> +static SUNXI_CCU_GATE_HW(bus_r_msgbox_clk, "bus-r-msgbox", &r_ahb_clk.c=
-ommon.hw, 0x17c, BIT(0), 0);
->
-> [...]
->
->> +static SUNXI_CCU_GATE_HW(bus_r_riscv_clk, "bus-r-riscv", &r_apb0_clk.co=
-mmon.hw,
->> +			 0x21c, BIT(0), 0);
->
-> I'm bringing up mainline on a Radxa Cubie A7Z (PCB V1.11, 1 GiB). With
-> 7.3-rc6, this series and a local common-DT integration, PSCI reboot and
-> power-off hang once unused clocks are disabled. The boot chain uses
-> vendor boot0/BL31 and source-built SCP/U-Boot.
->
-> Keeping both of these gates enabled fixes reboot; either alone still
-> hangs. With only these two marked CLK_IS_CRITICAL, reboot returns to
-> boot0 and power-off drops DCDC1 from 3.3 V to 0.7 V and turns off the
-> green LED with power still connected. I haven't checked whether each
-> gate is needed for power-off on its own.
->
-> My guess is that BL31 talks to the SCP for these, but I haven't traced
-> it, and it may be specific to the vendor firmware.
+While at it, report the failure modes the same way tcpm.c does, so that
+userspace can tell a rejected swap from a disconnect: -ETIMEDOUT when
+the partner never completes the swap, and -ENOTCONN when the port goes
+away while waiting. Decoding of the swapped role is factored out into
+cros_typec_resp_to_role() instead of being open coded for each swap
+type, which also keeps an unhandled swap type from being misread as a
+power role swap.
 
-Yes, it appears that the vendor SCP firmware runs on the E902 core
-instead of the ARISC OR100 core on the A733. Disabling either
-bus-r-riscv or bus-r-msgbox breaks the SCPI communication path between
-TF-A and the SCP firmware.
+Fixes: ab229c2b72c3 ("platform/chrome: cros_ec_typec: Add role swap ops")
+Signed-off-by: Marek Maslanka <mmaslanka@google.com>
+---
+Changes in v2:
+- Check PD_CTRL_RESP_ENABLED_CONNECTED at the start of each poll
+  iteration and return -ENOTCONN immediately if the port disconnects,
+  instead of waiting for the timeout to expire (Tzung-Bi Shih).
+- Link to v1: https://lore.kernel.org/chrome-platform/20260923174420.2343724-1-mmaslanka@google.com/
 
->
-> Would it make sense to mark them CLK_IS_CRITICAL, like bus-r-cpucfg
-> already is? I can test the next revision on this board either way.
+ drivers/platform/chrome/cros_ec_typec.c | 94 +++++++++++++++++--------
+ 1 file changed, 65 insertions(+), 29 deletions(-)
 
-Mainline TF-A uses native PSCI for reboot and power-off on the NCAT2
-family. Even if Crust is ported to the A733 in the future, I would
-expect it to run on the ARISC OR100 core rather than the E902 core.
+diff --git a/drivers/platform/chrome/cros_ec_typec.c b/drivers/platform/chrome/cros_ec_typec.c
+index c0806c562bb9..cda65e094c62 100644
+--- a/drivers/platform/chrome/cros_ec_typec.c
++++ b/drivers/platform/chrome/cros_ec_typec.c
+@@ -7,6 +7,8 @@
+  */
+ 
+ #include <linux/acpi.h>
++#include <linux/delay.h>
++#include <linux/jiffies.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/platform_data/cros_ec_commands.h>
+@@ -22,6 +24,14 @@
+ 
+ #define DRV_NAME "cros-ec-typec"
+ 
++/*
++ * Mirrors PD_ROLE_SWAP_TIMEOUT used by the TCPM port manager: a PR_Swap may
++ * legitimately take seconds when the partner answers with Wait and the
++ * initiator retries.
++ */
++#define ROLE_SWAP_TIMEOUT_MS	10000
++#define ROLE_SWAP_DELAY_MS	20
++
+ #define DP_PORT_VDO	(DP_CAP_DFP_D | DP_CAP_RECEPTACLE | \
+ 			 DP_CONF_SET_PIN_ASSIGN(BIT(DP_PIN_ASSIGN_C) | \
+ 						BIT(DP_PIN_ASSIGN_D) | \
+@@ -58,12 +68,33 @@ static int cros_typec_enter_usb_mode(struct typec_port *tc_port, enum usb_mode m
+ 			  &req, sizeof(req), NULL, 0);
+ }
+ 
++/*
++ * Decode the role relevant to @swap_type out of an EC_CMD_USB_PD_CONTROL
++ * response.
++ *
++ * Returns a value comparable against the typec class target role
++ * (TYPEC_DEVICE/TYPEC_HOST or TYPEC_SINK/TYPEC_SOURCE), or -EOPNOTSUPP if
++ * @swap_type is not a role swap this driver knows how to track.
++ */
++static int cros_typec_resp_to_role(struct ec_response_usb_pd_control_v2 *resp, u8 swap_type)
++{
++	switch (swap_type) {
++	case USB_PD_CTRL_SWAP_DATA:
++		return (resp->role & PD_CTRL_RESP_ROLE_DATA) ? TYPEC_HOST : TYPEC_DEVICE;
++	case USB_PD_CTRL_SWAP_POWER:
++		return (resp->role & PD_CTRL_RESP_ROLE_POWER) ? TYPEC_SOURCE : TYPEC_SINK;
++	default:
++		return -EOPNOTSUPP;
++	}
++}
++
+ static int cros_typec_perform_role_swap(struct typec_port *tc_port, int target_role, u8 swap_type)
+ {
+ 	struct cros_typec_port *port = typec_get_drvdata(tc_port);
+ 	struct cros_typec_data *data = port->typec_data;
+ 	struct ec_response_usb_pd_control_v2 resp;
+ 	struct ec_params_usb_pd_control req;
++	unsigned long end;
+ 	int role, ret;
+ 
+ 	/* Must be at least v1 to support role swap. */
+@@ -81,18 +112,10 @@ static int cros_typec_perform_role_swap(struct typec_port *tc_port, int target_r
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	switch (swap_type) {
+-	case USB_PD_CTRL_SWAP_DATA:
+-		role = (resp.role & PD_CTRL_RESP_ROLE_DATA) ? TYPEC_HOST :
+-						TYPEC_DEVICE;
+-		break;
+-	case USB_PD_CTRL_SWAP_POWER:
+-		role = (resp.role & PD_CTRL_RESP_ROLE_POWER) ? TYPEC_SOURCE :
+-						TYPEC_SINK;
+-		break;
+-	default:
++	role = cros_typec_resp_to_role(&resp, swap_type);
++	if (role < 0) {
+ 		dev_warn(data->dev, "Unsupported role swap type %d\n", swap_type);
+-		return -EOPNOTSUPP;
++		return role;
+ 	}
+ 
+ 	if (role == target_role)
+@@ -104,28 +127,41 @@ static int cros_typec_perform_role_swap(struct typec_port *tc_port, int target_r
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	switch (swap_type) {
+-	case USB_PD_CTRL_SWAP_DATA:
+-		role = resp.role & PD_CTRL_RESP_ROLE_DATA ? TYPEC_HOST : TYPEC_DEVICE;
+-		if (role != target_role) {
+-			dev_err(data->dev, "Data role swap failed despite EC returning success\n");
+-			return -EIO;
++	/*
++	 * Depending on the EC USB-C stack (TCPMv2 vs PDC), EC_CMD_USB_PD_CONTROL
++	 * may either block until the swap completes or queue the request
++	 * asynchronously and return the pre-swap role. Poll until the target
++	 * role is reached while connected, or until the timeout expires.
++	 */
++	req.swap = USB_PD_CTRL_SWAP_NONE;
++	end = jiffies + msecs_to_jiffies(ROLE_SWAP_TIMEOUT_MS);
++	for (;;) {
++		if (!(resp.enabled & PD_CTRL_RESP_ENABLED_CONNECTED)) {
++			dev_err(data->dev, "Port disconnected during role swap\n");
++			return -ENOTCONN;
+ 		}
+-		typec_set_data_role(tc_port, target_role);
+-		break;
+-	case USB_PD_CTRL_SWAP_POWER:
+-		role = resp.role & PD_CTRL_RESP_ROLE_POWER ? TYPEC_SOURCE : TYPEC_SINK;
+-		if (role != target_role) {
+-			dev_err(data->dev, "Power role swap failed despite EC returning success\n");
+-			return -EIO;
++
++		if (cros_typec_resp_to_role(&resp, swap_type) == target_role)
++			break;
++
++		if (time_after_eq(jiffies, end)) {
++			dev_err(data->dev, "Timed out waiting for role swap to complete\n");
++			return -ETIMEDOUT;
+ 		}
+-		typec_set_pwr_role(tc_port, target_role);
+-		break;
+-	default:
+-		/* Should never execute */
+-		break;
++
++		msleep(ROLE_SWAP_DELAY_MS);
++		ret = cros_ec_cmd(data->ec, data->pd_ctrl_ver,
++				  EC_CMD_USB_PD_CONTROL, &req, sizeof(req),
++				  &resp, sizeof(resp));
++		if (ret < 0)
++			return ret;
+ 	}
+ 
++	if (swap_type == USB_PD_CTRL_SWAP_DATA)
++		typec_set_data_role(tc_port, target_role);
++	else
++		typec_set_pwr_role(tc_port, target_role);
++
+ 	return 0;
+ }
+ 
+-- 
+2.56.0.rc1.315.gc6ed9934b7-goog
 
-(Also see discussion in [1].)
-
-The E902 may also be supported by the Linux remoteproc and mailbox
-drivers in the future. In that case, bus-r-riscv and bus-r-msgbox
-should be managed by their respective drivers instead of being kept
-enabled globally.
-
-I don't know if marking these clocks as CLK_IS_CRITICAL just for the
-vendor SCP firmware is a good idea...
-
-[1] https://lore.kernel.org/linux-sunxi/556cd32394062960a3ea4af0011155cfa83=
-ae91f.camel@d-silva.org/T/#u
-
->
-> Thanks,
-> Vinicius
-
---=20
-Best regards,
-Junhui Liu
