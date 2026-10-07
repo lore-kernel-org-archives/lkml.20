@@ -1,579 +1,186 @@
-Received: from mail.avm.de (mail.avm.de [212.42.244.94])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E50F0287247;
-	Wed,  7 Oct 2026 16:55:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.42.244.94
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0962F3E5EDB;
+	Wed,  7 Oct 2026 16:58:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791392140; cv=none; b=nK/Dlqi+U43PT+3LQzNcvpnfCP+opkZrkj6XV4X9oQdMCFi1lY1z3nIRnbv0d7BnPchU/Itr+79xnck4sJ1k+Q/669YAJWh6q5uFOC9WAeW/BAMB/Bi6jFh0vF5edH8Nmb2K/brzJK3yvRgLVpKSTTT+VlKjUX+Fg24roncSXw0=
+	t=1791392330; cv=none; b=FN+2yd2rMxHnauFq/OERU0s82c2qZLp1P9zEbFZU42yAXG+tPgyMJhWj+GMyyaeIiVmAJ/DZAj3Ya8TQ3VdQmKX5soaGdTEvighqNECoRXKdtpNcV0SS3NeGGnzey8S5TI4QteaNkr6NBogZ6PPindKpnCJSshf9q/W1T05jQVw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791392140; c=relaxed/simple;
-	bh=FDB+npaB7MhQozd7hd7WmSU1Tnruwbn+5BFVrdFZ950=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gfyesdQBoaO/ej9WmC0pnri4pGbalRSt+nwH7sTswN5BNuEuLUkgNHLHcz3ZU9r0GE4rhKU4gu3Et4VRM9Z+nO3JqiXJMNuIZdFXGvsejJLNlsaQTJaTAy2nDE81/nwtWehcrr1btKZh/r5oDMJlMLnXeA9L27MskxYzrIJISIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com; spf=pass smtp.mailfrom=fritz.com; dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b=NpNzSqOa; arc=none smtp.client-ip=212.42.244.94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fritz.com
+	s=arc-20240116; t=1791392330; c=relaxed/simple;
+	bh=LXj48tPcJM1i99kjG1AbXXh92VCh2wY/HQfGrFbZiyc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=t1zs7x6pBoKNAiYd1W9vwmXXHMHXoyp6Nxk3xXd6KVDG3AA3utZhDIF0zL4C7FJlJ+aoOjURNmZfJrl5GTCVXwueoiN7DYF7H0KFdHZxCIPyv9TwH/IhelpqeSolVSyElxmdx0QvuhbCVGklzqcihfwWSzUQ6tZGIk+jnXnm6JE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=c0NtgML/; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b="NpNzSqOa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fritz.com; s=mail;
-	t=1791392116; bh=FDB+npaB7MhQozd7hd7WmSU1Tnruwbn+5BFVrdFZ950=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=NpNzSqOaMvIU/3oijVwXPJmQ/8v+SeOZnkQRLDbiXGKmdHhL31fRnWzwpCc/bfwfr
-	 1JV2PCNwi+fDTC1Y6VnfUUl2JEx09XScHigXvXNuFBDrXbZYYbFtPpzuKh8r2OLWxB
-	 iJQ8T2NXk6C8NnpIS5TZIPr4HtgE9Gv1YirPL4LWft6z52oQJYR6lLaRLQynII3hOO
-	 v6tPZdzQ2XDT01CkvRJZ3xl2rgsR7PR/aWAXFyi4ezfHa2EU27r5kebY8ROKd6Ia0r
-	 +vANOJJ5WoXPCyAT8lcVZipovnafy9tjHgRRxkaaTTPuzssYQRSHZTyd+8GZoIPghQ
-	 deS1MyS4aYUJg==
-Received: from [212.42.244.71] (helo=mail.avm.de)
-	by mail.avm.de with ESMTP (eXpurgate 4.57.1)
-	(envelope-from <t.martitz@fritz.com>)
-	id 6ac67974-23c8-7f0000032729-7f0000019184-1
-	for <multiple-recipients>; Wed, 07 Oct 2026 18:55:16 +0200
-Received: from mail-auth.avm.de (dovecot-mx-01.avm.de [212.42.244.71])
-	by mail.avm.de (Postfix) with ESMTPS;
-	Wed,  7 Oct 2026 18:55:16 +0200 (CEST)
-Message-ID: <f9780706-f0e5-41e6-b206-af0a5873aa88@fritz.com>
-Date: Wed, 7 Oct 2026 18:55:14 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="c0NtgML/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791392328; x=1822928328;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=LXj48tPcJM1i99kjG1AbXXh92VCh2wY/HQfGrFbZiyc=;
+  b=c0NtgML/kHYCGwPG1geo8sC7kyOrNdJ9BnN57hCAcs9e9SI1PFcrl+80
+   C8FiDehEtBIkj1rfuUqihdEFrKiMWMOJdWROP0IFdUr27NjJ4G9z2Oeiq
+   VmRSrNp9klcOUvWlHNU9w358KMQW9Gb1ZoT6cIWbtkwn6opC7Ua/o3OZz
+   z73guUwpmOwadSqQKlE8zX8qwzBPphYKigUOJEO1HIetruBSAlRy9Iy5Q
+   Uw7Fo8Ke/y64BOxPMpLToUAqfblrG/QBpsUx9gsDKNSm16gvVRuTlVZ2C
+   ylJnTzTcw8m8H/tvi3OTseDWFe8tvKH7N8Qr0wWBUDtfuoAvjR+uE6kcb
+   w==;
+X-CSE-ConnectionGUID: SSqDTC5VSremMuIZQqbE0Q==
+X-CSE-MsgGUID: dxK/ABRuQY6a3DcI6i+e6g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="263213"
+X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
+   d="scan'208";a="263213"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 09:58:47 -0700
+X-CSE-ConnectionGUID: bnXnWEp3SlG9wOFiQfiRNQ==
+X-CSE-MsgGUID: +q8U9VafTcusBhy0zM6gCg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
+   d="scan'208";a="306958465"
+Received: from skuppusw-desk2.jf.intel.com ([10.165.154.101])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 09:58:47 -0700
+From: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+To: Bjorn Helgaas <bhelgaas@google.com>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>,
+	Lukas Wunner <lukas@wunner.de>,
+	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
+	Oliver O'Halloran <oohall@gmail.com>,
+	Len Brown <lenb@kernel.org>,
+	linux-pci@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/4] PCI/EDR: Remove CONFIG_PCIE_EDR
+Date: Wed,  7 Oct 2026 09:58:37 -0700
+Message-ID: <20261007165840.1604136-2-sathyanarayanan.kuppuswamy@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261007165840.1604136-1-sathyanarayanan.kuppuswamy@linux.intel.com>
+References: <20261007165840.1604136-1-sathyanarayanan.kuppuswamy@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v5 1/1] macvlan: allow source mode devices along with
- passthru
-To: Simon Horman <horms@kernel.org>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260917101044.2654867-1-t.martitz@fritz.com>
- <20260921092359.91614-1-horms@kernel.org>
-Content-Language: de-DE
-From: Thomas Martitz <t.martitz@fritz.com>
-In-Reply-To: <20260921092359.91614-1-horms@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: 149429::1791392116-19FC3FA4-9C6B6684/0/0
-X-purgate-type: clean
-X-purgate-size: 19535
-X-Notice: Whitelisted
-X-purgate: This mail is considered clean (visit https://www.eleven.de for further information)
-X-purgate: clean
-X-pfmilter: host: postfix-mx-03  mail-id: 9F25DA008E  external: no
+Content-Transfer-Encoding: 8bit
 
-Hello,
+Error Disconnect Recover (EDR) is the ACPI half of the hybrid DPC model,
+where firmware owns DPC and notifies the OS of containment events.
 
-I took a few free slots during LPC 2026 to address
-the concerns raised by AI review, almost all of which were
-valid.
+CONFIG_PCIE_EDR made EDR optional on top of CONFIG_PCIE_DPC.  This adds
+another knob to the decision to request DPC control in _OSC.  The OS
+requests DPC control only if it also supports EDR, so with
+CONFIG_PCIE_EDR=n it never requests DPC control.  There is little reason
+to build DPC without EDR on ACPI systems.
 
-I also expanded my local test suite to catch all of these.
+Remove the option and build edr.c whenever CONFIG_PCIE_DPC and
+CONFIG_ACPI are both enabled.
 
-I'll post v6 in shortly.
+Signed-off-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+---
+ drivers/acpi/pci_root.c   | 6 +++---
+ drivers/pci/pcie/Kconfig  | 9 ---------
+ drivers/pci/pcie/Makefile | 5 ++++-
+ drivers/pci/pcie/dpc.c    | 5 +++--
+ include/linux/pci-acpi.h  | 4 ++--
+ 5 files changed, 12 insertions(+), 17 deletions(-)
 
-m 21.09.26 um 11:23 schrieb Simon Horman:
-> This is an AI-generated review of your patch. The human sending this
-> email has considered the AI review valid, or at least plausible.
-> Full review at: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917101044.2654867-1-t.martitz@fritz.com?part=1
-> ---
-> macvlan: allow source mode devices along with passthru
-> 
-> This allows one passthru macvlan to coexist with source mode macvlans on
-> the same lower device, by converting several per-device decisions from the
-> port wide MACVLAN_F_PASSTHRU flag to vlan->mode and by moving the lower
-> device MAC restore from macvlan_port_destroy() into macvlan_uninit().
-> 
-> A few questions about the conversion below.
-> 
->> diff --git a/drivers/net/macvlan.c b/drivers/net/macvlan.c
->> index afad90b9222a2..76c11e5260334 100644
->> --- a/drivers/net/macvlan.c
->> +++ b/drivers/net/macvlan.c
->> @@ -83,6 +83,11 @@ static inline void macvlan_set_passthru(struct macvlan_port *port)
->>  	port->flags |= MACVLAN_F_PASSTHRU;
->>  }
->>  
->> +static inline void macvlan_clear_passthru(struct macvlan_port *port)
->> +{
->> +	port->flags &= ~MACVLAN_F_PASSTHRU;
->> +}
->> +
->>  static inline bool macvlan_addr_change(const struct macvlan_port *port)
->>  {
->>  	return port->flags & MACVLAN_F_ADDRCHANGE;
->> @@ -217,8 +222,7 @@ static bool macvlan_addr_busy(const struct macvlan_port *port,
->>  	 * currently in use by the underlying device or
->>  	 * another macvlan.
->>  	 */
->> -	if (!macvlan_passthru(port) && !macvlan_addr_change(port) &&
->> -	    ether_addr_equal_64bits(port->dev->dev_addr, addr))
->> +	if (ether_addr_equal_64bits(port->dev->dev_addr, addr))
->>  		return true;
->>  
->>  	if (macvlan_hash_lookup(port, addr))
->> @@ -637,7 +641,7 @@ static int macvlan_open(struct net_device *dev)
->>  	struct net_device *lowerdev = vlan->lowerdev;
->>  	int err;
->>  
->> -	if (macvlan_passthru(vlan->port)) {
->> +	if (vlan->mode == MACVLAN_MODE_PASSTHRU) {
->>  		if (!(vlan->flags & MACVLAN_FLAG_NOPROMISC)) {
->>  			err = dev_set_promiscuity(lowerdev, 1);
->>  			if (err < 0)
-> 
-> [Severity: High]
-> 
-> macvlan_open() and macvlan_stop() are converted to the per-device
-> vlan->mode test here, but macvlan_change_rx_flags() still keys off the
-> port flag:
-> 
-> drivers/net/macvlan.c:macvlan_change_rx_flags() {
-> 	if (dev->flags & IFF_UP) {
-> 		if (change & IFF_ALLMULTI)
-> 			dev_set_allmulti(lowerdev, dev->flags & IFF_ALLMULTI ? 1 : -1);
-> 		if (!macvlan_passthru(vlan->port) && change & IFF_PROMISC)
-> 			dev_set_promiscuity(lowerdev,
-> 					    dev->flags & IFF_PROMISC ? 1 : -1);
-> 	}
-> }
-> 
-> Once a passthru device exists the port flag is set for every sibling, so
-> live IFF_PROMISC transitions of a source mode macvlan are dropped, while
-> macvlan_open() and macvlan_stop() still take and release the lower device
-> promiscuity reference based on dev->flags.
-> 
-> Can this unbalance lowerdev->promiscuity?
-> 
->   ip link add pt link eth0 type macvlan mode passthru
->   ip link add src0 link eth0 type macvlan mode source
->   ip link set src0 promisc on
->   ip link set src0 up	  macvlan_open() -> dev_set_promiscuity(lowerdev, 1)
->   ip link set src0 promisc off	  macvlan_change_rx_flags() skips the -1
->   ip link set src0 down	  macvlan_stop() sees IFF_PROMISC clear, no -1
-> 
-> That leaks a +1 on the physical device. The reverse order (up without
-> promisc, promisc on while up, then down) issues an unmatched
-> dev_set_promiscuity(lowerdev, -1), and __dev_set_promiscuity() computes
-> 0 + (-1) as 0xFFFFFFFF, takes the "flags = old_flags | IFF_PROMISC"
-> branch and returns 0, so the device stays pinned promiscuous with no
-> error reported. If the passthru device held the only reference, the count
-> instead reaches 0, IFF_PROMISC is cleared and the hardware filter is
-> reprogrammed while the passthru macvlan still needs it.
-> 
-> Before this patch a passthru port could hold no other device, so the port
-> wide test in macvlan_change_rx_flags() was equivalent to the per-device
-> one. Should that call site be converted too?
-
-Makes sense, I'll follow up with that change.
-
-> 
->> @@ -712,7 +716,7 @@ static int macvlan_stop(struct net_device *dev)
->>  	dev_uc_unsync(lowerdev, dev);
->>  	dev_mc_unsync(lowerdev, dev);
->>  
->> -	if (macvlan_passthru(vlan->port)) {
->> +	if (vlan->mode == MACVLAN_MODE_PASSTHRU) {
->>  		if (!(vlan->flags & MACVLAN_FLAG_NOPROMISC))
->>  			dev_set_promiscuity(lowerdev, -1);
->>  		goto hash_del;
->> @@ -737,17 +741,18 @@ static int macvlan_sync_address(struct net_device *dev,
->>  	struct macvlan_dev *vlan = netdev_priv(dev);
->>  	struct net_device *lowerdev = vlan->lowerdev;
->>  	struct macvlan_port *port = vlan->port;
->> +	bool passthru_dev = vlan->mode == MACVLAN_MODE_PASSTHRU;
->>  	int err;
->>  
->>  	if (!(dev->flags & IFF_UP)) {
->>  		/* Just copy in the new address */
->>  		eth_hw_addr_set(dev, addr);
->>  	} else {
->> -		/* Rehash and update the device filters */
->> -		if (macvlan_addr_busy(vlan->port, addr))
->> -			return -EADDRINUSE;
->> +		if (!passthru_dev) {
->> +			/* Rehash and update the device filters */
->> +			if (macvlan_addr_busy(vlan->port, addr))
->> +					return -EADDRINUSE;
->>  
->> -		if (!macvlan_passthru(port)) {
->>  			err = dev_uc_add(lowerdev, addr);
->>  			if (err)
->>  				return err;
-> 
-> [Severity: Medium]
-> 
-> The macvlan_addr_busy() call used to run for the passthru device as well,
-> and its macvlan_hash_lookup() half caught collisions with siblings on the
-> same port. Moving it inside "if (!passthru_dev)" drops that check for the
-> passthru device.
-> 
-> Can a passthru device now take the address of a live source mode sibling?
-> macvlan_set_mac_address() returns before its own busy check:
-> 
-> drivers/net/macvlan.c:macvlan_set_mac_address() {
-> 	if (READ_ONCE(vlan->mode) == MACVLAN_MODE_PASSTHRU) {
-> 		macvlan_set_addr_change(vlan->port);
-> 		return dev_set_mac_address(vlan->lowerdev, addr, NULL);
-> 	}
-> 
-> 	if (macvlan_addr_busy(vlan->port, addr->__data))
-> 		return -EADDRINUSE;
-> 
-> so with pt (passthru) and src0 (source) both up, "ip link set pt address
-> <src0 mac>" reprograms the lower device and comes back through
-> macvlan_device_event() -> macvlan_sync_address() with passthru_dev true,
-> where nothing validates it anymore.
-> 
-> Both macvlans then end up hashed under the same address, and src0 can no
-> longer be brought up because macvlan_addr_busy() now compares against
-> port->dev->dev_addr unconditionally:
-
-I'll move the macvlan_addr_busy() check in macvlan_set_mac_address() up 
-so that passthru devices are covered as well. That should catch if 
-a passthru interface (and consequently the lower device) is assigned the same
-mac as one of the existing source interfaces.
-
-
-> 
-> drivers/net/macvlan.c:macvlan_open() {
-> 	err = -EADDRINUSE;
-> 	if (macvlan_addr_busy(vlan->port, dev->dev_addr))
-> 		goto out;
-> 
->> @@ -757,7 +762,7 @@ static int macvlan_sync_address(struct net_device *dev,
->>  
->>  		macvlan_hash_change_addr(vlan, addr);
->>  	}
->> -	if (macvlan_passthru(port) && !macvlan_addr_change(port)) {
->> +	if (passthru_dev && !macvlan_addr_change(port)) {
->>  		/* Since addr_change isn't set, we are here due to lower
->>  		 * device change.  Save the lower-dev address so we can
->>  		 * restore it later.
->> @@ -979,7 +984,26 @@ static void macvlan_uninit(struct net_device *dev)
->>  
->>  	macvlan_flush_sources(port, vlan);
->>  	port->count -= 1;
->> -	if (!port->count)
->> +
->> +	if (vlan->mode == MACVLAN_MODE_PASSTHRU) {
->> +		/* If the lower device address has been changed by passthru
->> +		 * macvlan, put it back.
->> +		 *
->> +		 * Caution: This triggers NETDEV_CHANGEADDR on
->> +		 * the lower device. But we're in the green because
->> +		 * the passthru interface is already off the list.
->> +		 */
->> +		if(!ether_addr_equal(port->dev->dev_addr, port->perm_addr)) {
->> +			struct sockaddr_storage ss;
->> +
->> +			ss.ss_family = port->dev->type;
->> +			memcpy(&ss.__data, port->perm_addr, port->dev->addr_len);
->> +			dev_set_mac_address(port->dev, &ss, NULL);
->> +		}
->> +		macvlan_clear_passthru(port);
->> +	}
->> +
->> +	if (port->count == 0)
->>  		macvlan_port_destroy(port->dev);
->>  }
-> 
-> [Severity: High]
-> 
-> The restore now runs at passthru device lifetime, but the matching save
-> into port->perm_addr is still done once at port creation:
-> 
-> drivers/net/macvlan.c:macvlan_port_create() {
-> 	ether_addr_copy(port->perm_addr, dev->dev_addr);
-> 
-> and it is only refreshed while a passthru device already exists:
-> 
-> drivers/net/macvlan.c:macvlan_device_event() {
-> 	case NETDEV_CHANGEADDR:
-> 		if (!macvlan_passthru(port))
-> 			return NOTIFY_DONE;
-> 
-> Since a port can now be created by, and outlive, source mode only devices,
-> can this write a stale address onto the lower device?
-> 
->   ip link add src0 link eth0 type macvlan mode source
-> 	  macvlan_port_create() saves eth0 mac A into port->perm_addr
->   ip link set eth0 address B
-> 	  macvlan_device_event() returns NOTIFY_DONE, perm_addr stays A
->   ip link add pt link eth0 type macvlan mode passthru
-> 	  accepted now, eth_hw_addr_inherit() gives pt mac B
->   ip link del pt
-> 	  macvlan_uninit() sees B != A and sets eth0 back to A
-> 
-> eth0 ends up with an address the macvlan never installed. Should
-> port->perm_addr be re-captured next to the eth_hw_addr_inherit() call in
-> macvlan_common_newlink() when the passthru device is created?
-
-The suggestion is spot-on, I think. I came to the same conclusion.
-
-Actually the remembering the lowerdev mac in port->perm_addr
-can be moved as it's only needed once there is a passthru interface,
-and never for regular vepa/source/bridge combinations.
-
-> 
-> Two related questions on the same block:
-> 
-> macvlan_uninit() is also reached from the register_netdevice() and
-> netdev_upper_dev_link() failure paths in macvlan_common_newlink(), for a
-> passthru device that never touched the lower MAC. Does the restore fire
-> there too?
-
-With the above change the the MAC addresses are in sync within
-macvlan_common_newlink().
-
-> 
-> macvlan_clear_passthru() clears MACVLAN_F_PASSTHRU but not
-> MACVLAN_F_ADDRCHANGE. In a port that now survives the passthru device, can
-> a stale addr change bit be observed by the next passthru device created on
-> that port?
-
-The MACVLAN_F_ADDRCHANGE is cleared eagerly by macvlan_sync_address().
-It is only set during the chain
-set_mac_address(passthrough, addr)
--> dev_set_mac_address(lowerdev, addr)
--> macvlan_device_event()
--> macvlan_sync_address()
-
-It is always clear in macvlan_unit().
-
-
-> 
-> [Severity: Low]
-> 
-> These are not bugs, but checkpatch will complain about a few things
-> introduced here:
-> 
->   if(!ether_addr_equal(port->dev->dev_addr, port->perm_addr)) {
-> 
-> missing space after if.
-> 
-> In macvlan_sync_address() the return is indented by two extra tabs:
-> 
-> 		if (macvlan_addr_busy(vlan->port, addr))
-> 				return -EADDRINUSE;
-> 
-> In macvlan_common_newlink() the if branch has braces and the else branch
-> does not. There is also a typo, "passhtrough", in the new
-> macvlan_changelink() comment, and some of the new comment lines run past
-> 80 columns.
-> 
-
-Will be fixed.
-
-> [ ... ]
-> 
->> @@ -1310,18 +1334,6 @@ static void macvlan_port_destroy(struct net_device *dev)
->>  		kfree_skb(skb);
->>  	}
->>  
->> -	/* If the lower device address has been changed by passthru
->> -	 * macvlan, put it back.
->> -	 */
->> -	if (macvlan_passthru(port) &&
->> -	    !ether_addr_equal(port->dev->dev_addr, port->perm_addr)) {
->> -		struct sockaddr_storage ss;
->> -
->> -		ss.ss_family = port->dev->type;
->> -		memcpy(&ss.__data, port->perm_addr, port->dev->addr_len);
->> -		dev_set_mac_address(port->dev, &ss, NULL);
->> -	}
->> -
->>  	kfree(port);
->>  }
->>  
->> @@ -1523,15 +1535,6 @@ int macvlan_common_newlink(struct net_device *dev,
->>  	}
->>  	port = macvlan_port_get_rtnl(lowerdev);
->>  
->> -	/* Only 1 macvlan device can be created in passthru mode */
->> -	if (macvlan_passthru(port)) {
->> -		/* The macvlan port must be not created this time,
->> -		 * still goto destroy_macvlan_port for readability.
->> -		 */
->> -		err = -EINVAL;
->> -		goto destroy_macvlan_port;
->> -	}
->> -
->>  	vlan->lowerdev = lowerdev;
->>  	vlan->dev      = dev;
->>  	vlan->port     = port;
->> @@ -1544,12 +1547,31 @@ int macvlan_common_newlink(struct net_device *dev,
->>  	if (data && data[IFLA_MACVLAN_FLAGS])
->>  		vlan->flags = nla_get_u16(data[IFLA_MACVLAN_FLAGS]);
->>  
->> +	/* Only 1 macvlan device can be created in passthru mode. There may be
->> +	 * additional source mode devices but nothing else at the moment.
->> +	 *
->> +	 * First check if adding a source mode device to an existing passthru vlan.
->> +	 */
->> +	if (macvlan_passthru(port) && vlan->mode != MACVLAN_MODE_SOURCE) {
->> +		/* The macvlan port must be not created this time,
->> +		 * still goto destroy_macvlan_port for readability.
->> +		 */
->> +		err = -EINVAL;
->> +		goto destroy_macvlan_port;
->> +	}
->> +
->> +	/* Now check if adding a passthru device to an existing set of source mode
->> +	 * devices.
->> +	 */
->>  	if (vlan->mode == MACVLAN_MODE_PASSTHRU) {
->> -		if (port->count) {
->> -			err = -EINVAL;
->> -			goto destroy_macvlan_port;
->> +		struct macvlan_dev *p;
->> +
->> +		list_for_each_entry(p, &port->vlans, list) {
->> +			if (p->mode != MACVLAN_MODE_SOURCE) {
->> +				err = -EINVAL;
->> +				goto destroy_macvlan_port;
->> +			}
->>  		}
->> -		macvlan_set_passthru(port);
->>  		eth_hw_addr_inherit(dev, lowerdev);
->>  	}
->>  
->> @@ -1581,7 +1603,12 @@ int macvlan_common_newlink(struct net_device *dev,
->>  	if (err)
->>  		goto unregister_netdev;
->>  
->> -	list_add_tail_rcu(&vlan->list, &port->vlans);
->> +	/* macvlan_handle_frame expects the (one and only) passthru device first. */
->> +	if (vlan->mode == MACVLAN_MODE_PASSTHRU) {
->> +		macvlan_set_passthru(port);
->> +		list_add_rcu(&vlan->list, &port->vlans);
->> +	} else
->> +		list_add_tail_rcu(&vlan->list, &port->vlans);
-> 
-> [Severity: Low]
-> 
-> This isn't a bug as far as I can tell, but the ordering here is the
-> reverse of initialise-then-publish: macvlan_set_passthru() makes
-> macvlan_handle_frame() take the passthru branch before the device is on
-> port->vlans. On teardown the mirror window exists too, since
-> macvlan_dellink() does list_del_rcu() while the flag is only cleared later
-> in macvlan_uninit().
-> 
-> I could not find a functional consequence, because the reader bails out in
-> both windows:
-> 
-> drivers/net/macvlan.c:macvlan_handle_frame() {
-> 	if (macvlan_passthru(port))
-> 		vlan = list_first_or_null_rcu(&port->vlans,
-> 					      struct macvlan_dev, list);
-> 	else
-> 		vlan = macvlan_hash_lookup(port, eth->h_dest);
-> 	if (!vlan || READ_ONCE(vlan->mode) == MACVLAN_MODE_SOURCE)
-> 		return RX_HANDLER_PASS;
-> 
-> and rtnl is held across register_netdevice() and this list_add_rcu(), so
-> the device cannot be up in the creation window. Would publishing the list
-> entry before setting the flag, and using READ_ONCE()/WRITE_ONCE() on
-> port->flags which macvlan_handle_frame() reads from softirq context, be
-> preferable anyway?
-> 
->>  	update_port_bc_queue_len(vlan->port);
->>  	netif_stacked_transfer_operstate(lowerdev, dev);
->>  	linkwatch_fire_event(dev);
->> @@ -1652,19 +1679,23 @@ static int macvlan_changelink(struct net_device *dev,
->>  	if (data && data[IFLA_MACVLAN_MODE]) {
->>  		set_mode = true;
->>  		mode = nla_get_u32(data[IFLA_MACVLAN_MODE]);
->> -		/* Passthrough mode can't be set or cleared dynamically */
->> -		if ((mode == MACVLAN_MODE_PASSTHRU) !=
->> -		    (vlan->mode == MACVLAN_MODE_PASSTHRU))
->> -			return -EINVAL;
->> -		if (vlan->mode == MACVLAN_MODE_SOURCE &&
->> -		    vlan->mode != mode)
->> -			macvlan_flush_sources(vlan->port, vlan);
->> +		if (mode != vlan->mode) {
->> +			/* Passthrough mode can't be set or cleared dynamically,
->> +			 * regardless of existing source interfaces. Furthermore, source
->> +			 * interfaces can't switch modes within a passhtrough port.
->> +			 */
->> +			if (vlan->mode == MACVLAN_MODE_PASSTHRU ||
->> +			    macvlan_passthru(vlan->port))
->> +				return -EINVAL;
->> +			if (vlan->mode == MACVLAN_MODE_SOURCE)
->> +				macvlan_flush_sources(vlan->port, vlan);
->> +		}
->>  	}
-
-I think the change makes sense anyway, to ensure
-the passthru interface is first in the list once the passthru
-flag is set port-wide.
-
-
-> 
-> [Severity: High]
-> 
-> The old condition rejected both directions of a passthru transition. The
-> new one only rejects leaving passthru (vlan->mode == MACVLAN_MODE_PASSTHRU)
-> and any mode change inside an already-passthru port
-> (macvlan_passthru(vlan->port)). On a port that has no passthru device, is
-> switching a device into passthru still rejected?
-> 
->   ip link add m0 link eth0 type macvlan mode vepa
->   ip link set m0 up
->   ip link set m0 type macvlan mode passthru
-> 
-> macvlan_validate() accepts MACVLAN_MODE_PASSTHRU, neither arm of the new
-> test matches, and the tail of macvlan_changelink() commits it:
-> 
-> 	if (set_mode)
-> 		WRITE_ONCE(vlan->mode, mode);
-> 
-> MACVLAN_F_PASSTHRU is never set and the device is never moved to the list
-> head, so the comment right above the check ("Passthrough mode can't be set
-> or cleared dynamically") and the invariant documented at the list_add_rcu()
-> above no longer hold. Since this patch keys the per-device paths off
-> vlan->mode, that device now behaves as passthru where it matters:
-> 
->   ip link set m0 address <x>	macvlan_set_mac_address() takes the
-> 				passthru branch and calls
-> 				dev_set_mac_address(vlan->lowerdev, ...)
-> 
-> IFLA_MACVLAN_MODE has no rtnl_dev_link_net_capable() check on the lower
-> device netns, unlike IFLA_MACVLAN_BC_QUEUE_LEN and IFLA_MACVLAN_BC_CUTOFF,
-> and netif_set_mac_address() performs no namespace capability check, so can
-> CAP_NET_ADMIN in the netns owning a delegated macvlan rewrite the lower
-> device MAC this way?
-> 
->   ip link set m0 down		macvlan_stop() takes the passthru branch,
-> 				skipping dev_uc_del() and the allmulti
-> 				release, and issues an unmatched
-> 				dev_set_promiscuity(lowerdev, -1)
-> 
-> macvlan_uninit() would then also rewrite the lower MAC from
-> port->perm_addr, and macvlan_fdb_add()/macvlan_fdb_del() start accepting
-> unicast filters. Meanwhile macvlan_handle_frame() still uses the hash path
-> because the port flag stayed clear, so the device reports passthru but does
-> not receive as passthru.
-> 
-> Should the "mode == MACVLAN_MODE_PASSTHRU" half of the old test be kept?
-> 
-
-Yes, indeed.
-
-
->>  
->>  	if (data && data[IFLA_MACVLAN_FLAGS]) {
->>  		__u16 flags = nla_get_u16(data[IFLA_MACVLAN_FLAGS]);
->>  		bool promisc = (flags ^ vlan->flags) & MACVLAN_FLAG_NOPROMISC;
->> -		if (macvlan_passthru(vlan->port) && promisc) {
->> +		if (vlan->mode == MACVLAN_MODE_PASSTHRU && promisc) {
->>  			int err;
->>  
->>  			if (flags & MACVLAN_FLAG_NOPROMISC)
-> 
-> [ ... ]
-
-
+diff --git a/drivers/acpi/pci_root.c b/drivers/acpi/pci_root.c
+index a1a9c06012f8..b0e0b33e3254 100644
+--- a/drivers/acpi/pci_root.c
++++ b/drivers/acpi/pci_root.c
+@@ -438,7 +438,7 @@ static u32 calculate_support(void)
+ 		support |= OSC_PCI_ASPM_SUPPORT | OSC_PCI_CLOCK_PM_SUPPORT;
+ 	if (pci_msi_enabled())
+ 		support |= OSC_PCI_MSI_SUPPORT;
+-	if (IS_ENABLED(CONFIG_PCIE_EDR))
++	if (IS_ENABLED(CONFIG_PCIE_DPC))
+ 		support |= OSC_PCI_EDR_SUPPORT;
+ 
+ 	return support;
+@@ -515,9 +515,9 @@ static u32 calculate_control(void)
+ 	 * Per the Downstream Port Containment Related Enhancements ECN to
+ 	 * the PCI Firmware Spec, r3.2, sec 4.5.1, table 4-5,
+ 	 * OSC_PCI_EXPRESS_DPC_CONTROL indicates the OS supports both DPC
+-	 * and EDR.
++	 * and EDR.  EDR is always built with DPC on ACPI systems.
+ 	 */
+-	if (IS_ENABLED(CONFIG_PCIE_DPC) && IS_ENABLED(CONFIG_PCIE_EDR))
++	if (IS_ENABLED(CONFIG_PCIE_DPC))
+ 		control |= OSC_PCI_EXPRESS_DPC_CONTROL;
+ 
+ 	return control;
+diff --git a/drivers/pci/pcie/Kconfig b/drivers/pci/pcie/Kconfig
+index 207c2deae35f..de4ea33b4524 100644
+--- a/drivers/pci/pcie/Kconfig
++++ b/drivers/pci/pcie/Kconfig
+@@ -137,12 +137,3 @@ config PCIE_PTM
+ 	  This is only useful if you have devices that support PTM, but it
+ 	  is safe to enable even if you don't.
+ 
+-config PCIE_EDR
+-	bool "PCI Express Error Disconnect Recover support"
+-	depends on PCIE_DPC && ACPI
+-	help
+-	  This option adds Error Disconnect Recover support as specified
+-	  in the Downstream Port Containment Related Enhancements ECN to
+-	  the PCI Firmware Specification r3.2.  Enable this if you want to
+-	  support hybrid DPC model which uses both firmware and OS to
+-	  implement DPC.
+diff --git a/drivers/pci/pcie/Makefile b/drivers/pci/pcie/Makefile
+index b0b43a18c304..46b24311f659 100644
+--- a/drivers/pci/pcie/Makefile
++++ b/drivers/pci/pcie/Makefile
+@@ -13,4 +13,7 @@ obj-$(CONFIG_PCIEAER_INJECT)	+= aer_inject.o
+ obj-$(CONFIG_PCIE_PME)		+= pme.o
+ obj-$(CONFIG_PCIE_DPC)		+= dpc.o
+ obj-$(CONFIG_PCIE_PTM)		+= ptm.o
+-obj-$(CONFIG_PCIE_EDR)		+= edr.o
++
++ifdef CONFIG_ACPI
++obj-$(CONFIG_PCIE_DPC)		+= edr.o
++endif
+diff --git a/drivers/pci/pcie/dpc.c b/drivers/pci/pcie/dpc.c
+index fdea3db61a4a..b4fb45ca559d 100644
+--- a/drivers/pci/pcie/dpc.c
++++ b/drivers/pci/pcie/dpc.c
+@@ -109,10 +109,11 @@ bool pci_dpc_recovered(struct pci_dev *pdev)
+ 
+ 	/*
+ 	 * Synchronization between hotplug and DPC is not supported
+-	 * if DPC is owned by firmware and EDR is not enabled.
++	 * if DPC is owned by firmware and there is no EDR, i.e., on
++	 * non-ACPI systems.
+ 	 */
+ 	host = pci_find_host_bridge(pdev->bus);
+-	if (!host->native_dpc && !IS_ENABLED(CONFIG_PCIE_EDR))
++	if (!host->native_dpc && !IS_ENABLED(CONFIG_ACPI))
+ 		return false;
+ 
+ 	/*
+diff --git a/include/linux/pci-acpi.h b/include/linux/pci-acpi.h
+index c0c54baadf04..9715351c0d51 100644
+--- a/include/linux/pci-acpi.h
++++ b/include/linux/pci-acpi.h
+@@ -123,13 +123,13 @@ extern const guid_t pci_acpi_dsm_guid;
+ #define DSM_PCI_POWER_ON_RESET_DELAY		0x08
+ #define DSM_PCI_DEVICE_READINESS_DURATIONS	0x09
+ 
+-#ifdef CONFIG_PCIE_EDR
++#ifdef CONFIG_PCIE_DPC
+ void pci_acpi_add_edr_notifier(struct pci_dev *pdev);
+ void pci_acpi_remove_edr_notifier(struct pci_dev *pdev);
+ #else
+ static inline void pci_acpi_add_edr_notifier(struct pci_dev *pdev) { }
+ static inline void pci_acpi_remove_edr_notifier(struct pci_dev *pdev) { }
+-#endif /* CONFIG_PCIE_EDR */
++#endif /* CONFIG_PCIE_DPC */
+ 
+ int pci_acpi_set_companion_lookup_hook(struct acpi_device *(*func)(struct pci_dev *));
+ void pci_acpi_clear_companion_lookup_hook(void);
 -- 
-Thomas Martitz <t.martitz@fritz.com>
-FRITZ! Technology GmbH, Berlin (Germany)
+2.43.0
+
