@@ -1,84 +1,120 @@
-Received: from www262.sakura.ne.jp (www262.sakura.ne.jp [202.181.97.72])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5AB5409638
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 15:22:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.181.97.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEBB436DA00;
+	Wed,  7 Oct 2026 15:22:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791386559; cv=none; b=BWeNH84dLmeScpyJ04aYiVnn2UljPoJE0e7h66GKfzGVz5mz0JHQ8tmTH/sM87E4H43bGgJ9po4tBxStoivVykvs84H08r4++zX49/07Zi/WsUmyMB+xeTBamRg8L7A+WLySPCZyi+KAaku2hE5oWSAd7P3V2F7JuGxvTM/fJiQ=
+	t=1791386559; cv=none; b=rFRPEPyipT0rSJt8x3bncLkdjEVbCTqnRvXPwAGMaS940bwZJ2HBi9MkC86+jAGzdgPQh07tVTARQKdvX+H8Kx+lfqbnpmJx+hOw4lodHAfUCVFOYdne36J02iCcVS/iG/VKb8BVXpj31MOEd0+FwnIUuFyC4jGmW3k3+3Q1AyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791386559; c=relaxed/simple;
-	bh=GFKQAZKlyiSGFkpFpEpvWJ0JU6emZfe4uUabjYweHdM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:Cc:From:
-	 In-Reply-To:Content-Type; b=om1iRH/SzDXaORAz6lJHa+3I4Cd+aWXGSJN0Qmc8/rJT5MB/8buMGtTTVGxkRnOC2UlXPOYAji2CX2sBQ7Bjd9qdesAiO8hrEVcRl4BCH/WVyHNllvquQxKk72EkHVYLc23tPpSMN1TPJpRvTAS9ogP16gOfAfzZLDsRIEoKmBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp; arc=none smtp.client-ip=202.181.97.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp
-Received: from www262.sakura.ne.jp (localhost [127.0.0.1])
-	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 697FMVdv042115;
-	Thu, 8 Oct 2026 00:22:31 +0900 (JST)
-	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Received: from [192.168.1.6] (M106072072000.v4.enabler.ne.jp [106.72.72.0])
-	(authenticated bits=0)
-	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 697FMURA042078
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO);
-	Thu, 8 Oct 2026 00:22:31 +0900 (JST)
-	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Message-ID: <100e7540-6918-4b48-99ba-9e96ab7706c4@I-love.SAKURA.ne.jp>
-Date: Thu, 8 Oct 2026 00:22:27 +0900
+	bh=qmPn2JEiSVkOXWZ6j0MwdNN7A94tBlZRvww/DTUhbEY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=WuHpPWMVtAwclp5XIDFxUeMlGJ+1pEAPpWrJZen+pHs0O1On6Pukmi4/cljqyKDAjGmwlInaiTxAoeXME1//Pcy7G9T4rjgQRiI3nSCmeDQWHhL73baOuPLzzvaznUNY/q7YTTbopLn+sKpY/ZWNmyaa/73h9mAUfLFsTpA+f40=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BLo+kLs7; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BLo+kLs7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A6501F00893;
+	Wed,  7 Oct 2026 15:22:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791386554;
+	bh=y/cLKF7aCIfI9pkvpi2kVxTKSevxkLdbDRk3yxWlFeo=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=BLo+kLs7YHOfoR/w9rCUi7iUPKkJLrI7YPOkaN0ierYAae5oJXReAbiyBuBtpif7L
+	 8v2cKF4s1XQ5m16BvNMg9omuyipVwOcTJLQP4XFyyT8Y2xzeyxM0pADXNeIRvUnekH
+	 NTH86YroLi+LFqXLsS7XN8qe24BwTBiJos68mdQraiPUT88jjEe+6bGC7onhWHDfvK
+	 +a7l7cVab2GSoN5XFMDe8Z+8DK8VcEZTn4WsoYCdE126IjqMs7+tItUCL/06eqxi44
+	 UiOLgMEndrvw08/QIlLoTfj96B8U3nNfEFgoPYYa986Wvy/Kdhm0ZEy9uCTGgXnDjp
+	 lQUh61DyWlqOg==
+From: Nathan Chancellor <nathan@kernel.org>
+Date: Wed, 07 Oct 2026 17:22:21 +0200
+Subject: [PATCH 1/2] scripts/Kconfig.toolchain: Drop compiler symbols from
+ dependencies
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [syzbot] [lsm?] general protection fault in
- smack_inode_permission (4)
-To: syzbot <syzbot+fc1d5d9a7ebabbc27458@syzkaller.appspotmail.com>,
-        syzkaller-bugs@googlegroups.com, jfs-discussion@lists.sourceforge.net
-References: <6ac1be3e.9ad129c8.3858c0.0025.GAE@google.com>
-Content-Language: en-US
-Cc: casey@schaufler-ca.com, jmorris@namei.org, linux-kernel@vger.kernel.org,
-        linux-security-module@vger.kernel.org, paul@paul-moore.com,
-        serge@hallyn.com
-From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-In-Reply-To: <6ac1be3e.9ad129c8.3858c0.0025.GAE@google.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Virus-Status: clean
-X-Anti-Virus-Server: fsav114.rs.sakura.ne.jp
+Message-Id: <20261007-scripts-kconfig-toolchain-improvements-v1-1-1e524178da11@kernel.org>
+References: <20261007-scripts-kconfig-toolchain-improvements-v1-0-1e524178da11@kernel.org>
+In-Reply-To: <20261007-scripts-kconfig-toolchain-improvements-v1-0-1e524178da11@kernel.org>
+To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Julian Braha <julianbraha@gmail.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, Kees Cook <kees@kernel.org>, 
+ linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2716; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=qmPn2JEiSVkOXWZ6j0MwdNN7A94tBlZRvww/DTUhbEY=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFnHkjcnHph9kflKhHWh9pmTLK/v/vm2s/cR3watO43iR
+ 725FOsrOkpZGMS4GGTFFFmqH6seNzScc5bxxqlJMHNYmUCGMHBxCsBELjYy/PfYNFfg963K06Z1
+ DfWpHyO8T9xdZjSDj/sK88N5GWdf7TzH8JuNycPX4M8hZRGZ+rs5dwXWyv4+pjqbw1kmd59c+0b
+ uPmYA
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-C repro is at https://syzkaller.appspot.com/ai_job?id=35b0b5a6-7e19-40a7-af3b-871da805fc98
+Commit 454e00cf8ee5 ("kbuild: avoid re-running compiler and linker
+probes") moved many cc-option calls from the main Makefile into Kconfig.
+In the process, code such as
 
-#syz set subsystems: jfs
+  ifdef CONFIG_CC_IS_GCC
+  KBUILD_CFLAGS += $(call cc-option,-foo)
+  endif
 
-On 2026/10/04 11:47, syzbot wrote:
-> Hello,
-> 
-> syzbot found the following issue on:
-> 
-> HEAD commit:    ce1e0223d8ad Merge tag 'devicetree-fixes-for-7.3-2' of git..
-> git tree:       upstream
-> console output: https://syzkaller.appspot.com/x/log.txt?x=12555b15580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=718e346eb0b8f38
-> dashboard link: https://syzkaller.appspot.com/bug?extid=fc1d5d9a7ebabbc27458
-> compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-> 
-> Unfortunately, I don't have any reproducer for this issue yet.
-> 
-> Downloadable assets:
-> disk image: https://storage.googleapis.com/syzbot-assets/4167e1ad25c1/disk-ce1e0223.raw.xz
-> vmlinux: https://storage.googleapis.com/syzbot-assets/a0a74c8dec59/vmlinux-ce1e0223.xz
-> kernel image: https://storage.googleapis.com/syzbot-assets/f6caa72edd70/bzImage-ce1e0223.xz
-> 
-> IMPORTANT: if you fix the issue, please add the following tag to the commit:
-> Reported-by: syzbot+fc1d5d9a7ebabbc27458@syzkaller.appspotmail.com
-> 
-> ERROR: (device loop4): jfs_readdir: JFS:Dtree error: ino = 2, bn=0, index = 3
-> ERROR: (device loop4): jfs_readdir: JFS:Dtree error: ino = 2, bn=0, index = 5
-> ERROR: (device loop4): jfs_readdir: JFS:Dtree error: ino = 2, bn=0, index = 6
-> Oops: general protection fault, probably for non-canonical address 0xdffffc018bd1a30b: 0000 [#1] SMP KASAN PTI
-> KASAN: probably user-memory-access in range [0x0000000c5e8d1858-0x0000000c5e8d185f]
-> CPU: 1 UID: 0 PID: 5607 Comm: syz-executor Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
-> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+was converted into Kconfig as
+
+  config CC_OPT_FOO
+      def_string "$(cc-option-str,-foo)" if CC_IS_GCC
+
+The 'if CC_IS_GCC' is generally unnecessary because it does not prevent
+the cc-option-str call from running (which is the primary reason the
+ifdef guards exists in the Makefile), as cc-option-str and the like are
+run before Kconfig even parses the dependency. It only impacts the
+symbol's visibility, which does not really matter in the general case,
+so remove these dependencies.
+
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+---
+ scripts/Kconfig.toolchain | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/scripts/Kconfig.toolchain b/scripts/Kconfig.toolchain
+index d708a175fe48..c9a1692e6149 100644
+--- a/scripts/Kconfig.toolchain
++++ b/scripts/Kconfig.toolchain
+@@ -161,10 +161,10 @@ config CC_OPT_STRICT_FLEX_ARRAYS
+ 
+ # gcc-10 renamed --param=allow-store-data-races=0 to -fno-allow-store-data-races
+ config CC_OPT_ALLOW_STORE_DATA_RACES_PARAM
+-	def_string "$(cc-option-str,--param=allow-store-data-races=0)" if CC_IS_GCC
++	def_string "$(cc-option-str,--param=allow-store-data-races=0)"
+ 
+ config CC_OPT_NO_ALLOW_STORE_DATA_RACES
+-	def_string "$(cc-option-str,-fno-allow-store-data-races)" if CC_IS_GCC
++	def_string "$(cc-option-str,-fno-allow-store-data-races)"
+ 
+ config CC_HAS_MNOP_MCOUNT
+ 	def_bool $(cc-option,-mnop-mcount)
+@@ -183,13 +183,13 @@ config CC_OPT_WNO_ADDRESS_OF_PACKED_MEMBER
+ 	def_string "-Wno-address-of-packed-member" if $(cc-option,-Waddress-of-packed-member)
+ 
+ config CC_OPT_WNO_FORMAT_OVERFLOW_NON_KPRINTF
+-	def_string "-Wno-format-overflow-non-kprintf" if CC_IS_CLANG && $(cc-option,-Wformat-overflow-non-kprintf)
++	def_string "-Wno-format-overflow-non-kprintf" if $(cc-option,-Wformat-overflow-non-kprintf)
+ 
+ config CC_OPT_WNO_FORMAT_TRUNCATION_NON_KPRINTF
+-	def_string "-Wno-format-truncation-non-kprintf" if CC_IS_CLANG && $(cc-option,-Wformat-truncation-non-kprintf)
++	def_string "-Wno-format-truncation-non-kprintf" if $(cc-option,-Wformat-truncation-non-kprintf)
+ 
+ config CC_OPT_WNO_DEFAULT_CONST_INIT_UNSAFE
+-	def_string "-Wno-default-const-init-unsafe" if CC_IS_CLANG && $(cc-option,-Wdefault-const-init-unsafe)
++	def_string "-Wno-default-const-init-unsafe" if $(cc-option,-Wdefault-const-init-unsafe)
+ 
+ config CC_OPT_WNO_DANGLING_POINTER
+ 	def_string "-Wno-dangling-pointer" if $(cc-option,-Wdangling-pointer)
+
+-- 
+2.56.0
+
