@@ -1,72 +1,76 @@
-Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
+Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com [209.85.160.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ABF833A6F2
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 01:37:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DE9F33D503
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 01:37:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791337055; cv=none; b=dr9kV/Iy/FWTOG6y/u+bG1dhB4IdhVgggehV3wDFAsaUsGYwyxSumX9LW43hetzgt016U/rnq/GBwPNIZaDrF2LXG8mfyZI7qGlsHq5lEAEYT+QuJJmuCLWNzAiI4Cx5cGNYRkTe4vkG4vp3sodB8w7kAoBZ5PSj6GfXXalgNOo=
+	t=1791337063; cv=none; b=JHEd3O8RkGrZ0w6KkBjHQd9cpqqSggOOCC8xmoexowsaKLXCPWEoCwTfEVA3P/TsMmi0onUVHZup3D+PMSfdV6ki4hRshdMN6AWdX5HPyUGN2bwjEN0+knKs0lG3AaylJhcUMKN2o0qr0rvIaU5ZzAzQ4WkI1xCkqF54eH3xvdY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791337055; c=relaxed/simple;
-	bh=SOLkzMjcd8t7bYXDVU1/DE9RyYqx6GQwsbfS6Psv/UM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=p6Tz3fjI12zpynKYMcI8pimvhlDCCMt3T1eVl0iPqzbbQ9DPKAZB342/f7odKBgy+0XypUMYKmIgv+1m2oSmZWxQthmnC+ThtGH2hfq8mHO+/z5BZJ/9b2/FtVHhKLXtYrc9mN+NSzkwA4Htxzc7iz2lESNboqOxfzjK45TzW/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B0svI2F4; arc=none smtp.client-ip=209.85.161.47
+	s=arc-20240116; t=1791337063; c=relaxed/simple;
+	bh=hRjfKFXXRRxS3ds77GOO8EDnyRQdjhfK6DdZ0IAeJOs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WXK3j+K0cYeZczW/K8A1ymA9o4Ag+yF+PUAyZ0ofZQ14A5pSvq1k4yS1klQz3XT3F4Aw4wbjPDGZMZqmN0tjtpZFP22eqf3Gd5U/tVKHSTqu2nSN63RTxu/vXtZ9gHoKT/XdkYjM/jru/vLo20yxSGmgpPCGFN/JO3V4m316t3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HSdnEuC7; arc=none smtp.client-ip=209.85.160.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B0svI2F4"
-Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-6de1fd5f572so571590eaf.3
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 18:37:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HSdnEuC7"
+Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-499f20c7054so693398fac.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 18:37:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791337053; x=1791941853; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ct4rXXs0PtnWbJOqaUvpbRv2cVJCpPMHV6AEHhPMwjs=;
-        b=B0svI2F4csfr/dtu9RLHW1bZd56a8tC0sV4/VoTPhX91RqhcVjeuzQCG+oW9M1NGGz
-         0lkscmvycd01ctsPt1se3rY1wTV8J3mge/YV9/hyjuycw5oREDZcgtR7LJruRyFlKfCn
-         BM5416NqyemuKyVanLOVlD2b0EmsOSH4wL6bmSdrI5Dl/TsHx+/Wn/3Hr15w6LuymcLN
-         jPmi5qf1rwX0XuGJCq4YbOk0QxTW2Q/mlB6ZsZhH6/0P4YqrdY0c8NreWBAbv9WwtAXF
-         2x9kuPGODdQrgFQ7EsC5cvfBLe01E1+zVW3FYKvAh59DVNvnKwOwGxuwz2H0bAqOD9sQ
-         elQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791337053; x=1791941853;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1791337061; x=1791941861; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ct4rXXs0PtnWbJOqaUvpbRv2cVJCpPMHV6AEHhPMwjs=;
-        b=EuIqt54veb0IrTC53pcQS5yAQwtbprQGBbSv+ReAEQDpophhvUqjlLlSX9sYyFUqw0
-         V3fhiPVlNCpaEysVuaQAwoh4/qtvvW7whBO3+zMfRVrvEkOote7tMgzMlXhoAQ1X0VdL
-         zLsRPOrPppXmnq449WqJ6Cr8EquzYYDf4bSxcm4stngxupyqE14lPTQt/g2zzwGMPvip
-         VJr8Zvxad4X0KpmAFI6fELyRQISzZw2mCgBnhqCSfw/emkJNDC+X5stN4LEpaZRksXnz
-         C2sfE0DWgO8Z/8Hfcc1efO3IFP6VOYdkbNaEvyjRTUzxaGvn9098HNlDMyWHNG2SnVe2
-         fOyw==
-X-Forwarded-Encrypted: i=1; AKwUvByRmR5XKm1PqWIKLVTc668MlG4mvCIWNiGT69V6Zvw80YRtEOg0qPAzMfgyuZRVD2Oss9EMH4fPSt29qRE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lgnmE7xj0LY1svc+k6G5aOYHe0fa4h7RBr8vgsGD3e4wDEzmUr
-	sbykVegZSJKCilObTogYe9zNE78VJgUnL9cZC8n0V8/cwAvQ9pyuSs4o
-X-Gm-Gg: AYBFou0arDF96CuLcYA1SLYzXbUWnD1LFegLnH2vjuAAIbLm8gxlZTvg6xTpMUwuWS0
-	j+57bCQ9aFoD95soI8pDHR16DVTspU9rajetHfDv3o963KQoe9zaxHC0KEw8EXURasOavaBosZv
-	/ORHVjgkG56RdC6Fk2bUCRQFAwGGjI4jebRnIHF+B+OnuLHT9g+ZVYtgYn5i9Yq9sCJBpikgChq
-	hvhcrrcBJtcy8QZOefB4FyZP3SUDLQsVocbepGSrIHH5fNScmSnRr86y7/DU06w6+xulSVSgEJO
-	8OEQ7r5Klzxrbh1obBtI9jLQIdS7vJyWOTJWWwbhas3fn6loVRCiZSCls6mAiOKg7cBdrRnZ8uz
-	faGpSgKmQk+2HQQot6EOTgBUYMK6rLR0NIDJ6JS7CvxHKIEPIOdAoh/HGIlpFpKefi9PW1JBaoL
-	SNI0P1swbGAI3thPUN++ukf5hmpx6BqW/IMWfFPoHw2jeHzcDG/NdciqzH9ysfk0n0o+NL5iCh+
-	hhcPowQmAjwThQnJk261NLXFrdcHZTpxg==
-X-Received: by 2002:a05:6820:200e:b0:6c1:dc9f:ab2e with SMTP id 006d021491bc7-6e7a889e3b1mr944001eaf.27.1791337052909;
-        Tue, 06 Oct 2026 18:37:32 -0700 (PDT)
+        bh=y0wy5r/a8wSdsmPA4swctu0ZijkSM7bFUGt/MLOHIyo=;
+        b=HSdnEuC7/varPnxrsVc56A2nb1utk5zVknc3IlDCR8cA/ZKKqdAbzHc1N7fEBoAkYT
+         lTOG+kIuCcGSh/5qd3mZBmGrIyt+qIh8oqP6EZW4C/2COrH+ISfa7AWLHO3FcskfGGVc
+         NtyMVgINT3WGYP3Z8C8hR7anoR2kRY803zuu7yNcM5Ea5jKOa2F4RuSgLgHD9uS6Gfwy
+         nG95faMjX7WDYUuEtbiDzXyKpotb2Sn7Y3URp+qppOgplF7wDDtnHUClJs5fUzWQzN3G
+         soRyR308QafDawEM+saWVDaF4LCcQtbB5PYRKD52e4RYHCJBR9/4tgp1g4n/GQLNGnGp
+         4A5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791337061; x=1791941861;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=y0wy5r/a8wSdsmPA4swctu0ZijkSM7bFUGt/MLOHIyo=;
+        b=q+DE8xgqx54wAQuUV3dLGNGNIGwlEyHwq8DMW9WCCz55jt+vCwvf1QR+GNRN5A5FsX
+         hk3EsaUbqGWfjNp7Ley8sRgY2/kfTa9VawoOokzjcVoCHo32JpfEDBmT+9qUeyhGjbtp
+         uemmJkHCKLZrcRfoyRk/LehkF8NhvO5f3f1/euIwskXsSZLMKoHIwpwR9f7M6Gk4hnly
+         5SURn7Wf+WmtDg7KwV0+Ra2EVCPokz+TuiMMFsL+8TIW1LgEjXBLCdbRvjpd6BDDADKy
+         TeSgVz3P8xrWqqbtg2ar8XGMRGREzu2O9vnWQE65kPKbp1IVLXFfVMSOFNrzGsHqD9ph
+         +F3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwW6UDN147RY7khkjT5v2dCwc/EobTUujmawCdsHiUtNzGvNbOfTodNTxBxCxf8U6UJEu5cQh/jwYDDoQs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nqnZWq+1PRYMznuzBb8VO+91WhkrC+j5eCSE0T0KO/tzxEDje/
+	iNkG+oSsPmZQpygzQhbvAC1wgQRaQrQLa8ZcsOxFoe0UXoqqpUTxIo54
+X-Gm-Gg: AYBFou2rbTU+UzIHMkZXqO2xTAWkrtZaQ2737zf+VPdMIfoikepCSgGI7l9HoraKR6n
+	Vp0r5tWit7joJXgawVKwSMAP1vHwJfWHWE103PKCyMp85TWh0MBJSjEFKvYR/ADMU0rCGzMAJQP
+	sVO37WJv6QdJ6Hg3xLuVFK5F3yDzWD+A3pYvcD/6y1XaaKteKvl5CbcRnrlci/31ixTS4V2/hAO
+	S2VR3hhRFl2onJkCRDkrOn5nOwdQJMg4ot1mSxOTQzu8KppwAXjn5mU0P+6aHcORi/9W64gQUSN
+	qXmQTu9vSzKfihSwiplRutVV2ZHbfJqwJVkuGyYf4TGQs/qIjGRKgcU/5TIKCKmCmLw+USfW1Xf
+	hb5NOvXvpNyJstwkzFlrTvcM8RY8Uw5zBXsQjLyvHqpDOFBeYsul020cD7DaDZ6uVOrZrB+OE88
+	ud/kpltRNapgwdNPS1I/VNrQ3fVxwSzUxQbXc+VVuvptQJFfBnyhXWIB5YmEz2KJQWSGQzGQ6V2
+	0A3H6CO6hkXi3JJ87BNjcI=
+X-Received: by 2002:a05:6871:c8e9:b0:448:a3d6:c2d2 with SMTP id 586e51a60fabf-4a25942acfamr984499fac.10.1791337060915;
+        Tue, 06 Oct 2026 18:37:40 -0700 (PDT)
 Received: from Arch ([201.110.174.1])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a25728fad1sm966520fac.18.2026.10.06.18.37.32
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a25728fad1sm966520fac.18.2026.10.06.18.37.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 18:37:32 -0700 (PDT)
+        Tue, 06 Oct 2026 18:37:40 -0700 (PDT)
 From: =?UTF-8?q?I=C3=B1aki=20Sobera=20Sotomayor?= <inakisobera8@gmail.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	=?UTF-8?q?I=C3=B1aki=20Sobera=20Sotomayor?= <inakisobera8@gmail.com>
-Subject: [PATCH 1/2] staging: rtl8723bs: remove unused EEPROM definitions
-Date: Tue,  6 Oct 2026 19:35:21 -0600
-Message-ID: <0c4bc57c3034233f330f620eeb03fd7d8f8de457.1791312824.git.inakisobera8@gmail.com>
+Subject: [PATCH 2/2] staging: rtl8723bs: remove unused PCI ASPM OSC definitions
+Date: Tue,  6 Oct 2026 19:35:22 -0600
+Message-ID: <8b372e2037cff170950c0dc0b94d7cdd78ba4c80.1791312824.git.inakisobera8@gmail.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <0c4bc57c3034233f330f620eeb03fd7d8f8de457.1791312824.git.inakisobera8@gmail.com>
+References: <0c4bc57c3034233f330f620eeb03fd7d8f8de457.1791312824.git.inakisobera8@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,49 +80,35 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-RTL8712_EEPROM_ID, HWSET_MAX_SIZE_128, HWSET_MAX_SIZE_256, CLOCK_RATE
-and the EEPROM_*_OPCODE macros are leftovers from the original vendor
-driver. None of them is referenced anywhere in the tree, so drop them.
-
-HWSET_MAX_SIZE_512 is left in place because EEPROM_MAX_SIZE expands to
-it.
+RT_PCI_ASPM_OSC_IGNORE, RT_PCI_ASPM_OSC_ENABLE and
+RT_PCI_ASPM_OSC_DISABLE describe how PCI ASPM is arbitrated between the
+OS and the driver. This driver is SDIO only, it depends on MMC, and the
+macros are not referenced anywhere in the tree. Drop them along with
+their comment.
 
 No functional change intended.
 
 Signed-off-by: Iñaki Sobera Sotomayor <inakisobera8@gmail.com>
 ---
- drivers/staging/rtl8723bs/include/rtw_eeprom.h | 12 ------------
- 1 file changed, 12 deletions(-)
+ drivers/staging/rtl8723bs/include/rtw_pwrctrl.h | 5 -----
+ 1 file changed, 5 deletions(-)
 
-diff --git a/drivers/staging/rtl8723bs/include/rtw_eeprom.h b/drivers/staging/rtl8723bs/include/rtw_eeprom.h
-index 4294b021f1b..92eea3e2e70 100644
---- a/drivers/staging/rtl8723bs/include/rtw_eeprom.h
-+++ b/drivers/staging/rtl8723bs/include/rtw_eeprom.h
-@@ -8,24 +8,12 @@
- #define __RTW_EEPROM_H__
+diff --git a/drivers/staging/rtl8723bs/include/rtw_pwrctrl.h b/drivers/staging/rtl8723bs/include/rtw_pwrctrl.h
+index c308fcedd63..60fbd9637b9 100644
+--- a/drivers/staging/rtl8723bs/include/rtw_pwrctrl.h
++++ b/drivers/staging/rtl8723bs/include/rtw_pwrctrl.h
+@@ -84,11 +84,6 @@ enum rt_rf_power_state {
+ #define	RT_CLEAR_PS_LEVEL(ppsc, _PS_FLAG)	(ppsc->cur_ps_level &= (~(_PS_FLAG)))
+ #define	RT_SET_PS_LEVEL(ppsc, _PS_FLAG)		(ppsc->cur_ps_level |= _PS_FLAG)
  
- 
--#define	RTL8712_EEPROM_ID			0x8712
- /* define	EEPROM_MAX_SIZE			256 */
- 
--#define	HWSET_MAX_SIZE_128		128
--#define	HWSET_MAX_SIZE_256		256
- #define	HWSET_MAX_SIZE_512		512
- 
- #define	EEPROM_MAX_SIZE			HWSET_MAX_SIZE_512
- 
--#define	CLOCK_RATE					50			/* 100us */
+-/*  ASPM OSC Control bit, added by Roger, 2013.03.29. */
+-#define	RT_PCI_ASPM_OSC_IGNORE		0	 /*  PCI ASPM ignore OSC control in default */
+-#define	RT_PCI_ASPM_OSC_ENABLE		BIT(0) /*  PCI ASPM controlled by OS according to ACPI Spec 5.0 */
+-#define	RT_PCI_ASPM_OSC_DISABLE		BIT(1) /*  PCI ASPM controlled by driver or BIOS, i.e., force enable ASPM */
 -
--/*  EEPROM opcodes */
--#define EEPROM_READ_OPCODE		06
--#define EEPROM_WRITE_OPCODE		05
--#define EEPROM_ERASE_OPCODE		07
--#define EEPROM_EWEN_OPCODE		19      /*  Erase/write enable */
--#define EEPROM_EWDS_OPCODE		16      /*  Erase/write disable */
--
- /* Country codes */
- #define USA							0x555320
- #define EUROPE						0x1 /* temp, should be provided later */
+ enum {
+ 	PSBBREG_RF0 = 0,
+ 	PSBBREG_RF1,
 -- 
 2.56.0
 
