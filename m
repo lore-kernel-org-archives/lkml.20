@@ -1,139 +1,90 @@
-Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9211026B2AD;
-	Wed,  7 Oct 2026 03:15:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791342914; cv=pass; b=WzX5hhybOLfEjAD7KC14PHNrZMmq8L2Asu4AjN0agh1w9wRPfI1iUlp9EPFcZEDriKxTbExiUNDVpMQk+RJCA5z9QrkxOqwCJa8toag6A+S0h2NIDUETCichHLA2kPfbl0jUQgtUnp3rR1kzBksRivjIZYoWWUGbkbugsFK37BA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791342914; c=relaxed/simple;
-	bh=5nMR08qKE40Q34lJ2LndaTZDYNEPY1AYkH9+9D58Ekg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=J48VfVk9QJcZhRRkum5dfyyzhU9UNFhm+Yaf2GAn11XQkuDWhlSuT+ZpOwmCKjw+FtWgc4ov25mW+Cb9XHk9yuoAPJx0aviJqe1ToIg6cGJ8TBr9yGmSscC9lm0vK8E0cCthJ92VW/HMJl3kP21AqW5OyWBIQyKFpVZkql03HFE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv; spf=pass smtp.mailfrom=iav.lv; dkim=pass (1024-bit key) header.d=iav.lv header.i=iav@iav.lv header.b=KF6vx3TO; arc=pass smtp.client-ip=136.143.169.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A36A264612
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 03:15:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791342927; cv=none; b=u2ii8JlNRew+xvF8ts9WzRxJYQFDBmhhmKwITYu6NKRG7L9sed5lLtUpnf/sGeuywTsW6m2LNf0Q4Ha1lqZHxGKKPo4nxeBAg56HRPF/zgTjuutVSogRHClmY/dKwZtxml+TtR0UqKWfHnaqmEm5P57MtTfkMhqYrR5BCQeeeBM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791342927; c=relaxed/simple;
+	bh=8KrDMNZ3lLoSq8KiV6wo0+UcYegtNQ3QGnSy6WjiYgE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rufojGOLVTIwrTSr1ivUi8xO8mB72YHLa3cOPslMmh8d0+oN6xWyLs0e4SM0WztOSXjzp2+kT9kz2QxuOyPD8+tbLEQkwzWrdddRXEQ+x0qLSiF+DgLj9U5uBCTZiw4ZvGzdWCiLTfYA0VAvnaOvTkmzNwysBc1b3qNyF6dLTQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=morsemicro.com; spf=pass smtp.mailfrom=morsemicro.com; dkim=pass (2048-bit key) header.d=morsemicro-com.20251104.gappssmtp.com header.i=@morsemicro-com.20251104.gappssmtp.com header.b=sM6vsbf2; arc=none smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=morsemicro.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=morsemicro.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iav.lv header.i=iav@iav.lv header.b="KF6vx3TO"
-ARC-Seal: i=1; a=rsa-sha256; t=1791342883; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=Cznt3eby3evqFmTaqFMX61fH9TCqMrewryqZ0ZIa0guwBKiL57NvRHiXDMoS8Yy+FIPiw3RIqylETPrZFBBh8fCzB1FnmuAIu2pvU5lrXesEpoI2h/9WxN1u6s82LU6JxaA0Qxgg9lUi7TZbTSs7yceacl3EJB1eeD4yWcvDD5k=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1791342883; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=1lEvJX1E303KGewRVMWUi6HWA6+DV9DZawsuOsQIsn8=; 
-	b=KHc6n8lKadRmoC+boJGfigKcUgEU6vVTrhQCLHvp4wUhsCKQqtJ+56l9svWtx6JsyZhf6sTxhcSfYCKhKw8/qXVlt4yOU/381k3KdKxSFpEunz7HgoD6MnVCIDC5EdiWyhXhfKNZgyhd7WCKOs3CCcOGhqZtZWaqVGnM+zqBG5g=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=iav.lv;
-	spf=pass  smtp.mailfrom=iav@iav.lv;
-	dmarc=pass header.from=<iav@iav.lv>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791342883;
-	s=zoho; d=iav.lv; i=iav@iav.lv;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=1lEvJX1E303KGewRVMWUi6HWA6+DV9DZawsuOsQIsn8=;
-	b=KF6vx3TOUhUkD5heJM/WrFAuygkhXbZJsimKwXsJNHSzb0F7xfhUZDJbIU1BGhWv
-	16RpHMeRHp+bx//q3FOG1GgwmoPe0xp3tcBP2MtP/q69jPVtWa9eCPOKqZTYHhMLU/f
-	vZJ/VGtYfBKpNo9HG3L0VFmXMvDF4OyJYu3/angc=
-Received: by smtp.zoho.eu with SMTPS id 1791342880666265.053555662332;
-	Wed, 7 Oct 2026 05:14:40 +0200 (CEST)
-From: Igor Velkov <iav@iav.lv>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v3] net: stmmac: mask the MAC interrupt while resume resets the MAC
-Date: Wed,  7 Oct 2026 06:14:38 +0300
-Message-ID: <20261007031438.3179966-1-iav@iav.lv>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=morsemicro-com.20251104.gappssmtp.com header.i=@morsemicro-com.20251104.gappssmtp.com header.b="sM6vsbf2"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e6038cebefso2983225ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 20:15:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=morsemicro-com.20251104.gappssmtp.com; s=20251104; t=1791342925; x=1791947725; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=70ZhN2CxNGLiDnPBlxtAiGoFZYkaEoZZZjA+drHf5ns=;
+        b=sM6vsbf2YWSY7oJHdszojc3HalFHc3Onl1DCIWv3kB7nIKpm0B6yBcA4f1XPu2fkW1
+         tqYOCtpAOg9M86uPNoa5ARKYCtu+7sO23U44CooxJg2ieyDblSLHEZnVVpzADRqSLOs4
+         F+w9t9S1p54P4EexO+yVFu/vUGTTIQ47ptU6mITKTP/opymo+7FVlksZJvz+aGJKTuyl
+         vnB6Zs3IEGYtUS+fQ7AjwLUeeKt1I0Go4bjqypdrJc5lhjdlmhK94BbN5fRFZqbl5gB1
+         Tem5rKnkgJNVB5XKDzH1+bDLq3/kCAVPD2ez9Qqtc0HDEhXv1o0S0nHH1Z/dqUa9SYVJ
+         LEmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791342925; x=1791947725;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=70ZhN2CxNGLiDnPBlxtAiGoFZYkaEoZZZjA+drHf5ns=;
+        b=hdHoWyTX41GFVVG1W6Gc+ayKPq6pwwnmUoNOGCPYi/1u0vSolKpjKa2JtSe+GZ+Pay
+         PAFxb9TP0WhD4Bm/zQux1WB3tbtTNxm/w6cW39BcbUIGsICaAGVvPuJmHdTB+Ysti4cs
+         7vYXIv+8bVANhLCC+PpHeUXBj1wE31sds/fpovKzlP9HxvOisDPKRPPKlrNN/4ZfqshJ
+         bX8epztTJXuo7hEBYYjcSb9woqBDmniM4j63pKBbEcz6K9xG73Eq7x5TS9DM+dP2ZADq
+         NmAzdeDZPNeEZiCdJ59d7cb+pAfeo1q/814CjGwkqXE8+YlxL36oQS93mcxXUBYzxdX/
+         qJ6w==
+X-Forwarded-Encrypted: i=1; AKwUvBy48RA3Di3Hoy+PK57CDm+tlCsbwKWAUV3nABBYgf8lbimdbaqJfU923nk3tYt/tpaGc91MWyvelIQPNhQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLXXcbzK/3FdSqTprLhL8w7UHUuwbTKCv2db7HECNI7kA1wEIwS
+	vn+tbSSvx8/ibPACPwHCU168DqRvwZiE67bZlavIchWMgblLZQUgThNZEjKMeg2uGsTnBewODf2
+	a3Gla4do=
+X-Gm-Gg: AYBFou1xJueKGUZdqU1Y+fjxBfq3PCIUP1UaWJaa86X4BW87Qwtq6cv9OaL1wNHKmPI
+	vYw9dYTi0iY4ldepSGONpTVw6Xyfwiv+chQ8TLKNKYdM+Q4ciw8UbPB0ScyRh697VnzHUnl6xeY
+	ofvqC5EnzLQVCaHpoIaqNJ8hQXc+HtOO8msCG7Fe8CbZRYeJvIWbKagejVtSvKoHI/cqGAU68Pl
+	FPu3PP7C+jtC48ZugDKlH3P7AOqxnX9uDF/vNTCWW5odfg8W8qs9nZ49ChOtZVJOsOhVlmmDGc6
+	lS+prpdwKgfYKbDiaTBLA5uR7cKscegz6yPXCqCaw18SWR1jprCu6oajxmjPz8LrnVPGneFnehl
+	dzJ6HLBICdFwHQbqMuyNtmJVOO/n+OgIM/VV7oUPkUaoIf3c3FWOIk19PH14BWvIOqsy3VQ0HP+
+	K1/Xn2rZj9tVWkAYz+QGRxpAOiObm3zn8UL84oVuccLVyIB3o02U2U6JTQh91UwI8TGf+kERZlD
+	kN7JD3JN1DdotDrkwV1WeaDiGMFPla2kJVcJ5OIcYJ9tyMayNbgObjZgooblqG2DvyplYE=
+X-Received: by 2002:a17:902:f642:b0:2df:ab36:f15f with SMTP id d9443c01a7336-2e6005392b7mr9855325ad.43.1791342925500;
+        Tue, 06 Oct 2026 20:15:25 -0700 (PDT)
+Received: from localhost (60-242-93-14.static.tpgi.com.au. [60.242.93.14])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e6046fe224sm3753765ad.19.2026.10.06.20.15.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 20:15:25 -0700 (PDT)
+Date: Wed, 7 Oct 2026 14:15:22 +1100
+From: Lachlan Hodges <lachlan.hodges@morsemicro.com>
+To: Felix Hoffmann <f3lix.dev@gmx.de>
+Cc: linux-wireless@vger.kernel.org, 
+	Dan Callaghan <dan.callaghan@morsemicro.com>, Arien Judge <arien.judge@morsemicro.com>, 
+	Johannes Berg <johannes@sipsolutions.net>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH wireless] wifi: mm81x: validate YAPS receive framing
+Message-ID: <lrsghye5vfzs5o4pljrbm2ubfcxgc3mkcpyc2sbutsq6td6qug@36liwxdx6j5i>
+References: <20260910201030.85862-1-f3lix.dev@gmx.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910201030.85862-1-f3lix.dev@gmx.de>
 
-stmmac_resume() resets the MAC in stmmac_hw_setup(). On dwmac1000 the
-reset sets GMAC_INT_MASK to 0, which unmasks every core interrupt, until
-dwmac1000_core_init() writes the mask again. Since commit 2e2c878a3141
-("net: stmmac: remove SGMII/RGMII/SMII interrupt handling") nothing on
-the RGMII path reads GMAC_RGSMIIIS (only the PCS code does), so RGSMIIIS
-stays pending behind the mask from the first link change on, and the
-reset lets it through. The line storms:
+> -	if (pkt_size == 0)
+> +	if (pkt_size <= YAPS_RESERVED_PAGE_SIZE)
+>  		return false;
 
-  dwmac_dma_interrupt: unexpected status 04000000
+Can we not use YAPS_DELIM_GET_PKT_SIZE instead which already accounts
+for delimiter length so it's a bit easier to read?
 
-A register dump at the first message on ODROID-HC4 showed it:
-
-  core int_status 00000001 int_mask 00000000 pmt 00000000 rgsmiiis 0000000d
-
-The mask is written by the resume thread itself. When that thread runs
-on the CPU that takes the MAC interrupt, the storm starves it and the
-board hangs until a watchdog reset or a soft-lockup panic; on another
-CPU the storm ends after a few interrupts.
-
-Disable the interrupt line around stmmac_hw_setup(). This matches
-open(), which resets the MAC before it requests the interrupt; resume
-resets it with the line live. The window sits under rtnl_lock(), which
-stmmac_reset_subtask() also takes, so the reset task cannot free and
-request the interrupt between the disable and the enable. If the setup
-fails, it may not have written the mask: mask the core interrupts before
-enabling the line.
-
-Wake-on-LAN resume with the resume thread on the CPU that takes the MAC
-interrupt, 7.3-rc5: without this patch the storm hit the first resume
-on Helios64 (dwmac-rk) twice, ROCK Pi 4A (dwmac-rk) once and ODROID-HC4
-(dwmac-meson8b) twice. With the thread on another CPU and no patch, the
-storm printed at most 3 messages per resume in 30 resumes. 7.3-rc6 with
-this patch: no storm in 10 resumes on ODROID-HC4, 10 on Helios64 with
-the GMAC kept powered across suspend (an Armbian patch) and 10 on
-Helios64 with mainline dwmac-rk plus "net: phy: postpone PHY interrupts
-during sleep with MAC-managed PM"; int_mask read 00000001 after the
-glue resume and before stmmac_hw_setup() in all 30.
-
-Fixes: 2e2c878a3141 ("net: stmmac: remove SGMII/RGMII/SMII interrupt handling")
-Assisted-by: LLM
-Signed-off-by: Igor Velkov <iav@iav.lv>
----
-v3:
-- disable the line only around stmmac_hw_setup(), under rtnl_lock() and
-  priv->lock, not for the whole resume (Sashiko)
-- mask the core interrupts if stmmac_hw_setup() fails (Sashiko)
-- results with this window on 7.3-rc6, including Helios64 with mainline
-  dwmac-rk
-v2: https://lore.kernel.org/r/20261002043558.1302590-1-iav@iav.lv
-v1: https://lore.kernel.org/r/20260930-stmmac-irq-shut-v1-1-104d1a1dcb28@iav.lv
-
-Build-tested on net: allmodconfig and allyesconfig with W=1, no new
-warnings.
-
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index b837e8e27a35..6091dc2d4ab4 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -8361,7 +8361,15 @@ int stmmac_resume(struct device *dev)
- 	stmmac_free_tx_skbufs(priv);
- 	stmmac_clear_descriptors(priv, &priv->dma_conf);
- 
-+	/* On dwmac1000 the MAC reset unmasks every core interrupt until the
-+	 * mask is written again; we keep a pending status bit from storming.
-+	 */
-+	disable_irq(ndev->irq);
- 	ret = stmmac_hw_setup(ndev);
-+	/* A failed setup can stop before it writes the mask. */
-+	if (ret < 0)
-+		stmmac_mac_irq_modify(priv, ~0U, 0);
-+	enable_irq(ndev->irq);
- 	if (ret < 0) {
- 		netdev_err(priv->dev, "%s: Hw setup failed\n", __func__);
- 		stmmac_legacy_serdes_power_down(priv);
--- 
-2.43.0
-
+lachlan
