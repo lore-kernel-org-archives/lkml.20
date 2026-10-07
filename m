@@ -1,153 +1,206 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010016.outbound.protection.outlook.com [52.101.201.16])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED43936194C;
-	Wed,  7 Oct 2026 14:45:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791384365; cv=fail; b=tdCBOZeCmOHoh+jz6CqHtXNk2Vu7fFAiIByTlkRnFZMh6YYOIhZiDxol6oFehGeDHFULbyMZF1K877kNk27Er8ERKE11lDtik6LVkU2BGb5/swznozRPwx0ZEScuiGVpsRUEgxc1MO/ic6v4CQP7gNVYGGBsS9mSySk93fjulpA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791384365; c=relaxed/simple;
-	bh=GJuC8ZNOXqI+I+KelB+LNdZO54W0R7z1FtUYD546r8s=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=CRNY7eVyc2l5VGAJRv7pQ1TRmUlhAGUAulFbty2Y+dz3gNE+RakpjbDEdX28nGv1LIEuLB8HJKqN/IN/zFESoNorlwbQ1i1S/NfiI88veQ4zVRmuOPIdyrQlhbB3oRad7IvhF8XWtIeQ5zqpDn4x+dyvhFosVjqKOnaw18HS7uA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Xe5bdHuq; arc=fail smtp.client-ip=52.101.201.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C4792C1788
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 14:45:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791384369; cv=none; b=ZuyGsNyW3llQEVvyJf+E6mdvzVt/0zdbQRnv6jBgwjj5jT8P+GfPKPiLMpxFMyA60MDdyTAwJn06cT8U7BUY+poU1uT64CJkQ2wrJ1TmWeFfgSEVBebGLrNi9AE+WR/G9hHUR8b68Mp0lgJWxdDUaqLf/8KsbWIODnkDXCnY4tM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791384369; c=relaxed/simple;
+	bh=bg/u58FVPNfwcE8wQ1pOFEY7AW8NMLFUq7qu9enoAyA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tHoMPzpOUuFeJrLz1T9rM86rMDyvO00sjPoqoMTX58g2HAQ4P/MY60gt8mngz1bVJIKj9LUJimuPemxXM9iRU/uk9SP+SCYYv8RWxbPSa7RLumuP0V7NP6bxVxcc6foPuMbfEWZsXzobYMbMl5LU3Sop6XaitZfyZDhoaZwT4qk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Cy3Pinti; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LnuDrqgN; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Xe5bdHuq"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rfF1cYbMyeB5kT254lue/bKh2zbfhJ8eR96KOikcW9UsgMntThZ63sVEDOKpzdn4TbnTgXBQA4HMnEOPlz9v9Ejn1a1hDItTlRB7Acke9hH9y9OE3cuCBHyI7emmQo/yr8b8F+vc9ELq6GBwnIsj/3v6H2UqEeElHomCXg59FGKeNYCtVlLFTq6/DTjIsG2nOpu7/EA8KlJJeVrEuOqz1atDzT7hXipYGQDCgO9o46fhynzVtVDDDvNzURGx/3opKpSZDGHhouJIOnTNS1SvDAYryycE3y/1ES0ZgHxwINLGmm8UVj06S92ubuiau7BOYaFwA/dMOA3wDOYK6Yc61g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Js4vurE+VZcAdKIEZ7x3IxXTcCv+luGohLVSo8EiobA=;
- b=TERhLA6XcBDu4b8Go1tMJMmzC/XrHJsMz3hHdVmsEnu1+vpKCfwE8591FUo1fS04wlktVplBTuZDTtqnlMrbvhYZga6dnxThNYw5qU+xhzvy5nsZ8ToCYU0zW+543yR+RlnqS66Jw/cJzYi4NAOZy5fzhUQC3u5kY3nZP4QnLhOYve69/2+Vam7wJqFjIk11dIqCe9dbYvP+NjEp6StPoFgPK77uvdEz/eoWBwTMWXMJXkVMzi59zHdQXQuxke3E45jgRfs49zEpHRNY/m46wyvbQaN/WCYnBSRkMXAqaLCPpAuuJOTjEVzZ4XrHzT/hDMe27MEHXpW+C9mH5v5tfg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Js4vurE+VZcAdKIEZ7x3IxXTcCv+luGohLVSo8EiobA=;
- b=Xe5bdHuqe789ULlMrf1soDr0wuK3YJLxBMZv2kuxudflYq8EPXes/Nr18b5s1ETvMxK71RyoctCyBT5GrjOck51lAR8gMudyXrx+eoTqaCaMwVLKttd7Wp1C0RxWxRSLiL7iJadsJazgDR7oJ/X1w7PzZ4CbhCexJvZNhSXeA2A=
-Received: from SN7PR04CA0013.namprd04.prod.outlook.com (2603:10b6:806:f2::18)
- by DS7PR12MB6142.namprd12.prod.outlook.com (2603:10b6:8:9a::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Wed, 7 Oct
- 2026 14:45:50 +0000
-Received: from BN3PEPF0000B075.namprd04.prod.outlook.com
- (2603:10b6:806:f2:cafe::4b) by SN7PR04CA0013.outlook.office365.com
- (2603:10b6:806:f2::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Wed, 7
- Oct 2026 14:45:49 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B075.mail.protection.outlook.com (10.167.243.120) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Wed, 7 Oct 2026 14:45:49 +0000
-Received: from sindhu.amdval.net (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
- 2026 09:45:38 -0500
-From: Sandipan Das <sandipan.das@amd.com>
-To: <linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-CC: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim
-	<namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, "Alexander
- Shishkin" <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>, Thomas Gleixner <tglx@kernel.org>,
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
-	<x86@kernel.org>, "H . Peter Anvin" <hpa@zytor.com>, Ravi Bangoria
-	<ravi.bangoria@amd.com>, Ananth Narayan <ananth.narayan@amd.com>, "Sandipan
- Das" <sandipan.das@amd.com>
-Subject: [PATCH] perf/x86/amd/lbr: Compress branch stack in a single pass
-Date: Wed, 7 Oct 2026 20:14:16 +0530
-Message-ID: <20261007144416.3446108-1-sandipan.das@amd.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Cy3Pinti";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LnuDrqgN"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697BV0hd3686734
+	for <linux-kernel@vger.kernel.org>; Wed, 7 Oct 2026 14:45:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Hwrc6Fdyj3kg7apwdRECnQhAgQVLP5Jp9gBIka1O4mk=; b=Cy3PintirSGHPd89
+	K2D4o+5vHgdySYaf/qVBLcfDWzZbHPkdhfA1pn0Kbv3Gu1SedWHBO0yPQYAYylCy
+	LB8f1NECds9ReR/crXT9RBMehtKGMeVHgSeOYzjFTau21Gj4ahOqkMmY+fhjV7Hm
+	0/Ate2+AFpNXbijo8IkLWlLoC8XsvbACw+9zkOZ5+FEYJI2e5rRLB5Q7DNFTmGbX
+	gIjfPVWLWnGyKkUPTC1XkWXCd9DQKvHQyKcfz+5eHZErivq5+8LbJHN7o0sahWjI
+	Hr9OwKtW+vB7ZyVp/K3aH2IBARBdvVtAnSW7/sGQdYMWs4v66CnRPNF7qoyLqw+E
+	6x+IHA==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5mgr8w9d-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 14:45:51 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3a8041a532eso3038166a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 07:45:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791384351; x=1791989151; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Hwrc6Fdyj3kg7apwdRECnQhAgQVLP5Jp9gBIka1O4mk=;
+        b=LnuDrqgNIEXDWuwigZkqNpHGVmwmXQ2B3rThhqeBOTwcKwnbqi6mgt0ErGPv+x7UL8
+         liBepK28Tu68irYPBV79qeX3/KKshaMl2/8j8Q9yoRlWTGQWB+dzfZPo1tnVgrYJUimX
+         Voj3sfQVKkFBsmEZFTA5tPQURbE3Vj0yVKPFNMsDU4NBTFh5GUPUT14vd+uFdXeFYl9+
+         o+1ZY92WJrYHXThzkDpoqZrvtsydkYfxL5d8nI1m8AfxL0dRF3DEORwXXNotq+I9tTQu
+         U2gNu0CwxcNj8eE4eP1dDKEUEKpgc1H1o2RcZeRYgr2SiO/9jzkha1RmDRZLugk3ZG8b
+         x8dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791384351; x=1791989151;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Hwrc6Fdyj3kg7apwdRECnQhAgQVLP5Jp9gBIka1O4mk=;
+        b=BUpfsfpK/s4r11HClauZT+rWS+TjjDGf6tYN/2pkWT9w3iLLGu0zbE61JcnrqriaEv
+         SkcrYTjv3M9iiIIfJ2wx52JOwKeBEbFMMdOKd49aoOeSc+KJTQb8vD46uoAd7IVOmY1s
+         AJE7eILmKoMRwtjSbiJ6dNePINImqCX4gufVjS9srOEYRL1HVwezhEj3qyRTm4yIj9v7
+         6j64q8IdPxgXVCo+jvexu4pgv/BHsD1YlnRYKlj/Q7OedPauBWHKKrHM8aU61cTypwBZ
+         ggCItBXy/q7btV+wzUloRxwg6Ffl1gMVbV8oMVPL3ScloR1Fp1WAK3Ez77yrq2nVcITd
+         UcJw==
+X-Forwarded-Encrypted: i=1; AKwUvBx/1vtB+/fa9DOgsrEtBdblUQ3ve0RZycVKlqOeUxXo9ikH2n5FQfrD9GWLcZPS0P3jZHt5LqSoueI4CfA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ7nUFY6AI0qmc9pSLN8+ViqU4QFww2rrYYukEZcebtnUXB28l1
+	KzW7l5j5iudk9H2C4e2xfwgRBnmlo0aap1KFBKaSI3in4Y39Ha0gobvQCaV/hTuQIKExK6EG1tj
+	WA6t/Mxm0fVpzSGA9niqc8hhQKykJp1VI6Ozu0p5v7PYoPfx6RIRBXXMrawt255vslJ0=
+X-Gm-Gg: AYBFou3VW5/go7ZV2Qjvwiu4yCulS2H04k2UMejrGkj6dPlMyjUxaZ7+0RGZ3wwKG+P
+	KDl67A46mvNgGnDLrNDoC1aZipdz/6A6E9b/SUiyDpYgtTIg5Mp9nCnCEgnFbX04lSf1U8s5XlI
+	Wtib2x82Z/RTt8FdhdHPStdaxIf4mH+4gqgEIY4QLYt9yMFh+4XlUYkRU/KBM1YttFW6zYvrcHv
+	Lv3cy5YQoMt1nMmP8Ub7M5FGrXjqmMaqy+urMuet0vt1WwPBDSGy+bFIO+TUHI6tyuCC9Ion0jP
+	dfoc3wPes6Db1hEjWnZ9KUm/Tm+Tr1dCyzMyZHJ5l5kPFipUIZpgJeQDBcAfjhANy0Z5EmwNjvz
+	LE79BbFYzpVV4IOxuoRwR6USCOntG/FpFg1E1qNar
+X-Received: by 2002:a17:90b:4f44:b0:3a9:9f13:e960 with SMTP id 98e67ed59e1d1-3a99f13ebafmr45564a91.60.1791384350773;
+        Wed, 07 Oct 2026 07:45:50 -0700 (PDT)
+X-Received: by 2002:a17:90b:4f44:b0:3a9:9f13:e960 with SMTP id 98e67ed59e1d1-3a99f13ebafmr45527a91.60.1791384350133;
+        Wed, 07 Oct 2026 07:45:50 -0700 (PDT)
+Received: from [10.217.216.105] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8987b09e2sm5347940a91.2.2026.10.07.07.45.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 07 Oct 2026 07:45:47 -0700 (PDT)
+Message-ID: <7e8ea792-2336-4252-beed-7345815b0b90@oss.qualcomm.com>
+Date: Wed, 7 Oct 2026 20:15:39 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B075:EE_|DS7PR12MB6142:EE_
-X-MS-Office365-Filtering-Correlation-Id: f6cb9f1e-10db-49e7-9f87-08df2481add3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|7416014|23010399003|1800799024|36860700016|376014|11063799006|10067099003|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	SNG0iQ2ibwKe5TvrC2gL3DfoqOTQE+i/yJJGU+syb+rm6MuxDpRnbyNYdWc3486Yc3j8oCbtnekyxi8TMYmq1DoL6hNEpFuMpGmnYuyocXLglj2+bRQTXDcw/PPcbmO8B6WpJZpNg+QMgsU8eTbQ0tS8yeVKMmjgcDtQY+VMdjW6HLtjNAaX31K7lGfc4hLloXiUQLfBnCV5fASwSIWcGofo1eYgB+tOGUxYF4r7xEPf186b2ptiSGjneXcl/IYYsl26Z8CK/+D2BezJ7gQVJ5Xaprf8iz59Iv/5ZQFEq6Jfuxic2XVZ+g+HRLf9NqaqMsckx4o4K6nJ66kPC81SjSrMNVS4S1VGKZ7h+6VrbrawDbOSk4eOrRuKVA0oC6xkMQWCxw0gW9OjSkm1IOmqZNjjGXKM9HnjwnD/5uheWzrBHhlhJjrFQNjw+JIOTXdiwn8t8foj7ELy++rCqBpwCMW1L6DMkht9qCKHrInv5L4W4BC40sPrKf7OqQKdPvvdUovdniJNh62e5KhuwDokMw+2kY62341xXjTGWtkK5UD3+/V3ZDrMnfOaSF3ciKLG1r3tiVviSqbbUJCW0K8zTpHfe8nVs1iWoIG+DhNWOaYPKce8ZDAnVGn9ET/YLg590DW5zKFtnIOuLWy8Us17+DVVz97nQjxcFii5VfsIonL01I1Zmnt3Zoo7f9VayiKfnE3oU4BMNnWc3bLQ7yGmBw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(7416014)(23010399003)(1800799024)(36860700016)(376014)(11063799006)(10067099003)(56012099006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Bpd1rSqNaxowEsqBAcN3CyfzxVSq2qeQvL5AhP7kZAuxpkqVZmcYkY2aS3gMKX4U8l3p3tdLZdtbCbojk9AWpB5Ocxr1Ep5nD2sRo3D6J3/odgIfAl6fxsMNiVFncL2hPH9vE+g62hnk5rI+d8S7cCPccierQuUQ1aXxUxd3vgo/SV0QLP1iheOWxr033sJFQiFn6aLjuoCmo1S817PHxCvJB/6xayi38eAvI/w0VdGi5ZO6DDq7r3GGcYpmqcO8lJJgsGHkVNSszCV6yN4latYSFy24fDXLymU26LaSQOsQ2lqtO0qhtbhP1DIao0ypVyoJ5Z6KGnE38Y2kRlJGpM7zdWJdg7ykG27mhBNlyLszvVmxw3djuNFbGAJe9pK4WBhMZZrHX+rRYDOuAcFjFB5L/8+cGTsIsQ6Gfy4oslNvVccWd+c3Vc/hK5XJQzMW
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 14:45:49.5169
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f6cb9f1e-10db-49e7-9f87-08df2481add3
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF0000B075.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6142
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 5/5] phy: qcom-qmp-ufs: Add Glymur support
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Alim Akhtar <alim.akhtar@samsung.com>,
+        Avri Altman <avri.altman@sandisk.com>,
+        Bart Van Assche <bvanassche@acm.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        gopikrishna.garmidi@oss.qualcomm.com, jagadeesh.kona@oss.qualcomm.com,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org,
+        nitin.rawat@oss.qualcomm.com, sibi.sankar@oss.qualcomm.com,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20261007-glymur_ufs_qcb_enablement-v3-0-84cf4f861415@oss.qualcomm.com>
+ <20261007-glymur_ufs_qcb_enablement-v3-5-84cf4f861415@oss.qualcomm.com>
+ <zovl7lrhlleflaewk32o4wofr4bzm2bmkdnakev47peijrnkfe@p3ixrxltdpcm>
+ <f9c7bd4a-2e97-43e1-a9bf-295b841ef0a3@oss.qualcomm.com>
+ <p76qp5bhijenec2ygj36dd47uxkeyk6kztccbuhblte5lqn22x@yikvkbipjbae>
+Content-Language: en-US
+From: Pradeep Pragallapati <pradeep.pragallapati@oss.qualcomm.com>
+In-Reply-To: <p76qp5bhijenec2ygj36dd47uxkeyk6kztccbuhblte5lqn22x@yikvkbipjbae>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDA1OCBTYWx0ZWRfX1YknpUuAHyt2
+ ZL3Lsp+oZjytywKaKyTzIJ968NqS2tDoRwes8OC/+/D3P6mB/ZcsiibOjZcz04ojiEcYsp+0Wxg
+ 9hAgXrpre5JlAq/qAbs8kyJyJLHU9dxS/121QqHeqgdfvQua64cX3cGH2nDNw1WbO5QnFjl1fVF
+ VKFhWJ0jhY4ytHX2wBcyjgIb7mimfFFaAyF6ZubI4hcU40tU0IvnOAYaizLDM7i7rAZeZkl6iIm
+ qtIOEwi75KAnVWhkJQzsh3Yl87vVaR2N/c+6aiEgVxYPsNGY7VBkKmtNQ3sZaXqPFM6tPPm2hRM
+ bfybm4/4ojdiz6GEVYoXxrzaYJxDX4osFYTAAFh7Z3cb1KkoRY5ftEZTUvMuENoP4ag2UN6ciw1
+ Sl2yWixPZcWFA0jMSka6P+kR+EG7WQ3yT9fUkIbu/2s1GNnJxUQiiao/gClr4HwD0gaTxY2p+QP
+ bl+yB4ZvTosndzS3VIQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDA1OCBTYWx0ZWRfX+9vLv5TktWH8
+ eXqdAKKwGDvb41hLuzcueq5kB66uvnR7s/+3pXXSPHSOUKIM0OFsHQYv6w4o/CIVW0AX8t4IuYo
+ WW+bfPfJZ+Tfwqf05TTDnCYQF9JnhKs=
+X-Proofpoint-ORIG-GUID: JA58nMwbbgCeho3YiiD-XrUDOr1IfzjD
+X-Proofpoint-GUID: JA58nMwbbgCeho3YiiD-XrUDOr1IfzjD
+X-Authority-Analysis: v=2.4 cv=OYkNnRTY c=1 sm=1 tr=0 ts=6ac65b1f cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=JfrnYn6hAAAA:8 a=EUspDBNiAAAA:8 a=arnyFyO8AZpeLAH_8-UA:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22 a=1CNFftbPRP8L7MoqJWF3:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-07_04,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0 phishscore=0
+ bulkscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070058
 
-Software filtering removes rejected branch records by shifting the
-entire tail of the array down by one for each dropped entry. With k
-invalid entries out of n, this costs O(k*n) copies. Switch to a two
-pointer compaction that walks the array once and packs the remaining
-entries towards the front, moving each entry at most once, for O(n)
-total. No functional change intended.
 
-Signed-off-by: Sandipan Das <sandipan.das@amd.com>
----
- arch/x86/events/amd/lbr.c | 17 +++++++----------
- 1 file changed, 7 insertions(+), 10 deletions(-)
 
-diff --git a/arch/x86/events/amd/lbr.c b/arch/x86/events/amd/lbr.c
-index a55646fcb846..1e1b2f08cb51 100644
---- a/arch/x86/events/amd/lbr.c
-+++ b/arch/x86/events/amd/lbr.c
-@@ -141,17 +141,14 @@ static void amd_pmu_lbr_filter(void)
- 		return;
+On 10/7/2026 7:13 PM, Dmitry Baryshkov wrote:
+> On Wed, Oct 07, 2026 at 05:03:02PM +0530, Pradeep Pragallapati wrote:
+>>
+>>
+>> On 10/7/2026 1:18 PM, Dmitry Baryshkov wrote:
+>>> On Wed, Oct 07, 2026 at 11:59:38AM +0530, Pradeep P V K wrote:
+>>>> Add the init sequence tables and config for the UFS QMP phy found in
+>>>> the Glymur SoC.
+>>>>
+>>>> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+>>>> Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>>>> Signed-off-by: Pradeep P V K <pradeep.pragallapati@oss.qualcomm.com>
+>>>> ---
+>>>>  drivers/phy/qualcomm/phy-qcom-qmp-ufs.c | 99 +++++++++++++++++++++++++++++++++
+>>>>  1 file changed, 99 insertions(+)
+>>>>
+>>>> +	.offsets		= &qmp_ufs_offsets_v6,
+>>>
+>>> So, is it a PHY using v6 offsets, but v7 registers inside?
+>>>
+>> The QSERDES RX0 register offsets on Glymur SoC are aligned with the v7 register layout offsets.
+>> Therefore, the v7 QSERDES RX0 register offsets are used for Glymur (similar to SM8750).
+> 
+> Mention in the commit message, please.
+sure, i will mention it.> 
+>>
+>>>> +	.max_supported_gear	= UFS_HS_G5,
+>>>> +
+>>>> +	.vreg_list		= glymur_ufsphy_vreg_l,
+>>>> +	.num_vregs		= ARRAY_SIZE(glymur_ufsphy_vreg_l),
+>>>> +	.regs			= ufsphy_v6_regs_layout,
+>>>
+>>> v7
+> 
+> This still holds.
+>
+Do you mean changing ufsphy_v6_regs_layout to ufsphy_v7_regs_layout?
+If so, no. ufsphy_v6_regs_layout contains the PCS register offsets, and the 
+PCS register offsets on Glymur are aligned with ufsphy_v6_regs_layout, similar to SM8750.
  
- 	/* Remove all invalid entries */
--	for (i = 0; i < cpuc->lbr_stack.nr; ) {
--		if (!cpuc->lbr_entries[i].from) {
--			j = i;
--			while (++j < cpuc->lbr_stack.nr)
--				cpuc->lbr_entries[j - 1] = cpuc->lbr_entries[j];
--			cpuc->lbr_stack.nr--;
--			if (!cpuc->lbr_entries[i].from)
--				continue;
--		}
--		i++;
-+	for (i = 0, j = 0; i < cpuc->lbr_stack.nr; i++) {
-+		if (!cpuc->lbr_entries[i].from)
-+			continue;
-+		if (j != i)
-+			cpuc->lbr_entries[j] = cpuc->lbr_entries[i];
-+		j++;
- 	}
-+	cpuc->lbr_stack.nr = j;
- }
- 
- static const int lbr_spec_map[PERF_BR_SPEC_MAX] = {
--- 
-2.53.0
+>>>
+>>>> +};
+>>>> +
+>>>>  static const struct qmp_phy_cfg milos_ufsphy_cfg = {
+>>>>  	.lanes			= 2,
+>>>>  
+>>>
+>>
+>>
+>> -- 
+>> linux-phy mailing list
+>> linux-phy@lists.infradead.org
+>> https://lists.infradead.org/mailman/listinfo/linux-phy
+> 
 
