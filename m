@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19C54DD3BF;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C174E2F22;
 	Wed,  7 Oct 2026 19:25:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791401147; cv=none; b=X26+5j0fK3heq+/rtcb6iV3PfxeCm0trZxH9hrUWPy2E4aTj9PbGxmSuUayMxn5OOule5BfEDojzi8upCfnywz45cH9OLz8NLJ/jpY34B6ZW5/ITkYURKGLe5Fuu28kX+fMSQt4O3O/CxGm/2eBIcPbpcPwWwdfAWGTtdKb8qGM=
+	t=1791401147; cv=none; b=s8uGUbqCJEzUHfQeT1add769P2uhzXnV45A7QtFdO4IhSykpo0NnNSaPqPRJKzWhHwXaaU52M4qc1sJhPXvMkPFjlp70yzEjW+Fq5xAJ/5vYufaJpWCUuUf00L9URf3O/0j0+2O9qhquuMW7244vbOOPJMVeyS082PpQA81PPIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791401147; c=relaxed/simple;
-	bh=DqAQ8z/WoiDPk1n+pCkXMkhZUBNo4WXi+gu4+3yeXIs=;
+	bh=ZyJf78hC/Cj23Umog/FT5PwsBfYYkk/FQUAsVJq89GA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=AMb18IJH73y6eFDJ2VbkHy/WIOx7rxUMleYCmr3LoZ4i9Y6HHS5aoDkRKm4lbdigYR7jej+G4Mtd+CuRRz9uM69g8TdD8U7dcYR3GkKWde84y7P6ebNZ4zkL4dlJ4NzqD2Ejvzg9HpmWk7kBJwWDeHzzMsvuQ1uMuQmeMHY3dik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B/BZ6WA1; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=eaVyhwcjvq3iHZ2dgQ3e6DMc4whFYIARsH0E7BLmk4GiA7ta77fUq/4QHhl6snC+6O07HPL8VOSZFcfaS/cu+V12JsAiOTO447MgQeBvWkLd50ygMKIrwbKOComIoK8N6M/KxIl4urtNIdskxsdHMR+pMsN85hlUMnqp95B9AOY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oFFC3BcG; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B/BZ6WA1"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5714BC2BCC7;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oFFC3BcG"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 686B9C2BCFB;
 	Wed,  7 Oct 2026 19:25:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1791401147;
-	bh=DqAQ8z/WoiDPk1n+pCkXMkhZUBNo4WXi+gu4+3yeXIs=;
+	bh=ZyJf78hC/Cj23Umog/FT5PwsBfYYkk/FQUAsVJq89GA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=B/BZ6WA1vk6xcC4u6Rh3iPL4jQGol5+l8VcnsTxJQtQ/j1jAfFvNth2yueEqAVWSF
-	 SRMhoXCgAh442fir8KJnJlZvbha1Zjn27tNa6aOlU0WziBGCiy7ESQeHz45m7XCaMg
-	 HxB//HfecCLzhBUZbMMUfuyaq61vt/RYLn+o98fUQ0b3mAa9JLXL3+9zJt4JCFPIS8
-	 xDkwUYRDJPNXiLV4DJ187y7DOlVopSPTEAiAEujHMVdH01dUPtKnsYXpvcQ72A2fk2
-	 oXKTuNlN28DSoxwneEVOslfDwHnoitSohgYFO02E6Nyc8nowyZwup6gIK3hQW1e8C3
-	 3xasUfrOT8WXg==
+	b=oFFC3BcGTEAQLTdgqbMAbLSrmIucZyQ2ONXDdbadhKVDULespDr3eBeiz9rNXGwFF
+	 RoWgYx9JCgNVslI79N1ULAP/de7SE2J1T0XIPdXnNtvYshAoIiuUNm85LCspODrIY+
+	 yST/yb8qW4ZEH9DTsMRK1ygDVQ9dSkUy19NTcdS6zflRsqmT76Gag4VtY6Hn32sm5K
+	 eLo7moce79d/WXQndDt+MkEt9c9sq0cRAa0lDBk/9V1+68rNOCJpGxB0u1gG2+2FNu
+	 krUgtrm1M+v+jLqyvpq8kQ+w160BHs5VGZ9Qmq03kWCYzWAwUn3LNCJW+IjqP28A/m
+	 Yfx1qsRAFEupA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 32176CA5FFC;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 44B77CA6004;
 	Wed,  7 Oct 2026 19:25:47 +0000 (UTC)
 From: Dave Marquardt via B4 Relay <devnull+davemarq.linux.ibm.com@kernel.org>
-Date: Wed, 07 Oct 2026 14:25:45 -0500
-Subject: [PATCH v13 01/11] scsi: ibmvfc: fix IRQ leak and guard deregister
- on channel reg failure
+Date: Wed, 07 Oct 2026 14:25:46 -0500
+Subject: [PATCH v13 02/11] scsi: ibmvfc: fix potential clobbering of rc
+ after failed irq setup
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261007-ibmvfc-fpin-support-v13-1-b816abfa4fcc@linux.ibm.com>
+Message-Id: <20261007-ibmvfc-fpin-support-v13-2-b816abfa4fcc@linux.ibm.com>
 References: <20261007-ibmvfc-fpin-support-v13-0-b816abfa4fcc@linux.ibm.com>
 In-Reply-To: <20261007-ibmvfc-fpin-support-v13-0-b816abfa4fcc@linux.ibm.com>
 To: Madhavan Srinivasan <maddy@linux.ibm.com>, 
@@ -53,11 +53,11 @@ To: Madhavan Srinivasan <maddy@linux.ibm.com>,
 Cc: linux-scsi@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
  linux-kernel@vger.kernel.org, Dave Marquardt <davemarq@linux.ibm.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791401146; l=1764;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791401146; l=1351;
  i=davemarq@linux.ibm.com; s=20260216; h=from:subject:message-id;
- bh=OAcs1YKHpT4X85OJN/gsmGBdld28yvNIUXEXPDT+HOE=;
- b=ba1pKBQ6x37yhtQkZIOE0sEUBRaiJSps+sLpK9faUgZ3xNB/S06D2A7hRWoE+LFNDWe1Ql4Vg
- mSFXhagtQwOAF2B4pXpeWxD71BibWNSCd1JnNbVWi82CDmsZqf1uOrX
+ bh=w2CDvNH7dM6OhRhnXDK5aEwQCEM6J20otVjA78cYJrg=;
+ b=BknT+Z7VOTIYGhCYMXf6HrykWlfizo6dMI0uCbyz9uLxrDHURfC2uHUoCOyE5+SPcUDIr8/fi
+ fJqK6vQ31PMDv5QNRpVc+4R+XNuS+26dhssOA56juLMi3SzcyvAh8zz
 X-Developer-Key: i=davemarq@linux.ibm.com; a=ed25519;
  pk=vy0/nfobrje6EqZxuyw6a3ZstytG8WK2vf5Y3xtGrEg=
 X-Endpoint-Received: by B4 Relay for davemarq@linux.ibm.com/20260216 with
@@ -65,55 +65,43 @@ X-Endpoint-Received: by B4 Relay for davemarq@linux.ibm.com/20260216 with
 X-Original-From: Dave Marquardt <davemarq@linux.ibm.com>
 Reply-To: davemarq@linux.ibm.com
 
-From: Dave Marquardt <davemarq@linux.ibm.com>
+From: Tyrel Datwyler <tyreld@linux.ibm.com>
 
-If request_irq() fails during ibmvfc_register_channel(), the error path
-disposes of the IRQ mapping via irq_dispose_mapping() but leaves scrq->irq
-populated with the stale virq number. A subsequent call to
-ibmvfc_deregister_channel() during teardown or reset cleanup then
-unconditionally invokes free_irq() and irq_dispose_mapping() on the stale
-IRQ descriptor, triggering kernel warnings.
+Fix a variable-shadowing bug in ibmvfc_register_channel() where the
+irq_failed cleanup loop reused rc for the H_FREE_SUB_CRQ hcall result,
+clobbering the error code returned to the caller.
 
-Fix this by:
-1. Explicitly setting scrq->irq to 0 after irq_dispose_mapping() in the
-   ibmvfc_register_channel() error path.
-2. Guarding free_irq() and irq_dispose_mapping() with a check for scrq->irq
-   in ibmvfc_deregister_channel() so unmapped or unregistered queues are
-   safely skipped.
+Introduce hcall_rc for the cleanup loop instead.
 
 Signed-off-by: Dave Marquardt <davemarq@linux.ibm.com>
-Acked-by: Tyrel Datwyler <tyreld@linux.ibm.com>
+Signed-off-by: Tyrel Datwyler <tyreld@linux.ibm.com>
 ---
- drivers/scsi/ibmvscsi/ibmvfc-core.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/scsi/ibmvscsi/ibmvfc-core.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/scsi/ibmvscsi/ibmvfc-core.c b/drivers/scsi/ibmvscsi/ibmvfc-core.c
-index 0b154e07299c..7818838669ae 100644
+index 7818838669ae..145d559041f1 100644
 --- a/drivers/scsi/ibmvscsi/ibmvfc-core.c
 +++ b/drivers/scsi/ibmvscsi/ibmvfc-core.c
-@@ -6435,6 +6435,7 @@ static int ibmvfc_register_channel(struct ibmvfc_host *vhost,
- 	if (rc) {
- 		dev_err(dev, "Couldn't register sub-crq[%d] irq\n", index);
- 		irq_dispose_mapping(scrq->irq);
-+		scrq->irq = 0;
- 		goto irq_failed;
- 	}
- 
-@@ -6463,9 +6464,11 @@ static void ibmvfc_deregister_channel(struct ibmvfc_host *vhost,
+@@ -6391,6 +6391,7 @@ static int ibmvfc_register_channel(struct ibmvfc_host *vhost,
+ 	struct vio_dev *vdev = to_vio_dev(dev);
+ 	struct ibmvfc_queue *scrq = &channels->scrqs[index];
+ 	int rc = -ENOMEM;
++	int hcall_rc;
  
  	ENTER;
  
--	free_irq(scrq->irq, scrq);
--	irq_dispose_mapping(scrq->irq);
--	scrq->irq = 0;
-+	if (scrq->irq) {
-+		free_irq(scrq->irq, scrq);
-+		irq_dispose_mapping(scrq->irq);
-+		scrq->irq = 0;
-+	}
+@@ -6446,8 +6447,8 @@ static int ibmvfc_register_channel(struct ibmvfc_host *vhost,
  
+ irq_failed:
  	do {
- 		rc = plpar_hcall_norets(H_FREE_SUB_CRQ, vdev->unit_address,
+-		rc = plpar_hcall_norets(H_FREE_SUB_CRQ, vdev->unit_address, scrq->cookie);
+-	} while (rc == H_BUSY || H_IS_LONG_BUSY(rc));
++		hcall_rc = plpar_hcall_norets(H_FREE_SUB_CRQ, vdev->unit_address, scrq->cookie);
++	} while (hcall_rc == H_BUSY || H_IS_LONG_BUSY(hcall_rc));
+ reg_failed:
+ 	LEAVE;
+ 	return rc;
 
 -- 
 2.55.0
