@@ -1,327 +1,183 @@
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 621A74C753A
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 18:15:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791396946; cv=pass; b=lmbSMDwvXS6ppmMsTMIt5VFp07EydsA4zOLiMdx2YntDSTmUVhwj8yxR8oPt/FjoMjVCxK7YfIrRtTAlP+gW8CtQNmslcof9HZ1CgoEpJHU4qSkTwXQiynFJ95OSPy+m+43BgQDTMlB5JOkRIAWTbJINMBXQlKIA4YGSe14oIHI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791396946; c=relaxed/simple;
-	bh=HXOuK+xL0BWK4TLZAWIgzPxXhBGvc9nRvP2r9s+vVa0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HL+PSVlbOSjpFi9POl4mMEqoSXaNz3GZrB+7iciWIzDmaG53/UrPhT8sHTOpAKrXliCzK/kkO8y75T9n5E2cxOzs7s7n9Ccf6dxFmYII7b6JgE9BLULvNdnvZadDDO9+1v/fWhXzT0Y5po3EELmwCvPJyz9Y83Ga4wrFpqyxvTw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Va1Hzd1K; arc=pass smtp.client-ip=209.85.128.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96EEC37BE6F
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 18:16:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.176
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791396993; cv=none; b=BDa0oiQ1avhXsWKYlVtNhIs2bK/cf0YAOyXubqib/geBWs1Nvp2OS/kg1zlvIFEuRrnog9kY4cvpJ8i2AR6BfBv4lEvA+mcZDtdK4vlw0Qx9sXvKKx60htqR5FH/YvIvd7iAUxhfGzkZ1OkR0uPVYsM2xhV30VebxmQo0O3jUNs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791396993; c=relaxed/simple;
+	bh=vn8FTVHGMrT37pYQ+kom/lZJg3xw5yD+Z8WzSqCiJUE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ZYk9hjjW/p/EB4L5mkPD7jXfpFzLUoafOXs8SwEqD98PGU7LPrTT8lwDZOMMGGnAz145ez32xhdW/mE88x7h3UaD6heNTdkjxt+GanSNnkR59UnKR3CRDo7h6+WuUYqHDqEhxcQ1YoCQOquguiRAM8GU6Vj7bTKZV754KCUZTSU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=IoOsGnJb; arc=none smtp.client-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Va1Hzd1K"
-Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8ab38a051aaso22082877b3.3
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 11:15:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791396944; cv=none;
-        d=google.com; s=arc-20260327;
-        b=E/T1MPwavGVelhQa+TeHvY6ucpP6gI7Vg72TbApj+oH3J9hZGa5OAN5Zfpmph34zTo
-         +05kNgeLeROokKwxN6SsRpyLkkZV6Dr87GRTy/7BMkzRcbN8Z6b6AtVm0jASju/p476G
-         UkFMgSlxsyucTot8CitcmqAS8JqFOOHQSUP/isaG5ovNMtVAt5krXgD+Nd+v6O/4VX+R
-         MvJDx+aOHR+4uSOTS9v1njc9WQnJ+ckWXOZwaRUEwY4x4tyzxov/AckifDpn5XdQQ0Ss
-         v0PkwKU1N+LOPcGTLjZHMGmj1Mv33VugotPnr4BPIIEzw/5zHQ2S28k3Qvr8eQuDy1Az
-         UUfQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=cWtpOZWiZqhow3a/lbN1hsCcK/jCLMcGug9hCcTMvHs=;
-        fh=0KFVrG4KdW55FiGVL1pLxSjD69vbdfCOUSsKvCQ983I=;
-        b=qFncpbk9uLPjXq35UzrZPzYzXC70wW4PNPUHxy8K+pLgT48/2ZZEwr8+h3dkbdDQgk
-         N/+WdApIHX1ltJ4EVm28C0kkLmk9kEvkUp5LFE+GFQOccOiiu5KkfiBBBhbUAT1QUjXc
-         6Fm3JxyCP+/o4XRQmDg8KOU4LHz+zpQ5V/O9A38QXcUuwNhtZNTftCuIOgzylBdw4c2I
-         HW8ulxHkDDyJJIkpBRJueiG38MTdTY81VcVJHZ7ZmOKWC65XwcjuaEfgA6NYgm62qU6E
-         Z2vw91w0pCC1bcmrkPWzi4ftY+QPzZy7NkWb7SxBpKiXLFVyk1T3uo5hCBZD7uSXD+sz
-         foqg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="IoOsGnJb"
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-5339173489eso25441891cf.3
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 11:16:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791396944; x=1792001744; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cWtpOZWiZqhow3a/lbN1hsCcK/jCLMcGug9hCcTMvHs=;
-        b=Va1Hzd1KlRgixMIQ1RJHtqPdOBXeAlWFkKR8a2czYHtMCp3rCLN2n4H01Oe5U5xYMf
-         Ev6dGQpcmXx9h6HWl6IDfdXmEWp0UUFIHgUspbQiS6Yw4YcR5T7VdwL3nkmnkodPSZaj
-         RlQ694qZO2EFDAUTGU9XE3UJwRKOMc6z5UvZiXBAbWTpSFM5sd/0/B5euKNDV0SR6cAb
-         o6OCSxib0QK8wPpdmP10de+5q8j3WC9ejoz+S3JuyRrT4NQuud9kktUg8l4ioSPDxV53
-         f0le7AVFPUj5lwc8IZm2+u6HxDUsdMM4RTrdY9MFDdJEihvvIaGowMNUGjaxbAv13Tdr
-         k/wg==
+        d=toxicpanda.com; s=google; t=1791396991; x=1792001791; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=+d7uJDJhZJvHZwnUFL8rPNX4HlSixikJ7Pt8tEZOBOA=;
+        b=IoOsGnJbJKy36OPNAMat9Kt9v3NAO9/URcCf2sp6GT8SL9vWzNupBMkF+6rnC8584n
+         oZNwj+Sr3QMR8BBolnkt4RaBRRTE2VSblWnNQ8eH+8wpGMJy1kj1rqblqLgQ5DzgcFZ3
+         1pBJFfk1eX0wM5Oa4FesgtmZXlZJ0zNeH/jXxCpT5a/aygZF+FROZQPIgANH/TedITZ6
+         3AhvSAjXpNmtJmeKdIuea8RzIfvNIhjGvfYLzV9MilUV3ne9qvHrxZyxjDATGW5UtjVd
+         Ri1Bc2H/lDgCDD01R1MF74ceNjzgrO7e/83pc0gPHPomqOQMEqEYNm4kJAEZL7cz2zbk
+         lcNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791396944; x=1792001744;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cWtpOZWiZqhow3a/lbN1hsCcK/jCLMcGug9hCcTMvHs=;
-        b=FdPFzezVL3eOS72JHhCEbENpPqWe9AcCADmgRSxe1d5faSey18f2BIdVgQ9Umbj28f
-         N+Uzhp3ZJ7kntW3OVe9vpBzZfHuKLgUBI4vwFqJHETbA/V4e/u0tvnCHCeXY+d4KVAC9
-         LHvEMjXjYqNSm4D1PC8k7SZZxQLx/L69SQdXUqXmWH0kOhUIT0DuNaV7A10YnEW2OBhZ
-         vXX4KxA8wpiPPoQRvwI0jj/PgRkGEtQlzZ/jLTDEYWjv23Lhojo8YW2x6aTPpHrIeiyu
-         EQozUygmwzcmU26ckUCP//C4Tul41BWs51FmSLIcMukalQ6wU+QRDTyFK1QX9j7Oyhbc
-         lg3w==
-X-Forwarded-Encrypted: i=1; AKwUvBxD5xL+/07zG1h9cFalUDAiNZsmfsECaai0PS52ftNEBKdcwHYpmP6Uz6lYSkdDelGKIXEFYltZ5Lp7HH0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI1gIlWRj4Kihj5dcvxbkycXVmpjR2rc0YBC00cEsdf3DZLxs3R
-	jhURQRQRbb2busnPICvug/gO90kRbhClxuNxOIHDr5f1tJ3q7drDCSZo5ed4f1zs75OtU7Z1GA+
-	w+GmFOnbEiWsdm1BXWyMpalU8+9GHCRw=
-X-Gm-Gg: AYBFou0XV3D1ab/WYE6pmY6OoxVgN51ZRYnjGpMRvtSBqc3jmyBS3zAZ69GtbOlY6h5
-	WbvlCgnltKPDGPDBnxoekeHodXXr6PMTdy3zaMDlygJ5onr3CaK0JgofhZjj1/hEEdnYr6eJvMv
-	RxL8LKYyDWiPlvB9xcv89mya60BFVQXy0XmqFaGf4lm+ax61IgIgURPkx9+MBgnc5Zh0vmD2dNI
-	p/uI5HZkt6Tnykkro2evR2XtWer8HobNz25gZlPPeke8IFWdSu5HdLGTODrKk1NUMvK1zxEm3Bo
-	+XtQwYnIK1hAGVkGcCt68y1yf8pJB1UrazwUr7iSK7qxV2al3my6KCnBQSfTbVmSFSsuCrRrcTU
-	R4vATmr1tPqDmJxQOJJ4cZVSMpxBnWZUSXwkXzXCfQw==
-X-Received: by 2002:a05:690c:16:b0:878:cee5:9885 with SMTP id
- 00721157ae682-8b05af5a83emr25390577b3.43.1791396944193; Wed, 07 Oct 2026
- 11:15:44 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791396991; x=1792001791;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=+d7uJDJhZJvHZwnUFL8rPNX4HlSixikJ7Pt8tEZOBOA=;
+        b=PD+ByZmtdEnYxE/feIX+jAI6B3NnMp6FnnVR/jQVtPrpUtp+8aMyaffncuycw6vUAU
+         2QqZHi00x8fqRpZ9g69zTrlBmot+/fEZsroKC3iO+mdBht49UMHGV0Vape+WOgG3doYI
+         xTsNu1vIlPwbaQNVcKBbb2Lcv0sD7Rk05W3y+7dtstm7psq/QtGRiuDFT5AXc0D6hhWj
+         /4JIuvDgX0utypr4Tyh4bLHqGvh/kjUIG420b+QgZLgsTglUIXY5tir5xk6a2akqVW3L
+         VgMbJl+U4QdIxI4Hk3vcjEM8vXJ5896a8scXN/GSobQJ52uy4R6LrQ5JJQ7v6fGbDzaT
+         adKA==
+X-Forwarded-Encrypted: i=1; AKwUvBxHkKSkNqLxaNHGc1wN9PyllTcb2IlP+bnD6MgERy7TYWym0Y1MLEgYi+e/apDmGdkbN1iZvvyDcr93vd8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mAECGHIcFz21veVbLSIv9SygjC5nqzGMuRWbcfKA1FeJuaNb7T
+	RPa3hT5iHSmNT8zw+o92YeD2CC9JFjAOirL3+Y8Cp+yJlaCe28yDgUD70AnJ/tOCpsw=
+X-Gm-Gg: AYBFou3jFjrKtdhESt4aCeN8U/Xnv8zYgF7evaAMrbfNLleJlUPF8XqmwDYD4TfD0Yv
+	MzjZApBc2i0CDU0wg5GskTJ+YzWTrA4izpMI2ShT+PydthMPfdCMFyM1/rBQlIQeqDJSs1JEkLH
+	TKBrqoKrrTZsAsQHOEPR1cSmCNxtnj/OaOfAoXiTkkbf8eDryaGtji2LmdG4Kqd5cM2HyBpfqJm
+	ymaOffxupm62jagVRdHjKlAVQXl0Uw1nHPf3DbR0X5YECcfp/nFXrkF17rAxfaxjRI57poIWB1u
+	2p+SbQifXMhwRr83zYeaQdb8aWsVeb5UDuOTbY0qZghKK4qsXVdNnfCMIw+z7qtDcjw12JwEfil
+	jV/tsuvxSUpkQPcb0oC+HrdeMTIZy17nGiueDY0MLONz++5Ykmv+4nAQkW3LHRH7Z06IMMV+dAR
+	CV6oR211u4Pb1RPnDkw8lerCGIzQ2v2gFn3sE9sBm8WzlPuRMN37YHmi4mUO+n3TuErgfbWvQ7q
+	QnK3V/i/WG14JE=
+X-Received: by 2002:a05:622a:98b:b0:535:15a9:2516 with SMTP id d75a77b69052e-5357560fcb8mr47504081cf.53.1791396991271;
+        Wed, 07 Oct 2026 11:16:31 -0700 (PDT)
+Received: from toxicpanda.com ([153.61.196.242])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5357209ff04sm25811551cf.7.2026.10.07.11.16.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 11:16:30 -0700 (PDT)
+From: Josef Bacik <josef@toxicpanda.com>
+Subject: [PATCH net-next 0/9] net: stop calling __pskb_pull_tail() from
+ drivers
+Date: Wed, 07 Oct 2026 18:16:13 +0000
+Message-Id: <20261007-b4-pskb-pull-tail-drivers-v1-0-9512b0fb977b@toxicpanda.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261007154353.148223-1-enghitalo@gmail.com> <20261007154353.148223-4-enghitalo@gmail.com>
-In-Reply-To: <20261007154353.148223-4-enghitalo@gmail.com>
-From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Date: Wed, 7 Oct 2026 14:15:32 -0400
-X-Gm-Features: AclHuK98IKR7dBXThSE2gPVRegFNP1Ue1OG8heXz68xmZLc1_uVN9xVpkG2dslw
-Message-ID: <CABBYNZKoSV1_cVJRrdonHT=gKtS6pgoWDM3R5nj5aR0D17SqRg@mail.gmail.com>
-Subject: Re: [PATCH 3/3] Bluetooth: Don't leave abandoned SCO links up in the controller
-To: Hitalo Souza <enghitalo@gmail.com>
-Cc: linux-bluetooth@vger.kernel.org, marcel@holtmann.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAG+MxmoC/22NywqDMBBFf0Vm3cEHQWh/pXSRiZM6bUhDJoog/
+ nvVbru8r3NXUM7CCrdqhcyzqHziLtpLBW608ckow66ha7q+bZoeyWDSN2GaQsBiJeCQZeas6L3
+ x1F17w62FfZ8ye1lO9h0iF4y8FHj8Ep3oxa4c6KNLVhkp2+jGwwqpJlOf5v8z2LYvyPZACbsAA
+ AA=
+X-Change-ID: 20261006-b4-pskb-pull-tail-drivers-ff4fb2964e1a
+To: Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Eric Dumazet <edumazet@kernel.org>, "David S. Miller" <davem@davemloft.net>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>, 
+ Mark Bloch <mbloch@nvidia.com>, Leon Romanovsky <leon@kernel.org>, 
+ Juergen Gross <jgross@suse.com>, 
+ Stefano Stabellini <sstabellini@kernel.org>, 
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+ Tony Nguyen <anthony.l.nguyen@intel.com>, 
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
+ Manish Chopra <manishc@marvell.com>, Rahul Verma <rahulv@marvell.com>, 
+ GR-Linux-NIC-Dev@marvell.com, Shahed Shaikh <shshaikh@marvell.com>, 
+ Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org, 
+ xen-devel@lists.xenproject.org, intel-wired-lan@lists.osuosl.org, 
+ Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1791396985; l=4206;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=vn8FTVHGMrT37pYQ+kom/lZJg3xw5yD+Z8WzSqCiJUE=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QNQafSGevfmZO2PVgBdAMDrT/Q8BcDOZO7ALSZDi6LHzWalQ1RcI/ykJ522k74cd/ODbB0drvUX
+ 1QhkjFs1aWQY=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-Hi Hitalo,
+__pskb_pull_tail() is the slow path behind pskb_may_pull() and
+__skb_linearize(), and drivers shouldn't be calling it directly.  It
+takes the number of bytes to pull relative to the current head and does
+no bounds checking on it.  Ask for more than the skb holds and it BUG()s
+in skb_copy_bits().  Ask for a negative amount, which is what a caller
+computing "len - skb_headlen(skb)" gets once the head is already long
+enough, and skb_copy_bits() is handed a length of nearly 4GB to copy
+into the head.  Under KASAN that shows up as an out-of-bounds read of
+size 4294967288, after which __pskb_pull_tail() returns success with the
+skb's head and paged lengths no longer matching its frags.
 
-On Wed, Oct 7, 2026 at 11:44=E2=80=AFAM Hitalo Souza <enghitalo@gmail.com> =
-wrote:
->
-> Since commit a13f316e90fd ("Bluetooth: hci_conn: Consolidate code for
-> aborting connections"), aborting a SCO/eSCO connection whose setup is
-> pending, e.g. because its socket was closed, sends Create Connection
-> Cancel and deletes the hci_conn. That command cannot cancel a
-> synchronous connection, controllers just fail it (ACL Connection Already
-> Exists or Unknown Connection Identifier), and the link may still
-> complete afterwards. Unless another connection to the device takes it
-> over, its completion event then finds no connection waiting for it and
-> is ignored; if it comes while the abort is still queued, the connection
-> refuses the handle as it is being aborted and is deleted all the same.
-> Either way the link stays up in the controller, which rejects every
-> later setup for the device until the ACL drops (with Unsupported LMP
-> Parameter Value on a MediaTek MT7921). The same happens to a second
-> link completing for a connection that is already up, e.g. its own setup
-> after it took over the abandoned one.
->
-> There is no command to cancel a pending SCO/eSCO setup, so don't send
-> Create Connection Cancel for one, and disconnect a SCO/eSCO link that
-> completes with no connection to take it.
->
-> With the disable_esco parameter of sco.c, a SCO_LINK connection can get
-> an eSCO link, which it does not take: its connect times out and the link
-> stays up until the ACL drops. That is not changed here, and such a link
-> is not disconnected while a SCO_LINK connection waits for its link.
->
-> Link: https://github.com/bluez/bluez/issues/2562
-> Fixes: a13f316e90fd ("Bluetooth: hci_conn: Consolidate code for aborting =
-connections")
-> Assisted-by: LLM
-> Signed-off-by: Hitalo Souza <enghitalo@gmail.com>
-> ---
->  net/bluetooth/hci_event.c | 61 +++++++++++++++++++++++++++++++++++----
->  net/bluetooth/hci_sync.c  |  8 +++++
->  2 files changed, 64 insertions(+), 5 deletions(-)
->
-> diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
-> index cbe53e19e..102a0a4d1 100644
-> --- a/net/bluetooth/hci_event.c
-> +++ b/net/bluetooth/hci_event.c
-> @@ -3217,6 +3217,27 @@ static int hci_read_enc_key_size(struct hci_dev *h=
-dev, struct hci_conn *conn)
->         return hci_send_cmd(hdev, HCI_OP_READ_ENC_KEY_SIZE, sizeof(cp), &=
-cp);
->  }
->
-> +/* A SCO/eSCO link that completes with no connection to take it, e.g.
-> + * because its setup was abandoned while pending, must be disconnected:
-> + * otherwise it stays up in the controller, which then rejects every fur=
-ther
-> + * setup for the device.
-> + */
-> +static void hci_sco_disconnect_orphan(struct hci_dev *hdev, __le16 handl=
-e)
-> +{
-> +       struct hci_cp_disconnect cp;
-> +       u16 h =3D __le16_to_cpu(handle);
-> +
-> +       /* Never for an invalid handle or one that a connection uses */
-> +       if (h > HCI_CONN_HANDLE_MAX || hci_conn_hash_lookup_handle(hdev, =
-h))
-> +               return;
-> +
-> +       bt_dev_dbg(hdev, "handle 0x%4.4x", h);
-> +
-> +       cp.handle =3D handle;
-> +       cp.reason =3D HCI_ERROR_REMOTE_USER_TERM;
-> +       hci_send_cmd(hdev, HCI_OP_DISCONNECT, sizeof(cp), &cp);
-> +}
-> +
->  static void hci_conn_complete_evt(struct hci_dev *hdev, void *data,
->                                   struct sk_buff *skb)
->  {
-> @@ -3273,8 +3294,10 @@ static void hci_conn_complete_evt(struct hci_dev *=
-hdev, void *data,
->
->                         conn =3D hci_conn_hash_lookup_ba(hdev, ESCO_LINK,
->                                                        &ev->bdaddr);
-> -                       if (!conn)
-> +                       if (!conn) {
-> +                               hci_sco_disconnect_orphan(hdev, ev->handl=
-e);
->                                 goto unlock;
-> +                       }
->
->                         conn->type =3D SCO_LINK;
->                 }
-> @@ -3293,8 +3316,12 @@ static void hci_conn_complete_evt(struct hci_dev *=
-hdev, void *data,
->
->         if (!status) {
->                 status =3D hci_conn_set_handle(conn, __le16_to_cpu(ev->ha=
-ndle));
-> -               if (status)
-> +               if (status) {
-> +                       /* e.g. it is being aborted: the link is not take=
-n */
-> +                       if (ev->link_type =3D=3D SCO_LINK)
-> +                               hci_sco_disconnect_orphan(hdev, ev->handl=
-e);
->                         goto done;
-> +               }
->
->                 if (conn->type =3D=3D ACL_LINK) {
->                         conn->state =3D BT_CONFIG;
-> @@ -5178,8 +5205,18 @@ static void hci_sync_conn_complete_evt(struct hci_=
-dev *hdev, void *data,
->
->         conn =3D hci_conn_hash_lookup_ba(hdev, ev->link_type, &ev->bdaddr=
-);
->         if (!conn) {
-> -               if (ev->link_type =3D=3D ESCO_LINK)
-> -                       goto unlock;
-> +               if (ev->link_type =3D=3D ESCO_LINK) {
-> +                       /* A SCO_LINK connection still waiting for its li=
-nk can
-> +                        * get an eSCO one, see disable_esco in sco.c. It=
- does
-> +                        * not take it, as before, and the link is left a=
-lone.
-> +                        */
-> +                       conn =3D hci_conn_hash_lookup_ba(hdev, SCO_LINK,
-> +                                                      &ev->bdaddr);
-> +                       if (conn && HCI_CONN_HANDLE_UNSET(conn->handle))
-> +                               goto unlock;
-> +
-> +                       goto orphan;
-> +               }
->
->                 /* When the link type in the event indicates SCO connecti=
-on
->                  * and lookup of the connection object fails, then check
-> @@ -5192,7 +5229,7 @@ static void hci_sync_conn_complete_evt(struct hci_d=
-ev *hdev, void *data,
->                  */
->                 conn =3D hci_conn_hash_lookup_ba(hdev, ESCO_LINK, &ev->bd=
-addr);
->                 if (!conn)
-> -                       goto unlock;
-> +                       goto orphan;
->         }
->
->         /* The HCI_Synchronous_Connection_Complete event is only sent onc=
-e per connection.
-> @@ -5202,6 +5239,13 @@ static void hci_sync_conn_complete_evt(struct hci_=
-dev *hdev, void *data,
->          * whether the connection is already set up.
->          */
->         if (!HCI_CONN_HANDLE_UNSET(conn->handle)) {
-> +               /* Another link for a connection that is already up, e.g.=
- its
-> +                * own setup completing after it took over an abandoned o=
-ne,
-> +                * has no connection waiting for it either.
-> +                */
-> +               if (__le16_to_cpu(ev->handle) !=3D conn->handle)
-> +                       goto orphan;
-> +
->                 bt_dev_err(hdev, "Ignoring HCI_Sync_Conn_Complete event f=
-or existing connection");
->                 goto unlock;
->         }
-> @@ -5210,6 +5254,8 @@ static void hci_sync_conn_complete_evt(struct hci_d=
-ev *hdev, void *data,
->         case 0x00:
->                 status =3D hci_conn_set_handle(conn, __le16_to_cpu(ev->ha=
-ndle));
->                 if (status) {
-> +                       /* e.g. it is being aborted: the link is not take=
-n */
-> +                       hci_sco_disconnect_orphan(hdev, ev->handle);
->                         conn->state =3D BT_CLOSED;
->                         break;
->                 }
-> @@ -5260,6 +5306,11 @@ static void hci_sync_conn_complete_evt(struct hci_=
-dev *hdev, void *data,
->         hci_connect_cfm(conn, status);
->         if (status)
->                 hci_conn_del(conn);
-> +       goto unlock;
-> +
-> +orphan:
-> +       if (!status)
-> +               hci_sco_disconnect_orphan(hdev, ev->handle);
->
->  unlock:
->         hci_dev_unlock(hdev);
-> diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-> index 9eca6757d..4e1c72fd2 100644
-> --- a/net/bluetooth/hci_sync.c
-> +++ b/net/bluetooth/hci_sync.c
-> @@ -5940,6 +5940,14 @@ static int hci_connect_cancel_sync(struct hci_dev =
-*hdev, struct hci_conn *conn,
->                 return 0;
->         }
->
-> +       if (conn->type =3D=3D SCO_LINK || conn->type =3D=3D ESCO_LINK) {
-> +               /* There is no command to cancel a pending SCO/eSCO setup=
-. If
-> +                * the link completes anyway, it is disconnected then, un=
-less
-> +                * a new connection to the device takes it.
-> +                */
-> +               return 0;
-> +       }
-> +
->         if (hdev->hci_ver < BLUETOOTH_VER_1_2)
->                 return 0;
->
-> --
-> 2.55.0
+It also returns NULL on failure with nothing making the caller look at
+it.  Eight network drivers call it directly and four of them don't
+check.  All four are RX paths where a failed pull is followed by
+eth_type_trans() or skb_pull(), which BUG() in __skb_pull() once the
+head is shorter than what they pull.  As far as I can tell none of the
+four can fail today, since the skb is fresh, isn't shared and has room
+in the head, but that only holds because of how each driver happens to
+allocate.
 
-Sashiko flagged quite a few problems:
+pskb_may_pull() and __skb_linearize() take the length the head should
+end up with, check it against skb->len and fail cleanly, which is what
+every one of these callers wants.  Convert all eight drivers to them,
+check the result, and drop the packet on failure.
 
-https://sashiko.dev/#/patchset/20261007154353.148223-1-enghitalo%40gmail.co=
-m
+The last patch makes skb_condense() check its pull as well.  It can't
+fail there today, but it would undercount truesize if it ever did.
 
-We need to check if the logic of hci_sco_disconnect_orphan couldn't be
-made more generically, so in case the connection was aborted but we
-received the connection complete that shall always result in
-HCI_OP_DISCONNECT so the handle don't stay active in the controller.
+The callers left in aoe and xen-netfront are fixed separately, through
+the block and net trees:
 
+  https://lore.kernel.org/r/20261007-b4-aoe-short-packets-v1-1-db5155f7bb9c@toxicpanda.com
+  https://lore.kernel.org/r/20261007-b4-xen-netfront-short-head-v1-1-12d7113a7e4e@toxicpanda.com
 
---=20
-Luiz Augusto von Dentz
+Once those are in I'd like to stop exporting __pskb_pull_tail() so new
+drivers can't pick it up.
+
+Testing: every touched file builds with W=1 on x86_64 allmodconfig
+(ftmac100 on i386, it's 32-bit only).  e1000e under QEMU, which hits
+the converted TSO workaround on every TSO packet, passes TCP traffic
+between two emulated 82574Ls, and with failslab failing 5% of atomic
+allocations the failed pulls drop the packet and nothing falls over.
+The same setup with jumbo frames and copybreak off makes
+skb_condense() pull frag data into the head tens of thousands of times
+a run.  xen-netfront ran as a Xen HVM guest under QEMU's KVM Xen
+emulation, with the backend changed to spread frames over 18 and 19 RX
+slots, which takes the converted pull in xennet_fill_frags() and its
+overflow path.  The other drivers are compile tested only.
+
+Thanks,
+Josef
+
+---
+Josef Bacik (9):
+      net: ftmac100: check for failure when pulling in the RX header
+      net/mlx5e: check for failure when pulling the Ethernet header after XDP
+      net: niu: check for failure when pulling in the RX header
+      xen/netfront: check for failure when pulling in xennet_fill_frags()
+      e1000: use pskb_may_pull() in the 82544 TSO workaround
+      e1000e: use pskb_may_pull() in the 82571/2/3 TSO workaround
+      netxen: use pskb_may_pull() to pull excess TX frags into the head
+      qlcnic: use pskb_may_pull() to pull excess TX frags into the head
+      net: skbuff: don't reset truesize in skb_condense() if the pull fails
+
+ drivers/net/ethernet/faraday/ftmac100.c            | 10 ++++++++--
+ drivers/net/ethernet/intel/e1000/e1000_main.c      |  5 ++---
+ drivers/net/ethernet/intel/e1000e/netdev.c         |  4 ++--
+ drivers/net/ethernet/mellanox/mlx5/core/en_rx.c    |  9 ++++++---
+ .../net/ethernet/qlogic/netxen/netxen_nic_main.c   |  2 +-
+ drivers/net/ethernet/qlogic/qlcnic/qlcnic_io.c     |  2 +-
+ drivers/net/ethernet/sun/niu.c                     |  6 +++++-
+ drivers/net/xen-netfront.c                         | 22 ++++++++++------------
+ net/core/skbuff.c                                  |  3 ++-
+ 9 files changed, 37 insertions(+), 26 deletions(-)
+---
+base-commit: a5e7d8e446af9803e37a3b6a4d416fb41178348f
+change-id: 20261006-b4-pskb-pull-tail-drivers-ff4fb2964e1a
+
