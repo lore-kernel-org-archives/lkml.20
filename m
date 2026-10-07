@@ -1,64 +1,64 @@
-Received: from mail-ua1-f49.google.com (mail-ua1-f49.google.com [209.85.222.49])
+Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com [209.85.217.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDAA94D9F97
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 19:08:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C294DEC19
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 19:08:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791400096; cv=none; b=F3bxREUcv/XjGyQdZcipMHvdtIbnEi6yqx6ivWJ/Ct4KcAhUkwqodFGBUv8ziYcugVrlqF45ZkVrFclhfnEWTsTpSbi5tWoTAqXnnhMMFOMK5bXcCrLoB7wroUUzmSJimSttDxhSAztlTVf3pK/gx81nEaTCFLWe6w0rJVbWI/A=
+	t=1791400102; cv=none; b=MWq91qvO/d23U9JgaowqLOaMZuwoDRZBZhCPLHsjwIylQIDRhzlipdCHnM8YQtDIzWbCNMyWBpA3Qf/9phEnOA3Ob5rJ21h7WRkuMh3QjkWIg5yoJJ3k+TveMHowaDzy57SbPH627KytCHakdrJpdSj9i5nAz9EM3NeFlmPDIL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791400096; c=relaxed/simple;
-	bh=f6hAYaWquotH6XzgQ1x/frvwgLxkKCCZuUjx5By3X4k=;
+	s=arc-20240116; t=1791400102; c=relaxed/simple;
+	bh=xqfqbDlWyjEUt+J4MuMzpYTTu/xhE6dkb2NdzHkM570=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hEjWykgkBLI04g00y8E8AUxuGqT5VC4RQZl4AuIrvs6+M/HqKqekHsbBVkBkBWnCS3CWRO+1uXfuQN9RY4ARPuZC1mQyl6+2i3iy8fR6ZgtkG+qNp0yMGq85SmInus0+ZKYDnUR+lXx+wgoCLPBhzgp6bu9Pw6/GtqUCfQF0+tM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NfK4X1+6; arc=none smtp.client-ip=209.85.222.49
+	 MIME-Version; b=bdUgWqwogbXSGTVIToVq2xhbeexjKvCZyQwkLTNcN0BBghXesxljIMrqEvdOkEqK4MHLOEPwfPKWpcqH7BDRtDzMVmhJREDSTdNo5Tt6HpkFMMuWCI4fbkj5Wlp5Vof6jntElsuSknDKHqalWasIHaONRujP7ZNQUBU7rh5s+Zg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RnW/S9uK; arc=none smtp.client-ip=209.85.217.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NfK4X1+6"
-Received: by mail-ua1-f49.google.com with SMTP id a1e0cc1a2514c-988d2fdcdc4so2591307241.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 12:08:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RnW/S9uK"
+Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-7c03a445cb8so3139764137.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 12:08:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791400094; x=1792004894; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791400099; x=1792004899; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+Vn0spk3ajwyij1jMAAvmsyWo8ulUmzZZ0Zz44T5uS8=;
-        b=NfK4X1+6dgRqwMFTLK1yUy/qXKiULZgORTpdG8+ZoD6uV8+gdKZtc3X0myEAETFU38
-         xwTN/mbyetAkLxwOlg/n4q9moFkZFUzHX0Xf35gGDzp7KFGLomng/+rmyB/O2Z2lWrl0
-         niHi0WxG+28CgxvITFproajrgWCtXdQ8MBn87fcw2GQk1ucKhnU1lUJDu8PyjIIE0CEa
-         PPFydPZjNVI1WXU+UQMHZAhlvFbqAgdJGlrcVf7sASO364PtgugIXbZUaT6eWKSFQa9U
-         IeAEDSLAfZwHQrI1R2jLDPffKiHaUnIwP3nAgSnWhBJoivzgMnXlpwit7Bz7kqtUN3el
-         W3ig==
+        bh=2o70JU+4HRiJtQsruboTEAdrONVErRsszw8Ro4PDNGA=;
+        b=RnW/S9uK7K4z6tnEk5g1mBln6KsJF62yS1sqIXJt/XngT2S+RWi5QY9tf+0rojy6co
+         vdW129qmd5rHB4KWUB+0igpeYdDzkjqmNYS6Wd6u6uAiUzgXIcDtofHXSbFkwJz9WIrG
+         4DytJ/VRTg4PzRq8VCIbnCC4dBcQ+RGKhx9zhPb4h4fhrR5mCnW0NNzUQ7fkWZy5EKDw
+         4gkXZp6LVNNljhpqjmtYVVltzpwQ4nO94BnN0lihRjso8a27HftilZg5Fm6a3gEczXCK
+         rzw6HLu+GhQ6fsuzfOt9mMxJKhQ6gXf5EqVetX7a+34DpHA0PDBMWBravBObhSvF+AQX
+         wjew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791400094; x=1792004894;
+        d=1e100.net; s=20260707; t=1791400099; x=1792004899;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+Vn0spk3ajwyij1jMAAvmsyWo8ulUmzZZ0Zz44T5uS8=;
-        b=fSqJ5ht3rP28cGgIqL0R2Hk40f4rRqgZ0sql5ay3CVKV1O2lB+NSwZoNxRYWk0LL0m
-         EiLM/MPBYVjcVvJAHRxwDsv1K7auYm3zcOMyjJRTyoA9hp1dMDRswGsGOK24HBLF9icY
-         kmE1VkrceomWQPTTRoA5Lh5tuDItLJjyZ7ZAi+K8S0Jblg7ZsKL4NEJNRFXNrSz/hy6p
-         KG18oIZT58cSTYUDamd323s29EaxFJqZVQidb/6wpN47sTEqUKGCHcnwWYxgvOApm8sC
-         6Y48KJaI1y+VY7Do20tMsz/GNqgjOV76UYoo8py/156Es8dR83FHUcN5UCvdOz2BwNj/
-         o4NQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwZ9g6nCMv3PS1yoepxja+AMkkkYxWr6l6I6Fx+M6HtyRSdbJXDyk3ArSWSixNyPdmqtPOb3POBHY2Rk3g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ6tY+8uqUoeiKAeRIVyhbYfq3Ann4cbhqAbm2xXOe8Rus7lNyR
-	D3PDVw5ufonx6LKWPAUwtTTRGrzz4LZbj/jHxMhGv7iliDOm2JNZW3UJ
-X-Gm-Gg: AYBFou0pB9d2JhMMHE+A0bs9Mv6icgzzujMhRyiQD7+FLv8SXzbzineab2TdYvpm/u6
-	m8qtnS6Pp4ID/v+Uvb05aWibtBqVeB+7kBFVYZ9EfpU2LgqWE3SNGNPcFyi+EyCZtwBWt6mVj3r
-	r1Bfx0m4F9QqnKU9G3M16cn2jdrsLoEK1SxVJwwauET1q3gEPTYrUGzHvCuDQOJkFyItg2MyjZd
-	aZFoiSzmVS/isAF2WdXxhFeJbShaBOpr12QBDLGNTPVhWcI+WbDpWyG5d142kEyqlbvzTGQnjlb
-	uueDqFP8cLNglVZwSsPN0ym57+yWfWxK/d8CqWuagUiU2l474cGUcUcdKz+Rl6hiTrP0RuOmncp
-	yKidqOmaZF+Wa45mOvwHFZJNFAW+VT4RmJzA1OL22egXsIDtiQH/Lk8EpufYdp7LDhNdQUg5hKw
-	5ull1LHl5CZYfs9HEONC6+jnqjIvkMaY6PhKGP3qCWqHeSCjUSu7hWklvg0M8UXItLQYuUF94F6
-	VNsTiOB7J7+3fwFuPs=
-X-Received: by 2002:a05:6102:4490:b0:7c3:8ae6:d7ab with SMTP id ada2fe7eead31-7ca36e47759mr1089805137.5.1791400093596;
-        Wed, 07 Oct 2026 12:08:13 -0700 (PDT)
+        bh=2o70JU+4HRiJtQsruboTEAdrONVErRsszw8Ro4PDNGA=;
+        b=rJz+l8O3LuSxiUc+jLsinDmA9OxJsvfYpsAIPCCc6rrEWKgYcSe5phH6Dn716zUPeu
+         GIU60+8S+fwN0yyPODy974U7I0bFtWO7IzlBQArzcVxhBVJd6ZDhydnLjww5l4gBuWsV
+         DKsBozO3LBtuX4OpKP0eBTRxXVW+/CxbiXjrnc5i1hAwL+eNx0ujTALCGtKvgoYwETE8
+         vAqkCX6JaiCkSqbcGseBde7X9ozACWrNvYhGNxtGgw8SwiWcceios/pUiKSYOmEpIxxt
+         z1Q4tFVyZXKifasHKxZqxJ6yix3+0vnXo78In++JF2hJQNeabdXo14OyJPZbTWVNBuhQ
+         G4/A==
+X-Forwarded-Encrypted: i=1; AKwUvBy3hREHi0nsisNzxEjYMuA5jB5BGeGeqX2E15g65E9YmmrJC1Qf61ZKMCsnpBCepz5xXREw2OkTsLNeSM8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKtzOOvLYyavTvrU4IZxTjiIkRCdUnNfeE7L+n50Eh/1k3kY9IF
+	aF/SHPSoGmyIPufeMFZFvwev4e3WiZ7C00G0O6sOBMVcgRRLnk9+nsyF
+X-Gm-Gg: AYBFou2eEQuOqHaRWNEucRQPwptZfQVkfswap+L9RZkY5NNkB39ZfwwN48BN6iUsfgC
+	QlRzrKXdKsYK2gEQ7/12J/SLofUHXbWZAZRwF8pYBIKD4cmAm3wVWfauESI3xckwsQ7hFNI+lVH
+	+coA1v5dPehuyUNecSCJ5hYlSBhYX613VDg0IzFnftfnA1TQ26xBJRohjsqa5PrB/iW2ap756tY
+	RfhwGB/kXD/QyoY4l5uxXQP7rJcEr9vvfaFcU7pPwNhNlHn6efBAk2Q8Emc1HaEZ9hMG/QRXutm
+	Hod8jiIrxMgATjTblqe3B5vA5MnK/Q4bsd2lh9q839RGjVqpQ9l6Z89aApL8qZrQZgjqtIEMwFT
+	Vq+ZFTpuVUgS9MS1iN614eDtOcYl5o1bcHxMkof7TowhdrVXQwIUXkgfLeL0xtcodMUetLjJve7
+	atjyISTbCMAo+F3U6t6wH9QDYFAzlhGMooitibqDDGjRxHnrBNZF7kSHR4qBPwlRrFovFysFkmm
+	yc9C/UGtYM10oVznQmDmBYvIne19A==
+X-Received: by 2002:a05:6102:6cc:b0:7b2:b04f:f42b with SMTP id ada2fe7eead31-7ca38b5879fmr998674137.18.1791400099567;
+        Wed, 07 Oct 2026 12:08:19 -0700 (PDT)
 Received: from emedev.tailf75c28.ts.net ([74.244.222.41])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7ca218138c6sm2456787137.12.2026.10.07.12.08.08
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7ca218138c6sm2456787137.12.2026.10.07.12.08.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 12:08:13 -0700 (PDT)
+        Wed, 07 Oct 2026 12:08:18 -0700 (PDT)
 From: Emerson Busson <emersonbusson@gmail.com>
 To: mhklinux@outlook.com
 Cc: kys@microsoft.com,
@@ -74,9 +74,9 @@ Cc: kys@microsoft.com,
 	linux-kernel@vger.kernel.org,
 	linux-hyperv@vger.kernel.org,
 	netdev@vger.kernel.org
-Subject: [PATCH v2 02/14] hv: vmbus: validate chunk buffer allocation and cleanup
-Date: Wed,  7 Oct 2026 16:07:40 -0300
-Message-ID: <20261007190752.336426-3-emersonbusson@gmail.com>
+Subject: [PATCH v2 03/14] uio: hv_generic: describe buffers for owned allocation
+Date: Wed,  7 Oct 2026 16:07:41 -0300
+Message-ID: <20261007190752.336426-4-emersonbusson@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261007190752.336426-1-emersonbusson@gmail.com>
 References: <20261007190752.336426-1-emersonbusson@gmail.com>
@@ -88,352 +88,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Validate rounded sizes before storing them and preserve allocated
-chunks when cleanup or GPADL teardown has an uncertain outcome. Add
-focused KUnit coverage for buffer sizing, ownership decisions, and the
-ring fallback order descent.
-
-vmbus_alloc_buffer() rounds the requested size up to PAGE_SIZE before it
-computes nr_pages. A zero size, and a size within PAGE_SIZE of U32_MAX,
-both produce a rounded value that is wrong: zero allocates nothing, and
-the near-U32_MAX cases wrap to a small nr_pages, so a small chunk array
-is built for a buffer the host is told is large. Reject both before the
-rounded size is stored or used.
-
-vmbus_buffer_should_free() gathers the leak decision in one place. A
-cleanup whose GPADL create or teardown message may have reached the host
-cannot prove the host has released the pages. Handing those pages back
-to the allocator, or re-encrypting them, while the host may still map
-them is a use-after-free from the host's side and a Confidential
-Computing hazard. Such a buffer is marked leaked and its chunks are
-retained instead of freed.
-
-The new cases live in drivers/hv/vmbus_buffer_test.c, which is built
-into the hv_vmbus object rather than a separate module. That keeps the
-cases off the production sources while still letting them call the
-internal sizing, order-descent and free-decision helpers. Those helpers
-are therefore not static; nothing outside hv_vmbus links against them,
-and no symbol is exported for test purposes.
-
-The cases pin both rules, the partial-allocation rollback, and the
-order-descent fallback.
+Group receive and send backing in VMBus descriptors before adopting the
+owned allocation and release APIs. Keep the existing vzalloc and
+ordinary GPADL path until the lifetime prerequisites land.
 
 Signed-off-by: Emerson Busson <emersonbusson@gmail.com>
 ---
- drivers/hv/Kconfig             |  11 ++++
- drivers/hv/Makefile            |   1 +
- drivers/hv/channel.c           |  67 ++++++++++++++++++----
- drivers/hv/hyperv_vmbus.h      |  12 ++++
- drivers/hv/vmbus_buffer_test.c | 102 +++++++++++++++++++++++++++++++++
- 5 files changed, 181 insertions(+), 12 deletions(-)
- create mode 100644 drivers/hv/vmbus_buffer_test.c
+ drivers/uio/uio_hv_generic.c | 70 +++++++++++++++++-------------------
+ 1 file changed, 32 insertions(+), 38 deletions(-)
 
-diff --git a/drivers/hv/Kconfig b/drivers/hv/Kconfig
-index aa11bcefddf2..d44dd60fbc23 100644
---- a/drivers/hv/Kconfig
-+++ b/drivers/hv/Kconfig
-@@ -65,6 +65,17 @@ config HYPERV_VMBUS
- 	help
- 	  Select this option to enable Hyper-V Vmbus driver.
+diff --git a/drivers/uio/uio_hv_generic.c b/drivers/uio/uio_hv_generic.c
+index b3f41ffc74f8..2cb95b4786ca 100644
+--- a/drivers/uio/uio_hv_generic.c
++++ b/drivers/uio/uio_hv_generic.c
+@@ -56,12 +56,10 @@ struct hv_uio_private_data {
+ 	struct hv_device *device;
+ 	atomic_t refcnt;
  
-+config HYPERV_VMBUS_KUNIT_TEST
-+	bool "Build Hyper-V VMBus buffer KUnit tests"
-+	depends on HYPERV_VMBUS && KUNIT
-+	default KUNIT_ALL_TESTS
-+	help
-+	  Build the vmbus buffer sizing, GPADL lifetime and reclaim KUnit
-+	  cases into the hv_vmbus object. The cases reach internal helpers
-+	  that are not exported, so they cannot live in a separate module.
-+
-+	  If unsure, say N.
-+
- config MSHV_ROOT
- 	tristate "Microsoft Hyper-V root partition support"
- 	depends on HYPERV && (X86_64 || ARM64)
-diff --git a/drivers/hv/Makefile b/drivers/hv/Makefile
-index 888a748cc7cb..80d33e9c0e57 100644
---- a/drivers/hv/Makefile
-+++ b/drivers/hv/Makefile
-@@ -12,6 +12,7 @@ hv_vmbus-y := vmbus_drv.o \
- 		 hv.o connection.o channel.o \
- 		 channel_mgmt.o ring_buffer.o hv_trace.o
- hv_vmbus-$(CONFIG_HYPERV_TESTING)	+= hv_debugfs.o
-+hv_vmbus-$(CONFIG_HYPERV_VMBUS_KUNIT_TEST) += vmbus_buffer_test.o
- hv_utils-y := hv_util.o hv_kvp.o hv_snapshot.o hv_utils_transport.o
- mshv_root-y := mshv_root_main.o mshv_synic.o mshv_eventfd.o mshv_irq.o \
- 	       mshv_root_hv_call.o mshv_portid_table.o mshv_regions.o
-diff --git a/drivers/hv/channel.c b/drivers/hv/channel.c
-index f8feb2a0ec0a..7d5b99281872 100644
---- a/drivers/hv/channel.c
-+++ b/drivers/hv/channel.c
-@@ -28,6 +28,44 @@
+-	void	*recv_buf;
+-	struct vmbus_gpadl recv_gpadl;
++	struct vmbus_buffer recv_buffer;
+ 	char	recv_name[32];	/* "recv_4294967295" */
  
- #include "hyperv_vmbus.h"
+-	void	*send_buf;
+-	struct vmbus_gpadl send_gpadl;
++	struct vmbus_buffer send_buffer;
+ 	char	send_name[32];
+ };
  
-+/*
-+ * vmbus_buffer_round_size() and the order-descent helpers are also called
-+ * from vmbus_buffer_test.c, which is built into this same object. They are
-+ * therefore not static; nothing outside hv_vmbus links against them.
-+ */
-+int vmbus_buffer_round_size(u32 size, u32 *rounded_size)
-+{
-+	if (!size)
-+		return -EINVAL;
-+
-+	if (size > U32_MAX - (u32)PAGE_SIZE + 1)
-+		return -EOVERFLOW;
-+
-+	*rounded_size = round_up(size, (u32)PAGE_SIZE);
-+	return 0;
-+}
-+
-+unsigned int vmbus_buffer_order(unsigned long remaining,
-+				unsigned int max_order)
-+{
-+	return min_t(unsigned int, max_order, ilog2(remaining));
-+}
-+
-+bool vmbus_buffer_lower_order(unsigned int *order)
-+{
-+	if (!*order)
-+		return false;
-+
-+	(*order)--;
-+	return true;
-+}
-+
-+bool vmbus_buffer_should_free(const struct vmbus_buffer *buffer)
-+{
-+	return !buffer->leak && !buffer->gpadl.leak &&
-+	       !buffer->gpadl.gpadl_handle;
-+}
-+
- static void *__vmbus_alloc_buffer(struct vmbus_channel *channel,
- 				  u32 size,
- 				  bool confidential,
-@@ -661,7 +699,8 @@ void vmbus_free_buffer(void *addr, struct page **chunks, u32 chunk_cnt)
- 		return;
- 	}
- 
--	vunmap(addr);
-+	if (addr)
-+		vunmap(addr);
- 
- 	for (i = 0; i < chunk_cnt; i++) {
- 		unsigned long vaddr =
-@@ -683,8 +722,7 @@ void vmbus_release_buffer(struct vmbus_buffer *buffer)
- 		return;
- 
- 	kvfree(buffer->pages);
--	if (!buffer->leak && !buffer->gpadl.leak &&
--	    !buffer->gpadl.gpadl_handle)
-+	if (vmbus_buffer_should_free(buffer))
- 		vmbus_free_buffer(buffer->addr, buffer->chunks,
- 				  buffer->chunk_cnt);
- 	memset(buffer, 0, sizeof(*buffer));
-@@ -717,12 +755,13 @@ static void *__vmbus_alloc_buffer(struct vmbus_channel *channel,
- 				  struct page ***chunks_out,
- 				  u32 *chunk_cnt_out)
+@@ -197,19 +195,13 @@ hv_uio_new_channel(struct vmbus_channel *new_sc)
+ static void
+ hv_uio_cleanup(struct hv_device *dev, struct hv_uio_private_data *pdata)
  {
--	unsigned long nr_pages = PFN_UP(size);
--	unsigned long remaining = nr_pages;
-+	u32 rounded_size;
-+	unsigned long nr_pages;
-+	unsigned long remaining;
- 	unsigned long page_idx = 0;
- 	struct page **chunks = NULL;
- 	struct page **pages = NULL;
--	int order = MAX_PAGE_ORDER;
-+	unsigned int order = MAX_PAGE_ORDER;
- 	u32 chunk_cnt = 0;
- 	void *addr;
- 	u32 i;
-@@ -731,13 +770,15 @@ static void *__vmbus_alloc_buffer(struct vmbus_channel *channel,
- 	*chunks_out = NULL;
- 	*chunk_cnt_out = 0;
+-	if (pdata->send_gpadl.gpadl_handle) {
+-		if (vmbus_teardown_gpadl(dev->channel, &pdata->send_gpadl))
+-			pdata->send_gpadl.leak = true;
+-		if (!pdata->send_gpadl.leak && !pdata->send_gpadl.decrypted)
+-			vfree(pdata->send_buf);
+-	}
++	if (pdata->send_buffer.gpadl.gpadl_handle)
++		vmbus_teardown_gpadl(dev->channel, &pdata->send_buffer.gpadl);
++	vmbus_release_buffer(&pdata->send_buffer);
  
--	if (!nr_pages)
-+	if (vmbus_buffer_round_size(size, &rounded_size))
- 		return NULL;
-+	nr_pages = rounded_size >> PAGE_SHIFT;
-+	remaining = nr_pages;
+-	if (pdata->recv_gpadl.gpadl_handle) {
+-		if (vmbus_teardown_gpadl(dev->channel, &pdata->recv_gpadl))
+-			pdata->recv_gpadl.leak = true;
+-		if (!pdata->recv_gpadl.leak && !pdata->recv_gpadl.decrypted)
+-			vfree(pdata->recv_buf);
+-	}
++	if (pdata->recv_buffer.gpadl.gpadl_handle)
++		vmbus_teardown_gpadl(dev->channel, &pdata->recv_buffer.gpadl);
++	vmbus_release_buffer(&pdata->recv_buffer);
+ }
  
- 	/* If the buffer does not need to be decrypted, just use vzalloc() */
- 	if ((!hv_is_isolation_supported() &&
- 	     !cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT)) || confidential)
--		return vzalloc(nr_pages << PAGE_SHIFT);
-+		return vzalloc(rounded_size);
+ /* VMBus primary channel is opened on first use */
+@@ -306,48 +298,50 @@ hv_uio_probe(struct hv_device *dev,
+ 	pdata->info.mem[MON_PAGE_MAP].memtype = UIO_MEM_LOGICAL;
  
- 	/* Worst case: every chunk is a single page. */
- 	chunks = kvmalloc_objs(*chunks, nr_pages, GFP_KERNEL | __GFP_ZERO);
-@@ -752,7 +793,7 @@ static void *__vmbus_alloc_buffer(struct vmbus_channel *channel,
- 		struct page *page;
- 		gfp_t gfp;
- 
--		order = min(order, ilog2(remaining));
-+		order = vmbus_buffer_order(remaining, order);
- 
- 		/*
- 		 * Use __GFP_NORETRY | __GFP_NOWARN to avoid OOM-killing,
-@@ -767,7 +808,7 @@ static void *__vmbus_alloc_buffer(struct vmbus_channel *channel,
- 		page = alloc_pages_node(cpu_to_node(channel->target_cpu),
- 					gfp, order);
- 		if (!page) {
--			if (!order--)
-+			if (!vmbus_buffer_lower_order(&order))
- 				goto err;
- 			continue;
+ 	if (channel->device_id == HV_NIC) {
+-		pdata->recv_buf = vzalloc(RECV_BUFFER_SIZE);
+-		if (!pdata->recv_buf) {
++		pdata->recv_buffer.addr =
++			vzalloc(RECV_BUFFER_SIZE);
++		if (!pdata->recv_buffer.addr) {
+ 			ret = -ENOMEM;
+ 			goto fail_free_ring;
  		}
-@@ -794,7 +835,7 @@ static void *__vmbus_alloc_buffer(struct vmbus_channel *channel,
- 	if (!addr)
- 		goto err;
  
--	memset(addr, 0, nr_pages << PAGE_SHIFT);
-+	memset(addr, 0, rounded_size);
+-		ret = vmbus_establish_gpadl(channel, pdata->recv_buf,
+-					    RECV_BUFFER_SIZE, &pdata->recv_gpadl);
+-		if (ret) {
+-			if (!pdata->recv_gpadl.leak &&
+-			    !pdata->recv_gpadl.decrypted)
+-				vfree(pdata->recv_buf);
++		ret = vmbus_establish_gpadl(channel,
++					    pdata->recv_buffer.addr,
++					    RECV_BUFFER_SIZE,
++					    &pdata->recv_buffer.gpadl);
++		pdata->recv_buffer.leak |= pdata->recv_buffer.gpadl.leak;
++		if (ret)
+ 			goto fail_close;
+-		}
  
- 	kvfree(pages);
- 	*chunks_out = chunks;
-@@ -1067,8 +1108,10 @@ int vmbus_teardown_gpadl(struct vmbus_channel *channel, struct vmbus_gpadl *gpad
+ 		/* put Global Physical Address Label in name */
+ 		snprintf(pdata->recv_name, sizeof(pdata->recv_name),
+-			 "recv:%u", pdata->recv_gpadl.gpadl_handle);
++			 "recv:%u", pdata->recv_buffer.gpadl.gpadl_handle);
+ 		pdata->info.mem[RECV_BUF_MAP].name = pdata->recv_name;
+-		pdata->info.mem[RECV_BUF_MAP].addr = (uintptr_t)pdata->recv_buf;
++		pdata->info.mem[RECV_BUF_MAP].addr =
++			(uintptr_t)pdata->recv_buffer.addr;
+ 		pdata->info.mem[RECV_BUF_MAP].size = RECV_BUFFER_SIZE;
+ 		pdata->info.mem[RECV_BUF_MAP].memtype = UIO_MEM_VIRTUAL;
  
- 	info = kzalloc(sizeof(*info) +
- 		       sizeof(struct vmbus_channel_gpadl_teardown), GFP_KERNEL);
--	if (!info)
-+	if (!info) {
-+		gpadl->leak = true;
- 		return -ENOMEM;
-+	}
+-		pdata->send_buf = vzalloc(SEND_BUFFER_SIZE);
+-		if (!pdata->send_buf) {
++		pdata->send_buffer.addr =
++			vzalloc(SEND_BUFFER_SIZE);
++		if (!pdata->send_buffer.addr) {
+ 			ret = -ENOMEM;
+ 			goto fail_close;
+ 		}
  
- 	init_completion(&info->waitevent);
- 	info->waiting_channel = channel;
-diff --git a/drivers/hv/hyperv_vmbus.h b/drivers/hv/hyperv_vmbus.h
-index 20d023c9735e..93df3b35cfd4 100644
---- a/drivers/hv/hyperv_vmbus.h
-+++ b/drivers/hv/hyperv_vmbus.h
-@@ -551,4 +551,16 @@ int hv_create_ring_sysfs(struct vmbus_channel *channel,
- 							    struct vm_area_desc *desc));
- int hv_remove_ring_sysfs(struct vmbus_channel *channel);
+-		ret = vmbus_establish_gpadl(channel, pdata->send_buf,
+-					    SEND_BUFFER_SIZE, &pdata->send_gpadl);
+-		if (ret) {
+-			if (!pdata->send_gpadl.leak &&
+-			    !pdata->send_gpadl.decrypted)
+-				vfree(pdata->send_buf);
++		ret = vmbus_establish_gpadl(channel,
++					    pdata->send_buffer.addr,
++					    SEND_BUFFER_SIZE,
++					    &pdata->send_buffer.gpadl);
++		pdata->send_buffer.leak |= pdata->send_buffer.gpadl.leak;
++		if (ret)
+ 			goto fail_close;
+-		}
  
-+/*
-+ * vmbus buffer sizing, order-descent and free-decision helpers.
-+ *
-+ * These are shared with vmbus_buffer_test.c, which is built into the
-+ * hv_vmbus object alongside channel.c. They stay unexported.
-+ */
-+int vmbus_buffer_round_size(u32 size, u32 *rounded_size);
-+unsigned int vmbus_buffer_order(unsigned long remaining,
-+				unsigned int max_order);
-+bool vmbus_buffer_lower_order(unsigned int *order);
-+bool vmbus_buffer_should_free(const struct vmbus_buffer *buffer);
-+
- #endif /* _HYPERV_VMBUS_H */
-diff --git a/drivers/hv/vmbus_buffer_test.c b/drivers/hv/vmbus_buffer_test.c
-new file mode 100644
-index 000000000000..d0a927a46caf
---- /dev/null
-+++ b/drivers/hv/vmbus_buffer_test.c
-@@ -0,0 +1,102 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * KUnit tests for Hyper-V VMBus buffer allocation and GPADL lifetime.
-+ *
-+ * Built into the hv_vmbus object rather than a separate module so the
-+ * cases can reach the internal helpers declared in hyperv_vmbus.h
-+ * without exporting them.
-+ */
-+#include <kunit/test.h>
-+#include <linux/hyperv.h>
-+#include <linux/mm.h>
-+#include <linux/slab.h>
-+#include <linux/vmalloc.h>
-+
-+#include "hyperv_vmbus.h"
-+
-+static void vmbus_buffer_size_rounding_test(struct kunit *test)
-+{
-+	u32 rounded_size;
-+
-+	KUNIT_EXPECT_EQ(test, vmbus_buffer_round_size(1, &rounded_size), 0);
-+	KUNIT_EXPECT_EQ(test, rounded_size, (u32)PAGE_SIZE);
-+	KUNIT_EXPECT_EQ(test, vmbus_buffer_round_size(PAGE_SIZE, &rounded_size), 0);
-+	KUNIT_EXPECT_EQ(test, rounded_size, (u32)PAGE_SIZE);
-+}
-+
-+static void vmbus_buffer_size_overflow_test(struct kunit *test)
-+{
-+	u32 rounded_size = 0;
-+	int ret;
-+
-+	KUNIT_EXPECT_EQ(test, vmbus_buffer_round_size(0, &rounded_size), -EINVAL);
-+	ret = vmbus_buffer_round_size(U32_MAX, &rounded_size);
-+	KUNIT_EXPECT_EQ(test, ret, -EOVERFLOW);
-+	ret = vmbus_buffer_round_size(U32_MAX - PAGE_SIZE + 1, &rounded_size);
-+	KUNIT_EXPECT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_EQ(test, rounded_size,
-+			(u32)(U32_MAX - PAGE_SIZE + 1));
-+}
-+
-+static void vmbus_ring_fallback_order_zero_test(struct kunit *test)
-+{
-+	unsigned int order;
-+
-+	order = vmbus_buffer_order(1UL << MAX_PAGE_ORDER, MAX_PAGE_ORDER);
-+	KUNIT_EXPECT_EQ(test, order, (unsigned int)MAX_PAGE_ORDER);
-+	while (order)
-+		KUNIT_ASSERT_TRUE(test, vmbus_buffer_lower_order(&order));
-+	KUNIT_EXPECT_FALSE(test, vmbus_buffer_lower_order(&order));
-+	KUNIT_EXPECT_EQ(test, order, 0U);
-+	KUNIT_EXPECT_EQ(test, vmbus_buffer_order(3, MAX_PAGE_ORDER), 1U);
-+}
-+
-+static void vmbus_buffer_failed_teardown_leaks_test(struct kunit *test)
-+{
-+	struct vmbus_buffer buffer = {
-+		.addr = (void *)1,
-+		.gpadl.gpadl_handle = 1,
-+	};
-+
-+	KUNIT_EXPECT_FALSE(test, vmbus_buffer_should_free(&buffer));
-+	buffer.gpadl.gpadl_handle = 0;
-+	buffer.gpadl.leak = true;
-+	KUNIT_EXPECT_FALSE(test, vmbus_buffer_should_free(&buffer));
-+	buffer.gpadl.leak = false;
-+	buffer.leak = true;
-+	KUNIT_EXPECT_FALSE(test, vmbus_buffer_should_free(&buffer));
-+	buffer.leak = false;
-+	KUNIT_EXPECT_TRUE(test, vmbus_buffer_should_free(&buffer));
-+}
-+
-+static void vmbus_buffer_partial_allocation_cleanup_test(struct kunit *test)
-+{
-+	struct page **chunks;
-+	struct vmbus_buffer buffer = {};
-+
-+	chunks = kmalloc_obj(*chunks, GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, chunks);
-+	vmbus_free_buffer(NULL, chunks, 0);
-+
-+	buffer.addr = vzalloc(PAGE_SIZE);
-+	KUNIT_ASSERT_NOT_NULL(test, buffer.addr);
-+	vmbus_release_buffer(&buffer);
-+	KUNIT_EXPECT_PTR_EQ(test, buffer.addr, NULL);
-+	vmbus_release_buffer(&buffer);
-+}
-+
-+static struct kunit_case vmbus_buffer_test_cases[] = {
-+	KUNIT_CASE(vmbus_buffer_size_rounding_test),
-+	KUNIT_CASE(vmbus_buffer_size_overflow_test),
-+	KUNIT_CASE(vmbus_ring_fallback_order_zero_test),
-+	KUNIT_CASE(vmbus_buffer_failed_teardown_leaks_test),
-+	KUNIT_CASE(vmbus_buffer_partial_allocation_cleanup_test),
-+	{}
-+};
-+
-+static struct kunit_suite vmbus_buffer_test_suite = {
-+	.name = "hyperv-vmbus-buffer",
-+	.test_cases = vmbus_buffer_test_cases,
-+};
-+
-+kunit_test_suite(vmbus_buffer_test_suite);
+ 		snprintf(pdata->send_name, sizeof(pdata->send_name),
+-			 "send:%u", pdata->send_gpadl.gpadl_handle);
++			 "send:%u", pdata->send_buffer.gpadl.gpadl_handle);
+ 		pdata->info.mem[SEND_BUF_MAP].name = pdata->send_name;
+-		pdata->info.mem[SEND_BUF_MAP].addr = (uintptr_t)pdata->send_buf;
++		pdata->info.mem[SEND_BUF_MAP].addr =
++			(uintptr_t)pdata->send_buffer.addr;
+ 		pdata->info.mem[SEND_BUF_MAP].size = SEND_BUFFER_SIZE;
+ 		pdata->info.mem[SEND_BUF_MAP].memtype = UIO_MEM_VIRTUAL;
+ 	}
 -- 
 2.43.0
 
