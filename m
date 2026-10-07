@@ -1,115 +1,142 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18472473C84
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 10:50:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 891B34A2E21
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 10:50:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791370270; cv=none; b=LZ3H/6JSoUSCqm5KpZmKs2BJIsW9ImuYVhmNDtEcDmHbSw8Gq6eURPRdipc24a1wSDLpZLO80vFa+g6lE1bVJlM7WuXImvS2wH4P9BaBWFKQEBQ8Ra7in354sFYyuvvdG3eqcW8ueYJ0MLQb9imy+pVatHOl+ZszPo7TE0RwYPE=
+	t=1791370280; cv=none; b=sl9kTebBBi37tC4ky+GkiqxS5OM8njRrJLNBRD2ziGAxEyw69WSUNWy5wJtedS/9tKkMmfHFe9Oi1Lgcj9PcSOv4MS08fDt4AvYefrCyeuhGbX5g72g3DAL/qDtfcxXMPi+Cq+5xK+/p+iktzhoQlKgLe5rNqm95A3/BsMy1eYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791370270; c=relaxed/simple;
-	bh=TiTBZNONYLwSCWk48R2S9OYZ0babE0uNHcz1ozFQMHg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cj5XSMKiJtvGsk0+aIyWRTJfZtNrH17DeSlzfn6frAQy2ZsBrM5X13k4wyFbfonozV0shkvoLfyl9jX2thmMkpaDgjfYwmA+KFdYNgct+saKaCA1lzC9g4Z3z//ulkd/38mF6OXHaB4G3yNpb7JK+zbsHn08kqTn+maK+Df/irQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sWXw1r39; arc=none smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791370280; c=relaxed/simple;
+	bh=tUvTRzVcNc49ZvK3Xd4e3G3ohTQ2V8/eGQTEBw6pJ40=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=buC4pLiSNCal/YBoen8vHwESpAqa2EZfRt7alRn8KaxCS0UTgeTN5LMU44rP02PXnwKJkLOvoCps42gCBb/oxBSg3RlTemg6TV02WDNkc57XsC83f9w2ZU7UPymE51IoFxaK54Po9Fw+5V86k0jro06yEP+AoSpry50rI1e/+Eg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=luxpz+JK; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=BpBVawMx; arc=none smtp.client-ip=103.168.172.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sWXw1r39"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3a4b3ac8fb7so760072a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 03:50:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791370236; x=1791975036; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hLBcFGOFinccADlrrF62WWwM4vFrExECPGKcB7WQaMA=;
-        b=sWXw1r39qf5SBY3Hsz7vDPbjUlm33BAIC5RrYu+4bkvE2vBqkbdoUNxQiFejpFsZW1
-         UZDTIM7bCeS5j1AwrpZJVQ1s6UrdccgYRWGqV+KWRTRGiLDrKzqSHe4ppTUjvTT+C1V9
-         AG9Zbdf7HlE1lwT/zgwp3wfACvltWGK0JjhMcbCcp2rMJIO3NEBVSMQ60s4Qrmc+wmZC
-         yrvawRVHk2F479/OeV2HfY/Y7ljV4bHjUdeTlfiIcCjsooThfcncZP/tKV30ixuuZuBe
-         iOkcWKg2t9soBZEU6JD21z1HkKlkhCzP3Nb9BThjPwW2p73/97QtPBoqpRp3nCApieaP
-         GJhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791370236; x=1791975036;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hLBcFGOFinccADlrrF62WWwM4vFrExECPGKcB7WQaMA=;
-        b=RYqEFrLsECq3tA2QHibMhQLlfd1r6IMcUSc5AUX2Wad1PyHkuZLkksBTb7/3dTtDO0
-         0ZOVB76zdx+zzCPsEuOubCX8Laxh26dH3UungNS4XxEVLtsdh8iO1pPJPQ9fo/CoDSYq
-         pHp9fVAYTHm30XlToiaC02LjRSbFWVpH+aWDFAR4Yk32EpvN9MNvC+uWHpwmBR6Axc5Z
-         rGNZhcox9v+Df6Yva0m+a825Qkq/xansjX7pm3bby78a7St4FLpY72XawfIGJipRnWnp
-         gNOZOSKNejWWpfDH68rUz5EOAv4gu/LdRCex/iQvYhNgE2u14tyDKC+u3RheyHoD0gZv
-         v2Rg==
-X-Forwarded-Encrypted: i=1; AKwUvBy2qTfu1Q0dntY5BtDm97SrDa+qr1PBHYxX6b7YYiEBapMQfU98Hy+AqLd62PmOFQC8ls9kmFZK7QypQAE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLj2yxwcdCl4Y62kJ+iTKRQ2xn6MgFopVKUShR2HA2ldzmtYKXr
-	xW6ZYIfPvvUbfc5hEpKRtLbsBsEY1+cDqhQEhvvJD8Mv0c1XhjFP0Y0N
-X-Gm-Gg: AYBFou3aMc0yXybySEpp8lzXKUuUPxI0gHEAyyDIwKN9AlWb1LcKH/UD8tZqBjErY18
-	AfZg7t6WN8ozgFj5sjpdnNZXx20ZrS6/+FGE8qlb6t3XjT3rxPlaSDaPf2QvQjAJ+pIG+mlQkhV
-	HxTaRQBpkTRqcMqfle+6GwGI/0d83e/l5MLwYtkQjkWQ7rkBqKt1gN2OEC9tPy2Sg0lj7Sjjo17
-	JAJ0Xef/3rKIZGP0siEcXqkWBHcFT6NYr51MVWosugkJoXgLQ2rQ/E7KaWkHYZHM5D0Dfa8RrBk
-	0RA4S2XhrD618WvkaMuN+CUNUCP4JsHudRnn6L9D9LTSFAd7gERQhVnNYBLP+QKb/GuqRqf0YR2
-	twycdqOKDP7i2pnyI29eHriwA9yE35KqvjEuSmMhsKkc/DeWz43iuB1xvIAq9+oWETMyMyEqLjF
-	9mtwteUA37f6k92qNq8NSXT9Vf+l4tu2fQXANlVLyI4uO5fYnx8KS2451CMX/0pf6UKrrs+Gx0l
-	ibi0PxRoCHPoQd38gEP0e2e3sX5yqGeavZ+aEy6rYJqu4mCwur9eK8KUC4lPq03JK6WM6Rq0xbL
-	WKmMmEcRFJyJoQ==
-X-Received: by 2002:a17:90b:564e:b0:3a4:e234:111c with SMTP id 98e67ed59e1d1-3a8a1d0d246mr1455895a91.66.1791370236016;
-        Wed, 07 Oct 2026 03:50:36 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8543ab76bsm9408706a91.13.2026.10.07.03.50.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 03:50:35 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: Alex Lanzano <lanzano.alex@gmail.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Mehdi Djait <mehdi.djait@bootlin.com>,
-	u.kleine-koenig@baylibre.com,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH] drm/tiny: sharp-memory: handle enable GPIO errors
-Date: Wed,  7 Oct 2026 17:50:23 +0700
-Message-ID: <20261007105023.507855-1-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="luxpz+JK";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="BpBVawMx"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.phl.internal (Postfix) with ESMTP id 54EF2EC0295
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 06:50:46 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Wed, 07 Oct 2026 06:50:46 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1791370242;
+	 x=1791456642; bh=tUvTRzVcNc49ZvK3Xd4e3G3ohTQ2V8/eGQTEBw6pJ40=; b=
+	luxpz+JK/so1T4nu5eVbt+zi5bbCWMXh7XfVsjY+pEIkTmttnuG2eHDakOcyI1hS
+	5OS3e5I4EiWEq5pWFubWi83IOGZhIPLLupLiyPbggpB/r1LxNuoTJsnosIfN0spj
+	yIvXLpQ9GS5/b486K0wRIXIGEolat52MujsVWStlbKxm8bTf30StkHHj/knj9Kp7
+	w8AO5gFkEH6nv2a2jU/OA2PUGUzXsIAjzexWD6OjnCBcW3w22FSnKCmapmWnuL6g
+	D6Us7/tmpJgGSSQho3BvLTa9KB4ZWI+zEg5pSU4Z18zPp/EzNUw6zI2dYe+yBljc
+	sZ1mQGY97s/3PPqJCQwAGg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791370242; x=
+	1791456642; bh=tUvTRzVcNc49ZvK3Xd4e3G3ohTQ2V8/eGQTEBw6pJ40=; b=B
+	pBVawMxj7pQn0MOAGXjomdjs4Upd0nXrOLr2Xw6e327Dq43F9G8w5nGB6vjrGPuf
+	IS1nMz/dTpK7E8Z5HM3mkySkEl+XAUW805eYmGK42dMtr6gSF2KauNll2ZB9MmHI
+	NIq/no/AP0s6pLsObf2HtGzFbJEM8wY67VAKM+uLgSffbxECf5ny/2l4B9xKUdA+
+	6zlBlT7+FosxJ77oUHMkdgszH4FAyHVaCAYZpCGm9VMAnhqow7Jvg/BPtjsuh+lz
+	nmlZBQg8wePjhl44FwOq74othf9oAvvqXkk1aoba8Yt+M6cPSmEEv9EcVKrrZB8S
+	sZJgIufs/3+RVLxElOHbA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791370242; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:kuV9z4YOIL3KwMoOPPxXyBkCCx8WCAl1y7Io34+wTAdsgRC
+	1lgcOAFTxIkCYth0jFzFQiEmfoC15ekewMRMwfSwjoZWqEm4amKHfQrIfRvqES6n
+	7ZS2p6JHjr1vdy3QdOdJ1khWK3pZQYcQjn5OD8LnWKGyd9ibVVtmSOhJACU41f6/
+	QntCLapghwMoliSbkI5UaoUGCL16+nq/fTzbnHdBcAmddG12fwNsGJFVZm5tgAGH
+	KqFkrCwLxHSppOQtbgO98DrtK28a5FAhQMnDLRtX4i9/qSon4SLH70sSR8D5+eGL
+	QyHH0pz9zuC5bA18psslq7ENPK5kOYKAw8QdsIg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:nd24rqhvMwr6YzhdLjP9PgBHBvlm6O2Q6PbWisaeCY4=:tUvTRzVcNc49ZvK3Xd4e3G3ohTQ2V8/eGQTEBw6pJ40=;
+X-ME-Sender: <xms:_yPGatu7HrdFc6uxI1K-ZwjUIsEx59CiUXODR-AweqoAvTJsieAGZg>
+    <xme:_yPGahSST4h6fmscfkV81xV4YxKGAD57U1TmYZNDXRsrXY9isk3zfuThUtn3LkQUl
+    O8p05otqlpBw7KyWqC3HulwEM1YgfvkqhFT5wfGEUVkkKB3m_ibB6g>
+X-ME-Proxy-Cause: dmFkZTGRqXlOKiOoDNay6f9ANtWsHoTGY+XwXgCCKh9gl3enreMC84wkqMt99EzViSemkP
+    f5ODRap5IDJUixiJdxjgKS1q8T+wTFM4ZKUK8Ym2GdQa+ZzJWidwn0WVVRzf8mAK0rRLim
+    DN3+sSy4M3BCbOagBm90WzMDH/p41rnf9QH7x4VHabUq/pN0qo1wPwsILS+Ggbn7Lko7I5
+    WnpKUE4mRZIcYGd5xYzbr9n4apO6jh7PyhucM3qwYQKJBp59KOPtJZ+4b+cn3mF3FPJPZy
+    Y8VbmbX43AkBSHFMt+fxNmlHXVFDp+PV1frtvEINe3dHG6zmd7DCzzkd2x6O+NTblPt5tP
+    NbPea+Fn4c85gW8592lRLC1KYTG10wbsSyu8v4KNUsqiz+dpnR+6TWfTPSfFL98in2k1qH
+    cnDS95RvWknhOVUccMvy7Tc7HFtQly5KuxdIwXeTcUnlIvNgGeumq18/gxdzp4NnY47SQc
+    H56ufF9wPjRTMgN1Jve3uY0mjPNpmQUIaha/vzoLWKbaQLMuMXmDlRcDnHRB0t51XUkO4+
+    LJ6tHiTITG3O4OnKW8ChQ/wg3jgZdzFO05ePlx+PoTApBBXvsk8WLwZpy5fGsQQlW7jd7f
+    dae/G+MvGK6MNVp5YN1phNQdVGHmewdLXB+813nh3rJcN6GOCc0ca/OoDYzg
+X-ME-Proxy: <xmx:ACTGahOpBMJGAKDZ5a-BeysouPXRJgxeDkR0coSpRrbVUA-zAQMxFA>
+    <xmx:ACTGav8MHwSXI-fA_-GbGx2A4mxmmR2nvdvpjE364MppycIyAB4gaQ>
+    <xmx:ACTGaifzvEaaYiiwuVStMMCGpj7OcYDpLXh2RPgZwA5Jtq1CvYreiA>
+    <xmx:ACTGauxxkA3eodhaHcg_tfrv7CdrcZz3XO9BQ4QCKJTItJqZOdC4rg>
+    <xmx:AiTGarX01y-UF7xY2LNEQPV_1PlP1OEtWdx3TEb5zTD2XbNEBREEE34a>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 79C8132A0093; Wed,  7 Oct 2026 06:50:39 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: A2-lVq8nTGlc
+Date: Wed, 07 Oct 2026 12:50:18 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Kunwu Chan" <kunwu.chan@gmail.com>,
+ "Anna-Maria Gleixner" <anna-maria@linutronix.de>,
+ "Frederic Weisbecker" <frederic@kernel.org>,
+ "Ingo Molnar" <mingo@kernel.org>, "Thomas Gleixner" <tglx@kernel.org>
+Cc: Linux-Arch <linux-arch@vger.kernel.org>, linux-kernel@vger.kernel.org,
+ "Paul E. McKenney" <paulmck@kernel.org>
+Message-Id: <66d8d340-ff50-4fcb-bf19-05fa68c27238@app.fastmail.com>
+In-Reply-To: <20261007022859.60101-2-kunwu.chan@gmail.com>
+References: <20261007022859.60101-1-kunwu.chan@gmail.com>
+ <20261007022859.60101-2-kunwu.chan@gmail.com>
+Subject: Re: [PATCH v3 1/2] rwonce: Add READ_ONCE_THIS_CPU() and WRITE_ONCE_THIS_CPU()
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+On Wed, Oct 7, 2026, at 04:28, Kunwu Chan wrote:
+> Per-CPU variables are sometimes accessed from different execution
+> contexts on the same CPU, typically task context and an interrupt or
+> NMI handler.
+>
+> A plain READ_ONCE() or WRITE_ONCE() marks such an access as an
+> intentional race but does not express where the racing accesses are
+> expected to come from. This distinction allows concurrency tools such
+> as KCSAN to tell an intentional same-CPU context race apart from an
+> access that may race across CPUs.
+>
+> Add READ_ONCE_THIS_CPU() and WRITE_ONCE_THIS_CPU() to identify accesses
+> to a per-CPU variable which are intended to race only with accesses
+> from other execution contexts on the same CPU. For now, they are
+> simple wrappers around READ_ONCE() and WRITE_ONCE(), so generated code
+> and tool behaviour are unchanged.
+>
+> Suggested-by: Thomas Gleixner <tglx@kernel.org>
+> Suggested-by: Paul E. McKenney <paulmck@kernel.org>
+> Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+> Acked-by: Frederic Weisbecker <frederic@kernel.org>
+> Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
 
-devm_gpiod_get_optional() may return -EPROBE_DEFER or other errors,
-but sharp_memory_probe() currently ignores them.
+No objections here, but since I missed the background, I don't
+see what a future implementation of the new macros might do
+that is different from the existing macros, maybe you can still
+clarify that.
 
-Check the return value and propagate errors from the enable GPIO lookup.
+For taking this through something other than my asm-generic tree:
 
-Fixes: b8f9f21716fe ("drm/tiny: Add driver for Sharp Memory LCD")
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
----
- drivers/gpu/drm/tiny/sharp-memory.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/tiny/sharp-memory.c b/drivers/gpu/drm/tiny/sharp-memory.c
-index 7efd7b567f3b..35254a2136c9 100644
---- a/drivers/gpu/drm/tiny/sharp-memory.c
-+++ b/drivers/gpu/drm/tiny/sharp-memory.c
-@@ -552,6 +552,9 @@ static int sharp_memory_probe(struct spi_device *spi)
- 		return dev_err_probe(dev, ret, "Failed to initialize drm config\n");
- 
- 	smd->enable_gpio = devm_gpiod_get_optional(dev, "enable", GPIOD_OUT_HIGH);
-+	if (IS_ERR(smd->enable_gpio))
-+		return dev_err_probe(dev, PTR_ERR(smd->enable_gpio),
-+				     "Failed to get enable gpio\n");
- 	if (!smd->enable_gpio)
- 		dev_warn(dev, "Enable gpio not defined\n");
- 
--- 
-2.43.0
-
+Acked-by: Arnd Bergmann <arnd@arndb.de>
