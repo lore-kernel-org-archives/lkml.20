@@ -1,65 +1,65 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F233490BFC
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:58:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A9F8471259
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:59:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791374346; cv=none; b=W/emD7pfOlfmvpXRj+K0Ae98TZXczfRQSMt9CFz9/UuzMCpRpw6LZ5tW2DVkW8A2woOkd/6qmc6bdBepc9bm1WULp7PMBjOZdPSMEI7cIJ2sh/Kgv7S7/CSGdSLCbE/DICfocH8eIVpchWbRk4GzbdhpK4V53FrPFv7TkUxpPuE=
+	t=1791374357; cv=none; b=qlTshYFjd7tgEc46GJPmRXYhGlgGV0MjLugvFbfWZt/4YmelJo90u/2Kn2wTp/JPsSapqbdQ3lANr/mR2ec98t8PrnvHRCXKGL7lTZr0LU3lX5cKigzqzy+2HNLx4dJZAuDQdtCTnbWuJpB5Ahn/hQlqk3OEBMqMZk0jwNYR2RE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791374346; c=relaxed/simple;
-	bh=IgbYzH2C6hbv015jsEN0i3YOMqCP9cu1G2VmEtmOUcU=;
+	s=arc-20240116; t=1791374357; c=relaxed/simple;
+	bh=USMYquWjDSlhNyRAuuQZlk822YJxe0sgKgXXZbTaiuM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ICj4dECrujByHe6XBp4SoVvogZf4N7mgtBcZ55hCRqOVGlSP9najlXVevEkyFdY3G3CCLdT4NrRgRuIKc+cao3tS8Q4bAJ209ECkE0VdJQbXNgp/DRnCooLGFKEtv5oBkw64fnsgzuBosDPBki8ehL0ndXV/VcT2O0K8+6vezhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W1CWFtwD; arc=none smtp.client-ip=209.85.216.42
+	 MIME-Version; b=CQRC2DevyIXxb7eFd3QgLiMCPUF9s4IHQSBB+CxbcOX4WlZO3Cz00EuddH/G12j/mDKp/kb0WzJf2VxrPr8VntWECFn5LiZO2S+/5vniS11jxfHxlmy8YEy7gIiw6MgrAn3t760OWQAb35oFnQ4Q+p3DgLEJmRiYjSbugDPLI8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ir3Y+PfV; arc=none smtp.client-ip=209.85.216.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W1CWFtwD"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso2789741a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 04:58:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ir3Y+PfV"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-38759bcd877so1650672a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 04:59:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791374331; x=1791979131; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791374344; x=1791979144; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DI4d2s8GvHpPglm8OhsdKL/5L5SEzceEtpEBmwHSvtg=;
-        b=W1CWFtwDRhGm6wFzO3wNOwXblISsIaic4qhZDw6i5ImihoBM2XjSjwlExQAle0XpSs
-         2+6khvVP9dKK4FAG/cqOsr6hum9RIOafLMj1nhVPzo+Fbp93bcRkhV+yHTU0/gfzPMd5
-         +DrmqZmBSJvzjJ/w3lOGo02NcF+nP950UK9HSX0j/m6bdmxq32UqRV+QDKNgkQbsfG6Z
-         sP0oB48tpyN6CP8SMqcRxA/trhYphpZnd8vVSBPSYQ9mmQiLdUW8+9psXOCcNS4Xy4ab
-         7VjRToaNxeynEd9fIQjfvHXVRe4iFxHw00ptfkKU/EH846NzacsFqMM+gUA7YTbjtlMp
-         fJcQ==
+        bh=RNJQaLaUPhfizQ3mt3ZckrLpssIZdRd+0u34vIFrxiI=;
+        b=ir3Y+PfVvkQz2sPu/v4KfKcdRpBs11xY/pwU06eR/s6le1VMzV77ABFUFCMkVmKyT/
+         rQ34l2rcnM7aBPCum6XHA0nVIFVdIPaeou9V9SC0axANiq1GykxCW/L69GdQKqf6bi9F
+         JC3qwez6aTH8xl6TpJuvhUaxtVuxvFuWQkjhrjZGJuGdNsE0jBygLbmA66q7iqhG/jZi
+         UQN6CZ4+Wu8FLBT1bqkwF4jpoJ5rBQS/8pPyf4StHg5bYzAt0FAwESvWlH65Pq1BTLCh
+         zUJVyNviNIP2hC+TaJNArB0RKOpqcA/bkIG+k4JZOrT6GWjfJM5F2ramV0AzkQN+kHH4
+         irHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791374331; x=1791979131;
+        d=1e100.net; s=20260707; t=1791374344; x=1791979144;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=DI4d2s8GvHpPglm8OhsdKL/5L5SEzceEtpEBmwHSvtg=;
-        b=hlESVsUD9TFZjedPC3DU4xtrNeURxpH9XcNOPnajprd+sWo4BMm0pY1PZs8NxEyAGz
-         AhrnVpagrTRHbcBhvJRx1HCkytqpO2GW/Aa5S8eS2tvuDZ46eAz2s5TjSWT82DqGJtT6
-         q3aStMsT2x0LqXZnigVqFkFeYVYe5br/7FkSxCIw6N8E8EUyRfpqZprxWIIv2BU663uA
-         FwaZGZdlmSuyoCT5iCPvYjeAp29B5gRv2ca8UGiZ0/HYLCASOb8ZX4hAAHqPLi0sHp+9
-         akNSjc6HqKn/ruMf6cNEM6XyiYV5wvA29XWFt0lPyG4lYKRKRMfN+WjLQjtNAHclCXgl
-         uaLw==
-X-Forwarded-Encrypted: i=1; AKwUvBw2E5hmt/WaB04YM+IM05E65DG+CI9S7QzUOql2GojlVIPt4PLWse3HlTBwS7vqq6NbjQT+02MjKnS+Fzc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIIBqa8Xv58xejFi1SOvi3clfWG2w8nZo79v8hu7EDrcSqeX+A5
-	6MOGAAPFD1srtjoff08PMqIEp7RSfJZnAtmjmBDBB/o6sWOhju7Lr3M2
-X-Gm-Gg: AYBFou0kcXvvvkYe16GJKUQXwWeJtxNEruosT1wT4tfvSAu4H5U923P7TnIo/D0y8a8
-	5frXwaszJkLKuUr/5ZLRJgDm11hbweq48DTpsh0pmfYjqBT7aM9VQyZhSVQCeYraz6AhFlheAbK
-	RM5818eh5SysOeraFzKl+SpaIo+lBIFNNYczyFj+W5b+i4xM7/1XIj37XvZy8YV4TpcijIWDFwr
-	NhuHQklgmxu0R+x4I5LdBZaDhNqm06dnpIMzbPnAjqpeU+qlGKswJK/x/qzeR6jq6jOYo0XWB22
-	5iMG9Q0UtnhB43ScwyjrIUeLaPPi2C6WDKDCsuFA6r8AhoFPfWePR1MUbfkMq5zEaewMJFr4rKk
-	10lMX6fZYb/MZPYZBGrjlj3qxRQNlsRMZaKRZh34dk8cIDLGUk0Oy+XQWAMNLzzc0VSjlfR45ko
-	6DB0aBYEEUSr9V13GHAdn1+TKYH7KoVDA/Dn0G3nMO85qn6Qz5RaLuQIgFXlsVyr5cL16cy3U8c
-	FQoMlCBxgSopjwwhf7M8OXnypKELZ6SUdA9b/M6PJ7q0ngdFEvy5iyc12a0NObR1BrMfbgMuoub
-X-Received: by 2002:a17:90a:1c88:b0:3a8:c3dc:3c44 with SMTP id 98e67ed59e1d1-3a8c3dc621fmr387226a91.21.1791374331072;
-        Wed, 07 Oct 2026 04:58:51 -0700 (PDT)
+        bh=RNJQaLaUPhfizQ3mt3ZckrLpssIZdRd+0u34vIFrxiI=;
+        b=YrJtP8MKNHxtq1cRfU0XdGtCoUOWY004kBEdCC/TS4/3ysTWuD9WJzIviaWl44Rrm8
+         mBe9Oy2xfFP0rbMenvjfIk8CWBYWwThD4y46nB41Or6mKQYQ1Bs8/zcC7aD6l7asv9Jd
+         UycYwYMMd5/2Sch7IQ9tDlrlUzhyUWTeH8yUzmfi3bz00n4GkKoK/y/kQ+1PZjcIMdI7
+         VyNiAWyQgorJF6N+vuGx3kwrztnam5Q+pyi6q4RbVnXqZ3Wb2SIelA82evzN54Fk3BFI
+         R4seYkuNfvbDOfXC8h/hK+eGvYn/BO4krTg2kC5AL2yz9+z8DbLziuvmfRHNoybYAPh5
+         Evng==
+X-Forwarded-Encrypted: i=1; AKwUvBz2R0jqGS6Wb67NECtNJh2rcgN8BjjO+5aYWXaRtH/kdLryKmH7xRZ8JGm9IG8TR1nTVmCG6OQCwOiNk9g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJSpoFMl1VHyuBb2j3yjwcRdtQlU4KbiELYxEPhSdpot8xT8I7
+	RLloY6lSkZMgqToaPES9Y9iSLluo5LmA5FwiL6zz5iNl4Cbt+Za2IPz1
+X-Gm-Gg: AYBFou2EgQY9YMGNVqq+Jr0Uym4iJYpbDCXw9h6/dEnv3c62E9K5q/g9hJubEHpztoy
+	vDR6wn11Q05LSkxLl9w78RUQOvXDauNTBLVQO/gF/aJy0EVHZlhIqO4BZoKhbFE765MNO/iu4fC
+	pyW6dNQXDAe8I2w2gd7KMvrg69r7YTaJ7qW19hCjHw4DmiLRsMuY9ZsC74XvrqbZ7CGWseFs6XM
+	9yT1tSILXvAQhp+jv69BD2qr90P7pLKPLy8OagW/iKeLA4a+DLDlhPklXnvyZcJsEsh25zuK0Qq
+	AUIabjipD9SXNDaREUc0Sa3Xiuo8KpNyqGgM/pcwjoIDtejG1aydTQT0zgSVV6JcDp81s2Ld6z+
+	8OY5CHKE8Xvp69xxNT0tNqqVo+IGfIkyJs/VRnguG7T5uP3wb5FNaxdzawvcI7q9J/kXd+g+nlc
+	JMEGidOjmawtcTY/i9awRF1kTEvhGKFWBTYnqgKeZKv2UD7eBUilrvrXaDeOUZNimABCS8qqRX/
+	502KO56YFJeZtN+jZc7sJcIji1UqVntpf2PnHnHw88lrtYfrdXz+iQOq1uqnqrH9gtfiL8ATeoJ
+X-Received: by 2002:a17:90b:1dc2:b0:3a8:545f:520d with SMTP id 98e67ed59e1d1-3a8a1ae940cmr1539624a91.32.1791374343687;
+        Wed, 07 Oct 2026 04:59:03 -0700 (PDT)
 Received: from m-upc-A520M-HDV.lan (oki-109-236-14-10.jptransit.net. [109.236.14.10])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8987b09e2sm4456582a91.2.2026.10.07.04.58.45
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8987b09e2sm4456582a91.2.2026.10.07.04.58.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 04:58:50 -0700 (PDT)
+        Wed, 07 Oct 2026 04:59:03 -0700 (PDT)
 Sender: Yuyang Huang <uyoko90@gmail.com>
 From: Yuyang Huang <sigefriedhyy@gmail.com>
 To: Yuyang Huang <sigefriedhyy@gmail.com>
@@ -91,9 +91,9 @@ Cc: Ajay Singh <ajay.kathat@microchip.com>,
 	linux-kselftest@vger.kernel.org,
 	linux-wireless@vger.kernel.org,
 	netdev@vger.kernel.org
-Subject: [PATCH net-next v10 3/6] net: add a generation counter for dev->mc changes
-Date: Wed,  7 Oct 2026 20:58:18 +0900
-Message-ID: <20261007115821.11332-4-sigefriedhyy@gmail.com>
+Subject: [PATCH net-next v10 5/6] netlink: specs: rt-addr: document AF_PACKET multicast dumps
+Date: Wed,  7 Oct 2026 20:58:20 +0900
+Message-ID: <20261007115821.11332-6-sigefriedhyy@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261007115821.11332-1-sigefriedhyy@gmail.com>
 References: <20261007115821.11332-1-sigefriedhyy@gmail.com>
@@ -105,108 +105,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A multi-part RTM_GETMULTICAST dump of dev->mc resumes by position, so
-entries added or removed between two dump rounds can be skipped or
-repeated. The IPv4 and IPv6 dumps report that with NLM_F_DUMP_INTR by
-stamping cb->seq from a per netns generation counter combined with
-dev_base_seq, see inet_base_seq().
-
-Add the equivalent for the device multicast lists: a per netns counter
-bumped whenever an entry is added to or removed from any dev->mc. The
-list helpers do not know which device a list belongs to, so give
-netdev_hw_addr_list an mc_dev pointer, set for dev->mc only, and bump
-the counter of dev_net(mc_dev) from the count helpers. That covers the
-dev_mc_* helpers, both lists of a sync, the hardware sync helpers
-drivers call from their rx mode callbacks or their own workers and the
-reconciliation after an asynchronous rx mode update. It is atomic
-since the writers only hold the address lock of their own device.
-
-Used by the following patch for the AF_PACKET multicast dump.
+Add the global flag, list the attributes the AF_PACKET dump uses and
+describe how ifa-family selects IPv4, IPv6 or link-layer output for
+RTM_GETMULTICAST.
 
 Signed-off-by: Yuyang Huang <sigefriedhyy@gmail.com>
+Reviewed-by: Nicolas Dichtel <nicolas.dichtel@6wind.com>
 ---
- include/linux/netdevice.h   |  3 +++
- include/net/net_namespace.h |  1 +
- net/core/dev_addr_lists.c   | 15 +++++++++++++++
- 3 files changed, 19 insertions(+)
+ Documentation/netlink/specs/rt-addr.yaml | 19 +++++++++++++++++--
+ 1 file changed, 17 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
-index 3d9e3a70ca5c9..6c837ea34748e 100644
---- a/include/linux/netdevice.h
-+++ b/include/linux/netdevice.h
-@@ -259,6 +259,9 @@ struct netdev_hw_addr_list {
+diff --git a/Documentation/netlink/specs/rt-addr.yaml b/Documentation/netlink/specs/rt-addr.yaml
+index 17ead22034515..cccfccf49cc11 100644
+--- a/Documentation/netlink/specs/rt-addr.yaml
++++ b/Documentation/netlink/specs/rt-addr.yaml
+@@ -77,6 +77,8 @@ definitions:
+         name: mcautojoin
+       -
+         name: stable-privacy
++      -
++        name: global
  
- 	/* Auxiliary tree for faster lookup on addition and deletion */
- 	struct rb_root		tree;
-+
-+	/* Set for dev->mc only, the device the list belongs to */
-+	struct net_device	*mc_dev;
- };
- 
- #define netdev_hw_addr_list_count(l) ((l)->_count)
-diff --git a/include/net/net_namespace.h b/include/net/net_namespace.h
-index 46b4c67e2966f..c29a22ca178fa 100644
---- a/include/net/net_namespace.h
-+++ b/include/net/net_namespace.h
-@@ -71,6 +71,7 @@ struct net {
- 	spinlock_t		rules_mod_lock;
- 
- 	unsigned int		dev_base_seq;	/* protected by rtnl_mutex */
-+	atomic_t		dev_mc_genid;	/* dev->mc membership changes */
- 	u32			ifindex;
- 
- 	spinlock_t		nsid_lock;
-diff --git a/net/core/dev_addr_lists.c b/net/core/dev_addr_lists.c
-index d615192d1c3b1..3ab053cbf8b99 100644
---- a/net/core/dev_addr_lists.c
-+++ b/net/core/dev_addr_lists.c
-@@ -16,9 +16,19 @@
- 
- #include "dev.h"
- 
-+/* RTM_GETMULTICAST dumps use the netns generation counter to detect
-+ * changes of dev->mc between dump rounds.
-+ */
-+static void __hw_addr_changed(struct netdev_hw_addr_list *list)
-+{
-+	if (list->mc_dev)
-+		atomic_inc(&dev_net(list->mc_dev)->dev_mc_genid);
-+}
-+
- static void __hw_addr_count_add(struct netdev_hw_addr_list *list, int value)
- {
- 	list->_count += value;
-+	__hw_addr_changed(list);
- }
- 
- static void __hw_addr_count_inc(struct netdev_hw_addr_list *list)
-@@ -33,7 +43,10 @@ static void __hw_addr_count_dec(struct netdev_hw_addr_list *list)
- 
- static void __hw_addr_count_reset(struct netdev_hw_addr_list *list)
- {
-+	if (!list->_count)
-+		return;
- 	list->_count = 0;
-+	__hw_addr_changed(list);
- }
- 
- /*
-@@ -521,6 +534,7 @@ void __hw_addr_init(struct netdev_hw_addr_list *list)
- 	INIT_LIST_HEAD(&list->list);
- 	list->_count = 0;
- 	list->tree = RB_ROOT;
-+	list->mc_dev = NULL;
- }
- EXPORT_SYMBOL(__hw_addr_init);
- 
-@@ -1197,6 +1211,7 @@ EXPORT_SYMBOL(dev_mc_flush);
- void dev_mc_init(struct net_device *dev)
- {
- 	__hw_addr_init(&dev->mc);
-+	dev->mc.mc_dev = dev;
- }
- EXPORT_SYMBOL(dev_mc_init);
- 
+ attribute-sets:
+   -
+@@ -168,7 +170,17 @@ operations:
+           attributes: *ifaddr-all
+     -
+       name: getmulticast
+-      doc: Get / dump IPv4/IPv6 multicast addresses.
++      doc: |
++        Get / dump multicast addresses. ifa-family must select the address
++        family: AF_INET or AF_INET6 for the IP multicast groups joined on
++        a device, AF_PACKET for the link-layer multicast addresses in the
++        device filter. Link-layer entries added explicitly, e.g. with
++        SIOCADDMULTI or "bridge fdb add ... self", rather than by a
++        protocol join are reported with the global flag set. For AF_PACKET
++        a non-zero ifa-index restricts the dump to that device and
++        ifa-prefixlen, ifa-flags and ifa-scope must be zero, AF_INET and
++        AF_INET6 apply this and target-netnsid with NETLINK_GET_STRICT_CHK
++        only.
+       attribute-set: addr-attrs
+       fixed-header: ifaddrmsg
+       do:
+@@ -181,10 +193,13 @@ operations:
+             - multicast
+             - mc-users
+             - cacheinfo
++            - flags
++            - target-netnsid
+       dump:
+         request:
+           value: 58
+-          attributes: []
++          attributes:
++            - target-netnsid
+         reply:
+           value: 58
+           attributes: *mcaddr-attrs
 -- 
 2.43.0
 
