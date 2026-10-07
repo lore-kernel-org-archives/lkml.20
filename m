@@ -1,60 +1,71 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com [209.85.210.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D9BA3D9552
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 05:02:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BBB63D5C31
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 05:03:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791349342; cv=none; b=lPMvd+eo7GIIHiREAELr5uj2oyQTkM4GAHbfKNTkX1XKRaNaHhOXugM1B2VArq5ZZRWjf0W98OO2NiWJgSHBUvdUXTtSmkRd5UIjgfHz/k/oLZdnbAdFQv3n+fwCpO37JKg0kbdWS4MZBxQZwyqi3WZyobrc1eB609KPBLjUQsA=
+	t=1791349405; cv=none; b=gBLnyYjqphGouGdqGtGVyhjF0hed29vu9W0dZoodLJsHyarizmHq9naH7UrUWZpNtZummL06QGxRG+uIf5hPboZMIlnVuhs8dTTfePAV7NeC8bzOoPp8xyAR1q+Pj8V/DRhKCzk1kX/hSsRZnkUmAokQ2w/ZZjercvW9AFIVPjg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791349342; c=relaxed/simple;
-	bh=/zh6UVP9aUeYN3cpUcykQQNd1mhLS35RKv4N2oJL8cI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ALk434z/d1X8PyDae94xV2ZU7HVPY8CEMAAYnZDXhWctFZOy7bbidFWCor5evtz/buV2xLnNINzPHLQkTC3+bEs9S49VYWm0IE6aBoXW76xR3BA3xwnzUSYmvjQPEiolUXe5SceE8Y9MEgbdBGR+f8ZC2iiE4ZycmGm1AAokvPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Yu7qLn4v; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791349405; c=relaxed/simple;
+	bh=2xFrY7BGe4dGVsrgnRpdoh/SZXPw4g2jRk6yGOXKQrI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dobf9AHKU1vVD9pY6n0vWTgevMVItDh0Dgml0y0FWZzAojSPAq0NIiHU8i+OnT2Hufj5u2yz6XCphAe5D4+8RYGL6mAK5ytKDTk+xU51qlGzr9O8BJctXNNj5FOiqseT4iYQMHly1lPENagcnG/BlwIylje+Y2XLMvyB6kEhm1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=X0ogNrCD; arc=none smtp.client-ip=209.85.210.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Yu7qLn4v"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791349340;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=d/g9cmQypPEzwZ0ihqpR2nlNyILiLISdA/oMiZxLG3Q=;
-	b=Yu7qLn4vQYkiulqweaOCPRHqfLHEcbRhhzVSx7ob4Gpy8C7dcPmDJ1JlL9L83pDOyyDHrR
-	x8YDjKkYmV4dpH8rxh0nm6DJYA404+YUWZUlCNMt0kJuleQi1YW4EXXqZr5eimlL3E6re4
-	/c3b3WXXdIiMwoIkTd+OuqCDOedZvvA=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-669-5QF_KDKINXuc1NGN-huTPw-1; Wed,
- 07 Oct 2026 01:02:18 -0400
-X-MC-Unique: 5QF_KDKINXuc1NGN-huTPw-1
-X-Mimecast-MFC-AGG-ID: 5QF_KDKINXuc1NGN-huTPw_1791349337
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8E0A41921EDB;
-	Wed,  7 Oct 2026 05:02:17 +0000 (UTC)
-Received: from hpa-thinkpadx1carbongen12.taipei.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id D02FC30000E6;
-	Wed,  7 Oct 2026 05:02:14 +0000 (UTC)
-From: Kate Hsuan <hpa@redhat.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Christian Murphy <christian@themurphys.eu>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Kate Hsuan <hpa@redhat.com>
-Subject: [PATCH v3 3/3] media: i2c: imx471: Derive pixel rate from PLL configuration
-Date: Wed,  7 Oct 2026 13:01:40 +0800
-Message-ID: <20261007050140.26604-4-hpa@redhat.com>
-In-Reply-To: <20261007050140.26604-1-hpa@redhat.com>
-References: <20261007050140.26604-1-hpa@redhat.com>
+	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="X0ogNrCD"
+Received: by mail-ot1-f42.google.com with SMTP id 46e09a7af769-81c5aac8478so803713a34.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 22:03:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=openai.com; s=google; t=1791349403; x=1791954203; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=amWm7rhDqpybZwDdXjCeI1rmEdf0wmiwfyrZDawQrxU=;
+        b=X0ogNrCDYQLG4uIXJBNpr+fdxSxz5YVic6Fs99W+roRjZwjMVfYEfGAoZwxnyk4T3v
+         k8uS93zm5izlitbvdrfLnpZo3NAzowLdjbEZAesgHg1KuO62Nu/w2ca9dSj5r2LFNiXY
+         7GBgECUhY5jPpuQAGTgmWaYy634SmtrOSXNp0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791349403; x=1791954203;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=amWm7rhDqpybZwDdXjCeI1rmEdf0wmiwfyrZDawQrxU=;
+        b=mEjNg2bUTQOtrfUmkIcH6U7kDYld8PO+4N+xRVQPnoDC1dkKj9InUDyBCl8brmVxLw
+         8riGcnzEe0zw5oOxzrmnJKayJBLF2na0cFO59pFgRI32uBBDO5WkcYTQaQQyxFeMbcfL
+         h/dlEO1DKEkMntE8mUB7VtbpbRe2RSxo2F+uEDRkuf9MwC8owIqGAh+qrjCLyDQHH5i6
+         c9yqfpsyTHXrc9mvo9pU7nLG+jJ/JturmF8h+Fx/wuqi0xxobCoXjPf+Tj6vfC1v/Ywf
+         8tk6zMqCwwQilwjzTsurqi7rUslwNCcRYRiiVlVOmnFGtCa0ujSgF7DLEkGPpLjY+xPr
+         bWwg==
+X-Gm-Message-State: AFuF++kVUe1Tdu/hM8kWIXc9ecdezki5wc9jS7lKtgaQMT2lnXue3mfp
+	yIWNnWxBDhCYeU7O1lXQ38LSFiOHXu03Fq8e1u7oymvdGE4rVrpvCE/RsqIHFxk9zBL7QTi4IuL
+	/1g3UCLzodw==
+X-Gm-Gg: AYBFou1zc/qgWGuAoh+LHfn5z8zLg/D0TnDB+pw0izad/LkSWLy1xoejP8KjBbUft7I
+	/PbxCQ//AduAGSsmddiM2d2OyZGbTrZ8WBBBhXK2fd3n7UMWV2bRXQjkSiEUCxcs01OK2sj09BB
+	lSgfDw/pH0UUyXzan5rMfi1FnaBB1TaJhzpxTWl9VWN9UzYzSaGxKEV9CglIOKZ3YWl3jCpcV2T
+	6EmmmK+ohiNqMp0MrNGzb5qX4qchcfRm/ZZhj5m4dnnuGk18XBZ/B7EyoEhPohHnNfuBxbgYE3Y
+	pK8xk+Oto0zbqXxN4r1v1pbkEv74MXlON9zrK8sJUJT+iNRHpKYUQGs6gvSgp4SYygh6o3oC9NJ
+	9Aa84G5NlTs66QtCCo/URxaPJoI9baxdwj8RvMFoeZB51bZv3nJAh6cJQs1Y1BrEHvsWbtngZ2f
+	HdAX2abEYC+2/ebXkk5hXKiMo70e/s/hrHD18sS3bWDOPiayXG3aD8HDDqX/SGXC7YpvL00btwu
+	VsbXY90ZR7gQqSjmCsHwZ5fUTgrTEPGeTBO3nSsoCag1mK48fTIhgiqbZK1FvZpSUO9XO3kzw0=
+X-Received: by 2002:a05:6830:4906:b0:823:e626:2765 with SMTP id 46e09a7af769-82ad0acd461mr2158934a34.31.1791349402837;
+        Tue, 06 Oct 2026 22:03:22 -0700 (PDT)
+Received: from com-75606.corp.openai.org ([199.47.143.7])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-82adc3f12f0sm1578270a34.13.2026.10.06.22.03.20
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 06 Oct 2026 22:03:21 -0700 (PDT)
+From: Kyle Zeng <kylebot@openai.com>
+To: linux-trace-kernel@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	rostedt@goodmis.org,
+	mhiramat@kernel.org,
+	outbounddisclosures@openai.com,
+	Kyle Zeng <kylebot@openai.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] tracing/filters: Check perf permissions before accessing kernel data
+Date: Tue,  6 Oct 2026 22:03:15 -0700
+Message-ID: <20261007050315.65139-1-kylebot@openai.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,51 +73,182 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-Derive the pixel rate from the sensor's external clock frequency and
-active PLL settings.
+perf_trace_event_perm() allows tracepoint counters that do not request
+PERF_SAMPLE_RAW without raw tracepoint permissions. A self-targeted
+event with exclude_kernel=1 can therefore reach the filter compiler even
+at perf_event_paranoid=2.
 
-The discussion of pixel rate can be found at the URL
-Link: https://lore.kernel.org/linux-media/CAEth8oHj1Jon9m_4aFzRGoKcdopUMym+MyV0JxTo6F+AUFOLoQ@mail.gmail.com/
+The .function suffix resolves its operand through kallsyms. The result
+of a numeric filter discloses whether an address belongs to a known
+kernel symbol range, allowing the randomized kernel image base to be
+recovered. A named filter also exposes the resolved range through the
+counter when the tracepoint field is controlled by the caller.
 
-Signed-off-by: Kate Hsuan <hpa@redhat.com>
+Pointer-string filters expose kernel memory in the same way. A caller
+can supply a kernel address as the filename argument to openat() and
+install a string filter on sys_enter_openat. Without .ustring, the
+filter uses strncpy_from_kernel_nofault() on that address. Whether the
+counter increments reveals whether the kernel bytes match the pattern.
+The nofault copy prevents faults but does not authorize disclosure.
+
+Pass the filter's perf origin to the predicate parser and require
+perf_allow_tracepoint() before resolving a .function operand or creating
+a kernel-pointer string predicate. This uses the existing sysctl,
+initial-namespace capability and LSM policy for raw tracepoint access.
+Keep ordinary counting filters, explicit user-string predicates and
+filters created through the separately controlled tracefs interfaces
+unchanged.
+
+Fixes: e6745a4da964 ("tracing: Add a way to filter function addresses to function names")
+Fixes: 5967bd5c4239 ("tracing: Let filter_assign_type() detect FILTER_PTR_STRING")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
 ---
- drivers/media/i2c/imx471.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+Changes in v2:
+- Require raw-tracepoint permission for kernel-pointer string filters
+  as well as .function predicates, preserving explicit .ustring filters.
+- Add the pointer-string Fixes tag and describe the confirmed
+  sys_enter_openat counter oracle.
 
-diff --git a/drivers/media/i2c/imx471.c b/drivers/media/i2c/imx471.c
-index b469fef7eef9..fc6a12943991 100644
---- a/drivers/media/i2c/imx471.c
-+++ b/drivers/media/i2c/imx471.c
-@@ -65,7 +65,7 @@
- 
- /* default link frequency and external clock */
- #define IMX471_LINK_FREQ_DEFAULT		200000000LL
--#define IMX471_EXT_CLK				19200000
-+#define IMX471_EXT_CLK				19200000LL
- 
- /* PLL */
- #define IMX471_REG_VTPXCK_DIV			CCI_REG16(0x0300)
-@@ -704,9 +704,15 @@ static int imx471_init_controls(struct imx471 *sensor)
- 					   ARRAY_SIZE(link_freq_menu_items) - 1,
- 					   0,
- 					   link_freq_menu_items);
--
--	/* pixel_rate = link_freq * 2 * nr_of_lanes / bits_per_sample */
--	pixel_rate = div_u64(IMX471_LINK_FREQ_DEFAULT * 2 * 4, 10);
-+	/*
-+	 * The sensor runs in the dual mode so the pixel rate is defined as
-+	 * follows:
-+	 * (ext_freq * IVT_PLL_MPY * num_of_vt_lanes) /
-+	 * (VT_PREPLLCK_DIV * IVT_SYCK_DIV * IVT_PXCK_DIV)
-+	 */
-+	pixel_rate = (IMX471_EXT_CLK * IMX471_PLL_VT_MPY * 4) /
-+		     (IMX471_PREPLLCK_VT_DIV * IMX471_VTSYCK_DIV *
-+		      IMX471_VTPXCK_DIV);
- 
- 	v4l2_ctrl_new_std(ctrl_hdlr, &imx471_ctrl_ops,
- 			  V4L2_CID_PIXEL_RATE, pixel_rate,
--- 
-2.55.0
+ kernel/trace/trace_events_filter.c | 41 ++++++++++++++++++++++--------
+ 1 file changed, 31 insertions(+), 10 deletions(-)
 
+diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
+index 2b46ca536045..84d4a4fe56ad 100644
+--- a/kernel/trace/trace_events_filter.c
++++ b/kernel/trace/trace_events_filter.c
+@@ -1625,12 +1625,18 @@ static int filter_pred_fn_call(struct filter_pred *pred, void *event)
+ 	}
+ }
+ 
++struct filter_parse_data {
++	struct trace_event_call *call;
++	bool is_perf;
++};
++
+ /* Called when a predicate is encountered by predicate_parse() */
+ static int parse_pred(const char *str, void *data,
+ 		      int pos, struct filter_parse_error *pe,
+ 		      struct filter_pred **pred_ptr)
+ {
+-	struct trace_event_call *call = data;
++	struct filter_parse_data *pdata = data;
++	struct trace_event_call *call = pdata->call;
+ 	struct ftrace_event_field *field;
+ 	struct filter_pred *pred = NULL;
+ 	unsigned long offset;
+@@ -1687,6 +1693,16 @@ static int parse_pred(const char *str, void *data,
+ 		i += len;
+ 	}
+ 
++	/* Even counting filters can disclose kernel addresses and data. */
++	if (pdata->is_perf &&
++	    (function || (!ustring && field->filter_type == FILTER_PTR_STRING))) {
++		ret = perf_allow_tracepoint();
++		if (ret) {
++			parse_error(pe, ret, pos + i);
++			return ret;
++		}
++	}
++
+ 	while (isspace(str[i]))
+ 		i++;
+ 
+@@ -2205,8 +2221,12 @@ static int calc_stack(const char *str, int *parens, int *preds, int *err)
+ static int process_preds(struct trace_event_call *call,
+ 			 const char *filter_string,
+ 			 struct event_filter *filter,
+-			 struct filter_parse_error *pe)
++			 struct filter_parse_error *pe, bool is_perf)
+ {
++	struct filter_parse_data data = {
++		.call = call,
++		.is_perf = is_perf,
++	};
+ 	struct prog_entry *prog;
+ 	int nr_parens;
+ 	int nr_preds;
+@@ -2232,7 +2252,7 @@ static int process_preds(struct trace_event_call *call,
+ 		return -EINVAL;
+ 
+ 	prog = predicate_parse(filter_string, nr_parens, nr_preds,
+-			       parse_pred, call, pe);
++			       parse_pred, &data, pe);
+ 	if (IS_ERR(prog))
+ 		return PTR_ERR(prog);
+ 
+@@ -2281,7 +2301,7 @@ static int process_system_preds(struct trace_subsystem_dir *dir,
+ 		if (!filter->filter_string)
+ 			goto fail_mem;
+ 
+-		err = process_preds(file->event_call, filter_string, filter, pe);
++		err = process_preds(file->event_call, filter_string, filter, pe, false);
+ 		if (err) {
+ 			filter_disable(file);
+ 			parse_error(pe, FILT_ERR_BAD_SUBSYS_FILTER, 0);
+@@ -2377,6 +2397,7 @@ static void create_filter_finish(struct filter_parse_error *pe)
+  * @call: trace_event_call to create a filter for
+  * @filter_string: filter string
+  * @set_str: remember @filter_str and enable detailed error in filter
++ * @is_perf: filter is being created for a perf event
+  * @filterp: out param for created filter (always updated on return)
+  *           Must be a pointer that references a NULL pointer.
+  *
+@@ -2391,7 +2412,7 @@ static void create_filter_finish(struct filter_parse_error *pe)
+  */
+ static int create_filter(struct trace_array *tr,
+ 			 struct trace_event_call *call,
+-			 char *filter_string, bool set_str,
++			 char *filter_string, bool set_str, bool is_perf,
+ 			 struct event_filter **filterp)
+ {
+ 	struct filter_parse_error *pe = NULL;
+@@ -2405,7 +2426,7 @@ static int create_filter(struct trace_array *tr,
+ 	if (err)
+ 		return err;
+ 
+-	err = process_preds(call, filter_string, *filterp, pe);
++	err = process_preds(call, filter_string, *filterp, pe, is_perf);
+ 	if (err && set_str)
+ 		append_filter_err(tr, pe, *filterp);
+ 	create_filter_finish(pe);
+@@ -2418,7 +2439,7 @@ int create_event_filter(struct trace_array *tr,
+ 			char *filter_str, bool set_str,
+ 			struct event_filter **filterp)
+ {
+-	return create_filter(tr, call, filter_str, set_str, filterp);
++	return create_filter(tr, call, filter_str, set_str, false, filterp);
+ }
+ 
+ /**
+@@ -2476,7 +2497,7 @@ int apply_event_filter(struct trace_event_file *file, char *filter_string)
+ 		return 0;
+ 	}
+ 
+-	err = create_filter(file->tr, call, filter_string, true, &filter);
++	err = create_filter(file->tr, call, filter_string, true, false, &filter);
+ 
+ 	/*
+ 	 * Always swap the call filter with the new filter
+@@ -2721,7 +2742,7 @@ int ftrace_profile_set_filter(struct perf_event *event, int event_id,
+ 	if (event->filter)
+ 		return -EEXIST;
+ 
+-	err = create_filter(NULL, call, filter_str, false, &filter);
++	err = create_filter(NULL, call, filter_str, false, true, &filter);
+ 	if (err)
+ 		goto free_filter;
+ 
+@@ -2868,7 +2889,7 @@ static __init int ftrace_test_event_filter(void)
+ 		int err;
+ 
+ 		err = create_filter(NULL, &event_ftrace_test_filter,
+-				    d->filter, false, &filter);
++				    d->filter, false, false, &filter);
+ 		if (err) {
+ 			printk(KERN_INFO
+ 			       "Failed to get filter for '%s', err %d\n",
+
+base-commit: 602042bf29f6efde39cfb5fdd9289bf4854bc0c5
