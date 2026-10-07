@@ -1,251 +1,125 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C17F38F95E
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 20:38:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB714392C46;
+	Wed,  7 Oct 2026 20:40:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791405507; cv=none; b=cnIw7xrMCJAqnuO8WF0Mcto2AFFKxS1s9rGa/urXkbEo5vupDUhKdPW33zifGMZhc13tpKn+BDnTIo9xbNVVCHmzSkmftS9JepmDyHoMTJSKzehlWL0X6Y6cBvKS8CV030X9rYTMH6AD/0MZIhEkpfmSnOW4wdBTKnIvcVxmnCU=
+	t=1791405647; cv=none; b=KZecVXxy5ZqhXf1zUkqz49KhocNRsDhOsxyxLKV/xKpqXN1TeshBDzvRK0Uaa7rmeWSWC1c45fsD/imvIs8bKNvdTDCPVb+hpuTvHPV9c0zwpAdwEvTCi+iyPhAPwUhGWLWl7RYG3F7ZFu/NX33t/cqJr4rpa21efgY31I9K7PM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791405507; c=relaxed/simple;
-	bh=K4d6gMnFf7ZQsWCeq6Sn4NSLWjg5XihUSjEuj/5HpvU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=QzoDyL1+uM0AtTLvHfZ2ABErhe5qS5LRcW7WHiVnRsPz65Uy8KWcckN5mrRt0ExiuqQG3HD9IUYm9BrQYIceRFy0FXT0DJBmYcnfwksxSPdvIJ4vLpyKomtN++A1Vxelyzi7lkm2plgMOELkSqzIkGORfcUJEquaZNB2Gq2Grjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sJE4/YfG; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791405647; c=relaxed/simple;
+	bh=fk4BydMvuPiV6mqEt+pBflBwaajxObhvbyCbVoD8Q3M=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=Cs8wreSMU+eJG9/+esJdiIOgLfWqS3wA3Ck7ynH0exevY2Og8aWkOpaIOrckGOsqvkaUiybzg+GatszOOAiGVIMMOUIx2go14TyveA5ldv+bgEWMG1V2K4e9/XBH+ZiiqQH84j2Fp1vY3HstttvM7r7NRjhcTlTeztR+Weirk6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bEztegUJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sJE4/YfG"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a16c399641so22637815e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 13:38:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791405503; x=1792010303; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=CBotmnq4JEv7wrBKpjasAguJIHdEJNs+KfFfRaMl3IY=;
-        b=sJE4/YfGVug7Tja0yoiDu8gpbL4AAt3PSD/eS24snPjYeEHCU/KaH5+J2ncx9QB3O9
-         IWNTBpooPDVv+7ygVW7FzjDR75yWTqj3qHIVIJKsu+xW294KZDb4Mz06VED+gV6uxPSh
-         0dWAl1IS7EeWfe0B3qBuz2CZhpbJMzUIdA45mSBGDA92sFk8lCOUOhEMU55CV41pNmti
-         JBncx27KR8B9BlCQi8DZ/OlaikqTAZ+PRlqus5RuHESBmVNqKxhh/lDPGdsTEfjsUClh
-         HUbLrtJSIWEHCTtNluDJEOj/rEDy+YpsYGnyxe2QfaqZ2qrHcaHLNZQfQOXfaqzVd2PJ
-         4kaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791405503; x=1792010303;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=CBotmnq4JEv7wrBKpjasAguJIHdEJNs+KfFfRaMl3IY=;
-        b=0ooBYSA3T57JMiHucRxMuPW67mGr+sCNKmqmsuGh1VnydH9Icd7ettCTT4QJDt2+EU
-         LnaMkNXo1yOPiVRvCKSH1xxm0RnQxQy0egKf1C4SSS6VMxXmesneYFekN169eWsLN/pp
-         nWDAQjWTC5BxrN4MvPnRmncIKiVsqSVsECUZYRfqWcZjZl5RmpSg7g9QIsC1Yhekc7GN
-         e7OmYUTMHx/jsJ+1+I/1iN9o+oCzzv9tyvHuB9WQe8yk+iWnAqeTkUd7zA5SOY8+ugBm
-         GahzqWLeIjUfPPp422HOk7t2X0fGrWmSBHxVKEPeXGNOWVdeL2TyJZhcOyIPNVW0IHuZ
-         DZhw==
-X-Forwarded-Encrypted: i=1; AKwUvBxg9AXhgIHcNBem0IOGml3WypvRd7ZedZk8ztHll8nOAzwbbCl0UWIDSL/t+s1wqLeMiswQsDEOTSWMfFA=@vger.kernel.org
-X-Gm-Message-State: AFuF++k+NylWzdScBvvAsPimp7jZy73mgVohUOTcKTpQwLlYbXbxbBwP
-	rZS7sZOI4oArjI5DfCJ456QJh5NQ+TqgUIy4y2t9AnPdAGm+rUs1mJGU
-X-Gm-Gg: AYBFou2j76OMj9zIfN4Gif6PTrdGU7pZ0nNzFPhgM2qeyrXFB1LySn0FY++s1J/U5pd
-	zMIW/5aojkP7CxE0FTTfazDFdePNT4kZKDo8Zic24gCQrJJ4ZcVppswh/r+Rj5f9H8ABuD9tbEX
-	gpAL5azpVQoQwZQXv6Qt4O/6/xPbhzZ0yPO9ICYo724QAowtb8ULLuoDf6dKBMyeDPbufuojPKN
-	+zesu5I6K/c+Fkd+0VTbSSAVSTkp6VhLncyOafo0W4X3XRI5XHTc+Fe4HbTplS8fKLRacmpbpfA
-	yAxrDtoHz/BLmc6NZbb35xBuwOlu60ToM/i7jhzxEFUTY1M16qtS7z3Bj55wQQTV6qyqNjK/MNb
-	01NUDBJcGFd+/AAwXeFrAysCwKUeE9RhM/SeAfnr1Q5/27ZqoRRK+J5Se/9TbY9L2C7dsLrAcgr
-	4pPfvOoC1+65zw3wifIsxbsiviFRNbucArYk0ebg0vucKGY62PIiz2mYBFwfCGuBCRf/fVdVwsu
-	Js3l3xn2oJPMRJxKHxiDIFjPrufCMBfkygh9Wv1OjH1mwf73hkxs3JqvGncNs928glNwGJ0R8Q3
-	OCrPGJuVl0k=
-X-Received: by 2002:a05:600c:8105:b0:4a0:20c7:6d4c with SMTP id 5b1f17b1804b1-4a180085f90mr62137995e9.0.1791405503347;
-        Wed, 07 Oct 2026 13:38:23 -0700 (PDT)
-Received: from [192.168.0.165] (85-135-167-198.adsl.slovanet.sk. [85.135.167.198])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1843bd060sm21963115e9.14.2026.10.07.13.38.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 13:38:22 -0700 (PDT)
-From: Matej Sochan <matej.sochan@gmail.com>
-Date: Wed, 07 Oct 2026 22:37:46 +0200
-Subject: [PATCH] ALSA: hda/realtek: Fix silent speakers on Lenovo Legion S7
- 15IMH05
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bEztegUJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 579791F000FF;
+	Wed,  7 Oct 2026 20:40:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791405646;
+	bh=kIL0379uMErOZpka3nNnDXupdVWzslK/iRT392K2mcA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=bEztegUJ/jb06V3m54mJa5QV70JRbLqwFFy/J1Am+YZAcn2k7in4nR26lMmiRI5Zq
+	 gG2wK3B4Ut42R5EN3wVjxX/fcf6oV9bcGWAd0UzcnHiYL3nD+5e6NHL9xz4oH47LNN
+	 Amt3mcBaOCVozGi6JgNqVVIu3IIWUbB2TKF0tKCz40Bi/GdfVIaRbFKjUlc/BxZFDY
+	 WPCMCm9f14u2jUPtmeEPJFGtg4nS7N0xxRnnPMBCozMnEqFWoha81lPtWKP9R1qv6w
+	 BlyxrtR1QIIKC3szXlEwBb6e7+Czdrq2weWjI3H+CvK3+nTIt3GZAp4Tm/WyyeO9B6
+	 Rekr3PkxtSULw==
+Date: Wed, 7 Oct 2026 15:40:45 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH v9 02/18] PCI/P2PDMA: Derive routing from directional ACS
+ controls
+Message-ID: <20261007204045.GA783967@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261007-legion-s7-v1-1-8ea7fb7ee766@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QpAMBSA4VfRubYaaYtXkYvNzuZIaAcpeXfD5
- Vd//wWMkZChyS6IeBDTMicUeQb9YOaAglwylLJUhZRaTBhSIliLulLaKOsqjR5Sv0b0dH6vtvv
- Nux2x394B3PcDZQS+9m0AAAA=
-X-Change-ID: 20261007-legion-s7-9467a6bd47ef
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Eric Naim <dnaim@cachyos.org>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Matej Sochan <matej.sochan@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261007063227.GC7822@unreal>
 
-The speakers on the Legion S7 15IMH05 (PCI SSID 17aa:3811, ALC287) stay
-silent after a cold boot with the current quirk, which applies
-ALC287_FIXUP_LEGION_15IMHG05_SPEAKERS. They only start working after a
-suspend/resume cycle.
+On Wed, Oct 07, 2026 at 09:32:27AM +0300, Leon Romanovsky wrote:
+> On Tue, Oct 06, 2026 at 03:49:47PM -0500, Bjorn Helgaas wrote:
+> > On Thu, Oct 01, 2026 at 02:55:10PM +0300, Leon Romanovsky wrote:
+> > > From: Leon Romanovsky <leonro@nvidia.com>
+> > > 
+> > > pci_bridge_has_acs_redir() treats Request and Completion Redirect as
+> > > interchangeable. On asymmetric fabrics, a control for only the reverse TLP
+> > > direction can unnecessarily force P2PDMA through the host bridge.
+> > 
+> > Does "the reverse TLP direction" refer to Completions?
+> 
+> In general, the P2P code treats TLPs flowing from device A to device B the
+> same as TLPs flowing from device B to device A.
+> 
+> However, in the context of this commit message, yes: completions flow in the
+> opposite direction from the device's perspective.
 
-The amplifier setup is sent through COEF 0x24/0x26 on NID 0x20. On this
-machine the first pass of that sequence appears to only wake the
-amplifiers. Sending the identical sequence a second time makes both
-speakers work, provided the second write comes a few milliseconds after
-the first: back-to-back writes leave the speakers silent, a 7 ms gap
-makes only the right speaker work, and 8 ms or more is reliable. A dump
-of all COEF registers of NID 0x20 taken before and after the second
-write shows no difference.
+And I guess asymmetric fabrics must mean fabrics where Request
+Redirect and Completion Redirect are not set the same way?
 
-Add a dedicated fixup that writes the sequence, waits 20 ms to keep a
-margin over the measured minimum, and writes it again on every codec
-init. It chains to the same AUTOMUTE fixup as before. To share the
-sequence, move the verbs of ALC287_FIXUP_LEGION_15IMHG05_SPEAKERS into a
-named array; this has no functional change for the other users of that
-fixup.
+> > > Evaluate Request Redirect for client Requests and Completion Redirect for
+> > > provider read Completions. Continue treating enabled Egress Control
+> > > conservatively as a Request redirect.
+> > 
+> > Completion Redirect is intended to avoid ordering rule violations
+> > between Completions and Requests when Requests are redirected (PCIe
+> > r7.0, sec 6.12.1.1).  I assume this patch preserves the ordering rule,
+> > but does the commit log need to say something about that?  I don't
+> > know enough about P2P DMA for it to be obvious to me.
+> 
+> I don't think so, i didn't change anything related to ordering.
 
-Fixes: 67f4c61a73e9 ("ALSA: hda/realtek: Add quirk for Legion S7 15IMH")
-Cc: stable@vger.kernel.org
-Link: https://github.com/CachyOS/linux-cachyos/issues/792
-Signed-off-by: Matej Sochan <matej.sochan@gmail.com>
----
-Tested on a Lenovo Legion S7 15IMH05 (82BC) with v7.2.8 (linux-hardened):
-speakers work after repeated cold boots with the 20 ms delay.
-The same change applies on top of the sound tree; I have only built and
-booted the 7.2.8 module.
----
- sound/hda/codecs/realtek/alc269.c | 92 ++++++++++++++++++++++++---------------
- 1 file changed, 56 insertions(+), 36 deletions(-)
+I don't think there's anything in this whole series that changes any
+ACS settings, so I shouldn't have wondered about *preserving* the
+ordering rule.
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index 447c0ba358d8..a68b6a9b71aa 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -4377,6 +4377,7 @@ enum {
- 	ALC236_FIXUP_HP_LIMIT_INT_MIC_BOOST,
- 	ALC287_FIXUP_LEGION_15IMHG05_SPEAKERS,
- 	ALC287_FIXUP_LEGION_15IMHG05_AUTOMUTE,
-+	ALC287_FIXUP_LEGION_S7_15IMH05_AMP,
- 	ALC287_FIXUP_YOGA7_14ITL_SPEAKERS,
- 	ALC298_FIXUP_LENOVO_C940_DUET7,
- 	ALC287_FIXUP_LENOVO_YOGA_BOOK_9I,
-@@ -4529,6 +4530,53 @@ static void alc700_fixup_intel_hades_canyon(struct hda_codec *codec,
- 		alc_update_coef_idx(codec, 0x1b, 0x0400, 0x0400);
- }
- 
-+static const struct hda_verb legion_amp_verbs[] = {
-+	/* left speaker */
-+	{ 0x20, AC_VERB_SET_COEF_INDEX, 0x24 },
-+	{ 0x20, AC_VERB_SET_PROC_COEF, 0x41 },
-+	{ 0x20, AC_VERB_SET_COEF_INDEX, 0x26 },
-+	{ 0x20, AC_VERB_SET_PROC_COEF, 0xc },
-+	{ 0x20, AC_VERB_SET_PROC_COEF, 0x0 },
-+	{ 0x20, AC_VERB_SET_PROC_COEF, 0x1a },
-+	{ 0x20, AC_VERB_SET_PROC_COEF, 0xb020 },
-+	{ 0x20, AC_VERB_SET_COEF_INDEX, 0x26 },
-+	{ 0x20, AC_VERB_SET_PROC_COEF, 0x2 },
-+	{ 0x20, AC_VERB_SET_PROC_COEF, 0x0 },
-+	{ 0x20, AC_VERB_SET_PROC_COEF, 0x0 },
-+	{ 0x20, AC_VERB_SET_PROC_COEF, 0xb020 },
-+
-+	/* right speaker */
-+	{ 0x20, AC_VERB_SET_COEF_INDEX, 0x24 },
-+	{ 0x20, AC_VERB_SET_PROC_COEF, 0x42 },
-+	{ 0x20, AC_VERB_SET_COEF_INDEX, 0x26 },
-+	{ 0x20, AC_VERB_SET_PROC_COEF, 0xc },
-+	{ 0x20, AC_VERB_SET_PROC_COEF, 0x0 },
-+	{ 0x20, AC_VERB_SET_PROC_COEF, 0x2a },
-+	{ 0x20, AC_VERB_SET_PROC_COEF, 0xb020 },
-+	{ 0x20, AC_VERB_SET_COEF_INDEX, 0x26 },
-+	{ 0x20, AC_VERB_SET_PROC_COEF, 0x2 },
-+	{ 0x20, AC_VERB_SET_PROC_COEF, 0x0 },
-+	{ 0x20, AC_VERB_SET_PROC_COEF, 0x0 },
-+	{ 0x20, AC_VERB_SET_PROC_COEF, 0xb020 },
-+	{}
-+};
-+
-+static void alc287_fixup_legion_s7_amp(struct hda_codec *codec,
-+				       const struct hda_fixup *fix, int action)
-+{
-+	if (action != HDA_FIXUP_ACT_INIT)
-+		return;
-+
-+	snd_hda_sequence_write(codec, legion_amp_verbs);
-+	/*
-+	 * The amplifiers accept the setup only a few ms after the first
-+	 * write (8 ms is the measured minimum on the test machine), so
-+	 * keep a margin.
-+	 */
-+	msleep(20);
-+	snd_hda_sequence_write(codec, legion_amp_verbs);
-+}
-+
- static const struct hda_fixup alc269_fixups[] = {
- 	[ALC298_FIXUP_RAZER_BLADE16_2025_PINS] = {
- 		.type = HDA_FIXUP_PINS,
-@@ -6593,41 +6641,13 @@ static const struct hda_fixup alc269_fixups[] = {
- 	},
- 	[ALC287_FIXUP_LEGION_15IMHG05_SPEAKERS] = {
- 		.type = HDA_FIXUP_VERBS,
--		//.v.verbs = legion_15imhg05_coefs,
--		.v.verbs = (const struct hda_verb[]) {
--			 // set left speaker Legion 7i.
--			 { 0x20, AC_VERB_SET_COEF_INDEX, 0x24 },
--			 { 0x20, AC_VERB_SET_PROC_COEF, 0x41 },
--
--			 { 0x20, AC_VERB_SET_COEF_INDEX, 0x26 },
--			 { 0x20, AC_VERB_SET_PROC_COEF, 0xc },
--			 { 0x20, AC_VERB_SET_PROC_COEF, 0x0 },
--			 { 0x20, AC_VERB_SET_PROC_COEF, 0x1a },
--			 { 0x20, AC_VERB_SET_PROC_COEF, 0xb020 },
--
--			 { 0x20, AC_VERB_SET_COEF_INDEX, 0x26 },
--			 { 0x20, AC_VERB_SET_PROC_COEF, 0x2 },
--			 { 0x20, AC_VERB_SET_PROC_COEF, 0x0 },
--			 { 0x20, AC_VERB_SET_PROC_COEF, 0x0 },
--			 { 0x20, AC_VERB_SET_PROC_COEF, 0xb020 },
--
--			 // set right speaker Legion 7i.
--			 { 0x20, AC_VERB_SET_COEF_INDEX, 0x24 },
--			 { 0x20, AC_VERB_SET_PROC_COEF, 0x42 },
--
--			 { 0x20, AC_VERB_SET_COEF_INDEX, 0x26 },
--			 { 0x20, AC_VERB_SET_PROC_COEF, 0xc },
--			 { 0x20, AC_VERB_SET_PROC_COEF, 0x0 },
--			 { 0x20, AC_VERB_SET_PROC_COEF, 0x2a },
--			 { 0x20, AC_VERB_SET_PROC_COEF, 0xb020 },
--
--			 { 0x20, AC_VERB_SET_COEF_INDEX, 0x26 },
--			 { 0x20, AC_VERB_SET_PROC_COEF, 0x2 },
--			 { 0x20, AC_VERB_SET_PROC_COEF, 0x0 },
--			 { 0x20, AC_VERB_SET_PROC_COEF, 0x0 },
--			 { 0x20, AC_VERB_SET_PROC_COEF, 0xb020 },
--			 {}
--		},
-+		.v.verbs = legion_amp_verbs,
-+		.chained = true,
-+		.chain_id = ALC287_FIXUP_LEGION_15IMHG05_AUTOMUTE,
-+	},
-+	[ALC287_FIXUP_LEGION_S7_15IMH05_AMP] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc287_fixup_legion_s7_amp,
- 		.chained = true,
- 		.chain_id = ALC287_FIXUP_LEGION_15IMHG05_AUTOMUTE,
- 	},
-@@ -8348,7 +8368,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	HDA_CODEC_QUIRK(0x17aa, 0x38d5, "Lenovo Yoga Pro 9 16IMH9", ALC287_FIXUP_TAS2781_I2C),
- 	HDA_CODEC_QUIRK(0x17aa, 0x38d6, "Lenovo Yoga Pro 9 16IMH9", ALC287_FIXUP_TAS2781_I2C),
- 	HDA_CODEC_QUIRK(0x17aa, 0x3855, "Legion 7 16ITHG6", ALC287_FIXUP_LEGION_16ITHG6),
--	SND_PCI_QUIRK(0x17aa, 0x3811, "Legion S7 15IMH05", ALC287_FIXUP_LEGION_15IMHG05_SPEAKERS),
-+	SND_PCI_QUIRK(0x17aa, 0x3811, "Legion S7 15IMH05", ALC287_FIXUP_LEGION_S7_15IMH05_AMP),
- 	SND_PCI_QUIRK(0x17aa, 0x3813, "Legion 7i 15IMHG05", ALC287_FIXUP_LEGION_15IMHG05_SPEAKERS),
- 	SND_PCI_QUIRK(0x17aa, 0x3818, "Lenovo C940 / Yoga Duet 7", ALC298_FIXUP_LENOVO_C940_DUET7),
- 	SND_PCI_QUIRK(0x17aa, 0x3819, "Lenovo 13s Gen2 ITL", ALC287_FIXUP_13S_GEN2_SPEAKERS),
+But I asked about ordering because it sounds like this patch expects
+to encounter asymmetric fabrics where Request Redirect and Completion
+Redirect may not be set the same way, and the spec implies that
+asymmetry may result in ordering violations.
 
----
-base-commit: c3e35f355fadf6be660e1fd356bb22140dda8e46
-change-id: 20261007-legion-s7-9467a6bd47ef
+> > Not really a question for this series, but p2pdma.c and p2pdma.rst
+> > refer to "clients" and "providers", neither of which are mentioned in
+> > the PCIe spec.  In this case it sounds like a client is a Requester
+> > and a provider is a Completer in spec terms.  Is that always the case?
+> > If so, "client" and "provider" in this paragraph are not adding any
+> > information.
+> > 
+> > If "client" is not the same concept as "Requester" and "provider" not
+> > the same as "Completer", maybe p2pdma.rst could explain the
+> > difference?
+> 
+> Client vs. provider are actual target vs. initiator. They express the
+> device role in the flow.
 
-Best regards,
---  
-Matej Sochan <matej.sochan@gmail.com>
+I'd rather use "Requester" and "Completer" when possible because they
+have specific meanings in the PCI spec and they correspond to the ACS
+control bits.  Client, provider, target, initiator are all from the
+outer world that makes use of PCIe constructs, but they don't mean
+anything inside the PCIe world.
 
+Bjorn
