@@ -1,121 +1,530 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6CFE739DBC0;
-	Wed,  7 Oct 2026 12:01:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mta1.migadu.com (out-209.mta1.migadu.com [95.215.58.209])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEA513CC303
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 12:02:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.209
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791374516; cv=none; b=RaoBK+WxL2pQXTif7/c0aKrfa/wzoWiVui5P48wtPve42qNnzQ3WGONySMb2wdNiS21paVZhh7XixXRBDolb4RLNcFE/HDobyrXII2Uho44DxWLjvFuBiQnGw4Hjt0gSC3IdOZTG6LWqvy8+zK6Ep2Vx5Ko2/maXOo4hAL94lk8=
+	t=1791374580; cv=none; b=r4qo9xdjKRob4NZh5kKWJNkCn5ASL1WUZ2SQj3HS5vVbls9O8SZQFBj4UCft91GKbB0+VL2V3KnPofKBAhrsGBtwAkVroqSNDvBCJ0NMt+0zhRSsWRZqyzMYC18nW/gbQ7MG3euqueSUO5AlkfvS98UqwX5viYCxrKqzrb42nS0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791374516; c=relaxed/simple;
-	bh=fVxFt1CGQ1LaSt6H7lvlcV39UU1RhYn2V+45OkcADVE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=a++8Sx1Io02I7rCQCV1yC8ZGAuHgrS7/Yhurz1FWEf4ZOgte9dIet33R2eSM1bS+nEhpVha+KdEmRfvF4aawYLjjtaskF7ALaGWC7glbLGLInDYzSafnV8wgsLCGfWDkV77bcDDHGpnSvGbue8woY8FPGqc5yleKZ0qVP6tRvtc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=cgwT5fiD; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791374580; c=relaxed/simple;
+	bh=I3I2EGwEvdd1xzorZSyj7Ywj415M3xlCNnegKaql7J0=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=cgW3D5SzaJ01gkKXcmVl2p/X/ITnPVGwU+Vunj0pb6wHw3XyZnDUvFcaRhSyQvwYA7Nr2AC2Rb40kHhZychvpRTauy3fQyo+b2JitQB3m/KYdwLEUUeMNxzXwMUVZ/hyLR10h+lRFBnZ1Dbtal059nq+29aRaJUoNzY/iYh0A/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=QOPXms+i; arc=none smtp.client-ip=95.215.58.209
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="cgwT5fiD"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 14B101595;
-	Wed,  7 Oct 2026 05:01:43 -0700 (PDT)
-Received: from [10.164.19.84] (a081061.arm.com [10.164.19.84])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 952693F66F;
-	Wed,  7 Oct 2026 05:01:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791374506; bh=fVxFt1CGQ1LaSt6H7lvlcV39UU1RhYn2V+45OkcADVE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=cgwT5fiDtyBCDxHzWCj4UX9zGaiMM1gi91eR1mllNLBjhmR2s/oVWsdfy7y6PGhlm
-	 +WIqKf29N21gX6bsO7zAVDkHvXIK5eV1oNBTmQym+jNyEegbUsJGLcQQmWpMxbeVVX
-	 3lWMblvRXoIBqaMUpp2zJYC0D7Zdi+FNWMgon3pU=
-Message-ID: <ce49e816-ae77-4c64-bd28-168d8ca52d8d@arm.com>
-Date: Wed, 7 Oct 2026 17:31:39 +0530
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="QOPXms+i"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=I3I2EGwEvdd1xzorZSyj7Ywj415M3xlCNnegKaql7J0=;
+ c=simple/simple; d=cknow-tech.com;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791374560; v=1; x=1791979360;
+ b=QOPXms+i/aFsMHpNqldMwld6yKrXVAK1rRcQMnAnBPcxPn9j0OPtLBDceQdvIufJ38wyFPPR
+ Q7E/troQ5jNqAYiBBLI5qS8B2fgisguB0ou0LNC4qmCk1d+V6qd/tz78Nt3Qxuz/QoBV4o2gjSD
+ nUjjEJ1IsMZU0EY1e5+AV1kqtPK7zPuK4DmKtVAR1SNbNWHrkKKUNVr6y4WxQI7XCl08tfH964W
+ PYsg1fKjD164qX23r3ZO/mAg6mB+jPSHjUHwP4TP68xsM5cBb4f+84JnHfAEROWhb6HXFpkIeyi
+ pZuUi0Ot0DzCyA7iL0rwJlFEuUnLqYAg/RymtirBkNkFQ==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0df9cfd24733c53d;
+	Wed, 07 Oct 2026 12:02:40 +0000
+X-Mizu-Trace-ID: 0df9cfd24733c53d
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] selftests/mm: hugetlb_madv_vs_map: fix TAP plan
- mismatches
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Jaeyeon Lee <jaeyeon.lee.dev@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Guillaume Morin <guillaume@morinfr.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Shuah Khan <shuah@kernel.org>, Breno Leitao <leitao@debian.org>,
- linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261007092801.35649-1-jaeyeon.lee.dev@gmail.com>
- <022ec915-62ab-40d9-8705-90692e75acfb@kernel.org>
-Content-Language: en-US
-From: Sarthak Sharma <sarthak.sharma@arm.com>
-In-Reply-To: <022ec915-62ab-40d9-8705-90692e75acfb@kernel.org>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Wed, 07 Oct 2026 14:02:31 +0200
+Message-Id: <DLYLA3WQNN3X.3FB9MO8ZWBQ5@cknow-tech.com>
+Cc: "Andrew Morton" <akpm@linux-foundation.org>, "Jason Gunthorpe"
+ <jgg@nvidia.com>, "Rob Clark" <rob.clark@oss.qualcomm.com>, "Jianfeng Liu"
+ <liujianfeng1994@gmail.com>, "Diederik de Haas" <diederik@cknow-tech.com>,
+ "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>, "Vinod Koul"
+ <vkoul@kernel.org>, "Bjorn Andersson" <andersson@kernel.org>,
+ <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <linaro-mm-sig@lists.linaro.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [RFC PATCH 2/3] dma-buf: add a warn-only mode to DMABUF_DEBUG
+From: "Diederik de Haas" <diederik@cknow-tech.com>
+To: "Karl Mehltretter" <kmehltretter@gmail.com>, "Sumit Semwal"
+ <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>
+X-Mailer: aerc 0.22.0-31-g5c1c510d2b65
+References: <20261005064133.7305-1-kmehltretter@gmail.com>
+ <20261005064133.7305-3-kmehltretter@gmail.com>
+In-Reply-To: <20261005064133.7305-3-kmehltretter@gmail.com>
+
+Hi,
+
+On Mon Oct 5, 2026 at 8:41 AM CEST, Karl Mehltretter wrote:
+> DMABUF_DEBUG hands importers a copy of the exporter's sg_table without
+> the struct pages. An importer that uses them then fails, often far from
+> the cause and without a message that points at it. Where sg_dma_len()
+> is sg->length, the copy cannot hide the length either.
+>
+> Add DMABUF_DEBUG_WARN. With it the copy keeps the CPU side of the
+> exporter's table: page, offset and length of all orig_nents entries,
+> and the exporter's nents and orig_nents. A table without a CPU side
+> (orig_nents =3D=3D 0) stays that way. Every entry of the copy is marked
+> with a new dma_flags bit, SG_DMA_DMABUF_DEBUG.
+>
+> sg_page(), sg_nents_for_len() and sg_split() test the bit and print a
+> rate limited message with a stack trace. sg_page() is mostly reached
+> through DMA and scatterlist helpers, so the trace is what names the
+> importer. These CPU-side accesses can continue after the report instead
+> of failing because the fields were cleared.
+>
+> The report is not a WARN(). It does not taint the kernel and does not
+> trigger panic_on_warn.
+>
+> Reads of sg->offset and sg->length that do not go through these
+> helpers are not seen. The option adds a test to every sg_page() and
+> selects NEED_SG_DMA_FLAGS.
+>
+> Strict mode remains the default and continues to remove the CPU-side
+> fields.
+
+Thanks for this patch set!
+
+I build a 7.3-rc6 based kernel with this patch set included.
+And I (ofc) enabled DMABUF_DEBUG and DMABUF_DEBUG_WARN.
+
+I then tested it on my NanoPC-T6 Plus (RK3588 SoC) connected to my 1080p
+monitor and also on my NanoPC-T6 LTS (RK3588) connected to my 4K TV (which
+is HDMI 2.0, not 2.1, capable).
+On both devices I got an identical call trace.
+I did get a new (identical) one every time I resized the video window,
+ie going from windowed to full-screen and back again.
+
+```sh
+[ 1091.981354] rc rc3: two consecutive events of type space
+[ 1104.670513] input: EDIFIER e235 (AVRCP) as /devices/virtual/input/input1=
+2
+[ 1172.090231] devfreq fb000000.gpu: Couldn't update frequency transition i=
+nformation.
+[ 1189.403278] devfreq fb000000.gpu: Couldn't update frequency transition i=
+nformation.
+[ 1206.309295] input: EDIFIER e235 (AVRCP) as /devices/virtual/input/input1=
+3
+[ 1268.968696] DMA-BUF: importer used the CPU side of an exporter's sg_tabl=
+e
+[ 1268.968710] CPU: 6 UID: 1000 PID: 29025 Comm: sway Not tainted 7.3-rc6+u=
+nreleased-arm64-cknow #1 PREEMPTLAZY  Debian 7.3~rc6-3
+[ 1268.968715] Hardware name: FriendlyElec NanoPC-T6 Plus (DT)
+[ 1268.968717] Call trace:
+[ 1268.968719]  show_stack+0x20/0x38 (C)
+[ 1268.968726]  dump_stack_lvl+0x60/0x80
+[ 1268.968730]  sg_dmabuf_cpu_access_warn.part.0+0x24/0x30
+[ 1268.968734]  sg_dmabuf_cpu_access_warn+0x34/0x38
+[ 1268.968739]  iommu_map_sg+0xc8/0x1e0
+[ 1268.968745]  rockchip_gem_iommu_map+0x8c/0x128 [rockchipdrm]
+[ 1268.968757]  rockchip_gem_prime_import_sg_table+0x58/0x160 [rockchipdrm]
+[ 1268.968761]  drm_gem_prime_import_dev+0xa8/0x1d0 [drm]
+[ 1268.968776]  drm_gem_prime_fd_to_handle+0x1a4/0x280 [drm]
+[ 1268.968786]  drm_prime_fd_to_handle_ioctl+0x40/0x58 [drm]
+[ 1268.968796]  drm_ioctl_kernel+0xc8/0x140 [drm]
+[ 1268.968806]  drm_ioctl+0x254/0x558 [drm]
+[ 1268.968816]  __arm64_sys_ioctl+0xac/0x118
+[ 1268.968821]  invoke_syscall.constprop.0+0xac/0x110
+[ 1268.968825]  el0_svc_common.constprop.0+0x40/0xf0
+[ 1268.968829]  do_el0_svc+0x24/0x40
+[ 1268.968832]  el0_svc+0x40/0x260
+[ 1268.968836]  el0t_64_sync_handler+0xa0/0xe8
+[ 1268.968838]  el0t_64_sync+0x198/0x1a0
+[ 1290.531300] sg_dmabuf_cpu_access_warn: 36 callbacks suppressed
+[ 1290.531310] DMA-BUF: importer used the CPU side of an exporter's sg_tabl=
+e
+[ 1290.531319] CPU: 5 UID: 1000 PID: 29025 Comm: sway Not tainted 7.3-rc6+u=
+nreleased-arm64-cknow #1 PREEMPTLAZY  Debian 7.3~rc6-3
+[ 1290.531323] Hardware name: FriendlyElec NanoPC-T6 Plus (DT)
+[ 1290.531325] Call trace:
+[ 1290.531327]  show_stack+0x20/0x38 (C)
+[ 1290.531335]  dump_stack_lvl+0x60/0x80
+[ 1290.531338]  sg_dmabuf_cpu_access_warn.part.0+0x24/0x30
+[ 1290.531342]  sg_dmabuf_cpu_access_warn+0x34/0x38
+[ 1290.531347]  iommu_map_sg+0xc8/0x1e0
+[ 1290.531352]  rockchip_gem_iommu_map+0x8c/0x128 [rockchipdrm]
+[ 1290.531364]  rockchip_gem_prime_import_sg_table+0x58/0x160 [rockchipdrm]
+[ 1290.531368]  drm_gem_prime_import_dev+0xa8/0x1d0 [drm]
+[ 1290.531384]  drm_gem_prime_fd_to_handle+0x1a4/0x280 [drm]
+[ 1290.531394]  drm_prime_fd_to_handle_ioctl+0x40/0x58 [drm]
+[ 1290.531404]  drm_ioctl_kernel+0xc8/0x140 [drm]
+[ 1290.531414]  drm_ioctl+0x254/0x558 [drm]
+[ 1290.531424]  __arm64_sys_ioctl+0xac/0x118
+[ 1290.531429]  invoke_syscall.constprop.0+0xac/0x110
+[ 1290.531433]  el0_svc_common.constprop.0+0x40/0xf0
+[ 1290.531437]  do_el0_svc+0x24/0x40
+[ 1290.531439]  el0_svc+0x40/0x260
+[ 1290.531444]  el0t_64_sync_handler+0xa0/0xe8
+[ 1290.531446]  el0t_64_sync+0x198/0x1a0
+[ 1294.197699] devfreq fb000000.gpu: Couldn't update frequency transition i=
+nformation.
+[ 1313.464098] sg_dmabuf_cpu_access_warn: 149 callbacks suppressed
+[ 1313.464121] DMA-BUF: importer used the CPU side of an exporter's sg_tabl=
+e
+[ 1313.464144] CPU: 2 UID: 1000 PID: 29025 Comm: sway Not tainted 7.3-rc6+u=
+nreleased-arm64-cknow #1 PREEMPTLAZY  Debian 7.3~rc6-3
+[ 1313.464156] Hardware name: FriendlyElec NanoPC-T6 Plus (DT)
+[ 1313.464163] Call trace:
+[ 1313.464168]  show_stack+0x20/0x38 (C)
+...
+```
+
+Full dmesg output is posted here:
+https://paste.sr.ht/~diederik/3d0020b4f3b0e8547397c20d5c10387d88d32341
+
+Hopefully this helps fixing the underlaying issue.
+
+Cheers,
+  Diederik
+
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ---
+>
+> Notes:
+>     Tested on v7.3-rc4-70-gfe2ec83746e5 with GCC 15.2.0.
+>    =20
+>     Builds, without warnings:
+>    =20
+>     - x86_64 with DMABUF_DEBUG_WARN=3Dy, full build
+>     - arm64 defconfig with DMABUF_DEBUG_WARN=3Dy: Image, and the msm and
+>       rockchip DRM drivers
+>     - ARM926 (SAM9X75) with DMABUF_DEBUG_WARN=3Dy and without
+>       NEED_SG_DMA_LENGTH, full build
+>     - ARM926 with DMABUF_DEBUG=3Dn and without NEED_SG_DMA_FLAGS, full bu=
+ild.
+>       dma-buf.o and lib/scatterlist.o disassemble as on the base commit,
+>       except for __LINE__ constants.
+>     - x86_64 with SG_SPLIT, W=3D1, the objects touched here: with
+>       DMABUF_DEBUG_WARN=3Dy, with DMABUF_DEBUG=3Dy alone, and with
+>       DMABUF_DEBUG=3Dn
+>    =20
+>     Runtime, both in QEMU with local device models, not on hardware.
+>    =20
+>     Zynq with an AXI ADC, IIO DMABUF capture into udmabuf buffers,
+>     NEED_SG_DMA_LENGTH=3Dy. The IIO dmaengine buffer calls sg_nents_for_l=
+en()
+>     on the attachment's table. With DMABUF_DEBUG=3Dy alone the capture fa=
+ils:
+>    =20
+>       DMABUF_ENQUEUE failed: Device or resource busy
+>    =20
+>     With DMABUF_DEBUG_WARN=3Dy all 16 blocks arrive with the right data, =
+the
+>     kernel is not tainted, and the log has one report:
+>    =20
+>       DMA-BUF: importer used the CPU side of an exporter's sg_table
+>       CPU: 0 UID: 0 PID: 48 Comm: iio-dmabuf Not tainted 7.3.0-rc4+ #2 VO=
+LUNTARY
+>       Hardware name: Xilinx Zynq Platform
+>       Call trace:
+>        unwind_backtrace from show_stack+0x10/0x14
+>        show_stack from dump_stack_lvl+0x54/0x68
+>        dump_stack_lvl from sg_nents_for_len+0xd8/0xe4
+>        sg_nents_for_len from iio_dmaengine_buffer_submit_block+0x4c/0x33c
+>        iio_dmaengine_buffer_submit_block from iio_dma_buffer_submit_block=
+.part.0+0x5c/0x104
+>        iio_dma_buffer_submit_block.part.0 from iio_dma_buffer_enqueue_dma=
+buf+0x68/0xa0
+>        iio_dma_buffer_enqueue_dmabuf from iio_buffer_chrdev_ioctl+0x520/0=
+x9a4
+>        iio_buffer_chrdev_ioctl from sys_ioctl+0x460/0x914
+>        sys_ioctl from ret_fast_syscall+0x0/0x4c
+>    =20
+>     x86_64 with intel-iommu, xHCI and a SUR40, capture into udmabuf
+>     buffers. This kernel had a one-line test-only change in sur40 that
+>     makes the vb2 queue use the USB controller's DMA device. There was no
+>     report during boot. The capture gives one, from sg_page() in
+>     iommu_dma_map_sg():
+>    =20
+>       DMA-BUF: importer used the CPU side of an exporter's sg_table
+>       CPU: 0 UID: 0 PID: 9 Comm: kworker/0:0 Not tainted 7.3.0-rc4+ #5 PR=
+EEMPT(lazy)
+>       Workqueue: events_freezable input_dev_poller_work
+>       Call Trace:
+>        <TASK>
+>        dump_stack_lvl+0x4d/0x70
+>        iommu_dma_map_sg+0x4c0/0x1010
+>        __dma_map_sg_attrs+0x254/0x3b0
+>        dma_map_sg_attrs+0xe/0x20
+>        usb_hcd_map_urb_for_dma+0x7e0/0x1620
+>        usb_hcd_submit_urb+0x162/0x1af0
+>        usb_sg_wait+0x17c/0x550
+>        sur40_poll+0xb3e/0xff0
+>        input_dev_poller_work+0x54/0x90
+>        process_one_work+0x692/0xf90
+>        [...]
+>    =20
+>     The capture did not finish in this setup. The guest stalled in
+>     xhci_queue_bulk_tx() after the report, so this run only shows the
+>     report.
+>    =20
+>     The SG_DMA_* defines move up in scatterlist.h because sg_page() needs
+>     the new one.
+>
+>  drivers/dma-buf/Kconfig     | 23 +++++++++++++++++++
+>  drivers/dma-buf/dma-buf.c   | 44 ++++++++++++++++++++++++++++++++++++-
+>  include/linux/scatterlist.h | 26 +++++++++++++++++++---
+>  lib/scatterlist.c           | 22 +++++++++++++++++++
+>  lib/sg_split.c              |  2 ++
+>  5 files changed, 113 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/dma-buf/Kconfig b/drivers/dma-buf/Kconfig
+> index e4f078a326a4..06177465091a 100644
+> --- a/drivers/dma-buf/Kconfig
+> +++ b/drivers/dma-buf/Kconfig
+> @@ -49,6 +49,29 @@ config DMABUF_DEBUG
+>  	  exporters. Specifically it validates that importers do not peek at th=
+e
+>  	  underlying struct page when they import a buffer.
+> =20
+> +config DMABUF_DEBUG_WARN
+> +	bool "Warn instead of hiding the pages from DMA-BUF importers"
+> +	depends on DMABUF_DEBUG
+> +	select NEED_SG_DMA_FLAGS
+> +	help
+> +	  DMABUF_DEBUG normally hands importers a copy of the exporter's
+> +	  sg_table without the struct page pointers, so that an importer which
+> +	  uses them fails early.
+> +
+> +	  With this option the copy keeps the pages, offsets and lengths and is
+> +	  only marked. sg_page() and the helpers built on it, sg_nents_for_len(=
+)
+> +	  and sg_split() then print a rate limited message with a stack trace
+> +	  when they are used on such a table. The access itself continues
+> +	  instead of failing because the fields were cleared. The message is
+> +	  not a WARN(): it does not taint the kernel or trigger panic_on_warn.
+> +
+> +	  Importers that read sg->offset or sg->length directly are not
+> +	  noticed. The option adds a test to every sg_page() call. It selects
+> +	  NEED_SG_DMA_FLAGS, which adds dma_flags and may increase the size of
+> +	  struct scatterlist.
+> +
+> +	  If unsure, say N.
+> +
+>  config DMABUF_KUNIT_TEST
+>  	tristate "KUnit tests for DMA-BUF" if !KUNIT_ALL_TESTS
+>  	depends on KUNIT
+> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> index b3d311acb883..bd82b6b7f5ff 100644
+> --- a/drivers/dma-buf/dma-buf.c
+> +++ b/drivers/dma-buf/dma-buf.c
+> @@ -57,6 +57,7 @@
+>  struct dma_buf_sg_table_wrapper {
+>  	struct sg_table *original;
+>  	struct sg_table wrapper;
+> +	unsigned int alloc_nents;
+>  };
+> =20
+>  static inline int is_dma_buf_file(struct file *);
+> @@ -874,11 +875,42 @@ void dma_buf_put(struct dma_buf *dmabuf)
+>  }
+>  EXPORT_SYMBOL_NS_GPL(dma_buf_put, "DMA_BUF");
+> =20
+> +#ifdef CONFIG_DMABUF_DEBUG_WARN
+> +/*
+> + * Warn mode: the importer also gets the CPU side of the exporter's tabl=
+e,
+> + * marked so that sg_page() and friends can report who uses it.
+> + */
+> +static void dma_buf_wrap_cpu_side(struct sg_table *to, struct sg_table *=
+from)
+> +{
+> +	struct scatterlist *to_sg, *from_sg;
+> +	int i;
+> +
+> +	for_each_sgtable_sg(to, to_sg, i)
+> +		to_sg->dma_flags |=3D SG_DMA_DMABUF_DEBUG;
+> +
+> +	to_sg =3D to->sgl;
+> +	for_each_sgtable_sg(from, from_sg, i) {
+> +		sg_assign_page(to_sg, sg_page(from_sg));
+> +		to_sg->offset =3D from_sg->offset;
+> +		to_sg->length =3D from_sg->length;
+> +		to_sg =3D sg_next(to_sg);
+> +	}
+> +
+> +	to->nents =3D from->nents;
+> +	to->orig_nents =3D from->orig_nents;
+> +}
+> +#else
+> +static void dma_buf_wrap_cpu_side(struct sg_table *to, struct sg_table *=
+from)
+> +{
+> +}
+> +#endif
+> +
+>  static int dma_buf_wrap_sg_table(struct sg_table **sg_table)
+>  {
+>  	struct scatterlist *to_sg, *from_sg;
+>  	struct sg_table *from =3D *sg_table;
+>  	struct dma_buf_sg_table_wrapper *to;
+> +	unsigned int nents =3D from->nents;
+>  	int i, ret;
+> =20
+>  	if (!IS_ENABLED(CONFIG_DMABUF_DEBUG))
+> @@ -888,14 +920,21 @@ static int dma_buf_wrap_sg_table(struct sg_table **=
+sg_table)
+>  	 * To catch abuse of the underlying struct page by importers copy the
+>  	 * sg_table without copying the page_link and give only the copy back t=
+o
+>  	 * the importer.
+> +	 *
+> +	 * With DMABUF_DEBUG_WARN the copy keeps the CPU side, which can have
+> +	 * more entries than the DMA side.
+>  	 */
+>  	to =3D kzalloc_obj(*to);
+>  	if (!to)
+>  		return -ENOMEM;
+> =20
+> -	ret =3D sg_alloc_table(&to->wrapper, from->nents, GFP_KERNEL);
+> +	if (IS_ENABLED(CONFIG_DMABUF_DEBUG_WARN))
+> +		nents =3D max(nents, from->orig_nents);
+> +
+> +	ret =3D sg_alloc_table(&to->wrapper, nents, GFP_KERNEL);
+>  	if (ret)
+>  		goto free_to;
+> +	to->alloc_nents =3D nents;
+> =20
+>  	to_sg =3D to->wrapper.sgl;
+>  	for_each_sgtable_dma_sg(from, from_sg, i) {
+> @@ -910,6 +949,7 @@ static int dma_buf_wrap_sg_table(struct sg_table **sg=
+_table)
+>  #endif
+>  		to_sg =3D sg_next(to_sg);
+>  	}
+> +	dma_buf_wrap_cpu_side(&to->wrapper, from);
+> =20
+>  	to->original =3D from;
+>  	*sg_table =3D &to->wrapper;
+> @@ -929,6 +969,8 @@ static void dma_buf_unwrap_sg_table(struct sg_table *=
+*sg_table)
+> =20
+>  	copy =3D container_of(*sg_table, typeof(*copy), wrapper);
+>  	*sg_table =3D copy->original;
+> +	/* sg_free_table() needs the number of allocated entries */
+> +	copy->wrapper.orig_nents =3D copy->alloc_nents;
+>  	sg_free_table(&copy->wrapper);
+>  	kfree(copy);
+>  }
+> diff --git a/include/linux/scatterlist.h b/include/linux/scatterlist.h
+> index 6de1a2434299..5dc8c134ca4c 100644
+> --- a/include/linux/scatterlist.h
+> +++ b/include/linux/scatterlist.h
+> @@ -21,6 +21,13 @@ struct scatterlist {
+>  #endif
+>  };
+> =20
+> +/* Bits in dma_flags, see below. sg_page() needs SG_DMA_DMABUF_DEBUG. */
+> +#ifdef CONFIG_NEED_SG_DMA_FLAGS
+> +#define SG_DMA_BUS_ADDRESS	(1 << 0)
+> +#define SG_DMA_SWIOTLB		(1 << 1)
+> +#define SG_DMA_DMABUF_DEBUG	(1 << 2)
+> +#endif
+> +
+>  /*
+>   * These macros should be used after a dma_map_sg call has been done
+>   * to get bus addresses of each of the SG entries and their lengths.
+> @@ -188,11 +195,27 @@ static inline void sg_set_folio(struct scatterlist =
+*sg, struct folio *folio,
+>  	sg->length =3D len;
+>  }
+> =20
+> +#ifdef CONFIG_DMABUF_DEBUG_WARN
+> +void sg_dmabuf_cpu_access_warn(void);
+> +
+> +/* Report use of the CPU side of a table that a DMA-BUF importer was giv=
+en */
+> +static inline void sg_dmabuf_cpu_access_check(struct scatterlist *sg)
+> +{
+> +	if (unlikely(sg->dma_flags & SG_DMA_DMABUF_DEBUG))
+> +		sg_dmabuf_cpu_access_warn();
+> +}
+> +#else
+> +static inline void sg_dmabuf_cpu_access_check(struct scatterlist *sg)
+> +{
+> +}
+> +#endif
+> +
+>  static inline struct page *sg_page(struct scatterlist *sg)
+>  {
+>  #ifdef CONFIG_DEBUG_SG
+>  	BUG_ON(sg_is_chain(sg));
+>  #endif
+> +	sg_dmabuf_cpu_access_check(sg);
+>  	return (struct page *)((sg)->page_link & ~SG_PAGE_LINK_MASK);
+>  }
+> =20
+> @@ -303,9 +326,6 @@ static inline void sg_unmark_end(struct scatterlist *=
+sg)
+>   */
+>  #ifdef CONFIG_NEED_SG_DMA_FLAGS
+> =20
+> -#define SG_DMA_BUS_ADDRESS	(1 << 0)
+> -#define SG_DMA_SWIOTLB		(1 << 1)
+> -
+>  /**
+>   * sg_dma_is_bus_address - Return whether a given segment was marked
+>   *			   as a bus address
+> diff --git a/lib/scatterlist.c b/lib/scatterlist.c
+> index 6ea40d2e6247..55a3697df881 100644
+> --- a/lib/scatterlist.c
+> +++ b/lib/scatterlist.c
+> @@ -12,6 +12,27 @@
+>  #include <linux/bvec.h>
+>  #include <linux/uio.h>
+>  #include <linux/folio_queue.h>
+> +#include <linux/printk.h>
+> +#include <linux/ratelimit.h>
+> +
+> +#ifdef CONFIG_DMABUF_DEBUG_WARN
+> +/*
+> + * Not a WARN(): a wrong importer must not taint the kernel or trigger
+> + * panic_on_warn. sg_page() is mostly reached through DMA or scatterlist
+> + * helpers, so the stack trace is what identifies the importer.
+> + */
+> +void sg_dmabuf_cpu_access_warn(void)
+> +{
+> +	static DEFINE_RATELIMIT_STATE(rs, DEFAULT_RATELIMIT_INTERVAL, 1);
+> +
+> +	if (!__ratelimit(&rs))
+> +		return;
+> +
+> +	pr_warn("DMA-BUF: importer used the CPU side of an exporter's sg_table\=
+n");
+> +	dump_stack_lvl(KERN_WARNING);
+> +}
+> +EXPORT_SYMBOL(sg_dmabuf_cpu_access_warn);
+> +#endif
+> =20
+>  /**
+>   * sg_nents - return total count of entries in scatterlist
+> @@ -54,6 +75,7 @@ int sg_nents_for_len(struct scatterlist *sg, u64 len)
+>  		return 0;
+> =20
+>  	for (nents =3D 0, total =3D 0; sg; sg =3D sg_next(sg)) {
+> +		sg_dmabuf_cpu_access_check(sg);
+>  		nents++;
+>  		total +=3D sg->length;
+>  		if (total >=3D len)
+> diff --git a/lib/sg_split.c b/lib/sg_split.c
+> index 24e8f5e48e63..cbbc7f9a206d 100644
+> --- a/lib/sg_split.c
+> +++ b/lib/sg_split.c
+> @@ -33,6 +33,8 @@ static int sg_calculate_split(struct scatterlist *in, i=
+nt nents, int nb_splits,
+>  	}
+> =20
+>  	for_each_sg(in, sg, nents, i) {
+> +		if (!mapped)
+> +			sg_dmabuf_cpu_access_check(sg);
+>  		sglen =3D mapped ? sg_dma_len(sg) : sg->length;
+>  		if (skip > sglen) {
+>  			skip -=3D sglen;
 
 
-
-On 10/7/26 3:46 PM, David Hildenbrand (Arm) wrote:
-> On 10/7/26 11:28, Jaeyeon Lee wrote:
->> The plan was raised from 1 to 3, but the HugeTLB setup check that may
->> call ksft_exit_skip() still runs after ksft_set_plan(), so a setup
->> failure reports one result against a plan of 3. Move ksft_set_plan()
->> below the setup check.
->>
->> Also, when the underflow check fails, or munmap() fails,
->> test_underflow() jumps to err_cleanup and exits without reporting the
->> remaining results. Report the munmap() failure as a test result and
->> skip the final HugePages_Rsvd check in err_cleanup, so these failure
->> paths report all 3 planned results.
->>
->> Fixes: 827149aad495 ("selftests/mm: hugetlb_madv_vs_map: add underflow test")
->> Assisted-by: LLM
->> Signed-off-by: Jaeyeon Lee <jaeyeon.lee.dev@gmail.com>
->> ---
->> Changes in v2:
->> - Drop the duplicate ksft_perror() and report errno in
->>   ksft_test_result_fail() (Sarthak Sharma).
->>
->>  tools/testing/selftests/mm/hugetlb_madv_vs_map.c | 6 ++++--
->>  1 file changed, 4 insertions(+), 2 deletions(-)
->>
->> diff --git a/tools/testing/selftests/mm/hugetlb_madv_vs_map.c b/tools/testing/selftests/mm/hugetlb_madv_vs_map.c
->> index 1d111f42dd59..0f6afb834dbf 100644
->> --- a/tools/testing/selftests/mm/hugetlb_madv_vs_map.c
->> +++ b/tools/testing/selftests/mm/hugetlb_madv_vs_map.c
->> @@ -168,7 +168,7 @@ void test_underflow(void)
->>  
->>  	/* First unmap, this will close the vma */
->>  	if (munmap(huge_ptr, mmap_size) != 0) {
->> -		ksft_perror("munmap failed");
->> +		ksft_test_result_fail("munmap failed: %s (%d)\n", strerror(errno), errno);
->>  		goto err_cleanup;
->>  	}
->>  
->> @@ -203,18 +203,20 @@ void test_underflow(void)
->>  	if (waitpid(pid, NULL, 0) <= 0)
->>  		ksft_exit_fail_perror("waitpid failed");
->>  
->> +	ksft_test_result_skip("HugePages_Rsvd check after child exit\n");
->>  	ksft_exit_fail();
-> 
-> That looks odd. SKIP + fail on the same path?
-
-Seemed odd to me too when I read it. But it seems like one function
-contains 2 tests:
-
-i) Check resv_hugepages when parent unmaps the VMA and child is holding
-the hugetlb page
-
-ii) Check resv_hugepages when child exits
-
-So we're skipping the third test if the munmap fails or the second test
-fails. Skipping incase of munmap failure makes sense but I'm not sure
-about the case when the second test fails, ig this could still run in
-that case.
-
-Anyways, the original code also calls a ksft_exit_fail() in err_cleanup,
-so this skip is just preserving the TAP test count, else we'll get that
-planned tests != run tests message.
