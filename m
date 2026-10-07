@@ -1,77 +1,73 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC94D3B42C3;
-	Wed,  7 Oct 2026 15:11:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67665389458
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 15:11:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791385898; cv=none; b=tMfrpx/4n4Mlfy1NkpzeTtI3T9lduj34HmfB3ekdHBLuTewkWuMml1j2ZgJ1Y/FFiVh5PzMIlD3fsAukV+uUbdImsd7BPmPCPC2JmzOL6x4fzWhVIVlo/BYnUQQxb8KvL3Iu/D9EDzlmK5/+2j5XSjJjt2nuHKpfMMijD8+gvNk=
+	t=1791385898; cv=none; b=tByCekg9syy1pBJkwLefl1VzijaHmhM2TUgHB75NuidMn9FQemYQuhHQDojezLpLjQr2pPYpjzNo8nsQJDKPfk2hk61ZNeNUMMcSA8QU8ePaFLulhifSn90txEwCuLyAQ160VWQBhcofMRKPGVoLYUPz2XN/FVh1J12I6+rQBT8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791385898; c=relaxed/simple;
-	bh=2Tef9h0oLcPQ1yEjWBRUGUxYeuBBv4xPJNsTYm2XRjk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oSf9Mv+HMr2mIzJzyVrklKcuwe4u4APakICXBrl6p1wODbhf0jKCXfAw7sl45L1t2BZGPLJhlmQPR8nvx12Fv0EUNqk6VEqeFJWZbaXXs01bC2w0b9nRdHxmqOfFgW6N9VYIHhzJniZmyuwf8xMO9h+q9TC69A6Ra0t5YIvamLY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UlXgthFh; arc=none smtp.client-ip=100.103.45.18
+	bh=z/0u9mNvhjssedwqAWw/XvFLzI5A68iLZ1EfJ4C89nE=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=ln2v48bZpOPGFvoVLgJXWhdF+seuYOdknA6JKsMuCayW9EnwRFSOmnxy9Gd84haeG/YkkO3XdyEc8h/gkIqpPCYh1yWk7K83938e6cdV3mkp18mRuCnZiEs4mJfE1U1wY5AlK0qKNF6tA9Kq9NMw7jQpVYU7xswFr2TFOjmli1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jKV3S2ng; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UlXgthFh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F1571F00893;
-	Wed,  7 Oct 2026 15:11:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jKV3S2ng"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D28B51F000FF;
+	Wed,  7 Oct 2026 15:11:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791385890;
-	bh=7SiXP3A89mYIctTKF9NZJB+Cel5HhOPv+wm/AjXIxz4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UlXgthFh+wZyRn0colHE4uL4qXhhpU3dnaYmStbnlDT+WzrrD7UhjNX9WIq3HFnRO
-	 4QNJAeYgzh8htj+jm7ibqdyeM66JyvTUDWZv0/TSsI+aNnP1va3pCRJpYU65Dbz0No
-	 T0zIFerl/WfJKDRXBZY9ajhwWn6R0D3B3Ko9LPE6i1u6rEmAHQ8iDxzqwvX3OJ93Yt
-	 ZpBiRxncpAuX4iFjxB6kU99DyQ7UukIal92bX1QtFgCPut/Icw5W4wVd3JkgZKVWet
-	 2GzImXgcRrFlTjvA57xVkMGqLipEugGE6it0As9P6eOPpItlC+Ark/EB/ToiYOXKbI
-	 S/Lur4tjGvEtA==
-Date: Wed, 7 Oct 2026 17:11:27 +0200
-From: Vinod Koul <vkoul@kernel.org>
-To: Simon Horman <horms@kernel.org>
-Cc: Frank.Li@oss.nxp.com, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Frank Li <Frank.Li@nxp.com>, Yicong Hui <yiconghui@gmail.com>,
-	"open list:NETWORKING DRIVERS" <netdev@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>, imx@lists.linux.dev
-Subject: Re: [PATCH 1/1] net: ethernet: micrel: ks8842: use
- dmaengine_submit() instead of ->tx_submit()
-Message-ID: <asZhHwzXU1sdk3TH@parshuram>
-References: <20261002193022.168248-1-Frank.Li@oss.nxp.com>
- <20261007144334.GR83879@horms.kernel.org>
+	s=k20260515; t=1791385885;
+	bh=JddtNEM6goEHGBJSj2WoyIxr3Xm40ZzTJFU/GODnDUg=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=jKV3S2ngpMBgIicHLl5IIJQn7FDOFWATwz7suVFR80ZWriS1jjgad+CyKocwqAxm/
+	 /a9j+0WttA4AG4v7k8taVcsm1nXgN2TRvxWskm+aScG6D5BmgZn+qKSWfJSr8vQdmd
+	 1n47CHttreGS9qwySjCKYwgaJ5W3dRPGp7wBjJnj8VlL6MS6wPFVvSlWEPHtvP4Zk/
+	 Ca3WKxiwVBV/2/vsslBFu4Duxn9l7qZ9XRJOkb2/UNwKGBZLeo4wpagGrs6DN5Pem+
+	 skfxkEN1Muz5s39d2fY/rgWR/6ZGKo9KQCWIq7VyZ0wUg4QedmX5EUg5fOTO5YZ+wW
+	 kjhGXKHsxUpiw==
+Date: Wed, 7 Oct 2026 09:11:21 -0600 (MDT)
+From: Paul Walmsley <pjw@kernel.org>
+To: Leo Yu-Chi Liang <leo.liang@sifive.com>
+cc: linux-riscv@lists.infradead.org, pjw@kernel.org, palmer@dabbelt.com, 
+    aou@eecs.berkeley.edu, alex@ghiti.fr, wangruikang@iscas.ac.cn, 
+    linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/1] riscv: fix NR_CPUS range leaking 64-bit default onto
+ 32-bit builds
+In-Reply-To: <20261007045229.36114-1-leo.liang@sifive.com>
+Message-ID: <3e8a895f-f5d3-bad6-0a34-d1d716ef3a26@kernel.org>
+References: <20261007045229.36114-1-leo.liang@sifive.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261007144334.GR83879@horms.kernel.org>
+Content-Type: text/plain; charset=US-ASCII
 
-On 07-10-26, 15:43, Simon Horman wrote:
-> On Fri, Oct 02, 2026 at 03:30:19PM -0400, Frank.Li@oss.nxp.com wrote:
-> > From: Frank Li <Frank.Li@nxp.com>
-> > 
-> > Replace direct dma_async_tx_descriptor->tx_submit() calls with the
-> > proper dmaengine_submit() API wrapper.
-> > 
-> > Assisted-by: LLM
-> > Signed-off-by: Frank Li <Frank.Li@nxp.com>
+On Tue, 6 Oct 2026, Leo Yu-Chi Liang wrote:
+
+> rv32_defconfig is built in two stages:
 > 
-> Hi Frank,
+> - the generic (64-bit-oriented) "defconfig" target runs first
+>   and resolves a concrete NR_CPUS value using the 64BIT default.
+> - then 32-bit.config is merged on top via merge_config.sh,
+>   which does not touch NR_CPUS.
 > 
-> Is there a back-story to this change?
-> Is it part of something larger?
+> The final "make olddefconfig" pass sees NR_CPUS=256 is still within
+> the "2 512" range therefore never recalculates it against the 32BIT
+> default of 32, silently keeping the leaked 64-bit-stage value.
+> 
+> The NR_CPUS-scaled regions (percpu areas, ...etc) of the resulting
+> CONFIG_NR_CPUS=256 on a 32-bit build bloats and does not fit in the
+> percpu/stack layout for rv32 and hangs early boot on QEMU's virt machine.
+> 
+> Fix this by explicitly specify the range for 32/64 and SBI_V01/!SBI_V01.
+> 
+> Fixes: 0fa749771993 ("riscv: Raise default NR_CPUS for 64BIT to 256")
+> Signed-off-by: Leo Yu-Chi Liang <leo.liang@sifive.com>
 
-Yep, Frank has been fixing direct calls with wrappers with aim to
-eventually start moving dmaengine guts internal and have a good
-consumer/provider split of the engine and objects
+Thanks, queued for v7.3-rc.
 
-> In face value it looks like a cleanup to an unmaintained driver.
-> And if so, I'm not sure it's worth the churn.
 
--- 
-~Vinod
+- Paul
