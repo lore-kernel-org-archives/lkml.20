@@ -1,395 +1,171 @@
-Received: from flow-a4-smtp.messagingengine.com (flow-a4-smtp.messagingengine.com [103.168.172.139])
+Received: from SY8PR01CU002.outbound.protection.outlook.com (mail-australiaeastazolkn19010019.outbound.protection.outlook.com [52.103.72.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC0204B8285
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 15:49:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.139
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791388173; cv=none; b=jxZIjOyQLpiDdYgjQWkXmmvusWQv9HlVSxtnfpgH3WAf+ki/18JPNvzU9aNqZOeUm4qmMjQvyaJdvCllqjrtcYfFKWBFoNlyGmfhwISPbbQCY2v5MpeqvoTtEowc+sarFmusRdxpAn2qAEzU4pILpYEK1kuZ1avHeaShNKDc9P4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791388173; c=relaxed/simple;
-	bh=SJ85HzI3nnTUKBjbG9eDMxU8wMh9OyTklgMqk6xA5BU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sKaYw8jOGvxtYi4frOpW4bpkgaktPUW6qTXOMtsId8mWorsjnIcBcLEOPE81ccD9Fo3+Zq0iBHOjBd6Yc2vH70smCTFHlGoGxztHjnUiwzbOiSQEPP5Mr9ESYrvAZHZMTYbFwb86gmv0G4xgdlQcWGzQ/dpWZ/azysYwjxQQBro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=s-joshi.in; spf=pass smtp.mailfrom=s-joshi.in; dkim=pass (2048-bit key) header.d=s-joshi.in header.i=@s-joshi.in header.b=JpmXNUyD; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=OYuZ+sQs; arc=none smtp.client-ip=103.168.172.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=s-joshi.in
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=s-joshi.in
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 596771DCB24
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 15:51:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.72.19
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791388301; cv=fail; b=aPBMnbYpxy6F2kqfO/SndyVbiiLRZsQzxtAbtSrfy6to8f1jyYOK3uSWzzdNWKBS+z0ZDaxDKA8lmtSsvUS2nbDSlR0tNy8pD8bxzyBEicjvz29FGyEi3z+Gv/Tm1jH+8JQMYo8v7Uy3/rfi0f11Jp6c7OJJRi/4mS01Firpnuw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791388301; c=relaxed/simple;
+	bh=InNOrm4Zul6wQkx7wP7K8OLKJP0nggYxJclrB624HtU=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=sDmDHbenP9MxWSkRc7ZyQQMeBKRRUfFhL0dyoSnghaRCJ8UaH/sDe3sg0xirf8u/A4gfXGtOgMZ183iS0CL5ilVv9XZ2wnj1sP0UK6zGcHuU3OZ11hrWapcdzahNqlPMMozh2JGQsRbxf1eq6Bo2KWlyBJXwYliiHrZEZcn8zrY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=euleIYVQ; arc=fail smtp.client-ip=52.103.72.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=s-joshi.in header.i=@s-joshi.in header.b="JpmXNUyD";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="OYuZ+sQs"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailflow.phl.internal (Postfix) with ESMTP id 83159138020F
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:49:29 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Wed, 07 Oct 2026 11:49:29 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=s-joshi.in; h=cc
-	:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1791388169; x=
-	1791391769; bh=NMzj+0i9NThcJ6q8TSEFs4eoC4MBdtZJg2mYQDdAvN4=; b=J
-	pmXNUyDSsiJ7zfYJSF18AGNLAXDcZGSTWvdFh4QCGsJqlEhBgQzq96UhPWD0e7TY
-	oXCnD4EFGVS+SKN0DInYQytBIS91/AyWWJIWZsmOeIrofGs1tEq2aTCXasvqFEFx
-	ACRzIU11zHOHb+Q/7J5TbBSBvdCGH3uP5EAWcxTM0154zgGOF8B5sInp84kYFXTj
-	evNPfZQ+CQWXjVTXzNEIETppTNRxav+NhWn3Dqxv2K2+X1LhSLEeuTiiqKjgql6s
-	qaZjIwaG/+fPgm2UPqtq+jCOttheQJSFrTpkEwrE3MHvbOhUbNsj/rwyjdvONNjO
-	zgbeDTkI3o+kSKsx/wKvw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm2; t=1791388169; x=1791391769; bh=N
-	Mzj+0i9NThcJ6q8TSEFs4eoC4MBdtZJg2mYQDdAvN4=; b=OYuZ+sQsFEMkdvZLP
-	HixoehhJYyLOlut2GRlKP5wQof4f7mC4KjRJr/JE+sSWuBu2uNOgZMBsJHmaHdKw
-	0WGb0+cZIc03pSuxbioU7HlBa5uQAaOyWjFdgiU0lCzB9OipFUOzbzngdczfK2Sn
-	3Saixd5HOptRMKvPnjE9ylL8CZHMRCc8AvwwFFegF2XZgGtenueOu4iZ/gvPCZAv
-	0CTE5IauN3U8Y5Kgk3hmBFd7Pgprj4TbZlOmzaaxGtjbkQGQmCUc/W8LAG4+enhm
-	4TQB28jTq4Zhw40K7ubOdpSmdHMLRE7fdEQjEjAgKf5kx/Od5CJJa/qsB8I/UYHT
-	/JByQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=s-joshi.in a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791388169; d=s-joshi.in;
-	mf=PHN1aGFhc0BzLWpvc2hpLmluPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:UYPWDa0zRgLbmLGqznRSEbLvAwOupq2Rdk9Ge32/aMZfIc8
-	ZRARDVF8xqS8wL/8/tuqJSbtpxUztQ3mEiNTPhkYi0aqHv8Uj3kl2u5f+vTEDSeb
-	H8wQimuUAQ/MrOaZU33aYlO7PtnjO53WJ6nzZxn/wdGhO9K0hkd859bkEhbrEh30
-	jh7K1LMExm2QvukCKFdtlNm3eA41ofnB3ooJ3mOBKGw/zaRlKy3BHzpiipZ87oX0
-	zuM8WCSZcjcVLrroYr+xB+HQmuYoWOATKbCtJOK3ZXlHn89PvIY0f2e0yZEihDIU
-	7ojXKnlJ7PW/R8ZbCx6UJhUecCVNjNVXpNO+Y8g==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:7AQ9A5q7IWuAEQ0ViyW9S4JAu6xYUCd/GdG3tTeUDtg=:SJ85HzI3nnTUKBjbG9eDMxU8wMh9OyTklgMqk6xA5BU=;
-X-ME-Sender: <xms:CWrGav5_hxK97RNu0wEmCXqVNZvadydOOrr1T__GXlP8vsp0_KOVug>
-    <xme:CWrGauMixcZRSaCM7J3v1uCgPLsuf9AZlNscO2kUZ1X5yCjonvEYWzD79K9dz1b0B
-    Dile7UdaF6af3evaJ7FbYbWFm2OgAVOzyiI8B7rxbdCRX81IlcvzOIZ>
-X-ME-Received: <xmr:CWrGatubASkOwrKCV7Xfjp9fuvO4-JoWMZ3lw-R9cTR2otCjCD4Emk8GXA>
-X-ME-Proxy-Cause: dmFkZTEBaUDDO6ngTf2qaoSnvem6liDvuhKl/9yQVpKqZxwy4l1eqKxf+EyLhO58G5o0Gk
-    FCVZ5dgt+2a+9WSMNk6P1NC/alZr9x3nei1HF3ulSpjUgDRWm3MOfiENnwy+bbJnNFqBv6
-    01JjNYluYE02hPPSGuQvtWjRl4n20jQ98HoA3X45Z/VIWCArdnL60YadLRBc+c9Y0G+ABZ
-    CKUZ3Lv3++BdVjZn1l3etwpTvSpv9G6XBVnQOcuLLi0b/OpnpZAFrIIuZDZQXHaaNKuDUo
-    8HvPsQHd4nffXMvs7XIOg/J6/2EI+tKqpbMZB4s1+BkZ0nB6uTNWeGWijEEeSu74c8NTQJ
-    vsEkXXlJdTlvMzVDgeOAXKkuNn2KNTLOMcqRe9Th1pl5qe5XU5fYkcJ3CBo/NqO8s66dB4
-    bVOPVqPEin8sahcf4meKLM+ECBsqHvfnA05IgMmeo58ltlR4+DWifCAMjHhK77ViOYHn+z
-    S8gVZJoQRlgeDs5O2tG6U4AQHWyZSpE/qBxnYBuU4m625TkjN56HZBHzevAClgn35/35Xd
-    RSmsEvhk+iytFzrUn5DUUUnujyUL3mhzdinr8JjnJiikdQ/uRIkMXNs9GuIKVFQly1UAKU
-    0icnpZPp1t7l55kZltznc2HKVlsTVVWZigF0pt2ZU4a4Dark6bNdAJvI57LA
-X-ME-Proxy: <xmx:CWrGahY9yg7hO9h_-IYyWsQm3PlRaPLDlWdWw8KXY-x6gqv5J868mg>
-    <xmx:CWrGavw8TnGNSi0HUwsm3kjUEVoNZ7Hc5m29K77FT5i2RhEil9z2jg>
-    <xmx:CWrGaphjOEgaDI8Sd3Zo5GX2VRCKJYCWTMhXAXvqI72gGQ_JCpLp0A>
-    <xmx:CWrGarnT4PTJWRQpHbR65c6S2Q-NhnEGGvbhIO5F2O7ypGcpckA24w>
-    <xmx:CWrGahKiom2Ru4Yd_ao7GxHuBKaCW5pz-J_Q0qH3ZX_uGxXXr45J39Nw>
-Feedback-ID: ia9504abf:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 7 Oct 2026 11:49:28 -0400 (EDT)
-From: Suhaas Joshi <suhaas@s-joshi.in>
-To: sj@kernel.org,
-	akpm@linux-foundation.org
-Cc: damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	suhaas@s-joshi.in
-Subject: [PATCH 2/2] mm/damon/core: Copy only installed probe in damon_split_region_at()
-Date: Wed,  7 Oct 2026 21:18:46 +0530
-Message-ID: <20261007154851.45368-3-suhaas@s-joshi.in>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261007154851.45368-1-suhaas@s-joshi.in>
-References: <20261007154851.45368-1-suhaas@s-joshi.in>
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="euleIYVQ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FX0H4XDgkVItW1S1UFSFhvpfqeb7nZPwKIw08QJ3HFQiX3GpPWUylS8V6SHERrBOG/GdSourwGYejj5+G8FSiqjN4BIbGG/H/0H+B93r30Pi1dErkJNP85g8P6Y+GmMW14ZnyJez13KEieoqPs6DS5r5K426FekL4CgTduqR1z9VU0iIk0ta3BgCSSjHKx9y2Aj7h2nS3/7N2ej50vN2lj0myzB2ztUY4/0RCPK6flPLlXrRWT7Z2/gfcZJdJg/+/AhefMA7PKTuJEo/hR2NitAHLvTIjkV+YDQNN4IipPhl10D3bYVMMmGOY9D4M/r7sJ1LNRzAB7/1NvhvPRRuyg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=InNOrm4Zul6wQkx7wP7K8OLKJP0nggYxJclrB624HtU=;
+ b=SRyhGgR9nge/TWd7meyUpWo6Yk4u0TkpfMZ47UXhCB9PFKCthngQqx8FUrIWCVmigbXNslqVXo/CqNtW6Hy9ZsR0ie4DBTX/bZSkqFILfY/q5CwIqqnWSAk+ccsLS8En1I30aJYQYUWR2epchjhJGIlSS5r+LHjd/q+JilsEkKoJG03Y4E+wGNK1Opfvzcb6dsxmvy/8jyQTar6nNk0b22XhiZfnsFB6S71SS/+05gEroV2/pyOE1Shv1ZVsXbG5BLS9k6ZZmBBzFboQt5WuxAkyE3I+6DPYgssNJ2UlDaAU9DPImfYPLDIIcK+XoQ58jMhD/OYUo5KSNpyxnC/bnQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=InNOrm4Zul6wQkx7wP7K8OLKJP0nggYxJclrB624HtU=;
+ b=euleIYVQf8k6m/XuS7gCuVbz1fQAhK5tkbsm07zeCqeOL3BvBMumJnNewHkl9nujWgr/7fBiLacbHUBkpyLrlm3WAGoF5p5KnburXHc68SKEajHK3hW7X/d3zY4jzp5/ezZCFzvv4EyiY+Pw1EJlu+kdYgw/4CDvNJ7+G9wVDikgL/apta7P8nJYAdeGqG8l2NuoZWrfX7aDaVghORj46G2uw/NmfdExVqbbnumIOzM0kMEA79t/xcMM44vYB0tglbsQ/t5xBLxcr+rN6HAR6rOppMxqACpmSQjJjBtw0ikueUxdWo7eowtIjg+d2T+ow2gpH3N1sjTD6ZdIzxAPPQ==
+Received: from SY0PR01MB10988.ausprd01.prod.outlook.com (2603:10c6:10:33b::24)
+ by ME3PR01MB6194.ausprd01.prod.outlook.com (2603:10c6:220:105::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.6; Wed, 7 Oct 2026
+ 15:51:34 +0000
+Received: from SY0PR01MB10988.ausprd01.prod.outlook.com
+ ([fe80::2313:f539:f431:ae1b]) by SY0PR01MB10988.ausprd01.prod.outlook.com
+ ([fe80::2313:f539:f431:ae1b%2]) with mapi id 15.21.0522.002; Wed, 7 Oct 2026
+ 15:51:34 +0000
+Message-ID:
+ <SY0PR01MB109881D4E8F08FBEBD9F43089FB942@SY0PR01MB10988.ausprd01.prod.outlook.com>
+Date: Wed, 7 Oct 2026 23:51:25 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC/DISCUSSION] x86/tsc: Handling legacy PIT fallback
+ calibration on modern platforms
+To: "Hahn, Matthias" <matthias.hahn@intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "x86@kernel.org" <x86@kernel.org>
+Cc: "tglx@linutronix.de" <tglx@linutronix.de>,
+ "mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ "peterz@infradead.org" <peterz@infradead.org>
+References: <CH3PR11MB08137159D0CC079C8BFA13F6E7F1952@CH3PR11MB081371.namprd11.prod.outlook.com>
+Content-Language: en-US
+From: "Ping K. Jiang" <jiang_kangping@outlook.com>
+In-Reply-To: <CH3PR11MB08137159D0CC079C8BFA13F6E7F1952@CH3PR11MB081371.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SE2P216CA0103.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:2c4::13) To SY0PR01MB10988.ausprd01.prod.outlook.com
+ (2603:10c6:10:33b::24)
+X-Microsoft-Original-Message-ID:
+ <b589fbb3-4a09-4c5d-8f4c-077cc6038e07@outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SY0PR01MB10988:EE_|ME3PR01MB6194:EE_
+X-MS-Office365-Filtering-Correlation-Id: f369171f-c425-49ea-046d-08df248adccc
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|4140399003|19110799012|8060799015|6090799003|5072599009|39105399006|15080799012|23021999003|24021099003|25010399006|20031999006|440099028|3412199025|40105399003|2607281247196008;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?em0yZ3d5WXlOMytGT3pGZGE4WS9XSWFZbmcyQzhDdDhJUXZha1JIaE1IVDVS?=
+ =?utf-8?B?QUYwc2VQWSthd0thOEJMa2trQlFzS3hvWDBET0tXR1Z6WFluUWRTUmhPbFNH?=
+ =?utf-8?B?czREbG9YanExMFpRWVlYWC9lVFFCVjBlRWxWMngxV2xmTFpwR2RpNlJMNjQ1?=
+ =?utf-8?B?TzBHVDYyc1FqSS93ZTN2d1VMMGY2NWRhc3BXSTBpVndhVWtRN0RqRlRLcU9R?=
+ =?utf-8?B?VHhOQUo1am1Qc1FYbjJHVHRmaERvMi96c0FyaGUrMG9HYWFqc2k1NmViTWFh?=
+ =?utf-8?B?dEJ6WG1IVTMvT1d3S0ZVeFJScjNVTE9zVTlaMFp1UDFETlFycFpFUTYzZ2RC?=
+ =?utf-8?B?REpPWXFVc2NxVnBFVzhlcEZLTkV5SnBrd2pBTVNuc0hQOUpJOXdVSGNFUWNo?=
+ =?utf-8?B?bllqM3FqM3RseW5sMVJseEZDSy9IbWdnQ0VqWlcxSnN5NElTNHlxNFd0N3Iy?=
+ =?utf-8?B?Wm9pOGM2ckxnZkZOeGpBL1drTTRlejVkeXRRMXZuZk9KdmlSbldWcHZUdVZC?=
+ =?utf-8?B?ZXdxVEFpdDhnRTlQMlVPanpLR01UckJmVEhPbWpOK2FvL1Q4cWlpYjVzSllT?=
+ =?utf-8?B?b1Q3bnRUVkw4dXQ1L1lHNDZKeUVOQWJ3WGRCNk5FN3RiYlQ5c2h1RmgvK3I4?=
+ =?utf-8?B?czdaWHNseFhLWkJnaU8wSWVZc3BuOC9uY0F6TzI0eTBVd3JvcnN2UUJCMXAr?=
+ =?utf-8?B?UXlMZDY4VWpzNXlZMzRTZDlVQm9ycmEyWVhBSmdINmJjd3Q0TkQzanZWYTVL?=
+ =?utf-8?B?T2VYQUdoM3ByeFcxU2k3YXRycUpkNWlDUkZ3RTR3M1RyQWZWRVBPd1daZ3dN?=
+ =?utf-8?B?NU1VT1NSbk1QY0dFcFIvK2kwRGtpbllGZGpqNGdnT3puQVFnbzJSank5TzBZ?=
+ =?utf-8?B?NG5mQW51RjNaSEN5c0FkOHlGejAyVTRnM1BhNjF1Qm8vSXd3SEJyYkxGUzhM?=
+ =?utf-8?B?UmQzVDJYb0RVTVUvL0dwZ2h6V3FLaHR4SUpNK1dJTEdXWlBPcFYwaUc2N3NH?=
+ =?utf-8?B?Q2pqN0x2bEZWU0pxVlB0d2MvY081UzZaSmF1U3hTa3NYSlEyOHZlZWZIRkNO?=
+ =?utf-8?B?L3VMTFp3eE9ZRVg5N3Y5TzQ3Vzh3Uy9QVExtWS9POHdPTVoxa01FMGFUYWZ5?=
+ =?utf-8?B?Z2tqVll4OGRxeGxTdWE3bHRzMlpNeXdJbmVTdjhRR1U3ZlZ6ZURGMHNSbWFI?=
+ =?utf-8?B?WEZtcnJPajJ2TEkvWlRZa1djemZBbzJKVkVrYU5iWVpDdytyWnpCQWwza3RK?=
+ =?utf-8?B?bnhWaloxZWM3bnZVcVdzM3NqbStPQWVtY3poK0lNazc3Z0poTGFRb0ZjM2E5?=
+ =?utf-8?Q?YR/zUfzY2AIFtzPCqAyJXxU++VIlE/qSAr?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?QjR4YTdzbEVJQW0valpzRERGQy9vMlJSOFVWNlZuZU54d3pZTUNZSjE5UFdi?=
+ =?utf-8?B?aHJZNklTdkpUZFBadXdnZUw0SGRGKzR2a1dMNXJyQ3FFQ0doZlNuOGNCdkZ1?=
+ =?utf-8?B?QUszUk9YSFk5bVBBRzhTMTUzVS82N2NFSjdXYk5VN2VoMjNsakkvQmh0UGQr?=
+ =?utf-8?B?QjNScHFzWi9yUHRyb1RaUE8vTWFuNDBjdllUMnFpSjNzQ2x0dmptSFdLd0xZ?=
+ =?utf-8?B?YUsxZE9xZGZ0VTdtQ0w1ajBRdkVkdWxmcVZtTnF6T0pFcnZPYTkzTEJhOUM3?=
+ =?utf-8?B?RWIrcXV6a3l0UmtFdUxJMjJuMEIvOXJjcjBmdm9CbEVlK2FUcS9Kdzd4Mkxi?=
+ =?utf-8?B?aUpaWWhTUUJJV3lobzI3bmt6QW9KK1F4SHNBMll4WHJXVFVJVVVYdkl3WUpO?=
+ =?utf-8?B?WmRjZ1dnVS9XcEp4cElFbjhoWmFDdE9iZStKYVJUUjF2anRPaFg3YmFMeFBK?=
+ =?utf-8?B?TU1LRUlqVE5ET1dkR0s4VXZvdHRaN3VPTEpLK3NYN1NnK0E0c2FGSmx5N2lH?=
+ =?utf-8?B?M3d2akRsaHp2S2Nob1QySlFyY3pWeW5MdHlLYkk4SzdyMlhReUFQY0ZIYndH?=
+ =?utf-8?B?VDcrOUVITkRHbmpvRW5oRy9XdTRmUU9INWZpaWZHdjhHcGJPbHUrN2JWUTh5?=
+ =?utf-8?B?Q3F4a2JOTWFNL2NvQ3BsRU1BeHVzS0gvSHRWUnVBcjlERmtqWThPQ0JFYnFm?=
+ =?utf-8?B?Z2p2RERqWEpndGRaMk1zYnJuYUNGb0lrYjkwaTJrVmxDNjg0YUpVVEtoSFdn?=
+ =?utf-8?B?MXV3TndCZHFpOExqaDlWdXpDTFAvVWNzVlFMRWlYNVc4cU1sdmZmTHlmcm10?=
+ =?utf-8?B?MHhiVGZranptak1sZTRLOVhxZlMvYS83YnA0b3NJQjlsTjRLMzdsd1QwSVVR?=
+ =?utf-8?B?WnhNN2FINmpkNEhwbDFrM0plSm1Ub3grTTlhek5yRlNsYWxSdjk1Zmsyc0ZM?=
+ =?utf-8?B?dllzRE9DUHJQam9EdjNSVmlIVWNMR1crZ2ZnYjJQVVRPOHhqb3VqM25ONTFW?=
+ =?utf-8?B?UGV1aUpOV1ByOWRIYkEzZ3dEWXNQcGZkcGh2YmdsZ1lOanNITDFZTG5YWjNn?=
+ =?utf-8?B?Z3VGdXFZSGhhd0dGVW5pN084aDRGNjgvcy9hS21vTGJrUGFzWU9HRmRJQlZR?=
+ =?utf-8?B?SGVISFI3LzVKck5oS3pQQjlyWnpWb0Z1YXFrUUdhRjQ2UG1YOGdOeDczY1NN?=
+ =?utf-8?B?c1RzN0tXaUFmL0ZSeTdQYXAxQmw5V2RRV20xSFFYcmRyMStDYXZ3N0lMKzhC?=
+ =?utf-8?B?NXYzV2MvQzZaeUk4RkJQWnVDdHRndXR5QitJTlVoeDZkL0JObnRCc0NyZUpx?=
+ =?utf-8?B?L24ydzZCZnFOSHQ3RlVPYVZYK3dUSGxGVS9mdHUvVE81Sy9yZUY1ekxsMnRn?=
+ =?utf-8?B?dGI4WG05R0JOSmJWeFFNdHduNi9lTHVOa0szeEtOcXBOb1BlSndROGpGM2x1?=
+ =?utf-8?B?dE9pTUszWjlFWDhvQlNEaG1OcEQ0T3o1SHJ6VExVS0EzamVPL2o5NVZGQTZk?=
+ =?utf-8?B?enI0YmNySFVnMDFUVXZsRVNZU0IvejVRaXkxZXl4Sy9BeHducGpkaXd4Q0FL?=
+ =?utf-8?B?bG5nNnlzeFJ6dmpZTno5SFlGRDBnSWdWMVRILzhnRXlZYjE2ckNzd2NIN2Fl?=
+ =?utf-8?B?Uk1FRGdEM3RmQVJ6NmFSdTBNL09IMTI1bWI1R3JNUnp2M09xeTRnaTdHSUgx?=
+ =?utf-8?B?ZEwrTUJvNUkzQ29rdlAvWXdQUU5CK09Sc0kyUTVISThyUktCSjR3ZnRGWFhX?=
+ =?utf-8?B?SFVkN2xNRlQ1bzl3b3ZPQ0NIWGxRNjZmUGNIRVdFY2lva0VrVmdmb1FEM3Mx?=
+ =?utf-8?B?ZjhlNmJiV0V0UEVhNi8zaDJmZGxZQWE4a0UxUko4YndVdjJ5UmhTc1QzWjc0?=
+ =?utf-8?B?T1hCMkhtMTlrMW50anlJS0pxTVMydTIvUXJGRWdJcTNaL1dNdXIrcjN5bksv?=
+ =?utf-8?B?MUdGeTFhWEVyakRmSUFpbEtoODNRZXI0TFp6NXdEZE5aUnBwcDVmb1Y1S1h0?=
+ =?utf-8?B?SHM2T2p5Vk1RPT0=?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f369171f-c425-49ea-046d-08df248adccc
+X-MS-Exchange-CrossTenant-AuthSource: SY0PR01MB10988.ausprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 15:51:34.4551
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ME3PR01MB6194
 
-In damon_split_region_at(), we copy the entire probe_hits[] and
-last_probe_hits[] arrays of DAMON_MAX_PROBES size. However it is possible
-that the number of probes installed is less than DAMON_MAX_PROBES, in which
-case one or more iterations is/are redundant. To remedy this, iterate over
-only as many times as the number of installed probes. To do so, accept a
-struct damon_ctx pointer in damon_split_region_at(), and update all
-invocations of the function to pass the new argument.
+ > We have recently observed an issue regarding TSC calibration fallback on
+ > modern client/server platforms (Specifically Raptor Lake and newer) when
+ > running inside restricted virtualized environments.
+ >
+ > On modern platforms, however, legacy port I/O cycle latency has increased
+ > substantially. In benchmark comparisons between older platforms (e.g.
+ > Broadwell-DE) and modern silicon (Raptor Lake), 1024 PIT reads took ~2.7M
+ > cycles on BDX compared to ~21.3M cycles on RPL (~8x-10x slower, yielding
+ > ~10-20 us per read).
+ >
 
-Also update damon_test_split_at() and damos_test_filter_out() in
-core-kunit.h to supply a context to function paths that call
-damon_split_region_at().
+Dear Dr. Hahn,
 
-Signed-off-by: Suhaas Joshi <suhaas@s-joshi.in>
----
- mm/damon/core.c             | 42 +++++++++++++++++---------------
- mm/damon/tests/core-kunit.h | 48 ++++++++++++++++++++++++++++++-------
- 2 files changed, 63 insertions(+), 27 deletions(-)
+I was reproducing this on i5-14600KF. My PIT delay wass ~13000 cycles,
+resulting in TSC calibration with 30 ppm error, tested by running
+`sudo dmesg | grep TSC` on host and VM.
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index a3af5ee685e1..025df4d19e20 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -2049,8 +2049,8 @@ static unsigned long damon_region_sz_limit(struct damon_ctx *ctx)
- 	return sz;
- }
- 
--static int damon_split_region_at(struct damon_target *t,
--				  struct damon_region *r, unsigned long sz_r);
-+static int damon_split_region_at(struct damon_ctx *ctx, struct damon_target *t,
-+				 struct damon_region *r, unsigned long sz_r);
- 
- /*
-  * damon_apply_min_nr_regions() - Make effect of min_nr_regions parameter.
-@@ -2075,7 +2075,7 @@ static unsigned long damon_apply_min_nr_regions(struct damon_ctx *ctx)
- 	damon_for_each_target(t, ctx) {
- 		damon_for_each_region_safe(r, next, t) {
- 			while (damon_sz_region(r) > max_region_sz) {
--				if (damon_split_region_at(t, r, max_region_sz))
-+				if (damon_split_region_at(ctx, t, r, max_region_sz))
- 					goto out;
- 				r = damon_next_region(r);
- 			}
-@@ -2494,9 +2494,9 @@ static bool damos_valid_target(struct damon_ctx *c, struct damon_region *r,
-  *
-  * Return: true if the region should be skipped, false otherwise.
-  */
--static bool damos_skip_charged_region(struct damon_target *t,
--		struct damon_region *r, struct damos *s,
--		unsigned long min_region_sz)
-+static bool damos_skip_charged_region(struct damon_ctx *ctx, struct damon_target *t,
-+				      struct damon_region *r, struct damos *s,
-+				      unsigned long min_region_sz)
- {
- 	struct damos_quota *quota = &s->quota;
- 	unsigned long sz_to_skip;
-@@ -2523,7 +2523,7 @@ static bool damos_skip_charged_region(struct damon_target *t,
- 				}
- 				sz_to_skip = min_region_sz;
- 			}
--			damon_split_region_at(t, r, sz_to_skip);
-+			damon_split_region_at(ctx, t, r, sz_to_skip);
- 			skip = true;
- 		}
- 	}
-@@ -2581,12 +2581,12 @@ static bool damos_filter_match(struct damon_ctx *ctx, struct damon_target *t,
- 		}
- 		/* start before the range and overlap */
- 		if (r->ar.start < start) {
--			damon_split_region_at(t, r, start - r->ar.start);
-+			damon_split_region_at(ctx, t, r, start - r->ar.start);
- 			matched = false;
- 			break;
- 		}
- 		/* start inside the range */
--		damon_split_region_at(t, r, end - r->ar.start);
-+		damon_split_region_at(ctx, t, r, end - r->ar.start);
- 		matched = true;
- 		break;
- 	case DAMOS_FILTER_TYPE_PROBE_HITS_WSUM:
-@@ -2779,7 +2779,7 @@ static void damos_apply_scheme(struct damon_ctx *c, struct damon_target *t,
- 					c->min_region_sz);
- 			if (!sz)
- 				goto update_stat;
--			if (damon_split_region_at(t, r, sz))
-+			if (damon_split_region_at(c, t, r, sz))
- 				goto update_stat;
- 		}
- 		if (damos_core_filter_out(c, t, r, s))
-@@ -2826,7 +2826,7 @@ static void damon_do_apply_schemes(struct damon_ctx *c,
- 		if (damos_quota_is_full(quota, c->min_region_sz))
- 			continue;
- 
--		if (damos_skip_charged_region(t, r, s, c->min_region_sz))
-+		if (damos_skip_charged_region(c, t, r, s, c->min_region_sz))
- 			continue;
- 
- 		if (s->max_nr_snapshots &&
-@@ -3643,10 +3643,12 @@ static void damon_verify_split_region_at(struct damon_region *r,
-  *
-  * Return: 0 on success, negative error code otherwise.
-  */
--static int damon_split_region_at(struct damon_target *t,
--				  struct damon_region *r, unsigned long sz_r)
-+static int damon_split_region_at(struct damon_ctx *ctx, struct damon_target *t,
-+				 struct damon_region *r, unsigned long sz_r)
- {
- 	struct damon_region *new;
-+	struct damon_probe *p;
-+	int i;
- 
- 	damon_verify_split_region_at(r, sz_r);
- 	new = damon_new_region(r->ar.start + sz_r, r->ar.end);
-@@ -3658,11 +3660,13 @@ static int damon_split_region_at(struct damon_target *t,
- 	new->age = r->age;
- 	new->last_nr_accesses = r->last_nr_accesses;
- 	new->nr_accesses = r->nr_accesses;
--	/* todo: do this for only installed probes */
--	memcpy(new->probe_hits, r->probe_hits, sizeof(r->probe_hits));
--	memcpy(new->last_probe_hits, r->last_probe_hits,
--			sizeof(r->last_probe_hits));
- 
-+	i = 0;
-+	damon_for_each_probe(p, ctx) {
-+		new->probe_hits[i] = r->probe_hits[i];
-+		new->last_probe_hits[i] = r->last_probe_hits[i];
-+		++i;
-+	}
- 	damon_insert_region(new, r, damon_next_region(r), t);
- 	return 0;
- }
-@@ -3691,7 +3695,7 @@ static void damon_split_regions_of(struct damon_ctx *ctx,
- 			if (sz_sub == 0 || sz_sub >= sz_region)
- 				continue;
- 
--			damon_split_region_at(t, r, sz_sub);
-+			damon_split_region_at(ctx, t, r, sz_sub);
- 			sz_region = sz_sub;
- 		}
- 	}
-@@ -3723,7 +3727,7 @@ static void damon_split_some_regions(struct damon_ctx *ctx,
- 			if (sz_sub == 0 || sz_sub >= sz_region)
- 				continue;
- 
--			damon_split_region_at(t, r, sz_sub);
-+			damon_split_region_at(ctx, t, r, sz_sub);
- 		}
- 	}
- }
-diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-index 5ad89c1d9fc2..e02604c7e0bc 100644
---- a/mm/damon/tests/core-kunit.h
-+++ b/mm/damon/tests/core-kunit.h
-@@ -141,12 +141,26 @@ static void damon_test_split_at(struct kunit *test)
- {
- 	struct damon_target *t;
- 	struct damon_region *r, *r_new;
-+	struct damon_ctx *ctx;
-+	struct damon_probe *p;
- 
-+	p = damon_new_probe();
-+	if (!p)
-+		kunit_skip(test, "probe alloc fail");
-+	ctx = damon_new_ctx();
-+	if (!ctx) {
-+		damon_destroy_probe(p);
-+		kunit_skip(test, "context alloc fail");
-+	}
-+	damon_add_probe(ctx, p);
- 	t = damon_new_target();
--	if (!t)
-+	if (!t) {
-+		damon_destroy_ctx(ctx);
- 		kunit_skip(test, "target alloc fail");
-+	}
- 	r = damon_new_region(0, 100);
- 	if (!r) {
-+		damon_destroy_ctx(ctx);
- 		damon_free_target(t);
- 		kunit_skip(test, "region alloc fail");
- 	}
-@@ -156,7 +170,7 @@ static void damon_test_split_at(struct kunit *test)
- 	r->last_probe_hits[0] = 3;
- 	r->age = 10;
- 	damon_add_region(r, t);
--	damon_split_region_at(t, r, 25);
-+	damon_split_region_at(ctx, t, r, 25);
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 2);
- 	if (damon_nr_regions(t) != 2)
- 		goto out;
-@@ -176,6 +190,7 @@ static void damon_test_split_at(struct kunit *test)
- 
- out:
- 	damon_free_target(t);
-+	damon_destroy_ctx(ctx);
- }
- 
- static void damon_test_merge_two(struct kunit *test)
-@@ -1648,19 +1663,35 @@ static void damos_test_filter_out(struct kunit *test)
- 	struct damon_target *t;
- 	struct damon_region *r, *r2;
- 	struct damos_filter *f;
-+	struct damon_ctx *ctx;
-+	struct damon_probe *p;
-+
-+	p = damon_new_probe();
-+	if (!p)
-+		kunit_skip(test, "probe alloc fail");
-+	ctx = damon_new_ctx();
-+	if (!ctx) {
-+		damon_destroy_probe(p);
-+		kunit_skip(test, "context alloc fail");
-+	}
-+	damon_add_probe(ctx, p);
- 
- 	f = damos_new_filter(DAMOS_FILTER_TYPE_ADDR, true, false);
--	if (!f)
-+	if (!f) {
-+		damon_destroy_ctx(ctx);
- 		kunit_skip(test, "filter alloc fail");
-+	}
- 	f->addr_range = (struct damon_addr_range){.start = 2, .end = 6};
- 
- 	t = damon_new_target();
- 	if (!t) {
-+		damon_destroy_ctx(ctx);
- 		damos_destroy_filter(f);
- 		kunit_skip(test, "target alloc fail");
- 	}
- 	r = damon_new_region(3, 5);
- 	if (!r) {
-+		damon_destroy_ctx(ctx);
- 		damos_destroy_filter(f);
- 		damon_free_target(t);
- 		kunit_skip(test, "region alloc fail");
-@@ -1668,27 +1699,27 @@ static void damos_test_filter_out(struct kunit *test)
- 	damon_add_region(r, t);
- 
- 	/* region in the range */
--	KUNIT_EXPECT_TRUE(test, damos_filter_match(NULL, t, r, f, 1));
-+	KUNIT_EXPECT_TRUE(test, damos_filter_match(ctx, t, r, f, 1));
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
- 
- 	/* region before the range */
- 	r->ar.start = 1;
- 	r->ar.end = 2;
- 	KUNIT_EXPECT_FALSE(test,
--			damos_filter_match(NULL, t, r, f, 1));
-+			damos_filter_match(ctx, t, r, f, 1));
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
- 
- 	/* region after the range */
- 	r->ar.start = 6;
- 	r->ar.end = 8;
- 	KUNIT_EXPECT_FALSE(test,
--			damos_filter_match(NULL, t, r, f, 1));
-+			damos_filter_match(ctx, t, r, f, 1));
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
- 
- 	/* region started before the range */
- 	r->ar.start = 1;
- 	r->ar.end = 4;
--	KUNIT_EXPECT_FALSE(test, damos_filter_match(NULL, t, r, f, 1));
-+	KUNIT_EXPECT_FALSE(test, damos_filter_match(ctx, t, r, f, 1));
- 	/* filter should have split the region */
- 	KUNIT_EXPECT_EQ(test, r->ar.start, 1);
- 	KUNIT_EXPECT_EQ(test, r->ar.end, 2);
-@@ -1704,7 +1735,7 @@ static void damos_test_filter_out(struct kunit *test)
- 	r->ar.start = 2;
- 	r->ar.end = 8;
- 	KUNIT_EXPECT_TRUE(test,
--			damos_filter_match(NULL, t, r, f, 1));
-+			damos_filter_match(ctx, t, r, f, 1));
- 	/* filter should have split the region */
- 	KUNIT_EXPECT_EQ(test, r->ar.start, 2);
- 	KUNIT_EXPECT_EQ(test, r->ar.end, 6);
-@@ -1717,6 +1748,7 @@ static void damos_test_filter_out(struct kunit *test)
- 	damon_destroy_region(r2, t);
- 
- out:
-+	damon_destroy_ctx(ctx);
- 	damon_free_target(t);
- 	damos_free_filter(f);
- }
--- 
-2.55.0
+I wonder why I can't reproduce it.
+My motherboard is 'B760M-PLUS WIFI II'.
 
+Thanks!
+Ping Jiang
