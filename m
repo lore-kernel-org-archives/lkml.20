@@ -1,222 +1,176 @@
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB22C358381
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 02:13:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791339213; cv=none; b=E/8AuL61B58CnnsvVchcPxXf7D4ai5vwAfvnzPGomWks7t0GwOLf+2dpu23HDkHgd+oeyV6/Anyf24YQ270NT/N5eeqci6xlYdygSoc++x8WZVOswKm0L2x0A4iS2AS+8+DQqy9uIoZIRVZBJKd4K/QSWEBuBEmpCljgBd6GCk4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791339213; c=relaxed/simple;
-	bh=7sRNFc6H+Zd1SDkl9mveV0pJDk0qiweVHehAF6jOK0U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jRRQucrEzjqtfCP3gOtDRfpzCzTJOcu0BAZlRbZeqOlQz8QozJABZ/mV2nyOyR2/dJ7F7PBpclTTrji+p3lWYSbRoI+WunsgDrIbaF307AmVAcqfl32RmPnJf88MQvMIpMihegmwMsEIPUNGAbyCxuDpbGPnuR6QaABD0AknV+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=ihoaRL/n; arc=none smtp.client-ip=96.67.55.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6826E17BED0
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 02:18:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791339483; cv=pass; b=rLQBKnnBqJ0nNExgZI7ctZMtl4Sf4LcOMjJvzfYCyng3x+EhWzJGOAmQg+shaWB9b//qFCmSgObiyd6sWMUzGeRLWZxzr/w3jGuPcjlryy5Pel1PxOgyO01R9YPbHrmGBlmlwyzYLOk6R30cAJONysXHOWdgeV0M5xS/0aYMO0k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791339483; c=relaxed/simple;
+	bh=VIu9IqjAGNeJ5CxJ1aJYgp/RLiXbBj4etI3szwtdgyg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KJREHtnV6YJ6TLUXMqKhU++WAwZ5TK997lyatq2MUJMCdIdsdx7UspJttaEuDrVoY0Sm3UpN/Rulu5VJEF+e1PBqHmZrwa52n5ReezBdV817TCQERqAZQ3GNLRpEGX2JCwrXmk2yohNT+aDz0vrQ4anzbLW3tr8X42rTB2AH+ic=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VofLcoyb; arc=pass smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="ihoaRL/n"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
-	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=KKwgm8GYqC75llmIOjDyRDwXwz0fzp2oGMn97550NgY=; b=ihoaRL
-	/nvNDCZIENCIKpJn4IOmYiiebYNBOHhRtpChwA46ZrSrYqXSBV3fJDmXg34NghbGsem1rHoACfzQG
-	DOoKdkNXOLEj6+AUnRR3IIPs8+X4iYCB8an9HO1iMWEZprooieQsvNteP7EeAK4RED/oTjERwAjUK
-	srktbb+uAFAQfsdPySsbyeAZMZmmIyx7HutjWmIX1NSiNRsoC6AfwM2s+Gdl71+6RwkBtM9u9I7Wk
-	WHSPnHJjQTHBkZ1+1BMBSfEmpVzs9H4gbqx3+aqqhQbwRee1bCdTqaYPbue8iEF0LgfmT7k08Cpnj
-	jzQ1sf+Hi65KiIXtEe+EZJpZP8Yw==;
-Received: from [2601:18c:8100:a0e0:2541:b86e:2586:d219] (helo=fangorn.surriel.com)
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1xEH9N-0000000B2cT-02Yo;
-	Wed, 07 Oct 2026 02:12:57 +0000
-From: Rik van Riel <riel@surriel.com>
-To: linux-kernel@vger.kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Kairui Song <kasong@tencent.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	linux-mm@kvack.org,
-	Rik van Riel <riel@surriel.com>
-Subject: [RFC PATCH 3/5] mm/page_alloc: convert any movable pageblock on a non-movable allocation
-Date: Tue,  6 Oct 2026 22:12:48 -0400
-Message-ID: <20261007021250.1665929-4-riel@surriel.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261007021250.1665929-1-riel@surriel.com>
-References: <20261007021250.1665929-1-riel@surriel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VofLcoyb"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a022fee0caso13324575e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 19:18:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791339480; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ciRRoyVX62H1Puzm85ow5Jd8kR9u3XEq7lOYMR7R1aBSzKfCgiucgQZoTTf5HFDOp0
+         mO2+2IwSTsCnqJPDPUznz9xLb/IWVhj0moafnsCYn78MrFWmWDdINdWpjXaHBo6FJuE2
+         n9w7Au/3mcWa1b798Cgiw18WYVS5Tabs8YO2LtU6sq77yNpSV6ukypwhxfGkWSaekrgs
+         ngLf2GEVFJwPmWWk6eQMVTC5LfEAtu4F15v6ssticj/j0kF5kfWDrwOCtcPqYv4mHpeD
+         nOT9iGqSYrHLgzGMugr8BOmdoxtQ2PLtG9oICuWD3zI94VdrdcX3tz2D9V0Cq+iBtQOG
+         a7Ng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=GXQll5yKwAszJJzdt/Gj5gkr0StYojizfaIPuW3tx5I=;
+        fh=KlDLwIhYu9UVtrQIYmeVE/ISsJIkTC8+c+YeKK8FnkM=;
+        b=Kz1K5t2C9LbH7C5AkC1j0TCkzG+au4KMUZzjNk/op+WA1OXz7/f77JBJZQXsxT7gZp
+         s5/pzsUdjGINtfI33OXTMmbC1g3A+UUhtRp44SfkRUcyUDELuyWSLcm0nJSM+pytN0TV
+         7fuCSl5YzF0ZCNjgOSbKBsLmpf0uq0vcqjtvuZs0l2fbsr3aGCNozUW975LMTnjCtgzF
+         wIoFOasF+8wo8FU8R7bBnG0mmy0PVd9PJ04TRcFHggv56Hv5GrnB4LEWnekdagVNKvZg
+         r7by9pq+ZkoMJfRKBJY/FzHr8UtVlLqmn5UF9bEDXkW3t0/JTgvezKH6xIeUSVTPyRfM
+         IQZw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791339480; x=1791944280; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GXQll5yKwAszJJzdt/Gj5gkr0StYojizfaIPuW3tx5I=;
+        b=VofLcoybAjP8tljDjf4cOLqPDw3Olb8lls7AxLzkbmAmq337C0Fwn3glCmVFCxV/R2
+         2O5HkTC6wWAto/92mXbeagm0Mxe+0YQqkof2eLKij0s4I7S3Na5ramc/JJ0PC8/14hvb
+         9eXVuTYtDSFsh+0cz7zVyrpXwaYgkVN5n4nW20TOi9NqcYLtDPxJjeMdgMa65KaSWbPX
+         OuH66l3liaHcoUJK65tjyym43pFC27su8itKQx3iLA2920d7DveZ6Iw9XY9eyAbNNqhu
+         LG1vpIVy4Wk11rZvoCM+iLWIKGPdS1a1ck927312PFY/a/FZCZfN4cYRhMqHpD+nmCOF
+         Pq1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791339480; x=1791944280;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GXQll5yKwAszJJzdt/Gj5gkr0StYojizfaIPuW3tx5I=;
+        b=ECT53+7LENBr656kcofdOd5XkQm1Y412jcddwi2RwSNBl7a0wwkBf4Zl0JIsogNpDA
+         4vJrHSGNRiZS6X9CYisw1Yr6Vsrd+dASn9bwaw5fvs0Rybu+saN7odk1MSX7JMZBT9CL
+         eKFw8zyAviYD2bfi6+q7hx544Yrjw0qhS8UT80oq1uFnzAC0HC0UnaULRCw7+cXzDz75
+         87divYjH5Pw6WKVuN8wz0g3QoMla/HAVa/XzwdsezVuQ0jwdG/rqgYWASWukMjZgfpY+
+         AhYeRu39xLaHG0xAw/T8R4TvoxD/mbQ/9vnfNTKBn1Ti1kv5LLyDmzduZCsGpotJItZS
+         teig==
+X-Forwarded-Encrypted: i=1; AKwUvBwCcmZW1wCDtmg9Zt+DBdrLfrwKJcBso0ETXXIKNbPj61TAGyLFgPAo4ORsmWg5DUzuQrGKpj0Enh1IvsQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+Ugt/o92fYh/0iFyMQ7z4lTCTHo5axQ8p1UXxHYjLcbVOFzAV
+	zDo3K5J17Fiqjly3xlMffx+v7Y+ArV8B9SZ4ZlWr3gOsLhHOHy4RBvuuB2TFZknnEzM22aq6iIW
+	RbBclSUrytWKfoR8NTXqm6cQCHnX79ps=
+X-Gm-Gg: AYBFou0ezcsNhaBCg4upQl+8bNqp4obSCMdRGNDgxSchNehY+FhIvjCIpJPeIm9IZ6M
+	YatNfS/Q9JhWW7/vHIC5VFvBjewTRkxYdmKv++4pTdZICWji16XO1G8R/9n4MLIEcNMCVTJFYDt
+	hUG4li/xFC240L6CwHd8x3rCNqMViBi9aBB+m1g+Glc8VeUAxdHk5Q78XRU9CxCbapnedy9fEdx
+	Sh41nl7ojsBP/wkT5SX/EJQPr7G+5peYReQIjXTJlUmKCA5I90BH/PhC+XxXS2IZU9YHmL3oOBo
+	wXMADvKCvcbCfLNRrmoxisMwH/f6+ubdlkLEKtHczkrQvaTd0zMIo+tfDw==
+X-Received: by 2002:a05:600c:19cd:b0:4a0:62d:4424 with SMTP id
+ 5b1f17b1804b1-4a180311245mr8251415e9.8.1791339479862; Tue, 06 Oct 2026
+ 19:17:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261002151757.3605081-1-kunwu.chan@gmail.com>
+ <20261002151757.3605081-2-kunwu.chan@gmail.com> <asO4ey3X6JK0IzlY@localhost.localdomain>
+In-Reply-To: <asO4ey3X6JK0IzlY@localhost.localdomain>
+From: KunWu Chan <kunwu.chan@gmail.com>
+Date: Wed, 7 Oct 2026 10:17:48 +0800
+X-Gm-Features: AclHuK-tHY6YeG6Ua4SUi-gCDEbMeVVo3yQ2NB_FnxZ7-i_GlcPQuqP0AElsGHs
+Message-ID: <CAN_Opa8NjWEpz1wbsBEmyCQ=q3nqrUaYiVa-nbsiOEXPdAwWRg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] rwonce: Add READ_ONCE_THIS_CPU() and WRITE_ONCE_THIS_CPU()
+To: Frederic Weisbecker <frederic@kernel.org>
+Cc: arnd@arndb.de, anna-maria@linutronix.de, mingo@kernel.org, tglx@kernel.org, 
+	linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	"Paul E . McKenney" <paulmck@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-try_to_claim_block() converts a movable pageblock for a non-movable
-allocation only when half its pages are free or compatible.
-Otherwise the steal path takes pages without converting, and
-non-movable content sits in a block still typed movable.
+On Mon, Oct 5, 2026 at 10:47=E2=80=AFPM Frederic Weisbecker <frederic@kerne=
+l.org> wrote:
+>
+> Le Fri, Oct 02, 2026 at 11:17:55PM +0800, Kunwu Chan a =C3=A9crit :
+> > Per-CPU variables are sometimes accessed from different execution
+> > contexts on the same CPU, typically task context and an interrupt or
+> > NMI handler.
+> >
+> > A plain READ_ONCE() or WRITE_ONCE() marks such an access as an
+> > intentional race but does not express where the racing accesses are
+> > expected to come from. This distinction allows concurrency tools such
+> > as KCSAN to tell an intentional same-CPU context race apart from an
+> > access that may race across CPUs.
+> >
+> > Add READ_ONCE_THIS_CPU() and WRITE_ONCE_THIS_CPU() to identify accesses
+> > to a per-CPU variable which are intended to race only with accesses
+> > from other execution contexts on the same CPU. For now, they are
+> > simple wrappers around READ_ONCE() and WRITE_ONCE(), so generated code
+> > and tool behaviour are unchanged.
+>
+> But there is a plan to handle that with KSCAN, right?
+>
+> If so:
+>
+> Acked-by: Frederic Weisbecker <frederic@kernel.org>
+>
 
-Convert a movable block on any non-movable claim, however few of
-its pages are free, so the block's type matches the allocation it
-serves.
+Hi Frederic,
 
-When other pages in the block are freed later, they end up on the
-non-movable free lists, directing more non-movable allocations to
-the already non-movable page blocks.
+Yes, that's the plan. Thanks for the Ack!
 
-Converting a non-movable pageblock to movable is made stricter:
-a movable claim takes a non-movable block only when every page
-is free or movable.
+Best,
+Kunwu
 
-Blocks straddling a zone edge are never claimed;
-zone_spans_pageblock() tests for a block wholly inside its zone.
-
-Assisted-by: LLM
-Signed-off-by: Rik van Riel <riel@surriel.com>
----
- include/linux/mmzone.h | 13 ++++++++
- mm/page_alloc.c        | 71 ++++++++++++++++++++----------------------
- 2 files changed, 46 insertions(+), 38 deletions(-)
-
-diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
-index 94f9c3ff54160..81ad83ff69073 100644
---- a/include/linux/mmzone.h
-+++ b/include/linux/mmzone.h
-@@ -1227,6 +1227,19 @@ static inline bool zone_spans_pfn(const struct zone *zone, unsigned long pfn)
- 	return zone->zone_start_pfn <= pfn && pfn < zone_end_pfn(zone);
- }
- 
-+/*
-+ * Whether the pageblock holding @pfn lies wholly inside @zone. Zone
-+ * spans are not pageblock-aligned, so the edge pageblocks of a zone
-+ * can straddle into the next zone; those never change type.
-+ */
-+static inline bool zone_spans_pageblock(const struct zone *zone, unsigned long pfn)
-+{
-+	unsigned long start = pageblock_start_pfn(pfn);
-+
-+	return zone->zone_start_pfn <= start &&
-+	       start + pageblock_nr_pages <= zone_end_pfn(zone);
-+}
-+
- static inline bool zone_is_initialized(const struct zone *zone)
- {
- 	return zone->initialized;
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index ae38e25971559..9f1520506ae1d 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -2295,18 +2295,39 @@ find_suitable_fallback(struct free_area *area, unsigned int order,
- }
- 
- /*
-- * This function implements actual block claiming behaviour. If order is large
-- * enough, we can claim the whole pageblock for the requested migratetype. If
-- * not, we check the pageblock for constituent pages; if at least half of the
-- * pages are free or compatible, we can still claim the whole block, so pages
-- * freed in the future will be put on the correct free list.
-+ * Whether to retype a partly used block. A block wholly inside its zone
-+ * takes the allocation's type, so no non-movable page sits in a
-+ * movable-typed block; a straddling block is never retyped.
-  */
-+static bool should_claim_used_block(struct zone *zone, unsigned long start_pfn,
-+				    int start_type, int block_type,
-+				    int free_pages, int movable_pages)
-+{
-+	if (!zone_spans_pageblock(zone, start_pfn))
-+		return false;
-+
-+	if (page_group_by_mobility_disabled)
-+		return true;
-+
-+	/* Convert to movable only if no non-movable pages are present. */
-+	if (is_migrate_movable(start_type))
-+		return free_pages + movable_pages == pageblock_nr_pages;
-+
-+	/* Non-movable pages break compaction; claim as non-movable */
-+	if (is_migrate_movable(block_type))
-+		return true;
-+
-+	/* Unmovable or reclaimable claiming from the other. */
-+	return free_pages >= (1 << (pageblock_order - 1));
-+}
-+
-+/* Convert the block so later frees use the allocation's migratetype. */
- static struct page *
- try_to_claim_block(struct zone *zone, struct page *page,
- 		   int current_order, int order, int start_type,
- 		   int block_type, unsigned int alloc_flags)
- {
--	int free_pages, movable_pages, alike_pages;
-+	int free_pages, movable_pages;
- 	unsigned long start_pfn;
- 
- 	/* Take ownership for orders >= pageblock_order */
-@@ -2333,39 +2354,13 @@ try_to_claim_block(struct zone *zone, struct page *page,
- 				       &movable_pages))
- 		return NULL;
- 
--	/*
--	 * Determine how many pages are compatible with our allocation.
--	 * For movable allocation, it's the number of movable pages which
--	 * we just obtained. For other types it's a bit more tricky.
--	 */
--	if (start_type == MIGRATE_MOVABLE) {
--		alike_pages = movable_pages;
--	} else {
--		/*
--		 * If we are falling back a RECLAIMABLE or UNMOVABLE allocation
--		 * to MOVABLE pageblock, consider all non-movable pages as
--		 * compatible. If it's UNMOVABLE falling back to RECLAIMABLE or
--		 * vice versa, be conservative since we can't distinguish the
--		 * exact migratetype of non-movable pages.
--		 */
--		if (block_type == MIGRATE_MOVABLE)
--			alike_pages = pageblock_nr_pages
--						- (free_pages + movable_pages);
--		else
--			alike_pages = 0;
--	}
--	/*
--	 * If a sufficient number of pages in the block are either free or of
--	 * compatible migratability as our allocation, claim the whole block.
--	 */
--	if (free_pages + alike_pages >= (1 << (pageblock_order-1)) ||
--			page_group_by_mobility_disabled) {
--		__move_freepages_block(zone, start_pfn, block_type, start_type);
--		set_pageblock_migratetype(pfn_to_page(start_pfn), start_type);
--		return __rmqueue_smallest(zone, order, start_type);
--	}
-+	if (!should_claim_used_block(zone, start_pfn, start_type, block_type,
-+				     free_pages, movable_pages))
-+		return NULL;
- 
--	return NULL;
-+	__move_freepages_block(zone, start_pfn, block_type, start_type);
-+	set_pageblock_migratetype(pfn_to_page(start_pfn), start_type);
-+	return __rmqueue_smallest(zone, order, start_type);
- }
- 
- /*
--- 
-2.53.0-Meta
-
+> Thanks.
+>
+>
+> >
+> > Suggested-by: Thomas Gleixner <tglx@kernel.org>
+> > Suggested-by: Paul E. McKenney <paulmck@kernel.org>
+> > Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+> > ---
+> >  include/asm-generic/rwonce.h | 11 +++++++++++
+> >  1 file changed, 11 insertions(+)
+> >
+> > diff --git a/include/asm-generic/rwonce.h b/include/asm-generic/rwonce.=
+h
+> > index 52b969c7cef9..4d4e009a4489 100644
+> > --- a/include/asm-generic/rwonce.h
+> > +++ b/include/asm-generic/rwonce.h
+> > @@ -61,6 +61,17 @@ do {                                                =
+                       \
+> >       __WRITE_ONCE(x, val);                                           \
+> >  } while (0)
+> >
+> > +/*
+> > + * {READ,WRITE}_ONCE_THIS_CPU() identify accesses to a per-CPU variabl=
+e
+> > + * which are intended to race only with accesses from other execution
+> > + * contexts on the same CPU, e.g. task and interrupt context.
+> > + *
+> > + * For now, these are simple wrappers around READ_ONCE() and
+> > + * WRITE_ONCE().
+> > + */
+> > +#define READ_ONCE_THIS_CPU(x)                READ_ONCE(x)
+> > +#define WRITE_ONCE_THIS_CPU(x, val)  WRITE_ONCE(x, val)
+> > +
+> >  static __no_sanitize_or_inline
+> >  unsigned long __read_once_word_nocheck(const void *addr)
+> >  {
+> > --
+> > 2.43.0
+> >
+>
+> --
+> Frederic Weisbecker
+> SUSE Labs
