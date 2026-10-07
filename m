@@ -1,64 +1,64 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F1F035C6AE
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 01:32:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FFA335C6B4
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 01:32:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791336749; cv=none; b=CmBr2iB+gAzu8SQJ9R88UhFcog9qXtdt2tpMfAjFcsuR/8on/+JpPa7uA5PWGw7lCSpHCVZB93zLR0Z3wH7NwNRXbQ1rWxKiHm6ooolknFTLEoz9yPyBsfhdli9Pm7P4yvQGgr9BA6HGp6I7lgpgWcaDRlsA230dzejki0yz76I=
+	t=1791336746; cv=none; b=Plnw8bDGcR1NeA46yEVpKfifL1YpL46IasmUbdnoaJUVJgbNn5M3aAnKIyhcjN8GycVEClUXtw7ZNRs4a65UWutqePtWOgbgW2ZErUtTqo5c5ABQn/PK/Yf+9IX8vCOZQvIeLb18wjgekhcoPZTQO8wfD7ZX3oT2Bv5DEX/fPAM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791336749; c=relaxed/simple;
-	bh=Pm6Rb7wT+j3sduRH8AC/hPaPOXEeHtixW7LlbFfv5Wo=;
+	s=arc-20240116; t=1791336746; c=relaxed/simple;
+	bh=QPXU2/SLnQ7AORSgIx0ttp54lxWXmErk0iSxoqmcFWk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CDtMRdAztEtFDePzzg9IcgbtP4Yo2pApcnVD8f3R0MU9ag2aa7njqDIYXHs0zsDvH6AYV4q9awUPnswvKh1Lvq6xX0AJ+819KtbD7lCRcVDn1VU+nmquQeS0UYViuykhrPzpGXH4gFHd+oW+AC9asmGAgLVf8EQnU1tm/nTRP04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VvX3Dnx0; arc=none smtp.client-ip=209.85.128.52
+	 MIME-Version; b=uz9ACA8oMW9Ew5v89BH8dwaai8EktpxdWjw7UL0q4SLaQRB1che78EocmQ7alMqhA9cUXcvWkwKTHSSLJrs3k+wet4m/NPktjEBDSqCR6wztaxXZhpcH/znosNZMLN94TI8khJqlkCNUvu7+hBpjaSpeFMpr6ofuBsc9sInfn2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qqrtk/eM; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VvX3Dnx0"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a16af2a232so10366585e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 18:32:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qqrtk/eM"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a1698ea378so10338105e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 18:32:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791336745; x=1791941545; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791336742; x=1791941542; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fZk+12RxIUpX87ik4Sju0ydtLd9LDkS9K++2ovit7qo=;
-        b=VvX3Dnx0qoDL8lSf7nEbY3mWcro6KK91o33rMqefIYfGDOMQyZbwwHy6oyBkpFUP9F
-         tLe0SAzOqmpS9DtfJRAZX5OgjtMW6rbQQ6osFMrunIW/4NowZ2JNiZ2jAhFZWsJ0Rs05
-         0CpZhhyREuzpYQ19abt1Db3hicTjHt9z/GZNpjSGeUi0kcJdISN5trFGERatm2ui/5BQ
-         ceRWyQXYeD4ixnLXQ2F+ECqUQbE9oTKn6EbtyGAgKzycRRxQTCzUWozDaTTQJoGjsR3q
-         gXVnH0X5LdEqo0IQROLXyrwYEA3YHI4QYmnJpx37+8c+pjVrENQykHXIXHaZsj0zBg1z
-         g98w==
+        bh=aoanzUq8HIZ5IYwt+xH4d2szWfJuaAfjXc9CmDQwbK8=;
+        b=Qqrtk/eMTrNC0E+p3/7Cac71LJmmveDCOKgbY5WTvF4p46uJ4orCVFtNVnBtynQZ6+
+         F0wJo+ixttEt2nDTmB1J8PTkARtlSPpxybF8wjl1JGRHfnfzL6Nmr76OyShAr9gUMCDi
+         dNIWprAHylVQrdPnEztNdKUWHbsL0q+xVbDp/pi6xWIcOuBuF/fPX/rbf0S4iDjhuEoh
+         NrIlNPokcdpX9O+3DZeSQnNvVXtB5o8h+W6fEEPPz0pgnkzDO3xEQyItoUqEfa7eNwdp
+         XOa6/xGZW1x4VLYD5wu+S5xzC7Kcx1C0mU+Ry0Z6r9FWTOL3p3JXYkA9DpPUHucMtwcs
+         Lc+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791336745; x=1791941545;
+        d=1e100.net; s=20260707; t=1791336742; x=1791941542;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fZk+12RxIUpX87ik4Sju0ydtLd9LDkS9K++2ovit7qo=;
-        b=xFTZ5GB5QVR12Y66bOYA8y5GnUu1u14W1gcD/3xSL3S2ILGQMuY7x+dXfaFgpBhZt5
-         cpcxdRySNypieoxBCkI6fcF1IWeqUONvZVxUYV9hAX0rbqeqnTE8dSfaiOZOSjuw9F4E
-         Ni6w5onb+Gqn+0FjXeKpP9DNdUW5XQtT0YdkWl56VP+5wTwIrBi3snpshUbDl6qBXae+
-         znOFcFi7kMyMdfWNIxJ6fvEWXARIy+yxFduJL4ATYuf/+UoYExYA8vBUnma6w/CQlYC6
-         K7hTfJM7BpcbaRzubn0Ur/B95bEdJDp8s+E3xBSK5ADAXnjLd7P09tYft1GDgIPLf22w
-         GVYw==
-X-Forwarded-Encrypted: i=1; AKwUvBx6R4wUOnqsx4cF67SzzEwnzYTEhoO54iYFv/8vRCSX/hPaTEQNbPsfM94sSZfIsN/f9RxA08oPqQT+4KE=@vger.kernel.org
-X-Gm-Message-State: AFuF++l48YEB5wAD4QapLy2UwkCUC3oj3AkBJW+YPYOO8ILVtSWnIGA6
-	r2TkaEbJIxaaORtE2l/s93QLorzxLdbXfLT5CDw0jMfNMlzoF5B8YHD1
-X-Gm-Gg: AYBFou2eXsmYbBc5Naz8jonO7Qn/E4soDKeb2UkRzP9dRcuJHDSKzQY27ZR0ofGOlIU
-	0idGCO0c7/7MxoHTg4lPzLwdi4AHdcsxXebZtT6QEJS7vA+0aM7CXAiMLeZSDugRebmJevLGSRA
-	JP2sbRgy5d0G16BhP4u9DsNi5o/TIXZTrD6xjC5yuYv7AKfpMVMzSRcHdXWcUvMJs3PLbicD0fF
-	hnmm52DZutwMFZQcPnKXWXrcFzMUlnm8S2oSRPc6zMnWujzPKRW4aAyaKtISeoKDnEBeS9XWYr0
-	61KjU0q1JBnvLXDD+ZiOELYUzphStY/9XiBKVRqfyw37B+Np53RxVWDkexGbCrXiGDP1q9290Yd
-	5t42LyYdathtJktCVOm5wk5G1Wf414oLp4xSXbXvdn62W9xhvWq3DxP6R+k/aQzQefUa0DjKY8b
-	f0oGyrksPxjIzQR7iKiftBa4CYoxyJLb9+Xhg08rOWtuV+CrUDhtRirRhfEsOGoKfMnTYavmI9W
-	4x0XjzCGur43D/AuJIwkJlGruHM8QwCIl+ywvAtR/waxJeBnB5TYHwzYKI2JMcNo8Fo7Tb00YV+
-X-Received: by 2002:a05:600c:3b8d:b0:49f:fbad:29c1 with SMTP id 5b1f17b1804b1-4a1806611acmr8359665e9.33.1791336745490;
-        Tue, 06 Oct 2026 18:32:25 -0700 (PDT)
+        bh=aoanzUq8HIZ5IYwt+xH4d2szWfJuaAfjXc9CmDQwbK8=;
+        b=VBk+bx7PnyWr9V9neXnOygFCiTjtKohh2kQl+u60A2pREzQaigjheL/UMTb2rqONT7
+         Ivv6vA4/3Pgxldkg8oiqwl7JT6a6PKDcRofbMsQIpxOyIQ2LiZ72C8EePXuPNG81cI+W
+         tN1m3PfrFK2awLa3JNeCPNoZ0eKXLy31C+SPU015PMvdzgHo0zxMhYNn22vYBpYQhPsN
+         0afPkA+/JaCbVjT8i5TzDhbinWYY3IlKv6nW3/FVJuv1WJkNqJPf3nhX3LjSmK+iKmn4
+         8/4NOB0wKcB2gI2jdxCBfdErLesrVj6JLuVzjlnNoMjTeLzApM0HdyVRRuRTg2N5LZy1
+         OaSg==
+X-Forwarded-Encrypted: i=1; AKwUvByE11b8d4LYR+CEqyhzv6yFTv8Vh+d8l9Cr2DFwcRTMpbin2jcQSQZig8F7VX10J0//cacFg+ialxi+wJw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kCA1blbfVOzA7sFtIQkoMXZdNKb9BckOLN9Ngogk8HpeEnnr2X
+	HaCZ7O3TWqWUbOCL2/r0EUCm7NWECrxGyl/f/1hkl0oSt+wF+Z0MJvF4
+X-Gm-Gg: AYBFou3fRrIkbVV+gjVcGih4v13w+Y5YWDrNB9s/M4xhpKKz2ElVNE6qXGYXzv26Ne7
+	nCkyepKz9gtVqKGXlXKtg2Rm+lFoxRomTPscu/aaPJdSRiWrAyF54sZxtW4uFwuv1zCUWPaBJ5b
+	qWRb12KY/RpcwQA+/1iekNDLx4MlE/n2afi9EdGLkbvkEHR0WwhhlqPUCWeF4c6YsVTxvLMx6rU
+	C7hEj2ibl/L4u6wonAtPWwkAw1DFRHJ5YCRwpXCtVHQeBMaMM6h1iNPccusHAFCV8aSWREgNpmR
+	Fm5H2mquJERjUCpQ4w10QG92jU+GRgsPRrOjRPR3x1vExikl5JVBrliTpQo5eX2Nym4bzGW4OvT
+	y2NdJ3ECfGQewJi8Ffsg4japt/mNX18xn10IPtD63mh9L6OZSsw/97CfblafkuBu/nbeaP9YYYq
+	jdGPoK9kT+gmK3pUn4LSMZzWFiekIboi6rGsuILz3JAHsXb1U4qVhqBBHukwVkRJ5Gjxi5Xhvpv
+	PX99xUjjyBdNJCWUN0nX6fpfGncBFAe6mMqJN8TeRhv0vszzhktjgokYE/Iw2CAvdA6lJLH5Pow
+X-Received: by 2002:a05:600c:a087:b0:49e:6861:50f7 with SMTP id 5b1f17b1804b1-4a1802e94a5mr7710125e9.5.1791336741653;
+        Tue, 06 Oct 2026 18:32:21 -0700 (PDT)
 Received: from 127.mynet ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f6538b7sm21183615e9.13.2026.10.06.18.32.23
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f6538b7sm21183615e9.13.2026.10.06.18.32.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 18:32:23 -0700 (PDT)
+        Tue, 06 Oct 2026 18:32:20 -0700 (PDT)
 From: Pavel Begunkov <asml.silence@gmail.com>
 To: linux-block@vger.kernel.org
 Cc: asml.silence@gmail.com,
@@ -90,9 +90,9 @@ Cc: asml.silence@gmail.com,
 	Mikulas Patocka <mpatocka@redhat.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>,
 	dm-devel@lists.linux.dev
-Subject: [PATCH v8 08/13] nvme sgl fixup
-Date: Wed,  7 Oct 2026 02:31:51 +0100
-Message-ID: <e4caf53b7334af5390d4098cb5883ff551246a5c.1791336002.git.asml.silence@gmail.com>
+Subject: [PATCH v8 06/13] nvme seaparate file
+Date: Wed,  7 Oct 2026 02:31:49 +0100
+Message-ID: <442b27c0019950bec9b4de5b022db6a95633b14d.1791336002.git.asml.silence@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1791336002.git.asml.silence@gmail.com>
 References: <cover.1791336002.git.asml.silence@gmail.com>
@@ -106,41 +106,618 @@ Content-Transfer-Encoding: 8bit
 
 Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
 ---
- drivers/nvme/host/pci.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+ drivers/nvme/host/Makefile     |   1 +
+ drivers/nvme/host/pci-dmabuf.c | 164 ++++++++++++++++++++++
+ drivers/nvme/host/pci-dmabuf.h |  73 ++++++++++
+ drivers/nvme/host/pci.c        | 246 +++------------------------------
+ 4 files changed, 255 insertions(+), 229 deletions(-)
+ create mode 100644 drivers/nvme/host/pci-dmabuf.c
+ create mode 100644 drivers/nvme/host/pci-dmabuf.h
 
+diff --git a/drivers/nvme/host/Makefile b/drivers/nvme/host/Makefile
+index 67563a69f7dc..8288b986d713 100644
+--- a/drivers/nvme/host/Makefile
++++ b/drivers/nvme/host/Makefile
+@@ -21,6 +21,7 @@ nvme-core-$(CONFIG_NVME_HWMON)		+= hwmon.o
+ nvme-core-$(CONFIG_NVME_HOST_AUTH)	+= auth.o
+ 
+ nvme-y					+= pci.o
++nvme-$(CONFIG_DMA_SHARED_BUFFER)	+= pci-dmabuf.o
+ 
+ nvme-fabrics-y				+= fabrics.o
+ 
+diff --git a/drivers/nvme/host/pci-dmabuf.c b/drivers/nvme/host/pci-dmabuf.c
+new file mode 100644
+index 000000000000..d58a38a75d67
+--- /dev/null
++++ b/drivers/nvme/host/pci-dmabuf.c
+@@ -0,0 +1,164 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Copyright (C) 2026 Pavel Begunkov <asml.silence@gmail.com>
++ */
++
++#include <linux/dma-resv.h>
++
++#include "pci-dmabuf.h"
++
++static void nvme_dmabuf_invalidate_mappings(struct dma_buf_attachment *attach)
++{
++	struct dma_buf_io_ctx *ctx = attach->importer_priv;
++
++	dma_buf_io_invalidate_mappings(ctx);
++}
++
++static const struct dma_buf_attach_ops nvme_dmabuf_importer_ops = {
++	.invalidate_mappings	= nvme_dmabuf_invalidate_mappings,
++	.allow_peer2peer	= true,
++};
++
++static struct dma_buf_io_map *nvme_dma_buf_io_map(struct dma_buf_io_ctx *ctx)
++{
++	unsigned nr_entries = ctx->dmabuf->size / NVME_CTRL_PAGE_SIZE;
++	struct nvme_dma_buf_io_ctx *nvme_ctx = ctx->dev_priv;
++	struct dma_buf_attachment *attach = nvme_ctx->attach;
++	unsigned long tmp, i = 0;
++	struct nvme_dmabuf_map *map;
++	struct scatterlist *sg;
++	struct sg_table *sgt;
++	int ret;
++
++	dma_resv_assert_held(ctx->dmabuf->resv);
++
++	if (ctx->dmabuf->size % NVME_CTRL_PAGE_SIZE)
++		return ERR_PTR(-EINVAL);
++
++	map = kvmalloc_flex(*map, dma_list, nr_entries);
++	if (!map)
++		return ERR_PTR(-ENOMEM);
++	map->nr_entries = nr_entries;
++
++	sgt = dma_buf_map_attachment(attach, ctx->dir);
++	if (IS_ERR(sgt)) {
++		ret = PTR_ERR(sgt);
++		sgt = NULL;
++		goto err;
++	}
++
++	for_each_sgtable_dma_sg(sgt, sg, tmp) {
++		dma_addr_t dma_addr = sg_dma_address(sg);
++		unsigned long sg_len = sg_dma_len(sg);
++
++		if ((sg_len % NVME_CTRL_PAGE_SIZE) ||
++		    (dma_addr % NVME_CTRL_PAGE_SIZE)) {
++			ret = -EINVAL;
++			goto err;
++		}
++		while (sg_len) {
++			map->dma_list[i++] = dma_addr;
++			dma_addr += NVME_CTRL_PAGE_SIZE;
++			sg_len -= NVME_CTRL_PAGE_SIZE;
++		}
++	}
++
++	ret = dma_buf_io_init_map(ctx, &map->base, sgt);
++	if (ret)
++		goto err;
++	map->sgt = sgt;
++	return &map->base;
++err:
++	if (sgt)
++		dma_buf_unmap_attachment(attach, sgt, ctx->dir);
++	kvfree(map);
++	return ERR_PTR(ret);
++}
++
++static void nvme_dma_buf_io_unmap(struct dma_buf_io_ctx *ctx,
++		struct dma_buf_io_map *map_base)
++{
++	struct nvme_dma_buf_io_ctx *nvme_ctx = ctx->dev_priv;
++	struct nvme_dmabuf_map *map = to_nvme_dmabuf_map(map_base);
++
++	dma_resv_assert_held(ctx->dmabuf->resv);
++
++	dma_buf_unmap_attachment(nvme_ctx->attach, map->sgt, ctx->dir);
++	kvfree(map);
++}
++
++static void nvme_dma_buf_io_release(struct dma_buf_io_ctx *base_ctx)
++{
++	struct nvme_dma_buf_io_ctx *ctx = base_ctx->dev_priv;
++	struct nvme_dma_buf_list *buf_list = ctx->buf_list;
++
++	mutex_lock(&buf_list->lock);
++	if (!list_empty(&ctx->list)) {
++		dma_buf_detach(ctx->base->dmabuf, ctx->attach);
++		list_del_init(&ctx->list);
++	}
++	mutex_unlock(&buf_list->lock);
++
++	nvme_put_ctrl(ctx->ctrl);
++	kfree(ctx);
++}
++
++void __nvme_pci_remove_dmabuf(struct nvme_dma_buf_list *list)
++{
++	struct nvme_dma_buf_io_ctx *ctx, *tmp;
++
++	mutex_lock(&list->lock);
++	list_for_each_entry_safe(ctx, tmp, &list->ctxs, list) {
++		dma_buf_io_detach(ctx->base);
++		dma_buf_detach(ctx->base->dmabuf, ctx->attach);
++		list_del_init(&ctx->list);
++	}
++	mutex_unlock(&list->lock);
++}
++
++const struct dma_buf_io_ops nvme_dma_buf_io_ops = {
++	.map		= nvme_dma_buf_io_map,
++	.unmap		= nvme_dma_buf_io_unmap,
++	.release	= nvme_dma_buf_io_release,
++};
++
++static int nvme_init_io_ctx_locked(struct nvme_ctrl *ctrl,
++		struct nvme_dma_buf_list *buf_list,
++		struct dma_buf_io_ctx *ctx)
++{
++	struct nvme_dma_buf_io_ctx *nvme_ctx;
++	struct dma_buf_attachment *attach;
++
++	nvme_ctx = kzalloc_obj(*nvme_ctx);
++	if (!nvme_ctx)
++		return -ENOMEM;
++
++	attach = dma_buf_dynamic_attach(ctx->dmabuf, ctrl->dev,
++					&nvme_dmabuf_importer_ops, ctx);
++	if (IS_ERR(attach)) {
++		kfree(nvme_ctx);
++		return PTR_ERR(attach);
++	}
++
++	nvme_get_ctrl(ctrl);
++	list_add(&nvme_ctx->list, &buf_list->ctxs);
++	nvme_ctx->attach = attach;
++	nvme_ctx->base = ctx;
++	nvme_ctx->ctrl = ctrl;
++	nvme_ctx->buf_list = buf_list;
++	ctx->dev_priv = nvme_ctx;
++	ctx->dev_ops = &nvme_dma_buf_io_ops;
++	return 0;
++}
++
++int __nvme_init_dma_buf_io_ctx(struct nvme_ctrl *ctrl,
++		struct nvme_dma_buf_list *buf_list,
++		struct dma_buf_io_ctx *ctx)
++{
++	int ret;
++
++	mutex_lock(&buf_list->lock);
++	ret = nvme_init_io_ctx_locked(ctrl, buf_list, ctx);
++	mutex_unlock(&buf_list->lock);
++	return ret;
++}
+diff --git a/drivers/nvme/host/pci-dmabuf.h b/drivers/nvme/host/pci-dmabuf.h
+new file mode 100644
+index 000000000000..8e91f7f4ece5
+--- /dev/null
++++ b/drivers/nvme/host/pci-dmabuf.h
+@@ -0,0 +1,73 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Copyright (C) 2026 Pavel Begunkov <asml.silence@gmail.com>
++ */
++
++#ifndef _NVME_PCI_DMABUF_H
++#define _NVME_PCI_DMABUF_H
++
++#include <linux/dma-buf-io.h>
++
++#include "nvme.h"
++
++struct nvme_dma_buf_list {
++	struct list_head ctxs;
++	struct mutex lock;
++};
++
++struct nvme_dma_buf_io_ctx {
++	struct dma_buf_attachment *attach;
++	struct nvme_dma_buf_list *buf_list;
++	struct dma_buf_io_ctx *base;
++	struct nvme_ctrl *ctrl;
++	struct list_head list;
++};
++
++struct nvme_dmabuf_map {
++	struct dma_buf_io_map base;
++	struct sg_table *sgt;
++	unsigned nr_entries;
++	dma_addr_t dma_list[] __counted_by(nr_entries);
++};
++
++static inline struct nvme_dmabuf_map *to_nvme_dmabuf_map(
++	struct dma_buf_io_map *map)
++{
++	return container_of(map, struct nvme_dmabuf_map, base);
++}
++
++static inline struct nvme_dmabuf_map *nvme_req_to_map(struct request *req)
++{
++	struct dma_buf_io_map *map = req->bio->bi_dmabuf_map;
++
++	return to_nvme_dmabuf_map(map);
++}
++
++void __nvme_pci_remove_dmabuf(struct nvme_dma_buf_list *list);
++int __nvme_init_dma_buf_io_ctx(struct nvme_ctrl *ctrl,
++		struct nvme_dma_buf_list *buf_list,
++		struct dma_buf_io_ctx *ctx);
++
++static inline void nvme_pci_remove_dmabuf(struct nvme_dma_buf_list *list)
++{
++	if (IS_ENABLED(CONFIG_DMA_SHARED_BUFFER))
++		__nvme_pci_remove_dmabuf(list);
++}
++
++static inline int nvme_init_dma_buf_io_ctx(struct nvme_ctrl *ctrl,
++		struct nvme_dma_buf_list *buf_list,
++		struct dma_buf_io_ctx *ctx)
++{
++	if (!IS_ENABLED(CONFIG_DMA_SHARED_BUFFER))
++		return -EOPNOTSUPP;
++	return __nvme_init_dma_buf_io_ctx(ctrl, buf_list, ctx);
++}
++
++static inline void nvme_init_buf_list(struct nvme_dma_buf_list *buf_list)
++{
++	INIT_LIST_HEAD(&buf_list->ctxs);
++	mutex_init(&buf_list->lock);
++}
++
++
++#endif /* _NVME_PCI_DMABUF_H */
+\ No newline at end of file
 diff --git a/drivers/nvme/host/pci.c b/drivers/nvme/host/pci.c
-index 651f7654d73b..79b3c1092e4d 100644
+index 68e0d4dcade4..a0506c93fa16 100644
 --- a/drivers/nvme/host/pci.c
 +++ b/drivers/nvme/host/pci.c
-@@ -1287,16 +1287,15 @@ static blk_status_t nvme_rq_setup_dmabuf_sgl(struct request *req,
- 		struct nvme_queue *nvmeq, unsigned int entries)
+@@ -27,11 +27,10 @@
+ #include <linux/io-64-nonatomic-lo-hi.h>
+ #include <linux/io-64-nonatomic-hi-lo.h>
+ #include <linux/sed-opal.h>
+-#include <linux/dma-buf-io.h>
+-#include <linux/dma-resv.h>
+ 
+ #include "trace.h"
+ #include "nvme.h"
++#include "pci-dmabuf.h"
+ 
+ #define SQ_SIZE(q)	((q)->q_depth << (q)->sqes)
+ #define CQ_SIZE(q)	((q)->q_depth * sizeof(struct nvme_completion))
+@@ -320,8 +319,7 @@ struct nvme_dev {
+ 	bool hmb;
+ 	struct sg_table *hmb_sgt;
+ 	mempool_t *dmavec_mempool;
+-	struct list_head dmabuf_ctxs;
+-	struct mutex dmabuf_lock;
++	struct nvme_dma_buf_list dmabufs;
+ 
+ 	/* shadow doorbell buffer support: */
+ 	__le32 *dbbuf_dbs;
+@@ -401,13 +399,6 @@ struct nvme_queue {
+ 	struct completion delete_done;
+ };
+ 
+-struct nvme_dmabuf_map {
+-	struct dma_buf_io_map base;
+-	struct sg_table *sgt;
+-	unsigned nr_entries;
+-	dma_addr_t dma_list[] __counted_by(nr_entries);
+-};
+-
+ /* bits for iod->flags */
+ enum nvme_iod_flags {
+ 	/* this command has been aborted by the timeout handler */
+@@ -876,48 +867,12 @@ static void nvme_free_descriptors(struct request *req)
+ 	}
+ }
+ 
+-static inline struct nvme_dmabuf_map *
+-to_nvme_dmabuf_map(struct dma_buf_io_map *map)
+-{
+-	return container_of(map, struct nvme_dmabuf_map, base);
+-}
+-
+-static void nvme_dmabuf_map_sync_for_cpu(struct nvme_dev *nvme_dev,
+-		struct request *req)
+-{
+-	struct bio *bio = req->bio;
+-	struct nvme_dmabuf_map *map = to_nvme_dmabuf_map(bio->bi_dmabuf_map);
+-
+-	dma_sync_sgtable_for_cpu(nvme_dev->dev, map->sgt, rq_dma_dir(req));
+-}
+-
+-static void nvme_dmabuf_map_sync_for_device(struct nvme_dev *nvme_dev,
+-		struct request *req)
+-{
+-	struct bio *bio = req->bio;
+-	struct nvme_dmabuf_map *map = to_nvme_dmabuf_map(bio->bi_dmabuf_map);
+-
+-	dma_sync_sgtable_for_device(nvme_dev->dev, map->sgt, rq_dma_dir(req));
+-}
+-
+-static void nvme_rq_clean_dmabuf_map(struct nvme_dev *dev,
+-		struct request *req)
+-{
+-	struct nvme_iod *iod = blk_mq_rq_to_pdu(req);
+-
+-	nvme_dmabuf_map_sync_for_cpu(dev, req);
+-
+-	if (iod->nr_descriptors)
+-		nvme_free_descriptors(req);
+-}
+-
+ static blk_status_t nvme_rq_setup_dmabuf_map(struct request *req,
+ 		struct nvme_queue *nvmeq)
  {
  	struct nvme_iod *iod = blk_mq_rq_to_pdu(req);
 -	struct bio *bio = req->bio;
 -	struct nvme_dmabuf_map *map = to_nvme_dmabuf_map(bio->bi_dmabuf_map);
+-	unsigned bvec_done = bio->bi_iter.bi_offset;
 +	struct nvme_dmabuf_map *map = nvme_req_to_map(req);
- 	size_t length = blk_rq_payload_bytes(req);
- 	struct nvme_sgl_desc *sg_list = &iod->cmd.common.dptr.sgl;
-+	size_t offset = req->bio->bi_iter.bi_offset;
- 	bool pooled = entries > 1;
- 	dma_addr_t sgl_dma = 0;
- 	unsigned int mapped = 0;
- 	unsigned long tmp;
- 	struct scatterlist *sg;
--	size_t offset = bio->bi_iter.bi_offset;
- 	size_t remaining = length;
- 
- 	if (!entries)
-@@ -1305,8 +1304,6 @@ static blk_status_t nvme_rq_setup_dmabuf_sgl(struct request *req,
- 	iod->cmd.common.flags = NVME_CMD_SGL_METABUF;
- 	iod->total_len = length;
++	unsigned bvec_done = req->bio->bi_iter.bi_offset;
+ 	unsigned map_idx = bvec_done / NVME_CTRL_PAGE_SIZE;
+ 	unsigned offset = bvec_done & (NVME_CTRL_PAGE_SIZE - 1);
+ 	int length = blk_rq_payload_bytes(req) - (NVME_CTRL_PAGE_SIZE - offset);
+@@ -928,8 +883,6 @@ static blk_status_t nvme_rq_setup_dmabuf_map(struct request *req,
+ 	__le64 *prp_list;
+ 	unsigned i;
  
 -	nvme_dmabuf_map_sync_for_device(nvmeq->dev, req);
 -
- 	/* entries == 1 fits in the inline descriptor; more needs a pool. */
- 	if (pooled) {
- 		if (entries <= NVME_SMALL_POOL_SIZE / sizeof(*sg_list))
+ 	if (length <= 0) {
+ 		prp2_dma = 0;
+ 		goto done;
+@@ -1062,10 +1015,8 @@ static void nvme_unmap_data(struct request *req)
+ 	struct device *dma_dev = nvmeq->dev->dev;
+ 	unsigned int attrs = 0;
+ 
+-	if (blk_mq_rq_is_dmabuf(req)) {
+-		nvme_rq_clean_dmabuf_map(nvmeq->dev, req);
+-		return;
+-	}
++	if (blk_mq_rq_is_dmabuf(req))
++		goto out_free_desc;
+ 
+ 	if (iod->flags & IOD_SINGLE_SEGMENT) {
+ 		static_assert(offsetof(union nvme_data_ptr, prp1) ==
+@@ -1091,6 +1042,7 @@ static void nvme_unmap_data(struct request *req)
+ 			nvme_free_prps(req, attrs);
+ 	}
+ 
++out_free_desc:
+ 	if (iod->nr_descriptors)
+ 		nvme_free_descriptors(req);
+ }
+@@ -2411,175 +2363,6 @@ static int nvme_create_queue(struct nvme_queue *nvmeq, int qid, bool polled)
+ 	return result;
+ }
+ 
+-#ifdef CONFIG_DMA_SHARED_BUFFER
+-
+-struct nvme_dma_buf_io_ctx {
+-	struct dma_buf_attachment *attach;
+-	struct dma_buf_io_ctx *ctx;
+-	struct nvme_dev *dev;
+-	struct list_head list;
+-};
+-
+-static void nvme_dmabuf_invalidate_mappings(struct dma_buf_attachment *attach)
+-{
+-	struct dma_buf_io_ctx *ctx = attach->importer_priv;
+-
+-	dma_buf_io_invalidate_mappings(ctx);
+-}
+-
+-static const struct dma_buf_attach_ops nvme_dmabuf_importer_ops = {
+-	.invalidate_mappings	= nvme_dmabuf_invalidate_mappings,
+-	.allow_peer2peer	= true,
+-};
+-
+-static struct dma_buf_io_map *nvme_dma_buf_io_map(struct dma_buf_io_ctx *ctx)
+-{
+-	unsigned nr_entries = ctx->dmabuf->size / NVME_CTRL_PAGE_SIZE;
+-	struct nvme_dma_buf_io_ctx *nvme_ctx = ctx->dev_priv;
+-	struct dma_buf_attachment *attach = nvme_ctx->attach;
+-	unsigned long tmp, i = 0;
+-	struct nvme_dmabuf_map *map;
+-	struct scatterlist *sg;
+-	struct sg_table *sgt;
+-	int ret;
+-
+-	dma_resv_assert_held(ctx->dmabuf->resv);
+-
+-	if (ctx->dmabuf->size % NVME_CTRL_PAGE_SIZE)
+-		return ERR_PTR(-EINVAL);
+-
+-	map = kvmalloc_flex(*map, dma_list, nr_entries);
+-	if (!map)
+-		return ERR_PTR(-ENOMEM);
+-	map->nr_entries = nr_entries;
+-
+-	sgt = dma_buf_map_attachment(attach, ctx->dir);
+-	if (IS_ERR(sgt)) {
+-		ret = PTR_ERR(sgt);
+-		sgt = NULL;
+-		goto err;
+-	}
+-
+-	for_each_sgtable_dma_sg(sgt, sg, tmp) {
+-		dma_addr_t dma_addr = sg_dma_address(sg);
+-		unsigned long sg_len = sg_dma_len(sg);
+-
+-		if ((sg_len % NVME_CTRL_PAGE_SIZE) ||
+-		    (dma_addr % NVME_CTRL_PAGE_SIZE)) {
+-			ret = -EINVAL;
+-			goto err;
+-		}
+-		while (sg_len) {
+-			map->dma_list[i++] = dma_addr;
+-			dma_addr += NVME_CTRL_PAGE_SIZE;
+-			sg_len -= NVME_CTRL_PAGE_SIZE;
+-		}
+-	}
+-
+-	ret = dma_buf_io_init_map(ctx, &map->base, sgt);
+-	if (ret)
+-		goto err;
+-	map->sgt = sgt;
+-	return &map->base;
+-err:
+-	if (sgt)
+-		dma_buf_unmap_attachment(attach, sgt, ctx->dir);
+-	kvfree(map);
+-	return ERR_PTR(ret);
+-}
+-
+-static void nvme_dma_buf_io_unmap(struct dma_buf_io_ctx *ctx,
+-		struct dma_buf_io_map *map_base)
+-{
+-	struct nvme_dma_buf_io_ctx *nvme_ctx = ctx->dev_priv;
+-	struct nvme_dmabuf_map *map = to_nvme_dmabuf_map(map_base);
+-
+-	dma_resv_assert_held(ctx->dmabuf->resv);
+-
+-	dma_buf_unmap_attachment(nvme_ctx->attach, map->sgt, ctx->dir);
+-	kvfree(map);
+-}
+-
+-static void nvme_dma_buf_io_release(struct dma_buf_io_ctx *ctx)
+-{
+-	struct nvme_dma_buf_io_ctx *nvme_ctx = ctx->dev_priv;
+-	struct nvme_dev *dev = nvme_ctx->dev;
+-
+-	mutex_lock(&dev->dmabuf_lock);
+-	if (!list_empty(&nvme_ctx->list)) {
+-		dma_buf_detach(ctx->dmabuf, nvme_ctx->attach);
+-		list_del_init(&nvme_ctx->list);
+-	}
+-	mutex_unlock(&dev->dmabuf_lock);
+-
+-	nvme_put_ctrl(&dev->ctrl);
+-	kfree(nvme_ctx);
+-}
+-
+-const struct dma_buf_io_ops nvme_dma_buf_io_ops = {
+-	.map		= nvme_dma_buf_io_map,
+-	.unmap		= nvme_dma_buf_io_unmap,
+-	.release	= nvme_dma_buf_io_release,
+-};
+-
+-static int __nvme_pci_init_dma_buf_io_ctx(struct nvme_ctrl *ctrl,
+-		struct dma_buf_io_ctx *ctx)
+-{
+-	struct nvme_dev *dev = to_nvme_dev(ctrl);
+-	struct nvme_dma_buf_io_ctx *nvme_ctx;
+-	struct dma_buf_attachment *attach;
+-
+-	nvme_ctx = kzalloc_obj(*nvme_ctx);
+-	if (!nvme_ctx)
+-		return -ENOMEM;
+-
+-	attach = dma_buf_dynamic_attach(ctx->dmabuf, dev->dev,
+-					&nvme_dmabuf_importer_ops, ctx);
+-	if (IS_ERR(attach)) {
+-		kfree(nvme_ctx);
+-		return PTR_ERR(attach);
+-	}
+-
+-	nvme_get_ctrl(ctrl);
+-	list_add(&nvme_ctx->list, &dev->dmabuf_ctxs);
+-	nvme_ctx->attach = attach;
+-	nvme_ctx->ctx = ctx;
+-	nvme_ctx->dev = dev;
+-	ctx->dev_priv = nvme_ctx;
+-	ctx->dev_ops = &nvme_dma_buf_io_ops;
+-	return 0;
+-}
+-
+-static int nvme_pci_init_dma_buf_io_ctx(struct nvme_ctrl *ctrl,
+-		struct dma_buf_io_ctx *ctx)
+-{
+-	struct nvme_dev *dev = to_nvme_dev(ctrl);
+-	int ret;
+-
+-	mutex_lock(&dev->dmabuf_lock);
+-	ret = __nvme_pci_init_dma_buf_io_ctx(ctrl, ctx);
+-	mutex_unlock(&dev->dmabuf_lock);
+-	return ret;
+-}
+-
+-static void nvme_pci_remove_dmabuf(struct nvme_dev *dev)
+-{
+-	struct nvme_dma_buf_io_ctx *ctx, *tmp;
+-
+-	mutex_lock(&dev->dmabuf_lock);
+-	list_for_each_entry_safe(ctx, tmp, &dev->dmabuf_ctxs, list) {
+-		dma_buf_io_detach(ctx->ctx);
+-		dma_buf_detach(ctx->ctx->dmabuf, ctx->attach);
+-		list_del_init(&ctx->list);
+-	}
+-	mutex_unlock(&dev->dmabuf_lock);
+-}
+-#else
+-static void nvme_pci_remove_dmabuf(struct nvme_dev *dev)
+-{
+-}
+-#endif
+-
+ static const struct blk_mq_ops nvme_mq_admin_ops = {
+ 	.queue_rq	= nvme_queue_rq,
+ 	.complete	= nvme_pci_complete_rq,
+@@ -3655,7 +3438,7 @@ static void nvme_dev_disable(struct nvme_dev *dev, bool shutdown)
+ 	mutex_unlock(&dev->shutdown_lock);
+ 
+ 	if (shutdown)
+-		nvme_pci_remove_dmabuf(dev);
++		nvme_pci_remove_dmabuf(&dev->dmabufs);
+ }
+ 
+ static int nvme_disable_prepare_reset(struct nvme_dev *dev, bool shutdown)
+@@ -3863,6 +3646,14 @@ static unsigned long nvme_pci_get_virt_boundary(struct nvme_ctrl *ctrl,
+ 	return 0;
+ }
+ 
++static int nvme_pci_init_dma_buf_io_ctx(struct nvme_ctrl *ctrl,
++		struct dma_buf_io_ctx *ctx)
++{
++	struct nvme_dev *dev = to_nvme_dev(ctrl);
++
++	return nvme_init_dma_buf_io_ctx(ctrl, &dev->dmabufs, ctx);
++}
++
+ static const struct nvme_ctrl_ops nvme_pci_ctrl_ops = {
+ 	.name			= "pcie",
+ 	.module			= THIS_MODULE,
+@@ -3878,9 +3669,7 @@ static const struct nvme_ctrl_ops nvme_pci_ctrl_ops = {
+ 	.print_device_info	= nvme_pci_print_device_info,
+ 	.supports_pci_p2pdma	= nvme_pci_supports_pci_p2pdma,
+ 	.get_virt_boundary	= nvme_pci_get_virt_boundary,
+-#ifdef CONFIG_DMA_SHARED_BUFFER
+ 	.init_dma_buf_io_ctx	= nvme_pci_init_dma_buf_io_ctx,
+-#endif
+ };
+ 
+ static int nvme_dev_map(struct nvme_dev *dev)
+@@ -4003,8 +3792,7 @@ static struct nvme_dev *nvme_pci_alloc_dev(struct pci_dev *pdev,
+ 		return ERR_PTR(-ENOMEM);
+ 	INIT_WORK(&dev->ctrl.reset_work, nvme_reset_work);
+ 	mutex_init(&dev->shutdown_lock);
+-	INIT_LIST_HEAD(&dev->dmabuf_ctxs);
+-	mutex_init(&dev->dmabuf_lock);
++	nvme_init_buf_list(&dev->dmabufs);
+ 
+ 	dev->nr_write_queues = write_queues;
+ 	dev->nr_poll_queues = poll_queues;
 -- 
 2.54.0
 
