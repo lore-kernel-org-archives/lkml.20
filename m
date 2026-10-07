@@ -1,85 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 144D23659FB;
-	Wed,  7 Oct 2026 20:31:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9807020D4FC;
+	Wed,  7 Oct 2026 20:32:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791405098; cv=none; b=PlpA0imqaPSmh9orzn9wA7jz8O1EeFRvqKz30LBeoIqXH2G5O7+v+cQJwujNnTRtJ4ioxHKZSYog2ozxTIXZ/OxKEV1HAGHD05iE8SPOhl0ZKvaZCLmsD3QJXGls5MA6U0t5M6NKoFSvSCImzEMQvQKxFTQMvB/3IeL0Uf692Ec=
+	t=1791405139; cv=none; b=uJMRnrJPSqTRSSFLLETVrfuyUIS6oEBDpr2ARilwJzDNOlyySgaJJvy5N1jh63rEMz23GrSTvQrCy3/irTUH4gvR5BC4ExWe+SjNDz5JuIDimiQbak4BjQKkHyNqIqFbq6Ch0YWD+ibW+L1PNleIqTQb/Mq9tvmeNlnH+WNBRPY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791405098; c=relaxed/simple;
-	bh=HTFw+9IG+V7FoK8E2jpa6clxuJyqvReEoNTSCovpnH8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Wg9xmUOD5atJUBkGXjLVDARX3OngSdKxqQpk3LE7sYUZ/8Fr7tgASWI5IYwbCSn35JuXOUqga+UYZOgpN6oTBqIM0VDLyvntEnjd4hh28/EVHkBh+dulrAcKpTiTa+OsX+IQO2SwbhuGzdQeftXpIhlPc5XSiIAIi+NjZV36Pxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h3eQmIAX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791405139; c=relaxed/simple;
+	bh=wYnZNF7HpQql6W9cKu0C3hSW7fhGRS4I+KL0/DhDHZc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bTS0i11KhY3yg65CXvZlrUb5JrmIBDMJEuEufFvXiHH28dmkMpaihHupXV+oEw9ECUSeFkLtwVzTDQNb2MoX541UKLs7l8GwLzkcAJkK7mZo2mjZ3U/e4x4vophkOBoZ5/Cn3+fmizIdPBgYMBSux+0TvFIvd7EGAVHTMlf4CXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JKNO7A2M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h3eQmIAX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08F231F000FF;
-	Wed,  7 Oct 2026 20:31:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JKNO7A2M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09DF41F000FF;
+	Wed,  7 Oct 2026 20:32:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791405096;
-	bh=qojxThXJYnvOU2hZpJJBuTXsweww2zb+UtRFzWYglJ0=;
-	h=From:To:Cc:Subject:Date;
-	b=h3eQmIAXESzouTrZ81ueiSiZoMKSoIMHjDQzIJO/vqVIpgYIbcpe1eSDrBDA92qXj
-	 kMPQ0vLQdyD71ulktOs4bqkfnWeOeLljS6dyBBB4h7uplnqla6s6i5byQklTG0lZ8H
-	 j4gUsxCWfL/pPspNRZaXQpqkHBeivxQ+eoaXHpJQ7rg8219o6SXYyZq5D0+FrAnTfQ
-	 JOs6WBKma12CmmVUdpbCRdBRRh+IC3/aOevvl/v0pGH80d+yZJ6SkekS4Z2DrqNJlB
-	 hI2H4+Qf02TuuJvNFgDy2ZtTGGf4ojlAK/EX2FWNv9fXZmysjy1fnF+J/yx7VJTYn+
-	 4brNQIN9zHaJw==
-From: Thorsten Blum <blum@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Alice Ryhl <aliceryhl@google.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Gary Guo <gary@garyguo.net>,
-	Timur Tabi <ttabi@nvidia.com>,
-	Tim Kovalenko <tim.kovalenko@proton.me>
-Cc: Thorsten Blum <blum@kernel.org>,
-	Eliot Courtney <ecourtney@nvidia.com>,
-	nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3] gpu: nova-core: firmware: fwsec: use KVVec::zeroed() to zero-pad buffer
-Date: Wed,  7 Oct 2026 22:30:29 +0200
-Message-ID: <20261007203035.162075-4-blum@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	s=k20260515; t=1791405138;
+	bh=33a7FuM1XA/yleJJfc/HZhNZxuDla2AYpsl5P+iHXX4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JKNO7A2MR765pe+grZ2PwDrYvBxrTJNTe5/eXVMrPtt9NBTr1PswA3JFdtZsj2D9+
+	 AcrQ0Mo4Rb+lTAyg5vIZWYa1j0spxHRdQn2DWKOWiBbduBrWCc5nEOOX7JIPB65oRZ
+	 DzZXq4MJT6nce19y0xnahJMvuXmqxgMCK6rxTH1Uds53hwHTC3Qr4LrBXNDCc/qjM+
+	 KBz1q03dLWGKSC2c1y+YiQ5vZWLCob48IFz+61808vcMjA5QcdZp1AmqaYqHHDBsWm
+	 QLRhGcOsB9iSoH8TxRkod83e4Q0g8ZSnSqGyaykAlICm4MNk3UoKoRm03AR/C5Q22N
+	 dnbolY3aXt9Tw==
+Date: Wed, 7 Oct 2026 15:32:17 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Ryan Chen <ryan_chen@aspeedtech.com>
+Cc: Andrew Jeffery <andrew@codeconstruct.com.au>,
+	linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@suse.de>,
+	Joel Stanley <joel@jms.id.au>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Stefan Schaeckeler <sschaeck@cisco.com>,
+	Conor Dooley <conor+dt@kernel.org>, linux-edac@vger.kernel.org,
+	Borislav Petkov <bp@alien8.de>
+Subject: Re: [PATCH v5 9/9] MAINTAINERS: Step down as Aspeed AST2500 EDAC
+ driver maintainer
+Message-ID: <179140513668.197997.15808651432801165459.robh@kernel.org>
+References: <20261007-edac-v5-0-5c31fc5df4cf@aspeedtech.com>
+ <20261007-edac-v5-9-5c31fc5df4cf@aspeedtech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1230; i=blum@kernel.org; h=from:subject; bh=HTFw+9IG+V7FoK8E2jpa6clxuJyqvReEoNTSCovpnH8=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFnHVr82eLyhq+NKfjpjQ4XEpPSvXXub07Qufdz45/qUh rd3ru/n6ShlYRDjYpAVU2R5MOvHDN/SmspNJhE7YeawMoEMYeDiFICJGNgyMuwofMh3a57NnUVX XU60XOovOK5ilXuwVnW2/OXLxyRncIUw/Ga7P82ENYI1qOYai2UDS3LWzvUsN/hs1+nM++56M+n IIk4A
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261007-edac-v5-9-5c31fc5df4cf@aspeedtech.com>
 
-Use KVVec::zeroed() to initialize the firmware object's leading zero
-padding.
 
-Signed-off-by: Thorsten Blum <blum@kernel.org>
----
-Changes in v3:
-- Drop the hunk that could panic for now (Alexandre)
-- v2: https://lore.kernel.org/r/20261007080708.124563-2-blum@kernel.org/
+On Wed, 07 Oct 2026 14:13:26 +0800, Ryan Chen wrote:
+> From: Stefan M Schaeckeler <sschaeck@cisco.com>
+> 
+> I am stepping down as a maintainer for drivers/edac/aspeed_edac.c and
+> Documentation/devicetree/bindings/edac/aspeed,ast2400-sdram-edac.yaml
+> 
+> Move my entry from the MAINTAINERS file to CREDITS to reflect my past
+> contributions.
+> 
+> [ ryan: keep the EDAC-AST2500 entry and list myself as its reviewer
+>   rather than removing it, and take over the binding's maintainers
+>   field ]
+> 
+> Signed-off-by: Stefan M Schaeckeler <sschaeck@cisco.com>
+> Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
+> Link: https://lore.kernel.org/r/20260920225846.4039017-1-sschaeck@cisco.com
+> 
+> ---
+> Changes in v5:
+> - Also hand over the maintainers field inside the binding, which
+>   get_maintainer.pl reads directly for .yaml files.
+> 
+> Changes in v4:
+> - Merge Stefan's step-down patch into this one, keeping the MAINTAINERS
+>   entry alive with a reviewer instead of removing it.
+> 
+> Changes in v3:
+> - New patch.
+> ---
+>  CREDITS                                                           | 8 ++++++++
+>  .../devicetree/bindings/edac/aspeed,ast2400-sdram-edac.yaml       | 2 +-
+>  MAINTAINERS                                                       | 2 +-
+>  3 files changed, 10 insertions(+), 2 deletions(-)
+> 
 
-Changes in v2:
-- Add a // PANIC comment to copy_from_slice() (Danilo)
-- v1: https://lore.kernel.org/r/20261006100442.80432-3-blum@kernel.org/
----
- drivers/gpu/nova-core/firmware/fwsec/bootloader.rs | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
-diff --git a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
-index ec4d92317a93..c487dd9eba82 100644
---- a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
-+++ b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
-@@ -162,8 +162,7 @@ pub(crate) fn new(
-                     .ok_or(EOVERFLOW)?
-             };
- 
--            let mut firmware_obj = KVVec::new();
--            firmware_obj.extend_with(align_padding, 0u8, GFP_KERNEL)?;
-+            let mut firmware_obj = KVVec::zeroed(align_padding, GFP_KERNEL)?;
-             firmware_obj.extend_from_slice(firmware.ucode.0.as_slice(), GFP_KERNEL)?;
- 
-             (
