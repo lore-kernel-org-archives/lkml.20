@@ -1,49 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4068340FD9B;
-	Wed,  7 Oct 2026 21:10:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B78E38C2D0;
+	Wed,  7 Oct 2026 21:10:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791407422; cv=none; b=AtpGKgl8Jy6UQEQxMwrMkxm6dWe/N/shMf04RBK7qhoMy2vQ0aJ+nzt5ySyTjZ72LVsCSH8oDBEWDXcZ/LrObGelUX3cERXgdhzDHgPseeNih1TK621+ZH/7u+1iSZxr9QEXThwIbaczYTjpr8G+7Hc1XUcdKWJtUuVF5RneqY0=
+	t=1791407451; cv=none; b=XW2iXRQ213p8QkBuUc/YNLaTIvYj362MdtzOkCJyeTjYjmEGMYxy7tdwpriVPbn7eCq/9S7t+n5KQzKn0d+6s0RiVzuiRycBLOlzh6Ji0wkX60ywU0QNFzfNB3Wna7oHxYdveUnOAU3yuOlYXOnjw2t077QOE5rNj1vxjP0eYgY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791407422; c=relaxed/simple;
-	bh=e9i0NTcmlKksrbmxFuA6i7WH8BRzHCAEn/L8VdBVfTE=;
+	s=arc-20240116; t=1791407451; c=relaxed/simple;
+	bh=jwSwL2oTzzJ9nyqq1HM+u+utHDf3Dbfk7eO0fuCQel4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hu30U/VwZP3o+RCQ2yQDiXMYKz5DdBmiMEn9Z+xPK3nnW+c2MoKQl0sEvSntEkvs5rE617rL5UR/r/zqcVT6MVujCzbR+5e5LcQtWl9iCq0Th9P8kdhJez8vNYIJ6HmuJbAPhPw7rZ+boxFJ1Er5DBsewzxgyFVljE+gp8jxdww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KdNimEPg; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=sGZCkNth7upi4DN7CKMnodVmck5Ap5zGWc98f1kMdYR63WSlO+Pn1h7hdiZPacY1tlqRoTaKzJkBOC5aDlR/1dI9lkDaFeT24ZBzNABlHOBCoQx3N5bShqfw2lG1CJUNdW4NPQW4GOneZ8IzLDQh3NVh2x8WqdsbtfrzIbMBPzo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nIGnnhcg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KdNimEPg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8BDD1F000FF;
-	Wed,  7 Oct 2026 21:10:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nIGnnhcg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B43C01F000FF;
+	Wed,  7 Oct 2026 21:10:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791407420;
-	bh=iSm9xSqenH37k1lT5vORJ8VJKqeZg11LvMr+P5G9deY=;
+	s=k20260515; t=1791407449;
+	bh=e7phJjNVzeAigB8nPhuPrUHGDGGZ/A6o47VusH6GCxg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KdNimEPg2UYzxBlR154BKyZKOxeWdamuJA4q1eWKkxpB8aq6+9RUr161OV2PpYmnk
-	 7TjNIo6lRFDwF6WTXuw/MjgpTT5HLhT1RijRh7x6WAi6tXr4QQ3QZBTS6/PfLe/cBd
-	 Jl5/9GnEPjCQoY/S/Eu50IiaDUuIl/WNxZygcCmlLZlUeSbweJjZEz2JE2rwGLF6Xm
-	 EUugdv4zH0NacwJDlkABOODkI6iGW0TsWVpgHu0eQLPxTaoPIPq1f1he95iIQt3J9V
-	 a+CsrWhzG0LfQcoPwZgUJAXbSr/QM+Dqx6xS9MEHiDKebrPmakij1AmS0Oln1qdA9c
-	 7xJfLglME0EYw==
-Date: Wed, 7 Oct 2026 16:10:20 -0500
+	b=nIGnnhcgfWk6l3ezrg+pV3z7Sxf2bOx04lGrkdU8SrK9umjecnu2/5XQW+rfY5USV
+	 mP4EeebGLszERqhOzEqIJaejALhsMCpSq2LEgKTSFi915+khLZgRxl66bqur31CKKa
+	 UjGFg9WlwEkK5+rdbCQzbTLdbQxYxlRCwtVEj+uM4ewjDgEJ1ZwfV0JQ4eSQ7c66rE
+	 df/AmabuUwurIgfmSbkv2Vo98tSvcLOePQwiP0bURTYDhO5qiBF+0ZIiDfySU82AG/
+	 ULYh3G1JgL+IyDUiSuy2T+bmWeNZqOeLgPorku3lMkeiou1cB9bixI7TU9eD687HtX
+	 2mpl+a19DBJZA==
+Date: Wed, 7 Oct 2026 16:10:49 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Laxman Dewangan <ldewangan@nvidia.com>,
-	Thierry Reding <treding@nvidia.com>, linux-tegra@vger.kernel.org,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, mfd@lists.linux.dev,
-	linux-sound@vger.kernel.org,
-	Thierry Reding <thierry.reding@gmail.com>,
-	Jonathan Hunter <jonathanh@nvidia.com>, Lee Jones <lee@kernel.org>
-Subject: Re: [PATCH v3 2/3] dt-bindings: ASoC: nvidia,tegra30-ahub: Convert
- to json-schema
-Message-ID: <179140741967.308851.2213726438085073892.robh@kernel.org>
-References: <20261002-as3722-bindings-v3-0-21c179b72a95@nvidia.com>
- <20261002-as3722-bindings-v3-2-21c179b72a95@nvidia.com>
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: krzk+dt@kernel.org, devicetree@vger.kernel.org,
+	taniya.das@oss.qualcomm.com, abel.vesa@oss.qualcomm.com,
+	linux-arm-msm@vger.kernel.org, jbrunet+clk@baylibre.com,
+	andersson@kernel.org, sboyd@kernel.org, conor+dt@kernel.org,
+	linux-clk@vger.kernel.org, abelvesa@kernel.org,
+	linux-kernel@vger.kernel.org, bmasney+clk@redhat.com,
+	konrad.dybcio@oss.qualcomm.com
+Subject: Re: [PATCH v3 1/4] dt-bindings: clock: Add LPASS AUDIOCC reset
+ controller for Glymur
+Message-ID: <179140744871.312501.9929878495818837119.robh@kernel.org>
+References: <20261002194436.1275056-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20261002194436.1275056-2-srinivas.kandagatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,46 +49,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261002-as3722-bindings-v3-2-21c179b72a95@nvidia.com>
+In-Reply-To: <20261002194436.1275056-2-srinivas.kandagatla@oss.qualcomm.com>
 
 
-On Fri, 02 Oct 2026 09:38:59 +0200, Thierry Reding wrote:
-> From: Thierry Reding <treding@nvidia.com>
+On Fri, 02 Oct 2026 20:44:32 +0100, Srinivas Kandagatla wrote:
+> The LPASS (Low Power Audio Subsystem) Audio clock controller on Glymur
+> provides reset support for the SoundWire RX and WSA1..4 masters when
+> LPASS is under the control of Q6DSP.
 > 
-> Convert Tegra AHUB bindings from the free-form text format to
-> json-schema.
+> The programming model is a near-exact match for the existing SC8280XP
+> LPASS AUDIOCC, so add the qcom,glymur-lpassaudiocc compatible to the
+> existing qcom,sc8280xp-lpasscc.yaml rather than creating a new file,
+> and add a Glymur reset-ID header for the clients.
 > 
-> Signed-off-by: Thierry Reding <treding@nvidia.com>
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 > ---
-> Rob, you gave a reviewed-by on v2, but Sashiko flagged that the per-SoC
-> constraints don't properly match on Tegra132. The only change (well, in
-> addition to the subject prefix fixup) compared to v2 is changing the
-> 
->     const: nvidia,tegra124-ahub
-> 
-> match to:
-> 
->     contains:
->       const: nvidia,tegra124-ahub
-> 
-> It's a really minor change and I suspect your Reviewed-by would stand
-> regardless, but I thought it best to resend this to make sure.
-> 
-> Changes in v3:
-> - use correct matching for per-SoC property constraints
-> - fix subject prefix
-> 
-> Changes in v2:
-> - add compatible to the list of required properties for i2s child nodes
-> - use consistent style for description properties
-> - add correct set of possible compatible strings
-> - add per-SoC constraints for resets and dmas
-> - wrap overly long lines
-> - fix yamllint warnings
-> ---
->  .../bindings/sound/nvidia,tegra30-ahub.txt         |  88 -------
->  .../bindings/sound/nvidia,tegra30-ahub.yaml        | 289 +++++++++++++++++++++
->  2 files changed, 289 insertions(+), 88 deletions(-)
+>  .../bindings/clock/qcom,sc8280xp-lpasscc.yaml    |  6 ++++--
+>  include/dt-bindings/clock/qcom,glymur-lpasscc.h  | 16 ++++++++++++++++
+>  2 files changed, 20 insertions(+), 2 deletions(-)
+>  create mode 100644 include/dt-bindings/clock/qcom,glymur-lpasscc.h
 > 
 
 Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
