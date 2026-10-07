@@ -1,259 +1,310 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011024.outbound.protection.outlook.com [52.101.52.24])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F8242885F;
-	Wed,  7 Oct 2026 07:51:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.24
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791359519; cv=fail; b=endm2b2ShHVBVG3HxNBCxzUkNs2yOk8BJ0dJ2p4Wgr/YSLx/WNvaHaS01d/F03j0VdE6wfS8X6yPoH7KLYqgvm+3X36b4Z4urp1bHCNFhtT0cLzUvjzhs807V1O0n2oEbdLnKTSo2855MaIhKs0uX8HE7AlxpMtvbL0iKBzg5Hg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791359519; c=relaxed/simple;
-	bh=nDrNAKU6ymG/geHSPyF7Gpp5Osnkv6Ksw+38BHbBCTE=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=k/6uyewtSXisEZlFK6FxUuHJkfcsLr2jMMmxrSRdJfPMxJ5XdKNX4hFKITEjHdopSobdBqFfhZvoIjYsnmkQU2QstzIp9qTKhE0Zn/UKAbELbdRVZySCA3rHbRwdYEPlr2fnOAxJ/iPbHPVy042mqnvAcjlh/LsoMzAG38DWyuI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=AMpBXvQe; arc=fail smtp.client-ip=52.101.52.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BD87440621
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 07:52:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791359560; cv=none; b=i7leQYGMRzatVMCG/fw4K45aHT5vcPHCqu2pFXPpE+cbEi7eSOVEsCDNFGJF7Adxa61QBjUjlCPGJX7YudWt7kXeQWk5wHCMue7RUMlriAMMZ1CSXQqIGoZyEx4AmAUT81zYLCRB5VrY0Dcvgrl9TQGl0x25RZLvnwnCC3D07H4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791359560; c=relaxed/simple;
+	bh=fCjDsnsv7Oa1EGukhmDXY+vx73DdlDLmS/VKampFPY4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Lam7FvABaXUFIHfpYwfdbJpb/+QDpdbfkMmoHxf/zsm85k7LrfE3pE6XVXUsJKuqX7zl/jENTKUZdogAw2CfUd0leMMeWAyQEFpwCD0eFmiEgCzMKq3im1X+cZrGxwreP/EzpZ4HJ0CwdKvKjytlZgvm1KHcaAenX/t/ZTuJ0Kk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NPurIfka; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="AMpBXvQe"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hamxG5C27bqNq1Oc+g3dKM2IwOXl2UdyNyV6dHzbrY73NnXEzrtD1jShaMxoIS9O8Wo2aIpR4+Ydm3frvDGGd2l+9170xGWdRKPnzFvdt6DhQ7zlWyIFQ1OLGbYUa8CNhtvqVqMFrbhlcSFe5l9phdwzK4IdslL7NHxZVpBE69lXg9hobGWBGQ+TMXAKBjsewjsp1xGzO+H/+v9pmKbSID9ak/tDbYbXAKAzZDnI853vbzeby/DTrIp7iiBP0wbMPIq3vxMZQT4txnTyU6bGNW27AMLgJusZfgC9oml82sdEgcvlj1C1iU5eG/BCBJ0+HMQbV7M3aynX7HQMTgQwOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=L1A661XO1EYBVODGzATc1wIGh+JfQVrb9K6+0UNnyxo=;
- b=GzpHatWPqvG21h105wkEnWzuLBdWm2phrXqpFUka+liRXOgLJ3/IV3TGMNlidt7b/ocAcLgd2IpJ8v440dyV5Hw/Ru+AegyeR7i5a+CPH7vEaydqVJXaiiAVx/9Wo8hFSdE7uDdaa5utqSQTt3+3RwkKnne19w3qAZhlCtFLOzY28ruk1n22MB2U+NmODud2JPssCejZ+LxmrnU9l8auok+ZG01h5oCF5gug2/YdawSd1fCMLq0jM4CUOTPWLfA6uHMOOI+L2rvgC7T+/dBoJiS6bhP9Nh2sf/hm7lrglQLt+UduB4HOWZKn9siVp571Y2eWI/KANjM8ZIrloBWliA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L1A661XO1EYBVODGzATc1wIGh+JfQVrb9K6+0UNnyxo=;
- b=AMpBXvQe26IkfkpNMKcx6eiqu4/vBkmtxnDVYmlhiHV2UM3WT9l4NoZWALeeh5DhC3hn4nevKKflQ2SAlMJI16PiUb2B+OausqnnFMN4SHEPGo8lUxZ5yt6hmr5HfmQXxR3q/l2m4MsHVbxeQRWKO6b31FvvDuuYDGmGO+7S3AI=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA1PR12MB9514.namprd12.prod.outlook.com (2603:10b6:806:458::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
- 2026 07:51:45 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0496.010; Wed, 7 Oct 2026
- 07:51:45 +0000
-Message-ID: <7e8b332d-04a9-418a-95f4-de3cbd8b8a33@amd.com>
-Date: Wed, 7 Oct 2026 09:51:39 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf: Annul dmabuf->file on file release
-To: Matt Evans <matt@ozlabs.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Thomas Hellstrom <thellstrom@vmware.com>,
- Zack Rusin <zack.rusin@broadcom.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- Alex Mastro <amastro@fb.com>, Alex Williamson <alex@shazbot.org>
-References: <f8efaabd-c06e-4f04-8cfa-489c148e37ba@ozlabs.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <f8efaabd-c06e-4f04-8cfa-489c148e37ba@ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0276.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e6::6) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NPurIfka"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-486e8faff03so769310f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 00:52:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791359549; x=1791964349; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9aohISJtZVzgsAGjTrp/nCpHM5VVlx0au3SDXR5jaMs=;
+        b=NPurIfkapfB5gQiec3cPefv+azY7d65GSm8mmXbRySBHWmQHmgdZTnbXNEI7+AZd72
+         vTfZl8b8TMs9TRLBxbofj7URoTAPgdg8rVxZw+piJpSyQOPgCm2Uff4rv/7HjWIznbnr
+         cQo4gaqXnJA7AAQDDbA+h3AOPvlNTyEb0haEjADCiFkzdJgXZzp1a4rtXXoUtNm0k7Ur
+         teaRcJ80cXtHRQ4YcPLk4d8VOvStHg7CwPlavHLSUvBlHHpMkZXoJP3OQ86dVskGcbpa
+         WVgirvb3clIAV1+ow9luQldE5xLG1/s6BfRQaC3F6ollnezlx0Q8GtFJZPK/DvdQdi7K
+         RNoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791359549; x=1791964349;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9aohISJtZVzgsAGjTrp/nCpHM5VVlx0au3SDXR5jaMs=;
+        b=bPy3kNue8kKZs3v8L6NOlDrow/HR7X7POo/UgDymBQ19iAuaednbM4mX36cgNp/bQl
+         78YGuFfmEUbvSRR+OXzIorSDXUgAsl943+WFhA9NiGQ9heZykCjkRCXRIzaJanoqtc9U
+         XZhLwOdMmaPmPHBnv8iwTZqBpNCwQjjFLIVTlEzrQVj+gWqMMv2sxuhzxQywCwAPiAKM
+         X8qcRwQ9ABrQxKYseVgQrs5009j1jFK35Ch7TVHzwi9bPxeIZxIe6wNBTBW9W2QnLZJE
+         /Kz6b/4kUtuOxjyu02FYPFmA8z8BSw+PApaL9Kz4nsF9DmIIlOs21wrFQhi7219Esxhy
+         xCLA==
+X-Forwarded-Encrypted: i=1; AKwUvBz2rW14UrOl6Jd6avN1HwD5YU4uomLSXeqYdUrRAkabBG+aD5lSPX+8BCHlYZm5kHLjYyRU/ZMBDH7HNO4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLqQEcLjIfy6O0LnlEFwhvZOlSOO65JdRbDgCg00Z6Btycqm8hS
+	IiUiZgoQ6YUl/WF/0Fpx0keUk2GAljlBSMHUe57NDkDKFSsdiuGuvj5I
+X-Gm-Gg: AYBFou37X7VI7C3eTugefG/f/YXq8pRH4Lyh0Lak2f5oXs9wGL2PXVi51rqC7fCu/+n
+	4WPfWzsjyjmV3GxiqsEWiz0t9Pwh0PDUYe9uSEB9PcAGiNK/+DzL37EugDi4bD2/QmwD1fspH4e
+	tByXrcMCZ2q1urTXz9G58ndc5heeXXOUrIDCPOaD2VXqiYXdXyriiaY7ZAD+z3C6ZXULDce3kWm
+	9Yy6JlIsEsmGeLRE8B7bVo90wtwMk/xmfdoD8gguv72hPttg5iO21TJtjlX3cq0ADIHcZHz5dHg
+	u3QzoryCwTcy5MIkoTvazVGn6FX0vvKymqQYL1mQSfVavZ6pD+GWxOkNOe8jneobEnqpRW5IG7k
+	aEho8Bfxa8MSudCxc5AEXjgC90tbBU0tPjsRRRSdRCNMs2TtweUN1rmrDYPlAuLjHbFx/hprh/3
+	Lf2uJbPxPpdmVnT4cbxajz1DgZ50YoBhE/camlEuhPWHt9KeQtqtf+SwsqKMs8Q5KHHVHwxdaIQ
+	+99m4ie9Q==
+X-Received: by 2002:a05:6000:987:b0:488:8a5d:ffcc with SMTP id ffacd0b85a97d-48c7275b6bbmr2701238f8f.13.1791359548852;
+        Wed, 07 Oct 2026 00:52:28 -0700 (PDT)
+Received: from foxbook (bez186.neoplus.adsl.tpnet.pl. [83.28.37.186])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d2044fsm3928831f8f.31.2026.10.07.00.52.28
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Wed, 07 Oct 2026 00:52:28 -0700 (PDT)
+Date: Wed, 7 Oct 2026 09:52:25 +0200
+From: Michal Pecio <michal.pecio@gmail.com>
+To: Mathias Nyman <mathias.nyman@intel.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 2/2] usb: xhci: Rework and improve the TD matching and
+ skipping logic
+Message-ID: <20261007095225.57dd3683.michal.pecio@gmail.com>
+In-Reply-To: <20261007094952.28bfa51e.michal.pecio@gmail.com>
+References: <20261007094952.28bfa51e.michal.pecio@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB9514:EE_
-X-MS-Office365-Filtering-Correlation-Id: 77516e90-6988-461a-71d0-08df2447d533
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|366016|6133799003|18002099003|22082099003|10067099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	7FEaNN46rP6CFN4SFEt30HRT3QLc1x3QOcSuHayuDeJgPy/CkfmcxhFlDGXuvnLlcnRPE75m8Mf+pTFinTBSkinEXVySzok/xCCeZNsmz8k04IccFmxER6q2MhXnrVjUFTQsaG0RrRGu5Qc78W1Pt+aXop47DO9pcdjgeewzvm5f+js1Lyo9ZQoNX+35lMYJwH8CWynJw+stx0vK7CsFnnvCpNx0jBXrIa9zajx4zwMPgD74VrTeWEppizVPgnA3XmYQS1r1wUltAnWU4FnZAP1qzIXNVK30gOCRcY8aqB5RnRlo+888sDARp0MeWkiJ04H0z3ix3EzMpk52m4G7DEWeROkw/ZnBllJwYN/RSTZYSQdWn77tHlOp+Nn2hvE6WSTnWVmyiROnRbqWziLUjgZe4kXMom9o3sxmNKWVJC93140Fy5cJ1PY35m9A8r5FFMnYkdO7UxkVLW7Y9zaK7g+0608FO1xUITKLDlIHqIQeJcdqMXGMDwS/UEgSKErHn/O0jJVO/lZB+FKlIezRN35DiBrsQbVhWwziXDb1Ah6sH5DZJmZCrxZcw94qF8z89aLdpLd0Buqumo3KUSM/WrN/8e38tuRIjtZ7HjmNfEFSO9tNrjTmOFdEyxmbvdIfRT3LIoEGnhl5pxajoZph/UiYeFHlB6ZR5pDsFBYXYEs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(6133799003)(18002099003)(22082099003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Z1JXaVFUb1RBL3Q0N3VIdnZDKzBxNW0vZDgwYytKbXpBY2NVc01HVE9lRVBr?=
- =?utf-8?B?eUx6cTVueXNjb3pyNStTSnFCUHdPYmJDM09CWjlDTnZYZCtWRk53NXFBUGc0?=
- =?utf-8?B?Tk9XZGt5TW9XRXIxSjh6WEVUOUxFTzkxZVl2Q3dJMXBOQWN1MFY3bk4yZWhn?=
- =?utf-8?B?NWpkdWhyV1QxMlJBRHVBN21FdEsxWEJQOEgyUzFRdXdSQW1PTUVheHJRWmZy?=
- =?utf-8?B?MGQ0b0lXM00zQVFBNEdQRjdjQVlqMWhEZFZ6ai95V2hoVllrcXNTNnFxN2hU?=
- =?utf-8?B?WTIweGJpRnJRUEVoY0tPbXRsU1c3NHFLajlHWFRsbUJVeFAvdUo0dng5M3Yz?=
- =?utf-8?B?SGdrQzB5SXJhTnZmSS9ydytETTFJMkNUZyt5c3NjMnFuY2M0UjlXWmNNMVBr?=
- =?utf-8?B?R1dXZ2pXQzFZRmFlVkxYZDBSZTJtcGpmclRVaWpIN1NrdW5sY05zM2l3aElh?=
- =?utf-8?B?L0RnRXFsWmNCdmFCT3U5UFp0RnFnbCt6Zm1vU0pnKzd4K0VvSVpWbnRYNVdN?=
- =?utf-8?B?ZVQ3NlgzK2VwTy9WS0FMeDExY1o1cjhZSHluK3Q5TmlXMVBzSjVueUdTSmRq?=
- =?utf-8?B?MzJ2QWJOd21mZnlLL3dXMDM5bFdlbVVzd1FJL3hTMEFEYU9QbWVxMFJ0SUs4?=
- =?utf-8?B?VWVMQ2FBVlFpdFdFVjBYOTlHM3lWUmp5RHJpRlVaYlRTRXY5WHFkaVdNb0Uw?=
- =?utf-8?B?VTYzY2t5T0lXSk9EZW5nWWFXNlhxL2N2eTE0aHI4VjE2c2hYcCt5UXVSeW1k?=
- =?utf-8?B?S1lmL1lPbXczY3d2SlhnZFkydDJ6L2ZDcFRmMldOWFBIT084OExyRS9LcWNF?=
- =?utf-8?B?NjZrNFIvZEhOT2FHS28zMjVNNHRvUUVhaThNSnlWczZ6RFlpeWJZWVlLSWo4?=
- =?utf-8?B?SndvYkt0U0REWGFDQUNUbUZKYmw3SWI2SFY2TUwvaHNhUkpSSkw2MjBRMmEr?=
- =?utf-8?B?OERzVFZkWTM3bGpOTlU5UlBoVmhLL01tdG5CVEhyQmU5MDR6NnhBWWh2ZWpj?=
- =?utf-8?B?YUlyQUdvZTM5SWVsM0hPZm0xandUVUR3aFNWTTNTY0tNRzVqL3JhZnVGYTBw?=
- =?utf-8?B?YjhkbXR0aG0rc1lZSmtrUEtDQS9jd0NSR2dsbHIxWWUvN3U4TGhnemsyaC9h?=
- =?utf-8?B?cTRVeUxEdW5ZaGkvVXVFeVpEbVREZWZHR0N2ZGNqSm9XRDFNcEh1MXlONjlL?=
- =?utf-8?B?SW1PcUJTYzRONVFld3ZZUVdvRUZld2pDYWhRQXROTVZIQVhTMHoyNEN2a2xO?=
- =?utf-8?B?MTgyNVpCYlpPS1p4SnUwUlZKUDdsQTM0YlFjUGlJMXJUWG42b1BPTkVKcGtv?=
- =?utf-8?B?VWZLRXgvVTNrRHFkbDJhVWxkdGdTZVFrRHh4eCszMGpYM01OdmszdUJra0xZ?=
- =?utf-8?B?WGsxbXg0QkNrV2lQNTJaKyt0QWpuNVNMeUZHd0JZQi9neGxRSHA2M1F1Y1Rz?=
- =?utf-8?B?aDBja296VkRjZ1VnQzk4VXNJNGZNRGpzbjRKTHRSdTlBM1RGSkJmZjRveHkv?=
- =?utf-8?B?OU1jUVVvS2FjU1VlWXFLZWZFL01zZ3N5YUs1RVhadnpPeC9qUUF0Q3JPZVMv?=
- =?utf-8?B?dkJscUdDZHFlcmZ1NS9IOXlJYjRCNlhOTVF6TC9tYVFMdnRVKy8vVWQ0Qkoz?=
- =?utf-8?B?OUVKeGtFWHhzakdqNjBTaUpkSVZWUHNjWW1aVjNyU21HaXgyUU5BRk15Qks5?=
- =?utf-8?B?L0UxeG5ZSlBVY0ZXaGxnckJLZGR0T1hFWTlRSG5ERExzSUxXaFBIZERjWnND?=
- =?utf-8?B?NkF6K1Nra01NeFdoRXBMRVJWU2c1dk51T3lPekhmRTJBRUVsc2htTkJtOTVo?=
- =?utf-8?B?Smh3cFVXNHpVSnBRUXpyVTFzWEN5SkV3djlheEN5UzBvc3pGalVUNit2cTNN?=
- =?utf-8?B?NXhkNWxMK1J1bGNubGtEM0ZxRGgrWndpekJQUUF5NjF1eUJMSjBxK2lLVlV5?=
- =?utf-8?B?bmthZ0xJVk53b1lCdEZJMnBjeG94VVc1VzA3dHVGRHlDOXk1RzZFaFVXTjla?=
- =?utf-8?B?emdvR0d1cSs1cm5OWE5NMFZ5VGpNT0IrRFdFcWVITDBzeVhSSGVCQ2o1d0Fo?=
- =?utf-8?B?bHR3RVZVVFJDRzNPcmtzT096VXkyMGl6YU1Ld1NuWmVlZlM1QjNmTHJaRzB2?=
- =?utf-8?B?ai9GTFN4U2E3dklJWHQ3UEUvR0lVUkRZblVXc2RiNkNFRitWZ1QxSnlaTWlY?=
- =?utf-8?B?anB3OVdFS3B3Vko0bHYyL1YxOHkyVk9ZQkxRaE8zaUFoaXNFcU9EYndsbXBr?=
- =?utf-8?B?NWJUUnJYanpyMjZzZ0c1TzlqUWVHUDNGeC9mWlp6QTZaRlF4K2lpK1BtT2I3?=
- =?utf-8?Q?T/j9T8qz1TgBuEWbSj?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 77516e90-6988-461a-71d0-08df2447d533
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 07:51:45.0632
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HFA8Azy6VEx8eQNP4cBAiAniuMoaWXmeP7Z17twlnQE2LmYzwQeee676SkIPQ32M
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9514
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Matt,
+Matching events with TDs and giving back missed TDs is carried out
+by a complicated loop. Replace it with a simpler linear logic:
 
-On 10/6/26 21:15, Matt Evans wrote:
-> The dmabuf release path is split between file and dentry release:
-> dma_buf_file_release() is called shortly before the file is freed, and
-> dma_buf_release() calls an exporter's dmabuf->ops->release when the
-> dentry is freed.  However, the dentry can outlive the file (for
-> example, if opened with O_PATH), meaning .release might be called some
-> time after the file is freed.
-> 
-> This presents a window, when closing a DMABUF file, in which
-> dmabuf->file points to freed memory yet .release op has not yet been
-> called.
-> 
-> For VFIO, if a buffer's .release has not been called it's considered
-> still active and subject to move/cleanup.  If so, it attempts to
-> get_file_active() on dmabuf->file: a file close with dentry held open
-> will call this function with a stale pointer, a UAF.
-> 
-> To make this pattern safe, set dmabuf->file to NULL in
-> dma_buf_file_release() to reflect that the associated file is now dead
-> even if the DMABUF is not yet gone.  A get_file_active() ... fput()
-> sequence concurrent with a file close will only execute as one of:
-> 
->  - Gets the file before file_ref_put() (dmabuf->file valid)
->  - Observes dmabuf->file pointing to a file, but it's DEAD (no file)
->  - Observes dmabuf->file = NULL (no file)
-> 
-> Originally, drivers could assume dmabuf->file was valid until .release
-> was called from fops->release.  This assumption was no longer valid
-> after 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
-> dentry_ops"), which moved the callback to the dentry release (by which
-> point the file might have been freed).  With this commit, drivers must
-> still consider that dmabuf->file could be NULL before .release.
+0. Having verified that 'td_list' isn't empty,
+1. Scan it to find the matching TD and count missed TDs,
+2. Perform necessary adjustments for corner cases,
+3. Give back missed TDs, if applicable, using a short and tidy loop,
+4. Check if the event refers to the expected TD and proceed as usual.
 
-Oh well, really good catch. And that problem is wider than this.
-> Fixes: 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to dentry_ops")
-> Signed-off-by: Matt Evans <matt@ozlabs.org>
+Besides cleaning up the code, this provides a few improvements:
+- when the skip flag is set, no TD is given back unless we found a match
+  or otherwise know how many TDs should be given back
+- when the skip flag is clear, we know if the event refers to a "future"
+  TD so we can log this in the Scary Error Message to aid debugging.
 
-We seriously need a CC: stable here.
+While altering the error message, drop a pointless goto.
 
-> ---
-> 
-> Hi,
-> 
-> This issue was found (by Claude Opus 5.5) in the context of VFIO's
-> DMABUF export path.  VFIO iterates live DMABUFs with a
-> get_file_active()/fput() block, which now becomes safe if the file is
-> closed (and memory freed!) yet DMABUF .release hasn't yet occurred.
-> 
-> However, there are a couple of other places that directly use
-> dmabuf->file and seem able to race a closing file (i.e. without holding
-> the file reference)?  If this is so, they'd be a UAF today; with this
-> patch that goes away, but instead of a stale pointer dmabuf->file could
-> be NULL:
-> 
-> 1. drivers/gpu/drm/vmwgfx/ttm_object.c:get_dma_buf_unless_doomed()
-> 
->  file_ref_get(&dmabuf->file->f_ref); on a non-refcounted DMABUF
-> 
-> The commit message of 90ee6ed776c0 ("fs: port files to file_ref") hints
-> this might be more subtle than replacing it with a get_file() variant
-> (so as to accept a NULL file *).
-> 
-> 2. drivers/gpu/drm/i915/gvt/dmabuf.c:intel_vgpu_get_dmabuf()
-> 
->  gvt_dbg_dpy(... file_count(dmabuf->file) ...);
-> 
-> 
-> Respective vmwgfx & i915 maintainers, what is your view?
-> Or, indeed, if anyone sees any other questionable uses of dmabuf->file.
+Signed-off-by: Michal Pecio <michal.pecio@gmail.com>
+---
+ drivers/usb/host/xhci-ring.c | 137 ++++++++++++++++-------------------
+ 1 file changed, 61 insertions(+), 76 deletions(-)
 
-*sigh* we had multiple occasions suggesting to add a dma_buf_get_rcu()/active() because exporters wanted to keep their DMA-buf on linked lists or other container structures.
-
-That was always rejected because the DMA-buf framework had never guaranteed that such things work correctly exactly because of those lifetime issues here. In other words nobody thought that through and document what should happen when etc...
-
-So the use cases in vmgfx and i915 are just the tip of the iceberg :)
-
-My suggestion is to get this patch reviewed and backported first and then come up with a dma_buf_get_active() function including documentation and comments and test case to make sure that this feature works *and* keeps working.
-
-One minor comment below, apart from that the patch itself looks good to me.
-
-> 
-> Thanks,
-> 
-> 
-> Matt
-> 
-> 
->  drivers/dma-buf/dma-buf.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> index 4c9add51f9ef..726639130477 100644
-> --- a/drivers/dma-buf/dma-buf.c
-> +++ b/drivers/dma-buf/dma-buf.c
-> @@ -193,11 +193,15 @@ static void dma_buf_release(struct dentry *dentry)
->  
->  static int dma_buf_file_release(struct inode *inode, struct file *file)
->  {
-> +    struct dma_buf *dmabuf = file->private_data;
-> +
->      if (!is_dma_buf_file(file))
->          return -EINVAL;
-
-I would do the casting only after the check.
-
-On the other hand this function is a callback of the file_operations so checking if file->ops is really pointing to the file operations is completely superfluous.
-
-So if you want to remove the check instead I'm perfectly fine with that as well.
-
-Regards,
-Christian.
-
->  
-> -    __dma_buf_list_del(file->private_data);
-> +    __dma_buf_list_del(dmabuf);
->  
-> +    /* Must be observed by __get_file_rcu() before file_free() */
-> +    smp_store_mb(dmabuf->file, NULL);
->      return 0;
->  }
->  
-
+diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
+index 875a0770a3b7..2ea1c7dc1574 100644
+--- a/drivers/usb/host/xhci-ring.c
++++ b/drivers/usb/host/xhci-ring.c
+@@ -127,11 +127,16 @@ static bool link_trb_toggles_cycle(union xhci_trb *trb)
+ 	return le32_to_cpu(trb->link.control) & LINK_TOGGLE;
+ }
+ 
+-static bool last_td_in_urb(struct xhci_td *td)
++static int num_tds_not_done(struct urb *urb)
+ {
+-	struct urb_priv *urb_priv = td->urb->hcpriv;
++	struct urb_priv *urb_priv = urb->hcpriv;
+ 
+-	return urb_priv->num_tds_done == urb_priv->num_tds;
++	return urb_priv->num_tds - urb_priv->num_tds_done;
++}
++
++static bool last_td_in_urb(struct xhci_td *td)
++{
++	return !num_tds_not_done(td->urb);
+ }
+ 
+ static bool unhandled_event_trb(struct xhci_ring *ring)
+@@ -2606,14 +2611,19 @@ static bool xhci_spurious_success_tx_event(struct xhci_hcd *xhci,
+ 	}
+ }
+ 
+-static struct xhci_td *find_td_by_dma(struct xhci_ring *ep_ring, dma_addr_t dma)
++static struct xhci_td *find_td_by_dma(struct xhci_ring *ep_ring, int *missed_tds, dma_addr_t dma)
+ {
+ 	struct xhci_td *td;
+ 
+-	if (dma)
++	if (dma) {
+ 		list_for_each_entry(td, &ep_ring->td_list, td_list)
+ 			if (trb_in_td(td, dma))
+ 				return td;
++			else
++				(*missed_tds)++;
++	}
++
++	*missed_tds = 0;
+ 	return NULL;
+ }
+ 
+@@ -2630,8 +2640,8 @@ static int handle_tx_event(struct xhci_hcd *xhci,
+ 	struct xhci_ring *ep_ring;
+ 	unsigned int slot_id;
+ 	int ep_index;
+-	struct xhci_td *td = NULL;
+-	struct urb *missed_urb = NULL;
++	struct xhci_td *td;
++	int missed_tds = 0;
+ 	dma_addr_t ep_trb_dma;
+ 	union xhci_trb *ep_trb;
+ 	int status = -EINPROGRESS;
+@@ -2814,13 +2824,6 @@ static int handle_tx_event(struct xhci_hcd *xhci,
+ 		xhci_dequeue_td(xhci, td, ep_ring, td->status);
+ 	}
+ 
+-	/*
+-	 * We don't know how many TDs were missed when ep_trb_dma is zero (as permitted by
+-	 * xHCI 1.0) or bogus. Bail out leaving ep->skip set, next event will sort it out.
+-	 */
+-	if (trb_comp_code == COMP_MISSED_SERVICE_ERROR && !find_td_by_dma(ep_ring, ep_trb_dma))
+-		return 0;
+-
+ 	if (list_empty(&ep_ring->td_list)) {
+ 		/*
+ 		 * Don't print wanings if ring is empty due to a stopped endpoint generating an
+@@ -2840,66 +2843,50 @@ static int handle_tx_event(struct xhci_hcd *xhci,
+ 		goto check_endpoint_halted;
+ 	}
+ 
+-	do {
+-		td = list_first_entry(&ep_ring->td_list, struct xhci_td,
+-				      td_list);
+-
+-		if (ep->skip) {
+-
+-			if (!trb_in_td(td, ep_trb_dma)) {
+-				/* this event is unlikely to match any TD, don't skip them all */
+-				if (trb_comp_code == COMP_STOPPED_LENGTH_INVALID)
+-					return 0;
+-
+-				/*
+-				 * If skip flag is still set at xrun, we are on xHCI 1.0 and our TRB
+-				 * pointer is zero again. All missed TDs can be given back, but we
+-				 * don't know which were missed and which were queued after the xrun
+-				 * occurred. We can safely give back the first pending URB.
+-				 */
+-				if (ring_xrun_event) {
+-					if (!missed_urb)
+-						missed_urb = td->urb;
+-
+-					if (td->urb != missed_urb) {
+-						xhci_dbg(xhci, "Skipped one URB for slot %u ep %u",
+-								slot_id, ep_index);
+-						return 0;
+-					}
+-				}
+-
+-				/*
+-				 * TD was missed, skip it. Core already initialized frame->status
+-				 * to -EXDEV and frame->actual_length to 0, nothing more to do.
+-				 */
+-				xhci_dequeue_td(xhci, td, ep_ring, 0);
++	td = find_td_by_dma(ep_ring, &missed_tds, ep_trb_dma);
+ 
+-				if (!list_empty(&ep_ring->td_list))
+-					continue;
++	if (ep->skip) {
++		if (!td) {
++			/*
++			 * xHCI 1.0 allowed MSE events to have zero TRB pointers. Some old chips
++			 * also generate bogus non-zero pointers. We know, don't bother warning.
++			 * Missed TDs will be given back by the next event with a valid pointer.
++			 */
++			if (trb_comp_code == COMP_MISSED_SERVICE_ERROR &&
++			    xhci->hci_version <= 0x100)
++				return 0;
++			/*
++			 * If skip flag is still set at xrun, we are on xHCI 1.0 and our TRB pointer
++			 * is zero again. All missed TDs can be given back, but we don't know which
++			 * were missed and which were queued after the xrun occurred. We can safely
++			 * give back the first pending URB to let the class driver know.
++			 */
++			if (ring_xrun_event)
++				missed_tds = num_tds_not_done(list_first_entry(&ep_ring->td_list,
++								struct xhci_td, td_list)->urb);
++			/* In other cases missed_tds is zero */
++		}
+ 
+-				xhci_dbg(xhci, "All TDs skipped for slot %u ep %u. Clear skip flag.\n",
+-					 slot_id, ep_index);
+-				ep->skip = false;
+-				td = NULL;
+-				goto check_endpoint_halted;
+-			}
++		/*
++		 * Give back missed TDs. Core already initialized their frame->status to -EXDEV
++		 * and frame->actual_length to 0, nothing more to do.
++		 */
++		for (int i = 0; i < missed_tds; i++)
++			xhci_dequeue_td(xhci,
++				list_first_entry(&ep_ring->td_list, struct xhci_td, td_list),
++				ep_ring, 0);
+ 
+-			xhci_dbg(xhci,
+-				 "Found td. Clear skip flag for slot %u ep %u.\n",
+-				 slot_id, ep_index);
++		/* the list may become empty on ring_xrun_event */
++		if (td || list_empty(&ep_ring->td_list))
+ 			ep->skip = false;
+-		}
+ 
+-	/*
+-	 * If ep->skip is set, it means there are missed tds on the
+-	 * endpoint ring need to take care of.
+-	 * Process them as short transfer until reach the td pointed by
+-	 * the event.
+-	 */
+-	} while (ep->skip);
++		xhci_dbg(xhci, "Skipped %d TDs on slot %u ep %u comp_code %u, TD found %d, skip flag %d\n",
++				missed_tds, slot_id, ep_index, trb_comp_code, !!td, ep->skip);
++		missed_tds = 0;
++	}
+ 
+ 	/* Handle events not referencing the current TD */
+-	if (!trb_in_td(td, ep_trb_dma)) {
++	if (!td || missed_tds) {
+ 		/* TD was queued after xrun, maybe xrun was on a link, don't panic yet */
+ 		if (ring_xrun_event)
+ 			return 0;
+@@ -2926,7 +2913,13 @@ static int handle_tx_event(struct xhci_hcd *xhci,
+ 		}
+ 
+ 		/* HC is busted, give up! */
+-		goto debug_finding_td;
++		td = list_first_entry(&ep_ring->td_list, struct xhci_td, td_list);
++		xhci_err(xhci, "Event dma %pad for ep %d comp_code %u not part of TD at %016llx - %016llx, missed %d\n",
++				&ep_trb_dma, ep_index, trb_comp_code,
++				(u64)xhci_trb_virt_to_dma(td->start_seg, td->start_trb),
++				(u64)xhci_trb_virt_to_dma(td->end_seg, td->end_trb),
++				missed_tds);
++		return -ESHUTDOWN;
+ 	}
+ 
+ 	ep_ring->old_trb_comp_code = trb_comp_code;
+@@ -2964,14 +2957,6 @@ static int handle_tx_event(struct xhci_hcd *xhci,
+ 
+ 	return 0;
+ 
+-debug_finding_td:
+-	xhci_err(xhci, "Event dma %pad for ep %d status %d not part of TD at %016llx - %016llx\n",
+-		 &ep_trb_dma, ep_index, trb_comp_code,
+-		 (unsigned long long)xhci_trb_virt_to_dma(td->start_seg, td->start_trb),
+-		 (unsigned long long)xhci_trb_virt_to_dma(td->end_seg, td->end_trb));
+-
+-	return -ESHUTDOWN;
+-
+ err_out:
+ 	xhci_err(xhci, "@%016llx %08x %08x %08x %08x\n",
+ 		 (unsigned long long) xhci_trb_virt_to_dma(
+-- 
+2.48.1
