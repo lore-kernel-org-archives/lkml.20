@@ -1,234 +1,132 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010057.outbound.protection.outlook.com [52.101.85.57])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 748F3381AE3;
-	Wed,  7 Oct 2026 19:46:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.57
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791402364; cv=fail; b=PkIxN2flAlZlea/o2z/oaI+4vs6uAiRSPQijcmm9T3CnIQdEwMMlBCwjvdr5NXf9+twjmBGcPjyuzuWWLF5K8i8nc4E0TCG4i2lUMf9wmo72C4poHhWp/nLuOK7mhssTI/WIMFAyulhHD5NBaUqvGRmS7BWkKYG3daUOQXOME4I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791402364; c=relaxed/simple;
-	bh=RdcufiJMSobrj9er5pjnnhFUuoR8ZI9+q3I8gqifpIw=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=Uhy/oor5pRNIiSUeOPFoMulGzM7kPHFHEUay++YfvRLlCMkE1AESlUUye0Ugif8g3xT38iGiJFKJJCExaILA4g57qjZqwPYMSv0oj5/no8JzJB40i+ddkSQZIqpHMz+cqUxF+kE/5cOtKeUPEPP2g55641zryLdeUzjymVbjo2U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=O1MSYxjm; arc=fail smtp.client-ip=52.101.85.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BED61397
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 19:47:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791402440; cv=none; b=BpGE5CYXD1qJPuBjVtcllAK9Ovbg5zYrr/GWla23vlZp0ZXC6I2hNez/uElTjCDAMDiX1LIWiJJUHf4xjCbG6/tox1QWcp+/j1Dnp90QMKn3DC2ZuIgciJ8ohE7088DguNhsbj9ikjRsirMnQ53rOiIfizk3dNuu6K4n0h17L8U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791402440; c=relaxed/simple;
+	bh=m0XhmCSiJtu0hpSVs+qEnvJ6VgU5AZXusEwTJEt0ZFQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=iIVmiao0OySFrs8Ue/ZlAU6YWBga+9KGBFbEavrPDZ1kWGlfz9fLZOzeZgiaDmE7VzqC4tLdK6kc+87HriyE3uu3nLKX5LlCUcIxQpyWykgH947sdnl2wYK6F09ugV98atijkor9F320YauXk6Yg6ZufwxOg7FN+xeG/RJukvts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jwoxdyyo; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="O1MSYxjm"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qvfEnzyby+JHgyp0ZY1YF4QHV4NquITwFdN5cINHg8gQW3H15mPZLOQvvjj91XVHdAg8VyNzL+jUS0L/EZnsrbpgEUvWI81kJlA+/xgDkNeKcuzTb9ngoylBp951xvg2CiySWOKqJnuvG/bmNMv2FaMSNcvu4+PmdfP7U1FkNgJWdMgVtqXuRzrMEjP9RiWq78Bcu1T7cv8jDL87vayxvLpa5x6q0h1OXiU2whfd6tBnJ+o+63P7IwdVy6bkQZUKqyDixS/SdYtgx5nMjiXF0kuz1WJ22HXE1fD0Qi4HRbLDckS3DX/qjR+hTdAQaafTXVuKuzFOWgvXWJIyGBZJPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XUdUURuep7GxgUuv4oR43saYJEiiBRSsaw8FWat9tl8=;
- b=wtbquYAeEsRZOqXW0LWcPrK8fRdj+DbJdPMPSHRFxNljqycTlIFHsNp/xlGCD6FXEODZLeyKTw6F1Dqi4XAMtODsq1rJN3oUQsGVV35DLE8+7tO5c9wpyhbfqjmsTjjDqiQ0sMvwXOdHFTAYcWB8QPTB9Wn9/8G1gizbaiegywp8iFYfyo9Ot8eA1/YmFZhhIzLaCP3J2z2O+/Osft3M5DACUCBNW0kbSpkDYfPJac+9dOcJ1JLqvAJDfak7plDSPJxQ1Qwx/3k8fljQcyPoh2ff6BI93GbSc9+ke5PehhD2JkETcPYL5zaDacygBw+OMTfn3kk46YNfISHaRK197g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XUdUURuep7GxgUuv4oR43saYJEiiBRSsaw8FWat9tl8=;
- b=O1MSYxjmd1NTu1LO7gTwc+aY9D7YprHCy2e7v9EEWcc2ftZIJAz0SSBCRO7uqCAMcgV9xfxOIn2y6bxUkxtQjydy99LiHLGjfqAwiqUSHf9vpFjpKsbFcneqqqiRioZZlP1S13CPUyf0thOtmQmV9KiE3xtMRtIJRyni6SSGcu8=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by SJ2PR12MB8881.namprd12.prod.outlook.com (2603:10b6:a03:546::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Wed, 7 Oct
- 2026 19:45:53 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0496.010; Wed, 7 Oct 2026
- 19:45:53 +0000
-Message-ID: <ab7921dd-1a28-4df4-a4a8-718e1489ec33@amd.com>
-Date: Wed, 7 Oct 2026 14:45:50 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cpufreq/amd-pstate: Supply nominal/lowest freq for
- TRX40-based motherboards
-Content-Language: en-US
-To: Giovanni Gherdovich <ggherdovich@suse.cz>, Huang Rui <ray.huang@amd.com>,
- Perry Yuan <perry.yuan@amd.com>, K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261007144150.15113-1-ggherdovich@suse.cz>
- <27b226c7-f30b-4863-96e6-6798232863c5@amd.com>
- <93531c5c-5638-4a20-919a-8471a7222218@suse.cz>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <93531c5c-5638-4a20-919a-8471a7222218@suse.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: DS7PR03CA0086.namprd03.prod.outlook.com
- (2603:10b6:5:3bb::31) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jwoxdyyo"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a16af2a232so18955685e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 12:47:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791402437; x=1792007237; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=R2GHJQFkiFJ5mQWKvTUQeafsQByOk6PW986HTt8vXuo=;
+        b=jwoxdyyocB9Wg6H9cvOLjJ9nSSBBiuaGgIrQNtdFHbycydHShrZ/8TnPs513sh869p
+         p0LBZbskRiFu+LlVm5b7kEI6ADeJAAhNdhzVYe+FXBmRJ86zVM3c8VKJpTK3qf2XFRgG
+         OLENncb24pIggG8XrbNjw/tQGW+DtWf0pTL8+eqJwW3j+AXnVJI++oBhobHdR1X86jRo
+         ocj2DzLEyEblrh18ZqxaQIfYz+zri19AJai70He8ou39NshHjR50dQKLDUYAXz3Wcb+b
+         OAtigvXTk3WXNvzSRsUC6qxkaOzA4INNsmbTUlSp0Ytgl/m066b/liI/cMi4HPXqmqca
+         tIyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791402437; x=1792007237;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=R2GHJQFkiFJ5mQWKvTUQeafsQByOk6PW986HTt8vXuo=;
+        b=A8FIjYyLDLGyMHJxxHwDr5oR9zt29BaisIDRd9EixRtsvqpCsmREFhpIJokriuKNF/
+         vfUJz+Ulm+C/LDHGzkYyKjL6x+08JS+jnrCW6yiT+q9RIcm4vLg3rZztxr4LQpTuT+i3
+         TnwQZ/D/H7aSM88wwbWlBbk9WFtJUxK71PZu1sbJjnrYUlLJI6eDWH3l1nzRzKyVZuLL
+         sWBB9a/+lNj0QYTfxZIoWKVyQN3tkB4wh900JvrfMgO+62t9TF9aVtjmATo6iFwdSW3U
+         mW4hoTrjRUtjKRME2TJfC3laGsvfJpkSay9KfmgVeRJ8r/BHLfkgFP4icGrxdLIyumt3
+         U/fA==
+X-Forwarded-Encrypted: i=1; AKwUvBxBh779hvkLWe4umt0cJlZw0LSpdwDulFQKAOb1yWUuYevA4JEGBjNpAPiYTJPQNPem4LuKh3FsLNhVUXk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nwnJj3sZqvnfAZFcSntwXkr17/Se8agwF75QRyusPcp2AK31Wp
+	T4wXjJQ1YwNkWYc3ISnMcLb/q3ZU300A/6EY/KVyldC1dawAzKgqh2ab
+X-Gm-Gg: AYBFou15PQI2ri7O+SkB9+73Sc7ec5K9P3MIUOh0/nd3qqrUyuOdZ/fXnKFxXgQaL5N
+	8Je05BKKCCrmJYtUfHOqi2Xi4YTLWXLaUWd0qo+MuSvbnyjvm0123r2hYFfuC+CGlG/eU/m1l30
+	hzX9u1T4OF0EnuNUS4VEvhliRNSt+27PFzh0V9k02grLTI3E2ezK5Xd+IHJWbz4fnkpwt7qlkeM
+	SR9qm/gA79qc5kfdGHg6ejrsWT09IV+7zNXbnJvQT97gpQTHLN4vkibrb59e+cFB6OYBVsXgaF3
+	JdcAI0hVaINM7VCf14iWI8jIKo+LEZRNa7EiePI6/U8gBS8ediyNJGD7pcNCCklFIp7hr+K4n0M
+	c3ihnfwZJOhdX+kFsScTvDcvklculNH+ObHfLc4NEH4B8knNKqoV1xZN14doPIEbxvrfmr4YjXY
+	nJbitFpiI9Dh+cfUjLM1U2WFXgwIqrDqMcE/avUYKOHlUg3ZixDmUXVBWzpbtc5HxQ1HncKrarf
+	Vt4noUBxQ==
+X-Received: by 2002:a05:600c:548a:b0:49e:6c11:c4fc with SMTP id 5b1f17b1804b1-4a180313b7emr52167125e9.7.1791402437226;
+        Wed, 07 Oct 2026 12:47:17 -0700 (PDT)
+Received: from localhost.localdomain ([94.252.75.178])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a1843b5a2esm13117835e9.11.2026.10.07.12.47.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 12:47:16 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Lorenzo Stoakes <ljs@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: "Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Oleg Keri <okerixx@gmail.com>
+Subject: [PATCH v2] mm/vma: keep the unlinked VMA off the file across unmap on mmap hook failure
+Date: Wed,  7 Oct 2026 21:47:08 +0200
+Message-ID: <20261007194708.2009-1-okerixx@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261007101800.58d50b1b20a10738e630bfd5@linux-foundation.org>
+References: <20261007101800.58d50b1b20a10738e630bfd5@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|SJ2PR12MB8881:EE_
-X-MS-Office365-Filtering-Correlation-Id: caa8e99f-c971-40bb-b345-08df24ab9895
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|10067099003|56012099006|3023799007|4143699003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	zhLYcPr2DzuI71MPaKSfF0+pDYlx1Su+uIeK48+Bfhv+duAftq5wiL2c7AJWCk8vrdSVF5arOrHdxLWLauRnq3DC7mvQ0OVVaVP9L7E21aQBTIFr70OwLblq0atKfKNRxlXNcYShbDzPr3HHhKURGQUmLa54JxiPfe332FbTbgAUV+wqdgn2PpGBy4xhBcZpN45ScheTP3dqTLlat480yzkToU4Xey+n+hkJ9EGcArWw8yOos9gtE2OWeK8oRX8vSlcbpEbEntvuE7nkgiWIKBDVvNwbw569lqMZpzHK/RnWCOu82cpXIqhBU+em3XbOxkJWw9RL+0stDmGTvY7I5S6cGhkk9tApw/uq3RmAbb0dJA81RTTSQaNZHmXe+sRtHqIay+96WxUZH6icnBiOJSgMHOmCrxLelJLhamSJduYLh+2Q1T9P4nbid3DfyxDRY4cfsqcMwmYCbuRuspN4J6pkdLdcte6n2asMHTeykZS6AcwoL7tc5pQ+pyHczDz0z8FXSlKbGJ89XVjH7Kvg17VV+gLP0EvY5cyZgzOJlUIcrPL+0guFIst1d5Q1yHsrMuZDmQGYg5laYUmgd+Q346knm0tKpZnwMYu/GFO9PSP307c/aS6FsgBeI6q1S6tsGeHhzamlptvdPDjTZtp4NDUcNflm0+fW3GGlsdJmTGA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB6914.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(10067099003)(56012099006)(3023799007)(4143699003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QkY4RkRYNmpheVRxOC9vYmg5ck9ENEgyOTVpR3hiaUJIZ1FhbTZUYmpzV2hR?=
- =?utf-8?B?aFBOMWw2OGx5dTFyekZ2VFdyM1ozUktzNXdWdGJjcXdiMENTdHFlakJyWXpB?=
- =?utf-8?B?Zk5QMkN2OXRSSjdyV0xaZ0pBS2IyQ1ZER2dSL3l5czc5Smxnd3Bpd0hveGE1?=
- =?utf-8?B?WXNOTTk5S2dCUXAzRkQvNFBBTlFZbXVmQlhkOWtNTEVMdHU0d1VmdFJjZ0RM?=
- =?utf-8?B?dU5Sdi9nRXdUbmhzbDVnUlZSU04rbGhIczRISk1FUjZtNmRDbExycXMyYzNi?=
- =?utf-8?B?WC9IYmFhZFdiTHArR0p5MXNpVCsvOWF3Qk5wVkZ0VUtmbmdvUFQ4MVIwd3Q3?=
- =?utf-8?B?TVlxWHo0blF1clpya3JhVXdnQWJERTlvQW53cDhPbHZMc0VEVjNOQjRVTk9j?=
- =?utf-8?B?QmhpVEJSWmNHVTRZZWhVVUQ5R0MvdHZEZW96em9Odjd3dUlpazZvSkJTK0x3?=
- =?utf-8?B?clRtQWFUK2VLYXVVYjB6Z1pJbTZzVXU3UnNWYjRBbDEzSmRXQ2UvMERpaUds?=
- =?utf-8?B?SDJxSGN0WFVBaE92R1RNVXVyUDRsTDcvaTlQYUtqKytvbjM1VW03SDRMdExW?=
- =?utf-8?B?WTBIZzFmYW5Vd3k2ZGg0Q1ZBb0UxMTZaa3pYSnF3VlFvMEl2YUJ2YXNvQ2Rs?=
- =?utf-8?B?Z09PRDdGMHZyRU85OFJtaFVHVW9vSzE1ZDc2OW5ueDRpZFd4Sk95anFsZUdK?=
- =?utf-8?B?dGg4TUtqc3p1ZFh6WW52NTJjdUlOTWZNOG9QNzBXZkwra1dHdlA0V05tcVNJ?=
- =?utf-8?B?SUp3bWM4MmNSWUxWUXg2V3A3QnloNWRWTXJCOXJvNlNxSFB1NkJualNVMjdu?=
- =?utf-8?B?cFZlbkhtSGJBRmVTYUU5YUxiQUl0SG5NME5HL1JJWnpJOTRqbzVZc212eWRt?=
- =?utf-8?B?RTNWeTZ2RlFMSkVYSUFVM0RZTWh0Mk95VGMvYk90VmNHNWtUcFZiRkE2dGdl?=
- =?utf-8?B?aFZZQng4WXozZysyekxxNjJxaWY0TUtLYVVlQzV4a1BGRXdPTmtjWmJoYXZK?=
- =?utf-8?B?VHFseWN3Um5LWjJONk5mQlV3TXhITG1wbXJyUU1mTG9OcHJUSjNDZTdjeHBn?=
- =?utf-8?B?L1RlMEZadUVNNisxUnV5NHpmRjkyWVpRY2hLcDh0WDd0SldScW1HakYvYUor?=
- =?utf-8?B?VkhRbWVuWng0Vy9Wck5ZaDdCSGpST1FuZmFUcFNIdGhld0xYTG1YTlMvRWw3?=
- =?utf-8?B?cWU2bUJTQ1V3TXY0YTk3eVpFWTgzeUhEckxoVVFCYm5NSXFtZTVKVVA4NUFm?=
- =?utf-8?B?RHpYOUlFQ25RUk1zWEZlUG53MSszWGtyM0laUHlqNXY5QzQ3TlNtVEk2Ulli?=
- =?utf-8?B?a2tJRXc2UGpjWVNnUlpQQzVqSlZMbEhFUmlFT1NmK2pyMEwwUDVjQ2NPbTFp?=
- =?utf-8?B?M2FmbnVoMFNwR1hNOGxzdEUybys3MEY2NjJ2ZnZWV0c5SmdKS0xRcXduUGs4?=
- =?utf-8?B?R1NSWkdHdks1b2QzOEdabjJkTzRYd3pnZFpidWJlTmxDb3R3a1VCanFYOTdF?=
- =?utf-8?B?N2IrV1I3bWlURWFlVUhsTmUydUpuRVYzVStwWkJ6d054NGlPM1I4K3VwbmtH?=
- =?utf-8?B?eXU2UC9kZkV1SGVIcnVBYW5XQk81Y3E1RGI3ZXpBUEVJQmJBeVk5OTVlOFdU?=
- =?utf-8?B?akUzQUJlM00wS2NyZk11L3B0RGZmckhsaDAyQ1FGV2hKeitneDJQM2c0VzlH?=
- =?utf-8?B?d0FFUmkzcW9CSWdSd05uWDRYTzhpWkgwMWJidUN0OXh4bUc1THQvZWc2OS84?=
- =?utf-8?B?S09rYnVTMVNXL1JpQ1dVc3VFSVVHT3U0WlBkaktENW50YjZMZ2taUEEyNWxX?=
- =?utf-8?B?ZTVSTVZ6clBMdENoSythdUJ3ckU1RmVMcFY4MFJ4Y2t1ekh5dit5b1M1QVNo?=
- =?utf-8?B?MEJqdUxZYi9QU3VxM0JFQmIzNlJCaWtyR1ZOSDdkSktnNCtMYnpDMlNuTGp0?=
- =?utf-8?B?TlBPMm5NM3BWSndxN1hjK1RwYlRiNXJlc3dxYUM2TDNKTFY5bUp2UGtKdVFX?=
- =?utf-8?B?UERsa0o2OHAyK0VlL1gwYVdFVzc5K2JiUVMydWdjbWNuZ295LzB6RS9LOHZ3?=
- =?utf-8?B?SDVpU2lBdEhhMTRkSC9FMWVQM3QvbW96UTRPR3lKQkY1T1hRZ005U2VhdHZE?=
- =?utf-8?B?SHdWRWVheGNzWmNhbTh2dHpXN2E5NWEvRVNQSUg3RElDVmJ6N09rdHk3Umt5?=
- =?utf-8?B?VTlGU1hLdnVCa0QvYnhGOWNJRGFibEkvTkdQQU1RMlM5UDg5eTZ3cS90a0kx?=
- =?utf-8?B?WUFVK2xOR1pSMldMd0RrZVQ2bzFzN0t2blF5VTFDakpqQXZYdlRwY3FNV0xs?=
- =?utf-8?B?OFNzVldUbDFyeVlQNzBoOEpGMFFkcFBZbGY1QUNwTGJQSjJUeUg5UT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: caa8e99f-c971-40bb-b345-08df24ab9895
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 19:45:52.9860
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KzKp3Z+iSAtLPvRcWxyX45Ovkf+sGUj+6n/maH3xDOCzgSDf7T4hZgMMia7c9V9reCz2igBGlDNacn0MQZI8Cg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8881
+Content-Transfer-Encoding: 8bit
 
+Since commit 2ceb21171dd9 ("mm: consistently validate VMA state after
+mmap[_prepare] hooks"), the mmap error path clears vma->vm_file only
+after unmap_region(), so free_pgtables() unlinks the never-linked VMA
+and drops i_mmap_writable. Once it goes negative, every later shared
+writable mmap of that file fails with -EPERM until reboot.
 
+Clear vm_file across unmap_region() only, so that free_pgtables() does
+not unlink a VMA that was never linked to the file, and restore it for
+vma_close(): when the hook succeeded and the validation failed, the
+driver's close() still runs and may use vma->vm_file.
 
-On 10/7/26 14:38, Giovanni Gherdovich wrote:
-> Hello Mario,
-> 
-> [moving Kyle to BCC, I hope it's OK]
-> 
-> in my last message I forgot to reply to the rest of your questions;
-> see below. In any event, next step for me is testing the latest bios,
-> as there seems to be an update.
-> 
-> On Wed Oct 7, 2026 16:56, Mario Limonciello wrote:
->>
->> Can you please add more information about the vendor/model of the MB, 
->> etc?
-> 
-> right.
-> 
-> Motherboard is MSI, model is TRX40 PRO WIFI, CPU is AMD Ryzen 
-> Threadripper 3960X.
-> https://www.msi.com/Motherboard/TRX40-PRO-WIFI
-> Practically the same system as Kyle.
-> 
->>> amd-pstate requires explicit knowledge of nominal frequency, so it
->>> can't load on this hardware. The driver already has a mechanism (the
->>> so-called "quirks") to accommodate for missing nominal freq in ACPI
->>> tables, so here we use it to match against CPU family, model, core
->>> count, and BIOS version.
->>
->> Yeah; it's intended for this specific case of really old hardware that 
->> the BIOS isn't going to fix it.
->>
->> I don't understand why core count matters though.
-> 
-> My thinking was:
-> 
-> 1. I want to make the "quirk" to match as many chips as possible, to
->     make it more useful and worthwhile.
-> 2. The doc I have, "Power and Thermal Data Sheet" (publication #56736
->     in the AMD doc library), is for family 0x17, models 0x30-0x3F
->     processors.
-> 3. Problem: these have different nominal frequencies, depending on the
->     core count. Specifically:
->     24 cores: 3800 MHz (like the Ryzen 3090x I need)
->     32 cores: 3700 Mhz
->     64 cores: 2900 MHz
-> 4. Thus I decided to match for family 0x17, model 0x30-0x3f, 24 cores.
->     Without the core count constraint, I couldn't tell which of the
->     three nominal frequencies above should apply.
+Fixes: 2ceb21171dd9 ("mm: consistently validate VMA state after mmap[_prepare] hooks")
+Signed-off-by: Oleg Keri <okerixx@gmail.com>
+---
+v2: keep vm_file for vma_close(): with the hook succeeded and the
+validation failed the driver's close() still runs. Reported by Sashiko
+via Andrew.
 
-If there does need to be a quirk I guess I would actually say there 
-should be 3 quirks then. One for each core count version.>
->>> @@ -174,6 +179,22 @@ static int __init 
->>> dmi_matched_7k62_bios_bug(const struct dmi_system_id *dmi)
->>>       return 0;
->>>   }
->>> +static int __init dmi_matched_trx40_bios_bug(const struct 
->>> dmi_system_id *dmi)
->>> +{
->>> +    /**
->>> +     * Match the Ryzen Threadripper 3000 series, 24-core SKU, sTRX4 
->>> socket / TRX40 chipset.
->>> +     */
->>> +    if (boot_cpu_data.x86 == 0x17 &&
->>> +        boot_cpu_data.x86_model >= 0x30 && boot_cpu_data.x86_model 
->>> <= 0x3F &&
->>> +        topology_num_cores_per_package() == 24) {
->>
->> Does the number of cores actually matter?  Do you mean to say if you 
->> swap the CPU to another part CPPC works?
-> 
-> No no. It was either wide matching (models 0x30-0x3f) but constraint
-> on #cores, or narrow matching for the exact CPU in my motherboard, 
-> (model 0x31).
-> Since I'm hard-coding data into the kernel, I figured wide matching
-> would make the quirk more applicable to potentially other affected
-> systems, hence more useful.
-> 
->>> +        quirks = dmi->driver_data;
->>> +        pr_info("Overriding nominal and lowest frequencies for 
->>> %s\n", dmi->ident);
->>
->> The BIOS bug specifically is lack of values, not invalid values, 
->> right? Just want to make sure I'm following this right.
-> 
-> Correct, BIOS is lacking the values. That info message "Overriding"
-> is taken verbatim from the other "quirk" in the source, but strictly
-> speaking inaccurate. Values weren't there to begin with.
-> 
-> All that said, I've asked the openSUSE user to test the newer BIOS,
-> we'll see what that gives.
-> 
-> 
-> Thanks,
-> Giovanni
+Seen on next-20261006: one refused PCM mmap probe from alsa-lib left the
+device unmappable, so PipeWire could not play anything.
 
-Thanks!  Based on the findings from the BIOS update everything in this 
-thread should be enough to either make a v2 incorporating feedback 
-(mostly making it clearer) or to drop the patch.
+ mm/vma.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/mm/vma.c b/mm/vma.c
+index dfa45c64222c..531e4f53fdd7 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -2616,12 +2616,15 @@ static int __mmap_new_file_vma(struct mmap_state *map,
+ 	map->vm_file = vma->vm_file;
+ 
+ 	if (error) {
++		struct file *file = vma->vm_file;
+ 		UNMAP_STATE(unmap, vmi, vma, vma->vm_start, vma->vm_end,
+ 			    map->prev, map->next);
+ 
++		vma->vm_file = NULL;
+ 		vma_iter_set(vmi, vma->vm_end);
+ 		/* Undo any partial mapping done by a device driver. */
+ 		unmap_region(&unmap);
++		vma->vm_file = file;
+ 		/* Only safe once unmapped. */
+ 		vma_close(vma);
+ 
+-- 
+2.55.0
 
