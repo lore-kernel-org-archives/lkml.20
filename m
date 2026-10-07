@@ -1,102 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21BB91397;
-	Wed,  7 Oct 2026 20:12:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4934941835E;
+	Wed,  7 Oct 2026 20:13:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791403980; cv=none; b=geB95SZaS9x/9GAjJ7vOfneWYW/47kQjYCVR3VT2nnT8hB1xcJMtckYPoCbhMyWOZJxWPe3QtyhJAI3ZT83RitWI+jGQUIrReTAUbVUk+fsvD7AuMdKWPqjN5X4hDiYixN8HztrIjyG2kbndawweO3fFOB1xIpqYNnk09KfJ6Jo=
+	t=1791404014; cv=none; b=EoTGcUQNmdHNvqQhAaUlcrH8XGmXYxQj4Z8sm5bWoaSeWkF7cpv9YNGp4kC61gJUbk+x+P4hd3NCcIuaucUnP5GMcKkZeCYC5K6q6VZap6ZRbyPKmA6FYEbj4KtueB6cbmIG3YkUy9te9f4o+itFM9ILYkIB1U0Hdl3jTexER6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791403980; c=relaxed/simple;
-	bh=+zY8TEuYQH/rxt07lvvHKJc6tlS87aEOzQQVU+l8F9w=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=Du78EqjSNpVwZI/pBOTya0TCR0hkWV/bh9le01yZy8KWUDgFqgtDFnLyt043Cl7HSBKO7YWT/0l6LDgCxF9QucabMb34Q1xWzXVnt00QxtH3t60BGd8aNviY4zS9umiXO+nKG7F3HkptGhEIq1IhdqIsybNEVj9A6ooXSwYOn3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z4sH8l8a; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791404014; c=relaxed/simple;
+	bh=MoRtXwbri/P/3kAqWKsbaW8ChXgK31gjKvSMDnMvVHg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=S1Ac/Mn6iMZ5GLLL6UofJopBDmkUcko/ySQoSeo/oFoymLR2jBh0/DJKKc0xBwIJR5KZ65W5toe9GbELcSnS5uhcayTSKMtRdcIQnvxsKyq2RhWqHV3yvHbGq863bh3Yu7XflPqHmL3+pSZTRlw5b4ZswC5CAHiKQmfX7AM/hXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=V1M89s1a; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z4sH8l8a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAD001F000FF;
-	Wed,  7 Oct 2026 20:12:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791403979;
-	bh=NkhqUzzdxA0MVE0meZ2UnW8jxa68cZXpUz1Q9eXyAVQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=Z4sH8l8au7rGkzWgZQzY7oN5d+6g+awV127IUsOmiofzHPw2d3iZ4uPMJY0ZR+ilZ
-	 KoqFKDy6I9mWc06+H/S5jL+G7NcSrNrgCT385iZzEM4aEXpENT0xRtSodXm5kn8cDF
-	 IJLMwndnxchJxpYZV1jXq7V+4WjXZ3drM6mjQY3hKen/J4KSd+2+BiMdzrC22eP7t1
-	 QrjHTrHcI2/t54yHDyOfwQeglJPjDztuv7yrGkeicH55awtbPQ8zKvIYBpQipXOnZk
-	 R93AdEVQimgazo0I0LWZRqMepJkV8aHibBQ08MFSJhA6ADdwes553hftiSxnRnYfw7
-	 fuIlJ781os/Sw==
-Date: Wed, 7 Oct 2026 15:12:57 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>
-Subject: Re: [PATCH v9 01/18] PCI/P2PDMA: Document the TLP attribute
- assumptions
-Message-ID: <20261007201257.GA781492@bhelgaas>
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="V1M89s1a"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=FoiOz8VHkvrdgUjKnshb5SbCQF0eAf8lvHBIs172X4I=; b=V1M89s1aZmI1HmY3Io7NFr7klm
+	jt2JjYMK9JESdJrHUcdqlWuD7Ag38MqwRl3y21rY3exeIkFzrSs3+lkfDJZ5vQ+v34PrZnUN7UGqr
+	PtWnv8mlINOdCsAJoX4340rsvrcpDq6NFpjlPjSuJtmJyjc5bt36QhD7l62+VjyVLXw6CnjNIu2UP
+	P3uoouAd52nc1Tn4ldKxgrBYjKtHl+1BFl99ik68Xh5s0RupWF/ndYJyr9e/ZIeLfytj/M1/820nN
+	79JRBmS8OhNdnh/DBomeECnV/suCxLzREYzY2f17Q9IwTqm1EcPQW2sG1DqEZf21RvSCdhC/FtcWw
+	tD3O7b3A==;
+Received: from [151.115.150.205] (port=33532 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xEY17-0000000HNc0-0ViY;
+	Wed, 07 Oct 2026 22:13:30 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH] mpls: unregister sysctls before network device teardown
+Date: Wed,  7 Oct 2026 20:12:37 +0000
+Message-ID: <20261007201237.171863-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001-fix-p2p-acs-v4-0-v9-1-1a8e0f50ddd9@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On Thu, Oct 01, 2026 at 02:55:09PM +0300, Leon Romanovsky wrote:
-> From: Leon Romanovsky <leonro@nvidia.com>
-> 
-> P2PDMA selects a mapping without receiving the Request's ordering or
-> Address Type attributes. Its ACS handles only strictly ordered Requests
-> carrying an Untranslated address.
-> 
-> Document that the result is not defined for Relaxed Ordering or
-> ATS-translated Requests because those TLP attributes can select different
-> routes through the fabric.
-> 
-> Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
-> Tested-by: Tushar Dave <tdave@nvidia.com>
-> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> ---
->  Documentation/driver-api/pci/p2pdma.rst | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/Documentation/driver-api/pci/p2pdma.rst b/Documentation/driver-api/pci/p2pdma.rst
-> index 63cff9e4d2c9..80f8fec9b0e9 100644
-> --- a/Documentation/driver-api/pci/p2pdma.rst
-> +++ b/Documentation/driver-api/pci/p2pdma.rst
-> @@ -15,6 +15,13 @@ then based on the ACS settings the transaction can route entirely within
->  the PCIe hierarchy and never reach the root port. The kernel will evaluate
->  the PCIe topology and always permit P2P in these well-defined cases.
->  
-> +This evaluation assumes clients issue strictly ordered Requests carrying an
-> +Untranslated address. Its result is not defined when clients use Relaxed
-> +Ordering or issue ATS-translated Requests because those TLP attributes can
-> +select different routes through the fabric. Unless ACS Translation Blocking
-> +is enabled, a Port with ACS Direct Translated P2P enabled routes a
-> +Translated Request directly to the peer regardless of the redirect controls.
+On network namespace exit, loopback is freed before MPLS unregisters its
+sysctls. A task can keep platform_labels open and write to it during exit.
+The handler can then use the freed loopback device.
 
-This whole paragraph is removed later in the series, so kudos for
-documenting the current state before it changes :)
+Unregister the sysctls in pre_exit.
 
-Unrelated to anything in this series, but this doc mentions
-"p2p_provider", which doesn't exist.  Should it be "p2pdma_provider"?
+Fixes: 7720c01f3f59 ("mpls: Add a sysctl to control the size of the mpls label table")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+---
+ net/mpls/af_mpls.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/net/mpls/af_mpls.c b/net/mpls/af_mpls.c
+index 17b78dc..ad4ad6f 100644
+--- a/net/mpls/af_mpls.c
++++ b/net/mpls/af_mpls.c
+@@ -2776,16 +2776,20 @@ static __net_init int mpls_net_init(struct net *net)
+ 	return 0;
+ }
+ 
+-static __net_exit void mpls_net_exit(struct net *net)
++static __net_exit void mpls_net_pre_exit(struct net *net)
+ {
+-	struct mpls_route __rcu **platform_label;
+-	size_t platform_labels;
+ 	const struct ctl_table *table;
+-	unsigned int index;
+ 
+ 	table = net->mpls.ctl->ctl_table_arg;
+ 	unregister_net_sysctl_table(net->mpls.ctl);
+ 	kfree(table);
++}
++
++static __net_exit void mpls_net_exit(struct net *net)
++{
++	struct mpls_route __rcu **platform_label;
++	size_t platform_labels;
++	unsigned int index;
+ 
+ 	/* An rcu grace period has passed since there was a device in
+ 	 * the network namespace (and thus the last in flight packet)
+@@ -2816,6 +2820,7 @@ static __net_exit void mpls_net_exit(struct net *net)
+ 
+ static struct pernet_operations mpls_net_ops = {
+ 	.init = mpls_net_init,
++	.pre_exit = mpls_net_pre_exit,
+ 	.exit = mpls_net_exit,
+ };
+ 
+-- 
+2.47.3
 
