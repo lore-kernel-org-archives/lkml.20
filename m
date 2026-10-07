@@ -1,87 +1,33 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FF0A40861C
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 06:44:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 278E53FCB10
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 06:45:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791355491; cv=none; b=eV1vs6oZWY4iyJG+FZjcAgewX7WWS3MKLO4zKQ67AUJrMTkw2q3E5FXwSoHHIhgn0p4nPClYXv0kkt5Z2Z7Z7am4eYeYunozTLlF8u2RtBROvCTOd5kTGETQyHLQbdDcvxCW4VlgYeVJ/prX4OhqJVVWa5vlj3yysKSx56IcbrE=
+	t=1791355524; cv=none; b=VzqWhl0vSIisDcEUK7I7C3oo3VN9XzZH18Q8vig35hbAJ47vDR7oabgHZUsqqD45OVWB6MP5sA7hzAyiw8lu05pFW/s4DO6w1vargN0AlydkD5OU37pJR7AlExnvxBKTUuz3uKzddgLuyzd+hb+ka4vL6H19WVUxGZSTyNDnF4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791355491; c=relaxed/simple;
-	bh=OHYnhcGNkcXhgKogIXD4dkbJwv1pkohaxyfGxIlcDRw=;
+	s=arc-20240116; t=1791355524; c=relaxed/simple;
+	bh=uU2+GbXTX8QmmpNzHy+pWqXrVoyqr7YA88Yy1vt6LG0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ce4bfwJR/VXRU74GPzxE3BAceoWWNXYbMljsLUdeU5Z31lwtLH0MyXNl8DIVIBRFMtWa32Fk73J0OtEW3h6k/SNk/VtbDmSVlCdKfTGuyEJ5muixWCFEwKG0t+13ppJj8YcXv5f5Sv0zTZOizAjflHlQXfngQwDzVEu5x4/+A8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FVz/PEgT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AogbUUTw; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=TET0JXfTwXmdNb4JauwFlrH5OqGmTKz7bB8OGFEcQj5XiJiBKvCrhrROTliut/bi93SE9SZxur3xzCCZ6RyRrmFi77A6JY0Vge1Up/x9KncfGefQL+upA1FVrXnUwtqnNHkUmtdN2v9Rly07xPS6YyDNJoZsv3H94EQ8NQbnTJk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=YVwI0Hzu; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FVz/PEgT";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AogbUUTw"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6974U2MP2295035
-	for <linux-kernel@vger.kernel.org>; Wed, 7 Oct 2026 06:44:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	CJFwA61JyA5wdbFs7MVnT+FErhhO9x6O7TkQU80VFYA=; b=FVz/PEgTBEh8obQG
-	a7Kv7BpSsGoGTNPDXBTCym+sTNfFpAzu6doTNrysh61FCK7X9Wb/HueG6xPqLJY6
-	qq/kpGndDL/vN8/uhertq9nar1EcpWVPWYwQRKkH+9qAbLUVBz4ZT2FFPHYYGzCr
-	1qt8spQKMjgxmxrUdCFqSL0tmkNkD3gV1Gfyzwbkr1n0dxvdSg6WCNBdfzr8diHf
-	6qa/Z4Rju1K4eWjXf2mOI/Qwtf4NrpLr5Y+oIVr3iXAMmM0nZN5DRA0hlkvciLDq
-	qsV3hn0UGT0iNwcOREKvY4GYI3Yjwik3K3yCRBX56WibAQBrv+rWEpJzYS9DoOKX
-	bUo73Q==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5c1s0y73-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 06:44:48 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-9179a556c43so86144826d6.3
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 23:44:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791355487; x=1791960287; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CJFwA61JyA5wdbFs7MVnT+FErhhO9x6O7TkQU80VFYA=;
-        b=AogbUUTw/huqpYnW9ePakc6C3SNso6heBtjHvMVWJMISzHp+nyGBxSN0CEIukRGnqq
-         A8diKXueBV+BJvBrsq6SpHpY8Ba2TE7Wb4+b50DrwY/dg++YvnpzXpddGhDM2qptkhH2
-         Tob3YInMDzIAQ9YICtyiesLI6s5w0PBOLh5BIgIuhdqf4CUw2I4RlTHkURGcBJTZKdsU
-         SNQ2BCSoJgm29mADQkGZiZx8EDF/BZqxB4RXz9lmDnKRQCKfU+knzsS28E9HJGxX31sJ
-         74ic+QSWalPHOsvVhQ17bmNoiD0TWJTJcOUC0vn8ly6KZjQlwkq3cHgQBnol4KevBhDO
-         v6Hw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791355487; x=1791960287;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CJFwA61JyA5wdbFs7MVnT+FErhhO9x6O7TkQU80VFYA=;
-        b=CxGR3m/Xj8yOXoIinXNR+Dds7VUvSorrvnnm+hNrW1IKBuDur2gWbWQWrzLVob/Xvq
-         XJxyBt2bBy51tzjC+gJmHdR1z1arh5efSE/QMzA2dUq8KGibDIj36FcopLXjg3EXeFqm
-         Lm9R0J5WqtB+ze1FcebJ9mrYD1mmTlXedvHMnps+ksrANOJ/DkZN6PSqWG2E7B0j9HCa
-         MjEkL03TJ879yw48cRNkbpE8rLmjDCeDvgOlgsHI2qb9pJehLrDBKvzl16CS2sOpAZj1
-         txaurjJdxY9KAIcN6Ly/9HKimIGYtDTtLUeOdRhJv3m2CWOsIYeXz7sS66y+1v7coKrt
-         Xmew==
-X-Forwarded-Encrypted: i=1; AKwUvBzymofFgra5BWxMxEYxX0WXvj/MRrRb/jI2o5GWPGK8A6C3Skl3//xR+ByIg3mtTuUGdGjAiFmRUr3KRqE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lhiBR2XZUmyD2BobLMkP82zgbIqr2KBBdB5yLGXktkdmHU80tK
-	tUSGJeBJIefUAGAsxR0bFdVmzxIw+sOIa8PbOY+cxCVHaeC8WUZ77HOB2HXtI8TgniJ+7tm1Q4O
-	xk6d+1DCt8mlCEnR64gL8lXS1dkX3AR/Vk7Zdoudv5pnmSL5lSDHo4bqHFrqzE0HBtpY=
-X-Gm-Gg: AYBFou3vTqopJLCPa21nXS881mtl99xI5X71uJjgljDgL+BVcrf8DC6TGrNrycXuHSO
-	oSlVC/55xKHhKbrbO4F5Aa7/tmWE2wwYSUiGVHCNqsSd/15Jkg7A6Ny9yrN4vDEszseJpMwFQx2
-	GM7Rsy1rAlISN64hH6v6VUosSGOBp5lTGvddO8nAPJQjhuTiwANhWZ95YP0T39bIKIMYmHHGEry
-	LGU+Y8LpKPU+J7LVXzc7hvb9VtwFUqqb/1RIFnm2vvoJfWz74ChK6fd7sYK9b6h+6pbEeKiuYrC
-	cpLspsin/YpLh9uwd0f59fMtXUgG0g4oW+fzBqaDjNADqauhCWojFanshkpwc56Z7nPuwnUF4s/
-	If/nDPDyoLEGxBJi8A1uIUmfUJSUP2vnmtvtNlSly
-X-Received: by 2002:a05:620a:19a1:b0:93e:980a:2ff1 with SMTP id af79cd13be357-93e9b802152mr247421785a.69.1791355487056;
-        Tue, 06 Oct 2026 23:44:47 -0700 (PDT)
-X-Received: by 2002:a05:620a:19a1:b0:93e:980a:2ff1 with SMTP id af79cd13be357-93e9b802152mr247417785a.69.1791355486596;
-        Tue, 06 Oct 2026 23:44:46 -0700 (PDT)
-Received: from [192.168.25.64] ([94.155.124.210])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f54a5cesm39549625e9.5.2026.10.06.23.44.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 06 Oct 2026 23:44:45 -0700 (PDT)
-Message-ID: <b9ed7848-36ef-4b70-9d5c-b18af9eee83b@oss.qualcomm.com>
-Date: Wed, 7 Oct 2026 09:44:43 +0300
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="YVwI0Hzu"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 89348152B;
+	Tue,  6 Oct 2026 23:45:16 -0700 (PDT)
+Received: from [192.168.11.117] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C9BA13F86F;
+	Tue,  6 Oct 2026 23:45:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791355519; bh=uU2+GbXTX8QmmpNzHy+pWqXrVoyqr7YA88Yy1vt6LG0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=YVwI0Hzur+k5fsg42N+FBWf7NXcd9k6GMaukxrC4x4kRqpAq4U3ceVhRSX29FS0kb
+	 PKJAFhPaeGxiKEOyXqdMmitJY5sC9B5Cg0o5HxVMRgfqLEej/QBBWT/CIPLNPNt4KQ
+	 2Lz+w3/m73tBOcvxvYni3FEKKV4i1HuVd2Axmho0=
+Message-ID: <6376e301-c6ef-4094-83de-83ea9d17791a@arm.com>
+Date: Wed, 7 Oct 2026 07:45:18 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,379 +35,196 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 27/45] media: qcom: camss: sa8775p: add IFE BUS v3.1x
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
-        Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        hariram.purushothaman@oss.qualcomm.com, pshrotri@qti.qualcomm.com,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
-        johannes.goede@oss.qualcomm.com, konradybcio@kernel.org
-References: <20261006223953.3382273-1-gjorgji.rosikopulos@oss.qualcomm.com>
- <20261006223953.3382273-28-gjorgji.rosikopulos@oss.qualcomm.com>
-Content-Language: en-US
-From: "Gjorgji Rosikopulos (Consultant)"
- <gjorgji.rosikopulos@oss.qualcomm.com>
-In-Reply-To: <20261006223953.3382273-28-gjorgji.rosikopulos@oss.qualcomm.com>
+Subject: Re: [PATCH RESEND] arm64: sleep: factor sleep_save_stash slot lookup
+ into a macro
+To: Bradley Morgan <brads@mainlining.org>, Will Deacon <will@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Cc: "Paul E. McKenney" <paulmck@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, leo.bras@arm.com
+References: <20260919121044.13883-1-brads@mainlining.org>
+ <29F5ED22-7DB5-4AF9-B999-CB3BAAB9A9E2@mainlining.org>
+Content-Language: en-GB
+From: Vladimir Murzin <vladimir.murzin@arm.com>
+In-Reply-To: <29F5ED22-7DB5-4AF9-B999-CB3BAAB9A9E2@mainlining.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: o5ITORFr5cHbEy3yEkSMWnmdqmkYLTge
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAyNiBTYWx0ZWRfX9pa0hZ66Xmq8
- 2nKYi3Iamy1cBb+wEqQwnDs3rbaXS77xfcnFAvByuHoAf0VgHFhsJxtX9uIOqiamoNhvXEM98Tz
- fDtO1QRLrNekLTSjIxAGY3DAdd9I0tgEhyTZuQuixBNjXDHv7j0GYspRfw195UG4yrrNbxP3CZ9
- Y8GhZUbl8tkqQnDHeV8/+R/dniEfmDLkq4wROcZBam6mJkoN+2r2o7V07fMs8JqG7ZpKwYu/Db5
- WTIwQqIeW+jXo8lbQhUzis16V7dqpEAVUc/aXcC06KFfgesKVxuQGXkxxn6g7SkSaHqnpxsUdcP
- xzdcuOXSO2CnwGLhDrPaAWYekkNbjODV6+aYyFecsoxB+x81VsWazlMgrJMMqIVl7sB4HYUWMMk
- WoQ96jjTsl8duy4m68AFVhofowRrFpqCD8RakC5GAtfA3IyWuMiUPlvSPSYKMyglSMAr/V1eYU5
- G+sYLtWwlb8byx7zeNQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAyNiBTYWx0ZWRfX6uslM6tzhjzB
- szIjfYoUE7TAVLq469kVefTKq8MjTKhTL/GoGniMERB/JjY6/U52Dc4l64wzZnmgmKpc2CRsbns
- o4R+SWWiybQOAvHUQYim+ogwMvmSEDI=
-X-Proofpoint-GUID: o5ITORFr5cHbEy3yEkSMWnmdqmkYLTge
-X-Authority-Analysis: v=2.4 cv=NatzRGD4 c=1 sm=1 tr=0 ts=6ac5ea60 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=eGCDHFSXubCXFTSSGhjuOA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=Y4P9ch1KcTPFiUn8tYgA:9 a=UPhfUc_oUKe9iv7q:21
- a=QEXdDO2ut3YA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-07_02,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0 spamscore=0
- clxscore=1015 priorityscore=1501 impostorscore=0 phishscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070026
 
-Hello,
-
-Appoagies somehow after my last rebase the co-develped by was removed. For all the changes
-of SA8775P credits to Vikram and Prashant. This will be fixed in the next series.
-
-Co-developed-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-Signed-off-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-Co-developed-by: Prashant Shrotriya <prashant.shrotriya@oss.qualcomm.com>
-Signed-off-by: Prashant Shrotriya <prashant.shrotriya@oss.qualcomm.com>
-
-~Gjorgji
-
-On 10/7/2026 1:39 AM, "Gjorgji Rosikopulos gjorgji.rosikopulos"@oss.qualcomm.com wrote:
-> From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+On 10/4/26 14:05, Bradley Morgan wrote:
+> On 19 September 2026 13:10:44 BST, Bradley Morgan <brads@mainlining.org>
+> wrote:
+>> Both __cpu_suspend_enter() and _cpu_resume() open code the same
+>> MPIDR_EL1 hash lookup to find the current CPU's slot in
+>> sleep_save_stash. Factor it into a get_sleep_stash_slot
+>> macro.
+>>
+>> Since that macro would be the only remaining user of
+>> compute_mpidr_hash, inline the hash computation into
+>> get_sleep_stash_slot and just remove compute_mpidr_hash
+>> altogether.
+> +CC more people, polite ping on this patch guys! :)
 > 
-> Add the IFE BUS v3.1x write engine used by the SA8775P full and lite
-> pixel paths.
+
+I'm not sure it makes the code clearer:
+
+- I see that Will suggested inlining compute_mpidr_hash, but to
+  my taste, a dedicated helper is easier to comprehend.
+
+- The new get_sleep_stash_slot uses a mix of fixed and
+  parameterised registers, which forces the reader to look at how
+  the registers are used. Also using fixed registers shifts the
+  burden of making them available to the user of the macro.
+
+Just my 2p.
+
+Cheers
+Vladimir
+
+>> No functional change intended.
+>>
+>> Signed-off-by: Bradley Morgan <brads@mainlining.org>
+>> ---
+>> Resending from my new address.
+>>
+>> arch/arm64/kernel/sleep.S | 103 +++++++++++++++-----------------------
+>> 1 file changed, 41 insertions(+), 62 deletions(-)
+>>
+>> diff --git a/arch/arm64/kernel/sleep.S b/arch/arm64/kernel/sleep.S
+>> index f093cdf71be1..c1bec489ea76 100644
+>> --- a/arch/arm64/kernel/sleep.S
+>> +++ b/arch/arm64/kernel/sleep.S
+>> @@ -7,48 +7,48 @@
+>>
+>> 	.text
+>> /*
+>> - * Implementation of MPIDR_EL1 hash algorithm through shifting
+>> + * Compute the address of the current CPU's entry in sleep_save_stash,
+>> + * i.e. &sleep_save_stash[hash(MPIDR_EL1)], where the hash is an
+>> + * implementation of the MPIDR_EL1 hash algorithm through shifting
+>>  * and OR'ing.
+>>  *
+>> - * @dst: register containing hash result
+>> - * @rs0: register containing affinity level 0 bit shift
+>> - * @rs1: register containing affinity level 1 bit shift
+>> - * @rs2: register containing affinity level 2 bit shift
+>> - * @rs3: register containing affinity level 3 bit shift
+>> - * @mpidr: register containing MPIDR_EL1 value
+>> - * @mask: register containing MPIDR mask
+>> - *
+>>  * Pseudo C-code:
+>>  *
+>> - *u32 dst;
+>> + *	u64 mpidr = MPIDR_EL1 & mpidr_hash.mask;
+>> + *	u32 hash = ((mpidr & 0xff) >> mpidr_hash.shift_aff[0]) |
+>> + *		   ((mpidr & 0xff00) >> mpidr_hash.shift_aff[1]) |
+>> + *		   ((mpidr & 0xff0000) >> mpidr_hash.shift_aff[2]) |
+>> + *		   ((mpidr & 0xff00000000) >> mpidr_hash.shift_aff[3]);
+>> + *	slot = &sleep_save_stash[hash];
+>> + *
+>> + * @slot: output register
+>>  *
+>> - *compute_mpidr_hash(u32 rs0, u32 rs1, u32 rs2, u32 rs3, u64 mpidr, u64 mask) {
+>> - *	u32 aff0, aff1, aff2, aff3;
+>> - *	u64 mpidr_masked = mpidr & mask;
+>> - *	aff0 = mpidr_masked & 0xff;
+>> - *	aff1 = mpidr_masked & 0xff00;
+>> - *	aff2 = mpidr_masked & 0xff0000;
+>> - *	aff3 = mpidr_masked & 0xff00000000;
+>> - *	dst = (aff0 >> rs0 | aff1 >> rs1 | aff2 >> rs2 | aff3 >> rs3);
+>> - *}
+>> - * Input registers: rs0, rs1, rs2, rs3, mpidr, mask
+>> - * Output register: dst
+>> - * Note: input and output registers must be disjoint register sets
+>> -         (eg: a macro instance with mpidr = x1 and dst = x1 is invalid)
+>> + * Clobbers: x2 - x8
+>>  */
+>> -	.macro compute_mpidr_hash dst, rs0, rs1, rs2, rs3, mpidr, mask
+>> -	and	\mpidr, \mpidr, \mask		// mask out MPIDR bits
+>> -	and	\dst, \mpidr, #0xff		// mask=aff0
+>> -	lsr	\dst ,\dst, \rs0		// dst=aff0>>rs0
+>> -	and	\mask, \mpidr, #0xff00		// mask = aff1
+>> -	lsr	\mask ,\mask, \rs1
+>> -	orr	\dst, \dst, \mask		// dst|=(aff1>>rs1)
+>> -	and	\mask, \mpidr, #0xff0000	// mask = aff2
+>> -	lsr	\mask ,\mask, \rs2
+>> -	orr	\dst, \dst, \mask		// dst|=(aff2>>rs2)
+>> -	and	\mask, \mpidr, #0xff00000000	// mask = aff3
+>> -	lsr	\mask ,\mask, \rs3
+>> -	orr	\dst, \dst, \mask		// dst|=(aff3>>rs3)
+>> +	.macro get_sleep_stash_slot slot
+>> +	mrs	x3, mpidr_el1
+>> +	adr_l	x2, mpidr_hash
+>> +	ldr	x8, [x2, #MPIDR_HASH_MASK]
+>> +	/*
+>> +	 * Following code relies on the struct mpidr_hash
+>> +	 * members size.
+>> +	 */
+>> +	ldp	w4, w5, [x2, #MPIDR_HASH_SHIFTS]
+>> +	ldp	w6, w7, [x2, #(MPIDR_HASH_SHIFTS + 8)]
+>> +	and	x3, x3, x8			// mask out MPIDR bits
+>> +	and	x2, x3, #0xff			// aff0
+>> +	lsr	x2, x2, x4			// hash = aff0 >> shift_aff[0]
+>> +	and	x8, x3, #0xff00			// aff1
+>> +	lsr	x8, x8, x5
+>> +	orr	x2, x2, x8			// hash |= aff1 >> shift_aff[1]
+>> +	and	x8, x3, #0xff0000		// aff2
+>> +	lsr	x8, x8, x6
+>> +	orr	x2, x2, x8			// hash |= aff2 >> shift_aff[2]
+>> +	and	x8, x3, #0xff00000000		// aff3
+>> +	lsr	x8, x8, x7
+>> +	orr	x2, x2, x8			// hash |= aff3 >> shift_aff[3]
+>> +	ldr_l	\slot, sleep_save_stash
+>> +	add	\slot, \slot, x2, lsl #3	// slot = &sleep_save_stash[hash]
+>> 	.endm
+>> /*
+>>  * Save CPU state in the provided sleep_stack_data area, and publish its
+>> @@ -74,20 +74,8 @@ SYM_FUNC_START(__cpu_suspend_enter)
+>> 	mov	x2, sp
+>> 	str	x2, [x0, #SLEEP_STACK_DATA_SYSTEM_REGS + CPU_CTX_SP]
+>>
+>> -	/* find the mpidr_hash */
+>> -	ldr_l	x1, sleep_save_stash
+>> -	mrs	x7, mpidr_el1
+>> -	adr_l	x9, mpidr_hash
+>> -	ldr	x10, [x9, #MPIDR_HASH_MASK]
+>> -	/*
+>> -	 * Following code relies on the struct mpidr_hash
+>> -	 * members size.
+>> -	 */
+>> -	ldp	w3, w4, [x9, #MPIDR_HASH_SHIFTS]
+>> -	ldp	w5, w6, [x9, #(MPIDR_HASH_SHIFTS + 8)]
+>> -	compute_mpidr_hash x8, x3, x4, x5, x6, x7, x10
+>> -	add	x1, x1, x8, lsl #3
+>> -
+>> +	/* publish this CPU's sleep_stack_data area in its stash slot */
+>> +	get_sleep_stash_slot x1
+>> 	str	x0, [x1]
+>> 	add	x0, x0, #SLEEP_STACK_DATA_SYSTEM_REGS
+>> 	stp	x29, lr, [sp, #-16]!
+>> @@ -117,18 +105,9 @@ SYM_FUNC_START(_cpu_resume)
+>> 	mov	x0, x19
+>> 	bl	finalise_el2
+>>
+>> -	mrs	x1, mpidr_el1
+>> -	adr_l	x8, mpidr_hash		// x8 = struct mpidr_hash virt address
+>> -
+>> -	/* retrieve mpidr_hash members to compute the hash */
+>> -	ldr	x2, [x8, #MPIDR_HASH_MASK]
+>> -	ldp	w3, w4, [x8, #MPIDR_HASH_SHIFTS]
+>> -	ldp	w5, w6, [x8, #(MPIDR_HASH_SHIFTS + 8)]
+>> -	compute_mpidr_hash x7, x3, x4, x5, x6, x1, x2
+>> -
+>> -	/* x7 contains hash index, let's use it to grab context pointer */
+>> -	ldr_l	x0, sleep_save_stash
+>> -	ldr	x0, [x0, x7, lsl #3]
+>> +	/* retrieve this CPU's context pointer from its stash slot */
+>> +	get_sleep_stash_slot x1
+>> +	ldr	x0, [x1]
+>> 	add	x29, x0, #SLEEP_STACK_DATA_CALLEE_REGS
+>> 	add	x0, x0, #SLEEP_STACK_DATA_SYSTEM_REGS
+>> 	/* load sp from context */
+>>
+> --- Thanks!
+> "I'm not a very positive person" - Linus torvalds
 > 
-> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-> ---
->  drivers/media/platform/qcom/camss/Makefile    |   1 +
->  .../platform/qcom/camss/camss-ife-bus-v31x.c  | 267 ++++++++++++++++++
->  drivers/media/platform/qcom/camss/camss-ife.h |   1 +
->  3 files changed, 269 insertions(+)
->  create mode 100644 drivers/media/platform/qcom/camss/camss-ife-bus-v31x.c
-> 
-> diff --git a/drivers/media/platform/qcom/camss/Makefile b/drivers/media/platform/qcom/camss/Makefile
-> index 500b056a906c..2251b57ba38b 100644
-> --- a/drivers/media/platform/qcom/camss/Makefile
-> +++ b/drivers/media/platform/qcom/camss/Makefile
-> @@ -16,6 +16,7 @@ qcom-camss-objs += \
->  		camss-format.o \
->  		camss-ife.o \
->  		camss-ife-bus-v20x.o \
-> +		camss-ife-bus-v31x.o \
->  		camss-ife-camif-v10x.o \
->  		camss-ife-lite-top-v10x.o \
->  		camss-ife-mod-v10x.o \
-> diff --git a/drivers/media/platform/qcom/camss/camss-ife-bus-v31x.c b/drivers/media/platform/qcom/camss/camss-ife-bus-v31x.c
-> new file mode 100644
-> index 000000000000..c3a99bd0f75e
-> --- /dev/null
-> +++ b/drivers/media/platform/qcom/camss/camss-ife-bus-v31x.c
-> @@ -0,0 +1,267 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/* Copyright (c) 2023, The Linux Foundation. All rights reserved.
-> + * Copyright (c) 2023 Qualcomm Technologies, Inc.
-> + */
-> +
-> +#include <linux/bitfield.h>
-> +
-> +#include "camss.h"
-> +#include "camss-ife.h"
-> +
-> +/* Block base offsets */
-> +#define BUSWR_V31X_OFFS		0x400
-> +#define BUSWR_V31X_LITE_OFFS	0x480
-> +
-> +/* Per-client register offset */
-> +#define BUSWR_V31X_CLIENT_OFFS(n)	((n) * 0x100)
-> +
-> +/* Interface interrupt and violation status bits */
-> +#define BUSWR_V31X_IIF_IRQ_CMD_CLEAR			BIT(0)
-> +#define BUSWR_V31X_OVERFLOW_ERR_MASK			GENMASK(25, 0)
-> +#define IS_BUSWR_V31X_OVERFLOW_ERR(s)	\
-> +	((s) & BUSWR_V31X_OVERFLOW_ERR_MASK)
-> +#define BUSWR_V31X_VIOLATION_ERR_MASK			GENMASK(25, 0)
-> +#define IS_BUSWR_V31X_VIOLATION_ERR(s)	\
-> +	((s) & BUSWR_V31X_VIOLATION_ERR_MASK)
-> +#define BUSWR_V31X_IMG_SIZE_VIOLATION_ERR_MASK		GENMASK(25, 0)
-> +#define IS_BUSWR_V31X_IMG_SIZE_VIOLATION_ERR(s)	\
-> +	((s) & BUSWR_V31X_IMG_SIZE_VIOLATION_ERR_MASK)
-> +#define BUSWR_V31X_IIF_IRQ_S0_IMG_SIZE_VIOLATION	BIT(31)
-> +#define IS_BUSWR_V31X_IIF_IRQ_S0_IMG_SIZE_VIOLATION(s)	\
-> +	((s) & BUSWR_V31X_IIF_IRQ_S0_IMG_SIZE_VIOLATION)
-> +#define BUSWR_V31X_IIF_IRQ_S0_VIOLATION			BIT(30)
-> +#define IS_BUSWR_V31X_IIF_IRQ_S0_VIOLATION(s)	\
-> +	((s) & BUSWR_V31X_IIF_IRQ_S0_VIOLATION)
-> +
-> +/* Client configuration field values */
-> +#define BUSWR_V31X_IIF_CGC_OVERRIDE			GENMASK(26, 0)
-> +#define BUSWR_V31X_CLIENT_CFG_MODE			GENMASK(17, 16)
-> +#define BUSWR_V31X_CLIENT_CFG_AUTO_RECOVERY_EN		BIT(4)
-> +#define BUSWR_V31X_CLIENT_CFG_EN			BIT(0)
-> +#define BUSWR_V31X_CLIENT_IMG_CFG0_HEIGHT		GENMASK(31, 16)
-> +#define BUSWR_V31X_CLIENT_IMG_CFG0_WIDTH		GENMASK(15, 0)
-> +#define BUSWR_V31X_CLIENT_IMG_CFG2_STRIDE		GENMASK(23, 0)
-> +#define BUSWR_V31X_CLIENT_PACKER_CFG_ALIGN		BIT(5)
-> +#define BUSWR_V31X_CLIENT_PACKER_CFG_FORMAT		GENMASK(4, 0)
-> +#define BUSWR_V31X_PACKER_FMT_PLAIN16_10_BPP		0x5
-> +#define BUSWR_V31X_PACKER_FMT_PLAIN16_16_BPP		0x8
-> +#define BUSWR_V31X_CLIENT_IRQ_SUBSAMPLE_CFG0_PERIOD	GENMASK(4, 0)
-> +#define BUSWR_V31X_CLIENT_IRQ_SUBSAMPLE_CFG1_PATTERN	GENMASK(31, 0)
-> +#define BUSWR_V31X_CLIENT_FRAMEDROP_CFG0_PERIOD		GENMASK(4, 0)
-> +#define BUSWR_V31X_CLIENT_FRAMEDROP_CFG1_PATTERN	GENMASK(31, 0)
-> +
-> +/* FIFO limit and frame-based RDI defaults */
-> +#define BUSWR_V31X_IMG_ADDR_FIFO_MAX_DEPTH		2
-> +#define BUSWR_V31X_RDI_DEFAULT_WIDTH			0xffff
-> +#define BUSWR_V31X_RDI_DEFAULT_STRIDE			0xffff
-> +#define BUSWR_V31X_CLIENT_ADDR_STATUS_2_IMAGE_ADDR_FIFO_WORD_CNT	GENMASK(2, 0)
-> +
-> +/* Common registers */
-> +#define BUSWR_V31X_IIF_CGC_OVERRIDE_REG		0x00000008
-> +#define BUSWR_V31X_WM_TEST_BUS_CTRL_REG		0x000000fc
-> +#define BUSWR_V31X_IIF_IRQ_MASK_S0		0x00000018
-> +#define BUSWR_V31X_IIF_IRQ_CLEAR_S0		0x00000020
-> +#define BUSWR_V31X_IIF_IRQ_STATUS_S0		0x00000028
-> +#define BUSWR_V31X_IIF_IRQ_CMD_REG		0x00000030
-> +#define BUSWR_V31X_STATUS_CLEAR_REG		0x00000060
-> +#define BUSWR_V31X_VIOLATION_STATUS_REG		0x00000064
-> +#define BUSWR_V31X_OVERFLOW_STATUS_REG		0x00000068
-> +#define BUSWR_V31X_IMG_SIZE_VIOLATION_REG	0x00000070
-> +
-> +/* Per-client registers (relative to client base = module_base + CLIENT_OFFS(n)) */
-> +#define BUSWR_V31X_CLIENT_CFG_REG		0x00000200
-> +#define BUSWR_V31X_CLIENT_ADDR_IMAGE_REG	0x00000204
-> +#define BUSWR_V31X_CLIENT_IMG_CFG0_REG		0x0000020c
-> +#define BUSWR_V31X_CLIENT_IMG_CFG2_REG		0x00000214
-> +#define BUSWR_V31X_CLIENT_PACKER_CFG_REG	0x00000218
-> +#define BUSWR_V31X_CLIENT_IRQ_SS_CFG0_REG	0x00000230
-> +#define BUSWR_V31X_CLIENT_IRQ_SS_CFG1_REG	0x00000234
-> +#define BUSWR_V31X_CLIENT_FRAMEDROP_CFG0_REG	0x00000238
-> +#define BUSWR_V31X_CLIENT_FRAMEDROP_CFG1_REG	0x0000023c
-> +#define BUSWR_V31X_CLIENT_ADDR_STATUS_0_REG	0x00000270
-> +#define BUSWR_V31X_CLIENT_ADDR_STATUS_2_REG	0x00000278
-> +
-> +static void ife_buswr_31x_acquire(struct ife_device *ife, void __iomem *base)
-> +{
-> +	struct ife_buswr_ctx *ctx = &ife->buswr_ctx;
-> +
-> +	if (ife->res->type == CAMSS_IFE_SUBDEV_TYPE_IFE_LITE)
-> +		ctx->base = base + BUSWR_V31X_LITE_OFFS;
-> +	else
-> +		ctx->base = base + BUSWR_V31X_OFFS;
-> +
-> +	ctx->dev = ife->camss->dev;
-> +}
-> +
-> +static void ife_buswr_31x_release(struct ife_buswr_ctx *ctx)
-> +{
-> +	ctx->base = NULL;
-> +}
-> +
-> +static void ife_buswr_31x_wm_config(struct ife_buswr_ctx *ctx, const u8 wm,
-> +				    const struct camss_ife_wm_config *cfg)
-> +{
-> +	void __iomem *base = ctx->base;
-> +	bool align = cfg->packing_fmt >= BUSWR_V31X_PACKER_FMT_PLAIN16_10_BPP &&
-> +		     cfg->packing_fmt <= BUSWR_V31X_PACKER_FMT_PLAIN16_16_BPP;
-> +	u32 pattern = 1;
-> +	u32 period = 0;
-> +	u32 bytes = cfg->bytes;
-> +	u32 stride = cfg->stride;
-> +	u32 lines = cfg->lines;
-> +	u32 rval;
-> +
-> +	if (cfg->mode_config == BUSWR_CLIENT_CFG_MODE_FRAME_BASED) {
-> +		bytes = BUSWR_V31X_RDI_DEFAULT_WIDTH;
-> +		lines = 0;
-> +		stride = BUSWR_V31X_RDI_DEFAULT_STRIDE;
-> +	}
-> +
-> +	writel_relaxed(BUSWR_V31X_IIF_CGC_OVERRIDE,
-> +		       base + BUSWR_V31X_IIF_CGC_OVERRIDE_REG);
-> +	writel_relaxed(0, base + BUSWR_V31X_WM_TEST_BUS_CTRL_REG);
-> +
-> +	rval = FIELD_PREP(BUSWR_V31X_CLIENT_CFG_MODE, cfg->mode_config);
-> +	writel_relaxed(rval, base + BUSWR_V31X_CLIENT_CFG_REG + BUSWR_V31X_CLIENT_OFFS(wm));
-> +
-> +	rval = FIELD_PREP(BUSWR_V31X_CLIENT_PACKER_CFG_FORMAT, cfg->packing_fmt) |
-> +	       FIELD_PREP(BUSWR_V31X_CLIENT_PACKER_CFG_ALIGN, align);
-> +	writel_relaxed(rval, base + BUSWR_V31X_CLIENT_PACKER_CFG_REG +
-> +		       BUSWR_V31X_CLIENT_OFFS(wm));
-> +
-> +	rval = FIELD_PREP(BUSWR_V31X_CLIENT_IMG_CFG0_WIDTH, bytes) |
-> +	       FIELD_PREP(BUSWR_V31X_CLIENT_IMG_CFG0_HEIGHT, lines);
-> +	writel_relaxed(rval, base + BUSWR_V31X_CLIENT_IMG_CFG0_REG +
-> +		       BUSWR_V31X_CLIENT_OFFS(wm));
-> +
-> +	rval = FIELD_PREP(BUSWR_V31X_CLIENT_IMG_CFG2_STRIDE, stride);
-> +	writel_relaxed(rval, base + BUSWR_V31X_CLIENT_IMG_CFG2_REG +
-> +		       BUSWR_V31X_CLIENT_OFFS(wm));
-> +
-> +	rval = FIELD_PREP(BUSWR_V31X_CLIENT_IRQ_SUBSAMPLE_CFG0_PERIOD, period);
-> +	writel_relaxed(rval, base + BUSWR_V31X_CLIENT_IRQ_SS_CFG0_REG +
-> +		       BUSWR_V31X_CLIENT_OFFS(wm));
-> +
-> +	rval = FIELD_PREP(BUSWR_V31X_CLIENT_IRQ_SUBSAMPLE_CFG1_PATTERN, pattern);
-> +	writel_relaxed(rval, base + BUSWR_V31X_CLIENT_IRQ_SS_CFG1_REG +
-> +		       BUSWR_V31X_CLIENT_OFFS(wm));
-> +
-> +	rval = FIELD_PREP(BUSWR_V31X_CLIENT_FRAMEDROP_CFG0_PERIOD, period);
-> +	writel_relaxed(rval, base + BUSWR_V31X_CLIENT_FRAMEDROP_CFG0_REG +
-> +		       BUSWR_V31X_CLIENT_OFFS(wm));
-> +
-> +	rval = FIELD_PREP(BUSWR_V31X_CLIENT_FRAMEDROP_CFG1_PATTERN, pattern);
-> +	writel_relaxed(rval, base + BUSWR_V31X_CLIENT_FRAMEDROP_CFG1_REG +
-> +		       BUSWR_V31X_CLIENT_OFFS(wm));
-> +}
-> +
-> +static void ife_buswr_31x_wm_enable(struct ife_buswr_ctx *ctx, u8 wm)
-> +{
-> +	void __iomem *base = ctx->base;
-> +	u32 rval;
-> +
-> +	rval = readl_relaxed(base + BUSWR_V31X_CLIENT_CFG_REG + BUSWR_V31X_CLIENT_OFFS(wm));
-> +	rval |= BUSWR_V31X_CLIENT_CFG_EN | BUSWR_V31X_CLIENT_CFG_AUTO_RECOVERY_EN;
-> +	writel_relaxed(rval, base + BUSWR_V31X_CLIENT_CFG_REG + BUSWR_V31X_CLIENT_OFFS(wm));
-> +}
-> +
-> +static void ife_buswr_31x_wm_disable(struct ife_buswr_ctx *ctx, u8 wm)
-> +{
-> +	void __iomem *base = ctx->base;
-> +	u32 rval;
-> +
-> +	rval = readl_relaxed(base + BUSWR_V31X_CLIENT_CFG_REG + BUSWR_V31X_CLIENT_OFFS(wm));
-> +	rval &= ~(BUSWR_V31X_CLIENT_CFG_EN | BUSWR_V31X_CLIENT_CFG_AUTO_RECOVERY_EN);
-> +	writel_relaxed(rval, base + BUSWR_V31X_CLIENT_CFG_REG + BUSWR_V31X_CLIENT_OFFS(wm));
-> +}
-> +
-> +static bool ife_buswr_31x_is_fifo_full(struct ife_buswr_ctx *ctx, u8 wm)
-> +{
-> +	u32 rval = readl_relaxed(ctx->base + BUSWR_V31X_CLIENT_OFFS(wm) +
-> +				 BUSWR_V31X_CLIENT_ADDR_STATUS_2_REG);
-> +
-> +	rval = FIELD_GET(BUSWR_V31X_CLIENT_ADDR_STATUS_2_IMAGE_ADDR_FIFO_WORD_CNT, rval);
-> +
-> +	return rval >= BUSWR_V31X_IMG_ADDR_FIFO_MAX_DEPTH;
-> +}
-> +
-> +static void ife_buswr_31x_queue_buf(struct ife_buswr_ctx *ctx, const u8 num_wms, const u8 *wm,
-> +				    dma_addr_t *addr)
-> +{
-> +	int i;
-> +
-> +	for (i = 0; i < num_wms; i++) {
-> +		if (addr[i])
-> +			writel_relaxed(addr[i], ctx->base + BUSWR_V31X_CLIENT_ADDR_IMAGE_REG +
-> +				       BUSWR_V31X_CLIENT_OFFS(wm[i]));
-> +	}
-> +}
-> +
-> +static u32 ife_buswr_31x_consumed_addr(struct ife_buswr_ctx *ctx, u8 wm)
-> +{
-> +	return readl_relaxed(ctx->base + BUSWR_V31X_CLIENT_ADDR_STATUS_0_REG +
-> +			     BUSWR_V31X_CLIENT_OFFS(wm));
-> +}
-> +
-> +static u32 ife_buswr_31x_irq_status(struct ife_buswr_ctx *ctx)
-> +{
-> +	void __iomem *base = ctx->base;
-> +	u32 bus_stat;
-> +	u32 iif_stat;
-> +
-> +	bus_stat = readl_relaxed(base + BUSWR_V31X_OVERFLOW_STATUS_REG);
-> +	writel_relaxed(BIT(0), base + BUSWR_V31X_STATUS_CLEAR_REG);
-> +	if (IS_BUSWR_V31X_OVERFLOW_ERR(bus_stat)) {
-> +		writel_relaxed(bus_stat, base + BUSWR_V31X_STATUS_CLEAR_REG);
-> +		pr_warn("BUSWR common overflow: 0x%x\n", bus_stat);
-> +	}
-> +
-> +	bus_stat = readl_relaxed(base + BUSWR_V31X_VIOLATION_STATUS_REG);
-> +	if (IS_BUSWR_V31X_VIOLATION_ERR(bus_stat))
-> +		pr_warn("BUSWR common violation: 0x%x\n", bus_stat);
-> +
-> +	bus_stat = readl_relaxed(base + BUSWR_V31X_IMG_SIZE_VIOLATION_REG);
-> +	if (IS_BUSWR_V31X_IMG_SIZE_VIOLATION_ERR(bus_stat))
-> +		pr_warn("BUSWR common image size violation: 0x%x\n", bus_stat);
-> +
-> +	iif_stat = readl_relaxed(base + BUSWR_V31X_IIF_IRQ_STATUS_S0);
-> +	writel_relaxed(iif_stat, base + BUSWR_V31X_IIF_IRQ_CLEAR_S0);
-> +	if (iif_stat) {
-> +		if (IS_BUSWR_V31X_IIF_IRQ_S0_IMG_SIZE_VIOLATION(iif_stat))
-> +			pr_warn("BUSWR image size violation from CCIF: 0x%x\n", iif_stat);
-> +		if (IS_BUSWR_V31X_IIF_IRQ_S0_VIOLATION(iif_stat))
-> +			pr_warn("BUSWR violation from CCIF: 0x%x\n", iif_stat);
-> +	}
-> +
-> +	writel_relaxed(BUSWR_V31X_IIF_IRQ_CMD_CLEAR, base + BUSWR_V31X_IIF_IRQ_CMD_REG);
-> +
-> +	return iif_stat;
-> +}
-> +
-> +static void ife_buswr_31x_irq_enable(struct ife_buswr_ctx *ctx)
-> +{
-> +	writel_relaxed(~0, ctx->base + BUSWR_V31X_IIF_IRQ_MASK_S0);
-> +}
-> +
-> +static void ife_buswr_31x_irq_disable(struct ife_buswr_ctx *ctx)
-> +{
-> +	void __iomem *base = ctx->base;
-> +
-> +	writel_relaxed(0, base + BUSWR_V31X_IIF_IRQ_MASK_S0);
-> +	writel_relaxed(~0, base + BUSWR_V31X_IIF_IRQ_CLEAR_S0);
-> +	writel_relaxed(BUSWR_V31X_IIF_IRQ_CMD_CLEAR, base + BUSWR_V31X_IIF_IRQ_CMD_REG);
-> +}
-> +
-> +const struct ife_hw_buswr_ops ife_buswr_31x_ops = {
-> +	.acquire	= ife_buswr_31x_acquire,
-> +	.release	= ife_buswr_31x_release,
-> +	.irq_enable	= ife_buswr_31x_irq_enable,
-> +	.irq_disable	= ife_buswr_31x_irq_disable,
-> +	.wm_config	= ife_buswr_31x_wm_config,
-> +	.wm_enable	= ife_buswr_31x_wm_enable,
-> +	.wm_disable	= ife_buswr_31x_wm_disable,
-> +	.queue_buf	= ife_buswr_31x_queue_buf,
-> +	.consumed_addr	= ife_buswr_31x_consumed_addr,
-> +	.irq_status	= ife_buswr_31x_irq_status,
-> +	.is_fifo_full	= ife_buswr_31x_is_fifo_full,
-> +};
-> diff --git a/drivers/media/platform/qcom/camss/camss-ife.h b/drivers/media/platform/qcom/camss/camss-ife.h
-> index c163c336fcc3..efbb1e75d550 100644
-> --- a/drivers/media/platform/qcom/camss/camss-ife.h
-> +++ b/drivers/media/platform/qcom/camss/camss-ife.h
-> @@ -397,6 +397,7 @@ camss_ife_pipe_for_stream_id(int nstreams,
->  extern const struct ife_pads_descriptors ife_pads_v20x;
->  extern const struct ife_hw_top_ops ife_top_20x_ops;
->  extern const struct ife_hw_buswr_ops ife_buswr_20x_ops;
-> +extern const struct ife_hw_buswr_ops ife_buswr_31x_ops;
->  extern const struct camss_mod_ops ife_mod_v10x_ops;
->  
->  extern const struct ife_pads_descriptors ife_lite_pads_v20x;
 
