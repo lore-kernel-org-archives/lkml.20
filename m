@@ -1,62 +1,33 @@
-Received: from sonic317-32.consmr.mail.ne1.yahoo.com (sonic317-32.consmr.mail.ne1.yahoo.com [66.163.184.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EBC33DB626
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 20:48:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.184.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C7C53EDE7C;
+	Wed,  7 Oct 2026 20:48:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791406117; cv=none; b=kwsAqxR0Ue0W9bZZanu5HC4CvBnuGrlT6diORSLBUIXdna8G10S/5+u30kA+4r48OMBLbkmqyNeVS9DDEwvCbOsljPRCsxmf08Uz7mPedKuosBbAmFbd+c0SjVLw4C7uEse83oVCLQgPJ2E06ItaWktEzilnezGDiZoPqJiex9s=
+	t=1791406126; cv=none; b=QBxJPL87UK5YeOg6ltRFPcBqODqJk6vEHP5Wsmct2vNkILFY6eQoIpftzc13ouRwHedlj+bpDTnkv+awz8Ft1aqn9h3WKI6WbNLov+OsKaVcwZ/rXubZ/XeJSpv5YCaUkIge8lCWV12wbokw6nfx0YhMo0KiL/LLo/a+7g3lpy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791406117; c=relaxed/simple;
-	bh=0yBeeJwIUgXKipszSVlZlxU59rWlgzL3tH/q6hHa+Js=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
-	 In-Reply-To:Content-Type; b=BIh2V40xokKipOPgjwB+buRVTqE4G+4hDB4fEH9esO4/fled9pcy+mMEVghiLCCxToNs9uXw+ccs0gMTBDiiTQl1zQCu4NNq76WW4venwirVf84FioRKGKG6zCd4wkTOtoSeSU1uKjAouEj/kSdgwYJkasqvhfahu8P5BzNXO10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=cqVKpSQ4; arc=none smtp.client-ip=66.163.184.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	s=arc-20240116; t=1791406126; c=relaxed/simple;
+	bh=0/WhIE5xUByjGl43DhBMNRFzi1uqctn4Lq5DdYZ/MNE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BZktODw6n32h0v0AjisLuKO4QgrE6mTDqvXjaPFBFIhEf+Lvgi6T6rW7zfRE631s4lQ71o+GLezswYsgE4YdeBa0VVDKQp8JiSTTa7XuVBYNSJyvklH//NJqkstHLQvoa3TrWq6uuF18pynUdvBZ1lQ+ROX5NjRVDLVbcdm2nHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T0spcabY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="cqVKpSQ4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791406115; bh=i/tb82rGNDSqM7lyf7uiX/jOmb8jPP86M3hO58k9O9Y=; h=Date:Subject:From:To:References:In-Reply-To:From:Subject:Reply-To; b=cqVKpSQ4GEdmSBKcBHlWkaxEsAczhfGfsuw8cZF0qlzfezwXE6wa9jpbxPPM3HpF6kXfqfA9g+2NDy+pdETfLMuLwI+xxWQ+DFTzl4wum3F8njs7ZtvPyBexLwiNy6eZSLjffL8fv9/S0/9Twxi8H6aWemZJ8LvG0PnR88Wk3FhHNO3F080k2G4OHCot5vuA1GFdSkIYoDtLZTlYx4xTLXgcD5cRF9v9xxcvQq0VKS7xLYT7oNz8oM558YvPYxPB2b57ujHSdVlet5NFDmPeU8+hppAOvVudPSbHX6VRrnVPcTZlBaYb6P+NnFZ/gwss6ZR5oQu0Ub7eIbh2KKWP5g==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791406115; bh=kgCKS8HroGnANNXnS47Gb754p5LJINww/mK1J9hDbvg=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=gI3tBh0VhogFognDQbcI1DvJcrOc9vK+uPVJlTuU0fd0/RdH1QmYyFJ/0PpCC6mUrFQMOAO0GmdjSkQ3ByCt73PRVuaGeb+W3IRbh7Vscrw0j8a6DNEV5T9COnxxXtjDmd3X/aHDLzkA6VzQ/J5vL5sE5RCne9g0sQhtN22kE/9BMIE1Hv5Bc8u7WNLZhVgmkRPBDxVHIh2li7wV+WsaRt8S3F4p0JnP0sZvtYjHgH8uuvhLpkNe6BAYrUzHUdtIrI6+r5e27KDGa//KtV7QqTGTmWDzzrSruXHrYZxi41u6fzqp2UItjVpdceGX10Q1flaap4L5KoKUaUB/cnE1Zw==
-X-YMail-OSG: 7yDbpHUVM1kJkNaDOZfomh.aeBJPXXNk8yGzhWpgOEwJKDZgU2gk8LlW9TYEyER
- 9syDb7yGHJmN4jXSYHdCjeDUw7l3Fo2d4it7Q88rIv.299VeqA0BO9mf6m2gA0DtffZQ1u7vsCPd
- kK93bH5REZXlJVTb27g1bU.BHBdO3GtxVnwfhgZTHqE75RXBIxjUgGr4s_0pBwzaTdhnhuhP5F2N
- ntkdebE6_3YYEoK8n1196LrYBMX3JWeMbExgj5vBqly_m.XjtYOIxvtiT28KkUe3Ppgo11JqUhly
- DR4sdY_Rpoc4ypgXxb9vjGGKKE3AQCcA4hHVh4cMRB80S4fI8IvqJnXKlWZd_6Fayy4V8uQ4qj2G
- nBBpKViDdH209SpwYXU_fJ5Ko3uF253esbxNAiKKd4OlJkocRdLpweR6.Rzn9FmMLJHmcFqECJbx
- FPzvoLwKNzhBsIjG0AsADM8GDjZvOGbNj3nayGpDdf6X3WsIrNd6hsO6E5ybLDuQPF.sqyCcfBLm
- .VeOHSy7NtOFSzA_56TvjSN6Pj5C0bvrp2g5qmq8QRiSvQ_XGOvT5RubGv6En6kaTbyoQE1.Am4.
- HbXRoZFJ5yHi7_ARJqS9tGO_0dd1YvndT2DfXcp3.QRZf7LwH6Zojg_sA5k9HsG56RmcFNk5mklM
- 0SnDHzsb3GE23.07mujd8NkQDzLmOcdn.WFmzvMw68k59_TeKg0j96zM3jWAzRKMOlJNXjKfjGxb
- fYrcGZgigOxWwYdNv64O6XknxivlEZfDXwfnjQf0KOEzh0Ot1pR2HaXrumjww.7fBXLkqyQygwEf
- x2zcAD5UFeGvKcEPIKnvQY6oH_ezsef9QsWpHmMCm41yK4fSXHLsVzG1AJfZnVl_xuTvbkhudoWc
- 2_N4wQbXfRr94XyUhRZRI2Suo_4bNDvWKbXIHGOj7h03_ThYYmTYQoQWBsPYRDjg3WM_0nXvps_P
- sDBvTgIlzMHcSeC_jROtFNKAvL30wJMN2fZyeXSVECHMDRTNHZzNo4fQGEe7E8W6hegolB8eGYA4
- LdbD8wyTsaWc65rht6Xd.1V.jSTT1DUYqzeBHkoN34ZqyyDTSum_5n4YNDF5kd.csKPIbIxcLTmk
- DyktoRuajLuKnf2pOSMkW0r97XajGm3BCQ5ulePgJgVsP4MY.UaLPLVxUPllbaMxuzQXGBPcyHqj
- Wt_2uIiXSVmLTnxXRAcTiYtoAZfI_VbkQrFcnaMn1Ev.UFKNwVTVT35tt4wFjfQQ9o45BAx1IS41
- SiJTsTl2JArekc8xJvHradk6cwqmtZW7VZtDMhCdN0keN8HRAnf1PR9lGcnVrt3tD7Dp3aQb7and
- ZRr_S2fv3aMAxw86u..DB1wuemDen9Ddo90DVpp28DGBR3NWPRJQTvPiM9GII7mXyttmr6eHAnk7
- c_HPi2AErSFv8jKtMNlDKaenCv96IYVQ92yIBMVeqDl0mTLJYfv75b_KFWFS._ejo1_ATUfBwocn
- VhRhuWInYExwjW8cGq8.r_OjmA6IfgfR54_mo4NJjzMiil.XoGiSS6nNLEenPZycc6SfBnZMM6LO
- tRGy3KRfMVCQJ_pg5eOTDRXdoiKj3257kfNU.WzjAbIqQ8AAAYHXhPZVKfc8C01lMTl3WXPVlAoO
- Trxvq4v8AMwzxJ.Ulykmsnc8n6H4DnfjVGfdaaTWOgtF5UkIckXBMTU2vSfrQ7lp5zASgi1xAPp1
- 5.IOGuUH35JMdWX8XkoTwv3kj88ZGToNkNeE3xpk_PigYot1vPCOLRQhoqLXtGzw8Qzm2ZbakZm5
- Zxd3mu4hoU34lWKIWlgkLPYkLYhQCMtRjb45DhtWqWqXm1SoQGfhA9L7yya90KXil2qrXjuThccz
- bF34qxUA6UGbGGrSBvUsM7vWiX6VjU_TS0JaBbnIQ7sZybj_q.IRvTj1ELriYyz_h8CWW3_gMRb2
- jWgvXXTpqUYvmE45QsaZASkBT6H128IEG5gGdtPGTZLX0O5XsEMM0y38kcX4WIL7_k3iR3ay48qL
- TwGidzRI0yg7G5a4GatWzU37uRxer7hRleyxiPoQdJc.NDvaF4S7bX__nJwrGViScID5Cl8uY_KG
- .v7UJQYM8CCJcoqzW.vbP0y2S1Xwlh_gIP9RnJfFFe51rIbuz9PcRhG2Z5tAZXXsOhlga0QdvN.H
- I_UKdbsTHcYxTNZjNnFH9V1ByqLdP6HcKDaERi2w5ahfvzNYLSZwVbzdXKdTgyEvoiUxXWJsMAdr
- I_46EscAlDYTILuc9jdA0LcEzC1axZCwAwBQhwRXpS9vg1DyZGc8_D0JsqMhorlJ0RaXtPnP9b4y
- eNOoXTJW4iSsr0U_yYACqWE9FSvqHnlZ7EM0T9kI-
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: bdddba3a-3b1e-42c1-9e61-f52d24a9d895
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic317.consmr.mail.ne1.yahoo.com with HTTP; Wed, 7 Oct 2026 20:48:35 +0000
-Received: by hermes--production-ir2-5dd9bf4598-bbdwl (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID dc3c9d1ea882afb0da3584e844a12f58;
-          Wed, 07 Oct 2026 20:38:18 +0000 (UTC)
-Message-ID: <3daa4f32-733d-466d-a0f8-4c25257229bd@yahoo.com>
-Date: Wed, 7 Oct 2026 22:38:15 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T0spcabY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6562E1F000FF;
+	Wed,  7 Oct 2026 20:48:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791406124;
+	bh=nPV72BRwuyAm3hJ2pQez24KWWbawWtDF4Xp0O9HmZIw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=T0spcabYBSnTFnftQPKCF43YJ2HgnJrVFQtkhrskjqqyfytiOkIswyApmhyNE1Lgb
+	 xktpu3B4Mwse1eyz8rUdx/aK7jKsFt9uM7cQTbX4SEUFTrKnT55rb/gB6F/ZF2O2Jj
+	 3Xa83NGCwg9WZHB866isMjmIh+Ilc0vpqIbPpJAKSRc8rhC+8FM5bG9hzrSmbj0xbL
+	 vO2lImb8q7CITNTSB1YOzmX+cD71ff16ah9MwbMyzVr93AuGvJQ/NKWxbm6i9yoKEF
+	 1+cgFAeouP/SHXsfNf9gGlTYNCv5QBIzywbfN0OUC8KSws49+dmjNI4snVQ12dRR9P
+	 IHnmBtx8IClKg==
+Message-ID: <40f3c095-4202-4d2b-93e3-376a231d4fe8@kernel.org>
+Date: Wed, 7 Oct 2026 22:48:39 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -64,85 +35,64 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH net-next 3/8] net: dsa: realtek: rtl8365mb: get pvid for
- family D
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-To: linusw@kernel.org, alsi@bang-olufsen.dk, andrew@lunn.ch,
- olteanv@gmail.com, kuba@kernel.org, davem@davemloft.net,
- edumazet@google.com, pabeni@redhat.com, linux@armlinux.org.uk,
- luizluca@gmail.com, maxime.chevallier@bootlin.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <84fc7483-b22d-45ea-a3b8-3285dc357265@yahoo.com>
-Content-Language: pl
-In-Reply-To: <84fc7483-b22d-45ea-a3b8-3285dc357265@yahoo.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH 3/5] ARC: Emulate two-byte cmpxchg
+To: "Paul E. McKenney" <paulmck@kernel.org>, linux-kernel@vger.kernel.org
+Cc: Bradley Morgan <brads@mainlining.org>, Vineet Gupta <vgupta@kernel.org>,
+ Guo Ren <guoren@kernel.org>, Yoshinori Sato <ysato@users.sourceforge.jp>,
+ Rich Felker <dalias@libc.org>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Arnd Bergmann <arnd@kernel.org>,
+ David Laight <david.laight.linux@gmail.com>,
+ linux-snps-arc@lists.infradead.org, linux-csky@vger.kernel.org,
+ linux-sh@vger.kernel.org, kernel-team@meta.com
+References: <7f398d4a-7fae-4382-9cc4-8627e8aa912b@paulmck-laptop>
+ <20261007203636.1982188-3-paulmck@kernel.org>
+Content-Language: en-US
+From: Vineet Gupta <vgupta@kernel.org>
+In-Reply-To: <20261007203636.1982188-3-paulmck@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26668 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
-Family C silicon requires reading the port's default PVID mask by
-executing an indirect lookup via the shared VLAN member configuration
-(MC) table index path. Since family D lacks a working hardware
-implementation of this MC allocation table, attempting to parse it
-returns junk. Fix this by bypassing the old MC loop entirely on family
-D and reading the 12-bit PVID mask value straight from the dedicated
-per-port hardware control register base.
+On 10/7/26 22:36, Paul E. McKenney wrote:
+> From: Bradley Morgan <brads@mainlining.org>
+>
+> ARC has no two-byte atomic compare and swap, so the
+> arch_cmpxchg_relaxed() macro switch lets case 2 fall through to
+> BUILD_BUG() via default, and a two-byte cmpxchg() fails the build.
+>
+> Route case 2 through the new cmpxchg_emu_u16(), which narrows the
+> old and new values itself, so the dispatch keeps the (uintptr_t)
+> casts the case 1 path already uses.
+>
+> The sizeof(*(_p_)) fix that v4 folded in here landed separately
+> through Vineet's f050c3e61d2a, so this patch is now only the
+> case 2 wiring.
+>
+> Signed-off-by: Bradley Morgan <brads@mainlining.org>
+> Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
 
-Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
----
- drivers/net/dsa/realtek/rtl8365mb_vlan.c | 25 ++++++++++++++++++++----
- 1 file changed, 21 insertions(+), 4 deletions(-)
+Acked-by: Vineet Gupta <vgupta@kernel.org>
 
-diff --git a/drivers/net/dsa/realtek/rtl8365mb_vlan.c b/drivers/net/dsa/realtek/rtl8365mb_vlan.c
-index 8d49ffa..7add1fb 100644
---- a/drivers/net/dsa/realtek/rtl8365mb_vlan.c
-+++ b/drivers/net/dsa/realtek/rtl8365mb_vlan.c
-@@ -48,6 +48,7 @@
- 
- #include "rtl8365mb_vlan.h"
- #include "rtl8365mb_table.h"
-+#include "rtl8365mb.h"
- #include <linux/if_bridge.h>
- #include <linux/lockdep.h>
- #include <linux/regmap.h>
-@@ -113,6 +114,11 @@
- #define   RTL8365MB_VLAN_PVID_CTRL_PORT_MCIDX_MASK(_p) \
- 		(0x1F << RTL8365MB_VLAN_PVID_CTRL_PORT_MCIDX_OFFSET(_p))
- 
-+#define RTL8365MB_D_VLAN_PVID_CTRL_BASE			0x0700
-+#define RTL8365MB_D_VLAN_PVID_CTRL_REG(port) \
-+	(RTL8365MB_D_VLAN_PVID_CTRL_BASE + (port))
-+#define RTL8365MB_D_VLAN_PVID_CTRL_MASK			GENMASK(11, 0)
-+
- /* Frame type filtering registers */
- #define RTL8365MB_VLAN_ACCEPT_FRAME_TYPE_BASE	0x07aa
- #define RTL8365MB_VLAN_ACCEPT_FRAME_TYPE_REG(port) \
-@@ -679,11 +685,22 @@ int rtl8365mb_vlan_port_get_pvid(struct realtek_priv *priv, int port, u16 *pvid)
- 	u8 vlanmc_idx;
- 	int ret;
- 
--	ret = rtl8365mb_vlan_get_pvid_mc(priv, port, &vlanmc_idx, &vlanmc);
--	if (ret)
--		return ret;
-+	if (rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D) {
-+		u32 data;
-+
-+		ret = regmap_read(priv->map, RTL8365MB_D_VLAN_PVID_CTRL_REG(port), &data);
-+		if (ret)
-+			return ret;
-+
-+		*pvid = data & RTL8365MB_D_VLAN_PVID_CTRL_MASK;
-+	} else {
-+		ret = rtl8365mb_vlan_get_pvid_mc(priv, port, &vlanmc_idx, &vlanmc);
-+		if (ret)
-+			return ret;
-+
-+		*pvid = vlanmc.evid;
-+	}
- 
--	*pvid = vlanmc.evid;
- 	return 0;
- }
- 
--- 
-2.53.0
+Thx,
+-Vineet
+
+> ---
+>   arch/arc/include/asm/cmpxchg.h | 3 +++
+>   1 file changed, 3 insertions(+)
+>
+> diff --git a/arch/arc/include/asm/cmpxchg.h b/arch/arc/include/asm/cmpxchg.h
+> index 76f43db0890fc..7157718f147c1 100644
+> --- a/arch/arc/include/asm/cmpxchg.h
+> +++ b/arch/arc/include/asm/cmpxchg.h
+> @@ -50,6 +50,9 @@
+>   	case 1:								\
+>   		_prev_ = (__typeof__(*(ptr)))cmpxchg_emu_u8((volatile u8 *__force)_p_, (uintptr_t)_o_, (uintptr_t)_n_);	\
+>   		break;							\
+> +	case 2:								\
+> +		_prev_ = (__typeof__(*(ptr)))cmpxchg_emu_u16((volatile u16 *__force)_p_, (unsigned long)_o_, (unsigned long)_n_);	\
+> +		break;							\
+>   	case 4:								\
+>   		_prev_ = __cmpxchg(_p_, _o_, _n_);			\
+>   		break;							\
 
