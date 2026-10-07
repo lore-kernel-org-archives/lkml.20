@@ -1,92 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1029A43BDA0;
-	Wed,  7 Oct 2026 22:37:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 309AD20D4FC
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 22:40:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791412654; cv=none; b=hTW5BH4YRW2C6AbhEjC7W0rL9DIvtSmpnLNhMrY8tJLXs7Y1vCQdeKIQWSzFX9d/WuwX+vwJJNGdRdrtIfVbJw1r4YngfTElbpo+20LMncvwr9TI7Ppx7u9wedE+8E7tseQSEh2T8RTZlijwAHQhFY4ExB2rmMgzj9tKD/3Dsn8=
+	t=1791412808; cv=none; b=Il0EyVLaXeQt0syxxcwFkOgftSMmf8S0wNde0EJveVIN/vWvcc3+Bde3xS9bEDGtqZi3+DF9UU2nv0ourOH0H/wB9Gfp1Vu5WIHghobRdpNcdGsTXmP4Rh3qxwIO0kJ8rhjyYQRNu6efZ9UioIM87qXneDqpUZ2Prw3MW/jYhrk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791412654; c=relaxed/simple;
-	bh=G9xv3wDpg5Ngwcp/X0keDDatoMA/PUwJxG3No0lZ0uU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=t4XgMnH8mxtjZ0j5BP+pZG9rypkhYrsZ8WwEL9a3p561mOERNQIul6YbGAcp/3mF4oPFtaw7CQxlTpHGscTCsppHmTem7nzqCIkUwSrYDRSZt8jecaak4lzWTfKIn5atALa8eEUp0uMu110QjVS8LijCsBhY0R4yMhCWUnfdxPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l4VK5rRQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791412808; c=relaxed/simple;
+	bh=wDQs/sh20h3xtqVv0dW4uZdpBTmUfFDpqyEnKvT8U8o=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=gQi4X6ooCL/mtRD60V3HPPZzyvJ/8bGJ7p49Y9yexfaekl51lp07+0llvHtELHPpo0bBLIxYxYPghnGWoSamtbt6myHtH+cLq4eX5WOa3zelOrBdwgrb2KrsOsMzm3Mfp2OpyijM6Fhg975k2TI3qS9KpQB0t+y/BqDMn3WWUXs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--abhishekbapat.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jKFcnT+P; arc=none smtp.client-ip=74.125.82.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--abhishekbapat.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l4VK5rRQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40E691F000FF;
-	Wed,  7 Oct 2026 22:37:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791412652;
-	bh=y5Eb6wDN3K+IXIlDEkTMmRQzs1wHV9zCpiZ2/PHKpJg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=l4VK5rRQYJL0qcq9g0tv7vE/oUgY/q4t4pSyAeKEletXiqDAKhczjPFxKBL+irrg9
-	 9/OENVKxvsc2NI91WpHOMCU9U6A1wm27SvtKdF0aBV9xfSUp6iJ541Q1fEVmLp+1dF
-	 5wYxyZon1RG2lLKJd8pj/Z7mnvpQJY/k8pfJ3Qw3j0LmzRjcRYpWsYfYmmENOZ5icS
-	 lvX//ZWhNhxYPilne4kiF4C32k+e6NGmKv1vTWZW4JirPzWRSG7b2y2VG17fxLl7jO
-	 bmkh0QqAIFOu5ht/m2nTpM1d98oqta62PvphTUinQusm67jeJoDvO0sUDukCe9OkzH
-	 pESc++MeIaXJg==
-Date: Thu, 8 Oct 2026 00:37:26 +0200
-From: Eric Biggers <ebiggers@kernel.org>
-To: =?iso-8859-1?B?Suly6W15?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>,
-	Ard Biesheuvel <ardb@kernel.org>, linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] lib/crypto: arm64: Fix lost Poly1305 carry when resuming
- NEON state
-Message-ID: <20261007223726.GA24521@quark>
-References: <20261007220235.200818-2-Jeremy.Jean@oss.cyber.gouv.fr>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jKFcnT+P"
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3510d0baf63so9280355eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 15:40:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791412806; x=1792017606; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vIFYPTbMlvK7LEVP07VoMQmv5kgwn2c+6+4FzK8N/QU=;
+        b=jKFcnT+PnFnU4LgtEEEGIA40DBSxiUpgsAKwmGWYGVfYcDDIhMOR8h8P6d/xNWJnb+
+         I4ukwjJViogKU5QQ1CcbYD71CYfRpqzURvH0hXFcL2f73TFVsoMekAEW/od6FgHmvUCL
+         EyimkWH39zSrY7K4r4EPhEmDMq2aaqHG3/7X1JbH2nxUqWF6LHkh12V+lotzjwDCRn91
+         YJoUEqGsN8sc0CmJfQtXd3BzwsNSc4ma1Ll78W1qq5CRGyeF98YH9M5xmTAP12Jtld0D
+         wj3LRCecdiZb9MDp+FJi22wX3J7c3Fwct5ersPixIw7xaGYI4i5sNYc/GeX3JULy3fB9
+         k0YQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791412806; x=1792017606;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vIFYPTbMlvK7LEVP07VoMQmv5kgwn2c+6+4FzK8N/QU=;
+        b=dOpW6aZ9tuw2eCqWmjFPnDL8RIpqaAoe8mMZEMNFNv3OAxkXZp+6sT4auffLr+D25g
+         olDl0iTjEenMnxT37P9EpA7MhY0S3IIbZhj2f3rwTEUEI1F6q2f1qszGFOdbEg4ZwCxJ
+         j6tGJlacwL7Jq1b2EWRfjmN1sUdreh9ZSdP3VWMBLT+9EX2A5AYarqYDC73pQCrmeEDu
+         DGnTTn/IWqeiY8n87jkY2/ja87WuQeY+wlSrBnanhdHEp9eQEeYiaqo2KTbLgpxpwQqT
+         cIMHkXrv1Z+dfraliI0ePu6Un9MekTS9ABoXpNIfactxeQja3q7IDA5/ZW7PQZSKnG+K
+         UXGg==
+X-Gm-Message-State: AFuF++nLEkSUZkQmIqw8y9YH5Y+PS5MVU6IUl5eCVdhRH+I792Qze2Wv
+	0CAIYDX8HsqaPypGBHW/qFBkK6uJBL95k0eqV0U3wpZmERUn4HxsvNfabokyT6K6o6ckQV/9p2I
+	HicIKuQyq8FEdaYLcDTMQvPJ9wCjPjBPiGg==
+X-Received: from dlam7-n1.prod.google.com ([2002:a05:701b:2087:10b0:15e:35b8:18c6])
+ (user=abhishekbapat job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7022:7e02:b0:143:2967:c0b1 with SMTP id a92af1059eb24-16206b2b3e2mr4893297c88.25.1791412805684;
+ Wed, 07 Oct 2026 15:40:05 -0700 (PDT)
+Date: Wed,  7 Oct 2026 22:39:58 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261007220235.200818-2-Jeremy.Jean@oss.cyber.gouv.fr>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+Message-ID: <cover.1791410885.git.abhishekbapat@google.com>
+Subject: [PATCH v2 0/4] alloc_tag: Introduce selective tracing for MAP
+From: Abhishek Bapat <abhishekbapat@google.com>
+To: Suren Baghdasaryan <surenb@google.com>, Hao Ge <hao.ge@linux.dev>, 
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	linux-trace-kernel@vger.kernel.org, Abhishek Bapat <abhishekbapat@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Oct 07, 2026 at 10:02:36PM +0000, Jérémy Jean wrote:
-> When poly1305_blocks_neon() resumes from a radix-2^26 state with an odd
-> number of input blocks, it converts the accumulator back to radix-2^64
-> before consuming the first block. The final ADC stores the carry into d2,
-> but the following accumulation and poly1305_mult() use h2.  If the
-> conversion overflows across bit 128, the carry is dropped and the emitted
-> tag is wrong.
-> 
-> Store the carry back into h2. This matches the other conversion paths and
-> preserves the represented accumulator.
-> 
-> Fixes: f569ca164751 ("crypto: arm64/poly1305 - incorporate OpenSSL/CRYPTOGAMS NEON implementation")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-> ---
->  lib/crypto/arm64/poly1305-armv8.pl | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/lib/crypto/arm64/poly1305-armv8.pl b/lib/crypto/arm64/poly1305-armv8.pl
-> index f1930c6..234398f 100644
-> --- a/lib/crypto/arm64/poly1305-armv8.pl
-> +++ b/lib/crypto/arm64/poly1305-armv8.pl
-> @@ -375,7 +375,7 @@ poly1305_blocks_neon:
->  	adc	$h1,$h1,xzr
->  	lsr	$h2,x14,#24
->  	adds	$h1,$h1,x14,lsl#40
-> -	adc	$d2,$h2,xzr		// can be partially reduced...
-> +	adc	$h2,$h2,xzr		// preserve carry into top limb
+The existing memory allocation profiling (MAP) tool accurately maintains
+aggregate counters for overall memory accounting. However, relying
+purely on aggregated counters restrics the visibility needed for
+targeted debugging.
 
-This needs a regression test in lib/crypto/tests/poly1305_kunit.c.
+This patch series integrates three new tracepoints (alloc_tag_hit,
+alloc_tag_mem_alloced and alloc_tag_mem_freed) directly into the
+alloc_hooks_tag fast path.
 
-Please include more details in the commit message about under what
-circumstances that carry bit could be nonzero.
+Enabling trace events globally for all allocations introduces a severe
+baseline overhead. To limit the performance overhead, we let the admin
+select specific allocations to be traced.
 
-It seems this was introduced by commit 03dc4adf91c8bc of
-https://github.com/dot-asm/cryptogams just before the kernel imported
-the code.  The bug never reached the copy of this file in OpenSSL.  Do
-you agree?  If so, please mention this information in the commit message
-too, and also open an issue at https://github.com/dot-asm/cryptogams so
-that it can be fixed there as well.
+A new IOCTL is introduced to allow privileged users to determine which
+allocation tags need tracing enabled. The IOCTL utilizes the
+pre-existing filtering mechanism to specify the allocation tags to
+enable tracing on.
 
-- Eric
+v2 changes:
+- Patch 1/4: Changed the trace events for the page allocator to track
+  pointer to the head page instead of codetag_ref.
+  alloc_tag_trace_enabled() no longer takes a tag arg, that arg gets
+  added in patch 2 instead where the function makes use of it.
+  Introduced new sections in the Documentation expanding on the newly
+  introduced trace events. Minor typo fixes.
+- Patch 2/4: Toggle traces IOCTL now uses the same filter as other
+  related ioctls. IOCTL returns -ENOENT if no tags match and an empty
+  filter matches all tags. Added a subsection in the Documentation
+  expanding on the new IOCTL.
+- Patch 4/4: Updated the test to work with the new UAPI from patch 2.
+  Updated commit message to accurately mention that the test flips the
+  state of trace_on, verifies it and restores to the original state.
+
+Abhishek Bapat (4):
+  alloc_tag: Add trace events for tracing allocations
+  alloc_tag: Introduce IOCTLs to toggle allocation tracepoints
+  alloc_tag: Extend allocinfo_filter to support tracing queries
+  alloc_tag: Add a test for trace state toggle and filtering
+
+ Documentation/mm/allocation-profiling.rst     |  73 ++++++++
+ MAINTAINERS                                   |   1 +
+ include/linux/alloc_tag.h                     | 104 +++++++++---
+ include/linux/codetag.h                       |   5 +-
+ include/trace/events/alloc_tag.h              | 122 +++++++++++++
+ include/uapi/linux/alloc_tag.h                |  21 ++-
+ mm/alloc_tag.c                                | 160 +++++++++++++++++-
+ mm/page_alloc.c                               |   4 +-
+ mm/percpu.c                                   |  12 +-
+ mm/slub.c                                     |   6 +-
+ .../alloc_tag/allocinfo_ioctl_test.c          | 113 ++++++++++++-
+ 11 files changed, 573 insertions(+), 48 deletions(-)
+ create mode 100644 include/trace/events/alloc_tag.h
+
+
+base-commit: a663a4c75b63341fa6cc16e15feb29f36321f5f2
+-- 
+2.56.0.385.gd3acb90ef8-goog
+
