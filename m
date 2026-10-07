@@ -1,115 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8EB23BB9FC
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 05:06:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F330C5B206
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 05:10:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791349569; cv=none; b=evddCObnd1jHd6jjZNNeXK4SMUNgU9Z6g0gez2W0MDPnDTKRnRVyw2CxS3QgzWTcNJV5QNatnF843zsbA8Ej4lFLig9oQafAQSWbqlp8kKK6plqAl5CBG2M1NBw7XaP8YukjntCfZ02oLmBGxMfd1loH4b+aLnp5g0m62/JmuBY=
+	t=1791349805; cv=none; b=Ht2nxnOFlHqOxhDAZq9D+fFTd+ZrBP+BXA2BMsqqsCdTrFjiBwZX/yMyKBNFWC8KcJfR12G+tXmobF1oVsSuJaQT4bL1YCJCrXLrjHYuU+ThNX8byoxFzb8ogNesFqfed+IBo7ymauJUT3eP5CsRQ3DxCzQCvHEQJxll6RJmJAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791349569; c=relaxed/simple;
-	bh=G8LeofBqypYy5FArHs7+TGUt5emJ5T71K3mdEpcH0mk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=r7GYJ8FYDyOyjFEF+0XC48V8uIzGRKxgC358jIF8pbWaKSm0xKV84N0RIX0EM6xEqonLwwd82jLQwq6KhKyL6H9DAQSxvThyH34fUBDjgCSratRj5mPjGEn7/QXCdg3o9QhDsQJ3bMMrWYwG7Pgn1bn4Ag2m/d06WBgxOwksHYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QMPnPkvP; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QMPnPkvP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6117A1F0089B
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 05:06:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791349568;
-	bh=45/WO5wbYO1299RifHRzyH5pqqomm6asEV6GHMsupFI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=QMPnPkvPDumZGSADnQW/lRp0YzJAV0PM36Y59HEkiy42AQvw8jfYGVxyZ5pSdymC8
-	 8Vr9k4wDNZyJ/CSQtBak45HkT+Igw+HDYOoSudhilUI28dstVO4vRNF7I+BRO5VZmZ
-	 ecyv8quHsZZF+ok/OUtTuVML3pa8FdwZCOzDGWO6qP7RzJD9hQ7I69QMa6UbQPSPKW
-	 zJMISagUaFFkFndIRXgm9/jkKDIYfe0YZvRWxd+KxvGHISK1jt2dA1m3m0hcgvxuaI
-	 18X6dC4sxxrv9bazayH4t3hf1yYvVEn829vYrDWG7BgpPGzkJ1SaIt730oedBgQ6BZ
-	 a6ss82Vlq6HRg==
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c2e7496f947so206896566b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 22:06:08 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzaR6mSXVuvZQPBeeHzg9TH/QtKw/mlvU60iKThS+30NTNROkiCV9Wt8jfuBz+nunIWFTKy9gYACEPxINk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLTWWYE4BSw3ZO+eG7xpyUzIrV2I/vK0BDRm2adkUA5jla7tL0P
-	uoNGktK2TZmxZOX/+fMn3unLfHDFkaIOvasreHZhWUPyy1tUDVjuz7i02ioNlell/UuI/bJ85qn
-	4U8UIATM7iox9QqBduvDZsWpB59f7aY4=
-X-Received: by 2002:a17:907:2da5:b0:c2e:893:7010 with SMTP id
- a640c23a62f3a-c317c09faccmr84659966b.37.1791349567049; Tue, 06 Oct 2026
- 22:06:07 -0700 (PDT)
+	s=arc-20240116; t=1791349805; c=relaxed/simple;
+	bh=tA0tkMu72Lk4ZgeHAdvI9P9iOJq4eVANTAQY5qjgLjg=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=mseGCdrFX2lTVep5ZnS1C4wSn0Kd8ttcI0FRyJwti+keUYAp7NlyRLY3Jn8+4/LNuOpyjimWcJZuEEpjoxv0Oanrqhgl1Fs6K5ZGAbOBDSL0FW9jLJh71VcY9aTelaiFPSdCwzxaarvO6WyedR9918c/xEj94soiwBBeBz3VO+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4c467e19391so6413889b6e.3
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 22:10:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791349803; x=1791954603;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=bDwcY6oPs2A0+nr9FWBW0WcjfPWrrplkHbYsZt+gaM0=;
+        b=ZUNa9twvfAGSAGWRyJDmwig/c4GUy/9GgTWxe9keliHG8p4Ttu5rnjV4dAuwRBZz55
+         v+voNlBz/a9Hy+FzDUVzqT0O9F4Pj3kJWcmLtKZ1GAm4zLAfGrWWpDGkHES0b19aXPvE
+         6qeoaZSZKJXX8svhlPqR5KQczh3JKwg79LafTApLL59LqDg1FMZII/zOA/6beb/F+eVb
+         ldis7hzR/V+cgJfyKVuoxlFSSjGKXA+li2sla/Z6tO+0UXfLTrxEbsnkR5R8Wdrbpi2d
+         n4HxfdEdbNQxGWccdyR9JrSsRrbmSjYRM8MuUNpp6iI3jSNTe1a32K874YZJRPWs++5q
+         xQGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz8+K5aS1fe1PoTbsextoN6FVEidvKrYBoUcscaVfzJO/Cei1a8dFEPJe6mqOnl7jjEqN+vPduMT4UVxOU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lAaHASUc3tuy2SzApbPMMXswNTCnByLq3cRhmwB3W93ztADNe9
+	ny5/eCEoohoU236KjCHDIigamRX8sor1yedBsZcXIqkAdrYPxNrlNysOuYlC+JemM8uYIX98KYZ
+	ZYGvjJSirfAZ+lb5t2zelNwU+MQcwNjW1J/0z0SFD2uZDq8RZ3aavYOXgEF8=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261006224024.14535-1-linkinjeon@kernel.org> <20261006224024.14535-3-linkinjeon@kernel.org>
- <CAMrLSE73h6xvZXfQRDF7W9QrnAAjCJr8qyQ9P2MxCQno+5Uokw@mail.gmail.com>
-In-Reply-To: <CAMrLSE73h6xvZXfQRDF7W9QrnAAjCJr8qyQ9P2MxCQno+5Uokw@mail.gmail.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Wed, 7 Oct 2026 14:05:55 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd-N6Dpuci9k1D6Vs-+z1OatWfmgquJ_c+jObF_19S2NVA@mail.gmail.com>
-X-Gm-Features: AclHuK-eIxIpfIbjzINsR2biKL5WYnfGS7JXW_eW1Y6Fwkxxjey1Qfwtn4VqMf4
-Message-ID: <CAKYAXd-N6Dpuci9k1D6Vs-+z1OatWfmgquJ_c+jObF_19S2NVA@mail.gmail.com>
-Subject: Re: [PATCH v2 2/4] ntfs: add pathname access for named streams
-To: CharSyam <charsyam@gmail.com>
-Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, sebastian.n.feld@gmail.com, 
-	cedric.blancher@gmail.com, Lionelcons1972@gmail.com
+X-Received: by 2002:a05:6808:13d2:b0:4d6:90d3:e183 with SMTP id
+ 5614622812f47-4fc47cbbb9amr1514520b6e.44.1791349802891; Tue, 06 Oct 2026
+ 22:10:02 -0700 (PDT)
+Date: Tue, 06 Oct 2026 22:10:02 -0700
+In-Reply-To: <20261007044940.349-1-hdanton@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac5d42a.353c8d8e.177895.000e.GAE@google.com>
+Subject: Re: [syzbot] [bluetooth?] possible deadlock in l2cap_chan_connect (2)
+From: syzbot <syzbot+1fed874be1d7e459b5a3@syzkaller.appspotmail.com>
+To: hdanton@sina.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 7, 2026 at 12:38=E2=80=AFPM CharSyam <charsyam@gmail.com> wrote=
-:
->
-> Hi Namjae,
->
-> I built the patches and tested the pathname interface on an NTFS image
-> in QEMU. I found two issues:
->
-> 1. **A named stream can be deleted from a read-only base file.**
->
->    I created a file and a named stream, then changed the file to mode
-> 0444. The NTFS `READONLY` attribute was present on disk. As an
-> unprivileged user, opening the base file for writing failed with
-> `EACCES`, but `unlink("base:secret")` succeeded and the stream
-> disappeared.
->
->    The new `ntfs_unlink_named_stream()` path calls
-> `ntfs_remove_named_stream()` directly. Unlike the ioctl path, it does
-> not require a writable base-file descriptor. The shared removal helper
-> checks append-only and immutable flags but does not check the NTFS
-> `READONLY` attribute. I suggest rejecting removal of a stream from a
-> `READONLY` base file in the shared helper, and defining the
-> authorization rule for pathname stream deletion explicitly. This is a
-> deletion-semantics issue; the test does not establish a privilege
-> escalation, since the parent directory was writable. The MS-FSA
-> `FileDispositionInformation` rules also reject deletion when the file
-> has `FILE_ATTRIBUTE_READONLY`.
-> 2. **Repeated reads update the base file's atime under `relatime`.**
->
->    I read the same named stream twice, two seconds apart. Both reads
-> changed the base file's atime. A regular file used as a control
-> changed atime only on the first read; with `noatime`, neither stream
-> read changed it.
->
->    VFS checks the stream inode's atime before calling `->update_time`.
-> In `ntfs_stream_update_time_common()`, validation copies the _old_
-> base atime to the stream inode, then `generic_update_time(base_vi,
-> ...)` updates only the base inode. The stream inode remains stale, so
-> the next read triggers another update. I suggest refreshing the stream
-> inode after a successful base update:
->
->    ```
->    err =3D ntfs_stream_inode_validate(inode);
->    if (!err) {
->            err =3D generic_update_time(base_vi, type, flags);
->            if (!err)
->                    ntfs_stream_inode_refresh(inode);
->    }
->    ```
->
->    I built and tested this change in QEMU. After the first read, the
-> second read no longer changed atime. This avoids unnecessary metadata
-> updates; the test does not imply that every read caused a physical
-> disk write.
-Okay, I will fix it in v3.
-Thanks for the review!
+Hello,
+
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+
+Reported-by: syzbot+1fed874be1d7e459b5a3@syzkaller.appspotmail.com
+Tested-by: syzbot+1fed874be1d7e459b5a3@syzkaller.appspotmail.com
+
+Tested on:
+
+commit:         602042bf Merge tag 'wq-for-7.3-rc6-fixes' of git://git..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=10c46715580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=929e4854a828f434
+dashboard link: https://syzkaller.appspot.com/bug?extid=1fed874be1d7e459b5a3
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=109db835580000
+
+Note: testing is done by a robot and is best-effort only.
