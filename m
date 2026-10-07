@@ -1,130 +1,242 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com [209.85.218.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DFF94AE8A0
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 14:05:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE073486E62
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 14:05:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791381941; cv=none; b=K69CK9UIeq4gVwZekbFhC8UXiXijb1WCn4YSI0ELbQPXo6GP0J79jvxjiav7VxueRzDWCC+REtsQROnKmRmQSq60F7MZ0uG2Zp1vXnFRCBMMoglkXFEZJfDhamCEFqhlbPLBCVgmgDqh8KF2+XK0OFo+MlDWhgGDa293+VLAYpY=
+	t=1791381962; cv=none; b=NGe9SBIUnTcd64SWEQF8Y7U6wfMu+yKM0H+LQHevKCtecDD90mxI95PmOagEs/8+zGizm2XADkSjx4mWIqwrYQm/DFPxF2QmsFCRW1IeWWJiooTAjsVoiGOrKJd0YacH+scb7Ox2cbR6vyZECn5zKSYsxs8beA2Z8qc0w20fKrs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791381941; c=relaxed/simple;
-	bh=V7wCXFfMiY8I3U4QW7xgovTFawhq2OF8NsZcAprNCLc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bRbgJjcM/z+uHHxwQBMhV9i229g93NZ8RuTKYcSeezJCB9sa2zs9oOGG+MwD4uJSlYJG5s+Uw2o5kMXW2BOCqevhsRvAwn/A/Bxla7DrA0GTdObLxckWpe/alzWyz409cI0D1taS5hOkQA7cOk2/FLVISmVq2mO+Hf6GY04Ym7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=PDA4CzXZ; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	s=arc-20240116; t=1791381962; c=relaxed/simple;
+	bh=tseqSqDZVClwUqO3pixW2DIHxy8FD8fL11njnN3NWYk=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=G2dEwMGeVhY7bxPMRxQYcKOzyJzypfukb537fJ3BYyB2DSletWyFOC0dN53cf7na7M4hfjw1Dz41TYBduaUMT5Ccq7x/esiQatXzmWQNnq3m+IiB1o27rL5QVSrJXe+D5w0lgM8SC+GOsAHP8fBtq+jzekLNBXbAQLX7dZFOTKE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NJvOAEEC; arc=none smtp.client-ip=209.85.218.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="PDA4CzXZ"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3a80d1c98f5so2306356a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 07:05:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NJvOAEEC"
+Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-c2dd399f761so452568966b.3
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 07:05:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1791381933; x=1791986733; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1791381953; x=1791986753; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2tZULonu7kKZiIqDdMHG3M16ndJSJFse/YYFR6ZGm68=;
-        b=PDA4CzXZVp6XIMVR4rSohNCjpWBfkxope7IT5M2ZWrsgom480Z/UP01vKISCHF2G2Z
-         CCpY+z5xLDtaGFvhS2U/L74Jm9YVzBJVqHUn+OBzaPEXtDCna5adkSXhG8h6FFIQ87ks
-         LvJEMmHWWSyWBy9scoIlPZjgNX/EtGID24DRyYNg2B9sfk8OkpbDxeuXhUeNjhJwEpmm
-         heiICQJXz+gjxuQXlR6+Pz3YwyEj1fXtUCkRotDcOuNbpEmrhtt7LAM8WvS6CF43vj7L
-         Vne4sw9XzFQ19KaacvBgudTsfUoept3pFiO5znr3scvW1kgrig6bjCR/tRiZI6VBFc+2
-         rJHg==
+        bh=rU5wB6bHQgxWOlREbKkjzu4hbbXBoycTkgMxfiJ0Mmc=;
+        b=NJvOAEECb5tPBn9BAyOUWVG9Z4ld+M06a8SlM0RbeQDv8d8KgjPEJiIgpbGLoW8+hu
+         Wuxkxr8C6YLFLkP09Zeo4+NxFYWoBqK22i/QC0CNEuq+MrMZ6BxMDEQXklCx6CokIKYu
+         IrCyDmPNYDyFKjKehRPIaSZOoj2Joo4efBpScANKErHtjh7vA5rmAmpNgPcyMZzNVSCl
+         buoDGTNeAdcsreOomZaac0lLPSsI+zU5zI0OSi8xHaHOgXZX6knRWZ3s5lrM7NyFdqG4
+         5+N8hyTSMFjjyY5jWc6pj/unnARJ9EVvfD4EFPUZNKuqGXL8BJ0WoJESIjeFTMj3+8nD
+         f3wQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791381933; x=1791986733;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791381953; x=1791986753;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2tZULonu7kKZiIqDdMHG3M16ndJSJFse/YYFR6ZGm68=;
-        b=oOWbHimUJlik+QhcJ38n9xDxO1WR8B+xRhU+AYjiYIniyMTFoF5Bb1Uoc4oGFhHJ8Y
-         OPfrezbRTxzBa3L81pLmz+8d+c2zVPLvYNEvaUvqyW4C/KjNT8N5/DiSPH3UV0VG2gcN
-         xhuejGkwXyv5PpYYp4nRN8o/Gj/O3RxLGN7aTFoWKVmvrloSNwczxx3o20K2hDi2ewTK
-         PTauF9sKvJ+gTLLlOHA3eVpsXQh0F4TpVrC4+sQ1trJebIclISmixAoYnFL983KI3B6J
-         hRdwZYzG+OAiK/RtMaj/3hUvbb6KuoLLTcqsLpx0ykdBcqZGwrCoR2qbIaAnURXCx33g
-         hzlg==
-X-Forwarded-Encrypted: i=1; AKwUvBxXFo1X5yHmgcKLv6gsvbKMaWyq0ubggkX/lbU3POiVnXPE7KqMBxdcAo9TFkxIjbejyNkVdJglp/UwqnU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ2SkvtFbD5j0L8ihNIkgzz4U1iefLo/VjI20x/74utB2UJp0ew
-	8ZQ3QilgX8DtOCA0c16LIVWoq/qyjfW4HpTqCZugPNWPeCVkfJB8mip8ViZ630uhgIA=
-X-Gm-Gg: AYBFou0+yWcrWHZp1O6UTyqr6wWJCEoIqEqdF0IJN7WSd3IfJc080wuTylStbIKam5t
-	rAIAt4D9EYTDIIi7rqqwxGFBgq/2Cukiv+tOTwh6SzBLlwSSdQ8fzd4wsdppUTAqnlo/bsCHV7/
-	kda9m4JjGPSAw/egrcuXvzE/87ifPDW4c4zlWzNtC1kPyqosiA7fDsUDB/Aucw7YnWF1qR0YUO6
-	9Ir7hNC4vwwvZ3lgQLf3n4cjOg5o3EowitC+pqL6mEFPBU2JZLezX6RteXPZgNyIyM3Fcbbf6P/
-	H3s9MoCW2oIPWhHw9bmFTn5xkwdVAFOqaZZ+CjhfpAmixzv3gjrBwUBDkH1aV+0rpNGV4eox4Bw
-	QHKdMdKPZCJHh84/5BBOuBXyFB8/h2prfxeIe3xOAJfmWUTsgbRcv/+nxceW2uDIse9Yn4aA/Rk
-	bEqY87q3yYt2M9md7v5Ky73MPF5bPhObWjb+RPBApZsM2JQs12wJ9E8YMbSjyed8E2TQCr74Yv/
-	BV0cLVoFGVtNJLseNx6TGz4bCg27PBTxt4X3udtP0gPotCwN+KvQwhudA==
-X-Received: by 2002:a17:90b:4d02:b0:3a4:6f38:f2a2 with SMTP id 98e67ed59e1d1-3a8a1ac0562mr1978385a91.25.1791381933049;
-        Wed, 07 Oct 2026 07:05:33 -0700 (PDT)
-Received: from [192.168.1.106] ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8543b0c1fsm13716636a91.14.2026.10.07.07.05.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 07 Oct 2026 07:05:32 -0700 (PDT)
-Message-ID: <960b1305-c5a6-4554-8bab-1cf4244fa11b@kernel.dk>
-Date: Wed, 7 Oct 2026 08:05:23 -0600
+        bh=rU5wB6bHQgxWOlREbKkjzu4hbbXBoycTkgMxfiJ0Mmc=;
+        b=FvTAJpNmLDcnS7msMZfndTwOAfbQNLQPJ9OAUq/1lgJIZyZYEVlvQP3iz88SCcR0sn
+         feoijz62/acE+eKWmtEY/L5loQ+29yS+AdrMKYTGyUS7EyuLpP+iy9RTQY6j8Fq3zRYX
+         FQTIPeJ4U8igbjj22lRTXhMoov4385H3M4P29ByUgGx+P8TTOxof3V/2J+BzDSicVTEo
+         iZ1E2zWofpggL/doD98xiKgnnOEcyPp8lAbmL807b9IBUbJPYp/3Z06P0c/heyJITsK3
+         4KVZQgQ+voUPy+hRh+HZDpVoE61g0meM8WYG1DwFcwGJjGCoEAMei5Epjlnv15oCwvS1
+         T7+w==
+X-Forwarded-Encrypted: i=1; AKwUvBx1fEZpCZ+fQsocvlociTEMhOGwqH7p04lA98+7Bhm1wR2JYsM5yo00Unhf3zxmZe/hqngTHwC8Kxyn3zg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIUkYHZFg/v63euIBErMe++l8omvREyWmHiV60MLH0nbiFkThYa
+	62gXTHgETZ3PmCit0dJuFkIEb548+cNpET93PNVz6sqC4IA0vU7uAcQ58Slfa99Xbtg3AIZ+qjT
+	hiMOIxjLkjByCqUxpMg==
+X-Received: from ejac25.prod.google.com ([2002:a17:906:3d9:b0:c2d:c729:d7a])
+ (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:906:7956:b0:c29:f5d5:5a9c with SMTP id a640c23a62f3a-c317c088215mr242709366b.38.1791381952681;
+ Wed, 07 Oct 2026 07:05:52 -0700 (PDT)
+Date: Wed, 07 Oct 2026 14:05:51 +0000
+In-Reply-To: <2vxz8q4dlgrq.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/9] block device fixes for large block sizes,
- IOCB_NOWAIT, and direct I/O
-To: Tal Zussman <tz2294@columbia.edu>, Christoph Hellwig <hch@lst.de>,
- Johannes Thumshirn <johannes.thumshirn@wdc.com>,
- Luis Chamberlain <mcgrof@kernel.org>, Hannes Reinecke <hare@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- John Garry <john.garry@linux.dev>, Christian Brauner <brauner@kernel.org>,
- "Darrick J. Wong" <djwong@kernel.org>, Keith Busch <kbusch@kernel.org>,
- "Martin K. Petersen" <mkp@kernel.org>
-Cc: Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- Sashiko <sashiko-bot@kernel.org>
-References: <20260923-blkdev-fixes-v5-0-89e60d66eb38@columbia.edu>
-Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <20260923-blkdev-fixes-v5-0-89e60d66eb38@columbia.edu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20260926092448.4090401-1-tarunsahu@google.com>
+ <20260926092448.4090401-2-tarunsahu@google.com> <2vxz8q4dlgrq.fsf@kernel.org>
+Message-ID: <9huz1pa1txkw.fsf@tarunix.c.googlers.com>
+Subject: Re: [PATCH v3 2/2] memblock: use binary search to locate candidate regions
+From: tarunsahu@google.com
+To: Pratyush Yadav <pratyush@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	dmatlack@google.com, Mike Rapoport <rppt@kernel.org>, kexec@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, dev.jain@arm.com, 
+	Pratyush Yadav <pratyush@kernel.org>, linux-mm@kvack.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/23/26 5:56 PM, Tal Zussman wrote:
-> A set of independent fixes for the block device file operations. The
-> first two were found by Sashiko while reviewing the RWF_DONTCACHE series
-> [1]. The fourth and fifth were found by Sashiko's review of v1 of this
-> series, and the rest came from asking an LLM to find any similar or
-> related issues. Each issue has been reproduced, with the fixes resolving
-> the issues.
-> 
-> Patch 1 fixes silently lost mmap writes with CONFIG_BUFFER_HEAD=n.
-> 
-> Patches 2 and 3 take i_rwsem around the direct I/O write fallback and
-> the splice read path, which race set_blocksize() changing the mapping's
-> minimum folio order.
-> 
-> Patch 4 makes the buffered read path honor IOCB_NOWAIT instead of
-> blocking on i_rwsem.
-> 
-> Patch 5 makes IOCB_ATOMIC writes fail instead of tearing, and patch 6
-> stops the buffered fallback from retrying an atomic write. Block
-> devices can reject both paths into the fallback before submitting any
-> I/O, so we fail rather than issue a WARN() like ext4 does. Patch 7
-> makes iomap_file_buffered_write() reject IOCB_ATOMIC, so no other
-> buffered fallback can complete an atomic write either.
-> 
-> Patch 8 fixes leaked page pins in bio_iov_iter_align_down(), and patch
-> 9 removes dead metadata handling in the async direct I/O path.
-> 
-> These issues are currently unlikely to be hit in practice due to the
-> specific configurations required to trigger them.
-> 
-> The reproducer for patch 1 is in blktests as block/048, and tests for
-> patches 2, 3 and 8 are posted at [2].
+Pratyush Yadav <pratyush@kernel.org> writes:
 
-This is based against the 7.3 series for some reason, can you please
-resend against the 7.4 based branch, for-7.4/block.
+> On Sat, Sep 26 2026, Tarun Sahu wrote:
+>
+>> Use binary search (memblock_bsearch_start) in memblock_add_range() and
+>> memblock_isolate_range() to locate candidate regions instead of linearly
+>> scanning from index 0.
+>>
+>> Under heavy memory fragmentation (such as KHO page preservation registering
+>> hundreds of thousands of disjoint folios), scanning from index 0 on every
+>> insertion and isolation results in O(N^2) complexity, causing boot-time
+>> memory retrieval to take several minutes (~268s for 393k pages).
+>>
+>> Using binary search reduces the worst-case complexity to O(N log N)
+>> (and O(N) for sequential appends), cutting KHO memory retrieval time
+>> from ~268s to ~50ms.
+>>
+>> memblock_search() open codes the same binary search, so reimplement it on
+>> top of the new helper.
+>>
+>> Signed-off-by: Tarun Sahu <tarunsahu@google.com>
+>>
+>>  mm/memblock.c | 53 +++++++++++++++++++++++++++++++++++----------------
+>>  1 file changed, 37 insertions(+), 16 deletions(-)
+>>
+>> diff --git a/mm/memblock.c b/mm/memblock.c
+>> index 59dda7d085f3..87c71435c80c 100644
+>> --- a/mm/memblock.c
+>> +++ b/mm/memblock.c
+>> @@ -586,6 +586,33 @@ static void __init_memblock memblock_insert_region(struct memblock_type *type,
+>>  	type->total_size += size;
+>>  }
+>>  
+>> +/**
+>> + * memblock_bsearch_start - Find the first region index where rend > base
+>> + * @type: memblock type to search
+>> + * @base: base physical address of the candidate range
+>> + *
+>> + * Returns the first region index that could potentially overlap @base.
+>> + */
+>> +static int __init_memblock memblock_bsearch_start(struct memblock_type *type,
+>> +						  phys_addr_t base)
+>> +{
+>> +	int mid, low = 0;
+>> +	int high = type->cnt;
+>> +
+>> +	if (type->cnt && base >= type->regions[type->cnt - 1].base +
+>> +				 type->regions[type->cnt - 1].size)
+>> +		return type->cnt;
+>
+> In some testing I did of this patch some time ago, I recall that this
+> check didn't have much of a difference on performance. The binary search
+> is the real optimization.
+>
+> Do you think this check is worth keeping?
 
--- 
-Jens Axboe
+Yes, This is true. After giving it a second thought. Binary search is
+fast enough to find the candidate. Also it will be very common that
+Incoming reserved entries are not only from single provider (KHO). Hence,
+reserved list will have the entries that might cause above condition to
+fail.
+
+I will remove this. But if anyone wants this optimization in future. can
+revisit this.
+
+>
+> Other than this, I only have a couple minor nitpicks below.
+>
+> Regardless of these small comments, this patch LGTM so feel free to add
+>
+> Reviewed-by: Pratyush Yadav <pratyush@kernel.org>
+>
+
+Thanks for reviewing it.
+
+
+>> +
+>> +	while (low < high) {
+>> +		mid = (low + high) / 2;
+>> +		if (type->regions[mid].base + type->regions[mid].size <= base)
+>> +			low = mid + 1;
+>> +		else
+>> +			high = mid;
+>> +	}
+>> +	return low;
+>> +}
+>> +
+>>  /**
+>>   * memblock_add_range - add new memblock region
+>>   * @type: memblock type to add new region into
+>> @@ -609,7 +636,7 @@ static int __init_memblock memblock_add_range(struct memblock_type *type,
+>>  	bool insert = false;
+>>  	phys_addr_t obase = base;
+>>  	phys_addr_t end = base + memblock_cap_size(base, &size);
+>> -	int idx, nr_new, start_rgn = -1, end_rgn;
+>> +	int idx, start_idx, nr_new, start_rgn = -1, end_rgn;
+>>  
+>>  	if (!size)
+>>  		return 0;
+>> @@ -644,8 +671,9 @@ static int __init_memblock memblock_add_range(struct memblock_type *type,
+>>  	 */
+>>  	base = obase;
+>>  	nr_new = 0;
+>> +	start_idx = memblock_bsearch_start(type, base);
+>>  
+>> -	for (idx = 0; idx < type->cnt; idx++) {
+>> +	for (idx = start_idx; idx < type->cnt; idx++) {
+>
+> Nit: why have start_idx as a separate variable? Why not assign idx to
+> the result of memblock_bsearch_start() directly?
+>
+
+Right! thanks.
+
+~ Tarun
+
+>>  		struct memblock_region *rgn = &type->regions[idx];
+>>  		phys_addr_t rbase = rgn->base;
+>>  		phys_addr_t rend = rbase + rgn->size;
+>> @@ -809,7 +837,7 @@ static int __init_memblock memblock_isolate_range(struct memblock_type *type,
+>>  					int *start_rgn, int *end_rgn)
+>>  {
+>>  	phys_addr_t end = base + memblock_cap_size(base, &size);
+>> -	int idx;
+>> +	int idx, start_idx;
+>>  
+>>  	*start_rgn = *end_rgn = 0;
+>>  
+>> @@ -821,7 +849,9 @@ static int __init_memblock memblock_isolate_range(struct memblock_type *type,
+>>  		if (memblock_double_array(type, base, size) < 0)
+>>  			return -ENOMEM;
+>>  
+>> -	for (idx = 0; idx < type->cnt; idx++) {
+>> +	start_idx = memblock_bsearch_start(type, base);
+>> +
+>> +	for (idx = start_idx; idx < type->cnt; idx++) {
+>
+> Same here.
+>
+>>  		struct memblock_region *rgn = &type->regions[idx];
+>>  		phys_addr_t rbase = rgn->base;
+>>  		phys_addr_t rend = rbase + rgn->size;
+>> @@ -2062,19 +2092,10 @@ void __init memblock_mem_limit_remove_map(phys_addr_t limit)
+>>  
+>>  static int __init_memblock memblock_search(struct memblock_type *type, phys_addr_t addr)
+>>  {
+>> -	unsigned int left = 0, right = type->cnt;
+>> +	int idx = memblock_bsearch_start(type, addr);
+>>  
+>> -	do {
+>> -		unsigned int mid = (right + left) / 2;
+>> -
+>> -		if (addr < type->regions[mid].base)
+>> -			right = mid;
+>> -		else if (addr >= (type->regions[mid].base +
+>> -				  type->regions[mid].size))
+>> -			left = mid + 1;
+>> -		else
+>> -			return mid;
+>> -	} while (left < right);
+>> +	if (idx < type->cnt && addr >= type->regions[idx].base)
+>> +		return idx;
+>>  	return -1;
+>>  }
+>>  
+>> base-commit: 1f18d740165163910df64d3063e1ad31648bc5e0
+>
+> -- 
+> Regards,
+> Pratyush Yadav
