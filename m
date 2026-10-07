@@ -1,309 +1,268 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010053.outbound.protection.outlook.com [52.101.85.53])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA8F33E5A19;
-	Wed,  7 Oct 2026 18:32:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791397968; cv=fail; b=U10eFL+QvJ1knQ1Zhx+Y6cox2bk6E7srx2L/17ocscOGH0U3TWmlbe+mNSa42xoxAMNvUmXBO4wRSSnlwhE5CmSLg9WzKJ8MoZIpkxSg1rMBLiPl17m+q43bxIOMDv7JsUpRQIuj28yb47KzLNNcGX8bYb5bO5el8xVHOpaufB0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791397968; c=relaxed/simple;
-	bh=UsxShJG8GX5rIVxbjw4VGzXI8DL1r2edZJag1otS+Zo=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=WCZvu9oZHZ6liXcvQgZzvV3Fv/x1uJZyaqe7EUNBic8AQ+TJpCUBrsmxcckkycfeYV/5X6algg5/3viJs/skkNKyAGb53Fit/QZrirZR3JQuWl5LZj6ujgGW3f+YDwgnaOdBB6WMWQ8RflEoDTQyrjnPQAxIj5HSbV+LWDjR2pg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=1HnZiVjC; arc=fail smtp.client-ip=52.101.85.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 035BA3FF1D0
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 18:33:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791397988; cv=none; b=MOnw9VTIZHPbQq2CI5utXPgfza+gUU/AHk1DwSkRlWvVcj9Rqqv6hDDzpcWtTEHvEDLZU6vb9FKG+szW89p+vM6EEcRRK5w/9GOnIE5Ac4dYT7ba1tFRNUAe9K2XqyuxrhEIZUDaR4h44JXzU8rWD87KgXlChCt1VtHtcR6YZNQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791397988; c=relaxed/simple;
+	bh=YTepzjzsnB8Kw9QCwfC60ii8oGo8TitvlHvZ5Y0BnXw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FlLr8qJm+xFubJu8FhJnlU0X1/mqh+jR5wex+791Rz4hP2FkWvk/Xkp5OlpBShW2XcrJ9YZhHFVwtGAPxZb+Pr2gr5I/pArtkfQspSL4wN6DnxeRFYDPjsnUIvJWRPZtBh24FA4i1zrShcVopt8IueBkoOcYayayQmRcqV/e/Aw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=giuqBmir; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YCj+oiSN; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="1HnZiVjC"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Nuj9aZlsqTnVxdqGLDf+bwkKOcH3AYC5U9jw7/X4C/nOV2elYKtLR9yYsGtIrLwg7OLoc9c8whXxF5VFOLc3X4ULaI6ukTl/8GGAAZjexnFTIzSNP2aCmvTkD5Jm3BS3UY2udsRDqZV0IkTa/9S2omZkep7na5WnekdgCjYF7x33wpIDLYnR/jS/i4ChjwPIP2bUS6Yb15TRQntrPLYBvdy4NFriLEntPsg2axkxAa2+18jXUmJrhGdFM9ZxfrLnHmDiF0hGm4TbHLhR9uFIRpCAqz1F5/kl34i2KNW80Rl/MUygTVkFn3QzriapK9ksCAhGZ0dYs2HDNqpOvSyIdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jkA9T/Si53poZgp9TTESH+cIWfnYKO0d+nozAKbKG1k=;
- b=y4LYR6jDw4EKEu4j8S2EV+owgHHXEz4HLA5YVJ3zGc1jVVpUlNmQ1IyL6dQuHZbIKrIcjU3YeG2U9UmhyLQmxovU7m3szNyClbK5+dmmx6+fwYzOdZWUg50NKJ7dm9iLunJh8otREcqqAKyr0vAwztVYMtqAxWsLIcWoRYrJx5kd0mKKa4dCR2RH4BIOjjdksyx1c1rKAtnz0EKVgr8I94aas87NZ6Ipi7aSBoQy62jQT941NBL7JB2HRLfXL5+o4jKbePACJPWuBd38cBuiovgNeG2MBtyQyjWt0YmFcB0KDDTvDof+NzQHpGZcIbpsGmyTkpni/ZOdQg+uugmXNg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jkA9T/Si53poZgp9TTESH+cIWfnYKO0d+nozAKbKG1k=;
- b=1HnZiVjCs56ZGnI1R5Mwyd/yaIVL6lWUuBk15CbRcg8YPUbfaie/ZaJC2raCf/5a8Nj5UxyfdbNqPesomMQQ4kknMCKtBlF2TCUqCIB/cIiL7VCLSBEt/OIhP92KBCAicxcnYdQZ+vEYjwyIpS14VRTusY1sm91NGCMHnYfcgGI=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by SJ5PPF5D591B24D.namprd12.prod.outlook.com (2603:10b6:a0f:fc02::994) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Wed, 7 Oct
- 2026 18:32:41 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0496.010; Wed, 7 Oct 2026
- 18:32:38 +0000
-Message-ID: <c9c92c6e-4f2b-48c3-a2da-d3f3ed320b20@amd.com>
-Date: Wed, 7 Oct 2026 13:32:35 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cpufreq/amd-pstate: Supply nominal/lowest freq for
- TRX40-based motherboards
-Content-Language: en-US
-To: Kyle Gospodnetich <me@kylegospodneti.ch>
-Cc: Giovanni Gherdovich <ggherdovich@suse.cz>, Huang Rui <ray.huang@amd.com>,
- Perry Yuan <perry.yuan@amd.com>, K Prateek Nayak <kprateek.nayak@amd.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261007144150.15113-1-ggherdovich@suse.cz>
- <27b226c7-f30b-4863-96e6-6798232863c5@amd.com>
- <nfzkXrDTHHjIW_SUzjPg0gOHamPmFkMiNw8Xyzu1ET_un0fM-tmdI3ChdnOkXAkrh_nX4jiwmzCK6GgWwOsfDti3ta-vlRMihfH4dGUgBCU=@kylegospodneti.ch>
- <a387ee24-ef09-4983-865c-47ef43fa0964@amd.com>
- <N6r-1w2v2oSkh5ABRHMoj9_YQ7F7eICWqD2rdyL7M1SmbVzhiK0plLXBCzZbDmO8M6w28qHy--pue6kfl1k8B-j03x5f6VYC2DlQ_spmIpc=@kylegospodneti.ch>
- <DC1J2LrrQ6hdyQJ_ThQRfGrnzKLI5qCCQYGA5I2LhASN8j8MLcpfvJ2T4Qn_8xmO2TB4MW9Sl6LyQKkuANWwowWXafKbEqJ8pXEBEnmE2yA=@kylegospodneti.ch>
- <1c6ba221-a73c-4793-aac6-b38d6e573295@amd.com>
- <bK7n7j4SGpNNcHzUh7I63T_Ozbd5u6wVHdVlpa3Ym76UQs2PhQDtaREPYuFsHMKZku0B9v2-d8A9PdeBRx_0l0xUZ9gt--wxwyI4-sTKfyM=@kylegospodneti.ch>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <bK7n7j4SGpNNcHzUh7I63T_Ozbd5u6wVHdVlpa3Ym76UQs2PhQDtaREPYuFsHMKZku0B9v2-d8A9PdeBRx_0l0xUZ9gt--wxwyI4-sTKfyM=@kylegospodneti.ch>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BN9PR03CA0767.namprd03.prod.outlook.com
- (2603:10b6:408:13a::22) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="giuqBmir";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YCj+oiSN"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697IB96M3239285
+	for <linux-kernel@vger.kernel.org>; Wed, 7 Oct 2026 18:33:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	xcOII1yaaxjPXRPocOIPIwuUNH/5UAtstICER0t6wfI=; b=giuqBmir98/FhzyO
+	dF+rAIA5MY4G3hqnIvHGreVP2UFZtipw8mb61SjqW8gP1lmzOCSY47CEgIT5uWKv
+	zVe/xNuv+/SV5+pXhPMrDqPyDFgi5t+de6lLLO1jLy/DCAKJU+WoWDcnk9iKRcPs
+	I9KonsWQh8sZEvbeOnxNbCG/VfbgJktbnI2ptL7JS2d7fIH7vvoFwbk5XqhcSgNq
+	MhsAldLT6LkShz4FH85UQsut4p2NNynrySR1UCa/yw9c8RBOrtbLlBoHxkv51x0l
+	CIaXfxA/FR/ThnN92VpijtJYR5mnMhqUaitsaWgteHtIKv8v3709N9YkIwPkYumU
+	mpXYYA==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5fw8twa7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 18:33:05 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-30bcb065bfdso8474555eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 11:33:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791397985; x=1792002785; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xcOII1yaaxjPXRPocOIPIwuUNH/5UAtstICER0t6wfI=;
+        b=YCj+oiSN+a9RzI+Hxbmc2obIOPzp/zvnp4ZCp+QMnykepUi8p/+4vsU/k7vGElhCyH
+         HA7Ii6pjg3tanyOK5vUfONClPcoqAqFYkprHC1dAI4qVlwFJA21ybS9IXDDXyafT21PY
+         s6tQXkxolxarbsX8Hn0dR94XuB+yLuGNFiHZDl8OO0tuKAKgeFeoPDZQyZc2p04cqZ/x
+         jbTH8Qoz2Rq91y9ImjRXg5v4vg18GRbqDT446WZ+SBZRF1iMyKS4PQ9a3jggYk/T8GLB
+         h6i3ARAswTDTre7VzPHH//glhM1Z3XWKW4B+kiCUhG5tgZtpli2bKCQddtjVvPQOICoR
+         5ckA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791397985; x=1792002785;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xcOII1yaaxjPXRPocOIPIwuUNH/5UAtstICER0t6wfI=;
+        b=aeRPDItKkQy0MrmYKAqwo5D6ziHxkrr6Jz7AA61xXsnh+/9Vbsxcuopcd+ITmmTxIr
+         4wM+vmXBrVn2s8H1ssWzJhE8V9+Kt89KnvczSTlKnR7a4VmLNnncyTcsHyAYDa5lxTJF
+         9ZwVWxkmCNwFTdsUKv4fSgBiEXKyj2Znm6+Ps1Ub3i0bZBay/WtFV7nzWjUYfYyeO1kQ
+         2JDKhR0D02Ej5G0hfBpXJCK9pt65fNJ2y1AK6PGj0iCU9Q8yHV21Dt/aL8hotw6HPxOe
+         H4tq41t9d9AQ2vy2LT+v/AvPcOpQTDgtHabiHv95BVZL6hP2Jk5mIlaSqXnrp+lVKtdL
+         IRJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBym2ss29NajcJxYBtlxZjixWGZ0JAAHL6l4ChBeXCoOcUEMCkrY1GW9xPf8REgI9GY/fqrMiQQ5cLhNw34=@vger.kernel.org
+X-Gm-Message-State: AFuF++lj19HrtNzgchPAG2c97nDY8Q5oS1RwQbRiSvITCbrj+ibcsmmN
+	JNGGcAepJ2lo/3yyLalirPBGmA98HAOprEkmjVv7fJky9deXVhFrZnnNpABPmij/iolo354Cbg9
+	lebW2rRVrad0hYZa6wsEZ7C4krQbYZSPNh3uIYwSUlouUXo13vhAqwe3c66ssTaLj0ZA=
+X-Gm-Gg: AYBFou3V1MDc1mq0stqdrGV052iHO2JkO9TD+ySbkluCqPCdYrd4OxCwpQqa5TLZkEp
+	I1aEwXvx8NE0DQRfrHroPCNPH1yZ9uAlnsCeUHrrfnpdv7VEOLuH09xljyyeKraPlmp16jvvzzA
+	Ml+vE+T07ETPk0bCE2MPJZls5QtLmyYEI1SJHcUtYTeG+e0Th81pFAnZ7n2TiIs2AyHh2PrJRDO
+	7yMC8PupIDKNKo9a2hsmQT41PANzQjMpfEITMxpMOW+fFPGeO3i4Khg5qi39DoRXMxfQHo22vTM
+	EXVHaTXbnPRyVCBqOB6TjnXcEvUG6IZlDYZ1XFEmqIjZE563yGEw1dzQ+1Yr4M+8V/QLRk553EQ
+	g3mVoS6mGLZ6bq7KkxvGRUSMR0Zzd
+X-Received: by 2002:a05:7300:ac94:b0:343:4a95:f120 with SMTP id 5a478bee46e88-3515dddaea8mr3997325eec.25.1791397984894;
+        Wed, 07 Oct 2026 11:33:04 -0700 (PDT)
+X-Received: by 2002:a05:7300:ac94:b0:343:4a95:f120 with SMTP id 5a478bee46e88-3515dddaea8mr3997250eec.25.1791397983841;
+        Wed, 07 Oct 2026 11:33:03 -0700 (PDT)
+Received: from [192.168.1.12] ([223.230.93.214])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515af90521sm16456444eec.19.2026.10.07.11.32.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 07 Oct 2026 11:33:03 -0700 (PDT)
+Message-ID: <31d91f44-3f16-4a4c-916c-f4d8107d371e@oss.qualcomm.com>
+Date: Thu, 8 Oct 2026 00:02:52 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|SJ5PPF5D591B24D:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0dfdb832-1838-4da8-250c-08df24a15d6d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	v1boiZBbq3naYk/utLcxQhONTJOeE7njfeDX8PEaFlzh/FGchFk2ZhETArn0W9jSb9DfCg+zZXFWrddTWogGiQWkhd/BCBJcMc0Q4ectya0E2jBhcs0+v8jlklEL/ijPwvF4UkJ+AAMd/gxgSrnPq+akhARDHqGLZfqIE8l55S8zyw8+TRhj2E9HmG8iojgebRW5qh+7micctyKcNlxQakrNLsasSi4ocx+30ny4kD5lJ8/lZsNiytVLQZ/w/1r8/fRrb4rDsgMV3WoxyaVdgH7Pqe3HsUl2vDr7nbR91PxBaPbSAtDO8NYmg/KodvQehRmQLuiGWd1F/zzJ4adFMnmAOY2uLc0xUvQgiLQexuK/yC0u8TnwH8xBkNEQzfGfSB4O/ZbVwC95p2b/ufYkW/22qibfTQdt+M8vH9vcXu/RkwuBIvv49s5qI9i9YoZvzjteLHMwsyhJSDZ7EYhkaLIhUMuRAwFE/N6Bf/8lmWAoqE0nAw7vm+85p3xsPY40p1arJxUcNsjm6Ency9xxU+HEOyxdjc40d2BbkOHgiS8SE3jjdpeC6XxDiAmUh6yVM/Rq+thjcbeN8GOPAOP3kh2PoOTmr5iihPVpM12NhFajeBrr+BOtbMSXya2nJWfBr2eM7S82EAJC0+reWHoAebbCZd5zohNS2mDWJfYHnSM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB6914.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bEgyZ1piTU95YitwdlkwaTg1U3RSZlUyaTFEUFJVT3lqT291VkVwa3IwWVQz?=
- =?utf-8?B?OWxjWEJINnQ0YnJveUt2bnI5bGR5dGMwUDNrNHJkeHVJUzVmdU1majl4SXJJ?=
- =?utf-8?B?SFZUTDh6WHVqaDFkVVBheXhRa1pURzlCOEVEbTBVNUh1bFpkUFkweHpCbUhX?=
- =?utf-8?B?bmVMT2VZMXByRHJKNzRHcEg5WEY4bFdNbktFUGNOU0hkY0ZoWDE1K29Idlo2?=
- =?utf-8?B?Y21wZ1l0ZmR2aUFUcmhkZzF5TzhNVUdib0RGSU9RcWJ1Mmw4b2FFeXR1Qjhk?=
- =?utf-8?B?K1greGdUQkZTaFJoSEFtZG5jUmM3NWt5ZE5lMjl5TVMvMXFLZlpqeEppVFhj?=
- =?utf-8?B?Q2tvZ2xIbU10TUFkQWYzWnN5MEcrU1dmUm5GcHpTclVlekhENmxZR0VrcVhN?=
- =?utf-8?B?RkN0Wm1MSHRqeE1hS1NLWDlCTnhUY2kvL25rMGViUUh0bFdJY1N5SDRHRHgy?=
- =?utf-8?B?b3BiZmU3OGJaOXNIUVdwdldRSW85UkdaUDFhV1JWVlk0WHFacGJzTEc3alQw?=
- =?utf-8?B?ZWdsa0pBVmR2YUhHUUNkUzJIdXM0dUVIRnE1cTE2Q2d2QjVWQ2hJZnEybW13?=
- =?utf-8?B?cjFVNitONGRkSlA5VDR0M2NCZlNINHlCc0hMTDBtRHZVRWw2VDRoQ3owU3Qw?=
- =?utf-8?B?OFVOZVQxbks2aXdHalhjempHZTRQUmhKL2ROU3hnY3hQK3N6eWxaNHNValRm?=
- =?utf-8?B?UUFtblJ5eGNTRzd3T0F2THF1R210UEVvcTVlcnJZTXB2Zkc0OGVYLzNLM1Fu?=
- =?utf-8?B?SlZkdTJCR3JGNFcwRkJLR0t6TW81bElPMjBGR1hsandSNzNvM0x6ODV5bXNV?=
- =?utf-8?B?ZWxoTGt1MGZTb3I1TU5iR202d004MG5KeGJGcWtmcUtMSjBzak5BWHQvVUtq?=
- =?utf-8?B?UXM4WURYaUhOQTJIZlVVa2s4UFZUQjNBZE5QL3cveHdCeXllYVBjUW5QOXU4?=
- =?utf-8?B?ckhQY21uSGozSkVmRVp6V01WYkhyYUo3QXJrNGo5NU9JR0U1QzFkRXFkUzJr?=
- =?utf-8?B?VEs5eFBmNXFFRnVDdGVHeCtwNmtOQ1hIa0FnWkJic2MwTUJqNHVENXIydDZH?=
- =?utf-8?B?Zzd4WHd1RThISTlBRkxtUk9FZ2tUV2VuZkVjS0hSd2EwZmdibTA3WFNCdkJ4?=
- =?utf-8?B?bDJOMDJwYU51eGdLcXZ5MUFuWHVyczRoWHlFRUN1RWp0Q1UzU29wVUZNcTlt?=
- =?utf-8?B?WGVoeldHRmsyVHdab09iUDVOVnA5VFZGTmk4WlBkQk0xU2ZZR3hHcThZdGRN?=
- =?utf-8?B?L1B3OWFCN3ovbFRqSFZBaVJOVDZPSGdDczNvcFlFR082MStNcS9zZWIxZi9u?=
- =?utf-8?B?V1FwUTk1ZHFQSzg1NHdNRlp2NlZIQTJUVThaei9wM3NJWEhza0laanlvRExR?=
- =?utf-8?B?NW1PMDRzcGh2K09zWFBTZ1M1QnpSU3M5RkFlemdQQkk4bzNCZTdNRGZrbUJI?=
- =?utf-8?B?Qkl4bUFEMUhNY09rVXVqVHltbHI5YVZ4VzU4WEN4bTN6cGVlbzRhcWozV1pw?=
- =?utf-8?B?MmYwbmtWSlhVQi95QWloeTZuZVQ5TURqYVpyaFF2ODRKd3Z6TEtDS2dMMVlE?=
- =?utf-8?B?bXhETksvQjlvYjFXa1Flcm5XSE1oVjRONGIxbEVNRXFkaTBWNk9UczQ3c2ll?=
- =?utf-8?B?M09vVGxOcWhPakJkdkpZZC9mTWZ5Rk1rRXdBcWFoME83WU5HWHd5eEJ5T1Fj?=
- =?utf-8?B?Si90Ky9UZTRqRW1jZnVpZEVXUEtCVElVVDZFdnVlKzdBRlg5T3Z1R0x6amZ4?=
- =?utf-8?B?ZGFudVh6eW9UVlVQNVBrY3cwUjU1ZlptWWZYbmxOQ0VrRlUyRVgzL2dxWFJi?=
- =?utf-8?B?QlR6dGpjVng0UERpdHIrTUhtQlV2WklQNGFJTHZBM2VUYkdnMWd3NEtGd3hM?=
- =?utf-8?B?cTNVcTF4R3dFS1lab0xtVk9NU0RTWmcxOVB6OGNReGlXWU0wcXFWdlRDN0d6?=
- =?utf-8?B?K3ZhVXJEYTBUamxoUU1xZjlaNUlRdld4TlpBNUIzWjBJbzlpazY4bmhDYUU4?=
- =?utf-8?B?MEJLSHdvcGFjNm5vOC9BZ01EdVJ3VVdnZGw2U3BzaGg3MXpYYkF0azlsZkdx?=
- =?utf-8?B?dlN5V0hhMmRlRFRBcjgxcUhVdlpQNU42akVqTnVqQktDMWN1OVVwTmd1aUxV?=
- =?utf-8?B?cjlMdHQrYVBvTUNUZVcxTU04M2lSNXJ6eThOZVpzc0c5REN4QzM1dlRRRC9p?=
- =?utf-8?B?dnhsd2VPOWxHZ1hZS2RuQVZkcmZnTW00d3RXNHJNeEE3VVIvSWVaR2xtVVhs?=
- =?utf-8?B?dFJ6aUJhdmJYWGhiMDViMmtWSEUzcW5xUUl2YWhaUHVSODdBYkFzczFJeVht?=
- =?utf-8?B?Q1pBMlZobHpoOG1Wb0NhMFRLNWJRSis4dWNVQ0tyejVLMG1sNEdyZz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0dfdb832-1838-4da8-250c-08df24a15d6d
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 18:32:38.8422
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xU6k7FJBffzEPeL9o71Wf2ziip95xK1fiNvtUcJvSol/1lVNiNks3eu5h5MYVwgSBN/ARbwqV5r11Q7Fn/+3PA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF5D591B24D
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 11/21] arm64: dts: apple: t8103-j313: Add
+ speaker/headset jack nodes
+To: James Calligeros <jcalligeros99@gmail.com>,
+        David Rhodes <david.rhodes@cirrus.com>,
+        Richard Fitzgerald <rf@opensource.cirrus.com>,
+        =?UTF-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>,
+        Matthias Brugger <matthias.bgg@gmail.com>,
+        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+        Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+        Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
+        Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+        Neal Gompa <neal@gompa.dev>, ajay.nandam@oss.qualcomm.com
+Cc: asahi@lists.linux.dev, linux-sound@vger.kernel.org,
+        patches@opensource.cirrus.com, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-mediatek@lists.infradead.org
+References: <20261004-macaudio-v2-0-7b47ed6335a8@gmail.com>
+ <20261004-macaudio-v2-11-7b47ed6335a8@gmail.com>
+Content-Language: en-US
+From: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+In-Reply-To: <20261004-macaudio-v2-11-7b47ed6335a8@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDA3MyBTYWx0ZWRfXzLSu3f4xoZjv
+ SS21FSlaUlb9Y4xTsk8ALYRVfpYbVyYmxVTuDXaBcOOPFcEj29UcgAtGfEBXMOkyeimh1B9wiY4
+ 9aEnTsZ6kPxTtU6oTE3A33taER+l/iw=
+X-Proofpoint-ORIG-GUID: xcY-iIRouTOyahelUn0zC32rH7oQuyae
+X-Proofpoint-GUID: xcY-iIRouTOyahelUn0zC32rH7oQuyae
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDA3MyBTYWx0ZWRfX7petmeASRaAK
+ 06xbOQdhKGatITvEXRSn4MjX9l/ANFovWFuHRTz2RDOL+VJz10wfX8NcUBhjv8EjrWyWtqJkQwf
+ JO93+2JVPdTBDwyPv89AiSO9azpgcgqMnmqUm7tQiCjpCon4ocFVVonlxQZJWSCuWb3p8CNKrGt
+ SDYVwgB8BH1KeAHefpj47DN+4aWjp8seP4E9d4mTw1jAVFl3/D2SeR752aeKaAG+yyUa9Zuve6a
+ kK8zVRkT2G/ppLoeZkWrQQ9sGZ/Bbao7rCmBS4CyPd8OnCR1KM0bDRluO83Wph5ADBhlcS4S0Py
+ m3Q+O/y0Bi43krv4BZWQpLF86lbp0axJac3iCiD7n7EquMNF/Lj/y/yHChnHm9OQhHi+ccDsSUL
+ tQ1ouAd0xQMdmcShN7zjynfmRLbR5Lw7izc+AjFnRZGURNx30UVtDvULe5uuhNBb3zNBPNqxIUh
+ j9v80Gu9CoqUAY7gHMQ==
+X-Authority-Analysis: v=2.4 cv=Af0kjHXG c=1 sm=1 tr=0 ts=6ac69061 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ZXy6yrx+fn+bJIgs5eQ1WQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=pGLkceISAAAA:8 a=KKRqKo6ZSQ7ryDd2x_cA:9 a=QEXdDO2ut3YA:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-07_06,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
+ adultscore=0 priorityscore=1501 spamscore=0 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070073
 
-Well that's great news.
 
-Giorvanni - are you sure you don't have a BIOS update available from 
-your vendor?
 
-I would much rather not carry a quirk like this if it has been fixed in 
-latest BIOS.
+On 10/4/2026 11:33 AM, James Calligeros wrote:
+> The M1 MacBook Air integrates Apple-specific variants of the TI TAS2770
+> and Cirrus CS42L42. Add these nodes and advertise them to the machine
+> driver via the sound node.
+> 
+> Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
+> ---
+>   arch/arm64/boot/dts/apple/t8103-j313.dts | 82 +++++++++++++++++++++++++
+>   1 file changed, 82 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/apple/t8103-j313.dts b/arch/arm64/boot/dts/apple/t8103-j313.dts
+> index f8b2b1637b9d..cdda63ca8b34 100644
+> --- a/arch/arm64/boot/dts/apple/t8103-j313.dts
+> +++ b/arch/arm64/boot/dts/apple/t8103-j313.dts
+> @@ -55,4 +55,86 @@ &typec1 {
+>   	label = "USB-C Left-front";
+>   };
+>   
+> +/* Audio codecs */
+> +&i2c1 {
+> +	status = "okay";
+> +
+> +	speaker_left: codec@31 {
+> +		compatible = "ti,tas5770l";
+> +		reg = <0x31>;
+> +		interrupts-extended = <&pinctrl_ap 182 IRQ_TYPE_LEVEL_LOW>;
+> +		shutdown-gpios = <&pinctrl_ap 181 GPIO_ACTIVE_HIGH>;
+> +		#sound-dai-cells = <0>;
+> +		sound-name-prefix = "Left";
+> +		ti,imon-slot-no = <0>;
+> +		ti,vmon-slot-no = <2>;
+> +	};
+> +};
+> +
+> +&i2c3 {
+> +	status = "okay";
+> +
+> +	speaker_right: codec@34 {
+> +		compatible = "ti,tas5770l";
+> +		reg = <0x34>;
+> +		interrupts-extended = <&pinctrl_ap 182 IRQ_TYPE_LEVEL_LOW>;
+> +		shutdown-gpios = <&pinctrl_ap 181 GPIO_ACTIVE_HIGH>;
+> +		#sound-dai-cells = <0>;
 
-On 10/7/26 13:30, Kyle Gospodnetich wrote:
-> Looks like it's finally fixed with that last BIOS release, it's been years!
+Both speaker codec nodes reference the same shutdown GPIO. Is that
+intentional for this board?
+
+The TAS2770 driver requests 'shutdown-gpios' per codec instance, and 
+GPIO requests are exclusive by default. So I would expect only one codec 
+instance to own this line, while the other appears to fall back to the 
+register-only path after the GPIO request fails.
+
+If GPIO181 is a shared physical shutdown line for both amps, how is the
+power/reset ordering expected to work across probe, suspend, and resume 
+when only one of the two codec driver instances controls that line?
+
+Thanks
+Ajay Kumar Nandam
+
+> +		sound-name-prefix = "Right";
+> +		ti,imon-slot-no = <4>;
+> +		ti,vmon-slot-no = <6>;
+> +	};
+> +
+> +	jack_codec: codec@48 {
+> +		compatible = "cirrus,cs42l83";
+> +		reg = <0x48>;
+> +		interrupts-extended = <&pinctrl_ap 183 IRQ_TYPE_LEVEL_LOW>;
+> +		reset-gpios = <&pinctrl_nub 11 GPIO_ACTIVE_HIGH>;
+> +		#sound-dai-cells = <0>;
+> +		sound-name-prefix = "Jack";
+> +		cirrus,ts-inv = <1>;
+> +	};
+> +};
+> +
+> +/ {
+> +	sound: sound {
+> +		compatible = "apple,j313-macaudio";
+> +		model = "MacBook Air J313";
+> +
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		dai-link@0 {
+> +			reg = <0>;
+> +
+> +			dai-tdm-idle-mode-0 = "zero";
+> +			dai-tdm-idle-mode-1 = "zero";
+> +
+> +			link-name = "Speakers";
+> +
+> +			codec {
+> +				sound-dai = <&speaker_left>, <&speaker_right>;
+> +			};
+> +
+> +			cpu {
+> +				sound-dai = <&mca 0>, <&mca 1>;
+> +			};
+> +		};
+> +
+> +		dai-link@1 {
+> +			reg = <1>;
+> +
+> +			link-name = "Headphone Jack";
+> +
+> +			codec {
+> +				sound-dai = <&jack_codec>;
+> +			};
+> +
+> +			cpu {
+> +				sound-dai = <&mca 2>;
+> +			};
+> +		};
+> +	};
+> +};
+> +
+>   #include "hwmon-laptop.dtsi"
 > 
-> Platform Firmware Information
-> 	Vendor: American Megatrends International, LLC.
-> 	Version: 1.A4
-> 	Release Date: 06/15/2026
-> 
-> cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_driver
-> amd-pstate-epp
-> 
-> And no performance issues. Thanks!
-> 
-> 
-> On Wednesday, October 7th, 2026 at 11:08 AM, Mario Limonciello <mario.limonciello@amd.com> wrote:
-> 
->> OK, let's wait and see what happens after you upgrade.  New versions of
->> FW and the behavior please.
->>
->> On 10/7/26 12:43, Kyle Gospodnetich wrote:
->>> Missed one,
->>>
->>> Release Date: 05/17/2022
->>>
->>>
->>> On Wednesday, October 7th, 2026 at 10:36 AM, Kyle Gospodnetich <me@kylegospodneti.ch> wrote:
->>>
->>>> AMD Ryzen Threadripper 3960X
->>>> MSI TRX40-PRO-10G
->>>> https://www.msi.com/Motherboard/TRX40-PRO-10G/support
->>>> I am using 7C60v1A3(Beta version), I will update to the latest today -- just learning that exists.
->>>> dmidecode reports that as:
->>>> Vendor: American Megatrends International, LLC.
->>>> Version: 1.80
->>>>
->>>> I've had to disable pstate with:
->>>> amd_pstate.enable=0 initcall_blacklist=amd-pstate
->>>>
->>>> Without that my system grinds to a hault, takes upwards of 15 minutes just to hit the desktop.
->>>>
->>>> Thanks, let me know if anything else is needed.
->>>> -Kyle Gospodnetich
->>>>
->>>>
->>>> On Wednesday, October 7th, 2026 at 8:06 AM, Mario Limonciello <mario.limonciello@amd.com> wrote:
->>>>
->>>>> Kyle,
->>>>>
->>>>> Can you please confirm more about your system?  System Model, vendor,
->>>>> BIOS version, BIOS vendor, CPU model.
->>>>>
->>>>> Thanks,
->>>>>
->>>>> On 10/7/26 10:04, Kyle Gospodnetich wrote:
->>>>>> Yes this does appear to be the same problem, thank you!
->>>>>>
->>>>>> -------- Original Message --------
->>>>>> On Wednesday, 10/07/26 at 07:56 Mario Limonciello <mario.limonciello@amd.com> wrote:
->>>>>> + Kyle
->>>>>>
->>>>>> Kyle,
->>>>>>
->>>>>> By chance is this the same system that you were talking to me about offline?
->>>>>>
->>>>>>
->>>>>>
->>>>>> On 10/7/26 09:41, Giovanni Gherdovich wrote:
->>>>>>> Some motherboard based on the TRX40 chipset has been reported to ship
->>>>>>> firmware lacking lowest and nominal frequency values in the
->>>>>>> _CPC ACPI package. That is, it supports CPPC V2 but not CPPC V3.
->>>>>>> Firmware updates aren't available.
->>>>>>
->>>>>> Can you please add more information about the vendor/model of the MB, etc?
->>>>>>>
->>>>>>> amd-pstate requires explicit knowledge of nominal frequency, so it
->>>>>>> can't load on this hardware. The driver already has a mechanism (the
->>>>>>> so-called "quirks") to accommodate for missing nominal freq in ACPI
->>>>>>> tables, so here we use it to match against CPU family, model, core
->>>>>>> count, and BIOS version.
->>>>>>
->>>>>> Yeah; it's intended for this specific case of really old hardware that
->>>>>> the BIOS isn't going to fix it.
->>>>>>
->>>>>> I don't understand why core count matters though.
->>>>>>
->>>>>>>
->>>>>>> Signed-off-by: Giovanni Gherdovich <ggherdovich@suse.cz>
->>>>>>> ---
->>>>>>>      drivers/cpufreq/amd-pstate.c | 31 +++++++++++++++++++++++++++++++
->>>>>>>      1 file changed, 31 insertions(+)
->>>>>>>
->>>>>>> diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
->>>>>>> index 8bfd46d60843..532ff16dd076 100644
->>>>>>> --- a/drivers/cpufreq/amd-pstate.c
->>>>>>> +++ b/drivers/cpufreq/amd-pstate.c
->>>>>>> @@ -145,6 +145,11 @@ static struct quirk_entry quirk_amd_7k62 = {
->>>>>>>      	.lowest_freq = 550,
->>>>>>>      };
->>>>>>>
->>>>>>> +static struct quirk_entry quirk_amd_ryzen_threadripper_3000_24c = {
->>>>>>> +	.nominal_freq = 3800,
->>>>>>> +	.lowest_freq = 550,
->>>>>>> +};
->>>>>>> +
->>>>>>>      static inline u8 freq_to_perf(union perf_cached perf, u32 nominal_freq, unsigned int freq_val)
->>>>>>>      {
->>>>>>>      	u32 perf_val = DIV_ROUND_UP_ULL((u64)freq_val * perf.nominal_perf, nominal_freq);
->>>>>>> @@ -174,6 +179,22 @@ static int __init dmi_matched_7k62_bios_bug(const struct dmi_system_id *dmi)
->>>>>>>      	return 0;
->>>>>>>      }
->>>>>>>
->>>>>>> +static int __init dmi_matched_trx40_bios_bug(const struct dmi_system_id *dmi)
->>>>>>> +{
->>>>>>> +	/**
->>>>>>> +	 * Match the Ryzen Threadripper 3000 series, 24-core SKU, sTRX4 socket / TRX40 chipset.
->>>>>>> +	 */
->>>>>>> +	if (boot_cpu_data.x86 == 0x17 &&
->>>>>>> +	    boot_cpu_data.x86_model >= 0x30 && boot_cpu_data.x86_model <= 0x3F &&
->>>>>>> +	    topology_num_cores_per_package() == 24) {
->>>>>>
->>>>>> Does the number of cores actually matter?  Do you mean to say if you
->>>>>> swap the CPU to another part CPPC works?
->>>>>>
->>>>>>> +		quirks = dmi->driver_data;
->>>>>>> +		pr_info("Overriding nominal and lowest frequencies for %s\n", dmi->ident);
->>>>>>
->>>>>> The BIOS bug specifically is lack of values, not invalid values, right?
->>>>>> Just want to make sure I'm following this right.
->>>>>>
->>>>>>> +		return 1;
->>>>>>> +	}
->>>>>>> +
->>>>>>> +	return 0;
->>>>>>> +}
->>>>>>> +
->>>>>>>      static const struct dmi_system_id amd_pstate_quirks_table[] __initconst = {
->>>>>>>      	{
->>>>>>>      		.callback = dmi_matched_7k62_bios_bug,
->>>>>>> @@ -184,6 +205,16 @@ static const struct dmi_system_id amd_pstate_quirks_table[] __initconst = {
->>>>>>>      		},
->>>>>>>      		.driver_data = &quirk_amd_7k62,
->>>>>>>      	},
->>>>>>> +	{
->>>>>>> +		.callback = dmi_matched_trx40_bios_bug,
->>>>>>> +		.ident = "AMD Ryzen Threadripper 3000",
->>>>>>> +		.matches = {
->>>>>>> +			DMI_MATCH(DMI_BIOS_VENDOR,  "American Megatrends International"),
->>>>>>> +			DMI_MATCH(DMI_BIOS_VERSION, "2.80"),
->>>>>>> +			DMI_MATCH(DMI_BIOS_DATE,    "05/17/2022"),
->>>>>>> +		},
->>>>>>> +		.driver_data = &quirk_amd_ryzen_threadripper_3000_24c,
->>>>>>> +	},
->>>>>>>      	{}
->>>>>>>      };
->>>>>>>      MODULE_DEVICE_TABLE(dmi, amd_pstate_quirks_table);
->>>>>>
->>>>>
->>>>>
->>
->>
 
