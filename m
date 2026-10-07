@@ -1,88 +1,87 @@
-Received: from mail-pg1-f228.google.com (mail-pg1-f228.google.com [209.85.215.228])
+Received: from mail-pl1-f226.google.com (mail-pl1-f226.google.com [209.85.214.226])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 276E94DA9AC
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 19:29:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.228
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD2D438D3F0
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 19:29:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791401350; cv=none; b=bid45cEZIxPy+8KMbZ4qX92iYFDBI3H4uOurhmgmivTDuBAjHYZKRTzZXuSAerrn6OOWKRKs4ee/rextww81ZCux41S3lSTilbHb7hhY70s8Xvv2w8TWLI6bT3nVdVY/liN2hpl913U67m5JejAjQYqBvzxvqG4QTVhk9IBl2aI=
+	t=1791401398; cv=none; b=mVfhZpPK5gz5Tb4WuPXCB2tEafUuA+UEXdK1GD4jTzO8wDRhe4T9qWuGsSlh6NRKc+Yd9f01Twm4oBmmimi2C6sDjvfPt8lDcAHvRxh5yUclkegrloWsxO74ISnaZGzTaHnAQaoeXQkwyP7Iw7H47VWibDYYzx2sJg7P0sgrwFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791401350; c=relaxed/simple;
-	bh=3F2Wdj781elvux7E9fjP4am592WOvWvGPF+vk5BNmmc=;
+	s=arc-20240116; t=1791401398; c=relaxed/simple;
+	bh=V8SptUM6rwYCaSTro9raRIzwtbqhGdI2kSFmhkFU+ek=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=f7qOmcq0/LY5PbcNQbGemxW7CbvCZAX/aXHB3+a2BoyjfzUlU67KbSVoTO0/3TUDYGimMexNWrcDu2y85T9Nc30H/+VzxNzl0vuSYGqVQysl2rm7v8kxGd0hRfMXqn5v1eHDqruJMUvbW7x1ZSAZ5edvs+aa9ueRFHVYdO4jLWQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=ULEg2GC2; arc=none smtp.client-ip=209.85.215.228
+	 To:Cc:Content-Type; b=HxsKRfcB0iDR9bW8QEFMArP4P6Q6+pfMOeLufOlZHxOynRx+K5Wxem8VpmunQOjfK7IhtLs48bJ3TL98UynPN85G5RBZy3MKnxstcVsV/oDaQFu8BGCsA6h+9VnuHBeroVE0X2gc3oKLD73VByp9M0ouKrB1uiIa107Go3KY8do=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=KOguQjGZ; arc=none smtp.client-ip=209.85.214.226
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="ULEg2GC2"
-Received: by mail-pg1-f228.google.com with SMTP id 41be03b00d2f7-cc147d86bebso1343140a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 12:29:08 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="KOguQjGZ"
+Received: by mail-pl1-f226.google.com with SMTP id d9443c01a7336-2dd1dcdcf95so12969785ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 12:29:56 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791401348; x=1792006148;
+        d=1e100.net; s=20260707; t=1791401396; x=1792006196;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZpZamiTSz/rlpZiIuxeNlptD6VaFljDNLg5uchdAZ8o=;
-        b=A07sP2w9ESKpQs09Fn1yu/1LHCzXldoL2RjEG4xDOsSrOj00t+gWqoLeosJGw4LS6B
-         976sEH7jynjohNyvy8J1xt9j12G3nMoDHGwApXdW4pBL2FT6gfCb7w42/QGqoEncqDMZ
-         fPN18Qb/7ea/pT1frYssd7g3v/BmTE9m+TJeCKjMj7fiRJhUgoRHbyk2YgSyaCdT0FUo
-         mk54zpYYhmojzQemOXDllWc4fmUOrkgueq7S/yaaMSxXSLgoAU+e5vINYPcT3XnAjVnL
-         mqaYpNkBZuqMoRqtrPk0P4xL9n1u8JRuBpy9gWf7XsDYd9Jcdj6TlK2XSwWYWr8LGpkK
-         DlDg==
-X-Forwarded-Encrypted: i=1; AKwUvBzvsvP0QXyCZIeADJ6axmgia33Fv4ZSWYEJAXQ0kpDRGz6GcxVyPywosFAsAuK7GY2UFumB72lzvqxg5As=@vger.kernel.org
-X-Gm-Message-State: AFuF++lDxp7Tih+3GBz2SGbQkaRC7vqDn8XQe/crNFXQDnXkT9XTkWR4
-	jfvSTif3L4e5+dHYxASqdfvgKnTSeLC14EKdwLbFTTn7ML9Ioj6s6c9Vhhg72XK1zX5TlcApAYj
-	c4iNsYLWBnl4xIW6g0eUJAAddI9CYkpvXwqYjbbbRzm6vxctaKbK4/ayR5DGp6WqDQ8MA/Fj57I
-	8tR494xeG90mZFNT3FpTpuxsVVOTRHTzAEKSnH3a2vJpiSf6YIN7rTHYmfMiigz8fWzkAwYlH+R
-	TWQgejx6uplxPPN
-X-Gm-Gg: AYBFou07cEFTekr3+/MWsIA1Vwh4XYVFprRJOYI9A/JOSTtnTfhoLnkRJ9FZse5AewF
-	O576rckEwR6rs5gsc7Nf21I2XLgibEw9EzMDs7qShWJAE3BYH9DbTQn4Yqp8QPP2qlFIdc2BWTm
-	x6RlCn27TFaJNZ8fmek595cVqtn8FRZx4vPJJ2tyTjLDPOnd6AEzK3du6tJYtY3EaoxGpg6U/K4
-	5FFoxrVdCKpPiYuUZUaoOGt/ntThOo+w1C0S5gq2rwFmMGxkRIZylvysa8WEr+lvsQeg8c+bbq2
-	gcrI4JFFITdG1zOCp59WR+ALGoQKpGCGQBEaa2+aqjzp2VcX4ZNY8xGcYaJOw/Mexi2CemHSK+a
-	8/zlEV6iQZgQUSXjWY1LNz9qjLbQYsPFQ1zCPBQgTLnLZelhUfGE49Cc5J/qRb+rBdxO+oxdAgk
-	yOva0ZcF8cmOVOY9Ui4ZMMYnaIG2Qm3wjlVJY=
-X-Received: by 2002:a05:6a21:7187:b0:3e1:282b:9aaa with SMTP id adf61e73a8af0-3e14c52cbbemr99383637.29.1791401348206;
-        Wed, 07 Oct 2026 12:29:08 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
-        by smtp-relay.gmail.com with ESMTPS id 41be03b00d2f7-cd0ae858663sm432393a12.11.2026.10.07.12.29.07
+        bh=vENQeaEQS1mDS5b6W4vJY9IL+14McPgRpGuZgHmvJS8=;
+        b=SLNfu55VQPOOS51BqPxEx/UpCKk4GvRKwWC+H49xoQXjeFL3CrFxqjL7NANdgpETRt
+         yXpoGOdfHjdJcUB14maqIOF3f/UKdhqC1dx8WMNLDap1uOOtrcNTpfWfvcTYG6WTvVkz
+         eezguldKPvkjcXz9no9OF/y1cCdK6EV4id/XZbPaWNjZ5vx52p1ocd+zv/KTbLieOpXP
+         KZGD4HF/b+d57dfysnm1g8cpig/edFeMc+f1AAlxQ598sDwxjX5/s2Ba9VIlU+Eev6Oh
+         hNLQk6bCq/cRag4rq1lqOHlgonHOQ6TlDxAx/Yu/MAPnnppQ4iLKoSobLueyYxm7/sm5
+         KV5A==
+X-Forwarded-Encrypted: i=1; AKwUvBzevOcXjmjCDkyGKbheapEcVNvB9VPm/pLi7ObDaonFLifeNrYDObwYiHDKbqdcp+gZQhonG6pBuRwqI2Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIXfuivCfPEduUMLQH24G9UYz/fw2rrnc1wAGuMQ+vOYnq8OZIP
+	gmpviW9w+ajBdQzlPNwXxDd9nsV2S/Q92RQMErk4HEFgh8mTlhqk6ETgmrjDdHIMecGOLUGzw8L
+	B+VF3mO2N7Evwuc3YnJxs50T4AA1TIZUJiW9DU/1mU4yJ8BM1P1nrxnWsnxdwghX0eqUU9oGuae
+	uxKLnFlYyK91S86wrIbzLi8hS3qKcdFsofPQFCc3QGGLIjqFoC/amMpKBZUPC+zcZmEg6EGBkdb
+	45+wwP2ZovB6EjN
+X-Gm-Gg: AYBFou2KhVhW06U3CGNSgRLRMtyWw60Mg+bjnuBVLUVcrNkp9+z5QYXS6Sx34e2sGYC
+	X5MpHXHqoPGz3YkPZgJOoPz+0kHaK9X+5ybXSYkP7UOpMBBQJuW/3vDpUKOaYFtsAGxJelYPoor
+	8EnxRQS0oC/7GnM2lvbEJLuuXk6FBK18ffKP9ayBRCk9MKk/3HKzkuVKjwkHH7jKehQQkWggOlj
+	LQyAC9Fm1OcLxjcIEicu9v+3Y6oDpJwunYsvFO993itUkjlqXBwEff5syhn0BBY0cmHVTXLTZCk
+	ypq+XZrozoeeiv0H2jsQyhKAoq2tlSTn+6O9GEBhPToe3UCHcDlaR+H3/naDBgGF6m8R1cXRLBT
+	4a1STk9UCnBsAGVWdWgEB2gCit0mv2kKHqgPOILEeoaSLKSNrqiHdCu8h7xHMMbbS5ilg17g0Ep
+	g74X3Ku3exqA5EkYNfFXb6/EY1hOxsWDBg2b4=
+X-Received: by 2002:a17:903:2311:b0:2e5:debe:cb4b with SMTP id d9443c01a7336-2e7ffed33f8mr888745ad.10.1791401395926;
+        Wed, 07 Oct 2026 12:29:55 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
+        by smtp-relay.gmail.com with ESMTPS id d9443c01a7336-2e60484981bsm1272565ad.52.2026.10.07.12.29.55
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 07 Oct 2026 12:29:08 -0700 (PDT)
+        Wed, 07 Oct 2026 12:29:55 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-lf1-f70.google.com with SMTP id 2adb3069b0e04-5bccbdf58e2so1163391e87.3
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 12:29:06 -0700 (PDT)
+Received: by mail-lf1-f71.google.com with SMTP id 2adb3069b0e04-5ba41c0265dso2074825e87.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 12:29:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1791401346; x=1792006146; darn=vger.kernel.org;
+        d=broadcom.com; s=google; t=1791401393; x=1792006193; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZpZamiTSz/rlpZiIuxeNlptD6VaFljDNLg5uchdAZ8o=;
-        b=ULEg2GC2yDGLOjhc5mZRnO2sJweHXO2r5HiZravbgSo8aYQAXTZmJKI9GfI4K4kL0/
-         mOTLmcqpO2NaHf71tRB93B6g7yzlpA2FVB0OdvcGPfo6ar2XGg7mtobV8z+TIWbu+z1M
-         GfI8e+pgEeh/BRK1VoVpIakjlASw+uNv1Hp+c=
-X-Forwarded-Encrypted: i=1; AKwUvByi/dpLAbjvR4sgdbR+jpKv6eU4Ms6/WJrJCTA8/OaPA37k0KHvKadvYXR1OvzEo/lgqVsSomWoN+bobxk=@vger.kernel.org
-X-Received: by 2002:a05:6512:6687:10b0:5bc:d17f:3889 with SMTP id 2adb3069b0e04-5bcd17f3b3fmr600951e87.20.1791401345884;
-        Wed, 07 Oct 2026 12:29:05 -0700 (PDT)
-X-Received: by 2002:a05:6512:6687:10b0:5bc:d17f:3889 with SMTP id
- 2adb3069b0e04-5bcd17f3b3fmr600938e87.20.1791401345381; Wed, 07 Oct 2026
- 12:29:05 -0700 (PDT)
+        bh=vENQeaEQS1mDS5b6W4vJY9IL+14McPgRpGuZgHmvJS8=;
+        b=KOguQjGZRzZ+cVNKT/ZXmKI5tK9bIsrfiouyBfbuKCOfcwgJZBS3ttuBn9MaP+LdAB
+         Rl2/b4NcKE/LuNYiLTG9O8/r3A5CYrcpJHagmRTH0feK+CdTFSrXVXHkEF7rJvYrG7IS
+         nbViiz/1lvwjIeizw2nxUB/oJcsrEnmdTuw0Y=
+X-Forwarded-Encrypted: i=1; AKwUvBw/t1Kfo/tvqbMiWqbVFHMWydQM6N71xMjRX1G0jc1GZdImBZrnCVL6ymUYTmaGG/HQ5RxV0EDzf9mK8Y4=@vger.kernel.org
+X-Received: by 2002:a05:6512:ac8:b0:5b6:19c9:d7b7 with SMTP id 2adb3069b0e04-5bcd06ad842mr1106527e87.26.1791401393471;
+        Wed, 07 Oct 2026 12:29:53 -0700 (PDT)
+X-Received: by 2002:a05:6512:ac8:b0:5b6:19c9:d7b7 with SMTP id
+ 2adb3069b0e04-5bcd06ad842mr1106509e87.26.1791401392877; Wed, 07 Oct 2026
+ 12:29:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910165221.7558-1-michaltoma@sicoop.com> <20260910165221.7558-2-michaltoma@sicoop.com>
-In-Reply-To: <20260910165221.7558-2-michaltoma@sicoop.com>
+References: <20260910165221.7558-1-michaltoma@sicoop.com> <20260910165221.7558-3-michaltoma@sicoop.com>
+In-Reply-To: <20260910165221.7558-3-michaltoma@sicoop.com>
 From: Zack Rusin <zack.rusin@broadcom.com>
-Date: Wed, 7 Oct 2026 15:28:52 -0400
-X-Gm-Features: AclHuK-a9uLOB9y3ILL-Ku4Q_D3r9cWO-WEFl6kMb-MLKL108ZeqUfqXzNsufPE
-Message-ID: <CABQX2QM7RJ6LjSpwYYNa3oVU6-N53UbbmW82OVdRv4un1s5ULg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/3] drm/vmwgfx: Don't map or free the exporter's
- sg_table for imported BOs
+Date: Wed, 7 Oct 2026 15:29:40 -0400
+X-Gm-Features: AclHuK9szXVhXziyRSH3KZ3-xYzz3YLU8TTvRktN3bkH9vjXnH8pBTxlZjP70b0
+Message-ID: <CABQX2QMOJs24-YL8vD5oiFy3sZj0DkbZPy++z-HYeOi-OApy9g@mail.gmail.com>
+Subject: Re: [PATCH v2 2/3] drm/vmwgfx: Release PRIME import in the BO destroy path
 To: Michal TOMA <michaltoma@sicoop.com>
 Cc: bcm-kernel-feedback-list@broadcom.com, ian.forbes@broadcom.com, 
 	maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
@@ -92,65 +91,146 @@ Cc: bcm-kernel-feedback-list@broadcom.com, ian.forbes@broadcom.com,
 	linaro-mm-sig@lists.linaro.org, stable@vger.kernel.org
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="000000000000e3a30a065d4520c3"
+	boundary="000000000000bad017065d452361"
 
---000000000000e3a30a065d4520c3
+--000000000000bad017065d452361
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Thu, Sep 10, 2026 at 12:52=E2=80=AFPM Michal TOMA <michaltoma@sicoop.com=
 > wrote:
-> The exporter has already mapped the table for this device in
-> dma_buf_map_attachment(), so there is nothing for vmwgfx to do here:
-> use the table as it is, and leave mapping, unmapping and freeing to its
-> owner.
+>
+> drm_gem_prime_import_dev() attaches to a foreign dma-buf, takes a
+> reference with get_dma_buf(), maps the attachment and, once
+> vmw_prime_import_sg_table() has created the TTM buffer object, stores
+> the attachment in obj->import_attach. Drivers that import this way have
+> to undo it by calling drm_prime_gem_destroy() when the object is freed.
+>
+> vmwgfx never does. The TTM destroy callback, vmw_bo_free(), only calls
+> drm_gem_object_release() and kfree(). For every imported dma-buf, the
+> sg mapping, the attachment and the dma-buf reference are leaked when
+> the last GEM reference goes away, and the exporter's backing pages stay
+> pinned until reboot.
+>
+> Any process that can open the vmwgfx render node can hit this by
+> importing a dma-buf from another exporter, for example with
+> DRM_IOCTL_PRIME_FD_TO_HANDLE. It showed up as a memory drain on a
+> VirtualBox VMSVGA guest running a Plasma 6.7 Wayland session with the
+> host's 3D acceleration off. KWin 6.7 wraps wl_shm client buffers in
+> udmabufs and imports them through EGL on llvmpipe, and it keeps many of
+> those imports referenced while it runs, which is a separate userspace
+> problem. Restarting the compositor did not give the memory back,
+> though: with about 1.5 GiB of client buffers imported, killing KWin
+> left 211 udmabufs in /sys/kernel/debug/dma_buf/bufinfo with a refcount
+> of 1, still attached to the vmwgfx device, after every userspace
+> reference was gone. Their pages are no longer mapped or in any page
+> cache, so reclaim and swap cannot free them.
+>
+> Call drm_prime_gem_destroy() for imported objects before
+> drm_gem_object_release(), as amdgpu, radeon and nouveau do in their TTM
+> destroy callbacks, and include <drm/drm_prime.h> for it. The check is
+> safe on the import error path: drm_gem_prime_import_dev() only sets
+> obj->import_attach after gem_prime_import_sg_table() succeeded, so a
+> buffer object destroyed before that point is not unmapped, detached or
+> put a second time. ttm_bo_release() tears down the TTM backing and
+> drops the reservation lock before calling the destroy callback, which
+> fits the _unlocked unmap done by drm_prime_gem_destroy().
+>
+> The leak was found by walking /proc/kpageflags, which attributed the
+> missing memory to orphaned shmem pages. Those matched the udmabuf
+> objects in dma_buf/bufinfo, and the remaining reference was traced to
+> the missing PRIME teardown. It was confirmed without a compositor using
+> a small reproducer: create a memfd, wrap it with UDMABUF_CREATE, import
+> it with DRM_IOCTL_PRIME_FD_TO_HANDLE on the vmwgfx render node, close
+> the GEM handle and every file descriptor, then check bufinfo.
+>
+> Build tested on drm-misc-fixes (4600b4d1a9ee) with the openSUSE 7.2.3
+> config and W=3D1: drivers/gpu/drm/vmwgfx/ builds without warnings before
+> and after the change, and checkpatch.pl --strict is clean. Runtime
+> tested on a VirtualBox 7.2 VMSVGA guest with kernel 7.2.3, whose vmwgfx
+> sources for the files involved are identical to drm-misc-fixes, using a
+> vmwgfx.ko built from them with this change. With the reproducer, all 8
+> imported udmabufs stayed pinned without the change and none with it,
+> with 3D acceleration both on and off. With KWin on llvmpipe, killing
+> the compositor now released 84 of 92 udmabufs (610 MiB) within 10
+> seconds, where the same test on the unpatched driver released none.
+>
+> Fixes: b32233acceff ("drm/vmwgfx: Fix prime import/export")
+> Cc: stable@vger.kernel.org # v6.6+
+> Assisted-by: LLM
+> Signed-off-by: Michal TOMA <michaltoma@sicoop.com>
+> ---
+> Reproducer (results and environment are in the cover letter). Compare
+> the 4 MiB udmabuf entries in /sys/kernel/debug/dma_buf/bufinfo before
+> and after: without this patch all 8 remain, with count 1 and still
+> attached to the vmwgfx device.
+>
+> #!/usr/bin/env python3
+> import fcntl, os, struct
+> N, SIZE =3D 8, 4 * 1024 * 1024
+> UDMABUF_CREATE     =3D 0x40187542  # _IOW('u', 0x42, struct udmabuf_creat=
+e)
+> PRIME_FD_TO_HANDLE =3D 0xC00C642E  # DRM_IOWR(0x2e, struct drm_prime_hand=
+le)
+> GEM_CLOSE          =3D 0x40086409  # DRM_IOW(0x09, struct drm_gem_close)
+> render =3D os.open('/dev/dri/renderD128', os.O_RDWR | os.O_CLOEXEC)
+> udm =3D os.open('/dev/udmabuf', os.O_RDWR | os.O_CLOEXEC)
+> for i in range(N):
+>     mfd =3D os.memfd_create(f'prime-leak-{i}', os.MFD_ALLOW_SEALING)
+>     os.ftruncate(mfd, SIZE)
+>     fcntl.fcntl(mfd, fcntl.F_ADD_SEALS, fcntl.F_SEAL_SHRINK)
+>     create =3D bytearray(struct.pack('IIQQ', mfd, 1, 0, SIZE))
+>     dfd =3D fcntl.ioctl(udm, UDMABUF_CREATE, create)
+>     ph =3D bytearray(struct.pack('IIi', 0, 0, dfd))
+>     fcntl.ioctl(render, PRIME_FD_TO_HANDLE, ph)
+>     handle =3D struct.unpack('IIi', ph)[0]
+>     fcntl.ioctl(render, GEM_CLOSE, bytearray(struct.pack('II', handle, 0)=
+))
+>     os.close(dfd)
+>     os.close(mfd)
+> os.close(udm)
+> os.close(render)
+>
+> The same loop without the PRIME_FD_TO_HANDLE/GEM_CLOSE step frees
+> every udmabuf, so the leak is specific to the vmwgfx import.
+>
+>  drivers/gpu/drm/vmwgfx/vmwgfx_bo.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c b/drivers/gpu/drm/vmwgfx/=
+vmwgfx_bo.c
+> index 9c7a73c0b..56bc94edc 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
+> @@ -30,6 +30,7 @@
+>  #include "vmwgfx_drv.h"
+>  #include "vmwgfx_resource_priv.h"
+>
+> +#include <drm/drm_prime.h>
+>  #include <drm/ttm/ttm_placement.h>
+>
+>  /**
+> @@ -69,6 +70,8 @@ static void vmw_bo_free(struct ttm_buffer_object *bo)
+>                 vmw_surface_unreference(&vbo->dumb_surface);
+>         }
+>         WARN_ON(!RB_EMPTY_ROOT(&vbo->res_tree));
+> +       if (drm_gem_is_imported(&vbo->tbo.base))
+> +               drm_prime_gem_destroy(&vbo->tbo.base, vbo->tbo.sg);
+>         drm_gem_object_release(&vbo->tbo.base);
+>         WARN_ON(vbo->dirty);
+>         kfree(vbo);
+> --
+> 2.55.0
+>
 
-Thanks, agreed, that part is right.
-
-> Cc: stable@vger.kernel.org # v6.9+
-
-b32233acceff went to stable as "# v6.6+", so this should probably be
-v6.6+ like patch 2.
-
-> +       if (vmw_tt->dma_ttm.page_flags & TTM_TT_FLAG_EXTERNAL) {
-> +               /* The mapping and the table belong to the exporter. */
-> +               vmw_tt->vsgt.sgt =3D NULL;
-> +               vmw_tt->mapped =3D false;
-> +               return;
-> +       }
-> +
-
-There's one more problem this exposes. With this patch imported BOs
-can actually be bound, but they're never unbound on destruction:
-vmw_ttm_unpopulate() returns early for external TTs before it gets to
-vmw_ttm_unbind(), and vmw_ttm_destroy() doesn't unbind either. So an
-imported BO destroyed while in VMW_PL_MOB/GMR is never unbound from
-the device, and its MOB/GMR id goes back to the allocator anyway. That
-was already reachable in vmw_dma_alloc_coherent mode; this patch makes
-it the default.
-
-Could you add a patch ahead of this one that only skips the
-ttm_pool_free() for external TTs? Something like:
-
-      bool external =3D (ttm->page_flags & TTM_TT_FLAG_EXTERNAL) !=3D 0;
-
--     if (external)
--             return;
--
-      vmw_ttm_unbind(bdev, ttm);
-      ...
-      vmw_ttm_unmap_dma(vmw_tt);
-
-+     /* The pages of an imported buffer belong to the exporter. */
-+     if (external)
-+             return;
-+
-      ttm_pool_free(&bdev->pool, ttm);
-
+This looks right to me, but it must not be backported on its own:
+without patch 1 and the unbind fix above, releasing the import turns
+the leak into a crash. Please spell that dependency out here, not just
+in patch 1.
 
 z
 
---000000000000e3a30a065d4520c3
+--000000000000bad017065d452361
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -242,13 +322,13 @@ iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
 b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
 VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
 VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIKRo
-Y7GI5aNloNEG2ExEmwZ8NIWBxNRE6nWiK938tUl4MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MTAwNzE5MjkwNlowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
+QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIOJP
+C24vtsqdlKUwkuWmyUYl4NFvR6EkTGETdyaZ23MWMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
+HAYJKoZIhvcNAQkFMQ8XDTI2MTAwNzE5Mjk1M1owXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
 ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAAKzSLTyzeJmXgv+iwMoDaBIXt5MA0ZAvgcuXv8U
-L7oIedQg5lDVoQ/7Lc1EUvsk+ts73+PFEcXcQ707glzeGbDrI6l8Davmmbx1RbuEKiSpDYCZJ+gx
-lztxadqn1GXtrDfeEU4l7FZPiV4xMD/6zWD8vwOp+CMWXLi+fGHcVnRjpGcB1FAPj4ccgJIjWOS0
-EzDLmQYrUSrjdQkn5DBiWBoq+kvzS0m85r/UnbJL8GCGmE3o2LgJGH+8oEX3j6KEEWJ5yqjljPjs
-3QbjZESB639Dvi/7cKZVgVbboZnApG986BS0u5V8LpiyrfQU66HZPehQW28JP+f3o8zWR68Id7I=
---000000000000e3a30a065d4520c3--
+YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAFwB5xHsqoeJHOhxqFAzZMbcIX6wlg+V8n7zdy1G
+dxHtLuFBO5FeSdvSlRU95r2AUmBLHRyBUZP1Nfiq92D6p/8CLeWEkR4MJK6akCmBP+WVtI1plzkg
+LQwDJBTMP7uTVFpBJofDvwhNSn5hpJ6PN0Y5+UNvzUgkikulEYtoudDGe8uwyQPRVohhho0I72Tq
+j6aBWgh8ubMqtNXn9M1u4H0wnejYvcFn7aEfO9jxxwCIR8m0TypfcY8LcHpRcDau4AfINZKjH7Hu
+PGmK79Jxwq0tgn7F0QbhvGrEiQ37lQPcPQtRQhhUS3jRLu37VCmL4jxWOj2klQWEjhQd6ffEy6M=
+--000000000000bad017065d452361--
