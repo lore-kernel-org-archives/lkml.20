@@ -1,362 +1,107 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013013.outbound.protection.outlook.com [52.101.72.13])
+Received: from sender5-pp-o94.zoho.com (sender5-pp-o94.zoho.com [165.173.182.94])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E287F4915A9
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 12:08:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A09A49CF42;
+	Wed,  7 Oct 2026 12:08:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.94
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791374897; cv=fail; b=py54qjzZp5V4FAAXliJkQUXxyh6MqY9CSVWsWl3GKi07zw4lDxKL1VQvA7SttIg5SIddhGU81QYlvHVWk/P3mCL9lZZgfPxZSUAHcdsEv01pmT8htiLQZ4n1a5DmX3q3cV1M5vj3F+8KEEF+0eWYiF7QPcVwAZu5bLZjNHXm0NI=
+	t=1791374907; cv=pass; b=GeaBMEVyDwKwr/82ZPG94XsOy4cqdWMElNvax6fRitpBEwfg5Qc77+qqEAkSSjWBAtSd5q5ZR1C7CEyFz4xmF2dqjf2MuQ7QSZfDInYlkgPca3sdeDTBxI6QVL9eYvpRVhMBu34S4BiXPiqfw9FnU7auc/CT4N6Kpb0eNk9GEU8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791374897; c=relaxed/simple;
-	bh=8jHbr00+x+Co3Z2+HbTi3B71tSTrRo8HfIJrvwhCxoM=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=anne8+gMqGfmg7zw9Mmx3L131O8x/BpL7zoBdq18W30gQisCoIPUivgCmAfoQR1MWQVhi7bLcCDxuzVZAN1uS8QDU4hxKFwkIIvYN1KgGcGnwcNyX3sO+Z5Wwj44WbWRiq8H674u5vI4SMKY0nIxpzIoXQzJOqinjbHHTWAm6YI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=ogA/+nI6; arc=fail smtp.client-ip=52.101.72.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1791374907; c=relaxed/simple;
+	bh=KRN5aUoBT6yvcY7O4JyYd5G1G6gDhqkgVMCgSeJbvNM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mwvM/wSG3u8snmqaLTOktRqD9FfxyvdFXlmR/EvcInLkwrGZnTv3Gird4UsiXvSgtT30HK6oBO+DIGf4nfNiugDaygO+E1PiZgELOkj+S/z2etEn8pXjArycTsFYwOju6+0SS1aE93Vm+EQ1hQcmhMylg829ZiK/4M3dNdNTfKw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=ming.li@zohomail.com header.b=ZY3ITvKg; arc=pass smtp.client-ip=165.173.182.94
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="ogA/+nI6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Jy4KGolBmI0L5gM/8Xhl/XxNBPtew7pdxogcuDw90s0EZ+a+wwevXPCza7cTsgdRfop3lTEHcqOWxQEInBaE3VX78ohUK7N6N1O2wZNTlR22CDkRyeKGUpmIV1Ir9B2InyRxUVkvgPtp2sCE40U2mcqiuUYd/1oxoiFXf1+vjNkkz1CxchZj/wIKogt310f9HQPwv1vk41kLK4iYm426hmdQ8VaGlzxeJdnakCpzcUGmEIk4UOmx/fA0e9BJY8dJ4GxWrRzT3kf0kF6JYFY/F+fZ2lMFaAhw326GqQ/swg47q1jwHBtbtnQbePTZ7vX4uDAJM+76gd+lUTFvDOfqzg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=U/+25q04YJCHBdtku1QNzX5HAoUY9Rg4TpE2d6yX+cE=;
- b=U74VsvfVAZ+cA4K3gugIUhvLnAro0rj3xTSyw4lwlzPccRtK5V7/ThDDcqUZZP4qGK8SSkroP8+m1JQN65TywRExEa0lcmFJi5G6M/kgOE0Y8JK1zZH9YD7TzfaUrTCxOl/KY0n+N4ylZ35lnDXfl4totikRnajDBmynOpFzDHA0SHCxqHopw+tUUPKfp8fFjyq9QHa5f1nzSq5RyeTx3RtAXYBIEHlGCQLCDrGn9F5nKnQo27VyEiGIok4enWTvD3TydLbhlce7x8sDzAjAQnGZAtblkrVaL2q3U2NdgU+SrnJnn/L71E0UxYVes4nZnjo2fIEerpivzcNJiSxp7Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=U/+25q04YJCHBdtku1QNzX5HAoUY9Rg4TpE2d6yX+cE=;
- b=ogA/+nI6b3c7Q6yFEiTA0fRS9/8xkibYhZdIYB08xE/kZomG9Qkns+Dk4beHUjm6+O3UNPo7KClJfyFIEpm+FRCH+y1irxD6hzuq3yVZuJAxX6TymWnYBhOrQRaHvba/yw867qMtkTh0tM0vjEedutA5ryNmI5l1wOM0xGQKWZ4HQ9fhQ9WLC2Snugj/Z623Dr00BaNtPlO73QE8alZFtNsnwwkykarVhS7DhAnOuShJGQvRRwfG8B4gDPWzPDmoCQpax8AZ8nSndEtDKHnfl69oLOq/xUv6NfbOBViJbveiCQYmyhUGDuCIw8X33HcCNlPAnPiYvkeySMFbor9pVg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by AM6PPF8C695F6EE.eurprd04.prod.outlook.com (2603:10a6:20f:fff1::a90) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
- 2026 12:07:34 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0451.022; Wed, 7 Oct 2026
- 12:07:33 +0000
-From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Date: Wed, 07 Oct 2026 20:04:03 +0800
-Subject: [PATCH v3 7/7] regmap: debugfs: Use guard to simplify code
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261007-regmap-lock-2nd-v3-7-0e590c4125be@nxp.com>
-References: <20261007-regmap-lock-2nd-v3-0-0e590c4125be@nxp.com>
-In-Reply-To: <20261007-regmap-lock-2nd-v3-0-0e590c4125be@nxp.com>
-To: Mark Brown <broonie@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>
-Cc: linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
- Peng Fan <peng.fan@nxp.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: MA5PR01CA0287.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:21b::19) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	dkim=pass (1024-bit key) header.d=zohomail.com header.i=ming.li@zohomail.com header.b="ZY3ITvKg"
+ARC-Seal: i=1; a=rsa-sha256; t=1791374876; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=HQtt+hGOtkINnmmSqfuJv66DQNPtui0WTpXLacyuGkwaxKoVoDzC+2664uOhmmfshqG0/LGB94vBSHg5hv2oF/us6E+nmSm/DlZyy0YyGHbsGSD/O/UfbY/uIyje5bvvjxsrjDzE0KoouPgL3pvrGZCtuVFkR22s5X20S0XNW1k=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791374876; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=YDK+eVt9z7jRcDCuoLKKEPAz6CTTIjzqCw6nYaxWFUo=; 
+	b=DyD7RTtmF5YMYtuRiolLCpZDT2xv2BQ8hFeOHWU5Dsr/nVoNPoexdJyo4f40d35VYyG8534opljdjS3WNeBEbtAliG2CM1oZSDNejzdXneuEKilQOd/SMCElrOh4OPRaDi8oKE93hcYah9igUjf4mfZc49WjGoLdhIF/awkxygc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=zohomail.com;
+	spf=pass  smtp.mailfrom=ming.li@zohomail.com;
+	dmarc=pass header.from=<ming.li@zohomail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791374876;
+	s=zm2022; d=zohomail.com; i=ming.li@zohomail.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Feedback-ID:Message-Id:Reply-To;
+	bh=YDK+eVt9z7jRcDCuoLKKEPAz6CTTIjzqCw6nYaxWFUo=;
+	b=ZY3ITvKgdmfAjd2WVOLOK6GSg2cSyewIJRVmd2ft1tdpPuqmbonRZR0+GxhAkgiE
+	AmCECSovVs9IMOKcDBgJbFDkSw80ibnoH+XEaJ08DYHqEYqiO0FDB/aidyYUfHI4cJu
+	KFmP2LpSdDTTy3FVHOXpCGiANaKmeRqLaCxti3MI=
+Received: by smtp.zohomail.com with SMTPS id 1791374874789244.05969337523243;
+	Wed, 7 Oct 2026 05:07:54 -0700 (PDT)
+Message-ID: <fb3dd8b9-438c-4cca-9811-6bc47efee873@zohomail.com>
+Date: Wed, 7 Oct 2026 20:07:47 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|AM6PPF8C695F6EE:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7b10cad7-3426-4793-babf-08df246b91e5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|19092799006|1800799024|11063799006|10067099003|6133799003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	eS/c222TSFrLIPoGz0NvuQ1myAaZ6om2exC4FY4TZ5C1OC4CcRsdX/lkqZ78aJvnGdOUlM8DBcaf1Is8kr4pu8IF/E9fEXGHgmM6vA8hy/DWtrCLkxV9SGx2Y4ENssgoq+RCr0pSdesVSCP4qyM9ci8L8gjZb2ZYxg3LCUPyKexuDEwSaWdlQxwyI3mNoOHAmhgKQRw9ftza7xVKYhl9EWo7EnfkcnY41aq8iRZqiqyU0WxjHQ+5GF0v7AcxDkkzZCDB3juhdq6SpvVHLHh6JK7+2FpeoR9Undlohzm7hAjKyHrLPjrTuPOSsZcY3WGo55Mjxs7hlqcghRa/HJz3PdsITWzFB/qIvo8CmaB+4/vaUvt2+26C5Lsgxcjha3NnOfL+wUxNOH8FIP/vp0SgFb8VLkj3rLNZj0rzOACdy+j4jNIfwnlYIFObR7FoVGlQ5NMCtEb3ZxzMBf+c1Cj2/69mb+q4riQr3AMmFdELomYiqKLttMx2HErPKWK273wNx7ZUf10pY85jpu1MNFLJGMIKbASPefysAQhafSVbBakR1Ry0hvsqwUp9uN9b2TJEJdyEiR6fxnHKN4Z1eXjOmw2ZZIgGwTHXTG13LaTNvYPRG9kXGA9WFHTFWEN0oYWMfHYtBrJfJpXPIbpjrMdg2DfnFi9GsBhVlcU8GZlpbwE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(19092799006)(1800799024)(11063799006)(10067099003)(6133799003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RmovM3N6Y29sMjRQMG9kU0RPNnY5V1ZzK3FUTXhISzhwMVlHUmhoQmI3aG1S?=
- =?utf-8?B?ckZmRVV2YzdnNVVrbDd1SE1renoyUjd0ckJINmlJK2pFQTBpcEM3SndMSFhV?=
- =?utf-8?B?K0k2N2xoWmxMclpOS0Zuemx1OXlBK016cTZTejRuTVo4VE9BQ3loeUF5dzZH?=
- =?utf-8?B?aEFSUEczVkwzSEd3M1dka3JZWktUQmJXNVpOUU9EczZrOTByWG4wWDRPQjBY?=
- =?utf-8?B?dEliYnBwTkpCSW9uVWFJdDM4UE5KWGUvVzlpMFk1Z0RZSzBIVitMYWtCTFRk?=
- =?utf-8?B?c1lGVm9KWHY3VVpZalFtaXNZNWhUOUxidFh4Tkl5MkxsNDJXMC9jMGpqTnRC?=
- =?utf-8?B?eGoxcUlSdWlXMkJ0QThyQlhNbzVrVmRadXVMMjB3TE9BZkMvRHRVdVJSWEJ6?=
- =?utf-8?B?aFc4SXV3RkRTVjN2c1NvSmNjd2lEdW1ONERsb3F0ais3SmFiNWNvMDVPa2pV?=
- =?utf-8?B?cDdqbXZ4aTRaNFJMbWkxVGt1eU9aS0xYQTYzMmhyMm9oRjZoY2pvQVBoSG1a?=
- =?utf-8?B?a3ZNbHNIK1o0Y1lkODhKRkV4eThxVjM5eDVYS004WENTTlQ2RXFINWRIZ3Zn?=
- =?utf-8?B?eU9QYzQybzJnT0ZmRmQ2N3NNRjF0YlI3ZjA4TWRCc1hleStVYmVaMDZrTW04?=
- =?utf-8?B?QkNrbjQ4eGpac09ydHdsa1F0Y05Pa1JVNWhTTXpxMTB0NUh2WnJjYk11VWVI?=
- =?utf-8?B?WGd6NndQV0pRWGV5VWh6dnhhZTNlS1ZwSjRFY3pyWmVuVXRKUHpia0FpaWND?=
- =?utf-8?B?VTFRSTkzeFZpZlRxOXVmVnp2bERpcnlaOFVEUnVTWmdjVkZBVzUwblBnU2wr?=
- =?utf-8?B?a2ZiVngrUXd5RFdQblVPV1J3SlRoTndIVEFCaUlTVHhJbWtsbzRRbXVNd0Jl?=
- =?utf-8?B?S3pvbmhmL0E2WXpFbVI0bkwybVNDZmExQm51eDkwVUxLU2RIOXpnYjZhZVlJ?=
- =?utf-8?B?OW1Lc0l1eFUxQjErVzRjUWIxTXp4Nk5hc1BwYjgycTRwKzVkd0U5eFhXMjRu?=
- =?utf-8?B?OVZIMTBVSENaRnlZM2d3YUhOTDlQOTQrM29QS0lqN29MbXJHU2JOanVuc3RR?=
- =?utf-8?B?dXV6RmtNeElJYXp2SzcwbmZIcXFKK0NIRm9KK1ZTbm9UZmZrR2dXdDdVc25p?=
- =?utf-8?B?VWQvN1RiL2ZScjE0ZVFDNEpleE9VTit1UWpKV2UyWU1CT0RIcEUycDlXbDYw?=
- =?utf-8?B?UW1SanhPRHEzRk81YmJvTDYvTENpQXg1M0d4Y05pM3JadzlTV0ltRHhvazQz?=
- =?utf-8?B?OXpSekxCYkU0NzJ3bUZ6QzhTSTJybk5nRWxRQ0p2OC9PbWlQa1FXZktDUGRk?=
- =?utf-8?B?T1RRbkVoekFSQ0pnUzJsSHB0TGxwTU9RSGxDMXR1OGlRQTdLRmtHaTV1L1l0?=
- =?utf-8?B?KzIycEtxTlVyVThISnBFdDFmSFR1QjQ2enQwOU13U3ZQc2kyVC9MSU9XeVFx?=
- =?utf-8?B?MkFKQkM4ejlvQ0hUVjFCY3p6NFFqeU5PR21rWGx0bThONklTekxMSENJbWti?=
- =?utf-8?B?ckl1MUV1MVBoQUhDRmtBb3QzeGlMMjdodlM4ZjVvUjc4TFVrZEo0TEZkRCty?=
- =?utf-8?B?b2RkQ0xrbUp6Z3lDREI4ZzArNDl0Vy93a0NTY091bFpGYTA5cTFibnAvQzJX?=
- =?utf-8?B?QXowd0VSTnkzUlp1c25qL0hmNTExV01aTld5U0dkaDU0OFc3RFlDTThlSXFK?=
- =?utf-8?B?akFnUExobTFYRkpNYlF2VEoxWTNVNkVHazRQLzFBdkJxSmo2d3NtREpOamIw?=
- =?utf-8?B?Tkd0OWE0Z2NRU1Y1QnhrZnBGRmpJaWIxQnlhNkdjcURHaUd0dm1lUDYvUVdi?=
- =?utf-8?B?TFlWSlZrc3JxSzZEaWFSK0pKeUxZUVJRT0QzTTFTNzVKeHFIY1Fpa3U3UEdX?=
- =?utf-8?B?L2FOdTJPSUxhbFhWWE5zODZWb1VtdUlNU3I1MXc5Y054RjJSa0ZEaG9hZUw0?=
- =?utf-8?B?bW9XTXlIUUtWVU1EOE95K1FZMkcvRitFemRhV056Z2psc09raWdwckYwOTd4?=
- =?utf-8?B?SFIwYlVDQmZHNFJveTVxMGRDaDQwQzhZVjMwYUJJb2dQOXdTUjBNaDc5WHh1?=
- =?utf-8?B?SHJzMDRHaEo2QmxCV1JnWitRNWJWV2lrRjVvUWdqK0RvMEtuQ3k0YlJOcVln?=
- =?utf-8?B?NHFWME8xM1kvMVhwa1QvZW5QaTh2S291VXFnRGNYUGQ0OFZmaWk2UjNtOWlP?=
- =?utf-8?B?Nk02SFBobVFvaE4yMk9zTTNCOWZGejhRMWNUZmtxY0xnOFlaMW1mcDRSRDd5?=
- =?utf-8?B?QlRoUXBLOHpaYzJmQ1dTNTdOTjIxRnd2LytyWmdDQzA3ZEIySVNhQjFtTXUy?=
- =?utf-8?B?NDZIbm1PTXk4NDJISVZHYUlsb2I4dk1NQmM5VzNDeDVKRndQVVlpSnV2UU5U?=
- =?utf-8?Q?yBlyeXckVSFdZwVmYDgwc4FheXGBk0BfteNfJ?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7b10cad7-3426-4793-babf-08df246b91e5
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 12:07:33.8794
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: y9TiuomnMi9OIrqpp+J3IXXNuYEcGOuxL9HkJCr94UWdoBmEd+xSyy9gg0NT1XJoV+d3oTwciRhO07aBc9f9WH5ua/Oslemgh+06Ljb2YkuoVFRrUH2AOeKGODlz2LMW
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PPF8C695F6EE
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v14 01/16] cxl: Drop stale decoder interleave limit
+ comment
+To: Srirangan Madhavan <smadhavan@nvidia.com>,
+ Alison Schofield <alison.schofield@intel.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>,
+ Davidlohr Bueso <dave@stgolabs.net>, Ira Weiny <ira.weiny@intel.com>,
+ Jonathan Cameron <jic23@kernel.org>, Vishal Verma
+ <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
+ alwilliamson@nvidia.com,
+ Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
+ Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
+ Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+ linux-tegra@vger.kernel.org,
+ Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+References: <20261001092227.3004747-1-smadhavan@nvidia.com>
+ <20261001092227.3004747-2-smadhavan@nvidia.com>
+From: Li Ming <ming.li@zohomail.com>
+In-Reply-To: <20261001092227.3004747-2-smadhavan@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Feedback-ID: zu080112270568025c6b11d8de7c4fec200000de64e2ac7ec75c8a0427ea90bee38664b83f6ba0a7c3c9653f:ZohoMail
+X-Zoho-CM-AccountID: abd763e7b9fa23acf4f42a44f9876d2d993e05abdb9290f9ccb1008c977bf7f0
+X-ZohoMailClient: External
 
-From: Peng Fan <peng.fan@nxp.com>
 
-Replace open-coded mutex_lock()/unlock() pairs with guard() and
-scoped_guard() across the debugfs code.
+在 2026/10/1 17:22, Srirangan Madhavan 写道:
+> CXL 2.0 added 16-way memory interleaving, making the comment that the
+> specification supports only 8-way interleaving stale. Remove the comment
+> without changing CXL_DECODER_MAX_INTERLEAVE.
+>
+> Suggested-by: Jonathan Cameron <jic23@kernel.org>
+> Link: https://lore.kernel.org/linux-cxl/20260912003057.3db9335c@jic23-hlaptop/
+> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
+> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+> Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+Reviewed-by: Li Ming <ming.li@zohomail.com>
 
- - regmap_debugfs_get_dump_start(): guard(mutex) replaces three
-   unlock sites (kzalloc failure, cache hit, end-of-function).
-
- - regmap_next_readable_reg(): early return for the common case
-   and scoped_guard for the cache fallback path.
-
- - regmap_reg_ranges_read_file(): scoped_guard wraps the cache
-   iteration loop. buf and entry converted to __free(kfree),
-   eliminating manual kfree and goto cleanup.
-
- - regmap_debugfs_init(): scoped_guard for single list_add.
-
- - regmap_debugfs_exit(): flatten if/else into early return and
-   scoped_guard for the early-list cleanup.
-
- - regmap_debugfs_initcall(): guard(mutex) held to function end.
-
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
----
- drivers/base/regmap/regmap-debugfs.c | 83 +++++++++++++++---------------------
- 1 file changed, 35 insertions(+), 48 deletions(-)
-
-diff --git a/drivers/base/regmap/regmap-debugfs.c b/drivers/base/regmap/regmap-debugfs.c
-index 0a9c27426f15..b62a5dce027b 100644
---- a/drivers/base/regmap/regmap-debugfs.c
-+++ b/drivers/base/regmap/regmap-debugfs.c
-@@ -107,7 +107,7 @@ static unsigned int regmap_debugfs_get_dump_start(struct regmap *map,
- 	 * If we don't have a cache build one so we don't have to do a
- 	 * linear scan each time.
- 	 */
--	mutex_lock(&map->cache_lock);
-+	guard(mutex)(&map->cache_lock);
- 	i = base;
- 	if (list_empty(&map->debugfs_off_cache)) {
- 		for (; i <= map->max_register; i += map->reg_stride) {
-@@ -129,7 +129,6 @@ static unsigned int regmap_debugfs_get_dump_start(struct regmap *map,
- 				c = kzalloc_obj(*c);
- 				if (!c) {
- 					regmap_debugfs_free_dump_cache(map);
--					mutex_unlock(&map->cache_lock);
- 					return base;
- 				}
- 				c->min = p;
-@@ -162,14 +161,12 @@ static unsigned int regmap_debugfs_get_dump_start(struct regmap *map,
- 			fpos_offset = from - c->min;
- 			reg_offset = fpos_offset / map->debugfs_tot_len;
- 			*pos = c->min + (reg_offset * map->debugfs_tot_len);
--			mutex_unlock(&map->cache_lock);
- 			return c->base_reg + (reg_offset * map->reg_stride);
- 		}
- 
- 		*pos = c->max;
- 		ret = c->max_reg;
- 	}
--	mutex_unlock(&map->cache_lock);
- 
- 	return ret;
- }
-@@ -191,10 +188,10 @@ static int regmap_next_readable_reg(struct regmap *map, int reg)
- 	struct regmap_debugfs_off_cache *c;
- 	int ret = -EINVAL;
- 
--	if (regmap_printable(map, reg + map->reg_stride)) {
--		ret = reg + map->reg_stride;
--	} else {
--		mutex_lock(&map->cache_lock);
-+	if (regmap_printable(map, reg + map->reg_stride))
-+		return reg + map->reg_stride;
-+
-+	scoped_guard(mutex, &map->cache_lock) {
- 		list_for_each_entry(c, &map->debugfs_off_cache, list) {
- 			if (reg > c->max_reg)
- 				continue;
-@@ -203,8 +200,8 @@ static int regmap_next_readable_reg(struct regmap *map, int reg)
- 				break;
- 			}
- 		}
--		mutex_unlock(&map->cache_lock);
- 	}
-+
- 	return ret;
- }
- 
-@@ -361,8 +358,6 @@ static ssize_t regmap_reg_ranges_read_file(struct file *file,
- 	struct regmap_debugfs_off_cache *c;
- 	loff_t p = 0;
- 	size_t buf_pos = 0;
--	char *buf;
--	char *entry;
- 	int ret;
- 	unsigned int entry_len;
- 
-@@ -372,15 +367,13 @@ static ssize_t regmap_reg_ranges_read_file(struct file *file,
- 	if (count > (PAGE_SIZE << MAX_PAGE_ORDER))
- 		count = PAGE_SIZE << MAX_PAGE_ORDER;
- 
--	buf = kmalloc(count, GFP_KERNEL);
-+	char *buf __free(kfree) = kmalloc(count, GFP_KERNEL);
- 	if (!buf)
- 		return -ENOMEM;
- 
--	entry = kmalloc(PAGE_SIZE, GFP_KERNEL);
--	if (!entry) {
--		kfree(buf);
-+	char *entry __free(kfree) = kmalloc(PAGE_SIZE, GFP_KERNEL);
-+	if (!entry)
- 		return -ENOMEM;
--	}
- 
- 	/* While we are at it, build the register dump cache
- 	 * now so the read() operation on the `registers' file
-@@ -393,31 +386,27 @@ static ssize_t regmap_reg_ranges_read_file(struct file *file,
- 	/* Reset file pointer as the fixed-format of the `registers'
- 	 * file is not compatible with the `range' file */
- 	p = 0;
--	mutex_lock(&map->cache_lock);
--	list_for_each_entry(c, &map->debugfs_off_cache, list) {
--		entry_len = snprintf(entry, PAGE_SIZE, "%x-%x\n",
--				     c->base_reg, c->max_reg);
--		if (p >= *ppos) {
--			if (buf_pos + entry_len > count)
--				break;
--			memcpy(buf + buf_pos, entry, entry_len);
--			buf_pos += entry_len;
-+	scoped_guard(mutex, &map->cache_lock) {
-+		list_for_each_entry(c, &map->debugfs_off_cache, list) {
-+			entry_len = snprintf(entry, PAGE_SIZE, "%x-%x\n",
-+					     c->base_reg, c->max_reg);
-+			if (p >= *ppos) {
-+				if (buf_pos + entry_len > count)
-+					break;
-+				memcpy(buf + buf_pos, entry, entry_len);
-+				buf_pos += entry_len;
-+			}
-+			p += entry_len;
- 		}
--		p += entry_len;
- 	}
--	mutex_unlock(&map->cache_lock);
- 
--	kfree(entry);
- 	ret = buf_pos;
- 
--	if (copy_to_user(user_buf, buf, buf_pos)) {
--		ret = -EFAULT;
--		goto out_buf;
--	}
-+	if (copy_to_user(user_buf, buf, buf_pos))
-+		return -EFAULT;
- 
- 	*ppos += buf_pos;
--out_buf:
--	kfree(buf);
-+
- 	return ret;
- }
- 
-@@ -552,9 +541,8 @@ void regmap_debugfs_init(struct regmap *map)
- 		if (!node)
- 			return;
- 		node->map = map;
--		mutex_lock(&regmap_debugfs_early_lock);
--		list_add(&node->link, &regmap_debugfs_early_list);
--		mutex_unlock(&regmap_debugfs_early_lock);
-+		scoped_guard(mutex, &regmap_debugfs_early_lock)
-+			list_add(&node->link, &regmap_debugfs_early_list);
- 		return;
- 	}
- 
-@@ -653,29 +641,29 @@ void regmap_debugfs_init(struct regmap *map)
- 
- void regmap_debugfs_exit(struct regmap *map)
- {
-+	struct regmap_debugfs_node *node, *tmp;
-+
- 	if (map->debugfs) {
- 		debugfs_remove_recursive(map->debugfs);
--		mutex_lock(&map->cache_lock);
--		regmap_debugfs_free_dump_cache(map);
--		mutex_unlock(&map->cache_lock);
-+		scoped_guard(mutex, &map->cache_lock)
-+			regmap_debugfs_free_dump_cache(map);
- 		if (map->debugfs_dummy_id >= 0) {
- 			ida_free(&dummy_ida, map->debugfs_dummy_id);
- 			map->debugfs_dummy_id = -1;
- 		}
- 		kfree(map->debugfs_name);
- 		map->debugfs_name = NULL;
--	} else {
--		struct regmap_debugfs_node *node, *tmp;
- 
--		mutex_lock(&regmap_debugfs_early_lock);
--		list_for_each_entry_safe(node, tmp, &regmap_debugfs_early_list,
--					 link) {
-+		return;
-+	}
-+
-+	scoped_guard(mutex, &regmap_debugfs_early_lock) {
-+		list_for_each_entry_safe(node, tmp, &regmap_debugfs_early_list, link) {
- 			if (node->map == map) {
- 				list_del(&node->link);
- 				kfree(node);
- 			}
- 		}
--		mutex_unlock(&regmap_debugfs_early_lock);
- 	}
- }
- 
-@@ -685,11 +673,10 @@ void regmap_debugfs_initcall(void)
- 
- 	regmap_debugfs_root = debugfs_create_dir("regmap", NULL);
- 
--	mutex_lock(&regmap_debugfs_early_lock);
-+	guard(mutex)(&regmap_debugfs_early_lock);
- 	list_for_each_entry_safe(node, tmp, &regmap_debugfs_early_list, link) {
- 		regmap_debugfs_init(node->map);
- 		list_del(&node->link);
- 		kfree(node);
- 	}
--	mutex_unlock(&regmap_debugfs_early_lock);
- }
-
--- 
-2.51.0
-
+> ---
+>   drivers/cxl/cxl.h | 4 ----
+>   1 file changed, 4 deletions(-)
+>
+> diff --git a/drivers/cxl/cxl.h b/drivers/cxl/cxl.h
+> index 3ef0810ab86b..9e0500d56866 100644
+> --- a/drivers/cxl/cxl.h
+> +++ b/drivers/cxl/cxl.h
+> @@ -269,10 +269,6 @@ enum cxl_decoder_type {
+>   	CXL_DECODER_HOSTONLYMEM = 3,
+>   };
+>   
+> -/*
+> - * Current specification goes up to 8, double that seems a reasonable
+> - * software max for the foreseeable future
+> - */
+>   #define CXL_DECODER_MAX_INTERLEAVE 16
+>   
+>   #define CXL_QOS_CLASS_INVALID -1
+>
+> base-commit: fef22d37d47043b63e4007f2f5fe762fa21fae0c
