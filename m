@@ -1,268 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42AFF3E7630
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 21:37:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59A3D3E7630;
+	Wed,  7 Oct 2026 21:37:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791409042; cv=none; b=Ck4MX+e5cBn/6oCUpl9Xfy+gjAXPG5Y4xuTwPj4EZN1VCkQZnr4BFEM9TKgF9ZODSuOPgy2AaSUFUy2F4nDpbo0K2UQX8+yzYCqlSpKTho0axFtXjsIwFQnlafe7+ldTrRCcCT51f1YDeYKJHhWrNkb/lpw9h6Ai7Gh9INCXJZY=
+	t=1791409058; cv=none; b=Qqu7wJPJ8M2ueq3hus4lTrNYiQZmEtCQ4jOAUM5k4/DblXCCqxPOU+0XZLaObgOfbRZhcBEniXZmEV9/eizyix1zWIybf5G1mc3x0kBdYMdx866djty6DUsMSLc/+PybGOQq7Bwt9o9KBPOdNVRQA19ukZW6S2tDbCbcTTHJ/5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791409042; c=relaxed/simple;
-	bh=97ANgKKmzJGc1t8bxIYGvVA+ch1ekaH1uFX9dZ2mx1c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sZUG3+s5hanIBrK1K7Hayp5Z7H+ZOHISYwM8fl2x/PbpjMDwQftyOXdvFknMAK3B7s9mUPPjp27bvrA6YvxEJpDwNkJG2NWPbYrW7vVhcA74NoYkVtZiqj2CEx0c6toCKRoFzbRKOWeTnIgkHv6Cj063rJrdBLBuf/4wHG0LuAc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FwuIbypT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791409058; c=relaxed/simple;
+	bh=8K5+op7yZCiGbAQjyUliFdoIbeNYZSJvs41dtTuNzLA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=btQyLzsZ7NLPzS2w+0025Z/KwUhBbzaz3gVxh0emeHAk1gz5pWjoUFhA5mbPmhwpbMdlJZ6J6KV/SPxztjjJuT7ouJOBlLdiweu8C5wnWZPRD7Lrw1RWMjkYneNhxY2QrWkJt3aP+g1fSevgCiw8BwxGdUUCK4VacHTgI4CoWZ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=mkGOWdnQ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=mkIN2z0E; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=mkGOWdnQ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=mkIN2z0E; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FwuIbypT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D59B81F0089E
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 21:37:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791409040;
-	bh=UOE7Jbnn9tojgnUkTH49vAYggvweAK9gFAV1451BkhA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=FwuIbypT1BD/E3bQ/A22baQ11LqAHE8WYqLDxCPosy2949kKAu/bw1buAI7b5GPU2
-	 O+Su7qRvUn9PAJdgcqfqIV3SeENwMHDK2V/zrVBpDvB9sT+BDp22WDHwO2vSGsQAQ8
-	 ZblVHi+M+9o+lS7WbFHqWIQXxW73omtPaAPXK5TCh6YUPi3e2RtXfQTfpY0VHgrg3r
-	 bkKa+/2PG8c0V4FBsHYTnnuB0wqb0IzTsxknu1rLwwo/y9uDpX7yp+j99QTB7o/fx/
-	 gHzJB3BVdKL5/Bo7++cMoPs8r1FWmEifXau1V0VrJFOYih89LPTh2RhT9dpbizUkbt
-	 nevyyQtHrM8Ow==
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c1670dad7a8so840734166b.3
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 14:37:20 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxyFzNndKlLwyjPmsFY04f4WXgdUTrjZxkvOZaL6vdCiRzlGUFmS1MQAqdCLkpFjp94eN86kB1FQhRnCYk=@vger.kernel.org
-X-Gm-Message-State: AFuF++leP1diuUyq4Ql5gkqRZVHzSDdMgBbAdsRAapie3uvVPdzmtnUe
-	Q1EwzIy65nwPAOw19uOhMeN3Xz+kHUfuvsKaVbrwLMeCJo6sIvXZ7OhZzZG/yjEEaT4zU3aVJXA
-	JTCDnOdsJoVt8ZBYtFf67wk5OccgI85k=
-X-Received: by 2002:a17:907:6eab:b0:c2a:fcb7:62f2 with SMTP id
- a640c23a62f3a-c317bdee527mr356663766b.19.1791409039712; Wed, 07 Oct 2026
- 14:37:19 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mkGOWdnQ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mkIN2z0E";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mkGOWdnQ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mkIN2z0E"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 064CC21BE9;
+	Wed,  7 Oct 2026 21:37:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791409055; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=QDoG8u04h7mpRz20yUPa0eb85sO0dlSnjNHPZgmGvoc=;
+	b=mkGOWdnQINXegrxcos7FlrpJX9fh9H9c29BMXZUMKewdzYIj/cuwHX6Q0zn2cOeac2h1ZE
+	K4o8/5llSDdbl4rpPA8hwAYCP7AfRj86or5KEmD9YzKyqqcwne+CFj+HxNYxHIJ4CM1SlL
+	6OEaCFtkjeh3gxREEPXMEJ0USflQXow=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791409055;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=QDoG8u04h7mpRz20yUPa0eb85sO0dlSnjNHPZgmGvoc=;
+	b=mkIN2z0EaWc3aBvb1NHoT8f92sdPEneLKQsNVn40lAzMsalggu61pqNxexyelofwt9dP1f
+	eRqnqfoPjzzdraCg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791409055; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=QDoG8u04h7mpRz20yUPa0eb85sO0dlSnjNHPZgmGvoc=;
+	b=mkGOWdnQINXegrxcos7FlrpJX9fh9H9c29BMXZUMKewdzYIj/cuwHX6Q0zn2cOeac2h1ZE
+	K4o8/5llSDdbl4rpPA8hwAYCP7AfRj86or5KEmD9YzKyqqcwne+CFj+HxNYxHIJ4CM1SlL
+	6OEaCFtkjeh3gxREEPXMEJ0USflQXow=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791409055;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=QDoG8u04h7mpRz20yUPa0eb85sO0dlSnjNHPZgmGvoc=;
+	b=mkIN2z0EaWc3aBvb1NHoT8f92sdPEneLKQsNVn40lAzMsalggu61pqNxexyelofwt9dP1f
+	eRqnqfoPjzzdraCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6F5BA13354;
+	Wed,  7 Oct 2026 21:37:34 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id /O3mEZ67xmpCFAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 07 Oct 2026 21:37:34 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: linux-sound@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH] ALSA: hda: Avoid dev_err() at probe error in vga_switcheroo handler
+Date: Wed,  7 Oct 2026 23:37:25 +0200
+Message-ID: <20261007213728.155092-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261007153915.53429-1-alex@ghiti.fr>
-In-Reply-To: <20261007153915.53429-1-alex@ghiti.fr>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Wed, 7 Oct 2026 14:37:07 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zMHKmAQT8WBAd+kkQEjETVvyHhfbESzKHpXXPQJUB9nVw@mail.gmail.com>
-X-Gm-Features: AclHuK9UMP0A0o5RKveu-045r1R_Bso6sJPJj4MLUsXdKtvy9A7Qw5U_iJnA5BA
-Message-ID: <CAO9r8zMHKmAQT8WBAd+kkQEjETVvyHhfbESzKHpXXPQJUB9nVw@mail.gmail.com>
-Subject: Re: [PATCH v3] mm: bypass swap readahead for zswap
-To: Alexandre Ghiti <alex@ghiti.fr>, Kairui Song <kasong@tencent.com>
-Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, nphamcs@gmail.com, 
-	shikemeng@huaweicloud.com, baoquan.he@linux.dev, youngjun.park@lge.com, 
-	chengming.zhou@linux.dev, david@kernel.org, ljs@kernel.org, 
-	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
-	mhocko@suse.com, ryncsn@gmail.com, chrisl@kernel.org, baohua@kernel.org, 
-	usama.arif@linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spam-Score: -2.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_DN_NONE(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCPT_COUNT_TWO(0.00)[2];
+	ARC_NA(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email]
 
-On Wed, Oct 7, 2026 at 8:39=E2=80=AFAM Alexandre Ghiti <alex@ghiti.fr> wrot=
-e:
->
-> Commit 0bcac06f27d7 ("mm, swap: skip swapcache for swapin of synchronous
-> device") made SWP_SYNCHRONOUS_IO devices (e.g. zram) skip swap readahead.
->
-> zswap is the same kind of in-memory, synchronous backend as zram, not a
-> swap device flagged SWP_SYNCHRONOUS_IO so it still goes through
-> swapin_readahead().
->
-> Here are the results from bypassing readahead for zswap too: it was
-> measured with a kernel build (make -j16) in a memcg, zswap=3Dzstd, shrink=
-er
-> off, on Sapphire Rapids and 3 iterations.
->
->   768M memcg (sustained swap thrash):
->     metric                 mm-new    + bypass    delta
->     build time (s)          405.0       341.7    -15.6%
->     zswap-in (GB)            79.5        53.0     -33%
->     zswap-out (GB)          144.8       115.6     -20%
->     swap readahead (pages)  6.79M       0.45M     -93%
->     swap_ra hit (%)          72.1        89.9     +18pp
->
->   1G memcg (light pressure, build not memory-bound):
->     metric                 mm-new    + bypass    delta
->     build time (s)          177.7       176.0    ~same (no regression)
->     zswap-in (GB)            10.2         7.5     -26%
->     zswap-out (GB)           27.7        25.1      -9%
->     swap readahead (pages)  1.07M       0.08M     -93%
->     swap_ra hit (%)          68.6        87.2     +19pp
->
-> Similar gains were observed on an AMD EPYC 7D13 host.
->
-> The gain is from no longer prefetching pages that are pointless for an
-> in-memory backend: readahead inflates anon residency and thrashes the
-> page cache (file pages get evicted and re-read), lengthens each fault by
-> synchronously (de)compressing a cluster of neighbours, and adds
-> compression traffic when those extra pages are reclaimed.
->
-> Bypassing swap readahead for zswap therefore makes sense.
+The vga_switcheroo handler azx_vs_set_state() calls
+azx_probe_contine() for enabling the audio, and if an error happens
+during the probe, azx_probe_continue() releases its associated sound
+card object at the error path.  In return, azx_vs_set_state() tries to
+show an error via dev_err() with the card's device pointer, but since
+the card object is already gone, this can lead to a UAF.
 
-No objection here, I am just thinking about Kairui's LPC presentation
-about how compressed swap can (in theory at least) still benefit from
-readahead: https://lpc.events/event/20/contributions/2421/attachments/2116/=
-4689/Better%20Anon%20(Swap)%20Readahead%20(2).pdf.
+For avoiding the unneeded crash, replace the device for the error
+message with the original PCI device that is passed to
+azx_vx_set_state() itself.
 
-Seems like a big portion of the fault cost is still outside of
-decompression and can benefit from readahead, but that isn't the case
-today. I assume any future improvements to readahead and re-enabling
-for zram would also cover zswap?
+Fixes: 39173303c838 ("ALSA: hda: Free card instance properly at probe errors")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/hda/controllers/intel.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
->
-> Suggested-by: Usama Arif <usama.arif@linux.dev>
-> Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
-> ---
-> Changes in v3:
-> - Go back to the RFC's single patch: readahead windows that mix zswap
->   and disk entries will be dealt with later, the priority is to merge the
->   zswap readahead bypass
-> - Move the check into a swap helper, swap_entry_synchronous(), instead
->   of open-coding it in do_swap_page() (David)
-> - Bail out early when zswap was never enabled or the tree is empty, so
->   disk-only systems pay a static branch (Kairui, Nhat)
-> - Reuse zswap_is_present() rather than adding zswap_present_test()
->   (Yosry)
-> - Rebase on mm-new
->
-> Changes in v2:
-> - Keep readahead, but overlap the decompression of zswap neighbours with
->   the disk I/O of the window, and bypass it when the target needs no
->   disk I/O (Yosry, Nhat, Barry)
->
-> v2: https://lore.kernel.org/all/20260722163536.773166-1-alex@ghiti.fr/
-> RFC: https://lore.kernel.org/all/20260624075700.751467-1-alex@ghiti.fr/
->
->  include/linux/zswap.h |  6 ++++++
->  mm/memory.c           |  4 ++--
->  mm/swap.h             | 25 +++++++++++++++++++++++++
->  mm/zswap.c            |  5 ++++-
->  4 files changed, 37 insertions(+), 3 deletions(-)
->
-> diff --git a/include/linux/zswap.h b/include/linux/zswap.h
-> index df6cafbe95dc..94746fb71bb6 100644
-> --- a/include/linux/zswap.h
-> +++ b/include/linux/zswap.h
-> @@ -35,6 +35,7 @@ void zswap_lruvec_state_init(struct lruvec *lruvec);
->  void zswap_folio_swapin(struct folio *folio);
->  bool zswap_is_enabled(void);
->  bool zswap_never_enabled(void);
-> +bool zswap_is_present(swp_entry_t entry, unsigned int nr);
->  #else
->
->  struct zswap_lruvec_state {};
-> @@ -73,6 +74,11 @@ static inline bool zswap_never_enabled(void)
->         return true;
->  }
->
-> +static inline bool zswap_is_present(swp_entry_t entry, unsigned int nr)
-> +{
-> +       return false;
-> +}
-> +
->  #endif
->
->  #endif /* _LINUX_ZSWAP_H */
-> diff --git a/mm/memory.c b/mm/memory.c
-> index 330cde31bf8b..396bc71a265f 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -5030,8 +5030,8 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
->         if (folio)
->                 swap_update_readahead(folio, vma, vmf->address);
->         if (!folio) {
-> -               /* Swapin bypasses readahead for SWP_SYNCHRONOUS_IO devic=
-es */
-> -               if (data_race(si->flags & SWP_SYNCHRONOUS_IO))
-> +               /* Swapin bypasses readahead for SWP_SYNCHRONOUS_IO devic=
-es and zswap */
-> +               if (swap_entry_synchronous(si, entry))
->                         folio =3D swapin_sync(entry, GFP_HIGHUSER_MOVABLE=
-,
->                                             thp_swapin_suitable_orders(vm=
-f) | BIT(0),
->                                             vmf, NULL, 0);
-> diff --git a/mm/swap.h b/mm/swap.h
-> index d5bf21f517dc..b8181bd056ee 100644
-> --- a/mm/swap.h
-> +++ b/mm/swap.h
-> @@ -94,6 +94,7 @@ static inline int mem_cgroup_swappiness(const struct me=
-m_cgroup *memcg)
->
->  #ifdef CONFIG_SWAP
->  #include <linux/swapops.h> /* for swp_offset */
-> +#include <linux/zswap.h> /* for zswap_is_present */
->  #include <linux/blk_types.h> /* for bio_end_io_t */
->
->  static inline unsigned int swp_cluster_offset(swp_entry_t entry)
-> @@ -336,6 +337,24 @@ struct folio *swapin_sync(swp_entry_t entry, gfp_t f=
-lag, unsigned long orders,
->  void swap_update_readahead(struct folio *folio, struct vm_area_struct *v=
-ma,
->                            unsigned long addr);
->
-> +/**
-> + * swap_entry_synchronous - check if @entry is read synchronously
-> + * @si: the swap device of @entry
-> + * @entry: the swap entry
-> + *
-> + * SWP_SYNCHRONOUS_IO devices and zswap complete a read in the faulting
-> + * context, so swap readahead has no asynchronous I/O to overlap.
-> + *
-> + * Context: The caller must hold a reference on @si. The answer is a hin=
-t: the
-> + * entry can be written back from zswap or freed concurrently.
-> + */
-> +static inline bool swap_entry_synchronous(struct swap_info_struct *si,
-> +                                         swp_entry_t entry)
-> +{
-> +       return data_race(si->flags & SWP_SYNCHRONOUS_IO) ||
-> +              zswap_is_present(entry, 1);
-> +}
-> +
->  #else /* CONFIG_SWAP */
->
->  static inline struct swap_cluster_info *swap_cluster_get_and_lock(
-> @@ -423,6 +442,12 @@ static inline void swap_update_readahead(struct foli=
-o *folio,
->  {
->  }
->
-> +static inline bool swap_entry_synchronous(struct swap_info_struct *si,
-> +                                         swp_entry_t entry)
-> +{
-> +       return false;
-> +}
-> +
->  static inline int swap_writeout(struct swap_io_ctx *ctx, struct folio *f=
-olio)
->  {
->         return 0;
-> diff --git a/mm/zswap.c b/mm/zswap.c
-> index eb3494491410..1dcf77d5edae 100644
-> --- a/mm/zswap.c
-> +++ b/mm/zswap.c
-> @@ -1605,12 +1605,15 @@ bool zswap_store(struct folio *folio)
->   * change under it.
->   * Return: true if at least one slot in the range is in zswap.
->   */
-> -static bool zswap_is_present(swp_entry_t entry, unsigned int nr)
-> +bool zswap_is_present(swp_entry_t entry, unsigned int nr)
->  {
->         pgoff_t offset =3D swp_offset(entry);
->         struct xarray *tree =3D swap_zswap_tree(entry);
->         unsigned long index =3D offset;
->
-> +       if (zswap_never_enabled() || xa_empty(tree))
-> +               return false;
-> +
->         /*
->          * A pinned range is at most SWAPFILE_CLUSTER slots and is aligne=
-d to
->          * its own size, so one tree covers all of it and a single lookup=
- is
-> --
-> 2.53.0-Meta
->
->
+diff --git a/sound/hda/controllers/intel.c b/sound/hda/controllers/intel.c
+index 24015c73a67f..0e47f7f0947c 100644
+--- a/sound/hda/controllers/intel.c
++++ b/sound/hda/controllers/intel.c
+@@ -1211,8 +1211,14 @@ static void azx_vs_set_state(struct pci_dev *pci,
+ 		if (!disabled) {
+ 			dev_info(chip->card->dev,
+ 				 "Start delayed initialization\n");
+-			if (azx_probe_continue(chip) < 0)
+-				dev_err(chip->card->dev, "initialization error\n");
++			if (azx_probe_continue(chip) < 0) {
++				/* since the HD-audio driver got unbound /
++				 * released upon error, we can't use card device
++				 * any longer, so use pci device directly
++				 */
++				dev_err(&pci->dev, "%s: initialization error\n",
++					__func__);
++			}
+ 		}
+ 	} else {
+ 		dev_info(chip->card->dev, "%s via vga_switcheroo\n",
+-- 
+2.55.0
+
