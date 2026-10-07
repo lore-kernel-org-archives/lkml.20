@@ -1,127 +1,71 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A56D38D017
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 21:07:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7515330C359;
+	Wed,  7 Oct 2026 21:10:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791407225; cv=none; b=cXYWxoHnl5eYHGxomM6eGDxu0PyjXtkwvxtOP4wzgQOGfc8OwlDtjqKC3AR0EH5qP5lArZ+zXNxuyBFLcXPoHmYkZunGx3rKhoOfy2sgwqaqGGOkGGjFk67sCxMG3aYvxRSWZfRErCyxJQZ21epOTdd4AhDFYFGPYfbhQUyIWo0=
+	t=1791407417; cv=none; b=OjIlGsKnl3/RCmfrhwRaRwL0yJJ3XYua1K+f6SVWS3gh//4jI1JmDYau1FvFsPPywbDfsDOMY/ESuUk+wOs50pwPsAhWW9yHnGus6BKCmUnwdoK7/ifwOXxODxHunHV3p0NfTcW9sJo4dEfRBpFyOhMmEjXE0DL9P0DXa+FVSGM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791407225; c=relaxed/simple;
-	bh=6p2FfMDEwU0rhmwfCD+gHz05+um9TEuyv/mw9S/rHCE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RtU7ZjGJQvP91L05nqOmAs662eV6ijXZMi6meuy1Q2WhOxzE6N/4+LoonywWdN1j3UdAMAx3LBDvLAa6drO2vQIV8a9fkaUAgqq6C89zf1AGkrV5pxB5d5WPPiTFJaWBefvuEg5aPewAJm7FX4PW7PAMAWhsMb/Loxz2sL1/bEI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Q0ox8yxF; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791407417; c=relaxed/simple;
+	bh=+yaU/KmGQxjIaXY7tta3bbUaKbA0dW5lkqn8+Dydm+s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tZ8yy2PuRdqla0kwdpuzZrxo/BnZ6vBU6kak5gzZckgNno1A2vhnM2dCPPY5KEVHWZP5aMRZK4eN/olZh6H2+Df+1T3VqnQVg5Rgfd7DE1br6Rpt4Hb7C0R1BpJaEDM+3jQusdA66jB2Xdgebjc3QhT4hWauWD9llUMhUyJXpGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J9wE6RaC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Q0ox8yxF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791407221; x=1822943221;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=6p2FfMDEwU0rhmwfCD+gHz05+um9TEuyv/mw9S/rHCE=;
-  b=Q0ox8yxFrXt2O/a+eRr7bSSdlHdXyydl4K+IqRFfXzG/h3fbj407iD7O
-   NpTRsRIbljnWLPkv+QwNGiVZBw3vY1W/vFEfS2ZzWcfZKfl9Sqh7hUiwz
-   Hv6a9Sv/rlF15ZRnL6Pbeg0gNUg0VFEieu180+iZ12Ur0LCW3U+9GmoBH
-   Zz1LYkfHVy+LN5mBoL1gfpKuviGHAV45Z3WUnOxB8HB4kWSToxRIw1Xwv
-   4Fpsei+1ErS79a3JUCeY/Rn7r1lIHRZKxLMab2F8AciL1Ohd87etcoDYn
-   PD7xFCYQ/4x7D+Qa4w2Q+KfidLF5m51dAeJ/xcco/j69HV8uMmaoe9grg
-   w==;
-X-CSE-ConnectionGUID: NzDzXKoGTYGaEHdv/aYGzA==
-X-CSE-MsgGUID: DKe2RUPgRN6D5NcpfELIFA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="289419"
-X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
-   d="scan'208";a="289419"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 14:06:58 -0700
-X-CSE-ConnectionGUID: JlFpePC4TXiR8WJ39tl6rQ==
-X-CSE-MsgGUID: vLVTt5x7SgicntcdNH0Uuw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
-   d="scan'208";a="282359682"
-Received: from rchatre-desk1.jf.intel.com ([10.165.154.99])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 14:06:56 -0700
-From: Reinette Chatre <reinette.chatre@intel.com>
-To: tony.luck@intel.com,
-	ben.horgan@arm.com,
-	james.morse@arm.com,
-	Dave.Martin@arm.com,
-	babu.moger@amd.com,
-	bp@alien8.de,
-	tglx@linutronix.de,
-	dave.hansen@linux.intel.com
-Cc: x86@kernel.org,
-	hpa@zytor.com,
-	fustini@kernel.org,
-	fenghuay@nvidia.com,
-	peternewman@google.com,
-	yu.c.chen@intel.com,
-	linux-kernel@vger.kernel.org,
-	patches@lists.linux.dev,
-	reinette.chatre@intel.com
-Subject: [PATCH v2 4/5] fs/resctrl: Drop unnecessary is_mba_linear() helper
-Date: Wed,  7 Oct 2026 14:06:46 -0700
-Message-ID: <816855328d87740b2cb720215d222702abba4b0f.1791406459.git.reinette.chatre@intel.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1791406459.git.reinette.chatre@intel.com>
-References: <cover.1791406459.git.reinette.chatre@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J9wE6RaC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C22DD1F000FF;
+	Wed,  7 Oct 2026 21:10:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791407416;
+	bh=kQZrJoj8R2X2UlcGOjYwNnil9Dl4ymdaDmJibmPEMx8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=J9wE6RaCZ9e88//hUxabkUZGTM+o28DuJgnsmumTZVQHpr/yTL5FjZq0+K7avJFlT
+	 W43iK2rxkYcDwYgEx/SRaBgQnSpu2GjeRCi78IvTUcR1bdfR2HAxs5WssALSpbZ1+7
+	 e2ZxSdCevdtLoG7stQpo7yKl3iJYYs9GjwkeXlcvk0paqdZJfT1KtQjxMa3k0wQ+bN
+	 mCaVPASTUTKJiFf4K4SXxTIN8SPLKxJp8qoo4EwnuPVq0CmBFotFejhBlW3Lrbogm9
+	 1x2K1vTkufitZvK7n02b2oKmeWdfnO0cqP71Zxv4ZtT423v31Hpniju4SStb0mzTtJ
+	 qAj4N5sPwIpMA==
+Date: Wed, 7 Oct 2026 16:10:15 -0500
+From: Rob Herring <robh@kernel.org>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
+	Jonathan Hunter <jonathanh@nvidia.com>, mfd@lists.linux.dev,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Thierry Reding <thierry.reding@gmail.com>,
+	linux-sound@vger.kernel.org, linux-tegra@vger.kernel.org,
+	Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH v3 2/3] dt-bindings: ASoC: nvidia,tegra30-ahub: Convert
+ to json-schema
+Message-ID: <20261007211015.GA305857-robh@kernel.org>
+References: <20261002-as3722-bindings-v3-0-21c179b72a95@nvidia.com>
+ <20261002-as3722-bindings-v3-2-21c179b72a95@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002-as3722-bindings-v3-2-21c179b72a95@nvidia.com>
 
-is_mba_linear() assumes it operates on the MBA resource and returns whether
-the resource's delay values are linear. There is only one caller that
-separately makes the same assumption.
+On Fri, Oct 02, 2026 at 09:38:59AM +0200, Thierry Reding wrote:
+> From: Thierry Reding <treding@nvidia.com>
+> 
+> Convert Tegra AHUB bindings from the free-form text format to
+> json-schema.
+> 
+> Signed-off-by: Thierry Reding <treding@nvidia.com>
+> ---
+> Rob, you gave a reviewed-by on v2, but Sashiko flagged that the per-SoC
+> constraints don't properly match on Tegra132. The only change (well, in
+> addition to the subject prefix fixup) compared to v2 is changing the
 
-Avoid duplicating the resource assumptions and let the only caller access
-the needed property directly.
+BTW, It's 'ASoC: dt-bindings: ...' that Mark is looking for.
 
-Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
-Reviewed-by: Chen Yu <yu.c.chen@intel.com>
-Reviewed-by: Ben Horgan <ben.horgan@arm.com>
----
-Changes from RFC v1:
-- RFC v1 made bandwidth delay a resource property. That change was dropped
-  and this cleanup is all that remained.
-
-Changes since v1:
-- Add Chenyu and Ben's Reviewed-by tags.
-- Clarify "resource is linear" vs. "resource's delay values are linear".
----
- fs/resctrl/rdtgroup.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
-
-diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-index 68be9b903ac6..821c6e2b10f4 100644
---- a/fs/resctrl/rdtgroup.c
-+++ b/fs/resctrl/rdtgroup.c
-@@ -2577,11 +2577,6 @@ mongroup_create_dir(struct kernfs_node *parent_kn, struct rdtgroup *prgrp,
- 	return ret;
- }
- 
--static inline bool is_mba_linear(void)
--{
--	return resctrl_arch_get_resource(RDT_RESOURCE_MBA)->membw.delay_linear;
--}
--
- static int mba_sc_domain_allocate(struct rdt_resource *r, struct rdt_ctrl_domain *d)
- {
- 	u32 num_closid = resctrl_arch_get_num_closid(r);
-@@ -2621,7 +2616,7 @@ static bool supports_mba_mbps(void)
- 	struct rdt_resource *r = resctrl_arch_get_resource(RDT_RESOURCE_MBA);
- 
- 	return (resctrl_is_mbm_enabled() &&
--		r->alloc_capable && is_mba_linear() &&
-+		r->alloc_capable && r->membw.delay_linear &&
- 		r->ctrl_scope == rmbm->mon_scope &&
- 		!rmbm->mon.mbm_cntr_assignable);
- }
--- 
-2.55.0
-
+Rob
