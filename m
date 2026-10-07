@@ -1,138 +1,63 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D57525A2A2;
-	Wed,  7 Oct 2026 00:41:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4539E2820AC;
+	Wed,  7 Oct 2026 00:45:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791333691; cv=none; b=rsD++ALQcn/VmyYZttG7y1+Och99kFVwO132gCX21pEiA9SVU5CuG2lehvgF9qgsAKJC9Sf+2LQ4ysXe2qsXd1Tlx7evbBi6bS+ufLSCcHhLfqgtq48WmcwOGmMtbVrHvWtpA22EODUDLJLaie48txmc570W/Od3teMRjQNQTyM=
+	t=1791333920; cv=none; b=gr2LuzfQPpOpP75otKJlodRXKAhqdA5waLVPnkWFpdtKPoBDbNRFkaoV/fydtHqSosZgapCP2rRv587wtJ1opzalK2hbyKB03t18OIXnuwpemloHMsy0CLD9hhrwaU7LmHH+lut5bV5LTmNcj8jO5dMqdw56c2cm9TEvqFxGieo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791333691; c=relaxed/simple;
-	bh=7D7cc1cEIF7G7OPcCezM18yaqPY5ebfOkWK4UlBTIZ0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=V2RG1OCofUDZ0LRebJqJv3gXqLtH9Fjov8ZkwX4SS0+9hSvbWByyzWeH4yWDWFHxzD3n3cqINyOMhDgY4tc0bZNf2vvfSd4Oas2NymRx+YqcAeFBaOHsExXthah/pqN0w5Pd0D+tLlvOjh/XA95IDEI9ZNpoipM6c1/n3zAxfew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KAzlfiZB; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791333920; c=relaxed/simple;
+	bh=scfZFZznoRWdtCblr35Ytx1stq1iTEHE+R21DXFeqC4=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=HcguX3uxFgnkLFrGF2e5HVFvyTvCKGsq7uFb1wzw3LQb7id6hngxlf7vwQxKkTq+k/TAhf3PCYZYvLkaCqU/uRIV2l8zgpd7A8+yAoqfBxeBLvsLR6DvApZpmhH3KYBRkpX1cKeN7SAhM7q8WRpMYO4YfMV4flaPKrUoa7fNaB4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OcSMq9Sv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KAzlfiZB"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 19352C4AF60;
-	Wed,  7 Oct 2026 00:41:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791333691;
-	bh=7D7cc1cEIF7G7OPcCezM18yaqPY5ebfOkWK4UlBTIZ0=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=KAzlfiZBvnRrQuD1N4ks+8k3yp9bkcEqUvqbFFImCgNaRDzi2R3S4bmP73llytS3A
-	 yIb7uiXOdwvqb28ZC1mwiqXeJphbRQBMtTw+i2zYZECiZA8OjVqQ4cbmVddQG6z9Hq
-	 ZP7bxTD4QstHFFjKPP+cNox3CM6MrYvzA+L8HYiQ630MrfxCB0EumcDVrOH6mXeccs
-	 2+b1TWT9JoyIMvM29/d4BhtuyGM3V6PxPwFyZs3FLPA3fGt8KgPTuTtajnMm7ek2Pu
-	 kmI4ieD2d73Hs6kDNwPCaKhlxQHnLXTtCOTFzApra4BAour8ZIrvXvFS6d/+aaQlMV
-	 LXvy5g5tpEACQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0782CCA5FED;
-	Wed,  7 Oct 2026 00:41:31 +0000 (UTC)
-From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
-Date: Wed, 07 Oct 2026 09:41:31 +0900
-Subject: [PATCH] ext4: skip holes when shrinking the extent tree in fast
- commit replay
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OcSMq9Sv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D129C1F0089B;
+	Wed,  7 Oct 2026 00:45:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791333918;
+	bh=tCCrqeICFJnRt/QtW+rz1U0qOvlMVhbNKCr2oJDIVwo=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=OcSMq9SvO+BqM/cQYEZ5tkBr3agu6yh2g3KHf0R4K9zSmQ6z0uJYL917vcD2jbhjL
+	 jqa3XMKBrIQFyFMzLRpIGn6CJJqkVujItfHh81pECqNKNlp2kqyaV6aS2PSU8k+C6S
+	 O8qAmnXvDSFsEQMQ0nUP6MZmzZNb1ZyD1Ck4j8YriORXqLbs8QJAKnQQmLstATMRm8
+	 wyv+GY27kblVRDvZ7Q6XXpRfw+RtB9w0UJbQHQ/SIFDBBiG52GGc5qcnewSpkVS2kZ
+	 RyQ2TtJf66LUE5iS8vPzQen8K0qW6VTOnLnVQV4osxbMRO0xlo4nA5tfl4t6i6gOi4
+	 xHO/lo0SjKuXA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B49753806541;
+	Wed,  7 Oct 2026 00:45:18 +0000 (UTC)
+Subject: Re: [GIT PULL] sched_ext: Fixes for v7.3-rc6
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <afa1dcf110d0a6c081e1232c6ae2c989@kernel.org>
+References: <afa1dcf110d0a6c081e1232c6ae2c989@kernel.org>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <afa1dcf110d0a6c081e1232c6ae2c989@kernel.org>
+X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/tj/sched_ext.git tags/sched_ext-for-7.3-rc6-fixes
+X-PR-Tracked-Commit-Id: e6ac89b8b1c12e9104df45a14a26e2dfa96ded06
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 762122d75e50e4919ef77afc2dffdc4931c5be87
+Message-Id: <179133391720.2846339.7131187262623409143.pr-tracker-bot@kernel.org>
+Date: Wed, 07 Oct 2026 00:45:17 +0000
+To: Tejun Heo <tj@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>, Changwoo Min <changwoo@igalia.com>, Emil Tsalapatis <emil@etsalapatis.com>, David Dai <david.dai@linux.dev>, sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261007-ext4-fc-replay-shrink-v1-1-0e45fc03030d@samsung.com>
-X-B4-Tracking: v=1; b=H4sIADqVxWoC/x3MQQqEMAxA0atI1hNog5bqVWQW0kltmKFKKqKId
- 7fM8i3+v6CwChcYmguUdymy5Ar7aiCkKc+M8qkGMuSsMQ752FqMAZXX33RiSSr5i6Gl3ntPZDs
- HtV2Voxz/7/i+7wftP2+UZwAAAA==
-To: Theodore Ts'o <tytso@mit.edu>, linux-ext4@vger.kernel.org
-Cc: Jan Kara <jack@suse.cz>, Andreas Dilger <adilger.kernel@dilger.ca>, 
- Baokun Li <libaokun@linux.alibaba.com>, 
- Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
- Zhang Yi <yi.zhang@huawei.com>, Zhang Yi <yi.zhang@huaweicloud.com>, 
- Harshad Shirwadkar <harshadshirwadkar@gmail.com>, Li Chen <me@linux.beauty>, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Daejun Park <daejun7.park@samsung.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791333690; l=3028;
- i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
- bh=9d0ePU+Z2uVyA8ZMCH2z+JohIkqRKRBLCKpFRrYMEkk=;
- b=uWk7CtWrwT45KwH64V76BnKJKrIrm5YwsyJfQn+gDU9NDiYld9yipQob6eDY+B1Tr4smMo4N2
- VG9HSFKxMWtCYvcLzIVVIyQKowYdqmp8vTjWYPxFQvUDDXQcgDurOkj
-X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
- pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
-X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
- auth_id=1122
-X-Original-From: Daejun Park <daejun7.park@samsung.com>
-Reply-To: daejun7.park@samsung.com
 
-From: Daejun Park <daejun7.park@samsung.com>
+The pull request you sent on Tue, 06 Oct 2026 07:35:47 -1000:
 
-ext4_ext_replay_shrink_inode() walks the extents of an inode from block
-0 up to the given end and tries to merge each one with its neighbours.
-When the walk is in a hole that follows an extent, ext4_find_extent()
-returns that extent, and the walk moves on by a single block. Replay
-calls it up to i_size after every ADD_RANGE and DEL_RANGE tag, so the
-time recovery takes is proportional to the number of tags times the
-number of hole blocks below i_size.
+> https://git.kernel.org/pub/scm/linux/kernel/git/tj/sched_ext.git tags/sched_ext-for-7.3-rc6-fixes
 
-After a crash, mount can be busy for minutes. Replaying a single
-ADD_RANGE tag, for one block written and fsynced in a sparse file with
-a 1 TiB i_size, kept mount busy for 157 seconds. Replaying four fast
-commits of a sparse file with 512 written regions (2048 ADD_RANGE tags,
-and 2044 DEL_RANGE tags for the gaps between them) took 44 seconds when
-the file was 64 MiB and 177 seconds when it was 256 MiB. With this
-change the 1 TiB case takes less than 0.1 seconds, and the other two 3
-seconds each.
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/762122d75e50e4919ef77afc2dffdc4931c5be87
 
-When the walk is in such a hole, continue at the next extent, as
-returned by ext4_ext_next_allocated_block(), or stop if there is none.
-For each block skipped this way, the old walk found the same extent
-again and retried the same merges, so the resulting tree is the same.
+Thank you!
 
-Fixes: 8016e29f4362 ("ext4: fast commit recovery path")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daejun Park <daejun7.park@samsung.com>
----
-Tested in QEMU on ext4 dev 9091c97be340 with a 2 GiB file-backed virtio
-disk and 4 KiB blocks, crashing by killing QEMU and timing mount(8).
-Every fsynced block was verified and e2fsck -fn was clean in each run.
-A 1 GiB file with 40 such fast commits (20480 ADD_RANGE and 20440
-DEL_RANGE tags) took 31.5 seconds with this change. xfstests ext4/044
-ext4/045 generic/455 generic/456 generic/482 with -O fast_commit give
-the same results as without it (generic/455 fails on both, at different
-marks).
-
-The walk still visits every extent from block 0 for each tag. Bounding
-it to the extents around the tag's range, or shrinking once per inode at
-the end of replay, could be a follow-up.
----
- fs/ext4/extents.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
-index 836396ea79..df7e1ccb94 100644
---- a/fs/ext4/extents.c
-+++ b/fs/ext4/extents.c
-@@ -6217,8 +6217,10 @@ void ext4_ext_replay_shrink_inode(struct inode *inode, ext4_lblk_t end)
- 		}
- 		old_cur = cur;
- 		cur = le32_to_cpu(ex->ee_block) + ext4_ext_get_actual_len(ex);
-+		/* ex ends before old_cur, which is in a hole: skip the hole */
- 		if (cur <= old_cur)
--			cur = old_cur + 1;
-+			cur = max(old_cur + 1,
-+				  ext4_ext_next_allocated_block(path));
- 		ext4_ext_try_to_merge(NULL, inode, path, ex);
- 		down_write(&EXT4_I(inode)->i_data_sem);
- 		ext4_ext_dirty(NULL, inode, &path[path->p_depth]);
-
----
-base-commit: 9091c97be34083587a75db174aab51551d8e8543
-change-id: 20261006-ext4-fc-replay-shrink-c42988822156
-
-Best regards,
 -- 
-Daejun Park <daejun7.park@samsung.com>
-
-
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
