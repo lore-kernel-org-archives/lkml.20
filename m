@@ -1,211 +1,173 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05FDB418361;
-	Wed,  7 Oct 2026 22:34:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7F6B376BF2;
+	Wed,  7 Oct 2026 22:35:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791412498; cv=none; b=d7bBRk6cXAvkbU7yBYh3J9YMTrfEgqWrOkDeCV7k+M2CZRahcaYTwbqNCIhDRgKxAmgMlMgdMjng/X1CAL0l9sx1aVwn5N07ZESDrQwXGWqVbTUi+H6xYX0cSP5fQ+3NH0PTJDZiRcOGHbiAcPOPB+JW8LTPG0y+UUZAE1Qhka8=
+	t=1791412529; cv=none; b=HAF41kG/u8w1HLdEzFTaTv3jbHyADfzPG86fMlnNR9goS60zI2iPmOjANnQNJKJ3ka+hlSnE2Y+GKDQzOfFbjuX2RjWtDJ5OXeRGHYlY2CWbnFksE5X9pCfYy3h/2pD+6B5ShWwqyFYZMzdcB0LjvvgT0jqCt6uTB/lx1VwjHPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791412498; c=relaxed/simple;
-	bh=6q3/pukp2WjRqP/L7/Z/7q8iUAI3OZTG0blnUKIcUkQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U4xbwbV77sYr+nkOVvbG/af0+xrFhqL3NCchq0rR8JqsjzMR3VGY6aoM7o9hRbsvGqvdgy5Xsg5fWJud7LiMkzLPf4O+CNvYXFoMywXmLy9HCCYxoSdiTfyla9P6rMZC7oiEP5etYIO5a4V2GdNR0on7Nxe9Um/h/C62ipx2yxE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ZdjPKJdu; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=r01nj3MX; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ZdjPKJdu; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=r01nj3MX; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791412529; c=relaxed/simple;
+	bh=c47Pbxh9dK+1wv90SojXKKsIfBfWUBz3KPuY5rzCmLM=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=WFIagtGaBfDSCcvSGQ7rE8fjpYupDLegztSy8rFyHyWuuXid1+bFWRHSvTUQ4jYTtvc/MnoWznC4Ua+ezIQeAmAvqc0dk9zrD9ieJUgIKzaGlkUp1ZVImx2sVEx5tjBCZqryHcLrQZTBb9N/ocwTRX0/DjfOxKK4cswdbqKl9Sc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=OHbq7WvW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ZdjPKJdu";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="r01nj3MX";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ZdjPKJdu";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="r01nj3MX"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id B6A551F74C;
-	Wed,  7 Oct 2026 22:34:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791412494; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=9lJ8PC8L3JVbKUvMsYDSYiY2ZaxjDojz3sqZtTpqp9o=;
-	b=ZdjPKJduHR0kQKA9iOFu/wqXrtxYNT8D98ep2OHjskI2iMWmdMhJM+xlwXi2a2UTpR7ncJ
-	5qpNljc9wIr5zle2TXgqGUDtOkoqVXcCpDgnKyudqLAVhqCIhc1QglXl3NViHia9QnY986
-	vmuA5FDzVrA/1dJMrh5MzkpP/1jGSS0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791412494;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=9lJ8PC8L3JVbKUvMsYDSYiY2ZaxjDojz3sqZtTpqp9o=;
-	b=r01nj3MXYpAYQK0UrTC8QqaBQ6ZGeNRQOqNfWIW54liTQDYF7/+jJWYlUjkitohtzG37Tf
-	Jem4WOxFd+HNN5BQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ZdjPKJdu;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=r01nj3MX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791412494; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=9lJ8PC8L3JVbKUvMsYDSYiY2ZaxjDojz3sqZtTpqp9o=;
-	b=ZdjPKJduHR0kQKA9iOFu/wqXrtxYNT8D98ep2OHjskI2iMWmdMhJM+xlwXi2a2UTpR7ncJ
-	5qpNljc9wIr5zle2TXgqGUDtOkoqVXcCpDgnKyudqLAVhqCIhc1QglXl3NViHia9QnY986
-	vmuA5FDzVrA/1dJMrh5MzkpP/1jGSS0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791412494;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=9lJ8PC8L3JVbKUvMsYDSYiY2ZaxjDojz3sqZtTpqp9o=;
-	b=r01nj3MXYpAYQK0UrTC8QqaBQ6ZGeNRQOqNfWIW54liTQDYF7/+jJWYlUjkitohtzG37Tf
-	Jem4WOxFd+HNN5BQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8117B13312;
-	Wed,  7 Oct 2026 22:34:54 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id nYhpEA7JxmrpTgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 07 Oct 2026 22:34:54 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: linux-sound@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH] ALSA: hda: Don't free card at probe error in vga_switcheroo handler
-Date: Thu,  8 Oct 2026 00:34:46 +0200
-Message-ID: <20261007223448.172443-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="OHbq7WvW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D83261F000FF;
+	Wed,  7 Oct 2026 22:35:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1791412527;
+	bh=B+VMO+YMjXevl0hOsc4oTcVQo83xucHvyssxvgfaocc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=OHbq7WvW7VgYYAX/mYOnO5AJwUDhQ5vPApvLzHa8f0U6z24RKHye8eJK+TQGwMIxQ
+	 BpIU2ThZjznvdTr9jkgJhNfuc2Cvv0rZ+AV7i6eE3DJSCtrCajiABjniiNAjbIX6s4
+	 KpKpY9bfm5813BUGteKy34MbO5nbuSeeUJeeG0mw=
+Date: Wed, 7 Oct 2026 15:35:26 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Hongfu Li <hongfu.li@linux.dev>
+Cc: hughd@google.com, baolin.wang@linux.alibaba.com,
+ vivek.kasireddy@intel.com, muchun.song@linux.dev, osalvador@suse.de,
+ david@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, Hongfu
+ Li <lihongfu@kylinos.cn>, stable@vger.kernel.org
+Subject: Re: [PATCH v3] mm/memfd: fix hugetlb reservation accounting in
+ error paths
+Message-Id: <20261007153526.cb4473601fc9038a9ca4f517@linux-foundation.org>
+In-Reply-To: <20260927094757.31665-1-hongfu.li@linux.dev>
+References: <20260927094757.31665-1-hongfu.li@linux.dev>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_COUNT_TWO(0.00)[2];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,sashiko.dev:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TO_DN_NONE(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_TWO(0.00)[2];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Action: no action
-X-Spam-Score: -3.01
-X-Spam-Level: 
-X-Rspamd-Queue-Id: B6A551F74C
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The vga_switcheroo handler azx_vs_set_state() calls
-azx_probe_contine() for enabling the audio, and if an error happens
-during the probe, azx_probe_continue() releases its associated sound
-card object at the error path.  The card release procedure includes
-the call of vga_switcheroo_unregister_client(), and this triggers the
-vgasr_mutex lock again that had been already held by the caller
-(vga_switcheroo_process_delayed_switch()) -- leading to a deadlock.
+On Sun, 27 Sep 2026 17:47:57 +0800 Hongfu Li <hongfu.li@linux.dev> wrote:
 
-(Moreover, the card release will cause a potential UAF at the error
-message in azx_vs_set_state() since the card object is already gone;
-this was the original report by Sashiko.)
+> From: Hongfu Li <lihongfu@kylinos.cn>
+> 
+> If hugetlb_add_to_page_cache() in memfd_alloc_folio() fails with -EEXIST,
+> a concurrent fault has already instantiated the folio in the page cache,
+> and the reservation now belongs to that folio. Calling
+> hugetlb_unreserve_pages() in that case incorrectly removes the region
+> backing the cached folio and releases one reservation more than it
+> should, leaving that folio in the page cache with no region recording it.
+> 
+> That leaves resv_huge_pages one page short until that folio is removed
+> from the page cache, so available_huge_pages() reports a page that is
+> not actually free and the pool can grant one reservation more than it
+> can back. Applications using hugetlb memfds can then fail to allocate
+> or fault in a page they already reserved. They see -ENOMEM or -ENOSPC
+> from the allocation or fault path even though the reservation and
+> HugePages_Free still look healthy.
+> 
+> So hold the hugetlb fault mutex from hugetlb_reserve_pages() until the
+> error-path unreserve completes to make the reserve, allocate and
+> instantiate steps atomic against concurrent faults. With the mutex held
+> from the start, a concurrent fault can no longer consume the reservation
+> between reserve and allocate/instantiate. If a fault completed before the
+> mutex was taken, it has already added the region for that index, so
+> hugetlb_reserve_pages() returns 0 and the error path leaves the region in
+> place.
+> 
+> Fixes: 717cf9357325 ("mm/memfd: reserve hugetlb folios before allocation")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
 
-For avoiding the unneeded crash, it's better to avoid the card release
-in this error path, so we make azx_probe_continue() behaving
-conditionally.  In return, set hda->init_failed flag, so that any
-further (re-)attempts will be filtered after that point.
+Can we please have review of this cc:stable regression fix?
 
-The check of hda->init_failed is dropped from azx_vs_can_switch().
-It's because otherwise vga_switcheroo can't be switched to turn off
-GPU once when a probe error happens at the audio side.
-
-Fixes: 39173303c838 ("ALSA: hda: Free card instance properly at probe errors")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20261007213728.155092-1-tiwai%40suse.de
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/hda/controllers/intel.c | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
-
-diff --git a/sound/hda/controllers/intel.c b/sound/hda/controllers/intel.c
-index 24015c73a67f..5d989e57b128 100644
---- a/sound/hda/controllers/intel.c
-+++ b/sound/hda/controllers/intel.c
-@@ -1184,7 +1184,7 @@ static const struct dev_pm_ops azx_pm = {
- };
- 
- 
--static int azx_probe_continue(struct azx *chip);
-+static int azx_probe_continue(struct azx *chip, bool free_on_error);
- 
- #ifdef SUPPORT_VGA_SWITCHEROO
- static struct pci_dev *get_bound_vga(struct pci_dev *pci);
-@@ -1211,8 +1211,10 @@ static void azx_vs_set_state(struct pci_dev *pci,
- 		if (!disabled) {
- 			dev_info(chip->card->dev,
- 				 "Start delayed initialization\n");
--			if (azx_probe_continue(chip) < 0)
-+			if (azx_probe_continue(chip, false) < 0) {
-+				hda->init_failed = 1;
- 				dev_err(chip->card->dev, "initialization error\n");
-+			}
- 		}
- 	} else {
- 		dev_info(chip->card->dev, "%s via vga_switcheroo\n",
-@@ -1251,8 +1253,6 @@ static bool azx_vs_can_switch(struct pci_dev *pci)
- 	struct hda_intel *hda = container_of(chip, struct hda_intel, chip);
- 
- 	wait_for_completion(&hda->probe_wait);
--	if (hda->init_failed)
--		return false;
- 	if (chip->disabled || !hda->probe_continued)
- 		return true;
- 	if (snd_hda_lock_devices(&chip->bus))
-@@ -1738,7 +1738,7 @@ static void azx_check_snoop_available(struct azx *chip)
- static void azx_probe_work(struct work_struct *work)
- {
- 	struct hda_intel *hda = container_of(work, struct hda_intel, probe_work.work);
--	azx_probe_continue(&hda->chip);
-+	azx_probe_continue(&hda->chip, true);
- }
- 
- static int default_bdl_pos_adj(struct azx *chip)
-@@ -2356,7 +2356,7 @@ static const unsigned int azx_max_codecs[AZX_NUM_DRIVERS] = {
- 	[AZX_DRIVER_TERA] = 1,
- };
- 
--static int azx_probe_continue(struct azx *chip)
-+static int azx_probe_continue(struct azx *chip, bool free_on_error)
- {
- 	struct hda_intel *hda = container_of(chip, struct hda_intel, chip);
- 	struct hdac_bus *bus = azx_bus(chip);
-@@ -2447,8 +2447,10 @@ static int azx_probe_continue(struct azx *chip)
- 
- out_free:
- 	if (err < 0) {
--		pci_set_drvdata(pci, NULL);
--		snd_card_free(chip->card);
-+		if (free_on_error) {
-+			pci_set_drvdata(pci, NULL);
-+			snd_card_free(chip->card);
-+		}
- 		return err;
- 	}
- 
--- 
-2.55.0
-
+> v3:
+> - Update commit message to describe the accounting damage and its
+>   user-visible effect; no code changes.
+> - Add Cc: stable@vger.kernel.org.
+> v2:
+> - Take the hugetlb fault mutex before hugetlb_reserve_pages() and hold
+>   it until the error-path unreserve completes.
+> - Update commit message
+> - Link to v1: https://lore.kernel.org/all/20260831090631.29227-1-hongfu.li@linux.dev/
+> ---
+>  mm/memfd.c | 31 ++++++++++++++++---------------
+>  1 file changed, 16 insertions(+), 15 deletions(-)
+> 
+> diff --git a/mm/memfd.c b/mm/memfd.c
+> index c708d92533f4..0f6fff004f5e 100644
+> --- a/mm/memfd.c
+> +++ b/mm/memfd.c
+> @@ -82,22 +82,31 @@ struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx)
+>  		struct hstate *h = hstate_file(memfd);
+>  		int err = -ENOMEM;
+>  		long nr_resv;
+> +		u32 hash;
+>  
+>  		gfp_mask = htlb_alloc_mask(h);
+>  		gfp_mask &= ~(__GFP_HIGHMEM | __GFP_MOVABLE);
+>  		idx >>= huge_page_order(h);
+>  
+> +		/*
+> +		 * Serialize hugepage allocation and instantiation to prevent
+> +		 * races with concurrent allocations, as required by all other
+> +		 * callers of hugetlb_add_to_page_cache().
+> +		 */
+> +		hash = hugetlb_fault_mutex_hash(memfd->f_mapping, idx);
+> +		mutex_lock(&hugetlb_fault_mutex_table[hash]);
+> +
+>  		nr_resv = hugetlb_reserve_pages(inode, idx, idx + 1, NULL, EMPTY_VMA_FLAGS);
+> -		if (nr_resv < 0)
+> -			return ERR_PTR(nr_resv);
+> +		if (nr_resv < 0) {
+> +			err = nr_resv;
+> +			goto out_unlock;
+> +		}
+>  
+>  		folio = alloc_hugetlb_folio_reserve(h,
+>  						    numa_node_id(),
+>  						    NULL,
+>  						    gfp_mask);
+>  		if (folio) {
+> -			u32 hash;
+> -
+>  			/*
+>  			 * Zero the folio to prevent information leaks to userspace.
+>  			 * Use folio_zero_user() which is optimized for huge/gigantic
+> @@ -112,20 +121,9 @@ struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx)
+>  			 */
+>  			__folio_mark_uptodate(folio);
+>  
+> -			/*
+> -			 * Serialize hugepage allocation and instantiation to prevent
+> -			 * races with concurrent allocations, as required by all other
+> -			 * callers of hugetlb_add_to_page_cache().
+> -			 */
+> -			hash = hugetlb_fault_mutex_hash(memfd->f_mapping, idx);
+> -			mutex_lock(&hugetlb_fault_mutex_table[hash]);
+> -
+>  			err = hugetlb_add_to_page_cache(folio,
+>  							memfd->f_mapping,
+>  							idx);
+> -
+> -			mutex_unlock(&hugetlb_fault_mutex_table[hash]);
+> -
+>  			if (err) {
+>  				folio_put(folio);
+>  				goto err_unresv;
+> @@ -133,11 +131,14 @@ struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx)
+>  
+>  			hugetlb_set_folio_subpool(folio, subpool_inode(inode));
+>  			folio_unlock(folio);
+> +			mutex_unlock(&hugetlb_fault_mutex_table[hash]);
+>  			return folio;
+>  		}
+>  err_unresv:
+>  		if (nr_resv > 0)
+>  			hugetlb_unreserve_pages(inode, idx, idx + 1, 0);
+> +out_unlock:
+> +		mutex_unlock(&hugetlb_fault_mutex_table[hash]);
+>  		return ERR_PTR(err);
+>  	}
+>  #endif
+> -- 
+> 2.54.0
+> 
