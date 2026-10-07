@@ -1,231 +1,247 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013023.outbound.protection.outlook.com [40.93.196.23])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F34B6374A0F;
-	Wed,  7 Oct 2026 14:56:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.23
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791384973; cv=fail; b=isCobpFvgp7o+m0gfv9SZc8ZDOcbPOI4wc7yigBJbKz6A/tyNYOu9R+V9JLdYmDdPNuPeoNyfrQyZP04NlUL3A4T7fnA0CkBo7wRqzmpTnQVHG3RyEab7ZpU+U7V53dvnL83TO6rDUXP3NrCNqo3HDeHJKfx7uegeNqDWSP6BGY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791384973; c=relaxed/simple;
-	bh=JgH5nGHDmybuQmZEtyR9Nf/tVOXkDSfDJaxga6rcdO4=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=ZzlROnNyZTlkKaX/a1tsoJuqInvGsV+4i63tdUjBqaWyAthaNqQaooxtLAHoxqlag8xwXd/dL9PRf0YsWT/qfqXOJayFr2NpIjNymS0RepSPp9Re4pWwh4r+O+1VLsWxOGUF8IqBfETwL8qtGd46gfK03W0QgMicaPHthzpFmsg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=BUAntVRt; arc=fail smtp.client-ip=40.93.196.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B63B43DC4B6
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 14:57:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791385082; cv=none; b=XfHldId1EHO0HyuQU/c8JQ1vAXhX/As2MuBdCHolzAUnWElnHiVUHibqtWQ5wy789I8+JTExsOVLx3dMTV2u7+urOLPQrG/cyiaWq5rnpLZcstW9aU5JiPGe9vCTGJ0yi5sV9l0/peMHBZBQcUx/XMBtrNGjimMWbsz5VFfKJ0c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791385082; c=relaxed/simple;
+	bh=vFa9XfK8NtgMS3dJv1N6BhEGPRkn7hWzJUVUMZxEWiY=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=eK8kUDqw/+a2aynE9gedFBdg4RZ9ExPWld+N/7ja/E3rDURQvUnaS8KT9oEKbbwvL4GoO4o6iXTF0uuVnm9l7rGtwL32eo3W1B58U4KxIYxbyQVirRMM9H7jXDECPdjwc/R1oLT6YkMR6adn1xpbPyamv8z69wNwrzFhe/Xxpjs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=g2Rpcp2y; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=kP4Z3kqB; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="BUAntVRt"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=r6uOMt59m5XfMKbtmThiBs6Yn+TGT78Jb1lDAR0h68QuomNjhCydZtHn0PnQjXXZRVsxQykW11URSVYzaX36890lszyZ4rLgdjNwcnpztI1qEFKMIMtk66uqrbMYUnVcj3s62EbAGq4TdFeAUBMkVDkMX+2zYcKXX1lyVObQcq3Av3XWssuNeQ+hMsjaFwDDoYt5LkFfH/2ant5qfcp3ERB9IgaxErYko31IU5KRIvZV7YbE4qPVVwbpP6VWblLjBm1cC+fDuP+xhhbMM8bxsKQTCFVfCtngBoHm74qe+0jgSKBzBoDTLAWjA+KUNQtb6/7eZh9U9dUG62CzTP2AqQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rn7ZLtaN8kQXD38f0uQRDVPPbe2/xumDlakVq/3ugmw=;
- b=ygPql5IvBmIbRSH3+GyPYG8rbFsaIAfZ39e+Nx/PJDCmXvMjTMZhrqbJHSchzrBHwGGgwMvZdrtTgffz5waSAveqmQ6D2WKppElyApQMJmNsJClfQmXPghJxOycMrA9wV0OOVXyO1HgYUCd0j87TImVIWOooTn+k4q6SPmCIxiDL9DLK7poHvrp28dMcqDeGEjws5aU+RoafDWhaF+do2uSLEq5u+2VC3J0MWiJvsZLw3noXTh+oK0F78nvRr6eZf3ReEXeisDkL+sKe5GnQHT7GZ7PyKateoL9WeHc/kqfHaLYGeSietCqEJnv+pGqbFdRTQl8tsc6jQhnbnX647g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rn7ZLtaN8kQXD38f0uQRDVPPbe2/xumDlakVq/3ugmw=;
- b=BUAntVRtAKQDfIQlTdSuUhsmVpbOTXt2tlNrUgCptuSTB34YLBgniO7aeDv8o9Nk+eHBYMS3B5QSgDa5NLnZPuLZKvo4HOLpVyPxoCaCPGZ9DPIHul1oTg5hZTdvAyoeXQuuJxMN5Z0Ukw0Zxh2eWgRrWhvuB89oGcKmu7tBkTU=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by PH8PR12MB6820.namprd12.prod.outlook.com (2603:10b6:510:1cb::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.16; Wed, 7 Oct
- 2026 14:56:04 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0496.010; Wed, 7 Oct 2026
- 14:56:04 +0000
-Message-ID: <27b226c7-f30b-4863-96e6-6798232863c5@amd.com>
-Date: Wed, 7 Oct 2026 09:56:01 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cpufreq/amd-pstate: Supply nominal/lowest freq for
- TRX40-based motherboards
-Content-Language: en-US
-To: Giovanni Gherdovich <ggherdovich@suse.cz>, Huang Rui <ray.huang@amd.com>,
- Perry Yuan <perry.yuan@amd.com>, K Prateek Nayak <kprateek.nayak@amd.com>,
- me@kylegospodneti.ch
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261007144150.15113-1-ggherdovich@suse.cz>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20261007144150.15113-1-ggherdovich@suse.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SA1P222CA0060.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:806:2c1::10) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="g2Rpcp2y";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="kP4Z3kqB"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1791385054; bh=+4inpxhFhkgmpXIFh1LelZO
+	uPMG5UZrs9ttHlFixPB0=; b=g2Rpcp2yg41zUSvrMMGpOtJD82qbH2OEfihycvkJjNQqyQSfvY
+	2MJ6o5/hawBjFS86TmhuVxzo7VrPknxpP3vsd+SkRaOEgYsC+x5E9jJF37c3juoSWjtPnzSw/Dj
+	LaHXfahhKJWssz/1NYCzB1EzUbVBJNW7aevPDBc4RosWR45vdNrQKLXXfMDGhv0WBKaJKzD1rjn
+	lckUz/QmMv42J4iAxFlI7M4P0JjwKlrQmTZGqJOmtqAV2efBwmEjOuUjXtoa3PtFmMaaHsMStCr
+	29+d4AmGA8eDUi2wxTPJYTnQXLK3T8tSGkEj3pRppftvkAZOwqU8uP1OkiiL8Ezitlw==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1791385054; bh=+4inpxhFhkgmpXIFh1LelZO
+	uPMG5UZrs9ttHlFixPB0=; b=kP4Z3kqBWRCZnblKOPlNnCggOqUfnDNPmWSehAklZdkTvzRsUz
+	7o0B1dM9bWKlYJj3jy3DxO/niMsvLsWYR4Dw==;
+Date: Wed, 07 Oct 2026 15:57:35 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: Vladimir Murzin <vladimir.murzin@arm.com>, Will Deacon <will@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+CC: "Paul E. McKenney" <paulmck@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ leo.bras@arm.com
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_RESEND=5D_arm64=3A_sleep=3A_factor_?=
+ =?US-ASCII?Q?sleep=5Fsave=5Fstash_slot_lookup_into_a_macro?=
+In-Reply-To: <6376e301-c6ef-4094-83de-83ea9d17791a@arm.com>
+References: <20260919121044.13883-1-brads@mainlining.org> <29F5ED22-7DB5-4AF9-B999-CB3BAAB9A9E2@mainlining.org> <6376e301-c6ef-4094-83de-83ea9d17791a@arm.com>
+Message-ID: <2442108F-EE55-40AB-A33C-DEFE0364F704@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|PH8PR12MB6820:EE_
-X-MS-Office365-Filtering-Correlation-Id: b1d5c5cd-048b-4042-d044-08df24831c11
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|22082099003|18002099003|11063799006|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	aOWbfZEWrV/opyY9tTLcMtbJqGoBRqLw/eczAjuQ/wxjYMVi6F4hqwjSXU79EnAjjYtMCPC8tbFBHwiYrW6qMaaxM8iThJBG6Cx7m+7uQQxD4PByEznaaRCcq/MSbzsLw1DDTXpSAGxj4yndmVsbiqPi1STPfj0k8+khvkRMDUQr2OKz++n07dn5AXfJOe/22jt3xncrCi4fPQ6Iia9qBhyM/VhNMkoYDNXvi3l6DhHmd3gGRJZn1t6CevMen9cGEmLJvp5r/MA+10H7Ezbjyga1Ax7+oKs+muM/5p05h/3rktiMFQjEy4Rrh1oQbIlmccvBAIKC03EnfCi2W3UFTh2+rS7uYB4vDFZjEOMUm6w+hxCnL65qss/hxqvcedyI/x+0htlyahFmTxavnLmTZDPjTupoigqSFA1w1gntdSNYxcyjM7PcgZeOI9K/8543zy9QliFot7VDnEplCXpu4K0pjxB/3iuhy007mvia12Iu5nxp6Se2lStss1mGZkEmWVMJp6/P6QHlehlQxJV0xziA9wE4pQaPEva/svDxRlD1VK1zphxtOXunRUBl8+LCYZCX/fPczejUCmd7TsITO3ZdmnAsi0gXR2/6+7bSplvRR7pirSrVC4FDLs6os/VD3d80w/N6qrk3SbdQ1TcWPfsByazf7SFU2rVCJRhOMeE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB6914.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(22082099003)(18002099003)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?S2hHSjY3ZEFqS0JpU0JrZ3pqMGJjdlRUemxuQnZQdkVhWkFrTElZOFlBNjNu?=
- =?utf-8?B?a2xrRUNjenh6QkVuL3AxY1B6Y2VXanlLT0JhcXRMdFdoQ1AwajQxa1FEbnpG?=
- =?utf-8?B?WmlZUjRwRkhQWFVCV2hwSHZqNkNQbVNYQUY2eUdIT3A4RG14b092OS8zcHNC?=
- =?utf-8?B?VkdXRm9NRGcvQ1ArREg1Q1ppbnEwMUd2Wmo1WTgrbmRMd2VHZjVtMTNOSTNL?=
- =?utf-8?B?dkVxcFR0UjROWHFuOVBPT0d5ams3S2UrTnk3VmFjbWdZcEtmODlycnU0ZXZQ?=
- =?utf-8?B?d28yS1ZtbUxqMUMvUTlZUzdETmx0Qk4xTHJ3Ny9qYzhoN2crYk12c3hDS21O?=
- =?utf-8?B?cmNESkk2eGpTSzRsVlpjNG1wdGtyM3dlam5EaDhaUFgyZElGQXlab3B6c3pa?=
- =?utf-8?B?UXd2eU1hdkZNN2NzZmcxODh4UldoSVlHTDYzcFRHL0lVMlBuZm1xVkVKUmR1?=
- =?utf-8?B?TkNZU0NxbitCWWtmRWxMWjliWnVJMlZFa0loUTdIZnBEVWpyRUlxZzkrNngv?=
- =?utf-8?B?VWIyTWtIU2p4SzFyZE1XMXFLSlFieWFmMXpEcFRmQ1ExeFpzNFFJWnhjOXJB?=
- =?utf-8?B?Mk40SGFPanE0cTVGSVNBcDZQNVppV3BDVXk3MXdEK2Ztck13RTYyLzl6aG5n?=
- =?utf-8?B?bkhBVDNNcExkdCtzUzRObGMrby9sSkdLMkVHSzU2c0JJSnhTMXQ0QzNublQv?=
- =?utf-8?B?Q1ZvcWJ2VjF4YnpJdU9DRkdIWTk5eWQvd1FxOHVIUVlhbmptYUplSkdNREhJ?=
- =?utf-8?B?bVN0eTJTYS9uVmtBWWkrc29mUWtTS3lkRjNuZC9FV05TK2JLbTZPaTRoNTZQ?=
- =?utf-8?B?SmZSakxXZnBaLzZvL1ViQlBQWjVjZTBPTVB6MmE4eXMyQWRlTHFpNnRvZDhi?=
- =?utf-8?B?bGIzTGNqd3NiOFBGZ0tDc1lJbEhWWGl4eUE3SndNUjkvZkFyN25kT09hYUFs?=
- =?utf-8?B?Vy9GMUg0R0k0eklGcE15VFl3T1RuSTIwUERYZktZMXNLSzdTMm1tb0tuOTVR?=
- =?utf-8?B?SmgxdVVDRmY4UWMrcmdFWEhacFNJSkNxVng2YWlZdVNsUnYrY2xRQ25ZTFFj?=
- =?utf-8?B?SjNocUt3cWFyTkh3T09NQksvTlRJVDI3UXk0d1hiVXNxRGc4TTFNK0hGc0x5?=
- =?utf-8?B?MEZkbUlmSFFwWVI2VEJ6bngxTVZnMy9Bcmt1SjNSM2VRNGJvNnNDOUxXZFVx?=
- =?utf-8?B?d3RWbWRCNEhLbTJYRVNCaENWb3BFUXN1eVcyaE1mVTN3U3Q0eFhvdlpBQ09y?=
- =?utf-8?B?akd2RGRNRmZEMGpxNUpsZjJWazRPRHB0TTJoQ3hlZmU3L0lzVTdiak5SZmtI?=
- =?utf-8?B?Q29iSVgvMGNzTHdOYzVOb2NhWTJxeXBaWHR4RFg4SG1GVnVhdHlvVEpXbkE5?=
- =?utf-8?B?djNMaHJXbG9kTDc5V09uVlgxakppV2V6c0hKa1gzKzJ6Z1g1R0JOL2ZlL3Mv?=
- =?utf-8?B?S3ByRUFjYWdqSjRxRE5qN21BVzF4aVFOcTI3Z0lEeTIzayt6WUFDdGpHY3Jm?=
- =?utf-8?B?Vk5Xc0VBRnNXQUphd3lFNzJNTkhvd1BSREFHK0dKSWhaUFJJWGlXQVFjZHJ4?=
- =?utf-8?B?Y0x5K1JNOVRTUXhKbHRpWVp1d3JmbDVLbTN1eDNVaTByRmhCMVp4OEFVV3BS?=
- =?utf-8?B?MzZRd0taUFMyNnRrd1RkZUozS29CZXFzVXlranBTWUdlN1E1NzgxNWIvZlUv?=
- =?utf-8?B?aFU2dCtYWUZCTHBFajIwQlpUS3RpR2F6MVdQSHZESVFieXI0d3NiLzZ0UjZI?=
- =?utf-8?B?RmgyWXlsMWZ6dW14RkFDUFJXQnNqV2ZkNm1HL3MvTWp5bDdqa0FQc1l1L3V4?=
- =?utf-8?B?b21CRktyc3o4SUhhK2NQaXlmRloyRHdaNWlaMDBpd0I4OTdtdmhDalNiK0s5?=
- =?utf-8?B?ME1TU2VjTnViQkovMWdPK20zdldDSmVWQlc1TCtQbGtQMDFPeE9iTXA1OEVZ?=
- =?utf-8?B?ZVBudkRBRzl5ZE5wdEkwZVFIbm0rdms0RWgzQ0Z1SWlEdjFseGtJbGhVb0tW?=
- =?utf-8?B?NnhhU0dyZWlyT29Ta3dDSTJGbjlLMi8rR3hjQnNIcjB1WTd6ZGdwSWU3dGlG?=
- =?utf-8?B?R2gxQ0FydkVjcXJSTm9lcDNOY3JJZjU2SjU3OXdQekl4amNNUVBTZVBOTmJT?=
- =?utf-8?B?MEsxKzk1TjdubkMrZ2dkT05zSnJhNHNRRC8yNDcydkEwL3dMZzlpcG1lUDdX?=
- =?utf-8?B?bGc3Wk02bXB1S21xQ3VqdEtjMUtVTTJoUDY0SXpBNGJsaEs5WDlDSEF3RFZK?=
- =?utf-8?B?UWN2a09kL2JMaEd0NWw2VmFqSnlYMUZDRUVHR1F1SVQvcmZZcDRtdGphRE1O?=
- =?utf-8?B?TE14eUFNOFQ2SFJBekxhZUlZTWxKUklXREJ1S3RMYlg2UlhJNVpkdz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b1d5c5cd-048b-4042-d044-08df24831c11
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 14:56:04.2213
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4k8OB6xSBYNtFMA1jarFgmLgiFV5xNQNYrP5R2/hwiZqlNQIvKt2utePkvXVmMjMVDghVAohqEJpkFrZ213xYQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6820
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-+ Kyle
+On 7 October 2026 07:45:18 BST, Vladimir Murzin <vladimir.murzin@arm.com>
+wrote:
+>On 10/4/26 14:05, Bradley Morgan wrote:
+>> On 19 September 2026 13:10:44 BST, Bradley Morgan <brads@mainlining.org>
+>> wrote:
+>>> Both __cpu_suspend_enter() and _cpu_resume() open code the same
+>>> MPIDR_EL1 hash lookup to find the current CPU's slot in
+>>> sleep_save_stash. Factor it into a get_sleep_stash_slot
+>>> macro.
+>>>
+>>> Since that macro would be the only remaining user of
+>>> compute_mpidr_hash, inline the hash computation into
+>>> get_sleep_stash_slot and just remove compute_mpidr_hash
+>>> altogether.
+>> +CC more people, polite ping on this patch guys! :)
+>> 
+>
+>I'm not sure it makes the code clearer:
+>
+>- I see that Will suggested inlining compute_mpidr_hash, but to
+>  my taste, a dedicated helper is easier to comprehend.
 
-Kyle,
+Hmm... It's a bit 50/50 to me.
 
-By chance is this the same system that you were talking to me about offline?
+>
+>- The new get_sleep_stash_slot uses a mix of fixed and
+>  parameterised registers, which forces the reader to look at how
+>  the registers are used. Also using fixed registers shifts the
+>  burden of making them available to the user of the macro.
 
+Well, will, any justification?
 
+The macro at the moment only has one user, so it's pointless to account
+forusers at the moment..
 
-On 10/7/26 09:41, Giovanni Gherdovich wrote:
-> Some motherboard based on the TRX40 chipset has been reported to ship
-> firmware lacking lowest and nominal frequency values in the
-> _CPC ACPI package. That is, it supports CPPC V2 but not CPPC V3.
-> Firmware updates aren't available.
+>
+>Just my 2p.
+>
+>Cheers
+>Vladimir
+>
+>>> No functional change intended.
+>>>
+>>> Signed-off-by: Bradley Morgan <brads@mainlining.org>
+>>> ---
+>>> Resending from my new address.
+>>>
+>>> arch/arm64/kernel/sleep.S | 103 +++++++++++++++-----------------------
+>>> 1 file changed, 41 insertions(+), 62 deletions(-)
+>>>
+>>> diff --git a/arch/arm64/kernel/sleep.S b/arch/arm64/kernel/sleep.S
+>>> index f093cdf71be1..c1bec489ea76 100644
+>>> --- a/arch/arm64/kernel/sleep.S
+>>> +++ b/arch/arm64/kernel/sleep.S
+>>> @@ -7,48 +7,48 @@
+>>>
+>>> 	.text
+>>> /*
+>>> - * Implementation of MPIDR_EL1 hash algorithm through shifting
+>>> + * Compute the address of the current CPU's entry in sleep_save_stash,
+>>> + * i.e. &sleep_save_stash[hash(MPIDR_EL1)], where the hash is an
+>>> + * implementation of the MPIDR_EL1 hash algorithm through shifting
+>>>  * and OR'ing.
+>>>  *
+>>> - * @dst: register containing hash result
+>>> - * @rs0: register containing affinity level 0 bit shift
+>>> - * @rs1: register containing affinity level 1 bit shift
+>>> - * @rs2: register containing affinity level 2 bit shift
+>>> - * @rs3: register containing affinity level 3 bit shift
+>>> - * @mpidr: register containing MPIDR_EL1 value
+>>> - * @mask: register containing MPIDR mask
+>>> - *
+>>>  * Pseudo C-code:
+>>>  *
+>>> - *u32 dst;
+>>> + *	u64 mpidr = MPIDR_EL1 & mpidr_hash.mask;
+>>> + *	u32 hash = ((mpidr & 0xff) >> mpidr_hash.shift_aff[0]) |
+>>> + *		   ((mpidr & 0xff00) >> mpidr_hash.shift_aff[1]) |
+>>> + *		   ((mpidr & 0xff0000) >> mpidr_hash.shift_aff[2]) |
+>>> + *		   ((mpidr & 0xff00000000) >> mpidr_hash.shift_aff[3]);
+>>> + *	slot = &sleep_save_stash[hash];
+>>> + *
+>>> + * @slot: output register
+>>>  *
+>>> - *compute_mpidr_hash(u32 rs0, u32 rs1, u32 rs2, u32 rs3, u64 mpidr,
+>u64 mask) {
+>>> - *	u32 aff0, aff1, aff2, aff3;
+>>> - *	u64 mpidr_masked = mpidr & mask;
+>>> - *	aff0 = mpidr_masked & 0xff;
+>>> - *	aff1 = mpidr_masked & 0xff00;
+>>> - *	aff2 = mpidr_masked & 0xff0000;
+>>> - *	aff3 = mpidr_masked & 0xff00000000;
+>>> - *	dst = (aff0 >> rs0 | aff1 >> rs1 | aff2 >> rs2 | aff3 >> rs3);
+>>> - *}
+>>> - * Input registers: rs0, rs1, rs2, rs3, mpidr, mask
+>>> - * Output register: dst
+>>> - * Note: input and output registers must be disjoint register sets
+>>> -         (eg: a macro instance with mpidr = x1 and dst = x1 is
+>invalid)
+>>> + * Clobbers: x2 - x8
+>>>  */
+>>> -	.macro compute_mpidr_hash dst, rs0, rs1, rs2, rs3, mpidr, mask
+>>> -	and	\mpidr, \mpidr, \mask		// mask out MPIDR bits
+>>> -	and	\dst, \mpidr, #0xff		// mask=aff0
+>>> -	lsr	\dst ,\dst, \rs0		// dst=aff0>>rs0
+>>> -	and	\mask, \mpidr, #0xff00		// mask = aff1
+>>> -	lsr	\mask ,\mask, \rs1
+>>> -	orr	\dst, \dst, \mask		// dst|=(aff1>>rs1)
+>>> -	and	\mask, \mpidr, #0xff0000	// mask = aff2
+>>> -	lsr	\mask ,\mask, \rs2
+>>> -	orr	\dst, \dst, \mask		// dst|=(aff2>>rs2)
+>>> -	and	\mask, \mpidr, #0xff00000000	// mask = aff3
+>>> -	lsr	\mask ,\mask, \rs3
+>>> -	orr	\dst, \dst, \mask		// dst|=(aff3>>rs3)
+>>> +	.macro get_sleep_stash_slot slot
+>>> +	mrs	x3, mpidr_el1
+>>> +	adr_l	x2, mpidr_hash
+>>> +	ldr	x8, [x2, #MPIDR_HASH_MASK]
+>>> +	/*
+>>> +	 * Following code relies on the struct mpidr_hash
+>>> +	 * members size.
+>>> +	 */
+>>> +	ldp	w4, w5, [x2, #MPIDR_HASH_SHIFTS]
+>>> +	ldp	w6, w7, [x2, #(MPIDR_HASH_SHIFTS + 8)]
+>>> +	and	x3, x3, x8			// mask out MPIDR bits
+>>> +	and	x2, x3, #0xff			// aff0
+>>> +	lsr	x2, x2, x4			// hash = aff0 >> shift_aff[0]
+>>> +	and	x8, x3, #0xff00			// aff1
+>>> +	lsr	x8, x8, x5
+>>> +	orr	x2, x2, x8			// hash |= aff1 >> shift_aff[1]
+>>> +	and	x8, x3, #0xff0000		// aff2
+>>> +	lsr	x8, x8, x6
+>>> +	orr	x2, x2, x8			// hash |= aff2 >> shift_aff[2]
+>>> +	and	x8, x3, #0xff00000000		// aff3
+>>> +	lsr	x8, x8, x7
+>>> +	orr	x2, x2, x8			// hash |= aff3 >> shift_aff[3]
+>>> +	ldr_l	\slot, sleep_save_stash
+>>> +	add	\slot, \slot, x2, lsl #3	// slot = &sleep_save_stash[hash]
+>>> 	.endm
+>>> /*
+>>>  * Save CPU state in the provided sleep_stack_data area, and publish
+>its
+>>> @@ -74,20 +74,8 @@ SYM_FUNC_START(__cpu_suspend_enter)
+>>> 	mov	x2, sp
+>>> 	str	x2, [x0, #SLEEP_STACK_DATA_SYSTEM_REGS + CPU_CTX_SP]
+>>>
+>>> -	/* find the mpidr_hash */
+>>> -	ldr_l	x1, sleep_save_stash
+>>> -	mrs	x7, mpidr_el1
+>>> -	adr_l	x9, mpidr_hash
+>>> -	ldr	x10, [x9, #MPIDR_HASH_MASK]
+>>> -	/*
+>>> -	 * Following code relies on the struct mpidr_hash
+>>> -	 * members size.
+>>> -	 */
+>>> -	ldp	w3, w4, [x9, #MPIDR_HASH_SHIFTS]
+>>> -	ldp	w5, w6, [x9, #(MPIDR_HASH_SHIFTS + 8)]
+>>> -	compute_mpidr_hash x8, x3, x4, x5, x6, x7, x10
+>>> -	add	x1, x1, x8, lsl #3
+>>> -
+>>> +	/* publish this CPU's sleep_stack_data area in its stash slot */
+>>> +	get_sleep_stash_slot x1
+>>> 	str	x0, [x1]
+>>> 	add	x0, x0, #SLEEP_STACK_DATA_SYSTEM_REGS
+>>> 	stp	x29, lr, [sp, #-16]!
+>>> @@ -117,18 +105,9 @@ SYM_FUNC_START(_cpu_resume)
+>>> 	mov	x0, x19
+>>> 	bl	finalise_el2
+>>>
+>>> -	mrs	x1, mpidr_el1
+>>> -	adr_l	x8, mpidr_hash		// x8 = struct mpidr_hash virt address
+>>> -
+>>> -	/* retrieve mpidr_hash members to compute the hash */
+>>> -	ldr	x2, [x8, #MPIDR_HASH_MASK]
+>>> -	ldp	w3, w4, [x8, #MPIDR_HASH_SHIFTS]
+>>> -	ldp	w5, w6, [x8, #(MPIDR_HASH_SHIFTS + 8)]
+>>> -	compute_mpidr_hash x7, x3, x4, x5, x6, x1, x2
+>>> -
+>>> -	/* x7 contains hash index, let's use it to grab context pointer */
+>>> -	ldr_l	x0, sleep_save_stash
+>>> -	ldr	x0, [x0, x7, lsl #3]
+>>> +	/* retrieve this CPU's context pointer from its stash slot */
+>>> +	get_sleep_stash_slot x1
+>>> +	ldr	x0, [x1]
+>>> 	add	x29, x0, #SLEEP_STACK_DATA_CALLEE_REGS
+>>> 	add	x0, x0, #SLEEP_STACK_DATA_SYSTEM_REGS
+>>> 	/* load sp from context */
+>>>
+>> --- Thanks!
+>> "I'm not a very positive person" - Linus torvalds
+>> 
+>
 
-Can you please add more information about the vendor/model of the MB, etc?
-> 
-> amd-pstate requires explicit knowledge of nominal frequency, so it
-> can't load on this hardware. The driver already has a mechanism (the
-> so-called "quirks") to accommodate for missing nominal freq in ACPI
-> tables, so here we use it to match against CPU family, model, core
-> count, and BIOS version.
-
-Yeah; it's intended for this specific case of really old hardware that 
-the BIOS isn't going to fix it.
-
-I don't understand why core count matters though.
-
-> 
-> Signed-off-by: Giovanni Gherdovich <ggherdovich@suse.cz>
-> ---
->   drivers/cpufreq/amd-pstate.c | 31 +++++++++++++++++++++++++++++++
->   1 file changed, 31 insertions(+)
-> 
-> diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
-> index 8bfd46d60843..532ff16dd076 100644
-> --- a/drivers/cpufreq/amd-pstate.c
-> +++ b/drivers/cpufreq/amd-pstate.c
-> @@ -145,6 +145,11 @@ static struct quirk_entry quirk_amd_7k62 = {
->   	.lowest_freq = 550,
->   };
->   
-> +static struct quirk_entry quirk_amd_ryzen_threadripper_3000_24c = {
-> +	.nominal_freq = 3800,
-> +	.lowest_freq = 550,
-> +};
-> +
->   static inline u8 freq_to_perf(union perf_cached perf, u32 nominal_freq, unsigned int freq_val)
->   {
->   	u32 perf_val = DIV_ROUND_UP_ULL((u64)freq_val * perf.nominal_perf, nominal_freq);
-> @@ -174,6 +179,22 @@ static int __init dmi_matched_7k62_bios_bug(const struct dmi_system_id *dmi)
->   	return 0;
->   }
->   
-> +static int __init dmi_matched_trx40_bios_bug(const struct dmi_system_id *dmi)
-> +{
-> +	/**
-> +	 * Match the Ryzen Threadripper 3000 series, 24-core SKU, sTRX4 socket / TRX40 chipset.
-> +	 */
-> +	if (boot_cpu_data.x86 == 0x17 &&
-> +	    boot_cpu_data.x86_model >= 0x30 && boot_cpu_data.x86_model <= 0x3F &&
-> +	    topology_num_cores_per_package() == 24) {
-
-Does the number of cores actually matter?  Do you mean to say if you 
-swap the CPU to another part CPPC works?
-
-> +		quirks = dmi->driver_data;
-> +		pr_info("Overriding nominal and lowest frequencies for %s\n", dmi->ident);
-
-The BIOS bug specifically is lack of values, not invalid values, right? 
-Just want to make sure I'm following this right.
-
-> +		return 1;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->   static const struct dmi_system_id amd_pstate_quirks_table[] __initconst = {
->   	{
->   		.callback = dmi_matched_7k62_bios_bug,
-> @@ -184,6 +205,16 @@ static const struct dmi_system_id amd_pstate_quirks_table[] __initconst = {
->   		},
->   		.driver_data = &quirk_amd_7k62,
->   	},
-> +	{
-> +		.callback = dmi_matched_trx40_bios_bug,
-> +		.ident = "AMD Ryzen Threadripper 3000",
-> +		.matches = {
-> +			DMI_MATCH(DMI_BIOS_VENDOR,  "American Megatrends International"),
-> +			DMI_MATCH(DMI_BIOS_VERSION, "2.80"),
-> +			DMI_MATCH(DMI_BIOS_DATE,    "05/17/2022"),
-> +		},
-> +		.driver_data = &quirk_amd_ryzen_threadripper_3000_24c,
-> +	},
->   	{}
->   };
->   MODULE_DEVICE_TABLE(dmi, amd_pstate_quirks_table);
-
+--- Thanks!
+"I'm not a very positive person" - Linus torvalds
