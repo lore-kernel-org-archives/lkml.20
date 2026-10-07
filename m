@@ -1,125 +1,161 @@
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04A38493D55
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 09:11:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86A6247255E;
+	Wed,  7 Oct 2026 09:13:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791364348; cv=none; b=GR35u/YKr/Vl2KNlUbKQapk/T5CWX5E38l2cePdSj/ETt9PcJ9ElAnHeYwIX3XRkMoy7S4kpk0Ce5mv5QnagIwkbI6sg6ZJZOw+06Z+3EB18Xg79whKXFYOs+t3YHc3iR+btTlxz1IVpt7Nfvvmh8XJHCiGx+ngyx4P4V+LX/PM=
+	t=1791364426; cv=none; b=N3S2rzTLhlPANvQSPRIP58HVrFatYTHTxro2r5GoTHUR+el/RC8uwX/XV2XIXkwUXaXleAFpPkVVmUMhpqXDDkpI1gTmIVCDF8pITuI54qFxGaYggY41rbSzUy640GCqmM5mt3701prZ5TuVYtlhgNWEVwF18AcTK0XITfQjoZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791364348; c=relaxed/simple;
-	bh=6RJ9482rKNjR6yltvjYFmB9//6oUoR7JNtNpyrstTc4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IcZCLYdUFScw4uRP0+42cOrW3UwkD8i30xUjw6JnlLRfEeVK3usEayRMhljAigQWzY0FQKR/xmRPMYxtMipBHQa81uFDRUzEzNKEPY+i8nzAGh3JDMUsOWk81r8TW3/nSLJv6/iK27l178gPUEwd0Vajzv4xZVSYw3gq7AnakGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=he/FAgMC; arc=none smtp.client-ip=74.125.82.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791364426; c=relaxed/simple;
+	bh=7sAbJvsLuyHmk5yDXP6O77myg7KkYaLkTd7mstcqVe0=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=W8z0idgx7jS+8n+ZOKgOtlgQOAtiwu1eV+psWrmb51gbT1xLTLlyV+BvWLAakjh4vRypnLe3v3NiJEKv5rOgGcwlq5ix5DYMygc6Z6+qXZJkqkxM7ZFv5rvQTWJS33Y47cgdzM8nTOYMzOLPRGFNaOv1uhKt/XFyC0uiC2sYR9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=KKxeomNg; arc=none smtp.client-ip=130.133.4.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="he/FAgMC"
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-34c4a0868b6so3362530eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 02:11:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791364296; x=1791969096; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pVw0aa995nfgwPwgbdZc1nogZFK1e4jUFzuXB8l3Hp4=;
-        b=he/FAgMCF+HxeEvkrFgKUvdBej69W5QGHaOMk+uOHPhWYXdlwkhZ0kw86fCqlCa3Po
-         +v5ZWUkmrPCOJIJCdr+Euxm/4GVFfAIMQV4/qnphR/y3HurQ8sQBzDa8ivmFJDnSmyIE
-         U2PcurLX4KWX+xp8Sg6dTHbDoNMrn5a3wt+cQajvZ6lctr4gLQmLhepk9/Enr4H2y1J7
-         11l6bjiXeRvcuMiCvQDxx1BdmBjUPX3ldL18CBJmyiyxR66lgn74gr6Yc5j2fmfnQPI/
-         dM8WfMCk8SUAKkLp8eRC1boWkb5EbaJjEyQIjZGxnWaRyeI84ZAY0nDfeZ2B3rqc+Dtf
-         nWhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791364296; x=1791969096;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pVw0aa995nfgwPwgbdZc1nogZFK1e4jUFzuXB8l3Hp4=;
-        b=eSbeC0VuvYbYA8abe796OmDecvymnuKDuZgPZjykdRxqO8BTbl+F+LxYCp7y1uog77
-         ScTceMnakZ0g4K3of/E/bMNlwKuFG7dxPXnTXGAc7T/OrcQmLdCKJXJKKcIkW8/6EK8w
-         ukmEJZ3SDDstuFII5w/cm9AXwm3sC1EYdqAsxIuwjbyAyIX3M1T7t5kzwjg+XbLJFR3M
-         PbmENQ9ovJ6Tb9aEPp2Wc2XmViGX3XzVzNlYcTw6Nl/q2jMpAz0FAY29faNTjEdLS6pX
-         bbEGdCMX8eUw47MO/BVHpmN6bSqnRZI578AVn8MUtHfQ6rxjg657yppcHqJ0UBDLjbw5
-         s6Bg==
-X-Forwarded-Encrypted: i=1; AKwUvBwEqS3m++u3eVtP5oseAng/y1vD1JlCpDQavMPXUhXQL+Bq/30jWGzuwh0uL0t3GgSxeqRv5N8bu3ai74E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLjUeAPFZefTv3s0oKTaSbG95vH8Hl/InCSIkJUERTHtwdqex+N
-	oUBSK3AWaQFpvV3rCfBFXUIZLwEuYFpJbqb+GBNPJbv24ToGk0AlK7N2tUCPKrIV
-X-Gm-Gg: AYBFou06IBBXV9aDgL5DDW2zR0hqLlEJlKMOyaiUqammJ90XOPn661EQIT5XkraXo9J
-	lApXa68kSOiy8u2ptQd7s9ofU0IgH9qRy1QoK4/V+Spglv7UbS5t8DNoj6cgrAnE9WWejtsYSUO
-	BJ5KdGwOg5qY7MehzyamGeUkDMeWzspAY2CGTgfegjU5jEero32CahXut03UP3eqvGxqNHinxtU
-	zyY8SuOyJtmY7T95/K5lneDCmBumSp2uqs3F4PSu4Y88IdAERfVPP1qJWBsurvEk+0S9i31TkKN
-	tkHY4f20NQUcfdPIWrTPaomFkSosTwlfnBn8KzpMeUVzmr9l3oa99E6E+HCSJhmYBnDnxZ/qVLQ
-	FLrVY/oRCUNNIxfQEZjtH0mkxNMZ42xwARtQGX9zGJ/3stm0Aiwo5WtBdC/icuJODz2etrTm27P
-	SePiiVFboY/rI3DGScbgFGNdhZQ1jumvyvInII5GaNb375yft/eQzU3TQ2Zxuf+54QbW7GhbT3u
-	vzV33ev/EspOFCnVOQ=
-X-Received: by 2002:a05:7300:ed14:b0:351:694d:9ca1 with SMTP id 5a478bee46e88-351694dcc07mr372391eec.27.1791364295776;
-        Wed, 07 Oct 2026 02:11:35 -0700 (PDT)
-Received: from Hruday.lan ([2409:40f2:1168:fe18:f738:9eca:7e0f:4b32])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515aeb5c00sm6459394eec.8.2026.10.07.02.11.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 02:11:35 -0700 (PDT)
-From: Rahul Rao <shreeramrahul94@gmail.com>
-To: Vaibhav Agarwal <vaibhav.sr@gmail.com>,
-	Mark Greer <mgreer@animalcreek.com>,
-	Johan Hovold <johan@kernel.org>,
-	Alex Elder <elder@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: greybus-dev@lists.linaro.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Rahul Rao <shreeramrahul94@gmail.com>
-Subject: [PATCH] staging: greybus: audio: do not use iterator after list loop
-Date: Wed,  7 Oct 2026 14:41:04 +0530
-Message-ID: <20261007091104.15366-1-shreeramrahul94@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="KKxeomNg"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+	References; bh=mqisTjwH67781oBTs466IKVYCcBQB6inr38VPw9lLfI=; t=1791364380;
+	x=1791969180; b=KKxeomNgyfsd3R9f0UNQrsFS/AYeQG9nDkswzS9k/PTjqxgVgqaiF4lRvcRP7
+	TthHFtPWWkXIVHgpvBt74ZkTx8krD1ewpRqvPF63wZTItKVd0x4EN7Tp2HfIiCP3pz9w7wJlOQkXc
+	YZZRw0JECi1Vx+KM6JmE2Fu5FKvZxEwwfhYJa1BzbXhZgme5wOhCtjSandpDWIrk39hOnHkiS/xin
+	jBf7OyikE5NF3OslYItlvcnkaeLcWfLQQoHIgG8CyUz117ZAaGSqPZs4c8MxbQdIaJjGUS7QSKgF8
+	5Gdr7xZyP9vgZaZt8xzPZTU5wHbKzCbrk4JOg403kzByA5LgJw==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+          by outpost.zedat.fu-berlin.de (Exim 4.100)
+          with esmtps (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@zedat.fu-berlin.de>)
+          id 1xENhf-00000000BtO-1tlx; Wed, 07 Oct 2026 11:12:47 +0200
+Received: from p5b13a90a.dip0.t-ipconnect.de ([91.19.169.10] helo=[192.168.178.61])
+          by inpost2.zedat.fu-berlin.de (Exim 4.100)
+          with esmtpsa (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@physik.fu-berlin.de>)
+          id 1xENhf-00000000jHB-0wOo; Wed, 07 Oct 2026 11:12:47 +0200
+Message-ID: <2b0a2d9afa8e2dbd1d6e8ea8f88a4627816ae2d6.camel@physik.fu-berlin.de>
+Subject: Re: [PATCH v2] usb: r8a66597-hcd: fix buffer overflow on odd-length
+ FIFO reads
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Karl Mehltretter <kmehltretter@gmail.com>, Greg Kroah-Hartman
+	 <gregkh@linuxfoundation.org>
+Cc: Geert Uytterhoeven <geert@linux-m68k.org>, linux-usb@vger.kernel.org, 
+	linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Wed, 07 Oct 2026 11:12:46 +0200
+In-Reply-To: <20261005212823.55737-1-kmehltretter@gmail.com>
+References: <20261005212823.55737-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
 
-Using the list iterator variable outside the loop breaks iterator scope
-semantics and can result in invalid memory access if the loop completes
-without finding a match.
+Hi Karl,
 
-Introduce a dedicated iterator variable 'iter' for traversing
-codec->module_list and assign it to 'module' only upon finding a match.
+On Mon, 2026-10-05 at 23:28 +0200, Karl Mehltretter wrote:
+> An external R8A66597 (pdata->on_chip is not set) is read through a 16-bit
+> FIFO port. r8a66597_read_fifo() rounds the byte count up to whole words
+> and passes that word count to ioread16_rep(), which stores two bytes for
+> every word. For an odd byte count the last word puts one byte more into
+> the buffer than packet_read() asked for. When the data ends at the end of
+> the URB's transfer buffer, that byte is written behind the buffer.
+>=20
+> Enumerating a device is enough to trigger it. The USB core reads the
+> configuration descriptor header into a 9-byte kmalloc() buffer and the
+> driver stores 10 bytes. An SH7785LCR board booted with slub_debug=3DFZPU
+> reports:
+>=20
+>   [kmalloc Redzone overwritten] 0x820c4229-0x820c4229 @offset=3D553. Firs=
+t byte 0x9 instead of 0xcc
+>   BUG kmalloc-32 (Not tainted): Object corrupt
+>   Allocated in usb_get_configuration+0x12c/0x11d8 age=3D51 cpu=3D0 pid=3D=
+10
+>   Object   820c4220: 09 02 20 00 01 01 00 80 fa 09 cc cc cc cc cc cc
+>=20
+> Odd-sized HID report descriptors are overrun in the same way. Without
+> slab debugging the byte ends up in the unused tail of a kmalloc() object.
+> A transfer buffer that is embedded in a larger object has the byte after
+> it overwritten.
+>=20
+> Section 2.8.5 of the R8A66597 datasheet tells software to discard the
+> excess byte of the last 16-bit FIFO read when DTLN is odd. Read only the
+> whole words into the buffer. Read the last word into a temporary and
+> store only its first byte. Use ioread16_rep() for that word as well, so
+> that the byte is taken in the same byte order as the words before it.
+>=20
+> Fixes: 5d3043586db4 ("USB: r8a66597-hcd: host controller driver for R8A66=
+597")
+> Cc: stable@vger.kernel.org
+> Reported-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+> Closes: https://lore.kernel.org/linux-sh/3bd32eaf159db61ed1d423e1d52a869b=
+3689c682.camel@physik.fu-berlin.de/
+> Tested-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+> Assisted-by: LLM
 
-Signed-off-by: Rahul Rao <shreeramrahul94@gmail.com>
----
- drivers/staging/greybus/audio_codec.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+I was wondering: Would it maybe be better if you disclosed what LLM you use=
+d?
+I have seen that many others have done so and I'm not sure if it's actually
+prepared to have the model disclosed.
 
-diff --git a/drivers/staging/greybus/audio_codec.c b/drivers/staging/greybus/audio_codec.c
-index 6daa4e706792..f4c3090684bf 100644
---- a/drivers/staging/greybus/audio_codec.c
-+++ b/drivers/staging/greybus/audio_codec.c
-@@ -395,7 +395,7 @@ static int gbcodec_hw_params(struct snd_pcm_substream *substream,
- 	int ret;
- 	u8 sig_bits, channels;
- 	u32 format, rate;
--	struct gbaudio_module_info *module;
-+	struct gbaudio_module_info *module = NULL, *iter;
- 	struct gbaudio_data_connection *data;
- 	struct gb_bundle *bundle;
- 	struct gbaudio_codec_info *codec = dev_get_drvdata(dai->dev);
-@@ -437,10 +437,12 @@ static int gbcodec_hw_params(struct snd_pcm_substream *substream,
- 	format = GB_AUDIO_PCM_FMT_S16_LE;
- 
- 	/* find the data connection */
--	list_for_each_entry(module, &codec->module_list, list) {
--		data = find_data(module, dai->id);
--		if (data)
-+	list_for_each_entry(iter, &codec->module_list, list) {
-+		data = find_data(iter, dai->id);
-+		if (data) {
-+			module = iter;
- 			break;
-+		}
- 	}
- 
- 	if (!data) {
--- 
-2.43.0
+Adrian
 
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ---
+>=20
+> v2:
+> - Simplify the handling of the last byte as suggested by Geert: no count
+>   variable, len & 1, and a plain byte store instead of a 1-byte memcpy().
+> - Reword the commit message and add the SLUB report from Adrian's board.
+> - Add Adrian's Tested-by. It was given for v1. The FIFO accesses are the
+>   same in v2, only the copy of the last byte changed.
+>=20
+> v1: https://lore.kernel.org/r/20261002213225.27834-1-kmehltretter@gmail.c=
+om/
+>=20
+> Adrian tested v1 on an SH7785LCR board. I tested v2 on a custom QEMU
+> model of the board with 32-bit and 29-bit kernels and slub_debug=3DFZPU.
+> Both report the overflow without the patch and not with it.
+>=20
+>  drivers/usb/host/r8a66597.h | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/usb/host/r8a66597.h b/drivers/usb/host/r8a66597.h
+> --- a/drivers/usb/host/r8a66597.h
+> +++ b/drivers/usb/host/r8a66597.h
+> @@ -179,8 +179,15 @@ static inline void r8a66597_read_fifo(struct r8a6659=
+7 *r8a66597,
+>  			       len & 0x03);
+>  		}
+>  	} else {
+> -		len =3D (len + 1) / 2;
+> -		ioread16_rep(fifoaddr, buf, len);
+> +		ioread16_rep(fifoaddr, buf, len / 2);
+> +
+> +		if (len & 1) {
+> +			u16 tmp;
+> +
+> +			/* Keep the byte order of the string read above. */
+> +			ioread16_rep(fifoaddr, &tmp, 1);
+> +			((u8 *)buf)[len - 1] =3D *(u8 *)&tmp;
+> +		}
+>  	}
+>  }
+> =20
+
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
