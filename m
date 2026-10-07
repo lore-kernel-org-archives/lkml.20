@@ -1,158 +1,187 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B51A418A29
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 07:43:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBA5B39280D
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 07:43:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791359024; cv=none; b=B9ZhOI2MtKtMJEygy8ShowM6XZ40OWSS7avQGqY6AtUsvX73ugRgYWQj5dnFPbUfL7ARay8H9BJ2lDsNps35FzxtcXIGhmXU3hlOtM38oamDTfeQZ6BvzKnJ3U6VbRGy2DbtvNKWq5ylFKWyh0sJ+wVvoT3zpfnFvCqvs/9xu/E=
+	t=1791359025; cv=none; b=XJbXxAnsHjJEVrHVrucrWji/FsPt7r3Cj8FVv5IEBml1IYkrht257xIEeWnuvzd0o2zeNZMeOJF3vlkLRrfBeH2ROCvuKp0IiiBeeAEI6YSM29ek6u0kFu2vG+QNcplP1Bd/eVeWIoUZ+wXyYMYH2O1ZUMRWskJeXQzE4dd4+5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791359024; c=relaxed/simple;
-	bh=v3zE8BK3Zz6jqBFdVmUbELCBSt6bNUgzEtIjKD6mfx4=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=NTQN5qtb8csJ5rc1cTTOZOBzLtL2YUj8ELeOIsLy450neErZMburEwZN9ehTUBggZJYhE+hX8q0nwr1yuTIck3fR+oC6v4ufBAC+Bs7gcloChPR3sbIkiPGpMUZPAzQIgomfso/8HRlssnl6SJZehmb6tpCUIBruwBkX4oASonc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dilger.ca; spf=pass smtp.mailfrom=dilger.ca; dkim=pass (2048-bit key) header.d=dilger-ca.20251104.gappssmtp.com header.i=@dilger-ca.20251104.gappssmtp.com header.b=Dcn7f580; arc=none smtp.client-ip=209.85.216.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dilger.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dilger.ca
+	s=arc-20240116; t=1791359025; c=relaxed/simple;
+	bh=miqA6xiMgK7cuLadHlIunkZP1rECVzeUoiuWXv1Op08=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PlEnC90TrJ3zOdmDBsiPNZR8Cyc0Yuj2T0wVJ3QBeiTpwBv8WCYCj1tZ2ZPUi2WNMfVKgiE3jVAlKw7eIpuZosAb36J5D+cmodwEOu/LRlDPOtldYTBBE0kiVbCpTxG2GLGz0MrxwIxh/g9L06S/2zwaz3neU5y+4hsBGK+yJKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CKmrYUaU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=H/Y0ZZ9Y; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dilger-ca.20251104.gappssmtp.com header.i=@dilger-ca.20251104.gappssmtp.com header.b="Dcn7f580"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-398a4dcf289so1151661a91.2
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CKmrYUaU";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="H/Y0ZZ9Y"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6974TwLM3923469
+	for <linux-kernel@vger.kernel.org>; Wed, 7 Oct 2026 07:43:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=clJPVUXl0viASw+vzSccwoxb
+	ts2uNZ+Y1lfR96jzEPs=; b=CKmrYUaUgtKQafmZ1Ex4PS9c1Q86XcXIu3H1czts
+	o1V2PpiP3XImQAzXSGWBZfivErBqf6TrlkpRt5MrSNW4jFkCgV0BS9PVEmRbiXxu
+	3C0cPvGmdZY+8XlE4wr7Vnsd/ZzDNvSlMflfAl5vUI/PjyZlTUJU8t4/CzWm0yR8
+	zPWZw4600KfqNttxg8ndkLce88sig9Ob9Q3APe1lcahBERkV1yJIzGEeBFbEZR5g
+	lGOV1Kcm3VmprCLJKyIYE4uJH/B9Lpv95FaXhm22NS5QOQYGQ+wBGlVobWjyHVaV
+	P13XERN2/1VpPriD1YDC6A+oAkKnSfsjdDmg1FJw/ZezoA==
+Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5c71941m-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 07:43:40 +0000 (GMT)
+Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-988bbb0ed9aso2734945241.3
         for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 00:43:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dilger-ca.20251104.gappssmtp.com; s=20251104; t=1791359019; x=1791963819; darn=vger.kernel.org;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=GQicjEcdlh1TnS/6Ie/91AXB9eJFWVr14slz4D5RAfI=;
-        b=Dcn7f580/tezpEauzZyhQF3dV4U7j9V2Fv6oSQCRJLJDw08UZ7dRT3LY4D8rVoAzfA
-         B4Efao2l/E83+3VIegy9IaLQggDV9G72DLYG3t4WaWO8AnaxS7I8IawOVyLMm5BM41Xl
-         2NsGfc00yhJoDQPqnlPJCp0hIAjalLsQu2SD61YSLPbdAFUpW6sC08RYZoiA7oJytCrU
-         fh90HhZ/eGKlCGYXUIrFDLB/ueKu8tPUVrMcEbCTpVMYBebmdoj450J5zLtZkPAEzLnJ
-         8lnWt4UNtFA3zPnTaAC+oz0AAoJRq5kpMBLlCWpr2spEgBwhYWoi2YiuPtI5CQQ8OOrk
-         lKWw==
+        d=oss.qualcomm.com; s=google; t=1791359019; x=1791963819; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=clJPVUXl0viASw+vzSccwoxbts2uNZ+Y1lfR96jzEPs=;
+        b=H/Y0ZZ9YLQNe6UZIgcf89QMKZBoiY6XXk+Aw2GFpNFmhyAOMBc+MSGuQlq+WKcdIU7
+         pdLJYd3/P1So5OVHZXCms9v9VhVRu/jfBBeTmmsyeU9L5AEIBHDNysxDQ4mo9hfzyUXF
+         j66Q3ZhhDA3r93PJS5M6fJIa21MEPHcwvSXZOOP3nd5ujw1RQdjKcc0VE8LviXl7fqMe
+         JGLeWcTvYt8HyEXDY2Nmi71Y+QVHXWmQKALZhZNJ3I+fQNslvScRH0sDyJWvOZbxsDyN
+         pl4X+OvqWXAOr0KXtkmtNzgzML0UTLQC4EPMPvcBMEg0gE6xhpcSoGQ09ggqi0tnj7rv
+         wZ5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1791359019; x=1791963819;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=GQicjEcdlh1TnS/6Ie/91AXB9eJFWVr14slz4D5RAfI=;
-        b=htkZ0imWNIqlj9W85lcHOwrf39NXTvtvqchrfYVwukX48qpRZuFp5C+tijGSkPNX8Y
-         tgqpP2zVRmgHB/N6LNuM7ceji8W31RqDaNyIPDidKQ7/VnwmqOBil/BVrq0XWod9LtZm
-         R0HDsZWLfMfKHWwpT0r8a+FJapfmPfzdrTO+cN2Z2ZkiMfA+SJriNAYy+GuCaCZ4LS/Q
-         E0VieO73dvfYZ574YtlfPVcExIuBgIe3cv0AUxT+V4mFlzmPzAz/c4jfgHlDezfSiGOT
-         6fGQya7YdI73CvHRaUQkug+4mbu5q4Rsk9cEbx2Z4wI6GmxQb0akSu4A5rqIDVvnNfAx
-         dV5g==
-X-Forwarded-Encrypted: i=1; AKwUvBzeEqgOCkYTZ5nQUnn9ap8WJl/QmYohJ7jp6rgvM4WpD0qp6PS+Zu5oY9DPiv1L4Wxa/E8i7D1pwdj5zkU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIN9ph9HyZAABe9ubfd1eNmkM0FFRt4ZErckpMvU0hFJ+4rkriT
-	xeheSIomsQomjcyiAzvkmIXKYdQadaKCPtRdt0WSjKEMEvW0Yp7ydgQXwcqQY41nO9k=
-X-Gm-Gg: AYBFou1I5+hpqPFwmeMx6cNVgyngKPQ0ihn3vDLvlo2IujMmHLE+lVOC8hkrEpIfhul
-	hcYhvZfaJGWd/id6sX3NbHMeimjOIRmiPtQNq6E+dPCRAEZDW09RelMHLF+zWDtNFUScsr+KQHh
-	2LnYlqIzu9WETrfx+r3NdFx6LV7nNSYdvscQsQwL+1yjzZ3EzuSuq3QE7yW+eAmMvEA8RJRaqTu
-	8nD8KWP7eoPe508YWSoPqgQqRS2ipYf+CHwsBWZ77vsswWw2xPJpN+2cCy8YgTzygz5cSNtE0XF
-	Te212ChfWIBkvQFU0KiiuzV+k0qOpcoR7k5Ud1KxaEqYgnxLbtGlXTjaKzZkaQNxbt5FKx9lDZm
-	bpuuvluPBo9avLdbLoISJCuJMFXjFwT7guKje+HmT8isMr+9Nge5k26odQcdGTf4J9Vvc8hMN9Z
-	TL4attsI39WtibgjuvYjgIfBCnfRwwuH1ZKlTQ3CXypQMeakUJb8uUoclmERCSJXQfH2AXBzMJW
-	0f34YJOx7DpgXg7rFw38KyKlaUAskKt+NqHRdISDvQqtk6w15ezsw==
-X-Received: by 2002:a17:90b:1345:b0:3a6:d94d:e147 with SMTP id 98e67ed59e1d1-3a8a0845138mr867138a91.15.1791359018649;
+        bh=clJPVUXl0viASw+vzSccwoxbts2uNZ+Y1lfR96jzEPs=;
+        b=QAaSBbVZcBX2ZoAwVeQrnynuYIYVy4QBRn1xWSee9DK9sdaOOglCo52tqRpYJBexge
+         0mQrm1cumNV6TeucbF2OBJdmLePZAI46/1j+MQIJ+TUlxM9Go8PJX+K51U05cWdHRIZF
+         vhf2/5rG2Wvkfrdyc+Tvm6ZMmvboGmh4IFh1pMID0qSq7HzNzz/CwmWR/rEQcV61AmLR
+         q/x/wlk+7SguuFO5j+Eigs/BPJNlOU7EgdZewKomoW6538WvQua1BKonE5GuBJ34TJen
+         sOHKWSTOvgHl97OJdCEfZZ3TE6IicvjtP6jzuRrTa6geb/RaaJCYsec3felfDBdngep2
+         n93Q==
+X-Forwarded-Encrypted: i=1; AKwUvByVBK9dbK4+fgYdAHRPJ6gbBBZjqI6Q06QTvXuBByHpaVSCUSSztgSXwQ3GGKsbpaWRii2nWB2iiMDIViY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLQjsjHnPnRuApLxD5oMMXjefzOkRMMgxt1BTUl24ede/0w1Hws
+	2bBK2VI8xXGRx7aURJKSqOs0qMe9LD4J3ij/C1DGoLFso3V6Xs+GOH1A4j4OQDhXDAS3VR6hJx6
+	ys7EBBKp6F8n1b9MOO+mWZh9rk9DGPd+YDqH4wkuAj5MbU7s1dOFiiA5HtQtIMuqBn6k=
+X-Gm-Gg: AYBFou3Wk3kn+596LbYW4v8xZXk4NIsiXjzfYrHCNS7zrylfRIzDH1HlDLBUMmTOfZ/
+	ty5y2vKAp7dfi0/2fyfjJQMvupzg9J1qQEISIeWdDC1hfKjO84gTXZkU1HXjPF5h5NX7QOR0UFK
+	Sq/Lt1Uhr4KgrcdsTJnJSH7LWSJGh/BoTZ57pzc4/UepWudOAg9N9tZCMVGKolIfQREnmxTUIIq
+	MvqVFYC0pMY9cWKR1PGn0BBDnPQrNUlUKH+wCHlPDq1jN6BuAZ7PGo8FDOhG6ZGB8EfIKh8ciPi
+	i4//ZhH2Fb0LH4M1XtedHfrAggpJ6oN/vwcdGrsEDNabLpc995BdtTfrLiI7TyDu3S5T2dK+xTo
+	ASMiSrq2y28cMJqQSQ5GJVUOgUBLTeRlH5y2XkuuRXuH8vJsfrOpB7BSXEsDz8thm/mbuVy7ljn
+	gxlU7EYvq1jX68
+X-Received: by 2002:a05:6102:5109:b0:7c3:3f26:8785 with SMTP id ada2fe7eead31-7ca3891236fmr444225137.7.1791359018878;
         Wed, 07 Oct 2026 00:43:38 -0700 (PDT)
-Received: from smtpclient.apple (S01068c763f81ca4b.cg.shawcable.net. [24.64.171.237])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8533aba95sm9993693a91.2.2026.10.07.00.43.37
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+X-Received: by 2002:a05:6102:5109:b0:7c3:3f26:8785 with SMTP id ada2fe7eead31-7ca3891236fmr444204137.7.1791359018395;
         Wed, 07 Oct 2026 00:43:38 -0700 (PDT)
-Content-Type: text/plain;
-	charset=us-ascii
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9a1d3370csm3856801fa.13.2026.10.07.00.43.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 00:43:37 -0700 (PDT)
+Date: Wed, 7 Oct 2026 10:43:33 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Pradeep P V K <pradeep.pragallapati@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Alim Akhtar <alim.akhtar@samsung.com>,
+        Avri Altman <avri.altman@sandisk.com>,
+        Bart Van Assche <bvanassche@acm.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        gopikrishna.garmidi@oss.qualcomm.com, jagadeesh.kona@oss.qualcomm.com,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org,
+        nitin.rawat@oss.qualcomm.com, sibi.sankar@oss.qualcomm.com,
+        Taniya Das <taniya.das@oss.qualcomm.com>
+Subject: Re: [PATCH v3 3/5] arm64: dts: qcom: glymur: Add UFS nodes
+Message-ID: <a5p5gszuadvnvqcwffg6y55khdfhacwhegaxmmiwm72sfid6ex@cdwuo6sdmkgy>
+References: <20261007-glymur_ufs_qcb_enablement-v3-0-84cf4f861415@oss.qualcomm.com>
+ <20261007-glymur_ufs_qcb_enablement-v3-3-84cf4f861415@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.3\))
-Subject: Re: [PATCH] ext4: do not accept rec_len 0 for block sizes below 64k
-From: Andreas Dilger <adilger@dilger.ca>
-In-Reply-To: <qvaeibtro3i7xxpxbgomjmsvnaejtlo5if57lp5aeowl42e6v2@x3ckk5ovep4s>
-Date: Wed, 7 Oct 2026 01:43:26 -0600
-Cc: hengyul@cs.unc.edu,
- tytso@mit.edu,
- linux-ext4@vger.kernel.org,
- libaokun@linux.alibaba.com,
- ojaswin@linux.ibm.com,
- ritesh.list@gmail.com,
- yi.zhang@huawei.com,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <E54F7146-77CB-4E75-832B-F760E289584E@dilger.ca>
-References: <20261006111546.3252481-1-hengyul@cs.unc.edu>
- <qvaeibtro3i7xxpxbgomjmsvnaejtlo5if57lp5aeowl42e6v2@x3ckk5ovep4s>
-To: Jan Kara <jack@suse.cz>
-X-Mailer: Apple Mail (2.3864.700.51.1.3)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261007-glymur_ufs_qcb_enablement-v3-3-84cf4f861415@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAzMCBTYWx0ZWRfX6zOVa8j/xQwH
+ +2ZYnaRgXA3KhKJx7bUZN7L06P4h8biALXPY0Jtmt5p+cfHaNBu/VgUuWDo6V5UxtsHHXHepuMg
+ YQ9wCoIjz0oslkFFwsC2gMd+2ZJdE7Q=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAzMCBTYWx0ZWRfXw7ZOgz0EMnaP
+ bZUnW/7kPcfDDTSlZeAOYY2XivhYslxLVUKB9XrhwPYpZj9xE1vg3/qRaC0hQ/nv8F09izCE3UZ
+ owP1VjlbLtoXRIY7Pk4CuRLQaT/9C/Rz5N1dXKqwUpzHXFgNG3IqAlKED/vIgmT4Zafst3ALnRS
+ 65QtlT3Iv1Uyha8QdPovVdRF75QA/XdHmV61FfQwJ19BNLWlh6x/EXdz5Uvnlf1mwpfMOTc8bbT
+ pnMa/aYU8ZqSZy6/w5ZLmRRUByEnSHwkQPBrFmGJ2+ko05bSw3hMHzjplClqFrZmOwYutDWfj6i
+ YAcYUHvo8xn2RvNEE1cOujWyv3ZI6ZfZcLYhH5IcBzpOn8fcLT2DO3HHuyDE0t4nv+xIc07wvdn
+ QDTuCaU83JSTgArfWjVYa/qwbv2eUnSwiRWx0wCQ/hGy7G3fTZrc7XkTggBxXpQdSqBdV59EH/k
+ Fz/DFmeXobQ6+7t0SSQ==
+X-Proofpoint-GUID: 9FsrCXgHCOc8zInI6eo-H6KdjsXUh6Jl
+X-Proofpoint-ORIG-GUID: 9FsrCXgHCOc8zInI6eo-H6KdjsXUh6Jl
+X-Authority-Analysis: v=2.4 cv=LvYHWXdc c=1 sm=1 tr=0 ts=6ac5f82c cx=c_pps
+ a=KB4UBwrhAZV1kjiGHFQexw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
+ a=PwKYEXKgugi0Ob49dLQA:9 a=CjuIK1q_8ugA:10 a=o1xkdb1NAhiiM49bd1HK:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-07_02,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 impostorscore=0 suspectscore=0
+ lowpriorityscore=0 clxscore=1015 bulkscore=0 adultscore=0 phishscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610070030
 
-On Oct 6, 2026, at 10:16, Jan Kara <jack@suse.cz> wrote:
->=20
-> On Tue 06-10-26 07:15:46, hengyul@cs.unc.edu wrote:
->> From: Hengyu Liang <hengyul@cs.unc.edu>
->>=20
->> Commit afa6d5a16bf2 ("ext4: remove PAGE_SIZE checks for rec_len
->> conversion") made ext4_rec_len_from_disk() read a rec_len of 0 as =
-"this
->> entry covers the whole block" for every block size.
->>=20
->> However, this special value only exists for block sizes of 64k and
->> more. With smaller blocks, a rec_len of 0 means that the directory
->> block is corrupted. As of now, a directory block that has been
->> overwritten with zeroes is treated as an empty block. The kernel no
->> longer reports the corruption and can store new entries in that =
-block,
->> while e2fsck still reports the block as corrupted.
->>=20
->> The issue can be reproduced on a file system without metadata_csum:
->>=20
->>    mke2fs -q -t ext4 -b 1024 -O ^metadata_csum,^dir_index img 8M
->>    mount -o loop img /mnt
->>    mkdir /mnt/d
->>    for i in $(seq 100); do touch /mnt/d/file_with_a_long_name_$i; =
-done
->>    umount /mnt
->>    dd if=3D/dev/zero of=3Dimg bs=3D1024 count=3D1 conv=3Dnotrunc \
->>        seek=3D$(debugfs -R "bmap d 1" img)
->>    mount -o loop img /mnt
->>    touch /mnt/d/new
->>=20
->> Before commit afa6d5a16bf2 ("ext4: remove PAGE_SIZE checks for =
-rec_len
->> conversion"), the last command fails with "Structure needs cleaning".
->> After that commit, it succeeds.
->>=20
->> This patch makes ext4_rec_len_from_disk() return the on-disk value
->> unchanged when the block size is below 64k, as e2fsprogs does.
->>=20
->> Fixes: afa6d5a16bf2 ("ext4: remove PAGE_SIZE checks for rec_len =
-conversion")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
->=20
-> Makes sense. Feel free to add:
->=20
-> Reviewed-by: Jan Kara <jack@suse.cz>
->=20
-> BTW, the kernel never allowed larger than 64k block size so I'm kind =
-of at
-> loss why we have that strange code trying to accommodate upto 256k
-> blocksize here. I'd just delete that code (not really related to your
-> chnage). Ted?
->=20
-> Honza
-> --=20
-> Jan Kara <jack@suse.com>
-> SUSE Labs, CR
+On Wed, Oct 07, 2026 at 11:59:36AM +0530, Pradeep P V K wrote:
+> Add UFS PHY and UFS host controller nodes for Glymur SoC.
+> 
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> Signed-off-by: Pradeep P V K <pradeep.pragallapati@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/glymur.dtsi | 125 ++++++++++++++++++++++++++++++++++-
+>  1 file changed, 122 insertions(+), 3 deletions(-)
+> 
+> @@ -4102,6 +4102,125 @@ rng: rng@10c3000 {
+>  			reg = <0x0 0x010c3000 0x0 0x1000>;
+>  		};
+>  
+> +		ufs_mem_phy: phy@1d80000 {
+> +			compatible = "qcom,glymur-qmp-ufs-phy";
+> +			reg = <0x0 0x01d80000 0x0 0x2000>;
+> +
+> +			clocks = <&rpmhcc RPMH_CXO_CLK>,
+> +				 <&gcc GCC_UFS_PHY_PHY_AUX_CLK>,
+> +				 /* UFS and PCIE4 share the same clkref */
+> +				 <&tcsr TCSR_PCIE_4_CLKREF_EN>;
+> +
+> +			clock-names = "ref",
+> +				      "ref_aux",
+> +				      "qref";
+> +
+> +			resets = <&ufs_mem_hc 0>;
+> +			reset-names = "ufsphy";
 
-I think Fujitsu was using 256KiB blocksize on SPARC servers?  Something
-like that, but I never saw any patches for it.
+power-domains = <&gcc GCC_UFS_PHY_GDSC> ? Or is there
+GCC_UFS_MEM_PHY_GDSC, which is simply not described in gcc?
 
-Cheers, Andreas
+If there are none, it should be reflected in the DT bindings, together
+with the explanation in the commit message.
 
+> +
+> +			#clock-cells = <1>;
+> +			#phy-cells = <0>;
+> +
+> +			status = "disabled";
+> +		};
+> +
 
-
-
-
+-- 
+With best wishes
+Dmitry
