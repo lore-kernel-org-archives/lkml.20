@@ -1,211 +1,93 @@
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 800E838DC43
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 15:19:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAF4535C6B1;
+	Wed,  7 Oct 2026 15:20:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791386368; cv=none; b=dswDMLrk3QGtc0kIEIWm6BB4Uas3lcCn6t4Kx3fmdY3t5EjYUaTS8C2pxDCZ3ZIy8jxucB8LvKyUFDTCDQ9ycTuU2cV30wiVsmJVhOwrO89HMGFp4w1oCzppJXQOfrhhaTyPIBM9G4HwlLxQdrrWGdIMepV9gJqoTLqthYOBnVo=
+	t=1791386410; cv=none; b=PkBzBP0YQYnZ25DeNsu1sSDAtFJQ7Zp6ZOT18R3uTOQeGsRns3B7nu7Vy9gGraNWASAAISbYjxlCmik0ymtl+BATyLNRiV9jUu+kPVOso5MPAZcvcAtp79SEKdIK3R21COvP9wR4U9LAKlInz1cWIR6p4RXXGPd9+rviHdSu/tg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791386368; c=relaxed/simple;
-	bh=u0kuFr8GZgVrxMy2uq+D0t8qRpztHKRJU2wGEM/rk34=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e314gpw71hvLYXNvmXFUoEWCrTCY1sfGcB5dWPYfEvB6vIBRM1Dphn7lPmIB5vT0JfLYqdyIKWLL2m7avIAtcd7ZUho5kOSERXG/0YIDV3IoTA5FEnaHbzEoUk6pIn2omYUk0GlMzDY99k1pmA9l3Rp/M6Cke1wbZL+1YpzwF9s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=fb6Di+Ls; arc=none smtp.client-ip=74.125.82.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1791386410; c=relaxed/simple;
+	bh=DwOAk3h/+XrylJtFlpK0+xLPz5hIFcTW8TjPngaN9/E=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=MsTVp8VjyzjehCW6zI4tz2VZStI4OZDBprX1twlJj30PUJad83Y1SU6OseUJ0e7lSxcvXZok1ZhK9HiBD0UVFtlWKRGrRKyCAgZg0ze3z7iIP/yWyAMdvb1bC/h4UvdRyp2jCv/Au/8wUrvFmIG09CjWkEJTJMnYcZrcADXjnDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=fV4+f+eV; arc=none smtp.client-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="fb6Di+Ls"
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-15dd124bbe7so1680519c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 08:19:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1791386365; x=1791991165; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=96cxVunsuLpr5pVfosRg07KKEkNX5G2jAVACbngKLkk=;
-        b=fb6Di+LsVLh0O5tc5L9QUs7ZY79HRt3G/xHvMPOcUrAk9jpCdUrQw1OA/S21Ngn5Ry
-         d14xvGrCAGe+NKajdz5rQpQqdjL3Lh6w8iscJG9xUFgoBSU3T0QhjesPMlUI4RzvVVR/
-         EQlymlZbPnGiIU5phxvnuC3Uw573BiYQOKuNg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791386365; x=1791991165;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=96cxVunsuLpr5pVfosRg07KKEkNX5G2jAVACbngKLkk=;
-        b=QvhOJeWKRAehEEp9omS2txsrV8rADEuI0LEjU77qhupbnXn1/mnNlvE2EcybngmLAh
-         6PyTrBNB33Wo6oJJN9fUzG1PxC/V0kuiBJl0buQFFuqCpKD/A2AB28EhH7AWUtuMMMBU
-         fpClS26nlDGsFnLsPDL4+KNgA35Sr/AIcaZR4q/lwFcfp3K2eSJL5aRDvXlsTn7oWpEi
-         iuPuDBcwUG0L6JvhsFeGGTdj5/6ueYGlP4pUa10S60GHQ5BeWNDwbMA6c67u6FyHBAzG
-         ODGoDd2RsBANz0ssBiHgevv+N7NAZUr5ISz02ZSJoa/eBSRspksohdc+NrfjcRPve/wp
-         PDGg==
-X-Forwarded-Encrypted: i=1; AKwUvBxgzLmleLqH+J71Wh7sihyOIWSAxEHncDI+qJyAw9JlvTqF3UdqZ8vT/nTjjbO2LjTGkchRckyw/X3+W18=@vger.kernel.org
-X-Gm-Message-State: AFuF++nowV7HoRgkgU6/6lDYLx0X6KKG97k/WU9H91Lj4o7C9kD8cQpa
-	eEVcnrqm3Bouhpm39Rd/vfVwsM2IHLbI3/T5yyrNQgqm48HmeGqx4l1NZN5mKEqIIA==
-X-Gm-Gg: AYBFou1m+fsKDrAUJSiYFl8MJxtcQThkjr6CQTyaR9QhrEbJmC+5cA7yecebdkB6+09
-	qkQZY3tlVQNXFUv0kTT2Hjccy0B9rNgjZeqYY9qTzJRM5Fu00Itpm6L2PTg0cvy7fzllbJNRbt8
-	tYMmLa6Ug/681kz1JjJt5NvPJzaj9/0aDHIhzUYmOKmiQWIYJUPsw+j/LbUCZkDxqSvMzRBxr2b
-	omZS/Z0V42VHxGMH8pyLZ4WsgzpN/jC12mWaUTfoNKPb9zoTntlWnV1N9zG1Iys/Exd21Lyn680
-	VtWfKyESW7LgMi5zeeudC5zUrEXqFuCv59+Cu6F865eaKWCPzh+oVxYpoKoQWHuaMP0/6+iqBMV
-	dEJmwvxK0L6LpUrEhmP7Gqc0NZFahEDewH3bM+Bv/bdtJ5/9v46m/J65BdedB4ZxbK2Gqo5Eb/P
-	K7SZ/0FelOn3sRnjrjGIrORo564F3x89cRRYqXxxHw1d3MAk32xE5q+ZR4HeqQMw+L1kw/O/jUw
-	fQrREl1GDvI2p/hc0tnHOqB/0mhhDu7d+r8RA==
-X-Received: by 2002:a05:701b:270f:b0:143:342a:3d3d with SMTP id a92af1059eb24-161f61365a3mr3134914c88.0.1791386357677;
-        Wed, 07 Oct 2026 08:19:17 -0700 (PDT)
-Received: from localhost ([2a00:79e0:2e7c:8:63eb:e7f9:1d47:7d47])
-        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-1616727976csm7679456c88.8.2026.10.07.08.19.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 07 Oct 2026 08:19:17 -0700 (PDT)
-Date: Wed, 7 Oct 2026 08:19:15 -0700
-From: Brian Norris <briannorris@chromium.org>
-To: Alex Elder <elder@ieee.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, linux-pm@vger.kernel.org,
-	Ulf Hansson <ulfh@kernel.org>, linux-kernel@vger.kernel.org,
-	Alex Elder <elder@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Johan Hovold <johan@kernel.org>,
-	Rui Miguel Silva <rmfrfs@gmail.com>, greybus-dev@lists.linaro.org,
-	linux-staging@lists.linux.dev
-Subject: Re: [PATCH 07/13] greybus: Discard pm_runtime_put_autosuspend()
- return value
-Message-ID: <asZi8-2TJsIWVD_b@google.com>
-References: <20261006231900.3230373-1-briannorris@chromium.org>
- <20261006161337.7.Ib0925681ca623093ddf812cc4de848e10ec07c73@changeid>
- <5b4a1156-d05b-470e-952c-1958982f5ae3@ieee.org>
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="fV4+f+eV"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=mk1QjDZjNQ+90oAA1VLaMRAXu+NrVqexFI6m6k460sM=;
+	t=1791386407; x=1792596007; b=fV4+f+eV/txmAu32ns+rWL+5Tpj6+W40f+HuzCbA4Gzn5K2
+	QHW7YJ3nZqMbP5uTBUZ0eBBI8VBvVo1lxNvnseE3NyAUvwAZCrQNDjyiZ+4G/67oAa8udc6a5R079
+	yKXJOPvEmxGBRvSBbVtrUG0ycnprcFQUUDhJINe302jKkS5c8Ca7L7fh7rdoHQBUPeeNVV32Dr0il
+	2UwrRzXyDJi0ss7xSyxxRpz3Fd576WgVSF/GKCcn2sX4aCDp/KUAoQjU+Tr2aS6VV8/n2on7NkUKV
+	MIjg96Kun+XWjzKOB0dk78D5wzWFr9+IDTMGjm35Abk+T9KuVsZD6+ZcoH4tMXvg==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1xETR5-00000008BRC-3ZME;
+	Wed, 07 Oct 2026 17:20:04 +0200
+Message-ID: <2c756a40051873b93c6366b53d4cb35d83bf53c8.camel@sipsolutions.net>
+Subject: Re: [PATCH] wifi: nl80211: don't WARN on a missing self-managed
+ regdom
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Diederik de Haas <diederik@cknow-tech.com>, 
+ =?ISO-8859-1?Q?Fran=E7ois?= Roux
+	 <franzelfranzel@gmail.com>
+Cc: Emmanuel Grumbach <emmanuel.grumbach@intel.com>, 
+	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Wed, 07 Oct 2026 17:20:03 +0200
+In-Reply-To: <DLYPG0VDLX08.36QEI8PELLHV@cknow-tech.com>
+References: <20261006161744.3804-1-franzelfranzel@gmail.com>
+	 <16aa99921c4e92e8d4da3c84aacbec2e673666aa.camel@sipsolutions.net>
+	 <DLYPG0VDLX08.36QEI8PELLHV@cknow-tech.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5b4a1156-d05b-470e-952c-1958982f5ae3@ieee.org>
+X-malware-bazaar: not-scanned
 
-Hi Alex,
+On Wed, 2026-10-07 at 17:18 +0200, Diederik de Haas wrote:
+> On Wed Oct 7, 2026 at 4:55 PM CEST, Johannes Berg wrote:
+> > On Tue, 2026-10-06 at 18:17 +0200, Fran=C3=A7ois Roux wrote:
+> > > nl80211_get_reg_do() has a WARN_ON() for a self-managed wiphy without=
+ a
+> > > private regdomain. Userspace can trigger it with a plain
+> > > NL80211_CMD_GET_REG request.
+> > >=20
+> > > Drivers can register such a wiphy first and set its regdomain later.
+> > > ath12k, for example, calls ieee80211_register_hw() and only then appl=
+ies
+> > > the regdomain with ath12k_regd_update(). iwd queries the regdomain of=
+ a
+> > > new wiphy as soon as it shows up, so it can hit that window at boot:
+> > >=20
+> > >   WARNING: net/wireless/nl80211.c:10828 at nl80211_get_reg_do+0x1d0/0=
+x1fc [cfg80211], CPU#5: iwd/721
+> >=20
+> > I'm not a fan of this, I think the drivers should have the regdom ready=
+.
+> >=20
+> > > The same trace has been reported with an Intel BE200 (iwlwifi).
+> >=20
+> > I _thought_ we fixed that issue.
+>=20
+> If that fix is supposed to be in 7.3-rc6 (from Linus), then no.
+> If that's a recent fix/patch which is f.e. slated for -next/7.4(-rc1),
+> then can you point me to it? Happy to test it.
 
-On Wed, Oct 07, 2026 at 09:28:45AM -0500, Alex Elder wrote:
-> On 10/6/26 6:13 PM, Brian Norris wrote:
-> > Returning an error code from pm_runtime_put_autosuspend() merely means
-> > that it has not queued up a timer or work item to check whether or not
-> > the device can be suspended and there are many perfectly valid
-> > situations in which that can happen, like after writing "on" to the
-> > device's runtime PM "control" attribute in sysfs for one example.
-> 
-> If I understand this right, "put autosuspend" is basically an
-> unconditional "put" with the assumption that auto-suspend will
-> ensure the eventual suspend occurs sometime after the reference
-> count reaches zero.
+Well, it looks like it got *reverted*.
 
-Yes. Similar pattern for any other pm_runtime_put... variant -- they
-always decrement the reference counter, even if they otherwise return
-non-zero/error.
+6895d74c11d8 ("wifi: iwlwifi: mld: initialize regulatory early")
+f81aa834bfa9 ("wifi: iwlwifi: mld: Move regulatory domain initialization")
 
-It definitely can be confusing, and it's one reason for $subject series
--- to remove confusing API surface when it doesn't help. (Similar story
-for pm_runtime_get_sync() -- it increments the reference count, even on
-error. That's why pm_runtime_resume_and_get() was invented.)
-
-> > Modify gb_pm_runtime_put_autosuspend() to discard the
-> > pm_runtime_put_autosuspend() return value, change its return type to
-> > void, and update its caller in the Greybus power supply driver
-> > accordingly.  Also drop the redundant pm_runtime_mark_last_busy() call
-> > from gb_pm_runtime_put_autosuspend() while we're here, as this is
-> > already part of pm_runtime_put_autosuspend().
-> 
-> I support including this fix in this patch.
-> 
-> > Note that this resolves a bug in the power_supply driver: in tracking
-> > 'gbpsy->pm_acquired', it erroneously assumed that
-> > pm_runtime_put_autosuspend() would not release a refcount when it
-> > returned a non-zero value. That's a false assumption.
-> 
-> So is it safe for this code to assume the reference count has
-> been decremented in this case?
-
-Correct.
-
-> The comments say we're trying
-> to ensure there's exactly one get/put pair.  (I don't know the
-> reasoning behind that though.)
-
-I didn't look too far into this, but on first glance, it looks like
-gb_power_supply_state_change() can receieve a number of different
-properties, several of which mean "off". We only want the first "off" to
-drop a reference count.
-
-That seems like a fairly typical sort of pattern, and the right answer
-is to ignore the return code, because the reference count was
-decremented unconditionally.
-
-> > This will facilitate a planned change of the
-> > pm_runtime_put_autosuspend() return type to void in the future, similar
-> > to commit 3afd8df02433 ("PM: runtime: Change pm_runtime_put() return
-> > type to void").
-> > 
-> > Signed-off-by: Brian Norris <briannorris@chromium.org>
-> 
-> Despite my questions/comments I think this looks good.
-> 
-> Reviewed-by: Alex Elder <elder@riscstar.com>
-
-Thanks,
-Brian
-
-> > ---
-> > This patch is independent of the rest of the series, except for the end
-> > (changing the return type). I expect it can be applied by individual
-> > maintainers, and we pick up the end once the dust is settled.
-> > 
-> >   drivers/staging/greybus/power_supply.c |  8 ++------
-> >   include/linux/greybus/bundle.h         | 12 +++---------
-> >   2 files changed, 5 insertions(+), 15 deletions(-)
-> > 
-> > diff --git a/drivers/staging/greybus/power_supply.c b/drivers/staging/greybus/power_supply.c
-> > index 44bd8a72fa50..beefcbaf3681 100644
-> > --- a/drivers/staging/greybus/power_supply.c
-> > +++ b/drivers/staging/greybus/power_supply.c
-> > @@ -377,12 +377,8 @@ static void gb_power_supply_state_change(struct gb_power_supply *gbpsy,
-> >   			gbpsy->pm_acquired = true;
-> >   	} else {
-> >   		if (gbpsy->pm_acquired) {
-> > -			ret = gb_pm_runtime_put_autosuspend(connection->bundle);
-> > -			if (ret)
-> > -				dev_err(&connection->bundle->dev,
-> > -					"Fail to set wake unlock for none charging\n");
-> > -			else
-> > -				gbpsy->pm_acquired = false;
-> > +			gb_pm_runtime_put_autosuspend(connection->bundle);
-> > +			gbpsy->pm_acquired = false;
-> >   		}
-> >   	}
-> > diff --git a/include/linux/greybus/bundle.h b/include/linux/greybus/bundle.h
-> > index df8d88424cb7..361a94d3499b 100644
-> > --- a/include/linux/greybus/bundle.h
-> > +++ b/include/linux/greybus/bundle.h
-> > @@ -59,14 +59,9 @@ static inline int gb_pm_runtime_get_sync(struct gb_bundle *bundle)
-> >   	return 0;
-> >   }
-> > -static inline int gb_pm_runtime_put_autosuspend(struct gb_bundle *bundle)
-> > +static inline void gb_pm_runtime_put_autosuspend(struct gb_bundle *bundle)
-> >   {
-> > -	int retval;
-> > -
-> > -	pm_runtime_mark_last_busy(&bundle->dev);
-> > -	retval = pm_runtime_put_autosuspend(&bundle->dev);
-> > -
-> > -	return retval;
-> > +	pm_runtime_put_autosuspend(&bundle->dev);
-> >   }
-> >   static inline void gb_pm_runtime_get_noresume(struct gb_bundle *bundle)
-> > @@ -82,8 +77,7 @@ static inline void gb_pm_runtime_put_noidle(struct gb_bundle *bundle)
-> >   #else
-> >   static inline int gb_pm_runtime_get_sync(struct gb_bundle *bundle)
-> >   { return 0; }
-> > -static inline int gb_pm_runtime_put_autosuspend(struct gb_bundle *bundle)
-> > -{ return 0; }
-> > +static inline void gb_pm_runtime_put_autosuspend(struct gb_bundle *bundle) {}
-> >   static inline void gb_pm_runtime_get_noresume(struct gb_bundle *bundle) {}
-> >   static inline void gb_pm_runtime_put_noidle(struct gb_bundle *bundle) {}
-> 
+johannes
