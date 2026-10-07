@@ -1,80 +1,89 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69D7B471437
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 09:17:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F7DF47DD6D
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 09:21:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791364943; cv=none; b=TjJ4W2+YQa2H2A0nFdzj/qozeHuIt8xM6WsN3XZnsmsLoWiniUcYylhz90hhjH4gAlnMvUREHCIA6RmZrdSNR2isWmm/6z9PWJf+u6qT3I9YK6qRw6jTtkga3E0FSfi6qwvNwMH4Qn20Nn6mTQtSvHEYd2p03BFUWq0cP09np+E=
+	t=1791364947; cv=none; b=CwDi8gli3s/BIF7oAza/SFKK40yhEduZAefNNDNAf4voJIGXdkglm6Xv4dSctr9cTdxl8sTJOTaUnIBWgIvRBquZjsYPKXQV2t3nvT5KcarWe7w1Kt8ALnOO36uZPapCIE2EpaCCzIWdcewx24F4Pi72VioPQGMMneUfkb78v7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791364943; c=relaxed/simple;
-	bh=Lpj2FYp5lpD7KkRLPJAr0iKTl7mf0Lufuxe4+c5LATw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kw2PgtF1zB6gClrJo3/0BjwXDvpERbv2nFCIszd48uXVtnSIetTWjPPweXS4iJgpxFj5u7Y/dQ5rwxFxE9UFBt/LMBIC7Vmfe6//jCIk0Ui8LTDZUupsjKezKg8ykyoxlP67xJe4GWJN8hh+VUM+SlWzOFEW3SOU46SKbkvm5h0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kTd4rVTm; arc=none smtp.client-ip=209.85.214.178
+	s=arc-20240116; t=1791364947; c=relaxed/simple;
+	bh=EIU51X7sbCvyr9ufFBZFKlwQ5fYgl7LrFHObcFZMVcE=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=hZQUPEQzt2u3gcRE8utW3n4E0ArPK1Ll+/t4/tBT6Eageol2jfpaNTNbHnIofk+Qw7zxnGvPezN2N25EB9WXHndAsaPUZlcsnBsvg0S4jDq/8njXnaweFAIHnEcS/vWbmH06dIdtHwMTi3RjIVDkuVazYw3IJb2AiQ1u7a1CqBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MnJVM3d4; arc=none smtp.client-ip=209.85.214.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kTd4rVTm"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e608cd460eso2959065ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 02:17:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MnJVM3d4"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2e541dc9cb9so8537715ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 02:21:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791364654; x=1791969454; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tMJqX2UfW+yt+gLeXDIEXy10CvrOQ6MYyBHgdruEdmw=;
-        b=kTd4rVTmYegnXxioZ4UGlctMwfu1m+WLlYntZo6y9NQYhv+KpDQFSMZlY7WnkiCxok
-         dcbCNGbzI2/Z6oBaU3Ang1nyMVtN6cv+3vAyPHjJ1E8No6/7/6U+VbKMScnUL4Wuacsn
-         aBou4xSkXz6chi9P5by8w1gQbbxkBtpy/xs4HScKdTxt7FD6hRXTgZ24iN32+NKaCGG/
-         xBfhHAzScC8wN07Kjfb2PQ5pBKRuSUjuwr9U10Uj1ZzeYW/Gd3Ij5OBkMIZsZU4uospn
-         RgiooVPwpsqELD0u//pYtulajIxeJPSlrgrtNnw+AmEVfS3VKTk3VcG6cy9Dm+Si51TG
-         a8ZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791364654; x=1791969454;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791364899; x=1791969699; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tMJqX2UfW+yt+gLeXDIEXy10CvrOQ6MYyBHgdruEdmw=;
-        b=wSD/nQLAbNBJ7/WWYwwNgeXGCRzMhMWgAzx5IlLl4Kr/eicTJoc6A9jot/a6PaDEg/
-         9M+U87WfVBK7bodsSp2r839sfgDdHy8OTyI258LG2hb9oJCvDgVDYyNRDu5jq4N//482
-         RMHSKNZcMbTBUPBc/wdDPbQdYTqi6aSyFpFbZi55jzit/UcZVC+oI3wmfy9NgLj9YPf7
-         DHUFNPVW8rFo6zZON08KDcIN9L7doDSMilVgu7lbXkzQmUWsPfwkUjGgB+E0JlEgxYPz
-         Bomo+KozFJezDxFo3iNdrowIDsgJLQ9l/qv5mCjAVRE54cChILxeCjaWwZHy9nvs3P3W
-         jCbw==
-X-Forwarded-Encrypted: i=1; AKwUvBw11dMIxQNNfY+JEumj4j9xm2Ey/hUoD3EJueOOM3643dOz1swMnG9YN+xAW9vfx+eSMELrdtg65dNRvRc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIVVo4KwKMXV0ANxC1emAEeIkd8BehouFeKRM9q2HvDr1Xe+XCV
-	2lekn2IBEjVvFYIMiX3MLBHL/HSfoi7AC2xpVZ/h41kPabNZGMfXEUWX
-X-Gm-Gg: AYBFou1kUe2BkYo+XES+xKWUsuha/ExEm9AE843HtsUSYmAH8EtFnILxR2LETVvFsdq
-	8JLdzWMgB/MDEj3wdAUhMZPqpgnKaR6BiGAPk822kc+2Szky9cUtoGihP8Q1u+vhf8/ZVaJ1AX4
-	UFvzw3KgFkF2pLPAcRceeQ0G15n+V03uFR2MYRSIMWJUw1kEwu089D8+lJ/XIJA3zNzPZ+lg1+Q
-	6y0gaPGirhhcQb8U4MmdEFtstDyY8TOg9U1k9bnSMySTaXzPGylZ+SInKL3Yh90lfOlS4pZ15w4
-	/vEQeJnDaagVGyxEoP4sDaDJX178774VmQ78pXDrxAgWXubpE9AUW36M2fZ1qlr2Qu3Pl0/Xepr
-	OqyEb0uo3VNEW+bA0dOjlMpE4vhUPldu0JsliHulCbU7XFoSy7BR+n45m2MpdsBEKecy5vLDkEf
-	mTpKWllmL73SJzVAiM3AdMyOtZo9uJFDfHfsxgEAYR81Wmqzxvcp7bG+Jzp1BVC931AkVo1s8Zt
-	MlPjX6YSSxamct/EaseFveCXTc=
-X-Received: by 2002:a17:902:ce0d:b0:2e5:a355:56e4 with SMTP id d9443c01a7336-2e60036c486mr15062015ad.11.1791364654342;
-        Wed, 07 Oct 2026 02:17:34 -0700 (PDT)
-Received: from obadmin-Precision-3680.atlascopco.group ([167.103.3.1])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e604724b46sm7175375ad.42.2026.10.07.02.17.29
+        bh=k5R4VZ/vcFSxE7YhW6e2jDhGR189+VipnJ+Yy7YMf3I=;
+        b=MnJVM3d4715nJBdGVOQHhaxq+klbPzYjzp634VZPE0tNLjctniHGn4g+CPyCcm9DcS
+         GMGlsnD2NDrRws7/MAGBjtk+JnL6ndmuar0m1tGP6EBWMWEhdFmo9SfF7BZqtq9WtUqS
+         USZ+ArBeRdr5iRXdDz89D6mh3GZmKh3lpt/auves7r/iMND2d3u/XIlOdXbKRg04PBNm
+         QKmmgOmTLwcmOd1AssXUB0nonh5Q/HRzNxFSjfXynS46I2XYlKOntF4CKzaIr+GnawV2
+         5bd0DKFa8iTT32tl4S25QkDEj2lVEG+nGOSCBwmTu83oghF+4D4JbMfR/xaEaSFmxHPj
+         3Y7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791364899; x=1791969699;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=k5R4VZ/vcFSxE7YhW6e2jDhGR189+VipnJ+Yy7YMf3I=;
+        b=hIttHEtQXaaH7Rp074wya/WSM9p8LNeImFJItVbnXDtXoFZSfSNXMdGNiU4C6TBfHs
+         QL/UKXWPbQD+1Wib3WC8SI78dUJhCpThCcNmLvU28kOhfmoY2yFjlGLZ2yp83YldA3ni
+         MvK3FrdjhTFQCPG60Aa7dALsjBhT5n5E5W2iofkAZxkzX7dNqkeKtpbSyMC1Q3m5f2Lb
+         E/gofhTWbIn4h8goc00DKuxqF77vZalLYF5VHahRrvMM6KIqqVfg2rLVbMcidGJrMiuA
+         tmYDb7U8dnFHG4E2TCOKzfzLoeRSYRclKqBSUbyUMyU5ikbYSzHhXcf/JKjtJX1hxhVu
+         fUCQ==
+X-Gm-Message-State: AFq9FYIzsXRxuJZtZvmQyNMKCFZwnANqmT4E/7I0v6rs+Uvr1RDeSaNM
+	5MF+9W4BSErr2fId445izdVea9XoQ7Zz+zlBgAf5+JV4il9wR+P34zmG
+X-Gm-Gg: AYBFou1pAEIsdlA/sruKfTsHZuK7IO+Qa6OEYY0s0XxqV0Qbgo/85dJbnsiACZC23DG
+	6haYNdEDpH5k/W4EMKoPZpKeDKPTd0hMz5d6gdSdIKPCtgJal3Rhxa/cG0QGMz/8Ugjd2hCCm8U
+	WB3d/1a7mf47Zlucue7wCMxU9TWjDATAMfihJBrXvQJLk4j/DWmm56XDXHxCbksTQ775GT+f/oM
+	HQRo5JgvQ6QGL5ZAideRd5eRhZCKSTCAHhn2wA9D0HpJnAHpmQ0UrrnVs+ej1SrEGpYEhl/zOxK
+	9cSzAeWji4PgQqr14X3zQURyNM7uXOGaJrBE/ibXcjeciID3fozvkvxmsAHURrd0wnNWJXKqSe4
+	/9J6f8KIxAqhBtFi74sRDdv9RI0UfbT+0ZTEAS8VHsSMO7FgbpasOJm5t8z8L4OPU9dqx/OlsIk
+	L8wO9DluFbm3whPYHwYb3HgfTXqRcRpnCtWrUelbYijTQSt45Zi7OhUfIfAcXSffC2Gf9SBvL3/
+	EsgzfwiYrlyxwd44+qjlU+4r5ENi8o0Dxgzf3Bx
+X-Received: by 2002:a17:903:2cd:b0:2e5:cf8c:633d with SMTP id d9443c01a7336-2e6004e72dfmr14267475ad.34.1791364898570;
+        Wed, 07 Oct 2026 02:21:38 -0700 (PDT)
+Received: from hcdev-d520mt2.. (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e6046fe0e8sm7180675ad.25.2026.10.07.02.21.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 02:17:33 -0700 (PDT)
-From: Sahaj Chaudhari <sahaj123.sc@gmail.com>
-To: akpm@linux-foundation.org,
-	shuah@kernel.org
-Cc: david@kernel.org,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sahaj Chaudhari <sahaj123.sc@gmail.com>
-Subject: [PATCH] selftests/mm: test MREMAP_DONTUNMAP mlock accounting
-Date: Wed,  7 Oct 2026 14:48:09 +0530
-Message-ID: <20261007091809.1438944-1-sahaj123.sc@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Wed, 07 Oct 2026 02:21:37 -0700 (PDT)
+From: a0282524688@gmail.com
+To: lee@kernel.org,
+	Ming Yu <tmyu0@nuvoton.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Marc Kleine-Budde <mkl@pengutronix.de>,
+	Vincent Mailhol <mailhol@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>
+Cc: linux-kernel@vger.kernel.org,
+	Ming Yu <a0282524688@gmail.com>,
+	linux-gpio@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	linux-can@vger.kernel.org,
+	linux-rtc@vger.kernel.org,
+	linux-watchdog@vger.kernel.org,
+	mfd@lists.linux.dev
+Subject: [PATCH v8 06/13] mfd: nct6694: Move module type macros to shared header
+Date: Wed,  7 Oct 2026 17:20:55 +0800
+Message-Id: <20261007092102.3768818-7-a0282524688@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261007092102.3768818-1-a0282524688@gmail.com>
+References: <20261007092102.3768818-1-a0282524688@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,140 +92,198 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-MREMAP_DONTUNMAP moves a mapping's page tables to a new address while
-leaving the source mapping in place. Check that mlock accounting charges
-the page only once after the remap.
+From: Ming Yu <a0282524688@gmail.com>
 
-Add a test to mremap_dontunmap that verifies mlock charges one page and
-that MREMAP_DONTUNMAP does not increase VmLck again. Skip the test when
-mlock is unavailable.
+Each sub-device driver defines the module type used by its own
+commands. The upcoming HIF transport also needs to recognise
+NCT6694_RPT_MOD, as report accesses are served from a separate
+register space rather than through the command mailbox.
 
-Signed-off-by: Sahaj Chaudhari <sahaj123.sc@gmail.com>
+Move all module types into the shared header so that the transports
+and the sub-device drivers use a single set of definitions.
+
+No functional change.
+
+Signed-off-by: Ming Yu <a0282524688@gmail.com>
 ---
- tools/testing/selftests/mm/mremap_dontunmap.c | 92 ++++++++++++++++++-
- 1 file changed, 91 insertions(+), 1 deletion(-)
+Changes in v8:
+- Reworded the commit message to explain why the transport needs the
+  module types.
 
-diff --git a/tools/testing/selftests/mm/mremap_dontunmap.c b/tools/testing/selftests/mm/mremap_dontunmap.c
-index 96ba537facf7..e4b0e1868a6f 100644
---- a/tools/testing/selftests/mm/mremap_dontunmap.c
-+++ b/tools/testing/selftests/mm/mremap_dontunmap.c
-@@ -90,6 +90,26 @@ static int check_region_contains_byte(void *addr, unsigned long size, char byte)
- 	return 0;
- }
+Changes in v7:
+- None.
+
+Changes in v6:
+- None.
+
+Changes in v5:
+- Split from the monolithic v4 patch to follow the single logical change
+  principle.
+
+ drivers/gpio/gpio-nct6694.c         |  7 -------
+ drivers/hwmon/nct6694-hwmon.c       | 21 ---------------------
+ drivers/i2c/busses/i2c-nct6694.c    |  7 -------
+ drivers/net/can/usb/nct6694_canfd.c |  6 ------
+ drivers/rtc/rtc-nct6694.c           |  7 -------
+ drivers/watchdog/nct6694_wdt.c      |  7 -------
+ include/linux/mfd/nct6694.h         |  9 +++++++++
+ 7 files changed, 9 insertions(+), 55 deletions(-)
+
+diff --git a/drivers/gpio/gpio-nct6694.c b/drivers/gpio/gpio-nct6694.c
+index a38add1cde29..c8cdf4520466 100644
+--- a/drivers/gpio/gpio-nct6694.c
++++ b/drivers/gpio/gpio-nct6694.c
+@@ -13,13 +13,6 @@
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
  
-+static int read_vmlck(unsigned long *vmlck)
-+{
-+	char line[128];
-+	FILE *status = fopen("/proc/self/status", "r");
-+
-+	if (!status)
-+		return -1;
-+
-+	while (fgets(line, sizeof(line), status)) {
-+		if (sscanf(line, "VmLck: %lu kB", vmlck) == 1) {
-+			fclose(status);
-+			return 0;
-+		}
-+	}
-+
-+	fclose(status);
-+	errno = EINVAL;
-+	return -1;
-+}
-+
- // this test validates that MREMAP_DONTUNMAP moves the pagetables while leaving
- // the source mapping mapped.
- static void mremap_dontunmap_simple()
-@@ -125,6 +145,75 @@ static void mremap_dontunmap_simple()
- 	ksft_test_result_pass("%s\n", __func__);
- }
+-/*
+- * USB command module type for NCT6694 GPIO controller.
+- * This defines the module type used for communication with the NCT6694
+- * GPIO controller over the USB interface.
+- */
+-#define NCT6694_GPIO_MOD	0xFF
+-
+ #define NCT6694_GPIO_VER	0x90
+ #define NCT6694_GPIO_VALID	0x110
+ #define NCT6694_GPI_DATA	0x120
+diff --git a/drivers/hwmon/nct6694-hwmon.c b/drivers/hwmon/nct6694-hwmon.c
+index 9a9a4db434c4..bd4c106305c7 100644
+--- a/drivers/hwmon/nct6694-hwmon.c
++++ b/drivers/hwmon/nct6694-hwmon.c
+@@ -15,13 +15,6 @@
+ #include <linux/platform_device.h>
+ #include <linux/slab.h>
  
-+static void mremap_dontunmap_mlock_accounting(void)
-+{
-+	unsigned long before, after_mlock, after_remap;
-+	char message[128];
-+	char *source, *dest = MAP_FAILED;
-+	int failed = 0;
-+	int err;
-+
-+	source = mmap(NULL, page_size, PROT_READ | PROT_WRITE,
-+		      MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-+	if (source == MAP_FAILED)
-+		ksft_exit_fail_perror("mmap");
-+	if (read_vmlck(&before))
-+		ksft_exit_fail_perror("read VmLck");
-+
-+	if (mlock(source, page_size)) {
-+		err = errno;
-+		if (munmap(source, page_size))
-+			ksft_exit_fail_perror("munmap");
-+		if (err == EPERM || err == ENOMEM) {
-+			ksft_test_result_skip("%s: mlock unavailable\n", __func__);
-+			return;
-+		}
-+		errno = err;
-+		ksft_exit_fail_perror("mlock");
-+	}
-+
-+	if (read_vmlck(&after_mlock))
-+		ksft_exit_fail_perror("read VmLck after mlock");
-+	if (after_mlock != before + page_size / 1024) {
-+		snprintf(message, sizeof(message),
-+			 "mlock changed VmLck from %lu to %lu kB", before,
-+			 after_mlock);
-+		failed = 1;
-+		goto out;
-+	}
-+
-+	dest = mremap(source, page_size, page_size,
-+		      MREMAP_DONTUNMAP | MREMAP_MAYMOVE, NULL);
-+	if (dest == MAP_FAILED)
-+		ksft_exit_fail_perror("mremap");
-+	if (read_vmlck(&after_remap))
-+		ksft_exit_fail_perror("read VmLck after mremap");
-+
-+	if (after_remap != after_mlock) {
-+		snprintf(message, sizeof(message),
-+			 "VmLck changed from %lu to %lu kB", after_mlock,
-+			 after_remap);
-+		failed = 1;
-+	}
-+
-+out:
-+	if (dest != MAP_FAILED) {
-+		if (munlock(dest, page_size))
-+			ksft_exit_fail_perror("munlock destination");
-+		if (munmap(dest, page_size))
-+			ksft_exit_fail_perror("munmap destination");
-+	}
-+	if (munlock(source, page_size))
-+		ksft_exit_fail_perror("munlock source");
-+	if (munmap(source, page_size))
-+		ksft_exit_fail_perror("munmap source");
-+
-+	if (failed)
-+		ksft_test_result_fail("%s\n", message);
-+	else
-+		ksft_test_result_pass("MREMAP_DONTUNMAP preserves VmLck accounting\n");
-+}
-+
- // This test validates that MREMAP_DONTUNMAP on a shared mapping works as expected.
- static void mremap_dontunmap_simple_shmem()
- {
-@@ -348,7 +437,7 @@ int main(void)
- 		ksft_finished();
- 	}
+-/*
+- * USB command module type for NCT6694 report channel
+- * This defines the module type used for communication with the NCT6694
+- * report channel over the USB interface.
+- */
+-#define NCT6694_RPT_MOD			0xFF
+-
+ /* Report channel */
+ /*
+  * The report channel is used to report the status of the hardware monitor
+@@ -38,13 +31,6 @@
+ #define NCT6694_TIN_STS(x)		(0x6A + (x))
+ #define NCT6694_FIN_STS(x)		(0x6E + (x))
  
--	ksft_set_plan(5);
-+	ksft_set_plan(6);
+-/*
+- * USB command module type for NCT6694 HWMON controller.
+- * This defines the module type used for communication with the NCT6694
+- * HWMON controller over the USB interface.
+- */
+-#define NCT6694_HWMON_MOD		0x00
+-
+ /* Command 00h - Hardware Monitor Control */
+ #define NCT6694_HWMON_CONTROL		0x00
+ #define NCT6694_HWMON_CONTROL_SEL	0x00
+@@ -53,13 +39,6 @@
+ #define NCT6694_HWMON_ALARM		0x02
+ #define NCT6694_HWMON_ALARM_SEL		0x00
  
- 	// Keep a page sized buffer around for when we need it.
- 	page_buffer =
-@@ -361,6 +450,7 @@ int main(void)
- 	mremap_dontunmap_simple_fixed();
- 	mremap_dontunmap_partial_mapping();
- 	mremap_dontunmap_partial_mapping_overwrite();
-+	mremap_dontunmap_mlock_accounting();
+-/*
+- * USB command module type for NCT6694 PWM controller.
+- * This defines the module type used for communication with the NCT6694
+- * PWM controller over the USB interface.
+- */
+-#define NCT6694_PWM_MOD			0x01
+-
+ /* PWM Command - Manual Control */
+ #define NCT6694_PWM_CONTROL		0x01
+ #define NCT6694_PWM_CONTROL_SEL		0x00
+diff --git a/drivers/i2c/busses/i2c-nct6694.c b/drivers/i2c/busses/i2c-nct6694.c
+index 1413ab6f9462..ef3329f34246 100644
+--- a/drivers/i2c/busses/i2c-nct6694.c
++++ b/drivers/i2c/busses/i2c-nct6694.c
+@@ -12,13 +12,6 @@
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
  
- 	BUG_ON(munmap(page_buffer, page_size) == -1,
- 	       "unable to unmap page buffer");
+-/*
+- * USB command module type for NCT6694 I2C controller.
+- * This defines the module type used for communication with the NCT6694
+- * I2C controller over the USB interface.
+- */
+-#define NCT6694_I2C_MOD			0x03
+-
+ /* Command 00h - I2C Deliver */
+ #define NCT6694_I2C_DELIVER		0x00
+ #define NCT6694_I2C_DELIVER_SEL		0x00
+diff --git a/drivers/net/can/usb/nct6694_canfd.c b/drivers/net/can/usb/nct6694_canfd.c
+index e5f7f8849a73..262b4c26c9d4 100644
+--- a/drivers/net/can/usb/nct6694_canfd.c
++++ b/drivers/net/can/usb/nct6694_canfd.c
+@@ -18,12 +18,6 @@
+ 
+ #define DEVICE_NAME "nct6694-canfd"
+ 
+-/* USB command module type for NCT6694 CANfd controller.
+- * This defines the module type used for communication with the NCT6694
+- * CANfd controller over the USB interface.
+- */
+-#define NCT6694_CANFD_MOD			0x05
+-
+ /* Command 00h - CAN Setting and Initialization */
+ #define NCT6694_CANFD_SETTING			0x00
+ #define NCT6694_CANFD_SETTING_ACTIVE_CTRL1	BIT(0)
+diff --git a/drivers/rtc/rtc-nct6694.c b/drivers/rtc/rtc-nct6694.c
+index 35401a0d9cf5..c06902f150c9 100644
+--- a/drivers/rtc/rtc-nct6694.c
++++ b/drivers/rtc/rtc-nct6694.c
+@@ -14,13 +14,6 @@
+ #include <linux/rtc.h>
+ #include <linux/slab.h>
+ 
+-/*
+- * USB command module type for NCT6694 RTC controller.
+- * This defines the module type used for communication with the NCT6694
+- * RTC controller over the USB interface.
+- */
+-#define NCT6694_RTC_MOD		0x08
+-
+ /* Command 00h - RTC Time */
+ #define NCT6694_RTC_TIME	0x0000
+ #define NCT6694_RTC_TIME_SEL	0x00
+diff --git a/drivers/watchdog/nct6694_wdt.c b/drivers/watchdog/nct6694_wdt.c
+index bc3689bd4b6b..4c06ac105562 100644
+--- a/drivers/watchdog/nct6694_wdt.c
++++ b/drivers/watchdog/nct6694_wdt.c
+@@ -20,13 +20,6 @@
+ 
+ #define NCT6694_WDT_MAX_DEVS		2
+ 
+-/*
+- * USB command module type for NCT6694 WDT controller.
+- * This defines the module type used for communication with the NCT6694
+- * WDT controller over the USB interface.
+- */
+-#define NCT6694_WDT_MOD			0x07
+-
+ /* Command 00h - WDT Setup */
+ #define NCT6694_WDT_SETUP		0x00
+ #define NCT6694_WDT_SETUP_SEL(idx)	(idx ? 0x01 : 0x00)
+diff --git a/include/linux/mfd/nct6694.h b/include/linux/mfd/nct6694.h
+index 69e4652cf16c..d46ae34a497e 100644
+--- a/include/linux/mfd/nct6694.h
++++ b/include/linux/mfd/nct6694.h
+@@ -8,6 +8,15 @@
+ #ifndef __MFD_NCT6694_H
+ #define __MFD_NCT6694_H
+ 
++#define NCT6694_HWMON_MOD	0x00
++#define NCT6694_PWM_MOD		0x01
++#define NCT6694_I2C_MOD		0x03
++#define NCT6694_CANFD_MOD	0x05
++#define NCT6694_WDT_MOD		0x07
++#define NCT6694_RTC_MOD		0x08
++#define NCT6694_RPT_MOD		0xFF
++#define NCT6694_GPIO_MOD	NCT6694_RPT_MOD
++
+ #define NCT6694_VENDOR_ID	0x0416
+ #define NCT6694_PRODUCT_ID	0x200B
+ #define NCT6694_INT_IN_EP	0x01
+-- 
+2.34.1
+
