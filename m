@@ -1,243 +1,102 @@
-Received: from sonic305-22.consmr.mail.ne1.yahoo.com (sonic305-22.consmr.mail.ne1.yahoo.com [66.163.185.148])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 392EB342532
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 20:46:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.185.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DD3C41228D;
+	Wed,  7 Oct 2026 20:46:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791405999; cv=none; b=DVFqkW44y54lX9ktzNgdmqQ1dClo7zhw3/PktRHx6WeQHbZ64UPFnahzPm8bRlt5ivgtzvvEK3dICa9WOMMf8lrO3+yIrhRd5q61Qlpu/zhbDIl+KK4GIcEry47dA+mCN8rgHbd9GSv3tsquosIQuEEd0TqQP7dH+trH3ceQdgo=
+	t=1791406001; cv=none; b=LZE63ojcqGAAozegyAFz4EeM0eZzrpjbGsjqi+fmqQRmFhcvc4kJm0OR1qeRo5+38uLWEAM+JSsREViHHpo/cybI2TRhnERLZSXXLBkUIU1CSms7xa0EsCI0pLKPJRgnxdnErZeI9ThBa931GFGyqL+v1eAOGJOrYCyh6wP6Wa8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791405999; c=relaxed/simple;
-	bh=eVk57hN9ktE/7tQ2bC2mTWoKmfG96R3Jw0Xn/GzyhLk=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
-	 In-Reply-To:Content-Type; b=irexhatZgB2IlREJgLmO/bD1O2A+Gi2inKEVkqvWnbi9bf/snAtgt+6zd0mTHT06FYBjAcALa16Scsw/o3VFtEksPjV14yRZFdmByth9PBk7paBzQzuluwIe4olcenP/8xQ6bUGDwgpIXRvMyYI6KxPtTcG4utqBQ/fM7c3QplY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=Y0iE5wNs; arc=none smtp.client-ip=66.163.185.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	s=arc-20240116; t=1791406001; c=relaxed/simple;
+	bh=gTwxBYTl+pHDh47KmeB80cZ5j+8y40mfAwfHJkEeusQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=OY6y1C633zZE6ERsMYIOADY+RkJNI8tqsQuQ0hGoXpkskYHImWUoBwt1K/WBsA5HW1VarBPQCjKPn4lBKaUudMbg8mhRx+v8fJ2E8J2pIG9zOoDeO5fPWaKB0/G2IoJ4MR26zqRlF89IjqywNsceraNEDX/ZI/+OnDfuHfA3HYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FzRBCnbt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="Y0iE5wNs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791405997; bh=6DxZx47zPi7OKeOxP8W5/e9CYPnMSVEaVB37zIkAvfA=; h=Date:Subject:From:To:References:In-Reply-To:From:Subject:Reply-To; b=Y0iE5wNsPU3943y1EUArR2BCxhS05wT3DOwZLmArnF5WS1Qcx+ERvHK6ZfxVin85kcPlhsCcgz9jVPUSR7Hp4CJOCdeqBP8fFKzHYigZm+xdR3LRJHzf1dTMQRH4gyTESxVrrRzZ5OuG6sSD0oF9WnXhVaE2w+xrdZxnB5meke+A2ZsBco/SZ9bGchl0KQ/unWQfDcHRCvefNsnOWXGAS6nZnWRRNd9VzhoRI9scdrUdBJyB8RpVexy4P4fwvLWHsz3x2TttngA6qrKFHEUeVeEecI76Pxt+4sqaYSOBmqbTkvmKcz4hTlj4nkTaXpV2WtOeLLr6flGruUjqXMjotA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791405997; bh=gDNZiGprQfTOwr6+riNr/Vy4Wj7aAJhHSCQynR48HdU=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=rJ7DuHMxPMYec1Rm5fWrXoOr3jGdvFcZJG7qN8M8kSeA8KhMV5bkv7n7PTtfjWvY6dWJ0nvEP8YJONL+CsQ5LUSpRTo9vSCI2xiXgW34I1YjW0CM3+ndqm6+mCVHhzpQLRSXHebhrQ3fhCLVPbJuhBUk2RP22IR9jhUTltybQI/PYkP31TGmPkQMSRLLJKv9f18sC2QK+YNFUKsGXW/TttdgEIlMS5h/jhi6Bfk9OUXMN62+rGzuXFMi+peaZ0yqasXBkJ0/sfUDpIROoeM3RYBTQbp2Og4nihQ0LbuAjh9dn8gRnfA4xFotzVKzOVNCwKOFTkyY/FNUVx8mnihsRw==
-X-YMail-OSG: Ry8DO6AVM1nAIOSq3B.npRdZUOqNSl3B7zuTzudwfd1WOQ2VAL69_Le0ti53Xzg
- QYu9cayRwn_zviwftaxaEGR4hxZz_1Eredb3_Trc20gJnnFc5PhT_KrflWj22jnzwxVII66c4RVN
- fBboP46AvIvfAdaeIWsfkZ6rxHgsAPY5EnGrTAKdyP9QUlp3Ggr1D6RYgNYB7XjAgXclJhFdU5.N
- 5tdT5c3Ni3WF0WKKL31y6IfIxW3JrNcnpODHfn6GYNe5PGDpjCYigNfZjvaq29Df4URlnwaJBESr
- m7Zlk0iOMyjQk3mG98ulzQmUnsNeMfsVLhQ6IhAsduBDVVhlscogLW5mpRg2VBrQMRxklXTCes3N
- aYAhARHa7Bc6tYLjOCdPSSpxZGkbCbfo2h_eCV.BxOkn06rTQjQINlxdU6dvWkuiuUz5oVzaum4w
- 58vTiKi7TosK1dXjexQRHlrY9rDnA_dXiPx5ROpsJd87.FPhlg7vipd3W0nP8P2Rqua7JjOMn0mV
- o5S4Xdd7zR7HvKir0X4e9mySxSJX9otS9JmqIvMWN9T7kYiiTRSEe65KR6SMHT7Rw8pTDXEC5hjq
- V_s5.31FXpvpMkdQ1IHhTwOT8wo7vsducbMfPjzm0u8VaFTvdp51DTOp18B8JMGGo8qB0.hq2BEz
- JSDQZhSo7MaGyS2MA8cKyrAFdKQVjluMo3CmvjJLC6niSsbLWZqgVgyXUVoaJ50SueRmCMfyqJvG
- u4CJocab6U_R6DDgyDDHNUiSxQ0tBisFjKa18bHwWacN2HIpM_RtId8hFI4DHuVmnNBxztj1tHfX
- DD0_HHIoz2TnEo7V5hAu.6jrDMmDbAzfzA1rnsF235l4HiPq8Y_zmP.vOa35JbDD5JaCjqQhoCPh
- B2O4IGPSkMVwMy5CEEUfKWYFTa0d5_5XR3FuoQxfM0aycWTKR.5OTw4XoDaBsrBnPCikDrrhsfos
- ul2RRYzZMWRYQksFbbUN3ggZzBMATCiqTFuLQZ5KqlDcw.3i_tREhK9hGzexLcMW_J5V219iDyPK
- FujrttTj4cBp9fEzXc7.u56slFQl4IpejFru1Uh81bRew6aU7Cc5wHAcqIUeQQGkw98ydYIuGZoA
- RztNPyNmT4_36Q48IoaVPH4Axt8aPAUIjlJ0TQG4KDQe9ozSUpeP.q7u8yZIYzYXhr2n.pCu7aMe
- ZGetYkJBed6YvmEZ5l3uTQ2DiBd0bHT3GUQwWG1vcoFiTk4kFftRqHHl7iFEPZZh4LOezAOAMO8N
- _UjzIv26ovg2wD1ybpq_lE6saaaw77Ko2u2gkpqp7zUKgwX9JfBsLWgIkd0C2oRHqp7mUPv8JYIM
- PT6UIcnUnqA5YLPvH.oN0Z2AFSvRnPQsfPRYEf8c2_yFvsJcQfOf8DzGY5QXerX3xmZgJV_xveBP
- krhiH.6lm1VQvu9rab7kotKGZr0pgv6hH61z8jJdjDUiB._Tqx65Yz0xrrvBOCBYiMX5NYx7Rch1
- 142E_xwS1FlOwIiG807PMXq7TMWPnHgc3gqiM_LM3CK2FIiuxhyRiE0Rt_oqiuF2DJ8rjgEuCtxV
- GsOgRL4BJBNB_W.INHCmpDrte_QNBk5RReLXaH5TC1kx.ugy58jDYzvdiqi1M8i5Lp_hv1KUlAwn
- _uM01iUlQNZQjubRQaeZi5xxkGlKtqaSea.raZsJy4oMd8Pha.q2TPWhJN6q9ZMoHMZhIwSZZMyF
- nfpPvfhqc787NcUquMCWou7UKgvS.mrqO.IpdYusXgYs6It7NviHi6SOZPR.LXSpkps402XCronK
- nw5.HC87Assa5tqhiQ6g31OSz08aG2mp5hWJVAENvukEqFyU3_BdtV5qo6Jpji1R0ARCEanYBHS_
- 9UWLuAFXL10L8KC8FiTsjuE4nd8rID53MOd634MoeLc6g.FEn231m2deXomqfVBVd3c3ZjUe6VfW
- LptXid_D3T1ncNgrgIeEuas70MgZ6DutBL3vfvxlLGa5oDFmPaSj4mKXTZDD6R8nplAEb292MpOs
- Hm_LN.ISiUq6D1nIi6haKs9QMh5_wsPJguuVXaqgLsdYv3jGZYFGTckN0OHOHSPte_vGPrrnfNOF
- ByElaoSSy9U_WaxFZxkyzkP8dfRItP9UVGl7Cs2bWXRLKK8M782UsgnGWmHnPFJIlpO2hBbvnB0G
- XTIgCtFjAtUegyWE6pZAnP0FPYyNL1QQD05nTD8UMkPe2XbUxw1aVtfdoO2vHA9IkQI6Lo4e91il
- ODuKL8imnjt3LzPKM9w4L2M5Ycc_QkymQXQJ4E0IyYF8D0rqZrojLrbriMad7BDl5YVE8xunr2m6
- rYVnlVSheKJcP0t1MGQyX0GqMIfQjOaLrTDR.Fy6BiA--
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: 93e6c83f-1dea-4d85-b4d3-54700edea07c
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic305.consmr.mail.ne1.yahoo.com with HTTP; Wed, 7 Oct 2026 20:46:37 +0000
-Received: by hermes--production-bf1-6d6877594b-54zwc (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 63f276fde0a60670a4834230e0ec9d9a;
-          Wed, 07 Oct 2026 20:36:18 +0000 (UTC)
-Message-ID: <c973a8a3-6853-4214-a7df-20f99f47d327@yahoo.com>
-Date: Wed, 7 Oct 2026 22:36:15 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FzRBCnbt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDCAF1F000FF;
+	Wed,  7 Oct 2026 20:46:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791406000;
+	bh=34+KA6aRWlauHcZvLDUgRaDFa7lnmvJ3bU3k1UoQnyI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=FzRBCnbtC0AKOKMea5+7ceoLBzxC2dnl/kOVAzt1S7RLQCqRjqFMXtgWt7tIYdSpb
+	 6x7JbayU+CuijLwxk+tz4spqSmMx7xaOeJSH5MQIj+V7aUuiHycsXvGu6Ejv84AtDp
+	 HuOtoqVu6YTvbgos6i7xvhdRXYPupAQss+HOfC1RE9Xk6tkxMjysz4oNsC71h646Eu
+	 +70F0hNf884qLjJZRVnQC6SyfY6ZmSty10KgLZiN/Ije7ViaMk4HoB0sWmNISHY0G7
+	 xTk14UNoMWcsGHX+dEeU317Q7eyYQ6cgqOjbXY/3N91aR2OuvoeuNv1Er9zYvaVy/X
+	 me2ov68d1q96w==
+Date: Wed, 7 Oct 2026 15:46:38 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: phucduc.bui@gmail.com
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, kwilczynski@kernel.org,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Vidya Sagar <vidyas@nvidia.com>,
+	Manikanta Maddireddy <mmaddireddy@nvidia.com>,
+	Niklas Cassel <cassel@kernel.org>, linux-pci@vger.kernel.org,
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] PCI: tegra194: use dev_err_probe() for PERST GPIO
+Message-ID: <20261007204638.GA785135@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH net-next 1/8] net: dsa: realtek: rtl8365mb: detect RTL8367S-VB
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-To: linusw@kernel.org, alsi@bang-olufsen.dk, andrew@lunn.ch,
- olteanv@gmail.com, kuba@kernel.org, davem@davemloft.net,
- edumazet@google.com, pabeni@redhat.com, linux@armlinux.org.uk,
- luizluca@gmail.com, maxime.chevallier@bootlin.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <84fc7483-b22d-45ea-a3b8-3285dc357265@yahoo.com>
-Content-Language: pl
-In-Reply-To: <84fc7483-b22d-45ea-a3b8-3285dc357265@yahoo.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26668 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261007104847.507776-1-phucduc.bui@gmail.com>
 
-The RTL8367S-VB belongs to a newer hardware generation (family D) which
-features a modified register layout and independent logic blocks compared
-to the older legacy chips (family C). This patch introduces the family
-separation by defining RTL8365MB_FAMILY_D, hooks up the new hardware
-ID (0x6642), revision, and maps its unique external interface capability
-where SGMII/HSGMII sits on ext_int 0 instead of ext_int 1.
+On Wed, Oct 07, 2026 at 05:48:46PM +0700, phucduc.bui@gmail.com wrote:
+> From: bui duc phuc <phucduc.bui@gmail.com>
+> 
+> Use dev_err_probe() when getting the PERST GPIO to simplify error
+> handling and properly handle -EPROBE_DEFER.
+> 
+> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 
-Also cap priv->num_ports at RTL8365MB_D_MAX_NUM_PORTS (8) for family D.
-This is a functional change: it sets ds->num_ports, the IRQ domain size
-and the bound of every loop over priv->num_ports.
+For future posts, please match the subject line capitalization style:
 
-Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
----
- drivers/net/dsa/realtek/rtl8365mb.h      | 14 ++++++++++
- drivers/net/dsa/realtek/rtl8365mb_main.c | 35 +++++++++++++++++++++++-
- 2 files changed, 48 insertions(+), 1 deletion(-)
- create mode 100644 drivers/net/dsa/realtek/rtl8365mb.h
+  PCI: tegra194: Use ...
 
-diff --git a/drivers/net/dsa/realtek/rtl8365mb.h b/drivers/net/dsa/realtek/rtl8365mb.h
-new file mode 100644
-index 0000000..315de4c
---- /dev/null
-+++ b/drivers/net/dsa/realtek/rtl8365mb.h
-@@ -0,0 +1,14 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef _RTL8365MB_H
-+#define _RTL8365MB_H
-+
-+#include "realtek.h"
-+
-+enum rtl8365mb_family {
-+	RTL8365MB_FAMILY_C,
-+	RTL8365MB_FAMILY_D,
-+};
-+
-+enum rtl8365mb_family rtl8365mb_get_family(struct realtek_priv *priv);
-+
-+#endif /* _RTL8365MB_H */
-diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
-index da06f95..80fc551 100644
---- a/drivers/net/dsa/realtek/rtl8365mb_main.c
-+++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
-@@ -81,6 +81,7 @@
-  *  - RTL8367RB-VB
-  *  - RTL8367SB
-  *  - RTL8367S
-+ *  - RTL8367S-VB
-  *  - RTL8370MB
-  *  - RTL8310SR
-  *
-@@ -110,12 +111,14 @@
- #include "rtl83xx.h"
- #include "rtl8365mb_l2.h"
- #include "rtl8365mb_vlan.h"
-+#include "rtl8365mb.h"
- 
- /* Family-specific data and limits */
- #define RTL8365MB_PHYADDRMAX		7
- #define RTL8365MB_NUM_PHYREGS		32
- #define RTL8365MB_PHYREGMAX		(RTL8365MB_NUM_PHYREGS - 1)
- #define RTL8365MB_MAX_NUM_PORTS		11
-+#define RTL8365MB_D_MAX_NUM_PORTS	8
- /* Valid for the whole family except RTL8370B, which has 4160 entries.
-  * RTL8370B is mentioned in vendor code but it might not even belong
-  * to the same RTL8367C family.
-@@ -707,6 +710,7 @@ struct rtl8365mb_extint {
-  * @name: human-readable chip name
-  * @chip_id: chip identifier
-  * @chip_ver: chip silicon revision
-+ * @family: chip family
-  * @extints: available external interfaces
-  * @jam_table: chip-specific initialization jam table
-  * @jam_size: size of the chip's jam table
-@@ -719,6 +723,7 @@ struct rtl8365mb_chip_info {
- 	const char *name;
- 	u32 chip_id;
- 	u32 chip_ver;
-+	enum rtl8365mb_family family;
- 	const struct rtl8365mb_extint extints[RTL8365MB_MAX_NUM_EXTINTS];
- 	const struct rtl8365mb_jam_tbl_entry *jam_table;
- 	size_t jam_size;
-@@ -731,6 +736,7 @@ static const struct rtl8365mb_chip_info rtl8365mb_chip_infos[] = {
- 		.name = "RTL8365MB-VC",
- 		.chip_id = 0x6367,
- 		.chip_ver = 0x0040,
-+		.family = RTL8365MB_FAMILY_C,
- 		.extints = {
- 			{ 6, 1, PHY_INTF(MII) | PHY_INTF(TMII) |
- 				PHY_INTF(RMII) | PHY_INTF(RGMII) },
-@@ -742,6 +748,7 @@ static const struct rtl8365mb_chip_info rtl8365mb_chip_infos[] = {
- 		.name = "RTL8367S",
- 		.chip_id = 0x6367,
- 		.chip_ver = 0x00A0,
-+		.family = RTL8365MB_FAMILY_C,
- 		.extints = {
- 			{ 6, 1, PHY_INTF(SGMII) | PHY_INTF(HSGMII) },
- 			{ 7, 2, PHY_INTF(MII) | PHY_INTF(TMII) |
-@@ -754,6 +761,7 @@ static const struct rtl8365mb_chip_info rtl8365mb_chip_infos[] = {
- 		.name = "RTL8367SB",
- 		.chip_id = 0x6367,
- 		.chip_ver = 0x0010,
-+		.family = RTL8365MB_FAMILY_C,
- 		.extints = {
- 			{ 6, 1, PHY_INTF(MII) | PHY_INTF(TMII) |
- 				PHY_INTF(RMII) | PHY_INTF(RGMII) |
-@@ -768,6 +776,7 @@ static const struct rtl8365mb_chip_info rtl8365mb_chip_infos[] = {
- 		.name = "RTL8367RB-VB",
- 		.chip_id = 0x6367,
- 		.chip_ver = 0x0020,
-+		.family = RTL8365MB_FAMILY_C,
- 		.extints = {
- 			{ 6, 1, PHY_INTF(MII) | PHY_INTF(TMII) |
- 				PHY_INTF(RMII) | PHY_INTF(RGMII) },
-@@ -777,6 +786,19 @@ static const struct rtl8365mb_chip_info rtl8365mb_chip_infos[] = {
- 		.jam_table = rtl8365mb_init_jam_8365mb_vc,
- 		.jam_size = ARRAY_SIZE(rtl8365mb_init_jam_8365mb_vc),
- 	},
-+	{
-+		.name = "RTL8367S-VB",
-+		.chip_id = 0x6642,
-+		.chip_ver = 0x0010,
-+		.family = RTL8365MB_FAMILY_D,
-+		.extints = {
-+			{ 6, 0, PHY_INTF(SGMII) | PHY_INTF(HSGMII) },
-+			{ 7, 1, PHY_INTF(MII) | PHY_INTF(TMII) |
-+				PHY_INTF(RMII) | PHY_INTF(RGMII) },
-+		},
-+		.jam_table = rtl8365mb_init_jam_8365mb_vc,
-+		.jam_size = ARRAY_SIZE(rtl8365mb_init_jam_8365mb_vc),
-+	},
- };
- 
- enum rtl8365mb_stp_state {
-@@ -874,6 +896,13 @@ struct rtl8365mb {
- 
- #define pcs_to_rtl8365mb(_pcs) container_of((_pcs), struct rtl8365mb, pcs)
- 
-+enum rtl8365mb_family rtl8365mb_get_family(struct realtek_priv *priv)
-+{
-+	struct rtl8365mb *mb = priv->chip_data;
-+
-+	return mb->chip_info->family;
-+}
-+
- static int rtl8365mb_phy_poll_busy(struct realtek_priv *priv)
- {
- 	u32 val;
-@@ -3349,7 +3378,11 @@ static int rtl8365mb_detect(struct realtek_priv *priv)
- 
- 	dev_info(priv->dev, "found an %s switch\n", mb->chip_info->name);
- 
--	priv->num_ports = RTL8365MB_MAX_NUM_PORTS;
-+	if (rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D)
-+		priv->num_ports = RTL8365MB_D_MAX_NUM_PORTS;
-+	else
-+		priv->num_ports = RTL8365MB_MAX_NUM_PORTS;
-+
- 	mb->priv = priv;
- 	mb->cpu.trap_port = RTL8365MB_MAX_NUM_PORTS;
- 	mb->cpu.insert = RTL8365MB_CPU_INSERT_TO_ALL;
--- 
-2.53.0
+And style as "PERST#" in the subject, commit log, and dmesg text to
+match spec usage.
 
+No need to repost just for this; we can tweak these when applying.
+
+> ---
+>  drivers/pci/controller/dwc/pcie-tegra194.c | 15 +++------------
+>  1 file changed, 3 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/pci/controller/dwc/pcie-tegra194.c b/drivers/pci/controller/dwc/pcie-tegra194.c
+> index 63a0f56cad8e..767e11216196 100644
+> --- a/drivers/pci/controller/dwc/pcie-tegra194.c
+> +++ b/drivers/pci/controller/dwc/pcie-tegra194.c
+> @@ -1200,18 +1200,9 @@ static int tegra_pcie_dw_parse_dt(struct tegra_pcie_dw *pcie)
+>  
+>  	/* Endpoint mode specific DT entries */
+>  	pcie->pex_rst_gpiod = devm_gpiod_get(pcie->dev, "reset", GPIOD_IN);
+> -	if (IS_ERR(pcie->pex_rst_gpiod)) {
+> -		int err = PTR_ERR(pcie->pex_rst_gpiod);
+> -		const char *level = KERN_ERR;
+> -
+> -		if (err == -EPROBE_DEFER)
+> -			level = KERN_DEBUG;
+> -
+> -		dev_printk(level, pcie->dev,
+> -			   dev_fmt("Failed to get PERST GPIO: %d\n"),
+> -			   err);
+> -		return err;
+> -	}
+> +	if (IS_ERR(pcie->pex_rst_gpiod))
+> +		return dev_err_probe(pcie->dev, PTR_ERR(pcie->pex_rst_gpiod),
+> +				     "Failed to get PERST GPIO\n");
+>  
+>  	pcie->pex_refclk_sel_gpiod = devm_gpiod_get_optional(pcie->dev,
+>  							     "nvidia,refclk-select",
+> -- 
+> 2.43.0
+> 
