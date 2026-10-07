@@ -1,262 +1,133 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-58.mta0.migadu.com [91.218.175.58])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DBF74A5C41
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 14:21:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FAE64B1D10
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 14:21:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.58
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791382878; cv=none; b=CyptiHgtRSt78q308B0e2FTMfe3O0guH3jqJA8wOFO/jTBDm975QH2/3rMuahNwj9quB/5ULrBk+J40tV57lbJEoxLhU0mn/BWbNE40nSXo5iv6Ck5U17LZ1JVm9r79Pjqvl0UMf4W8PSdHMfKrTAWcFDXP0v7cJ+IscrX1tMRY=
+	t=1791382877; cv=none; b=Kp4eoBgO5T90F6tuJF5pZbZjUrq1YQid3/0hLs7sB2Ti+gCrON1IMQUHRgUU7p0fUNgT0M4CnbpOONCpjfNIOWFg+jyVKBmE2ddFIjwCCEXp9LAsv2Z8Nk/B2HMNbC9HTXYNnraMuk0raFvAIu3AdM+pbR9I7EXD8BZq02I1uts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791382878; c=relaxed/simple;
-	bh=RYSrPf2OQvnvdB+sl9uw0kLC6emEgvUlTzu1PvuZpWQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RilcHBtoJnN88KTJw4N0XVQHs8/r1d5IAGTv2gQwJAtMJ4FsaA/7iDOr4hJ/gmpqTDVRg6w5IGRmM2QBiB79wGUivmUu0InQBe7WX7TP5m/3W/QEBuwvutGbcZey1zZJSkIpVprBRgM+KtGOORCS+aIEXJs0SgsjxCX9DtnHt34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OZVse1Xw; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791382877; c=relaxed/simple;
+	bh=lO7k2qeUlKTPLz1K+tJL8g8IOK76pGpsgZGLgAJJ/r4=;
+	h=Content-Type:From:Mime-Version:Subject:Date:Message-Id:References:
+	 Cc:In-Reply-To:To; b=VnS/Cbr4gHnTLeKMLpffzJKq59kHiA5Q4QR7Mk4H9VhYYGJq5oOGelZX8SUiWMgOnQZY8XJL97yyD6iN8kDgxgIMPvXDTvtdqaZ1Fw+taeVTbXdLifjs4xN7BI6gKb8nDXocpp80raLBeGQ9mp/VHUSYmxqhK9ssS9Pk9QF1SPU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=oPm02eM0; arc=none smtp.client-ip=91.218.175.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OZVse1Xw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791382864;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xM66Hjq587X4KsSIngC1C3OQf9n3ED0f80S7NStRM+4=;
-	b=OZVse1Xwv5+txefkkCyWTNJmNAmusItnphPGCfsAyNaXJybzOWaAUvE0p8bMtJT/cgl4Uc
-	twqiG98MpN66IW3J2/qfdZ84WeQ7vJGanxeGcSmPXCxPGbmoHdDw+0ff4lGSxieUk0BdwY
-	cnmwMlG4B5qQ0nKrQqieSdjMt0pD1z4=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-86-FZj6XF9cNXegoV6EYuJSXA-1; Wed,
- 7 Oct 2026 14:20:58 +0000
-X-MC-Unique: FZj6XF9cNXegoV6EYuJSXA-1
-X-Mimecast-MFC-AGG-ID: FZj6XF9cNXegoV6EYuJSXA_1791382856
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 5497318E5AA8;
-	Wed,  7 Oct 2026 14:20:29 +0000 (UTC)
-Received: from warthog.com (unknown [10.44.32.90])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 511991954125;
-	Wed,  7 Oct 2026 14:20:21 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-To: Christian Brauner <christian@brauner.io>
-Cc: David Howells <dhowells@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	Stefan Metzmacher <metze@samba.org>,
-	Eric Van Hensbergen <ericvh@kernel.org>,
-	Dominique Martinet <asmadeus@codewreck.org>,
-	Ilya Dryomov <idryomov@gmail.com>,
-	netfs@lists.linux.dev,
-	linux-afs@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	ceph-devel@vger.kernel.org,
-	v9fs@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v14 2/8] netfs: Add a function to extract from an iter into a bvecq
-Date: Wed,  7 Oct 2026 15:19:53 +0100
-Message-ID: <20261007142001.851620-3-dhowells@redhat.com>
-In-Reply-To: <20261007142001.851620-1-dhowells@redhat.com>
-References: <20261007142001.851620-1-dhowells@redhat.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="oPm02eM0"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=lO7k2qeUlKTPLz1K+tJL8g8IOK76pGpsgZGLgAJJ/r4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791382861; v=1; x=1791987661;
+ b=oPm02eM0KcjWOpLUsjUlrO5eg6fDTVRhQoKlQ3QkFJOtf5BbZEo4BFHsGSddEx/clQG/SEdo
+ jF+AdhXHZVMfwUdxzfvpGnXlyOKhi7mgMnhGXUasdAIpxn0VP0yUfHgh4c/Vl4HNooHyLeCRwgu
+ yla3+A0tTdE8Yr1PsObwEN3o=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 605dfb51341d1243;
+	Wed, 07 Oct 2026 14:21:01 +0000
+X-Mizu-Trace-ID: 605dfb51341d1243
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+From: Aditya Garg <aditya.garg@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Mime-Version: 1.0 (1.0)
+Subject: Re: [PATCH v2] drm/appletbdrm: Add suspend and resume support
+Date: Wed, 7 Oct 2026 19:50:38 +0530
+Message-Id: <E1AEF567-3705-4AE7-B409-6E6D70C505AC@linux.dev>
+References: <586d0b39-40c8-4f3d-a786-c1085f87b858@linux.dev>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Kerem Karabay <kekrby@gmail.com>,
+ Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+In-Reply-To: <586d0b39-40c8-4f3d-a786-c1085f87b858@linux.dev>
+To: vasilij.kernel@tototo.si, Aun-Ali Zaidi <admin@kodeit.net>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+X-Mailer: iPad Mail (24A446)
 
-Add a function to extract a slice of data from an iterator of any type into
-a bvec queue chain.
 
-Signed-off-by: David Howells <dhowells@redhat.com>
-Reviewed-by: Paulo Alcantara <pc@manguebit.org>
-cc: Matthew Wilcox <willy@infradead.org>
-cc: netfs@lists.linux.dev
-cc: linux-fsdevel@vger.kernel.org
----
- fs/netfs/iterator.c   | 146 ++++++++++++++++++++++++++++++++++++++++++
- include/linux/netfs.h |   3 +
- 2 files changed, 149 insertions(+)
 
-diff --git a/fs/netfs/iterator.c b/fs/netfs/iterator.c
-index 31748526d568..e7c160df6909 100644
---- a/fs/netfs/iterator.c
-+++ b/fs/netfs/iterator.c
-@@ -13,6 +13,152 @@
- #include <linux/netfs.h>
- #include "internal.h"
- 
-+/**
-+ * netfs_extract_iter - Extract virtually contiguous pages from an iterator into a bvecq
-+ * @orig: The original iterator
-+ * @max_len: Maximum number of bytes to extract
-+ * @max_pages: Maximum number of pages to extract
-+ * @_bvecq_head: Where to cache the bvec queue
-+ * @extraction_flags: Flags to qualify the request
-+ * @gfp: Allocation mode for bvecq structs.
-+ *
-+ * Extract virtually contiguous page fragments from the source iterator up to
-+ * the given maxima and build bvec queue that refers to all of those bits.
-+ * This allows the original iterator to disposed of.
-+ *
-+ * @extraction_flags can have ITER_ALLOW_P2PDMA set to request peer-to-peer DMA
-+ * be allowed on the pages extracted.
-+ *
-+ * On success or partial success, the amount of data in the bvec is returned,
-+ * the original iterator will have been advanced by the amount extracted.
-+ *
-+ * If an error occurs and no pages are extracted, an error will be returned and
-+ * any allocated bvecq will be freed.  If there is no data to be extracted (or
-+ * @max_len or @max_pages are zero), a single empty bvecq will be returned.
-+ *
-+ * The bvecq segments are marked with indications on how to get clean up the
-+ * extracted fragments.
-+ */
-+ssize_t netfs_extract_iter(struct iov_iter *orig, size_t max_len, size_t max_pages,
-+			   struct bvecq **_bvecq_head,
-+			   iov_iter_extraction_t extraction_flags, gfp_t gfp)
-+{
-+	struct bvecq *bq_tail = NULL, *bq;
-+	ssize_t ret = 0;
-+	size_t extracted = 0;
-+
-+	_enter("{%u,%zx},%zx", orig->iter_type, orig->count, max_len);
-+
-+	*_bvecq_head = NULL;
-+	if (max_len > orig->count)
-+		max_len = orig->count;
-+	if (!max_len || !max_pages)
-+		goto alloc_empty;
-+	if (WARN_ON_ONCE(max_pages > INT_MAX))
-+		max_pages = INT_MAX; /* Protect iov_iter_npages(). */
-+
-+	max_pages = iov_iter_npages(orig, max_pages);
-+	if (!max_pages)
-+		goto alloc_empty;
-+
-+	do {
-+		bq = bvecq_alloc_one(min(max_pages, BVECQ_4KB_SLOTS), gfp, false);
-+		if (!bq) {
-+			ret = -ENOMEM;
-+			break;
-+		}
-+		if (user_backed_iter(orig))
-+			bq->mem_type = iov_iter_extract_will_pin(orig) ?
-+				BVECQ_MEM_GUP : BVECQ_MEM_PAGECACHE;
-+
-+		if (bq_tail)
-+			bvecq_append(bq_tail, bq);
-+		else
-+			*_bvecq_head = bq;
-+		bq_tail = bq;
-+
-+		if (max_len == 0)
-+			break;
-+
-+		struct bio_vec *bv = bq->bv;
-+		unsigned int slot = 0;
-+		do {
-+			struct page **pages;
-+			ssize_t got;
-+			size_t offset;
-+			size_t space = bq->max_slots - slot;
-+			size_t bv_size = array_size(bq->max_slots, sizeof(*bv));
-+			size_t pg_size = array_size(space, sizeof(*pages));
-+
-+			/* Put the page list at the end of the bvec list
-+			 * storage.  bvec elements are larger than page
-+			 * pointers, so as long as we work 0->last, we should
-+			 * be fine.
-+			 */
-+			pages = (void *)bv + bv_size - pg_size;
-+
-+			got = iov_iter_extract_pages(orig, &pages, max_len,
-+						     min(space, max_pages),
-+						     extraction_flags, &offset);
-+			if (got < 0) {
-+				ret = got;
-+				goto out;
-+			}
-+
-+			if (got == 0) {
-+				pr_err("extract_pages gave nothing from %zx, %zx\n",
-+				       extracted, max_len);
-+				ret = -EIO;
-+				goto out;
-+			}
-+
-+			if (WARN(got > max_len,
-+				 "%s: extract_pages overrun %zx > %zx bytes\n",
-+				 __func__, got, max_len)) {
-+				/* Abandon what we got as very likely the
-+				 * overrun corrupted memory.
-+				 */
-+				ret = -EIO;
-+				goto out;
-+			}
-+
-+			extracted += got;
-+			max_len -= got;
-+
-+			do {
-+				size_t len = umin(got, PAGE_SIZE - offset);
-+
-+				BUG_ON(slot >= bq->max_slots);
-+
-+				bvec_set_page(&bq->bv[slot], *pages++, len, offset);
-+				slot++;
-+				max_pages--;
-+				got -= len;
-+				offset = 0;
-+			} while (got > 0);
-+
-+			bvecq_filled_to(bq, slot);
-+		} while (max_len > 0 && max_pages > 0 && !bvecq_is_full(bq));
-+
-+	} while (max_len > 0 && max_pages > 0);
-+
-+out:
-+	if (extracted || ret == 0)
-+		return extracted;
-+	bvecq_put(*_bvecq_head);
-+	*_bvecq_head = NULL;
-+	return ret;
-+
-+alloc_empty:
-+	bq = bvecq_alloc_one(1, gfp, false);
-+	if (!bq)
-+		return -ENOMEM;
-+	*_bvecq_head = bq;
-+	return 0;
-+
-+}
-+EXPORT_SYMBOL_GPL(netfs_extract_iter);
-+
- /**
-  * netfs_extract_user_iter - Extract the pages from a user iterator into a bvec
-  * @orig: The original iterator
-diff --git a/include/linux/netfs.h b/include/linux/netfs.h
-index b0dd92d12a97..aca192bc5675 100644
---- a/include/linux/netfs.h
-+++ b/include/linux/netfs.h
-@@ -454,6 +454,9 @@ void netfs_get_subrequest(struct netfs_io_subrequest *subreq,
- 			  enum netfs_sreq_ref_trace what);
- void netfs_put_subrequest(struct netfs_io_subrequest *subreq,
- 			  enum netfs_sreq_ref_trace what);
-+ssize_t netfs_extract_iter(struct iov_iter *orig, size_t max_len, size_t max_pages,
-+			   struct bvecq **_bvecq_head,
-+			   iov_iter_extraction_t extraction_flags, gfp_t gfp);
- ssize_t netfs_extract_user_iter(struct iov_iter *orig, size_t orig_len,
- 				struct iov_iter *new,
- 				iov_iter_extraction_t extraction_flags);
+> On 4 Oct 2026, at 5:36=E2=80=AFPM, Aditya Garg <aditya.garg@linux.dev> wro=
+te:
+>=20
+> =EF=BB=BFFrom: Vasilij Markin <vasilij.kernel@tototo.si>
+>=20
+> The driver has no USB power management callbacks, so the USB core
+> unbinds it before system suspend and binds it again on resume. The DRM
+> device is unregistered and registered again on every suspend and resume
+> cycle, userspace driving the Touch Bar through it (such as tiny-dfr)
+> loses its device, and the Touch Bar stays dark after resume.
+>=20
+> Implement suspend and resume with drm_mode_config_helper_suspend() and
+> drm_mode_config_helper_resume(), so the device stays registered and the
+> last committed state is restored on resume. If the device was reset
+> while suspended, repeat the probe-time handshake first.
+>=20
+> Fixes: 0670c2f56e45 ("drm/tiny: add driver for Apple Touch Bars in x86 Mac=
+s")
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Vasilij Markin <vasilij.kernel@tototo.si>
+> Signed-off-by: Aditya Garg <aditya.garg@linux.dev>
 
+Could anyone please merge it if they are ok with it? Thanks.
+> ---
+> v2: Remove reset_resume
+>=20
+> drivers/gpu/drm/tiny/appletbdrm.c | 17 +++++++++++++++++
+> 1 file changed, 17 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/tiny/appletbdrm.c b/drivers/gpu/drm/tiny/appl=
+etbdrm.c
+> index ef71b9957..c94ed1068 100644
+> --- a/drivers/gpu/drm/tiny/appletbdrm.c
+> +++ b/drivers/gpu/drm/tiny/appletbdrm.c
+> @@ -30,6 +30,7 @@
+> #include <drm/drm_gem_atomic_helper.h>
+> #include <drm/drm_gem_framebuffer_helper.h>
+> #include <drm/drm_gem_shmem_helper.h>
+> +#include <drm/drm_modeset_helper.h>
+> #include <drm/drm_plane.h>
+> #include <drm/drm_print.h>
+> #include <drm/drm_probe_helper.h>
+> @@ -821,6 +822,20 @@ static void appletbdrm_shutdown(struct usb_interface *=
+intf)
+>    drm_atomic_helper_shutdown(&adev->drm);
+> }
+>=20
+> +static int appletbdrm_suspend(struct usb_interface *intf, pm_message_t me=
+ssage)
+> +{
+> +    struct appletbdrm_device *adev =3D usb_get_intfdata(intf);
+> +
+> +    return drm_mode_config_helper_suspend(&adev->drm);
+> +}
+> +
+> +static int appletbdrm_resume(struct usb_interface *intf)
+> +{
+> +    struct appletbdrm_device *adev =3D usb_get_intfdata(intf);
+> +
+> +    return drm_mode_config_helper_resume(&adev->drm);
+> +}
+> +
+> static const struct usb_device_id appletbdrm_usb_id_table[] =3D {
+>    { USB_DEVICE_INTERFACE_CLASS(0x05ac, 0x8302, USB_CLASS_AUDIO_VIDEO) },
+>    {}
+> @@ -832,6 +847,8 @@ static struct usb_driver appletbdrm_usb_driver =3D {
+>    .probe        =3D appletbdrm_probe,
+>    .disconnect    =3D appletbdrm_disconnect,
+>    .shutdown    =3D appletbdrm_shutdown,
+> +    .suspend    =3D appletbdrm_suspend,
+> +    .resume        =3D appletbdrm_resume,
+>    .id_table    =3D appletbdrm_usb_id_table,
+> };
+> module_usb_driver(appletbdrm_usb_driver);
+> --
+> 2.53.0
