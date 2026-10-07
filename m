@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83BD438D3F0
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:49:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5827541A569
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:50:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791373812; cv=none; b=fRthE2yGH/A2nBJomxVH6sneexYjmj5h/pUMOlhzR7XmjKG9Y+sn4ENp5jA2aThabjIzpgOZRa1DeMmHhLMgQd0nryqGTAw7qoqNLzFN8t4u8C3PdFqcnBrZu/2K93UrKDgMcmzNLNp+/c1kCQeuFGaSzKhNtDO9QgXKZWBcZ/8=
+	t=1791373814; cv=none; b=TcJUuvHr891fRamnN3255m6rRapnHx1eQNKgBeNbvYXnkNL1TnstzhtmcyafMvqmAJXMSoZBRgACD7UWVxZq4PHaDOTmCPSTzO429HpaNBzcFic/ocGbeP7LeTS17+fmFS/s616c3thU888HeIGR1m5XwLvGRSEzEN3SsfZNK3g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791373812; c=relaxed/simple;
-	bh=LmVM/TTM2Nl4xteqNrsn4KiXfdwA04XEE7BesezEs6I=;
+	s=arc-20240116; t=1791373814; c=relaxed/simple;
+	bh=wGr9t/s4DyDBnQa9SPI4d2fCf7BpY9oSx1ZJPLeAXWM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SAidtRH89w2wM1u5ZpP+0TSG6aE3N+6L3wUnBJ6as/2ycXREDjM08EpiFoQ//9c9mHth0NCOrW93Z+Tkyz0TPcbUoVznxQCnQ5s17PeFD//hPYy/eqQzVPNBVKz6LKapcHvWMfL/JPdFtOlnR3R9Krr0kCUznZyQkY9sphKmmE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NojYkolX; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=mhb4K9VRmXSH/vZ55zorNZDdonMsMBCvgAk5NZVkQ8sh/dlmY6g7NP9DDluA+oUVyOD01RM1xwWUksNcnj4Wz7RTEYYY98hGotw2jL3bdQSR1GbYKLOIRUiQe8BiKEB6ZV3R4JBTfdYfjpZSHrGSMnuzl6hjaM2kyRspt1uzmUI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RreF8+oR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NojYkolX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 612551F0089F;
-	Wed,  7 Oct 2026 11:49:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RreF8+oR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92DBF1F008A0;
+	Wed,  7 Oct 2026 11:49:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791373799;
-	bh=ksY1/x6c5WcHruadmBqgInbPuFlc6e/FOTA9xId5ga8=;
+	s=k20260515; t=1791373800;
+	bh=x41muMHTfMYZOVwgw5U3Ok4EV+qcMUNKpCjaY2C03kg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NojYkolXtDDLQk6WuT5PhLfvs0homnTY5Edkm73dHJRYvJ+/2dna+q3ASh6MZSc8H
-	 7ChPdAi07FlCMxskxCRS8r2mnQQ5FVA5Rxt6Nzd3KaDAgvpgpkiuJsFxg7110oJ/GC
-	 N+pYCyir1cfHzSmdQwwwRgvFdyjC/ZxIQO61OTOYyibUFY8Og1bl9tbhTgC9ue4cZ0
-	 Zf7Q7LXTY/0glvkArVTSrm6l+juVOIHqSZAYVyJD7jT+m4tFSWVhQI9b9gv/DwWhKM
-	 a0fPooRUvTZwLovCAJxuUXLaO1EUQOqO7L22LIFco1aoWe8jjxFm9bYL44vTE2Fxba
-	 OpXScDk/Zn01w==
+	b=RreF8+oRw/MjNGMozbyaHuQ1Huy01BkG5v0ePhuNVvkMBwvM3RcfcoOM/B2ykFLCF
+	 bP8ZrC3DiSMkCQlqrqFnhwqUktIc1k01bVPmPglJsti+zUDUs8DcjOAPBtmFjXTmM3
+	 CIgGb0n//562HDLc9CiL2WkHL6nM1D6EvMSKPi8G5RYIZoxwfGGhhQg4V39uzEdxVR
+	 Isw0S6a5U3sHW2LbE4pzxXn8l2lMjdQGZiOaGra34BkHfGs/boZAZIX2pgSBJvbYPI
+	 VtXgKCaPv8i5+ftRW25SJ6jxe4KZRi7yyjtsKla/SU9ybQTWul8R8k9nKNAr3wr+pX
+	 ZwDk/vkboQqaA==
 From: Chao Yu <chao@kernel.org>
 To: jaegeuk@kernel.org
 Cc: linux-f2fs-devel@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org,
 	Chao Yu <chao@kernel.org>
-Subject: [PATCH 3/5] f2fs: cache: wake up f2fs_writeback when exceeding threshold
-Date: Wed,  7 Oct 2026 11:49:47 +0000
-Message-ID: <20261007114949.2428048-3-chao@kernel.org>
+Subject: [PATCH 4/5] f2fs: cache: support asynchronous write_end_io
+Date: Wed,  7 Oct 2026 11:49:48 +0000
+Message-ID: <20261007114949.2428048-4-chao@kernel.org>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
 In-Reply-To: <20261007114949.2428048-1-chao@kernel.org>
 References: <20261007114949.2428048-1-chao@kernel.org>
@@ -47,188 +47,160 @@ Content-Transfer-Encoding: 8bit
 
 From: Chao Yu <chao@kernel.org>
 
-This patch introduces cache_wb_dirty_threshold and cache_wb_total_threshold
-sysfs nodes under /sys/fs/f2fs/<disk>/, and allows waking up the
-f2fs_writeback kthread when both thresholds are exceeded.
+Currently, f2fs_cache_write_end_io() synchronously traverses all
+cached blocks in the write bio to perform node footer sanity checks,
+warm node cleanup, and writeback completion. If called from atomic
+context (e.g. interrupt context) with a large batch of metadata
+blocks, this traversal can induce significant IRQ latency.
 
-By default, cache_wb_total_threshold is zero, so if dirty cache number exceeds
-cache_wb_dirty_threshold, it will trigger writebacking.
+Furthermore, f2fs_write_end_io() already implements asynchronous
+offloading via workqueue when in atomic context and exceeding the
+max_atc_write_bio_size threshold.
+
+To avoid code duplication and mitigate atomic context latency for
+metadata cache writes:
+1. Unify the write completion handler by pointing all write bios to
+   f2fs_write_end_io() with bio->bi_private = sbi.
+2. In f2fs_write_end_bio(), check f2fs_is_cache_bio(bio) to dispatch
+   to f2fs_cache_write_end_bio().
+3. Simplify f2fs_zone_write_end_io() to call f2fs_write_end_io() directly.
 
 Signed-off-by: Chao Yu <chao@kernel.org>
 ---
- Documentation/ABI/testing/sysfs-fs-f2fs | 14 +++++++
- fs/f2fs/cache.c                         | 50 ++++++++++++++++++++++++-
- fs/f2fs/cache.h                         |  5 +++
- fs/f2fs/sysfs.c                         |  8 +++-
- 4 files changed, 75 insertions(+), 2 deletions(-)
+ fs/f2fs/data.c | 92 +++++++++++++++++++++++---------------------------
+ 1 file changed, 42 insertions(+), 50 deletions(-)
 
-diff --git a/Documentation/ABI/testing/sysfs-fs-f2fs b/Documentation/ABI/testing/sysfs-fs-f2fs
-index 5b196806b3bc..f50739f90ae9 100644
---- a/Documentation/ABI/testing/sysfs-fs-f2fs
-+++ b/Documentation/ABI/testing/sysfs-fs-f2fs
-@@ -1027,3 +1027,17 @@ Contact:	"Chao Yu" <chao@kernel.org>
- Description:	This is a writable entry to control writeback interval of
- 		f2fs_writeback-x:y, the range is [100, 30000], by default the value
- 		is 5000, unit is ms.
-+
-+What:		/sys/fs/f2fs/<disk>/cache_wb_dirty_threshold
-+Date:		October 2026
-+Contact:	"Chao Yu" <chao@kernel.org>
-+Description:	This is a writable entry for metadata cache, it is used to control
-+		dirty cache threshold of to wake up f2fs_writeback-x:y for writeback,
-+		by default the value is 8192, unit is blocks.
-+
-+What:		/sys/fs/f2fs/<disk>/cache_wb_total_threshold
-+Date:		October 2026
-+Contact:	"Chao Yu" <chao@kernel.org>
-+Description:	This is a writable entry for metadata cache, it is used to control
-+		total cache threshold to wake up f2fs_writeback-x:y for writeback,
-+		by default the value is 0, unit is blocks.
-diff --git a/fs/f2fs/cache.c b/fs/f2fs/cache.c
-index f385fe928b5b..fcccfd3428df 100644
---- a/fs/f2fs/cache.c
-+++ b/fs/f2fs/cache.c
-@@ -81,6 +81,7 @@ bool f2fs_mark_cache_dirty(struct f2fs_cached_block *entry)
- 		f2fs_cache_update_tag(entry, F2FS_CACHE_TAG_NONE,
- 						F2FS_CACHE_TAG_DIRTY);
- 		inc_cache_count(cache->sbi, type);
-+		f2fs_wake_up_cache_wb(cache->sbi);
- 		return true;
- 	}
- 
-@@ -681,6 +682,39 @@ unsigned long f2fs_shrink_node_cache(struct f2fs_sb_info *sbi,
- 	return f2fs_do_shrink_cache(NODE_CACHE(sbi), nr_to_scan);
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index 6d4ba5e77906..0a6aa24caa07 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -298,6 +298,40 @@ static void f2fs_read_end_io(struct bio *bio)
+ 	f2fs_verify_and_finish_bio(bio, intask);
  }
  
-+static inline unsigned long f2fs_total_cached_entries(struct f2fs_sb_info *sbi)
++static void f2fs_cache_write_end_bio(struct bio *bio)
 +{
-+	unsigned long total = META_CACHE(sbi)->num_entries +
-+			      NODE_CACHE(sbi)->num_entries;
-+#ifdef CONFIG_F2FS_FS_COMPRESSION
-+	if (test_opt(sbi, COMPRESS_CACHE))
-+		total += COMPRESS_CACHE(sbi)->num_entries;
-+#endif
-+	return total;
++	struct f2fs_cached_block *entry = F2FS_BIO(bio)->entry;
++	struct f2fs_sb_info *sbi = entry->cache->sbi;
++	struct f2fs_cached_block *next;
++
++	if (bio->bi_status != BLK_STS_OK)
++		f2fs_stop_checkpoint(sbi, true,
++			STOP_CP_REASON_WRITE_FAIL);
++
++	while (entry) {
++		next = entry->next_entry;
++		entry->next_entry = NULL;
++
++		if (f2fs_is_node_cache(entry)) {
++			f2fs_sanity_check_node_footer(sbi, entry,
++				entry->index, NODE_TYPE_REGULAR, true);
++			f2fs_bug_on(sbi, entry->index != nid_of_node(sbi, entry));
++		}
++		if (f2fs_in_warm_node_list(sbi, entry))
++			f2fs_del_fsync_node_entry(sbi, entry);
++
++		dec_cache_count(sbi, F2FS_WB_CP_DATA);
++
++		if (!get_nr_caches(sbi, F2FS_WB_CP_DATA) &&
++				wq_has_sleeper(&sbi->cp_wait))
++			wake_up(&sbi->cp_wait);
++
++		f2fs_end_cache_writeback(entry);
++		entry = next;
++	}
++	bio_put(bio);
 +}
 +
-+static inline bool f2fs_should_wake_up_cache_wb(struct f2fs_sb_info *sbi)
-+{
-+	struct f2fs_cache_kthread *cache_thread = &sbi->cache_thread;
-+	s64 nr_dirty;
-+
-+	if (!cache_thread->cache_wb_task)
-+		return false;
-+
-+	if (cache_thread->cache_wb_total_threshold &&
-+	    f2fs_total_cached_entries(sbi) < cache_thread->cache_wb_total_threshold)
-+		return false;
-+
-+	nr_dirty = get_nr_caches(sbi, F2FS_DIRTY_META) +
-+		   get_nr_caches(sbi, F2FS_DIRTY_NODES);
-+
-+	if (cache_thread->cache_wb_dirty_threshold &&
-+	    nr_dirty < cache_thread->cache_wb_dirty_threshold)
-+		return false;
-+
-+	return true;
-+}
-+
- static int f2fs_cache_writeback_kthread(void *data)
+ static void f2fs_write_end_bio(struct bio *bio)
  {
- 	struct f2fs_sb_info *sbi = data;
-@@ -693,7 +727,8 @@ static int f2fs_cache_writeback_kthread(void *data)
- 		unsigned int interval = cache_thread->cache_wb_interval;
+ 	struct f2fs_sb_info *sbi = bio->bi_private;
+@@ -306,6 +340,11 @@ static void f2fs_write_end_bio(struct bio *bio)
+ 	if (time_to_inject(sbi, FAULT_WRITE_IO))
+ 		bio->bi_status = BLK_STS_IOERR;
  
- 		wait_event_freezable_timeout(*wq,
--				kthread_should_stop(),
-+				kthread_should_stop() ||
-+				f2fs_should_wake_up_cache_wb(sbi),
- 				msecs_to_jiffies(interval));
- 
- 		if (kthread_should_stop())
-@@ -719,6 +754,17 @@ static int f2fs_cache_writeback_kthread(void *data)
- 	return 0;
- }
- 
-+void f2fs_wake_up_cache_wb(struct f2fs_sb_info *sbi)
-+{
-+	struct f2fs_cache_kthread *cache_thread = &sbi->cache_thread;
-+
-+	if (!f2fs_should_wake_up_cache_wb(sbi))
++	if (f2fs_is_cache_bio(bio)) {
++		f2fs_cache_write_end_bio(bio);
 +		return;
++	}
 +
-+	if (wq_has_sleeper(&cache_thread->cache_wb_wq))
-+		wake_up(&cache_thread->cache_wb_wq);
-+}
-+
- int f2fs_start_cache_wb_thread(struct f2fs_sb_info *sbi)
+ 	bio_for_each_folio_all(fi, bio) {
+ 		struct folio *folio = fi.folio;
+ 		enum count_type type;
+@@ -404,45 +443,6 @@ static void f2fs_cache_read_end_io(struct bio *bio)
+ 	bio_put(bio);
+ }
+ 
+-static void f2fs_cache_write_end_io(struct bio *bio)
+-{
+-	struct f2fs_cached_block *entry = F2FS_BIO(bio)->entry;
+-	struct f2fs_sb_info *sbi = entry->cache->sbi;
+-	struct f2fs_cached_block *next;
+-
+-	iostat_update_and_unbind_ctx(bio);
+-
+-	if (time_to_inject(sbi, FAULT_WRITE_IO))
+-		bio->bi_status = BLK_STS_IOERR;
+-
+-	if (bio->bi_status != BLK_STS_OK)
+-		f2fs_stop_checkpoint(sbi, true,
+-			STOP_CP_REASON_WRITE_FAIL);
+-
+-	while (entry) {
+-		next = entry->next_entry;
+-		entry->next_entry = NULL;
+-
+-		if (f2fs_is_node_cache(entry)) {
+-			f2fs_sanity_check_node_footer(sbi, entry,
+-				entry->index, NODE_TYPE_REGULAR, true);
+-			f2fs_bug_on(sbi, entry->index != nid_of_node(sbi, entry));
+-		}
+-		if (f2fs_in_warm_node_list(sbi, entry))
+-			f2fs_del_fsync_node_entry(sbi, entry);
+-
+-		dec_cache_count(sbi, F2FS_WB_CP_DATA);
+-
+-		if (!get_nr_caches(sbi, F2FS_WB_CP_DATA) &&
+-				wq_has_sleeper(&sbi->cp_wait))
+-			wake_up(&sbi->cp_wait);
+-
+-		f2fs_end_cache_writeback(entry);
+-		entry = next;
+-	}
+-	bio_put(bio);
+-}
+-
+ #ifdef CONFIG_BLK_DEV_ZONED
+ static void f2fs_zone_write_end_io(struct bio *bio)
  {
- 	struct f2fs_cache_kthread *cache_thread = &sbi->cache_thread;
-@@ -731,6 +777,8 @@ int f2fs_start_cache_wb_thread(struct f2fs_sb_info *sbi)
+@@ -450,10 +450,7 @@ static void f2fs_zone_write_end_io(struct bio *bio)
  
- 	init_waitqueue_head(&cache_thread->cache_wb_wq);
- 	cache_thread->cache_wb_interval = DEF_DIRTY_CACHE_TIMEOUT;
-+	cache_thread->cache_wb_dirty_threshold = DEF_CACHE_WB_DIRTY_THRESH;
-+	cache_thread->cache_wb_total_threshold = 0;
- 	snprintf(name, sizeof(name), "f2fs_writeback-%u:%u",
- 			MAJOR(dev), MINOR(dev));
+ 	bio->bi_private = io->bi_private;
+ 	complete(&io->zone_wait);
+-	if (f2fs_is_cache_bio(bio))
+-		f2fs_cache_write_end_io(bio);
+-	else
+-		f2fs_write_end_io(bio);
++	f2fs_write_end_io(bio);
+ }
+ #endif
  
-diff --git a/fs/f2fs/cache.h b/fs/f2fs/cache.h
-index 3df3a562c46f..7a94fb8139d3 100644
---- a/fs/f2fs/cache.h
-+++ b/fs/f2fs/cache.h
-@@ -234,13 +234,18 @@ unsigned long f2fs_shrink_node_cache(struct f2fs_sb_info *sbi,
- #define MIN_DIRTY_CACHE_TIMEOUT 100
- #define MAX_DIRTY_CACHE_TIMEOUT 30000
- 
-+#define DEF_CACHE_WB_DIRTY_THRESH	(8192)
-+
- struct f2fs_cache_kthread {
- 	struct task_struct *cache_wb_task;
- 	wait_queue_head_t cache_wb_wq;
- 	unsigned int cache_wb_interval;
-+	unsigned int cache_wb_dirty_threshold;
-+	unsigned int cache_wb_total_threshold;
- };
- 
- int f2fs_start_cache_wb_thread(struct f2fs_sb_info *sbi);
- void f2fs_stop_cache_wb_thread(struct f2fs_sb_info *sbi);
-+void f2fs_wake_up_cache_wb(struct f2fs_sb_info *sbi);
- 
- #endif /* _LINUX_F2FS_CACHE_H */
-diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
-index afce74744d4d..95f8dc0c4218 100644
---- a/fs/f2fs/sysfs.c
-+++ b/fs/f2fs/sysfs.c
-@@ -1019,7 +1019,9 @@ static ssize_t f2fs_sbi_store(struct f2fs_attr *a,
- 					a->struct_type == GC_THREAD);
- 	bool thread_entry = !strcmp(a->attr.name, "ckpt_thread_ioprio") ||
- 			!strcmp(a->attr.name, "critical_task_priority") ||
--			!strcmp(a->attr.name, "cache_wb_interval");
-+			!strcmp(a->attr.name, "cache_wb_interval") ||
-+			!strcmp(a->attr.name, "cache_wb_dirty_threshold") ||
-+			!strcmp(a->attr.name, "cache_wb_total_threshold");
- 
- 	if (gc_entry || thread_entry) {
- 		if (!down_read_trylock(&sbi->sb->s_umount))
-@@ -1363,6 +1365,8 @@ ATGC_INFO_RW_ATTR(atgc_age_threshold, age_threshold);
- 
- /* WB_THREAD ATTR */
- WB_THREAD_RW_ATTR(cache_wb_interval, cache_wb_interval);
-+WB_THREAD_RW_ATTR(cache_wb_dirty_threshold, cache_wb_dirty_threshold);
-+WB_THREAD_RW_ATTR(cache_wb_total_threshold, cache_wb_total_threshold);
- 
- F2FS_GENERAL_RO_ATTR(dirty_segments);
- F2FS_GENERAL_RO_ATTR(free_segments);
-@@ -1552,6 +1556,8 @@ static struct attribute *f2fs_attrs[] = {
- 	ATTR_LIST(adjust_lock_priority),
- 	ATTR_LIST(critical_task_priority),
- 	ATTR_LIST(cache_wb_interval),
-+	ATTR_LIST(cache_wb_dirty_threshold),
-+	ATTR_LIST(cache_wb_total_threshold),
- 	NULL,
- };
- ATTRIBUTE_GROUPS(f2fs);
+@@ -548,13 +545,8 @@ static struct bio *__bio_alloc(struct f2fs_io_info *fio, int npages)
+ 		else
+ 			bio->bi_end_io = f2fs_read_end_io;
+ 	} else {
+-		if (fio->is_cache) {
+-			bio->bi_end_io = f2fs_cache_write_end_io;
+-		} else {
+-			bio->bi_end_io = f2fs_write_end_io;
+-			bio->bi_private = sbi;
+-		}
+-
++		bio->bi_end_io = f2fs_write_end_io;
++		bio->bi_private = sbi;
+ 		bio->bi_write_hint = f2fs_io_type_to_rw_hint(sbi,
+ 						fio->type, fio->temp);
+ 		bio->bi_write_stream = f2fs_io_type_to_write_stream(bdev, fio->type,
 -- 
 2.49.0
 
