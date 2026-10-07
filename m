@@ -1,107 +1,222 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2A183D902D
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 09:47:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10D69395AF2;
+	Wed,  7 Oct 2026 09:47:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791366453; cv=none; b=TmcnaBqbH+Yeso0Ioi3NWPzLO4lCojU4HvmcYiUuSFCluV9OFN5nuMM1Me3SRK3+cXA2NQnnYDFx6fFb4gOExxRKPM/fiGxXUggILN/z8WaIL3CxMxCxqnEdDlj0CxMAQ/ZW2VD3QyKXi8s98Nu9wWnPvRrZPMb2dCBFCWwTlPg=
+	t=1791366455; cv=none; b=iCIDHicquUs99RUO9C0JXwRgA9OVwCTY8696IsoS6j50Z/hhJkWKM0QzpuBDsHIYW19ylEHABJiUus8mDVeun3YMmLZVmZT31rqF8poT00QsTLFg2WD6AWiHZXGujLO5CnyrxQ/p3seGB4V2p0eYYtw/sQhsJFvT8Ob0SgFncBk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791366453; c=relaxed/simple;
-	bh=g80PFUph4ibDHloeyB+7t6p2oepxRcwNrKkYhWZ/D8o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=gZPS7pDXmJ9cyDVRJQ0otmdirSX6TE4JNW4j/vGAj0suqWhdlhDwmMwd4gWddXmMPhFxaZZHWA354BUJeIQh6D4RenJVpgkh7oSPBxbyQeK7CGI8H6TRH1M4UdY3jYmfi1pp+gaTIMaiLGBsz/03qvFadWhniXqrTqinzGEOSs0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lSYSVjfO; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791366455; c=relaxed/simple;
+	bh=MI7nzD7itjW5CD3PEi3m4rfppLLIWuVo4w29NRTu5Ps=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=A18ab7BdFaOa564DGv291VEFXPODLEO2EM2b9m9r9OPoKKAsl3f1jRZ2FBZy9LwKKPhgXjGLAZoWB/8XaenK9piJYVVxQCmD5bqG8f6H7CPAgFtfcPxWXshxi9bYE5C6NQkpLk1aOlstuJv73dbZQ6VSmw559UxagRVRstsof7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fai2JdxQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lSYSVjfO"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3a8adb68d8bso306949a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 02:47:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791366442; x=1791971242; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SIXjivVbQJCgdZ82dSTwxSq9rPlm7KuY+QIYP6gq+2I=;
-        b=lSYSVjfOJCKPjNVo7g4jFWFfTfqBgOyA5cOFuMsulSykSE3ROyqIrQxa9iw7iC3+nb
-         m3whBSckMUuPJaPmJgAzFfAhwoFPX97ahHnxwq0XNbjINJq4cnrHdcq6Di6QZwdnDDXa
-         4mVc5zfh0LejmVPUPlB+8xtzyrBu4wbVjituvu1zMuZ+Xcr9VPSMpjv4cu3rdQ9/Y/ZR
-         P8reP4YrQxBgh6UJKRtcRyyQwpBswuc1iJG0pzRsrVAxPAjD3pMpaTFjpA2YHndkPeDz
-         8mtXEnMroZrNJIu967rwMbU0flWVgxnV4AxSSUQ3P6mfqdLQ77H9JDCbIvaDxz+GUmZQ
-         R2ZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791366442; x=1791971242;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SIXjivVbQJCgdZ82dSTwxSq9rPlm7KuY+QIYP6gq+2I=;
-        b=Q40qSIK6iajV7tsDwXnXq1l1ZcJZPJnoMNKJTW1cSUTIbT+6Gquyo19Fke3eP/Gc+k
-         TbIRmrJB6l+0hhNaLbE2iXvsWJQtq7E+ssjKwFvbDtPSDZ8ljd44Fg6qAfmMpgsAFg7c
-         iwfPIiVz8k6I1Si2Hjib28ucC7J9aNY2cxX9gV+2YPDAuQMEPsA4Al7OGVQeHHkNXIgP
-         Vd5LnWWZkO395bG2DgYHVx22/nwEvrIIU66VIgCJWzNzmwjRf7H49IGFsD+DKDCaiDbZ
-         V82yqFRvL8vT08+y5oOMQsvSFCALIvYQxCctT0Z+cbaDaKcmTrZPs/I0gsTYlmkTfSGQ
-         DSXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxO7B6HuFuxGn0/AVWl+JVUK7enDn2QBQmH1WmyNccEl8L19zojDLeDh6vD6I+j3yR6uDQdoZtRnBHxZIU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ3AeRDJCaAOVKO8q/8AqbNBacP4lx6Oi/cIFYs+WE92KWIRYg/
-	uYx5liKdh6srbPj9xVDyX508BZLyMvDOgYLx1CL21em34OrSY5fR04sb
-X-Gm-Gg: AYBFou1SyofOz3wWggtuPXrW4UqhKxLXekJ+BY1+2swY/IcI91kdTW3YKtFUoSCKqHm
-	X9wbwb1nEQKQev0VuWhVoGSBXA6YKW2RzRS0v4/qIdxOTYWH3S7YdqyaT+xburn+fDgOYSiqUqN
-	ajrRRTJaMrRqMTt7Z6XEupPb9NFOH9pzvUrRvBqYoWMf0pwU+vsFeo0eptmDSTh6RwjRkzAd4/O
-	yP337HBxPmhbYL5/HM/y7P9NmU9gyJaGHCcDjUAN3DQPMkuDE8RchzRCrI6/R9soRy2ecw+OxtY
-	y1F8iClwE/FzrSKWffFReME9/A8PndfbuiODTD5EhXt+ZvGvtdrenp16fe9klQOxl5kNU1SfGFi
-	1cJglLuLZC+iM90xg/ALlQ0V+bB1MBe4Ko1NOnCgS8AlXzSCshNE/QUpgXcI/AxPp1IaMbbza8Q
-	UFjuKN8uJhi6yYkMwT5WULZN69TsALIc2aN7ZFgA9fqaKNu3pZRAXbC73hGD2m9JhMtnBzFjSaJ
-	LBeW6dVxJtxmQyfyeAYcsFOTfRvTdRM9RxzTBP2irHRS2e2/FqTUwfIH5XGJkPjZ8iRhd4Qx38d
-	l1ywokkzwqU=
-X-Received: by 2002:a17:90b:2e46:b0:39e:6c68:c77a with SMTP id 98e67ed59e1d1-3a8a12bf661mr1450443a91.48.1791366441970;
-        Wed, 07 Oct 2026 02:47:21 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (25.187.82.34.bc.googleusercontent.com. [34.82.187.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8c46a2f9bsm265866a91.2.2026.10.07.02.47.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 02:47:21 -0700 (PDT)
-From: Hui Peng <benquike@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	John Ogness <john.ogness@linutronix.de>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Hugo Villeneuve <hugo@hugovil.com>,
-	linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hui Peng <benquike@gmail.com>
-Subject: [PATCH v8 0/2] serial: core: fix baud rate fallback loop and baud_base overflow
-Date: Wed,  7 Oct 2026 09:47:16 +0000
-Message-ID: <20261007094719.1362769-1-benquike@gmail.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fai2JdxQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEB331F0089B;
+	Wed,  7 Oct 2026 09:47:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791366444;
+	bh=WKfTrq8VHIA+znChlNb3NuZ60B46dqCeKbF4f81115I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fai2JdxQg2GTZDr/VvQZVCO9hLiWsjmsp3kCspc8fuKK4Idhvb8afxieuvkYwQyYm
+	 EROdJ2PNOewRKi2TlzftYwYAKyOzWDZOqcN/uIKMcnbgV4RmoSWKvkrrjXqOH103u4
+	 pkW/zLZZoKah5esAFQs3D/dVu6u2y5mvWBDTVdUYX8sUlAMw/6TGZqWNoZl9+0sMb5
+	 XRIYEsb8pFZMI07mxgwGXu32WJ+4ExSOAeE3Q6diCbSoyE+fYRs6OFJ8RwEG+2QP6M
+	 t5VGgOEOdwhnOdt+AfIzlhYUJpGyLhxBjp3rfpsYz8tJfVVrUI3imhuR0jMSWv7pUP
+	 MBSrx6oIQcWWw==
+Date: Wed, 7 Oct 2026 11:47:09 +0200
+From: Carlos Maiolino <cem@kernel.org>
+To: NeilBrown <neil@brown.name>
+Cc: Miklos Szeredi <miklos@szeredi.hu>, 
+	Amir Goldstein <amir73il@gmail.com>, Kees Cook <kees@kernel.org>, 
+	Joel Granados <joel.granados@kernel.org>, Richard Weinberger <richard@nod.at>, 
+	Anton Ivanov <anton.ivanov@cambridgegreys.com>, Johannes Berg <johannes@sipsolutions.net>, 
+	Breno Leitao <leitao@debian.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Jan Harkes <jaharkes@cs.cmu.edu>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Namjae Jeon <linkinjeon@kernel.org>, 
+	Hyunchul Lee <hyc.lee@gmail.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jeff Layton <jlayton@kernel.org>, Jan Kara <jack@suse.cz>, 
+	linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-unionfs@vger.kernel.org, linux-um@lists.infradead.org, codalist@coda.cs.cmu.edu, 
+	coda@cs.cmu.edu, linux-mm@kvack.org, ntfs@lists.linux.dev, 
+	linux-xfs@vger.kernel.org
+Subject: Re: [PATCH 1/7] VFS/xfs/ntfs: drop parent lock across
+ d_alloc_parallel() in d_add_ci()
+Message-ID: <asYVApB1jdBYj9tN@cronus.toxiclabs.cc>
+References: <20260929034158.1455429-1-neilb@ownmail.net>
+ <20260929034158.1455429-2-neilb@ownmail.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929034158.1455429-2-neilb@ownmail.net>
 
-This series addresses two issues in serial core:
-1. Division-by-zero WARN/Oops during baud rate fallback in uart_get_baud_rate().
-2. 32-bit unsigned overflow in uart_set_info() when multiplying new_info->baud_base by 16.
+On Tue, Sep 29, 2026 at 01:36:01PM +1000, NeilBrown wrote:
+> From: NeilBrown <neil@brown.name>
+> 
+> A proposed change will invert the lock ordering between
+> d_alloc_parallel() and inode_lock() on the parent.
+> When that happens it will not be safe to call d_alloc_parallel() while
+> holding the parent lock - even shared.
+> 
+> We don't need to keep the parent lock held when d_add_ci() is run - the
+> VFS doesn't need it as dentry is exclusively held due to
+> DCACHE_PAR_LOOKUP and the filesystem has finished its work.
+> 
+> So drop and reclaim the lock (shared or exclusive as determined by
+> LOOKUP_SHARED) to avoid future deadlock.
+> 
+> Signed-off-by: NeilBrown <neil@brown.name>
+> ---
 
-All patches are ported to the latest tip of mainline (551c722f4080) and
-dynamically verified in QEMU KVM with CONFIG_KASAN=y.
+XFS bits are really small, but anyway, if needed, feel free to add:
 
-Changes in v8:
-- 1/2: Rewrote commit description to detail the step-by-step loop iteration
-  progression (try == 0, try == 1, try == 2) as requested by Ilpo Järvinen
-  and Greg Kroah-Hartman.
-- 2/2: Dropped secondary Fixes: 6eabce6608d6 tag per Hugo Villeneuve feedback.
+Reviewed-by: Carlos Maiolino <cmaiolino@redhat.com>
 
-Hui Peng (2):
-  serial: core: fix baud rate fallback in uart_get_baud_rate()
-  serial: core: reject baud_base values that overflow port->uartclk in
-    uart_set_info()
-
- drivers/tty/serial/serial_core.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
--- 
-2.47.3
+>  Documentation/filesystems/porting.rst |  7 ++++++
+>  fs/dcache.c                           | 32 +++++++++++++++++++++++----
+>  fs/ntfs/namei.c                       |  2 +-
+>  fs/xfs/xfs_iops.c                     |  2 +-
+>  include/linux/dcache.h                |  3 ++-
+>  5 files changed, 39 insertions(+), 7 deletions(-)
+> 
+> diff --git a/Documentation/filesystems/porting.rst b/Documentation/filesystems/porting.rst
+> index 4e015f1bf1f8..f6a38bd9c68e 100644
+> --- a/Documentation/filesystems/porting.rst
+> +++ b/Documentation/filesystems/porting.rst
+> @@ -1409,3 +1409,10 @@ use only if you have no alternative.
+>  The .create inode_operation no longer receives the 'excl' arg.  It must
+>  always assume the file does not already exist.  If the filesystem needs
+>  to be involved in non-exclusive create, it should provide atomic_open.
+> +
+> +---
+> +
+> +**mandatory**
+> +
+> +d_add_ci() must now be passed the flags arguemnt that was given to ->lookup
+> +
+> diff --git a/fs/dcache.c b/fs/dcache.c
+> index 83790c7a4dee..61e0896dc077 100644
+> --- a/fs/dcache.c
+> +++ b/fs/dcache.c
+> @@ -2383,6 +2383,7 @@ EXPORT_SYMBOL(d_obtain_root);
+>   * @dentry: the negative dentry that was passed to the parent's lookup func
+>   * @inode:  the inode case-insensitive lookup has found
+>   * @name:   the case-exact name to be associated with the returned dentry
+> + * @lookup_flags: flags passed to ->lookup
+>   *
+>   * This is to avoid filling the dcache with case-insensitive names to the
+>   * same inode, only the actual correct case is stored in the dcache for
+> @@ -2395,9 +2396,10 @@ EXPORT_SYMBOL(d_obtain_root);
+>   * the exact case, and return the spliced entry.
+>   */
+>  struct dentry *d_add_ci(struct dentry *dentry, struct inode *inode,
+> -			struct qstr *name)
+> +			struct qstr *name, unsigned int lookup_flags)
+>  {
+>  	struct dentry *found, *res;
+> +	bool must_unlock = false;
+>  
+>  	/*
+>  	 * First check if a dentry matching the name already exists,
+> @@ -2409,24 +2411,46 @@ struct dentry *d_add_ci(struct dentry *dentry, struct inode *inode,
+>  		return found;
+>  	}
+>  	if (d_in_lookup(dentry)) {
+> +		/*
+> +		 * We are holding parent lock and so don't want to wait
+> +		 * for a d_in_lookup() dentry.  We can safely drop the
+> +		 * parent lock and reclaim it as we have exclusive
+> +		 * access to dentry as it is d_in_lookup() (so
+> +		 * ->d_parent is stable) and we are near the end
+> +		 * ->lookup() and will shortly drop the lock anyway.
+> +		 * We cannot retake the lock while the new dentry is in-lookup
+> +		 */
+> +		if (lookup_flags & LOOKUP_SHARED)
+> +			inode_unlock_shared(d_inode(dentry->d_parent));
+> +		else
+> +			inode_unlock(d_inode(dentry->d_parent));
+> +		must_unlock = true;
+>  		found = d_alloc_parallel(dentry->d_parent, name);
+>  		if (IS_ERR(found) || !d_in_lookup(found)) {
+>  			iput(inode);
+> -			return found;
+> +			goto out_unlock;
+>  		}
+>  	} else {
+>  		found = d_alloc(dentry->d_parent, name);
+>  		if (!found) {
+>  			iput(inode);
+>  			return ERR_PTR(-ENOMEM);
+> -		} 
+> +		}
+>  	}
+>  	res = d_splice_alias(inode, found);
+>  	if (res) {
+>  		d_lookup_done(found);
+>  		dput(found);
+> -		return res;
+> +		found = res;
+>  	}
+> +	if (!must_unlock)
+> +		return found;
+> +out_unlock:
+> +	d_lookup_done(dentry);
+> +	if (lookup_flags & LOOKUP_SHARED)
+> +		inode_lock_shared(d_inode(dentry->d_parent));
+> +	else
+> +		inode_lock_nested(d_inode(dentry->d_parent), I_MUTEX_PARENT);
+>  	return found;
+>  }
+>  EXPORT_SYMBOL(d_add_ci);
+> diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
+> index 7091b2496fac..61cfa4e16586 100644
+> --- a/fs/ntfs/namei.c
+> +++ b/fs/ntfs/namei.c
+> @@ -309,7 +309,7 @@ static struct dentry *ntfs_lookup(struct inode *dir_ino, struct dentry *dent,
+>  		}
+>  		nls_name.hash = full_name_hash(dent, nls_name.name, nls_name.len);
+>  
+> -		dent = d_add_ci(dent, dent_inode, &nls_name);
+> +		dent = d_add_ci(dent, dent_inode, &nls_name, flags);
+>  		kfree(nls_name.name);
+>  		return dent;
+>  
+> diff --git a/fs/xfs/xfs_iops.c b/fs/xfs/xfs_iops.c
+> index 4a3299abf774..fd480c0e4147 100644
+> --- a/fs/xfs/xfs_iops.c
+> +++ b/fs/xfs/xfs_iops.c
+> @@ -368,7 +368,7 @@ xfs_vn_ci_lookup(
+>  	/* else case-insensitive match... */
+>  	dname.name = ci_name.name;
+>  	dname.len = ci_name.len;
+> -	dentry = d_add_ci(dentry, VFS_I(ip), &dname);
+> +	dentry = d_add_ci(dentry, VFS_I(ip), &dname, flags);
+>  	kfree(ci_name.name);
+>  	return dentry;
+>  }
+> diff --git a/include/linux/dcache.h b/include/linux/dcache.h
+> index adf239f8205f..97d11f5e6a7b 100644
+> --- a/include/linux/dcache.h
+> +++ b/include/linux/dcache.h
+> @@ -267,7 +267,8 @@ struct dentry *d_duplicate(struct dentry *dentry);
+>  /* weird procfs mess; *NOT* exported */
+>  extern struct dentry * d_splice_alias_ops(struct inode *, struct dentry *,
+>  					  const struct dentry_operations *);
+> -extern struct dentry * d_add_ci(struct dentry *, struct inode *, struct qstr *);
+> +extern struct dentry * d_add_ci(struct dentry *, struct inode *, struct qstr *,
+> +				unsigned int);
+>  extern bool d_same_name(const struct dentry *dentry, const struct dentry *parent,
+>  			const struct qstr *name);
+>  extern struct dentry *d_find_any_alias(struct inode *inode);
+> 
+> base-commit: 3879f51857325da9bf3cfb073280257cd16ae067
+> -- 
+> 2.50.0.107.gf914562f5916.dirty
+> 
