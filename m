@@ -1,147 +1,76 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7EE334C130
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 20:23:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83EF237C0EC;
+	Wed,  7 Oct 2026 20:23:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791404608; cv=none; b=a38goWPJFeyZzIJv5akhz8TpGgLdL1Eu3NmtIzNONQiQ9H08lBQ3T1nrbj2QSeE2bw9MNpuyrupmG+42q1GugGOSl1sGgSjXVuiMF4c33OS+KYRmE8+qeUWKaGuCA2wWqSoh9m+FVchGZ0viK1TcEs+xPabpeEFF5BKDQGIk9lg=
+	t=1791404621; cv=none; b=IIGpxPeDqy5n0lG2YO0y+SVSZuOQXHrXcDDwObCFmjHDSV5Ok/TTIRkJYgy3SRUQAJCoOG5YjG9bkAKcBwgvUYj1KvVG7y+p88ddVHVQrLinv+ilJ8tB2VjVtxs0O16mhyo4YEd8UJ/CCmiUI3xWL21uBCXf145+oBIO8curj8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791404608; c=relaxed/simple;
-	bh=3jt+5FtRz6e1tCgCtwGri+4Lp4PI5u1JFl8ZGDIJdbM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VoeL0hEwQDrbCNHe3hiBe7IpqTdF/vySiT0ZZzyZeSsVND5ds8tSuMUWCT7YSQNGlzM+QwFSOOGcj341vj1HX78EaawihsIkMKJnGDkkORIhSMRoORRuuJV0wPWpGI59z0p4yA+Ms8T6Q5D9R/+NKqpx2wXV3NMlQ73rsLigo1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A76Aehfs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791404621; c=relaxed/simple;
+	bh=k5rmK8638fN+53Ue60YF8rsPuqw5rAeAe5qpIHHvRNM=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=Fx7ZF9nRUYPUXKWXOSEsh2TjLjMWpMQRpSIsijBnVDktgsmBW0ThBJi5KrKWXjSSTwy+JOX9U7PjH47E3ZYXOK9uIVtmWXmJ2o3SW8su54tJW7aM6SU1XRCo0gUFiHSLMcDbZ+dYh7/D0z6IBF8+p7TYAuBOZxnlycJ3WX5TOeA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j8RcSFVT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A76Aehfs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 944491F0089B
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 20:23:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j8RcSFVT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36BBE1F000FF;
+	Wed,  7 Oct 2026 20:23:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791404606;
-	bh=a47jPiOkL7aWI9ip0LbLLz0CKtkQQBrXCYrRxSS2YLQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=A76AehfsEYL3HheyeK8R64HIHOvrBGn8yjRvPTang8fqSq4MCB2CcMAjsFtvArsZt
-	 6AMijk40wAF6JmAX/xRflRIXL5GoLNe5yDa3DZOdLJuwl/ydz+kk1Q4tdBLGtU7FjS
-	 7+qjPlpFMqpNZiSQUyNj2bEY6gSwKblSgv3zxbL0SfGIPS0NYyIjKq32aISN1iIr5q
-	 RET4k40TwecuFfQ6WEZFcbJ3sjAdfqTTRc9fR27sQPVC/vAtoQ/Z/9mFn+DjsqFUbC
-	 wG/r+ChmqTCkYOJExj2K7uJKSZHRRJolvhNAaZHsWFjUfThxnlVCRjXcecg5NgcFhu
-	 tSI5JHQbQy1XQ==
-Received: by mail-oa1-f53.google.com with SMTP id 586e51a60fabf-4a2757826b9so225097fac.2
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 13:23:26 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxcx72nQv29EsFAIp/YKjDuFOg8FyNwjr8YFOixPZZFRbxx/SGWqj5zM7L/E4tsjSaYcrO218GgcQaEj4g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJyldfbClLM2PE5a3mO0kEnyUx0QOGH3Fj3PJ/oXpcFCaHbjp2L
-	7P63tgL91TPr4GZ7bwfwakZewgJXAAPby2xl5RTzL4vVN/yP0WZKKHDKc8PAQpY9DQxI7L4V/Qg
-	GakHEDtAq6xgSE8uzwvl7XZtUJtOEHLQ=
-X-Received: by 2002:a05:6871:c8ce:b0:492:d8bd:949d with SMTP id
- 586e51a60fabf-4a2591dda52mr3103729fac.2.1791404605866; Wed, 07 Oct 2026
- 13:23:25 -0700 (PDT)
+	s=k20260515; t=1791404620;
+	bh=xhLP80GXVtS6CE3RvF7MHseUyKQXwhqc65xg2C8JDq8=;
+	h=Date:From:To:Cc:Subject:Reply-To;
+	b=j8RcSFVTqWJYNtcD5cHQrg/tBRXhIiK0v0z6JiB9gxdGY8hdAmF1jYl8QxNOeIRuX
+	 9ypyelNNLYJNylDJIA2yqEtxUKGahYoeGYRv6U4Qza8frbpi26hhxKj7yOqbnf9V1+
+	 xv2WDRFBRkIOGQYDuprqK0tbidn0CWNR4Vj6oSFsjiavyl9WrEapvnsJUP3yRveVi+
+	 s4hDL3jy57ZALN+qPx2U5NXiastyEfGt+ly9IxDmwveWmVHhkK9dQ17bNpp5l1hliZ
+	 hNqji7Xy4ZjNECzFan8mf70UD2A2PaLygusmXZTreARPxn+qgXyuV0pI6eSwBL4VaB
+	 3Hk12uTt6NfEQ==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id D9780CE0D79; Wed,  7 Oct 2026 13:23:39 -0700 (PDT)
+Date: Wed, 7 Oct 2026 13:23:39 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: torvalds@linux-foundation.org
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
+	Vladimir Murzin <vladimir.murzin@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Chunfeng Yun <chunfeng.yun@mediatek.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [GIT RFC PULL] Fix double dereference in TP_printk() in usb mtu3
+Message-ID: <84064d39-6f44-4b4b-98f8-895a0294a3cf@paulmck-laptop>
+Reply-To: paulmck@kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261007180056.1394868-1-jkain@nuro.ai>
-In-Reply-To: <20261007180056.1394868-1-jkain@nuro.ai>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Wed, 7 Oct 2026 22:23:14 +0200
-X-Gmail-Original-Message-ID: <CAL4WiipPRh_=aWcHF1+JuKQno8AR-V1bf=yDfgaPQbTDvsOWSw@mail.gmail.com>
-X-Gm-Features: AclHuK86Q3lEDlVLZ6eCmdvtc6y2K46nwVmAQ0ck-jGa06hCicXz3-obsFcTwL0
-Message-ID: <CAL4WiipPRh_=aWcHF1+JuKQno8AR-V1bf=yDfgaPQbTDvsOWSw@mail.gmail.com>
-Subject: Re: [PATCH net] net: do not let defer_count outlive an empty defer_list
-To: Joseph Kain <jkain@nuro.ai>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org, 
-	pabeni@redhat.com, horms@kernel.org, bigeasy@linutronix.de, 
-	clrkwllms@kernel.org, rostedt@goodmis.org, linux-rt-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Le mer. 7 oct. 2026 =C3=A0 20:03, Joseph Kain <jkain@nuro.ai> a =C3=A9crit =
-:
->
-> __skb_defer_free_flush() can leave defer_count at or above skb_defer_max
-> with an empty defer_list. That state is absorbing: every producer then
-> takes the nodefer path without queueing, so the list never refills, and
-> the flush keeps returning early without clearing. Deferred freeing stays
-> off for that (cpu, node) until reboot, and cross-CPU frees fall back to
-> the page allocator, which is the contention deferral exists to avoid.
->
-> Two changes from commit 844c9db7f7f5 ("net: use llist for sd->defer_list"=
-)
-> combine to produce it.
->
-> skb_attempt_defer_free() now increments before testing the limit and does
-> not undo the increment when it rejects, so a rejected free leaves the
-> counter raised with nothing queued.
->
-> The flush clears defer_count before llist_del_all() rather than together
-> with it under defer_lock as it did before. A remote producer that queues
-> between the two has its skb drained by that same llist_del_all() but its
-> increment retained, so the counter drifts upward until it reaches the
-> limit.
+Hello, Linus,
 
-This is not cumulative: the next flush finding a non-empty list resets
-the counter. To get stuck, (skb_defer_max - 1) increments must land
-between the clear and the drain of a single flush. With small limits this
-needs nothing special, but with the default of 128 the flusher has to be
-interrupted or preempted at that point. Please reword this part and the
-"needs no preemption at all" paragraph.
+Please pull this urgent fix for a tracing splat in usb mtu3, which is a
+pre-existing bug that can corrupt tracing output, but which was exposed
+this cycle by additional checking that was added to the tracing subsystem.
 
->
-> Neither needs PREEMPT_RT. The drift needs no preemption at all: the
-> flush normally runs in NAPI poll on the CPU that owns the list, while
-> skb_attempt_defer_free() only ever defers to a remote CPU, so producers
-> cannot be excluded by disabling preemption on the flusher. PREEMPT_RT
-> only widens the window, because local_bh_disable() does not disable
-> preemption, so the flusher can be scheduled out between the clear and
-> the drain.
->
-> The latch is also reachable with no race at all:
->
->   sysctl -w net.core.skb_defer_max=3D1    # frees increment, then reject
->   sysctl -w net.core.skb_defer_max=3D128  # does not recover
->
-> skb_defer_max has .extra1 =3D SYSCTL_ZERO and no .extra2, so 1 is settabl=
-e.
-> 0 is safe, because proc_do_skb_defer_max() flips skb_defer_disable_key
-> and the producer returns before incrementing, but that guard covers 0
-> only. Recovering from the latched state needs a skb_defer_max above the
-> accumulated count, which an operator has no way to determine.
->
-> Drain before clearing, so the error can only under-read, is bounded by
-> the producers in flight, and self-heals on the next flush. Clear the
-> counter on the empty-list path as well, so no count can outlive an empty
-> list and an already-stranded counter recovers.
->
-> llist_empty() has already loaded that cache line, so the added read is
-> free; the unlikely() keeps the store off the hot path, where it would
-> otherwise bounce the line against remote producers.
->
-> Found on an arm64 PREEMPT_RT system running the two commits backported to
-> 6.1. With skb_defer_max lowered, defer_count reached 788,888 on one host
-> and 122,399 on another with the list empty throughout, and restoring the
-> default did not re-enable deferral.
+  git://git.kernel.org/pub/scm/linux/kernel/git/paulmck/linux-rcu.git tags/usb-mtu3.2026.10.06a
+  # HEAD: cfb3293c4573289f11f913611f530ea6b1926d67: usb: mtu3: Fix double dereference in TP_printk (2026-09-29 17:26:50 -0700)
 
-Not sure if this paragraph is needed?
+----------------------------------------------------------------
+usb: mtu3: Fix a double-dereference splat in TP_printk
 
-Lowered to which value? Have you seen this with the default?
+This splat is reporting a double-dereference that can result in garbage
+traces being dumped due to the possibility of the TP_printk() being
+executed without the benefit of main memory being present.  The fix is to
+move the extra dereference from TP_printk() time to TP_fast_assign() time.
 
-If the value was 0, note that kernels without commit 08dc30de1a40
-("net: add skb_defer_disable_key static key"), i.e. 6.18 to 7.0, have the
-same issue as your skb_defer_max=3D1 example: setting 0 and restoring the
-previous value leaves deferral disabled. This is worth mentioning, since
-0 is the documented way to turn the feature off.
+----------------------------------------------------------------
+Vladimir Murzin (1):
+      usb: mtu3: Fix double dereference in TP_printk
 
-Please send a v2 with these changes (but please wait ~24 hours before V2)
-
->
-> Fixes: 844c9db7f7f5 ("net: use llist for sd->defer_list")
-> Signed-off-by: Joseph Kain <jkain@nuro.ai>
-
-This is your first linux contribution, are you sure you have not used an LL=
-M?
-
-( See Assisted-by: LLM) tag in Documentation/process/coding-assistants.rst
-
-pw-bot: cr
+ drivers/usb/mtu3/mtu3_trace.h | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
