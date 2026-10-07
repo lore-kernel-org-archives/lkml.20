@@ -1,149 +1,275 @@
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ED2D35C6BC
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 23:36:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791416209; cv=pass; b=lUIcrHm45OVwIE0qH4X+7IbVqXPbfC/8Gf9C+TUBcwqR6h+//FuiAefHhvjqb4KuzMOf+wnaIj2LY3rIYXnHhI1x/En1cpzxM6f6gzo5/SjgOtQ1SykUVnk6vsVLGW724zxMExsS3+05uQxsPem8ddGxDO6QFMhC9Sod+GKI2XM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791416209; c=relaxed/simple;
-	bh=YW7ppVeoRLVQCLnGvfkZ3DPxaXrIg4n4TYyY9tNYUuU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gRrxfFrSlizar7jHSVSsvS+rjBI1AxEcL7iumSUkkueKHpeb7leTeylMmIR2OouscaHGMxLUNTa1mIES6kWRPFhZInV2WMhU4YBFAzAxm1Yy+6d9WVZMsb1bqz5xd7G+QDY0fpjJKRcPpHp3rjJ+ehpUOJVFPzr7a/++5T/5X1o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qSXDPnFz; arc=pass smtp.client-ip=74.125.224.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D68339847
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 23:42:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.159
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791416579; cv=none; b=g/YTlP/zedahWqXKrZHd+BeLfX5C8dts3dNWHPT6QXFaKqtqwQ5Z7E1+VrIICOhP4mkvyMAOU09rYpEuGukpxD1fTQ4B4FadmH+aDS5n9Kwc6ExO6Aru7b9fzMyvyNEshw8aqttUJ5kxwXcyxl9O/zRMNIyFQ83DM5eskAgpKKg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791416579; c=relaxed/simple;
+	bh=Cindm6x8XGUHnO4VgwhMCwDDPBKWGT3wuLcAFxwPj/Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Fvf9dC+4Ko3MIAzJZXX+rW2PafftdHPtnqHK2Ku1G1hjyR8MD9DOSMBRPPkD4+C/huivR3QGfqi8sCLwWMdcUCkGlasZvAwiES3rOEOK/6z+pNlG3PIuK8gZ6iw+vNXIYjx51jeGtpx+pLbdjNmeDIgbr/S/x7ycaAidHQ3Eo4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=themaw.net; spf=pass smtp.mailfrom=themaw.net; dkim=pass (2048-bit key) header.d=themaw.net header.i=@themaw.net header.b=SW5s7jmQ; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=qb94iwNq; arc=none smtp.client-ip=202.12.124.159
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=themaw.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=themaw.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qSXDPnFz"
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-677dbe051d4so4305561d50.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 16:36:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791416206; cv=none;
-        d=google.com; s=arc-20260327;
-        b=EyaA9y/UvDTSdoUv+dkDWDUXKaFS3qMcP/QipWEYOQx45IoigCGoOQVik3JZDCRaD8
-         202Txck09QjXYM9mz41L55skqjOlpGsbjP7iwJ4b7LfN1t8Cjs9Ol7MnRvX/dqwlI9nf
-         2HOdLoCL3utfNtUaCi8AQNcTibzZycKqbbiwQxg0CjNuGS2pYVo4YIBCE5gAbdGF2xqb
-         PyMEgINj9lxXVEc4zDv32LMIEBLdUMJ1k7BqIPwEsaUIfxtYRssDRolFPYwda+z2byL+
-         lm5oeLDJ30ya/QemAUSIdN9K80vyejjQA9GyPnpVX9ablsYiE8gb6msEO3GBjf8Jvpt1
-         y1ug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=YW7ppVeoRLVQCLnGvfkZ3DPxaXrIg4n4TYyY9tNYUuU=;
-        fh=5DDb+QWEfoEoBoJ+af8lWYGsK9JtLPSrXvySvkEMHEo=;
-        b=h/xn36pet2DCIgcRTUFr9q05oM+tee9HgQgMstWDX3uKY7/LGY9SuHdhx4ptUbkaoA
-         CUxai5qGIv7JRFReROw0y9ONnDkmg5La9s133sxoaIMO13ldFF2LvJld2pIolpnwI22x
-         +vK0UCwFDmogTKueYAFQXkZZW9ERVFa505Ly370YjcTuMI2DRqmDUoXEm/0nkhAmjnEr
-         WN7JfMWA9WePND8bgfPUUG+suNR5fb5oaCUfcM0kEGkPleOsOierxpqyE2tHO2Gi5KUd
-         OpBGr6s7/Jq78OhlBBb+XdFIJZDhg1Ojhgn3x9k86tn72HKcQcLW+LyUtvTdVcMAOoio
-         8GxQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791416206; x=1792021006; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YW7ppVeoRLVQCLnGvfkZ3DPxaXrIg4n4TYyY9tNYUuU=;
-        b=qSXDPnFzOgu1X/v4N/tt4GN26skSKHLDR0E0tu7JR5k8wGhuC8zYDK2vhdNvk88i1A
-         I+Xyx6+Dh+AhvMnUF7ulNkD3qLEfXCV1xPEmVAkRRBrHsAdn9fecAo+HoGop13Yr1mwJ
-         wHHO7dqerVtI8ScFlq4mhdTKxthUvVYEVk0zHQz9beaEkWuB0T5h59+7b3xmkFanfK02
-         4N9iGuNMwiXgTs2lG8t7AOe6muH9E9eLWRr5hzPDCdb9qx/OnV/tgiBzWweGmUuiSObK
-         +GoXxtqqdIXOYahnOCJlS7vENi204Ob+SsyBFzoZoRMPQbeLf8AH9XZSjgPWK6s1yuf5
-         ARdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791416206; x=1792021006;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YW7ppVeoRLVQCLnGvfkZ3DPxaXrIg4n4TYyY9tNYUuU=;
-        b=j6YTWEm3qc87p2kDUeqJ09hKURMguJhaIZa5rLC8EKraKY8mPCky/jKiar0Jv0gppW
-         +NO7XE+rNWMbxf/FiC0gnBqvxwJyAHHKYJdLbh7G5ulKlVKKZMhttUOF7Vs8Ard4QvIW
-         LYIv0yiD+Rd9+pxw/sauOhzeKHwRGv8BPpzhzA6OsowYhJpdQHr7acdv1Acln8LrrBzC
-         LipzW1eMn28aO6QoyciVcxmG6khtvXvSS/OzGVKwCX6cZPz1hDgTi9V6eRd0FEttV7US
-         vYzSkH7hMA2PBun6nqcsXY1VL/TomTlJhIEDa2J5eqvJ4ckdwzMqiBFyeVWpR1aq7cI1
-         p6GA==
-X-Gm-Message-State: AFq9FYLojON5Z0CvIXHouVFWcFeOLAIqiUXYgJJ1z4TT0e0rKdz370LF
-	xd7f1JrS4NnsgQAHUPKp91iPDCHZj+QxRUNCN190wwv4mzJGRkywu+9k3Cuxp7tHAJc7rubDK2n
-	DK2OmHkHVQtSv1Mge3LIxUgPjG8vfJpY=
-X-Gm-Gg: AYBFou245YJ3y8PH5NIRjNTWKj7szfVJ+uDaOuU39w9cx01cDDAClechfyNt6tm0AJw
-	tcDuKn8CR7pmFx0iua/0Ygk3YWRudbUC6oNQH8Y7cFL/VljRxSQqguBiiK4ox5zeuqvGQOir7Ts
-	utRmcsCVkq3sFgSK7I7mnRMkJI96DItorpfyRa6zNc3gtc0Gmgeyb3/GyPTtmOcjzOuDF1p1p9i
-	75NOji5dBQQQK/PEdQASY85lGhRTzQhteuyTG1g9jUx9oydcd1vEpkugObSxu91dxsqqtJQ58TA
-	0KacKR/u9pC2E1xZbBd8hsT4mzKQQcqJq+VqF7D4zM/bSzj3MpqE9zj95JNktCaeRZJ0pk1Tnug
-	x0Kl3AGgjRCFRKhxNRwD6ElbEgQYg1R5wR8cO46ZX58pWKycvr5Z4ACbZALRutYWGVdUw9qdgg1
-	s=
-X-Received: by 2002:a05:690e:4853:b0:677:c24d:ebfa with SMTP id
- 956f58d0204a3-6790a3eaa26mr994855d50.58.1791416206358; Wed, 07 Oct 2026
- 16:36:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=themaw.net header.i=@themaw.net header.b="SW5s7jmQ";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="qb94iwNq"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 14BE47A00D4
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 19:42:57 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-06.internal (MEProxy); Wed, 07 Oct 2026 19:42:57 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=themaw.net; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1791416576;
+	 x=1791502976; bh=m4TMw7vUyGM7/ReqmujwCCW66gpxzFZouTpziTv6ZdE=; b=
+	SW5s7jmQU9WecvjpF3uCvBZAnwWF/yzFlfgZlLFuPtp3Rq7TnPwKCVzqSUgFa0tR
+	6FknmgxnPi6nsiaeRi23phklteHqnzrWbkItel2zP6QkM63g8MpzHaSVZkawoq7g
+	EHLiUR7MT9a2kEuBqFBVcreZMFKOfxOm5E3OeU91S0/t9yj95Hh9+E8kHUZUKGSM
+	xsDx8P/NT9kC8Zs/Tuaa0qfKdGdVwMoQXQhUtlxmLcVateNdT4JSvzK4xN33PZUZ
+	ZvCH7e+jLsJtyMtYtC+jirdzopQp7rjaEnNLLwyT7C5t62yScr1ocWPU4wS8RXVv
+	OSU+TNmwD6HavJjr97XRcw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791416576; x=
+	1791502976; bh=m4TMw7vUyGM7/ReqmujwCCW66gpxzFZouTpziTv6ZdE=; b=q
+	b94iwNq+wJHN1WfAsDPhhdHe/uQGxyCqnuV8UXvkvUHohKoFiOp/7D9b/OXyvVlr
+	Sk7t/uHWkSV+4CqARHrowFeq7tnUy5K7sconyrUeNHB5P09WZ/dJi3XYXLZxpqof
+	FAGcbw85Nja+JWpOx7HW0iFyFNTm/mlK12bNQaiXKUgvpDCwXpF171mxuC6LJR5S
+	ZV7qI1x4zoKmZovUqRzS/TviadIHERZlP0hOceuvisF3pbenw4YBSKFqL3+wKZUY
+	IEm99nLFei/QOhHN/H6MQo1PQNVGz003nM0fBwEebBNFwGWHQKQp/AOzMP+AGdDC
+	Fr5or0TBnP338cmgVZ7hA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=themaw.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791416576; d=themaw.net;
+	mf=PHJhdmVuQHRoZW1hdy5uZXQ+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:LsvyzrLfwRaJzj8jX+lMIicVUTGkdZ18LTw4FeyI+y6YxTs
+	nVcpgJfDVJXsBRIw7MoriW/gpPccFIh6H1Rt6HbPNzrotU/i2m6/ugVgCR2rG76U
+	9UO5yedRFtXb0lq+i+tsiUdGudlXpp0i2tqpy0A8Gk0yMSrffPv2OQYfNJzXhGyC
+	2l/cBp/H28R+tkd5zFXgE0TcGU54lEZQerNaTI0mhGP4ZRqG4Qhu4ohZXdort/ou
+	IPpR1VPF98DABYL0sNBESdrkhp6pk8bC2WDFhea2yanuLVdmqeDvU2iSDHQZFrIh
+	LWNRYPi9qTAW9jpYhC1LubQsfm6JTafb5GV6Y9A==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=15;
+	hn=autocrypt,cc,content-language,content-transfer-encoding,
+	content-type,date,feedback-id,from,in-reply-to,message-id,
+	mime-version,references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:7K60q61VgyVEYqXJTaZMl52v4Ld1L39qtwoAKqEa2wU=:Cindm6x8XGUHnO4VgwhMCwDDPBKWGT3wuLcAFxwPj/Y=;
+X-ME-Sender: <xms:ANnGamAiuKIWhhGxktJK2NTvS8OyuDVW3v29BofhKE5r9MPzQokU_Q>
+    <xme:ANnGauXw6IANDfU2hzuDeKf5Q0hAm9s-Zp0oYGzWs6XOA6sXYIq5WTiSysbR75ll9
+    lHOF1SBNUcDOCfu5VB6ywxmJ6Z4hdPng_Rhw2ttBo5Rkp0F>
+X-ME-Received: <xmr:ANnGakCF-YHRz7L-jvNo2a_nZKOdncRnG6LrQxW7CdfrPgSy_XZI-WXJ8O1jPBb7_Uhac1eIVnj0Of2oYpQ8o21JCmEAnpHO-k-7NhrBrs8jJYpvICw7NYb_>
+X-ME-Proxy-Cause: dmFkZTGT7Z5OOOJqx7S8bS5u/wH9IxrVtggxfqHlSH1p+wH6vOUdipEd1JBJ59TmB1M91h
+    5AsWSvK98KfKA9pqTlre35JKppmTn8OI3YWLRs2dn3fyoL4NWVU9xEyDFnayQ1l7fMrtbg
+    AbDFGdBiC9oYzmWK8bASkvmkLCi8M6zDdIQPPPfnQTcvsAnw2r7V4ymX0itlm+tEI29Sel
+    wfb2kA5AWkh1zIoypCCn9AhaTjxogfIfhKU5pRmoWo2J739frc9nd2EU2FK5ZgvPElxULM
+    ouQ7AymdRHL6fIgiVMs89vgH0MdoLuwtLvxN2+ldTjA5N0xYdWShL5MJGVzeiwKZvz0JpD
+    qI1k9Oy87YrprFQrh6bbXvWoi/YkDoy1URj0iZeXYPrSDQjZO6XqMf+sFoz17tY5Qi4sny
+    BfxZy95wy1V3f4jZLkeGzIZEhbRS7p5rUR6OPLsCe2mGjgktX+ObhWuqZvg7Jv149YNqR0
+    oBMm8N4VSU/5Myh16OiJgQfGWdgdkutzVllPew9vYy5Vo691I2+jFvK2oGf0TT/L23bNAj
+    zfsTnfIwFw26OP+CcB4pjZT5jq0R1H3OzhaIrO5PC2yp2I6p1iabpZtuEx6wuf7r8AzHpx
+    o/UvB1wuqLwH3lGF3a7S2JAdTJlFfNfxXPbNUAKjmKIzFiIluGiVDT14/MEQ
+X-ME-Proxy: <xmx:ANnGah-KiyqZ3qzYU2pD6A99ooUSHjj6GaKAKeQP8sBmmS5rpMje1w>
+    <xmx:ANnGarG8ADqhnln434WunekKRh9_XfMuz6fBPINzUMDt34zoKPWAEA>
+    <xmx:ANnGavNDMOjL4_rtyd3IuNnQB0xJDUmpVy85C-zeKi0UC1H2k9Ou3g>
+    <xmx:ANnGalfTrzpRXdbzE01APn3k7impBqO7RvskLjCO5zzhyuxWLgAwrg>
+    <xmx:ANnGarRypZA6-rX0h72XQe3Vlmq02zs1dTI0JwIEZkJTPQDcmq1xLAyZ>
+Feedback-ID: i31e841b0:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 7 Oct 2026 19:42:54 -0400 (EDT)
+Message-ID: <83e9eb08-ef9b-4eb8-bc5c-e9dc9636e204@themaw.net>
+Date: Thu, 8 Oct 2026 07:42:50 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <0a012b4923e189c4c593ef4f471e5ff0edbe9030.1791412497.git.mst@redhat.com>
-In-Reply-To: <0a012b4923e189c4c593ef4f471e5ff0edbe9030.1791412497.git.mst@redhat.com>
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Date: Wed, 7 Oct 2026 19:36:09 -0400
-X-Gm-Features: AclHuK9jyyf5sYugVmTQQFcLaa4pyEtdizNnLZGPpZtB9PsCE0-Mfu-D4Td6hn0
-Message-ID: <CAF=yD-L_sv90qxUxEh6HRrz3mHMRP=WK3smkMMYScLAnJbgTpA@mail.gmail.com>
-Subject: Re: [PATCH net] ipv4: validate checksum_start before completing checksum
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: linux-kernel@vger.kernel.org, David Ahern <dsahern@kernel.org>, 
-	Ido Schimmel <idosch@nvidia.com>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>, 
-	Phil Sutter <phil@nwl.cc>, Nikolay Aleksandrov <razor@blackwall.org>, 
-	Steffen Klassert <steffen.klassert@secunet.com>, Herbert Xu <herbert@gondor.apana.org.au>, 
-	netdev@vger.kernel.org, netfilter-devel@vger.kernel.org, 
-	coreteam@netfilter.org, bridge@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] autofs: ignore notification errors from a replaced pipe
+To: tjdqudcks0424@naver.com
+Cc: autofs@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Christian Brauner <brauner@kernel.org>
+References: <20261007173542.593624-1-tjdqudcks0424@naver.com>
+Content-Language: en-AU
+From: Ian Kent <raven@themaw.net>
+Autocrypt: addr=raven@themaw.net;
+ keydata= xsFNBE6c/ycBEADdYbAI5BKjE+yw+dOE+xucCEYiGyRhOI9JiZLUBh+PDz8cDnNxcCspH44o
+ E7oTH0XPn9f7Zh0TkXWA8G6BZVCNifG7mM9K8Ecp3NheQYCk488ucSV/dz6DJ8BqX4psd4TI
+ gpcs2iDQlg5CmuXDhc5z1ztNubv8hElSlFX/4l/U18OfrdTbbcjF/fivBkzkVobtltiL+msN
+ bDq5S0K2KOxRxuXGaDShvfbz6DnajoVLEkNgEnGpSLxQNlJXdQBTE509MA30Q2aGk6oqHBQv
+ zxjVyOu+WLGPSj7hF8SdYOjizVKIARGJzDy8qT4v/TLdVqPa2d0rx7DFvBRzOqYQL13/Zvie
+ kuGbj3XvFibVt2ecS87WCJ/nlQxCa0KjGy0eb3i4XObtcU23fnd0ieZsQs4uDhZgzYB8LNud
+ WXx9/Q0qsWfvZw7hEdPdPRBmwRmt2O1fbfk5CQN1EtNgS372PbOjQHaIV6n+QQP2ELIa3X5Z
+ RnyaXyzwaCt6ETUHTslEaR9nOG6N3sIohIwlIywGK6WQmRBPyz5X1oF2Ld9E0crlaZYFPMRH
+ hQtFxdycIBpTlc59g7uIXzwRx65HJcyBflj72YoTzwchN6Wf2rKq9xmtkV2Eihwo8WH3XkL9
+ cjVKjg8rKRmqIMSRCpqFBWJpT1FzecQ8EMV0fk18Q5MLj441yQARAQABzRtJYW4gS2VudCA8
+ cmF2ZW5AdGhlbWF3Lm5ldD7CwXsEEwECACUCGwMGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheA
+ BQJOnjOcAhkBAAoJEOdnc4D1T9iphrYQALHK3J5rjzy4qPiLJ0EE9eJkyV1rqtzct5Ah9pu6
+ LSkqxgQCfN3NmKOoj+TpbXGagg28qTGjkFvJSlpNY7zAj+fA11UVCxERgQBOJcPrbgaeYZua
+ E4ST+w/inOdatNZRnNWGugqvez80QGuxFRQl1ttMaky7VxgwNTXcFNjClW3ifdD75gHlrU0V
+ ZUULa1a0UVip0rNc7mFUKxhEUk+8NhowRZUk0nt1JUwezlyIYPysaN7ToVeYE4W0VgpWczmA
+ tHtkRGIAgwL7DCNNJ6a+H50FEsyixmyr/pMuNswWbr3+d2MiJ1IYreZLhkGfNq9nG/+YK/0L
+ Q2/OkIsz8bOrkYLTw8WwzfTz2RXV1N2NtsMKB/APMcuuodkSI5bzzgyu1cDrGLz43faFFmB9
+ xAmKjibRLk6ChbmrZhuCYL0nn+RkL036jMLw5F1xiu2ltEgK2/gNJhm29iBhvScUKOqUnbPw
+ DSMZ2NipMqj7Xy3hjw1CStEy3pCXp8/muaB8KRnf92VvjO79VEls29KuX6rz32bcBM4qxsVn
+ cOqyghSE69H3q4SY7EbhdIfacUSEUV+m/pZK5gnJIl6n1Rh6u0MFXWttvu0j9JEl92Ayj8u8
+ J/tYvFMpag3nTeC3I+arPSKpeWDX08oisrEp0Yw15r+6jbPjZNz7LvrYZ2fa3Am6KRn0zsFN
+ BE6c/ycBEADZzcb88XlSiooYoEt3vuGkYoSkz7potX864MSNGekek1cwUrXeUdHUlw5zwPoC
+ 4H5JF7D8q7lYoelBYJ+Mf0vdLzJLbbEtN5+v+s2UEbkDlnUQS1yRo1LxyNhJiXsQVr7WVA/c
+ 8qcDWUYX7q/4Ckg77UO4l/eHCWNnHu7GkvKLVEgRjKPKroIEnjI0HMK3f6ABDReoc741RF5X
+ X3qwmCgKZx0AkLjObXE3W769dtbNbWmW0lgFKe6dxlYrlZbq25Aubhcu2qTdQ/okx6uQ41+v
+ QDxgYtocsT/CG1u0PpbtMeIm3mVQRXmjDFKjKAx9WOX/BHpk7VEtsNQUEp1lZo6hH7jeo5me
+ CYFzgIbXdsMA9TjpzPpiWK9GetbD5KhnDId4ANMrWPNuGC/uPHDjtEJyf0cwknsRFLhL4/NJ
+ KvqAuiXQ57x6qxrkuuinBQ3S9RR3JY7R7c3rqpWyaTuNNGPkIrRNyePky/ZTgTMA5of8Wioy
+ z06XNhr6mG5xT+MHztKAQddV3xFy9f3Jrvtd6UvFbQPwG7Lv+/UztY5vPAzp7aJGz2pDbb0Q
+ BC9u1mrHICB4awPlja/ljn+uuIb8Ow3jSy+Sx58VFEK7ctIOULdmnHXMFEihnOZO3NlNa6q+
+ XZOK7J00Ne6y0IBAaNTM+xMF+JRc7Gx6bChES9vxMyMbXwARAQABwsFfBBgBAgAJBQJOnP8n
+ AhsMAAoJEOdnc4D1T9iphf4QAJuR1jVyLLSkBDOPCa3ejvEqp4H5QUogl1ASkEboMiWcQJQd
+ LaH6zHNySMnsN6g/UVhuviANBxtW2DFfANPiydox85CdH71gLkcOE1J7J6Fnxgjpc1Dq5kxh
+ imBSqa2hlsKUt3MLXbjEYL5OTSV2RtNP04KwlGS/xMfNwQf2O2aJoC4mSs4OeZwsHJFVF8rK
+ XDvL/NzMCnysWCwjVIDhHBBIOC3mecYtXrasv9nl77LgffyyaAAQZz7yZcvn8puj9jH9h+mr
+ L02W+gd+Sh6Grvo5Kk4ngzfT/FtscVGv9zFWxfyoQHRyuhk0SOsoTNYN8XIWhosp9GViyDtE
+ FXmrhiazz7XHc32u+o9+WugpTBZktYpORxLVwf9h1PY7CPDNX4EaIO64oyy9O3/huhOTOGha
+ nVvqlYHyEYCFY7pIfaSNhgZs2aV0oP13XV6PGb5xir5ah+NW9gQk/obnvY5TAVtgTjAte5tZ
+ +coCSBkOU1xMiW5Td7QwkNmtXKHyEF6dxCAMK1KHIqxrBaZO27PEDSHaIPHePi7y4KKq9C9U
+ 8k5V5dFA0mqH/st9Sw6tFbqPkqjvvMLETDPVxOzinpU2VBGhce4wufSIoVLOjQnbIo1FIqWg
+ Dx24eHv235mnNuGHrG+EapIh7g/67K0uAzwp17eyUYlE5BMcwRlaHMuKTil6
+In-Reply-To: <20261007173542.593624-1-tjdqudcks0424@naver.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 7, 2026 at 6:42=E2=80=AFPM Michael S. Tsirkin <mst@redhat.com> =
-wrote:
+On 8/10/26 01:35, tjdqudcks0424@naver.com wrote:
+> From: Sung Byeongchan <tjdqudcks0424@naver.com>
 >
-> If a packet with bad checksum metadata gets into the ipv4 stack,
-> skb_checksum_help can corrupt the network header and cause a bunch of
-> mischief.
+> autofs_notify_daemon() takes a reference to the current notification
+> pipe under wq_mutex, then drops the mutex before writing the request. The
+> write can block while the daemon enters catatonic mode and installs a
+> replacement pipe.
 >
-> This was discovered and reported by Paulos, and has been reporoduced
+> If the old pipe's reader is then closed, the delayed write returns -EPIPE
+> and the generic error path enters catatonic mode again. That transition
+> acts on the current superblock state, closes the replacement pipe, and
+> releases the new daemon generation's wait queues.
+>
+> Only enter catatonic mode when the pipe which failed is still the current
+> pipe. Factor the already-locked transition so the identity check and state
+> change are atomic with respect to another replacement.
+>
+> This was reproduced on v7.3-rc5-337-gff47652a4b66c in a local QEMU guest.
+> An unprivileged UID 65534 lookup filled the old packet pipe before a
+> normal CATATONIC/SETPIPEFD restart. On the unmodified kernel, the new pipe
+> received HUP and both a pending victim lookup and a later lookup failed
+> with ENOENT in two out of two fresh-mount runs.
+>
+> With this change, the new pipe remained active, received an intact
+> 304-byte request, and both victim lookups completed in two out of two
+> runs. Normal lookup and restart-without-a-blocked-writer controls passed.
+> No KASAN, oops, refcount, or lock diagnostic was observed. A source
+> reproducer and complete local logs are available privately on request.
+>
+> The demonstrated impact is limited to denial of a shared autofs service
+> during a legitimate daemon restart. No memory corruption, information leak,
+> privilege escalation, or code execution primitive was observed.
 
-(minor) typo: reproduced
+The description looks sound and a after a quick look over the patch it
 
-> by others independently since.
+looks fine. So I'll add my acked-by and also look more closely at the
+
+change later, mostly, because of the problem I mention below.
+
+
+This sounds like a problem I have been struggling with for ages and had
+
+stopped working on it because I ended up starting an quite ugly refactor.
+
+Looking at this I think that was misguided.
+
+
+Acked-by: Ian Kent <raven@themaw.net>
+
+
+Thanks for this Sung, much appreciated.
+
+Christian, it would be great if you could pick this up as you usually
+
+do, ;)
+
+
+Thanks
+
+Ian
+
 >
-> We really shouldn't allow such packets in, but as a defence
-> in depth measure, let's also check before we complete the checksum.
->
-> A more complete validation at input is forthcoming, but needs more work.
->
+> Fixes: 8d7b48e0bc5fa ("autofs4: add miscellaneous device for ioctls")
+> Cc: stable@vger.kernel.org
 > Assisted-by: LLM
-> Fixes: f43798c27684 ("tun: Allow GSO using virtio_net_hdr")
-> Fixes: bfd5f4a3d605 ("packet: Add GSO/csum offload support.")
-> Reported-by: Paulos Yibelo <habte.yibelo@gmail.com>
-> Closes: https://lore.kernel.org/netdev/20260922030310.8684-2-habte.yibelo=
-@gmail.com/
-> Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-
-Cc: stable@vger.kernel.org
-
-Reviewed-by: Willem de Bruijn <willemb@google.com>
-
-One point about sending as a single patch touching five separate
-modules: nf_br_ip_fragment was only introduced in Linux 5.3.
-Such a block is probably easily dropped from a stable backport.
-A single patch is likely still preferable over splitting into two
-(core + optional) or even five (one per module) patches.
-
+> Signed-off-by: Sung Byeongchan <tjdqudcks0424@naver.com>
 > ---
+>   fs/autofs/waitq.c | 21 ++++++++++++++++-----
+>   1 file changed, 16 insertions(+), 5 deletions(-)
 >
-> Lightly tested.
-
-Tested by me as well and found to block the known bad input.
-
-Touching five modules is not ideal, but could not find any other
-approach that would be preferable: low risk of unintended
-consequences, out of the hot path, and relatively concise.
+> diff --git a/fs/autofs/waitq.c b/fs/autofs/waitq.c
+> index d46241342dfc9..fd78d96e105d 100644
+> --- a/fs/autofs/waitq.c
+> +++ b/fs/autofs/waitq.c
+> @@ -12,15 +12,13 @@
+>    */
+>   static autofs_wqt_t autofs_next_wait_queue = 1;
+>   
+> -void autofs_catatonic_mode(struct autofs_sb_info *sbi)
+> +static void autofs_catatonic_mode_locked(struct autofs_sb_info *sbi)
+>   {
+>   	struct autofs_wait_queue *wq, *nwq;
+>   
+> -	mutex_lock(&sbi->wq_mutex);
+> -	if (sbi->flags & AUTOFS_SBI_CATATONIC) {
+> -		mutex_unlock(&sbi->wq_mutex);
+> +	lockdep_assert_held(&sbi->wq_mutex);
+> +	if (sbi->flags & AUTOFS_SBI_CATATONIC)
+>   		return;
+> -	}
+>   
+>   	pr_debug("entering catatonic mode\n");
+>   
+> @@ -40,6 +38,21 @@ void autofs_catatonic_mode(struct autofs_sb_info *sbi)
+>   	fput(sbi->pipe);	/* Close the pipe */
+>   	sbi->pipe = NULL;
+>   	sbi->pipefd = -1;
+> +}
+> +
+> +void autofs_catatonic_mode(struct autofs_sb_info *sbi)
+> +{
+> +	mutex_lock(&sbi->wq_mutex);
+> +	autofs_catatonic_mode_locked(sbi);
+> +	mutex_unlock(&sbi->wq_mutex);
+> +}
+> +
+> +static void autofs_catatonic_mode_for_pipe(struct autofs_sb_info *sbi,
+> +					   struct file *pipe)
+> +{
+> +	mutex_lock(&sbi->wq_mutex);
+> +	if (sbi->pipe == pipe)
+> +		autofs_catatonic_mode_locked(sbi);
+>   	mutex_unlock(&sbi->wq_mutex);
+>   }
+>   
+> @@ -170,7 +183,7 @@ static void autofs_notify_daemon(struct autofs_sb_info *sbi,
+>   		autofs_wait_release(sbi, wq->wait_queue_token, ret);
+>   		break;
+>   	default:
+> -		autofs_catatonic_mode(sbi);
+> +		autofs_catatonic_mode_for_pipe(sbi, pipe);
+>   		break;
+>   	}
+>   	fput(pipe);
