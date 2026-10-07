@@ -1,55 +1,55 @@
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 679EF4334DC
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 22:40:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DEC449550F
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 22:40:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791412813; cv=none; b=JCvgAsvL/MQBdnNbYOhwESTAzclz373kES8X6K+EiwQogG45biTSIV+ZXJpyBaKf9UXgl5cersmITkyTDUIkjlPuLix2QoGBVSM8nHKa9CpOYsRsS1uFCEAJZpnsSLDtds7ztShpeGXlG3RJ6bFRCTfk6+NFpdLTlbzFFlA+gx4=
+	t=1791412819; cv=none; b=a9ISWFTbhC3KIficFcbn5gIwcB0oXSloKUU1K820HyqxejY9hfPN8k3KtZMI3iSyvcvvFD/uTui51ptBlx8DCFSsR2E9d5LEbqh10LYgp8liHbfOhkE4uml0L7UJWHah6oYj0Li21CkfMN3R2y7pLraSYK/yEA3Uv7yamPCgdIk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791412813; c=relaxed/simple;
-	bh=4im22iPgtvIKchK1yxl9bmehDbcdN94o0wvvRSNMkTM=;
+	s=arc-20240116; t=1791412819; c=relaxed/simple;
+	bh=01Q1uV6Ad7dxVOPH5ByGcAK8Y5Nv70pd1N0ASxQltEs=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=YrNFxdPmdnrQbHrt6cAxDsfZWvvSPRV/SbidAgbft5ESB+ZkeUeTbAGiykx0NVhAYjeWhiCv+b8ria9sDzt9dEUacKPvdUGIcKdXH6Zl4e7sEhPzlM6oRN7qTDwR0nH32U0W30ZGH5woqribQ5bqeLXzmJDDptw0OePKPhULcbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--abhishekbapat.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=KFVmYb6d; arc=none smtp.client-ip=74.125.82.200
+	 To:Cc:Content-Type; b=Y/TiBkKK0vc79kufBr4eQQvoHP1s3SsqUVuFulsIqobgHI8u4j7aoXo3WC4orc7ZZrenNUDK5uwPpzr1M3rW5WOpcFEVTMCEj7txtD1wW6Zn7wPHjyM9GOfEpL5D4d6yfzbb1E1RuG9C1HylhNb1eXaiUUSZFmpDsDANCdgvRIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--abhishekbapat.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ISy8uSlg; arc=none smtp.client-ip=74.125.82.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--abhishekbapat.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="KFVmYb6d"
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3510d0baf63so9280461eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 15:40:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ISy8uSlg"
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-351788121cfso578087eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 15:40:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791412810; x=1792017610; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1791412814; x=1792017614; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=24GVmB+cFG691fgwpuGrIqLCZcfR11JB/Taf/1fuGZo=;
-        b=KFVmYb6dDKqa/vWdnGObR2iY5qUf9PXWVDdMi9bszXgBFLGdJLDR10xZQ41K4oYKcK
-         0F7KKnfkL8LOSdt1p6Oi7RkB0UI40grb7uAduWWttBs/3v1GTY0qTQbOyqLNX7B53tYz
-         cgEleAs5/lYQftkY5iiNefMf2TZd2oUJF25C7qRf30RQqA4wclSOlJMpzwTUWHJ4aAuW
-         3kvlEtzAB2z39WbdsLuoPdv6p6/U68l7jVqhUqkCsj2PyqoLaJVHpKtNCtfT39BqBaHr
-         kYSZLj7BFk0x3dYsd79/xEEHJ7SCUuHarNFji+CEYxOrliuln/F+fnSy6E0vk8IRLVEm
-         rQdA==
+        bh=jel1GtKvrryvSIBAQ3atkvcxRH+gBV+jXFIXOBoXOeg=;
+        b=ISy8uSlg7AVgwS3A9p3bxIRV8OKoirrIkW/dcqM8ckuacU0AgWB4E30kHc2kIJ12j0
+         dvOwqXlnbr5UocCcl5fooyZagDyG+yV3zph6Z7xygEZNfZ7GqTDTQVYCS1mV67OHuKFn
+         if7m81khJa7pR9J32VDA6RfuiCDRfpUEx2uYA83G7qNV1Dw0dVvWnoe2t8U8W4q+PrRM
+         we21C7wXhR0at/KRaS5AcYW0gPr14zfFKuIMFJDSXr7imIDlaw87pd0qC9J9T5OI6o1l
+         1A71QVWFrKO1/v/jQ/sxf4g2QiMQexMJP3XPC1SeYIRm47wJEFL6u9MDfMtSwzgT2pg2
+         27Pw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791412810; x=1792017610;
+        d=1e100.net; s=20260707; t=1791412814; x=1792017614;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=24GVmB+cFG691fgwpuGrIqLCZcfR11JB/Taf/1fuGZo=;
-        b=bX9NRZ2/PJKBR2xSgvKOVfRBKOqnwHsjziBWWgDTxwGhwtEhN7dQTjAB5GDSZSCUIE
-         yYa7FBDbevjomCsa5uTj79bmoqibwkb5AqfeWbTzTopr6z8BDt0CquuE4ynV4vEmwBM1
-         aljoN8pUbpoBIVORpAJLczkv2qH+lQe+b7/ll2sOY9yVg4A+USDginiBJVYUMHMTddK1
-         tx4Ar/IkDhbfRNeKpzzFLiOkE8caZxE507gZHACI6uPYcAdirW/EyMyR7MTpjpz/pIXV
-         lrdqPSRwQgyGNFHGELLLMEkEZLFGeXCLpF35jjV0x8Bo0+6etGmq5/H2Sx5BidLlfY5S
-         nnCA==
-X-Gm-Message-State: AFq9FYJJbAvAhehCk5C8H/vw1NBzzVQtoqBOUuJsDcPcQGmjPSSihBGa
-	CswgjyIyLyMQ/GVSg6LabsGoRUPdiluPtF35usZ8fE3Q+N0OosRrZL4DGvtLpo5IpOfV/27vpcB
-	DLZblT8xAn7y3KYJJ2BRbqqfsgrxYo43oHw==
-X-Received: from dyx16.prod.google.com ([2002:a05:693c:8210:b0:351:28e2:44b4])
+        bh=jel1GtKvrryvSIBAQ3atkvcxRH+gBV+jXFIXOBoXOeg=;
+        b=qnYox8GzD2plQbsYCgFk++BKnF/jruOAD+wlF6CEeA6EDoDR3pyixXvRp4smQ70Ntf
+         kDxguLhGjk6wW9bH+SPAGFv+nuMN/sEknx9pS/3dbykxMP7AqGinoq9CLlZrsNRNordO
+         /nagjJS71+AZ0hqAVYmdvfeRZCGGZl8+c3xWcMqbr2/x9xIaOsYD/eYmOw8lkkHjCco9
+         b1RYBG0g+6gJ3HbpSK7UmCNVUTymDGbTu+0NgZeBVE1X2tns2q4TSmnLpQcAcf8iCwCd
+         dQHXYIrSVSv7eHhz4EKthnfIITvuqZGL0QaRxAvFJmrNOHFstQOjh0OA0RxZdRV56I95
+         yfHQ==
+X-Gm-Message-State: AFuF++mafAIuhNnT1/OjxWXxH49Yw6dHsTPq/0Ij4yMWRGpQLicPjUKc
+	gtl3aA5J6i+2VdKoyPNwIme19OxgpbtKwBB22sLfnWgXUBwzgPLOSw719UIZ1JgBJzvnPHJnPSF
+	jv1fFnMrjqNyNZrPr6w92ts8wgefKnbCHkA==
+X-Received: from dygf10.prod.google.com ([2002:a05:7300:134a:b0:351:21f1:20ca])
  (user=abhishekbapat job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7300:bfa4:b0:33c:b64a:3b82 with SMTP id 5a478bee46e88-3515de60281mr3871352eec.10.1791412809141;
- Wed, 07 Oct 2026 15:40:09 -0700 (PDT)
-Date: Wed,  7 Oct 2026 22:40:00 +0000
+ 2002:a05:7301:1e84:b0:34b:c18d:c28e with SMTP id 5a478bee46e88-3515dd837bemr5875331eec.7.1791412811980;
+ Wed, 07 Oct 2026 15:40:11 -0700 (PDT)
+Date: Wed,  7 Oct 2026 22:40:02 +0000
 In-Reply-To: <cover.1791410885.git.abhishekbapat@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -59,8 +59,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <cover.1791410885.git.abhishekbapat@google.com>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <1f77364a04d0ae20cf07efaca779756f92ec39f6.1791410886.git.abhishekbapat@google.com>
-Subject: [PATCH v2 2/4] alloc_tag: Introduce IOCTLs to toggle allocation tracepoints
+Message-ID: <ed2e9cb670af7d013aaf6585aea551587647f070.1791410886.git.abhishekbapat@google.com>
+Subject: [PATCH v2 4/4] alloc_tag: Add a test for trace state toggle and filtering
 From: Abhishek Bapat <abhishekbapat@google.com>
 To: Suren Baghdasaryan <surenb@google.com>, Hao Ge <hao.ge@linux.dev>, 
 	Andrew Morton <akpm@linux-foundation.org>
@@ -68,404 +68,186 @@ Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
 	linux-trace-kernel@vger.kernel.org, Abhishek Bapat <abhishekbapat@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Introduce a new IOCTL (`ALLOCINFO_IOC_TOGGLE_TRACE`) to selectively
-toggle tracing on allocation call sites. Userspace tools can use the
-existing filtering mechanism to specify the set of tags to toggle
-tracing for.
+Following the introduction of the ALLOCINFO_IOC_TOGGLE_TRACE IOCTL and
+ALLOCINFO_FILTER_MASK_TRACE_ON filters for selective memory allocation
+tracing, update the kselftests to validate this behaviour.
 
-To facilitate low overhead execution for non-targeted call sites, add a
-new `CODETAG_FLAG_TRACE_ON` flag to `struct codetag` to track per-site
-activation. Protect these conditional branch evaluations using the global
-`alloc_tag_trace_key` static branch and an inline static key check
-pattern in the allocator hooks (`alloc_tag_add`, `alloc_tag_sub`, etc).
-This ensures that the trace events are entirely skipped when no
-allocation call sites are being actively traced, leaving only a NOP on
-the allocation fast path.
+Introduce `test_tracing_toggle_and_filter`, which validates the
+architecture by:
+1. Dynamically flipping trace execution state for a designated allocation.
+2. Query the same tag again, and check that the returned tag reports the
+   new state in its `trace_on` field.
+3. Restore the tag's original trace state, also on failure, so the test
+   does not leave tracing changed on the system.
+
+The test uses `dup_mm()` function name with the function filter in the
+IOCTL to run the above steps. If the `dup_mm()` tag is not found, the
+test is skipped.
 
 Signed-off-by: Abhishek Bapat <abhishekbapat@google.com>
 ---
- Documentation/mm/allocation-profiling.rst |  20 ++++
- include/linux/alloc_tag.h                 |  47 +++++---
- include/linux/codetag.h                   |   5 +-
- include/uapi/linux/alloc_tag.h            |  13 +++
- mm/alloc_tag.c                            | 128 ++++++++++++++++++++--
- 5 files changed, 187 insertions(+), 26 deletions(-)
+ .../alloc_tag/allocinfo_ioctl_test.c          | 113 +++++++++++++++++-
+ 1 file changed, 110 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/mm/allocation-profiling.rst b/Documentation/mm/allocation-profiling.rst
-index b241450394df..63b668466342 100644
---- a/Documentation/mm/allocation-profiling.rst
-+++ b/Documentation/mm/allocation-profiling.rst
-@@ -149,6 +149,26 @@ expose the full call stack and the lifetime of individual allocations:
- - slab and percpu: the address of the object's `codetag_ref`
- - page allocator: the `struct page` pointer of the head page
- 
-+Events are only emitted for tags that have tracing turned on and while profiling
-+is enabled. When no tag is traced, the hooks are behind a static branch.
-+
-+Enabling Tracing
-+----------------
-+
-+Tracing is toggled on and off per tag with the `ALLOCINFO_IOC_TOGGLE_TRACE`
-+ioctl on `/proc/allocinfo`. It takes the same filter as used by
-+`ALLOCINFO_IOC_GET_AT`; an empty mask selects all tags. Size limits in the
-+filter are checked once, against the tag's size at the time of the call. Tags
-+already in the requested state are skipped and a -ENOENT is returned if no
-+tag matched.
-+
-+Tracing is turned off for a module's tags when the module is unloaded.
-+
-+Memory allocated before a tag was enabled has no alloc event but will still
-+produce a free event. Likewise, memory alive when tag is disabled will not
-+produce a free event. Tools should expect unmatched frees after enabling and
-+missing frees after disabling.
-+
- Correlating the events
- ----------------------
- 
-diff --git a/include/linux/alloc_tag.h b/include/linux/alloc_tag.h
-index 49825177d8c8..94697b28053a 100644
---- a/include/linux/alloc_tag.h
-+++ b/include/linux/alloc_tag.h
-@@ -136,9 +136,36 @@ static inline bool mem_alloc_profiling_enabled(void)
- 				   &mem_alloc_profiling_key);
+diff --git a/tools/testing/selftests/alloc_tag/allocinfo_ioctl_test.c b/tools/testing/selftests/alloc_tag/allocinfo_ioctl_test.c
+index 74fd64b2370c..eb52ca1a1dc4 100644
+--- a/tools/testing/selftests/alloc_tag/allocinfo_ioctl_test.c
++++ b/tools/testing/selftests/alloc_tag/allocinfo_ioctl_test.c
+@@ -48,6 +48,11 @@ static inline int __allocinfo_get_next(int dev_fd, struct allocinfo_tag_data *pa
+ 	return ioctl(dev_fd, ALLOCINFO_IOC_GET_NEXT, params);
  }
  
--static inline bool alloc_tag_trace_enabled(void)
-+static inline void alloc_tag_set_inaccurate(struct alloc_tag *tag)
- {
--	return static_branch_unlikely(&alloc_tag_trace_key);
-+	atomic_or(CODETAG_FLAG_INACCURATE, &tag->ct.flags);
++static inline int __allocinfo_toggle_trace(int dev_fd, struct allocinfo_toggle_traces *params)
++{
++	return ioctl(dev_fd, ALLOCINFO_IOC_TOGGLE_TRACE, params);
 +}
 +
-+static inline bool alloc_tag_is_inaccurate(struct alloc_tag *tag)
-+{
-+	return !!(atomic_read(&tag->ct.flags) & CODETAG_FLAG_INACCURATE);
-+}
-+
-+static inline void alloc_tag_set_traced(struct alloc_tag *tag)
-+{
-+	atomic_or(CODETAG_FLAG_TRACE_ON, &tag->ct.flags);
-+}
-+
-+static inline void alloc_tag_clear_traced(struct alloc_tag *tag)
-+{
-+	atomic_andnot(CODETAG_FLAG_TRACE_ON, &tag->ct.flags);
-+}
-+
-+static inline bool alloc_tag_is_traced(const struct alloc_tag *tag)
-+{
-+	return !!(atomic_read(&tag->ct.flags) & CODETAG_FLAG_TRACE_ON);
-+}
-+
-+static inline bool alloc_tag_trace_enabled(const struct alloc_tag *tag)
-+{
-+	if (static_branch_unlikely(&alloc_tag_trace_key))
-+		return tag && alloc_tag_is_traced(tag);
-+	return false;
- }
- 
- void alloc_tag_trace_mem_alloc(const void *ptr, struct alloc_tag *tag,
-@@ -151,7 +178,7 @@ void __alloc_tag_trace_hit(struct alloc_tag *tag);
- 
- static __always_inline void alloc_tag_trace_hit(struct alloc_tag *tag)
- {
--	if (alloc_tag_trace_enabled())
-+	if (alloc_tag_trace_enabled(tag))
- 		__alloc_tag_trace_hit(tag);
- }
- 
-@@ -225,7 +252,7 @@ static inline void alloc_tag_add(union codetag_ref *ref, struct alloc_tag *tag,
- 	if (likely(alloc_tag_ref_set(ref, tag))) {
- 		this_cpu_add(tag->counters->bytes, bytes);
- 
--		if (alloc_tag_trace_enabled())
-+		if (alloc_tag_trace_enabled(tag))
- 			/* Trace successful allocs with their unique ptr */
- 			alloc_tag_trace_mem_alloc(ptr, tag, bytes);
- 	}
-@@ -249,23 +276,13 @@ static inline void alloc_tag_sub(union codetag_ref *ref, size_t bytes, const voi
- 	this_cpu_sub(tag->counters->bytes, bytes);
- 	this_cpu_dec(tag->counters->calls);
- 
--	if (alloc_tag_trace_enabled())
-+	if (alloc_tag_trace_enabled(tag))
- 		/* Trace frees with their unique ptr */
- 		alloc_tag_trace_mem_free(ptr, tag, bytes);
- 
- 	ref->ct = NULL;
- }
- 
--static inline void alloc_tag_set_inaccurate(struct alloc_tag *tag)
--{
--	tag->ct.flags |= CODETAG_FLAG_INACCURATE;
--}
--
--static inline bool alloc_tag_is_inaccurate(struct alloc_tag *tag)
--{
--	return !!(tag->ct.flags & CODETAG_FLAG_INACCURATE);
--}
--
- #define alloc_tag_record(p)	((p) = current->alloc_tag)
- 
- #else /* CONFIG_MEM_ALLOC_PROFILING */
-diff --git a/include/linux/codetag.h b/include/linux/codetag.h
-index a25a085c2df1..f728295d50c0 100644
---- a/include/linux/codetag.h
-+++ b/include/linux/codetag.h
-@@ -18,6 +18,7 @@ struct module;
- 
- /* codetag flags */
- #define CODETAG_FLAG_INACCURATE	(1 << 0)
-+#define CODETAG_FLAG_TRACE_ON	(1 << 1)
- 
- /*
-  * An instance of this structure is created in a special ELF section at every
-@@ -25,7 +26,7 @@ struct module;
-  * an array of these.
-  */
- struct codetag {
--	unsigned int flags;
-+	atomic_t flags;
- 	unsigned int lineno;
- 	const char *modname;
- 	const char *function;
-@@ -71,7 +72,7 @@ struct codetag_iterator {
- 	.function	= __func__,			\
- 	.filename	= __FILE__,			\
- 	.lineno		= __LINE__,			\
--	.flags		= 0,				\
-+	.flags		= ATOMIC_INIT(0),		\
- }
- 
- void codetag_lock_module_list(struct codetag_type *cttype);
-diff --git a/include/uapi/linux/alloc_tag.h b/include/uapi/linux/alloc_tag.h
-index 7d4618bea043..dafcba2f7e2c 100644
---- a/include/uapi/linux/alloc_tag.h
-+++ b/include/uapi/linux/alloc_tag.h
-@@ -85,9 +85,20 @@ struct allocinfo_get_at {
- 	struct allocinfo_tag_data data;
- };
- 
-+struct allocinfo_toggle_traces {
-+	/* inputs */
-+	/*
-+	 * Tags matching the filter are toggled; an empty mask selects all tags.
-+	 * Size criteria are checked once, against the tag's size at call time.
-+	 */
-+	struct allocinfo_filter filter;
-+	__u64 enable;
-+};
-+
- #define _ALLOCINFO_IOC_CONTENT_ID	0
- #define _ALLOCINFO_IOC_GET_AT		1
- #define _ALLOCINFO_IOC_GET_NEXT		2
-+#define _ALLOCINFO_IOC_TOGGLE_TRACE	3
- 
- #define ALLOCINFO_IOC_BASE		0xA6
- #define ALLOCINFO_IOC_CONTENT_ID	_IOR(ALLOCINFO_IOC_BASE, _ALLOCINFO_IOC_CONTENT_ID,	\
-@@ -96,5 +107,7 @@ struct allocinfo_get_at {
- 					      struct allocinfo_get_at)
- #define ALLOCINFO_IOC_GET_NEXT		_IOR(ALLOCINFO_IOC_BASE, _ALLOCINFO_IOC_GET_NEXT,	\
- 					     struct allocinfo_tag_data)
-+#define ALLOCINFO_IOC_TOGGLE_TRACE	_IOW(ALLOCINFO_IOC_BASE, _ALLOCINFO_IOC_TOGGLE_TRACE,	\
-+					    struct allocinfo_toggle_traces)
- 
- #endif /* _UAPI_ALLOC_TAG_H */
-diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
-index ca2412a67312..262f00f2bba9 100644
---- a/mm/alloc_tag.c
-+++ b/mm/alloc_tag.c
-@@ -60,6 +60,15 @@ DEFINE_STATIC_KEY_FALSE(mem_profiling_compressed);
- DEFINE_STATIC_KEY_FALSE(alloc_tag_trace_key);
- EXPORT_SYMBOL(alloc_tag_trace_key);
- 
-+static atomic_t alloc_tag_trace_cnt = ATOMIC_INIT(0);
-+
-+/*
-+ * As `codetag_lock_module_list` is a read lock, we need an additional mutex
-+ * to protect against the race conditions involved in the alloc tag trace
-+ * toggle path.
-+ */
-+static DEFINE_MUTEX(alloc_tag_trace_mutex);
-+
- struct alloc_tag_kernel_section kernel_tags = { NULL, 0 };
- unsigned long alloc_tag_ref_mask;
- int alloc_tag_ref_offs;
-@@ -296,7 +305,7 @@ static bool matches_filter(struct codetag *ct, struct allocinfo_filter *filter,
- 		return false;
- 
- 	if (filter->mask & ALLOCINFO_FILTER_MASK_INACCURATE) {
--		inaccurate = !!(ct->flags & CODETAG_FLAG_INACCURATE);
-+		inaccurate = alloc_tag_is_inaccurate(ct_to_alloc_tag(ct));
- 		if (inaccurate != !!(filter->inaccurate))
- 			return false;
- 	}
-@@ -317,6 +326,23 @@ static bool matches_filter(struct codetag *ct, struct allocinfo_filter *filter,
- 	return true;
- }
- 
-+/*
-+ * Checks that a user supplied filter only uses known fields and that its size
-+ * range, if any, is not inverted.
-+ */
-+static bool allocinfo_filter_valid(const struct allocinfo_filter *filter)
-+{
-+	if (filter->mask & ~ALLOCINFO_FILTER_MASKS)
-+		return false;
-+
-+	if ((filter->mask & ALLOCINFO_FILTER_MASK_MIN_SIZE) &&
-+	    (filter->mask & ALLOCINFO_FILTER_MASK_MAX_SIZE) &&
-+	    filter->min_size > filter->max_size)
-+		return false;
-+
-+	return true;
-+}
-+
- /*
-  * Seeks the ioctl iterator to the specified 0-indexed tag position, reads its
-  * profiling data and returns it to userspace.
-@@ -333,12 +359,7 @@ static int allocinfo_ioctl_get_at(struct seq_file *m, void __user *arg)
- 	if (copy_from_user(&params, arg, sizeof(params)))
- 		return -EFAULT;
- 
--	if (params.filter.mask & ~ALLOCINFO_FILTER_MASKS)
--		return -EINVAL;
--
--	if ((params.filter.mask & ALLOCINFO_FILTER_MASK_MIN_SIZE) &&
--	    (params.filter.mask & ALLOCINFO_FILTER_MASK_MAX_SIZE) &&
--	    params.filter.min_size > params.filter.max_size)
-+	if (!allocinfo_filter_valid(&params.filter))
- 		return -EINVAL;
- 
- 	priv = m->private;
-@@ -443,6 +464,75 @@ static int allocinfo_ioctl_get_next(struct seq_file *m, void __user *arg)
+ static bool match_entry(const struct allocinfo_tag_data *procfs_entry,
+ 			const struct allocinfo_tag_data *tag_data,
+ 			bool match_bytes, bool match_calls, bool match_lineno,
+@@ -289,6 +294,8 @@ static int run_filter_test(const struct allocinfo_filter *filter)
  	return ret;
  }
  
-+static void alloc_tag_trace_toggle(struct alloc_tag *tag, bool enable)
++static const char *target_test_function = "dup_mm";
++
+ static int test_filename_filter(void)
+ {
+ 	struct allocinfo_filter filter;
+@@ -304,11 +311,10 @@ static int test_filename_filter(void)
+ static int test_function_filter(void)
+ {
+ 	struct allocinfo_filter filter;
+-	const char *target_function = "dup_mm";
+ 
+ 	memset(&filter, 0, sizeof(filter));
+ 	filter.mask |= ALLOCINFO_FILTER_MASK_FUNCTION;
+-	strncpy(filter.fields.function, target_function, ALLOCINFO_STR_SIZE);
++	strncpy(filter.fields.function, target_test_function, ALLOCINFO_STR_SIZE);
+ 
+ 	return run_filter_test(&filter);
+ }
+@@ -514,11 +520,106 @@ static int test_lineno_filter(void)
+ 	return ret;
+ }
+ 
++static enum ioctl_ret toggle_trace(struct allocinfo_tag *target_tag,
++				   bool enable)
 +{
-+	if (enable) {
-+		if (alloc_tag_is_traced(tag))
-+			return;
++	int fd;
++	struct allocinfo_toggle_traces toggle_params;
 +
-+		alloc_tag_set_traced(tag);
-+		if (atomic_fetch_inc(&alloc_tag_trace_cnt) == 0)
-+			static_branch_enable(&alloc_tag_trace_key);
-+	} else {
-+		if (!alloc_tag_is_traced(tag))
-+			return;
-+
-+		alloc_tag_clear_traced(tag);
-+		if (atomic_dec_and_test(&alloc_tag_trace_cnt))
-+			static_branch_disable(&alloc_tag_trace_key);
++	fd = open(ALLOCINFO_PROC, O_RDONLY);
++	if (fd < 0) {
++		ksft_print_msg("Failed to open " ALLOCINFO_PROC ": %s\n", strerror(errno));
++		return IOCTL_FAILURE;
 +	}
++
++	memset(&toggle_params, 0, sizeof(toggle_params));
++	toggle_params.filter.mask = ALLOCINFO_FILTER_MASK_MODNAME | ALLOCINFO_FILTER_MASK_FUNCTION |
++				    ALLOCINFO_FILTER_MASK_FILENAME | ALLOCINFO_FILTER_MASK_LINENO;
++	toggle_params.filter.fields = *target_tag;
++	toggle_params.enable = enable;
++
++	if (__allocinfo_toggle_trace(fd, &toggle_params)) {
++		close(fd);
++		return IOCTL_FAILURE;
++	}
++
++	close(fd);
++	return IOCTL_SUCCESS;
 +}
 +
-+/*
-+ * Toggles tracing on every allocation tag that matches the user supplied
-+ * filter. An empty filter mask selects all tags, same as for
-+ * ALLOCINFO_IOC_GET_AT. Tags already in the requested state are not an error.
-+ */
-+static int allocinfo_ioctl_toggle_trace(struct seq_file *m, void __user *arg)
++static int test_tracing_toggle_and_filter(void)
 +{
-+	struct allocinfo_toggle_traces params;
-+	struct codetag_iterator iter;
-+	struct codetag *ct;
-+	struct alloc_tag_counters counters;
-+	bool fetched_counters;
-+	int matches = 0, ret;
++	struct allocinfo_filter filter = { 0 };
++	enum ioctl_ret ioctl_status;
++	int ret = KSFT_PASS;
++	bool initial_state, target_state;
++	struct allocinfo_tag target_tag;
++	struct allocinfo_tag_data_vec *tags = calloc(1, sizeof(*tags));
 +
-+	if (!capable(CAP_SYS_ADMIN))
-+		return -EPERM;
-+
-+	if (copy_from_user(&params, arg, sizeof(params)))
-+		return -EFAULT;
-+
-+	if (!allocinfo_filter_valid(&params.filter))
-+		return -EINVAL;
-+
-+	codetag_lock_module_list(alloc_tag_cttype);
-+
-+	iter = codetag_get_ct_iter(alloc_tag_cttype);
-+
-+	/* Toggle tracing on all codetags that match */
-+	while ((ct = codetag_next_ct(&iter))) {
-+		fetched_counters = false;
-+		if (matches_filter(ct, &params.filter, &counters, &fetched_counters)) {
-+			matches++;
-+
-+			mutex_lock(&alloc_tag_trace_mutex);
-+			alloc_tag_trace_toggle(ct_to_alloc_tag(ct), !!params.enable);
-+			mutex_unlock(&alloc_tag_trace_mutex);
-+		}
++	if (!tags) {
++		ksft_print_msg("Memory allocation failed.\n");
++		return KSFT_FAIL;
 +	}
 +
-+	if (matches == 0)
-+		/* Nothing matched the filter */
-+		ret = -ENOENT;
-+	else
-+		ret = 0;
++	filter.mask |= ALLOCINFO_FILTER_MASK_FUNCTION;
++	strncpy(filter.fields.function, target_test_function, ALLOCINFO_STR_SIZE);
 +
-+	codetag_unlock_module_list(alloc_tag_cttype);
++	ioctl_status = get_filtered_ioctl_entries(tags, &filter, 0);
++	if (ioctl_status != IOCTL_SUCCESS || tags->count == 0) {
++		ksft_print_msg("Could not retrieve IOCTL entries for %s\n", target_test_function);
++		ret = KSFT_SKIP;
++		goto exit;
++	}
 +
++	target_tag = tags->tag[0].tag;
++	initial_state = tags->tag[0].counter.trace_on;
++	target_state = !initial_state;
++
++	ioctl_status = toggle_trace(&target_tag, target_state);
++	if (ioctl_status != IOCTL_SUCCESS) {
++		ksft_print_msg("Failed to toggle tracing\n");
++		ret = KSFT_FAIL;
++		goto exit;
++	}
++
++	filter.mask |= ALLOCINFO_FILTER_MASK_TRACE_ON;
++	filter.tracing = target_state;
++
++	ioctl_status = get_filtered_ioctl_entries(tags, &filter, 0);
++	if (ioctl_status != IOCTL_SUCCESS) {
++		ksft_print_msg("Error retrieving IOCTL entries with trace filter.\n");
++		ret = KSFT_FAIL;
++		goto exit_revert;
++	}
++
++	if (tags->count != 1) {
++		ksft_print_msg("Expected exactly 1 entry, but got %llu\n", tags->count);
++		ret = KSFT_FAIL;
++		goto exit_revert;
++	}
++
++	if (tags->tag[0].counter.trace_on != target_state) {
++		ksft_print_msg("Entry returned by trace filter does not match target state\n");
++		ret = KSFT_FAIL;
++	}
++
++exit_revert:
++	ioctl_status = toggle_trace(&target_tag, initial_state);
++	if (ioctl_status != IOCTL_SUCCESS) {
++		ksft_print_msg("Failed to revert tracing to initial state\n");
++		ret = KSFT_FAIL;
++	}
++
++exit:
++	free(tags);
 +	return ret;
 +}
 +
- /*
-  * Entry point ioctl function for /proc/allocinfo routing requests to fetch the
-  * layout content ID, seek to a specific tag, or read sequential tags.
-@@ -463,6 +553,9 @@ static long allocinfo_ioctl(struct file *file, unsigned int cmd,
- 	case ALLOCINFO_IOC_GET_NEXT:
- 		ret = allocinfo_ioctl_get_next(file->private_data, arg);
- 		break;
-+	case ALLOCINFO_IOC_TOGGLE_TRACE:
-+		ret = allocinfo_ioctl_toggle_trace(file->private_data, arg);
-+		break;
- 	default:
- 		ret = -ENOIOCTLCMD;
- 		break;
-@@ -492,8 +585,6 @@ static const struct proc_ops allocinfo_proc_ops = {
- 
- void __alloc_tag_trace_hit(struct alloc_tag *tag)
+ int main(int argc, char *argv[])
  {
--	if (unlikely(!tag))
--		return;
- 	trace_alloc_tag_hit(tag);
- }
- EXPORT_SYMBOL(__alloc_tag_trace_hit);
-@@ -1031,6 +1122,24 @@ static int load_module(struct module *mod, struct codetag *start, struct codetag
- 	return 0;
- }
+ 	int ret;
  
-+static void unload_module(struct module *mod, struct codetag *start, struct codetag *stop)
-+{
-+	struct alloc_tag *start_tag = ct_to_alloc_tag(start);
-+	struct alloc_tag *stop_tag = ct_to_alloc_tag(stop);
-+	struct alloc_tag *tag;
+-	ksft_set_plan(4);
++	ksft_set_plan(5);
+ 
+ 	ret = test_filename_filter();
+ 	if (ret == KSFT_SKIP)
+@@ -526,6 +627,12 @@ int main(int argc, char *argv[])
+ 	else
+ 		ksft_test_result(ret == KSFT_PASS, "test_filename_filter\n");
+ 
++	ret = test_tracing_toggle_and_filter();
++	if (ret == KSFT_SKIP)
++		ksft_test_result_skip("Skipping test_tracing_toggle_and_filter\n");
++	else
++		ksft_test_result(ret == KSFT_PASS, "test_tracing_toggle_and_filter\n");
 +
-+	/*
-+	 * Turn tracing off for the tags of the module being unloaded. Without
-+	 * this, `alloc_tag_trace_cnt` would never reach zero and tracing would
-+	 * stay enabled forever.
-+	 *
-+	 * `alloc_tag_trace_mutex` is not needed here as this code path is
-+	 * protected by a `down_write(&cttype->mod_lock)`.
-+	 */
-+	for (tag = start_tag; tag < stop_tag; tag++)
-+		alloc_tag_trace_toggle(tag, false);
-+}
-+
- static void replace_module(struct module *mod, struct module *new_mod)
- {
- 	MA_STATE(mas, &mod_area_mt, 0, module_tags.size);
-@@ -1357,6 +1466,7 @@ static int __init alloc_tag_init(void)
- 		.alloc_section_mem	= reserve_module_tags,
- 		.free_section_mem	= release_module_tags,
- 		.module_load		= load_module,
-+		.module_unload		= unload_module,
- 		.module_replaced	= replace_module,
- #endif
- 	};
+ 	ret = test_function_filter();
+ 	if (ret == KSFT_SKIP)
+ 		ksft_test_result_skip("Skipping test_function_filter\n");
 -- 
 2.56.0.385.gd3acb90ef8-goog
 
