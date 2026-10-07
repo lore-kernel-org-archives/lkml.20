@@ -1,80 +1,153 @@
-Received: from mta1.migadu.com (out-115.mta1.migadu.com [95.215.58.115])
+Received: from mta0.migadu.com (out-147.mta0.migadu.com [91.218.175.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE5123F12CB
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 06:55:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E991A1BD9D0
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 06:56:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791356143; cv=none; b=EpfX9y8Rv/sX7MaBJDvBtbP+EdR+kfkT1Q1vIXeb1DgxBF/1iX9lbXLod1zUCjSJmvJBHN4SI+WrNbWK2FdUCSbYgBpRXi8JH/hMilEEjXLuo2QuDYs3RSf2wsVLYH178AbiaXThqaRH16YTZF2LqLj9wev/BpAcpEybLh/WZ3U=
+	t=1791356207; cv=none; b=EF4P4EMVToUED1L1/GBwqSuXN3cG/+Zg87jjLj/+NuG0c1N5kf7OKVejpS+l53L6rmv7laVdsVP5SlyMSuQLEzK7iTB7umOnDv6/DerSzRh7P5KGKirdaaZuYx7RO/pAZio/EVOWIv628zzC+/ILmRE8330fh0wtfBN1TlAGSJ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791356143; c=relaxed/simple;
-	bh=ToKfNOVp2qvFnEYXZ6nvsN9uzB66hA/JPYJkqLxPvZs=;
-	h=Content-Type:From:Mime-Version:Subject:Date:Message-Id:References:
-	 Cc:In-Reply-To:To; b=ZJCZPYhXxPjIzhvI9VKmMFb0S0sBAr1G75hJ5df2zMlWmPKjWqm5/kTI7aZStbeCun69zCYvOa56ERhCeaEO1/EK2MCqGb0YhB1Qf8PXen9m/whghweZEIVYDxmBSf08ddybC+31GfROVbRqYexHvvvQ2ha/q4FKQK8NrspQCQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=XYw3Tigv; arc=none smtp.client-ip=95.215.58.115
+	s=arc-20240116; t=1791356207; c=relaxed/simple;
+	bh=mPOvJG+Ziey8rOnXrm2JZksycs/MgRXkSM6LzT8+SRs=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=h024w6+otks6iFb9d1z7931XbmiSPmCATTNni/xHks5n5ouXuLhwsp7t4CP20+68x47ylW0CYIX+NVJy56i+hNYMfa4BYX53afsQPWcX7l9O+UXqA7UkSd+joxcJIsHy7BK5gUaRpc3S94t+MV2kHYLSDOVCrnApH8sImRfmcEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=sY13Inx/; arc=none smtp.client-ip=91.218.175.147
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="XYw3Tigv"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="sY13Inx/"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ToKfNOVp2qvFnEYXZ6nvsN9uzB66hA/JPYJkqLxPvZs=;
+DKIM-Signature: a=rsa-sha256; bh=mPOvJG+Ziey8rOnXrm2JZksycs/MgRXkSM6LzT8+SRs=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791356139; v=1; x=1791960939;
- b=XYw3TigvdOx8wVHJEKfZXpqpLo7zJwTuoc+d/IiHe41BRtmNe490cVXm4RypQKV07D18uxRC
- VtS6XDhWTzjymBkYIOX+jPed6CeF3BYSwqHEi+NLm16+qudHdxIYdpo7JXTleZctdJ3vUPHvhDc
- CgmNtI2lK6y2rCHVdCqfVzaA=
+ t=1791356203; v=1; x=1791961003;
+ b=sY13Inx/4eWSLsmajZ2y/anlm0tolQSFHsef0p5+vsFCV9ST2JVCmQjSpDcvHxlxZGjf6D9z
+ vO15LWLly/GOx7ud82DBIyGTsf22QdfmbBVbMbJXK40YzHloHkitheTtEirnW6F3LETturUhf5w
+ NbeF3Yyrv16k3P8MOanxcZYE=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id af8f4c7b60dce85b;
-	Wed, 07 Oct 2026 05:10:41 +0000
-X-Mizu-Trace-ID: af8f4c7b60dce85b
+Received: by smtp.migadu.com with ESMTPS id 81c8206f9f617cbb;
+	Wed, 07 Oct 2026 05:21:24 +0000
+X-Mizu-Trace-ID: 81c8206f9f617cbb
 X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-From: Muchun Song <muchun.song@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (1.0)
-Subject: Re: [PATCH v2] mm/hugetlb: use kvmalloc_objs for hugetlb_fault_mutex_table
-Date: Wed, 7 Oct 2026 07:10:08 +0200
-Message-Id: <5714BF9B-9FE3-41DC-A215-EEAAEBD7F9D3@linux.dev>
-References: <20261006160128.31447-1-dheerajkumar.srivastava@amd.com>
-Cc: osalvador@suse.de, david@kernel.org, akpm@linux-foundation.org,
- davidlohr@hp.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Vasant.Hegde@amd.com, bharata@amd.com, dheerajkumar.srivastava@amd.com
-In-Reply-To: <20261006160128.31447-1-dheerajkumar.srivastava@amd.com>
-To: Dheeraj Kumar Srivastava <dheerajkumar.srivastava@amd.com>
-X-Mailer: iPhone Mail (24A446)
+MIME-Version: 1.0
+Date: Wed, 07 Oct 2026 05:21:23 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Luka Gejak" <luka.gejak@linux.dev>
+Message-ID: <9f5d3b374ac9793b745e96121fcfc875083dc873@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH rtw-next v4 2/4] wifi: rtw88: sdio: Track running state
+ and cancel TX worker on stop
+To: "Ping-Ke Shih" <pkshih@realtek.com>, "Alastair D'Silva"
+ <alastair@d-silva.org>, linux-wireless@vger.kernel.org, "Kalle Valo"
+ <kvalo@kernel.org>
+Cc: "Martin Blumenstingl" <martin.blumenstingl@googlemail.com>, "Jernej
+ Skrabec" <jernej.skrabec@gmail.com>, "Ulf Hansson" <ulfh@kernel.org>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ luka.gejak@linux.dev
+In-Reply-To: <1b8a86e84c474693bfa71f39e946e7e6@realtek.com>
+References: <20261005084849.3109337-1-alastair@d-silva.org>
+ <20261005084849.3109337-3-alastair@d-silva.org>
+ <6665409e1d374c1face4936b827a6a9d@realtek.com>
+ <ccc69689fe2a2cccc39d40221056722e24263f2f@linux.dev>
+ <1b8a86e84c474693bfa71f39e946e7e6@realtek.com>
+
+October 7, 2026 at 03:26, "Ping-Ke Shih" <pkshih@realtek.com mailto:pkshi=
+=3D
+h@realtek.com?to=3D3D%22Ping-Ke%20Shih%22%20%3Cpkshih%40realtek.com%3E > =
+wr=3D
+ote:
 
 
-
-> On Oct 6, 2026, at 18:02, Dheeraj Kumar Srivastava <dheerajkumar.srivastav=
-a@amd.com> wrote:
 >=20
-> =EF=BB=BFOn systems/VMs with a large number of CPUs (e.g. 4096), hugetlb_i=
-nit()
-> computes num_fault_mutexes =3D roundup_pow_of_two(8 * num_possible_cpus())=
-
-> =3D 32768.  The subsequent kmalloc for the mutex table can exceed
-> MAX_PAGE_ORDER when struct mutex is enlarged by debug options like
-> CONFIG_DEBUG_MUTEXES and CONFIG_DEBUG_LOCK_ALLOC, resulting in:
+>=20Luka Gejak <luka.gejak@linux.dev> wrote:
 >=20
->  WARNING: at __alloc_frozen_pages_noprof (order > MAX_PAGE_ORDER)
->  kernel BUG at mm/hugetlb.c (BUG_ON(!hugetlb_fault_mutex_table))
->  Kernel panic - not syncing: Fatal exception
+>=20>=20
+>=20> > @@ -1703,6 +1712,9 @@ static void rtw_sdio_tx_handler(struct work=
+=3D
+_struct *work)
+> >  > rtwdev =3D3D work_data->rtwdev;
+> >  > rtwsdio =3D3D (struct rtw_sdio *)rtwdev->priv;
+> >  >
+> >  > + if (!rtwsdio->running)
+> >  > + return;
+> >  > +
+> >  >
+> >  I don't think we need this, since you added cancel_delayed_work_sync=
+=3D
+() in
+> >  rtw_sdio_stop().
+> >=20
+>=20>  I think we should keep the check. The tx work arms the SDIO work a=
+=3D
+t the end,
+> >  and stop does not cancel it:
+> >=20
+>=20>  rtw_hci_tx_kick_off(rtwdev);
+> >=20
+>=20>  cancel_work_sync(&rtwdev->c2h_work);
+> >  cancel_work_sync(&rtwdev->update_beacon_work);
+> >  cancel_delayed_work_sync(&rtwdev->watch_dog_work);
+> >  cancel_delayed_work_sync(&coex->bt_relink_work);
+> >  cancel_delayed_work_sync(&coex->bt_reenable_work);
+> >  cancel_delayed_work_sync(&coex->defreeze_work);
+> >  cancel_delayed_work_sync(&coex->wl_remain_work);
+> >  cancel_delayed_work_sync(&coex->bt_remain_work);
+> >  cancel_delayed_work_sync(&coex->wl_connecting_work);
+> >  cancel_delayed_work_sync(&coex->bt_multi_link_remain_work);
+> >  cancel_delayed_work_sync(&coex->wl_ccklock_work);
+> >=20
+>=20In rtw_sdio_stop(), it does cancel_delayed_work_sync(&rtwsdio->tx_han=
+=3D
+dler_data->work);
+> Is it not enough?
 >=20
-> Switch to kvmalloc_objs() so the allocation falls back to vmalloc when
-> the contiguous physical allocation is too large.  The table is only
-> accessed by index, so virtual contiguity is sufficient.
->=20
-> Fixes: 8382d914ebf7 ("mm, hugetlb: improve page-fault scalability")
-> Signed-off-by: Dheeraj Kumar Srivastava <dheerajkumar.srivastava@amd.com>
 
-Thanks for your fix.
+That=20is enough for a work item that is already armed. It does not cover=
+=3D
+ an
+arm that lands after the call, and that can happen:
 
-Acked-by: Muchun Song <muchun.song@linux.dev>
+[...]
+>  1. rtwsdio->running =3D3D false;
+>  // prevent to schedule rtwsdio->tx_handler_data->work again
 
-Thanks=20=
+Nothing reads rtwsdio->running on the arming path. wake_tx_queue() tests
+the flag at the top and queues the work at the bottom:
+
+	if (!test_bit(RTW_FLAG_RUNNING, rtwdev->flags))
+		return;
+
+	if (txq->ac =3D3D=3D3D IEEE80211_AC_VO)
+		__rtw_tx_work(rtwdev);
+	else
+		queue_work(rtwdev->tx_wq, &rtwdev->tx_work);
+
+then __rtw_tx_work() kicks the SDIO work at the end:
+
+	rtw_hci_tx_kick_off(rtwdev);
+
+The sequence:
+
+1. wake_tx_queue() reads the flag while it is still set and queues
+   rtwdev->tx_work.
+2. rtw_core_stop() clears the flag and cancels its list of works.
+3. rtw_sdio_stop() sets running to false and disables the interrupts. The
+   cancel_delayed_work_sync() finds nothing armed and returns at once.
+4. rtw_tx_work() runs now, nothing cancelled it, and it ends in
+   rtw_sdio_tx_kick_off(), which arms the delayed work again with
+   mod_delayed_work().
+5. rtw_sdio_tx_handler() runs, and without the check it calls
+   rtw_sdio_deep_ps_leave() and then walks the queues on a MAC that is
+   being powered off.
+
+So the cancel only orders against a kick that came before it, and the
+check covers the other order.
+
+Best regards,
+Luka Gejak
