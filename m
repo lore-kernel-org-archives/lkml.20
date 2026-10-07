@@ -1,85 +1,76 @@
-Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com [209.85.217.47])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2F094E36CC
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 19:09:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E8C34D9F97
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 19:11:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791400167; cv=none; b=YgGgiWODgzepW6rtIh+gqKSWlcd5Kwjq5QUxj8sbF2uDx8fD5ZZUAa0o2sK+W8eIMf3JRZkBYc74jeDddhFNjprCIpbVERZq5IajXuLoEu+SToj26WaJS/OHwrx8XW8qbSwOlSJHDgnPVAMrwtSQo0OM4g9RjHLJtv6v6G1IVPo=
+	t=1791400304; cv=none; b=oxNPo+76XUjj9VH3MGZN03ULiRwm86ksMejkJTfSUevcNxUfhbLhye/FJp2OkDV7L/6Oan2rB9CvV4OFTITPTmcXmThDP1+JKrYIXp4DTj6tPe6dV4aGMyp7KVz48KkMyQ4LKnvC+Gpw7VXH+zEKy1QTEIxTQ3FmZ55VX/fCVrA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791400167; c=relaxed/simple;
-	bh=vVSqOGp2wx/0qJVjAsSbH5oTy4Gpsm8b9+BCotcy5AA=;
+	s=arc-20240116; t=1791400304; c=relaxed/simple;
+	bh=c6/wsWEgIoAqhhn5+zQ/eb4VCbi0Mkt3bYBr7jxLGpU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EPfod6H9JlXtBKBHHj/jc5QrLurXBGDKNSJ/mz8LItiGRLkKhF8R+e3WcOblcyTXkncaWQrKHAq0x2mZk5kAfC0sSPSAXBCN7pBdS41nvaBbulnQmpYnC5+fJZKyJWxarWB3Bf0/gLMn+IF4Gsu2k93rd8fXA5tReeRNZtFtq1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UyKU9oV/; arc=none smtp.client-ip=209.85.217.47
+	 MIME-Version; b=EkIUAL8EuPQlo1GLV+Goqz0SoT7PIThPSgOEs/Lr1PStCfID2OI7Yledf6za5ygmPNImkyq/j18O8I3ga3tm3ZUrCcCZUeD+IHSbJ8lX61XZvQYiKOCo46r7oredLk4yZDPcsrztcDmaWWEKfF3XArQQ49brUQtsh8kZw7m9rpg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EIKs55Ts; arc=none smtp.client-ip=209.85.128.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UyKU9oV/"
-Received: by mail-vs1-f47.google.com with SMTP id ada2fe7eead31-7ca917f9f52so357711137.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 12:09:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EIKs55Ts"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a16aaf2067so51114595e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 12:11:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791400165; x=1792004965; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791400301; x=1792005101; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3XGvHahoLRouhu1JIBcDAOTwzFgHXehCkZsR1IWSJgU=;
-        b=UyKU9oV/Skj6omKIj79jVBpXFg+ATjDAhM9sqCUH9n7N5aK52iQU92wyj/ba8d5V4A
-         S0zg7dUjAV6GAyUZWdQJaly3O91FpSYaNiL+BIO05/eGEEU1aA0iY18E5QjhonwDRVqC
-         2RNfUEvuSB58m5AxmJlT2oIdzZXLYabSU8gb4OAgmFCwJ3cOcQjEnW9xeW5yhGJ6qk0+
-         NOkBOn7Yx6d87Vuen2T8VFNR1vRfvw0/OvpuXf8DIiOUgG0cn6v+5sW1logY/xmMAN7V
-         10Mza0jE1vixG8/LbiHHKSr3bqIH9aS6Ct27KVNk9TvCcFVJe3Houcp6+C9RQI+BqFKP
-         JEBQ==
+        bh=x17halSewF1CqvQRuX6zQF0SoDUJ4edQrK0pXUMAalU=;
+        b=EIKs55TsSHMsE7RwTFgu56z6qZfezDZZujNk7qm6LGVx7G0XElWHlUFx35hov8vAiJ
+         msu7MA5fPZhGhXA15+uJAD1LWM/qIQpb+/n6VQn39opvhczeaxASY3/iK0RROu8Y2Okn
+         TGZgYTAaKLxCgAbB0qP+7MIbVrs06Ne5gI4ZFZMAnKk9pNCa4pUAnMZDMy8zy3ysf0dw
+         ezEETbA87U463gjP7Q5pLH1z5R7Rj8DId+0FYc+aw/Z887nA+bP4W84b28259/kcpXHP
+         965Yttk9Nqi/BBQt/xD3QGE5C1XR2moPQZQZOof9zdT7PwivE3Oh2PENIfyFm1gQVA/Z
+         o6Hg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791400165; x=1792004965;
+        d=1e100.net; s=20260707; t=1791400301; x=1792005101;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3XGvHahoLRouhu1JIBcDAOTwzFgHXehCkZsR1IWSJgU=;
-        b=wA57uNqCxbn96tPL13Hk4kX3NId9sGOfGrrNTus6D//FDHsSo1QnM+MFl2ndk9Jjte
-         /lgTtEm5xA3iN/fRBlZn64esh25w/myDhIXoOSQK32zBSjhOa1q34VMSilWj0lWSPE55
-         dSJ0rfs0HJbhAHEp4k237Hp1pSvSlGxb/72hDS9DzVaX8NNnYQVXk15JA6Ard+YirHsZ
-         ENMGf13xMX9YQWr3srLToEEzNWGhe8nkPPk5FLUTlS+oEeJEpqi3e81+jDg/nn827MXv
-         Mz+p1f7rkU6OmljaJHll+rDu/FuozwR0mX9CJcU6ehxgGlorQBlbbTTskLuJYC9dX8AB
-         +4uA==
-X-Forwarded-Encrypted: i=1; AKwUvByRkzQsD4bi3p8vletqHKi8rAsKYPYQm8H8zjB/KrrDEv8q70CEPD+uffcQI9ctAJvhJsbEKVg9NRI2L9g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIvAj+YIzemqjHbOEmUCkS2kZvf2cLb7xG8Z5ccs3OYYxdpkPXU
-	E879Tb0e8xCdPk28XXmccTgzMxGc9AWg11a0BN8yPUNcPOEeOLJVRWk1
-X-Gm-Gg: AYBFou2+uDofS2aWAmJ5g6awt+46RjSQ1hk3f2k/FqnsRMs16QuVKhqrJltR7wLadoD
-	/zgxl0SkEWzBOEBLg2Pm7wJ258vPW4DlBveSxWNI67J6AqDtWb4GsN0kg1mhZkfChARzcL61Yxb
-	TcVBCFppIUEHNrjl7UYH6ptyFLgOS91enymR5+JRz3HQARcpxWYcduhAbEa/b7GcGVgRwvZ6j6d
-	d19c79PA/zzXb6MG8wg1hz72TV4uZtxPgYt6LW1FF7pLzRpVVyMsQubZX/F2r1b6d75R+R8Dn7p
-	Z+W8bkXn50NGiU+OpTVYqr9qVGJxALcr7+R3vIeX4th+BN1+SQbBrtQtAfRxEBk4hr3DY8DO2ij
-	2qjMoJEiEMJSLsDhUGIHy4O79NJIN+WEh1ePNpWojtcVPAY+eiXkEGGNrpHt/pVwFoFiw4/Pg4h
-	xQEMGXvMppDcUyCvece+YBPThY+qB16RV4wQdso1Yh4FyulRo/3H7LmwWQn7j5bTFhd3QzFRd1U
-	rjuo4mrKAChfL4Gm6g=
-X-Received: by 2002:a05:6102:688f:b0:7bc:1de3:39b0 with SMTP id ada2fe7eead31-7ca38f28c27mr1016377137.32.1791400164748;
-        Wed, 07 Oct 2026 12:09:24 -0700 (PDT)
-Received: from emedev.tailf75c28.ts.net ([74.244.222.41])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7ca218138c6sm2456787137.12.2026.10.07.12.09.19
+        bh=x17halSewF1CqvQRuX6zQF0SoDUJ4edQrK0pXUMAalU=;
+        b=0ny1GCxoLMLo/N7Q/lD9FNTZecz84U4opOTKvhBdaT5gFOX6JWWgJI1Y535llXL5J0
+         JL5Uh0NUJHZXl1rUY0w4svrXheKwC/djSfEzV1Owhu7lWEo03rjP4lIneJhBum5omdkW
+         w/BdiWaF9XiGXEpnWQF/67zdSFIfLJ4TXdpfQK1Ez88ZtKw0uv4tJt1NOlndxSNG1PkZ
+         OXfmm7/gCW3mlm0PVrSL7luhzWztMXmcisHzIzHcaCUehvAvl3bVaePXg+hxUcydJBtm
+         ajYDJnJgg0HzAtiTf0cR9vrWWemqkolNyCrVLU04gM4HTW5xzQXHmf/+a9L6xHDUxqKr
+         Xf9g==
+X-Forwarded-Encrypted: i=1; AKwUvBylGI0fudNUqNw5b/+/ot9LztPgT8eqivfNg380OdNFdiyRLowJC8YLEE7MA1flwQtnnA58SzRg7vDwYdc=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+p89UqDivkNCOszCQBmnF5mdQushdNx8Jz/Ld0p6MMZ5kVn7x
+	dfqEZD76KHhum7eHBfxpMKehiRJ1QCe5OPryHeYFpIOuUDfruVKjs1ym
+X-Gm-Gg: AYBFou2Mm9CJYUQJTDPnrBQOosiWaIU7i5hbvgT6YmDulPf9CX928gk3ZIIl5I+oyjb
+	ZTSQ1zHab0r+gQssVxvJSHZ9qg4rZfLiSwSLx86ypGgzpQsf9M3ZLtMpWC/SlS4uTfkbxuZf/BL
+	M2BoxAg+3B1I3N0nGbJmgdnmfyLg/l472BnMxzatuVBjP0MJl2zLZoc4ckR6S9OxLKO+iw0RvQy
+	YvtVn8YLJ65bY06a2IP8pnoU/GfMlfWM6j/7mIc3azPhFdaulnpUJ+s7HKbzgole7xyLtelDm3o
+	ty5zkuwUWoIJ1nbB7gE30PYo9/VmshwLwp+57oFUjr4GCnp31BdKexlfF5N2rK98fYc26/8gT6S
+	6jcFBDEvfJa9bxEyOh/dTCSOp0SrMsGz5q9WVtdaPCKz3zERL5dKvuRtVdoJ54QzEZJlcNSXkUY
+	ijff+nzhjUoe3CfhaYPT8OxEgd01rLK4KLe9dB0w+SA49joVLKmBJ7DGPtDZj6ZYGQ1Fm1A1hyY
+	nXG7/cxDA==
+X-Received: by 2002:a05:600c:3b89:b0:4a0:159b:d2a9 with SMTP id 5b1f17b1804b1-4a18043cc39mr74788595e9.24.1791400301158;
+        Wed, 07 Oct 2026 12:11:41 -0700 (PDT)
+Received: from unicorn.lan.internal ([2a0d:3341:b894:4600:81be:9245:330e:d4a3])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f48ab77sm92276425e9.1.2026.10.07.12.11.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 12:09:24 -0700 (PDT)
-From: Emerson Busson <emersonbusson@gmail.com>
-To: mhklinux@outlook.com
-Cc: kys@microsoft.com,
-	haiyangz@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
+        Wed, 07 Oct 2026 12:11:40 -0700 (PDT)
+From: Giuseppe Piscitelli <ooonea@gmail.com>
+To: linux-usb@vger.kernel.org
+Cc: stern@rowland.harvard.edu,
 	gregkh@linuxfoundation.org,
 	linux-kernel@vger.kernel.org,
-	linux-hyperv@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: [PATCH v2 14/14] hv: netvsc: use kvzalloc for device state
-Date: Wed,  7 Oct 2026 16:07:52 -0300
-Message-ID: <20261007190752.336426-15-emersonbusson@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261007190752.336426-1-emersonbusson@gmail.com>
-References: <20261007190752.336426-1-emersonbusson@gmail.com>
+	linux-api@vger.kernel.org
+Subject: [RFC PATCH v2] USB: core: emit a device-level modalias
+Date: Wed,  7 Oct 2026 21:11:30 +0200
+Message-ID: <20261007191130.8652-1-ooonea@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <afcecb34-0024-460f-bc21-a7f2b1754d23@rowland.harvard.edu>
+References: <afcecb34-0024-460f-bc21-a7f2b1754d23@rowland.harvard.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,47 +79,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-alloc_net_device() allocates the fixed-channel netvsc_device with
-kzalloc_obj(). The runtime fragmentation drill reaches this allocation
-from netvsc_device_add(): windows-2025 reports an order-7 allocation
-failure with about 99 MiB free, while windows-latest stalls at channel
-open until the guest timeout.
+On the first insertion of an iPhone (05ac:12a8) after boot, an already
+running usbmuxd can select USB configuration 4 before the charging driver
+apple-mfi-fastcharge loads. usbmuxd is a userspace daemon that uses libusb
+to communicate with Apple devices; apple-mfi-fastcharge is a USB device
+driver that enables their higher charging current.
 
-This object is guest-private control-plane metadata, not DMA backing.
-Use kvzalloc_obj() so the allocation can fall back to vmalloc when a
-high-order kmalloc cannot be satisfied. Zero initialization is preserved.
-The RCU workqueue cleanup uses kvfree() to release either backing.
+USB device uevents have no MODALIAS. The charging module instead loads
+from an interface uevent. Its registration reprobes the device, unbinds
+the generic driver and calls usb_set_configuration(udev, -1), tearing down
+the interfaces and interrupting usbmuxd's transfers.
 
-Rollback trigger: revert if channel setup fails with vmalloc capacity
-available or teardown leaves netvsc_device allocations outstanding.
+Emit a modalias in the USB device uevent, using wildcards for interface
+fields because no particular interface is described by this event. This
+allows udev's kmod builtin to load matching device drivers while handling
+the device add event, before broadcasting that event to libudev listeners.
+libusb's udev hotplug backend listens for this broadcast, so usbmuxd sees
+the arrival after the charging module has finished loading and reprobed
+the device, rather than before a later interface event loads it.
 
-Signed-off-by: Emerson Busson <emersonbusson@gmail.com>
+A slow udev worker delays both module loading and the broadcast; it does
+not reverse this ordering. This addresses hotplug through the udev
+backend, not clients reading raw kernel events or scanning devices before
+udev has finished, and does not synchronize later manual module loading.
+
+Signed-off-by: Giuseppe Piscitelli <ooonea@gmail.com>
+Assisted-by: OpenAI Codex
 ---
- drivers/net/hyperv/netvsc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+v2:
+- Explain the iPhone, charging driver and usbmuxd interaction.
+- Describe synchronous module loading before the libudev broadcast,
+  including the ordering when udev runs slowly and its scope limits.
+- No code changes.
 
-diff --git a/drivers/net/hyperv/netvsc.c b/drivers/net/hyperv/netvsc.c
-index 0d017f836b9e..8ea7c993baac 100644
---- a/drivers/net/hyperv/netvsc.c
-+++ b/drivers/net/hyperv/netvsc.c
-@@ -144,7 +144,7 @@ static void __free_netvsc_device(struct netvsc_device *nvdev)
- 		vfree(nvdev->chan_table[i].mrc.slots);
- 	}
+v1: https://lore.kernel.org/linux-usb/20261007161721.60593-1-ooonea@gmail.com/
+
+Tested on x86_64 with Linux 7.2.9 and an iPhone (05ac:12a8): first
+insertion after boot without module preload loads the charging driver,
+keeps configuration 4 and works with iLoader. Tracing the earlier udev
+builtin experiment showed driver registration before usbmuxd selected
+configuration 4. No delayed-udev runtime test has been performed.
+The usb-next function passes 18 source-extracted cases; a full usb-next
+kernel has not been built. OpenAI Codex assisted with diagnosis, the
+patch, the test harness and this description.
+
+ drivers/usb/core/driver.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/drivers/usb/core/driver.c b/drivers/usb/core/driver.c
+index 3c3bbaf89..29d1acba9 100644
+--- a/drivers/usb/core/driver.c
++++ b/drivers/usb/core/driver.c
+@@ -954,6 +954,17 @@ static int usb_uevent(const struct device *dev, struct kobj_uevent_env *env)
+ 			   usb_dev->descriptor.bDeviceProtocol))
+ 		return -ENOMEM;
  
--	kfree(nvdev);
-+	kvfree(nvdev);
++	if (is_usb_device(dev) &&
++	    add_uevent_var(env,
++			   "MODALIAS=usb:v%04Xp%04Xd%04Xdc%02Xdsc%02Xdp%02Xic*isc*ip*in*",
++			   le16_to_cpu(usb_dev->descriptor.idVendor),
++			   le16_to_cpu(usb_dev->descriptor.idProduct),
++			   le16_to_cpu(usb_dev->descriptor.bcdDevice),
++			   usb_dev->descriptor.bDeviceClass,
++			   usb_dev->descriptor.bDeviceSubClass,
++			   usb_dev->descriptor.bDeviceProtocol))
++		return -ENOMEM;
++
+ 	return 0;
  }
  
- static void free_netvsc_device(struct work_struct *w)
-@@ -171,7 +171,7 @@ static struct netvsc_device *alloc_net_device(void)
- {
- 	struct netvsc_device *net_device;
- 
--	net_device = kzalloc_obj(struct netvsc_device);
-+	net_device = kvzalloc_obj(struct netvsc_device);
- 	if (!net_device)
- 		return NULL;
- 
+
+base-commit: 42bcac323cc3b16566fed8c5b250318ad02a0de0
 -- 
-2.43.0
+2.54.0
 
