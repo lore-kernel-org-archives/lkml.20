@@ -1,71 +1,72 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A77239CCE3
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 09:21:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A42E238DC60
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 09:21:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791365009; cv=none; b=R0ieBxz5RI3mbp+GE50ufEjaolz8Yheu2VRkKIvygSsw/MMcg2kMT5YO4cScNRMkJdaf4DfRnXFJpA0Gc40Zl96dNFWUzzQF1dghRrSCXQ8fYq53fyzJawnxfXmg1HernLMroH7/sB4MwxIhZUuBSel4v2OQtJP6L2dcQnmawa0=
+	t=1791365048; cv=none; b=DjoGN2riXMaWETVSwmxhONzdPyC6NX+fa6CJ50xJsn34Y2acKME1Sattl/ks5Xnds2xHn7F3bDUXPBK7SUFfVRNwO3/6WWD4ZI05kQcp5o5qOUIhYPYZCpXcBLnYYwcopoU4w6UnGMdB2i5I6ozmwTP7aepxtp0XqA00W05b4jQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791365009; c=relaxed/simple;
-	bh=d0YA/mOtU9gtdFlzULhJnmKciSi4FjAwPe07XrQJ3Ak=;
+	s=arc-20240116; t=1791365048; c=relaxed/simple;
+	bh=lwl219Eul8sd2YUowkYzF2XehSm9alrV9NAQ4ulqNg0=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=lCccebVtqovVIPhi/Op6tMSDx6jLjlcM1ainpwDs/nZRO/uNfUkTWr86k3KnFRwaQHzSVIzlotctdOXz+4BQVW+m1zJBGhoZ2i1lcgXd/Wi3slSozIwetZoi0rEiT1KLmiSMCxdGlPohSnOYuyMQAkWfDBmFp++W9EKwHZfE4lA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h3WBWwrf; arc=none smtp.client-ip=209.85.214.172
+	 MIME-Version; b=LgOAh0z0NVA76lNn/cK6nYBWMwtQgch88puLVVAZU59SH82JHh5O2570rPypCZqxs8RTfexuGaRe0UhQrUbBn8iCn+jBpK4pmFKOJf92Bb2dmufyTulBmi+D8rzFpMZ/ZkGfZ4Rds6azpqPGKfEtkKILB9PEWzVWZchIL1itGlM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QPHVABVz; arc=none smtp.client-ip=209.85.214.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h3WBWwrf"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2dd9cbb661bso13055855ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 02:21:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QPHVABVz"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e4a2daa7d7so31946505ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 02:21:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791364914; x=1791969714; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791364893; x=1791969693; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=YE0R4zsEX//GEmygpcVf0XYVSLwXzC42OSXnTiFb//w=;
-        b=h3WBWwrfJA9VRBjDSToW0joxh3ttnYTse3UUx1KrRUdd+EtK8ijvBT7044w1kD+Pnm
-         rrjmslwNaTDwjHlZG8TQKNvyzCDV9vD6AB1NEr4lcB88Mh1+DnDRKMkdXVymInAgBhqz
-         WjpvaTT3RcCT7hpFfzQ6pWKMMKW2yWcYlJTA3sq+SuXtzUHzmZj7CQVwUDvsKR4vYEgq
-         HZ/gZvtT1/h+G6XG1y9ob3hYHjUCz2/+YivowwYVa8/rWge97gPi4JoATEOGB/z1iegx
-         O6J5RaOUNQumZdM1jcWI1MDju2wz3jKTfTERyiLNuCy/I+BVkRPmLiGm7axhI0RK6yka
-         UJzw==
+        bh=rlKsVhXXEnTprcKi3X5NkMsv3N8/DBr+v1s53F8QycE=;
+        b=QPHVABVz0/OljXujo/8CA5FPYuGSPpDQ/XmapDISyKmEsfAyHc+/jPQoWMMr9kDdGu
+         p6fRTHIEvBmx/Ysv0idBgoodyG/s97NAAgWC71/2r4yQSs5SyyxIRTW7KMF9uLxYWA4+
+         P0VQZ1DP3diwBJH59Mj+b9nqfTheU/6RUJU/TAXM+UNhxH1k7FDB2PUfqLkc3iHNcBcn
+         r2bYy+8PONghPBRoN1m8rypLS/Bi7RxoKZX3zEmgLYUso2m++KTt9J7KB8p1FwgwZm4U
+         4xWPnbaj+NPZ/aCHt4jbV70nVDPtBB/q6pHXxE3EwORLsbr9qpOyVGLdostaSjMdH7sy
+         VTzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791364914; x=1791969714;
+        d=1e100.net; s=20260707; t=1791364893; x=1791969693;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YE0R4zsEX//GEmygpcVf0XYVSLwXzC42OSXnTiFb//w=;
-        b=ARxAOUjO2MNF8I6/UpBxRXzGovpdCzbmzL6W1E2mrAuzbkPm82njoPwqgLTLafKShq
-         cjnc85CqBwR4dN5pfuL8zdsaHjbyI5zQREFBtcLGjyBmZnT6gNYLYxXP5x6K4zhgJjF0
-         o5pZMf+KCiwe6U+W25vcegTpUkVUMu0wjYrUnVvWUmrLQL6vNZJL67gwWPb6wiwm1QW3
-         AgLJ2evJNegr5GKfdp6UVgiuRthekRE8Kuj5ARg6nHgFamFLtqsmxvbWXhWAzKEo9qzZ
-         aVdQIjn5Q68SKH4QVLTFZIJ8xtVkmDsezPrs/JzIFsPPBUfW5e2qVomjGtEN4tLknelH
-         KJbQ==
-X-Gm-Message-State: AFq9FYKGnkEMqWzalJEs14v16D/pm5ddqhY6T2ovbpj3U0mPV+x6jbih
-	VotO6IKKfSrfGKD3xF/Qo+gfu/4j2v38Btmvf49Y0qYxsDGu2tFMIlEy
-X-Gm-Gg: AYBFou1lhVWwv1RAjzJgVpHYe+cQHLYr+QOWdvDoc/X5O70LQ1qRwo7qMLzFrHbDS9h
-	KuE1gk6OgmKw8QHwdGv5JfWFEy2CVJBI0C/EMVRoDvw1npFqdJqyMNLO2MfHWxR8qvaioYPkxU9
-	hl0u9qe0WlHPZtfpkaxS+ncmtNLLVY3o5jZ8eU8h4opnXE/2GXIHlIpC5LLDcWmfirlDACr/4+d
-	qud993sS9FBYc6yvk2TQVHyxK2bHqmXlprtGQSf9vk9NVKWViwRn2g9nc3xRa2Ktt25wyN6yzxr
-	3cg2JDZ/XsHTEDnPU4GQfvLcI/iwhiQE+w8W8VEz3f0yhJGpChjrv2LR1xMGXvefQUuN0QwYWUc
-	DC7Ad67eU92/VGI+5Z3yL4II3NTkthYCtCz9rnyCEHHICkNVYlSv7CZQyiCZW+PSsiAwQ81P+uA
-	tLtB2yYql4nl1GVdkyp6OovE/2uCj692i55tuap+y0J7w37jY7QaGtoCJor+fiQb5TtNyKxtBef
-	HqigqwoqcAF0q4CZStTk4fPI2IQ4R0bCGgXIH9v
-X-Received: by 2002:a17:902:cece:b0:2dd:c053:9c6c with SMTP id d9443c01a7336-2e6004e89d2mr14736725ad.34.1791364914009;
-        Wed, 07 Oct 2026 02:21:54 -0700 (PDT)
+        bh=rlKsVhXXEnTprcKi3X5NkMsv3N8/DBr+v1s53F8QycE=;
+        b=WUbjxdx690zPX7mPcm/a6y1ketpTu31CMhkSjDlwuU8Fc0wuSpXgHZAaIVUoVxjpUw
+         3YJboP60KyyWyvpo5OJjmzBpoRh/u9GL1qNdMF0v6DpW8JZZ+ZGZ/rPiZJsxk/xLg4f4
+         UT0kWMkQ5Dk6bG/yr/E8Z8if1sCDbKCxFxVP9QUH8HebFivx2JBWWkLUggBq/hXV+VXP
+         QYEl6D8XPFwcxS7NrZsKlejsKKWaFppzTcCPkGG0yHKl3NXWNdfxJL+tU4v7gno0mlZG
+         sivgYekKBqZJxAlNp5q3DK1A81GyTKpuL5Bvz7lDV+30FZmZvkZ0T4169ZLKzPgJLCqA
+         zLww==
+X-Gm-Message-State: AFq9FYJ2HOVwfuIdTvdHDxr/F6x4+zsRWuuzdMl2CZNGk2emMk4DYC+k
+	SvO+ANdJtMjRjpVuTyyJT6GpUvKhfgmkHFFl50XlKyvHvIrytRTdodp/AwdAJw==
+X-Gm-Gg: AYBFou3NcDKSW8T+6oxmgEWsX2aQQNjq19VtRHASd9QMEWFHY4bu+N2VFX9C61o9aAz
+	w+HmWegd9Qo5m5YGoAkMdhywjKVktoKiXI9rewI+u9/CKw/OHZfKPqIRZr/MQlSjNEXWYBqBjCL
+	yWjlbfayM1t/Z+3e4LHv0hGslQpXtRx08h7RK8pk3hUNT0w+Ppu4h0P4IKn3FJy6sqRq8zEYAts
+	sa3cJ4AjkqMYBQ1j3K57C7VzReoBVXXJ3A7ktZbHAY5IZh+dULQWP0VGPgGf19heOXY5q0pc/sQ
+	deDIQyBvaadX2dEEqqoR1VnMGVUe7mdTH88ypMk3G797T06YoL6oi/0R+qtVdsWchTll2YpDeBc
+	PCZet9QrXvysjQ5RK9mZ/HjK2ytzZ1GqDfgKGziolPrgV51JKPutr13WJB6r7OpK12h/KRTTxEP
+	fn5rZiizHrEYFx1cDfCFpTJSrVbXXhKzlJ6tGqjYGdeNeJ/4nOTmH1Qm+V1L/hfpBSBCQBrA2ol
+	PB7quds+YTCLHmcvgBuDR9jckgkLL/OYG5E2mAVMSQCvIF2gsM=
+X-Received: by 2002:a17:902:f688:b0:2dd:ad74:ac22 with SMTP id d9443c01a7336-2e60024aedcmr17569995ad.29.1791364892870;
+        Wed, 07 Oct 2026 02:21:32 -0700 (PDT)
 Received: from hcdev-d520mt2.. (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e6046fe0e8sm7180675ad.25.2026.10.07.02.21.52
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e6046fe0e8sm7180675ad.25.2026.10.07.02.21.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 02:21:53 -0700 (PDT)
+        Wed, 07 Oct 2026 02:21:32 -0700 (PDT)
 From: a0282524688@gmail.com
-To: lee@kernel.org
+To: lee@kernel.org,
+	Ming Yu <tmyu0@nuvoton.com>
 Cc: linux-kernel@vger.kernel.org,
 	Ming Yu <a0282524688@gmail.com>,
 	mfd@lists.linux.dev
-Subject: [PATCH v8 12/13] mfd: nct6694: Add a Kconfig symbol for the USB transport
-Date: Wed,  7 Oct 2026 17:21:01 +0800
-Message-Id: <20261007092102.3768818-13-a0282524688@gmail.com>
+Subject: [PATCH v8 05/13] mfd: nct6694: Transfer data packets via a dedicated buffer
+Date: Wed,  7 Oct 2026 17:20:54 +0800
+Message-Id: <20261007092102.3768818-6-a0282524688@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261007092102.3768818-1-a0282524688@gmail.com>
 References: <20261007092102.3768818-1-a0282524688@gmail.com>
@@ -79,77 +80,156 @@ Content-Transfer-Encoding: 8bit
 
 From: Ming Yu <a0282524688@gmail.com>
 
-Now that the sub-device drivers only access the device through regmap,
-the core no longer depends on USB.
+The caller's buffer is passed straight to usb_bulk_msg(). Sub-device
+drivers embed those buffers in their private data, so they are neither
+cacheline aligned nor exclusively owned by the transfer, and mapping
+them for DMA can corrupt adjacent fields on non-coherent architectures.
 
-Build the USB transport under a new MFD_NCT6694_USB symbol and keep
-MFD_NCT6694 for the core. MFD_NCT6694_USB defaults to MFD_NCT6694 so
-that existing configurations keep the USB transport enabled.
+Transfer the data packets through a buffer owned by the transport, and
+reject commands exceeding the maximum data length.
 
+Fixes: 51dad33ede63 ("mfd: Add core driver for Nuvoton NCT6694")
 Signed-off-by: Ming Yu <a0282524688@gmail.com>
 ---
 Changes in v8:
-- New patch. Split out of v7 "Rename driver to nct6694-usb and update
-  Kconfig"; MFD_NCT6694 remains the user visible core symbol and
-  MFD_NCT6694_USB defaults to it to keep existing configurations
-  working.
+- Moved before the refactoring so it applies to the original driver.
+- Renamed xfer_buf to data_buf, len to data_len and
+  NCT6694_MAX_PACKET_SIZE to NCT6694_MAX_DATA_LEN.
 
- drivers/mfd/Kconfig  | 20 ++++++++++++++++----
- drivers/mfd/Makefile |  2 +-
- 2 files changed, 17 insertions(+), 5 deletions(-)
+Changes in v7:
+- New patch.
 
-diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
-index a0d9d6ccfb0c..de7d2171f514 100644
---- a/drivers/mfd/Kconfig
-+++ b/drivers/mfd/Kconfig
-@@ -1167,18 +1167,30 @@ config MFD_NCT6694
- 	tristate "Nuvoton NCT6694 support"
- 	select MFD_CORE
- 	select REGMAP
--	depends on USB
- 	help
--	  This enables support for the Nuvoton USB device NCT6694, which shares
-+	  This enables support for the Nuvoton NCT6694, which shares
- 	  peripherals.
- 	  The Nuvoton NCT6694 is a peripheral expander with 16 GPIO chips,
- 	  6 I2C controllers, 2 CANfd controllers, 2 Watchdog timers, ADC,
- 	  PWM, and RTC.
--	  This driver provides core APIs to access the NCT6694 hardware
--	  monitoring and control features.
-+	  This driver provides the core support shared by the transport
-+	  interface drivers, at least one of which must be enabled.
- 	  Additional drivers must be enabled to utilize the specific
- 	  functionalities of the device.
+ drivers/mfd/nct6694.c       | 37 +++++++++++++++++++++++++++----------
+ include/linux/mfd/nct6694.h |  4 ++++
+ 2 files changed, 31 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/mfd/nct6694.c b/drivers/mfd/nct6694.c
+index 4f5a5b855de2..f9ae8476fcae 100644
+--- a/drivers/mfd/nct6694.c
++++ b/drivers/mfd/nct6694.c
+@@ -98,8 +98,12 @@ int nct6694_read_msg(struct nct6694 *nct6694, const struct nct6694_cmd_header *c
+ {
+ 	union nct6694_usb_msg *msg = nct6694->usb_msg;
+ 	struct usb_device *udev = nct6694->udev;
++	u16 data_len = le16_to_cpu(cmd_hd->len);
+ 	int tx_len, rx_len, ret;
  
-+config MFD_NCT6694_USB
-+	tristate "Nuvoton NCT6694 USB interface support"
-+	depends on MFD_NCT6694 && USB
-+	default MFD_NCT6694
-+	help
-+	  This enables support for the Nuvoton NCT6694 connected through
-+	  its USB interface. The driver uses USB bulk transfers to send
-+	  commands to the device firmware and an interrupt transfer to
-+	  receive its interrupt status.
++	if (data_len > NCT6694_MAX_DATA_LEN)
++		return -EINVAL;
 +
-+	  To compile this driver as a module, choose M here: the module
-+	  will be called nct6694-usb.
+ 	guard(mutex)(&nct6694->access_lock);
+ 
+ 	memcpy(&msg->cmd_header, cmd_hd, sizeof(*cmd_hd));
+@@ -124,17 +128,19 @@ int nct6694_read_msg(struct nct6694 *nct6694, const struct nct6694_cmd_header *c
+ 	}
+ 
+ 	/* Receive data packet from USB device */
+-	ret = usb_bulk_msg(udev, usb_rcvbulkpipe(udev, NCT6694_BULK_IN_EP), buf,
+-			   le16_to_cpu(cmd_hd->len), &rx_len, NCT6694_URB_TIMEOUT);
++	ret = usb_bulk_msg(udev, usb_rcvbulkpipe(udev, NCT6694_BULK_IN_EP), nct6694->data_buf,
++			   data_len, &rx_len, NCT6694_URB_TIMEOUT);
+ 	if (ret)
+ 		return ret;
+ 
+-	if (rx_len != le16_to_cpu(cmd_hd->len)) {
++	if (rx_len != data_len) {
+ 		dev_err(nct6694->dev, "Expected received length %d, but got %d\n",
+-			le16_to_cpu(cmd_hd->len), rx_len);
++			data_len, rx_len);
+ 		return -EIO;
+ 	}
+ 
++	memcpy(buf, nct6694->data_buf, data_len);
 +
- config MFD_OCELOT
- 	tristate "Microsemi Ocelot External Control Support"
- 	depends on SPI_MASTER
-diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
-index dfd81356b485..a42b99250454 100644
---- a/drivers/mfd/Makefile
-+++ b/drivers/mfd/Makefile
-@@ -125,7 +125,7 @@ obj-$(CONFIG_MFD_MC13XXX_I2C)	+= mc13xxx-i2c.o
- obj-$(CONFIG_MFD_PF1550)	+= pf1550.o
+ 	return nct6694_response_err_handling(nct6694, msg->response_header.sts);
+ }
+ EXPORT_SYMBOL_GPL(nct6694_read_msg);
+@@ -154,12 +160,17 @@ int nct6694_write_msg(struct nct6694 *nct6694, const struct nct6694_cmd_header *
+ {
+ 	union nct6694_usb_msg *msg = nct6694->usb_msg;
+ 	struct usb_device *udev = nct6694->udev;
++	u16 data_len = le16_to_cpu(cmd_hd->len);
+ 	int tx_len, rx_len, ret;
  
- obj-$(CONFIG_MFD_NCT6694)	+= nct6694-core.o
--obj-$(CONFIG_MFD_NCT6694)	+= nct6694-usb.o
-+obj-$(CONFIG_MFD_NCT6694_USB)	+= nct6694-usb.o
++	if (data_len > NCT6694_MAX_DATA_LEN)
++		return -EINVAL;
++
+ 	guard(mutex)(&nct6694->access_lock);
  
- obj-$(CONFIG_MFD_CORE)		+= mfd-core.o
+ 	memcpy(&msg->cmd_header, cmd_hd, sizeof(*cmd_hd));
+ 	msg->cmd_header.hctrl = NCT6694_HCTRL_SET;
++	memcpy(nct6694->data_buf, buf, data_len);
  
+ 	/* Send command packet to USB device */
+ 	ret = usb_bulk_msg(udev, usb_sndbulkpipe(udev, NCT6694_BULK_OUT_EP), &msg->cmd_header,
+@@ -168,8 +179,8 @@ int nct6694_write_msg(struct nct6694 *nct6694, const struct nct6694_cmd_header *
+ 		return ret;
+ 
+ 	/* Send data packet to USB device */
+-	ret = usb_bulk_msg(udev, usb_sndbulkpipe(udev, NCT6694_BULK_OUT_EP), buf,
+-			   le16_to_cpu(cmd_hd->len), &tx_len, NCT6694_URB_TIMEOUT);
++	ret = usb_bulk_msg(udev, usb_sndbulkpipe(udev, NCT6694_BULK_OUT_EP), nct6694->data_buf,
++			   data_len, &tx_len, NCT6694_URB_TIMEOUT);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -186,17 +197,19 @@ int nct6694_write_msg(struct nct6694 *nct6694, const struct nct6694_cmd_header *
+ 	}
+ 
+ 	/* Receive data packet from USB device */
+-	ret = usb_bulk_msg(udev, usb_rcvbulkpipe(udev, NCT6694_BULK_IN_EP), buf,
+-			   le16_to_cpu(cmd_hd->len), &rx_len, NCT6694_URB_TIMEOUT);
++	ret = usb_bulk_msg(udev, usb_rcvbulkpipe(udev, NCT6694_BULK_IN_EP), nct6694->data_buf,
++			   data_len, &rx_len, NCT6694_URB_TIMEOUT);
+ 	if (ret)
+ 		return ret;
+ 
+-	if (rx_len != le16_to_cpu(cmd_hd->len)) {
++	if (rx_len != data_len) {
+ 		dev_err(nct6694->dev, "Expected transmitted length %d, but got %d\n",
+-			le16_to_cpu(cmd_hd->len), rx_len);
++			data_len, rx_len);
+ 		return -EIO;
+ 	}
+ 
++	memcpy(buf, nct6694->data_buf, data_len);
++
+ 	return nct6694_response_err_handling(nct6694, msg->response_header.sts);
+ }
+ EXPORT_SYMBOL_GPL(nct6694_write_msg);
+@@ -315,6 +328,10 @@ static int nct6694_usb_probe(struct usb_interface *iface,
+ 	if (!nct6694->usb_msg)
+ 		return -ENOMEM;
+ 
++	nct6694->data_buf = devm_kzalloc(dev, NCT6694_MAX_DATA_LEN, GFP_KERNEL);
++	if (!nct6694->data_buf)
++		return -ENOMEM;
++
+ 	nct6694->int_buffer = devm_kzalloc(dev, sizeof(*nct6694->int_buffer), GFP_KERNEL);
+ 	if (!nct6694->int_buffer)
+ 		return -ENOMEM;
+diff --git a/include/linux/mfd/nct6694.h b/include/linux/mfd/nct6694.h
+index a5ad7be47bf9..69e4652cf16c 100644
+--- a/include/linux/mfd/nct6694.h
++++ b/include/linux/mfd/nct6694.h
+@@ -19,6 +19,9 @@
+ 
+ #define NCT6694_URB_TIMEOUT	1000
+ 
++/* Maximum data packet length the firmware accepts in a single command */
++#define NCT6694_MAX_DATA_LEN	0x3F0
++
+ enum nct6694_irq_id {
+ 	NCT6694_IRQ_GPIO0 = 0,
+ 	NCT6694_IRQ_GPIO1,
+@@ -92,6 +95,7 @@ struct nct6694 {
+ 	struct urb *int_in_urb;
+ 	struct usb_device *udev;
+ 	union nct6694_usb_msg *usb_msg;
++	void *data_buf;
+ 	__le32 *int_buffer;
+ 	unsigned int irq_enable;
+ };
 -- 
 2.34.1
 
