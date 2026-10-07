@@ -1,73 +1,76 @@
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4875417A2F6
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 01:57:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DB1F3403F1
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 01:58:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791338273; cv=none; b=Lp2vvvXzDmpYgLimDcgLN8QMLCxOd/aj45cbKS4SbO18pyS5vm96/h7XXGoLLDmKqRz6C2LFPd14qOC6dZa0AaoDe4tvvnzhT+3owXdDlWqWyTuYHd0micpy0jnZU9t/a7qAaOiVkQ6KlNLlPoCWV1Rr/VKJeCpMRZvl5LSOQV4=
+	t=1791338342; cv=none; b=lNXS9NHPahAH+S7caqw3bYPi3EvpdbGoMW8aT3Cqqr6veN9C68eTnGAUmgnhlmZoo3ZHYbH1sUKqw/1EHsnmdFLyiMbvYNqUg6LYymKPXbZYVeJGQd+5xSQB+TxdZbUyK1m2uS6QMmOW9+dXWh1xlhq9x1fVNPaedk69GzV1O4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791338273; c=relaxed/simple;
-	bh=EnH+Y+4cL2AjL+MfdV9nfQghjAGlt8P35VugtZxmsj0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MSQDSHo36S1K4bpQR/nEdPDETKtkLUmAjGcKFgsFq2l0NZOfF+AOhWfnUp8is7JhA+3tz+lH5/LILAAZ9kOrMd0a7ntvPIOcKJcE5tm4P/iKkoIHpz0fWhEHmI/2v6zQ13qTEApdw409syj06sO8s794+XxCD+82aC9bx0QqkDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TwzuOkWJ; arc=none smtp.client-ip=74.125.82.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791338342; c=relaxed/simple;
+	bh=tIf7W/nmwCnVM6ETQa2lhEAO1QAfidKAfvPq+tKiN6s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RjZlIR7zU7h5Tudeg0ohmxGkhsqYBRvm7XbaQIYOTYwoNEqEzZ8ucBDgBzP3YEYwF0vdxovoKJ9F5DRJlQXP8DfdsPDZ81+3W1QCRKkflvNmCgDSQrWHRFT1YyCKqAQTEBPtFc5tAHvR86gozO2zNYmZfq3IyuPMcOnGwCIXlDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=TbL3ixa0; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TwzuOkWJ"
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-3282db206d3so10115561eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 18:57:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="TbL3ixa0"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-398b3c37877so926527a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 18:58:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791338271; x=1791943071; darn=vger.kernel.org;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791338339; x=1791943139; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Co7b2LMbzdCPsCsbgcCtLsS9QDYuBuOKqGML2L6dVHc=;
-        b=TwzuOkWJgAM8y1k2TehcGGNInheRgn0BFiGCW25ci6z3d5+E6NR2bZiWTsC965lqlM
-         pfzXMAauczy+xc5HrEVJfwMl2NnYfn9v82MsiUxJ0bisx+UMzmOH4d8ti8hyXvvceh7X
-         IwiVX5h1+ak6GA2PwRRpB67GqvBtxXVwZJyYMNw7bX0RPwlkzRdw/1NCjhwZbITl3MuG
-         ve3tVTzAUA107cO8voRpYOBOBKuH63pZpcS6jsekp1SMKqE09Xzy6SW2mzOArXIe2MIr
-         bUplMHpRfWC5xWKz5kHK0A09+7FArkNtuUjGewMnHEye5JOZ5g+VKKGP3VyiE+lZjpNE
-         WS8Q==
+        bh=Aape3rD0A/9PXmNWnZ4pikvp5foPOWk9ZifQ2/EdnJE=;
+        b=TbL3ixa0GOzssLiUDsuHM1KjWVWWfVdn6LAZLkGPnuwofPv2+czg5p+QNterfzvTX9
+         8Bxhv91I4ZLC7TPZKjjeH9dNjCWGztmu42WL3a6SBOkjpe4fRdTNMQzABe28WAmrh4g8
+         +cUAvL3v5+ggYW1dO250k/o21NioXvT9QEaBWOPsgf3X1hYHvvym+VPUm+tSdhghSOA7
+         VoXjQ7oh9REBKxEngS0Xbu64CYxU/sfMLu8EA9GVJnWJ3eM62m33zyw3LFQOPE8rFrZN
+         ymF858rX3P/wTMHCmneo3+qw0X3I658VJuB7GlTkjI+cYklMvYNGV8a2AtiLMTtGa+VY
+         LjsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791338271; x=1791943071;
+        d=1e100.net; s=20260707; t=1791338339; x=1791943139;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Co7b2LMbzdCPsCsbgcCtLsS9QDYuBuOKqGML2L6dVHc=;
-        b=Q5ShY6LRrqcc3Zew0IOW03gra6HYOxB5fVkh0YLQrLDG5v0nQqnD5AH3QCML6uKYel
-         Kle2rxRFyvP6dPYF5bQr5hFsu+JuxlOLU7dWYk65HvFK0hvCrK4ap4LqOYWT7oABh8+E
-         N2Z03LO3YMYOnw8xQIB7WA9X6di+n6LLm6qiqnG2+NTE6kBKNau/WWi/QJ0kvk05yQD6
-         XSxs0ZIO4NgyQU6oXLjBppzK/d+olVGmVv0hJrZ2J08EAPHFRZi7thpPIRb+DBJahst7
-         a7c3nFCnjbsNHN/HBLA1VJV/X5MWMNVtdaFe13An7E+h4N1MXOaBxYjdY36O3j486bqd
-         q8KA==
-X-Forwarded-Encrypted: i=1; AKwUvByOrGr3LOr8MSjphf3SvlmUOUzRxDfvJfY69nyb6UOFKaPg5riAd4PSouvStPLqDQuvrCl5x69FK8xx7jM=@vger.kernel.org
-X-Gm-Message-State: AFuF++n0CKgfBeI/F0h4hWH4iICwZy6d1nTbAA3MZnfXeAIhW3Xl4m14
-	VRrbm4UmJqJrMw7oumXKLutK2nqbY/bftlBBFBvELHjUdavjA+cMUblDd4ciAQ==
-X-Gm-Gg: AYBFou0peDDPquleoW1J396hu99Eb22FZotVxFGOVmm9ywaXEmiyK8qek3D5EXVtWKr
-	T52RKIPyh2gMbQGLrvwGF+ZNiu3JLtEsKV95LYXddbQW+4edZ9vhAXzf9wyaKqcb87V9uznrmgU
-	yquspwkMnD4gEs4JUAvAfpExxBNZn4Z+rm8KiqxLq3FjkOX4RyTLUERPZRZm13zxG+iFxiOAsvR
-	Qgi56LQSm44fDPjqwr5AdoBKpqw5kDK2nKt28PBz4ow1Bh89aTy0xTScLVoa2oWRez1iBuB0NZu
-	yUWzVGYKt0hJqpS4/5EH0CCo6N+QFNLBSZI2lhTmrFdLm3jJFSKH+qh9ES2wp9J+sJnn2gagB8I
-	QyRip9t0hgU7t2qCvz7ill8xyTKfcDxoM5GCvQHuPkkVaZ+k4BECEeY3ZqAqb9kuY9t3eoi98oE
-	ZaOW/ZdQfCzw07pmQOQU8Lb9Vfa9aPnm/HcrTWXUpyAJ+no3gyAvW1iHvTdtlDA7/02C8B27flZ
-	CtojOsFFW45rKbY/rx9ygmzgQ==
-X-Received: by 2002:a05:7022:69a9:b0:143:2984:6517 with SMTP id a92af1059eb24-1620966b83amr909080c88.38.1791338270950;
-        Tue, 06 Oct 2026 18:57:50 -0700 (PDT)
-Received: from FredPC.lan ([2600:381:9f1f:6c0f:5b83:27bd:dced:34e2])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1616980c3b7sm2156652c88.16.2026.10.06.18.57.48
+        bh=Aape3rD0A/9PXmNWnZ4pikvp5foPOWk9ZifQ2/EdnJE=;
+        b=1xznlEMHz/XwnhVng7HsCbnNmgqwH9V9OIG2LVepWYGLDIrAlaVvoptf4HR+OuMEY5
+         Ey4IGxEWKKUGjCNuMAXSMJjyzoyxUokOw3yhIF7FuT171QVAbu7sdZkNHsMAENuDtkDC
+         R11idlhEO5eL2Gz6tdN/H0k6nvUxiMc5SVob4ETNKTBQNlIMeo7+9YuafVIPnt/4hbYA
+         EpBd0L/iDfDUe8v6CZNauK4zK5hPra6nYahaX+vZ8GjiqXh2Zanu1SB+yd4ty4i845cE
+         YJwn2s+byBZkdjV1Qd2S+orLBgVq669mX4kwg2X1tyHi1oYzrGvR4pAWAn8jSZ1QfuvX
+         ghnQ==
+X-Forwarded-Encrypted: i=1; AKwUvByasF1HcHykxSY+qTEEuFEKIz1qs+bULuSyDC3+ffd7o3UW+cDMljZIROC459yXc313Oo/SY8m4Jh4yo3I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLIR9pwZ2jSEygVMYfqcTySVbz7Uk7OCuQaq/ZqtASxrGbLpIuu
+	JRt5OIrjdtYqqh/NNdNidIDP0clJ8PmkPWEKl2nJKMvrfwnrvwDbcrZ6o6OFFjs3HqA=
+X-Gm-Gg: AYBFou1cRwy9fS2pZqTHVoqk0hbWX+TMzS5XzgDzLs/B3+wUxTGTS35kU3Vu9GOc671
+	4t7DP5hJ9vtYe0alBEVMEaTZhzuSRpudADVSGdpEBjuK69LoL9WfMCbaRMPXuNGPvSsK40b5mWA
+	bbz0/n3kCcHDpz8N3uaVkRd3riVwKdWxQFsB0RbwczeFe720Q8+k4O+eWzPh+eeyOdvUktV1iqf
+	IcxRawPdNz2SI+bf0UUIJPUhkPQ68OxPlxLQMGxHe+5YEmzfwttApUsiapKe2fu47cE3jIEZw3Z
+	6Q3omcBv4ValZlGXT0c5uIAMKwk+wkx0vjjpmmtNmqaqIACn/n7usbnenvUkmTHSVnQ7+TwF+lE
+	3S40dnW2diruKBrQedtr1YK0MSj1ToZp3jyWG5HX78OMU1G2jX0yeBxvsxDDLvYoiTszCwU1nzz
+	cqikREEKCdQ7FmIGvTLJ7wKDzV6ANoMWBLNpDb0DktSea1Djg+uo6UdiqLhuOGG03oZPXS3LEKW
+	Qs5Vw==
+X-Received: by 2002:a17:90b:4a88:b0:39e:6a7e:ee1b with SMTP id 98e67ed59e1d1-3a8a1b057famr728367a91.39.1791338338188;
+        Tue, 06 Oct 2026 18:58:58 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8543e8478sm8777205a91.17.2026.10.06.18.58.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 18:57:49 -0700 (PDT)
-From: Fredric Cover <fredric.cover.lkernel@gmail.com>
-To: Paulo Alcantara <pc@manguebit.org>,
-	David Howells <dhowells@redhat.com>
-Cc: Jeff Layton <jlayton@kernel.org>,
-	linux-fsdevel@vger.kernel.org,
+        Tue, 06 Oct 2026 18:58:57 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: michael.christie@oracle.com,
+	martin.petersen@oracle.com,
+	lduncan@suse.com,
+	cleech@redhat.com,
+	James.Bottomley@HansenPartnership.com
+Cc: linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Fredric Cover <fredric.cover.lkernel@gmail.com>
-Subject: [PATCH] netfs: Fix off-by-one in the flush range in netfs_page_mkwrite()
-Date: Tue,  6 Oct 2026 18:57:01 -0700
-Message-ID: <20261007015702.111459-1-fredric.cover.lkernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH v3 0/3] scsi: libiscsi: validate task lookups driven by target-supplied ITTs
+Date: Wed,  7 Oct 2026 10:58:39 +0900
+Message-ID: <20261007015842.634893-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,58 +79,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a page fault wants to make a folio writable but the folio belongs
-to a different netfs group (e.g. a ceph snap context) than the one the
-write is being made under, netfs_page_mkwrite() flushes the folio and
-retries the fault.  It does so with:
+Three places where an ITT taken from a target-supplied PDU reaches a task
+without being checked. Each is reachable from the wire with one injected
+PDU and each is independently useful, but they share one lookup helper so
+they are sent together.
 
-	filemap_fdatawrite_range(mapping,
-				 folio_pos(folio),
-				 folio_next_pos(folio));
+1/3 bounds the index from below. A transport that implements
+parse_pdu_itt can produce a negative one; be2iscsi does, and forwards an
+unsolicited NOP-In from the hardware with the target's ITT intact. I
+have no be2iscsi hardware, so this one is argued from source.
 
-filemap_fdatawrite_range() takes an inclusive end offset, but
-folio_next_pos() is the position of the first byte of the following
-folio.  The range therefore covers one byte too many, and writeback is
-also run on whichever folio contains that byte.
+2/3 is the ITT reflected in a Reject PDU.
 
-filemap_fdatawrite_range() is a WB_SYNC_ALL operation documented as
-waiting upon dirty or in-writeback pages in the range, so the faulting
-task can stall behind I/O on a neighbouring folio that has nothing to
-do with the fault, and a neighbouring dirty folio is written out early.
+3/3 is the same defect at the lookup that five management responses
+share. An unsolicited NOP-In naming an unused index dereferences a NULL
+task->conn; a Text Response with the same ITT crashes a little later in
+iscsi_complete_task().
 
-The off-by-one dates from the original implementation, which passed
-folio_pos(folio) + folio_size(folio) as the end of a
-filemap_fdatawait_range() call, which also takes an inclusive end.  It
-was carried over when the call was changed to
-filemap_fdatawrite_range().
+Measured on 7.2-rc5 with KASAN over a proxy that injects one PDU. Five
+attack shapes oops or warn unpatched and none of them do with the
+series. Normal I/O, an abort TMF, a rejected NOP-Out ping, a userspace
+nop sent over netlink and an iscsid-driven session are unchanged.
 
-The flush of the faulting folio itself is unaffected, so this does not
-cause data loss or incorrect results, only unneeded writeback and
-latency.
+v3: 2/3 - initialise task at its declaration per Mike Christie's review.
+    No functional change: the .text of libiscsi.o is byte-identical
+    before and after. Picked up Mike Christie's Reviewed-by on all three
+    patches.
+v2: https://lore.kernel.org/all/20260804040546.2264137-1-yhlee@isslab.korea.ac.kr/
+v1: https://lore.kernel.org/all/20260803104149.2114414-1-yhlee@isslab.korea.ac.kr/
 
-Fix it by passing folio_next_pos(folio) - 1, as the flush_content path
-in netfs_perform_write() already does with fpos + flen - 1.
+Yehyeong Lee (3):
+  scsi: libiscsi: reject a negative task index from parse_pdu_itt
+  scsi: libiscsi: validate the ITT reflected in a Reject PDU
+  scsi: libiscsi: validate the task named by a management response
 
-Assisted-by: LLM
-Fixes: 102a7e2c598c ("netfs: Allow buffered shared-writeable mmap through netfs_page_mkwrite()")
-Signed-off-by: Fredric Cover <fredric.cover.lkernel@gmail.com>
----
- fs/netfs/buffered_write.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/scsi/libiscsi.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/fs/netfs/buffered_write.c b/fs/netfs/buffered_write.c
-index ecf119b4f9166..b398c3bef6f3c 100644
---- a/fs/netfs/buffered_write.c
-+++ b/fs/netfs/buffered_write.c
-@@ -579,7 +579,7 @@ vm_fault_t netfs_page_mkwrite(struct vm_fault *vmf, struct netfs_group *netfs_gr
- 		folio_unlock(folio);
- 		err = filemap_fdatawrite_range(mapping,
- 					       folio_pos(folio),
--					       folio_next_pos(folio));
-+					       folio_next_pos(folio) - 1);
- 		switch (err) {
- 		case 0:
- 			ret = VM_FAULT_RETRY;
+
+base-commit: f5098b6bae761e346ebcd9da7f95622c04733cff
 -- 
-2.53.0
+2.43.0
 
