@@ -1,68 +1,62 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C6083BAD92;
-	Wed,  7 Oct 2026 23:18:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F77838E126;
+	Wed,  7 Oct 2026 23:22:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791415089; cv=none; b=lTo6nO53KEpMmcjUd/15xN1SkFEh054+UvqwjLxCTyrgxPAlV+SDoXIKSi+8snMOkHt3Vvcxa3nO2PahD6T6CX29eYL5Oxt0cH6B039vFfqVB+VYD+JvwLmjx6mslC5C4clCF9rFIf3ehdULfzEUYUIJAagUOdKXX66JQGdcdGs=
+	t=1791415346; cv=none; b=aBI361C7+bBYN/pt7Ig3Yk3d/xm8MzijTTBFdf2BBhU+pkH1CQsx5y1Z/DcbtHyfxgoYIS6IADh3JfcDi6r8ygTi6zeW4Mk2MXuKfgVu8j5LIEp9C5RM036ItTLPA/k40XAOrEitkDK18KAYgyVAGvMgHiwXaujIyks2tPpE4Hg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791415089; c=relaxed/simple;
-	bh=RA4zVpydR71PURhkhkzdO8w7oL18NXaDV1LGYPkMzkI=;
+	s=arc-20240116; t=1791415346; c=relaxed/simple;
+	bh=T+XgGCouqWyeejAZ+QB9EzFvLl90wS15UA8DGxcdXU8=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kpidwQkGdRgrQ8N7SC5p00BoSbbltjuMAhsA73pz7E26pRNile9ThKXcKEBfbrbpnF3/DDjoWTg0FnYZlaTU5l6dPPCscf/JiSyb8oYg/H0e+VVr3bD5t20vVwtPwXjiSqCYqSacjDQ708vMH/X+PSYjTod/B2aD0q3mFZc2sNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TOyfQY8M; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=GDtqo/wCGunqrDbULbl/9kyChBoHp0+Tlo5fAQNelxyJuHGO11esTzs2a938y7l9+qnP2fEsHVE0POMrIQBOCNTD04f4Wydvhglx5lYxLb1WUuIsM40PdZ2wLGJmKB/QnLLzv6Aiq2pqpHLxEYOV02/2+7G5F0z4iiLhizrgqeo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kl5XrGw9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TOyfQY8M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5723A1F000FF;
-	Wed,  7 Oct 2026 23:18:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kl5XrGw9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29CD31F000FF;
+	Wed,  7 Oct 2026 23:22:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791415087;
-	bh=M36Ul7HENPj+ktWO112ZYZHlUQirv0nvRjuMYFR3gMg=;
+	s=k20260515; t=1791415344;
+	bh=RMeFJnMlfIuJqILm/Nb6Tk+8rOJGRsDm66e/mn9XIsw=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=TOyfQY8MitiANuLHMy/M0jmvSLg5SXCUNf0+AXuNRXcoC9Exou++bj8xh1rDC112z
-	 Anc9+9bFOt5MWFuDor8kUbVbTgCVc47GAV4mAa6lQ7J66p3NSoE1gI33OwArYIHaIE
-	 H3i0aMfoPh+HB/PhCte42QEKiGbCzuLk9kYO3w4WnaoLPHJPs1/dGxlOX21jSACG3Z
-	 Qo3cCXJMXc89F4Jzn8zY8OMapKCeO8E2ITcjSEzGkCgjJKg9gjXL1h+ZvoO8xdJeEi
-	 3vorsAzhwB4jifv4wjwcETVZN/UHocIpRJAbmjA/eIMX5YNeYYPL/NIQ0GxXxLv+hX
-	 gLMi9ZfHdb8Ug==
-Date: Wed, 7 Oct 2026 16:18:06 -0700
+	b=kl5XrGw9pq6zRCBSzf3XFP8Ibi2jHgovpg2LSeZcQ1+O6pCKWEqfI3oMZrGDuKHed
+	 CO9KYtvEQfFTPYZ0eeNF7CFXq2ZmAhLTjzQDVKxc/ivXK5gWzBqVAtt5C00zc9jTVZ
+	 1Fck8BsEBW5bCEm59RN9zY38o0pnMrCtwcdpOy+xZ3wQS0xx5VF38qNiHDAxN/Xpdr
+	 YygX/7t5JIaBFA1truiSW0W57ogkxvB60sKV7DLv5fV/JcyMqjLPCIk0MGBFQNE5zT
+	 trxJgO6BKbFOxn3s+nKh2XLM2OmVbY6QB+rb93eP0mMFGXZrBXZFNI2P87wj/C++V9
+	 c9DNMXgqI6R2w==
+Date: Wed, 7 Oct 2026 16:22:23 -0700
 From: Jakub Kicinski <kuba@kernel.org>
-To: Anil Kaushik <anilkaushikwireless@gmail.com>
-Cc: Pablo Neira Ayuso <pablo@netfilter.org>, Harald Welte
- <laforge@gnumonks.org>, Donald Hunter <donald.hunter@gmail.com>, "David S .
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo
- Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- netdev@vger.kernel.org, osmocom-net-gprs@lists.osmocom.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [RFC net-next] netlink: specs: add genetlink-legacy spec for
- GTP
-Message-ID: <20261007161806.5fa99d43@kernel.org>
-In-Reply-To: <20261001090250.3395779-1-anilkaushikwireless@gmail.com>
-References: <20261001090250.3395779-1-anilkaushikwireless@gmail.com>
+To: netdev-bot+sashiko@kernel.org
+Cc: theo.lebrun@bootlin.com, conor.dooley@microchip.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ pabeni@redhat.com, richardcochran@gmail.com, linux@armlinux.org.uk,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, pvalerio@redhat.com,
+ nb@tipi-net.de, vladimir.kondratiev@mobileye.com,
+ gregory.clement@bootlin.com, benoit.monin@bootlin.com,
+ tawfik.bayouk@mobileye.com, thomas.petazzoni@bootlin.com
+Subject: Re: [PATCH net-next v10 1/8] net: macb: introduce macb_context
+ struct for buffer management
+Message-ID: <20261007162223.595dee2e@kernel.org>
+In-Reply-To: <179115680422.434549.3193325311731249627@kernel.org>
+References: <20261001-macb-context-v10-1-beb541bbb7df@bootlin.com>
+	<179115680422.434549.3193325311731249627@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Thu,  1 Oct 2026 09:02:50 +0000 Anil Kaushik wrote:
-> The GTP (GPRS Tunnelling Protocol, user plane) generic netlink family
-> has no YAML specification under Documentation/netlink/specs/, so it
-> cannot be consumed by the ynl tooling used for user-space clients,
-> documentation and selftests.
-> 
-> Add a genetlink-legacy spec describing the existing family: the PDP
-> context management commands (NEWPDP, DELPDP, GETPDP) and the GTP-U echo
-> request (ECHOREQ), the GTPA_* attribute set, and the "gtp" multicast
-> group. The spec is derived directly from include/uapi/linux/gtp.h and
-> the gtp_genl_policy / gtp_genl_ops tables in drivers/net/gtp.c; command
-> and attribute values match the existing uapi one-to-one.
-> 
-> This only adds the description; there is no kernel code or uapi change.
+On Sun, 04 Oct 2026 23:33:24 +0000 netdev-bot+sashiko@kernel.org wrote:
+> - [Medium] The NAPI poll handlers read the context after
+>   napi_complete_done(), and nothing stops that context from being freed=
+=E2=80=A6
 
-Do you have any plans to use this?
-Why send it as RFC and not PATCH?
+Looks legit at the surface. I was going to try to double check and
+then realized the series no longer applies :S
+--=20
+pw-bot: cr
