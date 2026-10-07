@@ -1,72 +1,79 @@
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 772DD485508
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:22:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2355B46C836
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:23:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791372196; cv=none; b=LUvG8tAMqLKcT/j/dYRocggPurKZd82fh8xt1Fz2YR8agkeLqSbeQ0jnIWIeVISTugBSZ507km5Y+yoIJuQlsPf4KWhsYvWl6WRJT6y416jR9MdhfVBXsHV7xvYb5UC2mdhk28nefe07uCtRz3PCcpx3zZJZP3qHwDZbhodtyS0=
+	t=1791372212; cv=none; b=ZTLs8We4OId3MmwLHuhRQgfP7VKnUnaS63RiPmsyXUuMs0JIgtkSJ2FTpkW2Hgs1noZL1jLpdkfyInZYwUXKzCfxtlwxcDOJ44llm1SjF0TxDJPGEGQFzwfFZ4Dr5wRRhtN68t0udjqqIOO3he0a+LL+6W2d6qgtspLHtiabyd0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791372196; c=relaxed/simple;
-	bh=gJn4QOtoHvhrbW7akpCrWeEECzAN+PgZfCQS4O+FXGA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=paPMPZlkPCarIAYSDTWCp1ebpYVPBF3rYh1UUYAtii9oR21E7Yh+nM2TzM8JeQWJSLtK7KgjgzfI7+ACvOghpz75d0/mfp1rlaoXzsupN/e0+VGEviEP9zmrKEe5AYVwiJQpWDYY0Bscc8W6HORG4n2LyBhtEvjP167Gyq9vHoU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jMwphcwP; arc=none smtp.client-ip=209.85.215.172
+	s=arc-20240116; t=1791372212; c=relaxed/simple;
+	bh=2hwsUZK4ODMcka/Ebr9sKxEUtV9w7OkXEuWQZ+N18YE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mBNrAXC2LrZuhpZJ6hcBcPLGRIx38peiXnZvZdn6eneHWApBp3zrtWGQiV5bIpStXxmBLqPwoEIUVi57f/mmi2SM1WeeG/nlLy9bL99ymTSxPzqeVc1z8lbFwZtu6ZJVNT6I+QGE9Nfw4JE5EJFyNry9Kclu0dR0Zo1LMcBpErA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o9G0JFMD; arc=none smtp.client-ip=74.125.82.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jMwphcwP"
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cbee846deecso2815984a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 04:22:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o9G0JFMD"
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-141395927feso2487529c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 04:23:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791372174; x=1791976974; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HFWSfdj5IMHDuOqt6PlC1JPh2KrPx0JuxidahroXzNo=;
-        b=jMwphcwPIuMG7eC9CfEfk0U8pE4TtQDvwnGIhhedKamTkHt0ezBUuMumOllMEPYJmT
-         eFG3QvrYmGRsX6NnFT1wjOdvSwcVO3/v7fYIbrU33fxsJxlaX/8vvtzJdHbtJfST2l0D
-         tXDCcAOK4YrsisP9HrOsIu1weHs2VcoiPc7jrRt7kT9t6w7RLRmVIRnuI6KJRpwf8c4o
-         0WsBubyZxyvY0YCM9ywuYR7RuTBiI2rMzQwX6iUkZZNYbhm5fsvl3S8qSSgHKwwLntt1
-         NIknXMPFxUSUz/dyQZ4GOR3JgfFSCf7xqVCxqoTMVqpKXP4ygHm71Owga6xST22FwjVv
-         x6DA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791372174; x=1791976974;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791372192; x=1791976992; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HFWSfdj5IMHDuOqt6PlC1JPh2KrPx0JuxidahroXzNo=;
-        b=lKT13UvkcZHePLoRPo+Y1NGJneu0lfx5wAI892paCc4xWfIGUtWRnPH5dkdiEUZJqf
-         FeL9S0kMkXu9OT+/JO2NA4JpPKUZy3np3Cj4xYZIZnfRDA5k7+EaZUcvc+vsAtsNbFpM
-         afuOHZm9Aho2z+LZYXgcYUWS7i8j0DlxStlcy8wWGJf8k5PKbqBjgErm39UZq8C/KZ8I
-         Qbh6mL0Xg8MakyUM4Q8BVPDWYOPq9XAKajL3R5iMtuLZs7p9WMn5Q9AiO9DRWnHML+4j
-         /uSP5PlrGDAYxorZ87hC90J+ToCEgvoZ2yH1oq3+DJSFNL6bKz6c5ZEVarN/l6Vcwn4y
-         6Jzg==
-X-Forwarded-Encrypted: i=1; AKwUvBy1LmY0bUoRDArXnUnFxcorJiAiOvtg/V/HxgucaOJao/fmUgXqtJ6bZKV9a6IVgRV01dBh+Bx87DnW4ec=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLWE/efVXzh7pTEqJhUYJ5DEQ+tLDQ5uyF6wa9+GyCJF0kHai3Z
-	RH1nfzj9l7LcpgEjZ88jQMlqesi31SI+bTX6vdowP85kO0s9oyDl5vFZ
-X-Gm-Gg: AYBFou2xgrcxAsZfDPx4b5NWIVJ6ekQkvZjmZjVz0yVRNggnsGFBjdYNJ58eqMpcbkS
-	KqBjteeGgF2F2hpG2hj9x9uKDGIccjWG/ObFkZekSAakqfFCv1JXoJpGMWgdv6BbvVoB3bDkEtF
-	ZFHdqByjrrPDY5fTAD3i+TE9WCVsu7fwozNuUmjgB/JRhwcpU5TxnOyH/9a/3MwnYtntDT/d0NS
-	TevH0jm5YMGUbXUk2ckTfjCQuzcBCoiLzm9qvH2bFbcVs05kOxNICmnSD67USxcZ0C/FFNmZniV
-	Lb6MG09KvmhuWbrQG2OpgLhHZxjmdfA9RwZ/5twsU60W04/egMAUwX54rAc1QKjzG5H/43Kleol
-	EMl9W1c0FqMcPCzBCOCEH3/m6lh+FcsRcAgcSlpHFYZfMmaUpnAdI9kJUEhDdwWpvIqNOvPe/Ns
-	YDqnq0M3x2yR4XMidpVjHjQNyv0KVP2/a66K46YFHLDGYocypvvcmOLEejamEyd5zKh4t1/+LCF
-	k8yJw84Rr7G
-X-Received: by 2002:a17:90b:4cd0:b0:3a4:77b8:1770 with SMTP id 98e67ed59e1d1-3a8a17f8db0mr1702620a91.15.1791372174383;
-        Wed, 07 Oct 2026 04:22:54 -0700 (PDT)
-Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a89d5e19c1sm1732592a91.0.2026.10.07.04.22.52
+        bh=ecet2Ly9TeUCYQ0Ys/6vyvxrbNg36mAKtReMuHqWCLU=;
+        b=o9G0JFMDoktnW//TtCy7CyHRjmHKEikXiV0zKO62Hl+m0IPcGn1ksVw7YhUgA+s2TS
+         R7vRKoZEV2TmLg0PyOdduzDTKj4n5C2VaNuQQ3qnV46vW7SicT2RLJAQVZ7SySLWp8Mt
+         aKM6Sm+jPBoyBPg8r2gpx8CnU8hb4dbtvyF4v4OxEyTd2LS+oI6h1tbEojPqJJMU0pmK
+         QhmQSNN1Ro2Q1VZlkmFgY//tPPB/bDsw9WiM8lyOnn5EbWpGDAw3bHVR1IlibsDAe6Kp
+         lRXFRKnBqCXgRs/NH+dTguRCtdh5YALuMYYrXm7ujZX18VdodEht9TbaRr1iFIhtjdoq
+         UgBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791372192; x=1791976992;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ecet2Ly9TeUCYQ0Ys/6vyvxrbNg36mAKtReMuHqWCLU=;
+        b=w48i1hJJa9gmgzm1IygN9QmrHYi+cLRdNa/Grs8X6WsLAX+kFcJV1RrUvR1wO6S4hR
+         0oCqcHL4/V++nIpGvgf9QOjPGGZtCaZyS/AAM7VHZJICTb2QbsUozHs6qD4Lyw1mgRom
+         XzB5F7qOPzrKGQ7Cp2UeUEtHCilQpMB515IKBYJ91d9oBiLmqsDLHsG70A2TSe5nHCRh
+         +eTmqvbWFJuWDfYhZbPYYyGZU7U6v/5G6df0dvZ9wL5ioRP1oSFK/Qx9nRPgSyt8enrt
+         ylGOIlZNNIeYcvK9OFY/aX9jKjXFlsPa2rZL+qcTbW7c4Tz58P0fRXlU0CIrAx3VcScK
+         aaqw==
+X-Forwarded-Encrypted: i=1; AKwUvBw6zOrSizDH7rtbxjgGMGhrGasfgvp3RVvM2SbK2E6nkIvxzqoXOiGT79FW5GDrPBWREq0SjvmNuaoD5Xo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lInxxDXbEBsyI+IY0cOLRZUqOclDQkbqSf5qTor6NqXzCa1gz0
+	2ZyrSLxfJEa3j1COHeJ+WhdweQSLYMQP5t0vY3PAXFyFDE9RtMjdTjd2
+X-Gm-Gg: AYBFou0GDw5IK9BKrVdXyVbTJGe564A2rtMO552tKNL6REuXJXPUNBpKclc3ySApShR
+	J7eGqqwU8tCPl1RjABvh8qRvd79TsdflrRVB8vgOXoKdf/eJgcXcf3+ZzuLWyQk8fw8j+1f338J
+	CMePPHcZJg/arEP56mI1DOI/kXFtowbWHpXyVYIZkwZ0iS8HxOLk3DxlfqzUz7ejL+tt/qg7gXM
+	TYnfThwZxfTRcQRsCCgYHqQW2v4cfruXNAovBC4X2vAA8t3JkPjWWGymN1B+PAbbhsGii+AL831
+	4mvK4h7CJrcqYeAvOmBC3fR0TirlsM7gJdtyyWyz1seWF1Y3H1RphA9av6OsAL6uSO8fBLCVOw7
+	206LmbBivL0hDHL6QNl5Rx92ulUXswjHOLW/FqJeyKnUd8YF8WDGW6bfexXAv8KsV74FDaByShz
+	leRmQFDD6MmLmcwasqg/gT9SEDdgDE2XJTteQrCQjrLPXr7Can8Bfmx4n3lsqc1Sj2z9Y9vBkzH
+	kYQJuBs0zEC/BONu7ukQw==
+X-Received: by 2002:a05:701b:2616:b0:13e:6efa:78f7 with SMTP id a92af1059eb24-162044bfdf4mr1689134c88.15.1791372191642;
+        Wed, 07 Oct 2026 04:23:11 -0700 (PDT)
+Received: from LAPTOP-450UDG4J ([223.185.133.64])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-16352800ed6sm3234698c88.9.2026.10.07.04.23.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 04:22:53 -0700 (PDT)
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
-To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-Cc: ntfs3@lists.linux.dev,
+        Wed, 07 Oct 2026 04:23:10 -0700 (PDT)
+From: Yogesh Gaur <yogeshgaur.83@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>
+Cc: Duoming Zhou <duoming@zju.edu.cn>,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Zhan Xusheng <zhanxusheng@xiaomi.com>
-Subject: [PATCH] fs/ntfs3: fix out-of-bounds read in ni_query_ads()
-Date: Wed,  7 Oct 2026 19:22:47 +0800
-Message-ID: <20261007112247.2518924-1-zhanxusheng@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
+	Yogesh Gaur <yogeshgaur.83@gmail.com>,
+	syzbot+d627b1495de0e851be32@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2] media: siano: initialise the urb work once, not on every completion
+Date: Wed,  7 Oct 2026 16:52:57 +0530
+Message-ID: <20261007112257.1888-1-yogeshgaur.83@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
+In-Reply-To: <20261006124545.1778-1-yogeshgaur.83@gmail.com/>
+References: <20261006124545.1778-1-yogeshgaur.83@gmail.com/>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,64 +82,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ni_query_ads() copies the base inode's named $DATA attribute names,
-newline separated, into the caller's iterator:
+smsusb_onresponse() re-runs INIT_WORK() on surb->wq every time an URB
+completes, right before scheduling it.  INIT_WORK() resets work->data,
+which is where the workqueue keeps the work's state, including the
+"being cancelled" mark that cancel_work_sync() sets while it waits.
 
-	if (vbo + err > *pos) {
-		size_t off = *pos - vbo;
+smsusb_stop_streaming() kills the URB and then cancels the work.  If
+do_submit_urb() is running at that point it can resubmit the URB, and
+if that URB completes during the cancel, smsusb_onresponse()
+re-initialises the work, wiping the cancel mark, and queues it again.
+__flush_work() then finds a queued work where it expects an idle one:
 
-		used = err - off;
-		done = copy_to_iter(Add2Ptr(buf, off), min(used, bytes), iter);
-	}
-	...
-	*pos += done;
-	if (done >= bytes)
-		break;
-	bytes -= done;
-	vbo += err;
+  smsusb:smsusb_init_device: smscore_start_device(...) failed
+  data & WORK_STRUCT_PWQ
+  WARNING: kernel/workqueue.c:4425 at __flush_work+0xc8f/0xd70 kernel/workqueue.c:4425
+   __cancel_work_sync+0xbf/0x110 kernel/workqueue.c:4568
+   smsusb_stop_streaming drivers/media/usb/siano/smsusb.c:183 [inline]
+   smsusb_term_device+0xdd/0x3d0 drivers/media/usb/siano/smsusb.c:345
+   smsusb_init_device drivers/media/usb/siano/smsusb.c:497 [inline]
+   smsusb_probe+0x1aba/0x2280 drivers/media/usb/siano/smsusb.c:575
 
-The guard establishes *pos < vbo + err but not *pos >= vbo, and off is a
-size_t.  copy_to_iter() returns the number of bytes it managed to copy,
-which is zero when the destination cannot be written.  *pos then stays
-put while vbo advances by the full entry length, so the next iteration
-runs with *pos < vbo.
+Initialise each work item once, next to the URB it resubmits, and only
+schedule it from the completion handler.  smsusb_stop_streaming() keeps
+its wq.func check, which still skips the URBs that were never set up
+when smsusb_init_device() fails early.
 
-For two streams whose names are 40 and 30 bytes, the second iteration
-gets off = (size_t)-41 and used = 72.  min(used, bytes) keeps 72 and
-Add2Ptr(buf, off) resolves to buf - 41, so copy_to_iter() reads 72 bytes
-starting 41 bytes before the kmalloc(PAGE_SIZE) buffer and copies them
-to userspace.
-
-ntfs_init_ads_node() accepts the query_streams name on any regular file
-(fs/ntfs3/inode.c:540) and ntfs_init_fs_context() leaves ads enabled, so
-a read of file:query_streams into an unwritable buffer reaches this on a
-volume with two streams on one file.
-
-Stop the walk once *pos has fallen behind the current entry.
-
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-Fixes: be310476e886 ("fs/ntfs3: Add basic support for alternative data streams")
+Fixes: ebad8e731c1c ("media: usb: siano: Fix use after free bugs caused by do_submit_urb")
+Reported-by: syzbot+d627b1495de0e851be32@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=d627b1495de0e851be32
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
 ---
- fs/ntfs3/frecord.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Built with W=1 only; not runtime-tested.
 
-diff --git a/fs/ntfs3/frecord.c b/fs/ntfs3/frecord.c
-index bead01a953f3f..5a88c875cb2a0 100644
---- a/fs/ntfs3/frecord.c
-+++ b/fs/ntfs3/frecord.c
-@@ -3430,6 +3430,10 @@ ssize_t ni_query_ads(struct ntfs_inode *ni, loff_t *pos, struct iov_iter *iter)
- 			break;
- 		}
+v2: Added Closes by
+v1: https://lore.kernel.org/all/20261006124545.1778-1-yogeshgaur.83@gmail.com/
+
+ drivers/media/usb/siano/smsusb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/media/usb/siano/smsusb.c b/drivers/media/usb/siano/smsusb.c
+index 0fdc2e0950b7..210c323c8232 100644
+--- a/drivers/media/usb/siano/smsusb.c
++++ b/drivers/media/usb/siano/smsusb.c
+@@ -143,7 +143,6 @@ static void smsusb_onresponse(struct urb *urb)
  
-+		/* copy_to_iter() below may have copied nothing. */
-+		if (*pos < vbo)
-+			break;
-+
- 		if (vbo + err > *pos) {
- 			size_t off = *pos - vbo;
- 			used = err - off;
-
-base-commit: 22430ae5d90ab288b0ee2ad99ae941f4a666b694
+ 
+ exit_and_resubmit:
+-	INIT_WORK(&surb->wq, do_submit_urb);
+ 	schedule_work(&surb->wq);
+ }
+ 
+@@ -468,6 +467,7 @@ static int smsusb_init_device(struct usb_interface *intf, int board_id)
+ 	/* initialize urbs */
+ 	for (i = 0; i < MAX_URBS; i++) {
+ 		dev->surbs[i].dev = dev;
++		INIT_WORK(&dev->surbs[i].wq, do_submit_urb);
+ 		dev->surbs[i].urb = usb_alloc_urb(0, GFP_KERNEL);
+ 		if (!dev->surbs[i].urb)
+ 			goto err_unregister_device;
 -- 
-2.43.0
+2.55.0.windows.5
 
