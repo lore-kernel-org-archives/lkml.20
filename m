@@ -1,156 +1,182 @@
-Received: from mta0.migadu.com (out-130.mta0.migadu.com [91.218.175.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020100.outbound.protection.outlook.com [52.101.196.100])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB13A38D01B
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 12:36:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791376585; cv=none; b=Q0N66q6OcStNLCr1m/hNP37z/wwsxr/rZ/1gWQmVSTvzCu5g/fOVsO4KlqR2e66xpAfbjmnaRWNINE2MombCPIS0eV8gc2VLIQID5ZgZ2u6RJ77xI9R1dwgvP2DsWZzteHK5K7sJNALW6N2eij89U0MLj+IPxpiJ3lwJqjzuyNA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791376585; c=relaxed/simple;
-	bh=ePmOP/7aDoYOtVlnmqC/U+uK2/Ey4hcyToI1BB4hIq0=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=EWEreXAV+LaQeW2Sw/cI43DOkujJu6xV+lvyNAxQQ/hbM0i3OLQ7ddH39bZDNEgjl4AOmMn1kHZniokUfCxtSs4VK7Lf1tIIW6VpO6Xpr/kfPw13YjsP//UOAsDVO2kTH8bvq7EujrkVmwUXNaAeuRaD5Qb/gai14Dx2pFRoofg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=NwiowIgx; arc=none smtp.client-ip=91.218.175.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78F5A44BCB5;
+	Wed,  7 Oct 2026 12:36:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.100
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791376623; cv=fail; b=A/Pi/2MqibXSwUnX4vcGUrN31n/ez4lC+8udiSdaJFCgrth6TmQqjKPVY1qXlW7drdWr66MBtxxyvL6y6Scpmh+uqinAa9K/gjIv6wWm0PDaaMSShxZpPpgz+ioulseXSLHdf0wFeC8KMm3RCM7Ef1nI5MbwJbKZuj/ZBrxIF8Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791376623; c=relaxed/simple;
+	bh=y0Qi2PvlFd/km4VLT6ISxs5F0/a5AHxL21KqoxTlbDQ=;
+	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
+	 In-Reply-To:MIME-Version; b=gS34eE/mgnNuvUDwXs+H+KCRAAVLASG1v6m51/v4q0QKdNRk4SnehjKRUTZW6Ty+C9K2Kajgl6tiusQSJqXrAtWLqYfgqBpXeAvUtYCWXX8jZcbRvsIhQ+AJlBBi5YJO0IbU2YFU3N5BO7YlL8Vew0ZQUBp4S8qTAqJj/hCB7Sg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=Hd565sPq; arc=fail smtp.client-ip=52.101.196.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="NwiowIgx"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ePmOP/7aDoYOtVlnmqC/U+uK2/Ey4hcyToI1BB4hIq0=;
- c=simple/simple; d=cknow-tech.com;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791376564; v=1; x=1791981364;
- b=NwiowIgxFkO9Zw/arhNawihfFQu7WD7IFri0CIaZS6LqQPse48zDeaA9YvS2mtOhZ5unjVkp
- 8S42UJ19XGyuN3qaV7GgIhAp4chZZxPDuMnyHw/23PBmvIBUQYHulG7Xpp7XfPcOEhigXS9/qBN
- Yn++qAcidl2R4n5biD8/miqGVBYI4y6iyP427yZFJH4z02rwM4UfWnEQKsXrCl0WUM8vgS8RXnx
- Pajx09Ow0B6ncPb03HeBcD3AFCXFUqoi5QlwQAXHFIgZGtbFEaHddNBrlDbLwPw4/d4znLuNZw5
- QO+dLoMdLAozsmlrDHmWdAAx8+xr2EYkriE3xr0k1nkoA==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a5dac2602c68c496;
-	Wed, 07 Oct 2026 12:33:38 +0000
-X-Mizu-Trace-ID: a5dac2602c68c496
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="Hd565sPq"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CGfBnhzMUt2lr6XnMQZiDNay+jC9f18X54VTDLPSPy6zPpcv28k54/f5Nl30Bn6uQf2J9IWC9ftdfTJshzHYZK0qX8yafboOZRKN0T8UmmL4d7P/6oAHXKMFSKsSAVGrHRIrN0PuEWvkpJ+ETx2lp2N3Gko8GLreInHGT57MmzUvF2oJE7X+8P1rioo5tfJ6HXP87YQs8XEVm4+NMQnhuIrRI1uSPUxY2BaijCufbNdHBGYDj1CFPzf4g5G2Cpwy33dacXKyPEul0Bte0i1etQRikR6Z8oj9AjFFF7HRPiCybRCFgNwHvT9slCChCb0JzM/XDUz3sd5fbAdqyMAYhw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=miZI4uEBDxRLsaIn1qVnY5Sy5Pw9xqlYqQ0CcDa/LFs=;
+ b=fOJdy3qqqzV3f5KXd4RU8+WT9M/E9LH58E2jga/hEdVKdym/HXJGmv2P2ToaJALfESmJGADf5WFJld6eNO9lO2z9EyzqJUctYbVaduwXbBsAqIGmOeMqApK7+qzH8uYQSbiL/o2M717znuDSILZpEnKL+j3HGtqLiyW9rSWkPkM+GOs6IrYZZS4R5qQ2Y+sUs/Cl1VzvFGSjv7tVC2zF38r5Rf1gPSwfZm/LKC/6E6Hu9U2bluMUN9QVsmnN/N4V/D/o8uiDh4nHhhX4dyaG2Sk1N/fFGN3Mngty9MdbF8lfiUx9E49gQ3ExEfXwUSYjoDliKjXCWPlUk1D1FDsfXw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=miZI4uEBDxRLsaIn1qVnY5Sy5Pw9xqlYqQ0CcDa/LFs=;
+ b=Hd565sPq+B7Eha6dROvuWGRX0TIW2TyPK3y+81Zcz0k/O06KgTuSsMHwngp4LCPb0+D3PpYAYOxe8o6uevejSyQNCFa52K8gsV2P1nvyrn0eGyh2uBtQCygCdn2IBZ9X381t8lHmB394NKuHrWvlLwe9Ren1UYJF+hiZ7pyCRBA=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by CW1P265MB8782.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:279::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.22; Wed, 7 Oct
+ 2026 12:36:41 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0496.010; Wed, 7 Oct 2026
+ 12:36:41 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 07 Oct 2026 14:36:39 +0200
+Message-Id: <DLYM08Y3B909.2AJAKJP0VBP77@garyguo.net>
+From: "Gary Guo" <gary@garyguo.net>
+To: "Benno Lossin" <lossin@kernel.org>, <gary@garyguo.net>
+Cc: <a.hindborg@kernel.org>, <acourbot@nvidia.com>, <aliceryhl@google.com>,
+ <bjorn3_gh@protonmail.com>, <boqun@kernel.org>, <dakr@kernel.org>,
+ <daniel.almeida@collabora.com>, <linux-kernel@vger.kernel.org>,
+ <ojeda@kernel.org>, <rust-for-linux@vger.kernel.org>, <tamird@kernel.org>,
+ <tmgross@umich.edu>, <work@onurozkan.dev>
+Subject: Re: [PATCH 0/8] rust: pin-init: various cleanups to prepare for
+ self-reference
+X-Mailer: aerc 0.22.0
+References: <20261006-dev-selfref-dep-v1-0-da716f740d6d@garyguo.net>
+ <20261007102045.1593329-1-lossin@kernel.org>
+In-Reply-To: <20261007102045.1593329-1-lossin@kernel.org>
+X-ClientProxiedBy: VI1PR0502CA0006.eurprd05.prod.outlook.com
+ (2603:10a6:803:1::19) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 07 Oct 2026 14:33:37 +0200
-Message-Id: <DLYLXXBUOUF1.2KZNF19JFRFBW@cknow-tech.com>
-Cc: "Diederik de Haas" <diederik@cknow-tech.com>, "Emmanuel Grumbach"
- <emmanuel.grumbach@intel.com>, <linux-wireless@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] wifi: nl80211: don't WARN on a missing self-managed
- regdom
-From: "Diederik de Haas" <diederik@cknow-tech.com>
-To: =?utf-8?q?Fran=C3=A7ois_Roux?= <franzelfranzel@gmail.com>, "Johannes
- Berg" <johannes@sipsolutions.net>
-X-Mailer: aerc 0.22.0-31-g5c1c510d2b65
-References: <20261006161744.3804-1-franzelfranzel@gmail.com>
-In-Reply-To: <20261006161744.3804-1-franzelfranzel@gmail.com>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CW1P265MB8782:EE_
+X-MS-Office365-Filtering-Correlation-Id: d0a3e506-f842-48b8-3dc5-08df246fa34a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|7416014|376014|18002099003|56012099006|10067099003|22082099003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	NIWnLS2bpDb3UCwfSyheINFK9DFKAzRUX/DPhBR3qNYUBKS/er9B8jN5rU5O1mwSd7uJzD3GhVVfeKnqnSzpEAqTdfebjPXY7V9V8Uk1Kq6/yCDOp+e7lVZwCaQZIr08I894urmXptQaPkXZMYc06IxF7j3OqKnwnGVa4GPx0A+k/jFB32/YP0db+sXHGgOAncFzJQF1oYNS7/tDCPYxqNrVyig0Bd2pv2Exsu4PCDHKslVBFsaJpkx4G048B7Tn+knsSxyCor5YMSWduE7oWHE+YPZ522Ap3mVNF4oZ/TtPGy4DMU7noPt5n1y/MrcFW61j8gF5SK2qrvWbek2IwXLIio/1eZoaFv6hGmhA2CtFQGmlbm9p9gJTmdCcoFD8pecQA6x9TkJBtZrZSHf6tRxO8TzPV1d6R9mD4c9BcftUsW+RsqzEMqYK34GCpYxEZA4bGEPa9ZOIosTm3W/UKFcOBfoAFTLmo8jEtyqC3J4YFhTq8yb3ev6qvOnqQ85HIljmBYiaDfaLFWUIMZy18MgA8ZAKiRBaRS+CkmErJZastbF1kEqcst65JgZQzyRM6FTsX8bUJBAps5g4XS9MgcDmbdRGgktd7Nmcb8+ZwXaA5SlunuhuGvKfUvzL/JrC5nIqdHwbFL6sFzwI+7qquf2L2QndY0iaYQyuvDUsfJU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(18002099003)(56012099006)(10067099003)(22082099003)(4143699003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Y2llK1FabGdUeTgrZnJlSFdrMlZNbE9XTk9GdUlBVkdqdVl1TklqbU5jb1FC?=
+ =?utf-8?B?dk9WWHNBcE93NmMwMXc2ZTN5TnAycUJtSVJIbzNjNWUwbGtyNS8wTWlkbHVt?=
+ =?utf-8?B?WnlVZzRWT2NmTjRGR0xQUVhsRWxmazUva0VlU1JVQkp1UEdta2JHWS8yUzBz?=
+ =?utf-8?B?VnhSQlBCQnhSaTlSYlMwcFZtK3kya29DRDdjckw2UE1NclNqNkphTENQU1lR?=
+ =?utf-8?B?ZmVrSXVwenJZODFXMG1sL3lyK1FJeDdBdTB5M2hVc1Y2VDBQOEQwc2phTHJR?=
+ =?utf-8?B?bHBDSkJTUjFkaWYxUk9pUjcvVjJkZ2IrQURKdlgxT3hHNXB5b29SNnUrOWNY?=
+ =?utf-8?B?eGFEWXNHNVkwd0hER2FJMGphN08yOFJkcG1aMkNUTVBESDRLaHpSaFZDNytj?=
+ =?utf-8?B?dVNjNWJya291dElQYVNwWlVDV2ZodEFkQjhZUmRHeW9CWE14a05mQWhjdHlj?=
+ =?utf-8?B?dHk2TEFRaGJQRWI2blpwRnFTelE3ZWRUR0NMN2dieHpKNzA5Z0RqbEFhZVRS?=
+ =?utf-8?B?a0g4ZGdTSkYyTlZybTV6QzRLSEZHN3VGcDgvcHV3Um5wRHdaajdXREhubFln?=
+ =?utf-8?B?UU1ZZFRrSHdDZXg2aHc3Y0JIYk9ZZ1kwRk5mdWxDdTRWcTBXcUV2VjBFVXli?=
+ =?utf-8?B?aW9mRlJFd0ZMenptZlVJYURGRytNUGswZkVCNDl4QkE3M0gweSszT1dHa1Fa?=
+ =?utf-8?B?blhjbEMyVlNnTGhobjg0ek9qY0lmQ2lBdlJrblhJMU9td2V5ZENvTi9qWXFo?=
+ =?utf-8?B?a2xtY0g5TXhGbkt6bDdaeENHZjI3V1NKd0ZBMGo0SCtvb0g1b1ZFMnZpNlB1?=
+ =?utf-8?B?T2lPQlU5bjJKek1pR00zTVgybTBmbjlRR0pMbmFiMERVN2NJUGZEcG9WYmF5?=
+ =?utf-8?B?MlhpSFdpdTF5ZlpKVy9iOEEzbmw4aUNEZ01ZUnFZSjc4QStUWWxGZ2VZUFZE?=
+ =?utf-8?B?WHBza1RwY0c4WFYrYVZnbkVOL3VJa1U3aWlsdWcrVitGZXBVUTlJSEw1YnRZ?=
+ =?utf-8?B?SkdWQ0pwU1ZiaUlIOWcrR3BZV2Q5ak5KRXphNE9oYWRIMGZ2MDlqMkUxT09v?=
+ =?utf-8?B?ZzV6MW8vQThPUld6Y3pnUlNYOUQ0RVJROFhWUlh5SGtNd1h5ZU5qYmFFdS9F?=
+ =?utf-8?B?SXY4U0RmV0pPYWx2aTBDQ05EVDFkVWlLa2hGTzJKRkZwMHM4OHFpeml2NTRu?=
+ =?utf-8?B?aVIzQkJNcnVOdEI2NGMrV0pVSlZLWlBsWGtxS2VlNmhwUExia2VBai90dDhO?=
+ =?utf-8?B?MUZIdFZzV01qbkJ0QzZlV2tHTXB5OFdNNzVHdE1MMDZRZ1VuSjdVQXgxcENq?=
+ =?utf-8?B?TG94SVBJTEJ5VDZBT2RqOHBnaVA0TE11TElaUHgzc1IvUjgyK2p5RTV6eDRp?=
+ =?utf-8?B?alR6V2d2UEZyMzRaVUJlbVJkYWx0M1RTa3BINTg3SUtHVVozOERhTXBCTUlr?=
+ =?utf-8?B?ZlJ5dk9mWDA0WTlQNXBXTEloT2JwVUJ3UFZGT3BzOXdYajdnYXBBK2JiZ2tX?=
+ =?utf-8?B?VGYwRjNaZDVTVWhiUG5yUnE4c0ZXbHQybHRnc29IajY4Z0p2OUVqdDRkRU9T?=
+ =?utf-8?B?UCtRNUFsaG4zeEdGTlFaQnRBQzc5N05YcmNtU3cySHpRUGFYSHBGVnhWamg5?=
+ =?utf-8?B?OTJnKzRGREhFMXdoTjQyUzUyc3R2d3BEd1JsUUVQZmo4djJqaU13WlNYbTda?=
+ =?utf-8?B?bWNaY1VCUUNLTTl5aWJiOW9Yc2N3S3hYSVd6SHk1ZUIwVDE5QUlvRkFsQ2E2?=
+ =?utf-8?B?NjcxQXpBeC80YVFJUkV4SS9xVDdIWVJhSWt3N0Y0cUxKbGRRSy9oSXQ0alNW?=
+ =?utf-8?B?cEFieG1UNzJKM1hKVmpXSnI1RUU2SnVINUVkUmw4eTJGL3ZKazdPNWlaSDR0?=
+ =?utf-8?B?R0hGanA0NTFDUURXc2U0aWxlelJPU1ZJSG1yODVDVVJkemR1WXkxSkUyT1FD?=
+ =?utf-8?B?azc3bFlManNlMXlPUDR3Mk1CRHMxSmx6ZXkyamdhT0ZMN3g4WmN4VWVVM1ox?=
+ =?utf-8?B?b29IY2VqRHhGTVNzVWlPSDFoY1czVHNZSVlqZy9aN1VPclBwLytWMEM2aGtM?=
+ =?utf-8?B?TXByVXBnZThFalZWQWVCM1lzMm8yUThSOVh6Qm9IUUVNNzNSL3p4dXA4OEt6?=
+ =?utf-8?B?Y0g2dDg3OS9WVXFBd2RldDNhWFE2OTF3cWtINFZGT2k0OFkrdXljTitZWVEx?=
+ =?utf-8?B?SUw4OXlFWnpmaHRvd2Q3N0UreDdLc3A4OG8rWWRvMjY0bVRzaUNwSmNVc0x1?=
+ =?utf-8?B?emE0WUIxRlpuOUVzYzZoTjczdkdaRXRQRXA4RWZ6VnlVRXBpUjI4aVpUS0pz?=
+ =?utf-8?Q?4sYSPeaHkTfjcCqSXA?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: d0a3e506-f842-48b8-3dc5-08df246fa34a
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 12:36:41.0365
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3G/0zEq2rYs359v40DJkxP+B2w2ntnW4mlInLf/feuOiEYQz+ni5NsjVLnelHG3Qdpznj0xzxOWpXm7kVBYItg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB8782
 
-Hi Fran=C3=A7ois,=20
-
-On Tue Oct 6, 2026 at 6:17 PM CEST, Fran=C3=A7ois Roux wrote:
-> nl80211_get_reg_do() has a WARN_ON() for a self-managed wiphy without a
-> private regdomain. Userspace can trigger it with a plain
-> NL80211_CMD_GET_REG request.
+On Wed Oct 7, 2026 at 12:20 PM CEST, Benno Lossin wrote:
+> On 06 Oct 2026 17:29:30 +0200, Gary Guo <gary@garyguo.net> wrote:
+>> Pin-init self reference is going to be a big feature, touching various
+>> places in pin_data and init macros. Do some various cleanups to tidy up =
+the
+>> macro codebase, so the feature can land without much refactoring.
+>>=20
+>> Details in commits.
+>>=20
+>> Signed-off-by: Gary Guo <gary@garyguo.net>
+>> ---
+>> Gary Guo (8):
+>>       rust: pin-init: internal: init: forget guards in reverse order
+>>       rust: pin-init: internal: init: set span location of guards
+>>       rust: pin-init: internal: add utility to handle generics merging
+>>       rust: pin-init: internal: add utility for extract a single attribu=
+te
+>>       rust: pin-init: internal: pin_data: move projection struct into `c=
+onst _: ()` block
+>>       rust: pin-init: internal: pin_data: extract `#[cfg]` processing to=
+ its own function
+>>       rust: pin-init: internal: pin_data: rename `'__pin` lifetime to `'=
+__this`
+>>       rust: pin-init: internal: pin_data: parse into `StructInfo` before=
+ generating
+>>=20
+>>  rust/pin-init/internal/src/init.rs     |  19 +--
+>>  rust/pin-init/internal/src/lib.rs      |   3 +-
+>>  rust/pin-init/internal/src/pin_data.rs | 217 +++++++++++++++++++++-----=
+-------
+>>  rust/pin-init/internal/src/util.rs     | 189 ++++++++++++++++++++++++++=
++-
+>>  4 files changed, 341 insertions(+), 87 deletions(-)
 >
-> Drivers can register such a wiphy first and set its regdomain later.
-> ath12k, for example, calls ieee80211_register_hw() and only then applies
-> the regdomain with ath12k_regd_update(). iwd queries the regdomain of a
-> new wiphy as soon as it shows up, so it can hit that window at boot:
+> these are good improvements. looking forward to seeing the self-ref here!
 >
->   WARNING: net/wireless/nl80211.c:10828 at nl80211_get_reg_do+0x1d0/0x1fc=
- [cfg80211], CPU#5: iwd/721
->   Call trace:
->    nl80211_get_reg_do+0x1d0/0x1fc [cfg80211] (P)
->    genl_family_rcv_msg_doit+0xd0/0x138
->    genl_rcv_msg+0x58/0xd4
->    netlink_rcv_skb+0x5c/0x140
->    genl_rcv+0x34/0x4c
->    netlink_unicast+0x31c/0x39c
->    netlink_sendmsg+0x188/0x400
->
-> The same trace has been reported with an Intel BE200 (iwlwifi). The dump
-> variant, nl80211_get_reg_dump(), already skips a wiphy without a
-> regdomain without warning.
->
-> Keep returning -EINVAL, but drop the WARN_ON(). The same change was
-> posted in 2021 but was never applied.
->
-> Seen on a Microsoft Surface Pro 11 (WCN7850, ath12k) in 3 of 4 boots
-> with next-20260929.
+> Acked-by: Benno Lossin <lossin@kernel.org>
 
-Thanks for this patch :-)
+Thanks, applied to pin-init-next now.
 
-I added it to my 7.3-rc6 based kernel and booted into it.
-With that kernel but without this patch, I (still) got the stack trace
-as I reported earlier. But with this patch applied, I only see the followin=
-g
-in dmesg when I start ``iwd.service``:
+FWIW, Sashiko's suggestion doesn't apply -- unit struct was never supported=
+, and
+cfg for generics are not supported either (and not handled by syn's
+impl/ty_generics impl).
 
-```sh
-[   99.031552] ACPI: <n/a>: failed to evaluate _DSM bf0212f2-788f-c64d-a5b3=
--1f738e285ade rev:0 func:0 (0x1001)
-[   99.619075] wlan0: authenticate with 20:05:b7:00:29:19 (local address=3D=
-f8:cf:52:97:97:58)
-[   99.619887] wlan0: send auth to 20:05:b7:00:29:19 (try 1/3)
-[   99.622752] wlan0: authenticated
-[   99.624881] wlan0: associate with 20:05:b7:00:29:19 (try 1/3)
-[   99.627724] wlan0: RX AssocResp from 20:05:b7:00:29:19 (capab=3D0x111 st=
-atus=3D0 aid=3D1)
-[   99.631005] wlan0: associated
-[   99.657741] wlan0: Limiting TX power to 20 (23 - 3) dBm as advertised by=
- 20:05:b7:00:29:19
-```
-
-Thus no longer a stack trace. So feel free to include my
-
-Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS + In=
-tel BE200NGW
-
-Cheers,
-  Diederik
-
-> Fixes: 1bdd716cbcca ("cfg80211: return private regdom for self-managed de=
-vices")
-> Reported-by: Diederik de Haas <diederik@cknow-tech.com>
-> Closes: https://lore.kernel.org/all/DL5P72WYQVOQ.23G9D01OY3BAA@cknow-tech=
-.com/
-> Link: https://lore.kernel.org/all/iwlwifi.20210409123755.ba2ea961f4ae.I8f=
-de32d3196e860efa3b4ec464c42194195b42ec@changeid/
-> Assisted-by: LLM
-> Signed-off-by: Fran=C3=A7ois Roux <franzelfranzel@gmail.com>
-> ---
->  net/wireless/nl80211.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
->
-> diff --git a/net/wireless/nl80211.c b/net/wireless/nl80211.c
-> index a18240455..2589491af 100644
-> --- a/net/wireless/nl80211.c
-> +++ b/net/wireless/nl80211.c
-> @@ -10824,8 +10824,12 @@ static int nl80211_get_reg_do(struct sk_buff *sk=
-b, struct genl_info *info)
-> =20
->  		regdom =3D get_wiphy_regdom(wiphy);
-> =20
-> -		/* a self-managed-reg device must have a private regdom */
-> -		if (WARN_ON(!regdom && self_managed)) {
-> +		/*
-> +		 * A self-managed-reg device gets its private regdom from the
-> +		 * driver, which may happen only after the wiphy is registered.
-> +		 * Userspace can ask before that, so don't WARN.
-> +		 */
-> +		if (!regdom && self_managed) {
->  			err =3D -EINVAL;
->  			goto nla_put_failure_rcu;
->  		}
->
-> base-commit: 6474fa070f2b8013b4b87350b775b8c3be6e8aac
-
+Best,
+Gary
 
