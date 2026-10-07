@@ -1,99 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34B253815F0;
-	Tue, 13 Oct 2026 03:25:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 431F13C342F
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 03:26:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791861935; cv=none; b=lCCGuM7ZVjJtw/lqRBfHvwP2KDSAcTsYCUEgD4+9XxwKjQDGcf149fyOclPqsgNvWLePLWZCjjpTFuKlHOAKGuc0CXzz1NR5LcvF5o6+04TuIFfWGzc4TU2s9KUFfGyFXd2Tq0OjLSvjGIEC8qKsyg4pA9rN6Bgb1rU7Hme+xBM=
+	t=1791861994; cv=none; b=GJ3skZaYJfOpEz1yYCMmdb7FJeXWpbZjt1OxT9dLPbUx4b+/0wPFalcDmM8zIZRyrHi72qP5ZeNqAyh96g5OXXNCTIiNeJsCetXtdfSwLMKq3dXP49SWkEGBi5UXgkTiqDNdNIUgKnYuqTJgcFRM1AVsGk3VbZPkEXeJV/XKfzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791861935; c=relaxed/simple;
-	bh=hOSsdBCFKim2eSjme5XkOUXmJN5W8YlRsgA6oHvXmZM=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=HLK+OZRKp7KKzEm937GeNJGpri9P8khFt1YQ855Pgn0vtOlNtOOUgIlEd2yXO/oJInLzUFI1/LjpeOa3UbsyjcFcw+30f+sttSHksWJvR1E57AmWLNnkRQYB6qkw6IptbxnPk4uplOxkab/pQykL0JGI2h81ZuUA1hF6zoGN3rA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=NyRm1VrF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791861994; c=relaxed/simple;
+	bh=xRqHXRWy0wT5sO5hNhnUFechofQOXVJZ6pLGdNXUvo8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=je9lvvo9ZZayYeVytYzypu17pAbMVitQzTZhGRTPdWFWHSE4EFya4AW/Fclu54jU9V+2b1IiTsWUpcV1cDUYKeEYmoMSwhSccYZYJZxfOxcrZF2dkQgOKchNHLuXexS4g5MAb5+IuQRsrbC4mp0RricUJzAQ/lzNAWixELLY7vE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=s-joshi.in; spf=pass smtp.mailfrom=s-joshi.in; dkim=pass (2048-bit key) header.d=s-joshi.in header.i=@s-joshi.in header.b=ts/HmB10; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=sM+lC7VF; arc=none smtp.client-ip=103.168.172.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=s-joshi.in
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=s-joshi.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="NyRm1VrF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 167851F00893;
-	Tue, 13 Oct 2026 03:25:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791861933;
-	bh=pJssChfaw/WlnaVysEqwe4Z1tfuZOFEKdXZG/EwVI3I=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=NyRm1VrFt9ZFJC62cb/GZbpmwcM4V21aTV9sKGdVMrIs2z9WqCR99Zm3HyOqUlF7S
-	 ENwjeRfGAaG1XErBHECIiyNgzJtP5yvlDy8GfISuPQkn8Wu67qs4UUCq0v+VtVgB5o
-	 H0cAA5rwHjdJTzV8Yor6vR8GbpG7w74vqDpKdWrs=
-Date: Mon, 12 Oct 2026 20:25:32 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Muchun Song <muchun.song@linux.dev>
-Cc: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, Muchun Song
- <songmuchun@bytedance.com>, David Hildenbrand <david@kernel.org>, Oscar
- Salvador <osalvador@suse.de>, Dave Hansen <dave.hansen@intel.com>, Paul
- Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
- <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- =?ISO-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@rivosinc.com>, Catalin Marinas
- <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Mark Rutland
- <mark.rutland@arm.com>, Kevin Brodsky <kevin.brodsky@arm.com>, Alexander
- Gordeev <agordeev@linux.ibm.com>, Alistair Popple <apopple@nvidia.com>,
- linux-mm@kvack.org, linux-riscv@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] mm: fix missing page-table destructor in
- pagetable_free()
-Message-Id: <20261012202532.f059fd5ab947510a21d34cd1@linux-foundation.org>
-In-Reply-To: <200A83B9-233C-44C7-B4AF-0900BA1E09DF@linux.dev>
-References: <20261010112457.49485-1-songmuchun@bytedance.com>
-	<20261010112457.49485-2-songmuchun@bytedance.com>
-	<asy-b7_C3SjnmSaS@gmail.com>
-	<145CD5DC-6457-4E1E-8B9D-AE7D1EDB0AB8@linux.dev>
-	<20261012193114.77147e0a43affa8ee1ae896c@linux-foundation.org>
-	<200A83B9-233C-44C7-B4AF-0900BA1E09DF@linux.dev>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=s-joshi.in header.i=@s-joshi.in header.b="ts/HmB10";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="sM+lC7VF"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.phl.internal (Postfix) with ESMTP id 932A5EC03AF
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:49:20 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Wed, 07 Oct 2026 11:49:20 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=s-joshi.in; h=cc
+	:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm1; t=1791388160; x=1792252160; bh=EiTz+HuScl259OHLsG+bi
+	k5/yWrC5KLt65qfVg2oAYE=; b=ts/HmB10EZBAD+KkRRtqOx7nu01FDPfCQNBQ8
+	+iXUQKAqQ5K+XQLO84W0SPoFOPcsaADC3kPrBsBZLVb4dsP1kyjfiqB5ek9ig7hb
+	bQlwCkzwrSyx138SDQZIsoAUzjumX/vx9/a93oKiZHqbDeUNbyS4WIjsylb3p513
+	gqz+ddZ7UVnF69OjDCuejMmG+09FiowreueqnXjqEOwPRzS1zS4XlLCzz+JI97lB
+	Lp9JidRGEfC7DYE2XWZtaW7X9LVNYFKk40gBFYCs43Kp3BLVf5Uw7fD4UErJC++a
+	0FNO27cQNvyTD1R4yiNsb6ZpT7ZMMCYWzNcKYTvFOPdV02wzA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1791388160; x=1792252160; bh=EiTz+HuScl259OHLsG+bik5/yWrC5KLt65q
+	fVg2oAYE=; b=sM+lC7VFEOo4IvpMIjrXIXaEDWpVB5XNkHJMjULeJYHkGi8jDx4
+	OtpmxjdBg2nHyFDZm87G80C/bzDjlWA8psLluSMeQNKIzA6sr0zp3vFQ4crMopo0
+	ymTMrKEXoPYf34BnIcN7GTpjG3UzQGVnJID1TaXR5ueZSvha/UJTl5K9E+ldtNSG
+	Z2epzFRuP9lwFWvlD0NPsvzAsCPDJrndLvSQFZGMe5BkXdUNfKazvi32Ay8YHP6U
+	9S463+7dZ7FyTNPxymfBnlj999gBu+M8vbMvSgnkjHNg6oWPgaTIRpVfmbLCLqdk
+	sQT+ouKHL6AIzORzAy5tItx3RauqeKBYHsw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=s-joshi.in a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791388160; d=s-joshi.in;
+	mf=PHN1aGFhc0BzLWpvc2hpLmluPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:u/F0pPjWe/fZqSofBROOfsWZtx1+gQmEUky0JFFVilRXAId
+	dUYcNUbM73FAQggb9octfbw2XmnF5pq24ybpawHibNthGSTMzwU7HF/k78yYcVi4
+	LF+pVR5yaiFJ0r/QJp4ozS+j8XBXqe8oY1dA3bJgzq2cl4o1SVJu4Yn61R9dK4/C
+	eFg+/sojW0WSpgGpdWbp0U8qCaVoqSPUIRAN/81YBQJkgU2QkGU9glZRU/K3gUKA
+	NoYkV/vKlLIuPrtZOJRDKkkBwpeEVXaSStMTd4VbfGyHanQdj5OTxIvCWkHG5bYF
+	1ptPQKB7mcpKcBg9zKGpDiW29utkN0daFvsbong==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:oVV34Oz0tZFdkamMwKRLCQvXLTY7P21irI3X3GKRZBM=:xRqHXRWy0wT5sO5hNhnUFechofQOXVJZ6pLGdNXUvo8=;
+X-ME-Sender: <xms:AGrGaptX7i0dbchw5uiCS6H5jjpoIKubRJkKNGegv5nmFB2-kay3sQ>
+    <xme:AGrGarz-AcJmL_aSKHhdw9uJdWN7LW8U5d8yQm24ouwdD3cZyXNesxzsV2HmMGoIn
+    iJo0HK3r5J9qhsbKrIRD2jzAy8yiBgmMX7s_3Xq3Z8HcZY6vIU5ogkF>
+X-ME-Received: <xmr:AGrGakAtfKnDhJUvH4CFBVf1UfZcdI4t-B9dkm95tVb8VgcPrif0UlcBRQ>
+X-ME-Proxy-Cause: dmFkZTFDtuNAgEWw3iwOyCspoiF8PrY8fLATvghLsLPuIs1EaXXtyY9GaBQwxa+cvT3/64
+    ZzU5crLqxDSa+VpXAg6ZA6X4jQSkEEuNvSoiilmFl3CBqGj9KrpuW8CLbonP4MWUX2yA3Y
+    /zOymznOoqNhSC7D4cMsfoHpry2Qy8ywZbQZewwdHkIaxzw4E+wS2UzJiIPfibADXmhJaE
+    PBXoN9z8/esl0+ItKkuxL+PsVQW41CKw0oQxty17YZ7Uj8lmt6HVAwwqJynqWEHygDIeGZ
+    AyRy3Iv7QnrVwRvQQ+hm7Cb7cBBUw/xVVcZy0Gm1lFG+R/fasNHDjxXjjgX4jiHbNX+BDB
+    FNxlP8JSKs0JEnI/QedM25V5h+Dd6rbBCYU8ZUMnpvMFbGXwBGSQSTKMbOUA5Dwm0jIAtu
+    9zbjskuj+ZUg7DtVy58QZJQYdGTbpn2Qauqr6boeMQjnfAcGLZiXKSp1G3lFPO4i8OEqoo
+    udOhN4NHYt7BptthDSpGfXA9D9uM7+7vGouIBMxUtZGgdmYnCWCe4WWNg5suPo1BxgP2lr
+    3RCO0Pet7Q9LwtfaUPOUlYOWYYufmW25iR2/zhOfa1RtckPaESi+H5/QEmlv+rIoU9z67a
+    wFerjwFvM+kZORzirbiXQtB3No5x2CZr4hW5+M6LOgrm0ljb4706tCI2tMww
+X-ME-Proxy: <xmx:AGrGahfjtoDp3ZQ9-bGhc08-Vu6y2SeHAp7-SgOJuno46k31DwqksQ>
+    <xmx:AGrGamnRIXfbSytF_YGv-z4FXE8Oitq4yNZJKyX2tSdNtdL6wKqw0g>
+    <xmx:AGrGagGEJDXTcqK4euYSuFgtgKlL570nIq4kiijUrpzvTmZNP1g5eA>
+    <xmx:AGrGam72VOmvzpPU0asl1z1lOTS8rNrkmRq5Lh6m6TKy8bvXqgUrTg>
+    <xmx:AGrGavVEFi0crCK5Xx_UhKQ8WPge2Jzr8s2LsRtYMlz4PevTUte2QIP0>
+Feedback-ID: ia9504abf:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 7 Oct 2026 11:49:19 -0400 (EDT)
+From: Suhaas Joshi <suhaas@s-joshi.in>
+To: sj@kernel.org,
+	akpm@linux-foundation.org
+Cc: damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	suhaas@s-joshi.in
+Subject: [PATCH 0/2] mm/damon/core: Iterate over installed probes instead of DAMON_MAX_PROBES
+Date: Wed,  7 Oct 2026 21:18:44 +0530
+Message-ID: <20261007154851.45368-1-suhaas@s-joshi.in>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, 13 Oct 2026 10:50:21 +0800 Muchun Song <muchun.song@linux.dev> wrote:
+Hello,
 
-> >> The correct trailer is:
-> >> 
-> >> Cc: <stable@vger.kernel.org> # 6.16-6.18: bf9e4e30f353: x86/mm: use pagetable_free()
-> >> 
-> >> Andrew, would you be able to update the trailer in the patch when you
-> >> pick it up? If there are further review comments that require code
-> >> changes, I'll fix this trailer as part of the v3 respin. Thanks a lot!
-> > 
-> > I don't know if/how the -stable maintainers handle a comment like that.
-> > I expect it's more reliable to do this via Fixes:.  Possible?
-> > 
-> 
-> Thanks. I used this format because it is explicitly documented by the
-> stable kernel rules.
-> 
-> The shell-style comment is the format documented in
-> Documentation/process/stable-kernel-rules.rst for specifying additional
-> patch prerequisites:
-> 
->   Cc: <stable@vger.kernel.org> # 3.3.x: <commit>: <subject>
->   Cc: <stable@vger.kernel.org> # 3.3.x
-> 
-> See:
-> 
->   https://docs.kernel.org/process/stable-kernel-rules.html#option-1
+There were two "todo: " items of the same nature in mm/damon/core.c. Both
+of these suggested that we should iterate over only installed probes while
+updating (last_)probe_hits[] during merging/splitting regions, instead of
+iterating over the entire array, which may have empty/unused indices.
 
-Oh.  Consider me educated.  Edited.
+So this patch series does exactly that. It replaces the for-loop over
+[0, DAMON_MAX_PROBES) with a damon_for_each_probe() over the probe list of
+the context.
 
-> A Fixes tag alone cannot express this dependency. It does not specify
-> an additional commit that must be cherry-picked first. The documented
-> Cc comment provides both the prerequisite and the required cherry-pick
-> order.
-> 
-> Would this be sufficient for the stable team to pick up the prerequisite?
+These patches are based off mm-new. They pass all KUnit tests related to
+damon. I have boot tested (but nothing beyond) on qemu-x86_64. Please do
+let me know if I should do any specific tests and link the logs here.
 
-Hopefully.  I suggest you double-check when you get the emails as these
-are applied to the various stable trees.
+Regards
+Suhaas Joshi
+
+Suhaas Joshi (2):
+  mm/damon/core: Use only installed probe in damon_merge_two_regions()
+  mm/damon/core: Copy only installed probe in damon_split_region_at()
+
+ mm/damon/core.c             | 56 ++++++++++++++++++-------------
+ mm/damon/tests/core-kunit.h | 67 +++++++++++++++++++++++++++++++------
+ 2 files changed, 89 insertions(+), 34 deletions(-)
+
+-- 
+2.55.0
+
