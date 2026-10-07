@@ -1,199 +1,249 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A56134041C
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 18:21:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4AD23E63AC;
+	Wed,  7 Oct 2026 18:21:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791397277; cv=none; b=Ku3cuMI0GJGgMKmyb/PDAwMjx0NhO2vKomQcl3zRB9C/8PlP6V6ffPThZsLITs8Vuf0yH0jGmpzz4zgWZDilR/SdMKZjDUKzBZKAuKtp0sNTNXjTs2k0wvpreqXfDZAPbqtoFPsTFK/zR4ZEcCcbkBHGs1xHvSrCFBNDE4fa66k=
+	t=1791397316; cv=none; b=lQ04y4yd3m8VUyMrOukJAXXpp0gr4YyE0JvEUPYyCRcIiZyHjJRvWthQrqHCI083bXNT3OVUJtqs+iYv5uKbBnuj9frhW+v3r5K3y0zOr5eb7AGlBHDxyaks387Z+74EBTjzPzzHIW8Mt+F47Y+Zyrji7T610DnsEirLI/ZbARg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791397277; c=relaxed/simple;
-	bh=Nrf1YDM+DHXNlm7iRVDD+KL8xnbrZmtwsna5FgXWzk0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=j9TasExB4LwrNMXYb/iVjWKNpvsVYTtT1hDwmoq2YLiZZDfxLEJ50dNBCEtNer7RVjOBWi120qlqArSQeajBuTz7kZT03xx3xOBAvtuufGKbpVdthPgnYMsH3oL2ajuOWbbSxJ9RoVG+5eD6hIbR+pZiPaxiApmLH/DaO4eZi8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p3RuL73Q; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791397316; c=relaxed/simple;
+	bh=B1NfG8Pffpg63TdiooG4exsohH6Byj/eXiQ6W/idYws=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=IANtdz3DX1uqHNQVgeGmXGoajGgVzzGyyF0iKZ5VGJQc8yGEHwlUc162dRpfhAWslSMP7UB00oQE7/EObm/kvamd2r39i6o50ewfnYgZNMaTl5Li95nNkfPAIGmnj7VoHAGbZkXaWkMViS/Ve5etFOhU4fYKLPhRZOSb09OO7l4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=QVUg9VHg; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p3RuL73Q"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3a89d1ca907so1120447a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 11:21:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791397275; x=1792002075; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nKSKlzqYN/O2yAt1o5xzoyGbTxhQiLSVcfOd9AG52bQ=;
-        b=p3RuL73QGPaKSbVoO6IR1fVvMW9rLv+H7nykMoCDGy5w38edy7Cbw9lFgEgb6DvKML
-         2pkrhnZBus/znLtjYh3wUI3V9PRFh/QGucdUkAFFCm6n7XSDKTcUzmAWryJSmcygWdSX
-         9TMAed4LupExk6YFRZauIi3cVrqo4omI49M/215Y14eZPkauj59o3dFZNdSU3O1KKCUw
-         pgYAn335Sh/YorG9KJhGcSDbtGkCM2GVJhmRpsVxZEBbSRedVJ2gF2Ean4QI+Rs7NhPY
-         RUOufVwSWAHDado/Ajsjp5yVkNdjJwPjARnutZIvnBoms3LMBR3wEdiyUUBxMhBPizEZ
-         JigA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791397275; x=1792002075;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nKSKlzqYN/O2yAt1o5xzoyGbTxhQiLSVcfOd9AG52bQ=;
-        b=YMr6il0C7ON0QN5hxIQs7i9uKpsWTxECltWsHpaknGoyQU+6jhw8E8GvNPw1aymJzt
-         9hcbpPIxhXi9R2B3Li8njrFP+AssK1IqHIAHddy4HvHn5n8DasJ4514NZGfJ/JzNfDKB
-         OjtKBxwwTyPCraDiSFevZJjWbIqgPECkbt9BadbGcpNj8lCUhhAhS8h1sdML2j1B6Klh
-         g+0Uo7x4UPwnOHee9TULmi+sHKuYAnEbSGIMG+cRWxkosINUtlZ27zSeXR9uMQX9upLU
-         t8BuNLic3U/+UpGkwOuLRPTU+2DIHbSG9PIABLJWFyZ+QrQu79Yd+nAfxqa4fXOufBlU
-         HRlw==
-X-Forwarded-Encrypted: i=1; AKwUvBzAyZzAA7Kft08jBmOnPBLS3eaak8QS8+iFmrzdWGrCglOGUs+dTEc698wPtZhNx4rThduMLbVk4gI3yuE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK/ftImpxvgjl/5q2B2SkM1khwuOK7wTmrAMjIZKUapfV+S+6rB
-	GzXyb8NTHyTdQ3kKiCoyK7A1DD+/XFTZxmp6n4HROC01iyQPxJiQjPf5
-X-Gm-Gg: AYBFou3peXFwCy4sZN0HLhMA4L+c730cU/NJXVWZoMFh8rmk08sLm1KLFQM1YK5GYmy
-	tvqULh68pj+fyXS94OpnD65uCQVZNnkIuFC/wzPu6j3r2eugoB2OM+2gDbtN4QNSnCqU9zfCaw3
-	gYvh1xMaVRcSZY4Eg+4Av3i4+IT390DslGAHLfr15vl3kDAxiD2ftFOOxt9Z73IvAohtD0Rirck
-	7XjW8HoNe8tcb9waiIp4W6oCubmSIaKgpctkXlggQVwddF6cfKv7Tp3jfBQzyj8CPgDRwQn96iq
-	JL5nCYWgbpzA3daDFN1batQAcSFOKxk5igU67n9THQ7aR/IBx1ALc/ph+Ubn0q7QBG+pAhh09oK
-	NpqkMt9b8G/zz84Oyo8HaUEH2U4H6qaUc1ZPh7JKYHCZS6fzrW4R5UCc9F3Vv0aXdNZNDva1ThI
-	Aet2nS7vSHuxMUR4mPsxudEOKKzfDH9byyZ3m2YqSYSEpRljDJ9IGhczAdFfZxy0TOmLX/BPwJ0
-	kFX18Zfj3pR8V02vSblq/QIHoTKMmIHFi88Rfb6uMJhZgqOJXt2fu7KZVgsciN5URaPfaVR3T07
-	+i7Clr8rihddu0Ik10o08nj6AbqfcVxHLojrACtn1QeiOf9Z
-X-Received: by 2002:a17:90b:4b07:b0:39e:6a80:b793 with SMTP id 98e67ed59e1d1-3a8a0de64famr3014829a91.35.1791397274686;
-        Wed, 07 Oct 2026 11:21:14 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9ff7aaf8asm642007a91.6.2026.10.07.11.21.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 11:21:14 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Michael Stapelberg <michael@stapelberg.de>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH net v4] net: phy: marvell: keep WOL_EIE across interrupt reconfiguration
-Date: Wed,  7 Oct 2026 11:21:12 -0700
-Message-ID: <20261007182112.821061-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="QVUg9VHg"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697F6Lwt2849847;
+	Wed, 7 Oct 2026 18:21:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=5PT3Fw
+	A4ChHnjEa+xr3xDXd780D+F0Ni80fRcedI2C0=; b=QVUg9VHgql1MnxIWOoczA9
+	t83WpozkKRY4aD982oVcgkG91j+/8arYIjABC9walIvm51wzSXU+qOAp7eYa0nLa
+	/0OhUSlIkfwQ7T7PbHTMSpeg5Co9xZyGj0JAOzN7Ta+YBPMXxlTPSaKF/8FH6l2d
+	YKoEl9lsvnS7ol0vr90d4ueW3SMWOJGZ9rsLo9q2Uz9sOsLvt1zrLfAUI8TU7Vi4
+	L2N5IBTJh8iwg5/S7yzADiaZ/ykSSkyG1g4rYldMhljAJPO2GXBvPd0A+QXLGjYr
+	/jC63UsFm9/DqGeOOv9uvIbIloUJ1wUsGj46wfTL4r5k1QrSQSpNIg2tXXcWsYaw
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2sbve3vt-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 07 Oct 2026 18:21:36 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 697IHYrN2245348;
+	Wed, 7 Oct 2026 18:21:36 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h58d5m419-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 07 Oct 2026 18:21:36 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 697ILUor17105400
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 7 Oct 2026 18:21:30 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id EEFCC20040;
+	Wed,  7 Oct 2026 18:21:29 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 81CCB2004D;
+	Wed,  7 Oct 2026 18:21:25 +0000 (GMT)
+Received: from localhost.localdomain (unknown [9.39.25.208])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed,  7 Oct 2026 18:21:25 +0000 (GMT)
+From: Amit Machhiwal <amachhiw@linux.ibm.com>
+To: Madhavan Srinivasan <maddy@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org
+Cc: Amit Machhiwal <amachhiw@linux.ibm.com>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        Shrikanth Hegde <sshegde@linux.ibm.com>, kvm-ppc@vger.kernel.org,
+        kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Gautam Menghani <gautam@linux.ibm.com>,
+        Harsh Prateek Bora <harshpb@linux.ibm.com>,
+        R Nageswara Sastry <rnsastry@linux.ibm.com>,
+        Alexander Graf <agraf@suse.de>, linux-hardening@vger.kernel.org,
+        stable@vger.kernel.org, Avi Kivity <avi@redhat.com>
+Subject: [PATCH v4 1/3] KVM: PPC: Book3S HV: Add SRCU protection for virtual-mode HPT hcalls
+Date: Wed,  7 Oct 2026 23:51:13 +0530
+Message-ID: <20261007182116.12479-2-amachhiw@linux.ibm.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261007182116.12479-1-amachhiw@linux.ibm.com>
+References: <20261007182116.12479-1-amachhiw@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: w8sOdD_9Q_XMQzvlEmbz-UBTd3Ctkjrr
+X-Authority-Analysis: v=2.4 cv=KJHPn1Fo c=1 sm=1 tr=0 ts=6ac68db1 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
+ a=pGLkceISAAAA:8 a=VnNF1IyMAAAA:8 a=DgxhUou5BkHipWTGidQA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: QTIGVwiSTBXUnKCONl30bYo-JJZbtQbw
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDA3MiBTYWx0ZWRfX1YsBmj/13ue/
+ VRtJ1topMdxoZkK8ZkTY/MTyaH9qiiajgyHAPEgIMQOMimhC/gWRPI1CFbhq/f6dRhvQI5Y5vjc
+ ia/v22zsYkyRZ1jZjW0V/DLL6LhGB/mOyLHJ2XC5fWGgxNsGp8VyPKfF2JrRWOruTyez9bYktm1
+ PWcZ+pO2cPWOn3Kig9OqsC3KRw5PjEDXOEDNOT1CHeWnfkPuHj0a0i8u9Ms0ztWVpdDmwyTyQvi
+ XagX6oBNRxaJCxLtGD5HXzwoYfyf7YIdrq1j5Vyvw+wxpZan6qD7WfWT1XgfsDEK9deVUEYaouH
+ 8s3EQahMpXk2TfgPb64ITtLj5hJSml37zFhTCcFHO6Ee+OfpSpB0Z0mlsEtR0hVZOTLVO1l/Uqm
+ U9HTuFLB3V+Qxetjx1h4/L/IlCl8XyMVtY0/T872MCFGURP830h9LyK7BvsezGS24RRY5laZiBY
+ n1A7ZJS/8PeABLo5/pQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDA3MiBTYWx0ZWRfX7rkf/yDvQuVd
+ vR7GjA9JB161OOyiy+iFU60pV2/x/lfCLv0QOqbJm8MIf8FCVeuAh10Nrh2THvUAkvz2RAweMfz
+ 3ak5qQzuLNr2prdxNwCujO6tHtEhKq4=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-07_05,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0
+ priorityscore=1501 phishscore=0 impostorscore=0 adultscore=0 clxscore=1015
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610070072
 
-marvell_config_intr() rewrote the whole interrupt enable register, so
-the config_intr call from phy_init_hw() on resume silently cleared
-WOL_EIE on the 88E1318S and 88E1510: m88e1318_get_wol() still reported
-WAKE_MAGIC, but a matched magic packet was no longer routed to INTn and
-the board did not wake.
+The virtual-mode HPT hcall handlers (H_ENTER, H_REMOVE, H_BULK_REMOVE,
+H_CLEAR_REF, H_CLEAR_MOD) call into book3s_hv_rm_mmu.c, which accesses
+memslots via kvm_memslots_raw().  kvm_memslots_raw() uses
+rcu_dereference_raw_check() to bypass SRCU lockdep annotation checking.
+This is safe in real mode because the entire guest entry/exit is wrapped
+in srcu_read_lock/unlock inside kvmppc_run_core() and
+kvmhv_run_single_vcpu().
 
-Make config_intr update every bit except WOL_EIE with phy_modify(), so
-the WoL interrupt enable is owned only by set_wol and always matches
-what it programmed. The read-modify-write runs under the MDIO bus lock,
-as do the accesses in m88e1318_set_wol(), so the two can no longer
-overwrite each other's update. Have m88e1318_set_wol() clear WOL_EIE
-when WoL is fully disabled, since config_intr no longer does.
+However, since commit 6165d5dd99db ("KVM: PPC: Book3S HV: add virtual
+mode handlers for HPT hcalls and page faults"), these same handlers are
+also executed in virtual mode via kvmppc_pseries_do_hcall(), which runs
+after SRCU has already been released on guest exit.
 
-The interrupt register layout is the same across the PHYs this driver
-handles, so extend the shared handler to also claim a WoL event instead
-of adding a per-PHY one.
+A concurrent KVM_SET_USER_MEMORY_REGION deletion or move can therefore
+call synchronize_srcu_expedited() — which does not wait for this thread —
+and then kfree(slot) and vfree(slot->arch.rmap) while the hcall handler
+still holds a raw pointer to the memslot.  lock_rmap() then writes to
+freed vmalloc memory, leading to use-after-free and memory corruption.
+Because kvm_memslots_raw() suppresses lockdep checks, this race is
+entirely silent.
 
-Fixes: 3871c3876f80 ("mv643xx_eth with 88E1318S: support Wake on LAN")
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Fix this by factoring out the 7 HPT hcall handlers (H_REMOVE, H_ENTER,
+H_READ, H_CLEAR_MOD, H_CLEAR_REF, H_PROTECT, H_BULK_REMOVE) into a
+helper function, kvmppc_pseries_do_hpt_hcall(), and wrapping its call
+site in srcu_read_lock(&kvm->srcu) / srcu_read_unlock(&kvm->srcu, idx).
+Targeting only the HPT hcalls avoids wrapping non-HPT hcalls that sleep
+(such as H_CONFER, H_REGISTER_VPA, H_PAGE_INIT) or handlers that already
+acquire SRCU internally (such as H_RTAS).
+
+Fixes: 6165d5dd99db ("KVM: PPC: Book3S HV: add virtual mode handlers for HPT hcalls and page faults")
+Cc: stable@vger.kernel.org # v5.14+
+Suggested-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
 ---
- v4: remove MII_88E1318S_PHY_CSIER_ defines.
- v3: use phy_modify()
- v2: resolved review warnings, including wol d.
- drivers/net/phy/marvell.c | 39 +++++++++++++++++++++++++++------------
- 1 file changed, 27 insertions(+), 12 deletions(-)
+ arch/powerpc/kvm/book3s_hv.c | 70 ++++++++++++++++++------------------
+ 1 file changed, 35 insertions(+), 35 deletions(-)
 
-diff --git a/drivers/net/phy/marvell.c b/drivers/net/phy/marvell.c
-index f71cffa88406..5f9a43a4a063 100644
---- a/drivers/net/phy/marvell.c
-+++ b/drivers/net/phy/marvell.c
-@@ -55,6 +55,12 @@
- #define MII_M1011_IMASK			0x12
- #define MII_M1011_IMASK_INIT		0x6400
- #define MII_M1011_IMASK_CLEAR		0x0000
-+#define MII_M1011_IMASK_WOL		BIT(7)
-+/* Bits updated by config_intr. The WoL interrupt enable is owned by
-+ * set_wol, so the config_intr call from phy_init_hw() on resume does not
-+ * silently disarm Wake-on-LAN.
-+ */
-+#define MII_M1011_IMASK_CONFIG_MASK	(U16_MAX & ~MII_M1011_IMASK_WOL)
+diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
+index de05d721edc4..46dd550115a4 100644
+--- a/arch/powerpc/kvm/book3s_hv.c
++++ b/arch/powerpc/kvm/book3s_hv.c
+@@ -1159,6 +1159,38 @@ static long kvmppc_h_rpt_invalidate(struct kvm_vcpu *vcpu,
+ 	return H_SUCCESS;
+ }
  
- #define MII_M1011_PHY_SCR			0x10
- #define MII_M1011_PHY_SCR_DOWNSHIFT_EN		BIT(11)
-@@ -139,11 +145,6 @@
- #define MII_88E1318S_PHY_MSCR1_REG	16
- #define MII_88E1318S_PHY_MSCR1_PAD_ODD	BIT(6)
- 
--/* Copper Specific Interrupt Enable Register */
--#define MII_88E1318S_PHY_CSIER				0x12
--/* WOL Event Interrupt Enable */
--#define MII_88E1318S_PHY_CSIER_WOL_EIE			BIT(7)
--
- #define MII_88E1318S_PHY_LED_FUNC		0x10
- #define MII_88E1318S_PHY_LED_FUNC_OFF		(0x8)
- #define MII_88E1318S_PHY_LED_FUNC_ON		(0x9)
-@@ -393,11 +394,13 @@ static int marvell_config_intr(struct phy_device *phydev)
- 		if (err)
- 			return err;
- 
--		err = phy_write(phydev, MII_M1011_IMASK,
--				MII_M1011_IMASK_INIT);
-+		err = phy_modify(phydev, MII_M1011_IMASK,
-+				 MII_M1011_IMASK_CONFIG_MASK,
-+				 MII_M1011_IMASK_INIT);
- 	} else {
--		err = phy_write(phydev, MII_M1011_IMASK,
--				MII_M1011_IMASK_CLEAR);
-+		err = phy_modify(phydev, MII_M1011_IMASK,
-+				 MII_M1011_IMASK_CONFIG_MASK,
-+				 MII_M1011_IMASK_CLEAR);
- 		if (err)
- 			return err;
- 
-@@ -417,7 +420,7 @@ static irqreturn_t marvell_handle_interrupt(struct phy_device *phydev)
- 		return IRQ_NONE;
- 	}
- 
--	if (!(irq_status & MII_M1011_IMASK_INIT))
-+	if (!(irq_status & (MII_M1011_IMASK_INIT | MII_M1011_IMASK_WOL)))
- 		return IRQ_NONE;
- 
- 	phy_trigger_machine(phydev);
-@@ -1991,8 +1994,8 @@ static int m88e1318_set_wol(struct phy_device *phydev,
- 			__phy_read(phydev, MII_M1011_IEVENT);
- 
- 		/* Enable the WOL interrupt */
--		err = __phy_set_bits(phydev, MII_88E1318S_PHY_CSIER,
--				     MII_88E1318S_PHY_CSIER_WOL_EIE);
-+		err = __phy_set_bits(phydev, MII_M1011_IMASK,
-+				     MII_M1011_IMASK_WOL);
- 		if (err < 0)
- 			goto error;
- 
-@@ -2074,6 +2077,18 @@ static int m88e1318_set_wol(struct phy_device *phydev,
- 			goto error;
- 	}
- 
-+	if (!(wol->wolopts & (WAKE_MAGIC | WAKE_PHY))) {
-+		err = marvell_write_page(phydev, MII_MARVELL_COPPER_PAGE);
-+		if (err < 0)
-+			goto error;
-+
-+		/* Disable the WOL interrupt, config_intr leaves it alone */
-+		err = __phy_clear_bits(phydev, MII_M1011_IMASK,
-+				       MII_M1011_IMASK_WOL);
-+		if (err < 0)
-+			goto error;
++static long kvmppc_pseries_do_hpt_hcall(struct kvm_vcpu *vcpu, unsigned long req)
++{
++	switch (req) {
++	case H_REMOVE:
++		return kvmppc_h_remove(vcpu, kvmppc_get_gpr(vcpu, 4),
++				       kvmppc_get_gpr(vcpu, 5),
++				       kvmppc_get_gpr(vcpu, 6));
++	case H_ENTER:
++		return kvmppc_h_enter(vcpu, kvmppc_get_gpr(vcpu, 4),
++				      kvmppc_get_gpr(vcpu, 5),
++				      kvmppc_get_gpr(vcpu, 6),
++				      kvmppc_get_gpr(vcpu, 7));
++	case H_READ:
++		return kvmppc_h_read(vcpu, kvmppc_get_gpr(vcpu, 4),
++				     kvmppc_get_gpr(vcpu, 5));
++	case H_CLEAR_MOD:
++		return kvmppc_h_clear_mod(vcpu, kvmppc_get_gpr(vcpu, 4),
++					  kvmppc_get_gpr(vcpu, 5));
++	case H_CLEAR_REF:
++		return kvmppc_h_clear_ref(vcpu, kvmppc_get_gpr(vcpu, 4),
++					  kvmppc_get_gpr(vcpu, 5));
++	case H_PROTECT:
++		return kvmppc_h_protect(vcpu, kvmppc_get_gpr(vcpu, 4),
++					kvmppc_get_gpr(vcpu, 5),
++					kvmppc_get_gpr(vcpu, 6));
++	case H_BULK_REMOVE:
++		return kvmppc_h_bulk_remove(vcpu);
 +	}
 +
- error:
- 	return phy_restore_page(phydev, oldpage, err);
- }
++	return H_FUNCTION;
++}
++
+ int kvmppc_pseries_do_hcall(struct kvm_vcpu *vcpu)
+ {
+ 	struct kvm *kvm = vcpu->kvm;
+@@ -1174,47 +1206,15 @@ int kvmppc_pseries_do_hcall(struct kvm_vcpu *vcpu)
+ 
+ 	switch (req) {
+ 	case H_REMOVE:
+-		ret = kvmppc_h_remove(vcpu, kvmppc_get_gpr(vcpu, 4),
+-					kvmppc_get_gpr(vcpu, 5),
+-					kvmppc_get_gpr(vcpu, 6));
+-		if (ret == H_TOO_HARD)
+-			return RESUME_HOST;
+-		break;
+ 	case H_ENTER:
+-		ret = kvmppc_h_enter(vcpu, kvmppc_get_gpr(vcpu, 4),
+-					kvmppc_get_gpr(vcpu, 5),
+-					kvmppc_get_gpr(vcpu, 6),
+-					kvmppc_get_gpr(vcpu, 7));
+-		if (ret == H_TOO_HARD)
+-			return RESUME_HOST;
+-		break;
+ 	case H_READ:
+-		ret = kvmppc_h_read(vcpu, kvmppc_get_gpr(vcpu, 4),
+-					kvmppc_get_gpr(vcpu, 5));
+-		if (ret == H_TOO_HARD)
+-			return RESUME_HOST;
+-		break;
+ 	case H_CLEAR_MOD:
+-		ret = kvmppc_h_clear_mod(vcpu, kvmppc_get_gpr(vcpu, 4),
+-					kvmppc_get_gpr(vcpu, 5));
+-		if (ret == H_TOO_HARD)
+-			return RESUME_HOST;
+-		break;
+ 	case H_CLEAR_REF:
+-		ret = kvmppc_h_clear_ref(vcpu, kvmppc_get_gpr(vcpu, 4),
+-					kvmppc_get_gpr(vcpu, 5));
+-		if (ret == H_TOO_HARD)
+-			return RESUME_HOST;
+-		break;
+ 	case H_PROTECT:
+-		ret = kvmppc_h_protect(vcpu, kvmppc_get_gpr(vcpu, 4),
+-					kvmppc_get_gpr(vcpu, 5),
+-					kvmppc_get_gpr(vcpu, 6));
+-		if (ret == H_TOO_HARD)
+-			return RESUME_HOST;
+-		break;
+ 	case H_BULK_REMOVE:
+-		ret = kvmppc_h_bulk_remove(vcpu);
++		idx = srcu_read_lock(&kvm->srcu);
++		ret = kvmppc_pseries_do_hpt_hcall(vcpu, req);
++		srcu_read_unlock(&kvm->srcu, idx);
+ 		if (ret == H_TOO_HARD)
+ 			return RESUME_HOST;
+ 		break;
 -- 
-2.56.0
+2.54.0 (Apple Git-157)
 
