@@ -1,81 +1,73 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6CB83B995D;
-	Wed,  7 Oct 2026 14:58:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2414A4B4891
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 14:59:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791385130; cv=none; b=LDBzE2AAJhELL7fCjFTLmWU5OuA/qXQ9j0pchkzWPuAcAwqE6i9FvUJ97pLXRH8qhtn7ci/uUZiDluwzDwzZz2MrHswdIrKyvGRNMxKOTVkCHToxaXkpOLrSRS3iz38gvHIuPYJkqZbhWnxn7fmg4DmU3JK2wohMdOSXYcdn0g0=
+	t=1791385191; cv=none; b=jrVuVOIPCcU6WGMhiFKLO4j405P4jK7vcQmcZ/hx/GdU5gKgi3jYMj85OlJpAVLfhCgX7ftf1kQuy702uOPaYuOuRRHx/eUGyk5dueTDsJ76YtvEl/pkFCNT0AK1YWDER1uPQNOfaTd0tEGyi0Y7GpwCHnzwKoIjBzj/c8rftyw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791385130; c=relaxed/simple;
-	bh=uStzgO6+N2Di9st1CAR5YzpbNalTxSJq/Z89TkWKsoU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pIuVdAjVf/diSzlvzEP76eL/9Bw8CwzFaopInT3KvzX2oVcAO71A242MmDFpVLAq/wZvd68z62h4WMSmuRcR5W4/fAjNXJbn3Xl7W1I1J4YxoaA5WUnhtKmUy8DQdDn3wRukmJZ4q6d2Q/0KrpIVyxy/07GX042mmZBePEb4v0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KSCu814k; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791385191; c=relaxed/simple;
+	bh=Z2Bdct4GuZTfHJrkKxcsnWcaneoEa+kNJUkdRNO7FVY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=vFByNf1VMeZR7ZDFHytSBOptDxwsg5nfob2ijVAFc7NZpTNfi9daJqWx/Ic1HfZBXIi7a7tXu/I9uWfbrb8T/PDuAwTkOtzas/JUmQdILrO5yOjSVrqSS8uHejJJ6oDJQlnNmmk2byzQOlE6Jwt2bFbuEAnjHqDQIw2iYyC1Izk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WgXBQx74; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KSCu814k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDCFD1F000FF;
-	Wed,  7 Oct 2026 14:58:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WgXBQx74"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57F431F000FF;
+	Wed,  7 Oct 2026 14:59:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791385125;
-	bh=sQh3Xowo6Osf2Gk7H/wzIDFpt8E/0Ak6v6QOluUU4eI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KSCu814k0iGBzHxK1sFZn6jtgY+yWxfzgzLYD52TeHqGEjmm3a950Itb0lLBllspd
-	 fJXnKwKNIbTeNe6IXCHi1HOpgkcaihGhZyqZwuEDVHHEYAR4XfR5UuiPMkLDgfK2BS
-	 cZbr3LqmyP3rkJcPSTwk0BurG3x7eb/M7W7/2TdshSbYIWbnaA9IQ1VaKRBM8QDiyY
-	 uxoZjb1lIhR1gG81ry8BsdG+BouzdXtjWxNIk2Qoq1uMucvWsHGzHb74w3RCrYSGxO
-	 z0Z0qhZQOhLsRIHHxGET6UYxlLa3eFFIAKf2nT6EpnKn99wglxT/BBECZgSDv8Tg+/
-	 OnOYZLKgK8yfg==
-From: Chuck Lever <cel@kernel.org>
-To: Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Olga Kornievskaia <okorniev@redhat.com>,
-	Dai Ngo <Dai.Ngo@oracle.com>,
-	Tom Talpey <tom@talpey.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Daejun Park <daejun7.park@samsung.com>
-Cc: "Darrick J. Wong" <djwong@kernel.org>,
-	Sergey Bashirov <sergeybashirov@gmail.com>,
-	Carlos Maiolino <cem@kernel.org>,
-	Amir Goldstein <amir73il@gmail.com>,
-	linux-nfs@vger.kernel.org,
-	linux-xfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] nfsd: do not return overlapping extents in a block layout
-Date: Wed,  7 Oct 2026 10:58:41 -0400
-Message-ID: <179138511102.2622843.12611347810514170081.b4-ty@b4>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261007-nfsd-block-trim-v1-1-53370f97047a@samsung.com>
-References: <20261007-nfsd-block-trim-v1-1-53370f97047a@samsung.com>
+	s=k20260515; t=1791385187;
+	bh=RlbDPA6UwQ0YRs0y1zeJhCOYJioG5GQ5Xlbiv1h43G8=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=WgXBQx74jpl0plYm2kVRYv5yN98oRwxzz/GBR1MpGMGhA/+pGKF2gzsF/PJXYo2+k
+	 bxDF8AeVQVrY9Zi5jIEemlWBCbU5plt9WrUauBfyZY3pxKu20+HGI24Pk6mXcC0TFp
+	 1nbdpHQmOQRGaWLC4TTUO4hGGfBpqd+vNl0HFOoigPYDb3jTwYDyUPDuoQhqT1Z8C+
+	 zUFgWdmL6V3/ACgFAvx0Y1d1HVD/aExB1qg/r4ltTG4ZvagywX63T+TKGOQMg+cBhU
+	 aiTnPeRJLKUf2tI7XXeJm9Eju2EbwgFgsFaoEA/86MzrXKKpmXVndsCa6bF0BHrUts
+	 DhwdDDhQG7EaQ==
+Date: Wed, 7 Oct 2026 08:59:41 -0600 (MDT)
+From: Paul Walmsley <pjw@kernel.org>
+To: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
+cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+    Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+    "Maciej W. Rozycki" <macro@orcam.me.uk>, linux-riscv@lists.infradead.org, 
+    linux-kernel@vger.kernel.org, 
+    Djordje Todorovic <djordje.todorovic@htecgroup.com>
+Subject: Re: [PATCH v3] riscv: Add ERRATA_MIPS_P8700_WFI to replace WFI with
+ mips.pause
+In-Reply-To: <20260917-p8700-wfi-v3-1-ada4b0584712@htecgroup.com>
+Message-ID: <cd400f89-a125-3f8d-3b76-ec1e19976823@kernel.org>
+References: <20260917-p8700-wfi-v3-1-ada4b0584712@htecgroup.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-On Wed, 07 Oct 2026 11:03:01 +0900, Daejun Park wrote:
-> Since commit cc6c40e09d7b ("NFSD/blocklayout: Support multiple extents
-> per LAYOUTGET"), nfsd4_block_proc_layoutget() calls ->map_blocks once
-> per extent of a LAYOUTGET, each time for the range left after the
-> previous extent. nfsd4_block_map_extent() takes a mapping that starts at
-> the offset asked for or below it, but only the first extent may start
-> below it. A later extent that starts below its offset overlaps the
-> extents before it, which RFC 5663 section 2.3.1 does not allow. The
-> Linux client rejects such a layout (verify_extent() returns -EIO), and
-> the I/O that needed it fails. The block and SCSI layouts share this
-> code.
+On Thu, 17 Sep 2026, Aleksa Paunovic via B4 Relay wrote:
+
+> From: Djordje Todorovic <djordje.todorovic@htecgroup.com>
 > 
-> [...]
+> The MIPS P8700 has bugs with the WFI instruction. A WFI instruction
+> after a mispredicted branch can result in erroneous address
+> translation on the MIPS P8700. MIPS has not published an erratum
+> for this.
+> 
+> The workaround uses the RISC-V alternatives framework to patch all WFI
+> instructions with the MIPS P8700 pause opcode (0x00501013)
+> at runtime when running on P8700 hardware.
+> 
+> Two call sites are patched:
+>  - arch/riscv/kernel/head.S: secondary hart parking loop
+>  - arch/riscv/include/asm/processor.h: wait_for_interrupt()
+> 
+> Signed-off-by: Djordje Todorovic <djordje.todorovic@htecgroup.com>
+> Signed-off-by: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
 
-Applied to nfsd-testing, thanks!
+Thanks, queued for v7.4.
 
-[1/1] nfsd: do not return overlapping extents in a block layout
-      commit: 214e388464bf850fcdc5d656fd39909f0a1ee83d
 
---
-Chuck Lever
-
+- Paul
