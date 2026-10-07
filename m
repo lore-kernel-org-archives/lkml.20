@@ -1,125 +1,98 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37386427A04
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 08:54:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 291A544E66B
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 08:55:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791363280; cv=none; b=tYOwc+MmxenMzPcTQT2d3y1HQqw1PP/AxH85n1GSC0pOOgnTheALarKtxrb5Gv2qZa+cAVcV2138YIknfY26EU+Pm6X9OemiMYBYAZoRNUh0WWYgctbV3Q4EjuAgLAleGMHQhQ5jkxjhEvXTb7GOZt+ZoCIpTIAWKoABUlPB8K4=
+	t=1791363319; cv=none; b=a5IUtoH32UHzu7BMmbmfBJvEIda3qqHrjCRJBginbUsVePkRM5Qx4TFnh+b7oLZSlF1ekhehfgct4JP1w1/H3V6B08iFOZQH8PRTBmY/15mJJOf30t0MlQunZn6wTmBgf3J37gkmXA7AaZjSgoLbn8mgqFP6IJoYqG5BGfzBgm0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791363280; c=relaxed/simple;
-	bh=ns5/UMhLGw+gH1o3rceBplxKe2Bd6QRnvxxVs9U2EY4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=TNhnQpSmyt8xNRxnUuHhW8zYlEXA5wLglHLFqW1vxYVNK04f6t/ZkElM5WICO14dgmw4UgTY7cF7HSFKKtyDtLY3xxHnbkpo5FbmbXZvUrD9fqix6N+QXXrupcv+SQC/AzLUhq7fvG1RzExBHjmJCWBuq1hr1/2TK11u3TelqzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=ERHFbE6V; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1791363319; c=relaxed/simple;
+	bh=pRig2jwfRvKIPmscPv3ga8MjLPmvBeWTyHRup+5LxN0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iwBF00WQhZnR3pHbRtNzgMALoBALhf+qmU4Y97mEDa0BYa9cWmwRzYWEptIsLoQ/7apazfE4rshYz92tpst4HgAIeZInBDKiDOf1b4yamQ/N2STbA4pciUc1IkscCZfQyXnaibKIdhreVZ/vWcA0MAp0rrywm6KkLyh64fgS5qg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JZE17Nib; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="ERHFbE6V"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso36728015e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 01:54:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JZE17Nib"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a061a13884so13448215e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 01:55:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1791363277; x=1791968077; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hBz2qXMgWojuZvA+gqIdsYCtSC6xw/yhzsi3Z9qc1oU=;
-        b=ERHFbE6V1+V/7VOdb1ufLNWhqdmMi/ZZmRNdq8Uk87mYA6D/Usafy2JxF+pgfZmZan
-         AineRSrkWlAew5VIfIiwgRR8T7fycBN/YAIkSXH2y89euS/CmzewIE2wYT/3RC/+/Msu
-         y+PPyue6d1wnkAejn0wg7epoDyxjmHHveXhsl2vDw4vKuIsUGWW2UU4XFdAVNLsXbm5k
-         JGX9w5idpyYFEV5KfOHelBVOieVU2THKbI7ji+y1eVF3ZCAe07qPcEmnXBfDOcpJ3Dhv
-         HXGAtec1XdKMxZZj4Hd2jF+/PeCC1QAZoQD77QWDampIkt/v3BXOPLUNQVjSbyllxQ6A
-         WVuw==
+        d=gmail.com; s=20251104; t=1791363316; x=1791968116; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=idGrLQ96uf8XUCDMxXSwM26M1eSYrrZBxKOU5D9zkzs=;
+        b=JZE17Nib2Vjng4ryH+LLlIkU5DZi/0OSlS5srF5fkQbJ0gVTCfzC9vEqomaXL/KIR9
+         /Ylr6LQoheCY+DpnQFToSd41UPY3pmL2OyNRXdpexscevpzpGUwVMDfyRi5pNd0J+k3T
+         cIsNto2JlXJn/bI43xzRMOj5NBo2BVe4q5PiEM9NE2iJGVo7b0WTC65ZIK/6EOG4DNen
+         iF+/Yiu7YnFpUa8kAEceg1VW+l5AOtJ6EWQPGWXE2jYLuK/9XCHE2H764fkDyEuzh90F
+         AxSILEkkFMckzZH/M7QOakHkFLnF8yM87H9y7DnhFx2f+qc3ntDBhlbMZEyrxU9jaxnr
+         WkWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791363277; x=1791968077;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hBz2qXMgWojuZvA+gqIdsYCtSC6xw/yhzsi3Z9qc1oU=;
-        b=cyuvtQp1KaFXW9p2bBmrKP6TCJ0AtLgEhy1QQQ4BDHRTOUBWqIl1ZjWNRFcCSA/OwO
-         /vfmLKSvZm6GLUIBwgyidJThAbLzQXES9J9E/LtOVh21qWpmASveDJLlcBdIY5FD0+Z6
-         v1q6bDJdSKGwWao6NjdFXk2Fd79EpN2YU6MpLQ3e0f3BV9Fc3mRDx2Y3tI9AsanaO1nn
-         6o/vEA0sAUkf+sgQ57em8v5AvwMOYWKGIDz45/wXTZtOD9DAo3IgvGe1Nn3kCzTprwQe
-         U+BtXJQ180RSaOjQuXPZU5PFkc9Mo3CtzwQyNM6PaCTdiJHbKEJVA4rb0dwBosOm/YBT
-         tMmQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzgqe5MQExlhxR8CCEGOLVAahoTRzmc4yOP7QIugKLtvlQvkHPELqPilFYHR1tP64f/P0N79uLrHq6kPeQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++khtXFzkgz782A4duXTBLxP/h95PWlEZsN/WkHgrFYls+waS6xE
-	cmUeHBvlYuNMCkuAUc4Ni28h9JG64MFlpVkWyJDyE/+PWc5KfsP/vzPozQdXk8FpMw4=
-X-Gm-Gg: AYBFou3Ria+esR+mjBlCXTlMkejyK3Y5qtCaQcqYinDFJ2AddlAjfRABifUJ/x3X0mr
-	pKu675rxr41RWTjlwvxOzHJ1xCwV4EV+fwqa+0zWWffAqiH/PfU4/Hn2ez6cP/Hv8RXgpu/rZPq
-	Oo29T5MoKMp1Dj/XsKbpeX/pK7itpTi6Mz4iqEOOosdCZ2X1ZPiRql29gDIzWUpDKxkFJAq44lp
-	uVEBePFV2KaWPDxDTtBmfy9tqNd/CM5xjv24LEyRK70PIa4L+Oq4W0UhMw4rkRazVcq9tYfQpMX
-	leVvXKyM9VUf3pUnmThQahaFMtnop/ZSqdMp56kg3cT7SUs84chxXrZNX1Z9cQxjcd2ep/UDCYn
-	4rE8UdZQfJ81/T/TLvqulfy5PTnNaohGV69NkG3R2WYB5aD4KCEL4LDrM3s8Jb2IrjGxjz3OHl1
-	56JANcNkeYHPoLZ8gw7/Fhm1jxCKMO9s3UwlObJCURxyZgbzgNbCefurX03LNpdSHzzGTBParRG
-	xGGkBwGp56B7Fw=
-X-Received: by 2002:a05:600c:1551:b0:4a0:263c:704f with SMTP id 5b1f17b1804b1-4a1804436c7mr20240445e9.16.1791363277470;
-        Wed, 07 Oct 2026 01:54:37 -0700 (PDT)
-Received: from localhost (90-182-211-1.rcp.o2.cz. [90.182.211.1])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178c5df75sm119201005e9.15.2026.10.07.01.54.36
+        d=1e100.net; s=20260707; t=1791363316; x=1791968116;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=idGrLQ96uf8XUCDMxXSwM26M1eSYrrZBxKOU5D9zkzs=;
+        b=x8gYXpmWh/yU9uq/rOZSDlHm1XmED9jqeI2sTud8TT+uq5HVoVX2QbEsfvZDtTlhqE
+         z47dotv6P5WzbWPq2FtTGFa2Zb+XzbelAtvacolqPag2nNNyszX7uTpXpIFhs0H5ZLTf
+         gCvBOeknYY45x0nFUyFPL+x33OZ3FeHLSBUOfBsqFSw5NWxp+Rq5ypCX2iMfzBSlFOO9
+         rY2xSRg8Ssgqrd+owQRDKYL5VCL0QHEWPfuHRDWSnuw2/V15Zmij84TYhtgXq5ZTsz2t
+         xeZLursbkA0IALg7ziRsrLfzESz2sRMRZ1NsJv8UBWjhGNRlNKihWya7eKmUxzLZPTu6
+         kwmA==
+X-Forwarded-Encrypted: i=1; AKwUvBy2n9joPfc17t29OiGDbNL1BYv1I66TmvaB8VeUO0ag6TDDo/bjTTE87LF8A5yR26Bk7/sGhn40Uw/ERfQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++liTtRHbIXAgan9GS5nOhXHyrFMOwxUwadlEmm/V+DuhHx/YuYO
+	CXchGE+eKPzKn5nDLVTIfcGSFCdg0vvO31iD1uxEWy+yG1o57ArF8br221uUGw==
+X-Gm-Gg: AYBFou1TD7VVb80xuamsakkA+iMDTg4Ha6CvnGYCV+NlkvJByXdIIcswhAdNtPb1W7b
+	mjZUc/7/ONKFS6DkEt+AnZsZqEYGeNT7o0btzwmZApBsaC28bDBPM6pQOI0hfD484MJW5BkwbMU
+	r5Mg/7ACF3WabAiAu07SKwH9itMBCNeE5lI6DLY8mxWuqX5DUdoTDV0xlnRoYcyvoUaYsRB/Q4G
+	sIlP4zIUHLdIdaRB4dFxqXWEI1cWAFyctHo/BsYOyFo/XTMNTzz6E0WjF+xogYXZJd0bUMg+JZL
+	erEna99QsHjwYD3qezecTHaNGthlDAh5fbji18m2MA/U5UY2HayVj+y1GY5CeNNySmNvr+6tjKz
+	6v0V1up4mnTkTP4F5av46FJOiV4a9J1uLcZCbBqLuSa5tu8BWzvfhFwOm63ejJsCv80ZnHivpe1
+	0l3Ah+UUElkJELwm8mlNh9vSdMzXZ4SO3lmWch2ve8/IQioZMEGoYNTsWbAqCSzUdmJ6TTtY9SG
+	AJIAecuFnOKAfEdC4A=
+X-Received: by 2002:a05:600c:a088:b0:4a1:7e77:c382 with SMTP id 5b1f17b1804b1-4a180313b89mr20150835e9.5.1791363316178;
+        Wed, 07 Oct 2026 01:55:16 -0700 (PDT)
+Received: from xeon ([188.163.112.76])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f493761sm81709225e9.2.2026.10.07.01.55.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 01:54:37 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Valerio Setti <vsetti@baylibre.com>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, Kevin
- Hilman <khilman@baylibre.com>, Martin Blumenstingl
- <martin.blumenstingl@googlemail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-kernel@vger.kernel.org, Valerio Setti <vsetti@baylibre.com>
-Subject: Re: [PATCH v4 7/7] arm64: dts: amlogic: gx: add AUDIN node
-In-Reply-To: <20261001-audin-v4-7-2476646118b5@baylibre.com>
-References: <20261001-audin-v4-0-2476646118b5@baylibre.com>
- <20261001-audin-v4-7-2476646118b5@baylibre.com>
-Date: Wed, 07 Oct 2026 10:54:35 +0200
-Message-ID: <1jwlrtyjp0.fsf@starbuckisacylon.baylibre.com>
+        Wed, 07 Oct 2026 01:55:15 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Svyatoslav Ryhel <clamor95@gmail.com>,
+	Jacek Anaszewski <jacek.anaszewski@gmail.com>
+Cc: linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v1 0/3] leds: aat1290: Add support for AAT1270
+Date: Wed,  7 Oct 2026 11:54:54 +0300
+Message-ID: <20261007085457.98762-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-On Thu 01 Oct 2026 at 18:06, Valerio Setti <vsetti@baylibre.com> wrote:
+Document AAT1270 and FLINH pin, adjust driver to suport AAT1270.
 
-> AUDIN provides audio input support to Amlogic GXBB/GXL SoCs.
->
-> What's missing after this to get capture support working is to connect a
-> capture capable codec to the SoC. For example to test these changes an
-> NXP SGTL5000 chip has been connected to an OdroidC2 (GXBB) board using a
-> custom hat board.
->
-> The following additions/overlay are required on top of
-> 'amlogic/meson-gxbb-odroidc2.dts' to make that hat board to work:
->
->     &sound {
->             audio-routing = "AUDIN I2S Formatter", "AIU I2S Encoder Capture";
->
->             dai-link-1 {
->                     codec-1 {
->                             sound-dai = <&sgtl5000>;
->                     };
->             };
->
->             dai-link-3 {
->                     sound-dai = <&audin 0>;
->             };
->     };
->
->     &audin {
->             status = "okay";
->     };
->
-> Then, from userspace:
->
->     $ amixer sset 'AUDIN FIFO0 SRC SEL' 'I2S'
->     $ arecord -l  # find the "FIFO Capture" device
->     $ arecord -D hw:0,<N> -f S16_LE -r 48000 -c 2 /tmp/in.wav
->
-> Signed-off-by: Valerio Setti <vsetti@baylibre.com>
+Svyatoslav Ryhel (3):
+  dt-bindings: leds: skyworks,aat1290: Document AAT1270 Current
+    Regulator for Flash LEDs
+  dt-bindings: leds: skyworks,aat1290: Document FLINH pin
+  leds: aat1290: Add support for AAT1270 Current Regulator for Flash
+    LEDs
 
-Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
+ .../bindings/leds/skyworks,aat1290.yaml       |  8 ++-
+ drivers/leds/flash/leds-aat1290.c             | 66 +++++++++++++------
+ 2 files changed, 54 insertions(+), 20 deletions(-)
+
+-- 
+2.53.0
+
