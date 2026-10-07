@@ -1,99 +1,70 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76108392C46;
-	Wed,  7 Oct 2026 22:07:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 126BF25A655;
+	Wed,  7 Oct 2026 22:09:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791410871; cv=none; b=rMhyn1LJW2BLp4e2QMBwa4n8yXQxHHNzJeG/oAbqbip35KBXQpeJ9rjnrFGlLL7Dxx+kABsfAgyB7ZZs3FAhqhEZG/dtiWiEX8uuedC5jWpgqpHhEC0NiL3nDNQPkfUve2bM2iAXfZ3bipKND1t12Z+BmjT3kfbUpr60ovp+uv0=
+	t=1791410950; cv=none; b=eZINh6IfzVG45woa/jnjPfOSkUUmjFS52KwM43F4HhPaNDpN5opsjJ1eyv32HpVic57Gh2eTvrHAkVlZPAV0E7imHamkLNZCvQo+Lk2Gtdi9XF7ZzWP9egMWjTQmMnmU5XbsbvtnvqD+V2ZViY/aI1kI5VawYVUlSU0wFbp9wro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791410871; c=relaxed/simple;
-	bh=Yz91O8hGC8SKXGWCJAsfrEdUHmyCU3N27q11SmIGAgk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Su2oBBMY51CoOKBEfr1eTjUOHGKaKSmRrj1NGVsHxUK5YwTMWKGYDNmUXLmRjDDYSp3t0LHV2Gjc02uv9ZfN8wRHd1eOy9wZ3Z0o3iDDr3d+QY5CeoSslIQiL6d/O+mgF7hyb6/MzSXm5RwJah/b2P7OOYbk4TxUF1QrbzpNANk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=UrxfGzJx; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1791410950; c=relaxed/simple;
+	bh=gp7PRv3WjAiMJrp0DvXpRvTv3mwC8R3NiezXzUE7FxE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=YXt9ENSSuamCWSzjhandzPoPlBidzibSkZ6GWlCZI6/79sv+cH+vh1rPlHqIhfUM1bLWD1FkrHu/QWLUh2xZwdmsyvKa08Y8+nrRCZbAfMGypR3gJwX6aivozNrbCgKn1QvLMid7WAw8rUGpxwyVXlJgnG2lgXSYGmT4kGkCABo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IoFKF//T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="UrxfGzJx"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=k1FsZeqVOwtqbCaRxGcfIEnljfC6GJbQZ2/ERsudhWY=; b=UrxfGzJxFKNQEdeX4vRD5Dv4WR
-	+hjXDX6TWc9UZOl/0SlTSsPibXE/9qL2Tk6HStqk5MuGeBlJX0c5K4Er/Joggqn95p2DoVBtyIkgJ
-	REoJ7yHP/oXWVOUOtJgAXZ9S/S0qHjc7NRJRQSg3hAydxPdSmUtTx12gaGVnsVJtuWWmVtktUtLlN
-	wbxyBoKF+pqho6eSplfgZ6EBoSIW7bD1bp0KbSLSJcLJCjFt1IQ4dhJ4XuRXfM4ItQPjLLn8th6P1
-	hv1AyffMFCzBcPGC+gCmKMDCI88LAFPuYscNBCM4Z8w31IE8PiFlDvBbRlnnk9RS7O960TJJ42ghd
-	fdGPLQPA==;
-Received: from [151.115.150.205] (port=58268 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xEZnh-00000002ncT-1pnJ;
-	Thu, 08 Oct 2026 00:07:47 +0200
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Eric Biggers <ebiggers@kernel.org>,
-	"Jason A. Donenfeld" <Jason@zx2c4.com>,
-	Ard Biesheuvel <ardb@kernel.org>
-Cc: linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@vger.kernel.org
-Subject: [PATCH] lib/crypto: arm64: Fix lost Poly1305 carry when resuming NEON state
-Date: Wed,  7 Oct 2026 22:02:36 +0000
-Message-ID: <20261007220235.200818-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IoFKF//T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 168F81F00893;
+	Wed,  7 Oct 2026 22:09:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791410949;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=IoFKF//TN42I0jirtOLidfSIfc559IFmrwv1QI9xFQCG9NJlK/SaehXBmyIlPXkRy
+	 2EVTyNGILKdOz9msncwgm1Ii/f/AxGd4hx2FT+0llgR+nJhCo5mfJOBIWBHBFeITjU
+	 ZAiTHCdH2qXd1euZx9RhofT7NBiwPv0o9kMnJvBTi0WWf+exUWzfH25XVQoUjF9T49
+	 rgeO4k7gfAoNMxIoib5qDe88Nt4aKFo4QnxAg6nUy+o7o9DLaevCKt4OssGE21leJ/
+	 ++9JjmOphaf49nRksnSB0cqycBInLatkqjaq8O2LWxvnWcOGJbYjLPW9Ay2nY1Dvb1
+	 ENwHiQjEZW6vg==
+From: netdev-bot+sinfo@kernel.org
+To: =?utf-8?q?=C3=96mer?= Mete Kaya <omermetekaya0@gmail.com>
+Cc: netdev@vger.kernel.org, oneukum@suse.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: 
+ Re: [PATCH net v3] usbnet: fix EVENT_RX_PAUSED race in usbnet_skb_return()
+Date: Wed, 07 Oct 2026 22:09:08 +0000
+Message-ID: <179141094859.2527009.4935200551311639225@kernel.org>
+In-Reply-To: <20261007220311.113827-1-omermetekaya0@gmail.com>
+References: <20261007220311.113827-1-omermetekaya0@gmail.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-When poly1305_blocks_neon() resumes from a radix-2^26 state with an odd
-number of input blocks, it converts the accumulator back to radix-2^64
-before consuming the first block. The final ADC stores the carry into d2,
-but the following accumulation and poly1305_mult() use h2.  If the
-conversion overflows across bit 128, the carry is dropped and the emitted
-tag is wrong.
+Hi!
 
-Store the carry back into h2. This matches the other conversion paths and
-preserves the represented accumulator.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Fixes: f569ca164751 ("crypto: arm64/poly1305 - incorporate OpenSSL/CRYPTOGAMS NEON implementation")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
----
- lib/crypto/arm64/poly1305-armv8.pl | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-diff --git a/lib/crypto/arm64/poly1305-armv8.pl b/lib/crypto/arm64/poly1305-armv8.pl
-index f1930c6..234398f 100644
---- a/lib/crypto/arm64/poly1305-armv8.pl
-+++ b/lib/crypto/arm64/poly1305-armv8.pl
-@@ -375,7 +375,7 @@ poly1305_blocks_neon:
- 	adc	$h1,$h1,xzr
- 	lsr	$h2,x14,#24
- 	adds	$h1,$h1,x14,lsl#40
--	adc	$d2,$h2,xzr		// can be partially reduced...
-+	adc	$h2,$h2,xzr		// preserve carry into top limb
- 
- 	ldp	$d0,$d1,[$inp],#16	// load input
- 	sub	$len,$len,#16
--- 
-2.47.3
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
