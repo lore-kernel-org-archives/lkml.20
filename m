@@ -1,25 +1,26 @@
 Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2092.outbound.protection.partner.outlook.cn [139.219.146.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8ABE46D55C;
-	Wed,  7 Oct 2026 10:01:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B73B53D34B3;
+	Wed,  7 Oct 2026 10:01:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.92
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791367287; cv=fail; b=kOU5rLFa3hPRK8cP/aCQdLr3TJMHx3J56TQJDxBzbBIP8ymVtkyRCdJoYH74aBOKH8sZbeokoH8WSRj0B6JYlPXvruHcFsb/BfuDpdff1IoadPOoijLUDit3sZTyXqbOvY7LPIZCO57mxKnStK25jg8VLNX9Hfu0zJXyHpgKLys=
+	t=1791367297; cv=fail; b=LoobXxTiQcHUKyez4SAOF6I9KiBHEEtxaoXo3KErbazlHf1sxvtsgNdJvQl3t9co6RJjFF0V6z68xELYIzGH9kFOoVfDVLVPFRBFOa9JYFnz2hxQilO9ivhNrfcjbVh1iSWVkfO/Dzz5W90xruGuEOtFqjJN4WlZLy3RDMB54l8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791367287; c=relaxed/simple;
-	bh=ywZojREeM0ZaYb5yqoQXJK2tphNyzmZK6tPAJ+GH9IY=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=Lw+mBW8/xAr2jgSuBniYOcYRm9KOvE6kKdwMAJs9cgVm/ib3ZL5epK4vbUuoYs0klkvzAq+JHqZ7kdF2MQb4JGe+NySBdFv6HoWo3kZnxfSOJmFfMmyJ1wB0yGfnBFwUdSTUxxyDhGF1X17aL3t2HVNqE+9oHobCBL7MueOug0M=
+	s=arc-20240116; t=1791367297; c=relaxed/simple;
+	bh=Wz1poXpKYWeraqOdb0t1t7uxXyI2X8j8NqhwrrPoU4M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=VNkVah9NeYxtUY482WrFAOuuI90DEFlSELLPLSTKLcUck1IOuY8szlXm3HjfgOb+IWS1CfSZDJtJgn4zynxMpCbPBGPoHal69j9x1D+CW2lu4n8HNFkmUkMr+QmEIrjRHYU8vjsy1wHkjQSTGeR4GpBimOksJdxrA0aeZ5grIZ8=
 ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.92
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CJhOdg/mWFJLDAP3kM0dJgqrsjTA82gFScB2As57B774lcpsPEP4zoB9fam62wH+tWbKoRDYhUqXJxAVcmzvz4WSKkhrJt0bH5735g3pmaNys4gUGZw15PNjKwx5T0UMYU/ATIbU+pnAkiHjCj4abUflstDBZ6M1dbsdbHYVrFgnLRx0npnPfCiiRKLhuO3gQNUQy/WRkVxB2mLTN9REgf6NogG1+7ZA2ATFnBN7IbNuVFzgpQZFEVdbo/bXnLBkzQJ2D/a3uiR90I26UWGMYkg5lAtnDZ1czItsXNgr0/JBdsSLnVAklQ3QT5a1aGwDMQ2B6boID2MfNBBuf1FLPQ==
+ b=BcVDTw7OCR0IRYDvaj6MN9RGJw2hUmu3UMUeuuGBJd5akKJZHq4K7mYd0vm5pBujhik5On+HncPiRjqNQukiA2KpS0yYnl6IUoVrW25MF5qYMBrAg7wjBp8maA+v8MwcpZTZO0GTVb+fzkQ/W+bosENfzaMg5MI9Bp/a79napfBz73iNbTMoozEvV7f/0aTKYYot/VqLnn40/L4mZv9+pngU+ITfY/6Qr+GxQYvK4kfQHJAv3ZfaceMuYEtfmxHXOfl415FxE61ZHtjP2iw/SkBZECtJiNFn3ErnLjpJ04qb+QLXfvEHt5OswPY8c6bwZ1NO81gmFwOmCobhJzdnfg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IBNz1fUdwV8cMeWsu0gMUIYKazQOVP6FmepA/ApCQUY=;
- b=nF4v+D4BUXCEOgG0zH/dSVk5s+P6Qr4hFE6/pFesVlN0T/vNQuwQmeZBHIosQIMNgtIvJmm2LFHXCxF+w+/xXVdxLSmdYnEd7Ef6GDAPkpIMUO/aZG6DcRhARMb8x5km8ghOp8enH4aWVNb9VU6P+7vzNffsBghgnxoTOWixzgn8IMOvoQkMWnywDTfe3rfSGEms71UCxjF6myp3wg6TiShN9vD1rQhm79PsdCQmOWRp1aNd0IYu1diND+teoW9/hWvyhhi1Ic905+ZBuV8xvP3MmnOM56pWq9nADHRgLj9zpkqtw7yv5ZxkG3TbgV9JVz9/bNGy7KgykLhzm8Pwqw==
+ bh=HJFLH82PBhDkqVgw2g+ZvkZCtL9yop02dvvhIGa/7BE=;
+ b=fWi4stHgvKrlM7Uqimjqw8levlNCs/LD7DPIl+InZBIzEAg1zNZ2P4l8fFgjG08rORRJOVkXb8jO0ZDvMxI0IsInZiBotZdrnjo0+FWC1hSiIPTu0XA/LPmf7fQNwUZ12ZhXEblO2tmLvtHNwxmNb3ykaq/sMSimvmv3nez+QCtZL7/CquBwdMDm/IjGaHCdYD3XtkGOUecDjb5bauTJaY23EwLM1m/OozyPF4hJMbN6F69Txs9PHpYKbuMS2rxqdHxECs8035SVSqcIpowSbfgFW9g2w8UAa2uaPhZPEKQvP3z2uNwjEZwz+F9A44GXt3HUapRPuH9Fvf6e4qTMUA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=starfivetech.com; dmarc=pass action=none
  header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
@@ -29,11 +30,11 @@ Received: from SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn
  (2406:e500:c311:20::14) by SH0PR01MB0796.CHNPR01.prod.partner.outlook.cn
  (2406:e500:c311:22::21) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.19; Wed, 7 Oct
- 2026 10:01:05 +0000
+ 2026 10:01:11 +0000
 Received: from SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn
  ([fe80::435e:52b5:c524:459c]) by
  SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn ([fe80::435e:52b5:c524:459c%3])
- with mapi id 15.21.0472.016; Wed, 7 Oct 2026 10:01:05 +0000
+ with mapi id 15.21.0472.016; Wed, 7 Oct 2026 10:01:11 +0000
 From: Joshua Yeong <joshua.yeong@starfivetech.com>
 To: broonie@kernel.org,
 	lgirdwood@gmail.com,
@@ -51,10 +52,12 @@ Cc: alex@ghiti.fr,
 	linux-riscv@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 0/3] Add RISC-V RPMI voltage service support
-Date: Wed,  7 Oct 2026 18:00:17 +0800
-Message-ID: <20261007100022.2512187-1-joshua.yeong@starfivetech.com>
+Subject: [PATCH v4 1/3] dt-bindings: regulator: Add RPMI voltage service bindings
+Date: Wed,  7 Oct 2026 18:00:18 +0800
+Message-ID: <20261007100022.2512187-2-joshua.yeong@starfivetech.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261007100022.2512187-1-joshua.yeong@starfivetech.com>
+References: <20261007100022.2512187-1-joshua.yeong@starfivetech.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-ClientProxiedBy: BJSPR01CA0024.CHNPR01.prod.partner.outlook.cn
@@ -68,186 +71,282 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: SH0PR01MB0841:EE_|SH0PR01MB0796:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4e4c4a82-9b53-439e-4e1f-08df2459e696
+X-MS-Office365-Filtering-Correlation-Id: b43d5225-3b3e-4888-b060-08df2459ea44
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|52116014|366016|23010399003|1800799024|7416014|376014|921020|38350700014|56012099006|3023799007|6133799003|10067099003|18002099003;
+	BCL:0;ARA:13230040|52116014|366016|23010399003|1800799024|7416014|376014|13003099007|921020|38350700014|56012099006|3023799007|6133799003|10067099003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	6HLFwyCWoSDtixfDDdQ+SjLzmNgoUbT8jT8Vl1385+n9gLIiTrel27vxHYCLMe9MVxNYfoJFyqAkHOSqmqzFT4K+pziRdmNaSWN3XXo0BtOyMQGN6ixRRA8Ic6fhW7XkOrUlteW5IWycPMSUcI2NKlEyc76X4ekbIvuDbXCNJPM03v383AXyS9VNXXNl43a+U+88OQiK4YRCjLemP0JtVsorCBBRcpHS8nBr4ITuNnkR8glzF5vkyHFWF+0qciNjHfRQ2DolAxDa88lSMcNVFwfWt8Qyqds22UZYcTYFkrCAgcCROv06QG7pR8aiaAEfsll3+3Y4SIA88LcxuBqmY8WjoybOXPFDSrS/z7egk9PnkuGO+ioppGGkWaVlFxcIdWdc+ZR6XcXBc6VDB+bhZaqPegm6jffTokFFeJ25Uzr0EON9bCOB+QxO2/tZaO3VEIEQXuyJXCB9O5IYmJs0pj9xdlY5nm7wHMcI23O74L03+JeOUcAaLaG0CvDqjx2FtQ95y/AVQumEByOHrUGX5zixMmR/6u36mAJAO3DG8kpvHOBaI5QaRUEYkdlEXtXUCpJmXaT2AM48BMKM5/ptOQ==
+	+iagevrmNBLjSi0TysZPH5y6u2MTbC8U6nBt5h/G0cbrKlbjf/yq/y90GQakNN0tmZpwWijN9UGhgDmsSsiG2R+08E3/ThPMthxh7EB1UxXWUHkPnPFB38AvUwNPRAtj9J6uBwUj2d8uXJxpfDiO7sqcTU+btapK/1JU0ImJ/+9Cvi5v+uepeh4FZKMH/7mqBWEGdF9SEto0EbWmXxUBAUwIrxvq8CpM5V91mPJNjtpX2M5Cgs50kGv8qrTXfYVKJt6fWcMfYqk9JRNxnW5rScKvy9UysSig6MyYxUkxuIcT8jJCqmuAXtBY1zvMp9TR6vWbPZRtFgcy3BpYPTMgK0upQJEs9f2I6TriB6/OV4YGeOQSgzGYJOnv4LwH5q/PLe6Z0A9JtljNK3q1Lb8JkzG+hfFgSuTocWh8rGJ0rjmSqU1wTna7QIAZyisj0pwqeDj5+vXJ7CF/ArCgBleY+Mjy1tqGfLgwRAunGuypPCmWtNectvVfqazt1mPXJVgBcMLfbMxQjTqyBCAfJhy/5PaqHq76r5fkALm7Z1E2PmUiYmXS5iLkgd9qb0giV8Yrd36Jn8gg7R0+2l+B9a9QYg==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(52116014)(366016)(23010399003)(1800799024)(7416014)(376014)(921020)(38350700014)(56012099006)(3023799007)(6133799003)(10067099003)(18002099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(52116014)(366016)(23010399003)(1800799024)(7416014)(376014)(13003099007)(921020)(38350700014)(56012099006)(3023799007)(6133799003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?PKof0a5Gd/G3EclgEwuDoAmL9LhLKFhK4fh4RJfjQtnh56j+yaf4/Kr2vv+q?=
- =?us-ascii?Q?FnqtECzpK9QQK3ymlCACRW4STsE33YjQjrlts2exT+e6mO7nN3DkkwCQe+Je?=
- =?us-ascii?Q?mhjcpy4DQ8LswLIXhsF3GAMgaGSQwl5Qa/GTcRhrcPO2sa0P27q2avReQrdk?=
- =?us-ascii?Q?A4gglBa9Jozfq2lx8gXfraOMCRcRPSWnvmpEfVxQ1Ou8/fqyS1kveFVGIBg7?=
- =?us-ascii?Q?7F4V+td2ivk35aJZOAi+/FKGpohu++v81y1C29NsYDHQ3H5fMCuLtDaJd39p?=
- =?us-ascii?Q?SQYR2nCi8e3cqhKHiqMAHEoWzxGZH9QxokoaE3a6ChxqTD8s8e1MjKfvHIc2?=
- =?us-ascii?Q?z5uvCzmm2c3uz6Frp0vhkHgir6tb4Pf+Yh9qQ7D6C8HIA/+PcdJENT/PMST9?=
- =?us-ascii?Q?ZivycnLV/02/2zJzv9siPZs34BAFpN8EUbTL4b3Sr526ARoiDMtsiFue/tkV?=
- =?us-ascii?Q?hg0G3ruqQiKfB9suMmud1S7v+g76R2wphPXdWZLWojww6tN+0pzrWMoGrPSS?=
- =?us-ascii?Q?EzeSutPw270Rg8xAWalzvmR0TtkUhbc74hUTdh+lv+ct+JRoUKLYHbnk5wgG?=
- =?us-ascii?Q?/eRddLPSp8GkPiAuXsZglDOpFel+ClEz9sdqvqi8QVmfGYuO8wAdHfJqJ4PI?=
- =?us-ascii?Q?TVlhsWwNyCjPqc9ZpFpdZvTzUoDd5FUkOI78wG07IvhRbukIBeTGhUkdlqH5?=
- =?us-ascii?Q?qRZu9T7aJuuz9jFoFcAQY3qHrPPi+hiqMNSsJ2AYhRs4os0+MRs6CZRv/Wnc?=
- =?us-ascii?Q?Gj4prU4Oidf6/rQcuockzvg+HpbB8Qi95b06RN1KBbzdkVJsDb1hJ/DsZDWa?=
- =?us-ascii?Q?FZrqjp0Irait4wpPgqCjNWSfgXq2S4HwT++nnPvMTvGNTDdVD8uG34hpvmWU?=
- =?us-ascii?Q?jJcdXoDuDb4l1h8R/JEn9VcugxhLYquMwd85TsPmKveuk60aOfiAV5ST0IQ8?=
- =?us-ascii?Q?cwPzD3ZXCo1evueAPqHnE0lqd3O1raNhw/XlAeRrOXTkxUMZ/QcyE7OixAAY?=
- =?us-ascii?Q?VguREjKpPBc5E1lGwHugviLvgoht0fBe4NT+I/UlotnrO+X4SnYrbk9vj2n1?=
- =?us-ascii?Q?nWA7nQT/cPJJwZF+2EKIAleMTX42P19oBVIN0raX2FvjQnT+mW6QuI/vxRV0?=
- =?us-ascii?Q?a8xWWe5E/lgidHymAmH7ZCOoeiDTLWkEoh+2NOols8F413oRGdJS2LAE8mLZ?=
- =?us-ascii?Q?N3ZmDyX1NKcsyUWg6OSTgLbk/lWu82YTUVPg9GoNjXPhLIxelH1zfWEmYR19?=
- =?us-ascii?Q?gOAQjLR9D3PhiqU/VjAyuLEODXYzRuqeBWoXIibCqzKPL6EdiRH7z2Z3bhps?=
- =?us-ascii?Q?uZxEtzJQ+ZXCpwZv7z8741c05Dtl1CaM2eKmHvZDqJfqgGCE3K/Vx7aH0Bl/?=
- =?us-ascii?Q?N+/buSxMkg1uXAmiuMXkNp+L2YL817NsDokjhtAkdvewVhlxFYu33KnAR4VJ?=
- =?us-ascii?Q?IoyfpYb1ezwOBDhrXrOIWByGP9/6n+0CXxWfgoMzQbwIuV/vGJUDC6KkGxxw?=
- =?us-ascii?Q?1FePSDy6cb90mydXDaVG9wMvW604kZna/JBH4+upfu/xyOP9Ziu7GqIETsIO?=
- =?us-ascii?Q?kPcaXvCMqBW4SqaBcnnKzQ4JHeIIzHsjdnXRmjzhLHmwVZ6eIpZCRzLNjvso?=
- =?us-ascii?Q?7sGjytmgVD4+WKpPeebTLDX3IXU97MAgW4efbPyfVFEw1xRFRPBWN1z4EE47?=
- =?us-ascii?Q?arXbaDnh97hjeN2zCZvvcR43HtKlUlAcNyZnWkY4yXsWqgbwfuz71xEdFgjL?=
- =?us-ascii?Q?GzWkLPocIXoDuBt0j0r9tyQ+osmHl5k=3D?=
+	=?us-ascii?Q?EUYlJEgfmHX7AQLTVX8lLwGbPBOGX8i2SdptMgyQ9hu72yrSdxr2Ao2x0uUk?=
+ =?us-ascii?Q?IimhDzKCMVBHTAh3MBLE4DZhCKgi/kIbbDwD8h3brATOvNe+Wpd9AxHi6W37?=
+ =?us-ascii?Q?XMur4Rs5bjbLjPHnFrdIF4awTta3TSFKV0kY+WDBGCQ0Gt4yeUBKGSapjlkB?=
+ =?us-ascii?Q?7u/3cXI0f9SjMOlKcLCxEmy46Pho5oJIZX6SWfF4sTEc2sQCJEiK7c7sxsa4?=
+ =?us-ascii?Q?lCPox3vDoFhOuwiirQUg+f+7miN6WHrSklgSNv0QeF3aYgNoV+P0QiJu9oAJ?=
+ =?us-ascii?Q?gHG8a5Wda3NBPxwRYBWFjKXQ/oxbQ2UpdQkMwr+BCDnb8IS1EH2pc7C7NB53?=
+ =?us-ascii?Q?ro5Cl5d206KvJanvqt5TW6N4GeLHtlhrqlpH+/ZS333aDykNfOnWuu+QMyP4?=
+ =?us-ascii?Q?U4SiaQE7ZCtwTh/iRTnxJRyVUlRfdszOMBFi1knDxpVNMMIDeFqTiAu3lNAg?=
+ =?us-ascii?Q?zB85yyULAaGTQITXxjYmFAfJF8SxRep2T5MGDAzUr1armmFr2I6Emkg48i5v?=
+ =?us-ascii?Q?+jVlRTqlXXMT6CKX4Ex6r/N2zbV3c93M0/at2TG+Ka7xp/FhA5lh1i8uieSu?=
+ =?us-ascii?Q?zfi2siXp1vQFTOFPgNOZbd9lRSAvhVMUPhAqFAx0qE8m7Z2QeH9g/i3TqCp4?=
+ =?us-ascii?Q?+03YmY0aLrNUF+XEhkPhqqodwCCV8FvjMf2+XGUvETo70XdR7jVbQXMwuYsQ?=
+ =?us-ascii?Q?WMYnVwfv7FvlHEda+AlbxQf/vPnop+KpNZ+9CuggQb2CFi/zKK6nWDjYdvyn?=
+ =?us-ascii?Q?1YcykAp34HhXEEAX0VPW9HVcrtEXamwBJoVMq0bzgarLZ6gvFcG8jptBnoqL?=
+ =?us-ascii?Q?a9MLiJ5wVTYfOjkhS7fa1l8o36GogOIuosmnsTl0DIPp04IfqObc1O3kRDXr?=
+ =?us-ascii?Q?jRXdyKPg8he6WiAhkIhUoV1/3jk2uy7RdQmKBrnrxlnGuImxbiy9vZWIIycV?=
+ =?us-ascii?Q?eNOA+/FLgcUxKjU+nPCCF+UDXZcopa9WVHsQH84sz443FclD1rcH+ODAQBxn?=
+ =?us-ascii?Q?CUaSmA0pQpkv9t8XDzeJbNUjWPuHHoTEyLoEtuMZ0fLXC+VLv0MmRZR4pGLl?=
+ =?us-ascii?Q?l8tfZ2LmDvVAuNsltCTIdDjEbRErtXGG3GaYnN35pyOQ/D3y5M6fvVUPI3+E?=
+ =?us-ascii?Q?cFtGkHjVSYLIDIoZfonYQ7V0GTQ+d+5loN4qQl30qwnb99GP3GB/LlVvVv5j?=
+ =?us-ascii?Q?NxxDI8B9EUrlVOAQnVbU3rb3563G47pn5FddCin8NvKcbqWd8NBenudmN17z?=
+ =?us-ascii?Q?lBRPmylKCaovv7PvULBmMA7/iHJ3lqCFSuGrN51b+umnfH52T0uVq/hOz9Op?=
+ =?us-ascii?Q?smL6oX5cTPDgvYbY9YSZsbSA9354sreo5LbaBXQdYT2EaptsnQvUQooEDx2C?=
+ =?us-ascii?Q?ioCpBG905IJqtbVTA0kDAS/DfQm5+cWYjsvX7b3tNonstfj6ThpNvDfkoQCf?=
+ =?us-ascii?Q?v5c2LzZiA+sM8W3Ont4BcdHOsSa3/A8ddUUHTVR2pnNYpf4uSpsO1AWLGJqE?=
+ =?us-ascii?Q?jOQp5+UZPxYeInqMr+ZFsyu90+3fBqHfyfklOc8acmY+oYaeogP+yb1ZHcjo?=
+ =?us-ascii?Q?Rrs0LQ8qqAh/NJRnFSEEUpomEq+gOCDeJbofnrAgDEKOx2bm2Jom0jqXZ83T?=
+ =?us-ascii?Q?Xgc01yEp1VtB6Pboijlg2s902kHDtgT4NRufw4PbFmlHqt/7/Aa6vDqyqjXo?=
+ =?us-ascii?Q?j9G7lZOYHbVdGBu3hLZplT0LYotZGuxMxw/11AtBJXxRAGaaCKCYgxHHSfam?=
+ =?us-ascii?Q?hz3KPR0X/Z4EVAFxhOlZJ8+Z6Xdugto=3D?=
 X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4e4c4a82-9b53-439e-4e1f-08df2459e696
+X-MS-Exchange-CrossTenant-Network-Message-Id: b43d5225-3b3e-4888-b060-08df2459ea44
 X-MS-Exchange-CrossTenant-AuthSource: SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 10:01:05.1259
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 10:01:11.3083
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2KOHvQZk/pBB9uNcs4YjCNOFi2zwqCqDOUCt74ypoGFrg+0fkZkSI4xOBrl7JRuX0iffjrTBnqF994rIjcdcTfstGe3jWjYJRRnKdSJkw1c=
+X-MS-Exchange-CrossTenant-UserPrincipalName: GGDyOkMpIIwzLA0GSBEU2db2isUOnZpmDsKMT04+eTEYVt03TLgHR+oz897etjOjFbWGcWcupLL7SKcICQv88ABKRBrPhTpwSi7PnDCeZVk=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SH0PR01MB0796
 
-The RISC-V Platform Management Interface (RPMI) specification defines a
-modular and extensible messaging protocol between the supervisor software
-and a platform microcontroller (PuC). Among the service groups it defines
-is the voltage service group (service group ID 0x00007), which allows the
-supervisor to enumerate the voltage domains managed by the PuC, query
-their attributes and supported levels, switch them on and off, and
-get/set their voltage level.
+Add device tree bindings for the RISC-V Platform Management Interface
+(RPMI) voltage service group, both for the supervisor-facing regulator
+controller and for the SBI MPXY channel which the SBI implementation
+uses to expose the service group.
 
-This series adds supervisor-side support for that service group:
+Signed-off-by: Joshua Yeong <joshua.yeong@starfivetech.com>
+---
+Based on the RPMI device power series ("Add RISC-V RPMI device power
+service support"), which has been applied for next. The cover letter
+links the mail saying so.
 
- - DT bindings for the regulator controller exposed to the supervisor
-   ("riscv,rpmi-voltage") and for the SBI MPXY channel that the SBI
-   implementation uses to expose the service group to the supervisor
-   ("riscv,rpmi-mpxy-voltage"). The name, level format, supported
-   levels and always-on capability of each domain are discovered at
-   runtime, so none of them is described in DT. A consumer names a
-   domain through a "<name>-supply" phandle to a child of the optional
-   "regulators" container, whose "reg" is the RPMI DOMAIN_ID. A child
-   may also give the board's regulator-min-microvolt and
-   regulator-max-microvolt, which the PuC has no way to express.
-
- - A regulator driver, drivers/regulator/riscv-rpmi-regulator.c, which
-   talks to the PuC over an SBI MPXY mailbox channel. At probe it
-   checks the RPMI and service group versions, queries
-   VOLT_GET_NUM_DOMAINS, then for each domain VOLT_GET_ATTRIBUTES and
-   VOLT_GET_SUPPORTED_LEVELS and registers it as a regulator. Both
-   level formats the specification defines are supported: discrete
-   levels become a voltage table and linear (min, max, step) ranges
-   become linear ranges. The constraints are built from the discovered
-   levels and the always-on flag, with the transition latency as the
-   settling time, and a DT child can only narrow them. Enable and
-   disable go through VOLT_SET_CONFIG and voltage selection through
-   VOLT_SET_LEVEL and VOLT_GET_LEVEL.
-
- - A MAINTAINERS update adding the driver and its bindings to the RPMI
-   device power entry, renamed "RISC-V RPMI DEVICE POWER AND VOLTAGE
-   DRIVERS".
-
-The series has a prerequisite: the RPMI device power series ("Add
-RISC-V RPMI device power service support"), which has been applied for
-next:
-
-  https://lists.infradead.org/pipermail/linux-riscv/2026-September/099498.html
-
-Patch 2 needs it for include/linux/mailbox/riscv-rpmi-message.h, where
-the voltage service group definitions are added next to the device
-power ones that series introduces. Patch 3 also extends the MAINTAINERS
-entry it adds. The base-commit and prerequisite-patch-id lines below
-identify the tree the series applies to.
-
-Changes in v4:
- - Serialise the RPMI transactions on the mailbox channel with a mutex.
-   All the regulators of one controller share the channel, and the
-   client does not block on transmit, so two regulator operations
-   running at once could queue the second message behind the first and
-   return, freeing the on-stack message, before it was sent. Reported
-   by the Sashiko review of v3.
- - The other point in that review, that mpxy_reg_set_voltage_sel()
-   rejects a 0 uV level, is left as is: the regulator core reads 0 uV
-   from list_voltage() as a selector that cannot be used, and rejects
-   voltage constraints whose minimum is 0 uV.
-
-   The bindings and the MAINTAINERS patch are unchanged from v3.
-
-v1: https://lore.kernel.org/r/20260922161156.1088153-1-joshua.yeong@starfivetech.com
-v2: https://lore.kernel.org/r/20260923070014.1340761-1-joshua.yeong@starfivetech.com
-v3: https://lore.kernel.org/r/20261006083259.2206001-1-joshua.yeong@starfivetech.com
-
-Testing
-=======
-
-The series was tested under QEMU with the RPMI voltage service
-implemented in firmware.
-
-Components:
-
- - OpenSBI: v1.9
-   https://github.com/riscv-software-src/opensbi
-
- - QEMU: the RPMI-enabled tree at
-   https://github.com/yeongjoshua/qemu/tree/rpmi-v11.1.0
-
-Kernel config: enable CONFIG_REGULATOR_RISCV_RPMI (default y on RISC-V
-when MAILBOX is enabled) along with the SBI MPXY mailbox driver.
-
-Run with:
-
-  qemu-system-riscv64 \
-      -M virt -m 2G -smp 4 \
-      -bios fw_dynamic.bin \
-      -kernel Image \
-      -M rpmi=true \
-      -nographic \
-      -initrd rootfs-busybox.cpio \
-      -append "root=/dev/ram rw console=ttyS0,115200 no_console_suspend mem=2048M earlycon=uart8250,mmio,0x10000000"
-
-The emulated PuC advertises eight voltage domains, covering both level
-formats, always-on and switchable domains, and domains the board
-constrains in DT. They show up under /sys/class/regulator/ and in
-/sys/kernel/debug/regulator/regulator_summary. Consumer test drivers,
-kept out of this series, walked each domain to its highest and lowest
-level, switched the switchable ones off and back on, and checked board
-ranges and requests from several consumers sharing a rail, each naming
-it through "<name>-supply", including requests carried by an OPP table.
-All checks passed.
-
-Joshua Yeong (3):
-  dt-bindings: regulator: Add RPMI voltage service bindings
-  regulator: Add RPMI voltage service
-  MAINTAINERS: Add RISC-V RPMI voltage driver
-
- .../regulator/riscv,rpmi-mpxy-voltage.yaml    |  65 ++
- .../regulator/riscv,rpmi-voltage.yaml         | 130 +++
- MAINTAINERS                                   |   5 +-
- drivers/regulator/Kconfig                     |  14 +
- drivers/regulator/Makefile                    |   1 +
- drivers/regulator/riscv-rpmi-regulator.c      | 908 ++++++++++++++++++
- include/linux/mailbox/riscv-rpmi-message.h    |  14 +
- 7 files changed, 1136 insertions(+), 1 deletion(-)
+ .../regulator/riscv,rpmi-mpxy-voltage.yaml    |  65 +++++++++
+ .../regulator/riscv,rpmi-voltage.yaml         | 130 ++++++++++++++++++
+ 2 files changed, 195 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/regulator/riscv,rpmi-mpxy-voltage.yaml
  create mode 100644 Documentation/devicetree/bindings/regulator/riscv,rpmi-voltage.yaml
- create mode 100644 drivers/regulator/riscv-rpmi-regulator.c
 
-
-base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
-prerequisite-patch-id: 907ffadca74a65c93ad38f428e002d2b34341067
-prerequisite-patch-id: 5a4df94e66de2f63697891a0f1382fabd9df7b6f
-prerequisite-patch-id: 0827a7050d08fea7deaab8e82f2dd16acdca507d
+diff --git a/Documentation/devicetree/bindings/regulator/riscv,rpmi-mpxy-voltage.yaml b/Documentation/devicetree/bindings/regulator/riscv,rpmi-mpxy-voltage.yaml
+new file mode 100644
+index 000000000000..8cc53879cdf9
+--- /dev/null
++++ b/Documentation/devicetree/bindings/regulator/riscv,rpmi-mpxy-voltage.yaml
+@@ -0,0 +1,65 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/regulator/riscv,rpmi-mpxy-voltage.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: RISC-V RPMI voltage service group based message proxy
++
++maintainers:
++  - Joshua Yeong <joshua.yeong@starfivetech.com>
++
++description: |
++  The RISC-V Platform Management Interface (RPMI) [1] defines a
++  messaging protocol which is modular and extensible. The supervisor
++  software can send/receive RPMI messages via SBI MPXY extension [2]
++  or some dedicated supervisor-mode RPMI transport.
++
++  The RPMI specification [1] defines voltage service group for accessing
++  and controlling the voltage domains managed by a platform
++  microcontroller. The SBI implementation (machine mode firmware or
++  hypervisor) can implement an SBI MPXY channel to allow RPMI voltage
++  service group access to the supervisor software.
++
++  ===========================================
++  References
++  ===========================================
++
++  [1] RISC-V Platform Management Interface (RPMI) v1.0 (or higher)
++      https://github.com/riscv-non-isa/riscv-rpmi/releases
++
++  [2] RISC-V Supervisor Binary Interface (SBI) v3.0 (or higher)
++      https://github.com/riscv-non-isa/riscv-sbi-doc/releases
++
++properties:
++  compatible:
++    description:
++      Intended for use by the SBI implementation.
++    const: riscv,rpmi-mpxy-voltage
++
++  mboxes:
++    maxItems: 1
++    description:
++      Mailbox channel of the underlying RPMI transport.
++
++  riscv,sbi-mpxy-channel-id:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      The SBI MPXY channel id to be used for providing RPMI access to
++      the supervisor software.
++
++required:
++  - compatible
++  - mboxes
++  - riscv,sbi-mpxy-channel-id
++
++additionalProperties: false
++
++examples:
++  - |
++    voltage-service {
++        compatible = "riscv,rpmi-mpxy-voltage";
++        mboxes = <&rpmi_shmem_mbox 0x7>;
++        riscv,sbi-mpxy-channel-id = <0x1004>;
++    };
++...
+diff --git a/Documentation/devicetree/bindings/regulator/riscv,rpmi-voltage.yaml b/Documentation/devicetree/bindings/regulator/riscv,rpmi-voltage.yaml
+new file mode 100644
+index 000000000000..3be47703af5b
+--- /dev/null
++++ b/Documentation/devicetree/bindings/regulator/riscv,rpmi-voltage.yaml
+@@ -0,0 +1,130 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/regulator/riscv,rpmi-voltage.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: RISC-V RPMI voltage service group based regulator controller
++
++maintainers:
++  - Joshua Yeong <joshua.yeong@starfivetech.com>
++
++description: |
++  The RISC-V Platform Management Interface (RPMI) [1] defines a
++  messaging protocol which is modular and extensible. The supervisor
++  software can send/receive RPMI messages via SBI MPXY extension [2]
++  or some dedicated supervisor-mode RPMI transport.
++
++  The RPMI specification [1] defines voltage service group for accessing
++  and controlling the voltage domains managed by a platform
++  microcontroller. The supervisor software can access RPMI voltage
++  service group via SBI MPXY channel or some dedicated supervisor-mode
++  RPMI transport.
++
++  The voltage domains are discovered at runtime from the platform
++  microcontroller, which reports the name, the level format, the supported
++  levels and the always-on capability of each one, so none of that is
++  described here.
++
++  A consumer names a domain through a "<name>-supply" phandle to a child of
++  the optional "regulators" container, whose "reg" is the domain's RPMI
++  DOMAIN_ID. A domain without such a child is still registered, but has no
++  node for a consumer to point at:
++
++    codec {
++            compatible = "vendor,codec";
++            vdd-supply = <&volt2_reg>;
++    };
++
++  A child may also say what the board permits the rail to supply, which the
++  platform microcontroller has no way to express. A child that gives no
++  voltage constraint leaves the rail free to move within the levels the
++  domain advertises.
++
++  ===========================================
++  References
++  ===========================================
++
++  [1] RISC-V Platform Management Interface (RPMI) v1.0 (or higher)
++      https://github.com/riscv-non-isa/riscv-rpmi/releases
++
++  [2] RISC-V Supervisor Binary Interface (SBI) v3.0 (or higher)
++      https://github.com/riscv-non-isa/riscv-sbi-doc/releases
++
++properties:
++  compatible:
++    description:
++      Intended for use by the supervisor software.
++    const: riscv,rpmi-voltage
++
++  mboxes:
++    maxItems: 1
++    description:
++      Mailbox channel of the underlying RPMI transport or SBI message proxy channel.
++
++  regulators:
++    type: object
++    additionalProperties: false
++    description:
++      Optional container giving discovered domains a node of their own, for
++      consumers to reference and for board level constraints.
++
++    properties:
++      "#address-cells":
++        const: 1
++
++      "#size-cells":
++        const: 0
++
++    patternProperties:
++      "^regulator@[0-9a-f]+$":
++        type: object
++        $ref: regulator.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          reg:
++            maxItems: 1
++            description:
++              RPMI DOMAIN_ID of the voltage domain this node describes.
++
++        required:
++          - reg
++
++    required:
++      - "#address-cells"
++      - "#size-cells"
++
++required:
++  - compatible
++  - mboxes
++
++additionalProperties: false
++
++examples:
++  - |
++    rpmi-voltage {
++        compatible = "riscv,rpmi-voltage";
++        mboxes = <&mpxy_mbox 0x1004 0x0>;
++
++        regulators {
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            // A node only so that a consumer can name the domain with a
++            // "<name>-supply". Its voltage stays free to move within the
++            // advertised levels.
++            volt1_reg: regulator@1 {
++                reg = <1>;
++            };
++
++            // A board level constraint. Equal bounds pin the rail, so the
++            // supervisor applies 1.8V and refuses to move it afterwards.
++            volt2_reg: regulator@2 {
++                reg = <2>;
++                regulator-min-microvolt = <1800000>;
++                regulator-max-microvolt = <1800000>;
++            };
++        };
++    };
++...
 -- 
 2.43.0
 
