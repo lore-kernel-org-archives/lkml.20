@@ -1,125 +1,223 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AAE2D39EF0F
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 16:40:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F3F6385503
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 16:43:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791391207; cv=none; b=APHovhO97DjtIqy6YJDpWfpMY2U6LhLN+1E+Su9cAh8dpX2zZcAqC28G0pbt5j6rzuUGjPcGX+DiIq/azP/3z4k7KN2vM8PVQruzwJONBS9hYGnuNtpE+d/MnMOCD81rJOpafIZzhXm8gh4e40betB5er2vIFdGQcb9cZMcFUYY=
+	t=1791391407; cv=none; b=IgeI7xMPkiqG3ZfiII12PeTg8JmR9mLch+UUnWvAylJPntdUaM/dNZEvMi5dYgMzLanUBZ7PdmQXjuB6xi1mmBO0yR/aJen+jzumargxH1kurEyiezERIfAAo6Sox4FNOJlUdodv2xFepojrKnW12By3NPW42jU2c9WnjCNju+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791391207; c=relaxed/simple;
-	bh=RsIlUhbc158q92/khn0EiHUvOM1rXiYQlXQLjAYxhwM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=B10I7IYIhw6L7XQDbBqH4G+re0axoLPZlUHrkxl8/eqG8xHfAMJSscEy1LWj1+jrha6eupl7eOW6ZblROZKfhn9Yd2/kSV/70mHkvDCyABf0lq2FAtcysLWUpoLYtG/iuH80op3SFYGldv3kJ2R/cuMiJEf5nd1Pfpt0a2Cp784=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=m1KTjd4I; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791391407; c=relaxed/simple;
+	bh=WuXXhpmjZm8njkmGlYAovirD4wrKxVKLtTAj7ZR/P9w=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=S2zOFqC3mjfoG0T5/spCKFBxNLAtbLaaz/f6nnNyR9TZF9ZtuNDKfgEdDmr1v6yy5IV5GiiNOyJhIIC29wiiu7kxYQwI0xKr+g71VRuYzvpiBlTFNV7TcB4aXZsB/KA0h9BtZtWF/db02ec7FKRpniS1+5q/aaM712R7TinLRmU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jfDt0ZUa; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="m1KTjd4I"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8FB7F1595;
-	Wed,  7 Oct 2026 09:40:01 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4AE1A3F763;
-	Wed,  7 Oct 2026 09:40:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791391204; bh=RsIlUhbc158q92/khn0EiHUvOM1rXiYQlXQLjAYxhwM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=m1KTjd4IbrVvo4Jn+1KiWqZ+1amstNgSAC4kx26kLFrJLx7Br2Ezd7m5Qs5gB+4Dj
-	 iLXs7Wonp73ii65YHcN+5g1IMI6sI3tTq6z8PsBPDxKdEkxGlhO7NR+nAFPVHgsVYy
-	 6k9Ml23TjlULpXp6wmv0RB8GZZOqAmEFcMDlycow=
-Message-ID: <ae8db5bf-9f9e-4f0d-afa1-91718323568e@arm.com>
-Date: Wed, 7 Oct 2026 17:39:58 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jfDt0ZUa"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a0213948d3so13630705e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 09:43:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791391404; x=1791996204; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0RlhzqoT3cJ+6lZeccmZxuRb0fn+HLK2OHg/odNv83M=;
+        b=jfDt0ZUaLaqfIgjTSCBVbDFPYZlVdkyvubwuDg4yWzZxVKJaMujB4SRh5Pz7Ud7VhS
+         8PDk0S3lRpmrKQVkySEGq8w0hVBGzFUvki0s5X6Acnuo5nT10A+fUnxOtLcprtSgz0if
+         mmgb2a3jvCixjdm89BBgNcHOn2rCA7zSDMTHsSsxIkUvCbDhiH2M8D7rjYmyRH0scY8y
+         kpLB+NAn2wO0Y58KvDbv58ps4yao1jn0qDG7QNn4X54UIl+i43FdLZMcyhXpqoxmuHkz
+         0s9j3c4fsHx6+Ft0R40IOj8cysAfrmtnw7tO5RA/Ty7O4wXloL23DeW++rNkEtMR0oKk
+         nA/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791391404; x=1791996204;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0RlhzqoT3cJ+6lZeccmZxuRb0fn+HLK2OHg/odNv83M=;
+        b=bDBA0gBlI4P6YTVydfPSgx6wnV9HScOtpveW3ZSNzE75q/dmpa28yuR0u5H2X5yK6s
+         QOQNpFwJsUJji4dZ3xqt8wGQdRNXApy0lzPXf27dNr1N2X9409dBXX+dRq2soq35Kc4Q
+         EqsU7v+FgPAzPh7/c4cnUO/PinHu5lkEq/V/9r1kMJCHW4oJuLXoob4hzOD0aa1k3Ngl
+         lP84kJ8mPFHrbXC0xSFv36Sb/5vyn+jO03jGBr6HoIh3MDqLSkwp3TrPou63nyr+SAKi
+         QXmTVU3QtjmSwOy1fRutbqRpzQCGbGED5Xh7fbaKvrU5OVjacJBsTE/IHOHyfIxmo8uD
+         4y2Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwSi0GAZYi4dviLf9wpllUBne2aReW8uSy8B6lweJ1cBRNNlwU6L/oF9St6BQY8Pp8OWtoJf3SqRB5Pvwg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lj846PwPYIHLYXZqVJtl2xLbpgQ/5qlymhPaWxb83VpjGDkM3u
+	u0NKHO0kVKa/b5woBga87PAKdArzOcCHIjLd/vzAVMZHNph2m5b8KDxr
+X-Gm-Gg: AYBFou0QNzClp/CRHT1gvw6EIhJD68GHQkYUhMhSsAgP+Hk7jqYj6mpJ9blOqqZu28Z
+	5SOecBXhuShsJfUxkaPTZihgkvjJ5y/U22gaXY6jG1L0Y93Scy63He01Dext4hsI3DKEJ005Cxt
+	31PC3MsTW+DoUjR3LTvgBy+Vjxnuz6WMzaIlGppujNSTYjHo15AQvICGasQ5IGl9vM+v+6ozGK+
+	sfNKzWoKWS4mqDozdToiYQtvJSD0Hp0F29AMOW8Uvydu+szSmrYupvJhxNFoWx/epTz3tdMVAr1
+	I+w7VPifDN7yTH31Dt00KSPBiko/c5hDWavDRh4Smmtn9eUF5UV5FJu7d5zVyHSf252GTrC2dvP
+	3EyPgopiaH1SxFHur2aaPb8qrslSFJnULwDM9zuIAF9jVvmMdhFEZ86iu1QRGpgSIpF1WHGfICk
+	Bln9FDK7eAGXMBGkOG1r6JoOGHjXICB1aspyJfUlURwt9I5X+sq+Dn2lvvQUhTy1gQTiGvhHDVb
+	wWdk+QuBIVG/rUxix1NFBICwmL6jMUYITARdLb0h9kx/0My7wWK
+X-Received: by 2002:a05:600c:1c03:b0:49f:ff32:803c with SMTP id 5b1f17b1804b1-4a180423bd2mr56190855e9.16.1791391404162;
+        Wed, 07 Oct 2026 09:43:24 -0700 (PDT)
+Received: from ptb-02009389.paris.inria.fr (wifi-pro-83-031.paris.inria.fr. [128.93.83.31])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d2eeb6sm6373096f8f.43.2026.10.07.09.43.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 09:43:23 -0700 (PDT)
+From: Ella Ma <alansnape3058@gmail.com>
+To: julia.lawall@inria.fr
+Cc: alansnape3058@gmail.com,
+	cocci@inria.fr,
+	linux-kernel@vger.kernel.org,
+	nicolas.palix@imag.fr
+Subject: [PATCH v3] coccinelle: free: add a checker for `__cleanup(kfree)` usage
+Date: Wed,  7 Oct 2026 18:43:16 +0200
+Message-Id: <20261007164316.15102-1-alansnape3058@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <ec578f57-a7f5-7afc-ec2-9156c336187@inria.fr>
+References: <ec578f57-a7f5-7afc-ec2-9156c336187@inria.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] iommu/arm-smmu-v3: Align memory attributes for
- SMMU-originated accesses
-To: Daniel Mentz <danielmentz@google.com>
-Cc: iommu@lists.linux.dev, will@kernel.org, joro@8bytes.org,
- nicolinc@nvidia.com, smostafa@google.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- dawei.li@linux.dev, jgg@ziepe.ca, praan@google.com
-References: <20261004195027.227748-1-danielmentz@google.com>
- <92758f79-d5b7-4c15-a55d-6bea5f84a028@arm.com>
- <CAE2F3rAJdC9pAqMKcXhxpw1keGzH_kQUNBoPHXjTP8+7TOhfwQ@mail.gmail.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <CAE2F3rAJdC9pAqMKcXhxpw1keGzH_kQUNBoPHXjTP8+7TOhfwQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 05/10/2026 10:26 pm, Daniel Mentz wrote:
-> On Mon, Oct 5, 2026 at 9:42 AM Robin Murphy <robin.murphy@arm.com> wrote:
->> This still isn't answering the question of "why?" though. Yes the
->> architecture says some things, but if we were strict about avoiding
->> mismatched attributes then Linux couldn't ever support non-coherent DMA
->> at all! Similarly while the architecture does permit SMMU
->> implementations to be picky about their output attributes, does any such
->> implementation actually exist at all, let alone in a system capable of
->> running mainline Linux?
-> 
-> Fair point that existing implementations have been forgiving in
-> practice. My thinking here is simply that a small, self-contained
-> cleanup that brings the driver into line with the architecture spec is
-> worthwhile on its own merits, even without a known implementation where
-> this currently causes problems.
-> 
-> This is really in the same spirit as your commit 7618e4790982
-> ("iommu/io-pgtable-arm: Improve attribute handling"), which aligned the
-> attribute handling with the architecture specification on the basis
-> that:
-> 
->    "Although the SMMU architectures seem to give some slightly stronger
->     guarantees of Non-Cacheable output types becoming implicitly Outer
->     Shareable in most cases, we may as well be explicit and not take any
->     chances."
+Using __cleanup(kfree) will pass the stack address of the annotated
+local variable to kfree functions. This will lead to invalid
+deallocation issues. Inspired by CVE-2026-45959 and similar bugs
+recently detected.
 
-That was more about being self-consistent and technically compliant with 
-VMSAv7, which again is not relevant to SMMUv3. In fact if we _only_ had 
-to support SMMUv3 and not arbitrary other io-pgtable users then we could 
-point to 13.1.7 "Ensuring consistent output attributes" to prove that 
-that change would not have been necessary.
+Signed-off-by: Ella Ma <alansnape3058@gmail.com>
+---
 
-> As I noted in my reply on the v1 thread [1], under ARM IHI 0070
-> (sections 3.15, 6.3.11, and 13.1.2), a non-coherent SMMUv3
-> implementation (SMMU_IDR0.COHACC == 0) in which every SMMU-originated
-> access configured with Normal Write-Back, Inner Shareable attributes
-> fails and records an External Abort (F_STE_FETCH, F_CD_FETCH,
-> CERROR_ABT, etc.) is completely architecturally compliant, yet wouldn't
-> work with the current arm-smmu-v3 driver.
+Changes in v2:
+- Add virtual rules `report` and `org` as suggested by Sashiko
+- Remove `kvfree_sensitive` from rule `cleanup` as suggested by Sashiko
+- Add `free_percpu` to rule `free`
+- Add `kfree_const` to rule `cleanup`
 
-Sure, and another system could only support iNC-oWB, wherein this change 
-still wouldn't work. If you want to argue against making assumptions 
-about the implementation/interconnect, you can't simply make a slightly 
-different assumption about the implementation/interconnect ;)
+Changes in v3:
+- Edit the error messages to clarify the reasons and results
 
-In fact for maximum fun, you could even have an interconnect that only 
-supports the iWB-oWB-ISH type, but the SMMU is still non-coherent since 
-it's in a _different_ inner shareability domain from the CPUs...
+ scripts/coccinelle/free/cleanup-free.cocci | 112 +++++++++++++++++++++
+ 1 file changed, 112 insertions(+)
+ create mode 100644 scripts/coccinelle/free/cleanup-free.cocci
 
-Yes, 13.1.2 "Attribute support" says that the system may not support all 
-memory types, and unsupported ones may abort, but then equally it says 
-"[...] the SMMU is not required to generate attributes that it does not 
-use. With the exception of R/W, INST, and PRIV all configuration fields 
-that affect unused attributes are IGNORED." And this is why the 
-mismatched attributes argument doesn't stand up on its own - without 
-knowing the system-specific details of exactly what is being ignored 
-from what we think we've programmed, how can we say what the actual 
-attributes used to access memory really are, and thus what is or isn't 
-mismatched?
-
-Thanks,
-Robin.
-
-> It seems reasonable to be explicit here too and program attributes that
-> are valid per the spec, rather than relying on the interconnect to
-> silently degrade Write-Back attributes to Non-Cacheable.
-> 
-> [1] https://lore.kernel.org/linux-iommu/CAE2F3rACz6Z7X3NNfLWEfjTD9K9YJyYHHyGzcBafEemTFGhgqQ@mail.gmail.com/
-> 
-> Thanks,
-> Daniel
+diff --git a/scripts/coccinelle/free/cleanup-free.cocci b/scripts/coccinelle/free/cleanup-free.cocci
+new file mode 100644
+index 000000000000..48e47ed2186a
+--- /dev/null
++++ b/scripts/coccinelle/free/cleanup-free.cocci
+@@ -0,0 +1,112 @@
++// SPDX-License-Identifier: GPL-2.0-only
++///
++/// Find __cleanup(kfree)
++/// Using __cleanup(kfree) will pass the stack address of the annotated
++/// local variable to kfree, causing an invalid free.
++/// I.e., `T v __cleanup(kfree);` --> `kfree(&v);`
++/// Such usage is impossible to be correct.
++///
++// Confidence: High
++// Copyright: (C) 2026 Ella Ma
++// Options: --no-includes --include-headers
++
++virtual report
++virtual org
++
++// Suggesting using __free for the functions with a DEFINE_FREE definition.
++// Update this list when new DEFINE_FREE definitions are added.
++@free@
++attribute name __cleanup;
++symbol kfree, kfree_sensitive, kvfree, kvfree_atomic, free_percpu;
++type T;
++identifier v, n;
++position p;
++@@
++
++(
++  T v __cleanup@p(
++(
++  n
++&
++(
++  kfree \| kfree_sensitive \| kvfree \| kvfree_atomic \| free_percpu
++)
++)
++  );
++|
++  T v __cleanup@p(
++(
++  n
++&
++(
++  kfree \| kfree_sensitive \| kvfree \| kvfree_atomic \| free_percpu
++)
++)
++  ) = ...;
++)
++
++@script:python depends on report@
++p << free.p;
++n << free.n;
++@@
++
++msg = f"ERROR: __cleanup({n}) will cause an invalid free: the stack address of the annotated variable will be passed to {n}; use __free({n}) to free the pointee"
++coccilib.report.print_report(p[0], msg)
++
++@script:python depends on org@
++p << free.p;
++n << free.n;
++@@
++
++msg = f"ERROR: __cleanup({n}) will cause an invalid free: the stack address of the annotated variable will be passed to {n}; use __free({n}) to free the pointee"
++coccilib.org.print_todo(p[0], msg)
++
++
++// Reporting __cleanup usage for the functions without a DEFINE_FREE definition.
++// The following list only contains frequently used functions. Supplement it if
++// necessary.
++@cleanup@
++attribute name __cleanup;
++symbol vfree, vfree_atomic, kfree_const;
++type T;
++identifier v, n;
++position p;
++@@
++
++(
++  T v __cleanup@p(
++(
++  n
++&
++(
++  vfree \| vfree_atomic \| kfree_const
++)
++)
++  );
++|
++  T v __cleanup@p(
++(
++  n
++&
++(
++  vfree \| vfree_atomic \| kfree_const
++)
++)
++  ) = ...;
++)
++
++@script:python depends on report@
++p << cleanup.p;
++n << cleanup.n;
++@@
++
++msg = f"ERROR: __cleanup({n}) will cause an invalid free: the stack address of the annotated variable will be passed to {n}"
++coccilib.report.print_report(p[0], msg)
++
++@script:python depends on org@
++p << cleanup.p;
++n << cleanup.n;
++@@
++
++msg = f"ERROR: __cleanup({n}) will cause an invalid free: the stack address of the annotated variable will be passed to {n}"
++coccilib.org.print_todo(p[0], msg)
+-- 
+2.34.1
 
