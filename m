@@ -1,84 +1,105 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48110372B27;
-	Wed,  7 Oct 2026 02:38:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5854D2192FA
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 02:41:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791340722; cv=none; b=CYghu+xShNas6TlTTGDbmCccd7G/9/n6Z1cn07nuWGkJ4Xt291ewj5O5eTS2aSLJKlq19aBB8voFl4MfXANrzi6ABOlCWUh0pQDedlUGAak2SUPbcC5q2nqgqqoT9iKYV7bvmSNolANfgJp2hUig+qrqie/G5GDy5gG4pikfWAs=
+	t=1791340919; cv=none; b=fyw2fziH8aGetCy2Gt3uAvANFDVSIH/yvPCRkz7ctVR3ewgOicuga0m+HV11ZKIIixhULDo1LmOgPI+Yk5ps25T5DtGXlRaRHknj3eabqEIUlqN1KV90tVi7PRjqjlmisqiyOkADJhmPIYxw/ewt8UrpQVbhewt5rVebCmBp3is=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791340722; c=relaxed/simple;
-	bh=pY0D9PZc1wydT4nIKHFpgrQLiNhPGa/AgpCl4L9vi98=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Gay7ahXEdPjWE4L99i73VPfjv45clg4ZLol1t6esvIxK2qhXu+5vxdntj48myaOiZX1s1YG0QM1+zu1er8w4VRxMzvSvhq6dqp6Wm2/8SWMJl7Ofsp/xiFSdMuYH0YS0SBed8GiEGx8frZK30TkNevYdgA/C2vE4zdIG5Ir17hk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=vn2jTXjK; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1791340919; c=relaxed/simple;
+	bh=s760qSaiBVVuc/LlAknuKVghmlM0TMznspZHDm1DREY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AK1L/yLDAyiBD08h3/82iTMwBHIW/Lh4vyc1hqAVNtLe1CtArLH/qbIOGb3WJnLpLQehmwhIAjB1kRonN3k02y19GI1hDl5qaIR/Yf9xi7EtZzydQ2fPuX1v3wPc/cc1TbrhXYK55eBUlC7iJzqbNQr2Sf1z801WLWc9mPBp5As=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=aw1QVinr; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="vn2jTXjK"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6972cTzuD3469241, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1791340710; bh=pY0D9PZc1wydT4nIKHFpgrQLiNhPGa/AgpCl4L9vi98=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=vn2jTXjKZpiyDAPUGpzElO5i0ue4waJnspjAk5GILFT2YDYIvucUNc+PdOQcd4LN+
-	 5zoGprvL0qs8VDUIHcLyAfjsCzKIGqbphNzPS+vzlSbqXF/DbHEjBO+5wMFXwljJLr
-	 8wK4WEZxuhyblFZ6PkoyBCj6h8ZZbPC4nXVH0gaUtrqJEYIUObIA62He9KdthIN1dm
-	 Q+50TtoRX2Or4xT6Tytwx+bZhAl8hMJmmr+ZEfL+KnlD4tnu8f0Kac4/0pwkUy5j/p
-	 p7US8RFFrYfcvDVeLsp92GrxPZxiEQsKXSdICfnt+sgom2dIqS6buPMBFJi5cMj6Yf
-	 5XZmYHpCYc9WA==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6972cTzuD3469241
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Wed, 7 Oct 2026 10:38:29 +0800
-Received: from RTKEXHMBS01.realtek.com.tw (172.21.6.40) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 7 Oct 2026 10:38:30 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS01.realtek.com.tw (172.21.6.40) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 7 Oct 2026 10:38:29 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Wed, 7 Oct 2026 10:38:29 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Luka Gejak <luka.gejak@linux.dev>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
- Straube" <straube.linux@gmail.com>, Peter Robinson <pbrobinson@gmail.com>,
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>
-Subject: RE: [PATCH rtw-next v8 4/7] wifi: rtw88: move the shared 8723x
- definitions to rtw8723x.h
-Thread-Topic: [PATCH rtw-next v8 4/7] wifi: rtw88: move the shared 8723x
- definitions to rtw8723x.h
-Thread-Index: AQHdVZOiyhDtsV7kmk2LB78/adC2r7bxXpdA
-Date: Wed, 7 Oct 2026 02:38:29 +0000
-Message-ID: <cee0667e22ae48b7a707000615825e37@realtek.com>
-References: <20261006130701.120460-1-luka.gejak@linux.dev>
- <20261006130701.120460-5-luka.gejak@linux.dev>
-In-Reply-To: <20261006130701.120460-5-luka.gejak@linux.dev>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="aw1QVinr"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 136BF152B;
+	Tue,  6 Oct 2026 19:41:52 -0700 (PDT)
+Received: from localhost (a085714.arm.com [10.164.19.28])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C0AB63F86F;
+	Tue,  6 Oct 2026 19:41:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791340915; bh=s760qSaiBVVuc/LlAknuKVghmlM0TMznspZHDm1DREY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=aw1QVinr2aO2c2FZnGj7T7Kqjx9TOzGUooCiuw2agzb1q4f/FKMKf13h2fkYMtblQ
+	 MBrdedFXgG4ie9YnrLy1Nkc8/1quegvgmIIJkrQ5/A/44y3he0uM8VSA20x9PXwziZ
+	 PwAKmcDr6d3jYWiZhWfNFUOp2n0arCI2kMqgP0Ww=
+Date: Wed, 7 Oct 2026 08:11:52 +0530
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, Will Deacon <will@kernel.org>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Mark Rutland <mark.rutland@arm.com>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Linu Cherian <linu.cherian@arm.com>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	kasan-dev@googlegroups.com
+Subject: Re: [PATCH V3 1/4] arm64/mm: Use pmdp_get() for PMD accesses
+Message-ID: <lqjq64vw6mlm27kp6ffms6auerj67avecc4ongedouumsrspjh@2f2eblm7wi4u>
+References: <20260924062214.1635078-1-anshuman.khandual@arm.com>
+ <20260924062214.1635078-2-anshuman.khandual@arm.com>
+ <asPCv5Icdm7Z9mWF@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <asPCv5Icdm7Z9mWF@arm.com>
 
-Luka Gejak <luka.gejak@linux.dev> wrote:
-> The RTL8723B driver needs the receive PHY status layout, the SDIO
-> aggregation burst fields and four baseband registers, which currently
-> live in rtw8703b.h. Move them to rtw8723x.h, the header for the
-> definitions shared within the family, and rename struct phy_status_8703b
-> to struct phy_status_8723x. The layout is called phy_status_rpt_8192cd in
-> the vendor driver. This is not a logical change.
->=20
-> Signed-off-by: Luka Gejak <luka.gejak@linux.dev>
+On Mon, Oct 05, 2026 at 04:31:28PM +0100, Catalin Marinas wrote:
+> On Thu, Sep 24, 2026 at 11:52:11AM +0530, Anshuman Khandual wrote:
+> > diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
+> > index 763c5a411d64..9ad2d03e86ad 100644
+> > --- a/arch/arm64/include/asm/pgtable.h
+> > +++ b/arch/arm64/include/asm/pgtable.h
+> > @@ -84,6 +84,12 @@ static inline void arch_leave_lazy_mmu_mode(void)
+> >  	arch_flush_lazy_mmu_mode();
+> >  }
+> >  
+> > +#define pmdp_get pmdp_get
+> > +static inline pmd_t pmdp_get(pmd_t *pmdp)
+> > +{
+> > +	return READ_ONCE(*pmdp);
+> > +}
+> 
+> This is the same as the generic version. Does it need redefining?
 
-Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+Without this pmdp_get() override, replacing READ_ONCE() in pmdp_test_and_clear_young()
+with pmdp_get() causes a build failure as pmpd_get() which is defined in the generic
+pgtable header is not visible from inside platform specific pgtable header, even with
+a forward declaration.
 
+Earlier had moved pmdp_test_and_clear_young() inside arch/arm64/mm/mmu.c to avoid the
+above described dependency problem. But then realised that pmdp_get() gets eventually
+overridden on arm64 platform for D128, why not just redefine here it now as standard
+READ_ONCE() to avoid the current build problem and the code movement.
 
+Please find some context here from earlier discussions during V2.
+
+https://lore.kernel.org/all/212067fe-1b16-4b87-87a7-4ce50847eb24@arm.com/
+
+> 
+> > +
+> >  #ifdef CONFIG_TRANSPARENT_HUGEPAGE
+> >  #define __HAVE_ARCH_FLUSH_PMD_TLB_RANGE
+> >  
+> > @@ -811,7 +817,8 @@ static inline unsigned long pmd_page_vaddr(pmd_t pmd)
+> >  }
+> >  
+> >  /* Find an entry in the third-level page table. */
+> > -#define pte_offset_phys(dir,addr)	(pmd_page_paddr(READ_ONCE(*(dir))) + pte_index(addr) * sizeof(pte_t))
+> > +#define pte_offset_phys(dir, addr)	(pmd_page_paddr(pmdp_get(dir)) + \
+> > +					 pte_index(addr) * sizeof(pte_t))
+> 
+> Why not make this change in the generic version?
+
+Could you please elaborate on this ? pte_offset_phys() is arm64 specific helper which
+is also local to this header file. AFAICT there is no generic version for this helper.
+
+> 
+> -- 
+> Catalin
