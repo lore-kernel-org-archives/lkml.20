@@ -1,159 +1,107 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DB9C4A092B;
-	Wed,  7 Oct 2026 12:31:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65E143C0A02
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 12:31:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791376318; cv=none; b=a7ROPbc6r7PtIl7QqSk97yjH/cxlkpje1hX4rX70So5LU434jVC1OTq8k5KMJaZtNG3V3nqz5l9MTQB+jHHY70B9r+ZQo/k7HqgdAdSZ7Et1YPBVHWG7LiLuBt7UULCVwknUL6O+LrdmiVe2o35ec6DNCCIGK5YHMT+/VZKBhBY=
+	t=1791376321; cv=none; b=gn5iOSsz4Ti4RayPR60bGR9/GrwglCOs8MTXcW6EqXAbis3KOPhPEJtULhBDewl0ee48zZiKgaGJ349X4u1+1wCSKdbPMzYcjvgI4u7WtredXA/KtrqHM68od5i2JNyHQkhW1gidoKl2kWXHgtrc7afKbeFDbD0ehrcO/plXcaA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791376318; c=relaxed/simple;
-	bh=eBnnQRq2DKsdnRzMGmwNU5Xgqrwxyv4PHNHd4aEFtWA=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=SMAf3mCMYOVCJYG124HKq1WMHpbdw+vpQu7qC7g8nmL9qa52Mhn821u97yS+NmuWKxbFtU3/4sdBsRfKCBPKrZtZjCm5F/bAYde/GfHtuLuTK5D132qKtPRwY1+mtU/9vM4tRJrqNCjnnID9LI/bYr0FgYABUxnErv3VfS//SeU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=rUB3LBFu; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791376321; c=relaxed/simple;
+	bh=kJ5ncMSvegAnNhdbhRVw2mSH3KpS7DVhK/tcxbmT4LM=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=HZm0CAvJO1U7PTdEdicAxKPkw3CRItApVx1AKE+E0exglru1TdXKZSXMtUwjFpvBi4mNG028dbOwIVUzi6Tnndqr1WhCW1FC4sau+WWZgY6U4+BZUzjotGec9tjTbDhfK59nQzFdC9Je0MRqtX1zRLbbkwuwC8t43csicytD7Fg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iDZiqqDx; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="rUB3LBFu"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697BZjE32463294;
-	Wed, 7 Oct 2026 12:31:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=I6F92c
-	7/q0LfkYxVOXI5tlPRLsWvRrXBU3E7n7bl1uI=; b=rUB3LBFu3c91dnPZJd2Pvg
-	RuazKeVg8nVNHsL+6SM6n9ylkr4w9jTtaoNoxJlui4iBvDT8IwWhENE8IHGEhvxV
-	PGLoWdBmcq5e0VQQipfygWvfkauoY/POY9wXUgMweYhCRNqZt4p3y6EMpQbrB2E3
-	kxUGQ7BSnEa/x0BZpTSlQGgVbYrCnnKz6vlptG/UUy2iJr4F8Bj4QC6ecqaHvNAC
-	XCwnlfEhad71p3z4ZBJt9uuXRpNvF+J7oAtbTeiPrJAcPDg/Z2s31Sxy+YjHXZwA
-	X3BqVQupj7pwzhIlvc9I3gSoZVLrPfHCYxT9RKBRjNBsPxq+SLP3uL9Hg6tIQbWA
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2s74wf2t-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 07 Oct 2026 12:31:31 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 697Blds51808483;
-	Wed, 7 Oct 2026 12:31:30 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h3cdvxmsn-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 07 Oct 2026 12:31:30 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 697CVQfT51315100
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 7 Oct 2026 12:31:26 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 069B72004B;
-	Wed,  7 Oct 2026 12:31:26 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4C30220040;
-	Wed,  7 Oct 2026 12:31:25 +0000 (GMT)
-Received: from [9.224.77.173] (unknown [9.224.77.173])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed,  7 Oct 2026 12:31:25 +0000 (GMT)
-Message-ID: <0fcdcc1f-16bd-4895-9233-caf37639e0d9@linux.ibm.com>
-Date: Wed, 7 Oct 2026 14:31:24 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iDZiqqDx"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3a6cf104827so1114766a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 05:31:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791376312; x=1791981112; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=kJ5ncMSvegAnNhdbhRVw2mSH3KpS7DVhK/tcxbmT4LM=;
+        b=iDZiqqDxNH6YZQHtJD9OA3X13numpAH3B4akc2a2a/S9YF13oKXN1O6KcjClEb05Wd
+         edzd6PjJA6YVQ/bLmKpg4eZk0jufDo2GiiM5PmxcrGf/8lhEQ7yxmhE7M74BZkJIcT9J
+         YrW04iBBF24JHksU8K9eFlEJo4KsWk3LwxheJ72PTRJg0yn2oReghAqiHbic2295t1Bf
+         Bbh+y/NCCi8KBsnXKWwemE4Rm9DJ4GO99fraK5HCZvsWf6PY5B7Ft8GaWLR6Ruc0JG0E
+         QE6reY3AUf8JDD6pxC2vgygA5CM+UfbV+TPVaepm9DQABrEfg1n76jF/YzIAk1a0mjAn
+         hgSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791376313; x=1791981113;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kJ5ncMSvegAnNhdbhRVw2mSH3KpS7DVhK/tcxbmT4LM=;
+        b=tl0GNwk1x43KZs9ho1zA7TnsRGkK6Hbe/45qjXH6mmK3zfZ0e623rGUD7mMZlaPD6a
+         lyxAPuiCVMdmeKEIsb8RdWRn037EoZdmVr1x++2Vv5Ii96GDvw6YFHdf1x5lOdZQe2Hc
+         II3AXAaIZmYxunOa87tu8z0d6i2lAJ9TdYv0coZS3isdLC2YWwqlFTgyqSROkyxycBi4
+         76Tx1zkUpQ+mF3miLhSz3miUqYgaB0d/+pJusW7AIzA0DuWyeGsjqb0c0R/O2NvN0eCh
+         dIw8mtqrZr7SyfRgBjNZPv4abYPSEVSgQ5mI5TGHUwjBrAz2l0EcGkxz9tXqXSDyT7CK
+         YiVA==
+X-Forwarded-Encrypted: i=1; AKwUvBzoX4MntZ0mIIKZWuIIBKqyohl+D/n9WAqRqMpgNvqH6zucDyg1yPGZgJGxGWGdUkKtvzQK6aLqfYde2nc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIKqPkoO300kZdziqTjxzrjnWo6E65RN8MBUFAmLn/SuCJuCvH5
+	3IKS1RlBeX4CKVg/2DPj8RmSGVOagfetQkKe2paUevYNCevdqbs7agxe
+X-Gm-Gg: AYBFou3rcele93KiA7KInBLoBHPI73UbYrTX9L5De7Y4tA28+hITWUPHciC2VB1jWzo
+	AaPNXHAsZ8LldEQobXZGQ1D1oyoFE0lXCRHY230FzIGcRTaHQ6JbLhYBSqSjPwdr5jOVJnWf/KC
+	gXNsL+9W2iI9d6Pu8Cf5CmtVGd3UYfZa3j3O8bAJVbou8Z0UMC+wNBpBSwFqqQrvEmoDm+fIg4G
+	k3KIc4kXSL6HqfiNJlSDyjvqRtEe8ZPbA5//ACV0JxZF7t6xTo4UD2kIDDNVORSB8rJ8TRlPazs
+	yLy5mhXy2RxdK6SeipmsEm2ybUijn0nTWoCRYN0meACDimsUHxLNOs6wj7y/tEej4vhQUFRNx7f
+	//Nz/wN1xVfdRBuavSJvxyHqIlF3XfP3wzsopY9SDrhqUvoMZWxsbOHB6MJK4sqNICDRQiy/ff5
+	k/uw2ZGo7TSv3aeoXdvnCPr/6KGSJmZiJXpgBHkBITo1vuCP1YeGRxnbr/NHh87Ovv5wERBM03H
+	wiOvl2w
+X-Received: by 2002:a17:90a:1057:b0:3a8:bb56:f450 with SMTP id 98e67ed59e1d1-3a8bb570f55mr527249a91.41.1791376312526;
+        Wed, 07 Oct 2026 05:31:52 -0700 (PDT)
+Received: from localhost ([103.103.208.67])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a89b7727a1sm4555003a91.17.2026.10.07.05.31.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 07 Oct 2026 05:31:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/6] KVM/vfio: Use file-based reference counting for
- KVM
-From: Christian Borntraeger <borntraeger@linux.ibm.com>
-To: Alex Williamson <alex@shazbot.org>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-s390@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
-        Steffen Eiden <seiden@linux.ibm.com>,
-        Janosch Frank <frankja@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        David Hildenbrand <david@kernel.org>,
-        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev
- <agordeev@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Sean Christopherson <seanjc@google.com>,
-        Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-        Borislav Petkov <bp@alien8.de>,
-        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-        "H. Peter Anvin" <hpa@zytor.com>,
-        Matthew Rosato <mjrosato@linux.ibm.com>,
-        Farhan Ali <alifm@linux.ibm.com>, Eric Farman <farman@linux.ibm.com>,
-        Tony Krowiak <akrowiak@linux.ibm.com>,
-        Halil Pasic <pasic@linux.ibm.com>, Jason Herne <jjherne@linux.ibm.com>,
-        Harald Freudenberger <freude@linux.ibm.com>,
-        Holger Dengler <dengler@linux.ibm.com>
-References: <20260928-vfio-v4-0-e32e226d5932@linux.ibm.com>
- <0c5fe5c2-4ab8-4d1f-a36a-84a8fd136160@linux.ibm.com>
- <20261001114605.4167fa97@shazbot.org>
- <885ec96f-c352-4f9e-bcf1-f8ebabfebbbf@linux.ibm.com>
-Content-Language: en-US
-In-Reply-To: <885ec96f-c352-4f9e-bcf1-f8ebabfebbbf@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: TfPVzUcwf5TlMqjwPGC7Ad0CxMr2XHsC
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDA0OCBTYWx0ZWRfX9w72xk6QouRg
- K4zoD2xu3yc3Q6iPOa38AZq0GviSICF2rwyMzVOQuuPagL0jtwT6tjL9gZ4edkmBQFWfaDskcOe
- 7omsDLGMFEP0ILMZGPSPB+nYj71oF7E=
-X-Proofpoint-GUID: UNcywO8AOzLJNXeQDlArn6YSD7lkNYg_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDA0OCBTYWx0ZWRfXzcewfpB7VTYM
- lE4mq/eLTiCnJLUkTIHYevDGcw5faey9Sws/vNBVvHrA2LV7tC6f/4B3muVzrd8xogfK4FaTB5X
- eS2mF7S7QDDuYxoKb2L4iPlS4YsohFknrBI7ZI7rbrgRUq2T6kS+Ikp8rRHNvOCcnIZ4zUR+X/I
- lmchxVuQHbSUcVx4jjLDvAMyWRSnlB/j9HcYDTf0GzP3iivm9AtMIBM6e1iRKg+XMkJ5G42VfQi
- yptESx+UradOzDFPJTOrVskcrhJ2xc+JF2waWTKdMla6DoVY4C4zF9RIyMW3agb0A80KEFO5Rox
- FMF0iIYrytwjCa8/HeD9KQLRDkKNEqJ1YQeYsVmZdEO2qq5x/ipgmV43wLINH1VhCfBRK6k7p14
- jvtf2l7OnvKeYtR3KJ0W/Dw9DXLxxsi7XZ2kdI1HboIQwKFC3si4Q+kKQ238viW2W8UUrOOqQAL
- cqoY5xJATr6smuJdMUw==
-X-Authority-Analysis: v=2.4 cv=fM2sTpae c=1 sm=1 tr=0 ts=6ac63ba4 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
- a=q1eBkuuBtHdcWU8FWkoA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-07_04,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 priorityscore=1501 spamscore=0 lowpriorityscore=0
- phishscore=0 adultscore=0 malwarescore=0 clxscore=1015 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070048
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 07 Oct 2026 18:01:49 +0530
+Message-Id: <DLYLWJJD9EC0.3CLCLL4O7K9KC@gmail.com>
+Cc: <linux-staging@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 1/2] staging: rtl8723bs: replace uint with u32 in
+ hal_intf.[ch]
+From: "Pranav Desai" <contact.pranavdesai@gmail.com>
+To: "Greg KH" <gregkh@linuxfoundation.org>, "Pranav Desai"
+ <contact.pranavdesai@gmail.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261006200751.819332-1-contact.pranavdesai@gmail.com>
+ <20261006200751.819332-2-contact.pranavdesai@gmail.com>
+ <2026100644-willing-nucleus-82ce@gregkh>
+In-Reply-To: <2026100644-willing-nucleus-82ce@gregkh>
 
-Am 02.10.26 um 10:48 schrieb Christian Borntraeger:
-[..]
->>> Am 28.09.26 um 15:07 schrieb Steffen Eiden:
->>>> This series switches the KVM-VFIO interface and external consumers over to
->>>> standard file-based reference counting, eliminating all external KVM symbol
->>>> exports.
->>>
->>> Paolo, Alex,
->>>
->>> I assume this will go over one of your tree? If you want, I can also create a topic branch
->>> for you to pick if you prefer that.
->>
->> It's a KVM focused change, vfio is collateral, so I'd defer to Paolo.
->> I don't believe I have anything pending that conflicts, it applies
->> cleanly against current vfio next branch, but a shared branch is always
->> a nice hedge.  Thanks,
->>
->> Alex
-> 
-> So I
-> - applied these patches on top of 7.3-rc2
-> - removed _safe from vfio_device_get_kvm_safe
-> - created a topic branch at
-> https://git.kernel.org/pub/scm/linux/kernel/git/kvms390/linux.git/log/?h=vfio_file_reference
-> 
-> Paolo,
-> unless you want to take it yourself, I will merge this into kvms390/next and schedule this for
-> the next merge window.
-> ok?
-Its now part of linux-next 20261006. In case of future non-trivial conflicts before the next merge
-window, feel free to pull in the topic branch and resolve it that way.
+> That's very odd, shouldn't this be 'int' and return either 0 for
+> success, or -ERROR value for an error?
 
-Christian
+Hi Greg,
+
+The driver's custom _SUCCESS (1) and _FAIL (0) macros are currently hardcod=
+ed into the caller logic
+across multiple files. Changing rtw_hal_init() to return standard error cod=
+es in this patch would invert the
+caller logic and cause regressions.
+
+Replacing the _SUCCESS/_FAIL architecture requires a driver-wide refactor. =
+To avoid scope creep, I have dropped
+the hal_intf.c changes from this series entirely.
+
+I just submitted v3 focusing exclusively on explicitly typing variables in =
+rtw_security.c. I will address the
+_SUCCESS/_FAIL macro teardown in a separate patch series.
+
+
+Thanks,
+
+Pranav
