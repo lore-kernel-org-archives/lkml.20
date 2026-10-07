@@ -1,174 +1,220 @@
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 503033F107A
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 17:42:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791394948; cv=none; b=JSKMzOX40S85GNsBX3Tbbyf9A+IufvzCz3L3a2ey7GqjsL9Yqc06oliUhyU+O1aYcA2asgrAM1vGvMwRvwYp+Vogk6ekF99gc8ITY4R9da+xTgEHzJh3bXy81K8TnXuxXeJztq++RxsHJ2H4a1irv8GvqaNfUbFgtrrqfp3P2eo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791394948; c=relaxed/simple;
-	bh=ZVEMir1UVtjeqTDd+kQt9OYW8kEe+ToC0TfYjUegh2I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EFXcI6XcXuWZyeZlefRwyRzfOClayG+4cTHUHzj/O+733EcM7CD9gU3ki7FbC7wiv/JsmG7CC3Zr7yjdYbMcUcxFn4V7hsMN/7NSfcebNj3IOXdLBMOm8u/JVSETZJiVQpm+Er5zq4cmnbdXjeEpE7dAO91wpfYZMeZwvRJQTDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I1UCkofR; arc=none smtp.client-ip=74.125.82.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20BAA3B05A7
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 17:42:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791394967; cv=pass; b=LYsMDTqEbaDDSSpz8VVo5iGFVefrsxdaQ+uxYKzy2V2KH+5pzkZUSjwTePxaiboPN4z2RF7YUUlHnRmu+qVy2R0y+0f5jTazZKuin54ziYPqHUaQAcVu+MDpqRHrSbRHYNfGzwCJcDLiPHOVMolBAa6bzSkQOBSksOMQ0dH21z8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791394967; c=relaxed/simple;
+	bh=NcSrUtXzGMzQQa330luF3YMdUPxwQ4mybFGdhW/zOmE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=r6UdwFC+KtuMX6Fk3OfWW4oGwE1+rjqyib4VOMsZd/JB71LaiXvLb1lm3rS4xA2A4fk2VIjXodIaCcjRt9somodCk1UkTQ4Rx02YV8XpxZSWTMqg3dYcArBSnSvcwmWrphQh8mkwJxYCaWWXwGFMu+nycxojm20FdjPX/8t5G4Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YYqTy49v; arc=pass smtp.client-ip=209.85.208.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I1UCkofR"
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-33e6279a1d7so928615eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 10:42:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YYqTy49v"
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6aa97edc48cso1321460a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 10:42:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791394964; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HTLeBwRIfnBOpaCZDqYyhMkvCtRT0xt/wbSlmdi4pDj4BRxbnFK81Qg+WvVoaEp/dc
+         kUxpROoqs29DzHhfkDCHB0CR31Q8AfL3UIEnf/mxnBUqS6izZMuPsj758/kX9F3mn941
+         vR84PiXv1LVk9Jv7c90M6v77YwHYJ2if4uaPEDYuxP3DrOTX0o3ct/41qXZrL7qDpr3E
+         s7/GvVjLYPv7CmXizoayt4RabugZCVi/5sWs2nc3IYUr9sVIGZgNj8bAt5H9bGibT5YG
+         QmlA7iclUFNrGSePztnPV12ArzC2lAY/lT0M3mAISCjT6I6MPR+5ixvKK0ff0/xCN+Wp
+         WqcQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=cvQDty+K8atBKUnQl821IKJ8GM3koYeQlQ/6cuB1MJA=;
+        fh=HAbMuTzTQerF08YBRg3cUwVtEE0F7bb6Gw44CMXEgEc=;
+        b=fw1Uon+8P6XFkTZMDIoPIZHHa0fGuwtZNrFeZ35RHpHhdXFE9K/p0D9Wa8N5EpcbO+
+         t6TL7e48xKrQV+86VDuUbGjAZG+4X9lYNFTfPk0nlskaJU/zFyrMwPpvxYemd3W0kQPy
+         RVpv98ZujSaIvSFQV/Ad0DyINHmresJhoRQbAQmTBdljsobCe1Nf57ltCrgoTseT3djo
+         cyGL8qFPFocN6xxLq0J6Rlma/AzQ0EG2ERWV83gWXdWtGVcmccOMTN1wip6DOpSV6pjm
+         lS5DJYj5BGF4JCN+NJ18gUTmwnLuIjGPO+mPtGw5ZTKLnRlJLDUFZHkxxNvhysiyarH5
+         iq9Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791394942; x=1791999742; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nHXvTpeToSMwL5+SVT0PZraPoeYCO8NWG7j1aLQ/JCE=;
-        b=I1UCkofRjmJtDEMqSrRX0+dJXFFZFv0KBZ80v0jJJF/am07zpBY66FXD+vY2Agex0S
-         4mMoy4tsIjEcPsSw6Zf6SRMBtfzSOflAfr5VF07UebFTzeA/jZPljV9DScD4w6aCDLXZ
-         Xguu0ZQrdXIRD6n/9WELDGFznN98kt0dvQUSOXXodE3IYo49gsd7JFO0VsOvMEnokRdK
-         7on36iJ8omg2aXOSXYrog+UxOo8LwZtwaHySZ7frMmUV2XfLyYTeu4d6Pv1tUynGB64n
-         EoWwM5ZB08Gwr5RrHo7QBgPzGJFBIlBGjOhXGTig39tzteTjMTXuyRyPox2pM831Hqyy
-         wetA==
+        d=gmail.com; s=20251104; t=1791394964; x=1791999764; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cvQDty+K8atBKUnQl821IKJ8GM3koYeQlQ/6cuB1MJA=;
+        b=YYqTy49vfe347QmiB0XprdpiME1Qv8OxnCRxg2dUdAHLFlHBeIbPtyMIQxh3OMeLN9
+         5HljQu3sDLkUHG93MLPpSi4IfxPjeL4CfwL9LBXudpTnlxUXyF1xfiwZuMkEHFpvEd9f
+         S1+6lHn28NxW4/j9RQFZysfoAWG+XPYv+CqldLbJaW6hFZkxeXKh2gDXPU57OTOWkfE3
+         taAdiu6bN/ywIgwAgFDxEmCVDxGYe2M0OuL91OHLABwvtfDGaPnPsBCRkKEfkRITByZ1
+         uEjFqmx6eHyKk88zpqaiTU9g01D9u8WMSVclYnq1vQiQNomgrVKUo0tGmkCjqTQO414n
+         5kqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791394942; x=1791999742;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nHXvTpeToSMwL5+SVT0PZraPoeYCO8NWG7j1aLQ/JCE=;
-        b=THsETAaklcyZU8b1vK766ssLTUIm8Tn+Y8JhOdRYBMg6jH38axs58rM1jf89dX66Rv
-         bZ4AS5yHKNxDviPNRKZDOvYbzQf/MCZOMV8B3VEA/KoDdEhcuBLY5AlvXJTBZwCK92E9
-         VUhDczvR4ljOaEUUMDCrhV0yL3E5bB8rMY/KaFocdz2TZpSUuGl2WzTv7yAi0DCP0aEb
-         Z6qje/Ka3mbSCf5qMSH6pDp1yRFlyAsFqKdBUEHBRK+YoCMqmXdGHYVecl9ZuLJbk5lF
-         n0Vme1XEXCi8EdKaAgnhV3Dzt0cnPULkKp5Yswm8lw5EbJwsjDsAHNYQl07PirrOD90h
-         E/og==
-X-Forwarded-Encrypted: i=1; AKwUvBzsejH2A1GeeWem+9V1QXzaV9vjbNgq70s10dIh2yYM3s0Qqhn+6ujFRNQvNyCyw1KUGA0dkeCMe2GtZqM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIPC+nYcbWkD7vda8k+LHbXCCAGxFNM0QFaTEf28JhLVJR+re7N
-	E7g29QgIujsE2UHoSg5MgOxXLezWQ7dJWjhpPLxepIDIto/w6MulG7wg
-X-Gm-Gg: AYBFou2MJ2d7sO64Ip3mnIwdD5UXKvqdybPYEHPoPq91FBegH/AO9DfVkjD97bKd8d9
-	Ri4pP9JhMrjOO/l6ZjS/UTIe/3F6C69ZMeNtH8YqsCVjGm+Rj3NmOVs6hz4jFc9dLsaIKJPvvom
-	Bh7mLto+Lj/uAeGTv3VV+T+Teavd5o159SQJ6ntECbPqVUW52ogcD00+9rXiFDaTunppA0eWAJ8
-	4/pwdutQxVoqNSOYliFua2rjoAUNkvZ3c9cwee27AFI4MtiLDzbdPrqdE/wgs0ZDu7c7v+AnAO/
-	aNvNfugW575ZV0t3gkSAz14fVdBfMf2gRCgPdX7sTi3QEIvpIm5BsnsR7Au7f88lX1qkAiNimUX
-	xF1QJBE4HuaETr4mBwQbUnb1qASdCSObkO0oSEMNJ5J9HL1Pd8/AO6XeEdrLLzqTz7v5+xKsy7H
-	Pgko33pCnHAELqZ1V9LhsEMpPt8ZW/l0M/kDu5iH0DeaUFRJUJpjvUzYDl4lTIf55+I33Ti89kQ
-	xo1bFGiJAsQ7bvrvNKp8dfzn/Qptv6l
-X-Received: by 2002:a05:7301:6e9a:b0:351:4d25:861 with SMTP id 5a478bee46e88-3515de80f01mr3202494eec.7.1791394942003;
-        Wed, 07 Oct 2026 10:42:22 -0700 (PDT)
-Received: from 192.168.50.3 ([198.176.50.208])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515aff5dd6sm9124558eec.26.2026.10.07.10.42.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 10:42:21 -0700 (PDT)
-From: Weiming Shi <bestswngs@gmail.com>
-To: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Shuah Khan <shuah@kernel.org>
-Cc: bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Xiang Mei <xmei5@asu.edu>,
-	Weiming Shi <bestswngs@gmail.com>
-Subject: [PATCH bpf 2/2] selftests/bpf: Test missing caller stack argument slots
-Date: Thu,  8 Oct 2026 01:42:03 +0800
-Message-ID: <20261007174203.37071-2-bestswngs@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261007174203.37071-1-bestswngs@gmail.com>
-References: <20261007174203.37071-1-bestswngs@gmail.com>
+        d=1e100.net; s=20260707; t=1791394964; x=1791999764;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cvQDty+K8atBKUnQl821IKJ8GM3koYeQlQ/6cuB1MJA=;
+        b=j2vdnjjL2xUyS7UK6Tjphql9q+0TG4VMdxKBmW4lFxAalBS+FK/Yhu0Qss7+i9snU4
+         3ff6Zowi0N18PHFxRoigO5P9ub9uYmL+MpdO8o6ryhBXLHc6i9y9DHa4BxCBnp5+1dje
+         mh278H0eFY16gaZENKi/68mKKECJowk3BBRG0+XYoexOOfVvQ9GKO4E3EBdXjINg9Vlr
+         bfeyE4VoAH1A5+Rce/Be/3pH8x4vzMUqv8rZxLT2udjTpgKjvb59h43kaNpQw0sLW1Zj
+         ioMND/ntxQXY86HuQccnJa1D70d0UOHIZOGYzfHUECCpQWkK99/mxYM1lrt2YiLFmUtG
+         ue5A==
+X-Forwarded-Encrypted: i=1; AKwUvBzpJXDz740nQoR8CF1zlbUZE6inYPBeUOnstCmYHdh1elN5IeosBVIXpEQcjrafBOaiw7fFG64zGTZxMVc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLvWmPCn2BRaXst9Jxn6Ix5JIKIDvEK3kuvOth7YWznheM8wt2x
+	hoxwzXDj4PrH1aY0GSnWWvY9qphH5kH5OYIG3X7FT/59UKQB1Vk4Gfi8fhf6iTTtc3RrkfXcTDo
+	sUlzQ8g8TPg0otIApz4EqLa4iX1N5V6k=
+X-Gm-Gg: AYBFou1j4MYyGvl/pUcfkMkY6Kskbiv2imLXueN6DDtR+5wtzmXwWk/ufsNJQUEQx6W
+	9/mKpfJsD/I1D2ggpvSuKfRW2sJSCJprDQJHk1CeqqahoZljQ5Oh10ybBqG/EuM3B1SGg8iEmec
+	yXW21rv7228494GuDDiQCumuQsrvUwwsoerRvWdbJq+rJBnYtZARU5muNkhuJrMoweutD5CwQAk
+	wFFWLLuoUO9SiXThTXXVstkdbERREs1pMbrEv/Hie6EDH8l5f38qvS25quDKSADqPBCA6bCpg4R
+	yTAt1nkpWl2oUhs4mrpcIEc5FUpO8ud1Yg0RKP6pYpSttYS9HSgKxv4h4FxPxvagdm3MPDpkIX4
+	oPY3pBY8Jh9cb6CbZo+c33mKXbw7NtZuDGiqrNRfXnzzpnLoM5ALT
+X-Received: by 2002:a05:6402:3211:b0:6ac:af31:24f3 with SMTP id
+ 4fb4d7f45d1cf-6aff47d8578mr3039617a12.31.1791394964135; Wed, 07 Oct 2026
+ 10:42:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261006-alpha-hugepages-v1-0-a673a18aaa70@gmail.com> <20261006-alpha-hugepages-v1-2-a673a18aaa70@gmail.com>
+In-Reply-To: <20261006-alpha-hugepages-v1-2-a673a18aaa70@gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Wed, 7 Oct 2026 19:42:32 +0200
+X-Gm-Features: AclHuK_SDzMruZliU90vYKZ_Z-ZPw6XW68BB2EOxFCyTUR_qs4vgJ28kLPpYjx8
+Message-ID: <CA+=Fv5QQtBnqUjswZSjndFzMmhQ8YKsDdQgvKmL9y4nQHPnW2Q@mail.gmail.com>
+Subject: Re: [PATCH 2/6] alpha: handle VM_FAULT_HWPOISON in do_page_fault()
+To: Matt Turner <mattst88@gmail.com>
+Cc: Richard Henderson <richard.henderson@linaro.org>, linux-alpha@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Exercise the path where a static seven-argument subprogram has
-unreliable BTF and is called through a bridge with only one initialized
-outgoing stack argument. The callee expects two stack arguments, but the
-unreliable-BTF path skips check_outgoing_stack_args().
+Hi Matt,
 
-Without the fix, the second r11 load copies an 80-byte bpf_reg_state from
-stack_arg_regs[1], past the caller's one-element array. Expect the
-verifier to reject that load at offset 16.
+On Tue, Oct 6, 2026 at 4:04=E2=80=AFPM Matt Turner <mattst88@gmail.com> wro=
+te:
+>
+> do_page_fault() handles VM_FAULT_OOM, VM_FAULT_SIGSEGV and
+> VM_FAULT_SIGBUS and then falls into BUG() for anything else in
+> VM_FAULT_ERROR. VM_FAULT_HWPOISON and VM_FAULT_HWPOISON_LARGE are in
+> that set, so a fault on a poisoned page takes down the kernel instead of
+> delivering a signal.
+>
+> Alpha does not select ARCH_SUPPORTS_MEMORY_FAILURE, so the machine check
+> paths cannot produce these. UFFDIO_POISON can: it installs a poison PTE
+> marker without any memory failure support, and a subsequent access
+> returns VM_FAULT_HWPOISON. Registering an anonymous range with
+> userfaultfd, poisoning it and reading it back reliably hits the BUG():
+>
+>   Kernel bug at arch/alpha/mm/fault.c:188
+>   poison(50809): Kernel Bug 1
+>   pc is at do_page_fault+0x4e8/0x550
+>   ra is at do_page_fault+0xfc/0x550
+>
+> The BUG() fires with mmap_read_lock() still held, so the faulting task is=
+ left
+> unkillable in D state holding the lock, and shutdown stalls behind it.
+>
+> Deliver SIGBUS with BUS_MCEERR_AR instead, reporting the size of the
+> poisoned area, as the other architectures do. That is the huge page size
+> for VM_FAULT_HWPOISON_LARGE, which becomes reachable once alpha
+> implements huge pages.
+>
+> Tested on an UP1500 (EV68AL): the reproducer above now takes a SIGBUS
+> and the kernel logs
+>
+>   poison[373]: hardware memory error at 0000020000030000 pc 0000020001000=
+7ec
+>
+> with no oops, no wedged task and no taint.
+>
+> Fixes: fc71884a5f59 ("mm: userfaultfd: add new UFFDIO_POISON ioctl")
+> Signed-off-by: Matt Turner <mattst88@gmail.com>
 
-The fix also rejects the existing uninitialized-stack-argument test
-before the later unreadable-register check. Update that test's expected
-diagnostic accordingly.
+fc71884a5f59 is in v6.6, and a UFFD_USER_MODE_ONLY userfaultfd is
+always allowed (userfaultfd_syscall_allowed() in mm/userfaultfd.c), so
+any local user can reach the BUG(); Maybe this wants
+"Cc: stable@vger.kernel.org # 6.6+"? However the backport will need the
+show_signal_msg() call dropped, since that only exists since
+9ca6af1aac40 ("alpha: select SYSCTL_EXCEPTION_TRACE").
 
-Assisted-by: LLM
-Signed-off-by: Weiming Shi <bestswngs@gmail.com>
----
- .../bpf/progs/verifier_stack_arg_order.c      | 33 ++++++++++++++++++-
- 1 file changed, 32 insertions(+), 1 deletion(-)
+On the UP2000+ the SIGBUS is right at every size: si_code BUS_MCEERR_AR,
+si_addr the faulting address, and si_addr_lsb 13, 16, 19 and 22 for 8KB, 64=
+KB,
+512KB and 4MB.
 
-diff --git a/tools/testing/selftests/bpf/progs/verifier_stack_arg_order.c b/tools/testing/selftests/bpf/progs/verifier_stack_arg_order.c
-index c9fe4857d..23c7515ea 100644
---- a/tools/testing/selftests/bpf/progs/verifier_stack_arg_order.c
-+++ b/tools/testing/selftests/bpf/progs/verifier_stack_arg_order.c
-@@ -129,6 +129,16 @@ static void subprog_bad_ptr_7args(long *a, int b, int c, int d, int e, int f, in
- 	);
- }
- 
-+__noinline __used __naked
-+static void subprog_call_bad_ptr_7args(void)
-+{
-+	asm volatile ("*(u64 *)(r11 - 8) = 0;"
-+		"call subprog_bad_ptr_7args;"
-+		"exit;"
-+		::: __clobber_all
-+	);
-+}
-+
- SEC("tc")
- __description("stack_arg: read without caller write")
- __failure
-@@ -151,7 +161,7 @@ __naked void stack_arg_read_without_write_1(void)
- SEC("tc")
- __description("stack_arg: read with not-initialized caller write")
- __failure
--__msg("R0 !read_ok")
-+__msg("invalid read from uninitialized stack arg off 8")
- __btf_func_path("btf__verifier_stack_arg_order.bpf.o")
- __naked void stack_arg_read_without_write_2(void)
- {
-@@ -170,6 +180,27 @@ __naked void stack_arg_read_without_write_2(void)
- 	);
- }
- 
-+SEC("tc")
-+__description("stack_arg: unreliable callee with too few stack args")
-+__failure
-+__msg("invalid read from uninitialized stack arg off 16")
-+__btf_func_path("btf__verifier_stack_arg_order.bpf.o")
-+__naked void stack_arg_read_with_short_bridge_write(void)
-+{
-+	asm volatile ("r1 = 0;"
-+		"r2 = 0;"
-+		"r3 = 0;"
-+		"r4 = 0;"
-+		"r5 = 0;"
-+		"*(u64 *)(r11 - 8) = 0;"
-+		"*(u64 *)(r11 - 16) = 0;"
-+		"call subprog_bad_ptr_7args;"
-+		"call subprog_call_bad_ptr_7args;"
-+		"exit;"
-+		::: __clobber_all
-+	);
-+}
-+
- #else
- 
- SEC("socket")
--- 
-2.55.0
+> ---
+>  arch/alpha/mm/fault.c | 19 +++++++++++++++++++
+>  1 file changed, 19 insertions(+)
+>
+> diff --git a/arch/alpha/mm/fault.c b/arch/alpha/mm/fault.c
+> index dfe427d93072..24408b53197c 100644
+> --- a/arch/alpha/mm/fault.c
+> +++ b/arch/alpha/mm/fault.c
+> @@ -8,6 +8,7 @@
+>  #include <linux/sched/signal.h>
+>  #include <linux/kernel.h>
+>  #include <linux/mm.h>
+> +#include <linux/hugetlb.h>
+>  #include <asm/io.h>
+>
+>  #define __EXTERN_INLINE inline
+> @@ -113,6 +114,7 @@ do_page_fault(unsigned long address, unsigned long mm=
+csr,
+>         struct mm_struct *mm =3D current->mm;
+>         const struct exception_table_entry *fixup;
+>         int si_code =3D SEGV_MAPERR;
+> +       unsigned int lsb;
+>         vm_fault_t fault;
+>         unsigned int flags =3D FAULT_FLAG_DEFAULT;
+>
+> @@ -185,6 +187,8 @@ do_page_fault(unsigned long address, unsigned long mm=
+csr,
+>                         goto bad_area;
+>                 else if (fault & VM_FAULT_SIGBUS)
+>                         goto do_sigbus;
+> +               else if (fault & (VM_FAULT_HWPOISON | VM_FAULT_HWPOISON_L=
+ARGE))
+> +                       goto do_sigbus_mceerr;
+>                 BUG();
+>         }
+>
+> @@ -248,6 +252,21 @@ do_page_fault(unsigned long address, unsigned long m=
+mcsr,
+>                 goto no_context;
+>         return;
+>
+> + do_sigbus_mceerr:
+> +       mmap_read_unlock(mm);
+> +       if (!user_mode(regs))
+> +               goto no_context;
+> +       /*
+> +        * Report the size of the poisoned area, which for a hugetlb faul=
+t
+> +        * is the size of the huge page that could not be mapped.
+> +        */
+> +       lsb =3D PAGE_SHIFT;
+> +       if (fault & VM_FAULT_HWPOISON_LARGE)
+> +               lsb =3D hstate_index_to_shift(VM_FAULT_GET_HINDEX(fault))=
+;
+> +       show_signal_msg(regs, address, SIGBUS, "hardware memory error");
+> +       force_sig_mceerr(BUS_MCEERR_AR, (void __user *) address, lsb);
+> +       return;
+> +
+>   do_sigsegv:
+>         show_signal_msg(regs, address, SIGSEGV,
+>                         si_code =3D=3D SEGV_MAPERR ? "unmapped access"
+>
+> --
+> 2.54.0
+>
 
+Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
+Tested-by: Magnus Lindholm <linmag7@gmail.com>
