@@ -1,45 +1,39 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5854D2192FA
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 02:41:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mta1.formilux.org (mta1.formilux.org [51.159.59.229])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 122FA233929;
+	Wed,  7 Oct 2026 02:51:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.59.229
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791340919; cv=none; b=fyw2fziH8aGetCy2Gt3uAvANFDVSIH/yvPCRkz7ctVR3ewgOicuga0m+HV11ZKIIixhULDo1LmOgPI+Yk5ps25T5DtGXlRaRHknj3eabqEIUlqN1KV90tVi7PRjqjlmisqiyOkADJhmPIYxw/ewt8UrpQVbhewt5rVebCmBp3is=
+	t=1791341516; cv=none; b=XG5Vk1s+2KvHq/oWop2Z3gHm7MXo1c5bMf1DL5j6Dudtdb1/QV9knpLm7givs0ElD+ghPaSLWbgOp5mZRmTocU0K/86UppAPR35lyWVoZNpWZghqFGzd+ih2dGUGlFLGSwCDymVprVwlQbOJVKkVDkqX5TSOb8vfGxBNBA12ndE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791340919; c=relaxed/simple;
-	bh=s760qSaiBVVuc/LlAknuKVghmlM0TMznspZHDm1DREY=;
+	s=arc-20240116; t=1791341516; c=relaxed/simple;
+	bh=S+RQ/UFyT3wOJmIHGwj5d1W72KYVGey0dtAqXC/IEQM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AK1L/yLDAyiBD08h3/82iTMwBHIW/Lh4vyc1hqAVNtLe1CtArLH/qbIOGb3WJnLpLQehmwhIAjB1kRonN3k02y19GI1hDl5qaIR/Yf9xi7EtZzydQ2fPuX1v3wPc/cc1TbrhXYK55eBUlC7iJzqbNQr2Sf1z801WLWc9mPBp5As=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=aw1QVinr; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=uyVLjbIDJNKTJNnV4I5L4GP5rXFS9zTRFW9nwVbNJ5IMXl41vpJPMsh3vhqBRJwr60cBIuygws7C7bg7Is+v3gCuyPbDphRmFNCtZosl15EaBXWbst6snnUnx5XLHTSxggLtdbiaWXcdI3+5Nrn5FQvBEYS3X74/lPxK3oH0y1g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=1wt.eu; spf=pass smtp.mailfrom=1wt.eu; dkim=pass (1024-bit key) header.d=1wt.eu header.i=@1wt.eu header.b=dNrVSYYQ; arc=none smtp.client-ip=51.159.59.229
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=1wt.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1wt.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="aw1QVinr"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 136BF152B;
-	Tue,  6 Oct 2026 19:41:52 -0700 (PDT)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C0AB63F86F;
-	Tue,  6 Oct 2026 19:41:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791340915; bh=s760qSaiBVVuc/LlAknuKVghmlM0TMznspZHDm1DREY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=aw1QVinr2aO2c2FZnGj7T7Kqjx9TOzGUooCiuw2agzb1q4f/FKMKf13h2fkYMtblQ
-	 MBrdedFXgG4ie9YnrLy1Nkc8/1quegvgmIIJkrQ5/A/44y3he0uM8VSA20x9PXwziZ
-	 PwAKmcDr6d3jYWiZhWfNFUOp2n0arCI2kMqgP0Ww=
-Date: Wed, 7 Oct 2026 08:11:52 +0530
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, Will Deacon <will@kernel.org>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Mark Rutland <mark.rutland@arm.com>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Linu Cherian <linu.cherian@arm.com>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	kasan-dev@googlegroups.com
-Subject: Re: [PATCH V3 1/4] arm64/mm: Use pmdp_get() for PMD accesses
-Message-ID: <lqjq64vw6mlm27kp6ffms6auerj67avecc4ongedouumsrspjh@2f2eblm7wi4u>
-References: <20260924062214.1635078-1-anshuman.khandual@arm.com>
- <20260924062214.1635078-2-anshuman.khandual@arm.com>
- <asPCv5Icdm7Z9mWF@arm.com>
+	dkim=pass (1024-bit key) header.d=1wt.eu header.i=@1wt.eu header.b="dNrVSYYQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1wt.eu; s=mail;
+	t=1791341506; bh=qqU7USvv8WDZZkW1hT2YFAr8+ZDu8qhDuJ52PqEUFUk=;
+	h=From:Message-ID:From;
+	b=dNrVSYYQjA/j8Nd5Fo9tg7ukDv89kc7Z/iWoO/Cpp9E1MDJEdsw+ah76x7o2HBZfN
+	 TxiV1p1tgpICokOTwEUvuJros2PQJY54UG6VgNjWTsbI/iSsqRkAHg1GF+EmhegP06
+	 km1ei+MJgQ4bbG41DFawD/9CUGKvVydF2QL+Y/j8=
+Received: from 1wt.eu (ded1.1wt.eu [163.172.96.212])
+	by mta1.formilux.org (Postfix) with ESMTP id 111B7C090D;
+	Wed, 07 Oct 2026 04:51:46 +0200 (CEST)
+Date: Wed, 7 Oct 2026 04:51:45 +0200
+From: Willy Tarreau <w@1wt.eu>
+To: sungbyeongchan <tjdqudcks0424@naver.com>
+Cc: Zhu Yanjun <zyjzyj2000@gmail.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+        Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org,
+        linux-kernel@vger.kernel.org, security@kernel.org
+Subject: Re: [BUG] RDMA/rxe: unchecked receive WQE cursor causes OOB access
+Message-ID: <asWzwbYj7kVTiQ3L@1wt.eu>
+References: <20261006091239.828415-1-tjdqudcks0424@naver.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,58 +42,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <asPCv5Icdm7Z9mWF@arm.com>
+In-Reply-To: <20261006091239.828415-1-tjdqudcks0424@naver.com>
 
-On Mon, Oct 05, 2026 at 04:31:28PM +0100, Catalin Marinas wrote:
-> On Thu, Sep 24, 2026 at 11:52:11AM +0530, Anshuman Khandual wrote:
-> > diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
-> > index 763c5a411d64..9ad2d03e86ad 100644
-> > --- a/arch/arm64/include/asm/pgtable.h
-> > +++ b/arch/arm64/include/asm/pgtable.h
-> > @@ -84,6 +84,12 @@ static inline void arch_leave_lazy_mmu_mode(void)
-> >  	arch_flush_lazy_mmu_mode();
-> >  }
-> >  
-> > +#define pmdp_get pmdp_get
-> > +static inline pmd_t pmdp_get(pmd_t *pmdp)
-> > +{
-> > +	return READ_ONCE(*pmdp);
-> > +}
-> 
-> This is the same as the generic version. Does it need redefining?
+Hello,
 
-Without this pmdp_get() override, replacing READ_ONCE() in pmdp_test_and_clear_young()
-with pmdp_get() causes a build failure as pmpd_get() which is defined in the generic
-pgtable header is not visible from inside platform specific pgtable header, even with
-a forward declaration.
+On Tue, Oct 06, 2026 at 06:12:38PM +0900, sungbyeongchan wrote:
+> This report was prepared with AI assistance and is being treated as
+> public under Documentation/process/security-bugs.rst.  A tested source
+> reproducer, logs, configuration, and proposed patch are available to the
+> maintainers on request; the reproducer is intentionally not attached to
+> this public report.
 
-Earlier had moved pmdp_test_and_clear_young() inside arch/arm64/mm/mmu.c to avoid the
-above described dependency problem. But then realised that pmdp_get() gets eventually
-overridden on arm64 platform for D128, why not just redefine here it now as standard
-READ_ONCE() to avoid the current build problem and the code movement.
+Please do *always* post a patch. Maintainers receive lots of messages
+like this one every single day, there's no point sending a message
+saying "you might be interested in a patch I have" without sending
+the patch, it wastes time and effort doing round trips. Just send it.
+Same for the reproducers, if they're not too big, just send them to
+the maintainers (not the mailing lists) so they have everything to
+start working on when they open their mailbox.
 
-Please find some context here from earlier discussions during V2.
-
-https://lore.kernel.org/all/212067fe-1b16-4b87-87a7-4ce50847eb24@arm.com/
-
-> 
-> > +
-> >  #ifdef CONFIG_TRANSPARENT_HUGEPAGE
-> >  #define __HAVE_ARCH_FLUSH_PMD_TLB_RANGE
-> >  
-> > @@ -811,7 +817,8 @@ static inline unsigned long pmd_page_vaddr(pmd_t pmd)
-> >  }
-> >  
-> >  /* Find an entry in the third-level page table. */
-> > -#define pte_offset_phys(dir,addr)	(pmd_page_paddr(READ_ONCE(*(dir))) + pte_index(addr) * sizeof(pte_t))
-> > +#define pte_offset_phys(dir, addr)	(pmd_page_paddr(pmdp_get(dir)) + \
-> > +					 pte_index(addr) * sizeof(pte_t))
-> 
-> Why not make this change in the generic version?
-
-Could you please elaborate on this ? pte_offset_phys() is arm64 specific helper which
-is also local to this header file. AFAICT there is no generic version for this helper.
-
-> 
-> -- 
-> Catalin
+Thanks,
+Willy
