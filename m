@@ -1,168 +1,112 @@
-Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com [209.85.221.172])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B8DA4E56D0
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 19:31:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.172
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791401519; cv=pass; b=A7o9mvBf+VwH3xcTVR/JK1ZBsnh42rCC/Ztn0bAHYs3Od5vgYVUtbsjRXSNimVQ+e0FhpsREhtDO1MG0qUOod06GAyCG4QHElIT8k0bopQUK3gpCXiPxwXtzNE5trdRyJ6fSHnEq7CXzNK5CRRQvksUbEPgp3KkBdm5Ch9WrTD8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791401519; c=relaxed/simple;
-	bh=6rSFxtUBaWG74aDAzotnkSg5siJL9vuaUhUFkXqPytk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZEVyHtXkePmQFHat2ZAmmLqEmSyDCO4jeIRfZC8b5kjPWus6yJDkeqk7uvy4weH5ExxzB7CDRzHsFgw9I3CNmn4l00s6femG/bmoJrSgfv7FGiBNCRRyt7CAkflfCM8KwMFAmu/QMawP9GqTS/8tAngAqqfQsL9VBP28NCRE0rc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q0XlLgtR; arc=pass smtp.client-ip=209.85.221.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 897AD380FD8
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 19:33:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791401625; cv=none; b=Ldb3hc+HrCqTA4y8OaUshXdkWsTOd3r3tENrWizFE2TeFWqh9dqeBas2+3mICbLATwO4kWKQiAvUe18TcyK8gOp9/AVeK2HqnLEMJ3e7byIlhdsrvInc0+OsjT316aDTShe/cKrqrTtKm3CJA+Fq5PES5mjreeYFVH/+9xarsEc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791401625; c=relaxed/simple;
+	bh=zvG0AcLHm3S6xLDDAlwG5qp12elfTSdVRrVLvyddeZE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ptyssukaGOWCn2zeZDFC42P0r/gwiIinRPEwdjA2qJskPM1GJx0bRUNpU+tjUgAq/TDnJj6Ro/Mh/a2aUnaLu9sh0i9v0P0qP0GTPfDGQQ06OlotzEY8dHWHvFjpdaaVWHxobWFzhDscP3rrFeUf9/EW3lGONr4f56n96oejvio=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pRQ2o7PM; arc=none smtp.client-ip=209.85.128.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q0XlLgtR"
-Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-5c82d057971so2001759e0c.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 12:31:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791401515; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nZsXz9F/oXM2HDfhGyGXMnJurHpo6j3uMu7C3t5q46CRuDmGL8yO41w+0QYMQF0Y9Y
-         urvdAAo5IBrcEXmwJghatbcqnZHa7NvZRtMROf/Q4sQi5Ko7MEjzdosgpLzocFBuT0oz
-         AcUoP1wM5CdYRlhmXn782DLprEdptYIfGj2/zotTNeKgVyXNiMKt48a5VvhA+jEk+RJ/
-         SRHX/3d2IVV5dGji2Po3Wo7RBIX4cLflquK441SUn9r2/4oRngT26WXQr7pLdUKt2PJJ
-         gTaeUDSSqgeAnxCU94r8Z8OUNCpbjWP+ZGUeIuXdrkSL8PSM3CzDWnVvv5dQQCVLnoT2
-         Ch9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=UmazQOFb88cZY29BLbashgs+FNWCLfkAyMKJs7RtEhE=;
-        fh=8zPRky4f3BDUIc49Y+575xzGunOz4K0CpU6Ki6tnh4Q=;
-        b=q+7wREJOaNCxX+Ro9XOE4STmFsKMOV5GWQR3o38RWlZviXNNya6hTYqumKVZ0QDdKK
-         VqxyIW66jXdvfDS9C95KFgJQckRusWngKQrnX7x9t0XhwXWpdaaaaXBh/IXycgevwbks
-         tqaf989yo9XK111fItcwLrbQpvAye7TyallfXwkqAcckNuaLeURvQBzTN01g8Jqc/8qJ
-         v5Gh8K1lM9c7YwN8lLhGPiHaUhnrvajskBMy4HuR2oC1s6Ulwu9UFv1Id/um3j1ZxfbN
-         GCAUJPaSWShPiE3IocVKhBQ8gLEuNzEtWT9UBJ924r5zmHd1k7XEVFbwWUmI0qti2so8
-         xC8A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pRQ2o7PM"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a1635f7c89so44515455e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 12:33:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791401515; x=1792006315; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UmazQOFb88cZY29BLbashgs+FNWCLfkAyMKJs7RtEhE=;
-        b=Q0XlLgtRaHW1LeIn/EQ3F+pfiumTeMRQz8VsKL6pnBtreBq95UTNYVq6c9EuMqgvGA
-         bi/1KSRycpY30jFGdM4NmxFbUsqpjElnarRqiyivWnvKh9slwS7X29OmQp9foIPkRxje
-         NlhBm7hNO1wr4hmKuS6MMujab/mCuWRETru9osNQH9kivomf9PQ4wcJHpJSqb++EQnr6
-         0GiDBIg6CWZzhJY/fACiMRn+UyZiklD/PdM4HWS3aDt+umxquL+iVdXiukgW+lrgsNd3
-         4YSJ+EFtfa4PrIzCw8ZArtSaXi6CZ3aYmzyw20+JqJYob3oFXpZpqAjJrkMZiEaAzjPd
-         Sapg==
+        d=gmail.com; s=20251104; t=1791401622; x=1792006422; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HtWe9hd0RKevyGWq3yzE4CGMfhYNg0L6UN+xscZ5jJc=;
+        b=pRQ2o7PMNDwfXd/Oqt4X4AJWOezA30hupSSavox9Bx/bGYLYljKj4rA37/G7z4iNZd
+         qlcsMZkKEjt4VA71zEvPz+JVKe5xtNoiCBUVF5l/rfsmQL9SJwOn/KvwfYjY9ElHBqG5
+         dvjK10SK6q0ks/XecgdmQfN2/JeXdx9V+PmFhTYzw/dBztO+917nN4wtEN7a/RdyXS1j
+         AhmNFzOcYLFln+VYN2qeXxvngwh8dZTCxsGTFnfa6MjhO3Hml5Pf9lzgeFO0sCkcpbHu
+         9zSLp8EhK2ION6WnrPFaxO/wdmoNQ5xZiA7VgSj13Tz1/2G7IU5gmlNVFu6+wq9lRqk6
+         tdlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791401515; x=1792006315;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UmazQOFb88cZY29BLbashgs+FNWCLfkAyMKJs7RtEhE=;
-        b=jv3lj2YCnUn5+V4lC47gwfKqINhH7rHjsKhLWI26w3eD9c+I5x9YOMWHTiei1ijVMQ
-         Y0023QNoJ75z2txVxv+fc2O78O+542dpbTRSq+htnzoB0i3lKRtrqi24N8/2sAXLlx3o
-         CFO+GCpPT/dLUwqYlk9hN/h4xgu82uck+dQSJHJD5uxgza1GCAD6nGqmz+I+mJ3DFs5j
-         TArBv4ibYIkfIvO6/vN6Cekfsp6InfDacNHLuWE7KuJE4RQ025Bm8cxad/eEcF/F5srJ
-         EGcNs+xLZnDTc1PP3qlctC2FJRR0M6ok1PZFcsyXjvjAoVBak/OKW67mjgrht19Rr62Y
-         /tqA==
-X-Forwarded-Encrypted: i=1; AKwUvBw5RFo8H+6ncGQEqB/f37KqXzbpvfAmf11qxsXHCWclub42RILmmkQobm/B0cKbgTGfQriRNpbOuxz2e4s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJKAxv4M2thyKoVi5LLJnzFgf3X699xo7WHhdf85wx2HUXftEX0
-	6raR2vs1ApMmxydF6wlW4Tj9+6vVHagk85d9r/f67m1ZM9wGdl2jc+kmV2tpNlMl6JN0eckidDX
-	tij+Pz7hGAdhtQDceUGxbbmkvhGB8DUc=
-X-Gm-Gg: AYBFou1WkQ2Bpod5qR+Df1/6KbEVE9/kgQ2K1SdRAdoza+/JoQel6D9c58ZhTVo4aJF
-	q/ET/IXUikC2UEa3AbMuiYXNNKXOoXWa97RTHSzRs1m1hCj56VDxzMcNLMMlJX/yI0iYI60C+aa
-	HxDRRPF2T3RjHcU3fdzeluyIVX8CC+T7c8cIiFVs7X0vC2CkEYGoAi3MSIFu6PK18QUZW+sB/Do
-	z8RFK1XUvuJgob0wHpuDCVJMr99d2tvg6T779zCLXfoJ272mHhwSILIm4ow9zF8fDTuLDpScYR+
-	WYFkWvri0KzmcRfWGyxKpyjP2BJzxemZVk/MXsuiuI+m7+vKL0CQ/s/U/ByQVHgM5hOyvmNWtEB
-	Awtnf1QMjOpfGUnOobv6OodqjBWcIv5De6xDVABHbbXVI9nq0QmdGyoHcOsc9IwLZ4HA3vp0Fmz
-	JSXQYGNjqNqi9ZyzyA27Xq7xwUyZuwbKddOPzBoPX7prki
-X-Received: by 2002:a05:6102:a4c:b0:7c8:3b8c:82b8 with SMTP id
- ada2fe7eead31-7ca38b6e963mr1119834137.17.1791401515148; Wed, 07 Oct 2026
- 12:31:55 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791401622; x=1792006422;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HtWe9hd0RKevyGWq3yzE4CGMfhYNg0L6UN+xscZ5jJc=;
+        b=sHfaChJn1wFs4D1bFOpjgCQqnBM30brZ4T55dqPyONMGiUiNqhkcqpxvCTDyZWkkG/
+         QNCtuOp7xzQfTPPa95lytHpLJxHsAACw0SWNznIJUOQXdeY1eei3iRerfEKQrAx0JXMr
+         FJ6bV1DI9L7Zm1iVHNYmr3OCrFvptf0j7yJRs+twbEkoX3HBQDWY2G+s8ShQ1sHSctRd
+         j0zBSA0dxQ4tb0Ob7aWm3gdV07ie4hcEKIMOVM1qaS//4H3ZXwhuphc7kBVBj/Aj2i9x
+         iMfU5Ybb8IJckGqmmTAHDelKAHH8sSNuYd6sqPNudDTymTGeEgbfIkgKMZ12ZlTMtL99
+         s3MQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxJEE8jOm6EJkc1Xo1ocEYYwZtflEcSW3a07Du2w+F0xLLL1Gj+156XoDgq6dJUlqvzQJfw6L3Tw/Nh8tU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kEXG3P27gwZyCSV6JnU8QD344ysDAsYbp4LdwWwlz1SWk0qKDC
+	PhU+doh3J927EpEngk+0BaY8bglZ5ZEjDEyL/M+bHLNYIf5vnJcq56y3
+X-Gm-Gg: AYBFou3kjthXoi+Oitu0fPvI4Xavw+BXnlilBG9w/KNyZZm9W15bwD6kASm/TUi8wxx
+	pXAUJoFkXDymFEjUrmnCZrDOk71B+hdM6bFOj3Rj4/2CsDKYTM7Kl93luotrvwl6+klCQmUmDH+
+	PzCIZpkoml7481i+P6yb5w5aOpYsB6J8Xsqj0NAV8aV/1q3jwF+hV5OgPLtxbAcR6ps4ZbXbIES
+	FZhUh6nMyY9WJPd1PJx87hG70wdsNtLC2bx2SnQMCwDIqPTOwIE2qFQBypnzzNVuqmDdljq83oD
+	kPBQ259OEcREJobs/LV0dsKQxgwIy/utHWo3ru3JSXYmYuMe576AhajsbIeSXthxPqgrf3QH21G
+	KUZmW5m8et2i4Ki1vreq9aVVHBo5DMEhsC5Lw51CdAfQ4ppwBIfAfXJ7Mm8C0QXU0xBd5HSVqoq
+	6ME2OUgl5NcT3eisB1YGMgpMbNxYZrt1os9LE7eP/NbLZAkbxmqLtLdEpGnmdcY5IWujT1U2VB5
+	da1SP0XUZOBuAD/VSic
+X-Received: by 2002:a05:600c:154c:b0:49c:fed6:cd3f with SMTP id 5b1f17b1804b1-4a18043c080mr60892295e9.23.1791401621545;
+        Wed, 07 Oct 2026 12:33:41 -0700 (PDT)
+Received: from localhost.localdomain ([94.252.75.178])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a1843b5a2esm12427595e9.11.2026.10.07.12.33.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 12:33:41 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>
+Cc: Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	linux-arm-msm@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Oleg Keri <okerixx@gmail.com>
+Subject: [PATCH] soundwire: qcom: wait for the interrupt thread before gating the clock
+Date: Wed,  7 Oct 2026 21:33:32 +0200
+Message-ID: <20261007193332.5270-1-okerixx@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261006-stmmac-irq-unwind-v2-1-194591c87460@gmail.com>
- <179127056620.2231598.8882282421523696709@kernel.org> <CADvTj4orth=RYtb78ND1rdiYh2yb6d+TjZt5ohK_-+1mnVpqfQ@mail.gmail.com>
- <20261006155214.63c5cb5b@kernel.org> <CADvTj4obBNgR4w3BW4-gCU-=LUxesQdTRN=EdWTcx7VznFi4kA@mail.gmail.com>
- <e7fea95d-1ce2-4c5a-891d-5e5899931329@lunn.ch> <CADvTj4pm8fbgGDiyXVHubnM93qOey7o18O+MDU68MSisXVvHtw@mail.gmail.com>
- <f304ee6d-bbc2-4f76-964a-998c3febb8dc@lunn.ch> <CADvTj4pniuLUzsHP_kv03rFUkUD87PD9yVZ=HnW0CsZX78OxLQ@mail.gmail.com>
- <98a7f952-37cd-4886-acb2-e87743e51fba@lunn.ch>
-In-Reply-To: <98a7f952-37cd-4886-acb2-e87743e51fba@lunn.ch>
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Wed, 7 Oct 2026 13:31:43 -0600
-X-Gm-Features: AclHuK-r6Ggh8hcrYXS3hhyuBupmyUJCn-QYPzqWblWY-KLgPSt5UCA_gEavD14
-Message-ID: <CADvTj4ozfxA3E13g5sV2tPogDk=S+VOyf_PAXZVQyaozoe3O0w@mail.gmail.com>
-Subject: Re: [PATCH net v2] net: stmmac: unwind the WoL IRQ after a safety IRQ
- request failure
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Jakub Kicinski <kuba@kernel.org>, netdev-bot+sinfo@kernel.org, netdev@vger.kernel.org, 
-	Paolo Abeni <pabeni@redhat.com>, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@kernel.org>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Serge Semin <fancer.lancer@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
-	Nicolai Buchwitz <nb@tipi-net.de>, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 7, 2026 at 12:33=E2=80=AFPM Andrew Lunn <andrew@lunn.ch> wrote:
->
-> On Wed, Oct 07, 2026 at 11:00:50AM -0600, James Hilliard wrote:
-> > On Wed, Oct 7, 2026 at 6:46=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wro=
-te:
-> > >
-> > > On Tue, Oct 06, 2026 at 07:27:05PM -0600, James Hilliard wrote:
-> > > > On Tue, Oct 6, 2026 at 6:57=E2=80=AFPM Andrew Lunn <andrew@lunn.ch>=
- wrote:
-> > > > >
-> > > > > On Tue, Oct 06, 2026 at 05:17:20PM -0600, James Hilliard wrote:
-> > > > > > On Tue, Oct 6, 2026 at 4:52=E2=80=AFPM Jakub Kicinski <kuba@ker=
-nel.org> wrote:
-> > > > > > >
-> > > > > > > On Tue, 6 Oct 2026 01:14:52 -0600 James Hilliard wrote:
-> > > > > > > > > Please do not repost the series just to address the above=
-. Instead,
-> > > > > > > > > reply to this email with the missing information, so that=
- reviewers
-> > > > > > > > > can take it into account. If the series needs another rev=
-ision for
-> > > > > > > > > other reasons, please include the information in the comm=
-it messages
-> > > > > > > > > then.
-> > > > > > >
-> > > > > > > Please make sure you read this paragraph, to the end.
-> > > > > >
-> > > > > > How much detail should I be including?
-> > > > >
-> > > > > We want to decide should the patch go to net, because it is a rea=
-l
-> > > > > problem which bothers somebody. Or is it a theoretical problem wh=
-ich
-> > > > > will never happen, so we might want net-next, or maybe /dev/null.
-> > > >
-> > > > I mean, it's in an error handling pathway that could be hit if ther=
-e's
-> > > > an -ENOMEM error on an IRQ-action allocation.
-> > >
-> > > ENOMEM does not happen for small allocations.
-> > >
-> > > https://lwn.net/Articles/627419/
-> > >
-> > > So at first glance, this seems totally theoretical, it will never
-> > > happen. So net-next, no need for a Fixes tag, etc.
-> >
-> > It looks like there might be a few other ways to hit this cleanup pathw=
-ay,
-> > not sure how plausible this is in practice however.
->
-> So lets go for net-next. If anybody hits this for real, we can
-> backport the change to stable.
+A broadcast write returns as soon as the interrupt thread signals
+SPECIAL_CMD_ID_FINISHED, while the thread still has to clear and re-read
+the interrupt status. swrm_runtime_suspend() gates hclk right after the
+ClockStopNow broadcast, so those accesses race against the clock being
+removed; on x1e80100 and glymur hclk is the SoundWire clock itself. The
+next clock-stop exit then fails at random: bus clash, parity errors
+reported by the peripherals or AUTO_ENUM_FAILED, each leaving one side of
+the speakers detached until reboot.
 
-Should I re-spin this on net-next with the fixes tag dropped? Or does
-this apply as-is on net-next?
+Wait for the interrupt thread to finish before gating the clock.
 
->
->          Andrew
+Fixes: 74e79da9fd46 ("soundwire: qcom: add runtime pm support")
+Signed-off-by: Oleg Keri <okerixx@gmail.com>
+---
+ drivers/soundwire/qcom.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+index 6e0c5fb10efa..76f940f4eb31 100644
+--- a/drivers/soundwire/qcom.c
++++ b/drivers/soundwire/qcom.c
+@@ -1887,6 +1887,7 @@ static int __maybe_unused swrm_runtime_suspend(struct device *dev)
+ 		}
+ 	}
+ 
++	synchronize_irq(ctrl->irq);
+ 	clk_disable_unprepare(ctrl->hclk);
+ 
+ 	usleep_range(300, 305);
+-- 
+2.55.0
+
