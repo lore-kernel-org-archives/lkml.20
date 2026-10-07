@@ -1,95 +1,100 @@
 Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF0733A16AB
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 09:32:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDC4E386C25
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 09:32:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791365578; cv=none; b=AIq1xRdtwCyRuGNwh2xzPtGZ+SgucJrrgWjEVzHe1WLSfK7BaTgtAhd5Ca7RJmHd4Z2E0Nl8dqf+IGhKfUM5KcLSdFN3i7DcYP9I8yx3sBH7JCqhNXsBbN7qQ67WJWbmSUcBKEk+px7QKAMfs/y3lpWLUOrYwsVsVQZPFNH5TFk=
+	t=1791365578; cv=none; b=kWC+kEAMrBNAxeZ5wsIZY35L6sRIZRNbddEc+dTdUgHW77c8KURqwkN6VloaEPdvEZTrlopimxVjRmhAWyrs0KWWAvr3Lp80L/a7MRssENIfeQ8N5vVqxMJRcjmt9f0KpqGjArygpofJC+DIqeYeoE0Bdog++XerH1hsGv6SrbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791365578; c=relaxed/simple;
-	bh=lcbWyDAe9iP9Y9CGMUNym1joCiuQtEP4YIZc6Fni22o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XRyyPV1LMVyfFRDFrIdnD9ZDN+a5TAJI/c7yls6NGfhSWkt43qMcFV2CpBwLnQXB6Z3mo2dgO/dBKx5mJBizf7V2K84WFoSpxrmYKtFdZubhTqdwSmrnKW/Nq/LV2kya8JdjIyBIg5L87y0+/o64PfydpvFP+Q5C1JV7ifTDmtM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=M4Ejwxnz; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=NX1hLz07; arc=none smtp.client-ip=202.12.124.159
+	bh=YrnTienYW7UUHtcvtY04TV1viY/3EysGS8vE42JoxSM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=LvkmVhrj4uTuYLJBHvqh0q9Wtbcj/nFOMiSTzNCoRq56k1XNKXDjvxz/ZRmBmx4Z/T89I3nbr+0o3JVc7ylWWPG8bUdi6h9B8Zigr1dbw41xvRCRANmQ93Ill3dtFxaSftjxViGZaeAFD0fCgqXG0e3YPJPZPnQhw3LnSXwVu88=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=KQHOabaJ; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=dId6hOOc; arc=none smtp.client-ip=202.12.124.159
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="M4Ejwxnz";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="NX1hLz07"
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id B42887A01E3
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 05:32:40 -0400 (EDT)
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="KQHOabaJ";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="dId6hOOc"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id E17587A00EE
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 05:32:43 -0400 (EDT)
 Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-12.internal (MEProxy); Wed, 07 Oct 2026 05:32:40 -0400
+  by phl-compute-04.internal (MEProxy); Wed, 07 Oct 2026 05:32:43 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
 	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to; s=fm2; t=1791365560; x=1791451960; bh=/l1GvRN23i
-	5VUkYIwF318Sw6dHrqI0/aKjTQBXRh3UU=; b=M4Ejwxnz5lttqtK7ZZTKqaCQuG
-	T9hLv3f++2LtOiO31zigjnAjGl+A3r1qPNSALU4UsCqqg4lJdnlzQ+NMYs6F/Dbk
-	9asUkMOa5Jq/bRhwDAlJo1paTB4II0dpDeHOQvbZjZA+vfr96evb8U3Bw8lsbpda
-	sXh7BYC7iqJPqjv4lkhIxLEsPvcCU5ed9dM/XoPmSFhvskp8VI/Thj0akdCfNXvg
-	DMcMVLggAgyz/RUzDeLKMPhQcXNq+PssCSHU4E0jkY+ksDDjGXIkcTGWPoi3ysox
-	KSm9zYX3sZ1cKp349YAfp9qxjcgPAAgvOJVtuden9HmSckbO3CtIa7vbR1LQ==
+	:from:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1791365563; x=
+	1791451963; bh=cNHPL10LWCURFamb8oZ/7wSdq2aScho+XD7OFdI10p4=; b=K
+	QHOabaJCyFAMncQEldDcnShza6ue4dyBRplGCHj12p6TVRCGamkkl2wIxJjnD+/v
+	9++f+htQaRkn7d7VeEUXmQrTILrj5emtuJ0/nQMGJuOx9iabATQCNl0rNe+QqMVj
+	UryG7AKy023P8GeqOJKEGSa7f/VdAbefc6MQIcshpLnV1Dt40ptx8h+zOUPz+9fX
+	cp1hRcPq/LPmj0wgEJWS08EcuzNvzRYkMjRyLWQSJfAOVlj4eTGNF1y3c0WE2tyV
+	mNE6wp6clZO/4D1f1Kuwf6jrArVeRUSlUpGW2Cskn39Z6DHV6Gdqkc9EwG+del1s
+	iOWvJlP8RWcd9YBH21+Dw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1791365560; x=1791451960; bh=/l1GvRN23i5VUkYIwF318Sw6dHrqI0/aKjT
-	QBXRh3UU=; b=NX1hLz07v/NNbYkv7wP9HfYBrlBuIC7Hz3jU3zveGcCo4rUBkmB
-	/+2Er0Ti2CUhWQ5vE9YbeY70lgitnHQsKQoNCXNXR84p0Uq98fadNByCE9umhuVL
-	wyL1ODv9GagGwVjoMpffsPC1K1nGTyLfxuozMF0rSUd4rdSN8cHsFX1vPRimIt4S
-	Ml+tBWN+WWlqsEgzCBt62DNWLwCs0fKpoHn1kpZoZP+cub/MTd/lEFnelYKqO14L
-	v9VYl+U4IJQx+kXgI3aVTARO7ziORnVED6j6U33h/SDRc8AFaCVGNDJrq8CrSC9q
-	saKM+AcYGAfpy/es6tOFYEwiXefl9BtjOhw==
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm2; t=1791365563; x=1791451963; bh=c
+	NHPL10LWCURFamb8oZ/7wSdq2aScho+XD7OFdI10p4=; b=dId6hOOc29HK0dArH
+	fIvSSYAam8hEvmoLqb0pTkzQ/MGEHMMTn0U72KrnzDkPYaI3hZJTqKSHD8gWjZFt
+	apB3b5O+QmtGfQEkg6IKCNGj7XAb6KtvHNE/K3uvcSVWvLgPQVq/ixrtbOhhCVKb
+	kqOKtYMprXHnRY0UYfhkpsL5zuLbQgPpCa5F5kFGJlLozX1vXoOFjw9I8zZ1zxUd
+	7uJZZqSJtgnXOPqVLNRPt4QqY+awW7azpvfxbltWuronohWYNQ1C8Adij4eAMfMF
+	ycgr2F3WHsRi/QrCzs8oaVzaaaxHotvBjLWfoPxQrDPdRHVSEqVJJUy2bykVohav
+	GMY+A==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
 	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
 	action=sign d=sakamocchi.jp a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791365560; d=sakamocchi.jp;
+DKIM2-Signature: i=1; m=1; t=1791365563; d=sakamocchi.jp;
 	mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
 	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:jdYbGHQEgAG+PLl952Tk7wI3yoXolmiXpbPX/xqfwn0dOQg
-	oL+E6nZpsN5gb7E72YzM+7XAFAoD2BId28MZFD4u8a5CR3dr1xgh1VXSyiXG6r7x
-	TjwPyzoGM7J+rWjkRbhHLd8BRmKdfFYudA+gEHXUEuFYw1ukie+hF7Aa7IDnq6Up
-	OmLTWTBhsfpNyW2AdUB7XgS2ILfT/M/5gYj2JmGpqeU9srZDLUmugHnP2RHTKg2M
-	c0p/0BUuK3KhkSr4IR0s+ZyRDqL0nLU6nkFTaypDws4h+mOdKW2Mkbp6JfghmfXJ
-	t1JOS8jSkBrdpSjkhMyLhrB/+wBX9lzDvweDRgA==;
+	s=fm2:rsa-sha256:cP26sJcFf/mulFZibzu6B0419eV4xSzH76r+fIsQmMHcxT+
+	rpDN8JWcZlftrHSh049ORRzqkr8fNKverMC45X8PbWPGlWZ9gh0pDAoRL4TyckXA
+	+H6MYV4E3Lb6ISPlbPZDj28Hx+MCdQTrfJL0tkCZq0JW/MCEicb73wNwTlm+aBud
+	xHjvCi3s/NHZ3miwVnylqd8ysIE+ffLb38/rvkulxIIje5OJCr2HN2z5it6Inil4
+	5GBESELfSZ/XybbuxI+rcJSm7EtvBDpQgRDrmiaX4y5gOvMi5DBY/YIs43Z5A8EL
+	SuI382UG5aHsr9JTyK4ZI5h4f7plLQZxSUSKYuQ==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
 	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=9;
+	action=mi-m=1; hc=11;
 	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:SHjrwR1ym3HQY5b2B/TjVmepCgjNsO0LrwR5rb6gRzA=:lcbWyDAe9iP9Y9CGMUNym1joCiuQtEP4YIZc6Fni22o=;
-X-ME-Sender: <xms:uBHGakzZeTMWgeWt7I51lIKRkO0SjQBk5uTQQmkue36nERUAMbugKw>
-    <xme:uBHGamMWBsaDtnNxOXF1tElYFEw6SZXtjRbakAvvcMXHSUo5T-ICbItp3wcSvPJFa
-    Mbd8epk-1usQjXI-C7LjdSg5-z4G_VQC9OYtKFLAo3TR5uzcDI_xFI>
-X-ME-Received: <xmr:uBHGat73vi-GxT-Uf8g428cCyeZd4AuUhEishYnmU_VW2E14vr7iPPGzTqI_Z0UUZHC_vLKo-EZRZ8tfmiSzr_umoxdikIiGTcdRwqTT6p02ZA>
-X-ME-Proxy-Cause: dmFkZTFrMVR84d3wBIpVnW21dA9q0LIB8pzMYGfHAA8X3+7ilOED4wUVJ/xD2bfECAQFPy
-    nmeT2EKcgGAEszgBhNIzduaW696QR9WUEWlQ/LgsXfRwsnECeLflsFTSGwAXkP1tSJoFol
-    f2Aqt3e6j/Ye8zNdVfbymXqSHyc0WY0rEH0NEwcoHHYw+8CKy3hVMwT+OxmG3L5SHp4CWn
-    1TcAlTYIEmU2WIqhuHb559YRzkSJZ/IfJ3QcmMAFTqI24IFcN0xdI07ZoiQNPwl/ZCNx3K
-    GmAEToOaAYG9ViRsF4kNRCu6ZHoEMiqMZS5VidQlXb3kdUoRKI9N3tFH0zRpVo/rmarxGw
-    topbeErnBvPqjqqo7BsSLOx280yQrHItycll080KE9CzFtD2+zWl8JE/WMrk8S+faZgDUT
-    m2vxEqaHHf0CaStprAg3sWXvh7EMieYfl5wiIkSOD496R258OGzugP3FZthX1pI5uWZga3
-    ClK2qnoEJlaltpi4JSa6u1VbnQVwTh0Lhej1W5unRL+oaDxGF3wtPeZMsS/S7jLPb+JaaQ
-    Sexi1ZfI+8Uakf7z4a8c9h8ZVAaMDSXgEw2bXUMyx4vfzidlyWBh3W2M8Lo0FQ8TudlIJ2
-    J+mrWB6KLuA8W0vifTbJCzHpR+Oiw+Fu6HjhXncepdWOzpsk+eE2TAQ9pTXw
-X-ME-Proxy: <xmx:uBHGavPoQInDlf1ATFodby4ZBR3bYMWX0Uh9MT2rkotlui6XhP-UeA>
-    <xmx:uBHGajk0hheSI478xdaIGVMZfVFYi7-8YIvOS-zSqSagtOOHTJQeBg>
-    <xmx:uBHGauRpbds2P5ZRHp2Pq4Fq0KER8k0G7gYm_TK_A2728UwLUKmM_g>
-    <xmx:uBHGanD2ZkU9MTkDTm_hO5q_XcDjSZBwM9DVlf_OsJc-gBEufTNL6Q>
-    <xmx:uBHGakktm0AWluiNjAO6nodPl7LFNW6ttvyid0uOhqsmVq38LoMQf2xy>
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:L3l/vw39rv0kM9cAkcplbvVlEDdcLpubzOdvjvkEfvs=:YrnTienYW7UUHtcvtY04TV1viY/3EysGS8vE42JoxSM=;
+X-ME-Sender: <xms:uxHGag0jgJKLCAgo6dkBWHfCCGpyX2XS24uElpo-badzXUpZNu0_tQ>
+    <xme:uxHGapDj4j2K3A_JGKSvNpcodpQ-alQ6KgNEf3hPwx3AcBNqpZpQal6kEcoC3rYfr
+    YvBzdSCSKteqxAm2PKOxIRHw3B8b4LtFSJO_gajmE7vBEYIw3OHGoUkSw>
+X-ME-Received: <xmr:uxHGagfClMTKQHKZ5MhpvFEmMH27CTwJgiNahouJPNQUUr2zP3vaDTDOTe04kpoPmwjmvedbmZQy3ZwJU137tps9c5WWBDAg_3i8Y8yqAzWkxA>
+X-ME-Proxy-Cause: dmFkZTERAQgPBRTUumSUl2n0Pq7uPwC7Nn+MwikbWSdYmwV+7ZoCKD1ALngDo5xo/DfEgy
+    jrswz2tzI0II+sJVSsBA3dNImOHFRp7RLdFYmaSukYnegLXQHj5im6CGrsxGvXrqiWZlQj
+    +EwpFK3W1zTWGUuT5vr9g2heDmc5YHvRVgGD55VUKSsdTDhrHycjCbsxOj5N+6A2kou4iS
+    GIYBuIxUTSdoXQeg8uy53LvHOCO3Tcgw2eZgRVTGN2AKgQI6CwUvFr5AP1tukpi4I/3qqC
+    26VqD8KU7A0SnfEU0EU0uq2nMzKmuWlXP3uL1cP+zxAwEQaN38E0bbCwA4OvbjR2P8b2Jm
+    RYqh90Cz+GFCFNByH8dvjMpQ3p2EtYngddjJazIqz+ke8QaUfoM1vE/D/NlShNQv+zVGN2
+    5TL3/7dabEkAGRE43PEdMqyzDorbu65aGlJGJT1gMW6OHagDoJuhudAnDDQuwvZloi1e51
+    bz7VuOzfP45K5k+IO4+N/AbjV9VH7S15YJwXkkvqM+gNHYE372Lh0rNhwqcVNvOD4EKtH+
+    xATN6xwkF6f9juuFi+EK+Sj6tF6cJJTI8MaOrUuTFEcWIGN2bUovKezDxN4W/qaHijWqvE
+    wcGKIm0v1es2Gl2XgdoUWf9zFJblbjmvaNNkbsu5s2tfDoLkStyHhzMOUk/g
+X-ME-Proxy: <xmx:uxHGamjStOchhEWr-IS_ZSXHlEameRsleFJgp9rv7zJXM593r_xz5g>
+    <xmx:uxHGagq5eyADm8DIL87NvlePJSE43PnOm9uRjsv7Y5ZrVtH5GEslug>
+    <xmx:uxHGauG89u8SjgyaZdg_B4p7DRtzo0uvoVu2lvX5QtoWfAHthr_jtw>
+    <xmx:uxHGaimaqkvPzC_Zjaj3y-c3g4e52qTiv9PJJPPIHUDsiS98ZSSGYw>
+    <xmx:uxHGatLXqPpTSOEcygKoSjuvmivh3IFSA9p86hjJ0C1YD5SKuAIblp7q>
 Feedback-ID: ie8e14432:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 7 Oct 2026 05:32:39 -0400 (EDT)
+ 7 Oct 2026 05:32:42 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: linux1394-devel@lists.sourceforge.net
 Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/5] firewire: core/ohci: defer cancellation callbacks to workqueue
-Date: Wed,  7 Oct 2026 18:32:30 +0900
-Message-ID: <20261007093235.175742-1-o-takashi@sakamocchi.jp>
+Subject: [PATCH v2 2/5] firewire: ohci: schedule callback on workqueue when cancelling AT request packet
+Date: Wed,  7 Oct 2026 18:32:32 +0900
+Message-ID: <20261007093235.175742-3-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261007093235.175742-1-o-takashi@sakamocchi.jp>
+References: <20261007093235.175742-1-o-takashi@sakamocchi.jp>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -98,53 +103,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+The current implementation invokes the packet callback in the context
+where the packet cancellation is requested. This is inconvenient because
+the context can affect the packet callback.
 
-This series is take 2 of the previous one[1].
+Invoke the packet callback from a workqueue instead. Use the workqueue
+for local AT packets.
 
-The current implementation invokes both packet and transaction callbacks
-from a workqueue when they complete normally[2][3]. In contrast, the
-cancellation paths invoke the callbacks synchronously while cancelling
-them.
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+---
+ drivers/firewire/core-transaction.c |  8 ++----
+ drivers/firewire/ohci.c             | 43 ++++++++++++++++++++---------
+ 2 files changed, 32 insertions(+), 19 deletions(-)
 
-Although the cancellation paths are guaranteed to run in process context,
-invoking the callbacks synchronously is undesirable because it makes
-callback execution depends on the context in which cancellation is
-executed.
-
-This series defers the callbacks to a workqueue when cancelling the
-packets and transactions, so that callbacks are invoked from a workqueue
-in both normal completion and cancellation paths.
-
-This also allows local AT packets to be cancelled. Local packets currently
-use a separate path and cannot be cancelled once queued. Make them use
-the same cancellation mechanism as remote packets.
-
-Changes from v1:
-* Use prefixed local variable in the issued macro
-
-[1] [PATCH 0/5] firewire: core/ohci: defer cancellation callbacks to workqueue
-https://lore.kernel.org/lkml/20261005112544.240552-1-o-takashi@sakamocchi.jp/
-[2] [PATCH 0/5] firewire: ohci: invoke all AT packet callbacks from a workqueue
-https://lore.kernel.org/lkml/20260919115017.859169-1-o-takashi@sakamocchi.jp/
-[3] [PATCH 0/3] firewire: core: invoke transaction callbacks in process context
-https://lore.kernel.org/lkml/20260921031931.287429-1-o-takashi@sakamocchi.jp/
-
-Takashi Sakamoto (5):
-  firewire: core: expand close_transaction() into its callers and remove
-    it
-  firewire: ohci: schedule callback on workqueue when cancelling AT
-    request packet
-  firewire: ohci: allow AT local packet cancellation
-  firewire: core: schedule callback when cancelling pending transactions
-  firewire: core: fulfill kerneldoc for fw_cancel_transaction()
-
- drivers/firewire/core-transaction.c | 101 ++++++++++++++--------------
- drivers/firewire/ohci.c             |  57 ++++++++++++----
- 2 files changed, 93 insertions(+), 65 deletions(-)
-
-
-base-commit: a6e7c3836b81235df08814bd409f7a23efcfb34d
+diff --git a/drivers/firewire/core-transaction.c b/drivers/firewire/core-transaction.c
+index 37c61c4b7d20..cfd7d682c595 100644
+--- a/drivers/firewire/core-transaction.c
++++ b/drivers/firewire/core-transaction.c
+@@ -108,12 +108,8 @@ int fw_cancel_transaction(struct fw_card *card,
+ {
+ 	u32 tstamp;
+ 
+-	/*
+-	 * Cancel the packet transmission if it's still queued.  That
+-	 * will call the packet transmission callback which cancels
+-	 * the transaction.
+-	 */
+-
++	// Cancel the packet transmission if it's still queued. That will schedule the packet
++	// transmission callback which cancels the transaction.
+ 	if (card->driver->cancel_packet(card, &transaction->packet) == 0)
+ 		return 0;
+ 
+diff --git a/drivers/firewire/ohci.c b/drivers/firewire/ohci.c
+index df53efec0b0a..896d0cb9a895 100644
+--- a/drivers/firewire/ohci.c
++++ b/drivers/firewire/ohci.c
+@@ -1669,6 +1669,9 @@ static void at_context_transmit(struct at_context *ctx, struct fw_packet *packet
+ 	struct fw_ohci *ohci = ctx->context.ohci;
+ 	bool use_work = true;
+ 
++	// These members are used to cancel the packet.
++	packet->driver_data = NULL;
++
+ 	scoped_guard(spinlock_irqsave, &ohci->lock) {
+ 		if (!destination_is_local(packet, ohci)) {
+ 			if (!at_context_queue_packet(ctx, packet))
+@@ -2652,7 +2655,7 @@ static int ohci_cancel_packet(struct fw_card *card, struct fw_packet *packet)
+ {
+ 	struct fw_ohci *ohci = fw_ohci(card);
+ 	struct at_context *ctx = &ohci->at_request_ctx;
+-	struct driver_data *driver_data = packet->driver_data;
++	struct at_local *local = &ohci->at_request_local;
+ 	int ret = -ENOENT;
+ 
+ 	// Avoid dead lock due to programming mistake.
+@@ -2660,24 +2663,38 @@ static int ohci_cancel_packet(struct fw_card *card, struct fw_packet *packet)
+ 		return 0;
+ 	disable_work_sync(&ctx->work);
+ 
+-	if (packet->ack != 0)
+-		goto out;
++	bool use_local_work = false;
+ 
+-	if (packet->payload_mapped)
+-		dma_unmap_single(ohci->card.device, packet->payload_bus,
+-				 packet->payload_length, DMA_TO_DEVICE);
++	if (!packet->ack) {
++		// NOTE: This function relies on this value, thus it is not thread-safe.
++		struct driver_data *driver_data = packet->driver_data;
+ 
+-	driver_data->packet = NULL;
+-	packet->ack = RCODE_CANCELLED;
++		if (driver_data) {
++			if (packet->payload_mapped) {
++				dma_unmap_single(ohci->card.device, packet->payload_bus,
++						 packet->payload_length, DMA_TO_DEVICE);
++			}
+ 
+-	// Timestamping on behalf of the hardware.
+-	packet->timestamp = cycle_time_to_ohci_tstamp(get_cycle_time(ohci));
++			// Invalidate the packet queued in AT request context.
++			driver_data->packet = NULL;
++
++			scoped_guard(spinlock_irqsave, &local->lock)
++				list_add_tail(&packet->link_for_local, &local->list);
++			use_local_work = true;
++		}
++	}
+ 
+-	packet->callback(packet, &ohci->card, packet->ack);
+-	ret = 0;
+- out:
+ 	enable_and_queue_work(card->async_wq, &ctx->work);
+ 
++	if (use_local_work) {
++		// Timestamping on behalf of the hardware.
++		packet->timestamp = cycle_time_to_ohci_tstamp(get_cycle_time(ohci));
++		packet->ack = RCODE_CANCELLED;
++		queue_work(card->async_wq, &local->work);
++
++		ret = 0;
++	}
++
+ 	return ret;
+ }
+ 
 -- 
 2.53.0
 
