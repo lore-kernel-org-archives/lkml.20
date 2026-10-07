@@ -1,36 +1,33 @@
-Received: from mta1.migadu.com (out-139.mta1.migadu.com [95.215.58.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1017C4CDA3E
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 16:39:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.139
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AAE2D39EF0F
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 16:40:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791391179; cv=none; b=f15qvBamPvUhciCXhpStQyfFvk00xN6mumDiRsJDfffAiv+cdzW0mzWD0lnJB7xiEDg/P9CGKUWwIOAehlHoqVZRruVk5V4G40+Tq30oFD6qLdT4dgN4fogMfUwBSjL2vy8fQ3B1KHbrHMsWdNs7rRwLkBH3FJZf0LiZOWE4HA8=
+	t=1791391207; cv=none; b=APHovhO97DjtIqy6YJDpWfpMY2U6LhLN+1E+Su9cAh8dpX2zZcAqC28G0pbt5j6rzuUGjPcGX+DiIq/azP/3z4k7KN2vM8PVQruzwJONBS9hYGnuNtpE+d/MnMOCD81rJOpafIZzhXm8gh4e40betB5er2vIFdGQcb9cZMcFUYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791391179; c=relaxed/simple;
-	bh=YfYHbPshNF22vRBtJCgXQrl41GLL7Ua8eOIdr5Gqej8=;
+	s=arc-20240116; t=1791391207; c=relaxed/simple;
+	bh=RsIlUhbc158q92/khn0EiHUvOM1rXiYQlXQLjAYxhwM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SumuAx+KUjPZBfilgy9MH/HPfz34giZr2jc2otZLSbKm28smkJL5dAfI0tit78IWgH5cvAIrYs7I7O93Z+Xxq8VvqBtCeEQvNWjKecwW5Fl3KHPTMkAspO2CThQhLQXhT6Sa4hH1VZLFCCiHCCGNt39Hx0hY6UhTkjF0mO60ods=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=h/UDUzI/; arc=none smtp.client-ip=95.215.58.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 In-Reply-To:Content-Type; b=B10I7IYIhw6L7XQDbBqH4G+re0axoLPZlUHrkxl8/eqG8xHfAMJSscEy1LWj1+jrha6eupl7eOW6ZblROZKfhn9Yd2/kSV/70mHkvDCyABf0lq2FAtcysLWUpoLYtG/iuH80op3SFYGldv3kJ2R/cuMiJEf5nd1Pfpt0a2Cp784=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=m1KTjd4I; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="h/UDUzI/"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=YfYHbPshNF22vRBtJCgXQrl41GLL7Ua8eOIdr5Gqej8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791391176; v=1; x=1791995976;
- b=h/UDUzI/49q+HLauPwFy45wm218YnF6UhaooxYBJJ2XDmkYUsOe7y61saE3ooxVK+2Rj0vtX
- YUd1/cD9s8l97lHTn6aT6ZohR5FsAjsx0wtWp4OOTTH+Nk1ldu8AKKEBgXwvAlq/+mFj7bG0fQ2
- fjDdD846/skcWr4K6K3ZZJuA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id bc8cee966bfacb3a;
-	Wed, 07 Oct 2026 16:39:35 +0000
-X-Mizu-Trace-ID: bc8cee966bfacb3a
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <3b718d6e-462e-4d22-b42b-915cd88bd60f@linux.dev>
-Date: Wed, 7 Oct 2026 18:37:55 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="m1KTjd4I"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8FB7F1595;
+	Wed,  7 Oct 2026 09:40:01 -0700 (PDT)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4AE1A3F763;
+	Wed,  7 Oct 2026 09:40:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791391204; bh=RsIlUhbc158q92/khn0EiHUvOM1rXiYQlXQLjAYxhwM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=m1KTjd4IbrVvo4Jn+1KiWqZ+1amstNgSAC4kx26kLFrJLx7Br2Ezd7m5Qs5gB+4Dj
+	 iLXs7Wonp73ii65YHcN+5g1IMI6sI3tTq6z8PsBPDxKdEkxGlhO7NR+nAFPVHgsVYy
+	 6k9Ml23TjlULpXp6wmv0RB8GZZOqAmEFcMDlycow=
+Message-ID: <ae8db5bf-9f9e-4f0d-afa1-91718323568e@arm.com>
+Date: Wed, 7 Oct 2026 17:39:58 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,129 +35,91 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] ASoC/soundwire: remove ghost peripherals from the
- mach table
-To: "Liao, Bard" <bard.liao@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- "linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
- "vkoul@kernel.org" <vkoul@kernel.org>,
- "broonie@kernel.org" <broonie@kernel.org>, "tiwai@suse.de" <tiwai@suse.de>
-Cc: "vinod.koul@linaro.org" <vinod.koul@linaro.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "peter.ujfalusi@linux.intel.com" <peter.ujfalusi@linux.intel.com>
-References: <20260915131327.1783551-1-yung-chuan.liao@linux.intel.com>
- <528a9777-1587-4dfc-a366-000fc0867d4b@linux.dev>
- <SJ2PR11MB8424E1911A4CA6F9414A07DAFFB92@SJ2PR11MB8424.namprd11.prod.outlook.com>
- <SJ2PR11MB8424E1FAF2D8D1EAD84C3B92FF942@SJ2PR11MB8424.namprd11.prod.outlook.com>
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-In-Reply-To: <SJ2PR11MB8424E1FAF2D8D1EAD84C3B92FF942@SJ2PR11MB8424.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2] iommu/arm-smmu-v3: Align memory attributes for
+ SMMU-originated accesses
+To: Daniel Mentz <danielmentz@google.com>
+Cc: iommu@lists.linux.dev, will@kernel.org, joro@8bytes.org,
+ nicolinc@nvidia.com, smostafa@google.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ dawei.li@linux.dev, jgg@ziepe.ca, praan@google.com
+References: <20261004195027.227748-1-danielmentz@google.com>
+ <92758f79-d5b7-4c15-a55d-6bea5f84a028@arm.com>
+ <CAE2F3rAJdC9pAqMKcXhxpw1keGzH_kQUNBoPHXjTP8+7TOhfwQ@mail.gmail.com>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <CAE2F3rAJdC9pAqMKcXhxpw1keGzH_kQUNBoPHXjTP8+7TOhfwQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Sorry Bard I missed your earlier answer.
+On 05/10/2026 10:26 pm, Daniel Mentz wrote:
+> On Mon, Oct 5, 2026 at 9:42 AM Robin Murphy <robin.murphy@arm.com> wrote:
+>> This still isn't answering the question of "why?" though. Yes the
+>> architecture says some things, but if we were strict about avoiding
+>> mismatched attributes then Linux couldn't ever support non-coherent DMA
+>> at all! Similarly while the architecture does permit SMMU
+>> implementations to be picky about their output attributes, does any such
+>> implementation actually exist at all, let alone in a system capable of
+>> running mainline Linux?
+> 
+> Fair point that existing implementations have been forgiving in
+> practice. My thinking here is simply that a small, self-contained
+> cleanup that brings the driver into line with the architecture spec is
+> worthwhile on its own merits, even without a known implementation where
+> this currently causes problems.
+> 
+> This is really in the same spirit as your commit 7618e4790982
+> ("iommu/io-pgtable-arm: Improve attribute handling"), which aligned the
+> attribute handling with the architecture specification on the basis
+> that:
+> 
+>    "Although the SMMU architectures seem to give some slightly stronger
+>     guarantees of Non-Cacheable output types becoming implicitly Outer
+>     Shareable in most cases, we may as well be explicit and not take any
+>     chances."
 
+That was more about being self-consistent and technically compliant with 
+VMSAv7, which again is not relevant to SMMUv3. In fact if we _only_ had 
+to support SMMUv3 and not arbitrary other io-pgtable users then we could 
+point to 13.1.7 "Ensuring consistent output attributes" to prove that 
+that change would not have been necessary.
 
->>> On 9/15/26 15:13, Bard Liao wrote:
->>>> ACPI may report a ghost SoundWire peripheral. It will cause unexpected
->>>> error like duplicated links, codec driver can't probe, etc. This series
->>>> check the presence of SoundWire peripherals and skip the non-existing
->>>> peripherals.
->>>
->>> I am afraid this raises quite a few opens, such as the 'mockup' support
->>> and delayed enumeration.
->>
->> The mockup support will not change. We will only check the existance if
->> no mach item matched. And we can always add the mochup configurations to
->> the mach table.
->> And indeed, it will add a little delay in some cases. However, based on
->> our test, only about 1 ms delay will be added.
->>
->>>
->>> A better way to only deal with actual codecs would be to only probe
->>> codec drivers when the codecs report as ATTACHED and get enumerated,
->>> instead of during the ACPI parsing stage.
->>
->> But this doesn't solve our issue. The DAI link will still be created
->> and the sound card will not probe because the codec driver doesn't probe.
->> Our target is that the ghost device should not be added in the DAI link.
->> So that the sound card can probe properly.
+> As I noted in my reply on the v1 thread [1], under ARM IHI 0070
+> (sections 3.15, 6.3.11, and 13.1.2), a non-coherent SMMUv3
+> implementation (SMMU_IDR0.COHACC == 0) in which every SMMU-originated
+> access configured with Normal Write-Back, Inner Shareable attributes
+> fails and records an External Abort (F_STE_FETCH, F_CD_FETCH,
+> CERROR_ABT, etc.) is completely architecturally compliant, yet wouldn't
+> work with the current arm-smmu-v3 driver.
 
-I don't see how the DAI link would be created if there's no device
-registered for the ghost device?
-I guess we're talking about separate layers...
+Sure, and another system could only support iNC-oWB, wherein this change 
+still wouldn't work. If you want to argue against making assumptions 
+about the implementation/interconnect, you can't simply make a slightly 
+different assumption about the implementation/interconnect ;)
 
->>> This is a solution that was discussed a ong time ago, probably circa
->>> 2016, during one of the LPC miniconferences, and the direction from
->>> maintainers was that the probe could be used to enable resources (power,
->>> gpio, clocks) that might be required for the hardware codec to become
->>> functional and report as ATTACHED. That's the reason why the probe is
->>> done on all codecs exposed in ACPI, even 'ghost' ones, with an
->>> update_status() callback to the codec driver when the presence of that
->>> codec is detected on the bus.
->>>
->>> In practice I am not aware of any codec drivers doing anything with
->>> power/gpio/clocks in the probe stages, at least for ACPI platforms, so
->>> it may be a good time to revisit this direction. SDCA class drivers do
->>> exactly what I described, the subdevices are registered only upon
->>> enumeration, not during ACPI parsing. It's a much simpler design with a
->>> lot fewer potential races.
->>>
->>> Problems:
->>> - this would be a very invasive change to sdw_slave_add(), with the
->>> device_register() skipped and moved to the enumeration stage. It'd have
->>> to be opt-in and used only a newer platforms to avoid breaking the
->>> 'legacy' devices.
->>
->> I didn't change sdw_slave_add(). All the change in SoundWire driver is to
->> add a flag and a completion to share the information of whether the
->> enumeration of the bus is completed.
+In fact for maximum fun, you could even have an interconnect that only 
+supports the iWB-oWB-ISH type, but the SMMU is still non-coherent since 
+it's in a _different_ inner shareability domain from the CPUs...
 
-I still think this option would be best, that way you'd only deal with
-devices that report as ATTACHED, without needing any additional
-wait_for_completion.
+Yes, 13.1.2 "Attribute support" says that the system may not support all 
+memory types, and unsupported ones may abort, but then equally it says 
+"[...] the SMMU is not required to generate attributes that it does not 
+use. With the exception of R/W, INST, and PRIV all configuration fields 
+that affect unused attributes are IGNORED." And this is why the 
+mismatched attributes argument doesn't stand up on its own - without 
+knowing the system-specific details of exactly what is being ignored 
+from what we think we've programmed, how can we say what the actual 
+attributes used to access memory really are, and thus what is or isn't 
+mismatched?
 
-> Do you still have any concerns about this series?
-> Or maybe I can add a module parameter to disable the feature?
+Thanks,
+Robin.
 
-The main objection I have is this piece of code:
+> It seems reasonable to be explicit here too and program attributes that
+> are valid per the spec, rather than relying on the interconnect to
+> silently degrade Write-Back attributes to Non-Cacheable.
+> 
+> [1] https://lore.kernel.org/linux-iommu/CAE2F3rACz6Z7X3NNfLWEfjTD9K9YJyYHHyGzcBafEemTFGhgqQ@mail.gmail.com/
+> 
+> Thanks,
+> Daniel
 
-if (ret == -ENODATA) { /* end of device id reads */
- 			dev_dbg(bus->dev, "No more devices to enumerate\n");
- 			ret = 0;
-+			complete_all(&bus->enumeration_complete);
- 			break;
- 		}
-
-This assumes that ALL peripherals report as ATTACHED at the same time.
-If for some reason a peripheral attaches later, then the entire logic
-would be broken - or you will have to add a large-enough wait time
-before trying to enumerate devices. That's different to the timeout for
-the wait_for_completion, what I am referring to is a delay to let all
-devices show-up as ATTACHED after the bus start.
->>> - there is still *nothing* that would tell you that all codec hardware
->>> on a given platform completed the enumeration. You could have a fixed
->>> delay but this would need to be large enough to cover all cases and that
->>> could make the platform boot slower than the current solution - not ideal.
->>
->> Yeah, I set a 3 sec timeout. I believe that is large enough. And the flag
->> and the completion is to avoid the meaningless waiting. With the
->> is_present flag, we can ensure a bus will not be waiting for more than 1
->> time. And with the enumeration_complete completion, we won't wait for the
->> ghost device to be enumerated.
->>
->>>
->>> Another option would be to parse the ACPI0018 device, which describes
->>> audio endpoints and makes references to codecs, which could be used to
->>> filter out 'ghost' codecs that don't provide any endpoints. The spec for
->>> this ACPI0018 is not public but could be reverse-engineered from Windows
->>> platforms. The main benefit is that this filtering could be done in the
->>> ACPI parsing stages and not change anything in the probe and startup
->>> sequences.
->>
->> Is ACPI0018 reliable? Will it still list the ghost device? The ghost rt722
->> has all endpoints listed in its DisCo table
-
-If indeed that's correct, then the use of ACPI0018 would only make sense
-if the probe happens only on attachment, not when detecting the ACPI ID
-as we currently do.
