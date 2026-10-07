@@ -1,75 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FE8A3B6BFE
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 04:54:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 355CA3803DB;
+	Wed,  7 Oct 2026 04:55:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791348893; cv=none; b=S9S30fdCnQalF7n5Hww0xlRkfBBAd8Iyjfu+3K/QOC0+/ReuDpFlK83vV618eBKgv9QvuhAVxAmqWcQ1hI4zLKRPz8xMC3x+U80T7My0voR61dK8o7DgEqPvMAsvZEsOKl0tcYUtNKIVPRsA3eMpsa8oItMwR+oCd+oLx13oVGQ=
+	t=1791348919; cv=none; b=d99WNcZLo7ENBo6D1gzfVT/BgrqplVuszZnpLbfJcw1Z2EgO7nHp0XoY/XnH6AhgZ2oMrDQ5C1OK2N2+HMcctxGwoT/cU/vwpxqII3q+tmr04yQBHXSQ/iK6FkF5mgaQ5GZvB/eU4Kzmxg/RD+Ov7Vzkr2/LQ0dxmGXpX7c8icQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791348893; c=relaxed/simple;
-	bh=R4gxAiy2cYP4HjSob6btlec55W1JEftO29AboCedots=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ftu+Q7vMsfl9RQlvTs/K5zTUdEcm5fSlEJCdtLEXAxQY7rityv4xG833EHM/Vwm3acFC167NNVwSDM0Wy56BOMggwcxhpfPmr19B/bHnpsMyX98h983GZ/B9LuuPxuILV7fxfJqJh11hFruGAOyzC8Is2uAFy7Nn1YXCrovUjCc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K5jaul2f; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791348919; c=relaxed/simple;
+	bh=3Cz0SimQqCHuxFdDf5kI6yFxOfbA2RzmYpDsSrCuluU=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
+	 References:In-Reply-To; b=TM+jbUzuUZONbELgeTvxytK8uPpQqraHa637lZaSvBCYsPKXPmh/WkPV08okKa3wzXuiqvop9ZBJwcmwDwfthY2bikoAwHmqDx21yQZXwxlILOIwsBllG6bNs+ZrRdVFk8o1TXx+fL+7nrgTOOWBFNnfYKbDblpJvQCupB/bR0A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=zYfsStcp; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K5jaul2f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21FCE1F0089F
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 04:54:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791348891;
-	bh=T2jk9xEUwiDWFHfF7VDejdB8L90v70T2lBCf/w8ZGHg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=K5jaul2fphUpM0dOMlL8eeMhjQRQZUCm5HGXOzw3EjLMtu+7+HfY3Ob3RSVRkZeG5
-	 N163ct4hYUCfaZsU3l04YpaKGEU3qMRgW2MNVxmPb9wjymyRPIJXN+6uFUBW5g1Mz6
-	 SlkHGoTFx64Ar+7ZeP6+hBzWDYb6bm4yFiaGIt2BcUPt7XEFX7h5mdDNIEh+ygGdDX
-	 12nbFRTeDg6p1FqnPaB/9bmzQz2B4emQpuVjgRnyfumk8T8ffOjMGsCdu+hJ7hqeRK
-	 9BdqeauiHm3eF7dUa98+z3Nx0onCDtwXljy2Zr8fUzWsNca5RPLaqA+X7iprw6R0JS
-	 RiKIa7/YVWeYQ==
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c247f6687dcso198089266b.2
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 21:54:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx0DhQZ+EITdZ5PRARd/Jx9DOCxqC7rhb11sNrO3jR+xaAlhWkqoM7m15IU+leG3CHf6nDtiM+r6H0Gb8s=@vger.kernel.org
-X-Gm-Message-State: AFuF++l5pXVEA/I+kvyKVp66OLO9cMXED7g1gEHwcbG6VMYttUbosX1b
-	Qh1QEz0Rl4Xh1AtMfs1Eu3OIl0pIvwXcGiaO2W7IYYKgu6dbTygsl0hWe4pNAOAuDtLp2c9fHDB
-	X5rKghU3Rk/DeHCFukXuu2z6EWaNsMc8=
-X-Received: by 2002:a17:906:dc8d:b0:c26:1648:a065 with SMTP id
- a640c23a62f3a-c317bf59dd0mr107496266b.32.1791348889771; Tue, 06 Oct 2026
- 21:54:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="zYfsStcp"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 7E1424E4115B;
+	Wed,  7 Oct 2026 04:55:14 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 333256074B;
+	Wed,  7 Oct 2026 04:55:14 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BB122103309C5;
+	Wed,  7 Oct 2026 06:55:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791348913; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=/sJd7eH2sLKt1YGQkZySmzpNOTpbHq2cBxqPOa4ucJk=;
+	b=zYfsStcp9Zh4SyCT+HGY3e2oISTjIEs7+47PTIugOc9yfx2oJkE/RKyhZFK6Y8DZ7WKiEU
+	8ncTh0rlkywUpA1TEXiEqzxPqlz4jIoiNXA33NYoZRwzAQJjWb0brV5Pn/53Dbclo86Ww5
+	gVD46lfzhTW4EgcHSAVVHaYe5AhHR4zPLM0773Lva+037t7CisI9bLdL8UvIJu8YWVm9Pk
+	Dc3gfmE12gL4Rv/KMXuZE0SAqWN0V6FpiQEPUtjSnrtxpvhB5dg5uqGhVP2K7YCSRmEVnK
+	wwHpt0+lUBynO7iiPzynVzoDy0fOqokfHX6L/7W8KUfrdrs1IPw806nSNUVRNQ==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261004135638.1888530-1-anmuxixixi@gmail.com> <20261004135638.1888530-3-anmuxixixi@gmail.com>
-In-Reply-To: <20261004135638.1888530-3-anmuxixixi@gmail.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Wed, 7 Oct 2026 13:54:36 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd9xR8URbVbf6+yvQc3MKBGuzNc_8N8WW4DjpyjLBW+Xtg@mail.gmail.com>
-X-Gm-Features: AclHuK_jlgqNw8J9J20L0doQoEPpwY7vhQahkbwZILi-EzvIQNqo9U2hgj4rwdE
-Message-ID: <CAKYAXd9xR8URbVbf6+yvQc3MKBGuzNc_8N8WW4DjpyjLBW+Xtg@mail.gmail.com>
-Subject: Re: [PATCH v7 2/3] exfat: retain the next empty directory entry hint
-To: Yang Wen <anmuxixixi@gmail.com>
-Cc: sj1557.seo@samsung.com, chizhiling@163.com, yuezhang.mo@sony.com, 
-	exfat@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 07 Oct 2026 06:55:09 +0200
+Message-Id: <DLYC6W4J0NRH.3T1EOLT37KM9S@bootlin.com>
+To: "Borislav Petkov" <bp@alien8.de>, "Paul Louvel"
+ <paul.louvel@bootlin.com>
+Cc: "Tony Luck" <tony.luck@intel.com>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, "Geert Uytterhoeven" <geert+renesas@glider.be>,
+ "Magnus Damm" <magnus.damm@gmail.com>, <linux-kernel@vger.kernel.org>,
+ <linux-renesas-soc@vger.kernel.org>, <linux-edac@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, "Miquel Raynal"
+ <miquel.raynal@bootlin.com>, "Herve Codina" <herve.codina@bootlin.com>,
+ "Wolfram Sang" <wsa+renesas@sang-engineering.com>
+Subject: Re: [PATCH v5 1/3] dt-bindings: edac: cdns,ddr-edac: add Cadence
+ DDR EDAC
+From: "Paul Louvel" <paul.louvel@bootlin.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20261005-paul-v7-3-rc1-edac-v5-0-140a0f124bc0@bootlin.com>
+ <20261005-paul-v7-3-rc1-edac-v5-1-140a0f124bc0@bootlin.com>
+ <20261005184621.GCasPwfaQNE0q6zykP@fat_crate.local>
+In-Reply-To: <20261005184621.GCasPwfaQNE0q6zykP@fat_crate.local>
+X-Last-TLS-Session-Version: TLSv1.3
 
-> @@ -309,8 +358,9 @@ int exfat_find_empty_entry(struct inode *inode,
->         hint_femp.eidx = EXFAT_HINT_NONE;
+On Mon Oct 5, 2026 at 8:46 PM CEST, Borislav Petkov wrote:
+> On Mon, Oct 05, 2026 at 02:49:22PM +0200, Paul Louvel wrote:
+>> Add the Cadence EDAC dt binding.
+>> The memory controller optionally supports ECC SECDED with DDR2/DDR3
+>> memory.
+>>=20
+>> Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+>> Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com=
 >
->         if (ei->hint_femp.eidx != EXFAT_HINT_NONE) {
-> -               hint_femp = ei->hint_femp;
-> -               ei->hint_femp.eidx = EXFAT_HINT_NONE;
-> +               if (num_entries >= ei->hint_femp.min_entries)
-This size check does not establish that the hint covers the beginning
-of the directory. exfat_find_dir_entry() can start at hint_stat.eidx
-and return a positive match without rewinding, while recording deleted
-runs found only in that suffix. later Bloom-filter miss bypasses the
-full scan. This condition can then reuse the suffix-only hint and skip
-a larger free run earlier in the directory. That can cause unnecessary
-directory growth and, if growth is impossible, a false -ENOSPC. Could
-hints from partial scans be invalidated or marked unusable before
-reuse?
+>> ---
+>>  .../devicetree/bindings/edac/cdns,ddr-edac.yaml    | 61 +++++++++++++++=
++++++++
+>>  MAINTAINERS                                        |  6 +++
+>>  2 files changed, 67 insertions(+)
+>
+> Needs review by DT maintainers if it is going to go through the EDAC tree=
+, see
+> output of:
+>
+> ./scripts/get_maintainer.pl -f Documentation/devicetree/bindings/edac/
 
-> +                       hint_femp = ei->hint_femp;
-> +               exfat_invalidate_empty_hint(inode);
+ACK.
+For some reason b4 did not included most of the people apart from Rob /
+Krzysztof / Wolfram.
+
+--=20
+Paul Louvel, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
