@@ -1,107 +1,180 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazolkn19013086.outbound.protection.outlook.com [52.103.33.86])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C2F83B992A
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 17:45:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791395150; cv=none; b=dFpJUPyZ431Wqc8ahK/HBy/Yk01UolVh56XdxIhmAeCjKpRMnCVoeGcmDuN6LGAmVrhXIabKW6kgjYNcj36K0j09seP3MoA+Jn5GZ+ERg/dF8uvBZMUdXtoISXAP5SuJaJOvkzWzMJg+lE2HwF9iE/NQjZkOiCYYbi3FfMAvv9M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791395150; c=relaxed/simple;
-	bh=yXLQVmlK56kMhfGA7pFsBChp6pb13jdPGNScIbDKUoA=;
-	h=From:To:Cc:Message-ID:Date:Subject; b=RnZ+XfoeaRBD6KemWcYNw2O2NAUPLuKY/SmnagOjVSigOILRVcy2YA8BpJncGsqWJNtN7MA/40/QGQ67Hgb6Cl12kUNZNwAnx1T019IscbbkWk4rWjS7TvaxjfLm6czTeV83wMQP9i3ucsonOftFQG4pRJqd+8/6unfBOVnqUCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=kWFdxRr9; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=USJ5AV2n; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E12F448B89
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 17:47:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.33.86
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791395243; cv=fail; b=QwkHCmPgVKzi09Tet7V3LAVy71zO6FvUdVLlLsIFbgEJ+o832uEczrbf05NHKL9utx4XMzbNKgapkwQy3JLAd894au2jAXZM6npW6lsCaJDY+Dhv5bu/xX3bNj8oPJEZ8fCpmqvmNfL8CYUhatvECDf/B7IJ75sOBdH2nABaFdA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791395243; c=relaxed/simple;
+	bh=eoqitlzuI+5zKlyTfOpW+e0ujfNhYdLR2BC2D6sXkGk=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=GOlEIZmAbdZ9svz+Ri6JWVCcEDBzq61QB4oxmEjJUIpolmjCf25214orUfaLCvzzLm5RKsfZkBlDk3E4Z2hEg/IJiHDdd6zhpwR8iAYK7WjTyYtqnXTzNQlCJ0V5x+rBSJJtAePJes02CJ0LDAE/t+fLYr47QKDJt6vnablH2kk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com; spf=pass smtp.mailfrom=hotmail.com; dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b=X2SvEDk+; arc=fail smtp.client-ip=52.103.33.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="kWFdxRr9";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="USJ5AV2n"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Subject:Date:Message-ID:To:From; t=1791395136; bh=SkQ7J4HiIfhy5GjsiFNBhrW
-	02z8RN1b9lERk9Mw2U7k=; b=kWFdxRr9VSO3G2dy8wPeBCVWP7MbuBCH549r5/0KHTwr2XBKb5
-	rk6b/t1XVuSVnG5mqIAFGvEZXD3BFGK903ducAW5aq3HbIeH7asK11E+SskL8OzOOsx/Gk8TZLs
-	5QnJylE501BpHi/K81vx0+wsLZhazq5KRoP84gzk8YEH2f1NFb7ffPZv/Fm5KAorWmHnwsub5K0
-	weyFI4cH2EoCaXj2+DFcubOdDPaGffIJDnOdvGmpWq1oEILeu8GFbiwbfbVkMvutBO1RBnJKjkJ
-	tbxphcolfOO+Ef9yXvhHaJo6FuEdwttim7e1k0b6e0Fcs9HQYf3TVXE6xNmKJBtvzBA==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Subject:Date:Message-ID:To:From; t=1791395136; bh=SkQ7J4HiIfhy5GjsiFNBhrW
-	02z8RN1b9lERk9Mw2U7k=; b=USJ5AV2n589YtAUYrSVhS8CziHjElDlwgCxLplG8cOEF8hYQoQ
-	j/vSimlDpu+jvJpIcr2ljIyyq+KKlzfeb6Ag==;
-From: Bradley Morgan <brads@mainlining.org>
-To: catalin.marinas@arm.com, will@kernel.org
-Cc: mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, brads@mainlining.org
-Message-ID: <20261007175231.1.mte-tmp2@mainlining.org>
-Date: Wed, 7 Oct 2026 17:45:01 +0000
-Subject: [PATCH] arm64: entry: drop the unused tmp2 argument of
- mte_set_kernel_gcr()
+	dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b="X2SvEDk+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=t/nP9COykwHb4b0CjicscjovoQB7GsNTJZdGSqOOESLwWZZrKhpQWsXGee8ulPMNmfT3TTPaSL9DASa/OO8ZOToxptCs1SAYVbqoDjuq+lqYxd/KPixoUWo8Wki5vM/SXQXsEUvY8wnpRPiJujotI/0huzpVzxggW7Ui35hqCP05bR4epIZ8Qma50CG6yGyZbWaZvMyBtZKvRp6o0SmZMDQPV8VCIikGV1j1Acjb3AAN2lJIdzH0m3ocsWTv5xV/6IKm7p6XSHoU4h/Q5OfgN6jOVXsG9Wo+fhTM74o4EGYh5TT4oBwC9Sz2gdDzZR/EVCMbhFQypb9dLKaJMk0URA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Jej7eMwB3zFDlxc3ocCiaaWUM0AzH0Z9TkKMsYaipvY=;
+ b=yShAZ3G1HMaAhDGw9NsGdHe5kT6MdQt0dx5SvjZx9xDSVMdJTdB7SBe12WHYnw7rAdz4Y61CqIz2WECdhaNleNqUL8vjoS6hjqBmXqQvlsWWOVmk7oSnxbD2Bo7C4WIunaSQKyq4fDxb9+MJfGFhwaBBKctftwlO/wKVt1mZ16sUQjgmJuRMLruREmYXs1ucFcMjLXOgG1WiDLyoEqKVwXcKiAneAanT4dkNry0KhAFImt5lCxyzRnRp7mrokur6JuIi9L9keg9GZIdK4uaXDT8nBsjjcsqGSiSc1UmVm2SZFDsAMJKwxrgZUa3ZJJCSmPN+cTRZQFpBy/KxiAME6g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Jej7eMwB3zFDlxc3ocCiaaWUM0AzH0Z9TkKMsYaipvY=;
+ b=X2SvEDk+//aI9fTTF1z+EhXeVovW8xjTYXlbEqQB7G8wvyS8qz+Q8E9vClTrHQ6No7dr8LxNw45uUTkRfJdFrToPHk0XFx+jnluBP70sPl8WLn+g9QjgBJDEbYgtS+yjkWPzxlrEWG//yoKKO7yTjjt5hfInTxvUu51G5oDt+KdZUX6f40ocvXvmj+SyrzzbyO+zb3cS8IcEoy3JKy26ShuSfn8sWi6bZuKE3oLLT8+stt9BJsc5ICGZIQGgClOtW8cSSeUCHduQN0wlmXqvh7YWCZUfbpIm/0UyxtzMDi6vXlFw6nOcIIk5ueOPh6k/mDM/3QbuxHDIEoL5S7EnWA==
+Received: from DB9PR03MB7388.eurprd03.prod.outlook.com (2603:10a6:10:223::18)
+ by GVXPR03MB10898.eurprd03.prod.outlook.com (2603:10a6:150:214::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
+ 2026 17:47:18 +0000
+Received: from DB9PR03MB7388.eurprd03.prod.outlook.com
+ ([fe80::2ce4:f394:cc5e:6d48]) by DB9PR03MB7388.eurprd03.prod.outlook.com
+ ([fe80::2ce4:f394:cc5e:6d48%4]) with mapi id 15.21.0496.015; Wed, 7 Oct 2026
+ 17:47:18 +0000
+From: Arthur Liberman <arthur_liberman@hotmail.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"harry.wentland@amd.com" <harry.wentland@amd.com>, "sunpeng.li@amd.com"
+	<sunpeng.li@amd.com>, "siqueira@igalia.com" <siqueira@igalia.com>,
+	"alexander.deucher@amd.com" <alexander.deucher@amd.com>,
+	"christian.koenig@amd.com" <christian.koenig@amd.com>, "airlied@gmail.com"
+	<airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>
+Subject: [PATCH] drm/amd/display: fix NULL deref when opening a closed DDC
+Thread-Topic: [PATCH] drm/amd/display: fix NULL deref when opening a closed
+ DDC
+Thread-Index: AQHdVoN3m8ngRWIFC0yB4TViupGfHg==
+Date: Wed, 7 Oct 2026 17:47:18 +0000
+Message-ID:
+ <DB9PR03MB73881C96FE86D964037ABEDB8A942@DB9PR03MB7388.eurprd03.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DB9PR03MB7388:EE_|GVXPR03MB10898:EE_
+x-ms-office365-filtering-correlation-id: da2f4df2-14da-4e4b-caf8-08df249b082f
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|51005399006|41001999006|31061999003|8060799015|8062599012|19110799012|25010399006|37011999003|12121999013|5062599005|15030799006|15080799012|24021099003|40105399003|2607281247196008|102099032|3412199025|440099028;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?dhgJkTCboJQn5U71YiyGtp7+uKeSVjKyVOamsVPnc8oG6lem0fdHFqh0Tj?=
+ =?iso-8859-1?Q?fBrMFjZnyMcpzYNKvNlRMoj1zG+JvogijxP3YRM+hmsNsBK5HETFS6ms6E?=
+ =?iso-8859-1?Q?enSNNlv0wiG3slI7lWHp7uomREFtuH4K0BS7plDjaPq6Ym4y8Yw3tRTWkM?=
+ =?iso-8859-1?Q?rvG9AXXy/yAWwLrYRn+TB70ItG4AXFjR69/u6dRwvOyDtFvptkbXsUWTSg?=
+ =?iso-8859-1?Q?EQpuUACCdZjz2ZwGfZLm2/ichdXRbJe8eLj2LO/+mb6g6GbxlhZ1uLVnWm?=
+ =?iso-8859-1?Q?b+ABcIlIE05rej7ECmkA9WxRUSJg9AtTeH0zHeigr9ZwHp/Ie7/W7SQnLh?=
+ =?iso-8859-1?Q?s+pScR4Lcwz5nNf/y07ts/R6mMOgu2Vcw2BWGRIHT5D0Wl7KXK7Rr7V5X8?=
+ =?iso-8859-1?Q?rOLa+BO/irka2HtgrZc+DH/6qRS/2hNyPe+Fa6IMw+M7jdxcq7TdlBF60i?=
+ =?iso-8859-1?Q?+N/A9p1I3wjFsAdLJLC51gO4uQU0pmW0r/gTrIYH09eX4QdWXsozJce+Ji?=
+ =?iso-8859-1?Q?FIzjQxJriv7t07tZSaD6VSSMUm+k1Ez0h9N977NeFFjvqg9Yn+gt3UX3kJ?=
+ =?iso-8859-1?Q?viXeqFocnfiy9fqlYpT8Mw9VwRtOQkm5ZYVWbKOhc5jOjO7OfE3fDCCa5u?=
+ =?iso-8859-1?Q?urPWMoF7jWuVA1/4K4SD4u8icwu1I1TzfBo86yi+V4z9+aH+bvAQGcFDI1?=
+ =?iso-8859-1?Q?QP67Uxgusqu+zpew/U7goeJfysuJpnhahoXPWUMka0AqAb0rVbXDPxY8cO?=
+ =?iso-8859-1?Q?aUitx6U/+flQSMLktZtKP4Arl2TzAz8z0YDlucxRskv4bEYPkLY99njr8v?=
+ =?iso-8859-1?Q?xvJ6QgVRbU83TAWjmuwT8DPU6lM5W/1/hfKi5b4s/lG44tCF19fI3ZnfHx?=
+ =?iso-8859-1?Q?5RZvEPvTs0glMex+mfQ2l131MemQugos/QAhgzpFyf+Yi3X/YZtiKZ8RSG?=
+ =?iso-8859-1?Q?Qg/ivK9t9kZZXue1foyOC57GdYIYU3rAU6SBAmqEXbA//LaFLJzNqVovRl?=
+ =?iso-8859-1?Q?ocJpv9XHskfdL1thQNs5GK9NGgoj6gh7uIw3QrZ4C7hg3OnKEnFmQOGpEb?=
+ =?iso-8859-1?Q?bYpjWofAfBXAB0mkYTFWoO9xqq0fY8gE9QMcHGqKAkWQ0SYWDnARucdLip?=
+ =?iso-8859-1?Q?hrET8FjQ=3D=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?M1vZx84Dtt/gyJYOmxi310TiEhcP4yE1a6D7YuBHwJkQxDiCYO5O/sXc8D?=
+ =?iso-8859-1?Q?X63uk9ylthOMIbSsYl4zFOUiw2z3gHDq43dIJSRmHyWMkfVy4TpjugliNQ?=
+ =?iso-8859-1?Q?BNd+9oxhSJBc+dIYY8qlRKdTUE1SdKDn6ZJMx5/UVKsCK2q7kzaCe1YFTk?=
+ =?iso-8859-1?Q?yDX9h69I7wXwpC7SMwGFLNKtW1BsvvBFuaR1i+dGifm+znGoXr9JmH/SCY?=
+ =?iso-8859-1?Q?8fz1hd9XsNw2FV3fzTNVu68wokO0ndniQHv39Jhm6qLokhRT2nHWk1zSkE?=
+ =?iso-8859-1?Q?wHdv6jBqp7eCfTwIKzGgEYsfj84GSY7KaOndSaJ6hLFdwbyp/kbvhdOukY?=
+ =?iso-8859-1?Q?iD1qJ4kZC/DOtqBuXi+nh5LSkeeB+FK2WJgxLT4PpAMLYiJ2gssNH46J5X?=
+ =?iso-8859-1?Q?v6aw1/+9ZJfUn4TeepHqIXxPK/+qWgBT6wi6jSyfODZA92P+g8qFRIhELM?=
+ =?iso-8859-1?Q?HksbznMwB52DnuDTzT2UIrFEc0ExtbSWXCrR/x30gzLNtUx+PcbfaCTlFF?=
+ =?iso-8859-1?Q?9tAQXSTG1FASrI4FWAuXlcbokKLBxjxI4yMS9QQMUdKBjGSHk65vIcAPLi?=
+ =?iso-8859-1?Q?g8xtiTPl5WbhbF3LaK3xSjamp5xO0uOoDSb5fOQg497FD6V7sTzwwsxnfk?=
+ =?iso-8859-1?Q?vpB02LrRUHv7wrzRUiiJ1cFmDpRCeWQ50j0YU9+BOagC8S5EgV3n0QUHhG?=
+ =?iso-8859-1?Q?H4/zBBLvYHZ95BaeFy3X7h5J5gpzkEsx9Hs96bXnVseXcDQwRgsw2f2WdV?=
+ =?iso-8859-1?Q?aCFcHl/iotd0K2GtMxg0cIQq40FnN3iWvS9gmtcFuYu+dCfTyPbhfJnbNa?=
+ =?iso-8859-1?Q?uNlqVGx44tUBXSkHC/4d7+4SaBk8/X0N4CVhaKC6JOl51IZnxd6AAqTaEA?=
+ =?iso-8859-1?Q?4KhVgLhJuehoPH7qSEeF24G7UyMiE8oSC86wfVaomhG9ZqwiMlY3xH8s4L?=
+ =?iso-8859-1?Q?Fzx7pJcxhEHzLIRQYEVqVjwhii0Vl5EOwNqBCRx4/9Cj4MwJ8OmOtKGs4Q?=
+ =?iso-8859-1?Q?IV6/p2ZggiPcov/0yaZUNW683FWRM1DCK0TO8xLbKRRE6+hULIwT8L66xW?=
+ =?iso-8859-1?Q?TenTvyn7JtC7sd2Sq3fxRKLoohVPPH1n33+ux1NHpbZicf01FnoHIwg5+o?=
+ =?iso-8859-1?Q?oxa/mJTtFyKy5q5z2MVkyoJSAQYsSpvRDwNO2k5Dy6BipHSSzDKgMx4ykT?=
+ =?iso-8859-1?Q?t68Zm6Nung5Q45wNtZ1J4+gSCMM6TWVfcVGMHleUZ6KDqbf6d3AwyNWIGn?=
+ =?iso-8859-1?Q?VvBXsyIDJw50sTI626fUVTJRxDAFIKf3h3qeKTRPsUM24Z1eKTsepiV9xd?=
+ =?iso-8859-1?Q?/bKKqI2r2/MRUXwdk1R1nASEris33qaVRFix/e8GkYp1tqPy/QjrbQ7bFB?=
+ =?iso-8859-1?Q?L+5QQoQM0w3ZUgZZE2+l7uTEc2gksA0qJLSInAohFJ9LRaWxIBE678yxeb?=
+ =?iso-8859-1?Q?aytcqFgJJ8VXiLqb?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-OriginatorOrg: sct-15-20-9412-6-msonline-outlook-24844.templateTenant
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DB9PR03MB7388.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: da2f4df2-14da-4e4b-caf8-08df249b082f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Oct 2026 17:47:18.5171
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR03MB10898
 
-mte_set_kernel_gcr() takes a tmp2 argument the macro never uses. It
-used to, the body passed \tmp and \tmp2 to mte_set_gcr, then
-commit 82868247897b ("arm64: kasan: mte: use a constant kernel
-GCR_EL1 value") swapped that for
-
-    mov     \tmp, KERNEL_GCR_EL1
-
-and tmp2 stayed in the declaration and in the one caller, which
-passes x23 for it.
-
-Drop it, both places.
-
-Signed-off-by: Bradley Morgan <brads@mainlining.org>
-
-diff --git a/arch/arm64/kernel/entry.S b/arch/arm64/kernel/entry.S
-index 0e1d9c3c6a93..2baefe7a82d3 100644
---- a/arch/arm64/kernel/entry.S
-+++ b/arch/arm64/kernel/entry.S
-@@ -171,7 +171,7 @@
- #endif
- 	.endm
-
--	.macro mte_set_kernel_gcr, tmp, tmp2
-+	.macro mte_set_kernel_gcr, tmp
- #ifdef CONFIG_KASAN_HW_TAGS
- alternative_cb	ARM64_ALWAYS_SYSTEM, kasan_hw_tags_enable
- 	b	1f
-@@ -258,7 +258,7 @@
-
- 	apply_ssbd 1, x22, x23
-
--	mte_set_kernel_gcr x22, x23
-+	mte_set_kernel_gcr x22
-
- 	/*
- 	 * Any non-self-synchronizing system register updates required for
----
- arch/arm64/kernel/entry.S | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/kernel/entry.S b/arch/arm64/kernel/entry.S
-index f63049ac32dc..c3106dee61e1 100644
---- a/arch/arm64/kernel/entry.S
-+++ b/arch/arm64/kernel/entry.S
-@@ -171,7 +171,7 @@ alternative_else_nop_endif
- #endif
- 	.endm
- 
--	.macro mte_set_kernel_gcr, tmp, tmp2
-+	.macro mte_set_kernel_gcr, tmp
- #ifdef CONFIG_KASAN_HW_TAGS
- alternative_cb	ARM64_ALWAYS_SYSTEM, kasan_hw_tags_enable
- 	b	1f
-@@ -258,7 +258,7 @@ alternative_else_nop_endif
- 
- 	apply_ssbd 1, x22, x23
- 
--	mte_set_kernel_gcr x22, x23
-+	mte_set_kernel_gcr x22
- 
- 	/*
- 	 * Any non-self-synchronizing system register updates required for
--- 
-2.53.0
-
+dal_ddc_open() uses gpio->pin after dal_gpio_service_open() installs=0A=
+it. Close clears that pointer. HPD sink detection and a KWin atomic=0A=
+check can both open the same DDC: the check reads DPCD for DSC while=0A=
+the HPD worker closes the pin. The load of hw_gpio.store.en then=0A=
+oopses at offset 0x28 and kwin_wayland exits with IRQs disabled.=0A=
+=0A=
+If either pin is gone after open, close what this call holds and=0A=
+return GPIO_RESULT_NULL_HANDLE so the AUX transfer fails instead.=0A=
+This does not serialize the two threads.=0A=
+=0A=
+Cc: stable@vger.kernel.org=0A=
+Assisted-by: Cursor:xai-grok-4.7=0A=
+Signed-off-by: Arthur Liberman <arthur_liberman@hotmail.com>=0A=
+---=0A=
+ drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c | 11 +++++++++++=0A=
+ 1 file changed, 11 insertions(+)=0A=
+=0A=
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c b/drivers/g=
+pu/drm/amd/display/dc/gpio/gpio_service.c=0A=
+index 95f8b7c7d657..a3145cd82d8b 100644=0A=
+--- a/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c=0A=
++++ b/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c=0A=
+@@ -577,6 +577,17 @@ enum gpio_result dal_ddc_open(=0A=
+ 		goto failure;=0A=
+ 	}=0A=
+ =0A=
++	/*=0A=
++	 * dal_gpio_service_open() installs gpio->pin, and close clears it.=0A=
++	 * MST bring-up can AUX-read for DSC while HPD teardown closes the=0A=
++	 * same DDC. pin is NULL again in that window; do not dereference it.=0A=
++	 */=0A=
++	if (!ddc->pin_data->pin || !ddc->pin_clock->pin) {=0A=
++		dal_gpio_close(ddc->pin_clock);=0A=
++		dal_gpio_close(ddc->pin_data);=0A=
++		return GPIO_RESULT_NULL_HANDLE;=0A=
++	}=0A=
++=0A=
+ 	/* DDC clock and data pins should belong=0A=
+ 	 * to the same DDC block id,=0A=
+ 	 * we use the data pin to set the pad mode. */=0A=
+=0A=
+base-commit: 41505ac433cc4c5179deee8860d197b04f6d1c1d=0A=
+-- =0A=
+2.55.0=0A=
+=0A=
