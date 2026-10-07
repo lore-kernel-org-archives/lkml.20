@@ -1,91 +1,132 @@
-Received: from mta1.migadu.com (out-72.mta1.migadu.com [95.215.58.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67A3A4766A5
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 10:39:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.72
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4D54E486E60
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 10:40:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791369627; cv=none; b=OxmI4BM0vgnEmUyrDthBebiEMbyAjHa8h1CL2yTCa5lairTflrWjJzD38pIdFk/OQLkBqKzO7flQ39JX5Da823oueYMlH+tsXemOOE0OHwVETpy7S1Hot0/6lVbuMUG8kNNvOe9zs6OTaIWnSqn0T0cTfwd/6OnGneo16LDMhoY=
+	t=1791369685; cv=none; b=exFRv+34I06+lnJ/2ynCUknho52RK+3G6LenV+cB3nEymFCwjiIW1Fow5wmOuF7Uaz/0TIu26IkiLliJE3vZeMztcg9YUE3q42Lxq50MJIpliR7K4O8m2V6i2b/bF+gCYvC0BIXVL9JCTv9a7hrCE1gsQg2hL9hbqlzexqfPVDE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791369627; c=relaxed/simple;
-	bh=FDzcKVus+TL3O3kjbTF5oZn+yi6hvjNayEw4B6qJCCI=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=owrBCIibMmS8gi9WxhV6fWVaiEI+DXcnI7VyUScHF2eti3FKCzYBpxIl+niYITjGjghVHCs/T5hABMVG38mWA+kblyOoozlycRXgtXqs8KIz931U2GKHCb4dtRtrvf4C+LyCNvkvfg1Zg2wRSbCZwbf/X3rM8QF1DTSRAm9a5OU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=TtojSPvN; arc=none smtp.client-ip=95.215.58.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791369685; c=relaxed/simple;
+	bh=+F/9OZO/aZ5xfG9xyxkGlHXRyzNQp168Xt0vScQpKew=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=R5BcC/g+/guu0EiEURU0y7m/w6oWnpqA2NIaOTFh9A7gV9BpqoogrEPwmgJ7NpZHB8GGY/tcx2gjIadfxJ+KD2JKoiNjhnwur1f3Aw8RLKKF2HlLNWa7DhhBvz5MSta6zeDAWJZO/Hv3L61E/JiKTi39RCJd+HCMZKkrhHSC8+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Xunggp8f; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="TtojSPvN"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=FDzcKVus+TL3O3kjbTF5oZn+yi6hvjNayEw4B6qJCCI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791369591; v=1; x=1791974391;
- b=TtojSPvN55Xv02KX4u6XAQA8RaPa0tqu9R59D2Tw8vA8P7wKkMOD1Ks0yTifl1sEHc8GpnXl
- Az5/KC0CzOlWzaq9k3E6MUzDkMbPL8y5UqojkYUq7Mm6crdQPw+3I4X8HY3d/NWPq+E0i1cT5E6
- mKrB6PYTOlRZ46UJJaYBIois=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2512af27f42dab7f;
-	Wed, 07 Oct 2026 10:39:51 +0000
-X-Mizu-Trace-ID: 2512af27f42dab7f
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 07 Oct 2026 16:09:43 +0530
-From: Aditya Garg <aditya.garg@linux.dev>
-To: Thorsten Leemhuis <regressions@leemhuis.info>, Lukas Wunner <lukas@wunner.de>,
- Alex Deucher <alexdeucher@gmail.com>
-CC: Bjorn Helgaas <helgaas@kernel.org>, "Perlow, Jason" <jperlow@gmail.com>,
- Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org, regressions@lists.linux.dev
-Subject: Re: [REGRESSION] PCI/AER: MacBookPro16,1 powers off ~20 s after boot
-User-Agent: Thunderbird for Android
-In-Reply-To: <8925d288-a496-4fcc-9545-7647dfc9ea63@leemhuis.info>
-References: <CABZrw2HcaOh3DHTJtxU5dXrb3Vg19scr6+qR-xe_+R7rME35_Q@mail.gmail.com> <20261005231914.GA639967@bhelgaas> <CADnq5_O2TWeWEE1NsuCVvtWLKWyOiJHChPGP9CN4Zu=hvs+jmA@mail.gmail.com> <asVlzjaUFAoowH-r@wunner.de> <8925d288-a496-4fcc-9545-7647dfc9ea63@leemhuis.info>
-Message-ID: <F405BE2D-9C00-4E72-B5C4-BA2FD5348E84@linux.dev>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Xunggp8f"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 12477152B;
+	Wed,  7 Oct 2026 03:40:48 -0700 (PDT)
+Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BE5EF3F86F;
+	Wed,  7 Oct 2026 03:40:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791369651; bh=+F/9OZO/aZ5xfG9xyxkGlHXRyzNQp168Xt0vScQpKew=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Xunggp8fRg8SY1Ank32l2ofzcNfDVSm4vHDRvYHTjASnNNtDU4KN7ESQMzSuavU0i
+	 5sWDUFnM38lXq3ve3FT171Mz65F/aK07oBI0e1YOKX4meNEdm5o4dZIWqLIg2Jw0y5
+	 l/hiN+pNmlJddW05178Ty4VsAliHKs7MpgH/vzTE=
+Message-ID: <b370a7c3-73e1-4a2c-875b-c2f0b496b96a@arm.com>
+Date: Wed, 7 Oct 2026 12:40:47 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm_mpam: make the mon_sel guard conditional only
+To: Sasha Levin <sashal@kernel.org>, James Morse <james.morse@arm.com>,
+ Ben Horgan <ben.horgan@arm.com>, Nathan Chancellor <nathan@kernel.org>,
+ Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+ Gavin Shan <gshan@redhat.com>
+Cc: "kernelci.org bot" <bot@kernelci.org>,
+ Reinette Chatre <reinette.chatre@intel.com>, Fenghua Yu
+ <fenghuay@nvidia.com>, Nick Desaulniers <ndesaulniers@google.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ llvm@lists.linux.dev
+References: <20261003121251.3942666-1-sashal@kernel.org>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20261003121251.3942666-1-sashal@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+Hi Sasha,
 
+many thanks for doing this!
 
-On 7 October 2026 3:59:17=E2=80=AFpm IST, Thorsten Leemhuis <regressions@l=
-eemhuis=2Einfo> wrote:
->On 10/6/26 23:19, Lukas Wunner wrote:
->> On Tue, Oct 06, 2026 at 12:37:18PM -0400, Alex Deucher wrote:
->>> On Mon, Oct 5, 2026 at 7:19 PM Bjorn Helgaas <helgaas@kernel=2Eorg> wr=
-ote:
->>>> Alex reported something similar at
->>>> https://bugzilla=2Ekernel=2Eorg/show_bug=2Ecgi?id=3D222095=2E
->>>
->>> Lukas' patches fixes some boards, but unfortunately, I'm still seeing
->>> failures on others=2E  Reverting the patch fixes those failures=2E  I'=
-ve
->>> updated the ticket=2E
->>=20
->> I've added an analysis of the dmesg output as well as a patch=2E
->> It looks like the BIOS is raising a false alarm in that it signals
->> a Fatal Error even though the Uncorrectable Error Status register is
->> blank=2E  The patch causes such events to be reported, but otherwise
->> ignored (i=2Ee=2E no recovery is attempted for a false alarm)=2E
->>=20
->> Newly enabled functionality like Advisory Non-Fatal Errors causes
->> BIOS code paths to be exercised which likely haven't been tested
->> by firmware validation folks, hence the fallout=2E  However I believe
->> ultimately we *want* to see those errors being reported because they
->> may point to BIOS issues which flew under the radar so far=2E
->Well, not disagreeing, but given that we have two regression reports
->(one speaking about multiple machines being broken) and we are close to
->-rc7 I wonder:
->
->Is this something we should quickly revert or disable for now and retry
->again later? Maybe multiple mainline devel cycles if needed?
+On 10/3/26 14:12, Sasha Levin wrote:
+> Building arm64 allmodconfig with clang fails:
+> 
+>    drivers/resctrl/mpam_internal.h:207:7: error: ignoring return value
+>    of function declared with 'warn_unused_result' attribute
+>    [-Werror,-Wunused-result]
+>      207 |              mpam_mon_sel_lock(_T), mpam_mon_sel_unlock(_T));
 
-I think the patch needs vigorous testing on a variety of hardware before b=
-eing mainlined=2E For now a revert seems to be a good solution to ensure we=
- don't have a broken 7=2E3 for multiple devices=2E Also, we are close a new=
- LTS kernel, it's really not a good thing to have a broken one=2E
+Ooops, I indeed tested this only with GCC.
+
+> mpam_mon_sel_lock() is __must_check and can fail: for an MSC accessed
+> through the MPAM-Fb firmware interface it returns false when called
+> from a context that cannot sleep. The mon_sel guard was defined with
+> DEFINE_GUARD(), which calls it unconditionally and discards the
+> result, so a guard(mon_sel) user would carry on without the lock and
+> release it on scope exit. The unconditional guard only exists as the
+> base for the conditional mon_sel_lock variant, which is the one
+> actually used.
+
+Yes, that was the idea I had to model this particular lock, though I 
+wasn't entirely happy with it, but didn't dare to create a whole new 
+class. Turns out my solution was not only slightly less elegant, but 
+also broken ;-) So many thanks for pointing this out and providing the 
+proper solution.
+
+> Define mon_sel_lock directly as a conditional guard class instead, as
+> posix-timers does for lock_timer: the constructor returns NULL when
+> the lock cannot be taken, and the destructor only releases a lock
+> that was taken. ACQUIRE(mon_sel_lock, ...) works as before, including
+> ACQUIRE_ERR() returning -EBUSY on failure, and there is no
+> unconditional variant left to misuse.
+> 
+> Reported-by: kernelci.org bot <bot@kernelci.org>
+> Closes: https://d.kernelci.org/i/maestro:66f869ecbbb5b8592562ffd89f049c5ddf682547
+> Closes: https://d.kernelci.org/i/maestro:647269216758644837afcaac8e67d8dbe713a0e2
+> Fixes: 0db1715e4c9c ("arm_mpam: propagate MSC access errors for hw_probe functions")
+> Assisted-by: LLM
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>   drivers/resctrl/mpam_internal.h | 7 ++++---
+>   1 file changed, 4 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/resctrl/mpam_internal.h b/drivers/resctrl/mpam_internal.h
+> index ee7c3953a9b6c..be1795b29aca2 100644
+> --- a/drivers/resctrl/mpam_internal.h
+> +++ b/drivers/resctrl/mpam_internal.h
+> @@ -203,9 +203,10 @@ static inline int mpam_mon_sel_lock_init(struct device *dev,
+>   	return devm_mutex_init(dev, &msc->mon_sel_mutex);
+>   }
+>   
+> -DEFINE_GUARD(mon_sel, struct mpam_msc *,
+> -	     mpam_mon_sel_lock(_T), mpam_mon_sel_unlock(_T));
+> -DEFINE_GUARD_COND(mon_sel, _lock, mpam_mon_sel_lock(_T), _RET);
+> +DEFINE_CLASS(mon_sel_lock, struct mpam_msc *,
+> +	     _T ? mpam_mon_sel_unlock(_T) : (void)0,
+> +	     mpam_mon_sel_lock(msc) ? msc : NULL, struct mpam_msc *msc);
+> +DEFINE_CLASS_IS_COND_GUARD(mon_sel_lock);
+
+Ah, that's ... nice, I guess, though I share that headache argument with 
+Nathan ;-)
+So that looks superficially right, but the details go a bit above my 
+head, although I tested it to both still work and to fix the LLVM build 
+error, so:
+
+Tested-by: Andre Przywara <andre.przywara@arm.com>
+
+Thanks,
+Andre
+
+>   
+>   /* Bits for mpam features bitmaps */
+>   enum mpam_device_features {
+
