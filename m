@@ -1,299 +1,205 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com [209.85.208.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D92437EFFD
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:48:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791373729; cv=none; b=JnYtWMM4Fr7u+DHfJULeKLTQPI4v6m6IrMvht3hP0+XrZWBkEuVrnsXX4JITPGTHI8Zr5k4+TALeWWfl5sywj5BvtdRqyST0B8G4Gj1ve+4zZOLttcAykh4PcdRELma60M59PH7FOPS6mn7xOEcmzbH3yxXJoEdZYrmaOHhHUOw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791373729; c=relaxed/simple;
-	bh=gIaTyk5W0brwPCMp283WK+OpliUHp2YXuHMsiDXA1dw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TuQ5GmGJbYajLsHszqA46NJijp7153tdReABxlhJoYaR5YJcN7LyCWHObALr0T8Ymmyvnz+aqX1UCSfDc09yQd8vw17J/TGr60lqDO2M6fkWMn0EU0YoNS/2oZZHJl8oqWdyET1dfX/vVQFChsMCjRL5UxWvidiosYi/cMx5EH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U7l+Zla/; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B743ADBA4
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:48:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.175
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791373742; cv=pass; b=iOeaxGs6d86ag7Yoy6kQSumJVD7iQAV0KbRd/AxbwDpR6KzK1o9xSUNRPQrwH4odhKOIdMieQNFEnO/FlujWCq3fhlEKExK7nFShc65XDbRO3mnDo1KLbiUUwj8hEyrn4WGtJVd4bDG/dA4GxhuvRmYvLrxv702pgS5Cln1Rz3E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791373742; c=relaxed/simple;
+	bh=7FWLm9S8z3Wn+76Q3KTUuDdHF8VZJmncRNJYgwn122c=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=LLbSNGfTQ+SqRQ7UtB2a/oF0foKDzFpG43BqbAhWitPUQV+AfWQWIf19+nXhAIYNXPMKpMHLrJbAaVO7w/lE8dX2ZHjGDIJelzTUDacPH3ENW46nRSmuXJSLT/bMiF0smaMJ5iUCsmHoRwv8Ga8KkIwQg2nZomJJibPpuwAHiDU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=juBweC1V; arc=pass smtp.client-ip=209.85.208.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U7l+Zla/"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8899a204034so965709b3a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 04:48:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="juBweC1V"
+Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3a629a806d9so13778811fa.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 04:48:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791373728; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HLUNVGGkQgTUOJijevF12FZilOi5W4ni9U6c4Aym9t5n+iB++WrvjhrNv9wasmvkI+
+         tfMPlBRbP/5rS3uNuPSORUJTee+mrPEC5zu+LQyeAhWfHuFEtM/i+VmJykyyi1LMdaAH
+         6KighuyjEiAfytzJ4k/jqycVTtXbyWQjkKb3fLKQiUVmY5Tjv6JEBMk8Qu94jpwTAo2y
+         FpffChZw0vB61+GLhbTp5v1dZAfvTNnLas3wMdjvebGSubpx7TlcTgeS6ziB46cyzaQ8
+         f+SwPjXOg4UTANEq+qabRnzG9hh1vCddiFu7yOBSl/VRjyZzzbRG2NiDXH6a4VEPIDx6
+         yC6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=MMp/fB2bF0FOpRT8S3ZoiXJ031erOC0TaJgD5Ref2ZM=;
+        fh=FdBOdXYpeKUoj2HCnqbNHigALWDx+G/36b0aWPJGUY4=;
+        b=FX9QmDEPM3AO+pLQNKISy06OA80Jf72EItclQxV9nTBmV17sw+bW67bz/QvGFC7sp8
+         y7ITf5DF7qfnIo6pIHGWyC5xySgmbbpswuLGrNxxggsfIGOXJcLTZOMxUTYVIr+bS5BQ
+         62ANAXJF3c9WNt4pDGEkbQv2f8gNNK60JpvFbWjTk+Q2q35y3ZR7U0sZhIdZHdwJ4gy8
+         a3XEFPButktzHK0pEilBHGDn5v8eqiEPiIs4MJUbe+Vq5t5teWKOZWag4tE7w3DeM+0I
+         99q3FwpbHH2f1H11UYlgVHLI2WyAjBOYpY+rQw3govTNOmdy4t0S5zJyGVBi+rQ+eZ+P
+         xHCQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791373717; x=1791978517; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sWMIGXFkPMPmBZIlItDDaoveYneHjrBFtGWysWCizdk=;
-        b=U7l+Zla/CkFegdajnteKQ0W4OsIAIStkFnTTQDpCia/ohxlppXgoQjbmhDSTF+xoYq
-         lf6MRl3B6ZGSboNEgxbBNiFTyeRpMIj7LQtawSaQ0vasxlzvM/gD2zyem7aQrEj2xlBZ
-         aX+87HD1mtJTqSUE5zC4iGiuGOkIityyq7pZwr49E/z+xz1qFqHHG0PULhlhBWypFBKD
-         vFxlvCuQyGn9ydGMR/GVNP0cqXLOrQgFwVB1Z7On7XWGO4VNDUM3gWv29J4zZs9f1yUX
-         jE3U1w56cSCVgTntefARj8OPwW6QSAhhlVfuvih9Z0ODFB2Rvoi7syuO8X5G9/Gd6ox1
-         8OmA==
+        d=gmail.com; s=20251104; t=1791373728; x=1791978528; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MMp/fB2bF0FOpRT8S3ZoiXJ031erOC0TaJgD5Ref2ZM=;
+        b=juBweC1VMFQgV2CAyDrq7VuSs857fT2ABY/UsV9+2v6whrWUnGcn1T0W5VwNUXoRVM
+         BMvsCaB81jfyGxswRPQrS5nik1szk4QBMO87CgOrhoq5MXjpWJLPzR0iYfEbmCKqUv3q
+         nzJiYyLOj2s1KP5/wS3XwYC4wGX6ivy7cHjl4yg8RyqUzOmO5VQE4eXx9EvFplNVb1s3
+         rVuVVT6OxFErbh3wUJFId/NY7XyTzF3J97DF0HNuO05HPiUi9qNyGOGpBgwsSIpwAYZg
+         qOplbSN6BQI6Bfz7xFHEwDquX1Zby4TdKDOdtnUGGgIEvt3J+YRstDP1KThKjVGH6F8H
+         4ibQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791373717; x=1791978517;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sWMIGXFkPMPmBZIlItDDaoveYneHjrBFtGWysWCizdk=;
-        b=F1iOoNQBHb+OeryA7dCU3bzKy+PRhzJ4CFtYlscu7TzZEv4OssyMN9KZOAvazkmdz1
-         rg01ASURTvoTv/QoUTUvygQbSdcFC1mNAG3+oWNwi6tO5IRgxUpFrKALKFwPd+ASH7F6
-         snwitglmVrBen+KiklipsjuqvBcaP/a05dvUe2feAD/+KP9vG7EITLj4x2i19Omj7ctb
-         LMF5QX4h3j5UQM2gjQrywK7Pu+fZqIN1FseNT+BhG0FNWsoHGbNcGj3AJqyKS6PFTURY
-         yrY1HI4nk1TY7ecQMn23aj+hkowSd6tQ+nSsILel/0NId897zCJplDqalGhCs/TuZA5x
-         B7Iw==
-X-Forwarded-Encrypted: i=1; AKwUvBxk7bbxTbWvKslxg2QkJzI7EaqKyx355wAOr4gyR1030lhVOchPU4PLTELVORosP/vgRdTpV61JcZSgcxA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nJtkOiKiRPcfC53CofoARBecuwzU35sVsHS/2amC0+3lbk16Gn
-	trNtySnO8vYIVuM+DwNZD6QEHrC+HcMFGfsyyZcqaOeufGFgClDq+PHx
-X-Gm-Gg: AYBFou3U1tOlwF48c8vUIKXc3fffPJqaiFegZU8LQEa5kfikrLntu7dIt5EjZzH9/rl
-	pYdwv47lUjExL9jI3Kv/ejUyPR/WrFBVtdNuCRVZe/hiNMt+aAZ1/VlOTWJe1hlsO6+l7Ig3GwF
-	cAtj2tm5hnDMJM8lRXsm18ARw7Nca9Vsr12SIGqxDCLRj9ANxtae94R4G/gLCUxIELsst4CT/YO
-	VsUABU2Lo8Es6ytJ38KAxzViOjncfSXZf/hRzD6PvMyVO28OApwrTSy+/2I2enEnJfC+zocCwqn
-	XyvsII6p1bomYVClhXREAqSfJBXQL/FD4kMon6k7VgtsDa/sDq5c1UNY0OBDZTnN3q5Ddd0g2YB
-	NsBDfpZU+SMg1BZue9IjDprX8pLM5JpKGRsEKCfxTsw+taNANmMk51c2OFDT1mgfmX3w7qxF4Cg
-	xXSHECUGBAJ9zkOsiLovnLETsW7XSLa421VyjtB67LQhlraLgJWjan4eZIW50zC6oU4ekkV6K+H
-	Lt+w+5wsKBVx/3JEjlBu+qUngg=
-X-Received: by 2002:a05:6a00:9504:b0:881:ac65:715e with SMTP id d2e1a72fcca58-891b5bcd274mr1520415b3a.58.1791373717127;
-        Wed, 07 Oct 2026 04:48:37 -0700 (PDT)
-Received: from obadmin-Precision-3680.atlascopco.group ([167.103.3.1])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89188ff2376sm1192645b3a.25.2026.10.07.04.48.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 04:48:36 -0700 (PDT)
-From: Sahaj Chaudhari <sahaj123.sc@gmail.com>
-To: Christian Brauner <brauner@kernel.org>,
-	Shuah Khan <shuah@kernel.org>
-Cc: Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Sahaj Chaudhari <sahaj123.sc@gmail.com>
-Subject: [PATCH] selftests: pid_namespace: test fork with dead ancestor
-Date: Wed,  7 Oct 2026 17:19:14 +0530
-Message-ID: <20261007114914.1668934-1-sahaj123.sc@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1791373728; x=1791978528;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=MMp/fB2bF0FOpRT8S3ZoiXJ031erOC0TaJgD5Ref2ZM=;
+        b=perXxmdNMhrJB8wjT+1UXK0Ytw9aSgaZsH0bNv30m/REf9n9e4td/VliGkMwV72hs6
+         T/tf7Aiku4pWrHJyDCXgTaoJjfWSNb+0i8mAFsiJ2bnJJpLHE0Tb2DSZJGSgFjhRO2vY
+         zy+kGC66hH4nE8JxvVaBlm8NiHWaTB34Rl956QuuiSyBiyIPxPDre1+IGZNhEnuO1jcV
+         BNqxehwn6BC/C5MFjN+NGz/g1SV9ggMgQlxqt4T59t+2YUfPwWL5JvNmVvBxVk6YW/RB
+         SUK+8qGb1D278ShYP5R7MaiF/iI5nTGK213BGNwpgvpGQUtQWgyVKf/UCfO9ubjmQoSp
+         XgfQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzqUGrYAwGuyA4FmmwyTnGsV+styHADXFnk7N8DasETxw1p+iDUJg0n5+0OTzCYD/uulQRpDe6m+thS+9s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIBLmuY6rpgA0eVuj7q3MO+IiTSioU+tOPyxnnqXEwej9T6n1Je
+	0RFi/XF00vyvBJ2XRfYF0fy1AQhdEQLkCZ5/yK//vGOl3uaptZI6RIGPqZyqEm/VlrpnMh67/cu
+	MyYQewHT0itOFoe+ULG5da3LkgS+b1Xs=
+X-Gm-Gg: AYBFou3S4UaIUH08rxNM/nTPkdoZu6jMoDIhgxpcGK4JtPEX5iMZOZ7fF5anUv9ako0
+	1M+LwOUizYFA8ppN7O5cbGhzyM/cirnwEI3+I/kWtXqaBK8NvFsS4aGf6jND12Y+jeBFTSuLtwi
+	7pkimm/daTBCcoq4LrlOK5TXExcvL+LsT93CNWau3OQGoLbg3yy+6qIJl0xS5WDz8GltfE7hA5E
+	XlDA4JmWQXLl+sXM7uWIg4VeX/uvJaGeAY6koR7Kf/tDIDgez0uif2N1APY+00Z2ehjHLX44ZIS
+	N429uLdAsrkjc420sW5a6TASPPy/zc5L230mmyCNwkj3auri10GbE/QVP3iVMq5c5Ykm
+X-Received: by 2002:a2e:bc1e:0:b0:3a9:7b33:d54c with SMTP id
+ 38308e7fff4ca-3a9a2d1389amr4848071fa.24.1791373728449; Wed, 07 Oct 2026
+ 04:48:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Jame Jao <jaojame6@gmail.com>
+Date: Wed, 7 Oct 2026 19:48:36 +0800
+X-Gm-Features: AclHuK9FZ7fB97lPoua-UMQ-KklzfyfCbsv1Vhg0DHJLajhjUcabWppkw66nqSs
+Message-ID: <CAN52AYsyhwGvKnzPEmrONyyBWfkgTN6YhE8VrVLasnDsdGc6HA@mail.gmail.com>
+Subject: Re: [RESEND PATCH 0/5] platform/x86: bitland-mifs-wmi: MIFS v2
+ firmware support (Xiaomi Book Pro 14 2026)
+To: Yuming Sun <wolf109909@outlook.com>
+Cc: "Cc: Mingyou Chen" <qby140326@gmail.com>, 
+	"Cc: Ilpo Jarvinen" <ilpo.jarvinen@linux.intel.com>, "Cc: Armin Wolf" <W_Armin@gmx.de>, 
+	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Add a regression test for fork() into a PID namespace whose parent
-namespace has lost its init process. Since the kernel cannot assign the
-new process a PID in that dead ancestor, fork() must fail with ENOMEM.
+Hi Yuming,
 
-Create the nested PID namespaces, keep the child namespace handle open
-after its init process exits, then enter it and verify fork() fails.
+I would like to add a third affected machine to this report: the REDMI
+Book Pro 14 2026 (board TM2426, Core Ultra 5 338H, Panther Lake), BIOS
+RMAPT4B0P0909 (2026-05-21), EC firmware 1.9, originally running
+7.2.8-zen1-2-zen.
 
-Register the test with the PID namespace selftests and ignore its
-generated binary. Skip when namespace operations are denied or procfs
-cannot provide the pid_for_children handle.
+It shows the same MIFS v2 firmware behaviour you describe, and your series
+addresses the two things that make this laptop unusable for suspend today.
 
-Signed-off-by: Sahaj Chaudhari <sahaj123.sc@gmail.com>
----
- .../selftests/pid_namespace/.gitignore        |   1 +
- .../testing/selftests/pid_namespace/Makefile  |   2 +-
- .../pid_namespace/pidns_dead_ancestor.c       | 174 ++++++++++++++++++
- 3 files changed, 176 insertions(+), 1 deletion(-)
- create mode 100644 tools/testing/selftests/pid_namespace/pidns_dead_ancestor.c
+1) Suspend (s2idle) is aborted with -EINVAL by the driver's suspend hook.
+   Every attempt ends like this:
 
-diff --git a/tools/testing/selftests/pid_namespace/.gitignore b/tools/testing/selftests/pid_namespace/.gitignore
-index c647c6eb33672..b87295802a73c 100644
---- a/tools/testing/selftests/pid_namespace/.gitignore
-+++ b/tools/testing/selftests/pid_namespace/.gitignore
-@@ -1,3 +1,4 @@
- pid_max
-+pidns_dead_ancestor
- pidns_init_via_setns
- regression_enomem
-diff --git a/tools/testing/selftests/pid_namespace/Makefile b/tools/testing/selftests/pid_namespace/Makefile
-index b01a924ac04bd..3199e6bebbdd8 100644
---- a/tools/testing/selftests/pid_namespace/Makefile
-+++ b/tools/testing/selftests/pid_namespace/Makefile
-@@ -1,7 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0
- CFLAGS += -g $(KHDR_INCLUDES)
- 
--TEST_GEN_PROGS = regression_enomem pid_max pidns_init_via_setns
-+TEST_GEN_PROGS = regression_enomem pid_max pidns_dead_ancestor pidns_init_via_setns
- 
- LOCAL_HDRS += $(selfdir)/pidfd/pidfd.h
- 
-diff --git a/tools/testing/selftests/pid_namespace/pidns_dead_ancestor.c b/tools/testing/selftests/pid_namespace/pidns_dead_ancestor.c
-new file mode 100644
-index 0000000000000..7524d4975ec75
---- /dev/null
-+++ b/tools/testing/selftests/pid_namespace/pidns_dead_ancestor.c
-@@ -0,0 +1,174 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#define _GNU_SOURCE
-+
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <sched.h>
-+#include <signal.h>
-+#include <stdio.h>
-+#include <sys/mman.h>
-+#include <sys/types.h>
-+#include <sys/wait.h>
-+#include <unistd.h>
-+
-+#include "kselftest_harness.h"
-+
-+#define STACK_SIZE (1024 * 1024)
-+
-+struct pidns_init_args {
-+	int ready_read;
-+	int ready_write;
-+	int release_read;
-+	int release_write;
-+};
-+
-+static int pidns_init(void *data)
-+{
-+	struct pidns_init_args *args = data;
-+	char release;
-+	int error = 0;
-+
-+	close(args->ready_read);
-+	close(args->release_write);
-+	if (unshare(CLONE_NEWPID))
-+		error = errno;
-+	if (write(args->ready_write, &error, sizeof(error)) != sizeof(error))
-+		return 1;
-+	close(args->ready_write);
-+	if (error)
-+		return 0;
-+	if (read(args->release_read, &release, sizeof(release)) != sizeof(release))
-+		return 1;
-+	close(args->release_read);
-+	return 0;
-+}
-+
-+static int create_unborn_pidns(void)
-+{
-+	struct pidns_init_args args;
-+	char path[64], release = 0;
-+	void *stack;
-+	pid_t child;
-+	int ready[2], release_pipe[2], error, status, nsfd = -1;
-+	ssize_t n;
-+
-+	if (pipe(ready))
-+		return -1;
-+	if (pipe(release_pipe)) {
-+		error = errno;
-+		close(ready[0]);
-+		close(ready[1]);
-+		errno = error;
-+		return -1;
-+	}
-+
-+	stack = mmap(NULL, STACK_SIZE, PROT_READ | PROT_WRITE,
-+		     MAP_PRIVATE | MAP_ANONYMOUS | MAP_STACK, -1, 0);
-+	if (stack == MAP_FAILED) {
-+		error = errno;
-+		close(ready[0]);
-+		close(ready[1]);
-+		close(release_pipe[0]);
-+		close(release_pipe[1]);
-+		errno = error;
-+		return -1;
-+	}
-+
-+	args = (struct pidns_init_args) {
-+		.ready_read = ready[0],
-+		.ready_write = ready[1],
-+		.release_read = release_pipe[0],
-+		.release_write = release_pipe[1],
-+	};
-+	child = clone(pidns_init, stack + STACK_SIZE, CLONE_NEWPID | SIGCHLD,
-+		      &args);
-+	if (child < 0)
-+		goto err_munmap;
-+
-+	close(ready[1]);
-+	close(release_pipe[0]);
-+	n = read(ready[0], &error, sizeof(error));
-+	if (n != sizeof(error)) {
-+		error = n < 0 ? errno : EIO;
-+		goto release_child;
-+	}
-+	if (error)
-+		goto release_child;
-+
-+	snprintf(path, sizeof(path), "/proc/%d/ns/pid_for_children", child);
-+	nsfd = open(path, O_RDONLY | O_CLOEXEC);
-+	if (nsfd < 0) {
-+		error = errno;
-+		goto release_child;
-+	}
-+
-+release_child:
-+	write(release_pipe[1], &release, sizeof(release));
-+	close(release_pipe[1]);
-+	close(ready[0]);
-+	if (waitpid(child, &status, 0) != child || !WIFEXITED(status) ||
-+	    WEXITSTATUS(status)) {
-+		if (!error)
-+			error = ECHILD;
-+		if (nsfd >= 0)
-+			close(nsfd);
-+		nsfd = -1;
-+	}
-+	munmap(stack, STACK_SIZE);
-+	if (error) {
-+		errno = error;
-+		return -1;
-+	}
-+	return nsfd;
-+
-+err_munmap:
-+	error = errno;
-+	munmap(stack, STACK_SIZE);
-+	close(ready[0]);
-+	close(ready[1]);
-+	close(release_pipe[0]);
-+	close(release_pipe[1]);
-+	errno = error;
-+	return -1;
-+}
-+
-+TEST(pidns_dead_ancestor_rejects_fork)
-+{
-+	int original_fd, target_fd, fork_errno, ret;
-+	pid_t child;
-+
-+	target_fd = create_unborn_pidns();
-+	if (target_fd < 0) {
-+		if (errno == ENOENT)
-+			SKIP(return, "PID namespace handle unavailable through procfs\n");
-+		if (errno == EPERM || errno == EACCES || errno == EINVAL)
-+			SKIP(return, "PID namespace creation requires privileges\n");
-+		ASSERT_GE(target_fd, 0);
-+	}
-+
-+	original_fd = open("/proc/self/ns/pid_for_children", O_RDONLY | O_CLOEXEC);
-+	ASSERT_GE(original_fd, 0);
-+	ret = setns(target_fd, CLONE_NEWPID);
-+	if (ret) {
-+		if (errno == EPERM || errno == EACCES)
-+			SKIP(return, "setns into PID namespace requires privileges\n");
-+	}
-+	ASSERT_EQ(0, ret);
-+
-+	child = fork();
-+	fork_errno = errno;
-+	if (child == 0)
-+		_exit(0);
-+
-+	if (child > 0)
-+		ASSERT_EQ(child, waitpid(child, NULL, 0));
-+	ret = setns(original_fd, CLONE_NEWPID);
-+	close(original_fd);
-+	close(target_fd);
-+	ASSERT_EQ(0, ret);
-+
-+	ASSERT_EQ(-1, child);
-+	ASSERT_EQ(ENOMEM, fork_errno);
-+}
-+
-+TEST_HARNESS_MAIN
+     PM: suspend entry (s2idle)
+     bitland-mifs-wmi B60BFB48-3E5B-49E4-A0E9-8CFFE1B3434B-4: PM:
+dpm_run_callback(): bitland_mifs_wmi_suspend [bitland_mifs_wmi]
+returns -22
+     bitland-mifs-wmi B60BFB48-3E5B-49E4-A0E9-8CFFE1B3434B-4: PM:
+failed to suspend: error -22
+     PM: Some devices failed to suspend, or early wake event detected
+     systemd-sleep: Failed to put system to sleep. System resumed
+again: Invalid argument
+
+   /sys/power/suspend_stats on this machine:
+
+     failed_suspend   4
+     last_failed_dev  B60BFB48-3E5B-49E4-A0E9-8CFFE1B3434B-4
+     last_failed_errno -22
+     last_failed_step suspend
+     success          0
+
+   Since then I set up a disk swap file and verified all three sleep paths
+   locally with a minimal one-file change that follows the approach of your
+   patch 1/5 (never propagate the perf-mode query error from the suspend
+   hook), applied on top of a 7.2.9 tree (Arch linux-zen packaging of 7.2.9:
+   vanilla 7.2.9 plus the zen patchset):
+
+     * s2idle works again:
+
+         PM: suspend entry (s2idle)   18:13:51
+         PM: suspend exit             18:13:57
+         /sys/power/suspend_stats: success=1, failed_suspend=0
+
+     * hibernation works and the session is restored (same boot id before
+       and after; ~63-94 s offline including firmware POST):
+
+         systemd-hibernate.service: Finished System Hibernate
+         systemd-sleep: Successfully thawed unit 'user.slice'
+
+     * closing the lid does the right thing as well, with logind configured
+       for HandleLidSwitch=suspend-then-hibernate and HibernateDelaySec=1h:
+
+         Lid closed                                 18:31:00
+         PM: suspend entry (s2idle)                 18:31:00
+         PM: suspend exit                           18:32:01
+         sleep operation 'hibernate'                18:32:02
+         PM: hibernation: hibernation exit          18:33:47
+         (same boot id before and after the whole sequence)
+
+   I am happy to send the one-file diff, the full logs and the /sys/power
+   settings, or to test a revised version of this series.
+
+2) platform_profile registration fails, exactly as in your report:
+
+     platform_profile: Failed to get profile for handler bitland-mifs-wmi
+     platform_profile: Failed to get profile for handler bitland-mifs-wmi
+     platform_profile: Failed to get profile for handler bitland-mifs-wmi
+
+   /sys/class/platform_profile does not exist, so power-profiles-daemon
+   cannot read or set any profile.
+
+The firmware side matches your analysis as well - the missing ECON symbol
+shows up 40 times during a single boot:
+
+  ACPI BIOS Error (bug): Could not resolve symbol
+[\_SB.PC00.LPCB.Q_EC._STA.ECON], AE_NOT_FOUND
+  ACPI Error: Aborting method \_SB.PC00.LPCB.Q_EC._STA due to previous
+error (AE_NOT_FOUND)
+
+Both bitland_mifs_wmi and redmi_wmi are loaded on this machine, as in [1].
+
+One difference to the unit you tested: TM2426 does expose an ACPI lid
+device (PNP0C0D:00) and an input device "Lid Switch" with the SW_LID bit
+set (capabilities/sw = 1), so patch 4/5 may not be needed on this model.
+I have now verified that lid events do arrive here: logind logs "Lid closed."
+and performs the configured sleep action (see the sequence above). The
+firmware still reports a bogus lid state once per resume ("ACPI: button:
+[Firmware Bug]: Unexpected lid state reported by firmware"), which does not
+prevent the lid action from working.
+
+For completeness, one more observation from this board (possibly
+unrelated to MIFS): ACPI init takes about 6 seconds here. initcall_debug
+attributes it to ACPI object evaluation - e.g. 0.4-0.6 s per power
+resource, ~2.7 s in acpi_processor_driver_init and ~4.1 s in acpi_init.
+If the ECON/_STA problem is involved in that as well, I am happy to
+collect whatever data helps.
+
+I can provide further evidence (acpidump, full dmesg, DSDT disassembly of
+the WMAA method and the QFAN-related objects, longer suspend_stats) or run
+any test instructions you have. I can build and test kernels locally (the
+verification above was done with a hand-built 7.2.9 plus a 10-line diff),
+so I am also happy to test revised versions of this series, including on
+mainline, and report back.
+
+Thanks a lot for working on this - suspend being blocked was the biggest
+usability problem on this laptop.
+
+Note: the local testing and the preparation of this report were done with
+the assistance of a local AI assistant (DeepSeek Harness WebUI, deepseek-flash
+model); every command, log and result quoted above was actually executed on
+this machine and reviewed by me.
+
+Eason
