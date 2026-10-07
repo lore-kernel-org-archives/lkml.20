@@ -1,68 +1,68 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D4DC48EC7C
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 09:02:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 957D0480DFC
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 09:02:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791363793; cv=none; b=OSZq5Wovxar98tRTIWHyvOuJPRsElexfJobPlH5cDjQDu4TlN+O6MFeaTA4W7v4eZ341p00LDqThW6G0kLpdQSKMVyBxCgqnWFRDRAdgb7dl/FlWRSIV0/BKeMl9+PTPiddTB0v+LZMK4VoFsHoda2n2T7sfNrTPseoZkD0aD3Y=
+	t=1791363795; cv=none; b=fX9Xz4BydBqtKifViqFqLpHa2QtTo/7zCl7ugh8JRmk+6QDDGqPUDC9otpglQc4kyARWmqGCFuTxC4lGvfJALoqjEprkGEFle1yPajvKic7KtlI12N+/rUU7dwy2IY/YLfVXZ0AEHD/4gy0aw8lRcMyJQXGstkapiuiV4sQrTtU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791363793; c=relaxed/simple;
-	bh=ZUVTz6m2+2Z6BpOIDTVZqF9fcWRuDIoNpPTa8kOmwmI=;
+	s=arc-20240116; t=1791363795; c=relaxed/simple;
+	bh=xcRpzjUh6jenj3NgP7O2q/fAVPnO8kJXfrm+z8hs5dU=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=cLH/HBt/Z91yJFseyCKMu8otiEMHBORlibJYlEFNJ20Cf86cB2uvzceF0XQbB5SxtnkXy281Tck5sYzbydN5ou4V3jb6EVYSXBM/4WPusrR79ZcyY1NSVfS097ShHM0ybdX5nBz9J6CDPHMCfvm7etXrr9yTp+zNSnUvRCb9iXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=fail (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=H2OaE5ZD reason="signature verification failed"; arc=none smtp.client-ip=205.220.168.131
+	 MIME-Version; b=Cjb90s/++1uQboXy3tdrBjvm5L4cGJ+OMrQvIE16TmsHSoOGXt8j9gJ14yLmtDmKvT8ktHRxPC2viGVjRJuCGX6oGbRnuA579tXzmqc2qqj2y++5yQrNwc2DwSHS4y5ffJ2OpTHxn5VEJS+DEZlQFH/qGHBgwY0Zjgfkm4JFisU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=fail (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Nr8KyTOZ reason="signature verification failed"; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="H2OaE5ZD"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6977jeUe3334690
-	for <linux-kernel@vger.kernel.org>; Wed, 7 Oct 2026 09:02:32 GMT
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Nr8KyTOZ"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6977jUoN118869
+	for <linux-kernel@vger.kernel.org>; Wed, 7 Oct 2026 09:02:43 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=wGYP5ZQOjsY
-	v34Z2mCfZpsfkTB+QYslusCLdJdTeCIs=; b=H2OaE5ZDqMngsomo8wTKHxs0uw2
-	aIZDrMFFdWBV74sUtRRzWGSGT5Vuzu+58GSc3JXIqi7h15PXtKe1aORBChBbEo0k
-	jzxwO/tekjXdJRmVm+4OrNC9j1ajOKq0Xzxl3+COMq/J+9yfROKWtYvSe8pNfdjX
-	yTvdXWVtA2IY8n0rORs8l23Mf/uVoDsYymVBWDQD15NCboPC44dhU0RzJP3yfBJt
-	i3//SgPUzVs8nyBS/T+cN7Hwxw5hkqiYDbymAAZNaWzj4Ul+IPqH7+5TKVQ7PGKt
-	O6FoDklA6Wq8syuy4kfztwvK+DbIsbkr6tHECaXi9PSyYjwXt6uxsZz27og==
+	:mime-version:references:subject:to; s=qcppdkim1; bh=nt0Wl+HD0Mh
+	cn0W5+oG9doGqYFu6fdeFKPqmXbq0yn0=; b=Nr8KyTOZXyTFCe/ArQYX6G1qUX8
+	c42spxW5Vnw0WnHEId5mGVEeeOE3IgTf2Kr1kry3D6DIBaGZYeK6MOxXnpwonY8g
+	TYaSK67qYbUb6EYoGCs49b98wGHPtBNQlJqWVqab/F1+ZeXEH4ZnhuWaWYLQ8hfo
+	5yJ6eLM+j0YMl2bHffDYxmserYujl4/gYq0JsMLzTgaPNV9RktwbE/Vw2qZ+6PU3
+	H32yKL/2brgVRo6voSvqOo812OE/BZx+1SorKDf2FPiaiLBtxA6lf8wMGfGfbnnm
+	rpNTV+uSfqe+yz2oE00ADlLaXRE5aAC+sC68o4il0m9ItoaAHlSsXOwqBJg==
 Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h54623ax2-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5fc58r7q-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 09:02:32 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93cbacbb996so615632985a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 02:02:32 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 09:02:42 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93909014c85so646241685a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 02:02:42 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791363751; x=1791968551;
+        d=1e100.net; s=20260707; t=1791363762; x=1791968562;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wGYP5ZQOjsYv34Z2mCfZpsfkTB+QYslusCLdJdTeCIs=;
-        b=VBu5uoZhBjeqaKkeDo24lBlFoXKusRV1WkuO3oel6KDRrw/vNX1NSgUej3Z+U1S3Ka
-         vgQwTJIqCEvMzJVuOnM2p79j32tDHhMrOlgy7+Ti8L6x0dI28oU3zYdAtWEDrFhCshek
-         8FNA0sTcBvqFNEaT/EeU/2GW6a3IKTt6KqEXzeeEqfltGe+cTRiWlkV4Aczg5PZfvqxb
-         WmG0/CXb36FM3J2zIb1VnlGELY2SrE0Ubo+WmVDiOFNj6BPF5n4Zjvg6uB4AcEPE18tk
-         IDYupZ27FDW3ubN19kRyInQR69cAhRB0bUIeldUp/bgPoNoXjaAJ2yaXLAZ1W27SWLvm
-         qW6A==
-X-Forwarded-Encrypted: i=1; AKwUvBz1Oj4BbyRU/MVA736MLWVSPA4Y1HIsCoMKXONeB5WMxZHFbedfsNmUX6LDoU5E+yN9wnOyRhsfuV962Mk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nEXsIQd/8JJ13dz0PzDj5Iv/biIPWsbcHzv+tas2V/3++J06Z6
-	PYQu9Hj9bsxZ0Gdtm+ADdzOghRKkjJY9IgVPNlZLYIchrClKBBaVFaKqd0fn+pf3O3S3lqAtk9D
-	8vY/lVSvPYWGrM+cjzX0a9j5bw5uzyYznZJNFLyp4jliHdAEoTaNAx5vxiTYRaZsneSE=
-X-Gm-Gg: AYBFou0fITNN+YHh3evKmilkZwsa8+b7wkPFUA/p4fR3kERLCVjrYt92tEUgNO9VmHw
-	pyhXxLcZ154kqLPFd+D/i7ornDtNAErHVYyweEP5+5DTNtUsdfhZAlasFuZq3Grzms16NXj6xop
-	Ap00VmtH2bGacJCZwvYhCw3zi/LUWpkobirwOvNjver4M5rlVePz98WUBBJN0fsMA0ANcDvoalY
-	FtHj6XBkeWVZsQbrCM+zi8RFiFUTrnOL48K49Nx17/mVPo5yj14p75EmcZ3hZCZaw78d0ZX/2Nn
-	R91Koc4oSXQUUfKLNZmx1zu3AEXkrhSRABaQj92Qt4+IKHcIskYMAl4s5GU=
-X-Received: by 2002:a05:620a:19a1:b0:93e:980a:2ff1 with SMTP id af79cd13be357-93e9b802152mr292151185a.69.1791363751151;
-        Wed, 07 Oct 2026 02:02:31 -0700 (PDT)
-X-Received: by 2002:a05:620a:19a1:b0:93e:980a:2ff1 with SMTP id af79cd13be357-93e9b802152mr292146985a.69.1791363750621;
-        Wed, 07 Oct 2026 02:02:30 -0700 (PDT)
+        bh=nt0Wl+HD0Mhcn0W5+oG9doGqYFu6fdeFKPqmXbq0yn0=;
+        b=Bn+p+ZmlV8XQtvx1Y0CjVfHa46mjP3DyYkZ/fGiJb5YwThmJGMuuGJ4uNDiBwhkg6q
+         LkPgR+nDgNd2OEkcR+jW9J3xIb8QPKPlI0fhCAFcYz1BYSt36t+AF2GNHxMxZifwi0SB
+         QDu9ajA2EgIAVasWyqeSK2eEKSM2F+4kVG3sYXQ2yfGyYqpoxHHdGQtjKMXsPT6GP1KK
+         JoCkCOUXskk/6RPW4k3T4HSP6LxK795qH/y2SaHo9iaWfCu1CvsLq8lKO4BEMKREMSLf
+         q/Hm4Rr2O1H7lG/GiRhbuT9RoskmOwem+UUdy1rNsvlzJcsQLi6bJjr5XaAB/X3IOx/D
+         OS4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzi3szuR4A9rVYa1TITZtniIDi1Y/S0s5oUlpY4EAZjw/rpG/kkacywmj2ATSaTbg7qUzqMaNoNAYCyVbo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mS3G5qmK6CdCAwckkaoWA7pPHptJZ5A+ukTc96ZK4mxcdQffVU
+	DeDY5NMwrFWSrLP6TPSgGfnB0xyZXcyyu/PQVedCseB9nrzHd+05BZ4e4+stSYbfoz9DcjjKYDf
+	uDQvhN9xUvFTuhXzJ0c5uLgLZdvinWwT8bE+3eXNB8wbXF1SHQy8su6Vs3ahTM6QJ2yA=
+X-Gm-Gg: AYBFou1VaI9btBY5RkIA250XRryY9zJ16CVvT5Fb4lLKb+2ykB+aG0rfqWixkgZhokT
+	P3D65m5gVU7AqY/IhYeEmqi125usntbGutBUXvb0WeHdv4BdQFLXo5XIicZF7V3gxacFt4AbPIC
+	Oedii/lMcBFkDXtQtAX87nDGipgbdGjMR6b7WGbosMStH6V9mUDVNhhjzg5WLa9HRJxP4KmbwxB
+	oIJxhiieh1ML/0YfLxApBIUBIDx4EvEvb9LwCw88WZjV8qHc14dVpukhBYa6UYNBJZ8UGeKEwbj
+	WaGd6J5JtKV9qe3LuqnTCctFe7mhUTeY4SWvsyzzVM+kwZym5lBCn1zy+Sk=
+X-Received: by 2002:a05:620a:45aa:b0:93e:63fd:40a6 with SMTP id af79cd13be357-93e9b7e1051mr279139785a.40.1791363761534;
+        Wed, 07 Oct 2026 02:02:41 -0700 (PDT)
+X-Received: by 2002:a05:620a:45aa:b0:93e:63fd:40a6 with SMTP id af79cd13be357-93e9b7e1051mr279135185a.40.1791363761002;
+        Wed, 07 Oct 2026 02:02:41 -0700 (PDT)
 Received: from lin-0843.qualcomm.com ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3188d412besm4197366b.80.2026.10.07.02.02.27
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3188d412besm4197366b.80.2026.10.07.02.02.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 02:02:29 -0700 (PDT)
+        Wed, 07 Oct 2026 02:02:40 -0700 (PDT)
 From: Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
         Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -91,9 +91,9 @@ Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
         linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         Prashant Shrotriya <prashant.shrotriya@oss.qualcomm.com>
-Subject: [PATCH RESEND 30/45] media: qcom: camss: sa8775p: add IFE pad descriptors
-Date: Wed,  7 Oct 2026 12:00:26 +0300
-Message-Id: <20261007090041.3732717-31-gjorgji.rosikopulos@oss.qualcomm.com>
+Subject: [PATCH RESEND 33/45] media: qcom: camss: sa8775p: add IFE modules v4.1x
+Date: Wed,  7 Oct 2026 12:00:29 +0300
+Message-Id: <20261007090041.3732717-34-gjorgji.rosikopulos@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261007090041.3732717-1-gjorgji.rosikopulos@oss.qualcomm.com>
 References: <20261007090041.3732717-1-gjorgji.rosikopulos@oss.qualcomm.com>
@@ -104,36 +104,39 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: P6krCOOrgHrw0qwnxCGTiGnZFpqGberl
-X-Authority-Analysis: v=2.4 cv=ZZiIpcVA c=1 sm=1 tr=0 ts=6ac60aa8 cx=c_pps
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfXy7HQQgOy+fhx
+ zr+8/WdsXTFI9sP+o346LUQV+el0HiP6lVMuivstz4clpXE4Fh0FSbjLkcH4zQtoDBTkb9M/Exk
+ UyZAuILVo0mCtULvmLvJMChk+C8p/TA=
+X-Proofpoint-GUID: 4cliB8FAxAqPpU6zBDLVGxFW0Sie46Fq
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfX3eR+23wrpfws
+ sS5dQEDA3YR4BEwvKSgcT23CRCDj4TlacQSJp3zYnrPWeNa3zLaGnbbdfYO7XzNzm5uRD21p/TV
+ sVZZPI4cu+ucNFd1MaYBxoUq6qHDBWPLPgo82d5oFsEiRTfUE/YJlo/FZaRKO1T2bmvE0ApMBzm
+ yAgxwsDmLG0FbxhR6jGslZ7vshfmlshqovC4UCANSvaTLN9pja4aAQHC19FaWK76NhD0wS1plN9
+ CmQweAMRl1hSD+fa+5rdw7ZR/w6Wpcsp2NfTlm7Rs+mnyyehc0A2OQAf7IQBHQ9ZS6e5ub6G0An
+ A7TbTMKllwEB59SQWPVF4kXX/UNF/VR99fs8l15xcMctMW8ctIx9pU4hfK67iI2WD7dJHkY/6Bn
+ I0rjijMbvrPkbi5guePUMZOxYRh26IzmwY+wk5Fsks5bA+wy2FTR1w4WGpu2/QTrgu4hsaqp+Hk
+ Kz56+G16/aO6NALeUdA==
+X-Proofpoint-ORIG-GUID: 4cliB8FAxAqPpU6zBDLVGxFW0Sie46Fq
+X-Authority-Analysis: v=2.4 cv=a6+lZkSF c=1 sm=1 tr=0 ts=6ac60ab2 cx=c_pps
  a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
  a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8 a=dS1WjI01veTeG_rP2OIA:9
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfXwQ6qJ3eQ/G94
- g6aJfwR4Y4hT1r/JuF48bpRrTZE17jWhBovhttiFIyJKQ/n0gj1WaHKd6llhRS/mQm7OZmvUn7p
- GRnHBfr59xU8hdFaLRN88wV6V4F+hRQ=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfX7L0FbnoeR+8Y
- Sxs9ijrXuR1o4/+HNkJpxpZou9ZZ5Zno6ntoRIWUSdhB9mK0V3qwC01/LgoBMgUQnH4JUJHwXnR
- 9dStri7K5mYy/zo3mMcRsPODcmgQ+kNQ0BIjhwGdI3s64kFC/1XkDne7sMLdiCgk3ArDSUh8Y92
- hLcqcic9jNYh4HQwUsCd/z8OC17VVuyqvjt5c8QkbELQbJ0bAXKJkLaBehqFs7R7w5GZHgyCFiZ
- wQuoyr3c2iB3cmIVShOp6FNfctci2vkpKWkRa2oGrYWpY90sINkniJQ2egHYurOM8AZCcDQDBu3
- RKlawK9q17HMIyV/K4Edi/dS0Ww5VwBysGmYmqWLJG1bg545sEZnwwDYBJtTXtwLAbJKfujxbWT
- vuoMpNkJjHIAiW2DtetKbRGGtgkQ36ranfcfaJRZ314lidwQLapfSGsnyh6/ShEGF6VaJg1O2yd
- abYJLYhajgSZwip6C+w==
-X-Proofpoint-ORIG-GUID: P6krCOOrgHrw0qwnxCGTiGnZFpqGberl
+ a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8 a=ZGwZCkOzJVZuJOTSXmIA:9
+ a=8GFvXUyn-dLsZM-V:21 a=PEH46H7Ffwr30OY-TuGO:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-07_03,2026-10-06_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 priorityscore=1501 impostorscore=0 bulkscore=0
- phishscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070035
+ priorityscore=1501 adultscore=0 suspectscore=0 malwarescore=0
+ lowpriorityscore=0 bulkscore=0 spamscore=0 clxscore=1015 impostorscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610070035
 
 From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 
-Describe the SA8775P full and lite IFE pads and write masters.
+Add the module backend used by the SA8775P IFE pixel path. It
+configures the default white balance, demosaic, color transform,
+and AWB BG blocks.
 
 Co-developed-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
 Signed-off-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
@@ -141,254 +144,370 @@ Co-developed-by: Prashant Shrotriya <prashant.shrotriya@oss.qualcomm.com>
 Signed-off-by: Prashant Shrotriya <prashant.shrotriya@oss.qualcomm.com>
 Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 ---
- .../platform/qcom/camss/camss-ife-pads.c      | 216 ++++++++++++++++++
- drivers/media/platform/qcom/camss/camss-ife.h |   2 +
- 2 files changed, 218 insertions(+)
+ drivers/media/platform/qcom/camss/Makefile    |   1 +
+ .../platform/qcom/camss/camss-ife-mod-v41x.c  | 328 ++++++++++++++++++
+ drivers/media/platform/qcom/camss/camss-ife.h |   1 +
+ 3 files changed, 330 insertions(+)
+ create mode 100644 drivers/media/platform/qcom/camss/camss-ife-mod-v41x.c
 
-diff --git a/drivers/media/platform/qcom/camss/camss-ife-pads.c b/drivers/media/platform/qcom/camss/camss-ife-pads.c
-index 7a4e41c9660b..b1e6204ceb21 100644
---- a/drivers/media/platform/qcom/camss/camss-ife-pads.c
-+++ b/drivers/media/platform/qcom/camss/camss-ife-pads.c
-@@ -358,3 +358,219 @@ const struct ife_pads_descriptors ife_pads_v20x = {
- 	.num_desc = ARRAY_SIZE(ife_pad_desc_v20x),
- 	.desc = ife_pad_desc_v20x,
- };
+diff --git a/drivers/media/platform/qcom/camss/Makefile b/drivers/media/platform/qcom/camss/Makefile
+index 695924e0c03b..2e4c07fda524 100644
+--- a/drivers/media/platform/qcom/camss/Makefile
++++ b/drivers/media/platform/qcom/camss/Makefile
+@@ -21,6 +21,7 @@ qcom-camss-objs += \
+ 		camss-ife-camif-v10x.o \
+ 		camss-ife-lite-top-v10x.o \
+ 		camss-ife-mod-v10x.o \
++		camss-ife-mod-v41x.o \
+ 		camss-ife-params.o \
+ 		camss-ife-scale-v10x.o \
+ 		camss-ife-scale-v23x.o \
+diff --git a/drivers/media/platform/qcom/camss/camss-ife-mod-v41x.c b/drivers/media/platform/qcom/camss/camss-ife-mod-v41x.c
+new file mode 100644
+index 000000000000..9f4c8ae9667e
+--- /dev/null
++++ b/drivers/media/platform/qcom/camss/camss-ife-mod-v41x.c
+@@ -0,0 +1,328 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) 2026 Qualcomm Technologies, Inc.
++ *
++ * IFE pixel-path post-processing modules for the v41x register layout.
++ */
 +
-+static const struct ife_pad_limits ife_vid_limits_v30x = {
-+	.min_width	= 320,
-+	.min_height	= 240,
-+	.max_width	= 16384,
-+	.max_height	= 16384,
-+	.max_h_ratio	= 16,
-+	.max_v_ratio	= 16,
-+};
++#include <linux/bitfield.h>
++#include <linux/io.h>
 +
-+static const struct ife_pad_limits ife_vid_limits_v41x = {
-+	.min_width	= 16,
-+	.min_height	= 16,
-+	.max_width	= 16384,
-+	.max_height	= 16384,
-+	.max_h_ratio	= 64,
-+	.max_v_ratio	= 64,
-+};
++#include "camss-ife.h"
 +
-+static const struct ife_pad_desc ife_lite_pad_desc_v30x[] = {
-+	{
-+		.pad_flags = MEDIA_PAD_FL_SINK,
-+		.sup_fmts = {
-+			.nformats = ARRAY_SIZE(ife_sink_fmts_v20x),
-+			.formats = ife_sink_fmts_v20x,
-+		},
-+		.limits = &ife_vid_limits_v30x,
-+	},
-+	{
-+		.pad_flags = MEDIA_PAD_FL_SOURCE,
-+		.sup_fmts = {
-+			.nformats = ARRAY_SIZE(ife_sink_fmts_v20x),
-+			.formats = ife_sink_fmts_v20x,
-+		},
-+		.limits = &ife_vid_limits_v30x,
-+		.video_name = "rdi0",
-+		.link_flags = MEDIA_LNK_FL_IMMUTABLE | MEDIA_LNK_FL_ENABLED,
-+		.buf_type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE,
-+		.output = CAMSS_IFE_OUTPUT_RDI0,
-+		.hw_pipe = CAMSS_IFE_HW_PIPE_RDI0,
-+		.packing_fmt = 0x0,
-+		.mode_config = BUSWR_CLIENT_CFG_MODE_FRAME_BASED,
-+		.num_wms = 1,
-+		.wm = { 0 },
-+	},
-+	{
-+		.pad_flags = MEDIA_PAD_FL_SOURCE,
-+		.sup_fmts = {
-+			.nformats = ARRAY_SIZE(ife_sink_fmts_v20x),
-+			.formats = ife_sink_fmts_v20x,
-+		},
-+		.limits = &ife_vid_limits_v30x,
-+		.video_name = "rdi1",
-+		.link_flags = MEDIA_LNK_FL_IMMUTABLE | MEDIA_LNK_FL_ENABLED,
-+		.buf_type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE,
-+		.output = CAMSS_IFE_OUTPUT_RDI1,
-+		.hw_pipe = CAMSS_IFE_HW_PIPE_RDI1,
-+		.packing_fmt = 0x0,
-+		.mode_config = BUSWR_CLIENT_CFG_MODE_FRAME_BASED,
-+		.num_wms = 1,
-+		.wm = { 1 },
-+	},
-+	{
-+		.pad_flags = MEDIA_PAD_FL_SOURCE,
-+		.sup_fmts = {
-+			.nformats = ARRAY_SIZE(ife_sink_fmts_v20x),
-+			.formats = ife_sink_fmts_v20x,
-+		},
-+		.limits = &ife_vid_limits_v30x,
-+		.video_name = "rdi2",
-+		.link_flags = MEDIA_LNK_FL_IMMUTABLE | MEDIA_LNK_FL_ENABLED,
-+		.buf_type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE,
-+		.output = CAMSS_IFE_OUTPUT_RDI2,
-+		.hw_pipe = CAMSS_IFE_HW_PIPE_RDI2,
-+		.packing_fmt = 0x0,
-+		.mode_config = BUSWR_CLIENT_CFG_MODE_FRAME_BASED,
-+		.num_wms = 1,
-+		.wm = { 2 },
-+	},
-+	{
-+		.pad_flags = MEDIA_PAD_FL_SOURCE,
-+		.sup_fmts = {
-+			.nformats = ARRAY_SIZE(ife_sink_fmts_v20x),
-+			.formats = ife_sink_fmts_v20x,
-+		},
-+		.limits = &ife_vid_limits_v30x,
-+		.video_name = "rdi3",
-+		.link_flags = MEDIA_LNK_FL_IMMUTABLE | MEDIA_LNK_FL_ENABLED,
-+		.buf_type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE,
-+		.output = CAMSS_IFE_OUTPUT_RDI3,
-+		.hw_pipe = CAMSS_IFE_HW_PIPE_RDI3,
-+		.packing_fmt = 0x0,
-+		.mode_config = BUSWR_CLIENT_CFG_MODE_FRAME_BASED,
-+		.num_wms = 1,
-+		.wm = { 3 },
-+	},
-+};
++/* Module base offsets */
++#define IFE_MOD_V41X_WB_GAIN_OFFSET		0x4000
++#define IFE_MOD_V41X_DEMOSAIC_OFFSET		0x5580
++#define IFE_MOD_V41X_XFORM_OFFSET		0x6200
++#define IFE_MOD_V41X_AWB_BG_OFFSET		0x6800
 +
-+const struct ife_pads_descriptors ife_lite_pads_v30x = {
-+	.num_desc = ARRAY_SIZE(ife_lite_pad_desc_v30x),
-+	.desc = ife_lite_pad_desc_v30x,
-+};
++/* WB gain registers */
++#define IFE_MOD_V41X_WB_GAIN_MODULE_CFG		0x60
++#define IFE_MOD_V41X_WB_GAIN_CFG_0		0x68
++#define IFE_MOD_V41X_WB_GAIN_CFG_1		0x6c
++#define IFE_MOD_V41X_WB_GAIN_CFG_2		0x70
 +
-+static const struct ife_pad_desc ife_pad_desc_v41x[] = {
-+	{
-+		.pad_flags = MEDIA_PAD_FL_SINK,
-+		.sup_fmts = {
-+			.nformats = ARRAY_SIZE(ife_sink_fmts_v20x),
-+			.formats = ife_sink_fmts_v20x,
-+		},
-+		.limits = &ife_vid_limits_v41x,
-+	},
-+	{
-+		.pad_flags = MEDIA_PAD_FL_SOURCE,
-+		.sup_fmts = {
-+			.nformats = ARRAY_SIZE(ife_vid_pix_fmts_v20x),
-+			.formats = ife_vid_pix_fmts_v20x,
-+		},
-+		.limits = &ife_vid_limits_v41x,
-+		.video_name = "vid_full",
-+		.link_flags = MEDIA_LNK_FL_IMMUTABLE | MEDIA_LNK_FL_ENABLED,
-+		.buf_type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE,
-+		.output = CAMSS_IFE_OUTPUT_VID_FULL,
-+		.hw_pipe = CAMSS_IFE_HW_PIPE_PP,
-+		.packing_fmt = 0x1,
-+		.mode_config = BUSWR_CLIENT_CFG_MODE_LINE_BASED,
-+		.num_wms = 2,
-+		.wm = { 0, 1 },
-+	},
-+	{
-+		.pad_flags = MEDIA_PAD_FL_SOURCE,
-+		.sup_fmts = {
-+			.nformats = ARRAY_SIZE(ife_vid_pix_fmts_v20x),
-+			.formats = ife_vid_pix_fmts_v20x,
-+		},
-+		.limits = &ife_vid_limits_v41x,
-+		.video_name = "disp_full",
-+		.link_flags = MEDIA_LNK_FL_IMMUTABLE | MEDIA_LNK_FL_ENABLED,
-+		.buf_type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE,
-+		.output = CAMSS_IFE_OUTPUT_DISP_FULL,
-+		.hw_pipe = CAMSS_IFE_HW_PIPE_PP,
-+		.packing_fmt = 0x1,
-+		.mode_config = BUSWR_CLIENT_CFG_MODE_LINE_BASED,
-+		.num_wms = 2,
-+		.wm = { 3, 4 },
-+	},
-+	{
-+		.pad_flags = MEDIA_PAD_FL_SOURCE,
-+		.sup_fmts = {
-+			.nformats = ARRAY_SIZE(ife_sink_fmts_v20x),
-+			.formats = ife_sink_fmts_v20x,
-+		},
-+		.limits = &ife_vid_limits_v41x,
-+		.video_name = "rdi0",
-+		.link_flags = MEDIA_LNK_FL_IMMUTABLE | MEDIA_LNK_FL_ENABLED,
-+		.buf_type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE,
-+		.output = CAMSS_IFE_OUTPUT_RDI0,
-+		.hw_pipe = CAMSS_IFE_HW_PIPE_RDI0,
-+		.packing_fmt = 0x0,
-+		.mode_config = BUSWR_CLIENT_CFG_MODE_FRAME_BASED,
-+		.num_wms = 1,
-+		.wm = { 16 },
-+	},
-+	{
-+		.pad_flags = MEDIA_PAD_FL_SOURCE,
-+		.sup_fmts = {
-+			.nformats = ARRAY_SIZE(ife_sink_fmts_v20x),
-+			.formats = ife_sink_fmts_v20x,
-+		},
-+		.limits = &ife_vid_limits_v41x,
-+		.video_name = "rdi1",
-+		.link_flags = MEDIA_LNK_FL_IMMUTABLE | MEDIA_LNK_FL_ENABLED,
-+		.buf_type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE,
-+		.output = CAMSS_IFE_OUTPUT_RDI1,
-+		.hw_pipe = CAMSS_IFE_HW_PIPE_RDI1,
-+		.packing_fmt = 0x0,
-+		.mode_config = BUSWR_CLIENT_CFG_MODE_FRAME_BASED,
-+		.num_wms = 1,
-+		.wm = { 17 },
-+	},
-+	{
-+		.pad_flags = MEDIA_PAD_FL_SOURCE,
-+		.sup_fmts = {
-+			.nformats = ARRAY_SIZE(ife_sink_fmts_v20x),
-+			.formats = ife_sink_fmts_v20x,
-+		},
-+		.limits = &ife_vid_limits_v41x,
-+		.video_name = "rdi2",
-+		.link_flags = MEDIA_LNK_FL_IMMUTABLE | MEDIA_LNK_FL_ENABLED,
-+		.buf_type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE,
-+		.output = CAMSS_IFE_OUTPUT_RDI2,
-+		.hw_pipe = CAMSS_IFE_HW_PIPE_RDI2,
-+		.packing_fmt = 0x0,
-+		.mode_config = BUSWR_CLIENT_CFG_MODE_FRAME_BASED,
-+		.num_wms = 1,
-+		.wm = { 18 },
-+	},
-+	{
-+		.pad_flags = MEDIA_PAD_FL_SINK,
-+		.sup_fmts = {
-+			.nformats = ARRAY_SIZE(ife_params_fmts_v20x),
-+			.formats = ife_params_fmts_v20x,
-+		},
-+		.limits = &ife_meta_limits_v20x,
-+		.video_name = "params",
-+		.link_flags = MEDIA_LNK_FL_IMMUTABLE | MEDIA_LNK_FL_ENABLED,
-+		.buf_type = V4L2_BUF_TYPE_META_OUTPUT,
-+		.meta_dataformat = V4L2_META_FMT_QC_IFE_PARAMS,
-+		.meta_buffersize = PAGE_ALIGN(v4l2_isp_buffer_size(CAMSS_IFE_PARAMS_MAX_PAYLOAD)),
-+	},
-+};
++/* Demosaic registers */
++#define IFE_MOD_V41X_DEMOSAIC_MODULE_CFG		0x60
++#define IFE_MOD_V41X_DEMOSAIC_INTERP_COEFF_CFG_0	0x68
++#define IFE_MOD_V41X_DEMOSAIC_INTERP_COEFF_CFG_1	0x6c
++#define IFE_MOD_V41X_DEMOSAIC_INTERP_CLASSIFIER_CFG_0	0x70
++#define IFE_MOD_V41X_DEMOSAIC_INTERP_CLASSIFIER_CFG_1	0x74
 +
-+const struct ife_pads_descriptors ife_pads_v41x = {
-+	.num_desc = ARRAY_SIZE(ife_pad_desc_v41x),
-+	.desc = ife_pad_desc_v41x,
++/* Color transform (XFORM) registers, 3 channels */
++#define IFE_MOD_V41X_XFORM_MODULE_CFG		0x60
++#define IFE_MOD_V41X_XFORM_CH0_COEFF_CFG_0	0x68
++#define IFE_MOD_V41X_XFORM_CH0_COEFF_CFG_1	0x6c
++#define IFE_MOD_V41X_XFORM_CH0_ADDOFFSET_CFG	0x70
++#define IFE_MOD_V41X_XFORM_CH0_SUBOFFSET_CFG	0x74
++#define IFE_MOD_V41X_XFORM_CH0_CLAMP0_CFG	0x78
++#define IFE_MOD_V41X_XFORM_CH0_CLAMP1_CFG	0x7c
++#define IFE_MOD_V41X_XFORM_CH1_COEFF_CFG_0	0x80
++#define IFE_MOD_V41X_XFORM_CH1_COEFF_CFG_1	0x84
++#define IFE_MOD_V41X_XFORM_CH1_ADDOFFSET_CFG	0x88
++#define IFE_MOD_V41X_XFORM_CH1_SUBOFFSET_CFG	0x8c
++#define IFE_MOD_V41X_XFORM_CH1_CLAMP0_CFG	0x90
++#define IFE_MOD_V41X_XFORM_CH1_CLAMP1_CFG	0x94
++#define IFE_MOD_V41X_XFORM_CH2_COEFF_CFG_0	0x98
++#define IFE_MOD_V41X_XFORM_CH2_COEFF_CFG_1	0x9c
++#define IFE_MOD_V41X_XFORM_CH2_ADDOFFSET_CFG	0xa0
++#define IFE_MOD_V41X_XFORM_CH2_SUBOFFSET_CFG	0xa4
++#define IFE_MOD_V41X_XFORM_CH2_CLAMP0_CFG	0xa8
++#define IFE_MOD_V41X_XFORM_CH2_CLAMP1_CFG	0xac
++
++/* AWB-BG registers */
++#define IFE_MOD_V41X_AWB_BG_MODULE_CFG		0x60
++#define IFE_MOD_V41X_AWB_BG_HORZ_RGN_CFG_0	0x6c
++#define IFE_MOD_V41X_AWB_BG_HORZ_RGN_CFG_1	0x70
++#define IFE_MOD_V41X_AWB_BG_VERT_RGN_CFG_0	0x74
++#define IFE_MOD_V41X_AWB_BG_VERT_RGN_CFG_1	0x78
++#define IFE_MOD_V41X_AWB_BG_RGN_WIDTH_CFG	0x7c
++#define IFE_MOD_V41X_AWB_BG_HI_THRESHOLD_CFG_0	0x80
++#define IFE_MOD_V41X_AWB_BG_LO_THRESHOLD_CFG_0	0x94
++
++/* WB gain bitfields */
++#define IFE_MOD_V41X_WB_GAIN_CFG_EN		BIT(0)
++#define IFE_MOD_V41X_WB_GAIN_VALUE		GENMASK(31, 17)
++
++/* Demosaic bitfields */
++#define IFE_MOD_V41X_DEMOSAIC_CFG_EN			BIT(0)
++#define IFE_MOD_V41X_DEMOSAIC_CFG_DYN_G_CLAMP_EN	BIT(14)
++#define IFE_MOD_V41X_DEMOSAIC_CFG_DYN_RB_CLAMP_EN	BIT(15)
++
++/* Color transform bitfields */
++#define IFE_MOD_V41X_XFORM_CFG_EN		BIT(0)
++#define IFE_MOD_V41X_XFORM_MATRIX_M0		GENMASK(12, 0)
++#define IFE_MOD_V41X_XFORM_MATRIX_M1		GENMASK(28, 16)
++#define IFE_MOD_V41X_XFORM_OFFSET_VALUE		GENMASK(31, 17)
++#define IFE_MOD_V41X_XFORM_CLAMP_VALUE		GENMASK(31, 18)
++
++/* AWB-BG bitfields */
++#define IFE_MOD_V41X_AWB_BG_MODULE_CFG_EN	BIT(0)
++#define IFE_MOD_V41X_AWB_BG_RGN_SAMPLE_PATTERN	GENMASK(31, 16)
++#define IFE_MOD_V41X_AWB_BG_HORZ_CFG0_H_NUM	GENMASK(21, 16)
++#define IFE_MOD_V41X_AWB_BG_HORZ_CFG1_WIDTH	GENMASK(8, 0)
++#define IFE_MOD_V41X_AWB_BG_VERT_CFG0_V_NUM	GENMASK(21, 16)
++#define IFE_MOD_V41X_AWB_BG_VERT_CFG1_HEIGHT	GENMASK(8, 0)
++#define IFE_MOD_V41X_AWB_BG_RGN_WIDTH_LAST	GENMASK(24, 16)
++#define IFE_MOD_V41X_AWB_BG_RGN_WIDTH_FIRST	GENMASK(8, 0)
++#define IFE_MOD_V41X_AWB_BG_HI_THRESHOLD	GENMASK(31, 8)
++
++/* WB gain default */
++#define IFE_MOD_V41X_WB_GAIN_UNITY		0x400
++
++/* Demosaic defaults */
++#define IFE_MOD_V41X_DEMOSAIC_LAMBDA_G		0x80
++#define IFE_MOD_V41X_DEMOSAIC_LAMBDA_RB		0
++#define IFE_MOD_V41X_DEMOSAIC_A_K_DEFAULT	0x08000000
++#define IFE_MOD_V41X_DEMOSAIC_W_K_DEFAULT	0x66
++
++/* Color transform defaults */
++#define IFE_MOD_V41X_XFORM_MSB_SHIFT		4
++#define IFE_MOD_V41X_XFORM_CHROMA_OFFSET	0x200
++#define IFE_MOD_V41X_XFORM_CLAMP_MAX		0x3ff
++
++/* AWB-BG defaults */
++#define IFE_MOD_V41X_AWB_BG_MAX_H_NUM		64
++#define IFE_MOD_V41X_AWB_BG_MAX_V_NUM		48
++#define IFE_MOD_V41X_AWB_BG_SAMPLE_PATTERN	GENMASK(15, 0)
++#define IFE_MOD_V41X_AWB_BG_THRESHOLD		0x3ffff
++#define IFE_MOD_V41X_AWB_BG_NUM_THRESHOLDS	5
++
++static void mod_v41x_wb_gain_config(struct ife_pp_ctx *ctx)
++{
++	void __iomem *base = ctx->base + IFE_MOD_V41X_WB_GAIN_OFFSET;
++	u32 value = FIELD_PREP(IFE_MOD_V41X_WB_GAIN_VALUE,
++			       IFE_MOD_V41X_WB_GAIN_UNITY);
++
++	writel_relaxed(value, base + IFE_MOD_V41X_WB_GAIN_CFG_0);
++	writel_relaxed(value, base + IFE_MOD_V41X_WB_GAIN_CFG_1);
++	writel_relaxed(value, base + IFE_MOD_V41X_WB_GAIN_CFG_2);
++}
++
++static void mod_v41x_demosaic_config(struct ife_pp_ctx *ctx)
++{
++	void __iomem *base = ctx->base + IFE_MOD_V41X_DEMOSAIC_OFFSET;
++
++	writel_relaxed(IFE_MOD_V41X_DEMOSAIC_LAMBDA_RB,
++		       base + IFE_MOD_V41X_DEMOSAIC_INTERP_COEFF_CFG_0);
++	writel_relaxed(IFE_MOD_V41X_DEMOSAIC_LAMBDA_G,
++		       base + IFE_MOD_V41X_DEMOSAIC_INTERP_COEFF_CFG_1);
++	writel_relaxed(IFE_MOD_V41X_DEMOSAIC_A_K_DEFAULT,
++		       base + IFE_MOD_V41X_DEMOSAIC_INTERP_CLASSIFIER_CFG_0);
++	writel_relaxed(IFE_MOD_V41X_DEMOSAIC_W_K_DEFAULT,
++		       base + IFE_MOD_V41X_DEMOSAIC_INTERP_CLASSIFIER_CFG_1);
++}
++
++static void mod_v41x_awb_bg_config(struct ife_pp_ctx *ctx,
++				   const struct camss_pp_cfg *cfg)
++{
++	void __iomem *base = ctx->base + IFE_MOD_V41X_AWB_BG_OFFSET;
++	unsigned int i;
++	u32 height = (cfg->height / IFE_MOD_V41X_AWB_BG_MAX_V_NUM) & ~3u;
++	u32 width = (cfg->width / IFE_MOD_V41X_AWB_BG_MAX_H_NUM) & ~3u;
++	u32 value;
++
++	value = readl_relaxed(base + IFE_MOD_V41X_AWB_BG_MODULE_CFG);
++	value &= ~IFE_MOD_V41X_AWB_BG_RGN_SAMPLE_PATTERN;
++	value |= FIELD_PREP(IFE_MOD_V41X_AWB_BG_RGN_SAMPLE_PATTERN,
++			    IFE_MOD_V41X_AWB_BG_SAMPLE_PATTERN);
++	writel_relaxed(value, base + IFE_MOD_V41X_AWB_BG_MODULE_CFG);
++
++	value = FIELD_PREP(IFE_MOD_V41X_AWB_BG_HORZ_CFG0_H_NUM,
++			   IFE_MOD_V41X_AWB_BG_MAX_H_NUM - 1);
++	writel_relaxed(value, base + IFE_MOD_V41X_AWB_BG_HORZ_RGN_CFG_0);
++
++	value = FIELD_PREP(IFE_MOD_V41X_AWB_BG_HORZ_CFG1_WIDTH, width - 1);
++	writel_relaxed(value, base + IFE_MOD_V41X_AWB_BG_HORZ_RGN_CFG_1);
++
++	value = FIELD_PREP(IFE_MOD_V41X_AWB_BG_VERT_CFG0_V_NUM,
++			   IFE_MOD_V41X_AWB_BG_MAX_V_NUM - 1);
++	writel_relaxed(value, base + IFE_MOD_V41X_AWB_BG_VERT_RGN_CFG_0);
++
++	value = FIELD_PREP(IFE_MOD_V41X_AWB_BG_VERT_CFG1_HEIGHT, height - 1);
++	writel_relaxed(value, base + IFE_MOD_V41X_AWB_BG_VERT_RGN_CFG_1);
++
++	value = FIELD_PREP(IFE_MOD_V41X_AWB_BG_RGN_WIDTH_FIRST, width - 1) |
++		FIELD_PREP(IFE_MOD_V41X_AWB_BG_RGN_WIDTH_LAST, width - 1);
++	writel_relaxed(value, base + IFE_MOD_V41X_AWB_BG_RGN_WIDTH_CFG);
++
++	value = FIELD_PREP(IFE_MOD_V41X_AWB_BG_HI_THRESHOLD,
++			   IFE_MOD_V41X_AWB_BG_THRESHOLD);
++	for (i = 0; i < IFE_MOD_V41X_AWB_BG_NUM_THRESHOLDS; i++) {
++		writel_relaxed(value, base + IFE_MOD_V41X_AWB_BG_HI_THRESHOLD_CFG_0 + i * 4);
++		writel_relaxed(0, base + IFE_MOD_V41X_AWB_BG_LO_THRESHOLD_CFG_0 + i * 4);
++	}
++}
++
++static void mod_v41x_awb_bg_enable(struct ife_pp_ctx *ctx)
++{
++	void __iomem *base = ctx->base + IFE_MOD_V41X_AWB_BG_OFFSET;
++	u32 value;
++
++	value = readl_relaxed(base + IFE_MOD_V41X_AWB_BG_MODULE_CFG);
++	value |= IFE_MOD_V41X_AWB_BG_MODULE_CFG_EN;
++	writel_relaxed(value, base + IFE_MOD_V41X_AWB_BG_MODULE_CFG);
++}
++
++static void mod_v41x_awb_bg_disable(struct ife_pp_ctx *ctx)
++{
++	void __iomem *base = ctx->base + IFE_MOD_V41X_AWB_BG_OFFSET;
++	u32 value;
++
++	value = readl_relaxed(base + IFE_MOD_V41X_AWB_BG_MODULE_CFG);
++	value &= ~IFE_MOD_V41X_AWB_BG_MODULE_CFG_EN;
++	writel_relaxed(value, base + IFE_MOD_V41X_AWB_BG_MODULE_CFG);
++}
++
++static void mod_v41x_xform_write_coeff(void __iomem *base, u32 offset,
++				       u32 m0, u32 m1)
++{
++	u32 value;
++
++	value = FIELD_PREP(IFE_MOD_V41X_XFORM_MATRIX_M0, m0) |
++		FIELD_PREP(IFE_MOD_V41X_XFORM_MATRIX_M1, m1);
++	writel_relaxed(value, base + offset);
++}
++
++static void mod_v41x_xform_write_channel(void __iomem *base, u32 coeff0,
++					 u32 coeff1, u32 add_offset,
++					 u32 sub_offset, u32 clamp0,
++					 u32 clamp1, u32 m0, u32 m1,
++					 u32 m2, u32 offset)
++{
++	mod_v41x_xform_write_coeff(base, coeff0, m0, m1);
++	writel_relaxed(FIELD_PREP(IFE_MOD_V41X_XFORM_MATRIX_M0, m2), base + coeff1);
++	writel_relaxed(FIELD_PREP(IFE_MOD_V41X_XFORM_OFFSET_VALUE,
++				  offset << IFE_MOD_V41X_XFORM_MSB_SHIFT),
++		       base + add_offset);
++	writel_relaxed(0, base + sub_offset);
++	writel_relaxed(FIELD_PREP(IFE_MOD_V41X_XFORM_CLAMP_VALUE, 0), base + clamp0);
++	writel_relaxed(FIELD_PREP(IFE_MOD_V41X_XFORM_CLAMP_VALUE,
++				  IFE_MOD_V41X_XFORM_CLAMP_MAX <<
++				    IFE_MOD_V41X_XFORM_MSB_SHIFT),
++		       base + clamp1);
++}
++
++static void mod_v41x_modules_acquire(struct ife_device *ife, struct ife_pp_ctx *ctx,
++				     void __iomem *base)
++{
++	ctx->base = base;
++}
++
++static void mod_v41x_modules_release(struct ife_pp_ctx *ctx)
++{
++	ctx->base = NULL;
++}
++
++static void mod_v41x_modules_config(struct ife_pp_ctx *ctx,
++				    const struct camss_pp_cfg *cfg)
++{
++	void __iomem *base = ctx->base + IFE_MOD_V41X_XFORM_OFFSET;
++
++	ctx->in_width = cfg->width;
++	ctx->in_height = cfg->height;
++
++	mod_v41x_wb_gain_config(ctx);
++	mod_v41x_demosaic_config(ctx);
++	mod_v41x_awb_bg_config(ctx, cfg);
++
++	mod_v41x_xform_write_channel(base, IFE_MOD_V41X_XFORM_CH0_COEFF_CFG_0,
++				     IFE_MOD_V41X_XFORM_CH0_COEFF_CFG_1,
++				     IFE_MOD_V41X_XFORM_CH0_ADDOFFSET_CFG,
++				     IFE_MOD_V41X_XFORM_CH0_SUBOFFSET_CFG,
++				     IFE_MOD_V41X_XFORM_CH0_CLAMP0_CFG,
++				     IFE_MOD_V41X_XFORM_CH0_CLAMP1_CFG,
++				     0x259, 0x75, 0x132, 0);
++	mod_v41x_xform_write_channel(base, IFE_MOD_V41X_XFORM_CH1_COEFF_CFG_0,
++				     IFE_MOD_V41X_XFORM_CH1_COEFF_CFG_1,
++				     IFE_MOD_V41X_XFORM_CH1_ADDOFFSET_CFG,
++				     IFE_MOD_V41X_XFORM_CH1_SUBOFFSET_CFG,
++				     IFE_MOD_V41X_XFORM_CH1_CLAMP0_CFG,
++				     IFE_MOD_V41X_XFORM_CH1_CLAMP1_CFG,
++				     0x1eae, 0x1fe, 0x1f54,
++				     IFE_MOD_V41X_XFORM_CHROMA_OFFSET);
++	mod_v41x_xform_write_channel(base, IFE_MOD_V41X_XFORM_CH2_COEFF_CFG_0,
++				     IFE_MOD_V41X_XFORM_CH2_COEFF_CFG_1,
++				     IFE_MOD_V41X_XFORM_CH2_ADDOFFSET_CFG,
++				     IFE_MOD_V41X_XFORM_CH2_SUBOFFSET_CFG,
++				     IFE_MOD_V41X_XFORM_CH2_CLAMP0_CFG,
++				     IFE_MOD_V41X_XFORM_CH2_CLAMP1_CFG,
++				     0x1e55, 0x1fad, 0x1fe,
++				     IFE_MOD_V41X_XFORM_CHROMA_OFFSET);
++}
++
++static void mod_v41x_modules_enable(struct ife_pp_ctx *ctx)
++{
++	void __iomem *base = ctx->base + IFE_MOD_V41X_WB_GAIN_OFFSET;
++	u32 value;
++
++	value = readl_relaxed(base + IFE_MOD_V41X_WB_GAIN_MODULE_CFG);
++	value |= IFE_MOD_V41X_WB_GAIN_CFG_EN;
++	writel_relaxed(value, base + IFE_MOD_V41X_WB_GAIN_MODULE_CFG);
++
++	base = ctx->base + IFE_MOD_V41X_DEMOSAIC_OFFSET;
++	value = readl_relaxed(base + IFE_MOD_V41X_DEMOSAIC_MODULE_CFG);
++	value |= IFE_MOD_V41X_DEMOSAIC_CFG_DYN_G_CLAMP_EN |
++		 IFE_MOD_V41X_DEMOSAIC_CFG_DYN_RB_CLAMP_EN |
++		 IFE_MOD_V41X_DEMOSAIC_CFG_EN;
++	writel_relaxed(value, base + IFE_MOD_V41X_DEMOSAIC_MODULE_CFG);
++
++	base = ctx->base + IFE_MOD_V41X_XFORM_OFFSET;
++	value = readl_relaxed(base + IFE_MOD_V41X_XFORM_MODULE_CFG);
++	value |= IFE_MOD_V41X_XFORM_CFG_EN;
++	writel_relaxed(value, base + IFE_MOD_V41X_XFORM_MODULE_CFG);
++
++	mod_v41x_awb_bg_enable(ctx);
++}
++
++static void mod_v41x_modules_disable(struct ife_pp_ctx *ctx)
++{
++	void __iomem *base = ctx->base + IFE_MOD_V41X_WB_GAIN_OFFSET;
++	u32 value;
++
++	mod_v41x_awb_bg_disable(ctx);
++
++	value = readl_relaxed(base + IFE_MOD_V41X_WB_GAIN_MODULE_CFG);
++	value &= ~IFE_MOD_V41X_WB_GAIN_CFG_EN;
++	writel_relaxed(value, base + IFE_MOD_V41X_WB_GAIN_MODULE_CFG);
++
++	base = ctx->base + IFE_MOD_V41X_DEMOSAIC_OFFSET;
++	value = readl_relaxed(base + IFE_MOD_V41X_DEMOSAIC_MODULE_CFG);
++	value &= ~(IFE_MOD_V41X_DEMOSAIC_CFG_DYN_G_CLAMP_EN |
++		   IFE_MOD_V41X_DEMOSAIC_CFG_DYN_RB_CLAMP_EN |
++		   IFE_MOD_V41X_DEMOSAIC_CFG_EN);
++	writel_relaxed(value, base + IFE_MOD_V41X_DEMOSAIC_MODULE_CFG);
++
++	base = ctx->base + IFE_MOD_V41X_XFORM_OFFSET;
++	value = readl_relaxed(base + IFE_MOD_V41X_XFORM_MODULE_CFG);
++	value &= ~IFE_MOD_V41X_XFORM_CFG_EN;
++	writel_relaxed(value, base + IFE_MOD_V41X_XFORM_MODULE_CFG);
++}
++
++const struct camss_mod_ops ife_mod_v41x_ops = {
++	.acquire	= mod_v41x_modules_acquire,
++	.release	= mod_v41x_modules_release,
++	.config		= mod_v41x_modules_config,
++	.enable		= mod_v41x_modules_enable,
++	.disable	= mod_v41x_modules_disable,
 +};
 diff --git a/drivers/media/platform/qcom/camss/camss-ife.h b/drivers/media/platform/qcom/camss/camss-ife.h
-index eff4ab4bd1c9..0ca276203bbb 100644
+index 3d35c17fca7f..c38b96076a1f 100644
 --- a/drivers/media/platform/qcom/camss/camss-ife.h
 +++ b/drivers/media/platform/qcom/camss/camss-ife.h
-@@ -395,6 +395,7 @@ camss_ife_pipe_for_stream_id(int nstreams,
- 			     u32 id);
- 
- extern const struct ife_pads_descriptors ife_pads_v20x;
-+extern const struct ife_pads_descriptors ife_pads_v41x;
- extern const struct ife_hw_top_ops ife_top_20x_ops;
- extern const struct ife_hw_top_ops ife_top_v41x_ops;
+@@ -403,6 +403,7 @@ extern const struct ife_hw_top_ops ife_top_v41x_ops;
  extern const struct ife_hw_buswr_ops ife_buswr_20x_ops;
-@@ -402,6 +403,7 @@ extern const struct ife_hw_buswr_ops ife_buswr_31x_ops;
+ extern const struct ife_hw_buswr_ops ife_buswr_31x_ops;
  extern const struct camss_mod_ops ife_mod_v10x_ops;
++extern const struct camss_mod_ops ife_mod_v41x_ops;
  
  extern const struct ife_pads_descriptors ife_lite_pads_v20x;
-+extern const struct ife_pads_descriptors ife_lite_pads_v30x;
- extern const struct ife_hw_top_ops ife_lite_top_10x_ops;
- extern const struct ife_hw_top_ops ife_lite_top_30x_ops;
- 
+ extern const struct ife_pads_descriptors ife_lite_pads_v30x;
 -- 
 2.34.1
 
