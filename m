@@ -1,117 +1,171 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 842A42673AA;
-	Wed,  7 Oct 2026 17:19:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8AE42673AA;
+	Wed,  7 Oct 2026 17:20:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791393551; cv=none; b=XRxKELKBh+2X3eeMhYVoJa/0XNTNpJTmInwh1LBLULDiEFmCM7jgy+JkDRFhJdUJlPQGXgp/80NF5sBVrTswb+31xHAXTEjKoruJthL67lS2LhzegaJAgdXEPqt5YRf7LCC9tPzF2/7iTPIVZ9SVNrB0bqr5IK90+MsTwXVKrLk=
+	t=1791393618; cv=none; b=WiEOx+F9dbtyFSldJDK7zQCwTntkRWiaO7cr+wIr3Wi/Mympt82qa4716Li65gzOZ7uamM20ILgztNowUWwe48H4fbuu/sLguVbcJW9/G/uF6ZKJvCVnOhLAfFovil98addof8PnZByXJPubImTkBFuVTKjcebimp7uh3D+Isn4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791393551; c=relaxed/simple;
-	bh=QFUZT4cZVyuL8haEG6rnP7VCFw7K75QKxT40XH5Z+t0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=i2aLNFhnIwBCP+UqzP+x4dxIPXHT1zKCpi4t3LOhBypNHBchJN6ZjP3o3uEpbnoeitCp4/9Ld39FevAF8u1NhovfAcas8l0Xcn9TYnTaIejEyDM5BaAcTJZu+yVMj29gxqTvNURWI94n7IY/AFlzADPujlchrCEJXloOFRcTJ/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=EJAanf+F; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791393618; c=relaxed/simple;
+	bh=kqZVCWDHCL3wYn2PokaC9zYWyDD0jEm3l4gAd3MC55M=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Fgs6Nb4+gOdOVZbyBH2o2htEsZI/3v+1lnIsb3qeLIVm2gw9c7+hrV72p0q5JekF1HwUeOu4JEsDssASIaHQm59NaN0IbDm0zxLv0Mv6OVZHxKRyUNhMrL0EaSW7Gwc1Mtq9Xo+Ddx+E2/9M8W0e2NBc0AzeQKCnxCaAoSKyy9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=n406jqL3; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="EJAanf+F"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697F5MlL2822857;
-	Wed, 7 Oct 2026 17:18:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=QFUZT4cZVyuL8haEG6rnP7VCFw7K75
-	QKxT40XH5Z+t0=; b=EJAanf+FDxcZ1+lTVLY7D6iYjJV/2TbEG79oyurdefaXxw
-	c/JH56mcI13FdcucbrVTO7OA/61xQcc30kKwOdhnet68+Bo8NLAfKETsc7gzIvUH
-	FZBJbiteKTT+0U6ddDglWvasiE8F649qtHWsC5Nc6RDaOeel8AQRRcmHqHApJ34u
-	1pq+P2x3NY42Hcl+9ivJ3nTLet40S3h9mjt33D5n1rUyuX1m3xssP9v702dklEsY
-	4rH5rn9CuR1jnfHTNvPEaNlaGsEciyiJJCa2J6PPtoDGAhSmGfyaylFla45FpYuq
-	dKxRYpVqnLK5gLqz3jxUZTR7/FZ1mPuZ1MUIrakQ==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2se5ps53-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 07 Oct 2026 17:18:49 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 697F2Yuo802348;
-	Wed, 7 Oct 2026 17:18:48 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h5f3ttjbg-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 07 Oct 2026 17:18:48 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 697HIjJu37749200
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 7 Oct 2026 17:18:45 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 10B7D20043;
-	Wed,  7 Oct 2026 17:18:45 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E1DC720040;
-	Wed,  7 Oct 2026 17:18:41 +0000 (GMT)
-Received: from li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibm.com (unknown [9.124.215.154])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Wed,  7 Oct 2026 17:18:41 +0000 (GMT)
-Date: Wed, 7 Oct 2026 22:48:38 +0530
-From: Gautam Menghani <gautam@linux.ibm.com>
-To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-Cc: kvm@vger.kernel.org, Sean Christopherson <seanjc@google.com>,
-        Paolo Bonzini <pbonzini@redhat.com>, linuxppc-dev@lists.ozlabs.org,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Christophe Leroy <chleroy@kernel.org>,
-        Anushree Mathur <anushree.mathur@linux.ibm.com>,
-        Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
-        Harsh Prateek Bora <harshpb@linux.ibm.com>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Shrikanth Hegde <sshegde@linux.ibm.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 0/8] KVM: selftests: add powerpc support
-Message-ID: <asZoDVHc1hHlS6BO@li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibm.com>
-References: <cover.1791280439.git.ritesh.list@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="n406jqL3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791393616; x=1822929616;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=kqZVCWDHCL3wYn2PokaC9zYWyDD0jEm3l4gAd3MC55M=;
+  b=n406jqL3Pq2bZoiXw8t5hZ5QvJ8SdN9y7+VdI7zFnPJcgk94GkFFD5uj
+   hwiwXxlKBVWkpFkCwwMbXQQVa3kbAFXPWvdtBIt9br2u7XmNQf6h/APyO
+   3YMbjnVLLOqPPQipKwcgmIc9jwsFG7XKeAKL/+FJPW0wIz3RhXsFEU+mr
+   5lV5ih5JT5RVqnP/ykEqzvWbiYsZGa43TYzijb1NVQDUQLA8X3Jrrewfx
+   e0pJHQCX1a18HzVsuA7BaVYDh29167mk751OWNsaMv3JGyMJw4jPF+xk6
+   EeoAYgx6RY6rr+z6+fyUQ4/vQjrsfyzG6apRPVQDib/8GxWAEboVkN26O
+   w==;
+X-CSE-ConnectionGUID: 3hG2QbSbR5mk7V92AstK0A==
+X-CSE-MsgGUID: WS3AVdLtRqmrwEmFhniN0w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="167995"
+X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
+   d="scan'208";a="167995"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 10:20:15 -0700
+X-CSE-ConnectionGUID: 7dfyj4O+Seufqb6M4prOpw==
+X-CSE-MsgGUID: p5imSpg5Ti2ZQiv8bAyk+A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
+   d="scan'208";a="285584557"
+Received: from b04f130c83f2.jf.intel.com ([10.165.154.98])
+  by fmviesa005.fm.intel.com with ESMTP; 07 Oct 2026 10:20:14 -0700
+From: Tim Chen <tim.c.chen@linux.intel.com>
+To: Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>
+Cc: Tim Chen <tim.c.chen@linux.intel.com>,
+	Chen Yu <yu.c.chen@intel.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Vishal Badole <Vishal.Badole@amd.com>,
+	linux-kernel@vger.kernel.org,
+	x86@kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	K Prateek Nayak <KPrateek.Nayak@amd.com>,
+	Ricardo Neri <ricardo.neri@intel.com>,
+	Kayra Cizmeci <kayracizmeci@gmail.com>,
+	stable@vger.kernel.org,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Klaus Kusche <klaus.kusche@computerix.info>
+Subject: [PATCH v3] sched/cache: Honor asym packing over cache aware scheduling on hybrid systems
+Date: Wed,  7 Oct 2026 10:25:30 -0700
+Message-Id: <b29badede27bb6bfb4a759e06754cb19657f0778.1791308631.git.tim.c.chen@linux.intel.com>
+X-Mailer: git-send-email 2.32.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1791280439.git.ritesh.list@gmail.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDA2NyBTYWx0ZWRfXzLAOHUMgXth0
- WVSIBAjIrKGetdYyPMdiILEoh47DQDAAeaVWUIIQP1Hp/AtIdXzgJDBX6YKVgYwTEbG4c4GEMgP
- KbMoNNd0p9BurjSv8XOPJLCn7KJ1SCc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDA2NyBTYWx0ZWRfX6GTIAxdRK3GQ
- MtMkRAyHVlSsj7GUZNbWqWhmp9Wfe3kZQgtlg1JDWSylbv2+iVDXpg8YRV+17M+t08Nd6rKnnNP
- aZY4XXHscJ+AA6Hn43PR0rp8munn0t4b7dFmvzJiOZhA8dH/jr4dy+fRzAl7G25q7fa1gdX6j+x
- /Yz2g9VS4kPWtPZVMR2P9Z8jCTOiGwHm1NvrfZG3WTrQuswcF7qYLIDsfTevFAZexs4Qk2ZbCPr
- heqaXuxfDadwt9yQj9yxqJkbMgVVZoddwtXw6KaiRtrmSJdMeDlj7guwiMnKIGJl0BsJluCP0bJ
- FuYFVZVYsc+KISucHP30+Q4y3C9jpmyqbU709IL5hYKi0hSKZN8X0h90I3BRsVSxKmFjw08E6xx
- XomxcCqYpK7USfatdvOV6W6wqtwR/ReZQuLesxmmNpeFfze43xpkh1sQ3qkfZdrpoNiYdli2LFQ
- NDhojPDUOcnNmXzaWCw==
-X-Proofpoint-GUID: piZ2NJeF4gcuBPiLh--2VNqd_b3rsgTU
-X-Authority-Analysis: v=2.4 cv=UNRIjyfy c=1 sm=1 tr=0 ts=6ac67ef9 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
- a=IjqmoBHoaWwW2uD4uXkA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-ORIG-GUID: ANO0DObG1HFpe5l6Y4i2vM5qxQj7L76O
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-07_05,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 adultscore=0 bulkscore=0 lowpriorityscore=0
- phishscore=0 clxscore=1015 priorityscore=1501 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070067
+Content-Transfer-Encoding: 8bit
 
-Hi Ritesh,
+A regression was reported on an AMD Ryzen AI HX 370 running a cache
+intensive Clang full-LTO link. The little cores run at a much lower
+frequency (3.3 GHz vs 5.1 GHz) and have only half of the L3 cache
+(8 MB vs 16 MB), so pinning such a task to the little-core LLC
+hurts twice, and full-LTO builds slow down dramatically compared to
+pre-cache-aware-scheduling kernels.
 
-The series LGTM. I also tested it on KVM on LPAR and KVM on PowerNV
-systems (both L1 and L2).
+Asym packing and cache aware scheduling express conflicting placement
+strategies. Asym packing wants a task to run on the highest priority CPU,
+whereas cache aware scheduling wants to co-locate the tasks of a process
+on one LLC regardless of the priority of CPUs in that LLC.
 
-Reviewed-by: Gautam Menghani <gautam@linux.ibm.com>
-Tested-by: Gautam Menghani <gautam@linux.ibm.com>
+When asym packing tries to migrate task to an idle core that has higher
+priority than source cpu, let asym packing win.  Moving tasks to a higher
+performing idle core will buy more performance than cache co-location.
 
-Thanks,
-Gautam
+Prioritize asym packing over LLC balancing for regular and active load
+balancing.
+
+Fixes: 23b2b5ccc45c ("sched/cache: Introduce helper functions to enforce LLC migration policy")
+Reported-by: Klaus Kusche <klaus.kusche@computerix.info>
+Closes: https://lore.kernel.org/lkml/2180ea5a-eb28-4152-8d4d-cd00b0c24b2e@computerix.info/
+Suggested-by: Kayra Cizmeci <kayracizmeci@gmail.com>
+Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
+Tested-by: Klaus Kusche <klaus.kusche@computerix.info>
+Tested-by: Ricardo Neri <ricardo.neri@intel.com>
+Tested-by: Chen Yu <yu.c.chen@intel.com>
+Cc: stable@vger.kernel.org # 7.2.x
+Signed-off-by: Tim Chen <tim.c.chen@linux.intel.com>
+---
+
+Notes:
+    v3: Remove redundant SD_ASYM_PACKING check in llc_balance() (Kayra Cizmeci).
+    Add Tested-by tag from Chen Yu and Reviewed-by tag from Kayra Cizmeci.
+    Link v2:
+    https://lore.kernel.org/lkml/77ceef1e51b895760dc5f6c9cde985a1679545b5.1791224900.git.tim.c.chen@linux.intel.com/
+
+ kernel/sched/fair.c | 20 +++++++++++++++++---
+ 1 file changed, 17 insertions(+), 3 deletions(-)
+
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 57360f5cdde4f..e4906486a4fe9 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -10934,6 +10934,8 @@ static inline bool task_misfits_asym_cpu(struct lb_env *env, struct task_struct
+ 	return false;
+ }
+ 
++static inline bool sched_asym(struct sched_domain *sd, int dst_cpu, int src_cpu);
++
+ /*
+  * Check if task p can migrate from source LLC to
+  * destination LLC in terms of cache aware load balance.
+@@ -10958,6 +10960,10 @@ static enum llc_mig can_migrate_llc_task(struct lb_env *env,
+ 	if (cpu < 0 || cpus_share_cache(src_cpu, dst_cpu))
+ 		return mig_unrestricted;
+ 
++	/* Prioritize asym packing to idle core over cache awareness */
++	if (env->idle && sched_asym(env->sd, dst_cpu, src_cpu))
++		return mig_unrestricted;
++
+ 	/* skip cache aware load balance for too many threads */
+ 	if (invalid_llc_nr(grp, p, dst_cpu) ||
+ 	    exceed_llc_capacity(grp, dst_cpu)) {
+@@ -12154,6 +12160,14 @@ static inline bool llc_balance(struct lb_env *env, struct sg_lb_stats *sgs,
+ 	    sgs->group_misfit_task_load)
+ 		return false;
+ 
++	/*
++	 * On asym packing domains, if the destination CPU
++	 * has higher priority than all CPUs in the source group,
++	 * prioritize asym packing.
++	 */
++	if (sgs->group_asym_packing)
++		return false;
++
+ 	/*
+ 	 * Skip cache aware tagging if nr_balanced_failed is sufficiently high.
+ 	 * Threshold of cache_nice_tries is set to 1 higher than nr_balance_failed
+@@ -13569,12 +13583,12 @@ static int need_active_balance(struct lb_env *env)
+ {
+ 	struct sched_domain *sd = env->sd;
+ 
+-	if (alb_break_llc(env))
+-		return 0;
+-
+ 	if (asym_active_balance(env))
+ 		return 1;
+ 
++	if (alb_break_llc(env))
++		return 0;
++
+ 	if (imbalanced_active_balance(env))
+ 		return 1;
+ 
+-- 
+2.32.0
+
