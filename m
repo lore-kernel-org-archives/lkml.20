@@ -1,48 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E32D416860;
-	Wed,  7 Oct 2026 22:22:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3FC43D7D6C
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 22:22:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791411729; cv=none; b=VzhNRBFbbBnhFvDcomPjpoVNYLeTlsnbS6+aZVpp5Gh+RUyTvTw3BctoXOtCe3AsubYJS0E0sqkKZI8ZudtlpN37jTCTEXbXxcjnB/BmycMdpWLLCOH4TMR85xiGNizWG+/hcZf0NZXxm+b9ij/6KR5/3eEq67BGmMpAEbDZNIM=
+	t=1791411761; cv=none; b=mYyaE367S4r3LlvJTMSkx7xzUS3HTB46CAarh2F5XdUULYJGqjtOct4TUwYT5mCx/aKz4P8YXIomwkQnIohIMLy5wQ+E+ChrSlzmOXQMVqZ2Vzi5R0SEa1uDFj9S9YHQ/xJfBssB6nKwWfePKlDqo1k3cMInR5aKsjzLaSNZWvI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791411729; c=relaxed/simple;
-	bh=KGQVIOxt1tYf4zdLRcGI6tjLFoPkFVHjEAys2eolr4A=;
-	h=From:Subject:Date:Message-ID:To; b=iqLws20T/1tQsKynycKPKpZte2bHbwknOpuwgARMWdSmNzAPDTHQzFd1BuKo8muw5RugZCm9Z3VPrYs9y7eVkkKpP9Zk6OmM9XsntcUeO0PccIJCqSOx1q7Yv4YZ6NmKrRcCvMwZz55CjnZ1EmLXxF2qXrihUAbfIgAed5HUFjY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF5AC1F000FF;
-	Wed,  7 Oct 2026 22:22:07 +0000 (UTC)
-From: Clark Williams <williams@redhat.com>
-Subject: [ANNOUNCE] 6.6.158-rt80
-Date: Wed, 07 Oct 2026 22:21:22 -0000
-Message-ID: <179141168294.4086660.8957492340390230300@demetrius>
-To: LKML <linux-kernel@vger.kernel.org>,linux-rt-users <linux-rt-users@vger.kernel.org>,Steven Rostedt <rostedt@goodmis.org>,Thomas Gleixner <tglx@linutronix.de>,Carsten Emde <C.Emde@osadl.org>,John Kacur <jkacur@redhat.com>,Sebastian Andrzej Siewior <bigeasy@linutronix.de>,Daniel Wagner <daniel.wagner@suse.com>,Tom Zanussi <tom.zanussi@linux.intel.com>,Clark Williams <williams@redhat.com>,Pavel Machek <pavel@denx.de>,Joseph Salisbury <joseph.salisbury@oracle.com>,Luis Claudio R. Goncalves <lgoncalv@redhat.com>,Stable RT List <stable-rt@vger.kernel.org>
+	s=arc-20240116; t=1791411761; c=relaxed/simple;
+	bh=AnwEDrUGE4MUUvOGEddWUKxbpcB5Iaa2uoXisjTJdGc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TxezsB6l7r7AIbUurCIf/9z6BBIpccBNQ1Eb93Y4+J4YGfVIjDviF39vpsYMTGCh+t3tEvE+YXjdpaHG2WMicLMaTtpt7q4JnHio0xRHKRoZOyA1VguZnsHsSK1Cr53RoUIio9lU0bpQf1HaFP09Pz8eb85Wpwm6687lntebkks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d2YGYBGf; arc=none smtp.client-ip=74.125.82.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d2YGYBGf"
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-15943c9be84so8334c88.3
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 15:22:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791411758; x=1792016558; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yGr58K3fMn98ZuMySMu/K/tOp0DqOIyDjFOb3yn9tM0=;
+        b=d2YGYBGfEZM22Xboazg84oYSpuR/dj/shdAPEGUF8pnR/CuW/hXhdn3Dpd63mGMEmQ
+         UDD6LfuH667qYAzSLDjnguEBgxKVsxIWxUU8xtINwdhUHRMSkM16QxwnpNvpaBO/rt6e
+         hTRpbUNtPFlnjA42tYv5WkWPzx3C1nYEpaB88e6LjD2SsOctmduP4P39kvLZRl3Ra3rg
+         g/is+JX5eBo2KOya5HGdYINW6+IS133R4zkS8nax0GMSd7L8v23UCkTcqrM0uGjCSTvI
+         MGZwOPJwmzSakU05ZQvvrnTqQq61UYDeTMD5JlkF4lkN1Y3YyaqQ4BQDD26Mu8FOGist
+         MZNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791411758; x=1792016558;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yGr58K3fMn98ZuMySMu/K/tOp0DqOIyDjFOb3yn9tM0=;
+        b=tRTJXmNTcRvGD/rUZS+dTc1v5vDmrf7rd4N5F7wJlNwZgRjcbDJ/bggtiOm241vK5u
+         VCo7dTbpv8CQdUlumzfUkb4tXCHiaevQ8aqzrKR39lEvqzjIxc2yBQnqd2/L609qr4K4
+         6A6RrFBzQuzniTRr+E1iYZnwtDEkFqSUmkzecqtI99Fwt6PvwtzXoRwkjhVNf6W6SL+l
+         ABlFEcyFTBqlOjcx3QiPcvVTFSFn2zyta3PAvwZjot7rEDvMVLXsW2aVmgV6oQPOjZ/5
+         LcKBGljT920NtXgZhYzztxzvyZsiqf21Ofh7BA+A8HU+gKIg4h8Mv8OL3isjdObEz5lN
+         caFA==
+X-Forwarded-Encrypted: i=1; AKwUvBzkcZOPTo0z/CVKwXKl488UziCXLB43+VWPFSWAwZiRmt1hol1pZScrUqWRckCAkCTQ95UQK/Pb+kwDKsw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lQzCEuqE8WfqTf8LxjKAzdbnVtBb4fhfIaQlx6fsjd4FftkXMt
+	WTRHbRgKufnW4T9CKZdonHJQ0PzGPX8FDA9N4MDyjkf6Imn1vTEqR4Sj
+X-Gm-Gg: AYBFou34tM9RtpkR8RbKXa+m7aZFACEqFBbYYgvVBYf2MV/xWOtIK+onyamfPyFZ7qy
+	JODgZ3w8p2jCeKpAEdv6NpvfX3wX3XNXXYS95G252hPjLiniDs3rTTnDg1KZlO97wJ0I9r0BuEm
+	3bUhPYiCHMul83wVDCNR41rfGZtzKd1QosH9dSNjKiXsssdKrd470sSg3BWSDYNBydw4OB5AYVH
+	3K819K/xNKj6JoPVk82pali0tvfq0L7bSd12iU8W7qj6M5/Y4MjTXG8IustQbNYRg24fVEPt1I8
+	IKsFi80pOJMueDILVxUpzFIo9NXvOVFiJwm6RAxeEwyV/HM33XlXPMubQmKaDzphUe4zV5KruG5
+	KNU2pOwiajnpVjg+kBIXHsk2BJSS53CBu3VeMC6CA10y455eoyEyaKdP/GvUU44D7akGuJ0UmUz
+	xhFIbD9Xm+s9CfnzrGuaUCvo1HgCqyEtoncdq0RelXWnOQT1x9V2NP46eax2gt0GFvv7gLOf83Z
+	hLAQjOeoDC8YcJ5v6yFTyBLZ/+iS4xyAP7Agn5hPWgFdWgOGl12koE2r6DW5Ei6xwk/83muno7A
+	RuKKKkhI2H53QltZDQ==
+X-Received: by 2002:a05:701b:42d3:10b0:14c:f3ae:c1a1 with SMTP id a92af1059eb24-1657b80bf6emr1206317c88.0.1791411757811;
+        Wed, 07 Oct 2026 15:22:37 -0700 (PDT)
+Received: from cachyos-aura ([45.112.148.99])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-16375a1f898sm5386947c88.0.2026.10.07.15.22.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 15:22:37 -0700 (PDT)
+From: Navon John Lukose <navonjohnlukose@gmail.com>
+To: Andi Shyti <andi.shyti@kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	linux-i2c@vger.kernel.org
+Cc: Navon John Lukose <navonjohnlukose@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] i2c: designware: size the RX FIFO threshold to the queued transfer
+Date: Thu,  8 Oct 2026 03:52:31 +0530
+Message-ID: <20261007191911.502428-1-navonjohnlukose@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hello RT-list!
+i2c_dw_xfer_msg() leaves DW_IC_RX_TL at the 0 that i2c_dw_configure_mode()
+writes, so the controller raises RX_FULL once per received byte. Program
+RX_TL from the reads already queued, capped at half the FIFO until the last
+message is queued, so there is room for the rest.
 
-I'm pleased to announce the 6.6.158-rt80 stable release.
+On an Arrow Lake-H LPSS core with rx_fifo_depth 32, a 22-byte HID input
+report costs 2.00 interrupts instead of 21.43, and a 452-byte descriptor
+0.14 interrupts per byte instead of 1.64. Polling the touchpad with
+HIDIOCGINPUT at 142 Hz draws 1.58 W less platform power (psys, 32 paired
+runs).
 
-You can get this release via the git tree at:
+Acked-by: Mika Westerberg <mika.westerberg@linux.intel.com>
+Assisted-by: LLM
+Signed-off-by: Navon John Lukose <navonjohnlukose@gmail.com>
+---
+v2:
+- Drop the cpu_dma_latency figure, which read as advice to set it, and
+  move the latency figure here with where it comes from (Andy)
+- Add the platform power figure
+- Add Mika's Acked-by
+- Rebase on i2c/i2c-host
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/rt/linux-stable-rt.git
+v1: https://lore.kernel.org/all/20260919232647.448748-1-navonjohnlukose@gmail.com/
 
-  branch: v6.6-rt
-  Head SHA1: 3a304cfa1b82fa0ae77f45819685708e919228e0
+Mean HIDIOCGINPUT latency rises from 2522 to 3268 us, 94% of it exit
+latency from the deeper idle states the CPU now reaches between
+interrupts.
 
-Or to build 6.6.158-rt80 directly, the following patches should be applied:
+Since v1, also tested on a Goodix touchscreen on a second controller with
+7, 21 and 64 byte reports; 64 exceeds rx_fifo_depth and exercises the
+half-FIFO cap. Still untested: a RECV_LEN continuation longer than one
+byte, and cores with rx_fifo_depth below 4.
 
-  https://www.kernel.org/pub/linux/kernel/v6.x/linux-6.6.tar.xz
+ drivers/i2c/busses/i2c-designware-master.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
-  https://www.kernel.org/pub/linux/kernel/v6.x/patch-6.6.158.xz
+diff --git a/drivers/i2c/busses/i2c-designware-master.c b/drivers/i2c/busses/i2c-designware-master.c
+index 7a301c8..f52f52b 100644
+--- a/drivers/i2c/busses/i2c-designware-master.c
++++ b/drivers/i2c/busses/i2c-designware-master.c
+@@ -376,7 +376,7 @@ i2c_dw_xfer_msg(struct dw_i2c_dev *dev)
+ {
+ 	struct i2c_msg *msgs = dev->msgs;
+ 	u32 intr_mask;
+-	int tx_limit, rx_limit;
++	int tx_limit, rx_limit, rx_tl;
+ 	u32 buf_len = dev->tx_buf_len;
+ 	u8 *buf = dev->tx_buf;
+ 	bool need_restart = false;
+@@ -482,6 +482,19 @@ i2c_dw_xfer_msg(struct dw_i2c_dev *dev)
+ 	if (dev->msg_err)
+ 		intr_mask = 0;
+ 
++	/*
++	 * Size the RX FIFO threshold to the reads already queued, so the
++	 * controller raises one RX_FULL for the whole burst instead of one per
++	 * received byte. While messages remain to be queued, cap it so RX_FULL
++	 * still arrives in time to drain the FIFO and let the next TX_EMPTY
++	 * queue the rest.
++	 */
++	rx_tl = dev->rx_outstanding;
++	if (dev->msg_write_idx < dev->msgs_num)
++		rx_tl = min_t(int, rx_tl, dev->rx_fifo_depth / 2);
++
++	regmap_write(dev->map, DW_IC_RX_TL, rx_tl ? rx_tl - 1 : 0);
++
+ 	__i2c_dw_write_intr_mask(dev, intr_mask);
+ }
+ 
 
-  https://www.kernel.org/pub/linux/kernel/projects/rt/6.6/patch-6.6.158-rt80.patch.xz
-
-
-Enjoy!
-Clark
+base-commit: 04e9bf1648f846976b543e91c1838a712433772a
