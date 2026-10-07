@@ -1,155 +1,179 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B13F54A0915;
-	Wed,  7 Oct 2026 15:00:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B17037C929
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 15:01:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791385212; cv=none; b=HJVkT6bYoShoT0jYS/CZz+JweUSyfjPD74CYuHm9qjVbbjAQ/Lva5hyCkgewGP9PyU0bncs7DsNQ/WpmZYXXnFCWEET4Y1ptu6liQb14InzmdMtURF8EclUspE9ypSDCGnIKJHbGRZKYrmyP19QEOQTccENiMFs1rGBQQ9O2rls=
+	t=1791385281; cv=none; b=O8ktSTW6fPrQuITKxDGcEs+/SHS8IDChLO1yPV9pUAIgyrWPWcaou+xx0hlrQBUWDeJI6KQ4bCEY7p+ASnQZbZ5DFGuqzk2Py/+KbT3Icy/L31mYxCSbWwyPUXzoBc2jE2x0r8L2YVMX4NoM57SwuYmgf1waymZ9C87N6uRwfL0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791385212; c=relaxed/simple;
-	bh=G76zBPF5TjpzhHP008Ppuq7rGi4Oh3NJr3mZdHZ6BbI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mIZ6OdSd3k+yYhKH2pZ1QWdyW3vFEiUJHvlQozqQbpw6ob2aMv3znTqnQvssckWFe1MBe5YcggRzW9Oh/KcQX2+Duy+rdnzPIMYYqEtGm4kD98Ysx3awUgH+d/nOd7XocqSpSzt4MNoI0kjmBEXwLSKPDMBe1Epy6e5V45ekCzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=cIU6WXoY; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=2/1+t7zz; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=cIU6WXoY; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=2/1+t7zz; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791385281; c=relaxed/simple;
+	bh=+Q/r9VtgwE43/bNjNDFZadcuZgbsQLVges7hS/tJGdg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=f0/+PCdtIqwdxIEbLufTS42IrrT8QYCTyWIkBJEC+lQ4cKHEvcqbBWtu166fRHOAc9yhyyPi/huL/mtz8tJySoNP8sY5K/GtHyUNWWDm+C98Jzwg7xLGxbouy0MiqVHr6/aR3wB4rFAek3Wl7525eTMIBMQq0OaawRuLAzvyKbA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Www6lXGZ; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="cIU6WXoY";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="2/1+t7zz";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="cIU6WXoY";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="2/1+t7zz"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 3028E1F38E;
-	Wed,  7 Oct 2026 15:00:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791385205; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=w80dgYPSS45qRc1JEm1pGFFYGt+E5Kke5+EAa6khtW0=;
-	b=cIU6WXoY6rhLxnTSY+62ldSCqQfK/qCQCAYuE5UAVbdUCqLMmj9jBrqI355ze5SScKu5i4
-	PZVKkLfP05prp9s4nDEGoWW8AZIcihTiXfgJjptG5VZQaAfcl1/u4Tp4+9j0iAen+Ogvbu
-	WMG5KVRBsMvftUahmaEV89FUpxUQoMc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791385205;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=w80dgYPSS45qRc1JEm1pGFFYGt+E5Kke5+EAa6khtW0=;
-	b=2/1+t7zzBDES/TXMw2j1UCi1Ywva5bUQGV7GaVNo7J2dgtwdskRod6Y69KEkXPjxJ41meq
-	kPfmnHSxT4PVtMDQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791385205; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=w80dgYPSS45qRc1JEm1pGFFYGt+E5Kke5+EAa6khtW0=;
-	b=cIU6WXoY6rhLxnTSY+62ldSCqQfK/qCQCAYuE5UAVbdUCqLMmj9jBrqI355ze5SScKu5i4
-	PZVKkLfP05prp9s4nDEGoWW8AZIcihTiXfgJjptG5VZQaAfcl1/u4Tp4+9j0iAen+Ogvbu
-	WMG5KVRBsMvftUahmaEV89FUpxUQoMc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791385205;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=w80dgYPSS45qRc1JEm1pGFFYGt+E5Kke5+EAa6khtW0=;
-	b=2/1+t7zzBDES/TXMw2j1UCi1Ywva5bUQGV7GaVNo7J2dgtwdskRod6Y69KEkXPjxJ41meq
-	kPfmnHSxT4PVtMDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6231F13354;
-	Wed,  7 Oct 2026 15:00:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id RQ8RD3RexmplbwAAD6G6ig
-	(envelope-from <fmancera@suse.de>); Wed, 07 Oct 2026 15:00:04 +0000
-Message-ID: <41e10839-ec8d-4509-a6b2-45e009b9232c@suse.de>
-Date: Wed, 7 Oct 2026 16:59:09 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Www6lXGZ"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3a02551822eso1947979a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 08:01:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791385275; x=1791990075; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sCVuSf7dl2NiMq0WjgbGPuLseqx6JkndalNFufVz1Tw=;
+        b=Www6lXGZuw3Ro7bAcldxsGZipLQoXVrFORI4Hi+4YyBmeBN0tWSCp1wr1tJI1emKni
+         yP2/cIs2+0vfJaWxowXzcjjuzzn4bo+GU8AcWS3pVQ+yuX45R5RnRlleQ8RFeoVaSZpo
+         R/hsjOpkpemxeEUkVJaKepJWPF0uGy4DkGufuZJmIx8oX1ukujW0LM6YO5mO7ws7evVL
+         gEFUMq6G7u50WTI0eNQKyfuwzHzW8vxuo8AVntvrMEg89QXsfOryT9lCzG065r/ezRW4
+         POOKloMXitQMVPbO1m9mEl7WRnoVkFWpz9vmDUAtPy1Tt7UA/DOKMCopKEPTUdh0d5pt
+         JgwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791385275; x=1791990075;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sCVuSf7dl2NiMq0WjgbGPuLseqx6JkndalNFufVz1Tw=;
+        b=r+0EtdZ+1T+46c0MXhfq9G5RctmMO/hoZdMlJuNgcBhFYP0hFTVgBfXShBDGn4IVw2
+         St9QiwU6lyn5NZibTBRpP+Hv1ka0ZsoXqd0LT/NUuMV/Hnry/X4x3RAwfYqA0dGMw7TP
+         8JzR1GCpGF63f5/5Whgk4ntjgEcvaS4182xnU/+oCZFIl06uvMNW4COGSZrKGqBAIvEL
+         GkZfipr1wH+D6uAMqq+mk7Hsfwt04b68Rpn73G4CkM0hyNDxbEX8QWJX9+Nz7wgavOtG
+         n+0gidqVv+vtgEs2rhoBA90uyW5YwR3b6GklVhdGolDtw3lEehUdDVQXpPjN99unDlQZ
+         apWA==
+X-Forwarded-Encrypted: i=1; AKwUvBzbZHAZ+Jv+9AMBAOJAIKvxd8+S13RrCz7LLO45EoAs1ay8dYJmUfxbQrpNdIHc/AQstSHNWPPZmznAcXQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI72Pi+2gfrv0zensmVegcODWe2IQv8Vwz2kdqH9kXNT9CusgwS
+	wAQ+1JV/1zUsnIVuk9/u556cCYW7OqTzmEHRyTb5Ty4f91JQ4s5rMj+8OM1JGA03K7M=
+X-Gm-Gg: AYBFou0dIFis9Frbg2HvxhcCVIU4Ampl8lHtRhvyQpRWQG5qIrHnG4f08Db7oRQhVrM
+	0aNdZhLg4V8fmURpNCvVjTFn8vNEUWSj3QBCPUmC9FZKfm+fgXWI68cCKrPBfjb2hLnVxgxmKD6
+	OMTc0PTvNACBezgWMlDQJcxNaz1KtcGfCbKVW8Ae3AP7+bbJ5yVDa2M/8DfQXQnykUYdLD9ZBjl
+	kJ0uOiPKXgVlrressgt2RLY/4KKVOUWqYPnz0Z7By8VXrbUSDp+NmAT6XTUlfnxGfw+INE2EhLt
+	G7XNGfo9pDWtiCQ9GjYGXrrnS+k6JL4Vu4fAEXflzSDZQ7sIz9TS3AVGMmT9ruhkhkdAiC8SvQd
+	oVzqFray0Paxr8Gss3cmQlORFGjSuKPx2g3inTRYmTh9VCIAb2cFOadQ6idhKNp7oYWf6mfcQCi
+	TWFgiybFeUlbp4HBpHX3hQ6N88vTI3it10FRdTuyjjyz4ItJKxp0qwDwO18911OAJcJwuVB3G49
+	0zwNUmBK7qGLBGggFoLU8s5MJguCiYBpd6pa6pnb7rZ70qZTMsAbOI/zutb
+X-Received: by 2002:a17:90b:58e8:b0:3a8:786a:cfed with SMTP id 98e67ed59e1d1-3a8a153a870mr1453009a91.37.1791385273896;
+        Wed, 07 Oct 2026 08:01:13 -0700 (PDT)
+Received: from localhost.localdomain (101.120.85.136.bc.googleusercontent.com. [136.85.120.101])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a89ab81bb0sm5107544a91.5.2026.10.07.08.01.10
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 07 Oct 2026 08:01:13 -0700 (PDT)
+From: Ginger Li <ginger.jzllee@gmail.com>
+To: vkoul@kernel.org,
+	Frank.Li@kernel.org
+Cc: dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] dmaengine: pl330: Fix lock-order inversion in the channel release path
+Date: Wed,  7 Oct 2026 23:01:04 +0800
+Message-ID: <20261007150104.38253-1-ginger.jzllee@gmail.com>
+X-Mailer: git-send-email 2.46.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 0/9] net: skbuff: convert most BUG_ON()s to
- WARN_ON_ONCE() and an error
-To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
- Josef Bacik <josef@toxicpanda.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Kaiyuan Zhang <kaiyuanz@google.com>, Mina Almasry <almasrymina@google.com>,
- Willem de Bruijn <willemb@google.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org
-References: <20261006-b4-skbuff-bug-on-v1-0-1b4434c5357c@toxicpanda.com>
- <willemdebruijn.kernel.140f4eac91ab3@gmail.com>
-Content-Language: en-US
-From: Fernando Fernandez Mancera <fmancera@suse.de>
-In-Reply-To: <willemdebruijn.kernel.140f4eac91ab3@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Spam-Flag: NO
-X-Spam-Score: -2.79
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.79 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.996];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	TAGGED_RCPT(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	FREEMAIL_TO(0.00)[gmail.com,toxicpanda.com,davemloft.net,kernel.org,redhat.com,google.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+Content-Transfer-Encoding: 8bit
 
-On 10/7/26 4:48 PM, Willem de Bruijn wrote:
-> Josef Bacik wrote:
->> I'm going through and reducing BUG_ON() usage in areas that have created
->> the most problems for us.  89 commits in the tree quote "kernel BUG at
->> net/core/skbuff.c", 31 of them since 2024, and some of those could be
->> triggered from inside a user namespace.
->>
->> The first patch is a fix: skb_copy_and_csum_bits() leaves stale bytes
->> in a buffer headed for the wire when it hits unreadable frags.  The
->> BUG_ON() conversion of the same function needs the same handling, so
->> it's here rather than sent separately.
->>
->> The rest of the series converts 17 of the 19 BUG_ON()s in skbuff.c.
->> Each one becomes
->>
->> 	if (WARN_ON_ONCE(cond))
->> 		<error path>;
-> 
-> Good idea. I was thinking of doing exactly this sweep after addressing
-> one case recently in commit ee1972def665 ("net: downgrade BUG_ON
-> EIOCBQUEUED in sock_sendmsg_nosec")
-> 
-> Instead of WARN_ON_ONCE, which still triggers a panic on systems with
-> panic_on_warn, DEBUG_NET_WARN_ON_ONCE?
+pl330 uses two locks per transfer: the channel lock pch->lock and the
+controller lock pl330->lock. My static analyzer reported that they can
+be taken concurrently in opposite orders, leading to potential deadlocks.
 
-I agree with using DEBUG_NET_WARN_ON_ONCE at least for paths that can be 
-triggered from userspace. I did something similar in Netfilter subsystem 
-not so long ago.
+The terminate/stop paths take pch->lock first and then pl330->lock, e.g.
+  pl330_terminate_all()
+    -> spin_lock_irqsave(&pch->lock, flags);
+    -> spin_lock(&pl330->lock);
+and
+  pl330_pause()
+    -> spin_lock_irqsave(&pch->lock, flags);
+    -> spin_lock(&pl330->lock);
+
+While on the other hand, the channel release path takes pl330->lock first 
+and then pch->lock in pl330_free_chan_resources():
+  pl330_free_chan_resources()
+    -> spin_lock_irqsave(&pl330->lock, flags);
+    -> pl330_release_channel(pch->thread);
+    -> dma_pl330_rqcb()
+      -> spin_lock_irqsave(&pch->lock, flags);
+
+Freeing a channel (dma_release_channel() -> dma_chan_put() ->
+pl330_free_chan_resources()) while another CPU is in pl330_terminate_all()
+or pl330_pause() on the same channel is therefore an ABBA deadlock: the 
+one thread spins on pl330->lock that the other holds, and vice versa.
+
+Inspecting the driver code suggests the rule that dma_pl330_rqcb() must 
+not be called with pl330->lock held: pl330_dotask() and the callback 
+drain loop  in pl330_update() both releases pl330->lock before their 
+dma_pl330_rqcb() calls. Thus, pl330_release_channel() is expected 
+to follow the same manner.
+
+Let pl330_release_channel() manage pl330->lock itself and keep the two
+dma_pl330_rqcb() calls outside the critical section, and stop holding
+pl330->lock around the call in pl330_free_chan_resources().
+
+This was found by a static analyzer on Linux 7.3-rc4; it reported
+DeadLock::AllLock (Certain) for
+
+    pl330_free_chan_resources() <-> pl330_terminate_all()
+    pl330_free_chan_resources() <-> pl330_pause().
+
+Fixes: 91539eb1fda2 ("dmaengine: pl330: fix double lock")
+Signed-off-by: Ginger Li <ginger.jzllee@gmail.com>
+---
+ drivers/dma/pl330.c | 24 +++++++++++++++++++++++-
+ 1 file changed, 23 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/dma/pl330.c b/drivers/dma/pl330.c
+--- a/drivers/dma/pl330.c
++++ b/drivers/dma/pl330.c
+@@ -1805,16 +1805,32 @@
+ 
+ static void pl330_release_channel(struct pl330_thread *thrd)
+ {
++	struct pl330_dmac *pl330;
++	unsigned long flags;
++
+ 	if (!thrd || thrd->free)
+ 		return;
+ 
++	pl330 = thrd->dmac;
++
++	spin_lock_irqsave(&pl330->lock, flags);
+ 	_stop(thrd);
++	spin_unlock_irqrestore(&pl330->lock, flags);
+ 
++	/*
++	 * dma_pl330_rqcb() takes the channel lock, which is acquired before
++	 * pl330->lock on the terminate/pause/tx_status paths.  Calling it with
++	 * pl330->lock held would invert the lock order, so keep it outside the
++	 * critical section - the same convention pl330_dotask() and
++	 * pl330_update() already follow.
++	 */
+ 	dma_pl330_rqcb(thrd->req[1 - thrd->lstenq].desc, PL330_ERR_ABORT);
+ 	dma_pl330_rqcb(thrd->req[thrd->lstenq].desc, PL330_ERR_ABORT);
+ 
++	spin_lock_irqsave(&pl330->lock, flags);
+ 	_free_event(thrd, thrd->ev);
+ 	thrd->free = true;
++	spin_unlock_irqrestore(&pl330->lock, flags);
+ }
+ 
+ /* Initialize the structure for PL330 configuration, that can be used
+@@ -2358,9 +2374,15 @@
+ 	tasklet_kill(&pch->task);
+ 
+ 	pm_runtime_get_sync(pch->dmac->ddma.dev);
+-	spin_lock_irqsave(&pl330->lock, flags);
+ 
++	/*
++	 * pl330_release_channel() takes pl330->lock itself and calls
++	 * dma_pl330_rqcb(), which takes the channel lock.  It must therefore
++	 * not be called with pl330->lock held (see the comment there).
++	 */
+ 	pl330_release_channel(pch->thread);
++
++	spin_lock_irqsave(&pl330->lock, flags);
+ 	pch->thread = NULL;
+ 
+ 	if (pch->cyclic)
+-- 
+2.43.0
