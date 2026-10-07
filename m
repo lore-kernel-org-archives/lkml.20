@@ -1,225 +1,255 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1A74400974
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 06:38:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29EDE3F1078;
+	Wed,  7 Oct 2026 06:39:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791355127; cv=none; b=Awe//kyl/x935C3qb3izYsPmDxJrMWU03hLkmG+i0FGj6gCPag1tUqhvWi+fFLNRVRZFwXP/D/366OmW5RFTeyg40Rj+o29bKwsPzZb8B/VJsFgA/3zANLUS6WR5StdRKQIAq87NrxKWYaOii1JAYKEde0YeqJffBxQumzUGudA=
+	t=1791355172; cv=none; b=mgYUMpcgUE7weqQDnuoTM6WXLfHvFfGFUSPWTS46jfY21xUtq6hIWgMmdH3Wjkq1nAwSBiWNyLKPOPQiC/zzSdzr6VRgwz1+vpsW1wzo/qNbXRGjklzLm9N2JpZLvBK7RaaFSbxfsa33XDA80EL5Ob8HHNvk7fL73VY1PQf+yug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791355127; c=relaxed/simple;
-	bh=c7j8dGPAmYWQCRkZw9yq1rfqouGuMmkVMm3m0n4Jm90=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EBLvWZLU9cGxG9svsN//am9CfZ5A0pKoG3Y2npqGOtYD5NUsCn47yVdT8H9zmXlnNwY/QbVaK60yIutCXxOeLPrHlnFkO7ADmxSw7D2jer5b6vh6n0sNSx6qIqZ0uT2khKOVYLGdw+FNYNohvPQ6UIdcT86uwq8lTfrjxF6Q0to=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=A+fkf6Zw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RYb4yTQq; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791355172; c=relaxed/simple;
+	bh=KEYWs/gLCUgSmeDj0vOJnCZhAMhwLRPvWCTFcmqDyQc=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=rQ8GsHVqdA2RQuhruKnS9mLfBxOAO12Og1kNaMNII6420aSeSiM1MISNNn6NU3nPWnFeoSQBY4EkT6r/9QJXF8dk1zpbUM3G8PmyUjMVEuwo/2pQOlspbjwVQCYPZIb9iVxVacT2YiiTIr7L0mJPt8IZfR/CN19PWaOPS/x+ns0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=CZTdJGAa; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="A+fkf6Zw";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RYb4yTQq"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6974UBMg3264075
-	for <linux-kernel@vger.kernel.org>; Wed, 7 Oct 2026 06:38:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	8ACzqyHWtdt0fC2Pj9BbXxAGnwUR8TgCimh4uH8dmHU=; b=A+fkf6ZwKdcZqsQB
-	R5sqmyDRCWMhhL6Kk5TJNPUsv4X4Muz9ttlYFFzsmQYceKrnW9DoTjwS54/XrXiV
-	QhZdm8GYApm29GXjrRnLMZWd/ucrRMZONkWbdiscyaKKb0cbxCpzq1DqnqcZALge
-	rL+kw+9gITbWt6EtG8soeH0khhOWMwH5gPAPGLV++oQtZuK0RuBW6vpOA0gvG5wA
-	154KDLYhvLuZzw1jy5kSDXDh7DP6GkZSi9MPmePE38IBbDCJRVws+Sr2gEN3DLde
-	cztO4G/h3L9aXRrrhhSG9tX1NIRWS1xAyWFwHadAQ3gkEMdtqy7ERtbknCXvsXxz
-	omi3QQ==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5c608w6v-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 06:38:44 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2dc7337e2a7so38023895ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 23:38:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791355124; x=1791959924; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8ACzqyHWtdt0fC2Pj9BbXxAGnwUR8TgCimh4uH8dmHU=;
-        b=RYb4yTQqGRi9dQlfERjKoJmoSh1Q1+0HUiVgeS2znstfOnLsT957ynGxyn1avqtCTh
-         ygAetXSxA49KaYG+tdIF35+K4dwQBcbnoUlzvXUBYLFl6co4DE/N+/PK4JzMv8nQeTMO
-         lOHzXtsQGn49bd78JCHoXkLYHHwS7ITk3LvDryaOLfiRDt8g/Xp6zcF05c89q2KwzPcX
-         SHKZ9NkyPcqwrIB6BzP+/zN73rKo0Y/mR/pBA6RNYx7/4ATmCL2yMpss/59NDJLr+/+b
-         8FONriFIX24oPoUoWPIbzxhkyvVS0RAEEZGpzW1RMSm3p5M8VCCeyqiyUTrhUAHAHOBE
-         Fo8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791355124; x=1791959924;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8ACzqyHWtdt0fC2Pj9BbXxAGnwUR8TgCimh4uH8dmHU=;
-        b=zprjj+bs3tjZBgJeDyDhQuhJN28jji7ibZWw8SPHFeZ1SeX0SW7TzF5txODqs9tSkQ
-         KBAMklRRrwJcd3eCDBNFovtiKJm7KJmCMcJRmY6pBJ8XVEh14KLkLjZAObgl3u/nVmA4
-         7SG8TntZ0bg8s1jpX1Tq3bAgD80/icqERshWQd6agNOQNirIMJFkhUqk3+Md4oXQVZmz
-         eOStAFnGl2GDMmBFgu1oi57ef5mXTTN6TqrCmS38F0rVgFdjOLAj4bdr8SU7zVjtmt8s
-         2krKNouGrhVayjZpJt4P18rCOJ+tixcDKQgxH7bhtjtfxX9A+oepgIJScJ1uDhpg57W1
-         YfvQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxzbM0JtAJwvmWot4ynjjd8JjxQymMjBPb5XOgxYrCBLL+rpbhOxyiTr8D9JM1mwCSOM1Y/YLs2TSZoo2M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK09S8JjReCxEOLcygMIDXZfF4kINJGAmfJ27oYDpn306YD9AFw
-	k1UFj2S1Rye5ZnXVh/v6x/Kp3+R0g8dwVKIDB6erW8qqJpHrLgE+1ZHHcepUor7YuHL1DTQUyo2
-	lb2hlIewaL1+fkCYOg+dMuVrJ6knjOt1j3Xp4VIhHw6qb/9tkls0cEIXUl1Wjidms/Ks=
-X-Gm-Gg: AYBFou1XKdIy++AVazesdJGjtbRgI5D1fQOhoROw/YRU0H4E9AXOvehn0CSgks1vylc
-	68MrhMewYzdJHt2Al77fjTGcejjebFa1K9auNeEai4g9Ni9EsUqtlZSMYyNkTRQX7wyvhrmxIby
-	NeeHgQaGkuOnnDlEX8txW/pyKkamnA0FwXHcIbpsX12eX9CdDTAN+XVgSjRjxOkfBgi/1aM+Qme
-	TY+5oYJYKmc6KbiroMXEMQZs2nSZdRh3IrLQajSeFd8jlJn8kRVfj9Q3ciysTsPQvCyYpZzkaOn
-	W4TyA3mOQPtZHEhKqFcIoeKwrx977JaZWW2EnztfRlgvGgOdFMwb+0R3IWoU9M48QzAedYfM16w
-	AIHb4tkTikfOQy2ZvLi3rjnHKqo9N
-X-Received: by 2002:a17:903:184b:b0:2df:a608:27d5 with SMTP id d9443c01a7336-2e6003b5d8cmr13571045ad.12.1791355123225;
-        Tue, 06 Oct 2026 23:38:43 -0700 (PDT)
-X-Received: by 2002:a17:903:184b:b0:2df:a608:27d5 with SMTP id d9443c01a7336-2e6003b5d8cmr13570745ad.12.1791355122781;
-        Tue, 06 Oct 2026 23:38:42 -0700 (PDT)
-Received: from [10.204.78.119] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e6046fdbcasm5501515ad.13.2026.10.06.23.38.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 06 Oct 2026 23:38:42 -0700 (PDT)
-Message-ID: <8e7ac84c-5ac0-4e62-9aff-f1151eda5def@oss.qualcomm.com>
-Date: Wed, 7 Oct 2026 12:08:32 +0530
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="CZTdJGAa"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6976d9V513630762, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1791355149; bh=cYe6Noo0ARQoNBIg4oNXFTkFAPNrpCOWlCA2O65XFuQ=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=CZTdJGAaEEs2RRU5vozu/cHoftCfA/z6IgPgB4VgOL1Rog8pdXmDy1VRljf4YFHCx
+	 Eix3JahCpjCsRVc5tZO2s7T3KQTvXi5itz9/1JFXOZpD/UF4SArUSXXeUyUtPVUTu1
+	 yB2oZbLMpT/XbL3T3lYAEfesOchRIcUQhAJzsv9yvokcLkfvyNNDE0TnmK54Hy9CAs
+	 fKbnvO1w2g0nzB4cIU2hgUddsJpEf54Bck69hxFMrExm0a7Y7s//erpqY5md0eQKRO
+	 LNrF0va4FyqMI+OKAQc6uDCwRCCln02mAyPlbDTHEBwvWQUGd0Fl2E+6tZG4BXw4f1
+	 KrRGsrTQI3iSQ==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6976d9V513630762
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 7 Oct 2026 14:39:09 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 7 Oct 2026 14:39:09 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Wed, 7 Oct 2026 14:39:09 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Mehmet Fide <mehmet.fide@gmail.com>
+CC: Luka Gejak <luka.gejak@linux.dev>, Bitterblue Smith
+	<rtl8821cerfe2@gmail.com>, "linux-wireless@vger.kernel.org"
+	<linux-wireless@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "mehmet.fide@screeningeagle.com"
+	<mehmet.fide@screeningeagle.com>
+Subject: RE: [PATCH rtw-next v4 2/2] wifi: rtw88: support channel switch in AP
+ mode
+Thread-Topic: [PATCH rtw-next v4 2/2] wifi: rtw88: support channel switch in
+ AP mode
+Thread-Index: AQHdViKsq55Ir0Z0UEaMXTAuIl77ILbxm64g
+Date: Wed, 7 Oct 2026 06:39:09 +0000
+Message-ID: <63ac6992e6614de1a085131964974ff1@realtek.com>
+References: <20261007061113.2083449-1-mehmet.fide@gmail.com>
+ <20261007061113.2083449-3-mehmet.fide@gmail.com>
+In-Reply-To: <20261007061113.2083449-3-mehmet.fide@gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 09/17] phy: qcom: edp: Add Nord AUX channel and VCO
- divider configuration tables
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov
- <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Kuogee Hsieh <quic_khsieh@quicinc.com>, linux-arm-msm@vger.kernel.org,
-        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org,
-        Ritesh Kumar
- <ritesh.kumar@oss.qualcomm.com>,
-        Mahadevan P <mahadevan.p@oss.qualcomm.com>
-References: <20260911-nord-drv-dt-v1-0-e25c073cf1b6@oss.qualcomm.com>
- <20260911-nord-drv-dt-v1-9-e25c073cf1b6@oss.qualcomm.com>
- <clxbpw3awcpispcixwrvwj7hocvoag6fhhp7d4azamxghk5x5o@ar3infqpcy56>
-Content-Language: en-GB
-From: Nabige Aala <nabige.aala@oss.qualcomm.com>
-In-Reply-To: <clxbpw3awcpispcixwrvwj7hocvoag6fhhp7d4azamxghk5x5o@ar3infqpcy56>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: VmEbIPe_B4xi-zjLyjkXHLGyvgXB1wLi
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAyNiBTYWx0ZWRfXyk2tm9CbPUKL
- /E/Pzp1jgCz+t2GsyHBHzMcYKzfJbInGqqbjIVMo1ACVbSDczsMxRuMhEnZyWKQH2PhoLwC/HhJ
- 0YHV4LzZbsXJ2khYoPuWhbkRdGjh9MQ=
-X-Authority-Analysis: v=2.4 cv=PM+aavqC c=1 sm=1 tr=0 ts=6ac5e8f4 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=jUuSjYW6OROygl6o7qcA:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-GUID: VmEbIPe_B4xi-zjLyjkXHLGyvgXB1wLi
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAyNiBTYWx0ZWRfX3tJp2zNK1VRC
- ZCQNG1J0w2fQATvQAB+EsqH3UlZ/+eMEygqS6j1wq7iEiTqEoO8ya2BVXi9YUP/+dTYCV1kS2Iy
- DhyyBvbZall27nBbf7plFTsCoSFfusWOHZvI9+JpXl6bb8ac9bJEwZOLOQpVGj0ylFNjR2cXwJJ
- E7UW98HMlaix3zjupc+y1JQ+6hqEdx3xMZdr1xGGi5cHTb+M5ReOx0D2uClAnolvKmr0BvtNR0G
- 1kjbUbMs0XPuF+lzZCfRIWZNgcGxHdNg2be6lDnRbGUMWj6KH34H2BxE7FUxmmhngnW1aaDHtqp
- zeM9XQ0spuiQGGwid95Ys7l638tuEmZbhUScEXvCkKlD2SYnB/CabEi6jQtQqMGuCp4nyEQ9qFV
- psfi6VBzH0//j61VXbqB1oLJqAk+dQUr2NrV5dzNs8eFW2hH/VB/9UifjWzX+wPbxooDLp/UmzQ
- SHNBBFHsFFQsnWMPFHA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-07_02,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 adultscore=0 bulkscore=0 phishscore=0
- malwarescore=0 suspectscore=0 priorityscore=1501 lowpriorityscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610070026
 
+Mehmet Fide <mehmet.fide@gmail.com> wrote:
 
-On 9/14/2026 5:33 AM, Dmitry Baryshkov wrote:
-> On Fri, Sep 11, 2026 at 09:06:40PM +0530, Nabige Aala wrote:
->> From: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
->>
->> Nord requires different AUX channel and VCO divider settings compared
->> to existing SoCs.  Add edp_phy_aux_cfg_nord and edp_phy_vco_div_cfg_nord
->> with values sourced from HPG Tables 2-1-a and 2-1-b respectively.
->>
->> Signed-off-by: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
->> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
->> ---
->>   drivers/phy/qualcomm/phy-qcom-edp.c | 19 +++++++++++++++++++
->>   1 file changed, 19 insertions(+)
->>
->> diff --git a/drivers/phy/qualcomm/phy-qcom-edp.c b/drivers/phy/qualcomm/phy-qcom-edp.c
->> index 373f13b3d6d5..ee0d7f1a90fe 100644
->> --- a/drivers/phy/qualcomm/phy-qcom-edp.c
->> +++ b/drivers/phy/qualcomm/phy-qcom-edp.c
->> @@ -1508,6 +1508,25 @@ static int qcom_edp_phy_probe(struct platform_device *pdev)
->>   	return PTR_ERR_OR_ZERO(phy_provider);
->>   }
->>   
->> +/*
->> + * nord AUX config (eDP mode).
->> + * From HPG Table 2-1-a: edp_phy_aux_bist.csv
->> + * Index:  0     1     2     3     4     5     6     7     8     9    10    11    12
-> Drop useless comments.
-Ack
->
->> + */
->> +static const u8 edp_phy_aux_cfg_nord[DP_AUX_CFG_SIZE] = {
->> +	0x00, 0x13, 0xa4, 0x00, 0x0a, 0x26, 0x0a, 0x03, 0x37, 0x03, 0x02, 0x02, 0x04,
-> So, it's the same as edp_phy_aux_cfg_v5, except for the last register?
+[...]
 
-Yes, it is same as edp_phy_aux_cfg_v5 except for the last register.
+> --- a/drivers/net/wireless/realtek/rtw88/fw.c
+> +++ b/drivers/net/wireless/realtek/rtw88/fw.c
+> @@ -1802,14 +1802,76 @@ int rtw_fw_download_rsvd_page(struct rtw_dev *rtw=
+dev)
+>         return ret;
+>  }
+>=20
+> +bool rtw_fw_csa_active(struct rtw_dev *rtwdev)
+> +{
 
-you want to use the "edp_phy_aux_cfg_v5" for nord also?
+add lockdep_assert_wiphy(wiphy) to rtw_fw_csa_{active,start,stop}?
+Since they access rtwdev->csa_vif.
 
->
->> +};
->> +
->> +/*
->> + * nord VCO_DIV config for eDP mode.
->> + * From HPG Table 2-1-b AUX Clock Settings (eDP mode) - Nominal/Turbo column.
->> + * Indices: [0]=1620, [1]=2700, [2]=5400, [3]=8100
-> :-(
->
-> If it's AI, fix the AI prompt, please.
+> +       return rtwdev->csa_vif && rtwdev->csa_vif->bss_conf.csa_active;
+> +}
+> +
+> +void rtw_fw_csa_start(struct rtw_dev *rtwdev, struct ieee80211_vif *vif)
+> +{
+> +       u32 interval =3D ieee80211_tu_to_usec(vif->bss_conf.beacon_int);
+> +
+> +       rtwdev->csa_vif =3D vif;
+> +       wiphy_delayed_work_queue(rtwdev->hw->wiphy, &rtwdev->csa_beacon_w=
+ork,
+> +                                usecs_to_jiffies(interval));
+> +}
+> +
+> +void rtw_fw_csa_stop(struct rtw_dev *rtwdev, struct ieee80211_vif *vif)
+> +{
+> +       if (!vif || rtwdev->csa_vif !=3D vif)
+> +               return;
+> +
+> +       wiphy_delayed_work_cancel(rtwdev->hw->wiphy, &rtwdev->csa_beacon_=
+work);
+> +       rtwdev->csa_vif =3D NULL;
+> +}
+> +
 
-Sorry about that, that's on me. The AI-generated comments are a bit 
-excessive here. I will trim them down from all over the patch series.
+[...]
 
-Thanks,
+> diff --git a/drivers/net/wireless/realtek/rtw88/mac80211.c
+> b/drivers/net/wireless/realtek/rtw88/mac80211.c
+> index 2a9b09fa76e7..087268909f5f 100644
+> --- a/drivers/net/wireless/realtek/rtw88/mac80211.c
+> +++ b/drivers/net/wireless/realtek/rtw88/mac80211.c
+> @@ -235,6 +235,8 @@ static void rtw_ops_remove_interface(struct ieee80211=
+_hw *hw,
+>         rtw_dbg(rtwdev, RTW_DBG_STATE, "stop vif %pM mac_id %d on port %d=
+\n",
+>                 vif->addr, rtwvif->mac_id, rtwvif->port);
+>=20
+> +       rtw_fw_csa_stop(rtwdev, vif);
+> +
+>         mutex_lock(&rtwdev->mutex);
+>=20
+>         rtw_leave_lps_deep(rtwdev);
+> @@ -395,8 +397,10 @@ static void rtw_ops_bss_info_changed(struct ieee8021=
+1_hw *hw,
+>                 if (vif->cfg.assoc) {
+>                         rtw_coex_connect_notify(rtwdev, COEX_ASSOCIATE_FI=
+NISH);
+>=20
+> -                       rtw_fw_download_rsvd_page(rtwdev);
+> -                       rtw_send_rsvd_page_h2c(rtwdev);
+> +                       if (!rtw_fw_csa_active(rtwdev)) {
 
-Nabige
+Does it actually happen to AP mode?
 
->
->> + */
->> +static const u8 edp_phy_vco_div_cfg_nord[4] = {
->> +	0x00, 0x00, 0x02, 0x01,
->> +};
->> +
->> +
->>   static const struct of_device_id qcom_edp_phy_match_table[] = {
->>   	{ .compatible = "qcom,glymur-dp-phy", .data = &glymur_phy_cfg, },
->>   	{ .compatible = "qcom,sa8775p-edp-phy", .data = &sa8775p_dp_phy_cfg, },
->>
->> -- 
->> 2.34.1
->>
+If it could happen, check the condition by conf->csa_active (like below)?
+
+> +                               rtw_fw_download_rsvd_page(rtwdev);
+> +                               rtw_send_rsvd_page_h2c(rtwdev);
+> +                       }
+>                         rtw_fw_default_port(rtwdev, rtwvif);
+>                         rtw_coex_media_status_notify(rtwdev, vif->cfg.ass=
+oc);
+>                         if (rtw_bf_support)
+> @@ -438,6 +442,8 @@ static void rtw_ops_bss_info_changed(struct ieee80211=
+_hw *hw,
+>                 rtw_set_dtim_period(rtwdev, conf->dtim_period);
+>                 rtw_fw_download_rsvd_page(rtwdev);
+>                 rtw_send_rsvd_page_h2c(rtwdev);
+> +               if (conf->csa_active)
+> +                       rtw_fw_csa_start(rtwdev, vif);
+>         }
+>=20
+>         if (changed & BSS_CHANGED_BEACON_ENABLED) {
+> @@ -489,6 +495,8 @@ static void rtw_ops_stop_ap(struct ieee80211_hw *hw,
+>  {
+>         struct rtw_dev *rtwdev =3D hw->priv;
+>=20
+> +       rtw_fw_csa_stop(rtwdev, vif);
+> +
+>         mutex_lock(&rtwdev->mutex);
+>         rtw_write32_clr(rtwdev, REG_TCR, BIT_TCR_UPDATE_HGQMD);
+>         rtw_write16(rtwdev, REG_ATIMWND, ATIMWND_DEFAULT);
+> @@ -556,6 +564,15 @@ static int rtw_ops_set_tim(struct ieee80211_hw *hw, =
+struct ieee80211_sta *sta,
+>         return 0;
+>  }
+>=20
+> +static void rtw_ops_channel_switch_beacon(struct ieee80211_hw *hw,
+> +                                         struct ieee80211_vif *vif,
+> +                                         struct cfg80211_chan_def *chand=
+ef)
+> +{
+> +       struct rtw_dev *rtwdev =3D hw->priv;
+> +
+> +       rtw_fw_csa_start(rtwdev, vif);
+> +}
+> +
+>  static int rtw_ops_set_key(struct ieee80211_hw *hw, enum set_key_cmd cmd=
+,
+>                            struct ieee80211_vif *vif, struct ieee80211_st=
+a *sta,
+>                            struct ieee80211_key_conf *key)
+> @@ -626,7 +643,8 @@ static int rtw_ops_set_key(struct ieee80211_hw *hw, e=
+num set_key_cmd cmd,
+>         }
+>=20
+>         /* download new cam settings for PG to backup */
+> -       if (rtw_get_lps_deep_mode(rtwdev) =3D=3D LPS_DEEP_MODE_PG)
+> +       if (rtw_get_lps_deep_mode(rtwdev) =3D=3D LPS_DEEP_MODE_PG &&
+> +           !rtw_fw_csa_active(rtwdev))
+
+Think of this deeper.... Is it existing race between set_key and !csa->acti=
+ve?
+
+>                 rtw_fw_download_rsvd_page(rtwdev);
+>=20
+>  out:
+> @@ -846,6 +864,7 @@ static int rtw_ops_suspend(struct ieee80211_hw *hw,
+>         int ret;
+>=20
+>         mutex_lock(&rtwdev->mutex);
+> +       rtw_fw_csa_stop(rtwdev, rtwdev->csa_vif);
+
+Since you access rtwdev->csa_vif, should this take wiphy_lock?
+
+>         ret =3D rtw_wow_suspend(rtwdev, wowlan);
+>         if (ret)
+>                 rtw_err(rtwdev, "failed to suspend for wow %d\n", ret);
+> @@ -893,19 +912,30 @@ static int rtw_ops_hw_scan(struct ieee80211_hw *hw,=
+ struct ieee80211_vif *vif,
+>         struct rtw_dev *rtwdev =3D hw->priv;
+>         int ret;
+>=20
+> -       if (!rtw_fw_feature_check(&rtwdev->fw, FW_FEATURE_SCAN_OFFLOAD))
+> -               return 1;
+> +       mutex_lock(&rtwdev->mutex);
+
+guard(mutex)( &rtwdev->mutex); ?
+
+>=20
+> -       if (test_bit(RTW_FLAG_SCANNING, rtwdev->flags))
+> -               return -EBUSY;
+> +       if (rtw_fw_csa_active(rtwdev)) {
+> +               ret =3D -EBUSY;
+> +               goto out;
+> +       }
+> +
+> +       if (!rtw_fw_feature_check(&rtwdev->fw, FW_FEATURE_SCAN_OFFLOAD)) =
+{
+> +               ret =3D 1;
+> +               goto out;
+> +       }
+> +
+> +       if (test_bit(RTW_FLAG_SCANNING, rtwdev->flags)) {
+> +               ret =3D -EBUSY;
+> +               goto out;
+> +       }
+>=20
+> -       mutex_lock(&rtwdev->mutex);
+>         rtw_hw_scan_start(rtwdev, vif, req);
+>         ret =3D rtw_hw_scan_offload(rtwdev, vif, true);
+>         if (ret) {
+>                 rtw_hw_scan_abort(rtwdev);
+>                 rtw_err(rtwdev, "HW scan failed with status: %d\n", ret);
+>         }
+> +out:
+>         mutex_unlock(&rtwdev->mutex);
+>=20
+>         return ret;
+
