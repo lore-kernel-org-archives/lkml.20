@@ -1,182 +1,115 @@
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15F8C351C10;
-	Wed,  7 Oct 2026 05:03:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8EB23BB9FC
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 05:06:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791349437; cv=none; b=IucNpV5F+p/w9T0tnalxMNPqt1uUR0uG2nbCc9XGIeJlKFgUt68iIk4zgCLKbqaOavy+qBLjB0PswyiEbzOe/zCUbNCRuz1DN2bN7YjKIeQw5EN1wljkwFX68h/oeV4+X4XJr4Bkag3dVKmBraCuxEyIzkVwyQeOdtUxe3PKDIw=
+	t=1791349569; cv=none; b=evddCObnd1jHd6jjZNNeXK4SMUNgU9Z6g0gez2W0MDPnDTKRnRVyw2CxS3QgzWTcNJV5QNatnF843zsbA8Ej4lFLig9oQafAQSWbqlp8kKK6plqAl5CBG2M1NBw7XaP8YukjntCfZ02oLmBGxMfd1loH4b+aLnp5g0m62/JmuBY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791349437; c=relaxed/simple;
-	bh=HrxPrYsRT6rlkfcwoT1sUdkzsUIXpnHfaOUTqVxYOeI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=bWhUGNNiIOchzcWpQTaUX5qkWj7JT/xXoNtVbcJDFs4O1tA33jXsbFoqPIA8A+oCAaOtJV/7bLIOmjOe4evzyDqGhgCzFDHoIRBHq4bj45dP7uQnpx1UTEluE5AM+dA2AN1lNw5x/eHhOA7nz1nF/caUcvLiZhTyWcyAom0lPnI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=aB1YlcKV; arc=none smtp.client-ip=130.133.4.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
+	s=arc-20240116; t=1791349569; c=relaxed/simple;
+	bh=G8LeofBqypYy5FArHs7+TGUt5emJ5T71K3mdEpcH0mk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=r7GYJ8FYDyOyjFEF+0XC48V8uIzGRKxgC358jIF8pbWaKSm0xKV84N0RIX0EM6xEqonLwwd82jLQwq6KhKyL6H9DAQSxvThyH34fUBDjgCSratRj5mPjGEn7/QXCdg3o9QhDsQJ3bMMrWYwG7Pgn1bn4Ag2m/d06WBgxOwksHYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QMPnPkvP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="aB1YlcKV"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
-	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
-	References; bh=JgKVOr3//Y1BtigImTWrriv6FmQt9qqx/tARqp6KMNA=; t=1791349433;
-	x=1791954233; b=aB1YlcKVd1As2DX8sBsmU/3MUrQWJcQORyv7l/k6Fhg0mdpxehh7e8NnAcS1J
-	wd+73h2+jmGkrM9yOVy3gxPnOi+RzZPMfuf73tjowyLrLHNX9P61IBFXut+L+7RL9spzp7qhDNX1k
-	LmpnDMd1gCvXVTbpZlGARv4wb3z/A9I6CwDNrao2JYP0hs4ANflre7v70zdmfz7Rd+xqICr16GaOc
-	33zqy/ijBWH54QXAxvxzQtIkOrgQddSLqcz3Exm5aj7uRGtorY4OpmL+KwZcuxPbajtSCkqDMJ55V
-	PaBGdpTZL2TxKR5Zn+e0+3tR10G4+egCBkK7HV+sHoRwR6tVGw==;
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
-          by outpost.zedat.fu-berlin.de (Exim 4.100)
-          with esmtps (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@zedat.fu-berlin.de>)
-          id 1xEJoj-00000002trN-2Bbb; Wed, 07 Oct 2026 07:03:49 +0200
-Received: from p5b13a90a.dip0.t-ipconnect.de ([91.19.169.10] helo=suse-laptop.fritz.box)
-          by inpost2.zedat.fu-berlin.de (Exim 4.100)
-          with esmtpsa (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@physik.fu-berlin.de>)
-          id 1xEJoj-00000003rIa-1ESO; Wed, 07 Oct 2026 07:03:49 +0200
-Message-ID: <8f3cf9ae2df4d6c23787850a18e62bc8dfadfa9a.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH] sh: lib: Restore r4 in shift helpers
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Florian Fuchs <fuchsfl@gmail.com>, Rich Felker <dalias@libc.org>, 
-	linux-sh@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>, 
- Yoshinori Sato <yoshinori.sato@nifty.com>, linux-kernel@vger.kernel.org
-Date: Wed, 07 Oct 2026 07:03:48 +0200
-In-Reply-To: <20261006224440.04ab3693@pumpkin>
-References: <20260714104147.2016549-1-fuchsfl@gmail.com>
-		<85c4e0b40ec4b52b73c1525c2340cdaf31fd7d6a.camel@physik.fu-berlin.de>
-		<e2d4c042a53eddc1ea8d800e171e6c59c9d3f7e1.camel@physik.fu-berlin.de>
-		<asU-6UBmN4OjNsLV@lithos>
-		<cfaeee0744ee2e2148114ff5c65f74311b7479f2.camel@physik.fu-berlin.de>
-	 <20261006224440.04ab3693@pumpkin>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QMPnPkvP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6117A1F0089B
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 05:06:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791349568;
+	bh=45/WO5wbYO1299RifHRzyH5pqqomm6asEV6GHMsupFI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=QMPnPkvPDumZGSADnQW/lRp0YzJAV0PM36Y59HEkiy42AQvw8jfYGVxyZ5pSdymC8
+	 8Vr9k4wDNZyJ/CSQtBak45HkT+Igw+HDYOoSudhilUI28dstVO4vRNF7I+BRO5VZmZ
+	 ecyv8quHsZZF+ok/OUtTuVML3pa8FdwZCOzDGWO6qP7RzJD9hQ7I69QMa6UbQPSPKW
+	 zJMISagUaFFkFndIRXgm9/jkKDIYfe0YZvRWxd+KxvGHISK1jt2dA1m3m0hcgvxuaI
+	 18X6dC4sxxrv9bazayH4t3hf1yYvVEn829vYrDWG7BgpPGzkJ1SaIt730oedBgQ6BZ
+	 a6ss82Vlq6HRg==
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c2e7496f947so206896566b.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 22:06:08 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzaR6mSXVuvZQPBeeHzg9TH/QtKw/mlvU60iKThS+30NTNROkiCV9Wt8jfuBz+nunIWFTKy9gYACEPxINk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLTWWYE4BSw3ZO+eG7xpyUzIrV2I/vK0BDRm2adkUA5jla7tL0P
+	uoNGktK2TZmxZOX/+fMn3unLfHDFkaIOvasreHZhWUPyy1tUDVjuz7i02ioNlell/UuI/bJ85qn
+	4U8UIATM7iox9QqBduvDZsWpB59f7aY4=
+X-Received: by 2002:a17:907:2da5:b0:c2e:893:7010 with SMTP id
+ a640c23a62f3a-c317c09faccmr84659966b.37.1791349567049; Tue, 06 Oct 2026
+ 22:06:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-ZEDAT-Hint: PO
+References: <20261006224024.14535-1-linkinjeon@kernel.org> <20261006224024.14535-3-linkinjeon@kernel.org>
+ <CAMrLSE73h6xvZXfQRDF7W9QrnAAjCJr8qyQ9P2MxCQno+5Uokw@mail.gmail.com>
+In-Reply-To: <CAMrLSE73h6xvZXfQRDF7W9QrnAAjCJr8qyQ9P2MxCQno+5Uokw@mail.gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Wed, 7 Oct 2026 14:05:55 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd-N6Dpuci9k1D6Vs-+z1OatWfmgquJ_c+jObF_19S2NVA@mail.gmail.com>
+X-Gm-Features: AclHuK-eIxIpfIbjzINsR2biKL5WYnfGS7JXW_eW1Y6Fwkxxjey1Qfwtn4VqMf4
+Message-ID: <CAKYAXd-N6Dpuci9k1D6Vs-+z1OatWfmgquJ_c+jObF_19S2NVA@mail.gmail.com>
+Subject: Re: [PATCH v2 2/4] ntfs: add pathname access for named streams
+To: CharSyam <charsyam@gmail.com>
+Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, sebastian.n.feld@gmail.com, 
+	cedric.blancher@gmail.com, Lionelcons1972@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2026-10-06 at 22:44 +0100, David Laight wrote:
-> On Tue, 06 Oct 2026 20:54:30 +0200
-> John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de> wrote:
->=20
-> > Hi Florian,
-> >=20
-> > On Tue, 2026-10-06 at 20:33 +0200, Florian Fuchs wrote:
-> > > On 06 Oct 07:41, John Paul Adrian Glaubitz wrote: =20
-> > > > > Please correct me if I'm wrong, but after reading the code in [1]=
-, it looks
-> > > > > to me as your patch doesn't preserve r4 but it's actually storing=
- it into
-> > > > > r0 to be used by the selected shift sequence. =20
-> > >=20
-> > > Yes, the value is copied to r0 for the shift sequence to use, but onl=
-y after
-> > > the r4 original value has been popped back into r4.
-> > >=20
-> > > The shift sequence themselfs only operate on r0 and then rts, so noth=
-ing
-> > > touches r4 after this point.
-> > >=20
-> > > So the caller gets the original r4 back, which is what GCC expects.
-> > >  =20
-> > > > > With the previous code, r4 is pushed onto the stack first but not=
- restored
-> > > > > before the shift sequence is jumped to, so what your patch does n=
-ot make sure
-> > > > > that r4 is restored across the complete call of the shift helper =
-but rather
-> > > > > restore the input value in r4 from the stack before calling the j=
-ump sequence. =20
-> > >=20
-> > > Yes, it needs the selected shift sequence to not touch r4 as well.
-> > >  =20
-> > > > Could you comment on this and maybe rephrase your commit message if=
- you agree
-> > > > with my analysis? The patch itself is fine, but I think the descrip=
-tion is
-> > > > somewhat inaccurate. =20
-> > >=20
-> > > I think your analysis is correct. The selected shift sequences don't =
-touch=20
-> > > other register beside r0, so I think it is currently not necessary to=
- make
-> > > sure that r4 survives the complete call, even if the selected sequenc=
-e would
-> > > touch r4.
-> > >=20
-> > > Is it more accurate or which aspect would need a better message, or d=
-o
-> > > you dislike the "across the whole call" aspect? While the patch doesn=
-'t
-> > > really make sure r4 is always preserved, it reflects the behaviour af=
-ter
-> > > the patch.
-> > >=20
-> > > 	Commit 940d4113f330 ("sh: New gcc support") reuses r4 as scratch for
-> > > 	the jump table offset and pops the saved value into r0 in the jmp
-> > > 	delay slot, so the helpers return with r4 still holding the table
-> > > 	byte. GCC can keep a live value in r4 across the call, which leads t=
-o
-> > > 	runtime data corruption.
->=20
-> I'm sure you can write that more concisely.
-
-In what sense?
-
-> > > 	GCC calls __ashlsi3, __ashrsi3 and __lshrsi3 with a special conventi=
-on:
-> > > 	value in r4, result in r0, and only r0 and T clobbered.
->=20
-> That misses out the other value passed in r5.
-
-Well, technically yes. But I assume Florian omitted it because the change m=
-ainly
-concerns r4. But yes, r5 could be mentioned as the number of shifts paramet=
-er.
-
-> What is T?
-
-T is the test bit of the status register.
-
-> > >=20
-> > > 	Pop the saved value back into r4 before the jmp and copy it to r0 in
-> > > 	the delay slot. The shift sequences only operate on r0, so r4 is now
-> > > 	preserved across the whole call. =20
->=20
-> That seems unnecessary detail for a commit message.
-> Why not just:
-> 	GCC uses a special calling convention for __ashlsi3, __ashrsi3 and
-> 	__lshrsi3 that requires all registers except r0 (which contains the
-> 	result) be preserved.
-> 	Commit 940d4113f330 ("sh: New gcc support") reused r4 as a scratch
-> 	register leading to data corruption.
-> 	Change the code so that r4 is preserved.
-
-Well, I wanted the description to be more explicit as it helps understand
-what's going on easier.
-
-> If you are reading sh assembler you should know it has delay slots
-> after branches.
-> (I've not looked at it before, but it is the only way the code could
-> be valid.)
-
-I don't see how mentioning that is adding too much information.
-
-Adrian
-
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
+On Wed, Oct 7, 2026 at 12:38=E2=80=AFPM CharSyam <charsyam@gmail.com> wrote=
+:
+>
+> Hi Namjae,
+>
+> I built the patches and tested the pathname interface on an NTFS image
+> in QEMU. I found two issues:
+>
+> 1. **A named stream can be deleted from a read-only base file.**
+>
+>    I created a file and a named stream, then changed the file to mode
+> 0444. The NTFS `READONLY` attribute was present on disk. As an
+> unprivileged user, opening the base file for writing failed with
+> `EACCES`, but `unlink("base:secret")` succeeded and the stream
+> disappeared.
+>
+>    The new `ntfs_unlink_named_stream()` path calls
+> `ntfs_remove_named_stream()` directly. Unlike the ioctl path, it does
+> not require a writable base-file descriptor. The shared removal helper
+> checks append-only and immutable flags but does not check the NTFS
+> `READONLY` attribute. I suggest rejecting removal of a stream from a
+> `READONLY` base file in the shared helper, and defining the
+> authorization rule for pathname stream deletion explicitly. This is a
+> deletion-semantics issue; the test does not establish a privilege
+> escalation, since the parent directory was writable. The MS-FSA
+> `FileDispositionInformation` rules also reject deletion when the file
+> has `FILE_ATTRIBUTE_READONLY`.
+> 2. **Repeated reads update the base file's atime under `relatime`.**
+>
+>    I read the same named stream twice, two seconds apart. Both reads
+> changed the base file's atime. A regular file used as a control
+> changed atime only on the first read; with `noatime`, neither stream
+> read changed it.
+>
+>    VFS checks the stream inode's atime before calling `->update_time`.
+> In `ntfs_stream_update_time_common()`, validation copies the _old_
+> base atime to the stream inode, then `generic_update_time(base_vi,
+> ...)` updates only the base inode. The stream inode remains stale, so
+> the next read triggers another update. I suggest refreshing the stream
+> inode after a successful base update:
+>
+>    ```
+>    err =3D ntfs_stream_inode_validate(inode);
+>    if (!err) {
+>            err =3D generic_update_time(base_vi, type, flags);
+>            if (!err)
+>                    ntfs_stream_inode_refresh(inode);
+>    }
+>    ```
+>
+>    I built and tested this change in QEMU. After the first read, the
+> second read no longer changed atime. This avoids unnecessary metadata
+> updates; the test does not imply that every read caused a physical
+> disk write.
+Okay, I will fix it in v3.
+Thanks for the review!
