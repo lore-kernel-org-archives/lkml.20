@@ -1,304 +1,461 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012001.outbound.protection.outlook.com [52.101.53.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 290EC3F12E3
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 06:30:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791354622; cv=none; b=Z4gbHlPWGdVPsj8ZLTQcu3kXYtGMDbc0jwmVlrMUXQR3Pka+i8+F1xciPGEshzlUsIwzkhs28tFzRFe8M+WVdS0zSgd+x/m01Td58dRlXiHpdfbqjjxNetCSrc73sKuBtJGUXUe7UGKfrdCQa2RZO0428GpoeU3bMrMTf92ef3Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791354622; c=relaxed/simple;
-	bh=9kyv/RmQosGyDp9VxTpU4lmroLa4HPs6mFTgIA1kMzM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=NvabXFC6Ud1aJe+rk06GUOpdCkIsoKbNJQW9bhge8H9v1NMyNry75vCyyWM/E1Hx2QY9isGKNgVAUnH3eFHVIW+hRvFjgJNJy4k+C5+mj4P6Ka8H4W3Nb9FSrpHD2Sxd3F/32g6I1FnVQd/szH+lPkwF4omY2o2RiBe3OXcTuAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nUQAjtFE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hxyMmo+9; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 946443FE344;
+	Wed,  7 Oct 2026 06:30:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.1
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791354626; cv=fail; b=u15ojAGhe0Eoz9+al3NDk1+BmJyVcB46H0QEhYbKgQn5vz9z2kqfAWG4ea8T+cgD2SgDNLLjuHeVUWHaCIkJ5CibrNq4+dlTQloV0VoAD4B4geyTR//iH0F4mFsQmpd9H4esVgfBdBPSaoU/619uH5AExCWvoNTFKVQN6vaxwJk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791354626; c=relaxed/simple;
+	bh=PQIMsjsegRTOKP2ZWVpMXWyT2a/mBbFPgnKYeOm+WqY=;
+	h=Content-Type:Date:Message-Id:To:Cc:Subject:From:References:
+	 In-Reply-To:MIME-Version; b=sLqU5iU7zwftqvh+UHJfmsCedAMD2/YirweX/vd51talRiupuR6dNr//Hs9+hrnxrQQTW6stFkFccSnfdQPS8rpMrPE4An7+epSKXMTMMv/Lv63VZD3t469tMracjtDRlE9Nq2BBufOVaJIp795GM+yhEdwnpIt0kqHwD1Nez3Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Y2ALLfYx; arc=fail smtp.client-ip=52.101.53.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nUQAjtFE";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hxyMmo+9"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6974UCDS2774150
-	for <linux-kernel@vger.kernel.org>; Wed, 7 Oct 2026 06:30:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	AtE/d8mRsSzaG79+2m8aJWMacLBckY8idc15SCnRGq0=; b=nUQAjtFEhukq1u0t
-	99/equNAUu62g8UPBCCk9tAY9Eh+YEcpsPswlGIRrA33C9SvjYFab80dHw3KFQe8
-	iW+/kwG/34VSa0rm9XFfvcIj5XJv4oBcrTzDYBhlULAwjJdvYF0C8zkKqQJjkG6u
-	cWafnYS/VARzftwhKROsdhidHgvu8qB9C2tT2jYBEo0eJ06Q0kD/r/4VLz3Nm9IW
-	dsNXiuR4rgIrRo5sEzWwcFUqqzpk6tVJ8wlAzBcDVkDJJht7cvbUs4wmpEn5LVDn
-	cyKC7cxR9w6hJE5eZFOD399FmhG3+kJ6s66fkRGY0OPJyXHKkU0xj5k1d3Mzb1Wi
-	GM5Zvg==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h541uk15p-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 06:30:19 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3a6d30f66c9so2104946a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 23:30:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791354619; x=1791959419; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AtE/d8mRsSzaG79+2m8aJWMacLBckY8idc15SCnRGq0=;
-        b=hxyMmo+9vxRUJuLv/ugmtMvhphx8a5Y0B7pzSX8SA4r5tONYUpK4AvDYKTYpvyBUbO
-         t0wJau1K3XxF2/LtrfsNcHuYFWpVIp4YzUwIgpAGcY1y9H+ZpEKt1XbSjU93ss7sC1Sm
-         iH1uO9ZYgVG1WZANQkYVGC7Dnmg/G/kLwzNwGCG+cMihKh/Pg9iDLO+3BcfaIFufTTai
-         M9JZs/YstxXEnfsmpCclKmnPxsLW4VupGGVV9o8phU9M/kI3RR9Z3f9lSyCgf+5Co1al
-         YCn3neKtyfXuOC6kRkSjv/uGTeqdn+rS93GWtFpz5/IzxO8TxutwtGj/TftzcA77AcOE
-         swFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791354619; x=1791959419;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AtE/d8mRsSzaG79+2m8aJWMacLBckY8idc15SCnRGq0=;
-        b=KO4KtiI6lqMhARx8xBB4Pj7zDL4bclTDYr/6z4N1qfgc2FwThB1I81pLNohbhjMCZ4
-         v5eIjLCco3zVgZL3wnpNRFY1OkjLNaGZTsm7UpYw+tLGbqTnYpCy+h/YpKVL7htz7IUh
-         S3OTQh+DZlZigsRW7E33EFPUbeW5a5pypRdQbXGjkLg6Z8arkMcTrStgImO5QbWQDwuW
-         wsueBTKlQXVolrakvpREAQTtFKq7OkWs6nFeAkznNBE1RLWL1anqx1KDaQjQD+GFPCbb
-         IPSp80AmA43hFinVXaURbLGItUd3QFhtSG3YJVisf3awEHfBFp3ycR9PuUE0duRSM1Gf
-         Cnbw==
-X-Forwarded-Encrypted: i=1; AKwUvByrdwsFLrmZqobVHVDMWeyJGGsb/sHnk3M2PDwM0rbAmQ2dyv0SDYAiPC+hVDFT+cUYRpVIbAtI+r/EIto=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIRkvVJDL/czRQlbG4iFYqi7byii6RtXqdpeORsPWcoQzdxVw6y
-	tLkIAgXgl8iNkuroL6lnf2qZ6PzJzZX1H23cPtlHzPOB4Sjlvx6M6xt+ngICNweNNC/igoZgMbC
-	A+lckPaMQxPyJCkPlkp8NN0j4o5GtkE2CPFEcx82qjxrDDt9C3CDh4oBPrvfq1DiAa1I=
-X-Gm-Gg: AYBFou0cHb7CEtb75n+ajdSSu3BXe12o2YZQyQ0JGQlL6ODQ4NPtqnzK53yZX4/zUr6
-	4tWj7vhW7bUX9i8sB0atG3WzHu/ltmvee4x7sqQTG/zL3MRZn+bsjFNE8LuwGRjsKCRK9Da61za
-	htdtJqpS6nRj/fkBiDRe5Ht57Ekz+LpSJaTSuRbjVbwWDrvK7emCCItW82Blb+/jb2B3VHS8ZIV
-	bbWBtX5B2cZpVVJIU3srAKtjMfpSD4mTsWh7dYCw9V6WmeEGMtkFsKpcE1wz9+nDT9RObD8eETg
-	dBdToaGc/bZYI4fnf2PywLb/qfyL4acJkwL1Ma8eaU9ilXk3F/uLawr0KhF9RH9o86ghUdggikR
-	sN9Ko8uZSAz8fxcE9w3OvdRHGhA==
-X-Received: by 2002:a17:90b:2ec3:b0:3a4:cf85:aef with SMTP id 98e67ed59e1d1-3a8545cea12mr2865680a91.25.1791354618690;
-        Tue, 06 Oct 2026 23:30:18 -0700 (PDT)
-X-Received: by 2002:a17:90b:2ec3:b0:3a4:cf85:aef with SMTP id 98e67ed59e1d1-3a8545cea12mr2865664a91.25.1791354618091;
-        Tue, 06 Oct 2026 23:30:18 -0700 (PDT)
-Received: from [10.213.101.15] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a89ab81bb0sm2972690a91.5.2026.10.06.23.30.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 23:30:17 -0700 (PDT)
-From: Pradeep P V K <pradeep.pragallapati@oss.qualcomm.com>
-Date: Wed, 07 Oct 2026 11:59:36 +0530
-Subject: [PATCH v3 3/5] arm64: dts: qcom: glymur: Add UFS nodes
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Y2ALLfYx"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DFV6fFOLEWDGuR9xIZDqglw+5Y7edxxFiEef5oJ0T6gNKTseZhdDPUvpboosDpjKmO+qV8xvJO4HnRlkOFfPzr4bA64ezN+7/sPY2d/1JQJ2TYv5rnnC62llN21abQyY5PZP4w3krlCl5yQCeBIjIeFfCLD9GlGYCGzwpXj0Bxk0CH/49CX2SKHw1CyrEFNDBI3eKvspUQU+tRMMeP2r+jYYAMi51SPc9X8akDzE30VgVfL6pK/aSxKOnGZN/xdDhByfZThSPjKUwvl20IuNzyePow9PiPthwtLLn4GJWWj0OFmbAWk7ISmKPU30PGZ9h/ah3/adjPfWHjosuLgo3Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BJ92xTFCDou9bnxwjCEw6NJJW8TSZRh616xx3M695PY=;
+ b=XxUhl10eMAAyEvXZ+qMjlKnG6inne/0S5vnyM6+dBjlpW5JlG53Bv/T23m20ccu2QduCv7L6PkCW7eqCHOi9xTQCCjCkRjpapaL6/+tnI2j/B3cyRZQH62wXlXCQZ849z6DOVMjKyxDAzDs9OQXYODsaZF1zMwONA4rcx6fWKainUSIIRIwWfvbs9X2i2XrrrIfdWGzPX1uTplsv/2pwpeb3hPt9MR4xR1uGz2yGCiIjp7gUJIu1hrjTcawHFeXrG24KHaluC3gaLpBiqG1pxhuwI0V09epCYer+L2PmSK8Z0YINEDaS2+ZchHJXnmGqm/dY6gF5cxB6lEn+3w1zDg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BJ92xTFCDou9bnxwjCEw6NJJW8TSZRh616xx3M695PY=;
+ b=Y2ALLfYxScw2fqRKtR4qaeRmOD7I68qtyYge2ijt4KcwjBVbIZCfldtZUQ7q7W649derTNLMeuoNhcIWiVKuL+YVLgfp36lVAG0NLDCM4TXo5Eulir8eerda4qNig7c+9rkx+XiFjbWYFT21BjuSjsNGVuePqXMcTIoeYN+BOqNkxMrX1Q8sq/53g6eFELPWpfcLVrreBxKJ46yPh7h9C5PTSgamPIlF08etkfId0p/nUpzd0N7L+BTBIVncOuQ5DtN96wWfUsU5V1LZb560EHnYQbt/5Bzoh8S+E1tyIkpTWqp64lydEuIn3KUCIskQZUIv36PTyfJrHaz1zHukvA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by SJ5PPF4C71815F9.namprd12.prod.outlook.com (2603:10b6:a0f:fc02::992) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
+ 2026 06:30:20 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0472.016; Wed, 7 Oct 2026
+ 06:30:19 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 07 Oct 2026 15:30:17 +0900
+Message-Id: <DLYE7QGIIJ66.3SKOCYO9GAMCA@nvidia.com>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
+ <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v3 7/8] gpu: nova-core: add NVKV typed decoding
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+Content-Transfer-Encoding: quoted-printable
+References: <20260928-b4-nvkv-v3-0-f04504c262c2@nvidia.com>
+ <20260928-b4-nvkv-v3-7-f04504c262c2@nvidia.com>
+In-Reply-To: <20260928-b4-nvkv-v3-7-f04504c262c2@nvidia.com>
+X-ClientProxiedBy: TY4P301CA0082.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:36f::14) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261007-glymur_ufs_qcb_enablement-v3-3-84cf4f861415@oss.qualcomm.com>
-References: <20261007-glymur_ufs_qcb_enablement-v3-0-84cf4f861415@oss.qualcomm.com>
-In-Reply-To: <20261007-glymur_ufs_qcb_enablement-v3-0-84cf4f861415@oss.qualcomm.com>
-To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Alim Akhtar <alim.akhtar@samsung.com>,
-        Avri Altman <avri.altman@sandisk.com>,
-        Bart Van Assche <bvanassche@acm.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        gopikrishna.garmidi@oss.qualcomm.com, jagadeesh.kona@oss.qualcomm.com,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-scsi@vger.kernel.org, nitin.rawat@oss.qualcomm.com,
-        sibi.sankar@oss.qualcomm.com, Taniya Das <taniya.das@oss.qualcomm.com>,
-        Pradeep P V K <pradeep.pragallapati@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791354585; l=4407;
- i=pradeep.pragallapati@oss.qualcomm.com; s=20260911;
- h=from:subject:message-id; bh=9kyv/RmQosGyDp9VxTpU4lmroLa4HPs6mFTgIA1kMzM=;
- b=IXIzx1cg2vfC+nAk1sKZYrJYkD15D+Vb5+X45/bjUiTNNO3jLCxAgOI1jrQmPewwKk3BOsYSZ
- a7wp5Nu9JOLDkQYSHkBqrUhvEZ0fegU/a/WAMZWD5z25NEqSE/c3tdt
-X-Developer-Key: i=pradeep.pragallapati@oss.qualcomm.com; a=ed25519;
- pk=uyRUsge8nQMwf3iW/e/o0U8z9nWLCMm1MGKxEftztic=
-X-Proofpoint-GUID: KESydh8XYcLFv3mCu8FaGmCnDbWlVjo-
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAyNSBTYWx0ZWRfX4tlw+MYc4agW
- ubjHdkKrsinDm/084bVC1X37HGJ9HsMhpirPgvJN48hqeLsWmoht7TQ6fQ1NH8oXr0xFGuoh82z
- z+TsD02ry9zFHCtivjY+9pSkHws1ZpI=
-X-Authority-Analysis: v=2.4 cv=XZYcX455 c=1 sm=1 tr=0 ts=6ac5e6fb cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=7sHo3vQ6stv6frjssEUA:9 a=JqOrBNmfTE-P4NNt:21
- a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAyNSBTYWx0ZWRfX8k0DqzNUmCEZ
- m63/Bx7HR32E1napYE93/o6O6r32n7nhLqUArFiDdpy2WbaaW8gVuQeYsu2ZUtDvdUvMRJXL+VN
- Dgwjkizs9/cSloZLJJKwO0lkIfIpd0kP784QVXoydc/IOq6jbY85xgJDawodoHZIsvbn1RjCfeo
- fN+QxEbt7g+3NFrUX9Mp8P9ORZvQ6GR01PtZ+kyDFzWmdhpuhV7Uapmpvddim3iV1ytSSyjN9bY
- Q4fbBplluXNDBzHiBBWDvAPZndaMxgHanFUHJuj7ZlvPyr7jWaNnd10AsOKO+Ye/SS0J/wT5VWx
- 8mc3T5+C4alp4gXyltDjgGHcSbng8t4sFiBxP0nqKuOCh/RQnYx81TQKfWPG1qXBoG/31+hvKeS
- JfPv2DfUOC06hIUrWGF9GzaCO1t/8sUxX6f1/pwNKyKS+zHIP1RaDQU7kcFJ242lOsmssV5Po0B
- 5cLUpopUMy4hOv97AsA==
-X-Proofpoint-ORIG-GUID: KESydh8XYcLFv3mCu8FaGmCnDbWlVjo-
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-07_02,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 priorityscore=1501 impostorscore=0 bulkscore=0 suspectscore=0
- clxscore=1015 phishscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070025
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|SJ5PPF4C71815F9:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4a28eef5-927f-4bed-2080-08df243c757d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|10070799003|366016|7416014|376014|56012099006|11063799006|4143699003|10067099003|18002099003|22082099003|10063799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	iQ5g4d8YHZDk7XccA6Ls4FCGZ5yR+4chGmhgZ4U8fO0KYjaqlm9HaHJMbB9g5SY438PI7VprS860tuzBgzvSI+5ybL80KjGgwXfDvsMb3/fK053+oMocXpS+fhgdYaq7FaeP0VsUFYAqgtn0P3TmbaSptx+tCdz/vl/iGsueFu1iAP3UtbK+W0AT3k/j9BwRYewWS9caxKD5lzSFZHTM7smLYtNMRMkCBg+ezd1Rfdud33G+3qIo+gnLMQebzGq+lz24yqaw6T4EIAwwRUP6oNLUYQpuJIJMvNCEiChAJoWz0g6zS9RY3N/+dldOBN4jT9EnOkgWAjcg3BUjdM/40AYUid7CMyAnsvi6XGGhoC+IC+zWTQ4i+U0vrYgHX2A1Q54u3ZNbzRuI7WKDRtxE1Z+KQHFs3+mrTbcHNO0Nf11FjpAbjWK0H9bT+wT7u3kELVGlJWJl6M9mfhBqm2YQZ1jbM3QBEQBmN/NrPJ01ewItJfzSXb0DNT/99rKZ8tepuY86Nf1kpkXG0qH/boDrL1eGFEt1+8vFlTPVK0d3aeKMvXGQnYXv/JkWaYdcywAqkmd2/vgH9YSvwcDifzlzYn6M/TtCVjKsE1oYWBNHnpmZA6Lu3Ci47/SNQoWqnweSWdSPAkkjs3N05DBq7lULKTwrdUJ3uNuefeRg+2l5uo4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(10070799003)(366016)(7416014)(376014)(56012099006)(11063799006)(4143699003)(10067099003)(18002099003)(22082099003)(10063799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MXJUMmZFUmx6blpTcXFPQ09ZYVJ4SnMyRGVjeVUrL1hVRzRUUEszUDdDYXFY?=
+ =?utf-8?B?ZEJ1K09iellWcUphSCt0cVFuRzJTd3dVNnNyOVN0OU1XQ3FoVXNIWkdHR2hp?=
+ =?utf-8?B?eVNxVTlOZm1BN3lxNUtsMlg3MUt3endlTm5kZEVleTZLek5qRTlraUpxQ0k3?=
+ =?utf-8?B?SnV1bGVaVGZ0ZE5tNDYrTFNBbm5kY0szcWtQWTNyZVNiQ2VuN3ZleTZGeEhY?=
+ =?utf-8?B?cjNVRGZwWWdHRDB2YWI4M2QzVURXaGwzQis4N1FoU2FwK1hiTFp6dE5lS2k3?=
+ =?utf-8?B?OGpGZ1NvOVhpc2VnRExZYUovMW1YNmxuUms0VjYwYW8xbkdvYjI2NDhwU3lm?=
+ =?utf-8?B?NTRiZHJSZUJBK1BjcUhZdGdZWGg2M002N1BaYXk1M3FLZFRITXhlWnJrTlQ4?=
+ =?utf-8?B?UFdaTUFUKy9YYktJQWJTbnZaNjJQR2pSR1ozVzJuVU53aHlIalAvY1Q1ZVA0?=
+ =?utf-8?B?U081Q3czNVFOTFZmaGh1RlcveGFyajEzU0RsU2VsMW82MFpEdFBBdno3dzBH?=
+ =?utf-8?B?bGxhRVgxdHg2cmtuR1cwYlA1VjhDMVdFWTZaR0Z4Q0V3SC9SVlhEVVluSXZ3?=
+ =?utf-8?B?MmJCOEVRYk1qRlg2T2c2ekw2M2U5WEVxYlNva1IwRndOUkY5dER0MVBmcFkz?=
+ =?utf-8?B?QVJRNjhrOUoxb3JqK3FpdE9yNDM3eTV2anpiYUxtcmp4S3JlNDJEK3ROMDNT?=
+ =?utf-8?B?T2F5dVhoZFp6ZEh6bWdMU2VTKzhOcDJHRDdtclhodjNFTGFTOTVad0VjTStH?=
+ =?utf-8?B?WWk0Sk1hNnF1MDRsb2FhaUVxOHdGR1JtSm1vclU3cWh5MnVuZWpBYXk0Mjlw?=
+ =?utf-8?B?QXBsakhmZ0thaGdtV0V5YUJ2N2FncEVxK3lJaUp2anhPYTlsU3hKTzJPNW50?=
+ =?utf-8?B?azZyUG14NHJ1SG5xcmZYUFNrbmxRa1NSaVlzQmJSTmFoNmFJbGw4VW1pd0pj?=
+ =?utf-8?B?aHJzcFJpdGtXMGJhVVJYREw5b2xESFZEbmp6N294cDR6YTBudVB1TWpZckI2?=
+ =?utf-8?B?Z1IrZWdKcnN2VXl2ZThQRUhFL0t4Z2FqbXZFVWEvQWFzckRVVFY4WUxISFl2?=
+ =?utf-8?B?eVMrU2JlSGZwTldQOC9LZkgyNmdtYzhKNlliUCs0dFB4MS84YzZyalJLdFdZ?=
+ =?utf-8?B?ZTgrRFdyd3RNUVUyOVU4bG5YZDRCTlhhd1NKVk8zV2FnelJHM1IvMFE0V3NE?=
+ =?utf-8?B?YmJ3WUJNcVo1eG80a0h0Mll5M1dLSUlMeXlvWktOZmhqTEtZSHBEdHlwV1dI?=
+ =?utf-8?B?R1RTNy9vTWV1YTJGOXZJSysvWlNMbDVsdU82UE9CR3dQQk1ydmFGUjVXMnB1?=
+ =?utf-8?B?aXJFZVdnVkxXTnFUbTZqNEY5UHc3MTVVZTRtWGRIUERqYzdsdzQ5N0dDb3RW?=
+ =?utf-8?B?Z29XYlNCbXBCSEZWWTIzcktDTUpvM2RlOUhLcnpITHdUNEk3ZmlubnBZL0h5?=
+ =?utf-8?B?M29hODZBVk43VWt3ajJkNjlEckFPajEvWnJuSUNQbjJTOUwxV1NuL1ZYdU4x?=
+ =?utf-8?B?MmtYU0JwUG9NckloWEtGbDY1RzBPaHFsMGVwZ2RlTnU0QklsR0FMVEN6VHlZ?=
+ =?utf-8?B?eWFsOCtHUGNwWDRKeUluTmxQQzd6dXF4NnFlYzhRR0xPTWtzYWZNZmtvem02?=
+ =?utf-8?B?WE9pZTAxcCtRYUtVWXZ0STVtTWJQRERvalVmWG9TL08yWTJnaTVGcUg1ZXZ2?=
+ =?utf-8?B?ek4vaGYvMHJBUmNWSjB2UDRjTGo5ejQ4NHFuWnNrT09DVkpMRGNqeS9XTjBm?=
+ =?utf-8?B?ZHM0ViswS25YeFhhbmxaZmNrbFN6c0dGSFNmd2ZPVW9zWXdjSHFIUmZzR0Z4?=
+ =?utf-8?B?aUpnNDBmVkNRdWVYSWZ4YWxkZlAvVmFaSG9OeDdQWkk3ZVhUK0dRRnpJelVz?=
+ =?utf-8?B?UGpLT0lBUTg0cDNLdWFDNmw4emFwdk1YL3ZpLytPMFc0UlVuc2pVbmNmU1Z6?=
+ =?utf-8?B?MzhjeW02bng4Y2ZzdVdVdGRwR1VYNEg4UjdJQWZtaFRGM1p0U0ZIeUN6YUN3?=
+ =?utf-8?B?eCtCYUdHRVpkRkJURzh3eS9YWXlsR2VVYWw5eWxZODZMbWRreTkzRTN2bUJz?=
+ =?utf-8?B?MjlRUDVVaGdBOVNIU2M1UjZxdGtjcHhxajB2NDk1Nm1CbHpQWU5TSFdDWlda?=
+ =?utf-8?B?bFpSWVBaRTR2WHp5aXFHMnE3SnV3Qi9pRFhyc3hxMHU4b1orM1AxWU5RNU9E?=
+ =?utf-8?B?V0owdkg5dEtkdk9nV0k2NzMxMWxwZXllQytWZnh0OHd0QjJuTXk1SVhGNHdW?=
+ =?utf-8?B?RnVWeU5aVlhrRFJhOHVtamRqU2NiUlAvUkRHdW8xMGdKNEZCRG5WSkFFUitj?=
+ =?utf-8?B?VU95Q2ZnakpmeWRBMWVBcG9WQ3RCL1FGY21zNWdqc2xNWi92M0VDK2kxY1M5?=
+ =?utf-8?Q?qCYj1zXQ/S+0WS20qoc8bwPZU9hoVfB3Q2J9mgRWvwHIM?=
+X-MS-Exchange-AntiSpam-MessageData-1: cC86FmhXU2J63Q==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4a28eef5-927f-4bed-2080-08df243c757d
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 06:30:19.8786
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zfJB8CiEC/eMAFijlkfpme1znePfFo0F50oskkwEVLUqBi8vyA0DOltGaRDq6N2WT/Y0UtvFIVXPHT8aIoAGMg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF4C71815F9
 
-Add UFS PHY and UFS host controller nodes for Glymur SoC.
+On Mon Sep 28, 2026 at 5:42 PM JST, Eliot Courtney wrote:
+> Similar to the typed encoding layer, add some decoding type machinery.
+> Add a simple macro `nvkv_decode!` which implements `Schema` for a struct
+> by composing visit calls to each member. Add some common `Schema` kinds,
+> such as `Array` which collects an array value into a fixed maximum size
+> array, and `Required` which fails a decode if the value is not sent.
+>
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> ---
+>  drivers/gpu/nova-core/gsp/nvkv.rs        |  11 +-
+>  drivers/gpu/nova-core/gsp/nvkv/decode.rs | 622 +++++++++++++++++++++++++=
++++++-
+>  2 files changed, 628 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/nova-core/gsp/nvkv.rs b/drivers/gpu/nova-core/gs=
+p/nvkv.rs
+> index 7ac3a459a98b..5791df07a7fa 100644
+> --- a/drivers/gpu/nova-core/gsp/nvkv.rs
+> +++ b/drivers/gpu/nova-core/gsp/nvkv.rs
+> @@ -9,7 +9,7 @@
+>  //! function calls will map to some struct - for example, f(GPU_NAME_STR=
+ING_KEY, 0, b"some gpu")
+>  //! naturally maps to storing a &str with the GPU name.
+> =20
+> -#![expect(unused_imports)]
+> +#![cfg_attr(not(CONFIG_KUNIT), expect(unused_imports))]
+>  #![cfg_attr(not(CONFIG_KUNIT), expect(unused_macros))]
+> =20
+>  use core::{
+> @@ -23,7 +23,8 @@
+>  use kernel::{
+>      alloc::{
+>          allocator::KVmalloc,
+> -        Allocator, //
+> +        Allocator,
+> +        ArrayVec, //
+>      },
+>      bitfield,
+>      num::Bounded,
+> @@ -148,6 +149,12 @@ fn default() -> Self {
+>      }
+>  }
+> =20
+> +/// A schema field for an array value under the NVKV key `KEY_ID`.
+> +#[repr(transparent)]
+> +pub(crate) struct Array<T: Default + Copy, const N: usize, const KEY_ID:=
+ KeyId> {
+> +    vec: ArrayVec<T, N>,
+> +}
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Signed-off-by: Pradeep P V K <pradeep.pragallapati@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/glymur.dtsi | 125 ++++++++++++++++++++++++++++++++++-
- 1 file changed, 122 insertions(+), 3 deletions(-)
+I still don't see why this needs to be declared in this module when no
+encoder element ever uses it, and the module reexports everything from
+`decode` anyway. Can this be moved next to the other schema kinds?
 
-diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
-index 65a398c0a992..49ef89b41aad 100644
---- a/arch/arm64/boot/dts/qcom/glymur.dtsi
-+++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
-@@ -811,9 +811,9 @@ gcc: clock-controller@100000 {
- 				 <0>,				/* QUSB4 1 PHY RX 1 */
- 				 <0>,				/* QUSB4 2 PHY RX 0 */
- 				 <0>,				/* QUSB4 2 PHY RX 1 */
--				 <0>,				/* UFS PHY RX Symbol 0 */
--				 <0>,				/* UFS PHY RX Symbol 1 */
--				 <0>,				/* UFS PHY TX Symbol 0 */
-+				 <&ufs_mem_phy 0>,
-+				 <&ufs_mem_phy 1>,
-+				 <&ufs_mem_phy 2>,
- 				 <&usb_0_qmpphy QMP_USB43DP_USB3_PIPE_CLK>,
- 				 <&usb_1_qmpphy QMP_USB43DP_USB3_PIPE_CLK>,
- 				 <&usb_2_qmpphy QMP_USB43DP_USB3_PIPE_CLK>,
-@@ -4102,6 +4102,125 @@ rng: rng@10c3000 {
- 			reg = <0x0 0x010c3000 0x0 0x1000>;
- 		};
- 
-+		ufs_mem_phy: phy@1d80000 {
-+			compatible = "qcom,glymur-qmp-ufs-phy";
-+			reg = <0x0 0x01d80000 0x0 0x2000>;
-+
-+			clocks = <&rpmhcc RPMH_CXO_CLK>,
-+				 <&gcc GCC_UFS_PHY_PHY_AUX_CLK>,
-+				 /* UFS and PCIE4 share the same clkref */
-+				 <&tcsr TCSR_PCIE_4_CLKREF_EN>;
-+
-+			clock-names = "ref",
-+				      "ref_aux",
-+				      "qref";
-+
-+			resets = <&ufs_mem_hc 0>;
-+			reset-names = "ufsphy";
-+
-+			#clock-cells = <1>;
-+			#phy-cells = <0>;
-+
-+			status = "disabled";
-+		};
-+
-+		ufs_mem_hc: ufshc@1d84000 {
-+			compatible = "qcom,glymur-ufshc",
-+				     "qcom,ufshc",
-+				     "jedec,ufs-2.0";
-+			reg = <0x0 0x01d84000 0x0 0x3000>,
-+			      <0x0 0x01da0000 0x0 0x15000>;
-+			reg-names = "std",
-+				    "mcq";
-+
-+			interrupts = <GIC_SPI 265 IRQ_TYPE_LEVEL_HIGH>;
-+
-+			clocks = <&gcc GCC_UFS_PHY_AXI_CLK>,
-+				 <&gcc GCC_AGGRE_UFS_PHY_AXI_CLK>,
-+				 <&gcc GCC_UFS_PHY_AHB_CLK>,
-+				 <&gcc GCC_UFS_PHY_UNIPRO_CORE_CLK>,
-+				 <&rpmhcc RPMH_LN_BB_CLK3>,
-+				 <&gcc GCC_UFS_PHY_TX_SYMBOL_0_CLK>,
-+				 <&gcc GCC_UFS_PHY_RX_SYMBOL_0_CLK>,
-+				 <&gcc GCC_UFS_PHY_RX_SYMBOL_1_CLK>;
-+			clock-names = "core_clk",
-+				      "bus_aggr_clk",
-+				      "iface_clk",
-+				      "core_clk_unipro",
-+				      "ref_clk",
-+				      "tx_lane0_sync_clk",
-+				      "rx_lane0_sync_clk",
-+				      "rx_lane1_sync_clk";
-+
-+			operating-points-v2 = <&ufs_opp_table>;
-+
-+			resets = <&gcc GCC_UFS_PHY_BCR>;
-+			reset-names = "rst";
-+
-+			interconnects = <&aggre2_noc MASTER_UFS_MEM QCOM_ICC_TAG_ALWAYS
-+					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
-+					<&hsc_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &config_noc SLAVE_UFS_MEM_CFG QCOM_ICC_TAG_ACTIVE_ONLY>;
-+			interconnect-names = "ufs-ddr",
-+					     "cpu-ufs";
-+
-+			power-domains = <&gcc GCC_UFS_PHY_GDSC>;
-+			required-opps = <&rpmhpd_opp_nom>;
-+
-+			iommus = <&apps_smmu 0x460 0>;
-+			dma-coherent;
-+
-+			msi-parent = <&gic_its 0x460>;
-+			lanes-per-direction = <2>;
-+
-+			phys = <&ufs_mem_phy>;
-+			phy-names = "ufsphy";
-+
-+			#reset-cells = <1>;
-+
-+			status = "disabled";
-+
-+			ufs_opp_table: opp-table {
-+				compatible = "operating-points-v2";
-+
-+				opp-100000000 {
-+					opp-hz = /bits/ 64 <100000000>,
-+						 /bits/ 64 <0>,
-+						 /bits/ 64 <0>,
-+						 /bits/ 64 <100000000>,
-+						 /bits/ 64 <0>,
-+						 /bits/ 64 <0>,
-+						 /bits/ 64 <0>,
-+						 /bits/ 64 <0>;
-+					required-opps = <&rpmhpd_opp_low_svs>;
-+				};
-+
-+				opp-201500000 {
-+					opp-hz = /bits/ 64 <201500000>,
-+						 /bits/ 64 <0>,
-+						 /bits/ 64 <0>,
-+						 /bits/ 64 <201500000>,
-+						 /bits/ 64 <0>,
-+						 /bits/ 64 <0>,
-+						 /bits/ 64 <0>,
-+						 /bits/ 64 <0>;
-+					required-opps = <&rpmhpd_opp_svs_l1>;
-+				};
-+
-+				opp-403000000 {
-+					opp-hz = /bits/ 64 <403000000>,
-+						 /bits/ 64 <0>,
-+						 /bits/ 64 <0>,
-+						 /bits/ 64 <403000000>,
-+						 /bits/ 64 <0>,
-+						 /bits/ 64 <0>,
-+						 /bits/ 64 <0>,
-+						 /bits/ 64 <0>;
-+					required-opps = <&rpmhpd_opp_nom>;
-+				};
-+			};
-+		};
-+
- 		cryptobam: dma-controller@1dc4000 {
- 			compatible = "qcom,bam-v1.7.4", "qcom,bam-v1.7.0";
- 			reg = <0x0 0x01dc4000 0x0 0x28000>;
+> +
+>  bitfield! {
+>      /// The op word that starts each NVKV operation.
+>      struct Op(u64) {
+> diff --git a/drivers/gpu/nova-core/gsp/nvkv/decode.rs b/drivers/gpu/nova-=
+core/gsp/nvkv/decode.rs
+> index c4c24fe1108e..24dad31296cb 100644
+> --- a/drivers/gpu/nova-core/gsp/nvkv/decode.rs
+> +++ b/drivers/gpu/nova-core/gsp/nvkv/decode.rs
+> @@ -3,11 +3,22 @@
+> =20
+>  #![cfg_attr(not(CONFIG_KUNIT), expect(dead_code))]
+> =20
+> -use kernel::prelude::*;
+> +use core::{
+> +    convert::Infallible,
+> +    marker::PhantomData, //
+> +};
+> +
+> +use kernel::{
+> +    alloc::ArrayVec,
+> +    prelude::*, //
+> +};
+> +use pin_init::init_array_from_fn;
+> =20
+>  use crate::{
+>      gsp::nvkv::{
+> +        Array,
+>          Index,
+> +        Key,
+>          KeyId,
+>          Op,
+>          Opcode, //
+> @@ -15,6 +26,353 @@
+>      num, //
+>  };
+> =20
+> +/// Defines a schema struct together with its [`Schema`] and [`Visit`] i=
+mplementations that decode
+> +/// into `$target`.
+> +///
+> +/// Each member of the struct should implement [`Schema`] and [`Visit`].=
+ For every (key, index,
+> +/// value) triple decoded from the NVKV stream, the generated parent `Vi=
+sit` implementation will
 
--- 
-2.34.1
+nit: let's put backticks around (key, index, value) and link to `Visit`
+(and other types mentioned in this doccomment, and possibly elsewhere in
+this patch).
 
+<...>
+> +/// A schema field for a key that must be present.
+> +///
+> +/// `finish` fails with `EINVAL` if no value arrived for the key.
+> +#[repr(transparent)]
+> +pub(crate) struct Required<T, const KEY_ID: KeyId>(Key<Option<T>, KEY_ID=
+>);
+
+I just noticed that the schema field types are conflating several
+concepts together. On the one hand, you have types associating a key to
+some kind of storage (Key, Array, Indexed - let's call these leaf
+types), and on the other what looks like modifiers on said leaf types
+(Accumulated).
+
+Which leaves `Required` somewhere in between, as it takes a key
+parameter and can only be applied to value types, i.e. you currently
+cannot have a `Required<Array<...>>`. But `Accumulated<Array<...>>` does
+work IIUC.
+
+So I think `Required` should work the same way as `Accumulated`, i.e.
+just wrap it around the type you want to make required, instead of
+switching the leaf type.
+
+And for symmetry, we should also have an `Optional` wrapper type, so we
+can also make fields optional even if they are not `Key`s instead of
+having specific behavior for `Key<Option>` (which again is not
+composable).
+
+Which would give us 3 leaf types (Key, Array, Indexed) and 3 modifiers
+(Required, Optional, Accumulated), with a non-wrapped leaf meaning
+"default if unspecified" - which is easier to understand than the
+current types where `Required` is a synonym for "a `Key` except it's
+required".
+
+This means `Required` would then be used like `Required<Key<...>>`,
+which is a bit more verbose, but again nicer to read.
+
+<...>
+>  /// A decoded NVKV value.
+>  #[derive(Copy, Clone, Debug, PartialEq, Eq)]
+>  pub(crate) enum DecoderValue<'a> {
+> @@ -51,7 +409,16 @@ fn try_from(value: DecoderValue<'a>) -> Result<Self> =
+{
+>  impl_try_from_decoder_value!(&'a [u32], Array32);
+>  impl_try_from_decoder_value!(&'a [u64], Array64);
+> =20
+> -/// A visitor that consumes decoded NVKV and produces a `Target`.
+
+Why change this doccomment? Let's introduce its final form in patch 5.
+
+> +/// Lets `Key<Option<T>, KEY_ID>` accept whatever `Key<T, KEY_ID>` accep=
+ts.
+> +impl<'a, T: TryFrom<DecoderValue<'a>, Error =3D Error>> TryFrom<DecoderV=
+alue<'a>> for Option<T> {
+> +    type Error =3D Error;
+> +
+> +    fn try_from(value: DecoderValue<'a>) -> Result<Self> {
+> +        T::try_from(value).map(Some)
+> +    }
+> +}
+
+IIUC this block could go away if we add an `Optional` wrapper suggested
+above.
+
+> +
+> +/// The state of one NVKV decode operation which produces a target value=
+ `Target`.
+>  pub(crate) trait Schema {
+>      type Target;
+> =20
+> @@ -65,7 +432,12 @@ fn init() -> impl Init<Self>
+> =20
+>      /// Returns an initializer that makes the decoded `Target`.
+>      ///
+> -    /// After the returned initializer runs, the schema should be empty =
+again.
+> +    /// After the returned initializer runs successfully, the schema mus=
+t be empty again. For
+> +    /// example, this is required by [`Accumulated`] which finishes one =
+object and then decodes the
+> +    /// next one with the same schema. Implementations generated by `nvk=
+v_decode!` meet this
+> +    /// requirement. If the initializer fails, the `Schema` can be in a =
+valid but non-fresh state.
+> +    /// Taking `self` instead of `&mut self` would avoid this contract, =
+but it forces a copy of the
+> +    /// schema onto the stack.
+
+Let's not cite specific implementations in the doccomment of a trait. We
+want to say that the schema *must* be empty (as opposed to "should")
+from patch 5, and that should be clear enough and sufficient. I'd also
+move the last sentence to patch 5, and drop the rest.
+
+>      fn finish(&mut self) -> impl Init<Self::Target, Error> + '_;
+>  }
+> =20
+> @@ -295,6 +667,133 @@ fn visit(&mut self, key: KeyId, index: Index, value=
+: DecoderValue<'d>) -> Result
+>          Ok(())
+>      }
+> =20
+> +    // Tests that decoding via the `nvkv_decode!` macro works correctly.
+> +    #[test]
+> +    fn decode_typed_struct() -> Result {
+> +        const SCALAR32_KEY: KeyId =3D 0x1234;
+> +        const SCALAR64_KEY: KeyId =3D 0x1235;
+> +        const ARRAY8_KEY: KeyId =3D 0x1236;
+> +        const ARRAY32_KEY: KeyId =3D 0x1237;
+> +        const ARRAY64_KEY: KeyId =3D 0x1238;
+> +        const OPT_PRESENT_KEY: KeyId =3D 0x1239;
+> +        const OPT_ABSENT_KEY: KeyId =3D 0x123a;
+> +        const X_KEY: KeyId =3D 0x0100;
+> +        const Y_KEY: KeyId =3D 0x0101;
+> +        const SLOT_KEY: KeyId =3D 0x0200;
+> +
+> +        const SCALAR32_VALUE: u32 =3D 0x89ab_cdef;
+> +        const SCALAR64_VALUE: u64 =3D 0x0123_4567_89ab_cdef;
+> +        const ARRAY8_VALUE: &[u8] =3D &[0x12, 0x34, 0x56];
+> +        const ARRAY32_VALUE: &[u32] =3D &[0x0123_4567, 0x89ab_cdef];
+> +        const ARRAY64_VALUE: &[u64] =3D &[0x0123_4567_89ab_cdef, 0xfedc_=
+ba98_7654_3210];
+> +        const OPT_PRESENT_VALUE: u32 =3D 0x55;
+> +
+> +        nvkv_decode! {
+> +            struct PairSchema =3D> Pair {
+> +                x: Required<u32, X_KEY>,
+> +                y: Required<u32, Y_KEY>,
+> +            }
+> +        }
+> +
+> +        struct Pair {
+> +            x: u32,
+> +            y: u32,
+> +        }
+> +
+> +        nvkv_decode! {
+> +            struct TestSchema =3D> TestDecodeable {
+> +                scalar32: Required<u32, SCALAR32_KEY>,
+> +                scalar64: Required<u64, SCALAR64_KEY>,
+> +                array8: Array<u8, 64, ARRAY8_KEY>,
+> +                array32: Array<u32, 64, ARRAY32_KEY>,
+> +                array64: Array<u64, 32, ARRAY64_KEY>,
+> +                opt_present: Key<Option<u32>, OPT_PRESENT_KEY>,
+> +                opt_absent: Key<Option<u32>, OPT_ABSENT_KEY>,
+> +                pairs: Accumulated<PairSchema>,
+> +                slots: Indexed<u32, 4, SLOT_KEY>,
+> +            }
+> +        }
+> +
+> +        struct TestDecodeable {
+> +            scalar32: u32,
+> +            scalar64: u64,
+> +            array8: ArrayVec<u8, 64>,
+> +            array32: ArrayVec<u32, 64>,
+> +            array64: ArrayVec<u64, 32>,
+> +            opt_present: Option<u32>,
+> +            opt_absent: Option<u32>,
+> +            pairs: KVVec<Pair>,
+> +            slots: [u32; 4],
+> +        }
+> +
+> +        let index0 =3D Index::new::<0>();
+> +        let index1 =3D Index::new::<1>();
+> +        let index2 =3D Index::new::<2>();
+> +        let mut encoder =3D Encoder::new();
+> +        encoder.encode_u32(SCALAR32_KEY, index0, SCALAR32_VALUE)?;
+> +        encoder.encode_u64(SCALAR64_KEY, index0, SCALAR64_VALUE)?;
+> +        encoder.encode_array8(ARRAY8_KEY, index0, ARRAY8_VALUE)?;
+> +        encoder.encode_array32(ARRAY32_KEY, index0, ARRAY32_VALUE)?;
+> +        encoder.encode_array64(ARRAY64_KEY, index0, ARRAY64_VALUE)?;
+> +        encoder.encode_u32(OPT_PRESENT_KEY, index0, OPT_PRESENT_VALUE)?;
+> +        encoder.encode_u32(X_KEY, index0, 1)?;
+> +        encoder.encode_u32(Y_KEY, index0, 2)?;
+> +        encoder.encode_u32(SLOT_KEY, index1, 20)?;
+> +        encoder.encode_u32(X_KEY, index1, 3)?;
+> +        encoder.encode_u32(Y_KEY, index1, 4)?;
+> +        encoder.encode_u32(SLOT_KEY, index0, 10)?;
+> +        encoder.encode_array32(SLOT_KEY, index2, &[30, 40])?;
+> +        let serialized =3D encoder.finish();
+> +
+> +        let decoder =3D Decoder::new(&serialized, UnknownKeyPolicy::Erro=
+r);
+> +        let mut schema =3D KBox::init(TestSchema::init(), GFP_KERNEL)?;
+> +        let decoded =3D KBox::try_init(decoder.decode(&mut *schema)?, GF=
+P_KERNEL)?;
+> +
+> +        assert_eq!(decoded.scalar32, SCALAR32_VALUE);
+> +        assert_eq!(decoded.scalar64, SCALAR64_VALUE);
+> +        assert_eq!(*decoded.array8, *ARRAY8_VALUE);
+> +        assert_eq!(*decoded.array32, *ARRAY32_VALUE);
+> +        assert_eq!(*decoded.array64, *ARRAY64_VALUE);
+> +        assert_eq!(decoded.opt_present, Some(OPT_PRESENT_VALUE));
+> +        assert_eq!(decoded.opt_absent, None);
+> +        assert_eq!(decoded.pairs.len(), 2);
+> +        assert_eq!(decoded.pairs[0].x, 1);
+> +        assert_eq!(decoded.pairs[0].y, 2);
+> +        assert_eq!(decoded.pairs[1].x, 3);
+> +        assert_eq!(decoded.pairs[1].y, 4);
+> +        assert_eq!(decoded.slots, [10, 20, 30, 40]);
+> +
+> +        Ok(())
+> +    }
+> +
+> +    // Tests that a schema too large for the stack decodes on the heap.
+
+How are we testing this? Do we expect the stack to explode as a test
+failure? That should be guaranteed by the use of `KBox` and `init`, so I
+am not sure there is much to test here...
+
+But if you decide to keep it, let's at least size the schema so the
+stack *actually* explodes: 2KB is not enough, we want at least 16KB, and
+for good measure let's go with at least 128KB to be sure. Otherwise I
+think it's fine to drop this test.
