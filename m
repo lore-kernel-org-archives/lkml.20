@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 925143C1A;
-	Wed,  7 Oct 2026 01:19:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA1A330C168;
+	Wed,  7 Oct 2026 01:22:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791335962; cv=none; b=Ukw1Q/fM2UCZrOX454weZ3yDT0D8cX0N0g+OHzl9t7579GjwOEvUU7Ec3iOyOwIM0GYxQusm6/Pqg6DhhAxrvcG458pAGBfoXSv9fzpwRB0FJNXVUm3udIas2GKkka1o5xIe5jEy5b0+m1K6dSaNeW/L4q8hnMpiOeel4P/WYCg=
+	t=1791336150; cv=none; b=dh5UUBvXB8Ng3PnSlwAfuRwdA1X2uXPW7vbhpzM9QY2jmPNg1eLEOR8Fq29TYg07l+BkPdcFP+KNHYaHMSdujqxdDckI/5jNCziyIGNreEhDQEtGnvwSuQK9cx7v14C9eVqADOVwjLHDUJ+U56EL44z38Redb2Go3NW25hti5kA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791335962; c=relaxed/simple;
-	bh=jbgbuJaYSyuLKzfgqep3YH4oOuCJ1X2pKOgnOiXYI2o=;
+	s=arc-20240116; t=1791336150; c=relaxed/simple;
+	bh=sHCNkGo1kkjgF0kaxzsDLcYiXAZXHSi3zn//anF1E2A=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WDOJ5aEzoaANaQGFk0J5ls7JHbVCsO9T5Yg/SiR+G2gRmtbzMfacPdYyMYpporYMuJWkNnhKAklfmgceJRHvUcBAPlAoieSQeZ+TDwl4OyFXjFaXMz4ZGyoUgmZJh1E5wf8/7wuzAhS+NgeAFSl39ddq7XjOP/4lWxrNmLxNHhk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KLAOCnjN; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Qeaa34kWd20p8OaSEeeOvZa0fr7VZQWaoVu2V93fvnBobO72Lw8FSibxLa28sZhI6F40HRT+LtHf7+9cqJZYZzjc1xznc+HCmLPDa+GIOhuimlbYjXlTXUXo8nDu09GaYCIDfpobZzw/2iPcy9XCJCzCRlXuk4hMIZu6gYTPuCk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iHyaMA2I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KLAOCnjN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD2911F0089B;
-	Wed,  7 Oct 2026 01:19:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iHyaMA2I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3A171F0089B;
+	Wed,  7 Oct 2026 01:22:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791335961;
-	bh=pBkYIUNYvodk3R8IiEtsIyBw2EY7Y328J+F3roMuJRY=;
+	s=k20260515; t=1791336149;
+	bh=sHCNkGo1kkjgF0kaxzsDLcYiXAZXHSi3zn//anF1E2A=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=KLAOCnjNWluBEZdxb2VnT4hVc7ggeb/vHVHapVobn5MxR+Zkozz9Pla1TsTMDOq1C
-	 vloa3pau6T000N9m+4hNUfbPH0vBrqaQs7bsGKBL0RFUhAb1E/4gje/Ep9pgqDMEJ0
-	 W/ny6zuu6vIvqDT5m9eXfTWfU7qUjm1ph+Bc2CF4vi+hRrGOqX7xzgBwirrZFvGAdp
-	 GgpwyFI01hJG5spY1L/vhISFqJ3GxVAwgWrM46NWi9/NpFwd16YT8z6jZisj8dFzdc
-	 b5j/vUYjPyLT3/RYSIjv4IkjcC2kwTBrxDNnHkrbfAG/6K982mBnu3ZbVukoMluKkA
-	 aPqpkJjulYUWA==
-Date: Tue, 6 Oct 2026 18:19:20 -0700
+	b=iHyaMA2IvOT9s+f3hOkG41CllDrbf63SX6TfpRlwiGYZxfKb8nd/eJU3wuykf8+5X
+	 vLeMzz23JSgM218q10QIiR+1PdYr7ngeN7dzVrg5IjaHOFf1uYpvpQjCRS6/m9efxi
+	 RZFASKGhR/LH5qrvYc7qSAWmOpXkFzkxnkney1K5XQ/TWDHeOnn52MgF6ai0yHZ12t
+	 fNsJ9RsS950tbXE1n9kd/pSr/A/YXcJy2d+dyFnv65RhBCtuIWBdaZhlzVWbmwt2Qo
+	 /evPGqCLToCycCv2+PiuaPx1Q3o1FWsZrzXO1t+2BnLjkphkJR28V2ZKVHXFkBqr1n
+	 1SLUVZwUcbtuA==
+Date: Tue, 6 Oct 2026 18:22:28 -0700
 From: Jakub Kicinski <kuba@kernel.org>
-To: Anton Danilov <littlesmilingcloud@gmail.com>
-Cc: netdev@vger.kernel.org, Willem de Bruijn
- <willemdebruijn.kernel@gmail.com>, Jason Wang <jasowangio@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Ido Schimmel
- <idosch@nvidia.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2] tun: use pskb_may_pull_reason() and remove
- SKB_DROP_REASON_HDR_TRUNC
-Message-ID: <20261006181920.05336269@kernel.org>
-In-Reply-To: <20261003132340.4175269-1-littlesmilingcloud@gmail.com>
-References: <20261003132340.4175269-1-littlesmilingcloud@gmail.com>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: Jiale Yao <yaojiale02@163.com>, Jason Wang <jasowangio@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
+ <pabeni@redhat.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] tun: Drain eBPF RCU callbacks on module exit
+Message-ID: <20261006182228.39ae8072@kernel.org>
+In-Reply-To: <willemdebruijn.kernel.2bb89b342a6a7@gmail.com>
+References: <20261003093822.544964-1-yaojiale02@163.com>
+	<willemdebruijn.kernel.2bb89b342a6a7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,11 +47,7 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Sat,  3 Oct 2026 16:23:39 +0300 Anton Danilov wrote:
-> The errors returned to user space do not change.
+On Sat, 03 Oct 2026 14:42:11 -0400 Willem de Bruijn wrote:
+> "These issues were found by a static analysis method"
 
-This conflicts with some pending fixes. 
-Please rebase and repost on Friday or later, when those fixes make it
-to net-next.
--- 
-pw-bot: defer
+Thanks, added.
