@@ -1,145 +1,120 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73D6D4119ED
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 08:09:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6A98B41440E;
+	Wed,  7 Oct 2026 08:09:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791360584; cv=none; b=WdTYnTphazQlXTwUdP7Jkr6a81JWKcJHIQR5z70Aumst1MikOwDavzC3RqZiiV8to/2pE7XXLLj+76QdiGxBwmXWvkQqv47dyAqmLLGaInb9vARw2VVimN0m7qgWPVsLB4mannvyk2/As/fJviNtDuMe7Z3z6PesnIheBij+87k=
+	t=1791360603; cv=none; b=n97Db1z/PjZe/2HM3HOU+RFfyhz8A1AYdHpmPVUlyZHJUdGvFdhaSdwkKM4CXU1Vh467Ss+KukYeLsuaGXlQJKZ/7ZwhkFG2o+atSWtIUATrFg5C0RRCrZKgbf6PLj7ENVEXZAxLend68RTVBJjtfNlts1J3JSWIW8PJj2RJe8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791360584; c=relaxed/simple;
-	bh=YN8kUQ6ZlKVRJjYCkXx8/+9vAj+b+1FqleRYawM0zvQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sD3d5nRPyaEJ1a+X9+zitEG6PqeRitn7en3qq33EKogF7uz0o8uXoTz09YxkPsp9t0uoKl08r2KJQ5qprvHzQCHFwf6P/mRtF2Qt1xs5QXHlxtbvvH3/7Z8Mp4KMuUajrk2EW9C9q0Yu/sW1rZEe9plhvCDMFsXhH/3PNx+myzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jVFKISEz; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791360603; c=relaxed/simple;
+	bh=XkR9yeNdMSFEwvPlpk4SbHA8XMyXCGDkACApJUQd+iE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=INGejbs/jSyeALv/wI8vJ5rs82xNgNmDDIgOFQE9vl4yXAj9gCCORH7p3+wzTg3ERn2dFWowml42zk4JteP3ZErI6JOiZa2Gb5jHJazqtpIHspV7Amco2/ZMO+0D41C+LBAehkJiu7jWMhO3U/Wun/2Zhdq2bTmvCY5cak+oYis=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=eG5BO9Fl; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jVFKISEz"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a1698ea378so12413145e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 01:09:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791360572; x=1791965372; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OsXNxIBxfMmA8HdXQlxYB/Cvw6s6MUtFsEfrjpMvRfc=;
-        b=jVFKISEzSJTLaDIc1N0Hm+0H3Jx10v9i2rgYUijlRD6FxljMxmz3CzpxfGDgUZl44p
-         2MAKijKMGRYIDcsvcyZberFC+1Ejx5FCRx/BbCIoxAaZLriOjbj3j5CsroZd5Y99Se3t
-         ljc/fd5R/LQc8mcH8CUVkQpbzHgs7oTCx3NsrAQSSnePF0pMGI/qQj5mH/tKehvClKvu
-         +6LsC+OrLUOvJC25gZeFcmZ2D4z2InAjoJpLaZzgyteTYbjMXt7lgHUj38tXECjvj5py
-         kejPw9A4qcDl8pJlN+bYmwxlntSpRhX1ha70xtArUOWWvEFB2617WJ4ZUhEvnUgL0YDj
-         J53Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791360572; x=1791965372;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OsXNxIBxfMmA8HdXQlxYB/Cvw6s6MUtFsEfrjpMvRfc=;
-        b=Xn89njGmUgmHa8sIl5pP3WRtMXAfPqg6RphyI4B78Bubfz15Q60OH1HUJ5uS00Jnrb
-         1f7eLF3xkvmMZ3DRyXXDtIF1H1VDqxq1x8AAPIzfqlt/KrxSsZHcg+R+97tjX2LrVY52
-         YXEv2ixX1CYWBBUd/DeiyaqjvjejU4+Y6lc6/hiTJKEZlUtl/L0nB+f8o2v6RdF3HDwb
-         F6zHMe5hRYg+IdeAOjEFHd5PlPq3+OdRWCaw5Zjjt7ewYvKrznXPohZf2dlshPhU+6BZ
-         BRaJrSALiSfT1dPoEYzAEiioGDVwQGmdBt/Ae2EzCRQM7JQ8xZ3F3j0bwaDO5rmJ8ha0
-         D0GQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw6IGMfvCfk8hMHjxgWQmcGnA5KLmuaqsMectguFY6mQzoky45yTWpKzlm5ZkPxnTZhJ8hVZ7oQPbXIKzw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mdhePxh/pFqPFeEdiLmniutPkv7nBZvtolwoZMPDNV7RGdkgbF
-	7nZcGBsP7xnzzRhxPs5u9MvSm6e5ADNaVYIBsQJkUZNcwda8AEQZJwM6
-X-Gm-Gg: AYBFou2vTkJ+ZwcG2/lE53WHHZo0Vu6UpnCOZYyCo0sN9ReEENAs7o/f02MCUDiRjBE
-	xe+W1UKDKGa8xx72BMyAgXPxJo/kOAraWtouXSmF/B/6dIavKv+V5L8gPt3E3w0TaEoQwBCr8XG
-	FztJ+Y+Rmf/lFliuRcBuJmXI3kOF8q4OEI3sHSI+wJeqS4aL/D66t+bSv++2YxLCspr0WOzlQkt
-	NnL8Ju443aveZc06P5R2vTMfSCJy01PNx8mN0/4G9autv3eu04JmIGTXxQ8rS8RhXh/2xFvTsFw
-	Q+W8HTcQtUhkAluszsClMDa/z/kgJZ4foCOq9wyLllOk+Xco5HwFJ11NVsioJSko7ZmpYi4Lt29
-	oyPdxujomr9T+Q2HfrRzgZF2twrLDmIysyzPqg27B4TCEldr9KTGR4mXtuYcZ5W89t0qZnI8Aez
-	9nmw4gy0WDNc0JK/0c3scdNpfU3AY+wKUfCLY3YipzaPO2ft7HwUy2xKm9nRasVSv9CQPRDPvkI
-	Ziv
-X-Received: by 2002:a05:600c:3f08:b0:4a0:1723:2d8e with SMTP id 5b1f17b1804b1-4a1800ca17amr18023445e9.2.1791360572014;
-        Wed, 07 Oct 2026 01:09:32 -0700 (PDT)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178c33091sm132227295e9.4.2026.10.07.01.09.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 01:09:31 -0700 (PDT)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: pkshih@realtek.com
-Cc: luka.gejak@linux.dev,
-	rtl8821cerfe2@gmail.com,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	mehmet.fide@screeningeagle.com
-Subject: Re: [PATCH rtw-next v4 2/2] wifi: rtw88: support channel switch in AP mode
-Date: Wed,  7 Oct 2026 10:09:30 +0200
-Message-ID: <20261007080930.2473263-1-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <63ac6992e6614de1a085131964974ff1@realtek.com>
-References: 
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="eG5BO9Fl"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1FAFD1477;
+	Wed,  7 Oct 2026 01:09:45 -0700 (PDT)
+Received: from NH27D9T0LF (unknown [10.57.10.243])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 613683F86F;
+	Wed,  7 Oct 2026 01:09:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791360588; bh=XkR9yeNdMSFEwvPlpk4SbHA8XMyXCGDkACApJUQd+iE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=eG5BO9Flg7nSzjbWy5bqmKFKgAHlOCOJlq2tABAMJWVnr/aRSBRa28JtcMNCyyeqW
+	 L+w+oytM08OB3NUR7Q0vZuiCxVworucaLfx7Gl44JfOHnZsKOe6OQAPHyFm0cmebfY
+	 whZMe1g0GAvtVEubvL+paqu6vV/2PJFTlSlZdG60=
+Date: Wed, 7 Oct 2026 10:09:37 +0200
+From: Emanuele Rocca <emanuele.rocca@arm.com>
+To: Jeremy Linton <jeremy.linton@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kbuild@vger.kernel.org,
+	linux-modules@vger.kernel.org, broonie@kernel.org,
+	jpoimboe@kernel.org, nathan@kernel.org, nsc@kernel.org,
+	mcgrof@kernel.org, petr.pavlu@suse.com, da.gomez@kernel.org,
+	samitolvanen@google.com, atomlin@atomlin.com,
+	ndesaulniers@google.com, mark.rutland@arm.com, will@kernel.org,
+	catalin.marinas@arm.com, ardb@kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC 0/3]  kbuild: modules: Fixup arm64 BTI relocations
+Message-ID: <asX-QZPtpUG5UdBU@NH27D9T0LF>
+References: <20261006221815.2823252-1-jeremy.linton@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261006221815.2823252-1-jeremy.linton@arm.com>
 
-Hi Ping-Ke,
+On 2026-10-06 05:18, Jeremy Linton wrote:
+> The kernel module loader, the arm64 ABI, GCC/Clang, and the static
+> linkers operate with slightly different assumptions about which
+> functions require BTI landing pads.
+> 
+> A static function called only directly does not normally need a BTI
+> landing pad, so compilers omit it. A static linker producing an ET_REL
+> module treats R_AARCH64_CALL26 as a direct branch and leaves the
+> relocation for the module loader or later link pass. It does not know
+> the final distance between sections or whether the loader will later
+> require an indirect branch fixup.
+> 
+> This matters when a caller and callee are placed in different sections,
+> for example by __init. The arm64 module loader may replace such a
+> CALL26 relocation with a fixup containing an indirect branch, making an
+> otherwise direct only function a BTI target. Ftrace makes this more
+> likely because its entry NOP can replace a PAC instruction that would
+> otherwise be a valid BTI landing pad.
+> 
+> A linker could conservatively add veneers to affected cross section
+> calls, but that would require knowledge of arm64 module loader fixup
+> semantics and is not part of the generic relocatable link contract.
+> 
+> Lets fix this by handling the module specific transformation during
+> the kernel build. Scan cross section calls and, when the target lacks
+> a BTI compatible landing pad, place a veneer in the target section,
+> redirect the relocation to the veneer, and branch directly from the
+> veneer to the original function entry.
+> 
+> Jeremy Linton (3):
+>   kbuild: modules: Add arm64 BTI fixup utility
+>   kbuild: modules: Build and trigger BTI scanner for arm64
+>   arm64: bti: Drop compiler specific BTI checks
 
-On 2026-10-07 Ping-Ke Shih wrote:
-> add lockdep_assert_wiphy(wiphy) to rtw_fw_csa_{active,start,stop}?
-> Since they access rtwdev->csa_vif.
+Tested as follows on BTI-capable hardware:
 
-Yes. Adding them showed that update_beacon_work, the TIM download,
-reads csa_vif outside the wiphy lock: it is an ordinary work queued
-from set_tim(). v5 makes it a wiphy work first, in a patch of its own,
-the way rtw89 runs its update_beacon_work, and the three helpers then
-assert the lock. The series then went through the whole AP test set
-on a PROVE_LOCKING kernel (8821CU and 8822CU, including a firmware
-crash during a countdown and the IPS path) without a lockdep report.
+- Built a kernel with these patches and CONFIG_ARM64_BTI_KERNEL=y
+- Verified that a test kernel module can successfully branch indirectly
+  to a valid 'bti c' landing pad
+- The same test kernel module triggers an Oops - BTI if branching
+  indirectly to a nop
 
-> > -                       rtw_fw_download_rsvd_page(rtwdev);
-> > -                       rtw_send_rsvd_page_h2c(rtwdev);
-> > +                       if (!rtw_fw_csa_active(rtwdev)) {
->
-> Does it actually happen to AP mode?
->
-> If it could happen, check the condition by conf->csa_active (like below)?
+  Internal error: Oops - BTI: 0000000036000002 [#1]  SMP
+  Modules linked in: bti_probe(OE+) binfmt_misc nls_iso8859_1 aes_ce_blk [...]
+  
+  [...]
+  
+  pc : bti_bad+0x1c/0x28 [bti_probe]
+  lr : bti_bad+0x14/0x28 [bti_probe]
+  sp : ffff800083933a40
+  x29: ffff800083933a40 x28: 000000000000000c x27: 0000000000000000
+  x26: 0000000000000000 x25: ffff800083933c90 x24: ffffaaa7c52c7058
+  x23: ffffaaa7567d1040 x22: 0000000000000000 x21: 0000000000000000
+  x20: ffff0000d11cd100 x19: 0000000000000001 x18: ffff800083795058
+  x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000000
+  x14: ffffffffffffffff x13: 7465677261742049 x12: 54422064696c6176
+  x11: 6e6920676e697265 x10: 0000000000000000 x9 : 0000000000000000
+  x8 : 0000000000000000 x7 : 0000000000000000 x6 : 0000000000000000
+  x5 : 0000000000000000 x4 : 0000000000000000 x3 : 0000000000000000
+  x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffffaaa7567cf044
+  Call trace:
+   bti_bad+0x1c/0x28 [bti_probe] (P)
+   bti_probe_init+0x78/0xff8 [bti_probe]
 
-Not for the AP interface: mac80211 raises BSS_CHANGED_ASSOC for a
-station interface only. The hunk is for the STA+AP combination the
-driver registers for the 8822C, and it does happen there: with an AP
-on an RTL8822CU counting down from channel 6 to 11, a station interface
-on the same device that had a fresh scan result associated with an AP
-on channel 11 while the countdown ran, so BSS_CHANGED_ASSOC arrived in
-the middle of it. That download would rebuild the reserved page with a
-fresh beacon. conf belongs to the station there, so conf->csa_active
-would say nothing about the AP; that is why the check is on
-rtwdev->csa_vif.
+No Oops was hit, as expected, booting the kernel with arm64.nobti.
+Other than that, the system works fine under regular workloads.
 
-> > -       if (rtw_get_lps_deep_mode(rtwdev) == LPS_DEEP_MODE_PG)
-> > +       if (rtw_get_lps_deep_mode(rtwdev) == LPS_DEEP_MODE_PG &&
-> > +           !rtw_fw_csa_active(rtwdev))
->
-> Think of this deeper.... Is it existing race between set_key and !csa->active?
-
-I do not see one. set_key(), the countdown work and the places that
-set and clear csa_active all run under the wiphy lock, so the flag
-cannot change under the check. The download set_key() skips is not
-lost either: ieee80211_csa_finish() ends in ieee80211_csa_finalize(),
-which assigns the next beacon with BSS_CHANGED_BEACON, and that path
-rebuilds the whole page, CAM backup included, once the countdown is
-over. Did you have another race in mind?
-
-> > +       rtw_fw_csa_stop(rtwdev, rtwdev->csa_vif);
->
-> Since you access rtwdev->csa_vif, should this take wiphy_lock?
-
-It is held already: cfg80211's wiphy_suspend() calls rdev_suspend()
-inside scoped_guard(wiphy, ...), and drv_suspend() asserts the lock.
-The assert in rtw_fw_csa_stop() will make that visible.
-
-> > +       mutex_lock(&rtwdev->mutex);
->
-> guard(mutex)( &rtwdev->mutex); ?
-
-Done in v5, which follows in a few days.
-
-Thanks,
-Mehmet
+Tested-By: Emanuele Rocca <emanuele.rocca@arm.com>
