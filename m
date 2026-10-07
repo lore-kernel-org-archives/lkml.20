@@ -1,68 +1,142 @@
-Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42AB9287247
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 16:53:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67E8F409270
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 16:55:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791392028; cv=none; b=rSfPIN9w1ab3T17nTxjz2xHWgVCscnwa44T38qPZIoPPGEPxSlRihCtxWBlIietybrBUhBLQwT8xQ/VAh0CwKGd79cp5RwGZwiJrGSGgTX/Jh7FiY5gYyAk5JliTwyC0juLU8YnU/M11dsiv1Tts0uKz9VjgSyCKSkjflnYHdbU=
+	t=1791392102; cv=none; b=RGAOUWC6QOWc4eQENbzVnUFi80aTmTpLOieBw/Nhf0tRU+5J0f7YQBasZTYdMjkvcl2mzcrUapwjF0obcp47AJ5+I+B7Ie/Ywvld9RuQdwma6pzWADEA2m27eSW0GYINDHzm2Ugz/BkKdteG9NK8uwR8VINOW9+8SBxA2SjvW0I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791392028; c=relaxed/simple;
-	bh=5SeLgR1qWH5QZOp0mLLO558bwvyHTKQEEgQdi/wUyHw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=aPoJQWUFfgokgfCTZMitRwMuDAtWhDS/2oh/TzW9uz1pHPQraff5vfDodDu1bJaOz4qbbztaW4MSarKjd9kVAdyxH4XArIeddhpK22QCT8bFZi088n70vkVP2TXN+RWeYqxiUEZWwBxRGHBcdgWcMfgG+QlMuOsk1C4QeEbprwI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=XJpHeCMh; arc=none smtp.client-ip=80.86.107.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
+	s=arc-20240116; t=1791392102; c=relaxed/simple;
+	bh=feQbNDosn/G0wuU19MK7YPSXaXPT3Dkc2lbt5afIcIw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ePaEJthrpPivhFgyzpoFN83pMJFYjGEcKtrkc+xUSbpgsZ+YdwywiqNLwjDCGVBVApDEofoM/Qnlr5KABD6opqOlUA1IFotx5nKzy8t7kbAdUthdJ1QkUXuQA61AH8b6wquv1kaVTtITQqRKfOh3JPwgzOYkUr+iV0izUU4Roe8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NPb6JUbI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="XJpHeCMh"
-Received: from bat.kanata.rendec.net (unknown [172.21.6.1])
-	by mail.mindbit.ro (Postfix) with ESMTPSA id 95F36D07D3;
-	Wed,  7 Oct 2026 19:53:36 +0300 (EEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro 95F36D07D3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
-	s=default; t=1791392018;
-	bh=5SeLgR1qWH5QZOp0mLLO558bwvyHTKQEEgQdi/wUyHw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=XJpHeCMhKQX/p4FlJOB9SNUVfNpFtgQhrg7CNWSwgHI5DnxYKg+wVgEaSkq4LV90W
-	 O4ODASBsvsGQ5+M2+6JREDZb9gLEGZHCFAYpvPWxognkW+172NIxqU8ya6VtuPj4Lt
-	 u01eyR5jSPFnv4i02z+C33m20cIIEObpt7LU8+PZTIgSvwWXMvRLFYE3cHPurReQGt
-	 guGz0xOsKT3JcRI5aP4+suRf3JB/r251HbTEA2oNKt/lXSYVRP9GBQkcOfXQWnZFFo
-	 gC8+kaPXPM0jt1kyB++uP+PfoAmfwadQC5Cto0yK0zvQpJTd+hZuK+WcttS3Nu7sPz
-	 eoOH3hmqY38Jg==
-Message-ID: <fb8ea4a9619c84268972fc1c2c4d44bc1756fb88.camel@rendec.net>
-Subject: Re: [PATCH] genirq/proc: Fix missing CPU header in /proc/interrupts
-From: Radu Rendec <radu@rendec.net>
-To: "Okanovic, Haris" <harisokn@amazon.com>, Thomas Gleixner
- <tglx@kernel.org>,  Dmitry Ilvokhin	 <d@ilvokhin.com>
-Cc: Michael Kelley <mhklinux@outlook.com>, "linux-kernel@vger.kernel.org"
-	 <linux-kernel@vger.kernel.org>
-Date: Wed, 07 Oct 2026 12:53:32 -0400
-In-Reply-To: <MN7PR18MB6602311B7A89577CF63B562105A8962@MN7PR18MB660231.namprd18.prod.outlook.com>
-References:
-	 	<20260911-dev-harisokn-proc-interrupts-fix-b4-v1-1-f9ff208efcfa@amazon.com>
-		 <MN7PR18MB6602311B7A89577CF63B562105A8962@MN7PR18MB660231.namprd18.prod.outlook.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NPb6JUbI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1BFF1F0089E
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 16:55:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791392101;
+	bh=feQbNDosn/G0wuU19MK7YPSXaXPT3Dkc2lbt5afIcIw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=NPb6JUbIkRztvv2mJsLvgFDiWS7hJQ6jonrR3KtPJFhTMA5kVcMkXErePIrQ/6Dlw
+	 06CKkUAj16mQ2JJE+7d1zKSI8Pu4u2UIhKtOmkqX2MfbZzsQzmWShfgwvsnh/KJHN1
+	 ALrHcM3D0LcmnRdtLiNrB4sglQqC0Dn0ZUwFZ4ieoNTYTb3CcgHg13Huu2sJRbC1rc
+	 tjEY/HC6L3PRGgQlR/LXHkDQC24VfqmBiBSXaL3aC/YcuTVluRSIkwCtBLxEbRkNWZ
+	 2LaEaeE4A6b7Y6/YrIuVj6uvvUQVKyakdsAN8jATRP9v2s4LyTGHZuqdXbaoV5cSWv
+	 LG9BL5HfMeOww==
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c2e7496f947so320312166b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 09:55:00 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxqy5o6xEzHp3aycBKrrUTc1fUDYvwBuQrBNOVB76i3gvhjR+nZuEtQws3X+pQ3xgezvtjOIPx2X0AR9gw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ5En96BhCkwMinG0ad7TxVwsp7j5E/mxhff0sC2e2WtnHOYRMT
+	H7SpHe9ohGpasfhjEUGeb3heibcXv0rUo0J4szDNxiqoxnrRpDPwXyyNSYDvDIh6eZJsqUhVCN/
+	KIpA9jJNBOELas0YVinSLv9FOsPI98Ec=
+X-Received: by 2002:a17:907:c604:10b0:c31:82aa:dd60 with SMTP id
+ a640c23a62f3a-c3182aae430mr164122266b.15.1791392099666; Wed, 07 Oct 2026
+ 09:54:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
+ <5fdb3777-95a2-48f9-bb38-aa4ba3c96a81@kernel.org> <CAKEwX=MuW6q354nB3tyFTM8d3ox7LRaqcSfUxeATR=Sop5mZPw@mail.gmail.com>
+ <5ca344de-bc34-4a9b-ab85-f553811a1d9c@kernel.org> <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
+ <CAMgjq7DJwGCHCAchcfi2Kcu+XHx2YnKXDj53e0t2kpG_GSejkQ@mail.gmail.com>
+ <aqgMCIOFi0dKx_6L@fedora> <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
+ <CAKEwX=OMYhUs3tt7jUzEzxsOW3yA2JmzpwwxVBP2eZuHOFu=vw@mail.gmail.com>
+ <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com>
+ <5c8a2b7b-b76d-4bba-92e1-ec3d66794273@kernel.org> <CAKEwX=N28g4T8mqniB-e+e57ie9D3Koaeq-EmV-TEk-u41FBPA@mail.gmail.com>
+In-Reply-To: <CAKEwX=N28g4T8mqniB-e+e57ie9D3Koaeq-EmV-TEk-u41FBPA@mail.gmail.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Wed, 7 Oct 2026 09:54:46 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zMCp2wsePz0DLs0B3X=urXmE2tD9P8mm3r8omgRhAL9Ag@mail.gmail.com>
+X-Gm-Features: AclHuK98dP9awLd-NBKuJA3ihGk1PaIzKHPWkhcUxdhHKgbZN_qVBJw0GCQiETI
+Message-ID: <CAO9r8zMCp2wsePz0DLs0B3X=urXmE2tD9P8mm3r8omgRhAL9Ag@mail.gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+To: Nhat Pham <nphamcs@gmail.com>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>, Chris Li <chrisl@kernel.org>, 
+	Baoquan He <baoquan.he@linux.dev>, Kairui Song <ryncsn@gmail.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Muchun Song <muchun.song@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Barry Song <baohua@kernel.org>, YoungJun Park <youngjun.park@lge.com>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
+	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
+	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
+	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2026-10-05 at 20:46 +0000, Okanovic, Haris wrote:
-> Second ping on this one. It's been reviewed by Radu and tested by
-> Michael on an Azure VM. No outstanding feedback.
+On Wed, Oct 7, 2026 at 9:47=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> wrote:
+>
+> On Mon, Oct 5, 2026 at 2:19=E2=80=AFPM David Hildenbrand (Arm) <david@ker=
+nel.org> wrote:
+> >
+> > On 9/22/26 15:38, Chris Li wrote:
+> > > On Mon, Sep 21, 2026 at 8:56=E2=80=AFAM Nhat Pham <nphamcs@gmail.com>=
+ wrote:
+> > >>
+> > >> On Fri, Sep 18, 2026 at 11:50=E2=80=AFPM Chris Li <chrisl@kernel.org=
+> wrote:
+> > >>> No that time slot is too late for Asia developers. I don't think we
+> > >>> should use that time slot for swap alignment.
+> > >>>
+> > >>> We should find a time slot more friendly to Asia.
+> > >>
+> > >> Any time slot would have that kind of problem. We're spread out acro=
+ss
+> > >> the globe.
+> > >>
+> > >> Let's just use a standardized time slot we have for MM alignment ses=
+sions.
+> > >
+> > > There are more swap maintainers in Asia than in the US + Europe, at
+> > > least based on the maintainer file. Please be more inclusive. If the
+> > > alignment is done without key stakeholders, it miss the point.
+> > >
+> > > Sigh, we can't even align on a time slot.
+> > >
+> > > In that case, let's keep discussing on the mailing list. At least it
+> > > is accessible to every one.
+> >
+> > Looking at the mailing list, that approach doesn't seem to work.
+> >
+> > Finding a time slot that makes US, Europe and Asia happy is ... tricky.
+> >
+> > 1 AM is certainly unpleasant.
+> >
+> > US vs. Asia is also tricky, but doable.
+> >
+> > China 8AM vs. US West Coast 5PM?
+> >
+> > China 9AM vs. US West Coast 6PM?
+> >
+> > (Europe is 2AM vs. 3AM, who besides me from Europe would join?)
+>
+> Thanks for suggesting the time slots, and for offering to stay up for it =
+:)
+>
+> Either one is good for me. But there are folks in east coast who might
+> wanna join (Johannes).
+>
+> Johannes, do you have a preference? How about the first one?
+>
+> And would next week work for everyone? Say on Wednesday?
 
-Hi Haris,
-
-This will have to be merged by Thomas, and AFAIK he's out at Linux
-Plumbers, so I expect there will be some delay. FWIW, there are other
-IRQ related patches/series that have been piling up lately, so I'm
-pretty sure he's busy :)
-
---=20
-Best regards,
-Radu
+I know I have been quiet, but please count me in. Next week works for
+me, most days should be fine, and both time slots (although I
+naturally prefer the former, and I believe others in the east coast
+might do as well).
