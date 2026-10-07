@@ -1,175 +1,142 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 527D9455173
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 08:45:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28A293B71DC;
+	Wed,  7 Oct 2026 08:46:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791362715; cv=none; b=iaBtsSQuB2nbH0pfaELrx5Sf1v2g1cVYAm8DN9lEBUzLXL0NAlKpf46inuBNK/UNYeq4CVJOJhwFd0eU/ikmG1gKfmBMljHXPSql7eeMldqeg5ANKL7ZUbmst6td1krr/Jxx/YjRwswsAXy7yhvez7oGlozrCcXU4PWvKiTMIvA=
+	t=1791362770; cv=none; b=GAtbTYJ8gdvTwIEm8txMomtmBMlwEwuuGF2JEpXb/3oaP2b2EMz4h1N+ebTZJI/kuvdrQDhdKUel2GPqd0Tww7kc5q9nQh83BtWlgLrlZbpE4AxenxuL8LU2viKEeZMhrtqM2f5CaaVFsKARIJiP2ODCczImx6f1FM5tw2I3Ruo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791362715; c=relaxed/simple;
-	bh=cwwZ1AvHUGpQ0cX0o0ag7M/FKmG+jLvaiSKvBHQ1LUQ=;
+	s=arc-20240116; t=1791362770; c=relaxed/simple;
+	bh=+VFL9bSekiaWM35AEU7AKiVq3S1x1X1FSLLULGKhFEE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WG972uqfsW9rCvpQfonAng5fS7+Iq5l7n7rU7WYBc5x4VgGDBllHxFM3HWfG6cJ+U2u7nyBBHy+xxk3GktZzOaWpMwXOwnFE8wGa9RvPo/kVRu4drBy7tFUvKVtTDdIiV/y5PGeWwZkfrm0zNiAzZoMXhQDaJqdGK6XjUpNH/Yk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=P603HSJq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DeXn2VcX; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=Mz/15RxEtRNs366qUSFwOMYbZgljav8QlR7aCxLU18wZNzTc/C/dneP6359SOA9gAybTy3nQ1XepeAU0ALUz1ZGHcPtuLWkYVMeLund64KiGsOzYblJZresFYAg/asj7nRI1fpM8Cuu0EHwLdiYfkwKPpZsi4lNmfXdIlKKcePM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FaRs8/p5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="P603HSJq";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DeXn2VcX"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6977jnBV152120
-	for <linux-kernel@vger.kernel.org>; Wed, 7 Oct 2026 08:45:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ofN0xqNd1KAV8nhkxjJDPKF7aC74Hh9gM7raBNbLz50=; b=P603HSJqg5tlDHMV
-	7FUTb+LYuPySuw72yexv1KsqSEtHA0LUNdHqTfAIat8pAvKPdLahK4yxMlggPFKZ
-	jWAAlEVa25C3YTlbChMdUug5Y+Wp3CXT4nCvCk3Ml3qt7ii7dY8oDA5jhP8ElDJk
-	Ec74g9U6ChKWsr52aIv1OLBU6HWETMdC8nrohr5YoMhQB0Rt2yuVOJEI4L5/TiOP
-	3iRypcb9HmmDLWGWpvlkMnObBo5pPufLQSAxlVXzfrdqLGgmYst6hJ4qCErssUia
-	SZ/CuhOEN0bCXFlf/hGFhrwLRROKFgW6yXDlDQpD5kgnzf01tmMUPrU8Y9pNj6T2
-	3EwAVA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5c719a0a-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 08:45:13 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93909014c85so642799285a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 01:45:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791362712; x=1791967512; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ofN0xqNd1KAV8nhkxjJDPKF7aC74Hh9gM7raBNbLz50=;
-        b=DeXn2VcXwffyjyfddIMqHOR3E7Zlg3DZet6ZHWI44EhM42BNl8SP6+/onolSYm7Aj2
-         Z4d/LqkZ2ccI+7vnic9F6zqRHNXb3JSrZYF6suU+poU8sVrTV0QVLCPX6zsptGQAceEW
-         fFJjB91R+pMG/w/oiZSJAYAmve87ddNrbZs6051pvK7kRDpTwAsfcpXo99iRXjTjvz+J
-         IWpHxblSbT+88s1rXMEGdd6EcKdp3GQQOaobM1FPJSiuqou+0mqJRfOvWefMYHP5br2c
-         RNHKNJhh4KL0sZr4H6tTKMPut76hih9Zix7zO2Vgq/Tmh+FMapSJd4T7BbRIT5CHVfZp
-         SeYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791362712; x=1791967512;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ofN0xqNd1KAV8nhkxjJDPKF7aC74Hh9gM7raBNbLz50=;
-        b=ZMnh4DUUnd6NRj6OT4X61mY17cEBMjLHNupUZNzaaiJs+hfBLwC5YXXQtf/DAIT2dH
-         kMb3H4idcY3Yv5QyNNa+xb9qgnb6AT+Rl/+y/RQVquWtzI+CHBMBfrnROa7QBcLejqmo
-         7BEiPjh9QVlCbtdupmiW4ZkaDSlJHfAEaIHX3YKyM5bYtuUOBwH67KOYEUbLVw2/Penm
-         PXBKf/RrzMxhnHE7f9/TinWQ1SayZy/Y7P5P6MprCXbqMMOfBkPrpKtR9meKxJ4XBx1X
-         AXPzyqLKYN7crCGsCnJTTcgwql5cW/NnjhqGMwCjEzyGvigcgJnYkXGMZugiWqX89QyT
-         yrFw==
-X-Forwarded-Encrypted: i=1; AKwUvByKQcKd7VHMSy40BgNO5Ru0a1K6IW+Bj1Gwr6Vnz6fR00Tr5I72UH5ispPRJrAWAV0BepqBkxzWHPvSO2k=@vger.kernel.org
-X-Gm-Message-State: AFuF++mIc1vl75wfMB7dFOyDvQEuCjb/tI5QSoLaXTKlKBIe/P58ESIP
-	8MiTmH+JKjkoR603I4UrOSOi0EHYikj46a6iB8RMr+7Iz0dMB0MZC6WnohUmYOFSnIXwtjmYqMn
-	mAbu6Tny6ABBLKkN7UVqyiBdtk7sO8KgQrA5nMavsbj4wrkvwlrNWXz/p4wk2ImH0Ci4=
-X-Gm-Gg: AYBFou2omG/ZmVM/BH7YJRO2wn2s0FY0rawGOBGmhyaL8pDhgQ4CS2s+VQcYhfLwn8C
-	+zJ6klwywN37t7X6WQjFjAfs8Hm/fsOGUEoi7E84OsZg6gxc0XpqJP1aniI80SiY7z+kSd5NB9z
-	AQqf8RLjO4ebpvts8Mhk2HoT9veP7vlYE7vCk1Bk99XSEP0j5ySiM2WEFZFVARc6OdgIbIp8xtk
-	yI8XPN8kPvlioC3QToz6iSrkwLufTyFa0sa0/tLgvkIQBTlxUDmSqrdRqHN6L5qdUvkal2bTx84
-	EBWeRhZB4LsUqqtbrqHZtJXJ/MAODuVWJSk5Ee16DXO+bCH5Qw9IX3zJKNcBGlaHkYxECCfu/Wo
-	8dd5cXc+bn2ok5YogbWWIfphz6m+ENg+1f3vRT5gr8MT8
-X-Received: by 2002:a05:620a:1721:b0:93e:9809:dc00 with SMTP id af79cd13be357-93e9b8f03demr282566385a.83.1791362712170;
-        Wed, 07 Oct 2026 01:45:12 -0700 (PDT)
-X-Received: by 2002:a05:620a:1721:b0:93e:9809:dc00 with SMTP id af79cd13be357-93e9b8f03demr282562285a.83.1791362711696;
-        Wed, 07 Oct 2026 01:45:11 -0700 (PDT)
-Received: from [192.168.2.1] (146725694.box.freepro.com. [130.180.211.218])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c7256434bsm3895171f8f.15.2026.10.07.01.45.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 07 Oct 2026 01:45:11 -0700 (PDT)
-Message-ID: <5ce48dc0-b8ac-4d6b-9918-8d4af08ce719@oss.qualcomm.com>
-Date: Wed, 7 Oct 2026 10:45:06 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FaRs8/p5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC0A11F0089B;
+	Wed,  7 Oct 2026 08:46:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791362768;
+	bh=RI8Z1/Le7EgVeUn2h6SorrHSYpKj5Zr0h3s/hxwai2M=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=FaRs8/p5xCUTB5xJ5s9sdco5dYPR03kWuv8tn0w0/mLfk4k44+xw9Th3Ud91AkoZn
+	 Mvib7lcj570t/8RoP7q/gD/Wq1yCrefCGVFEIoSG4sDMfwTHDlNvxw3i37O2xIXYT7
+	 Vfrwn16Qt1jStNI8vPa7MQB0c/YcNhExjea8Mr6ciFjHoMbAOzQfDcc1fCpJn01p6Y
+	 3uNRKLCVPat5M8FwuUj14zNdsXCyvphn9vqEzZvwEy2+l+SI35Q0Cm+18F79dY66kz
+	 Xk2Qkla4Vxn4hYtwzlO3oaqsU1OrUYGd9y44IDYVmszplImnD/5OtA59910vPWf2It
+	 oXGWauN8DmCpg==
+Message-ID: <f23861e4-c2b5-49cc-b263-61bae88c6db8@kernel.org>
+Date: Wed, 7 Oct 2026 10:46:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH v16 5/6] power: reset: Introduce PSCR Recording Framework
- for Non-Volatile Storage
-To: Faruque Ansari <faruque.ansari@oss.qualcomm.com>,
-        Sebastian Reichel <sre@kernel.org>, Benson Leung <bleung@chromium.org>,
-        Tzung-Bi Shih <tzungbi@kernel.org>,
-        Guenter Roeck <groeck@chromium.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Matti Vaittinen <mazziesaccount@gmail.com>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        Oleksij Rempel <o.rempel@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>
-Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev,
-        avaneesh.dwivedi@oss.qualcomm.com,
-        Umang Chheda <umang.chheda@oss.qualcomm.com>,
-        Ulf Hansson <ulfh@kernel.org>, Francesco Valla <francesco@valla.it>
-References: <20261007-pscrr-framework-v16-0-3642c277bebb@oss.qualcomm.com>
- <20261007-pscrr-framework-v16-5-3642c277bebb@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 15/74] media: qcom: camss: csid: Configure the stream on
+ every s_stream
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>,
+ Richard Acayan <mailingradian@gmail.com>, Hans Verkuil
+ <hverkuil@kernel.org>, Gjorgji Rosikopulos <quic_grosikop@quicinc.com>,
+ Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, Robert Foss <rfoss@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+ <ekTHk3-yxwpMYFqVfXb2RMPIZJDNHu-Uz_nOfRQq7gQ1Pi7vGHdR3wWJYiPB-Y6_NWBQIo0p2hEpc06rPSRL0Q==@protonmail.internalid>
+ <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-15-ed985aefd611@kernel.org>
+From: Bryan O'Donoghue <bod@kernel.org>
 Content-Language: en-US
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-In-Reply-To: <20261007-pscrr-framework-v16-5-3642c277bebb@oss.qualcomm.com>
+In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-15-ed985aefd611@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAzNCBTYWx0ZWRfX/SLohcMbOK+y
- YiRQ/P+r4SRns3KvxHb6xpvOjFlmMKMMrWKhvSUgHQPFugAJeKeJuteIMZEQgnRAckGXgE2AvW9
- 9ergD3zN5GzzNmC+UYowrcgWaZ3C3XU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAzNCBTYWx0ZWRfX4LDWsjQyBrDB
- SzQYPAt3iCOFRR8Kca4YEtphL81Jr/LSm9wtiiNHC749JO3Hs9FUU88DncnXfwXuEfAxn2E/xql
- Ohk0IcqHAmWiCn9xkDAlAUZgqqbhhUP9zEaRa7P8si5r60F5fWCx0VXYk8Au72c+3cBzreoKmHC
- 7LOu1+yHiUD6W+n/9lC5FW4lpTKgkPn35YYzmuByX2k8qskGqnAeCXtkN5y4e0Z4eS4hXNtlZXf
- sQAHssVOTWwPpyiEmc2aefLvDme2PHgwqdVw7KFatCU+3wR80YkoYFg3IPZ/6e67w5D98k8Dz5h
- kN+0qjKH94+4cMQEiORpgROvQ46jtmueyhVRf2aItCsQoDL+T1inJtUpaA+17y10gOcZGaXpZef
- YOwByCYNwgqW6FS26fGXlBOcdWYCmMBRZNxlUEiTz09/mPlsufbmmshmShoRNuoCMhXOXiyvGPz
- XVigWt/U4Rka5QOAzHw==
-X-Proofpoint-GUID: _tu9YLYQ0GyiLpC_DiMu5ItXPxkfKQeP
-X-Proofpoint-ORIG-GUID: _tu9YLYQ0GyiLpC_DiMu5ItXPxkfKQeP
-X-Authority-Analysis: v=2.4 cv=LvYHWXdc c=1 sm=1 tr=0 ts=6ac60699 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=uw/3876vWhRnNVL35W6mqQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=ESGm2P_6vxgoHrSgdVYA:9
- a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-07_03,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 impostorscore=0 suspectscore=0
- lowpriorityscore=0 clxscore=1015 bulkscore=0 adultscore=0 phishscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610070034
 
-On 10/7/26 09:06, Faruque Ansari wrote:
-> Introduce the Power State Change Reasons Recording (PSCRR) framework: a
-> generic mechanism to record why the last power state change (shutdown or
-> reboot) happened - under-voltage, thermal, watchdog, software-triggered,
-> etc. - so a postmortem reason survives a reboot or an abrupt power loss.
+On 05/10/2026 19:13, bod@kernel.org wrote:
+> From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 > 
-> PSCRR is built around providers. A provider is either a hardware reason
-> source (a PMIC, SoC reset controller or watchdog exposing a reset cause)
-> or a recorder that persists the reason across a power cycle (an NVMEM or
-> RTC scratch cell). Each provider gets a directory under
-> /sys/kernel/pscrr/providerN/ exposing its name, backing device, the set
-> of observed reasons (as tokens), its capabilities, the reasons it
-> supports and - for recorders - a record policy. The reason set is
-> deliberately not collapsed to a single winning cause, since resets are
-> often multi-causal.
+> csid_set_stream() only calls configure_stream() when need_vc_update is
+> set, and need_vc_update is only set at power on and on a CSID link
+> change. Stopping and restarting a stream while the pipeline stays
+> powered, as userspace does when it keeps the video node open across
+> STREAMOFF and STREAMON, therefore breaks the CSID in two ways:
 > 
-> Reasons are the numeric enum psc_reason values from reboot.h, shared with
-> the POWER_ON_REASON_* vocabulary, so they store compactly in small
-> battery-backed cells. The current reason (get/set_psc_reason(), set by
-> the thermal/regulator/hw_protection paths) is written to every recorder
-> from the reboot notifier.
+> - STREAMOFF does not stop the CSID: the paths it enabled keep running
+>    after the VFE has stopped.
+> - The following STREAMON does not configure the CSID: a format set
+>    between the two streams is never programmed, and the CSID runs with
+>    the previous stream's configuration.
 > 
-> Co-developed-by: Oleksij Rempel <o.rempel@pengutronix.de>
-> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
-> Reported-by: Francesco Valla <francesco@valla.it>
-> Closes: https://lore.kernel.org/all/178749889134.204450.5740187753642158305.b4-review@b4/
-> Reviewed-by: Matti Vaittinen <mazziesaccount@gmail.com>
-> Signed-off-by: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+> need_vc_update was added so that several video nodes streaming through
+> one CSID would configure it only once. Its counterpart in
+> video_stop_streaming() was removed by commit 25f18cb1b673 ("media: qcom:
+> camss: Remove use_count guard in stop_streaming"). Drop the rest of it and
+> configure the stream on every s_stream.
 > 
-Reviewed-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+> Fixes: 3c4ed72a16bc ("media: camss: sm8250: Virtual channels for CSID")
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> ---
+>   drivers/media/platform/qcom/camss/camss-csid.c | 9 +--------
+>   drivers/media/platform/qcom/camss/camss-csid.h | 1 -
+>   2 files changed, 1 insertion(+), 9 deletions(-)
+> 
+> diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
+> index 48459b46a981b..645e02ad6b9b1 100644
+> --- a/drivers/media/platform/qcom/camss/camss-csid.c
+> +++ b/drivers/media/platform/qcom/camss/camss-csid.c
+> @@ -721,8 +721,6 @@ static int csid_set_power(struct v4l2_subdev *sd, int on)
+>   			return ret;
+>   		}
+> 
+> -		csid->phy.need_vc_update = true;
+> -
+>   		enable_irq(csid->irq);
+> 
+>   		ret = csid->res->hw_ops->reset(csid);
+> @@ -777,10 +775,7 @@ static int csid_set_stream(struct v4l2_subdev *sd, int enable)
+>   			return -ENOLINK;
+>   	}
+> 
+> -	if (csid->phy.need_vc_update) {
+> -		csid->res->hw_ops->configure_stream(csid, enable);
+> -		csid->phy.need_vc_update = false;
+> -	}
+> +	csid->res->hw_ops->configure_stream(csid, enable);
+> 
+>   	return 0;
+>   }
+> @@ -1306,8 +1301,6 @@ static int csid_link_setup(struct media_entity *entity,
+>   		else
+>   			csid->phy.en_vc &= ~BIT(local->index - 1);
+> 
+> -		csid->phy.need_vc_update = true;
+> -
+>   		dev_dbg(dev, "%s: Enabled CSID virtual channels mask 0x%x\n",
+>   			__func__, csid->phy.en_vc);
+>   	}
+> diff --git a/drivers/media/platform/qcom/camss/camss-csid.h b/drivers/media/platform/qcom/camss/camss-csid.h
+> index 5296b10f6bac8..53f43ae7b9327 100644
+> --- a/drivers/media/platform/qcom/camss/camss-csid.h
+> +++ b/drivers/media/platform/qcom/camss/camss-csid.h
+> @@ -69,7 +69,6 @@ struct csid_phy_config {
+>   	u8 lane_cnt;
+>   	u32 lane_assign;
+>   	u32 en_vc;
+> -	u8 need_vc_update;
+>   };
+> 
+>   struct csid_device;
+> 
+> --
+> 2.55.0
+> 
+
+This patch should come way earlier in the series.
+
+---
+bod
