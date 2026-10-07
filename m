@@ -1,231 +1,190 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 135752D2381;
-	Wed,  7 Oct 2026 20:09:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05D5B2D2381;
+	Wed,  7 Oct 2026 20:10:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791403777; cv=none; b=KWjLuLFRbk3yDgGH6r6B12t/VHWzz0keZXAd3jGi/pgp8qveqc5DmymXFNRaYEi/WuRaFPjML3rTB63EW7FZXg2CfFE9zaPQ53uD/Lu/PIWYOg4VJlgGRxG7bYT0T7IJY1BS3+6cKXqJZwbCGvCSwBhoJHNEBGLOPmjQeBzSxWQ=
+	t=1791403819; cv=none; b=RQ1N1GQCqb1CMgl5p+DVpphktz0MApPs3AfDoj4VIErNfL22C3S6HFz/mLmAkfmqyyfcDyYMc1wvLcJhuIxaoP0VXKS60QJOCPYHxljG7MphQInXWUaHFH9VAu3tlAhLjMtis9HEqkL5l/JxJky0P6iPEkIh7cxzYK0K0YrmzvU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791403777; c=relaxed/simple;
-	bh=fYLJEJcwKgGPopEORbNrWszT2SB69WTLxu0Bze7Nzx0=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=RSh5EIZDy1FqWxFaq7z5Vh5R+C1DZS67TF2Kq/+Z4fUspTqVVnXVmYDqpmJRFPhG5fS/kAxW47eYaleAkzlnq99yWS8BJVt5Zd/GXpN4TGAoPiAtpgchL9oqrNCsgEQ9EoPPtXQ0Zy6B4I6+OzCLT9uQd89vOQoVE5mUP5To8KQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YAmaYRPY; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791403819; c=relaxed/simple;
+	bh=54icOuuUwXmNmg4TfNkqpRGviaV/OPBnITiEsz2i+z8=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=jd5Z0of5RDxLoOhroNT80xyOrOiF8zwQrkTitYmFimKnWnSuLhm9b5HXh9bVkz4rzCCxtnk8EUQTf9mfly3aMWOZdcGHYNY2nLs/PXMKYqrq1QvDXm2KjrzWuee3CnDWXW5X5454qm5LxL5RbQjjzEpNK7E8uKk08iDsXmAKw7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HjaCEpxM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YAmaYRPY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791403777; x=1822939777;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=fYLJEJcwKgGPopEORbNrWszT2SB69WTLxu0Bze7Nzx0=;
-  b=YAmaYRPYVzzUTt8nYmj2JFXDKRnli+zt86x26hjx1ZzntTbWz0gf5s5e
-   KaAv9iTVAskPL6up89L4ATmJrvO4gx8HenAbyGU2etM9qz0Ooticnvm6q
-   e00dJjtHVv6KsNr9XH7VO4YIJ6dJrxfVYAxTcqzxzDJWb4I7w46Mg45FV
-   02M7BpvAzd6rfMVXSU8Cj0ykN2wvItBLDSAnru/H+kXshrrs37vnoXIJh
-   WUnNjceMfv312myulJ0u5JuQTJGVNxKEUuvVmse+0Y50cRujXVfbel2c3
-   gcqu5+I+of6lJlFKlNrK8uTrktdi0d06QqZ7NYv097xYg+CYkJvzMmwjF
-   A==;
-X-CSE-ConnectionGUID: FVEboG13QGircgeVl0x2XA==
-X-CSE-MsgGUID: Jg9Yg/wsR/y5cYk7LQDsnw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="186101"
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="186101"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 13:09:36 -0700
-X-CSE-ConnectionGUID: larUDTC7TPaF2b55KORFcA==
-X-CSE-MsgGUID: lYhiMT9zSOerODLRwzqi+Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="254929"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.38])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 13:09:33 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Wed, 7 Oct 2026 23:09:26 +0300 (EEST)
-To: Hugo Villeneuve <hugo@hugovil.com>
-cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    Hui Peng <benquike@gmail.com>, Jiri Slaby <jirislaby@kernel.org>, 
-    John Ogness <john.ogness@linutronix.de>, 
-    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    linux-serial <linux-serial@vger.kernel.org>, 
-    LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v7 1/2] serial: core: fix baud rate fallback in
- uart_get_baud_rate()
-In-Reply-To: <20261007130637.49588f6112bf892604dc4e2d@hugovil.com>
-Message-ID: <a846724d-0080-1df4-e78d-179e589c3aa2@linux.intel.com>
-References: <20260930125901.778868-1-benquike@gmail.com> <20260930125901.778868-2-benquike@gmail.com> <2026100156-watch-balsamic-32db@gregkh> <5085df04-f813-8b3f-1d05-87d5bbf00499@linux.intel.com> <20261006112932.3b9c8acd3bc2bfcf1d17b264@hugovil.com>
- <8fc5361a-199d-3bab-da86-f967906aa39d@linux.intel.com> <20261007130637.49588f6112bf892604dc4e2d@hugovil.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HjaCEpxM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A743B1F000FF;
+	Wed,  7 Oct 2026 20:10:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791403817;
+	bh=aa2oEqoLgcxfDk2tkT0+VE+vyr1xxJnXC2sMgkbjLJM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=HjaCEpxM4UO3eYRp0gNAbKalLyREiz/+BiDN19lJU7lnz4T7jwwgyG6M8Bo/1pVKv
+	 YPVreUOMFDnpZrUJWvM9gqqamCBkJWsB93o0MH9lElCX2pMCR7/TjP4qPh8O0ul1sX
+	 N0WydXeChLTf/CCXJmVygOw/WaTG1q/Q2wT4XpjPSkrli0+xE5prjVzKYbsV+SxmvW
+	 IJyw8FWsBOmJ5H2dRgHw6IHv4Bbyhb1vGCJbgCn6fXRzB8cKdKnZC4A5M6M5ECq3qV
+	 cOJ7IswyyvPvmyXfbsAsccoWFPr3nBJcDFYS2qyqg7vxxP/wkO3M5qQwipgRn8vA04
+	 5ajNW2dn8309A==
+Date: Wed, 7 Oct 2026 15:10:16 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH v9 05/18] PCI/P2PDMA: Document directional ACS routing
+Message-ID: <20261007201016.GA778574@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-1296411136-1791403766=:1171"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261007134658.GF7822@unreal>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Wed, Oct 07, 2026 at 04:46:58PM +0300, Leon Romanovsky wrote:
+> On Tue, Oct 06, 2026 at 04:32:05PM -0500, Bjorn Helgaas wrote:
+> > On Thu, Oct 01, 2026 at 02:55:13PM +0300, Leon Romanovsky wrote:
+> > > From: Leon Romanovsky <leonro@nvidia.com>
+> > > 
+> > > P2PDMA documentation describes ACS controls as path-wide, although Request
+> > > and Completion controls apply to different transaction directions and only
+> > > affect peer-versus-upstream decisions at the path divergence.
+> > > 
+> > > Document the fixed client and provider roles, the divergence port checked
+> > > for each TLP direction, and the conservative handling of unreadable ACS
+> > > state. Clarify which controls disable_acs_redir changes.
+> > > 
+> > > Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+> > > Tested-by: Tushar Dave <tdave@nvidia.com>
+> > > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> > > ---
+> > >  Documentation/admin-guide/kernel-parameters.txt | 15 +++++++++------
+> > >  Documentation/driver-api/pci/p2pdma.rst         | 13 +++++++++++++
+> > >  2 files changed, 22 insertions(+), 6 deletions(-)
+> > > 
+> > > diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+> > > index 68647ff4bdd2..bc83e07dd5fc 100644
+> > > --- a/Documentation/admin-guide/kernel-parameters.txt
+> > > +++ b/Documentation/admin-guide/kernel-parameters.txt
+> > > @@ -5291,12 +5291,15 @@ Kernel parameters
+> > >  		disable_acs_redir=<pci_dev>[; ...]
+> > >  				Specify one or more PCI devices (in the format
+> > >  				specified above) separated by semicolons.
+> > > -				Each device specified will have the PCI ACS
+> > > -				redirect capabilities forced off which will
+> > > -				allow P2P traffic between devices through
+> > > -				bridges without forcing it upstream. Note:
+> > > -				this removes isolation between devices and
+> > > -				may put more devices in an IOMMU group.
+> > > +				Each device specified will have the PCI ACS P2P
+> > > +				Request Redirect, Completion Redirect, and Egress
+> > > +				Control features forced off. This may allow P2P
+> > > +				traffic through bridges that would otherwise be
+> > > +				redirected upstream. This may allow P2P traffic
+> > > +				through bridges that would otherwise be redirected
+> > > +				upstream and thus this removes isolation between
+> > > +				devices and may cause affected devices to share
+> > > +				an IOMMU group.
+> > >  		config_acs=
+> > >  				Format:
+> > >  				<ACS flags>@<pci_dev>[; ...]
+> > > diff --git a/Documentation/driver-api/pci/p2pdma.rst b/Documentation/driver-api/pci/p2pdma.rst
+> > > index 80f8fec9b0e9..42b18610bf7d 100644
+> > > --- a/Documentation/driver-api/pci/p2pdma.rst
+> > > +++ b/Documentation/driver-api/pci/p2pdma.rst
+> > > @@ -15,6 +15,19 @@ then based on the ACS settings the transaction can route entirely within
+> > >  the PCIe hierarchy and never reach the root port. The kernel will evaluate
+> > >  the PCIe topology and always permit P2P in these well-defined cases.
+> > >  
+> > > +The client remains the PCIe requester when it reads or writes provider memory.
+> > > +Where the paths diverge, the kernel therefore evaluates P2P Request Redirect
+> > > +and Egress Control on the client-side port, and P2P Completion Redirect on the
+> > > +provider-side port for completions from a read. An enabled Egress Control is
+> > > +conservatively treated as a Request redirect.
 
---8323328-1296411136-1791403766=:1171
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+Does "client remains" imply that the client can also be a Completer in
+other circumstances?  I'd like to use PCIe terms when possible since
+we're talking about PCIe ACS controls.
 
-On Wed, 7 Oct 2026, Hugo Villeneuve wrote:
+s/requester/Requester/ since it's defined by PCIe spec.
+s/completions/Completions/ similarly.
+s/Request redirect/Request Redirect/ to match spec.
 
-> Hi Ilpo,
->=20
-> On Wed, 7 Oct 2026 13:38:55 +0300 (EEST)
-> Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com> wrote:
->=20
-> > On Tue, 6 Oct 2026, Hugo Villeneuve wrote:
-> >=20
-> > > On Thu, 1 Oct 2026 12:46:05 +0300 (EEST)
-> > > Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com> wrote:
-> > >=20
-> > > > On Thu, 1 Oct 2026, Greg Kroah-Hartman wrote:
-> > > >=20
-> > > > > On Wed, Sep 30, 2026 at 12:59:00PM +0000, Hui Peng wrote:
-> > > > > > When uart_get_baud_rate() is called with a baud rate exceeding =
-the port's
-> > > > > > maximum supported speed (port->uartclk / 16), it clips baud to =
-[min,
-> > > > > > max - 1] and encodes it into termios via tty_termios_encode_bau=
-d_rate().
-> > > > > >=20
-> > > > > > However, because the loop bound is for (try =3D 0; try < 2; try=
-++), the
-> > > > > > loop terminates immediately after try =3D=3D 1 without re-evalu=
-ating
-> > > > >=20
-> > > > > But try =3D=3D 1 should keep the loop going as it is < 2, right? =
- What am I
-> > > > > missing here?  Do I need more coffee?
-> > > > >
-> > > > > > baud =3D tty_termios_baud_rate(termios) for the clipped rate, h=
-itting
-> > > > > > WARN_ON(1) and returning 0, which then triggers a fatal divide-=
-by-zero
-> > > > > > (Oops: divide error) in uart_get_divisor():
-> > > > > >=20
-> > > > > >   WARNING: drivers/tty/serial/serial_core.c:548 at uart_get_bau=
-d_rate+0x136/0x260
-> > > > > >   [ ... ]
-> > > > > >   divide error: 0000 [#1] PREEMPT SMP KASAN
-> > > > > >=20
-> > > > > > Increase the retry count in uart_get_baud_rate() from 2 to 3 it=
-erations so
-> > > > > > that clipped baud rates are re-evaluated in the third iteration=
-=2E
-> > > > >=20
-> > > > > What is the magic 2 here, and why turning it into a magic 3 someh=
-ow fix
-> > > > > things?
-> > > >=20
-> > > > Hi Greg & Hui,
-> > > >=20
-> > > > First of all, I'm withdrawing my Reviewed-by from this!!!
-> > > >=20
-> > > > Lets hope the submitter can finally get his/her act together and no=
-t make=20
-> > > > unlisted changes between versions or send non-sense.
-> > > >=20
-> > > > While the code change is still fine, it seems the submitter (or mor=
-e=20
-> > > > likely AI) has changed the changelog from what I read when I review=
-ed=20
-> > > > this. And the new one is way worse than it used to be so not being =
-able=20
-> > > > to follow what's going on is very understandable given the lacklust=
-er=20
-> > > > explanation that remains.
-> > > >=20
-> > > >=20
-> > > > What you're missing is that the baud returns happens within the loo=
-p, so:
-> > > >=20
-> > > > try =3D=3D 0: use new, if baud is out of bound and old is available=
-, switch to=20
-> > > >           old
-> > > > try =3D=3D 1: if old is also out of bounds, there's the last resort=
- rule=20
-> > > >           towards the end of the loop which is applied forcing baud=
- to the=20
-> > > >           accetable range.
-> > >=20
-> > > Hi all,
-> > > is it at all possible that old is out of bounds in the first place?
-> >=20
-> > Apparently it is, given the WARNING above (unless that too is fabricate=
-=20
-> > by LLM which seems well within possiblities given the track record of t=
-his=20
-> > particular submitter).
-> >=20
-> > > If yes, is it something that should be fixed?
-> >=20
-> > I agree.
-> >=20
-> > I think the scenario here is (but take it with grain of salt, as the=20
-> > information seems to be constantly changing thanks to LLM/submitter=20
-> > failing to keep one's act to together) [1]:
-> >=20
-> > Tested in QEMU against Linux 7.3.0-rc3 by setting /dev/ttyS1 to B115200=
-,
-> > lowering baud_base to 9600 (max =3D 9600) via TIOCSSERIAL, and calling
-> > tcsetattr() with B57600 (old =3D B115200), reproducing the WARNING and
-> > Oops: divide error in uart_get_divisor() on the unfixed kernel and
-> > verifying clean execution with 0 warnings/faults with the fix applied.
-> >=20
-> > So when rate gets lowered, it should alter the termios to prevent what =
-is=20
-> > here seem as "old" having an invalid value.
->=20
-> That makes sense...
->=20
-> >=20
-> > [1] https://lore.kernel.org/linux-serial/20260930041216.155911-3-benqui=
-ke@gmail.com/
-> >=20
-> > > > try =3D=3D 2: loop exits =3D> WARN_ON(1) triggers.
-> > > >=20
-> > > > What we'd want to happen with try =3D=3D 2, is for it to use the re=
-turn baud=20
-> > > > which is within the loop body.
-> > >=20
-> > > Then should the "return 0" statement be modified to "return baud", an=
-d
-> > > possibly the WARN_ON() removed? Then you wouldn't need to increase
-> > > max try?
-> >=20
-> > IMO, the entire loop constructs feels somewhat artificial in this case =
-so=20
-> > I'd prefer to kill the loop entirely. But such refactoring is not going=
- to=20
-> > be a minimal fix to the issue.
->=20
-> Yes, when I updated uart_get_baud_rate() a few months ago, the loop
-> also felt a little bit weird, but I did not remove it because I assumed
-> it was working ok if we assumed, like I did, that the old baud rate was
-> always valid.
->=20
-> I tried in the past to simplify it, make it more logical and
-> understandable by normal humans :) But I always end up with
-> something not so simple and obvious because of all the special cases
-> (B0, spd_* flags, etc).
+s/and Egress Control/and P2P Egress Control/ to match spec and RR and
+CR mentions here.  The second "Egress Control" matches the "Request
+Redirect" so I think that's fine.
 
-Trying to all that in the same function surely gets problematic and=20
-repetivive. But how about adding another function/helper that is just=20
-called multiple times to avoid duplicating them?
+> > I think "where the paths diverge" means the point where a port decides
+> > whether to route a TLP up through its Upstream Port (or to the RC) or
+> > back down via a sibling Downstream Port?
+> 
+> Yes.
 
-> I am still trying though, maybe I will have better luck this time :)
->=20
->=20
->=20
+Am I right in thinking that there may be several such points e.g., a
+Request is routed back downstream by any Downstream Port where P2P
+Request Redirect is not enabled?
 
---=20
- i.
+I think this "paths diverge" needs some background when it's
+introduced, e.g. something like this (fix or reword as necessary):
 
---8323328-1296411136-1791403766=:1171--
+  If the Requester and Completer are below the same Root Port, the
+  path taken by Requests depends on ACS settings of the Downstream
+  Ports above the Requester.  If ACS P2P Request Redirect is enabled
+  in all of them, the Request is routed upstream; otherwise it will be
+  routed back downstream via the Downstream Port leading to the
+  Completer.  The path of Completions likewise depends on ACS P2P
+  Completion Redirect in the Downstream Ports above the Completer.
+
+> > I'm not sure p2pdma.rst includes the context to interpret "divergence"
+> > yet.  I think the code comments in [4/18] might also need a little
+> > more context about divergence.
+> > 
+> > IIUC, this divergence point is basically a static point where the ACS
+> > controls being applied makes a routing difference.
+> 
+> Right. Previously, we did not account for ACS bits, so any "junction"
+> automatically caused P2P to be considered unsupported.
+>
+> > > +Below the divergence, the route toward the other branch is already upstream,
+> > > +so those P2P redirect controls do not affect it. Redirect controls for the
+> > > +reverse transaction directions do not affect the mapping. P2P DMA is routed
+> > > +through the host bridge when either applicable port redirects. If an ACS
+> > > +Control register cannot be read, P2P DMA is rejected because the kernel cannot
+> > > +establish a usable route.
+
+Similarly, I don't think "the divergence" is defined yet here.  I
+*think* it means the lowest Switch or Root Port shared between
+Requester and Completer.  That's the first point where a TLP could be
+either routed back downstream or upstream.
+
+I think a TLP could also be routed back downstream if a higher Switch
+Downstream Port or the Root Port had Request/Completion Redirect
+cleared and lower Switch Downstream Ports had it set.
+
+> > > +
+> > >  This evaluation assumes clients issue strictly ordered Requests carrying an
+> > >  Untranslated address. Its result is not defined when clients use Relaxed
+> > >  Ordering or issue ATS-translated Requests because those TLP attributes can
+> > > 
+> > > -- 
+> > > 2.55.0
+> > > 
