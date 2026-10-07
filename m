@@ -1,330 +1,366 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010007.outbound.protection.outlook.com [52.101.85.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2706737F01B
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 18:54:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791399286; cv=none; b=l3yYCFKXf7vtSqtOFtWjakAGOaW2HFs8aWu7uxNSVIOWEH0bhmOjcrzCskms5M6xORYV5kg5l8z9Kkq8p/cirN+On9icr/b9KPrnDQVmMPVtrLWi8tvIIAdIPYG4DyZIkG39ikQgb/ZVvdYqMSxZCgjCjbfekP/kc3lIaxB0cCo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791399286; c=relaxed/simple;
-	bh=AK42eznXKQ8vp4qoeFBNkSEXkAz6wgJrds1tKvWlwmE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cQr8g+H5gJHqxhyDJPZMCQrkYe9E6iK40UxwmoYluE37gVB2LZbu0Nap0C+6T2IIesTA8dk1akrLWXTAai9j9UFWbMRJpGzr20KZbocH17NzvP0U/Ytwv+Q+cQqUzUbiWyUXFJArz47KO3Ltfdn3E/6oWdhIzVzBkjhzUqASPXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=XQkuip6X; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=QugDWpLe; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C0149C4DE;
+	Wed,  7 Oct 2026 18:54:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791399287; cv=fail; b=bxK5KhtEtVcROYhwO3eEIjAfFVcLTmCqfDxUsNtNF/nUib0FCP74Oc7dGyMeYOjpr1KNKJyFFpEGAg+Wy6t+bmedNe0u6F2sIF+iwh3jhrfL7lESAaHINWHJSWO3LMkjEij697UqQVxNaA1wpqIgFeqThn3NbZC3HBWnV/Y3PzI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791399287; c=relaxed/simple;
+	bh=+xbGeyUa/GMaJSqzyM8M8JNRH44d0KW+w6pfiGfpEv8=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=ad9NAQy+p1H75aTP9+q8Byly04uFm8RXAxWSQFNT7JSFTt+92T8sSth/aph8Bb1PBIdQtNy2KkNH5pygZKkiwzu6aCX4crUlIY4eNg9WKtXmfMBdZa5ySVxAydLA3Y36RWnMaq9IHWjfmuhWIGLoECu0Le5QOvnWaQsJ0Q3wEHE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ryezgpU/; arc=fail smtp.client-ip=52.101.85.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="XQkuip6X";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="QugDWpLe"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791399284;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=i/1Vqte/TZjvdrxy/PBXWIQttCIUhwAGvoe9ObRme4U=;
-	b=XQkuip6XTvmknplbQJJmc3c8Xpn7pTBonSE+w4cY7aYFNi5HgfSY4LRoQ/M4yv5tk8XPsO
-	vWG6wXuCk/cI0OTV2fj8Omsa/I5cGZ2Axlnegz77EF3QItQKZs2Zrqj7Pqcn0QzQLfaZK5
-	J5n8Hh8hX9hK6KcqJeVipVPbqf1Z4+Q=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-505-ceqc3i9HM2id3a2w4bW4kw-1; Wed, 07 Oct 2026 14:54:42 -0400
-X-MC-Unique: ceqc3i9HM2id3a2w4bW4kw-1
-X-Mimecast-MFC-AGG-ID: ceqc3i9HM2id3a2w4bW4kw_1791399281
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a01d1fb07bso45103725e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 11:54:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791399281; x=1792004081; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=i/1Vqte/TZjvdrxy/PBXWIQttCIUhwAGvoe9ObRme4U=;
-        b=QugDWpLepm+/C8jlpSnmtnnM47uPqpcMMbIUWd8pHtC4IeAFhruq4a25zyJBuwYv/X
-         Lnn2nd0TA9j+EFELBq2VgA2KIXeSvfazsA08Q1xcj8EtqHFQvOTuvvEi5CFv1aTxqohD
-         LM52mcj3mMkElD/3YPBg9dT32GpTxQFiTdxPeHYNTjgNAn/XQM32IKOLlpxKEGBTEMmq
-         ++lLCDMfHxLivLZXGhj6X8tztDeTgHpEWGz1WJrjWoSo9QFB74VyD01G3rUhuh92qPN+
-         4XxHCN3RibPRskNKL6PKwEvUBWPxHAeofhzWtnGNAivOej/Gslz4zdp37GH7MUnGccTG
-         2yCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791399281; x=1792004081;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=i/1Vqte/TZjvdrxy/PBXWIQttCIUhwAGvoe9ObRme4U=;
-        b=f5hrrGADRAb9Lb5cuIqjQm0PdypldIAtn+Z2iD22LHQ7LbW0uRHR6cvxUWWh9NUKu0
-         2PCNmBfDL9D3ay9F9Kk9rnqwgA3+85ld82qnhL1Eum1Klj882OzG0osgK1TcmMHaGsHh
-         N5s7EyZKRdrlKCbvJ1CJ7LfbNzAAZ2VNN0/c9wbpMltrhOko1pEqMbtGJn2K/IvbKdBq
-         S6zjPaJdLDRv/mUT/+rgEPZMCkWM705X5Ll+MfMf85yR98pA4CBAbNCLLPMCLYhAWeES
-         jKcRbzIYylZQrB9dWL+Pj9+GsYN1b9kRD6Y9PAYNaRkNCdcS46Ip4c3k1o+grvPXNiqo
-         Qcjw==
-X-Forwarded-Encrypted: i=1; AKwUvBxkdGa0+SO1bIwcNO+OcXSex80upXBATntsPSEpJpd7BdQJN9NyLvMVMk3+qG6XfMJXx5k8ldF9tcnltlw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mY371ve0R2PJHk2ovb3cUF93bZc8Q46c0yvB0IEjtIHIoA9V4O
-	HAeMJwacAqo+c4YMFPRQWjAa3XoLI4zsFPaAx9kk89CKQlzBJ5tjPyESZIJ/y3qqWO2xaon1Cme
-	khqzyIMUz/wZNwr/eC1PE32If+nt9G8L34jyZNCaj1OBUszpN9rc3bwvIoi0kssUqog==
-X-Gm-Gg: AYBFou18LhDb2CD/HIm9hLsOuW//VAir6GoTJA/JeXz658jiJDXxEpOYHBB9UvD/dup
-	iG+7ANhMSsZOQ6QWL+Wn385pFsnI7S4c9vF9Z60yU/f0WypBrC8+CSqMICyeo7tiVZHqAbX6B+6
-	P34bE6Ma7hlDZy26PuPen1/zi9jDHA5NHou4eGBvNIAIPFQ6WXR9O2BdLvkI/owIOLWOkkjGi3U
-	E/4mPc7cnbdV8OAga6At1Zb29PZ2/OA3rwU5ezgQDmSAgNyrcL//CnjF5LsWaaY2kmYuTsZDRX5
-	DI3u73+D3w7Y7J+t7m2OHsVNLcN+zhCabHtqgDL8oFhQxuYAjNN679J91A5EH9c4/iygi+MLhA=
-	=
-X-Received: by 2002:a05:600c:64c6:b0:49f:fe90:de63 with SMTP id 5b1f17b1804b1-4a180455e85mr59169935e9.28.1791399281257;
-        Wed, 07 Oct 2026 11:54:41 -0700 (PDT)
-X-Received: by 2002:a05:600c:64c6:b0:49f:fe90:de63 with SMTP id 5b1f17b1804b1-4a180455e85mr59169625e9.28.1791399280814;
-        Wed, 07 Oct 2026 11:54:40 -0700 (PDT)
-Received: from [192.168.2.75] ([46.175.183.46])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18445b6b9sm9971375e9.8.2026.10.07.11.54.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 07 Oct 2026 11:54:39 -0700 (PDT)
-Message-ID: <dc22a7d0-e42b-4ef4-b0e9-b5210b31eb6c@redhat.com>
-Date: Wed, 7 Oct 2026 20:54:38 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ryezgpU/"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KnPzrsokCIZy3lIPj2VWd5SAgBCcNfwWVAztaxhY6dUoeKx4atR29LuQy1vqRUnw3vWI+UmXbeQ6baXocTOHnjNT7xh6IUhCyJal1ANELMS+PjGfxcxK2EEq+tr6G9rkhXGF8HD3K3f/X/PAzzzeRFlShjDLcvZNBULqxm+aO7WjVBQVQFDWV8o9oqrmXDP4ERsrSnAjlbYjucdECaY0qiLnFCYZk0vSIx49YLClXE91tP2s9z/VgU7BpOdnx3o6H8BVPbXwKQEHJO+CT/ZJLNYjPslzZb+7b/qw412s7l82Vi3GwMzlJZTdR1/AeuOGF0QpLnB/C9rOvhRp2rGqAQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=l0CFczehegK8pRpJ82XzAO/Gui7a4ZLrAjEhtmirS8A=;
+ b=IAMS/f8lyPJxFTpvb7ByWlUVnFTDSRCCke0kMO+/QA0fPObzNQgJMZzutf+ue4krovCKGTUO4teVpNrn1HcaqsHa9fp70TJwpI1cgRMGlN8k8OYcrIWYsbbRah4jru+hj/fwe7lk/ft0GOiHywzE1QcJoO+hR/kVdDWdlMxD9kEm3h5zhEhHBPXDISyNRvvopgYju8rXsPDS/a8v29KmxGLFKJakXJ6OrdXrzy0x9cHRWZ94KJKNfz9Ml4avOANvzlyS52TOkYX5zU3/zicgZkZ6FCABfvyPaIxlwq6np1eO/FdR90HsbrfD5k/UR1mmyX3+4oeZ82Wjb4qpPRwZkg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=l0CFczehegK8pRpJ82XzAO/Gui7a4ZLrAjEhtmirS8A=;
+ b=ryezgpU/iKsGRlPab4Knm17JpDOY0TSRlMxFbF4ympb5i56fff/EGD8qULGzFQBsrYvTNmDyO19NRaHlYcpbQqGv9aO5YqHMnl39R+QE1+G0EYfGwyeefE9nXVDXTE4F1RO6Mi54f9Lhw8kpXtMrxgL1HAvYQ/J+P5w9CStdhyI=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com (2603:10b6:208:314::17)
+ by SJ0PR12MB7457.namprd12.prod.outlook.com (2603:10b6:a03:48d::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
+ 2026 18:54:42 +0000
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1]) by BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1%5]) with mapi id 15.21.0496.015; Wed, 7 Oct 2026
+ 18:54:42 +0000
+Message-ID: <c2ca9eec-57f2-41b2-b8fa-4ed193b5b2dc@amd.com>
+Date: Wed, 7 Oct 2026 13:54:40 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] x86,fs/resctrl: Keep mbm_assign_mode in default
+ mode at boot
+To: Reinette Chatre <reinette.chatre@intel.com>, tony.luck@intel.com,
+ bp@alien8.de
+Cc: x86@kernel.org, Dave.Martin@arm.com, james.morse@arm.com, corbet@lwn.net,
+ skhan@linuxfoundation.org, rdunlap@infradead.org, tglx@kernel.org,
+ mingo@redhat.com, dave.hansen@linux.intel.com, hpa@zytor.com,
+ kas@kernel.org, rick.p.edgecombe@intel.com, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-coco@lists.linux.dev, kvm@vger.kernel.org
+References: <cover.1790976400.git.babu.moger@amd.com>
+ <b969687be3162715e10242424b5a489857d67f2a.1790976400.git.babu.moger@amd.com>
+ <200d21ee-3041-40f2-9032-18e8544a7030@intel.com>
+Content-Language: en-US
+From: Babu Moger <babu.moger@amd.com>
+In-Reply-To: <200d21ee-3041-40f2-9032-18e8544a7030@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: CH0PR08CA0008.namprd08.prod.outlook.com
+ (2603:10b6:610:33::13) To BL1PR12MB5320.namprd12.prod.outlook.com
+ (2603:10b6:208:314::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v3 2/4] dpll: zl3073x: make embedded sync follow the
- output carrier frequency
-Content-Language: en-US
-To: Ivan Vecera <ivecera@redhat.com>, netdev@vger.kernel.org
-Cc: Min Li <min.li@microchip.com>, Vadim Fedorenko
- <vadim.fedorenko@linux.dev>,
- Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
- Jiri Pirko <jiri@resnulli.us>, Jakub Kicinski <kuba@kernel.org>,
- Prathosh Satish <Prathosh.Satish@microchip.com>,
- Paolo Abeni <pabeni@redhat.com>, linux-kernel@vger.kernel.org
-References: <20261006153116.347497-1-ivecera@redhat.com>
- <20261006153116.347497-3-ivecera@redhat.com>
-From: Petr Oros <poros@redhat.com>
-In-Reply-To: <20261006153116.347497-3-ivecera@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5320:EE_|SJ0PR12MB7457:EE_
+X-MS-Office365-Filtering-Correlation-Id: 30cda633-2295-49f3-ad3a-08df24a4725d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|366016|7416014|376014|56012099006|10067099003|5023799004|11063799006|4143699003|260925021911599003|260925022911599003|260925021311599003|22082099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	oReSShniMkHuwENzWjStD6MVCp5e2AFvabYIPKho+8gHUwRCdpBKRkpbOuC2dvA4gSr5HmYaVdd/wt4Fou8Hfqs3ffi3kc4jRb/g5t7GgkQ4VMaWUkkPRmq9FHrnnxUlJAMB6Qpq8+KDASqgWxjK41ZsrkWlrGc3JLqmcUzI9oiiwS1Vz8SHI1E6pw0I0mk6lyVQhEpZ7uZo+tZtf2uepOc5EhdQIX9SrZAfEee7l+MTsAsbbE+Shp+zY1U4EFnNmnbCXSvXfwVUecP0toYsMeMCDQ6GxpFObwMs5IFAQIJbZEl38BxtM6hW0urbz799DBn/rCnyhfRlTMEFdgqp5UVjuwiw1SYi2M+dKHtvVNtQ3vcoPzvFx0ELf2tQhVZAFTpL3FI4nTCAY9VdMfp5RD8wXaPrHEAdjrdkK8sBEXbL6BbVbc+1U+itQ7fp46w9N1fmBXQgbMdPY0KLHCvGm9uz0i+7zcvGxnOeeekOPz6TBn53MfIDu1UHq5ym3nhrbR+0VweqodLVK3YLmTwMklBtdYntFWopcGNAz5QDkqxjPWMEFXuREXsnjkphsysJyJd4Ht4ml6KkIULytLx6OQ4eBEHMjXx9IQTeok5mdVdx6DRdQpc0Utrx2p0U2YeuCXpWgqXo09xCyN8TqJKQQnfkm11NyZGx33XFmkaNgrg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5320.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(56012099006)(10067099003)(5023799004)(11063799006)(4143699003)(260925021911599003)(260925022911599003)(260925021311599003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cDY1a0h2dHE1YmZZSG9SRWcyZHQ3d2xhZHdEeFFHNWVKd3JFRUhIR3dQVTBE?=
+ =?utf-8?B?aFJoWXl6T1VtVTZER0ZDOC95Z2lZTWpNTHBIRGZjV0VWRWJlSUlnM2RBWWt2?=
+ =?utf-8?B?VzBocU5uSXVVTC9GaE1OVjNra013TjF3dGZZTkU5SVNhbEY4Y3NXZ3ltU0Zr?=
+ =?utf-8?B?R01PWlpEYWtOakhiVzlHQ0hGanorOHV5bElKeUgrYlBrT0NqM1oxdHl5VWg2?=
+ =?utf-8?B?QjRQNFhTcFdQWGZjdWRFUWJNZ2pFbUlDaTJ0aVAydE9hYnF6ZEN4U21TL245?=
+ =?utf-8?B?cHJQYmVaL2Rsdm5qc2c4RlNjbWFhV2V4ZzlUWWlNYytFVXRrZHRsUitCUlJJ?=
+ =?utf-8?B?WWpkUWlpdTAveHBKMFV4NzZVcThzZWgrV1ZRa010VGxMS2VveTBITFE0VGJm?=
+ =?utf-8?B?anQ1WCtEZFhLTGJ2OE9UOTdUdzFzWmxLaTM0YVNMY1d5NGZMMjZMemFOSFhY?=
+ =?utf-8?B?ZS9kbWZhSVJBVXBUT0RMdUZibSsyMlYxVlR6akRPTFg0T3B6OGVSYys3ZDFT?=
+ =?utf-8?B?N2hRSCtwbUtjQzhtY3Z6bXpTWEQ1YXlSNmNPMWhSOUxTR1cyNEpDRGN6VlJZ?=
+ =?utf-8?B?cGNIUTFoTFlPVzlza0JnWC8zQjhmNFVzRkU0VWlFNVVaVTFCR3dtV29Ua2Ry?=
+ =?utf-8?B?TSs0bUtwSGNHbStkVDFXQ2FuV2JxS1JIL0E5MGp1eUpZUW5lODFCRnE2ZjdD?=
+ =?utf-8?B?cG81MjhrVUJVZ002aEYyUjF3dDRSTUVGbmhVQ1RJRi9RZ1pTdDM3Z1FzY2x3?=
+ =?utf-8?B?aHlMdjNOV0x6bFg2aDdiVkVrOG5qNk9tM0w1NkVjQzEzNDBzOFA2R3FsSzd5?=
+ =?utf-8?B?WFdraVRTcEFTVGxSeE5pYjVsQlZTdjhTOE1zQ0pFaWdpcE1wVTR3YXRTOTJP?=
+ =?utf-8?B?cWpMNE5kZGt6VDhGbXR5YWZQYUVpa29NdGc1VkxyYm1YRnFrSnBFR28wTUE1?=
+ =?utf-8?B?bzl6cGpnQ1RZbXA5WFFGZXQxSHM5UEgrblZsWkUyWHRVeUZJNk1UaE40cVJi?=
+ =?utf-8?B?cmVoUENzTEgvYzZDSTdRQ1hSazdkYTVzNmVwWVVVWElwRW9QMFJRdmFKd0s2?=
+ =?utf-8?B?ZGdObzUreXpPZ3ltV29lUHlCOVNZN3BQWE8zK1g4MU54WENTN2xSVkdTWjhG?=
+ =?utf-8?B?Z1VCTUhlcE9rdldEWWY5Wk9sK3lRdmVlUG5iYnByRno5Mnk2Sm4xMmgxUmVK?=
+ =?utf-8?B?TjJIeW5Eb2g5TkhVQm8rTVA3Q1lRUVR0TmhSU3BSdFlZWFpzc2FmRSsyeGxn?=
+ =?utf-8?B?NU02cUROTDh1Tmp2VlBvdWk0S1R6OXNLYWZCOWxPaEZqak5GMm5saUV2aWJF?=
+ =?utf-8?B?YU9wSk1adTAwbTBtVE91dldnSmlqdmRHY3MyVWliQVF4ZzdFZVJmVEtBdHNS?=
+ =?utf-8?B?L2pWcmNNUDlkaXJoK0lINHRLczVJcWw4NjBYWmJDYkVUNVZJN0liYTFaUm5J?=
+ =?utf-8?B?LzRIK3RkWEVVaW9FUDlmUXRZMk40L0NXamNFWS9QaGo0NUJPRDJoSDFtbHdr?=
+ =?utf-8?B?ZS82L3k2cDkwUkJzaUpxUUVrclBsaTFrZEk5UkJZMllHT3ZxYVNSQmRwdnpj?=
+ =?utf-8?B?TytJRDVrNWdTVHlyR0VWb2JDclFzNzBEUUhMZFRITTljN0JGQS90MTZHQzBj?=
+ =?utf-8?B?Ull3VjkzMkovdnVDL1M1dFJtaVhBYThBN2V3UHBWV2pjcWx5UHVZTkFXK1ZU?=
+ =?utf-8?B?aHR4bWp2Q1RsSndtRWtwcVpwZDhxQ01aaDBQUnFsTUsrL1hPM2h3YXV5WEhF?=
+ =?utf-8?B?OUovYVY0ZWZUVTlBWk1ZV0lqcHNya0RmYVZzb0RHNjNDODB2dlBBekFZeUxs?=
+ =?utf-8?B?NElzTjRuVGhrOGFYWWM2MFRwNTdabnJjbyttYTQ3L3VFZlduMXFXelJQUHhM?=
+ =?utf-8?B?MnF5RjR2ZFYrdjBJWFdFdlNTdmMvSVNlUWYyd1ZET1d4c0VtUHYvcytjTUJq?=
+ =?utf-8?B?eFJrU3Q3RHhyV1N2c2ZDb2E1KzB4dVQ4SmdPU05Yak5Sdlp0RzV3Z0RRTjQ5?=
+ =?utf-8?B?OWJCMG8wZmw5cGRMZmMyS3hSa3FPTk1BY0EvcWlpRGdSR2NodGM2T2sxM1BR?=
+ =?utf-8?B?MEkwWHJ4UmlJYTRtVGpyMTY4OC9OYnR3bE1uWmxwUXVqYmxXbktzUEo5d2E0?=
+ =?utf-8?B?SXdXd011VFI5eVh4blcyZE9ObzI5RTM2UWVUOWQ2L3Uwa1ZKOGpiMXFRUU9i?=
+ =?utf-8?B?NzU5dkZUajIwc1dXWVMrRDVWdk9oVStEbkhnYmR4ZmZnbzlyVzhaeTVrMnZ4?=
+ =?utf-8?B?d2IyYzc1eS9TMnkvUEVBTi9mT2hOS3NYKzE5N3RHcE1pK3dmQzBULzZpMmhM?=
+ =?utf-8?Q?UpNRBtiR4AJ740vtOM?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 30cda633-2295-49f3-ad3a-08df24a4725d
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5320.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 18:54:42.3974
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lizAQ6ddxMhhezppaueStqnxT+J0ESIR8nDpaI1JtdBo/rVyYEewyyxCzeWHNQUY
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7457
 
+Hi Reinette,
 
+On 10/6/26 12:53, Reinette Chatre wrote:
+> Hi Babu,
+> 
+> On 10/2/26 2:26 PM, Babu Moger wrote:
+>> The "mbm_event" mode assigns hardware MBM counters to RMID/event pairs.
+>> It is intended for deployments that need to manage counter assignment on
+>> platforms where the number of monitoring groups exceeds the available
+>> hardware counters. Hardware counters are scarce, so mbm_event mode suits
+> 
+> "Hardware counters are scarce" -> "Hardware counters are scarce on these platforms"
+> (to make it specific to the context and not a general statement)
 
-On 10/6/26 5:31 PM, Ivan Vecera wrote:
-> Changing an output pin's frequency did not update its embedded sync
-> (eSync) configuration. The eSync period and width are computed relative
-> to the carrier:
-> 
->      esync_n_period = out_freq / esync_freq
->      esync_n_width  = div / 2
-> 
-> Once zl3073x_dpll_output_pin_frequency_set() changes div, both values no
-> longer match the new carrier, so the embedded sync runs at the wrong
-> frequency and duty cycle. Worse, if the new carrier is <= 1 Hz then
-> esync_get() returns -EOPNOTSUPP (out_freq <= 1), hiding the stale ESYNC
-> mode so the user can no longer turn it off - it is stuck on.
-> 
-> This was hit during development: after changing an output pin's
-> frequency the embedded sync output stopped working correctly, as
-> confirmed on an oscilloscope - it ran at the wrong frequency and duty
-> cycle because the eSync period and width still matched the old carrier.
-> For a new 1 Hz carrier esync_get() returned -EOPNOTSUPP, leaving eSync
-> enabled with no way to disable it.
-> 
-> Factor the eSync handling into zl3073x_out_esync_{is_enabled,enable,
-> disable}() helpers and reuse them from esync_get()/esync_set(), then
-> adjust the eSync parameters in the output frequency change path for
-> non-N-divided outputs after updating div/width:
-> 
-> - If the new frequency is 1 Hz, disable eSync. It cannot work at a 1 Hz
->    carrier and esync_get() hides it, so it must be cleared rather than
->    left stuck on.
-> - Otherwise, if eSync is active, recompute its period and width for the
->    new carrier keeping the 1 Hz eSync frequency.
-> 
-> As a side effect of reusing the helpers, esync_get() now reports the
-> driver's eSync model - a 1 Hz frequency and a 25% pulse - from the clock
-> type when eSync is enabled, instead of deriving the values from the
-> cached esync_n_period/esync_n_width registers. The driver only ever
-> programs a 1 Hz / 25% eSync, so this matches what esync_set() configures
-> and keeps get and set symmetric. A configuration the driver did not
-> establish - a non-1 Hz eSync left in flash or by an older kernel, or the
-> truncated duty cycle of an odd divider - is therefore reported as the
-> nominal 1 Hz / 25% rather than its exact register values.
-> 
-> N-divided outputs are left untouched: there esync_n_period is the N
-> divider and eSync is not supported anyway.
-> 
-> Fixes: ce26d7ca50a5 ("dpll: zl3073x: Add support to get/set frequency on pins")
-> Fixes: 634ca2cb06d2 ("dpll: zl3073x: Add support to get/set esync on pins")
-> Signed-off-by: Ivan Vecera <ivecera@redhat.com>
-> ---
->   drivers/dpll/zl3073x/dpll.c | 68 ++++++++++++++++---------------------
->   drivers/dpll/zl3073x/out.h  | 36 ++++++++++++++++++++
->   2 files changed, 66 insertions(+), 38 deletions(-)
-> 
-> diff --git a/drivers/dpll/zl3073x/dpll.c b/drivers/dpll/zl3073x/dpll.c
-> index f2e137475b40..7c997966c3c3 100644
-> --- a/drivers/dpll/zl3073x/dpll.c
-> +++ b/drivers/dpll/zl3073x/dpll.c
-> @@ -852,7 +852,7 @@ zl3073x_dpll_output_pin_esync_get(const struct dpll_pin *dpll_pin,
->   	struct zl3073x_dpll_pin *pin = pin_priv;
->   	const struct zl3073x_synth *synth;
->   	const struct zl3073x_out *out;
-> -	u32 synth_freq, out_freq;
-> +	u32 synth_freq;
->   	u8 out_id;
->   
->   	guard(mutex)(&zldpll->lock);
-> @@ -864,38 +864,28 @@ zl3073x_dpll_output_pin_esync_get(const struct dpll_pin *dpll_pin,
->   	 * for N-division is also used for the esync divider so both cannot
->   	 * be used.
->   	 */
-> -	if (zl3073x_out_is_ndiv(out))
-> +	if (zl3073x_out_is_ndiv(out) || !pin->esync_control)
->   		return -EOPNOTSUPP;
->   
->   	/* Get attached synth frequency */
->   	synth = zl3073x_synth_state_get(zldev, zl3073x_out_synth_get(out));
->   	synth_freq = zl3073x_synth_freq_get(synth);
-> -	out_freq = synth_freq / out->div;
->   
-> -	if (!pin->esync_control || out_freq <= 1)
-> +	/* The esync is not supported for 1 Hz base frequency */
-> +	if (synth_freq / out->div <= 1)
->   		return -EOPNOTSUPP;
->   
->   	esync->range = esync_freq_ranges;
->   	esync->range_num = ARRAY_SIZE(esync_freq_ranges);
->   
-> -	if (zl3073x_out_clock_type_get(out) != ZL_OUTPUT_MODE_CLOCK_TYPE_ESYNC) {
-> -		/* No need to read esync data if it is not enabled */
-> +	if (zl3073x_out_esync_is_enabled(out)) {
-> +		esync->freq = 1;
-> +		esync->pulse = 25;
-> +	} else {
->   		esync->freq = 0;
->   		esync->pulse = 0;
-> -
-> -		return 0;
->   	}
->   
-> -	/* Compute esync frequency */
-> -	esync->freq = out_freq / out->esync_n_period;
-> -
-> -	/* By comparing the esync_pulse_width to the half of the pulse width
-> -	 * the esync pulse percentage can be determined.
-> -	 * Note that half pulse width is in units of half synth cycles, which
-> -	 * is why it reduces down to be output_div.
-> -	 */
-> -	esync->pulse = (50 * out->esync_n_width) / out->div;
-> -
->   	return 0;
->   }
->   
-> @@ -926,32 +916,17 @@ zl3073x_dpll_output_pin_esync_set(const struct dpll_pin *dpll_pin,
->   	if (zl3073x_out_is_ndiv(&out))
->   		return -EOPNOTSUPP;
->   
-> -	/* Update clock type in output mode */
-> -	if (freq)
-> -		zl3073x_out_clock_type_set(&out,
-> -					   ZL_OUTPUT_MODE_CLOCK_TYPE_ESYNC);
-> -	else
-> -		zl3073x_out_clock_type_set(&out,
-> -					   ZL_OUTPUT_MODE_CLOCK_TYPE_NORMAL);
-> -
-> -	/* If esync is being disabled just write mailbox and finish */
-> -	if (!freq)
-> +	if (!freq) {
-> +		zl3073x_out_esync_disable(&out);
->   		return zl3073x_out_state_set(zldev, out_id, &out);
-> +	}
->   
->   	/* Get attached synth frequency */
->   	synth = zl3073x_synth_state_get(zldev, zl3073x_out_synth_get(&out));
->   	synth_freq = zl3073x_synth_freq_get(synth);
->   
-> -	/* Compute and update esync period */
-> -	out.esync_n_period = synth_freq / (u32)freq / out.div;
-> -
-> -	/* Half of the period in units of 1/2 synth cycle can be represented by
-> -	 * the output_div. To get the supported esync pulse width of 25% of the
-> -	 * period the output_div can just be divided by 2. Note that this
-> -	 * assumes that output_div is even, otherwise some resolution will be
-> -	 * lost.
-> -	 */
-> -	out.esync_n_width = out.div / 2;
-> +	/* Enable 1PPS eSync for this pin frequency */
-> +	zl3073x_out_esync_enable(&out, synth_freq / out.div);
->   
->   	/* Commit output configuration */
->   	return zl3073x_out_state_set(zldev, out_id, &out);
-> @@ -1009,6 +984,23 @@ zl3073x_dpll_output_pin_frequency_set(const struct dpll_pin *dpll_pin,
->   		/* For 50/50 duty cycle the divisor is equal to width */
->   		out.width = new_div;
->   
-> +		/* The embedded sync period and width are computed relative to
-> +		 * the output carrier so they have to be adjusted to follow the
-> +		 * new frequency.
-> +		 */
-> +		if (zl3073x_out_esync_is_enabled(&out)) {
-> +			if (frequency == 1) {
-> +				/* Disable eSync if the new frequency is 1 Hz */
-> +				zl3073x_out_esync_disable(&out);
-> +			} else {
-> +				/* Update esync period and width according to
-> +				 * the new frequency.
-> +				 */
-> +				zl3073x_out_esync_enable(&out,
-> +							 synth_freq / out.div);
-> +			}
-> +		}
-> +
->   		/* Commit output configuration */
->   		return zl3073x_out_state_set(zldev, out_id, &out);
->   	}
-> diff --git a/drivers/dpll/zl3073x/out.h b/drivers/dpll/zl3073x/out.h
-> index 660889c57bff..d2b8b4eb5a76 100644
-> --- a/drivers/dpll/zl3073x/out.h
-> +++ b/drivers/dpll/zl3073x/out.h
-> @@ -134,4 +134,40 @@ static inline u8 zl3073x_out_synth_get(const struct zl3073x_out *out)
->   	return FIELD_GET(ZL_OUTPUT_CTRL_SYNTH_SEL, out->ctrl);
->   }
->   
-> +static inline bool zl3073x_out_esync_is_enabled(const struct zl3073x_out *out)
-> +{
-> +	u8 clock_type = zl3073x_out_clock_type_get(out);
-> +
-> +	return clock_type == ZL_OUTPUT_MODE_CLOCK_TYPE_ESYNC;
-> +}
-> +
-> +static inline
-> +void zl3073x_out_esync_enable(struct zl3073x_out *out, u32 base_freq)
-> +{
-> +	/* Period is expressed as the number of output divider clock cycles.
-> +	 * So for 1 Hz the period is equal to base frequency.
-> +	 */
-> +	out->esync_n_period = base_freq;
-> +
-> +	/* Half of the period in units of 1/2 synth cycle can be represented by
-> +	 * the output_div. To get the supported esync pulse width of 25% of the
-> +	 * period the output_div can just be divided by 2. Note that this
-> +	 * assumes that output_div is even, otherwise some resolution will be
-> +	 * lost.
-> +	 */
-> +	out->esync_n_width = out->div / 2;
-> +
-> +	/* Update the clock type */
-> +	zl3073x_out_clock_type_set(out, ZL_OUTPUT_MODE_CLOCK_TYPE_ESYNC);
-> +}
-> +
-> +static inline
-> +void zl3073x_out_esync_disable(struct zl3073x_out *out)
-> +{
-> +	/* Just update the clock type. The eSync period and width are
-> +	 * ignored for this clock type.
-> +	 */
-> +	zl3073x_out_clock_type_set(out, ZL_OUTPUT_MODE_CLOCK_TYPE_NORMAL);
-> +}
-> +
->   #endif /* _ZL3073X_OUT_H */
+Sure.
 
-Reviewed-by: Petr Oros <poros@redhat.com>
+> 
+>> workflows that monitor a subset of groups at a time and rotate
+>> assignments as needed.
+>>
+>> resctrl enables the "mbm_event" mode by default on hardware that
+>> supports it. That breaks the pqos tool [1], which assumes the historical
+>> default mode. pqos treats a non-numeric event read as zero bandwidth. It
+>> creates 16 or more monitoring groups and uses two counters per group.
+>> On a platform with 32 counters per domain, that consumes the pool, so
+>> further groups read "Unassigned" and pqos reports 0 MB/s for them:
+>>
+>>    $sudo pqos -m all:0-4
+>>    CORE         IPC      MISSES     LLC[KB]   MBL[MB/s]   MBR[MB/s]
+>>       0        0.69         16k       192.0         0.0         0.0
+>>       1        0.40          3k         0.0         0.0         0.0
+>>       2        0.44          1k        64.0         0.0         0.0
+>>       3        0.39          1k        64.0         0.0         0.0
+>>       4        0.43          1k         0.0         0.0         0.0
+>>
+>> Leave mbm_assign_mode in "default" mode during initialization. Default
+>> mode uses one counter per monitoring group. On existing AMD platforms
+>> that pool is 64 counters and may be larger on newer hardware. The
+>> "mbm_event" mode uses two counters per group, so 32 counters cover only
+>> 16 groups.
+>>
+>> Deployments within that pool receive accurate bandwidth measurements
+>> with default mode. The hardware supports 4096 monitoring groups. Beyond
+>> that pool, readings may be misleading or "Unavailable", with no
+> 
+> At this point I am lost because the word "pool" is used to mean three
+> different things. It is used for the number of "ABMC counters" as well
+> as the number of "non-ABMC counters" that exist on the same platform,
+> above it seems to be used for number of RMIDs (number of monitoring
+> groups) also. Could you please add some context at beginning of
+> changelog to introduce the various counts applicable to the description,
+> associate unique terms to these counts at that time, and then use
+> those unique terms in the rest of the changelog?
 
+Sure.
+I can name as "ABMC counters pool" and "default active counters pool"
+
+And update the text in terms of the words.  RMID pool may not be 
+required and will update the text around that.
+
+> 
+>> user-visible indication.
+>>
+>> Default mode is still limited once the number of monitoring groups
+>> exceeds that counter pool. After hardware re-allocates a counter, a
+>> read may return "Unavailable". pqos still treats "Unavailable" as zero.
+>> Successive reads can be a count, "Unavailable", then another count.
+>> pqos treats those jumps as wraparound and can report an inconsistent
+>> rate:
+>>
+>>    $sudo pqos -m all:0-4
+>>    CORE     IPC      MISSES     LLC[KB]   MBL[MB/s]   MBR[MB/s]
+>>    0        0.76         60k        32.0         0.0         0.0
+>>    1        0.45          1k        32.0         0.0         0.0
+>>    2        1.57        107k        64.0         0.0 17592186044184.9
+>>    3        1.62        276k      4928.0         3.2         0.5
+>>
+>> Users that need stable measurements beyond that pool should use
+>> "mbm_event" mode and rotate assignments as needed.
+>> Enable it with:
+>>
+>>    $echo mbm_event > /sys/fs/resctrl/info/L3_MON/mbm_assign_mode
+>>
+>> Fixes: 0f1576e43adc ("x86/resctrl: Configure mbm_event mode if supported")
+>> Closes: https://github.com/intel/intel-cmt-cat/issues/311
+>> Link: https://github.com/intel/intel-cmt-cat # [1]
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Babu Moger <babu.moger@amd.com>
+> 
+> See "Ordering of commit tags" in Documentation/process/maintainer-tip.rst
+
+Ack.
+
+> 
+>> ---
+>>   Documentation/filesystems/resctrl.rst | 48 ++++++++++++++++++---------
+>>   arch/x86/kernel/cpu/resctrl/monitor.c |  1 -
+>>   2 files changed, 33 insertions(+), 16 deletions(-)
+>>
+>> diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
+>> index c8507580474a..2efc99223bdc 100644
+>> --- a/Documentation/filesystems/resctrl.rst
+>> +++ b/Documentation/filesystems/resctrl.rst
+>> @@ -354,8 +354,8 @@ with the following files:
+>>   	::
+>>   
+>>   	  # cat /sys/fs/resctrl/info/L3_MON/mbm_assign_mode
+>> -	  [mbm_event]
+>> -	  default
+>> +	  [default]
+>> +	  mbm_event
+>>   
+>>   	"mbm_event":
+>>   
+>> @@ -363,6 +363,9 @@ with the following files:
+>>   	pair and monitor the bandwidth usage as long as it is assigned. The hardware
+>>   	continues to track the assigned counter until it is explicitly unassigned by
+>>   	the user. Each event within a resctrl group can be assigned independently.
+>> +	mbm_event mode uses one counter per event of one RMID. A monitoring group
+>> +	can use two counters, one for mbm_total_bytes and one for mbm_local_bytes.
+>> +	For example, 32 counters can monitor 16 groups.
+> 
+> This addition looks redundant to me. "mbm_event mode uses one counter per event of one RMID."
+> just repeats earlier "...assign a hardware counter to an RMID, event pair ...", no?
+> The example being added ("A monitoring group can use two counters ...") also looks
+> to be specific to AMD's usage and including platform specific example as part of generic
+> introduction seems unnecessary.
+
+ok. Will remove this text.>
+>>   
+>>   	In this mode, a monitoring event can only accumulate data while it is backed
+>>   	by a hardware counter. Use "mbm_L3_assignments" found in each CTRL_MON and MON
+>> @@ -376,20 +379,37 @@ with the following files:
+>>   	"mbm_L3_assignments" after switching to "mbm_event" mode for counter
+>>   	assignment states of all monitoring groups.
+>>   
+>> -	The mode is beneficial for AMD platforms that support more CTRL_MON
+>> -	and MON groups than available hardware counters. By default, this
+>> -	feature is enabled on AMD platforms with the ABMC (Assignable Bandwidth
+>> -	Monitoring Counters) capability, ensuring counters remain assigned even
+>> -	when the corresponding RMID is not actively used by any processor.
+>> +	It is intended for deployments that need to manage counter assignment on
+>> +	platforms where the number of monitoring groups exceeds the available
+>> +	hardware counters. Hardware counters are scarce, so mbm_event mode suits
+> 
+> "Hardware counters are scarce" -> "Hardware counters are scarce on these platforms"?
+
+Sure.
+
+> 
+>> +	workflows that monitor a subset of groups at a time and rotate assignments
+>> +	as needed. The mode is beneficial for AMD platforms that support more
+> 
+> Text from "The mode is beneficial for AMD ..." does not seem necessary here
+> since it just duplicates the text added below?
+
+Sure.
+
+> 
+>> +	CTRL_MON and MON groups than available hardware counters. The mbm_event
+>> +	mode ensures counters remain assigned even when the corresponding RMID is
+>> +	not actively monitored.
+>>   
+>>   	"default":
+>>   
+>>   	In default mode, resctrl assumes there is a hardware counter for each
+>> -	event within every CTRL_MON and MON group. On AMD platforms, it is
+>> -	recommended to use the mbm_event mode, if supported, to prevent reset of MBM
+>> -	events between reads resulting from hardware re-allocating counters. This can
+>> -	result in misleading values or display "Unavailable" if no counter is assigned
+>> -	to the event.
+>> +	event within every CTRL_MON and MON group. This mode is enabled by default.
+>> +
+>> +	On AMD platforms that support more CTRL_MON and MON groups than hardware
+>> +	counters, hardware dynamically shares a smaller pool of counters among
+>> +	RMIDs. One counter from this pool is used per monitoring group and counts
+>> +	every MBM event of that group's RMID. The size of the pool is not
+>> +	enumerated to software (unlike "num_mbm_cntrs"), and "num_rmids" may be
+>> +	much larger. For example, 64 counters in this pool monitor 64 groups.
+>> +	Newer hardware may provide a larger pool.
+>> +
+>> +	While the number of monitoring groups does not exceed that pool, a counter
+>> +	stays attached to each RMID and readings remain accurate. Creating more
+>> +	groups than the pool can cause hardware to re-allocate those counters
+>> +	between successive reads of an event. Bandwidth values may then be
+>> +	misleading, or a read may return "Unavailable" if no counter is allocated
+>> +	to the RMID. There is no user-visible indication when this begins.
+>> +	Users who need stable readings beyond that pool should switch to mbm_event
+>> +	mode, if supported, and assign counters to the groups of interest
+>> +	(rotating assignments as needed).
+>>   
+> 
+> Above usage of "pool" looks ok since it only uses the term for the "non-ABMC hardware
+> counters" while using the accurate terms for the other counts.
+
+Ack.
+
+> 
+>>   	* To enable "mbm_event" counter assignment mode:
+>>   	  ::
+>> @@ -1787,11 +1807,9 @@ View the llc occupancy snapshot::
+>>   Examples on working with mbm_assign_mode
+>>   ========================================
+>>   
+>> -a. Check if MBM counter assignment mode is supported.
+>> +a. Check if MBM counter assignment mode is supported and enabled.
+>>   ::
+>>   
+>> -  # mount -t resctrl resctrl /sys/fs/resctrl/
+>> -
+>>     # cat /sys/fs/resctrl/info/L3_MON/mbm_assign_mode
+>>     [mbm_event]
+>>     default
+>> diff --git a/arch/x86/kernel/cpu/resctrl/monitor.c b/arch/x86/kernel/cpu/resctrl/monitor.c
+>> index 5d0d3b18f9b8..a6a9090c4808 100644
+>> --- a/arch/x86/kernel/cpu/resctrl/monitor.c
+>> +++ b/arch/x86/kernel/cpu/resctrl/monitor.c
+>> @@ -472,7 +472,6 @@ int __init rdt_get_l3_mon_config(struct rdt_resource *r)
+>>   		cpuid_count(0x80000020, 5, &eax, &ebx, &ecx, &edx);
+>>   		/* cntr_id is 12 bits and can only encode 4096 counters. */
+>>   		r->mon.num_mbm_cntrs = min((ebx & GENMASK(15, 0)) + 1, BIT(12));
+>> -		hw_res->mbm_cntr_assign_enabled = true;
+>>   	}
+>>   
+>>   	r->mon_capable = true;
+> 
+> Rest looks good to me.
+> 
+Thanks
+Babu
