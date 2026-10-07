@@ -1,122 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-84.mta1.migadu.com [95.215.58.84])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DD3B38F929;
-	Wed,  7 Oct 2026 08:39:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC122390214
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 08:39:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.84
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791362362; cv=none; b=ix1+Twy6HHdeh2W8mLUuOQ1vFTFrQNBn2uN0ekT3glDydmyH+Kwpqqqeb+BXbprcO/9R/PhPp5hlPlhw7SRnwXFAND+daE3noShY5MRdyTEfSgtWFcuB7/DTuKJOpgcmEELEHO6gVOGHr6pXA+2JsIZ4RmMSTPCnZvG5h98eqZo=
+	t=1791362384; cv=none; b=bppn7CFn8CMKGMG5yGoWrFhLN+4RSrIPsU0Ol5KUHs2fipls0LsaViPIJ18Uc9VakD5E8KoovJ9zRHeeYjl2RM1Nk8DO9CLi9Uf1TZwJ5BhF87OLEjDdksW9lpjpIXsPnN4RAboVoLInjax5czGljkTaqOJOZqfxdehpUb9JlBk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791362362; c=relaxed/simple;
-	bh=IpCssoHMpu1iPzNWg7jTp2ur+01/KKBjGRoCGTF0D9c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gFCA7z21L8jTIZuctIyWLGBWODZKnaHEQUcOsOJHrMnbmcXVU5j6lGNPWSD4BNUHmJbLnkf9/uKOAHoQ+GaX4zTAz+hZO10xjkiyy4tnv/2z75yOu43TaxpC9K+fxmezEUGnBEh/FnAZe/WCwOWDhBmk9n7lnZV6RINNabWhHhM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZBd38k6L; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791362384; c=relaxed/simple;
+	bh=9WXxY12b0GYBTAIFVH24B0Boge6q6M522SI4PJvLyGE=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=bcLgrf9/TOYoLu7aDFLeFe2qco8yogTG34g1rh0sd8116eNgxIDRwigPmH8g82c91qLhTDWIec0LJOOPZP3EcFXh1W1l2xn5eA5Z1vAHdp0Vla39Zly9MbRK+Vl33pkwssm4HN8C60wlfQ7iLCIw4lf2VHIjjBbp4/zhI54XMyQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=S3P4Nheu; arc=none smtp.client-ip=95.215.58.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZBd38k6L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81C061F0089B;
-	Wed,  7 Oct 2026 08:39:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791362359;
-	bh=xPda8xsUNzx/u2Pkr/in0fv5oTELlbzMsMFAfwAA8zc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZBd38k6Lxo/ZmFSsGSR90OJm7DVA1qCvkw5bOgqPOiVqokSwn2RXfBnh5iUylqfgn
-	 +Jnz9vvyvM5t4H4uwuBRsZUpXFE/pqjYbpopfhpfApNG9KNW46r8RmeaAihXpAvlR5
-	 9AG07tXShF2jeaNsDA8xzXWkjc1UZ8zcI0KdcOwV7P4HYZYSYg2R9V+VoaQ7pmaPQU
-	 lJxLpcVejvpSOfQsOY/mOU6mkMRMyAowmABeiisCH0CX/wrxCrndxvbGjfDeSyTzP0
-	 FshIM/dfe9W6LoCxnlDQ5PRrh/rSzG8lli57gloBtPvLwwtCqpXiWaukq0HjfqkK7J
-	 bmHN4ESDUpzQg==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 89C661AC57CE; Wed, 07 Oct 2026 09:39:16 +0100 (BST)
-Date: Wed, 7 Oct 2026 10:39:16 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v1 5/7] regulator: lp872x: Remove platform_data based
- probing
-Message-ID: <asYFNNwVRAcX1V9o@sirena.co.uk>
-References: <20261006154431.318936-1-clamor95@gmail.com>
- <20261006154431.318936-6-clamor95@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="S3P4Nheu"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=9WXxY12b0GYBTAIFVH24B0Boge6q6M522SI4PJvLyGE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791362378; v=1; x=1791967178;
+ b=S3P4NheuCsgBBccvP1mpr8nmXJpX1cpCCAeBfC9MSyKdPQJ+C0A0YNXkJ1uS53bYRSLUEQcE
+ 5y6oV7MvrwAEgUsAXr10SA47JHeHWfBmSV9SqOWrkLEGUJWKMnmcJ0aIxcAwubzRuoS5QpMUpjP
+ OsTTV9LqDLRKJFCROUIl5GGM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7e40719aa91f84dc;
+	Wed, 07 Oct 2026 08:39:38 +0000
+X-Mizu-Trace-ID: 7e40719aa91f84dc
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="iwGv+bOCoNxtLlyD"
-Content-Disposition: inline
-In-Reply-To: <20261006154431.318936-6-clamor95@gmail.com>
-X-Cookie: You will forget that you ever knew me.
+Date: Wed, 07 Oct 2026 08:39:36 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Luka Gejak" <luka.gejak@linux.dev>
+Message-ID: <df8313a72bdef1dc8859a4ac018370b24b606766@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH rtw-next v8 5/7] wifi: rtw88: 8723b: add the RTL8723B
+ chip driver
+To: "Ping-Ke Shih" <pkshih@realtek.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, "Michael  
+ Straube" <straube.linux@gmail.com>, "Peter Robinson"
+ <pbrobinson@gmail.com>, "Bitterblue Smith" <rtl8821cerfe2@gmail.com>,
+ luka.gejak@linux.dev
+In-Reply-To: <e983dedfeb9341ad9d8cf159656395c6@realtek.com>
+References: <20261006130701.120460-1-luka.gejak@linux.dev>
+ <20261006130701.120460-6-luka.gejak@linux.dev>
+ <3db085e6c3c14545ac9fd4221e0715ed@realtek.com>
+ <df4a73de51784e35c15a39e85e4dae9629ba1132@linux.dev>
+ <e983dedfeb9341ad9d8cf159656395c6@realtek.com>
+
+October 7, 2026 at 10:32, "Ping-Ke Shih" <pkshih@realtek.com mailto:pkshi=
+h@realtek.com?to=3D%22Ping-Ke%20Shih%22%20%3Cpkshih%40realtek.com%3E > wr=
+ote:
 
 
---iwGv+bOCoNxtLlyD
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+>=20
+>=20Luka Gejak <luka.gejak@linux.dev> wrote:
+>=20
+>=20>=20
+>=20> October 7, 2026 at 04:57, "Ping-Ke Shih" <pkshih@realtek.com
+> >  mailto:pkshih@realtek.com?to=3D%22Ping-Ke%20Shih%22%20%3Cpkshih%40re=
+altek.com%3E > wrote:
+> >=20=20
+>=20>=20=20
+>=20>=20
+>=20>  Luka Gejak <luka.gejak@linux.dev> wrote:
+> >=20
+>=20>  >
+> >  > Add the Realtek RTL8723B 802.11n chip driver: the chip operations,=
+ the
+> >  > power sequences, the efuse layout, the RF and IQ calibration, and =
+the
+> >  > chip specific coexistence handling.
+> >  >
+> >  > The RTL8723B chip support is based on the initial work by
+> >  > Michael Straube <straube.linux@gmail.com>.
+> >  > Link: https://github.com/mistraube/rtw88/tree/rtl8723bs
+> >  >
+> >  > Co-developed-by: Michael Straube <straube.linux@gmail.com>
+> >  > Signed-off-by: Michael Straube <straube.linux@gmail.com>
+> >  > Signed-off-by: Luka Gejak <luka.gejak@linux.dev>
+> >  > Reviewed-by: Bitterblue Smith <rtl8821cerfe2@gmail.com>
+> >  >
+> >  Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+> >=20
+>=20>=20=20
+>=20>  Hi Ping-Ke,
+> >=20=20
+>=20>  Thanks for helping and reviewing the series throughout this
+> >  upstreaming process. Just one question, when is the series planned t=
+o
+> >  be applied to rtw-next? I am planning to send a patch to staging to
+> >  remove staging rtl8723bs and I need to have information when is it
+> >  landing.
+> >=20
+>=20I'll merge this patchset and send pull-request tomorrow, but I think =
+you
+> should remove staging rtl8723bs until this patchset drains to upstream.
+>=20
+>=20Ping-Ke
+>
 
-On Tue, Oct 06, 2026 at 06:44:29PM +0300, Svyatoslav Ryhel wrote:
+Ok. Thanks for information. However, by the time this series reaches
+upstream, won't the merge window be closed? Therefore 2 drivers for
+the same chip will exist for one kernel version, and Greg previously
+said that when a driver is merged we should remove staging so there
+are no two drivers for the same chip.
 
-> The platform_data-based probing is tightly integrated into the lp872x
-> driver structure itself; removing just the platform data support is
-> impossible without remodeling major parts of the probe sequence.
-
->  static int lp872x_init_dvs(struct lp872x *lp)
->  {
-> -	struct lp872x_dvs *dvs = lp->pdata ? lp->pdata->dvs : NULL;
-> -	enum gpiod_flags pinstate;
-> +	struct device *dev = lp->dev;
->  	u32 mask[] = { LP8720_EXT_DVS_M, LP8725_DVS1_M | LP8725_DVS2_M };
->  	u32 default_dvs_mode[] = { LP8720_DEFAULT_DVS, LP8725_DEFAULT_DVS };
-> +	u8 dvs_state;
-
-> +	device_property_read_u8(dev, "ti,dvs-vsel", (u8 *)&lp->vsel);
-
-Since you're updating this we should fix to read into a local u8 and
-assign the value - the cast won't work on big endian.
-
-> +	device_property_read_u8(dev, "ti,dvs-state", &dvs_state);
-
-If these properties are absent then dvs_state won't be updated...
-
-> +	lp->dvs_pin = dvs_state ? GPIOD_OUT_HIGH : GPIOD_OUT_LOW;
-
-...so this will be random.
-
-> +	lp->dvs_gpio = devm_gpiod_get_optional(dev, "dvs", lp->dvs_pin);
-> +	if (IS_ERR(lp->dvs_gpio)) {
-> +		dev_err(dev, "gpio request err: %ld\n", PTR_ERR(lp->dvs_gpio));
-> +		return PTR_ERR(lp->dvs_gpio);
->  	}
-
-dev_err_probe()
-
->  static int lp872x_probe(struct i2c_client *cl)
->  {
-> -	const struct i2c_device_id *id = i2c_client_get_device_id(cl);
-> +	struct device *dev = &cl->dev;
->  	struct lp872x *lp;
-> -	struct lp872x_platform_data *pdata;
-> +	u8 general_config;
-
-> +	device_property_read_u8(dev, "ti,general-config", &general_config);
-> +	if (device_property_read_bool(dev, "ti,update-config")) {
-> +		ret = regmap_write(lp->regmap, LP872X_GENERAL_CFG, general_config);
-
-Same issue here with general_config being uninitialised if absent; this
-is a buggy DT but we should still handle it better.
-
---iwGv+bOCoNxtLlyD
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCasYFJgAKCRAv73Ows9A4
-iVz3AQDPZnCpIpmX0ZnRh3RVJ7n16gcNML23ADUn/tV7wZY58wD/QtUIdATX65sK
-ywE4gtoaks8Pc/1EaHCRu8zrKZeF7AY=
-=EZDJ
------END PGP SIGNATURE-----
-
---iwGv+bOCoNxtLlyD--
+Best regards,
+Luka Gejak
