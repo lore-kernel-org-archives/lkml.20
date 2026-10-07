@@ -1,183 +1,242 @@
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012015.outbound.protection.outlook.com [40.107.209.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C253672AE
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 21:31:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB2553A0B3F;
+	Wed,  7 Oct 2026 21:32:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.15
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791408667; cv=pass; b=h4mZVc+PfiygDvrOTM4O4AtNuITwcWHmhtO/NVT88D4X60Jwdz22DsyTeRnS1QwGkHz2fd9v+klqb8oSnXgPYjT2YmAsqBvc7r8/s6G+k8YC7ddsk+jb/vmSV/Sj43sWBi2svh5jvY95Iy9y9Oa3IS3SBz7g93+eJdVXtepS4RA=
+	t=1791408749; cv=fail; b=PYIcC/VlRN3/arviHjKRW6087Xb9tuROfZ4lHOp+RmWp89BRIHF6r8MmE5PMdFdIG0MvN9LIS43mOTW7bgFbrLz3O8MyKXWE1Uo6+WJ9toVSjZ+LtVvms6LDalpdkf5R6wvIMk+gyaSFBT8C+yNyW2TYjGc+61C/B+lXENPH4os=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791408667; c=relaxed/simple;
-	bh=jyYp3pb0AgusDhktJ+pxszPoIX1VX2C1hCG1RwKoqyQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=p7NNAU0wUxjTb4KNWlAftSmh0a+UVuGIQcp5E7ejIDcasqf8ZBdwGDKxFAuGBkhl9SdCkrbwJqPEkuQDxi5XSTVsr52kwXsOq5hMNvYfNIdhi2P1EoiHB5/wYWsZmMI5rOsUd5DUAR7DS+b6zFBBoWlAQqh+WZKb1fVOGwQVqsA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DdavwPz+; arc=pass smtp.client-ip=209.85.208.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791408749; c=relaxed/simple;
+	bh=6zJLz89EP8MCzcvemEKMR3gIs67RESBVAjhxPhiHimQ=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dtIqujLGn20mBVJE/j/bOHuCUGZ8r1gK9l27IEVO5nkGxH3gmAszitE/vaKBte7LL2WOnetEzqMMYrR5Sk2hmBQe6VsigbRSj2Wm8HOFqzl0UIzAZKYRYvFSgStbLsoz3EAsVBNGGr8nCHCuNXQvxWqoCfur6AOhuZTcdx1ZP28=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=K+Hg1Wb0; arc=fail smtp.client-ip=40.107.209.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DdavwPz+"
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6afe8d3980aso2708687a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 14:31:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791408664; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sWs7cG+JBM4xJBY27GQyNjUla7ZGkbNqYnTRgiKoVvGlEzpqWPadzgaThP4Cu6FNX8
-         KNO6XwmjbEcOwyZZcbrSUk6hrx5OzCf9z8RIoPDhvSQN0BjAKaYH0zIjhcDnWNAdfL0O
-         L5Dn8dkLWC8uYioznpNxBEmH7qNIP5TJxVM2whb/BW4X/7NszAe8RlHm6AFs8/e8Fmsa
-         iVSmaY5NqGxoJmbocE1rQDnoVgzFqQMtikCO8uToEH9l11Eu5FILDgsjLTB9FOhWZxc1
-         XPSzBwU5MTTqmInndo9wb7inYxPqiFL+eWusWapVepS6ipg6ENwmm1NuWMkmHkds8yfG
-         DTCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=cbqtNnVw1HEZgkaqa1EZpXgjqsXmDXnG5DSMPLrpj0c=;
-        fh=v94eBCYA7MMeYuVE6VZP1HAGNO/glRMNd1LHhhQmgUg=;
-        b=lPupyweOY6hA+x2gs3U0czECuMwQUUndZTt+7SJ4tBF3tJD2C76BXg54cVHbGXl0Mj
-         qnDVTtClVDxNgT6VtHF9yb+Paz2RuJFa46/WxfkugMLNmvVau1Ts5LcAVLUFHyL27QrA
-         f5DJX7+iX582awZtilxJ3hfuywQ8FrLhJi6NOxnGeQ82Ai3d7wIU8wh+hSvVrD4TxY87
-         h1smkRyQJEiLquZdKi9GYFaHF4NRMS8VhLi4XRmXxqfdzBf9swxbv1Eu6M2wOjiRDiic
-         iIxfkLGJM3run7fmMGq2ef5uZMfw2hpcXBEla3ob0raGy8tTtJqiZqRQHQKLjVPKFU5l
-         +gLA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791408664; x=1792013464; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cbqtNnVw1HEZgkaqa1EZpXgjqsXmDXnG5DSMPLrpj0c=;
-        b=DdavwPz+K2dI57XQHDTKfcEw0jbzVlyL1jcQNXVwNxHVnx/xTqgnUOUy5U8QP/96ch
-         70TCCAaR4l7gAUYCmXo42dqJEBgkY7n21wRT6zg9Wu3d8Zj4/xBTPnPiJRH7ANCBRblZ
-         apFQi45loGWPwGUi9LVMBcMzWA2YQGcIhUmjdd5nUj1NHfOcz7mMR7DQveO9NGOU6pu2
-         vLWyMG7MUPv4LTc1OO/Csjfzp9HhsLNXw134KRe5I0Nu3ipaCwwRzdarI8/x1tsBW4n/
-         ZiqWsiWb6AhkuyGMKFCL2PLHjJl2gw4gMvdk6BBy0Qw8JdG6NGOQNycsJr8R1uh2vs1m
-         DWHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791408664; x=1792013464;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cbqtNnVw1HEZgkaqa1EZpXgjqsXmDXnG5DSMPLrpj0c=;
-        b=SLoitzfldlS/V1wt2vuoAniUYh+jujG/4ffEHAOpAq/NXVGYrT3sKQed5tv9de4tPT
-         f+mm2D09ImOFnF+y28nvP3LSf3ej7UkAIK8km5GCiC+IGpQFKli75qJGJdvMiK8IFL2r
-         lPdqkKQc2bt1AS/pNkaoz6Kf/tIcKuO1eo42L/8JaR07WiPRWc6wDiEqRelk2MpmsyL1
-         rM4ZOp1Vo3m2l/ZxyWIoNRj8UbrZSkGoGnR3rFb087qZThv4gqWaaiNSToTaLVvfu74M
-         ooP18usEKqOVp/JYJnJG1ESr+/0DImMjVGzhzbCdxdBmk4a/qOJcQUENDmyvso+OEUZR
-         nrzg==
-X-Forwarded-Encrypted: i=1; AKwUvByexT74kjojEMhWaXhSGwq/Q49OJXpd8WbHQyAwPF1Kl9kTHLQpLNqHZpxfRlZe4ZbfkSLhFn2isNLcvFg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kvlCz8+oLxsd0ZpKVyvWGdIZ3qQHmir4jFlnAsuvg0bH1eV5H0
-	Fso8FPV5U+uiQdU1xog4VkNE24ysX5xQv5aWcSDroVPOotdyThCUomyLWEgvOzu6UvQxlvsxsyX
-	Nr9MRZ5jeat6dHQM7U8hGaq3UnV098SA=
-X-Gm-Gg: AYBFou036Vb196nzaiaAjiSEkZrxWqN5Ta5qLgmEGDdexh6VhMif6l1AJdoAknEKVcN
-	ap0h2q11g5bfVH32aICqwmMWmkDEklS7LnlzF79EJ6yv705LGND9YeB/0X+1P7P1Ol0HP8cD6Ji
-	nqltP/YutWl+CA7IgGjchdF1LmP7WLkAVQ0gk9UnhHr+XqAESB+kcWK8ZxPlXEZv9qaWQL92ApL
-	puTJ8zJvZvfQI7sv+y5d00Pd2BKiX7JDvhCRVNtpeIcY3HMPrSVne24vTn9IzD/0GPf4SgNuiQd
-	6vRcM4sisnCID7Sj+DpydlrYOQ6vEeBHPCU2PEAvMC8pER9DyOM8mUyWv4AZWexZmuqLcVqqcUE
-	lC/wNxA1wjQvd2jR3dnB55Fd+SEmJgqNBhoa37QaDFA==
-X-Received: by 2002:a17:906:c14c:b0:c2a:8d00:f8d0 with SMTP id
- a640c23a62f3a-c317bb373a6mr376649066b.4.1791408664109; Wed, 07 Oct 2026
- 14:31:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="K+Hg1Wb0"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zQgeqsPYIvuOAUHPCEDk/3Gfkfw6UXEP/N3xiMdi5ros5b5sGacUMz4cLNH3gQExTm2W+Y6gJCaYv7XNwzezv0EidLwtKsJujhT0TaKiB5RViBTrmJonFczTdQKosfY4ROL0cI4Xl/SncRC3GriK9CajEcszmvRF/Sv/9SOHelTTgwoLubsCBfHhBCEnzAGBIpvzbm4rgR83o0EreFlf/DSTvVKM9IJGzqYFL9Qxc/8iaz4ZUTbeGhxCxmdfpbzzWrinoNN0+FmlCPP9ZaA1g+gBR5r7lC/qcX6V0Lw2yq8nmV6BYhjM0u3pHijBjpjFbKmb2WAzFMLeSevgVugqlw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=550O7TyUcyThvPjjLxpyYTBC8yEk6ILUkCULHID716M=;
+ b=h2NIJic0gSCddc1Av1y0v6uNiEDoshNAFUP2CpKJAvrenn+bQ4UR76nSU3R70tZl5ia+Jsnap/DKlwZ3PU0r6lCEKh58+A0qwCXbYDTOhRGuoQsNQ/XnNabCec7nnKe08LE3CUPboY+12K0e6OGS8ALi4SvbuvXNfR42xEpVoht7evmpqo9uOU+/ZLwca6PMfvl8afANrtYgkhbjjwEg/kmUbXMF47Cc3jp13D6Bj3+piwoix8G9TvvMKpzuyDxXsUK0dGaNFW1o9s1E+PbMgEHZiejiFLoT9/gaurxQK/Sl6rYseAk+LijMnRPs8PO6nwywzB6UtuHL3pmlw0EEjA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=google.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=550O7TyUcyThvPjjLxpyYTBC8yEk6ILUkCULHID716M=;
+ b=K+Hg1Wb0ZlBxfH0nIFYU4/Sq2SmOwb31lNrtsdHPBqXcP/0m/1H71s1aCzZLN4KGwBR/shU2plf/ITmqgEM3lCEZ8F9l1bEZFfcUrDeqoEusO7m7n4IxTjvXPHM8/gjJcLnXiOaBPJ6cRqZHlBGkkBZDZEYrt/+HP9e4AEIarbtbb6HXxFUn9U+60wACntx2ABeRYwrF1E4kWr893eKhMeB15aGc/3YSOjP8B3fMcggHMmSb44OmloUTlQMNikPAAYweOiFXlI/OYGOpGeeVTGQxftnsTRN48pDKrtoZcXWf69dIDe9GPgwRT7W1nAKXKEnsNzrcVbs21NW/SArIUA==
+Received: from BN0PR04CA0201.namprd04.prod.outlook.com (2603:10b6:408:e9::26)
+ by SJ1PR12MB6218.namprd12.prod.outlook.com (2603:10b6:a03:457::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Wed, 7 Oct
+ 2026 21:32:20 +0000
+Received: from BN5PEPF0004698A.namprd02.prod.outlook.com
+ (2603:10b6:408:e9:cafe::3a) by BN0PR04CA0201.outlook.office365.com
+ (2603:10b6:408:e9::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Wed, 7
+ Oct 2026 21:32:19 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ BN5PEPF0004698A.mail.protection.outlook.com (10.167.245.39) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.496.14 via Frontend Transport; Wed, 7 Oct 2026 21:32:19 +0000
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
+ 2026 14:31:51 -0700
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail205.nvidia.com
+ (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
+ 2026 14:31:50 -0700
+Received: from nvidia.com (10.127.8.9) by mail.nvidia.com (10.129.68.9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
+ Transport; Wed, 7 Oct 2026 14:31:49 -0700
+Date: Wed, 7 Oct 2026 14:31:47 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: Samiullah Khawaja <skhawaja@google.com>
+CC: David Woodhouse <dwmw2@infradead.org>, Lu Baolu
+	<baolu.lu@linux.intel.com>, Joerg Roedel <joro@8bytes.org>, Will Deacon
+	<will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, YiFei Zhu
+	<zhuyifei@google.com>, Robin Murphy <robin.murphy@arm.com>, Kevin Tian
+	<kevin.tian@intel.com>, Alex Williamson <alex@shazbot.org>, Shuah Khan
+	<shuah@kernel.org>, <iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+	<kvm@vger.kernel.org>, Pratyush Yadav <pratyush@kernel.org>, Pasha Tatashin
+	<pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>, "Andrew
+ Morton" <akpm@linux-foundation.org>, Pranjal Shrivastava <praan@google.com>,
+	Vipin Sharma <vipinsh@google.com>
+Subject: Re: [PATCH v5 15/18] iommufd: Persist iommu hardware pagetables for
+ live update
+Message-ID: <asa6Q4t1pqn9gz3P@nvidia.com>
+References: <20260921004834.2601285-1-skhawaja@google.com>
+ <20260921004834.2601285-16-skhawaja@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261006-alpha-hugepages-v1-0-a673a18aaa70@gmail.com> <20261006-alpha-hugepages-v1-3-a673a18aaa70@gmail.com>
-In-Reply-To: <20261006-alpha-hugepages-v1-3-a673a18aaa70@gmail.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Wed, 7 Oct 2026 23:30:52 +0200
-X-Gm-Features: AclHuK_1O1y5cBqpKVUa8hYIbFNU87Dgww6OpAlAPQAxMQLFzeejAiCOK92ZrOk
-Message-ID: <CA+=Fv5QQ4KKDuMzjqxWKoWsKD70Z6XSa8TGzUq4XgB+OWGLS6w@mail.gmail.com>
-Subject: Re: [PATCH 3/6] alpha: clarify that _PAGE_URE and _PAGE_UWE are the
- Executive bits
-To: Matt Turner <mattst88@gmail.com>
-Cc: Richard Henderson <richard.henderson@linaro.org>, linux-alpha@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260921004834.2601285-16-skhawaja@google.com>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN5PEPF0004698A:EE_|SJ1PR12MB6218:EE_
+X-MS-Office365-Filtering-Correlation-Id: a91283bd-b1e0-4361-3620-08df24ba7795
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|1800799024|82310400026|376014|23010399003|36860700016|22082099003|18002099003|4143699003|56012099006|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	1oRmPBk5hPYxH8xETMS+70KmLmsxuiBYB82GWCLVGDAmbIvfkpRw7GEZrW8XqXgByTjZro1d7+8KszfDF4ya1o2cEXrA+mG9RPKJ3AU89zTSZ92ZC+6t+wCqo/YnJ4Oi/jOrOlDNKRZUm5gVj6Nv+VJ7u6MSDYqTHpVDDmxklhyPQAJx3N1sZ7U7nlFOO2pGrjpnQ67Y2p1E4jBEBkL5nb6W1ReQTo7ddnm5zwH2XXucGhh4iEW0KCcjsv53DBn4wc/O4/vpzlogd/HVnZ7adxLpXbbs4SmZ2pI2njx6Hd7IWS3sFpA2O5QmGU33S3j1qbXyb77jGZm+l/+At2ULwAOz1GUKWK6fXMMh1EPvXGE2icQwbxIz/heKaVXZEqvfeLZFfDFWq9CqkoZT0sRVK2HMCeak6HrYiVczz6D25vUg36DhWJ6loPZPGUAZtrysBzKPhDIF8zAt2ifKHyvsmEpuGgZFtTzpn0LFaOSiAkMncs3fADPJA9urTl36hnYWeCdTjvGxYcW5GU54GpUhOSH9it8I087jJQNoWVnGz+ohZHGwp+/+H6HyoI612hTU4HsHMKCli/V6QX2/dsjfCvYqzJDg0PuxREgf1fU9ArWB56RC59IsfFFjDkHMjHzI+FL1mMv793GT0ekzabHvvwpfCQYH9yPmA5AxmQMi4fCmfeKEYAXgghVwI/Jj4G8eAZpUE+5X2/1wcxjT78vPEQ==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(82310400026)(376014)(23010399003)(36860700016)(22082099003)(18002099003)(4143699003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	89uerwcTIOH8oiiVppNeHxagbckpqviJeUBK+JTdotaB7rBc3KYmiK3bGdCmDhaeJIRaO9A8WUd+cFvktO9diCSq/EsCJh+X3pgu67oJ3A05M3E1H2BL8KQaCuJPV3PJxjQ/0WDbQEJhJL4GuYB1/lDnnqALstiKiQqKB5pqgv4+hbGMKXSe6yqBqjKwlXmT7AKlJQIz0VjM4g81lELltj6UUVVCYoP3hZehUGLScW2DKKjG0cWnoDzPekdscdUjifm4lFgXkjwHMqDJxdSwZNlhWN/QvKquHUU2dXP7V5e4FuarI1Y2otcMlD+iXKeMzJP7YwaS0MtxW78lwEOjuUBWEH5WykvjbXuXxH4FjFc1Kt3F2tovHkAC4mmjH4bgWp43u7e4YWCS5qJrjUKzpEqdZbaDEsrzwZpInrBKMr8ZrnXiN6E4WzXCk3sG1PeM
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 21:32:19.6813
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a91283bd-b1e0-4361-3620-08df24ba7795
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN5PEPF0004698A.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6218
 
-Hi Matt,
+On Mon, Sep 21, 2026 at 12:48:31AM +0000, Samiullah Khawaja wrote:
+> diff --git a/drivers/iommu/iommufd/iommufd_private.h b/drivers/iommu/iommufd/iommufd_private.h
+> index a33b32708afa..a4ddc29ec5ae 100644
+> --- a/drivers/iommu/iommufd/iommufd_private.h
+> +++ b/drivers/iommu/iommufd/iommufd_private.h
+> @@ -98,6 +98,9 @@ struct io_pagetable {
+>  	/* IOVA that cannot be allocated, struct iopt_reserved */
+>  	struct rb_root_cached reserved_itree;
+>  	u8 disable_large_pages;
+> +#ifdef CONFIG_IOMMU_LIVEUPDATE
+> +	u32 nr_preserved_domains;
+> +#endif
 
-On Tue, Oct 6, 2026 at 4:04=E2=80=AFPM Matt Turner <mattst88@gmail.com> wro=
-te:
->
-> The Alpha Architecture Reference Manual defines eight protection bits in
-> PTE<15:8>: KRE, ERE, SRE, URE, KWE, EWE, SWE and UWE, for Kernel,
-> Executive, Supervisor and User Read and Write Enable. Linux uses only
-> two of the four privilege modes, and its user processes run in Executive
-> mode, so the bits it calls _PAGE_URE and _PAGE_UWE are in fact the
-> architecture's ERE (bit 9) and EWE (bit 13). The true URE and UWE bits,
-> 11 and 15, are unused.
->
-> The names have been misleading since the beginning, and the comments on
-> those defines said only "xxx". Spell out what the bits actually are. No
-> functional change.
->
-> Signed-off-by: Matt Turner <mattst88@gmail.com>
-> ---
->  arch/alpha/include/asm/pgtable.h | 16 ++++++++++++----
->  1 file changed, 12 insertions(+), 4 deletions(-)
->
-> diff --git a/arch/alpha/include/asm/pgtable.h b/arch/alpha/include/asm/pg=
-table.h
-> index 8a175e0c2b42..d123fd0d4091 100644
-> --- a/arch/alpha/include/asm/pgtable.h
-> +++ b/arch/alpha/include/asm/pgtable.h
-> @@ -65,10 +65,18 @@ struct vm_area_struct;
->  #define _PAGE_FOW      0x0004  /* used for page protection (fault on wri=
-te) */
->  #define _PAGE_FOE      0x0008  /* used for page protection (fault on exe=
-c) */
->  #define _PAGE_ASM      0x0010
-> -#define _PAGE_KRE      0x0100  /* xxx - see below on the "accessed" bit =
-*/
-> -#define _PAGE_URE      0x0200  /* xxx */
-> -#define _PAGE_KWE      0x1000  /* used to do the dirty bit in software *=
-/
-> -#define _PAGE_UWE      0x2000  /* used to do the dirty bit in software *=
-/
-> +/*
-> + * The Alpha AXP ARM defines 8 protection bits in PTE[15:8]: KRE, ERE, S=
-RE,
-> + * URE, KWE, EWE, SWE, UWE (Kernel/Executive/Supervisor/User Read/Write
-> + * Enable). Linux only uses two privilege modes: kernel (mode 0) and use=
-r.
-> + * User processes run in Executive mode (mode 1), so _PAGE_URE and _PAGE=
-_UWE
-> + * correspond to the architecture's ERE (bit 9) and EWE (bit 13) bits. T=
-he
-> + * true User Read/Write Enable bits (bits 11 and 15) are unused.
-> + */
-> +#define _PAGE_KRE      0x0100  /* Kernel Read Enable (bit 8) */
-> +#define _PAGE_URE      0x0200  /* Executive Read Enable (bit 9); "user" =
-in Linux */
-> +#define _PAGE_KWE      0x1000  /* Kernel Write Enable (bit 12) */
-> +#define _PAGE_UWE      0x2000  /* Executive Write Enable (bit 13); "user=
-" in Linux */
->
->  /* .. and these are ours ... */
->  #define _PAGE_DIRTY    0x20000
->
-> --
-> 2.54.0
->
+In iommufd, "num_" is used more often than "nr_".
 
-Replacing the "xxx" comments is a good idea, but these describe the
-OpenVMS PTE (ARM 4th ed., Table 11-2). The ARM has a part for Linux
-itself (II-C, Alpha Linux Software), whose PTE (ARM Table 22-3, the
-same as the Tru64 Table 17-3 this series cites for GH) names bit 9
-URE and bit 13 UWE, reserves bits 10-11 and 14-15 (SBZ), and has only
-user and kernel modes (ARM 22.5.1). The Executive view comes from the
-21264 PALcode loading the PTE unchanged into DTB_PTE (21264/EV67 HRM
-section 6.9), whose bits 9 and 13 are the hardware's ERE and EWE (HRM
-Figure 5-27; mode encodings in HRM Table 5-5). So I'd keep the names
-and describe them from ARM Table 22-3, with the 21264 detail in the
-changelog, maybe something like this:
+>  	unsigned long iova_alignment;
+>  };
+>  
+> @@ -398,6 +401,7 @@ struct iommufd_hwpt_paging {
+>  	bool enforce_cache_coherency : 1;
+>  	bool nest_parent : 1;
+>  #ifdef CONFIG_IOMMU_LIVEUPDATE
+> +	bool liveupdate_preserved;
+>  	u64 liveupdate_token;
+>  #endif
+>  	/* Head at iommufd_ioas::hwpt_list */
 
-#define _PAGE_KRE       0x0100  /* kernel read enable, in __ACCESS_BITS */
-#define _PAGE_URE       0x0200  /* user read enable, in __ACCESS_BITS */
-#define _PAGE_KWE       0x1000  /* kernel write enable, in __DIRTY_BITS */
-#define _PAGE_UWE       0x2000  /* user write enable, in __DIRTY_BITS */
+> +static inline bool iopt_liveupdate_immutable(const struct io_pagetable *iopt)
+> +{
+> +	return iopt->nr_preserved_domains > 0;
+> +}
 
-Magnus
+It's used in io_pagetable file only. I'd move it out of the header:
+
+static inline bool iopt_liveupdate_immutable(const struct io_pagetable *iopt)
+{
+	bool immutable = false;
+
+	lockdep_assert_held(&iopt->domains_rwsem);
+
+#ifdef CONFIG_IOMMU_LIVEUPDATE
+	/* iopt becomes immutable once liveupdate preservation starts */
+	immutable = iopt->num_preserved_domains;
+#endif
+	return immutable;
+}
+
+> diff --git a/drivers/iommu/iommufd/liveupdate.c b/drivers/iommu/iommufd/liveupdate.c
+> +static bool ioas_set_immutable(struct iommufd_ioas *ioas, bool set)
+> +{
+> +	bool was_immutable;
+> +
+> +	down_write(&ioas->iopt.domains_rwsem);
+> +	was_immutable = ioas->iopt.nr_preserved_domains > 0;
+> +	if (set)
+> +		ioas->iopt.nr_preserved_domains++;
+> +	else if (!WARN_ON(!was_immutable))
+> +		ioas->iopt.nr_preserved_domains--;
+> +
+> +	up_write(&ioas->iopt.domains_rwsem);
+> +
+> +	return was_immutable;
+> +}
+
+Since it has to handle refcount, an unset doesn't really unset the
+flag, which is confusing.
+
+Maybe just:
+  iopt_inc_num_preserved_domains
+  iopt_dec_num_preserved_domains
+
+> +static int check_iopt_pages_preserved(struct liveupdate_session *s,
+> +				      struct iommufd_hwpt_paging *hwpt)
+
+static int iopt_validate_preserved_memory(struct io_pagetable *iopt,
+					  struct liveupdate_session *s)
+
+> +{
+> +	u32 req_seals = F_SEAL_SEAL | F_SEAL_GROW | F_SEAL_SHRINK;
+> +	struct iopt_area *area;
+> +	int ret = 0;
+> +
+> +	down_read(&hwpt->ioas->iopt.iova_rwsem);
+> +	for (area = iopt_area_iter_first(&hwpt->ioas->iopt, 0, ULONG_MAX); area;
+> +	     area = iopt_area_iter_next(area, 0, ULONG_MAX)) {
+> +		struct iopt_pages *pages = area->pages;
+
+Move req_seals inside the for loop.
+
+> +static int iommufd_liveupdate_preserve(struct liveupdate_file_op_args *args)
+[...]
+> +	iommufd_ser = mem;
+> +	iommufd_ser->nr_hwpts = nr_hwpts;
+> +
+> +	/* Preserve HWPTs */
+> +	i = 0;
+> +	xa_lock(&ictx->objects);
+> +	xa_for_each_marked(&ictx->objects, index, obj, IOMMUFD_OBJ_LIVEUPDATE_MARK) {
+[...]
+> +	}
+> +	xa_unlock(&ictx->objects);
+> +
+> +	/* Store the actual number of HWPTs that are preserved */
+> +	iommufd_ser->nr_hwpts = i;
+
+iommufd_ser->nr_hwpts is set twice. First one seems redundant.
+
+> +++ b/include/linux/kho/abi/iommufd.h
+> +/**
+> + * struct iommu_hwpt_ser - IOMMUFD HWPT serialized state
+> + * @domain_data: Physical address of the serialized state of associated domain
+
+Then, it could be domain_ser_phys?
+
+> + * @token: User provided token
+> + * @reclaimed: Whether the HWPT is reclaimed
+
+Once the hwpt is reclaimed, could we clear domain_data to indicate
+"it is reclaimed" instead of a separate field?
+
+Nicolin
