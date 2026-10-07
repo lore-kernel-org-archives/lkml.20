@@ -1,158 +1,96 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B510A390214;
-	Wed,  7 Oct 2026 09:51:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 65BB047C0FC;
+	Wed,  7 Oct 2026 09:51:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=111.22.67.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791366705; cv=none; b=ietk8LQcoxHYtnQoF1h3qFtlsboahWzcXzb7WtPqMCuOxQAi/MIwFBx2bzRqZzABHaKcWwXD+2tUmmhM8fpmdRcQU9b4YwxfUZFZYrVYuniMIdAvVToR4qSBpFPrs6vBXz4yP3JgdVzbneQPd/McelOIuypltUSttGa932BMdG0=
+	t=1791366713; cv=none; b=MfKW2n5KmbV9rDz744AbKxvK5VDdAuqhprhfSMqbamqbPQQ9wpkcCpXtyBtwxcQo3qoTGdchHOPXIId5vq7j+K/leARhkZmrLBw1unqT6KC9WYUDqidJTc2JLYQMuyjwkVQBrsy7UOmpK8WQ9aAD+n7GvR5OBy+C0aH1ZwzGROs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791366705; c=relaxed/simple;
-	bh=mt+iq0lWCHzQfDYrfrlqEtd5P+ap0Q2mMhBWwH5H8S8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=p+wFIY/jAIXqp4wS353DZOBHkMazlSFB5JG3tDxlf5ApJGg+CCqinr/SIwHov4OJ9B5493Uu3CRIDiOjbwvpcV0I0Ktt/VRtoEZVTlgUIPB6faOzJqw0GSGyk9DSu6eIqBw5zTxGn/B493BTWw5m6NlklcU/D7cNkO7+e5Ey3GQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fpAlJq6W; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791366713; c=relaxed/simple;
+	bh=YpmZSeHdx0gjci48tJqrrtCGp9fQ95iGiN/kNL2LXF8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LAmaKeAEq5fM2UE+2rroc3U4xZpmfo9dRP6TkbMZt9U1TbtVkWWfJGqj/ud0kFgVvW/GYblsSSHf1DgopDr2oCONrHBhJRveapOBJ+fpIHSjUkO72PnX1Ce6TdfASwrI3A5cQgJzASB+EGLVn9tmKn7mUd0/+1HB/ooSiywKVng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com; spf=pass smtp.mailfrom=cmss.chinamobile.com; dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b=WiTl/0xd; arc=none smtp.client-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fpAlJq6W"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791366696; x=1822902696;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=mt+iq0lWCHzQfDYrfrlqEtd5P+ap0Q2mMhBWwH5H8S8=;
-  b=fpAlJq6WPD60vdmA7BB6BK03MIDlY3CiVYRnCaEAtXZxSGSlnCUm3236
-   be+dmS/nuQ8BWlCNTrGTr1tmpCCWZ1bx6Y54OKlY6vIjyN16PtNnWlVqP
-   j+W60QhDysAMzxpNUJaRcYFtDOfOsS7hg98fYgzZR8+i8jwbqXXXlqnJ9
-   cBcxcsEgF2xKeRe1/C4/tKbyPBT7FbO9adc7UoDjL0cTJ2cJTyPt9FBAJ
-   o5V5dIiccO4ETWTYDFwr8+6Tn37sYo40xBeSBpRGnsTP5xL/Nu//pRNUo
-   XShoxTadaciqe5ZqOQmFpomKxeaBMZieuVCUiwL+fm3kU0cWPK3bYG/vn
-   A==;
-X-CSE-ConnectionGUID: 3ihVVxCORFyRukF5NM3tDA==
-X-CSE-MsgGUID: RBHmERA0RKagm9pe2oyM0g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11927"; a="5199"
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="5199"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 02:51:35 -0700
-X-CSE-ConnectionGUID: kaBsrKAkS+yZ1OBMmGXWjQ==
-X-CSE-MsgGUID: MGf0vOAkRRiC1Xg2PU0PqA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="285490563"
-Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.246.150])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 02:51:32 -0700
-Message-ID: <1c9905719331e6229d0f8eb197f547dc060052fc.camel@linux.intel.com>
-Subject: Re: [PATCH v2] PCI: Disable not supported reset methods on DG1
- 0x4905
-From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-To: Ville =?ISO-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>, 
- Bjorn Helgaas <bhelgaas@google.com>
-Cc: linux-pci@vger.kernel.org, intel-gfx@lists.freedesktop.org, Joonas
- Lahtinen	 <joonas.lahtinen@linux.intel.com>, Andi Shyti
- <andi.shyti@linux.intel.com>,  Krzysztof Karas <krzysztof.karas@intel.com>,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
- <krzysztof.niemiec@intel.com>, linux-kernel@vger.kernel.org
-Date: Wed, 07 Oct 2026 11:51:29 +0200
-In-Reply-To: <ap_nbJWGXWTI8ARq@intel.com>
-References: <20260907090249.1348552-2-janusz.krzysztofik@linux.intel.com>
-	 <ap_nbJWGXWTI8ARq@intel.com>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b="WiTl/0xd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=WiTl/0xd9r+XdumNmRJmphALYwhWHIJFIL73ZDByuA4JDGZORAlxgvvcUT5B5oy4Txna2mCB3Qalf
+	 ELv1vcwZpeShRpFy9VvE1k7SE956BgJJp6DXlCTW2HQ3Bw0ZDc9aRW7wa7F9fxauMCR6yWCoF8Lnli
+	 BmH69Vb8q2hleQus=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16ac61625551-86ca0;
+	Wed, 07 Oct 2026 17:51:33 +0800 (CST)
+X-RM-TRANSID:2ee16ac61625551-86ca0
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from openEuler-24.03 (unknown[112.22.250.209])
+	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96ac6161a04d-e490c;
+	Wed, 07 Oct 2026 17:51:33 +0800 (CST)
+X-RM-TRANSID:2ee96ac6161a04d-e490c
+From: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
+To: netdev@vger.kernel.org
+Cc: Alice Mikityanska <alice.kernel@fastmail.im>,
+	Matthieu Baerts <matttbe@kernel.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
+Subject: [PATCH net] selftests: net: big_tcp_tunnels: Fix the IPv6 route change
+Date: Wed,  7 Oct 2026 09:47:31 +0800
+Message-ID: <20261007014731.1277055-1-yanhaishuang@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Ville, Bjorn,
+On slow machines, do_test() raises initcwnd on the route into the tunnel
+with "ip route change". For IPv6 traffic this fails with:
 
-On Tue, 2026-09-08 at 13:46 +0300, Ville Syrj=C3=A4l=C3=A4 wrote:
-> On Mon, Sep 07, 2026 at 10:59:18AM +0200, Janusz Krzysztofik wrote:
-> > DRM CI consistently reports failing device reset attempts on Intel DG1
-> > discrete graphics adapters.  Manual reproduction attempts allowed to
-> > narrow down the scope of that problem to a specific revision of that
-> > hardware, SKU 8086:4905.  It has been confirmed that both reset methods
-> > claimed by the device, i.e., flr and bus, suffer from that issue.
->=20
-> IIRC the documented workaround for the issue is some kind of magic
-> register write after the FLR to unblock some internal state machine,
-> but the CPU isn't allowed to do that write and instead it has to be
-> performed by the GuC. That means we'd somehow have to reinitialize
-> the GuC very early after the FLR, which sounds rather difficult.
+  RTNETLINK answers: No such file or directory
 
-@Ville, thank you for providing details of the mentioned workaround (off-
-list).  I can see that workaround already included in GuC firmware, =C2=A0
-however, it doesn't fix the issue I'm trying to address here.  Then,=C2=A0
-disabling problematic PCI reset methods on the affected SKU, as proposed,=
-=C2=A0
-seems the only feasible solution left, I believe.
+The IPv6 prefix route of the tunnel address has metric 256, while
+"ip -6 route change" without a metric looks for a route with the default
+metric 1024, so nothing is changed. The test still passes, but without
+the larger initcwnd it is meant to use.
 
-@Bjorn, can you please get back to this patch and push it forward?
+Pass the metric of the prefix route.
 
-Thanks,
-Janusz
+Fixes: 1d62b83fb751 ("selftests: net: Fix slow configurations in big_tcp_tunnels.sh")
+Signed-off-by: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
+---
+ tools/testing/selftests/net/big_tcp_tunnels.sh | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/tools/testing/selftests/net/big_tcp_tunnels.sh b/tools/testing/selftests/net/big_tcp_tunnels.sh
+index cc0875e52fb9..fb43fed824e3 100755
+--- a/tools/testing/selftests/net/big_tcp_tunnels.sh
++++ b/tools/testing/selftests/net/big_tcp_tunnels.sh
+@@ -145,7 +145,8 @@ do_test() {
+ 			    route change 192.168.2.0/24 dev tun0 initcwnd 100
+ 		else
+ 			ip -netns "$CLIENT_NS" -6 \
+-			    route change 2001:db8::2:0/112 dev tun0 initcwnd 100
++			    route change 2001:db8::2:0/112 dev tun0 initcwnd 100 \
++			    metric 256
+ 		fi
+ 	else
+ 		ip netns exec "$CLIENT_NS" \
+-- 
+2.43.0
 
 
->=20
-> >=20
-> > Since consecutively failing device resets may lead to system hangs,
-> > disable both useless reset methods.  A respective CI test will then be
-> > skipped instead of aborting whole CI jobs.
-> >=20
-> > Suggested-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> > Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/118=
-14
-> > Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
-> > Reviewed-by: Krzysztof Karas <krzysztof.karas@intel.com>
-> > Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-> > ---
-> > v2: Fix commit description wording (Andi)
-> >   - add Suggested-by: tag missing from v1,
-> >   - add collected Reviewed-by: tags.
-> >=20
-> >  drivers/pci/quirks.c | 5 +++++
-> >  1 file changed, 5 insertions(+)
-> >=20
-> > diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-> > index de9bbccda21fd..e55475374c6fd 100644
-> > --- a/drivers/pci/quirks.c
-> > +++ b/drivers/pci/quirks.c
-> > @@ -3811,6 +3811,9 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_TI, 0xb005=
-, quirk_no_bus_reset);
-> >   */
-> >  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_ASMEDIA, 0x1164, quirk_no_bus_r=
-eset);
-> > =20
-> > +/* Intel DG1 0x4905 may not recover from bus reset */
-> > +DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x4905, quirk_no_bus_res=
-et);
-> > +
-> >  static void quirk_no_pm_reset(struct pci_dev *dev)
-> >  {
-> >  	/*
-> > @@ -5597,6 +5600,7 @@ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x44=
-3, quirk_intel_qat_vf_cap);
-> >   * AMD Neural Processing Unit 0x1502 0x17f0
-> >   * Intel 82579LM Gigabit Ethernet Controller 0x1502
-> >   * Intel 82579V Gigabit Ethernet Controller 0x1503
-> > + * Intel DG1 Discrete Graphics Adapter 0x4905
-> >   * Mediatek MT7922 802.11ax PCI Express Wireless Network Adapter
-> >   * Mediatek MT7925 802.11be PCI Express Wireless Network Adapter
-> >   */
-> > @@ -5612,6 +5616,7 @@ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_AMD, 0x1502=
-, quirk_no_flr);
-> >  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_AMD, 0x17f0, quirk_no_flr);
-> >  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1502, quirk_no_flr);
-> >  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1503, quirk_no_flr);
-> > +DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x4905, quirk_no_flr);
-> >  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_MEDIATEK, 0x0616, quirk_no_flr);
-> >  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_MEDIATEK, 0x7925, quirk_no_flr);
-> > =20
-> > --=20
-> > 2.54.0
+
