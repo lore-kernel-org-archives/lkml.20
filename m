@@ -1,296 +1,243 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011017.outbound.protection.outlook.com [52.101.70.17])
+Received: from YT3PR01CU008.outbound.protection.outlook.com (mail-canadacentralazon11020143.outbound.protection.outlook.com [52.101.189.143])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 579883D1AA2;
-	Wed,  7 Oct 2026 16:02:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1291238B158;
+	Wed,  7 Oct 2026 16:03:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.189.143
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791388980; cv=fail; b=qhPDvW7zAj6wMss0IM+zw7T7hUgNwh5Ao5vccNS6Qn/RKStmZlFL2tGXb0H4vmp+gnV8sXTUFVPEYBiNsSenFYEuEJEkzZavPq3VXU/IVQfJIsleWEBBaZnAWTnjRS0BJhL53Ho9jcj4PKPzwRoV6s/wAH0kVzg9u31nxDs78Oc=
+	t=1791389028; cv=fail; b=ZkCUF8IJq2fd0AAokIC+eezLeF9X80cJAH//rmjNH27jDsiBsUuSBtqCUAWFrwBfButZqM2IohEpnm0A5tdc7xhLzYlqcsb99hz23QnyDBhoNoIKcfYbBrekaKULmmrO0EBLwMJtJ71iA5Tgm7FnHfQnDoT3FddRZxXc0T0FRwc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791388980; c=relaxed/simple;
-	bh=GdT5AVgCYrYDCq8skm3ypahO6k11wtz8owHYN4RdXrU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=NwSvaV2OOr/gEgpwcS9V7DugAQNH38N0EY21WlhBUBZd7RhDEQaG0Earc12l/qz5dEI+123SyZ3n69V1qd41u6TSqwB60qBh/rxVBg/E+6D5y1m6lgorCYjQWjJIGhTdn30dmPPlJlTjEZsnaMtZeSKCNykM9cXPu7IktMjwCVE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=gCuqMHDM; arc=fail smtp.client-ip=52.101.70.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	s=arc-20240116; t=1791389028; c=relaxed/simple;
+	bh=1lrlHQpO5jfDeFm0E/lTH8vejHMYAQNRxsuYuQsm0d0=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=p0xjpciVgJI84lq1wbVLZjBqqHVLACdvAw2u1rmAF69APKdrxdUXUfEUPZpQsVU0AUF9me4Brr/5NtORI4MYbC8JQTZW4PATClMIMvjhxD9dCxaPE6QzrbA9hlwCZH2QTDXdEX5wAX+/HLb9cqW66bkWsBc9gXF4ncdRfvW5CHI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=MEV12MMH; arc=fail smtp.client-ip=52.101.189.143
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="gCuqMHDM"
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="MEV12MMH"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pkC0zxGl1558EMpo/JIN+kK3n4eo8ZYUOn4NF4a8c8cbOaWZGJci158mpLJ/XY3w9QvEBgvyOiIo/5sdcs2csipXNNDlB7RnCedNfFKXKnng2bf3NsY5uhz1MuDs/8wUE11/NWSjVUUqp8JCynyOof0KiRThkpxA5xgMuNn5rjCBgsMBdiXN5ciSYWPl8GjIr1y0k63xmhc18RLyaYyvO9dYnAkBsvCVarZtKrvvDVYd9f/gd50R9LX6U7q179OIlB0wdlHc8+ZdUycOPYY0vY0oELe0C1cxLCR71UZoUfGxpVZ8l3+Is15QHc7dS8u1RdVpo5UUIv6sVwYDrvn0cQ==
+ b=c2mimLwy+m3fxWZaLlM82xpH8VMyBOIf9Y47+NlD/4tfLDkdqhSCmp8hZvDybq/vm00B8gei+LkMpCoCJKf/vf4Qeto2dXdsIteH0O5qzDrPequhJcv034sVII4Zdlu+2csSwzc8Tij5EBkAApMOJumo1+qfv+m6C7MfoF2BadbEV3QDP84bdqJOE5vunZXkf4WxLIslzkCyginoPp/RV2JRPCkRy5Bz4pI2tC8Qsd5sO9kAw9CEzO9oe+7KFrQawonYo4RMi7c3wigbgCEJy7jzriAw3edMHmKE274wki25hgTXAPU+DQ2S+BMLG7Uo3yhcwBvPC7UhTsPK0bjijQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ayY1qntB3Q0I9nj9GwC4lUQQG2QMB776/yGYyhijWr8=;
- b=KgCnqbN3vyQ1z5L3pTP5iqfwV7pkIM3iV4sxWuxx9pr4gIfJAYmnYiN1NTZ1VI+mo7uPhwA+rcOJOkHWdiuCDsndrJF48Q6l/28SbT+eln4UP7RuzQ+8cec0vuP6nfv4VImhRppMdpJDSJ19PlXw1HbL7/FTMcEsBx9EKdLnjqNPOzrBPvwacRkmkAAqg3CnsJGyplUckSLX35Vx+vb5H6scWCgH+SHTnDyJ8eGC9+SF4VWTGt0yC9jWL3l4YA9pmN9/P7wGF1jicJrG/ENBqXvbpGDR2r/hDhmW0VAsyGI6UC4q2ddlS+oifg+tCLmU1lJyVN9ZtwT8O3om2igELQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
+ bh=t/202GdYZZR+uL55ZL9IoxBP+xnjoSG9klMGMxgVeKw=;
+ b=cvH7DATWmlxIM92Qv20AN6cHO98AoszvCtUkSgCqzoB6lvyDlbzRzNF8DzDgPBxWcSWwIH3HfP7nSltGOm6vOHDRqPwZc3WaP4zfDrd+RJjivwF4R8tD0KIeGnGmLSbBS41y4tchuDKR68kQu91mmIEzqixhC+bs9sOe61ZdQA7jtaaX4P/XlUFvdyBeI4whd3DGgtsOOMHaN/w0sF6b6ISJb/HgARRYXRTdtp3YiOLq8+f1/jmDxjHcWGS1Ti4VD3lsCesQ97gKUPftSMtLbU0siybsTsyhLQnx1qTVflpyq/VSAkCMqEt+aDxJWVmDCN+ssSo8xRDQ/O8GMnLfXg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
+ dkim=pass header.d=efficios.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ayY1qntB3Q0I9nj9GwC4lUQQG2QMB776/yGYyhijWr8=;
- b=gCuqMHDMxlwEi6E8jS5VTll5sgahnP10ZgoEQyveXVKoYH8+N3nQjwLYGU+F/4h1F65zarhz/Zx8ZNtxZhQd2cu8lRdunFxxr4QSydzNFl0oQYvQjMbrN1G9nPWjXJLgGt6JfDp3G7+6FmElgV6t4J7krgAZafYl7ImDz+iwnmW7MY/kg5VJlm2bcC7Hq8ceb6rIWdFb/6hgGIzzbEbArNRd3Ls1U461CRyz4dMgOYkfsKvZZEOSxuhFFwtcFzmpBsJIOtIe/Fj2GFsbEIZamBqXai+yEe9qHLjn2L28bz4Ja8b016Ry7NTUQzWiY6t7jL8wj9bN6uzQoFt/XXw59g==
-Received: from DUZPR01CA0064.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:3c2::17) by AM7PR10MB3479.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:20b:139::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
- 2026 16:02:53 +0000
-Received: from DB1PEPF000509F1.eurprd03.prod.outlook.com
- (2603:10a6:10:3c2:cafe::1) by DUZPR01CA0064.outlook.office365.com
- (2603:10a6:10:3c2::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Wed, 7
- Oct 2026 16:02:52 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- DB1PEPF000509F1.mail.protection.outlook.com (10.167.242.75) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Wed, 7 Oct 2026 16:02:52 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 7 Oct
- 2026 18:09:38 +0200
-Received: from [10.252.29.133] (10.252.29.133) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 7 Oct
- 2026 18:02:51 +0200
-Message-ID: <7cfb5d1e-b79a-4f95-9724-70818c82b379@foss.st.com>
-Date: Wed, 7 Oct 2026 18:02:49 +0200
+ bh=t/202GdYZZR+uL55ZL9IoxBP+xnjoSG9klMGMxgVeKw=;
+ b=MEV12MMHrnn8T+0rctkOv/ciWHRYGoIpvnoE/bdxX1GQVWIV+oHmMyw4FH/JBxNgMhi23MbgmCHT/xPuHLoVVCb9CL9UWW1Gg0tu/PQxm2WeukPxfuVYRaE1+a7XXYO65b54dg74ARy6aQ+LU6uiHx62u/uCMdh3xSvEvQ+5pW0j0ET4/ZP9XUCFsBqmbS8CWPcd+R1mwOqq9lhuabX0EwI2UdgK3UBNearOgzbA4iMEMFXdinqX7YSoSgQrjTE4XvEUTkE8ZE1KrTNiv3JjmMHTz9dV4dzNbGM9VEvPiAWJQIuIyhKYwiS7pQIL4c3LCKR2PYZq7CON6Avs4fRmgA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=efficios.com;
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10) by YT5PR01MB11907.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:179::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Wed, 7 Oct
+ 2026 16:03:42 +0000
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0496.015; Wed, 7 Oct 2026
+ 16:03:42 +0000
+Message-ID: <37deae99-c7b7-4640-8b7b-9b2811f26c48@efficios.com>
+Date: Wed, 7 Oct 2026 12:03:37 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [BUG] Splat during modest hazptrtorture run
+To: paulmck@kernel.org
+Cc: Boqun Feng <boqun@kernel.org>, Kunwu Chan <kunwu.chan@gmail.com>,
+ Wang Lian <lianux.mm@gmail.com>, Zqiang <qiang.zhang@linux.dev>,
+ Bradley Morgan <brads@mainlining.org>, rcu@vger.kernel.org,
+ lkmm@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Joel Fernandes <joelagnelf@nvidia.com>
+References: <1f885062-4905-4d9c-9293-615c145d2d6b@paulmck-laptop>
+ <5b5dbb90-69ad-4a8f-8583-f5ba162744d3@efficios.com>
+ <631c13bc-671e-4cf3-b466-0408d7600ab2@paulmck-laptop>
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Content-Language: en-US
+In-Reply-To: <631c13bc-671e-4cf3-b466-0408d7600ab2@paulmck-laptop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR0101CA0184.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:f::27) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: iio: adc: add bindings for stm32 mdf
- filter
-To: Rob Herring <robh@kernel.org>
-CC: Conor Dooley <conor@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
-	<nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
-	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	<linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-References: <20261001145702.2628429-1-olivier.moysan@foss.st.com>
- <20261001145702.2628429-2-olivier.moysan@foss.st.com>
- <20261001-tribesman-gauze-862e1ef0cdd8@spud>
- <bb8af256-5a77-4215-9eeb-fbcd0cae1829@foss.st.com>
- <20261007134750.GC2792240-robh@kernel.org>
-Content-Language: en-US
-From: Olivier MOYSAN <olivier.moysan@foss.st.com>
-In-Reply-To: <20261007134750.GC2792240-robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB1PEPF000509F1:EE_|AM7PR10MB3479:EE_
-X-MS-Office365-Filtering-Correlation-Id: 04b1921b-9e0a-4343-1223-08df248c714f
+X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YT5PR01MB11907:EE_
+X-MS-Office365-Filtering-Correlation-Id: e8409477-75a4-4093-c039-08df248c8ef1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|1800799024|376014|82310400026|7416014|13003099007|4143699003|11063799006|3023799007|10067099003|56012099006|18002099003|22082099003|6133799003;
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|7416014|18002099003|22082099003|10067099003|13003099007|4143699003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	Eiv1BBSP8d0TEKtTCs2T5VNg1WKbpCIRnAXH30mgBmIHtGfOdoCxodAko8FZ3nVHdcladtX/Cp2AUFhZIVlms+a+wHukTn+PfSn6uODexiyhlcPobzt3/siIpiGcICs//p7oqGj9bqR/okEhcHx7uY084bxFa4JBGoyLGV1rLhs+4hhqno6Dj4YPVQL499ogbMF6/TEsub4nhehAxj4D5r/Yg4reXZWfAIwjrpY739D0el49rq/bCD7toQM60bcWfoxhAGhIgz1Zl1edaTsPdFAYS1UZzi2KhG6/yV2+PR5cJr3BKnfiQLx0KgcBnEHqtfBQdGpKQ+myR+Es9Fs7wA10EsUlddTrAqnxKDyY5U2uSQWWivGmB4ElKtfqlAmu4h1qU4KOnMTBmlzHZ5UOtqhe9VmVgMveCHx9ogTIIWeWv5AFeoFAui82hZ5LrVeCGyHigprERwUsnxA4hgSstCGV9LVVFGpQfNhd1VoKfRwlur55UW94bStKQb438PTXdUzJV1Vc6/ImucyHPLlKwZy+vS/Bk88bEFL5nYKcU6DuxtWYy6bg7ZgewBdGjWn78kWSVK3DOxsfNrtFE82oM1eNmvD5+1KFhGkeif8kTwP8Aq1bj/m6mhePuicFQ95NQ1HwoyJvPlhwrgy4DYsdyw==
+	JZqwtrmQMhYd/jGTTWdPKuWPzaGKugNJ2ZLB+px3ip3MWNy+Z1gWfl9nMZ2ND3ewHmzG8NNPNDJkFIkZUiIWaP0KOmckOMCV1sS/JWHXa3hpPrV1CCUXCgp7qVpSLKelwZlxE9XS8VM+GlY/CTeeiCFjfvyAJrY3rs/mtp2EWTsB5jwAuMD1nxBZoa0o1+XphO24qIiQbcirRRqwLTk55cVedwrPZ6SISMDnHcT9eOpsKn1gZJAjpW6TP/bBztXUwZ5es6wX8ehnt+zXl61WM3IJUXyVrOARC8wmCo+IcoqP2u0ZFth1QhPp/wjZak2EYg43P+Z4lJi8vzbhlGhN6/bxNFYXduM9ArFl1TQlRvdkEXPcZmd2Z/XPDq7i+NVEspcADFDwavmyVtgATGEm400Hi+kfhJr/lTUrpMdjEBQ2eNtTSFfC28RRb0C5kowpn30eStSXBxBps+9Hpm39HfGqAUA8dH2fVjm2w19oK3569Y3yGI0nfRAI/RT2tbYWLuZBNBq9DVJL4EQ3Bsnobb396L88jkZhY7lYLb14eaGb9QXk6FtLQVnPZuT9YOPA6eaIaC5KgtU/j6/KrG0N8NYVO2O4wHyitvsHD+ryePc=
 X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(1800799024)(376014)(82310400026)(7416014)(13003099007)(4143699003)(11063799006)(3023799007)(10067099003)(56012099006)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(7416014)(18002099003)(22082099003)(10067099003)(13003099007)(4143699003)(56012099006);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	u4mbWDaC63UoaWqfNrQBoPhmgU06MyILkPKrwbtS1u/duCWZnDJK4AlbpRCGSQHbxgQKIhEP9CwsZ8Nrmrd3CAvxV/S+VYDQggIusiDiMTEDRsQbKEEZwCTtQC/KXsi/w0w/K/cMmqDrgwUVSxG0od5E9W5jesSxc1GN8NVcU8k+y7lq2gjQyRS2iOkIDWXE0b9oVNHQCq0X8UTTAvvxOJKbgGzunFsZd4sZ6k+24S4DIJgm0kKpTaSOJ+tDWmQ5LmEc0FOciw2V29O6z/9ssWtb1I0Edd8SRIVLaQL21CEln6e5ZUiNGM+R8dwdfvXe/MDRiskkV+5LLYOkGzWj4O7pR8yqaCVi0xbFxSPQiACDr1d1iuwEwUFGB5UPwNdKiGhU9/nJTYuOJTcUynVzFsnHMH7otRI/AvIy6ocSyts0BrIlYIHKj9+tNGH1QIFF
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 16:02:52.3716
+	=?utf-8?B?cEQvcFJHWjRMMnBrK1ZEbWtIaHVIVjNVMThhMGJoekJ3M1J4SWVUYTZZNVc3?=
+ =?utf-8?B?T3g2cm56dzV5M0FlL0N4eithTDg2TWZjZDZsZ1laSkV2d0o3Zm02R2pmNXhY?=
+ =?utf-8?B?TUpteFZsNW9sMERUaGdjbkVuWStqU21KSWFjVnF1VG1oNnhPM1oyY1h5eFFW?=
+ =?utf-8?B?TG1VN2hlK09vd3JXZ2tncFlZTERoYnZvblZkTVJtc0E0eVFia1h0NFhReXZV?=
+ =?utf-8?B?Mkpja2ZnRDhYZGswcUNCeklYN0dieWVYUnVmQjZqMjJKV1M0OHdaaytGMHlw?=
+ =?utf-8?B?MFU1WE1CYmYzSmZNUWFUTno0b1FwT3FyNnJXR3I5YTFkVVdKVGw5L2JOaFYy?=
+ =?utf-8?B?Tk81bndUTDdaU2FybUJ0RFBNVzh6ZHUxcGxpUEJVV0pZT2xGNXYvb1h6ZVZp?=
+ =?utf-8?B?ODZpZ0xCZ1Z4aVBCa2pDSHlVWDlnMlVzUkxUUEx3L0xXdlN0YzNNSksxaE5j?=
+ =?utf-8?B?cFlSRUE4R1VpOFhITGJmYTlMdzQ4YjQ5TFUxcE1tNzAxc3NERUdCN0xEQlFP?=
+ =?utf-8?B?OXJ1M1RYbTNxUFFQNUNyQnE4VEd0bUhaRWRZWlZ5a3MvcDlQQldYM0xCbHUy?=
+ =?utf-8?B?OFpaanlJNjhyYWlKSUpBTHRvWFJXWTJzNkdwOEpybytRbjdyT3kzcWIwZXB3?=
+ =?utf-8?B?cEV2TitIRmZ0VTVPYlFWSEJiNE5QMWdKVE1WRTRramZLajdGUm0xZmxiVDYy?=
+ =?utf-8?B?OEtmZGJubFZ4SC9KVDFNV3BZeXNKdkVJVEdXMVQ4WVIwSjRqcnNPcEtkc1hW?=
+ =?utf-8?B?LzRBd05STVVQcVJyTEVBNTZpSm1OSkFmWE9RQTQ1ckZqL2Y0b0VnNCs1WnBU?=
+ =?utf-8?B?bTVKbUNDUW8wRmJSMVQ3VUpQVkRoSmszbkNLdWhKdGZ4aVZwemN3UmFvS2ly?=
+ =?utf-8?B?alY3YzVYbWxwcHNIcGw1aFRweXl0ZHkrOWxBNVpHYS9meWtmTWswYk5oLzcv?=
+ =?utf-8?B?VE85SlJNSHhQZmkwY3ZPSnVzMTNLaUxmVHFCSFF2NFkwYU9MK08rcG5KMDRs?=
+ =?utf-8?B?RGJtcWp2WDQ4MU9VTDdHbGhFY0pQck5SOWw5eXJteisySDJnK1BCdEVqRmVn?=
+ =?utf-8?B?WTdmL0J3V2R4alhseXZTa0diMWsyUmpCNUhXWVZYRzVtNVlFMm5lKzArcXJz?=
+ =?utf-8?B?OFFtZnVveTdjOFlOcVRseUxVc0REUGhnVkVHZGFha1BSTHIxbXNmclhmc0g1?=
+ =?utf-8?B?WUJaN05ZV0lES3A2ZS9rQW1NdTB2UTNxeXp0SDFPRmhnRnd4NC9oSVREZnBX?=
+ =?utf-8?B?OXgvUS90dVNMU1ova3NKVUtLSGc0OHpHdlc2aEhFYzFVclNrbncrTDZMcStt?=
+ =?utf-8?B?dFh6VmhzbG9XamRkMkFqaU81TkRJaDViZFNzUDVxa3JhdWtSNlZ1Zzc2aGFk?=
+ =?utf-8?B?VDFycGFTMlN2aElsellhZVd4MldkQytya24rdThMU01wcWtDVDhKMzRIRTU4?=
+ =?utf-8?B?QWZXc3p5WmNtSEg3eGQrWUZmV1kxU2NvaGNKK2hVMzQwWlNDNmpUblhIT21U?=
+ =?utf-8?B?NHFHbW11SzZERlhRMnl2Z2ZMNmFWNU5GakdPcWE4WXl6bG5QYWwrc3d1Mi9P?=
+ =?utf-8?B?UlpHWGlES3BJRnBqOVROSmZJVVdkUDkwb1ZhQVNZMXBaQ2NKQVpHNFJ6SDBl?=
+ =?utf-8?B?bUs0ZFBWN2xYVzdlTUJidS9WS2tmMXpkS0U5d1ZZdHBxR0RDWlQwZ1VGdUlr?=
+ =?utf-8?B?Q0ZCbTFNSnNoUityeUZCL1dJZzFIK1ZiRTVXV2JOc2ZsUk9UWWFGSklhSlhN?=
+ =?utf-8?B?a05qZXJUbkxPcitsT1d6ZDlpb1JnbDFNSEpPaG9ZWFkwMUlWSGhoQmxHRi9J?=
+ =?utf-8?B?ZXhLOWJRSVo5TTVld3lQUkJwb1FDODdZWlBFbXp5VWpZRTJDaURMcno5ZFNh?=
+ =?utf-8?B?djZQemMvdjBmTEIyRDFCMDBxU3A0U2FycDVBZUU3RnYzV3dtbjl6ZXVQQWtY?=
+ =?utf-8?B?VXczeUpMRUlDVFc3Y0ZOa0lsUTU5eXYzUExQaWtNR0JVbGFuR1hFWEpPMUNz?=
+ =?utf-8?B?M1RRa3lkTDVoTEhTdXZ1TWRXMTVCOXBKdnJzRlk3N2xPaytGS3Z5ck5IOVJJ?=
+ =?utf-8?B?YllzUnZ5Nm9BSGZPVmU4c2tBOU5WNUhaK2RhZExTM0hXWDBWaDg0WTRjd1Nn?=
+ =?utf-8?B?MU56d0ZGTUVwMk1GMDRBL0NCVlp4MkxNZlUrZmRJVk5nWXZ5OWxnSGRCUHRi?=
+ =?utf-8?B?ZUZvY21TNEFuQXFScXJ1bGlhU29XbWhGTjNTZktzRy9YRVRGb2laSjFLSFlH?=
+ =?utf-8?B?RzhOVmRyakpSZUVKVWFWSVZ5c1B3NnZXQ1hUcW9yOHFHZVFGamJCeWl5Nmor?=
+ =?utf-8?B?WGZDT2NncmdCdzZyU1ZtKzFXY2VuS2w5MG1WWDJpd1d5eU5rRzN5YXl3djJV?=
+ =?utf-8?Q?HuqfZD5wsa8Sviwk=3D?=
+X-OriginatorOrg: efficios.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e8409477-75a4-4093-c039-08df248c8ef1
+X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 16:03:42.2855
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 04b1921b-9e0a-4343-1223-08df248c714f
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB1PEPF000509F1.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR10MB3479
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XI0B121HvQh2nyyCAq/fZ/psbg84kEtAfSM6KfB86T2rw5Lbi8FkvAQJBIFtoPhlxOXAdGLG4ZKtSwjl4TTYtsYUeRLpoSANf5eNir7E++c=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT5PR01MB11907
 
-Hi Rob,
-
-On 10/7/26 15:47, Rob Herring wrote:
-> On Wed, Oct 07, 2026 at 11:01:28AM +0200, Olivier MOYSAN wrote:
->> Hi Conor,
+On 2026-10-07 11:59, Paul E. McKenney wrote:
+> On Wed, Oct 07, 2026 at 03:09:27AM -0400, Mathieu Desnoyers wrote:
+>> On 2026-10-06 19:40, Paul E. McKenney wrote:
+>>> Hello!
+>>>
+>>> This is all new code, so the bug could be anywhere.  So you all need
+>>> to know.  ;-)
+>>>
+>>> I got this from the NOPREEMPT variant of hazptr during a nominal
+>>> "--duration 60" run of torture.sh on x86 with the guest OS split across
+>>> two NUMA nodes:
+>>>
+>>> [  137.765104] WARNING: kernel/rcu/hazptrtorture.c:658 at hazptr_torture_stats_print+0x25b/0x4f0, CPU#1: hazptr_torture_/136
+>>> [  137.768647] Modules linked in:
+>>> [  137.768891] CPU: 1 UID: 0 PID: 136 Comm: hazptr_torture_ Not tainted 7.3.0-rc5-00661-ga1f1e4890d1d-dirty #193 PREEMPTLAZY
+>>> [  137.769683] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-6.el9 11/05/2023
+>>> [  137.770319] RIP: 0010:hazptr_torture_stats_print+0x25b/0x4f0
+>>> [  137.770735] Code: 48 83 c4 20 e8 86 44 fe ff 41 83 fd 01 7e 23 48 c7 c6 6e 85 17 b0 48 c7 c7 db 27 17 b0 e8 6d 44 fe ff f0 ff 05 76 6e 0a 02 90 <0f> 0b 90 4c 8b 64 24 70 48 c7 c7 73 85 17 b0 e8 51 44 fe ff 48 8b
+>>> [  137.772061] RSP: 0018:ffffa738004ffdf0 EFLAGS: 00010202
+>>> [  137.772435] RAX: 0000000000000004 RBX: ffffa738004ffe08 RCX: 0000000000000027
+>>> [  137.772950] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000001
+>>> [  137.773455] RBP: ffffa738004ffe60 R08: 4000000000001236 R09: ffffffffb01727df
+>>> [  137.773980] R10: 0000000020212121 R11: 0000000020212121 R12: 0000000000000000
+>>> [  137.774479] R13: 0000000000000002 R14: 000000000002ffd6 R15: 0000000000034f03
+>>> [  137.775000] FS:  0000000000000000(0000) GS:ffff999c2e502000(0000) knlGS:0000000000000000
+>>> [  137.775578] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+>>> [  137.776001] CR2: 0000000000000000 CR3: 0000000008830000 CR4: 00000000000006f0
+>>> [  137.776512] Call Trace:
+>>> [  137.776700]  <TASK>
+>>> [  137.776863]  ? __pfx_hazptr_torture_stats+0x10/0x10
+>>> [  137.777207]  hazptr_torture_stats+0x25/0x70
+>>> [  137.777508]  kthread+0xd9/0x110
+>>> [  137.777751]  ? __pfx_kthread+0x10/0x10
+>>> [  137.778017]  ret_from_fork+0x1bd/0x220
+>>> [  137.778285]  ? __pfx_kthread+0x10/0x10
+>>> [  137.778560]  ret_from_fork_asm+0x1a/0x30
+>>> [  137.778849]  </TASK>
+>>> [  137.779007] ---[ end trace 0000000000000000 ]---
+>>>
+>>> I have not yet seen this during a PREEMPT run.  Line 658 of
+>>> hazptrtorture.c is the WARN_ON_ONCE() below:
+>>>
+>>> 	if (i > 1) {
+>>> 		pr_cont("%s", "!!! ");
+>>> 		atomic_inc(&n_hazptr_torture_error);
+>>> 		WARN_ON_ONCE(i > 1); // Too-short grace period
+>>> 	}
+>>>
+>>> Any thoughts on what might be causing this?
 >>
->> Thanks for the review
+>> Hi Paul!
 >>
->> On 10/1/26 20:32, Conor Dooley wrote:
->>> On Thu, Oct 01, 2026 at 04:56:45PM +0200, Olivier Moysan wrote:
->>>> Add bindings that describes STM32 MDF settings to support
->>>> digital filtering for Pulse Density Modulation (PDM) microphones
->>>> and analog sigma delta modulators.
->>>>
->>>> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
->>>> ---
->>>>    .../bindings/iio/adc/st,stm32-mdf-adc.yaml    | 383 ++++++++++++++++++
->>>>    1 file changed, 383 insertions(+)
->>>>    create mode 100644 Documentation/devicetree/bindings/iio/adc/st,stm32-mdf-adc.yaml
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-mdf-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stm32-mdf-adc.yaml
->>>> new file mode 100644
->>>> index 000000000000..f2fbc3e150e8
->>>> --- /dev/null
->>>> +++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-mdf-adc.yaml
->>>> @@ -0,0 +1,383 @@
->>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>>> +%YAML 1.2
->>>> +---
->>>> +$id: http://devicetree.org/schemas/iio/adc/st,stm32-mdf-adc.yaml#
->>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>>> +
->>>> +title: STMicroelectronics STM32 Multi-function Digital Filter (MDF) ADC
->>>> +
->>>> +maintainers:
->>>> +  - Olivier Moysan <olivier.moysan@foss.st.com>
->>>> +
->>>> +description: |
->>>> +  STM32 MDF ADC is a sigma delta analog-to-digital converter dedicated to
->>>> +  interface external sigma delta modulators to STM32 micro controllers.
->>>> +
->>>> +properties:
->>>> +  compatible:
->>>> +    enum:
->>>> +      - st,stm32mp25-mdf
->>>> +      - st,stm32mp23-mdf
->>>> +
->>>> +  reg:
->>>> +    minItems: 1
->>>> +    maxItems: 2
->>>
->>> This needs an items list here. The size of the regions seems like crap
->>> to begin with...
->>>
->>>> +
->>>> +  clocks:
->>>> +    maxItems: 1
->>>> +
->>>> +  clock-names:
->>>> +    description: Internal clock used for MDF digital processing.
->>>> +    items:
->>>> +      - const: ker_ck
->>>
->>> This is pointless when you only have one.
->>>
+>> Can you share which tree and branch (commit) this is running ?
 >>
->> I agree that it could be dropped. However, it is useful for using
->> devm_regmap_init_mmio_clk.
+>> Does it include my fix from this series ? That would be patch 1 of:
+>>
+>> https://lore.kernel.org/lkml/20260927155134.4740-1-mathieu.desnoyers@efficios.com/
 > 
-> I don't know what that function is/does, but that's not justification
-> for bindings. Maybe you need a helper that handles a single clock. Or
-> that function could take a NULL string for single clock?
+> Ah, no, I somehow got the impression that this series was going to be
+> updated, so did not apply it.  Apologies!
 > 
+> I will pull these in.
 
-Ok. I will drop this clock, and use a helper to replace 
-devm_regmap_init_mmio_clk api calls.
+About the patches introducing ptr_eq(), I plan to handle Linus' feedback
+perhaps in an additional patch and have the "generic" ptr_eq()
+implemented under asm-generic, and a x86-specific implementation of it
+in assembly. Are you OK with this being a follow up or would you prefer
+I fold this in the original patch ?
 
+> 
+>> Does it run the additional series from Kunwu Chan found at
+>> https://lore.kernel.org/lkml/20261002170847.3653663-1-kunwu.chan@gmail.com/ ?
+> 
+> No, but if you are good with it I will pull it in.
+> 
+> May I add your Acked-by or Reviewed-by?
+
+With LPC going on, I did not have time to review it, sorry. Not yet
+please.
+
+Thanks,
+
+Mathieu
+
+> 
+> 							Thanx, Paul
+> 
+>> Thanks,
 >>
->>>> +
->>>> +  "#clock-cells":
->>>> +    enum: [0, 1]
->>>
->>> Why is this not fixed? Also why are parts of your own device consuming
->>> the clocks?
->>>
->>>> +
->>>> +  clock-output-names:
->>>> +    description: |
->>>> +      CCK0 and CCK1 are optional output clocks, which share the same clock frequency,
->>>> +      but can be gated independently to save power.
->>>> +    minItems: 1
->>>> +    maxItems: 2
->>>> +    oneOf:
->>>> +      - items:
->>>> +          - const: cck0
->>>> +      - items:
->>>> +          - const: cck1
->>>> +      - items:
->>>> +          - const: cck0
->>>> +          - const: cck1
->>>> +
->>>> +  clock-frequency:
->>>> +    description: |
->>>> +      Common clock frequency (Hz) for CCK0 and CCK1 output clocks.
->>>> +      The frequency must be a multiple of the "ker_ck" clock frequency.
->>>> +    maximum: 25000000
->>>
->>> Should not be needed, the consumers request what they need.
->>>
+>> Mathieu
 >>
->> The CCKx clock frequency depends on the maximum rate supported by the sigma
->> delta converters (for instance a digital mic) and the expected decimation
->> ratio on the bitstream. Typically this determines the frequency on the SPI
->> bus.
->> This rate is defined statically and shared by the CCKx clocks. So IMHO, as
->> this rate is unique, it can look strange to let the consumer define it.
->> Moreover, it seems to me that clock-frequency is already used to configure
->> the frequency of a provider in some other bindings.
->> For instance: Documentation/devicetree/bindings/clock/silabs,si570.yaml
->> So, it's not clear for me, what is the restriction on clock-frequency
->> property.
-
-Would you have any feedback regarding clock-frequency property usage ?
-
->>>> +
->>>> +  ranges: true
->>>> +
->>>> +  clock-ranges: true
->>>> +
->>>> +  resets:
->>>> +    maxItems: 1
->>>> +
->>>> +  reset-names:
->>>> +    items:
->>>> +      - const: mdf
->>>> +
->>>> +  access-controllers:
->>>> +    $ref: /schemas/types.yaml#/definitions/phandle-array
->>>> +    description: |
->>>> +      Phandle to the rifsc device to check access right.
->>>> +
->>>> +  power-domains:
->>>> +    maxItems: 1
->>>> +
->>>> +  st,interleave:
->>>> +    description: |
->>>> +      List of phandles of interleaved filters. The indexes of interleaved filters must be
->>>> +      consecutives starting from 0 (i.e in range [0..N]). The samples from interleaved filters
->>>> +      are muxed in a single channel and retrieved through the device associated to the filter 0.
->>>> +      The filters 1..N have to be enabled, but inherit their configuration from filter 0.
->>>> +    $ref: /schemas/types.yaml#/definitions/phandle-array
 >>>
->>> No idea what these even are, but this is probably not the right way to
->>> represent the relationship between devices. They're apparently ADCs, but
->>> this is also an ADC so I'm not sure what's going on here at all.
-> 
-> I don't under it either, but regardless phandle-array needs constraints
-> on the items. It's really a matrix with array of phandle+args arrays.
-> 
+>>> For that matter, can anyone else reproduce this?
+>>>
+>>> 								Thanx, Paul
+>>
+>>
+>> -- 
+>> Mathieu Desnoyers
+>> EfficiOS Inc.
+>> https://www.efficios.com
 
-What is expected for this property is a list of phandles (from 2 to 8)
-For instance: st,interleave = <&filter0 &filter1>;
 
-So, if I just consider the missing constraints, I need to add
-     minItems: 2
-     maxItems: 8
-     items:
-       maxItems: 1
-
-Is this correct ?
-
-> Rob
-
-Best regards
-Olivier
+-- 
+Mathieu Desnoyers
+EfficiOS Inc.
+https://www.efficios.com
