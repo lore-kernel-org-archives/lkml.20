@@ -1,206 +1,143 @@
-Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com [209.85.161.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B44F48380C
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 10:43:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A15C046D085;
+	Wed,  7 Oct 2026 10:43:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791369820; cv=none; b=ONKGAm64VfS8PChp9SDjFGjse/78A2BSRx2HOjvklP0sNIp0x4MO0JnLKaxGjCVm09B5fRqYlLX7ncPHZCp5+J9z116HOXwmC5RnZ8k4VtUsbp4pPnndPj4z+9Rgey33Y4fYTLal4COEWuI2VeCJeMC133Dx6IKEa+fPltD/LvA=
+	t=1791369828; cv=none; b=VJyyKi8Odf7eWtiedj8FQ3pDb4G7GAS2r3V+enZ/N18Vj9xk4L28/YV3SJlN9xyDhaL2RBPApbr8OykGuRUey71iiasvJ/2EF5dhFmuK8hSOkhRE7TWcYSDYRSnCGhpska3t4eVhLDUQzuShnwHQS3uKCTIId/AF1DK+Q1E3+ro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791369820; c=relaxed/simple;
-	bh=VfWUNXmqwxTTUICoAFmFvG8CY3df8em8roJTzWczRys=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=R5LmnRaz/DF33/5xFwk74ScaBxlhloaH5zsF7GzKDXgNHJZZiTWP89YaC7Su+b2E7355LMTWZjbV8AaNBzQUU/i8OgzXyQdpI91Jr92txykGW89jSEtQjqKCmKXEVwVTy6suJycTsVxdaZ4kFrkUas663V96zNWIQx0gwGerCMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.161.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-6d7e06dbcccso1101736eaf.3
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 03:43:12 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791369792; x=1791974592;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/WbqPTpVsUSqxzGbhEjJKYLBCr4VtJGNv2jZWAZtG8M=;
-        b=uqRcUzmxRwQMfqlIMfq/mpYBGUMYBCvNNw0kvjbQgznUo927lWE/ayR9KPgRiKP064
-         Tp8DRHchjavC6iy/G4FPYR6653L5wcwHrqL8Y2wGJMI20dAtjtxNXIPm3/GqYFYo73uF
-         diqE5vmWlyd0T29TFjNIKm94INlvU7T9b9f+BDxn4EaRWETI1RnLesZd2EB62vRXD5Wd
-         YKoz7R1/CfNotcVs30VWHu0zrs4IpSD0ueoTldXSrxo1ljMvP95cPF4OdVfY3RjTc+EN
-         8kEccEeBtTreCs0iYn5qvY+3ZPUTJQx3FSA7p9f8S6p5nIPSog5qJhkunELGPBi4uIgf
-         hMrw==
-X-Forwarded-Encrypted: i=1; AKwUvByNQYvg14niFCHjQERVS1b486DFYWi0KPWOK0gnB14BG4cj3KLDD+LIaYeh2EPt+ev5jFlqHxCkeg4XPPs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nDfMaXLsOsGSW8Ll0f2UmpHG94h3RCSNnYr9zZ0oGUYjXtgqsc
-	Oghk9SWzvNVrlzXwnYEw2IuIjVe5ojM7D/yHGq6XF4Zkt/Ju+kDiAoU3/7X3QkVUUxfPcw==
-X-Gm-Gg: AYBFou2qWuFBSAsmDXyPW7Wh56IY0lA18hMupGgwAovmCZ7qsgHt+87fYjyc44sy1JT
-	9qVFLqxvfBO7G2ib4wNDiPBLupGiZN4JC8oO0DDZwbI9HgJIpBySHXbIg9X5YdQorY8BDsafIlT
-	hQ3w7iCrhyQqDw+v41H4YxuoJ+d38RNX4a7rnpTfQ88FvFomHqrRSQCRQCL+IAKjr0KFhqucmsR
-	OQH9Pe+IktuH/xyLv8qqvRw63NsJyRaD8LyHMu2gMNyee6BOm52W7LAsnFfeSuGC1+a1m9uK6la
-	K4r9WA+otMEvK4cGMZS2uviz6SRG0DpM1luSkYaDTNB3NWLR7U3PSzbBHLJ3254O4jtfw62vKh0
-	jfSKdjkuTmpPSzW7l4/PeJtqdvAgzyPTdaJzk1FwvjAlhu2uv5dPac3ocuFTaqtvc8jyK04eZF5
-	dytSslXbmlJ//RtuEYwEqfNyi6Hk+uV7P1aJWVQruVfaRMUr7+I9PlGHf9NOy3iGuEjeiHqiQRz
-	8MIwMmjBVcPSVy0coYntqpeJObRQBhyl+fG5cGB94q21E+2pUyIwouR0N8kMwDxquiOJCfhPA==
-X-Received: by 2002:a05:6820:2d06:b0:6c9:80d8:a206 with SMTP id 006d021491bc7-6e7a8ee4db6mr1889535eaf.67.1791369791855;
-        Wed, 07 Oct 2026 03:43:11 -0700 (PDT)
-Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com. [209.85.161.41])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-82adcd070ccsm2256599a34.24.2026.10.07.03.43.11
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 07 Oct 2026 03:43:11 -0700 (PDT)
-Received: by mail-oo1-f41.google.com with SMTP id 006d021491bc7-6de1ca1b05aso1102840eaf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 03:43:11 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxL6DM9ESCzLJ/mizyr5gVndnd4FsnbqOgcbAgfCZfqD6Rt9SA46G2waCJnryCQawlZ/QlZGrysaKXx8zw=@vger.kernel.org
-X-Received: by 2002:a05:690c:c748:b0:8ae:c60c:57ec with SMTP id
- 00721157ae682-8b05b04e271mr11794257b3.61.1791369305826; Wed, 07 Oct 2026
- 03:35:05 -0700 (PDT)
+	s=arc-20240116; t=1791369828; c=relaxed/simple;
+	bh=4no4EBIa5yNr+kE5WtdIiQ6V9l3YNICeBciitWaIClg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KD6CAAvXXoZjH1Qie4c/fB+nZJmKhMyb6sHhizwnpF1IYks5zBomc0I7EEEG0WVGLlM+jYw1isnPaen8aQvjBnwb5Xl2mSuZv5oXkFXLvJam+jQkAdvfaaXnm359wqNXAR0w0CAC0yW0LqMddZkiHO0FUhPEJSWqz9XtAWRbYIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KN8YV3SX; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KN8YV3SX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C1281F0089B;
+	Wed,  7 Oct 2026 10:43:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791369800;
+	bh=dSfm8zGQjJ78+rtH0xMcl1bNgx4bDu9UJfcECSmeR6M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KN8YV3SX/+vPIl1z/SoJzky7kO3iOdA4eCZLo1Isxg0ipYiQYxsj//oMDVe5DeCgb
+	 +ZX1vOXpBD7AdvgI5nw4WLDz5dbF29s7hgAge6B7PwmKa1GBPPoltb+giqqMWm+qNw
+	 o+yKY8qUAvodMMP8XJR0xLtMKU4jBz+wTqpOD1RizC4SBgc30I38SANe3eP4rmIG+p
+	 RNzAxxe1agTFDTGezv+Jpsq1Fz5G4JWaspFxdRJqlOaPn73xQTvQ/uKIL3Sul9Dr3Z
+	 HkoDk1IjsaFDQ018+5v7dbi7LnM2VTHd/NtIVcLgo74xY8frMJePFisRyln/P2PrJB
+	 nWzH8B97sx6dQ==
+Date: Wed, 7 Oct 2026 11:43:06 +0100
+From: Will Deacon <will@kernel.org>
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Robin Murphy <robin.murphy@arm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Jiri Pirko <jiri@resnulli.us>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Mostafa Saleh <smostafa@google.com>,
+	Petr Tesarik <ptesarik@suse.com>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
+	linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+	x86@kernel.org
+Subject: Re: [PATCH v6 6/8] dma: swiotlb: Centralize memory-encryption pool
+ sizing
+Message-ID: <asYiOgskwi8JYLe_@willie-the-truck>
+References: <20260924060756.1325156-1-aneesh.kumar@kernel.org>
+ <20260924060756.1325156-7-aneesh.kumar@kernel.org>
+ <asVs3doaJ4WrT3M2@willie-the-truck>
+ <asYZFXGyafRjjBS0@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261007082627.63807-1-tanure@linux.com> <20261007082627.63807-4-tanure@linux.com>
- <asYWEwjFO8g50o1i@squawk>
-In-Reply-To: <asYWEwjFO8g50o1i@squawk>
-Reply-To: tanure@linux.com
-From: Lucas Tanure <tanure@linux.com>
-Date: Wed, 7 Oct 2026 11:34:54 +0100
-X-Gmail-Original-Message-ID: <CAJX_Q+3nHRH--pJHxv6PqwpVYTdFAqG1bQdB5=DT6jgLsFKO=Q@mail.gmail.com>
-X-Gm-Features: AclHuK_YBbfO7x4D_vDdU1kkRmRoPOMNGgSI5fmJQcVUylonsGY7I5HRmHvp2sU
-Message-ID: <CAJX_Q+3nHRH--pJHxv6PqwpVYTdFAqG1bQdB5=DT6jgLsFKO=Q@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 3/7] dt-bindings: net: amlogic,meson-dwmac: add amlogic,t7-dwmac
-To: Conor Dooley <conor@kernel.org>
-Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
-	Jerome Brunet <jbrunet@baylibre.com>, 
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
-	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <asYZFXGyafRjjBS0@arm.com>
 
-On Wed, Oct 7, 2026 at 10:51=E2=80=AFAM Conor Dooley <conor@kernel.org> wro=
-te:
->
-> On Wed, Oct 07, 2026 at 09:26:23AM +0100, Lucas Tanure wrote:
-> > The T7 has the same ethernet glue as the G12A, but the controller
-> > reaches memory through a pipeline stage that this SoC inserts in the
-> > bus path. That stage has a gate of its own, which no other member of
-> > the family has, and nothing else in Linux claims it. It is therefore
-> > switched off as unused, and the port can then no longer finish a
-> > transfer.
-> >
-> > Describing it needs a fourth clock, and the fourth clock of the
-> > existing list drives the timing adjustment logic, which the T7 never
-> > uses. So the T7 gets a list of its own with the gate in that place,
-> > under the name the SD and eMMC controllers already use.
-> >
-> > Assisted-by: LLM
-> > Signed-off-by: Lucas Tanure <tanure@linux.com>
->
-> Didn't I ack the previous version?
-Sorry, I didn't receive one.
->
-> What changed?
-Nothing.
->
-> Thanks,
-> Conor.
->
-> > ---
-> >  .../bindings/net/amlogic,meson-dwmac.yaml     | 47 +++++++++++++++++++
-> >  1 file changed, 47 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.=
-yaml b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
-> > index 90ef79161ab1..96118b4d1560 100644
-> > --- a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
-> > +++ b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
-> > @@ -23,6 +23,7 @@ select:
-> >            - amlogic,meson-gxbb-dwmac
-> >            - amlogic,meson-axg-dwmac
-> >            - amlogic,meson-g12a-dwmac
-> > +          - amlogic,t7-dwmac
-> >    required:
-> >      - compatible
-> >
-> > @@ -57,6 +58,47 @@ allOf:
-> >              - const: clkin1
-> >              - const: timing-adjustment
-> >
-> > +  # The T7 applies the RGMII RX delay through PRG_ETH1 and never enabl=
-es the
-> > +  # timing adjustment logic, so it has no timing-adjustment clock. Wha=
-t it does
-> > +  # need is the gate of the pipeline stage the controller reaches DRAM=
- through.
-> > +  - if:
-> > +      properties:
-> > +        compatible:
-> > +          contains:
-> > +            const: amlogic,t7-dwmac
-> > +    then:
-> > +      properties:
-> > +        clocks:
-> > +          items:
-> > +            - description: GMAC main clock
-> > +            - description: First parent clock of the internal mux
-> > +            - description: Second parent clock of the internal mux
-> > +            - description:
-> > +                clock of the pipeline stage inserted in the bus path b=
-etween
-> > +                the controller and the DRAM. Without it, the controlle=
-r cannot
-> > +                complete DMA transfers.
-> > +
-> > +        clock-names:
-> > +          items:
-> > +            - const: stmmaceth
-> > +            - const: clkin0
-> > +            - const: clkin1
-> > +            - const: pipeline
-> > +
-> > +  # Delay definitions for Meson8b and newer (including T7)
-> > +  - if:
-> > +      properties:
-> > +        compatible:
-> > +          contains:
-> > +            enum:
-> > +              - amlogic,meson8b-dwmac
-> > +              - amlogic,meson8m2-dwmac
-> > +              - amlogic,meson-gxbb-dwmac
-> > +              - amlogic,meson-axg-dwmac
-> > +              - amlogic,meson-g12a-dwmac
-> > +              - amlogic,t7-dwmac
-> > +    then:
-> > +      properties:
-> >          amlogic,tx-delay-ns:
-> >            enum: [0, 2, 4, 6]
-> >            default: 2
-> > @@ -106,6 +148,7 @@ allOf:
-> >            contains:
-> >              enum:
-> >                - amlogic,meson-g12a-dwmac
-> > +              - amlogic,t7-dwmac
-> >      then:
-> >        properties:
-> >          rx-internal-delay-ps:
-> > @@ -143,6 +186,10 @@ properties:
-> >                - amlogic,meson6-dwmac
-> >                - amlogic,meson8m2-dwmac
-> >            - const: snps,dwmac
-> > +      - items:
-> > +          - const: amlogic,t7-dwmac
-> > +          - const: snps,dwmac-5.10a
-> > +          - const: snps,dwmac
-> >
-> >    reg:
-> >      items:
-> > --
-> > 2.56.0
-> >
+On Wed, Oct 07, 2026 at 11:04:05AM +0100, Catalin Marinas wrote:
+> On Tue, Oct 06, 2026 at 10:49:17PM +0100, Will Deacon wrote:
+> > On Thu, Sep 24, 2026 at 11:37:54AM +0530, Aneesh Kumar K.V (Arm) wrote:
+> > > @@ -496,7 +516,8 @@ swiotlb_select_pool_policy(unsigned int flags)
+> > >  	if (swiotlb_force_disable)
+> > >  		return SWIOTLB_POOL_NONE;
+> > >  
+> > > -	if (cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT))
+> > > +	if (cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT) &&
+> > > +	    !restricted_dma_pool_present)
+> > >  		return SWIOTLB_POOL_CC_GUEST;
+> > 
+> > I think this check on the restricted DMA pool is too general -- the pool
+> > could be tied to a specific DMA-capable peripheral and so treating its
+> > presence as a global property isn't right.
+> 
+> I agree it's a hack but that was the simplest way to avoid the pVMs
+> getting a bounce buffer after this patch. More than happy to leave it
+> out and reduce the buffer on cmdline or we come up with some better
+> heuristics.
+
+Hrm, that does mean that reverting just this part will regress pVMs
+because they'll suddenly be allocating a tonne more memory for an
+entirely unused swiotlb buffer. So I think I'd prefer to drop the entire
+series until this has been worked out properly.
+
+> Another option could be the arch code passing another flag that it
+> doesn't want an encrypted pool (e.g. when running in a pKVM guest) but I
+> don't particularly this either. The arch code doesn't know whether
+> there's an alternative pool.
+
+At that point, the default size may as well be driven by the
+drivers/virt/coco driver.
+
+> That said, such heuristics should have been a separate patch to make it
+> easier to review/drop.
+
+I think the only right way to get a semi-accurate heuristic is to take
+into account the set of dma-capable devices that will use the swiotlb
+pool, but that's fiddly and should probably be tackled as a separate
+series. Maybe a simpler hack in that direction would be to take the
+SWIOTLB_POOL_CC_GUEST if _any_ device is going to use swiotlb? You'll
+run into the usual problem of not being able to tell if a device is
+DMA-capable or not, but you could probably look for a global restricted
+DMA pool and, if that doesn't exist, check for per-device restricted pools
+on dma-coherent devices (since restricted DMA isn't supported by ACPI) as
+a reasonable approximation.
+
+Will
