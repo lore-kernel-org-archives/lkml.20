@@ -1,33 +1,38 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-208.mta0.migadu.com [91.218.175.208])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D933449A3C6;
-	Wed,  7 Oct 2026 09:11:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 561DD46C4A7
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 09:14:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.208
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791364479; cv=none; b=OUk+1fObTqPQ33EV0x8OVvJvFa5o7nCiUyh0oN0J1PBhPn2lY5E2b4SQhymd0Yn+NCeWQfDJmcEmZdDHRPR4PT8yss5mG6I08zlaqLOPrMa6D5pD4kM4ZvSFK5w8bDrEQ+jrOf9+OOZ6sGy1ERtAgVqm5m5sGw7S9uH7PQPcHhE=
+	t=1791364487; cv=none; b=o+v2I5wsz6RKFWOC1cAC8Vb8MgItYY8tcE/v1qWfYCuoKK6/Ae0clpXD3c7Lyjo3QJT2wCj168yV7etiFtsK9NX7V4MuTfkZxORlleajD6MPXdB8+EK9jEiBvALIm9wYLoiCU/dhBGrEPgW9lMnXFHe5rXKy9VjoPrdbXoG1qOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791364479; c=relaxed/simple;
-	bh=DW1mnaaHPrHpXBHjiY39nxmMlu4p8RseZKLYOaTIDmE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JI4z9fCu6frBNO0rPvjUfcBr+IMg0fGGw+sRh8976XyxMtjBe9vFeF09tpHXJWyb5eB7Vmxec6DxiUurihsZ88S9fsY5uq9MWaGGEkR4J3JSxDRlhskdLehUgO5VaD2D0nlS3FqUXb7vtn51i+kdBnPCUJn6vZyPC2MyWxU8cYQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=SRBtTWNQ; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1791364487; c=relaxed/simple;
+	bh=J/y1H3eemnVhW06Ctyt4QVgncGhn8rhFQ+PbyfP1y1s=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=stOAaULvWiV74JKqNUI9BRNDKkLkC5bdoCJQr/loLmflUEOae73v7FlMZhoPXiA98MWqioiDfHscRs3laArC787zsL1zIiSe/GIO4bZ5ykBmOiUyLpAtj35/imRI9LgXk0WfKfYBlv/jt07PBEqCyjtk2QN7Kd+elqPZig6xFJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=WSXf2K+i; arc=none smtp.client-ip=91.218.175.208
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="SRBtTWNQ"
-Received: from [192.168.0.43] (chfd-03-b2-v4wan-176392-cust229.vm15.cable.virginm.net [82.19.20.230])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 94F2115B2;
-	Wed,  7 Oct 2026 11:09:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1791364190;
-	bh=DW1mnaaHPrHpXBHjiY39nxmMlu4p8RseZKLYOaTIDmE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=SRBtTWNQK+mbHOgYbCGkx/+R8rO9gSLWH8SbPiKVemNRsSB6760TL5CwWFKSzvyOJ
-	 jyKR6AByV90Ne+r4yVJMimu68Y7ucxYud9SsqGcP3KajwwZZMih8DVjnp3KbYw5HWS
-	 sj9Nf5+owDnfIm/WyKDFeDX43D/Zg7vp3HZwaPto=
-Message-ID: <a44bdd3f-c28d-4f45-9c1c-174f5d979617@ideasonboard.com>
-Date: Wed, 7 Oct 2026 10:11:44 +0100
+	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="WSXf2K+i"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=J/y1H3eemnVhW06Ctyt4QVgncGhn8rhFQ+PbyfP1y1s=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791364317; v=1; x=1791969117;
+ b=WSXf2K+iKIh5YaG3PRhpGVMraaQQAIY4ki1QDlOPo8iuLm4vWNWSn85nl83I0ALRnvG3LUSR
+ 9mVG5hWRfyuqzhLNj131c7uduqmVcPfnGqU+Jg564y9i5wiwgdhxADIDCPvYwCsGLrggN1hfXZn
+ ZuQ1dP5XDqeTJJ6iFVVvKE8tE4Bob6YY0D8vVNMU4MlkTCj6e8RYw+rU3oc91uHvDVaXjz86nfC
+ /hXoKEYPPYE41GsmIeDNZPPlU6oMcitde1mMxXQ19etRAPCTp4mxh2LJMLS5bSvc+zYTcT38Z+7
+ 1RjopnvZtUzOUe9yaP2Hb6PC+mlmrwSH5enxhaZmQcf7g==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7d4030431edfb94a;
+	Wed, 07 Oct 2026 09:11:57 +0000
+X-Mizu-Trace-ID: 7d4030431edfb94a
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <f189cfc2-c36a-4bf5-bac7-36ddb15cc7a4@packett.cool>
+Date: Wed, 7 Oct 2026 06:11:46 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,54 +40,150 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: mali-c55: Disable colour space conversion for RGB
- outputs
-To: David Carlier <devnexen@gmail.com>, linux-media@vger.kernel.org
-Cc: jacopo.mondi@ideasonboard.com, mchehab@kernel.org,
- hverkuil+cisco@kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261006234242.11934-1-devnexen@gmail.com>
+From: Val Packett <val@packett.cool>
+Subject: Re: [PATCH v5 1/6] PCI/bwctrl: Set host bridge OPP and optionally
+ disable ASPM around link retraining
+To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Jingoo Han <jingoohan1@gmail.com>, Lorenzo Pieralisi
+ <lpieralisi@kernel.org>, Rob Herring <robh@kernel.org>,
+ Jeff Johnson <jjohnson@kernel.org>, Bartosz Golaszewski <brgl@bgdev.pl>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, mhi@lists.linux.dev,
+ linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
+ qiang.yu@oss.qualcomm.com
+References: <20260819-bwscale-v5-0-6dea79786b37@oss.qualcomm.com>
+ <20260819-bwscale-v5-1-6dea79786b37@oss.qualcomm.com>
 Content-Language: en-US
-From: Dan Scally <dan.scally@ideasonboard.com>
-In-Reply-To: <20261006234242.11934-1-devnexen@gmail.com>
+In-Reply-To: <20260819-bwscale-v5-1-6dea79786b37@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Morning David, thanks for the patch
 
-On 07/10/2026 00:42, David Carlier wrote:
-> The colour space conversion block is only programmed for YUV formats,
-> and its configuration is kept across streaming sessions. An RGB stream
-> started after a YUV one thus still converts its output to YUV.
-> 
-> Clear the conversion configuration for non-YUV formats.
-> 
-> Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: David Carlier <devnexen@gmail.com>
+On 8/19/26 10:25 AM, Krishna Chaitanya Chundru wrote:
+> PCIe host bridge controllers may need their operating point raised before
+> retraining to a higher link speed so that hardware resources (e.g., RPMh
+> votes on Qualcomm platforms) are available at the requested data rate.
+> After retraining, the operating point must be updated to reflect the
+> actual negotiated speed.
+>
+> Add pcie_set_opp() to look up an OPP on the host bridge parent device
+> using a key of (per-lane frequency in kHz, LNKCTL2 Target Link Speed
+> level).  Keying by generation rather than total bandwidth lets OPP tables
+> remain width-independent.
+>
+> In pcie_set_target_speed(), call pcie_set_opp() before retraining only
+> when upscaling (speed_req > cur_bus_speed), since only raising the
+> operating point requires pre-staging hardware.  After retraining, call
+> pcie_set_opp() unconditionally with the actual cur_bus_speed to settle
+> the votes.  Both calls are skipped for downstream ports of PCIe switches,
+> as those are outside the host controller's scope.
+>
+> Some controllers also require ASPM to be disabled around link retraining.
+> Add a disable_aspm_for_retrain flag to pci_host_bridge; when set,
+> pcie_set_target_speed() saves the child device's ASPM state, disables all
+> ASPM link states before retraining, and restores them afterward.
+>
+> Signed-off-by: Krishna Chaitanya Chundru<krishna.chundru@oss.qualcomm.com>
 > ---
->   drivers/media/platform/arm/mali-c55/mali-c55-capture.c | 4 ++++
->   1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
-> index ff01553026fb..2425a069a939 100644
-> --- a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
-> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
-> @@ -577,6 +577,10 @@ static void mali_c55_cap_dev_format_configure(struct mali_c55_cap_dev *cap_dev)
->   				MALI_C55_REG_CS_CONV_CONFIG,
->   				MALI_C55_CS_CONV_FILTER_MASK,
->   				MALI_C55_CS_CONV_FILTER_ENABLE);
-> +	} else {
-> +		/* Don't inherit the conversion set up by a previous YUV stream. */
-> +		mali_c55_cap_dev_write(cap_dev, MALI_C55_REG_CS_CONV_CONFIG,
-> +				       0);
-
-Makes sense to me:
-
-Reviewed-by: Daniel Scally <dan.scally@ideasonboard.com>
-
->   	}
->   }
+> [..]
+> @@ -176,6 +231,12 @@ int pcie_set_target_speed(struct pci_dev *port, enum pci_bus_speed speed_req,
+>   	    !list_empty(&bus->devices))
+>   		ret = -EAGAIN;
 >   
+> +	if (bus && is_rootbus && host) {
+> +		if (child && host->disable_aspm_for_retrain)
+> +			pci_enable_link_state_locked(child, aspm_state);
+> +		pcie_set_opp(port, host, bus->cur_bus_speed);
+> +	}
+> +
+>   	return ret;
+>   }
+
+ASPM is not actually reenabled here:
+
+LnkCap: Port #0, Speed 16GT/s, Width x4, ASPM L1, Exit Latency L1 <8us
+         ClockPM- Surprise- LLActRep- BwNot- ASPMOptComp+
+LnkCtl: ASPM Disabled; RCB 128 bytes, LnkDisable- CommClk+
+         ExtSynch+ ClockPM- AutWidDis- BWInt- AutBWInt- FltModeDis-
+LnkSta: Speed 2.5GT/s (downgraded), Width x4
+         TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+
+
+Because as the comment for pci_enable_link_state(_locked) says, "note 
+that this does not enable states disabled by pci_disable_link_state(). 
+Use pci_force_enable_link_state() for that"!
+
+This needs something like:
+
+
+diff --git a/drivers/pci/pcie/aspm.c b/drivers/pci/pcie/aspm.c
+index 4bad311dc7..c54f2658e0 100644
+--- a/drivers/pci/pcie/aspm.c
++++ b/drivers/pci/pcie/aspm.c
+@@ -1709,6 +1709,12 @@
+  }
+  EXPORT_SYMBOL(pci_force_enable_link_state);
+
++int pci_force_enable_link_state_locked(struct pci_dev *pdev, int state)
++{
++    return __pci_enable_link_state(pdev, state, true, true);
++}
++EXPORT_SYMBOL(pci_force_enable_link_state_locked);
++
+  void pcie_aspm_remove_cap(struct pci_dev *pdev, u32 lnkcap)
+  {
+      if (lnkcap & PCI_EXP_LNKCAP_ASPM_L0S)
+diff --git a/drivers/pci/pcie/bwctrl.c b/drivers/pci/pcie/bwctrl.c
+index 623731b96c..530b9047a0 100644
+--- a/drivers/pci/pcie/bwctrl.c
++++ b/drivers/pci/pcie/bwctrl.c
+@@ -211,7 +211,7 @@
+
+      if (bus && is_rootbus && host) {
+          if (child && host->disable_aspm_for_retrain)
+-            pci_enable_link_state_locked(child, aspm_state);
++            pci_force_enable_link_state_locked(child, aspm_state);
+          pcie_set_opp(port, host, bus->cur_bus_speed);
+      }
+
+diff --git a/include/linux/pci.h b/include/linux/pci.h
+index 9f20bae6d7..59d7b67c9d 100644
+--- a/include/linux/pci.h
++++ b/include/linux/pci.h
+@@ -1960,6 +1960,7 @@
+  int pci_enable_link_state(struct pci_dev *pdev, int state);
+  int pci_enable_link_state_locked(struct pci_dev *pdev, int state);
+  int pci_force_enable_link_state(struct pci_dev *pdev, int state);
++int pci_force_enable_link_state_locked(struct pci_dev *pdev, int state);
+  void pcie_no_aspm(void);
+  bool pcie_aspm_support_enabled(void);
+  u32 pcie_aspm_enabled(struct pci_dev *pdev);
+@@ -1974,6 +1975,8 @@
+  { return 0; }
+  static inline int pci_force_enable_link_state(struct pci_dev *pdev, 
+int state)
+  { return 0; }
++static inline int pci_force_enable_link_state_locked(struct pci_dev 
+*pdev, int state)
++{ return 0; }
+  static inline void pcie_no_aspm(void) { }
+  static inline bool pcie_aspm_support_enabled(void) { return false; }
+  static inline u32 pcie_aspm_enabled(struct pci_dev *pdev) { return 0; }
+
+(the addition of the new force+locked variant should go as a separate 
+commit, but well)
+
+With that,
+
+Tested-by: Val Packett <val@packett.cool> # x1e80100-dell-latitude-7455
+
+Well, tested without that too, but losing ASPM is not good :)
+
+
+Thanks,
+~val
 
