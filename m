@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12F934C9E1C;
-	Wed,  7 Oct 2026 17:30:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69AD6287247;
+	Wed,  7 Oct 2026 17:30:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791394219; cv=none; b=fQPXTHVwB+r8rVoD1XPwseoqTgZnghkimV48FbZGUN3lLeTcYVcuw2o5tbui8AUHLl+bcgYH1gwVCeNS5kwe8n/ehID9XZZTdZz0hZ4LFE4QxVdLV5l30RYDF9Naam2PwAc4EUvoXwI2Af1OVwfmUZO6LFxyjVBVaoyoFoiqbUs=
+	t=1791394220; cv=none; b=vFbtlgUyAONeKtc/ZgspnrZub6vVUx/t3laEJF66VM2J8oWSPQJMTvV+10CKEh+ghh9vDX9WMahfVaOocILATUjhm5p0MBkc1vAoW2n+u6AaYnxOyu1+kPPHekqAtB3pXqgv1UrJuPy1QGF9+MGCSY+DRrbC6p2Hdhnt40D5y/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791394219; c=relaxed/simple;
-	bh=No5cfcgLyYBofpzy/oHzyqtVZszywQZsgASlkT0Q4+8=;
+	s=arc-20240116; t=1791394220; c=relaxed/simple;
+	bh=m6ucJHmfwszGq29v35Xa4vszyDraHtDwgLbTUWHQqN4=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=snNmr+O6KWjrTeSV/cnzewvhpdOyhwy79LPP7G6PW2bwY2X831qfoH0Cmhv+M4sQC2e5iO6joEH+sOhG6aap/P2wEUWi5K9/D4BaA4I2Q/5Eu2eWkkRfoZYps8nA80eeqPd7tFSzw4htIoC9vnpi11uet1eZ+VCVruEpydIebqc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d5tDmUOn; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=AB3s0Jq+Wl/FgEj+q+w51mKxCZwCKLTQmkJow1XtyYxijf7dKzClKoN1f4F+2fCT9vRjNd1VLXa1XA75uXTZRYU90iQrFPr0Sfnbdb8OmGGdlEkRz916pqmS/B72sADOCjbOAa/2nUE3cGt8u5NijJdUq/cCD8B4hbbrN/fm2jk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j3DT95Ba; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d5tDmUOn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 468A41F00893;
-	Wed,  7 Oct 2026 17:30:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j3DT95Ba"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C00761F00899;
+	Wed,  7 Oct 2026 17:30:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791394212;
-	bh=SPx2OVt2aOGNO67xzs2aKwRyIWC4ZNPmyoJ19nYGjGU=;
+	s=k20260515; t=1791394216;
+	bh=NHADbe2BnuO3kyZe93Uvj3PVT1JVZx+J5Y4dw5noRUE=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=d5tDmUOn+m9etnmA63AF9HWxvgAMJtFWxFCMX0fgAOYqZv4MOQqPOQS+NdayK53OD
-	 iQ1b9XSZH/BSlyJDSUfB2KTmNik4wUVQrlELznX7N33BKNEvhx25bCXLFEp2LQ/+/g
-	 +zItKlg0x/MRd0s7WcHd2G596fPuU1KsKGyXg5E7D/N6HrI7Ccy1DfX+0YEfaWKE8A
-	 6KYKP5pDjkDJ9II3OtLAq5h8bzh8CIUdXyEXU+3bRZjHPWHDsYaoP91VJtFvO3Vgof
-	 KFrHUXSylZPRTn4w6PJjpeXMLQd4JO+Qjbgf4aTtkhI0cV56PPUers24AJIrW0ergC
-	 ptSlj2tPc1vGQ==
+	b=j3DT95Baqir4wRzXzh9peo2xIQ6j0auuok676zHbUug2JO8GSpFG9k4dRkpbTvUfe
+	 aPROBGRMHqoT41F5QkMJVorlmxsY2FoYvoZd9tlKLXfzuON/pNpMYXyQ6/EdCCdIT2
+	 noALn7N83ZJBOSQN0OaCowiOuBSETCUCCyjqc5Mot/tJOtmGWqtQ8YofESQTko7ffw
+	 6WfFQ6TT2xQCHG+Coevii8sr5Z5hTlX5A+kG25D34FOEI+hoLA+umJ+tS0dLUu+eLX
+	 VJUDQWgRxDf5vONVZuj5CVS2ZPuELIxUHLsFYer0Qb1WilQPC3ohd8LR6rCvXDDlzi
+	 uU/lKDRgBOYtw==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A1603808209;
-	Wed,  7 Oct 2026 17:30:12 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B43863808209;
+	Wed,  7 Oct 2026 17:30:16 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -37,16 +37,17 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] Bluetooth: hci_core: Keep RCU protection through LTK
- filtering
+Subject: Re: [PATCH] Bluetooth: msft: Lock failed probe cleanup against
+ feature
+ readers
 From: patchwork-bot+bluetooth@kernel.org
 Message-Id: 
- <179139421077.3628206.11889027224704009743.git-patchwork-notify@kernel.org>
-Date: Wed, 07 Oct 2026 17:30:10 +0000
+ <179139421527.3628206.15092469243511428076.git-patchwork-notify@kernel.org>
+Date: Wed, 07 Oct 2026 17:30:15 +0000
 References: 
- <pm-bluetooth-objects-candidate-0123-v5-83023fa5b4741c350341@gmail.com>
+ <pm-bluetooth-objects-candidate-0233-v3-004a766561f1356a1b14@gmail.com>
 In-Reply-To: 
- <pm-bluetooth-objects-candidate-0123-v5-83023fa5b4741c350341@gmail.com>
+ <pm-bluetooth-objects-candidate-0233-v3-004a766561f1356a1b14@gmail.com>
 To: Cen Zhang <zzzccc427@gmail.com>
 Cc: marcel@holtmann.org, luiz.dentz@gmail.com,
  linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
@@ -57,23 +58,22 @@ Hello:
 This patch was applied to bluetooth/bluetooth-next.git (master)
 by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
 
-On Tue,  6 Oct 2026 15:38:38 +0800 you wrote:
-> The LTK selected by hci_find_ltk() must remain allocated while its
-> value is checked against the blocked-key list. The finder releases RCU
-> before passing k->val to hci_is_blocked_key(). The helper's own RCU
-> section protects the blocked-key list, but the selected LTK may already
-> have been reclaimed before that section starts.
+On Tue,  6 Oct 2026 22:41:57 +0800 you wrote:
+> The MSFT data must remain allocated while msft_get_features() reads
+> its features. read_adv_mon_features() protects that access with
+> hdev->lock, but msft_do_open() clears hdev->msft_data and frees the
+> object without that lock when read_supported_features() fails.
 > 
-> An LE ATT socket security request can reach smp_ltk_encrypt() without
-> holding hdev->lock. With a matching stored LTK and an LTK-type
-> blocked-key entry present, a concurrent MGMT_OP_LOAD_LONG_TERM_KEYS can
-> remove the selected LTK in the following order:
+> After a successful probe, the data survives a normal close. A later
+> open can fail the probe while a management feature request is running.
+> hci_mgmt_cmd() permits requests during HCI_INIT, and the opener's
+> hdev->req_lock does not serialize the management reader:
 > 
 > [...]
 
 Here is the summary with links:
-  - Bluetooth: hci_core: Keep RCU protection through LTK filtering
-    https://git.kernel.org/bluetooth/bluetooth-next/c/6a46ef87a65c
+  - Bluetooth: msft: Lock failed probe cleanup against feature readers
+    https://git.kernel.org/bluetooth/bluetooth-next/c/9cb04e601a89
 
 You are awesome, thank you!
 -- 
