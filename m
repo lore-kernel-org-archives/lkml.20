@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5827541A569
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:50:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F18480DEC
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:50:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791373814; cv=none; b=TcJUuvHr891fRamnN3255m6rRapnHx1eQNKgBeNbvYXnkNL1TnstzhtmcyafMvqmAJXMSoZBRgACD7UWVxZq4PHaDOTmCPSTzO429HpaNBzcFic/ocGbeP7LeTS17+fmFS/s616c3thU888HeIGR1m5XwLvGRSEzEN3SsfZNK3g=
+	t=1791373819; cv=none; b=emEKtOPa7+MlwTL35s3xFXASDac79dv7wAFYCegbiN1v8HC8oi7Oldgl0l5Z934aAWcjl77YZhFILVTuFvT/qZ1p3KWDGijqgXeofjQVzbQXGB179rKme8D96CXh8RuWy0rvfxicuWlU9tsVaYjud2D+oMF0P+d36P8b5XL7eQQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791373814; c=relaxed/simple;
-	bh=wGr9t/s4DyDBnQa9SPI4d2fCf7BpY9oSx1ZJPLeAXWM=;
+	s=arc-20240116; t=1791373819; c=relaxed/simple;
+	bh=PlWCbGZOZOdHVSsjcKr+Tov2/M6ZUTcsjJoIzYuwcGM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mhb4K9VRmXSH/vZ55zorNZDdonMsMBCvgAk5NZVkQ8sh/dlmY6g7NP9DDluA+oUVyOD01RM1xwWUksNcnj4Wz7RTEYYY98hGotw2jL3bdQSR1GbYKLOIRUiQe8BiKEB6ZV3R4JBTfdYfjpZSHrGSMnuzl6hjaM2kyRspt1uzmUI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RreF8+oR; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=kHzNKnTHeo6NH2IT9SybGNZPNoI0yYhESGY7e1gdUtFLYhY8b4e75z5nOQYnAhf1ywas9dogiS2mvejyDGOlgPYeT+S9yu+VsaOCZrNHOMB+07y3m0jIeoCVAMGwe5Bj6/tYZLFjmLMKnVLKvAWOdWExQZNu+eUL3V4ib6Cgsh0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EVEhxJsQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RreF8+oR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92DBF1F008A0;
-	Wed,  7 Oct 2026 11:49:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EVEhxJsQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20F0A1F008A1;
+	Wed,  7 Oct 2026 11:50:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791373800;
-	bh=x41muMHTfMYZOVwgw5U3Ok4EV+qcMUNKpCjaY2C03kg=;
+	s=k20260515; t=1791373801;
+	bh=IcOcFcagufUXMd9/FtYIV90ZFdfYqRj22aJmPkT6wEg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RreF8+oRw/MjNGMozbyaHuQ1Huy01BkG5v0ePhuNVvkMBwvM3RcfcoOM/B2ykFLCF
-	 bP8ZrC3DiSMkCQlqrqFnhwqUktIc1k01bVPmPglJsti+zUDUs8DcjOAPBtmFjXTmM3
-	 CIgGb0n//562HDLc9CiL2WkHL6nM1D6EvMSKPi8G5RYIZoxwfGGhhQg4V39uzEdxVR
-	 Isw0S6a5U3sHW2LbE4pzxXn8l2lMjdQGZiOaGra34BkHfGs/boZAZIX2pgSBJvbYPI
-	 VtXgKCaPv8i5+ftRW25SJ6jxe4KZRi7yyjtsKla/SU9ybQTWul8R8k9nKNAr3wr+pX
-	 ZwDk/vkboQqaA==
+	b=EVEhxJsQue1b/2Am6aMrVUfdv6SgIcPU/VJXmoMIie1Y5kH7WrkqqOqBR08MPrAq5
+	 iX2EokIPTMHBGbt1l1b3rqssrJEegkUdtPchECwUIpp2HIKEg7WN2+WLD3fDzOgQNb
+	 2Q9IxFLDrIPAePd3w/eJ4qJw3o0Fj14XA+kbQeEiejbOpZi9ALTksSr+sfGKrWGScA
+	 uY0ZLHLf9A2CkuTmnWX38jDNtUtggPopOnDzEMYhUhtkAHzzayl0Jn8Mb++TamEXUC
+	 t5XnoGCSDR+NLRq4/WXo/85LpC2iPcasQJjAhmhDTp3UiI1/lDu7XqUbLLcWAA7gz2
+	 aAxj9tkIE3yIQ==
 From: Chao Yu <chao@kernel.org>
 To: jaegeuk@kernel.org
 Cc: linux-f2fs-devel@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org,
 	Chao Yu <chao@kernel.org>
-Subject: [PATCH 4/5] f2fs: cache: support asynchronous write_end_io
-Date: Wed,  7 Oct 2026 11:49:48 +0000
-Message-ID: <20261007114949.2428048-4-chao@kernel.org>
+Subject: [PATCH 5/5] f2fs: introduce max_atc_write_bio_entry_cnt
+Date: Wed,  7 Oct 2026 11:49:49 +0000
+Message-ID: <20261007114949.2428048-5-chao@kernel.org>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
 In-Reply-To: <20261007114949.2428048-1-chao@kernel.org>
 References: <20261007114949.2428048-1-chao@kernel.org>
@@ -47,160 +47,157 @@ Content-Transfer-Encoding: 8bit
 
 From: Chao Yu <chao@kernel.org>
 
-Currently, f2fs_cache_write_end_io() synchronously traverses all
-cached blocks in the write bio to perform node footer sanity checks,
-warm node cleanup, and writeback completion. If called from atomic
-context (e.g. interrupt context) with a large batch of metadata
-blocks, this traversal can induce significant IRQ latency.
+Commit 3de6b8094115 ("f2fs: Run f2fs_write_end_io() asynchronously")
+introduced max_atc_write_bio_size to offload write bio completion to a
+workqueue when f2fs_write_end_io() is called in atomic context.
 
-Furthermore, f2fs_write_end_io() already implements asynchronous
-offloading via workqueue when in atomic context and exceeding the
-max_atc_write_bio_size threshold.
+However, using the bio byte size (bi_iter.bi_size) as the threshold has
+limitations once large folios or multi-page bvecs are involved:
 
-To avoid code duplication and mitigate atomic context latency for
-metadata cache writes:
-1. Unify the write completion handler by pointing all write bios to
-   f2fs_write_end_io() with bio->bi_private = sbi.
-2. In f2fs_write_end_bio(), check f2fs_is_cache_bio(bio) to dispatch
-   to f2fs_cache_write_end_bio().
-3. Simplify f2fs_zone_write_end_io() to call f2fs_write_end_io() directly.
+1. In f2fs_write_end_bio(), execution time is dominated by the
+   completion loop (bio_for_each_folio_all() for pagecache folios,
+   or while(entry) for cached metadata blocks), where per-entry
+   locking, status clearing, sanity checks, and writeback end are
+   performed. The CPU latency in atomic context scales with the number
+   of entries in the bio, not its byte size.
+2. For large folios, a large bio (e.g. 1MB comprised of single large
+   folios) only iterates a few times through the loop. Throttling solely
+   by max_atc_write_bio_size unnecessarily offloads such low-latency
+   bios to the workqueue, adding context-switch overhead.
+3. Conversely, relying on bio->bi_vcnt is insufficient because the block
+   layer (bvec_try_merge_page) merges physically consecutive pages/folios
+   into the same bio_vec segment. Thus, a bio with bi_vcnt == 1 could
+   still contain multiple entries and iterate many times in end_io.
+
+To address this, track the exact number of entries (folios or cached
+blocks) queued to the write bio via entry_cnt in struct f2fs_bio, and
+introduce a sysfs attribute max_atc_write_bio_entry_cnt. This enables
+precise control over atomic context latency without penalizing large
+folios.
 
 Signed-off-by: Chao Yu <chao@kernel.org>
 ---
- fs/f2fs/data.c | 92 +++++++++++++++++++++++---------------------------
- 1 file changed, 42 insertions(+), 50 deletions(-)
+ Documentation/ABI/testing/sysfs-fs-f2fs | 11 +++++++++++
+ fs/f2fs/data.c                          |  7 ++++++-
+ fs/f2fs/f2fs.h                          |  3 +++
+ fs/f2fs/super.c                         |  1 +
+ fs/f2fs/sysfs.c                         |  2 ++
+ 5 files changed, 23 insertions(+), 1 deletion(-)
 
+diff --git a/Documentation/ABI/testing/sysfs-fs-f2fs b/Documentation/ABI/testing/sysfs-fs-f2fs
+index f50739f90ae9..5ff693dd4bff 100644
+--- a/Documentation/ABI/testing/sysfs-fs-f2fs
++++ b/Documentation/ABI/testing/sysfs-fs-f2fs
+@@ -1014,6 +1014,17 @@ Description:	Every time a write operation completes f2fs_write_end_io() is
+ 		(atc) context. The default value for this attribute is UINT_MAX
+ 		which means that this functionality is disabled by default.
+ 
++What:		/sys/fs/f2fs/<disk>/max_atc_write_bio_entry_cnt
++Date:		October 2026
++Contact:	Chao Yu <chao@kernel.org>
++Description:	Every time a write operation completes f2fs_write_end_io() is
++		called. This function may be called from an atomic context,
++		e.g. from inside an interrupt handler. This attribute controls
++		the maximum number of entries (folios or cached blocks) in a
++		write bio that is completed in atomic (atc) context. The default
++		value for this attribute is UINT_MAX which means that this
++		functionality is disabled by default.
++
+ What:		/sys/fs/f2fs/<disk>/pinned_area_max_secno
+ Date:		August 2026
+ Contact:	"Daeho Jeong" <daehojeong@google.com>
 diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 6d4ba5e77906..0a6aa24caa07 100644
+index 0a6aa24caa07..395794d00194 100644
 --- a/fs/f2fs/data.c
 +++ b/fs/f2fs/data.c
-@@ -298,6 +298,40 @@ static void f2fs_read_end_io(struct bio *bio)
- 	f2fs_verify_and_finish_bio(bio, intask);
- }
+@@ -398,7 +398,8 @@ static void f2fs_write_end_io(struct bio *bio)
  
-+static void f2fs_cache_write_end_bio(struct bio *bio)
-+{
-+	struct f2fs_cached_block *entry = F2FS_BIO(bio)->entry;
-+	struct f2fs_sb_info *sbi = entry->cache->sbi;
-+	struct f2fs_cached_block *next;
-+
-+	if (bio->bi_status != BLK_STS_OK)
-+		f2fs_stop_checkpoint(sbi, true,
-+			STOP_CP_REASON_WRITE_FAIL);
-+
-+	while (entry) {
-+		next = entry->next_entry;
-+		entry->next_entry = NULL;
-+
-+		if (f2fs_is_node_cache(entry)) {
-+			f2fs_sanity_check_node_footer(sbi, entry,
-+				entry->index, NODE_TYPE_REGULAR, true);
-+			f2fs_bug_on(sbi, entry->index != nid_of_node(sbi, entry));
-+		}
-+		if (f2fs_in_warm_node_list(sbi, entry))
-+			f2fs_del_fsync_node_entry(sbi, entry);
-+
-+		dec_cache_count(sbi, F2FS_WB_CP_DATA);
-+
-+		if (!get_nr_caches(sbi, F2FS_WB_CP_DATA) &&
-+				wq_has_sleeper(&sbi->cp_wait))
-+			wake_up(&sbi->cp_wait);
-+
-+		f2fs_end_cache_writeback(entry);
-+		entry = next;
-+	}
-+	bio_put(bio);
-+}
-+
- static void f2fs_write_end_bio(struct bio *bio)
- {
- 	struct f2fs_sb_info *sbi = bio->bi_private;
-@@ -306,6 +340,11 @@ static void f2fs_write_end_bio(struct bio *bio)
- 	if (time_to_inject(sbi, FAULT_WRITE_IO))
- 		bio->bi_status = BLK_STS_IOERR;
+ 	sbi = bio->bi_private;
  
-+	if (f2fs_is_cache_bio(bio)) {
-+		f2fs_cache_write_end_bio(bio);
-+		return;
-+	}
-+
- 	bio_for_each_folio_all(fi, bio) {
- 		struct folio *folio = fi.folio;
- 		enum count_type type;
-@@ -404,45 +443,6 @@ static void f2fs_cache_read_end_io(struct bio *bio)
- 	bio_put(bio);
- }
+-	if (in_atomic() && bio->bi_iter.bi_size > sbi->max_atc_write_bio_size) {
++	if (in_atomic() && (bio->bi_iter.bi_size > sbi->max_atc_write_bio_size ||
++			F2FS_BIO(bio)->entry_cnt > sbi->max_atc_write_bio_entry_cnt)) {
+ 		struct work_struct *w;
  
--static void f2fs_cache_write_end_io(struct bio *bio)
--{
--	struct f2fs_cached_block *entry = F2FS_BIO(bio)->entry;
--	struct f2fs_sb_info *sbi = entry->cache->sbi;
--	struct f2fs_cached_block *next;
--
--	iostat_update_and_unbind_ctx(bio);
--
--	if (time_to_inject(sbi, FAULT_WRITE_IO))
--		bio->bi_status = BLK_STS_IOERR;
--
--	if (bio->bi_status != BLK_STS_OK)
--		f2fs_stop_checkpoint(sbi, true,
--			STOP_CP_REASON_WRITE_FAIL);
--
--	while (entry) {
--		next = entry->next_entry;
--		entry->next_entry = NULL;
--
--		if (f2fs_is_node_cache(entry)) {
--			f2fs_sanity_check_node_footer(sbi, entry,
--				entry->index, NODE_TYPE_REGULAR, true);
--			f2fs_bug_on(sbi, entry->index != nid_of_node(sbi, entry));
--		}
--		if (f2fs_in_warm_node_list(sbi, entry))
--			f2fs_del_fsync_node_entry(sbi, entry);
--
--		dec_cache_count(sbi, F2FS_WB_CP_DATA);
--
--		if (!get_nr_caches(sbi, F2FS_WB_CP_DATA) &&
--				wq_has_sleeper(&sbi->cp_wait))
--			wake_up(&sbi->cp_wait);
--
--		f2fs_end_cache_writeback(entry);
--		entry = next;
--	}
--	bio_put(bio);
--}
--
- #ifdef CONFIG_BLK_DEV_ZONED
- static void f2fs_zone_write_end_io(struct bio *bio)
- {
-@@ -450,10 +450,7 @@ static void f2fs_zone_write_end_io(struct bio *bio)
- 
- 	bio->bi_private = io->bi_private;
- 	complete(&io->zone_wait);
--	if (f2fs_is_cache_bio(bio))
--		f2fs_cache_write_end_io(bio);
--	else
--		f2fs_write_end_io(bio);
-+	f2fs_write_end_io(bio);
- }
- #endif
- 
-@@ -548,13 +545,8 @@ static struct bio *__bio_alloc(struct f2fs_io_info *fio, int npages)
- 		else
- 			bio->bi_end_io = f2fs_read_end_io;
- 	} else {
--		if (fio->is_cache) {
--			bio->bi_end_io = f2fs_cache_write_end_io;
--		} else {
--			bio->bi_end_io = f2fs_write_end_io;
--			bio->bi_private = sbi;
--		}
--
-+		bio->bi_end_io = f2fs_write_end_io;
-+		bio->bi_private = sbi;
- 		bio->bi_write_hint = f2fs_io_type_to_rw_hint(sbi,
+ 		w = &container_of(bio, struct f2fs_bio, bio)->work;
+@@ -551,6 +552,7 @@ static struct bio *__bio_alloc(struct f2fs_io_info *fio, int npages)
  						fio->type, fio->temp);
  		bio->bi_write_stream = f2fs_io_type_to_write_stream(bdev, fio->type,
+ 								    fio->temp);
++		F2FS_BIO(bio)->entry_cnt = 0;
+ 	}
+ 	iostat_alloc_and_bind_ctx(sbi, bio, NULL);
+ 
+@@ -1218,6 +1220,8 @@ void f2fs_submit_page_write(struct f2fs_io_info *fio)
+ 		goto alloc_new;
+ 	}
+ 
++	F2FS_BIO(io->bio)->entry_cnt++;
++
+ 	if (fio->io_wbc)
+ 		wbc_account_cgroup_owner(fio->io_wbc, fio->folio,
+ 				folio_size(fio->folio));
+@@ -1324,6 +1328,7 @@ void f2fs_submit_cache_write(struct f2fs_io_info *fio)
+ 	}
+ 
+ 	f2fs_bio_add_cache(fio, io->bio);
++	F2FS_BIO(io->bio)->entry_cnt++;
+ 
+ 	io->last_block_in_bio = fio->new_blkaddr;
+ 
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index 089a62c054ea..0acbc4d299af 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -1778,6 +1778,7 @@ struct f2fs_gc_kthread {
+ struct f2fs_bio {
+ 	struct work_struct work;
+ 	struct f2fs_cached_block *entry;
++	unsigned int entry_cnt;
+ 	struct bio bio;
+ };
+ 
+@@ -1807,6 +1808,8 @@ struct f2fs_sb_info {
+ 	/* for bio operations */
+ 	/* Largest write bio size completed in atomic context (atc). */
+ 	u32 max_atc_write_bio_size;
++	/* Largest write bio entry count completed in atomic context (atc). */
++	u32 max_atc_write_bio_entry_cnt;
+ 	struct f2fs_bio_info *write_io[NR_PAGE_TYPE];	/* for write bios */
+ 	/* keep migration IO order for LFS mode */
+ 	struct f2fs_rwsem io_order_lock;
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index d683240040f0..9e55febe18f4 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -5211,6 +5211,7 @@ static int f2fs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 		goto free_sb_buf;
+ 	}
+ 	sbi->max_atc_write_bio_size = UINT_MAX;
++	sbi->max_atc_write_bio_entry_cnt = UINT_MAX;
+ 
+ 	INIT_WORK(&sbi->s_error_work, f2fs_record_error_work);
+ 	memcpy(sbi->errors, raw_super->s_errors, MAX_F2FS_ERRORS);
+diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
+index 95f8dc0c4218..32dfd564094b 100644
+--- a/fs/f2fs/sysfs.c
++++ b/fs/f2fs/sysfs.c
+@@ -1285,6 +1285,7 @@ F2FS_SBI_RW_ATTR(umount_discard_timeout, interval_time[UMOUNT_DISCARD_TIMEOUT]);
+ F2FS_SBI_RW_ATTR(gc_pin_file_thresh, gc_pin_file_threshold);
+ F2FS_SBI_RW_ATTR(gc_reclaimed_segments, gc_reclaimed_segs);
+ F2FS_SBI_RW_ATTR(max_atc_write_bio_size, max_atc_write_bio_size);
++F2FS_SBI_RW_ATTR(max_atc_write_bio_entry_cnt, max_atc_write_bio_entry_cnt);
+ F2FS_SBI_GENERAL_RW_ATTR(max_victim_search);
+ F2FS_SBI_GENERAL_RW_ATTR(migration_granularity);
+ F2FS_SBI_GENERAL_RW_ATTR(migration_window_granularity);
+@@ -1536,6 +1537,7 @@ static struct attribute *f2fs_attrs[] = {
+ 	ATTR_LIST(gc_segment_mode),
+ 	ATTR_LIST(gc_reclaimed_segments),
+ 	ATTR_LIST(max_atc_write_bio_size),
++	ATTR_LIST(max_atc_write_bio_entry_cnt),
+ 	ATTR_LIST(max_fragment_chunk),
+ 	ATTR_LIST(max_fragment_hole),
+ 	ATTR_LIST(current_atomic_write),
 -- 
 2.49.0
 
