@@ -1,235 +1,254 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC8391925BC
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 04:32:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791347567; cv=pass; b=jUlWm2x48qfZdoXuG5kUpFwplUs4rn6JDYFEtyNDK/8jMFdIRnCQ80YuMTm+w6ZkX6LeDgFgMLiWlRTFX4+gyy/ysjUNYj4y2JQUcRMrHymvwhzO35sQRm1flvnsxQL3qWtCUCXqs4/0SwdBOzfttyud9ci4HAX48hWDC6juDs8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791347567; c=relaxed/simple;
-	bh=TCmURO/3fHovnf91TaQ7J2qgpCxoJSVzrXZL4aMCddU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CsKXmkSpmE3l9iFpiLKpss/aN5ClQoMzxJtDykvyJ0wl0OSyzrm/75cxkW5vE8K/t5gA6QvGMNPva/qUbfL/iFfuDQJ+0UFkemTU2B4ISKUwI4f6Ki9TDRvGs/NVbuYo3lyQEg5zm0fbXRkjiBgge6paEkIUMWQyRT1QEqDR0Us=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KQTeDrep; arc=pass smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86F2819D074
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 04:42:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791348143; cv=none; b=fvT2T+PSG+nP1Wl602NFzWNR8/ZkawMVT8TuJB+ZH9GaiYaRMRWXF7xMC3/jr5dbg/1lMPmzSrRg78iENS0JHQkw0hQM37grr9hvhOVL8v4Hip+zs+MQKPF4r+viropVkRy8gCGZm2SKg62/TU1g+tPOYCjyK0oFdkaxkJN9CeU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791348143; c=relaxed/simple;
+	bh=YGhxAADcEotoTVfYKaoxcxYHU3GyFBpSUeFejD+MY1g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KlRaqITU4IJrjINfHubqqO4yLkLNAsepzVmhtI0kJEqqPUuzXxKhcUosoLHnm0Ypw67VPcOdTagi6A4R9xMS/8qBkYNhhPtT2KzL6RZ3+doCm46cMqYca2aXg5du+PD/FxIScReZenig/tJngs/MBIV8dfZh+1dic71BcgGHtPA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=sY6boH9I; arc=none smtp.client-ip=209.85.215.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KQTeDrep"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so34108565e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 21:32:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791347564; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DnlIP7JlPrICNraHMuLPwE45D+wry7CeIloRdL0WrJIaLZgsBLqOUOgcQDbyYjoH6l
-         Fn7LvspyPViIZU0b28xNZxtA0847fu4IDYrGYopsU2q1baJNvSqcl80mJTqRtWjYMRc0
-         ATir5DfG3fEzYw0mWkhQUFP8DoIF4AD0ASDqrsYCw1JB1ZP9RYFL1Sby929jHxb7bX+e
-         f0NU6FpGrz/lVtaDxpzFkAC4E54Yb0Gia9LTLVngCjm38vbQ5K/YAVOEXec90KfTiuvv
-         3SdqmDbvOahFp6HnCtxbI1v1vhEN3976BdkSpQWPyv5ntQXilsX6LlvvALzoTAteskx9
-         CeTg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ziYSY4OvbjG7dEn6zvCiVo/zloi2nFktnH/0C9O/jZ0=;
-        fh=PnB422gJsnZq/8fpVp2Jn0Fr55Sb9PNOI4pS/k1aSdQ=;
-        b=fKLdm6GwwiXKp3z4SaLe3bi/E4RWnaVgN92Qmsbkt7zqAu6BiBLsw1MyyKQsuih4jY
-         4ZDX2PaSqPDP/pRtR10eDQaqc6jjZ81LKk8Z57WKLq++q/TAzroqm379uIP75wYe2XjG
-         ic3lyRTuyaOQgk80dL1foHHOytGPpDc6AJ1YUD3Cl95QMPCwthSD7E12iT7Q2J1ApH6T
-         hdlzD6lyVG51RypI+c+9jgLjKzakonYTRsnW2J81hFRPG1C0ULPNC47fNJmuAXpsaELl
-         vRF93DyOyc49cR8pI5lu4oP6L7KqstjeK+x6nuxeFynJ7FVjSeryQS2E5dj718ItovFu
-         tnQQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="sY6boH9I"
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cc4be0e5351so1193871a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 21:42:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791347564; x=1791952364; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ziYSY4OvbjG7dEn6zvCiVo/zloi2nFktnH/0C9O/jZ0=;
-        b=KQTeDrepdpdyOqUhACV0FOeDD581bwCeytEccWk6IaXbzJeA1imif1Xre0bAwr80nI
-         LcDpQaJlaHwQBpZT2d9dwQdpMVp5VGvC+gxj8eWZLXqrcxt6EjAB94ty7NND2fgWQ8hn
-         RjAwVUKxM8hMIyGQ4vAAuM6nXiBPJdxuDt2paJ2mtDVWCz+/18CbE8sVb0BVQA3e2K/+
-         EcIT9rykD32F8D/DNTc/ruPQMN9lXe3Dyiqqwx5vAJNZtLwGHhVw8m/lwJo4a402/HZc
-         cFC1b7rD3o4aAgQixLLfrkqDg34RpkPhznL0PQ1qtlUUWIypnBWDSZ82WMY7CAJ0CaZn
-         jpJg==
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791348140; x=1791952940; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nSDczV66AQ+p5p0pwY8AkyYRnXsj/iwZmPrpvck8VaU=;
+        b=sY6boH9I3IHRDhUbbgZ9kJWhHlqC9oU/Z95lJmAt8LxA6jP57TSkvQqIb0d6xROxRy
+         K+wFx6N8Erx5/QqAbKVI3qQc2i4w+9ATDoPcQOpTD0WHJHkJPHnutE3okr4AdkpvM4/P
+         9ZW31PcZl5fQ3oY46WzpK6B2+vDv6Gfejb1wlI8c2eF45/qQgKGCyGbI16EZ+aX7HhAV
+         VnLQo8nKjrhVunzLB6oCJVZ+l3XamkfMYP4S05y66U27ck9I4tass7kAbbAIqv6b+7WN
+         M7sdhQt1VZi4bLvBcYdh/mpqHo4UFzSp3A88hZWliQXOkj4Vbyjphavqn9UOcJXNEON3
+         JgKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791347564; x=1791952364;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ziYSY4OvbjG7dEn6zvCiVo/zloi2nFktnH/0C9O/jZ0=;
-        b=p1d4gQilR+vR/xFJgi9cGITca5dxMPRDW3TAcUpAhjYOVRiwVzYZkk219dx4DxNAzc
-         lybKfRZiqEoJviRNebdVY/f+qnSQlwj0QN+/nnEgxTI+yOcmhnNbbNJU+NRc/Ox08x/D
-         hmLWeZej/PNig1ursyr2EU8yEeVyui3lxRPEZ9a51HveYIbWqjdw4rtU0hhGYxZotnAK
-         24mW8dPhhoBxZfHCRQVlC/Xjxn81UqwRcco+w84TRmTnGMkBbDZ8DjHOL1TBREZvUc+q
-         byOZoCd2vYmqrXJieIhYebTUJEcjxYjf5+HFn1aEy6v6+9nyvRSsLam76OaHl/tlWl6u
-         76GQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzSXIHqVchN0kj+R3jL9uqRLR0Vr5Le9Xs95Ow6wqBdveKX/prALop60ZECYQJgRhzOxE/v3oBRXNB89t8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lYAmjp7ZtmjzY/I2aP9SokLEUURF6Fg3XWUYF4A6o+r43sPG8S
-	Z5zcLa9hKpcjpQWtzkWt0nnGwbq3wLHmw1L20mbtNrvZ9p3+1nwqn76ekAhBrNV/+2X7Us9H8qE
-	Bx4SPJP8gOBE1UWAOmJ9BW7ikmYYEoGQ=
-X-Gm-Gg: AYBFou0LVQxzQ3QxArN0n8DDzxHQFMSQ0kZotmlamFbvngQN26TGxwkf2toAZ5ddd0b
-	EKUMjrsglRebybqO5iJZkqd4qUpRRJ9HvlDdB2Abwuwoc0CO00YDL5BkTCoYWWaSY9Vk3C3Pb+P
-	i8mro39MrW246ahUU85pTQxmo7G2Wq2KazqrnGbxuvPh9KEp9ticJ7x6Zf4Qky2++sWAfJ8tRgg
-	3A9XxrMhXN0TCgfrGwP4voxam9/Yb6JA5H0j0BuetASXHrYtzbhCpBZ5TAIBRy3A4QEKqHlIZYk
-	/FmMPCK5Q9gnIZHEpD8UH//XlDKwwahXPY+NJ4U9oQbg4qJrYrgF0q3F
-X-Received: by 2002:a05:600c:4f10:b0:4a0:98c:e082 with SMTP id
- 5b1f17b1804b1-4a18043b5aamr12107135e9.13.1791347563360; Tue, 06 Oct 2026
- 21:32:43 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791348140; x=1791952940;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nSDczV66AQ+p5p0pwY8AkyYRnXsj/iwZmPrpvck8VaU=;
+        b=wNUMh1JnxclamdMUs6nJ265WPfXbTk3bnwiNVMQ7y8uGiHd8u5TsXaRLGFOXZMe3vn
+         OzWWp+ZRcRjNyIZXzOXuIm5bCI+25G/guHn4ecjc9HMLIARbdRjfzLXJHGmV7CzbaST2
+         u5BddM2KYPGNfNk+mV6MfrEw5L8xOlEftZg58I+7YJO93u5wM8A0wqrbGCJzbnRXolgL
+         xVly0SaON4Gp3GqfSQaf0GatDNwDJVPlXYeQyvCevpopAe7efnKnqDKH0jvt67eS5Yno
+         OelHEoNfiN1+Sb7GlCgyWs1xjVwVyiSyH7kXGiQT9pHxpgbCOeYH4eC8TnA4k1Juz2rX
+         L7WQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx1enjYsCiCrjSZE/Gj/+jf1eTWIDvxXbzGlwZ8qv2xVxoVlElfi5MAnY+LyahI+LKV22BSVilvhhCm45Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIn0n9rLwiRqC7ttDSqJxZeq1AYdv8pYF55EitxfX6uTQ7dDco7
+	GdtwArjjl18AhyJ88tuobwgq9FG5iU906+gBTtJsqyf/jjD1mVw7O0gD46sLZKQlcj4=
+X-Gm-Gg: AYBFou2ExbLpvVtN7mmIXl+/0tlDhhyuBxSNg71JBl5Nyj/fmymqpGCq9jaPchR8LyM
+	QBPtaAp+Xx9a/8yXSbhcfWYn8WipDfmEq3X7DjKMGzdxOBxks+MLwxvDVKYlAuyyH828RIP8xsg
+	4oHhTW0gVffZqnJVnib3XQPTIMqGQP5L6D1gdCfdXAyYDNqybYwYY910VP9OKQD9m6E0HVkjEFv
+	Nux5Mwznr48BYGsYLUiXqv2imYU5jOey01bJcuzdnAMz84G0zCfj3N9UxSz4gfGPJRZW/EfP5oQ
+	OsfRdpz1jH+cayDg4KUr/aQYiNAncS7J1fcNHLgePdDWVe7eA0zL8Udt6UJeot7cOe0erEZYDnR
+	H21JRX82Gb3ly7CXu5APA97jq1VCI/H5qmeSCEZnPg+EHXIv3R2XxqlPv2TnTkjgCEDQ23laNpg
+	QGM0SoVKZg1sadSCnJZlMwHvL5hCexSJGXqrj998TBay8zA9WXZ9pkdMnf73YxFPhViP9kyqivd
+	J3fUAtNmLwE/mT6
+X-Received: by 2002:a17:90b:2f83:b0:3a0:97ba:cc05 with SMTP id 98e67ed59e1d1-3a8a1b5d36cmr889506a91.22.1791348139576;
+        Tue, 06 Oct 2026 21:42:19 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8533aba95sm9213898a91.2.2026.10.06.21.42.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 21:42:19 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: michael.christie@oracle.com,
+	martin.petersen@oracle.com,
+	lduncan@suse.com,
+	cleech@redhat.com,
+	James.Bottomley@HansenPartnership.com
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH v3] scsi: libiscsi_tcp: check that a read got the data the target claimed
+Date: Wed,  7 Oct 2026 13:42:04 +0900
+Message-ID: <20261007044204.650687-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261003003136.750633-1-hebaoquan@kylinos.cn> <20261003003136.750633-3-hebaoquan@kylinos.cn>
-In-Reply-To: <20261003003136.750633-3-hebaoquan@kylinos.cn>
-From: KunWu Chan <kunwu.chan@gmail.com>
-Date: Wed, 7 Oct 2026 12:32:31 +0800
-X-Gm-Features: AclHuK9rNw0KhJfEjVigVEkKU4o-iTF05f5OabqTJfPrepOKC4uycIJO-xV9Kvg
-Message-ID: <CAN_Opa-Y8zuyuvRUWmmP8btKPuqBQzWQbyQGKGemhbnABWcxOA@mail.gmail.com>
-Subject: Re: [PATCH v4 02/14] mm, swap: refactor free_swap_cluster_info to
- take swap_info_struct
-To: Baoquan He <hebaoquan@kylinos.cn>
-Cc: linux-mm@kvack.org, akpm@linux-foundation.org, chrisl@kernel.org, 
-	kasong@tencent.com, hannes@cmpxchg.org, nphamcs@gmail.com, baohua@kernel.org, 
-	youngjun.park@lge.com, yosry@kernel.org, shikemeng@huaweicloud.com, 
-	chengming.zhou@linux.dev, baoquan.he@linux.dev, david@kernel.org, 
-	linux-kernel@vger.kernel.org, klarasmodin@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 3, 2026 at 8:31=E2=80=AFAM Baoquan He <hebaoquan@kylinos.cn> wr=
-ote:
->
-> Change free_swap_cluster_info() to take struct swap_info_struct* instead
-> of (cluster_info, maxpages). It now extracts the fields from si and
-> clears si->cluster_info after freeing to avoid a double free on the
-> swapon() error path.
->
-> The new parameter also lets the xswap path access si->flags in the
-> function.
->
-> Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
-> Reviewed-by: Chris Li <chrisl@kernel.org>
-> ---
->  mm/swapfile.c | 26 ++++++++++++++------------
->  1 file changed, 14 insertions(+), 12 deletions(-)
->
-> diff --git a/mm/swapfile.c b/mm/swapfile.c
-> index 32c3133e1211..13ec5c0f3c2f 100644
-> --- a/mm/swapfile.c
-> +++ b/mm/swapfile.c
-> @@ -3144,14 +3144,17 @@ static void wait_for_allocation(struct swap_info_=
-struct *si)
->         }
->  }
->
-> -static void free_swap_cluster_info(struct swap_cluster_info *cluster_inf=
-o,
-> -                                  unsigned long maxpages)
-> +static void free_swap_cluster_info(struct swap_info_struct *si)
->  {
-> +       struct swap_cluster_info *cluster_info =3D si->cluster_info;
-> +       unsigned long maxpages =3D si->max;
->         struct swap_cluster_info *ci;
-> -       int i, nr_clusters =3D DIV_ROUND_UP(maxpages, SWAPFILE_CLUSTER);
-> +       int i, nr_clusters;
->
->         if (!cluster_info)
->                 return;
-> +
-> +       nr_clusters =3D DIV_ROUND_UP(maxpages, SWAPFILE_CLUSTER);
->         for (i =3D 0; i < nr_clusters; i++) {
->                 ci =3D cluster_info + i;
->                 /* Cluster with bad marks count will have a remaining tab=
-le */
-> @@ -3163,6 +3166,7 @@ static void free_swap_cluster_info(struct swap_clus=
-ter_info *cluster_info,
->                 spin_unlock(&ci->lock);
->         }
->         kvfree(cluster_info);
-> +       si->cluster_info =3D NULL;
->  }
->
->  /*
-> @@ -3190,11 +3194,9 @@ static void flush_percpu_swap_cluster(struct swap_=
-info_struct *si)
->  SYSCALL_DEFINE1(swapoff, const char __user *, specialfile)
->  {
->         struct swap_info_struct *p =3D NULL;
-> -       struct swap_cluster_info *cluster_info;
->         struct file *swap_file, *victim;
->         struct address_space *mapping;
->         struct inode *inode;
-> -       unsigned int maxpages;
->         int err, found =3D 0;
->
->         if (!capable(CAP_SYS_ADMIN))
-> @@ -3286,10 +3288,6 @@ SYSCALL_DEFINE1(swapoff, const char __user *, spec=
-ialfile)
->
->         swap_file =3D p->swap_file;
->         p->swap_file =3D NULL;
-> -       maxpages =3D p->max;
-> -       cluster_info =3D p->cluster_info;
-> -       p->max =3D 0;
-> -       p->cluster_info =3D NULL;
->         spin_unlock(&p->lock);
->         spin_unlock(&swap_lock);
->         arch_swap_invalidate_area(p->type);
-> @@ -3297,7 +3295,9 @@ SYSCALL_DEFINE1(swapoff, const char __user *, speci=
-alfile)
->         mutex_unlock(&swapon_mutex);
->         kfree(p->global_cluster);
->         p->global_cluster =3D NULL;
-> -       free_swap_cluster_info(cluster_info, maxpages);
-> +       free_swap_cluster_info(p);
-> +       p->max =3D 0;
-> +       p->cluster_info =3D NULL;
->
->         inode =3D mapping->host;
->
-> @@ -3664,6 +3664,8 @@ static int setup_swap_clusters_info(struct swap_inf=
-o_struct *si,
->         if (!cluster_info)
->                 goto err;
->
-> +       si->cluster_info =3D cluster_info;
-> +
->         for (i =3D 0; i < nr_clusters; i++)
->                 spin_lock_init(&cluster_info[i].lock);
->
-> @@ -3727,7 +3729,7 @@ static int setup_swap_clusters_info(struct swap_inf=
-o_struct *si,
->         si->cluster_info =3D cluster_info;
->         return 0;
->  err:
-> -       free_swap_cluster_info(cluster_info, maxpages);
-> +       free_swap_cluster_info(si);
->         return err;
->  }
->
-> @@ -3949,7 +3951,7 @@ SYSCALL_DEFINE2(swapon, const char __user *, specia=
-lfile, int, swap_flags)
->         si->global_cluster =3D NULL;
->         inode =3D NULL;
->         destroy_swap_extents(si, swap_file);
-> -       free_swap_cluster_info(si->cluster_info, si->max);
-> +       free_swap_cluster_info(si);
->         si->cluster_info =3D NULL;
->         /*
->          * Clear the SWP_USED flag after all resources are freed so
-> --
-> 2.54.0
->
+A target can finish a read without sending the data.  iscsi_tcp_data_in()
+bounds each Data-In PDU against the command buffer but never adds them up,
+so a completion that declares no underflow is believed and the command
+ends with DID_OK.  The pages keep whatever they held.
 
-Straightforward refactor. Passing si lets the helper obtain the
-cluster metadata and its size from swap_info_struct, while
-clearing si->cluster_info after freeing it makes the error-path
-cleanup consistent with the normal teardown path.
+Over a 1 MiB pread of a file that had never been read, 999424 bytes came
+back as the contents of an unrelated file the same process had written
+earlier.  pread() returned 1048576 and errno was 0.
 
-Reviewed-by: Kunwu Chan <chentao@kylinos.cn>
+Count the payload per task.  Require each Data-In to continue where the
+last one ended, and at completion compare the total with the buffer
+length, less the residual when an underflow is declared.  A read can end
+on a Data-In or on a SCSI Response, so check both.  Writes are untouched.
 
-Thanks,
-Kunwu
+Fixes: a081c13e39b5 ("[SCSI] iscsi_tcp: split module into lib and lld")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+v3: only validate coverage for SAM_STAT_GOOD completions; a non-GOOD reply
+    such as CHECK_CONDITION that omits the underflow flag must not be
+    treated as a short read (noted by Sashiko AI review).
+v2: take back_lock once on the SCSI Response path and make the counter
+    uint32_t, both per Mike Christie's review.
+
+On "was it built over another patch?" - no, v1 was generated against
+v7.2-rc5 directly.  It stopped applying because c1dea15f819cd ("scsi:
+libiscsi_tcp: Bound SCSI Response data segment to the connection
+buffer") folded ISCSI_OP_SCSI_CMD_RSP into the shared response case,
+which is the block v1's last hunk patched.  This version leaves that
+fold alone and applies the check inside the shared case, so the data
+segment bound stays in one place.
+
+v1: https://lore.kernel.org/all/20260814121428.359541-1-yhlee@isslab.korea.ac.kr/
+ drivers/scsi/libiscsi_tcp.c | 79 ++++++++++++++++++++++++++++++++++++-
+ include/scsi/libiscsi_tcp.h |  1 +
+ 2 files changed, 79 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/scsi/libiscsi_tcp.c b/drivers/scsi/libiscsi_tcp.c
+index d35f93451ee9b..d4ab9c65fa297 100644
+--- a/drivers/scsi/libiscsi_tcp.c
++++ b/drivers/scsi/libiscsi_tcp.c
+@@ -467,6 +467,45 @@ void iscsi_tcp_cleanup_task(struct iscsi_task *task)
+ }
+ EXPORT_SYMBOL_GPL(iscsi_tcp_cleanup_task);
+ 
++/**
++ * iscsi_tcp_check_data_in - verify a read received the data the target claimed
++ * @task: scsi command task
++ * @status: SCSI status of the PDU carrying the status
++ * @flags: flags of the PDU carrying the status
++ * @residual: residual count of that PDU
++ *
++ * ISCSI_FLAG_CMD_UNDERFLOW and ISCSI_FLAG_DATA_UNDERFLOW share a value, so the
++ * Data-In and SCSI Response paths both use this.
++ */
++static int iscsi_tcp_check_data_in(struct iscsi_task *task, u8 status,
++				   u32 flags, u32 residual)
++{
++	struct iscsi_tcp_task *tcp_task = task->dd_data;
++	struct scsi_cmnd *sc = task->sc;
++	unsigned int expected;
++
++	if (!sc || sc->sc_data_direction == DMA_TO_DEVICE)
++		return 0;
++
++	/*
++	 * Only a successful completion promises the whole buffer.  Any other
++	 * status is handled by the normal status and sense path.
++	 */
++	if (status != SAM_STAT_GOOD)
++		return 0;
++
++	expected = sc->sdb.length;
++	if (flags & ISCSI_FLAG_DATA_UNDERFLOW) {
++		if (residual > expected)
++			return 0;
++		expected -= residual;
++	}
++	if (tcp_task->data_in_bytes == expected)
++		return 0;
++
++	return ISCSI_ERR_DATALEN;
++}
++
+ /**
+  * iscsi_tcp_data_in - SCSI Data-In Response processing
+  * @conn: iscsi connection
+@@ -491,7 +530,7 @@ static int iscsi_tcp_data_in(struct iscsi_conn *conn, struct iscsi_task *task)
+ 		iscsi_update_cmdsn(conn->session, (struct iscsi_nopin*)rhdr);
+ 
+ 	if (tcp_conn->in.datalen == 0)
+-		return 0;
++		goto status;
+ 
+ 	if (tcp_task->exp_datasn != datasn) {
+ 		ISCSI_DBG_TCP(conn, "task->exp_datasn(%d) != rhdr->datasn(%d)"
+@@ -509,7 +548,18 @@ static int iscsi_tcp_data_in(struct iscsi_conn *conn, struct iscsi_task *task)
+ 		return ISCSI_ERR_DATA_OFFSET;
+ 	}
+ 
++	if (tcp_task->data_offset != tcp_task->data_in_bytes)
++		return ISCSI_ERR_DATA_OFFSET;
++
++	tcp_task->data_in_bytes += tcp_conn->in.datalen;
++
+ 	conn->datain_pdus_cnt++;
++
++status:
++	if (rhdr->flags & ISCSI_FLAG_DATA_STATUS)
++		return iscsi_tcp_check_data_in(task, rhdr->cmd_status,
++					       rhdr->flags,
++					       be32_to_cpu(rhdr->residual_count));
+ 	return 0;
+ }
+ 
+@@ -783,6 +833,32 @@ iscsi_tcp_hdr_dissect(struct iscsi_conn *conn, struct iscsi_hdr *hdr)
+ 			break;
+ 		}
+ 
++		if (opcode == ISCSI_OP_SCSI_CMD_RSP) {
++			struct iscsi_scsi_rsp *rsp = (struct iscsi_scsi_rsp *)hdr;
++
++			spin_lock(&conn->session->back_lock);
++			task = iscsi_itt_to_ctask(conn, hdr->itt);
++			if (!task) {
++				spin_unlock(&conn->session->back_lock);
++				return ISCSI_ERR_BAD_ITT;
++			}
++			rc = iscsi_tcp_check_data_in(task, rsp->cmd_status,
++						     rsp->flags,
++						     be32_to_cpu(rsp->residual_count));
++			if (rc) {
++				spin_unlock(&conn->session->back_lock);
++				return rc;
++			}
++			if (tcp_conn->in.datalen) {
++				spin_unlock(&conn->session->back_lock);
++				iscsi_tcp_data_recv_prep(tcp_conn);
++				return 0;
++			}
++			rc = __iscsi_complete_pdu(conn, hdr, NULL, 0);
++			spin_unlock(&conn->session->back_lock);
++			break;
++		}
++
+ 		/* If there's data coming in with the response,
+ 		 * receive it to the connection's buffer.
+ 		 */
+@@ -995,6 +1071,7 @@ int iscsi_tcp_task_init(struct iscsi_task *task)
+ 
+ 	BUG_ON(kfifo_len(&tcp_task->r2tqueue));
+ 	tcp_task->exp_datasn = 0;
++	tcp_task->data_in_bytes = 0;
+ 
+ 	/* Prepare PDU, optionally w/ immediate data */
+ 	ISCSI_DBG_TCP(conn, "task deq [itt 0x%x imm %d unsol %d]\n",
+diff --git a/include/scsi/libiscsi_tcp.h b/include/scsi/libiscsi_tcp.h
+index ef53d4bea28a0..a6e63db75d674 100644
+--- a/include/scsi/libiscsi_tcp.h
++++ b/include/scsi/libiscsi_tcp.h
+@@ -66,6 +66,7 @@ struct iscsi_tcp_conn {
+ 
+ struct iscsi_tcp_task {
+ 	uint32_t		exp_datasn;	/* expected target's R2TSN/DataSN */
++	uint32_t		data_in_bytes;	/* Data-In payload received */
+ 	int			data_offset;
+ 	struct iscsi_r2t_info	*r2t;		/* in progress solict R2T */
+ 	struct iscsi_pool	r2tpool;
+
+base-commit: 2c3418fffa9d037b2038a6db48be63f9e2291806
+-- 
+2.43.0
+
