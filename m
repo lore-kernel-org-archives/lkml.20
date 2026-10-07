@@ -1,161 +1,268 @@
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93B1B38F95A
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 09:31:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791365501; cv=pass; b=SM+NFvtAT5oZtOVGgt3db5oxzIXlHk1XY9dmll5go9C9f4mSXw+ZEBlbBpCbcEFMxEHQNfUw8yTxFLaGp9GLHjpa+ds19HY8AO66M3NlfQGqZgXPGyyV3I+pTw4apFH/79OS70BVsIgs/EvcP2eDeOf/4pjtbYt+9zNWplKlyI4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791365501; c=relaxed/simple;
-	bh=Zmmt9hQP1IprfSntclgWhCnCxwGgbeXDBb1lKsaObYw=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=L4h/GJTbHcMVAGn++TyI/Qk9ThbghYjViAMJB1N177dPSV3h+orJ1GtirbjUVxzC5eoxpEiVOI0Dt3dlRi1r6VyAQ7TBGdJFZpGhH4b9A04GRlyNeOOKazPhATTlS/MZ3U61BsG5GbmmrOZBrdZ1RcdKP454OAC3NUDKtpXgOQc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nnlbJ+fA; arc=pass smtp.client-ip=209.85.160.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2900C41F346;
+	Wed,  7 Oct 2026 09:31:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791365532; cv=none; b=ZtZBfig7mrKnZovGN2fnpTY9bulKkFnMJFSJUVhGQzuTmc9Jla1qobRVAIQNxfxDJaWExi+7xK/D/xKi6YpeS09Isn2G+1DGAJFUcyRvL7pQd0lcvMUVbNXuPXb9xqjZMC0Q8jbVe/lrXmPCOTP4suSBjKg0OcXJVcmOj0isYjE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791365532; c=relaxed/simple;
+	bh=wDUi4KHhE5clSLNyLpTSGla06KpXCM3bFZCyUcCU/UQ=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=mMJXl+YzyI9PSQgBuLRRMgmlwNvOoIMuMQMRV66r/6L/XXD5fZH3UelifTsM3JwsOtaZaIdVJsWTrCmpFj0xl/TgEKn0+l9dJiJAj+UpFofte+skVlzs7HAukEsYJDw2m99FTLEPhTKCie+jARi3XMYbfNxViXJbKbypr5e3uJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=rLbroE9X; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=DR/f29Z/; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nnlbJ+fA"
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-533778ab0bdso16720351cf.3
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 02:31:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791365485; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kUmgXp6qHgbCCCiX/CwSr8U7HO10dKXFnounuS2osRcGbRTENx4US7tpLrafWQXEvy
-         43YnRGmxuDRysDbzN1NwLkrpSg3W7oj1A1BJx0nt4oIFDDVJj5TOxppKqNyU/3z5hPIz
-         tB2wlyRN7QqNJxWXajT1F3DtzGYXrG7g0WInDTfRtMqMYWGpCStTV31xtC46RM+BSMJc
-         C4tDY3EwUU3CWdKMAhsr+dWIceYDH8jCyPMHVZvY+h7G2owdIPBQr+/zx/5cHPubLVJW
-         lPoRHlnoKm07EM5pnYKD7sHHimhqNsFobGODat+A1VXAJCxuYRloJJNnDyrNJnqS2sQ1
-         sLhw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=V09DwGBZvmEc/vHeu0R4CYl3zezqyawSgFVLYfPfhBo=;
-        fh=YnfqTt9m8OG3O7zd1p9Edb8NXXTo+7WGM0mUl47lyp0=;
-        b=UBH9/u5hZlNs5E0XZANqzC61VGGEs4txd3BAfn3963d/Nc6yBdbUCSqgAE6RhF/LcY
-         Sd4iZMM2tYvVOHVTAYRUIika10NMX4WE4M7a/nJHPC0tfGz9IAjYcYdf4Nn04SG0uPNK
-         toddlB62JFEUBQBzwWdG/gF0cbOg/yAs/hkSBgXtAjpEFNM9q3d/W/yUCwMuV0DGIgpU
-         8D2kUe0lUCx5FcGLSrRUPQvM2iVW5lBLlSu9LVBlVCxFU7uQRc+yxnZZkhQwgJTt4hQn
-         kMohzJWJREjb1REMnId+5ts8Za9nGJF2NF1jP6VIoE1UELp7h6ohZv/hswHjlYkhK1S8
-         xMeQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791365485; x=1791970285; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=V09DwGBZvmEc/vHeu0R4CYl3zezqyawSgFVLYfPfhBo=;
-        b=nnlbJ+fA3ssxq7ItDvYtPpxSrRJuHMQF3Iz3SPvSGFerzbtLhtpue/fTYQO5BLAIit
-         gieLRn5KryMSIX7dIF+YWRxqnDAZmePGjCbU2xV52uIqHHW/J4r/YXbetAyNoC/Oy9nB
-         Pd6H/7yjXlO9hJ+vWFoPOIgJRCrdvh/N2T3F+Xb0fV5DIDwsyBIXxVfDyyXKTUiv4KQG
-         sVfoIW0+0cxSJlBKs01swUdGanmv9QLOlBAtFdQOnu3OmB5KATD7pwBdGxhSA9raJrKu
-         Em3G1nLTblGyCDShcmQB6JRbSH6nM3ZgBvJv2z9WjcEcElIPwOXmeEitYz8zHqz0n4+G
-         XaiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791365485; x=1791970285;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=V09DwGBZvmEc/vHeu0R4CYl3zezqyawSgFVLYfPfhBo=;
-        b=XB4azsCTZWUsyrg2aRZ0mQ+xCQd9x85/KAnbiveXrRICraNWypWtNy0F8+vfC4QP4g
-         o8w4e3pJzqQvaWv5fkBqQxNwo0APy2fd4YttuIpCcLxL2KKVtW0TE3058tzFyNWa2i7T
-         2YeP4htqPwoB82/tO0FgMVaD5XIVDbJFxfFpRhn5vG0vnPMmce4U+E27ZtPEWapCKUXV
-         ouFwW6GwN6hocJmdx4i5PeMMG85I+w6wG1Wl8KXtPVi0YAvXJMF4MYD9yzriyQUbVkYf
-         k2/vbTH1GIGvth+vEV3A29XaI6PwjkVyXagf49pvnnsQlUUKkdil49G9bW+cD8KAnCML
-         0kCQ==
-X-Gm-Message-State: AFuF++m0gmAbMuZbmtrtp6lIgtJGEJY4E8KhfQ4d2We9i702UV8FTRUB
-	uyNL8Rnct7BK5DFVIPYTT4wWU9bIkQrkZA7v1mk+1yt8Elwhhq0oMLOT9dbCv7MT26Fk6H9J1D5
-	6WvvhCuWb1dgngW50mXsyB23tnW8Au8Q1JT4bL+A=
-X-Gm-Gg: AYBFou33/aSeKVO9Czgrn8cbEKXoJfQDQt+L1fqwO5eK/HSDDGtnwgBpH1oIofv8kEC
-	+iEIfEnHQ4YuMARgUctO5zfY2D6VAKkKwTJEBGOXjpWc06TF0Ntw/kk0YvFe1n+k2gl+IjvShWh
-	a23rzKPGK4Mfbp+1WZ0ktgMj5PBtGNw7goZyNc2FpZ207gNMT5jG3AouMq1a8oTrPXYYDDLjXRq
-	OdIx83w3dw/X+uiaRiaedUVw9zWIUWN7PGG202oVp7QkzUbqWdMroEe7qSvDYn/Uo9h22cTodm8
-	kmM3JCeoXhh9jzZif2y7Q4r73HAXILAtiydup4uFkunCe175b7wKyj8eM5zhOaRa419bRfgp5W9
-	igGSTytJSIezSe93HeIIv6V86i0we2ZiyNQPLwjyJGuujxELh6B5cAx6Z4Z1uCo+IV51jAyeL4E
-	3QCbHN/NPPzY9GQ78EyLEVshNrvMUF676x9KGxNJx0up3rimIAn5TWvgCeE1rhBngJfOASE7DM/
-	o4G
-X-Received: by 2002:a05:622a:1443:b0:535:70c4:acb5 with SMTP id
- d75a77b69052e-53575676cd0mr26716831cf.74.1791365485280; Wed, 07 Oct 2026
- 02:31:25 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 7 Oct 2026 02:31:24 -0700
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 7 Oct 2026 02:31:24 -0700
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="rLbroE9X";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="DR/f29Z/"
+Message-ID: <3190d10102167d5b72add3e5831cba40756d459a.camel@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1791365513;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FZYbyyvMS986uZEblqXqfDTl4F8VXAGukgUvCIUKQ5M=;
+	b=rLbroE9XcrpMrNi3FWN41xa+80cJUFShTGdCp/5ctTG+5vwfjrTDry3Dx3BQH7gKsEfr/2
+	czampDST+wizQsG5nlTUWFosyxnSamZcV090NS5GwHimrOoWNDPHBYw50uUjuS1ogmIMGZ
+	/z8CYucvv3HhjwvzxrEKePZRxcf4ZhW1HH00j2i3BdkZpbQ7k4Cyvz/h7IHjucVWE4xVSg
+	EAQDXAtAqpy70FRtodhZMXKK+/Gym/i+6scTaEY5U856L5o2RJTtFwgJG61QcJFSXHsHOe
+	QKsOCokYwvvpFE33OkFc1Cd/oR2riTPM0HiwPS2Pm4ZE69QocAJui4a2D7LulA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1791365513;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FZYbyyvMS986uZEblqXqfDTl4F8VXAGukgUvCIUKQ5M=;
+	b=DR/f29Z/M7ZdoRvsrZKqD7x/o2+HeooFiiy8iBRlobau3+amAbqhiTxGUbYj6VV89CdU4C
+	xlV7Fq1AWKPCzzCg==
+Subject: Re: [PATCH net-next v3 5/8] net: mdio: Add SoC-e SWIP MDIO
+ controller driver
+From: Vasilij Strassheim <v.strassheim@linutronix.de>
+To: netdev-bot+sashiko@kernel.org
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ andrew@lunn.ch,  olteanv@gmail.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org,  pabeni@redhat.com, horms@kernel.org,
+ linux@armlinux.org.uk, andrew+netdev@lunn.ch,  hkallweit1@gmail.com,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ netdev@vger.kernel.org, martin.kaistra@linutronix.de,
+ b.spranger@linutronix.de
+Date: Wed, 07 Oct 2026 11:31:52 +0200
+In-Reply-To: <179051210920.2160803.11497808586391363644@kernel.org>
+References: 
+	<20260923-devel-vstrassheim-soce-dsa-ml-v3-5-ddebafcb9ba7@linutronix.de>
+	 <179051210920.2160803.11497808586391363644@kernel.org>
+Organization: Linutronix GmbH
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Ting-Han Hou <ue081723@gmail.com>
-Date: Wed, 7 Oct 2026 02:31:24 -0700
-X-Gm-Features: AclHuK_M5ZwDEgUCZcN5sDRi4hG5QFrbve1kCCyRiS9BbDdrGk-MVvVeK8mttpM
-Message-ID: <CA+NtrhTyE4J-C2=hSUXYc+NJBsQeYvbwJb+-ROHE1QQP-_gYzg@mail.gmail.com>
-Subject: [PATCH] scripts/gdb: Fix radix tree lookup pointer handling
-To: Jan Kiszka <jan.kiszka@siemens.com>, Kieran Bingham <kbingham@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-From: Ting-Han Hou <ue081723@gmail.com>
+On Sun, 2026-09-27 at 12:28 +0000, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider.
+>=20
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 2 =C2=B7 Low: 0
+>=20
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>=20
+> - [Medium] soce_mdio_iomap() (drivers/net/mdio/mdio-soce.c:48) returns
+>   whatever devm_ioremap() returns.
+> - [Medium] The external MDIO bus selector (bits 26:16) lives in the same
+>   32-bit control register as OPSTATUS (bit 0), but the idle check does=E2=
+=80=A6
+>=20
+> --
+>=20
+> net: mdio: Add SoC-e SWIP MDIO controller driver
+>=20
+> This adds a driver for the MDIO controller in SoC-e Ethernet switch IP
+> cores. It supports Clause 22 and Clause 45 accesses. The transaction
+> control register also holds an external MDIO bus selector in bits 26:16,
+> which a generic MMIO MDIO mux manages and which the driver preserves when
+> it starts a transaction.
+>=20
+> > diff --git a/drivers/net/mdio/mdio-soce.c b/drivers/net/mdio/mdio-soce.=
+c
+> > new file mode 100644
+> > index 0000000000000..59c0b3da483eb
+> > --- /dev/null
+> > +++ b/drivers/net/mdio/mdio-soce.c
+> > @@ -0,0 +1,239 @@
+>=20
+> [ ... ]
+>=20
+> > +static void __iomem *soce_mdio_iomap(struct device *dev, int index)
+> > +{
+> > +	struct resource res;
+> > +	int ret;
+> > +
+> > +	ret =3D of_address_to_resource(dev->of_node, index, &res);
+> > +	if (ret)
+> > +		return IOMEM_ERR_PTR(ret);
+> > +
+> > +	return devm_ioremap(dev, res.start, resource_size(&res));
+>=20
+> [Severity: Medium]
+> Can a failed mapping get past the checks in soce_mdio_probe()?
+>=20
+> devm_ioremap() returns NULL on failure, not an ERR_PTR. This happens both
+> when the devres allocation fails and when ioremap() fails:
+>=20
+> lib/devres.c:__devm_ioremap() {
+> 	void __iomem **ptr, *addr =3D NULL;
+> 	...
+> 	if (!ptr)
+> 		return NULL;
+> 	...
+> 	} else
+> 		devres_free(ptr);
+>=20
+> 	return addr;
+> }
+>=20
+> soce_mdio_probe() checks both results only with IS_ERR():
+>=20
+> 	priv->data =3D soce_mdio_iomap(dev, SOCE_MDIO_DATA_IOMAP_IDX);
+> 	if (IS_ERR(priv->data))
+> 		return PTR_ERR(priv->data);
+>=20
+> 	priv->ctrl =3D soce_mdio_iomap(dev, SOCE_MDIO_CTRL_IOMAP_IDX);
+> 	if (IS_ERR(priv->ctrl))
+> 		return PTR_ERR(priv->ctrl);
+>=20
+> IS_ERR(NULL) is false, so probe would continue into
+> devm_of_mdiobus_register() with a NULL base.
+>=20
+> The first bus access would then dereference NULL. That access comes eithe=
+r
+> from a PHY child during registration or through the mux:
+>=20
+> mdio_mux_read()
+>   soce_mdio_read()
+>     soce_mdio_wait_for_idle()
+>       readl_poll_timeout(NULL, ...)
+>=20
+> Could soce_mdio_iomap() convert a NULL result into IOMEM_ERR_PTR(-ENOMEM)=
+,
+> or could probe use IS_ERR_OR_NULL()? A helper that also requests the regi=
+on
+> doesn't fit here, because the parent switch driver already requests the
+> whole range.
 
-lookup() casts each slot to a pointer to a node pointer and then
-dereferences it. Since the slot already contains an entry pointer,
-this reads the entry's contents as another pointer instead of
-returning the entry itself.
+This was already mentioned by kernel bot. I will fix it for the next
+version. Rework for MFD will also change this code.
 
-Internal entries also need their tag bits removed before descending
-to the next node.
+>=20
+> > +}
+> > +
+> > +static int soce_mdio_wait_for_idle(struct soce_mdio *priv)
+> > +{
+> > +	void __iomem *ctrl =3D priv->ctrl;
+> > +	u32 val;
+> > +
+> > +	return readl_poll_timeout(ctrl, val,
+> > +		!(val & SOCE_MDIO_CTRL_OPSTATUS), 10,
+> > +		SOCE_MDIO_TIMEOUT_US);
+> > +}
+> > +
+> > +static void soce_mdio_start(struct soce_mdio *priv, u32 command)
+> > +{
+> > +	void __iomem *ctrl =3D priv->ctrl;
+> > +
+> > +	/* Keep the currently selected MDIO bus while updating op bits. */
+> > +	command |=3D readl(ctrl) & SOCE_MDIO_CTRL_BUS_MASK;
+> > +	writel(command, ctrl);
+> > +}
+> > +
+> > +static int soce_mdio_read(struct mii_bus *bus, int phy_addr, int regnu=
+m)
+> > +{
+> > +	struct soce_mdio *priv =3D bus->priv;
+> > +	void __iomem *data =3D priv->data;
+> > +	u32 command;
+> > +	int ret;
+> > +
+> > +	ret =3D soce_mdio_wait_for_idle(priv);
+> > +	if (ret)
+> > +		return ret;
+>=20
+> [Severity: Medium]
+> Does this idle check also protect the bus selector bits in the same
+> register?
+>=20
+> The commit message says:
+>=20
+>     Return a timeout instead of waiting indefinitely, and allow a later
+>     access to retry if the hardware becomes idle again.
+>=20
+> So when a completion wait returns -ETIMEDOUT, the engine may still be bus=
+y.
+> Nothing aborts or resets it before mdio_lock is released, and there is no
+> mii_bus->reset callback.
+>=20
+> If the next access goes through the mux to a different child bus,
+> mdio_mux_read() calls switch_fn before it calls the parent's read callbac=
+k:
+>=20
+> drivers/net/mdio/mdio-mux.c:mdio_mux_read() {
+> 	...
+> 	r =3D pb->switch_fn(pb->current_child, cb->bus_number, pb->switch_data);
+> 	...
+> 	r =3D pb->mii_bus->read(pb->mii_bus, phy_id, regnum);
+> 	...
+> }
+>=20
+> mdio_mux_mmioreg_switch_fn() then rewrites the selector halfword without
+> checking OPSTATUS:
+>=20
+> 			x =3D ioread16(p);
+> 			y =3D (x & ~s->mask) | desired_child;
+> 			if (x !=3D y) {
+> 				iowrite16((x & ~s->mask) | desired_child, p);
+>=20
+> This means soce_mdio_wait_for_idle() runs only after bits 26:16 have
+> already changed.
+>=20
+> If the hardware doesn't latch the selector when a transaction starts, cou=
+ld
+> the rest of the timed-out frame be sent to a different external MDIO bus?
+> The original PHY would get a truncated frame and the newly selected bus
+> would get a fragment from the middle of it. Neither the mux's current_chi=
+ld
+> nor the return code would show that this happened.
+>=20
+> soce_mdio_write() and the c45 variants have the same ordering. Does this =
+IP
+> latch the selector per transaction, or does the idle check also need to
+> cover the selector writes?
+>=20
 
-Return non-internal entries directly and use entry_to_node() when
-descending through internal entries. Remove the explicit shift
-counter, as traversal now follows the entry type.
+Yes, the idle check does not protect selector writes made by the generic
+mux driver. I already mentioned this in the previous version [1].
 
-Fixes: b7235d6bb516 ("scripts/gdb: add a Radix Tree Parser")
-Assisted-by: LLM
-Signed-off-by: Ting-Han Hou <ue081723@gmail.com>
----
-Tested with GDB 15.1 against standalone GCC-built C fixtures using the
-xarray/xa_node field layout, with XA_CHUNK_SHIFT=4 and 6. These are
-synthetic debugger fixtures, not a booted kernel or a kernel core dump.
+I intentionally accept this limitation after a transaction timeout. This
+is not documented in the manual and an dedicated mux driver would be
+required just to preserve the register state.
 
-Before the fix, a one-level lookup returned the payload 0x12345678
-instead of its address; a two-level lookup missed a populated slot.
-After the fix, all 33 checks passed for each slot configuration (66
-total), including empty/direct roots, one- to three-level trees,
-zero-filled payloads, value entries, absent/out-of-range indices,
-struct/pointer roots, and the GDB convenience function.
+Imo, a new mux driver would add too much complexity solely to handle
+this error path. I will clarify the commit message so it does not imply
+that retrying through a different child bus is guaranteed to be safe.
 
-This does not test multi-index entries or concurrent updates/retry
-entries. The change is limited to the debugger lookup helper.
+[1] https://lore.kernel.org/netdev/ffec9201db3d12944dbd350010560f6234262bbe=
+.camel@linutronix.de/
 
- scripts/gdb/linux/radixtree.py |   15 +++------------
- 1 file changed, 3 insertions(+), 12 deletions(-)
 
-diff --git a/scripts/gdb/linux/radixtree.py b/scripts/gdb/linux/radixtree.py
---- a/scripts/gdb/linux/radixtree.py
-+++ b/scripts/gdb/linux/radixtree.py
-@@ -55,24 +55,15 @@
-     if (index > maxindex):
-         return None
-
--    shift = node['shift'] + constants.LX_RADIX_TREE_MAP_SHIFT
--
-     while True:
-         offset = (index >> node['shift']) & constants.LX_RADIX_TREE_MAP_MASK
-         slot = node['slots'][offset]
-
-         if slot == 0:
-             return None
--
--        node = slot.cast(node.type.pointer()).dereference()
--        if node == 0:
--            return None
--
--        shift -= constants.LX_RADIX_TREE_MAP_SHIFT
--        if (shift <= 0):
--            break
--
--    return node
-+        if not is_internal_node(slot):
-+            return slot
-+        node = entry_to_node(slot)
-
- def descend(parent, index):
-     offset = (index >> int(parent["shift"])) & constants.LX_RADIX_TREE_MAP_MASK
