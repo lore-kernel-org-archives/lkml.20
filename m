@@ -1,152 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64E75480DEB;
-	Wed,  7 Oct 2026 13:12:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C9F14756C3;
+	Wed,  7 Oct 2026 13:13:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791378787; cv=none; b=BHOI+MEHVkMvFREX6tzFAufDHcC2Cde5zuHPO20PwRiXXzdweQHXDfRttpE1oAj2esAu0FHg3ZOcuJaxYZIIPuTe/D6nMu9gPf1qLyvxTvatJifQ5w+o2arqFNf4ez7sdz1BdvTKGhYlbJDw76BwnyRSfI8RjX5gbWRqojqgTs4=
+	t=1791378806; cv=none; b=iAPsl0xay24zDNO8D5kh/9Rj3aN8USU8O4BJlQ1VPoTWAd/KUVcVNmn9+8RiXSbeZyCEtacWYUaTr+g9axUXg2gkZlRHzA/TAUVmQajkOc3UU57z6SYYE15QwJnptJ4M6K5W4JE0PUPlJIzVrirASo/eJlsaJO5d1LVSh8y/KSU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791378787; c=relaxed/simple;
-	bh=y6J8mOCZqJ0rJpeIv7Dd3xs1UEfXR/MqWWM/3hAL7PE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M/wHmQMJ/LHqBRr3QBxmPufB2gEIjivEyoKw0ti6DsCD6pAAsadb1Gca/leFCfHzt7ue1IYd0VI20MWlrQa8dj43osqZd+QAFckLSuXeM3N2G0VHAi4B7mvI8JhuUiHkxFHS+avAPhVIzovZcRbK2tJgPoP6c3VtvQSAcRWLYfA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LU06ATxc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791378806; c=relaxed/simple;
+	bh=LsRKjUuA8yiYx/+fduNMj6Pn3ZSeNz80ZMG6BEqYAJM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=o0qWdDYidcBkZqr39OkdzljfT88OXUiDZFJs45O682u70OeWJRj0I4sroq/pKJcpLwIKuM3ZwfSBlHeOeneH1LHknOXDmlhT6RD3oRUZ0aJWX8iG4fPCjomzfHkrRIMaanRqqln8uyLKwxVU+lgUom6KGoknfeu92Oq7Lwa+X70=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=cYKP8h8C; arc=none smtp.client-ip=91.189.121.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LU06ATxc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A55B1F0089B;
-	Wed,  7 Oct 2026 13:12:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791378778;
-	bh=Kx0k0qBNIHathxhkLOSlyTa1tARm1WFDT7yHCpSRGUI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LU06ATxcWZ2nWDafWFzvHCTpqlZDNGYrgTM/9BfTYacfaHUaSdcRboiBWnknYb8OK
-	 cuCgntqyg++QhcV6DyyT1YHcJ+6IlFq4bFOU5tdsIPwBpE6qtyn7eJ5BY8P2ICM5NS
-	 G9hLDDZl2anudh01fba11n0ynTqfUQSbVOvqJWQmPGRV2uLtV/++SrGgcCDlQYzaMF
-	 TZmfD3CO05G3kLtpWEyE1v7M7ww+krCg3CcPz9t+3+E5r3S9sPmp8Af2C3Y3wqhP01
-	 mMuKeQtwR5jOUXyZlzsBaD7cCH4H4VoF76LBuvKVKOAJbr56fQ50mxmHifAwYXJ0QV
-	 Ty22q3xU6pPHg==
-Date: Wed, 7 Oct 2026 14:12:52 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-Cc: Ying Liu <victor.liu@nxp.com>, Frank Li <frank.li@oss.nxp.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Abel Vesa <abelvesa@kernel.org>, Peng Fan <peng.fan@nxp.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, linux-clk@vger.kernel.org,
-	imx@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v10 6/9] dt-bindings: clock: nxp,imx95-blk-ctl: Add ldb
- child node
-Message-ID: <20261007-cb2d638508f306f3385c3799@squawk>
-References: <20261006-dcif-upstreaming-v10-0-bcfb28de0aae@oss.nxp.com>
- <20261006-dcif-upstreaming-v10-6-bcfb28de0aae@oss.nxp.com>
+	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="cYKP8h8C"
+From: Stian Halseth <stian@itx.no>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
+	t=1791378794;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=UinKWqIbgjSBn0S0/ReeQkmBlx3lLuVFDaLY0ELTIy0=;
+	b=cYKP8h8CMke1eXZTCl6uC9/ujdqhmiUMfBFE4Q6AbdQcpNSNtzlrUHw1SBuou+tkUyQ2eR
+	HS7EBt3esxlFYTAJ2Vv5RLOX+2Oty2jKRm78tyOrijXlpSZE+8+TiyL1TAkJN3R2fpOhta
+	tV/HOQCkkI12OuqmJPZXr95SjQiSy3k=
+To: Bjorn Helgaas <bhelgaas@google.com>
+Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Andreas Larsson <andreas@gaisler.com>,
+	linux-pci@vger.kernel.org,
+	sparclinux@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	Stian Halseth <stian@itx.no>
+Subject: [PATCH] PCI: Set supported_speeds in set_pcie_port_type()
+Date: Wed,  7 Oct 2026 15:13:04 +0200
+Message-ID: <20261007131304.309511-1-stian@itx.no>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Z8+zZt/nTc0Rfe8E"
-Content-Disposition: inline
-In-Reply-To: <20261006-dcif-upstreaming-v10-6-bcfb28de0aae@oss.nxp.com>
+Content-Transfer-Encoding: 8bit
 
---Z8+zZt/nTc0Rfe8E
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+sparc64 and powerpc create PCI devices from the device tree in
+of_create_pci_dev(), which calls set_pcie_port_type() but not
+pci_setup_device(). Since d2bd39c0456b, supported_speeds is only set in
+pci_setup_device(), so it stays 0 for these devices.
+pcie_get_speed_cap() then returns PCI_SPEED_UNKNOWN, max_link_speed
+reads "Unknown", and the failed link retraining quirk passes
+PCI_SPEED_UNKNOWN to pcie_set_target_speed(), which warns on a SPARC
+T7-1:
 
-On Tue, Oct 06, 2026 at 12:22:01PM +0000, Laurentiu Palcu wrote:
-> Since the BLK CTL registers, like the LVDS CSR, can be used to control the
-> LVDS Display Bridge controllers, add 'ldb' child node to handle
-> these use cases.
->=20
-> Signed-off-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-> ---
->  .../bindings/clock/nxp,imx95-blk-ctl.yaml          | 24 ++++++++++++++++=
-+++++-
->  1 file changed, 23 insertions(+), 1 deletion(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.ya=
-ml b/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.yaml
-> index fbbf1b3f17904..97fe816a38f94 100644
-> --- a/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.yaml
-> +++ b/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.yaml
-> @@ -51,6 +51,10 @@ patternProperties:
->      $ref: /schemas/media/fsl,imx95-csi-formatter.yaml#
->      unevaluatedProperties: false
-> =20
-> +  '^ldb@[0-9a-f]+$':
-> +    type: object
-> +    $ref: /schemas/display/bridge/fsl,ldb.yaml#
+  WARNING: drivers/pci/pcie/bwctrl.c:125 at pcie_set_target_speed+0x284/0x2e0
 
-The class of device is bridge, why not use that here?
+Set supported_speeds in set_pcie_port_type(), which all three paths
+call.
 
-Thanks,
-Conor.
+Fixes: d2bd39c0456b ("PCI: Store all PCIe Supported Link Speeds")
+Closes: https://github.com/sparclinux/issues/issues/109
+Signed-off-by: Stian Halseth <stian@itx.no>
+---
+Tested on a SPARC T7-1: before, max_link_speed reads "Unknown" and the
+warning above appears with CONFIG_PCIEPORTBUS; after, all 23 PCIe
+devices report their real speed and the quirk lifts the 2.5GT/s
+restriction without a warning. Not tested on powerpc.
 
-> +
->  required:
->    - compatible
->    - reg
-> @@ -63,7 +67,9 @@ allOf:
->        properties:
->          compatible:
->            contains:
-> -            const: nxp,imx95-camera-csr
-> +            enum:
-> +              - nxp,imx94-lvds-csr
-> +              - nxp,imx95-camera-csr
->      then:
->        required:
->          - '#address-cells'
-> @@ -72,8 +78,24 @@ allOf:
->        properties:
->          '#address-cells': false
->          '#size-cells': false
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          not:
-> +            contains:
-> +              const: nxp,imx95-camera-csr
-> +    then:
->        patternProperties:
->          '^formatter@[0-9a-f]+$': false
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          not:
-> +            contains:
-> +              const: nxp,imx94-lvds-csr
-> +    then:
-> +      patternProperties:
-> +        '^ldb@[0-9a-f]+$': false
-> =20
->  additionalProperties: false
-> =20
->=20
-> --=20
-> 2.53.0
+ drivers/pci/probe.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
---Z8+zZt/nTc0Rfe8E
-Content-Type: application/pgp-signature; name=signature.asc
+diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
+index 27008e2ea5afc..52a79b033b069 100644
+--- a/drivers/pci/probe.c
++++ b/drivers/pci/probe.c
+@@ -1651,6 +1651,8 @@ void set_pcie_port_type(struct pci_dev *pdev)
+ 		pdev->aspm_l1_support = 1;
+ #endif
+ 
++	pdev->supported_speeds = pcie_get_supported_speeds(pdev);
++
+ 	parent = pci_upstream_bridge(pdev);
+ 	if (!parent)
+ 		return;
+@@ -2074,9 +2076,6 @@ int pci_setup_device(struct pci_dev *dev)
+ 
+ 	set_pcie_untrusted(dev);
+ 
+-	if (pci_is_pcie(dev))
+-		dev->supported_speeds = pcie_get_supported_speeds(dev);
+-
+ 	/* "Unknown power state" */
+ 	dev->current_state = PCI_UNKNOWN;
+ 
+-- 
+2.43.0
 
------BEGIN PGP SIGNATURE-----
-
-iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasZFVAAKCRB4tDGHoIJi
-0vuvAQCMuGFOHoyiVgxFDEw2VPLnr+yYh971SizxwVmIa7EqBQD/ZJ0Jk4MloW93
-GfboWxtLy42RdX35LKACHj+5/AC6Hg0=
-=kUg8
------END PGP SIGNATURE-----
-
---Z8+zZt/nTc0Rfe8E--
