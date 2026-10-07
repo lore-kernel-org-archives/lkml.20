@@ -1,164 +1,235 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 216ED4734C9
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 12:51:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 16BEE3D47BF;
+	Wed,  7 Oct 2026 12:53:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791377505; cv=none; b=qEYBwYycrFsGsC6EWWaLHfUiktITn1x5MXWwhEfpEXzR1Fh1bMPRdSZRog8T7w8DV/WqP++MNLY2VkOHmDqqX+HIPWyXT/riatA3NZeTtBjJSK3GUB3rXf/oumYF8wCj82TsY2uIbRHlLXKu2EP+jg0JtwRsrzJjofm9Bw6hb8M=
+	t=1791377623; cv=none; b=WM3s3C1UrTHldWpUwtODKgfW9QtKLtf7g3p5Hn6sKKUlq8XSJutKDHYocyEZcV9/uKcerW7H2Cpn9YX8GsaiaPxI/sHjMJsKDER91bd4XYjERT8WQALfHi9FtY7MorZp/uWLoZrfhtQs8UU2qURwZJWOqr0XYUBUEdzD5Xn6c2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791377505; c=relaxed/simple;
-	bh=wtguUlcw0GtiL0z35uyyAK5blBD7fMvV9mBxhqKMXEA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gwkyYKfZOcfn0B0wKIQjmOhQPPh/jzUfKEO+rC8FnWwoQo0TEZlZyO1ButxvIMlRJ/TDt2bCTtVDIhmB1msogP/NlZYdKlYORr5928pWis07rYi2LQa50gQpkd4zTqqeOwTvK3b/MAOcxbxnAwYrwrfldE4iM3fCobpjt1+fSdA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eZB5KAB4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QoE0f7Hc; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791377623; c=relaxed/simple;
+	bh=9cPNyRHGG2WmvFE7FD4D24TAmZAqJuJz5eqk8zSTrv8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FeROu8a+0msJF1dxyiq6O4iBimSUtRVAaDWKA33EYcQYovtS1RE4iPykHeL8qdgs2sJ3Hin+7mUPqCh98+Mr4jh8ka1Y+e0h8mpo1ZOva3TGkkuerG085nJ/2Z5+DHWaKylsJuT/Ro6hHJDNjIZov/CTewFyJWQ4+6JEopuNtco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=mFyUo4Iv; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eZB5KAB4";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QoE0f7Hc"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697BVCP73198253
-	for <linux-kernel@vger.kernel.org>; Wed, 7 Oct 2026 12:51:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	4iOU4Nw6gbPDpDYyyYvhCrTJzp3FNRBXEt2PfX5HLqU=; b=eZB5KAB4mgfBa9wQ
-	T8wFHlwZC+eeG/bWh78cicxdArDzgCEIm1zauFeJ7Kj9zaL9bdB2mjrKgZ4QSrik
-	0+PR678KnG7nnERTzMRKgT/yNS8tkBybMdvF6vDaabd+fupl0W+aWLJDoeXewgO5
-	hXCVzHz3XLw7n47J1bPp6nu+bFRuFBpFqqyWmFDexW9xS56bcdjQm13Yuk9BDMbA
-	7Whgh1Q2LgkLc6NR5PGWqyu1j4qDe8iURpRlZ5Vv3GsYec0riGZ8xqlPcTfKB4h0
-	5ypnE2qzkDWnak+55pVgT5ixoPJkLL6BbMyVJ8+G7J6MuXUU3/ZLReh1fnL23Is2
-	c9TfTA==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5c1s25kw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 12:51:26 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38f97b3f853so5339896a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 05:51:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791377486; x=1791982286; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4iOU4Nw6gbPDpDYyyYvhCrTJzp3FNRBXEt2PfX5HLqU=;
-        b=QoE0f7HcnffZjiZkk64FabqpfwjOJw9Ji/TDdUDOSuaxd9JRx6JKVTFGb6PqozB+Li
-         kqN6Q8CJFJsXpLjRzsxtzbri9JZIXy24AB0GE58/OQEjfGfo/HTJbRp33NJtk955PYDp
-         zdc2Y3zHHPVu9E5sfHnt76AsDodRvs+FNegSD1somUOTjVh94Z94u2ubElEM+nmUrbwO
-         gzbjiRLkTRYdfOA2ZwO2kRyM0Ojdvik1wy1Z5W8upVCzbaYHbPzurhH1wHVT/U1rq+8X
-         0uufmqMwF+Nzu7tDkXbVyOqpsxWTFx2KRw3iQcLa8PAp3kMtWRJ/Sh24JIPn6125VgtU
-         NePw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791377486; x=1791982286;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4iOU4Nw6gbPDpDYyyYvhCrTJzp3FNRBXEt2PfX5HLqU=;
-        b=lKoA+NsQEapxsGVY6ld+eeRC/bmg5TlY7Yw21zYHfPlmIn4Ps1z4CzgjTb0E4PUnu2
-         L7pjVksEBKl0+WPulZowvo37EMEk1540BEBp1TzgKR+SK/I/Je10l/UzGEb4t/OnR0u0
-         2N+q5Jha8aTmVpuSxfZV+grwAH9Plx4GHzRafAGW21Bszllykco7dcauHH0XsE1RmJnW
-         vd1zueCA3ZInF/Va6OeEA52iZ5xyr7mfDDPItHBASuqfZLXYobODNGCiwhsgCOYJJvH2
-         Xm0Pj/H2h4sxYb/hUUgh/FOSuUHnZ3T63hZzY++WCiJIELbWOy3N5VNngDpv+ztVxOIU
-         PC/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwJmC9qG93KLIK7VXPYf0dpl0hraZS408t7BpmMoq0nD3jXgRsxsBPhPq/A5DJNIA9VdCsw8zKSjz6QOvI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKuxPN/rV3g3AGXBq1vhcq8HQ8meea3r+cB+ZV707Y1ZU1/Q1hD
-	LeiD6Kg3YLhc4XI1TYwGdKeMdUA6JRFZoSyA+ja0oDuytcT9OBeIVeZwFd2tMpc9WjbPmJlKlZE
-	6j26C+Y3Sl+ndgF+3iWaT1EudD+8SWvdeHbh9r9U16yoMbe/iwSaEyBu4Sb1NNReR5NQ=
-X-Gm-Gg: AYBFou0jEq04eK1v9Mp7Gjr+d2ubGllU1aXW+EpqGwGR8tvjtB/AowIjYSP83j2bWz3
-	oCiwyxlclW6tjYIZkZVWMbpn8sfv32sxrgSz9/Q7trn/xoVSVxtsTXNSmw5kuk3rhaKiFZfurQp
-	OQxFaSaU6wZBnc7q7sVEBTBgyzp4MexNcCrK730UaVfLrHPNIr6UPnwzxVaKbK2WtdC/WSsomTA
-	P7K+H7cUIph76+Ug47BojVtC2KZnb0k8H7b2SMFiezWywWeT7mejKZCUXmUbFsCIEm7/8CVySqh
-	zhnpKjWKFRem8vDHj5F4giiOAperO/xHBkDrpdwMQGIDIrCFvrQv0b+tdBjO6K2s6aHVyNZ/2tZ
-	DpHjbMFPQumcWlM50slLIoyBzlQ==
-X-Received: by 2002:a17:90b:2884:b0:3a5:364:dfd with SMTP id 98e67ed59e1d1-3a8a0cd1a2dmr2054757a91.31.1791377485621;
-        Wed, 07 Oct 2026 05:51:25 -0700 (PDT)
-X-Received: by 2002:a17:90b:2884:b0:3a5:364:dfd with SMTP id 98e67ed59e1d1-3a8a0cd1a2dmr2054745a91.31.1791377485208;
-        Wed, 07 Oct 2026 05:51:25 -0700 (PDT)
-Received: from hu-mdsor-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a89d718333sm1884954a91.1.2026.10.07.05.51.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 05:51:23 -0700 (PDT)
-From: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
-Date: Wed, 07 Oct 2026 18:21:07 +0530
-Subject: [PATCH v4 2/2] arm64: defconfig: Enable LT9611C bridge driver
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="mFyUo4Iv"
+Received: from weh-cvm-dev-vm.y50bckvjo0hefgfnzfztsfttff.phxx.internal.cloudapp.net (unknown [20.169.55.37])
+	by linux.microsoft.com (Postfix) with ESMTPSA id DC8CE20B7166;
+	Wed,  7 Oct 2026 05:52:36 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com DC8CE20B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1791377558;
+	bh=pgXXnsxbosFwljyh+v9NmPF4yFb98y3x90Qgy6et6YA=;
+	h=From:To:Cc:Subject:Date:From;
+	b=mFyUo4IvqOg+G1TYdkFWFRcW2cgrsBhxgO5PLj8sXYeFF82tXzp4/vKeYEf/uRsn8
+	 TggdHiK8ylLWtpdLbZrQ00/hmDdsCyG0xPilTMyk9837cph/CmJvcQETH11A7xk0mH
+	 VkK5N8qxB4go+I4FnjwCuvoYQstRHBzTZL22O380=
+From: Wei Hu <weh@linux.microsoft.com>
+To: Long Li <longli@kernel.org>,
+	Konstantin Taranov <kotaranov@microsoft.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	Shradha Gupta <shradhagupta@linux.microsoft.com>,
+	Simon Horman <horms@kernel.org>,
+	Erni Sri Satya Vennela <ernis@linux.microsoft.com>,
+	Stephen Hemminger <stephen@networkplumber.org>,
+	Shiraz Saleem <shirazsaleem@microsoft.com>
+Cc: netdev@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Aditya Garg <gargaditya@linux.microsoft.com>,
+	Dipayaan Roy <dipayanroy@linux.microsoft.com>,
+	Kees Cook <kees+treewide@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Manish Awasthi <mawasthi@linux.microsoft.com>,
+	Wei Hu <weh@microsoft.com>
+Subject: [PATCH net-next v6 0/4] net: mana: concurrent HWC requests and dynamic queue depth
+Date: Wed,  7 Oct 2026 12:53:26 +0000
+Message-ID: <cover.1790665894.git.weh@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261007-master_lt9611uxd-v4-2-9986704e2a7b@oss.qualcomm.com>
-References: <20261007-master_lt9611uxd-v4-0-9986704e2a7b@oss.qualcomm.com>
-In-Reply-To: <20261007-master_lt9611uxd-v4-0-9986704e2a7b@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Mohit Dsor <mohit.dsor@oss.qualcomm.com>,
-        venkata.valluru@oss.qualcomm.com,
-        Jessica Zhang <jesszhan0024@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791377468; l=791;
- i=mohit.dsor@oss.qualcomm.com; s=20260808; h=from:subject:message-id;
- bh=wtguUlcw0GtiL0z35uyyAK5blBD7fMvV9mBxhqKMXEA=;
- b=VBXEK/8aItkX1UCekr/1dylQJ4b/NJGEzi9LFC4LrAGrBbEEu+KOqUZoWl2D6bywGrQW8Ag/s
- 0BX8PSZrEl3BQL8LpsJOcSGhf/dk27sKT4JPKB7s7LT6IVys8j1swSt
-X-Developer-Key: i=mohit.dsor@oss.qualcomm.com; a=ed25519;
- pk=outHVBN53JhozDw1xkj3G1qrqqE5scMBP7M4WL3aHQQ=
-X-Proofpoint-ORIG-GUID: Z6cDZ9i7emj-q98I25jp1n0noAb4NSC_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDA1MSBTYWx0ZWRfX+cYbNABtiUfx
- 2Cjkx38I88rZVwOD73l2Hm5+b13KIckIrvPyNKxDkFcgughYyyosiw/03T6bdqNhVcTNOV2TmRM
- DWxoTkaP9cKXUMb/47xlgap78d/ns7vCYbAOQRJ7WeIdnKjqfeI2rI4a5MOqQv1gBXoxQqfj/SQ
- v/1y1oBnTa4E7e/tOxRfO3OiYqO5R9Q2X93+hhQ6qvuiXI4FMoihPOYzmHNSS4N0z2DhMF1occk
- QTMWRVv4IdFUBxs6Rafd5WAbTTS8oDG1yhCFwAZQ+dLI3ZZEtla96cV1XWlfGcSWOW05zxgr2fF
- NqfD9Wo1D4f6i9FKJBA3LpwCR3GwFPy0qmDP7dd6N2ybEsxhR/YVd4plSajcxGUZCDHi37RhmfG
- F4YguIgHpMBY5V7NjaolHLquQdUSne+9Fq9GHF0DcMi5tTY+RCL26mpiEI3fQTysgVDCvizAUQY
- 9ikpNswbmJbEM3ZKyUg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDA1MSBTYWx0ZWRfX1H/cgFsktsiA
- otlXxGkArzSFyNOGK1YOdO2dIwD++Gv5mlGs05rBw3Ftoyf1XcANEZAYmcbvGql1LlNHYqWXAPN
- HcISiV0OrfoUK/oYfTOsyYXfcpkbIUQ=
-X-Proofpoint-GUID: Z6cDZ9i7emj-q98I25jp1n0noAb4NSC_
-X-Authority-Analysis: v=2.4 cv=NatzRGD4 c=1 sm=1 tr=0 ts=6ac6404e cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=JLjO1t5ekhtB3RsVtqAA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-07_04,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0 spamscore=0
- clxscore=1015 priorityscore=1501 impostorscore=0 phishscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070051
+Content-Transfer-Encoding: 8bit
 
-Enable the Lontium LT9611C DSI-to-HDMI bridge driver as a module.
-This driver supports the LT9611UXD chip used on the Shikra IQS EVK
-board to provide HDMI output via the MDSS DSI interface.
+This series picks up Long Li's v5 MANA Hardware Channel (HWC) work,
+addresses its review findings, and retains its four-patch feature lineage.
+Safety changes required by concurrency and repeated HWC reinitialization
+are folded into the patch which owns each behavior rather than posted as a
+separate fixes series.
 
-Signed-off-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
----
- arch/arm64/configs/defconfig | 1 +
- 1 file changed, 1 insertion(+)
+I have taken over follow-up upstreaming from Long. Long remains the author
+of every patch, his existing sign-off is preserved, and I added mine for
+the changes and submission custody.
 
-diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-index 65fcbbfc1601..d18f72e55330 100644
---- a/arch/arm64/configs/defconfig
-+++ b/arch/arm64/configs/defconfig
-@@ -977,6 +977,7 @@ CONFIG_DRM_I2C_NXP_TDA998X=m
- CONFIG_DRM_ITE_IT6263=m
- CONFIG_DRM_LONTIUM_LT8912B=m
- CONFIG_DRM_LONTIUM_LT9611=m
-+CONFIG_DRM_LONTIUM_LT9611C=m
- CONFIG_DRM_LONTIUM_LT9611UXC=m
- CONFIG_DRM_LONTIUM_LT8713SX=m
- CONFIG_DRM_ITE_IT66121=m
+Patch 1 prepares HWC ownership for safe reinitialization. It serializes
+complete shared-memory transactions, tracks possible PF ownership,
+retains mappings after an unacknowledged destroy, fences the HWC EQ before
+releasing CQ state, and safely publishes and withdraws the HWC CQ table.
 
+Patch 2 gives each slot independent completion state, withdraws caller
+storage before sender return, handles the response-versus-timeout race,
+and prevents depth-one slot reuse after a genuine timeout.
+
+Patch 3 adds concurrent requests with bounded admission, serialized SQ
+posting, separate sender/response ownership, stale-response quarantine,
+coherent timeout updates, private setup publication, and sender draining.
+
+Patch 4 rebuilds the depth-one bootstrap queues at validated depths from 2
+through 128. It validates both reports, message limits and doorbells,
+keeps the untouched bootstrap channel for depth one or reports above 128,
+and restores fresh bootstrap queues after a failed rebuild only when
+teardown was acknowledged.
+
+Generic Ethernet/RDMA CQ callback refcounting and generic service-work
+versus device-lifecycle serialization are independent pre-existing work
+and are intentionally excluded. Malformed-RX handling, duplicate-success
+correlation, and broad device-controlled allocation/timeout policy caps
+also remain separate follow-ups.
+
+Changes in v6 (v5 -> v6):
+ - Keep the four-patch v5 structure while folding review-required HWC
+   ownership, teardown, timeout, publication and fallback safety into
+   their owning feature patches.
+ - Serialize complete ESTABLISH_HWC and DESTROY_HWC shared-memory
+   transactions. Record possible PF ownership before MMIO submission and
+   clear it only after DESTROY_HWC is acknowledged.
+ - Retain PF-visible queues after an indeterminate destroy. Fence the
+   dedicated HWC EQ and withdraw its CQ from dispatch without freeing the
+   mappings, then retry teardown before assigning fresh queues.
+ - Destroy the HWC EQ before CQ and completion state. Release-publish the
+   CQ table and wait for IRQ-side RCU readers before freeing it, without
+   adding per-completion refcount operations.
+ - Withdraw the caller's response buffer before return and quarantine a
+   timed-out slot until its late response arrives or teardown cancels it.
+ - Return -EBUSY for healthy slot pressure and reserve -ETIMEDOUT for an
+   admitted request which receives no response.
+ - Publish slots under the inflight lock, protect response state with the
+   per-slot lock, and retain sender/response references until both sides
+   finish.
+ - Synchronize hwc_timeout updates and publish the HWC only after queues,
+   admission state, caller contexts and the direct EQ test are ready.
+ - Replace the goto-heavy request and channel-creation flows called out in
+   review with focused admission, submission, wait, build, validation,
+   rebuild and fallback helpers.
+ - Treat reported depth as a maximum: rebuild exactly for 2 through 128,
+   retain untouched bootstrap queues for 1 or above 128, and require the
+   rebuilt report to repeat the selected depth.
+ - Enforce directional request/response maxima against both the report
+   and allocated buffers. Rebuild only for exact 4096-byte reports while
+   permitting bootstrap operation for other nonzero maxima.
+ - Validate BAR page geometry and every stored doorbell. Invalidate the
+   old HWC doorbell before re-establishment and suppress MMIO while the
+   invalid sentinel is present, without adding full validation to each
+   data-path doorbell ring.
+ - Remove the proposed capability bit because driver-version
+   advertisement occurs after HWC establishment and cannot negotiate
+   creation-time behavior.
+ - Preserve current net-next behavior which always uses the
+   hardware-reported dest_vrq_id and dest_vrcq_id.
+
+Changes in v5 (v4 -> v5):
+ - Shortened comments and documented the existing error paths in patches
+   1 and 2.
+ - Rejected apparent success from a response accepted before request
+   submission.
+ - Guarded CQ unpublication when establishment failed before cq_table
+   allocation.
+ - Required successful retry teardown before creating fresh bootstrap
+   queues after an initial destroy failure.
+
+Changes in v4 (return to net-next after the v3 split):
+ - Reworked the feature series into four standalone patches for handover,
+   per-slot completion state, concurrency and dynamic depth.
+ - Added bounded admission, guarded sender accounting, timeout quarantine,
+   queue-depth bounds, message-buffer sizing and rebuild validation.
+ - Reset routing IDs for each establish and rejected a missing doorbell.
+
+Changes in v3 (v2 -> net v3, historical fixes-only posting):
+ - Split the combined series after maintainer feedback, posting fixes to
+   net and deferring concurrency and dynamic depth.
+ - Added response-buffer withdrawal and stale-response handling.
+ - Removed pcie_flr() teardown fallback and retained resources after an
+   unacknowledged destroy.
+
+Changes in v2 (v1 -> v2):
+ - Bounds-checked the SGE pointer derived from inline OOB size.
+ - Protected active-sender accounting and drained senders during
+   teardown and failure exits.
+ - Rebased on net-next e354f7d60f14.
+
+v1:
+ - Combined CQ-table lifetime, queue sizing, RX validation, teardown,
+   concurrent-request and dynamic-depth work in seven patches.
+
+Validation:
+ - All four patches pass diff-check and strict checkpatch.
+ - Every patch passes targeted GCC 13 and Clang 18 W=1 MANA
+   Ethernet/RDMA builds on base c66d93e68728.
+ - Sparse and Smatch add no diagnostics over that current-base baseline.
+ - Release kernel 7.3.0-rc4-mana-hwc-v6-4p-g7065a269bba5 booted via
+   one-time GRUB entries on two Azure MANA VMs.
+ - Each VM passed 32-worker control stress, queue resizing from 8 to 4
+   and back, MTU/link changes, three standalone PCI remove/rescan cycles,
+   and two further cycles while control queries ran concurrently.
+ - MANA rebound, peer connectivity recovered, and both RDMA links
+   returned ACTIVE after every cycle. No new MANA error, timeout, warning,
+   UAF, refcount, RCU, lockdep, KASAN or KCSAN report appeared.
+ - Fresh safe-kernel and four-patch 16-stream TCP receive throughput was
+   24.338 and 24.337 Gbit/s respectively. Concurrent control stress
+   measured 24.339 Gbit/s.
+ - Four-stream 64-byte UDP sustained the requested 399.986 Mbit/s on both
+   kernels; loss was 0.812% on the fresh safe baseline and 0.041% on the
+   four-patch kernel.
+ - RDMA devices and links remained active. ib_write_bw reproduced the
+   environment baseline status 21 / syndrome 0x1c6.
+ - The request, timeout, rebuild, fallback, message-limit and shared-
+   memory state machines are unchanged from the previously injected
+   depth/message/doorbell/destroy/response fault tests. Fresh runtime
+   additionally exercised the new HWC-specific CQ publication path.
+ - Both VMs were finally rebooted to the known-good
+   7.3.0-rc5-mana-vmtest-g72d3fcf802c4 kernel with the safe saved_entry,
+   empty next_entry, active MANA/RDMA and a 24.347 Gbit/s smoke test.
+
+v5:
+https://lore.kernel.org/all/20260908035201.402424-1-longli@microsoft.com/
+v4:
+https://lore.kernel.org/all/20260901200018.3194525-1-longli@microsoft.com/
+v3:
+https://lore.kernel.org/all/20260803234355.636038-1-longli@microsoft.com/
+v2:
+https://lore.kernel.org/all/20260721234339.1476932-1-longli@microsoft.com/
+v1:
+https://lore.kernel.org/all/20260715032942.3945317-1-longli@microsoft.com/
+
+Long Li (4):
+  net: mana: prepare HWC ownership for safe reinitialization
+  net: mana: give each HWC message slot its own completion state
+  net: mana: support concurrent HWC requests
+  net: mana: add dynamic HWC queue depth with reinit path
+
+ .../net/ethernet/microsoft/mana/gdma_main.c   | 129 ++-
+ .../net/ethernet/microsoft/mana/hw_channel.c  | 928 +++++++++++++++---
+ .../net/ethernet/microsoft/mana/shm_channel.c |  58 +-
+ include/net/mana/gdma.h                       |  14 +
+ include/net/mana/hw_channel.h                 |  56 +-
+ include/net/mana/shm_channel.h                |  10 +-
+ 6 files changed, 1000 insertions(+), 195 deletions(-)
+
+
+base-commit: c66d93e68728cfb5f40b40d0f24129d7768faf43
 -- 
-2.34.1
-
+2.43.0
