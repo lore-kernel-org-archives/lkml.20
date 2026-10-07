@@ -1,72 +1,79 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5CF43C1D7A
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 05:29:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 772373F23D1
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 05:30:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791350995; cv=none; b=bKxbhoGrejZjXF+7yPGj6P4YpLfd4A6qixyIP8F3JfGO6fXzgDUOlwK2Wf7JhyneVCWaSq/SxXvs+Nxvj+ybhKGUbY6CC2aDPdUlnZvvqpZlqvx1j5P03RWqU960hcOjYskBWkxV5BwmYit+weGMr+vKEpjjWqYf6F19NtWQaL4=
+	t=1791351050; cv=none; b=noZhpSFomBFitmO7dTtsYknnyMRqlMl0ETkkVnryTalFLLgxqyKJxkmhbRTCLa9R8Uu4y2JA58OqWg2ds+kQvLMVIsUszLu8JzHkgluPSBoDKc4DL4P9Iu1PqbSZ4ZMIg/GKtz/UEvZMDB+y1XoVgAOXx9rx5q0cVKln7FxZSYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791350995; c=relaxed/simple;
-	bh=ZcYdrU57dFk3/ZhvsnwqxnFSfvA2Jz1UU6uXzvOw6cM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KcSeeD3NeSFuSwcc7jlt+VcEB7WRM4BAiDA/UmGyYU83UGeVhAZuwXIJv6ORA3lKxtvO0HV7c3K4D11Py5zKpykaXpk1NrC5OkeOCig0w8ogm6OQpwvnHq4o+wLS4saAxy+kncmbWcAVBnPU2rCHMvXTeZS2/BW0W8EC+sMWnOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thingy.jp; spf=pass smtp.mailfrom=0x0f.com; dkim=pass (1024-bit key) header.d=thingy.jp header.i=@thingy.jp header.b=IsZrvmoj; arc=none smtp.client-ip=209.85.215.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thingy.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0x0f.com
+	s=arc-20240116; t=1791351050; c=relaxed/simple;
+	bh=OqaPyFPIAb5pA6XOr222+ri8L8KoNjni8K1hOHwKuts=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=d6TTPP90sMkOmEXIqvdikdeHVVSGJsR/vKq3/akio59pXu/NcqfY/YYyrC061zSq6AHnNLNGozpy4y4XFOfY41q29hG7Irwznq29bh0RAgHzwuzzxdMwEXxWyjwhfUjiVthKtTtixYYHk7OcjLP6yvSWPHC3kAZEhQjvo2Sfvpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oFDOBdKF; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=thingy.jp header.i=@thingy.jp header.b="IsZrvmoj"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc4be0e5351so1204324a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 22:29:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oFDOBdKF"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-38ec1402b05so2381427a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 22:30:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thingy.jp; s=google; t=1791350993; x=1791955793; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MHtzz6KhfK5NjnNS2rfNNwlDkfh6RPhp/GwO0REwW7E=;
-        b=IsZrvmojRu744BTuFTB/YZNzV38lHmCiwJkTzAl/f8jEvw7PANzgqE5VQpREhNkqxe
-         xzv0lSJwb8/JedZoLD7y7jN8Bg1x9J1t/d54SE6gdO6pbw8OqRb2sbq8341vO6g3QD+L
-         RZbxFN+PQABYdPBa4VBodpDve88QpBhIzDdlI=
+        d=gmail.com; s=20251104; t=1791351047; x=1791955847; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PBI/4YvkSQ+VFrtN0cmN+OQwHA5A5JBzV1ymzQIcz6g=;
+        b=oFDOBdKFOXfbySZcXjLP4gKF52STRAC+qSEzwqROvrAM6PgQuwlVhciQaKTTbL2K6W
+         Ij9/47mngeutQvQ/0zu0Yg73hGILf4uyNkTkjKAkMTOrKwQk84tQp4iDov9kECutJQek
+         cBVbRCcQSSe3o7OhdyXoxs1xGrevHOJuZNMRtIZ/iwdmkPEVehP5j4+rDuroTMVLrMWB
+         qzI6EVUBJBWnTiqkbTRBg/80pWuvMC3i3uv9aH3SIMFkQQvLt//j5UvKUvRgO3eFjDoW
+         ewsGZ1UP5A5o0wzzHYyJfLzvZH+eB7k1w3XaWP8inn44/lwLORmLaEogMXsGg7hlC8rV
+         nhEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791350993; x=1791955793;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MHtzz6KhfK5NjnNS2rfNNwlDkfh6RPhp/GwO0REwW7E=;
-        b=XWiV4mvUJykzruyJeZHf9OBSctYQh499s/u3yRI64AChvLb14/GVFvgfWnSjIaNH7I
-         qD6oep+0MdqB+zJ7ld69B3GEzHfGm1/c4xUY06Mao8TGgsEnW8A8dlqBY+2mkRKQLXUk
-         asr+KRixF45yGquhgGYLVCFNYfaTOTWgctkUlDV5/iwOfwuuuffqbVrzSicadaVnHbBJ
-         DF6M4tHApSDYh32U3Xx/G69w6jNrVwaWY0j8keShDAoUHBBAOBhqhRrO2W7SYaiLq0mA
-         F6LPzs2NStahkq5VVz9C4Bx5DZ97a26WtF6wW6aoo8kygvpLgGlIOVsa020lYvlUmB2/
-         mefg==
-X-Gm-Message-State: AFq9FYL8R7JPJaHkocysdcqMxcIhS81dpgv/rv65LSJjdFQMRHL8R3LR
-	FFUdfjhLcKTAgqY2upAvq6wwnETd/7VbdsgtqG06UTa8KPAQzZLWby4Q+/h+w03yNqfiW+PQ4E6
-	xr0L9
-X-Gm-Gg: AYBFou3hQyuTWjmW4EavTL7SzCgfycDeeP8p1on2XN0gEYjRdQ98yBqYzpzgIhJsOtw
-	pgC4RIR8Qc8YuUDgvonHCgjveqHL5rwI94389cmzz0TwzxqfwlXe0GmWCfAof3p3Av04VqUzYzs
-	dZitlpSBwFo4VfzPFXeMPdW4zMZQjT1CMC1i22Hc9/7tOrv39/1pRQjnFOSrvlFtnHi58hSJwdz
-	bkcKc2I2Nih8FuBgZmcX769LJBddX75JJ2vlDW8OcSSIEnWrIsV0rz/0MlCqPG1TRakF2N9sm9e
-	25QRk49iI41TzZnFF7i03946dvgW6q7u22+nbTwQY3f/0E8zwONlIiuYBntK+GMU1lMCrW6RHmj
-	d8I5V8oAABZdVuFzglraKtyVz+rfoDID7QMx5FhuaquH7fWdo9gxmzHBdal2WSefzR5zhFCXxID
-	4+jweTYyMv9xuGRfEIwtq2KLmgbtJ5l2F4dVSB2EL+nvVEcPjuPCDASCMGOCDH4MGz95m23x7BE
-	G6wiKvBThmBwuhl1Wy4
-X-Received: by 2002:a17:90b:3a10:b0:3a7:da33:ff3d with SMTP id 98e67ed59e1d1-3a8a1d05b29mr1084600a91.46.1791350993133;
-        Tue, 06 Oct 2026 22:29:53 -0700 (PDT)
-Received: from kinako (softbank126255145177.bbtec.net. [126.255.145.177])
-        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-3a8543ab76bsm8208425a91.13.2026.10.06.22.29.48
+        d=1e100.net; s=20260707; t=1791351047; x=1791955847;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PBI/4YvkSQ+VFrtN0cmN+OQwHA5A5JBzV1ymzQIcz6g=;
+        b=mxkk8BlvyGhj6WvDK7oSyRbtUHPvaAmXzufld+KjD6lceZGVa2ZVRdP/DB1VxoJGvf
+         /x7LZQQG5g2nL1r/gqU5pTR+4Tvy0qBfsWXWt+kKGF3O9ij9APR9kFguWxZu8BGHFnKp
+         gg3snczQaoQk/mgTH+zq2i2kWatlomJrYjmAnRkjIVg22Y3qBEjGqRneeTKgcPlw2NhO
+         hNaTPeNqzs1YVzPY81evo8CcDn7NJXr5lb74YxnMwIQE4t7Wks9qAEMduTZnamrdLMms
+         MYnWuO6sTtSyvuygghVrb83I1l6XOum5vuPmpZgAiz8CAJhaLSfI8WOwlJaDKsJJLMmO
+         Mfjw==
+X-Forwarded-Encrypted: i=1; AKwUvBx5cPTkTYOui/5c0TU9d3CTkuCtKGZcI+XJpbK3V2k4hcNQIEGkENBwrmEWIeQxtXaGYgIP/O3C1YnfGUk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIOyoP2DyWi89eu7zKPmgR8Uix3ocraMVB9o5EGKIzPog3DD9Qm
+	HqlOMIAJwXcXX12BY7FtYzc98zHoFB6SwXKgwJmw/3ygTQPx7gk5p9fI
+X-Gm-Gg: AYBFou3/hcnSLsDRxyDRalVf9eqf379WDBPRL9rZ3zSZYTsKKubBQWUYvzfsYUZDY8f
+	1DZDSSAyGW+IMeg/xu4yRGHwhf6zQuKL2QZZDEKK+viIWk5OFlJcXEO6M/7jq48hIXvFXLvDOe7
+	qXE0goh6E3kpPvWClD8smcy04HpHcWJXZzJz65PBurIlhvDU4UGr2q1xYF6lGV4AxoOi3JjzvpM
+	x/vmsfYx0eYXv4HFTJpK97+5ewCHX3memEk1X1n8LLLqNP6DcsHiiZUdqHCoIbUHZ3ZIQup6+27
+	8n7W0gdWS/yEP5d25JzhKrDSdR1++fxzXLt5/vKJm2kNp0BGXxnUOG2F1D4dBSAS6QQBVN98BUI
+	GEb5H7dA5zKfpXeQ9Az4oU11WXq93FDgm5EtlneZoM+rp+fGGWIhr9ibZiFaRr4AXGkqFDRp5nk
+	zORv17kdSUzS9EDKbO4WL7m+WZqOv4E1KWNqu5TMfCEF/6xXhX5gqjW6JRm+DI9GR8nw==
+X-Received: by 2002:a17:90b:5887:b0:3a0:afc9:a51a with SMTP id 98e67ed59e1d1-3a8a196711amr901388a91.12.1791351046567;
+        Tue, 06 Oct 2026 22:30:46 -0700 (PDT)
+Received: from morefine ([5.34.221.10])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a89b17bc5esm2849790a91.7.2026.10.06.22.30.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 22:29:52 -0700 (PDT)
-From: Daniel Palmer <daniel@thingy.jp>
-To: w@1wt.eu,
-	linux@weissschuh.net
-Cc: linux-kernel@vger.kernel.org,
-	Daniel Palmer <daniel@thingy.jp>
-Subject: [PATCH v2 2/2] selftests/nolibc: Add test for dirfd()
-Date: Wed,  7 Oct 2026 14:29:13 +0900
-Message-ID: <20261007052914.888956-3-daniel@thingy.jp>
+        Tue, 06 Oct 2026 22:30:45 -0700 (PDT)
+From: Changbin Du <changbin.du@gmail.com>
+To: Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	Changbin Du <changbin.du@gmail.com>
+Subject: [PATCH v2] perf bench: Add atomic operations benchmark
+Date: Wed,  7 Oct 2026 13:30:27 +0800
+Message-ID: <20261007053027.1738402-1-changbin.du@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261007052914.888956-1-daniel@thingy.jp>
-References: <20261007052914.888956-1-daniel@thingy.jp>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,79 +82,480 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Test that open() and dirfd() use the same fd and then use
-dirfd() with fstatat() to stat each of its children.
+Add a new 'atomic' collection to perf bench for benchmarking
+atomic read-modify-write operations with multi-threaded
+contention testing. It provides two subcommands:
 
-Signed-off-by: Daniel Palmer <daniel@thingy.jp>
+  - atomic cas: contended compare-and-swap operations
+    (__atomic_compare_exchange_n)
+  - atomic inc: contended fetch-add operations (__atomic_fetch_add)
+
+Both support configurable thread count and iteration count to
+measure atomic contention effects.
+
+Why this benchmark is needed:
+- Atomic read-modify-write operations are fundamental to lock-free
+  algorithms and data structures. Understanding their performance
+  characteristics under contention is critical for designing
+  high-performance concurrent applications.
+- The benchmark helps identify atomic operation latency and
+  scalability issues across different thread counts, revealing
+  contention patterns that are not visible in single-threaded tests.
+- Useful for evaluating atomic implementation quality on different
+  architectures and for regression testing after changes to atomic
+  primitives or memory ordering.
+
+Measurement methodology:
+- Each thread starts a private timer (clock_gettime CLOCK_MONOTONIC)
+  after synchronizing on a pthread_barrier, ensuring all threads
+  begin simultaneously.
+- Each thread performs a hot loop of the selected atomic operation
+  (compare-and-swap or fetch-add) on a shared u64 counter,
+  incrementing it from 0 to iterations.
+- The shared counter is cache-line aligned (64 bytes) to isolate
+  contention to the target cache line and avoid false sharing.
+- The wall-clock time is measured as the max of all per-thread
+  runtimes (the time for the slowest thread to finish).
+- The first repeat is excluded from statistics as a warmup phase
+  to avoid cache-cold effects.
+
+Example usage:
+$ perf bench atomic all
+# Running atomic/cas benchmark...
+  Threads: 2, iterations/thread: 100000000, repeats: 10 (warmup: 1)
+  Avg wall-clock time: 3286.297 msec  (stddev 6.820 msec)
+  Total ops: 200,000,000
+  Throughput total: 60,858,769 ops/sec
+  Per-thread times and throughput (last repeat):
+    fastest:  3304.312 msec  (30263489 ops/sec)
+    slowest:  3325.518 msec  (30070504 ops/sec)
+    avg:      3314.915 msec  (30166688 ops/sec)
+
+# Running atomic/inc benchmark...
+  Threads: 2, iterations/thread: 100000000, repeats: 10 (warmup: 1)
+  Avg wall-clock time: 2170.716 msec  (stddev 7.306 msec)
+  Total ops: 200,000,000
+  Throughput total: 92,135,503 ops/sec
+  Per-thread times and throughput (last repeat):
+    fastest:  2196.458 msec  (45527849 ops/sec)
+    slowest:  2208.764 msec  (45274198 ops/sec)
+    avg:      2202.611 msec  (45400669 ops/sec)
+
+Output fields explained:
+- Threads: number of contending threads
+- iterations/thread: atomic operations each thread performs
+- repeats: number of test runs (first is warmup)
+- Avg wall-clock time: mean time for all threads to complete
+- stddev: standard deviation across repeats
+- Total ops: threads x iterations/thread
+- Throughput total: aggregate ops/sec across all threads
+- Per-thread times: fastest/slowest/avg thread completion time
+- Per-thread throughput: per-thread ops/sec (shows scheduling imbalance)
+
+Assisted-by: opencode:DeepSeek-V4-Pro
+Signed-off-by: Changbin Du <changbin.du@gmail.com>
 ---
- tools/testing/selftests/nolibc/nolibc-test.c | 47 ++++++++++++++++++++
- 1 file changed, 47 insertions(+)
+Changes since v1:
+- Add an 'atomic inc' subcommand benchmarking contended fetch-add
+  (__atomic_fetch_add), split the entry points into
+  bench_atomic_cas() and bench_atomic_inc(), and document it.
+- Hoist the plain load out of the compare-and-swap retry loop; the
+  failed __atomic_compare_exchange_n already returns the current
+  value via *expected, so the loop measures pure CAS throughput.
+- Cast the seconds delta to u64 before multiplying by NSEC_PER_SEC
+  to avoid 32-bit signed overflow in the runtime calculation.
+---
+ tools/perf/Documentation/perf-bench.txt |  32 +++
+ tools/perf/bench/Build                  |   1 +
+ tools/perf/bench/atomic.c               | 268 ++++++++++++++++++++++++
+ tools/perf/bench/bench.h                |   2 +
+ tools/perf/builtin-bench.c              |   9 +
+ 5 files changed, 312 insertions(+)
+ create mode 100644 tools/perf/bench/atomic.c
 
-diff --git a/tools/testing/selftests/nolibc/nolibc-test.c b/tools/testing/selftests/nolibc/nolibc-test.c
-index ed860b0a15a1..82616f2c1ba4 100644
---- a/tools/testing/selftests/nolibc/nolibc-test.c
-+++ b/tools/testing/selftests/nolibc/nolibc-test.c
-@@ -858,6 +858,52 @@ static int test_dirent(void)
- 	return 0;
- }
+diff --git a/tools/perf/Documentation/perf-bench.txt b/tools/perf/Documentation/perf-bench.txt
+index c5913cf59c98..871c3aa5fc43 100644
+--- a/tools/perf/Documentation/perf-bench.txt
++++ b/tools/perf/Documentation/perf-bench.txt
+@@ -58,6 +58,9 @@ SUBSYSTEM
+ 'numa'::
+ 	NUMA scheduling and MM benchmarks.
  
-+static int test_dirfd(void)
++'atomic'::
++	Atomic operation benchmarks.
++
+ 'futex'::
+ 	Futex stressing benchmarks.
+ 
+@@ -283,6 +286,35 @@ SUITES FOR 'numa'
+ *mem*::
+ Suite for evaluating NUMA workloads.
+ 
++SUITES FOR 'atomic'
++~~~~~~~~~~~~~~~~~~~
++*cas*::
++Suite for evaluating compare-and-swap (CAS) atomic operations under
++multi-threaded contention.
++
++*inc*::
++Suite for evaluating atomic fetch-add (increment) operations under
++multi-threaded contention.
++
++Options of *cas* and *inc*
++^^^^^^^^^^^^^^^^^^^^^^^^^^
++-t::
++--threads=::
++Number of threads contending for the shared counter (default: 2).
++
++-i::
++--iterations=::
++Number of iterations per thread (default: 100000000).
++
++The per-thread fastest/slowest/avg summary is only printed when
++running with more than one thread.
++
++Note that the cas benchmark counts successful compare-and-swap
++operations only; retries and the loads between them are additional
++atomic instructions not included in the ops/sec count, so cas and
++inc throughputs are not directly comparable at the instruction
++level.
++
+ SUITES FOR 'futex'
+ ~~~~~~~~~~~~~~~~~~
+ *hash*::
+diff --git a/tools/perf/bench/Build b/tools/perf/bench/Build
+index 67b76fe20ba6..c64c52468d3d 100644
+--- a/tools/perf/bench/Build
++++ b/tools/perf/bench/Build
+@@ -3,6 +3,7 @@ perf-bench-y += sched-pipe.o
+ perf-bench-y += sched-seccomp-notify.o
+ perf-bench-y += syscall.o
+ perf-bench-y += mem-functions.o
++perf-bench-y += atomic.o
+ perf-bench-y += futex.o
+ perf-bench-y += futex-hash.o
+ perf-bench-y += futex-wake.o
+diff --git a/tools/perf/bench/atomic.c b/tools/perf/bench/atomic.c
+new file mode 100644
+index 000000000000..08497910b563
+--- /dev/null
++++ b/tools/perf/bench/atomic.c
+@@ -0,0 +1,268 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2026 Changbin Du
++ *
++ * Benchmarks for atomic read-modify-write operations.
++ *
++ * Measures throughput (ops/sec) of contended atomic operations on a
++ * single shared counter across multiple threads. Each thread performs
++ * a hot loop of the selected operation -- compare-and-swap (cas) or
++ * fetch-add (inc) -- competing with all other threads for the same
++ * cache line.
++ */
++#include "bench.h"
++#include <linux/compiler.h>
++#include "../util/debug.h"
++
++#ifndef HAVE_PTHREAD_BARRIER
++int bench_atomic_cas(int argc __maybe_unused, const char **argv __maybe_unused)
 +{
-+	struct dirent dirent, *result;
-+	int ret = 0, fd;
-+	struct stat st;
-+	DIR *dir;
-+
-+	fd = open("/", O_RDONLY | O_DIRECTORY);
-+	if (fd < 0)
-+		return __LINE__;
-+
-+	dir = fdopendir(fd);
-+	if (!dir) {
-+		close(fd);
-+		return __LINE__;
-+	}
-+
-+	/* Check that dirfd() gives the same fd as open() */
-+	if (dirfd(dir) != fd) {
-+		ret = __LINE__;
-+		goto out;
-+	}
-+
-+	/* Loop through the children of the directory calling fstatat() on each */
-+	while (1) {
-+		if (readdir_r(dir, &dirent, &result) != 0) {
-+			ret = __LINE__;
-+			goto out;
-+		}
-+
-+		if (!result)
-+			break;
-+
-+		if (fstatat(dirfd(dir), dirent.d_name, &st, AT_SYMLINK_NOFOLLOW) != 0) {
-+			ret = __LINE__;
-+			goto out;
-+
-+		}
-+	}
-+
-+out:
-+	closedir(dir);
-+
-+	return ret;
++	pr_err("%s: pthread_barrier_t unavailable, disabling this test...\n", __func__);
++	return 0;
 +}
 +
- int test_getcwd(void)
- {
- 	char cwd_syscall[PATH_MAX];
-@@ -1651,6 +1697,7 @@ int run_syscall(int min, int max)
- 		CASE_TEST(getdents64_root);   EXPECT_SYSNE(1, test_getdents64("/"), -1); break;
- 		CASE_TEST(getdents64_null);   EXPECT_SYSER(1, test_getdents64("/dev/null"), -1, ENOTDIR); break;
- 		CASE_TEST(directories);       EXPECT_SYSZR(is_nolibc && proc, test_dirent()); break;
-+		CASE_TEST(dirfd);             EXPECT_SYSZR(is_nolibc, test_dirfd()); break;
- 		CASE_TEST(getrandom);         EXPECT_SYSZR(1, test_getrandom()); break;
- 		CASE_TEST(gettimeofday_tv);   EXPECT_SYSZR(1, gettimeofday(&tv, NULL)); break;
- 		CASE_TEST(gettimeofday_tv_tz);EXPECT_SYSZR(1, gettimeofday(&tv, &tz)); break;
++int bench_atomic_inc(int argc __maybe_unused, const char **argv __maybe_unused)
++{
++	pr_err("%s: pthread_barrier_t unavailable, disabling this test...\n", __func__);
++	return 0;
++}
++#else /* HAVE_PTHREAD_BARRIER */
++#include <stdlib.h>
++#include <stdio.h>
++#include <stdbool.h>
++#include <string.h>
++#include <pthread.h>
++#include <time.h>
++#include <inttypes.h>
++#include <err.h>
++#include <linux/types.h>
++#include <linux/time64.h>
++#include <subcmd/parse-options.h>
++#include "../util/stat.h"
++
++static unsigned int threads	= 2;
++static unsigned int iterations	= 100000000;
++
++static const struct option options[] = {
++	OPT_UINTEGER('t', "threads", &threads,
++		     "Number of threads contending for the counter"),
++	OPT_UINTEGER('i', "iterations", &iterations,
++		     "Number of iterations per thread"),
++	OPT_END()
++};
++
++static const char * const cas_usage[] = {
++	"perf bench atomic cas <options>",
++	NULL
++};
++
++static const char * const inc_usage[] = {
++	"perf bench atomic inc <options>",
++	NULL
++};
++
++enum atomic_op {
++	OP_CAS,
++	OP_INC,
++};
++
++static int bench_op = OP_CAS;
++
++static u64 shared_counter __aligned(64);
++static pthread_barrier_t start_barrier __aligned(64);
++
++struct worker_stats {
++	u64	runtime_ns;
++};
++
++static void *worker(void *arg)
++{
++	struct worker_stats *ws = (struct worker_stats *)arg;
++	struct timespec tstart, tend;
++	u64 i;
++
++	pthread_barrier_wait(&start_barrier);
++
++	clock_gettime(CLOCK_MONOTONIC, &tstart);
++	switch (bench_op) {
++	case OP_CAS:
++		for (i = 0; i < iterations; i++) {
++			u64 old_val, new_val;
++
++			old_val = __atomic_load_n(&shared_counter, __ATOMIC_RELAXED);
++			do {
++				new_val = old_val + 1;
++			} while (!__atomic_compare_exchange_n(&shared_counter,
++							      &old_val, new_val,
++							      false,
++							      __ATOMIC_RELAXED,
++							      __ATOMIC_RELAXED));
++		}
++		break;
++	case OP_INC:
++		for (i = 0; i < iterations; i++)
++			__atomic_fetch_add(&shared_counter, 1, __ATOMIC_RELAXED);
++		break;
++	default:
++		break;
++	}
++	clock_gettime(CLOCK_MONOTONIC, &tend);
++
++	ws->runtime_ns	= (u64)(tend.tv_sec - tstart.tv_sec) * NSEC_PER_SEC +
++			  (tend.tv_nsec - tstart.tv_nsec);
++
++	return NULL;
++}
++
++static void print_default_format(struct worker_stats *wstats,
++				 struct stats *time_stats)
++{
++	double time_avg, time_stddev;
++
++	printf("  Threads: %u, iterations/thread: %u, repeats: %u (warmup: 1)\n",
++	       threads, iterations, bench_repeat);
++
++	time_avg    = avg_stats(time_stats);
++	time_stddev = stddev_stats(time_stats);
++
++	printf("  Avg wall-clock time: %.3f msec  (stddev %.3f msec)\n",
++	       time_avg / (double)NSEC_PER_MSEC,
++	       time_stddev / (double)NSEC_PER_MSEC);
++	printf("  Total ops: %'" PRIu64 "\n",
++	       iterations * (u64)threads);
++	printf("  Throughput total: %'.0f ops/sec\n",
++	       (double)(iterations * (u64)threads) /
++	       (time_avg / (double)NSEC_PER_SEC));
++
++	/*
++	 * Per-thread statistics from the last measured repeat show
++	 * fairness / imbalance in CPU scheduling.
++	 */
++	if (threads > 1) {
++		u64 min_ns = UINT64_MAX, max_ns = 0, total_ns = 0;
++		double min_thru, max_thru, avg_thru;
++
++		for (unsigned int t = 0; t < threads; t++) {
++			if (wstats[t].runtime_ns < min_ns)
++				min_ns = wstats[t].runtime_ns;
++			if (wstats[t].runtime_ns > max_ns)
++				max_ns = wstats[t].runtime_ns;
++			total_ns += wstats[t].runtime_ns;
++		}
++
++		min_thru = (double)iterations * NSEC_PER_SEC / min_ns;
++		max_thru = (double)iterations * NSEC_PER_SEC / max_ns;
++		avg_thru = (double)threads * iterations * NSEC_PER_SEC / total_ns;
++
++		printf("  Per-thread times and throughput (last repeat):\n");
++		printf("    fastest:  %.3f msec  (%.0f ops/sec)\n",
++		       min_ns / (double)NSEC_PER_MSEC, min_thru);
++		printf("    slowest:  %.3f msec  (%.0f ops/sec)\n",
++		       max_ns / (double)NSEC_PER_MSEC, max_thru);
++		printf("    avg:      %.3f msec  (%.0f ops/sec)\n",
++		       (total_ns / threads) / (double)NSEC_PER_MSEC, avg_thru);
++	}
++}
++
++static int run_benchmark(void)
++{
++	pthread_t *thread_ids;
++	struct worker_stats *wstats;
++	struct stats time_stats;
++	unsigned int r, t;
++
++	thread_ids = calloc(threads, sizeof(pthread_t));
++	if (!thread_ids)
++		err(EXIT_FAILURE, "calloc");
++
++	wstats = calloc(threads, sizeof(struct worker_stats));
++	if (!wstats)
++		err(EXIT_FAILURE, "calloc");
++
++	init_stats(&time_stats);
++
++	for (r = 0; r < bench_repeat + 1; r++) {
++		u64 max_runtime_ns = 0;
++
++		shared_counter = 0;
++		pthread_barrier_init(&start_barrier, NULL, threads);
++
++		for (t = 0; t < threads; t++) {
++			if (pthread_create(&thread_ids[t], NULL,
++					   worker, &wstats[t]))
++				err(EXIT_FAILURE, "pthread_create");
++		}
++
++		for (t = 0; t < threads; t++)
++			pthread_join(thread_ids[t], NULL);
++
++		pthread_barrier_destroy(&start_barrier);
++
++		for (t = 0; t < threads; t++) {
++			if (wstats[t].runtime_ns > max_runtime_ns)
++				max_runtime_ns = wstats[t].runtime_ns;
++		}
++
++		/*
++		 * Exclude the first repeat (warmup) from statistics so
++		 * that cache-cold and lazy-init effects are not counted.
++		 */
++		if (r > 0)
++			update_stats(&time_stats, max_runtime_ns);
++	}
++
++	switch (bench_format) {
++	case BENCH_FORMAT_DEFAULT:
++		print_default_format(wstats, &time_stats);
++		break;
++
++	case BENCH_FORMAT_SIMPLE:
++		printf("%.0f\n",
++		       (double)(iterations * (u64)threads) /
++		       (avg_stats(&time_stats) / (double)NSEC_PER_SEC));
++		break;
++
++	default:
++		fprintf(stderr, "Unknown format: %d\n", bench_format);
++		exit(EXIT_FAILURE);
++	}
++
++	free(thread_ids);
++	free(wstats);
++
++	return 0;
++}
++
++static int run_atomic_bench(int argc, const char **argv,
++			    const char * const *usage)
++{
++	if (parse_options(argc, argv, options, usage, 0)) {
++		usage_with_options(usage, options);
++		exit(EXIT_FAILURE);
++	}
++
++	if (threads < 1) {
++		fprintf(stderr, "Invalid thread count: %u\n", threads);
++		return 1;
++	}
++
++	if (iterations < 1) {
++		fprintf(stderr, "Invalid iteration count: %u\n", iterations);
++		return 1;
++	}
++
++	return run_benchmark();
++}
++
++int bench_atomic_cas(int argc, const char **argv)
++{
++	bench_op = OP_CAS;
++	return run_atomic_bench(argc, argv, cas_usage);
++}
++
++int bench_atomic_inc(int argc, const char **argv)
++{
++	bench_op = OP_INC;
++	return run_atomic_bench(argc, argv, inc_usage);
++}
++#endif /* HAVE_PTHREAD_BARRIER */
+diff --git a/tools/perf/bench/bench.h b/tools/perf/bench/bench.h
+index 8519eb5a42fa..85e3ac471875 100644
+--- a/tools/perf/bench/bench.h
++++ b/tools/perf/bench/bench.h
+@@ -30,6 +30,8 @@ int bench_mem_memcpy(int argc, const char **argv);
+ int bench_mem_memset(int argc, const char **argv);
+ int bench_mem_mmap(int argc, const char **argv);
+ int bench_mem_find_bit(int argc, const char **argv);
++int bench_atomic_cas(int argc, const char **argv);
++int bench_atomic_inc(int argc, const char **argv);
+ int bench_futex_hash(int argc, const char **argv);
+ int bench_futex_wake(int argc, const char **argv);
+ int bench_futex_wake_parallel(int argc, const char **argv);
+diff --git a/tools/perf/builtin-bench.c b/tools/perf/builtin-bench.c
+index 02d47913cc6a..62bebdedd3b8 100644
+--- a/tools/perf/builtin-bench.c
++++ b/tools/perf/builtin-bench.c
+@@ -14,6 +14,7 @@
+  *  syscall ... System call performance
+  *  mem   ... memory access performance
+  *  numa  ... NUMA scheduling and MM performance
++ *  atomic ... Atomic operation performance
+  *  futex ... Futex performance
+  *  epoll ... Event poll performance
+  */
+@@ -115,6 +116,13 @@ static const struct bench uprobe_benchmarks[] = {
+ 	{ NULL,	NULL, NULL },
+ };
+ 
++static const struct bench atomic_benchmarks[] = {
++	{ "cas",	"Benchmark CAS (compare-and-swap) operations",	bench_atomic_cas	},
++	{ "inc",	"Benchmark atomic fetch-add operations",	bench_atomic_inc	},
++	{ "all",	"Run all atomic benchmarks",			NULL			},
++	{ NULL,		NULL,						NULL			}
++};
++
+ struct collection {
+ 	const char		*name;
+ 	const char		*summary;
+@@ -128,6 +136,7 @@ static const struct collection collections[] = {
+ #ifdef HAVE_LIBNUMA_SUPPORT
+ 	{ "numa",	"NUMA scheduling and MM benchmarks",		numa_benchmarks		},
+ #endif
++	{ "atomic",	"Atomic operation benchmarks",			atomic_benchmarks	},
+ 	{"futex",       "Futex stressing benchmarks",                   futex_benchmarks        },
+ #ifdef HAVE_EVENTFD_SUPPORT
+ 	{"epoll",       "Epoll stressing benchmarks",                   epoll_benchmarks        },
 -- 
 2.53.0
 
