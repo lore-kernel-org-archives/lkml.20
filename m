@@ -1,84 +1,84 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF41A46985D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF2DA4457A3;
 	Wed,  7 Oct 2026 09:36:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791365828; cv=none; b=KrqCvvTCTgCANQ3fp8yPOL38S7oa1H9IeJWxylipya89m+o/GQ1Ysji7aXX4a8xgUaDxed7UaGj56DVvcW2U944h83anKuNn8MH7956b2jaPxQabVzeD3M5j9n9YzjUVbrqzzQJT/ejpo6WdCAVQTj1u3+EN2/yvMzaMCYEwVI4=
+	t=1791365829; cv=none; b=FiXIwxY0onetqf7VJ8e/OUFfmf/194qAEYQtPoSWRl49QVz42ITSGcVbhhSYVgj8OG5fTMxDrTXx1V3zrH3o3y/ZS3BfjbnwV9K2EG7Cl6NNy6Kc1B5PA3MYCN3n/vN86Kw/XrlHPWots/mTZDgva1UIL4WBk3c2DvpaOANJN4k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791365828; c=relaxed/simple;
-	bh=jc3TSLXldXteeuO1/4m7Zp9oJvtjcpCAcs3SyOAEuYU=;
+	s=arc-20240116; t=1791365829; c=relaxed/simple;
+	bh=ZfVdYbsJsBQYfTrXTm8hCoH1cPOzBWg+AjMYS5DQ8bo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nks7EDHqfSTi4hnEs9Ir7YYNDT0Fjht2/mLnMJNQ9mh9whbTG8jA4VrHcOj885WRv+FtUhIOlWbAo93i5Rpn0hQ0W5pYgLdDy1YFbKsjTjAdEd145kkBZnwOEgsk/qVeWuI0Krub4r6YTINftk8YinYHTgi0XGGDOvbnlKvSqZ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=UgYYjQ81; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=QzaVgk8Y; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=zsQC4RZY; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=DvioGYVI; arc=none smtp.client-ip=195.135.223.131
+	 MIME-Version; b=uh+E04d39OyTMOnBmuNOcwOqzi2eD3aLLt6nY43E33OoshYF0FvWZDLIXuZVGeTYYjYyOO+7QR9JVO08bpdYMBHbtw6/mrNwqP6zjpSt2EZQ6jLhLDz/ACuB1WRDQlvLHhkdfgJsyUCGqVLZuiTXFdFwHwcuF8emNcOq0h8lemU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Yy/YBxs9; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=71GDd4mE; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Yy/YBxs9; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=71GDd4mE; arc=none smtp.client-ip=195.135.223.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="UgYYjQ81";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="QzaVgk8Y";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="zsQC4RZY";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="DvioGYVI"
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Yy/YBxs9";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="71GDd4mE";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Yy/YBxs9";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="71GDd4mE"
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 4D6611F841;
-	Wed,  7 Oct 2026 09:36:41 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id C51B721F84;
+	Wed,  7 Oct 2026 09:36:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791365805; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1791365804; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=MhC74u0euHiG6EiTkvFEObitfBMnKo6wcSCms+38sDc=;
-	b=UgYYjQ814EZrg9Wwm6rRLBj62Lzqz2YIohn9DAtKDRuL0pFiIpl0HehlUAhvYoGQ4lHQ+h
-	xCb5/wWoU8m4Z8ThJBEKe3CG21jqrZhRc6arezj0fRp7U2sssMX3CGX19p5P2zB66U8TUq
-	pWff1uxxOP3oD7BX2N0Jx56RhLq4ONY=
+	bh=W3obG8UDLzbV18oFzrEVP9TvrGApje4IQTqwGJdbwBc=;
+	b=Yy/YBxs9eGb8dZkMNXDsa9o7Ec+gPiREt1qLrRw73XTorj7B4UWZ4MAg+4yweqgLnYxDk1
+	J2BTX2f/yMbcFP01Y0mP/GOSXRr7nOU+/enVEfJSAFjwum3pvEbBO//steO7P1mToiffxJ
+	XPwC7Upf/Sc9q3Gm9wg2HwAA6eD6IKE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791365805;
+	s=susede2_ed25519; t=1791365804;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=MhC74u0euHiG6EiTkvFEObitfBMnKo6wcSCms+38sDc=;
-	b=QzaVgk8Y0e0mGUfKuHGvTBUtJH00mQbdvL175szzVQIdYvyGUOLeQtkJy1zro9LQF+S+k7
-	yKAvsGOtXANtvqCA==
-Authentication-Results: smtp-out2.suse.de;
+	bh=W3obG8UDLzbV18oFzrEVP9TvrGApje4IQTqwGJdbwBc=;
+	b=71GDd4mECuM3Hrzh10xNEnzRFY4LHclFw8/4lC5f1vayIhQa9iJefXjZmxJtNPGwKKHdix
+	A//2s/k2yjdtLwCg==
+Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791365801; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1791365804; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=MhC74u0euHiG6EiTkvFEObitfBMnKo6wcSCms+38sDc=;
-	b=zsQC4RZYoxemkIL0dbNIMDutuxnVTjWw5J4M0Jq3xFjMQknXJyedXbNRPLTjPSSWEmZYJ9
-	mofkMTf7znmA1Bsx3/PjOcoVUdLiVK9nhEebBmI4oTdUVGjCncEm4jznh9nFdvXGZtUmRT
-	EJ7UBr0R4xDtkdUM/U2vISz80yvkjms=
+	bh=W3obG8UDLzbV18oFzrEVP9TvrGApje4IQTqwGJdbwBc=;
+	b=Yy/YBxs9eGb8dZkMNXDsa9o7Ec+gPiREt1qLrRw73XTorj7B4UWZ4MAg+4yweqgLnYxDk1
+	J2BTX2f/yMbcFP01Y0mP/GOSXRr7nOU+/enVEfJSAFjwum3pvEbBO//steO7P1mToiffxJ
+	XPwC7Upf/Sc9q3Gm9wg2HwAA6eD6IKE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791365801;
+	s=susede2_ed25519; t=1791365804;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=MhC74u0euHiG6EiTkvFEObitfBMnKo6wcSCms+38sDc=;
-	b=DvioGYVIUT/bK47gJRieY51Gy/77XcioBmLT9Bn+dQJg9jKrxRWu4aXyZ8hlPf2EpkOITQ
-	I7FNObYdLXCiMmBA==
+	bh=W3obG8UDLzbV18oFzrEVP9TvrGApje4IQTqwGJdbwBc=;
+	b=71GDd4mECuM3Hrzh10xNEnzRFY4LHclFw8/4lC5f1vayIhQa9iJefXjZmxJtNPGwKKHdix
+	A//2s/k2yjdtLwCg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E7F5F13B96;
-	Wed,  7 Oct 2026 09:36:40 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3F6AB13B99;
+	Wed,  7 Oct 2026 09:36:41 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 9oTPLKgSxmpMDgAAD6G6ig:T2
-	(envelope-from <tiwai@suse.de>); Wed, 07 Oct 2026 09:36:40 +0000
+	id 9oTPLKgSxmpMDgAAD6G6ig:T6
+	(envelope-from <tiwai@suse.de>); Wed, 07 Oct 2026 09:36:41 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: linux-sound@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/8] ALSA: seq: Drop the bogus RCU guard from clientptr()
-Date: Wed,  7 Oct 2026 11:36:28 +0200
-Message-ID: <20261007093638.1049688-2-tiwai@suse.de>
+Subject: [PATCH v2 5/8] ALSA: usb-audio: Fix data race at mixer_ctl_feature_info()
+Date: Wed,  7 Oct 2026 11:36:32 +0200
+Message-ID: <20261007093638.1049688-6-tiwai@suse.de>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261007093638.1049688-1-tiwai@suse.de>
 References: <20261007093638.1049688-1-tiwai@suse.de>
@@ -102,7 +102,7 @@ X-Spamd-Result: default: False [-2.80 / 50.00];
 	ARC_NA(0.00)[];
 	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email];
+	URIBL_BLOCKED(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo];
 	FROM_EQ_ENVFROM(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	MIME_TRACE(0.00)[0:+];
@@ -113,83 +113,111 @@ X-Spamd-Result: default: False [-2.80 / 50.00];
 X-Spam-Score: -2.80
 X-Spam-Level: 
 
-In the recent refactoring with RCU, clientptr() takes guard(rcu)()
-around the client table lookup, but the RCU read-side section ends as
-soon as the function returns, so the returned pointer isn't protected
-at all.  This gives a false impression as if that the callers were
-safe, and confuse reviewers including Sashiko.
+The info callback for USB-audio mixer controls for feature unit has a
+dynamic initialization of the contents with the check of
+cval->initialized flag.  But, since the info callback may be
+concurrently called, this may lead to a data race, giving back an
+inconsistent state.  Similarly, get and put callbacks may have
+concurrent accesses and can get bogus states.
 
-Actually, the callers (snd_seq_delete_kernel_client(),
-snd_seq_kernel_client_ctl() and snd_seq_kernel_client_write_poll())
-never relied on any lock; the caller is the owner of the client (a
-kernel client passing its own id, or a user client via its opened
-file), hence the client can't be released concurrently by others.
+For avoiding the data race, introduce a mutex locking for the
+controls and protect against concurrent info callback calls.
 
-So just drop the confusing and useless RCU guard, read the table via
-rcu_dereference_protected(), and document the lifetime rule.  Along
-with it, fold __clientptr() into its only user client_use_ptr(); the
-id range is already checked there, and it's never called with
-clients_lock held, so a plain rcu_dereference() suffices.
-
-Fixes: 7a287e4615d6 ("ALSA: seq: Use RCU for the client table")
 Reported-by: Sashiko <sashiko-bot@kernel.org>
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/core/seq/seq_clientmgr.c | 21 ++++++++-------------
- 1 file changed, 8 insertions(+), 13 deletions(-)
+v1->v2: fix mutex() scope in mixer_ctl_feature_info
 
-diff --git a/sound/core/seq/seq_clientmgr.c b/sound/core/seq/seq_clientmgr.c
-index 239809ce48d7..ba5619d0b0b0 100644
---- a/sound/core/seq/seq_clientmgr.c
-+++ b/sound/core/seq/seq_clientmgr.c
-@@ -95,23 +95,18 @@ static inline int snd_seq_write_pool_allocated(struct snd_seq_client *client)
- 	return snd_seq_total_cells(client->pool) > 0;
- }
+ sound/usb/mixer.c | 11 ++++++++++-
+ sound/usb/mixer.h |  1 +
+ 2 files changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+index 9d8007ea95d5..3b6e8759130d 100644
+--- a/sound/usb/mixer.c
++++ b/sound/usb/mixer.c
+@@ -1531,6 +1531,7 @@ static int mixer_ctl_feature_info(struct snd_kcontrol *kcontrol,
+ 	struct usb_mixer_elem_info *cval = snd_kcontrol_chip(kcontrol);
+ 	int ret;
  
--/* return pointer to client structure for specified id; call under RCU read-lock */
--static struct snd_seq_client *__clientptr(int clientid)
-+/* return pointer to client structure for specified id;
-+ * the caller must guarantee the client's lifetime by itself, as neither RCU
-+ * nor a use_lock reference is taken here.
-+ */
-+static struct snd_seq_client *clientptr(int clientid)
++	guard(mutex)(&cval->head.mixer->lock);
+ 	if (cval->val_type == USB_MIXER_BOOLEAN ||
+ 	    cval->val_type == USB_MIXER_INV_BOOLEAN)
+ 		uinfo->type = SNDRV_CTL_ELEM_TYPE_BOOLEAN;
+@@ -1565,6 +1566,7 @@ static int mixer_ctl_feature_get(struct snd_kcontrol *kcontrol,
+ 	struct usb_mixer_elem_info *cval = snd_kcontrol_chip(kcontrol);
+ 	int c, cnt, val, err;
+ 
++	guard(mutex)(&cval->head.mixer->lock);
+ 	ucontrol->value.integer.value[0] = cval->min;
+ 	if (cval->cmask) {
+ 		cnt = 0;
+@@ -1595,10 +1597,12 @@ static int mixer_ctl_feature_put(struct snd_kcontrol *kcontrol,
+ 				 struct snd_ctl_elem_value *ucontrol)
  {
- 	if (clientid < 0 || clientid >= SNDRV_SEQ_MAX_CLIENTS) {
- 		pr_debug("ALSA: seq: oops. Trying to get pointer to client %d\n",
- 			   clientid);
- 		return NULL;
+ 	struct usb_mixer_elem_info *cval = snd_kcontrol_chip(kcontrol);
+-	int max_val = get_max_exposed(cval);
++	int max_val;
+ 	int c, cnt, val, oval, err;
+ 	int changed = 0;
+ 
++	guard(mutex)(&cval->head.mixer->lock);
++	max_val = get_max_exposed(cval);
+ 	if (cval->cmask) {
+ 		cnt = 0;
+ 		for (c = 0; c < MAX_CHANNELS; c++) {
+@@ -1646,6 +1650,7 @@ static int mixer_ctl_master_bool_get(struct snd_kcontrol *kcontrol,
+ 	struct usb_mixer_elem_info *cval = snd_kcontrol_chip(kcontrol);
+ 	int val, err;
+ 
++	guard(mutex)(&cval->head.mixer->lock);
+ 	err = snd_usb_get_cur_mix_value(cval, 0, 0, &val);
+ 	if (err < 0)
+ 		return filter_error(cval, err);
+@@ -2592,6 +2597,7 @@ static int mixer_ctl_procunit_get(struct snd_kcontrol *kcontrol,
+ 	struct usb_mixer_elem_info *cval = snd_kcontrol_chip(kcontrol);
+ 	int err, val;
+ 
++	guard(mutex)(&cval->head.mixer->lock);
+ 	err = get_cur_ctl_value(cval, cval->control << 8, &val);
+ 	if (err < 0) {
+ 		ucontrol->value.integer.value[0] = cval->min;
+@@ -2609,6 +2615,7 @@ static int mixer_ctl_procunit_put(struct snd_kcontrol *kcontrol,
+ 	struct usb_mixer_elem_info *cval = snd_kcontrol_chip(kcontrol);
+ 	int val, oval, err;
+ 
++	guard(mutex)(&cval->head.mixer->lock);
+ 	err = get_cur_ctl_value(cval, cval->control << 8, &oval);
+ 	if (err < 0)
+ 		return filter_error(cval, err);
+@@ -3249,6 +3256,7 @@ static void snd_usb_mixer_free(struct usb_mixer_interface *mixer)
  	}
--	return rcu_dereference_check(clienttab[clientid],
--				    lockdep_is_held(&clients_lock));
--}
--
--/* return pointer to client structure for specified id */
--static struct snd_seq_client *clientptr(int clientid)
--{
--	guard(rcu)();
--	return __clientptr(clientid);
-+	return rcu_dereference_protected(clienttab[clientid], true);
+ 	usb_free_urb(mixer->rc_urb);
+ 	kfree(mixer->rc_setup_packet);
++	mutex_destroy(&mixer->lock);
+ 	kfree(mixer);
  }
  
- static struct snd_seq_client *client_use_ptr(int clientid, bool load_module)
-@@ -124,7 +119,7 @@ static struct snd_seq_client *client_use_ptr(int clientid, bool load_module)
- 		return NULL;
- 	}
- 	scoped_guard(rcu) {
--		client = __clientptr(clientid);
-+		client = rcu_dereference(clienttab[clientid]);
- 		if (client)
- 			return snd_seq_client_ref(client);
- 		if (clienttablock[clientid])
-@@ -159,7 +154,7 @@ static struct snd_seq_client *client_use_ptr(int clientid, bool load_module)
- 			}
- 		}
- 		scoped_guard(rcu) {
--			client = __clientptr(clientid);
-+			client = rcu_dereference(clienttab[clientid]);
- 			if (client)
- 				return snd_seq_client_ref(client);
- 		}
+@@ -3885,6 +3893,7 @@ int snd_usb_create_mixer(struct snd_usb_audio *chip, int ctrlif)
+ 	mixer = kzalloc_obj(*mixer);
+ 	if (!mixer)
+ 		return -ENOMEM;
++	mutex_init(&mixer->lock);
+ 	mixer->chip = chip;
+ 	mixer->ignore_ctl_error = !!(chip->quirk_flags & QUIRK_FLAG_IGNORE_CTL_ERROR);
+ 	mixer->id_elems = kzalloc_objs(*mixer->id_elems, MAX_ID_ELEMS);
+diff --git a/sound/usb/mixer.h b/sound/usb/mixer.h
+index cf45c39cbccc..2ff4490f97c2 100644
+--- a/sound/usb/mixer.h
++++ b/sound/usb/mixer.h
+@@ -18,6 +18,7 @@ struct usb_mixer_interface {
+ 	struct usb_host_interface *hostif;
+ 	struct list_head list;
+ 	unsigned int ignore_ctl_error;
++	struct mutex lock; /* lock for feature unit callbacks */
+ 	/* UAC2 status interrupt endpoint; owned by mixer.c */
+ 	struct urb *urb;
+ 	/* array[MAX_ID_ELEMS], indexed by unit id */
 -- 
 2.55.0
 
