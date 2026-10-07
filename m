@@ -1,79 +1,89 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64B583AC0C9
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 03:57:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF5E63B9D80
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 04:00:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791345467; cv=none; b=Qnpjbw2ig4Kg0zhmzcLjs6JjaFU4Vz8vQ5XPAadqVrVoGPltd4tFp4S4hQWBfUOlNhCvqi18TUxrm4zInJFc5PELn+ilVwMTqMJd+SH6v/ibR9xHORu1VRFjuttQe4JXfPHRdb9C63ZUBtd8MonGSkWagOmi9IdSV1VKoQHLsQA=
+	t=1791345624; cv=none; b=KvHgSf/DfUNcNzEsLU9iN48wTxSBaiNE0nbt7IxT4xW+AwzoEuLdbE0QIgPq70bZDfRq/8jat1nLXKbvFELLZQET3agRhYuubw4AWthnF4SCzpc8AdFRJQ8yMJzw0/iJh6hI2o9+A/9243wju6+yLQTg0yKk+F+tY3sfQo6QYPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791345467; c=relaxed/simple;
-	bh=yNeF2VfrlVcw4qcdr9g71l1ukl3FUd+CWTZt6ay+YbU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e59XEh5fcjDErbhDTqg94es/nr2AvApsIvQ+jMGLsIl+iRyWpbG46H2/Ndcyw3lgY2aY9XiW0nTIJJgDTiXyjhTBMg1Jput9m8B/SWZcf6cExvtqMXI5c3f/xEZ0HmsUmV3xNw7n1Kbxsc+4kkXZgkEAISX8xCecyH4lw+2jEO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bECzfwFO; arc=none smtp.client-ip=209.85.216.45
+	s=arc-20240116; t=1791345624; c=relaxed/simple;
+	bh=hheZvmOEH09cE+6MPGzC3rNluQJSpQxVhr9j9vbtbl4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q7hUZCYfgDEqg6NJ1wA2Z8VBFp6vNZpk3i/PB9g5v6eZdCx2ltJHpwLn6sVyB9IiKcMt5WYxV7SjxFFuA/geRiFyKmTY1VeVh8NJrXA2mRIL54YowTv61jSmzy7apy4hl5smnYmrkBPnvKRJFPsQfjAcCBtobp+26mNhCli14y0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=skNurNMH; arc=none smtp.client-ip=209.85.128.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bECzfwFO"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3a886d6ad51so751595a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 20:57:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="skNurNMH"
+Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-8ab432273c5so15600687b3.3
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 21:00:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791345466; x=1791950266; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791345622; x=1791950422; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3hjMMWqILo+RQ+ZlMN41DDpi4TQ1W3WpbzPCHm6Qne8=;
-        b=bECzfwFOD9YX/RclfM3IOCeMkbrFevDI8Z07dCtIpfGSMs+6k4RKmfIoHCZo2aPe2K
-         kCVaoPMtRkzxOe4G3hIfC3wzvIz2si4T2JUJ957yXDtuH0VBrGrqBWbr2K1Wil1kCZOk
-         QvIgv91bkTXaEguO1E9jWacEvy0DYXcYdwuMeHIufblKBlZuWDMGjgbdL43y3EYClN0j
-         8KSbsGGrSTDt2dpvjYqKY+PspurDOxDdp53u8S12ZtWq7idfNZGMdXqTs4WHa3FItj+Q
-         V+lGFmilcAbCOpoDtvbCbjAI/CQYeVDqGunAqLAGIUcCp4CrSxe5N0xBmZedpwZxiMf8
-         Ui/A==
+        bh=nO74/poHHriVQQGcUChNQm9h4u4fWQR/w7rKBXdaFA0=;
+        b=skNurNMHEvtMyVahVOioPfdql3HZ3ldXQEtBeLDaHfdccpEMxx26cwif1z3gkDr1fS
+         TG9CzHa8Eytnn24Ft5RaCDsKMT4Rh74gC9VLekqoYnHI1i+i72ZPuRB7MeNqn4p1qqjx
+         8oC7xRcW+wowb73hFX6tbcXoPzloPg4/R20MK9BpinYyDfDiuLCm7rE90hRUe4kYqD17
+         cm9RQQ851d4OBi4r/Oh9v3nAn1AykE9Un8ZUgW2Lv9M99gjjD1tjqZHvHSPL1b0MpCej
+         7Ogtecf8lgsQ/BxolnKoQRoW+rEBYQb5R6SPP5IstyWwGPkPA1g7i1zHN8Y5l9YTV+45
+         xn1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791345466; x=1791950266;
+        d=1e100.net; s=20260707; t=1791345622; x=1791950422;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3hjMMWqILo+RQ+ZlMN41DDpi4TQ1W3WpbzPCHm6Qne8=;
-        b=wQ2TCpjXhC8Fr0F2khm3LjkKUR/838QgaRCDFPgv5Tuyj9sYJHG0xSbnXNwH62e4bI
-         5HrhELmz+uw96uzzoEZDTUnXCfp+019uglNGJdk+IZCEMXkw5ebOwx9kEidVvAgMzniY
-         eKJY7WyMgt6Bb1aZzPatCeVym0uhTSGVIsAhz1LXM7sfTjm9bVIWb+s3kVmIqteoPqYf
-         /F/BImJcN7/iU3qvJjwxt7o61aUtSK80YD9KNzhzLWGmi/SGF/FBud0WTmUwypudpAQy
-         jg9XLmi28HPApCtMrz+UxEt96/6mKONGlRupK5GVcXm6jRLpksV4u/gtj7aNi1wLQuFL
-         hmkA==
-X-Forwarded-Encrypted: i=1; AKwUvByG4EfHHQQniPkTIO3ly6Gxngjah9eqioViw45onci9X68kLfAHQFBOZWO00Ut7gA8vWWoJhoffL8J0vMg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLAnf7ZaDW2fWaF6qHqavsDSOztWgWckP2g9kfxUGWR1/imB2go
-	NNVlDglQkR6b8BjbqY6ZWyDtkQhbQu9WtauPdtJ9Ro41dbTG76419ZxC
-X-Gm-Gg: AYBFou0kQSfXJ/hkCY47BPpvtyhkC8f77O25r899O3+nvre8+HEJwtB8Iw0rNGlsUtQ
-	wYu+MHwEtIGrIuC2VBKEH581Jpc5DsEecMeeAjgKY0AfMbBB3elDOHjVNbSwHUsxUURj2E97Oeh
-	lAjlvOEJ/XV8/AWmBV0SFzXaMI6eG5eqY/l0w+SL8lec/NrEptd8x9Y3vykjxCYSTZbDjkGeeJl
-	npG9nRO64OFCboappR3ungC7jMtNHkZiQMxIA3NnuKAK/WjkH8GlBNJpoEtuYiHsIpjh0V4W8fz
-	iH9FEIcX5l3rdYRcd23x4PYQ+H/MjLwJE2w1v3apGIaW/VMqUXW8T9foLwv/w8xWm1xJe5Mvh5h
-	q0UfJ0OHcOOos8EW6Ye8/zDfbgy5voPQhiVtja0Dpn6sf05vbPubPJNCnOMIL93j6ehQqHgOHca
-	3FCJlWBw2d+mM6jbJlP6wIKMW/XAZ6tO1IANqNAeIbDCBln6qidDs/vYle+tf4GyO5z9Vyd0lCK
-	3fnR4HAGYJ3+X69S6B++g==
-X-Received: by 2002:a17:90b:1344:b0:3a8:7bbc:3f3e with SMTP id 98e67ed59e1d1-3a8a1b0071cmr986825a91.41.1791345465698;
-        Tue, 06 Oct 2026 20:57:45 -0700 (PDT)
-Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a89b625d01sm2397749a91.14.2026.10.06.20.57.41
+        bh=nO74/poHHriVQQGcUChNQm9h4u4fWQR/w7rKBXdaFA0=;
+        b=wWYXpI6PgUghgZ82EMNXRH7f0GCiUir4Y/fIVhF6ghv5ploUT+FDRveKRlww5mAA9Z
+         gK2DVqF7t2u3xtfob/udCncLW4EH59sHJ+AVwvq12XqfAX9Ztc1z732C7EObQ8W5kXry
+         Tm/PWERwSpptQnNJ/8GcjgXm+74bkLfB0/4X4OUW0lic3oR+tyFQxW3DAaoZjk/wAlMc
+         8NQTAxIDt0fbbgKeFH4Z2B6XfDesIfY4A3Qi6JDd6Y/aJPTzhJDChrw3HGIObESN3Mtg
+         vk/wUrCZiFbjfvhDg4/gwPLM4yfaSv+EWew/3Oyxr+AluF6T12DavFITBv8yygNK2C5E
+         TwKA==
+X-Forwarded-Encrypted: i=1; AKwUvBz4aGeEE1N0wC1KHQ1CI+lUJwLTGiil9fjuEmZ19F8hhyzYG7/rY3pOCrbyfo1dHfpx4tsDrvapIZczPh8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIPb4mN38HEYybtyOT1nuUNbbZyZcYO8bru+ygl8UcStFCAbxmd
+	l96cnVOkFq6XvbW8QrGWe/4Q/oaivv00ZCQiWdg4P4axcTEVhk3PqzRv
+X-Gm-Gg: AYBFou0qaZjDZh4lE+Tq1cqeMj5wmLQgqZp60epPUpNjg/xgRES5x29FbpUqfUAwpaq
+	jaY/cD87jRo0zoE/NW/lXhnyrF70e/0RPSOYovQzFEBG20zNy5lnPqDJFQoIv2X0GmLMPnHWqfw
+	h4NPI+oc4Txf9pQZmDB+UCBsHSYrWnq4LSV22kepR4GDhHZvewmMstBlgyko11AYOhFblh1qepV
+	msq34/bKs2xI24lKNAd9T9Xdz+9uUcl92S6J4+mHer0mprcZbLax44XQG7RG3FDi1G+XRRlAcSb
+	JPqwJk90+I5naDnoCAU5MdrqbgazA0rLwf75rWXwcmBRdIB9tcpkEToCDCYdhzwg7LsEmfvnKSk
+	KTXsqtdryScqNWgf9ntCV0i4+AbxQagzrQRLBYQVwsDOb8D3z5JGHPo++vBNaC8BYncu/7tAO7G
+	yv9hRkBV6yafYnXoU2sswVvHv/DVwg+bJ6hTqx5rymeUV7gAg8Qyc2jasLDU4DW2oC1Q9ldc5sk
+	f+wC10aGJyGDrHuwoB1L4AR674F2YkAcYmqVV6x8s1F8VhB0co2Z5yPBkBu59iV1iCd3wZyOieF
+	ctr5PSNZ0BZqXWqfF+ryFwvsq6oqBq3HB6Q2JyK1KahdjmFK/IIVDoalEwl3RhiK4tjqWc50Sy9
+	6uc0sG2zmn1CTjLnrcLqQ7QNShYVBO2nMd0+YByk2Y3jZjv1RH4jHefsWeZrDCO2v/q4QwSy2i1
+	1rtGD42VM6EvFs5rsDkoJ9Khk4X7c4XDRXF9OD7vTGUm3YryfR/l8uWFWqD5reMo27kA==
+X-Received: by 2002:a05:690c:6b01:b0:8a8:6fac:21af with SMTP id 00721157ae682-8b05ad74f5amr11479597b3.12.1791345621604;
+        Tue, 06 Oct 2026 21:00:21 -0700 (PDT)
+Received: from tokyo (c-73-137-217-102.hsd1.ga.comcast.net. [73.137.217.102])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b05abdbdd4sm4888637b3.40.2026.10.06.21.00.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 20:57:45 -0700 (PDT)
-From: Daehyeon Ko <4ncienth@gmail.com>
-To: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
-	Xin Long <lucien.xin@gmail.com>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
+        Tue, 06 Oct 2026 21:00:18 -0700 (PDT)
+From: Atharva Vartak <atharva.a.vartak@gmail.com>
+To: "D. Wythe" <alibuda@linux.alibaba.com>,
+	Dust Li <dust.li@linux.alibaba.com>,
+	Sidraya Jayagond <sidraya@linux.ibm.com>,
+	Mahanta Jambigi <mjambigi@linux.ibm.com>,
+	Tony Lu <tonylu@linux.alibaba.com>,
+	Wen Gu <guwen@linux.alibaba.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Simon Horman <horms@kernel.org>,
-	linux-sctp@vger.kernel.org,
+	Ursula Braun <ubraun@linux.ibm.com>,
+	Hans Wippel <hwippel@linux.ibm.com>,
+	linux-rdma@vger.kernel.org,
+	linux-s390@vger.kernel.org,
 	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Daehyeon Ko <4ncienth@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] sctp: revalidate output stream after association connect wait
-Date: Wed,  7 Oct 2026 12:57:39 +0900
-Message-ID: <20261007035739.3472432-1-4ncienth@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	linux-kernel@vger.kernel.org
+Cc: Atharva Vartak <atharva.a.vartak@gmail.com>,
+	Willy Tarreau <w@1wt.eu>
+Subject: [PATCH v2] net/smc: hold a reference on net_device returned by pnet_find_base_ndev()
+Date: Wed,  7 Oct 2026 00:00:09 -0400
+Message-ID: <20261007040009.137568-1-atharva.a.vartak@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,119 +92,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When message interleaving is enabled, the first send waits for association
-establishment before building its data chunks.  The wait drops the socket
-lock, and handshake processing can reduce the output stream count to the
-peer-advertised inbound stream count.  sctp_stream_init() then frees the
-extension of every removed stream.
+pnet_find_base_ndev() resolves the base net_device for stacked devices
+under RTNL, then drops the lock and returns the raw pointer without
+taking a reference.  All three callers dereference the pointer after
+RTNL has been released, creating a use-after-free window if the device
+is concurrently unregistered.
 
-The sender resumes with the stream that it checked before the wait.  If the
-peer removed that stream, sctp_outq_tail() later dereferences its NULL
-extension.  Fatal-oops policies then panic the host.
+Take a reference with netdev_hold() before dropping RTNL and add the
+matching netdev_put() in every return path of the three callers:
 
-KASAN: null-ptr-deref in range [0x38-0x3f]
-RIP: sctp_outq_tail+0x49e/0xaa0
-Call Trace:
- sctp_primitive_SEND
- sctp_sendmsg_to_asoc
- sctp_sendmsg
+  - smc_pnet_add_eth()
+  - smc_pnet_find_roce_by_pnetid()
+  - smc_pnet_find_ism_by_pnetid()
 
-A range check alone is insufficient.  Stream reconfiguration can grow the
-output count again while the lock is released without recreating extensions
-freed by the earlier shrink.  The stream can then be in range while its
-extension remains NULL.  The send-buffer wait has the same issue.
-
-Factor the range and extension checks into a helper and repeat both after
-each send-path wait that drops the socket lock.  Once the lock is
-reacquired, the validation remains stable through data creation and
-queueing.
-
-If validation fails after the connect wait, the auto-created association is
-already established.  Return ESRCH so the existing caller path keeps it
-under state-machine ownership instead of freeing it directly, which would
-leave protocol, counter and socket state inconsistent.
-
-Fixes: 668c9beb9020 ("sctp: implement assign_number for sctp_stream_interleave")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Fixes: 0afff91c6f5e ("net/smc: add pnetid support")
+Fixes: 1619f770589a ("net/smc: add pnetid support for SMC-D and ISM")
+Cc: "D. Wythe" <alibuda@linux.alibaba.com>
+Cc: Dust Li <dust.li@linux.alibaba.com>
+Cc: Sidraya Jayagond <sidraya@linux.ibm.com>
+Cc: Mahanta Jambigi <mjambigi@linux.ibm.com>
+Cc: Tony Lu <tonylu@linux.alibaba.com>
+Cc: Wen Gu <guwen@linux.alibaba.com>
+Cc: Willy Tarreau <w@1wt.eu>
+Cc: linux-rdma@vger.kernel.org
+Cc: linux-s390@vger.kernel.org
+Cc: netdev@vger.kernel.org
+Signed-off-by: Atharva Vartak <atharva.a.vartak@gmail.com>
 ---
-Changes in v2:
-- Repeat full stream validation after both send-path waits.
-- Recreate a missing stream extension after shrink followed by growth.
-- Return ESRCH after the connect wait to retain the live association.
+v2: use netdev_hold()/netdev_put() with a netdevice_tracker instead of
+    the deprecated dev_hold()/dev_put() (Jakub Kicinski).
+v1: https://lore.kernel.org/netdev/6aba080c.b933486d.297b72.5042@mx.google.com/
 
-v1: https://lore.kernel.org/r/20261002010449.3689454-1-4ncienth@gmail.com
+ net/smc/smc_pnet.c | 29 ++++++++++++++++++++++-------
+ 1 file changed, 22 insertions(+), 7 deletions(-)
 
- net/sctp/socket.c | 33 +++++++++++++++++++++------------
- 1 file changed, 21 insertions(+), 12 deletions(-)
-
-diff --git a/net/sctp/socket.c b/net/sctp/socket.c
-index 4652fd90d9a6c4..aaeb58ce055771 100644
---- a/net/sctp/socket.c
-+++ b/net/sctp/socket.c
-@@ -1786,6 +1786,18 @@ static int sctp_sendmsg_check_sflags(struct sctp_association *asoc,
- 	return 1;
- }
+diff --git a/net/smc/smc_pnet.c b/net/smc/smc_pnet.c
+index ff9c9c35cc2f..61ef1d697eee 100644
+--- a/net/smc/smc_pnet.c
++++ b/net/smc/smc_pnet.c
+@@ -30,7 +30,8 @@
+ #include "smc_core.h"
  
-+static int sctp_sendmsg_check_stream(struct sctp_association *asoc,
-+				     struct sctp_sndrcvinfo *sinfo)
-+{
-+	if (unlikely(sinfo->sinfo_stream >= asoc->stream.outcnt))
-+		return -EINVAL;
-+
-+	if (unlikely(!SCTP_SO(&asoc->stream, sinfo->sinfo_stream)->ext))
-+		return sctp_stream_init_ext(&asoc->stream, sinfo->sinfo_stream);
-+
-+	return 0;
-+}
-+
- static int sctp_sendmsg_to_asoc(struct sctp_association *asoc,
- 				struct msghdr *msg, size_t msg_len,
- 				struct sctp_transport *transport,
-@@ -1800,16 +1812,9 @@ static int sctp_sendmsg_to_asoc(struct sctp_association *asoc,
- 	long timeo;
- 	int err;
+ static struct net_device *__pnet_find_base_ndev(struct net_device *ndev);
+-static struct net_device *pnet_find_base_ndev(struct net_device *ndev);
++static struct net_device *pnet_find_base_ndev(struct net_device *ndev,
++					      netdevice_tracker *tracker);
  
--	if (sinfo->sinfo_stream >= asoc->stream.outcnt) {
--		err = -EINVAL;
-+	err = sctp_sendmsg_check_stream(asoc, sinfo);
-+	if (err)
- 		goto err;
--	}
--
--	if (unlikely(!SCTP_SO(&asoc->stream, sinfo->sinfo_stream)->ext)) {
--		err = sctp_stream_init_ext(&asoc->stream, sinfo->sinfo_stream);
--		if (err)
--			goto err;
--	}
+ static const struct nla_policy smc_pnet_policy[SMC_PNETID_MAX + 1] = {
+ 	[SMC_PNETID_NAME] = {
+@@ -356,6 +357,7 @@ static int smc_pnet_add_eth(struct smc_pnettable *pnettable, struct net *net,
+ 	struct smc_pnetentry *tmp_pe, *new_pe;
+ 	struct net_device *ndev, *base_ndev;
+ 	u8 ndev_pnetid[SMC_MAX_PNETID_LEN];
++	netdevice_tracker base_tracker;
+ 	bool new_netdev;
+ 	int rc;
  
- 	if (sp->disable_fragments && msg_len > asoc->frag_point) {
- 		err = -EMSGSIZE;
-@@ -1830,10 +1835,9 @@ static int sctp_sendmsg_to_asoc(struct sctp_association *asoc,
- 		err = sctp_wait_for_sndbuf(asoc, transport, &timeo, msg_len);
- 		if (err)
- 			goto err;
--		if (unlikely(sinfo->sinfo_stream >= asoc->stream.outcnt)) {
--			err = -EINVAL;
-+		err = sctp_sendmsg_check_stream(asoc, sinfo);
-+		if (err)
- 			goto err;
--		}
+@@ -365,10 +367,13 @@ static int smc_pnet_add_eth(struct smc_pnettable *pnettable, struct net *net,
+ 	rc = -EEXIST;
+ 	ndev = dev_get_by_name(net, eth_name);	/* dev_hold() */
+ 	if (ndev) {
+-		base_ndev = pnet_find_base_ndev(ndev);
++		base_ndev = pnet_find_base_ndev(ndev, &base_tracker);
+ 		if (!smc_pnetid_by_dev_port(base_ndev->dev.parent,
+-					    base_ndev->dev_port, ndev_pnetid))
++					    base_ndev->dev_port, ndev_pnetid)) {
++			netdev_put(base_ndev, &base_tracker);
+ 			goto out_put;
++		}
++		netdev_put(base_ndev, &base_tracker);
  	}
  
- 	if (sctp_state(asoc, CLOSED)) {
-@@ -1848,6 +1852,11 @@ static int sctp_sendmsg_to_asoc(struct sctp_association *asoc,
- 				err = -ESRCH;
- 				goto err;
- 			}
-+			err = sctp_sendmsg_check_stream(asoc, sinfo);
-+			if (err) {
-+				err = -ESRCH;
-+				goto err;
-+			}
- 		} else {
- 			wait_connect = true;
+ 	/* add a new netdev entry to the pnet table if there isn't one */
+@@ -945,10 +950,13 @@ static struct net_device *__pnet_find_base_ndev(struct net_device *ndev)
+  * (for instance with bonding slaves), just the first device
+  * is used to reach a base device.
+  */
+-static struct net_device *pnet_find_base_ndev(struct net_device *ndev)
++static struct net_device *pnet_find_base_ndev(struct net_device *ndev,
++					      netdevice_tracker *tracker)
+ {
+ 	rtnl_lock();
+ 	ndev = __pnet_find_base_ndev(ndev);
++	/* keep ndev alive after dropping RTNL, callers must netdev_put() */
++	netdev_hold(ndev, tracker, GFP_KERNEL);
+ 	rtnl_unlock();
+ 	return ndev;
+ }
+@@ -1085,17 +1093,20 @@ static void smc_pnet_find_roce_by_pnetid(struct net_device *ndev,
+ {
+ 	u8 ndev_pnetid[SMC_MAX_PNETID_LEN];
+ 	struct net_device *base_ndev;
++	netdevice_tracker base_tracker;
+ 	struct net *net;
+ 
+-	base_ndev = pnet_find_base_ndev(ndev);
++	base_ndev = pnet_find_base_ndev(ndev, &base_tracker);
+ 	net = dev_net(ndev);
+ 	if (smc_pnetid_by_dev_port(base_ndev->dev.parent, base_ndev->dev_port,
+ 				   ndev_pnetid) &&
+ 	    smc_pnet_find_ndev_pnetid_by_table(base_ndev, ndev_pnetid) &&
+ 	    smc_pnet_find_ndev_pnetid_by_table(ndev, ndev_pnetid)) {
+ 		smc_pnet_find_rdma_dev(base_ndev, ini);
++		netdev_put(base_ndev, &base_tracker);
+ 		return; /* pnetid could not be determined */
+ 	}
++	netdev_put(base_ndev, &base_tracker);
+ 	_smc_pnet_find_roce_by_pnetid(ndev_pnetid, ini, NULL, net);
+ }
+ 
+@@ -1103,13 +1114,16 @@ static void smc_pnet_find_ism_by_pnetid(struct net_device *ndev,
+ 					struct smc_init_info *ini)
+ {
+ 	u8 ndev_pnetid[SMC_MAX_PNETID_LEN];
++	netdevice_tracker base_tracker;
+ 	struct smcd_dev *ismdev;
+ 
+-	ndev = pnet_find_base_ndev(ndev);
++	ndev = pnet_find_base_ndev(ndev, &base_tracker);
+ 	if (smc_pnetid_by_dev_port(ndev->dev.parent, ndev->dev_port,
+ 				   ndev_pnetid) &&
+-	    smc_pnet_find_ndev_pnetid_by_table(ndev, ndev_pnetid))
++	    smc_pnet_find_ndev_pnetid_by_table(ndev, ndev_pnetid)) {
++		netdev_put(ndev, &base_tracker);
+ 		return; /* pnetid could not be determined */
++	}
+ 
+ 	mutex_lock(&smcd_dev_list.mutex);
+ 	list_for_each_entry(ismdev, &smcd_dev_list.list, list) {
+@@ -1123,6 +1137,7 @@ static void smc_pnet_find_ism_by_pnetid(struct net_device *ndev,
  		}
+ 	}
+ 	mutex_unlock(&smcd_dev_list.mutex);
++	netdev_put(ndev, &base_tracker);
+ }
+ 
+ /* PNET table analysis for a given sock:
 -- 
-2.55.0
+2.56.0
+
