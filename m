@@ -1,271 +1,187 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81B1D31F9A8
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 01:52:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD1F5335564
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 01:56:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791337956; cv=none; b=ZlxUTw3MVglOjByyMX9adUASKbnsnjFp57Mn0BKlX/d5m5OZVZeN6hdn43y39k8XCOFusTjME7b1adi2ke4D2njUc6ac6P/kWBx2ktMpQlMVxFEIBgC/l65SXTSUJg1ea4M/rKrIIs+/Mql0IQRpt5OqBu1+UJTEp1p0/KM7wE8=
+	t=1791338214; cv=none; b=dYWDf9KeRspOXi8rYvw7rjcVaL2R7H46OtQenujZqlwdUz2NiRuVgeR+s+22RyWiKEEXusUpHwxZpdgpY/D5M0IYbpjtuRXf2msM4y8ZzlAERs3RlNgeuCGghrowSSbdjnsSvJ2ZYSwjWY5RJO4Ba60hpaSj0DsjpBrHsq7ujA4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791337956; c=relaxed/simple;
-	bh=WWLad+SEr7e9JuF7hdeZJsZbqRr06mF+W0UBd7VyATk=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=r+XdXfggvJUncb6ftpGYbspgrO7kX8itQVG2tvjrfwEexkBVW6B6nJpD3eegP2ZiA67PYPQq8Ks2qAWAx0Fkk1wB3yKZhkCsr0ypw9Kg1Zew8BiLdw9tp0ClTqogzuQaTyv5+50MlaRk6ehp08/AVvFhQUHqEYD4X+bbNAmqv2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4ab4f652f9bso3045473b6e.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 18:52:34 -0700 (PDT)
+	s=arc-20240116; t=1791338214; c=relaxed/simple;
+	bh=aaoTkzvGraljyhIZpjL82TahsK7uxoazLyixX/8oTGE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fu1xVQOabVAZ9P45TpU+DY7wPAlIzNTazqZQjELOlFi30MjhNQDt4MbokMjsTsJEDGiJaHXtMLo9STnzXan9DPJUcJtllHL9ZlqwlZsYrSRMya0OIPaCmB/FIASwoOHxOR915iR3s/xC4h4asal1d9jHRBVAntQA5bTAH7jKBzw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr; spf=pass smtp.mailfrom=snu.ac.kr; dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b=y6OhR2d2; arc=none smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=snu.ac.kr
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b="y6OhR2d2"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3964dfb5b9aso1561863a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 18:56:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=snu.ac.kr; s=google; t=1791338209; x=1791943009; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1ydTs/xapg98AneWzvg1UmYdjd9wqdEiZ1v4vRT6sJY=;
+        b=y6OhR2d2m+kPGSMpzLRpu72k9x303GXzOQbLbVIJV6Nh30ylnetL9thCHXjGDWGzdW
+         KgW91FQbabUvOaTqYJmK5T/bq30O2p2t3169/sEpQUMGxxfF4LoL4nvq819rNhaZgk3Z
+         fJMrFUPwWofs7mAzExYn4bzpD6Yc4ZOvssU50=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791337953; x=1791942753;
-        h=content-type:to:from:subject:message-id:date:mime-version
+        d=1e100.net; s=20260707; t=1791338209; x=1791943009;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Mg5IJEKwNggXAnN6aQLS4oZwLkPC0tljc12SAxzvFn0=;
-        b=xnmhWln/Lq03dlEwjzwJ/Fc3h7XtXhYwx924TJLRYfj0vm3Vx1vAxl9EOE8V4yAePD
-         7fNEbpy9CZ4mmuBFqAMRtS95Qbap5gESQwLi8ZIBJ+bWL2Saktxuh15VjeF0SFGgDsV9
-         d6HJWBfkeg+9stQpTWMy4eG9wBSbvHG5Pcq9iarfjzOdeJZ4+13cCS/1U1a6LUn1UOyZ
-         8gul1ryxQ/PCUXBhsFzJS/nQOeef8BoKyE1tg9VONAOpuOlqEVH7EwGxWY2bB2QSxt8z
-         /Y+hV71gUKwzVDYNkladvNJAe8Ku3wxZHdO7UqJ7O85q+gnxFFnw3mPNaZ2K+EQKhsQv
-         x97A==
-X-Forwarded-Encrypted: i=1; AKwUvByEHmAUz9UJgHpj5O1fSMGNGeqe4bhNUHjvPgNhZq88vozQ+Rf6A/Ewy74LjDAJnmPbQEnYiIElSL/aEak=@vger.kernel.org
-X-Gm-Message-State: AFuF++nwdVA6BS+qI5f54qY5Eb6LA4nwj+GMIXL7yfzY1jy1c2pU8JrF
-	+dC0NHNjKG3R+fLCsHFdDjTT2VuSk5I4QFDb8/Ha/sUHO8wpjpHsBB2tvNVLCKH5iU02XErOht6
-	4XC2rIq3SGFpsw/d5uqdQzudnXntOJVgM82N9e4SmvOhWeP/UXosGIl8VmQQ=
+        bh=1ydTs/xapg98AneWzvg1UmYdjd9wqdEiZ1v4vRT6sJY=;
+        b=WtfXxmvRYJjrYwZa/26/G1EybPBQDFGHIoeP1+yPLVXxFytDGd3zNHn/kIGwoFFUtj
+         1LNF057N/HFyhGh7ylAJGDKiaR+4JU9F4dP8JBxKyVkko5LrfCFQG/19jj10SrnoubhJ
+         pWcjmbwnq5zTUJ45YZzk/BLkxvvdePIVM3O+3rlLNxDYS0sPdLmCye8S+jLuTJcKaQe8
+         YTFw4BJdy2/hVP4fbg9ITd+/KTPeF+OgN/GcVE+1omUie67WPdAqvMm4LLPBThZkXPSb
+         ecTuq93DF2qQewXmY+R732IO1myhJCm7hEerEJIgEXkDHisNTTKGk67h9lgysLfNKqqf
+         I4Ag==
+X-Forwarded-Encrypted: i=1; AKwUvBw3F3uZ+mUCuT3uLSxjmP50jr31F/GL0uVnT1YA4fDc5uVt2FIW+AYBGBSHZzpmTni/dnN3pl1rm+7rw78=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKsUPe3NRDmCKLIt3uXpHWTsPsf5/3tuNolfc/IvPCQKeICTL39
+	tkawoJu09AoLIkGgEUUjBhcqHkMxG7DPxAG7ddBIofP3PZLni/X23f4+aHxFqrKD3Xk=
+X-Gm-Gg: AYBFou0bvuMHi+zBQWehSKj240yVU0i/56C4HHPpC+m2n5eURstj6BBPAtdCdWSNGIo
+	zuhb67ponshPBy8Jq6parbd1ise5yDfA8ONP8UFaDkaAxlN7+XpMfPOqM6dMIAXgN3AeEeJIgTF
+	5xUcxTrJubNlW9qmfg9I4VVNayUlZF3tv4C+DAgb4uC/eQ6D+WMdXJ3++OhJvvahNF35Iq4wSPA
+	JLAvKLkPX3VgKa4hi0/nxyts4UDCHJXGE6y8EYkjAoGXhRDMOhdb4yvQUNnvAEEYUripfAjwLU6
+	/DYq13IHmqT52uPz51XkNHnBDqnczJEQtT719t3hTgnExInUkPydjvJaJEDsyagYplNMDUNFMcL
+	li3eCuRVLqHB2nBlHcMvuPZMeT6xcOSKNhwkzJwkaxopcsdmvxsh1hs8wQqdRXdjScjHD16hQwq
+	ns0vFzXDLjg0v8ApcGM4cPD2fWqLXFsIPEUIJY5p+0GD/+rcjt0aRINPJDQoCYzVPA
+X-Received: by 2002:a17:90b:4a44:b0:3a5:37e7:7118 with SMTP id 98e67ed59e1d1-3a8a0741012mr737133a91.16.1791338209145;
+        Tue, 06 Oct 2026 18:56:49 -0700 (PDT)
+Received: from 1c1aead48890 ([49.142.45.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a89ab84fa7sm2045718a91.4.2026.10.06.18.56.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 18:56:48 -0700 (PDT)
+Date: Wed, 7 Oct 2026 01:56:43 +0000
+From: Seongjun Hong <hsj0512@snu.ac.kr>
+To: Jacob Keller <jacob.e.keller@intel.com>
+Cc: Saeed Mahameed <saeedm@nvidia.com>, Leon Romanovsky <leon@kernel.org>, 
+	Tariq Toukan <tariqt@nvidia.com>, Mark Bloch <mbloch@nvidia.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org, linux-rdma@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v2] net/mlx5: allocate DMA pool structs on the
+ pool's NUMA node
+Message-ID: <elnyg2237rbomihddfd6b2vjoqonvdyl5fgcnzyquzn4kk5u6g@t3jm4ppczv5i>
+References: <20261006-net-mlx5-numa-allocate-pool-page-v2-1-0dc4c2eb1376@snu.ac.kr>
+ <345a40de-5353-477d-8be2-8c4e6468875e@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:138c:b0:4f5:eaac:5151 with SMTP id
- 5614622812f47-4fc462688c2mr1264168b6e.39.1791337953537; Tue, 06 Oct 2026
- 18:52:33 -0700 (PDT)
-Date: Tue, 06 Oct 2026 18:52:33 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac5a5e1.9ad129c8.3ce5b3.0010.GAE@google.com>
-Subject: [syzbot] [btrfs?] KASAN: slab-use-after-free Read in add_root_to_dirty_list
-From: syzbot <syzbot+947286c775f432b073a8@syzkaller.appspotmail.com>
-To: clm@fb.com, dsterba@suse.com, linux-btrfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, mason@kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <345a40de-5353-477d-8be2-8c4e6468875e@intel.com>
 
-Hello,
+On Tue, Oct 06, 2026 at 02:57:28PM -0700, Jacob Keller wrote:
+> On 10/6/2026 7:16 AM, Seongjun Hong wrote:
+> > The mlx5 DMA pool structs (mlx5_dma_pool, mlx5_dma_pool_page and its
+> > block bitmap, and mlx5_frag_buf_node_pools) are allocated without a
+> > node hint, so they land on the node of whichever CPU happens to create
+> > or fill the pool, while the DMA pages they describe are allocated on
+> > the pool's node.
+> > 
+> > The pool, page and bitmap are dereferenced on every block allocation
+> > and free. Allocate them on the pool's NUMA node as well, so that all
+> > of a pool's state lives on one node.
+> > 
+> > These allocations happen on the control path, so the performance gain
+> > is expected to be small; the change is mainly for consistency.
+> > 
+> > Signed-off-by: Seongjun Hong <hsj0512@snu.ac.kr>
+> > ---
+> > Changes in v2:
+> > - fix typo and specify the structs are allocated on the control path
+> > - add a prefix net-next to the subject
+> > - Link to v1: https://lore.kernel.org/r/20261005-net-mlx5-numa-allocate-pool-page-v1-1-01f4283932b4@snu.ac.kr
+> > ---
+> >  drivers/net/ethernet/mellanox/mlx5/core/alloc.c | 11 ++++++-----
+> >  1 file changed, 6 insertions(+), 5 deletions(-)
+> > 
+> > diff --git a/drivers/net/ethernet/mellanox/mlx5/core/alloc.c b/drivers/net/ethernet/mellanox/mlx5/core/alloc.c
+> > index a92cf545bdaf..dcd281c4691d 100644
+> > --- a/drivers/net/ethernet/mellanox/mlx5/core/alloc.c
+> > +++ b/drivers/net/ethernet/mellanox/mlx5/core/alloc.c
+> > @@ -110,7 +110,7 @@ static struct mlx5_dma_pool *mlx5_dma_pool_create(struct mlx5_core_dev *dev,
+> >  {
+> >  	struct mlx5_dma_pool *pool;
+> >  
+> > -	pool = kzalloc_obj(*pool);
+> > +	pool = kzalloc_node(sizeof(*pool), GFP_KERNEL, node);
+> 
+> This removes all the benefits of kzalloc_obj() here...
 
-syzbot found the following issue on:
+Do you mean type checking on compile?
 
-HEAD commit:    5e0f8396d480 Merge tag 'hid-for-linus-2026100201' of git:/..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=11e86bf5580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=2b924f079099ba6e
-dashboard link: https://syzkaller.appspot.com/bug?extid=947286c775f432b073a8
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+> 
+> But I guess the __alloc_objs API doesn'thave the ability to add a node?
+> It seems like we'd benefit from having support for the node parameter..
+> but it does seem tricky to add. kzalloc_node_obj() could potentially be
+> added. Staring at the implementation I have no idea how complicated that
+> would be.
+> 
+> Still, this only really changes two allocations and they're pretty
+> obviously correct.
+> 
+> Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
+> 
 
-Unfortunately, I don't have any reproducer for this issue yet.
+Jacob, thanks for the review.
+As far as I know, there is no node-aware variant of _obj APIs yet,
+so kzalloc_node() was the only option here.
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-5e0f8396.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/cc2553b94d4a/vmlinux-5e0f8396.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/a71fb7875957/bzImage-5e0f8396.xz
+> >  	if (!pool)
+> >  		return NULL;
+> >  
+> > @@ -127,19 +127,20 @@ mlx5_dma_pool_page_alloc(struct mlx5_dma_pool *pool)
+> >  {
+> >  	int blocks_per_page = BIT(PAGE_SHIFT - pool->block_shift);
+> >  	struct mlx5_dma_pool_page *page;
+> > +	int node = pool->node;
+> >  
+> > -	page = kzalloc_obj(*page);
+> > +	page = kzalloc_node(sizeof(*page), GFP_KERNEL, node);
+> >  	if (!page)
+> >  		goto err_out;
+> >  
+> >  	page->pool = pool;
+> > -	page->bitmap = bitmap_zalloc(blocks_per_page, GFP_KERNEL);
+> > +	page->bitmap = bitmap_zalloc_node(blocks_per_page, GFP_KERNEL, node);
+> >  	if (!page->bitmap)
+> >  		goto err_free_page;
+> >  
+> >  	bitmap_fill(page->bitmap, blocks_per_page);
+> >  	page->buf = mlx5_dma_zalloc_coherent_node(pool->dev, PAGE_SIZE,
+> > -						  &page->dma, pool->node);
+> > +						  &page->dma, node);
+> >  	if (!page->buf)
+> >  		goto err_free_bitmap;
+> >  
+> > @@ -278,7 +279,7 @@ mlx5_frag_buf_node_pools_create(struct mlx5_core_dev *dev, int node)
+> >  {
+> >  	struct mlx5_frag_buf_node_pools *node_pools;
+> >  
+> > -	node_pools = kzalloc_obj(*node_pools);
+> > +	node_pools = kzalloc_node(sizeof(*node_pools), GFP_KERNEL, node);
+> >  	if (!node_pools)
+> >  		return NULL;
+> >  
+> > 
+> > ---
+> > base-commit: 8b4e7209c842d8cb9516f1f5ef0a88aa2d8831a6
+> > change-id: 20261005-net-mlx5-numa-allocate-pool-page-2ee20a04147e
+> > 
+> > Best regards,
+> 
+> 
+> 
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+947286c775f432b073a8@syzkaller.appspotmail.com
-
-loop0: detected capacity change from 32768 to 0
-==================================================================
-BUG: KASAN: slab-use-after-free in __list_add_valid_or_report+0x4e/0x130 lib/list_debug.c:29
-Read of size 8 at addr ffff888040e0a528 by task syz.0.0/5324
-
-CPU: 0 UID: 0 PID: 5324 Comm: syz.0.0 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_address_description+0x55/0x1e0 mm/kasan/report.c:378
- print_report+0x58/0x70 mm/kasan/report.c:482
- kasan_report+0x117/0x150 mm/kasan/report.c:595
- __list_add_valid_or_report+0x4e/0x130 lib/list_debug.c:29
- __list_add_valid include/linux/list.h:104 [inline]
- __list_add include/linux/list.h:169 [inline]
- list_add include/linux/list.h:192 [inline]
- list_move include/linux/list.h:345 [inline]
- add_root_to_dirty_list+0x38b/0x470 fs/btrfs/ctree.c:232
- btrfs_force_cow_block+0xf09/0x1bf0 fs/btrfs/ctree.c:553
- btrfs_cow_block+0x3f1/0xaf0 fs/btrfs/ctree.c:696
- btrfs_search_slot+0xd70/0x2d20 fs/btrfs/ctree.c:-1
- btrfs_search_prev_slot fs/btrfs/free-space-tree.c:134 [inline]
- remove_free_space_extent fs/btrfs/free-space-tree.c:732 [inline]
- __btrfs_remove_from_free_space_tree fs/btrfs/free-space-tree.c:837 [inline]
- btrfs_remove_from_free_space_tree+0x4d6/0xda0 fs/btrfs/free-space-tree.c:866
- alloc_reserved_extent+0x4a/0x2b0 fs/btrfs/extent-tree.c:4976
- alloc_reserved_tree_block fs/btrfs/extent-tree.c:5155 [inline]
- run_delayed_tree_ref fs/btrfs/extent-tree.c:1815 [inline]
- run_one_delayed_ref fs/btrfs/extent-tree.c:1851 [inline]
- btrfs_run_delayed_refs_for_head fs/btrfs/extent-tree.c:2058 [inline]
- __btrfs_run_delayed_refs+0x18b5/0x43b0 fs/btrfs/extent-tree.c:2134
- btrfs_run_delayed_refs+0xdc/0x2a0 fs/btrfs/extent-tree.c:2246
- btrfs_commit_transaction+0x28a/0x3170 fs/btrfs/transaction.c:2267
- sync_filesystem+0x1d2/0x240 fs/sync.c:66
- btrfs_reconfigure+0x2dc/0x2100 fs/btrfs/super.c:1511
- reconfigure_super+0x232/0x8f0 fs/super.c:1128
- do_remount fs/namespace.c:3410 [inline]
- path_mount+0xd4e/0x1050 fs/namespace.c:4160
- do_mount fs/namespace.c:4181 [inline]
- __do_sys_mount fs/namespace.c:4397 [inline]
- __se_sys_mount+0x31d/0x420 fs/namespace.c:4374
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f9c8dd9f3ca
-Code: 48 c7 c2 e8 ff ff ff f7 d8 64 89 02 b8 ff ff ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 40 00 49 89 ca b8 a5 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f9c8eb89e18 EFLAGS: 00000246 ORIG_RAX: 00000000000000a5
-RAX: ffffffffffffffda RBX: 00007f9c8eb89ea0 RCX: 00007f9c8dd9f3ca
-RDX: 0000200000000f40 RSI: 0000200000000f00 RDI: 0000000000000000
-RBP: 0000200000000f40 R08: 00007f9c8eb89ea0 R09: 0000000001a4a438
-R10: 0000000001a4a438 R11: 0000000000000246 R12: 0000200000000f00
-R13: 00007f9c8eb89e60 R14: 0000000000000000 R15: 00002000000008c0
- </TASK>
-
-Allocated by task 5323:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:409 [inline]
- __kasan_kmalloc+0x93/0xb0 mm/kasan/common.c:426
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_noprof+0x321/0x600 mm/slub.c:5563
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- btrfs_alloc_root+0x75/0x840 fs/btrfs/disk-io.c:638
- btrfs_create_tree+0xa8/0x5c0 fs/btrfs/disk-io.c:832
- btrfs_quota_enable+0x3d6/0x1e20 fs/btrfs/qgroup.c:1074
- btrfs_ioctl_quota_ctl+0x186/0x1f0 fs/btrfs/ioctl.c:3581
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Freed by task 5323:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:264 [inline]
- __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:296
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6508 [inline]
- kfree+0x1c5/0x650 mm/slub.c:6801
- btrfs_quota_enable+0x1208/0x1e20 fs/btrfs/qgroup.c:1292
- btrfs_ioctl_quota_ctl+0x186/0x1f0 fs/btrfs/ioctl.c:3581
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-The buggy address belongs to the object at ffff888040e0a000
- which belongs to the cache kmalloc-4k of size 4096
-The buggy address is located 1320 bytes inside of
- freed 4096-byte region [ffff888040e0a000, ffff888040e0b000)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x40e08
-head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-flags: 0x4fff00000000040(head|node=1|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 04fff00000000040 ffff88801b042140 dead000000000100 dead000000000122
-raw: 0000000000000000 0000000000040004 00000000f5000000 0000000000000000
-head: 04fff00000000040 ffff88801b042140 dead000000000100 dead000000000122
-head: 0000000000000000 0000000000040004 00000000f5000000 0000000000000000
-head: 04fff00000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
-head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000008
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 3, migratetype Unmovable, gfp_mask 0xd2040(__GFP_IO|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 4702, tgid 4702 (udevd), ts 61099742225
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x2209/0x2280 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x217/0x5a0 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3347 [inline]
- allocate_slab+0x7d/0x620 mm/slub.c:3462
- new_slab mm/slub.c:3513 [inline]
- refill_objects+0x2d5/0x350 mm/slub.c:7417
- refill_sheaf mm/slub.c:2885 [inline]
- __pcs_replace_empty_main+0x2c8/0x6c0 mm/slub.c:4774
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- __do_kmalloc_node mm/slub.c:5413 [inline]
- __kmalloc_noprof+0x47b/0x720 mm/slub.c:5439
- _kmalloc_noprof include/linux/slab.h:995 [inline]
- tomoyo_realpath_from_path+0xef/0x640 security/tomoyo/realpath.c:251
- tomoyo_get_realpath security/tomoyo/file.c:151 [inline]
- tomoyo_path2_perm+0x2e7/0x760 security/tomoyo/file.c:928
- tomoyo_path_rename+0x14e/0x1b0 security/tomoyo/tomoyo.c:300
- security_path_rename+0x248/0x460 security/security.c:1544
- filename_renameat2+0x4ba/0x9a0 fs/namei.c:6321
- __do_sys_rename fs/namei.c:6370 [inline]
- __se_sys_rename+0x55/0x2c0 fs/namei.c:6366
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-page last free pid 4704 tgid 4704 ts 61084842824 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- __free_frozen_pages+0xc93/0xd90 mm/page_alloc.c:2962
- __slab_free+0x274/0x2c0 mm/slub.c:5823
- qlink_free mm/kasan/quarantine.c:163 [inline]
- qlist_free_all+0x99/0x100 mm/kasan/quarantine.c:179
- kasan_quarantine_reduce+0x148/0x160 mm/kasan/quarantine.c:286
- __kasan_slab_alloc+0x22/0x80 mm/kasan/common.c:361
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4683 [inline]
- slab_alloc_node mm/slub.c:4996 [inline]
- __do_kmalloc_node mm/slub.c:5413 [inline]
- __kmalloc_noprof+0x307/0x720 mm/slub.c:5439
- _kmalloc_noprof include/linux/slab.h:995 [inline]
- tomoyo_realpath_from_path+0xef/0x640 security/tomoyo/realpath.c:251
- tomoyo_get_realpath security/tomoyo/file.c:151 [inline]
- tomoyo_path2_perm+0x2e7/0x760 security/tomoyo/file.c:928
- tomoyo_path_rename+0x14e/0x1b0 security/tomoyo/tomoyo.c:300
- security_path_rename+0x248/0x460 security/security.c:1544
- filename_renameat2+0x4ba/0x9a0 fs/namei.c:6321
- __do_sys_rename fs/namei.c:6370 [inline]
- __se_sys_rename+0x55/0x2c0 fs/namei.c:6366
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Memory state around the buggy address:
- ffff888040e0a400: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff888040e0a480: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->ffff888040e0a500: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                                  ^
- ffff888040e0a580: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff888040e0a600: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-==================================================================
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+-- 
+Seongjun Hong
