@@ -1,141 +1,166 @@
-Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com [209.85.160.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MM0P280CU009.outbound.protection.outlook.com (mail-swedensouthazon11021128.outbound.protection.outlook.com [52.101.76.128])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63539470EB9
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:08:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7024F42A144;
+	Wed,  7 Oct 2026 11:08:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.76.128
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791371314; cv=pass; b=QOtgzUALrPbLv4jpIQjX/h7+xvpyY7BiiUfpZle5Ci46ST9GUr7D+Pgo6/jgkI9kpOjasGxaDJa0vMG/XDq7slAd+uxN3Yo41FZ2hE3iOhT7nYJLLgo4jPzsXHLLQJi/v4ObSBOGXO7QUPSHQziMmOAO9vMAXGizy/SL7nI9DxM=
+	t=1791371355; cv=fail; b=Jsl6ta81doC8FbPWqaLJ69E8Dz/0KTWm2hcFSzjib97kctIsGF/KuG1axg07ExdulXNLWIDTue9s/+QFnDc9U1yomrsxqkNe68m2y6/VXIh4+8UdYMihTZXhdFXheeeUlMnmL9IZ0rKdUyhX2zJk+IGj8PbgAVeFuXeQ5qvml3U=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791371314; c=relaxed/simple;
-	bh=tGowDxQJeXivQdDvAJkErb5jW7cMlEy5ohNQ/yw/K1c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pTZIuVr79n/5V5Ft5/incgs4z50XfwIZ40IAHLRghlvA6GmwPw52hCjQPlmidOzOPVOFymci3XaW3u+ajZfFk3j+zPgQQtvRumD3v1yRhAMYaAvmeibk0JYFOyVxfyJnkrNXemEQjBRLV5QiyVtB7D5X2PtAJOPAucUzCWcki0k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=bisWipT3; arc=pass smtp.client-ip=209.85.160.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	s=arc-20240116; t=1791371355; c=relaxed/simple;
+	bh=DBr6bzqwqxO7kHf4mHQ6fIORYrenl5rcopTW88H2H/A=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=O7OPUsm8cFmQ88CvmrPvXYNmrMy7TYFR8VyGmNZ8LA0WqEB4iYP27NO25CWvf5RAFdCCEv4T5ZsPeSzNJm/4GXfqpAjOFCGOmDLcrI9oOWePZl/eaou0MZ31Uu1lqHer7G0wxvTAO+uz645RVP8xRXUnxs5dymv9LLTyg7k4rZg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=permerror header.from=gaisler.com; spf=pass smtp.mailfrom=gaisler.com; dkim=pass (2048-bit key) header.d=gaisler.com header.i=@gaisler.com header.b=jSS93A/D; arc=fail smtp.client-ip=52.101.76.128
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=gaisler.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gaisler.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="bisWipT3"
-Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-49dd13a91d0so1237022fac.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 04:08:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791371295; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hsRGLcz9vfCD1FeeUwJyxxUIbGCgkwAyiWvGlilKjFlr9xeL+fN0B7iS+zMJGp+eQi
-         ueOvYjkQG0/d5WMpQ1AzdEYOD5UgYJhd5U1JsLKxmh0bExfoai6gZsqk2TL7N9zDoZFF
-         C36pQP0gK8+c+3ktztIz65i34O9l6Rv6vJo7K0DVx5CpIXSbJkg3sPi1SxamNLknQ6kG
-         mbONUQa8QWJkuwTNo0KIhHWUEwt5COCSNhdAKfCU07y2WfVYETl0AqV8wFgDAKx1j1ei
-         qyd3E++mblcpBhdOYAbNEFSSLyzaeRwEQtcxba7F+fPqaexRY31B/KJOAdO586KEn+sb
-         v6uw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=RAu/Imf170djptZMOt8TN6cvFYKGz4NYBJqNFsnVtSI=;
-        fh=c2TL7QwBL9Drp4AXWYzgFBhgeJX2xxBfnUspRxc2Tig=;
-        b=RayeOHQxxYEzmiY8OwhSzbLjM/eVNTKB+8HhAO2lBZJ+NbpOqHdcpYXOs6Sx8CsZjF
-         i4Y/boTUnZcYwE6+NvkSPRMQvG4hjGN2LkWZxRa5enN8DEkGd6UK9rFs91sObpSSWEzA
-         nIp4A6K4RfwzEvdNSNLFVrzlsmE3mrf/5tHeAq5mALCUVvTiAs4z5XA9q91zh12Bp6Ot
-         nKxrz+XbKRnbS/zqy5cHpDfkpF7mFLuo/PLltpuiujfjNUIM8OybYAVVIhXWPlX7bAMO
-         jmWeecR2R5TKzrMvaAoCdrPGx8ykxSHtIV2Pa3UypIwXCsZ9hK6T8qJrLxqLRmJ+CK0U
-         vHzA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1791371295; x=1791976095; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RAu/Imf170djptZMOt8TN6cvFYKGz4NYBJqNFsnVtSI=;
-        b=bisWipT3zxoJetwXafJPXK325wh96k7+SRemCOtC5YqbUDmU8N+tbMzQq5Nx/nWSuc
-         9Ot95KD21EuhFUovjxuwKWGX7nmvHV3iWulheUKILkrseazz4uWjYVcdlGOPhyc7CmFQ
-         oPPp/VEqFyjohgRtSukkypCIBBewFrREA6+O6nGyDIYTPVX1hx9n2fY4RAxOuWYzAO+V
-         9xJLsrKboLDrtBUCw5XSzrkVf+y5X2j7W84Qd52guiz9qg7w2RlvsDr0/FG/LD/rzBw7
-         5M8akiQURIC1ngyWNY9Is081haUtCPLcrarOmOyXL+F3UwWqJ8gKkOSZBUOf0xXrlZlT
-         CtVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791371295; x=1791976095;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=RAu/Imf170djptZMOt8TN6cvFYKGz4NYBJqNFsnVtSI=;
-        b=zQDJJ+IOgKQg+dy2EArMTFGHiLXihDoogwm7PeZX0CctB858Reciua1+zxoORmLIy/
-         eH8PVqSkg+fg/wmL8D1Hkf2y4X/6lHQquvJwNSHlmsTAAatzGKRxiyRa6sKjmjHAmktX
-         QIN0nqzMDwd9eO+AKAaWend6QyeTIwRtdn+NDJngPKQTCHJahb9VQ30NCaSYKIVDTH0l
-         35Ag9XQaS7h6yS9I/avWDUMbgnN6jH96osbfajY6eYoWjGbykJmnuQ8YYb2j9Gu+EgKA
-         go5+Epo9jzXqUNfM5LyN/sNX1bK/bUMIat6f1jzSzWigmn2TTNqh8TX68GXqnfbFlOHU
-         RxCw==
-X-Forwarded-Encrypted: i=1; AKwUvBy1ousDhu9iIVaOMJmALMioLqu4xsFmLmjmzQOkRtsIfD6qt23Drm5ex64Taff8Q/MBd47sSE38oF2T1dM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIXMmjEovhp0WqUrcUiNPNa9D4SDqZf148SXLPEca8yof+7ZABC
-	13wek4rfG9PahFkpVKVu0dDQ6CcdabkQpY2Eo7LECd8Szvyb36LDxSOZQuHeaOZATS3s+JHGlgN
-	wNleS4hSSlinWCzPecFb62dTl5/9YlFw9cSH2rYrErA==
-X-Gm-Gg: AYBFou3jFs++he1JRLTiXe2Y2vQP51ys+S3La5iGxOA5ACPNnhWKu91NCGoEx/H4oy8
-	FpXXN8STnCtgd2q0ZnOScy/QfWvgnnpPDIOqlZueOtwgSRPMfG+w9idpbxUlXs8Zf+1yC0q2P+m
-	kXh+e08aepKO/HRPy2qj3dIK7+eJKA6US5lE1vK5icWehJwNgrvsMCWsFfPpM1Q7nJGfg4aqmNN
-	4Iwpl5XXAkLKXIRk8STTTJ8hRNuyqtBQgpox6c3SknOuEV/1HKHUa2A5iHSWQMUUit/a85b1PAN
-	rcFYk5cxJwero0PjAt5oBEC+dRTqS2vnJ9mbJooG5rMJNgCw679WnfcewNA8PtmEENdPwbL42ql
-	3tahP+8ybJ9HG68GAb4WE9oo66gPaJK5t6MUI5sIy+Iw3/AWNB1AjCNcG59VlHWx6A93kf4da
-X-Received: by 2002:a05:6870:16ea:b0:491:7c1c:c24d with SMTP id
- 586e51a60fabf-4a25950e29bmr1768930fac.30.1791371294988; Wed, 07 Oct 2026
- 04:08:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gaisler.com header.i=@gaisler.com header.b="jSS93A/D"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TDKUuW0hLuROdP/fUKKHo35pnrWXK5sBHVRpmLaxWRFTnYDSFH0mh0Gsn4uP5bpcX0xhOhvOy5POTL/QfM/+rQxv7FQacqKcA4EDn4tz5NUk3BRrrDV7hwb8q/8iu1OmsSM/S1MpYJmESh9hCTIp0Uvd2lX4Y9BehbuSSvjkkcva6tbJbHBwRpFB3l9hYVcW+rtG/IAqHXxx1OIlzxusUUKQw7jJ04chu2CVjzNkfATFEW/nwqhC6rRI5+AMrveoZD17RhdNLkwXsU3bSsLVN1LKvgoCpNvEPdplrfDAWgygrHCRFart9fpEN2L6J1BGLa32PigO1iEOcnSyJ2BPqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MV6yX6cITmEFruixpNYnINf0GlOyJtveFXD2lgWj0+A=;
+ b=axHPtmEkxZRlW1I9L4jpxZRcoyZZV8pqqXhELEs/mz95+qvUdoedBdD35zpc8+L5Wr3zdQQ86R2TblcwG8/j6qojTxdbWg4YP3MyClK1fa4o5i5eFmFojVjmcfYFnNiEjjWkZgVzzB/pa13dj85j+1n4SFIZS8IBS3sAyBH3SnSEiVsirAjFLPp/0fud/zPEnLpMWD6C3/bArznsbGjXQKNhYCIwsmbpSTWZR3b1S1y9N3ey1JVAUw+ywZ9+hKFl9viLrDfbjd7aOChBO7qzQ48U7Ygky2srQpqNFbjvB3T1dg2aopfzbJ1nWKXrYt48dla+koUHHUtR7N6R/OEekA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=gaisler.com; dmarc=pass action=none header.from=gaisler.com;
+ dkim=pass header.d=gaisler.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gaisler.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MV6yX6cITmEFruixpNYnINf0GlOyJtveFXD2lgWj0+A=;
+ b=jSS93A/DZzElHJd8LFliOsTsnzDjTIL1V0OVwEw75CblEnAmZg41SKoQkqPICg5X4dmhcV4Rp+vcq87I59PkOPW+l7TgKxWA+tWx3WKQFbDkVfmH87ijn37CMuNXY4orlqCVKC1q1lHlAmb+4n9bHufm9cUlOYjvs7Oy9OdBnWbEgX+40+Nx5NoBDzcK0tgiYQsUE9YwYUv15HqHKQfSAwfPS78ec7aCw6yl7BnyiaLiXfnCrQhvZB9aqiS8zVXnu8xdkLGXUk84zPEgRY1duJw7h8Z21dhKmClHxnLjThumlHB/ESJDEpydqSYtxqy1+LaTXf0SspYmiyjEB8LzYg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=gaisler.com;
+Received: from MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM (2603:10a6:190:2f::5)
+ by GVZP280MB1880.SWEP280.PROD.OUTLOOK.COM (2603:10a6:150:236::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
+ 2026 11:08:48 +0000
+Received: from MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM
+ ([fe80::1f13:f10:e16b:7939]) by MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM
+ ([fe80::1f13:f10:e16b:7939%4]) with mapi id 15.21.0472.016; Wed, 7 Oct 2026
+ 11:08:47 +0000
+Message-ID: <0a72b324-9909-4c46-819a-93389bb1f04f@gaisler.com>
+Date: Wed, 7 Oct 2026 13:08:46 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] sparc64: Define p4d_page() instead of stubbing it to NULL
+To: Nathan Chancellor <nathan@kernel.org>, Rosen Penev <rosenp@gmail.com>
+Cc: Kjetil Oftedal <oftedal@gmail.com>, sparclinux@vger.kernel.org,
+ "David S. Miller" <davem@davemloft.net>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:CLANG/LLVM BUILD SUPPORT:Keyword:b(?i:clang|llvm)b"
+ <llvm@lists.linux.dev>
+References: <20261005203930.246598-1-rosenp@gmail.com>
+ <CALMQjD-udSokCKS07VFWauBQzac5BTPJqbORhskxgddsuX1vLw@mail.gmail.com>
+ <20261006083103.GA3041473@ax162>
+ <CAKxU2N-ZE7dwiGzVgxDYFvm2R0BE0nah2WehGcjpym=Kq68dYw@mail.gmail.com>
+ <20261007094141.GA1527675@ax162>
+Content-Language: en-US
+From: Andreas Larsson <andreas@gaisler.com>
+In-Reply-To: <20261007094141.GA1527675@ax162>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: OS6P279CA0115.NORP279.PROD.OUTLOOK.COM
+ (2603:10a6:e10:3c::11) To MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:190:2f::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261007104940.507820-1-phucduc.bui@gmail.com> <20261007104940.507820-4-phucduc.bui@gmail.com>
-In-Reply-To: <20261007104940.507820-4-phucduc.bui@gmail.com>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Wed, 7 Oct 2026 12:07:58 +0100
-X-Gm-Features: AclHuK8jNyu4J6aY8nFRvuolKmkC7r_xwYmvV_NX-kpPSA3dASsF-X4_A_0WY2g
-Message-ID: <CAPY8ntDCR+Bgc+z3-ApNk-rU9gZwtmgSON=FnSO+6qAeyrQt7A@mail.gmail.com>
-Subject: Re: [PATCH 3/3] media: i2c: ov5647: propagate pwdn GPIO errors
-To: phucduc.bui@gmail.com
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Shunqian Zheng <zhengsq@rock-chips.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Walter Werner Schneider <contact@schnwalter.eu>, 
-	Jacopo Mondi <jacopo@jmondi.org>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Luca Weiss <luca@lucaweiss.eu>, 
-	Hans Verkuil <hverkuil@kernel.org>, Roman Kovalivskyi <roman.kovalivskyi@globallogic.com>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MM0P280MB495062:EE_|GVZP280MB1880:EE_
+X-MS-Office365-Filtering-Correlation-Id: bd220612-8f92-4e0a-dc54-08df24635c32
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|6133799003|18002099003|22082099003|10067099003|11063799006|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	ZGcu5U+oYgUNwcTQhyaiWesanStAPB59w93R44ACUmwNoJSmh5+Pfk9FYfnNxh4oe5ZaGSub2HATYaejAzuDWWmJlG9Gb53ARKdpwRTnKpyMy+gMnFITdOqyNnwC3/kwXKlckIjuy7RE3+8TY8vkME7GBEcru3166LzibcQpQa6IpijBAXxo4UEwhrdGP9SJoO/ke6JT40KuckNN/fbLlwcNbEM9Z378X17sfMy3mv6V9VpFN1Kv+IXygsVlX5s0BD26Zj8wRQOrzl6z0/05HO35xWRd399NFM7upo0n2oi/DNtSWCLsQB5l8UV1wWHzp9rdKbssAnVvTmoZVIw2N3BNxlT4zAQ04KWzM8JcQW471id+6ZDaudMBq65uGNl18oTiW/KOMfQ57a+rfCqjTNsXMNRAhj+bHSGAdVDfix1cqSuDrqarhmjAAfptjAQgmMxMabIz49Jf+YV65ue2VR+wyfoTux0Qtq7CSkaOVWYpOjj3V+nza9iURr1i0K8KUBTi4lcDpei81keDa9TjyNEZUcrVEI2gmvt5gXgjsy9Mwvgs0rVbWbKKyQuhNxMT+D1ElN8DXBSRt15D/Du2X5Gq7TzilsvPJLt4AAvMl51wGBFg6VJ8Hxmhwv0L0zoxPsXOG41cbV4LIRDZCwrBpXE9oVU4Ls7MbGcmiYtfXHg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(6133799003)(18002099003)(22082099003)(10067099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WTRoWkZCby81b3JKYWZ0UVNnWFR0cm14cGxGQVRpeXkwK3p4L2x5clBUVEhv?=
+ =?utf-8?B?K0Y3QmtxTnBxcmpPSXl2MG9HZzNTQTQ1TStCUkNDT0lnckpsellkWTBYazdS?=
+ =?utf-8?B?MWpiOEhoYTNHUEllNC9Dd2lxQXdHeEVyMXo1dTR2c0NmdkQ2SFl2NkFtczR5?=
+ =?utf-8?B?K2pLbW9FK2Rzb1NETjRTM0hlUlFIa1VnV09aS0doUmUvNDVyZlVnQ01ZUmJF?=
+ =?utf-8?B?YmdHWitETGQvLzA0MGRqRTEwMWtnbmZvaFp6OURWNGc0V0tlcFUwNVExUlFj?=
+ =?utf-8?B?WTNUc1Z1NlV2Ujk5R2MvdHVrVDgzQzZpeVQ1RjBiNmtkbEVad2pmL2IwaUlh?=
+ =?utf-8?B?elVsV2JCOUVXL3JBdWJiVlhSdlNyRlQ2a1Uvc1BURld4RGVudmphL21SL0hS?=
+ =?utf-8?B?blVYVm9sR25sQ0FNQXY2ZGZjbExEV21Ba2RqY0JtYjBXL2Z0UUpPUFNpZjZ0?=
+ =?utf-8?B?b25HUXVTNlprMDUwMU91NVVMRkJ2Zmd1OUFmY1VIQzBTVTNrSjNlV09hNUt0?=
+ =?utf-8?B?QXJMU0ErQVgzUHEwMEFxRHVCVExRMzZ3TllTak1YWUt2L0NMYzhWQVVEYWUw?=
+ =?utf-8?B?d3BoZEFmVXRhcU1UNUI4YWJsVndkZVhWMEl6bjF3K3NDakJRR0V1b3o1NW1P?=
+ =?utf-8?B?WUg0Y3VyTnRzVVU4SG03Uy9jb3UwdEluRytHTzhKR1E1NUtFOXJ4M0RUQTZw?=
+ =?utf-8?B?WlFDanZLcXNCUGNkWkJnSmtPNENiOHQydWZSNXkyUnNjU3BhRm9wZ3Q5b2JJ?=
+ =?utf-8?B?Z0VOaUpYcVRFT0pBYzFrTzYyelRjQjhuZTR6SDQ3c09RUkVUSFcwU0oxRHZ1?=
+ =?utf-8?B?NmhRMG04YXp1a3E4MlQzc0R1ZlpBZEZuNmszZFk5eUFVOWIzZVV5Z21ma3pr?=
+ =?utf-8?B?V2ZZUnJLa1dxelV4Mk0wT2ZhWms4VUxsZ09QT0pjbFBlazVXeEY4Qmd5clp4?=
+ =?utf-8?B?VjY5Y0NoN3dydURxNUZiVWRiQU9kb3MweXEwNGhRV3liak1oWloyZWRISkwv?=
+ =?utf-8?B?ekFJejdnVGNrOFFuM3RVcG1JbEdlMlJJcCtmWC9aeERrbUF2NjhKTGh4RmhZ?=
+ =?utf-8?B?TzBwY1M1L2ljcG5yMUxnNlNORW51dW54eVpiMUVVYVNROFdDd2J1S25ORm1r?=
+ =?utf-8?B?M1U2S3lBaTdZZ2tWbm9KaUw5NmdwRnoyWTZYYVNBTU9pajZXS21iZmlQR1VQ?=
+ =?utf-8?B?NFgzRi9RMEtzQ05LUUNKWjBZVEd0U1pIRk9OSDlyQ1JvdEQ2bnYvb2pBVHNp?=
+ =?utf-8?B?VXd5emN1ZjZNNkRnazhTdXBsanh1eDlCaXVNRDFtMW8xY3VZNENxOEo3ekFz?=
+ =?utf-8?B?SG5YTWgwWm5xSnB3QnFmVzZGMm9NQ0FlSVRscnIvbUJzOC9Lbkp5TVFHRVNz?=
+ =?utf-8?B?bjRLaW56bTRJY1RTbitneGtPc3NuNHR1Y3YrL2RnNnJqNGd0em96Y3paenNw?=
+ =?utf-8?B?cGF3T3FFc0NVUSs5R2pMU1BkVCtXbXZaVUovc1hyUGVFZDRJaDRVdllzZ2pR?=
+ =?utf-8?B?Y0U1d0dxb1Vka25mV3hsMng5OUx1Sk1GMTlRTmtoZGgvdDJiYytJWDdib21p?=
+ =?utf-8?B?QjFHbURZcm9VdkNWTjkyT1o1NWdnL1RJNm90UWpCVHRYem10VHIwMmdTbHZu?=
+ =?utf-8?B?MUlQUjNiU2xKd0luRlc5WklkcThkaUlFZDZjMktvUHNwM2lEbkx5aEdnNm5M?=
+ =?utf-8?B?UHhTVUNaajl1ZktmWTlUZVF1YW1DRXFLSTdVN3NGVHZCYmRZdnNsaHZmNE12?=
+ =?utf-8?B?elVnRmJEYVY2bjR1bWFuT05qT21VWGVVQ3VLdlBzUTV0Zk8wSGJPNmJtek5t?=
+ =?utf-8?B?blpZS0k4dmRSTm45MFhrc2s0bUtGR3NjeGczMWpkYllnSHI2RVBrVTJnVXZW?=
+ =?utf-8?B?QVpxMTNtTFkwWWpFNU8ybVhjWUgyRkZ6VVNabmFZbVlMRlowSHhZT01xSEFs?=
+ =?utf-8?B?dThqZnVqQWRNcFA5NCtlV0pwdEJ6OFd5L3Via0FFSlFzREpFWHNvaFlCd0pi?=
+ =?utf-8?B?UWdlSHRYcGZPWmFkcVBCbm4xekZYVFlqckxsV0hPSGJoVXlzMXB5ZFJUcXFs?=
+ =?utf-8?B?dC9oMWg1VWMzdGhqMDlsSS9CTmZFQU5RcGR4UWFpV3BhUE8yWk96ekFFUVdp?=
+ =?utf-8?B?dE1NM3BOTzNFRHVsaysyNXlJYXRwODNrTWpMdktSQXlKek5jMFl4N1ltaFp3?=
+ =?utf-8?B?T1ZsOUdhaDlJMUlpcnNvRnVqZFZQWStwb2w2ZEtFSHZrQzZGamY5TGNpOFhi?=
+ =?utf-8?B?MmxxVzBRVWcrS2RORThwSURhcDJRS2ppSTBRejFuTkRFOWJHcjRsLzZickNW?=
+ =?utf-8?B?dm5RNEZDaERySlNXQ1IzOUViRjdQckdKazNyRFpNY0pVMWhKYVVNSG1Cc1Bu?=
+ =?utf-8?Q?bGuJ6Cxey3CQqg8Q=3D?=
+X-OriginatorOrg: gaisler.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bd220612-8f92-4e0a-dc54-08df24635c32
+X-MS-Exchange-CrossTenant-AuthSource: MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 11:08:47.8329
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 91fa4a59-2167-458a-8318-e45d80469d7e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IoQzr1LZ6COOZ+ZHuRDwoOx2vm2D9p0ToDxPViP331FT42xDVZVAmKgZHJJuQUxroms9VDxz4tfhAq3rr12O/p7FS7zZ0uCvusRqM4qUB9s=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVZP280MB1880
 
-On Wed, 7 Oct 2026 at 11:50, <phucduc.bui@gmail.com> wrote:
->
-> From: bui duc phuc <phucduc.bui@gmail.com>
->
-> devm_gpiod_get_optional() may return -EPROBE_DEFER or other errors,
-> but ov5647_probe() currently converts them to -EINVAL.
->
-> Use dev_err_probe() to propagate the original error from the pwdn GPIO
-> lookup.
->
-> Fixes: b050791d287a ("media: ov5647: Add support for PWDN GPIO.")
-> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+On 2026-10-07 11:41, Nathan Chancellor wrote:
+> On Tue, Oct 06, 2026 at 05:00:30PM -0700, Rosen Penev wrote:
+>> LLM suggests as an alternative:
+>>
+>> /* sparc64 has no p4d leaf mappings, so this is never called */
+>> static inline struct page *p4d_page(p4d_t p4d)
+>> {
+>>       return NULL;
+>> }
+>>
+>> Not sure how to proceed.
+> 
+> That seems like a more reasonable fix to me, as it is still obvious this
+> is not supported while hiding the NULL value from clang's frontend that
+> emits the warning. It could be worth a comment that it is an inline
+> function and not a macro to avoid the warning but I guess that is up to
+> the sparc maintainers.
+I agree, including comment.
 
-Thanks for the patch.
 
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Regarding "ptdump and KASAN" in the commit message, while true, both
+these are locked behind KASAN which is not supported by sparc64.
 
-> ---
->  drivers/media/i2c/ov5647.c | 7 +++----
->  1 file changed, 3 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/media/i2c/ov5647.c b/drivers/media/i2c/ov5647.c
-> index 3facf92b3841..b3049761a5fb 100644
-> --- a/drivers/media/i2c/ov5647.c
-> +++ b/drivers/media/i2c/ov5647.c
-> @@ -1186,10 +1186,9 @@ static int ov5647_probe(struct i2c_client *client)
->
->         /* Request the power down GPIO asserted. */
->         sensor->pwdn = devm_gpiod_get_optional(dev, "pwdn", GPIOD_OUT_HIGH);
-> -       if (IS_ERR(sensor->pwdn)) {
-> -               dev_err(dev, "Failed to get 'pwdn' gpio\n");
-> -               return -EINVAL;
-> -       }
-> +       if (IS_ERR(sensor->pwdn))
-> +               return dev_err_probe(dev, PTR_ERR(sensor->pwdn),
-> +                                    "Failed to get 'pwdn' gpio\n");
->
->         ret = ov5647_configure_regulators(dev, sensor);
->         if (ret)
-> --
-> 2.43.0
->
+Cheers,
+Andreas
+
