@@ -1,176 +1,101 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6826E17BED0
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 02:18:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791339483; cv=pass; b=rLQBKnnBqJ0nNExgZI7ctZMtl4Sf4LcOMjJvzfYCyng3x+EhWzJGOAmQg+shaWB9b//qFCmSgObiyd6sWMUzGeRLWZxzr/w3jGuPcjlryy5Pel1PxOgyO01R9YPbHrmGBlmlwyzYLOk6R30cAJONysXHOWdgeV0M5xS/0aYMO0k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791339483; c=relaxed/simple;
-	bh=VIu9IqjAGNeJ5CxJ1aJYgp/RLiXbBj4etI3szwtdgyg=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B46A5331ECB
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 02:25:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791339914; cv=none; b=nNBv53JMSBlw7JdSFzEOEiWs3si1wnD/txX4Fuj+k0YkvjKU0I+9Rq+eJ5QDFMTfpxZsxpBnGG/39LopxrGzVnwZZB0rD2tY+g9kDSJszG+A85iaCF7frpt0JGdqHb9Cn6aOLpJ0bf7ESuLYVmb+Rp/L+5LEWpipc2X9HDzuuHo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791339914; c=relaxed/simple;
+	bh=AE3DANbJ/Lt5SPRwcmEoqdNOCeXShWVnJgp3uWxoxig=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KJREHtnV6YJ6TLUXMqKhU++WAwZ5TK997lyatq2MUJMCdIdsdx7UspJttaEuDrVoY0Sm3UpN/Rulu5VJEF+e1PBqHmZrwa52n5ReezBdV817TCQERqAZQ3GNLRpEGX2JCwrXmk2yohNT+aDz0vrQ4anzbLW3tr8X42rTB2AH+ic=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VofLcoyb; arc=pass smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=jJjJu1pJoR9ltH0FExT7HOQMyExaP3Mq0j4fruk3ji70hbkwge0sr5Mq63RXlNWny3eYit0+1eQuVus568DNVrx8ZtCcL3LT+d5zbi8owFzocYHdKQSjC0x/wcb7v6PG4VEUtryPVmro7ISZIpDb+OKZAiCg1XVe6SJU9U0FthA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hy3+nb/V; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VofLcoyb"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a022fee0caso13324575e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 19:18:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791339480; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ciRRoyVX62H1Puzm85ow5Jd8kR9u3XEq7lOYMR7R1aBSzKfCgiucgQZoTTf5HFDOp0
-         mO2+2IwSTsCnqJPDPUznz9xLb/IWVhj0moafnsCYn78MrFWmWDdINdWpjXaHBo6FJuE2
-         n9w7Au/3mcWa1b798Cgiw18WYVS5Tabs8YO2LtU6sq77yNpSV6ukypwhxfGkWSaekrgs
-         ngLf2GEVFJwPmWWk6eQMVTC5LfEAtu4F15v6ssticj/j0kF5kfWDrwOCtcPqYv4mHpeD
-         nOT9iGqSYrHLgzGMugr8BOmdoxtQ2PLtG9oICuWD3zI94VdrdcX3tz2D9V0Cq+iBtQOG
-         a7Ng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=GXQll5yKwAszJJzdt/Gj5gkr0StYojizfaIPuW3tx5I=;
-        fh=KlDLwIhYu9UVtrQIYmeVE/ISsJIkTC8+c+YeKK8FnkM=;
-        b=Kz1K5t2C9LbH7C5AkC1j0TCkzG+au4KMUZzjNk/op+WA1OXz7/f77JBJZQXsxT7gZp
-         s5/pzsUdjGINtfI33OXTMmbC1g3A+UUhtRp44SfkRUcyUDELuyWSLcm0nJSM+pytN0TV
-         7fuCSl5YzF0ZCNjgOSbKBsLmpf0uq0vcqjtvuZs0l2fbsr3aGCNozUW975LMTnjCtgzF
-         wIoFOasF+8wo8FU8R7bBnG0mmy0PVd9PJ04TRcFHggv56Hv5GrnB4LEWnekdagVNKvZg
-         r7by9pq+ZkoMJfRKBJY/FzHr8UtVlLqmn5UF9bEDXkW3t0/JTgvezKH6xIeUSVTPyRfM
-         IQZw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791339480; x=1791944280; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GXQll5yKwAszJJzdt/Gj5gkr0StYojizfaIPuW3tx5I=;
-        b=VofLcoybAjP8tljDjf4cOLqPDw3Olb8lls7AxLzkbmAmq337C0Fwn3glCmVFCxV/R2
-         2O5HkTC6wWAto/92mXbeagm0Mxe+0YQqkof2eLKij0s4I7S3Na5ramc/JJ0PC8/14hvb
-         9eXVuTYtDSFsh+0cz7zVyrpXwaYgkVN5n4nW20TOi9NqcYLtDPxJjeMdgMa65KaSWbPX
-         OuH66l3liaHcoUJK65tjyym43pFC27su8itKQx3iLA2920d7DveZ6Iw9XY9eyAbNNqhu
-         LG1vpIVy4Wk11rZvoCM+iLWIKGPdS1a1ck927312PFY/a/FZCZfN4cYRhMqHpD+nmCOF
-         Pq1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791339480; x=1791944280;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GXQll5yKwAszJJzdt/Gj5gkr0StYojizfaIPuW3tx5I=;
-        b=ECT53+7LENBr656kcofdOd5XkQm1Y412jcddwi2RwSNBl7a0wwkBf4Zl0JIsogNpDA
-         4vJrHSGNRiZS6X9CYisw1Yr6Vsrd+dASn9bwaw5fvs0Rybu+saN7odk1MSX7JMZBT9CL
-         eKFw8zyAviYD2bfi6+q7hx544Yrjw0qhS8UT80oq1uFnzAC0HC0UnaULRCw7+cXzDz75
-         87divYjH5Pw6WKVuN8wz0g3QoMla/HAVa/XzwdsezVuQ0jwdG/rqgYWASWukMjZgfpY+
-         AhYeRu39xLaHG0xAw/T8R4TvoxD/mbQ/9vnfNTKBn1Ti1kv5LLyDmzduZCsGpotJItZS
-         teig==
-X-Forwarded-Encrypted: i=1; AKwUvBwCcmZW1wCDtmg9Zt+DBdrLfrwKJcBso0ETXXIKNbPj61TAGyLFgPAo4ORsmWg5DUzuQrGKpj0Enh1IvsQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++l+Ugt/o92fYh/0iFyMQ7z4lTCTHo5axQ8p1UXxHYjLcbVOFzAV
-	zDo3K5J17Fiqjly3xlMffx+v7Y+ArV8B9SZ4ZlWr3gOsLhHOHy4RBvuuB2TFZknnEzM22aq6iIW
-	RbBclSUrytWKfoR8NTXqm6cQCHnX79ps=
-X-Gm-Gg: AYBFou0ezcsNhaBCg4upQl+8bNqp4obSCMdRGNDgxSchNehY+FhIvjCIpJPeIm9IZ6M
-	YatNfS/Q9JhWW7/vHIC5VFvBjewTRkxYdmKv++4pTdZICWji16XO1G8R/9n4MLIEcNMCVTJFYDt
-	hUG4li/xFC240L6CwHd8x3rCNqMViBi9aBB+m1g+Glc8VeUAxdHk5Q78XRU9CxCbapnedy9fEdx
-	Sh41nl7ojsBP/wkT5SX/EJQPr7G+5peYReQIjXTJlUmKCA5I90BH/PhC+XxXS2IZU9YHmL3oOBo
-	wXMADvKCvcbCfLNRrmoxisMwH/f6+ubdlkLEKtHczkrQvaTd0zMIo+tfDw==
-X-Received: by 2002:a05:600c:19cd:b0:4a0:62d:4424 with SMTP id
- 5b1f17b1804b1-4a180311245mr8251415e9.8.1791339479862; Tue, 06 Oct 2026
- 19:17:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hy3+nb/V"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DAE51F0089E
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 02:25:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791339913;
+	bh=KS/oKwc4/tHrIqXOyK1jCnbU150fQ26jUklE/3Lgg4s=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Hy3+nb/VNFG+LeC1JS2f7XZGuv8xOqIvmtr9UEq4sZNm4BtkYfMJjctkUKuwGDmbN
+	 fKk5uxP0PZqAeYIW647u6exf1R0gdD9Uu5V1PkL4HXfblCzUdp42p7JLr9k/trkZ0P
+	 F8qU5YIGozBptMvCvu75Q2rP7w9PM3U5UDoSqYtxbxHAID42QSgNtLzVDCEuj1G4cT
+	 epskTzJhEAckjM1n0GY6V3iLZP0xCG31hJOKA49DFzL0CRLAeHH3slfdlGsi8CiMqc
+	 3wClSby9RFuZ/2B4wRl9ppecEeyedwBue/V5AtAA6FT0xhjo2i5OxazkJU1DaRU1ij
+	 J+6FicNyllZFg==
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c2e7496f947so196705866b.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 19:25:13 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx1ALLDUqpRRZoLxorxeBrmczD7eLE5xU1d6YUlArh1TC6IbRAUn8HfjB0aSD7HapiI/QaEdEZaZ1nqwlo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLjXGPjBaP/djp4lpp3fPymtFfihoChVQ1dP6BiMcBsDDR5fBsW
+	Y+h6QKEGT+oh/NjResXVg8vBtG4Bxa3epiMVgg78WM+QVwFAG2N29uASjhdOD0iZAkQIkEUfZqc
+	vh+Ioe9vDJDZQBqegFLwaIaHh6NSReP8=
+X-Received: by 2002:a17:907:3d4d:b0:c29:6136:9f66 with SMTP id
+ a640c23a62f3a-c317bd4c29emr74585366b.14.1791339911958; Tue, 06 Oct 2026
+ 19:25:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261002151757.3605081-1-kunwu.chan@gmail.com>
- <20261002151757.3605081-2-kunwu.chan@gmail.com> <asO4ey3X6JK0IzlY@localhost.localdomain>
-In-Reply-To: <asO4ey3X6JK0IzlY@localhost.localdomain>
-From: KunWu Chan <kunwu.chan@gmail.com>
-Date: Wed, 7 Oct 2026 10:17:48 +0800
-X-Gm-Features: AclHuK-tHY6YeG6Ua4SUi-gCDEbMeVVo3yQ2NB_FnxZ7-i_GlcPQuqP0AElsGHs
-Message-ID: <CAN_Opa8NjWEpz1wbsBEmyCQ=q3nqrUaYiVa-nbsiOEXPdAwWRg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] rwonce: Add READ_ONCE_THIS_CPU() and WRITE_ONCE_THIS_CPU()
-To: Frederic Weisbecker <frederic@kernel.org>
-Cc: arnd@arndb.de, anna-maria@linutronix.de, mingo@kernel.org, tglx@kernel.org, 
-	linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	"Paul E . McKenney" <paulmck@kernel.org>
+References: <20261006224024.14535-1-linkinjeon@kernel.org> <20261006224024.14535-2-linkinjeon@kernel.org>
+ <CAMrLSE6=2pRW7oQ40NME-vCpP+kdmB-D=kNWTDMY4xVdwGzeyA@mail.gmail.com>
+In-Reply-To: <CAMrLSE6=2pRW7oQ40NME-vCpP+kdmB-D=kNWTDMY4xVdwGzeyA@mail.gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Wed, 7 Oct 2026 11:24:59 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd-Rfdd+zU3sBvx-pJotiYj=BbAdVGFuJypYYZe0N8Askw@mail.gmail.com>
+X-Gm-Features: AclHuK-bloyjpNfLoj2McHACwe9nBJBROYSqdcRi3p4WzXN2yqfuFdJqMnrpTds
+Message-ID: <CAKYAXd-Rfdd+zU3sBvx-pJotiYj=BbAdVGFuJypYYZe0N8Askw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/4] ntfs: add named stream ioctls support
+To: CharSyam <charsyam@gmail.com>
+Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, sebastian.n.feld@gmail.com, 
+	cedric.blancher@gmail.com, Lionelcons1972@gmail.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 5, 2026 at 10:47=E2=80=AFPM Frederic Weisbecker <frederic@kerne=
-l.org> wrote:
+On Wed, Oct 7, 2026 at 11:07=E2=80=AFAM CharSyam <charsyam@gmail.com> wrote=
+:
 >
-> Le Fri, Oct 02, 2026 at 11:17:55PM +0800, Kunwu Chan a =C3=A9crit :
-> > Per-CPU variables are sometimes accessed from different execution
-> > contexts on the same CPU, typically task context and an interrupt or
-> > NMI handler.
-> >
-> > A plain READ_ONCE() or WRITE_ONCE() marks such an access as an
-> > intentional race but does not express where the racing accesses are
-> > expected to come from. This distinction allows concurrency tools such
-> > as KCSAN to tell an intentional same-CPU context race apart from an
-> > access that may race across CPUs.
-> >
-> > Add READ_ONCE_THIS_CPU() and WRITE_ONCE_THIS_CPU() to identify accesses
-> > to a per-CPU variable which are intended to race only with accesses
-> > from other execution contexts on the same CPU. For now, they are
-> > simple wrappers around READ_ONCE() and WRITE_ONCE(), so generated code
-> > and tool behaviour are unchanged.
+> Hi Namjae,
 >
-> But there is a plan to handle that with KSCAN, right?
+> I found an error-reporting issue in NTFS_IOC_STREAM_READ. The underlying
+> bug predates this patch: ntfs_inode_attr_pread() breaks when
+> read_mapping_folio() fails without saving PTR_ERR(folio). It therefore
+> returns the number of bytes read before the error. The new ioctl treats
+> that nonnegative result as success and reports it in bytes_returned.
 >
-> If so:
+> An I/O error on the first 4 KiB can appear as a successful zero-byte
+> read; an error on the second 4 KiB can appear as a successful 4 KiB
+> read. A caller copying or backing up the stream may interpret either
+> result as EOF and stop, even though the stream is larger. The on-disk
+> stream size is unchanged.
 >
-> Acked-by: Frederic Weisbecker <frederic@kernel.org>
+> I tested this in QEMU with a 16 MiB named stream filled with 'A' and
+> an 8 KiB read at offset 0. Using blkdebug to inject EIO on the first
+> 4 KiB, the ioctl returned success with bytes_returned=3D0. Injecting EIO
+> on the second 4 KiB returned success with bytes_returned=3D4096. After
+> the change below, both cases return -EIO and copy no stream data to
+> userspace. A retry without the injected fault reads all 8192 bytes.
+> A read crossing the actual EOF still succeeds with a short count of
+> 4096 bytes.
 >
-
-Hi Frederic,
-
-Yes, that's the plan. Thanks for the Ack!
-
-Best,
-Kunwu
-
-> Thanks.
+> Please propagate the folio error, including when earlier pages in the
+> same request were read:
 >
+>         folio =3D read_mapping_folio(mapping, index, NULL);
+>         if (IS_ERR(folio)) {
+>                 err =3D PTR_ERR(folio);
+>                 break;
+>         }
 >
-> >
-> > Suggested-by: Thomas Gleixner <tglx@kernel.org>
-> > Suggested-by: Paul E. McKenney <paulmck@kernel.org>
-> > Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
-> > ---
-> >  include/asm-generic/rwonce.h | 11 +++++++++++
-> >  1 file changed, 11 insertions(+)
-> >
-> > diff --git a/include/asm-generic/rwonce.h b/include/asm-generic/rwonce.=
-h
-> > index 52b969c7cef9..4d4e009a4489 100644
-> > --- a/include/asm-generic/rwonce.h
-> > +++ b/include/asm-generic/rwonce.h
-> > @@ -61,6 +61,17 @@ do {                                                =
-                       \
-> >       __WRITE_ONCE(x, val);                                           \
-> >  } while (0)
-> >
-> > +/*
-> > + * {READ,WRITE}_ONCE_THIS_CPU() identify accesses to a per-CPU variabl=
-e
-> > + * which are intended to race only with accesses from other execution
-> > + * contexts on the same CPU, e.g. task and interrupt context.
-> > + *
-> > + * For now, these are simple wrappers around READ_ONCE() and
-> > + * WRITE_ONCE().
-> > + */
-> > +#define READ_ONCE_THIS_CPU(x)                READ_ONCE(x)
-> > +#define WRITE_ONCE_THIS_CPU(x, val)  WRITE_ONCE(x, val)
-> > +
-> >  static __no_sanitize_or_inline
-> >  unsigned long __read_once_word_nocheck(const void *addr)
-> >  {
-> > --
-> > 2.43.0
-> >
->
-> --
-> Frederic Weisbecker
-> SUSE Labs
+> The existing `return err ? (s64)err : total;` then returns the error.
+> The ioctl already copies its temporary kernel buffer to userspace only
+> on success, so it will not expose partial data on this failure. The
+> UAPI should also state that a successful short read indicates EOF and
+> that a read error copies no stream data.
+Okay, I will fix it in v3.
+Thanks for the review!
