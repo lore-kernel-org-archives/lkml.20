@@ -1,291 +1,303 @@
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
+Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32021258CE7
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 00:27:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791332850; cv=pass; b=Xkg3rizC46si12N7B2h0QpaBbNyvLkiMYY7GyC08XW2gfRl7i2OR1Ht/1KF6zxBFzQdifOoOWFVvHp62FFQn4ae3ORDvYSGF8vPZ+vUlwQ1ymbqsKpgXOsy7Xo1yII16Ft9eigqPSjfR0H3c0bnBr/rHO13H3cflm15hoYUv4nc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791332850; c=relaxed/simple;
-	bh=Iyuwm3dHCbREroT6zoAZHUTDwbJXCt9kSli+dnbxdL0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JnQPFF1Lkh+i+/cRAUUoY1I4wWaUHFuOFkctKLJ5SSEfye6OXBI6IavXe4TpBEUeyirUuG1hwwLSqAeIzS/xlEX0gQ5kdxyG3yLACRxuusgSwrsdbMkp5j+G1kjnb8VJEPPPnvPxawmR3lRw7W+6AS4VXisRfmF+DoBJ77ZQXkU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=RWyA3keN; arc=pass smtp.client-ip=209.85.128.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5498B21CC59
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 00:31:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791333090; cv=none; b=SsIRVCC3TP8CIeQTTlII5VQwRkRTvCC8qjdHsCeSAmLMVmrFsFGWYsCBE4owooWGbuJuHQA9zAEpTZ+Q1KkWkg4w1zP99oC9wj5c2q461CCN4Uv4gE4dMe7A8vM4kdpDvRzXJ6VJW6U/r4Mv6bJejNRwbVglCN97zMpijJRK7Rs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791333090; c=relaxed/simple;
+	bh=t1qUesrSPwTZJ7qrENmMUw+i1KmO1JUF7xvjDbtzqeE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=T7SB20jjDUd0FmUKY2FTREqO8N/V1hhGdHVSvHqHkkDEJx3pwUsR6tWQ9Hq1Zy+M5AbIVNq9HP+G6GTbJASKK17hV2pwIbM5egR1P2z7nKvjPeKPDk6i5CSUG113Ld/bMZnn8O47i30d4NtpmezVUZfynpxQdME9uu6FGFa9m5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=GLnNuMjh; arc=none smtp.client-ip=74.125.224.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="RWyA3keN"
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8a83d2706fdso29656567b3.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 17:27:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791332848; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kACJVrmOFVwy8UTqpqThkePtFtNoLe/i0/K0kI5/guNpRQF5vMOZEzb41yyEhohcia
-         aZV5re13eNtS6hNDZoyNON/b+qadcR+7p/SgXgLxLgkxuSziE/KE7m6gcEX+l5iOo66W
-         OgPn3W07wUhP437szuayhC4pQsa2yn/EMwmHsEQXqKL80HwO3j1Ab8hnP94EkClSkwmy
-         czXEHwuGJp7rsX5RJJ49qBt3aYcL7eF9RczDw9TVyG4BEN3VxG5N7c/ULdU8WQWdsu+i
-         pTOJqj/aq32cUFV35ClZqdEs+HwZl2CCHzC0pSBpsHUxGKSOIN+e1vIcmUfb4DTJifDt
-         b1Iw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ndf5Tbs3jY61Y12tfz+GmUhm79/15f4MrnX2K4zKs/s=;
-        fh=UWr6WH55WISuz8KrYWxlMmre7f+Np6nWGCLs2d8vd3s=;
-        b=ABGtsYpPSz/lSrZQ1EYUjxVcjpU7dlwh2d0+T2o8MDL8eVhelQ6EYsM+TNB9MtHW6k
-         t4rd2xZgPMPQhdLTNLkLRNiyNpZ9L6P5Q25flUEMhHeaVAcrL2iw+K8oue15URqW03pn
-         qHGaJGE+8SAyNnOaKDYq32W2IjiT3gZNlpgc+/dIesnMYlSsvunU0baaFNnok3KGZIx4
-         xYgbo++E3c1srktq6PrQk3fKRlighwF2K1OnUWx4Ran4V4I8UWKg+GqQexRazxM0Giz6
-         QT3IeyabdAIDdYrA2SRaZ4cg2tqX3uZ6z1N4+HPButbVxsmTf/jiIW/E/fbQ/5W5KnYR
-         TFzg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="GLnNuMjh"
+Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-66fca0709caso2930002d50.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 17:31:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791332848; x=1791937648; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ndf5Tbs3jY61Y12tfz+GmUhm79/15f4MrnX2K4zKs/s=;
-        b=RWyA3keNYcFZ0fLg6GNdljYNcmn4EIZyqsEJkXNLxb3U6VIWZTTSzT/ori3qQF4Wcg
-         neFyVcZ6IuTgbpxON+9IJLplHtzila2+LpVhgAZ11pZLL7yGcVhnaekgp7FHVo4iLz7i
-         FdJU0ZQ2J544jgtgy9TVGygU1YOoBGK2RFDelHSFcZmbf146Le92btzZWR0bKv7PpPH3
-         I0ro5biYBNDZZo1S5j8zftTmJM5zQ8JsNF7DKwMfYsxX0Zt9f9wdCSboV6FDYdA23mVR
-         xfrtxIECsJspouA4735WNm5yu2MAER/jAfzmkRxi6eue3ddI4FkwQI0QOYSJD8KgG56E
-         /NfA==
+        d=chromium.org; s=google; t=1791333086; x=1791937886; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=VPNBsDgchbd7JIStat8oFQ2lIw0GIhWnueiuUIQNBPY=;
+        b=GLnNuMjhb7K9+g9p+XJb6LqzVK/b5oabxQZFzN/ly/0DRXjInehF2ajXN7KB81wFwZ
+         ZsCWiXeP65kl88eVB6D3+3W+RX0kXZ5f5YwnUJM5iUiTrkya2iuJgH3zsCg/lNnPRuzx
+         9iht/JIEfV04uAdB1hURe1t+KqOlGiHmYOQnU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791332848; x=1791937648;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ndf5Tbs3jY61Y12tfz+GmUhm79/15f4MrnX2K4zKs/s=;
-        b=e6Ulyh9KY9wYTDaejcY3iSFvlxgCIf9GNWIFN8eNJXUXXRtwb2YP+KdYKNeEPZLFgb
-         cF9BoFiMMzFqNDeuBOItg0Qu/VvKQITaMGUqmrE6ymM0ttfiaLl/fmo6Iwp15TeHavID
-         Vmc/aOo+mhL3DlK6P/SA1HQs7wnBNP7urhvs6HvcP4/mobTvzjVa4ISW+6iqoZK8PYbz
-         Gz7f5cOZMcr7gdBMrEk6nZZvS7wD7KKb4mpMf440eAQLw+5cVETR2OjShf/HdLbbW9Yi
-         DIqGCAd4OY/6fp3a2mes4mZuzdfMUcoZ+KEW6Z0NYjw35pcdrel+1WWbCONfbBnLtOcl
-         K3Qw==
-X-Forwarded-Encrypted: i=1; AKwUvBxHcWRWWbEaISVBZFNAQyrEjQAVUrCPX/AA5ezd7oQJEikrs44tXAN4S6gO4UOnbN2ZRE4jL3LuvuYtccA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK9vXV4Iium9wa+8kjvJrm626VFLnSdJ7OR7hnHDIiJLK1OdEDQ
-	v/WkfrwLwF0btpuopuqzX2jtsZqnB/J5fn94YCkPRWsq/eXYD5T1FXp9zr2uXb3/rO5bk9B3vnz
-	lF/hTwHoVizXI0KPmCN4ILPxwopk8kjHqZjPVmhAnrA==
-X-Gm-Gg: AYBFou3JSnt5cfnttudp6fb2ghMMC9aUeQV1IJUwyjcZZqnIfyIhF35LWlrHlTM3IAM
-	vsi7h3mZfYF91FKm9L128U0csq1yRfdbbFsECaw8cGlBCcFEjyVBZPnEGjrUW7iB02OO02Tju5s
-	CMkd4Uy0Jscd/KYzGZMhtfJgbD3LSYwCGccEwuveYNIZEK4yDVZfpcua1G3E+756+vPIKoVMz1H
-	kbeJoX7H5XZn8Z1l/4jaThm39YPhU08+IDWSWh2deWWjRaRW600KZtxCMEkfJmkI1VNHqldTlSi
-	yrj5OZ2J+4vrv75oaBxTbKbDxO5RNjwKA0r3q0R6EuuLKz8EBZS3GeqpwxT1KO3LmLi7e2LS8Zm
-	btYu7bZTC7wxszg==
-X-Received: by 2002:a05:690c:a798:b0:8a8:4cd6:b366 with SMTP id
- 00721157ae682-8b05b0baadfmr4463097b3.34.1791332847977; Tue, 06 Oct 2026
- 17:27:27 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791333086; x=1791937886;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=VPNBsDgchbd7JIStat8oFQ2lIw0GIhWnueiuUIQNBPY=;
+        b=QzbyWeKMKqMe3Q2q/Jl6YRu1CfKwtX7N+axByz7u7cakSVG2jDu9hcaOpiAx+srY83
+         fTOZf/IkqtmeEHEjcIWY0Km/Ip/uTSlEKtrpvIqFYUqF22LI8KBrffRofNwTsIfktSxc
+         /48CMaxNYeHquw97QlIMzemew2dcQ379VCoLTgnJdGJ0TMUHEbVopjp8WUU0PFAfJAhK
+         qfhHl7y4+Cdg3NMzB/dm4+eRA00hrWfxJBNSqMN2TWQn2VX8Z7qeFlpHFXu9Zm6QIe5t
+         3S9JSIfV7kaj9qVyLdxMyEbI74BbWzSmeOXeS31if1sNrMLq6jbY8P+60UOwbXnKs6xG
+         Y/rQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxGZnll4gOPr6I21k2tfgh2OPb0Iegdq3MxHKUTeAowI0fDncdtGAdXp4u2nPVEL0kRwwaizPK1LRYwA/A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL4afEHzPgWAgtEjjpSz94aRDp3K+riiZKg7PLk9bUXJtL1mJ2P
+	o6/PfN9yLPQj2jhSsjz9fqhfYLaZvJQIj0xCog2t5FgX//iyFewAQrrr5IAvUvZTww==
+X-Gm-Gg: AYBFou3aAtAFpN+vzla/bdB1+vSsd3DKdpz3SMqlW6BFAMnPPg1rhOWZahL2TI1KAPW
+	CNnc3RJxqO0cB9eQWu5BSZbtii8aXcQ23e+ql70VBH+oOwoe+706ZAcNKIxXK2QZNIO424y5WDK
+	jdbYOc/LuT9LP6cgs/iVI6BkHzqql6361NUy8Z/XXosZW2lklUd6aO58w3EHlxu/hkN+izQ0zT4
+	jLghukJdO8E+KHYEgvX+HIm+yFF9GTDOQzn1LX1ZPsUWim572tWg9WQ9gsuaKBqFsOiMfbbg2Fj
+	IFxsx0CsZFobzz3v+L+TChnUh/R19b2jm9ayAIlutTOmAZbdhJ4P5NjH3exmcY9G6xV/yn21tRZ
+	RcGo599FZu14vpGaVK21vYrPpaNmcYXtQOcCqkETD3hcx6/ChM3PeYf3Z83PFtmX9HJ1RPo8A83
+	0vTuAB0PmlebPhbaDvTUDXdl6f4lIEfE/tAfxgP7Ti4O5Np9WbvfXyGyGGwBQl3D/Afh6t5rTYb
+	poy4iyOl4SvrLeInRn3KdmgGs3qY1d+hawEpWuI4fD7XtbKe91wLfba5wAF
+X-Received: by 2002:a05:690e:4006:b0:676:d3fa:cd25 with SMTP id 956f58d0204a3-6790a4005f3mr584385d50.36.1791333086030;
+        Tue, 06 Oct 2026 17:31:26 -0700 (PDT)
+Received: from ripwilburliny.c.googlers.com (159.68.194.35.bc.googleusercontent.com. [35.194.68.159])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67909922c6bsm337560d50.11.2026.10.06.17.31.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 17:31:25 -0700 (PDT)
+From: Steven 'Steve' Kendall <skend@chromium.org>
+Date: Wed, 07 Oct 2026 00:31:24 +0000
+Subject: [PATCH v5] ALSA: hda/cs8409: Fix for Dell Cirrus audio jack detect
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929-exynos850-acpm-firmware-support-v3-0-473a69fc8a3d@linaro.org>
- <20260929-exynos850-acpm-firmware-support-v3-1-473a69fc8a3d@linaro.org> <CAPLW+4m57BbhsuVaJb382af6b9Ek-raHoftEO9m8z62Z=DEzkQ@mail.gmail.com>
-In-Reply-To: <CAPLW+4m57BbhsuVaJb382af6b9Ek-raHoftEO9m8z62Z=DEzkQ@mail.gmail.com>
-From: Sam Protsenko <semen.protsenko@linaro.org>
-Date: Tue, 6 Oct 2026 19:27:16 -0500
-X-Gm-Features: AclHuK-gTMHxeLVbqLEEqthoe_YhAWKRzmo3ENLwqbF0WuTbIQb_K4cpIVT21tE
-Message-ID: <CAPLW+4=gpnHSSdZ1SWaYz4L_U12vo-OTwUvEYCt=SOSexJw+Gg@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] dt-bindings: firmware: google,gs101-acpm-ipc:
- document Exynos850 compatible
-To: Alexey Klimov <alexey.klimov@linaro.org>
-Cc: Tudor Ambarus <tudor.ambarus@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
-	Peter Griffin <peter.griffin@linaro.org>, Sylwester Nawrocki <s.nawrocki@samsung.com>, 
-	Chanwoo Choi <cw00.choi@samsung.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	linux-samsung-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-clk@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261007-fix-headphone-plug-cirrus-dell-v5-1-c28146b18d5c@chromium.org>
+X-B4-Tracking: v=1; b=H4sIANuSxWoC/4XPTWrDMBAF4KsErTtFfyPLWfUepQtHGlsCxzJSb
+ VqC7145UBpKwMs3MN+bubFCOVJh59ONZVpjiWmqAV9OzIVuGgiir5lJLg1vBIc+fkGgzs8hTQT
+ zuAzgYs5LAU/jCEjqolvfYY+SVWTOVDfuBe8fNYdYPlP+vvetYp/+0uqIXgUIUA4FNs5rdP7Nh
+ Zyucbm+pjywXV/lo2gPRVnF3lohq8m9kU9E9Se2Ag9FVUXjHSJeOO+NeCLqR/H4Rr1/bZ3UVtu
+ uMe0/cdu2HyGQaWzFAQAA
+X-Change-ID: 20260710-fix-headphone-plug-cirrus-dell-5e3b49da5f52
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Steven 'Steve' Kendall <skend@chromium.org>
+X-Mailer: b4 0.15.2
 
-On Tue, Oct 6, 2026 at 6:47=E2=80=AFPM Sam Protsenko <semen.protsenko@linar=
-o.org> wrote:
->
-> On Mon, Sep 28, 2026 at 9:11=E2=80=AFPM Alexey Klimov <alexey.klimov@lina=
-ro.org> wrote:
-> >
-> > The Exynos850 SoC incorporates an APM co-processor. Communication with =
-this
-> > hardware block is done using the ACPM protocol, which handles IPC messa=
-ges
-> > for clocks, power, thermal management and PMIC control. In this
-> > architecture, the ACPM firmware running on the APM acts as the central
-> > supervisor or arbiter for shared system resources, handling requests fr=
-om
-> > clients or agents such as an OSPM. In this design, the OSPM is one of
-> > several clients or agents communicating with APM.
-> >
-> > Dedicated compatible string is required for the Exynos850 because
-> > its firmware utilizes a different initialisation data base offset
-> > (0x7000) compared to the existing GS101 implementation (0xa000).
-> >
-> > Additionally, the ACPM firmware implementation on Exynos850 does not co=
-ver
-> > all clock management operations (such as clock rate reads over ACPM IPC=
-).
-> > To allow the OSPM to resolve rates for these ACPM clock IDs or sometime=
-s
-> > called domains, add 'clocks' and 'clock-names' properties to reference =
-the
-> > underlying physical clocks.
-> >
-> > Add the "samsung,exynos850-acpm-ipc" compatible string, binding defines=
- for
-> > Exynos850 ACPM clock IDs, clock property constraints, and disallow GS10=
-1-
-> > specific PMIC child nodes for Exynos850.
-> >
-> > Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
-> > ---
->
-> Reviewed-by: Sam Protsenko <semen.protsenko@linaro.org>
->
+On some models like the Dell Inspiron 15 3520, jack
+detection does not work. This patch switches to
+delayed work to fix jack plug on Chrome OS for this model.
 
-By the way, we discussed earlier the reason for ACPM clocks:
+Assisted-by: LLM
+Signed-off-by: Steven 'Steve' Kendall <skend@chromium.org>
+---
+Changes in v5:
+- Switch to disable_delayed_work_sync() where appropriate.
+- Call cancel_delayed_work_sync() before cs42l42_suspend() to prevent racing.
+- Link to v4: https://patch.msgid.link/20260918-fix-headphone-plug-cirrus-dell-v4-1-38c24848a769@chromium.org
 
-    "PMIC might be controlled by different masters (cores), e.g. when
-Linux is asleep and doesn't control PMIC via CPU, audio co-processor
-can still be up playing audio, thus it needs to control PMIC via ACPM,
-which in turn means some clocks have to be controlled over ACPM, so
-that power supervisor (APM) can decide how to handle/arbiter those
-requests from different IP-cores."
+Changes in v4:
+- Delayed logic is now limited to the device with the issue.
+- Tested for regression on Ubuntu 26.04 and looked good.
+- Link to v3: https://patch.msgid.link/20260915-fix-headphone-plug-cirrus-dell-v3-1-6dc555b00f61@chromium.org
 
-FWIW, I think it may be valuable to have this explanation added either
-in the bindings doc or in the commit message. Otherwise one might
-question why this whole ACPM thing is needed at all, as we already can
-control those clocks via the regular clock driver. It's just a
-thought, and can be done in a separate patch later.
+Changes in v3:
+- Unified sleep time for both cases.
+- Removed some superfluous logic after some additional testing.
+- Link to v2: https://patch.msgid.link/20260718-fix-headphone-plug-cirrus-dell-v2-1-f88121570d62@chromium.org
 
-> >  .../bindings/firmware/google,gs101-acpm-ipc.yaml   | 56 ++++++++++++++=
-+++++++-
-> >  include/dt-bindings/clock/samsung,exynos850-acpm.h | 21 ++++++++
-> >  2 files changed, 76 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/Documentation/devicetree/bindings/firmware/google,gs101-ac=
-pm-ipc.yaml b/Documentation/devicetree/bindings/firmware/google,gs101-acpm-=
-ipc.yaml
-> > index e68f9c3ca5e2..0eaa9c881f6f 100644
-> > --- a/Documentation/devicetree/bindings/firmware/google,gs101-acpm-ipc.=
-yaml
-> > +++ b/Documentation/devicetree/bindings/firmware/google,gs101-acpm-ipc.=
-yaml
-> > @@ -22,7 +22,9 @@ description: |
-> >
-> >  properties:
-> >    compatible:
-> > -    const: google,gs101-acpm-ipc
-> > +    enum:
-> > +      - google,gs101-acpm-ipc
-> > +      - samsung,exynos850-acpm-ipc
-> >
-> >    "#clock-cells":
-> >      const: 1
-> > @@ -33,6 +35,20 @@ properties:
-> >        appropriately with the clock scaling. The argument is the ID of =
-the
-> >        clock contained by the firmware messages.
-> >
-> > +  clocks:
-> > +    minItems: 1
-> > +    maxItems: 9
-> > +    description:
-> > +      List of the underlying clocks associated with each ACPM clock do=
-main.
-> > +      This property relates to ACPM firmware variants where not all cl=
-ock
-> > +      operations are implemented.
-> > +
-> > +  clock-names:
-> > +    minItems: 1
-> > +    maxItems: 9
-> > +    description:
-> > +      Names of the ACPM clock domains corresponding to entries in 'clo=
-cks'.
-> > +
-> >    mboxes:
-> >      maxItems: 1
-> >
-> > @@ -77,6 +93,44 @@ required:
-> >    - mboxes
-> >    - shmem
-> >
-> > +allOf:
-> > +  - if:
-> > +      properties:
-> > +        compatible:
-> > +          contains:
-> > +            const: google,gs101-acpm-ipc
-> > +    then:
-> > +      properties:
-> > +        clocks: false
-> > +        clock-names: false
-> > +
-> > +  - if:
-> > +      properties:
-> > +        compatible:
-> > +          contains:
-> > +            const: samsung,exynos850-acpm-ipc
-> > +    then:
-> > +      properties:
-> > +        clock-names:
-> > +          items:
-> > +            enum:
-> > +              - mif
-> > +              - int
-> > +              - cpucl0
-> > +              - cpucl1
-> > +              - g3d
-> > +              - aud
-> > +              - cam
-> > +              - disp
-> > +              - cp
-> > +          uniqueItems: true
-> > +        pmic: false
-> > +        pmic-1: false
-> > +        pmic-2: false
-> > +      required:
-> > +        - clocks
-> > +        - clock-names
-> > +
-> >  additionalProperties: false
-> >
-> >  examples:
-> > diff --git a/include/dt-bindings/clock/samsung,exynos850-acpm.h b/inclu=
-de/dt-bindings/clock/samsung,exynos850-acpm.h
-> > new file mode 100644
-> > index 000000000000..87fc6ccc1d99
-> > --- /dev/null
-> > +++ b/include/dt-bindings/clock/samsung,exynos850-acpm.h
-> > @@ -0,0 +1,21 @@
-> > +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> > +/*
-> > + * Copyright 2026 Linaro Ltd.
-> > + *
-> > + * Device Tree binding constants for Exynos850 ACPM clock controller.
-> > + */
-> > +
-> > +#ifndef _DT_BINDINGS_CLOCK_SAMSUNG_EXYNOS850_ACPM_H
-> > +#define _DT_BINDINGS_CLOCK_SAMSUNG_EXYNOS850_ACPM_H
-> > +
-> > +#define EXYNOS850_CLK_ACPM_DVFS_MIF                    0
-> > +#define EXYNOS850_CLK_ACPM_DVFS_INT                    1
-> > +#define EXYNOS850_CLK_ACPM_DVFS_CPUCL0                 2
-> > +#define EXYNOS850_CLK_ACPM_DVFS_CPUCL1                 3
-> > +#define EXYNOS850_CLK_ACPM_DVFS_G3D                    4
-> > +#define EXYNOS850_CLK_ACPM_DVFS_AUD                    5
-> > +#define EXYNOS850_CLK_ACPM_DVFS_CAM                    6
-> > +#define EXYNOS850_CLK_ACPM_DVFS_DISP                   7
-> > +#define EXYNOS850_CLK_ACPM_DVFS_CP                     8
-> > +
-> > +#endif /* _DT_BINDINGS_CLOCK_SAMSUNG_EXYNOS850_ACPM_H */
-> >
-> > --
-> > 2.51.0
-> >
+Changes in v2:
+- Changes from v1 have been removed.
+- New approach uses delayed work and also solves the issue on this machine.
+- I'm now using the latest release of b4. Hopefully this addresses the formatting issues I was having!
+- Link to v1: https://lore.kernel.org/r/20260713-fix-headphone-plug-cirrus-dell-v1-1-3c5157cd45cd@chromium.org
+---
+ sound/hda/codecs/cirrus/cs8409-tables.c |  9 +++++-
+ sound/hda/codecs/cirrus/cs8409.c        | 52 ++++++++++++++++++++++++++++++---
+ sound/hda/codecs/cirrus/cs8409.h        |  4 +++
+ 3 files changed, 60 insertions(+), 5 deletions(-)
+
+diff --git a/sound/hda/codecs/cirrus/cs8409-tables.c b/sound/hda/codecs/cirrus/cs8409-tables.c
+index b9ec8fb8eab7c..d0cef8492c994 100644
+--- a/sound/hda/codecs/cirrus/cs8409-tables.c
++++ b/sound/hda/codecs/cirrus/cs8409-tables.c
+@@ -594,7 +594,7 @@ const struct hda_quirk cs8409_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1028, 0x0BA8, "Odin", CS8409_ODIN),
+ 	SND_PCI_QUIRK(0x1028, 0x0BAA, "Odin", CS8409_ODIN),
+ 	SND_PCI_QUIRK(0x1028, 0x0BAE, "Odin", CS8409_ODIN),
+-	SND_PCI_QUIRK(0x1028, 0x0BB2, "Warlock MLK", CS8409_WARLOCK_MLK),
++	SND_PCI_QUIRK(0x1028, 0x0BB2, "Warlock MLK", CS8409_WARLOCK_MLK_DELAYED_JD),
+ 	SND_PCI_QUIRK(0x1028, 0x0BB3, "Warlock MLK", CS8409_WARLOCK_MLK),
+ 	SND_PCI_QUIRK(0x1028, 0x0BB4, "Warlock MLK", CS8409_WARLOCK_MLK),
+ 	SND_PCI_QUIRK(0x1028, 0x0BB5, "Warlock N3 15 TGL-U Nuvoton EC", CS8409_WARLOCK),
+@@ -625,6 +625,7 @@ const struct hda_model_fixup cs8409_models[] = {
+ 	{ .id = CS8409_BULLSEYE, .name = "bullseye" },
+ 	{ .id = CS8409_WARLOCK, .name = "warlock" },
+ 	{ .id = CS8409_WARLOCK_MLK, .name = "warlock mlk" },
++	{ .id = CS8409_WARLOCK_MLK_DELAYED_JD, .name = "warlock mlk delayed jd" },
+ 	{ .id = CS8409_WARLOCK_MLK_DUAL_MIC, .name = "warlock mlk dual mic" },
+ 	{ .id = CS8409_CYBORG, .name = "cyborg" },
+ 	{ .id = CS8409_DOLPHIN, .name = "dolphin" },
+@@ -652,6 +653,12 @@ const struct hda_fixup cs8409_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = CS8409_FIXUPS,
+ 	},
++	[CS8409_WARLOCK_MLK_DELAYED_JD] = {
++		.type = HDA_FIXUP_PINS,
++		.v.pins = cs8409_cs42l42_pincfgs,
++		.chained = true,
++		.chain_id = CS8409_FIXUPS,
++	},
+ 	[CS8409_WARLOCK_MLK_DUAL_MIC] = {
+ 		.type = HDA_FIXUP_PINS,
+ 		.v.pins = cs8409_cs42l42_pincfgs,
+diff --git a/sound/hda/codecs/cirrus/cs8409.c b/sound/hda/codecs/cirrus/cs8409.c
+index c43ff3ef75b6e..12ee71d7a35c0 100644
+--- a/sound/hda/codecs/cirrus/cs8409.c
++++ b/sound/hda/codecs/cirrus/cs8409.c
+@@ -56,6 +56,9 @@ static int cs8409_parse_auto_config(struct hda_codec *codec)
+ }
+ 
+ static void cs8409_disable_i2c_clock_worker(struct work_struct *work);
++static void cs8409_jack_detect_worker(struct work_struct *work);
++static void cs42l42_run_jack_detect(struct sub_codec *cs42l42);
++static int cs8409_i2c_read(struct sub_codec *scodec, unsigned int addr);
+ 
+ static struct cs8409_spec *cs8409_alloc_spec(struct hda_codec *codec)
+ {
+@@ -69,6 +72,7 @@ static struct cs8409_spec *cs8409_alloc_spec(struct hda_codec *codec)
+ 	codec->power_save_node = 1;
+ 	mutex_init(&spec->i2c_mux);
+ 	INIT_DELAYED_WORK(&spec->i2c_clk_work, cs8409_disable_i2c_clock_worker);
++	INIT_DELAYED_WORK(&spec->jack_detect_work, cs8409_jack_detect_worker);
+ 	snd_hda_gen_spec_init(&spec->gen);
+ 
+ 	return spec;
+@@ -115,6 +119,28 @@ static void cs8409_disable_i2c_clock_worker(struct work_struct *work)
+ 	cs8409_disable_i2c_clock(spec->codec);
+ }
+ 
++/*
++ * cs8409_jack_detect_worker - Perform initial jack detection once hardware is settled
++ *
++ * Defer initial jack detection. On ChromeOS and possibly other platforms this
++ * delay is required for jack detection to work as expected.
++ */
++static void cs8409_jack_detect_worker(struct work_struct *work)
++{
++	struct cs8409_spec *spec = container_of(work, struct cs8409_spec, jack_detect_work.work);
++	struct sub_codec *cs42l42 = spec->scodecs[CS8409_CODEC0];
++
++	if (spec->init_done && spec->build_ctrl_done && !cs42l42->hp_jack_in) {
++		int reg_ts_status = cs8409_i2c_read(cs42l42, CS42L42_TSRS_PLUG_STATUS);
++
++		/* error case */
++		if (reg_ts_status < 0)
++			return;
++
++		cs42l42_run_jack_detect(cs42l42);
++	}
++}
++
+ /*
+  * cs8409_enable_i2c_clock - Enable I2C clocks
+  * @codec: the codec instance
+@@ -951,6 +977,8 @@ static void cs8409_remove(struct hda_codec *codec)
+ {
+ 	struct cs8409_spec *spec = codec->spec;
+ 
++	/* Disable jack detect work */
++	disable_delayed_work_sync(&spec->jack_detect_work);
+ 	/* Cancel i2c clock disable timer, and disable clock if left enabled */
+ 	cancel_delayed_work_sync(&spec->i2c_clk_work);
+ 	cs8409_disable_i2c_clock(codec);
+@@ -1020,6 +1048,9 @@ static int cs8409_cs42l42_suspend(struct hda_codec *codec)
+ 
+ 	cs8409_enable_ur(codec, 0);
+ 
++	/* Cancel jack detect work first as it accesses CS42L42 over I2C */
++	cancel_delayed_work_sync(&spec->jack_detect_work);
++
+ 	for (i = 0; i < spec->num_scodecs; i++)
+ 		cs42l42_suspend(spec->scodecs[i]);
+ 
+@@ -1153,6 +1184,9 @@ void cs8409_cs42l42_fixups(struct hda_codec *codec, const struct hda_fixup *fix,
+ 			spec->scodecs[CS8409_CODEC0]->full_scale_vol = CS42L42_FULL_SCALE_VOL_0DB;
+ 			spec->speaker_pdn_gpio = CS8409_CYBORG_SPEAKER_PDN;
+ 			break;
++		case CS8409_WARLOCK_MLK_DELAYED_JD:
++			spec->delay_jack_detect = 1;
++			fallthrough;
+ 		case CS8409_WARLOCK_MLK:
+ 		case CS8409_WARLOCK_MLK_DUAL_MIC:
+ 			spec->scodecs[CS8409_CODEC0]->full_scale_vol = CS42L42_FULL_SCALE_VOL_0DB;
+@@ -1197,8 +1231,13 @@ void cs8409_cs42l42_fixups(struct hda_codec *codec, const struct hda_fixup *fix,
+ 		cs8409_cs42l42_hw_init(codec);
+ 		spec->init_done = 1;
+ 		if (spec->init_done && spec->build_ctrl_done
+-			&& !spec->scodecs[CS8409_CODEC0]->hp_jack_in)
+-			cs42l42_run_jack_detect(spec->scodecs[CS8409_CODEC0]);
++			&& !spec->scodecs[CS8409_CODEC0]->hp_jack_in) {
++			if (spec->delay_jack_detect)
++				schedule_delayed_work(&spec->jack_detect_work,
++						msecs_to_jiffies(CS8409_JACK_DETECT_DELAY_MS));
++			else
++				cs42l42_run_jack_detect(spec->scodecs[CS8409_CODEC0]);
++		}
+ 		break;
+ 	case HDA_FIXUP_ACT_BUILD:
+ 		spec->build_ctrl_done = 1;
+@@ -1208,8 +1247,13 @@ void cs8409_cs42l42_fixups(struct hda_codec *codec, const struct hda_fixup *fix,
+ 		 * Run immediately after init.
+ 		 */
+ 		if (spec->init_done && spec->build_ctrl_done
+-			&& !spec->scodecs[CS8409_CODEC0]->hp_jack_in)
+-			cs42l42_run_jack_detect(spec->scodecs[CS8409_CODEC0]);
++			&& !spec->scodecs[CS8409_CODEC0]->hp_jack_in) {
++			if (spec->delay_jack_detect)
++				schedule_delayed_work(&spec->jack_detect_work,
++						msecs_to_jiffies(CS8409_JACK_DETECT_DELAY_MS));
++			else
++				cs42l42_run_jack_detect(spec->scodecs[CS8409_CODEC0]);
++		}
+ 		break;
+ 	default:
+ 		break;
+diff --git a/sound/hda/codecs/cirrus/cs8409.h b/sound/hda/codecs/cirrus/cs8409.h
+index be1714a84fff4..dacc1083b9d46 100644
+--- a/sound/hda/codecs/cirrus/cs8409.h
++++ b/sound/hda/codecs/cirrus/cs8409.h
+@@ -247,6 +247,7 @@ enum cs8409_coefficient_index_registers {
+ #define CS8409_CS42L42_AMIC_PIN_NID		CS8409_PIN_ASP1_RECEIVER_A
+ #define CS8409_CS42L42_DMIC_PIN_NID		CS8409_PIN_DMIC1_IN
+ #define CS8409_CS42L42_DMIC_ADC_PIN_NID		CS8409_PIN_DMIC1
++#define CS8409_JACK_DETECT_DELAY_MS		100
+ 
+ /* Dolphin */
+ 
+@@ -266,6 +267,7 @@ enum {
+ 	CS8409_BULLSEYE,
+ 	CS8409_WARLOCK,
+ 	CS8409_WARLOCK_MLK,
++	CS8409_WARLOCK_MLK_DELAYED_JD,
+ 	CS8409_WARLOCK_MLK_DUAL_MIC,
+ 	CS8409_CYBORG,
+ 	CS8409_FIXUPS,
+@@ -339,12 +341,14 @@ struct cs8409_spec {
+ 	unsigned int i2c_clck_enabled;
+ 	unsigned int dev_addr;
+ 	struct delayed_work i2c_clk_work;
++	struct delayed_work jack_detect_work;
+ 
+ 	unsigned int playback_started:1;
+ 	unsigned int capture_started:1;
+ 	unsigned int init_done:1;
+ 	unsigned int build_ctrl_done:1;
+ 	unsigned int speaker_muted:1;
++	unsigned int delay_jack_detect:1;
+ 
+ 	/* verb exec op override */
+ 	int (*exec_verb)(struct hdac_device *dev, unsigned int cmd, unsigned int flags,
+
+---
+base-commit: df2908090cda368b01ff43709f51890076c56157
+change-id: 20260710-fix-headphone-plug-cirrus-dell-5e3b49da5f52
+
+Best regards,
+--  
+Steven 'Steve' Kendall <skend@chromium.org>
+
