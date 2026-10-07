@@ -1,162 +1,148 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 365FA3C3434;
-	Wed,  7 Oct 2026 09:45:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68F2C4718E5
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 09:47:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791366336; cv=none; b=jV4qg1PxKb3gCjAo24Q4m/mXvVLymASc2CEA0Kw/bFJj7IwflWxgOsF07XlNkc8Xe4ZIWEhYHBXLT9xfrzUXq9Kr2qwEIFKohRItv+9VSOvM9wsW/DDvO4w+D7swmWPcefCbMhUhTWGBUqA7/fkLH/u0JaesCqUmmdYE6n0GoFQ=
+	t=1791366452; cv=none; b=svbQotBQDLuk9sgdm3eWp5TuYaUTR2RNoPHLCAn5CgfJwbxl/frrZ4oZNB6Vx4T8/p0yCVlfwaU9Nzcz2rPqZHWKA6Xd8YxTKB2p0QHIJ3/effqPZ3QbsNp0/CbegfXqogGAFfsdmgWQ1mcygUa1pMeELWlGz2ULy9YXxId4OMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791366336; c=relaxed/simple;
-	bh=ByUQSwsJWoHyq9uu/IQDJP1G0Zc9Q8i+g2a6Yw20yZo=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pWUwWpwiV6KbOtyMfjJTtPgAl02foVKxMrve/jqTJ8E5Rgjb99JZkJaRJCQRLXgWz7pO3lpl6cus/lSL011zEZui6c6GMlg8a+BxlBW4l42p50OxU/FOLImJHfrV0TgEPqhTErB6FXS5JKAdErHCyO5Akc2qQ6IVe42WC7ek3fs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=o2zpRl3A; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=gRAn1EwV; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=KQc7hxej; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=94cGfY25; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791366452; c=relaxed/simple;
+	bh=FpL7jjwMY/apfHM93jjTPCGNB7TYjMZroVkZzCHVyBc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=LZEY+VTbs3X5qW+LeZaOunnj74QbitUInJk9dXrQDoige2y7Wv9gQJuQzZL3aBxc1xidS32cDYCk5MMvzc14cRC79J16M7GJ9XJnEx7Zsyd9P1P5jFxLZRqFZPE/W9jK1uMXsNyfm8iu0a8OhcM1rU+oSC/Pru9lJGEDR/66rbY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JW54BEM3; arc=none smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="o2zpRl3A";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="gRAn1EwV";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="KQc7hxej";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="94cGfY25"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 4070C1F7A9;
-	Wed,  7 Oct 2026 09:45:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791366321; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zuO/uLDoteFZPEDyZY/IsGmDHcFKIieGyLaRS2G1XXA=;
-	b=o2zpRl3AkiSG674ITeCtPIxRBAq4uYgtD30zRhrTbHLwr2nX8N2IYTyYXfM6BOzBl3RiPi
-	RG+0e0vYa9ztb3qj7b4OTym6f+ulcE3MtACgTRnWVoUu5JnqO/puy7XAFleCkx5/z+NtST
-	F5POUR49W6TPcEIoNj5VRk6+8lXF5e4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791366321;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zuO/uLDoteFZPEDyZY/IsGmDHcFKIieGyLaRS2G1XXA=;
-	b=gRAn1EwVJNIK+bLsNgi2zXlt2nQtlqmMR7RD4ekdHqCIVhTd+OGu+R7T4QS1pLe7sL6Ys3
-	4ioLrbQgR3XUpWBw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=KQc7hxej;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=94cGfY25
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791366317; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zuO/uLDoteFZPEDyZY/IsGmDHcFKIieGyLaRS2G1XXA=;
-	b=KQc7hxejXx2NLAyOv5VDAUM5NxqDLU86QXGHeMTOUTGDjtvw4kyI0bkrUuDol0vRyZ7SCd
-	uhBUZimlEzM+8blv1ClozmvIuZ3YIvcfi7oReN/I/+oaipFutVKSOs2kvfv/OLqWYfxrMK
-	rp8D/RtKhNWDC7vLSmUAiUEEjv58wsE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791366317;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zuO/uLDoteFZPEDyZY/IsGmDHcFKIieGyLaRS2G1XXA=;
-	b=94cGfY25yo+4KM0l72ehky1ycqwNB9pGHSVrp10B5TyvAH4JrW0XbRfNzruP6HPT83qzKC
-	z/THw0NKDHsZQtAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0414113B95;
-	Wed,  7 Oct 2026 09:45:17 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Jui3NawUxmp2FwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 07 Oct 2026 09:45:17 +0000
-Date: Wed, 07 Oct 2026 11:45:08 +0200
-Message-ID: <87o6d5ondn.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Brian Norris <briannorris@chromium.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
-	linux-pm@vger.kernel.org,
-	Ulf Hansson <ulfh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JW54BEM3"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3a4b3ac8fb7so738139a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 02:47:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791366443; x=1791971243; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jPKaHWa3Bx0TPeANjm1JQtALevFITXOT/HiMP7XTIdE=;
+        b=JW54BEM3ausoXQujOKMZ+r0q8jC/BsWwEH8cGfb1PO2vwdb5Ee72keVqcjFcJXlW7j
+         ViJw5mNZ4HpWVh1A+CjDtQSOoXzwLherRj0+ek4lo17k3CB4xiGGoZEHJYMsCv1wi3Wq
+         XIQrLvGQv668fat1ECsG4dzCnjBBSmvRSFiUsKLkX8Wzv5sRWOvvNObpZLgRS5+3Ac03
+         1mw2WEKfc2YIGAOc6781LxoO8GJmUZLa3T+0vKTxtUe/pR7motpcAE9NhLn3ds+McXeD
+         2QtLsaQ9H+doWi9Xy/tEGD+kKhxzVrHm6FUKlSOGL/P7JDkZwZN1Nb8CwpkA1z8vMJLC
+         6C9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791366443; x=1791971243;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jPKaHWa3Bx0TPeANjm1JQtALevFITXOT/HiMP7XTIdE=;
+        b=fRoCK78GckDCEZ1Nf6UyQNdh8yKYK91Q68nT6VirrdYnPqlXsp28cHnfHuq9str6yt
+         0P9+9RXwryM7PkP0W1dx/LdrYIUO0B+UYhxSWLC4IkABDjvEYQr0MDXznBS3ftT9kJgQ
+         qEubh3kKV3X8oo0+LcMUDXPdDQbvkLxsvIeJ+ITPrXrfUOovg7eTNgTh+9qoZ6dr1jJs
+         N4Ro0yb6kgEMtWxdqDFWlTSsLHki63oYVNQhwr7jT1X4rPM57I3aHtQvavozjFO/pXIR
+         kJ5MfO9T54hYbWnfdLzULybDafWjacM8FClQ2BHJRPts3mhxRQ9q4FlFxFb21xnkRumZ
+         h22w==
+X-Forwarded-Encrypted: i=1; AKwUvBxMymEuIVcgLdftyYcTNvIvzcQi7dFVUVDt5BTL0vwOTFagcwRhZN71fhY0xVo4N4UC8Ihfe3HySoIsENw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJZFplqCsiGz4aLVDL926LjCobMx/JsOrCzslyu9+33yTl0mwYF
+	GJ97PFSxJRZOEKpwkkX5Q8yj0sS0mw7OPcxusN0rb5l/JfBTvjvLEmiA
+X-Gm-Gg: AYBFou3rXvymrKiJ/KTgjdOWKZR6fr3Ql+0MZkrDJ8iTHG81D/ThnyVHWLb5Y/sq2Ex
+	zRsC4Yb5ZJZ/HtFoDLIFtfaQD6OYOcAnYP5jFpbNs0OO44Kqq5tZONe4lEtHrp+CnUWg+lbv6ly
+	wpYF/JI3P/z/dZXwZ1y7Bc/4gPe2Lqm3koeNdTz7pDMyQkHJwo7eo6MVFAeC7db1eqChWW7hXmD
+	uLXDbrlFy7tA1PJ2809CWxLODx/42HdWpK4fy7YBy0Fz+ynuwj7GU3CSmQDcZyxggjyohaM1KlW
+	L5Oc7n1qTqP8ho0GcdDjLi8ZdqOghm/DB9crLhaerxqImMQru/rC7T2ciqFbxn5imSOuLrxdCs4
+	TpNSoE3FN84mX785tpzXJ0r5Cm/adUi7F1aMjTNN9oP2WEcgVLO+qokcrgLC/aS29McqTEpKaK5
+	EoWOOBWtWB/ElKX5jkVAdA1ow6azhY68DmXxu/AZjEBh1NJq5Yx+EWQqRIDtSo3SLDrapIwdRun
+	9437Bm05DZos1OJFRQiNuSP541f5P1zEABVMpJpfU0RS9z8weQE9RNfkd+XEf/N1L5xKhwjYKOl
+	nz0/uZZekQ==
+X-Received: by 2002:a17:90b:564e:b0:3a6:e8fb:76b5 with SMTP id 98e67ed59e1d1-3a8a1b48770mr1335998a91.37.1791366442618;
+        Wed, 07 Oct 2026 02:47:22 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (25.187.82.34.bc.googleusercontent.com. [34.82.187.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8c46a2f9bsm265866a91.2.2026.10.07.02.47.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 02:47:22 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	John Ogness <john.ogness@linutronix.de>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Hugo Villeneuve <hugo@hugovil.com>,
+	linux-serial@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org
-Subject: Re: [PATCH 08/13] ALSA: hda: Discard pm_runtime_put_autosuspend() return value
-In-Reply-To: <20261006161337.8.Idcada3ae757100bf3a38f7e71bac37f827be06c6@changeid>
-References: <20261006231900.3230373-1-briannorris@chromium.org>
-	<20261006161337.8.Idcada3ae757100bf3a38f7e71bac37f827be06c6@changeid>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	stable@vger.kernel.org,
+	Hui Peng <benquike@gmail.com>
+Subject: [PATCH v8 1/2] serial: core: fix baud rate fallback in uart_get_baud_rate()
+Date: Wed,  7 Oct 2026 09:47:17 +0000
+Message-ID: <20261007094719.1362769-2-benquike@gmail.com>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+In-Reply-To: <20261007094719.1362769-1-benquike@gmail.com>
+References: <20261007094719.1362769-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 4070C1F7A9
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-0.998];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
-X-Rspamd-Action: no action
-X-Spam-Score: -3.51
-X-Spam-Level: 
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, 07 Oct 2026 01:13:36 +0200,
-Brian Norris wrote:
-> 
-> snd_hdac_power_down() and snd_hdac_power_down_pm() are defined to return
-> an int, but their return values are never used by any caller.
-> snd_hdac_power_down() also passes the return value of
-> pm_runtime_put_autosuspend() to the caller, which is not very useful.
-> 
-> Returning an error code from pm_runtime_put_autosuspend() merely means
-> that it has not queued up a timer or work item to check whether or not
-> the device can be suspended and there are many perfectly valid
-> situations in which that can happen, like after writing "on" to the
-> device's runtime PM "control" attribute in sysfs for one example.
-> 
-> Modify snd_hdac_power_down() to discard the pm_runtime_put_autosuspend()
-> return value and change the return types of snd_hdac_power_down() and
-> snd_hdac_power_down_pm() to void.
-> 
-> No intentional functional impact.
-> 
-> This will facilitate a planned change of the
-> pm_runtime_put_autosuspend() return type to void in the future, similar
-> to commit 3afd8df02433 ("PM: runtime: Change pm_runtime_put() return
-> type to void").
-> 
-> Signed-off-by: Brian Norris <briannorris@chromium.org>
-> ---
-> This patch is independent of the rest of the series, except for the end
-> (changing the return type). I expect it can be applied by individual
-> maintainers, and we pick up the end once the dust is settled.
+When uart_get_baud_rate() evaluates a requested baud rate against a port's
+supported limits [min, max], the retry loop operates as follows:
 
-OK, I applied this one to sound.git tree for-next branch now.
+  try == 0: Evaluates the requested baud rate. If out of range and an old
+            termios is available, it switches termios to old.
+  try == 1: If old is also out of range (or unavailable), the fallback rule
+            at the end of the loop clips baud to [min, max - 1] and encodes
+            it into termios via tty_termios_encode_baud_rate(termios, baud,
+            baud).
+  try == 2: Evaluates baud = tty_termios_baud_rate(termios) for the newly
+            encoded clipped rate, which now satisfies min <= baud && baud
+            <= max and returns baud from within the loop body.
 
+However, because the current loop bound is for (try = 0; try < 2; try++),
+the loop terminates immediately after try == 1 without executing try == 2 to
+re-evaluate the clipped rate. Upon loop exit, the function hits WARN_ON(1)
+and returns 0, which triggers a fatal divide-by-zero (Oops: divide error)
+in uart_get_divisor():
 
-thanks,
+  WARNING: drivers/tty/serial/serial_core.c:548 at uart_get_baud_rate+0x136/0x260
+  [ ... ]
+  divide error: 0000 [#1] PREEMPT SMP KASAN
 
-Takashi
+Increase the loop retry limit in uart_get_baud_rate() from 2 to 3 iterations
+(try < 3) so that clipped fallback baud rates are re-evaluated in try == 2.
+
+Tested in QEMU against Linux 7.3.0-rc3 by setting B4000000 on /dev/ttyS0 via
+tcsetattr(): on the unfixed kernel it triggers WARN_ON(1) and divide-by-zero
+Oops, whereas with this fix applied uart_get_baud_rate() smoothly falls back
+to 115200 without error.
+
+Fixes: 091ea8e5d34e ("serial: core: prevent division by zero by always returning non-zero baud rate")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
+---
+Changes in v8:
+- Rewrote commit description to detail the step-by-step loop iteration
+  progression (try == 0, try == 1, try == 2) as requested by Ilpo Järvinen
+  and Greg Kroah-Hartman.
+
+ drivers/tty/serial/serial_core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+index f91bcfa30113..6ed0195e6912 100644
+--- a/drivers/tty/serial/serial_core.c
++++ b/drivers/tty/serial/serial_core.c
+@@ -470,7 +470,7 @@ unsigned int uart_get_baud_rate(struct uart_port *port, struct ktermios *termi
+ 	 * Ask the low level driver to verify the baud rate if it can't
+ 	 * then it will have encode_baud_rate set the Closet else .
+ 	 */
+-	for (try = 0; try < 2; try++) {
++	for (try = 0; try < 3; try++) {
+ 		baud = tty_termios_baud_rate(termios);
+
+ 		/*
+-- 
+2.47.3
