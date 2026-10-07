@@ -1,319 +1,135 @@
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35C244AB1AB
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:32:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41ABF4AA57E;
+	Wed,  7 Oct 2026 11:32:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791372746; cv=none; b=Vjs1CgRsKjHe6zCGO6YHqfCgcZJDQYbhKSL25xnBdIwIi5PBhtbSudboVVcI27fuOZuFawNAFJunXYI6KLH1cqBy50G/2LIEB5wPnZsrbpKZ1PBjww/vH6edy+SSnGQwJFyLgSMoYMREWb+R2Ia2ZKc7cEzCgfJqnkFubbsOvgM=
+	t=1791372760; cv=none; b=Fs9IjDyvAm8j84tcqdLTjXZQR6fq4qsS+7n5lsAivUgy3hjUpiN5ke1DkM6q9nGI5n29rVzHxYztb/f7xU4Ul6A7OUw2lwdQzTH1fHAFW7GAVK2bfaeB9Ppiv1la6Jinrlq2OKy9QbSjDKxmjbgxMSqG3zovHih/KZiRGl4VI6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791372746; c=relaxed/simple;
-	bh=AqugtevlX1L8VFks7qCKC0P2AdCHO3zqizAjvv0ULqw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Q4EaK3MTlg0fE/2hSCXNLRG364XynXIG4yYMaZMQKg0dS/JI1hFXMFUByGSYtSbWq53/rikti8OFvuwu0KMXWQRNnNC3XxL0+CscrdoXzqY28PFkx2uXAR+/O2FlRtt4lq0+jXEv4K0wGzdaJQxVZsbMciWB6g9Nk7iXjD1eOfY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZiME0dN0; arc=none smtp.client-ip=74.125.82.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791372760; c=relaxed/simple;
+	bh=jU8W3uTLLilw0+w2z/HfS8+JPAexnPEoxrs7IvvBv/o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=M2u4AMgkDoGNZroAejBtZVF2V91nQBGqOU+wWwNXiWRaBfQAmCcYNTG0go6B5agPdcVboP+dFKhCg2TvDaiXbq+ydomV5+bvse1cKJtUq4DCKi/SfsjmcFi7eFW9njFz0XUNJgOV5FFcEd53o91PbCB55St5ga5zaNrC6LDUa1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=g6Ig8+eQ; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZiME0dN0"
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-34ceab2900eso2771818eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 04:32:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791372727; x=1791977527; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wlbZw9rWTpOOaVatPWUcRSYcWOK+5SaIvw5OFGXgdDg=;
-        b=ZiME0dN0OlvIt063BF0ciyGSqCoc9g/NlekOf1c8DtmbJSXe5fCyrgzN8PEzfcydA4
-         Fsa59VKUscqHbxhFDzFqK/Fdg0bLncyQsAscPqOKse4ozumNbI6rQa//c9KnbF5TE12/
-         qRvEeMZ9HT8hMhd4QzTaUBpYv3QqH8PCio5iVi027jxvYT77VWZb7iWCOGUA4s2FDsVw
-         WugOHVidQXRGVyqYklieqW2VJTrHzGP96gKMbGF/i1VmHXTshdzBtZ80sT8HwK8r7dcA
-         ZmefaigbBJGytM1Ela2gUU8iesPnSfv4zE52H1G7SVVeJ3y1tNbkSw8FU9/LhqqOOOTx
-         XX2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791372727; x=1791977527;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wlbZw9rWTpOOaVatPWUcRSYcWOK+5SaIvw5OFGXgdDg=;
-        b=xaWKyD6PltB7mrh0dlxerwb/IEMXyZJAQY16yF3d1qAQ089cLo57GNnCPm6N9z13ci
-         VIbRaPde8Hw2lykzlr+UB6h6bmA6b+CcBVmpYBSJPJaq16N9V1sXRsL2uM1eOIR0Vtmf
-         YiM//b1lTa3NoV5uBxtkdL2uHnFh3iaTk+VBFiF79YzQuZaMdwt1fEDo/ACEF0OOX23G
-         hcwQG84ZoComyty07QR+bOs1MVzcObfQvpq+pbBbRe/d4oWtBhWUy3QETOjhO3uf4iHM
-         gSy+Fm+TkfGK8dGBih7d/ObSn32nnIEK5Ke9PYgPFT9aHnkEMV6xakD/jcAZ4q7/lO9f
-         dhmQ==
-X-Forwarded-Encrypted: i=1; AKwUvByYwVi5p+5B+5GIakZz6Qqq+p6qhv+U7X1glALs8enM+SX8P9hBuXDTOJmvjPZp+hDFP5wpFtwuGY+z4EA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kMf5iK1p1fWLrYaxcjOwsojw2SqW90DGvKApjPOPoN5ypLyKqv
-	tPAKDOj47NOVRUM4X4grO/qBaj1QAhQSAv7BLqiA5dL3dsx/FLBQsVGr
-X-Gm-Gg: AYBFou3ayVcaUvtWAoWIgSNP/+5LIVai90O99NI7YJhc41+0foBvpBXgJ93CYS+oGM9
-	ABDnwhjtdyQy7ey57i4qtsw+5p+CNMXU7JqwVTzbsiF8H373t8tEEGdXsvujuch9JZ7ZFRZjhe8
-	GaN7ouePxMUgpFCp7YF3MyUAl4cCH+tKhP6A9p1sTrnbilxkrPecYP9weqTzjtZY2NasEl221ln
-	/HYfJ4qDS5si2WBzfPEJvVpWLSy0ZnnOXE1fjDZPCPZZ5dRZo40oiBdIG0t9hkViND+gU1r9o1t
-	VeRHHzXYwU3xgI6TrW+Ax5E6ME4JZ078KasHdJKQiE04RSvO92aukGIjpx2O238MX6PngFv1Ofq
-	6xw+cubi4T3Ui6FwC8rENUcZks6GoON4fveONE51zqQyBBXBQGF5ycNBtudhMD59uk2v+BM37V2
-	UNM1IxjZ46cnh6fGLzFwJkAWNZBNyPhJXECxxeGzIB6s2IkSaGWfEg5482Zl1NM/gODgzqJKzxF
-	9Az7DNzA5UXwNQoYxUiK7CRO2siOZpA
-X-Received: by 2002:a05:7022:ea8e:b0:15e:3a65:5b97 with SMTP id a92af1059eb24-162041de5afmr1593969c88.16.1791372726707;
-        Wed, 07 Oct 2026 04:32:06 -0700 (PDT)
-Received: from LAPTOP-450UDG4J ([223.185.133.64])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-16375a1f898sm3132651c88.0.2026.10.07.04.32.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 04:32:05 -0700 (PDT)
-From: Yogesh Gaur <yogeshgaur.83@gmail.com>
-To: Alexander Aring <aahringo@redhat.com>,
-	David Teigland <teigland@redhat.com>
-Cc: gfs2@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="g6Ig8+eQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791372745; x=1822908745;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=jU8W3uTLLilw0+w2z/HfS8+JPAexnPEoxrs7IvvBv/o=;
+  b=g6Ig8+eQ1WBSqETYfhylQtpGhQGBZPVm8ROdgXQrKRU1d+otGHlohCqb
+   903mvd589i6yYmKa/b+lnKkUqhBtLzVs7VYlVIN0YUMXKtecqPf5CHbhB
+   pr/vpVvUs/jNxh1s2xVG7Sd1yA89OJoEn2cYD9nBK/jcNiacyztePFQAE
+   Kv+n8sQdWn2TlN6D6iR8neu9bb6DwkJ9aCBOKG3RUQuiGoZVwsiY91VCy
+   bfKaNjy3AR3Cd/d6AIWYzb46k/3A0+ihzS1onUe3itvmEBq3GwHchnJd/
+   kNELYeA2Lo1iJ/DpEJiJ/OVfGQVh9GoHOObcrl2hLSp8715w5zOapuBHP
+   Q==;
+X-CSE-ConnectionGUID: P96szmPGTvKtTgUXytkbOA==
+X-CSE-MsgGUID: Eu2Dh8eUThO5BdKCdb/sKQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11927"; a="134712"
+X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
+   d="scan'208";a="134712"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 04:32:24 -0700
+X-CSE-ConnectionGUID: F1D4gIqQRIKWj+TCENWYEA==
+X-CSE-MsgGUID: EcBYxUJsQx29EeyrLJa3+w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
+   d="scan'208";a="33426"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa006.fm.intel.com with ESMTP; 07 Oct 2026 04:32:20 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xEPsf-000000002u4-0w5Q;
+	Wed, 07 Oct 2026 11:32:17 +0000
+Date: Wed, 7 Oct 2026 19:32:15 +0800
+From: kernel test robot <lkp@intel.com>
+To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Wesley Cheng <quic_wcheng@quicinc.com>,
+	Manu Gautam <mgautam@codeaurora.org>,
+	Stephen Boyd <sboyd@kernel.org>, Philipp Zabel <pza@pengutronix.de>
+Cc: oe-kbuild-all@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Yogesh Gaur <yogeshgaur.83@gmail.com>,
-	syzbot+da6dc573ce5e6624f505@syzkaller.appspotmail.com
-Subject: [PATCH v3] dlm: don't publish a lkb in ls_lkbxa before it has an rsb
-Date: Wed,  7 Oct 2026 17:01:55 +0530
-Message-ID: <20261007113155.1982-1-yogeshgaur.83@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <20261004051912.1045-1-yogeshgaur.83@gmail.com/>
-References: <20261004051912.1045-1-yogeshgaur.83@gmail.com/>
+	Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+Subject: Re: [PATCH v5 6/6] phy: qcom: snps-femto-v2: Add IPQ9650 support
+Message-ID: <202610071946.Z4D9aPGU-lkp@intel.com>
+References: <20261006-phy-v5-6-cbe9330a6449@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261006-phy-v5-6-cbe9330a6449@oss.qualcomm.com>
 
-_create_lkb() puts a new lkb into ls_lkbxa straight away, which is also
-what assigns its lkb_id, but the lkb only gets an rsb later, when
-request_lock(), receive_request(), dlm_recover_master_copy() or
-dlm_debug_add_lkb() call attach_lkb(). In between, find_lkb() hands the
-lkb out with lkb_resource still NULL, and its callers go straight for
-the rsb:
+Hi Varadarajan,
 
-	r = lkb->lkb_resource;
+kernel test robot noticed the following build errors:
 
-	hold_rsb(r);
-	lock_rsb(r);
+[auto build test ERROR on 15551282e82db772bfc862f96a8abf14a60f4ea5]
 
-For the userspace API the lkid is simply whatever was written to the
-misc device, so a lkid can be aimed at a lkb that another thread is
-still building, and hold_rsb() reads res_flags off NULL:
+url:    https://github.com/intel-lab-lkp/linux/commits/Varadarajan-Narayanan/dt-bindings-phy-qcom-qmp-usb-Add-IPQ9650-USB3-PHY/20261006-105915
+base:   15551282e82db772bfc862f96a8abf14a60f4ea5
+patch link:    https://lore.kernel.org/r/20261006-phy-v5-6-cbe9330a6449%40oss.qualcomm.com
+patch subject: [PATCH v5 6/6] phy: qcom: snps-femto-v2: Add IPQ9650 support
+config: i386-buildonly-randconfig-1003-20261007 (https://download.01.org/0day-ci/archive/20261007/202610071946.Z4D9aPGU-lkp@intel.com/config)
+compiler: gcc-13 (Debian 13.3.0-16) 13.3.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261007/202610071946.Z4D9aPGU-lkp@intel.com/reproduce)
 
-  BUG: KASAN: null-ptr-deref in rsb_flag fs/dlm/dlm_internal.h:386 [inline]
-  BUG: KASAN: null-ptr-deref in hold_rsb fs/dlm/lock.c:334 [inline]
-  BUG: KASAN: null-ptr-deref in unlock_lock fs/dlm/lock.c:3333 [inline]
-  BUG: KASAN: null-ptr-deref in dlm_user_unlock+0x2ab/0x690 fs/dlm/lock.c:5956
-  Read of size 8 at addr 0000000000000050 by task syz.3.570/7893
-   rsb_flag fs/dlm/dlm_internal.h:386 [inline]
-   hold_rsb fs/dlm/lock.c:334 [inline]
-   unlock_lock fs/dlm/lock.c:3333 [inline]
-   dlm_user_unlock+0x2ab/0x690 fs/dlm/lock.c:5956
-   device_user_unlock+0x1ca/0x260 fs/dlm/user.c:321
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610071946.Z4D9aPGU-lkp@intel.com/
 
-Make it impossible for ls_lkbxa to hold a lkb without an rsb, rather
-than filtering such lkbs in find_lkb() or reserving a NULL entry that
-every walker would have to know about.  create_lkb() no longer touches
-ls_lkbxa; attach_lkb() sets lkb_resource and only then allocates the
-lkb_id and stores the lkb, so the lkb becomes visible already attached.
-dlm_debug_add_lkb() presets the id it wants and attach_lkb() allocates
-exactly that one.
+All errors (new ones prefixed by >>):
 
-attach_lkb() can now fail, and each of its four callers releases the
-lkb on the error path it already has for a failure just before the
-attach.  On failure attach_lkb() also clears lkb_id, so that
-__put_lkb() cannot erase another lkb's entry when a requested id was
-busy.  All four callers hold the rsb lock, and nothing takes an rsb
-lock under ls_lkbxa_lock, so taking it there adds no new lock ordering.
+>> drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c:39:49: error: implicit declaration of function 'FIELD_PREP_CONST' [-Werror=implicit-function-declaration]
+      39 | #define FSEL_24MHZ                              FIELD_PREP_CONST(FSEL_MASK, 2)
+         |                                                 ^~~~~~~~~~~~~~~~
+   drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c:449:60: note: in expansion of macro 'FSEL_24MHZ'
+     449 |         { USB2_PHY_USB_PHY_HS_PHY_CTRL_COMMON0, FSEL_MASK, FSEL_24MHZ },
+         |                                                            ^~~~~~~~~~
+>> drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c:39:49: error: initializer element is not constant
+      39 | #define FSEL_24MHZ                              FIELD_PREP_CONST(FSEL_MASK, 2)
+         |                                                 ^~~~~~~~~~~~~~~~
+   drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c:449:60: note: in expansion of macro 'FSEL_24MHZ'
+     449 |         { USB2_PHY_USB_PHY_HS_PHY_CTRL_COMMON0, FSEL_MASK, FSEL_24MHZ },
+         |                                                            ^~~~~~~~~~
+   drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c:39:49: note: (near initialization for 'hs_6nm_phy_pre_tuning[3].val')
+      39 | #define FSEL_24MHZ                              FIELD_PREP_CONST(FSEL_MASK, 2)
+         |                                                 ^~~~~~~~~~~~~~~~
+   drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c:449:60: note: in expansion of macro 'FSEL_24MHZ'
+     449 |         { USB2_PHY_USB_PHY_HS_PHY_CTRL_COMMON0, FSEL_MASK, FSEL_24MHZ },
+         |                                                            ^~~~~~~~~~
+   cc1: some warnings being treated as errors
 
-As a side effect an lkb has no lkb_id until it is attached, so
-trace_dlm_lock_start() and the validate_lock_args() and
-receive_rcom_lock_args() error messages report 0 for a new lock.
 
-The unchecked r = lkb->lkb_resource goes back to the original DLM
-import, but an untrusted lkid only became possible once the userspace
-device interface was added, so that is the tag below.
+vim +/FIELD_PREP_CONST +39 drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
 
-Fixes: 597d0cae0f99 ("[DLM] dlm: user locks")
-Reported-by: syzbot+da6dc573ce5e6624f505@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=da6dc573ce5e6624f505
-Suggested-by: Alexander Aring <aahringo@redhat.com>
-Assisted-by: LLM
-Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
----
-v3: Incorporated Alexander Aring's review, don't reserve a NULL
-    entry in ls_lkbxa either.  The lkb_id is now allocated in
-    attach_lkb(), after lkb_resource is set, so ls_lkbxa only ever
-    holds attached lkbs.  attach_lkb() can fail; all four callers
-    handle it.  _create_lkb() folded into create_lkb().
-v2: https://lore.kernel.org/all/20261004051912.1045-1-yogeshgaur.83@gmail.com/
-v1: https://lore.kernel.org/all/20260909112108.2281-1-yogeshgaur.83@gmail.com/
+    33	
+    34	#define USB2_PHY_USB_PHY_HS_PHY_CTRL_COMMON0	(0x54)
+    35	#define SIDDQ					BIT(2)
+    36	#define RETENABLEN				BIT(3)
+    37	#define FSEL_MASK				GENMASK(6, 4)
+    38	#define FSEL_DEFAULT				(0x3 << 4)
+  > 39	#define FSEL_24MHZ				FIELD_PREP_CONST(FSEL_MASK, 2)
+    40	#define VATESTENB_MASK				GENMASK(1, 0)
+    41	
 
-Not runtime-tested. Built with W=1.
-
- fs/dlm/lock.c | 90 +++++++++++++++++++++++++++++++++++----------------
- 1 file changed, 62 insertions(+), 28 deletions(-)
-
-diff --git a/fs/dlm/lock.c b/fs/dlm/lock.c
-index c715e171bab7..3b3e15157f4c 100644
---- a/fs/dlm/lock.c
-+++ b/fs/dlm/lock.c
-@@ -1488,10 +1488,38 @@ void free_inactive_rsb(struct dlm_rsb *r)
- /* Attaching/detaching lkb's from rsb's is for rsb reference counting.
-    The rsb must exist as long as any lkb's for it do. */
- 
--static void attach_lkb(struct dlm_rsb *r, struct dlm_lkb *lkb)
-+/*
-+ * An lkb is only put into ls_lkbxa here, once it has an rsb, so
-+ * find_lkb() never returns an lkb without one.  The lkb_id is assigned
-+ * here too; dlm_debug_add_lkb() presets the one it wants.
-+ */
-+static int attach_lkb(struct dlm_rsb *r, struct dlm_lkb *lkb)
- {
-+	struct dlm_ls *ls = r->res_ls;
-+	struct xa_limit limit = XA_LIMIT(1, U32_MAX);
-+	int rv;
-+
-+	if (lkb->lkb_id)
-+		limit = XA_LIMIT(lkb->lkb_id, lkb->lkb_id);
-+
- 	hold_rsb(r);
- 	lkb->lkb_resource = r;
-+
-+	write_lock_bh(&ls->ls_lkbxa_lock);
-+	rv = xa_alloc(&ls->ls_lkbxa, &lkb->lkb_id, lkb, limit, GFP_ATOMIC);
-+	write_unlock_bh(&ls->ls_lkbxa_lock);
-+
-+	if (rv < 0) {
-+		log_error(ls, "%s xa error %d", __func__, rv);
-+		/* the caller still holds its own rsb reference */
-+		lkb->lkb_resource = NULL;
-+		put_rsb(r);
-+		/* don't let __put_lkb() erase another lkb's id */
-+		lkb->lkb_id = 0;
-+		return rv;
-+	}
-+
-+	return 0;
- }
- 
- static void detach_lkb(struct dlm_lkb *lkb)
-@@ -1502,15 +1530,9 @@ static void detach_lkb(struct dlm_lkb *lkb)
- 	}
- }
- 
--static int _create_lkb(struct dlm_ls *ls, struct dlm_lkb **lkb_ret,
--		       unsigned long start, unsigned long end)
-+static int create_lkb(struct dlm_ls *ls, struct dlm_lkb **lkb_ret)
- {
--	struct xa_limit limit;
- 	struct dlm_lkb *lkb;
--	int rv;
--
--	limit.max = end;
--	limit.min = start;
- 
- 	lkb = dlm_allocate_lkb();
- 	if (!lkb)
-@@ -1525,25 +1547,10 @@ static int _create_lkb(struct dlm_ls *ls, struct dlm_lkb **lkb_ret,
- 	INIT_LIST_HEAD(&lkb->lkb_ownqueue);
- 	INIT_LIST_HEAD(&lkb->lkb_rsb_lookup);
- 
--	write_lock_bh(&ls->ls_lkbxa_lock);
--	rv = xa_alloc(&ls->ls_lkbxa, &lkb->lkb_id, lkb, limit, GFP_ATOMIC);
--	write_unlock_bh(&ls->ls_lkbxa_lock);
--
--	if (rv < 0) {
--		log_error(ls, "create_lkb xa error %d", rv);
--		dlm_free_lkb(lkb);
--		return rv;
--	}
--
- 	*lkb_ret = lkb;
- 	return 0;
- }
- 
--static int create_lkb(struct dlm_ls *ls, struct dlm_lkb **lkb_ret)
--{
--	return _create_lkb(ls, lkb_ret, 1, ULONG_MAX);
--}
--
- static int find_lkb(struct dlm_ls *ls, uint32_t lkid, struct dlm_lkb **lkb_ret)
- {
- 	struct dlm_lkb *lkb;
-@@ -3294,7 +3301,12 @@ static int request_lock(struct dlm_ls *ls, struct dlm_lkb *lkb,
- 
- 	lock_rsb(r);
- 
--	attach_lkb(r, lkb);
-+	error = attach_lkb(r, lkb);
-+	if (error) {
-+		unlock_rsb(r);
-+		put_rsb(r);
-+		return error;
-+	}
- 	lkb->lkb_lksb->sb_lkid = lkb->lkb_id;
- 
- 	error = _request_lock(r, lkb);
-@@ -4038,7 +4050,14 @@ static int receive_request(struct dlm_ls *ls, const struct dlm_message *ms)
- 		}
- 	}
- 
--	attach_lkb(r, lkb);
-+	error = attach_lkb(r, lkb);
-+	if (error) {
-+		unlock_rsb(r);
-+		put_rsb(r);
-+		__put_lkb(ls, lkb);
-+		goto fail;
-+	}
-+
- 	error = do_request(r, lkb);
- 	send_request_reply(r, lkb, error);
- 	do_request_effects(r, lkb, error);
-@@ -5642,7 +5661,12 @@ int dlm_recover_master_copy(struct dlm_ls *ls, const struct dlm_rcom *rc,
- 		goto out_unlock;
- 	}
- 
--	attach_lkb(r, lkb);
-+	error = attach_lkb(r, lkb);
-+	if (error) {
-+		__put_lkb(ls, lkb);
-+		goto out_unlock;
-+	}
-+
- 	add_lkb(r, lkb, rl->rl_status);
- 	ls->ls_recover_locks_in++;
- 
-@@ -6300,12 +6324,14 @@ int dlm_debug_add_lkb(struct dlm_ls *ls, uint32_t lkb_id, char *name, int len,
- 	if (!lksb)
- 		return -ENOMEM;
- 
--	error = _create_lkb(ls, &lkb, lkb_id, lkb_id + 1);
-+	error = create_lkb(ls, &lkb);
- 	if (error) {
- 		kfree(lksb);
- 		return error;
- 	}
- 
-+	lkb->lkb_id = lkb_id;
-+
- 	dlm_set_dflags_val(lkb, lkb_dflags);
- 	lkb->lkb_nodeid = lkb_nodeid;
- 	lkb->lkb_lksb = lksb;
-@@ -6321,7 +6347,15 @@ int dlm_debug_add_lkb(struct dlm_ls *ls, uint32_t lkb_id, char *name, int len,
- 	}
- 
- 	lock_rsb(r);
--	attach_lkb(r, lkb);
-+	error = attach_lkb(r, lkb);
-+	if (error) {
-+		unlock_rsb(r);
-+		put_rsb(r);
-+		kfree(lksb);
-+		__put_lkb(ls, lkb);
-+		return error;
-+	}
-+
- 	add_lkb(r, lkb, lkb_status);
- 	unlock_rsb(r);
- 	put_rsb(r);
--- 
-2.55.0.windows.5
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
