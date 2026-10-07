@@ -1,64 +1,64 @@
 Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDA3440F72B
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 07:26:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 132483BE645
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 07:27:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791358021; cv=none; b=orMdt1y70OHS8Zo11FCAQtSbkhKV2zQCnYx1D9aQNg1UIfqrkx3SqhrxD5e9FnEndUKM2YnQo1sM6o4KQNE7oNDp9WA9AaOk981iVujZzpyDH6BnKZBU8arTvfsbM7Aw6cci6O7agYqnU1RTDUhB2W70vp0i5oJr4wkVQ133IGw=
+	t=1791358024; cv=none; b=L+3UwRlsVIkyG/KZW1I+C5omA3FEiEzraVfjj+u5DktzGHCYfb/6WVwVLJ8bgNhG6efIfYUtmlI58sYPfs1ey+L3M5I6iSzpahHg6REQvnPURSCDY8nWeO/Uwu3o1gqj+9n22frQii2+jmFyINBRh1Ku5oTLrbeX95O1xFNF8jE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791358021; c=relaxed/simple;
-	bh=gHXc5vVBhh0VMQqWepgZ4VCObxga9kkWUFdI6aOi2Zk=;
+	s=arc-20240116; t=1791358024; c=relaxed/simple;
+	bh=2yjPX6fzpJbC7tPLZg7fc2fugKPof4O3hf+Ew/c2fd0=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=BURFF3L3mRl+HSyCy15aShJHvQTyUy4wKV0v7g/iqibyMvd4zeiyRjXKvGL15q5ySh4bvycy7Ouyy2tempvL5rlESrvAkX7cEk6NnVid9YEEwYXOO/WXw6gmjz1jzeBsFn+Ntqq2Ay/LNBDNRjtg7YhYvUw4MQ6rxBuxmOErLHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kZ/Ia49b; arc=none smtp.client-ip=209.85.128.46
+	 MIME-Version; b=Zb/9oBTRnasg98KJ84Tf2qAep6Kec7PwsN9WONPDoa43HqBKSMiZPDJR6IV+l4ZDcP76PflT9qGWhQv3qzHvBTpiwvu1kQ8/SJVFOFaRVmkui3LUf/xRYiSVJBUd2RaHc3Pe/EiXgloV7Nyy2tmIfM0nvLxmGtdPe5ZfB/lDQok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M5VOcB93; arc=none smtp.client-ip=209.85.128.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kZ/Ia49b"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso31340555e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 00:26:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M5VOcB93"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a020e65269so11239865e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 00:27:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791358018; x=1791962818; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791358021; x=1791962821; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=uizv41/IVC5pvt4ZD4nGKyhTPzmnLZ/+xC43YC2+lGc=;
-        b=kZ/Ia49bwufnpr8/+2WZMmO8eFr70cLpXL40NabSTyPd6BQnsY5ei8APS9bETtMN3p
-         owV7ZQYDcUmIll4IfbfZ3v7nE2+qWDkLqAxtniPt4eU5r0zVrwLgfS6RruPwOt6Ejq0C
-         grS5E5JSRMpd45GbJCc0I+4641bVVxs756LgjeADL+U9U1V6FpxxHkjsVV9TLXT7Czm1
-         rSCQk1x5y6n5ZDedybL4RqF3VQhrCEvgnKHfn0UJYpPJXiUqNm4tpOezLehGABQob5r5
-         jWENxhGzb3/W0kdeT/XuD/ptzbElVknQMffedinFKDbCbf/vkzwmZ5LNHHqHeQTadcLV
-         nWbw==
+        bh=N93zwtvuEjpeUV4U8V8Lc96gQHGtAXTfWSzXg5QBVvo=;
+        b=M5VOcB93tL5yhXpPyM9BTllrg6Xbh3x/Iqwb/XDfoAS6Sr7KAuQd60D1tf63mySiIt
+         DmqxJ9R/Sf7y8hxeDyO8+nHfAHwL2+hDYsdpUfpCS7cCqwJp/WxARQ1Or33pl5xApyt5
+         H6lugRFyuBQzpzBX5Cp5OhW5MSTDXy8qlPWMXRxMmH9QafTjRoqxvX+AXoQXYVW7ggGR
+         upNKgAOb7MhmjApc1kLzl3T+Hk7m7M/iI7XmzSeWImEQcb/SBjZFwPkpNYCTnYtGmygn
+         vBLjEnAEXM7zUJZFnIYoWSXfg+oCH8Mo7AHCns2LBOnUwMnPB30+Wxzt8mO0LU6uEsPQ
+         ByIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791358018; x=1791962818;
+        d=1e100.net; s=20260707; t=1791358021; x=1791962821;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uizv41/IVC5pvt4ZD4nGKyhTPzmnLZ/+xC43YC2+lGc=;
-        b=pmMhdDIprgBb5EjIuzftJvV0ltxIDTlaPJn4pWgquo0L6D9SXTbQR2gUjRPFQ5nyhh
-         KYvIVrnWmhLJlURXMvzFsD1pob2ZzUccRV5znd1lsTEfAOClMGj3SElprPmVLXsHXYHG
-         TlV5bkZrSHau6hnlVYhJdRgFFhQo2AVaF6XXK4ttjZAngssJCp8Zyxd7t8/TG+qgJBa/
-         B75jvjqmHEuGBBK2nCP70xyGLg+KC5LyoG2r0R9YbpURtRiZihGDSkp3SZdVTefaKTMb
-         JG9VjAWA15Fdg+Hu5vM3yqcm6XdOeOaqCfxZlPrtIm+TNH3MEWmmCrOhAOFkOpyrS22/
-         rXPA==
-X-Forwarded-Encrypted: i=1; AKwUvBwHTyZth8MsXIlDNwEZItnRKcaiIU+8jryThqEQT0ONYOGRsf2hDlunKp7Gm38nxgmT1DnNfrx6sjFGN6M=@vger.kernel.org
-X-Gm-Message-State: AFuF++lolCxmbVlK1j5SoMKFiafBgYR8hq2syTICeSaq4C3JteuL1X+7
-	FZTKamgActodP5AlCxUEQvpbB+0NxqAjQ3pY2JU0xziNrmZMWPXgNpvr
-X-Gm-Gg: AYBFou3TpMPmyRW4Fdhz4D+BBuewPZH4iIDM/DN5dCU4p1H/UNKVoUVBYaPJKXpm4gq
-	wmBwGssJpOJXSFNaoSrWtrCzo6QwlQR5HVGweIfFpaDKp8x6XFUzDhb0ROPv3qdGRQ69v6d4UKH
-	+X+ZDkS9I0AN0/VxVVETLVPxvWYejb+cz1k5tW8v3p6fVDeyJ95MLXYlvynHGs/C0yjyp5LrQQS
-	lK/N2Oq/eW/7t7nriH2NiM+QI7obJAz3Z3Fv2UK09GiFMRW70KFgYKlWbpKd6vVan0zf5msQ77T
-	5Ki84Es0Z4T3L9Q67HOY21Q2KYUXf1RBLyr6doCPLomX4yogN83TnGAebsB5Q/m9O/vdIrAb6lL
-	VHsN3QBH/p6i86FDUhuhj2SyUa9dCnNkMl39DcbDmS9pT05DoadqFKsUMyD4TDZ1N6rBHp3Zpzn
-	d+gMz8lHyyzch+imv7a9dPENzIorMW8xeSpSN6wyK468tppgq3diRR34q5k+U+Wmg7jdtBmPZq5
-	9y8vB5u
-X-Received: by 2002:a05:600c:674a:b0:49d:10d6:fd55 with SMTP id 5b1f17b1804b1-4a1800cd6c5mr17268485e9.1.1791358017994;
-        Wed, 07 Oct 2026 00:26:57 -0700 (PDT)
+        bh=N93zwtvuEjpeUV4U8V8Lc96gQHGtAXTfWSzXg5QBVvo=;
+        b=XvY0pm2nTthtiehWrSmYMt6gynWoazK4mundHL9txrVZDxAIgXSAnryDXWOVFxJtqD
+         ROZWBw1gCYVBOBRbyql/flNQrr5nLn+0xMzPfUIFj8F6ppaXQh/T6ljIbwvlW+1QJi7o
+         UEfDkP/1XOzViTYXILtcecvrIb4CBRvhzzb6xNTqTXc9EEJE4SGZHIo/oNh7iL00KlpC
+         DRvdU8USPguuew7JAqKlApdKEJVkDico7ifyiu7VTR7ixf0EaRksTkqEnSeFpOLFlMrE
+         gJruzzEda3/lF2XmVrszgO3d3fhDCnpY1lupS0yCwj6pjDUJp2ST9naRz557/MnKtTKM
+         gQUw==
+X-Forwarded-Encrypted: i=1; AKwUvBxXtjHxAabrRdBWq5bIiZMJQWtjL6+Y8n4/it5vOiAXGBuf+zOQPr2SMVhHGx/P3W19Ls/XG369GEC4HMc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nNqTzg4aBVTZob8W07HVJ0JR7XDeQhGY8nX+lgkhqDFC2xr3Q+
+	KuRRlDmdwhR5FOhP5WyV5opEvQGDYJa/uF47vdhjnZ1H2222OQnLdYrA
+X-Gm-Gg: AYBFou3hugdt97DYwfmG2i7Obg50zNlBYyWBOGH/2H3VTWYugZVfv7T6A7vzFsGU1aR
+	QMiVakEb+1ZbG6yzvO0YOj7aHfgiSAtMhEK7UlKjl3dUKOUAWLhp/YByJMB91vCKIEkhRBGVCCE
+	eIvcrfRAy/L4Vqmj4RGDPAQsfySL/mYEtUhl1cXrey0gFN9rQX8rk2z+IWtpG3wFXt0WgN5QlIK
+	Hlu97gGCE51uV2WKqplmV/anWhAga3cqUG+XjBNqJ2Gi4LJnw+ZyYQG057LfnML0uNWok/3IS96
+	6XolINOX4ju5MztzJtAVbubps3DQY8baRj8xIfcEriguXT/p7w5wHbuBaGL6ZM8svvpG9uP+7zM
+	NAk10RkkFppLlURn2+dF87HsNokCrqpN+loCTi8hgVIfop3KsiqUqwGDK65B0mR9HFyTpfaGZ8N
+	dg8Ne/ZAEyR0y3lXvdUJaKV00YiHW0JIu5te7pb7hQTyNM/sCaRhytuC6ZRsi5IMsxsPBbjb2eF
+	avzn6puew==
+X-Received: by 2002:a05:600c:4fcb:b0:4a0:eae0:b30e with SMTP id 5b1f17b1804b1-4a180455c5fmr16716805e9.22.1791358021033;
+        Wed, 07 Oct 2026 00:27:01 -0700 (PDT)
 Received: from taln60.nuvoton.co.il ([212.199.177.18])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a180310c9fsm29912955e9.4.2026.10.07.00.26.56
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a180310c9fsm29912955e9.4.2026.10.07.00.26.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 00:26:57 -0700 (PDT)
+        Wed, 07 Oct 2026 00:27:00 -0700 (PDT)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: andrew@codeconstruct.com.au,
 	robh@kernel.org,
@@ -73,9 +73,9 @@ Cc: openbmc@lists.ozlabs.org,
 	venture@google.com,
 	yuenn@google.com,
 	benjaminfair@google.com
-Subject: [PATCH RESEND v10 3/6] arm64: dts: nuvoton: npcm845: Reorder timer0 and PECI nodes
-Date: Wed,  7 Oct 2026 10:26:42 +0300
-Message-Id: <20261007072645.1618147-4-tmaimon77@gmail.com>
+Subject: [PATCH RESEND v10 5/6] arm64: dts: nuvoton: npcm845-evb: Fix DTS coding style
+Date: Wed,  7 Oct 2026 10:26:44 +0300
+Message-Id: <20261007072645.1618147-6-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261007072645.1618147-1-tmaimon77@gmail.com>
 References: <20261007072645.1618147-1-tmaimon77@gmail.com>
@@ -87,71 +87,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Move the timer0 and PECI nodes so the APB children are ordered by
-ascending unit address.
+Reorder the pre-existing NPCM845 EVB DTS properties so the base board
+file follows strict dt-check-style canonical ordering.
+
+Keep this cleanup separate from the peripheral enablement changes so
+the functional EVB additions remain focused.
 
 Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- .../dts/nuvoton/nuvoton-common-npcm8xx.dtsi   | 32 +++++++++----------
- 1 file changed, 16 insertions(+), 16 deletions(-)
+ arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi b/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
-index a92fbd3..542f27e 100644
---- a/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
-+++ b/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
-@@ -58,22 +58,6 @@
- 			interrupt-parent = <&gic>;
- 			ranges = <0x0 0x0 0xf0000000 0x00300000>;
+diff --git a/arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts b/arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts
+index 5edf5d1..2dc1a4f 100644
+--- a/arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts
++++ b/arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts
+@@ -5,8 +5,8 @@
+ #include "nuvoton-npcm845.dtsi"
  
--			peci: peci-controller@100000 {
--				compatible = "nuvoton,npcm845-peci";
--				reg = <0x100000 0x1000>;
--				interrupts = <GIC_SPI 6 IRQ_TYPE_LEVEL_HIGH>;
--				clocks = <&clk NPCM8XX_CLK_APB3>;
--				cmd-timeout-ms = <1000>;
--				status = "disabled";
--			};
--
--			timer0: timer@8000 {
--				compatible = "nuvoton,npcm845-timer";
--				interrupts = <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
--				reg = <0x8000 0x1C>;
--				clocks = <&refclk>;
--			};
--
- 			serial0: serial@0 {
- 				compatible = "nuvoton,npcm845-uart", "nuvoton,npcm750-uart";
- 				reg = <0x0 0x1000>;
-@@ -137,6 +121,13 @@
- 				status = "disabled";
- 			};
+ / {
+-	model = "Nuvoton npcm845 Development Board (Device Tree)";
+ 	compatible = "nuvoton,npcm845-evb", "nuvoton,npcm845";
++	model = "Nuvoton npcm845 Development Board (Device Tree)";
  
-+			timer0: timer@8000 {
-+				compatible = "nuvoton,npcm845-timer";
-+				interrupts = <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
-+				reg = <0x8000 0x1C>;
-+				clocks = <&refclk>;
-+			};
-+
- 			watchdog0: watchdog@801c {
- 				compatible = "nuvoton,npcm845-wdt", "nuvoton,npcm750-wdt";
- 				interrupts = <GIC_SPI 47 IRQ_TYPE_LEVEL_HIGH>;
-@@ -161,6 +152,15 @@
- 				clocks = <&refclk>;
- 			};
+ 	aliases {
+ 		serial0 = &serial0;
+@@ -17,14 +17,14 @@
+ 	};
  
-+			peci: peci-controller@100000 {
-+				compatible = "nuvoton,npcm845-peci";
-+				reg = <0x100000 0x1000>;
-+				interrupts = <GIC_SPI 6 IRQ_TYPE_LEVEL_HIGH>;
-+				clocks = <&clk NPCM8XX_CLK_APB3>;
-+				cmd-timeout-ms = <1000>;
-+				status = "disabled";
-+			};
-+
- 		};
+ 	memory@0 {
+-		device_type = "memory";
+ 		reg = <0x0 0x0 0x0 0x40000000>;
++		device_type = "memory";
+ 	};
  
- 		apb@fff00000 {
+ 	refclk: refclk-25mhz {
+ 		compatible = "fixed-clock";
+-		clock-frequency = <25000000>;
+ 		#clock-cells = <0>;
++		clock-frequency = <25000000>;
+ 	};
+ };
+ 
 -- 
 2.34.1
 
