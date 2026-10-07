@@ -1,43 +1,68 @@
-Received: from relayaws-01.paragon-software.com (relayaws-01.paragon-software.com [35.157.23.187])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77A6C390212
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 21:33:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.157.23.187
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5CBD390212
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 21:33:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791408784; cv=none; b=g63pY8TNZNcjq9dA8RtEVxMdexH7g89wqOIK9yere4wpz+kQO17a5TE+QrjQGysbs7Z+Ys/i5KMU5yHWJy5lDKWY2WPhrJEgeTX6gn+h0VQRhHSv1ROix38kmHhcv4+lvxdEQidOvbG3sAIwktAOXXTDR9ni6OaihyGWIHWXB5Y=
+	t=1791408832; cv=none; b=ugjUEmYQJl2NlbVIazyCPfqZ5dE+ixnjVh29B5JulBc8U+KTJCOpfUO5n4crdaBe6EAT3GrDIyY7Q1+O1CDw2NE3/Xx1TXhEgZpvBExsIoFMjgNbLFAKW4YOEMt8PIif2HMJLfqi0BAnNN0QjNVE+li4cyjaHeeEMoFYtgslhY0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791408784; c=relaxed/simple;
-	bh=A9upQQba7HSY2Y6Zb4Ne44SmThcvV04sqM5MqtAVuho=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=g9yPVuqEmBuHqRjn3hv9Cno3gDNTOB4EoZqISQCqn2gXIgi+uQv1LahXxfiu/ztMSjDgTrWS8/Nr6t8IZWWQK3Z+eqkE31l35AZ4+PyQ7GZUxB5zlH+XB6SiSsi0xzEvhpw3PYo20E5SunEkq/FESyiINxzTA+CYfvYgo0JK5No=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com; spf=pass smtp.mailfrom=paragon-software.com; dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b=NP4oDwTY; arc=none smtp.client-ip=35.157.23.187
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paragon-software.com
+	s=arc-20240116; t=1791408832; c=relaxed/simple;
+	bh=0IBrQRHDXpXfEAL+Af3QlRWyyE6vjJo10MeJ6BSZqQU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IZE00TD5pvLW9nLbGGcHLpr+zY1TWwtWVn8erDjXKE2H56WohxEmFEaE+VmF6mUyZdxQ3Niiz/5GxjC/gVlIkEoDuDHwXiBjzLPXlRT7Toib7Ah+gkhPtaJk3AHc2+xUCzSoawQCXrXEPhSCMV15KZ8OzvqDc6HQBvAh5r/feDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=EaZJ/6/g; arc=none smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b="NP4oDwTY"
-Received: from relayfre-01.paragon-software.com (relayfre-01.paragon-software.com [176.12.100.13])
-	by relayaws-01.paragon-software.com (Postfix) with ESMTPS id 1F67F1D60;
-	Wed,  7 Oct 2026 21:33:53 +0000 (UTC)
-Authentication-Results: relayaws-01.paragon-software.com;
-	dkim=pass (1024-bit key; unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.b=NP4oDwTY;
-	dkim-atps=neutral
-Received: from dlg2.mail.paragon-software.com (vdlg-exch-02.paragon-software.com [172.30.1.105])
-	by relayfre-01.paragon-software.com (Postfix) with ESMTPS id 6D66121D8;
-	Wed,  7 Oct 2026 21:33:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="EaZJ/6/g"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3a4c80d3d5aso2626536a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 14:33:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=paragon-software.com; s=mail; t=1791408781;
-	bh=V64ZQRRVQBpg4QTEv7w2hCl33w5ItsVgNtCC9dZzwmI=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To;
-	b=NP4oDwTY1DKrbseJbH0uzIMouRiLq1zSmpaylH0+Hr7OA1VeYYEMhdxzMVhfOpT6O
-	 XuW3GomjAIRR+bqIylRXcz5PjwrN5r/n4TBpqf7ZDVFAuAIIdb8VA3mDRx8T4d5HRK
-	 7sWSaJifQbpBCiS4ucnNqDKUf/d8G/Lf3eS9UsLY=
-Received: from [192.168.95.128] (172.30.20.178) by
- vdlg-exch-02.paragon-software.com (172.30.1.105) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.7; Thu, 8 Oct 2026 00:33:00 +0300
-Message-ID: <068c6433-159d-41a1-8709-6742b1735ebd@paragon-software.com>
-Date: Wed, 7 Oct 2026 23:32:59 +0200
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1791408830; x=1792013630; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ejNm5zDoqEZOb5AEzB2Og3woE3yReJTHR9Y3jYqn8pg=;
+        b=EaZJ/6/guqGNuHXzHLbR0P+DDXnEm55/KzO4rT9CyzTVl3Y00nc9jL5n5xhQg3rgPu
+         6jeZ9jCcMDdU5RJZaOk41BhHrZ+DnYM1vM0Ssh2dadNR8xgPwMvEHEmC+i3nYJKG7clq
+         KGlB19PZVGyRQh5YbbO3a70F6XmOgnO1z5MTdfeOhFORAbXG2IOx4dJOFl6TempWDsCy
+         7i35AnizM9dYimOoX4uBQx49PyKX+WAXAaYltAO+/CfEOdSPVfxuTivxIoAT2J5CxzOe
+         Wz1v9T3MpP2Xk8Bqqp/+Dzm3NnN1ebfsRjjTwGmUH97IZqCXDysImmeRoF/zsvDINtCI
+         ju3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791408830; x=1792013630;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ejNm5zDoqEZOb5AEzB2Og3woE3yReJTHR9Y3jYqn8pg=;
+        b=zXlzF9dwO5Q6jR6955je26+cfP82zKZERJLiLG4C52bt5eNHttvAs4MBarjT1PRpoY
+         2GgCY/QD+ADkZoGpYyHF5Y+nO/VOx+8oKfuyeywd5X9y14DIHx2bcmBBVy8YtA7A6vyc
+         DAXhPBOZS4MZNejADjsjkc5jeRbV9YH9UJtvJvBUs0Uu/v016ypoQ1Use3NbkALD3mj8
+         hBFTiEAQoVidGj3jWM2YN/jhsvws/X4bpXYZoWS2w7wE03iuRgdwYpCagnc8tHcEoLj6
+         MCfCXMJE4p4G5xEgd3oJ4zJQdDUu6C4+qWdGDZh8ATI0ni8SithoRrr9WtNZfQjqB99l
+         IqOA==
+X-Forwarded-Encrypted: i=1; AKwUvBzylfs+orKT7VFtPaHO36IYtEcucoi4fDju6RVzBH7CjAaLPhupZfhb4Y99Fz1xOxEhBXhBmWVHTVIH7DY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKU7JLWazx9fc7jNL2Plkyj4CNrESbEdX3IzeDMasPkFlF49YbZ
+	5ec+3YoJ15L/D89rX3LgeUuP0V9sDu+NGVTK6guZCDXVyVcO204LxcUJs2fnlO8eZEQ=
+X-Gm-Gg: AYBFou2PFTzLCBecCEB7ivfhbyeCt9qzOfNPhHhV9SdiS/p7Nx+rZOk5dzNzrHoCiWn
+	pLdVijfgKKeGsTPmKvwltF8cOO+O6msScvwq7upu4Wz9xOUbIvECQWFEii8Ai4YaNhJylRKWkwu
+	u4Yz/pgQ9EaE2+HP5a+ths6pQzeIVv0ngMKSpRldr19Vyf07Is5rt38iPgTLwR5W2ts8QlSJHmN
+	dnQrlUpJ+nXLFw+lKnYyLQOakxAboTQzd1eyjnkV1x92IHyWgMjJjQbc+mcVlr3I4+TEGC2iH3l
+	kK6DonLZj/ybQulaUvy1rFDAzcD+D4RKvz4wpEOVyZKZJO+AQyPzXWZJ8I/3PMBDO+p0UptjF3u
+	aR28+MEz+GMU6vswphwhlXS3vy7ln8aRzA+yOg9+mkb3NjBccZv1rE5tnGYCT0cc4QwNmIJCt8x
+	LbMzxbJ5o//EoxZdCWUm+sChnCTqZ562+pFNnAMjxeeOaJ2Wx2+VAPegMh1A0kdVQBC09eS11/7
+	sZF4uISsFxIbDbRoi0pQMmeOFiauzDYlHjVCYvKE+eKC2F2zoIwlVTO1Q==
+X-Received: by 2002:a17:90b:528f:b0:3a0:50bf:d497 with SMTP id 98e67ed59e1d1-3a89f648bc6mr3019099a91.3.1791408830162;
+        Wed, 07 Oct 2026 14:33:50 -0700 (PDT)
+Received: from [192.168.1.106] ([198.8.77.135])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9d94d9bc5sm1220849a91.0.2026.10.07.14.33.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 07 Oct 2026 14:33:49 -0700 (PDT)
+Message-ID: <71f45e7d-6e3d-4b9f-af44-cec354745ea4@kernel.dk>
+Date: Wed, 7 Oct 2026 15:33:43 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,52 +70,76 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fs/ntfs3: remove redundant if-block in check_attr()
-To: Matvey Kovalev <matvey.kovalev@ispras.ru>
-CC: <ntfs3@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
-	<lvc-project@linuxtesting.org>
-References: <20260719202534.2942-1-matvey.kovalev@ispras.ru>
+Subject: Re: [PATCH] io_uring: do not charge the SQ/CQ rings to RLIMIT_MEMLOCK
+To: David Wei <dw@davidwei.uk>, hengyul@cs.unc.edu,
+ Pavel Begunkov <asml.silence@gmail.com>, io-uring@vger.kernel.org
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261006125732.3425762-1-hengyul@cs.unc.edu>
+ <01d75013-9eae-4ec6-93b5-cc1b2b83b791@kernel.dk>
+ <33f685a9-1140-4b4d-a40d-8250ab93e500@davidwei.uk>
 Content-Language: en-US
-From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-In-Reply-To: <20260719202534.2942-1-matvey.kovalev@ispras.ru>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: vobn-exch-01.paragon-software.com (172.30.72.13) To
- vdlg-exch-02.paragon-software.com (172.30.1.105)
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <33f685a9-1140-4b4d-a40d-8250ab93e500@davidwei.uk>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 7/19/26 22:25, Matvey Kovalev wrote:
+On 10/7/26 2:17 PM, David Wei wrote:
+> On 2026-10-06 16:59, Jens Axboe wrote:
+>> On 10/6/26 6:57 AM, hengyul@cs.unc.edu wrote:
+>>> From: Hengyu Liang <hengyul@cs.unc.edu>
+>>>
+>>> Commit 8078486e1d53 ("io_uring: use region api for SQ") and commit
+>>> 81a4058e0cd0 ("io_uring: use region api for CQ") made io_uring_setup()
+>>> allocate the rings with io_create_region().
+>>>
+>>> However, io_create_region() charges the memory to RLIMIT_MEMLOCK, and
+>>> the rings had been exempt from that limit since commit 26bfa89e25f4
+>>> ("io_uring: place ring SQ/CQ arrays under memcg memory limits"). As of
+>>> now, a user without CAP_IPC_LOCK gets ENOMEM from io_uring_setup() when
+>>> their rings exceed the limit, which is 8 MiB by default. PostgreSQL
+>>> developers have already hit this in their io_uring tests [1].
+>>>
+>>> The issue can be reproduced with a simple liburing program, run as an
+>>> unprivileged user:
+>>>
+>>>      #include <liburing.h>
+>>>      #include <stdio.h>
+>>>
+>>>      int main(void)
+>>>      {
+>>>              static struct io_uring ring[64];
+>>>              int i;
+>>>
+>>>              for (i = 0; i < 64; i++)
+>>>                      if (io_uring_queue_init(4096, &ring[i], 0) < 0)
+>>>                              break;
+>>>              printf("%d rings\n", i);
+>>>              return 0;
+>>>      }
+>>>
+>>> Before those commits (v6.13), it prints "64 rings". After those commits
+>>> (v6.14), it prints "21 rings".
+>>>
+>>> This patch makes io_create_region() take the user to charge, and passes
+>>> no user for the SQ/CQ rings.
+>>
+>> Agree that this is a bug, stricter accounting may break use cases.
+>> However, I think we can solve this simpler, and actually kill more code.
+>> How about something like the below instead? Only apply accounting to
+>> user backed memory, which is how it used to work too. Would be great if
+>> you could take a look and also run your test case against it.
+> 
+> Tested in a VM and confirmed that with the patch below the reproducer
+> correctly allocates all 64 w/ a 8 MB RLIMIT_MEMLOCK.
 
-> Condition of this if-block repeats another one from if-block above. So,
-> condition is always false.
->
-> Found by Linux Verification Center (linuxtesting.org) with SVACE.
->
-> Signed-off-by: Matvey Kovalev <matvey.kovalev@ispras.ru>
-> ---
->   fs/ntfs3/fslog.c | 3 ---
->   1 file changed, 3 deletions(-)
->
-> diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
-> index f038c799e7ac..7c40eff69959 100644
-> --- a/fs/ntfs3/fslog.c
-> +++ b/fs/ntfs3/fslog.c
-> @@ -2753,9 +2753,6 @@ static inline bool check_attr(const struct MFT_REC *rec,
->                          return false;
->                  }
->
-> -               if (run_off > asize)
-> -                       return false;
-> -
->                  if (run_unpack(NULL, sbi, 0, svcn, evcn, svcn,
->                                 Add2Ptr(attr, run_off), asize - run_off) < 0) {
->                          return false;
-> --
-> 2.54.0
+Sending out a new set since I haven't heard back, and would be nice to get this fixed. Would be great if you could test those too.
 
-Hello,
+> This change is really helpful for me as well, thank you for addressing
+> this Hengyu.
 
-The patch was applied, thanks.
+Indeed!
 
-Regards,
-Konstantin
+-- 
+Jens Axboe
 
