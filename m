@@ -1,79 +1,94 @@
-Received: from mta0.migadu.com (out-237.mta0.migadu.com [91.218.175.237])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.secunet.com (mx1.secunet.com [62.96.220.36])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3163FE64A
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 06:54:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.237
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B75A1331EB3;
+	Wed,  7 Oct 2026 06:54:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.96.220.36
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791356080; cv=none; b=qUgG5sRtmaisHc/wIYDZwNnpBRmpvxTkO9S3/787toxpNZY1PThlWIcBwI9TtRgxFyR6CNPyJIxaVPs+7+YC2Vy37iHZqEkNfexR8x99rcpxL/ls/BjSY0DAAKI2FTV2CZgOay8+2BQtjzU5bWR0gNtBHZ5q0XPI2jua086m5iQ=
+	t=1791356090; cv=none; b=cDr/08jqU7g6WQKPM1NtpJbaCXFspxNjw/V1q+K6iZghP+AF1fbMKz2wX875NtZDNN4X7AJlYliMmgB2qCzc1iOnJWE9oZFmLXaDqfcZNHtjwZ605q6MMeFSybHGdu4jWnzULWM+rFebJzES0MNes8Sf2WujQ9ONiorfsuuqa8E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791356080; c=relaxed/simple;
-	bh=wx+ZphHwDllvQj8s1LyNT4E8KL3k/eXA7BQmc806xpg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UmMQ+vm94riVaBAhAZC48sCR2AWIrC+fJmIL0bSCdqo8harTglf8HJiw6WDl6+pKv30jIhj5RAZNr0RgdrVQOQ30jL0C+6xxb6zyZVrvyxjlvESKKuNdg4BciDPC0yKCSu9i+gpflGv1vbeFLz72mBh8FkIeee9IBHuZsP/pltc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Q8K8Q+XM; arc=none smtp.client-ip=91.218.175.237
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791356090; c=relaxed/simple;
+	bh=Set3kyt3NGr6wdIc4vkbYWiU/oTejxt+HTBAA9PyjQA=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dFme4ytYs8GkYmreEZxHRoVdQ/fNnOwQeXjjeeB58w6/6AMWs8xWe98zZ7a+cawXUTKTZPCwdW1tpYODCzsWOvpQ3p5+K6cl3s1AAjuFvPKxuD2ZZPVDlheIfGksT989lxkPtB9u+k3ArGGwr0G+M/HWINHkli+pOXwpeYn3oFM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com; spf=pass smtp.mailfrom=secunet.com; dkim=pass (2048-bit key) header.d=secunet.com header.i=@secunet.com header.b=H7BfHDaD; arc=none smtp.client-ip=62.96.220.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=secunet.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Q8K8Q+XM"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=wx+ZphHwDllvQj8s1LyNT4E8KL3k/eXA7BQmc806xpg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791356076; v=1; x=1791960876;
- b=Q8K8Q+XMFTFubAGaGmmAk83HJrQxeUQe62pet2Fehqxp7kTM18mCpaKmLnv9vnpdUHN/ku7M
- 6QT7Ou07axHUBZaHMxz0AjQS6CbAKJCCs4dGp/B7GGqDwz6wCmNGEwSIMsJ4QII1lteG57fUeh4
- bn+3GrrLukXP0VhBOxRgh7Ic=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id cb843fb7101e1d52;
-	Wed, 07 Oct 2026 05:00:10 +0000
-X-Mizu-Trace-ID: cb843fb7101e1d52
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <86debfbb-b507-4ec0-8ed6-bf112b5f960e@linux.dev>
-Date: Tue, 6 Oct 2026 22:00:02 -0700
+	dkim=pass (2048-bit key) header.d=secunet.com header.i=@secunet.com header.b="H7BfHDaD"
+Received: from localhost (localhost [127.0.0.1])
+	by mx1.secunet.com (Postfix) with ESMTP id 833712083B;
+	Wed,  7 Oct 2026 08:54:45 +0200 (CEST)
+X-Virus-Scanned: by secunet
+Received: from mx1.secunet.com ([127.0.0.1])
+ by localhost (mx1.secunet.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id TiOHKnZ_-_TI; Wed,  7 Oct 2026 08:54:45 +0200 (CEST)
+Received: from EXCH-01.secunet.de (rl1.secunet.de [10.32.0.231])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx1.secunet.com (Postfix) with ESMTPS id EEC1020839;
+	Wed,  7 Oct 2026 08:54:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.secunet.com EEC1020839
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secunet.com;
+	s=202301; t=1791356085;
+	bh=JJnaSOMtHtuqb4es19bM70PlTRZ/QHFRk+6jKp6Bq8M=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To:From;
+	b=H7BfHDaD7CypmYxSA5GLVZqlKh5sJJfWky+MinRkMk591IF+RfDXz6IRQDrH7WdaS
+	 +rZFrdj4UMfMNvrEiNPFDEktdAx0hExzx1cqFBhp3TFffIcADTEv4nEYhRDt5hEakv
+	 vtWb2ChfrgEeYHbDIHAi0axpvCMfUKGjD0p3PZ/+85lPAcmFfRbYvZMIiqLLMmkbHr
+	 CbrU9IT8YP00IoG92oOghUP1PktoeaPuCJL+lJNI77LOz90ZiqGYKdOJczPwgxeD6F
+	 qstirYYEUnH20fucxFTjW61ScLXDhCJzGFn3qkKYci3c1qJbOBiNCgfDbY0rzhvd1+
+	 GjMn6JLMxQoFg==
+Received: from secunet.com (10.182.7.193) by EXCH-01.secunet.de (10.32.0.171)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
+ 2026 08:54:43 +0200
+Received: (nullmailer pid 3308355 invoked by uid 1000);
+	Wed, 07 Oct 2026 06:54:43 -0000
+Date: Wed, 7 Oct 2026 08:54:43 +0200
+From: Steffen Klassert <steffen.klassert@secunet.com>
+To: Shubham Antil <shubham@octane.security>
+CC: Herbert Xu <herbert@gondor.apana.org.au>, "David S . Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+	<horms@kernel.org>, <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	Giovanni Vignone <gio@octane.security>
+Subject: Re: [PATCH] xfrm: zero-initialise km_event in replay-notify to stop
+ stack disclosure
+Message-ID: <asXss4xSHDfrkMFs@secunet.com>
+References: <20260930093137.7163-1-shubham@octane.security>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [BUG] RDMA/rxe: unchecked receive WQE cursor causes OOB access
-To: Willy Tarreau <w@1wt.eu>, sungbyeongchan <tjdqudcks0424@naver.com>,
- "yanjun.zhu@linux.dev" <yanjun.zhu@linux.dev>
-Cc: Zhu Yanjun <zyjzyj2000@gmail.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org,
- linux-kernel@vger.kernel.org, security@kernel.org
-References: <20261006091239.828415-1-tjdqudcks0424@naver.com>
- <asWzwbYj7kVTiQ3L@1wt.eu>
-From: Zhu Yanjun <yanjun.zhu@linux.dev>
-In-Reply-To: <asWzwbYj7kVTiQ3L@1wt.eu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260930093137.7163-1-shubham@octane.security>
+X-ClientProxiedBy: EXCH-03.secunet.de (10.32.0.183) To EXCH-01.secunet.de
+ (10.32.0.171)
 
-在 2026/10/6 19:51, Willy Tarreau 写道:
-> Hello,
+On Wed, Sep 30, 2026 at 03:01:37PM +0530, Shubham Antil wrote:
+> xfrm_replay_notify(), xfrm_replay_notify_bmp() and
+> xfrm_replay_notify_esn() declare a struct km_event on the stack and
+> initialise only its .event and .data.aevent fields, leaving .seq and
+> .portid uninitialised. build_aevent() copies those two fields into the
+> XFRM_MSG_NEWAE netlink message header via
+> nlmsg_put(skb, c->portid, c->seq, ...), and the message is multicast to
+> the XFRMNLGRP_AEVENTS group, so two dwords of uninitialised kernel stack
+> are sent to group listeners on each replay event.
 > 
-> On Tue, Oct 06, 2026 at 06:12:38PM +0900, sungbyeongchan wrote:
->> This report was prepared with AI assistance and is being treated as
->> public under Documentation/process/security-bugs.rst.  A tested source
->> reproducer, logs, configuration, and proposed patch are available to the
->> maintainers on request; the reproducer is intentionally not attached to
->> this public report.
+> The request-driven paths set these header fields from the requester
+> (xfrm_get_ae() / xfrm_new_ae()); only the kernel-originated replay path
+> leaves them uninitialised. Zero-initialise the event so the header
+> fields are sent as 0, the correct value for a kernel-originated
+> notification.
 > 
-> Please do *always* post a patch. Maintainers receive lots of messages
-> like this one every single day, there's no point sending a message
-> saying "you might be interested in a patch I have" without sending
-> the patch, it wastes time and effort doing round trips. Just send it.
-> Same for the reproducers, if they're not too big, just send them to
-> the maintainers (not the mailing lists) so they have everything to
-> start working on when they open their mailbox.
-> 
+> Reported-by: Giovanni Vignone <gio@octane.security>
+> Assisted-by: LLM
+> Signed-off-by: Shubham Antil <shubham@octane.security>
 
-Thanks a lot. Willy. With AI assistance, too many problems have been found.
+As this is a fix, please add a 'Fixes:' tag.
 
-Yanjun Zhu
-
-> Thanks,
-> Willy
-
+Thanks!
