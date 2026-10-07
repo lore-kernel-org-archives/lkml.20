@@ -1,231 +1,222 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011049.outbound.protection.outlook.com [52.101.62.49])
+Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 334247404E;
-	Wed,  7 Oct 2026 16:34:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 843424AF165;
+	Wed,  7 Oct 2026 16:34:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.56.87.5
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791390868; cv=fail; b=bgtejj8XLwSs2UZDOG/oV+EJNhnHF+3w0ieGS6TNBv7G53Cdx77ekeUH9sUdVwbtRQ93DpXvQEsP+4LKeLMWhOVflC02aQcjIl8B9s/hilSEU+zJk+IbLo79S5tfAogo9dhxbWeO17oKI3EVSkrAb2mj33hbGYb/CuZXo5ifbnE=
+	t=1791390885; cv=pass; b=QMoyzRCGiwC9Pf0XDBvpQIhZe4RKKx1zk+yXdsSSNqbc6kiZDDJ5+TKupsxWyxKl9yxao5lbmJAiOXIAKxIqe9UazQtc1Zgo0fMWrS3OixRZzqR+xrg2atuSWNzc+CeKHkoPmJl0cGJJEZTrgfCCpOZ9h0bNnEFqDDOvL8r+3nI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791390868; c=relaxed/simple;
-	bh=5IVFkApmNNDqsx3Hz+kDXIfVBOXdXzxksSluB1O9Ifs=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=Y/wHOv7xRy5zeLFQCM0fHbtg+viBOhNiz1g8r0AN5yGRkNkLp3GaItTBIzvCp3li8bPQXqhU9q9M/d8Pmh6PnwdnXMqmgLCX1ytBCmm9Bk2zHkhSMmHnUOFPSEYycikHi0F+Tg/zTuq1nJM73qGD49qodJIVp0xoifcI2pBgN2I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=WXpakY39; arc=fail smtp.client-ip=52.101.62.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1791390885; c=relaxed/simple;
+	bh=zWZ8FsXv6P2pM5aRRcbjwFhBPvqExbHMMrdKWPrYp+w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QQwQdmaiEGfOoQd8S6TCexblB2RfR5djEWVWHOuG8zd7gVhNK/nNyq0PWGWNMpdsO1zakprUtiG1FFaZvYfNd+hZYXvb6rh6Rj8B8+jbqX2IOZSugYHegYjGScrvwsV60To38A9gBExETvoDYjJWREKem9VbGnyZSoad1vMVKjw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it; spf=pass smtp.mailfrom=valla.it; dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b=lUK2DFzZ; dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b=rGQH2Jt/; arc=pass smtp.client-ip=185.56.87.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="WXpakY39"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cxYx0ao3VI4wNaj+PXvjpzZBN7B6iZFKRFmIq4XjDYJ8pBK2Ok4Nzbvx+fb5WlgMShwZ1qeHtsiAxmYolQ8U5TyNbmqPPP4h1nQEGyKxMilNcaXtJh9lz47vVlsgKKCzF0yTL/HO3bGHn94gGy95UejlfTChHwtwcFHMtce6AKkxK9emqBKmZnqNZ4NIrugVceJ9HCRE2ApQ5tGw9WiMe3H94QSs5jXN8lqjZH3OX6aDaQ15MUjVJbC8aJ+3RzCdXbpOCEACxObQQDbRguKlFeo5zTXLmHx8E/kyKP5QR9WyUEx5AkUoo/XvEHzuyyWX8fHAocij1TsfNBrTeUZgww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=P6Kam31Ry9DLDVSMrVyFH6cMoYWY8c3nDK/1SOenqpM=;
- b=VPRDgp0jH9OJua8tk5zOMWv/rexMMFb+h3DwKPNl61rtZJhG2pYUKbJSJVex0eQfnMCPfYVjKDIfsY5xDAQZJ2fdZhZPfYyQrds4/PR/GqBzD4HnSuZ7m8qmmWjF5zKNjzf4Yh5VBK0zD7QWNr+6LHaFGX3Uk0EiTtqm3DKCpKvOKWwCJ0vQI7g64/j8KTRkoVFWA4AwQ0b+qPwGfY6yWl5WfBV/Cqd/wbBi9OAWAd66gCV4DWwNxDakSWwbol2/l0cluHz2l7rMzR6kLLQ6BVmZq+P64Y0Jku8R5gahS6sY79atQxdtB+7VWrmkjagXr/ueeh4d6QXApaemh6u/Dw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=P6Kam31Ry9DLDVSMrVyFH6cMoYWY8c3nDK/1SOenqpM=;
- b=WXpakY39+QdPdEW1vkErrXmAAViawX07De0phl0aaphXxHPixIAiIjH5K8UhH6nR8jmmWcXJmMrZuwhbislf6pwk8abErmeulLeGDN0WAknKRrnkM5/5u4oybO0hNv7rK/YOAH8upj16Rd2KmqQlDg24YoGqsjHbRjVXgEBkBKI=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5320.namprd12.prod.outlook.com (2603:10b6:208:314::17)
- by MN0PR12MB6054.namprd12.prod.outlook.com (2603:10b6:208:3ce::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Wed, 7 Oct
- 2026 16:33:24 +0000
-Received: from BL1PR12MB5320.namprd12.prod.outlook.com
- ([fe80::1876:4a6d:2cf5:b8d1]) by BL1PR12MB5320.namprd12.prod.outlook.com
- ([fe80::1876:4a6d:2cf5:b8d1%5]) with mapi id 15.21.0496.015; Wed, 7 Oct 2026
- 16:33:24 +0000
-Message-ID: <45209a1b-5e52-4c50-a755-04affe312360@amd.com>
-Date: Wed, 7 Oct 2026 11:33:21 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] x86/resctrl: Fix ABMC counter programming
-To: Reinette Chatre <reinette.chatre@intel.com>, tony.luck@intel.com,
- bp@alien8.de
-Cc: x86@kernel.org, Dave.Martin@arm.com, james.morse@arm.com, corbet@lwn.net,
- skhan@linuxfoundation.org, rdunlap@infradead.org, tglx@kernel.org,
- mingo@redhat.com, dave.hansen@linux.intel.com, hpa@zytor.com,
- kas@kernel.org, rick.p.edgecombe@intel.com, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-coco@lists.linux.dev, kvm@vger.kernel.org
-References: <cover.1790976400.git.babu.moger@amd.com>
- <95bbc2e322ac18e2566c4963b7e6d13ac8485e20.1790976400.git.babu.moger@amd.com>
- <f4a82716-5107-4f39-8c9f-94374f188857@intel.com>
-Content-Language: en-US
-From: Babu Moger <babu.moger@amd.com>
-In-Reply-To: <f4a82716-5107-4f39-8c9f-94374f188857@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: DS3P220CA0003.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:8:45f::17) To BL1PR12MB5320.namprd12.prod.outlook.com
- (2603:10b6:208:314::17)
+	dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b="lUK2DFzZ";
+	dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b="rGQH2Jt/"
+ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-mzd6.prod.antispam.mailspamprotection.com; s=arckey; t=1791390883;
+	 b=Lo/KVuZplQWcM9Yhx2ti3uPr41aycF4PdHXoVwCFot+1ZemFoHsBkPDc7lnEzIyAlGb4ZBQL9r
+	  gQ3rszGA9wYnEZSu7JEeWSZqHcfiEZMxYjmjTzWGTCTgLX0jHbmJQd//CRQvKtXcYdLLCpnZXh
+	  ecJhsrvUTd93ziJaw7fKlAfdLsNLTazeIY1a8D1syB/XHI5tGkbjkxtSPqYPGgML/pzj/snA/V
+	  cyNv5nv6jQlUHFMak+0c5Nnlt8wcmlZbB/WKERs7GIPFH7VUBI6hJlx+Ndm0jSmih4/pAZloQM
+	  o8Bczd+LpbKVdWi7KElKFKiSJExPXCZ25t1LWs6l8roKNA==;
+ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-mzd6.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-mzd6.prod.antispam.mailspamprotection.com; s=arckey; t=1791390883;
+	bh=zWZ8FsXv6P2pM5aRRcbjwFhBPvqExbHMMrdKWPrYp+w=;
+	h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:
+	  From:Date:DKIM-Signature:DKIM-Signature;
+	b=BrO5ZiHp7Rau76si7nn5E3+aWdElxxDuCw9BRAU4Ah81eLORJpXeWolfHboBkzB+cLVN/IFnVt
+	  w9DXuQPmY6ng3BruVF/CwFm0FGmWGvtxZx/eVS1PUtg5ZvOUkt8q/4lbCxajfJ5dtKbgFkQTCg
+	  7XQptF/3GR9zqSqZyBYsD8yLAoX4UI2tY3wgAushW8+F2xxNfZb3F7/uJ4xJfoz9Zw8UOwIO3q
+	  gn40XWXwZzGlTPVLW7VJT5yonSB2S1BBQdMCGRodIqeYYC+tPjTCPAHNIQa/rPnnwsxToCcDyO
+	  IHNccEu/7kOa0FVPplQiScz4r0KbAjrhUMmRHIiG2LtivA==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
+	:Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	List-Unsubscribe:Content-Transfer-Encoding;
+	bh=tLwUzAmQhGSL3Ue4ZR+yc6YJqjUkv8c/LUizgFvUpEU=; b=lUK2DFzZ4QOrzCd0Em0wHo1JCZ
+	UbVT59eM6O2EzMokczOIXMUZBrzxMXxYhvldh5ipSdEwpRp62S21+KTZcB147ItsT9IZOkQT4lPbA
+	Xv/5XgxhEG8PfUkaAJiPeU/etvQ+Y6r4HvmmNzOOHBsONL6RuO4y10ceuCxp27V0T7Vo=;
+Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
+	by instance-europe-west4-mzd6.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1xEUbD-00000008Nno-2cDf;
+	Wed, 07 Oct 2026 16:34:36 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
+	s=default; h=Subject:Cc:To:From:Date:list-help:list-unsubscribe:
+	list-subscribe:list-post:list-owner:list-archive;
+	bh=tLwUzAmQhGSL3Ue4ZR+yc6YJqjUkv8c/LUizgFvUpEU=; b=rGQH2Jt/bpeF930y+rHYkN2zf8
+	97TtVSvsaaG5aGcB4PZfyMk7r2RX3uiBz38jxRRTSPle16p8V/ICrwQiDPiognt0S2z0kAnDjDYyP
+	KOckZczNOgULzyrqXvYBnhG1X2IVXykdOIdCVq4OfsXhbomC4NP/QV3KzGUgCqn84S2E=;
+Received: from [79.14.200.104] (port=64271 helo=bywater)
+	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1xEUau-00000000MYn-3hbM;
+	Wed, 07 Oct 2026 16:34:17 +0000
+Date: Wed, 7 Oct 2026 18:34:14 +0200
+From: Francesco Valla <francesco@valla.it>
+To: Rob Herring <robh@kernel.org>
+Cc: Mathieu Poirier <mathieu.poirier@linaro.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+	Robin Murphy <robin.murphy@arm.com>, Mark Brown <broonie@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	virtualization@lists.linux.dev, imx@lists.linux.dev, iommu@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH RFC 08/12] dt-bindings: remoteproc: add remoteproc-virtio
+Message-ID: <asZ0KdG7lloNwDfx@bywater>
+References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
+ <20260916-remoteproc_virtio_map-v1-8-dac8c5eb4aa9@valla.it>
+ <arKhbxi3Snbt1_Mn@p14s>
+ <arLZj2DxBazf3wMd@bywater>
+ <20261006183910.GA2890477-robh@kernel.org>
+ <CANLsYkwhrqk0nQNFuP_5aMYQCLGsLrzm-z9YP+Fvv-C1Ug8trg@mail.gmail.com>
+ <20261007134206.GB2792240-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5320:EE_|MN0PR12MB6054:EE_
-X-MS-Office365-Filtering-Correlation-Id: d9c53ad9-c69b-4172-120e-08df2490b536
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|7416014|376014|3023799007|10067099003|56012099006|6133799003|5023799004|4143699003|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	Zr5jXQt1KfzYIYqtso/ZqzIhyyh0B1Oo6QnGX8aNsv7e9HT4hW+/b9hNdH2NpekNttBBgMyoDGpoUYs89bMtv/DpRPaGth8fAGJSF1Bu08+qV3HGhUDINulIcy0tMYKTot2i7TVB/n+Vlm8iy1pc3j8S4QKiYIePhzkf3XjbYKThtdjWHHjXz2BPmYL4IHai3D5NSJhzWYQfk0zBmje2ULRwzaWI7UIXpZG6+YNoRzB1K5q/Lo6cNPUMXmBMB+93yIyG3Swz5ETmHy9D3Jg01NASyhA56TfS3/mr1yfJWibueDPISrnioap8uDa6k5vl7axQk8dzcXitWfEa3N7hn2+VtzA6YGOwN2R7GzUTWaPzIdniKkruklM+V7EWmSgtv+CCRtvcqTs9RKGiTYRGOvhE95hXgK8sqKvZSsfMK0sYJUGZCCcFAGAJuh9isJG+N/sSvmgknZL48bRLIqyC0LQWIpA+D/5nkxr7jhBZMw3TgXh0k7cs2n0d401mCjxnAHre/M/kDg2v2p+Jld7OpD1CKgISG2sIPE84rh/TYL9CpwtMUWI5nCrfkGdj+Ag9bp9F8ZruJK7tgSGvIq2Bi7jKipp6H4ozGYD9uSlSJgJ5mw2b+8ZS+WcVav7MVkYxfZy2YH9pInDS5k0Kfg4b1D0PltOCKFFCpaRT+MS2mt0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5320.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(7416014)(376014)(3023799007)(10067099003)(56012099006)(6133799003)(5023799004)(4143699003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?L2FlVktRV0VKbWc4a1Y5RVBDTjNuK1cvMDQ0Vzk5WVRjVG1KN3ViM1R0MGJK?=
- =?utf-8?B?OVlnZTFkNm9sQmRzTXJVNjgxZm9IQnRyVnQ0L08xV2hrcXVrK25nd3MwLzV2?=
- =?utf-8?B?bEt4V0FyZDE3aW1ud1hvblNVZzF4bGJUYWhSc2RUKzR6dXdydWFaTHJZY3Za?=
- =?utf-8?B?TjB3UTltOGkvTmo5ZGt6RGhpT3dzajBPcWs4dnU5VXhoajJVblprV3IvckFI?=
- =?utf-8?B?SWJKT3pHNW9JNm5id3BlSXVqOXlGUWtQNG14bGVueTd6NVFzOVRpYm0xanJh?=
- =?utf-8?B?dzJyTkQ0UVRIcnBTdVAvQnM3dGFETitMMzBHdlZLbXh4NFNlTFVBdXlOVmJT?=
- =?utf-8?B?bnprb0lBaURHQ0pSQ2w2NnRDV2xUQ3ZySjJ6Sldrak9JSFY0ZXE3YWFacHA2?=
- =?utf-8?B?cWdMTDh0YWhFaEp6bU1iaEVvekFhV1gzOGpPS011YWlrbTI5enVVV0hyUEpi?=
- =?utf-8?B?c2ZySHhlUEtJRjZsWjhlUGwxa0VPNFo0M05JOGZGekN1TVJRL3lsYzNuaCth?=
- =?utf-8?B?MEozSVMwS1JHVWpnMUpZL0V6SlpXczJyelRZTmRDK25ha2tJNXZVdUpjNGl3?=
- =?utf-8?B?UGFrL0tnMWhNcGQzbXIxYS82UmROaWVaVUErQlZzVlN1dXZzNkRXL05QMDRj?=
- =?utf-8?B?Z0ZWWFhVRXlPN3ArSXZJM1ZId3JaQUhkZWFFd1JnTVgyNUIzZklkSU55RFlG?=
- =?utf-8?B?bGNuRU5lRW1HdTFyVzRkWlEzV1I0ODB5UFJnY0xaV1F4UURROWlwa1U4bVpx?=
- =?utf-8?B?NUxMYjAxRG4xeVBvZGJ1SlRONnBwYWJDTGNOZFlXaGZKRDM5SFM3VWY4RFVn?=
- =?utf-8?B?YjVBTDJONFlIOU95Rm1ZR3BseGp0Y01FYWplei84ei9WTk5CRXhNQnVIMnRa?=
- =?utf-8?B?ZmNFUGpGcnZ4UEFHMHVCQ2U5c1RqYzRGMzVuRTJGUjE0cTA2bTh6ZEtkZElr?=
- =?utf-8?B?NlhLaVdOVXdYOGczQ3M2NVdodWdWOG1mNzE2UDg4ZGZpc2pEb3F2VUpNeTRI?=
- =?utf-8?B?VEw4WncwQVRvTGpFT0lXdE1LS09BbER1M3pMdkdJOXlmTnJaNUdQSjRUdEFF?=
- =?utf-8?B?QXhuZjRiT3Y0N3lJSUVmdFdPVEZ0VllaZkFYZExyVWQ2VVBVV3hzUE1kSk5S?=
- =?utf-8?B?dGcxdjNHMVgrTEdMYnRzdUI5Nyt0SjVGMDVWTW5JcjQ1SEtXWERoaGllVjhL?=
- =?utf-8?B?VEw2WkpmanRvSGJDUEdSSldsQVFrUVJjSmo4YXpuQ0dERGRMOEpSdmYzbEZE?=
- =?utf-8?B?a2NLZVNzYjJZVjRmZW1uOVY5QXErZkdCa29pWDJoZ2k2anN3Qkc4aWVobGVo?=
- =?utf-8?B?ZkRaN2NlWWVtM0pER21VeVZjVnUzOTZZbUswTGV1bEZ0aWhwNUk2a3RPQTM2?=
- =?utf-8?B?M0tiN00yM2tDNzJTUkVMNGhwRW82ZDZzRGMyU0svWG9sN1NEeG5VYmhzeEY4?=
- =?utf-8?B?RVpzVGtISXJIY2ZYWmFZRnZmRFZJbHVPRnFJaHFTUUpxTWxTMm1icE04NkR5?=
- =?utf-8?B?QXEvNi9aMTNWTlNUM3lGeDRPbk5FdU5kUEhhYTJ2UFUyWTYwTDA5dzhQaDlU?=
- =?utf-8?B?TzdJcVRFTGVFdmkwbVZhNW93dEQvYXJkRno1dkt5Q2NmWDMyR1VZM1A5RG1D?=
- =?utf-8?B?THFnZmw3R3ArMUZNVXFUMFRpRXJhVHNTV0ltMXNPQWhVL0c0b3ZEaDF5cGJB?=
- =?utf-8?B?blJkcUNkS3djUmFRNFJJOVBUa1BMdW9uL0dqL3BKeWtHb3J3cGtPZ0ZFQXlK?=
- =?utf-8?B?ME1yVUUzR05wYXl0ZnBjSkovSU5Rb3oyS2p5MU0zWVlML1NiSTFLWkRXai9j?=
- =?utf-8?B?SitKelhKOXdMVmhlOHowcmdqMG1SUFYvT3hMbTRzQUlGU1VBbUU1cUJ4Rm9z?=
- =?utf-8?B?T0N5MDJMZ2xUVW1JYTVsMDdVNlUvODlDQjEySkR1M0FMM0NqK0p4eTBiWWVY?=
- =?utf-8?B?a2dOdjRtK1ZzL0c4Znh6c2I2dVQvWWRLQVhRWkJGVktmcWJPSVh2Vjc4M21h?=
- =?utf-8?B?ZG4xSUorMWdxT3hveTBFU003OE1HNHZnckJFck1JTTZJeEc5bU1uOENmVlY0?=
- =?utf-8?B?U0lxRkZqelVkM2tBOHhyNEwreWRZbFhoUnpJMC9tTjR2djJxdTFQbW5xSmF3?=
- =?utf-8?B?SHM0VTJ0YlpHUEtSVzlLQXBSbjd0NGhsVmFVeTd5RVYwOFlaNll3WmcyMzhJ?=
- =?utf-8?B?M0grM1IrSGxkYlBzemRQK2lXMnM5S1JGU0lsdmthQUpJd2RZRXZSR293ZjZL?=
- =?utf-8?B?TUhQOEZKNEhlMzBJMjBNZHhNV2F6YldTdWgxTFVvRHpJUmwyTnY3bllJbmRZ?=
- =?utf-8?Q?GXcaXtBpzVS56nzL7W?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d9c53ad9-c69b-4172-120e-08df2490b536
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5320.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 16:33:24.6404
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lGq8iG4YqsC9IqO0x6ZosKMgURcqatKnlrTdcbFR2eQ+R4L2N1z/tXVbYGDpH9WU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6054
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261007134206.GB2792240-robh@kernel.org>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - esm19.siteground.biz
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - valla.it
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-SGantispam-id: 277590c51d18866cf78171bb6a57e18c
+X-AntiAbuse: ID - 277590c51d18866cf78171bb6a57e18c
+AntiSpam-DLS: false
+AntiSpam-DLSP: 
+AntiSpam-DLSRS: 
+AntiSpam-TS: 1.0
+CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
+CFBL-Feedback-ID: 1xEUbD-00000008Nno-2cDf-feedback@antispam.mailspamprotection.com
+Authentication-Results: outgoing.instance-europe-west4-mzd6.prod.antispam.mailspamprotection.com;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
 
-Hi Reinette,
+Hello Rob,
 
-Thanks for the quick review.
+On Wed, Oct 07, 2026 at 08:42:06AM -0500, Rob Herring wrote:
+> On Tue, Oct 06, 2026 at 06:51:52PM -0600, Mathieu Poirier wrote:
+> > On Tue, 6 Oct 2026 at 12:39, Rob Herring <robh@kernel.org> wrote:
+> > >
+> > > On Tue, Sep 22, 2026 at 09:44:20PM +0200, Francesco Valla wrote:
+> > > > On Tue, Sep 22, 2026 at 09:40:31AM -0600, Mathieu Poirier wrote:
+> > > > > On Wed, Sep 16, 2026 at 11:10:53PM +0200, Francesco Valla wrote:
+> > > > > > Add a new binding to describe remoteproc-provided virtio devices; while
+> > > > > > these are discovered through a resource table parsed by the remoteproc
+> > > > > > infrastructure at runtime, their description can be needed to probe
+> > > > > > non-discoverable buses (such as I2C) or to link consumers and suppliers.
+> > > > > >
+> > > > > > Each vdev is described by a dedicated "group" node, which then includes
+> > > > > > a virtio-device node, which binding is already existent and used by
+> > > > > > virtio-mmio. Each vdev shall be stattically linked to a "group" node
+> > > > > > using its index inside the resource table as the reg property of the
+> > > > > > node; this permits to have multiple instances of the same type of
+> > > > > > device.
+> > > > > >
+> > > > > > The binding is intended to be generic and adopted by any remoteproc
+> > > > > > provider.
+> > > > > >
+> > > > > > Signed-off-by: Francesco Valla <francesco@valla.it>
+> > > > > > ---
+> > > > > >  .../bindings/remoteproc/remoteproc-virtio.yaml     | 89 ++++++++++++++++++++++
+> > > > > >  1 file changed, 89 insertions(+)
+> > > > > >
+> > > > > > diff --git a/Documentation/devicetree/bindings/remoteproc/remoteproc-virtio.yaml b/Documentation/devicetree/bindings/remoteproc/remoteproc-virtio.yaml
+> > > > > > new file mode 100644
+> > > > > > index 000000000000..c4a0d84b1460
+> > > > > > --- /dev/null
+> > > > > > +++ b/Documentation/devicetree/bindings/remoteproc/remoteproc-virtio.yaml
+> > > > > > @@ -0,0 +1,89 @@
+> > > > > > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> > > > > > +%YAML 1.2
+> > > > > > +---
+> > > > > > +$id: http://devicetree.org/schemas/remoteproc/remoteproc-virtio.yaml#
+> > > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > > > > +
+> > > > > > +title: Virtio devices over remoteproc
+> > > > > > +
+> > > > > > +description: |
+> > > > > > +  Virtio devices ("vdevs") can be exposed using the remoteproc infrastructure
+> > > > > > +  and its resource table. For some of them, a device tree node might be needed
+> > > > > > +  to describe remote undiscoverable hardware and/or connect consumers and
+> > > > > > +  providers.
+> > > > > > +
+> > > > > > +maintainers:
+> > > > > > +  - Francesco Valla <francesco@valla.it>
+> > > > > > +
+> > > > > > +properties:
+> > > > > > +  virtio:
+> > > > > > +    description: Contains a group of Virtio devices exposed by the remoteproc.
+> > > > > > +
+> > > > > > +    properties:
+> > > > > > +      '#address-cells':
+> > > > > > +        const: 1
+> > > > > > +
+> > > > > > +      '#size-cells':
+> > > > > > +        const: 0
+> > > > > > +
+> > > > > > +    patternProperties:
+> > > > > > +      "^vdev@[0-9a-f]+$":
+> > > > > > +        type: object
+> > > > > > +
+> > > > > > +        properties:
+> > > > > > +          reg:
+> > > > > > +            description: Virtio device index inside the resource table.
+> > >
+> > 
+> > There are 2 configurations we need to account for: (1) each device
+> > located behind the remote processor gets its own set of virtqueues and
+> > adheres to the virtio specifications.  This is the configuration
+> > targeted by this thread.  The other configuration (2), discussed in
+> > the other thread, involves virtio piggy-backed over RPMSG.  The hope
+> > is to represent both configurations using the same bindings.  For (1),
+> > virtio devices will be advertised in the resource table and for (2),
+> > virtio devices will be announced via the existing remoteproc namespace
+> > service.
+> > 
+> > > Who/what defines the resource table?
+> > 
+> > The resource table is part of the firmware image and is parsed by the
+> > remoteproc core.  For (1), as presented in this set, "reg" links the
+> > entry in the resource table with the device definition in the DT.  For
+> > (2), the definition is also a device index, but said index is
+> > communicated to the remoteproc core using a namespace announcement
+> > rather than the resource table.
+> > 
+> > I hope to establish bindings for configuration (1) and merge that work
+> > first.  Once that is done we can extend it to cover (2).
+> 
+> "Defined by firmware" is all I needed. Please make sure the binding 
+> patches include this information or I'll forget and just ask again.
+>
 
-On 10/6/26 12:47, Reinette Chatre wrote:
-> Hi Babu,
-> 
-> On 10/2/26 2:26 PM, Babu Moger wrote:
->> AMD's Assignable Bandwidth Monitoring Counters (ABMC) are configured via
->> MSR_IA32_L3_QOS_ABMC_CFG. The architecture [1] received an update that
->> expands the counter ID field (l3_qos_abmc_cfg.split.cntr_id) from 5 to 12
-> 
-> This describes an architecture change as a code change (l3_qos_abmc_cfg)?
-> 
-> The subject also claims a "fix" but above establishes this just as an update because
-> of architecture change without making clear what the problem needing fixing is.
-> using the tip guidance when writing changelog will ensure that problem description
-> is always clear.
+I'll include this detail in the next version of the bindings; I'm always
+working on .rst documentation to add to the next version of the patchset.
 
-Ack.>
->> bits.
->>
-> 
->> Use the updated field width. The number of supported counters is enumerated
-> 
-> The second sentence of above paragraph seems out of place as it seems to add
-> in a bit of additional context as part of the rest of the paragraph that describes
-> the fix.
-> 
->> separately. Mark this as a fix to the original ABMC support to avoid
-> 
-> Tag can speak for itself, just focus on describing the problem being fixed.
-> 
-> The problem and fix are fused together making it difficult to see what is being
-> fixed here. Placing problem in its own paragraph helps to make this clear.
-> 
->> misconfigurations caused by truncating counter IDs on hardware that
->> supports a large number of counters.
->>
->> Also limit the number of supported counters to the maximum value that can
->> be represented by the 12-bit cntr_id field if hardware reports more than
->> 12 bits.
-> 
-> This is the actual fix though but is added as an afterthought?
-> 
+> Rob
 
-Yea.
-
->>
->> The AMD64 Architecture Programmer's Manual [1], available at [2], will be
->> updated in a future revision to document the expanded cntr_id field.
-> 
-> 
-> Consider an example changelog like below that aims to follow the x86 changelog
-> guidelines:
-> 
-> AMD's Assignable Bandwidth Monitoring Counters (ABMC) are configured via
-> MSR_IA32_L3_QOS_ABMC_CFG; MSR_IA32_L3_QOS_ABMC_CFG.cntr_id selects which counter
-> the configuration applies to. The number of counters a platform supports (the
-> number of possible values written to MSR_IA32_L3_QOS_ABMC_CFG.cntr_id) is
-> enumerated separately via CPUID.
-> 
-> On a platform that enumerates more than 32 counters, writing a counter ID
-> through the current 5-bit encoding truncates the ID and misprograms ABMC.
-> 
-> The AMD64 Architecture Programmer's Manual [1], available from [2], has been
-> updated to widen MSR_IA32_L3_QOS_ABMC_CFG.cntr_id from 5 bits to 12 bits (the
-> published revision 3.41 does not yet reflect this; a future revision will). The
-> CPUID enumeration reports the maximum counter ID in a 16-bit field and can
-> still report more counters than a 12-bit MSR_IA32_L3_QOS_ABMC_CFG.cntr_id
-> can address.
-> 
-> Widen MSR_IA32_L3_QOS_ABMC_CFG.cntr_id to 12 bits to match the architecture. Cap
-> the enumerated counter count at BIT(12) so every counter ID resctrl uses can be
-> written to MSR_IA32_L3_QOS_ABMC_CFG.cntr_id without truncation.
-> 
-> 
-
-Looks good.
-
->>
->> [1] AMD64 Architecture Programmer's Manual Volume 2: System Programming,
->>      Publication #24593, Revision 3.41, Section 19.3.3.3 "Assignable
->>      Bandwidth Monitoring (ABMC)"
->>
->> Fixes: 84ecefb76674 ("x86/resctrl: Add data structures and definitions for ABMC assignment")
->> Signed-off-by: Babu Moger <babu.moger@amd.com>
->> Cc: stable@vger.kernel.org
->> Link: https://bugzilla.kernel.org/show_bug.cgi?id=206537 # [2]
->> ---
-> Patch looks good to me.
-  Thank you.
-
-Babu
-
+Regards,
+Francesco
 
