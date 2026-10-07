@@ -1,277 +1,254 @@
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66AEA2F60CC
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 22:46:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 927133AFD11;
+	Wed,  7 Oct 2026 22:48:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.13
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791413188; cv=pass; b=aduhtnOEsLIfcpY0qdCIDz7HzLBzmrTB5jjlRH5+F0cKimpRbagVafCdYWBffcykAnwuCgAKwB0yuN1ZhycFwG4UjzwScGne7xDvy6JoYmfJFk5QZxL18GBeY/eEubQDSQFSEEvyrFot4nCMqnoTE65aIoErJ812F8YtBQVJ95M=
+	t=1791413287; cv=fail; b=ApUFz0sfZZ24l0eH6wMFlDeVpY+BZO5cykvXMZTPIvXkuLXmo7MwkGjwVZy7VXQgL+VUuzd68ggW9PQiBfSycYcLu6NDSCJnEXjI5yEqL6Vl9vENsaS6GG5vtcUP1QWJ2+oAPiDdT0/L0GT8sUnnYA0qejl/cLnjh7Qx4bb3lnI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791413188; c=relaxed/simple;
-	bh=bB4dnxpnMeVzUDLA9nUrJaWQKL4gFOLEEBvhFlUWXIU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lYj8+9IqCx7El+ERxRRH13QMfyw1nfS+bF37d30L160TjTdG7KV/2ENIU7Loh2b4jG5z1wRWOLK3Obba+aB9OEU+5Ba+ZVP9iRd09wT8hvg+A/TxZyID+d9H6eXtcUk4wJTTNtNAyp6hRUMAu4emNoeoaXRIBEYtmgVipui4Jxw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jX800J8R; arc=pass smtp.client-ip=209.85.128.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791413287; c=relaxed/simple;
+	bh=FQNdjP9H8eKeVhcHMAI46rH2pQ4VuSSYpKEAkX+g/KI=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=eO2uvL10DYQ6YI4nMXRXAGGkZkFwq4aE+mSpRA7FYjwbRMKRoD/hn8RWV8BdDtjQNmeDke5VNXBmbX56f6Q8FnmCIYt0XIh5OTPQpS9oYzB8QtQUUfIT8cPiY2bdM30KN3jltCngmjt04WnXroxWdaVGtsY3FbnWJk3jXwm3Qe0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IqK5eO8R; arc=fail smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jX800J8R"
-Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8565d77c277so27126897b3.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 15:46:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791413185; cv=none;
-        d=google.com; s=arc-20260327;
-        b=khrLvDaD3uENcyQpM++vYfB0kkLcZOiGz4IwHFfc3ExqBDgMa6+MDvix2vWzhMXmCj
-         j8KCo9uLexzpHzxZFzvOPmSYFzgEK/MI72TJ14GngPFMbs/LVE9OGjtlm7yxR+TmKfZW
-         jmV4GOT20Pd5JSMU4p/HFWZoOYxujdia+WGaHCUq2EXdNLu4U5nS9iOUT0cAilphHNQy
-         IDPOVeG4aR7wmVpmyeP9MaEepc6J5yGwuwGXg1EYW064hFv1XPUYEV2EAYJOVS77ljHB
-         mNVn8r60edHd7ToegzRwndQWTA7mTRTCHuZ5YaRYn/KlLGhDMuojjxRNdBGnPZe1Bl/e
-         tqCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=yz22l6+7GmF/BYpQ70lHqScFsr3i0zQEuhiHfwUKd5s=;
-        fh=hXdVRJq/s7M14CeLqpjzA5IsI1TqwcprvQE68JgnAyY=;
-        b=PWrWMpW/KsPAYPgc67WGfrEzcQZRLHGsZPx31k0zxixiFkztQl2N4/vOTFyBec0OQH
-         UXeN0D8e5DnhYkienPRAJnc5hyJzs0JCwvLd0HQza4o2KAQAAExKCaXRZN9qAHJBUAcj
-         NLKmEsvxlDndecnsScOIe8hanrixmhj/c0lYKnC0Mc5u3mbley0ddTzLSL5cDr+mwfqM
-         W4zApviA4W9Yj7Vmw0PHxFLpS2bFKfW23cY9pJQQ6ZHKCxeK9ktuaRd2Vsjk9v6yXFP1
-         cx9sS4qhZP5Sf0Vfnd3eBuXzjdQIFfpB6qIkX79t5ooVTPttrQAA3qpsa8tT+aTS7RA4
-         cZtA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791413185; x=1792017985; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yz22l6+7GmF/BYpQ70lHqScFsr3i0zQEuhiHfwUKd5s=;
-        b=jX800J8RKDkaBXFrFgcCyN+PytsImIcc4YRHjjuD5NPxmIm9fqIk4M2Ml1LQPkRvkU
-         jXxRsYF25b3XK+lF5/K5l7w9kzGFh0yb8pLcZ+H3wCmGLpVcpuQXfRTe/rtlLtOFWgHr
-         WBS/Tv+CYfcm7Y2dOPDGPjxwQ07vx0yBC4Yubuq6cigcN1KXgg4V8LgVOAjSSF9mBPxF
-         S9+UFQdjrKiaQYqI51ie8S3t8wB5IgdAXguPeuI8Z4CMCshqVea/Ce+UTTyHkSVuMvoo
-         Hhkbg9uKKagKsj4TvKVH1w+KOOOV4l8IPOP/uNfJo0f6L8OkaHv6UO0TG8gOTjy4uyzp
-         gZFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791413185; x=1792017985;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yz22l6+7GmF/BYpQ70lHqScFsr3i0zQEuhiHfwUKd5s=;
-        b=qXckAsDxVWAzNdwboHqcszEue5hPxVVBL0+UWRo6RX26YTTWu8NeHrWVTmVAsiiLv0
-         TYggprMTsDwTnoWTJeDrNie2GkPJiQksgmkuNufAS9mmtGSUdeuFkMLwBoFXBHcmM6dP
-         JrQ49v9WzoXzwytf8AMQ3XenS05p9JVQSZGiziatkaJPaU850910lrwpnphmxspTR/e3
-         gPm/6rvK2YaEBZNwwuYCzO/dCsqessMjPr/l5hPTQvTglUFenI5heS3bBCjQMtfUcccZ
-         b1bMxsM1utXrR2uRsy0sEkdi78NdYR/Y0qHeNwI1yLBfYWMMymvoIzO92/um/sfQ3FGK
-         yi4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxpkUuXjnFsyzGqdKWk42YhwU4Ffq8jFBhINisl0pWC2dxWJ28CXRF373ESs9OiIo3I4OCtNSb56zkttt0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIEDxQlqdwp61dea6MHhQuOygYOtddY+Alcuoi545ivOCu9XctK
-	Qk/DIvY/qpv+NPE2k7vXvIh1cFo8J/0P+8BSoI3+ipwpL/rK+GG4DYyKkGjfO186a0yxcmLw5lm
-	Aj63LDlvWliOS0hTI8Bo2qN1LxWUvB4Q=
-X-Gm-Gg: AYBFou0QOGeorzREclmfqcdKoATXR5sO8K8NNbEYzivxPTaFptr+O1IaccRNU3prsa2
-	/vyOHnkeXuu3x0tnxYyWbm8m5ej2Zn/Xbp3coq10BCIZJdt+C+mEWsMn6Ay1ARluI6JK7FvkATe
-	UPU7Islr0ONcidWXR6IqaDTAcshkR1rFLbgbnjCPWDGUG1eFfBHNjS2KXN+gWc0umhJKPdFCmSL
-	5JiOCHbtuNHro6MKk7Lz8lzmCXQysYesEq4P8BU4XFiGuBjSSG3/61F3h/UtXZK1FV6b3Kwrbpd
-	Yh4iJSOw37vViJQmlhs/8vdb/qEIx7H4ZqQ6L2ZmaOF1zbEZXfpXjxaB1tan2IZHK3UpSbwwlxf
-	MuRm40gzc5E1Cnf4MHdeERxdeU7bX9MhA23gRTpqeBQ==
-X-Received: by 2002:a05:690e:16a0:b0:676:8665:d26f with SMTP id
- 956f58d0204a3-6790a4e72afmr1974142d50.129.1791413185103; Wed, 07 Oct 2026
- 15:46:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IqK5eO8R"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791413286; x=1822949286;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-id:content-transfer-encoding:
+   mime-version;
+  bh=FQNdjP9H8eKeVhcHMAI46rH2pQ4VuSSYpKEAkX+g/KI=;
+  b=IqK5eO8Rup26jKk9cD1SQfLTn+2hQwAQHZbgDJmUnKyY1Iv7wDRJLCpV
+   VQhIv4M0eeZAWeKfbbg1DBXD68UQbTxny2h7HYgkYjV8KySwMwkuEO1gD
+   iUym+haCA2LNN+9hCrqGnjpag0mRByrqIJpZRcbEuYmnGllTVxlBEat70
+   8/h0LgTR+3V7xZCB3lR4vYhS6s8Z2bOjnyt0wxBKDxXZ707aXmOsBC3pL
+   ucTCvyAAU69YM89I6z54uxR5U95fzCKLrQwaeQhXf+6hTsac+wpbGHP08
+   CUuElVTCu2uk9Yu5smQvVVUviteTQ4ge0ISnyCfNmKevis+l8SUSz14Gq
+   w==;
+X-CSE-ConnectionGUID: nt2gCfx4SXysua2ZGVtYyQ==
+X-CSE-MsgGUID: xjWo9LBQQ/2W9vMorB2Vaw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="185002"
+X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
+   d="scan'208";a="185002"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 15:48:05 -0700
+X-CSE-ConnectionGUID: jMTGvwiNTP27tLq7Xs6dZA==
+X-CSE-MsgGUID: xUm2ew+pRKqgmQSyUYSlHw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
+   d="scan'208";a="275365180"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+  by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 15:48:04 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 7 Oct 2026 15:48:04 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Wed, 7 Oct 2026 15:48:04 -0700
+Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.6) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 7 Oct 2026 15:48:03 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ebjGXk/xQszkcqiF4UuaCTBqFQ/YmO7/yDgWniF75RZOUhZPNa84A9LMTRL/zSvzs3M99njX0H5+GW7N81AJJETDoOqsg0nK745CathAqWMWcsB5y2x48WpqnVyGE6xD+kDVmbCxVMHuk74ydjxBOtunCfUddEzqog8OUb1LOYDF9wDg5jCyYfGmxCa39knmyYnzcqNEAgOi3w7XaXd7a64q7+F3VEEgBHaq37VVPM8knacsH2RSNht1H378gQLgFLhMqU8dgbuEv3dX6vIcz1UypKgOFn8Uy2pc0IbIcMZchC9NUKm6fEPtI1H0fZc7OZuv3NVvVudUiQDH3Eo8Ng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FQNdjP9H8eKeVhcHMAI46rH2pQ4VuSSYpKEAkX+g/KI=;
+ b=TzCWffnYO6o/GbqP8/CBMXlKEyINHkRfIHHj6WEWsPmr3WKq+AHrobOAkMiUP1Ei+1ZZeEjBqaqklPbav9t/EuCA5lqAxq1mP2isVtgrv2St/DFbCKquCJ79rSk0HvrlNF0+y/69HjFXTp+7tTsYHLAl8oMe80mwNtG/1HB6tShmiWKm+1ebEJvSepxKY1EzVqaMvcT30Y4WAUnV2ARq7elUBiDbgCFu49Ev9teNvS9HTiK4f3bvfzG7Z2LqrDnNaHIpwae99IPBdpg3Aab6SFZW63xI+QMkPpVZ3AvZI5z9MNKNdDeHFYkwaxI4cMwJZUX9T14v70xzXzUbJeAl7g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from PH7PR11MB6771.namprd11.prod.outlook.com (2603:10b6:510:1b5::20)
+ by MW4PR11MB6837.namprd11.prod.outlook.com (2603:10b6:303:221::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Wed, 7 Oct
+ 2026 22:48:01 +0000
+Received: from PH7PR11MB6771.namprd11.prod.outlook.com
+ ([fe80::effa:162e:c9c9:a1b4]) by PH7PR11MB6771.namprd11.prod.outlook.com
+ ([fe80::effa:162e:c9c9:a1b4%4]) with mapi id 15.21.0451.014; Wed, 7 Oct 2026
+ 22:48:01 +0000
+From: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
+To: "pbonzini@redhat.com" <pbonzini@redhat.com>, "Hansen, Dave"
+	<dave.hansen@intel.com>, "seanjc@google.com" <seanjc@google.com>, "Zhao, Yan
+ Y" <yan.y.zhao@intel.com>
+CC: "kvm@vger.kernel.org" <kvm@vger.kernel.org>, "Du, Fan" <fan.du@intel.com>,
+	"Li, Xiaoyao" <xiaoyao.li@intel.com>, "Huang, Kai" <kai.huang@intel.com>,
+	"thomas.lendacky@amd.com" <thomas.lendacky@amd.com>, "tabba@google.com"
+	<tabba@google.com>, "vbabka@suse.cz" <vbabka@suse.cz>, "david@kernel.org"
+	<david@kernel.org>, "kas@kernel.org" <kas@kernel.org>, "michael.roth@amd.com"
+	<michael.roth@amd.com>, "binbin.wu@linux.intel.com"
+	<binbin.wu@linux.intel.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "Peng, Chao P" <chao.p.peng@intel.com>,
+	"ackerleytng@google.com" <ackerleytng@google.com>, "nik.borisov@suse.com"
+	<nik.borisov@suse.com>, "francescolavra.fl@gmail.com"
+	<francescolavra.fl@gmail.com>, "sagis@google.com" <sagis@google.com>,
+	"Annapurve, Vishal" <vannapurve@google.com>, "Chen, Farrah"
+	<farrah.chen@intel.com>, "Gao, Chao" <chao.gao@intel.com>, "Miao, Jun"
+	<jun.miao@intel.com>, "jgross@suse.com" <jgross@suse.com>,
+	"pgonda@google.com" <pgonda@google.com>, "x86@kernel.org" <x86@kernel.org>
+Subject: Re: [PATCH v4 08/17] KVM: TDX: Adjust the topup count of DPAMT page
+ pairs for splitting S-EPT
+Thread-Topic: [PATCH v4 08/17] KVM: TDX: Adjust the topup count of DPAMT page
+ pairs for splitting S-EPT
+Thread-Index: AQHdTylT2fDCHY1RikeRNXt5wj90e7byvXkA
+Date: Wed, 7 Oct 2026 22:48:00 +0000
+Message-ID: <6ac2a1ffc4a860e71e63c068b33dc7644e65401b.camel@intel.com>
+References: <20260928090729.15468-1-yan.y.zhao@intel.com>
+	 <20260928091035.15599-1-yan.y.zhao@intel.com>
+In-Reply-To: <20260928091035.15599-1-yan.y.zhao@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Evolution 3.44.4-0ubuntu2.1 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH7PR11MB6771:EE_|MW4PR11MB6837:EE_
+x-ms-office365-filtering-correlation-id: 5f4adc12-5168-4b45-e7e8-08df24c50a4b
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|7416014|376014|23010399003|1800799024|38070700021|56012099006|5023799004|4143699003|11063799006|6133799003|10067099003|18002099003|22082099003;
+x-microsoft-antispam-message-info: 1rw7Q9qMWtCqQoZVK0XbieGyRsc7M9/dTkZSF8UW/oj1vcdgEN84fhsY+fQ3GZdunurzzJunZ+Z8EYa0Hucz1rOnc8fjnqdbCirxmHklQ/dBe+YAvjr0vc59clAaqhPTOJiYWnn9duUQ0S7RQYpU9W4Wb+7Mpf6filFmRFgJCJgx3+f4YPMaiPP/6WTOeJpJGC/87dvqsnEMh9mO7PWbuzTMViq03A1fKRX1Pz8C+CdYoAvP5phqdUpHq0+7x11sew9jfWLB4NiJV+axL7UEqJhif1kVOdpxZCzfkPj2ekbFLvqCcylh2qkDmX9/LM6XMf6tWQKzMl35Z1LoNYuR1WbqPIvA9TTB0A3LuCs1ARP2gzBm3a1X1sAW6Z5+nfUoE0gLjOfOusTxFv1FW9gBTRMKhilSaAOtIwHcjwggCwafBpG4LL9XqcpOPReqCbwwQ/lgM71Zxbq6v6E2QMtjcsNhVcvIdceoM+g9iD1Y+8/G/+EYo2G8IaYczKLW5lDflQHlJ613Q5AKuKl9eLLB7mFCSiO5+wSvRZURFup0HKxT6gbBykCgrEhgmL5Qci1Zn7pGFhZiSezYo63lyh4+/BB44bqmv/sA8lw3DPTW/UJZWQFAOh5DADeVdW8h1FKvNsnnoRFlJk2MadUlyI2lDx3Na/ePEbRnbQknO+p+HsDK8JHFSVBncO3Z3kCjJxSK6hDINfF/M4FoR5F9mWgaygEiXNRfxAhN2hiAV0vNQ+c=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6771.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(38070700021)(56012099006)(5023799004)(4143699003)(11063799006)(6133799003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?cmo0ZElxOEdVSGIraVRHWFRrbHUwU3dEY29tc2wwelZJNFdzUThHMy9Qck1n?=
+ =?utf-8?B?TUU3SUlUdzVuQVlHRXdWU09qaFR0Q1Z6YWpXTDVPMTdUNUo3aTl5d2hrOE9F?=
+ =?utf-8?B?ZkM3aWpubTJoamNCZFB5NW5Nb0MxbUhqSGU2QVp6akZic3ZBdmxBYXNsbk91?=
+ =?utf-8?B?TmxIZFZmcDIyYUFWTFpOYjFiV1BUSUtMT2JoSDN2b0dzZ0RQUVYzTFREdWdj?=
+ =?utf-8?B?WTZweFNUWXArM00yOHhZbkkrbkNsQ3o4S2NPTWZFa0NiRXZ6MFZHS3lTYXBj?=
+ =?utf-8?B?MHVVd3dFOW1GU1Z5THg5RnFTUGU5YUNGN2I2WHIvT0lTeVBOYlBYTUN5R1hz?=
+ =?utf-8?B?VnN3aXdvSWpXUjRPbnFDdyt0ZmhWWENpZDV3N25MMWhxQzFMdUhGVW51dlV1?=
+ =?utf-8?B?UkhWbHZXN2hRbGpDOWxTYnhobXNyNVdRc0F6aDZaREM4WkJiTktudDNvRGcr?=
+ =?utf-8?B?TU1JeUtmVFBwRTM4VitwNkxjWWtaQUNwZHRWTTI0M0REenZiN0JvaFhZeDFH?=
+ =?utf-8?B?Z2lzU1gzaFc1UWxDUkEyUHpROWk4L0lRRFVsRTNkcTlaRDFOdUkyT3NaS2c0?=
+ =?utf-8?B?UFJna2JRdUw3V0drWGtwMWV5dUJiVitOMU9jR01pN3JZQUhMUmhaRjBzQXps?=
+ =?utf-8?B?bE5VVHNUQ1p4UXE2ZUFoa1hMbHUwSG5tSlRLUjhDMk9OWFhqMVVjdEllNE1P?=
+ =?utf-8?B?c0hyNHUyU3hucjQrL3BSZS8raHkzM3U5bml3NzlBeXlwVThYclF5eVdtSTJm?=
+ =?utf-8?B?U09KQ21KNU92QXhRWm9FcnlMbWpWa25JcDVSMGN0cmhVN0RTRnNnRXB1eW03?=
+ =?utf-8?B?RGxTUEY4U050ZGdMQlptQVlGT0x2YWRQSnJUYTNnay90dXEzdTdUN1FrbWxX?=
+ =?utf-8?B?ak9nTi9jRTZCVnQzWnRocjdDUThtQXpwUnJkMFhmbVRNR2tiaUpaTE5WNjBB?=
+ =?utf-8?B?d3hEcTZnbURuM0FrMVpLc3ZkTWhtei9FZFozdHZHYmRtajg3ZkJjdk9IdGl4?=
+ =?utf-8?B?Umd5SXBRbHM0WFVZSk42VzRwQVRvS25jZS96MHJNeU1JV2Y4L2dBUzVtMlJU?=
+ =?utf-8?B?enRHbXk5NUZZZFZSKzgrTlZCSEJxMjl1aWh2VmxPOHVoR1ZESTZWcXNvQ1ky?=
+ =?utf-8?B?eWMwS3o2U2dhWTBYNzAwTnJUUVo5M05RU2VvKzZyRGVFdWJOc3NVQ0VqM01O?=
+ =?utf-8?B?YUNtUlFDMmY2K05rZFRnYjNWMnlJNlhpV1dGVWZBVm1LRzhuKy90NDBMVFNH?=
+ =?utf-8?B?VDVNbW9VRGE4OFJuSkZEbmNMclVqejJoNEN5dHVxL29oUkNhVGIzdS9CMWhC?=
+ =?utf-8?B?cFhrbnpYS1ZhWVhzU0VPaTg1OGpON0M0M0NpMjZDWG5BMFVsdVRLSDUrLzAx?=
+ =?utf-8?B?OHI2OStKU2pza0kvMHQxL28yaWJtNkwxeENHOC9qek5Pcjc3bVo0NWM5Q2d4?=
+ =?utf-8?B?dzl0eGxQNVJhcytyRlJqWTVjWUZBdERpaU9kdGdqMFpVaDUyQnBOZll3aVBR?=
+ =?utf-8?B?ZmxUUTJJdzdDWkdJOU5DT1BtbFdYQTRldVdMdGtpNEExQjRiWnlqNnRIdkNZ?=
+ =?utf-8?B?ZC9QZDR1V3Q0WXNNeDBiTGJZelM5dmJoVVVUY0llMzhQOTVLdWFCVXUxMnM3?=
+ =?utf-8?B?L25RUzJnc2hqdCtlcXNYSmlqbXExTlJZWDNWUFVyZEFSSnoxc0dKU0tWb3p6?=
+ =?utf-8?B?c2FRa1BhN1NrRUl4RWxRMGhTRnRNK3BFY2tTTVl5RnJaZkd2SmFPZzhyKzZY?=
+ =?utf-8?B?TTZwd1JLREJ2TnBwMFRSL3VQYi9mUDdCcXQ4dEVqaXRGcm5iMWxQejNCMHg1?=
+ =?utf-8?B?V3FFZGFGTWNNZ0JXNTNOSWdYZmN2d0I4cHhnTDAxeU9Ma1IvaUZ6bkVKK0gy?=
+ =?utf-8?B?NlpGTnUyWlF4OSt5NUp3YVNNbjU1MVZmRkt6UHRsRyt3WHFDVmNhdXUwR05L?=
+ =?utf-8?B?d1M2N0YzcEhHUW4xNG5KWTBEbVlCcWsvRXhrclZ3TkpWdVZLbEhXM2xDYnRp?=
+ =?utf-8?B?SFduZ21CVzZEeEptWTBYR1pnVUpuYzYxcWdWSWJDKzF2blJ3d1FRNkovaTZy?=
+ =?utf-8?B?WGh2YnN4aS9sQkk4ZDJYTWFwTjhDQnFGcFh0MDhCbFNGc29MM0pwaDB3NU51?=
+ =?utf-8?B?Rmk4TkhLbExJK2xZUnVJVWNHZHN3WXprUGVkZ2hzQXB3cGU4bjJyZnBVdk5G?=
+ =?utf-8?B?QjJIN0FVMDIzWUdURHEybTJCT1VuT0RjU3l1VVFtSnczcDdOaVl3a3RlZFFh?=
+ =?utf-8?B?NGY1L2cxOE1SWUVwWS94Y1U0a1BsL09aM2g1cStXNFN0VXJ3cDQrZjNDT2xs?=
+ =?utf-8?B?blFhV0ZnLzlxT1FDdzNERFNvZmlCUEdVNVNhcjM1VWZUbit2dlg3Y2I0NGQv?=
+ =?utf-8?Q?4gfMAuk+Jp81y8Qo=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <4E13B2F0683A8D42B9C452DD9EFCC980@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261006-alpha-hugepages-v1-0-a673a18aaa70@gmail.com>
-In-Reply-To: <20261006-alpha-hugepages-v1-0-a673a18aaa70@gmail.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Thu, 8 Oct 2026 00:46:11 +0200
-X-Gm-Features: AclHuK9KYZUiJmmm2EQmaVn9h8dFFdx_V-4eFazKEEm8BWdo0Odf5JkJDem3PCU
-Message-ID: <CA+=Fv5SZ+NLSCU_7kNSZYtu0_h_OUuDYnHW54D2eb=X-ysw9dw@mail.gmail.com>
-Subject: Re: [PATCH 0/6] alpha: hugetlb support using granularity hints
-To: Matt Turner <mattst88@gmail.com>
-Cc: Richard Henderson <richard.henderson@linaro.org>, linux-alpha@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Exchange-RoutingPolicyChecked: OxULOSQP3XDaSBsngYJQZAobNTzWRNy2Zgor1iX4PKH2xayAG8p6hitdMDzK0WAGRpZcU3SPa5xzUA/z0kyLFlhNTUIpdqUheak0BmSglmURVpZzA2siPzmOgyhtib18JAnsvFZAHWEhxQfAK2jYCvSGhYCo8T8Gngvry8eE111bCsPiOtseyDM1/Qn/ORFWEgb8pmU1JLIrWxvqi71vFxkYcfMLcKoLTo6IjPuAHtetr4BWzKEWHv+Y9ctwsAi93JYNEJWdIFS/PkvuBtnsc2RlnOpIQTE08orSoBzduAimwpS9eJH6fJOnKZHQ4RMuS6bDHN85unSu3w/eBRXH7A==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6771.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5f4adc12-5168-4b45-e7e8-08df24c50a4b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Oct 2026 22:48:00.9762
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: PGqZfgGRp70YF5evXJuZCg/T4MNoyWEz8T3A4se7MPOlc2vsswvZ7yRN9GH1lWHRZX4uElVEalPyJLOarnnoPYNiCniq+BZfmwTpBLycH1Q=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR11MB6837
+X-OriginatorOrg: intel.com
 
-Hi Matt,
-
-First, thanks alot for taking the time to do this.
-
-On Tue, Oct 6, 2026 at 4:04=E2=80=AFPM Matt Turner <mattst88@gmail.com> wro=
-te:
->
-> Alpha has no leaf entry above the last page table level, so the usual
-> PMD sized huge page is not available to it. What it does have is the
-> granularity hint, bits <6:5> of the PTE, described in Table 17-3 of the
-> Alpha Architecture Reference Manual: a hint of order N marks a PTE as
-> one of 8^N physically contiguous, naturally aligned pages that the
-> translation buffer is permitted to map with a single entry. With 8KB
-> pages that gives 64KB, 512KB and 4MB blocks, and this series registers
-> all three as hstates.
->
-> This works like arm64's contiguous PTE support rather than RISC-V's
-> NAPOT: every PTE of a block keeps the frame number of its own page, so a
-> block is written with set_ptes() and the frame number advances across
-> it. There is no PMD sized huge page, and hence no transparent huge
-> pages, no PMD page table sharing and no gigantic pages.
->
-> The architecture requires all PTEs of a block to agree in bits <15:0>,
-> and both __ACCESS_BITS and __DIRTY_BITS reach into that range, so every
-> update rewrites the whole block and huge_ptep_get() merges the young and
-> dirty state back together. Changes to a valid block go through break
-> before make, as section 11.6.1 requires; the invalidate there has to
-> assume the hint is zero and so must cover every page of the block, which
-> flush_tlb_range() on alpha already exceeds, since it rolls the address
-> space number.
->
-> The hint is advisory. An implementation that ignores it still translates
-> correctly through the individual PTEs, so this is safe on every Alpha,
-> and gup_fast needs no changes. The console block that would report which
-> hint sizes the translation buffer implements was never filled in by any
-> console through EV7, so which sizes an implementation honors can only be
-> established by measuring, as the last section does for EV7.
->
-> Patches 1 and 2 are independent fixes. Patch 1 adds a
-> page_table_check_pte_clear() call missing from alpha's
-> ptep_get_and_clear(). Patch 2 fixes a BUG() that testing this series
-> turned up: do_page_fault() fell through to BUG() on VM_FAULT_HWPOISON,
-> reachable through UFFDIO_POISON without any memory failure support.
-> Patch 3 documents that the bits Linux calls _PAGE_URE and _PAGE_UWE are
-> the architecture's ERE and EWE, which matters when reading PTE layout
-> tables alongside this code. Patches 4 and 5 are groundwork and patch 6
-> is the implementation.
->
-> Testing
-> =3D=3D=3D=3D=3D=3D=3D
->
-> Tested on megalith (EV7 Marvel, 8GB), with two CPUs and again with one,
-> cross-built with alpha-unknown-linux-gnu-gcc, with CONFIG_DEBUG_VM=3Dy,
-> CONFIG_DEBUG_VM_PGTABLE=3Dy, CONFIG_PAGE_TABLE_CHECK_ENFORCED=3Dy and
-> CONFIG_CGROUP_HUGETLB=3Dy. All three hint sizes register as hstates.
->
-> mm selftests, the same in both configurations: hugetlb 10/10,
-> userfaultfd and cow 7 pass 1 skip (uffd-wp-mremap), 0 fail, including
-> uffd-stress hugetlb and hugetlb-private at 128MB/32 threads.
-> debug_vm_pgtable validates clean at boot. No page_table_check reports
-> and no DEBUG_VM splats in any run.
->
-> Ad hoc tests written for this series also pass at all three sizes: dense
-> per-base-page write and read back across a block, which catches a wrong
-> frame number inside a block that a strided pattern would alias over;
-> mprotect down to PROT_READ and back, including a middle-block-only case,
-> exercising break before make; fork COW; hugetlbfs shared mappings
-> checked through pread and through a second independent mapping; hole
-> punch of a middle block with both neighbors and the refaulted hole
-> checked; ftruncate down and back up; and the 4MB -> 512KB -> 64KB demote
-> chain with exact count checks. All of it again with four concurrent
-> copies, and the whole suite ten times in a row.
->
-> An earlier revision of the series was also tested on up1500 (EV68AL
-> Nautilus, UP, 4GB) with CONFIG_DEBUG_VM=3Dy and
-> CONFIG_PAGE_TABLE_CHECK_ENFORCED=3Dy. That machine has not been retested
-> with this revision.
->
-> Magnus Lindholm also tested the series on SMP, on a UP2000+ (2x EV68AL
-> 833 MHz), including a multithreaded stress test. It found that
-> huge_ptep_set_access_flags() broke and rewrote a block on every fault,
-> so two threads on different CPUs could keep each other faulting: 17,316
-> faults in 6 seconds after one permission change on a 4MB page. With the
-> check now in patch 6 the same change causes one fault. No writes were
-> lost with or without it.
->
-
-I've now run this revision on the UP2000+, both as posted and on top of
-my TLB shootdown series [1]: run-ghtests.sh 200 times, the hugetlb,
-userfaultfd and cow selftests (17 pass, 1 skip), and the stress test at
-all three sizes, with no lost writes and at most one fault after a
-permission change on either kernel.
-
-That doesn't make [1] optional. The stress test flushes only from
-threads of the process itself, and its threads keep writing, which
-hides stale translations (see [1]'s cover letter); [1] fixes flushes
-that miss a CPU after fork, under lazy TLB, or on the calling CPU.
-Break before make on SMP needs flush_tlb_mm() to reach every CPU.
-
-EV68AL also honors all three hint sizes: retired instructions per
-access, which include the PALcode DTB fill, drop to the no-miss level
-exactly where each size fits the 128-entry DTB, whose entries can each
-map 1, 8, 64 or 512 pages (21264/EV67 HRM section 2.1.6.4).
-
-[1] https://lore.kernel.org/linux-alpha/20260923074903.862898-1-linmag7@gma=
-il.com/T/#t
-
-> Hugepage migration is not enabled. It has no test coverage: the
-> migration, rmap and ksm selftests do not cross-build for want of libnuma
-> in the alpha sysroot, and neither machine is multi-node.
->
-> Does the hint do anything?
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D
->
-> On EV7, yes. Since the hint is advisory there is no way to ask the
-> hardware whether it implements one, and the console block that would
-> report it was never filled in, so the only way to find out is to
-> measure.
->
-> Comparing the three hint sizes against each other rather than against
-> normal pages avoids the hugetlb-versus-anonymous confound. A random
-> pointer chase touches one cache line per 8KB base page, with the
-> permutation seeded only from the page count, so every backing walks an
-> identical sequence over an identical footprint and the only variable is
-> how many DTB entries the working set needs. EV6 and EV7 have a 128 entry
-> fully associative DTB, so coverage is 128 times the page size: 1MB with
-> base pages, 8MB at 64KB, 64MB at 512KB, 512MB at 4MB.
->
-> Nanoseconds per access on megalith with one CPU, 8,000,000 accesses per
-> pass. Each figure is the best of ten runs, every run on freshly
-> allocated memory: single runs differ by 40% or more from one allocation
-> to the next, at every page size including base pages, so the best run is
-> the one to compare.
->
->      size      base(8KB)       64KB      512KB     4096KB
->       1 MB          11.24      11.11      15.02      11.72
->       4 MB         155.47     104.54     105.03     104.17
->      16 MB         156.69     127.50     109.55     105.52
->      64 MB         154.61     146.79     110.16     105.76
->     256 MB         172.56     171.34     175.74     107.47
->    1024 MB         232.40     230.08     222.15     190.03
->
-> Each size keeps its advantage until the working set passes its own
-> coverage and then converges on the base page column: 64KB is useful to
-> about 8MB, 512KB to about 64MB, 4MB to about 512MB.
->
-> Signed-off-by: Matt Turner <mattst88@gmail.com>
-> ---
-> Matt Turner (6):
->       alpha: add missing page_table_check_pte_clear() to ptep_get_and_cle=
-ar()
->       alpha: handle VM_FAULT_HWPOISON in do_page_fault()
->       alpha: clarify that _PAGE_URE and _PAGE_UWE are the Executive bits
->       alpha: define granularity hint PTE bits
->       alpha: align hugetlb mappings in arch_get_unmapped_area()
->       alpha: implement hugetlb support
->
->  arch/alpha/Kconfig               |   1 +
->  arch/alpha/include/asm/hugetlb.h |  43 ++++++
->  arch/alpha/include/asm/page.h    |  13 ++
->  arch/alpha/include/asm/pgtable.h |  69 ++++++++-
->  arch/alpha/kernel/osf_sys.c      |  14 +-
->  arch/alpha/mm/Makefile           |   2 +
->  arch/alpha/mm/fault.c            |  19 +++
->  arch/alpha/mm/hugetlbpage.c      | 306 +++++++++++++++++++++++++++++++++=
-++++++
->  8 files changed, 456 insertions(+), 11 deletions(-)
-> ---
-> base-commit: e946efcc89066c5d80acbae42d015a4da33a11de
-> change-id: 20260912-alpha-hugepages-0c6cb6c0995d
->
-> Best regards,
-> --
-> Matt Turner <mattst88@gmail.com>
->
-
-
-Magnus
+T24gTW9uLCAyMDI2LTA5LTI4IGF0IDE3OjEwICswODAwLCBZYW4gWmhhbyB3cm90ZToNCj4gS1ZN
+IG5lZWRzIHRvIGFsbG9jYXRlIGVub3VnaCBEUEFNVCBwYWdlIHBhaXJzIGluIHRoZSBwYW10X2Nh
+Y2hlIGZvcg0KPiBjb25zdW1wdGlvbiBieSBib3RoIHBhZ2UgdGFibGUgcGFnZXMgYW5kIGd1ZXN0
+IHBhZ2VzLiBTaW5jZSB0aGUgRFBBTVQgcGFnZQ0KPiBwYWlyIGZvciB0aGUgUy1FUFQgcm9vdCBw
+YWdlIGlzIGFscmVhZHkgYWxsb2NhdGVkIGR1cmluZyBURCBpbml0aWFsaXphdGlvbiwNCj4gdGhl
+cmUgaXMgbm8gbmVlZCB0byBhbGxvY2F0ZSB0aGUgRFBBTVQgcGFnZSBwYWlyIGZvciB0aGUgUy1F
+UFQgcm9vdCBwYWdlLg0KPiBUaGVyZWZvcmUsIHByZXZpb3VzbHkgdGhlIERQQU1UIHBhZ2UgcGFp
+cnMgcmVxdWlyZWQgZXF1YWxzDQo+ICJtaW5fbnJfc3B0cyAtIDEgKyAxIi4NCj4gDQo+IFdoZW4g
+c3BsaXR0aW5nIFMtRVBULCBtaW5fbnJfc3B0cyBkb2VzIG5vdCBpbmNsdWRlIHRoZSByb290IFNQ
+VC4gU28sIGxpbWl0DQo+IHRoZSAtMSBjYWxjdWxhdGlvbiB0byB3aGVuIG1pbl9ucl9zcHRzIGVx
+dWFscyByb290X2xldmVsLCB0aG91Z2ggdGhpcyB3aWxsDQo+IGNhdXNlIG9uZSBwYWlyIG92ZXIt
+YWxsb2NhdGlvbiBpbiB0aGUgbm9ybWFsIHBhZ2UgZmF1bHQgcGF0aCBiZWNhdXNlDQo+IFBUNjRf
+Uk9PVF9NQVhfTEVWRUwgaXMgYWx3YXlzIHBhc3NlZCBldmVuIHdoZW4gbGF1bmNoaW5nIGEgNC1s
+ZXZlbCBURC4NCj4gDQo+IEFkZGl0aW9uYWxseSwgS1ZNIG1heSBuZWVkIHRvIHJldHJ5IHRkaF9t
+ZW1fcGFnZV9kZW1vdGUoKSBhIHNlY29uZCB0aW1lLA0KPiBjYXVzaW5nIHRoZSBEUEFNVCBwYWdl
+IHBhaXIgZm9yIHRoZSBndWVzdCBwcml2YXRlIHBhZ2VzIHRvIGJlIGRyYXduIGZyb20NCj4gdGhl
+IHBhbXRfY2FjaGUgdHdpY2UgaW4gdGhlIHdvcnN0IGNhc2UuIFRoZXJlZm9yZSwgYWRkIGFuIGV4
+dHJhICsxIHRvIGNvdmVyDQo+IHRoaXMgd29yc3QtY2FzZSBzY2VuYXJpby4NCj4gDQo+IFRoZSBz
+bGlnaHQgb3Zlci1hbGxvY2F0aW9uIGlzIGFjY2VwdGFibGUgc2luY2UgS1ZNIGFscmVhZHkgcHJl
+LWFsbG9jYXRlcw0KPiBtb3JlIHBhZ2VzIHRoYW4gbmVlZGVkIChlLmcuLCB3aGVuIG1hcHBpbmcg
+aHVnZSBwYWdlcykgaW4gY2FzZSBvZiB0aGUNCj4gd29yc3QtY2FzZSBzY2VuYXJpby4NCg0KVGhp
+cyBpcyBhc3N1bWVzIHdheSB0b28gbXVjaCBhYm91dCB0aGUgY2FsbGVycyBhbmQgd2F5IHRvbyBj
+b252b2x1dGVkLiBUaGUNCmV4aXN0aW5nIGNvZGUgYWxyZWFkeSBkaWQgYnV0LCBub3cgdGhpcyBp
+cyBqdXN0IHRvbyBmYXIuIFdlIG5lZWQgYW5vdGhlcg0Kc29sdXRpb24uDQoNClF1ZXN0aW9ucyBi
+ZWxvdyBvbiB3aGF0IHRoYXQgbWlnaHQgYmUuDQoNCj4gDQo+IFNpZ25lZC1vZmYtYnk6IFlhbiBa
+aGFvIDx5YW4ueS56aGFvQGludGVsLmNvbT4NCj4gLS0tDQo+ICBhcmNoL3g4Ni9rdm0vdm14L3Rk
+eC5jIHwgMjYgKysrKysrKysrKysrKysrKysrKysrKy0tLS0NCj4gIDEgZmlsZSBjaGFuZ2VkLCAy
+MiBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2FyY2gv
+eDg2L2t2bS92bXgvdGR4LmMgYi9hcmNoL3g4Ni9rdm0vdm14L3RkeC5jDQo+IGluZGV4IDMxODZj
+NDgwOGNhZS4uMzk3YTMwOGI4MzRjIDEwMDY0NA0KPiAtLS0gYS9hcmNoL3g4Ni9rdm0vdm14L3Rk
+eC5jDQo+ICsrKyBiL2FyY2gveDg2L2t2bS92bXgvdGR4LmMNCj4gQEAgLTE2MzAsMTYgKzE2MzAs
+MzQgQEAgdm9pZCB0ZHhfbG9hZF9tbXVfcGdkKHN0cnVjdCBrdm1fdmNwdSAqdmNwdSwgaHBhX3Qg
+cm9vdF9ocGEsIGludCBwZ2RfbGV2ZWwpDQo+ICANCj4gIHN0YXRpYyBpbnQgdGR4X3RvcHVwX2V4
+dGVybmFsX3BhbXRfY2FjaGUoc3RydWN0IGt2bV92Y3B1ICp2Y3B1LCBpbnQgbWluX25yX3NwdHMp
+DQo+ICB7DQo+ICsJaW50IGRwYW10X3BhaXJzOw0KPiArDQo+ICAJaWYgKFdBUk5fT05fT05DRSgh
+dmNwdSkpDQo+ICAJCXJldHVybiAtRUlPOw0KPiAgDQo+ICsJLyogRXhjbHVkZSB0aGUgcm9vdCBT
+UFQsIGFzIGl0cyBEUEFNVCBwYWdlIHBhaXIgaXMgYWxyZWFkeSBpbnN0YWxsZWQgKi8NCj4gKwlp
+ZiAobWluX25yX3NwdHMgPT0gdmNwdS0+a3ZtLT5hcmNoLm1pcnJvcl9yb290X2xldmVsKQ0KPiAr
+CQltaW5fbnJfc3B0cyAtPSAxOw0KDQpPdmVyIGFsbG9jYXRpbmcgYSBiaXQgaXMgbm90IHRoZSBl
+bmQgb2YgdGhlIHdvcmxkLi4uDQoNCj4gKw0KPiArCS8qDQo+ICsJICogRWFjaCBTLUVQVCBwYWdl
+IHRhYmxlIHBhZ2UgKyA0S0IgZ3Vlc3QgcHJpdmF0ZSBwYWdlIG5lZWRzIGEgcGFpciBvZg0KPiAr
+CSAqIERQQU1UIHBhZ2VzLg0KPiArCSAqLw0KPiArCWRwYW10X3BhaXJzID0gbWluX25yX3NwdHMg
+KyAxOw0KPiArDQo+ICAJLyoNCj4gLQkgKiBNaW51cyBvbmUgcGFnZSB0byBleGNsdWRlIHRoZSBy
+b290IFNQVCwgYnV0IHBsdXMgb25lIHBhZ2UgZm9yIGENCj4gLQkgKiBwb3NzaWJsZSA0S0IgcHJp
+dmF0ZSBtYXBwaW5nLg0KPiArCSAqIEFmdGVyIGVhY2ggdG9wdXAsIEtWTSBtYXkgaW52b2tlIERF
+TU9URSBhdCBtb3N0IHR3aWNlLg0KPiANCg0KV2h5IHR3aWNlPyBZb3UgbWVhbiB0aGUgQlVTWSBy
+ZXRyeSBhdHRlbXB0LCByaWdodD8gSWYgeW91IGRvLCBjb3VsZG4ndCB3ZSBmaXgNCnRoaXMgcHJv
+YmxlbSB3aXRoaW4gdGRoX21lbV9wYWdlX2RlbW90ZSgpPw0KDQo+ICBUaGUgZmlyc3QNCj4gKwkg
+KiBERU1PVEUgaW52b2NhdGlvbiBkcmF3cyB0d28gcGFpcnMgb2YgcGFnZXMgZnJvbSB0aGUgY2Fj
+aGU6IG9uZSBmb3INCj4gKwkgKiB0aGUgUy1FUFQgcGFnZSB0YWJsZSBwYWdlIGFuZCBvbmUgZm9y
+IHRoZSBndWVzdCBwcml2YXRlIG1lbW9yeS4NCj4gKwkgKiBTaW5jZSB0aGVzZSBwYWdlcyBhcmUg
+bm90IHJldHVybmVkIHRvIHRoZSBjYWNoZSwgdGhlIHNlY29uZCBERU1PVEUNCj4gKwkgKiBpbnZv
+Y2F0aW9uIHN0aWxsIG5lZWRzIHRvIGNvbnN1bWUgb25lIGFkZGl0aW9uYWwgcGFpciBmb3IgdGhl
+IGd1ZXN0DQo+ICsJICogcHJpdmF0ZSBtZW1vcnkgKHRoZSBwYWlyIGZvciB0aGUgUy1FUFQgcGFn
+ZSB0YWJsZSBwYWdlIGlzIHJldXNlZCBmb3INCj4gKwkgKiB0aGUgMm5kIGludm9jYXRpb24pLg0K
+PiANCj4gDQo+IA0KDQpBbm90aGVyIGlkZWEsIGNoYW5nZSB0aGUgb3AgdG8gYmU6DQppbnQgdG9w
+dXBfZXh0ZXJuYWxfY2FjaGUoc3RydWN0IGt2bV92Y3B1ICp2Y3B1LCBib29sIHJvb3QsIGJvb2wg
+cHJpdmF0ZV9wYWdlLA0KaW50IG1pbl9ucl9zcHRzKTsNCg0KTm9ybWFsIHRvcHVwIGNhbiBzZXQ6
+DQpyb290PXRydWUNCnByaXZhdGVfcGFnZT10cnVlDQptaW5fbnJfc3B0cyA9IFBUNjRfUk9PVF9N
+QVhfTEVWRUwgLSAxDQoNClRoZW4gd2UgY2FuIGNhbGN1bGF0ZSBleGFjdGx5IHdoYXQgd2UgbmVl
+ZC4gQW5kIGV2ZW4gYmV0dGVyLCB0aGUgZXhpc3RpbmcgY29kZQ0Kd29uJ3QgbmVlIGEgY29tbWVu
+dCB0byBleHBsYWluIHRoZSB3ZWlyZG5lc3MuDQoNCj4gIEluY3JlYXNlIHRoZSB0b3B1cCBjb3Vu
+dCB0byBhY2NvdW50IGZvciB0aGlzDQo+ICsJICogd29yc3QtY2FzZSBzY2VuYXJpby4NCj4gIAkg
+Ki8NCj4gLQltaW5fbnJfc3B0cyArPSAtMSArIDE7DQo+ICsJZHBhbXRfcGFpcnMgKz0gMTsNCj4g
+IA0KPiAtCXJldHVybiB0ZHhfdG9wdXBfcGFtdF9jYWNoZSgmdG9fdGR4KHZjcHUpLT5wYW10X2Nh
+Y2hlLCBtaW5fbnJfc3B0cyk7DQo+ICsJcmV0dXJuIHRkeF90b3B1cF9wYW10X2NhY2hlKCZ0b190
+ZHgodmNwdSktPnBhbXRfY2FjaGUsIGRwYW10X3BhaXJzKTsNCj4gIH0NCj4gIA0KPiAgc3RhdGlj
+IGludCB0ZHhfbWVtX3BhZ2VfYWRkKHN0cnVjdCBrdm0gKmt2bSwgZ2ZuX3QgZ2ZuLCBlbnVtIHBn
+X2xldmVsIGxldmVsLA0KDQo=
