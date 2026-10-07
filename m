@@ -1,176 +1,202 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E440D47207D
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:38:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E340948F026;
+	Wed,  7 Oct 2026 11:38:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791373129; cv=none; b=ArFEC/moUMy66jcvrP46yBi999DVKXU6ePt8JMbVn940fBOKS1HPCGbQObb9ApoxgYZE28eQtdr1BiChGkLn0o6WIfhW+fz3riH4O+LFjZ2TUFXe3ODP93zogoX5wUgcrlbt9SjnFSHHY+YPF78SzpuquuiVjjrc1TnKfNJmZ2s=
+	t=1791373131; cv=none; b=Hv10xwM8toeP1YoxJAQxp/UPKTG9e0JH7jTaId4IqOYksmkw1F5f7LURKU5e+YBAIJv6mbbc1tBEmCn+yVkBqHztocy2Y3HhGovZDcMfE5OzWsphmTZO1Im9nKX8vl1FOuB3G+6ERAiSyUkncc50c5amA3cEcnvZSx8aSudFXNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791373129; c=relaxed/simple;
-	bh=gGD419HTG2YpsaHNWK2vNobX0Re5xBVQ3uFHDD/+SiU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZC+MCouVgUTULysfGi4/kVL8dWfBTdD4n+vAiaT5Rf17QyXJrF3ClTUp4NmaZn5xDdc0AyGlrPJSlGBoX1+6qxoFtGFuM3QKH051H1M07YNaXnP3HPlP/d3+vLZQiMcZwPONqk1V9SUve7FA1gSLdw6qSZ02K8Fjf/hNw8uE6Bc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GBy4QTGY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ORDRpFGE; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791373131; c=relaxed/simple;
+	bh=kMv38oKrSaZISHsXYT59RwNnazGK8B9aVUUcQ6OMGMU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ekq44PZ0Add8JvEpLr3vx+f+kvnQFFQn8q6sJXjGUeL/M5zR+jyD1hGLDe3/1tWyhHwb0yFS1unaJJWNl0PZTDUPwiTZFxF/3qmCrP/qvQlnwIQl5jMwJ1ni3TyWHP//T7L5Hm0aFO6Tcga/iE9LYt7ZhZRTrWuLwjZIW5Ou4aI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DbnIABJ4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GBy4QTGY";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ORDRpFGE"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697BVAq32802319
-	for <linux-kernel@vger.kernel.org>; Wed, 7 Oct 2026 11:38:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	vMN/dB4ZkEq4ZuEigsZAolrFm+neXQ+47DolAtCQpj4=; b=GBy4QTGYVMDa8gui
-	8F6swmaQKc3zd5smFaomemcUJK7oVDYPoI0xn/PEhjz80d+rTjdRTwCrnXOA34Vr
-	XlWnZYUm0bziRD+Wowuq7tOfR1RgexndYU7GlFMqNIfrdaL9YxIGchroIx6L9MVQ
-	wdeMgqk2OdbjvtN4UIaaJI76tn0RkqHRUs3k/7cKA29KU9Fuxn1LwThrdS9LXIQO
-	A4lco8YxJFP7F0NIUrfi8CfKQn/ozYRWXOsFzfG8DpoaVeB/fX5S47pwKwJfx4eQ
-	/wH6WV4G2rlNKo67J6pkF7aCI0CWAzuzLsFS+DbF60iARfwyREpvRHscswsba8aE
-	ERlNWw==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5mge066r-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 11:38:18 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e2e7425601so19003335ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 04:38:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791373098; x=1791977898; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vMN/dB4ZkEq4ZuEigsZAolrFm+neXQ+47DolAtCQpj4=;
-        b=ORDRpFGEIQHHKFwLIn4u+y37vM9Ckc/ueakDh88Xsay3Kgys906esQwA1xqV8UY20A
-         Mfpy01LS5z5GO6fflIVIdfZrLeFRUGVnWwGt3VcB4pMwMk2fG46tX/UgAHaLgVMqral8
-         YglDR2XZLZODWXs98NYRP8E4Ej98O7gCH+fnQV1h+dOJJ/rTtgZDRaWDe4BQjFQwyBhJ
-         e/Jf8pZQm+7BkqisjO664J/eR3+HrbrrvwTRO0jcrTacvCzmb6SRhnlmZVPx9BtRGgvM
-         SmeLHfH/oC3S7O1Dlzg4il7Hziy8fZh9hGsY2RoHLxW/ipeolJXod1Gt4Rcc4FCho4z5
-         oYOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791373098; x=1791977898;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vMN/dB4ZkEq4ZuEigsZAolrFm+neXQ+47DolAtCQpj4=;
-        b=hLRbq8nbWJZFtoPrbWE8NkdqzKnyx0z8Aq+0BAqDNDXZ3tlcs2XcqV5OGqe0HHa9Jh
-         mJ84ani/3NUMwlUV5J/bycaTz7Mta3Hq0a5FiwPMR4Iui0OR6Epnfxuibdum2qLmx912
-         WciLVV17IzIjriBjvJP/OgA3MZ2L5uJncbCej8UOmjRFBUKPl6JJI73DwpFYWgbcC4Fw
-         bLrj4HhJvnkh3EC5M+P6IME8xw1sxqXcislG1lQx71MTGbz80ebOHwdwouxrOWkrOxbL
-         lTpNUp3qnNMaI32OFo51HUwHA1AMyMzGolhAWeblTYkHLVM+8S94VWOsPi92QNFpQoJy
-         wV2Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxbYB46Cd9fVX7w3F49qb6FdbNHBfAKxxOXj9fAQ+HKvT0UKML7LqvC4exQ+jaz0wuuGdtbNpWxzFXTEGs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIYKgwKWXWGA8um6Qp9Bc038iWQup8jBDfsKVSDTZ/G9NDXgC+V
-	vcdXdZNWVX1JjSrI4xAPcZIvoaLFAim0aq2cUOIRitaQgIvzOt3yzVWCYcCa7JtXfOrURHHos9m
-	Vp1nLoT5pbPgWkVScrItl7J+kIadZp3bXiGa62PQV50bBeMJ5Zb/3fwOkwaPfMDA3Dfs=
-X-Gm-Gg: AYBFou2RS3aQDjIFqLuGr1pdCHXuowvawp0uTc3dVM9O2SEH2XhQYBdAeHFAyfMNK0u
-	WBdmCGy5lV/3jWsPOXLhukLxinaxGNcji3hRRv8yTnsWH3dLGEHBbkcRiVgNRAv8aaBzjVHjh88
-	+4xBs34A1xrLyItI2B41Kbalz1E+uXRKDQyzZP36FAYx8HJDfY8eHccESknPtnqu3zgRK1fFMcX
-	7x0LO7MRzO207CnBzCEEjYyfbp0jg97cfEVLlPXd24HtIzO5Psv7OzprnLGuXzwA9iWGD1IffBO
-	cHmlVEkIx8wwRuc/ioz04jDHRKoSyLEPA+FgZUFwIJ+OHk9h09gmUNNr/vbJUr+eseHuLTDCbE4
-	zEGvzywIldGse4iWnR7PKEltRwR9tg65q
-X-Received: by 2002:a17:90b:4b8d:b0:39e:6c68:fd91 with SMTP id 98e67ed59e1d1-3a8a1569ab3mr1107964a91.38.1791373097717;
-        Wed, 07 Oct 2026 04:38:17 -0700 (PDT)
-X-Received: by 2002:a17:90b:4b8d:b0:39e:6c68:fd91 with SMTP id 98e67ed59e1d1-3a8a1569ab3mr1107943a91.38.1791373097155;
-        Wed, 07 Oct 2026 04:38:17 -0700 (PDT)
-Received: from hu-vkatoch-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8a5e0eeb6sm1454001a91.2.2026.10.07.04.38.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 04:38:16 -0700 (PDT)
-From: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-Date: Wed, 07 Oct 2026 17:07:49 +0530
-Subject: [PATCH v2 2/4] misc: fastrpc: handle multi-cell reg in context
- bank probe
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DbnIABJ4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D76A01F0089F;
+	Wed,  7 Oct 2026 11:38:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791373100;
+	bh=YHMH+keh5NxbxbkzO6Wkar3DFeK8/2kdXEFzdfkNl7k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DbnIABJ4pIB1VpM1zub2Z5WRvnkL+2HK58CqmNzdKXZg29ZW88/UdxUhxTboAujj7
+	 vs7i01FwduYQXN3wTxEJWeRiKzsEx1pT3CiqA/tNArrC6do7rhFEkF6CqzJyhsJFHX
+	 v8Txz5wS8f/6yZXkCi8DJffCJp1U/NvgRp1Uvvlm7R5gFrrzDpibhHiD33mbbHmCla
+	 sXhaMk3gWlfbXuzwWC6/8PlwQ6mlv7Q80p3WT4l0cDtsc7/I2PZxbQzVbtFSax84kz
+	 KZBvx4l0kEzJfQei/GAx7aobiqhl9AnhVaeyuri4f97LqvEvIiwyS+iLqsIu6TUWxM
+	 ltXP9ruaTqHdw==
+Date: Wed, 7 Oct 2026 13:38:17 +0200
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Stian Halseth <stian@itx.no>
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	Anna-Maria Behnsen <anna-maria@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	regressions@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] sched/cputime: Don't account idle time twice after
+ dyntick-idle
+Message-ID: <asYvKTW5qrxi3Wlp@localhost.localdomain>
+References: <20261005194010.168299-1-stian@itx.no>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261007-extended-mapping-v2-2-5dca3aa2c2d3@oss.qualcomm.com>
-References: <20261007-extended-mapping-v2-0-5dca3aa2c2d3@oss.qualcomm.com>
-In-Reply-To: <20261007-extended-mapping-v2-0-5dca3aa2c2d3@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Bharath Kumar <bkumar@qti.qualcomm.com>,
-        Chenna Kesava Raju <chennak@qti.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791373080; l=1169;
- i=vinayak.katoch@oss.qualcomm.com; s=20260609; h=from:subject:message-id;
- bh=gGD419HTG2YpsaHNWK2vNobX0Re5xBVQ3uFHDD/+SiU=;
- b=90TJaGDgNrl6dlM0/JPg8Mf4kKYytQP3bL9Qe+l+GIxIRzkUfSCjcUANnGLpy6fm9kNBZCWSb
- 3ODYMHKxMpsCFjRZqNkTgp/MnPK8wHPv5693P266MSp6p0LTOzg6WMk
-X-Developer-Key: i=vinayak.katoch@oss.qualcomm.com; a=ed25519;
- pk=UrGeKKxjIjpHZIjsbQKS/8rrVaP9KVGki69pFclCH08=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDA0NiBTYWx0ZWRfX+MeXiZAXArJT
- 1mgyU4fMQg8rnkandlQdzhV1h8ZO/A+wqWj3NRUmH274JdWJF4VyfFOGuksA7RVrUSXEAlKRg7Q
- vpaHoEAka617WBTjy3+xpB/ujb1Pqbk=
-X-Proofpoint-GUID: MBGIsKRcxFreQUBLEzfIGQ1mFG1EY2Gc
-X-Authority-Analysis: v=2.4 cv=PdJqFShd c=1 sm=1 tr=0 ts=6ac62f2a cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=OuqQISpc-kSra7OiYdkA:9 a=0bXxn9q0MV6snEgNplNhOjQmxlI=:19
- a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-ORIG-GUID: MBGIsKRcxFreQUBLEzfIGQ1mFG1EY2Gc
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDA0NiBTYWx0ZWRfX25ihbrb0wqdi
- gTKVlfAvPIgk2yo7dumDMPh1gdEcZoaZsHPeQqk9DcUOdIfYqAFg+TEyvazN+g+r68UNEDoud/w
- 0CsbIT/yWJ7NI+oTGMKpp+aDHo9+xVmok9+g6zmcBvNUtnwwBhqTbYdN1tIt2Wpew2Bge66MXNS
- NuSP1MGJxs7VARaI5XZ3YCmDee8wvyhJdBgsfmCbiQ1BHjyeWxP/YtmPaIoDXkX6vO8KsNXjPVQ
- 5oLypDkZSHZivIwFTqTkqY2gRkE9zolU+08xhmVWM68iPCbU+zn8QX9a9Oc1XikP8+qrX4zGUV0
- LoTWKN8RvqzqjXr7quw3qKX2BmIDXFSegMBgE1MLttGGLpbhlw/th6NLefzJWcn/3FXj9yp9nKI
- 6KfuWuAsz73Qh9Y3WrkjgxDyxkPPCCx1l5PqjjFlb+FTnVAbNI2o44AuormLw76435ypUeLjC0S
- qLxqyaLutpvgh99gxmw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-07_04,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 phishscore=0 suspectscore=0 spamscore=0
- lowpriorityscore=0 impostorscore=0 adultscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070046
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261005194010.168299-1-stian@itx.no>
 
-Platforms that use #address-cells = <2> on the fastrpc node encode the
-context bank number in cell[1] of the reg property rather than cell[0].
-Reading cell[0] on such platforms yields 0 for every context bank,
-causing all sessions to share SID 0 and corrupting IOVA address
-construction.
+Le Mon, Oct 05, 2026 at 09:40:10PM +0200, Stian Halseth a écrit :
+> On idle exit the dyntick-idle accounting accounts the time up to now,
+> then the tick is restarted on its old period. The first tick accounts a
+> whole TICK_NSEC to whatever runs, although the part of that period
+> before the idle exit has just been accounted as idle time, or with
+> IRQ_TIME_ACCOUNTING as IRQ time. That is up to a full tick per idle
+> exit, and /proc/stat reports more idle time than wall time.
+> 
+> Record how much of the current tick period dyntick-idle has accounted,
+> and leave it out of the tick that ends the period.
+> 
+> Fixes: cf6444c3e1bb7 ("tick/sched: Unify idle cputime accounting")
+> Link: https://lore.kernel.org/all/20261004142724.3896396-1-stian@itx.no/
+> Signed-off-by: Stian Halseth <stian@itx.no>
 
-Use of_property_read_u32_index() with of_n_addr_cells() - 1 as the
-index so the correct cell is read regardless of the parent address cell
-width.
+Looks good, just a few nits:
 
-Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
----
- drivers/misc/fastrpc.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+> @@ -468,18 +468,34 @@ static void kcpustat_idle_start(struct kernel_cpustat *kc, u64 now)
+>  	write_seqcount_end(&kc->idle_sleeptime_seq);
+>  }
+>  
+> -void kcpustat_dyntick_stop(u64 now)
+> +void kcpustat_dyntick_stop(u64 now, u64 tick_start)
+>  {
+>  	struct kernel_cpustat *kc = kcpustat_this_cpu;
+>  
+>  	if (!vtime_generic_enabled_this_cpu()) {
+>  		WARN_ON_ONCE(!kc->idle_dyntick);
+> +		if (kc->idle_tick_period != tick_start) {
+> +			kc->idle_tick_period = tick_start;
+> +			kc->idle_tick_overlap = 0;
+> +		}
+> +		tick_start = max(tick_start, kc->idle_dyntick_entry);
+> +		if (now > tick_start)
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index b29c1fd00de2..5c7bb56cf46d 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -2348,7 +2348,8 @@ static int fastrpc_cb_init(struct platform_device *pdev)
- 	if (!cctx)
- 		return -EINVAL;
- 
--	if (of_property_read_u32(dev->of_node, "reg", &sid))
-+	if (of_property_read_u32_index(dev->of_node, "reg",
-+				       of_n_addr_cells(dev->of_node) - 1, &sid))
- 		dev_info(dev, "FastRPC Session ID not specified in DT\n");
- 
- 	spin_lock_irqsave(&cctx->lock, flags);
+We probably should warn if now < tick_start.
+
+> +			kc->idle_tick_overlap += now - tick_start;
+>  		kcpustat_idle_stop(kc, now);
+>  		kc->idle_dyntick = false;
+>  		vtime_dyntick_stop();
+>  	}
+>  }
+>  
+> +/*
+> + * The first tick after dyntick-idle covers a period that the dyntick-idle
+> + * accounting may already have accounted in part.
+> + */
+> +static inline u64 kcpustat_tick_overlap(void)
+> +{
+> +	return __this_cpu_xchg(kernel_cpustat.idle_tick_overlap, 0);
+
+We don't need that to be an atomic xchg. It can be a plain swap.
+
+> +}
+> +
+>  void kcpustat_dyntick_start(u64 now)
+>  {
+>  	struct kernel_cpustat *kc = kcpustat_this_cpu;
+> @@ -487,6 +503,7 @@ void kcpustat_dyntick_start(u64 now)
+>  	if (!vtime_generic_enabled_this_cpu()) {
+>  		vtime_dyntick_start();
+>  		kc->idle_dyntick = true;
+> +		kc->idle_dyntick_entry = now;
+>  		kcpustat_idle_start(kc, now);
+>  	}
+>  }
+> @@ -555,6 +572,11 @@ u64 kcpustat_field_iowait(int cpu)
+>  }
+>  EXPORT_SYMBOL_GPL(kcpustat_field_iowait);
+>  #else
+> +static inline u64 kcpustat_tick_overlap(void)
+> +{
+> +	return 0;
+> +}
+> +
+>  static u64 kcpustat_field_dyntick(int cpu, enum cpu_usage_stat idx,
+>  				  bool compute_delta, ktime_t now)
+>  {
+> @@ -695,12 +717,13 @@ void account_process_tick(struct task_struct *p, int user_tick)
+>  	if (kcpustat_idle_dyntick())
+>  		return;
+>  
+> +	cputime = TICK_NSEC - kcpustat_tick_overlap();
+> +
+>  	if (irqtime_enabled()) {
+> -		irqtime_account_process_tick(p, user_tick, 1);
+> +		irqtime_account_process_tick(p, user_tick, cputime);
+>  		return;
+>  	}
+>  
+> -	cputime = TICK_NSEC;
+>  	steal = steal_account_process_time(ULONG_MAX);
+>  
+>  	if (steal >= cputime)
+> diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
+> index 6c3fea3867139..1c5cefbb10812 100644
+> --- a/kernel/time/tick-sched.c
+> +++ b/kernel/time/tick-sched.c
+> @@ -763,13 +763,20 @@ static ktime_t tick_forward_now(ktime_t expires, ktime_t now)
+>  	return expires + TICK_NSEC;
+>  }
+>  
+> -static void tick_nohz_restart(struct tick_sched *ts, ktime_t now)
+> +static ktime_t tick_nohz_restart_expires(struct tick_sched *ts, ktime_t now)
+>  {
+>  	ktime_t expires = ts->last_tick;
+>  
+>  	if (now >= expires)
+>  		expires = tick_forward_now(expires, now);
+>  
+> +	return expires;
+
+This should always update ts->last_tick so that we don't need to do
+the division twice on dyntick stop.
+
+> +}
+> +
+> +static void tick_nohz_restart(struct tick_sched *ts, ktime_t now)
+> +{
+> +	ktime_t expires = tick_nohz_restart_expires(ts, now);
+> +
+>  	if (tick_sched_flag_test(ts, TS_FLAG_HIGHRES)) {
+>  		hrtimer_start(&ts->sched_timer,	expires, HRTIMER_MODE_ABS_PINNED_HARD);
+>  	} else {
+> @@ -1329,6 +1336,16 @@ unsigned long tick_nohz_get_idle_calls_cpu(int cpu)
+>  	return ts->idle_calls;
+>  }
+>  
+> +static void tick_nohz_dyntick_stop(struct tick_sched *ts, ktime_t now)
+> +{
+> +	ktime_t tick_start = now;
+> +
+> +	if (!tick_nohz_full_cpu(smp_processor_id()))
+
+Just don't check tick_nohz_full_cpu(), it will fall into the
+vtime_generic_enabled_this_cpu() anyway.
+
+Thanks!
+
+
+> +		tick_start = tick_nohz_restart_expires(ts, now) - TICK_NSEC;
+> +
+> +	kcpustat_dyntick_stop(now, tick_start);
+> +}
+
 
 -- 
-2.34.1
-
+Frederic Weisbecker
+SUSE Labs
