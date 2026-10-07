@@ -1,250 +1,108 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 763033B636A;
-	Wed,  7 Oct 2026 10:12:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBAA444A3FC;
+	Wed,  7 Oct 2026 10:12:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791367946; cv=none; b=Y3+4sRi1qqkv6FhiJtK7MNPj9dVJoHthYnuxTT9J7XAN7xtsrlucR16okAmMVPPYVU7W9XZ+nlJpQzARg35Xgyael++hwwP38wHhQv2821DuBwgADSqtgb/L9/skXwTYpo7K/Mc9T/iILl0XCftfOnWCWIrXs1hBQ0bIBEABi20=
+	t=1791367970; cv=none; b=lXtKg50aqGNLoEZ6exNg1HRn7tV6usd6um0MOg1uLCczavTW47///i3Q4rgIRuJd9sD5kcOUXcmqVuWM+UdHYBx6HbpEfrNFKaU0BxFYUjceYZ2LkZH0uZP5WfabmYLrFkdEBGao5z12/9ltogRp44ySHVKoB0Za+3mnpW1YwYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791367946; c=relaxed/simple;
-	bh=i6WolQeDXnoDJrNQkDZLjMJndNYz2s5HKHwTnvAgcfY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AQRJ+ldRYZ/x47K1lTYDSfdbrLWiQe9AM4kRZ/+U1BOu1DxAwXpy97tKzZqPEJxg0Pwd5v86pL8dblOLg9AL123t04J0cjiySorOX8KEAWK4ehc3zbLhBIxUUPOyVP20qigWQMC7HpY099NkQATqolQpHUU3HjBlQRXfmNqHT1E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=ArFvmsAg; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1791367970; c=relaxed/simple;
+	bh=o8co13SCRkIcpdcj1EAIKSYtW8l4zhIowOXplmIYhyM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ofCTGZwb6+KMyOmHkxikMdzsDET7elBKjk/QmVsgLrQageL5APEFsmrJAFX8bZRv7PB6CzcTe3Xtq8hxSP6dBt7WKVgInCGzcvSb373nPbVQtFqbN/Zi6BQrRMsP9A1lXugjQCgujvV0Ztljys9PDhPoefokWLQfqWTx8nl/bys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VtntE4Mq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ArFvmsAg"
-Received: from [192.168.0.43] (chfd-03-b2-v4wan-176392-cust229.vm15.cable.virginm.net [82.19.20.230])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id BA43612B2;
-	Wed,  7 Oct 2026 12:10:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1791367815;
-	bh=i6WolQeDXnoDJrNQkDZLjMJndNYz2s5HKHwTnvAgcfY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ArFvmsAgbFm25Xs9TpdAtQVombDKdBqC9Y2x+aIXd+fDB338IGBNTcjAO0yCyoSvT
-	 fwBcBICzTyLygmDK/kv/ME+pYO6feBE/IYfwX3qNnkUwojP8BvnnMsHsgeKUO31rKB
-	 3lHK4Og2S7V5wz6KPvJap2ZJhxID1+IePqcFAPrA=
-Message-ID: <0a02d00c-e9d0-4373-9df5-65e3ad58d278@ideasonboard.com>
-Date: Wed, 7 Oct 2026 11:12:08 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VtntE4Mq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A655D1F0089B;
+	Wed,  7 Oct 2026 10:12:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791367961;
+	bh=o8co13SCRkIcpdcj1EAIKSYtW8l4zhIowOXplmIYhyM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VtntE4MqhTBg1ybMzGJLqMeIIl4rPsfRA6NAQS0VTSdRnOC0npN6spLEnBa/odWkQ
+	 3nQiQ4kmpYojKZU4/ULTHqESEV/A7sH0j9Ufg8C35oPVjAuDHL7+Aomsrs22xF9xBr
+	 HXcn/SzeI2OQWDBnq8feejWcGZiR6Veg6g8tQ9o/uT5zfE8+T9YoY3qOLjEJesPIU+
+	 Ubnsk/PWn1fm3CT2FoXLp1dKzuJC7DKJptQrDoo/1VE0CpYulYMIZPWp9ocJzqkwWx
+	 ubYGDEk03TbPoX4UW6D3BT/BX+p6xu2f6Si/orjEJYaYl1NUv9CFEu39YxG2ZqvMR8
+	 uIV7cCPWYBfGw==
+Date: Wed, 7 Oct 2026 11:12:36 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Michael Zavertkin <misha.zavertkin@mail.ru>
+Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chris Packham <chris.packham@alliedtelesis.co.nz>,
+	Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rustam Adilov <adilov@disroot.org>
+Subject: Re: [PATCH 2/2] dt-bindings: i2c: rtl9300: add pinctrl
+Message-ID: <20261007-370cbe94c765a69550a85bbd@squawk>
+References: <cover.1791127538.git.misha.zavertkin@mail.ru>
+ <0cd1f9b98511c55a375ab82b121fe256916b87e2.1791127538.git.misha.zavertkin@mail.ru>
+ <asN-O5ntmiXvZBvs@squawk>
+ <asOrwd7eAddenA-_@gamepc>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] media: mali-c55: Keep IRQ requested during suspend
-To: Linus Walleij <linusw@kernel.org>, Li Youhong <dayou5941@163.com>,
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>,
- Nayden Kanchev <nayden.kanchev@arm.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260929-mali-c55-irq-supend-resume-v1-0-e3af34afff12@kernel.org>
- <20260929-mali-c55-irq-supend-resume-v1-2-e3af34afff12@kernel.org>
-Content-Language: en-US
-From: Dan Scally <dan.scally@ideasonboard.com>
-In-Reply-To: <20260929-mali-c55-irq-supend-resume-v1-2-e3af34afff12@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="5psKnE78WY10JPue"
+Content-Disposition: inline
+In-Reply-To: <asOrwd7eAddenA-_@gamepc>
 
-Hi Linus
+--5psKnE78WY10JPue
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 29/09/2026 13:02, Linus Walleij wrote:
-> The interrupt is currently freed on every runtime suspend and requested
-> again on runtime resume. Apart from tying interrupt ownership to the
-> power state rather than to the driver lifetime, this leaves remove to
-> guess whether an action is installed for the IRQ.
-> 
-> Request the interrupt once during probe and free it during remove.
-> 
-> Disable and synchronize the IRQ before powering the ISP off, and enable
-> it only after a successful power-on.
-> 
-> Hold a runtime PM reference during probe until the IRQ is installed,
-> and stop runtime PM and drain the IRQ before unregistering the media
-> entities during remove.
-> 
-> If firmware marks the ISP as a wakeup source, initialize device wakeup
-> and enable IRQ wake during system suspend. Disable it again before
-> resuming the device.
+On Mon, Oct 05, 2026 at 08:53:05PM +0700, Michael Zavertkin wrote:
+> On Mon, Oct 05, 2026 at 11:38:51AM +0100, Conor Dooley wrote:
+> > On Sun, Oct 04, 2026 at 10:32:35PM +0700, Michael Zavertkin wrote:
+> > > For RTL9607C driver used to configure IO_MODE register. This register=
+ is
+> > > global and is a scope of pinctrl driver (either pinctrl-single or WIP
+> > > driver for SoC).
+> > >=20
+> > > Drop realtek,scl requirement for that SoC and require pinctrl instead.
+> >=20
+> > This patch itself is probably fine, but the driver changes will cause
+> > regressions because all existing devicetrees are going to have
+> > realtek,scl and not the pinctrl properties. You need to retain the
+> > driver code and make the register setting optional depending on if the
+> > scl is there (or similar).
+> > pw-bot: changes-requested
+> >=20
+> > Thanks,
+> > Conor.
+>=20
+> I understand backward compatibilyti requirement. However all known users
+> of this driver are here (me and Rustam Adilov). Does compatibility
+> strictly required for such case?
 
-I think that adding this could be a separate commit to fixing the irq handling...and perhaps that 
-should be the case given the Fixes tag?
+How do you know there's only the two of you?
 
-> 
-> This configures the interrupt controller wake path.
-> 
-> Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
-> ---
->   .../media/platform/arm/mali-c55/mali-c55-core.c    | 84 ++++++++++++++++------
->   1 file changed, 64 insertions(+), 20 deletions(-)
-> 
-> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-> index f28e9f4354ac..07267b79801b 100644
-> --- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-> @@ -17,6 +17,8 @@
->   #include <linux/of_reserved_mem.h>
->   #include <linux/platform_device.h>
->   #include <linux/pm_runtime.h>
-> +#include <linux/pm_wakeup.h>
-> +#include <linux/property.h>
->   #include <linux/reset.h>
->   #include <linux/slab.h>
->   #include <linux/string.h>
-> @@ -675,8 +677,7 @@ static int __maybe_unused mali_c55_runtime_suspend(struct device *dev)
->   {
->   	struct mali_c55 *mali_c55 = dev_get_drvdata(dev);
->   
-> -	if (irq_has_action(mali_c55->irqnum))
-> -		free_irq(mali_c55->irqnum, dev);
-> +	disable_irq(mali_c55->irqnum);
->   	__mali_c55_power_off(mali_c55);
->   
->   	return 0;
-> @@ -745,25 +746,41 @@ static int __maybe_unused mali_c55_runtime_resume(struct device *dev)
->   	if (ret)
->   		return ret;
->   
-> -	/*
-> -	 * The driver needs to transfer large amounts of register settings to
-> -	 * the ISP each frame, using either a DMA transfer or memcpy. We use a
-> -	 * threaded IRQ to avoid disabling interrupts the entire time that's
-> -	 * happening.
-> -	 */
-> -	ret = request_threaded_irq(mali_c55->irqnum, NULL, mali_c55_isr,
-> -				   IRQF_ONESHOT, dev_driver_string(dev), dev);
-> -	if (ret) {
-> -		__mali_c55_power_off(mali_c55);
-> -		dev_err(dev, "failed to request irq\n");
-> +	enable_irq(mali_c55->irqnum);
-> +
-> +	return 0;
-> +}
-> +
-> +static int __maybe_unused mali_c55_suspend(struct device *dev)
-> +{
-> +	struct mali_c55 *mali_c55 = dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	if (device_may_wakeup(dev)) {
-> +		ret = enable_irq_wake(mali_c55->irqnum);
-> +		if (ret)
-> +			return ret;
->   	}
->   
-> +	ret = pm_runtime_force_suspend(dev);
-> +	if (ret && device_may_wakeup(dev))
-> +		disable_irq_wake(mali_c55->irqnum);
-> +
->   	return ret;
->   }
->   
-> +static int __maybe_unused mali_c55_resume(struct device *dev)
-> +{
-> +	struct mali_c55 *mali_c55 = dev_get_drvdata(dev);
-> +
-> +	if (device_may_wakeup(dev))
-> +		disable_irq_wake(mali_c55->irqnum);
-> +
-> +	return pm_runtime_force_resume(dev);
-> +}
-> +
->   static const struct dev_pm_ops mali_c55_pm_ops = {
-> -	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
-> -				pm_runtime_force_resume)
-> +	SET_SYSTEM_SLEEP_PM_OPS(mali_c55_suspend, mali_c55_resume)
->   	SET_RUNTIME_PM_OPS(mali_c55_runtime_suspend, mali_c55_runtime_resume,
->   			   NULL)
->   };
-> @@ -825,27 +842,53 @@ static int mali_c55_probe(struct platform_device *pdev)
->   	pm_runtime_set_autosuspend_delay(&pdev->dev, 2000);
->   	pm_runtime_use_autosuspend(&pdev->dev);
->   	pm_runtime_set_active(&pdev->dev);
-> +	pm_runtime_get_noresume(dev);
->   	pm_runtime_enable(&pdev->dev);
->   
->   	ret = mali_c55_media_frameworks_init(mali_c55);
->   	if (ret)
->   		goto err_pm_runtime_disable;
->   
-> -	pm_runtime_idle(&pdev->dev);
-> -
->   	mali_c55->irqnum = platform_get_irq(pdev, 0);
->   	if (mali_c55->irqnum < 0) {
->   		ret = mali_c55->irqnum;
->   		goto err_deinit_media_frameworks;
->   	}
->   
-> +	/*
-> +	 * The driver needs to transfer large amounts of register settings to
-> +	 * the ISP each frame, using either a DMA transfer or memcpy. We use a
-> +	 * threaded IRQ to avoid disabling interrupts the entire time that's
-> +	 * happening.
-> +	 */
-> +	ret = request_threaded_irq(mali_c55->irqnum, NULL, mali_c55_isr,
-> +				   IRQF_ONESHOT, dev_driver_string(dev), dev);
-> +	if (ret) {
-> +		dev_err(dev, "failed to request irq\n");
-> +		goto err_deinit_media_frameworks;
-> +	}
-> +
-> +	if (device_property_read_bool(dev, "wakeup-source")) {
-> +		ret = devm_device_init_wakeup(dev);
-> +		if (ret) {
-> +			ret = dev_err_probe(dev, ret,
-> +					    "failed to initialize wakeup\n");
-> +			goto err_free_irq;
-> +		}
-> +	}
-> +
-> +	pm_runtime_put_autosuspend(dev);
-> +
->   	return 0;
->   
-> +err_free_irq:
-> +	free_irq(mali_c55->irqnum, dev);
->   err_deinit_media_frameworks:
->   	mali_c55_media_frameworks_deinit(mali_c55);
->   err_pm_runtime_disable:
-> -	pm_runtime_set_suspended(&pdev->dev);
->   	pm_runtime_disable(&pdev->dev);
-> +	pm_runtime_put_noidle(dev);
-> +	pm_runtime_set_suspended(&pdev->dev);
+> If so, what would be better - print warning about realtek,scl (only for
+> RTL9607C) and work as earlier, potentially interfering with pinctrl
+> driver - or abort probe with error if there is no pinctrl property?
+> Explicit error or message is better then silent regression, if I
+> understand you correctly.
 
-I would say that this re-ordering of the pm_runtime_set_suspended() and pm_runtime_disable() calls 
-probably ought to be in a separate commit too, since it's a distinct change that should be 
-backported to fix stable branches.
+If there's genuinely only two users, then I suppose you can break it.
+But two known users doesn't meant two users. Otherwise, use pintrl if
+available and use the fallback to the existing property if not. Mark the
+property deprecated and probably emit a warning.
 
-Thanks
-Dan
+--5psKnE78WY10JPue
+Content-Type: application/pgp-signature; name=signature.asc
 
->   	kfree(mali_c55->context.registers);
->   err_power_off:
->   	__mali_c55_power_off(mali_c55);
-> @@ -859,12 +902,13 @@ static void mali_c55_remove(struct platform_device *pdev)
->   {
->   	struct mali_c55 *mali_c55 = platform_get_drvdata(pdev);
->   
-> +	pm_runtime_disable(&pdev->dev);
-> +	free_irq(mali_c55->irqnum, &pdev->dev);
->   	mali_c55_media_frameworks_deinit(mali_c55);
-> -	if (!pm_runtime_suspended(&pdev->dev)) {
-> +	if (!pm_runtime_status_suspended(&pdev->dev)) {
->   		__mali_c55_power_off(mali_c55);
->   		pm_runtime_set_suspended(&pdev->dev);
->   	}
-> -	pm_runtime_disable(&pdev->dev);
->   	kfree(mali_c55->context.registers);
->   	of_reserved_mem_device_release(&pdev->dev);
->   }
-> 
+-----BEGIN PGP SIGNATURE-----
 
+iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasYbFAAKCRB4tDGHoIJi
+0j1CAP4xZJyKVUwno+o4bFRWL/rtURuUijtVOA76wsB9SeEtDAEAkDZMxQTCipE7
+QN3+rmepnw2onGKrPjfNx4Armb4vyAo=
+=/weX
+-----END PGP SIGNATURE-----
+
+--5psKnE78WY10JPue--
