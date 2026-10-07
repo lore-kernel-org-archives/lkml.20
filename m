@@ -1,103 +1,67 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011025.outbound.protection.outlook.com [40.107.208.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F303D382F1E;
-	Wed,  7 Oct 2026 19:49:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E37193783CC
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 19:55:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.25
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791402573; cv=fail; b=rYympbY1HzdvX0dTrsynz2yXZFVDAxIWiUSAotTcl1B4SfdlE1qjRq3ebsS3GqhzL5UZGWb9gMyI3BnsxnSKd73652SF4jXeoyfsw6DJabOsL2WXUUbmBiHTRK2LdUjJDTiQoNV+NqpbSffACErcqeUZiWgZBfCaknqJ0+EtQDI=
+	t=1791402938; cv=fail; b=hRDt7KB4JFqTr+b9AG98z8pU9R0l7CtDWjCHqiK1NVzOh6mEKX5cMATLFDDEBrjSYTQh2BEbz3zS5aVcc8JqGn8wzrQJJel6RyKHT8OsleyWUTa0/CFFRxiM3d3trantkyzcf4oJjKG30+EgDd+jH+hqs2g8b8n0pzV+k3sWwI0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791402573; c=relaxed/simple;
-	bh=1Y+iJTyDh5cSrq1BG0Ewfn6q+NSykBsPurdaLtDXqLk=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=LHvJthlXPS72xV1C7bOSfpYveeMlFNz1q+V1YQv46e1D1nxruGjT2mCk0/KLDub6FpTW8jls2GIuYf4bKZtdcHbyUDCuHPgF+d/W5zLt/uwTSoUMXLV7MKaQQKai1rrI6VO0ajlkLYuR4RhJPnA7jaLemtsHd52R/wbkSXbVXN4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XEiK9eSS; arc=fail smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791402938; c=relaxed/simple;
+	bh=bTx69nQ4KZKsPd2Adpszfdhni6ZOBJdrKV2TsPg6XK4=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=fijoq6XIGXlwvXgmMfGMIh5kYCmb1TJG6RTY4hM0iG3Q3tElLq28nOEWEg9QnbrrTkfJtGvs1RphJArHWBOhxXsSV3a7Po3I+BU9Xe+dKSTFZLosD5xDjJIq1TVMjC40f5GQ+qIFQYS1J9DTUJkzA4kBFqSY3/vBGOVftc+YZY4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=FucaWOFI; arc=fail smtp.client-ip=40.107.208.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XEiK9eSS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791402571; x=1822938571;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=1Y+iJTyDh5cSrq1BG0Ewfn6q+NSykBsPurdaLtDXqLk=;
-  b=XEiK9eSSm+ciUswPcOIPXSpKtMLUWn+/N9+VXeN7klzxoCG/eOgc+T6K
-   /TB4O6KD4+VyFGZ4F/dyPgxI3WXTd0RryL5qBRJ8g5QfrQVvceA/sYLRt
-   Z98yZrzhg9+PHd+ST2n8WxlyZhFyjtCPbb5qt/8nrlm9uehOBn65R6mtw
-   teERz/vsKFaaRIqR3bIaAemGttjsv1yYQ/wu6lDfp++2u+uGAjy7HYMQP
-   eImCsFi6NZzHAT/bP3gRZLWfuSjrmC0T/pdcM8vlrcD7ZhozW5g4O8v0m
-   7H8EPIZz3l3x6n/YD5hVUS8Zx2KD9YfndaJNhTxcDMcrQR1vg4R8GBfz0
-   w==;
-X-CSE-ConnectionGUID: tkNQlH0xRcGYnuxlcrzHpw==
-X-CSE-MsgGUID: zhhz9kadQpWKLraE2vJAgw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="62086"
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="62086"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 12:49:30 -0700
-X-CSE-ConnectionGUID: mBcSoIfPR/SBxhmzLt2jgw==
-X-CSE-MsgGUID: /HMv3PksRNaQfoCCIlMhbQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="306991048"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 12:49:29 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 7 Oct 2026 12:49:28 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Wed, 7 Oct 2026 12:49:28 -0700
-Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.68) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 7 Oct 2026 12:49:28 -0700
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="FucaWOFI"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bcGdbIbwzudQiZgCnlYTljHW3s0o+TiW1KXlEYJBpHpnNyTiq+NKg16DXLrr+usDLPhl78HS1N0rULP98bQmSfMTrHJsLNyBJCdJHitQvl/MWF/pfbs9qOED0jdCxo8//DBlMazdOsrAq8nRqnO8xREN1jK/mH4jZi9Zcae8h9kZh48Gs5oojtjK69/jPHjeUq1F700OlMmS8Ot0l3IffS58xZRNvTPxnrfByjM/xX82GIP0BH7d3PoF/oy86mKTURDvtqgmjaLRkIqvTavoy5cQld3dIFMlH7Xj6l96STn65yRZxT9Hs3Nir5CXvXOZrSVDX62hCU12j4Ol08mwgQ==
+ b=nF79U+tLgkf0IizaIjBb6jZhTA0atbqO73IdFZopu7+Jm+DYgJrYs1pshTEpIwjOT25+tblvp3V+mewu2/QBd5H1e43gFyN4lgO9iDZ8uj6LnKCUoX4D/+TY8WdBANV5ugYk4z31R3rY02YTk/ojs0PjrItiWN03pv9HwNXgtJTIbwVK6VVHJpQmClCXjxrhzMvFSwjgbAgwVfcQm6PiaWqgxndR+A4B6IGkb4lTcBihNO8E4EBsKTaEx2BN2PMVahobRMgGpgwSPcWJfpGbXZ/GjM8YfhpdDGYsFqENyzrLdVE/HQ8s1+oZV0eULo2JD5AGMth2epNyRVSqwkXdJA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=emH/x2Dp4I7uQSzDTwd9kK0bd93QDJ2FnTbRkmiWFjw=;
- b=gKZdXWqAZuA9EBqkcGuD6igY5DP7HOswS1GL++JFDqebZ2CmFUGAsKlJT63qrQzEjAaTuAFrVwq1ANPbNex5RoEtVcaHtvp1gnjFu+exR8YiNeUe2TzftAOoGdgFzpJvdWJ/lDNAK5wWZDAAs9kzJMSrzD+tbgUA+goQuH3iVGY0fAw32PNsSW7KZq1I8RrPTllfIlF6zsxR/FZhZyPZY8gHy9OMndnOMzZA26kOgWewiQiKMhff7J7sJqWWTZFlTP0wjQRO9imZg8k0N3YX9OWd+Xe0GZJyltBaUfq58GUzRQvhcJT1ShEa7i14Dk3GPaP0lQAJTjzLFM3Yo9JDbQ==
+ bh=nk+9F9+kGaRmNenp6EXF5BS2vEk410cUjpaaAzunMdQ=;
+ b=BWZlPt3uU3haHHSYpo2NdLvy5NFVVsDPt8B1m62uboHgBvCOAWsfTW3xcPKWHD5lLfOStETVh0Nvj0pdzZHjJUBEIaL/9tqCGbjCUjr+KY7TR0YXd7lBS1nFf7UoSzO98AWhywswD7rghYTE6/rrTicr8YZa/fReX9fOToSUKE1pczY5GveH445F4NMTdA+YQZe6UHe02N8ZGB4c4ZKhynnaTRA3peVRK0DBy9pu1VYyFdEjWNoGhmkso5ummYAuSZUytrmhahz9goVb8oGeE9ZkCTWagdmfyWWeE2S6313GqdYw1vF8Buzllxi5PPhXuuSOBKfeyoO+YaasgcWLeA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nk+9F9+kGaRmNenp6EXF5BS2vEk410cUjpaaAzunMdQ=;
+ b=FucaWOFIRv/Lx57Q2KSAFRYOTwT1Z7rusHa4MKfFstL2qyYwMYVarh7UdP8ITprYRzU+1T+fMUmSqOdad7zEfZr+JdJiaDcxmKhG0mBeP4mFCt7I3UsNVGVv00otEWGtdpbxDwoN4Xex387NsnE8S7KnVsfgbpwE4qFStawDZw4=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com (2603:10b6:f:fc02::9)
- by DS0PR11MB7531.namprd11.prod.outlook.com (2603:10b6:8:14a::20) with
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com (2603:10b6:208:314::17)
+ by DS6PR12MB600424.namprd12.prod.outlook.com (2603:10b6:8:499::7) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Wed, 7 Oct
- 2026 19:49:25 +0000
-Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com
- ([fe80::6fbf:c112:d0a8:f1a8]) by DS4PPF0BAC23327.namprd11.prod.outlook.com
- ([fe80::6fbf:c112:d0a8:f1a8%5]) with mapi id 15.21.0496.010; Wed, 7 Oct 2026
- 19:49:25 +0000
-Date: Wed, 7 Oct 2026 12:49:21 -0700
-From: Alison Schofield <alison.schofield@intel.com>
-To: Srirangan Madhavan <smadhavan@nvidia.com>
-CC: Bjorn Helgaas <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>,
-	Davidlohr Bueso <dave@stgolabs.net>, Ira Weiny <ira.weiny@intel.com>,
-	Jonathan Cameron <jic23@kernel.org>, Vishal Verma <vishal.l.verma@intel.com>,
-	<linux-cxl@vger.kernel.org>, <linux-pci@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Alex Williamson <alex.williamson@redhat.com>,
-	<vsethi@nvidia.com>, <alwilliamson@nvidia.com>, Sai Yashwanth Reddy Kancherla
-	<skancherla@nvidia.com>, Vishal Aslot <vaslot@nvidia.com>, Manish Honap
-	<mhonap@nvidia.com>, Jiandi An <jan@nvidia.com>, Richard Cheng
-	<icheng@nvidia.com>, <linux-tegra@vger.kernel.org>
-Subject: Re: [PATCH v14 14/16] cxl: Restore CXL state after PCI reset
-Message-ID: <asaiQT6AwQ4Oaca5@aschofie-mobl2.lan>
-References: <20261001092227.3004747-1-smadhavan@nvidia.com>
- <20261001092227.3004747-15-smadhavan@nvidia.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261001092227.3004747-15-smadhavan@nvidia.com>
-X-ClientProxiedBy: BY5PR03CA0002.namprd03.prod.outlook.com
- (2603:10b6:a03:1e0::12) To DS4PPF0BAC23327.namprd11.prod.outlook.com
- (2603:10b6:f:fc02::9)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
+ 2026 19:55:32 +0000
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1]) by BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1%5]) with mapi id 15.21.0496.015; Wed, 7 Oct 2026
+ 19:55:32 +0000
+Message-ID: <4aa18085-49b6-48e5-83dc-33d87a60a99d@amd.com>
+Date: Wed, 7 Oct 2026 14:55:30 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v14.1 19/25] arm,x86,fs/resctrl: Enumerate AET on every
+ resctrl mount
+To: Tony Luck <tony.luck@intel.com>
+Cc: Dave.Martin@arm.com, david.e.box@intel.com, dfustini@baylibre.com,
+ fenghuay@nvidia.com, hch@infradead.org, james.morse@arm.com,
+ linux-kernel@vger.kernel.org, maciej.wieczor-retman@intel.com,
+ patches@lists.linux.dev, peternewman@google.com, reinette.chatre@intel.com,
+ x86@kernel.org, yu.c.chen@intel.com
+References: <20260928221509.68002-20-tony.luck@intel.com>
+ <20260929175231.16576-1-tony.luck@intel.com>
+Content-Language: en-US
+From: Babu Moger <babu.moger@amd.com>
+In-Reply-To: <20260929175231.16576-1-tony.luck@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: CH2PR14CA0048.namprd14.prod.outlook.com
+ (2603:10b6:610:56::28) To BL1PR12MB5320.namprd12.prod.outlook.com
+ (2603:10b6:208:314::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -105,576 +69,353 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS4PPF0BAC23327:EE_|DS0PR11MB7531:EE_
-X-MS-Office365-Filtering-Correlation-Id: 38a11157-0a6b-470e-e7ed-08df24ac1746
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5320:EE_|DS6PR12MB600424:EE_
+X-MS-Office365-Filtering-Correlation-Id: 81398393-93b7-467c-943a-08df24acf1fb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|6133799003|22082099003|18002099003|3023799007|56012099006|10067099003|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info: fYLGl77yxDDT0rN00L5OH1bQOEKbE4Z3uN7/Nmms/DEacpB6IJCYcm8zqpF4t1Ed2XV0RwCJU2pCI2ayndH5MPeXXYgW5DN4jIjnu3yBwHQkGZm5aNWSvkZQQVL/GSPoBlfTOn+OQt6XTrtYWyIjslt2HF9IlW2FDALgTSk5zq0nwxbtdNR8zgj8dsZwCP6/s60siqa5yJxUtqF+oGvkqFE1kfW0jft0RvUD464qYPVkywFccITlv1P6C9/BjmvPpRig3VLrt+jHC5wac6w22DKBNtEBBODg3n+2UiBid4um+BUlHrXuEuSJyhCUUvjVLFy6bq98nAglmYErpgVHXHFq1Yt6F/wa/CL769CHGqnx0kJg17uJtZMfTYiOGOG1n32PeBYmHStjZ6XASmu+REJEjZcr7NedZLKVaCAT4yN2xd+hm6yGtHAYKO3hdoTi7HTE6ETyILbH1E90ZWRSt3KbTKlRD3MRN9RkymCU8hC5MLYbtLyVWuP5nV2Acw7v/KPx3KNiv42A4M/akhR+mM+T6Yl5h8mjDBZn7hiZgj914Noeob5gatPgTXnh63DEwolRQSkPP7GFP0w9WcuPQfHCT5VTvA04f6xsu/NKPriBKctKRDaY8cm8XUFZe3TsNikJcVpJ3Hecpiy10gbpQJBVsPojeNIVlzr4RGujE7E=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPF0BAC23327.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(6133799003)(22082099003)(18002099003)(3023799007)(56012099006)(10067099003)(11063799006)(4143699003);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|7416014|1800799024|376014|5023799004|56012099006|22082099003|18002099003|10067099003|11063799006|4143699003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	PDUE96Xl7BxxJ4Qy7+Cdy/ZwOYkoPFUP4iqkZiar5bP6zVR+JP+5kKZrBL2qVIPG0RYULAdsq1t+NGFrQ5islm0Px7zpVtP5dMjt1xn1L+zeK79LHZHUkpJ7uSxINWez3uzsLw9h/GICGx3qjylvSfWNF9oTEuXcNc0F3MFdAOcngFUTEZHnwMGQ/IqI87/M5/9BbG1mXQE+ToIshfWQ0YluSohKUr/zNZ1Ymnc+ZK0WVeEnT+C5gveLujHl9rAhkwgvrXfxOtmLBMZavwyAUmFZxA758HfZFe/RcqovkoqS9xTaump6dnHavQrlLoT1ql63acd0ABQpHoSaunsxLDVka6Ay52QfVUX3i5Cr+ETzKLHQoTZnvEs+NmJ4jXCvKxJ6Ia3pUBQTRvmdmEt6FhoVn9NQLlU5qe37hPh7IBmoifQtz3ptmWiQMGOxaP58mUV4ZK75CmyhkvWa/jP+D8QIyj+ijova0Y4hLkWAoh9Tx8JTgYUUMQwbz0NRho90hasvat2g/2eUwDCyxtpjmVYC0UQHWB9RuBysgMNH2uSRoGQLaQxllqaiRtFn0lHQstoKYNO2fxB712JzOidPauF0ur1aYZsX6RerXHGanZoQM5Ryv6K0fbW6i2/QaB7Wm6RaCnIh8TXk0AzL1PdjcOyNh+dLiUpTLnyopIL0i/o=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5320.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(7416014)(1800799024)(376014)(5023799004)(56012099006)(22082099003)(18002099003)(10067099003)(11063799006)(4143699003)(3023799007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?wGpmB5h0aR1aQ4uL9BPjMyaXz/3GpriSH0aJEzTwgSv2yyLAVd7GexNHD7jt?=
- =?us-ascii?Q?4YXs2qbkUIXS7/Ilpjs1Onoax2s0iwBx0DbW7/0axXRWyY6Bk2OJQVdFrYhH?=
- =?us-ascii?Q?9lARAcVMjqd6JZEa24Is7J6jZmSnK/xYAorLKgdtniHupRdf5NBjnsfzzkM9?=
- =?us-ascii?Q?rm17XxxPh0sau5HJwZvWxo5V+U4wuKLQRmjF4OyhVKtBQo/BYQlQQg42jkVM?=
- =?us-ascii?Q?GJ7A2e3+Qupi2NOFFY1Be7gC9mYPGTMduDDFCa1K7178gAn6ndARJ4vuTjMi?=
- =?us-ascii?Q?8ytWj0g5mg+bDu+1Py6HtbdZV017+3GGIoeV8Q6TYosrgdiN3gpdt1aXgb6p?=
- =?us-ascii?Q?kI5gd1quoLRntLH6QBaLpI0SEM0HpvLh8hIvQ9lR9kOOqoOa/YTL7BSMdSxk?=
- =?us-ascii?Q?nN8JRWz7zUgY8mZwO5FkoOaUFZsv5gwlzFFIXOCju609gMfYxTOziW4eCNHz?=
- =?us-ascii?Q?+AKoAha/oo1ETXcWDcwhnjta1pq2RYfAf2FOcSzoRr4UV7hJ78FaSuZleOEk?=
- =?us-ascii?Q?qUG4wfnMJU1hLYzOUflcKNSDjCtKoXXngXnBGVgpgbG1fi0xEnduExZ6hKmV?=
- =?us-ascii?Q?OiK/wP+0dbCqzXaLc9kdoSpWTiAy0Ug4NbkLrb5tQmsGpzOo0MoAd1wEqsjF?=
- =?us-ascii?Q?y/LiFp6nPZDQALB3I5SKlwP1QNIAcEpSdjWBZnQJ0n8XJkhmWpvH59ZPMHD2?=
- =?us-ascii?Q?GKjIzHwUb6F4s3irfRFQquB+OarnE5od8kOZehudCBBd8rIneAkzhKeH9EMp?=
- =?us-ascii?Q?Cjxqb1dGAxox0k+lOBMgHJQWl2osyxiGsqVNKCLRB1DqQQd7s/29JKBzhfsJ?=
- =?us-ascii?Q?ZjVC2/5aEgcOdzGco6JBfMRC8LsQpVatVX/Vv/zwAWoaAxRmqBI1nNiYdBDT?=
- =?us-ascii?Q?FgLXGBLGiwkn2ykW35/P7ReIsDNSzZkjlI0Gdi1Fg5tYXgwgbsnP7uh4+oke?=
- =?us-ascii?Q?OcerNNOVinv7xi3lus0uDJFHipk+E1h4waet1ZpFmc9FEfHedm2ash8atgq4?=
- =?us-ascii?Q?ZnT4UWOdJtzzgz/8leewNB9LbuNc4hBN9yBUheH6cqdp8RdDr6d78JOd4VGl?=
- =?us-ascii?Q?kPXSBRDOAuJ066/FmnVGH/AmtAt721ixe4EyD/OG/YiT3tNJFMhSiQw1EDMc?=
- =?us-ascii?Q?I96luTWrlYEHcNGOTysjeqtwvAJBQMBpYIhNRLfL4IzkmdMwtHBBP+3lWPqf?=
- =?us-ascii?Q?w3QuyZP8UXVMvF20yn+YjQGsCe6pMikk5VEp17Y/6rsKLuSQT4bKa4Gy5Z3p?=
- =?us-ascii?Q?gpRS/j8dnGXmcqBwpDocZI/SpIZbmtX1sOOkHVUyclXnfbjN1sapIRKDgiI/?=
- =?us-ascii?Q?1a7Au7LV8g/J7TqAHo7y7aEFQ3li66bzRFSzr45Dn4WX2F6DPyzAfzaPiqer?=
- =?us-ascii?Q?YnO1xvQTH+Ry+UKzvMjNspWLu45LET1h7ewDzHEBIRgoYeOR9AXFFDYDpq/i?=
- =?us-ascii?Q?/JkieuZe6KWpGD7ZvNVs4Iqsv2gcdmKoAeKCOYg2rIKPkCVyFcyrnTDXCa5I?=
- =?us-ascii?Q?ORy7xDnBoHuyuBKcIX/WNO8Ck2y19LWQTvZOUWXZh87BbsYi39/rufTusiQN?=
- =?us-ascii?Q?R+qfS3c84Phs/J+c21gS/G6/mQYaOHJ8IlXvhsfzip0+f8m+4ld+tUhq//H6?=
- =?us-ascii?Q?MjrJ5s6sWRKUJfspdDzIBJ4IPiMs8hRlVknE5Lof1ML1NtTMGTwoUsqGj+s7?=
- =?us-ascii?Q?U2rgTWkdTOWhTf/GyUsBHkVCMBKho0IeqeLpXDDjcq+I2yvXTVoXq7zvJVso?=
- =?us-ascii?Q?AYhcBKg/vBA2BxmI4o7Q/HgNPu+/3XY=3D?=
-X-Exchange-RoutingPolicyChecked: VleXfPoibTGjcNIWBSCIknfA39OZai+HAt4344eOi8e7UWd3MM77gs38RLGTB0OsX+rl4BnjCzHPZ2KC1I4scFBA4314Imfq8fHcyGwy4Xo9rBzSK1DJ8QOLIAcnhINMTXe3xDmco0j5/lcd0meaT/sI48bnkZabXxyfScBWcUPEMQhcprR/bZs/v5SAGMyy5xuu1k8C8ZzNRPTWAz5R7Wgtd5S3Vs+mtYQzj/GTRkFC2jACLdGdyWRwc2oLbvC3wh3VARZL0eTYQc0ZhSgEOroxQFg0o0mambxO2lAL9beMOoamK9kocbXuotJGZzz6DUQ0P06vimzMcurnnUPGWA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 38a11157-0a6b-470e-e7ed-08df24ac1746
-X-MS-Exchange-CrossTenant-AuthSource: DS4PPF0BAC23327.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?LzZHR2Q5RHNNMGVBanZCNFFBWkx2Vk9hZVJiZE5QUkNlZVRYS1oxdm1sd0Z4?=
+ =?utf-8?B?TndkMTJkYWk0azczNU9NSjB5aEJYY0Y5YzdpT2NsVldIZE11ajhLM0xrbjFX?=
+ =?utf-8?B?VFpSTCtYQzNkV0ZPWnU1K3FJZFFBcUJGREZRYUVwR0R4aEE4ZjNrc1hUMUVM?=
+ =?utf-8?B?WU94TVRyMDUzQW1UR0ZQeldtTVdDZHJLUGpnTHJOVE9KN3N0N2lDVDhaL3hj?=
+ =?utf-8?B?b0VBQ0RTRC9XR0k2MjY3RlN0NnBJUjcyQVRLdm01VGxmUEJaWWdrTm01SEoz?=
+ =?utf-8?B?S1R1NUNlTE1YUkFqc1c1Tmt3K1h1SlVMdHNWK0VUeWo1N3BsQ1RyZmtmajg3?=
+ =?utf-8?B?bm9GdlpmT2JmMG9qTll1ZGg2dzZYemNjWkY3c2dwQ1g1QmZ5eDh0cWRWK1JK?=
+ =?utf-8?B?RXFWd2h6aVpicFVMTWtJd3RkS1d5cUlBVXNPK0I2VjlpUjlvQmxUT0Z6ZE5S?=
+ =?utf-8?B?MFZ3WjZ5NHQzMTZHeUFjZEhTTGhiL3E0bnIxT0VHRXZ5RUg3emZ1RmlTSDV5?=
+ =?utf-8?B?dFJaRDNHb05CdnVyVERMUjlsMkl5R3g3MmNFb09QUG9NbHJ4Z0kwWkh0MEhz?=
+ =?utf-8?B?ZU8zQjkrWVpmak8vK0RDenAyU1I4Q09MYkJQcWFaTGlwd0VBNnV4RmNCeUZk?=
+ =?utf-8?B?L05kZVFCcWZzZXBjWGwweC94SUVidHhXTGM0Ym9US0IrMnpVTFllOW4rUmJs?=
+ =?utf-8?B?RjR4aU1KRU5lZ2NKL0NZWnkrTGVGM0NsNE5MZEZQek85bkZoTFlSVFRublN0?=
+ =?utf-8?B?aXhEOU1LN3kxa3liUTEveHNUREFFUmE4QlVxaEh3Z21wSHptLzBybzUwcHEv?=
+ =?utf-8?B?ZnBKTkNGOUw3YnNwU0xGdEpQREs3cm9hdGpyV3lxRnBYWHp4OXpobUFkSU90?=
+ =?utf-8?B?VzFQd3IzK3laV2ttTzQ3dEJtOVRKMkVremNabWQ4cVFJMjZJaFFvZ085dENi?=
+ =?utf-8?B?RkIxZFMwQnhPSmxtazBLVHlOdE10ZysvWTEyOGRTdEZQMHVCOHhuV1llMmNV?=
+ =?utf-8?B?alp3ZW95dkxYeUVnOW9zRExzNFJWVC9WRjRBSTJkdG9GZHFhRElLNTJKajZ6?=
+ =?utf-8?B?YnhFaDBFSnlNNktUTVdJdEhzdU81V1NqSTRXb3lJTHoybWNDa29mNTVrb2VU?=
+ =?utf-8?B?bm1FL1B6VkhRNzh0QnpjMnk0MWV4MjVBVUdFRFBqUlpCVDBlQWZmbWI1RHlr?=
+ =?utf-8?B?TlVwdmNDWU9IWHJ6YUVhTG9qa1dCbW9helU0dW5Cdzh0ZytBcDZzeDhITEVk?=
+ =?utf-8?B?NzQyc2kwVVFpMU5iRHJsamtCS2lTUmZsWDlvOUV3Qlp3Z3U5R1drNW1GNkgx?=
+ =?utf-8?B?VTFoN0VsM1lBeW5MVkpDYWU3Q3NiSGp1QXExSSs0UE9CZ2p2a2NtUnhuN2oy?=
+ =?utf-8?B?UVd2eW9GREQzaDJmWExoaUxpVHk5YWJSY1RkYnAxKzI3Wm8wZVFwZmd3Nkh1?=
+ =?utf-8?B?T09VNE5PeDJGbUdWNEpLRU50UlQ0d3RCS1J1bjMyaVQwK3BISkpadEtkbEto?=
+ =?utf-8?B?QWRuNlJhbGxsbmZkVEpTVTlKbDlOemdBRldHM2MyWFJaQTk3MEFYTG1HN2Yw?=
+ =?utf-8?B?N3pIMURNbUc0WWZpcHZ4NStHaERNMGtybUh0bTlaYk1mNXROTVZsRUdwc3Ru?=
+ =?utf-8?B?U3kyL1ZzODZxNEkweE9SbWtrQ043WWlicXBaVXduQlZHRVlINWpOK1VUa2dG?=
+ =?utf-8?B?c05YUW9ZYUsybk8yWU9RNytRbE96eWlVWW9aWHU1L212NnVvbS9WYU0xOGxD?=
+ =?utf-8?B?dThmMjFVS3hkMnZSdXVRTE15YVF5bG1OZWpBdDZhM1YvRE90K0xQcHA4U2lG?=
+ =?utf-8?B?Q0VwTHo2VHNzWFc4cXkwakhZOUxaM1VHaCtzMjdhUmZYTFpqeDZuUEF0OVpJ?=
+ =?utf-8?B?QVNhZ3lLSHhQaU1JblVYckk0RWJKZUtUUlZ2UGJpa3RaRG9zWWlvekZlUFB2?=
+ =?utf-8?B?SEhPOXVjczJleGUwSXYzVHI0VHR0dFprT0djenBMOWZ3TGZxY3RkbnlyU2FM?=
+ =?utf-8?B?cjRmbjlVV1JCYzFPeXlpOVZqdTlzU2VjdXh0aUhXUDkwN3M1SmpEcVN4dFNx?=
+ =?utf-8?B?T2V2WnFCVmJhNHFCY3B1b3lucmxYYUppdFdUZlBvVnpMSlRoamVGRzI4TGxm?=
+ =?utf-8?B?bW85amxNMTEwVzVjVXRyUVNWb1pWRHcwbDk4YU5pMEJxMWszd2ZlSWp2MWNl?=
+ =?utf-8?B?Ym1yMEJEclpHT2R6MjVNVlMyVFRSYWlNbk00N0NKT2prUlRrb2VjMXV6Qkt0?=
+ =?utf-8?B?R2l1Q1VPM2xXMngxZTFMQ1k5TW5pN2ZBQjk1bmZncHR4Q3JZSWRoYjRrVVRS?=
+ =?utf-8?Q?W6P6K90Sa3AMAjULnr?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 81398393-93b7-467c-943a-08df24acf1fb
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5320.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 19:49:25.5034
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 19:55:32.4214
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: s0R0q5x55/msfjCnvd1ITvN7MPMAiX8jVO9UDPwiImj5Tz1/QYNXYoDPw0qTVN++fnj6Tk9Hqoo9eVzBO2ybQcfi3f2Wgl+IsBnjYA2an8s=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7531
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: m2JOrR5yPh+2vHvjESRTzOmo8jE7LU//Q43jiYIJIzJ4U1kVSCSFxNT98FN/yris
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB600424
 
-On Thu, Oct 01, 2026 at 09:22:25AM +0000, Srirangan Madhavan wrote:
-> Restore the PCI configuration needed for HDM access, followed by cached
-> HDM decoder and CXL Device DVSEC state. Recommit a cleared locked decoder
-> before restoring its lock, but leave surviving locked state unchanged.
+Hi Tony,
+
+On 9/29/26 12:52, Tony Luck wrote:
+> The pmt_telemetry driver is built-in, and Application Energy Telemetry (AET)
+> is only enumerated on the first mount of the resctrl file system.
 > 
-> Stop at the first restoration failure and preserve a disabled PCI command
-> snapshot. Keep IOMMU exclusion active through restoration and post-reset
-> cache invalidation.
+> In order to allow the pmt_telemetry driver to be a module, changes are
+> needed to place a hold on the driver only while the resctrl file system
+> is mounted. This means that resctrl must enumerate AET features on every
+> mount, and clean up on every unmount.
 > 
-> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
+> There are changes to three software layers:
+> 
+> 1) resctrl file system
+>     Call architecture code for every mount and unmount. Locking is needed
+>     here so that architecture code can be sure that every call to
+>     resctrl_arch_pre_mount() occurs while the file system is not mounted,
+>     and resctrl_arch_unmount() occurs only to clean up a failed mount or
+>     to unmount the file system.
+> 
+> 2) Architecture code
+>     New function resctrl_arch_unmount(). On x86 this calls the AET code
+>     if RDT_RESOURCE_PERF_PKG was marked as supporting monitoring by an
+>     earlier mount attempt. It completes cleanup by removing all domains
+>     used by AET.
+> 
+> 3) AET code
+>     Disables all AET events and informs pmt_telemetry driver that it is no
+>     longer using the pmt_feature_group structures it received during mount.
+>     Releases the hold on the pmt_telemetry driver allowing it to be unloaded.
+>     All cleanup is handled by intel_aet_unmount() and intel_aet_exit() is
+>     no longer needed.
+> 
+> Signed-off-by: Tony Luck <tony.luck@intel.com>
 > ---
->  drivers/cxl/core/resource.c | 418 +++++++++++++++++++++++++++++++++---
->  1 file changed, 392 insertions(+), 26 deletions(-)
+> v14:
+> 	aet_register_lock name changed to aet_lock.
+> ---
+>   include/linux/resctrl.h                 | 10 +++++++--
+>   arch/x86/kernel/cpu/resctrl/internal.h  |  4 ++--
+>   arch/x86/kernel/cpu/resctrl/core.c      | 21 +++++++++++++++--
+>   arch/x86/kernel/cpu/resctrl/intel_aet.c | 29 +++++++++++++++++++-----
+>   drivers/resctrl/mpam_resctrl.c          |  4 ++++
+>   fs/resctrl/rdtgroup.c                   | 30 ++++++++++++++++++++-----
+>   6 files changed, 81 insertions(+), 17 deletions(-)
 > 
-> diff --git a/drivers/cxl/core/resource.c b/drivers/cxl/core/resource.c
-> index 679a605da24c..0acc471d0d7e 100644
-> --- a/drivers/cxl/core/resource.c
-> +++ b/drivers/cxl/core/resource.c
-> @@ -13,6 +13,7 @@
->  #include <linux/kernel.h>
->  #include <linux/list.h>
->  #include <linux/memregion.h>
-> +#include <linux/overflow.h>
->  #include <linux/pci.h>
->  #include <linux/slab.h>
->  
-> @@ -83,6 +84,26 @@ int cxld_await_commit(void __iomem *hdm, int id)
->  }
->  EXPORT_SYMBOL_FOR_MODULES(cxld_await_commit, "cxl_core");
->  
-> +static int cxld_await_uncommit(void __iomem *hdm, int id)
+> diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
+> index c77e24c0d8b6..c40d72e4a957 100644
+> --- a/include/linux/resctrl.h
+> +++ b/include/linux/resctrl.h
+> @@ -611,11 +611,17 @@ void resctrl_online_cpu(unsigned int cpu);
+>   void resctrl_offline_cpu(unsigned int cpu);
+>   
+>   /*
+> - * Architecture hook called at beginning of first file system mount attempt.
+> - * No locks are held.
+> + * Architecture hook called at beginning of each file system mount attempt.
+> + * Serialized against other mount and unmount attempts.
+>    */
+>   void resctrl_arch_pre_mount(void);
+>   
+> +/*
+> + * Architecture hook called when mount fails, or on unmount.
+> + * Serialized against other mount and unmount attempts.
+> + */
+> +void resctrl_arch_unmount(void);
+> +
+>   /**
+>    * resctrl_arch_rmid_read() - Read the eventid counter corresponding to rmid
+>    *			      for this resource and domain.
+> diff --git a/arch/x86/kernel/cpu/resctrl/internal.h b/arch/x86/kernel/cpu/resctrl/internal.h
+> index 8406addc05f5..c66954bc01e7 100644
+> --- a/arch/x86/kernel/cpu/resctrl/internal.h
+> +++ b/arch/x86/kernel/cpu/resctrl/internal.h
+> @@ -234,15 +234,15 @@ void rdt_domain_reconfigure_cdp(struct rdt_resource *r);
+>   void resctrl_arch_mbm_cntr_assign_set_one(struct rdt_resource *r);
+>   
+>   #ifdef CONFIG_X86_CPU_RESCTRL_INTEL_AET
+> -void __exit intel_aet_exit(void);
+>   bool intel_aet_pre_mount(void);
+> +void intel_aet_unmount(void);
+>   int intel_aet_read_event(int domid, u32 rmid, void *arch_priv, u64 *val);
+>   void intel_aet_mon_domain_setup(int cpu, int id, struct rdt_resource *r,
+>   				struct list_head *add_pos);
+>   bool intel_handle_aet_option(bool force_off, char *tok);
+>   #else
+> -static inline void __exit intel_aet_exit(void) { }
+>   static inline bool intel_aet_pre_mount(void) { return false; }
+> +static inline void intel_aet_unmount(void) { }
+>   static inline int intel_aet_read_event(int domid, u32 rmid, void *arch_priv, u64 *val)
+>   {
+>   	return -EINVAL;
+> diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
+> index ac67b4523b2d..40466f29e48e 100644
+> --- a/arch/x86/kernel/cpu/resctrl/core.c
+> +++ b/arch/x86/kernel/cpu/resctrl/core.c
+> @@ -811,6 +811,25 @@ void resctrl_arch_pre_mount(void)
+>   	cpus_read_unlock();
+>   }
+>   
+> +void resctrl_arch_unmount(void)
 > +{
-> +	u32 ctrl;
-> +	int i;
+> +	struct rdt_resource *r = &rdt_resources_all[RDT_RESOURCE_PERF_PKG].r_resctrl;
+> +	int cpu;
 > +
-> +	for (i = 0; i < COMMIT_TIMEOUT_MS; i++) {
-> +		ctrl = readl(hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
-> +		if (FIELD_GET(CXL_HDM_DECODER0_CTRL_COMMIT_ERROR, ctrl)) {
-> +			ctrl &= ~CXL_HDM_DECODER0_CTRL_COMMIT;
-> +			writel(ctrl, hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
-> +			return -EIO;
-> +		}
-> +		if (!FIELD_GET(CXL_HDM_DECODER0_CTRL_COMMITTED, ctrl))
-> +			return 0;
-> +		fsleep(1000);
-> +	}
+> +	if (!r->mon_capable)
+> +		return;
 > +
-> +	return -ETIMEDOUT;
+> +	intel_aet_unmount();
+> +
+> +	cpus_read_lock();
+> +	mutex_lock(&domain_list_lock);
+> +	for_each_online_cpu(cpu)
+> +		domain_remove_cpu_mon(cpu, r);
+> +	r->mon_capable = false;
+> +	mutex_unlock(&domain_list_lock);
+> +	cpus_read_unlock();
 > +}
 > +
->  static void setup_hw_decoder(void __iomem *hdm,
->  			     struct cxl_decoder_settings *settings)
->  {
-> @@ -448,6 +469,335 @@ void pci_cxl_hdm_cache_release(struct pci_dev *pdev)
->  	kfree(info);
->  }
->  
-> +static void __iomem *cxl_pci_hdm_ioremap_current(struct pci_dev *pdev,
-> +						 int bar,
-> +						 resource_size_t offset,
-> +						 resource_size_t size)
-> +{
-> +	struct resource *res;
-> +	resource_size_t hdm_start;
-> +	void __iomem *hdm;
-> +
-> +	if (bar < 0 || bar >= PCI_STD_NUM_BARS || !size)
-> +		return ERR_PTR(-EINVAL);
-> +
-> +	res = &pdev->resource[bar];
-> +	if (!pci_resource_len(pdev, bar) ||
-> +	    (res->flags & (IORESOURCE_UNSET | IORESOURCE_DISABLED)) ||
-> +	    resource_type(res) != IORESOURCE_MEM || !res->start || !res->end)
-> +		return ERR_PTR(-ENODEV);
-> +	if (offset > resource_size(res) || size > resource_size(res) - offset)
-> +		return ERR_PTR(-ENODEV);
-> +	if (check_add_overflow(res->start, offset, &hdm_start))
-> +		return ERR_PTR(-EOVERFLOW);
-> +
-> +	hdm = ioremap(hdm_start, size);
-> +	if (!hdm) {
-> +		pci_err(pdev, "failed to remap CXL HDM decoder registers\n");
-> +		return ERR_PTR(-ENOMEM);
-> +	}
-> +
-> +	return hdm;
-> +}
-> +
-> +static int cxl_hdm_decoder_uncommit(struct pci_dev *pdev, void __iomem *hdm,
-> +				    int id, bool *retained)
-> +{
-
-Srirangan,
-
-Same concern here about threading struct pci_dev through the HDM machinery.
-This helper is an HDM-register operation. The PCI device is only needed for
-the error messages. Could the register/state helpers stay independent of
-struct pci_dev, with the PCI-facing caller responsible for reporting the failure?
-
-Otherwise pdev starts propagating through the entire restore stack even
-though most of that stack is not inherently PCI-specific.
-- ie cxl_restore_hdm_state() and cxl_restore_hdm_decoder()
-
--- Alison
-
-
-
-
-> +	u32 ctrl;
-> +	int rc;
-> +
-> +	*retained = false;
-> +	ctrl = readl(hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
-> +	if (PCI_POSSIBLE_ERROR(ctrl))
-> +		return -EIO;
-> +	if (ctrl & CXL_HDM_DECODER0_CTRL_COMMIT_ERROR) {
-> +		pci_err(pdev, "CXL HDM decoder %d has commit error set\n", id);
-> +		return -EIO;
-> +	}
-> +
-> +	if (ctrl & CXL_HDM_DECODER0_CTRL_LOCK) {
-> +		if (ctrl & CXL_HDM_DECODER0_CTRL_COMMITTED) {
-> +			*retained = true;
-> +			return 0;
-> +		}
-> +
-> +		pci_err(pdev, "CXL HDM decoder %d is locked and uncommitted\n",
-> +			id);
-> +		return -EIO;
-> +	}
-> +
-> +	if (!(ctrl & CXL_HDM_DECODER0_CTRL_COMMITTED))
-> +		return 0;
-> +
-> +	ctrl &= ~CXL_HDM_DECODER0_CTRL_COMMIT;
-> +	writel(ctrl, hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
-> +
-> +	rc = cxld_await_uncommit(hdm, id);
-> +	if (rc)
-> +		pci_err(pdev, "CXL HDM decoder %d uncommit failed: %d\n", id,
-> +			rc);
-> +
-> +	return rc;
-> +}
-> +
-> +static bool cxl_hdm_decoder_settings_match(
-> +	const struct cxl_decoder_settings *saved,
-> +	const struct cxl_decoder_settings *active)
-> +{
-> +	const struct cxl_decoder_config *a = &saved->config;
-> +	const struct cxl_decoder_config *b = &active->config;
-> +
-> +	return a->id == b->id &&
-> +	       a->hpa_range.start == b->hpa_range.start &&
-> +	       a->hpa_range.end == b->hpa_range.end &&
-> +	       a->interleave_ways == b->interleave_ways &&
-> +	       a->interleave_granularity == b->interleave_granularity &&
-> +	       a->target_type == b->target_type &&
-> +	       (a->flags & CXL_DECODER_F_RESET_MASK) ==
-> +		(b->flags & CXL_DECODER_F_RESET_MASK) &&
-> +	       saved->target_or_skip_reg_val == active->target_or_skip_reg_val;
-> +}
-> +
-> +static int cxl_restore_hdm_decoder_commit(
-> +	void __iomem *hdm, struct cxl_decoder_settings *settings)
-> +{
-> +	guard(rwsem_read)(&cxl_rwsem.dpa);
-> +
-> +	cxl_commit_start(hdm, settings);
-> +	return cxld_await_commit(hdm, settings->config.id);
-> +}
-> +
-> +static int cxl_restore_hdm_decoder(struct pci_dev *pdev, void __iomem *hdm,
-> +				   struct cxl_decoder_settings *settings)
-> +{
-> +	struct cxl_decoder_config *config = &settings->config;
-> +	bool retained;
-> +	u32 ctrl;
-> +	int rc;
-> +
-> +	rc = cxl_hdm_decoder_uncommit(pdev, hdm, config->id, &retained);
-> +	if (rc)
-> +		return rc;
-> +
-> +	if (retained) {
-> +		struct cxl_decoder_settings active;
-> +
-> +		rc = cxl_pci_hdm_read_decoder(pdev, &active, hdm,
-> +					      config->id);
-> +		if (rc)
-> +			return rc;
-> +		if (!cxl_hdm_decoder_settings_match(settings, &active)) {
-> +			pci_err(pdev,
-> +				"CXL HDM decoder %d retained unexpected locked state\n",
-> +				config->id);
-> +			return -EIO;
-> +		}
-> +		return 0;
-> +	}
-> +
-> +	if (!(config->flags & CXL_DECODER_F_ENABLE))
-> +		return 0;
-> +
-> +	rc = cxl_restore_hdm_decoder_commit(hdm, settings);
-> +	if (rc) {
-> +		pci_err(pdev, "CXL HDM decoder %d restore failed: %d\n",
-> +			config->id, rc);
-> +		return rc;
-> +	}
-> +
-> +	if (!(config->flags & CXL_DECODER_F_LOCK))
-> +		return 0;
-> +
-> +	ctrl = readl(hdm + CXL_HDM_DECODER0_CTRL_OFFSET(config->id));
-> +	if (PCI_POSSIBLE_ERROR(ctrl))
-> +		return -EIO;
-> +	ctrl |= CXL_HDM_DECODER0_CTRL_LOCK;
-> +	writel(ctrl, hdm + CXL_HDM_DECODER0_CTRL_OFFSET(config->id));
-> +
-> +	ctrl = readl(hdm + CXL_HDM_DECODER0_CTRL_OFFSET(config->id));
-> +	if (PCI_POSSIBLE_ERROR(ctrl) ||
-> +	    !(ctrl & CXL_HDM_DECODER0_CTRL_LOCK)) {
-> +		pci_err(pdev, "CXL HDM decoder %d failed to restore lock\n",
-> +			config->id);
-> +		return -EIO;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int cxl_snapshot_hdm(struct pci_dev *pdev,
-> +			    struct cxl_hdm_info **snapshot)
-> +{
-> +	struct cxl_hdm_info *info;
-> +	size_t size;
-> +
-> +	guard(rwsem_read)(&cxl_rwsem.dpa);
-> +	info = pdev->hdm;
-> +	if (!info)
-> +		return -ENXIO;
-> +	if (info->decoder_count <= 0)
-> +		return -EINVAL;
-> +
-> +	size = struct_size(info, settings, info->decoder_count);
-> +	if (size == SIZE_MAX)
-> +		return -EOVERFLOW;
-> +	*snapshot = kmemdup(info, size, GFP_KERNEL);
-> +	if (!*snapshot)
-> +		return -ENOMEM;
-> +
-> +	return 0;
-> +}
-> +
-> +static void cxl_restore_pci_state_for_hdm_restore(struct pci_dev *pdev,
-> +						  u16 *command)
-> +{
-> +	u32 saved_config = pdev->saved_config_space[PCI_COMMAND / 4];
-> +	u32 restore_config;
-> +
-> +	device_lock_assert(&pdev->dev);
-> +	*command = saved_config & 0xffff;
-> +
-> +	/*
-> +	 * pci_restore_state() is the available interface for restoring BARs and
-> +	 * related PCI state needed to reach HDM MMIO. Temporarily alter its saved
-> +	 * command value so that it enables MSE but cannot enable BME or INTx
-> +	 * before CXL state restoration completes. Preserve the original saved
-> +	 * value for the outer PCI reset path.
-> +	 */
-> +	restore_config = saved_config | PCI_COMMAND_MEMORY |
-> +			 PCI_COMMAND_INTX_DISABLE;
-> +	restore_config &= ~PCI_COMMAND_MASTER;
-> +
-> +	pdev->saved_config_space[PCI_COMMAND / 4] = restore_config;
-> +	pci_restore_state(pdev);
-> +	pdev->saved_config_space[PCI_COMMAND / 4] = saved_config;
-> +}
-> +
-> +static int cxl_restore_dvsec_ctrl(struct pci_dev *pdev, u16 saved_ctrl)
-> +{
-> +	int dvsec;
-> +	int rc;
-> +
-> +	dvsec = pci_find_dvsec_capability(pdev, PCI_VENDOR_ID_CXL,
-> +					  PCI_DVSEC_CXL_DEVICE);
-> +	if (!dvsec)
-> +		return -ENOTTY;
-> +
-> +	rc = pci_write_config_word(pdev, dvsec + PCI_DVSEC_CXL_CTRL,
-> +				   saved_ctrl);
-> +	if (rc)
-> +		return pcibios_err_to_errno(rc);
-> +
-> +	return 0;
-> +}
-> +
-> +static int cxl_restore_hdm_state(struct pci_dev *pdev, void __iomem *hdm,
-> +				 struct cxl_hdm_info *snapshot)
-> +{
-> +	int count;
-> +	int rc;
-> +
-> +	count = cxl_hdm_decoder_count(readl(hdm + CXL_HDM_DECODER_CAP_OFFSET));
-> +	if (count != snapshot->decoder_count) {
-> +		pci_err(pdev, "CXL HDM decoder count changed from %d to %d\n",
-> +			snapshot->decoder_count, count);
-> +		return -ENXIO;
-> +	}
-> +
-> +	/* Restore global HDM control before committing individual decoders. */
-> +	writel(snapshot->global_ctrl, hdm + CXL_HDM_DECODER_CTRL_OFFSET);
-> +
-> +	for (int i = 0; i < snapshot->decoder_count; i++) {
-> +		rc = cxl_restore_hdm_decoder(pdev, hdm,
-> +					     &snapshot->settings[i]);
-> +		if (rc)
-> +			return rc;
-> +	}
-> +
-> +	/* Flush posted HDM writes before restoring protocol enables. */
-> +	readl(hdm + CXL_HDM_DECODER_CTRL_OFFSET);
-> +
-> +	return 0;
-> +}
-> +
-> +static int cxl_restore_state(struct pci_dev *pdev,
-> +			     struct cxl_hdm_info *snapshot)
-> +{
-> +	void __iomem *hdm;
-> +	int rc;
-> +
-> +	hdm = cxl_pci_hdm_ioremap_current(pdev, snapshot->hdm_bar,
-> +					  snapshot->hdm_offset,
-> +					  snapshot->hdm_size);
-> +	if (IS_ERR(hdm)) {
-> +		pci_err(pdev, "failed to map CXL HDM state for restore: %ld\n",
-> +			PTR_ERR(hdm));
-> +		return PTR_ERR(hdm);
-> +	}
-> +
-> +	rc = cxl_restore_hdm_state(pdev, hdm, snapshot);
-> +	iounmap(hdm);
-> +	if (rc)
-> +		return rc;
-> +
-> +	if (!snapshot->dvsec_ctrl_valid) {
-> +		pci_err(pdev, "CXL DVSEC control snapshot is invalid\n");
-> +		return -ENXIO;
-> +	}
-> +	rc = cxl_restore_dvsec_ctrl(pdev, snapshot->dvsec_ctrl);
-> +	if (rc)
-> +		pci_err(pdev, "failed to restore CXL DVSEC control: %d\n", rc);
-> +
-> +	return rc;
-> +}
-> +
-> +static void cxl_reset_save_disabled_state(struct pci_dev *pdev)
-> +{
-> +	u32 *saved_command = &pdev->saved_config_space[PCI_COMMAND / 4];
-> +	int rc;
-> +
-> +	rc = pci_write_config_word(pdev, PCI_COMMAND, PCI_COMMAND_INTX_DISABLE);
-> +	if (rc)
-> +		pci_err(pdev,
-> +			"failed to disable device after CXL reset failure: %d\n",
-> +			pcibios_err_to_errno(rc));
-> +
-> +	/* Preserve the pre-reset snapshot if PCI state has not been restored. */
-> +	if (!pdev->state_saved) {
-> +		rc = pci_save_state(pdev);
-> +		if (rc)
-> +			pci_err(pdev,
-> +				"failed to save disabled state after CXL reset failure: %d\n",
-> +				rc);
-> +	}
-> +
-> +	/* Ensure the outer PCI restore cannot re-enable MSE or BME. */
-> +	*saved_command &= GENMASK(31, 16);
-> +	*saved_command |= PCI_COMMAND_INTX_DISABLE;
-> +}
-> +
-> +static int cxl_reset_save_restored_state(struct pci_dev *pdev, u16 command)
-> +{
-> +	int rc;
-> +
-> +	rc = pci_write_config_word(pdev, PCI_COMMAND, command);
-> +	if (rc) {
-> +		rc = pcibios_err_to_errno(rc);
-> +		pci_err(pdev, "failed to restore PCI command state: %d\n", rc);
-> +		cxl_reset_save_disabled_state(pdev);
-> +		return rc;
-> +	}
-> +
-> +	rc = pci_save_state(pdev);
-> +	if (rc) {
-> +		pci_err(pdev, "failed to save restored state after CXL reset: %d\n",
-> +			rc);
-> +		cxl_reset_save_disabled_state(pdev);
-> +	}
-> +
-> +	return rc;
-> +}
-> +
->  /*
->   * CXL r4.0 sec 9.7.2 defines the reset completion timeout encodings.
->   * Sec 9.7.3 leaves config-space access behavior undefined for 100 ms after
-> @@ -814,7 +1164,9 @@ static int cxl_clear_memory(struct pci_dev *pdev, int dvsec, bool initiate)
->  }
->  
->  static int __cxl_reset_execute(struct pci_dev *pdev, int dvsec, u16 cap,
-> -			      struct cxl_hdm_range_context *range_ctx)
-> +			      struct cxl_hdm_info *snapshot,
-> +			      struct cxl_hdm_range_context *range_ctx,
-> +			      u16 *command)
->  {
->  	int rc, rc2;
->  
-> @@ -839,42 +1191,69 @@ static int __cxl_reset_execute(struct pci_dev *pdev, int dvsec, u16 cap,
->  		pci_err(pdev, "failed to clear CXL Reset Memory Clear: %d\n", rc2);
->  	rc = rc ?: rc2;
->  
-> +	if (!rc) {
-> +		cxl_restore_pci_state_for_hdm_restore(pdev, command);
-> +		rc = cxl_restore_state(pdev, snapshot);
-> +	}
-> +
->  	/* Evict lines fetched during reset before ending DMA exclusion. */
->  	rc2 = cxl_hdm_ranges_invalidate(range_ctx);
->  	rc = rc ?: rc2;
-> +	if (rc)
-> +		cxl_reset_save_disabled_state(pdev);
->  
->  	pci_dev_reset_iommu_done(pdev);
->  	return rc;
->  }
->  
-> -static int cxl_reset_execute(struct pci_dev *pdev, int dvsec, u16 cap,
-> -			     struct cxl_hdm_range_context *range_ctx)
-> +static int cxl_reset_execute(struct pci_dev *pdev, int dvsec, u16 cap)
->  {
-> -	u16 saved_ctrl2;
-> +	struct cxl_hdm_info *snapshot = NULL;
-> +	struct cxl_hdm_range_context range_ctx;
-> +	u16 command, saved_ctrl2;
->  	int rc, rc2;
->  
-> +	guard(rwsem_write)(&cxl_rwsem.region);
->  	rc = pci_read_config_word(pdev, dvsec + PCI_DVSEC_CXL_CTRL2, &saved_ctrl2);
->  	if (rc)
-> -		rc = pcibios_err_to_errno(rc);
-> -	else if (PCI_POSSIBLE_ERROR(saved_ctrl2))
-> -		rc = -ENODEV;
-> +		return pcibios_err_to_errno(rc);
-> +	if (PCI_POSSIBLE_ERROR(saved_ctrl2))
-> +		return -ENODEV;
-> +
-> +	INIT_LIST_HEAD(&range_ctx.ranges);
-> +
-> +	rc = cxl_hdm_ranges_prepare(&range_ctx, pdev);
-> +	if (rc) {
-> +		cxl_hdm_range_context_destroy(&range_ctx);
-> +		return rc;
-> +	}
-> +
-> +	rc = cxl_snapshot_hdm(pdev, &snapshot);
->  	if (rc) {
-> -		cxl_hdm_range_context_destroy(range_ctx);
-> +		cxl_hdm_range_context_destroy(&range_ctx);
->  		return rc;
->  	}
->  
->  	rc = cxl_reset_disable_cache(pdev, dvsec, cap);
->  	if (!rc)
-> -		rc = __cxl_reset_execute(pdev, dvsec, cap, range_ctx);
-> +		rc = __cxl_reset_execute(pdev, dvsec, cap, snapshot, &range_ctx,
-> +					 &command);
->  	/* Restore cache policy after any attempt to disable caching. */
->  	rc2 = cxl_reset_restore_cache_policy(pdev, dvsec, saved_ctrl2);
-> -	cxl_hdm_range_context_destroy(range_ctx);
-> -	return rc ?: rc2;
-> +	kfree(snapshot);
-> +	cxl_hdm_range_context_destroy(&range_ctx);
-> +	if (rc)
-> +		return rc;
-> +	if (rc2) {
-> +		cxl_reset_save_disabled_state(pdev);
-> +		return rc2;
-> +	}
-> +
-> +	return cxl_reset_save_restored_state(pdev, command);
->  }
->  
->  int cxl_reset_function(struct pci_dev *pdev, bool probe)
->  {
-> -	struct cxl_hdm_range_context range_ctx;
->  	int dvsec, rc;
->  	u16 cap, ctrl;
->  
-> @@ -917,18 +1296,5 @@ int cxl_reset_function(struct pci_dev *pdev, bool probe)
->  	if (!cpu_cache_has_invalidate_memregion())
->  		return -ENOTTY;
->  
-> -	INIT_LIST_HEAD(&range_ctx.ranges);
+>   enum {
+>   	RDT_FLAG_CMT,
+>   	RDT_FLAG_MBM_TOTAL,
+> @@ -1161,8 +1180,6 @@ late_initcall(resctrl_arch_late_init);
+>   
+>   static void __exit resctrl_arch_exit(void)
+>   {
+> -	intel_aet_exit();
 > -
-> -	scoped_guard(rwsem_write, &cxl_rwsem.region) {
-> -		rc = cxl_hdm_ranges_prepare(&range_ctx, pdev);
-> -		if (rc) {
-> -			cxl_hdm_range_context_destroy(&range_ctx);
-> -			return rc;
-> -		}
-> -
-> -		/* cxl_reset_execute() releases the ranges on success and failure. */
-> -		rc = cxl_reset_execute(pdev, dvsec, cap, &range_ctx);
-> -	}
-> -
-> -	return rc;
-> +	return cxl_reset_execute(pdev, dvsec, cap);
->  }
-> -- 
-> 2.43.0
-> 
+>   	cpuhp_remove_state(rdt_online);
+>   
+>   	resctrl_exit();
+> diff --git a/arch/x86/kernel/cpu/resctrl/intel_aet.c b/arch/x86/kernel/cpu/resctrl/intel_aet.c
+> index d79c459f4c54..e7cd7d8a80cd 100644
+> --- a/arch/x86/kernel/cpu/resctrl/intel_aet.c
+> +++ b/arch/x86/kernel/cpu/resctrl/intel_aet.c
+> @@ -297,7 +297,7 @@ static enum pmt_feature_id lookup_pfid(const char *pfname)
+>   
+>   /*
+>    * Serialises AET's view of pmt_telemetry:
+> - *   - pmt_module, get_feature, put_feature
+> + *   - pmt_module, get_feature, put_feature, pmt_in_use
+>    *   - every event_group's ->pfg
+>    *
+>    * Lock ordering with pmt/telemetry.c's ep_lock is ep_lock -> aet_lock.
+> @@ -311,6 +311,11 @@ static struct module *pmt_module;
+>   static struct pmt_feature_group *(*get_feature)(enum pmt_feature_id id);
+>   static void (*put_feature)(struct pmt_feature_group *p);
+>   
+> +/*
+> + * Track whether pmt_telemetry enumeration succeeded during mount for use during unmount.
+> + */
+> +static bool pmt_in_use;
+> +
+>   /*
+>    * Request a copy of struct pmt_feature_group for each event group. If there is
+>    * one, the returned structure has an array of telemetry_region structures,
+> @@ -395,19 +400,33 @@ bool intel_aet_pre_mount(void)
+>   		return false;
+>   	}
+>   
+> +	pmt_in_use = true;
+> +
+>   	return true;
+>   }
+>   
+> -void __exit intel_aet_exit(void)
+> +void intel_aet_unmount(void)
+>   {
+> +	struct rdt_resource *r = &rdt_resources_all[RDT_RESOURCE_PERF_PKG].r_resctrl;
+>   	struct event_group **peg;
+>   
+> +	guard(mutex)(&aet_lock);
+> +	if (!pmt_in_use)
+> +		return;
+> +
+>   	for_each_event_group(peg) {
+> -		if ((*peg)->pfg) {
+> -			put_feature((*peg)->pfg);
+> -			(*peg)->pfg = NULL;
+> +		struct event_group *e = *peg;
+> +
+> +		if (e->pfg) {
+> +			for (int i = 0; i < e->num_events; i++)
+> +				resctrl_disable_mon_event(e->evts[i].id);
+> +			put_feature(e->pfg);
+> +			e->pfg = NULL;
+>   		}
+>   	}
+> +	module_put(pmt_module);
+> +	pmt_in_use = false;
+> +	r->mon.num_rmid = 0;
+>   }
+>   
+>   #define DATA_VALID	BIT_ULL(63)
+> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+> index 360a50eb0cd3..ecea2239afa4 100644
+> --- a/drivers/resctrl/mpam_resctrl.c
+> +++ b/drivers/resctrl/mpam_resctrl.c
+> @@ -121,6 +121,10 @@ void resctrl_arch_pre_mount(void)
+>   {
+>   }
+>   
+> +void resctrl_arch_unmount(void)
+> +{
+> +}
+> +
+>   bool resctrl_arch_get_cdp_enabled(enum resctrl_res_level rid)
+>   {
+>   	return mpam_resctrl_controls[rid].cdp_enabled;
+> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+> index ecdb5da50179..20e579067570 100644
+> --- a/fs/resctrl/rdtgroup.c
+> +++ b/fs/resctrl/rdtgroup.c
+> @@ -30,6 +30,9 @@
+>   
+>   #include "internal.h"
+>   
+> +/* Mutex protecting resctrl_mounted and mount/unmount operations */
+> +static DEFINE_MUTEX(resctrl_mount_lock);
+> +
+>   /* Mutex to protect rdtgroup access. */
+>   DEFINE_MUTEX(rdtgroup_mutex);
+>   
+> @@ -48,7 +51,10 @@ LIST_HEAD(resctrl_schema_all);
+>    */
+>   static LIST_HEAD(mon_data_kn_priv_list);
+>   
+> -/* The filesystem can only be mounted once. */
+> +/*
+> + * The filesystem can only be mounted once. Can only be updated
+> + * while holding both resctrl_mount_lock and rdtgroup_mutex.
+> + */
+>   bool resctrl_mounted;
+>   
+>   /* Kernel fs node for "info" directory under root */
+> @@ -3147,6 +3153,7 @@ static void resctrl_unmount(void)
+>   {
+>   	struct rdt_resource *r;
+>   
+> +	mutex_lock(&resctrl_mount_lock);
+>   	cpus_read_lock();
+>   	mutex_lock(&rdtgroup_mutex);
+>   
+> @@ -3164,6 +3171,8 @@ static void resctrl_unmount(void)
+>   	resctrl_mounted = false;
+>   	mutex_unlock(&rdtgroup_mutex);
+>   	cpus_read_unlock();
+> +	resctrl_arch_unmount();
+> +	mutex_unlock(&resctrl_mount_lock);
+>   }
+>   
+>   static int rdt_get_tree(struct fs_context *fc)
+> @@ -3175,24 +3184,27 @@ static int rdt_get_tree(struct fs_context *fc)
+>   	struct rdt_resource *r;
+>   	int ret;
+>   
+> -	DO_ONCE_SLEEPABLE(resctrl_arch_pre_mount);
+> +	mutex_lock(&resctrl_mount_lock);
+>   
+> -	cpus_read_lock();
+> -	mutex_lock(&rdtgroup_mutex);
+>   	/*
+>   	 * resctrl file system can only be mounted once.
+>   	 */
+>   	if (resctrl_mounted) {
+>   		ret = -EBUSY;
+> -		goto out;
+> +		goto out_mount_unlock;
+>   	}
+>   
+>   	/* Avoid races from pending operations from a previous mount */
+>   	if (atomic_read(&rdtgroup_default.waitcount) != 0) {
+>   		ret = -EBUSY;
+> -		goto out;
+> +		goto out_mount_unlock;
+>   	}
+>   
+> +	resctrl_arch_pre_mount();
+
+I dont completely understand this.
+
+After this function call, e->force_off can be permanently modified, 
+whereas previously it was only altered by the boot options. Is this 
+behavior expected?
+
+Thanks
+Babu
