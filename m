@@ -1,129 +1,167 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A08E8389115
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 09:42:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2F654746D5;
+	Wed,  7 Oct 2026 09:42:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791366175; cv=none; b=DVGZ1gVNvYwkW/xCbezPqqAfpdO4KKi8ScH2yM06FdktJj/KN5UUSenN6BfXY6Ylgs9R14NkAVEUxOSJCBDw9O50XXzjBtah8SdyrpWnC0pvO5w2ou0jTerTg2i4pnUVsg+8KUTWwDnPQfW/AoUp834MEoPr24nJEnhLkC58qkw=
+	t=1791366177; cv=none; b=WJBycfU38Ziof7ngxErCCulOiYRumP9ROpOen6er6DPyzxO3vGcghs5Psv34b6SB0fgMgMBk11qE7qNYOPrsNfuSKKzU5Rz9TkonlF+EtMno8tIUQHJHFVJb/z741/TxiU+EpWFNWHP1V4lb9qb+wvONH6hvIoeZK3hRIJgaEpQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791366175; c=relaxed/simple;
-	bh=9EEW6wqK3vCcJrJXLIu9tx1ZDsToy82i3iCtIcTe7G0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VCWJk+FG9nUr8KpwV+S99zvSFxjcTrK8oNbx93UDSpI5/7hgDEg9QqumMTqKhQwW+juCJASa51CHQE/sf1K1+ckONNTa00QoV5uIty286rHrf2QZZZ2oUxUYQODOI7GkzwJijtU8PpPazg5Q4OUzDFZotq4TnoSbPi5W/i+yr+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=BmvpaU0g; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791366177; c=relaxed/simple;
+	bh=o7J6SnrK01yk0HAGVb9tuBIphY4zxCQH9eEQdxi2dLY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=lzBpaGcpPJFGVEpsN/aMlPANWoU//HIZ08p8BTaM4GgF2A3QX7c3emu48Tp0kAatNIS9KMb93w2Ed+4RILRQM2IB1lsT4sdH20R9pQBIvWiPKC1z1QqIH3OLu0mhWBs8y4hSIIN3+AaXCTtbBBECZ+LGkbHV10mQPPMVl3rnm0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=bMbBEtDe; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=juPlKeou; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=bMbBEtDe; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=juPlKeou; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="BmvpaU0g"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49fbb2acc90so14637035e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 02:42:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791366165; x=1791970965; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VC0vk1qF745ETaUgqPassgkX/eGjXH4AoTAhMiX0mjo=;
-        b=BmvpaU0gPmIGWd5lsVmCmjLm+j6BMOK7yD70PIAlidjE7ESVm4uH0MjOBJiK08Sdxm
-         aWF4SJtwcs1Xf2E7HLee2Tch1zexExXvf+65wScAFYdTywHaRDAlgbk9Axf/DOgh2ljk
-         HY87sH6jbqg0yjH/T82TrLwlg9hMgNQT7G2jA9+ZNFYVy5e2NJtG5s+NDsR3XDIZIDG1
-         +pU0Q5Sb9cQPhIPbkFwoSJpR0meqGkPJdMXgtGOYQeFu1z2XTXsbIMv73cmWwHL1S3gd
-         20p9uBdpv9yHh5TrJ3FFPYLo/GvLf977bvx3tdGIbOmyXKHcn3wCL87wdWtXDZR+zCo5
-         wRnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791366165; x=1791970965;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VC0vk1qF745ETaUgqPassgkX/eGjXH4AoTAhMiX0mjo=;
-        b=xRXCPZjttXAotaoYzUEvRlOLmYXDvT2oRG/L8wvO/onxjaeZtr4J4lRN2WR/p2DCin
-         AlebqBr1zvw3qQsE6th5IP9BuqKbbi72B7JO8MBHPD8hAnNLyyRSLOaeW6kb2VsxHPKV
-         lspLwG7uEb/GiGHyFfbd6R/2f1I/v/CzyAbbPGXsGcxbyWlYP/tPlAxR1ZGqkIUdiwrL
-         dsCxGxmiu6rbSvyQ543C4wIVzMcavoCum/4RZW0EkuED+htNFbUg9IAsMkPEuvwQdQIF
-         1S10aQPHiENIQb+ZaVpCYSLM4Mi8/c2lWR7F4rmUELlSAmn5TT9/Bkke9b5PyhwXZD3b
-         CpYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBykNBMDACIkwlys7BH00LsllpCS+NldpodgwgwsBPBcviHluuOrthklowI56kA4xmqnitjbCO7CyFJ4mMw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mcoHSGLcrQ2hfJoQqREvYsVWYEBEVPe8CqYwH9F5n6HfOolHh8
-	WPucnimuAqb6xkRucGLGY2rVFzA/dJELTZJGyS2BtxqOPPyuXWLnkUHnJjfFiYvyyUg=
-X-Gm-Gg: AYBFou2CasiqgHAqoZcXNnYbAFTQ4i8TcYCjSyqNvwq1tVlK1Zfovq59QnxMSj+HbuX
-	cGN9HopNe6DnRxgIHOB5yzE4P+u0Mx0KdVAXEYonpuIWE3AU5mKQg8EbKjt/H/qS21/Ic3/Rx1P
-	o5H4tGxxDqQhGQHlBcHGamagx8J4hxgcUYMhAWYE2RjFSj8BCRXIkJil4GdmsTg69JkCu2KAuQ4
-	FZYOFYkzolKunb8IDQ6VFWhTHvCP/vnGIa+YHERmVOpX+JEiMgcuGFWZCwwR3dr2BrYmEfz0Ekl
-	2b3MURCdovXgt1i0iPICUBW/XpbTJqu6vKO0MUdfgUHoK3w+icyGGrdxmXhjokiZZeiTAixluxy
-	l70Zdo58mc4Q7PCy2iGEtsK71Bhhk7VFLlu6Z8s61OKZN1/ytThnaBFfZS3jAGIURuYQt4px7OB
-	UmCbG8rF829mnny045iatzj9i7C5OF41TCEk7/Ay7Uu50f+WbViXOUAysTnYtFNBjcWETKrJZuK
-	Ivz4SiLoNRA
-X-Received: by 2002:a05:600c:4693:b0:49c:d019:70c5 with SMTP id 5b1f17b1804b1-4a180084640mr23893555e9.0.1791366164625;
-        Wed, 07 Oct 2026 02:42:44 -0700 (PDT)
-Received: from [192.168.9.72] ([185.249.114.148])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f48ab77sm60127955e9.1.2026.10.07.02.42.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 07 Oct 2026 02:42:43 -0700 (PDT)
-Message-ID: <c1cd9e24-b1a2-4c30-aa99-7c0cf6f19077@linaro.org>
-Date: Wed, 7 Oct 2026 11:42:42 +0200
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="bMbBEtDe";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="juPlKeou";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="bMbBEtDe";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="juPlKeou"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id D018D1F848;
+	Wed,  7 Oct 2026 09:42:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791366165; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5D6y8eS3NIKrpHnEUphVei105g40leR6yus68QbR/sU=;
+	b=bMbBEtDeRiV3zvTuIoDWOKtk0Ma6rx9o2bLUYdxPzTQVN916PKnMUqjIJzLTyS1gIhvCYJ
+	G1TVIHhkCbBiIEkNFp3+hKHRmai7Z5Ock3REp0MB3dewk8KNohnEqurVJiK4zLZpneY+m3
+	rgPNcpbo++XDvvv7g6QLSEdOAJAF3Q4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791366165;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5D6y8eS3NIKrpHnEUphVei105g40leR6yus68QbR/sU=;
+	b=juPlKeouKwJyXgH5nutPG92sNd7CScLLVY7hHEq0Ebcsh1us4rhOke3Zg9eA0tpJRMDpOd
+	pu76sxfi7KGC7WBw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791366165; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5D6y8eS3NIKrpHnEUphVei105g40leR6yus68QbR/sU=;
+	b=bMbBEtDeRiV3zvTuIoDWOKtk0Ma6rx9o2bLUYdxPzTQVN916PKnMUqjIJzLTyS1gIhvCYJ
+	G1TVIHhkCbBiIEkNFp3+hKHRmai7Z5Ock3REp0MB3dewk8KNohnEqurVJiK4zLZpneY+m3
+	rgPNcpbo++XDvvv7g6QLSEdOAJAF3Q4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791366165;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5D6y8eS3NIKrpHnEUphVei105g40leR6yus68QbR/sU=;
+	b=juPlKeouKwJyXgH5nutPG92sNd7CScLLVY7hHEq0Ebcsh1us4rhOke3Zg9eA0tpJRMDpOd
+	pu76sxfi7KGC7WBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9A54B13B99;
+	Wed,  7 Oct 2026 09:42:45 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id AS17ChUUxmp0FQAAD6G6ig:T6
+	(envelope-from <tiwai@suse.de>); Wed, 07 Oct 2026 09:42:45 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: linux-sound@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH v2 5/7] ALSA: aloop: Avoid a bad mixure of guard() and goto
+Date: Wed,  7 Oct 2026 11:42:29 +0200
+Message-ID: <20261007094234.1051316-6-tiwai@suse.de>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261007094234.1051316-1-tiwai@suse.de>
+References: <20261007094234.1051316-1-tiwai@suse.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 17/45] media: qcom: camss: add common IFE subdevice core
-To: Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
- Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>,
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, hariram.purushothaman@oss.qualcomm.com,
- pshrotri@qti.qualcomm.com, Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
- johannes.goede@oss.qualcomm.com, konradybcio@kernel.org
-References: <20261006223953.3382273-1-gjorgji.rosikopulos@oss.qualcomm.com>
- <20261006223953.3382273-18-gjorgji.rosikopulos@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-US
-In-Reply-To: <20261006223953.3382273-18-gjorgji.rosikopulos@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spam-Score: -2.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	RCPT_COUNT_TWO(0.00)[2];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_NONE(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[]
 
-On 07/10/2026 00:39, 
-Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com wrote:
-> From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-> 
-> Add the common IFE subdevice core. It manages routed streams and
-> formats. It also handles buffers, hardware pipelines, and media
-> entities.
-> 
-> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-> ---
->   drivers/media/platform/qcom/camss/Makefile    |    1 +
->   drivers/media/platform/qcom/camss/camss-ife.c | 1617 +++++++++++++++++
->   drivers/media/platform/qcom/camss/camss.h     |   46 +
->   3 files changed, 1664 insertions(+)
->   create mode 100644 drivers/media/platform/qcom/camss/camss-ife.c
-So, having a new IFE along side the existing IFE is not the right direction.
+The rewrite of aloop driver code using guard() leaded to a mixture of
+guard() and some goto; although it currently works, it isn't really a
+good match.
 
-Please see my series on IFE for sm8650 Lanai - which rearchitects the 
-driver to stop pretending write-master index and RDI are the right thing 
-to be passing about - instead reformatting the existing code around 
-lines and outputs - which is what the hardware spec itself discusses.
+For avoiding the bad match, just move the code using goto into a
+function and wrap it with guard().
 
-I'm very enthusiastic about the hardware enablement piece of this drop 
-but having a whole new driver inside the existing driver is a workaround 
-for the technical debt.
-
-In fact the first and most basic thing to do is address the technical 
-debt and _then_ add in hardware enablement.
-
-I'll reup that series to V1 status - and lets look then about how to 
-stack your hardware stuff for 480 on top, should be 1-4 patches extra at 
-most.
-
+Fixes: ebd9b6c91d4e ("ALSA: aloop: Use guard() for mutex locks")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
-bod
+ sound/drivers/aloop.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/sound/drivers/aloop.c b/sound/drivers/aloop.c
+index 5f0e2dc96769..0aaa64b189da 100644
+--- a/sound/drivers/aloop.c
++++ b/sound/drivers/aloop.c
+@@ -1375,7 +1375,7 @@ static const struct loopback_ops loopback_snd_timer_ops = {
+ 	.dpcm_info = loopback_snd_timer_dpcm_info,
+ };
+ 
+-static int loopback_open(struct snd_pcm_substream *substream)
++static int __loopback_open(struct snd_pcm_substream *substream)
+ {
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	struct loopback *loopback = substream->private_data;
+@@ -1384,7 +1384,6 @@ static int loopback_open(struct snd_pcm_substream *substream)
+ 	int err = 0;
+ 	int dev = get_cable_index(substream);
+ 
+-	guard(mutex)(&loopback->cable_lock);
+ 	dpcm = kzalloc_obj(*dpcm);
+ 	if (!dpcm)
+ 		return -ENOMEM;
+@@ -1479,6 +1478,14 @@ static int loopback_open(struct snd_pcm_substream *substream)
+ 	return err;
+ }
+ 
++static int loopback_open(struct snd_pcm_substream *substream)
++{
++	struct loopback *loopback = substream->private_data;
++
++	guard(mutex)(&loopback->cable_lock);
++	return __loopback_open(substream);
++}
++
+ static int loopback_close(struct snd_pcm_substream *substream)
+ {
+ 	struct loopback *loopback = substream->private_data;
+-- 
+2.55.0
+
