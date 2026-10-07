@@ -1,309 +1,199 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE3C83D525F;
-	Wed,  7 Oct 2026 07:11:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8003E3F3278
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 07:12:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791357120; cv=none; b=S0pgTIBqyiiSzDUYPY3gyio5y/LawaAW2xnxZZQddQEyOozgmfkxjPYgDhh+Kz2mtmj5vD5RehLwsne75aCKXAifHUXN719ggM2ZmwAlhsbobXYHp623t8PsFUX7nZh6/BPaZns6248ovjBfyJQZAOTsV4Zs/7Xd3shD6CMGlhY=
+	t=1791357128; cv=none; b=IQDTYbj1tqZ/yvF2Uejukb9SQwhIIUwRwS1pfaM+xMaVovF/Vbe2gF5JI/ljvT89xg8gCF7CKQqqAhzh8SUjYmL4IMGjiTtrflOjh4pRd0D/j2MBQ8zt7ITni8d5BAPCpb/B0nXGG/1hZrh7gJy5UeHr6ZV36VyiJYinPAjbrBI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791357120; c=relaxed/simple;
-	bh=0ITz+LoVcpOctfxBhfAxya4eZJGM1NxTsbMnZ2loeK0=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=a3vCOk4/FDEwQzoIToPXng6E/lZN8jGGjVfZyXxNK3jDkt1xZ1Ilp56wqJrEZcle8mDuK/dUeoaGfnJLI870+Wu5sfgTSP2oVwsYoFsTntjF2kPZ2416fo7TyQwPnq67aDGKTcRVj4UOrASc/LkTJWPU/S6sR9hUuF/7b2kUWR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=mxQIJcXG; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1791357128; c=relaxed/simple;
+	bh=qfIGU5Nv0gjACCKSPLGWnaMvD/NktpDCP2N4rY9QGv4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YWg7yUecVRkjcIeO4uIIZMZt3inyIVi8JmzNdILn6IgW5KwU+XQc0cBL1OowrhsIBrIp8scbqi2NvIRaYgaIo7mkCjbO9Pc3eAud+adHpEe8i7Iei4vLiQexreGgkxnhPO/Mar/69vawU9yVU3PBl5c4bO6/UTTPkW4rT1b3J+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IP25/w94; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Y4FuEBdX; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="mxQIJcXG"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 013D2A05A6;
-	Wed,  7 Oct 2026 09:11:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1791357111; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=s0p91PfqxqM8R5jAjjMneYCCCWTBQl70G37vC6HDxKc=;
-	b=mxQIJcXGty4MD4AISIqB/FrcwW7Bdyv3DPZ8YAJrMoXYw9oKLx/uV+o/2v181Vy2kxArN0
-	BvHjGNQ/N1S/cZRhiXavJIjujcV16Yv0lliv9VseLx7zixE+pnZR4MQuzRV9Xxm85Uut9l
-	kdDJ5fOlFGYtarx/A+RsoqkDFXSmPkUceAzK5dwGff6jkK+/lsHZNZKJMeQc1VPUWZJv9n
-	+uB94fspDRf+8IIii4BV0iMwXlTcfpPoVr4bmfRUb4pwvpKMI93wJ6RuzREQfJPztQPh2W
-	5ejOD4rTtj7K+5HvFcSdiACbq+nU1gW7FbtqYYcso/L1pKdBwc/nXKnVzHbS+Q==
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IP25/w94";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Y4FuEBdX"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69776XfH3213272
+	for <linux-kernel@vger.kernel.org>; Wed, 7 Oct 2026 07:12:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	3GX4DX9WHgkoCjexscTyxRsp0Y9v+fPY3Ro9VgKRBTc=; b=IP25/w94e84gY3+7
+	bAA0FSOYhxfaZT80uGMtUqAm36yFYmE6tYipp3D8zrmSAUXrpx4enx1uJI6qg1ta
+	hJW+JeVpJtgLdGFpVpnT+T/OBUz08P9h4fZkSD6xvd+vKAoNtL3WCgnsgEQn44fT
+	2WSB5a5sYOEDR+672T9xJPdddEmgsLlpPaUtJtS5fbw1O/j0Ipjaepdk5D5IIu/Y
+	TeP0BxnW2O3TN+na6G0Or2m9oO+sWABZXpsre+Hsum7UAJhp+c1dYqux2BzgoL91
+	PUIbC2n7JRwpANKNrCGRH9calDqkNfaizDud28fIJ0335JXW1t/CciCxW3xT5Fwr
+	wh1i7g==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5hdcr0hp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 07:12:06 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39512608fb1so7089245a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 00:12:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791357125; x=1791961925; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3GX4DX9WHgkoCjexscTyxRsp0Y9v+fPY3Ro9VgKRBTc=;
+        b=Y4FuEBdX9SpPckmQ3YhqoCCr8/rT/X42woqrjrhAGvO2AU1WY0XtrkFW1vf+hyr9Vm
+         VGOOORal0ftD0ziomNVNfJ8N4g9vsM0sSkbdLsvb0rVK1SAtR3VVzbdCQjLepC18XGXu
+         ZmVggzi0d/E+4qclYdT8eAhRBfffadYUH8j1CqGz2AX1oJCkqi6jZgF7ZvYOwPbzRH07
+         qIvwNLaCadOVszCi+9NxJYaieOoNvF6r18fTpaWFSnL6CihSGtBMW0Kg/NIitmBYDyJw
+         wSC7piQ4Av1aDoCSkd7aFI2Omdw/H1HhqtEZGvhKCDTYa7MlcSPNScAa7gZZaYCkt6vY
+         yQ9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791357125; x=1791961925;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3GX4DX9WHgkoCjexscTyxRsp0Y9v+fPY3Ro9VgKRBTc=;
+        b=KaIvPRtKUztUJjydHaGQ5Gj7Rb6DkMY3Ui+bxfplIUzOsX6FlUC5NHQ1UIq+9p+3CI
+         5HkjDCy/1+nYnIWqClP3vk5gTn0IMlGJLQdYC0JIT2mBNtkS19ve29QWwQGmgY3vLJtE
+         cotP74Nuh0Rryb4BGimZgeTB4PeS0lYLvQsM64eUaUVxz4BdmYPA/6A37lCuOGu4sBtb
+         vC9Y7g5s0vhTjhdiD5OyDUccLbR+Pi2isbOf9m4fC087Gz2ExuyCXu0RM3TA0lr+eIue
+         p9XXG1ipk8fuZ05kwH40O8YvHfY1OzK29v7siOUH12lSro1wghryTZU1llChZh4yCHxa
+         hQjg==
+X-Forwarded-Encrypted: i=1; AKwUvBwGeAAxSQmCs9vSkiExuadj76kLhwG163I6TBSspkcMFQtXVL+NQo/F5BICGhtS5jz0YnSWU2OV1+f3bnk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLQ5gP7LvjB8s3Kxk5NZLVhL3ppV1Bd/A9tR93WnYf+HjhJzSXP
+	Y2Sgrcy1uH66kWvompKe3Oh6aeqNKGyYeAnQagctZW57XMGQ8EMS8h3h0i95B2uid0McC7tyLeI
+	R5mTXg8LBxmhOcQ8kQoV+D7Zk5vTa4cbW7jiJIZDs7biyJ75nH4ZmrbjpFtHXITxIkLk=
+X-Gm-Gg: AYBFou3LKgExjpP4mqhqGFARvmleX9eOOXP0QreH8BQcbrjBKRMvwuRJyYou0VotP2f
+	IyAb5HiXHt1uPjnLOcK5Rb4q+38Vjz9cgjJny0ujBTTV9IczjGW2t/93LyFCITVWPgaiOnn0WUb
+	XY1N416YMUN8EvwJ1eI7p1W7eabDP3iu3/Ugsgj2gL/CmalxlUtBiP/vrmsfudduEMr/Z1cz3yB
+	SL0zUt8vC1ORKMFksdgToyBKlWc+OURPL3e2PGKyddukTs+q1Z/zLt57sWCqmNKe/FqJCEhkVFZ
+	ra7GrksigGKMo8YllVuWgV4rmCN5tt7BMca9r6FDMCrh3NDQwH0uwMCIb074TzvKBodCJ8qkaAM
+	tEBdtwgx751ifiaTcMyFyzxnFG4dgLhsTRCLst/MnUoJFHzL5FsYnSNqPOv8/0xsPdXvsQ/n8ya
+	zLKmK5eM8fA+74h8cXrT2qv3vFEo4=
+X-Received: by 2002:a17:90b:3809:b0:3a7:8350:3faf with SMTP id 98e67ed59e1d1-3a8a17f850emr1227720a91.18.1791357125489;
+        Wed, 07 Oct 2026 00:12:05 -0700 (PDT)
+X-Received: by 2002:a17:90b:3809:b0:3a7:8350:3faf with SMTP id 98e67ed59e1d1-3a8a17f850emr1227675a91.18.1791357124810;
+        Wed, 07 Oct 2026 00:12:04 -0700 (PDT)
+Received: from [10.79.117.106] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a897a22610sm3843683a91.0.2026.10.07.00.11.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 07 Oct 2026 00:12:04 -0700 (PDT)
+Message-ID: <245e5eef-e18a-4ec5-b57c-65e561101351@oss.qualcomm.com>
+Date: Wed, 7 Oct 2026 12:41:55 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 07 Oct 2026 09:11:47 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: netdev-bot+sashiko@kernel.org
-Cc: opendmb@gmail.com, florian.fainelli@broadcom.com,
- bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- dave.stevenson@raspberrypi.com, justin.chen@broadcom.com,
- pierremarinleclercq88@gmail.com
-Subject: Re: [PATCH net-next v2 6/7] net: bcmgenet: pad transmit frames out of
- the packet ready window
-In-Reply-To: <179132614302.434549.16529107189654383198@kernel.org>
-References: <20261006-nb-genet-mtu-nn-v2-v2-6-c4be21151912@tipi-net.de>
- <179132614302.434549.16529107189654383198@kernel.org>
-Message-ID: <c85902fe412ff255a19dc415424c523e@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/5] dt-bindings: arm: qcom: Document Microsoft Surface
+ Laptop 8th Edition
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Maximilian Luz
+ <luzmaximilian@gmail.com>,
+        Hans de Goede <hansg@kernel.org>,
+        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+        Douglas Anderson <dianders@chromium.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+        Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+Cc: Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+        dri-devel@lists.freedesktop.org
+References: <20261006-mahua-surface-laptop-v1-0-406fc042162a@oss.qualcomm.com>
+ <20261006-mahua-surface-laptop-v1-1-406fc042162a@oss.qualcomm.com>
+Content-Language: en-US
+From: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+In-Reply-To: <20261006-mahua-surface-laptop-v1-1-406fc042162a@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: aNvPVG58KuhRQrpu4AYfQ90cXouRYJpM
+X-Authority-Analysis: v=2.4 cv=aKFlOr9m c=1 sm=1 tr=0 ts=6ac5f0c6 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=yMhMjlubAAAA:8 a=EUspDBNiAAAA:8 a=jx5OK0JlhDPw0se3NWkA:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAyOCBTYWx0ZWRfX7XVB+Lns7XXJ
+ Lkb5ppIY0HV0Oy74Rr14IHIW4aE/IFf8MgFh9VQpZF041RqjRSHt2EhtkTudl5OW9zxSDITfDmK
+ WFW69rfuJz817gYKWjhOm55PIv8shiA=
+X-Proofpoint-ORIG-GUID: aNvPVG58KuhRQrpu4AYfQ90cXouRYJpM
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAyOCBTYWx0ZWRfX7a8hS5sHahVP
+ UhcInOOZKvyld3nCQKE+SGFxzxmSdDv05qzw1Zon98MEUCBHoUzJQhbtN70LQW+NTrdhhpPmHmF
+ MvXRMgienHHBIbmAiY4wYUneMI+sT5kY9oJB1kRz6VAQGfEPSiSe8V5aV3ABXQsBK+txA1c0vGx
+ N4BWXR0pM4iog7D8Iz8ARZLdKZk6YiI7//pvfCNEW8m1yZhFaB3Nh5tSes2FHoDi27qgLoQz3k3
+ z7Dcy7cItEVBasa7FnkWp3HOIsreguTuIDT/rAEHu7LqicBjgtrQPW6V6qHVIgE5nK5eQS2cUT+
+ FlsTUYTyxYscqKgJeaZGZkgNlfX6scaN0HWlz/zi0uEx9jgz0ApNNL6C/lVKNRTxf+GJJ4nxBzS
+ vtO44pfuxwh1K4uIcU6FcvoZtkhAf9J/oCAswhsBHYPQ6RnpiZaKYWQWbZQNXOpMweUBMmH6aJw
+ 3N8pwieRzOpeFe/RhFw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-07_02,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 malwarescore=0 priorityscore=1501 impostorscore=0
+ bulkscore=0 adultscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070028
 
-On 7.10.2026 00:35, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 4 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 0 · Medium: 2 · Low: 2
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let 
-> patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your 
-> reply
-> (one such reply per series is enough).
-> 
-> - [Medium] skb_put_padto() in bcmgenet_xmit() appends up to 63 zero 
-> bytes
->   after the existing end of the frame.
-> - [Medium] The two new error exits in bcmgenet_xmit()
->   (skb_checksum_help() failure and skb_put_padto() failure) jump…
-> - [Low] bcmgenet_xmit() gains a software checksum fallback that this
->   commit's message never mentions.
-> - [Low] Series ordering leaves one intermediate commit broken.
-> 
-> --
-> 
-> net: bcmgenet: pad transmit frames out of the packet ready window
-> 
-> This commit pads transmit frames that end just past the TBUF packet 
-> ready
-> threshold out to 64 bytes past it, to avoid a Tx DMA stall seen on CM4. 
-> It
-> also lowers the transmit threshold for the MTUs where the longest frame 
-> the
-> MAC accepts would land in that window. It adds a software checksum 
-> fallback
-> for CHECKSUM_PARTIAL frames longer than the threshold.
-> 
->> diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c 
->> b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
->> index 3e2ebd9a2cc50..e8f86374c7cd8 100644
->> --- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
->> +++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-> 
-> [ ... ]
-> 
->> @@ -2173,6 +2178,31 @@ static netdev_tx_t bcmgenet_xmit(struct sk_buff 
->> *skb, struct net_device *dev)
->>  		goto out;
->>  	}
->> 
->> +	/* The MAC only inserts a checksum into a frame it holds in full, 
->> and
->> +	 * silently drops a longer one, so fall back to software.
->> +	 */
->> +	if (unlikely(skb->len > priv->tx_thld_len) &&
->> +	    skb->ip_summed == CHECKSUM_PARTIAL) {
->> +		if (skb_checksum_help(skb)) {
-> 
-> [Severity: Low]
-> The commit message covers the padding and the threshold change. Should 
-> it
-> also mention this software checksum fallback?
-> 
-> In bcmgenet_xmit(), any CHECKSUM_PARTIAL skb longer than 
-> priv->tx_thld_len
-> now goes through skb_checksum_help() instead of hardware offload. If 
-> that
-> call fails, the skb is dropped and counted in ring->stats64.dropped.
-> 
-> bcmgenet_tx_pkt_rdy_thld() also lowers the threshold from 0xf0 (3840 
-> bytes)
-> to 0xe0 (3584 bytes) for MTU 3809 and up. So at those MTUs the CPU now
-> checksums every full-size frame, which the hardware handled before. In 
-> this
-> tree that covers MTU 3809..3820, and only on kernels with pages larger 
-> than
-> 4K.
-> 
-> The changelog doesn't explain the hardware behaviour claimed in the 
-> comment
-> ("silently drops a longer one") or the new drop path either.
-> 
-> The last patch in the series, "net: bcmgenet: reassemble jumbo frames 
-> from
-> status block fragments", does say "anything longer than the threshold 
-> falls
-> back to software", so the series does disclose it. Could this commit
-> describe it too, since this is where the code is added?
 
-Yes
 
+On 10/6/2026 3:20 PM, Gopikrishna Garmidi wrote:
+> Document the Mahua-based Microsoft Surface Laptop 13.8" 8th Edition.
 > 
->> +			BCMGENET_STATS64_INC((&ring->stats64), dropped);
->> +			dev_kfree_skb_any(skb);
->> +			ret = NETDEV_TX_OK;
->> +			goto out;
->> +		}
->> +	}
->> +
->> +	/* Keep the frame out of the window just past the threshold */
->> +	if (unlikely(skb->len > priv->tx_thld_len &&
->> +		     skb->len < priv->tx_thld_len + ENET_TX_SAFE_MARGIN)) {
->> +		if (skb_put_padto(skb, priv->tx_thld_len + ENET_TX_SAFE_MARGIN)) {
+> Signed-off-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+> ---
+>   Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+>   1 file changed, 1 insertion(+)
 > 
-> [Severity: Medium]
-> skb_put_padto() appends up to 63 zero bytes after the current end of 
-> the
-> frame. Can that break protocols that keep their metadata at the tail?
-> 
-> DSA tail taggers write the egress tag as the last bytes of the frame 
-> with
-> skb_put(). Examples are ksz9477_xmit(), ksz_common_xmit() and 
-> lan937x_xmit()
-> in net/dsa/tag_ksz.c, and trailer_xmit() in net/dsa/tag_trailer.c:
-> 
-> 	trailer = skb_put(skb, 4);
-> 	trailer[0] = 0x80;
-> 	trailer[1] = dsa_xmit_port_mask(skb, dev);
-> 
-> The DSA core pads short frames itself before tagging, in 
-> dsa_user_xmit(),
-> so that conduit padding never ends up after a tail tag:
-> 
-> 	if (dev->needed_tailroom)
-> 		eth_skb_pad(skb);
-> 
-> With GENET as the conduit, the switch would read zeros where it expects 
-> the
-> port mask/override or the 0x80 marker. The real tag bytes would then go 
-> out
-> on the wire.
-> 
-> PRP has the same problem. prp_fill_rct() puts the RCT last, and
-> skb_get_PRP_rct() looks for it at skb_tail_pointer(skb) - HSR_HLEN. 
-> With
-> zeros appended, the receiver treats the frame as a standard frame and 
-> loses
-> duplicate discard.
-> 
-> bcmgenet_tx_pkt_rdy_thld() lowers the threshold to 3584 for MTU 3809 
-> and up,
-> so 3585..3647 byte frames get padded as well. At the end of the series 
-> (max
-> MTU 16347), a conduit with a jumbo MTU hits this for any 3841..3903 
-> byte
-> frame. A remote peer can steer frame sizes into that range, for example
-> with ICMP echo sizes.
-> 
-> The commit message accepts this and says the alternatives are dropping 
-> the
-> frame or leaving the transmitter stalled. Where the tail is known to 
-> carry
-> data, for example netdev_uses_dsa() with a tail tagger, would dropping 
-> the
-> frame be safer than sending it with a corrupted tag?
+> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+> index 121ca557ce1e..eecc00e2a718 100644
+> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
+> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+> @@ -191,6 +191,7 @@ properties:
+>   
+>         - items:
+>             - enum:
+> +              - microsoft,surface-laptop-8-13in
+>                 - qcom,mahua-crd
+>             - const: qcom,mahua
+>   
 
-Dropping loses the frame too. Keeping the padding and will add a note.
 
-> 
->> +			BCMGENET_STATS64_INC((&ring->stats64), dropped);
->> +			ret = NETDEV_TX_OK;
->> +			goto out;
-> 
-> [Severity: Medium]
-> Both new error exits, after skb_checksum_help() and after 
-> skb_put_padto(),
-> jump to out. That label comes after the doorbell write at the end of
-> bcmgenet_xmit():
-> 
-> 	if (!netdev_xmit_more() || netif_xmit_stopped(txq))
-> 		/* Packets are ready, update producer index */
-> 		bcmgenet_tdma_ring_writel(priv, ring->index,
-> 					  ring->prod_index, TDMA_PROD_INDEX);
-> out:
-> 	spin_unlock(&ring->lock);
-> 
-> Suppose an earlier skb in the same batch was queued with 
-> netdev_xmit_more()
-> true. ring->prod_index was advanced and netdev_tx_sent_queue() ran, but
-> TDMA_PROD_INDEX was not written.
-> 
-> The last skb of the batch might then fail here, for example on a 
-> GFP_ATOMIC
-> failure in __skb_pad() or pskb_expand_head(). In that case NETDEV_TX_OK 
-> is
-> returned without prod_index being published, and dev_hard_start_xmit()
-> treats that as the end of the batch.
-> 
-> Would the descriptors already queued then stay unsent until a later 
-> xmit
-> rings the doorbell? The queue isn't stopped, so the TX watchdog 
-> wouldn't
-> step in.
 
-Yes, same as the existing exits. Will fix them...
+Hi Krzysztof, Konrad,
 
-> 
-> The existing exits for bcmgenet_add_tsb() failure and DMA mapping 
-> failure
-> behave the same way. This patch adds two more paths that do it.
-> 
->> +		}
->> +	}
->> +
->> +	nr_frags = skb_shinfo(skb)->nr_frags;
->> +
-> 
-> [ ... ]
-> 
->> @@ -2680,8 +2729,7 @@ static void bcmgenet_set_mtu_regs(struct 
->> bcmgenet_priv *priv, unsigned int mtu)
->>  		return;
->> 
->>  	bcmgenet_rbuf_writel(priv, thld, RBUF_PKT_RDY_THLD);
->> -	bcmgenet_writel(ENET_THLD_MAX,
->> -			priv->base + priv->hw_params->tbuf_offset +
->> +	bcmgenet_writel(tx_thld, priv->base + priv->hw_params->tbuf_offset +
->>  			TBUF_PKT_RDY_THLD);
->>  }
-> 
-> [Severity: Low]
-> This one is about the order of the series. Does it leave an 
-> intermediate
-> commit broken?
-> 
-> "net: bcmgenet: derive the receive buffer length from the MTU" programs
-> TBUF_PKT_RDY_THLD to ENET_THLD_MAX and defers the fix ("A later patch 
-> lowers
-> it for the few MTUs that need the room").
-> 
-> "net: bcmgenet: allow the MTU to be changed" then raises dev->max_mtu 
-> to
-> ENET_MAX_MTU, which is 3820 on kernels with pages larger than 4K.
-> 
-> vlan_dev_change_mtu() lets an 802.1Q device use the full parent MTU. So 
-> at
-> that commit, a stacked VLAN at MTU 3820 produces 3820 + 14 + 8 = 3842 
-> byte
-> frames.
-> 
-> Frames of that size fall in the 3841..3886 window this patch describes 
-> for a
-> 3840 threshold. And according to the new comment in bcmgenet_xmit(), 
-> the MAC
-> silently drops a CHECKSUM_PARTIAL frame longer than 3840 bytes.
-> 
-> Could this patch, and the threshold logic, be ordered before the 
-> max_mtu
-> increase? That way a bisect landing on "allow the MTU to be changed" 
-> would
-> not hit the stalled transmitter.
+Before review, I'd appreciate your input on the naming.
 
-Yes
+Surface Laptop 8th Edition comes in three sizes [1]:
+
+   - 13 inch:   Snapdragon X2 Plus (6-core), UFS storage
+   - 13.8 inch: Snapdragon X2 Plus / X2 Elite (Mahua), NVMe
+   - 15 inch:   Snapdragon X2 Plus / X2 Elite
+
+This series adds the 13.8 inch model only. I named it
+"microsoft,surface-laptop-8-13in" (mahua-microsoft-surface
+-laptop-8-13in.dts), but that clashes with the real 13 inch model, which 
+is a different board (UFS instead of NVMe) and will need its own DTS.
+
+I couldn't find a codename for these, so I can't follow the Laptop 7
+scheme (romulus13/15). Could you please suggest the naming you'd prefer
+for the compatible and DTS file name? I'll update it in v2.
+
+[1] https://www.microsoft.com/en-in/surface/devices/surface-laptop
+
+Thanks,
+Gopikrishna
