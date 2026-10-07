@@ -1,192 +1,269 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A20B43C3432;
-	Wed,  7 Oct 2026 14:03:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA3F64963D4
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 14:04:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.182
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791381819; cv=fail; b=s0dbA00WD6awAJhyP3HCbf00lzcXtVg6sjuHOuv2i5fLs+EwcTZ+pSt9d5p+mGzRq8+8sNYi0lPxjx7pQ1wU4920mbLysKPkBsq6JSJOF1XbDruD14eFuGQJKyOuM3Iw1RMY6Sl29e93F+oeF2Roj1YOqHRMPb4yuYX9KzBoLEo=
+	t=1791381852; cv=pass; b=qQemvXRL/c66sK3fI76GLHELhz4HXVVnMekXXEAWS7n9Jdp4wj+sr9601qoYsTBhJpFfuO2IM3wIS442nLmgfR+IiS7kFg64vh0sh65qOh6tYFW2OLU7nRa0g9azURCtJvKHlJm1RVLx2IGMHxlmxiWAO77uT3aVR350A8tMre4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791381819; c=relaxed/simple;
-	bh=lruYiW0uBRs3Qb+ISAnc3bg66XCAEI8Fxt7qhfUbxLo=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=aLmjxmsOv+t+BsHvfPDrz0nfJKhzcVPqqGqJCWV5PEge4QpN+c22MwcDESk3YnRF1Lvbo4q1EMDjnz3GcVFaJAOWSgWWskEYm7lTeOpp+UbreqkC/vJdSJv+XqLm5TL6E+Vd/lDKse7zjdUDIocjq2vnJIjbUD8XKVyaC/pWpC4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UTzMVaLM; arc=fail smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791381852; c=relaxed/simple;
+	bh=WSTXJWJsccwE3DOevttIxWtqRZIpylg3FDM0jvpjHdY=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=U0xqv8tQsDluAncp/JNwtMfWZxfHT75MLzpLeCA4R/sIcRXGcoWu20qpz/vQ2Mw2fOIS+jM2ESEIdgC9rUsnnBA674TYVI2H0ag5uWQ8t4pwqbG6W0txXzn3bErQFOBHnVPj2Ljn2rjGpNEwUiQOQRb/A/FGXE8WhZYChNwzZWA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=syncnow.net; spf=pass smtp.mailfrom=syncnow.net; dkim=pass (1024-bit key) header.d=syncnow.net header.i=@syncnow.net header.b=DDWKMh/o; arc=pass smtp.client-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=syncnow.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=syncnow.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UTzMVaLM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791381813; x=1822917813;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=lruYiW0uBRs3Qb+ISAnc3bg66XCAEI8Fxt7qhfUbxLo=;
-  b=UTzMVaLMIM2c+/QUoyFLasvb8fqSp8Nda2JOKzHsEzk4B6PyE/66y+WD
-   CqJ3jS/nuJnh44mrGZ45egFVkTLFaG/T7/RYjg8V866lEBqKgomrksU8U
-   lVUxh0I2yDokdLaLJaKiDf2sGzF4vVWv4rhskwAdH0ySLpTSqScSk6Rsb
-   lFC35evKd6fdOnUIUaFwHXvg1sSNAoJvShdI+LSK/DYoJzBugWYOs13UW
-   tslBnbw5SWSRKjEUnOvvwoy/ZJWP8NP3lX8gdkryv9tALnAPOMCuquDNG
-   OWX+2H4eRmcso0Xt7w/+PZIKP3gG6yszaZa4UOwjJmyN/B0miO12RLFiL
-   A==;
-X-CSE-ConnectionGUID: 6Jmxa45nRG6aL7PRVzTUDA==
-X-CSE-MsgGUID: 1fYSJr9UTd6zD+OjRf5ptQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="29608"
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="29608"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 07:03:29 -0700
-X-CSE-ConnectionGUID: zmTy/GKTS2GmXgdB4cVmoQ==
-X-CSE-MsgGUID: d1TjUYqeSMuMFx3z1uSyAA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="281209335"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 07:03:26 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 7 Oct 2026 07:03:25 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Wed, 7 Oct 2026 07:03:25 -0700
-Received: from CY7PR03CU001.outbound.protection.outlook.com (40.93.198.47) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 7 Oct 2026 07:03:24 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PL5ymIeOLTsE2lvYsdlxp3bzcQOMpNk0qejlXxGlVD1CWw0FL7DZB8dQ25fmGuLTxErDSR5+fUwQUm5NM1KGV9kVyIKwaZIrJmemKUph5XaEnw1bkKhbv3NUowPFBk3cAto4Jt3xQituVDlmQJK13FeRldHCtF16xdBpq7M2uFAzuIAZlt3A2cI/3YJYqOmhsfRSVDJ8eD5IuV6dHJ12PNwEEG1XEM7PDFDEtxjLImMN+FbeDiJnhjzsE4i9srAF2rngl9+Uwf6vkHyJDXV6mKP3BqjUKpLr2ItzrKfd7NZd+1QwFCfWcf6AUqAy7nsKbYKxMCXwoVbh8HzCCWUQMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JIAa6c1/ya6A1pR6VXnqS2q0OUKafY3Rm1R7x6BCEmI=;
- b=SpSWfuZ/ZeMj3aaCvI+D3Ejmz2oSxtTfeEoL/ndhp0jPD9cYm5jj7HQ3t7w7Jeze2rA5hhHQoAQxViJR3V2A8TLvAgJTXhYDxziIHnJ0upe2UiZmKaDW76z4NjFE82IHm8jCVNgJmwrjvqL0x3j73an9XaqIvc1w2206WOdzFzzbSyYwoxW1Y6vYUIZGXe/jG9y7YloeMdq7dmHJpURJIK6P9rp3CDQQZMaTBaZOBHCpypABoeNgJ5sMtvdRRlJW9Yh8/6C1H6CTbXRmdDOFexBV1ViMksAMLGtk6zRAteKsHSakwrcjR9p2YUq53Zf9afwV8ChRjUrFTNwH+ggq5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH7PR11MB6006.namprd11.prod.outlook.com (2603:10b6:510:1e1::13)
- by PH7PR11MB6723.namprd11.prod.outlook.com (2603:10b6:510:1af::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Wed, 7 Oct
- 2026 14:03:21 +0000
-Received: from PH7PR11MB6006.namprd11.prod.outlook.com
- ([fe80::4e2d:28f0:ede9:73bd]) by PH7PR11MB6006.namprd11.prod.outlook.com
- ([fe80::4e2d:28f0:ede9:73bd%6]) with mapi id 15.21.0472.015; Wed, 7 Oct 2026
- 14:03:21 +0000
-Message-ID: <d00880e3-01b6-476a-93f5-79ea6e536a1c@intel.com>
-Date: Wed, 7 Oct 2026 16:03:12 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/4] ASoC: mediatek: Handle constraint return value in
- FE startup
-To: <phucduc.bui@gmail.com>
-CC: Liam Girdwood <lgirdwood@gmail.com>, Matthias Brugger
-	<matthias.bgg@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
-	<tiwai@suse.com>, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	<cassiogabrielcontato@gmail.com>, Haotian Zhang <vulab@iscas.ac.cn>,
-	Christian Marangi <ansuelsmth@gmail.com>, Cyril Chao
-	<Cyril.Chao@mediatek.com>, Tuo Li <islituo@gmail.com>, Rosen Penev
-	<rosenp@gmail.com>, Garlic Tseng <garlic.tseng@mediatek.com>, "Alexandre
- Mergnat" <amergnat@baylibre.com>, Dan Carpenter <error27@gmail.com>,
-	<linux-sound@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-mediatek@lists.infradead.org>, <linux-kernel@vger.kernel.org>, "Mark
- Brown" <broonie@kernel.org>, AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>, Trevor Wu <trevor.wu@mediatek.com>
-References: <20261007110858.509341-1-phucduc.bui@gmail.com>
-Content-Language: en-US
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-In-Reply-To: <20261007110858.509341-1-phucduc.bui@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: VIUP296CA0035.AUTP296.PROD.OUTLOOK.COM
- (2603:10a6:800:34d::14) To PH7PR11MB6006.namprd11.prod.outlook.com
- (2603:10b6:510:1e1::13)
+	dkim=pass (1024-bit key) header.d=syncnow.net header.i=@syncnow.net header.b="DDWKMh/o"
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-33c2520ad38so4316554eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 07:04:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791381844; cv=none;
+        d=google.com; s=arc-20260327;
+        b=km5xtfTh6o2zq4bgkdHH4dRM4E0cxAkdWGVW35USg3NIF9pVdTujgwKoW+BTXDXZew
+         6ZFKuKv6ePVCmiJQK3cSlNE5Gvu/vIGP+yzbrQyJIbRPsJAGIV/n5rTDRtLnIcHh1Y4p
+         HM9Lg2tNowCNmfQ8eVYNfnzQUej43+CF7rR7f+GuA/qfUTQoqaN7y4D/2eGStuy7x7FI
+         Khy1Q4mHn+aUVgVug27jetsa/GnhmDmDKGAj57fUGMa48UTSDEwbv4oRgI9008b+rXlg
+         lZYePzN0/EoGb/ZWzGOBz5jyInPZQDhMDiuufh9mf9MzfLN87F2M3Z2ECxiNiEQNd+hO
+         Ir7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=UnBOAEW74UYhKxlvKCCeJRZujwBr1zgnkVj5Sw1+Xzk=;
+        fh=blCrLbqlIPHtE9Sn255Uw4EOEOt16fAUtFlShHSE2s4=;
+        b=sR4as0h7su2zXsp1Sf8xMe2r6r3hhC+wwnLLLwejMXkH2yvB9N6s2PM0Q1v+XHffxm
+         MwgaKdwniIT77+D+81PGsesU4Op34T7a6YS6lSw+latv1souyAALgBGOOi6RL43srvLs
+         aKPmInX6gnsYBnMbSWkf2QsiDdtKGLEi48P6fdskME7MgRrKcETuMNyNnJ8sJg005un+
+         HzapSET+WOUUqDLmFaOBzN/aNwK2oMhQIMErng+YdjIX3r2iR1kKs9jZsCrZ976pVl3y
+         xnP3Rd4k4LHjBQt//HfyWf3pmokZNYfVuLdlJtKwXvt63xYECzY4papkMYDwc9FXmMcE
+         LcPw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=syncnow.net; s=syncnow.net; t=1791381844; x=1791986644; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UnBOAEW74UYhKxlvKCCeJRZujwBr1zgnkVj5Sw1+Xzk=;
+        b=DDWKMh/oHzZHcEV/nUW0O7j31RmYiDU+a/vvVJ6NmBPlBwcm/BoSq1T3Fy6zD4Qn60
+         88lQJn9s3x08acfNMac9E9OcpI4pDqCiCmEucDifBXPBYtqfdHDYkigC+0TP6YNxPnFb
+         4V6WhN0sci+W/lt68QF1WREtbPNz/qW7g5Exk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791381844; x=1791986644;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=UnBOAEW74UYhKxlvKCCeJRZujwBr1zgnkVj5Sw1+Xzk=;
+        b=AqxUVfMZDsbvX45y76qJ0GZiGWOt/Ddn8YIv79xI2DuWPYeOFfbQb7TE1Vw02gZVVH
+         Kc299kRoJBX82RhGV/tG/YmwyONW5tnoZrUBqgfEPKNzYr5GAf+w3HITp9NYcReak7H0
+         bhnDBfwWDSipn1YTT497v3VKHW+WgzrUHCFUK3ovmGdi40sLjQOr4ZMWDVSibqhJwX7d
+         DYxrqXoV/jwN0NjDdmvG8zB50c0++JrmtWhED7IMkYCyOiyFa1Z6E7nzJoPNj1pHtbHs
+         Mk8iEq+jfc/MP9Q9SdKtOnTfTJr7P4+6drfTnTysqsE3Kx0yGqxqZ3hMcOkzhPGWri61
+         KTcg==
+X-Forwarded-Encrypted: i=1; AKwUvByfpYns7o5g8ePUJ4an6QtEBsum0tP2q4HXSbxlfhE5t+onoRjCcsMZfyk5zYjEJTqqylOqSckJcLI/91M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLtHRFGPpgo0WZAYCVcqhBRcWwbiBXQ5g8EQ6jcZ7Kimr1HntV6
+	C1mBMTG2eCjcfhyKcb8QDWwMa3XtnB3T86czxizrrBxUdasW3s4ixOQSxc8DvEWyXvtCKUc2KWm
+	IGjmA+XwguqWc9JrcPaxyZs5662wHSm8OzNk0lUI7ew==
+X-Gm-Gg: AYBFou0sJ25zgHTOKtrbT/k5v+13ujO41yZFhRZYC+X6BqesSQias3bv4lhCCscR0WA
+	qR/2jIHz9uR2GaFJTfbDFfenRxJkSMopfWa+pxLwfFT0tlZDtAn5/gvVfxD3Jv9Xpg6NzwIZpKx
+	hQEFIjpjN97BPl+WSEGJ4Tsl6J0NrjDVnj4DzbHj2ZXgpzu72xH0pOgi99AK8dd8XMZaehrDgc1
+	UWowRgEFteeRobMWlQ888Ytq0h0LAHSao8ZH2QUErkSqwtn5s2eOVYzfgxj5CMaKCXGkOjKjvaB
+	GHR4L90JcYiJ2136nSQjHTMmukC6Js/zCwSjS8QKUzDYutiLLJkcp2kHhSu4+C2aQVvLwpgkjpX
+	0zBkNdMY2yg==
+X-Received: by 2002:a05:7301:7d10:b0:351:1567:41b7 with SMTP id
+ 5a478bee46e88-3515de27067mr2546675eec.29.1791381843329; Wed, 07 Oct 2026
+ 07:04:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR11MB6006:EE_|PH7PR11MB6723:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3c724bf8-2ed0-4a86-e488-08df247bbef2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|7416014|23010399003|376014|18002099003|11063799006|56012099006|22082099003|10067099003;
-X-Microsoft-Antispam-Message-Info: 0jMmbFu5pN1KqVHM4MXtGUpSS/GRa3ENfH+FYa+iXOg75tMXJI6CM8hk1LDWbsdUI9DIpH9mLEq1hKaVKajvn925tzApaJVVNFmf7QEAsolQ1G7pXpTaNL2WZht5EPFG4r7vSYfDW75F9zHF0FKf7eiz3trjF8SlVk/kU9odlmhqMZ30wGepEXprpeyheS9bp5v0GqjOhJoxMtXGAMlrVvzetgIb/C0Qb9J6XK73r/ZArLTbLnlBoki/loEVW+Sr6DZL1ewUkvcIC3FDYdXUztpCEsnIov26iVe2PCclSJE8n5/yO/1ysurZyrA79NSshi2a2KCp1U66C7U4gY2M3XBI2GV0G6gHknJ6jqSJijngkXFGVw3apTdla55VvNLKqBuU/f9pYP8TWG1EPyy7MqtRtJnBiALA+HiWikNJlfd3akGnesaJzQgLsFqMIJCabljxCDTY64WkiBo+uXwu2nJr0MoL2ZsRuPbm8N559ZRWn1LPZKUTRDWfb4Yu8Z2llYPoetnKLOSifBKVrfiO43zGC0ScpW+kL56I7SwEd3N8EiePoHUWb930mszag0wNY7fP+8/Ck5pItxD/jUJw0hJL9Eam9EB4eZDZqRH5ktXkxX84/gZeLoxAWqu1CL3Jj8p5KZiSJPC8M/NvIZcZEdDbqBWDO66ULk1FhnvS8VY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6006.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(23010399003)(376014)(18002099003)(11063799006)(56012099006)(22082099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TjlObWdsalJIc21oU3p3czhRaVNQWkt0eTBzU1dFNXpDbmRydmFEK05vK1JJ?=
- =?utf-8?B?ZlYwTW9UdktJcENtZ0xqZzJVbXI5Q1hXK3REeHVlbjB0ZU01SXRCdUtDbXZ2?=
- =?utf-8?B?Rk9WUU1xQllQY0pjdnJzUGNaSm5DVmJ5UlVTNGttdGhtK1Yrd3ZrY29sS1RR?=
- =?utf-8?B?MVdVZ3BhakdYTmd2QTZFNHBDMnlvdGxoT1dmMnpIakFmbEJCTmh6UUdCdS9M?=
- =?utf-8?B?cmFsazRWTk5vR09FMWhrV2lDNTMyd2x3d2xkTmJzV202YWhsU2NEOEZTYkR6?=
- =?utf-8?B?ZmxPQmlRUkZQdVhWTVB4T09qY0tSeEZ6QzhQRyt1YWNFNVhhSGc3azFQZGxv?=
- =?utf-8?B?YjBUbjNURXhiZyt3eWVMbFZZWUNWSFlXMm5hZEk3bzJvR0hiREJyditmS3hK?=
- =?utf-8?B?aU1BN1gxTk0rNEJ2cStLS21rSXVmOW1JT0dLZEhjOFVoV3Rva1RBbS83a2Js?=
- =?utf-8?B?cnJjcGtVd3R1QlIrS1VVTnRGL1ZrejhuRXRoaU1WNlhlc2hCWlplQThqcHRN?=
- =?utf-8?B?MGFYcGx0WkgwRW4wSWp1bk9LeWlkZmNGYml2VzlpeVJRSG04N3lwTnYvbzVH?=
- =?utf-8?B?SGc1dGpYQlJkUm45MURjRStTcGJGelBON01WMTlWM2Y2S29tVlRZR3cyUWZu?=
- =?utf-8?B?MEJDdCt5aUVCVXhMeVRYaWNKOWVqNTN2RmRPZjRqSHdRZlB5d3MrS2VoR1dv?=
- =?utf-8?B?cFVDdUJqZllxbEJGbURiK2h1NGpyTi9qSFFhRkpvK3Q3eHFNQXl0bmRad3BO?=
- =?utf-8?B?TDZqZEt4MFB6Ukw0K2lFR3krUERwelI5MWhhT2M3d3NUREZTZC9mMUZxSmRm?=
- =?utf-8?B?Q1V3RnBIWmNLMWZQVGJmNHZIc1NLMEtUZHBZaUt3eCtlN3QxaXZrRjlZRWVV?=
- =?utf-8?B?WC80Tzl6OVprK3pzbnJLY3hyTitUWkJCTVFNS0dzT3FGaGQvY0VBVFNMbzZs?=
- =?utf-8?B?Tyt1ZzF0c09OOGk2eGl4aHA3TUhPdVArci9kY2dyRVlCQVlvUFJzZmgwdnBG?=
- =?utf-8?B?eHY3bmlVM2xsN3dTRDNjaVVBMXZBNzQ2dHZyd3hNMGh1RnE5cE9OTFBGVUdL?=
- =?utf-8?B?b0JpN0cxd2J3RWZOejhncnFTWjE4Q1JERUVQbFZJeGRQTnUxQUYwRFordElz?=
- =?utf-8?B?N1BKWVpCNnFVQkFuVHlXaWZvTkpnUUw0ejNFdVJJK3NVSnJBYTdVR3pNUHNx?=
- =?utf-8?B?Wm0rQ0R5ZytXRTMxUVlxRkFMbFZpVEpqNHlXSExackhQUkhDSDQ4YTNyOHJs?=
- =?utf-8?B?Ukxha1NINjllemlja3pNdzVtUC83cHNha1AwZFV5QVhidTBGbkc0a3lZWXg0?=
- =?utf-8?B?cTJ2dWplZXV0aFFoL2xmbkhOMGMyM1ovVE5vZGp0cnVkQWtTWllLYzJTZk1z?=
- =?utf-8?B?U0xkUzRLcTlOb205Z25wR24xRjVOdUtuYXBMMG1PM3A1dG5oSFRidmFOTWdz?=
- =?utf-8?B?eUREOHFJaFMrS2hFN05jaDdPWUVrMWpnRDBienhPYnNHMkc4ejl1aEZoZUR5?=
- =?utf-8?B?WU0xU1lFbENlZU81eGcrR1lwUVg3alNPa2pGYjRnZkE1VEgza2xucGw4REc3?=
- =?utf-8?B?dUVaZEtNTkZ3ZjN3SDN5eENaa3lHeDA2TE1BeHYwKzkvZ1BsZjYwaHB6QVNE?=
- =?utf-8?B?cDhJa2tKd1NKWXdjTUNzaXZLdFFYdTBlOHhBWkhVRk4vbXF3NVJJalpnV3pq?=
- =?utf-8?B?WGdRYnh6WGhaN01lTXJJZi9CQWFZbDJQelhSejlBVnVMek1Rc2FKZllLNXBy?=
- =?utf-8?B?M04yakZIeFRybis3MHRkc3ZsNWZMYUxFNHFpUkN2RmRWYTB2aElHRHBDb0Jh?=
- =?utf-8?B?UG44VDB3YncxTlBoZXc5S2kxNjJ0NmRhK3NpeVZxMEw4UVpuUzIxUE9QelVX?=
- =?utf-8?B?Yy9uY2t4Y1QwNnNveDdvaUwvT1RCWGp1aWxOUjZDRDJzeVJIUkVmQTE4Y2xq?=
- =?utf-8?B?TTl5S3ZwTHNuKzhMNXh5dmNoWENibG1nc2IxQlJqSGNYa0FXOEZ6eVd0SlY2?=
- =?utf-8?B?Z3hlWDRxQ3BFV0xHMzFkeG5XZnJkN2E4MGhxamdORHNwQkVRWS9zWUFySE1R?=
- =?utf-8?B?dmhndG9MdHl2UTVHaWU4UmZ3bC8wN1ZXM3dZQytVOWZQSlZXNjJDOEw4Y3Ft?=
- =?utf-8?B?ZEk5bnVlMXQrRCtqYkZnVFBhZEVtampmMlpVbEVVVnhtZHF2ZXVqblIwT0JJ?=
- =?utf-8?B?RUV3Rm9XWmpNK3VVVGRId2NOOEQ4VnBVSXVKUHUwL051QnBwVmRuamtqWjNw?=
- =?utf-8?B?c1lMREdPMTVRdThTSFpkR1NnVVNXMWhDcEdqc2hSUVgxTUFGa3R2SmEvZHM0?=
- =?utf-8?B?aDdiMXN6YnJWckVqZExXV29jejAxamt6RnRrS3pCYVJ2Si9mUHJ2Zz09?=
-X-Exchange-RoutingPolicyChecked: 5SdafyU7x2CJ5vCNhAD9nOLt3Yx3D0IsnHZ4+6PqNTCrV6hTHQOYVIPZafjIT5JoM5JWmTEzOQ19KLjdTAKZLQ+JdVn7G65sHDHzz4iaOBEwP99Oh0r141VKv8B0O+1CFmO6eY3BJKtkDSlF1eIxV41XlgucJYAYHn5sVB9Up3cnZPVz37UjMWuiUsOGoYi6DxJnfoIaIKGug7k5rqVoR/swOVhjLwDiF2D0bPn6wt2NUd0qC/Wu+GFo4xRzYDYRPYKL2DQz73Ln3ksySBrVnHM0ZlgFEifxJrFF/JEZNIo6vnxNyPVwXJ0joeQzMTIwigvfLtNMeC/+f3qqrqtVFQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3c724bf8-2ed0-4a86-e488-08df247bbef2
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6006.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 14:03:21.4317
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LDwVwcFRDO2vEQI4op2cLMtfJGHWk8l7pvK2bbALjWMUnZzJabNaK3EhHZftNYHMXqzbjix6u5UUMSOPQ4Fo5UCHWqwWwk/Cgiz8Sv1runM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6723
-X-OriginatorOrg: intel.com
+From: "SyncNOW.net - Armando Araujo Filho" <armando.araujo@syncnow.net>
+Date: Wed, 7 Oct 2026 11:03:26 -0300
+X-Gm-Features: AclHuK8-af_saXV7TA-LG8aXCH3DnogGPa18MEoCv0DNrdN9_7ez1NZBzDsFSEc
+Message-ID: <CACKGD6t4Bz1M_-9cNJ8vuNAYnXg5abb_UxmDAoFpW36yP4DnhQ@mail.gmail.com>
+Subject: Re: [PATCH v3] PCI: Skip Target Speed quirk on clamped ports with no link
+To: andiwild@gmail.com
+Cc: bhelgaas@google.com, blaaaat@hotmail.com, edwardmalik95@icloud.com, 
+	helgaas@kernel.org, linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, 
+	macro@orcam.me.uk, regressions@leemhuis.info, regressions@lists.linux.dev, 
+	restafvalendergelijke@outlook.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 10/7/2026 1:08 PM, phucduc.bui@gmail.com wrote:
-> From: bui duc phuc <phucduc.bui@gmail.com>
-> 
-> Hi all,
-> 
-> Some FE startup callbacks may return a positive value from constraint 
-> helpers, but ASoC expects 0 on success. This can cause .shutdown() to be 
-> skipped during rollback.
-> 
-> Return 0 explicitly on success.
-> 
-> Compile-tested only.
-> 
-> Changes in v2:
->  - Rename the patch subject.
->  - Simplify the code change as suggested by Cezary. 
-Thank you for the update. The snd_pcm_hw_constraint_xxx() finding is a
-good catch.
+Hi Maciej, Bjorn, all,
 
-Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
+Another active-link case for 72780f796468 ("PCI: Always lift 2.5GT/s
+restriction in PCIe failed link retraining"). It answers two open
+questions in this thread:
+
+  - Maciej asked for HASD results. On this port HASD is clear
+    (SpeedDis-), so the HASD check Andreas proposed would not help here.
+  - This case never reaches the error path (no "retraining failed"),
+    so falling back to 2.5GT/s on failure, as Thomas suggested, would
+    not help either.
+
+On a Huawei server the onboard BMC VGA controller, a Gen1-only
+endpoint, sits behind a firmware-clamped PCH root port. After the quirk
+lifts the clamp, the endpoint is missing from the bus scan, even though
+the quirk reports no error and the link is up at 2.5GT/s afterwards.
+A rescan finds the device again. Reproduced on Arch Linux 7.2.7. The
+Proxmox bisection gives the same 7.0.14-6 -> 7.0.14-7 boundary that
+Aoxtj and Mich found.
+
+A note on how this report was produced: I am a network/infrastructure
+engineer, not a kernel developer. I noticed the problem (loss of video
+on a Proxmox upgrade), ran all the tests on the hardware, and collected
+the logs, register dumps and kernel bisection below. The analysis was
+done with an AI assistant (Anthropic's Claude): it compared the dmesg
+and lspci output between kernels, identified the link-speed quirk and
+the relevant commit, suggested the setpci recovery test, and drafted
+this report. All data below was captured on the machine and I have
+checked it against the raw logs. The interpretation in the "our guess"
+paragraph and the suggestions at the end should be read as
+hypotheses, not as kernel expertise on my part.
+
+Kernels tested
+--------------
+
+Same hardware and configuration throughout:
+
+  Good  Proxmox VE 7.0.2-6, 7.0.12-1, 7.0.14-1, 7.0.14-6
+        (7.0.14-6 = Ubuntu-7.0.0-28.28i2, stable 6.18.38 / 7.1.3)
+  Bad   Proxmox VE 7.0.14-7, 7.0.14-8
+        (7.0.14-7 = Ubuntu-7.0.0-28.28i3, stable 6.18.39 / 7.1.4)
+  Bad   Arch Linux 7.2.7-arch1-1 (official 2026.10.01 live ISO)
+
+Hardware
+--------
+
+  DMI: Huawei Technologies Co., Ltd. Tecal RH2285 V2-12L/BC11SRSC1,
+       BIOS RMISV055 02/02/2013
+  CPU: 2x Xeon E5 v2 (Ivy Bridge-EP), PCH C600/X79
+
+  Affected path:
+    00:1c.3  Root Port 4  [8086:1d16] (rev b6)  LnkCap 5GT/s x1
+             SltCap HotPlug- Surprise- (not hot-plug capable)
+      03:00.0  XGI Z11/Z11M VGA [18ca:0027]
+               Subsystem Huawei [19e5:2013]     LnkCap 2.5GT/s x1
+               (PCIe v1 endpoint, Gen1-only; the BMC's video device)
+
+Register state, good vs. bad
+----------------------------
+
+  00:1c.3 (root port)     good (7.0.14-6)     bad (7.0.14-7, 7.2.7)
+  LnkCap                  5GT/s x1            5GT/s x1
+  LnkCtl2 Target Speed    2.5GT/s (firmware)  5GT/s (lifted)
+  LnkCtl2 HASD            SpeedDis-           SpeedDis-
+  LnkSta                  2.5GT/s x1          2.5GT/s x1
+  03:00.0 enumerated      yes                 NO
+
+The link is up (x1) after the quirk too. It just comes back at
+2.5GT/s, the most the endpoint supports.
+
+dmesg, Arch Linux 7.2.7-arch1-1
+-------------------------------
+
+  Linux version 7.2.7-arch1-1 (linux@archlinux) ... #1 SMP
+PREEMPT_DYNAMIC Mon, 21 Sep 2026
+  ...
+  [    1.019207] pci 0000:00:1c.0: removing 2.5GT/s downstream link
+speed restriction
+  [    2.019409] pci 0000:00:1c.0: retraining failed
+  [    3.019695] pci 0000:00:1c.2: removing 2.5GT/s downstream link
+speed restriction
+  [    4.020409] pci 0000:00:1c.2: retraining failed
+  [    5.021634] pci 0000:00:1c.3: [8086:1d16] type 01 class 0x060400
+PCIe Root Port
+  [    5.021666] pci 0000:00:1c.3: PCI bridge to [bus 03]
+  [    5.021673] pci 0000:00:1c.3:   bridge window [io  0x3000-0x3fff]
+  [    5.021678] pci 0000:00:1c.3:   bridge window [mem 0x94b00000-0x94bfffff]
+  [    5.021690] pci 0000:00:1c.3:   bridge window [mem
+0x90000000-0x93ffffff 64bit pref]
+  [    5.021718] pci 0000:00:1c.3: removing 2.5GT/s downstream link
+speed restriction
+  [    5.021770] pci 0000:00:1c.3: PME# supported from D0 D3hot D3cold
+  ...
+  [    5.045412] pci 0000:00:1c.3: PCI bridge to [bus 03]
+  [    5.076827] vgaarb: loaded                       <- no VGA device
+
+00:1c.0 and 00:1c.2 are empty ports, the case v3 covers.
+
+On the good kernels the same scan finds the endpoint right away:
+
+  pci 0000:03:00.0: [18ca:0027] type 00 class 0x030000 PCIe Endpoint
+  pci 0000:03:00.0: BAR 0 [mem 0x90000000-0x93ffffff pref]
+  pci 0000:03:00.0: Video device with shadowed ROM at [mem
+0x000c0000-0x000dffff]
+  pci 0000:03:00.0: vgaarb: setting as boot VGA device
+
+How this differs from the other active-link reports
+---------------------------------------------------
+
+In Aoxtj's, Mich's and Thomas's cases the retrain fails, the error
+path runs, and the link is left down (x0 / DLLLA=0). Here:
+
+  - there is no "retraining failed" message; the quirk returns about
+    50 us after "removing 2.5GT/s ...";
+  - the link is up afterwards (2.5GT/s x1);
+  - the endpoint is healthy and comes back with a rescan (below).
+
+So the device is only missing because bus 03 is scanned too early.
+
+Our guess, not verified: the retrain takes the link down and back up
+(the endpoint cannot do 5GT/s and falls back to 2.5GT/s). The wait in
+the quirk may see DLLLA still set from before the link went down and
+return at once. The bus below is then scanned while the link is still
+retraining, and nothing answers. That would fit the 50 us return and
+the missing error message. A one-line pci_info() of LNKSTA right after
+pcie_set_target_speed() would show whether this is right. I can run
+that, or Andreas's earlier diagnostic, if useful.
+
+Recovery at runtime
+-------------------
+
+Restoring the firmware clamp, retraining and rescanning brings the
+device back:
+
+  # setpci -s 00:1c.3 CAP_EXP+0x30.w=0001:000f   # LnkCtl2 TLS = 2.5GT/s
+  # setpci -s 00:1c.3 CAP_EXP+0x10.w=0020:0020   # LnkCtl Retrain Link
+  # sleep 1
+  # echo 1 > /sys/bus/pci/rescan
+
+  pci 0000:03:00.0: [18ca:0027] type 00 class 0x030000 PCIe Endpoint
+  pci 0000:03:00.0: vgaarb: VGA device added:
+decodes=io+mem,owns=none,locks=none
+  pcieport 0000:00:1c.3: ASPM: current common clock configuration is
+inconsistent, reconfiguring
+  pci 0000:03:00.0: BAR 0 [mem 0x90000000-0x93ffffff pref]: assigned
+  pci 0000:03:00.0: BAR 1 [mem 0x94200000-0x9423ffff]: assigned
+  pci 0000:03:00.0: BAR 2 [io  0x3000-0x307f]: assigned
+
+By then the boot VGA console is already lost, so this only shows that
+the device is still there.
+
+Observations
+------------
+
+1. HASD is clear on this port, so a HASD-based check would not catch
+   this case.
+
+2. The failure is not in the error path, so a 2.5GT/s fallback on
+   failure would not help either.
+
+3. The retrain gains nothing here: the endpoint only supports 2.5GT/s
+   and the link comes back at that speed. I realise the endpoint is
+   not enumerated yet when the quirk runs on the port, so knowing its
+   speed in advance may not be simple.
+
+4. If an active link is retrained, waiting for it to actually go down
+   and come back (or for the device to become ready) before the bus
+   below is scanned might prevent the device going missing.
+
+5. Like Mich's Dell and HP machines, this is an older Intel server
+   platform where firmware clamps the ports on purpose. A command-line
+   opt-out would give users of such machines a workaround other than
+   staying on an older kernel.
+
+I can test patches on this machine with a mainline or live kernel and
+can provide full dmesg and lspci -vvv from good and bad kernels.
+
+Thanks,
+Armando Araujo Filho
