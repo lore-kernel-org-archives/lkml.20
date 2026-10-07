@@ -1,135 +1,140 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010029.outbound.protection.outlook.com [52.101.61.29])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 679FE547054
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 20:17:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791404269; cv=none; b=QzLU/WusVNE9BRwJrDJk2KKxndsvVonyqvVq6e/lq2998mlZ6zlrAgwVDqBLtyb4sPfdW0zpnkP4K3StjVUK74Cm7RKGm+nN9wJVPgJc0qNo8M5nQFiFBXPHWWgxFNHbm57maM6YeROslE9Pc/b6J8d7wkxHTaBRRKyWFpOAoXc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791404269; c=relaxed/simple;
-	bh=f/GwSDcTuNxj6GI0IAdppKyMtlQZ5eLCPoEtFeydlAA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pwvFa+jCBrmnMsNULgo7Rppi+Jz6F3+ijJ82l3Fq/qDmwtcGO86yfkGRCIamgo3CCGiRt/p5n51AECqDTppCeCfXWTEcDn2diDhT/VAsbcQ5Q9FF/DA8tmQfFlK6MAmwOHq7qA/ADZFKOahidp4QRDd7qAJMtkvMUwKYwjX04tE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=davidwei.uk; spf=none smtp.mailfrom=davidwei.uk; dkim=pass (2048-bit key) header.d=davidwei-uk.20251104.gappssmtp.com header.i=@davidwei-uk.20251104.gappssmtp.com header.b=yvWFLm0O; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=davidwei.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=davidwei.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 579F0547054;
+	Wed,  7 Oct 2026 20:18:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.29
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791404307; cv=fail; b=iCdCn7Yl74ZRt+c1pE2J/hgKbZQCsjSZ9oI2AwU93ophjRTlfKL3ThzJ4NROLV42JCssOJ3iDgZYlgUqD6qfpiIwhGREW6xazp8MKBz2gNpqiCxLmwDbUkr9jpL5mw1/3G8wAOfLZDwwEByxROrtzPc0dMnKYslpxNe4iA+KOmA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791404307; c=relaxed/simple;
+	bh=vuAc5c57T7/wMIYyWz7P5G+qNZS5RcsnbQFD7rMF/A8=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hbUFRwiVD8v1+eimfGoIgoFtHMmVQwRBzpAovpFh4YM2SpOw9H5lWlrH7pnnk3HYngWSTbxK8db8K9nD7zWTDiQ6cRPlIEhkm96jV6st9KzYkHQt4Ts6Ogg3Y3xupqHBRJjY9bt2l54GVxPtS8Hbxk22a6tFRaqsd2ObbsIs8Ts=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=nrtsK0VD; arc=fail smtp.client-ip=52.101.61.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=davidwei-uk.20251104.gappssmtp.com header.i=@davidwei-uk.20251104.gappssmtp.com header.b="yvWFLm0O"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48c4be28b82so2039730f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 13:17:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=davidwei-uk.20251104.gappssmtp.com; s=20251104; t=1791404267; x=1792009067; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cpvtus2Gmr8I4a/o4HiiEj3yjRD5bzEOhaip8SrB8nI=;
-        b=yvWFLm0ORuyZ9yRXtqUyLnLImvGJu4Qd8Yu4de/2uHI+VAeGV5VtiJ3Q7kMEtMCPkK
-         YSfEvepc9vBOk8LWmAm4/PQn5cej606zKCmPFuwXuJgXlWlv/OV8dgJTHhC81OhunJwx
-         K5Rs3lcHAcyTAaLm6H2s6gbnD3SEWbmJvTym7NSDqzOkOtSiDsgLDpTspm5H5YfoH8Ya
-         blA6YhfbvY+azjKczPEg/T+xAc9wNRohVcwXQH/3Ma0sICEv3IHkhtpZ75vcuPRXRyI7
-         ijO25MeyRmzrTUcvDNhXXYYlNsPHwc78/rkS2vPVkt2XxpS05tiOMuikzflEe4OBKsQ/
-         ZwsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791404267; x=1792009067;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cpvtus2Gmr8I4a/o4HiiEj3yjRD5bzEOhaip8SrB8nI=;
-        b=BWNcInmtnayvFmJzD3DAPPgIiNp/FksCvsvRYECHgCYh51uS1ptlUgUHqrz4KW05GV
-         5WuThk95HcOTElduTtTK5WeDk+6Rro3FXvEAokk6upTGbBoMyr3O0WL5FRwHdB7Na84j
-         nmFzGnAxurY9FXiVGeSxIEeSUtHUGXabhufCyYWlvQzdSP1eEXpxhCp/00xEPFw/wjmK
-         bLz7T5uOeXbXUbm1zTloIEMadEBzVLymwA37gIOjm9fR6DfzE5dI3U2SWSBK4MJHSncK
-         g2ILOtDtjaQafO9OeNCnrYwm+eqSmkZIt3NwLP25/QEQbxOl+VBgWNxdeu384zV0UDpH
-         doDw==
-X-Forwarded-Encrypted: i=1; AKwUvByJGU1rLmt5bHbRFRZ7goSV7pA53+t/rqTJHl1IQSfLMmCUUY5UXLvNoks+L/sgC8GB0bh2Tp9iRZ2vk2Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKN+/4f37ZBiPrU8NybSdM79Clvem74v3SMgCWLsAY8BPDQzD57
-	rM6jJzJkSxY1LA2oQsLVaYzMkk1Fb8UN1UJTznpRi9g9EajehZdvmJ1ySiFNc0Gn3ps=
-X-Gm-Gg: AYBFou2PEVYeT04EH+lTn/rWH5fqr120qYtA5pv5wzku3ziGToeJ1WrTnxR8sU0NgF+
-	Saqk+XpxHbVGit+Z0YabCfzgxmr8mFsVBD6ieP2Md73dx7CIKdmBBVoZTA4rsZsDd6Ri32GtuEC
-	huPyuyGojLo3TeZ0foBLVxidm70giRMBcHIkkqg/kVkpG9BIBTM9qRUn6Oo/Dy7wQxUmFPBbUQt
-	LhKrf9hYUEEwwP3WL+jo5uBGSgQLyxlHH5FLfV3K6FliEWGJS/+SPEIH3AF4U1J17A4KrF18Nld
-	52T00OiFIiYA7LphkrwMvUz9mmtgC785+0XCVcp0SbqoscpMcz3GCB963YlqZz7cC86nT5BDPgy
-	Vyt7FsKrQWS7HCJ4RGh04RhgNPPRpkWXGAQsnt5VrNYve2f7IA4Zh+a/S3UwKPLENZIttaSwHAF
-	5B2OKoEbLPrP9XWHwT+AFrwlEd85HC8zc0k3HA/CGoLTCMQy8mN/iQ+dS7FsqTddpqCDW+3aeuE
-	uVOK0X2KMPF6ZLoE+jdobnBxp3u9NZFJDTaCU6n
-X-Received: by 2002:a05:6000:41dd:b0:487:27f9:82b with SMTP id ffacd0b85a97d-48c72886689mr6669566f8f.32.1791404266599;
-        Wed, 07 Oct 2026 13:17:46 -0700 (PDT)
-Received: from [172.16.1.199] ([31.221.81.222])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d1ffd2sm7005500f8f.34.2026.10.07.13.17.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 07 Oct 2026 13:17:46 -0700 (PDT)
-Message-ID: <33f685a9-1140-4b4d-a40d-8250ab93e500@davidwei.uk>
-Date: Wed, 7 Oct 2026 21:17:45 +0100
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="nrtsK0VD"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eUjyQBe8n2quevaZcij6zMJfj5S30ZJshMoQ0TCjoMkQcjlluGEkDgRsshjdijV/nWW1bsaf/FIfaJqj8Mh9aM/s+dOZSDBG28E4q5QPfUJj9PjEem/sx+Hxhf6IKc4TdNBP1VPcZ6gXnrXUb2NhzEZCNpk2eKqiWxcfhucjlhwKzp1n27YcOX+MfMEdcKowe5CtJT/MCjr2PGOAN2CpMNx9AQt6UWxAJ9wEmIWEbWbWbxu2sKXe82xDJqukw2FRz9SZYd9fEC7t57qlKWkBHQb++qf03h1KvusjJsc5APvOmQsAA9Lu7QPLe1qvNUVnx1FkmI6QSuR30723nR93XQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9zeMijoPUBTctuNIPymPjqlMt9Lrq4OIe2peFUwF79g=;
+ b=eCwwaMIRSygfnfjjC+icS1bYEsWruKGAUBbjxiLcsICEfPWcd4/8/AJ/+fyBAYVF1EFUNQj16h/fTYm4MKlCMZWHaXInBc5/Ylqkc+L1QqcbdAdyJeXtDsvvlU1uJGyhwW7PzwKPqr0It/8N5vYfhDL3V9kPQ528WRhMqS37X0R4SpGOZTzLQ/3hD+orvLsPgjhVJtYmnNm60EMO7OQoSp0ANs345iCkYXxRhYpwy2waUgtOsbqhBfYsOJ+KSv44pFJXNjGVrbzSd25uukgE7HN4zgGUSAf3L543WE0BRizw93TJuWhdHo2C6xEIbbMsQrkPr2ytAtZq6hS4d0JQXg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=google.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9zeMijoPUBTctuNIPymPjqlMt9Lrq4OIe2peFUwF79g=;
+ b=nrtsK0VDROhKBz0LZBWvAR7yYZxBVKCuXot4ivLCWxG3Ff6oZxFzMxd5h/JKURv9hcRnTDxAIK1HuT4/NubkQewWf8a5q8QyIOnM0ay+lcene+Gkz0mQdQOKLI0YP0imwq9OXAClsScESOsb29Ii9gPPAurFuvm6a0sV092WcG5Hf+cgy4l1xF2poOyn2sUqzW8vQMJtBV28Md38GMjMv8cqZbVpKo4/UQxLLYyWZ8LUhfuG8yw8n3CXtt5OFlFXlwoN6dqNFdZBT5UQ8y3Rr4YnGwjXSnhk7aHZgFBv0kRHWqAbkubhi7yYbjW+gQ2ll2WEZ9TiffD1ca2g1wY7IQ==
+Received: from BN0PR02CA0034.namprd02.prod.outlook.com (2603:10b6:408:e5::9)
+ by SA3PR12MB7901.namprd12.prod.outlook.com (2603:10b6:806:306::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Wed, 7 Oct
+ 2026 20:18:08 +0000
+Received: from BN1PEPF0000468B.namprd05.prod.outlook.com
+ (2603:10b6:408:e5:cafe::4b) by BN0PR02CA0034.outlook.office365.com
+ (2603:10b6:408:e5::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Wed, 7
+ Oct 2026 20:18:07 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ BN1PEPF0000468B.mail.protection.outlook.com (10.167.243.136) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.496.14 via Frontend Transport; Wed, 7 Oct 2026 20:18:07 +0000
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
+ 2026 13:17:37 -0700
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by rnnvmail202.nvidia.com
+ (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
+ 2026 13:17:36 -0700
+Received: from nvidia.com (10.127.8.9) by mail.nvidia.com (10.129.68.8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
+ Transport; Wed, 7 Oct 2026 13:17:35 -0700
+Date: Wed, 7 Oct 2026 13:17:32 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: Samiullah Khawaja <skhawaja@google.com>
+CC: David Woodhouse <dwmw2@infradead.org>, Lu Baolu
+	<baolu.lu@linux.intel.com>, Joerg Roedel <joro@8bytes.org>, Will Deacon
+	<will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, YiFei Zhu
+	<zhuyifei@google.com>, Pranjal Shrivastava <praan@google.com>, Robin Murphy
+	<robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>, Alex Williamson
+	<alex@shazbot.org>, Shuah Khan <shuah@kernel.org>, <iommu@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>, Pratyush Yadav
+	<pratyush@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, "David
+ Matlack" <dmatlack@google.com>, Andrew Morton <akpm@linux-foundation.org>,
+	Vipin Sharma <vipinsh@google.com>
+Subject: Re: [PATCH v5 14/18] iommufd: Implement ioctl to mark HWPT for
+ preservation
+Message-ID: <asao3APyx7fkL1TN@nvidia.com>
+References: <20260921004834.2601285-1-skhawaja@google.com>
+ <20260921004834.2601285-15-skhawaja@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] io_uring: do not charge the SQ/CQ rings to RLIMIT_MEMLOCK
-To: Jens Axboe <axboe@kernel.dk>, hengyul@cs.unc.edu,
- Pavel Begunkov <asml.silence@gmail.com>, io-uring@vger.kernel.org
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261006125732.3425762-1-hengyul@cs.unc.edu>
- <01d75013-9eae-4ec6-93b5-cc1b2b83b791@kernel.dk>
-Content-Language: en-US
-From: David Wei <dw@davidwei.uk>
-In-Reply-To: <01d75013-9eae-4ec6-93b5-cc1b2b83b791@kernel.dk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260921004834.2601285-15-skhawaja@google.com>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF0000468B:EE_|SA3PR12MB7901:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2d0331a1-ccc2-495e-27d0-08df24b019ee
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|36860700016|23010399003|1800799024|7416014|82310400026|18002099003|22082099003|4143699003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	h1NYFRU/QSLoW9kUEYvKes5q9lxsrHK7WfJkLiZB2RKRJ+yai7uc8sPgmAe+dUhpYqJbAoYj4/9inxZI8ST5Iz59wbvBbIYGWgtU67ORB8CZaVEHitjn+CLZPVIISjNxrLLjeiResOX4Yf1Ubd8GVgRbOZB/KWMsJi8if9lo7JWYiahHqsjBV1OrO1+kAC/4YgWzXsHFpsGS7iJAAq27/q+hjgX68SLvohl+6qOUftPO7P3Ha/sDsmzDEIR8mcWZ2NfU7p2mbpOM6RvTRcDHMlUXTmtY2vBAGhyylBur/FVZYJ2j37GK2fShfwqDeNwNOZrZkNYqBMr80PxmPMDcCSQ/ftj9HzwYN85mXdmiWEuu5QmHTlL30sMzsftlYq5GoDcg0p0ZlfBruFq9Cjkb4MzsfOO78FQeGCmqlgtNfXKlGe5A8i5C2LcAwhMmd3/E5HjQT+o4wtHCvfyvBB/X/owaw3q6LyUnJtdC/WPs2JI+5d8C/lMz6rLzQcQL11YgTngy1nurJPuHsbSpO97LLO/Z5o3gpVc9dULodX0yoclha3QVSC9uRm36jteGCY/jYrLukKNmACiT/TkW9J7jF2t9j9+EZV275U/rlv9sYdN6Hw6W8CMRe0Oci3rbbYhGvTBYQSGJRsOVWLpkf6k0qJK1v7Fp+g0oabrasFPA9h1cAijkJ0KLPbjCdoSyJILsQMI1JpKsKBFvM3sDrid3cw==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(36860700016)(23010399003)(1800799024)(7416014)(82310400026)(18002099003)(22082099003)(4143699003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Pckpze12GBqKjl49SP11pQag5jhAEgGBaZPAGtk4uBFcH/AQPCGiUx4XvBr+FblikZ3ov+32s4FBNWPBr1JVQVgZc17bemuP2M9hCQKxLDiNodngjYUmoGeRXkSK0aESaRFm9eHVUBUjk58DJ401MY8LhC/cqMRKjLDx9Qo54n1Q/LOIuZojRCsTV2oZ4uQ28VDb0gpxS6kFcDu7MoBs5qbgnZKDPFYaJ74VTCt6QWbHTxM52E0SvsOxfyl+AxB7pZ6TF46nMCHVm7j8Wu/kH6jovzCQcq+xITOHZYIilVyn3zJhyiohYYtVCZlNWqBEyMAOrPXj5y761jAcCvmrrmC2Nm3tFt+Vl9St80dvv2kgtgmrBR5GlcPXQLx79h25628KmdR9st38mNAKBhPeFL3TP+QkjABBMQ7Q91d3Iy3sGlNFRD3Lfeko0+9t2hYg
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 20:18:07.5979
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2d0331a1-ccc2-495e-27d0-08df24b019ee
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF0000468B.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7901
 
-On 2026-10-06 16:59, Jens Axboe wrote:
-> On 10/6/26 6:57 AM, hengyul@cs.unc.edu wrote:
->> From: Hengyu Liang <hengyul@cs.unc.edu>
->>
->> Commit 8078486e1d53 ("io_uring: use region api for SQ") and commit
->> 81a4058e0cd0 ("io_uring: use region api for CQ") made io_uring_setup()
->> allocate the rings with io_create_region().
->>
->> However, io_create_region() charges the memory to RLIMIT_MEMLOCK, and
->> the rings had been exempt from that limit since commit 26bfa89e25f4
->> ("io_uring: place ring SQ/CQ arrays under memcg memory limits"). As of
->> now, a user without CAP_IPC_LOCK gets ENOMEM from io_uring_setup() when
->> their rings exceed the limit, which is 8 MiB by default. PostgreSQL
->> developers have already hit this in their io_uring tests [1].
->>
->> The issue can be reproduced with a simple liburing program, run as an
->> unprivileged user:
->>
->>      #include <liburing.h>
->>      #include <stdio.h>
->>
->>      int main(void)
->>      {
->>              static struct io_uring ring[64];
->>              int i;
->>
->>              for (i = 0; i < 64; i++)
->>                      if (io_uring_queue_init(4096, &ring[i], 0) < 0)
->>                              break;
->>              printf("%d rings\n", i);
->>              return 0;
->>      }
->>
->> Before those commits (v6.13), it prints "64 rings". After those commits
->> (v6.14), it prints "21 rings".
->>
->> This patch makes io_create_region() take the user to charge, and passes
->> no user for the SQ/CQ rings.
-> 
-> Agree that this is a bug, stricter accounting may break use cases.
-> However, I think we can solve this simpler, and actually kill more code.
-> How about something like the below instead? Only apply accounting to
-> user backed memory, which is how it used to work too. Would be great if
-> you could take a look and also run your test case against it.
+On Mon, Sep 21, 2026 at 12:48:30AM +0000, Samiullah Khawaja wrote:
+> +int iommufd_hwpt_liveupdate_mark_preserve(struct iommufd_ucmd *ucmd)
+> +{
+> +	struct iommu_hwpt_liveupdate_mark_preserve *cmd = ucmd->cmd;
+> +	struct iommufd_hwpt_paging *hwpt_target;
+> +	struct iommufd_hwpt_paging *hwpt_paging;
 
-Tested in a VM and confirmed that with the patch below the reproducer
-correctly allocates all 64 w/ a 8 MB RLIMIT_MEMLOCK.
+I'd move hwpt_paging inside xa_for_each_marked() and rename it to
+"hwpt_marked". Then, hwpt_target can be simply "hwpt".
 
-This change is really helpful for me as well, thank you for addressing
-this Hengyu.
+> +
+> +/**
+> + * struct iommu_hwpt_liveupdate_mark_preserve - ioctl(IOMMU_HWPT_LIVEUPDATE_MARK_PRESERVE)
+> + * @size: sizeof(struct iommu_hwpt_liveupdate_mark_preserve)
+> + * @hwpt_id: Iommufd object ID of the target HWPT
+
+HW pagetable ID to preserve for liveupdate
+
+Nicolin
