@@ -1,187 +1,177 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDD213F7A9B
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 07:24:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ADF63BE645
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 07:26:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791357892; cv=none; b=f+K5/Wv/pW1N9n7YRWSrBm5N4J3Pyx83Zz5xOhec6murvcSqbpQjGLU4FFo12fo0W7rqjjWn7qCpAvPICOVrYo4v/JlDXRLdqkuy1Z51WfF2SwsUcClVIdQp3AtN4846sVmuuOCKfmiBwLoCmKZ5dlWaxng0cgKBiiBDPUUWtCk=
+	t=1791358015; cv=none; b=Hyocf8+VJ9ZFceFvSlVdFhzbJttlGdjBPFTjh7VGvHa+0xXX33L4qnmV8xJ1pwr4FOjGyUu53pb5jzyDjLOv+ad1bkl9HF0DCwLXrp8/emae2RoQROjjWNgkQkCXqg2B95lBeP/gDO1vqu0GZovL0Rmh+DITznaztt1kIRUgh9c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791357892; c=relaxed/simple;
-	bh=UxZ50NqwJpLV70DqujYJ8OxnuapLGbpMQOZeIC/fP8Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZCy3siZ1pqKDoLxoXlX4Zr8R3W6QQhAf3njo736Wpi6TRoeyH0yY/LDTup6gZsuQaQNoP4SqGEritUy8+PAFN/fIPUIFJ53nRA9fkElrKXqgoozWdrlndM+rYkVpadWgIGDFzaXARBCn2PwyVCkpqc98R/P4WwTVDweCHyN7ovg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NWfS0D0e; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kHmoqFl1; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791358015; c=relaxed/simple;
+	bh=1JFQJnNJb8HOzAJcaEyU8N13syfiBe5jP0AHNIkfpdA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=fqropDWNJLOXkuB5lkF7a80Q+KCrXRXB4LWNNWpnoJR3NJSr8uT9w/4mRYdtkYQeBHptUuOgEgiUtVvArSzeCGGt1qullbmdlBqFGxNS6rpC36PlMkdYf8UpQZR8h7PWxQpM0c5agAEOKk2Cscn08Onp6Cuow4xwwMaoVEF4ER0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hRfQftHD; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NWfS0D0e";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kHmoqFl1"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6974U8ev2063023
-	for <linux-kernel@vger.kernel.org>; Wed, 7 Oct 2026 07:24:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	AVpUwU22uEKD7W4M4o2CONa/iooL55EIQZsHgPp6kK0=; b=NWfS0D0eVGD8Ok+a
-	ItVMICbFmN4Pa8s0NHvUUl+KV7E4pFyLF8xMcW5GyJuzewPKBPrg34y/X9dB4Vox
-	6LjMoR1/CZxdK7XNeIJ/Q9wyIfLfqkDQ4BzVfJElSE441HhIhQfEq5/AT8FBFKe1
-	VkUrztA0mujGiZ7CW2EipTQtypQ2sIWyt9rye4od28rD43d4pkC/BszGocZtyXGN
-	z9o3QKZgX71bCK5MfynKya07QL366faaCEVHSAdm5O0xJeKj2IAw3w+LtvdKHGZO
-	M+Te//uEWi7n6ScQO74BAKIP7G6gHPiMdXCLWMWD9UXvR9Vqhr8vd/Je8FUZysMs
-	g7wpLg==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5c6u128p-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 07:24:50 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc4ac5feaa4so3083596a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 00:24:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hRfQftHD"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a172eb31f0so12813465e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 00:26:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791357890; x=1791962690; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AVpUwU22uEKD7W4M4o2CONa/iooL55EIQZsHgPp6kK0=;
-        b=kHmoqFl1Y9L6LZ6OIEjFEBYZIwR9Mbltu8Y5HDRPL/D2d764grsemgb1WBnZTrXwmh
-         u1Nht6XPkvmQ7L1XVdV/CatpwzNZsFni4CJy7P+5HQPpy2Mf/rjMzgbo3zpOmEdduBRF
-         zLRK7ewYUZU9QmUMOOQUdLLdHINGYtjkWkPgYSvznYKIbYzRryufOQxEXjEXFDdztuqC
-         E12fWD75/ap8ZxQI5TkQQaBR8BBL0Y7WCHsiUpSnk3nxXLpp20cTDE8iQBEzk8T/mweW
-         o7K9/YrfqiDGwAEOPWIOGzN/m0VEdKIVhBaKnQeAtc9oEHVs0QgK4khdnKyvIvczjURV
-         67jw==
+        d=gmail.com; s=20251104; t=1791358012; x=1791962812; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Xc/cMb4XXA+asGhPB5InH/DIUsg9LCc2YMy7yfxc9os=;
+        b=hRfQftHDw5QhSEGI1CpgzG8h7nJX08b4SlC58sO/aXkNfUVpHBtNgmY+TIfZUdp1ti
+         qgM1UN+eh1dSYQCnCimBB3cO/hyKfJmkU56QsGwUKrOIsWprhTPEN9dV9ABxMzM1iYtO
+         X1tb31+RKY0ktwm/fTX43QGISly+us/ZMVZzGaouUb3QGoAcZrm1tFBxBogbaIIPboE6
+         05zOqbzy4PjPeQ3ZH8ZdEDO6v/RSU8fohh/H5oUxLvFWwufLy62/4ubYyfFUwXtOXd5s
+         CUrXNFWs1G82FoqSBiOIeVwGojN40xxLDZI0fdb4ToFrLFj17tw0JA7UoGtrZB0YPNpf
+         /NUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791357890; x=1791962690;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791358012; x=1791962812;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AVpUwU22uEKD7W4M4o2CONa/iooL55EIQZsHgPp6kK0=;
-        b=irDwzqQwmwt950BuFZ1IC3tiViwLF44Yf2r2rWaoAZ5nuABp40dpQAEVzKlVsTTld1
-         KYjUnmY8MJruIhHveOlGMJ1iemSbY4SyVBsrQ/uw8rgQzgFTBMhYf5HKu4++qamauUpY
-         cObfvj981c5g9kS2eXKxMX0vbHSxnns1EpZ8SyPfOJ8VmnXnx4JvxfKGPawhHNPkazwB
-         P6URGexUyurGXuWzNlM1+6vpAQPe+z1pEWJsOp4ASVCygxRsNa5lwaEdiT9+3L5IGxXT
-         6LpnBTziwQKvK7m6cv6fW+xbK83KNBeQgPa3z1AbFSmWm5dZuqhWMYWjEAaPaqlrR+JR
-         V6yQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxq/3eMDo4+i7vTpwS91YrEZlOp1/VL5/NVDQln927oA7UlaabZb2jjsKzhxzfiaCyew4BViCaBTR/2Yso=@vger.kernel.org
-X-Gm-Message-State: AFuF++mJEOp4gXyd2TiroPuhcqzA6QWp0/cN0rjoWsCVsazK1Foi04hx
-	1NtJzyrd659GYn9BSHq9MxX7VvnyWEglCJ2vQEkJmjie5WDEg6cldgnFDvDw4Een2ISSZrBM+Ho
-	RvbqP5zWlw3ke+K8jsyRfIOhshoQl6atH2NggfO+oBJC5x4w88Y4Fq4Emh7c8iq1KOKo=
-X-Gm-Gg: AYBFou0ZCJKNFma0SFR0YXDZhaEAv8X5Pdwt7pQbUUY9XvtvnDfBvQ71jiPw5KuMecb
-	HHnK0azIhaCvtpPkYKGNqTpn716Xb3PmebRXKF0LHwbC43sFbNEBz6dRva9GGLQKQcX6l7y1R9A
-	wN9kvT2dqIW21qQHCxIMieUEgxxIoDw8UZVn3/9khxcf+jS7E8Giqm8OyglDZ1e26APhrwMhLLp
-	N+9pEwiAOUq4wvzlrEoVdEr5MW5zpYi9+ZW0vD8K8ujkNicEZ4SceQhDaHo1eJ9TM/AVmTNxABC
-	TQ1N6gQbSdTn68BrLNMUG6unFBh+E3kkMHvu5591vY8wEVl+B3rr2Gl5M4ZPeQxvIDMKDvWV6V5
-	2hGr9J1gQzzLedg8IUd1mjccwSCCpfVhmUg==
-X-Received: by 2002:a05:6a20:918b:b0:3dd:85a8:4c56 with SMTP id adf61e73a8af0-3e134051f3amr990998637.29.1791357889581;
-        Wed, 07 Oct 2026 00:24:49 -0700 (PDT)
-X-Received: by 2002:a05:6a20:918b:b0:3dd:85a8:4c56 with SMTP id adf61e73a8af0-3e134051f3amr990973637.29.1791357889108;
-        Wed, 07 Oct 2026 00:24:49 -0700 (PDT)
-Received: from [10.217.219.98] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89188a0d6d7sm954172b3a.12.2026.10.07.00.24.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 07 Oct 2026 00:24:48 -0700 (PDT)
-Message-ID: <0f113c6e-b868-4540-9f57-75b3530181f1@oss.qualcomm.com>
-Date: Wed, 7 Oct 2026 12:54:38 +0530
+        bh=Xc/cMb4XXA+asGhPB5InH/DIUsg9LCc2YMy7yfxc9os=;
+        b=WEj3t3Y9O7I7aOw8WMezBo86LNAvYf5iqrYfxba+HyFrhp+BECIi40Ucs8TAO/73FN
+         Kxq18C4c6gzc1mTEkzQA9Wl8DRfQJhLjGjQdmvW53XOS+5r3Us9Qaj4pFEsfILNQfPlq
+         FrrdQuTLEPSxEBROGcgph/SJLvo9ADCyl/ofvSAHA/uV1PRf0LJSEg/4ckvC280xF1Jz
+         P1Z01Gu92762pzAL+HjVZoKyOXyD6SKRkvMG1lYDn6bbn0daw2L3n/19rOgDQrs/mW5O
+         hUk5UkkOOImY5ZkhK7b46Fg+4Y98wciBBUQEgGc1SbWmI1QlHGiGQNWbDRtXpO7ekbvr
+         jmPw==
+X-Forwarded-Encrypted: i=1; AKwUvBz8pbFNzBMV3C8JoZHeQOWOE9L81/0Gex8W5qbkePjoSCGMT0B2HQDE/zCSy4oG1TbZLvgRYmFLyu/2uNc=@vger.kernel.org
+X-Gm-Message-State: AFuF++noPYdi0scuG71Fce3kNWUr5eF1r7LOCvmQ7LuMXP1mXwHNOguG
+	J8Aa2EB2b29v27jx0Ejsqx9Kh1FETYkVwBjEDC5nUXvxrTWtqMvcILkE
+X-Gm-Gg: AYBFou01pmxHR6iIs6W6zUIjAOe+xQ4ucpbtx/0zgaj66MniVQ/I0me0XAPMT9TnFlg
+	tWM3Uw716LA7+bhJsldTf0x6hMLJt0l9B119j+KfIEGV1ykPZVdzljt3wCpNhULe8IYKfMA585W
+	ekPJqwD9ReV7v813z5ZtN9ECTsGTC7k0+XWzun1fL6JApL+oU3yAVuwKPttDZhDyAmChocHFQSb
+	s2kgoKcjSGl3U2/lGOBersj55ZtdTKVFskMxwnoTAV5GJtZ5x+vKpdwd97jmLmPUEyF5x/1Mqau
+	g7oCsyjE6eMv+Xph2RrKUB4xopIyVj7pElWUoFk7Nm+n5fIh7F4+PLq9czhm+zllh6Jd9vX7uhs
+	6eTNTWvEAXZl21VwfdPxaU0+7poq8u70YBaU4D/bPTnVzTyDa4JxtYQDqcwbC/pLRcBet5wzVHa
+	ZvUinXlyvHnWUfb+nMK2lU4sovaBjYZOYmWpbTcGjzGnLypKtbMH5EiLNSSTl8g+ud0QvNFY6SG
+	oWpga8NY5Gus5iQSlU=
+X-Received: by 2002:a05:600c:524f:b0:4a1:6d35:779a with SMTP id 5b1f17b1804b1-4a1800d1ca4mr18145295e9.3.1791358012318;
+        Wed, 07 Oct 2026 00:26:52 -0700 (PDT)
+Received: from taln60.nuvoton.co.il ([212.199.177.18])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a180310c9fsm29912955e9.4.2026.10.07.00.26.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 00:26:51 -0700 (PDT)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: andrew@codeconstruct.com.au,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: openbmc@lists.ozlabs.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	avifishman70@gmail.com,
+	tmaimon77@gmail.com,
+	tali.perry1@gmail.com,
+	venture@google.com,
+	yuenn@google.com,
+	benjaminfair@google.com
+Subject: [PATCH RESEND v10 0/6] arm64: dts: nuvoton: add NPCM845 SoC and EVB support
+Date: Wed,  7 Oct 2026 10:26:39 +0300
+Message-Id: <20261007072645.1618147-1-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/9] soc: qcom: geni-se: Populate clk_perf_tbl with SE
- source clock frequencies from perf OPP table
-To: Praveen Talari <praveen.talari@oss.qualcomm.com>,
-        konrad.dybcio@oss.qualcomm.com, Sudeep Holla <sudeep.holla@kernel.org>,
-        Cristian Marussi <cristian.marussi@arm.com>,
-        Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Jiri Slaby <jirislaby@kernel.org>, Mark Brown <broonie@kernel.org>,
-        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
-        Andi Shyti <andi.shyti@kernel.org>
-Cc: chandana.chiluveru@oss.qualcomm.com, arm-scmi@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-serial@vger.kernel.org, linux-spi@vger.kernel.org,
-        linux-i2c@vger.kernel.org
-References: <20260827-derive_clk_perf_tbl_from_perf_domain_opp_table-v2-0-091697dbeb02@oss.qualcomm.com>
- <20260827-derive_clk_perf_tbl_from_perf_domain_opp_table-v2-2-091697dbeb02@oss.qualcomm.com>
-Content-Language: en-US
-From: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
-In-Reply-To: <20260827-derive_clk_perf_tbl_from_perf_domain_opp_table-v2-2-091697dbeb02@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAyOCBTYWx0ZWRfX6dg1uSKppAnO
- mOQW6IuNDAsZTJR6AQi/AHGTqDuRUWR1ohC9heBpJTq9DkyyNBEKplnLm3Mts/YQsVvkLpZYZk4
- wtbKFvJQrS8GGbfgR65ZGxdodajU1BM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAyOCBTYWx0ZWRfX1qNSJIZ/8dnx
- wsLUAH2KpmkJpZj7xGWV/y/YmAICNWV51OQ2PStH8zsTZ512EGrcE6dSFbO1cC+F3Mk8rHju1wG
- iH3ZivjgGB2+wcCI//5QFs7dvbJdD3ZNc0DZ1Vzgvem3g1o+Q23JfFYax/iNWh0XQsq2xanz4yR
- pGD1NZJgGhS8QGSk16nJ0bEfSjP6jpdiofxhQR6kipQ9Buc1+0gIgZCD4jHHOcYK4qpReIPGg4L
- dP5mp7yt4BGHcDW1K+1xv4aF4tRBn+8mqYu/cKjaVzkrbIvCxJE8zyS+Whk1zIDdLAAzF/rSEsc
- 9leCqSvSB03BeKOmMMKLCPS11m7TJlfrlrQg/D/pBAuz/wGicqJJh1YjjYML3oFH+rGAcHjIJ32
- 87suJMXnD9brOfEkqD2k9VaHA8byQF0EOVUqWF7Kb57IM6wP3TAunsmBRgNv+e4/giaLcMTQUIB
- bwY2KqVpYY9XMgmW7vg==
-X-Proofpoint-ORIG-GUID: 2Pbs989TcBc92LH_OLQ9gNnBoW8O4Ztl
-X-Authority-Analysis: v=2.4 cv=T5EZ3PKQ c=1 sm=1 tr=0 ts=6ac5f3c2 cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=Kq5vhQSCjsUw4Kr_5AcA:9 a=QEXdDO2ut3YA:10 a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-GUID: 2Pbs989TcBc92LH_OLQ9gNnBoW8O4Ztl
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-07_02,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
- clxscore=1015 bulkscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070028
+Content-Transfer-Encoding: 8bit
 
+This series fixes the remaining timer binding issue and adds device tree
+support for peripherals on the Nuvoton NPCM845 SoC and its Evaluation
+Board (EVB).
 
+The first patch drops the undocumented timer0 clock-names property.
+The second patch splits the two APB address windows into separate bus
+nodes before any peripheral nodes are added.
+The third patch reorders timer0 and PECI so the APB child nodes stay in
+ascending unit-address order.
+The fourth patch introduces peripheral nodes for Ethernet, MMC, SPI,
+USB, RNG, ADC, PWM-FAN, I2C, and OP-TEE firmware in the NPCM845 SoC
+device tree.
+The fifth patch cleans up the pre-existing NPCM845 EVB DTS property
+ordering to match strict dt-check-style expectations.
+The sixth patch enables the NPCM845-EVB peripherals, adding MDIO nodes,
+reserved memory, aliases, and board-specific configurations such as PHY
+modes and SPI flash partitions.
 
-On 8/27/2026 11:29 PM, Praveen Talari wrote:
+The NPCM8XX device tree was tested on the NPCM845 evaluation board.
 
-[...]
+Changes since version 9:
+        - Split the F0000000 and FFF00000 APB address windows in a
+          separate patch before adding any peripheral nodes.
+        - Add peripheral nodes directly under their final APB bus.
+        - Renumber the timer/PECI ordering and peripheral patches.
+        - Renumber the EVB coding-style and peripheral patches.
 
-> @@ -1175,6 +1181,31 @@ int geni_se_domain_attach(struct geni_se *se)
->   	else if (ret < 0)
->   		return ret;
->   
-> +	perf_dev = se->pd_list->pd_devs[DOMAIN_IDX_PERF];
-> +
-> +	num_opps = dev_pm_opp_get_opp_count(perf_dev);
-> +	if (num_opps < 0)
-> +		return num_opps;
-> +	if (num_opps == 0)
-> +		return -ENODEV;
-> +
-Let's combine both in a line.
-if (num_opps <= 0)
-	return num_opps ? num_opps: -ENODEV;
+Changes since version 8:
+        - Split the EVB changes into a DTS coding-style cleanup patch
+          for the pre-existing board file and a separate peripheral
+          enablement patch.
+        - Fix strict dt-check-style issues in the EVB DTS by reordering
+          properties and nodes, normalizing blank lines and continuation
+          alignment, and lowercasing hex literals.
+        - Drop the unused tip_reserved label.
+        - Keep patches 1-3 unchanged.
+        - The remaining refclk unused-label report is a false positive
+          because the label is referenced from the included common DTSI.
 
+Changes since version 7:
+        - Move timer0 to keep APB child nodes in unit-address order.
+        - Add PSPI to the commit message.
 
-> +	se->clk_perf_tbl = devm_kcalloc(se->dev, num_opps,
-> +					sizeof(*se->clk_perf_tbl),
-> +					GFP_KERNEL);
-> +	if (!se->clk_perf_tbl)
-> +		return -ENOMEM;
-> +
-Non functional to Simplify, keep level = 0 outside and increment level 
-within loop> +	for (i = 0, level = 0; i < num_opps; i++, level++) {
-> +		opp = dev_pm_opp_find_level_ceil(perf_dev, &level);
-> +		if (IS_ERR(opp))
-> +			return PTR_ERR(opp);
-> +
-> +		se->clk_perf_tbl[i] = level;
-> +		dev_pm_opp_put(opp);
-> +	}
-> +	se->num_clk_levels = num_opps;
-> +	se->has_opp = true;
-> +
-level++;>   	return 0;
->   }
->   EXPORT_SYMBOL_GPL(geni_se_domain_attach);
-> 
+Changes since version 6:
+        - Remove IPMI I2C device.
+        - Add FIX enable property.
+        - Keep patches 1-3 unchanged.
+
+Changes since version 5:
+        - Add no-map to the tip_reserved firmware memory region.
+        - Drop the unsupported snps,eee-force-disable property from
+          gmac1.
+        - Rework the FIU0 boot flash layout into nested fixed-partitions
+          under the bmc container.
+        - Keep patches 1-3 unchanged.
+
+Changes since version 4:
+        - Split the timer0 clock-names cleanup into a separate first
+          patch.
+        - Remove nuvoton,sysgcr from udc8 and udc9.
+        - Rename apb: bus@f0000000 back to apb.
+        - Rename spix-mode to nuvoton,spix-mode.
+        - Keep cooling-levels as 32-bit cells while encoding fan-tach-ch
+          as /bits/ 8.
+
+Changes since version 3:
+        - Remove tmp100.
+
+Changes since version 2:
+        - Fix DTS warning.
+        - Arrange node order by ascending unit address.
+
+Changes since version 1:
+        - Fix commit message.
+        - Fix dtbs_check warnings.
+
+Tomer Maimon (6):
+  arm64: dts: nuvoton: npcm845: Drop redundant timer clock-names
+  arm64: dts: nuvoton: npcm845: Split APB address ranges
+  arm64: dts: nuvoton: npcm845: Reorder timer0 and PECI nodes
+  arm64: dts: nuvoton: npcm845: Add peripheral nodes
+  arm64: dts: nuvoton: npcm845-evb: Fix DTS coding style
+  arm64: dts: nuvoton: npcm845-evb: Add peripheral nodes
+
+ .../dts/nuvoton/nuvoton-common-npcm8xx.dtsi   | 731 +++++++++++++++++-
+ .../boot/dts/nuvoton/nuvoton-npcm845-evb.dts  | 441 ++++++++++-
+ .../boot/dts/nuvoton/nuvoton-npcm845.dtsi     |   6 +
+ 3 files changed, 1155 insertions(+), 23 deletions(-)
+
+-- 
+2.34.1
 
