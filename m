@@ -1,69 +1,69 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1E5C4D1786
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 16:59:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A60844D17BF
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 16:59:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791392374; cv=none; b=naZNXfY3bwqhExAk4eYi6dSCV4K+sR6AqsHIk8XII1M8ODyV4ZUxX83gWYUrjq/qC5QLNuksaSKrYthqjW7m1RdsExQ4AvYuzfeEl2Y64Rv9vMKn99ROjQs6OFHXDZeKZuIugXWUMdYcBJlCddwLL7nIh6bqtgr3+vNF17/EF+8=
+	t=1791392374; cv=none; b=Jufr1AJFnF5jVL0HBQvAq187tMAally6LrbFyofpX3T3RoD//uLIO3BQ0aalMuCkBX1yjRlzUxM0g5Nc8MlOYsbYd0MIvK8JmjrCcGuE4pZW5AX9FC/TzDaZ9NMKEKZdJUxQmOtdx81nHNRlG8XQGKlV8i5kDNuB1yT0ZRpbL5w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791392374; c=relaxed/simple;
-	bh=Z+rLLrK6OAPFyZECPSb2YuF+nAqqG6Y/NbbCKPwZlKY=;
+	bh=YEKjxa0mNyCMsHdPEU3NsdOvxeYddiBDFxsW6WPNwdU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=YE5ZIs55rSEXh1OhWncc8ntj+Y29nA9B2C5EWDR0XCLTJ6GEa50SPiRr4pq4p+Pvne2xAxBxfmeRp6LSu78OvgG+swnp/6sDJ5JCiBwxQdkKh5rkl9/t2o6GHtDzQrYLRxdgUWOr888OcTsnx74DBC66gxF5ZTCrKAqZpRbfvWQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g87bk6tK; arc=none smtp.client-ip=209.85.221.47
+	 In-Reply-To:To:Cc; b=qvSjizowedREYrIm7yl6ABY8bUEV+/Dy1eWZ4DbYhjCJ6fWu96DrtDMcDyh6REJKGpYDSvE4gH0N5cDmUSr2ZXEo2xjn4qJPAM88X4yKTNpI4jbXiVDIDFb0TDRPdWirxu36iPepf7/f8p7FazatDJZFc61FFn40PHBlxIZ3ZN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EJmsSE21; arc=none smtp.client-ip=209.85.128.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g87bk6tK"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48b0d19cf7eso1514093f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 09:59:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EJmsSE21"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a17baef589so15314545e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 09:59:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791392370; x=1791997170; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791392371; x=1791997171; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sf+7K7Vn47mwcSJHOid1iW6b79xG37+P7VB8Mpvpf6Y=;
-        b=g87bk6tK5lN5BD+0kthPH8ZRkbvzstCPF6tRkhfQbGbXF6GLybosisXk0bTTILszkD
-         yrd/HpnxQPT0ZLK/23whZ+O9CuU1s8SctHgjBctG/mGvkVaouKtjoXXTsiFUY/7+ZMUA
-         KuPexUxThJPBjd2C59nhzCBNMWuupF5zbKhXPKLR4l8fVJMCteZ5Iap+YvmFBlF2deAS
-         lE9wL8myEo1nd0MLFoNzWTUlF90bs1mU537iuD7t0SvqWCkt4Sg4HTu82J6O/3mPvi8L
-         2eFSMIhqXjg2MQffcLFzvPcwklx2+8QKt7Nh8VyLz/zFcUJ4CHahwHlYYuXe+odart3G
-         e6xw==
+        bh=9VgGYjJHqBbE7sDJrXSlB56VBshAv0VupAJsWriXDtU=;
+        b=EJmsSE211+Inx+TiNFYe3evuU8y1sT655n1+s1PDUPjiDruabGsrLdS7f0pNvl+RBa
+         tqy+nh3o0XoD3WjEMsAM19XQMlm7VLqq7swruAJD09gpt8nOK3AuVWz/OJgpyz8ojVA4
+         cQcyJr4HuF7a4ffF+ci/yLPGX4L0wYiLnmD9hLFYvUGeTHS2bg5V8EhxGL4t7oB/CNdg
+         WQP230JKqjlEEt1bB6b/sZVS9XJWcFEEURDEffkniMAlIe2TjYQSUzp3rvi0EuTSYbvy
+         AK40Z9o+tOB7bUKQ1TPOs211Q0voxzxkWK/k/Swd7Sp2pWlkC2rMK7N0zeMeBUllC1Ch
+         qdUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791392370; x=1791997170;
+        d=1e100.net; s=20260707; t=1791392371; x=1791997171;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=sf+7K7Vn47mwcSJHOid1iW6b79xG37+P7VB8Mpvpf6Y=;
-        b=DkI27ALKoBQXGU2eYlps/fKADxK4YsSbWGTPc44nyhS9Fqr94kKbHijXCuWk4qEFKj
-         lTqnyMdI8tW+Pi7fWavnmo5Cy0R3ibC8Ft+slSmQN/kwBuV+Mry1wmQu7D/xPgl5JUvp
-         Q6LthN63QMEcnS0YTaDRMwGEsI8xhYJ1vtWREHWj4oyAIfQyoUCRbYMFdjJ29b+d+Bxp
-         cuX0dq5gzOotDGlmTG/bv5Ry6L8Cy/k+4p0Qe0MfEQjYnB/U+bOvRFXqwpu9gUKZblfU
-         7tM2VygHhoCCR5hM2cjIzjbv3Z82ZCP9P1m9PdgZ/Ch88PE4EznWvYKpzthmo6iheXp/
-         S5hg==
-X-Forwarded-Encrypted: i=1; AKwUvBwt7IlNo2WOyK0awY+nSZnjMIiKgC+yBQqAuHL0Lw2qDUJD6QmCUl59PmyZ44ZsCOMoWExWBbX5zXlEKgQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mw2Sm162DQm8zieU1ylgtc5rKul6xS/SjQpbto4VPF+9s8DN87
-	kYZWjKRlodBMRUTTwYRYmg+g5KGDNjcxMcibQOKFjdwo2io5wdobIsrG
-X-Gm-Gg: AYBFou0pjSAo730OOV8Npjn8UQWqtleC1En/n6WzqtWoaWaI/NHSKYUj8TCzdW69Nto
-	7XgsnLIDnRM4vLAplEXXplFBYmK7iGk/AcqQw3meji/DQcUo+QDqPGzVGOZIaCyUpGrOqEozt/v
-	PLN6ZZ7vsfnrK6zENzoJZmOjVwaHXRWY8Ngmkel2GUIoaY00RLNCflE53zvX10kfhpoDAjW6ObO
-	4RrvFbDNBx3KIxgAI5R4tqVSkwNAiWjiuNDq5YqOkL5IbGDJWjvAHxPBgv6kwdGKc0VBnkiD/zP
-	GvoKSxR6NuZpdjI6Q878SeFNhAhh/IidWQ2aZwDN3jTr5cgH2mviMzmnS4vf/MCEQj5MwfaEgi4
-	eGWV4banz+wReXSufDkxr4Q93LkiaC7w7bM0ESpDZU+2WgCOW97sbUSVPGcRjsaKT7Two32ojHZ
-	p6QLsapMPq2NBKnMOnc5Wspgv3Hh2JpZIn0sar483bSjhqAVJfRUWW/LjiBcbd6fE5bx07LzAlE
-	AdCw4yWUaSz2/LxTC1tUQ0ai9uHjwUhDJxaZw==
-X-Received: by 2002:a05:600c:3e0a:b0:4a0:20b4:ba93 with SMTP id 5b1f17b1804b1-4a180455e96mr50949265e9.16.1791392369621;
-        Wed, 07 Oct 2026 09:59:29 -0700 (PDT)
+        bh=9VgGYjJHqBbE7sDJrXSlB56VBshAv0VupAJsWriXDtU=;
+        b=A6CGXIkWZQ7psCXbAczlLgLlotnkv0aqtpbectEwAJV/+Mp/4tldW0O+8VFvpPgET7
+         p26yP3aAjP33LCK7oF3nvYs6opH+VXgF/nwCBRKNpY5Z1QD1Vx0XzIn6Rt7eXcwIRqgl
+         iHNKg4WVyCGgG7gC/fXEJeKIREsHgAj4bMq3pGmu+YIxHnPN1RTlgWfth+gWB7WsSrc6
+         iEz3KdUn8nXxoRV/XrSqmoX1g0Rc7wi9SccORVDrWDexvpBAqc5xoN1xzcNJ+AajSFzg
+         plIAJhSApFTOwPWyte/A66hOy6FcUv57R9+ssIRLM+FobOgTaH18Vn4hHwlUhMF/Fgtp
+         vZgQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxZtwBh3W3yxcH/JNEPMnMclCmk774rnvprNlgzEjKEYphDoHpoA2OYakVVmVMEuoCmGSblqYFY7VIpYq8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lY11C3zVFxWSDvn4EdVog+JFiRL6rQ/Uk01ggjTD3DQ+N8ds0m
+	YBwRWYb8FlKS+5C9VcyNTT+B9C3WBGHxbVf1N2B2pTpb6iJ0oLbc/YC8
+X-Gm-Gg: AYBFou2OeqEnGYEYDPCmeseffe/cgKPih7sQl1IydxbkwdVmFp8EFo2NOEwtLNL4Lre
+	wEiB7D5uG3FYLWpVHv0bRtczMRuKsEvSCN5pGKKgrgHmnDIokLEBZZf9O71vi3iPOWCJuF6KI90
+	7BluClrG6w5kDE+NJOXElooaeFBDymGKl7k6Bnq5syArqw9EBATg8O9yR4FwZk4q3pKpkhEDFBg
+	VghCNN/DYFltV6cihhyo03FAyTV/xd7/uABK0WJJ7cdj1q4sdV176aHz3V/b0tfscKhxot+ze9R
+	8zToJ79ReRyLu+gSxlLy+bFdzsy7eVEXQHTN1h1DdFoTsm/6a9C5dmb3DOpChk6W2V8+0OM7yl5
+	Kts5HFVMNFarA4ocGfdAjFYpsFnrT05aMq8JodUSOpDe4svPhF020onm19Rq4VXQ6Dg8uMHiA2A
+	VMGjS3W4x8ginObappXJAV0OekfhojRyAuzqCSaYUHHTAnV5t6Q/5X+FvHHcBk2b2tl61MWEtnA
+	qCejAmv9cvylL9FeQOAYwaWBEY=
+X-Received: by 2002:a05:600c:1551:b0:49d:15b9:2a2a with SMTP id 5b1f17b1804b1-4a18043debcmr44973795e9.10.1791392370783;
+        Wed, 07 Oct 2026 09:59:30 -0700 (PDT)
 Received: from [192.168.0.253] (5403F394.catv.pool.telekom.hu. [84.3.243.148])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a1843d198csm4682525e9.7.2026.10.07.09.59.28
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a1843d198csm4682525e9.7.2026.10.07.09.59.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 09:59:29 -0700 (PDT)
+        Wed, 07 Oct 2026 09:59:30 -0700 (PDT)
 From: Gabor Juhos <j4g8y7@gmail.com>
-Date: Wed, 07 Oct 2026 18:59:21 +0200
-Subject: [PATCH 2/3] arm64: dts: qcom: ipq5018-tplink-archer-ax55-v1: add
- 'qcom,ipq0518' compatible
+Date: Wed, 07 Oct 2026 18:59:22 +0200
+Subject: [PATCH 3/3] arm64: dts: qcom: ipq5018-tplink-archer-ax55-v1: use
+ 'ipq0518' prefix for dts
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261007-tplink-ax55-v1-ipq0518-v1-2-0ef058756596@gmail.com>
+Message-Id: <20261007-tplink-ax55-v1-ipq0518-v1-3-0ef058756596@gmail.com>
 References: <20261007-tplink-ax55-v1-ipq0518-v1-0-0ef058756596@gmail.com>
 In-Reply-To: <20261007-tplink-ax55-v1-ipq0518-v1-0-0ef058756596@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -83,30 +83,33 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, Gabor Juhos <j4g8y7@gmail.com>
 X-Mailer: b4 0.14.3
 
-The TP-Link Archer AX55 v1 board is based on the IPQ0518 SoC, so add a
-new 'qcom,ipq0518' compatible string to the board dts file.
-
-Since the SoC is a trimmed down version of IPQ5018, keep the 'qcom,ipq5018'
-compatible string as a fallback.
+The TP-Link Archer AX55 v1 board is based on the IPQ0518 SoC.
+Change the prefix of the board dts to reflect that.
 
 Signed-off-by: Gabor Juhos <j4g8y7@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/ipq5018-tplink-archer-ax55-v1.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm64/boot/dts/qcom/Makefile                                       | 2 +-
+ ...5018-tplink-archer-ax55-v1.dts => ipq0518-tplink-archer-ax55-v1.dts} | 0
+ 2 files changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/ipq5018-tplink-archer-ax55-v1.dts b/arch/arm64/boot/dts/qcom/ipq5018-tplink-archer-ax55-v1.dts
-index 7a25af57749c..49c4eba57855 100644
---- a/arch/arm64/boot/dts/qcom/ipq5018-tplink-archer-ax55-v1.dts
-+++ b/arch/arm64/boot/dts/qcom/ipq5018-tplink-archer-ax55-v1.dts
-@@ -10,7 +10,7 @@
- 
- / {
- 	model = "TP-Link Archer AX55 v1";
--	compatible = "tplink,archer-ax55-v1", "qcom,ipq5018";
-+	compatible = "tplink,archer-ax55-v1", "qcom,ipq0518", "qcom,ipq5018";
- 
- 	aliases {
- 		serial0 = &blsp1_uart1;
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 88230c4e00ea..76f414ff98eb 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -30,8 +30,8 @@ hamoa-iot-evk-el2-dtbs	:= hamoa-iot-evk.dtb x1-el2.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= hamoa-iot-evk-el2.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= hamoa-lenovo-ideacentre-mini-01q8x10.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= hawi-mtp.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= ipq0518-tplink-archer-ax55-v1.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= ipq5018-rdp432-c2.dtb
+-dtb-$(CONFIG_ARCH_QCOM)	+= ipq5018-tplink-archer-ax55-v1.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= ipq5210-rdp504.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= ipq5332-rdp441.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= ipq5332-rdp442.dtb
+diff --git a/arch/arm64/boot/dts/qcom/ipq5018-tplink-archer-ax55-v1.dts b/arch/arm64/boot/dts/qcom/ipq0518-tplink-archer-ax55-v1.dts
+similarity index 100%
+rename from arch/arm64/boot/dts/qcom/ipq5018-tplink-archer-ax55-v1.dts
+rename to arch/arm64/boot/dts/qcom/ipq0518-tplink-archer-ax55-v1.dts
 
 -- 
 2.55.0
