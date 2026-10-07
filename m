@@ -1,159 +1,163 @@
-Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com [209.85.222.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C40B74CDDDD
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 17:01:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791392469; cv=pass; b=bXg5MKBIxDP5yzLaB/eEpd8ZRExJxMwATkBAB2Gb9iHcg74Kgt9tGRY7VOMEoxL0SGcXMOr3k87w0qnFDkUw5Vc+jFgTNHdcISlVQtP5Q1PRxDEpV+9+272TyPvrOsO3shkWYmUXPI2c9tSiohDJJhF/vRRBRCnrfuKRGbVjX5s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791392469; c=relaxed/simple;
-	bh=lbi4xj2Emd1g7pOLi1U2ASUewhb5WLgJ4dWZmBXY8TU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JeaUVvT7sH4DbGdquL04JGNIL1yv6hKtw3x5D+IEzfMeqCCGPdmYGzxV/uUrKzNlHINdy0fbUl55lcxKRbRqEPHdVb/eUL07HHqM1OQTJ2hlnGYuLtpVMgcCgN1iWKdEf67MkwonIMFFXVwe6G96Bb92E60soW2yrfmjhPV3YqM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dzTcTWpY; arc=pass smtp.client-ip=209.85.222.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 095C34508E9;
+	Wed,  7 Oct 2026 17:06:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791392764; cv=none; b=omeFClcz549vsVeq6yWs6leEoiCCeW5mejKRMO+x2rs2lDTpOfHjxGWWBHog8r7KyyyXk1QQSSRD6CEL5ECX7orin90EBTQM3hRHCqKLy4Fr8upzNc3SC/rfMQHG6VrLlVZg294XkMxKBvXCG2Vxh5jcZ4g7wzyaz6tLgl9Qu5U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791392764; c=relaxed/simple;
+	bh=4Di9jjkPZRbMXw5Y+FPdrZy1q8BfQ5HHO2Ka6Cnkppc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=b/XIVeUiYPI0wAYWuSwL2dvqmqOuo88b50Zk/Bn4RcAdZBMIAK5gSplueLCQun+x/q3oQufmdi6108Jgdsu1jUkBXMmrUQ6RBpnPPuVrxTHtJnUSfv4z7+zYpsaoR6lRQEffTmITZOF/mDYqSNpUEfwwGKoSkYpehrsENKPtIRs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MKJHJ7lP; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dzTcTWpY"
-Received: by mail-ua1-f52.google.com with SMTP id a1e0cc1a2514c-98c7353395fso673797241.3
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 10:01:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791392466; cv=none;
-        d=google.com; s=arc-20260327;
-        b=A4T4ApqgVPydfWBj254zwLLtWzvNofnSR4mBGFUYQkhJiUnWUUvYTGUJbA0dNInBNA
-         skp88N0fNF4VBFdrQEedW/1Us82K1qp3yxFMXf5LE3yRGSPh+keW5UJs+Ly1J7y4EDAX
-         kSVpHDXnec2KwTrpJIXiS+kLG1NpRn7i7XRilj77AjNmOb2fWq7cky4993RYt8i8fuEU
-         zo9keoAcXzGIWxKaQIj8qexP2aNNJW78ud8G6fG6NC67RxjxMCjPgNRb8eN800iGHxRK
-         HQInSqYN+TzRNggE3Rpkz5KKaMly0Giw6N8CUqpk/FDJDtCtVWplgg+tQBfJXEHpMOHZ
-         Z7Tg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=bZbURIN7PUtX8kqOYTTPfURjX3hnAcmDB9GNBxJTsiE=;
-        fh=XGN3bFk0Tsiyd1zMQN+B4U+7AhkjQmp8Kntrl9P0cmE=;
-        b=ZC8BJnlMmQNciR02/7mHENeoDtGrMRxSHmmH7YVyjUP1XyjodrcLv97Ovx1mYY50x/
-         fAE/mqHCTqzVPvcT/wHuHolqljHz/WutyQHPjbnAmTxKJk+H7t3Y3JJXWddKxTuMjZ0j
-         u1hegTaFuc6tnd7IFBfteE19QbW+C8hNX125kx32Gd92IFAVBqBib1J4u3tGsBxI7HM9
-         n6aHlUEhISkeuIiJUbV9PIxiZCg7nuBjgDzJQZG9rwfMbTJhQoqwjI3jaYqHF6mX6260
-         Bvflh0lifxZIcwaIqjRqiXpnhdGtAZVngL4MUZ8Ykgl2JhIQcUGDUObwXng8A+bA2WII
-         2ThQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791392466; x=1791997266; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bZbURIN7PUtX8kqOYTTPfURjX3hnAcmDB9GNBxJTsiE=;
-        b=dzTcTWpYCFXATiNRgrUVH5sjbY1942rgLe6Nw3yP8zFIfZMVD2zyPB0mLsO388v7zl
-         CQTx+RI16V0OacCKhul28xZdppvMCnLOgK4y+q4xLGybDrgd7VEAvEEda42Vj8C63FRq
-         clJgrdtxnXdCxK0j2yfNP5k7NKEfqle0+318NxTiZGZLBSxMzWTzlHqmBBx2fPnEvAz5
-         I1p3EmpxHLXyd0AfmyYt1TqIXbdN2Uxrwn0jqls0Ii0Wh9i+IxCnBB6BWqD4wT3WmGP8
-         bcr2LXjx7mF93TUP6XiICI32+U5/eKEwcJj+F1vb2DLiAMi4azaHueGXqUZWn8KfWCcJ
-         t8cg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791392466; x=1791997266;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bZbURIN7PUtX8kqOYTTPfURjX3hnAcmDB9GNBxJTsiE=;
-        b=vJhrnwoN5mm4j0QLEXQrmBFwAIb07tREu4/lQrajyEWuryVBFjYl/JzRqnWN/D5VAD
-         R3o/VF5h7W0N/4/icJfyda1zHn6mjuOvP76FOWFaCu1SicClA122LgzzgqhHJoqec4hN
-         PIPVzUA/zieWIKrFGB7NpL3uJp0X1Kh9uzcpKmu7z8BDBuXJT5DAYkVVyReGnZIvjg5F
-         4c4dzpYJQqeUy3+lmISMQJFe+VYeerlWHzFu5TmV/8SS0DVwLDXcwYNn+n9Kle7xJDfK
-         OPhglbFOd4Onna1bbD6Yd0l/0dXNNbr21y+mhBCyZpKhwhEXLP1Mj9EQHZsYhUfcS0Km
-         d2kg==
-X-Forwarded-Encrypted: i=1; AKwUvBx5l6o299pL4j9dlq0AeAA/Sxt5xNinuqj/7LW2vi5wS2JWdTNK8a8TDO/NQZOM9nL2ZvM8kZ7sWQGtDec=@vger.kernel.org
-X-Gm-Message-State: AFq9FYINCc++5ONNYomd/PV0tvIOJULwsdgZjpLfS1nI/vX08p9f5J8T
-	Ij9OclfF1C2BCi7X1xlmRhnmHFUVR2ETlMgl8wtRg3smuGXhnBzWFzl3fULfk2MKJWbkuUuguwT
-	k0wShpxBwFry0fidEfC2AiFJc+Ow9DcM=
-X-Gm-Gg: AYBFou39w9se6uA1BCA7gb3a24g/PZZlD+e6NUQcJLuWqj3+Est6qTFBPVExCef6vGd
-	ROFw+3b6dHcEEmim8HtHKP4GpKe29rTutmY9GBZu8JnYtV+MbQ21DD/rHY3P5lTmRF6ukENPVA/
-	nvJn34WfaR1wonrOW4hflwOLX6bFfUO45gdkUiXk/4XQ3ltRd9+gzlHKQPDZgJZtJ7S8qklaYAr
-	eiGaXVavHNiz5HwthG4kJYqW3YUWNB+ACdS3mRhpEj/ZPU2k9c/wck14JPczpAn0ID7/LUNh1/o
-	gRDVs5pXkEe4q1HBXp66FTvW4al/fI9HOUKwoMD6KTlZWD24BlA2TbWfgVQ6m0gnqmqNN9jNRbe
-	GfRTUiIc1L+xGuFHrDi7Yx5fQK6p/R8+GzpKtZ9r/lDB8P7ViMXgpY+0mUX2iltz32kRtRU5FaY
-	xi/PGLnNS19Oz4UsX6UhRgiK6fVQaIO0Xhqy4GM/x0qGT7
-X-Received: by 2002:a05:6102:441a:b0:7c3:a175:b3a4 with SMTP id
- ada2fe7eead31-7ca38e242e0mr699581137.36.1791392466173; Wed, 07 Oct 2026
- 10:01:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MKJHJ7lP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791392763; x=1822928763;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=4Di9jjkPZRbMXw5Y+FPdrZy1q8BfQ5HHO2Ka6Cnkppc=;
+  b=MKJHJ7lPrZxmxyEIi2X8m8/PHZozYJyD07+WaImHwiFQ5uKxkLDhAnmt
+   t1jwMATQ0a1bkvPoyDemC366MAhnBUOe1fA4FjFoeZ/DQlHw5HhkSn9Dv
+   MDiwr+z+rjFEfyn3ucYDRBQ5G1nngsobs11t7j22Xf0LHh/r1VTgg/GWB
+   evJWuQK6wWRFx/tTpGvywKsCgnXJURzVAB6U9RRmYaKuHoCDE46pF0JVH
+   vW2Z7Bjv8ETP+yJ+acUL9N7h+F3nQxCIHBWDRcRwBUOg4KtqQpE4JJ1/A
+   C9w1/ZEckGediF38gj1c4RK2hMhsEnGgnqvkde4/03OrKpj4zBKoHWOmv
+   A==;
+X-CSE-ConnectionGUID: wnkFUWfBRACojXU4SQ9ICg==
+X-CSE-MsgGUID: fJe0qbF7Qxu07+T7kgUYgw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="56743"
+X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
+   d="scan'208";a="56743"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 10:06:02 -0700
+X-CSE-ConnectionGUID: 5jV75Z5vRG2tKVZEXSO0pw==
+X-CSE-MsgGUID: JgUFJd3SRo21SJwbUmfugQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
+   d="scan'208";a="96303"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa009.fm.intel.com with ESMTP; 07 Oct 2026 10:06:00 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xEV5a-000000003Js-0TZ1;
+	Wed, 07 Oct 2026 17:05:58 +0000
+Date: Thu, 8 Oct 2026 01:05:27 +0800
+From: kernel test robot <lkp@intel.com>
+To: Paul Louvel <paul.louvel@bootlin.com>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>
+Cc: oe-kbuild-all@lists.linux.dev, linux-watchdog@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Paul Louvel <paul.louvel@bootlin.com>
+Subject: Re: [PATCH v3 2/6] watchdog: w83627hf_wdt: Convert to platform
+ driver model
+Message-ID: <202610080027.3OsJDwfo-lkp@intel.com>
+References: <20261004-w83627hf_wdt-improvements-v3-2-8e27b518595e@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261006-stmmac-irq-unwind-v2-1-194591c87460@gmail.com>
- <179127056620.2231598.8882282421523696709@kernel.org> <CADvTj4orth=RYtb78ND1rdiYh2yb6d+TjZt5ohK_-+1mnVpqfQ@mail.gmail.com>
- <20261006155214.63c5cb5b@kernel.org> <CADvTj4obBNgR4w3BW4-gCU-=LUxesQdTRN=EdWTcx7VznFi4kA@mail.gmail.com>
- <e7fea95d-1ce2-4c5a-891d-5e5899931329@lunn.ch> <CADvTj4pm8fbgGDiyXVHubnM93qOey7o18O+MDU68MSisXVvHtw@mail.gmail.com>
- <f304ee6d-bbc2-4f76-964a-998c3febb8dc@lunn.ch>
-In-Reply-To: <f304ee6d-bbc2-4f76-964a-998c3febb8dc@lunn.ch>
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Wed, 7 Oct 2026 11:00:50 -0600
-X-Gm-Features: AclHuK_jUgMdUcYYqpUGuap2SPkyQESAVUFApu-SDG6nwRRhv-n0wwBC2Dl8Id8
-Message-ID: <CADvTj4pniuLUzsHP_kv03rFUkUD87PD9yVZ=HnW0CsZX78OxLQ@mail.gmail.com>
-Subject: Re: [PATCH net v2] net: stmmac: unwind the WoL IRQ after a safety IRQ
- request failure
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Jakub Kicinski <kuba@kernel.org>, netdev-bot+sinfo@kernel.org, netdev@vger.kernel.org, 
-	Paolo Abeni <pabeni@redhat.com>, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@kernel.org>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Serge Semin <fancer.lancer@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
-	Nicolai Buchwitz <nb@tipi-net.de>, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261004-w83627hf_wdt-improvements-v3-2-8e27b518595e@bootlin.com>
 
-On Wed, Oct 7, 2026 at 6:46=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote:
->
-> On Tue, Oct 06, 2026 at 07:27:05PM -0600, James Hilliard wrote:
-> > On Tue, Oct 6, 2026 at 6:57=E2=80=AFPM Andrew Lunn <andrew@lunn.ch> wro=
-te:
-> > >
-> > > On Tue, Oct 06, 2026 at 05:17:20PM -0600, James Hilliard wrote:
-> > > > On Tue, Oct 6, 2026 at 4:52=E2=80=AFPM Jakub Kicinski <kuba@kernel.=
-org> wrote:
-> > > > >
-> > > > > On Tue, 6 Oct 2026 01:14:52 -0600 James Hilliard wrote:
-> > > > > > > Please do not repost the series just to address the above. In=
-stead,
-> > > > > > > reply to this email with the missing information, so that rev=
-iewers
-> > > > > > > can take it into account. If the series needs another revisio=
-n for
-> > > > > > > other reasons, please include the information in the commit m=
-essages
-> > > > > > > then.
-> > > > >
-> > > > > Please make sure you read this paragraph, to the end.
-> > > >
-> > > > How much detail should I be including?
-> > >
-> > > We want to decide should the patch go to net, because it is a real
-> > > problem which bothers somebody. Or is it a theoretical problem which
-> > > will never happen, so we might want net-next, or maybe /dev/null.
-> >
-> > I mean, it's in an error handling pathway that could be hit if there's
-> > an -ENOMEM error on an IRQ-action allocation.
->
-> ENOMEM does not happen for small allocations.
->
-> https://lwn.net/Articles/627419/
->
-> So at first glance, this seems totally theoretical, it will never
-> happen. So net-next, no need for a Fixes tag, etc.
+Hi Paul,
 
-It looks like there might be a few other ways to hit this cleanup pathway,
-not sure how plausible this is in practice however.
+kernel test robot noticed the following build warnings:
 
-The unwind also handles other request_irq() failures. With forced IRQ
-threading, including PREEMPT_RT, creating the safety IRQ thread can
-return -EINTR if the task opening the interface receives a fatal signal
-while waiting in kthread_create(). That reaches the same incorrect
-cleanup without an allocation failure.
+[auto build test WARNING on 028ef9c96e96197026887c0f092424679298aae8]
 
->
->         Andrew
+url:    https://github.com/intel-lab-lkp/linux/commits/Paul-Louvel/watchdog-w83627hf_wdt-Replace-magic-numbers-with-descriptive-macros/20261004-141249
+base:   028ef9c96e96197026887c0f092424679298aae8
+patch link:    https://lore.kernel.org/r/20261004-w83627hf_wdt-improvements-v3-2-8e27b518595e%40bootlin.com
+patch subject: [PATCH v3 2/6] watchdog: w83627hf_wdt: Convert to platform driver model
+config: parisc-allyesconfig (https://download.01.org/0day-ci/archive/20261008/202610080027.3OsJDwfo-lkp@intel.com/config)
+compiler: hppa-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261008/202610080027.3OsJDwfo-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610080027.3OsJDwfo-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+   drivers/watchdog/w83627hf_wdt.c: In function 'wdt_probe':
+>> drivers/watchdog/w83627hf_wdt.c:483:30: warning: 'snprintf' output may be truncated before the last format character [-Wformat-truncation=]
+     483 |                  "%s Watchdog", id->name);
+         |                              ^
+   drivers/watchdog/w83627hf_wdt.c:482:9: note: 'snprintf' output between 10 and 33 bytes into a destination of size 32
+     482 |         snprintf(data->info.identity, sizeof(data->info.identity),
+         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     483 |                  "%s Watchdog", id->name);
+         |                  ~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+vim +/snprintf +483 drivers/watchdog/w83627hf_wdt.c
+
+   460	
+   461	static int wdt_probe(struct platform_device *pdev)
+   462	{
+   463		const struct platform_device_id *id = platform_get_device_id(pdev);
+   464		struct device *dev = &pdev->dev;
+   465		struct watchdog_device *wdd;
+   466		struct w83627hf_data *data;
+   467		enum chips chip;
+   468		int ret;
+   469	
+   470		dev_info(dev, "WDT driver initialising\n");
+   471	
+   472		if (!id)
+   473			return dev_err_probe(dev, -EINVAL, "failed to get chip id\n");
+   474	
+   475		chip = id->driver_data;
+   476	
+   477		data = devm_kzalloc(&pdev->dev, sizeof(*data), GFP_KERNEL);
+   478		if (!data)
+   479			return -ENOMEM;
+   480	
+   481		data->info.options = WDIOF_SETTIMEOUT | WDIOF_KEEPALIVEPING | WDIOF_MAGICCLOSE;
+   482		snprintf(data->info.identity, sizeof(data->info.identity),
+ > 483			 "%s Watchdog", id->name);
+   484	
+   485		wdd = &data->wdd;
+   486	
+   487		wdd->parent = dev;
+   488		wdd->info = &data->info;
+   489		wdd->ops = &wdt_ops;
+   490		wdd->timeout = WATCHDOG_TIMEOUT;
+   491		wdd->min_timeout = 1;
+   492		wdd->max_timeout = 255;
+   493	
+   494		watchdog_set_drvdata(wdd, data);
+   495		watchdog_init_timeout(wdd, timeout, NULL);
+   496		watchdog_set_nowayout(wdd, nowayout);
+   497		watchdog_stop_on_reboot(wdd);
+   498	
+   499		ret = w83627hf_init(wdd, chip);
+   500		if (ret)
+   501			return dev_err_probe(dev, ret, "failed to initialize watchdog\n");
+   502	
+   503		ret = devm_watchdog_register_device(dev, wdd);
+   504		if (ret)
+   505			return ret;
+   506	
+   507		dev_info(dev, "initialized. timeout=%d sec (nowayout=%d)\n",
+   508			 wdd->timeout, nowayout);
+   509	
+   510		return ret;
+   511	}
+   512	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
