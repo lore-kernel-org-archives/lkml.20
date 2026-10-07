@@ -1,317 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB9433AFAE4
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:15:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F16083B05AC
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:16:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791371776; cv=none; b=azhfsqR68ZbyKegS7XCtipfvBseZBI57+NJmk1bSt1klWWKjPEDD7L9iS7L0PTeAVho2cLVTNdl5mlqTpPiTqM8dsyCrbE5iQMizKJcGUhF8IvspafAYpRPFCw9D605arrJ7nK6k1ZJOt8C2Xkd105pNGRFQuYlXKgZOt7by28c=
+	t=1791371819; cv=none; b=r7A/Nb1lI6IFtbPjTfDCzW1Vm5eIz9aEs/o4YThprl4iyvA/HqcVMS7LfLd0Kh6Rp/Dwk0JAjI8yobA3Utwax9odJjQmZ1bx8U2a9UHsC7ny8wQdAG89geODS201bQqRec+PvTGbIEg28kqP1CLx/K6w+7n+dOLx/kpv3d/Hb5w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791371776; c=relaxed/simple;
-	bh=ycp61Y4oBASqS0tqSZpl1K1bE71eE5BuLrGQ1oZgU6A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CSaw4hZtFuvO0Wrlu8uOyGguunJuOaKjlysZIFTKAdKufCiPp119Yzj2V2n7OiTOnXQQLzt/HFIC+6JtRrdl7vwbVWcw4v1oesjghrvk6Sg7+XcpqDlGllzbMMmmyCz4EQFPEsRWAvtTfP1V6ebAALlfG6lpINWLcpZH+pQywtU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DbsUGxkF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791371819; c=relaxed/simple;
+	bh=P3KyXyTNzLWqPtiDsAWlEoyQ2QATyxAt/NpP8cQGtao=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mOLhMPKpX4RJ5NmoDnnotsn0EZC3lG3HuEoT6KJbLKMtP6EOY0dFGGoigiob2ixCCPolIsp1lDC1/19x1N73h0ijjyoQWjOKDhjbTNcRFU/rlUa7qZn0qS2C3Z+4SJP8GMiZ8tyEz+ufxA05zp+l1YpEK0kdUawslBCBMhLd0so=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Iln7cd7+; arc=none smtp.client-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DbsUGxkF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 767471F0089E
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:15:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791371754;
-	bh=JgyuoOemLETsyqfE1CGSvFFY5KZN2ob6m4fytC2csN0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=DbsUGxkFXKcSFPdvldgaFm0mP0Hr6KvwFEdc5Ucmdcm0RyOx0IDWrZUCUD0IX6nGG
-	 wsqb4qJz9WzcpHeONsMeuvzYp72JzGEl5s8CK0XlCa9bESe+ifnDz8R/UhBNxExhyD
-	 Z17dDfgeRI1vyqr+iZk4MbBP2wuQaARqWBi0kneZQqiWhUzIOa8ahITjk8sYXscjPX
-	 t4K8P9JMfHZe+bckRqy57zLs7d0dV4Ljk8XCl6glQyyljbjf1o+FQtUESGml3YUnzk
-	 JQEB6rpVN9lpDjD9NfI86LsSGhBNAhDoFdlVzY0lA57KgP8Cs+s+ZIYAZb/Nku4unI
-	 KSIVBLfXEgRgQ==
-Received: by mail-oi1-f174.google.com with SMTP id 5614622812f47-4e4a4d77e5bso1124594b6e.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 04:15:54 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBytbmjfn+w8Cfwt7nrZiouhp3QVNgiGWJX9s5yG+rNmjB0XlVJgb8SRmd8WPAuNV+bruRH6IHkOVsxPuxU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lqCz1/vLTM7X+px/exTcz1DScEUBo/SxoCTUpckFpb9ZeQLl5s
-	D+yIQbjVljBHQFPlO8G0h6DwwdrrKllvYNytU91KKpYMYt7KBRAshSzQ50Flv//v1MdwSa393BV
-	CLXydcjw84p3IV55SsSjjHp62znF8Jt8=
-X-Received: by 2002:a05:6808:3021:b0:4b8:4703:db90 with SMTP id
- 5614622812f47-4faae2ce6bbmr4903831b6e.25.1791371753764; Wed, 07 Oct 2026
- 04:15:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Iln7cd7+"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3a80d1c98f5so2175805a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 04:16:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791371781; x=1791976581; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=epeEoqFJxJZ9rzrd7Yj+uBKsPgIccWzbk6+MVwkssHo=;
+        b=Iln7cd7+o5eBViKFtOjZOE5e/zOFAMQiK4voG5O5+FoSD3b4D5hOmAL6GR4rqzVTLT
+         ZBuIs80RiKLH1XcvDWvglvZeXCiCNxAZzIbstGQ/NofVbeM1Lbx6pEHJm1rKUgV37iDT
+         /hI66+SpyWy33NRwIghFkrvyZzPC2A/EHLywWW9GJZHvFSDNjlbHoNehfd+5N2R5KNt1
+         LIvfq+UNzRLWm143KCIORZGilblgovvGWOJt7d+xbIL0o4KeHtI3vdMX86TnVdM1zS3E
+         O031w2y/NsC51Q20kvbC3NOpoJKQsiSDmtov0jNWzfoC/WUQmjfHZX1V4AZy4Zbjq7rV
+         lMiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791371781; x=1791976581;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=epeEoqFJxJZ9rzrd7Yj+uBKsPgIccWzbk6+MVwkssHo=;
+        b=V9K8lv+/sJ1ZOvzVX4JifoVu3WJRq0y8D9mWJg+dmsdisL31qr4MYSjyBQggAd9HEq
+         Tgi7Rbq3WQ4bhh1fZq9dP059RnP2fH1spW7QhNdofObe1jCNce/8qgjigifnnhLcdV7X
+         71id5OQW7SW/G4QXakN2WVnfhzkcUc1CpCtqg1YCl8z7jmgyHZSIJ6U+IrkN6L17I+0s
+         1F4fVMdawfSLJhcgVE5kAInbmUylB5cSs6JjBAvUyKGruxyxUTCszFCscSsg+B0R6Q/J
+         fXbZ7Zy4Fm3f61P4SDgugfeDToYdxwvbwM9rNg+jLyFUIIS713pCdc0D+R4yGLIMLWA7
+         GK6g==
+X-Forwarded-Encrypted: i=1; AKwUvBzwa1Tmq0b1xLMOUkU8t0fE6RSo0pn4uLBdztnoBlWfuYh6rzmRwulfpEjP3xtiUgFx7676z2uPZC5N5Tc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIfvwl1QgX2b72vfbGSIytss/tKqwtQsZVy6B2unOWmqwPhQO2k
+	VrBDqvhUEoCn/Sjy/SG3VMPYHh0c7yn8N5p/yTVIsHYQS+4wvQTOALne
+X-Gm-Gg: AYBFou2E+3N3v4NQ+1kzOH0m8ku25tUS1AA9ekb1HN+Yt6JvJGvV7xGjKPdVMuf/npE
+	hi8x1XAE2ESLFFfI9peD7XtA0XQlG4NafgqSMcjFoyWEMvFKEq5te+rOCbMrs4KJt9RkGo/K2jg
+	fgjtbkP1IT2/ZCzkHxBgRTURCgz6sCnAyTLSf1i/ec1TGml7ef3rdl9/YNK0gQ07z1TFtbSkLXz
+	UJV6qqIEcdIBdYDTmrAN4XiociIeEqSQtfbLzbn76QCKkJyN/4xgBgkocU1tcLwDfS2qhoEBct1
+	EEfWklHwPBhO1Z0E9JW1Loi2nEGWw4HdC+rKKLVo+LTCQoUxyDDBJ4XaFQvX7Fxt4vzES3i4i2I
+	fTm2Gg3fkKVpPyArX4uPIuuwPtC5iNoDp7yIY7OeYefhXw0ISkgVgKagKvKOTf/PavuP6covY5w
+	HsXcCXv/oQ6WLq6oMeavkJhdA0/y2YrUWNjUtF+X9WSCKIKb7X9BRh5oyR1LcxhxnmTvC4uNe5L
+	g==
+X-Received: by 2002:a17:90b:4b8d:b0:3a5:25e:85fc with SMTP id 98e67ed59e1d1-3a8a1ce5d6cmr1698155a91.63.1791371781245;
+        Wed, 07 Oct 2026 04:16:21 -0700 (PDT)
+Received: from lima-kernel-dev.. ([161.142.150.60])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8a5e825b9sm1450044a91.3.2026.10.07.04.16.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 04:16:20 -0700 (PDT)
+From: Daniel Syauqi <syauqicode@gmail.com>
+To: John Stultz <jstultz@google.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Shuah Khan <shuah@kernel.org>
+Cc: Stephen Boyd <sboyd@kernel.org>,
+	Miroslav Lichvar <mlichvar@redhat.com>,
+	Anna-Maria Behnsen <anna-maria@linutronix.de>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH] selftests: timers: skip raw_skew when adjtimex fails
+Date: Wed,  7 Oct 2026 19:16:11 +0800
+Message-ID: <20261007111611.2086-1-syauqicode@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261005035410.18899-1-Chloe_Chen@asmedia.com.tw>
-In-Reply-To: <20261005035410.18899-1-Chloe_Chen@asmedia.com.tw>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 7 Oct 2026 13:15:36 +0200
-X-Gmail-Original-Message-ID: <CAD++jLm+wwftv7qqfL5Mo4jHTjbtpEhV9QzM=JfCz4Vc8idiOw@mail.gmail.com>
-X-Gm-Features: AclHuK9jcsaGrSYYB5Mw4Ll-uJTii0yThaHyuXj7xR1FwNRVdBoFcvipZdfSb9U
-Message-ID: <CAD++jLm+wwftv7qqfL5Mo4jHTjbtpEhV9QzM=JfCz4Vc8idiOw@mail.gmail.com>
-Subject: Re: [PATCH] gpio: amdptpci: add support for AMD PT PCI controller
-To: Szuying Chen <Chloe_Chen@asmedia.com.tw>
-Cc: brgl@kernel.org, linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	Yd_Tseng@asmedia.com.tw, Jesse1_Chang@asmedia.com.tw, 
-	Richard_Hsu@asmedia.com.tw
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Szuying,
+raw_skew reads frequency and offset data from adjtimex() without checking
+whether either query succeeded. If a sandbox blocks the syscall, the
+test can use uninitialized data and wait two minutes before producing a
+misleading result.
 
-thanks for your patch!
+Skip on either failure and report the syscall error. Preserve errno
+across the newline printed after the second query.
 
-On Mon, Oct 5, 2026 at 5:54=E2=80=AFAM Szuying Chen <Chloe_Chen@asmedia.com=
-.tw> wrote:
+Fixes: 51f91cbdf545 ("selftests/timers: Add clock skew estimation test from timetest suite")
+Assisted-by: LLM Codex
+Signed-off-by: Daniel Syauqi <syauqicode@gmail.com>
+---
+Tool assistance: OpenAI Codex helped identify the unchecked adjtimex()
+returns, draft the fix and changelog, and create failure-path tests.
+Prompt summary: Investigate the unchecked adjtimex() calls in raw_skew
+and prepare and test a narrow selftest fix. The affected content is
+raw_skew.c error handling and this changelog.
 
-> This commit implements the new gpio-amdptpci driver to support the
-> GPIO functionality on AMD PT PCI platforms.
->
-> Signed-off-by: Szuying Chen <Chloe_Chen@asmedia.com.tw>
-> Co-authored-by: YD Tseng <Yd_Tseng@asmedia.com.tw>
+Tests: Built raw_skew with make. Forced EPERM at each adjtimex() call
+separately with LD_PRELOAD; both runs skipped with exit status 4. A
+normal raw_skew run passed, and targeted timer selftests had no failures.
+The full kernel test suite was not run.
 
-(...)
-> +#define PT27_REG_DIR            0x0000
-> +#define PT27_REG_IN             0x0004
-> +#define PT27_REG_OUT            0x0008
-> +#define PT27_REG_INT_EN         0x000C
-> +#define PT27_REG_INT_LVL        0x0010
-> +#define PT27_REG_INT_MODE0      0x0014
-> +#define PT27_REG_INT_MODE1      0x0018
-> +#define PT27_REG_INT_STAT       0x001C
-> +#define PT27_REG_INT_MASK       0x0020
-> +#define PT27_REG_INT_CTL        0x0024
+ tools/testing/selftests/timers/raw_skew.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-Compare this to drivers/gpio/gpio-amdpt.c:
+diff --git a/tools/testing/selftests/timers/raw_skew.c b/tools/testing/selftests/timers/raw_skew.c
+index 0c87a8fb0..2ad5e2e35 100644
+--- a/tools/testing/selftests/timers/raw_skew.c
++++ b/tools/testing/selftests/timers/raw_skew.c
+@@ -19,7 +19,9 @@
+  *   GNU General Public License for more details.
+  */
+ 
++#include <errno.h>
+ #include <stdio.h>
++#include <string.h>
+ #include <unistd.h>
+ #include <stdlib.h>
+ #include <sys/time.h>
+@@ -101,7 +103,8 @@ int main(int argc, char **argv)
+ 	}
+ 
+ 	tx1.modes = 0;
+-	adjtimex(&tx1);
++	if (adjtimex(&tx1) < 0)
++		ksft_exit_skip("adjtimex failed: %s\n", strerror(errno));
+ 	get_monotonic_and_raw(&mon, &raw);
+ 	start = mon;
+ 	delta1 = diff_timespec(mon, raw);
+@@ -116,7 +119,12 @@ int main(int argc, char **argv)
+ 	get_monotonic_and_raw(&mon, &raw);
+ 	end = mon;
+ 	tx2.modes = 0;
+-	adjtimex(&tx2);
++	if (adjtimex(&tx2) < 0) {
++		int saved_errno = errno;
++
++		printf("\n");
++		ksft_exit_skip("adjtimex failed: %s\n", strerror(saved_errno));
++	}
+ 	delta2 = diff_timespec(mon, raw);
+ 
+ 	interval = diff_timespec(start, end);
 
-/* PCI-E MMIO register offsets */
-#define PT_DIRECTION_REG   0x00
-#define PT_INPUTDATA_REG   0x04
-#define PT_OUTPUTDATA_REG  0x08
-#define PT_CLOCKRATE_REG   0x0C
-#define PT_SYNC_REG        0x28
-
-So this hardware appears to be related?
-
-I can see that there is a lot of modifications to it though, and that it
-may warrant a new driver. But this needs to be motivated in the
-commit message.
-
-The fact that one is an ACPI-probed MMIO driver and the other is
-a PCI driver doesn't really matter for code sharing though, I need
-a better motivation if the drivers should not share code.
-
-> +static inline u32  pt27_rd32(struct pt27_gpio *c, u32 off)
-> +{
-> +       return ioread32(c->base + off);
-> +}
-> +
-> +static inline void pt27_wr32(struct pt27_gpio *c, u32 off, u32 v)
-> +{
-> +       iowrite32(v, c->base + off);
-> +}
-> +
-> +static inline u16  pt27_rd16(struct pt27_gpio *c, u32 off)
-> +{
-> +       return ioread16(c->base + off);
-> +}
-> +
-> +static inline void pt27_wr16(struct pt27_gpio *c, u32 off, u16 v)
-> +{
-> +       iowrite16(v, c->base + off);
-> +}
-> +
-> +static inline u8   pt27_rd8(struct pt27_gpio *c, u32 off)
-> +{
-> +       return ioread8(c->base + off);
-> +}
-> +
-> +static inline void pt27_wr8(struct pt27_gpio *c, u32 off, u8 v)
-> +{
-> +       iowrite8(v, c->base + off);
-> +}
-
-What is the point of all this indirection? Just use the ioread/write
-accessors directly in the code.
-
-> +static void pt27_runtime_put_autosuspend(struct pt27_gpio *chip)
-> +{
-> +       pm_runtime_mark_last_busy(chip->dev);
-> +       pm_runtime_put_autosuspend(chip->dev);
-> +
-> +}
-
-Runtime PM already has a helper function like this, use it.
-
-> +static void pt27_save_regs(struct pt27_gpio *chip)
-> +{
-> +       chip->saved.dir       =3D pt27_rd32(chip, PT27_REG_DIR);
-> +       chip->saved.out       =3D pt27_rd32(chip, PT27_REG_OUT);
-> +       chip->saved.int_en    =3D pt27_rd32(chip, PT27_REG_INT_EN);
-> +       chip->saved.int_lvl   =3D pt27_rd32(chip, PT27_REG_INT_LVL);
-> +       chip->saved.int_mode0 =3D pt27_rd32(chip, PT27_REG_INT_MODE0);
-> +       chip->saved.int_mode1 =3D pt27_rd16(chip, PT27_REG_INT_MODE1);
-> +       chip->saved.int_mask  =3D pt27_rd32(chip, PT27_REG_INT_MASK);
-> +       chip->saved.int_ctl   =3D pt27_rd8(chip, PT27_REG_INT_CTL);
-> +       chip->saved.vendor0   =3D pt27_rd32(chip, PT27_REG_VENDOR0);
-> +       chip->saved.vendor1   =3D pt27_rd32(chip, PT27_REG_VENDOR1);
-> +       chip->saved.wake_en   =3D pt27_rd16(chip, PT27_REG_WAKE_EN);
-> +       chip->saved.wake_lvl  =3D pt27_rd16(chip, PT27_REG_WAKE_LVL);
-> +       chip->saved.wake_mode =3D pt27_rd16(chip, PT27_REG_WAKE_MODE);
-> +       chip->saved_valid =3D true;
-> +
-> +}
-> +
-> +static void pt27_restore_regs(struct pt27_gpio *chip)
-> +{
-> +       pt27_wr32(chip, PT27_REG_INT_EN, 0);
-> +       pt27_wr32(chip, PT27_REG_INT_MASK, PT27_GPIO_MASK);
-> +
-> +       pt27_wr32(chip, PT27_REG_DIR,       chip->saved.dir);
-> +       pt27_wr32(chip, PT27_REG_OUT,       chip->saved.out);
-> +       pt27_wr32(chip, PT27_REG_INT_LVL,   chip->saved.int_lvl);
-> +       pt27_wr32(chip, PT27_REG_INT_MODE0, chip->saved.int_mode0);
-> +       pt27_wr16(chip, PT27_REG_INT_MODE1, chip->saved.int_mode1);
-> +       pt27_wr8(chip, PT27_REG_INT_CTL,    chip->saved.int_ctl);
-> +       pt27_wr32(chip, PT27_REG_VENDOR0,   chip->saved.vendor0);
-> +       pt27_wr32(chip, PT27_REG_VENDOR1,   chip->saved.vendor1);
-> +
-> +       pt27_wr16(chip, PT27_REG_WAKE_LVL,  chip->saved.wake_lvl);
-> +       pt27_wr16(chip, PT27_REG_WAKE_MODE, chip->saved.wake_mode);
-> +       pt27_wr16(chip, PT27_REG_WAKE_EN,   chip->saved.wake_en);
-> +
-> +       pt27_wr32(chip, PT27_REG_INT_STAT,  PT27_GPIO_MASK);
-> +       pt27_wr16(chip, PT27_REG_WAKE_STAT, PT27_WAKE_MASK);
-> +
-> +       pt27_wr32(chip, PT27_REG_INT_EN,   chip->saved.int_en);
-> +       pt27_wr32(chip, PT27_REG_INT_MASK, chip->saved.int_mask);
-> +
-> +}
-
-If you're gonna do this what about using regmap which already has
-an internal register cache, knows how to restore them and can deal
-with the different word sizes and all?
-
-> +static int pt27_gpio_direction_input(struct gpio_chip *gc, unsigned int =
-offset)
-> +{
-(...)
-> +       val &=3D ~BIT(offset);   /* 0 =3D input */
-(...)
-> +static int pt27_gpio_direction_output(struct gpio_chip *gc, unsigned int=
- offset,
-> +                                     int value)
-> +{
-> +       if (value)
-> +               val |=3D BIT(offset);
-> +       else
-> +               val &=3D ~BIT(offset);
-(...)
-> +static int pt27_gpio_get_direction(struct gpio_chip *gc, unsigned int of=
-fset)
-(...)
-> +       return (val & BIT(offset)) ? GPIO_LINE_DIRECTION_OUT
-> +                                  : GPIO_LINE_DIRECTION_IN;
-(...)
-> +static int pt27_gpio_get(struct gpio_chip *gc, unsigned int offset)
-> +{
-> +       dir =3D pt27_rd32(chip, PT27_REG_DIR);
-> +       val =3D pt27_rd32(chip, (dir & BIT(offset)) ? PT27_REG_OUT : PT27=
-_REG_IN);
-(...)
-> +static int pt27_gpio_set(struct gpio_chip *gc, unsigned int offset, int =
-value)
-> +       val =3D pt27_rd32(chip, PT27_REG_OUT);
-> +       if (value)
-> +               val |=3D BIT(offset);
-> +       else
-> +               val &=3D ~BIT(offset);
-(...)
-
-Just use select GPIO_GENERIC and follow the pattern of the
-other drivers using this. Something like:
-
-struct gpio_generic_chip_config config;
-
-config =3D (struct gpio_generic_chip_config) {
-    .dev =3D dev,
-    .sz =3D 4,
-    .dat =3D g->base + PT27_REG_IN,
-    .set =3D g->base + PT27_REG_OUT,
-    .dirout =3D g->base + PT27_REG_DIR,
-    .flags =3D GPIO_GENERIC_READ_OUTPUT_REG_SET,
-};
-
-If you *absolutely* need this runtime PM around all accessors, then
-implement generic runtime PM handling to the gpio-mmio.c library and
-add a new GPIO_GENERIC_RUNTIME_PM flag to
-<linux/gpio/generic.h> as a separate patch.
-
-> +static bool pt27_irq_regs_accessible(struct pt27_gpio *chip)
-> +{
-> +
-> +       return READ_ONCE(chip->irq_bus_active) ||
-> +              READ_ONCE(chip->irq_pm_held);
-> +}
-
-Looks like second-guessing the state of runtime PM?
-This can't be right. Make sure the code only access
-registers when runtime PM is resumed.
-
-For example whenever the irqchip .enable() callback
-is called, get runtime PM, put it on .disable().
-
-> +static void pt27_irq_unmask(struct irq_data *d)
-> +{
-> +       struct gpio_chip *gc   =3D irq_data_get_irq_chip_data(d);
-> +       struct pt27_gpio *chip =3D gpiochip_get_data(gc);
-> +       irq_hw_number_t   hwirq =3D irqd_to_hwirq(d);
-> +       unsigned long flags;
-> +       u32 val;
-> +
-> +       if (!pt27_irq_regs_accessible(chip)) {
-> +               dev_err_ratelimited(chip->dev,
-> +                                   "%s: cannot unmask GPIO%lu; PT27 is n=
-ot in D0\n",
-> +                                    __func__, hwirq);
-> +               return;
-> +       }
-
-This looks wrong as per above reasoning.
-
-> +       chip->enabled_irq_mask |=3D BIT(hwirq);
-
-I don't see why you would track this.
-
-> +static void pt27_irq_bus_lock(struct irq_data *d)
-> +{
-> +       struct gpio_chip *gc   =3D irq_data_get_irq_chip_data(d);
-> +       struct pt27_gpio *chip =3D gpiochip_get_data(gc);
-> +       int ret;
-> +
-> +       mutex_lock(&chip->irq_bus_lock);
-> +
-> +       ret =3D pm_runtime_resume_and_get(chip->dev);
-> +       if (ret < 0) {
-> +               WRITE_ONCE(chip->irq_bus_active, false);
-> +               dev_err_ratelimited(chip->dev,
-> +                                   "%s: cannot resume for IRQ configurat=
-ion: %d\n",
-> +                                    __func__, ret);
-> +               return;
-> +       }
-> +
-> +       WRITE_ONCE(chip->irq_bus_active, true);
-
-Why is this tracked locally in the driver? Surely the
-frameworks (runtime PM or irqchip) track this.
-
-> +}
-
-Isn't this solving the issue I pointed out above? If yes,
-why is the workaround still there?
-
-I will probably find more on further reviews but these things
-are a good starting point for reworking the driver.
-
-Yours,
-Linus Walleij
+base-commit: 602042bf29f6efde39cfb5fdd9289bf4854bc0c5
+-- 
+2.47.3
