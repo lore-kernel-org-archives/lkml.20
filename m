@@ -1,65 +1,86 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DC5A38886A
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 17:59:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C52304BCADC
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 17:59:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791395978; cv=none; b=VduW+ZLTERbN3wqaZ1rvAGPj0eO6dnT//0o/eMCk27ZtxgZhSnxzg3dO01u463+phxnh7IS44pF+2pFgJHlVLda4yEJjKmnTKe4qZfIZQa6nEGwZ7+hyzQwEnMsnrXLS71y9LaxEpVXELUyRKnC3PrdWKpQ0Ql5CXKEie0xIDM0=
+	t=1791396002; cv=none; b=fnIgecaMb7QyuQMmDTex9qzrbsUGQiUlQMtpJUiQZ6bFXyyFy+vTw6bvfdXy0NVr6Z/epy72+DIrNo36f38AakLvb55dmalpwUeHEN62EjyViWXEbPHQPDAd+luZeud/vBTfFr648+I9dAci8Mb5etczPHiixresw7CZQ4B1Enc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791395978; c=relaxed/simple;
-	bh=Oh72neTKRlc7TjN/wVUiRaj1jHaMNMJ/bO+DEK3Ybn8=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
-	 Content-Type; b=QAGerGarVWMACEqQo9DFR/xfdDBu5pseeohCazy8N8oFVFRNp7uTONS/hU8oDbp8Gu3ZGnZLgS0TUp/fN+Megid3sx7gotoIgG+OosWf2YYQ8D0AgWzCpS0GRqT8GoaS4Y5EEldfG2z7drRhBlBbPEmhmbgwTd+UHBZ+m5HJDQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4ea2c058e67so6362429b6e.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 10:59:37 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791395976; x=1792000776;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Oh72neTKRlc7TjN/wVUiRaj1jHaMNMJ/bO+DEK3Ybn8=;
-        b=OvtAG1juLVU8TjmTxxzCo6rfF5TTiiHLXZHPyNmD3IjSFzOvLYfwzrG0NtTepDuwTx
-         +UuvsAJMCs6223D7yTNsjkGJ/Vy7/RGpjwpznfhRDXRLD3EjXOsfvJCV4oSxweWC/8gR
-         iOlqa00wXIsivBWyHfza4Gy9taBNNBXvkncefnSSz/rcdZJX2XCyoMxUpXJ/MvOX+kI5
-         H/4+omqHIuPtSCCLIRYDsSYmJe6JVqqeOE+MtIHomU/SGO/J6c+SV/NMTm0CLQi5a8Xu
-         M2p6lwCsYyhDeEcWrICfrrYkF91NEnrkFJFF7+9/tKA7CUW25avMCbvi37siW3Xa/m+1
-         wY6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBy8JimOHRFZsybCefSKOMBGOkRXGzJ7awxm38YbJLyA0lfxvTaRAHPKWH8bSOqsOOJLFzmeXnhPlIushew=@vger.kernel.org
-X-Gm-Message-State: AFuF++leTBV7lPTGxkyzsiQnKqenIIbJo9OQ6kQ1uvuPWDC1sokwWy95
-	h48GO59scyxLvY4gsgybhoeC3DksIPe653QBZB8mPHE6dsrHNaMzonpcNUB2JOv8BBRZpULFWSS
-	gHJ0Rhh/Q+wjQJJyNTfFg0tRA3zLpQAsCWRAymqkUKqUVMeDlY3AH5wzhAa0=
+	s=arc-20240116; t=1791396002; c=relaxed/simple;
+	bh=JgyVm6yEpNf/2dQ/k32vsyW3ebTaboiZjy+TYXe0G50=;
+	h=From:To:Cc:Message-ID:Date:Subject; b=rgMRbhddCiE0Bito7TpVZ33E3sSGibBIDLxvWDZSz/kEnWXagw8mKrAY1k99dn6N+rCf2GotbKiGS4iOnsJjT8djEiZkPIShCBLbnWYFf5bFB7HbzTVri9x6mzDK2qQGurgc/mDdVd6/6Bc/XJTEhTW2qFSBKSGab9WQEYQIkbg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=T3Fcw7NJ; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=L0xrpi/0; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="T3Fcw7NJ";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="L0xrpi/0"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Subject:Date:Message-ID:To:From; t=1791395994; bh=3jAENaBzyuwOwECaqvThTmn
+	S/3VZ/IJOgHT6IsIY+E8=; b=T3Fcw7NJwKaAZr787tBc9HeDvTzo1v0pMd5h+UousMWy14qCfy
+	VZo6ujBjwmur+lziGekbHEHcbjWPh23Z2KaPggEpAVHDLvfkrEJnKm0KsSuGubGTxwhKPDFeI/g
+	/IP+sr5j3rJVeU6JNHWJZ3r6Bcl945szgNxUZeJ2K/GabiVakmlCahoc0BrwJQfoyBflU9yJMHN
+	+bus2qPDioAFEmuHRTzRLPxE02KGmZwltg5k7h5bGRrLM48ugy3C9JebfMyofH3CYw/1+Nzv1Y6
+	U0QOyYXtXkFqqWQBbHEXZz4cwVWHhzpwSE5UcYzmf70Hof1BuUTPCT/GwmSLS894Xbg==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Subject:Date:Message-ID:To:From; t=1791395994; bh=3jAENaBzyuwOwECaqvThTmn
+	S/3VZ/IJOgHT6IsIY+E8=; b=L0xrpi/0DxjUzLAoyfzqiuuqpBNzka2EZ/JYBGyxu9bD+jFvH8
+	YnTMPianKzaRk1fY6q2MlrnNHkYjRT4LzFCQ==;
+From: Bradley Morgan <brads@mainlining.org>
+To: catalin.marinas@arm.com, will@kernel.org
+Cc: mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, brads@mainlining.org
+Message-ID: <20261007185512.2.mte-tmp2@mainlining.org>
+Date: Wed, 7 Oct 2026 17:45:01 +0000
+Subject: [PATCH RESEND] arm64: entry: drop the unused tmp2 argument of
+ mte_set_kernel_gcr()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Received: by 2002:a05:6808:e88:b0:4fb:a7f3:4204 with SMTP id
- 5614622812f47-4fc406a93famr3008965b6e.0.1791395976273; Wed, 07 Oct 2026
- 10:59:36 -0700 (PDT)
-Date: Wed, 07 Oct 2026 10:59:36 -0700
-In-Reply-To: <CAOWyW_5SXth2RL8TefJrXnMvThL4cFUR-cQMq2uzL_2-qab98g@mail.gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac68888.34119e79.8a1d6.0004.GAE@google.com>
-Subject: Re: KASAN: slab-out-of-bounds Write in utf32_to_utf8
-From: syzbot <syzbot+a2748ba908c108e7e525@syzkaller.appspotmail.com>
-To: j.bhargav.u@gmail.com
-Cc: j.bhargav.u@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
 
-> #syz test git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+mte_set_kernel_gcr() takes a tmp2 argument the macro never uses. It
+used to, the body passed \tmp and \tmp2 to mte_set_gcr, then
+commit 82868247897b ("arm64: kasan: mte: use a constant kernel
+GCR_EL1 value") swapped that for
 
-I've failed to parse your command.
-Did you perhaps forget to provide the branch name, or added an extra ':'?
-Please use one of the two supported formats:
-1. #syz test
-2. #syz test: repo branch-or-commit-hash
-Note the lack of ':' in option 1.
+    mov     \tmp, KERNEL_GCR_EL1
 
-> master
+and tmp2 stayed in the declaration and in the one caller, which
+passes x23 for it.
+
+Drop it, both places.
+
+Signed-off-by: Bradley Morgan <brads@mainlining.org>
+---
+Resending, the first send's body got mangled.
+
+ arch/arm64/kernel/entry.S | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/kernel/entry.S b/arch/arm64/kernel/entry.S
+index f63049ac32dc..c3106dee61e1 100644
+--- a/arch/arm64/kernel/entry.S
++++ b/arch/arm64/kernel/entry.S
+@@ -171,7 +171,7 @@ alternative_else_nop_endif
+ #endif
+ 	.endm
+ 
+-	.macro mte_set_kernel_gcr, tmp, tmp2
++	.macro mte_set_kernel_gcr, tmp
+ #ifdef CONFIG_KASAN_HW_TAGS
+ alternative_cb	ARM64_ALWAYS_SYSTEM, kasan_hw_tags_enable
+ 	b	1f
+@@ -258,7 +258,7 @@ alternative_else_nop_endif
+ 
+ 	apply_ssbd 1, x22, x23
+ 
+-	mte_set_kernel_gcr x22, x23
++	mte_set_kernel_gcr x22
+ 
+ 	/*
+ 	 * Any non-self-synchronizing system register updates required for
+-- 
+2.53.0
+
