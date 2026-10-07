@@ -1,96 +1,134 @@
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 65BB047C0FC;
-	Wed,  7 Oct 2026 09:51:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=111.22.67.139
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8F2347D46D
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 09:52:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791366713; cv=none; b=MfKW2n5KmbV9rDz744AbKxvK5VDdAuqhprhfSMqbamqbPQQ9wpkcCpXtyBtwxcQo3qoTGdchHOPXIId5vq7j+K/leARhkZmrLBw1unqT6KC9WYUDqidJTc2JLYQMuyjwkVQBrsy7UOmpK8WQ9aAD+n7GvR5OBy+C0aH1ZwzGROs=
+	t=1791366738; cv=none; b=Msc8iH/n0iWwZKEvAE8L7ALnRt4cIFboChL1X6E1ZvElVeOerrSwCr+rmGXQV/YjmRt9Sf8NML0PYYSkg/KQeJAjWWkQxsy7iP06S19g7D1jGJhpj7YDRTYDlKAov2uX98YGhziDiLUeFw9rREK4tihpoE4cLhp+ZHmI3ZFYeJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791366713; c=relaxed/simple;
-	bh=YpmZSeHdx0gjci48tJqrrtCGp9fQ95iGiN/kNL2LXF8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LAmaKeAEq5fM2UE+2rroc3U4xZpmfo9dRP6TkbMZt9U1TbtVkWWfJGqj/ud0kFgVvW/GYblsSSHf1DgopDr2oCONrHBhJRveapOBJ+fpIHSjUkO72PnX1Ce6TdfASwrI3A5cQgJzASB+EGLVn9tmKn7mUd0/+1HB/ooSiywKVng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com; spf=pass smtp.mailfrom=cmss.chinamobile.com; dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b=WiTl/0xd; arc=none smtp.client-ip=111.22.67.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	s=arc-20240116; t=1791366738; c=relaxed/simple;
+	bh=A9zqlCOxjRlPR6veYqUZq2yHzXNj7ksqudP06P908Rs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TyCkCPKvKxhrF10XFm9hP31XAp1rTIk8At32UyRFDW8c5GI82H7LR6KIfu4CA7BStAqJgIMqVh25cXMpF6B3UXFw1Z6vPNKumqB6QKGbT1OuwiUXDw8A04HuUY+digsWyaiyY9onTt8dgi6cqBj3ZRIz0QpCggeqv2VE9lLR4ho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=dJQcdaX1; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b="WiTl/0xd"
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="dJQcdaX1"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a02753c04fso8868025e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 02:52:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=WiTl/0xd9r+XdumNmRJmphALYwhWHIJFIL73ZDByuA4JDGZORAlxgvvcUT5B5oy4Txna2mCB3Qalf
-	 ELv1vcwZpeShRpFy9VvE1k7SE956BgJJp6DXlCTW2HQ3Bw0ZDc9aRW7wa7F9fxauMCR6yWCoF8Lnli
-	 BmH69Vb8q2hleQus=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16ac61625551-86ca0;
-	Wed, 07 Oct 2026 17:51:33 +0800 (CST)
-X-RM-TRANSID:2ee16ac61625551-86ca0
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from openEuler-24.03 (unknown[112.22.250.209])
-	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96ac6161a04d-e490c;
-	Wed, 07 Oct 2026 17:51:33 +0800 (CST)
-X-RM-TRANSID:2ee96ac6161a04d-e490c
-From: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
-To: netdev@vger.kernel.org
-Cc: Alice Mikityanska <alice.kernel@fastmail.im>,
-	Matthieu Baerts <matttbe@kernel.org>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
-Subject: [PATCH net] selftests: net: big_tcp_tunnels: Fix the IPv6 route change
-Date: Wed,  7 Oct 2026 09:47:31 +0800
-Message-ID: <20261007014731.1277055-1-yanhaishuang@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
+        d=linaro.org; s=google; t=1791366727; x=1791971527; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lTCkoZU0MickLLuynMxKjy0YUIqhaSwwD9LsZbzk31Q=;
+        b=dJQcdaX1hM5UJxG5DtkGI2oRPMXqempOR594uf9pqZjpG1yzcicjFbQOYbIEDfxE0f
+         IJASTEU+D3ZWknqSUl0PtuWpBKwVxzeBhQq4eMxNW1VUy8GO5/SPZeiImYAG2zyQgQTJ
+         w7inapaFSHrf0SjynUBULolD26W/C87gtT1eSycnsGtAlcm8AFfsCxhxuREcq2OCoigA
+         xosXm2JS3aDM5S07ZreIpNhMIhWmaQX0sqC/HkGE1UORHKksJD5t7D9KjyBTafTuFoYe
+         A6S0BUHXHBAnIFQgoAPGTqKmbD2n2Yb9lxE7S8ah85m5H7tyyEA4IKsXgXP1mthWH9qq
+         e6Jg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791366727; x=1791971527;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lTCkoZU0MickLLuynMxKjy0YUIqhaSwwD9LsZbzk31Q=;
+        b=HSKbyG9RYft4gyS/YQ1RHejMTghS0MGm65WASVYuR+Uedf76Zms7rNxx2eBzQTudTB
+         dG/32GUsbM2VeRcCj6LrJLcwyE/WGxGb88S8S4D2hTVjBk5HjFH96YHKX/N1hJz9LT9W
+         7v0WWqx4JQ37RT62GPhfbOomOf4JYkjnXpmuClM73uUwHiVwdNgvYGMwzA1N4ZwES24g
+         iO+eQDaT5WUwimndAwcwQH+JC2rsMsXFpYJRdnX8MzBMQX9mpE6YNW6wdW4/rh7ZKHdS
+         OD64KP0KHRm1wMQQBHazLz0oNMg2jsWK0uqzfDCQ+TCMRYwAksCExuvOa6/Feq5Tox7z
+         OKbw==
+X-Forwarded-Encrypted: i=1; AKwUvBxj1FRoIVmRnJy7aQOluNksnAnr2xEy5RpFQgzojgYbcX2uKOJwA9zmeqa32rTF1Rmfds8ulg4WoynY4PU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lG+AJtd2bi5GIX3SS9fG/jxZ/Gg0EPr4AKbrCoTINtOQY1h2KA
+	HAQie7ICqn2j0yoUoFOx3fUfDvqCSdAtYor2wovGq/9BAGxOYvc6CWKLYHcoXOpvsrk=
+X-Gm-Gg: AYBFou1F7UbLIPcY3gU5uF8qflCPvRkdQgcXJRzFQp132srdSCfTx5KCJTUbUU/DJSp
+	dJvp9Kjdncq04W2XGW9QaO8UnRKaKRMSIektj/JwnMQI53VW7CclYoeCS4dAuj3UVv6AMJeKy+M
+	B4Li+cNK6+WeCENqscwhXGyyZE+wD6VQvxzEMT5oaTEtJxSXSlpCghEDYhYwtYPT938/jRPwNOu
+	LYqjQoexHylMGdA1upRYqrt/TVKmzsaA8Clnhck5NbGswa/YrBXgp8Vo9EmPxT+jdUfvXyKl07J
+	tN0tMS5VZ9R/HfwhmQy/58QO1Jdb1wZO45k+oF3TfwrLFEztNidTgK3pe2bleyAb8kxyA0R4E4d
+	3GF1olC1csfCCbO7bcRhdW2tq97tKbglEaacxASYIw4SZ3s5r2Jr8xMv0TyRi9Rc4ot+A7kcgD9
+	Sj9nKQu9NWa5uoUuwZvHlEh1IXtqoU37OEaRKnEOoX06xPNqjxOXWsEnDyKUBeVuBGc2w+CuvAW
+	Njkcu/ZUCbe
+X-Received: by 2002:a05:600c:8884:b0:4a1:80d8:aeb3 with SMTP id 5b1f17b1804b1-4a180d8b0f1mr16568905e9.12.1791366726900;
+        Wed, 07 Oct 2026 02:52:06 -0700 (PDT)
+Received: from [192.168.9.72] ([185.249.114.148])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f653d7csm54587755e9.14.2026.10.07.02.52.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 07 Oct 2026 02:52:06 -0700 (PDT)
+Message-ID: <e7c46f2e-fa6e-4cfa-b16e-8fa5d2112db4@linaro.org>
+Date: Wed, 7 Oct 2026 11:52:05 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 04/45] dt-bindings: media: qcom,sm8250-camss: add pixel
+ path variant
+To: Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+ Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, hariram.purushothaman@oss.qualcomm.com,
+ pshrotri@qti.qualcomm.com, Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+ johannes.goede@oss.qualcomm.com, konradybcio@kernel.org
+References: <20261006223953.3382273-1-gjorgji.rosikopulos@oss.qualcomm.com>
+ <20261006223953.3382273-5-gjorgji.rosikopulos@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-US
+In-Reply-To: <20261006223953.3382273-5-gjorgji.rosikopulos@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On slow machines, do_test() raises initcwnd on the route into the tunnel
-with "ip route change". For IPv6 traffic this fails with:
+On 07/10/2026 00:39, 
+Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com wrote:
+> From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+> 
+> Document the qcom,sm8250pix-camss compatible for CAMSS configurations
+> that use the IFE pixel path. It uses the existing CAMSS property
+> layout without additional properties.
+> 
+> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+> ---
+>   .../devicetree/bindings/media/qcom,sm8250-camss.yaml          | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8250-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sm8250-camss.yaml
+> index a509d4bbcb4a..d561179be48c 100644
+> --- a/Documentation/devicetree/bindings/media/qcom,sm8250-camss.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,sm8250-camss.yaml
+> @@ -14,7 +14,9 @@ description: |
+>   
+>   properties:
+>     compatible:
+> -    const: qcom,sm8250-camss
+> +    enum:
+> +      - qcom,sm8250-camss
+> +      - qcom,sm8250pix-camss
+>   
+>     clocks:
+>       minItems: 37
 
-  RTNETLINK answers: No such file or directory
+Same feed back as on the other binding.
 
-The IPv6 prefix route of the tunnel address has metric 256, while
-"ip -6 route change" without a metric looks for a route with the default
-metric 1024, so nothing is changed. The test still passes, but without
-the larger initcwnd it is meant to use.
+Enabling the PIX path shouldn't require a new compat string - 
+Lanai/sm8650 operates this way and x1e/x2e will also follow this format 
+in v2, v3.
 
-Pass the metric of the prefix route.
+Lets please align to that and work to a common cause.
 
-Fixes: 1d62b83fb751 ("selftests: net: Fix slow configurations in big_tcp_tunnels.sh")
-Signed-off-by: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
 ---
- tools/testing/selftests/net/big_tcp_tunnels.sh | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/tools/testing/selftests/net/big_tcp_tunnels.sh b/tools/testing/selftests/net/big_tcp_tunnels.sh
-index cc0875e52fb9..fb43fed824e3 100755
---- a/tools/testing/selftests/net/big_tcp_tunnels.sh
-+++ b/tools/testing/selftests/net/big_tcp_tunnels.sh
-@@ -145,7 +145,8 @@ do_test() {
- 			    route change 192.168.2.0/24 dev tun0 initcwnd 100
- 		else
- 			ip -netns "$CLIENT_NS" -6 \
--			    route change 2001:db8::2:0/112 dev tun0 initcwnd 100
-+			    route change 2001:db8::2:0/112 dev tun0 initcwnd 100 \
-+			    metric 256
- 		fi
- 	else
- 		ip netns exec "$CLIENT_NS" \
--- 
-2.43.0
-
-
-
+bod
