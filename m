@@ -1,48 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C473A4AF16E;
-	Wed,  7 Oct 2026 13:28:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C863914FE;
+	Wed,  7 Oct 2026 13:28:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791379713; cv=none; b=TmwB9fynSYqrxfLMzC3micT62zLv0mXPkScdmB9ZlzKrRdMpQrxTZ7ZctRYwIzCxyF+TCWKQcj4eJwlQSDqX08l4mbWPLa7fFrFAPdmwD1CFWwj7T2y01+y8F7W3j2+OlhSck6bbxw2sQJS+dbRymgtsyEmbQgoWQ9vg12tByG0=
+	t=1791379731; cv=none; b=sgquA962ZbujfCGgMBm52tuO2IeJc0TBAgisSL3rUlzQvXkj9eyDqteIR727A2x3P0fH8Tp+MN0VPc1fC6VFiKB2YmGpd2aNW7RP/lDX0tRjziNxBWZJBCrdMWleMhL72v6tA2huraIgo8sg5VMtBnF01sr47/i+UJu1Vw25QSM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791379713; c=relaxed/simple;
-	bh=NhgS4jtUOMahOX+ISZKhvEOM115DkmUECw0d7x3e7t0=;
+	s=arc-20240116; t=1791379731; c=relaxed/simple;
+	bh=3GDHlgF3hdF5zlWK7EeqD5ESUv9U59Ugt3ToPYIw8g4=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=uK0dqU7b5hLrwgaKexbnXnQfuGQeMYBVLllZY2oxhp2DrqKLu99dKTaCCu6kuV9Ir46DWd0lQFbwuMhSYGkbyQvXu/kL0Bcqt8P/OnVhuleVM42VeLXSaWgeKowj9KNu85ResMOWiFlQkQuDSM7Mzy0j7LkeQa/kXhBTDXylYMQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jm7boOm/; arc=none smtp.client-ip=198.175.65.21
+	 MIME-Version; b=CPdcgTI0H7B24Ew9Mbm0TwHiGDGuYuPU7qISSLLJQId1DcvGM7KWEoZRhTIMvV/6U2ntCD2IGqOHb0Wo7dxpIEtiaoArYyTD4kxnaWEGvlIJ8fOoEJTH9iIaBAWTIFu1dc6xb7m4SNrg1DGaPESeoyplNlmCIAPZKnlL96TBVLc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Yce44Vc4; arc=none smtp.client-ip=198.175.65.21
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jm7boOm/"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Yce44Vc4"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791379693; x=1822915693;
+  t=1791379712; x=1822915712;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=NhgS4jtUOMahOX+ISZKhvEOM115DkmUECw0d7x3e7t0=;
-  b=jm7boOm/ib7+VKi6/WIfUjihICpa/2KzSpP8WhdDxCTRKrMpMlh4Ax5m
-   cgOELY4anXe6VNKZhrYZGWwjc6NoUUxurSIsCKtK2UGqoJr1avIaio4l0
-   3Gz43NCV1MVTjsISH4bjl3MFKfoE5lJvrj39Gh1VV5xB1QJhnWMaM5qvU
-   thwUy/lpxcDbmQUyrtQjyxIYKdpCcPHgJe3zHfizO7KncoJSdfhbvZj7d
-   pDh7R1XTzZiOzIR7ddVOlikX01Lhdb98YsHoJ2qE0f5UKZnyKLeCBmSUy
-   XP+g8HFxGz5ST9LwgoYzBEhaCL0Er5KaYCk++WCjeEq7oBLR6sDaCSRfX
-   A==;
-X-CSE-ConnectionGUID: P2ziea8WQxqZdK57oJcw5g==
-X-CSE-MsgGUID: F3PVbo+hSwKQL4chCz8bWg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="242409"
+  bh=3GDHlgF3hdF5zlWK7EeqD5ESUv9U59Ugt3ToPYIw8g4=;
+  b=Yce44Vc4M7Zs+RNJvI269GqliO5X/nCvu/CnHEUFDwB03ypog5w1sTZ8
+   /RHDqgSi9Ek+ZOv8ksJXqSl9xaeK+eRX9ovhZiohYp49JJKi0+VDbiCPW
+   aVDtBbw5daqIvkcBT0Rko4JoZsoccgQAriH+9l2c7TZiBQ/lLA7iEZQqP
+   31lx5h+I5qYA6e2/kw7/glpL8X/ubyRT8fmIlBuKa3eA2BxrfBu6hgtzT
+   YAPXGbcNOyH14zZSKlSXBuf2zMxWzKN0tIHlWdvLpl6IMpWdAKbTKYbPs
+   pgxZx8nD794CJdg4IzGIu8QMbKh5mC8kZxDOdYdKGGKpoEW3RQja/Wir9
+   Q==;
+X-CSE-ConnectionGUID: eHhiW5zETFiOiyxAhlwYEw==
+X-CSE-MsgGUID: q4G0p9YFTOaaoMZKAuBk+g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="242422"
 X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="242409"
+   d="scan'208";a="242422"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 06:27:43 -0700
-X-CSE-ConnectionGUID: uuo+YFyoSgW3Li7qPvhISg==
-X-CSE-MsgGUID: e5VkCEJ9RbWIvEbOxpaqBw==
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 06:27:47 -0700
+X-CSE-ConnectionGUID: EUxqhdZmT1enUnQ2o11CnA==
+X-CSE-MsgGUID: vOsZ70PtQMudN5uPSUrUMQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
-   d="scan'208";a="64296"
+   d="scan'208";a="64309"
 Received: from crojewsk-ctrl.igk.intel.com ([10.237.149.0])
-  by fmviesa007.fm.intel.com with ESMTP; 07 Oct 2026 06:27:40 -0700
+  by fmviesa007.fm.intel.com with ESMTP; 07 Oct 2026 06:27:44 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: broonie@kernel.org,
 	linux-sound@vger.kernel.org
@@ -52,9 +52,9 @@ Cc: tiwai@suse.com,
 	linux-kernel@vger.kernel.org,
 	kuninori.morimoto.gx@renesas.com,
 	Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: [PATCH 4/7] ASoC: topology-test: Switch to snd_snd_component_new()
-Date: Wed,  7 Oct 2026 15:33:50 +0200
-Message-Id: <20261007133353.455185-5-cezary.rojewski@intel.com>
+Subject: [PATCH 6/7] ASoC: Intel: avs: Switch to snd_snd_component_new()
+Date: Wed,  7 Oct 2026 15:33:52 +0200
+Message-Id: <20261007133353.455185-7-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261007133353.455185-1-cezary.rojewski@intel.com>
 References: <20261007133353.455185-1-cezary.rojewski@intel.com>
@@ -70,233 +70,69 @@ snd_soc_component_alloc() leaves the component object in uninitialized
 state. Switch to the constructor function to retrieve and operate on
 object in sane state.
 
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/soc-topology-test.c | 66 +++++++++++++++++------------------
- 1 file changed, 33 insertions(+), 33 deletions(-)
+ sound/soc/intel/avs/pcm.c    | 11 +++++------
+ sound/soc/intel/avs/probes.c | 12 ++++--------
+ 2 files changed, 9 insertions(+), 14 deletions(-)
 
-diff --git a/sound/soc/soc-topology-test.c b/sound/soc/soc-topology-test.c
-index 346a52d3006a..bcfb52061133 100644
---- a/sound/soc/soc-topology-test.c
-+++ b/sound/soc/soc-topology-test.c
-@@ -246,8 +246,8 @@ static void snd_soc_tplg_test_load_with_null_comp(struct kunit *test)
- 	kunit_comp->card.num_links = ARRAY_SIZE(kunit_dai_links);
- 	kunit_comp->card.fully_routed = true;
+diff --git a/sound/soc/intel/avs/pcm.c b/sound/soc/intel/avs/pcm.c
+index 2d7ced953fde..6dd2b938baaa 100644
+--- a/sound/soc/intel/avs/pcm.c
++++ b/sound/soc/intel/avs/pcm.c
+@@ -1399,10 +1399,6 @@ int avs_register_component(struct device *dev, const char *name,
+ 	if (!acomp)
+ 		return -ENOMEM;
  
--	component = snd_soc_component_alloc(test_dev);
--	KUNIT_ASSERT_NOT_NULL(test, component);
-+	component = snd_soc_component_new(test_dev, NULL, &test_component_null_comp);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, component);
+-	acomp->base = snd_soc_component_alloc(dev);
+-	if (!acomp->base)
+-		return -ENOMEM;
+-
+ 	comp_name = devm_kstrdup(dev, name, GFP_KERNEL);
+ 	if (!comp_name)
+ 		return -ENOMEM;
+@@ -1411,10 +1407,13 @@ int avs_register_component(struct device *dev, const char *name,
  
- 	snd_soc_component_set_priv(component, kunit_comp);
+ 	drv->use_dai_pcm_id = !obsolete_card_names;
  
-@@ -256,7 +256,7 @@ static void snd_soc_tplg_test_load_with_null_comp(struct kunit *test)
- 	if (ret != 0 && ret != -EPROBE_DEFER)
- 		KUNIT_FAIL(test, "Failed to register card");
+-	snd_soc_component_set_name(acomp->base, comp_name);
++	acomp->base = snd_soc_component_new(dev, comp_name, drv);
++	if (IS_ERR(acomp->base))
++		return PTR_ERR(acomp->base);
++
+ 	snd_soc_component_set_priv(acomp->base, acomp);
  
--	ret = snd_soc_register_component(component, &test_component_null_comp, NULL, 0);
-+	ret = snd_soc_component_register(component, NULL, 0);
- 	KUNIT_EXPECT_EQ(test, 0, ret);
+-	return snd_soc_register_component(acomp->base, drv, cpu_dais, num_cpu_dais);
++	return snd_soc_component_register(acomp->base, cpu_dais, num_cpu_dais);
+ }
  
- 	/* cleanup */
-@@ -291,8 +291,8 @@ static void snd_soc_tplg_test_load_with_null_ops(struct kunit *test)
- 	kunit_comp->card.num_links = ARRAY_SIZE(kunit_dai_links);
- 	kunit_comp->card.fully_routed = true;
+ static struct snd_soc_dai_driver dmic_cpu_dais[] = {
+diff --git a/sound/soc/intel/avs/probes.c b/sound/soc/intel/avs/probes.c
+index 2e4063b743ba..483e151dfd66 100644
+--- a/sound/soc/intel/avs/probes.c
++++ b/sound/soc/intel/avs/probes.c
+@@ -298,17 +298,13 @@ int avs_register_probe_component(struct avs_dev *adev, const char *name)
+ 	struct snd_soc_component *component;
+ 	const char *comp_name;
  
--	component = snd_soc_component_alloc(test_dev);
--	KUNIT_ASSERT_NOT_NULL(test, component);
-+	component = snd_soc_component_new(test_dev, NULL, &test_component);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, component);
+-	component = snd_soc_component_alloc(adev->dev);
+-	if (!component)
+-		return -ENOMEM;
+-
+ 	comp_name = devm_kstrdup(adev->dev, name, GFP_KERNEL);
+ 	if (!comp_name)
+ 		return -ENOMEM;
  
- 	snd_soc_component_set_priv(component, kunit_comp);
+-	snd_soc_component_set_name(component, comp_name);
++	component = snd_soc_component_new(adev->dev, comp_name, &avs_probe_component_driver);
++	if (IS_ERR(component))
++		return PTR_ERR(component);
  
-@@ -301,7 +301,7 @@ static void snd_soc_tplg_test_load_with_null_ops(struct kunit *test)
- 	if (ret != 0 && ret != -EPROBE_DEFER)
- 		KUNIT_FAIL(test, "Failed to register card");
- 
--	ret = snd_soc_register_component(component, &test_component, NULL, 0);
-+	ret = snd_soc_component_register(component, NULL, 0);
- 	KUNIT_EXPECT_EQ(test, 0, ret);
- 
- 	/* cleanup */
-@@ -355,8 +355,8 @@ static void snd_soc_tplg_test_load_with_null_fw(struct kunit *test)
- 	kunit_comp->card.num_links = ARRAY_SIZE(kunit_dai_links);
- 	kunit_comp->card.fully_routed = true;
- 
--	component = snd_soc_component_alloc(test_dev);
--	KUNIT_ASSERT_NOT_NULL(test, component);
-+	component = snd_soc_component_new(test_dev, NULL, &test_component_null_fw);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, component);
- 
- 	snd_soc_component_set_priv(component, kunit_comp);
- 
-@@ -365,7 +365,7 @@ static void snd_soc_tplg_test_load_with_null_fw(struct kunit *test)
- 	if (ret != 0 && ret != -EPROBE_DEFER)
- 		KUNIT_FAIL(test, "Failed to register card");
- 
--	ret = snd_soc_register_component(component, &test_component_null_fw, NULL, 0);
-+	ret = snd_soc_component_register(component, NULL, 0);
- 	KUNIT_EXPECT_EQ(test, 0, ret);
- 
- 	/* cleanup */
-@@ -406,8 +406,8 @@ static void snd_soc_tplg_test_load_empty_tplg(struct kunit *test)
- 	kunit_comp->card.num_links = ARRAY_SIZE(kunit_dai_links);
- 	kunit_comp->card.fully_routed = true;
- 
--	component = snd_soc_component_alloc(test_dev);
--	KUNIT_ASSERT_NOT_NULL(test, component);
-+	component = snd_soc_component_new(test_dev, NULL, &test_component);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, component);
- 
- 	snd_soc_component_set_priv(component, kunit_comp);
- 
-@@ -416,7 +416,7 @@ static void snd_soc_tplg_test_load_empty_tplg(struct kunit *test)
- 	if (ret != 0 && ret != -EPROBE_DEFER)
- 		KUNIT_FAIL(test, "Failed to register card");
- 
--	ret = snd_soc_register_component(component, &test_component, NULL, 0);
-+	ret = snd_soc_component_register(component, NULL, 0);
- 	KUNIT_EXPECT_EQ(test, 0, ret);
- 
- 	/* cleanup */
-@@ -464,8 +464,8 @@ static void snd_soc_tplg_test_load_empty_tplg_bad_magic(struct kunit *test)
- 	kunit_comp->card.num_links = ARRAY_SIZE(kunit_dai_links);
- 	kunit_comp->card.fully_routed = true;
- 
--	component = snd_soc_component_alloc(test_dev);
--	KUNIT_ASSERT_NOT_NULL(test, component);
-+	component = snd_soc_component_new(test_dev, NULL, &test_component);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, component);
- 
- 	snd_soc_component_set_priv(component, kunit_comp);
- 
-@@ -474,7 +474,7 @@ static void snd_soc_tplg_test_load_empty_tplg_bad_magic(struct kunit *test)
- 	if (ret != 0 && ret != -EPROBE_DEFER)
- 		KUNIT_FAIL(test, "Failed to register card");
- 
--	ret = snd_soc_register_component(component, &test_component, NULL, 0);
-+	ret = snd_soc_component_register(component, NULL, 0);
- 	KUNIT_EXPECT_EQ(test, 0, ret);
- 
- 	/* cleanup */
-@@ -522,8 +522,8 @@ static void snd_soc_tplg_test_load_empty_tplg_bad_abi(struct kunit *test)
- 	kunit_comp->card.num_links = ARRAY_SIZE(kunit_dai_links);
- 	kunit_comp->card.fully_routed = true;
- 
--	component = snd_soc_component_alloc(test_dev);
--	KUNIT_ASSERT_NOT_NULL(test, component);
-+	component = snd_soc_component_new(test_dev, NULL, &test_component);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, component);
- 
- 	snd_soc_component_set_priv(component, kunit_comp);
- 
-@@ -532,7 +532,7 @@ static void snd_soc_tplg_test_load_empty_tplg_bad_abi(struct kunit *test)
- 	if (ret != 0 && ret != -EPROBE_DEFER)
- 		KUNIT_FAIL(test, "Failed to register card");
- 
--	ret = snd_soc_register_component(component, &test_component, NULL, 0);
-+	ret = snd_soc_component_register(component, NULL, 0);
- 	KUNIT_EXPECT_EQ(test, 0, ret);
- 
- 	/* cleanup */
-@@ -580,8 +580,8 @@ static void snd_soc_tplg_test_load_empty_tplg_bad_size(struct kunit *test)
- 	kunit_comp->card.num_links = ARRAY_SIZE(kunit_dai_links);
- 	kunit_comp->card.fully_routed = true;
- 
--	component = snd_soc_component_alloc(test_dev);
--	KUNIT_ASSERT_NOT_NULL(test, component);
-+	component = snd_soc_component_new(test_dev, NULL, &test_component);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, component);
- 
- 	snd_soc_component_set_priv(component, kunit_comp);
- 
-@@ -590,7 +590,7 @@ static void snd_soc_tplg_test_load_empty_tplg_bad_size(struct kunit *test)
- 	if (ret != 0 && ret != -EPROBE_DEFER)
- 		KUNIT_FAIL(test, "Failed to register card");
- 
--	ret = snd_soc_register_component(component, &test_component, NULL, 0);
-+	ret = snd_soc_component_register(component, NULL, 0);
- 	KUNIT_EXPECT_EQ(test, 0, ret);
- 
- 	/* cleanup */
-@@ -639,8 +639,8 @@ static void snd_soc_tplg_test_load_empty_tplg_bad_payload_size(struct kunit *tes
- 	kunit_comp->card.num_links = ARRAY_SIZE(kunit_dai_links);
- 	kunit_comp->card.fully_routed = true;
- 
--	component = snd_soc_component_alloc(test_dev);
--	KUNIT_ASSERT_NOT_NULL(test, component);
-+	component = snd_soc_component_new(test_dev, NULL, &test_component);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, component);
- 
- 	snd_soc_component_set_priv(component, kunit_comp);
- 
-@@ -649,7 +649,7 @@ static void snd_soc_tplg_test_load_empty_tplg_bad_payload_size(struct kunit *tes
- 	if (ret != 0 && ret != -EPROBE_DEFER)
- 		KUNIT_FAIL(test, "Failed to register card");
- 
--	ret = snd_soc_register_component(component, &test_component, NULL, 0);
-+	ret = snd_soc_component_register(component, NULL, 0);
- 	KUNIT_EXPECT_EQ(test, 0, ret);
- 
- 	/* cleanup */
-@@ -690,8 +690,8 @@ static void snd_soc_tplg_test_load_pcm_tplg(struct kunit *test)
- 	kunit_comp->card.num_links = ARRAY_SIZE(kunit_dai_links);
- 	kunit_comp->card.fully_routed = true;
- 
--	component = snd_soc_component_alloc(test_dev);
--	KUNIT_ASSERT_NOT_NULL(test, component);
-+	component = snd_soc_component_new(test_dev, NULL, &test_component);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, component);
- 
- 	snd_soc_component_set_priv(component, kunit_comp);
- 
-@@ -700,7 +700,7 @@ static void snd_soc_tplg_test_load_pcm_tplg(struct kunit *test)
- 	if (ret != 0 && ret != -EPROBE_DEFER)
- 		KUNIT_FAIL(test, "Failed to register card");
- 
--	ret = snd_soc_register_component(component, &test_component, NULL, 0);
-+	ret = snd_soc_component_register(component, NULL, 0);
- 	KUNIT_EXPECT_EQ(test, 0, ret);
- 
- 	snd_soc_unregister_component(test_dev);
-@@ -743,8 +743,8 @@ static void snd_soc_tplg_test_load_pcm_tplg_reload_comp(struct kunit *test)
- 	kunit_comp->card.num_links = ARRAY_SIZE(kunit_dai_links);
- 	kunit_comp->card.fully_routed = true;
- 
--	component = snd_soc_component_alloc(test_dev);
--	KUNIT_ASSERT_NOT_NULL(test, component);
-+	component = snd_soc_component_new(test_dev, NULL, &test_component);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, component);
- 
- 	snd_soc_component_set_priv(component, kunit_comp);
- 
-@@ -755,7 +755,7 @@ static void snd_soc_tplg_test_load_pcm_tplg_reload_comp(struct kunit *test)
- 
- 	for (i = 0; i < 100; i++) {
- 
--		ret = snd_soc_register_component(component, &test_component, NULL, 0);
-+		ret = snd_soc_component_register(component, NULL, 0);
- 		KUNIT_EXPECT_EQ(test, 0, ret);
- 
- 		snd_soc_unregister_component(test_dev);
-@@ -799,13 +799,13 @@ static void snd_soc_tplg_test_load_pcm_tplg_reload_card(struct kunit *test)
- 	kunit_comp->card.num_links = ARRAY_SIZE(kunit_dai_links);
- 	kunit_comp->card.fully_routed = true;
- 
--	component = snd_soc_component_alloc(test_dev);
--	KUNIT_ASSERT_NOT_NULL(test, component);
-+	component = snd_soc_component_new(test_dev, NULL, &test_component);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, component);
- 
- 	snd_soc_component_set_priv(component, kunit_comp);
- 
- 	/* run test */
--	ret = snd_soc_register_component(component, &test_component, NULL, 0);
-+	ret = snd_soc_component_register(component, NULL, 0);
- 	KUNIT_EXPECT_EQ(test, 0, ret);
- 
- 	for (i = 0; i < 100; i++) {
+-	return snd_soc_register_component(component,
+-					  &avs_probe_component_driver,
+-					  probe_cpu_dais, ARRAY_SIZE(probe_cpu_dais));
++	return snd_soc_component_register(component, probe_cpu_dais, ARRAY_SIZE(probe_cpu_dais));
+ }
 -- 
 2.34.1
 
