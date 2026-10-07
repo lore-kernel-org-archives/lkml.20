@@ -1,284 +1,197 @@
-Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C13B3494A0B
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 10:38:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.125.188.122
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791369525; cv=pass; b=O8Q5xV2EQkz4dl8IZUkEjpDkeFp85Ck1rHKjLQ0o2hE2oXsTiN/z08wzzSmm2zASYnPzkSVvSNKx1uiOUzyM4nlKfmsCIEO8B+zZHE03FEhTGyGr2Xd2QF/xR7P/A8i2fm5Ku/Lg4Nrwh+dqBqT50tb7trSs9r5EBsqixNP98ZA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791369525; c=relaxed/simple;
-	bh=mtJBgn6in8wzem2JAyNu6wrzK0bRyVrRNtx68bFbips=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jLRyJPVci6dB+PVppJ8zW/yXZ4vDqlUGbjX6DarnpPvav2InxSfXe6iGM01NcgX9QtstgxATFTUx22yWomTQ0byMzBMM6KycC8PBT2pt1thhrh/yfgCBoOuUrCdXFvnvup18xcuLflctnlf1DgrLSAviygLfb4iFfB3GPaZdfLg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=WQ7eOzq2; arc=pass smtp.client-ip=185.125.188.122
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAE2D48E0E7;
+	Wed,  7 Oct 2026 10:39:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791369581; cv=none; b=ZCzOJ6GMVeC732BpyeIrXN3GC7h2rURL6GWZGn6IwUkiCfGkPBJYGfKM4Is1WWmmV7XhC68rroO0RTw8CV0WH49FcCDZPYDDzLAENxVFJQuL1PQC98JpGk+02r2xpPPhw2MTu+ggseCZ8iRbxD5EqVV6Y5f6KzAwivml5h/3oD8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791369581; c=relaxed/simple;
+	bh=CQfZ/TTdImvt5pNIBELCOZKxr0fRpDg9Pi4deEYeevM=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=gJfMx8PAd8t1rmVpGmOhm59d7sTIj2EyAYcv9AdcXHAY2cun8Uic1zlJ0U9lPDFY28PVIE1rDGgHdzwjjvSbxQa9W0VPsAAl54aWMJv0sm2pKB8egvG9p6jiIaswxlTlWAcYP/QB+6K0wloEj0HTcJgo7sEBsyKMvMkgYRZIFwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LXUdrVKt; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="WQ7eOzq2"
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com [209.85.218.70])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id D7D7B3FE35
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 10:38:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1791369481;
-	bh=cmc54HmmpdHlv+8/JD67MSRGD2aOFG6+FX+TpShyqMo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type;
-	b=WQ7eOzq20Nzp+h3jDEZpRb4PVOuQtPJawnIGpB19S76AMZogXAPIfskw5UZM84YQP
-	 MbAgx9s1gBi6gQgiRxNj1fwOaPiXGfKj8KaDh/0+9li2OlQ0CzHWvP1PUcfd3xqHla
-	 VX+YAe2t3uYDdgwgW1UoIkteFAdNuzeoAi5a009tDwnuvgeT+RFzRLf0qgOc7sjDq9
-	 zt1MPKrN3XCitGx2TL3QIygT+qKaMiEakSwe/V7ZaqNzIrS4RyXxFC/m17nqUWeA/H
-	 DT0l+QsashCz5QiRFX5C2g1FRsXVDejj0RgRAy5E926PyCX5gjswwbtKm4snP/QikK
-	 8tGPsG9kXJNYvYiIUWD8ETnuuZPaFWAl/XkK+KOxY1b2HLqSVvk/FubHX7N6yGbzz1
-	 GL7PXx1V4ginarhNdpBBD1iBWeUTQ1Ew9SveusL2QA0BA0Z4HYpllSPFkUwcmDepqM
-	 W7FZIcNQV99jiMj0SLdES2MKhSiXihhGyvV3LJoMqzwxcEspl9v4/F7Qy5mbT1iEDh
-	 G+fPUcI6UQmK1yE/pduIchLw3OAkpiSdvb42lHgSJAFgctGMeNHNbihTP/L+5eqmf9
-	 4xBYuRrcV0ZFFtP5ZccJt+/mr8QfNcES3YOKuFafwoLySfQjlfn7TccJqEYGtFQZuk
-	 Csn9nK6drLET4uF6OhiRkXcA=
-Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-c2e47a584edso446959366b.3
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 03:38:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791369481; cv=none;
-        d=google.com; s=arc-20260327;
-        b=R3bFlhSb03H5+x1X+ASTVmHJfd/DkZsktW6XJYeMVkaQe/kFv/NsqrS8loku0JReCs
-         J4DAo6a1ew65evVFeDKG52T45jGfHPMQbncy1q0mS5bahz143ZorCwY4qE04LA4HttpI
-         Io4TM4VsdMFijhQC1xRaIdccqiToFA7Wf6hIYBJCU8nvwtqvbVLWyepx4kDuGm646E7u
-         HxJIDfLBVGFTIJFWsvfvC3z1DfTwoL5vUWB1/askfEqASotXnuk48BXxRF6WDrrowXvN
-         0vXpeTEWwQY5CC+/QkjhmOkJBayURmmwfSu2NNSWPVy5vq4iWwVLmKEcL2A6PLSI1sAc
-         5fHg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version;
-        bh=cmc54HmmpdHlv+8/JD67MSRGD2aOFG6+FX+TpShyqMo=;
-        fh=S65VdEqF5wT5ZgODJ+E1MJdll2MzlJQcOI7o7J+fQzQ=;
-        b=VAyX2ifBTVCjy8BD/9D3D5UObzK9wKz+I6jEuzL7V71vetZfErjKSY3JXxFRxchwFR
-         1kN87+nUxESDtwmHQwyb/Z53U+QuRGCMxuVO2uC9WcGhcWpbNg6x3yQ7PUfpTURVl0DJ
-         p9RgWOX3kcdOuzfE38vu0xYL5SgTPdRrzquHIawmiPfaxy5ATZirf3tSQ9WhDaYty+P1
-         LAAtmQa6r1RYyxNlGCjOhCTJRnBAHothSCbfocpgE2B5fAmSrsw6Co6QU8bN6R4O4sMU
-         ws4O+DEk/hA2TA0+67qe6d0LBM97um6KkK+JRpIfcEx+foA4NeLy1EmFQUD2kBkFeckI
-         VpSw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791369481; x=1791974281;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cmc54HmmpdHlv+8/JD67MSRGD2aOFG6+FX+TpShyqMo=;
-        b=tRiiHyVL1V2fHKPi1wfrm+YXar+wsLKG+CovDxGOQqWfgllKbhUuM6s/nx12RIhDdH
-         23pkXC0spBbmt1XmYYv2x/Z0v8voNCcBOdnm/wmcw9w+5z010TwIQGn6tEqc9mh9lenV
-         SgMdA73zSHaz1Fv1tP2396+TKJGebJD+dzy8wtZDkJO8GGs5/H0P2pHbnlRbHezGO6Wg
-         fAdid0ppVLanAsGJ1omCdqPO8eeV5HdNwDknZO6D7xdkmq+jmylAQAD+s3DhuMNEbDlR
-         /61eszhyKiDFfsJMKZSyDWu5z70TuQHpbRPeMciW2lT8HB8a8RdI5danPlHsTB0JxDiL
-         +FvQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzMe74QUFytnVy2KykcQ5mm3Hl2D8AYOAVGVGx7riaMR+lh01JvR93Bjy1bmDFLyDVpWfGSbx6iizO/2mE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kvL2EO3BBjIvFycbtz4CzFl/3yL9If2lM+jdV/rticjozOFNf0
-	qVIRpwZ3X3B05Vt0kEQHNPKDIsNRfVCRsQmH5r0MLmjCnVx22gcJhSnnXcA8QHWa1aWvwlEQ0O/
-	8r3DMREmUml1gCADuIJeIiQklQwFudsInq3cXb1n+h0lbTPLDA53tn0Blu64K51n91DzfCk503/
-	TFtosvweHa3Fxx1C3NKQ8Elka+943vNDW24jTWJ871XZFqO4GT99blcHuH
-X-Gm-Gg: AYBFou2yOFle0wDaBCUbWkSU82c3ZH/nrIe/sPAZ6Ajw3B/FyQrSN4ULkWmXwwi6BsT
-	JEFxu6ho1W0gsRjj3D5Zesifa2UMCnhTaoQ+FJC/oq+IogGx4GFHJg71vkgv2ovfdp6mpk0AM/c
-	bRXQsNSDTlJKE2/q1PZsSq0nN7tpKrwOTOapDEL8bKQxrGS2w0WWBWDJk3H6yXIoGsnDYWXQvyE
-	DC0YUICKBOkh4rozQ==
-X-Received: by 2002:a17:907:720a:b0:c2e:4b90:3c55 with SMTP id a640c23a62f3a-c317bb32151mr185465866b.5.1791369480970;
-        Wed, 07 Oct 2026 03:38:00 -0700 (PDT)
-X-Received: by 2002:a17:907:720a:b0:c2e:4b90:3c55 with SMTP id
- a640c23a62f3a-c317bb32151mr185463666b.5.1791369480593; Wed, 07 Oct 2026
- 03:38:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LXUdrVKt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791369543; x=1822905543;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version:content-id;
+  bh=CQfZ/TTdImvt5pNIBELCOZKxr0fRpDg9Pi4deEYeevM=;
+  b=LXUdrVKtP0E1Nvgo+OsKuozeiP8fqct3MpGcPvC/h4fJZ9aMtKCv6edZ
+   T10BaPKMlUDWi+fx4na8FMqjJYXFu0SEXVI2L9D+1MWyiKKXWZJ6F2q1a
+   SjKVQm8Xee0PkXrf3vUgyZu52oTqznM/7D/V1VKtg7a4wccCev4vYJdxp
+   P89H4nNOf5DzHPav92bbGhZcXMP+xLjze+8phbqmynF7tZoLuelkOsZPP
+   eANFHu3fyWH9rOjxvi/IkiB91Ll+fx1VZnnDQZWAHbQ77K9tXhT0aoGO7
+   E1317YgEJezbrv87JIwwUKl751f1NSAcCXBJYJvyKj4qcZ0sc8MxSMqCp
+   A==;
+X-CSE-ConnectionGUID: rhtqXR7LTTebwh9rFqNBeQ==
+X-CSE-MsgGUID: nVxa1k8XT0efWq2WF2xdTw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11927"; a="130350"
+X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
+   d="scan'208";a="130350"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 03:39:02 -0700
+X-CSE-ConnectionGUID: DH09ZgH1QsiKw0+oWsJ08g==
+X-CSE-MsgGUID: aJg7S88/QZKU9Rbew1R0Uw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
+   d="scan'208";a="33713"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.13])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 03:39:00 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Wed, 7 Oct 2026 13:38:55 +0300 (EEST)
+To: Hugo Villeneuve <hugo@hugovil.com>
+cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    Hui Peng <benquike@gmail.com>, Jiri Slaby <jirislaby@kernel.org>, 
+    John Ogness <john.ogness@linutronix.de>, 
+    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+    linux-serial <linux-serial@vger.kernel.org>, 
+    LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v7 1/2] serial: core: fix baud rate fallback in
+ uart_get_baud_rate()
+In-Reply-To: <20261006112932.3b9c8acd3bc2bfcf1d17b264@hugovil.com>
+Message-ID: <8fc5361a-199d-3bab-da86-f967906aa39d@linux.intel.com>
+References: <20260930125901.778868-1-benquike@gmail.com> <20260930125901.778868-2-benquike@gmail.com> <2026100156-watch-balsamic-32db@gregkh> <5085df04-f813-8b3f-1d05-87d5bbf00499@linux.intel.com> <20261006112932.3b9c8acd3bc2bfcf1d17b264@hugovil.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20250625-more-qseecom-v4-0-aacca9306cee@oss.qualcomm.com> <20250625-more-qseecom-v4-7-aacca9306cee@oss.qualcomm.com>
-In-Reply-To: <20250625-more-qseecom-v4-7-aacca9306cee@oss.qualcomm.com>
-From: Tobias Heider <tobias.heider@canonical.com>
-Date: Wed, 7 Oct 2026 12:37:47 +0200
-X-Gm-Features: AclHuK8eKzgj3HJdIk9MQwD1iZnSbhGYtbY2krS3CF9VuPiN8gJrqeCrxO3qntA
-Message-ID: <CAARv3RQ2-Cnr-Zu_57cz4bBOaNVji14cGQo5eGB7QXjBjEwofQ@mail.gmail.com>
-Subject: Re: [PATCH v4 7/8] firmware: qcom: scm: rework QSEECOM allowlist
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Maximilian Luz <luzmaximilian@gmail.com>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Ard Biesheuvel <ardb@kernel.org>, Johan Hovold <johan@kernel.org>, Steev Klimaszewski <steev@kali.org>, 
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-efi@vger.kernel.org, 
-	Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/mixed; BOUNDARY="8323328-1422937546-1791368863=:1171"
+Content-ID: <327f4c19-f0a5-b07f-6ae6-998483d52f5e@linux.intel.com>
 
-Hi Dmitry,
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-I think making the list more generic would be great. Currently onboarding n=
-ew
-devices always requires a kernel/driver rebuild on top of the device-tree w=
-hich
-isn't ideal. If we could allow all of sc8280xp, x1e80100 and glymur by defa=
-ult
-adding new devices to our Ubuntu images would be a lot easier.
+--8323328-1422937546-1791368863=:1171
+Content-Type: text/plain; CHARSET=ISO-8859-15
+Content-Transfer-Encoding: QUOTED-PRINTABLE
+Content-ID: <5b29c5ec-9369-89fa-5353-4f0d39a2c56b@linux.intel.com>
 
-Since this seems to have stalled a while ago I was wondering if you
-had any plans to
-continue this work. Is there a technical reason this never went anywhere?
+On Tue, 6 Oct 2026, Hugo Villeneuve wrote:
 
-- Tobias
+> On Thu, 1 Oct 2026 12:46:05 +0300 (EEST)
+> Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com> wrote:
+>=20
+> > On Thu, 1 Oct 2026, Greg Kroah-Hartman wrote:
+> >=20
+> > > On Wed, Sep 30, 2026 at 12:59:00PM +0000, Hui Peng wrote:
+> > > > When uart_get_baud_rate() is called with a baud rate exceeding the =
+port's
+> > > > maximum supported speed (port->uartclk / 16), it clips baud to [min=
+,
+> > > > max - 1] and encodes it into termios via tty_termios_encode_baud_ra=
+te().
+> > > >=20
+> > > > However, because the loop bound is for (try =3D 0; try < 2; try++),=
+ the
+> > > > loop terminates immediately after try =3D=3D 1 without re-evaluatin=
+g
+> > >=20
+> > > But try =3D=3D 1 should keep the loop going as it is < 2, right?  Wha=
+t am I
+> > > missing here?  Do I need more coffee?
+> > >
+> > > > baud =3D tty_termios_baud_rate(termios) for the clipped rate, hitti=
+ng
+> > > > WARN_ON(1) and returning 0, which then triggers a fatal divide-by-z=
+ero
+> > > > (Oops: divide error) in uart_get_divisor():
+> > > >=20
+> > > >   WARNING: drivers/tty/serial/serial_core.c:548 at uart_get_baud_ra=
+te+0x136/0x260
+> > > >   [ ... ]
+> > > >   divide error: 0000 [#1] PREEMPT SMP KASAN
+> > > >=20
+> > > > Increase the retry count in uart_get_baud_rate() from 2 to 3 iterat=
+ions so
+> > > > that clipped baud rates are re-evaluated in the third iteration.
+> > >=20
+> > > What is the magic 2 here, and why turning it into a magic 3 somehow f=
+ix
+> > > things?
+> >=20
+> > Hi Greg & Hui,
+> >=20
+> > First of all, I'm withdrawing my Reviewed-by from this!!!
+> >=20
+> > Lets hope the submitter can finally get his/her act together and not ma=
+ke=20
+> > unlisted changes between versions or send non-sense.
+> >=20
+> > While the code change is still fine, it seems the submitter (or more=20
+> > likely AI) has changed the changelog from what I read when I reviewed=
+=20
+> > this. And the new one is way worse than it used to be so not being able=
+=20
+> > to follow what's going on is very understandable given the lackluster=
+=20
+> > explanation that remains.
+> >=20
+> >=20
+> > What you're missing is that the baud returns happens within the loop, s=
+o:
+> >=20
+> > try =3D=3D 0: use new, if baud is out of bound and old is available, sw=
+itch to=20
+> >           old
+> > try =3D=3D 1: if old is also out of bounds, there's the last resort rul=
+e=20
+> >           towards the end of the loop which is applied forcing baud to =
+the=20
+> >           accetable range.
+>=20
+> Hi all,
+> is it at all possible that old is out of bounds in the first place?
 
-On Wed, Jun 25, 2025 at 12:55=E2=80=AFAM Dmitry Baryshkov
-<dmitry.baryshkov@oss.qualcomm.com> wrote:
->
-> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->
-> Listing individual machines in qcom_scm_qseecom_allowlist doesn't scale.
-> Allow it to function as allow and disallow list at the same time by the
-> means of the match->data and list the SoC families instead of devices.
->
-> In case a particular device has buggy or incompatible firmware user
-> still can disable QSEECOM by specifying qcom_scm.qseecom=3Doff kernel
-> param and (in the longer term) adding machine-specific entry to the
-> qcom_scm_qseecom_allowlist table.
->
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->  drivers/firmware/qcom/qcom_scm.c           | 49 ++++++++++++++----------=
-------
->  include/linux/firmware/qcom/qcom_qseecom.h |  1 +
->  2 files changed, 24 insertions(+), 26 deletions(-)
->
-> diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qco=
-m_scm.c
-> index 5bf59eba2a863ba16e59df7fa2de1c50b0a218d0..025f834e95b537b76d41b59b6=
-3871a4ce5bed717 100644
-> --- a/drivers/firmware/qcom/qcom_scm.c
-> +++ b/drivers/firmware/qcom/qcom_scm.c
-> @@ -1981,6 +1981,7 @@ int qcom_scm_qseecom_app_send(u32 app_id, void *req=
-, size_t req_size,
->  }
->  EXPORT_SYMBOL_GPL(qcom_scm_qseecom_app_send);
->
-> +static unsigned long qcom_qseecom_disable =3D QCOM_QSEECOM_QUIRK_DISABLE=
-;
->  static unsigned long qcom_qseecom_ro_uefi =3D QCOM_QSEECOM_QUIRK_RO_UEFI=
-VARS;
->
->  static char *qseecom =3D "auto";
-> @@ -1989,32 +1990,20 @@ module_param(qseecom, charp, 0);
->
->  /*
->   * We do not yet support re-entrant calls via the qseecom interface. To =
-prevent
-> - * any potential issues with this, only allow validated machines for now=
-. Users
-> + * any potential issues with this, only allow validated platforms for no=
-w. Users
->   * still can manually enable or disable it via the qcom_scm.qseecom modp=
-aram.
-> + *
-> + * To disable QSEECOM for a particular machine, add compatible entry and=
- set
-> + * data to &qcom_qseecom_disable.
->   */
->  static const struct of_device_id qcom_scm_qseecom_allowlist[] __maybe_un=
-used =3D {
-> -       { .compatible =3D "asus,vivobook-s15" },
-> -       { .compatible =3D "asus,zenbook-a14-ux3407qa" },
-> -       { .compatible =3D "asus,zenbook-a14-ux3407ra" },
-> -       { .compatible =3D "dell,xps13-9345" },
-> -       { .compatible =3D "hp,elitebook-ultra-g1q" },
-> -       { .compatible =3D "hp,omnibook-x14" },
-> -       { .compatible =3D "huawei,gaokun3" },
-> -       { .compatible =3D "lenovo,flex-5g" },
-> -       { .compatible =3D "lenovo,thinkpad-t14s" },
-> -       { .compatible =3D "lenovo,thinkpad-x13s", },
->         { .compatible =3D "lenovo,yoga-c630", .data =3D &qcom_qseecom_ro_=
-uefi, },
-> -       { .compatible =3D "lenovo,yoga-slim7x" },
-> -       { .compatible =3D "microsoft,arcata", },
-> -       { .compatible =3D "microsoft,blackrock" },
-> -       { .compatible =3D "microsoft,romulus13", },
-> -       { .compatible =3D "microsoft,romulus15", },
-> -       { .compatible =3D "qcom,sc8180x-primus" },
-> +       { .compatible =3D "qcom,sc8180x", },
-> +       { .compatible =3D "qcom,sc8280xp", },
->         { .compatible =3D "qcom,sc8280xp-crd", .data =3D &qcom_qseecom_ro=
-_uefi, },
-> -       { .compatible =3D "qcom,x1e001de-devkit" },
-> -       { .compatible =3D "qcom,x1e80100-crd" },
-> -       { .compatible =3D "qcom,x1e80100-qcp" },
-> -       { .compatible =3D "qcom,x1p42100-crd" },
-> +       { .compatible =3D "qcom,sdm845", .data =3D &qcom_qseecom_disable,=
- },
-> +       { .compatible =3D "qcom,x1e80100", },
-> +       { .compatible =3D "qcom,x1p42100", },
->         { }
->  };
->
-> @@ -2046,12 +2035,22 @@ static bool qcom_scm_qseecom_machine_is_allowed(s=
-truct device *scm_dev,
->         match =3D of_match_node(qcom_scm_qseecom_allowlist, np);
->         of_node_put(np);
->
-> -       if (match && match->data)
-> +       if (!match) {
-> +               dev_info(scm_dev, "qseecom: untested machine, skipping\n"=
-);
-> +               return false;
-> +       }
-> +
-> +       if (match->data)
->                 *quirks =3D *(unsigned long *)(match->data);
->         else
->                 *quirks =3D 0;
->
-> -       return match;
-> +       if (*quirks & QCOM_QSEECOM_QUIRK_DISABLE) {
-> +               dev_info(scm_dev, "qseecom: disabled by the quirk\n");
-> +               return false;
-> +       }
-> +
-> +       return true;
->  }
->
->  static void qcom_scm_qseecom_free(void *data)
-> @@ -2086,10 +2085,8 @@ static int qcom_scm_qseecom_init(struct qcom_scm *=
-scm)
->
->         dev_info(scm->dev, "qseecom: found qseecom with version 0x%x\n", =
-version);
->
-> -       if (!qcom_scm_qseecom_machine_is_allowed(scm->dev, &quirks)) {
-> -               dev_info(scm->dev, "qseecom: untested machine, skipping\n=
-");
-> +       if (!qcom_scm_qseecom_machine_is_allowed(scm->dev, &quirks))
->                 return 0;
-> -       }
->
->         /*
->          * Set up QSEECOM interface device. All application clients will =
-be
-> diff --git a/include/linux/firmware/qcom/qcom_qseecom.h b/include/linux/f=
-irmware/qcom/qcom_qseecom.h
-> index 8d6d660e854fdb0fabbef10ab5ee6ff23ad79826..d48044ece20cc9ebac3357a64=
-2dc671c349d4343 100644
-> --- a/include/linux/firmware/qcom/qcom_qseecom.h
-> +++ b/include/linux/firmware/qcom/qcom_qseecom.h
-> @@ -52,5 +52,6 @@ static inline int qcom_qseecom_app_send(struct qseecom_=
-client *client,
->  }
->
->  #define QCOM_QSEECOM_QUIRK_RO_UEFIVARS         BIT(0)
-> +#define QCOM_QSEECOM_QUIRK_DISABLE             BIT(1)
->
->  #endif /* __QCOM_QSEECOM_H */
->
-> --
-> 2.39.5
->
->
+Apparently it is, given the WARNING above (unless that too is fabricate=20
+by LLM which seems well within possiblities given the track record of this=
+=20
+particular submitter).
+
+> If yes, is it something that should be fixed?
+
+I agree.
+
+I think the scenario here is (but take it with grain of salt, as the=20
+information seems to be constantly changing thanks to LLM/submitter=20
+failing to keep one's act to together) [1]:
+
+Tested in QEMU against Linux 7.3.0-rc3 by setting /dev/ttyS1 to B115200,
+lowering baud_base to 9600 (max =3D 9600) via TIOCSSERIAL, and calling
+tcsetattr() with B57600 (old =3D B115200), reproducing the WARNING and
+Oops: divide error in uart_get_divisor() on the unfixed kernel and
+verifying clean execution with 0 warnings/faults with the fix applied.
+
+So when rate gets lowered, it should alter the termios to prevent what is=
+=20
+here seem as "old" having an invalid value.
+
+[1] https://lore.kernel.org/linux-serial/20260930041216.155911-3-benquike@g=
+mail.com/
+
+> > try =3D=3D 2: loop exits =3D> WARN_ON(1) triggers.
+> >=20
+> > What we'd want to happen with try =3D=3D 2, is for it to use the return=
+ baud=20
+> > which is within the loop body.
+>=20
+> Then should the "return 0" statement be modified to "return baud", and
+> possibly the WARN_ON() removed? Then you wouldn't need to increase
+> max try?
+
+IMO, the entire loop constructs feels somewhat artificial in this case so=
+=20
+I'd prefer to kill the loop entirely. But such refactoring is not going to=
+=20
+be a minimal fix to the issue.
+
+--=20
+ i.
+--8323328-1422937546-1791368863=:1171--
