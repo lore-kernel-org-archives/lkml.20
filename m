@@ -1,171 +1,236 @@
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C5494B0E28
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 17:52:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 843853E7BD5
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 17:53:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791395578; cv=none; b=ofTaKN7CNM3JXmlUmwCBjWKVAKTbXfqr9dqeFE3VMkR6SodBi34TNm9OjyLyaPsfCfi3czGsI1mYW4zBAcxbWnOp3KI9LU28LmGKKDKIZU7WPglusSRX7++nXe2eFTN4NSGkPIvrzIc/kW8rlAiElMk/snsDOWp2NR0JJi/YTGI=
+	t=1791395630; cv=none; b=GSZt7ihZcHcs+j4b89L6OWyWquaF9KU7wyEgogJPfoacxs73vJT7TB7tsM1ksGODR+QQHPqerg0G8+mPffNm8uxFf/169nLKV9v6rsPpF+C/uu2VyzdEcbmIL4eKrSQIL19U+JffPoQtkJd0oMlNqJymEjwuLSAAfMCZFN6N+JI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791395578; c=relaxed/simple;
-	bh=uhtxMQ0fKAbNPofLk84gSjQ9sJxGeJ5klNaWx5ma9IY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=EJkm0xI1vzwd4kgI8KRT8CZP21RjCzxGI1pkFU1Uj2SafFryYG3eU5hLN2SqCSKRbsXrGm4CZylmpeA6imRl0qcEVLvW//0cv6qSLCBzAjUZEAdht+oFDZpROtEAX1OvM2c1mWa9Q0BGd2iJBm1EK4EAsupTe69UjiyMnoa4VM8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=WNuV+NxG; arc=none smtp.client-ip=209.85.160.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	s=arc-20240116; t=1791395630; c=relaxed/simple;
+	bh=2T8Uml0NShGNDvWiMP4NXducNTo6aIMaISEXdT4NZNo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GUehsF+QXfUBqomnVWqYiLwy5lkoh0buY79Hs46D3kN50YSD10cMOw5TdtkpJ3EmUM2SpuqiRQfgF37dYLm7hiGSFBfijIKwVS+ABdq/dk7ugIWqcrrMOxsUw5t8uigqrQfkjSGM4HU1W/SUAEO2LJdt6DhljCes9NVTFDWqqDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ADXn2KaD; arc=none smtp.client-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="WNuV+NxG"
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-53391022dc0so21322041cf.2
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 10:52:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ADXn2KaD"
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-34c89609923so2616547eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 10:53:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1791395575; x=1792000375; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=d3zIfpdGBSQTp6Jg+3lyricoE8je8WFz2Mt+j1XHJNY=;
-        b=WNuV+NxGTGt88QZ7mzjmoYdepj5/F/qfIa6lLZFPJ7LM8IvPfRyb6mIvqQATvqlhyu
-         23u3ozWxdZ2OzgindQmBzP4+HYWK8Ko2bQTHmP+ownSH8fmHIi0cMzBilZWW5nvrkLpT
-         ILcelfz5qp4iyIg7CPoDwCAkhtK6ftECHJQlF/iNjAjVEw2dpZqf+qH9gO+Gdk6InN9g
-         gAqbXY8agAYJQWTXXAqcMZchSDuxaARzH7QVd8yeK+B3qOieyKP3SldevyOvf4YubKZM
-         0WYCmY+Q8J1diw99Dod6xIeqgBPLohtWroBBCG8rgYyPB1DbkOxZsQCDTwMk7WMSSser
-         owxQ==
+        d=gmail.com; s=20251104; t=1791395628; x=1792000428; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+gmgxmP0+2UXMwCdLFQZo3obMVJ/yu9W4LFjtiv3dxs=;
+        b=ADXn2KaDWP/+D02ixgxH/48YDvW9wiwDGK4bbktJXhuM2Svd1iEJj7/W69UtK/G3nX
+         DF8vSmhusadvvW9nCEX4XdCa5W9hf3ZD67waPhU55YUzvhC6dbrX7E+bvKZnE2r+6wMu
+         yzQv95D4H9r9gQ+vEsR2b7WHtHWmxNtCSZImi9wm1a+n5KlDoNDZv87ez+ktX/Y3RMGw
+         5SWDBfwcVs9to1CdsawSqqG86ubyo/OhVJUPcPe3wpvLUuBTwBPXmy3njam6D3Rjz4eo
+         Q7ca6XX0gOxaF3puKf6G4OMedzsE6LhNpkv4azKtRlOj5rR8xJTNVDvnxqE/79X5AEqu
+         FLkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791395575; x=1792000375;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=d3zIfpdGBSQTp6Jg+3lyricoE8je8WFz2Mt+j1XHJNY=;
-        b=bAX12OJM404u3dneaeC0vIzN8aWyYlxmPdQGDpnw+FnEz0ug8x6+ZeJsZEGaKJL0oL
-         5fxYlvVidw/6cBN3PVe1yBYMbIWtNQGR0mnXyPiS2Jx0k0EaYRrup8cKf6iqQ46Ml+qG
-         vKYE7u2Ehnc6tl/NlghYNaXg1ZcoVdcDoaBTS8SCJXi5ATGLptGh0LNDXJSxA5wd71xR
-         KBJFcriVqUrIGjDwyeRfZZBRz6+59pBY1ZPiLA/cwuiAuVUbCPNE7AyuUVjtoe/mYThH
-         RliBTwqZ/Iba+mmU3YdPMuUd1+bjSdKCBKzyNtI6MMWTkp+q0vsWTHpdOKzijBMgQQpD
-         GdqQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw17WEYJGbQtC9ErWCQKDI1ModHL4zP6STvLDf+Z8JMfYEq5c9RZpwph6ppKx5V/uEQt/ggkUn+W/R2NC0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nOp6bSQA3dF3pruG6E7xHSqkl0QOD0nickGMhuMTJoRIPCkIcO
-	yUDO/43RAzTobqg390YOa0tjmVOBZPio7XfeRztimmnNe2g8Ae+sLv/jH9/P+8ubVZgsNlSgWnM
-	igw6FLeQ=
-X-Gm-Gg: AYBFou1t2FKSxr1pDjxNuOXZ79HR6ZkpSIldeaspqjdfA8obxhfwr90uGSXxd6IiirU
-	8SfIlk0TCDONDPuePo1+jxvOJe7/3zeuWG6eboM9ih9uBpsZZ2j77iHYKrQmCYSR9AGQ2wRrPWw
-	Dk+NXZ87q6KvyPIQkE8oZ7HbHhA0qZxeRxm2NIyDTevaCo7LD9pQlxE4e0XdWxpaQLa7QrE1vBA
-	ZM0LHc7tv5t1gR8ftJtbJ2uEapQCgu5PiCiFBC78/JMfL09Ub889B4B7aIbR5OEKQT6gPKgb+m/
-	+4S1j/+Slm5HhCNlprE3w3Nhv08tCFWGbP9s2OjZ/jyYQ+m4hXiznuvWlDu+PyV378+YOQeWRZL
-	aGCn5TJGy+IN7fzix5XytGZlWsZjcbroSbLLJaNF+on6qLEqJtimQZUWFqNosKxqrEsPZHq4rNG
-	bsdZzkREtQELp9j3lwVlUFh70/dSkyk1dj2fjp9IB6Y2LzpcTPFcWdy/Pr7nC2L8Zn36itynE4b
-	CNVgQ3gpqrRlFN32kzzcTSKiw==
-X-Received: by 2002:a05:622a:17c6:b0:535:1b18:202 with SMTP id d75a77b69052e-5357563d9f8mr47366621cf.16.1791395575210;
-        Wed, 07 Oct 2026 10:52:55 -0700 (PDT)
-Received: from toxicpanda.com ([153.61.196.250])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5357211719csm25028491cf.16.2026.10.07.10.52.54
+        d=1e100.net; s=20260707; t=1791395628; x=1792000428;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+gmgxmP0+2UXMwCdLFQZo3obMVJ/yu9W4LFjtiv3dxs=;
+        b=YTckhewdGIV+ywjjDMl6PpxmkC5kKinwZtIuruZyOyd7pRtcNUUksKtv/tzelchIm+
+         aXxKak8X12wvhQw9swr/Oyz8Q4eq2ERXK7gIst3mGUL9+IiLtLHbBn35F2qN/1ryWtNq
+         I/cDRP7tLEjbUJrwMdOizOoXbPdMtIf/WKU4BzUrp2IZUyv/p8C15n3VbJjnPqRXgtU3
+         kCJQ8PBOY91RwEGQlE3Zn1igutNq6SluZimPdKkrM1Awc6QwowaNDOmflwTMmqcOiMYI
+         tjGXt5xtmE9gRivKlSsEUzdf/QCpcuZe/Ef9NB35F+0AvgSywwGcAOtpXtUEAHN0tut1
+         Bd2A==
+X-Forwarded-Encrypted: i=1; AKwUvBxmUHlMI5sjMPL4BmJa+LFiK+5jEqRRoJQrseDyUUxYNm/+IuBDM+sE7tenTcIvF/wDMxNXBDFMfTsf5sk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKkwH+B3AV7i2ARZMObXA3d+dQqGyQN8zyxzEJyQKgrvKABlLT0
+	f6q2l9TgsWbPPXQMrWnPQzOhlk3bkV9eNlyJm0BTvlJ2M33LsRCfY0uc
+X-Gm-Gg: AYBFou1CA3X/y4YtGYf9N+eEBwQmQmepwbmdCXhHFXsok3BaR23Rf+IrOuPY5TzdcI9
+	BSxNLjJswZ8QVisTwN73t9o3BWFH9EGEwJ27FbRfSDn3ix12OgXAgIxnUwY/2g4TtPTf6TO1ICc
+	sGtvOKx257n1SUdVzAsWym3pLiUPOWPDtr4no3MRowtWn29YpeDDnHgBffncJkHf65AtkH9sOwu
+	zrp6E3ZqFwPIQ+wfL06fsg5fp8GnYIt9zfLo7cIQ8DXl0bYSS11l963dRLX7MaJxwfLwUNspASg
+	ruDjNKBDzLaQ5caUHZvmEtwbLhQ3RF2vwvs2kqHfHXSkAm7u2Eh7dxSdP3vqtdsOE33jI0NaIi0
+	P6YqoZn0QyQT7RHG1gaC0O1WXax/r4VfU6t6+jLiWe4UVJDQA+n9Pnaji4aSzqrDPAQweYbAV/u
+	FJ3wOvwMeFheW7xBYVcfMKPOK+7r0u+I1/I81EesHCJBto0HnZykEJM+ue33/D5RaVQEam2YswW
+	RCLEGKOko77c4BnyTOsyhH7pJtK8PqqFJvHx9NVCMtlb2YBD5NgqOe9wmQtkbIroUJhV/uKDHtC
+	4aNivEB3FSuzHtnHNm7ueKBOUkZi/w==
+X-Received: by 2002:a05:7301:3d12:b0:342:645a:5cf with SMTP id 5a478bee46e88-3515dbd00c9mr4952275eec.1.1791395627340;
+        Wed, 07 Oct 2026 10:53:47 -0700 (PDT)
+Received: from kapoor.iiserb.ac.in ([203.18.51.214])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515af90521sm16129669eec.19.2026.10.07.10.53.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 10:52:54 -0700 (PDT)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Wed, 07 Oct 2026 17:52:29 +0000
-Subject: [PATCH] aoe: pull in the headers each received packet type reads
+        Wed, 07 Oct 2026 10:53:46 -0700 (PDT)
+From: Arnav Kapoor <kapoorarnav43@gmail.com>
+To: Edward Cree <ecree.xilinx@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-net-drivers@amd.com,
+	linux-kernel@vger.kernel.org,
+	Arnav Kapoor <kapoorarnav43@gmail.com>
+Subject: [PATCH net-next v2] sfc: fix stale kernel-doc member names in net_driver.h
+Date: Wed,  7 Oct 2026 23:23:34 +0530
+Message-ID: <20261007175338.28683-1-kapoorarnav43@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261007-b4-aoe-short-packets-v1-1-db5155f7bb9c@toxicpanda.com>
-X-B4-Tracking: v=1; b=H4sIANyGxmoC/2WMQQ6CMBBFr0Jm7YQCFZGrGBdtGWzVlKZTjQnh7
- ra4dPle/n8rMEVHDGO1QqS3Y7f4DM2hAmOVvxG6KTO0ou0bIXrUEtVCyHaJCYMyD0qMc0enqTs
- OYpBnyNcQaXafPXu5/phf+k4mlVZZaMWEOipvbFHPUGtZ7/KvDtv2BY7wDHinAAAA
-X-Change-ID: 20261006-b4-aoe-short-packets-f3e7d3580849
-To: Justin Sanders <justin@coraid.com>, Jens Axboe <axboe@kernel.dk>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1791395563; l=2933;
- i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=uhtxMQ0fKAbNPofLk84gSjQ9sJxGeJ5klNaWx5ma9IY=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
- JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QICch1SptbjdEqliDJi5bIfqQFjyvXfuQRQghFUUBpL14qU7EZUB++3LF5qv0bdlru6xEHz9eLY
- I9yG4e82eIAA=
-X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
- fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
+Content-Transfer-Encoding: 8bit
 
-aoenet_rcv() only pulls the AoE and ATA headers into the skb head when
-the packet is long enough to hold both.  A shorter packet goes through
-unpulled, and aoenet_rcv() reads the AoE header from it anyway.  CFG
-responses go on to aoecmd_cfg_rsp(), which reads the config header
-after it, and ATA responses get queued for ktiocomplete(), which
-skb_pull()s both headers.  Ethernet pads frames to 60 bytes, so this
-mostly takes a virtual link, but nothing stops a short frame from
-getting here.
+Several kernel-doc comments in net_driver.h describe struct members that
+have since been renamed or removed, and the EFX_MAX_FRAME_LEN() comment
+is separated from the macro by the EFX_FRAME_PAD define. kernel-doc
+reports:
 
-Pull the AoE header up front and drop the packet if it isn't there,
-then pull the ATA or config header in the switch arm that hands the
-packet on, so each path gets the headers it reads.  This also replaces
-the open-coded __pskb_pull_tail() with pskb_may_pull().
+  Excess struct member 'state' description in 'efx_channel'
+  Excess struct member 'state_lock' description in 'efx_channel'
+  Excess struct member 'indir_table' description in 'efx_rss_context'
+  Excess struct member 'irq_rx_mod_step_us' description in 'efx_nic'
+  Excess struct member 'tx_queue' description in 'efx_nic'
+  Excess struct member 'rx_queue' description in 'efx_nic'
+  Excess struct member 'extra_channel_types' description in 'efx_nic'
+  expecting prototype for EFX_MAX_FRAME_LEN(). Prototype was for
+  EFX_FRAME_PAD() instead
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
+along with "not described" warnings for the renamed members.
+
+Fix the member names to match the structs, drop the entries for members
+that no longer exist, and move the EFX_FRAME_PAD define above the
+EFX_MAX_FRAME_LEN() comment, documenting its @mtu parameter.
+
+kernel-doc -Wall also reports three members that are not described
+because nothing in the driver uses them any more, so remove them rather
+than document them:
+
+  - efx_channel::busy_poll_state, left behind when commit e7fe9491261e
+    ("sfc: get rid of custom busy polling code") removed its users.
+    @state and @state_lock above were its old kernel-doc entries.
+  - efx_tx_queue::flush_outstanding, only used by the Falcon/Siena
+    flush code, which commit 36ff6393292d ("sfc: Move Siena specific
+    files") moved into siena/ with its own copy of the struct.
+  - efx_rx_queue::min_overfill, whose kernel-doc entry and only
+    assignment were removed by commit ecc910f520ba ("sfc: Make the dmaq
+    size a run-time setting (rather than compile-time)").
+
+The warnings were found with scripts/kernel-doc -Wall. I don't have sfc
+hardware; this is compile-tested only.
+
+No functional change.
+
 Assisted-by: LLM
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
 ---
-Tested by sending AoE responses at a veth pair.  Without this patch a
-26 byte CFG response and a 20 byte frame cut off inside the AoE header
-each created an aoe device from bytes past the end of the packet.  With
-it they're dropped, and a normal CFG response still creates the
-device and gets an ATA identify back.
+Changes in v2:
+- Remove busy_poll_state, flush_outstanding and min_overfill, which are
+  unused, instead of leaving them undocumented (Simon)
+- Use the Assisted-by format from coding-assistants.rst
 
-Thanks,
-Josef
----
- drivers/block/aoe/aoenet.c | 14 ++++++--------
- 1 file changed, 6 insertions(+), 8 deletions(-)
+net_driver.h has further members with no kernel-doc description,
+mostly in struct efx_nic and struct efx_nic_type. Those are in use, so
+I'll document them in a separate patch.
 
-diff --git a/drivers/block/aoe/aoenet.c b/drivers/block/aoe/aoenet.c
-index 66e617664c14..cd7c735bb43b 100644
---- a/drivers/block/aoe/aoenet.c
-+++ b/drivers/block/aoe/aoenet.c
-@@ -131,9 +131,7 @@ static int
- aoenet_rcv(struct sk_buff *skb, struct net_device *ifp, struct packet_type *pt, struct net_device *orig_dev)
- {
- 	struct aoe_hdr *h;
--	struct aoe_atahdr *ah;
- 	u32 n;
--	int sn;
+W=1 build of drivers/net/ethernet/sfc/ shows no new warnings.
+
+v1: https://lore.kernel.org/all/20261003055443.144554-1-kapoorarnav43@gmail.com/
+
+ drivers/net/ethernet/sfc/net_driver.h | 21 +++++++--------------
+ 1 file changed, 7 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/net/ethernet/sfc/net_driver.h b/drivers/net/ethernet/sfc/net_driver.h
+index 3964b2c56609..71144bb4c6c8 100644
+--- a/drivers/net/ethernet/sfc/net_driver.h
++++ b/drivers/net/ethernet/sfc/net_driver.h
+@@ -314,7 +314,6 @@ struct efx_tx_queue {
+ 	/* Members shared between paths and sometimes updated */
+ 	unsigned int empty_read_count ____cacheline_aligned_in_smp;
+ #define EFX_EMPTY_COUNT_VALID 0x80000000
+-	atomic_t flush_outstanding;
+ };
  
- 	if (dev_net(ifp) != &init_net)
- 		goto exit;
-@@ -144,12 +142,8 @@ aoenet_rcv(struct sk_buff *skb, struct net_device *ifp, struct packet_type *pt,
- 	if (!is_aoe_netif(ifp))
- 		goto exit;
- 	skb_push(skb, ETH_HLEN);	/* (1) */
--	sn = sizeof(*h) + sizeof(*ah);
--	if (skb->len >= sn) {
--		sn -= skb_headlen(skb);
--		if (sn > 0 && !__pskb_pull_tail(skb, sn))
--			goto exit;
--	}
-+	if (!pskb_may_pull(skb, sizeof(*h)))
-+		goto exit;
- 	h = (struct aoe_hdr *) skb->data;
- 	n = get_unaligned_be32(&h->tag);
- 	if ((h->verfl & AOEFL_RSP) == 0 || (n & 1<<31))
-@@ -171,10 +165,14 @@ aoenet_rcv(struct sk_buff *skb, struct net_device *ifp, struct packet_type *pt,
+ #define EFX_TX_CB_ORDER	7
+@@ -431,7 +430,6 @@ struct efx_rx_queue {
+ 	unsigned int max_fill;
+ 	unsigned int fast_fill_trigger;
+ 	unsigned int min_fill;
+-	unsigned int min_overfill;
+ 	unsigned int recycle_count;
+ 	struct timer_list slow_fill;
+ 	unsigned int slow_fill_count;
+@@ -467,8 +465,6 @@ enum efx_sync_events_state {
+  * @irq_moderation_us: IRQ moderation value (in microseconds)
+  * @napi_dev: Net device used with NAPI
+  * @napi_str: NAPI control structure
+- * @state: state for NAPI vs busy polling
+- * @state_lock: lock protecting @state
+  * @eventq: Event queue buffer
+  * @eventq_mask: Event queue pointer mask
+  * @eventq_read_ptr: Event queue read pointer
+@@ -526,9 +522,6 @@ struct efx_channel {
+ 	unsigned int irq_moderation_us;
+ 	struct net_device *napi_dev;
+ 	struct napi_struct napi_str;
+-#ifdef CONFIG_NET_RX_BUSY_POLL
+-	unsigned long busy_poll_state;
+-#endif
+ 	struct efx_buffer eventq;
+ 	unsigned int eventq_mask;
+ 	unsigned int eventq_read_ptr;
+@@ -788,7 +781,7 @@ struct efx_rss_context_priv {
+  * struct efx_rss_context - an RSS context
+  * @priv: hardware-specific state
+  * @rx_hash_key: Toeplitz hash key for this RSS context
+- * @indir_table: Indirection table for this RSS context
++ * @rx_indir_table: Indirection table for this RSS context
+  */
+ struct efx_rss_context {
+ 	struct efx_rss_context_priv priv;
+@@ -881,16 +874,14 @@ struct efx_mae;
+  * @timer_max_ns: Interrupt timer maximum value, in nanoseconds
+  * @irq_rx_adaptive: Adaptive IRQ moderation enabled for RX event queues
+  * @irqs_hooked: Channel interrupts are hooked
+- * @irq_rx_mod_step_us: Step size for IRQ moderation for RX event queues
++ * @irq_mod_step_us: Step size for IRQ moderation for RX event queues
+  * @irq_rx_moderation_us: IRQ moderation time for RX event queues
+  * @msg_enable: Log message enable flags
+  * @state: Device state number (%STATE_*). Serialised by the rtnl_lock.
+  * @reset_pending: Bitmask for pending resets
+- * @tx_queue: TX DMA queues
+- * @rx_queue: RX DMA queues
+  * @channel: Channels
+  * @msi_context: Context for each MSI
+- * @extra_channel_types: Types of extra (non-traffic) channels that
++ * @extra_channel_type: Types of extra (non-traffic) channels that
+  *	should be allocated for this NIC
+  * @mae: Details of the Match Action Engine
+  * @xdp_tx_queue_count: Number of entries in %xdp_tx_queues.
+@@ -1711,8 +1702,11 @@ efx_rx_buf_next(struct efx_rx_queue *rx_queue, struct efx_rx_buffer *rx_buf)
+ 		return rx_buf + 1;
+ }
  
- 	switch (h->cmd) {
- 	case AOECMD_ATA:
-+		if (!pskb_may_pull(skb, sizeof(*h) + sizeof(struct aoe_atahdr)))
-+			goto exit;
- 		/* ata_rsp may keep skb for later processing or give it back */
- 		skb = aoecmd_ata_rsp(skb);
- 		break;
- 	case AOECMD_CFG:
-+		if (!pskb_may_pull(skb, sizeof(*h) + sizeof(struct aoe_cfghdr)))
-+			goto exit;
- 		aoecmd_cfg_rsp(skb);
- 		break;
- 	default:
-
----
-base-commit: a3b346d7b1730db9900bb9e17f5bb8ea27e6ae2c
-change-id: 20261006-b4-aoe-short-packets-f3e7d3580849
++#define EFX_FRAME_PAD	16
++
+ /**
+  * EFX_MAX_FRAME_LEN - calculate maximum frame length
++ * @mtu: MTU to calculate the maximum frame length for
+  *
+  * This calculates the maximum frame length that will be used for a
+  * given MTU.  The frame length will be equal to the MTU plus a
+@@ -1726,9 +1720,8 @@ efx_rx_buf_next(struct efx_rx_queue *rx_queue, struct efx_rx_buffer *rx_buf)
+  * Re-clocking by the XGXS on RX can reduce an IPG to 32 bits (half an
+  * XGMII cycle).  If the frame length reaches the maximum value in the
+  * same cycle, the XMAC can miss the IPG altogether.  We work around
+- * this by adding a further 16 bytes.
++ * this by adding a further 16 bytes (EFX_FRAME_PAD).
+  */
+-#define EFX_FRAME_PAD	16
+ #define EFX_MAX_FRAME_LEN(mtu) \
+ 	(ALIGN(((mtu) + ETH_HLEN + VLAN_HLEN + ETH_FCS_LEN + EFX_FRAME_PAD), 8))
+ 
+-- 
+2.53.0
 
