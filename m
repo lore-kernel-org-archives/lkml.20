@@ -1,359 +1,186 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012040.outbound.protection.outlook.com [52.101.53.40])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62579374E45
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 23:55:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791417305; cv=none; b=NF5DFnBU4ghWc52BFzIAgNq6wRg9zKVSbO6S4VA5lvgWuteFZBuh4mFpCG33oKG6iDMzsI3JiPq3Ypp1WePuuBxTHHKcY37l/2X1HuHGnHtLC9oc2GNc1oJZNDx2CvWJrANZ1TYc2n2701V96TnmoQ5u6GtrLqkRCGk5ERXQYsc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791417305; c=relaxed/simple;
-	bh=fYh2HzSfewa57QSvPBObHBQlQclLGZLV/AYsr43Bqc0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LltZRRFAymfs+ikXMtG4lKWLsDADts6dyxUvPi0z5weGCzrFHF5mrDZXVnjMB/MwNSV9pNqysEpUfWzSH9w0ujVY2e7h618cCLQisVyzEavearfACH+QXf/a2NbMwL1mmDHv2fa2bgfacWtRyaV66HYjn76ngHEqQRwhlVYqeZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sosfE5Xr; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C24835F619;
+	Wed,  7 Oct 2026 23:56:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.40
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791417366; cv=fail; b=NIUXjrkiVfR9ckXMvAwhA+HYQmRhHmKf41AZ8f4zhVG8jukne65xGy9A54gs9rKNevoVgRY4g7akwELSJFUfMRVNOXXk679+xurTjU9S9JNWX1dFtq0kzENINftaGTm/LuGnfdYOOCtgnORXDY16W+8fp7bFxY22OhPz/FkxD90=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791417366; c=relaxed/simple;
+	bh=phlnh4noREAkhNDzWcWr3GjS0QCw0iZqEp3H8lQRH1E=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lwc8jesnEXKNsPat4AufDxGaCULr60/TTx/B055OqpUhfRV2P7OPWefczywsp1bOLZA0f22QUyDdljIStqCV3jK+986f8FxkdF7Np1WNfaKFEeLUN58+0J10dVXfQod1xR4dAAP54g1CeyJVoi8uyEIU48e7rapGwlb8IMmj/Tc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=k+QMJ/5z; arc=fail smtp.client-ip=52.101.53.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sosfE5Xr"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e4b5d94277so16373215ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 16:55:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791417303; x=1792022103; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vT9Ad0JJGa3iPAOa3YJF1Tie9QhVyUem5JF3+ZZiopE=;
-        b=sosfE5XrK/si/bTD0WoxrcNMcKx5UZUOJOwmiW7EBeCsKoYwjhTlZEZtWcD7jiQ6HP
-         vzM2tboNXfK5q4CljoFj/L4L6MTRUXhOZsEsBpJgqrGRrOOZKG7Ix2Ipp+lehpmZjnhS
-         enyMPeKese82WFrYKhWOWzUCAfHSomoihz1xUTYmVu52QNFvOCAl+JUx5UtkamCXWXfe
-         RaEeF8ZLoIjc8IJ2wAIT720BU/goo6PEMu9v5hSeRygaUzuFG0gu2lKmc/chOyYHvHXz
-         EPqhXfVFMlmUxMkdaKf5PRd0VRPlxa/lIvHmmDslb3wx7/hUCE53cWh2hPNfz/XaDOqs
-         FSKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791417303; x=1792022103;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vT9Ad0JJGa3iPAOa3YJF1Tie9QhVyUem5JF3+ZZiopE=;
-        b=qvG2nLmoYtwdOLfK0aHC1WAb57GptBZ3+0Dbr3O09FtQ4VcaxiG+kuXUqjWkSKHrzU
-         IgvK7h3m15VskKkCLy0DaLQRv6Q1a9aoekaOqKvw4D2vNGNVpWa1qkIMHsGH+z0H5dP+
-         edSm2LScEicuBjvnzs9lRFTrTQU6bMao+QbYbvwsmUf4ci2EZREbz6iub+EQ7y2sQGvE
-         MLLMOdNshUk27cWhfpq8f/8sV5sJAB08LcA7ZVKnnu3747hXgPhsNK7iXctEs+OarH63
-         pCHIYzuAVaPb1ztgsVcc6UOz2DmyvbPCqYgN4NC4KBvRgIdQUTHNhyrp22UQ8CeaVujz
-         DRXg==
-X-Forwarded-Encrypted: i=1; AKwUvByytghB8ZZUGYVudt4YwOhPKXSOnFJK6OJemsVYqaF4LzmQwD2SQOSP/k6wA1hoUIrJShLvpaCE/9NoHAU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLtzsVg2XHmtLxYlQx4g6xRnDZ81UiPtjh03zYpgwLHDayysfYf
-	6uc1cp2breachZkFluXBp1GJWZPLb43C/zgefl5m23XSd3WZB/We+oe9sSvsrA==
-X-Gm-Gg: AYBFou3DPsBpYjjtDV+UKc5PNi3PZN1mPIx80N2zaZOBOWUMqI7nHbpJhkEQgF826b+
-	M1TtFwv5I/U//ub+1CTVhv61Qa4U2k1POnfCTofzhFgxQQlhXx1p/7E5fcH9Np2ejY6G5ODkABz
-	upMKqSg1ymR61/MYAEJQUOa56R27pq7/7BV3zyLVFCT7NhwULCqEV5li37xdRg9wB01nkgeJfFo
-	RSTE7230q8WmmoWcJ9R6h7IpzoK14bafVYqtChkv85O3l9LgnvQutgK2EZCS2zH6RayK6zVjz3w
-	hWr3w9aoTzpuiilNo9h9aCR1F63nk0BxzhhGSokS4tcq3Jw2q9WpC9+9N7VZVrN+3RO3pewyTtF
-	0j4BnPpoyX3stmRlc8XWQPxIfEUuOvuF87ES422MOvI1FxOEZ3nxxO4MlI6UW17IV51GKGq6pq5
-	AvV3YZXTEkKRG8/frrZonAer2T9eQ+RTuL6jEbxOSl4KSL4mRb3yiVHtHRnjkfokKuOvqpnLh1m
-	fiJnV0l9bB3Jpml4NzDlgSjlQESEF56WuU+QMp55qKghbDXLAltMZ4lDyRP5t1RK7CqcEIPomfW
-	308HsXjeDjU=
-X-Received: by 2002:a17:90b:17d2:b0:3a8:86b7:ad95 with SMTP id 98e67ed59e1d1-3a8a1c12e61mr3414044a91.60.1791417302426;
-        Wed, 07 Oct 2026 16:55:02 -0700 (PDT)
-Received: from ?IPV6:2001:df0:0:200c:c075:2553:e5b6:8232? ([2001:df0:0:200c:c075:2553:e5b6:8232])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9f1d10867sm1755812a91.13.2026.10.07.16.54.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 07 Oct 2026 16:55:01 -0700 (PDT)
-Message-ID: <d52fd72d-fe72-4fd3-9ae8-5ed999d18b5f@gmail.com>
-Date: Thu, 8 Oct 2026 12:54:56 +1300
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="k+QMJ/5z"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cMAiXJGDe37gNHganGJpHwyFaHh6RWj66p/L/6N41W/jw38PJW8jv/r7qaXM5OY3yLSfM3l1eJJMwdFcMqlGHBfPFRIJWdBL4D5O0k7057mumxXhF+2U+y5iWOdo4u9nXVtIQZ02GP8/lnWuJNkYMGWnmJxpZ80FfXB7VhfJhSTBpSRXBj6vbdABjwV/Q/685o2f/vUAZSv52AtXJM5RxLYEnFSrEd9CwG3wPLD5f/FvD6oVy6piziaYuCoAilS4AbwzahOmcTZqRXe8txdzc3fPW6FX4dpLHfig8HSO2tVrloJ1kuOHlhjdWpUwRXn9OWpFkeAjjiTxPjfrHfWWGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=w5dyDI4MnqvkKg+OhKWMFhFTzM4fD8p/xguEzXihwSc=;
+ b=lAlEZVVm9WQH10CUJi3k/sgXX6mEVZfvlrKCumDx3jaxAVxnK2wm5xB/Iwg1egSdv+V2PIViGqBNqud7+V631RDxqnCZXzTTuorDkSmCqBbA5y+IfGgiFCZDmDgRjUMCKMVjDofxws5zAuml23YmLcv4XpowtlE6QJxNPvO6FsvmNDSkkgApojgAAcfKiZvs8iOWXkAgEuPL79hDAmpuClO3n1X0t7jpKpyg5uR0Ra6AtjdyriRKjuInxqP0HFEt07+tG27mnBGFaO1JesKkZ8djtWTg8lFconniJvcqjmhWxoxthvD0vIlryBNS2UDp5vNqCdaxrxCRQUm/muF7aA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=oss.nxp.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=w5dyDI4MnqvkKg+OhKWMFhFTzM4fD8p/xguEzXihwSc=;
+ b=k+QMJ/5zKJ6CyEut3ZbUYd2p0lDiOzGV8rT61RocKF+LuHsD5AB07nFcX8AOZV7RFEG3t+BWsycrqB8N+K29jIJiQb2v+sKS1hcvLDT19F8VeCcjl2EAZRtoQMKtGb3PuWD5wHA6gtpPPSuIGfHoP7si/nBrFXQQLPtHow7l5FMM3fDSfGRhz4STSpdn1vylYGavoYdcn5J2HCsM+0vOqZOMotuXWR111P+3DsjCQLE1YtOWdrcNLymMYieywGbESD28G9u8alJpcfq4IvGQzsuh0XDKL1gllv+H79hSlagHCde79aJUglwc+nWs8xKRffa8yYCni/V0dMxM99Eg4Q==
+Received: from CH2PR04CA0005.namprd04.prod.outlook.com (2603:10b6:610:52::15)
+ by CY5PR12MB6624.namprd12.prod.outlook.com (2603:10b6:930:40::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Wed, 7 Oct
+ 2026 23:55:59 +0000
+Received: from CH2PEPF0000009E.namprd02.prod.outlook.com
+ (2603:10b6:610:52:cafe::a8) by CH2PR04CA0005.outlook.office365.com
+ (2603:10b6:610:52::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Wed, 7
+ Oct 2026 23:55:59 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ CH2PEPF0000009E.mail.protection.outlook.com (10.167.244.27) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.496.14 via Frontend Transport; Wed, 7 Oct 2026 23:55:59 +0000
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
+ 2026 16:55:42 -0700
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by rnnvmail203.nvidia.com
+ (10.129.68.9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
+ 2026 16:55:42 -0700
+Received: from nvidia.com (10.127.8.9) by mail.nvidia.com (10.129.68.10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
+ Transport; Wed, 7 Oct 2026 16:55:40 -0700
+Date: Wed, 7 Oct 2026 16:55:37 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+CC: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, "Joerg
+ Roedel (AMD)" <joro@8bytes.org>, Jean-Philippe Brucker <jpb@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Thierry Reding <thierry.reding@kernel.org>,
+	Krishna Reddy <vdumpa@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+	<linux-arm-kernel@lists.infradead.org>, <iommu@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, <linux-tegra@vger.kernel.org>, Peng Fan
+	<peng.fan@nxp.com>
+Subject: Re: [PATCH RFC v5 3/6] iommu/arm-smmu-v3: Delay stream allocation to
+ inside the mutex
+Message-ID: <asbb+ffdovx+q6Rd@nvidia.com>
+References: <20261006-smmu-shared-sid-v5-0-169a59c671d3@nxp.com>
+ <20261006-smmu-shared-sid-v5-3-169a59c671d3@nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND] m68k: Handle put_user faults more carefully
-To: Greg Ungerer <gerg@polyxeno.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>, Finn Thain <fthain@linux-m68k.org>
-Cc: linux-m68k@lists.linux-m68k.org, linux-kernel@vger.kernel.org
-References: <88e752e0bca92c7b65533cc1b334052dd272f8ef.1790842086.git.fthain@linux-m68k.org>
- <02c53c37-d2ee-4c03-a8f9-0a757c3af59e@gmail.com>
- <CAMuHMdVbfUH1ZoFcS64t=gyE_cskMWv6gGvL8pjGirSGvAKu2w@mail.gmail.com>
- <dfcbbc59-4204-478b-b8da-867621056c62@gmail.com>
- <5bb9f586-6939-433e-9e06-a9bbc08a69a0@polyxeno.com>
-Content-Language: en-US
-From: Michael Schmitz <schmitzmic@gmail.com>
-In-Reply-To: <5bb9f586-6939-433e-9e06-a9bbc08a69a0@polyxeno.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261006-smmu-shared-sid-v5-3-169a59c671d3@nxp.com>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000009E:EE_|CY5PR12MB6624:EE_
+X-MS-Office365-Filtering-Correlation-Id: 138d88ba-2e69-4ec3-d880-08df24ce8928
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|7416014|376014|23010399003|1800799024|36860700016|22082099003|18002099003|4143699003|10067099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	IemfLYRC98xVGG+bW75Kt6zYQWq7QXx1IF4GbNJV/aWV/Nd5IdgFQjgK+vTDb5EiAaNPhJ/S1UhAEeD2IE1+o7h2M5aEDAW5fVfh0R8JNFFZnBNYvqAfjNSn0lyn2IZwHBfLIcQ7G1uYXJsFSPrNdelEx76czYm/Iqkz/N8HiQQdunqRq+oM3nSOBSBt/i/l2Yyro2ow7Wt4d6IJHsCJ/hXH/1lFdJnoBP1uiSTIeowPL6Sc1Km5e101QsE/X/9xZ8TO4UP7fJ5YIkRHgO0ZWuPtbhVDSsZw/qGExZlCnGQdN8oTZ2SfxLTbX2CI/f8Ub2A8bp9WsUNtTNDI77StM9Y51DikTM6UXuGKhn39tvwE13tQpwwc8qPRKBFzx6FXURjGDHp9ZB9qEpJhngMyB1lfism1AH6Pe5/t2t4NliIcoJSh/BwpNqwSbqvuH2k+veQUGY7RdsQvpLh/roG+ilp9CgtSY7PeJL4RGPTyIZ9YnzQQE/vFUPZ4JDrIiwc+CIDeA4CeC7JH1GDPqYW139aGhd/S+aAET2tlkmYJhHNJQOvO5iqiIaYOuPYM0nn4fJxfEwYP3rG6A9BnuKgfBeUu+ISuR2BG1mOnK6z0TVbuZ8kH77Sxn0Vnkewh1bQlgnm+ZxjL4doSmBac+KoO70oktffZTSjbwxAInqOvt5yAPHJzVxasSfogz+8Idh3YFXx/JdTWY+KHmRGxQdopvg==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(7416014)(376014)(23010399003)(1800799024)(36860700016)(22082099003)(18002099003)(4143699003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	UsVT06X4YM+gUvEPq+y5ZQ3a2g6WCnzerQC0+ezEUBwNQbbOUaorS+qa5LgiQNB7xwxqwzoPB8Yfbbvt4evfeG0hvIf9oQ7NjPymHlSlNLV7k7KMwrwHXyiWCG62H3IEHvoXzhgpFfKv3CEBueatJdEmy5Qq78ldZFY3vvCku5yV2EgkQEYfR3fUFzdL03i6P1d0fvES8IHSAYOe1tGOv1OFBU+C3pCe4vyatgmbFiq+a25iQkBeT1mbR4ylsJxuXOGHHlct1bxI5jxeShlmAxX7M8+BqrmLbd3zbh12dvL/qST9L6H4VMNSBuh0w220u28/dscY0qt7TBZAFMJl8VAm2Zu2x1MS8Xavxp3YS4taSwdYk2e3h77tpqAbBcKQ9O3pGMfZgfzeZ/Ys6QFkZiiuVugylmMYh0C6mzxhoDLsZOUHkGdUUfXiS6PsqRU5
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 23:55:59.1275
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 138d88ba-2e69-4ec3-d880-08df24ce8928
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH2PEPF0000009E.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6624
 
-Hi Greg,
+On Tue, Oct 06, 2026 at 08:19:09PM +0800, Peng Fan (OSS) wrote:
+> @@ -4110,52 +4110,29 @@ static int arm_smmu_insert_master(struct arm_smmu_device *smmu,
+[...]
+> -		/* Insert into SID tree */
+> -		existing = rb_find_add(&new_stream->node, &smmu->streams,
+> -				       arm_smmu_streams_cmp_node);
+> +		existing = rb_find(&sid, &smmu->streams,
+> +				   arm_smmu_streams_cmp_key);
+>  		if (existing) {
+>  			struct arm_smmu_master *existing_master =
+>  				rb_entry(existing, struct arm_smmu_stream, node)
+>  					->master;
+>  
+>  			/* Bridged PCI devices may end up with duplicated IDs */
+> -			if (existing_master == master)
+> +			if (existing_master == master) {
+> +				master->streams[i] = rb_entry(existing,
+> +					struct arm_smmu_stream, node);
 
-thanks for running these tests!
+This can be cleaned a bit by moving the arm_smmu_find_stream()
+from PATCH-4 to this patch.
 
-On 6/10/26 01:42, Greg Ungerer wrote:
-> Hi Michael,
->
-> On 3/10/26 09:55, Michael Schmitz wrote:
->> Hi Geert,
->>
->> On 03/10/2026 5:28 AM, Geert Uytterhoeven wrote:
->>
->>> Hi Michael, Finn,
->>>
->>> On Thu, 1 Oct 2026 at 20:57, Michael Schmitz <schmitzmic@gmail.com> wrote:
->>>> On 1/10/26 22:08, Finn Thain wrote:
->>>>> Running 'stress-ng --sysbadaddr -1' on my MC68040 system immediately
->>>>> produces an oops:
->>>>>
->>>>>        Unable to handle kernel access at virtual address f1c422fb
->>>>>        Oops: 00000000
->>>>>        Modules linked in:
->>>>>        PC: [<00005a1a>] do_040writeback1+0xae/0x160
->>>>>        SR: 2010  SP: 96087dc2  a2: 01500000
->>>>>        d0: 00000000    d1: 014e8000    d2: 00000081    d3: 00000000
->>>>>        d4: 00000481    d5: c043dfff    a0: 014e8000    a1: 00632fd5
->>>>>        Process stress-ng (pid: 221, task=1b729d30)
->>>>>        Frame format=7 eff addr=014e9eb8 ssw=0c81 faddr=c043dfff
->>>>>        wb 1 stat/addr/data: 0001 00000481 c043dfff
->>>>>        wb 2 stat/addr/data: 0081 c043dfff 2f746d70
->>>>>        wb 3 stat/addr/data: 0005 014e9ed4 2f746d70
->>>>>        push data: c043dfff 800daa70 00000000 014e9f1c
->>>>>        Stack from 014e9ed4:
->>>>>          2f740000 8017c000 014e9f10 00006830 00000081 c043dfff 2f746d70 2f746d70
->>>>>          0081a000 00000400 c043dfff 800daa70 c043dfff 80016a20 00000003 014e9f88
->>>>>          000026c8 014e9f1c 00000001 2f746d70 0081a000 00000400 c043dfff 0081afff
->>>>>          c043dfff 01500000 00000001 ffffffff 00000000 20000046 41d67008 014e9f58
->>>>>          04810005 00810045 c043dfff 014e9f84 2f746d70 c043dfff 2f746d70 c043dfff
->>>>>          80016a20 8017c000 00000000 0081affb 00000005 014e9fc4 00128bc6 c043dfff
->>>>>        Call Trace: [<00006830>] buserr_c+0x510/0x698
->>>>>          [<000026c8>] buserr+0x20/0x28
->>>>>          [<00128bc6>] sys_getcwd+0xc8/0x15a
->>>>>          [<000027a2>] syscall+0x8/0xc
->>>>>          [<0008800d>] sanity_check_segment_list+0x17/0x11e
->>>>>
->>>>>        Code: 000c 0e90 1800 220f 0281 ffff e000 2041 <2228> 0008 0281 00ff
->>>>>              ff00 67a4 6026 4280 122e 0013 206e 000c 0e10 1800 220f 0281
->>>>>
->>>>> 0000596c <do_040writeback1>:
->>>>>        596c:       4e56 fffc       linkw %fp,#-4
->>>>>        5970:       2f02            movel %d2,%sp@-
->>>>>        5972:       202e 0008       movel %fp@(8),%d0
->>>>>        5976:       4282            clrl %d2
->>>>>        5978:       3400            movew %d0,%d2
->>>>>        597a:       220f            movel %sp,%d1
->>>>>        597c:       0281 ffff e000  andil #-8192,%d1
->>>>>        5982:       2041            moveal %d1,%a0
->>>>>        5984:       2228 0008       movel %a0@(8),%d1
->>>>>        5988:       0281 00ff ff00  andil #16776960,%d1
->>>>>        598e:       6600 0104       bnew 5a94 <do_040writeback1+0x128>
->>>>>        5992:       4e7b 2000       movec %d2,%sfc
->>>>>        5996:       4e7b 2001       movec %d2,%dfc
->>>>>        599a:       0240 0060       andiw #96,%d0
->>>>>        599e:       0c40 0020       cmpiw #32,%d0
->>>>>        59a2:       6700 0084       beqw 5a28 <do_040writeback1+0xbc>
->>>>>        59a6:       0c40 0040       cmpiw #64,%d0
->>>>>        59aa:       6730            beqs 59dc <do_040writeback1+0x70>
->>>>>        59ac:       4a40            tstw %d0
->>>>>        59ae:       6752            beqs 5a02 <do_040writeback1+0x96>
->>>>>        59b0:       4280            clrl %d0
->>>>>        59b2:       220f            movel %sp,%d1
->>>>>        59b4:       0281 ffff e000  andil #-8192,%d1
->>>>>        59ba:       2041            moveal %d1,%a0
->>>>>        59bc:       2228 0008       movel %a0@(8),%d1
->>>>>        59c0:       0281 00ff ff00  andil #16776960,%d1
->>>>>        59c6:       6600 0086       bnew 5a4e <do_040writeback1+0xe2>
->>>>>        59ca:       7201            moveq #1,%d1
->>>>>        59cc:       4e7b 1000       movec %d1,%sfc
->>>>>        59d0:       4e7b 1001       movec %d1,%dfc
->>>>>        59d4:       242e fff8       movel %fp@(-8),%d2
->>>>>        59d8:       4e5e            unlk %fp
->>>>>        59da:       4e75            rts
->>>>>        59dc:       4280            clrl %d0
->>>>>        59de:       322e 0012       movew %fp@(18),%d1
->>>>>        59e2:       206e 000c       moveal %fp@(12),%a0
->>>>>        59e6:       0e50 1800       movesw %d1,%a0@
->>>>>        59ea:       220f            movel %sp,%d1
->>>>>        59ec:       0281 ffff e000  andil #-8192,%d1
->>>>>        59f2:       2041            moveal %d1,%a0
->>>>>        59f4:       2228 0008       movel %a0@(8),%d1
->>>>>        59f8:       0281 00ff ff00  andil #16776960,%d1
->>>>>        59fe:       67ca            beqs 59ca <do_040writeback1+0x5e>
->>>>>        5a00:       604c            bras 5a4e <do_040writeback1+0xe2>
->>>>>        5a02:       4280            clrl %d0
->>>>>        5a04:       222e 0010       movel %fp@(16),%d1
->>>>>        5a08:       206e 000c       moveal %fp@(12),%a0
->>>>>        5a0c:       0e90 1800       movesl %d1,%a0@
->>>>>        5a10:       220f            movel %sp,%d1
->>>>>        5a12:       0281 ffff e000  andil #-8192,%d1
->>>>>        5a18:       2041            moveal %d1,%a0
->>>>>        5a1a:       2228 0008       movel %a0@(8),%d1
->>>>>        5a1e:       0281 00ff ff00  andil #16776960,%d1
->>>>>        5a24:       67a4            beqs 59ca <do_040writeback1+0x5e>
->>>>>        5a26:       6026            bras 5a4e <do_040writeback1+0xe2>
->>>>>        ...
->>>>>
->>>>> The cause is a deliberately misaligned access in the 'bad_end_addr' test
->>>>> case in the 'sysbadaddr' stressor. The location being accessed here,
->>>>> 0xc043dfff, was contrived to span the boundary between a r/w anonymous page
->>>>> and an unmapped page. The address was then passed to the getcwd syscall
->>>>> which faulted in copy_to_user().
->>>>>
->>>>> The fault for the mapped page appears to be handled okay -- up until
->>>>> do_040writeback1() called put_user() which produced a second fault due to
->>>>> the unmapped page.
->>>>>
->>>>> Michael Schmitz helpfully deciphered the oops and explained the exception
->>>>> processing leading up to it.
->>>>>
->>>>>        "regs->pc does point to the PC in the format 7 frame which is the PC
->>>>>        the fault was detected at, but not (in case of a writeback fault)
->>>>>        the PC of the faulting instruction [that is, MOVES.L].
->>>>>
->>>>>        "The writeback would still cross the page boundary, and fault if the
->>>>>        unmapped page still isn't present. We would not see the PC of the
->>>>>        movesl in that case, and fail to find the PC in the exception
->>>>>        table."
->>>>>
->>>>> One solution is to add a NOP instruction after the MOVES.L to flush the
->>>>> pipeline and take the fault. That way, the PC value in the exception frame
->>>>> becomes dependable so the exception table works.
->>>>>
->>>>> Theoretically, there seems to be another bug in the existing code. If
->>>>> the instruction following the MOVES faulted, then after the fixup,
->>>>> execution would resume at the instruction which caused the fault. This
->>>>> appears to be a loop. After this patch, that cannot happen.
->>>>>
->>>>> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
->>>>> Signed-off-by: Finn Thain <fthain@linux-m68k.org>
->>>>> ---
->>>>>     arch/m68k/include/asm/uaccess.h | 10 ++++++----
->>>>>     1 file changed, 6 insertions(+), 4 deletions(-)
->>>>>
->>>>> diff --git a/arch/m68k/include/asm/uaccess.h b/arch/m68k/include/asm/uaccess.h
->>>>> index 31d133faa45e..728a6dfb7414 100644
->>>>> --- a/arch/m68k/include/asm/uaccess.h
->>>>> +++ b/arch/m68k/include/asm/uaccess.h
->>>>> @@ -31,11 +31,12 @@
->>>>>     #define __put_user_asm(inst, res, x, ptr, bwl, reg, err) \
->>>>>     asm volatile ("\n"                                  \
->>>>>         "1:     "inst"."#bwl"   %2,%1\n"                \
->>>>> -     "2:\n"                                          \
->>>>> +     "2:     nop\n"                                  \
->>>>> +     "3:\n"                                          \
->>>>>         "       .section .fixup,\"ax\"\n"               \
->>>>>         "       .even\n"                                \
->>>>>         "10:    moveq.l %3,%0\n"                        \
->>>>> -     "       jra 2b\n"                               \
->>>>> +     "       jra 3b\n"                               \
->>>>>         "       .previous\n"                            \
->>>>>         "\n"                                            \
->>>>>         "       .section __ex_table,\"a\"\n"            \
->>>>> @@ -53,11 +54,12 @@ do {                                                              \
->>>>>         asm volatile ("\n"                                      \
->>>>>                 "1:     "inst".l %2,(%1)+\n"                    \
->>>>>                 "2:     "inst".l %R2,(%1)\n"                    \
->>>>> -             "3:\n"                                          \
->>>>> +             "3:     nop\n"                                  \
->>>>> +             "4:\n"                                          \
->>>>>                 "       .section .fixup,\"ax\"\n"               \
->>>>>                 "       .even\n"                                \
->>>>>                 "10:    movel %3,%0\n"                          \
->>>>> -             "       jra 3b\n"                               \
->>>>> +             "       jra 4b\n"                               \
->>>>>                 "       .previous\n"                            \
->>>>>                 "\n"                                            \
->>>>>                 "       .section __ex_table,\"a\"\n"            \
->>>>> Reviewed-by: Michael Schmitz <schmitzmic@gmail.com>
->>>>>
->>>>> in case it helps.
->>>>>
->>>>> Anecdotally, I've seen similar uaccess faults causing kernel oops on 030
->>>>> as well, so this may not merely be an artificial unaligned access issue.
->>> Shouldn't this include
->>> https://lore.kernel.org/20240429030945.22451-3-schmitzmic@gmail.com
->>> ?
->> Along with https://lore.kernel.org/20240429030945.22451-2-schmitzmic@gmail.com, perhaps.
->>
->> Can't recall the details, but Finn's solution was to add a nop in order to make the fault PC reliable. That's not a great deal of overhead in the case of put_user(). My changes to copy_to_user try to avoid flushing the pipeline inside of a loop, and only use the nop after exiting the loop. The cost of that is larger exception tables. Not sure which is worse.
->>
->> What's more, I can't be certain that my 'fault is taken two instructions past faulting instruction' observation is 100% reliable. AFAIK this has only been tested on 030 and 040. Coldfire(MMU) and 060 tests are still missing.
-> ColdFire seems to have more, or maybe just different problems for "stress-ng --sysbadaddr -1".
-> Running a kernel with and without this patch resulted in:
->
-> # stress-ng --sysbadaddr -1process '/usr/bin/stress-ng' started with executable stack
-> stress-ng: info:  [40] defaulting to a 86400 second (1 day, 0.00 secs) run per stressor
-> stress-ng: info:  [40] dispatching hogs: 1 sysbadaddr
-> *** ILLEGAL INSTRUCTION ***   FORMAT=4
-> Current process id is 250
-> BAD KERNEL TRAP: 00000000
-> Modules linked in:
-> PC: [<00000000>] 0x0
-> SR: 2004  SP: 013da6cc  a2: bfccd950
-> d0: 00000000    d1: 00000002    d2: bfccd814    d3: 00000001
-> d4: 80174c1e    d5: 800bd9ac    a0: 800bd9ac    a1: 800bdb54
-> Process stress-ng-sysba (pid: 250, task=f7e050bd)
-> Frame format=4 eff addr=44090004 pc=80115870
-> Stack from 013ea000:
-> Call Trace:
-> Code: 0000 0000 0000 0000 0000 0000 0000 0000 <0000> 0000 0000 0000 0000 0000 0000 0000 0002 a6c4 0002 a6c4 0002 a6c4 0002 a6c4
-> Disabling lock debugging due to kernel taint
-> note: stress-ng-sysba[250] exited with irqs disabled
-> *** ILLEGAL INSTRUCTION ***   FORMAT=4
-> Current process id is 42
-> BAD KERNEL TRAP: 00000000
-> Modules linked in:
-> PC: [<00000000>] 0x0
-> SR: 2004  SP: affae50f  a2: 012d1f80
-> d0: 00000000    d1: 0000000b    d2: 01057db0    d3: 00035b9a
-> d4: 00000000    d5: bfccd814    a0: bfccd814    a1: 0050c21c
-> Process stress-ng-sysba (pid: 42, task=1b5bfafe)
-> Frame format=4 eff addr=480a2004 pc=00035ab2
-> Stack from 013d3f28:
->          00000000 000000fa 00000000 00000004 01057db0 00000000 0000000b 00000000
->          00000000 012d1f80 000336b4 00000100 00000122 fffffff6 bfccd76c 00035c1c
->          000000fa bfccd814 00000000 00000000 bfccd76c 00000000 0000000a 000000fa
->          00000000 8011685e 80119990 00935414 0002ce18 013d3fcc 00000000 00000000
->          00000000 00000000 8011685e 013d3fcc 00000005 bfccd7a0 80010686 0002a6bc
->          0002df3c 000000fa bfccd814 00000000 00000000 bfccd814 00000000 800bdb54
-> Call Trace: [<000336b4>] child_wait_callback+0x0/0x86
->   [<00035c1c>] sys_wait4+0x82/0x92
->   [<0002ce18>] buserr_c+0x130/0x1dc
->   [<0002a6bc>] buserr+0x28/0x30
->   [<0002df3c>] system_call+0x58/0xac
->
->
-> I have not debugged any further yet.
+>  	if (ret) {
+> -		for (i--; i >= 0; i--)
+> -			if (!RB_EMPTY_NODE(&master->streams[i]->node))
+> -				rb_erase(&master->streams[i]->node,
+> -					 &smmu->streams);
+> +		for (i--; i >= 0; i--) {
+> +			int j;
+> +
+> +			if (!master->streams[i])
+> +				continue;
+> +			/* Skip duplicated SID pointers already freed */
+> +			for (j = 0; j < i; j++)
+> +				if (master->streams[j] == master->streams[i])
+> +					break;
+> +			if (j < i)
+> +				continue;
+> +			rb_erase(&master->streams[i]->node, &smmu->streams);
+> +			kfree(master->streams[i]);
+> +		}
 
-This rather looks like stack corruption - does that ColdFire system pass 
-signal tests OK?
+Add a helper to share with arm_smmu_remove_master():
 
-That said - the register dump is misleading - from what I've read, 
-ColdFire only has a single exception frame format, 2 longwords in size. 
-The first longword of that frame contains frame format code, fault 
-status, vector no. and status register. This is what's shown in the 'eff 
-addr' longword here. The following longword is the actual faulting 
-instruction PC as saved in the exception frame by the processor - this 
-does not match what is given as PC at the start of the register dump 
-(saved by the kernel on exception processing entry).
+static void arm_smmu_free_master_streams(struct arm_smmu_master *master)
+{
+	struct arm_smmu_device *smmu = master->smmu;
+	int i;
 
-I don't know what kind of ColdFire processor you used, so can't work out 
-what happened on exception entry and in particular, where the PC in the 
-kernel stack frame was taken from. No matter what, I think we ought to 
-clean up the frame format 4 section in show_registers() to account for 
-the different frame format on ColdFire, then perhaps also use the 
-correct PC to dump the infringing code section. Makes no sense to try 
-and debug this without correct debug info ...
+	lockdep_assert_held(&smmu->streams_mutex);
 
-I can prepare a patch to show what I mean, but can neither compile or 
-test that...
+	for (i = 0; i < master->num_streams; i++) {
+		int j;
 
-Cheers,
+		if (!master->streams[i])
+			continue;
+		/* Skip duplicated SID pointers already freed */
+		for (j = 0; j < i; j++)
+			if (master->streams[j] == master->streams[i])
+				break;
+		if (j < i)
+			continue;
+		rb_erase(&master->streams[i]->node, &smmu->streams);
+		kfree(master->streams[i]);
+	}
+}
 
-     Michael
-
-
->
-> Regards
-> Greg
->
->
+Nicolin
