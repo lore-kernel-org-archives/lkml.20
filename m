@@ -1,273 +1,138 @@
-Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-pp-g123.zoho.com (sender6-pp-g123.zoho.com [165.173.180.123])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E09E72192FA
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 03:30:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC3AD5B206;
+	Wed,  7 Oct 2026 03:35:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.123
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791343834; cv=pass; b=UkXTt7Gm0h2chUIznD40bLtLhZVWZ8FLXqFXpsDHjozbPwBX0kAFughJeczbS1Dd3OHCnybtujfjj6/PHcPh15fiqfaTV8vukOSkCrrxSBurwSFKk2sLw1lvwOPdeFP3UR6UELPKHJ7AWoXGU7svKs4DdDMbVtL2nqhiy3/fpYg=
+	t=1791344145; cv=pass; b=SSbeQ84WQuLAKnmprhCtqyDh20JNny4LenTg8Ed+35C5e4b9qM9lk5SK7EgCMo9YztNXhfcvXSe3NUzWN4U4EGkueylGgoYOqZzN9XRhB4jg7X//ybnOdRT4lT+lASK06ILCgzSoEG1wfaDrkBJZzwc/jiR7WBQ0PA2K9yLggf0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791343834; c=relaxed/simple;
-	bh=UJjG7YQB/XZoKvnWM5FDfqOIQ0JIYp5rinf2O9Fj9J8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KutKWQwToT3EvzfzcgPwF0Z8ZAWGTX9D/T1pEiMlSorZ6x/gvnHuovHRJXCtNH3m5hR0iENhTM+Ti3As23h4CT/oJHi26TBQ2DNQ75r+Rfij44PUxTVFNE1XsL6mC4Mt+8a1pGq6oXH4ozjnODFP9iLDYBs/0nzJPM2Ti0DhQDE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SMXNPD0g; arc=pass smtp.client-ip=74.125.224.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791344145; c=relaxed/simple;
+	bh=tT28eRbBX/xWqcGm7Vdom8PM07D1NYc0Wz80OC3tjzw=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
+	 References:In-Reply-To; b=u3oVNeZPw5KD5x7pkNTXG0wIu7beprWrnY57Gmv0a5JvRQbeAnID5GsdMA3FxjVArzoG6TZ1rP3GEGsmQtAhQLMDJzPOL2v1xZ81EtBSwZeN5sus2wECqcaTaAG3Lp8eZ2M/yM+6KQL1IAUfB9AUc6cKeRgDhV4y4qejSHYE15I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=ngjjKCMT; arc=pass smtp.client-ip=165.173.180.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SMXNPD0g"
-Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-677d35fd168so1434139d50.3
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 20:30:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791343831; cv=none;
-        d=google.com; s=arc-20260327;
-        b=owEhvhmu8ny4NjADKAmkn9KgAp2OHphPYuz+dZlOTH/MgV+WmwkckIsYS/Y2JZikZp
-         YzDgozkkv7wgwEL5gfEaqYDmNGUH+l6nUwTO35MvFuomB1YD45rEsZ5FKRBPMO57nJeT
-         pwi5oeoAAnfiT2h15+J3HdDLQaj7164fT9P35lR6kLdLLh1u1D3NEovLdKi//5B+y+Fx
-         wyhnzj5NXnS2WGm9ue+XW6IfCbvV8WHCAFYUW5FNfiEMZFWpGzEVphry+eQOkeF1Ahz6
-         0MoTJcM6qrXf7xwvfqVuueZDnY888ZsBDLwpzmBYAu5cm+yQ9AWA5OQ/FZtmJb778NxS
-         QKaQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=bj7qdb9JKHM+aQdEnEvqhywIWqaQWXOgPRxHvLl5wx0=;
-        fh=v7Xx8dklrHIEWGg6L4Jn5EkvhWrauINL16sl97mWHWY=;
-        b=hcadm6ceIgLCbcylzFZUET49nHpkiA2ZnjbSidvS72IPx9uDNK0P4dtOCpyhsC7K7F
-         vZuZhHJuReaKRSc2FbStn7G2HC6/VlKWqJyUZhG3yxmvPBcqS0O2LPMvOS2woyfzEOVO
-         Wl39STK0iHRfzWqf38/NVB8ErVNj5270lptCoNfBI2Ic2Y3xUxc8/EoygPJLtOhE2eNx
-         Od4xErb7TDK0FcTesBhlZKXGbqWG9FPZEg+ppOGu+58YgeUKClq2yK8dzleUT4QHn+m2
-         RfkmDd11pAkB+BCgkqrBe9LTkfFSqBZdzyLNmnj50mVumWloSpmbrGr6GyUxoVHsfmGo
-         hSKg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791343831; x=1791948631; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bj7qdb9JKHM+aQdEnEvqhywIWqaQWXOgPRxHvLl5wx0=;
-        b=SMXNPD0gFhuA4J/xULHLAr2v38jGdJ0BvV+NdQ0d7ttBKyACqGioEUnpNxJvPm5hAM
-         lGTJHUEmZL2L4QLuYIqEyJa1JscX6lrMJ/oTm5gus45JiZF1Uk/ueCHCQDtquj8RVu+C
-         sICxGoe7/J3iDpnL4PfKbYlH54j1uAeAaPSEtA1JqLksx84eskOuE1/3S0c8Q6zjoIYm
-         wKVBRVuv5BKmHAxZzGhksZSJGw6NTXCZZbsYG0bsAnzEHwQIui3ZjdGFq7Jgu6mjfm7S
-         f9hLhkj820zC+ISCtoL1SWSY+nt5Eb+/JyEAfLF+io2w7U5ukkLHH8xCY0dne3g6Vpod
-         zZQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791343831; x=1791948631;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bj7qdb9JKHM+aQdEnEvqhywIWqaQWXOgPRxHvLl5wx0=;
-        b=hqpJVm+KLZJb8I6SlQIVUhxBGT94fzI/L3r6Vy7uinUF/QwSRdXcDuECMlWviASGqy
-         v5lnX9PFKosbZfg9VZhsOPBO1dpB4U4y7Uz6zKg08O9y9OvF0eaOtCH+Ve+Vtxc4X/Sd
-         xr/5xrFIUlLZmY5N81bAS5zLo04vR2lz0RPS5qqvYMsg9BLyYOUfei3uBi64y2gT/XC3
-         rcioBhbqs9EsVUhyJAaSx6QVv1NQHgxwnjjjARKSR1yse6FSVnOWwIqLAerzYR5sZQEV
-         NNuUEYMZ96+LstjXpr5b8qr9CToRYyqu/oqUT44NMs23W6wpFVjhxSM+ySumzwR1ZMF8
-         8Fzg==
-X-Forwarded-Encrypted: i=1; AKwUvBzNv14xE7qoW3o0KyC5dUkWQ2UnAf9c0YHF+Zfgi7oXYKE51p3tkhacCeYi3clwY0BuZEIXQ8Up62zbKOo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKAp96WJ0uVIdoPvlknGGnW5KrobXedh99uABdsfZ2QnewSgtUY
-	l79nrQuVCCqRy3OzGr+NhWFjq8KuD6Vd/pqK0TEL2LM5D4ocl7S+Wf1oTzPLUs5yYe0dNiV3q41
-	gHJBxqykyspdM2zaH0UClkiO4FLGoF9w=
-X-Gm-Gg: AYBFou1HCtkzlbu9QZa7yytznvl3gQ+RRhzr5fN0cZC7mS1G3jSl77Ey1t+OL7jat1q
-	HvAWN6lUdhiP9Oi8jeblqJoAfUdFKAoINPatDFRWOzVixyxe0E6pMTq2VAEO4Jio94nrzxuNHfC
-	HMDeIg32ltOm0Klt2pYfuJYVQ7oI4gcJh1CURXxc+VyQt+frKyRoT16sXxJTXXGyNUIefH4IBPL
-	owbSBSyv2hCV8eIrTsjwX63Nkc+83WyTK3YM2Da7BaSN/SKChfMmT+C8SIroZBKrZnzrtpbNwDv
-	9Q5gb9YtraQtOpPy8CmOUngBgzZRblqbEYAsPRgwUcj8006FeTCHf2IW
-X-Received: by 2002:a05:690e:b82:b0:677:d251:ccd9 with SMTP id
- 956f58d0204a3-6790a2e4aaemr706401d50.48.1791343830632; Tue, 06 Oct 2026
- 20:30:30 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="ngjjKCMT"
+ARC-Seal: i=1; a=rsa-sha256; t=1791344101; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=EMt2HxZjGxKqN3KMja356Ejlm4RJ3ba7GuoEX6EUHQ11KKvVi/AlTLXrVwZkxPQFoHXC2LwGWUjI5cwh53QZConfu700rGSNok0yINxejDfgC4WPDw5S0pJqMo6zSdJiN0CpO7ReMGrXY/KVAefrmvMEFgrCdz1MsMrReBIMc90=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791344101; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=7EEv66TfkkqDC0vBD6k5R4XJT1WUveDu+xqFWjFMwS8=; 
+	b=l09IKvPiFoQMX2AX3F1fOIWVtTXZREcVQyzldMWz0+tZ8xOSQYyblRiDWkWmxg4EZ5zBLoXBv3b9B0s6Z0q2Fny0MWidmzBKZsDWz4s/sdjCyBYR5a6VNIQn40ecbW82JoQ9oCDbnNvyOF0d5ymxtqwYHoXTK3mqdQn+11WsUOo=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=pigmoral.tech;
+	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
+	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791344101;
+	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
+	h=Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Date:Message-Id:Message-Id:To:To:Cc:Cc:Subject:Subject:From:From:In-Reply-To:Reply-To;
+	bh=7EEv66TfkkqDC0vBD6k5R4XJT1WUveDu+xqFWjFMwS8=;
+	b=ngjjKCMToI6FGmexYDJ/b1KiQmPlOSMsEgTrZ1Bj27Cu5QVcCjFprimUKNkf1sYU
+	A5Bksc5nvWbdRiJ5nUGNCEssIHzFQgZ9YVyrNw6nk+G1S4Q6xuauG+CvM6kkgkftsNq
+	RzjUMpRmbx+tDp0XBw4HCwVTxhtGOhNEnUh06Anw=
+Received: by smtp.zohomail.com with SMTPS id 1791344099855931.7368458013717;
+	Tue, 6 Oct 2026 20:34:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261006070005.1209234-1-swinds24@gmail.com> <s3rlm3edtb4hfcggiqkqotywfhobjnwmc2v373nwvkwihitstg@66kypvunlqqm>
-In-Reply-To: <s3rlm3edtb4hfcggiqkqotywfhobjnwmc2v373nwvkwihitstg@66kypvunlqqm>
-From: Hsiu-Hsien Lee <swinds24@gmail.com>
-Date: Wed, 7 Oct 2026 11:30:18 +0800
-X-Gm-Features: AclHuK_ceOw_gBw80HWG9dguUdx4fCwV1VJRW3JaZysAs4dIBQAAHlWXB_Up5xk
-Message-ID: <CACi0_7afNW5KNZVNL40GUrCL9+Ly6oDrKPA-hNu2RQ_u51UZ+w@mail.gmail.com>
-Subject: Re: [PATCH] ext4: don't fail journal recovery on an incomplete fast commit
-To: Jan Kara <jack@suse.cz>
-Cc: "Theodore Ts'o" <tytso@mit.edu>, linux-ext4@vger.kernel.org, 
-	Andreas Dilger <adilger.kernel@dilger.ca>, Harshad Shirwadkar <harshadshirwadkar@gmail.com>, 
-	Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
-	Ritesh Harjani <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 07 Oct 2026 11:34:49 +0800
+Message-Id: <DLYAHDTH3129.3AYF0OSHL8RJ8@pigmoral.tech>
+To: "Vinicius Pedrosa" <vinicius.eduardo.pedrosa@gmail.com>, "Junhui Liu"
+ <junhui.liu@pigmoral.tech>, "Stephen Boyd" <sboyd@kernel.org>, "Brian
+ Masney" <bmasney+clk@redhat.com>, "Jerome Brunet"
+ <jbrunet+clk@baylibre.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Chen-Yu Tsai" <wens@kernel.org>, "Jernej Skrabec"
+ <jernej.skrabec@gmail.com>, "Samuel Holland" <samuel@sholland.org>,
+ "Philipp Zabel" <p.zabel@pengutronix.de>, "Paul Walmsley" <pjw@kernel.org>,
+ "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
+ "Alexandre Ghiti" <alex@ghiti.fr>, "Richard Cochran"
+ <richardcochran@gmail.com>
+Cc: <linux-clk@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-sunxi@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <netdev@vger.kernel.org>, "Jerome Brunet" <jbrunet@baylibre.com>, "Enzo
+ Adriano" <enzo.adriano.code@gmail.com>, "Andre Przywara"
+ <andre.przywara@arm.com>, "Norman Herms" <dockseed@proton.me>
+Subject: Re: [PATCH v5 3/8] clk: sunxi-ng: a733: Add PRCM CCU
+From: "Junhui Liu" <junhui.liu@pigmoral.tech>
+X-Mailer: aerc 0.22.0
+References: <20260930-a733-clk-v5-0-11175b41cd2d@pigmoral.tech>
+ <20260930-a733-clk-v5-3-11175b41cd2d@pigmoral.tech>
+ <20261005183038.417798-1-vinicius.eduardo.pedrosa@gmail.com>
+In-Reply-To: <20261005183038.417798-1-vinicius.eduardo.pedrosa@gmail.com>
+X-ZohoMailClient: External
 
-Thanks for the review. It makes sense, and I'll drop the warning and the
-helper and use ext4_debug() in v2.
+Hi Vinicius,
 
-- Jerry
+Thanks for testing.
 
+On Tue Oct 6, 2026 at 2:30 AM CST, Vinicius Pedrosa wrote:
+> Hi Junhui,
+>
+> On Wed Sep 30, 2026 at 1:26 AM CST, Junhui Liu wrote:
+>> +static SUNXI_CCU_GATE_HW(bus_r_msgbox_clk, "bus-r-msgbox", &r_ahb_clk.c=
+ommon.hw, 0x17c, BIT(0), 0);
+>
+> [...]
+>
+>> +static SUNXI_CCU_GATE_HW(bus_r_riscv_clk, "bus-r-riscv", &r_apb0_clk.co=
+mmon.hw,
+>> +			 0x21c, BIT(0), 0);
+>
+> I'm bringing up mainline on a Radxa Cubie A7Z (PCB V1.11, 1 GiB). With
+> 7.3-rc6, this series and a local common-DT integration, PSCI reboot and
+> power-off hang once unused clocks are disabled. The boot chain uses
+> vendor boot0/BL31 and source-built SCP/U-Boot.
+>
+> Keeping both of these gates enabled fixes reboot; either alone still
+> hangs. With only these two marked CLK_IS_CRITICAL, reboot returns to
+> boot0 and power-off drops DCDC1 from 3.3 V to 0.7 V and turns off the
+> green LED with power still connected. I haven't checked whether each
+> gate is needed for power-off on its own.
+>
+> My guess is that BL31 talks to the SCP for these, but I haven't traced
+> it, and it may be specific to the vendor firmware.
 
-Jan Kara <jack@suse.cz> =E6=96=BC 2026=E5=B9=B410=E6=9C=887=E6=97=A5=E9=80=
-=B1=E4=B8=89 =E4=B8=8A=E5=8D=8812:08=E5=AF=AB=E9=81=93=EF=BC=9A
+Yes, it appears that the vendor SCP firmware runs on the E902 core
+instead of the ARISC OR100 core on the A733. Disabling either
+bus-r-riscv or bus-r-msgbox breaks the SCPI communication path between
+TF-A and the SCP firmware.
+
 >
-> On Tue 06-10-26 15:00:05, Hsiu-Hsien Lee wrote:
-> > If the system crashes while the first fast commit after a full commit i=
-s
-> > being written, the fast commit area can hold the head of that fast
-> > commit without a valid tail.  ext4_fc_replay_scan() treats this as an
-> > error as long as no valid tail has been seen: an invalid tag length or
-> > an unknown tag returns -ECANCELED, a tail with a wrong tid or checksum
-> > returns -EFSBADCRC.  jbd2_journal_recover() then fails, the file system
-> > can be mounted neither read-write nor read-only, and the regular journa=
-l
-> > transactions committed before the fast commit are not replayed either:
-> >
-> >   JBD2: journal recovery failed
-> >   EXT4-fs (sdb): error loading journal
-> >
-> > The tail is written last and fsync() does not return before it has
-> > completed, so an incomplete fast commit was never reported as durable.
-> > Handle it like jbd2 handles a transaction without a valid commit block:
-> > stop the scan and replay what is valid.  This is already what happens
-> > when an earlier fast commit in the area has a valid tail.  Log a
-> > warning so that the dropped fast commit is visible.
-> >
-> > Reproducer, with the power cut emulated by copying the device while it
-> > is mounted:
-> >
-> >   mkfs.ext4 -O fast_commit /dev/sdb
-> >   mount /dev/sdb /mnt; mkdir /mnt/d
-> >   create 20 files in /mnt/d; sync
-> >   write a fragmented file and modify the 20 files, fsync one file
-> >       (one fast commit spanning several blocks)
-> >   copy /dev/sdb while still mounted, then zero the block holding the
-> >   fast commit tail in the copy
-> >   mount the copy
-> >
-> > Without this patch the mount fails as above.  With it, the mount
-> > succeeds, the state after sync is recovered and e2fsck finds no errors.
-> > The same holds when a full commit precedes the torn fast commit, in
-> > which case the full commit is now replayed as well.
-> >
-> > Fixes: 8016e29f4362 ("ext4: fast commit recovery path")
-> > Assisted-by: Claude Opus 5.5
-> > Signed-off-by: Hsiu-Hsien Lee <swinds24@gmail.com>
-> > ---
-> >  fs/ext4/fast_commit.c | 36 +++++++++++++++++++++++++++++-------
-> >  1 file changed, 29 insertions(+), 7 deletions(-)
-> >
-> > diff --git a/fs/ext4/fast_commit.c b/fs/ext4/fast_commit.c
-> > index 0cac890cf370..5649447b9524 100644
-> > --- a/fs/ext4/fast_commit.c
-> > +++ b/fs/ext4/fast_commit.c
-> > @@ -2427,6 +2427,26 @@ static bool ext4_fc_value_len_isvalid(struct ext=
-4_sb_info *sbi,
-> >       return false;
-> >  }
-> >
-> > +/*
-> > + * The fast commit area ends with an invalid tag or a tail that does n=
-ot
-> > + * match.  This is how a fast commit that was only partially written b=
-efore
-> > + * a crash looks like: its tail is written last and fsync() only retur=
-ns
-> > + * after the tail write has completed, so nobody was told that this fa=
-st
-> > + * commit is durable and it can simply be dropped, the same way jbd2 d=
-rops
-> > + * a transaction without a valid commit block.  Everything up to the l=
-ast
-> > + * valid tail is still replayed.
-> > + */
-> > +static int ext4_fc_replay_scan_end(struct super_block *sb,
-> > +                                struct ext4_fc_replay_state *state,
-> > +                                int off, const char *reason)
-> > +{
-> > +     if (!state->fc_replay_num_tags)
-> > +             ext4_msg(sb, KERN_WARNING,
-> > +                      "ignoring incomplete fast commit at block %d: %s=
-",
-> > +                      off, reason);
+> Would it make sense to mark them CLK_IS_CRITICAL, like bus-r-cpucfg
+> already is? I can test the next revision on this board either way.
+
+Mainline TF-A uses native PSCI for reboot and power-off on the NCAT2
+family. Even if Crust is ported to the A733 in the future, I would
+expect it to run on the ARISC OR100 core rather than the E902 core.
+
+(Also see discussion in [1].)
+
+The E902 may also be supported by the Linux remoteproc and mailbox
+drivers in the future. In that case, bus-r-riscv and bus-r-msgbox
+should be managed by their respective drivers instead of being kept
+enabled globally.
+
+I don't know if marking these clocks as CLK_IS_CRITICAL just for the
+vendor SCP firmware is a good idea...
+
+[1] https://lore.kernel.org/linux-sunxi/556cd32394062960a3ea4af0011155cfa83=
+ae91f.camel@d-silva.org/T/#u
+
 >
-> I don't think there's need to print any message when discovering incomple=
-te
-> fast commit. As you mention, it is a perfectly normal situation (similarl=
-y
-> as incomplete normal transaction we spot in a journal). I'd perhaps just
-> print ext4_debug() message (and I don't think conditioning on
-> fc_replay_num_tags makes sense in that case. So probably just drop the
-> helper function and print the debug message and set the return value
-> inline...
->
->                                                                 Honza
->
-> > +     return JBD2_FC_REPLAY_STOP;
-> > +}
-> > +
-> >  /*
-> >   * Recovery Scan phase handler
-> >   *
-> > @@ -2440,7 +2460,9 @@ static bool ext4_fc_value_len_isvalid(struct ext4=
-_sb_info *sbi,
-> >   * This function returns JBD2_FC_REPLAY_CONTINUE to indicate that SCAN=
- is
-> >   * incomplete and JBD2 should send more blocks. It returns JBD2_FC_REP=
-LAY_STOP
-> >   * to indicate that scan has finished and JBD2 can now start replay ph=
-ase.
-> > - * It returns a negative error to indicate that there was an error. At=
- the end
-> > + * It returns a negative error to indicate that there was an error. An=
- invalid
-> > + * or incomplete fast commit at the end of the area is not an error, s=
-ee
-> > + * ext4_fc_replay_scan_end(). At the end
-> >   * of a successful scan phase, sbi->s_fc_replay_state.fc_replay_num_ta=
-gs is set
-> >   * to indicate the number of tags that need to replayed during the rep=
-lay phase.
-> >   */
-> > @@ -2489,8 +2511,8 @@ static int ext4_fc_replay_scan(journal_t *journal=
-,
-> >               val =3D cur + EXT4_FC_TAG_BASE_LEN;
-> >               if (tl.fc_len > end - val ||
-> >                   !ext4_fc_value_len_isvalid(sbi, tl.fc_tag, tl.fc_len)=
-) {
-> > -                     ret =3D state->fc_replay_num_tags ?
-> > -                             JBD2_FC_REPLAY_STOP : -ECANCELED;
-> > +                     ret =3D ext4_fc_replay_scan_end(sb, state, off,
-> > +                                                   "invalid tag length=
-");
-> >                       goto out_err;
-> >               }
-> >               ext4_debug("Scan phase, tag:%s, blk %lld\n",
-> > @@ -2530,8 +2552,8 @@ static int ext4_fc_replay_scan(journal_t *journal=
-,
-> >                               state->fc_regions_valid =3D
-> >                                       state->fc_regions_used;
-> >                       } else {
-> > -                             ret =3D state->fc_replay_num_tags ?
-> > -                                     JBD2_FC_REPLAY_STOP : -EFSBADCRC;
-> > +                             ret =3D ext4_fc_replay_scan_end(sb, state=
-, off,
-> > +                                                           "invalid ta=
-il");
-> >                       }
-> >                       state->fc_crc =3D 0;
-> >                       break;
-> > @@ -2551,8 +2573,8 @@ static int ext4_fc_replay_scan(journal_t *journal=
-,
-> >                               EXT4_FC_TAG_BASE_LEN + tl.fc_len);
-> >                       break;
-> >               default:
-> > -                     ret =3D state->fc_replay_num_tags ?
-> > -                             JBD2_FC_REPLAY_STOP : -ECANCELED;
-> > +                     ret =3D ext4_fc_replay_scan_end(sb, state, off,
-> > +                                                   "unknown tag");
-> >               }
-> >               if (ret < 0 || ret =3D=3D JBD2_FC_REPLAY_STOP)
-> >                       break;
-> > --
-> > 2.43.0
-> >
-> --
-> Jan Kara <jack@suse.com>
-> SUSE Labs, CR
+> Thanks,
+> Vinicius
+
+--=20
+Best regards,
+Junhui Liu
