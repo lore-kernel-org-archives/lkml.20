@@ -1,16 +1,16 @@
 Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B8613F1AD7;
-	Wed,  7 Oct 2026 06:13:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A7243F3283;
+	Wed,  7 Oct 2026 06:13:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791353611; cv=none; b=TE2pJ3GAZymPkzMtcFD3strRF23PvHVlTweIeFR+OX2rML4S7k18QX0G1LXDz2pgb4FQq+zfKh3IAGc21JRt8HzTnbgA9bMCzpVxuz/FCswb3mv5bGB2RjZOeB3+7A+tNX4Waobi0HKT4xAmG4835yuGo0jwuMqtF5AcEAQ1hzk=
+	t=1791353623; cv=none; b=OcmGm0uHj7uYGCYRK3FnsZG+9XA9XkLegcPZX+oAa1GMfSQq3ua/x7qaP98Fxs8S/4Q7iV8z3b4mW8B6BnSklQKB1LH8uRkJd2K9j6caUskuF0knFieMPmJ/M8EyPilYxzFNAKTEzyDnkXv+3kZ9sFbpSY3sIP5Y9jYop2YTDCY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791353611; c=relaxed/simple;
-	bh=3jMs/G66KFFfPwaucwRCSemgPoTboIC6tZoHaXof+m8=;
+	s=arc-20240116; t=1791353623; c=relaxed/simple;
+	bh=HAabpmX2c//xzySbY96a1LqNR0wWgYBnoW1KUfWu6LE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=iw9Y/tX1rIS9C8lkv45+AdEM7mKobVzJgMnWHnmeevgqKeEauaqa6OQIJU0UyQHaZrbHJZf2N6fAMuTelhYKS+wHBeEaGSFBpScb1blpUtNPSdsLh4EpGogCJs6PaOo1SHQHmitaYtDOvNtkiDjh8aFtD62L9NXG1GzXcNeSnGQ=
+	 In-Reply-To:To:CC; b=hB6N3A8J6MzRTbPtGj1aeLuS3L3mJHCOsYoQJclB19PhEATmjcD5H/3gjBNr/mGPYLGD6Dd8YyDtwwB7WR5C7EX4yiuUVmvXoNHPSx65qF9EfbAwIrLZ27AUHiOo6cXNGFSMhT262k4n4N67NP7j0EHvsRp/FibheE4TQImwzIg=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
@@ -22,8 +22,9 @@ Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
  (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
  Transport; Wed, 7 Oct 2026 14:13:19 +0800
 From: Ryan Chen <ryan_chen@aspeedtech.com>
-Date: Wed, 7 Oct 2026 14:13:18 +0800
-Subject: [PATCH v5 1/9] EDAC/aspeed: Set the DIMM grain
+Date: Wed, 7 Oct 2026 14:13:19 +0800
+Subject: [PATCH v5 2/9] EDAC/aspeed: Free the interrupt before the
+ mem_ctl_info on remove
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -32,7 +33,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261007-edac-v5-1-5c31fc5df4cf@aspeedtech.com>
+Message-ID: <20261007-edac-v5-2-5c31fc5df4cf@aspeedtech.com>
 References: <20261007-edac-v5-0-5c31fc5df4cf@aspeedtech.com>
 In-Reply-To: <20261007-edac-v5-0-5c31fc5df4cf@aspeedtech.com>
 To: Stefan Schaeckeler <sschaeck@cisco.com>, Rob Herring <robh@kernel.org>,
@@ -44,46 +45,78 @@ CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
 	<linux-edac@vger.kernel.org>, Borislav Petkov <bp@suse.de>, Ryan Chen
 	<ryan_chen@aspeedtech.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791353599; l=1202;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791353599; l=2176;
  i=ryan_chen@aspeedtech.com; s=20251126; h=from:subject:message-id;
- bh=3jMs/G66KFFfPwaucwRCSemgPoTboIC6tZoHaXof+m8=;
- b=8klxYhALNIcnDU9rxQgLlX9iXKR9MBdSBhZHUokJNMoK+eXejvdeJxtynmt4GKmgt+fsE7FqR
- 3SVr0rsitnWDb+jFvsZIxHTl4F3s+24zSZ08p2wDa+TWOey7Ap0l2xM
+ bh=HAabpmX2c//xzySbY96a1LqNR0wWgYBnoW1KUfWu6LE=;
+ b=1NyCPAkhY78g1xuIJge7tW+Ruluz5gE63m7zzEcYSHL3a5vdv8o6xe757IGZlvwD70KD3K9kP
+ FA9zfC30FxqB/pfflP6akobu/coHbbTw3sNsaf7qkcuWpY6wpp160vf
 X-Developer-Key: i=ryan_chen@aspeedtech.com; a=ed25519;
  pk=Xe73xY6tcnkuRjjbVAB/oU30KdB3FvG4nuJuILj7ZVc=
 
-dimm->grain is never set, so every error is reported with a granularity
-of zero, which edac_raw_mc_handle_error() warns about and substitutes
-with 1.
+The ECC interrupt is devm-managed, so it is only released after .remove()
+has returned, and masking the controller does not wait for a handler
+already running on another CPU. edac_mc_free() can therefore free the
+mem_ctl_info the handler uses as its context while it is still running.
 
-The controller records the address of a failing access with 16-byte
-granularity: MCR58 and MCR5C hold it in bits [30:4], with the low four
-bits reserved. Set the grain to 16 accordingly.
+Register the handler with request_irq() and free it before the memory
+it uses. aspeed_probe() returns as soon as config_irq() succeeds, so
+devres has no error path left to unwind.
 
 Fixes: 9b7e6242ee4e ("EDAC, aspeed: Add an Aspeed AST2500 EDAC driver")
 Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
 
 ---
+Changes in v5:
+- Use request_irq()/free_irq() rather than devm_request_irq() followed
+  by an explicit free, and keep the interrupt number in a file-scope
+  variable so aspeed_remove() does not have to call platform_get_irq()
+  a second time.
+
 Changes in v4:
-- Explain where the grain value comes from rather than the warning it
-  silences.
 - Drop the Cc: stable tag.
+
+Changes in v2:
+- New patch.
 ---
- drivers/edac/aspeed_edac.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/edac/aspeed_edac.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/edac/aspeed_edac.c b/drivers/edac/aspeed_edac.c
-index 6e069b255595..83d60414f89a 100644
+index 83d60414f89a..cb233a33d29a 100644
 --- a/drivers/edac/aspeed_edac.c
 +++ b/drivers/edac/aspeed_edac.c
-@@ -266,6 +266,7 @@ static int init_csrows(struct mem_ctl_info *mci)
- 	dimm->mtype = dram_type;
- 	dimm->edac_mode = EDAC_SECDED;
- 	dimm->nr_pages = nr_pages / csrow->nr_channels;
-+	dimm->grain = 16;
+@@ -36,6 +36,7 @@
  
- 	dev_dbg(mci->pdev, "initialized dimm with first_page=0x%lx and nr_pages=0x%x\n",
- 		csrow->first_page, nr_pages);
+ 
+ static struct regmap *aspeed_regmap;
++static int aspeed_irq;
+ 
+ 
+ static int regmap_reg_write(void *context, unsigned int reg, unsigned int val)
+@@ -212,11 +213,12 @@ static int config_irq(void *ctx, struct platform_device *pdev)
+ 	if (irq < 0)
+ 		return irq;
+ 
+-	rc = devm_request_irq(&pdev->dev, irq, mcr_isr, IRQF_TRIGGER_HIGH,
+-			      DRV_NAME, ctx);
++	rc = request_irq(irq, mcr_isr, IRQF_TRIGGER_HIGH, DRV_NAME, ctx);
+ 	if (rc)
+ 		return rc;
+ 
++	aspeed_irq = irq;
++
+ 	/* enable interrupts */
+ 	regmap_update_bits(aspeed_regmap, ASPEED_MCR_INTR_CTRL,
+ 			   ASPEED_MCR_INTR_CTRL_ENABLE,
+@@ -364,6 +366,8 @@ static void aspeed_remove(struct platform_device *pdev)
+ 	regmap_update_bits(aspeed_regmap, ASPEED_MCR_INTR_CTRL,
+ 			   ASPEED_MCR_INTR_CTRL_ENABLE, 0);
+ 
++	free_irq(aspeed_irq, platform_get_drvdata(pdev));
++
+ 	/* free resources */
+ 	mci = edac_mc_del_mc(&pdev->dev);
+ 	if (mci)
 
 -- 
 2.34.1
