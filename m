@@ -1,56 +1,56 @@
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F24C847DD7B
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:44:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53E6E49504E
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:43:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791373456; cv=none; b=gQ5k4Iz8Y6bFSjPMh5vggra+eAFgsENBn69cmROdqMTosH3JhohMtto1+KEhQ+kscYprN2uDdFLeIXbSZouwU81KL5x+FInph8pwO/LGAn1DeLGPgvPSsKxwKWM+9cHk1A8xLz0LGV8nNfhFzTBT6KWdNUa2PWUa/YJi0pXJK2Q=
+	t=1791373455; cv=none; b=YvP7Tv19ZJPOATa9V1xn3HWuKWj6tutkAylV/P9RYQQOwtrwubkz4s+tQhePvgF/YC0h3qp9ESG+GzfSZviboDECWgtrS96m+4g+SGng3mEuauLpLeL3wK4QU3OSd3pHoIsCI565rWYEdCFYU8CEFVvdMxClHg0HmC6mWJIyEmc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791373456; c=relaxed/simple;
-	bh=pymQwj9Tgs2JLgJQ9v7/rWgQ1Rdhoi4ayj8qlJCh9qA=;
+	s=arc-20240116; t=1791373455; c=relaxed/simple;
+	bh=AymkOFYhpuoaYlczb6jgOItl+WSRrFMCpchS7hx5hZE=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=uUUKXAIsn7gjNRAkOQI9Rx7J+DCVe64hUYT/gOc3UkMsfUWy5ZNLM1Qv7yoWSVT52YwbHzTgXHKU2pBsROOnZ84+3l6geoAKE0M3x1cxA0iwhBB2yAWVctzZ+3MXgk0tLvnPjlwi/2dgs63gxqlDtxalIdXmgEUowZJoBzQGvJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--dylanbhatch.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=EgbXgIaE; arc=none smtp.client-ip=209.85.216.69
+	 To:Cc:Content-Type; b=GY//gBKzivs6PveGRQewTTcMZFaWca4RJ1mr5dxdbC9D3cQ0KJuiCaF0an7/710cpixv09vM80XC7A4xOmNYe7Jda+NUy1V+Ldvwg14RAxwuYSSIoXpMIyiQ2KvhqQFewwwCyASRceC/9Elw6+wkzY51N314cGaQiEXjhE7W86w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--dylanbhatch.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=iTN9AwN+; arc=none smtp.client-ip=209.85.214.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dylanbhatch.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="EgbXgIaE"
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38e54b6556aso3690083a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 04:44:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="iTN9AwN+"
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d02df2bf09so33235175ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 04:43:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791373441; x=1791978241; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1791373437; x=1791978237; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SUzzgJKkl0P/3X8X9a5rV9yuKwhvvL6DGpxGAltkfZU=;
-        b=EgbXgIaEp9EUa8nU/WbgJWPXsl5+8EwzJ7NvUNuk1uSdw9kKj9evaXg+UELVK+lSt7
-         +QtT5zZzrw+6sVgzwHuz2R/qnduTL1eLJNxPBtd25oERAX3rNwPQMqbR8MaV+c98+1ga
-         3uB0f+wFbOZwHFL1jTUVaBTAV3Fgt4j7Fl/WmgXj1M1RO1jwyinIhaWT6sri7/6KfLIs
-         E4JYop4/aTuO78Q3xJdli5BMe11YVatiKzvhXibWKDR/zu+ZuIpXVOykobjM06BOexfB
-         0pEU0zqUzDCy1eL/NlwmPMe4PtoZy6OxjZ6Rn0l1zeLGAv0C6PnJwi3CR0HrME4Md2kE
-         s45Q==
+        bh=fgc8jaasabhbUwfJLQvrAFQRGkLXxRtpOJ5ukzG0TY4=;
+        b=iTN9AwN+M0FYprp9JToqDwwZTjUWBYLpcMPDNMczEgjLCwydKX+QKcBjKx7IFcSWI2
+         5QQAzdJaJcYFeTbr01EJrOS8ufrrO+uPhD62RkoT/ZSNBQwCdzuPgC7eHt3uehgRl473
+         ZBNSTNmXoyBWMQeQeekjfsNluDiOynEXnzVKSMUvzVAYZnI5DOu4GUXedUGeK/RvrhoO
+         TOQ52tlDwST9dNaAAUmyrq9gEyba5uBBJIL2nux40ppkIRFQg1xvrFQQiqreylcnLEr0
+         j2yBUEgpURt8Y1gqZDZVaxbpb1H2brdNtRyjaLxtgorXNp/phl7z/myJUA9NKZdKfrId
+         1P0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791373441; x=1791978241;
+        d=1e100.net; s=20260707; t=1791373437; x=1791978237;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SUzzgJKkl0P/3X8X9a5rV9yuKwhvvL6DGpxGAltkfZU=;
-        b=c8GIjCCdzLNo+2v1nPDLmDZhjGDKQEwfdTOJOiZbqOtX1qJqQ2JKMvi3qqua1qFSoW
-         0EFQNutrTnzfyA98gJbo1OUL+NOEks6YyIdRE1gb79BVeP1SccZILcsfzQuk4iKhBfmx
-         R7J4ylCumR5ip14ylEiuByCyyH4/oCMeAZtCGUOLvqFzxAqSjQUWytAaxg6Oy2X2WJ4c
-         KUEOcOS1tWvFZ839vDNyqRmj4TX/dZgDqiEf0BM20EuFhtO+eXfM7j+xCX44gLBoRkmw
-         WzVQPR4/JMM8K7cU0aQeaIOhcpiwE8ZRQ4omZ7N86p3gtIxLxceWX0Y1eOcucRryd4qT
-         5IeA==
-X-Forwarded-Encrypted: i=1; AKwUvBxmLdiklZukVL3YVVHbi3TwNef9T+FSt1WggguGZV4+oXD2G+pc+XfQh+GYEPecpVUXmvbtIeGOnmVsiqY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJw5vpWNuBW67DYSr9bY60dLNonK+UDBK7E8jHFquE+ClE1RiP9
-	DZDqGNJuTJwQCw8RBMq7itfmXxkMXqJZQXMjtaMvRMpCVbiJ3s6J/Tfm8dBpeEYYSMHg94DWDIS
-	4jmfnKf+906cvHCL6kwx/gnqXyw==
-X-Received: from pgbj17-n1.prod.google.com ([2002:a05:6a02:61d1:10b0:cd0:bb2c:3923])
+        bh=fgc8jaasabhbUwfJLQvrAFQRGkLXxRtpOJ5ukzG0TY4=;
+        b=s7NYZQPvWD1tAbTskC4sTNL4P819r0yke2YpcrTffQPbvYIhuaJ/4g+FXZJbhDHxfb
+         IAhsHRF2363dYyehKXZ6SATDf2/6opvTQw9G3YuuPA7SnCWOooAO3DEmb94w6mcDYYZg
+         KrhpNFjqoDfdCx2BX1LJ1WjMn/BMG2cEAyS/vKcVUCtkitN69DR8cVdGxXoo03RwXEMC
+         5qErqyfQ/995sxsoloHTMZD1ra7XSq3XgJga/YShBIiOZD/0LHB5uCSA1/InoWYCpWdL
+         n+6sTXOWMuDEPfXN3kjjtu9wrP0i/DnjoydVowU0VbCaY3qUJi6wWWJJ00nqR9gJzmFy
+         UzWw==
+X-Forwarded-Encrypted: i=1; AKwUvBxWiIBRCXJjUylT58sxcLCPc1j4kFNaHjp7uf5LeNg+6lI++fLMNKmP2jwB7qgnAtMoVBUSYi3pKKLRH4U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLmQL7yc4lSwrbsElD6j1VSVT4Yr48PR3deHTFd1DWZaLp58dZt
+	3/aIwpTtTG3LBR16No23OeLF3NuyLwyxl2aDZ/By5/xJRCTE1xCVMgoV2/bCkZAudYdKQ/T89R/
+	vGrg3snNKCwRE15fpDfwN7OAC8A==
+X-Received: from ploh5.prod.google.com ([2002:a17:902:f705:b0:2e6:14d:bd91])
  (user=dylanbhatch job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:3c8c:b0:3a4:fe48:d412 with SMTP id 98e67ed59e1d1-3a8a19ba137mr1514102a91.30.1791373441003;
- Wed, 07 Oct 2026 04:44:01 -0700 (PDT)
-Date: Wed,  7 Oct 2026 11:43:32 +0000
+ 2002:a17:903:4b24:b0:2dd:c0ff:e72e with SMTP id d9443c01a7336-2e60054be54mr15589775ad.64.1791373437250;
+ Wed, 07 Oct 2026 04:43:57 -0700 (PDT)
+Date: Wed,  7 Oct 2026 11:43:30 +0000
 In-Reply-To: <20261007114335.440322-1-dylanbhatch@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261007114335.440322-1-dylanbhatch@google.com>
 X-Mailer: git-send-email 2.56.0.360.g66cac248cb-goog
-Message-ID: <20261007114335.440322-9-dylanbhatch@google.com>
-Subject: [PATCH v8 08/11] sframe: Add .sframe validation option
+Message-ID: <20261007114335.440322-7-dylanbhatch@google.com>
+Subject: [PATCH v8 06/11] arm64/sframe: Validate IP addresses
 From: Dylan Hatch <dylanbhatch@google.com>
 To: Roman Gushchin <roman.gushchin@linux.dev>, Weinan Liu <wnliu@google.com>, 
 	Will Deacon <will@kernel.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
@@ -77,168 +77,168 @@ Cc: Dylan Hatch <dylanbhatch@google.com>, Prasanna Kumar T S M <ptsm@linux.micro
 	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>
 Content-Type: text/plain; charset="UTF-8"
 
-From: Josh Poimboeuf <jpoimboe@kernel.org>
+Validate the given IP and computed function start address against the
+known vmlinux and module text address ranges.
 
-Add a debug feature to validate all .sframe sections when first loading
-the file rather than on demand.
+This requires arch-specific validation for vmlinux. This is because
+arm64 keeps .exit.text (normally discarded) and .rodata.text, both of
+both of which lie outside the bounds of .text and .init.text. Note that
+.rodata.text contains code that is never executed by the kernel mapping,
+but for which the toolchain nonetheless generates sframe data, and needs
+to be considered valid at lookup time.
 
-[ Jens Remus: Add support for SFrame V3.  Add support for PC-relative
-FDE function start offset.  Adjust to rename of struct sframe_fre to
-sframe_fre_internal.  Use %#x/%#lx format specifiers. ]
-
-[ Dylan Hatch: Adapt this patch for in-kernel sframe sections. ]
-
-Signed-off-by: Josh Poimboeuf <jpoimboe@kernel.org>
-Reviewed-by: Indu Bhagat <ibhagatgnu@gmail.com>
-Co-developed-by: Jens Remus <jremus@linux.ibm.com>
-Signed-off-by: Jens Remus <jremus@linux.ibm.com>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-Co-developed-by: Dylan Hatch <dylanbhatch@google.com>
+Suggested-by: Jens Remus <jremus@linux.ibm.com>
 Signed-off-by: Dylan Hatch <dylanbhatch@google.com>
----
- arch/Kconfig           | 18 ++++++++++
- kernel/unwind/sframe.c | 78 ++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 96 insertions(+)
 
-diff --git a/arch/Kconfig b/arch/Kconfig
-index cc59a5da80915..20aa63c93a0e2 100644
---- a/arch/Kconfig
-+++ b/arch/Kconfig
-@@ -538,6 +538,24 @@ config HAVE_UNWIND_KERNEL_SFRAME
- 	  practice, this can provide more reliable stacktrace results than
- 	  unwinding with frame pointers alone.
+---
+
+Changes since v7:
+ - (sashiko) Use __always_inline for IP validation helper.
+---
+ arch/arm64/include/asm/sections.h      |  1 +
+ arch/arm64/include/asm/unwind_sframe.h | 32 +++++++++++++++++++
+ arch/arm64/kernel/vmlinux.lds.S        |  2 ++
+ kernel/unwind/sframe.c                 | 43 +++++++++++++++++++++++++-
+ 4 files changed, 77 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm64/include/asm/unwind_sframe.h
+
+diff --git a/arch/arm64/include/asm/sections.h b/arch/arm64/include/asm/sections.h
+index 51b0d594239eb..5edb4304f661e 100644
+--- a/arch/arm64/include/asm/sections.h
++++ b/arch/arm64/include/asm/sections.h
+@@ -23,6 +23,7 @@ extern char __irqentry_text_start[], __irqentry_text_end[];
+ extern char __mmuoff_data_start[], __mmuoff_data_end[];
+ extern char __entry_tramp_text_start[], __entry_tramp_text_end[];
+ extern char __relocate_new_kernel_start[], __relocate_new_kernel_end[];
++extern char _srodatatext[], _erodatatext[];
  
-+config SFRAME_VALIDATION
-+	bool "Enable .sframe section debugging"
-+	depends on UNWIND_SFRAME_LOOKUP
-+	depends on DYNAMIC_DEBUG
-+	help
-+	  When adding an .sframe section for an object, validate the entire
-+	  section immediately rather than on demand.
+ static inline size_t entry_tramp_text_size(void)
+ {
+diff --git a/arch/arm64/include/asm/unwind_sframe.h b/arch/arm64/include/asm/unwind_sframe.h
+new file mode 100644
+index 0000000000000..1b45d328c746f
+--- /dev/null
++++ b/arch/arm64/include/asm/unwind_sframe.h
+@@ -0,0 +1,32 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _ASM_ARM64_UNWIND_SFRAME_H
++#define _ASM_ARM64_UNWIND_SFRAME_H
 +
-+	  This is a debug feature which is helpful for rooting out .sframe
-+	  section issues.  If the .sframe section is corrupt, it will fail to
-+	  load immediately, with more information provided in dynamic printks.
++#include <linux/module.h>
++#include <linux/sframe.h>
++#include <asm/sections.h>
 +
-+	  This has a significant page cache footprint due to its reading of the
-+	  entire .sframe section for every loaded module.  Not recommended for
-+	  general use.
-+
-+	  If unsure, say N.
-+
- config HAVE_PERF_REGS
- 	bool
- 	help
-diff --git a/kernel/unwind/sframe.c b/kernel/unwind/sframe.c
-index 2e8ff783de7d8..62c22ca70614a 100644
---- a/kernel/unwind/sframe.c
-+++ b/kernel/unwind/sframe.c
-@@ -15,6 +15,7 @@
- #include <linux/kallsyms.h>
- #include <asm/kprobes.h>
- #include <asm/sections.h>
-+#include <asm/unwind_sframe.h>
- 
- #include "sframe.h"
- #include "sframe_debug.h"
-@@ -503,6 +504,73 @@ noinstr int sframe_find(unsigned long ip, struct unwind_frame *frame)
- }
- NOKPROBE_SYMBOL(sframe_find);
- 
-+#ifdef CONFIG_SFRAME_VALIDATION
-+
-+static int sframe_validate_section(struct sframe_section *sec)
++static __always_inline bool sframe_is_kernel_ip_valid(unsigned long ip)
 +{
-+	unsigned long prev_ip = 0;
-+	unsigned int i;
++	if (__is_kernel_text(ip) || is_kernel_inittext(ip))
++		return true;
 +
-+	for (i = 0; i < sec->num_fdes; i++) {
-+		struct sframe_fre_internal *fre, *prev_fre = NULL;
-+		unsigned long ip, fre_addr;
-+		struct sframe_fde_internal fde;
-+		struct sframe_fre_internal fres[2];
-+		bool which = false;
-+		unsigned int j;
-+		int ret;
++	/* .exit.text is retained in vmlinux on arm64. */
++	if (ip >= (unsigned long)__exittext_begin &&
++	    ip < (unsigned long)__exittext_end)
++		return true;
 +
-+		ret = __read_fde(sec, i, &fde);
-+		if (ret) {
-+			dbg_sec(sec, "__read_fde(%u) failed\n", i);
-+			return ret;
-+		}
++	/*
++	 * .rodata.text is never executed from the kernel mapping, but it still
++	 * has sframe data.
++	 */
++	if (ip >= (unsigned long)_srodatatext &&
++	    ip < (unsigned long)_erodatatext)
++		return true;
 +
-+		ip = fde.func_addr;
-+		if (ip <= prev_ip) {
-+			dbg_sec(sec, "FDE %u not sorted\n", i);
-+			return -EFAULT;
-+		}
-+		prev_ip = ip;
-+
-+		fre_addr = sec->fres_start + fde.fres_off;
-+		for (j = 0; j < fde.fres_num; j++) {
-+			int ret;
-+
-+			fre = which ? fres : fres + 1;
-+			which = !which;
-+
-+			ret = __read_fre(sec, &fde, fre_addr, fre);
-+			if (ret) {
-+				dbg_sec(sec, "FDE %u: __read_fre(%u) failed\n", i, j);
-+				return ret;
-+			}
-+			ret = __read_fre_datawords(sec, &fde, fre);
-+			if (ret) {
-+				dbg_sec(sec, "FDE %u: __read_fre_datawords(%u) failed\n", i, j);
-+				return ret;
-+			}
-+
-+			fre_addr += fre->size;
-+
-+			if (prev_fre && fre->ip_off <= prev_fre->ip_off) {
-+				dbg_sec(sec, "FDE %u: FRE %u not sorted\n", i, j);
-+				return -EFAULT;
-+			}
-+
-+			prev_fre = fre;
-+		}
-+	}
-+
-+	return 0;
++	return false;
 +}
 +
-+#else /*  !CONFIG_SFRAME_VALIDATION */
++#define sframe_is_kernel_ip_valid sframe_is_kernel_ip_valid
 +
-+static int sframe_validate_section(struct sframe_section *sec) { return 0; }
++#endif /* _ASM_ARM64_UNWIND_SFRAME_H */
+diff --git a/arch/arm64/kernel/vmlinux.lds.S b/arch/arm64/kernel/vmlinux.lds.S
+index eb1f54829503c..82fd20ccb7c43 100644
+--- a/arch/arm64/kernel/vmlinux.lds.S
++++ b/arch/arm64/kernel/vmlinux.lds.S
+@@ -237,12 +237,14 @@ SECTIONS
+ 
+ 	/* code sections that are never executed via the kernel mapping */
+ 	.rodata.text : {
++		_srodatatext = .;
+ 		TRAMP_TEXT
+ 		HIBERNATE_TEXT
+ 		KEXEC_TEXT
+ 		IDMAP_TEXT
+ 		. = ALIGN(PAGE_SIZE);
+ 	}
++	_erodatatext = .;
+ 
+ 	idmap_pg_dir = .;
+ 	. += PAGE_SIZE;
+diff --git a/kernel/unwind/sframe.c b/kernel/unwind/sframe.c
+index 33883408581da..c95fcb63e7eaf 100644
+--- a/kernel/unwind/sframe.c
++++ b/kernel/unwind/sframe.c
+@@ -44,6 +44,45 @@ struct sframe_fre_internal {
+ 	unsigned char	dw_size;
+ };
+ 
++#ifndef sframe_is_kernel_ip_valid
 +
-+#endif /* !CONFIG_SFRAME_VALIDATION */
++static __always_inline bool sframe_is_kernel_ip_valid(unsigned long ip)
++{
++	return __is_kernel_text(ip) || is_kernel_inittext(ip);
++}
 +
- static int sframe_read_header(struct sframe_section *sec)
++#endif
++
++#ifdef CONFIG_MODULES
++
++static __always_inline bool sframe_is_sec_module_ip_valid(struct sframe_section *sec,
++							  unsigned long ip)
++{
++	struct module *mod = container_of(sec, struct module, sframe_sec);
++
++	return within_module_mem_type(ip, mod, MOD_TEXT) ||
++		within_module_mem_type(ip, mod, MOD_INIT_TEXT);
++}
++
++#else
++
++static __always_inline bool sframe_is_sec_module_ip_valid(struct sframe_section *sec,
++							  unsigned long ip)
++{
++	return false;
++}
++
++#endif
++
++static __always_inline bool is_sec_ip_valid(struct sframe_section *sec,
++					    unsigned long ip)
++{
++	if (sec == &kernel_sfsec)
++		return sframe_is_kernel_ip_valid(ip);
++
++	return sframe_is_sec_module_ip_valid(sec, ip);
++}
++
+ static __always_inline unsigned char fre_type_to_size(unsigned char fre_type)
  {
- 	unsigned long header_end, fdes_start, fdes_end, fres_start, fres_end;
-@@ -564,6 +632,11 @@ void __init init_sframe_table(void)
- 		return;
- 	}
+ 	if (fre_type > 2)
+@@ -70,6 +109,8 @@ static __always_inline int __read_fde(struct sframe_section *sec,
+ 	_fde = (struct sframe_fde_v3 *)fde_addr;
  
-+	if (sframe_validate_section(&kernel_sfsec)) {
-+		pr_warn("invalid vmlinux SFrame section\n");
-+		return;
-+	}
-+
- 	sframe_init = true;
- 	dbg_print_header(&kernel_sfsec);
- }
-@@ -624,6 +697,11 @@ void sframe_module_init(struct module *mod, void *addr, unsigned int size)
- 	}
- 	sframe_sort_fdes(sec);
+ 	func_addr = fde_addr + _fde->func_start_off;
++	if (!is_sec_ip_valid(sec, func_addr))
++		return -EINVAL;
  
-+	if (sframe_validate_section(sec)) {
-+		pr_warn("invalid SFrame section in module %s\n", mod->name);
-+		return;
-+	}
-+
- 	/* Ensure SFrame is initialized when sframe_find() happens */
- 	smp_store_release(&mod->sframe_init, true);
- 	dbg_print_header(sec);
+ 	fda_addr = sec->fres_start + _fde->fres_off;
+ 	if (fda_addr + sizeof(struct sframe_fda_v3) > sec->fres_end ||
+@@ -450,7 +491,7 @@ noinstr int sframe_find(unsigned long ip, struct unwind_frame *frame)
+ 	if (!frame)
+ 		return -EINVAL;
+ 
+-	if (__is_kernel_text(ip) || is_kernel_inittext(ip)) {
++	if (sframe_is_kernel_ip_valid(ip)) {
+ 		if (!sframe_init)
+ 			return -EINVAL;
+ 
 -- 
 2.56.0.360.g66cac248cb-goog
 
