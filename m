@@ -1,319 +1,245 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA2B27281E;
-	Wed,  7 Oct 2026 18:50:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791399007; cv=none; b=hFFxz41WtKLvhUIgxRmIxK3jB0kyHKqsoUAxCBA1pZIcWDb1i4BlNGJRaaF8gMUShfXOnklBF4Mh+28ZjCAXcu7+9zbAh/GEaQvY21QrWmnW2FjuEWFzrdQcnHLWdfLWwXqKHuy2zF9KIeJztS09ItKBaUB6OZILWH39/PfDHEU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791399007; c=relaxed/simple;
-	bh=FQfOOfatz8/cDKbjo1SuHMdZYoDfLfc8UDR4XIw6NeA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hSj1fJ/Yq6rOgdnXC9ZTJWuMVFb6P4KZgiTu8KHCIcui3eDn2D98VB4+NRJEQ3KV2pSOx+v9SH73gjBjaG9470k6o9Cr1IE3uqf4FWcDmGQhZW4fIbENs7rDzL7fPyJobIyjW3yjCGwT8ohhzWhles9k4TG634Q72Tn9iD5lSUA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=nQVZNhsn; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Z/1k8DlW; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=FXXRGEu/; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=27PT8V4c; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00EB36A341
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 18:50:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791399040; cv=pass; b=u374BlxFaPYCcCxPUNSWttvDH5GrYQ9p1HycQuCpkhbbmtj8tAcizYAFA0mhgjOixwfx/BHuoi/64s060EdvEit0hdF8/Rdp/tjOgjBCaJ+gzhoJ8GymFhCBFAD3h9OHKRO67xo54wiNvwWl31nJn/HJpHCPKs6OhwQ6dn41rMQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791399040; c=relaxed/simple;
+	bh=PO6v3wiPZFZUp/INJifTEu7rAN9EOhpbkOKEaySEigU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HlwAGpPMKhAaafNia2iWjkgLvKOO9inCP0ceuxEW3ICAfa8+J8yPKFAPgBW8Er9uPmIgLJMR5rt0ls9jYa4aD81LGltesDyu1Zoqzlq9CYcrjgHppYewThrqMrYxY28/YEJ1v3tUIqhtwkaBpjXEMn+SiXOdHfBnIPapww9aSCY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jZqknt+/; arc=pass smtp.client-ip=209.85.219.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="nQVZNhsn";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Z/1k8DlW";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="FXXRGEu/";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="27PT8V4c"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 7FC901F44E;
-	Wed,  7 Oct 2026 18:50:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791399003; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LmUGawMMCEgPcOW12DL3MmBf9FDH9woSZ3i9HhDa4rg=;
-	b=nQVZNhsnjCZKgJQ90r6q8mKre2P6eiask4Kp53aXKiARasnnRClDU2hpFwqFrKSb+u2xRA
-	jYIz/Bup2RwuWW/o6p8IwzZolIBrbF2Zo+M356HbvwohUerdw1IFO8nYaRb2Gfh2QVq2+7
-	7byD9huvyKGtgTte1867aHtfQ/d6Dkc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791399003;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LmUGawMMCEgPcOW12DL3MmBf9FDH9woSZ3i9HhDa4rg=;
-	b=Z/1k8DlWI9DK2qUHoV6zYgQLshplk0QPNpt6YJAzpvkccy5pPJ4OJL9Pf1VSy3S+0p6w1s
-	aTjVFB3t0TNha5CA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791399002; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LmUGawMMCEgPcOW12DL3MmBf9FDH9woSZ3i9HhDa4rg=;
-	b=FXXRGEu/L4b+0Csw+j85MTpF9oUBhRpI3t64MOzMxvJH9LvmLzQmM5vAHpK4x00e4fU8qG
-	r3n2zW2deWlUXeGsgpB3+A7AVMCt/SEBIxNhLQ834YYO0zm6mPbMXbCP5tPXIMO8c9ED9o
-	9s+KZp1J/xFqFdOYBkHu1FmPOBsF610=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791399002;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LmUGawMMCEgPcOW12DL3MmBf9FDH9woSZ3i9HhDa4rg=;
-	b=27PT8V4cDv2lc3AIBtKwC52QPaCs37zcQ+DeOzKo2ixj/VBt0Sf4QXDJLRxq5fbk7Zatje
-	ZsBf4Fb76rAm3jDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D937113354;
-	Wed,  7 Oct 2026 18:50:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id vBUfK1mUxmocZwAAD6G6ig
-	(envelope-from <ggherdovich@suse.cz>); Wed, 07 Oct 2026 18:50:01 +0000
-Message-ID: <0ebef43d-fba6-44dc-83ce-43137ece2025@suse.cz>
-Date: Wed, 7 Oct 2026 20:49:57 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jZqknt+/"
+Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-917866225aaso25660026d6.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 11:50:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791399037; cv=none;
+        d=google.com; s=arc-20260327;
+        b=EaXQUoLXwO0d2VHC9lc1prcVuxBtHZpOBhywph8hBMruoqJQZ0R1W0Foq+hcUwzTMa
+         MWmr7hqf+yRii1iqmQcDR27/DRE2vA8Cjb1Se9vLm9EF07RCSz6Cs4Yz70qIXhm3urhI
+         QwauaUooXWcNposxMsgs/DYxKmJC6EKWLBJvDgseLWRxXmuJO6V5VbkBsyh3xu3W7er1
+         LijjjyHGeBZccszK2bIsfZwS7RC78ejlS82tCeql4VODLg4fRj2ujZ/VYbT5Z7ICJYyS
+         gX+x60mt5U800i6xc99jqcaPbYPZ6O9a1atdpH8v0y3NZ3XNbA/2t3IRK8YCEzlsNyZl
+         UD4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=QW5vhw24jEehiCTzVEUwopgSTMRMxvbXRCa6Nvmg4NU=;
+        fh=sj4R+zyKA6sD9NAIvikLZiaAxyJ+zpYeKW20rdtclGA=;
+        b=dht+6/xlw/ENoLsq0ZxysdS1PXvI9KdnYutfJRF643W39xmXn3vIvdrA6ivL9an9P4
+         PmjYspOsyldhGpFSUWF17foTwo9h2bs/EVtYqAbjroMLSfbdBy+vw4LceuIJEVNZ2MGW
+         mJGfAv4xvvzidK5AGwhTsdgkYcPboSrFncm3LPzoMZkboFduPxloDUiQR3VF3lczikKI
+         ptPegTWkXC/lPv1xj0n3NSI/XcAUlnnTZ8SkZL7yelNosQjuT73HawqM8i1CCL3EDWrf
+         9LvLU4lmBMxl5f4a+Ez0LXbjvztJU2D988u51EFiZPzqeBtoaC3DwT3c0VtvZIUqJ1aD
+         YwJg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791399037; x=1792003837; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QW5vhw24jEehiCTzVEUwopgSTMRMxvbXRCa6Nvmg4NU=;
+        b=jZqknt+/pePsuH+D7LeehkdBvp+C7a6BEtciD4inTNfWG90aGuaChqqCZuy6BYU/du
+         uM9hStpCwfE4w+U8rwztEbwRuclgaTzxcQY3xhvDaWl+CsU+SuCLsmuT+PpSpU8EJW6v
+         grTWCmtDoPGUdUQwewR3dL3Bcd855ubZoQTNJ+pmLeBRXq3wtdr3wA6ZIPAzwbMgZTeW
+         fl6zfpYWa0cRzLZqzoQ/0f7vkIA8gdyz8z91B8026ouM0UreNTY5rvZ4Nh217NF1xNoH
+         e1skYhqIaWjLdt+1NjaSkpQ5yBmCQRcfZS+MYL2dxRyhRrU8H5cu0EcbZANDRmZG9OvP
+         phRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791399037; x=1792003837;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=QW5vhw24jEehiCTzVEUwopgSTMRMxvbXRCa6Nvmg4NU=;
+        b=b4/awNaVGcy1E5iyAxYN7m8rt2/cuvdHgyKN0YcBvASCMqJGNIbqz/K2fI2QBih7j2
+         vxRt1xflyfU/LPKGH5YRE/fcAmnCrpAZKHOuUv58zof7lCgloOFWX6H1hUosV7IVtudW
+         NTewvzJPRKd2J2gGG+B5rfcBx900/j4IXV7lA8+3g/qFQlppfvQnVMbev+Gj+M6wxOF/
+         SY8MvGZLqRS686ohSV3N+a3P5biVPxtf7OV1ZT+rBqpPc5+QLJZnvla15Tz8f3cqWryD
+         gzdof2dgvsUjgjPQVB6873dN3Ub71c20ScU4j5PM5E1JkDEExbdCthq29L5GoPhkqEqw
+         Yocg==
+X-Forwarded-Encrypted: i=1; AKwUvBwTK6OhmA+MoULK79JPtgqxrDA7WIuWJEkk2IdtQ7H3HzGkmNcTZVYdq2Qn2tzn2F70mfWov/kOWLbSSbQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIpa0neVMYa/LVEy1LfxWM7/X+NPZTE/GBDVQRaxdvm8V2INn3x
+	PgqVYU54yoIRq9QF1Fy9ExcKsdkO1Ppc931owZgTGHDDXbl47GDAaCGE8bIlw2rBeTfwsEaF00X
+	0NVoKNeP+BQDT0PTFlU+SbAbsLnHkwI+Z3C1LKpw=
+X-Gm-Gg: AYBFou1Lip3ztoUSa9FZIm0rHRn4Cx8GaGmJZvtjSYSLs3lMzPOtBXE9j6rlsL6uaju
+	1U/dyAh6sBwg9vO+4jsGgZrrB4yZ+79hm/H21P01aVOKRrJw1LUmdZugPL9DbjAFEY/gwewV7Lp
+	ZTPojgrcZWEEpRCEYD/vnMF/AQ4Ew/Gss7b8zCqpve2mk77Wm82hXbhUh5q+8jBj8itwCyfZFTz
+	t0Aw9HqbP06vcOHq9oInjnf2qUIaC2r6jPe4jAGH4aTO3Qj1AKJLayypRtKT0XL+lGWnRyXZdK5
+	7tby5ul81xg03v9KO6AIUUIF/W4BkjAbdGzag9nvOamn8pUjYFhppNCk6f6QyZ8KJPYrAF7ALkY
+	yNjKZa9yRXsA=
+X-Received: by 2002:a05:6214:3908:b0:914:385f:3c2f with SMTP id
+ 6a1803df08f44-919977d4691mr63991396d6.23.1791399037346; Wed, 07 Oct 2026
+ 11:50:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cpufreq/amd-pstate: Supply nominal/lowest freq for
- TRX40-based motherboards
-To: Mario Limonciello <mario.limonciello@amd.com>,
- Kyle Gospodnetich <me@kylegospodneti.ch>
-Cc: Huang Rui <ray.huang@amd.com>, Perry Yuan <perry.yuan@amd.com>,
- K Prateek Nayak <kprateek.nayak@amd.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261007144150.15113-1-ggherdovich@suse.cz>
- <27b226c7-f30b-4863-96e6-6798232863c5@amd.com>
- <nfzkXrDTHHjIW_SUzjPg0gOHamPmFkMiNw8Xyzu1ET_un0fM-tmdI3ChdnOkXAkrh_nX4jiwmzCK6GgWwOsfDti3ta-vlRMihfH4dGUgBCU=@kylegospodneti.ch>
- <a387ee24-ef09-4983-865c-47ef43fa0964@amd.com>
- <N6r-1w2v2oSkh5ABRHMoj9_YQ7F7eICWqD2rdyL7M1SmbVzhiK0plLXBCzZbDmO8M6w28qHy--pue6kfl1k8B-j03x5f6VYC2DlQ_spmIpc=@kylegospodneti.ch>
- <DC1J2LrrQ6hdyQJ_ThQRfGrnzKLI5qCCQYGA5I2LhASN8j8MLcpfvJ2T4Qn_8xmO2TB4MW9Sl6LyQKkuANWwowWXafKbEqJ8pXEBEnmE2yA=@kylegospodneti.ch>
- <1c6ba221-a73c-4793-aac6-b38d6e573295@amd.com>
- <bK7n7j4SGpNNcHzUh7I63T_Ozbd5u6wVHdVlpa3Ym76UQs2PhQDtaREPYuFsHMKZku0B9v2-d8A9PdeBRx_0l0xUZ9gt--wxwyI4-sTKfyM=@kylegospodneti.ch>
- <c9c92c6e-4f2b-48c3-a2da-d3f3ed320b20@amd.com>
-Content-Language: en-US
-From: Giovanni Gherdovich <ggherdovich@suse.cz>
-In-Reply-To: <c9c92c6e-4f2b-48c3-a2da-d3f3ed320b20@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Score: -4.27
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.27 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-0.997];
-	NEURAL_HAM_SHORT(-0.18)[-0.902];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	URIBL_BLOCKED(0.00)[suse.cz:email,amd.com:email,imap1.dmz-prg2.suse.org:helo,kylegospodneti.ch:email,msi.com:url];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[kylegospodneti.ch:email,suse.cz:email,msi.com:url,imap1.dmz-prg2.suse.org:helo,amd.com:email]
+References: <20261007122837.2995-1-ansuelsmth@gmail.com> <e8ef6959a0cb7093cfe4933da99fdfb5567f5354.camel@perches.com>
+ <6ac678df.04a8e9ff.23fe56.b815@mx.google.com> <a098c4e66a4cabd61b8a7c933db7f21ad5648d5b.camel@perches.com>
+ <6ac6876f.31081df4.3ada42.ff1e@mx.google.com> <3e05a868415881335dec29a5d73f7994393f7409.camel@perches.com>
+ <6ac6900c.57ea3510.27c6b6.f79d@mx.google.com> <4e3b6c53200cbd5acdcc2ed4410bcf27df247474.camel@perches.com>
+In-Reply-To: <4e3b6c53200cbd5acdcc2ed4410bcf27df247474.camel@perches.com>
+From: "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>
+Date: Wed, 7 Oct 2026 20:50:25 +0200
+X-Gm-Features: AclHuK-hQit3R1woxaUWzS2gOk_dEjVrRteuuCfqK3ubCQQ7J4KAoDUs_jymSls
+Message-ID: <CA+_ehUwnFRmwzHt5NKuk-boVjCA9xbpiOprPpj6cR+4cTSnOVA@mail.gmail.com>
+Subject: Re: [PATCH v2] checkpatch: report warning with files ending with
+ blank lines
+To: Joe Perches <joe@perches.com>
+Cc: Andy Whitcroft <apw@canonical.com>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hello Mario, Kyle,
+Il giorno mer 7 ott 2026 alle ore 20:48 Joe Perches <joe@perches.com>
+ha scritto:
+>
+> On Wed, 2026-10-07 at 20:31 +0200, Christian Marangi wrote:
+>
+> > > > It's to catch situation like this. Example for entire new file or adding
+> > > > stuff at the end of a file, where a new line is introduced.
+> > > >
+> > > > git am will complain about this.
+> > >
+> > > It seems there's something odd about the patch content
+> > > as there aren't any context lines after the addition.
+> > >
+> > > How was it generated ?
+> >
+> > It was just an example, it's not the full patch. Just the last patch.
+>
+> Send more correct examples.
 
-Kyle:
-thanks for checking BIOS updates, you and I have a very similar
-motherboard in fact; the one I'm working with is the MSI "TRX40 PRO WIFI".
+Here... the DT file adds a whitespace at the end of file. With this
+patch checkpatch
+correctly report the problem.
 
-Mario:
-Yes I suppose I do have a BIOS update; sorry, it escaped my notice.
-After Kyle's successful test, I checked msi.com and indeed there's a
-BIOS release at https://www.msi.com/Motherboard/TRX40-PRO-WIFI/support
-from last June (version 7C60v294 from 2026-06-23).
+From 530fb038855d8e64023a3fd14ebd0396bbfc780a Mon Sep 17 00:00:00 2001
+From: Christian Marangi <ansuelsmth@gmail.com>
+Date: Fri, 7 Feb 2025 13:25:28 +0100
+Subject: [PATCH v12 1/3] dt-bindings: phy: Add documentation for Airoha AN7581
+ USB PHY
 
-I need to ask the openSUSE user who reported this problem to test the
-new BIOS (I don't have direct access to this machine). I'll let you know.
+Add documentation for Airoha AN7581 USB PHY that describe the USB PHY
+for the USB controller.
 
+Airoha AN7581 SoC support a maximum of 2 USB port. The USB 2.0 mode is
+always supported. The USB 3.0 mode is optional and depends on the Serdes
+mode currently configured on the system for the relevant USB port.
 
-Thanks,
-Giovanni
+To correctly calibrate, the USB 2.0 port require correct value in
+"airoha,usb2-monitor-clk-sel" property. Both the 2 USB 2.0 port permit
+selecting one of the 4 monitor clock for calibration (internal clock not
+exposed to the system) but each port have only one of the 4 actually
+connected in HW hence the correct value needs to be specified in DT
+based on board and the physical port. Normally it's monitor clock 1 for
+USB1 and monitor clock 2 for USB2.
 
-On Wed Oct 7, 2026 20:32, Mario Limonciello wrote:
-> Well that's great news.
-> 
-> Giorvanni - are you sure you don't have a BIOS update available from your vendor?
-> 
-> I would much rather not carry a quirk like this if it has been fixed in latest BIOS.
-> 
-> On 10/7/26 13:30, Kyle Gospodnetich wrote:
->> Looks like it's finally fixed with that last BIOS release, it's been years!
->>
->> Platform Firmware Information
->>     Vendor: American Megatrends International, LLC.
->>     Version: 1.A4
->>     Release Date: 06/15/2026
->>
->> cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_driver
->> amd-pstate-epp
->>
->> And no performance issues. Thanks!
->>
->>
->> On Wednesday, October 7th, 2026 at 11:08 AM, Mario Limonciello <mario.limonciello@amd.com> wrote:
->>
->>> OK, let's wait and see what happens after you upgrade.  New versions of
->>> FW and the behavior please.
->>>
->>> On 10/7/26 12:43, Kyle Gospodnetich wrote:
->>>> Missed one,
->>>>
->>>> Release Date: 05/17/2022
->>>>
->>>>
->>>> On Wednesday, October 7th, 2026 at 10:36 AM, Kyle Gospodnetich <me@kylegospodneti.ch> wrote:
->>>>
->>>>> AMD Ryzen Threadripper 3960X
->>>>> MSI TRX40-PRO-10G
->>>>> https://www.msi.com/Motherboard/TRX40-PRO-10G/support
->>>>> I am using 7C60v1A3(Beta version), I will update to the latest today -- just learning that exists.
->>>>> dmidecode reports that as:
->>>>> Vendor: American Megatrends International, LLC.
->>>>> Version: 1.80
->>>>>
->>>>> I've had to disable pstate with:
->>>>> amd_pstate.enable=0 initcall_blacklist=amd-pstate
->>>>>
->>>>> Without that my system grinds to a hault, takes upwards of 15 minutes just to hit the desktop.
->>>>>
->>>>> Thanks, let me know if anything else is needed.
->>>>> -Kyle Gospodnetich
->>>>>
->>>>>
->>>>> On Wednesday, October 7th, 2026 at 8:06 AM, Mario Limonciello <mario.limonciello@amd.com> wrote:
->>>>>
->>>>>> Kyle,
->>>>>>
->>>>>> Can you please confirm more about your system?  System Model, vendor,
->>>>>> BIOS version, BIOS vendor, CPU model.
->>>>>>
->>>>>> Thanks,
->>>>>>
->>>>>> On 10/7/26 10:04, Kyle Gospodnetich wrote:
->>>>>>> Yes this does appear to be the same problem, thank you!
->>>>>>>
->>>>>>> -------- Original Message --------
->>>>>>> On Wednesday, 10/07/26 at 07:56 Mario Limonciello <mario.limonciello@amd.com> wrote:
->>>>>>> + Kyle
->>>>>>>
->>>>>>> Kyle,
->>>>>>>
->>>>>>> By chance is this the same system that you were talking to me about offline?
->>>>>>>
->>>>>>>
->>>>>>>
->>>>>>> On 10/7/26 09:41, Giovanni Gherdovich wrote:
->>>>>>>> Some motherboard based on the TRX40 chipset has been reported to ship
->>>>>>>> firmware lacking lowest and nominal frequency values in the
->>>>>>>> _CPC ACPI package. That is, it supports CPPC V2 but not CPPC V3.
->>>>>>>> Firmware updates aren't available.
->>>>>>>
->>>>>>> Can you please add more information about the vendor/model of the MB, etc?
->>>>>>>>
->>>>>>>> amd-pstate requires explicit knowledge of nominal frequency, so it
->>>>>>>> can't load on this hardware. The driver already has a mechanism (the
->>>>>>>> so-called "quirks") to accommodate for missing nominal freq in ACPI
->>>>>>>> tables, so here we use it to match against CPU family, model, core
->>>>>>>> count, and BIOS version.
->>>>>>>
->>>>>>> Yeah; it's intended for this specific case of really old hardware that
->>>>>>> the BIOS isn't going to fix it.
->>>>>>>
->>>>>>> I don't understand why core count matters though.
->>>>>>>
->>>>>>>>
->>>>>>>> Signed-off-by: Giovanni Gherdovich <ggherdovich@suse.cz>
->>>>>>>> ---
->>>>>>>>      drivers/cpufreq/amd-pstate.c | 31 +++++++++++++++++++++++++++++++
->>>>>>>>      1 file changed, 31 insertions(+)
->>>>>>>>
->>>>>>>> diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
->>>>>>>> index 8bfd46d60843..532ff16dd076 100644
->>>>>>>> --- a/drivers/cpufreq/amd-pstate.c
->>>>>>>> +++ b/drivers/cpufreq/amd-pstate.c
->>>>>>>> @@ -145,6 +145,11 @@ static struct quirk_entry quirk_amd_7k62 = {
->>>>>>>>          .lowest_freq = 550,
->>>>>>>>      };
->>>>>>>>
->>>>>>>> +static struct quirk_entry quirk_amd_ryzen_threadripper_3000_24c = {
->>>>>>>> +    .nominal_freq = 3800,
->>>>>>>> +    .lowest_freq = 550,
->>>>>>>> +};
->>>>>>>> +
->>>>>>>>      static inline u8 freq_to_perf(union perf_cached perf, u32 nominal_freq, unsigned int freq_val)
->>>>>>>>      {
->>>>>>>>          u32 perf_val = DIV_ROUND_UP_ULL((u64)freq_val * perf.nominal_perf, nominal_freq);
->>>>>>>> @@ -174,6 +179,22 @@ static int __init dmi_matched_7k62_bios_bug(const struct dmi_system_id *dmi)
->>>>>>>>          return 0;
->>>>>>>>      }
->>>>>>>>
->>>>>>>> +static int __init dmi_matched_trx40_bios_bug(const struct dmi_system_id *dmi)
->>>>>>>> +{
->>>>>>>> +    /**
->>>>>>>> +     * Match the Ryzen Threadripper 3000 series, 24-core SKU, sTRX4 socket / TRX40 chipset.
->>>>>>>> +     */
->>>>>>>> +    if (boot_cpu_data.x86 == 0x17 &&
->>>>>>>> +        boot_cpu_data.x86_model >= 0x30 && boot_cpu_data.x86_model <= 0x3F &&
->>>>>>>> +        topology_num_cores_per_package() == 24) {
->>>>>>>
->>>>>>> Does the number of cores actually matter?  Do you mean to say if you
->>>>>>> swap the CPU to another part CPPC works?
->>>>>>>
->>>>>>>> +        quirks = dmi->driver_data;
->>>>>>>> +        pr_info("Overriding nominal and lowest frequencies for %s\n", dmi->ident);
->>>>>>>
->>>>>>> The BIOS bug specifically is lack of values, not invalid values, right?
->>>>>>> Just want to make sure I'm following this right.
->>>>>>>
->>>>>>>> +        return 1;
->>>>>>>> +    }
->>>>>>>> +
->>>>>>>> +    return 0;
->>>>>>>> +}
->>>>>>>> +
->>>>>>>>      static const struct dmi_system_id amd_pstate_quirks_table[] __initconst = {
->>>>>>>>          {
->>>>>>>>              .callback = dmi_matched_7k62_bios_bug,
->>>>>>>> @@ -184,6 +205,16 @@ static const struct dmi_system_id amd_pstate_quirks_table[] __initconst = {
->>>>>>>>              },
->>>>>>>>              .driver_data = &quirk_amd_7k62,
->>>>>>>>          },
->>>>>>>> +    {
->>>>>>>> +        .callback = dmi_matched_trx40_bios_bug,
->>>>>>>> +        .ident = "AMD Ryzen Threadripper 3000",
->>>>>>>> +        .matches = {
->>>>>>>> +            DMI_MATCH(DMI_BIOS_VENDOR,  "American Megatrends International"),
->>>>>>>> +            DMI_MATCH(DMI_BIOS_VERSION, "2.80"),
->>>>>>>> +            DMI_MATCH(DMI_BIOS_DATE,    "05/17/2022"),
->>>>>>>> +        },
->>>>>>>> +        .driver_data = &quirk_amd_ryzen_threadripper_3000_24c,
->>>>>>>> +    },
->>>>>>>>          {}
->>>>>>>>      };
->>>>>>>>      MODULE_DEVICE_TABLE(dmi, amd_pstate_quirks_table);
->>>>>>>
->>>>>>
->>>>>>
->>>
->>>
-> 
+To correctly setup the Serdes mode attached to the USB 3.0 mode, a phys
+property is required with the phandle pointing to the correct Serdes port
+provided by the SCU node. Providing the phys property is optional if USB
+3.0 is not used.
 
+Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+ .../bindings/phy/airoha,an7581-usb-phy.yaml   | 62 +++++++++++++++++++
+ MAINTAINERS                                   |  6 ++
+ 2 files changed, 68 insertions(+)
+ create mode 100644
+Documentation/devicetree/bindings/phy/airoha,an7581-usb-phy.yaml
+
+diff --git a/Documentation/devicetree/bindings/phy/airoha,an7581-usb-phy.yaml
+b/Documentation/devicetree/bindings/phy/airoha,an7581-usb-phy.yaml
+new file mode 100644
+index 000000000000..f42e3d49a61f
+--- /dev/null
++++ b/Documentation/devicetree/bindings/phy/airoha,an7581-usb-phy.yaml
+@@ -0,0 +1,62 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/phy/airoha,an7581-usb-phy.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Airoha AN7581 SoC USB PHY
++
++maintainers:
++  - Christian Marangi <ansuelsmth@gmail.com>
++
++description: >
++  The Airoha AN7581 SoC USB PHY describes the USB PHY for the USB controller.
++
++  Airoha AN7581 SoC support a maximum of 2 USB port. The USB 2.0 mode is
++  always supported. The USB 3.0 mode is optional and depends on the Serdes
++  mode currently configured on the system for the relevant USB port.
++
++properties:
++  compatible:
++    const: airoha,an7581-usb-phy
++
++  reg:
++    maxItems: 1
++
++  airoha,usb2-monitor-clk-sel:
++    description: Describe what oscillator across the available 4
++      should be selected for USB 2.0 Slew Rate calibration.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [0, 1, 2, 3]
++
++  phys:
++    items:
++      - description: phandle to Serdes PHY. Optional if USB 3.0 is not used.
++
++  '#phy-cells':
++    description: The cell contains the mode, PHY_TYPE_USB2 or PHY_TYPE_USB3,
++      as defined in dt-bindings/phy/phy.h.
++    const: 1
++
++required:
++  - compatible
++  - reg
++  - airoha,usb2-monitor-clk-sel
++  - '#phy-cells'
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/soc/airoha,scu-ssr.h>
++
++    phy@1fac0000 {
++        compatible = "airoha,an7581-usb-phy";
++        reg = <0x1fac0000 0x10000>;
++
++        airoha,usb2-monitor-clk-sel = <1>;
++        phys = <&scu AIROHA_SCU_SERDES_USB1>;
++
++        #phy-cells = <1>;
++    };
++
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 70a11f2ff61d..0b9946c532af 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -785,6 +785,12 @@ S: Maintained
+ F: Documentation/devicetree/bindings/spi/airoha,en7581-snand.yaml
+ F: drivers/spi/spi-airoha-snfi.c
+
++AIROHA USB PHY DRIVER
++M: Christian Marangi <ansuelsmth@gmail.com>
++L: linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
++S: Maintained
++F: Documentation/devicetree/bindings/phy/airoha,an7581-usb-phy.yaml
++
+ AIRSPY MEDIA DRIVER
+ L: linux-media@vger.kernel.org
+ S: Orphan
+-- 
+2.55.0
