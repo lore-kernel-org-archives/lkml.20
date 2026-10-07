@@ -1,261 +1,270 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC5F23D3CF2;
-	Wed,  7 Oct 2026 06:32:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 695EF403B16
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 06:34:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791354752; cv=none; b=Bhxgfio3wtsUABhaabVdkjfqlqh2TJCMYjEoURkfU2LDMbCwGd2gdFQXfOP4fysuVKgTIWLdetIwx6loZPSihg7xIVr9T6s47f0biC8DrsPMbXhAzTr6j4olexQje8yTFCM6Zwxzl7fkzlvYiRx5xeun1ocLdzp1fM4VJ5s+h64=
+	t=1791354883; cv=none; b=Lf7KWJueyg2KlonqX3+dqh8RkTQ7gHVbMZjFKAb53S634R1jh/7FktUYnucroVn4KlovVTmCt5stvPce5CX+aHcc+QOq5HRPkUKrRO7cagEuRRDYduRsVKYCV4KAk0lK2KLvIIv4z9eLY9QWoIWUJdBlaowZp8UiF38+yls3mJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791354752; c=relaxed/simple;
-	bh=vK02Arew/xoK/SEhK+ZOF9gf1+RD+J2G1rphi2B2vFo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H//l0cbaJOnya+D/AA/9sqkMV3H4QqTozb4pJsDBlWt7Kvl6bYkh+qziWrHbnJdJ3T/m4L+OQlpl0RyyFUR4OaflypBdD6qrxpI6FAHlvFGAuz4QnI48DNhCpKpjgIiWWQbh5EE9zihuaVs9WF+3612EhCH5rSHi/spqrKbwzgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JsS3Dv1k; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791354883; c=relaxed/simple;
+	bh=5gdYiXsdIEdmd5/adEl+CJE03b+Owzw4GAQ5g07E9QI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Kqhehmd5PbFPQfFkRfZGGU8ik61o/X4S3lk1hMhFUQQ6k+JdCy80Yfw44TjjkdHP5cLzkCfkUYlj4wlzrajTaWhrtp/5LyGUIxmUpasvWcYJVebCLa4+N0DIlBmucbxw3Av+D/6GdclKhP7zfXlFxLcXHT6E7195II596jb+wsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e7MTs0WR; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JsS3Dv1k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D0E41F0089C;
-	Wed,  7 Oct 2026 06:32:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791354750;
-	bh=l2L4StRud6VKnWJLizrYPJpAWtLjtw/B6kHwcJg+Mm0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JsS3Dv1kRWzQotpwuewh//UeSyfmkPJJkE+mwKLwFO4G5FdMIONZZ7Ahkd5MZ60hI
-	 7m6CXy/QS4j/6BaYrlxzDg0PgvvF8tG0WR1rr03foPSIElWbzRJqEbeJNZnG1hX9mv
-	 LTrHS+Lc+AS1wOrNiXTu821Dl11fHMWlY4CVf1JbvYlY05OFcFmSX1JSEFeYbGY/Je
-	 /bWNpYvx0lRvsWmmez92yyYm8uZB5FDe0H615VR7sk182sVK0KMvzlwfS0lIGjWgV2
-	 gx99D6OTKYXV3lBZlVs0bmUuC6Aj2UnZN/xUifsdb/0/db3t6IUDZi3uI9KxR/nhWd
-	 V3q25hUqVfVzA==
-Date: Wed, 7 Oct 2026 09:32:27 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>
-Subject: Re: [PATCH v9 02/18] PCI/P2PDMA: Derive routing from directional ACS
- controls
-Message-ID: <20261007063227.GC7822@unreal>
-References: <20261001-fix-p2p-acs-v4-0-v9-2-1a8e0f50ddd9@nvidia.com>
- <20261006204947.GA708098@bhelgaas>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e7MTs0WR"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-381b831d535so3639602a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 23:34:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791354880; x=1791959680; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=x8h3RxZtf4MBoLCdyCQWKGMghw8BxjoE7AErxA1MxGw=;
+        b=e7MTs0WRyw4Lc9L624rjGdbRmwwKFUtFEBqWvYjK6q4ExnvLteIJ188fotb7EO5NWx
+         S6ELQEp18HeY6Mrwo2H7DE8k6zhsJhcOz4U8YYmxnrnYgAuaPnRvWo0PE9ST6HYe+VO8
+         kgvYCf55rCUcAULxtop/q2f7jvsJfNeaRmMRAAnEU5SmRuKqYtvj//rHJv4W+o1WBW91
+         On0jqx70cs96T1wNPhvkrn2OysOyuZTAcaRD+OAkjQQ37PJMRqPPJXUfe/s46S6Ml5F/
+         k8PrMfaryCvklGQaHxxz6M7eAbAO1MZJpWRFBd70UqfxD7537NLPniIuICx2y+nI1Pjl
+         +c8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791354880; x=1791959680;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=x8h3RxZtf4MBoLCdyCQWKGMghw8BxjoE7AErxA1MxGw=;
+        b=dw6WYOrZD+Y0+wDtH6S8tI+9h3qccThlm9yMq3/3OdSJWmJklHGIfwGpsxEGstVt5R
+         Qxd6MJ0pQ1DiDCjaEYH69w9rgq8tMhnwF1JsebtYEDSzr8CIR0VBaTIEju1iWAdIER8m
+         L+gYqfav6DjplX2ar/CMQ4Tta2rBDjSln+cX8BeUWZl9I464LAEtxzfs784vKJorsuO/
+         73Y8h7v7wFBRGC7s39hRlHH58+iAoSrHbfsk1gyTcm/E3r1Rj+nIXzPR9A0g39N7R1O6
+         rH/LZtm1KVhr1WGPzrtWfIWVsuDqHWOkHfsW8o/wufu+8MCYG8W2Si1KkMYS3Wzr2qA7
+         J89g==
+X-Forwarded-Encrypted: i=1; AKwUvBzpO+KVAsLlDsifbojbIVzk7/WotUIH13Zf90AJQLZESucvv4r+iYd6pBuM7vYwRCGyDxaEJHBBLik1FF0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIb9iCllSxqVjFqjVBhNvLGAlF8jcVC93yWmBvz4y3r03QLXYwF
+	W9bLw0kMvAjpTm6vEjV2x5ecKw+m/TP9aoPtHxojFiTNc0ipT30m9uKXttxIj10E
+X-Gm-Gg: AYBFou35/GV+6DSZgaNSimYjA2e4oDNnleXkIeC6khggT8gj+zBtjlvNi1ggg1viUxd
+	UNz6TdT6yHt0tFJ8eRER+ZRzrX3mz9faeWcfyo50SEeBDf7EeWWNM7MvxQtflg4qIxrYRy+YVm9
+	y2TMaZAT7LNDeBedg3yRcHwUpj+xCMKmi7xR1A6V2AuRQAgjMyyS9b54Ipbe8+IBkkuE3dqATzZ
+	U2wculwmCUgiDhe+y94hmxhhhBsh25i5ZVxogltxELgq2iwc4UhCW+mFPYnkg/WEhVioZiVDK4U
+	33pWxtaDpbz7nmQQgG9eP5nTip0F/job5qDgdmx0nizWnX/hQaFpyA9WHPmDbHSOVKgXqWfqbgN
+	RJtxMTZiTYUMmk6LxxMaprEUmVqakprNmqKJMO1TGyZe0ImIDO8akxskySZ7769Lj45lQDhzz0s
+	Bei5hinCO8Rk+8+qh47kMp/1p1N/lF1GPd5CfFddykY2csCrlT/HmsZJ85OJsje+vmMs1Qmxpxa
+	t1kDbaPHuCsHZ1rjmpqORQ/1Qh+8DstpZ8cdHg=
+X-Received: by 2002:a17:90b:2ccc:b0:3a8:d71:5fda with SMTP id 98e67ed59e1d1-3a8a1c3834amr1054901a91.63.1791354879691;
+        Tue, 06 Oct 2026 23:34:39 -0700 (PDT)
+Received: from obadmin-Precision-3680.atlascopco.group ([136.226.232.164])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a89ab81320sm3029992a91.3.2026.10.06.23.34.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 23:34:39 -0700 (PDT)
+From: Sahaj Chaudhari <sahaj123.sc@gmail.com>
+To: tj@kernel.org,
+	hannes@cmpxchg.org,
+	mkoutny@suse.com,
+	shuah@kernel.org
+Cc: cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] selftests/cgroup: test pids.events notification
+Date: Wed,  7 Oct 2026 12:05:16 +0530
+Message-ID: <20261007063516.1192279-1-sahaj123.sc@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261006204947.GA708098@bhelgaas>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 06, 2026 at 03:49:47PM -0500, Bjorn Helgaas wrote:
-> On Thu, Oct 01, 2026 at 02:55:10PM +0300, Leon Romanovsky wrote:
-> > From: Leon Romanovsky <leonro@nvidia.com>
-> > 
-> > pci_bridge_has_acs_redir() treats Request and Completion Redirect as
-> > interchangeable. On asymmetric fabrics, a control for only the reverse TLP
-> > direction can unnecessarily force P2PDMA through the host bridge.
-> 
-> Does "the reverse TLP direction" refer to Completions?
+Verify that a fork rejected by pids.max increments
+pids.events and emits an IN_MODIFY notification.
 
-In general, the P2P code treats TLPs flowing from device A to device B the
-same as TLPs flowing from device B to device A.
+Run the test in a temporary cgroup v2 hierarchy with
+pids_localevents enabled.
 
-However, in the context of this commit message, yes: completions flow in the
-opposite direction from the device's perspective.
+Signed-off-by: Sahaj Chaudhari <sahaj123.sc@gmail.com>
+---
+ tools/testing/selftests/cgroup/.gitignore     |   1 +
+ tools/testing/selftests/cgroup/Makefile       |   2 +
+ .../selftests/cgroup/test_pids_local_events.c | 139 ++++++++++++++++++
+ 3 files changed, 142 insertions(+)
+ create mode 100644 tools/testing/selftests/cgroup/test_pids_local_events.c
 
-> 
-> > Evaluate Request Redirect for client Requests and Completion Redirect for
-> > provider read Completions. Continue treating enabled Egress Control
-> > conservatively as a Request redirect.
-> 
-> Completion Redirect is intended to avoid ordering rule violations
-> between Completions and Requests when Requests are redirected (PCIe
-> r7.0, sec 6.12.1.1).  I assume this patch preserves the ordering rule,
-> but does the commit log need to say something about that?  I don't
-> know enough about P2P DMA for it to be obvious to me.
+diff --git a/tools/testing/selftests/cgroup/.gitignore b/tools/testing/selftests/cgroup/.gitignore
+index 952e4448bf070..0a00eaab14cb1 100644
+--- a/tools/testing/selftests/cgroup/.gitignore
++++ b/tools/testing/selftests/cgroup/.gitignore
+@@ -8,5 +8,6 @@ test_kill
+ test_kmem
+ test_memcontrol
+ test_pids
++test_pids_local_events
+ test_zswap
+ wait_inotify
+diff --git a/tools/testing/selftests/cgroup/Makefile b/tools/testing/selftests/cgroup/Makefile
+index e01584c2189ac..e494487307418 100644
+--- a/tools/testing/selftests/cgroup/Makefile
++++ b/tools/testing/selftests/cgroup/Makefile
+@@ -16,6 +16,7 @@ TEST_GEN_PROGS += test_kill
+ TEST_GEN_PROGS += test_kmem
+ TEST_GEN_PROGS += test_memcontrol
+ TEST_GEN_PROGS += test_pids
++TEST_GEN_PROGS += test_pids_local_events
+ TEST_GEN_PROGS += test_zswap
+ 
+ LOCAL_HDRS += $(selfdir)/clone3/clone3_selftests.h $(selfdir)/pidfd/pidfd.h
+@@ -32,4 +33,5 @@ $(OUTPUT)/test_kill: $(LIBCGROUP_O)
+ $(OUTPUT)/test_kmem: $(LIBCGROUP_O)
+ $(OUTPUT)/test_memcontrol: $(LIBCGROUP_O)
+ $(OUTPUT)/test_pids: $(LIBCGROUP_O)
++$(OUTPUT)/test_pids_local_events: $(LIBCGROUP_O)
+ $(OUTPUT)/test_zswap: $(LIBCGROUP_O)
+diff --git a/tools/testing/selftests/cgroup/test_pids_local_events.c b/tools/testing/selftests/cgroup/test_pids_local_events.c
+new file mode 100644
+index 0000000000000..fa501e2091873
+--- /dev/null
++++ b/tools/testing/selftests/cgroup/test_pids_local_events.c
+@@ -0,0 +1,139 @@
++// SPDX-License-Identifier: GPL-2.0
++#define _GNU_SOURCE
++
++#include <errno.h>
++#include <fcntl.h>
++#include <linux/limits.h>
++#include <poll.h>
++#include <stdbool.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <sys/inotify.h>
++#include <sys/wait.h>
++#include <unistd.h>
++
++#include "cgroup_util.h"
++#include "kselftest.h"
++
++static int test_pids_events_notify(const char *root)
++{
++	union {
++		struct inotify_event align;
++		char bytes[sizeof(struct inotify_event) + NAME_MAX + 1];
++	} event_buf;
++	struct pollfd pfd;
++	char *cgroup = NULL, *events_path = NULL;
++	const char *reason = "pids.events did not notify after a rejected fork";
++	bool moved = false;
++	int inotify_fd = -1, ret = KSFT_FAIL, watch;
++	ssize_t n;
++	pid_t child;
++
++	cgroup = cg_name(root, "pids_local_events_notify");
++	if (!cgroup) {
++		reason = "failed to allocate cgroup path";
++		goto cleanup;
++	}
++	if (cg_create(cgroup)) {
++		reason = "failed to create test cgroup";
++		goto cleanup;
++	}
++	if (cg_write(cgroup, "pids.max", "1")) {
++		reason = "failed to set pids.max";
++		goto cleanup;
++	}
++
++	if (asprintf(&events_path, "%s/pids.events", cgroup) < 0) {
++		reason = "failed to allocate pids.events path";
++		goto cleanup;
++	}
++	inotify_fd = inotify_init1(IN_CLOEXEC | IN_NONBLOCK);
++	if (inotify_fd < 0) {
++		reason = "inotify_init1 failed";
++		goto cleanup;
++	}
++	watch = inotify_add_watch(inotify_fd, events_path, IN_MODIFY);
++	if (watch < 0) {
++		reason = "inotify_add_watch on pids.events failed";
++		goto cleanup;
++	}
++
++	if (cg_enter_current(cgroup)) {
++		reason = "failed to move test into cgroup";
++		goto cleanup;
++	}
++	moved = true;
++
++	child = fork();
++	if (child == 0)
++		_exit(0);
++	if (child > 0) {
++		waitpid(child, NULL, 0);
++		reason = "fork succeeded despite pids.max";
++		goto cleanup;
++	}
++	if (errno != EAGAIN) {
++		reason = "fork failed for a reason other than pids.max";
++		goto cleanup;
++	}
++
++	if (cg_read_key_long(cgroup, "pids.events", "max ") != 1) {
++		reason = "pids.events did not count the rejected fork";
++		goto cleanup;
++	}
++
++	pfd.fd = inotify_fd;
++	pfd.events = POLLIN;
++	if (poll(&pfd, 1, 1000) <= 0) {
++		reason = "timed out waiting for pids.events notification";
++		goto cleanup;
++	}
++	n = read(inotify_fd, event_buf.bytes, sizeof(event_buf.bytes));
++	if (n < sizeof(struct inotify_event) ||
++	    !(event_buf.align.mask & IN_MODIFY)) {
++		reason = "received no pids.events modify notification";
++		goto cleanup;
++	}
++	if (cg_read_key_long(cgroup, "pids.events", "max ") != 1) {
++		reason = "pids.events did not count the rejected fork";
++		goto cleanup;
++	}
++
++	ret = KSFT_PASS;
++
++cleanup:
++	if (inotify_fd >= 0)
++		close(inotify_fd);
++	if (moved)
++		cg_enter_current(root);
++	if (cgroup)
++		cg_destroy(cgroup);
++	free(events_path);
++	free(cgroup);
++	if (ret != KSFT_PASS)
++		ksft_print_msg("%s\n", reason);
++	return ret;
++}
++
++int main(void)
++{
++	char root[PATH_MAX];
++	int ret;
++
++	ksft_print_header();
++	if (cg_find_unified_root(root, sizeof(root), NULL))
++		ksft_exit_skip("cgroup v2 isn't mounted\n");
++	if (proc_mount_contains("pids_localevents") <= 0)
++		ksft_exit_skip("mount cgroup2 with pids_localevents to run this test\n");
++	if (cg_read_strstr(root, "cgroup.controllers", "pids"))
++		ksft_exit_skip("pids controller isn't available\n");
++	if (cg_read_strstr(root, "cgroup.subtree_control", "pids") &&
++	    cg_write(root, "cgroup.subtree_control", "+pids"))
++		ksft_exit_skip("failed to enable pids controller\n");
++
++	ksft_set_plan(1);
++	ret = test_pids_events_notify(root);
++	ksft_test_result_report(ret, "pids.events notifies on a rejected fork\n");
++	ksft_finished();
++}
+-- 
+2.43.0
 
-I don't think so, i didn't change anything related to ordering.
-
-> 
-> Not really a question for this series, but p2pdma.c and p2pdma.rst
-> refer to "clients" and "providers", neither of which are mentioned in
-> the PCIe spec.  In this case it sounds like a client is a Requester
-> and a provider is a Completer in spec terms.  Is that always the case?
-> If so, "client" and "provider" in this paragraph are not adding any
-> information.
-> 
-> If "client" is not the same concept as "Requester" and "provider" not
-> the same as "Completer", maybe p2pdma.rst could explain the
-> difference?
-
-Client vs. provider are actual target vs. initiator. They express the
-device role in the flow.
-
-Thanks
-
-> 
-> > Fixes: 52916982af48 ("PCI/P2PDMA: Support peer-to-peer memory")
-> > Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
-> > Tested-by: Tushar Dave <tdave@nvidia.com>
-> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> > ---
-> >  drivers/pci/p2pdma.c | 75 ++++++++++++++++++++++++++++++++++++++++------------
-> >  1 file changed, 58 insertions(+), 17 deletions(-)
-> > 
-> > diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-> > index 4e4d2df17a45..12612b82d80d 100644
-> > --- a/drivers/pci/p2pdma.c
-> > +++ b/drivers/pci/p2pdma.c
-> > @@ -21,6 +21,8 @@
-> >  #include <linux/seq_buf.h>
-> >  #include <linux/xarray.h>
-> >  
-> > +#include "pci.h"
-> > +
-> >  struct pci_p2pdma {
-> >  	struct gen_pool *pool;
-> >  	bool p2pmem_published;
-> > @@ -490,26 +492,56 @@ static struct pci_dev *find_parent_pci_dev(struct device *dev)
-> >  	return NULL;
-> >  }
-> >  
-> > +enum pci_acs_p2pdma_state {
-> > +	PCI_ACS_P2PDMA_DIRECT,
-> > +	PCI_ACS_P2PDMA_REDIRECT,
-> > +};
-> > +
-> >  /*
-> > - * Check if a PCI bridge has its ACS redirection bits set to redirect P2P
-> > - * TLPs upstream via ACS. Returns 1 if the packets will be redirected
-> > - * upstream, 0 otherwise.
-> > + * Decide how a peer-to-peer Request at an ACS-capable ingress port routes,
-> > + * from that port's ACS Control register.
-> > + *
-> > + * Linux does not read the Egress Control Vector, so Egress Control is treated
-> > + * conservatively as a redirect. Per PCIe r7.0 Table 6-11 the outcomes it
-> > + * selects are a direct route and an ACS Violation, and neither one lets peer
-> > + * bus addressing be assumed.
-> >   */
-> > -static int pci_bridge_has_acs_redir(struct pci_dev *pdev)
-> > +static enum pci_acs_p2pdma_state
-> > +pci_acs_p2pdma_request(u16 ctrl)
-> >  {
-> > -	int pos;
-> > -	u16 ctrl;
-> > +	return ctrl & (PCI_ACS_RR | PCI_ACS_EC) ?
-> > +		PCI_ACS_P2PDMA_REDIRECT : PCI_ACS_P2PDMA_DIRECT;
-> > +}
-> >  
-> > -	pos = pdev->acs_cap;
-> > -	if (!pos)
-> > -		return 0;
-> > +/*
-> > + * Decide how a peer-to-peer Completion at an ACS-capable ingress port routes.
-> > + * PCIe r7.0 sec 6.12.1.1: no ACS control other than P2P Completion Redirect
-> > + * affects a Completion.
-> > + */
-> > +static enum pci_acs_p2pdma_state
-> > +pci_acs_p2pdma_completion(u16 ctrl)
-> > +{
-> > +	return ctrl & PCI_ACS_CR ? PCI_ACS_P2PDMA_REDIRECT :
-> > +				   PCI_ACS_P2PDMA_DIRECT;
-> > +}
-> >  
-> > -	pci_read_config_word(pdev, pos + PCI_ACS_CTRL, &ctrl);
-> > +/*
-> > + * Read @pdev's ACS Control register. A device without an ACS capability has
-> > + * no peer-to-peer controls at all, which routes the same as having them all
-> > + * clear. Returns false when the register is present but cannot be read; @ctrl
-> > + * is then meaningless.
-> > + */
-> > +static bool pci_acs_p2pdma_ctrl(struct pci_dev *pdev, u16 *ctrl)
-> > +{
-> > +	int pos;
-> >  
-> > -	if (ctrl & (PCI_ACS_RR | PCI_ACS_CR | PCI_ACS_EC))
-> > -		return 1;
-> > +	pos = pdev->acs_cap;
-> > +	if (!pos) {
-> > +		*ctrl = 0;
-> > +		return true;
-> > +	}
-> >  
-> > -	return 0;
-> > +	return !pci_read_config_word(pdev, pos + PCI_ACS_CTRL, ctrl);
-> >  }
-> >  
-> >  static void seq_buf_print_bus_devfn(struct seq_buf *buf, struct pci_dev *pdev)
-> > @@ -698,6 +730,10 @@ static unsigned long map_types_idx(struct pci_dev *client)
-> >   * then to Device B. The mapping type returned depends on the ACS
-> >   * redirection setting of the ports along the path.
-> >   *
-> > + * The client initiates Requests to provider memory. Check Request Redirect
-> > + * on the client path and Completion Redirect for read Completions on the
-> > + * provider path.
-> > + *
-> >   * If ACS redirect is set on any port in the path, traffic between the
-> >   * devices will go through the host bridge, so return
-> >   * PCI_P2PDMA_MAP_THRU_HOST_BRIDGE; otherwise return
-> > @@ -721,6 +757,7 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
-> >  	int dist_a = 0;
-> >  	int dist_b = 0;
-> >  	char buf[128];
-> > +	u16 ctrl;
-> >  
-> >  	seq_buf_init(&acs_list, buf, sizeof(buf));
-> >  
-> > @@ -732,7 +769,9 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
-> >  	while (a) {
-> >  		dist_b = 0;
-> >  
-> > -		if (pci_bridge_has_acs_redir(a)) {
-> > +		if (!pci_acs_p2pdma_ctrl(a, &ctrl) ||
-> > +		    pci_acs_p2pdma_completion(ctrl) ==
-> > +			    PCI_ACS_P2PDMA_REDIRECT) {
-> >  			seq_buf_print_bus_devfn(&acs_list, a);
-> >  			acs_cnt++;
-> >  		}
-> > @@ -761,7 +800,9 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
-> >  		if (a == bb)
-> >  			break;
-> >  
-> > -		if (pci_bridge_has_acs_redir(bb)) {
-> > +		if (!pci_acs_p2pdma_ctrl(bb, &ctrl) ||
-> > +		    pci_acs_p2pdma_request(ctrl) ==
-> > +			    PCI_ACS_P2PDMA_REDIRECT) {
-> >  			seq_buf_print_bus_devfn(&acs_list, bb);
-> >  			acs_cnt++;
-> >  		}
-> > @@ -1109,10 +1150,10 @@ EXPORT_SYMBOL_GPL(pci_p2pmem_publish);
-> >  /**
-> >   * pci_p2pdma_map_type - Determine the mapping type for P2PDMA transfers
-> >   * @provider: P2PDMA provider structure
-> > - * @dev: Target device for the transfer
-> > + * @dev: Client device that initiates the transfer
-> >   *
-> >   * Determines how peer-to-peer DMA transfers should be mapped between
-> > - * the provider and the target device. The mapping type indicates whether
-> > + * the provider and the client device. The mapping type indicates whether
-> >   * the transfer can be done directly through PCI switches or must go
-> >   * through the host bridge.
-> >   */
-> > 
-> > -- 
-> > 2.55.0
-> > 
