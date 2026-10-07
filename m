@@ -1,141 +1,259 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011024.outbound.protection.outlook.com [52.101.52.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4C2D4334BC;
-	Wed,  7 Oct 2026 07:51:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791359513; cv=none; b=tyP2Cb0Bcj1vR9E4vcSI+fXlKw7z1IM7Kl83P7vAUNJfHBfmFQIzcTdlV/6iLK03bdcUlJ5mx3FDX/jCZNwNLJXXgwt+xhR0LOWeAQrgu8AhLr7jMGHyaVstflCfLawOewOeyHqBd5K6RLuSTh2dtAcjk5WjGlvV6paNcFQ8H3k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791359513; c=relaxed/simple;
-	bh=3xp1YErzNSbCRlhRhN/LTglQNYelo/rOHkU4GpPKZvM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pJjJl1SRtpdYIlWhbUvF9lvStb2nEd01E7GzB+KbZFAMAb+xD+Hg1OYPxgsOqbHzeRk0powMvtrqhmhYo1DJeFUYY4ANnys0tnVs2Ox4WKW4xtYAtFA9wqDPhk+2b/dnrEvXrFhRE1BBnCmi2RvAMySTLnEYZfzQEH3zIUQGqTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LWHFfBRq; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F8242885F;
+	Wed,  7 Oct 2026 07:51:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.24
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791359519; cv=fail; b=endm2b2ShHVBVG3HxNBCxzUkNs2yOk8BJ0dJ2p4Wgr/YSLx/WNvaHaS01d/F03j0VdE6wfS8X6yPoH7KLYqgvm+3X36b4Z4urp1bHCNFhtT0cLzUvjzhs807V1O0n2oEbdLnKTSo2855MaIhKs0uX8HE7AlxpMtvbL0iKBzg5Hg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791359519; c=relaxed/simple;
+	bh=nDrNAKU6ymG/geHSPyF7Gpp5Osnkv6Ksw+38BHbBCTE=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=k/6uyewtSXisEZlFK6FxUuHJkfcsLr2jMMmxrSRdJfPMxJ5XdKNX4hFKITEjHdopSobdBqFfhZvoIjYsnmkQU2QstzIp9qTKhE0Zn/UKAbELbdRVZySCA3rHbRwdYEPlr2fnOAxJ/iPbHPVy042mqnvAcjlh/LsoMzAG38DWyuI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=AMpBXvQe; arc=fail smtp.client-ip=52.101.52.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LWHFfBRq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7754B1F0089B;
-	Wed,  7 Oct 2026 07:51:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791359505;
-	bh=NJLbF11/XH2lGcl6UQXwAX+npGMpjBx0Oukoz8Yk4YE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=LWHFfBRqKBFBNQaU/bM8MfvmItJ+31DXseJl32GuuPmxmbWn/K6jgVUAH3v/yeHN+
-	 AldhGCZZjBQV7Wzg7d2Wi892Mbw9BB88t9ZbgjtYnUV1K41yY/UrT9liWA7j5/642T
-	 Q3zgqus9TfeALU2TbMsd2P57pbPxbBKgdikRSYGCh7J1Lq/xOoa1HGDiVszDq4YlyZ
-	 4a0eqOvGMpjRp4NFvQYEXbRpAa84JNE8kpVAyN20usY3ijtLPJI3C13Y6N2j7kBw3z
-	 X4PhtDBT1w+esjDVyvsUSMraXSMAuL5f44xVQ19XdzWc5i1zafPMYnK6YkWLdFoWOb
-	 EYnFx7gQM5m7w==
-Message-ID: <b12214fc-2e06-4e52-8bda-6c6f9a76bd7a@kernel.org>
-Date: Wed, 7 Oct 2026 09:51:37 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="AMpBXvQe"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hamxG5C27bqNq1Oc+g3dKM2IwOXl2UdyNyV6dHzbrY73NnXEzrtD1jShaMxoIS9O8Wo2aIpR4+Ydm3frvDGGd2l+9170xGWdRKPnzFvdt6DhQ7zlWyIFQ1OLGbYUa8CNhtvqVqMFrbhlcSFe5l9phdwzK4IdslL7NHxZVpBE69lXg9hobGWBGQ+TMXAKBjsewjsp1xGzO+H/+v9pmKbSID9ak/tDbYbXAKAzZDnI853vbzeby/DTrIp7iiBP0wbMPIq3vxMZQT4txnTyU6bGNW27AMLgJusZfgC9oml82sdEgcvlj1C1iU5eG/BCBJ0+HMQbV7M3aynX7HQMTgQwOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=L1A661XO1EYBVODGzATc1wIGh+JfQVrb9K6+0UNnyxo=;
+ b=GzpHatWPqvG21h105wkEnWzuLBdWm2phrXqpFUka+liRXOgLJ3/IV3TGMNlidt7b/ocAcLgd2IpJ8v440dyV5Hw/Ru+AegyeR7i5a+CPH7vEaydqVJXaiiAVx/9Wo8hFSdE7uDdaa5utqSQTt3+3RwkKnne19w3qAZhlCtFLOzY28ruk1n22MB2U+NmODud2JPssCejZ+LxmrnU9l8auok+ZG01h5oCF5gug2/YdawSd1fCMLq0jM4CUOTPWLfA6uHMOOI+L2rvgC7T+/dBoJiS6bhP9Nh2sf/hm7lrglQLt+UduB4HOWZKn9siVp571Y2eWI/KANjM8ZIrloBWliA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=L1A661XO1EYBVODGzATc1wIGh+JfQVrb9K6+0UNnyxo=;
+ b=AMpBXvQe26IkfkpNMKcx6eiqu4/vBkmtxnDVYmlhiHV2UM3WT9l4NoZWALeeh5DhC3hn4nevKKflQ2SAlMJI16PiUb2B+OausqnnFMN4SHEPGo8lUxZ5yt6hmr5HfmQXxR3q/l2m4MsHVbxeQRWKO6b31FvvDuuYDGmGO+7S3AI=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SA1PR12MB9514.namprd12.prod.outlook.com (2603:10b6:806:458::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
+ 2026 07:51:45 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0496.010; Wed, 7 Oct 2026
+ 07:51:45 +0000
+Message-ID: <7e8b332d-04a9-418a-95f4-de3cbd8b8a33@amd.com>
+Date: Wed, 7 Oct 2026 09:51:39 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-buf: Annul dmabuf->file on file release
+To: Matt Evans <matt@ozlabs.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Thomas Hellstrom <thellstrom@vmware.com>,
+ Zack Rusin <zack.rusin@broadcom.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ Alex Mastro <amastro@fb.com>, Alex Williamson <alex@shazbot.org>
+References: <f8efaabd-c06e-4f04-8cfa-489c148e37ba@ozlabs.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <f8efaabd-c06e-4f04-8cfa-489c148e37ba@ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0276.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:e6::6) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] soc: qcom: qpace: Add Qualcomm Page Compression
- Engine driver
-To: Oreoluwa Babatunde <oreoluwa.babatunde@oss.qualcomm.com>,
- Georgi Djakov <georgi.djakov@oss.qualcomm.com>
-Cc: andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- minchan@kernel.org, senozhatsky@chromium.org, axboe@kernel.dk,
- rostedt@goodmis.org, mhiramat@kernel.org, mathieu.desnoyers@efficios.com,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, djakov@kernel.org
-References: <20260930145215.3380977-1-georgi.djakov@oss.qualcomm.com>
- <20260930145215.3380977-3-georgi.djakov@oss.qualcomm.com>
- <20261001-hopping-belligerent-spider-876e7b@quoll>
- <fed665c5-3062-462b-928d-ab60976ce839@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <fed665c5-3062-462b-928d-ab60976ce839@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB9514:EE_
+X-MS-Office365-Filtering-Correlation-Id: 77516e90-6988-461a-71d0-08df2447d533
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|366016|6133799003|18002099003|22082099003|10067099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	7FEaNN46rP6CFN4SFEt30HRT3QLc1x3QOcSuHayuDeJgPy/CkfmcxhFlDGXuvnLlcnRPE75m8Mf+pTFinTBSkinEXVySzok/xCCeZNsmz8k04IccFmxER6q2MhXnrVjUFTQsaG0RrRGu5Qc78W1Pt+aXop47DO9pcdjgeewzvm5f+js1Lyo9ZQoNX+35lMYJwH8CWynJw+stx0vK7CsFnnvCpNx0jBXrIa9zajx4zwMPgD74VrTeWEppizVPgnA3XmYQS1r1wUltAnWU4FnZAP1qzIXNVK30gOCRcY8aqB5RnRlo+888sDARp0MeWkiJ04H0z3ix3EzMpk52m4G7DEWeROkw/ZnBllJwYN/RSTZYSQdWn77tHlOp+Nn2hvE6WSTnWVmyiROnRbqWziLUjgZe4kXMom9o3sxmNKWVJC93140Fy5cJ1PY35m9A8r5FFMnYkdO7UxkVLW7Y9zaK7g+0608FO1xUITKLDlIHqIQeJcdqMXGMDwS/UEgSKErHn/O0jJVO/lZB+FKlIezRN35DiBrsQbVhWwziXDb1Ah6sH5DZJmZCrxZcw94qF8z89aLdpLd0Buqumo3KUSM/WrN/8e38tuRIjtZ7HjmNfEFSO9tNrjTmOFdEyxmbvdIfRT3LIoEGnhl5pxajoZph/UiYeFHlB6ZR5pDsFBYXYEs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(6133799003)(18002099003)(22082099003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Z1JXaVFUb1RBL3Q0N3VIdnZDKzBxNW0vZDgwYytKbXpBY2NVc01HVE9lRVBr?=
+ =?utf-8?B?eUx6cTVueXNjb3pyNStTSnFCUHdPYmJDM09CWjlDTnZYZCtWRk53NXFBUGc0?=
+ =?utf-8?B?Tk9XZGt5TW9XRXIxSjh6WEVUOUxFTzkxZVl2Q3dJMXBOQWN1MFY3bk4yZWhn?=
+ =?utf-8?B?NWpkdWhyV1QxMlJBRHVBN21FdEsxWEJQOEgyUzFRdXdSQW1PTUVheHJRWmZy?=
+ =?utf-8?B?MGQ0b0lXM00zQVFBNEdQRjdjQVlqMWhEZFZ6ai95V2hoVllrcXNTNnFxN2hU?=
+ =?utf-8?B?WTIweGJpRnJRUEVoY0tPbXRsU1c3NHFLajlHWFRsbUJVeFAvdUo0dng5M3Yz?=
+ =?utf-8?B?SGdrQzB5SXJhTnZmSS9ydytETTFJMkNUZyt5c3NjMnFuY2M0UjlXWmNNMVBr?=
+ =?utf-8?B?R1dXZ2pXQzFZRmFlVkxYZDBSZTJtcGpmclRVaWpIN1NrdW5sY05zM2l3aElh?=
+ =?utf-8?B?L0RnRXFsWmNCdmFCT3U5UFp0RnFnbCt6Zm1vU0pnKzd4K0VvSVpWbnRYNVdN?=
+ =?utf-8?B?ZVQ3NlgzK2VwTy9WS0FMeDExY1o1cjhZSHluK3Q5TmlXMVBzSjVueUdTSmRq?=
+ =?utf-8?B?MzJ2QWJOd21mZnlLL3dXMDM5bFdlbVVzd1FJL3hTMEFEYU9QbWVxMFJ0SUs4?=
+ =?utf-8?B?VWVMQ2FBVlFpdFdFVjBYOTlHM3lWUmp5RHJpRlVaYlRTRXY5WHFkaVdNb0Uw?=
+ =?utf-8?B?VTYzY2t5T0lXSk9EZW5nWWFXNlhxL2N2eTE0aHI4VjE2c2hYcCt5UXVSeW1k?=
+ =?utf-8?B?S1lmL1lPbXczY3d2SlhnZFkydDJ6L2ZDcFRmMldOWFBIT084OExyRS9LcWNF?=
+ =?utf-8?B?NjZrNFIvZEhOT2FHS28zMjVNNHRvUUVhaThNSnlWczZ6RFlpeWJZWVlLSWo4?=
+ =?utf-8?B?SndvYkt0U0REWGFDQUNUbUZKYmw3SWI2SFY2TUwvaHNhUkpSSkw2MjBRMmEr?=
+ =?utf-8?B?OERzVFZkWTM3bGpOTlU5UlBoVmhLL01tdG5CVEhyQmU5MDR6NnhBWWh2ZWpj?=
+ =?utf-8?B?YUlyQUdvZTM5SWVsM0hPZm0xandUVUR3aFNWTTNTY0tNRzVqL3JhZnVGYTBw?=
+ =?utf-8?B?YjhkbXR0aG0rc1lZSmtrUEtDQS9jd0NSR2dsbHIxWWUvN3U4TGhnemsyaC9h?=
+ =?utf-8?B?cTRVeUxEdW5ZaGkvVXVFeVpEbVREZWZHR0N2ZGNqSm9XRDFNcEh1MXlONjlL?=
+ =?utf-8?B?SW1PcUJTYzRONVFld3ZZUVdvRUZld2pDYWhRQXROTVZIQVhTMHoyNEN2a2xO?=
+ =?utf-8?B?MTgyNVpCYlpPS1p4SnUwUlZKUDdsQTM0YlFjUGlJMXJUWG42b1BPTkVKcGtv?=
+ =?utf-8?B?VWZLRXgvVTNrRHFkbDJhVWxkdGdTZVFrRHh4eCszMGpYM01OdmszdUJra0xZ?=
+ =?utf-8?B?WGsxbXg0QkNrV2lQNTJaKyt0QWpuNVNMeUZHd0JZQi9neGxRSHA2M1F1Y1Rz?=
+ =?utf-8?B?aDBja296VkRjZ1VnQzk4VXNJNGZNRGpzbjRKTHRSdTlBM1RGSkJmZjRveHkv?=
+ =?utf-8?B?OU1jUVVvS2FjU1VlWXFLZWZFL01zZ3N5YUs1RVhadnpPeC9qUUF0Q3JPZVMv?=
+ =?utf-8?B?dkJscUdDZHFlcmZ1NS9IOXlJYjRCNlhOTVF6TC9tYVFMdnRVKy8vVWQ0Qkoz?=
+ =?utf-8?B?OUVKeGtFWHhzakdqNjBTaUpkSVZWUHNjWW1aVjNyU21HaXgyUU5BRk15Qks5?=
+ =?utf-8?B?L0UxeG5ZSlBVY0ZXaGxnckJLZGR0T1hFWTlRSG5ERExzSUxXaFBIZERjWnND?=
+ =?utf-8?B?NkF6K1Nra01NeFdoRXBMRVJWU2c1dk51T3lPekhmRTJBRUVsc2htTkJtOTVo?=
+ =?utf-8?B?Smh3cFVXNHpVSnBRUXpyVTFzWEN5SkV3djlheEN5UzBvc3pGalVUNit2cTNN?=
+ =?utf-8?B?NXhkNWxMK1J1bGNubGtEM0ZxRGgrWndpekJQUUF5NjF1eUJMSjBxK2lLVlV5?=
+ =?utf-8?B?bmthZ0xJVk53b1lCdEZJMnBjeG94VVc1VzA3dHVGRHlDOXk1RzZFaFVXTjla?=
+ =?utf-8?B?emdvR0d1cSs1cm5OWE5NMFZ5VGpNT0IrRFdFcWVITDBzeVhSSGVCQ2o1d0Fo?=
+ =?utf-8?B?bHR3RVZVVFJDRzNPcmtzT096VXkyMGl6YU1Ld1NuWmVlZlM1QjNmTHJaRzB2?=
+ =?utf-8?B?ai9GTFN4U2E3dklJWHQ3UEUvR0lVUkRZblVXc2RiNkNFRitWZ1QxSnlaTWlY?=
+ =?utf-8?B?anB3OVdFS3B3Vko0bHYyL1YxOHkyVk9ZQkxRaE8zaUFoaXNFcU9EYndsbXBr?=
+ =?utf-8?B?NWJUUnJYanpyMjZzZ0c1TzlqUWVHUDNGeC9mWlp6QTZaRlF4K2lpK1BtT2I3?=
+ =?utf-8?Q?T/j9T8qz1TgBuEWbSj?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 77516e90-6988-461a-71d0-08df2447d533
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 07:51:45.0632
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HFA8Azy6VEx8eQNP4cBAiAniuMoaWXmeP7Z17twlnQE2LmYzwQeee676SkIPQ32M
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9514
 
-On 07/10/2026 01:51, Oreoluwa Babatunde wrote:
-> On 10/1/2026 1:50 AM, Krzysztof Kozlowski wrote:
->> On Wed, Sep 30, 2026 at 07:52:11AM -0700, Georgi Djakov wrote:
->>> Add a platform driver for the Qualcomm Page Compression Engine (QPaCE), a
->>> hardware block that accelerates compression and decompression of memory
->>> pages.
->>>
->>> Provide the urgent command path for synchronous single-page compression and
->>> decompression. This exposes the low-latency operations needed by
->>> compressed-memory users such as zram, especially for page decompression on
->>> the read path.
->>>
->>> Signed-off-by: Georgi Djakov <georgi.djakov@oss.qualcomm.com>
->>> ---
->>>   drivers/soc/qcom/Kconfig          |  14 +
->>>   drivers/soc/qcom/Makefile         |   1 +
->>>   drivers/soc/qcom/qpace.c          | 764 ++++++++++++++++++++++++++++++
->>>   drivers/soc/qcom/qpace_internal.h |  84 ++++
->>>   include/linux/soc/qcom/qpace.h    | 154 ++++++
->>>   5 files changed, 1017 insertions(+)
->>>   create mode 100644 drivers/soc/qcom/qpace.c
->>>   create mode 100644 drivers/soc/qcom/qpace_internal.h
->>>   create mode 100644 include/linux/soc/qcom/qpace.h
->>>
->>> diff --git a/drivers/soc/qcom/Kconfig b/drivers/soc/qcom/Kconfig
->>> index 535c8619197b..6bcb86dcd726 100644
->>> --- a/drivers/soc/qcom/Kconfig
->>
->> Sorry, but no. Soc is not a dumping ground. This has clear function of
->> compression offload, so it should have some dedicated maintainers like
->> other offload engines.
+Hi Matt,
+
+On 10/6/26 21:15, Matt Evans wrote:
+> The dmabuf release path is split between file and dentry release:
+> dma_buf_file_release() is called shortly before the file is freed, and
+> dma_buf_release() calls an exporter's dmabuf->ops->release when the
+> dentry is freed.  However, the dentry can outlive the file (for
+> example, if opened with O_PATH), meaning .release might be called some
+> time after the file is freed.
 > 
-> The reason for putting this in soc/qcom is because this is a qcom HW 
+> This presents a window, when closing a DMABUF file, in which
+> dmabuf->file points to freed memory yet .release op has not yet been
+> called.
+> 
+> For VFIO, if a buffer's .release has not been called it's considered
+> still active and subject to move/cleanup.  If so, it attempts to
+> get_file_active() on dmabuf->file: a file close with dentry held open
+> will call this function with a stale pointer, a UAF.
+> 
+> To make this pattern safe, set dmabuf->file to NULL in
+> dma_buf_file_release() to reflect that the associated file is now dead
+> even if the DMABUF is not yet gone.  A get_file_active() ... fput()
+> sequence concurrent with a file close will only execute as one of:
+> 
+>  - Gets the file before file_ref_put() (dmabuf->file valid)
+>  - Observes dmabuf->file pointing to a file, but it's DEAD (no file)
+>  - Observes dmabuf->file = NULL (no file)
+> 
+> Originally, drivers could assume dmabuf->file was valid until .release
+> was called from fops->release.  This assumption was no longer valid
+> after 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
+> dentry_ops"), which moved the callback to the dentry release (by which
+> point the file might have been freed).  With this commit, drivers must
+> still consider that dmabuf->file could be NULL before .release.
 
-Every qcom HW driver is a qcom HW driver and they DO NOT go to drivers/soc.
+Oh well, really good catch. And that problem is wider than this.
+> Fixes: 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to dentry_ops")
+> Signed-off-by: Matt Evans <matt@ozlabs.org>
 
-Again: soc is not a dumping ground.
+We seriously need a CC: stable here.
 
-Best regards,
-Krzysztof
+> ---
+> 
+> Hi,
+> 
+> This issue was found (by Claude Opus 5.5) in the context of VFIO's
+> DMABUF export path.  VFIO iterates live DMABUFs with a
+> get_file_active()/fput() block, which now becomes safe if the file is
+> closed (and memory freed!) yet DMABUF .release hasn't yet occurred.
+> 
+> However, there are a couple of other places that directly use
+> dmabuf->file and seem able to race a closing file (i.e. without holding
+> the file reference)?  If this is so, they'd be a UAF today; with this
+> patch that goes away, but instead of a stale pointer dmabuf->file could
+> be NULL:
+> 
+> 1. drivers/gpu/drm/vmwgfx/ttm_object.c:get_dma_buf_unless_doomed()
+> 
+>  file_ref_get(&dmabuf->file->f_ref); on a non-refcounted DMABUF
+> 
+> The commit message of 90ee6ed776c0 ("fs: port files to file_ref") hints
+> this might be more subtle than replacing it with a get_file() variant
+> (so as to accept a NULL file *).
+> 
+> 2. drivers/gpu/drm/i915/gvt/dmabuf.c:intel_vgpu_get_dmabuf()
+> 
+>  gvt_dbg_dpy(... file_count(dmabuf->file) ...);
+> 
+> 
+> Respective vmwgfx & i915 maintainers, what is your view?
+> Or, indeed, if anyone sees any other questionable uses of dmabuf->file.
+
+*sigh* we had multiple occasions suggesting to add a dma_buf_get_rcu()/active() because exporters wanted to keep their DMA-buf on linked lists or other container structures.
+
+That was always rejected because the DMA-buf framework had never guaranteed that such things work correctly exactly because of those lifetime issues here. In other words nobody thought that through and document what should happen when etc...
+
+So the use cases in vmgfx and i915 are just the tip of the iceberg :)
+
+My suggestion is to get this patch reviewed and backported first and then come up with a dma_buf_get_active() function including documentation and comments and test case to make sure that this feature works *and* keeps working.
+
+One minor comment below, apart from that the patch itself looks good to me.
+
+> 
+> Thanks,
+> 
+> 
+> Matt
+> 
+> 
+>  drivers/dma-buf/dma-buf.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> index 4c9add51f9ef..726639130477 100644
+> --- a/drivers/dma-buf/dma-buf.c
+> +++ b/drivers/dma-buf/dma-buf.c
+> @@ -193,11 +193,15 @@ static void dma_buf_release(struct dentry *dentry)
+>  
+>  static int dma_buf_file_release(struct inode *inode, struct file *file)
+>  {
+> +    struct dma_buf *dmabuf = file->private_data;
+> +
+>      if (!is_dma_buf_file(file))
+>          return -EINVAL;
+
+I would do the casting only after the check.
+
+On the other hand this function is a callback of the file_operations so checking if file->ops is really pointing to the file operations is completely superfluous.
+
+So if you want to remove the check instead I'm perfectly fine with that as well.
+
+Regards,
+Christian.
+
+>  
+> -    __dma_buf_list_del(file->private_data);
+> +    __dma_buf_list_del(dmabuf);
+>  
+> +    /* Must be observed by __get_file_rcu() before file_free() */
+> +    smp_store_mb(dmabuf->file, NULL);
+>      return 0;
+>  }
+>  
+
