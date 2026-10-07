@@ -1,124 +1,165 @@
-Received: from mail-lr2-f4.google.com (mail-lr2-f4.google.com [74.125.230.68])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11AC94AA57A
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 13:20:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.68
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791379231; cv=none; b=H0wjGnxDXod9rALXZC8D07cPoW2aC2kF0oR/ZVYx2iyvMFKa1llhwdh+Yc1VYZt6v+3XECGSgF/yBNfzojJ/7tmPHo578oPSwMExOXAuInINw3xlfrqDfZWXJFJnSYlRSNIX2uMSR67NLCa8YocBGU8plR989Mym9ZCYJ56otOA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791379231; c=relaxed/simple;
-	bh=dt+iyPLWpcF360xLAM30G1ETFTnzVRW86LsgH6o0f5o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=HfNT9v6mOvTCv82mwBqif3Y4Kx5Nb5es4N+9gGQX3Plyim/Wu8d4Sv+S5PEYADheJfy/yTXOFbDLH38vylctvNf7STm5nJ+57FZHflMOFQpWxmJKKwmDTlyTW2BudGsG0tzbmCDfkKwlLX+AS41VNXY92x2XTEXs3CGRkci/hbk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EIvKpJpb; arc=none smtp.client-ip=74.125.230.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB8DC44BC90;
+	Wed,  7 Oct 2026 13:20:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791379248; cv=pass; b=hDa20DmSWWNSZjs0HYcC4b+VSJvw8qD/6xbCs+V8rts8bynSA3Bkr66xQe7DCtfA21giJSBK+wNMLeUtsJm+7YGzrX3MnN6oJoMMlIzJMsyPTomoSw6Ry+dPwZ9oRAV1/6mXgYDGPBYxd9BjLNY4p80o7/d/Sao/6DzDot6BWQE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791379248; c=relaxed/simple;
+	bh=44owMY168fuT1j6n81hB027nG02TC2f0ZAQMRI0mBgQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=po7HRuYvGe6CNxJAlEz0wYAkphfVOi0clUrzrMPO8Cyg+F6n8Rv1R2Rjwow9/u4rOpmP5vI9m6vgNKnil5e9Hhp1vIupamK9XH7m9I9XLzyfQwa27D0CaWsiRKxwHMyDVMq760HVr+jMyqtk/roZJ5Bq0WiUKX5vpO2+7gPAqx8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=CHAuXh44; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EIvKpJpb"
-Received: by mail-lr2-f4.google.com with SMTP id 38308e7fff4ca-3a777133146so24683531fa.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 06:20:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791379214; x=1791984014; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FPdX/wtfrIoJuU3T/PjxExDIh/LQdp4FgVNwlqulZuM=;
-        b=EIvKpJpbbLYq6BqGe9TlyJ+taarNEtMHAdIMHLWtjhNe1uh5WzqQKMGSt/x3aknKY7
-         aXWaKwaCtQb797mDCgfg1pMiGpf+C2+qPN5c5zpr4clHJ0gthIAqNBnIPQIbzU5fQkWx
-         GjCf/dJWHJwi4Xn/mu6t8ldQvwSMNv5hTAohsD0Eoz5SR+JqYfXVWS5bp2FDrwBBEd4V
-         Koi+uvwei7YTABYL0sXUE8u7uGiR0wHyvwAzqj/wDaDTMWpa2fJhZwE3P3Ftw4XjTnCA
-         g1NUCCWRwyn7AZwEleKhKTkobM+oZVv+JlK861ZjiFsifL94d8RO3CbBOm2xm6VySSWz
-         52rw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791379214; x=1791984014;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FPdX/wtfrIoJuU3T/PjxExDIh/LQdp4FgVNwlqulZuM=;
-        b=tu3F0w6dCkBhUbYpyJEIccELGeA5lnUtaSqOYyLFvWzA2+0E8dsr0Zz4lSPyO2/UZl
-         nrPFa99kBW3fwVDKdFDMh9QKkuPBA4Kj0GmNdsizZGmU8hihXIYsB5ioFbFtZLWxN14S
-         US0kC2dz3S6HB9YFMbonIFUFol5QhBG7DPXTK80bP7Zqcd4oyQHlTRrzRm1RjDcBsFGv
-         fdHEGpaMU2O4uBK2ewVCBf3p48kzAFhQav5Djo5bSt2vzftcAu+Xoh/SZknvVoH3WwR/
-         Cu64Q+tMzFByE3f8WuMITjsdvtA/B5CpNOpo1ySEKjTibBJhy6kNrpsufV7jkX9tfbR0
-         kEBg==
-X-Forwarded-Encrypted: i=1; AKwUvBzM663/eGw+djrLD6DZUcL6R8FbWJF2Trr/HBn0hOmLAKbfOzonju5rDUQi1C0xbhFqbqCiluZ8hzA9a4w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL205Cc1WEdajHR9fT6SKxQBJbqOOWBp7SOhfxeds54IC9ovMls
-	6ZDThXn2pv/UrUxnu8l9//BKtPMVAJepVdG4x8iJk7wAcqfCQvuJDBq4
-X-Gm-Gg: AYBFou1nUyo1Ev4vF+Q2zEQyxqfF3+PXI0tllvHqQJIpbxNCIdV1LQUEJfzm/qLbE4T
-	FY8F6/bPQC6QT93zQyslhpQUrRt54t9e7Dd9WSpYjR9VzX2/1uQgP51yibBVcaP9rytSRCQ5Ke7
-	xwgEHQzg//Ee1tfpVZFDmc4dlMtDfgilycTd0mZhwHeDKV4l2b9Qcr64dQP2FGnHD7NqZV0LG7p
-	DxKdQfVHEDlDT+R+nThtxc3PWtYdYOthXEgQETlQMU6yRmyOV3VchpeSvWb9/XWqGUzJIP6rXmb
-	bRQfPqGYBGkZORcd8wlWtBjEsv187s9Hmmhho/zCLBXg+RK6j3vWVrQN0LGzAgrAPS2o7dE9KSF
-	SWrsEUiWdCW/16CtaSEaNun5E8VBB3mXpgF4qMvJPSk6eRKY4psdXBry217F8IeeBdtWISDRYQQ
-	CyMboFcd+MMMeikhkwmrqcfzR+Bmt8cg/aWg9a8TAN+MSqtxdFk9T8eGd1eF/5Fx8/290dL37HI
-	wo2cRXA5wCR4SWPbA==
-X-Received: by 2002:a05:651c:553:b0:3a2:f233:5c6e with SMTP id 38308e7fff4ca-3a9a2c65959mr5044541fa.6.1791379213808;
-        Wed, 07 Oct 2026 06:20:13 -0700 (PDT)
-Received: from localhost.localdomain ([78.40.184.2])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9a1a9c423sm6097951fa.0.2026.10.07.06.20.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 06:20:06 -0700 (PDT)
-From: Roman Demidov <roman.demidov.nn@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	David Airlie <airlied@linux.ie>,
-	Daniel Vetter <daniel@ffwll.ch>,
-	Leo Liu <leo.liu@amd.com>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	Yinjie Yao <yinjie.yao@amd.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10/5.15/6.1] drm/amdgpu/jpeg: set no_user_fence for JPEG v2.0 ring
-Date: Wed,  7 Oct 2026 16:19:36 +0300
-Message-ID: <20261007131939.120898-1-roman.demidov.nn@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="CHAuXh44"
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id AD61C201CE0;
+	Wed, 07 Oct 2026 15:20:28 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1791379228;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bRxlxDvgWahl6AUZVEjz3a0mEJ8uQvHL6BYbwOeghSY=;
+	b=CHAuXh44zJ9pcO2zF/ugLsQEExsKqgwOZ7lMzeoipCPyHFeBZuQp4cxChvqNV7uOuNRI1r
+	3+U5/gb273WGSi0qCRxLW6Mv7Du47RjJ2oMh3OKhOedAnlN2em6VleW1gHpm0mnVJSn9TX
+	sIL8kXP16OTwsG113BIu1PmJ88ogVqHGVetho6uy/VsYytHoDkyAlrAtnDPzR+mLf9aKYC
+	YYW/6rkpcgWLIcChuZ3U5iCwnJkvsGPNTuxxyN7DWeD7efJRfz/RWNIbQC6EzRr+gqczm4
+	5/jAAcYYNplZ7hwoA8HnvcAzwhrM9zRi1Gi/5VwiiNkPyqrpL8etw+j8Xl7ReQ==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1791379228; a=rsa-sha256;
+	cv=none;
+	b=b1Fs7r2DZaGx2SM7JK/GZyZm5MyNF8arpeqW4ymcu4nuGTecEbxAxwdzpHqSrGKB0Xyb1p
+	3XRVCv3sIqSyONLLowq0ba9FNQb/hPdWSrwu4eXr6Px5fE+MtBJXS0Ib2YNXvUP8uevYKd
+	wBxmyb57GXXr+P4zEt12SBmDb0SPoV7hsZ1Huyg2yh3c/NgCcdMbbMlUyrpv7LgHXcN0Un
+	53UlubCC/jKA60oIMg4eeKgchq9+T2EMxmmoDa7RKI9RylyYtIqwqBmvGVAry9/Pjiu+fs
+	ENolNwJ25MtskjKLyhSDsUw7otR6u5eC0aHp3WM13DWzuc5DZ+k1TaliJSF8Dw==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1791379228;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bRxlxDvgWahl6AUZVEjz3a0mEJ8uQvHL6BYbwOeghSY=;
+	b=XAhFVzYRLEcO8YrnIxagZPaoenySJ5SLh26MgsftOYRW9Wo2HoyElNF/k88O05k5qKc0+4
+	QCKHug4e6arU3YQcjzSii6vT4zpzKWJjdLC2pUB2Pv1XeKM8ZfSjvB9WRxOM5nHbog2Tx0
+	YcTuKQulJKBSutapixIgM4CaMEy38rZH/qBr/kiVxNzO+wPTWNU+TXMuheF52XttiH1AyP
+	Y/i1EUOrREROQYmoqnjxSLy27w+TChS0+1pWKKomtF+UbiFaGKylgC9K31XrYWj0agOUy6
+	S6dBUErRYq54YvTeT4xkjg+BbYqAnvq9BQHHYLsI33NpTyHTitvpLt5SJSXpkQ==
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xERZM-004iw5-1y;
+	Wed, 07 Oct 2026 15:20:28 +0200
+Received: from pengutronix.de (90-182-211-1.rcp.o2.cz [90.182.211.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 311C25BBAC6;
+	Wed, 07 Oct 2026 13:20:28 +0000 (UTC)
+Date: Wed, 7 Oct 2026 15:20:27 +0200
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Yogesh Gaur <yogeshgaur.83@gmail.com>
+Cc: Vincent Mailhol <mailhol@kernel.org>, linux-can@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, syzbot+937a3a1fbfbc99d6fcaf@syzkaller.appspotmail.com
+Subject: Re: [PATCH] can: vcan: use per-CPU device stats
+Message-ID: <20261007-rustling-congenial-kraken-8bbdb1-mkl@pengutronix.de>
+References: <20261007113611.2082-1-yogeshgaur.83@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="5jn7bctdt4riangw"
+Content-Disposition: inline
+In-Reply-To: <20261007113611.2082-1-yogeshgaur.83@gmail.com>
 
-From: Yinjie Yao <yinjie.yao@amd.com>
 
-commit e5f612dc91650561fe2b5b76dd6d2898ec9ad480 upstream.
+--5jn7bctdt4riangw
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] can: vcan: use per-CPU device stats
+MIME-Version: 1.0
 
-JPEG rings do not support 64-bit user fence writes, reject CS
-submissions with user fences.
+On 07.10.2026 17:06:11, Yogesh Gaur wrote:
+> vcan_tx() and vcan_rx() update dev->stats with plain increments and
+> rely on the tx queue lock to serialise them.  That only holds for a
+> single tx queue.  vcan does not implement get_num_tx_queues(), so
+> rtnl_create_link() honours IFLA_NUM_TX_QUEUES and a vcan device can be
+> created with several queues, each with its own xmit lock.  Two CPUs
+> transmitting on different queues then update the same counters
+> concurrently and lose increments:
+>
+>   BUG: KCSAN: data-race in vcan_tx / vcan_tx
+>   read-write to 0xffff88811aad8228 of 8 bytes by interrupt on cpu 1:
+>    vcan_tx+0x325/0x5d0 drivers/net/can/vcan.c:110
+>    dev_hard_start_xmit+0x10c/0x380 net/core/dev.c:3969
+>    __dev_queue_xmit+0xbfd/0x1ec0 net/core/dev.c:4958
+>    can_send+0x584/0x720 net/can/af_can.c:279
+>    bcm_can_tx+0x3ba/0x5b0 net/can/bcm.c:367
+>   read-write to 0xffff88811aad8228 of 8 bytes by interrupt on cpu 0:
+>    vcan_tx+0x325/0x5d0 drivers/net/can/vcan.c:110
+>   value changed: 0x00000000000025ef -> 0x00000000000025f0
+>
+> Switch the packet and byte counters to the core's per-CPU dstats.
+> The core allocates them for NETDEV_PCPU_STAT_DSTATS and folds them
+> together with dev->stats in dev_get_stats(), so tx_dropped from
+> can_dropped_invalid_skb() is still reported.
+>
+> Reported-by: syzbot+937a3a1fbfbc99d6fcaf@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3D937a3a1fbfbc99d6fcaf
+> Assisted-by: LLM
+> Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
 
-Fixes: 6ac27241106b ("drm/amdgpu: add JPEG v2.0 function supports")
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Yinjie Yao <yinjie.yao@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 96179da0c6b059eb31706a0abe8dd6381c533143)
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
----
-Backport fix for CVE-2026-63848
+So far all drivers use the classic stats, and the CAN dev helper code
+(in drivers/net/can/dev) also modifies these fields. A quick search
+shows these places:
 
- drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c | 1 +
- 1 file changed, 1 insertion(+)
+drivers/net/can/dev/rx-offload.c:48:     struct net_device_stats *stats =3D=
+ &dev->stats;
+drivers/net/can/dev/rx-offload.c:162:            offload->dev->stats.rx_dro=
+pped++;
+drivers/net/can/dev/rx-offload.c:163:            offload->dev->stats.rx_fif=
+o_errors++;
+drivers/net/can/dev/rx-offload.c:249:    struct net_device_stats *stats =3D=
+ &dev->stats;
+drivers/net/can/dev/rx-offload.c:289:    struct net_device_stats *stats =3D=
+ &dev->stats;
+drivers/net/can/dev/skb.c:29:    struct net_device_stats *stats =3D &dev->s=
+tats;
+drivers/net/can/dev/skb.c:402:   dev->stats.tx_dropped++;
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-index 3301ad980f28..af8f244e9c94 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-@@ -762,6 +762,7 @@ static const struct amd_ip_funcs jpeg_v2_0_ip_funcs = {
- static const struct amdgpu_ring_funcs jpeg_v2_0_dec_ring_vm_funcs = {
- 	.type = AMDGPU_RING_TYPE_VCN_JPEG,
- 	.align_mask = 0xf,
-+	.no_user_fence = true,
- 	.vmhub = AMDGPU_MMHUB_0,
- 	.get_rptr = jpeg_v2_0_dec_ring_get_rptr,
- 	.get_wptr = jpeg_v2_0_dec_ring_get_wptr,
--- 
-2.53.0
+Can you modify the code to update the dstats if they are active?
 
+regards,
+Marc
+
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+
+--5jn7bctdt4riangw
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCasZHGQAKCRDMOmT6rpmt
+0qZ5AQCi/q9WzXKRwxK0E21TYqyQe5NJ2OYeU1FUM0wL1e2goAEA2BAOJSQEi1nK
+XXGqasAYVjqGJkPge5C8ADTbraxE/QQ=
+=+GYo
+-----END PGP SIGNATURE-----
+
+--5jn7bctdt4riangw--
