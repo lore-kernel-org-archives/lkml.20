@@ -1,405 +1,264 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013002.outbound.protection.outlook.com [40.93.196.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D76073CC303;
-	Wed,  7 Oct 2026 14:08:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791382118; cv=none; b=B7Wo4UxghPFSDV0TL5ZsCqeYMpCDxBrz7rbe+bPEZ8cwsy4KH9fIljMRmkmR/1Bxqo4OdhDKrVCEJqhjTaE9dKUb1xlwisnTlBrH4uV9BpoA0CJvmO6p6r0sCDMUkTHG5m7dHqDIDLUlYEU0QRxFU0PFTz0EYgi9B/VFK2pc4IQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791382118; c=relaxed/simple;
-	bh=nR/oA3KPtBEn0od/ciTqbTB0rl+toTMpdPXML2yfo6M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HXod3FEv8Tv6oxnJBOy4pIe6JYIPFG2seBBPE4AdwxAbBxf71pEydAb7CyM1Ge05dIw8YilCgjErT9BYSFvkvxCsOj5nsDDDtw2CX2Vy9bmN+SXEsGJjVlRIBbORyxBNLvP2L3xCqyAlFB9MB5kzKcjuquQxd1tpmU8qCE1PYl8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SsQHYbgI; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00D9547F3C0
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 14:10:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.2
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791382250; cv=fail; b=hNDbc0PVWXnI8ADi4QgwhRmKsESIo6VjSSJhASO9Hdn7u/kyOnGR7R2LOH/Xm5ehiFqR1B2mKefHl0mW05AuBWWnGZU63PMBbMoAwms+3p0nXOURmajRGosNesr8mooAQdPcdPCw6xeWWdZ4JrK1m9l2GgCaR0JrGQtzcTqWgRs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791382250; c=relaxed/simple;
+	bh=PXsyPThJL5ETmsuxcx8rkk/VAQklFhxbCMQBHy46sak=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=F+Yi2eR72kOuyWs1xL5MhELA7Gu3wuiywnAC/5MisJ+CwtnSbbaR3llLehd9/bGCpQVuI3kTZTVp4X4rYD4Ml3VYOzDVROEnQ9gh9VaAFBiQMCVmPcuJX9tavYbJX36N3SS0G5NIglozuCJs384MaTH2gtoRI7+zYxZ/MYRZyBA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=u43EuM5o; arc=fail smtp.client-ip=40.93.196.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SsQHYbgI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D222B1F0089B;
-	Wed,  7 Oct 2026 14:08:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791382108;
-	bh=a34pkNyMHqDWotBgFDFvUzoYploLh2exwXcXkkykzyk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SsQHYbgIugkfdH0jgxX/wZcqd4yVfKZO4jtNM1hMUdqlLmITXkCQ2m2/DzRVg2lid
-	 158ACliqX7K/UC6YCTQBmgk8Naa2PbPdqddC8LALmQxZtOAqCUtsssYh0puXSxFBSn
-	 NKQHGyLwT6r1svTN6va11agVuQzqYsIGnyxx0Uly/CYG+jb7JvyUuGG9Pd39tR3fv1
-	 Ploas+CgrUqF0JRB8a0enw41Efw3yLCf9nXqBib4rRoCIzNYtWW1SjXjwN8DMupVf0
-	 Ex/ezzQsCqWP04SwU5TASc00sWpBk8cnWAnZB7/neEO8cHr+U4tNaOgKgsLRT+j92U
-	 9uwGuVeb+TKzQ==
-Date: Wed, 7 Oct 2026 15:08:22 +0100
-From: Will Deacon <will@kernel.org>
-To: Pranjal Shrivastava <praan@google.com>
-Cc: iommu@lists.linux.dev, Joerg Roedel <joro@8bytes.org>,
-	Robin Murphy <robin.murphy@arm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Mostafa Saleh <smostafa@google.com>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Daniel Mentz <danielmentz@google.com>,
-	Ashish Mhetre <amhetre@nvidia.com>,
-	linux-arm-kernel@lists.infradead.org,
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
-	Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, rafael@kernel.org,
-	Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev
-Subject: Re: [PATCH v11 13/16] iommu/arm-smmu-v3: Implement pm_runtime &
- system sleep ops
-Message-ID: <asZSVtXc1Rk-NuuV@willie-the-truck>
-References: <20260929034510.2023173-1-praan@google.com>
- <20260929034510.2023173-14-praan@google.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="u43EuM5o"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XiSsUZL75WrQ2Siz34jToSe1KpOMcdwRQwGnHBJIrHexl+W+ZoTkdLUtxMTN6BnqsATLhu1ylr03TSrCeYVWkqqups46yPRwoe2TbVeMY5M6KZgWU53evOy2Fot/k3+UhMNXupbMaSu9TON9C3eMCQpOIn+N/Ag6TcM7Vtx6ljwUxGVlIjs8JvQAzZQETtHfh8IP06v6sDwwpqsYAgT32yMSggWPqZeEB+0WJ9klNlYe3cDZ1uPPOYmtZVKgHVbU37WBKzfnknKW7D0/jnRoDJrRPn6DMvLZjDC9Gj6Y/sFvYgFdCV+TQnPdVUhVm3DxX39D/B2hRQ+lEP2Cg2UtFw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WtfitfPPz+iolHR8HCbmY22kF2TqUlrsUM749Tm5/qc=;
+ b=HXMnNoI5HO/D+7VqDdc2k/cbDNwIv2mWAixdfbTcUuFb64w8627NPyInLmSPMWA6yqh0M7J11tYs5Uwgt/Sg0IsyPZttOnRdAoQTNs9RbuE1KxrARr+t54vvXs3P7S9pgOvAyj/awnhPNIeNASbZ0zxbkgaw5KJgqeaj2XF9HzRHAI0CYnf+pWvfHQrowUIY4wqDxtaKkhXr053r7K+Rk8nGddCapV5pbg6hL/7GHiboVb3Kp18sdNqLcLmave0MZppuNEJ12GLAJsuYLl/coBUMmAQXzEdbw7VcX/loeW2APQfdZVuLq2doS+EjBGvrAqKis+rauPfEGcEV8YS1fA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WtfitfPPz+iolHR8HCbmY22kF2TqUlrsUM749Tm5/qc=;
+ b=u43EuM5ojVGtikPlzdnCQtxN58nzi+yE95hAYZPDzgQUqC9GUy22ZQIgV6n017Q1MPLRnPboMtfRx4NcO/ekGt6d5xaSCBHKnIfebxNcv4RshGJe/hJSO6NTLTDlKW3BfariT7gCkKE1wNm/riMmHzx8KGJodFYnIc4yRL98FxA=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com (2603:10b6:208:314::17)
+ by LV8PR12MB9691.namprd12.prod.outlook.com (2603:10b6:408:295::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
+ 2026 14:10:41 +0000
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1]) by BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1%5]) with mapi id 15.21.0496.015; Wed, 7 Oct 2026
+ 14:10:41 +0000
+Message-ID: <b1cd4422-bbff-42f8-bf3a-0d21d62bd8f4@amd.com>
+Date: Wed, 7 Oct 2026 09:10:38 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v13 13/25] arm,x86,fs/resctrl: Allocate maximum needed
+ rmid_ptrs[]
+To: "Luck, Tony" <tony.luck@intel.com>, Babu Moger <babu.moger@amd.com>
+Cc: Fenghua Yu <fenghuay@nvidia.com>,
+ Reinette Chatre <reinette.chatre@intel.com>,
+ Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
+ Peter Newman <peternewman@google.com>, James Morse <james.morse@arm.com>,
+ Drew Fustini <dfustini@baylibre.com>, Dave Martin <Dave.Martin@arm.com>,
+ Chen Yu <yu.c.chen@intel.com>, David E Box <david.e.box@intel.com>,
+ x86@kernel.org, Christoph Hellwig <hch@infradead.org>,
+ linux-kernel@vger.kernel.org, patches@lists.linux.dev
+References: <20260928221509.68002-1-tony.luck@intel.com>
+ <20260928221509.68002-14-tony.luck@intel.com>
+ <327d9248-2e4f-41b8-b4ad-4f6d01c85ecb@amd.com>
+ <asVxNVeP8d6HPRu0@agluck-desk3>
+Content-Language: en-US
+From: "Moger, Babu" <bmoger@amd.com>
+In-Reply-To: <asVxNVeP8d6HPRu0@agluck-desk3>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DS1P222CA0024.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:8:44b::10) To BL1PR12MB5320.namprd12.prod.outlook.com
+ (2603:10b6:208:314::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929034510.2023173-14-praan@google.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5320:EE_|LV8PR12MB9691:EE_
+X-MS-Office365-Filtering-Correlation-Id: 24fef3f0-cf6a-4781-9ff7-08df247cc564
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|7416014|376014|10067099003|5023799004|56012099006|11063799006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	oyAa3LwlcJJEcRsOxWap1Igi7Q5io8GUhOiqLnXYkAhUDi3Iz4gK7kG7DRyEgBJtLRv1eVy/rJ6ShEdLZdKjQngc35K87aUU656/xt/naYvW7MDBIRxkDGjRi2laGdE0l2bPeX32x9HKf+3aate0zcFquKUVZa6D6WqoYoZpXf/1Cb3ydpeURXbBiLfIMw6p1WsNUXS+wT5mLs5eX5S2rpN2ke14rgP0V83j3xJx63doC41g009N2axQiuEQb/pk396DfrrexWJqdgRM/xGzbGhAob0I74KfQjLjTOOaMwUVDZHoBzLh03it9SGvR+W/LOb5eLOdFFKaNfIS8zIcNyQb5xFqz/j3eyk5iBVz/RqCpxmH8APTXehGG9xo8Xv2vFz07VR3ToBbexglGwqnFt2SBA3LByoH9lCTAs5EMLclplBrSqEpe6tOPu4dyXzQ5xJcOfp/FqGIju/5dvCwEDK9UgJSrDc/Gijm5Rf/CUOvN7Nn/KXUM9hcV1eCeZM09uETWt3Y12Y6tZ58KKL5Eup5uGgNPovskJP4e+os/3vF9QdOEsvTyuZZaO1KKsTo7m+C2fkhdfAIJX3ZhgLCOnMIMWBWq/4Wkfja74nkpXeISCWtwY9GJmT02yNudbpOouW+YWW0NDem0ZCmXmqQMdz7NCx2NN71PKzIn6QgFB4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5320.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(7416014)(376014)(10067099003)(5023799004)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?R2M5RnhmTzFoTmRPcVJwK1BtRzFYZVZFN1kyQVYwdlRaUDY2b1ZHR3BWZ0E3?=
+ =?utf-8?B?NSs5ci9ScWVOUFNOeC9FZzU4SDJ3RFhrdDE4RlBlMG5CN3F2eEtTbWpKNk5Z?=
+ =?utf-8?B?TUdWTklLeE9OS0RvalIxSHpNVkx2cWk5YnVvQmF5Y1FEZWxRaWRndmRUd0RB?=
+ =?utf-8?B?MUluTGtDdk04cXFUdEFNdUlsZEZkUmFVbUsrNm9mMVJFcnNRMHQrcVpkdTVD?=
+ =?utf-8?B?NlhkNk0yOHdLaXRWSFlPY3YrTFNHTTJ4MFJSWWJ3MFYwVyt4Szk3azU1eExz?=
+ =?utf-8?B?bjJnY3RoVC85c0xSRXNzNjY3VTRnNEQ1SHNpUnZ6MnJTTlhvR3Y2bDR4NG9j?=
+ =?utf-8?B?RWh6UHVReXYrYVNXUDRuK0ExL2Rrb0dHTmw0UVhKNFFqcFplSkxYbU5IODNl?=
+ =?utf-8?B?WDl3cTVsdmVFOTZuWUw3QXl6ekZ5eENrb3hJYVg5djl0ZEFSYVdrZTdvV2lk?=
+ =?utf-8?B?Y0lBZzFaUFFOcTNienU5cEJrL0YrUGFGTFdNaXpmRVBvSEcrejZqVDFoREh4?=
+ =?utf-8?B?Q2Z1dXNST0c5aFltL1Fta3ZsRUxic3IzdTlQdEpTYjgrMzM2MG15Tm8zb2JG?=
+ =?utf-8?B?QlZHY3J2VytuSFUrSHAxQmt3Q1RndWZ5d2tlSkI5SGlDWGkvMno1U3hCRm05?=
+ =?utf-8?B?RnEwMXdKZnByZGhiN3VKV0k0dmNxOXo4QytpZHl4MVNrZXFrSkFqaU1hNzY5?=
+ =?utf-8?B?K2NPSCs5ZUd3TDlrUDRzNS8yTmpKNzlGTjA5dlFMQTJUZlh3TGt5L21pRFpI?=
+ =?utf-8?B?Q0d0eTh2WElwcW9sOG9PTFRYWmlVZ3kzR0NIK2JBdkdtNjVhb0JKUlhMWUdO?=
+ =?utf-8?B?dGdLZHc4VEEyVVlVLzJmcWUxOUJQT25ZUHk3ZkZVS2tjd3kzSkdYMTZ4ZTZy?=
+ =?utf-8?B?Ti85bzlienpmVTN2dzRiYit3OVIrYlRRSzM5QmQ2ZFczT2JEMU5oMCt2a2N3?=
+ =?utf-8?B?Wm9nSUFkMFhUVk9vQ1U5WitnNmdqbG1oK3NhMWtlNzVsc2kzU3pHSWlsY0w0?=
+ =?utf-8?B?eFJMNGdXa3BhV1o1WVJvMlBVMjd1YWQ2S0NqcTF2aU1ubjgzaXlyTzB3dDhV?=
+ =?utf-8?B?S3orTklrQ29FU3RpLzJqbERsWUFKdC9BaVhKZDNrSzZadlBTbXo4cm4wQnI2?=
+ =?utf-8?B?VkZxMmxFd3NHcFhEb0J4T2ZRZVV4ZWlzZ2RnSElIdTUrbDF0RVltSXNNbTZM?=
+ =?utf-8?B?N0RFQU41RnNZR0k3Qzl4eDhYOG5TbGhMenIxS0VnbjJiV253d1NMNmo0UDkx?=
+ =?utf-8?B?ZjhQcjBwOUJlVHZNck9FNlYxb0ZFNkovRnpmZzlpcEp2TnZJUTEvd0NUekY4?=
+ =?utf-8?B?VU5GZ0k5NGdBcGhRb2pLUnExMWxFYzlkQ0c4MktPUTZYZ0c0VXNUcFdGZ2dH?=
+ =?utf-8?B?ckJOMzk0VHdkYnFPU0FydnpEN1VmV0J6U3dTY1VpeWN4R3E0RE9YUFB6ak4z?=
+ =?utf-8?B?QndoTHl3cHQ1cFpvaEptVTF5dmVoS2k4M01Sc1A4UnVHcE91RHFyK3N2R3Iz?=
+ =?utf-8?B?VU9qZmJKZEtpVkdkSUphMXdlMDJLaU1vL2VnRjcrdzdmT3pKcXZ4aGxLcU0v?=
+ =?utf-8?B?bmFJakhjR1RqdW1RY1ZocmdubGxtNEc4aHplc2NVYlhYS0h1NU9ReXE3MEpm?=
+ =?utf-8?B?WmRTV0xpck5uKzNMenFFWEcvSU5QZGlQQ1h6S05pcnBCdVAveTRScjN2ekxw?=
+ =?utf-8?B?VGp6Vm40YWMxQUI4cVpjRzZMUHVvNE0yV2d1MEQvdjRHTTgyVlAzNEs2eFI1?=
+ =?utf-8?B?b2FqaUZIS0lZV3ZCYkZxOVY4V2R3MWNWYTJHNVA0UllMSkNRbXJ4WVFtSjg0?=
+ =?utf-8?B?OW1CZWo1cHdnZEJEY0trTjd3NlQzb0dsdjJ4TE9DbW4zaGFNenVlYlJVd2tq?=
+ =?utf-8?B?UU9yazNHY3ZPYkRMalJzRUViY3B1ckVqY3k3VnltK0FmUUluNmdDOWZyeW5H?=
+ =?utf-8?B?RS8wakVnOW8rckRqc0lURDJyTDdwZnJFYUlCTkxKYWh6OWtsNHVkdG9TTVB4?=
+ =?utf-8?B?YU5kdjh0VWdqdmtnS3NGMlRzbC81TUFScGlRMDVqenV4TDlFeHZYYlZxb2pD?=
+ =?utf-8?B?ekJUb2xxVDkyZUk4VFl4bWh0N2JaU2EvQ1RRNkh6Z3BGZk5zN2pYMUNCK0tE?=
+ =?utf-8?B?T056ZHhvV25kNFdwLzFoT1ZFSURXQjRhV3UyWXNSQ3M5NUV1dzNnL095YURu?=
+ =?utf-8?B?d09XdnlONHdWTHpBb25JQXVxWXlFSzZpYW9zc0M4VWZGUGdJSkdCRlVsYkw1?=
+ =?utf-8?B?czZLNExQL3RuRURpV0FocDJDWjV4ZTlLcTd3ejlpU2oxZWpmNXdHeHJXaU5y?=
+ =?utf-8?Q?UkhNuioZqSzLeu1fet?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 24fef3f0-cf6a-4781-9ff7-08df247cc564
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5320.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 14:10:41.7444
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vrkLemfMLFWVULqxVbnqhxtPXap84AmNMBgAq6xZ3AoyjkPszFsWfWKxeu12Bh+3
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9691
 
-On Tue, Sep 29, 2026 at 03:45:07AM +0000, Pranjal Shrivastava wrote:
-> Implement pm_runtime and system sleep ops for arm-smmu-v3.
+Hi Tony,
+
+On 10/6/2026 5:07 PM, Luck, Tony wrote:
+> Hi Babu,
 > 
-> The suspend callback configures the SMMU to abort transactions, disables
-> the main translation unit and then drains the command queue. A software
-> gate (STOP_FLAG) quiesces submissions before power-off. Since devlinks
-> ensure client devices are suspended before the SMMU, no client DMA can
-> occur, making EVTQ/PRIQ IRQ synchronization during suspend unnecessary.
-> Prod indices for EVTQ/PRIQ are synchronized via queue_sync_prod_in() to
-> retain unread entries across power cycles.
+> On Tue, Oct 06, 2026 at 02:53:49PM -0500, Babu Moger wrote:
+>> Hi Tony,
 > 
-> The resume callback restores the MSI configuration and performs a full
-> device reset via `arm_smmu_device_reset` to bring the SMMU back to an
-> operational state. The MSIs are cached during the msi_write and are
-> restored during the resume operation by using the helper. The STOP_FLAG
-> is cleared only after the CMDQ is enabled in hardware.
+> ... snip ...
 > 
-> Standard SET_RUNTIME_PM_OPS() and SET_SYSTEM_SLEEP_PM_OPS() macros are
-> used to define dev_pm_ops, safely evaluating to NO_OPs when CONFIG_PM is
-> disabled. The new RPM helpers are marked __maybe_unused to keep
-> intermediate commits clean until invoked by respective handlers in the
-> subsequent patches.
+>>>    int setup_rmid_lru_list(void)
+>>>    {
+>>> -	struct rmid_entry *entry = NULL;
+>>> -	u32 idx_limit;
+>>> -	u32 idx;
+>>> +	struct rmid_entry *entry;
+>>> +	u32 cur_idx_limit;
+>>> +	u32 rsvd_idx;
+>>>    	int i;
+>>>    	if (!resctrl_mon_capable())
+>>>    		return 0;
+>>>    	/*
+>>> -	 * Called on every mount, but the number of RMIDs cannot change
+>>> -	 * after the first mount, so keep using the same set of rmid_ptrs[]
+>>> -	 * until resctrl_exit(). Note that the limbo handler continues to
+>>> -	 * access rmid_ptrs[] after resctrl is unmounted.
+>>> +	 * Allocate the largest number of RMIDs that this system will ever
+>>> +	 * need. These cannot be freed until resctrl_exit() because the limbo
+>>> +	 * handler continues to access rmid_ptrs[] after resctrl is unmounted.
+>>>    	 */
+>>> -	if (rmid_ptrs)
+>>> -		return 0;
+>>> +	if (!rmid_ptrs) {
+>>> +		num_rmid_ptrs = resctrl_arch_system_max_rmid_idx();
+>>> +		rmid_ptrs = kzalloc_objs(struct rmid_entry, num_rmid_ptrs);
+>>> +		if (!rmid_ptrs) {
+>>> +			num_rmid_ptrs = 0;
+>>> +			return -ENOMEM;
+>>> +		}
+>>> -	idx_limit = resctrl_arch_system_num_rmid_idx();
+>>> -	rmid_ptrs = kzalloc_objs(struct rmid_entry, idx_limit);
+>>> -	if (!rmid_ptrs)
+>>> -		return -ENOMEM;
+>>> +		for (i = 0; i < num_rmid_ptrs; i++) {
+>>> +			entry = &rmid_ptrs[i];
+>>> +			INIT_LIST_HEAD(&entry->list);
+>>
+>> [1]. All the nodes are initialized. Basically, it is pointing to itself now.
 > 
-> Suggested-by: Daniel Mentz <danielmentz@google.com>
-> Signed-off-by: Pranjal Shrivastava <praan@google.com>
-> ---
->  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 255 +++++++++++++++++++-
->  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h |  15 ++
->  2 files changed, 265 insertions(+), 5 deletions(-)
+> This is setting the ->next and ->prev fields to point to the entry. So
+> each of them is an empty list. Maybe I should just delete this as it is
+> pointless. Later on these objects are added to the free list with:
 > 
-> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> index 89a4e756ff17..e127e3be3a6b 100644
-> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> @@ -29,6 +29,7 @@
->  #include <linux/platform_device.h>
->  #include <linux/sort.h>
->  #include <linux/string_choices.h>
-> +#include <linux/pm_runtime.h>
->  #include <kunit/visibility.h>
->  #include <uapi/linux/iommufd.h>
->  
-> @@ -119,6 +120,45 @@ static const char * const event_class_str[] = {
->  static int arm_smmu_alloc_cd_tables(struct arm_smmu_master *master);
->  static bool arm_smmu_ats_supported(struct arm_smmu_master *master);
->  
-> +/* Runtime PM helpers */
-> +__maybe_unused static int arm_smmu_rpm_get(struct arm_smmu_device *smmu)
+> 	list_add_tail(&entry->list, &rmid_free_lru);
+> 
+> but if you dig into that code you'll see that the ->next and ->prev
+> fields are never read (not even in all the debug/sanity routines). Both
+> fields are overwritten to add them to the free list.
+> 
+> Note that this seems to be a common pattern. Code does
+> INIT_LIST_HEAD(&x->list) and then immediately uses list_add()
+> or list_add_tail() to put "x" onto a list.
+> 
+>>
+>>> -	for (i = 0; i < idx_limit; i++) {
+>>> -		entry = &rmid_ptrs[i];
+>>> -		INIT_LIST_HEAD(&entry->list);
+>>> +			resctrl_arch_rmid_idx_decode(i, &entry->closid, &entry->rmid);
+>>> +		}
+>>> +	}
+>>> -		resctrl_arch_rmid_idx_decode(i, &entry->closid, &entry->rmid);
+>>> -		list_add_tail(&entry->list, &rmid_free_lru);
+>>> +	/* Find how many RMIDs are available for this mount */
+>>> +	cur_idx_limit = resctrl_arch_system_num_rmid_idx();
+>>> +	if (cur_idx_limit > num_rmid_ptrs) {
+>>> +		pr_warn_once("RMID count %u exceeds allocation. Limit to %u\n",
+>>> +			     cur_idx_limit, num_rmid_ptrs);
+>>> +		cur_idx_limit = num_rmid_ptrs;
+>>>    	}
+>>> +	INIT_LIST_HEAD(&rmid_free_lru);
+>>
+>> Initializing the list head without first cleaning up existing entries could
+>> be problematic here.
+> 
+> I don't see a problem. Any entries on the list are left floating, but
+> they are all in the rmid_ptrs[] so easy to access them again.
+> rmid_free_list is now an empty list having discarded all entries that
+> were on it. Sure, those floating entries have stale pointers sitting in
+> their ->next and ->prev fields. But those pointers are not going to be
+> used by any code.
+> 
+>> The first mount works correctly, and INIT_LIST_HEAD() is not needed in that
+>> case because the list head is already statically initialized.
+>>
+>> However, on a subsequent mount, the list entries remain linked from the
+>> previous mount through the setup performed in [2] below.
+>>
+>> INIT_LIST_HEAD() only reinitializes the list head itself. It does not
+>> traverse the list and detach or reinitialize existing entries as was done in
+>> [1].
+>>
+>> I think you need to replace
+>>
+>> INIT_LIST_HEAD(&rmid_free_lru);
+>>
+>> to
+>>
+>> while (!list_empty(&rmid_free_lru))
+>>          list_del_init(rmid_free_lru.next);
+> 
+> That would set up all those floating entries each as an empty list. But
+> doing that doesn't matter. No code is going to look at the ->next or
+> ->prev fields.
 
-Just guard all this on CONFIG_PM instead of adding __maybe_unused? That
-way, the server folks don't even have to build this stuff.
+That is correct. It may not be an issue in this case. The only concern 
+is that the pointers are being overwritten without being cleaned up 
+first. I agree that it may not cause a problem at this point, though I'm 
+not sure whether list debugging would report any issues.
 
-> +{
-> +	int ret;
-> +
-> +	if (!pm_runtime_enabled(smmu->dev))
-> +		return 0;
-> +
-> +	ret = pm_runtime_resume_and_get(smmu->dev);
-> +	if (ret < 0) {
-> +		dev_err(smmu->dev, "failed to resume device: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +__maybe_unused static bool arm_smmu_rpm_get_if_active(struct arm_smmu_device *smmu)
-> +{
-> +	if (!pm_runtime_enabled(smmu->dev))
-> +		return true;
-> +
-> +	return pm_runtime_get_if_active(smmu->dev) > 0;
-> +}
-> +
-> +__maybe_unused static void arm_smmu_rpm_put(struct arm_smmu_device *smmu)
-> +{
-> +	int ret;
-> +
-> +	if (!pm_runtime_enabled(smmu->dev))
-> +		return;
-> +
-> +	ret = pm_runtime_put_autosuspend(smmu->dev);
-> +
-> +	/* -EAGAIN & -EBUSY aren't failures */
-> +	if (ret < 0 && ret != -EAGAIN && ret != -EBUSY)
-> +		dev_err(smmu->dev, "failed to suspend device: %d\n", ret);
-> +}
-> +
->  static void parse_driver_options(struct arm_smmu_device *smmu)
->  {
->  	int i = 0;
-> @@ -729,10 +769,66 @@ int __arm_smmu_cmdq_issue_cmdlist(struct arm_smmu_device *smmu,
->  
->  		/*
->  		 * If the SMMU is suspended/suspending, any new CMDs are elided.
-> -		 * This loop is the Point of Commitment. If we haven't cmpxchg'd
-> -		 * our new indices yet, we can safely bail. Once the indices are
-> -		 * committed, we MUST write valid commands to those slots to
-> -		 * avoid indefinite polling in the drain function.
-> +		 *
-> +		 * Note that eliding ATC invalidations (CMDQ_OP_ATC_INV) is safe
-> +		 * because client PCIe endpoints are guaranteed to be suspended
-> +		 * (via device links) before the SMMU is suspended. With the PCIe
-> +		 * links in a low-power state, no new TLPs can be transmitted.
-> +		 * It is strictly the responsibility of the client/endpoint driver
-> +		 * to quiesce DMA and ensure that the ATC state is cleared across
-> +		 * power state transitions.
-> +		 *
-> +		 * This loop acts as the Point of Commitment.
-> +		 * The CMDQ_PROD_STOP_FLAG ensures that no new commands are
-> +		 * committed once the SMMU begins to suspend. The synchronization
-> +		 * relies on the following observability invariants:
-> +		 *
-> +		 * 1. Other CPUs observe the STOP_FLAG only *after* the SMMU is
-> +		 *    disabled. This is enforced in arm_smmu_runtime_suspend()
-> +		 *    by using a fully ordered atomic_fetch_or() to set the flag,
-> +		 *    guaranteeing that SMMUEN=0 (with ABORT set) at the time of
-> +		 *    observation which ensures no in-memory structures are
-> +		 *    accessed by the SMMU (IHI0070 spec section 6.3.9.6).
-> +		 *
-> +		 * 2. Other CPUs observe the cleared STOP_FLAG before the SMMU
-> +		 *    is re-enabled. During resume, arm_smmu_device_reset()
-> +		 *    issues CFGI_ALL and TLBI_ALL commands *after* clearing the
-> +		 *    STOP_FLAG and before setting SMMUEN=1. The implicit
-> +		 *    dma_wmb() executed while submitting these commands ensures
-> +		 *    the cleared STOP_FLAG is visible to all other agents.
-> +		 *    Thus, any transition from a set STOP_FLAG to SMMUEN=1
-> +		 *    involves an invalidate-all operation prior to setting SMMUEN=1.
-> +		 *
-> +		 * Hence, if a CPU observes the STOP_FLAG, it is assured that:
-> +		 *  (a) Txns are blocked + No in-memory structures are accessed
-> +		 *  (b) If the SMMU is ever re-enabled, an invalidate-all is
-> +		 *      performed prior to it being enabled during reset.
-> +		 *
-> +		 * Note: The smp_mb() in arm_smmu_domain_inv_range() orders the
-> +		 * PTE update before the STOP_FLAG read, which ensures that if
-> +		 * CPU1 reads the STOP_FLAG and decides to elide the command,
-> +		 * the PTE update is already globally visible.
-> +		 *
-> +		 *  [CPU0]                            | [CPU1]
-> +		 *  arm_smmu_runtime_suspend() {      | [PTE update]
-> +		 *    SMMUEN = 0;                     | arm_smmu_domain_inv_range() {
-> +		 *    // set STOP_FLAG                |   smp_mb();
-> +		 *    target = atomic_fetch_or();     |   arm_smmu_cmdq_issue_cmdlist() {
-> +		 *    while (owner != target)         |     // read STOP_FLAG
-> +		 *      // wait for completion        |     Q_STOP(llq.prod);
-> +		 *    arm_smmu_drain_cmdqs();         |     // reserve indices
-> +		 *  }                                 |     cmpxchg(&cmdq->q.llq.atomic.prod);
-> +		 *  ...                               |     queue_write();
-> +		 *  arm_smmu_device_reset() {         |   }
-> +		 *    // clear STOP_FLAG              | }
-> +		 *    atomic_andnot();                |
-> +		 *    [Invalidate all TLB & CFG]      |
-> +		 *    SMMUEN = 1;                     |
-> +		 *  }                                 |
-> +		 *
-> +		 * If CPU1 hasn't cmpxchg'd its new indices yet, it observes the STOP_FLAG
-> +		 * and safely bails. Once the indices are committed, CPU1 MUST write valid
-> +		 * commands to those slots to avoid indefinite polling in CPU0's drain path.
->  		 */
->  		if (Q_STOP(llq.prod)) {
->  			local_irq_restore(flags);
-> @@ -5068,7 +5164,8 @@ static int arm_smmu_device_reset(struct arm_smmu_device *smmu, bool resume)
->  
->  	/* Command queue */
->  	writeq_relaxed(smmu->cmdq.q.q_base, smmu->base + ARM_SMMU_CMDQ_BASE);
-> -	writel_relaxed(smmu->cmdq.q.llq.prod, smmu->base + ARM_SMMU_CMDQ_PROD);
-> +	writel_relaxed(smmu->cmdq.q.llq.prod & CMDQ_PROD_IDX_MASK,
-> +		       smmu->base + ARM_SMMU_CMDQ_PROD);
->  	writel_relaxed(smmu->cmdq.q.llq.cons, smmu->base + ARM_SMMU_CMDQ_CONS);
->  
->  	enables = CR0_CMDQEN;
-> @@ -5079,6 +5176,9 @@ static int arm_smmu_device_reset(struct arm_smmu_device *smmu, bool resume)
->  		return ret;
->  	}
->  
-> +	/* Clear the STOP_FLAG to resume CMDQ submissions */
-> +	atomic_andnot(CMDQ_PROD_STOP_FLAG, &smmu->cmdq.q.llq.atomic.prod);
+I'll leave it to you.
 
-Presumably this needs to be ordered after the prior MMIO accesses? I think
-we're probably missing some barriers with the code as you have it here.
+Thanks,
+Babu
 
-> +
->  	/* Invalidate any cached configuration */
->  	arm_smmu_cmdq_issue_cmd_with_sync(smmu, arm_smmu_make_cmd_cfgi_all());
->  
-> @@ -5830,6 +5930,150 @@ static void arm_smmu_device_shutdown(struct platform_device *pdev)
->  	arm_smmu_device_disable(smmu);
->  }
->  
-> +static int __maybe_unused arm_smmu_runtime_suspend(struct device *dev)
-> +{
-> +	struct arm_smmu_device *smmu = dev_get_drvdata(dev);
-> +	struct arm_smmu_cmdq *cmdq = &smmu->cmdq;
-> +	int timeout = ARM_SMMU_SUSPEND_TIMEOUT_US;
-> +	u32 enables, target;
-> +	int ret;
-> +
-> +	/* Abort all transactions before disable to avoid spurious bypass */
-> +	arm_smmu_update_gbpa(smmu, GBPA_ABORT, 0);
-> +
-> +	/*
-> +	 * Disable the SMMU via CR0.EN and all queues except CMDQ.
-> +	 *
-> +	 * Note on EVTQ/PRIQ: Due to device links between client devices and
-> +	 * the SMMU, all masters are already runtime suspended and quiescent.
-> +	 * As client DMA is stopped, no new translation faults (EVTQ) or
-> +	 * Page Requests (PRIQ) can be generated, making it safe to disable
-> +	 * these queues without an explicit drain.
-> +	 */
-> +	enables = CR0_CMDQEN;
-> +	ret = arm_smmu_write_reg_sync(smmu, enables, ARM_SMMU_CR0, ARM_SMMU_CR0ACK);
-> +	if (ret) {
-> +		/* GBPA comes into effect when CR0.SMMUEN = 0, no rollback needed */
-> +		dev_err(smmu->dev, "failed to disable SMMU\n");
-> +		return ret;
-> +	}
-> +
-> +	/*
-> +	 * At this point the SMMU is completely disabled and won't access
-> +	 * any translation/config structures, even speculative accesses
-> +	 * aren't performed as per the IHI0070 spec (section 6.3.9.6).
-> +	 */
-> +
-> +	/*
-> +	 * Mark the primary CMDQ to stop and get the target index before the stop.
-> +	 *
-> +	 * Note that the primary CMDQ's STOP_FLAG acts as a proxy for the SMMU's
-> +	 * global power state. Because all queues are gated synchronously during
-> +	 * suspend, checking the primary queue's flag is sufficient.
-> +	 */
 
-Strictly speaking, I think you need an mb() here.
-
-> +	target = atomic_fetch_or(CMDQ_PROD_STOP_FLAG, &cmdq->q.llq.atomic.prod);
-
-Then this could be atomic_fetch_or_relaxed()...
-
-> +	target &= CMDQ_PROD_IDX_MASK;
-> +
-
-... and you can use smp_mb__after_atomic() here so that we don't read
-owner_prod early.
-
-> +	/* Wait for the last committed owner to reach the hardware */
-> +	while (atomic_read(&cmdq->owner_prod) != target && timeout) {
-> +		udelay(1);
-> +		timeout--;
-> +	}
-> +
-> +	/*
-> +	 * Entering suspend implies no active clients. A timeout here
-> +	 * indicates a fatal CMDQ lockup or hardware stall. We proceed
-> +	 * anyway to prioritize memory safety (avoiding stale TLBs)
-> +	 */
-> +	if (!timeout)
-> +		dev_err(smmu->dev, "cmdq owner wait timeout, (check runtime PM + devlinks)\n");
-> +
-> +	/* Wait for cmdq->lock == 0 to ensure last CMDQ_CONS_REG is written */
-> +	timeout = ARM_SMMU_SUSPEND_TIMEOUT_US;
-> +	while (atomic_read(&cmdq->lock) != 0 && timeout) {
-
-This probably needs to be ordered after the read of owner_prod, so I would
-add an smp_rmb() before the loop.
-
-> +		udelay(1);
-> +		timeout--;
-> +	}
-> +
-> +	/* Timing out here implies misconfigured Runtime PM or broken devlinks */
-> +	if (!timeout)
-> +		dev_err(smmu->dev, "cmdq lock != 0, forcing suspend. Polling CPUs may fault.\n");
-> +
-> +	/* Drain the CMDQs */
-
-Probably need another mb() here so that we don't start looking at the
-hardware registers until we know that the producer threads have gone away?
-
-> +	ret = arm_smmu_drain_cmdqs(smmu);
-> +	if (ret)
-> +		dev_warn(smmu->dev, "failed to drain queues, forcing suspend\n");
-> +
-> +	/* Disable the SMMU */
-> +	arm_smmu_device_disable(smmu);
-> +
-> +	/* Disable IRQ generation */
-> +	arm_smmu_disable_irqs(smmu);
-> +
-> +	/* Wait for pending gerror handlers */
-> +	synchronize_irq(smmu->combined_irq ? smmu->combined_irq : smmu->gerr_irq);
-> +
-> +	/* Handle any pending gerrors before powering down */
-> +	arm_smmu_handle_gerror(smmu);
-> +
-> +	/* Sync prod pointer for EVTQ and PRIQ to avoid clobbering unread entries on resume */
-> +	if (queue_sync_prod_in(&smmu->evtq.q) == -EOVERFLOW)
-> +		dev_warn(smmu->dev, "EVTQ overflow detected during suspend\n");
-> +
-> +	if (smmu->features & ARM_SMMU_FEAT_PRI) {
-> +		if (queue_sync_prod_in(&smmu->priq.q) == -EOVERFLOW)
-> +			dev_warn(smmu->dev, "PRIQ overflow detected during suspend\n");
-> +	}
-> +
-> +	/* Avoid consuming stale commands on resume if we timed-out */
-> +	cmdq->q.llq.cons = cmdq->q.llq.prod & CMDQ_PROD_IDX_MASK;
-
-What is the problem with consuming stale commands in this case?
-
-> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-> index 0a841441cc44..d0a3d497915c 100644
-> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-> @@ -663,11 +663,14 @@ arm_smmu_make_cmd_tlbi(enum arm_smmu_cmdq_opcode op, u16 asid, u16 vmid)
->  
->  /* High-level queue structures */
->  #define ARM_SMMU_POLL_TIMEOUT_US	1000000 /* 1s! */
-> +#define ARM_SMMU_SUSPEND_TIMEOUT_US	1000000	/* 1s! */
->  #define ARM_SMMU_POLL_SPIN_COUNT	10
->  
->  #define MSI_IOVA_BASE			0x8000000
->  #define MSI_IOVA_LENGTH			0x100000
->  
-> +#define RPM_AUTOSUSPEND_DELAY_MS	15
-> +
->  struct arm_smmu_ll_queue {
->  	union {
->  		u64			val;
-> @@ -1234,6 +1237,18 @@ int arm_smmu_cmdq_issue_cmdlist(struct arm_smmu_device *smmu,
->  				bool sync);
->  bool arm_smmu_erratum_repeat_tlbi_cfgi(void);
->  
-> +/*
-> + * Lockless pre-check to test if the SMMU is actively powered.
-> + * Races with concurrent suspend are benign: the cmpxchg loop in
-> + * arm_smmu_cmdq_issue_cmdlist() acts as the true commit point.
-> + * If we lose the race, that loop observes Q_STOP == 1 and safely
-> + * drops the command. If we win, the suspend thread waits for us.
-> + */
-> +static inline bool arm_smmu_is_active(struct arm_smmu_device *smmu)
-> +{
-> +	return !Q_STOP(READ_ONCE(smmu->cmdq.q.llq.prod));
-> +}
-
-Why does this need to be in the header?
-
-Will
