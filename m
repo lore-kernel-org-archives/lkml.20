@@ -1,79 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f10.google.com (mail-wm2-f10.google.com [74.125.225.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3B5B46F480;
-	Wed,  7 Oct 2026 09:26:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80BAC42DA53
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 09:28:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791365244; cv=none; b=q97Z8MoLOyYX0AjbR9uXWO/JbN5+br2uk2KhLK8pV+YlWZu20gJy7lMaSdFujJCJ7BssfZq1H3KGCy/PKvTIqcCd59ocO3Z8AESE+ka7jf6aSdc/cX89950EW5Vo4QsKgjnCBtAMD21ugDhxu11XTpcpqNBgb1VG6MyPX7vvWNg=
+	t=1791365308; cv=none; b=DV33ptG/aLAvGB83rQkwsryrnHd5WJgAebqvYu3u9pg1MGO4exui/86OlHvfuS6GL1pvweuGermF+QQQkO5ntooM+OUSYiJWl+JrT31J5wtTUlEaD4Bq6oRgIi0GwFDJY7bP+CA1pDAzpdI4hSG3Z5Ysuio7aShCFRq/4UFxTN4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791365244; c=relaxed/simple;
-	bh=EC73LykYJHw+jAwdh/3czAsy5fXqHWhCA/lPwOUVncU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=Bxskn/F3k1g/70+KPoPKfhugJdLBQLttNPnesenyZ7jJIW43bvSb8sBEfATvzw5RS/QUZQgtn5tH3J5SKSof8IJVJ9XTtiW8/0AoZVwMufNwg1xN6VeWzK1XLPRXoJRIdnwP/8eZxP+QzqT8wdtkJzao0kTVb9c6qxFq06l0cek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TpIish9u; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791365308; c=relaxed/simple;
+	bh=BXVesABP/l0w9gs9cGwYWUSxn4Yy0tpp8Ed1lo5/k3M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eAa6oMrJfr68w9pSZzfDnD7/ix0BjuwysVTESkYAbvGpTXEUNpnnZKqYS02Eja3vFobeeHFBpsslBp8jEUHhhx4R1PRRHwzsobhQD4JD0DDqyV7A00Z+U4FbBcLBXhtB0O+I6Z8q1TWZMkedFsd6mLpNK/mSG/q7+msFXfzovHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I39pQuPM; arc=none smtp.client-ip=74.125.225.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TpIish9u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 232551F0089B;
-	Wed,  7 Oct 2026 09:26:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791365218;
-	bh=APbFXQXsXQiep4JdRrbvfH90pOnRYqNCWmwAKUBpF+E=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=TpIish9u+WfYHMXIZYfVV/3W8/jiCTBZAVe1XyJ4BnrOeA9GqTyVlYZI15NZglpqO
-	 GVfs3uUNcgd7jivYsPRB+nAJdfveVWEstwvlPJnJcK7sT45ZveHjPSycaTBx06owjZ
-	 XGSTIvu5gWnsRNJmefuhSuzUrtRCduSPMf3Ag092Pj7rdC7D/RbA4B2t2tS5xp+eof
-	 kBvA3J+ippnSPiOnxR0/3t93xukKhIH2If9Rz4bQnmJVAw6F4XJ2Jeu9OKYhwDyrhQ
-	 iH0LT8R3QVTbxB3m+L/+dZ5jIH8ugWFgkb+V/a6C0hcyAK0h7JQASnReeKFiWq4nvA
-	 8zSfiYbZmqKIg==
-From: Nathan Chancellor <nathan@kernel.org>
-To: nsc@kernel.org, lzhan011 <lzsx618@gmail.com>
-Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261005085729.872402-1-lzsx618@gmail.com>
-References: <20261005085729.872402-1-lzsx618@gmail.com>
-Subject: Re: [PATCH] gen_init_cpio: stop parsing on lines with a missing
- argument list
-Message-Id: <179136520162.1527194.9223276311672277059.b4-ty@b4>
-Date: Wed, 07 Oct 2026 11:26:41 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I39pQuPM"
+Received: by mail-wm2-f10.google.com with SMTP id 5b1f17b1804b1-4a1657114dfso10032605e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 02:28:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791365290; x=1791970090; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aeP9LnNMW0XFzFwn1LZhyNEoudM26n+EG4TxrN/cfzc=;
+        b=I39pQuPMefb0B5dpJj0XLXCVTzw4Ll41nVCgoAeDEgj+XpW6DyrXH/qno3Hmjn3ZA0
+         zMLrVLrgv8iG1OysZOmg2OHRFU3m2qyC0jtZvwSTcRZ0GXU8pssChvffAetk2F0rwDIE
+         x+g+s+3rTjcACDCoIJxID5Kra+Iad2z4CU0idRGcVoXCQud1Dto2mW0UmACvfgVgfYlU
+         QmJ6IaYu/5Oh+slMkCcR9HGq8ToO+hxSQN0OEY6kV/CDP6rDCEk5bn5jBb8w5K1HOuOj
+         POB7IoXird9XT2pw6zKz6nWBNkhh0ysFQ7nDZ4G66iN2bJONGLWuAUq2+YyY7TVGXr+p
+         sknw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791365290; x=1791970090;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aeP9LnNMW0XFzFwn1LZhyNEoudM26n+EG4TxrN/cfzc=;
+        b=n08eLanhKiNvzGCN5JiDSQMhm1b8343bT+Xp7FsmuhN6WxWdXoEsPPFE3/+slurkkO
+         SY/GxLMkJVYYcvL6FbIrtD9/6FEErmIaAnHT0leuWdJAJ74AX+5csFGp+O5blrwrGWTP
+         OKucna1hglxUwsUQf+YAZ58nmaH6yy9JU9fdyc9mTWyTuqUNEshVLxkoASlTPPXgn3qp
+         s6cDnJARDnXvHvrWIhfwoZN0NECLLmkfSyLxl+m3c8cC+1kvA7/QTIn3EHYiNMuLKSmt
+         8VXsgGGVAi3tEZsPENA8xVvlGrKVTXj7RabX1YPsSiLuD3K5Zu0N6hPXU3oexEIFMieH
+         RIiw==
+X-Forwarded-Encrypted: i=1; AKwUvByDUtm9ThC5vYcR7D8P3Tb9gdZix8kYoxjzvzR0tSJnFmZ9pGXMzG49WgKEyIqnTlaUq18zyS2hikEYJcA=@vger.kernel.org
+X-Gm-Message-State: AFuF++m7SsqITu7Ud5oN94mbD/E46++6CaIopYSJYwH06BZ2a2n/1tXu
+	jOBfQbIAancv45eo0sLFh7lorRccIlRnWDDYY9JQEYXCnNwM4PbGzOFQ
+X-Gm-Gg: AYBFou09owF+nCtU+SpcN4NgPQuOuJXeihJoXaXtKZQ5Gc4MJQ6oW3nHlChuHJI5aV/
+	U7Iay+Afv+L32S7SO1V55RMqzZbVkPtCoUV91nz5SnNvdEjIbAS2eOkDr5lo+S/sEBg7o9HNEds
+	aYSGDoakTEXTQbZl1o/zmkjfalZERXQhzUnDD73Voy5mzs/O4x+Yjh+5GhqXN5Y+nGMM3Qdpaim
+	i/+eQw8eavek53l2tBD236OGGILRrVf44nAeXcbk+M5EnSgEj6pMHsABrHtb63wnk2xaRcM+2va
+	d3uvSU2oSfwFFRkU0YzaNNeSrjLtZJJfXzMCTtVg07Il7ANnex3DxV/VTeaWZsj3kBXFum7hsEk
+	mw5I4XtvQnvNjmg5awxXy5T0pTZtR2907MIvhuXXVtdu67cBHyqrJ1m2kfU2hnxPfBRld7+38u7
+	PoNMB52RQGxMOG6uy/jRG7lv5uV4kjR/s1iBNWmzsDamASvpom//fXAvVUcRoe0anSryC2/1ZqE
+	Pb+RSRxOb/Ux0UwR2FQ/fALo4qr/g6BC1xrM/NgHYCi8m/1DarWoSh/ntc3Kgr+SR9IYBX0Yajv
+	OSvWs3whbXlyRX/0gWSSCBEoIAQNeOXJDw==
+X-Received: by 2002:a05:600c:1c0d:b0:4a0:1efa:c74c with SMTP id 5b1f17b1804b1-4a18043c6a5mr29814735e9.20.1791365290293;
+        Wed, 07 Oct 2026 02:28:10 -0700 (PDT)
+Received: from lima-kernel.telekom.ip (84-115-220-212.cable.dynamic.surfer.at. [84.115.220.212])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f557bcbsm81016035e9.9.2026.10.07.02.28.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 02:28:09 -0700 (PDT)
+From: Jaeyeon Lee <jaeyeon.lee.dev@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Guillaume Morin <guillaume@morinfr.org>
+Cc: David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Breno Leitao <leitao@debian.org>,
+	Sarthak Sharma <sarthak.sharma@arm.com>,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jaeyeon Lee <jaeyeon.lee.dev@gmail.com>
+Subject: [PATCH v2] selftests/mm: hugetlb_madv_vs_map: fix TAP plan mismatches
+Date: Wed,  7 Oct 2026 11:28:01 +0200
+Message-ID: <20261007092801.35649-1-jaeyeon.lee.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=751; i=nathan@kernel.org;
- h=from:subject:message-id; bh=EC73LykYJHw+jAwdh/3czAsy5fXqHWhCA/lPwOUVncU=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDFnHBILuVdfs4HxV8yvUu8A9/M3nx0smvklV5HfJ4Teer
- 9Gzn0O5o5SFQYyLQVZMkaX6sepxQ8M5ZxlvnJoEM4eVCWQIAxenAEzk8WxGhh15TYdVjC+mTj7w
- J36+kE3eD9XWniMOSxc+ENkbvV+5J4Hhr/RK44je87P3muQ8KHYU/Ddn6ndJ+S67vW597RueTtz
- YygUA
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
+Content-Transfer-Encoding: 8bit
 
-On Mon, 05 Oct 2026 03:57:29 -0500, lzhan011 wrote:
-> gen_init_cpio: stop parsing on lines with a missing argument list
+The plan was raised from 1 to 3, but the HugeTLB setup check that may
+call ksft_exit_skip() still runs after ksft_set_plan(), so a setup
+failure reports one result against a plan of 3. Move ksft_set_plan()
+below the setup check.
 
-Applied to
+Also, when the underflow check fails, or munmap() fails,
+test_underflow() jumps to err_cleanup and exits without reporting the
+remaining results. Report the munmap() failure as a test result and
+skip the final HugePages_Rsvd check in err_cleanup, so these failure
+paths report all 3 planned results.
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/kbuild/linux.git kbuild-next-unstable
+Fixes: 827149aad495 ("selftests/mm: hugetlb_madv_vs_map: add underflow test")
+Assisted-by: LLM
+Signed-off-by: Jaeyeon Lee <jaeyeon.lee.dev@gmail.com>
+---
+Changes in v2:
+- Drop the duplicate ksft_perror() and report errno in
+  ksft_test_result_fail() (Sarthak Sharma).
 
-Thanks!
+ tools/testing/selftests/mm/hugetlb_madv_vs_map.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-[1/1] gen_init_cpio: stop parsing on lines with a missing argument list
-      https://git.kernel.org/kbuild/c/4677a58a643f9
-
-Please look out for regression or issue reports or other follow up
-comments, as they may result in the patch/series getting dropped or
-reverted. Patches applied to an "unstable" branch are accepted pending
-wider testing in -next and any post-commit review; they will generally
-be moved to the main branch in a week if no issues are found.
-
-Best regards,
+diff --git a/tools/testing/selftests/mm/hugetlb_madv_vs_map.c b/tools/testing/selftests/mm/hugetlb_madv_vs_map.c
+index 1d111f42dd59..0f6afb834dbf 100644
+--- a/tools/testing/selftests/mm/hugetlb_madv_vs_map.c
++++ b/tools/testing/selftests/mm/hugetlb_madv_vs_map.c
+@@ -168,7 +168,7 @@ void test_underflow(void)
+ 
+ 	/* First unmap, this will close the vma */
+ 	if (munmap(huge_ptr, mmap_size) != 0) {
+-		ksft_perror("munmap failed");
++		ksft_test_result_fail("munmap failed: %s (%d)\n", strerror(errno), errno);
+ 		goto err_cleanup;
+ 	}
+ 
+@@ -203,18 +203,20 @@ void test_underflow(void)
+ 	if (waitpid(pid, NULL, 0) <= 0)
+ 		ksft_exit_fail_perror("waitpid failed");
+ 
++	ksft_test_result_skip("HugePages_Rsvd check after child exit\n");
+ 	ksft_exit_fail();
+ }
+ 
+ int main(void)
+ {
+ 	ksft_print_header();
+-	ksft_set_plan(3);
+ 
+ 	if (!hugetlb_setup_default_exact(1))
+ 		ksft_exit_skip("This test needs one and only one page to execute. Got %lu\n",
+ 			       hugetlb_free_default_pages());
+ 
++	ksft_set_plan(3);
++
+ 	test_madv_vs_map();
+ 	test_underflow();
+ 
 -- 
-Cheers,
-Nathan
-
+2.43.0
 
