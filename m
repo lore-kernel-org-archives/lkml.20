@@ -1,79 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09AA42D9797;
-	Wed,  7 Oct 2026 15:31:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 700F74BA1E1;
+	Wed,  7 Oct 2026 15:34:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791387113; cv=none; b=TgUnambzhbUidBB/o0sLof442HJ0OBxrbMoQudSCkDDUzm5xAg01yiGLWyDMqExhNkxLswFtpuYRKJVQYVm8BK6ZExZUmq7PbxdYO44v6oegELN5ZMXSDYmg5inAdioP5YatfiIGT4bg3Be+5k+DfgtMXl8H8COMFuHsMowVq8Y=
+	t=1791387273; cv=none; b=phN1j/sMhuCBK5iYscpuxF27YE2keq9hYUUhV510WqZh+w7qZ5eosD8VWczramYiUo1uJSwwqhfs7fB+zpHVDygi7zEYzC79y/QgAVLuAREEeSBEU/KVBICrpO17eM1qb+jKShqb5ieoxDRsg02x81SSa2O5fbnjBDjze5Q1OfU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791387113; c=relaxed/simple;
-	bh=LPOEcdHq2apy1mUIcV7DDDIun01AlQm1IXhnJZ00uIQ=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=oAarNTou3vwxbWmgOi+VwVpmUaF1goPZgzH0Gy+izT90dszRttea500K6gRRGIG6CFxYZIY4CJpAmVYwARZIXT1T2NpCUETfZfqGoQsX0l0FkIRbY3y5zTN0q8ZRGtEO3t9eJ66FGRTct5wV2g4CmIFfgJBuYETzDHhV7FcF2p8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RCz9UumV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791387273; c=relaxed/simple;
+	bh=sJPC+6KqEiiYcLwYM5XpJuVIQep/HsjJoVlUvGEgAd4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kjJEtFqj3zZrakWtsn4HKyAC59vVb95FTDEAnL80OYSX8d/MXGyApOGqvm29Owg98bNjrG3dw1rYfKv7kwJ3Xl9hhvm/1rbZg87Dy+qAGD6XXyb9/0ZYn7Lw6Ye3VRThQ5aMQHD9/OgS23t0VFdE1xZKBAwXJNEDb0iSjajk3G4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=UF7LrUob; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RCz9UumV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2FF21F000FF;
-	Wed,  7 Oct 2026 15:31:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791387102;
-	bh=NeSUlDsVo1s6+AYYrQ/dOA7YcHXnvKye1ADL9d8nv6w=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=RCz9UumVg7MCcfX/YLxNtqhItlWET/Z1k3RTfAdRoaVqQs3a3NbcouYkfoRa6pqRa
-	 jwfkKjqQFvJme9MJKzccjiWaBIYZnIQSr30tk3sN4Oj/ENR3fiTTmnTFWWwKGQFoeb
-	 x9MjmhgJ0kmmNmAq7/tqTt3LsMeN1sIUKC0DCxHLXLAtieAlsD1mwQnpdmG5vQOb9x
-	 gKl7THQ6pA6fWIQSfzbdAEF4m5wwnmOXtTZPUxHiS3kdutQ2LiJefIBqdvg40dMq37
-	 aGslvNm0CR4bws0xNVP1YK9frHlVIP5ANSZZpLjn1VMDryR0iTmV1KpEpZDZdQ/QN0
-	 RS+2rsBgM/2fw==
-Date: Wed, 7 Oct 2026 09:31:36 -0600 (MDT)
-From: Paul Walmsley <pjw@kernel.org>
-To: Adrian Hunter <adrian.hunter@intel.com>
-cc: Chen Pei <cp0613@linux.alibaba.com>, acme@kernel.org, peterz@infradead.org, 
-    mingo@redhat.com, namhyung@kernel.org, mark.rutland@arm.com, 
-    alexander.shishkin@linux.intel.com, jolsa@kernel.org, irogers@google.com, 
-    james.clark@linaro.org, leo.yan@linux.dev, john.g.garry@oracle.com, 
-    will@kernel.org, mike.leach@arm.com, pjw@kernel.org, palmer@dabbelt.com, 
-    guoren@kernel.org, linux-perf-users@vger.kernel.org, 
-    linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org, 
-    linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] perf tsc: Declare TSC support from the build
- system
-In-Reply-To: <66136aa8-adbe-4fdf-9b7c-d44ea0e5cf1e@intel.com>
-Message-ID: <d58889fc-71a1-0144-dc5a-4eb354536748@kernel.org>
-References: <20260929034133.2153-1-cp0613@linux.alibaba.com> <20260929034133.2153-3-cp0613@linux.alibaba.com> <66136aa8-adbe-4fdf-9b7c-d44ea0e5cf1e@intel.com>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="UF7LrUob"
+Received: by linux.microsoft.com (Postfix, from userid 1186)
+	id C492A20B7166; Wed,  7 Oct 2026 08:33:30 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com C492A20B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1791387210;
+	bh=xgaAkx66IrA/fboS29JwalNhauKWU0sJvD8sU16dDf0=;
+	h=From:To:Cc:Subject:Date:From;
+	b=UF7LrUobsYLr6BowMqLwaLAtNIUIBBMxdZVjx4zJrcEtLIj5w0lSxZ2edl5PmpNOj
+	 nPibXEZBRVm5qpnSz4V0OuTEREKQmwDGibRTxOFAFeyP5/Jw8oLyecrYjT0B0C9/KW
+	 YZzlrgMW4DiJbyJYwSiSdeH9tLECP1eKH8KkegZ0=
+From: Konstantin Taranov <kotaranov@linux.microsoft.com>
+To: kotaranov@microsoft.com,
+	snsanghvi@microsoft.com,
+	longli@microsoft.com,
+	jgg@ziepe.ca,
+	leon@kernel.org
+Cc: linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH rdma-next v3 00/10] RDMA/mana_ib: Add kernel RC and fast registration support
+Date: Wed,  7 Oct 2026 08:33:20 -0700
+Message-ID: <20261007153330.2979799-1-kotaranov@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-On Tue, 6 Oct 2026, Adrian Hunter wrote:
+From: Konstantin Taranov <kotaranov@microsoft.com>
 
-> On 29/09/2026 06:41, Chen Pei wrote:
-> > The "TSC support" subtest of the "Convert perf time to TSC" test decides
-> > whether the architecture is covered by matching compiler macros for
-> > x86_64, i386 and arm64.  That list has to be edited for every new
-> > architecture and can drift apart from the set of architectures that really
-> > provide a counter.
-> > 
-> > Declare the capability where the implementation is, following the
-> > PERF_HAVE_JITDUMP pattern: an architecture with a usable counter sets
-> > PERF_HAVE_RDTSC in its arch Makefile, Makefile.config turns it into
-> > -DHAVE_RDTSC, and the test keys off that.
-> > 
-> > x86 and arm64 keep the same behaviour, riscv starts running the subtest
-> > where the previous patch defines rdtsc().
-> > 
-> > Signed-off-by: Chen Pei <cp0613@linux.alibaba.com>
-> 
-> One minor style comment below.  In any case:
-> 
-> Reviewed-by: Adrian Hunter <adrian.hunter@intel.com>
+Add kernel RC QPs and fast-registration MRs to the MANA RDMA driver
+for kernel consumers such as NVMe/RDMA and NFS/RDMA.
 
-Reviewed-by: Paul Walmsley <pjw@kernel.org> 
+Implement QP creation and state management, work request posting,
+completion processing, error handling, and queue draining. Kernel RC
+QPs require extended-WQE and power-of-two-SQ hardware support.
 
+Tested with krping, NVMe/RDMA, and NFS/RDMA, including RC send and
+receive error recovery with krping and NVMe/RDMA.
 
-- Paul
+v3:
+- Patch 07: Mask arm_psn to 24 bits before ringing the doorbell.
+- Patch 08: Exclude userspace QPs from kernel software-state handling
+  and CQ error-list insertion, and unlink UC QPs during destruction.
+
+v2:
+- Patch 03: Validate fixed-WQE capacity for the header, OOB and SGEs.
+- Patch 04: Preserve UC QP modification support.
+- Patch 08: Skip software CQ notifications for direct-polling CQs.
+- Patch 09: Flush that ERR work during QP teardown.
+- Patch 10: Limit drain callbacks to RC QPs and avoid completion
+  callbacks for direct-polling CQs.
+
+Konstantin Taranov (10):
+  RDMA/mana_ib: Allocate and map fast-registration MRs
+  RDMA/mana: Create and destroy kernel RC QPs
+  net/mana: Extend GDMA encoding for new RDMA WQEs
+  RDMA/mana_ib: Maintain kernel RC QP state
+  RDMA/mana_ib: Post receive WRs on kernel RC QPs
+  RDMA/mana_ib: Post send and memory-management WRs on RC QPs
+  RDMA/mana_ib: Poll RC completions using PSN and FSN progress
+  RDMA/mana_ib: Flush and notify CQs when kernel QPs enter ERR
+  RDMA/mana_ib: Handle error CQEs for RC QPs
+  RDMA/mana_ib: Drain kernel receive and send queues
+
+ drivers/infiniband/hw/mana/cq.c               | 243 ++++++++++-
+ drivers/infiniband/hw/mana/device.c           |   4 +
+ drivers/infiniband/hw/mana/main.c             |   8 +-
+ drivers/infiniband/hw/mana/mana_ib.h          | 135 +++++-
+ drivers/infiniband/hw/mana/mr.c               |  84 +++-
+ drivers/infiniband/hw/mana/qp.c               | 342 ++++++++++++++-
+ drivers/infiniband/hw/mana/shadow_queue.h     |  22 +
+ drivers/infiniband/hw/mana/wr.c               | 385 ++++++++++++++++++
+ .../net/ethernet/microsoft/mana/gdma_main.c   |  55 ++-
+ include/net/mana/gdma.h                       |  38 +-
+ 10 files changed, 1280 insertions(+), 36 deletions(-)
+
+-- 
+2.43.0
