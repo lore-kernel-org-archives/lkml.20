@@ -1,197 +1,319 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012066.outbound.protection.outlook.com [40.107.200.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5AB62CCB5;
-	Wed,  7 Oct 2026 18:48:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.66
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791398939; cv=fail; b=H2c+Uhg8e8xsXDd9G/DkWrNMHfZQMURTsQMfv4NC/+Mwj723HOvrYA04VqTX9xAFILrAdQMQknGPfZCB4frmOXBa4Xh7fXH/d/UL3WXSWe5XoZGBBz32HqHH1F3rOgnaOaBZBQIt1CzQ2WH/2ynZMA6UfmhDtZDGB3UssjMq9+E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791398939; c=relaxed/simple;
-	bh=jfgcnb6I1g1KI33fYmGy74CdZkFh+54vRMsLKM+l3ek=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=rNNe1Qc/tFtWRMRCO120y2LD3qRxK116RFD2KuoVrAj8WS7B00w37Eco9YdyTIRztQm+7rAFv9cT2/P+uVtrUNZ9fNfePUuqIiz8wQMlKOr5/SinXR1ZHO9IWFn7ZYRjDoaa8tHJlGsDxrJLRm6I6WbsOZyulIhHi8mWoIkszfs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=H/Q9//CT; arc=fail smtp.client-ip=40.107.200.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA2B27281E;
+	Wed,  7 Oct 2026 18:50:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791399007; cv=none; b=hFFxz41WtKLvhUIgxRmIxK3jB0kyHKqsoUAxCBA1pZIcWDb1i4BlNGJRaaF8gMUShfXOnklBF4Mh+28ZjCAXcu7+9zbAh/GEaQvY21QrWmnW2FjuEWFzrdQcnHLWdfLWwXqKHuy2zF9KIeJztS09ItKBaUB6OZILWH39/PfDHEU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791399007; c=relaxed/simple;
+	bh=FQfOOfatz8/cDKbjo1SuHMdZYoDfLfc8UDR4XIw6NeA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hSj1fJ/Yq6rOgdnXC9ZTJWuMVFb6P4KZgiTu8KHCIcui3eDn2D98VB4+NRJEQ3KV2pSOx+v9SH73gjBjaG9470k6o9Cr1IE3uqf4FWcDmGQhZW4fIbENs7rDzL7fPyJobIyjW3yjCGwT8ohhzWhles9k4TG634Q72Tn9iD5lSUA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=nQVZNhsn; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Z/1k8DlW; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=FXXRGEu/; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=27PT8V4c; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="H/Q9//CT"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pmZAc4qsz3q7181vMa56valegysIj5kA5BScVoZzGRGKzj9PxFghvv1d5nkNHeUdfUtlbhwZGWyNC1hU4dHZ29GbLShC7JUzLi+rQ7c/iV9PoqvFpRMMU1cSQcp/nyaTjzxj1phOZ7AkGQKXrDmJKlb2rgwqHKEmgK2lJfRtQ+bqXASN0wIFH82/BiUsZYEQ5RBG40U2PXxmIElu54J5NEX1JFkNdVCMYfO/tnqLqo4G9XOLLh3jRYHPaqyzAyNsmCdt/vn6FuYxvJZtU90g79svmoffwjl75fC2ryfyCmaedAMpJUFLyOOih3dCJvPZy0U1KIGX1n1UHUGB2ytc5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1TLWJ1MdRWJxyEFOFCT26/MStZZHKoVEXtYBpaT3o6s=;
- b=XSVnbWgr+MV0JC5pb79ASXHAx07I/isrSkA14sCsaRVOX3u1ypnW9fTylG02ThRuuspbtXS8akD4S6Z+FttBieLs8tqPAUVgYDDacqnKUEnMmZOJVGHadmwNf4nkBiR9sJYD7uwrpg8NoPoYkI7IbZpzFLoYxjUMb8RCwhs+XJAYoNt78eyT4WvkNKbCOe5LKRT1vp6h65LWYBCUWVKI8/zoaU++19UobzqZJZvZatOUCgSnJNxW70jPcwElIYT9HBPdGomiis/M80htXqks8k/WTKl77ykx1hzbRbipFyNSdjOeFLuT05xmrNTMKkdW8vKBT2unFsd+4T7tEowTRA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1TLWJ1MdRWJxyEFOFCT26/MStZZHKoVEXtYBpaT3o6s=;
- b=H/Q9//CTn5AJ4q8kisdsp8esX3lOE6Vl6rrvYd7WqBbqrN42BrRNb+Onx3jmCRmGbo7vdxe6i58O1mP+BIwTO/Ll3535XCksqiycho/jZlx2I5earV/JaoZJZ7gr3PYRSpseZ3UQLCNzZSw+XwJSYVHxxHI1vFi4ne/gN7/ganBDgm9p9iJbstLKW4vzSN7FoBCTe+nIAXXSnqB1+wenRvWnmdUxYQ8RIKWhwdTW4Qx/GtxSCi2xF4kFDxvyr3tcGqE5oPSwpjAT/+NRhkWvkol5ZJS2tEqomoeWmKj7drYifdje6C/EB0RxddNr9O4ReUlL1FtHkVohT100kGQHPw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
- by PH6PR12MB128275.namprd12.prod.outlook.com (2603:10b6:510:3da::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Wed, 7 Oct
- 2026 18:48:51 +0000
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0496.015; Wed, 7 Oct 2026
- 18:48:51 +0000
-Date: Wed, 7 Oct 2026 14:48:48 -0400
-From: Yury Norov <ynorov@nvidia.com>
-To: Joel Fernandes <joelagnelf@nvidia.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	"Jason A. Donenfeld" <Jason@zx2c4.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Matthew Wilcox <willy@infradead.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>,
-	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
-	Christoph Lameter <cl@gentwo.org>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Kees Cook <kees@kernel.org>,
-	Joel Granados <joel.granados@kernel.org>,
-	Anna-Maria Behnsen <anna-maria@linutronix.de>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
-	wireguard@lists.zx2c4.com, netdev@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
-	rcu@vger.kernel.org, virtualization@lists.linux.dev,
-	linux-rt-devel@lists.linux.dev, llvm@lists.linux.dev,
-	Yury Norov <yury.norov@gmail.com>
-Subject: Re: [PATCH 16/17] rcu: assert static storage for RCU sync and SRCU
- definitions
-Message-ID: <asaUECwON5PS98M8@yury>
-References: <20260915030336.1192299-1-ynorov@nvidia.com>
- <20260915031334.1194975-11-ynorov@nvidia.com>
- <20261007184105.GA3837481@joelbox>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261007184105.GA3837481@joelbox>
-X-ClientProxiedBy: SJ2PR07CA0018.namprd07.prod.outlook.com
- (2603:10b6:a03:505::22) To LV3PR12MB9356.namprd12.prod.outlook.com
- (2603:10b6:408:20c::21)
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="nQVZNhsn";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Z/1k8DlW";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="FXXRGEu/";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="27PT8V4c"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 7FC901F44E;
+	Wed,  7 Oct 2026 18:50:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1791399003; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LmUGawMMCEgPcOW12DL3MmBf9FDH9woSZ3i9HhDa4rg=;
+	b=nQVZNhsnjCZKgJQ90r6q8mKre2P6eiask4Kp53aXKiARasnnRClDU2hpFwqFrKSb+u2xRA
+	jYIz/Bup2RwuWW/o6p8IwzZolIBrbF2Zo+M356HbvwohUerdw1IFO8nYaRb2Gfh2QVq2+7
+	7byD9huvyKGtgTte1867aHtfQ/d6Dkc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1791399003;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LmUGawMMCEgPcOW12DL3MmBf9FDH9woSZ3i9HhDa4rg=;
+	b=Z/1k8DlWI9DK2qUHoV6zYgQLshplk0QPNpt6YJAzpvkccy5pPJ4OJL9Pf1VSy3S+0p6w1s
+	aTjVFB3t0TNha5CA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1791399002; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LmUGawMMCEgPcOW12DL3MmBf9FDH9woSZ3i9HhDa4rg=;
+	b=FXXRGEu/L4b+0Csw+j85MTpF9oUBhRpI3t64MOzMxvJH9LvmLzQmM5vAHpK4x00e4fU8qG
+	r3n2zW2deWlUXeGsgpB3+A7AVMCt/SEBIxNhLQ834YYO0zm6mPbMXbCP5tPXIMO8c9ED9o
+	9s+KZp1J/xFqFdOYBkHu1FmPOBsF610=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1791399002;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LmUGawMMCEgPcOW12DL3MmBf9FDH9woSZ3i9HhDa4rg=;
+	b=27PT8V4cDv2lc3AIBtKwC52QPaCs37zcQ+DeOzKo2ixj/VBt0Sf4QXDJLRxq5fbk7Zatje
+	ZsBf4Fb76rAm3jDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D937113354;
+	Wed,  7 Oct 2026 18:50:01 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id vBUfK1mUxmocZwAAD6G6ig
+	(envelope-from <ggherdovich@suse.cz>); Wed, 07 Oct 2026 18:50:01 +0000
+Message-ID: <0ebef43d-fba6-44dc-83ce-43137ece2025@suse.cz>
+Date: Wed, 7 Oct 2026 20:49:57 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|PH6PR12MB128275:EE_
-X-MS-Office365-Filtering-Correlation-Id: a396da15-a4f7-4b3b-a3e0-08df24a3a0d8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|10070799003|56012099006|10067099003|11063799006|4143699003|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	KDvQAR4Tikl9QVR7IiWze66MK/tXUt/krHiLIfyhhoLpIfS3uhXoultbUznj8cM5dIOUgU/FOBLMklrj934iG1XUT7mADecPJR+PsA/O0XRwj8LckbtP7xbDAIOcklyXZJA1d9pzZ82MjiQm8EmoTcL0vy3zTbnjiKWWwLvTPTuWsNGEKRajujZoGfSf+XkfJCyrWZUunu++0SsHnVFS5PCDD/u3V6k43pbhYmb1OwTCyz76PLdPMGD9qAn+PaS4BohtrdgHpauzh8YDRfsmECKO+upsCl1fmCKaW79c+FkbUYrA6QBESSPaI3qG6Yh69CEpnet0F9rv4uW7m+wVlIKXPmWE7IiwdHFmrF8D6o5lloBRFzpMcL8XipmwNw7s8wtE4JpCVqHYIgtU/BLQntBW+QF1GTz0Cdbfxp4ArrU+gvW3RHlm48umLeFAS2oyfvHxt/WLlP/B9JXg+5gk01tIP7iciZQmgambF4oFnAlvkxAa6AkFqteRbzArC7DZRbJ/zaWcMziF0rBrQY1qUKbb5nFvNomTBbQOShndPP14qqPCY4d9mOav9zCJ+IhTQLu8SxZGL7fH5Rcsb9qgO+YpGgX0tz82nEOl/56ymaBwXNqQdhufgSQtHIIgkA7sKIAC03egriRKIu7BRdVIg2NLZSas2L1O6nazPGXqi8g=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(10070799003)(56012099006)(10067099003)(11063799006)(4143699003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?h9O8M/w8AtSP/T9mlaUoHJcLX5Ah64EXpLBJOt9mqnR1FLj6s19OZozKBkMK?=
- =?us-ascii?Q?umZru4xKGzWRIeQho6SEEiVDg+y6QOwPVXN9BJDEyPHNvarOD6eiLbqqh1af?=
- =?us-ascii?Q?JwCKyXfHTW0SbF8XxidDrGor/6V1umonJMX626ZDa8HqZtqQnhxFfbvsyoDM?=
- =?us-ascii?Q?VtCcCyn1xhfH5vjKPMbiaevlLXkL3MDCQO/MY2nwhd47ylXt3ttelgExBPbo?=
- =?us-ascii?Q?bxYQ/YXjQPG9V+TzkdjC6owvlsrovQYufAAc3bPkSrsTv6gkCCTDlmmYKZFt?=
- =?us-ascii?Q?36IeVI/rRs0tKnOsqvb+xgb2HAC4rOw6qFIwULu2SNxPW2TjBp1OqShJ0sYQ?=
- =?us-ascii?Q?GYQHA42jKbrmmeg6tzoXNlNxaKMBWIucbmnCCJJ/th3tr/3/LheHYw0gR83d?=
- =?us-ascii?Q?ePuW9CdfOS7AZWYhay/yRtpLioUPZWELIcp/GU2aJ9c03khJAS+H27FVwWPl?=
- =?us-ascii?Q?ivtS0CIkoE0YrLFSC/bIPl8aaIbelu8JYpPNHQFy+Lh888N8JHTGg2Jjr80S?=
- =?us-ascii?Q?27oWX5gR7ALT14m7shVG0Sv8dtRvSatxmjS1Z6isQ1wWO+vOtrQl2HnehXP4?=
- =?us-ascii?Q?2RVc9Exkmxxgq8c2sj+GZuTfKYDOHE69neOs8pdT2VqSfExEGkT1uG69a67H?=
- =?us-ascii?Q?fTNQL4Mf5mzck74480zajwoE63PKv3tDMZnnkbLsqPcoVMGMA19PwTP6Ud71?=
- =?us-ascii?Q?p9bAQX91MaN8U2fHwg0QnpfsdsdNHo9MMALOdg1w+DoX20BdBNaBqIp7K1gm?=
- =?us-ascii?Q?6vr/5lCXh00JF0TE6TecERbhoQeDnAOEd7E+G/48DoE+Vt833rCsgy6b2RCY?=
- =?us-ascii?Q?EMHhBRIMLaIczKyL1H5++Jp/3vLn/EfG8neBU5ReiN4kh6DYY7alSoDxVT/2?=
- =?us-ascii?Q?hYMOydLIipcRlJrAZb2OijtYywdVw1usTFPKELCkwgLSbxpuc+tATnAkGSFn?=
- =?us-ascii?Q?gxK+J1SPFDkWT9GKeAYP9LRqkO6whSVQJMOy0gYji+VOFge/ggNUwZrhwe7K?=
- =?us-ascii?Q?5TDE9crCeJOQrUKLjskF4m7VQgT6WDl1xeznG3z73GIN0iGbfQjY4ggCkQ87?=
- =?us-ascii?Q?GApqy0ruHJQDVxdmmDVZViKQlGob4+PfgrkhbTy6J1VHx4JbjzwsJn4foxsn?=
- =?us-ascii?Q?WLqGOABioI3EeT6flkMs4t4s8gW/Fp9Z/hStS9P/eF2lTtCF2zJB7ryHNbq1?=
- =?us-ascii?Q?SJUs3mUMcbE9xVSrA9FBKW06fluFgkN+8oY0De3lmidUHaikyKVVSomiaqfz?=
- =?us-ascii?Q?Agy3cWfFxG8uZ7QmO23ryp/rv+TjOoQOqc/Aa81H6wM4mAkG5eGpwQOJDftY?=
- =?us-ascii?Q?vnBSZQH9XwomvICxk0tExnOUVq25ZFdoSjHIFccJofKJvlAUwX1a3lpGrGHC?=
- =?us-ascii?Q?Tt8bS0s8YS+7Zfq0s8N+VA+RU1pGEz3hyXW01S7psnbwJGlWlqqQeaKAWewd?=
- =?us-ascii?Q?I/hncHiz09py7sUk0AUr8GRA8QtiiCS4stxCm1FZcHgnropXa8nixnzwzkOd?=
- =?us-ascii?Q?u94AF61rzyxCW5e4nQtkqYE+3Ar4yE3rfY/QFwA66iom9R3rGAKFZ+Po/sMy?=
- =?us-ascii?Q?ov5MtUhYt1LYHaDNNiLfgdVD3bSsgfWIB4BIiAGigE/ohLTeHooX/zxb2FnN?=
- =?us-ascii?Q?du4viVLxglKVvCxyj0q2WX4ndTZcHmSdIbTeLTmXn672zXAcT7VSndPVykzX?=
- =?us-ascii?Q?17GBfn16T8yAUBlte0/17eXveGYmLU1GjnWGLx9CdTGb8rsT5IPfnibfAoli?=
- =?us-ascii?Q?6Z74VkoXAnF3++qcCBbEBBfcERfUfez1nHPkudtQkTOTCLon2OGD?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a396da15-a4f7-4b3b-a3e0-08df24a3a0d8
-X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 18:48:50.8547
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fBdMVg25g9plnw+DwKb8dvV4L+eeS+3dT5j90auJwUwxkKgMCJzLqPZB236yu7T4jyktGSFM0LtpiTBlyWbalg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH6PR12MB128275
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cpufreq/amd-pstate: Supply nominal/lowest freq for
+ TRX40-based motherboards
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ Kyle Gospodnetich <me@kylegospodneti.ch>
+Cc: Huang Rui <ray.huang@amd.com>, Perry Yuan <perry.yuan@amd.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>,
+ "Rafael J . Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261007144150.15113-1-ggherdovich@suse.cz>
+ <27b226c7-f30b-4863-96e6-6798232863c5@amd.com>
+ <nfzkXrDTHHjIW_SUzjPg0gOHamPmFkMiNw8Xyzu1ET_un0fM-tmdI3ChdnOkXAkrh_nX4jiwmzCK6GgWwOsfDti3ta-vlRMihfH4dGUgBCU=@kylegospodneti.ch>
+ <a387ee24-ef09-4983-865c-47ef43fa0964@amd.com>
+ <N6r-1w2v2oSkh5ABRHMoj9_YQ7F7eICWqD2rdyL7M1SmbVzhiK0plLXBCzZbDmO8M6w28qHy--pue6kfl1k8B-j03x5f6VYC2DlQ_spmIpc=@kylegospodneti.ch>
+ <DC1J2LrrQ6hdyQJ_ThQRfGrnzKLI5qCCQYGA5I2LhASN8j8MLcpfvJ2T4Qn_8xmO2TB4MW9Sl6LyQKkuANWwowWXafKbEqJ8pXEBEnmE2yA=@kylegospodneti.ch>
+ <1c6ba221-a73c-4793-aac6-b38d6e573295@amd.com>
+ <bK7n7j4SGpNNcHzUh7I63T_Ozbd5u6wVHdVlpa3Ym76UQs2PhQDtaREPYuFsHMKZku0B9v2-d8A9PdeBRx_0l0xUZ9gt--wxwyI4-sTKfyM=@kylegospodneti.ch>
+ <c9c92c6e-4f2b-48c3-a2da-d3f3ed320b20@amd.com>
+Content-Language: en-US
+From: Giovanni Gherdovich <ggherdovich@suse.cz>
+In-Reply-To: <c9c92c6e-4f2b-48c3-a2da-d3f3ed320b20@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spam-Score: -4.27
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.27 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-0.997];
+	NEURAL_HAM_SHORT(-0.18)[-0.902];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	URIBL_BLOCKED(0.00)[suse.cz:email,amd.com:email,imap1.dmz-prg2.suse.org:helo,kylegospodneti.ch:email,msi.com:url];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[kylegospodneti.ch:email,suse.cz:email,msi.com:url,imap1.dmz-prg2.suse.org:helo,amd.com:email]
 
-On Wed, Oct 07, 2026 at 02:41:05PM -0400, Joel Fernandes wrote:
-> On Mon, Sep 14, 2026 at 11:13:31PM -0400, Yury Norov wrote:
-> > DEFINE_RCU_SYNC() contains a statically initialized wait queue. SRCU
-> > static definitions similarly rely on persistent lockdep keys and, in
-> > Tiny SRCU, a statically initialized work item.
-> > 
-> > Add ASSERT_STATIC_STORAGE() to DEFINE_RCU_SYNC(), both Tree SRCU
-> > __DEFINE_SRCU() variants and Tiny SRCU's common DEFINE_SRCU() declaration.
-> > This covers the non-static FAST and FAST_UPDOWN wrappers too. Tiny SRCU's
-> > explicitly static declarations already enforce the required duration.
-> > The existing per-CPU restrictions on Tree SRCU declarations still apply.
-> > 
-> > Assisted-by: OpenAI Codex
-> > Signed-off-by: Yury Norov <ynorov@nvidia.com>
-> 
-> All the changes make sense to me. I'm ok with carrying this for -rcu 7.5
-> unless you want to take it.
-> 
-> Reviewed-by: Joel Fernandes <joelagnelf@nvidia.com>
+Hello Mario, Kyle,
 
-Thanks Joel, carrying it with the RCU branch is the preferred route IMO.
+Kyle:
+thanks for checking BIOS updates, you and I have a very similar
+motherboard in fact; the one I'm working with is the MSI "TRX40 PRO WIFI".
+
+Mario:
+Yes I suppose I do have a BIOS update; sorry, it escaped my notice.
+After Kyle's successful test, I checked msi.com and indeed there's a
+BIOS release at https://www.msi.com/Motherboard/TRX40-PRO-WIFI/support
+from last June (version 7C60v294 from 2026-06-23).
+
+I need to ask the openSUSE user who reported this problem to test the
+new BIOS (I don't have direct access to this machine). I'll let you know.
+
 
 Thanks,
-Yury
+Giovanni
+
+On Wed Oct 7, 2026 20:32, Mario Limonciello wrote:
+> Well that's great news.
+> 
+> Giorvanni - are you sure you don't have a BIOS update available from your vendor?
+> 
+> I would much rather not carry a quirk like this if it has been fixed in latest BIOS.
+> 
+> On 10/7/26 13:30, Kyle Gospodnetich wrote:
+>> Looks like it's finally fixed with that last BIOS release, it's been years!
+>>
+>> Platform Firmware Information
+>>     Vendor: American Megatrends International, LLC.
+>>     Version: 1.A4
+>>     Release Date: 06/15/2026
+>>
+>> cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_driver
+>> amd-pstate-epp
+>>
+>> And no performance issues. Thanks!
+>>
+>>
+>> On Wednesday, October 7th, 2026 at 11:08 AM, Mario Limonciello <mario.limonciello@amd.com> wrote:
+>>
+>>> OK, let's wait and see what happens after you upgrade.  New versions of
+>>> FW and the behavior please.
+>>>
+>>> On 10/7/26 12:43, Kyle Gospodnetich wrote:
+>>>> Missed one,
+>>>>
+>>>> Release Date: 05/17/2022
+>>>>
+>>>>
+>>>> On Wednesday, October 7th, 2026 at 10:36 AM, Kyle Gospodnetich <me@kylegospodneti.ch> wrote:
+>>>>
+>>>>> AMD Ryzen Threadripper 3960X
+>>>>> MSI TRX40-PRO-10G
+>>>>> https://www.msi.com/Motherboard/TRX40-PRO-10G/support
+>>>>> I am using 7C60v1A3(Beta version), I will update to the latest today -- just learning that exists.
+>>>>> dmidecode reports that as:
+>>>>> Vendor: American Megatrends International, LLC.
+>>>>> Version: 1.80
+>>>>>
+>>>>> I've had to disable pstate with:
+>>>>> amd_pstate.enable=0 initcall_blacklist=amd-pstate
+>>>>>
+>>>>> Without that my system grinds to a hault, takes upwards of 15 minutes just to hit the desktop.
+>>>>>
+>>>>> Thanks, let me know if anything else is needed.
+>>>>> -Kyle Gospodnetich
+>>>>>
+>>>>>
+>>>>> On Wednesday, October 7th, 2026 at 8:06 AM, Mario Limonciello <mario.limonciello@amd.com> wrote:
+>>>>>
+>>>>>> Kyle,
+>>>>>>
+>>>>>> Can you please confirm more about your system?  System Model, vendor,
+>>>>>> BIOS version, BIOS vendor, CPU model.
+>>>>>>
+>>>>>> Thanks,
+>>>>>>
+>>>>>> On 10/7/26 10:04, Kyle Gospodnetich wrote:
+>>>>>>> Yes this does appear to be the same problem, thank you!
+>>>>>>>
+>>>>>>> -------- Original Message --------
+>>>>>>> On Wednesday, 10/07/26 at 07:56 Mario Limonciello <mario.limonciello@amd.com> wrote:
+>>>>>>> + Kyle
+>>>>>>>
+>>>>>>> Kyle,
+>>>>>>>
+>>>>>>> By chance is this the same system that you were talking to me about offline?
+>>>>>>>
+>>>>>>>
+>>>>>>>
+>>>>>>> On 10/7/26 09:41, Giovanni Gherdovich wrote:
+>>>>>>>> Some motherboard based on the TRX40 chipset has been reported to ship
+>>>>>>>> firmware lacking lowest and nominal frequency values in the
+>>>>>>>> _CPC ACPI package. That is, it supports CPPC V2 but not CPPC V3.
+>>>>>>>> Firmware updates aren't available.
+>>>>>>>
+>>>>>>> Can you please add more information about the vendor/model of the MB, etc?
+>>>>>>>>
+>>>>>>>> amd-pstate requires explicit knowledge of nominal frequency, so it
+>>>>>>>> can't load on this hardware. The driver already has a mechanism (the
+>>>>>>>> so-called "quirks") to accommodate for missing nominal freq in ACPI
+>>>>>>>> tables, so here we use it to match against CPU family, model, core
+>>>>>>>> count, and BIOS version.
+>>>>>>>
+>>>>>>> Yeah; it's intended for this specific case of really old hardware that
+>>>>>>> the BIOS isn't going to fix it.
+>>>>>>>
+>>>>>>> I don't understand why core count matters though.
+>>>>>>>
+>>>>>>>>
+>>>>>>>> Signed-off-by: Giovanni Gherdovich <ggherdovich@suse.cz>
+>>>>>>>> ---
+>>>>>>>>      drivers/cpufreq/amd-pstate.c | 31 +++++++++++++++++++++++++++++++
+>>>>>>>>      1 file changed, 31 insertions(+)
+>>>>>>>>
+>>>>>>>> diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
+>>>>>>>> index 8bfd46d60843..532ff16dd076 100644
+>>>>>>>> --- a/drivers/cpufreq/amd-pstate.c
+>>>>>>>> +++ b/drivers/cpufreq/amd-pstate.c
+>>>>>>>> @@ -145,6 +145,11 @@ static struct quirk_entry quirk_amd_7k62 = {
+>>>>>>>>          .lowest_freq = 550,
+>>>>>>>>      };
+>>>>>>>>
+>>>>>>>> +static struct quirk_entry quirk_amd_ryzen_threadripper_3000_24c = {
+>>>>>>>> +    .nominal_freq = 3800,
+>>>>>>>> +    .lowest_freq = 550,
+>>>>>>>> +};
+>>>>>>>> +
+>>>>>>>>      static inline u8 freq_to_perf(union perf_cached perf, u32 nominal_freq, unsigned int freq_val)
+>>>>>>>>      {
+>>>>>>>>          u32 perf_val = DIV_ROUND_UP_ULL((u64)freq_val * perf.nominal_perf, nominal_freq);
+>>>>>>>> @@ -174,6 +179,22 @@ static int __init dmi_matched_7k62_bios_bug(const struct dmi_system_id *dmi)
+>>>>>>>>          return 0;
+>>>>>>>>      }
+>>>>>>>>
+>>>>>>>> +static int __init dmi_matched_trx40_bios_bug(const struct dmi_system_id *dmi)
+>>>>>>>> +{
+>>>>>>>> +    /**
+>>>>>>>> +     * Match the Ryzen Threadripper 3000 series, 24-core SKU, sTRX4 socket / TRX40 chipset.
+>>>>>>>> +     */
+>>>>>>>> +    if (boot_cpu_data.x86 == 0x17 &&
+>>>>>>>> +        boot_cpu_data.x86_model >= 0x30 && boot_cpu_data.x86_model <= 0x3F &&
+>>>>>>>> +        topology_num_cores_per_package() == 24) {
+>>>>>>>
+>>>>>>> Does the number of cores actually matter?  Do you mean to say if you
+>>>>>>> swap the CPU to another part CPPC works?
+>>>>>>>
+>>>>>>>> +        quirks = dmi->driver_data;
+>>>>>>>> +        pr_info("Overriding nominal and lowest frequencies for %s\n", dmi->ident);
+>>>>>>>
+>>>>>>> The BIOS bug specifically is lack of values, not invalid values, right?
+>>>>>>> Just want to make sure I'm following this right.
+>>>>>>>
+>>>>>>>> +        return 1;
+>>>>>>>> +    }
+>>>>>>>> +
+>>>>>>>> +    return 0;
+>>>>>>>> +}
+>>>>>>>> +
+>>>>>>>>      static const struct dmi_system_id amd_pstate_quirks_table[] __initconst = {
+>>>>>>>>          {
+>>>>>>>>              .callback = dmi_matched_7k62_bios_bug,
+>>>>>>>> @@ -184,6 +205,16 @@ static const struct dmi_system_id amd_pstate_quirks_table[] __initconst = {
+>>>>>>>>              },
+>>>>>>>>              .driver_data = &quirk_amd_7k62,
+>>>>>>>>          },
+>>>>>>>> +    {
+>>>>>>>> +        .callback = dmi_matched_trx40_bios_bug,
+>>>>>>>> +        .ident = "AMD Ryzen Threadripper 3000",
+>>>>>>>> +        .matches = {
+>>>>>>>> +            DMI_MATCH(DMI_BIOS_VENDOR,  "American Megatrends International"),
+>>>>>>>> +            DMI_MATCH(DMI_BIOS_VERSION, "2.80"),
+>>>>>>>> +            DMI_MATCH(DMI_BIOS_DATE,    "05/17/2022"),
+>>>>>>>> +        },
+>>>>>>>> +        .driver_data = &quirk_amd_ryzen_threadripper_3000_24c,
+>>>>>>>> +    },
+>>>>>>>>          {}
+>>>>>>>>      };
+>>>>>>>>      MODULE_DEVICE_TABLE(dmi, amd_pstate_quirks_table);
+>>>>>>>
+>>>>>>
+>>>>>>
+>>>
+>>>
+> 
+
