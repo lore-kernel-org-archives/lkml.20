@@ -1,66 +1,91 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BABB84915B6
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 12:16:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC72396B70;
+	Wed,  7 Oct 2026 12:16:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791375405; cv=none; b=qaHofnAVezXX46j3HvQLfbq3Vtx4q1bcPUzaFfj52BhiEmix1qa0A0O4hqQwC/D970ZzfMA2dUkAYToWxM6UdtNrARNrvupGObv5+voFPO0xduEuecbVNOrN4mObLeA6eV6PRGd5IS/m7Hn4It6e3pURsQSVaGlfOnPKAVYZnBQ=
+	t=1791375408; cv=none; b=VUN8omIoX/c5O7HfanSw0hfTxqzjf6Pg3zotPDh7z6BMK3kchgH02vgdLGjCTOqjYYoS07e6OvwYpHHwbxucJm61kOH9vxTxp+e7GMsuwbQMip1sBuTI3X2K1UeUCU7n3Vzr1cnGLJcXNKCcds8Z4CKnZX45GG//E4JmX7nY7Jo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791375405; c=relaxed/simple;
-	bh=P7lArZGY3fEDLB4DpPb2XiOzPN5vTRWHjS2RAjpCXPM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=BpBhFWHPlg5/ZqSNlQLVCGEoUiwRImpKMfUpy/cAZ9cIXPPbJ6t+IivRzzwzLZ2rskdtrfUqUo1DKmWj+bB6BTFlgyboJ+sPIIiNWZ9JTXakzoZkfgnHI7LJYS9C5Fcb5Honwfkqc2Fj6qzRtIpk1Mf5Tm3nieXtQPW+GBqdZCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=F8QeBa+k; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791375408; c=relaxed/simple;
+	bh=xEBzt1BEf+JnghpXD1opJU8qu5Tzm90T+1FaD62L2Yo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=RTfMcHix5Ye8wI0SKWWP3tZm9rhgbXVHbssNYw5yjd40x/RffpoQFLU33VnbTZX+zkpyY0Y21lNi+faAGc7GXFOceoRZe1zSr+Vh8ir30JZ+Xk/I3aeZ73eeUj5bN1RSCMqRZ78xEkBj+i7X4tejpNeVFtP1Fss8u8RfcaSgJz8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FDpQx/oQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="F8QeBa+k"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=P7lArZGY3fEDLB4DpPb2XiOzPN5vTRWHjS2RAjpCXPM=; b=F
-	8QeBa+k4SK46pkYC2AzYG02CZ/C3QMclHQ1pIr+VtioRvg2qr0sLhFQz155cZpKB
-	iojoFb6OxalzcvoYaIQ+a+yyzIiEjyzCvgadMsEzCjVeOEGT/KMd5quqNLEEkJ4q
-	tOf7wc4ngtzBqyjc+7AtRTBkvqiAAQOWI5ApO4APYE=
-Date: Wed, 7 Oct 2026 20:16:21 +0800 (CST)
-From: "Andy Yan" <andyshrk@163.com>
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: "Shawn Lin" <shawn.lin@rock-chips.com>, linux-kernel@vger.kernel.org
-Subject: Re:Re: [PATCH] mailmap: update entry for Andy Yan
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <asFNukfzX4p0LKfJ@venus>
-References: <20260924105052.768760-1-andyshrk@163.com>
- <0c542580-7da3-4cf8-ab0e-9e513842a556@rock-chips.com>
- <asFNukfzX4p0LKfJ@venus>
-X-NTES-SC: AL_Qu2SA/+cuksj5yaQZ+kfmUgWjuw/WsG1v/Ul1YBSP556jADo+i0hZGBoOGPE0/CWIQqvjwmaSQZO5uhUdqdmQZsGu4QiJuFizSj08cyV6uHwXw==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FDpQx/oQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B16731F0089B;
+	Wed,  7 Oct 2026 12:16:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791375400;
+	bh=3/dEtmAwKr7ZR+4MeKQdc3RXVW7UjGf5ICaRVp/tj/E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=FDpQx/oQpMsMNBcFozRTE9j18Y8+LtZvEx+RvXAloudQWUXoyIC54g4fa6GqrchtA
+	 /NgtwQalk8mSo0f+Zxykozo/txYdFwePH8tErTcMftJvaYP6Blh19Q9yseCT86vpPW
+	 ZHqzmmKhJru5DeLyVg6YPSXYt1Hsrkwnriaqlc8NZAi44H7ssDwftCO1XHfvjAnl37
+	 nLUJ+m1S1WBh4PpOvBnVA73Ef8of1GnR68KgngzIz30ZfzFol6VuWIltzaVJTqdzgc
+	 M6Rym7XMPww2XXzEaNIqrhJPmFafof3iW4w7HHf/EjAW0FloKoLZRKqJjVDiSH04HX
+	 Arv6sT0sIe4Ww==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xEQZa-00000000GHs-2b0w;
+	Wed, 07 Oct 2026 12:16:38 +0000
+From: Marc Zyngier <maz@kernel.org>
+To: oupton@kernel.org,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Fuad Tabba <fuad.tabba@linux.dev>
+Cc: catalin.marinas@arm.com,
+	will@kernel.org,
+	joey.gouly@arm.com,
+	seiden@linux.ibm.com,
+	suzuki.poulose@arm.com,
+	yuzenghui@huawei.com,
+	vdonnefort@google.com,
+	qperret@google.com
+Subject: Re: [PATCH v4] KVM: arm64: selftests: Check the pending SError state in external_aborts
+Date: Wed,  7 Oct 2026 13:16:34 +0100
+Message-ID: <179137539018.699295.11516742459649413558.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261006092841.2202109-1-fuad.tabba@linux.dev>
+References: <20261006092841.2202109-1-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <26d1a19c.3176.1a1164b14b9.Coremail.andyshrk@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:gigvCgC3_5MWOMZqmv5SAA--.13169W
-X-CM-SenderInfo: 5dqg52xkunqiywtou0bp/xtbC7hZfvWrGOBaSdQAA3-
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, fuad.tabba@linux.dev, catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, vdonnefort@google.com, qperret@google.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-CgpIZWxsbyBTZWJhc3RpYW7vvIwKCkF0IDIwMjYtMTAtMDQgMDI6NTE6NTAsICJTZWJhc3RpYW4g
-UmVpY2hlbCIgPHNlYmFzdGlhbi5yZWljaGVsQGNvbGxhYm9yYS5jb20+IHdyb3RlOgo+SGVsbG8g
-U2hhd24gJiBBbmR5LAo+Cj5PbiBGcmksIE9jdCAwMiwgMjAyNiBhdCAwNjowOToxMVBNICswODAw
-LCBTaGF3biBMaW4gd3JvdGU6Cj4+IOWcqCAyMDI2LzA5LzI0IOaYn+acn+WbmyAxODo1MCwgQW5k
-eSBZYW4g5YaZ6YGTOgo+PiA+IEkgd2lsbCB1c2UgYW5keXNocmtAMTYzLmNvbSBmb3IgZnV0dXJl
-IHJldmlldyBhbmQgZGlzY3Vzc2lvbi4KPj4gCj4+IFNpbmNlIHlvdXIgcm9ja2NoaXAgd29yayBl
-bWFpbCBpcyBub3QgcmVjZWl2aW5nIGVtYWlscyBwcm9wZXJseSwgSSB3b3VsZAo+PiBhcHByZWNp
-YXRlIGl0IGlmIHRoaXMgcGF0Y2ggY291bGQgYmUgbWVyZ2VkIGFzIHNvb24gYXMgcG9zc2libGUu
-Cj4+IAo+PiBSZXZpZXdlZC1ieTogU2hhd24gTGluIDxzaGF3bi5saW5Acm9jay1jaGlwcy5jb20+
-Cj4KPllvdSBzaG91bGQgYWxzbyB1cGRhdGUgTUFJTlRBSU5FUlMgdG8gbGlzdCB0aGUgbmV3IGFk
-ZHJlc3MgYW5kL29yCj5hZGQgc29tZSBuZXcgUm9ja2NoaXAgcGVyc29ucy4KCgpJJ2xsIHNlbmQg
-b3V0IGEgc2VwYXJhdGUgcGF0Y2ggbGF0ZXIgdG8gdXBkYXRlIHRoZSBNQUlOVEFJTkVSUyBmaWxl
-LiAKQ3VycmVudGx5LCB0aGUgZ2l0IHNlbmQtZW1haWwgZmVhdHVyZSBvbiBteSBsYXB0b3AgZG9l
-c24ndCBzZWVtIHRvIGJlIHdvcmtpbmcgcHJvcGVybHkuCgo+Cj5HcmVldGluZ3MsCj4KPi0tIFNl
-YmFzdGlhbgo=
+On Tue, 06 Oct 2026 10:28:41 +0100, Fuad Tabba wrote:
+> None of the external abort tests look at the vCPU events once the guest
+> is done, so an SError left pending after the guest took it, or dropped
+> while the guest had it masked, goes unnoticed.
+> 
+> Read the vCPU events back at the end of every test that runs the guest.
+> The SError must still be pending in the masked case, with the injected
+> ESR when the vCPU has RAS, and no SError, injected or spurious, may be
+> pending in any of the others.
+> 
+> [...]
+
+Applied to next, thanks!
+
+[1/1] KVM: arm64: selftests: Check the pending SError state in external_aborts
+      commit: 49664cd0b1db434b6bbf9e37c84b3f448a545dc5
+
+Cheers,
+
+	M.
+-- 
+Without deviation from the norm, progress is not possible.
+
+
