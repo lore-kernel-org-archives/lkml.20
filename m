@@ -1,148 +1,163 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 844643AEF4C;
-	Wed,  7 Oct 2026 10:16:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED36D47255B
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 10:17:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791368194; cv=none; b=tHJ7/toAUda7UVMRLropyYgID/TerdSJEzxr6FHwMtukjeubUi7Jb1ojr9Z6BfD5rMGDBvpPwYHm+kBXzWQoOJQ3A33spSGN2oK3OtBwUtlU2K3cfpdYBB9gIzXznuIlh4SNq+qxfqaxxJ0I3ZpwUL/fgFjALZf3zAevppc7xYY=
+	t=1791368279; cv=none; b=YIwgYPLdpeBdTTEWNQYFm6c9SWUgFI2sLlCNo273yI0iFh9enMgfDawe1RpsJNYAMsxmy7wWLy5oTSGXZpXd20/aj4LQ6HIfWmA86fZ3MzuVdWxvRdZFeOFjiN+F8H6rlQb70WUwOPjus2OP7qa2X6sYTwMYahp5K04+paklcNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791368194; c=relaxed/simple;
-	bh=xsQoJnEGIUP79XxNea5vVYi+8CK4POSKkBxpaoLATfY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=liQnkYY7wabUVzFqmFqUf4xFzZQzNtI2IFEQt5xJULkC/7MyMXliVAMPPWgDF6qhWTiQ4WMI9BFjZzmsBIimE4a8hTiCG12aCocsInmybG6Tylr5eXZ7DfKoyR5l9E3m9bOghdzDM5jUvNPNp0TAdAndY7K504GSiy0wEfpk5E4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f4meMJgd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791368279; c=relaxed/simple;
+	bh=BiffcBJxqP7D44tYQORWyl2kBF0E+Q8PVy+W29QX91c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XTzScsYGXZ1pT6ipOAyb3IhJjXzxyMO36pl8d7JC7HB4JeLgmBO6Pv2wWhUzRhP4bv5jy9RRRk9h1MiRUMNr0j9vI6lHI0+rVA5ILGu6Qq0QhdqrXSPCXZHDHQKnz7jvSJ4xv2jeCI0J/uuxQ3nSmVqlxC2SZJ6hUwx8I7mLiqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WXJr9iWz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f4meMJgd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1101D1F0089B;
-	Wed,  7 Oct 2026 10:16:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WXJr9iWz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D5E71F0089C;
+	Wed,  7 Oct 2026 10:17:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791368182;
-	bh=ESIyTeV5wm8brFdtF/p7rC/YImFfa4MobdYy15tnWH4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=f4meMJgd4ttNeAqnos8kPXy5BxbqEVCRAG7MoJptyFvMCp9/5Gf50bRt+LOsxKH8v
-	 9ydNj6fXwfQZ8Do8udukd5QqgwPVv5s6TlXXyay4eG6xoJjQxc9QxkhC3uTxi5kamO
-	 72GQG6wjjeo0oMO6dxq62JNasJ9OhnOT2qausxqIv44y+5XNwRTCbRWuaRBrRl+aYR
-	 fgT1bYIhavBelsAAEIxdtkOsfaJ7LC39XCD7KAFE++UCNaIgtN1LTFVexZHh4I8Vn9
-	 ImzUskbC4mIxvbhhpSFw733Y+NwWuEOrFuuqba+BL3+vHVLwWzNjwp2rvJ90oH1jrF
-	 MpCb5MPi5dLTA==
-Message-ID: <022ec915-62ab-40d9-8705-90692e75acfb@kernel.org>
-Date: Wed, 7 Oct 2026 12:16:17 +0200
+	s=k20260515; t=1791368270;
+	bh=Y0GnRc4T4ZE9nqw5bVtX9AvOSXcgvcWFrOaRGb2SBZA=;
+	h=From:To:Cc:Subject:Date;
+	b=WXJr9iWzUetPxK+2oME2HcLBQfpvbTLx+pVOqI1/8VNqJvZL2n6MPZKNfVCB7Wo1o
+	 1rA+gxL9GtPv2ST/DmmkjKfNmfjELQjFqi6oalbxc+5+kxAdxIFOnvSZM8NGaXZlBh
+	 9pOeEuICelhpcu7TE8Q7vL0sppc/+XNZm/dWneTDnNDSztYYmb8Pt8tSav4NS+oN0j
+	 31HvrBEcLiZ8Bi61o+MhUTSKKjpUUIYvo3/TOAXUwfLqzGfGPzD8bQZaWbsD9zGGFu
+	 b8ZWPK7DR5GmM+65lQDoNPfSYiFTRQaKxN4NJE/VASoVvhf1KIeQ8DqtJZ9OtgicWJ
+	 LZwbl4pTmEXvA==
+From: Chao Yu <chao@kernel.org>
+To: jaegeuk@kernel.org
+Cc: linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	Chao Yu <chao@kernel.org>,
+	Seongjae Jeong <jsjlee1020@gmail.com>
+Subject: [PATCH] Revert "f2fs: skip node_change lock for inline data writes"
+Date: Wed,  7 Oct 2026 10:17:38 +0000
+Message-ID: <20261007101738.2348038-1-chao@kernel.org>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] selftests/mm: hugetlb_madv_vs_map: fix TAP plan
- mismatches
-To: Jaeyeon Lee <jaeyeon.lee.dev@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Guillaume Morin <guillaume@morinfr.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Shuah Khan <shuah@kernel.org>, Breno Leitao <leitao@debian.org>,
- Sarthak Sharma <sarthak.sharma@arm.com>, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261007092801.35649-1-jaeyeon.lee.dev@gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261007092801.35649-1-jaeyeon.lee.dev@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/7/26 11:28, Jaeyeon Lee wrote:
-> The plan was raised from 1 to 3, but the HugeTLB setup check that may
-> call ksft_exit_skip() still runs after ksft_set_plan(), so a setup
-> failure reports one result against a plan of 3. Move ksft_set_plan()
-> below the setup check.
-> 
-> Also, when the underflow check fails, or munmap() fails,
-> test_underflow() jumps to err_cleanup and exits without reporting the
-> remaining results. Report the munmap() failure as a test result and
-> skip the final HugePages_Rsvd check in err_cleanup, so these failure
-> paths report all 3 planned results.
-> 
-> Fixes: 827149aad495 ("selftests/mm: hugetlb_madv_vs_map: add underflow test")
-> Assisted-by: LLM
-> Signed-off-by: Jaeyeon Lee <jaeyeon.lee.dev@gmail.com>
-> ---
-> Changes in v2:
-> - Drop the duplicate ksft_perror() and report errno in
->   ksft_test_result_fail() (Sarthak Sharma).
-> 
->  tools/testing/selftests/mm/hugetlb_madv_vs_map.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/mm/hugetlb_madv_vs_map.c b/tools/testing/selftests/mm/hugetlb_madv_vs_map.c
-> index 1d111f42dd59..0f6afb834dbf 100644
-> --- a/tools/testing/selftests/mm/hugetlb_madv_vs_map.c
-> +++ b/tools/testing/selftests/mm/hugetlb_madv_vs_map.c
-> @@ -168,7 +168,7 @@ void test_underflow(void)
->  
->  	/* First unmap, this will close the vma */
->  	if (munmap(huge_ptr, mmap_size) != 0) {
-> -		ksft_perror("munmap failed");
-> +		ksft_test_result_fail("munmap failed: %s (%d)\n", strerror(errno), errno);
->  		goto err_cleanup;
->  	}
->  
-> @@ -203,18 +203,20 @@ void test_underflow(void)
->  	if (waitpid(pid, NULL, 0) <= 0)
->  		ksft_exit_fail_perror("waitpid failed");
->  
-> +	ksft_test_result_skip("HugePages_Rsvd check after child exit\n");
->  	ksft_exit_fail();
+From: Chao Yu <chao@kernel.org>
 
-That looks odd. SKIP + fail on the same path?
+This reverts commit 66eec36c2421383e5b32e9c1740f656474c80df8.
 
+Fault injection + shutdown stress test reports inconsistent inline
+data after "f2fs_io shutdown 2" (mode=lfs, nonzone, segs=1):
+
+[__chk_dentries:2067] [  6]-[0x26] name[0MVNBi,Cv33...] len[0x20] ino[0x4190] type[0x7]
+[ASSERT] (fsck_chk_inode_blk:1142)  --> [0x4190] junk inline data
+[fsck_chk_inode_blk:1150] ino[0x4190] has inline data!
+...
+[FSCK] other corrupted bugs                           [Fail]
+
+ino 0x4190 is an encrypted symlink, the inode block pointed by the
+last checkpoint's NAT entry contains valid inline data, however
+F2FS_DATA_EXIST is not set in i_inline (i_size is stale as well).
+
+The node_change rwsem was taken in prepare_write_begin() for inline
+inodes in order to serialize write_begin with block_operations():
+checkpoint holds node_change for write from the last check of
+F2FS_DIRTY_IMETA until all dirty node blocks are flushed, so either
+1) FI_DATA_EXIST is set before the check, the inode is in DIRTY_META
+   list, and f2fs_sync_inode_meta() -> f2fs_update_inode() syncs
+   F2FS_DATA_EXIST and i_size into the inode block before it is
+   written by checkpoint, or
+2) FI_DATA_EXIST is set after block_operations(), then the inode
+   block written by this checkpoint does not contain the new inline
+   data.
+
+Commit 66eec36c2421 ("f2fs: skip node_change lock for inline data
+writes") skips the lock for writes which fit in inline area, assuming
+setting FI_DATA_EXIST only dirties inode metadata.
+However, dirtying inode metadata after F2FS_DIRTY_IMETA was checked,
+while f2fs_write_inline_data() (which never holds any checkpoint
+lock) copies inline data into the inode block, breaks the above
+ordering, then checkpoint persists an inode block which has inline
+data but stale i_inline/i_size:
+
+- f2fs_symlink                       - f2fs_write_checkpoint
+ - f2fs_add_link                      - block_operations
+  - f2fs_init_inode_metadata
+  : i_inline = F2FS_INLINE_DATA
+  - f2fs_update_parent_metadata
+  : clear FI_NEW_INODE
+                                       - f2fs_flush_inline_data
+                                       - f2fs_lock_all
+                                       - f2fs_down_write(node_change)
+                                       : F2FS_DIRTY_IMETA is zero, skip
+                                         f2fs_sync_inode_meta()
+ - page_symlink
+  - f2fs_write_begin
+   - prepare_write_begin
+   : missed f2fs_map_lock(), i.e.
+     f2fs_down_read(node_change), so
+     it isn't blocked by checkpoint
+    - set_inode_flag(FI_DATA_EXIST)
+    : inode becomes dirty, too late
+  - f2fs_write_end
+   - f2fs_i_size_write
+ - filemap_write_and_wait_range
+  - f2fs_write_single_data_page
+   - f2fs_write_inline_data
+    - memcpy_from_folio
+    - f2fs_mark_cache_dirty
+    : ientry has inline data, but
+      no F2FS_DATA_EXIST in i_inline
+                                       - f2fs_down_write(node_write)
+                                       - f2fs_writeback_node_caches
+                                        - __write_node_cache
+                                        : write ientry w/ stale i_inline
+                                       : F2FS_DIRTY_IMETA isn't rechecked
+                                      - f2fs_flush_nat_entries
+                                      - do_checkpoint
+- f2fs_io shutdown 2
+: dirty inode is lost, fsck finds "junk inline data"
+
+Besides the fsck error, for regular inline file, stale i_size may
+cause data loss after sudden power-off even if checkpoint is
+committed.
+
+Let's revert the commit to restore node_change serialization for
+inline data writes, and add a comment above f2fs_map_lock().
+
+Fixes: 66eec36c2421 ("f2fs: skip node_change lock for inline data writes")
+Cc: Seongjae Jeong <jsjlee1020@gmail.com>
+Signed-off-by: Chao Yu <chao@kernel.org>
+---
+Drop original one or apply this revert patch is both fine to me.
+ fs/f2fs/data.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
+
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index 6d4ba5e77906..4bfa301a5df6 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -3915,11 +3915,15 @@ static int prepare_write_begin(struct f2fs_sb_info *sbi,
+ 
+ 	/* f2fs_lock_op avoids race between write CP and convert_inline_page */
+ 	if (f2fs_has_inline_data(inode)) {
+-		if (pos + len > MAX_INLINE_DATA(inode)) {
++		if (pos + len > MAX_INLINE_DATA(inode))
+ 			flag = F2FS_GET_BLOCK_DEFAULT;
+-			f2fs_map_lock(sbi, &lc, flag);
+-			locked = true;
+-		}
++		/*
++		 * it needs to cover FI_DATA_EXIST and inline data update w/
++		 * node_change, otherwise concurrent checkpoint may persist
++		 * inline data only w/o F2FS_DATA_EXIST.
++		 */
++		f2fs_map_lock(sbi, &lc, flag);
++		locked = true;
+ 	} else if ((pos & PAGE_MASK) >= i_size_read(inode)) {
+ 		f2fs_map_lock(sbi, &lc, flag);
+ 		locked = true;
 -- 
-Cheers,
+2.49.0
 
-David
