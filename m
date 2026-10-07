@@ -1,277 +1,115 @@
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D3DA4AE8B9
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 14:33:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 077254AE12C;
+	Wed,  7 Oct 2026 14:34:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791383627; cv=none; b=NRentjiF4SzTSH3+jcbNpcb/q6Y7peeQK6VwAqRsSwkwci9WB+1zT3ymRzccnSdMJyB3Q18SEpksbnWRbsr/rjAWd3ki409rdEvP9RQgJ8RE/sb04KrhcmrjrbX1DWd4MeWjrorts0LIvFKLhGcKPjzUon1/+l4tPvo4yk8FjWU=
+	t=1791383657; cv=none; b=Krs7U7hDQBcdxx5L1WOJi0+/7UOc2LtNLIzEv/Bv5LTFkYWICgsKjZCDv+lpPl66arZebfYlyKAGXBSDeeclxnxNf2Xt8PQsGyOMEN3Jt7keh5ddvqPdJ/PciEm8vNaZmqqL+QbkRRax83ipek/BarrTntrmXvj8XXQDGucnuKo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791383627; c=relaxed/simple;
-	bh=jItKKAu0homp071puHR08xx+XhFZE1mY06UORsD/xEs=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=djl8dgX6BDBAd2FKqugWPVAxnBUWeB6xvz6zzcUqh1oXkQvP2HbDr+WCUhidi79Q6rPkKai0mZstQfdl4k7aP4jpyTKoG4eMnFwQ3zXjoWj4FpA/WE6rdzBAJlnEppA1oROdvYyUS9fm63XoevhPG8bxKLS55+NwPi4Suphaecc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=XKSHDMpL; arc=none smtp.client-ip=209.85.128.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	s=arc-20240116; t=1791383657; c=relaxed/simple;
+	bh=aaBl7jM0AvoHi5hBj4hHL6VWxSJ8btl9O2iC5ZxmqWY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=oYC2NgSSTlpr2MlsFRpuPcZKY/IA7CCR3058/oGyCFmiuUTD+WGj44G1m8Pa10/c90MmhADGhAbbv9hvXDKOy6B63qsOMNSBlM57vOWJWenYy5GVG3zFefUIQ+5kHD9ErF2wWdN/wi2N9LfoS2mVnOJAgGSD8B4Bb4wPOFtqrL4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C7ale+5m; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="XKSHDMpL"
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a1612c4b80so40137395e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 07:33:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791383615; x=1791988415; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7rAzyrTux8mCJl/HvAWrWnfHv6KeU1NLe2Sh0GCx+Vc=;
-        b=XKSHDMpLALp+lNJO6mczZLFPN84BtxnL/OT+0Z5wKlemy7j8xXLsC2f7850RTSZcfj
-         DTUHXvNBtUISmiuRz3w+0BRR0TZEc6RPZ8MsjyD86K9W0mJCn/8UFlNCDhQ/n5aCJ066
-         r9a++1xUTl8lYBYDT2qBZCKXDYHitvDIEb+yidT74o8Vv2ccX4ap9V2MpnbE2jTQ9hN9
-         X955yP5JQstkohiNCoaCqruJr/j6o8xmiEHH6x3wb+5Rm+zVT8qhf/+Zt3cpqp3PxRQC
-         OY653RgrEySEGn3YxUFLb/0wuT1uQPamM0v6gHB7F5LJ3Hj5zIEgvTh39DT2SeNH5yAl
-         Y3Mg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791383615; x=1791988415;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7rAzyrTux8mCJl/HvAWrWnfHv6KeU1NLe2Sh0GCx+Vc=;
-        b=rWR6uuAvp20tfKNVlTIL3AATZ4BaXDm6qfIInxsaX+BGmSfehC8qSaVMQWu57PY/ox
-         n2XGAExbMnHT2va5SJaaASPqCVIa3H/zlxvoQbCg7L+liHamN0/rt3V4EDo2cAKEbeGN
-         gZE0vdb3N8Tc0E8S5BjVK/8Zwk+xJdBHz12vzvKafYMoDaQNGz2Wr8FlDroE+ws497in
-         5QzLtg5Shl6AA6OxlaN8O3GzqKSSGBXLAQYGDlKpfpf1tn+eEDznKy9xbwIcaNSir6w1
-         yx2vPjcGPfuvzJvTdvyFhgUcFM35/Y1KnzgtysHEfpwzMMED/FQcPWPmlmR4mUuuHzou
-         btog==
-X-Forwarded-Encrypted: i=1; AKwUvByF4uk8WCkdFaX6bGVjYUNccnOtiGMRsvN4etuY7dpTt8NQryv/ruEBd0U0EC62shfTGNhX/VIyumt5on0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kk6LE4T/2LZyXNlDDpf1xRZLkx31ZLO+2QiQvaThllgFQLsQrG
-	AwJsK/rJiH056K0w2Z0SFne7eqt5XP/KAQ124BMJ3On+1S7Ai1zKpp/xzhDFe5jTgEWCkBug7Ba
-	tejS3w0KEywldD/eHAw==
-X-Received: from wmin15.prod.google.com ([2002:a7b:cbcf:0:b0:4a1:72d9:e07])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:3b2a:b0:49e:69ff:c6b1 with SMTP id 5b1f17b1804b1-4a180650423mr35101145e9.31.1791383615215;
- Wed, 07 Oct 2026 07:33:35 -0700 (PDT)
-Date: Wed, 07 Oct 2026 14:33:28 +0000
-In-Reply-To: <20261007-binder-consolidate-txn-prints-v1-0-c1032ed3221f@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C7ale+5m"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 47F6EC2BCF5;
+	Wed,  7 Oct 2026 14:34:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791383656;
+	bh=aaBl7jM0AvoHi5hBj4hHL6VWxSJ8btl9O2iC5ZxmqWY=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=C7ale+5mCeNekkQlyW3jrTYVSkHHrKji2+WnlZhJUpxv6KdOZRnq8ifzsgr4lt6Jl
+	 RpuHlOr2lZCAp7qLEb1DjndgkFJM+v07aYLZW8A0Tdlr2QpTXymonXcNgxuRyC0k10
+	 GqvQPADSW6vJMp9mi9wyuK5pQkr3J3/fCn+g3k2kz2oFzZ4nSh/LHNX2LQ6JpxcC/a
+	 DWVJOCT8ErZCYKJdbKb3P6vUL5+6wkYcwhicfk4M1F4KA0w3QzunAHo883bPb1mRkZ
+	 gEeom7UV+yrD1sUeM9UgWxwtBybY5fOX7LWRSK34myVIpd4yFOoNSQncNaGz9nN+Cb
+	 SPyi5zO90oT9g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C4CECA6007;
+	Wed,  7 Oct 2026 14:34:16 +0000 (UTC)
+From: Alexis Bouzigues via B4 Relay <devnull+BouziguesAlexis.JohnDeere.com@kernel.org>
+Date: Wed, 07 Oct 2026 09:34:16 -0500
+Subject: [PATCH] iio: accel: adxl345: select IIO_BUFFER and IIO_KFIFO_BUF
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261007-binder-consolidate-txn-prints-v1-0-c1032ed3221f@google.com>
-X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7980; i=aliceryhl@google.com;
- h=from:subject:message-id; bh=jItKKAu0homp071puHR08xx+XhFZE1mY06UORsD/xEs=;
- b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBqxlg56/ego1z1D5acbcFKrmt8egMDxWx5v9Ic7
- I2tzUgxVoiJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCasZYOQAKCRAEWL7uWMY5
- Rn4fEAC6zGyLjNEWpDx+kBfmYfvpCZ+ORpy+uThyls8UgAWsSae2HcaiuYakyt4p/KdwPmr0fgt
- QAZdIOV/ZZcpfZjSAdfk2YpTEuBuoKbjTx8styG85dKyqtS0+5Xdk9swvvW2RlQh4HJ0DZAlH2m
- kuhrjBOzH8tQt+ddjPp8Djgnt7nKDp+Dvi50y02soxpSjgilSKGQVSngr5u3Qs/QBNlkTygEZvz
- 9e0FU+1y2nDPpl0xbaWzj3jmuHDGUTVJhhfKAtcGoZVrbLmpthgpdxNg0rYNTEy4kXmQlxlv7BV
- chfEntKc21W60goVvTE32mbZnPp2+JwC1QPGhpZqL+cfGEsLtxuZuMx5nLTdioa6vCNT8q+Yfon
- XP0FQrimysChEtdKD+Utd2cwubnFUEWpV9bBIJT4zouWKL4jRz7hL70cc/0oaUtx+k5ShBQIIOU
- zogDWvkew1TtB4ChSof47owuzqD0kJN48PCXGazrNZOwqNi2utjuGMBnPPFfQsvloAMLFbr8w4k
- XkBf1m+VPjkRUQSJ3RGl7p1PTIzUUYxkQstU1GScQhtE5wkfncCBx2Jr4QH3WvkqiVCbU+RwkDE
- I0YaSnJprMsOy2AijLZdME82/HkSY6paftZkD1w7hjmD5OxIGihg60qbARis6LUXEQgQRkKx/1M NLrtB4f5/BCtjLA==
-X-Mailer: b4 0.14.3
-Message-ID: <20261007-binder-consolidate-txn-prints-v1-3-c1032ed3221f@google.com>
-Subject: [PATCH 3/3] rust_binder: consolidate transaction failure prints
-From: Alice Ryhl <aliceryhl@google.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Carlos Llamas <cmllamas@google.com>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	"=?utf-8?q?Bj=C3=B6rn_Roy_Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	"=?utf-8?q?Onur_=C3=96zkan?=" <work@onurozkan.dev>, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Alice Ryhl <aliceryhl@google.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261007-fix-adxl345-buffer-deps-review-v1-1-0c94c8d0443a@JohnDeere.com>
+X-B4-Tracking: v=1; b=H4sIAGdYxmoC/x2Nyw6CMBAAf4Xs2Y1tBYz+ivGwbbewiRay9UFC+
+ HeLxznMzAqFVbjAtVlB+SNFplzBHhoII+WBUWJlcMb11pgzJlmQ4vI4tR36d0qsGHkuuMv8xf5
+ CzrZsuhgIamRWrsZ/cLtX9lQYvVIO456dVAbJxyeVFyts2w8mY0JckAAAAA==
+To: Jonathan Cameron <jic23@kernel.org>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Michael Hennerich <Michael.Hennerich@analog.com>
+Cc: David Lechner <dlechner@baylibre.com>, 
+ Andy Shevchenko <andy@kernel.org>, Lothar Rubusch <l.rubusch@gmail.com>, 
+ linux@analog.com, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Alexis Bouzigues <BouziguesAlexis@JohnDeere.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791383655; l=1713;
+ i=BouziguesAlexis@JohnDeere.com; s=20260527; h=from:subject:message-id;
+ bh=s/yXKM6ln4x9Rm+hNY2FnXFaP1MQgX8qNBneutc4oYU=;
+ b=aKlLVve0fWP0+XrcqwgW4kxbyVmfM7iWxiONstwX/yYmAoM9Vnsb6im4zKzYpqzsY7/1IodZR
+ ew04scKnQPeBoJlKi9+E3W8zZHbppfifc9IefWhq9uJNUqbYHG4ePB5
+X-Developer-Key: i=BouziguesAlexis@JohnDeere.com; a=ed25519;
+ pk=5KJ7ArL00x5flpPhi9zRLC2p88V1rZXDQ5SXhpRvTDk=
+X-Endpoint-Received: by B4 Relay for BouziguesAlexis@JohnDeere.com/20260527
+ with auth_id=797
+X-Original-From: Alexis Bouzigues <BouziguesAlexis@JohnDeere.com>
+Reply-To: BouziguesAlexis@JohnDeere.com
 
-When a transaction fails, it currently hits multiple print statements
-meaning that a single failure can result in several lines in the kernel
-log. This is unnecessary, so consolidate them into one print used for
-all transaction failures.
+From: Alexis Bouzigues <BouziguesAlexis@JohnDeere.com>
 
-Acked-by: Carlos Llamas <cmllamas@google.com>
-Signed-off-by: Alice Ryhl <aliceryhl@google.com>
+Since the addition of FIFO watermark support, adxl345_core.c calls
+devm_iio_kfifo_buffer_setup() and iio_push_to_buffers(), but the
+ADXL345 Kconfig entry does not select IIO_BUFFER and IIO_KFIFO_BUF.
+Building with CONFIG_ADXL345_I2C=y and CONFIG_IIO_BUFFER=n fails to
+link:
+
+  ld: drivers/iio/accel/adxl345_core.o: in function `adxl345_irq_handler':
+  adxl345_core.c:(.text+0x145c): undefined reference to `iio_push_to_buffers'
+  ld: drivers/iio/accel/adxl345_core.o: in function `adxl345_core_probe':
+  adxl345_core.c:(.text+0x1db6): undefined reference to `devm_iio_kfifo_buffer_setup_ext'
+
+Add the missing selects on the hidden ADXL345 core symbol, as done for
+ADXL367, ADXL372 and ADXL380, so both the I2C and SPI front-ends are
+covered.
+
+Fixes: cf04212d1fe7 ("iio: accel: adxl345: add FIFO with watermark events")
+Assisted-by: LLM
+Signed-off-by: Alexis Bouzigues <BouziguesAlexis@JohnDeere.com>
 ---
- drivers/android/binder/error.rs       |  4 --
- drivers/android/binder/thread.rs      | 72 +++++++++++++++--------------------
- drivers/android/binder/transaction.rs | 20 ++--------
- 3 files changed, 34 insertions(+), 62 deletions(-)
+Add the buffer selections required by the ADXL345 FIFO support.
+The shared core symbol covers both I2C and SPI frontends.
+---
+ drivers/iio/accel/Kconfig | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/android/binder/error.rs b/drivers/android/binder/error.rs
-index 41b07d687b30..89077c5baeaf 100644
---- a/drivers/android/binder/error.rs
-+++ b/drivers/android/binder/error.rs
-@@ -71,10 +71,6 @@ pub(crate) fn new_frozen_oneway() -> Self {
-             line: ErrorLocation::caller(),
-         }
-     }
--
--    pub(crate) fn is_dead(&self) -> bool {
--        self.reply == BR_DEAD_REPLY
--    }
- }
+diff --git a/drivers/iio/accel/Kconfig b/drivers/iio/accel/Kconfig
+index 4094299e2ed8..fc130854af71 100644
+--- a/drivers/iio/accel/Kconfig
++++ b/drivers/iio/accel/Kconfig
+@@ -61,6 +61,8 @@ config ADXL313_SPI
  
- /// Convert an errno into a `BinderError` and store the errno used to construct it. The errno
-diff --git a/drivers/android/binder/thread.rs b/drivers/android/binder/thread.rs
-index 5bb7ae2f7920..bcb2038b7550 100644
---- a/drivers/android/binder/thread.rs
-+++ b/drivers/android/binder/thread.rs
-@@ -1065,17 +1065,7 @@ pub(crate) fn copy_transaction_data(
-             size_of::<u64>(),
-         );
-         let secctx_off = aligned_data_size + offsets_size + buffers_size;
--        let mut alloc = match to_process.buffer_alloc(debug_id, len, info) {
--            Ok(alloc) => alloc,
--            Err(err) => {
--                pr_warn!(
--                    "Failed to allocate buffer. len:{}, is_oneway:{}",
--                    len,
--                    info.is_oneway(),
--                );
--                return Err(err);
--            }
--        };
-+        let mut alloc = to_process.buffer_alloc(debug_id, len, info)?;
+ config ADXL345
+ 	tristate
++	select IIO_BUFFER
++	select IIO_KFIFO_BUF
  
-         trace_transaction_alloc_buf(debug_id, data_size, offsets_size, buffers_size);
- 
-@@ -1328,6 +1318,9 @@ fn transaction(self: &Arc<Self>, cmd: u32, reader: &mut UserSliceReader) -> Resu
-             self.transaction_inner(&mut info)
-         };
- 
-+        // This runs when return work is passed to the caller. This is not
-+        // always the same as the transaction failing, as reply errors are
-+        // delivered to the remote process.
-         if let Err(err) = ret {
-             self.push_return_work(err.reply);
-             if err.reply != BR_TRANSACTION_COMPLETE {
-@@ -1336,30 +1329,8 @@ fn transaction(self: &Arc<Self>, cmd: u32, reader: &mut UserSliceReader) -> Resu
-                 if let Some(source) = err.source {
-                     info.errno = Some(source);
- 
--                    {
--                        let mut inner = self.inner.lock();
--                        inner.extended_error =
--                            ExtendedError::new(info.debug_id as u32, err.reply, source.to_errno());
--                    }
--
--                    binder_debug!(
--                        FailedTransaction,
--                        "transaction {} to {}:{} failed {:?}, code {} size {}-{} line {}",
--                        if info.is_reply {
--                            "reply"
--                        } else if info.is_oneway() {
--                            "async"
--                        } else {
--                            "call"
--                        },
--                        info.to_pid,
--                        info.to_tid,
--                        err,
--                        info.code,
--                        info.data_size,
--                        info.offsets_size,
--                        err.line
--                    );
-+                    self.inner.lock().extended_error =
-+                        ExtendedError::new(info.debug_id as u32, err.reply, source.to_errno());
-                 }
-             }
-         }
-@@ -1371,8 +1342,33 @@ fn transaction(self: &Arc<Self>, cmd: u32, reader: &mut UserSliceReader) -> Resu
-             // useful in case the transaction failed with BR_TRANSACTION_PENDING_FROZEN.
-             info.report_netlink(BR_ONEWAY_SPAM_SUSPECT, &self.process.ctx);
-         }
-+        // This runs when the transaction failed.
-         if info.reply != 0 {
-             info.report_netlink(info.reply, &self.process.ctx);
-+            if let Some(errno) = info.errno {
-+                let error_line: &dyn kernel::fmt::Display = match &info.error_line {
-+                    Some(line) => line,
-+                    None => &0,
-+                };
-+                binder_debug!(
-+                    FailedTransaction,
-+                    "transaction {} to {}:{} failed {:?}, code {} size {}-{} line {}",
-+                    if info.is_reply {
-+                        "reply"
-+                    } else if info.is_oneway() {
-+                        "async"
-+                    } else {
-+                        "call"
-+                    },
-+                    info.to_pid,
-+                    info.to_tid,
-+                    errno,
-+                    info.code,
-+                    info.data_size,
-+                    info.offsets_size,
-+                    error_line
-+                );
-+            }
-         }
- 
-         Ok(())
-@@ -1465,12 +1461,6 @@ fn reply_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> BinderResult {
-             // At this point we only return `BR_TRANSACTION_COMPLETE` to the caller, and we must let
-             // the sender know that the transaction has completed (with an error in this case).
- 
--            pr_warn!(
--                "{}:{} reply to {} failed: {err:?}",
--                info.from_pid,
--                info.from_tid,
--                info.to_pid
--            );
-             let param = err.source.as_ref().map_or(0, |e| e.to_errno());
-             let ee = ExtendedError::new(info.debug_id as u32, err.reply, param);
-             orig.from
-diff --git a/drivers/android/binder/transaction.rs b/drivers/android/binder/transaction.rs
-index d934c6821b15..22558bdeef16 100644
---- a/drivers/android/binder/transaction.rs
-+++ b/drivers/android/binder/transaction.rs
-@@ -365,21 +365,13 @@ pub(crate) fn new(
-         let txn_security_ctx = node_ref.node.flags & FLAT_BINDER_FLAG_TXN_SECURITY_CTX != 0;
-         let mut txn_security_ctx_off = if txn_security_ctx { Some(0) } else { None };
-         let to = node_ref.node.owner.clone();
--        let mut alloc = match from.copy_transaction_data(
-+        let mut alloc = from.copy_transaction_data(
-             to.clone(),
-             info,
-             info.debug_id,
-             allow_fds,
-             txn_security_ctx_off.as_mut(),
--        ) {
--            Ok(alloc) => alloc,
--            Err(err) => {
--                if !err.is_dead() {
--                    pr_warn!("Failure in copy_transaction_data: {:?}", err);
--                }
--                return Err(err);
--            }
--        };
-+        )?;
-         if info.is_oneway() {
-             if from_parent.is_some() {
-                 pr_warn!("Oneway transaction should not be in a transaction stack.");
-@@ -420,13 +412,7 @@ pub(crate) fn new_reply(
-         allow_fds: bool,
-     ) -> BinderResult<DLArc<Self>> {
-         let mut alloc =
--            match from.copy_transaction_data(to.clone(), info, info.debug_id, allow_fds, None) {
--                Ok(alloc) => alloc,
--                Err(err) => {
--                    pr_warn!("Failure in copy_transaction_data: {:?}", err);
--                    return Err(err);
--                }
--            };
-+            from.copy_transaction_data(to.clone(), info, info.debug_id, allow_fds, None)?;
-         if info.flags.contains(TransactionFlag::ClearBuf) {
-             alloc.set_info_clear_on_drop();
-         }
+ config ADXL345_I2C
+ 	tristate "Analog Devices ADXL345 3-Axis Digital Accelerometer I2C Driver"
 
+---
+base-commit: 7b63ef2d55f24519e7e9e5f4d15dbea03f126e40
+change-id: 20261007-fix-adxl345-buffer-deps-review-69a214e05dca
+
+Best regards,
 -- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+Alexis Bouzigues <BouziguesAlexis@JohnDeere.com>
+
 
