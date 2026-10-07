@@ -1,110 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85ECD408600
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 21:55:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4E1437BE6F;
+	Wed,  7 Oct 2026 21:56:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791410137; cv=none; b=TMNlFw6nrVQvX6piKY1EhNOY8DrVrIzTBJ2hzlmwaIniawYx6SNAMSsajhbui/Q/Y1+CIXcxVUOQJ9qXDJ8banbZ4ofNjyb2reqLJySZYaIiz7uYgO5Pm05KMw/HwRd2m9l7q8yQq4SfI+1tJmsl6WcuZ2puB0nVR4Sj2sb+AVQ=
+	t=1791410220; cv=none; b=WdYJPDIzZ0eSceyhxKXg6yGGmKYa3x8O0vrz+k1iW0mPAvuFRrki36L8bhn2rxOAOM/A/q67YhE/ZSEcol34NZwdPwLfLxh1HVbznAfYW/16/BRnJyvpY4NddfeQ5CDkhbb3HHmZQCs/ZqAvxO66kaeK4s6a/XD2PwkA9R+Hk0M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791410137; c=relaxed/simple;
-	bh=NLC2QIUzt+qhz7otktUSqYZ4ASAjZabeK/4gxWnvzW8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=DdP/Mt4IEuWL/mf8eza+sxrwTPWYOu767TIsTuA7XD9DtkOItCAs03/F90fDqL5B5Bn/ktXyWQ3xtEnthYPtbpXR5Is9QhxSifT3UzwUEaBvZVMedmGFkb0B0VkIdotTgjYv4KSFg7ZPqr4YO6rWBM86/uCuC8efAgo3vT2GMdE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sJI4cK+J; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791410220; c=relaxed/simple;
+	bh=LtwZmyOwLRzb9ajYolWPGePVsmL7eAb+HVcRCNS4xJQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dujRNUXzZvOlKgG/YYsm39oaAhGpNqJj79trlXnGwI7aZuK/Iy9BnZIfPHQmmpZp7Yp6S4TdPFhrpqV+7sbDpqmVRdoYCBDzQERk64JLR8+jiBr8yJOA64qFoy6Iv/SolI3tyv2W1ln4pQOgyazMdR2Xqbv+f6NwHQokCcqgjTI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=15zzm4rP; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=xfATCDJ/; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=15zzm4rP; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=xfATCDJ/; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sJI4cK+J"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 37A3DC2BCFB;
-	Wed,  7 Oct 2026 21:55:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791410137;
-	bh=NLC2QIUzt+qhz7otktUSqYZ4ASAjZabeK/4gxWnvzW8=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=sJI4cK+JHp2KDLkdWbxoCn9biWb4HZqSufQg/cYFFE6JRf74b3cFnyBeZYZ225xTg
-	 i9YVhzcfZD2yoMJb3h7rJ/jp6pzoHqHTNfunqR7gw/qKrRAGNqMVrIPhfMcbOX7VGB
-	 LYEtHrqW3JX85EDhcGRuR7gylYjbf3MLpCtk7TZVf6HvwEF9e9U9D7J9zxBa6hdjns
-	 w7uOxUmIN4iqXsTMhZOVkcp6Jbku2Fy/RMG420RBgK/wkfJYkQ70vVq8furKpcu8wi
-	 BAkO9aGY66vqgu7b/1ilEoQQfeS4EAfkGhzSTGAsg2bIomLdOzY4I+4npAfVX6DOux
-	 u1ZKREcFHLySg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2737BCA6009;
-	Wed,  7 Oct 2026 21:55:37 +0000 (UTC)
-From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
-Date: Thu, 08 Oct 2026 00:55:32 +0300
-Subject: [PATCH] irqchip/meson-gpio: Allow the GPIO interrupts to wake the
- system
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="15zzm4rP";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="xfATCDJ/";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="15zzm4rP";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="xfATCDJ/"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id E10AF1F76C;
+	Wed,  7 Oct 2026 21:56:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791410216; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=T0aYh3dD761FJm47m6/coQXbzBpTxiB0fqutj5AgB00=;
+	b=15zzm4rPyV+Jox7jiTkpTCioNqRuD05FP3ieGBkcT/KxRC2aqTIePH1tHJ9k1e8xaPz0U0
+	BRRnynbir7vKW42WQ6tqzrK5k/zw9P1yNuAVc7vKs74pYsojdKUdjBMwO+/EkJALpjuVJO
+	TJiNim7iVEfp/Ea18sYclTYwwLA3ARA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791410216;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=T0aYh3dD761FJm47m6/coQXbzBpTxiB0fqutj5AgB00=;
+	b=xfATCDJ/8BEEuQL+XlSVOUAVsipJPttjTQHbjM6ABWRMgB8AXUMjr4M3BaSi+7wnUlxEMK
+	uEjE1qNmAeTiXPCQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791410216; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=T0aYh3dD761FJm47m6/coQXbzBpTxiB0fqutj5AgB00=;
+	b=15zzm4rPyV+Jox7jiTkpTCioNqRuD05FP3ieGBkcT/KxRC2aqTIePH1tHJ9k1e8xaPz0U0
+	BRRnynbir7vKW42WQ6tqzrK5k/zw9P1yNuAVc7vKs74pYsojdKUdjBMwO+/EkJALpjuVJO
+	TJiNim7iVEfp/Ea18sYclTYwwLA3ARA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791410216;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=T0aYh3dD761FJm47m6/coQXbzBpTxiB0fqutj5AgB00=;
+	b=xfATCDJ/8BEEuQL+XlSVOUAVsipJPttjTQHbjM6ABWRMgB8AXUMjr4M3BaSi+7wnUlxEMK
+	uEjE1qNmAeTiXPCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A36EF13312;
+	Wed,  7 Oct 2026 21:56:56 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id DGVtGSjAxmr0JwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 07 Oct 2026 21:56:56 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: linux-sound@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH 0/3] ALSA/ASoC: hda: Fix race between unsol events and unbind
+Date: Wed,  7 Oct 2026 23:56:45 +0200
+Message-ID: <20261007215650.159871-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-meson-gpio-wake-v1-1-fec8a1f5d830@iav.lv>
-X-B4-Tracking: v=1; b=H4sIANO/xmoC/x3MQQqAIBBA0avIrBswo4iuEi3GGmuIVBQqiO6et
- HyL/x/InIQzDOqBxKdkCb6grhTMG/mVUZZiMNp0tdY9HpyDxzVKwIt2RtdYR421hluCUsXETu7
- /OE7v+wFOugp4YQAAAA==
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: Radu Rendec <radu@rendec.net>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1395; i=iav@iav.lv;
- h=from:subject:message-id;
- bh=HcsigEkp72ihfLJvHs4V//Nip0TbJcUATNxrvhUqbWw=;
- b=owGbwMvMwCVmNH1q96v4SmbG02pJDFnH9l/pZ85tm2nLyu50TOLVtKnaz3tEPY70ltbM+qZpI
- G+b73y8o5SFQYyLQVZMkWXCIY1bGUuu/vX3MH8AM4eVCWQIAxenAEzkYCjDf/d/t1oNFjL82nnr
- j23GvtndbQwHt6mkNZfs/CZ3MPv/xBcM/4wmNt1m03hw8uOFju43ef4LLzStXt9Qv1fLaO+EppJ
- psswA
-X-Developer-Key: i=iav@iav.lv; a=openpgp;
- fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
-X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
-X-Original-From: Igor Velkov <iav@iav.lv>
-Reply-To: iav@iav.lv
+Content-Transfer-Encoding: 8bit
+X-Spam-Score: -2.80
+X-Spam-Level: 
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-2.80 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	RCPT_COUNT_TWO(0.00)[2];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_NONE(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[]
 
-From: Igor Velkov <iav@iav.lv>
+Here is another series of small fixes for HD-audio, beginning with the
+fix for an issue reported by Sashiko, and extended the fixes to ASoC
+HD-audio and a potential improvement that were spotted during the
+development of the first patch.
 
-meson_gpio_irq_chip has neither .irq_set_wake nor IRQCHIP_SKIP_SET_WAKE,
-so enable_irq_wake() fails with -ENXIO for every interrupt routed through
-it. Such an interrupt cannot wake the system from suspend.
 
-Set IRQCHIP_SKIP_SET_WAKE, like the other hierarchical irqchips with a
-GIC parent. The GIC sets the same flag, so irq_chip_set_wake_parent()
-would end there anyway.
+Takashi
 
-Tested on ODROID-HC4 with the PCF8563 alarm interrupt routed through this
-controller: the alarm wakes the board from s2idle 4/4, and 0/1 without
-this change.
+===
 
-Assisted-by: LLM
-Signed-off-by: Igor Velkov <iav@iav.lv>
----
- drivers/irqchip/irq-meson-gpio.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Takashi Iwai (3):
+  ALSA: hda: Stop unsol events and jack polling before codec unbind
+  ASoC: codecs: hda: Stop unsol events and jack polling before codec
+    removal
+  ALSA: hda: Make hdac_device.registered a plain bool
 
-diff --git a/drivers/irqchip/irq-meson-gpio.c b/drivers/irqchip/irq-meson-gpio.c
-index 91a9c337fe6d..e0329ef5e4a2 100644
---- a/drivers/irqchip/irq-meson-gpio.c
-+++ b/drivers/irqchip/irq-meson-gpio.c
-@@ -538,7 +538,7 @@ static struct irq_chip meson_gpio_irq_chip = {
- #ifdef CONFIG_SMP
- 	.irq_set_affinity	= irq_chip_set_affinity_parent,
- #endif
--	.flags			= IRQCHIP_SET_TYPE_MASKED,
-+	.flags			= IRQCHIP_SET_TYPE_MASKED | IRQCHIP_SKIP_SET_WAKE,
- };
- 
- static int meson_gpio_irq_domain_translate(struct irq_domain *domain,
+ include/sound/hdaudio.h  |  4 +++-
+ sound/hda/common/bind.c  |  7 +++++++
+ sound/hda/common/codec.c |  4 ++--
+ sound/hda/core/bus.c     | 21 ++++++++++++++++++++-
+ sound/soc/codecs/hda.c   |  7 +++++++
+ 5 files changed, 39 insertions(+), 4 deletions(-)
 
----
-base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
-change-id: 20261008-meson-gpio-wake-f3bfa3bb2e5a
-
-Best regards,
 -- 
-Igor Velkov <iav@iav.lv>
-
+2.55.0
 
