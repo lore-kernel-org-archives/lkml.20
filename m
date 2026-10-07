@@ -1,409 +1,165 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F82747C10B;
-	Wed,  7 Oct 2026 09:36:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08082481AAD;
+	Wed,  7 Oct 2026 09:37:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791365826; cv=none; b=L+8fOixUPcWYJwu72NHoFIdvqA/k82aA18GcIn2DAOfURmD0HiBea3wqj8Sai1Z+laOwzjC9+50kWgc3Uw6z9OttCv6Z2cP7PIwBUAaPG2rzRlhgl6EZG9ZEKn7sqcMluLKWhAmAPqPMophHPsXI0De3p338ujV6Kcx9SImgCyg=
+	t=1791365849; cv=none; b=Pq40tlNTsKwCLEHE9DZZ7edlb11cDqmaVciU55E6on2hYJWXb8b3H3Ew555BnWdk3DF7VVGHTN5yhxvvX8SqlSlw2egG5XN7sB4JCa/Ofw++zJBvppv8E12cZznuzHkEw//cVmLJ0OzAqFsyPbBvmFnDGU+UiGxFVemNdKfFlRg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791365826; c=relaxed/simple;
-	bh=4uQxggd4bS+FkeXNbFiWNb9U48D8xD1Y2l/vAIN15BU=;
+	s=arc-20240116; t=1791365849; c=relaxed/simple;
+	bh=f2JXT+MHfpwNcVy+Cu2UmZ2nFKZ5RPQubv1NHR7hOm8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=j/cCzRe/DQ73WVexFF4dZShPyWpH1qrYesSg1ZpnVfS8OyKOz6fklknZM11jUL4vBqiJo/SKsnE8jEuUDqKTbwQP9f2FkFN9PxmdsizjNCVCCfoTyg+brH6r7g/bFK2f4DjiVuGddtgwosyrNPu1R1A+o5RghzWhcjlYgtCD62Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=KaHTXAVa; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=OYS4Q7Hs; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=mtP/5Z/J; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=SLsYF7T5; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	 MIME-Version:Content-Type; b=a5/h5KtnP8j0wLtJKGR/E9xN7GNSTbs5a06giM3sc/3HmOBHlLAisBkV/Ft43keKFa8YUF1xRV8RlcPvyMGI0ySS7+RJbzCKRow5vyIFabFp0nmFEn6V5z5LZZ6hKGgDxg96AZWVeHt3zyL1Hr4awxUqvUKqHWM9hnffO3oriyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=f3lix.dev@gmx.de header.b=b6mWtmZx; arc=none smtp.client-ip=212.227.15.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="KaHTXAVa";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="OYS4Q7Hs";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mtP/5Z/J";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="SLsYF7T5"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 1E7DA21FD9;
-	Wed,  7 Oct 2026 09:36:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791365809; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qp6XyLej4mtaKD90E+rurt8NoUFonCnw3zubJHWpLcg=;
-	b=KaHTXAVa3gzXxDoc9TJTzBj1D3zB1nYij+YKa+YIl8R2HtDITKHfgxgdK06iNo90XxzTFR
-	WsGjACXfXHmH40zMctQKGUbxqNBBUddOPVY2OynXzOPeci9lMpJKXUM1J1yIP0ACil05kt
-	99UIKnkXK1DbbJHdp4tU4Brd7cLdaMg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791365809;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qp6XyLej4mtaKD90E+rurt8NoUFonCnw3zubJHWpLcg=;
-	b=OYS4Q7Hs8G4530OXx2pfR3AScgRQdGWHqe8ltb2aHjx0gbgd4pm90mfPi42rVwZexJ2WDT
-	Ei5BFlh3RqUorxAg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791365805; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qp6XyLej4mtaKD90E+rurt8NoUFonCnw3zubJHWpLcg=;
-	b=mtP/5Z/JFG/76BuI4LLKv+jaklMaUbuVzNDogwdytdsVpXll6uz2AKNujUJkG9YTLpO1M3
-	GXMx69H5tZfp87bJ2hbwygmd9ytyB0IDzYtUO4f9udUwBQhRaxsG85Il9f5tZSBKPv0uR9
-	7ZrKhPn2nsPcgjAiQxMqD7llsbb/sWU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791365805;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qp6XyLej4mtaKD90E+rurt8NoUFonCnw3zubJHWpLcg=;
-	b=SLsYF7T5eoTbIKDX5zO4YPsAIVOX/JLwb0pWBtpFh/PQuIalNwKUnJjeosRknKUP5H3QI/
-	kETFDH9cWbgl7sDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 692C413B9B;
-	Wed,  7 Oct 2026 09:36:41 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 9oTPLKgSxmpMDgAAD6G6ig:T8
-	(envelope-from <tiwai@suse.de>); Wed, 07 Oct 2026 09:36:41 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: linux-sound@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH v2 7/8] ALSA: usb-audio: Fix mixer bitmap cache over 32 channels
-Date: Wed,  7 Oct 2026 11:36:34 +0200
-Message-ID: <20261007093638.1049688-8-tiwai@suse.de>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261007093638.1049688-1-tiwai@suse.de>
-References: <20261007093638.1049688-1-tiwai@suse.de>
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=f3lix.dev@gmx.de header.b="b6mWtmZx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1791365833; x=1791970633; i=f3lix.dev@gmx.de;
+	bh=f2JXT+MHfpwNcVy+Cu2UmZ2nFKZ5RPQubv1NHR7hOm8=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=b6mWtmZxoqPlV5xEQeBu92q8W1bJiZ8v4u9ZgW5BT0x8pxLNVlhBUOOy4j5EpPc1
+	 x+7nZWKNEJOEVdy1FAKQ2rmv6mHU8gBmiQBs3bR3hFsIcX621/sv5sVvF2NLU1m00
+	 A05/tb2kRFgfo6DSjdnNONTivcCWGlJzZSyQN1yJfDmEJLb2hLTSfKoMZD9lSwv3E
+	 1YDbBHB9Rpqvq6l14evsjfSTf69lEqB84l1dfNyZ8A5CoGxW42DlNnjMHeJJVbILm
+	 dNhEY8p3/1uFbV8mLTHUMT6U/Z86DX6syrSNT8A6JGBZyYpTpDkrv+AQ9ChMhWSMH
+	 fKb3zQauhiDlJzTZpw==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MdvmO-1wdg9m3gCE-00l1bd; Wed, 07
+ Oct 2026 11:37:12 +0200
+From: Felix Hoffmann <f3lix.dev@gmx.de>
+To: Lachlan Hodges <lachlan.hodges@morsemicro.com>
+Cc: linux-wireless@vger.kernel.org,
+	Dan Callaghan <dan.callaghan@morsemicro.com>,
+	Arien Judge <arien.judge@morsemicro.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH wireless] wifi: mm81x: validate YAPS receive framing
+Date: Wed,  7 Oct 2026 11:30:13 +0200
+Message-ID: <20261007093013.17116-1-f3lix.dev@gmx.de>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <lrsghye5vfzs5o4pljrbm2ubfcxgc3mkcpyc2sbutsq6td6qug@36liwxdx6j5i>
+References: <20260910201030.85862-1-f3lix.dev@gmx.de> <lrsghye5vfzs5o4pljrbm2ubfcxgc3mkcpyc2sbutsq6td6qug@36liwxdx6j5i>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Provags-ID: V03:K1:V2GzszlTBFIthwqGnuYWkV26gv8Typg2SY5M4Pv9VtOuWphPP9o
+ L8L31mkdPeV9Zyx9IDC4W/XKWI0rSEd/k7zmAYpLd8hp5eu4wgF6rODEKBrXyXvGfJVTHIv
+ Jfl9Iox/LRfKMZfEhOorGtX3OYzb6DfPPBWSL02onFcNBcbNpev59sCbJrVUXXD5F8XDi/Z
+ fHmZcJPIGoh31kzte7N1A==
 X-Spam-Flag: NO
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	RCPT_COUNT_TWO(0.00)[2];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TO_DN_NONE(0.00)[];
-	RCVD_TLS_ALL(0.00)[]
-X-Spam-Score: -2.80
-X-Spam-Level: 
+UI-OutboundReport: notjunk:1;M01:P0:MQ2NG/dkevI=;rtGULF8M/rhczC0PyekY9oILiV2
+ +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
 
-USB-audio driver keeps the bitmap for the cached mixer channels, but
-since a 32bit integer is used, it's currently broken for over 32
-channels.  As the driver is supposed to support up to 64 channels,
-this patch extends the bitmap properly -- now to be more flexible, use
-the standard bitmap instead of the manual bit shifts.
+Hi Lachlan,
 
-Some checks for master channels are replaced in a slightly different
-manner (checking the channel index 0) instead of the full cval->cached
-check, so that it fits better in the bitmap helper usage.
+Thank you for the review.
 
-Fixes: 16ee07bfa935 ("ALSA: usb-audio: Extend max number of channels to 64")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/usb/mixer.c          | 18 +++++++++---------
- sound/usb/mixer.h          |  2 +-
- sound/usb/mixer_scarlett.c | 18 +++++++++---------
- sound/usb/mixer_us16x08.c  | 20 ++++++++++----------
- 4 files changed, 29 insertions(+), 29 deletions(-)
+Yes, YAPS_DELIM_GET_PKT_SIZE() makes the intent clearer. I have changed v2
+to use it through the signed pkt_size local, so encoded sizes below the
+reserved page remain negative and are rejected. The upper-bound check adds
+YAPS_RESERVED_PAGE_SIZE back to preserve its existing encoded-size semantics.
 
-diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
-index 3b6e8759130d..b6e174dbd0fa 100644
---- a/sound/usb/mixer.c
-+++ b/sound/usb/mixer.c
-@@ -423,7 +423,7 @@ int snd_usb_get_cur_mix_value(struct usb_mixer_elem_info *cval,
- {
- 	int err;
- 
--	if (cval->cached & BIT(channel)) {
-+	if (test_bit(channel, cval->cached)) {
- 		*value = cval->cache_val[index];
- 		return 0;
- 	}
-@@ -440,7 +440,7 @@ int snd_usb_get_cur_mix_value(struct usb_mixer_elem_info *cval,
- 				      cval->control, channel, err);
- 		return err;
- 	}
--	cval->cached |= BIT(channel);
-+	set_bit(channel, cval->cached);
- 	cval->cache_val[index] = *value;
- 	return 0;
- }
-@@ -604,7 +604,7 @@ int snd_usb_set_cur_mix_value(struct usb_mixer_elem_info *cval, int channel,
- 					  value);
- 	if (err < 0)
- 		return err;
--	cval->cached |= BIT(channel);
-+	set_bit(channel, cval->cached);
- 	cval->cache_val[index] = value;
- 	return 0;
- }
-@@ -1449,7 +1449,7 @@ static int get_min_max_with_quirks(struct usb_mixer_elem_info *cval,
- 		 * properly.
- 		 */
- 		if (ret)
--			cval->cached = 0;
-+			bitmap_zero(cval->cached, MAX_CHANNELS + 1);
- 
- 		cval->initialized = 1;
- 	}
-@@ -3667,7 +3667,7 @@ void snd_usb_mixer_notify_id(struct usb_mixer_interface *mixer, int unitid)
- 		info = mixer_elem_list_to_info(list);
- 		/* invalidate cache, so the value is read from the device */
- 		if (!info->get_cur_broken)
--			info->cached = 0;
-+			bitmap_zero(info->cached, MAX_CHANNELS + 1);
- 		snd_ctl_notify(mixer->chip->card, SNDRV_CTL_EVENT_MASK_VALUE,
- 			       &list->kctl->id);
- 	}
-@@ -3766,9 +3766,9 @@ static void snd_usb_mixer_interrupt_v2(struct usb_mixer_interface *mixer,
- 			/* invalidate cache, so the value is read from the device */
- 			if (!info->get_cur_broken) {
- 				if (channel)
--					info->cached &= ~BIT(channel);
-+					clear_bit(channel, info->cached);
- 				else /* master channel */
--					info->cached = 0;
-+					bitmap_zero(info->cached, MAX_CHANNELS + 1);
- 			}
- 
- 			snd_ctl_notify(mixer->chip->card, SNDRV_CTL_EVENT_MASK_VALUE,
-@@ -4005,7 +4005,7 @@ static int restore_mixer_value(struct usb_mixer_elem_list *list)
- 		for (c = 0; c < MAX_CHANNELS; c++) {
- 			if (!(cval->cmask & BIT(c)))
- 				continue;
--			if (cval->cached & BIT(c + 1)) {
-+			if (test_bit(c + 1, cval->cached)) {
- 				err = snd_usb_set_cur_mix_value(cval, c + 1, idx,
- 							cval->cache_val[idx]);
- 				if (err < 0)
-@@ -4015,7 +4015,7 @@ static int restore_mixer_value(struct usb_mixer_elem_list *list)
- 		}
- 	} else {
- 		/* master */
--		if (cval->cached)
-+		if (test_bit(0, cval->cached))
- 			snd_usb_set_cur_mix_value(cval, 0, 0, *cval->cache_val);
- 	}
- 
-diff --git a/sound/usb/mixer.h b/sound/usb/mixer.h
-index 2ff4490f97c2..0d0a8b343756 100644
---- a/sound/usb/mixer.h
-+++ b/sound/usb/mixer.h
-@@ -93,7 +93,7 @@ struct usb_mixer_elem_info {
- 	int min, max, res;
- 	int max_exposed; /* control API exposes the value in 0..max_exposed */
- 	int dBmin, dBmax;
--	int cached;
-+	DECLARE_BITMAP(cached, MAX_CHANNELS + 1);
- 	int cache_val[MAX_CHANNELS];
- 	u8 initialized;
- 	u8 min_mute;
-diff --git a/sound/usb/mixer_scarlett.c b/sound/usb/mixer_scarlett.c
-index 369968565c19..6808730ef047 100644
---- a/sound/usb/mixer_scarlett.c
-+++ b/sound/usb/mixer_scarlett.c
-@@ -292,7 +292,7 @@ static int forte_get_ctl_value(struct usb_mixer_elem_info *elem, int *value)
- 	/* Device may not support reading input controls.
- 	 * Return cached value or default to avoid blocking module load.
- 	 */
--	if (elem->cached)
-+	if (test_bit(0, elem->cached))
- 		*value = elem->cache_val[0];
- 	else
- 		*value = 0;  /* Default: first option */
-@@ -353,7 +353,7 @@ static int forte_input_gain_put(struct snd_kcontrol *kctl,
- 		err = forte_set_ctl_value(elem, val);
- 		if (err < 0)
- 			return err;
--		elem->cached |= 1;
-+		set_bit(0, elem->cached);
- 		elem->cache_val[0] = val;
- 		return 1;
- 	}
-@@ -364,7 +364,7 @@ static int forte_input_gain_resume(struct usb_mixer_elem_list *list)
- {
- 	struct usb_mixer_elem_info *elem = mixer_elem_list_to_info(list);
- 
--	if (elem->cached)
-+	if (test_bit(0, elem->cached))
- 		forte_set_ctl_value(elem, *elem->cache_val);
- 	return 0;
- }
-@@ -405,7 +405,7 @@ static int forte_ctl_enum_put(struct snd_kcontrol *kctl,
- 		err = forte_set_ctl_value(elem, val);
- 		if (err < 0)
- 			return err;
--		elem->cached |= 1;
-+		set_bit(0, elem->cached);
- 		elem->cache_val[0] = val;
- 		return 1;
- 	}
-@@ -416,7 +416,7 @@ static int forte_ctl_enum_resume(struct usb_mixer_elem_list *list)
- {
- 	struct usb_mixer_elem_info *elem = mixer_elem_list_to_info(list);
- 
--	if (elem->cached)
-+	if (test_bit(0, elem->cached))
- 		forte_set_ctl_value(elem, *elem->cache_val);
- 	return 0;
- }
-@@ -454,7 +454,7 @@ static int forte_ctl_switch_put(struct snd_kcontrol *kctl,
- 		err = forte_set_ctl_value(elem, val);
- 		if (err < 0)
- 			return err;
--		elem->cached |= 1;
-+		set_bit(0, elem->cached);
- 		elem->cache_val[0] = val;
- 		return 1;
- 	}
-@@ -465,7 +465,7 @@ static int forte_ctl_switch_resume(struct usb_mixer_elem_list *list)
- {
- 	struct usb_mixer_elem_info *elem = mixer_elem_list_to_info(list);
- 
--	if (elem->cached)
-+	if (test_bit(0, elem->cached))
- 		forte_set_ctl_value(elem, *elem->cache_val);
- 	return 0;
- }
-@@ -532,7 +532,7 @@ static int scarlett_ctl_resume(struct usb_mixer_elem_list *list)
- 	int i;
- 
- 	for (i = 0; i < elem->channels; i++)
--		if (elem->cached & (1 << i))
-+		if (test_bit(i, elem->cached))
- 			snd_usb_set_cur_mix_value(elem, i, i,
- 						  elem->cache_val[i]);
- 	return 0;
-@@ -692,7 +692,7 @@ static int scarlett_ctl_enum_resume(struct usb_mixer_elem_list *list)
- {
- 	struct usb_mixer_elem_info *elem = mixer_elem_list_to_info(list);
- 
--	if (elem->cached)
-+	if (test_bit(0, elem->cached))
- 		snd_usb_set_cur_mix_value(elem, 0, 0, *elem->cache_val);
- 	return 0;
- }
-diff --git a/sound/usb/mixer_us16x08.c b/sound/usb/mixer_us16x08.c
-index 14fb1ad764a7..8e5ccd3282a7 100644
---- a/sound/usb/mixer_us16x08.c
-+++ b/sound/usb/mixer_us16x08.c
-@@ -236,7 +236,7 @@ static int snd_us16x08_route_put(struct snd_kcontrol *kcontrol,
- 		return err;
- 	}
- 
--	elem->cached |= 1 << index;
-+	set_bit(index, elem->cached);
- 	elem->cache_val[index] = val;
- 	return 1;
- }
-@@ -295,7 +295,7 @@ static int snd_us16x08_master_put(struct snd_kcontrol *kcontrol,
- 		return err;
- 	}
- 
--	elem->cached |= 1 << index;
-+	set_bit(index, elem->cached);
- 	elem->cache_val[index] = val;
- 	return 1;
- }
-@@ -336,7 +336,7 @@ static int snd_us16x08_bus_put(struct snd_kcontrol *kcontrol,
- 		return err;
- 	}
- 
--	elem->cached |= 1;
-+	set_bit(0, elem->cached);
- 	elem->cache_val[0] = val;
- 	return 1;
- }
-@@ -404,7 +404,7 @@ static int snd_us16x08_channel_put(struct snd_kcontrol *kcontrol,
- 		return err;
- 	}
- 
--	elem->cached |= 1 << index;
-+	set_bit(index, elem->cached);
- 	elem->cache_val[index] = val;
- 	return 1;
- }
-@@ -508,7 +508,7 @@ static int snd_us16x08_comp_put(struct snd_kcontrol *kcontrol,
- 	}
- 
- 	store->val[val_idx][index] = val;
--	elem->cached |= 1 << index;
-+	set_bit(index, elem->cached);
- 	elem->cache_val[index] = val;
- 	return 1;
- }
-@@ -567,7 +567,7 @@ static int snd_us16x08_eqswitch_put(struct snd_kcontrol *kcontrol,
- 		return err;
- 	}
- 
--	elem->cached |= 1 << index;
-+	set_bit(index, elem->cached);
- 	elem->cache_val[index] = val;
- 	return 1;
- }
-@@ -631,7 +631,7 @@ static int snd_us16x08_eq_put(struct snd_kcontrol *kcontrol,
- 
- 	store->val[b_idx][p_idx][index] = val;
- 	/* store new value in EQ band cache */
--	elem->cached |= 1 << index;
-+	set_bit(index, elem->cached);
- 	elem->cache_val[index] = val;
- 	return 1;
- }
-@@ -1352,7 +1352,7 @@ int snd_us16x08_controls_create(struct usb_mixer_interface *mixer)
- 		}
- 		for (i = 0; i < 8; i++)
- 			elem->cache_val[i] = i < 2 ? i : i + 2;
--		elem->cached = 0xff;
-+		bitmap_set(elem->cached, 0, 8);
- 
- 		/* create compressor mixer elements */
- 		comp_store = snd_us16x08_create_comp_store();
-@@ -1374,7 +1374,7 @@ int snd_us16x08_controls_create(struct usb_mixer_interface *mixer)
- 			if (err < 0)
- 				return err;
- 			elem->cache_val[0] = master_controls[i].default_val;
--			elem->cached = 1;
-+			set_bit(0, elem->cached);
- 		}
- 
- 		/* add channel controls */
-@@ -1394,7 +1394,7 @@ int snd_us16x08_controls_create(struct usb_mixer_interface *mixer)
- 				elem->cache_val[j] =
- 					channel_controls[i].default_val;
- 			}
--			elem->cached = 0xffff;
-+			bitmap_set(elem->cached, 0, SND_US16X08_MAX_CHANNELS);
- 		}
- 
- 		/* create eq store */
--- 
-2.55.0
+I will send v2 as a separate thread.
 
+Thanks,
+Felix
