@@ -1,65 +1,65 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7423C39280A
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 20:18:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E56593932DB
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 20:18:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791404323; cv=none; b=RNV61ZcUN+GOGPG82pVcdHvxAWWGI3ficIArsy+DhRuMMJ4CEUHlEFEmxC40wFqPxFCc1zMkuVPLdcIvKEV9nhmH6C8K24iIO8aov3LLjW3nPtemm3JVAey29f/x9OYbDwwFT/LXN5uQLbAy3KX6LwNeE/LBUFOQwpcZmeGMkDk=
+	t=1791404325; cv=none; b=fi67TdbNCklTR7kpaV01nVTb/1muBkrH/zY5Pnd7WeB7I+kzHf16oS2zWQriVUroO+4Qrx1QXt/JNZPmMwK4uidQKKwCs6Bog57k07b616NMaag5Jn7xRkhfrwSRPr1fW0+pejOtBgvtnC/h+/OZJPYrrJPbUUxXt3F/FeDgR3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791404323; c=relaxed/simple;
-	bh=1tLVbNbDl7HUDxUPwAgwX4uqgjQuBujm+60EP1X9Ssg=;
+	s=arc-20240116; t=1791404325; c=relaxed/simple;
+	bh=aq0AMSyhxQLdXuPHgvAFBRB0ypmluL2Ow3NcbByDnYs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uTTFTOeLgk/V3OAi/qA/Q890lHrHp8GXv8w90uMeJJb1dWte+mxE7DbHzhoQGbhLrusgQNln77YC9k63hTVIuxCODryuq/Ywqbhx8WZ2OxYDFsZqDifZ+KivllDLLBCr1aYCvsJefx7M1Low4yYEvbG2KXg4f/nenztXurFzPJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j0sBWnWM; arc=none smtp.client-ip=209.85.215.171
+	 MIME-Version; b=MeaAg6UET0czlLk2wo6/LkHe5zC1LPGcyj8D27qYlfO6f7muHpvJKWrAHtaNDWYxt5V70PlyA5/uejyfHqoz3ob459phk9kng1c92dtlcZTXffoDzYejqUQ6AoE0o8+hna+K/Plt7Z6/OBEI7gQOxtRYYbP0mfxdBeT4rUMsUsU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fPOJ4isa; arc=none smtp.client-ip=209.85.216.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j0sBWnWM"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cbedd5aece4so13577a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 13:18:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fPOJ4isa"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-381b831d535so4487766a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 13:18:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791404322; x=1792009122; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791404323; x=1792009123; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=98oKjZ2K1yRfCkrJS+595quXtp5aYGeP0oglAScHwVE=;
-        b=j0sBWnWMRx9RhkDjFPz5MoM5g+/5bud6df34TfmjM97b2YkxA7s/9MaNcq9UK5dZg9
-         pt/c6G++i49wREwgOQ58eEy2QxV2sHA+bGr4qkeNhrOD3bqcp0q6eZ5BCawAqrR/qnP6
-         +YDb7vlAqWtNjiZrZ/u8EjXENaBl3cH0/nf2vXFn7RGrkP90sn/dnIiWlaOV9iy4tp8p
-         sQ6xED1xL/HYXrUOdhwo/63V/pEoIGLEuWKfO9v6QIlOCABqy1gwxlhZyyrQ7HuYSSp6
-         R7P7Je7a7+f9fcZ3gR4npy6rpjm5GBcJTr8zUzP9l/Dw2MjrpfUK60wiuwrGpL/fZ46i
-         ruGg==
+        bh=O4ajd1qKUyYuUsNFBJ1eWwssuwOD2W4HQfyS01t4xII=;
+        b=fPOJ4isacEdwIMVw/FUu+UYcftTvtgrxjxNeq/MT+GIkL7dtgVikOimUhXxq3eAKa0
+         dGVkOPWqJcNcBNKLME6GO4+lXFNtelywA8/B7jusZ2cIYwOJcI69uf5KlfAdgwTsQuS9
+         +G61CzRgnjWoBt87CQ2FQPgkSYt2wo4fmvtofZXeWMkXVnPsmR4fVOoOubJxt4bNS7pa
+         Uq6t4dZMEUkrP1nMW4ANgFYKjLyih8LJ4Cmw0XZBD2tcC6ZYsbneDz7jJluhvWgmhaXK
+         +5iuEH6btJx3vZlK9Kbzki0tjxvb6xjLb9qSnNKiY0QcjLHleB4AHPoFPgcybleilXUL
+         gt9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791404322; x=1792009122;
+        d=1e100.net; s=20260707; t=1791404323; x=1792009123;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=98oKjZ2K1yRfCkrJS+595quXtp5aYGeP0oglAScHwVE=;
-        b=pwEu4eUlESLJnWIy0neSsGTNbTdtZdNsRryYNY4VCfJjL/txwYDVRCnF327dE+CGZR
-         zZR/6TfD5Kz5QWW+lblvNCgltObB0M4A2gm9JMVKd4qizLdGZNgpZlQIzKFT2RfrmFqE
-         mhvET1OqZcGZS9DCgNTOItDbWeAMD0z37H3BqLR5cQsYBX/0h2bvWpAe1PVJ7TLMFxuE
-         KKKLV0IG7MLWLw7wdN1Qv2Va6+OgdHsNxsI5VB6sK63v1GO7rqIwUtM10N70dBIoM4Pd
-         mTuLZIJRv5b1JJNtpFzmX41PZOV1ynUNRolI890QC32kOv3UX3gZX0EyKK7026V43wUv
-         Xwhw==
-X-Forwarded-Encrypted: i=1; AKwUvBwl7abWiG640DC+bRr2QrvpHv/GExTEYNqbSH5n6XrrSKxKoGz7s3apqt6sXdhmIB7hWzHHJfOrGa2HPO4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKXHMrubc9H/H6oJb+sg0gMP3xqYEKR2Lw31x0KrFMBYRtCQtMQ
-	3KAjXp65sopkbSmCnNBcBx7r24ZAnRFSYKi3Q5vPdqG7lbGusoQmALiR
-X-Gm-Gg: AYBFou3JYIottWXRjVpAp+02Re0QPvDd+bGiriq967r0C0oFxK39L+kWbD8AjU1uEyB
-	aMMrSelOuhMLuQJaQt7j8fwcaor1BgJjODDMU9prdpZm1yQH9j7K7zEAMSHeoseIV99Vc/vuQFa
-	NlfSfCKwtJAFLQeNb65mXTJoUINTBM4+FTAskt2KV/ZfnTyC0gLGOuaB40e2fkRJr54rLHQwg09
-	tO2O3tINcyZEDw8Ii3fJwtJusNqYkme/xFcXvK/X3XTUyxS2By5Tp4FxmxN3SanHdw2l8VYHE3G
-	DMrMmn30dxf+QCSXuiCgFFUtX8k6UxL2KXt7yaAjR2vmGpioSVSEh9GGqsmas9w6T8wD//xxND6
-	X64XBv0cNWJ1GYHsq9fdFsJbNMsV+wskLAeiqvHTDVXkvIBmghG4XZJtgd+3iRcLV0x4K1iVTbZ
-	NDIk3sgnlXfq3eqA35Jjs51KD3dyt8cd0+YuZUH1B83d8b5bgRLVFzF9GD8fIHZY8+ruHysTVEV
-	GK1vvItn7AwZM6z6bAy8R0Q9qtbLe05iRCL7r/lykgYIGdMwyOtRUwm42uYqqpPJU0YxrcGMCcW
-	mwxuVV9CgEAqIg==
-X-Received: by 2002:a17:90b:2789:b0:3a0:c85a:ee12 with SMTP id 98e67ed59e1d1-3aaedba393fmr139084a91.41.1791404321274;
-        Wed, 07 Oct 2026 13:18:41 -0700 (PDT)
+        bh=O4ajd1qKUyYuUsNFBJ1eWwssuwOD2W4HQfyS01t4xII=;
+        b=KBnk+VgNOug+g0wSzWKlqQsV1JtIulAdEe7sLxWydLsU8LY7ayF90C1S0VBheMxOsV
+         M+CBXLfXMhxAV2MMzIYfAGe+lBd6mCnui/73Jw/EbbDhKlxTZr6Dw11s9AsFULsNpV+1
+         4JNSckL3rPpon9Caze5cD7WYGAbiWFTfwqa5fDFTWFjjYwpjGpjCHuI9ilm6IImGW6vC
+         sTDzoOtnMNZFvGkPHzdoA0N+8M0XmyBpGQejmLt+bJHuxJWGsz97O5DxopudyWZca6bR
+         DujnzgKcQFtqNpJS4AASv3W8iDfFy5pQxV4G/unWyLuXYNW1t6ObvBsvRoNpHT6MnrlO
+         VykQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwE+hNFc7XZRk+o22USQiVfqE7b/8u90aEMwoRGb7bIqpGT0GygGEse/qN5zCUzrTt58oTKz//CY5hGCEI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKohwSbEvhUVSjn/tXaa83ZCYXkrxtN6xtiWsgIXN1YZTqSVLP9
+	S3ZoPBFRlDLmyxGzDanmVo/RWFA6zqRfOxS8ut8qJNvQHvcW2eu1Hqe9
+X-Gm-Gg: AYBFou2SjdQ39dHxRI2nW7tgs0+s01U6dN1X2eF9s7G3Ng20v8r+l82k37maoyWBxGN
+	T6c6Z5ALRc3Tcgesfe8OgxPEJVvWJ/kHSfMSWJ3LvxlaUZlscosEVrrOmRAO4yS1ql3VwbBjG6m
+	m1N5UHh/lrMDE0hH6zRithQGAo5rQD/Bnf5HgZs5Ui+Aqo3ofufBqGofHwY8akwPhOuUgW661aZ
+	REZjD7RFsEWEJY0zVpdRZS6bQhbwJu85QiXyHzvZqWAtCzPCMTsBrHtRccm7+2kovRUOK+CWMip
+	8ZvSoSV8DP1J58f/CJjfQOHes5st0xQJjxZ7MaywThBKi8uNpxsARxB07MO40FrIEVs1PCcqFvC
+	0CEHUZZxCoeB3Ip6yYsK0oUGkjS5jgqzUtrsfP5XNZ+wn6fJiTbBlIY0LQ3/hk8w7Ghj8zoA2S2
+	LiNw5rRNG6q9VkJ0j4sylOL+sFJH1tGbmNlp4mBOlvOE59Wekv/dCuVUFg2HA12cXMqUWF8BPTA
+	Ndaewdvnf3k+GBHTm+mDUjo/FST+sIRlTlXQdRErwDBJ/W/8muCwHW2+0QLerIF8BnkYpf8USr2
+	8ZtqWGNf0vKsFA==
+X-Received: by 2002:a17:90b:1344:b0:3a8:7bbc:3f3e with SMTP id 98e67ed59e1d1-3a8a1b0071cmr3203301a91.41.1791404323214;
+        Wed, 07 Oct 2026 13:18:43 -0700 (PDT)
 Received: from 4470NRD-ASU.ssi.samsung.com (c-24-19-224-150.hsd1.wa.comcast.net. [24.19.224.150])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9ff7ab034sm967623a91.4.2026.10.07.13.18.40
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9ff7ab034sm967623a91.4.2026.10.07.13.18.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 13:18:40 -0700 (PDT)
+        Wed, 07 Oct 2026 13:18:42 -0700 (PDT)
 From: Anisa Su <anisa.su887@gmail.com>
 X-Google-Original-From: Anisa Su <anisa.su@samsung.com>
 To: linux-cxl@vger.kernel.org
@@ -78,9 +78,9 @@ Cc: nvdimm@lists.linux.dev,
 	Gregory Price <gourry@gourry.net>,
 	Richard Cheng <icheng@nvidia.com>,
 	Anisa Su <anisa.su@samsung.com>
-Subject: [PATCH v15 4/8] cxl/events: Split event msgnum configuration from irq setup
-Date: Wed,  7 Oct 2026 13:16:37 -0700
-Message-ID: <20261007201828.952-5-anisa.su@samsung.com>
+Subject: [PATCH v15 5/8] cxl/pci: Factor out interrupt policy check
+Date: Wed,  7 Oct 2026 13:16:38 -0700
+Message-ID: <20261007201828.952-6-anisa.su@samsung.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261007201828.952-1-anisa.su@samsung.com>
 References: <20261007201828.952-1-anisa.su@samsung.com>
@@ -99,85 +99,54 @@ memory addition or removal.  BIOS may have control over non-DCD event
 processing.  DCD interrupt configuration needs to be separate from
 memory event interrupt configuration.
 
-Split cxl_event_config_msgnums() from irq setup in preparation for
-separate DCD interrupts configuration.
+Factor out check for firmware ownership of memory event logs.
 
+Link: https://lore.kernel.org/all/663922b475e50_d54d72945b@dwillia2-xfh.jf.intel.com.notmuch/ [1]
+Suggested-by: Dan Williams <djbw@kernel.org>
 Signed-off-by: Ira Weiny <iweiny@kernel.org>
 Signed-off-by: Anisa Su <anisa.su@samsung.com>
+Reviewed-by: Dave Jiang <dave.jiang@intel.com>
 Reviewed-by: Jonathan Cameron <jic23@kernel.org>
 Reviewed-by: Fan Ni <nifan.cxl@gmail.com>
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
 Reviewed-by: Li Ming <ming.li@zohomail.com>
-Reviewed-by: Alison Schofield <alison.schofield@intel.com>
 Reviewed-by: Davidlohr Bueso <dave@stgolabs.net>
+Reviewed-by: Alison Schofield <alison.schofield@intel.com>
 Reviewed-by: Richard Cheng <icheng@nvidia.com>
 ---
- drivers/cxl/pci.c | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
+ drivers/cxl/pci.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/cxl/pci.c b/drivers/cxl/pci.c
-index 2fe9db4b3d86..4867657f5526 100644
+index 4867657f5526..7b754af2168d 100644
 --- a/drivers/cxl/pci.c
 +++ b/drivers/cxl/pci.c
-@@ -600,35 +600,31 @@ static int cxl_event_config_msgnums(struct cxl_memdev_state *mds,
- 	return cxl_event_get_int_policy(mds, policy);
+@@ -640,6 +640,14 @@ static bool cxl_event_int_is_fw(u8 setting)
+ 	return mode == CXL_INT_FW;
  }
  
--static int cxl_event_irqsetup(struct cxl_memdev_state *mds)
-+static int cxl_event_irqsetup(struct cxl_memdev_state *mds,
-+			      struct cxl_event_interrupt_policy *policy)
- {
- 	struct cxl_dev_state *cxlds = &mds->cxlds;
--	struct cxl_event_interrupt_policy policy;
- 	int rc;
- 
--	rc = cxl_event_config_msgnums(mds, &policy);
--	if (rc)
--		return rc;
--
--	rc = cxl_event_req_irq(cxlds, policy.info_settings);
-+	rc = cxl_event_req_irq(cxlds, policy->info_settings);
- 	if (rc) {
- 		dev_err(cxlds->dev, "Failed to get interrupt for event Info log\n");
- 		return rc;
- 	}
- 
--	rc = cxl_event_req_irq(cxlds, policy.warn_settings);
-+	rc = cxl_event_req_irq(cxlds, policy->warn_settings);
- 	if (rc) {
- 		dev_err(cxlds->dev, "Failed to get interrupt for event Warn log\n");
- 		return rc;
- 	}
- 
--	rc = cxl_event_req_irq(cxlds, policy.failure_settings);
-+	rc = cxl_event_req_irq(cxlds, policy->failure_settings);
- 	if (rc) {
- 		dev_err(cxlds->dev, "Failed to get interrupt for event Failure log\n");
- 		return rc;
- 	}
- 
--	rc = cxl_event_req_irq(cxlds, policy.fatal_settings);
-+	rc = cxl_event_req_irq(cxlds, policy->fatal_settings);
- 	if (rc) {
- 		dev_err(cxlds->dev, "Failed to get interrupt for event Fatal log\n");
- 		return rc;
-@@ -675,11 +671,15 @@ static int cxl_event_config(struct pci_host_bridge *host_bridge,
- 		return -EBUSY;
- 	}
- 
-+	rc = cxl_event_config_msgnums(mds, &policy);
-+	if (rc)
-+		return rc;
++static bool cxl_event_fw_owns_mem_logs(struct cxl_event_interrupt_policy *policy)
++{
++	return cxl_event_int_is_fw(policy->info_settings) ||
++	       cxl_event_int_is_fw(policy->warn_settings) ||
++	       cxl_event_int_is_fw(policy->failure_settings) ||
++	       cxl_event_int_is_fw(policy->fatal_settings);
++}
 +
- 	rc = cxl_mem_alloc_event_buf(mds);
+ static int cxl_event_config(struct pci_host_bridge *host_bridge,
+ 			    struct cxl_memdev_state *mds, bool irq_avail)
+ {
+@@ -662,10 +670,7 @@ static int cxl_event_config(struct pci_host_bridge *host_bridge,
  	if (rc)
  		return rc;
  
--	rc = cxl_event_irqsetup(mds);
-+	rc = cxl_event_irqsetup(mds, &policy);
- 	if (rc)
- 		return rc;
- 
+-	if (cxl_event_int_is_fw(policy.info_settings) ||
+-	    cxl_event_int_is_fw(policy.warn_settings) ||
+-	    cxl_event_int_is_fw(policy.failure_settings) ||
+-	    cxl_event_int_is_fw(policy.fatal_settings)) {
++	if (cxl_event_fw_owns_mem_logs(&policy)) {
+ 		dev_err(mds->cxlds.dev,
+ 			"FW still in control of Event Logs despite _OSC settings\n");
+ 		return -EBUSY;
 -- 
 2.43.0
 
