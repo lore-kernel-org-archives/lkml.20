@@ -1,147 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1739F4DEC3B;
-	Wed,  7 Oct 2026 18:39:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDED54E01FC;
+	Wed,  7 Oct 2026 18:40:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791398396; cv=none; b=dxZMSd+7sk6FB5TrQ6j8DeufFAjPtZt9IoxOwg+VLkVWi2hwsEl7ve3xa/+6jBBdRWPtT3DleKbU1JY4k5gVHzucIW0u/o+WWzWI+7Zj06mf2CRI5Qpcm2PdKazyPfmOLdCpIr8Dy4aQZqQNNHP2ioMO3YrNWVDnlhqJETk43bg=
+	t=1791398420; cv=none; b=GRqptsNpgmvLjj2PG9L/hbYdKaJZUgNm0GsJmKVDy116KKFgw1hv/alrDtQOVKOhyot4bUKQq6yCczyeuseSJkC2UPipjYxuLrNO+I9Ea7YyY9+tFMcBOCgghxEfG5LGCFTVW6NpTSN6ZsT88m0acXF/TyiTqlLMAM/BZnTNns8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791398396; c=relaxed/simple;
-	bh=yEzeEqRyzkeNneE75WHmeQNkwdywPpw0kTdt/SFmhjo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dvhsc9Ly1fqMrNPmzk5iYmmSlPCA58IDsPKg/6TMqU9NpcP+LkJNuQFCc3hsjOaMiXOcRpXdjoTszSgXIDPZWmEm3RXVJarafwz1BRonq0LSFwS3X4tiI01qqK2fh1j/DBDtStFdobujxdubTYWEJU7WGxWkIAxlc30dUIuOMug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C87mh4D3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791398420; c=relaxed/simple;
+	bh=HHlCqGav/n7NtJLQSHN2S4LltChege0BzhxasuthA0k=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ewpZxx2hc0KacHKSGkFBQm0map5FkdiIDzloA2GpMCBBea+CinWRIaPqt6aTqqQIZAkNNNBBgClYaMJMQAm8tDQJWv/dkWT9ZIszpw2fZqetgm3XQ+aTN62XbpbX6wK9bD1v3TNYslUwWXVCiZsJr48G/2+IpJfsiDHzju97PC4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=jLA3lC8s; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C87mh4D3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B0641F000FF;
-	Wed,  7 Oct 2026 18:39:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791398394;
-	bh=MCv2C8fY4xu/QhMyWNKnDvP7nn6RLVcj+W4fGSSQzxs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=C87mh4D3PuE9JqnkDteZuVBp4Thf5qSVhMmXT9EErkLFZC79D+3bQfdDEAQi3P64l
-	 NnBkANyX52HKjFTYGRiNCOm8peEaM3bljXkJ/k/VZ6N4POZTZJEnrm/Ky0mRvlyICp
-	 vnC8rrMt0WADxRwijkljVbCCPJZ/56P7zqzB90ajjDBWijBWu0ITUBO/od7xZ7Ui+0
-	 6a1uREhmegJU0QP9w9d6FejXrdulI73V0xenF119lM0LfrkwjqmMzmHMIWmQmr2Z5/
-	 kElSJJIjwKMVySn6CLyPlF3yvxIDWzdn0Ilql+xF8fD6wU2rMZc4IsfYEszG1J48lY
-	 lQDgGxQrY2YkQ==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Wed, 07 Oct 2026 13:39:41 -0500
-Subject: [PATCH v3 2/2] kbuild: Support directory targets for building DTBs
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="jLA3lC8s"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1791398418; x=1822934418;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=HHlCqGav/n7NtJLQSHN2S4LltChege0BzhxasuthA0k=;
+  b=jLA3lC8sNOZHi1VInAyfo2Gb0ekSWMryW3Z65n5nXQQKpDhpVNOOWPut
+   haDK/5kO1NS4Dt6EVtWP5uuEb2d3TyH1agJKQxyJJUBj30YoOxAPyyMLJ
+   vxuO+vVlNdbzCHOshnJpcaDWjc9IUmwN2bv15POLWzVso6+FYwyJROlSl
+   xgD2qO+CcIQ0c+LR+SKhYriR86Pdjz4TLqCqfVd1sLrftStcgsx0bg1Ea
+   /zWGEilJZ5+b2/XQ3a27Wnp+1RFD3H7qMzSkj0n9KYnaQpn3Ly2kXQA7q
+   B9PtqzB7EgCSBrmGO7ABqF9awH/fCzQpg3aTurdTk/Sf37ScBALw+ibx3
+   A==;
+X-CSE-ConnectionGUID: DC8nyTfxQSSDRldCkE/feQ==
+X-CSE-MsgGUID: WArMQrM9TDiPxD9S8CSOvg==
+X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
+   d="scan'208";a="64715694"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 11:40:17 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
+ chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.49; Wed, 7 Oct 2026 11:40:16 -0700
+Received: from DEN-DL-M70577 (10.10.85.11) by chn-vm-ex02.mchp-main.com
+ (10.10.85.144) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Wed, 7 Oct 2026 11:40:13 -0700
+Date: Wed, 7 Oct 2026 20:40:12 +0200
+From: Daniel Machon <daniel.machon@microchip.com>
+To: Tariq Toukan <tariqt@nvidia.com>
+CC: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+	<kuba@kernel.org>, <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Dragos Tatulea <dtatulea@nvidia.com>, Gal Pressman <gal@nvidia.com>, Leon
+ Romanovsky <leon@kernel.org>, open list <linux-kernel@vger.kernel.org>,
+	<linux-rdma@vger.kernel.org>, Li RongQing <lirongqing@baidu.com>, Mark Bloch
+	<mbloch@nvidia.com>, Saeed Mahameed <saeedm@mellanox.com>, Saeed Mahameed
+	<saeedm@nvidia.com>, Tariq Toukan <tariqt@mellanox.com>
+Subject: Re: [PATCH net V2] net/mlx5e: Order ICOSQ cc update after CQ doorbell
+Message-ID: <20261007184012.x7qmcjh4xuks3jbw@DEN-DL-M70577>
+References: <20261006105820.257208-1-tariqt@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261007-dtb-dirs-v3-v3-2-b3ab32b64fa6@kernel.org>
-References: <20261007-dtb-dirs-v3-v3-0-b3ab32b64fa6@kernel.org>
-In-Reply-To: <20261007-dtb-dirs-v3-v3-0-b3ab32b64fa6@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Saravana Kannan <saravanak@kernel.org>
-Cc: David Heidelberg <david@ixit.cz>, Arnd Bergmann <arnd@arndb.de>, 
- linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org
-X-Mailer: b4 0.16-dev
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261006105820.257208-1-tariqt@nvidia.com>
 
-It is useful to be able to build all the DTBs for a vendor. One can list
-all the .dts files in a directory and convert those to %.dtb targets,
-but that doesn't work for base+overlay DTB targets.
+> From: Li RongQing <lirongqing@baidu.com>
+> 
+> mlx5e_poll_ico_cq() requires sq->cc to be updated only after
+> mlx5_cqwq_update_db_record(), otherwise a CQ overrun may occur.
+> 
+> The current implementation updates sq->cc before the CQ doorbell
+> record, violating this ordering requirement.
+> 
+> Update the CQ doorbell record first and use dma_wmb() before updating
+> sq->cc. This ensures that the CQ space is released to the device
+> before the corresponding ICOSQ consumer index is updated by software.
+> 
 
-The 'dtbs' and 'dtbs_check' targets can use the directory rule targets
-as well which avoids different make paths for building DTBs.
-
-Assisted-by: LLM
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
----
-v3:
- - Reworked on top of single target rule for %.dtb
- - Make dtbs target use directory rule.
- - Move adding boot/dts subdir out of the arch code. Now supported on
-   every arch (not that useful without vendor dirs).
- - Removed the need to look at MAKECMDGOALS
- - Fixed unnecessary rebuilding DT base+overlay targets
- - Link to v2: https://lore.kernel.org/all/20251120204812.1983452-4-robh@kernel.org/
-
-v2:
- - Convert arm, mips and riscv. The other DT enabled arches don't have
-   vendor directories.
- - Link to v1: https://lore.kernel.org/all/20251113225952.867138-1-robh@kernel.org/
----
- Makefile               | 8 ++++----
- scripts/Makefile.build | 7 +++++++
- scripts/Makefile.dtbs  | 2 ++
- 3 files changed, 13 insertions(+), 4 deletions(-)
-
-diff --git a/Makefile b/Makefile
-index c307ee9293bc..75d290c2b7d8 100644
---- a/Makefile
-+++ b/Makefile
-@@ -1664,8 +1664,8 @@ dtbindingtree := Documentation/devicetree/bindings
- ifneq ($(dtstree),)
- 
- PHONY += dtbs dtbs_prepare dtbs_install dtbs_check
--dtbs: dtbs_prepare
--	$(Q)$(MAKE) $(build)=$(dtstree) need-dtbslist=1
-+dtbs:
-+	$(Q)$(MAKE) $(dtstree)/
- 
- # include/config/kernel.release is actually needed when installing DTBs because
- # INSTALL_DTBS_PATH contains $(KERNELRELEASE). However, we do not want to make
-@@ -2216,7 +2216,7 @@ single-goals := $(addprefix $(build-dir)/, $(single-no-ko))
- 
- # DT-only targets need host tools, but no architecture-specific preparation.
- ifneq ($(dtstree),)
--single-dt-patterns := $(addprefix $(dtstree)/,%.dtb %.dtbo)
-+single-dt-patterns := $(dtstree)/ $(addprefix $(dtstree)/,%.dtb %.dtbo %/)
- ifeq ($(filter-out $(single-dt-patterns),$(single-no-ko)),)
- single-build-prep := dtbs_prepare
- endif
-@@ -2234,7 +2234,7 @@ prepare: outputmakefile
- # Error messages still appears in the original language
- PHONY += $(build-dir)
- $(build-dir): $(single-build-prep)
--	$(Q)$(MAKE) $(build)=$@ need-builtin=1 need-modorder=1 $(single-goals)
-+	$(Q)$(MAKE) $(build)=$@ need-builtin=1 need-modorder=1 need-dtbslist=1 $(single-goals)
- 
- clean-dirs := $(addprefix _clean_, $(clean-dirs))
- PHONY += $(clean-dirs) clean
-diff --git a/scripts/Makefile.build b/scripts/Makefile.build
-index 4349108e75e1..d22b3b2d43b3 100644
---- a/scripts/Makefile.build
-+++ b/scripts/Makefile.build
-@@ -38,6 +38,13 @@ include $(srctree)/scripts/Makefile.compiler
- include $(kbuild-file)
- include $(srctree)/scripts/Makefile.lib
- 
-+# Make DT directory targets reachable for architectures with a DTS tree.
-+ifeq ($(obj),arch/$(SRCARCH))
-+ifneq ($(wildcard $(src)/boot/dts/),)
-+subdir-y += boot/dts
-+endif
-+endif
-+
- # flags that take effect in current and sub directories
- KBUILD_AFLAGS += $(subdir-asflags-y)
- KBUILD_CFLAGS += $(subdir-ccflags-y)
-diff --git a/scripts/Makefile.dtbs b/scripts/Makefile.dtbs
-index c4e466390284..c7ec2a2a308e 100644
---- a/scripts/Makefile.dtbs
-+++ b/scripts/Makefile.dtbs
-@@ -23,7 +23,9 @@ dtb-y           := $(addprefix $(obj)/, $(dtb-y))
- multi-dtb-y     := $(addprefix $(obj)/, $(multi-dtb-y))
- real-dtb-y      := $(addprefix $(obj)/, $(real-dtb-y))
- 
-+ifdef need-dtbslist
- always-y        += $(dtb-y)
-+endif
- targets         += $(real-dtb-y)
- 
- # dtbs-list
-
--- 
-2.53.0
+Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
 
