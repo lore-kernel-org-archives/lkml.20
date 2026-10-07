@@ -1,56 +1,56 @@
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com [209.85.128.71])
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com [209.85.221.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47B414B0484
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 14:30:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81A1A4B0E5A
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 14:30:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791383435; cv=none; b=H452uX1zKXUvXWtrEeauwazWXh9nsVwV9T6HtRh8zQuxlbN2o6lHiOL01D4AgYF0/vHuGBkmRsWdQfeYq1yK8rwDvYud5mKgxd/e1xVNVPParNrbW5Gz7BrirgwvfYaxQvQg6IrPZJxe4litIUYsQEtRspm9CfZXTdpGRnSNsdI=
+	t=1791383435; cv=none; b=blH9xJNsYyymO+vbY6L7JmrOK/0kp3RQEKkZYps1Gfyc+WpZ+fCI8clk9uaAsV4x8lrlSrnHAyzhxE3LMOEoVOnFA8lIl+i7IhQtsKfiCzvZiGGxpL01OZNHNhgELnDBzmAHeBBZSezGp4balkuhd5zQHpKHUypmQBJsuudI5Qg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791383435; c=relaxed/simple;
-	bh=VkcBvqhJgE5e7EfXX9M936ALkxN+JB7EdeqtMUM2+Wc=;
+	bh=Qfli/8yFD2jARriIawOhQs/GAKYSJIucQKH/lIezYOc=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=oOVyXcUhwc8ZtqlnhSj2WElqBAgxOf6Q2O/QXQjD67wXsJnYEulhv/WDQi39tGEJs13+TYOpUEJPfgGMo/quwGT0Bu+3Y1ubBqaXelLqp8U+NgwAKS9yYYBrLRWzNaNnbwLrNpDC+kGvB+/MRTwic0WfdKUTg1OswexJm+LSD8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=BokSc/C6; arc=none smtp.client-ip=209.85.128.71
+	 To:Cc:Content-Type; b=IUXPoflxw4Xl/3NTf5frzDbwTR1PfDx86gHTdyyxTU2SgnUEhJkRkhKysWJl/Q8QNDt+5S9KyPvzicq11ls2zrr6r6ZxKIoAWR1mEJfH3iHkdspqvP6nrV8TgqS+9bqSb2TtWc6zSvOCAL3SwOVjF+kiVOqOXn447jElJoAqjgU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=HxgBRdjU; arc=none smtp.client-ip=209.85.221.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="BokSc/C6"
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-49e6b5c5f44so63611995e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 07:30:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="HxgBRdjU"
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-48589603501so2266696f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 07:30:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791383427; x=1791988227; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1791383419; x=1791988219; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=P4xl7iEeB8DBJtdIeM9BSRG6cgKYSvp/1se9UhiVhUY=;
-        b=BokSc/C6F+cWgx9Wq6aC2qLhg5mmp7lcHuLacOp+WShnnnZu+7lWfD0M3/gKN+BQlL
-         sJ8t63n262mQ3tOAaPvKpTjT+RAiMY3nYPpgv+XXBS6xiE4i3y7NrzW5N7xtd/QP2Zyz
-         +aNlGnfB2mSiTprLSwyeBUMhhyVY3NVtohRjdrrUOlNcwvHQZZ3a4i/pfKaZqb3mqx5r
-         Ud5RY4XIqGAQ8wJaN9xK8we/q1P9HV7xKZyM2aUhu22L6dhTX4xwl8LJFhUysyydM7ok
-         52BtL94Ld5lwi83rMYyGOwnOEpQTuT2HK3hBqEH+QOTwG3aO1weR/r7RnqjvJKA0pA1C
-         0FDw==
+        bh=53KwSMYJX4+uA9WreYswvyBSh7+MhNbzUNt0tODS6tk=;
+        b=HxgBRdjU1JdnrKGb9hniEejAhRB9AWHF+5hPiWB14hMVG3Pdf+6MYgdlBT1HyIpFGX
+         mOie7s0dClBc95/CUQx1eRBfeDcrbxwhBtCunpAbpjZ9QVD6Sk0OtFfCLCIOnNjgrqvM
+         dRcRGN6RORgdUeftk8jxKwHm9zL48myh845+4N83L42ryP3HkqUW41NUbQzwYwNowSda
+         7KBDvFDo4JMRfSgPai3LMuN7Xvx1sL2+6/Jy3/MlBf+cx+fwvzJx4pyktF6GHKofxAgl
+         T3tWZh8a2+DH5ZsAOehRMLv1witcIS7FwnE6fid36Re+knj6O8e7ieM9Ufn0AdXieKzn
+         Qvzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791383427; x=1791988227;
+        d=1e100.net; s=20260707; t=1791383419; x=1791988219;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=P4xl7iEeB8DBJtdIeM9BSRG6cgKYSvp/1se9UhiVhUY=;
-        b=q6mX073iPTlOAVrmRItHXntjTatc7b7Uc55Q9XtU4k7W9l/FPB657ave7A+PSCypKL
-         PKUXC33Z+wrMAXKJlSy4+j0EUoRmfZkttoO8paUassjosicD80L14cSVv/WGr8PXhCYZ
-         zlIwU1acjdYkh9n9vqQgX7Whn8Yfptf91c5GFI2ohZQeh2BtuVERqOZa4ynmbDc3W+at
-         UawZF1749SIxcNINdEO2Ns27Od0QGqLHPlxMwjN06GfY5zKn3ZNId8xMfjTtGbg/sW3e
-         plZ2okKsRR5h1VY7waNjaWq2SiZHFeUCba7lv/NW7jElrV63Iv/LwJycXBSDC1gscw6X
-         TV1g==
-X-Forwarded-Encrypted: i=1; AKwUvBxo/K7399ads5Zc61cEbjcw2TKKDesUVILJqx3ftEcBD1fOQuhgJan0edw4pR8kvc92poSy7D+hu8VLumA=@vger.kernel.org
-X-Gm-Message-State: AFuF++m1mFGejn/ViO51CpI0TDqoFbt2AAL8hVTodJPoJBACkS5xjle5
-	cYQunTqEFG7CyQBQzNDoxeSLIexl1EKFoJuRPmKbTntHBC5qnB45nQhZzTf76ZwOlTgSX5aC/86
-	EtjY+emrJy69fNMmqAw==
-X-Received: from wmpd9.prod.google.com ([2002:a05:600c:4c09:b0:49f:e58b:90d5])
+        bh=53KwSMYJX4+uA9WreYswvyBSh7+MhNbzUNt0tODS6tk=;
+        b=Qv1hzd4oOzF++dbstW+CmQ++H4x9CvUxBNBCY1Uvu1WKZ8998QunU3YiKaxvwqptGV
+         cHTYk7C0++S8ASaVQcUgc2efT5aefNQvJkDeJZ9s0ZmJ+aYRgPHekKA/lZzEVzfyjWat
+         ZRRvwOZveXpiWNYbKfnUrxK3Q9Eze4UIzt6fQ9yiCaFHzAoIRpdPj2ezNUnhcS4oiQzh
+         lb1cUk47NhAO6aG7AZXgaXH1otuEJxA/hZnaI+t2hDWiQiT5PLwMxqVFyfCTrQvIsZqr
+         K7Q6MU00Ugvdo9B7yb0lJh/TSKX4VEcb9Ase3ms6KAbBF3kAkey88g2EfIksWxX7hyvk
+         9KQw==
+X-Forwarded-Encrypted: i=1; AKwUvBwFCDa49Tbw698Xe+bROWNqNuU2CVikjsHyhzqNTVWe0SBvyrzussdiZj0/TvXfpsLx1ILn8JLYJ36Qbd4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIxamxYH703odjOUFJO/Nf17n8OQWmGAaEF4Haphfc0iGuF1ifd
+	YR13ydInMR+X/niXciwiCIlBSSaXTWKboDNmyUQIbGQV7yxeiHqGDMLo3NydAcQsa69fs+7WShW
+	TbO+gUG3jdr2B6uQd4Q==
+X-Received: from wroi11.prod.google.com ([2002:adf:f30b:0:b0:48a:f246:83ad])
  (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:4ed0:b0:4a1:7f41:b9dc with SMTP id 5b1f17b1804b1-4a18043b80amr37747435e9.23.1791383420616;
- Wed, 07 Oct 2026 07:30:20 -0700 (PDT)
-Date: Wed, 07 Oct 2026 14:30:02 +0000
+ 2002:a05:6000:2585:b0:48a:f8fb:cd49 with SMTP id ffacd0b85a97d-48c72889ca6mr4790614f8f.22.1791383419136;
+ Wed, 07 Oct 2026 07:30:19 -0700 (PDT)
+Date: Wed, 07 Oct 2026 14:30:01 +0000
 In-Reply-To: <20261007-pr-ratelimited-v6-0-f14accd4ea3b@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,22 +60,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261007-pr-ratelimited-v6-0-f14accd4ea3b@google.com>
 X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4768; i=aliceryhl@google.com;
- h=from:subject:message-id; bh=VkcBvqhJgE5e7EfXX9M936ALkxN+JB7EdeqtMUM2+Wc=;
- b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBqxld3dOp4Fo7xkyij20cYVpygnr7onqbGPUxio
- vldZdNIzGeJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCasZXdwAKCRAEWL7uWMY5
- Rhq2EACNflkGDxeRaozl2z6PB2rF0Xfd+Pn+Hl8SBmFTaUT7zsJ2sYu4eW3rh/Sb/9c64JwTAfI
- nnkyWRSuPBWeWIpICnYx2zAIhpLJhvDH7FFGRLvx4gGwpmp4bQFuz5BfCCnNPVgijYL2AlC0L4E
- UlPzEShyPyWXChTr8WqSZ39ovo7wMlVvL3pPjJN02DNvU6sLVg6CbPohFXqG5RFtXpyx7qwO8IJ
- PZHJxjAIyOQFvTFw2332OHHwqHx08Qjda5m6u78S0uBocbBsgX0EQ4yUjE2FLRQ0jZ5n5dt0igS
- KN1rPb3UTYUfQjD9NDUN8NFMi8fUU2jUJq4yT0uMDBeoYOQB8pFssjKeEJqqD2BRCwKY9U/FpYj
- GerAsoPDGXeBUwoY7SzzZay/WciQFb8QP8Y1vrlFutFPqr9LjLqRHzK4up8dXb85scsVL7cAKSk
- ZtbOieoRH8xK9sCxwu78r9vMsABXMn6pa58gRYuGcamlvXO4+GDJlzjQuBjjHI8kRRCr55wrjbq
- jOWbpFNpPfaiD4t9CafThjlT8q540TQ7IOwUR3UeL8gkzL8+XbF3wHTjOCpuEkChQfnyAF+9gaO
- AmSoRjmnmjYksJqGRPNeQXxeeJrBFTxuYc+IYn4X/N8EpcihQn/+V0b3IcD/GoEr5RJrcCqOFoS gTapXfc66kk7RFA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=11580; i=aliceryhl@google.com;
+ h=from:subject:message-id; bh=Qfli/8yFD2jARriIawOhQs/GAKYSJIucQKH/lIezYOc=;
+ b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBqxld38T+YXPeKdufXp+mSKQAvcYSuT7BzjdSQ4
+ /mzrJQwkUGJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCasZXdwAKCRAEWL7uWMY5
+ RnKLD/4osaC7VreQDAMlbZfsWMG0KYFkZTYoLgo2YyBtjMUtKFVYvyy9BE1cleNZFlY8HWSdBCo
+ yjgM5zV1H1Hxav1GdafnirorpWRQni6WkpKCdEMidII9qD+4+j+8EWhBKLT+0vDVuXt3nIemdaF
+ 1vvh69pC4OmURBJdwZccCVPPyMfqdpj+07ZPBQg2p6E1Rj9pjseC1mUq+l9NzNInN933dM2A++Y
+ rQP/34TCTNjsyXXVXXdZiBjFbxfq22QE2K+0vP7cWa01w+kW8c7hoKiDePCLBj6HBYpcgFBn04n
+ Scud4KoqSP6lFfdFhu5nnvBEwGvzbIxpirW4dMHwA66yDyeKb+2em/m4fGRaAwEYz+j2tUD6Y9I
+ Rzy6rQla2C8foo1AHpD8oZgbcIc7dS5HvWiqCCTpOFbwdxMqYcIHqy8t/1h+CH6LzzdSxNovul1
+ kYvxoK4uQfyt059omBOwc3hpO9jiHRQolynF9x3ydeIFGUVkBSsVmrbbaNJ25MHXyy9k9i6RsqA
+ Xq23rcpq5e9mBr67AJdf3R/0tAzgxCF5uWiKdRrHKYEfondsmtxInVYwO/7EnSRC2jrbvANEngh
+ 8JiB1cXa/uyRBUu8AemJEmSNAsjQPx24DM0N7UpDY5TbnpJlSzzubUOWTPzQBvJSI/mkDm4AC11 kd9O/jQVB574QNA==
 X-Mailer: b4 0.14.3
-Message-ID: <20261007-pr-ratelimited-v6-2-f14accd4ea3b@google.com>
-Subject: [PATCH v6 2/4] rust: sync: add const constructor for raw_spinlock_t
+Message-ID: <20261007-pr-ratelimited-v6-1-f14accd4ea3b@google.com>
+Subject: [PATCH v6 1/4] rust: sync: move lockdep types to rust/kernel/sync/lockdep.rs
 From: Alice Ryhl <aliceryhl@google.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Carlos Llamas <cmllamas@google.com>, 
 	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
@@ -90,143 +90,342 @@ Cc: "=?utf-8?q?Onur_=C3=96zkan?=" <work@onurozkan.dev>, Andreas Hindborg <a.hind
 	Alice Ryhl <aliceryhl@google.com>
 Content-Type: text/plain; charset="utf-8"
 
-The abstractions for pr_*_ratelimited! need to construct a global
-`struct ratelimit_state`, which contains a `raw_spinlock_t` field. Thus,
-add a const constructor for the `raw_spinlock_t` type.
+The lockdep types are currently stored directly in rust/kernel/sync.rs,
+but there are starting to be too many of them to keep them in that file.
+Thus, move them to a submodule. The new module is listed under LOCKING
+PRIMITIVES in the MAINTAINERS file.
 
-The SPINLOCK_OWNER_INIT constant isn't mirrored via a const helper
-because bindgen generates a 'static mut' instead of a constant from the
-pointer constant.,
+For commonly used lockdep logic it's useful to keep re-exports in
+kernel::sync, and this also avoids the need to update any users.
 
-The __ARCH_SPIN_LOCK_UNLOCKED constant cannot be translated by bindgen
-because it's a define for a struct without type annotations, so it's
-explicitly declared in Rust.
-
+Reviewed-by: Gary Guo <gary@garyguo.net>
 Reviewed-by: Boqun Feng <boqun@kernel.org>
 Reviewed-by: Carlos Llamas <cmllamas@google.com>
 Acked-by: Miguel Ojeda <ojeda@kernel.org>
 Signed-off-by: Alice Ryhl <aliceryhl@google.com>
 ---
- include/linux/spinlock_types_raw.h |  4 ++++
- rust/bindings/lib.rs               | 25 +++++++++++++++++++++++++
- rust/kernel/sync/lock/spinlock.rs  | 29 +++++++++++++++++++++++++++++
- rust/kernel/sync/lockdep.rs        | 22 ++++++++++++++++++++++
- 4 files changed, 80 insertions(+)
+ MAINTAINERS                 |   1 +
+ rust/kernel/sync.rs         | 135 +-----------------------------------------
+ rust/kernel/sync/lockdep.rs | 139 ++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 142 insertions(+), 133 deletions(-)
 
-diff --git a/include/linux/spinlock_types_raw.h b/include/linux/spinlock_types_raw.h
-index e5644ab2161f..942c229c90bb 100644
---- a/include/linux/spinlock_types_raw.h
-+++ b/include/linux/spinlock_types_raw.h
-@@ -11,6 +11,10 @@
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 72294ddfa5b7..3f9cdca2f770 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -15284,6 +15284,7 @@ F:	rust/helpers/mutex.c
+ F:	rust/helpers/spinlock.c
+ F:	rust/kernel/sync/lock.rs
+ F:	rust/kernel/sync/lock/
++F:	rust/kernel/sync/lockdep.rs
+ F:	rust/kernel/sync/locked_by.rs
+ X:	kernel/locking/locktorture.c
  
- #include <linux/lockdep_types.h>
+diff --git a/rust/kernel/sync.rs b/rust/kernel/sync.rs
+index 3e55de3b1636..c14d62a8ebb6 100644
+--- a/rust/kernel/sync.rs
++++ b/rust/kernel/sync.rs
+@@ -5,10 +5,6 @@
+ //! This module contains the kernel APIs related to synchronisation that have been ported or
+ //! wrapped for usage by Rust code in the kernel.
  
-+/*
-+ * Keep in sync with rust/kernel/sync/lock/spinlock.rs
-+ */
-+
- context_lock_struct(raw_spinlock) {
- 	arch_spinlock_t raw_lock;
- #ifdef CONFIG_DEBUG_SPINLOCK
-diff --git a/rust/bindings/lib.rs b/rust/bindings/lib.rs
-index 439ab88a5da1..076058e25ccf 100644
---- a/rust/bindings/lib.rs
-+++ b/rust/bindings/lib.rs
-@@ -83,3 +83,28 @@ mod bindings_helper {
-         None
-     }
+-use crate::prelude::*;
+-use crate::types::Opaque;
+-use pin_init;
+-
+ mod arc;
+ pub mod aref;
+ pub mod atomic;
+@@ -16,6 +12,7 @@
+ pub mod completion;
+ mod condvar;
+ pub mod lock;
++pub mod lockdep;
+ mod locked_by;
+ pub mod poll;
+ pub mod rcu;
+@@ -36,136 +33,8 @@
+     SpinLockIrq,
+     SpinLockIrqGuard, //
  };
++pub use lockdep::{static_lock_class, LockClassKey};
+ pub use locked_by::LockedBy;
+ pub use refcount::Refcount;
+ pub use set_once::SetOnce;
+ pub use srcu::Srcu;
+-
+-/// Represents a lockdep class.
+-///
+-/// Wraps the kernel's `struct lock_class_key`.
+-#[repr(transparent)]
+-#[pin_data(PinnedDrop)]
+-pub struct LockClassKey {
+-    #[pin]
+-    inner: Opaque<bindings::lock_class_key>,
+-}
+-
+-// SAFETY: Unregistering a lock class key from a different thread than where it was registered is
+-// allowed.
+-unsafe impl Send for LockClassKey {}
+-
+-// SAFETY: `bindings::lock_class_key` is designed to be used concurrently from multiple threads and
+-// provides its own synchronization.
+-unsafe impl Sync for LockClassKey {}
+-
+-impl LockClassKey {
+-    /// Initializes a statically allocated lock class key.
+-    ///
+-    /// This is usually used indirectly through the [`static_lock_class!`] macro. See its
+-    /// documentation for more information.
+-    ///
+-    /// # Safety
+-    ///
+-    /// * Before using the returned value, it must be pinned in a static memory location.
+-    /// * The destructor must never run on the returned `LockClassKey`.
+-    pub const unsafe fn new_static() -> Self {
+-        LockClassKey {
+-            inner: Opaque::uninit(),
+-        }
+-    }
+-
+-    /// Initializes a dynamically allocated lock class key.
+-    ///
+-    /// In the common case of using a statically allocated lock class key, the
+-    /// [`static_lock_class!`] macro should be used instead.
+-    ///
+-    /// # Examples
+-    ///
+-    /// ```
+-    /// use kernel::alloc::KBox;
+-    /// use kernel::types::ForeignOwnable;
+-    /// use kernel::sync::{LockClassKey, SpinLock};
+-    /// use pin_init::stack_pin_init;
+-    ///
+-    /// let key = KBox::pin_init(LockClassKey::new_dynamic(), GFP_KERNEL)?;
+-    /// let key_ptr = key.into_foreign();
+-    ///
+-    /// {
+-    ///     stack_pin_init!(let num: SpinLock<u32> = SpinLock::new(
+-    ///         0,
+-    ///         c"my_spinlock",
+-    ///         // SAFETY: `key_ptr` is returned by the above `into_foreign()`, whose
+-    ///         // `from_foreign()` has not yet been called.
+-    ///         unsafe { <Pin<KBox<LockClassKey>> as ForeignOwnable>::borrow(key_ptr) }
+-    ///     ));
+-    /// }
+-    ///
+-    /// // SAFETY: We dropped `num`, the only use of the key, so the result of the previous
+-    /// // `borrow` has also been dropped. Thus, it's safe to use from_foreign.
+-    /// unsafe { drop(<Pin<KBox<LockClassKey>> as ForeignOwnable>::from_foreign(key_ptr)) };
+-    /// # Ok::<(), Error>(())
+-    /// ```
+-    pub fn new_dynamic() -> impl PinInit<Self> {
+-        pin_init!(Self {
+-            // SAFETY: lockdep_register_key expects an uninitialized block of memory
+-            inner <- Opaque::ffi_init(|slot| unsafe { bindings::lockdep_register_key(slot) })
+-        })
+-    }
+-
+-    /// Returns a raw pointer to the inner C struct.
+-    ///
+-    /// It is up to the caller to use the raw pointer correctly.
+-    pub fn as_ptr(&self) -> *mut bindings::lock_class_key {
+-        self.inner.get()
+-    }
+-}
+-
+-#[pinned_drop]
+-impl PinnedDrop for LockClassKey {
+-    fn drop(self: Pin<&mut Self>) {
+-        // SAFETY: `self.as_ptr()` was registered with lockdep and `self` is pinned, so the address
+-        // hasn't changed. Thus, it's safe to pass it to unregister.
+-        unsafe { bindings::lockdep_unregister_key(self.as_ptr()) }
+-    }
+-}
+-
+-/// Defines a new static lock class and returns a pointer to it.
+-///
+-/// # Examples
+-///
+-/// ```
+-/// use kernel::sync::{static_lock_class, Arc, SpinLock};
+-///
+-/// fn new_locked_int() -> Result<Arc<SpinLock<u32>>> {
+-///     Arc::pin_init(SpinLock::new(
+-///         42,
+-///         c"new_locked_int",
+-///         static_lock_class!(),
+-///     ), GFP_KERNEL)
+-/// }
+-/// ```
+-#[macro_export]
+-macro_rules! static_lock_class {
+-    () => {{
+-        static CLASS: $crate::sync::LockClassKey =
+-            // SAFETY: The returned `LockClassKey` is stored in static memory and we pin it. Drop
+-            // never runs on a static global.
+-            unsafe { $crate::sync::LockClassKey::new_static() };
+-        $crate::prelude::Pin::static_ref(&CLASS)
+-    }};
+-}
+-pub use static_lock_class;
+-
+-/// Returns the given string, if one is provided, otherwise generates one based on the source code
+-/// location.
+-#[doc(hidden)]
+-#[macro_export]
+-macro_rules! optional_name {
+-    () => {
+-        $crate::c_str!(::core::concat!(::core::file!(), ":", ::core::line!()))
+-    };
+-    ($name:literal) => {
+-        $crate::c_str!($name)
+-    };
+-}
+diff --git a/rust/kernel/sync/lockdep.rs b/rust/kernel/sync/lockdep.rs
+new file mode 100644
+index 000000000000..784821cc2a39
+--- /dev/null
++++ b/rust/kernel/sync/lockdep.rs
+@@ -0,0 +1,139 @@
++// SPDX-License-Identifier: GPL-2.0
 +
-+// Explicitly list architectures where this logic is checked correct.
-+#[cfg(any(
-+    CONFIG_ARM,
-+    CONFIG_ARM64,
-+    CONFIG_LOONGARCH,
-+    CONFIG_PPC,
-+    CONFIG_RISCV,
-+    CONFIG_S390,
-+    CONFIG_UML_X86,
-+    CONFIG_X86,
-+))]
-+pub const __ARCH_SPIN_LOCK_UNLOCKED: arch_spinlock_t = {
-+    // SAFETY: The `arch_spinlock_t` type can be zeroed.
-+    #[allow(unused_mut)]
-+    let mut lock: arch_spinlock_t = unsafe { core::mem::zeroed() };
++//! Utilities related to lockdep.
++//!
++//! C headers: [`include/linux/lockdep.h`](srctree/include/linux/lockdep.h)
 +
-+    #[cfg(not(CONFIG_SMP))]
-+    #[cfg(CONFIG_DEBUG_SPINLOCK)]
-+    {
-+        lock.slock = 1;
++use crate::{
++    prelude::*,
++    types::Opaque, //
++};
++
++/// Represents a lockdep class.
++///
++/// Wraps the kernel's `struct lock_class_key`.
++#[repr(transparent)]
++#[pin_data(PinnedDrop)]
++pub struct LockClassKey {
++    #[pin]
++    inner: Opaque<bindings::lock_class_key>,
++}
++
++// SAFETY: Unregistering a lock class key from a different thread than where it was registered is
++// allowed.
++unsafe impl Send for LockClassKey {}
++
++// SAFETY: `bindings::lock_class_key` is designed to be used concurrently from multiple threads and
++// provides its own synchronization.
++unsafe impl Sync for LockClassKey {}
++
++impl LockClassKey {
++    /// Initializes a statically allocated lock class key.
++    ///
++    /// This is usually used indirectly through the [`static_lock_class!`] macro. See its
++    /// documentation for more information.
++    ///
++    /// # Safety
++    ///
++    /// * Before using the returned value, it must be pinned in a static memory location.
++    /// * The destructor must never run on the returned `LockClassKey`.
++    pub const unsafe fn new_static() -> Self {
++        LockClassKey {
++            inner: Opaque::uninit(),
++        }
 +    }
 +
-+    lock
-+};
-diff --git a/rust/kernel/sync/lock/spinlock.rs b/rust/kernel/sync/lock/spinlock.rs
-index aafc80125f59..037fa63ebcac 100644
---- a/rust/kernel/sync/lock/spinlock.rs
-+++ b/rust/kernel/sync/lock/spinlock.rs
-@@ -463,3 +463,32 @@ fn spinlock_irq_condvar() -> Result {
-         Ok(())
-     }
- }
++    /// Initializes a dynamically allocated lock class key.
++    ///
++    /// In the common case of using a statically allocated lock class key, the
++    /// [`static_lock_class!`] macro should be used instead.
++    ///
++    /// # Examples
++    ///
++    /// ```
++    /// use kernel::alloc::KBox;
++    /// use kernel::types::ForeignOwnable;
++    /// use kernel::sync::{LockClassKey, SpinLock};
++    /// use pin_init::stack_pin_init;
++    ///
++    /// let key = KBox::pin_init(LockClassKey::new_dynamic(), GFP_KERNEL)?;
++    /// let key_ptr = key.into_foreign();
++    ///
++    /// {
++    ///     stack_pin_init!(let num: SpinLock<u32> = SpinLock::new(
++    ///         0,
++    ///         c"my_spinlock",
++    ///         // SAFETY: `key_ptr` is returned by the above `into_foreign()`, whose
++    ///         // `from_foreign()` has not yet been called.
++    ///         unsafe { <Pin<KBox<LockClassKey>> as ForeignOwnable>::borrow(key_ptr) }
++    ///     ));
++    /// }
++    ///
++    /// // SAFETY: We dropped `num`, the only use of the key, so the result of the previous
++    /// // `borrow` has also been dropped. Thus, it's safe to use from_foreign.
++    /// unsafe { drop(<Pin<KBox<LockClassKey>> as ForeignOwnable>::from_foreign(key_ptr)) };
++    /// # Ok::<(), Error>(())
++    /// ```
++    pub fn new_dynamic() -> impl PinInit<Self> {
++        pin_init!(Self {
++            // SAFETY: lockdep_register_key expects an uninitialized block of memory
++            inner <- Opaque::ffi_init(|slot| unsafe { bindings::lockdep_register_key(slot) })
++        })
++    }
 +
-+/// Helper for creating a raw unlocked `bindings::raw_spinlock_t`.
-+///
-+/// For use in statics containing raw spinlocks.
-+#[doc(alias("__SPIN_LOCK_UNLOCKED", "DEFINE_SPINLOCK"))]
-+#[expect(dead_code)]
-+pub(crate) const fn raw_spin_lock_unlocked(name: &'static CStr) -> bindings::raw_spinlock_t {
-+    // Silence unused variable warnings.
-+    #[cfg(not(CONFIG_DEBUG_LOCK_ALLOC))]
-+    let _ = name;
-+
-+    bindings::raw_spinlock_t {
-+        raw_lock: bindings::__ARCH_SPIN_LOCK_UNLOCKED,
-+
-+        #[cfg(CONFIG_DEBUG_SPINLOCK)]
-+        magic: bindings::SPINLOCK_MAGIC,
-+        #[cfg(CONFIG_DEBUG_SPINLOCK)]
-+        owner_cpu: u32::MAX,
-+        #[cfg(CONFIG_DEBUG_SPINLOCK)]
-+        owner: usize::MAX as *mut c_void,
-+
-+        #[cfg(CONFIG_DEBUG_LOCK_ALLOC)]
-+        dep_map: kernel::sync::lockdep::raw_lockdep_map(
-+            name,
-+            kernel::sync::lockdep::LD_WAIT_SPIN,
-+            kernel::sync::lockdep::LD_WAIT_INV,
-+        ),
++    /// Returns a raw pointer to the inner C struct.
++    ///
++    /// It is up to the caller to use the raw pointer correctly.
++    pub fn as_ptr(&self) -> *mut bindings::lock_class_key {
++        self.inner.get()
 +    }
 +}
-diff --git a/rust/kernel/sync/lockdep.rs b/rust/kernel/sync/lockdep.rs
-index 784821cc2a39..d9222be0fb29 100644
---- a/rust/kernel/sync/lockdep.rs
-+++ b/rust/kernel/sync/lockdep.rs
-@@ -137,3 +137,25 @@ macro_rules! optional_name {
-         $crate::c_str!($name)
-     };
- }
 +
-+/// Not checked, catch all.
-+pub const LD_WAIT_INV: u8 = bindings::lockdep_wait_type_LD_WAIT_INV as u8;
-+/// Spin loops, `raw_spinlock_t` etc
-+pub const LD_WAIT_SPIN: u8 = bindings::lockdep_wait_type_LD_WAIT_SPIN as u8;
++#[pinned_drop]
++impl PinnedDrop for LockClassKey {
++    fn drop(self: Pin<&mut Self>) {
++        // SAFETY: `self.as_ptr()` was registered with lockdep and `self` is pinned, so the address
++        // hasn't changed. Thus, it's safe to pass it to unregister.
++        unsafe { bindings::lockdep_unregister_key(self.as_ptr()) }
++    }
++}
 +
-+/// Helper for declaring a raw `struct lockdep_map` for locks in statics.
++/// Defines a new static lock class and returns a pointer to it.
 +///
-+/// It's up to the caller to use the returned `struct lockdep_map` correctly.
-+#[cfg(CONFIG_DEBUG_LOCK_ALLOC)]
-+pub(crate) const fn raw_lockdep_map(
-+    name: &'static CStr,
-+    wait_type_inner: u8,
-+    wait_type_outer: u8,
-+) -> bindings::lockdep_map {
-+    // SAFETY: All zeros is valid for this type.
-+    let mut map: bindings::lockdep_map = unsafe { core::mem::zeroed() };
-+    map.name = kernel::str::as_char_ptr_in_const_context(name);
-+    map.wait_type_inner = wait_type_inner;
-+    map.wait_type_outer = wait_type_outer;
-+    map
++/// # Examples
++///
++/// ```
++/// use kernel::sync::{static_lock_class, Arc, SpinLock};
++///
++/// fn new_locked_int() -> Result<Arc<SpinLock<u32>>> {
++///     Arc::pin_init(SpinLock::new(
++///         42,
++///         c"new_locked_int",
++///         static_lock_class!(),
++///     ), GFP_KERNEL)
++/// }
++/// ```
++#[macro_export]
++macro_rules! static_lock_class {
++    () => {{
++        static CLASS: $crate::sync::LockClassKey =
++            // SAFETY: The returned `LockClassKey` is stored in static memory and we pin it. Drop
++            // never runs on a static global.
++            unsafe { $crate::sync::LockClassKey::new_static() };
++        $crate::prelude::Pin::static_ref(&CLASS)
++    }};
++}
++pub use static_lock_class;
++
++/// Returns the given string, if one is provided, otherwise generates one based on the source code
++/// location.
++#[doc(hidden)]
++#[macro_export]
++macro_rules! optional_name {
++    () => {
++        $crate::c_str!(::core::concat!(::core::file!(), ":", ::core::line!()))
++    };
++    ($name:literal) => {
++        $crate::c_str!($name)
++    };
 +}
 
 -- 
