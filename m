@@ -1,274 +1,125 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010024.outbound.protection.outlook.com [52.101.69.24])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54C4B48A8B4;
-	Wed,  7 Oct 2026 10:49:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.24
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791370223; cv=fail; b=nPNZw6ViSPXd9jWGjJE29GBnqG0iVci7q8rfb0qOCmMmPDtEl5YKyx687ZRdMjcRsgS6oeokxHGCgxm3MMxm1kZ4NgKzd7D+Du4JAwvI4CF5LKIybJc82DoXqo10L12gMkM7yOmnjq6BFZG03HTuWOobpzm7CS7SRQXS1fm90p8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791370223; c=relaxed/simple;
-	bh=H832nN+140Cg9061ZPOrfzTRiuQBcsmTS71C2VGc7PY=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=RAZ5hy/U8WjftAZ1sTjrYzz3viG53gETbh9ACKKJV6qhqp8fE+oR8rAzPWgvtsgEV0fRhlnlVFZsj430a0LnnSdNFwebbseJfByGna87KcHYs3OKvQP8DYrJhBj9KlTExIDdpL2SdyYupNhQ1aU9L6GS+Bis3j3SRufDYtGfpvM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=orLvLDqY; arc=fail smtp.client-ip=52.101.69.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10D654746C6
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 10:49:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791370237; cv=none; b=GR8vULJLqcCkmIT3nJEIKh3iEQ2hW9SvQflz5qPl7kZ9YseuDch57NgP52vsvgxsLcocLRI1PZ54yOgo6vQHLqSyoHGHr8XN39dYqkS1Ts9o8w7ubf3OZwpoZiHleC758qMJerJlR1z6abEkoOmYsc+aXP2R9a9Zw2J3uP80GXE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791370237; c=relaxed/simple;
+	bh=jlxL5+mbWXP8K77XchM8lW3LCVFpuiszpfwSWbXi6xQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RwE8xCOwJoKcOdBbPgQqh83rziEm63NGwJIvhc+Q/VYJjyNxQCiqDbZd78ebY+pD4+lcHc/tOQ1TYjCauVhlNOMj4cP/TmUT8quhLlju7buy0sHyTUa8D2E6k6JgfVf28+2sq1Jdb+OLf8eSPk1O1Avv+6LNI54WVd9P8l8paN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bol3ZsqC; arc=none smtp.client-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="orLvLDqY"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=f5d7UGka4qFCq+SghU7uipp+5QrZcWSzQTxiQq4GhHcXh5IgmGYucMqJw0YxK6nygvuMcJXPG8xOp8I96EpUWDt++wlN+OAnYGZMPwSm1m4Ie7X9FZtNCDqsKtG9w0iad/xbtX3PjKdFgo5v2s2WjtNrgXIc6BoNR5WmpqzMts553i7r40P1c7Fdi48PxXz9+CX817TVPJypwkXNk0gkU9KsBT8HD3zR0Qfd12b62fZnlqvkS5Uj1s6blW4KOTkAS+03hiQZlSbvAiWkkkvPIcbxAS0Y+DB0bBAeS1HHa3/xnlf4O9mAzE7BDiABFYEWvWD8gnQMOIzHjpl8xCcNrw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=789ocHpMBh1mNVZfB6MFCR0x/R8ZAvnJn8YkNq1LlPE=;
- b=YqBmoBLaE8F854bc1gge4RBZkkuBZ49TZlz8hN6jI3/QstVdjskVMLQg9mjoc60Hy1vixpQnV28BzkABDMtRs5buFka8I9idPalblPSDRpC5X/dGv8SDSveubTK8vIkj5ees7lZfvGOhnt5QOhPDE8QltSG1+ZZVaOCI+J6mFCK/g1gf5bnmOPSRFB9Ms5Zl9XuBr1IQo7i5HEZ18I37ERn6JKlH2MMpre2SY86XnUTUlexSM2fhHCRKZehmJ53Ir7bnDK9glh6m8oKIQuaF1gZCvXNvOeYEVjTFDuCvvKqaJh4Z/XKRgZnaTmS4X1SHOZKBswW2t10DUmXgg7YTrg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=789ocHpMBh1mNVZfB6MFCR0x/R8ZAvnJn8YkNq1LlPE=;
- b=orLvLDqY3xSzxSgcVvtX6bgl6E0+JZLPyoG72+0dHCYFQ5y0FtyKa7Of7F5LOK8gQYNSFAHQVdZHrO4Rxmcycm9fWgg+3kA1TZAYk+SEAcZkdK63OUBRt7BdP55Tm5FdVjsvzPSZEEB9PXfAzJtIJ1lYezWFzoJw2gKWPKRGVyL89MvJQTxT2TF1jSL9Xkwgc7nlOw5REvo/AQKbt8GwI73oMnadwbqpmyMrgwc2xPjpy6kceN/tu+9WlSxtkMJPoLuAxu6cpkLUrBPXas1RO5JuoetrtVwB67llilDCQNNHVGtUcPtij4sM3PaFEsyHDUDAj4wFHnKYdH5HEwlhkw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by GV2PR04MB11738.eurprd04.prod.outlook.com (2603:10a6:150:2d4::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
- 2026 10:47:54 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0451.022; Wed, 7 Oct 2026
- 10:47:53 +0000
-From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Date: Wed, 07 Oct 2026 18:44:23 +0800
-Subject: [PATCH v4 08/10] gpio: mxc: use local dev variable
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261007-gpio-mxc-cleanup-v4-8-c9f5a8b50df9@nxp.com>
-References: <20261007-gpio-mxc-cleanup-v4-0-c9f5a8b50df9@nxp.com>
-In-Reply-To: <20261007-gpio-mxc-cleanup-v4-0-c9f5a8b50df9@nxp.com>
-To: Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Shenwei Wang <shenwei.wang@nxp.com>, 
- Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: linux-gpio@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Peng Fan <peng.fan@nxp.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: MA5P287CA0225.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1b4::14) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bol3ZsqC"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-88cfa501c5cso1442150b3a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 03:49:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791370198; x=1791974998; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KA2DWK4h1sH8yjfR9BrVxNR11p9An71w1a1CSOAHpQA=;
+        b=bol3ZsqCFElDn3i+wmDWkWjPikqqKeHad16PiBZtShYSCfhOqpK6Iy3Rud3jVW8Fiz
+         NxPBYJXPWfvXuyCzJPEfzc6ILBMfS5jd4deEI6929QAXHlD857oOekac6N72pdCW8VdL
+         int2oLtzErOxbg+P+imZTShOuJEEI1mZuLNWup6V9O3oH8kxh2SUTbcYU8R7iZENOFfh
+         Wz2NRIjB5XVW0uwmcaXYAfihOOipLLN28e3uBM6hLUlvDqJgINpjQoK/ArNP+wJigu0P
+         cxFM95uKS3ZHJhQhU+FXCHsI99bWuQRdIctruFOnegXtkgIplYtM7vx0Upj78B/uYHFr
+         JEPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791370198; x=1791974998;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KA2DWK4h1sH8yjfR9BrVxNR11p9An71w1a1CSOAHpQA=;
+        b=bdupSmufj8x2JWmZmuVBqcX2NVdNXx/8d7DHQcHVE0asIFbN27OB6D9vXt6lfoI/gw
+         BJ3QKeYWLhnI0WX025U3qY/VNbmLFRfiVfqofyks+K3zJou7416TiqakY7CiCLWLOY8r
+         fpolZguTOYGhP3PlTc6ml+FCWD6j4ZUB2A3GO253UqqHoPzSfwSRU+bExOAVkR2OQZa7
+         TWDd2HdnxVpRBFcqETiJ/SInMNc5XDcG0KVye2g20l0aAi6f+dbq46NkoaDW4r1CfNV+
+         505AH6/Qi8iMB6jbQ4RccjJz0lXkC94xsBQbp7Tbr5oXua+BSVw9h83pM9V1rQgNhOjZ
+         Up0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzka6++MEVo/vfZ/hqc3M/+cTTyNasVt3CZO/xSA66szuLxioWVoRazfTdyRUb/Lwa/gHra3KX+7jo0AQc=@vger.kernel.org
+X-Gm-Message-State: AFuF++m+Evdwswl3n2WObXuCVjXnHVZmuFqar4Zi2IF9hcSpcpfd5mox
+	3kADS2PEvBKl18rSo/bupmYlgftkoIaxcWQGyUpeHJUpL8A3MDhsvMyi
+X-Gm-Gg: AYBFou1hBV/FnueorQf2qpQa2AgkEj1vRsniUzJAcf6PtLPTyrgI14TxyLQza/StKTr
+	6s8aKhBUsmtsnFNxCCnLemE4HxFJk8PFtYSpZeqwWpcc/AZQiTggV1YtPPfdNWH6j8eBDKM02eT
+	1yXDAl0lcupxV/jm39K9V6Gg0HnmltyTJvS1u1VuC8eMn3qlnDXrLN8QHSBf6ANpo61IRrpGVhD
+	aFbj8myUeR/2ehkUudkqXcPTP6Z6XlxO+NkA7N/db3aBVQOBh/kQCjraWjqig2CTxkPjtiqXjZ7
+	/B0HZp8ahG1PojtBWiuu/iSNNnixjOday/CwimCTo94elGkj+EBApfm4fi6/x+qFH77/uaGxEzA
+	0L+k+PY7UjWjRtX14/RP4Qoa5c3F5wT8HIbVwfLPCIMscJyK/sYeqqS1k+NlXqZT3hZb/hhn2nY
+	kPYS6pdzA1HDFbXU+NElTrqVEGFNQyxhXrzSWDEmxBbWNR7kFCA5qFfLt50gRIq0vLUTKmucFIq
+	H4DFkZKNX5EOcVvXf+c3+J5QqVf/owfXjgrRGCfraQBzTPmth8/lbcvn1Apdg/vZXKUV+mraWfj
+	Qr5cXW8vefUuWQ==
+X-Received: by 2002:a05:6a00:929e:b0:891:a63c:df97 with SMTP id d2e1a72fcca58-891b354d63fmr1433538b3a.15.1791370198208;
+        Wed, 07 Oct 2026 03:49:58 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8918891808bsm1197898b3a.10.2026.10.07.03.49.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 03:49:57 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Shunqian Zheng <zhengsq@rock-chips.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Walter Werner Schneider <contact@schnwalter.eu>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Jacopo Mondi <jacopo@jmondi.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Luca Weiss <luca@lucaweiss.eu>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Roman Kovalivskyi <roman.kovalivskyi@globallogic.com>,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH 1/3] media: i2c: ov2685: propagate reset GPIO errors
+Date: Wed,  7 Oct 2026 17:49:37 +0700
+Message-ID: <20261007104940.507820-2-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261007104940.507820-1-phucduc.bui@gmail.com>
+References: <20261007104940.507820-1-phucduc.bui@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|GV2PR04MB11738:EE_
-X-MS-Office365-Filtering-Correlation-Id: 809e1720-16ca-4c5a-8b1c-08df246070b0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|19092799006|366016|11063799006|10067099003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	+ByaeTP5WrZvdTfqiomXoMESrX/8ThJukdcQjTrRTI14cTzKtK/049K7vpO+oqItK2+k2bif9AZ4WiHXOgvaGmwHD+bWMHruv2ezqp8Z0Hwaol+WOF0c0llsE/LS2qzbXxQZoezED0jCfzYdRWpJVquFTRYYv+z76LvE4SE87lK9AreRZyNICSZTWuxpPlmfHXv40yKNzkWjTkFN+0Q7ZZpPZPIZjQei5YaT+IBjDTwgPP2pujB5i1jGRS8Oe1hd2ghemeEXN74XMBUdaL/mMgunyZC0FIUpZK20ooIpiuyg4t/x2wui4y4qskHOBOoJ972Hhaxa/JQhNHbaBtCRNfBS88eifz4tYoHOBFEltz5VKSGj7SkJdQMk+EV/QrOGLucK/4TLWP7Ez3X4BdHdUwcCgz9R3ZTFx4gpAHE2cr9IjeUeX1KSm95oWq2E/pJRbQ84UeThbEcbtGhSTdk7q/07vqpkP7+N3b6gSabMG4mhGckQ3ukphtwWBwQSBXilTZhxiUcytz2p05vGlmgnbZ8qipXpFMnpGJdDz34HAUjskzT6W0nRw6Ghs+yM2hC6calAW+Zz3sMvhBTWvNN9c7/BIbB3YtZMbGbMNBzLHFO12i8+LHDOSREjCP/rxR2TglVrW92twXeW8hwyPaLSReepNuciPo7jGVkjNFDBB7E=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(19092799006)(366016)(11063799006)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cDBBakhlOEJwRXh2ZE9YWTJxa2svenhseXRaZWFEYkhGMDU5NDdpc2VtNzh4?=
- =?utf-8?B?NGpnUC85VlpUeFlmcDZ0aDdpQzBqS3psM2llbm9mOHN5YWlJeUZaYU4rMmZq?=
- =?utf-8?B?YTRST1lHZWJlTDBnNGx5UUp3cFNOUlRsb0NBd3hYQjlXb1djbnM4YjdPam1R?=
- =?utf-8?B?QVB5OWZ0dUNTSC9mMitpbElLU2wyMko0R2M0UlZpTnJwWVREb0dqam85Unpl?=
- =?utf-8?B?OUtFOUdkUDhNenh0ZjRERVV4UVp5VmZNa3RMV2JDZk4rL1JGRnp2REthR0p3?=
- =?utf-8?B?RHp6VlBBUmcwZk9kbVFVelNCSFVIM3U1bGw3Z3hscnp5VGxJN2NlanRKMDFl?=
- =?utf-8?B?dU43RkZ0T1Bub2xTa2Y1NjFtUkFHckZNckRXcVRpaDNMZjRZYnVJWC9qelE3?=
- =?utf-8?B?bDRhb1lmbU5OVitHM0hLaU1OWUtMb2tYUWhKdWJ1MmlPa2VGMk9tQWcrR2l4?=
- =?utf-8?B?bXpmNGl1dTlBT3RjcTlxQTYvUWlsNS9oQ1NJaGtqdTF5NnZ0REhkcE5iRWlV?=
- =?utf-8?B?NklPSTZ6b1dkaXBZMkY1c0dseHlSdEtHdUR5RElIZ3QwOVEranVwd0VZckZX?=
- =?utf-8?B?SWtPcElPMGJxSDZUck9DanFjT3Jiem5KWXh5UjBsa2VObUJwWU5MNHdaOEJY?=
- =?utf-8?B?NmdqSSt4RFJLRTl4a20xOWgwWk83bkhLSHpuT2NBM3N0Z3ZYMU10eEt3aEV0?=
- =?utf-8?B?Y290dTh5WEFjVUpwSnNrN0Rja0JUc25naVk1THlUM0ZKcjhyV213TkRsZnp4?=
- =?utf-8?B?NGF2Zy8vemxuUFBZNXhPTmh6ZDhEczUwaXduc2hZcXlhMTVVUTFmTWtvbGJL?=
- =?utf-8?B?eVRUQWk4S0JrSkwxbVNwSXZQeDZIMW93RVFCOGJRTkRDM004eEZGVFJVVVV6?=
- =?utf-8?B?RTFRWURXbEgxSjZ1UjVSaVRnVE5LTmZydm1NNXlYbmxYWGpqUUpKTFZjMENy?=
- =?utf-8?B?eCtZbUQ5U1NCdFhEU1dlS0gwQWxFcFhjeFdtMjB3dW1uYmhaay9YMllLZVZI?=
- =?utf-8?B?VThWZHdiVzdFTU1jMi9sY2ZNakdLUEdZcGs4THVvQ3RNYjU0dUlmUEh2c2dN?=
- =?utf-8?B?RnBZZWlJVXhESFM2RzlVY3RJaDZ4QVJjbFg1OFlmcytiN0VjcWZZVnQ4OG8r?=
- =?utf-8?B?Q1h5YXBaQ2VsazQ4NVg4NmRqcUtpbFg3djBmOWVwZjBpd1cvQ1lZWHBaWmoy?=
- =?utf-8?B?eVpPbmJWR3VmTGJZelZKMWx1QVJkU1VaaW5ZWG5mSUxNcmdhdUpuNzZoZ2li?=
- =?utf-8?B?TG1idzRqQllteVdURnY3QW9FTGpYNVZoVzdqUGRHcS9jVmh5TUxKL0xqb0th?=
- =?utf-8?B?WFp1bjNWcklRRGthZml2WDdQVVFkaWlUSmNiUkZRZTVIWklRSlJzR0pKU2gy?=
- =?utf-8?B?cUdRQW5pNytPUWxDR3ltMUxXZVFlNVVBWEIyQWxESVgwTEZ0SVFKZ3ZTdkFT?=
- =?utf-8?B?TjIweGlSeWdKMjRWc0RNS2QrVjhDVVY2aWszak1iMGw4QkF3NjN3NGFmOTZT?=
- =?utf-8?B?QUVrVXJuT3RaQWxUVW1lRklpeWFyR0JnMEVraWN5TTVwU0p6Z0dnMExicm9p?=
- =?utf-8?B?aHU5K0FmYVZSeGliRVBVTW9VVE1SNW9qeXF4a3p5NGQ4bEVZamE4R2xLT1Rj?=
- =?utf-8?B?VHlWY05lUVQ5bFRIc1FUdHdpYVFpMkQ5Y1VMSzRwV0hhTkhleHM0eVM3SE9z?=
- =?utf-8?B?N2NmN3p5TUhYc21EY2NnU25aUTRXOXIybm1PSW9BN1JkaXZ5Vm5hUncxSW05?=
- =?utf-8?B?YXJnVG96ME1BdGdaSXVqZ2IrY3BZMXYzVWhKZUVBL3lMdys0cjRSU1ArV1I0?=
- =?utf-8?B?WXhXRklmOHdJbWw2aXUvUE53dWc2RmsvUGlqOWpwTTcyc01teWxSM2FMV211?=
- =?utf-8?B?SWkvZE0zWlpkckUzcHdRVTJmRnpkSHM0aGNsN1JLTjlJb0FCWXhjNzhYRG1B?=
- =?utf-8?B?TFBTL1l4WnJXc2JDSVlFTXl5SXVTa2NyTnJBWXROSklGQkp6MkNMY0J5RkRr?=
- =?utf-8?B?YUlwcWJBc2l6NUc3SUl3N0kvVTd5eGFJUURSbDNQS0dpdjFJOVpOWkYwUmN6?=
- =?utf-8?B?MDNaZzluelRxblpmUldkNGRsM3UrOWFhN0U0WHlFRTZLZ0Qwanc2bE9xZVlC?=
- =?utf-8?B?cnJ0U3R0MTVuRlVQNVBLM0phMlRtZ01zNy93ZnRVTWo2YXBMdEF4S1Z4Uzly?=
- =?utf-8?B?b3lNVGVtS0Y1b0gvZitDMEVncElSUm9xSjZHSHdxdzliOXJhWkpEN1lsZDlh?=
- =?utf-8?B?MHNHV1VHRCtNWnoxTlNQNzdXeWx4R0VJdkZQUlEwUjhiTkdNcHIzY0szSitQ?=
- =?utf-8?B?OFo2dW9wcVZPenNwbDFmYy9LMmdwSTU0WnRzTHFzS05qdGlUTUJZVkRZMFpa?=
- =?utf-8?Q?HEH4eMgTHv3xV/jgKazcw6s+JS3mE7OsYDolA?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 809e1720-16ca-4c5a-8b1c-08df246070b0
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 10:47:53.8767
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zTkGN51gbp9BL2PCfj7bjMGvw5ASxOYuZuqgSOAM1B/7FTXys1kAVZca9PxHnO2b2dXgj2EEw8EBhVjHyudaTU8iXrV2HGbhVSIdXaf6QwQGqvkTqSaCw4sneRfxW0J2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR04MB11738
+Content-Transfer-Encoding: 8bit
 
-From: Peng Fan <peng.fan@nxp.com>
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-Introduce a local 'struct device *dev' variable to replace repeated
-'&pdev->dev' dereferences throughout mxc_gpio_probe(), improving
-readability.
+devm_gpiod_get_optional() may return -EPROBE_DEFER or other errors,
+but ov2685_probe() currently converts them all to -EINVAL.
 
-No functional change.
+Use dev_err_probe() to propagate the original error from the reset GPIO
+lookup.
 
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
+Fixes: 0482fbb1c1cc ("media: i2c: ov2685: Make reset gpio optional")
+Fixes: e3861d9118c8 ("media: ov2685: add support for OV2685 sensor")
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 ---
- drivers/gpio/gpio-mxc.c | 43 ++++++++++++++++++++++---------------------
- 1 file changed, 22 insertions(+), 21 deletions(-)
+ drivers/media/i2c/ov2685.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpio/gpio-mxc.c b/drivers/gpio/gpio-mxc.c
-index f5f9ef1564cd..9d69524e06db 100644
---- a/drivers/gpio/gpio-mxc.c
-+++ b/drivers/gpio/gpio-mxc.c
-@@ -449,18 +449,19 @@ static int mxc_gpio_probe(struct platform_device *pdev)
- {
- 	struct gpio_generic_chip_config config = { };
- 	struct device_node *np = pdev->dev.of_node;
-+	struct device *dev = &pdev->dev;
- 	struct irq_domain_info d_info;
- 	struct mxc_gpio_port *port;
- 	int irq_count;
- 	int irq_base;
- 	int err;
+diff --git a/drivers/media/i2c/ov2685.c b/drivers/media/i2c/ov2685.c
+index 4911a4eea126..92d0f90b3d37 100644
+--- a/drivers/media/i2c/ov2685.c
++++ b/drivers/media/i2c/ov2685.c
+@@ -793,10 +793,9 @@ static int ov2685_probe(struct i2c_client *client)
+ 		dev_warn(dev, "xvclk mismatched, modes are based on 24MHz\n");
  
--	port = devm_kzalloc(&pdev->dev, sizeof(*port), GFP_KERNEL);
-+	port = devm_kzalloc(dev, sizeof(*port), GFP_KERNEL);
- 	if (!port)
- 		return -ENOMEM;
+ 	ov2685->reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_LOW);
+-	if (IS_ERR(ov2685->reset_gpio)) {
+-		dev_err(dev, "Failed to get reset-gpios\n");
+-		return -EINVAL;
+-	}
++	if (IS_ERR(ov2685->reset_gpio))
++		return dev_err_probe(dev, PTR_ERR(ov2685->reset_gpio),
++				     "Failed to get reset-gpios\n");
  
--	port->dev = &pdev->dev;
--	port->hwdata = device_get_match_data(&pdev->dev);
-+	port->dev = dev;
-+	port->hwdata = device_get_match_data(dev);
- 
- 	port->base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(port->base))
-@@ -481,17 +482,17 @@ static int mxc_gpio_probe(struct platform_device *pdev)
- 		return port->irq;
- 
- 	/* the controller clock is optional */
--	port->clk = devm_clk_get_optional_enabled(&pdev->dev, NULL);
-+	port->clk = devm_clk_get_optional_enabled(dev, NULL);
- 	if (IS_ERR(port->clk))
- 		return PTR_ERR(port->clk);
- 
--	err = devm_pm_runtime_get_noresume(&pdev->dev);
-+	err = devm_pm_runtime_get_noresume(dev);
- 	if (err)
--		return dev_err_probe(&pdev->dev, err, "Failed to get PM runtime\n");
-+		return dev_err_probe(dev, err, "Failed to get PM runtime\n");
- 
--	err = devm_pm_runtime_set_active_enabled(&pdev->dev);
-+	err = devm_pm_runtime_set_active_enabled(dev);
- 	if (err)
--		return dev_err_probe(&pdev->dev, err, "Failed to enable PM runtime\n");
-+		return dev_err_probe(dev, err, "Failed to enable PM runtime\n");
- 
- 	/* disable the interrupt and clear the status */
- 	writel(0, port->base + GPIO_IMR);
-@@ -508,7 +509,7 @@ static int mxc_gpio_probe(struct platform_device *pdev)
- 	} else
- 		port->mx_irq_handler = mx3_gpio_irq_handler;
- 
--	config.dev = &pdev->dev;
-+	config.dev = dev;
- 	config.sz = 4;
- 	config.dat = port->base + GPIO_PSR;
- 	config.set = port->base + GPIO_DR;
-@@ -517,7 +518,7 @@ static int mxc_gpio_probe(struct platform_device *pdev)
- 
- 	err = gpio_generic_chip_init(&port->gen_gc, &config);
- 	if (err)
--		return dev_err_probe(&pdev->dev, err, "Failed to init gpio chip\n");
-+		return dev_err_probe(dev, err, "Failed to init gpio chip\n");
- 
- 	port->gen_gc.gc.request = mxc_gpio_request;
- 	port->gen_gc.gc.free = mxc_gpio_free;
-@@ -531,41 +532,41 @@ static int mxc_gpio_probe(struct platform_device *pdev)
- 	else /* silence boot time warning */
- 		port->gen_gc.gc.base = -1;
- 
--	err = devm_gpiochip_add_data(&pdev->dev, &port->gen_gc.gc, port);
-+	err = devm_gpiochip_add_data(dev, &port->gen_gc.gc, port);
- 	if (err)
--		return dev_err_probe(&pdev->dev, err, "Failed to add gpiochip data\n");
-+		return dev_err_probe(dev, err, "Failed to add gpiochip data\n");
- 
--	irq_base = devm_irq_alloc_descs(&pdev->dev, -1, 0, 32, numa_node_id());
-+	irq_base = devm_irq_alloc_descs(dev, -1, 0, 32, numa_node_id());
- 	if (irq_base < 0)
--		return dev_err_probe(&pdev->dev, irq_base, "Failed to alloc irq desc\n");
-+		return dev_err_probe(dev, irq_base, "Failed to alloc irq desc\n");
- 
- 	d_info = (struct irq_domain_info) {
--		.fwnode		= dev_fwnode(&pdev->dev),
-+		.fwnode		= dev_fwnode(dev),
- 		.size		= 32,
- 		.hwirq_max	= 32,
- 		.virq_base	= irq_base,
- 		.ops		= &irq_domain_simple_ops,
--		.dev		= &pdev->dev,
-+		.dev		= dev,
- 	};
- 
--	port->domain = devm_irq_domain_instantiate(&pdev->dev, &d_info);
-+	port->domain = devm_irq_domain_instantiate(dev, &d_info);
- 	if (IS_ERR(port->domain))
--		return dev_err_probe(&pdev->dev, PTR_ERR(port->domain),
-+		return dev_err_probe(dev, PTR_ERR(port->domain),
- 				     "Failed to create irq domain\n");
- 
--	irq_domain_set_pm_device(port->domain, &pdev->dev);
-+	irq_domain_set_pm_device(port->domain, dev);
- 
- 	/* gpio-mxc can be a generic irq chip */
- 	err = mxc_gpio_init_gc(port, irq_base);
- 	if (err < 0)
--		return dev_err_probe(&pdev->dev, err, "Failed to init generic irq chip\n");
-+		return dev_err_probe(dev, err, "Failed to init generic irq chip\n");
- 
- 	list_add_tail(&port->node, &mxc_gpio_ports);
- 
- 	mxc_update_irq_chained_handler(port, true);
- 
- 	platform_set_drvdata(pdev, port);
--	pm_runtime_put_autosuspend(&pdev->dev);
-+	pm_runtime_put_autosuspend(dev);
- 
- 	return 0;
- }
-
+ 	ret = ov2685_configure_regulators(ov2685);
+ 	if (ret) {
 -- 
-2.51.0
+2.43.0
 
