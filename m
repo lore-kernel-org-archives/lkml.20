@@ -1,215 +1,240 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010016.outbound.protection.outlook.com [52.101.201.16])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5319492E37;
-	Wed,  7 Oct 2026 09:07:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 016374734D6;
+	Wed,  7 Oct 2026 09:06:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791364098; cv=fail; b=EN8uLvxsz+WDJM1mAeJXZ8u2fJurJdJDer7QAsZ9ATz0qgfhNrBhKyBlYuO9Nwq/uPQVTzVOl8Lu2+9w7mQ1W3suX4lBCwstNsa9Hx4LmrbtaI2FK6TecDOZ/NBP2Pr/joNbGsv//R+gmJzDsetT/BtJ0SEHjttLVSFNztym98Y=
+	t=1791364100; cv=fail; b=b2KTO7QGndu+lYYA/dVwmDtfD/Al7FzaQ3KjJKO4EZp0I/u3dax+2UvqtXS+ROKdH5uq4LOpHvTQEZkWndDjbC57I1n3tI3XJeRXYbqm4CWCfd0ax5jA+of+IAx3od1xkto+dSsZ+lFvyTg/3zIHRYo7QuwGvOfIuIXOFkDOBXo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791364098; c=relaxed/simple;
-	bh=ELQML08KwY1xhEmLjIG6zMlOcrq6/pcu3ISZalL0C5E=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=WGU250QCk/uOZ92weGBnFMnfO63hCRckvYOS6T4+m0fpI96eBhasyog62xfr1eCYutsWEXDk0/EkpsOEySx8v/b+tnbNy7EDD5BLrBtdD+93ZD21MKMDx21SASL/0/nizmDiEYTsGwQXqmDtMbqqJ0zxugCrUOE1d3m1fNv0fts=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ENxLccG0; arc=fail smtp.client-ip=52.101.201.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1791364100; c=relaxed/simple;
+	bh=zHJY5VhU47KuUPssxa4/nSH7Of0PSyBszGtmthJSbk8=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=J/eKMcK/Xg9/Qy8R3yG0E631r3QLeaXcYgSqkEWgjWdumWsl8MK3O4a+fpTI1PQA97lrALoHgENQAkytMti4Z3jhsrpTRwr5smTftPdEJZSYgMxPq3ANGWvmKuD8KIPm0vtoCrjYaEu6h0hE2I1lS9u7ecYvB0kgTyd+18z0Px0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NDc0R/pB; arc=fail smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ENxLccG0"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NDc0R/pB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791364003; x=1822900003;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=zHJY5VhU47KuUPssxa4/nSH7Of0PSyBszGtmthJSbk8=;
+  b=NDc0R/pB7eQZNfFPTySyVd7tP/pKb5qTbRg1sDVRHwQxE7PUxCultpbL
+   f76n9r209BPOFJsYfpHad/5y1rOEGezmJ3IayOvLxwTSivYjhidtBUay3
+   e+F6tsArJ2OyXBaLX03JRRsZfGM7vKCLUah5WyRV/tNajm4MytzoTZLCz
+   SGWW3cXbbZbhxypwYlytCzuG0H18+ObSPnK/wOHYha0+wAcVCYKEOYk1a
+   PVaNmlUEYRaud1i/nEJ+7ChJqoxnQh7jLlu5ftJ9GeGhPYHulSBkmKM0/
+   laIh++LGfa9gd3Yzfxk6CGZ0qmhHv1JsY8mL9W1rAsMeWzpfuVZQo9Qeq
+   w==;
+X-CSE-ConnectionGUID: 5Kx1kDiCQsKDkHbpBW4VFg==
+X-CSE-MsgGUID: hR10gv2mRq2mcbqTWqp1eg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11927"; a="17360"
+X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
+   d="scan'208";a="17360"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 02:06:41 -0700
+X-CSE-ConnectionGUID: BpRDzFGGQI+WOaZcsQXlJQ==
+X-CSE-MsgGUID: rKqZNP9TRludl9qFickQTw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
+   d="scan'208";a="315418634"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 02:06:40 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 7 Oct 2026 02:06:39 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Wed, 7 Oct 2026 02:06:39 -0700
+Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.38) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 7 Oct 2026 02:06:39 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kRwYIUfAhzAcjzQ8IVq+iHPX80o6euN19iYg+I3sCw0CR6jcFqt9PjqTZbLMv60gvp23cvYOl0aJkYI2fQcDFlyDIqnKAXvwsPrOYcpyqR+83ONywmKp9mvbASaN4Mg/IupczF2NAE1TkpE++aO3ehKRrXts0nh1Mc7nLFSH3TTvw4NqqB7k/xuC9A077wFi/E8iL2S0ZuZnxIj67LM/ddgL9e+r0d/c1HH3rNen8FDNKaWhHCwRpCVipOZ0U8FaGh7DA4d0ihu6UAWMf4rCwiCI9zflNdFReK/kYzw47fnPgYkHrR4o8jXsuL/E0KrbNSknJXMWPLKIsx7fo2wJFw==
+ b=Z3O0XoqOn1/dzDMq5yILRGKyF22Fpi6G4a+Q8GP2xiRZuaGnu9CMzJOrPM/6mpN2L+Ou6f9sd2ja8kRLDmC41XOIQdGwJRGqIo0IZCSgFmCwaAQVpK2tf45XTbBBNj+t4/yOPwzI2q89ZVCuR/+xx9gTJytmKkPY2QYPJ1DIDR4Ve1fiwZtGrsuWVEqJp7QX3HqX9QGfHrgbMZrcZxgmdVOHwQ72odnKNFuN5yStDXPg9goXsSyUR9SfGcZMjzEtYlu/yNDTU0ELRPbArywJ+IafgxvbVour8Vdkn0I9IkJuzkP+nRjKDH3eLymfXDq32MhCPuu1ehpfwuEklV3ifw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qjDUOyfCeG04VvRPAlBztosHf8PIbZwXPZwoOMRybWA=;
- b=J2rpbWNyJ/49jlP8l9phHWmxridc3agijaLNSAjcXVmMklQRYBNdo85w61c3UmYJmghr6rfPSkGJYHIgsGALQfw4hCAwJfr7ynw9PvB2kcnNcry/Qc/fvpyEnCPEh7Kg7lSomK7x/FEAb+NIB543o7NOoK0Qfuh1DfEg8lH2Tt/sIWOVTqEyDIGER8BeXV304STscUXwkdrlwmFXv7H6rnJseJitq1FkDV2xnR8Kqax2enNsKvOjyVoQJelvVaibdd8/ggrjQM5FRkyaDLc9+7m8760Jbox2iWbIFe5uhnLhfbBUr7gxbiEZ3GTJAvFfqzOr/4nXAn7BPgl8PaExug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qjDUOyfCeG04VvRPAlBztosHf8PIbZwXPZwoOMRybWA=;
- b=ENxLccG0JvrSMxYbJ247JD76yTu1REWCKsx4jKRA8GXOmwkkOy9RMz+YESI4pMRenDGL4g9+23NS6r3ZF3ACJromK7wImQFS3v3uMfyTLiv2gnqu2OpKKYEMCMrcRflbFNHH2Na67l9JorPZtd/JfRlv3LY649z95H6SDKf/itk=
-Received: from MN0P223CA0001.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:52b::19)
- by CH2PR12MB9458.namprd12.prod.outlook.com (2603:10b6:610:280::21) with
+ bh=4TR5e4WyvxYH/q1CQPorXKLzc96gNM/hdO9QbIeTpAE=;
+ b=ZxjIPSvpM5EzLej0jwX+r8C1SqTPjZGuCGe0+CNpypRgzTwg6XJeAavHZhOfmtfyFSQqcpbawIJ4m5g33jYxTc3O1fF+1qaWLmpCf9ZUf9AUJOG+p/V/J07xUxU07tEHZ3uN3Ob7ns/rgoL9WJz9f7oZ1SvCtnhTJ19MBE8BcQ2jzPeKeXcrHasPfAveAqUzFy/XHnPIf9RDufcpZc81kMm0bDB0PxPQE5vDRPOpsfd4hEQPAzgHQXzDg/mCpQVdAv218erJzxMCK6Snfc5HOJrE8S+w+NJCZT6c5NOTCnwRbW5yLBaqLN99dQsfEaI7WBdzMVrTO7yr5fQNVureEw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from CH3PR11MB8562.namprd11.prod.outlook.com (2603:10b6:610:1b8::13)
+ by PH7PR11MB6474.namprd11.prod.outlook.com (2603:10b6:510:1f2::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Wed, 7 Oct
- 2026 09:07:38 +0000
-Received: from MN1PEPF000793FE.namprd05.prod.outlook.com
- (2603:10b6:208:52b:cafe::57) by MN0P223CA0001.outlook.office365.com
- (2603:10b6:208:52b::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Wed, 7
- Oct 2026 09:07:38 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MN1PEPF000793FE.mail.protection.outlook.com (10.167.249.202) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Wed, 7 Oct 2026 09:07:38 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
- 2026 04:07:28 -0500
-Received: from xhdtunimkar40.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Wed, 7 Oct 2026 04:07:25 -0500
-From: Meher Thanmaiee <meherthanmaiee.vanukuri@amd.com>
-Date: Wed, 7 Oct 2026 14:36:59 +0530
-Subject: [PATCH 1/5] clocksource: timer-cadence-ttc: Move register
- definitions to shared header
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Wed, 7 Oct
+ 2026 09:06:35 +0000
+Received: from CH3PR11MB8562.namprd11.prod.outlook.com
+ ([fe80::ea76:e083:b8bf:7484]) by CH3PR11MB8562.namprd11.prod.outlook.com
+ ([fe80::ea76:e083:b8bf:7484%5]) with mapi id 15.21.0496.015; Wed, 7 Oct 2026
+ 09:06:35 +0000
+From: "Andrysiak, Jakub" <jakub.andrysiak@intel.com>
+To: Linkui Xiao <xiaolinkui@126.com>, "Nguyen, Anthony L"
+	<anthony.l.nguyen@intel.com>, "Kitszel, Przemyslaw"
+	<przemyslaw.kitszel@intel.com>, "andrew+netdev@lunn.ch"
+	<andrew+netdev@lunn.ch>, "davem@davemloft.net" <davem@davemloft.net>,
+	"edumazet@google.com" <edumazet@google.com>, "kuba@kernel.org"
+	<kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>
+CC: "intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Linkui Xiao
+	<xiaolinkui@kylinos.cn>
+Subject: RE: [Intel-wired-lan] [PATCH] i40e: fix NULL pointer dereference in
+ i40e_lan_del_device()
+Thread-Topic: [Intel-wired-lan] [PATCH] i40e: fix NULL pointer dereference in
+ i40e_lan_del_device()
+Thread-Index: AQHdRQDPEfE85s1+D0iZMiuwHhDK8bbx69Vw
+Date: Wed, 7 Oct 2026 09:06:35 +0000
+Message-ID: <CH3PR11MB856293C2FFD2F4BC38B81316E6942@CH3PR11MB8562.namprd11.prod.outlook.com>
+References: <20260915105447.574951-1-xiaolinkui@126.com>
+In-Reply-To: <20260915105447.574951-1-xiaolinkui@126.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH3PR11MB8562:EE_|PH7PR11MB6474:EE_
+x-ms-office365-filtering-correlation-id: 6728aa4c-e336-4395-0024-08df245249f0
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|23010399003|366016|7416014|1800799024|18002099003|22082099003|10067099003|921020|38070700021|11063799006|56012099006;
+x-microsoft-antispam-message-info: ePW7qZ02g7Ss9pNf5cUaKwwS9rbfg+3Ub28xg90uBetYMx4DmIQL1c+5XrJSYyHhAbk/uipUIBBpjEpuopb+OO1uE9W7S/hnq3xbmYMNNMKMquNdA1L2/wwbNVa+aBtmOjND9i3GnEgxzULTIAjt9XJQUQp3L4ON3O1sqpnvsYWeV6R0B63n0eSYtzNiJDHVXRPCqHeQWreaEjUUPTzWcKgbtI32+9YJG8ceo+0aUkQ6CKkXPuk8ryocObPI9H2cuVnSmvGVWdfveHzsSJvJdTnLUQK3ei/0RRTgYvdF5clnJdItYuiC6FkRXbSOY3RY6Ra/176uNoy7o1SAwRqeB3ejT2MIZMmKdcpFSN70riaDn5DcZNwJnyAZNHO1esRnr0BfJdtzZG4avSLNXEcYdlOvHwGtWO9gDOch1nQX+P6lXmzQSIy0rXfEDzBbGyDwPSZOtg+Bo6qwor5KklGYP86wMbHyc0BGL/Ky4nLal/QP4ui9dxiZfZI7K+OjmflDUWb7YG+8CoQKfQj8iJDkQ+TabPSroDo0Np1gTUdp1AOfz+D1z+NtiyGP8712ZwRWFTcEvaUur35nMeonRypKz3cGEUVSruc3KOlI6u5Yag0+xczUdPXRxaxszclr3a+LhLakul/ASjGyRjwkaY+nNwsvzHvgtGjUMv5vA4XqEYqAqt/W5MFN6BqIseGOxg0IaC0Dz4znL11Aufb9Izl0gkJJcIbYZUaXeFuZ9rvHS28=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR11MB8562.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(7416014)(1800799024)(18002099003)(22082099003)(10067099003)(921020)(38070700021)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?qa6ZmjrTrnibhpC3tKxU8OfZxy35VSwZ/DtayDM2SYlLxQK33hydXvVpTj1v?=
+ =?us-ascii?Q?EIsTnu7Z4Fn/pGRzQnFMgpmNJoadzUNGv8iZ4Q/9BjZ/inAfDJIQJ0VHSCAe?=
+ =?us-ascii?Q?MWFdaKYdeNoB0ZkQyNoMBgKyXbytuAsrg3lL/DSkmlyT/Vn2QrSL9kC1KxW/?=
+ =?us-ascii?Q?cMILXvMb477TmcWf9Fcc47OVLVgdGYhQ8Q82/qVAFOw3DQryMTz3HMZHo6Ik?=
+ =?us-ascii?Q?QcJioYasatdBQnXbhAUOpLPgEeghPxUWSSgGWJsgHLOHHT2/xksk2+jOLoh2?=
+ =?us-ascii?Q?pJKvVwoB4IKAg5edcQ2jjGfUtaJL/cTNVWcsCH23hbvPpy7AyFO7byFyc+wj?=
+ =?us-ascii?Q?BBsm7BNCPR+nspMPqFPK/YQV9oKA4wwA9LgXKG3vIsCUu+WNyxKnJnnxFc/l?=
+ =?us-ascii?Q?WbLZTNWRUSJEW2TJdLJ+lPZADqAfAZmKx0PfFjhOAjLjWC7emxgc7MFxDmzA?=
+ =?us-ascii?Q?jUHj0rjnLYPiE+W+Cu+Y7h0bN4th/48w/hn1ViVQ8nkxPJtNileED/WjAxjC?=
+ =?us-ascii?Q?xUXH5wLNWUtlkY1AoosRIy73PMpRz7Ux7gZw3kfgXwsbLYVUFN9w4wULFv4a?=
+ =?us-ascii?Q?OysK9ng77B7T+kZ9aKr17B/YegUAZz0KTB4MVyiQSlsKti4jrRo7hHWl1ylX?=
+ =?us-ascii?Q?fzFQf3rOfMOFBRdNEMPgJ2Nlp41ZHH6d/foBM/B32lGZe50NZ1WMgFIxFBGz?=
+ =?us-ascii?Q?/ytF2/oPpN7Bn1tO9fMrlI5E+UkpXg/7LdZOPieuZfQXg91zNEgG3hawgoHa?=
+ =?us-ascii?Q?GqGhLd9VTH8rAUEl6p9bkPxOQA3lN8gBEVSqnIzi1GsDQ/SMpLwD6+FCyv8J?=
+ =?us-ascii?Q?w45BVKeuLeT4BqYQV3UFu+L3Qnzf/kFSFHkWRsnuEb5nSg7ywxwUCgQRqSx0?=
+ =?us-ascii?Q?fzpzbNI1Rva3xwzVE8H6sq7b3yFmKM8V+YJIoXKEFpmAkeAIG9Ilni6uKqNW?=
+ =?us-ascii?Q?ghzRvNWM7sd8WshdM5hshBRDJn7RzaR7bIwotr7L8vJ7zdBlwSYxCVFNYVV3?=
+ =?us-ascii?Q?5oGYh8h6XPQe29FsF6usHSFor2J3FwHpDT53Sf7FYJpe45FFSsLAg8cnM/9Z?=
+ =?us-ascii?Q?q/1IMtTpQ5wW2Ph+qyyMvaxp5AClJWImcbgSYSL0Rf/Ygv0eAD6Qeji2ITeh?=
+ =?us-ascii?Q?JsDpKRdb3ZE+c3hY7RFbgDDs+iZ6zyFcUTdTKj987mjzSprurK8Y3nKd7UFm?=
+ =?us-ascii?Q?EeOcl5v0zgUDf12v3nUjczG3SebY47aZPs5D64bkpum0rGnkStnpfzIBKFaG?=
+ =?us-ascii?Q?qL/jST1GjlcKWGQshcEh45Z+TMNbgIpQXZQlD0hVFlM0gQG14FBbOBInSDB8?=
+ =?us-ascii?Q?/FBgMBGK5tOxPO9iP0QmgqD6OS87MYAqyGh98f3SyFekgX/YbFX0NvDN63Nk?=
+ =?us-ascii?Q?YmP03OUL0uAtNHE8/Eka5SKTpvIBW6fOmue2svC1dfpX+uZnYl826fo0YS0h?=
+ =?us-ascii?Q?+/VmzpTUiWCTmB7GnLV9Y7bt8h+l3V8stHHX8kFPpnP28URcq9tiknRuPoj/?=
+ =?us-ascii?Q?fwClqO5znLel9VOAW5Zx9aV78JvPq4lojNNKMUX+48waBAKhLLeT3LkGnHOk?=
+ =?us-ascii?Q?7x7n3qddZTWCFprRT0krXk17QL2h4F3vaweYXntwuX0bLor+vVKp+7R1654m?=
+ =?us-ascii?Q?ZeERxgJeUgjCmQA6TkZLKVj+5uDtjGzBW/57LkG558jcRSxBekgJlqrFCyj5?=
+ =?us-ascii?Q?ZsI3hID0l66mrhYjjdp7Fr2EoSPG4fD57yztn2ppIefgkaNjFF6rxfAir0UN?=
+ =?us-ascii?Q?zf2dDQszhA=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261007-cadence-ttc-pwm-v1-1-52a95a8d98b1@amd.com>
-References: <20261007-cadence-ttc-pwm-v1-0-52a95a8d98b1@amd.com>
-In-Reply-To: <20261007-cadence-ttc-pwm-v1-0-52a95a8d98b1@amd.com>
-To: <michal.simek@amd.com>, <tglx@kernel.org>, <ukleinek@kernel.org>,
-	<daniel.lezcano@kernel.org>
-CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<git@amd.com>, <meherthanmaiee.vanukuri@amd.com>, <linux-pwm@vger.kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791364043; l=3663;
- i=meherthanmaiee.vanukuri@amd.com; s=20261007; h=from:subject:message-id;
- bh=ELQML08KwY1xhEmLjIG6zMlOcrq6/pcu3ISZalL0C5E=;
- b=hQ4O3G3yhmyqGAY2w772TXu38wb/KbqznoS/wYUD7ID4WpNDpw6n4fKRZ40xl3uZSkmA8Kf48
- FhU+vk8ZKlgApVup5e5umgdNGFhFIpUyxYJDg6/hBTdz8fQBWcarJLI
-X-Developer-Key: i=meherthanmaiee.vanukuri@amd.com; a=ed25519;
- pk=m/+ON8/+ewj5VLb55p7J9gAopkLKj2mp7iobBZdhi0Y=
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF000793FE:EE_|CH2PR12MB9458:EE_
-X-MS-Office365-Filtering-Correlation-Id: c96294e9-aa5c-4419-4e88-08df24526f89
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|23010399003|376014|1800799024|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	MAjZ0dDswkIU9iENt66wdaOPkR1bEZ0G8l2Psz3wLJAPaq1y5HUsU+tejmSbXVnWR3G2VbVwu3fket6QcDada51Qw5uzLwPllxbweaV9Gf4tKICyHAlvicNk9RgrZyBF06DLn6nnGrn+7f2RnzGacyr4GR8qw42mcfDBrP45R9eEu26CjuDncGTly6nguTu+7Ov5vqqIFG+3ODHs4Tfpq8qnYh88NNmQ1xa1D7mDeLjhGpeKEa9Ysl9bkfNXDFuTJBjBZv5VsWOLdQTPf/V15JMTShE7kYE8QHnvtP++fH6z1kIzoQ8dTpvZv2xMM9SOXZRWvMOLZB2D+KnHzkz66N6/w1dqOsXk7//DL8IevAg+x7orUcX2U9TyxqfsivYfhjJb658xj+nceOqPUtQAmlYtwx0z+NR/Jfv4Eq7HmEFIxt9fjkohnp1mxoIDYk1/t+uJLKO5sqDGoVbtz2TAZ+SEBqd3HsK0TV+/JMojlsFlSfoyIpsUP1B6d9vM1es2gxNyZN3jfnY0pP0308E/SpmOA/XPgZDEzBw4ybbzdi0yCgwDZ6UXVeWBtGmXGSrkYJ2kG3Xz1b845o5cqdL821AkyVxK70vQ6ZDXQw16jUm5HERg/pmkerOKUxJJroYCVFqXYIIJqJNtsfCY1paLVnl1KlE4UkXQsImLHJCcrVnEujf0z9ZqZyMyvwTwZ9gE2Ybh6csNJLZttW1x1sI/9g==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(23010399003)(376014)(1800799024)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	5ypmPOsCD0RM9/Nb1/ZTbM+P2lHBfENtiS3bXzpkPkP6HB7V3li2ansj70V32kKqqCaExwPQQiSoynKraf2Gvf36xuBYuXBygEE34SReTgQOkps6FUBNJpNEDbWZDxsSw9OL4vZWvQ9v7SgLt6KZq8UGfBFuQGrRAs0WhLCJiy/0qV3inKppLjY119bkz2r/W0jt8gUe3CbJ0AZ3LTVV+3Rv2++PQbHL8WsDaS3CgSw1j8GQ5Vam2a/t5LTfijHYXr89KSKRawwMeeDiy1CdfZV7I5RCLBXIJmCMOa4HpCue3wltJ3dcoc3F8DbqIeNU1hgWKj+Jv/EwMV7Olv/g0hAydpv+Kv4Mgyj1VwcQOA2nar9dXopM6cGkZtCDxSYkkPV/B5i5sc1njIptQ5h1wRdlp34lE3exsg302NeiQKlDN+6AeN7SQqBWTWEWR3Wl
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 09:07:38.6654
+X-Exchange-RoutingPolicyChecked: cNH6mWW5ZjzeYF2Z39mesIZIb3Erbs11hJ3l0U99mLiH+uECQ8I+ZGxAeh5x7UUPXfnPpUpdKJlMzOGFqRPNOVnPWhkKMfdisjsIo+y3ESIOOuzQxZ+EUEM5CY7rrMspGUHKCeTcp1BJNtPzKlhDCSHSyDeXf2OAjyIRa2BwsvDOGESWJMBK5TxUAdue20893LrDDBGcz1dsbKZUYv7oGbZK77UzTulLicbzT/SsJ7XFKVVT6CYvahanpqKN5Q4hX+IqcwPTi3UvwuVhdRSITIJmcksci2n3DOpM5P3r0y5C3TJ8iN2qwcWrLiPNsO+sQo8+gETUBtS4oHN4QRZgeQ==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR11MB8562.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6728aa4c-e336-4395-0024-08df245249f0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Oct 2026 09:06:35.6249
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c96294e9-aa5c-4419-4e88-08df24526f89
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF000793FE.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB9458
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: IuisBjpb7XG12rMON7mxuQ61C30EpesTfGAXtJ9XgfeatoGcYVpEGz6Xft3cdZGPHQHdPFhSotPQE+T4LZEn3xsjPbKzglxN/Pp5RuoNrus=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6474
+X-OriginatorOrg: intel.com
 
-Move the Cadence TTC register offsets and existing bit-field definitions
-from timer-cadence-ttc.c into a new include/linux/timer-cadence-ttc.h
-header. While moving them, convert bit-mask definitions to use BIT()
-and GENMASK() macros.
+> -----Original Message-----
+> From: Linkui Xiao <xiaolinkui@126.com>
+> Sent: Tuesday, September 15, 2026 12:55 PM
+> To: Nguyen, Anthony L <anthony.l.nguyen@intel.com>; Kitszel, Przemyslaw
+> <przemyslaw.kitszel@intel.com>; andrew+netdev@lunn.ch;
+> davem@davemloft.net; edumazet@google.com; kuba@kernel.org;
+> pabeni@redhat.com
+> Cc: intel-wired-lan@lists.osuosl.org; netdev@vger.kernel.org; linux-
+> kernel@vger.kernel.org; Linkui Xiao <xiaolinkui@kylinos.cn>
+> Subject: [Intel-wired-lan] [PATCH] i40e: fix NULL pointer dereference in
+> i40e_lan_del_device()
+>=20
+> From: Linkui Xiao <xiaolinkui@kylinos.cn>
+>=20
+> i40e_lan_del_device() dereferences pf->cinst unconditionally. pf->cinst i=
+s only
+> assigned by i40e_client_add_instance(), which resets it to NULL whenever =
+the
+> i40e_client_instance allocation, i40e_client_get_params() or
+> i40e_register_auxiliary_dev() fails, and it returns void so
+> i40e_lan_add_device() cannot report any of that to its caller.
+>=20
+> i40e_lan_add_device() can also fail before it ever gets there, for exampl=
+e when
+> the i40e_device allocation fails, and i40e_probe() only prints a message
+> instead of clearing I40E_FLAG_IWARP_ENA. i40e_remove() therefore still ca=
+lls
+> i40e_lan_del_device() and dereferences a NULL
+> pf->cinst.
+>=20
+> Only tear the auxiliary device down when an instance was actually created=
+.
+> Removing the PF from the i40e_devices list below does not depend on it.
+>=20
+> Fixes: f4370a85d62e ("i40e: Register auxiliary devices to provide RDMA")
+> Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+> ---
+>  drivers/net/ethernet/intel/i40e/i40e_client.c | 17 ++++++++++++-----
+>  1 file changed, 12 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/drivers/net/ethernet/intel/i40e/i40e_client.c
+> b/drivers/net/ethernet/intel/i40e/i40e_client.c
+> index 84a97ca8a6d8..9a4f50af5347 100644
+> --- a/drivers/net/ethernet/intel/i40e/i40e_client.c
+> +++ b/drivers/net/ethernet/intel/i40e/i40e_client.c
+> @@ -496,15 +496,22 @@ int i40e_lan_add_device(struct i40e_pf *pf)
+>   **/
+>  int i40e_lan_del_device(struct i40e_pf *pf)  {
+> -	struct auxiliary_device *aux_dev =3D pf->cinst->lan_info.aux_dev;
+> +	struct auxiliary_device *aux_dev;
+>  	struct i40e_device *ldev, *tmp;
+>  	int ret =3D -ENODEV;
+>=20
+> -	auxiliary_device_delete(aux_dev);
+> -	auxiliary_device_uninit(aux_dev);
+> +	/* i40e_client_add_instance() leaves pf->cinst NULL when it fails,
+> +	 * so there may be no auxiliary device to tear down here.
+> +	 */
+> +	if (pf->cinst) {
+> +		aux_dev =3D pf->cinst->lan_info.aux_dev;
+>=20
+> -	/* First, remove any client instance. */
+> -	i40e_client_del_instance(pf);
+> +		auxiliary_device_delete(aux_dev);
+> +		auxiliary_device_uninit(aux_dev);
+> +
+> +		/* First, remove any client instance. */
+> +		i40e_client_del_instance(pf);
+> +	}
+>=20
+>  	mutex_lock(&i40e_device_mutex);
+>  	list_for_each_entry_safe(ldev, tmp, &i40e_devices, list) {
+> --
+> 2.25.1
 
-The shared header will be reused by subsequent patches adding PWM
-support for Cadence TTC.
 
-Signed-off-by: Meher Thanmaiee <meherthanmaiee.vanukuri@amd.com>
----
- MAINTAINERS                             |  1 +
- drivers/clocksource/timer-cadence-ttc.c | 18 +-----------------
- include/linux/timer-cadence-ttc.h       | 28 ++++++++++++++++++++++++++++
- 3 files changed, 30 insertions(+), 17 deletions(-)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 65e8a4b5c90b..b25ad0c18ffd 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -3922,6 +3922,7 @@ F:	drivers/edac/synopsys_edac.c
- F:	drivers/i2c/busses/i2c-cadence.c
- F:	drivers/i2c/busses/i2c-xiic.c
- F:	drivers/mmc/host/sdhci-of-arasan.c
-+F:	include/linux/timer-cadence-ttc.h
- N:	zynq
- N:	xilinx
- 
-diff --git a/drivers/clocksource/timer-cadence-ttc.c b/drivers/clocksource/timer-cadence-ttc.c
-index 3c50d6892849..8be13d344007 100644
---- a/drivers/clocksource/timer-cadence-ttc.c
-+++ b/drivers/clocksource/timer-cadence-ttc.c
-@@ -18,6 +18,7 @@
- #include <linux/sched_clock.h>
- #include <linux/module.h>
- #include <linux/of_platform.h>
-+#include <linux/timer-cadence-ttc.h>
- 
- /*
-  * This driver configures the 2 16/32-bit count-up timers as follows:
-@@ -34,23 +35,6 @@
-  * obtained from device tree. The pre-scaler of 32 is used.
-  */
- 
--/*
-- * Timer Register Offset Definitions of Timer 1, Increment base address by 4
-- * and use same offsets for Timer 2
-- */
--#define TTC_CLK_CNTRL_OFFSET		0x00 /* Clock Control Reg, RW */
--#define TTC_CNT_CNTRL_OFFSET		0x0C /* Counter Control Reg, RW */
--#define TTC_COUNT_VAL_OFFSET		0x18 /* Counter Value Reg, RO */
--#define TTC_INTR_VAL_OFFSET		0x24 /* Interval Count Reg, RW */
--#define TTC_ISR_OFFSET		0x54 /* Interrupt Status Reg, RO */
--#define TTC_IER_OFFSET		0x60 /* Interrupt Enable Reg, RW */
--
--#define TTC_CNT_CNTRL_DISABLE_MASK	0x1
--
--#define TTC_CLK_CNTRL_CSRC_MASK		(1 << 5)	/* clock source */
--#define TTC_CLK_CNTRL_PSV_MASK		0x1e
--#define TTC_CLK_CNTRL_PSV_SHIFT		1
--
- /*
-  * Setup the timers to use pre-scaling, using a fixed value for now that will
-  * work across most input frequency, but it may need to be more dynamic
-diff --git a/include/linux/timer-cadence-ttc.h b/include/linux/timer-cadence-ttc.h
-new file mode 100644
-index 000000000000..4f2b85e0ff78
---- /dev/null
-+++ b/include/linux/timer-cadence-ttc.h
-@@ -0,0 +1,28 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Shared definitions for the Cadence Triple Timer Counter (TTC).
-+ *
-+ * Copyright (C) 2011 - 2013, Xilinx, Inc.
-+ * Copyright (C) 2026, Advanced Micro Devices, Inc.
-+ */
-+
-+#ifndef _LINUX_TIMER_CADENCE_TTC_H
-+#define _LINUX_TIMER_CADENCE_TTC_H
-+
-+#include <linux/bits.h>
-+
-+/* Timer Register Offset Definitions of Timer 1 */
-+#define TTC_CLK_CNTRL_OFFSET		0x00 /* Clock Control Reg, RW */
-+#define TTC_CNT_CNTRL_OFFSET		0x0C /* Counter Control Reg, RW */
-+#define TTC_COUNT_VAL_OFFSET		0x18 /* Counter Value Reg, RO */
-+#define TTC_INTR_VAL_OFFSET		0x24 /* Interval Count Reg, RW */
-+#define TTC_ISR_OFFSET			0x54 /* Interrupt Status Reg, RO */
-+#define TTC_IER_OFFSET			0x60 /* Interrupt Enable Reg, RW */
-+
-+#define TTC_CNT_CNTRL_DISABLE_MASK	BIT(0)
-+
-+#define TTC_CLK_CNTRL_CSRC_MASK		BIT(5) /* clock source */
-+#define TTC_CLK_CNTRL_PSV_MASK		GENMASK(4, 1)
-+#define TTC_CLK_CNTRL_PSV_SHIFT		1
-+
-+#endif /* _LINUX_TIMER_CADENCE_TTC_H */
-
--- 
-2.34.1
+Tested-by: Jakub Andrysiak <jakub.andrysiak@intel.com>
 
