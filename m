@@ -1,230 +1,168 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5E9C48BD35
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 13:40:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98F36431E71;
+	Wed,  7 Oct 2026 13:40:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791380442; cv=none; b=Zffu+y5VHPeRg0SJ3YYoTNSMec/deqqjNVONDT9UGNjMPN3jhRryfncHp4tbGW7uwXcDP2U5TYFPFNTpmhCEkbqDpC+JnfCiXIEhYGolArSqkQHLiaHELR0yJG+sCntMedzHPxlLAh5S4pYkz0VCJ95+DHtKOl/cv4TjhqNW4Ks=
+	t=1791380454; cv=none; b=XMqeVLDasVhwgFjvvOHM9rIFh/xa4fBeB5id4hHkKovvrbE08XJc44v4xgmGN4UiW/L7qZnO/8ziGVJHfiAjcxK3zg9Tr8ItWn+f9mr2ByjPPHCR/QCeIvmYTl/Zpb/MuhDm72HWYfpl2NgtvKoPXDHfoMe72K71IhTzQo0YXe8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791380442; c=relaxed/simple;
-	bh=4Vc9/hOrn91FRfCIDIgEeIA69CPwchjcY8WjqIDWQ2g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eA/1XkLTOFn+RhO42UOptygHSBwl7KDBFHa/35O6vmdTgA9tOSPiuboUpliqQ5aowXKymogs+cb8ahC9C48ml5fbNDCIrwTXvUP68S6XCymxqLursYfqbhvU1flMQCivTJkBXfTQ4XZYmz+We1FuiyJnaCc7CdayTVFi9Vwq/Ys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MadV++wg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BErQD1he; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MadV++wg";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BErQD1he"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697BV90Y3687353
-	for <linux-kernel@vger.kernel.org>; Wed, 7 Oct 2026 13:40:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=YDKtmnnu3285Y9CLAsS2X7YS
-	RDDoyHvGbs8oMElF55Q=; b=MadV++wgZr2Byi2oLWHpSZZDS8Y/EMrT/qWv9EBE
-	bzgmzvm5jYZGlc1f95npp+dToo1XZ1g5KJqgcc/jby93FYADALhg2/Ii9aYM8Ssl
-	tYAgkCVj80WOQUbgV91ztIQztL+jchzNTRc2/VO9YTliBfQfDfk8h4F45Jyd0Ajh
-	G1iIk3Xp0bjbZziir0QJzxc0TENiuJzph9xR1z+wexT/qr+mvWeYwnsh6Y3iy4bM
-	u2yIZl1e/555AIOM2e7cfsHg57IyLhdw5jqoi+AqJ2AQ4VvwX36kqASGvcijsUjU
-	isMZXuaoeOy8vgFb+/H7xO9s1L+HZ02hA8qSMuYHzYEJYA==
-Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5mgr8nfm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 13:40:31 +0000 (GMT)
-Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-9806756ea40so3658481241.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 06:40:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791380431; x=1791985231; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YDKtmnnu3285Y9CLAsS2X7YSRDDoyHvGbs8oMElF55Q=;
-        b=BErQD1heEnq6VIPUWuVBHgFT3fJKuODxrEj5aFov0e3Cz/TA9kjfM6p5nA5tEdPp0N
-         HK/6dPF9mPMF+daeMZeFm25daUyO33C50oc1pgU7mJHvWWMvNGXFdNLgez9nWu682nk3
-         MdEogIPyRGEIN1L9BF5yAW1u6q5ZndNxpEaWHXzBNKc4YCX6EoiLe4flfFmgTUrBMOwc
-         Ai8bP9TEDBYFwGsxPXmIHX/Oin044/3K/bl2VO7vVOerKDM+xdJ2bR9EBDPnMz3kv/p2
-         nZK9piJpyphNicVU8sDLHojcLYz6HpvFKXnjG8uZZ0IBfRkDFbi9+fDrObeMVL7dGsuJ
-         nv7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791380431; x=1791985231;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YDKtmnnu3285Y9CLAsS2X7YSRDDoyHvGbs8oMElF55Q=;
-        b=yfp8i9tnlORgaOCWXrqTeD1q9jSQJCQBIlDT2looNKK++YVV8ROVdqs7FLFnsROprW
-         3WhRW6TZzTbkYNha/HGJyWEVYHi1CzzuQzxBGidCEuEDAUMUxcjNiYME2wfYmq6H75Ws
-         TA94hp4XDRF9ePPfwfQ7AufShx6upciKwCpliL+Yf4aOK41klNbbi+eZy+9mHaS4Lqh2
-         v+Ke25AbCGJDWPPWklnYEyKYDA6njg2RLqMoSVEzxsXxnk0PCLI2q5lZHzHPMKZN3uS0
-         zi+RuCXwfEqXb7iGZePkUzrP/I811T553KR3atlyQ9UBvHo5bJwQ4Xr/KlXuRqupo08i
-         bqqg==
-X-Forwarded-Encrypted: i=1; AKwUvBzFtu7+LZg62fQDpv4Zur4Ir2t+4tZmOeD31MUQqYh9fYjRGkSzgVzHW1jlSlE7tfUUHnUmiw3Qyj1LhgQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJGYg46RgdKmo+R3kjRS9sRcmsFC8+J4BRPnHllhJ5nyrpnOEna
-	Cuk0wcJbUimqzDEA4vtecUL19AuVhioRTh4jwSRLX2wC6LTEVUTDKcjWF9LbggxIDghjv42X4wD
-	+IiygY/u/y8OCTHmEOCnKw3s5nTnZ6bF/kk+fAtwV7g9KXkbQUXouYzxQ0c54ir/YT7I=
-X-Gm-Gg: AYBFou09fB9JwncYBUJrJ8GhxtEOGs2ZqmfBlhV5meAWipXmau/PK/WzjocJstMGanW
-	cCNzgeU4tNdVVVPWQr6XdlaC6z4gGJfY0pWactjuMzKmeOPAlQ0t901ar0vbFws/C2q+irMdCXs
-	hikYwT+K+fBewyt8gTO9LgljXdwkQBnG4ECbWO31Ip3BruAnRWUTvGV2ROOs1hrFJ/xvtXyymzh
-	sEM/hZUOQUKLmni/uh1IyNiLFAiGdaIrKL8TEFf1IhS1y1MbWc64ohqV6LMfOKrDki75lCHfrFN
-	Fc5cqlBOHF/5BklKUZ2atP7gn8J8MV4+0MlL8MkBH+oHZSVZHY1iZL2ANDhr/TE7GIYe59kuImO
-	cFG75iyoNUcYJ5KEBqRGANXtXffStmMH+SN/VyDF/aY03mJH633BQwDSjWtYEZfCKwzeF/snC1o
-	CbSo8k9PTj2l3g
-X-Received: by 2002:a67:e701:0:b0:7a7:19aa:8a88 with SMTP id ada2fe7eead31-7ca39132852mr711072137.35.1791380430735;
-        Wed, 07 Oct 2026 06:40:30 -0700 (PDT)
-X-Received: by 2002:a67:e701:0:b0:7a7:19aa:8a88 with SMTP id ada2fe7eead31-7ca39132852mr711060137.35.1791380430205;
-        Wed, 07 Oct 2026 06:40:30 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9a1d58408sm6659241fa.15.2026.10.07.06.40.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 06:40:28 -0700 (PDT)
-Date: Wed, 7 Oct 2026 16:40:26 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        venkata.valluru@oss.qualcomm.com,
-        Jessica Zhang <jesszhan0024@gmail.com>
-Subject: Re: [PATCH v4 1/2] arm64: dts: qcom: shikra-iqs-evk: Add LT9611UXD
- HDMI bridge support
-Message-ID: <3gylobhugzzwngtxwzke2o6almcmjzxrjqefpkmcpjy74baxvh@akzm74tyb2n6>
-References: <20261007-master_lt9611uxd-v4-0-9986704e2a7b@oss.qualcomm.com>
- <20261007-master_lt9611uxd-v4-1-9986704e2a7b@oss.qualcomm.com>
+	s=arc-20240116; t=1791380454; c=relaxed/simple;
+	bh=gsRxFqm+EzbIUJOT1wgGnw7SvjE6GxUMt3WSHeGGv2w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CEa4z+NJgLUnP1a20up1KempYf0etM/TOmIxkuAEt/N0rdy91WFzQknWmVwXvTJ0vpBaGXHu0C/jhE2U1SJ9x5zTYPdvGlTVDAwlZpUEOdcBgtL14AcjU07ld8btM7A6rNK9qHK7ndegwnsGy5v0jjWjAwM+DXJYcemjAqBNu4o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.254.200.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
+X-QQ-mid: zesmtpsz4t1791380416t8179b403
+X-QQ-Originating-IP: PWpttXQ3DOBp5n0jZQWtZkD4nf5QeEN4Sg0ISfK7Tas=
+Received: from [127.0.0.1] ( [180.159.160.209])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 07 Oct 2026 21:40:13 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 9570977485540682427
+Message-ID: <401F87C23DE9A910+997f9376-6810-4066-ae0a-686af834c0bd@radxa.com>
+Date: Wed, 7 Oct 2026 21:40:11 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261007-master_lt9611uxd-v4-1-9986704e2a7b@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDA1NCBTYWx0ZWRfX4Flys/XxtRrz
- RGIG0hkrNI1CMMVmuFy12m9vVR/pmZqh5IMFBXVXGpiFk2C6M5qEGykuQzWtbRgYonJQwjBikd5
- bHjYSK5k1S1WcZK6BzaIrhsEIq4fnhEuK/WyTc0cfa7bjFRCIK/TwirbaBdYGCuAo8Vkl9wu7zr
- CVRddyBlAPjnk+klSzcuKLpHGWjETqBaPt5is++ZCI/lqCKaK+tylFjGn7+TPvn+XzOtbUXGU9a
- sQtIft785xIsHH/95nhcvxiE2ws1z115wYQkSzgvj8pZwv85ZHhr9PhQAMKHiwn7BG8tzXafmpt
- zfohjH2P8qYcxbgJcxwDf1ePtgEir10ObFiT3oipWrW1gkCpyqt0o3JYYLZ3lSi1v1u3WeRaTiw
- eNc163n9NT6yo+7DLNNrR2n6AiNeh36kkN2RPiWvXqLzp+edlMFjUkwL12BwF3oYdDHqm3S9BdQ
- n8P66Boj2fCQ0ok4H8w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDA1NCBTYWx0ZWRfX+4/OTwXVdfER
- r/ZQ0+j02E6/oTvqxxjtPz9fWB47qDcwJWsKjYqTeWUDjU9KIAXddbrYX8euGIAGYRTjohChw7+
- WO6e7yl51TTstmzqDcftvtm1efwuWFQ=
-X-Proofpoint-ORIG-GUID: fke7muaIb71gjbJVXfsGT2WOaqqnJVYB
-X-Proofpoint-GUID: fke7muaIb71gjbJVXfsGT2WOaqqnJVYB
-X-Authority-Analysis: v=2.4 cv=OYkNnRTY c=1 sm=1 tr=0 ts=6ac64bcf cx=c_pps
- a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=cC8yJu4M2nJ482moxY8A:9 a=CjuIK1q_8ugA:10 a=TD8TdBvy0hsOASGTdmB-:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-07_04,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0 phishscore=0
- bulkscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070054
+User-Agent: Mozilla Thunderbird
+Reply-To: sophon@radxa.com
+Subject: Re: [PATCH v2 0/3] Add TPM support via Qualcomm TEE TPM TA
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Cc: zeroknots <zeroknots@protonmail.com>, amirreza.zarrabi@oss.qualcomm.com,
+ jarkko@kernel.org, jenswi@kernel.org, jgg@ziepe.ca,
+ linux-arm-msm@vger.kernel.org, linux-integrity@vger.kernel.org,
+ linux-kernel@vger.kernel.org, op-tee@lists.trustedfirmware.org,
+ peterhuewe@gmx.de, sumit.garg@kernel.org
+References: <20261001055029.1960743-1-zeroknots@protonmail.com>
+ <0c6d29ce-920a-4566-9a4f-a0687b0e5ddc@oss.qualcomm.com>
+ <b2xdth3hkuypnvxlrgssnj4toffbceohhnh7w2ju46fzinflfd@qaq6ai5plolq>
+From: Xilin Wu <sophon@radxa.com>
+Organization: Radxa Computer (Shenzhen) Co., Ltd
+In-Reply-To: <b2xdth3hkuypnvxlrgssnj4toffbceohhnh7w2ju46fzinflfd@qaq6ai5plolq>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: Nwz8Cs33/LprCyUngGnDPDz76MMJbtGvdpcrxzzbKaz9OhNrmyhZ3qwz
+	ogA8HofiDNDceuivQk2ZWfi12W5687ljXZNpP43pRu/GKC4c6ZP+xnDmKWSo8b662K73JWf
+	vnq3OFVoIaV0WmDifuZzvHG1PgCWUMBVe4WEZPw7W1RKzl7qDwNVxIE+b9jhQLKV1GJ75HN
+	OrC0cObdc8pynhZW3Rq0/XzPGa1jlc4Zk3zGfB9Hf7NnhiaWMG76JHon30YkXVAemN0tXM9
+	4vBunyfLCtqgeU8oGmTCqOhGFuXDUzIKUng/u9Yz93OWPF1f556Sm+mADEg779eUUl5jPLH
+	BYPIKfBA125qvqSG6pVcKURQDS2RKpEj3ZpVzPZ78k/EE8IXgFOr9FnopJTLsZIJPT/du9b
+	6hXtbTBJAZ89SBVjVwUMoImOMNfucYauKbeflfOm0DIIv+F2/FCrfJpjAvqsFOcUiP/Li7B
+	UX4a/EjazGD1rIB+V6IGRgW6aVNmmVWk7Ax3etsQpBswPACc1EEYHG1KBtXVCxyF9yvMrcr
+	BQGMejx00MCCAgaxwXqMaTL8kujUbpxHiUClzWE5j2NQc7A9c7OwrH1lPFyVxvV8P6RRwxR
+	CaaHF92L9yu7xxzPySpg2a9gYnLXw0jDpuNGf1gKZVv5x0o/vgy8/PYY4ndYdP3koXaA5mz
+	+T0beuwOtlAfhqUrUxQzi/26x+ni1/yTKDQ31BOzBAbIWii30g1Tpk3vCetKAbSBlsrBT5d
+	JpUEtSfFTE9jtnquZfGztxWifxrXdrUPtGbiMDtC3JQyBch5VMsulgnOvmyKyo/H1khzgLH
+	BD+FrSUIo6PFedzshgFzw1Au6WBOOk5Xuqiq2kycSawJuMtJZuygQ75OuVLWcv9DkxSTimC
+	F6wygT25Vr5TLNIqgRJWgxfFzs78U7R5nZ6nLKFtnzy1QyY1rdxP6LPZWWZJXR8SnJxlmkB
+	Qeq0vWEBtbXxtYJosRAurfSJGGKC/1i7Jw0WKhXMyxUD/UgIvdHHw5DOSR44FKSml+NIqSV
+	d4vzOqvQ==
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
-On Wed, Oct 07, 2026 at 06:21:06PM +0530, Mohit Dsor wrote:
-> Enable the Shikra MDSS display subsystem on the Qualcomm Shikra IQS
-> EVK board and add the Lontium LT9611UXD DSI-to-HDMI bridge node.
+On 10/5/2026 3:24 PM, Dmitry Baryshkov wrote:
+> On Mon, Oct 05, 2026 at 12:27:40PM +0530, Kuldeep Singh wrote:
+>> On 01-10-2026 11:20, zeroknots wrote:
+>>> Hi Kuldeep,
+>>>
+>>> A data point from retail hardware, in case it is useful for this
+>>> series: on an ASUS Zenbook A14 UX3407NA (Glymur, X2E-88-100, BIOS
+>>> UX3407NA.315) the TPM TA is not reachable as QTEE service 81, but it
+>>> is present as the QSEECOM application "qcom.tz.tpm".
+>>
+>> Thanks for reaching out, Kindly check below.
+>>
+>>> With the qcomtee driver on a 7.3-rc3 based kernel, QTEE reports
+>>> version 5.2.0, and service discovery finds neither 81 (TPM) nor 413
+>>> (UEFI secure app). On the same boot, qseecom (version 0x1402000) works
+>>> and backs efivars through "qcom.tz.uefisecapp" (app id 7). An app-id
+>>> lookup for "qcom.tz.tpm" returns app id 1; a made-up name returns
+>>> -ENOENT.
+>>>
+>>> The Windows driver for this machine agrees: QcTrEE8480.inf configures
+>>> the TPM service with AppName="qcom.tz.tpm", SecureApp=1, LoadApp=0
+>>> (preloaded by firmware). The EFI configuration table carries the
+>>> TPMEventLog and TPMFinalLog entries, so the firmware TPM is active.
+>>>
+>>> Through that app, using a QSEECOM transport (based on Xilin Wu's
+>>> out-of-tree SC8280XP driver: QUERY_INFO_2 / SEND_COMMAND with a
+>>> CRB-style control area, here at 0x81d10000), /dev/tpm0 works: TPM 2.0,
+>>> manufacturer QCOM, vendor string "xCG fTPM", firmware 0x40000, real
+>>> PCR 0-7 values, GetRandom, ECC and RSA-2048 primaries, sign and
+>>> verify, and a sealed object that persists across reboots.
+>>>
+>>> So, as far as I can tell, retail Glymur laptops may ship firmware on
+>>> which this driver finds no TPM, while the same TA is available over
+>>> QSEECOM.
+>>>
+>>> The same applies to the prerequisite series that moves uefisecapp to
+>>> QCOMTEE [1]: on this firmware service 413 is absent and EFI variables
+>>> work only through the QSEECOM uefisecapp. If the QSEECOM path were
+>>> dropped for Glymur, efivars would stop working on this machine, so it
+>>> would be good to keep it as a fallback when the QTEE service is not
+>>> found.
 > 
-> The LT9611UXD is connected via I2C (bus 4, address 0x41), powered by
-> a GPIO-controlled 3.3V regulator (PM8150 GPIO4) and an always-on 1.8V
-> rail. Reset is on GPIO76 and interrupt on GPIO85.
+> No, the existing paths are not going to be stripped.
 > 
-> The bridge receives DSI output from MDSS and drives an HDMI-A
-> connector, with the link wired as: DPU -> DSI0 -> LT9611UXD -> HDMI.
+>>>
+>>> Two questions:
+>>>
+>>>   - Is service 81 expected to appear on retail firmware through an
+>>>     update, or is it specific to the CRD firmware?
+>>
+>> Yes, there's spinor update(bootfw2.mbn) needed which is in progress to
+>> publish as QTEE side changes were already merged long back.
+>> Roughly it takes ~1month(ideal scenario) to get firmware changes
+>> available but somehow it's taking more this time.
+>>
+>> I think i should have captured this dependency info in my series cover
+>> letter to avoid any confusion.
+>>
+>> With the changes, service uid 81 will be available and won't see qcomtee
+>> driver issue log there.
 > 
-> Regulator and pinctrl labels use generic board-level names
-> (vreg_disp_3p3, bridge_irq_pin, bridge_rst_pin) to decouple them
-> from the bridge chip.
+> You are responding to the user who uses a COTS commercial device. Are
+> you suggesting that the user can somehow update the firmware on that
+> device?
 > 
-> Signed-off-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts | 109 ++++++++++++++++++++++++++++
->  1 file changed, 109 insertions(+)
+>>
+>>>   - Would you consider a QSEECOM-based path for such firmware? I am
+>>>     happy to test this series, or any other service UID you would like
+>>>     checked, on this machine, and to share the transport code.
+>>>
+>>
+>> Qseecom-based firmware path is not recommend approach as it's not
+>> generic and less scalable leaving less room for expanding featuresets.
+>> qcomtee uses mink-ipc based model which does all interaction with TA
+>> with just 2 scm calls and is very much scalable compared to qseecom.
+>>
+>> So, we are planning to use mink-ipc based qcomtee path only and I'll
+>> drop an update once QTEE firmware changes are available in meta builds.
+>> I'd be happy you to try it out and give any suggestions!
 > 
-> +
-> +&i2c4 {
-> +	status = "okay";
-> +
-> +	lt9611uxd: lt9611uxd@41 {
+> I feel it really sad that the team (again) ignores existing available
+> devices. Yes, QSEECOM is legacy, etc., etc. However we must make sure
+> that devices are being sold can be used.
+> 
+> I guess, at this point, the best course of action would be for Xilin Wu
+> to submit the QSEECOM driver upstream. Xiling, could you please do it?
+> 
 
-unused label. rename the node to hdmi-bridge
-
-> +		compatible = "lontium,lt9611uxd";
-> +		reg = <0x41>;
-> +		interrupts-extended = <&tlmm 85 IRQ_TYPE_EDGE_FALLING>;
-> +		reset-gpios = <&tlmm 76 GPIO_ACTIVE_LOW>;
-> +		vcc-supply = <&vreg_disp_3p3>;
-> +		vdd-supply = <&pm8150_s4>;
-> +
-> +		pinctrl-0 = <&bridge_irq_pin &bridge_rst_pin>;
-> +		pinctrl-names = "default";
-> +
-> +		ports {
-> +			#address-cells = <1>;
-> +			#size-cells = <0>;
-> +
-> +			port@0 {
-> +				reg = <0>;
-> +
-> +				lt9611_a: endpoint {
-> +					remote-endpoint = <&mdss_dsi0_out>;
-> +				};
-> +			};
-> +
-> +			port@2 {
-> +				reg = <2>;
-> +
-> +				lt9611_out: endpoint {
-> +					remote-endpoint = <&hdmi_con>;
-
-hdmi_connector_out
-
-> +				};
-> +			};
-> +		};
-> +	};
-> +};
-> +
-> @@ -67,6 +160,22 @@ &sdhc_2 {
->  	status = "okay";
->  };
->  
-> +&tlmm {
-> +	bridge_irq_pin: bridge-irq-state {
-> +		pins = "gpio85";
-> +		function = "gpio";
-> +		drive-strength = <2>;
-> +		bias-disable;
-> +	};
-> +
-> +	bridge_rst_pin: bridge-rst-state {
-
-I think the current recommendation is to sort them by the pin number.
-
-> +		pins = "gpio76";
-> +		function = "gpio";
-> +		drive-strength = <8>;
-> +		bias-disable;
-> +	};
-> +};
-> +
->  &usb_1_hsphy {
->  	vdd-supply = <&pm8150_l4>;
->  	vdda-pll-supply = <&pm8150_l12>;
-> 
-> -- 
-> 2.34.1
-> 
+I'm also sad to hear that the proposed qcomtee path isn't even supported 
+on Glymur, and yet the Qualcomm team is ignoring QSEECOM, which is used 
+on all the devices currently being sold. I might submit the driver 
+upstream, but I can't promise anything.
 
 -- 
-With best wishes
-Dmitry
+Best regards,
+Xilin Wu <sophon@radxa.com>
+
