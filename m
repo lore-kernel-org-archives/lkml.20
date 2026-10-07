@@ -1,65 +1,65 @@
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10D654746C6
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 10:49:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95C6038F95A
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 10:50:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791370237; cv=none; b=GR8vULJLqcCkmIT3nJEIKh3iEQ2hW9SvQflz5qPl7kZ9YseuDch57NgP52vsvgxsLcocLRI1PZ54yOgo6vQHLqSyoHGHr8XN39dYqkS1Ts9o8w7ubf3OZwpoZiHleC758qMJerJlR1z6abEkoOmYsc+aXP2R9a9Zw2J3uP80GXE=
+	t=1791370240; cv=none; b=RREPcYUyv9SQFYWDJzpPQSo55uAgOAvYslvWxlaYdrL+Q51nDjYKQ97Zl6x5uvzS6yPNEmKnAwoFU6v6e9mGnuITurHkQnsyCBRoljXd+RgBMHf+QhOvGaFOcLUaxTodMZCgtFd8rfn6IMbblzej6jiIDeMhPlSQkKfHfyP//fI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791370237; c=relaxed/simple;
-	bh=jlxL5+mbWXP8K77XchM8lW3LCVFpuiszpfwSWbXi6xQ=;
+	s=arc-20240116; t=1791370240; c=relaxed/simple;
+	bh=UeOYdAgNJbhl8HXcJG32XHcuWeuRzfkXTfN2CC/Z/wk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RwE8xCOwJoKcOdBbPgQqh83rziEm63NGwJIvhc+Q/VYJjyNxQCiqDbZd78ebY+pD4+lcHc/tOQ1TYjCauVhlNOMj4cP/TmUT8quhLlju7buy0sHyTUa8D2E6k6JgfVf28+2sq1Jdb+OLf8eSPk1O1Avv+6LNI54WVd9P8l8paN0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bol3ZsqC; arc=none smtp.client-ip=209.85.210.181
+	 MIME-Version; b=tYo2q2TH/TxhmrPj6MXEd145ky9h39+bvcR+ie0uan/374jhUpLzFuzgvNxfKCoWLetbn2PCpjLNMp2AFKkEA7QQNkXkjxFO6yKHWgL7osSsJtnPOfoNUtMiyPQ/zUjwAAEbaQRD2iYuSjxJyJxE3WY8I5oHyO2Nxk2PPuDZpdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TIUQehoO; arc=none smtp.client-ip=209.85.210.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bol3ZsqC"
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-88cfa501c5cso1442150b3a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 03:49:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TIUQehoO"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8714288dd3bso898054b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 03:50:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791370198; x=1791974998; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791370204; x=1791975004; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=KA2DWK4h1sH8yjfR9BrVxNR11p9An71w1a1CSOAHpQA=;
-        b=bol3ZsqCFElDn3i+wmDWkWjPikqqKeHad16PiBZtShYSCfhOqpK6Iy3Rud3jVW8Fiz
-         NxPBYJXPWfvXuyCzJPEfzc6ILBMfS5jd4deEI6929QAXHlD857oOekac6N72pdCW8VdL
-         int2oLtzErOxbg+P+imZTShOuJEEI1mZuLNWup6V9O3oH8kxh2SUTbcYU8R7iZENOFfh
-         Wz2NRIjB5XVW0uwmcaXYAfihOOipLLN28e3uBM6hLUlvDqJgINpjQoK/ArNP+wJigu0P
-         cxFM95uKS3ZHJhQhU+FXCHsI99bWuQRdIctruFOnegXtkgIplYtM7vx0Upj78B/uYHFr
-         JEPA==
+        bh=fC7NqtIJTHyhvDivfZbpCmHmRF+i/jxBDQHBauVmSS0=;
+        b=TIUQehoOJCE9kV9K0pbKF1iy8Sgu8Ms3UwT5puxDMakNT+OO9FP2b4VC5g8OSTgcly
+         KnG5Oj2nYAmA6ux/lXaHSPD4iD+G0sSkqg6BhgcSC7Wl3q8jjz+phBEcWYLismCjQj0b
+         RFzU9L2nwXq5uxGenDsq7Ic7zYoIFoIZ0JD14/b8F9W7eohfO5DsDWNj2moT5NCZIbXx
+         8E+njSqBBHbKuMFRMbOp/t+wrA87n3WNdN9niv9Wa/FpFy4dJNLXJ3AUcUmt3oq2gsgi
+         EZ8MG2XS6QOQJsE6xKwNJJ4bzPiDEM3FB+BlOUatGGg6mXJ4/yzM1qZIHhFdinQxJd2T
+         392A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791370198; x=1791974998;
+        d=1e100.net; s=20260707; t=1791370204; x=1791975004;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KA2DWK4h1sH8yjfR9BrVxNR11p9An71w1a1CSOAHpQA=;
-        b=bdupSmufj8x2JWmZmuVBqcX2NVdNXx/8d7DHQcHVE0asIFbN27OB6D9vXt6lfoI/gw
-         BJ3QKeYWLhnI0WX025U3qY/VNbmLFRfiVfqofyks+K3zJou7416TiqakY7CiCLWLOY8r
-         fpolZguTOYGhP3PlTc6ml+FCWD6j4ZUB2A3GO253UqqHoPzSfwSRU+bExOAVkR2OQZa7
-         TWDd2HdnxVpRBFcqETiJ/SInMNc5XDcG0KVye2g20l0aAi6f+dbq46NkoaDW4r1CfNV+
-         505AH6/Qi8iMB6jbQ4RccjJz0lXkC94xsBQbp7Tbr5oXua+BSVw9h83pM9V1rQgNhOjZ
-         Up0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzka6++MEVo/vfZ/hqc3M/+cTTyNasVt3CZO/xSA66szuLxioWVoRazfTdyRUb/Lwa/gHra3KX+7jo0AQc=@vger.kernel.org
-X-Gm-Message-State: AFuF++m+Evdwswl3n2WObXuCVjXnHVZmuFqar4Zi2IF9hcSpcpfd5mox
-	3kADS2PEvBKl18rSo/bupmYlgftkoIaxcWQGyUpeHJUpL8A3MDhsvMyi
-X-Gm-Gg: AYBFou1hBV/FnueorQf2qpQa2AgkEj1vRsniUzJAcf6PtLPTyrgI14TxyLQza/StKTr
-	6s8aKhBUsmtsnFNxCCnLemE4HxFJk8PFtYSpZeqwWpcc/AZQiTggV1YtPPfdNWH6j8eBDKM02eT
-	1yXDAl0lcupxV/jm39K9V6Gg0HnmltyTJvS1u1VuC8eMn3qlnDXrLN8QHSBf6ANpo61IRrpGVhD
-	aFbj8myUeR/2ehkUudkqXcPTP6Z6XlxO+NkA7N/db3aBVQOBh/kQCjraWjqig2CTxkPjtiqXjZ7
-	/B0HZp8ahG1PojtBWiuu/iSNNnixjOday/CwimCTo94elGkj+EBApfm4fi6/x+qFH77/uaGxEzA
-	0L+k+PY7UjWjRtX14/RP4Qoa5c3F5wT8HIbVwfLPCIMscJyK/sYeqqS1k+NlXqZT3hZb/hhn2nY
-	kPYS6pdzA1HDFbXU+NElTrqVEGFNQyxhXrzSWDEmxBbWNR7kFCA5qFfLt50gRIq0vLUTKmucFIq
-	H4DFkZKNX5EOcVvXf+c3+J5QqVf/owfXjgrRGCfraQBzTPmth8/lbcvn1Apdg/vZXKUV+mraWfj
-	Qr5cXW8vefUuWQ==
-X-Received: by 2002:a05:6a00:929e:b0:891:a63c:df97 with SMTP id d2e1a72fcca58-891b354d63fmr1433538b3a.15.1791370198208;
-        Wed, 07 Oct 2026 03:49:58 -0700 (PDT)
+        bh=fC7NqtIJTHyhvDivfZbpCmHmRF+i/jxBDQHBauVmSS0=;
+        b=DCPOcO4euo/4VpWwGIAGi9ozGyZ84MDSoHSclYhMJkhekwq1amdNEH7UUuwor04p25
+         AfXLaKz3+G7vgl/yhB9eonCW+EkdbP+Y3eNzWEdDXI82OUp5W8NDvK/n0qY8OUecYNCx
+         52QeAjuXisTFLwlHIIw0WR+7MYGC0s99Vp5lgA1EgqhbfMEwKNqeUtcHnyeKrBIGvz2H
+         EyuceEdz85wtdfoliB0edh+VSdHwq7DvjYKcVJz3a7WZ3tMXUxdKtwXnYrrQ0ixL1cLR
+         xdLX/gRojcjGhoxsPAznmBQWVW1Je4ipF/kyslarOR29KpvZWNwV1fmmY/eKiS8kiqQ+
+         gO8w==
+X-Forwarded-Encrypted: i=1; AKwUvByfjZ6LFDBVzwLfr8Opesu6qlrH5Fm1IuMyD5ZiErrSYvkidE0pf7PkjqLz9fKL7B4wwZvvfx3c3M6j9kY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kOziSoG9xmaAqDtQoYHJOqc7XE9aRo5EEMddCYAnF8w9PI8jIF
+	a0sp82fXnSIVedK1XdT+1qquBWQtrPluU/Af5ZLsRNUKw5p7esSTBeMz
+X-Gm-Gg: AYBFou1xvCK4f00I/W5dXDoQStZ4i/dG2N/QhYDQdMOnCEIaeTUDOa28VN6VMZoeusM
+	SCiXVQjtNDH/IVsv+w0yZBc+ltVpzQeP0AuRr1936N/q4tohT5iPMuokjR9l15HCN8rPVXW9h1a
+	YbA3vI21M3ZfiKLxdERqct6QMEuBwBoBl6qj8woXWluI6Z85wgHQPKlx47lVU81htnt6TH5k4ky
+	X1OhGOPIeuP/kfsOqSnII03sfkyqdzYz8fc30yLqS/lananhe25iRqh8iYlnQ87ez6Bf35iJYyh
+	sGdQZxyHOyrNoiLzVuXBpvZN5XW4Lmr9LnqAFrYsSWxOHM7Q0+4mfQ6jGf2TQFfaq3K2ac9rWxG
+	jitYP8C/ZZ6UrUovpDdT/QWEfHmD43sRx6HG3T6MUr/4eRwIx44EDgcBPkxWnHyGEJExrhnQLSP
+	6lNsEsopoIbidjSwqMDbZUfi7T1yGdaLuBaSHlXMHf/i/QZ/lKGxUkJ3n3Cd4nBfKHFxOBPpmFT
+	Dl5X0VgZFT6bgpWbk+1TvS8ahBtjjYuTunnfDcQo3LZDDK74GyuyWhGUrVfVj3CIcivwYpQuZ5c
+	Re1yqTWG5pqaKQM=
+X-Received: by 2002:a05:6a00:4405:b0:878:3538:8f77 with SMTP id d2e1a72fcca58-891b1b706acmr1692236b3a.37.1791370203645;
+        Wed, 07 Oct 2026 03:50:03 -0700 (PDT)
 Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8918891808bsm1197898b3a.10.2026.10.07.03.49.55
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8918891808bsm1197898b3a.10.2026.10.07.03.50.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 03:49:57 -0700 (PDT)
+        Wed, 07 Oct 2026 03:50:03 -0700 (PDT)
 From: phucduc.bui@gmail.com
 To: Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Shunqian Zheng <zhengsq@rock-chips.com>,
@@ -73,9 +73,9 @@ Cc: Luca Weiss <luca@lucaweiss.eu>,
 	Hans Verkuil <hverkuil@kernel.org>,
 	Roman Kovalivskyi <roman.kovalivskyi@globallogic.com>,
 	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH 1/3] media: i2c: ov2685: propagate reset GPIO errors
-Date: Wed,  7 Oct 2026 17:49:37 +0700
-Message-ID: <20261007104940.507820-2-phucduc.bui@gmail.com>
+Subject: [PATCH 2/3] media: i2c: ov2732: propagate GPIO errors
+Date: Wed,  7 Oct 2026 17:49:38 +0700
+Message-ID: <20261007104940.507820-3-phucduc.bui@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261007104940.507820-1-phucduc.bui@gmail.com>
 References: <20261007104940.507820-1-phucduc.bui@gmail.com>
@@ -89,37 +89,38 @@ Content-Transfer-Encoding: 8bit
 
 From: bui duc phuc <phucduc.bui@gmail.com>
 
-devm_gpiod_get_optional() may return -EPROBE_DEFER or other errors,
-but ov2685_probe() currently converts them all to -EINVAL.
+devm_gpiod_get_optional() returns NULL when an optional GPIO is not
+present, but may return -EPROBE_DEFER or other errors.
 
-Use dev_err_probe() to propagate the original error from the reset GPIO
-lookup.
+Check the return values and propagate errors from the powerdown and
+reset GPIO lookups.
 
-Fixes: 0482fbb1c1cc ("media: i2c: ov2685: Make reset gpio optional")
-Fixes: e3861d9118c8 ("media: ov2685: add support for OV2685 sensor")
+Fixes: 247b8b855876 ("media: i2c: Add ov2732 image sensor driver")
 Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 ---
- drivers/media/i2c/ov2685.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ drivers/media/i2c/ov2732.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/media/i2c/ov2685.c b/drivers/media/i2c/ov2685.c
-index 4911a4eea126..92d0f90b3d37 100644
---- a/drivers/media/i2c/ov2685.c
-+++ b/drivers/media/i2c/ov2685.c
-@@ -793,10 +793,9 @@ static int ov2685_probe(struct i2c_client *client)
- 		dev_warn(dev, "xvclk mismatched, modes are based on 24MHz\n");
+diff --git a/drivers/media/i2c/ov2732.c b/drivers/media/i2c/ov2732.c
+index 40035320fec6..b8009c392d4d 100644
+--- a/drivers/media/i2c/ov2732.c
++++ b/drivers/media/i2c/ov2732.c
+@@ -665,9 +665,15 @@ static int ov2732_probe(struct i2c_client *client)
+ 	ov2732->powerdown_gpio = devm_gpiod_get_optional(ov2732->dev,
+ 							 "powerdown",
+ 							 GPIOD_OUT_HIGH);
++	if (IS_ERR(ov2732->powerdown_gpio))
++		return dev_err_probe(ov2732->dev, PTR_ERR(ov2732->powerdown_gpio),
++				     "failed to get powerdown GPIO\n");
  
- 	ov2685->reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_LOW);
--	if (IS_ERR(ov2685->reset_gpio)) {
--		dev_err(dev, "Failed to get reset-gpios\n");
--		return -EINVAL;
--	}
-+	if (IS_ERR(ov2685->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(ov2685->reset_gpio),
-+				     "Failed to get reset-gpios\n");
+ 	ov2732->reset_gpio = devm_gpiod_get_optional(ov2732->dev, "reset",
+ 						     GPIOD_OUT_HIGH);
++	if (IS_ERR(ov2732->reset_gpio))
++		return dev_err_probe(ov2732->dev, PTR_ERR(ov2732->reset_gpio),
++				     "failed to get reset GPIO\n");
  
- 	ret = ov2685_configure_regulators(ov2685);
- 	if (ret) {
+ 	ov2732->regmap = devm_cci_regmap_init_i2c(client, 16);
+ 	if (IS_ERR(ov2732->regmap))
 -- 
 2.43.0
 
