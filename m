@@ -1,210 +1,90 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-77.mta0.migadu.com [91.218.175.77])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B874839E6FD;
-	Wed,  7 Oct 2026 16:38:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5386F39EF0F
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 16:39:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791391103; cv=none; b=ZVczPKHW5bsnlK+dbkjxlfTbddkijAtRrWOvqag5uu1qLPaNuGExY1vrva7QrNf+6CULEOpWPXjAXQ4IrNeiW+DqLJ5HFU0zPGUDz+LKvbEXBSTVC0qnd745//u4E7BxGEH3yqJvGg+d1AlQ7kgzNXIcuu2yI9EqaoIcQgcwVKw=
+	t=1791391174; cv=none; b=ntRScwMRmC2mcbx2FHCFJcQpqbGxHT8obxElvKuNdVZKNZKYAuFOfDi5zBzUvJqM450i+qP2kkrPBZ37zr3IYyVgyPPqhmyTcAZuYl2fgTk+mkgfXaB6rQB5xEyxUjD27Rhjb7LcMgFMr+JZwCOsy5pFui+pdZRzBG4kGWJtKCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791391103; c=relaxed/simple;
-	bh=rt+DI0Zaj7t1gLzFkXpDITiac40k4MGIO8meOBYmFCU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FkP7yUos9Fhl6rmiMQMHaAu9wUfnZqHJuKYFkZUbOE2liiYghr9Wki0SIwx0jqQCJFUMwdjivS8uOzCMQGm7q4ct/XmJKkZftYRB4hkqPNMY3Kn4rMmsJu2PEEz0LjY1iqBBgUfDrEiLkCTT2xUNL1U5GUcLUyvm/e0ji6o3DGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=UkFfAXte; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1791391174; c=relaxed/simple;
+	bh=573XtaTPRKCqIERDsFZPBPRfHkJBseosXV+VlcDqcS0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bnW5wE/BAY16jlmrTZt4tYVfiaLf68eCEB6VJNEoX5FsgRaXlLS9UI4U9Ld4WZ1mKwDEKRW2r/gyduta7bbDbobgZ4lxCeZovBjVRJqQXM3QMF+AAot4NHV+hb5GJnv7HlifkmbUmYndftN7YOvq1q/O3mBD9quOhJGzEjhbh4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=N6SnVz41; arc=none smtp.client-ip=91.218.175.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="UkFfAXte"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4j0Jhn135gzKnYC;
-	Wed, 07 Oct 2026 18:38:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1791391097;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=2Ezflyex2QCq4IDhV46iLXvD5SXyLtu7Un9mXAhjKQE=;
-	b=UkFfAXtexXMe4siEWkyoHJ7MLt9nnrmneb00G00NlXzSKyG2mdf+UNnktckKGk2nPnUkki
-	ueDkpfo5Yq1KIJJq7XvES43wbpRTJOFu57yqBFD4LUn3Uofvxo/kEj3P07j9/axs+NKdwv
-	CxUfTARcVHCHVOMSj7gnaFOEWz+UOxUlgM0ZTBjbV59KzB1vG1UVFJkvjVf8FIte5lgjYd
-	jRVVoTd2irs6lA9k09ObJEmN8vp9J5joXIGZmHwK8MG3tuzF2dzXF0tnpXF37HRDV2SWZ2
-	KqH91ITWRUWJvrK0lSp9YBxYVeHbhsx5vUzZzElveAvuHNYEMjjg/0dVg7AsDQ==
-From: Manuel Ebner <manuelebnerli@mailbox.org>
-To: Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-kbuild@vger.kernel.org,
-	oe-kbuild-all@lists.linux.dev,
-	linux-debuggers@vger.kernel.org,
-	tools@linux.kernel.org,
-	workflows@vger.kernel.org (open list:DOCUMENTATION PROCESS),
-	linux-doc@vger.kernel.org (open list:DOCUMENTATION),
-	linux-kernel@vger.kernel.org (open list)
-Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
-	Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
-	Nicolas Schier <n.schier@fritz.com>
-Subject: [PATCH RFC] changes.rst: introduce 'Required for'-column
-Date: Wed,  7 Oct 2026 18:37:37 +0200
-Message-ID: <20261007163736.3942745-2-manuelebnerli@mailbox.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="N6SnVz41"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=573XtaTPRKCqIERDsFZPBPRfHkJBseosXV+VlcDqcS0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791391170; v=1; x=1791995970;
+ b=N6SnVz41mcSCC5BlwaVcX/v9Pqlfg+wkk5boSBemdXjplI+DJAocjjuHwfjCzY65KiHbwEj8
+ klG6sVqzYzt9xhuHsfXpY28MTF+n4naNmzojSFCjH6Yd5ldd34IuhVdnKD6MV+uAzOWLqQTVb9S
+ +pN3DRO/Hd5eBjrkQfNSrBGA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a9ddaedf7a893f71;
+	Wed, 07 Oct 2026 16:39:30 +0000
+X-Mizu-Trace-ID: a9ddaedf7a893f71
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <f58d1a49-0cf5-4885-8011-433d7ccc4be1@linux.dev>
+Date: Wed, 7 Oct 2026 17:57:17 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: dddea4e6f5fbbada107
-X-MBO-RS-META: rx4z7z4tgdgubcmsyy11wmkig53ae4fe
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] ASoC: cs35l56/57/62/63: Use the correct SoundWire DP
+ for feedback
+To: Richard Fitzgerald <rf@opensource.cirrus.com>, broonie@kernel.org
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ patches@opensource.cirrus.com
+References: <20261005155235.1386525-1-rf@opensource.cirrus.com>
+ <32e25f8c-9c96-4385-9f5f-a7cf8b11ef57@linux.dev>
+ <d510a866-86c8-467a-8831-b373636874bf@opensource.cirrus.com>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+In-Reply-To: <d510a866-86c8-467a-8831-b373636874bf@opensource.cirrus.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The optional tag isn't obvious nor defined. Therefore remove the tag and
-add column 'Required for' to make it easier to define the need for the tools.
+On 10/6/26 11:53, Richard Fitzgerald wrote:
+> On 05/10/2026 7:33 pm, Pierre-Louis Bossart wrote:
+>> On 10/5/26 17:52, Richard Fitzgerald wrote:
+>>> The amp feedback path (AEC) was incorrectly using SoundWire DP3.
+>>> The firmware outputs SDCA OT25 feedback on DP4. DP3 is reserved for
+>>> SDCA companion amp.
+>>>
+>>> This series adds a DAI for OT25 and switches the sdw machine driver
+>>> to use the new DAI for the feedback path.
+>>
+>> Is there any merit in keeping this DP3 exposed as a capture DAI, if
+>> indeed it's intended to be a side connection for a companion chip?
+> 
+> I kept this patch to a minimum because it is a Fixes: so it must apply
+> to older kernels.
+> 
+> However, you are correct. DP3 isn't used now. Not even on companion amp.
+> DP3 is a companion output from the amp (SDCA OT127), but Cirrus
+> companion amp goes codec->amp so uses DP1 on the amp.
+> 
+> When the driver was being written the SDCA spec and firmware behavior
+> were not fully defined so pairing of the symmetrical DP1+DP3
+> (for play+capture) was carried forward from previous amps. But SDCA
+> doesn't provide any sort of UCM capability - widgets on the device have
+> defined, fixed functionality that has to be preconfigured by the
+> firmware to match what SDCA needs. Ultimately DP4 was more suitable for
+> OT25. DP4 also works for loopback testing.
+> 
+> Removing DP3 would also solve some other problems that the driver and
+> firmware are both "owning" the registers. We originally attempted to
+> sync this up, then gave up on that complexity and overwrite the register
+> settings the firmware made.
 
-CC: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-CC: Nicolas Schier <n.schier@fritz.com>
----
-If anybody has info to add to or refine the new column I would appreciate it a lot.
-Please forward this to list or people which can contribute to this patch.
-
-There's also the option to remove the 'Command to check the version'-column
-and refer to scripts/ver_linux - and with this also removing the duplicated
-information-issue.
-
-[v3]
- Rearange column space of the table in order to add column instead of replacing column
- add some requirements to the table
-
-[v2]
- Ditch footnotes in favor of a column
- Replace 'Check Version Command'-column with optional-column
- https://lore.kernel.org/all/20260831152523.638881-1-manuelebnerli@mailbox.org/
-
-[v1]
- https://lore.kernel.org/all/20260812122426.1636227-2-manuelebnerli@mailbox.org/
----
- Documentation/process/changes.rst | 97 ++++++++++++++++---------------
- 1 file changed, 51 insertions(+), 46 deletions(-)
-
-diff --git a/Documentation/process/changes.rst b/Documentation/process/changes.rst
-index 28f2ca633..dafe0530f 100644
---- a/Documentation/process/changes.rst
-+++ b/Documentation/process/changes.rst
-@@ -1,13 +1,14 @@
- .. _changes:
- 
--Minimal requirements to compile the Kernel
--++++++++++++++++++++++++++++++++++++++++++
-+Minimal requirements to interact with the Kernel
-+++++++++++++++++++++++++++++++++++++++++++++++++
- 
- Intro
- =====
- 
--This document is designed to provide a list of the minimum levels of
--software necessary to run the current kernel version.
-+This document is designed to provide a list of the minimum versions of
-+software necessary to change code, compile, install and boot the current
-+kernel version.
- 
- This document is originally based on my "Changes" file for 2.0.x kernels
- and therefore owes credit to the same people as that file (Jared Mauch,
-@@ -27,48 +28,52 @@ running a Linux kernel.  Also, not all tools are necessary on all
- systems; obviously, if you don't have any PC Card hardware, for example,
- you probably do not need to concern yourself with pcmciautils.
- 
--====================== ===============  ========================================
--        Program        Minimal version       Command to check the version
--====================== ===============  ========================================
--bash                   4.2              bash --version
--bc                     1.06.95          bc --version
--bindgen (optional)     0.71.1           bindgen --version
--binutils               2.30             ld -v
--bison                  2.0              bison --version
--btrfs-progs            0.18             btrfs --version
--Clang/LLVM (optional)  17.0.1           clang --version
--e2fsprogs              1.41.4           e2fsck -V
--flex                   2.5.35           flex --version
--gdb                    7.2              gdb --version
--GNU awk (optional)     5.1.0            gawk --version
--GNU C                  8.1              gcc --version
--GNU make               4.0              make --version
--GNU tar                1.28             tar --version
--GRUB                   0.93             grub --version || grub-install --version
--gtags (optional)       6.6.5            gtags --version
--iptables               1.4.2            iptables -V
--jfsutils               1.1.3            fsck.jfs -V
--kmod                   13               kmod -V
--mcelog                 0.6              mcelog --version
--mkimage (optional)     2017.01          mkimage --version
--nfs-utils              1.0.5            showmount --version
--openssl & libcrypto    1.0.0            openssl version
--pahole                 1.26             pahole --version
--pcmciautils            004              pccardctl -V
--pigz (optional)        2.4              pigz --version
--PPP                    2.4.0            pppd --version
--procps                 3.2.0            ps --version
--Python                 3.9.x            python3 --version
--quota-tools            3.09             quota -V
--Rust (optional)        1.85.0           rustc --version
--Sphinx\ [#f1]_         3.4.3            sphinx-build --version
--squashfs-tools         4.0              mksquashfs -version
--udev                   081              udevadm --version
--util-linux             2.10o            mount --version
--xfsprogs               2.6.0            xfs_db -V
--====================== ===============  ========================================
--
--.. [#f1] Sphinx is needed only to build the Kernel documentation
-+==============  ========  =======================  ========================================
-+    Program     Minimal      Command to check                  Required for
-+                version         the version
-+==============  ========  =======================  ========================================
-+bash            4.2       bash --version           general requirement
-+bc              1.06.95   bc --version             Kbuild (
-+bindgen         0.71.1    bindgen --version        CONFIG_RUST=y
-+binutils        2.30      ld -v
-+bison           2.0       bison --version          Kbuild (.config)
-+btrfs-progs     0.18      btrfs --version
-+Clang/LLVM      17.0.1    clang --version          alternative to GNU C (gcc)
-+e2fsprogs       1.41.4    e2fsck -V                ext4
-+flex            2.5.35    flex --version           Kbuild (.config)
-+gdb             7.2       gdb --version            Debugging
-+GNU awk         5.1.0     gawk --version           objtool, CONFIG_SYSTEM_BLACKLIST_HASH_LIST=y
-+GNU C           8.1       gcc --version            alternative to Clang/LLVM (clang)
-+GNU make        4.0       make --version
-+GNU tar         1.28      tar --version
-+GRUB            0.93      grub --version ||
-+                          grub-install --version
-+gtags           6.6.5     gtags --version          to generate tag files through ``make gtags``
-+iptables        1.4.2     iptables -V
-+jfsutils        1.1.3     fsck.jfs -V
-+kmod            13        kmod -V
-+mcelog          0.6       mcelog --version
-+mkimage         2017.01   mkimage --version        Flat Image Tree (FIT) or ARCH=arc, arm or powerpc
-+nfs-utils       1.0.5     showmount --version
-+openssl         1.0.0     openssl version
-+pahole          1.26      pahole --version
-+pcmciautils     004       pccardctl -V
-+pigz            2.4       pigz --version           Compile and boot with KPGZIP=y
-+PPP             2.4.0     pppd --version
-+procps          3.2.0     ps --version
-+Python          3.9.x     python3 --version
-+quota-tools     3.09      quota -V
-+Rust            1.85.0    rustc --version          CONFIG_RUST=y
-+Sphinx          3.4.3     sphinx-build --version   build kernel documentation
-+squashfs-tools  4.0       mksquashfs -version
-+udev            081       udevadm --version
-+util-linux      2.10o     mount --version
-+xfsprogs        2.6.0     xfs_db -V
-+==============  ========  =======================  ========================================
-+    Program     Minimal      Command to check                  Required for
-+                version      check the version
-+==============  ========  =======================  ========================================
-+
- 
- Kernel compilation
- ******************
--- 
-2.55.0
+thanks for the explanations, I guess we'll see a follow-up patch to
+remove DP3 altogether at some point.
 
