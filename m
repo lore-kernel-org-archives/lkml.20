@@ -1,202 +1,305 @@
-Received: from mail.hugovil.com (mail.hugovil.com [162.243.120.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54F543446A6;
-	Wed,  7 Oct 2026 17:06:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.120.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B565D1D89EF
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 17:09:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791392809; cv=none; b=MqAJ5X3Qo7UVcyCmwqDd0NUjo4GU5bxk519VrZnk7YL9f5zu3n91nambZx0a1zql4Mdpzg5O5TJCPRhweiaOWXaoNGBtl9O3wfyzJ6VxqrtNnoEMtV1dsGdRkoZV4Ae1NJIgT/frEr+QUpqHYnMHF0FLcbInaRHrKSB7qQfJtV8=
+	t=1791392957; cv=none; b=pzJAcyNa/ZoFBVfSEwpDwKVqU9QJDhEEfJgsM1vPIkQai//bFrFebAW89pumg71s/acCoiooN3QLthoN1FAPP5F2EMtKzj+kuLCQSpDUFuBcZgdRBuSpkW6ZGeMNtbB6wR2F1MvMrw+fq56NJy9i2rjToSr2kc69oedTzVxhLco=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791392809; c=relaxed/simple;
-	bh=Gw6wC9QBZv52Tg9srbrSHMNh4qtrIzxufnnzrDhjoEA=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=FiBbEvhKBCRq26BG4B1Ou4aYjoOiFCihfx7uMH00Exo8qj6LE/7DieWNQnKT/BJjCWctgPIN0L40GuWypHTL8vYhh7oFDXZBzqC7DPDyCR4D+pDPxbomAbZJflpSpz8o0isQmoj+iQx1ALg9HM0IMpXIhtvDmL6k8hezmiBnFGs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com; spf=pass smtp.mailfrom=hugovil.com; dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b=YiEsQZAY; arc=none smtp.client-ip=162.243.120.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hugovil.com
+	s=arc-20240116; t=1791392957; c=relaxed/simple;
+	bh=Up2+48gQIDhv1GVocYfuchoari9m++oMyFYjjhkde6U=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=FkyQrR0U1RvGsCFbTt7OxkVdS8cEKkhROW3Ec52l43Vg1GGU6XGf4e2m9+TWjb1nh4xPJTPCkUK7DvLQF9eOhiD7M6L5laQp60ESnTe3Q6o47/3IBxHqTIuTVC22cBKjjqulKFlpyg3KD5sSBFEGoS/t6eQ1S3WUzE/3+HDYfaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UYNE9iht; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b="YiEsQZAY"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hugovil.com
-	; s=default; h=Content-Transfer-Encoding:Mime-Version:Message-Id:Subject:Cc:
-	To:From:Date:subject:date:message-id:reply-to;
-	bh=brm2Lvc1kyCIbES8/7RtGeoGN5w+p1XdS6apX80DPsQ=; b=YiEsQZAYP2QtGI1yoNPNPNXJ3a
-	m+0ZYreq6M3yIyWVfH1SjpMQG/IfnJi2oAASi0sU+69CNVMm5PSItmyFlP8NLPexHn6JpQOzx8U0W
-	fI4sTRODRvJalRvNyYzn5ietQVRPqVZW+CP1r1QBzszeNc/JSUjFlmj3BDYFrkJAPJtY=;
-Received: from modemcable168.174-80-70.mc.videotron.ca ([70.80.174.168] helo=pettiford.lan)
-	by mail.hugovil.com with esmtpa (Exim 4.98.2)
-	(envelope-from <hugo@hugovil.com>)
-	id 1xEV6E-000000000zV-1fFD;
-	Wed, 07 Oct 2026 13:06:38 -0400
-Date: Wed, 7 Oct 2026 13:06:37 -0400
-From: Hugo Villeneuve <hugo@hugovil.com>
-To: Ilpo =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hui Peng
- <benquike@gmail.com>, Jiri Slaby <jirislaby@kernel.org>, John Ogness
- <john.ogness@linutronix.de>, Andy Shevchenko
- <andriy.shevchenko@linux.intel.com>, linux-serial
- <linux-serial@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>,
- stable@vger.kernel.org
-Subject: Re: [PATCH v7 1/2] serial: core: fix baud rate fallback in
- uart_get_baud_rate()
-Message-Id: <20261007130637.49588f6112bf892604dc4e2d@hugovil.com>
-In-Reply-To: <8fc5361a-199d-3bab-da86-f967906aa39d@linux.intel.com>
-References: <20260930125901.778868-1-benquike@gmail.com>
-	<20260930125901.778868-2-benquike@gmail.com>
-	<2026100156-watch-balsamic-32db@gregkh>
-	<5085df04-f813-8b3f-1d05-87d5bbf00499@linux.intel.com>
-	<20261006112932.3b9c8acd3bc2bfcf1d17b264@hugovil.com>
-	<8fc5361a-199d-3bab-da86-f967906aa39d@linux.intel.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UYNE9iht"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3a4c80d3d5aso2405948a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 10:09:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791392955; x=1791997755; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9qisrSG06fr32K9n7D91imi7L0ftpnSuohblQxn5SCk=;
+        b=UYNE9ihtzrnEqH2MT40TuX3FpsjYuTaldUCTvtuh+VQJoyw5I7sarb0C8EQnaXRQzM
+         o0KqLHkynYsXeiZgXzUA78BN/J5Pp+lECh93bhX/Nxs3Q1ZZBKAic7pX9l9hhqWmQPN3
+         48rPT9jYECBcf/YMPz1iht809JykS6IRCNfYQLVYQ+YM/fF15FUZzLDdP3D++o7pTFcf
+         3fH2Wg1pcWdrTbQBcPH1AFhO6V5ahFvTPQgkeuYIu302cGn5xFh4XZYhi4+afC1Lw1fO
+         bWMcMPYkcuIY7dz7/DJ2dJuWat+agWAHClRt1xgW0t5awOUGRRK4T3zA7szU96zOV0YB
+         KMgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791392955; x=1791997755;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9qisrSG06fr32K9n7D91imi7L0ftpnSuohblQxn5SCk=;
+        b=l1XW4bYYsSM2DBJnI5IrBRSwY+Fc4jIV/0pxxpSmK9bn1HluFUPi130Xd5EGAkrrEc
+         lu2QiJ/rzmM/sM7HBvpdeyOYz2YIFr5G4fLEAxnj9dW+yv6lBk1OxRlWAvI5lm3foIWu
+         qVsrbvpIEM3iHFXQR1H2muwCtI70s/ZHdtMb99X3cBI1J1i3d1ydBHXYhlOSKPGIXi6O
+         eO0HmGNXPLWkcA8qcSUOhFF7uSI4wyjHYqSlXsafu5+R/bbGbs5qai3a0GgobvUPz9Jm
+         /KHm3q/qHKK1cH2KDGv7PR+rxmEXkR07BE0teDAWoKcxUgd1rb7O76ATwkbVLu/K//F+
+         O+lg==
+X-Forwarded-Encrypted: i=1; AKwUvByCfJzApiGCFx9Z899hLU/cJDH6hEeVw0lKYDxd8EAxZ+T7ik89mA2CGqaSnLADw4t83qYkk3P4C+98j5M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJkR08G2fO4bArr/qVkkpUzl1fZ7frgZeKx6yHrCkeF3mW+/GzW
+	AbdWmF3Ze9bZwYwosgKvY/kjlUjKDyIo3dG6+si+apzdTpaHRqFnfmJ/
+X-Gm-Gg: AYBFou1IPSw2SioiYM9Pa0ili8W3JPkIDx3xMHovR2/zeBa5l1+e6NKBzH+6KfXJ3rW
+	NyAkrfj6GL+vBkJ+ZuvY1ERVv5Q5ASEBsbiwzVlnJuUiH46x/VYafYqjL7TLiFwOazTTxXMcLXX
+	wSvVEOYwWAidpE3WNJlFIw6O1PTEhrAK4y5xrFTE4X3u6Whq0I25vMb3k3bSA02jY1m90NjSI5l
+	DQuYk1ibr7Sv+ovYDsMmKH8MPBmrXPLT3WMi75Dj/mbCrIB8UVx/Stt6JrZhelBzh9Vt1vsEThJ
+	Qliv+85op9SAocNKmFvE4oroRc+mwN9uAb1DECWKrfJmUqlpvUDBP31DEUsFBfwQIzUQCFDMv+a
+	CYQMrL+YgLmtgvx6YRF2sh+hZ7jYKJWr+R+ZTvcKAaqtoaGtrtSb96AvMlIfzTSFZIUMQVJ5zDi
+	BGrCUJSJCs6x33Hir/zIjdCpDNFEVDQ8nxWOIoMYtxmNtXYfMPiO6YlLd/ugTOFmB1TiEd4LjJJ
+	Q==
+X-Received: by 2002:a17:90b:5903:b0:3a6:d851:21e5 with SMTP id 98e67ed59e1d1-3a89f64976dmr2348538a91.4.1791392954916;
+        Wed, 07 Oct 2026 10:09:14 -0700 (PDT)
+Received: from [127.0.1.1] ([2602:ffe4:407:394:fbc8:92d6:904c:5de9])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9ff7ab32bsm297405a91.3.2026.10.07.10.09.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 10:09:14 -0700 (PDT)
+From: vineash <vineash30640@gmail.com>
+To:
+ peterz@infradead.org, mingo@redhat.com, acme@kernel.org, namhyung@kernel.org
+Cc: kan.liang@linux.intel.com, mark.rutland@arm.com,
+ alexander.shishkin@linux.intel.com, jolsa@kernel.org, irogers@google.com,
+ adrian.hunter@intel.com, james.clark@linaro.org,
+ linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2] perf/core: Fix double put of the system-wide perf_ctx_data
+ reference
+Date: Thu, 08 Oct 2026 01:08:32 +0800
+Message-ID: <179139291278.1120510.13167877618594247003@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
-X-Spam_score: -2.0
-X-Spam_bar: --
+MIME-Version: 1.0
 
-Hi Ilpo,
+The reference on a task's perf_ctx_data that belongs to the system-wide
+events (cd->global) can be put twice. __detach_global_ctx_data() puts it
+when the last system-wide event goes away, and perf_event_exit_task()
+puts it again when the task exits. perf_event_exit_task() runs without
+global_ctx_data_rwsem and never clears cd->global, so nothing stops both
+paths from putting the same reference:
 
-On Wed, 7 Oct 2026 13:38:55 +0300 (EEST)
-Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com> wrote:
+  CPU0                               CPU1 (task T exiting)
+  __detach_global_ctx_data()
+    cd->global = 0;
+    detach_task_ctx_data(T)
+      refcount_dec_and_test() == true
+                                     perf_event_exit_task(T)
+                                       detach_task_ctx_data(T)
+                                         cd = T->perf_ctx_data;
+                                         // still set: underflow
+                                         refcount_dec_and_test()
+      try_cmpxchg(&T->perf_ctx_data,
+                  &cd, NULL)
 
-> On Tue, 6 Oct 2026, Hugo Villeneuve wrote:
->=20
-> > On Thu, 1 Oct 2026 12:46:05 +0300 (EEST)
-> > Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com> wrote:
-> >=20
-> > > On Thu, 1 Oct 2026, Greg Kroah-Hartman wrote:
-> > >=20
-> > > > On Wed, Sep 30, 2026 at 12:59:00PM +0000, Hui Peng wrote:
-> > > > > When uart_get_baud_rate() is called with a baud rate exceeding th=
-e port's
-> > > > > maximum supported speed (port->uartclk / 16), it clips baud to [m=
-in,
-> > > > > max - 1] and encodes it into termios via tty_termios_encode_baud_=
-rate().
-> > > > >=20
-> > > > > However, because the loop bound is for (try =3D 0; try < 2; try++=
-), the
-> > > > > loop terminates immediately after try =3D=3D 1 without re-evaluat=
-ing
-> > > >=20
-> > > > But try =3D=3D 1 should keep the loop going as it is < 2, right?  W=
-hat am I
-> > > > missing here?  Do I need more coffee?
-> > > >
-> > > > > baud =3D tty_termios_baud_rate(termios) for the clipped rate, hit=
-ting
-> > > > > WARN_ON(1) and returning 0, which then triggers a fatal divide-by=
--zero
-> > > > > (Oops: divide error) in uart_get_divisor():
-> > > > >=20
-> > > > >   WARNING: drivers/tty/serial/serial_core.c:548 at uart_get_baud_=
-rate+0x136/0x260
-> > > > >   [ ... ]
-> > > > >   divide error: 0000 [#1] PREEMPT SMP KASAN
-> > > > >=20
-> > > > > Increase the retry count in uart_get_baud_rate() from 2 to 3 iter=
-ations so
-> > > > > that clipped baud rates are re-evaluated in the third iteration.
-> > > >=20
-> > > > What is the magic 2 here, and why turning it into a magic 3 somehow=
- fix
-> > > > things?
-> > >=20
-> > > Hi Greg & Hui,
-> > >=20
-> > > First of all, I'm withdrawing my Reviewed-by from this!!!
-> > >=20
-> > > Lets hope the submitter can finally get his/her act together and not =
-make=20
-> > > unlisted changes between versions or send non-sense.
-> > >=20
-> > > While the code change is still fine, it seems the submitter (or more=
-=20
-> > > likely AI) has changed the changelog from what I read when I reviewed=
-=20
-> > > this. And the new one is way worse than it used to be so not being ab=
-le=20
-> > > to follow what's going on is very understandable given the lackluster=
-=20
-> > > explanation that remains.
-> > >=20
-> > >=20
-> > > What you're missing is that the baud returns happens within the loop,=
- so:
-> > >=20
-> > > try =3D=3D 0: use new, if baud is out of bound and old is available, =
-switch to=20
-> > >           old
-> > > try =3D=3D 1: if old is also out of bounds, there's the last resort r=
-ule=20
-> > >           towards the end of the loop which is applied forcing baud t=
-o the=20
-> > >           accetable range.
-> >=20
-> > Hi all,
-> > is it at all possible that old is out of bounds in the first place?
->=20
-> Apparently it is, given the WARNING above (unless that too is fabricate=20
-> by LLM which seems well within possiblities given the track record of thi=
-s=20
-> particular submitter).
->=20
-> > If yes, is it something that should be fixed?
->=20
-> I agree.
->=20
-> I think the scenario here is (but take it with grain of salt, as the=20
-> information seems to be constantly changing thanks to LLM/submitter=20
-> failing to keep one's act to together) [1]:
->=20
-> Tested in QEMU against Linux 7.3.0-rc3 by setting /dev/ttyS1 to B115200,
-> lowering baud_base to 9600 (max =3D 9600) via TIOCSSERIAL, and calling
-> tcsetattr() with B57600 (old =3D B115200), reproducing the WARNING and
-> Oops: divide error in uart_get_divisor() on the unfixed kernel and
-> verifying clean execution with 0 warnings/faults with the fix applied.
->=20
-> So when rate gets lowered, it should alter the termios to prevent what is=
-=20
-> here seem as "old" having an invalid value.
+This shows up as:
 
-That makes sense...
+  refcount_t: underflow; use-after-free.
+  WARNING: lib/refcount.c:28 at refcount_warn_saturate+0xc9/0x120
+   detach_task_ctx_data+0x1db/0x4a0
+   do_exit+0x6a9/0x2bb0
+   do_group_exit+0xd3/0x2a0
+   get_signal+0x266a/0x26d0
 
->=20
-> [1] https://lore.kernel.org/linux-serial/20260930041216.155911-3-benquike=
-@gmail.com/
->=20
-> > > try =3D=3D 2: loop exits =3D> WARN_ON(1) triggers.
-> > >=20
-> > > What we'd want to happen with try =3D=3D 2, is for it to use the retu=
-rn baud=20
-> > > which is within the loop body.
-> >=20
-> > Then should the "return 0" statement be modified to "return baud", and
-> > possibly the WARN_ON() removed? Then you wouldn't need to increase
-> > max try?
->=20
-> IMO, the entire loop constructs feels somewhat artificial in this case so=
-=20
-> I'd prefer to kill the loop entirely. But such refactoring is not going t=
-o=20
-> be a minimal fix to the issue.
+When the exit path puts first, the warning comes from
+__detach_global_ctx_data(), via perf_release() or via the error path of
+perf_event_open().
 
-Yes, when I updated uart_get_baud_rate() a few months ago, the loop
-also felt a little bit weird, but I did not remove it because I assumed
-it was working ok if we assumed, like I did, that the old baud rate was
-always valid.
+An unprivileged user can open this window with the default
+perf_event_paranoid=2. For a CPU-wide event that requests a branch call
+stack, perf_event_alloc() calls attach_perf_ctx_data() before
+find_get_context() rejects the event with -EACCES, and the error path
+then runs detach_global_ctx_data().
 
-I tried in the past to simplify it, make it more logical and
-understandable by normal humans :) But I always end up with
-something not so simple and obvious because of all the special cases
-(B0, spd_* flags, etc).
+Treat the global reference as a one-shot token. Claim cd->global with
+xchg() in both __detach_global_ctx_data() and perf_event_exit_task(), and
+put the reference only if the claim succeeded. Also take the reference
+before setting cd->global in attach_global_ctx_data() and
+perf_event_alloc_task_data(). Otherwise the exit path could put a
+reference that has not been taken yet.
 
-I am still trying though, maybe I will have better luck this time :)
+attach_global_ctx_data() checks PF_EXITING without anything that keeps
+the task from exiting right after the check. If perf_event_exit_task()
+then looks at cd->global before the attach side sets it, nobody puts the
+global reference and the perf_ctx_data leaks once the task is gone. The
+reuse path in attach_task_ctx_data() has the same problem. Set ->global
+with xchg() in both places and check PF_EXITING again afterwards; if the
+task is exiting, claim ->global back and put the reference. The exit
+path sets PF_EXITING before its xchg(), and both xchg() calls are fully
+ordered, so at least one side sees the other and exactly one of them
+puts the reference.
 
+perf_event_exit_task() no longer puts the reference of a non-global
+perf_ctx_data. That reference belongs to the per-task events, and they
+put it when they are freed.
 
---=20
-Hugo Villeneuve
+Fixes: 506e64e710ff ("perf: attach/detach PMU specific data")
+Assisted-by: Claude:claude-opus-5-5 syzkaller
+Signed-off-by: vineash <vineash30640@gmail.com>
+---
+Changes in v2:
+- Close the race between attach_global_ctx_data() and an exiting task
+  that the Sashiko review pointed out. The new helper
+  attach_task_global_ctx_data() sets ->global with xchg() and checks
+  PF_EXITING again; the reuse path in attach_task_ctx_data() had the
+  same problem and now uses it too.
+- Read cd->global with READ_ONCE() in attach_global_ctx_data(); the
+  stores now go through xchg(), so they no longer race with the exit
+  path as plain accesses.
+- perf_event_alloc_task_data() is unchanged. It runs from
+  perf_event_fork() before wake_up_new_task(), so the child cannot be in
+  perf_event_exit_task() yet, and it holds global_ctx_data_rwsem for
+  read, which keeps __detach_global_ctx_data() and
+  attach_global_ctx_data() away from that child's cd->global.
+
+v1: https://lore.kernel.org/all/179105852659.1844849.16381123619267169417@gmail.com/
+
+Tested on next-20261002 (x86_64, KASAN and kmemleak) with the syzkaller
+reproducer (15 minutes, about 63k programs) and the unprivileged one
+(15 minutes, about 185k rejected perf_event_open() calls racing with
+fork and exit): no warnings, and kmemleak finds nothing.
+
+The race fixed in v2 is too narrow to hit in a plain run, so I also
+tested it with an mdelay(50) added right after the PF_EXITING check in
+attach_global_ctx_data() (debug only). The test keeps a child's
+perf_ctx_data alive with a per-task event, opens a CPU-wide event, and
+lets the child exit while the attach is in that window; 100 rounds, with
+the exit timing swept so that about 80 rounds land in the window:
+
+  v1 + delay: 49 perf_ctx_data leaked (kmemleak)
+  v2 + delay:  0 leaked, no warnings
+
+This only covers attach_global_ctx_data(); the reuse path in
+attach_task_ctx_data() gets the same helper but is not exercised here.
+
+ kernel/events/core.c | 66 ++++++++++++++++++++++++++++++++++----------
+ 1 file changed, 51 insertions(+), 15 deletions(-)
+
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index a34ff4cb4..cc187cf9b 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -5422,6 +5422,27 @@ static inline void perf_free_ctx_data_rcu(struct perf_ctx_data *cd)
+ 	call_rcu(&cd->rcu_head, __free_perf_ctx_data_rcu);
+ }
+ 
++static void detach_task_global_ctx_data(struct task_struct *p);
++
++/*
++ * Hand a reference on @cd, which the caller already holds, to the
++ * system-wide events.
++ *
++ * perf_event_exit_task() drops that reference only if it finds ->global set,
++ * and it does not take global_ctx_data_rwsem. If @p started exiting after
++ * the caller checked PF_EXITING, the exit path may already have looked at
++ * ->global. Both xchg() calls are fully ordered, so either the exit path
++ * sees ->global set or we see PF_EXITING here; whoever clears ->global then
++ * puts the reference.
++ */
++static void attach_task_global_ctx_data(struct task_struct *p,
++					struct perf_ctx_data *cd)
++{
++	xchg(&cd->global, 1);
++	if (READ_ONCE(p->flags) & PF_EXITING)
++		detach_task_global_ctx_data(p);
++}
++
+ static int
+ attach_task_ctx_data(struct task_struct *task, struct kmem_cache *ctx_cache,
+ 		     bool global, gfp_t gfp_flags)
+@@ -5459,9 +5480,9 @@ attach_task_ctx_data(struct task_struct *task, struct kmem_cache *ctx_cache,
+ 		}
+ 
+ 		if (refcount_inc_not_zero(&old->refcount)) {
+-			if (global)
+-				old->global = true;
+ 			free_perf_ctx_data(cd); /* unused */
++			if (global)
++				attach_task_global_ctx_data(task, old);
+ 			return 0;
+ 		}
+ 
+@@ -5497,9 +5518,10 @@ attach_global_ctx_data(struct kmem_cache *ctx_cache)
+ 			if (p->flags & PF_EXITING)
+ 				continue;
+ 			cd = rcu_dereference(p->perf_ctx_data);
+-			if (cd && !cd->global) {
+-				cd->global = 1;
+-				if (!refcount_inc_not_zero(&cd->refcount))
++			if (cd && !READ_ONCE(cd->global)) {
++				if (refcount_inc_not_zero(&cd->refcount))
++					attach_task_global_ctx_data(p, cd);
++				else
+ 					cd = NULL;
+ 			}
+ 			if (!cd) {
+@@ -5569,19 +5591,33 @@ detach_task_ctx_data(struct task_struct *p)
+ 		perf_free_ctx_data_rcu(cd);
+ }
+ 
++/*
++ * Drop the reference owned by the system-wide events, if @p still holds one.
++ *
++ * Both __detach_global_ctx_data() and perf_event_exit_task() may try to drop
++ * it concurrently; claiming ->global with xchg() makes sure only one of them
++ * does, otherwise the refcount is decremented twice.
++ */
++static void detach_task_global_ctx_data(struct task_struct *p)
++{
++	struct perf_ctx_data *cd;
++
++	scoped_guard (rcu) {
++		cd = rcu_dereference(p->perf_ctx_data);
++		if (!cd || !xchg(&cd->global, 0))
++			return;
++	}
++
++	detach_task_ctx_data(p);
++}
++
+ static void __detach_global_ctx_data(void)
+ {
+ 	struct task_struct *g, *p;
+-	struct perf_ctx_data *cd;
+ 
+ 	scoped_guard (rcu) {
+-		for_each_process_thread(g, p) {
+-			cd = rcu_dereference(p->perf_ctx_data);
+-			if (cd && cd->global) {
+-				cd->global = 0;
+-				detach_task_ctx_data(p);
+-			}
+-		}
++		for_each_process_thread(g, p)
++			detach_task_global_ctx_data(p);
+ 	}
+ }
+ 
+@@ -9459,8 +9495,8 @@ perf_event_alloc_task_data(struct task_struct *child,
+ 		}
+ 
+ 		if (!cd->global) {
+-			cd->global = 1;
+ 			refcount_inc(&cd->refcount);
++			cd->global = 1;
+ 		}
+ 	}
+ 
+@@ -14901,7 +14937,7 @@ void perf_event_exit_task(struct task_struct *task)
+ 	 * attach_global_ctx_data() will skip over this task, but otherwise
+ 	 * attach_task_ctx_data() will observe PF_EXITING.
+ 	 */
+-	detach_task_ctx_data(task);
++	detach_task_global_ctx_data(task);
+ }
+ 
+ /*
+-- 
+2.25.1
+
