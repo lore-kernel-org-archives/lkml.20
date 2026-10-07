@@ -1,56 +1,56 @@
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com [209.85.221.72])
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com [209.85.221.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81A1A4B0E5A
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 14:30:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8ABD351C06
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 14:30:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791383435; cv=none; b=blH9xJNsYyymO+vbY6L7JmrOK/0kp3RQEKkZYps1Gfyc+WpZ+fCI8clk9uaAsV4x8lrlSrnHAyzhxE3LMOEoVOnFA8lIl+i7IhQtsKfiCzvZiGGxpL01OZNHNhgELnDBzmAHeBBZSezGp4balkuhd5zQHpKHUypmQBJsuudI5Qg=
+	t=1791383436; cv=none; b=fhoZSHwhAza8NiEsQwDPrt5iGbsmoPVJvVS11xf/wtQJurWzpBZ8zNrZuxVpizw7Q61Z2tyMYLtanl7/IzY/hqeEhIjCAvnPtK0eqZDF/BR2+F7AwT6+SZz8V+5WjhAHqCnen0YnKiHue1hi1gvRwJEq+wwAYBY796qz8zTfWGk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791383435; c=relaxed/simple;
-	bh=Qfli/8yFD2jARriIawOhQs/GAKYSJIucQKH/lIezYOc=;
+	s=arc-20240116; t=1791383436; c=relaxed/simple;
+	bh=JV4/PMZ6Qtt6dKqcbmjdH6LkG0roW7BtzA3z3s9fqso=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=IUXPoflxw4Xl/3NTf5frzDbwTR1PfDx86gHTdyyxTU2SgnUEhJkRkhKysWJl/Q8QNDt+5S9KyPvzicq11ls2zrr6r6ZxKIoAWR1mEJfH3iHkdspqvP6nrV8TgqS+9bqSb2TtWc6zSvOCAL3SwOVjF+kiVOqOXn447jElJoAqjgU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=HxgBRdjU; arc=none smtp.client-ip=209.85.221.72
+	 To:Cc:Content-Type; b=qMOMXLIzbwrjMZ7AbtHyzaGSNWfVAnqVUxkSDeUa7a2bw7imRPZ6UQWKp46rc+gYKPCYobeaY//FE/usSx5RIBlZdjeQe+LIem5B12FDSIBwCY/EQw6IBKlt/fzBMWNr8LDT6plJpXZ7mVKP48xjQAK6WkH6RdDL83qXa3WZJGQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Q41VB4jM; arc=none smtp.client-ip=209.85.221.69
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="HxgBRdjU"
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-48589603501so2266696f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 07:30:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Q41VB4jM"
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-487038bc9b8so2745102f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 07:30:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791383419; x=1791988219; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1791383427; x=1791988227; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=53KwSMYJX4+uA9WreYswvyBSh7+MhNbzUNt0tODS6tk=;
-        b=HxgBRdjU1JdnrKGb9hniEejAhRB9AWHF+5hPiWB14hMVG3Pdf+6MYgdlBT1HyIpFGX
-         mOie7s0dClBc95/CUQx1eRBfeDcrbxwhBtCunpAbpjZ9QVD6Sk0OtFfCLCIOnNjgrqvM
-         dRcRGN6RORgdUeftk8jxKwHm9zL48myh845+4N83L42ryP3HkqUW41NUbQzwYwNowSda
-         7KBDvFDo4JMRfSgPai3LMuN7Xvx1sL2+6/Jy3/MlBf+cx+fwvzJx4pyktF6GHKofxAgl
-         T3tWZh8a2+DH5ZsAOehRMLv1witcIS7FwnE6fid36Re+knj6O8e7ieM9Ufn0AdXieKzn
-         Qvzw==
+        bh=JWXAcmfB32d9GBcvB29QMhU4vBRy5jqckmELBbDhl6E=;
+        b=Q41VB4jMQaTcnzZfi1UwZ6WrqrcISrQ0VHVFWG6uer/O2nuj9uDq1HNdQMo+IDyrF9
+         YpgBRJWudeFagBdYtvJLMrm+oImBw8Vw+FCIO5RsTvPAC7dWnPr1fxCiu361Tz6f4NUF
+         xiSRTChqSzLRDoQaBKrNVFV2ojj1x+BwD4eYXPzQFgUNiHepx82xUKh3GW62TWIGwrFZ
+         BfXYIJvxxbSumbEluJcGvBzKfMk9JYCvlgLtg6yIVpPEp9UHwETTysMhOUud5XeRz3Ou
+         A86gbQqTtQEOvLpN5YSmoung5ocTcvsG1GAyB58zsmthcsoLqem1f8to4PYDRFryb9NV
+         jJNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791383419; x=1791988219;
+        d=1e100.net; s=20260707; t=1791383427; x=1791988227;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=53KwSMYJX4+uA9WreYswvyBSh7+MhNbzUNt0tODS6tk=;
-        b=Qv1hzd4oOzF++dbstW+CmQ++H4x9CvUxBNBCY1Uvu1WKZ8998QunU3YiKaxvwqptGV
-         cHTYk7C0++S8ASaVQcUgc2efT5aefNQvJkDeJZ9s0ZmJ+aYRgPHekKA/lZzEVzfyjWat
-         ZRRvwOZveXpiWNYbKfnUrxK3Q9Eze4UIzt6fQ9yiCaFHzAoIRpdPj2ezNUnhcS4oiQzh
-         lb1cUk47NhAO6aG7AZXgaXH1otuEJxA/hZnaI+t2hDWiQiT5PLwMxqVFyfCTrQvIsZqr
-         K7Q6MU00Ugvdo9B7yb0lJh/TSKX4VEcb9Ase3ms6KAbBF3kAkey88g2EfIksWxX7hyvk
-         9KQw==
-X-Forwarded-Encrypted: i=1; AKwUvBwFCDa49Tbw698Xe+bROWNqNuU2CVikjsHyhzqNTVWe0SBvyrzussdiZj0/TvXfpsLx1ILn8JLYJ36Qbd4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIxamxYH703odjOUFJO/Nf17n8OQWmGAaEF4Haphfc0iGuF1ifd
-	YR13ydInMR+X/niXciwiCIlBSSaXTWKboDNmyUQIbGQV7yxeiHqGDMLo3NydAcQsa69fs+7WShW
-	TbO+gUG3jdr2B6uQd4Q==
-X-Received: from wroi11.prod.google.com ([2002:adf:f30b:0:b0:48a:f246:83ad])
+        bh=JWXAcmfB32d9GBcvB29QMhU4vBRy5jqckmELBbDhl6E=;
+        b=LByPOhT0cVG9e+0pnrvBvvf/XkcOhB7FbgCDzu294k+iew1TXLrdfgfYgJKDdjf0yu
+         YLIX6PeStOd0Xrf211Q6CzOcR2tezrIidCy7m+YCKPJJ0MIvpx5cG2VNFZPQWwKQIiIa
+         5EbFGqAJGqb4fwNOLvQZKk2L/F4Be6q8boOfUftMSbtwi+NWAMv4v5+uAL3hV/Fko3AG
+         5PF3BPG7DCP8Kg5BI5dqgbP+vY0/1JDzP5qKl/P/ZqHzBF3jeDA0yiLIMaBJ/fl2fhtC
+         K9VWPSUayNBy9K8uKQlehoVr0TaUiUowivIoV+0LXp6kKyyUJjLrFkt/3rOz5RjT1Hhp
+         vpFA==
+X-Forwarded-Encrypted: i=1; AKwUvBxyqo+0BMPMJs82zdrM7yP9M46c9ATT1dKGL656NO6R+DBLsTAZh0SnjAQb9obIpTzMU+QNVwA+Qyfg2hw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nVuTBX/iTIzXINwOGe3X1y1jWXEZGEO/J8mNEoGKcSHlTw7boN
+	DSc/kIPxm7485ds1Hs2aBruptmAi0de67Mlcca5VHH0TTRUZeCgRM3JM4530vizw1gCrxp5W3i9
+	GzIEPU5rNsVeCZSj83A==
+X-Received: from wmfv12.prod.google.com ([2002:a05:600c:15cc:b0:4a1:7f93:3bcf])
  (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6000:2585:b0:48a:f8fb:cd49 with SMTP id ffacd0b85a97d-48c72889ca6mr4790614f8f.22.1791383419136;
- Wed, 07 Oct 2026 07:30:19 -0700 (PDT)
-Date: Wed, 07 Oct 2026 14:30:01 +0000
+ 2002:a05:600c:6095:b0:4a0:da23:e06d with SMTP id 5b1f17b1804b1-4a1804192a4mr39138815e9.10.1791383426249;
+ Wed, 07 Oct 2026 07:30:26 -0700 (PDT)
+Date: Wed, 07 Oct 2026 14:30:03 +0000
 In-Reply-To: <20261007-pr-ratelimited-v6-0-f14accd4ea3b@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,22 +60,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261007-pr-ratelimited-v6-0-f14accd4ea3b@google.com>
 X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
-X-Developer-Signature: v=1; a=openpgp-sha256; l=11580; i=aliceryhl@google.com;
- h=from:subject:message-id; bh=Qfli/8yFD2jARriIawOhQs/GAKYSJIucQKH/lIezYOc=;
- b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBqxld38T+YXPeKdufXp+mSKQAvcYSuT7BzjdSQ4
- /mzrJQwkUGJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCasZXdwAKCRAEWL7uWMY5
- RnKLD/4osaC7VreQDAMlbZfsWMG0KYFkZTYoLgo2YyBtjMUtKFVYvyy9BE1cleNZFlY8HWSdBCo
- yjgM5zV1H1Hxav1GdafnirorpWRQni6WkpKCdEMidII9qD+4+j+8EWhBKLT+0vDVuXt3nIemdaF
- 1vvh69pC4OmURBJdwZccCVPPyMfqdpj+07ZPBQg2p6E1Rj9pjseC1mUq+l9NzNInN933dM2A++Y
- rQP/34TCTNjsyXXVXXdZiBjFbxfq22QE2K+0vP7cWa01w+kW8c7hoKiDePCLBj6HBYpcgFBn04n
- Scud4KoqSP6lFfdFhu5nnvBEwGvzbIxpirW4dMHwA66yDyeKb+2em/m4fGRaAwEYz+j2tUD6Y9I
- Rzy6rQla2C8foo1AHpD8oZgbcIc7dS5HvWiqCCTpOFbwdxMqYcIHqy8t/1h+CH6LzzdSxNovul1
- kYvxoK4uQfyt059omBOwc3hpO9jiHRQolynF9x3ydeIFGUVkBSsVmrbbaNJ25MHXyy9k9i6RsqA
- Xq23rcpq5e9mBr67AJdf3R/0tAzgxCF5uWiKdRrHKYEfondsmtxInVYwO/7EnSRC2jrbvANEngh
- 8JiB1cXa/uyRBUu8AemJEmSNAsjQPx24DM0N7UpDY5TbnpJlSzzubUOWTPzQBvJSI/mkDm4AC11 kd9O/jQVB574QNA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10917; i=aliceryhl@google.com;
+ h=from:subject:message-id; bh=JV4/PMZ6Qtt6dKqcbmjdH6LkG0roW7BtzA3z3s9fqso=;
+ b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBqxld33kVQUou01eXxuBI42+V1hHiIcTbkR/nc0
+ uDYPafw6aOJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCasZXdwAKCRAEWL7uWMY5
+ RonqD/9SaOND/uaYWHgzSu9YkSY6ntSf4Y5FfrIaiqKOPuZxiuIQA0mLgssvCj2P0lNnU2d/DS3
+ QwUk9Nz9Uv+877wpm31u0ZbP+wR0fzBab70AJopoN6dOwBCBl6Fwxh0R4aydOh30/pDtz84mrJV
+ uZlu/p9krYLTZ4TmS/DMujUlIPYd+x4VvNMmr6PYiKNK8E7TjHpXG/U5C+jMBwxIrMxI1nngKPi
+ Zsy7C/4J8OHGoPGBeNvB+ccJ10APDv/85saCt8Yeh9dzqARqUrMVLkKMPLTeDmAlE7AcILY3+k6
+ iS8mF6eXDx9Oh78Rnb5j6LyMSrwAKcNkmUlQx3/yAlYnSR4gK7X1VN74w5U6RABJElkmZAcBAuT
+ O1mPGUXMAN6YW1R2Qc74wkIxeaCd/BGiR8kqUz3m/UsGje7/DMmY+t3GegOiYK+UWBTcGdfcorX
+ A4fKAhZ/94Dpw68bsTMLG4Nq0yazHJvJhqBf+VSlfHF5ghf/+IQ//taQ5wLD76ngc5gNt3Yx4KM
+ ssjyZGAREj5z3ZprsbHUi+wSIt98tfixzMgyupVW9Bf60NfwQRxHGc0nmowUgc4deEM0/UVItz0
+ PwODBJlWhNTH7JFoirorYo+qC/oJhxxE2LsnU8Kynsi3IiM/r1gf1ekcXIAEraJuVgsymU3DYQp VCVZaqyseHLvr2w==
 X-Mailer: b4 0.14.3
-Message-ID: <20261007-pr-ratelimited-v6-1-f14accd4ea3b@google.com>
-Subject: [PATCH v6 1/4] rust: sync: move lockdep types to rust/kernel/sync/lockdep.rs
+Message-ID: <20261007-pr-ratelimited-v6-3-f14accd4ea3b@google.com>
+Subject: [PATCH v6 3/4] rust: add pr_*_ratelimit! macros for printing
 From: Alice Ryhl <aliceryhl@google.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Carlos Llamas <cmllamas@google.com>, 
 	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
@@ -87,346 +87,334 @@ Cc: "=?utf-8?q?Onur_=C3=96zkan?=" <work@onurozkan.dev>, Andreas Hindborg <a.hind
 	Miguel Ojeda <ojeda@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
 	Trevor Gross <tmgross@umich.edu>, Waiman Long <longman@redhat.com>, Will Deacon <will@kernel.org>, 
 	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	Alice Ryhl <aliceryhl@google.com>
+	Alice Ryhl <aliceryhl@google.com>, Alvin Sun <alvin.sun@linux.dev>
 Content-Type: text/plain; charset="utf-8"
 
-The lockdep types are currently stored directly in rust/kernel/sync.rs,
-but there are starting to be too many of them to keep them in that file.
-Thus, move them to a submodule. The new module is listed under LOCKING
-PRIMITIVES in the MAINTAINERS file.
+Printing can be very expensive if it occurs often, so printing that can
+be triggered by userspace should be rate limited. For this purpose, add
+a Rust wrapper around `struct ratelimit_state` and use it in the new
+macros.
 
-For commonly used lockdep logic it's useful to keep re-exports in
-kernel::sync, and this also avoids the need to update any users.
+The new files will fall under the catch-all RUST maintainers entry.
 
-Reviewed-by: Gary Guo <gary@garyguo.net>
-Reviewed-by: Boqun Feng <boqun@kernel.org>
+Tested-by: Alvin Sun <alvin.sun@linux.dev>
 Reviewed-by: Carlos Llamas <cmllamas@google.com>
+Link: https://github.com/Rust-for-Linux/linux/issues/122
 Acked-by: Miguel Ojeda <ojeda@kernel.org>
 Signed-off-by: Alice Ryhl <aliceryhl@google.com>
 ---
- MAINTAINERS                 |   1 +
- rust/kernel/sync.rs         | 135 +-----------------------------------------
- rust/kernel/sync/lockdep.rs | 139 ++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 142 insertions(+), 133 deletions(-)
+ rust/helpers/helpers.c            |   1 +
+ rust/helpers/ratelimit.c          |  14 +++
+ rust/kernel/lib.rs                |   1 +
+ rust/kernel/prelude.rs            |   8 ++
+ rust/kernel/ratelimit.rs          | 216 ++++++++++++++++++++++++++++++++++++++
+ rust/kernel/sync/lock/spinlock.rs |   1 -
+ 6 files changed, 240 insertions(+), 1 deletion(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 72294ddfa5b7..3f9cdca2f770 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -15284,6 +15284,7 @@ F:	rust/helpers/mutex.c
- F:	rust/helpers/spinlock.c
- F:	rust/kernel/sync/lock.rs
- F:	rust/kernel/sync/lock/
-+F:	rust/kernel/sync/lockdep.rs
- F:	rust/kernel/sync/locked_by.rs
- X:	kernel/locking/locktorture.c
- 
-diff --git a/rust/kernel/sync.rs b/rust/kernel/sync.rs
-index 3e55de3b1636..c14d62a8ebb6 100644
---- a/rust/kernel/sync.rs
-+++ b/rust/kernel/sync.rs
-@@ -5,10 +5,6 @@
- //! This module contains the kernel APIs related to synchronisation that have been ported or
- //! wrapped for usage by Rust code in the kernel.
- 
--use crate::prelude::*;
--use crate::types::Opaque;
--use pin_init;
--
- mod arc;
- pub mod aref;
- pub mod atomic;
-@@ -16,6 +12,7 @@
- pub mod completion;
- mod condvar;
- pub mod lock;
-+pub mod lockdep;
- mod locked_by;
- pub mod poll;
- pub mod rcu;
-@@ -36,136 +33,8 @@
-     SpinLockIrq,
-     SpinLockIrqGuard, //
- };
-+pub use lockdep::{static_lock_class, LockClassKey};
- pub use locked_by::LockedBy;
- pub use refcount::Refcount;
- pub use set_once::SetOnce;
- pub use srcu::Srcu;
--
--/// Represents a lockdep class.
--///
--/// Wraps the kernel's `struct lock_class_key`.
--#[repr(transparent)]
--#[pin_data(PinnedDrop)]
--pub struct LockClassKey {
--    #[pin]
--    inner: Opaque<bindings::lock_class_key>,
--}
--
--// SAFETY: Unregistering a lock class key from a different thread than where it was registered is
--// allowed.
--unsafe impl Send for LockClassKey {}
--
--// SAFETY: `bindings::lock_class_key` is designed to be used concurrently from multiple threads and
--// provides its own synchronization.
--unsafe impl Sync for LockClassKey {}
--
--impl LockClassKey {
--    /// Initializes a statically allocated lock class key.
--    ///
--    /// This is usually used indirectly through the [`static_lock_class!`] macro. See its
--    /// documentation for more information.
--    ///
--    /// # Safety
--    ///
--    /// * Before using the returned value, it must be pinned in a static memory location.
--    /// * The destructor must never run on the returned `LockClassKey`.
--    pub const unsafe fn new_static() -> Self {
--        LockClassKey {
--            inner: Opaque::uninit(),
--        }
--    }
--
--    /// Initializes a dynamically allocated lock class key.
--    ///
--    /// In the common case of using a statically allocated lock class key, the
--    /// [`static_lock_class!`] macro should be used instead.
--    ///
--    /// # Examples
--    ///
--    /// ```
--    /// use kernel::alloc::KBox;
--    /// use kernel::types::ForeignOwnable;
--    /// use kernel::sync::{LockClassKey, SpinLock};
--    /// use pin_init::stack_pin_init;
--    ///
--    /// let key = KBox::pin_init(LockClassKey::new_dynamic(), GFP_KERNEL)?;
--    /// let key_ptr = key.into_foreign();
--    ///
--    /// {
--    ///     stack_pin_init!(let num: SpinLock<u32> = SpinLock::new(
--    ///         0,
--    ///         c"my_spinlock",
--    ///         // SAFETY: `key_ptr` is returned by the above `into_foreign()`, whose
--    ///         // `from_foreign()` has not yet been called.
--    ///         unsafe { <Pin<KBox<LockClassKey>> as ForeignOwnable>::borrow(key_ptr) }
--    ///     ));
--    /// }
--    ///
--    /// // SAFETY: We dropped `num`, the only use of the key, so the result of the previous
--    /// // `borrow` has also been dropped. Thus, it's safe to use from_foreign.
--    /// unsafe { drop(<Pin<KBox<LockClassKey>> as ForeignOwnable>::from_foreign(key_ptr)) };
--    /// # Ok::<(), Error>(())
--    /// ```
--    pub fn new_dynamic() -> impl PinInit<Self> {
--        pin_init!(Self {
--            // SAFETY: lockdep_register_key expects an uninitialized block of memory
--            inner <- Opaque::ffi_init(|slot| unsafe { bindings::lockdep_register_key(slot) })
--        })
--    }
--
--    /// Returns a raw pointer to the inner C struct.
--    ///
--    /// It is up to the caller to use the raw pointer correctly.
--    pub fn as_ptr(&self) -> *mut bindings::lock_class_key {
--        self.inner.get()
--    }
--}
--
--#[pinned_drop]
--impl PinnedDrop for LockClassKey {
--    fn drop(self: Pin<&mut Self>) {
--        // SAFETY: `self.as_ptr()` was registered with lockdep and `self` is pinned, so the address
--        // hasn't changed. Thus, it's safe to pass it to unregister.
--        unsafe { bindings::lockdep_unregister_key(self.as_ptr()) }
--    }
--}
--
--/// Defines a new static lock class and returns a pointer to it.
--///
--/// # Examples
--///
--/// ```
--/// use kernel::sync::{static_lock_class, Arc, SpinLock};
--///
--/// fn new_locked_int() -> Result<Arc<SpinLock<u32>>> {
--///     Arc::pin_init(SpinLock::new(
--///         42,
--///         c"new_locked_int",
--///         static_lock_class!(),
--///     ), GFP_KERNEL)
--/// }
--/// ```
--#[macro_export]
--macro_rules! static_lock_class {
--    () => {{
--        static CLASS: $crate::sync::LockClassKey =
--            // SAFETY: The returned `LockClassKey` is stored in static memory and we pin it. Drop
--            // never runs on a static global.
--            unsafe { $crate::sync::LockClassKey::new_static() };
--        $crate::prelude::Pin::static_ref(&CLASS)
--    }};
--}
--pub use static_lock_class;
--
--/// Returns the given string, if one is provided, otherwise generates one based on the source code
--/// location.
--#[doc(hidden)]
--#[macro_export]
--macro_rules! optional_name {
--    () => {
--        $crate::c_str!(::core::concat!(::core::file!(), ":", ::core::line!()))
--    };
--    ($name:literal) => {
--        $crate::c_str!($name)
--    };
--}
-diff --git a/rust/kernel/sync/lockdep.rs b/rust/kernel/sync/lockdep.rs
+diff --git a/rust/helpers/helpers.c b/rust/helpers/helpers.c
+index 440fb7638e3c..d08958e69de7 100644
+--- a/rust/helpers/helpers.c
++++ b/rust/helpers/helpers.c
+@@ -85,6 +85,7 @@
+ #include "processor.c"
+ #include "property.c"
+ #include "pwm.c"
++#include "ratelimit.c"
+ #include "rbtree.c"
+ #include "rcu.c"
+ #include "refcount.c"
+diff --git a/rust/helpers/ratelimit.c b/rust/helpers/ratelimit.c
 new file mode 100644
-index 000000000000..784821cc2a39
+index 000000000000..e5052f568b81
 --- /dev/null
-+++ b/rust/kernel/sync/lockdep.rs
-@@ -0,0 +1,139 @@
++++ b/rust/helpers/ratelimit.c
+@@ -0,0 +1,14 @@
 +// SPDX-License-Identifier: GPL-2.0
 +
-+//! Utilities related to lockdep.
++#include <linux/ratelimit.h>
++
++__rust_helper void rust_helper_ratelimit_state_init(struct ratelimit_state *rs,
++						    int interval, int burst)
++{
++	ratelimit_state_init(rs, interval, burst);
++}
++
++__rust_helper void rust_helper_ratelimit_state_exit(struct ratelimit_state *rs)
++{
++	ratelimit_state_exit(rs);
++}
+diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
+index 7225abc64084..a4747f75b163 100644
+--- a/rust/kernel/lib.rs
++++ b/rust/kernel/lib.rs
+@@ -120,6 +120,7 @@
+ pub mod ptr;
+ #[cfg(CONFIG_RUST_PWM_ABSTRACTIONS)]
+ pub mod pwm;
++pub mod ratelimit;
+ pub mod rbtree;
+ pub mod regulator;
+ pub mod revocable;
+diff --git a/rust/kernel/prelude.rs b/rust/kernel/prelude.rs
+index ca396f1f78a6..bcaa232205be 100644
+--- a/rust/kernel/prelude.rs
++++ b/rust/kernel/prelude.rs
+@@ -107,13 +107,21 @@
+     },
+     init::InPlaceInit,
+     pr_alert,
++    pr_alert_ratelimited,
+     pr_crit,
++    pr_crit_ratelimited,
+     pr_debug,
++    pr_debug_ratelimited,
+     pr_emerg,
++    pr_emerg_ratelimited,
+     pr_err,
++    pr_err_ratelimited,
+     pr_info,
++    pr_info_ratelimited,
+     pr_notice,
++    pr_notice_ratelimited,
+     pr_warn,
++    pr_warn_ratelimited,
+     str::CStrExt as _,
+     try_init,
+     try_pin_init,
+diff --git a/rust/kernel/ratelimit.rs b/rust/kernel/ratelimit.rs
+new file mode 100644
+index 000000000000..ea7253e84c38
+--- /dev/null
++++ b/rust/kernel/ratelimit.rs
+@@ -0,0 +1,216 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! Rate limiting support.
 +//!
-+//! C headers: [`include/linux/lockdep.h`](srctree/include/linux/lockdep.h)
++//! C header: [`include/linux/ratelimit.h`](srctree/include/linux/ratelimit.h)
 +
 +use crate::{
++    bindings,
 +    prelude::*,
 +    types::Opaque, //
 +};
 +
-+/// Represents a lockdep class.
++/// Defines a `static` containing a [`Ratelimit`].
++#[macro_export]
++macro_rules! ratelimit_state_init {
++    ($name:ident, $interval:expr, $burst:expr $(,)?) => {
++        static $name: $crate::ratelimit::Ratelimit = {
++            let name = $crate::c_str!(::core::stringify!($name));
++            let interval = $interval;
++            let burst = $burst;
++            // SAFETY: This will be stored in static memory.
++            unsafe { $crate::ratelimit::Ratelimit::new_static(name, interval, burst) }
++        };
++    };
++}
++pub use ratelimit_state_init;
++
++/// Rate limiter state.
 +///
-+/// Wraps the kernel's `struct lock_class_key`.
-+#[repr(transparent)]
++/// # Invariants
++///
++/// The `inner` field contains an initialized `struct ratelimit_state`.
 +#[pin_data(PinnedDrop)]
-+pub struct LockClassKey {
++#[repr(transparent)]
++pub struct Ratelimit {
 +    #[pin]
-+    inner: Opaque<bindings::lock_class_key>,
++    inner: Opaque<bindings::ratelimit_state>,
 +}
 +
-+// SAFETY: Unregistering a lock class key from a different thread than where it was registered is
-+// allowed.
-+unsafe impl Send for LockClassKey {}
++// SAFETY: `Ratelimit` is safe to be sent to any task.
++unsafe impl Send for Ratelimit {}
 +
-+// SAFETY: `bindings::lock_class_key` is designed to be used concurrently from multiple threads and
-+// provides its own synchronization.
-+unsafe impl Sync for LockClassKey {}
++// SAFETY: `Ratelimit` is safe to be accessed concurrently as it is protected by an internal
++// spinlock.
++unsafe impl Sync for Ratelimit {}
 +
-+impl LockClassKey {
-+    /// Initializes a statically allocated lock class key.
++impl Ratelimit {
++    /// Constructs a [`Ratelimit`] with the specified configuration.
 +    ///
-+    /// This is usually used indirectly through the [`static_lock_class!`] macro. See its
-+    /// documentation for more information.
-+    ///
-+    /// # Safety
-+    ///
-+    /// * Before using the returned value, it must be pinned in a static memory location.
-+    /// * The destructor must never run on the returned `LockClassKey`.
-+    pub const unsafe fn new_static() -> Self {
-+        LockClassKey {
-+            inner: Opaque::uninit(),
-+        }
-+    }
-+
-+    /// Initializes a dynamically allocated lock class key.
-+    ///
-+    /// In the common case of using a statically allocated lock class key, the
-+    /// [`static_lock_class!`] macro should be used instead.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use kernel::alloc::KBox;
-+    /// use kernel::types::ForeignOwnable;
-+    /// use kernel::sync::{LockClassKey, SpinLock};
-+    /// use pin_init::stack_pin_init;
-+    ///
-+    /// let key = KBox::pin_init(LockClassKey::new_dynamic(), GFP_KERNEL)?;
-+    /// let key_ptr = key.into_foreign();
-+    ///
-+    /// {
-+    ///     stack_pin_init!(let num: SpinLock<u32> = SpinLock::new(
-+    ///         0,
-+    ///         c"my_spinlock",
-+    ///         // SAFETY: `key_ptr` is returned by the above `into_foreign()`, whose
-+    ///         // `from_foreign()` has not yet been called.
-+    ///         unsafe { <Pin<KBox<LockClassKey>> as ForeignOwnable>::borrow(key_ptr) }
-+    ///     ));
-+    /// }
-+    ///
-+    /// // SAFETY: We dropped `num`, the only use of the key, so the result of the previous
-+    /// // `borrow` has also been dropped. Thus, it's safe to use from_foreign.
-+    /// unsafe { drop(<Pin<KBox<LockClassKey>> as ForeignOwnable>::from_foreign(key_ptr)) };
-+    /// # Ok::<(), Error>(())
-+    /// ```
-+    pub fn new_dynamic() -> impl PinInit<Self> {
++    /// If `interval` is zero, then no rate limit is applied.
++    #[inline]
++    pub fn new(interval: i32, burst: i32) -> impl PinInit<Self> {
++        // INVARIANT: This creates a `Ratelimit` containing an initialized `struct ratelimit_state`
 +        pin_init!(Self {
-+            // SAFETY: lockdep_register_key expects an uninitialized block of memory
-+            inner <- Opaque::ffi_init(|slot| unsafe { bindings::lockdep_register_key(slot) })
++            inner <- Opaque::ffi_init(|slot: *mut bindings::ratelimit_state| {
++                // SAFETY: `slot` is a valid pointer to an uninitialized `struct ratelimit_state`.
++                // The memory is pinned so it remains valid until `ratelimit_state_exit` is called.
++                unsafe { bindings::ratelimit_state_init(slot, interval, burst) };
++            }),
 +        })
 +    }
 +
-+    /// Returns a raw pointer to the inner C struct.
++    /// Constructs a [`Ratelimit`] with the default configuration.
++    #[inline]
++    pub fn new_default() -> impl PinInit<Self> {
++        Ratelimit::new(Ratelimit::DEFAULT_INTERVAL, Ratelimit::DEFAULT_BURST)
++    }
++
++    /// Constructs a [`Ratelimit`] with the specified configuration.
 +    ///
-+    /// It is up to the caller to use the raw pointer correctly.
-+    pub fn as_ptr(&self) -> *mut bindings::lock_class_key {
-+        self.inner.get()
++    /// The name will be used for the lockdep name of the internal spinlock. See [`Self::new`] for
++    /// the meaning of `interval` and `burst`.
++    ///
++    /// # Safety
++    ///
++    /// The resulting value must be stored in static memory.
++    #[inline]
++    pub const unsafe fn new_static(name: &'static CStr, interval: i32, burst: i32) -> Self {
++        // INVARIANT: This creates a `Ratelimit` containing an initialized `struct ratelimit_state`.
++        Self {
++            inner: Opaque::new(bindings::ratelimit_state {
++                lock: kernel::sync::lock::spinlock::raw_spin_lock_unlocked(name),
++                interval,
++                burst,
++                ..pin_init::zeroed()
++            }),
++        }
++    }
++
++    /// The default interval used for rate limiting.
++    pub const DEFAULT_INTERVAL: i32 = bindings::DEFAULT_RATELIMIT_INTERVAL as i32;
++
++    /// The default burst size.
++    pub const DEFAULT_BURST: i32 = bindings::DEFAULT_RATELIMIT_BURST as i32;
++
++    /// Check if an action should be rate-limited.
++    ///
++    /// Returns [`true`] if the action is allowed, and [`false`] if it should be suppressed.
++    #[inline]
++    pub fn ratelimit(&self, func: &CStr) -> bool {
++        // SAFETY: `self.inner.get()` is a valid pointer to a `struct ratelimit_state`.
++        // The lifetime of `func` ensures the pointer remains valid for the duration of the call.
++        // The C function `___ratelimit` handles its own internal locking, so it is safe to call
++        // concurrently.
++        unsafe { bindings::___ratelimit(self.inner.get(), func.as_char_ptr()) != 0 }
 +    }
 +}
 +
 +#[pinned_drop]
-+impl PinnedDrop for LockClassKey {
++impl PinnedDrop for Ratelimit {
++    #[inline]
 +    fn drop(self: Pin<&mut Self>) {
-+        // SAFETY: `self.as_ptr()` was registered with lockdep and `self` is pinned, so the address
-+        // hasn't changed. Thus, it's safe to pass it to unregister.
-+        unsafe { bindings::lockdep_unregister_key(self.as_ptr()) }
++        // SAFETY: By the type invariants, this struct contains an initialized `struct
++        // ratelimit_state`.
++        unsafe { bindings::ratelimit_state_exit(self.inner.get()) };
 +    }
 +}
 +
-+/// Defines a new static lock class and returns a pointer to it.
-+///
-+/// # Examples
-+///
-+/// ```
-+/// use kernel::sync::{static_lock_class, Arc, SpinLock};
-+///
-+/// fn new_locked_int() -> Result<Arc<SpinLock<u32>>> {
-+///     Arc::pin_init(SpinLock::new(
-+///         42,
-+///         c"new_locked_int",
-+///         static_lock_class!(),
-+///     ), GFP_KERNEL)
-+/// }
-+/// ```
++/// Helper macro to implement ratelimited printing.
 +#[macro_export]
-+macro_rules! static_lock_class {
-+    () => {{
-+        static CLASS: $crate::sync::LockClassKey =
-+            // SAFETY: The returned `LockClassKey` is stored in static memory and we pin it. Drop
-+            // never runs on a static global.
-+            unsafe { $crate::sync::LockClassKey::new_static() };
-+        $crate::prelude::Pin::static_ref(&CLASS)
++#[doc(hidden)]
++macro_rules! print_ratelimited {
++    ($print_macro:ident, $($arg:tt)*) => {{
++        $crate::ratelimit::ratelimit_state_init!(
++            _rs,
++            $crate::ratelimit::Ratelimit::DEFAULT_INTERVAL,
++            $crate::ratelimit::Ratelimit::DEFAULT_BURST,
++        );
++        let loc = $crate::c_str!(::core::concat!(::core::file!(), ":", ::core::line!()));
++        if $crate::ratelimit::Ratelimit::ratelimit(&_rs, loc) {
++            $crate::$print_macro!($($arg)*);
++        }
 +    }};
 +}
-+pub use static_lock_class;
 +
-+/// Returns the given string, if one is provided, otherwise generates one based on the source code
-+/// location.
-+#[doc(hidden)]
++/// Prints an emergency-level message (level 0) if allowed by a rate limiter.
++///
++/// [`Ratelimit`]: $crate::ratelimit::Ratelimit
 +#[macro_export]
-+macro_rules! optional_name {
-+    () => {
-+        $crate::c_str!(::core::concat!(::core::file!(), ":", ::core::line!()))
-+    };
-+    ($name:literal) => {
-+        $crate::c_str!($name)
-+    };
-+}
++macro_rules! pr_emerg_ratelimited (
++    ($($arg:tt)*) => (
++        $crate::print_ratelimited!(pr_emerg, $($arg)*)
++    )
++);
++
++/// Prints an alert-level message (level 1) if allowed by a rate limiter.
++///
++/// [`Ratelimit`]: $crate::ratelimit::Ratelimit
++#[macro_export]
++macro_rules! pr_alert_ratelimited (
++    ($($arg:tt)*) => (
++        $crate::print_ratelimited!(pr_alert, $($arg)*)
++    )
++);
++
++/// Prints a critical-level message (level 2) if allowed by a rate limiter.
++///
++/// [`Ratelimit`]: $crate::ratelimit::Ratelimit
++#[macro_export]
++macro_rules! pr_crit_ratelimited (
++    ($($arg:tt)*) => (
++        $crate::print_ratelimited!(pr_crit, $($arg)*)
++    )
++);
++
++/// Prints an error-level message (level 3) if allowed by a rate limiter.
++///
++/// [`Ratelimit`]: $crate::ratelimit::Ratelimit
++#[macro_export]
++macro_rules! pr_err_ratelimited (
++    ($($arg:tt)*) => (
++        $crate::print_ratelimited!(pr_err, $($arg)*)
++    )
++);
++
++/// Prints a warning-level message (level 4) if allowed by a rate limiter.
++///
++/// [`Ratelimit`]: $crate::ratelimit::Ratelimit
++#[macro_export]
++macro_rules! pr_warn_ratelimited (
++    ($($arg:tt)*) => (
++        $crate::print_ratelimited!(pr_warn, $($arg)*)
++    )
++);
++
++/// Prints a notice-level message (level 5) if allowed by a rate limiter.
++///
++/// [`Ratelimit`]: $crate::ratelimit::Ratelimit
++#[macro_export]
++macro_rules! pr_notice_ratelimited (
++    ($($arg:tt)*) => (
++        $crate::print_ratelimited!(pr_notice, $($arg)*)
++    )
++);
++
++/// Prints an info-level message (level 6) if allowed by a rate limiter.
++///
++/// [`Ratelimit`]: $crate::ratelimit::Ratelimit
++#[macro_export]
++macro_rules! pr_info_ratelimited (
++    ($($arg:tt)*) => (
++        $crate::print_ratelimited!(pr_info, $($arg)*)
++    )
++);
++
++/// Prints a debug-level message (level 7) if allowed by a rate limiter.
++///
++/// [`Ratelimit`]: $crate::ratelimit::Ratelimit
++#[macro_export]
++macro_rules! pr_debug_ratelimited (
++    ($($arg:tt)*) => (
++        if cfg!(debug_assertions) {
++            $crate::print_ratelimited!(pr_debug, $($arg)*)
++        }
++    )
++);
+diff --git a/rust/kernel/sync/lock/spinlock.rs b/rust/kernel/sync/lock/spinlock.rs
+index 037fa63ebcac..6a71bb3a5c45 100644
+--- a/rust/kernel/sync/lock/spinlock.rs
++++ b/rust/kernel/sync/lock/spinlock.rs
+@@ -468,7 +468,6 @@ fn spinlock_irq_condvar() -> Result {
+ ///
+ /// For use in statics containing raw spinlocks.
+ #[doc(alias("__SPIN_LOCK_UNLOCKED", "DEFINE_SPINLOCK"))]
+-#[expect(dead_code)]
+ pub(crate) const fn raw_spin_lock_unlocked(name: &'static CStr) -> bindings::raw_spinlock_t {
+     // Silence unused variable warnings.
+     #[cfg(not(CONFIG_DEBUG_LOCK_ALLOC))]
 
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
