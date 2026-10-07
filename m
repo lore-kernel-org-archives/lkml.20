@@ -1,183 +1,212 @@
-Received: from esa9.hc1455-7.c3s2.iphmx.com (esa9.hc1455-7.c3s2.iphmx.com [139.138.36.223])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D8C7391835;
-	Wed,  7 Oct 2026 08:18:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.138.36.223
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76A1139182E;
+	Wed,  7 Oct 2026 08:22:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791361131; cv=none; b=aOM+Wx1ueVYXxUkqqP8Kdz3/lAWJ2sk69+1FRAILq5hf2que7s0GiqeagYo0C4GeAON/t49Wjv5ocVbKm7HKG+anJpuIhWl/y6pxO2dHVIZLgWkBwKrhRoOpaZXwCAbUjjtMzYDZFyf/hskWOdpQkuXy3fSxpxaTba/FrimXNkc=
+	t=1791361372; cv=none; b=t0ZEr6xBXx7hnTQHk/lJ+j22FDp29eQbkJzW94ep5ZobYCDdZj/J/eqiFyh8FAp4mXG2X34ok9MmCch7AB1fvmqtbeS6Tft/d4ymdiU84D0TQUS9r7KG5JO8lCxNdnhYx/vOIdHqoF4NbznAnGY5Rgd+jVfVhecZ3cWe73/mRsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791361131; c=relaxed/simple;
-	bh=MyqC3h/MCGtGNFcHgQdVBKkmwX4hPvWFwf5yZpwYALk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EGL/huHiZEVLQS88i7dEs96Pm+Slwk6AkCXTGgF/qWTVIPs4HqvTG1pGQvrFb0KtTCNlEH8xo9hkXpWNE8EzSwHzRRvY0BixLEQatA3XRooBsXUlMIV66Od6fXcBh+05Nz5B2GXVZNPeIC49fDcjdRBpXocFnOtbm1o80pV1f2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=VWFnsp1o; arc=none smtp.client-ip=139.138.36.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
+	s=arc-20240116; t=1791361372; c=relaxed/simple;
+	bh=fnfSyxyof8ldx1LKwlAm16hEicCGx2XP+A/qlkJrQbc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qRcRK+8ATpSQD97zY9v5r0iW+iKSriZK0nrjYbB/FxjvW1EH607q9thdmJiWFGxFlBeSPZSVdt8MUidUUGMDhafhp80/mEeNTWn2V98C7x/PsLuDUVggY92NI64brsvAiAtqMd5oe1joUmEw9keW3XF+CeU8GYQ8JpfRWar7c0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OuaojcMF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="VWFnsp1o"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
-  t=1791361134; x=1822897134;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=MyqC3h/MCGtGNFcHgQdVBKkmwX4hPvWFwf5yZpwYALk=;
-  b=VWFnsp1onXxat3U1/zrgRvN5Y8bjvOp5xGXpUdmNE8tfZSowZWuktVkD
-   fQKXJpug57d49Bgnuieo+L8jjQeAhkCKgmGMtJmRstYVJhukiHWSQoOhp
-   yKAtjk8k6WjRSsJlcq4zEp5FlWFBVeMxStEOWY6qFFMA/E8PMTGhazyBc
-   OQuNPOxDezEvxL4II5YJs/DUNf0vcJiV90YmDuV2/EctMe6yE/8ex7l0A
-   wLqKLnieIsUzBfozNa4msE3gyuM4IfFtHVX0b5wb21oH1FNoCHkIREYqw
-   Q0x4HRJAaT51CodNdXWm6mRn+WcbLCtgbvi7RnWu5ADdniMZ+yr+KfqdV
-   g==;
-X-CSE-ConnectionGUID: a8D3CcJKQimngFF89Cwtvg==
-X-CSE-MsgGUID: tNYKJC5HQ3u2MDVmrdoBOw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11927"; a="244987115"
-X-IronPort-AV: E=Sophos;i="6.27,144,1786978800"; 
-   d="scan'208";a="244987115"
-Received: from gmgwnl01.global.fujitsu.com ([52.143.17.124])
-  by esa9.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 17:17:42 +0900
-Received: from az2nlsmgm3.fujitsu.com (unknown [10.150.26.205])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by gmgwnl01.global.fujitsu.com (Postfix) with ESMTPS id 4B78D40613C;
-	Wed,  7 Oct 2026 08:17:37 +0000 (UTC)
-Received: from az2nlsmom4.fujitsu.com (unknown [10.150.26.201])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by az2nlsmgm3.fujitsu.com (Postfix) with ESMTPS id EFD9F18019BE;
-	Wed,  7 Oct 2026 08:17:36 +0000 (UTC)
-Received: from FCCLS0092175.localdomain (unknown [10.8.51.148])
-	by az2nlsmom4.fujitsu.com (Postfix) with SMTP id 9AEAF2000AA7;
-	Wed,  7 Oct 2026 08:17:31 +0000 (UTC)
-Date: Wed, 7 Oct 2026 17:17:29 +0900
-From: Kohei Enju <enju.kohei@fujitsu.com>
-To: Marc Zyngier <maz@kernel.org>
-Cc: Tomohiro Misono <misono.tomohiro@fujitsu.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org
-Subject: Re: [PATCH 4/4] irqchip/gicv3: Add workaround for FUJITSU-MONAKA
- erratum E#030003
-Message-ID: <asX5CiaDodoFrn0q@FCCLS0092175.localdomain>
-References: <20261002-monaka-fix-for-upstream-v1-0-4aec0b0cbe34@fujitsu.com>
- <20261002-monaka-fix-for-upstream-v1-4-4aec0b0cbe34@fujitsu.com>
- <86tsn42sqr.wl-maz@kernel.org>
- <asS5r0WNCQpMIo4p@FCCLS0092175.localdomain>
- <878q4b2mj5.wl-maz@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OuaojcMF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0425F1F0089B;
+	Wed,  7 Oct 2026 08:22:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791361371;
+	bh=2F1HQQAc/fMJbnGCSZdEptu0N+9Pd3sBhH3laxTncQ4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=OuaojcMF5Q2O2v24+mHmpZN1tbhH15Q0+GZwNBgF4QdXcz5Nb8zUSqTQzV0Z/ql2N
+	 V2XsUl/qCzeV4eHTHhX/NFBY7iZx9F0raYXgHFMCQ8caZAYdm6M3CycXPc1OASOESp
+	 OGGP/Wk6uyHPxn+riOyq1UcDyFPgGM/+eqSQ8wzaJeviz+27fol7BZA4p5a/UX5DVC
+	 ESlDUEQ/Pu8m5n87irM2dHeA/IDrxrco3S5V9mxRPEFW90CKRmeDfnj+477KAVQro0
+	 YAfrHSilY+SpoD+NTuZrcCFuXHf8C6mXQPgugWBfqhZgIlUqKKfA5vUXcfep7kb7XV
+	 +VosUS6KN70iQ==
+Message-ID: <a9024516-a266-4d99-a28c-f356ed98af09@kernel.org>
+Date: Wed, 7 Oct 2026 10:22:46 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <878q4b2mj5.wl-maz@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 17/74] media: qcom: camss: Define PIX formats for x1e PIX
+ interface
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>,
+ Richard Acayan <mailingradian@gmail.com>, Hans Verkuil
+ <hverkuil@kernel.org>, Gjorgji Rosikopulos <quic_grosikop@quicinc.com>,
+ Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, Robert Foss
+ <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+ <Z8PAFUj3ZBxq4yvNpaYcxqBXjhqYCJ8VfhD_gwcAj7AGdCHMEE-tv5tk9aIDv2wEUoz0Dh9qA-E8iph3COwMQg==@protonmail.internalid>
+ <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-17-ed985aefd611@kernel.org>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-US
+In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-17-ed985aefd611@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Marc,
+On 05/10/2026 19:13, Bryan O'Donoghue wrote:
+> Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+> ---
+>   drivers/media/platform/qcom/camss/camss-vfe.c | 93 ++++++++++++++++++++++++++-
+>   drivers/media/platform/qcom/camss/camss.c     |  4 +-
+>   2 files changed, 92 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
+> index 319d191589884..5b5201b55a485 100644
+> --- a/drivers/media/platform/qcom/camss/camss-vfe.c
+> +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+> @@ -174,6 +174,94 @@ static const struct camss_format_info formats_rdi_845[] = {
+>   	  PER_PLANE_DATA(0, 1, 1, 1, 1, 16) },
+>   };
+> 
+> +static const struct camss_format_info formats_pix_845[] = {
+> +	/* Passthrought formats */
+> +	{ MEDIA_BUS_FMT_UYVY8_1X16, 8, V4L2_PIX_FMT_UYVY, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 16) },
+> +	{ MEDIA_BUS_FMT_VYUY8_1X16, 8, V4L2_PIX_FMT_VYUY, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 16) },
+> +	{ MEDIA_BUS_FMT_YUYV8_1X16, 8, V4L2_PIX_FMT_YUYV, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 16) },
+> +	{ MEDIA_BUS_FMT_YVYU8_1X16, 8, V4L2_PIX_FMT_YVYU, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 16) },
+> +	{ MEDIA_BUS_FMT_SBGGR8_1X8, 8, V4L2_PIX_FMT_SBGGR8, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 8) },
+> +	{ MEDIA_BUS_FMT_SGBRG8_1X8, 8, V4L2_PIX_FMT_SGBRG8, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 8) },
+> +	{ MEDIA_BUS_FMT_SGRBG8_1X8, 8, V4L2_PIX_FMT_SGRBG8, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 8) },
+> +	{ MEDIA_BUS_FMT_SRGGB8_1X8, 8, V4L2_PIX_FMT_SRGGB8, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 8) },
+> +	{ MEDIA_BUS_FMT_SBGGR10_1X10, 10, V4L2_PIX_FMT_SBGGR10P, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 10) },
+> +	{ MEDIA_BUS_FMT_SGBRG10_1X10, 10, V4L2_PIX_FMT_SGBRG10P, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 10) },
+> +	{ MEDIA_BUS_FMT_SGRBG10_1X10, 10, V4L2_PIX_FMT_SGRBG10P, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 10) },
+> +	{ MEDIA_BUS_FMT_SRGGB10_1X10, 10, V4L2_PIX_FMT_SRGGB10P, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 10) },
+> +	{ MEDIA_BUS_FMT_SBGGR10_2X8_PADHI_LE, 16, V4L2_PIX_FMT_SBGGR10, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 16) },
+> +	{ MEDIA_BUS_FMT_SBGGR12_1X12, 12, V4L2_PIX_FMT_SBGGR12P, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 12) },
+> +	{ MEDIA_BUS_FMT_SGBRG12_1X12, 12, V4L2_PIX_FMT_SGBRG12P, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 12) },
+> +	{ MEDIA_BUS_FMT_SGRBG12_1X12, 12, V4L2_PIX_FMT_SGRBG12P, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 12) },
+> +	{ MEDIA_BUS_FMT_SRGGB12_1X12, 12, V4L2_PIX_FMT_SRGGB12P, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 12) },
+> +	{ MEDIA_BUS_FMT_SBGGR14_1X14, 14, V4L2_PIX_FMT_SBGGR14P, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 14) },
+> +	{ MEDIA_BUS_FMT_SGBRG14_1X14, 14, V4L2_PIX_FMT_SGBRG14P, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 14) },
+> +	{ MEDIA_BUS_FMT_SGRBG14_1X14, 14, V4L2_PIX_FMT_SGRBG14P, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 14) },
+> +	{ MEDIA_BUS_FMT_SRGGB14_1X14, 14, V4L2_PIX_FMT_SRGGB14P, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 14) },
+> +	{ MEDIA_BUS_FMT_Y8_1X8, 8, V4L2_PIX_FMT_GREY, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 8) },
+> +	{ MEDIA_BUS_FMT_Y10_1X10, 10, V4L2_PIX_FMT_Y10P, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 10) },
+> +	{ MEDIA_BUS_FMT_Y10_2X8_PADHI_LE, 16, V4L2_PIX_FMT_Y10, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 1, 16) },
+> +
+> +	/* 4:2:0 Bayer to YUV */
+> +	{ MEDIA_BUS_FMT_YUYV8_1_5X8, 8, V4L2_PIX_FMT_NV12, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
+> +	{ MEDIA_BUS_FMT_YVYU8_1_5X8, 8, V4L2_PIX_FMT_NV12, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
+> +	{ MEDIA_BUS_FMT_UYVY8_1_5X8, 8, V4L2_PIX_FMT_NV12, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
+> +	{ MEDIA_BUS_FMT_VYUY8_1_5X8, 8, V4L2_PIX_FMT_NV12, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
+> +	{ MEDIA_BUS_FMT_YUYV8_1_5X8, 8, V4L2_PIX_FMT_NV21, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
+> +	{ MEDIA_BUS_FMT_YVYU8_1_5X8, 8, V4L2_PIX_FMT_NV21, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
+> +	{ MEDIA_BUS_FMT_UYVY8_1_5X8, 8, V4L2_PIX_FMT_NV21, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
+> +	{ MEDIA_BUS_FMT_VYUY8_1_5X8, 8, V4L2_PIX_FMT_NV21, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
+> +
+> +	/* 4:2:2 Bayer to YUV */
+> +	{ MEDIA_BUS_FMT_YUYV8_1X16, 8, V4L2_PIX_FMT_NV16, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
+> +	{ MEDIA_BUS_FMT_YVYU8_1X16, 8, V4L2_PIX_FMT_NV16, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
+> +	{ MEDIA_BUS_FMT_UYVY8_1X16, 8, V4L2_PIX_FMT_NV16, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
+> +	{ MEDIA_BUS_FMT_VYUY8_1X16, 8, V4L2_PIX_FMT_NV16, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
+> +	{ MEDIA_BUS_FMT_YUYV8_1X16, 8, V4L2_PIX_FMT_NV61, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
+> +	{ MEDIA_BUS_FMT_YVYU8_1X16, 8, V4L2_PIX_FMT_NV61, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
+> +	{ MEDIA_BUS_FMT_UYVY8_1X16, 8, V4L2_PIX_FMT_NV61, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
+> +	{ MEDIA_BUS_FMT_VYUY8_1X16, 8, V4L2_PIX_FMT_NV61, 1,
+> +	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
+> +};
+> +
 
-On 10/06 10:42, Marc Zyngier wrote:
-> On Tue, 06 Oct 2026 10:08:19 +0100,
-> Kohei Enju <enju.kohei@fujitsu.com> wrote:
-> > 
-> > On 10/02 13:26, Marc Zyngier wrote:
-> > > On Fri, 02 Oct 2026 11:26:52 +0100,
-> > > Tomohiro Misono <misono.tomohiro@fujitsu.com> wrote:
-> > > > 
-> > > > From: Kohei Enju <enju.kohei@fujitsu.com>
-> > > > 
-> > > > On affected FUJITSU-MONAKA CPUs, an SGI generated by writing to
-> > > > ICC_SGI0R_EL1, ICC_SGI1R_EL1, or ICC_ASGI1R_EL1 may be lost if the
-> > > > operation races with CPU interface processing triggered by the arrival
-> > > > of a higher-priority interrupt, an update to a pending interrupt, or a
-> > > > transition of the PE to the Sleep state. When this occurs, the system
-> > > > register write does not complete, causing the issuing core to hang.
-> > > >
-> > > 
-> > > Is the SGI lost? Or is the sender core hanging?
-> > 
-> > Both: the SGI is lost, and the sysreg write does not complete, causing
-> > the sending core to hang.
-> 
-> I don't think the two are distinguishable. You might want to simplify
-> the commit message to simply say that the CPU hangs.
-> 
-> [...]
-> 
-> > > > +		 */
-> > > > +		for_each_cpu(cpu, mask)
-> > > > +			gic_send_sgi_via_rdist(cpu, d->hwirq);
-> > > > +
-> > > > +		/* Force the above writes to GICR_ISPENDR0 to be executed */
-> > > > +		dsb(st);
-> > > 
-> > > This doesn't force things to be executed. This is about completion of
-> > > the access, and with an nGnRE mapping, it doesn't enforce that the
-> > > stores actually reach the RDs, only an arbitrary point in the memory
-> > > subsystem.  The only way to guarantee this is to perform a read-back.
-> > 
-> > Understood.
-> > 
-> > I hadn't considered this when writing v1, but on further reflection, I
-> > don't think gic_ipi_send_mask() needs to wait for the target CPUs to
-> > handle the IPIs.
-> 
-> It's not about the target CPU handling the IPI, that'd be crazy. It is
-> about making sure that the IPI request has been observed by the HW and
-> that it is not going to race with something else.
-> 
-> > Given that the GICv2 driver does not wait for MMIO
-> > write completion either, I don't think we need to ensure completion of
-> > these writes before returning.
-> 
-> GICv2 has different architectural requirements (i.e. none). GICv3 is a
-> bit clearer, see the requirements at the end of 12.1.3 in IHI0069H.b.
-> 
-> > 
-> > If my understanding is correct, I'll remove the dsb(st) in v2.
-> >
-> 
-> As indicated in the spec, you either need nGnRnE+DSB, or a read-back.
-> Given that Linux uses nGnRE for all device mappings, read-back is the
-> only option here.
+The formats are fine but..
 
-I understand that section 12.1.3 describes how software can guarantee
-completion of a memory-mapped GIC write. With an nGnRE mapping, if the
-GICR_ISPENDR0 writes must complete before gic_ipi_send_mask() returns, a
-read-back from each target Redistributor is needed.
-
-What I am trying to understand is whether completion at this point is an
-architectural requirement for this particular write, or a requirement of
-Linux's ipi_send_mask() interface.
-
-I could not find an explicit completion requirement for ipi_send_mask()
-itself. The normal GICv3 path also appears to return after an ISB,
-without the DSB described in section 12.1.6 as necessary to guarantee
-that the associated Redistributor has observed the write. This is why I
-am unsure what completion guarantee is required here.
-
-More specifically, I would like to understand:
-- What could an outstanding IPI request race with?
-- Which component must have observed the request before
-  gic_ipi_send_mask() returns: the CPU interface, the sending PE's
-  Redistributor, or the target Redistributor?
-
-A pointer to the relevant architectural requirement or an example of
-such a race in Linux would help me understand why completion is needed
-here.
-
-Thanks,
-Kohei
-
+>   static const struct camss_format_info formats_pix_8x16[] = {
+>   	{ MEDIA_BUS_FMT_YUYV8_1_5X8, 8, V4L2_PIX_FMT_NV12, 1,
+>   	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
+> @@ -277,10 +365,9 @@ const struct camss_formats vfe_formats_rdi_845 = {
+>   	.formats = formats_rdi_845
+>   };
 > 
-> Thanks,
+> -/* TODO: Replace with pix formats */
+>   const struct camss_formats vfe_formats_pix_845 = {
+> -	.nformats = ARRAY_SIZE(formats_rdi_845),
+> -	.formats = formats_rdi_845
+> +	.nformats = ARRAY_SIZE(formats_pix_845),
+> +	.formats = formats_pix_845
+>   };
 > 
-> 	M.
+>   static u32 vfe_src_pad_code(struct vfe_line *line, u32 sink_code,
+> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+> index ff09873706c0d..6f3de2c185bc9 100644
+> --- a/drivers/media/platform/qcom/camss/camss.c
+> +++ b/drivers/media/platform/qcom/camss/camss.c
+> @@ -4434,7 +4434,7 @@ static const struct camss_subdev_resources vfe_res_x1e80100[] = {
+>   			.pd_name = "ife0",
+>   			.hw_ops = &vfe_ops_680,
+>   			.formats_rdi = &vfe_formats_rdi_845,
+> -			.formats_pix = &vfe_formats_rdi_845
+> +			.formats_pix = &vfe_formats_pix_845
+>   		},
+>   	},
+>   	/* IFE1 */
+> @@ -4458,7 +4458,7 @@ static const struct camss_subdev_resources vfe_res_x1e80100[] = {
+>   			.pd_name = "ife1",
+>   			.hw_ops = &vfe_ops_680,
+>   			.formats_rdi = &vfe_formats_rdi_845,
+> -			.formats_pix = &vfe_formats_rdi_845
+> +			.formats_pix = &vfe_formats_pix_845
+>   		},
+>   	},
+>   	/* IFE_LITE_0 */
 > 
-> -- 
-> Jazz isn't dead. It just smells funny.
+> --
+> 2.55.0
+> 
+The SoC is not relevant to the patch, excise.
+
+---
+bod
