@@ -1,134 +1,111 @@
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2898C388885
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 23:44:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791416670; cv=pass; b=NdZ545dd3+ScPzZWB0XT3rBDt4bzIN/pljhYIguROjMnAy7GeFt1iGV4x5j+wyfXwBVTzUxZvZWgbw7eFHjKTwyVPlAxNZBKwkI7sSVmxm1HJX1iXa8BgKKI/ufyq71Ta/WQOHIH3gi659Z34xELEg5reO1NzedRbDtMJdMqM/8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791416670; c=relaxed/simple;
-	bh=zj6ByHcx9EXAkKLvo7VN9yTxNWqqlfy+DFuHpA3MNsY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JRd7qW9c724D6DoKMiRpQQL3Qg8zF66MURp/8sM/ZXME6qgFoHHHavIkLmxFnjJlEEUrwrXHXWy/4KkozQOdqnz+KO8Pn2/ce8zM50hkMzeACrbA3zOzvH75wLXY2EWdaGVYSus23xnyyUDciRZ9O9RlXrbizky600p0PbA78L4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=VwH87YPV; arc=pass smtp.client-ip=165.173.182.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC573290D1
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 23:44:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791416681; cv=none; b=S1PeyeIOGrshsU+BqC/I+EPBuIYSVfHH1gEDzuspP0YQWAcX4ISbm/DcjkwBoXm6HXSXcDti0uhQPuZk/5z0Z54BOuFxmrMgmIRy584XWUJLvX5/iYcGrF9Z6tIkDevBb03mQBMCuOqegCz60QWH0ZDxEczPJ74hTHc6ziF4P7Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791416681; c=relaxed/simple;
+	bh=YARXCShK/9vVXfiD1gwkK6sm53zPdGGWb0rudFpHQbQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jWME/a/1RjRqmg4b2aA0qaf5/2Lt7K+4mlJvosc2vLKAf7TmB6N0EtqTXUxf+CMgyQtiv9rNPhkTwKHwzx9G5DOLfdkHnEAU3oHRgadNvJNPFyfnK906WE6AXK8s0aJ3hAsJy0u3SuMqmk7T4nxZyKPxJ4Uobq5ix1eJUALCoM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EOIspdG0; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="VwH87YPV"
-ARC-Seal: i=1; a=rsa-sha256; t=1791416650; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=mdqc0DGAvmwr++B8TNemVMswmPXdDWiXFhTsUWxWrvKHQmvGtrdv+RaGoFOl4YNrkzQln1vPV/b+B6KmF10qmWjgL9KaiBKlQoWEDwaMKACuJsYSlz67tTq5VokjGQa+PcKbSETPHcIZrdfSY6n2/1ElvM+hHRk7//cQvkdUhpI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791416650; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=dDjMh1GirSnCP3cCmJwz3WFUErTlegEWrnDqmZwHstQ=; 
-	b=ZrcsFtI6lRExPWNrYoXtIlg7RDgkRyJ16i38fJ3Qz9SGKxTuU1ooIxL6TyLNr5xUl9RAZYVRYKzXi+gQ35O+kKAy7X9b5+PqcLwvYrSGUJoVNZitemS3ZS1UgkLv0fGLLeUBAlhgV+RxfpFYrZZT01OzhKZQnBzzK5L/WiCD0SA=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
-	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791416650;
-	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=dDjMh1GirSnCP3cCmJwz3WFUErTlegEWrnDqmZwHstQ=;
-	b=VwH87YPV9gxb+OwfUm7V0Ai+3DJOvSFJ6ru3Kp8cG9OhsTLY2vak6pXjh3GDZPE0
-	4ZVepiwrvzD3xuxiVwQhqWyaCZyY93Tvr/YNPMeF1QF+9s2132Uf/IBLLSKDREBBrAj
-	sGirbynrx6ppjlCOrY3DA+s30ImCUciGOjTpJRJQ=
-Received: by smtp.zohomail.com with SMTPS id 1791416650058182.62940927185343;
-	Wed, 7 Oct 2026 16:44:10 -0700 (PDT)
-From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Thu, 08 Oct 2026 00:42:55 +0100
-Subject: [PATCH v13 12/15] drm/panfrost: Skip cache flush/invalidate when
- enabling perfcnt
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EOIspdG0"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a16aaf2067so53261505e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 16:44:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791416678; x=1792021478; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KVyDlZ+Tk8cP0JL9kHRLRfhLRbrCqUU0BJbBP7MDZts=;
+        b=EOIspdG0YMYc6fC8A7mEqcqUIfuLRLfSr36KWWWAOthJszpcPRAvx820SRXYi9pzKa
+         Ndgoj9Ibr15wWDazal2Nz8qrMsXaGgXvBGG2BNVH1LZSGzqmRdpOTGBnBD6LgMPXX9br
+         qfUgwEYjsBNd0byzGnypwOeLtpSLHhgv6nddgk4+6sfyfwHmme4QV+Tqm4OXOs9/P6Mn
+         Z+JXd8WzlIv6OFilHhhv5iWo/KAvM8bEWZXI0VAyA7DlCpbLHzRPrkYmShrcZAdGdUAS
+         1NceryOYI0aRZNWjgpIYKBKcBIZNtShV465vbxqNievzviOnoXpACSTBFHFc3/d4CrMc
+         hKMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791416678; x=1792021478;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KVyDlZ+Tk8cP0JL9kHRLRfhLRbrCqUU0BJbBP7MDZts=;
+        b=o8Luuh07xot5uaAzf8K1pXPSseIJjESaCeknB/fK5dZmfpgWH9K5RyVbbnc77fklZa
+         f92NIrhPYifnABYB3On5O1zOzcsmkXw4QQv2tqtXQd2WSmD+EIUbKucRTwd+dtvXGe5O
+         MI55kkAPc6z4n7gzPnPojjOYAsH+eBoPF4BUw0q6jxIbsn8TwJiIKXhbHu1HfjMaaIR6
+         QwgwW4V3jgf8zfOJbXOrkyZwoAAce9g9/WbnxDfGOTeixyUF6fQZXEbJMlcr6dzrup0K
+         DoK1iqR9wHwRiPyYdjYinpXu8xmVrLTpHdGxxlL7ue0MynCng8o7NG3bmLWLQ90mdOfr
+         ZLRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwerBjZSUjerNwllIiG6cDMdmEgN3UTuMXaVYUBfbYaISCXBTflwMtGnCpSRRNOZfmKQ2CbxTmYiJf3jGc=@vger.kernel.org
+X-Gm-Message-State: AFuF++ku4hyrGkcA5vAzL7bnj42mUfTKB2/U2NyhZvKGsrU2XmtvmYrd
+	d0brznh9Jc0TxpwyZkmVnjZquniOA8z+KYVTa9HYdZYcCGgwhLoFUlm/
+X-Gm-Gg: AYBFou0DoLNo/HGZ+tnCkAG6ZxJsPH/AE8Zb7OUG8qKyk/TsyaQt33Qu+EibKqZB7iX
+	lty+0hbynWCMqwYTo3eHBMr2EO3GAU6Lo7tGOiPIP9egRUhQ+JgSjr/iGRnoPjwMPA3oDu9FN85
+	y90QcJl1hoWndOWgIbV/IMUK8Yan1RwTgd6tf2f1isCihakw7PR/eeuE8hCKIfawFnSOiG3ls7T
+	n3LTlpbv3vQjfMCNr8F/VUsQ1KLLzhMXZx4JZYH0Cv733px5/LtWBQDGEVCvx2R44JUTT5d5t8l
+	/DrebgijwDv1ZlXkNm2+cYR8T1j5AhIUw3tYl0Wx6/9xTulngirjShUUKBQNWaODLrnZ/qOsGcy
+	7oNgOz3qcSqF7/urbQQVZO/PuFh19pdjc+hkioKI+o8b3HlM1iuaj2rVZmMbeyoiXHD+k6cqRGa
+	lDbBLTZ/d3sNuq2lSuvZTHXa6Vh/o9vVT2ZcD6lVLEZR6bx13zBZlGLaJa+n4Dg3vFmzbfUOEgE
+	0XMzl+Fj1qlAqkxEdCiis5fAkcc2WtX9N5qDoetAVRxBK01X7FLERYRdKE8JbJZkx3Mm6RPj/3f
+	080BY53zCwhecg4=
+X-Received: by 2002:a05:600c:3152:b0:49f:ce72:e931 with SMTP id 5b1f17b1804b1-4a180650fc6mr61558085e9.35.1791416677952;
+        Wed, 07 Oct 2026 16:44:37 -0700 (PDT)
+Received: from SD.localdomain (heme-13-b2-v4wan-167795-cust403.vm32.cable.virginm.net. [81.108.45.148])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f4480a4sm76816995e9.0.2026.10.07.16.44.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 16:44:37 -0700 (PDT)
+From: Prathamesh Deshpande <prathameshdeshpande7@gmail.com>
+To: Leon Romanovsky <leon@kernel.org>,
+	Tariq Toukan <tariqt@mellanox.com>,
+	Saeed Mahameed <saeedm@mellanox.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: saeedm@nvidia.com,
+	tariqt@nvidia.com,
+	Prathamesh Deshpande <prathameshdeshpande7@gmail.com>
+Subject: [PATCH rdma] RDMA/mlx5: Cancel deferred page-fault EQ work before teardown
+Date: Thu,  8 Oct 2026 00:42:11 +0100
+Message-ID: <20261007234216.2765-1-prathameshdeshpande7@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261008-claude-fixes-v13-12-d6a493185860@collabora.com>
-References: <20261008-claude-fixes-v13-0-d6a493185860@collabora.com>
-In-Reply-To: <20261008-claude-fixes-v13-0-d6a493185860@collabora.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>, 
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Faith Ekstrand <faith.ekstrand@collabora.com>, 
- "Marty E. Plummer" <hanetzer@startmail.com>, 
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Collabora Kernel Team <kernel@collabora.com>, 
- =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2207;
- i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=zj6ByHcx9EXAkKLvo7VN9yTxNWqqlfy+DFuHpA3MNsY=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqxtj7qxaHMkMdY/KzxtZEZxOdYCcJmAOR/q5BX
- 8mcssEIe7OJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCasbY+wAKCRAOJn5M7lND
- PUzMDAC3nuzfcWSy9SJb7SrOkJx1exy4B2yKwCCHfQw3UqlSrim4nYCFyLcev/DUGpsEgKGToPg
- lpKfyL/lDoARDfrqfHafNMzWtcOTgym6P6RTeHCSGDtcI/IeoXXd5T/emCtkDCjprvG9Ll4pxWB
- FTf5BpaefumUMdcaSo/r7hw+pyxJUaNagjGvggtIuPmYsm81IACtDA0OB150YqV5uMSb0ZXj8/c
- /otpyMgpO11e6oGSXz8T8FddeQi2YGLDOSFEPEgs/Fooi0cd7ZY3Osu3KFXaMZOXqCioBUfsGbm
- +MQMynZDG+8DTF0x83RvHrt1VyzVBTtcvz5y9GOGIpWBOmEX8Pci4sF3VLj2TE7vvC3HTsplXbY
- cXQxYxMktX6tnfUmCOfiqSoCphbTAlyWWTJb6colGVDLQV4tmgfnABukHSRse7mx68qvbaR0UjO
- 73VZdeuybzGo/Bgi6v5gI4UDJol0gCWnev2yXelD72HPL9I0clIBuHW0WWP773ZjX1qO4=
-X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
- fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
-The GPU cache flush/invalidate operation is unnecessary. In the usual case,
-before a perfcnt dump is requested, there will be no stale lines in GPU
-caches for the sample BO's physmem pages, since their memory had not
-recently been addressed by the GPU.
+Page-fault EQ work can remain queued after the notifier is disabled.
+Destroying the EQ before cancelling that work can let the worker access
+freed EQ memory.
 
-However, in the off-chance that the sample BO reuses memory that the GPU
-had recently addressed and for which it contains stale lines in its caches,
-there already was a FLUSH_PT command being issued as part of the buffer GPU
-mapping procedure, so by the time panfrost_gem_open() comes back at perfcnt
-session enable, stale GPU cache lines should've already been evicted.
+Cancel the deferred work before destroying the EQ.
 
-In either case, forcing a GPU cache clean when enabling a new session makes
-no difference, and removing it simplifies handling of the error path.
-
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+Fixes: d5d284b829a6 ("{net,IB}/mlx5: Move Page fault EQ and ODP logic to RDMA")
+Signed-off-by: Prathamesh Deshpande <prathameshdeshpande7@gmail.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 15 ++-------------
- 1 file changed, 2 insertions(+), 13 deletions(-)
+ drivers/infiniband/hw/mlx5/odp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-index f71534e741b6..ffc77121070e 100644
---- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-@@ -124,21 +124,10 @@ static int panfrost_perfcnt_enable_locked(struct panfrost_device *pfdev,
- 	panfrost_gem_internal_set_label(&bo->base, "Perfcnt sample buffer");
+diff --git a/drivers/infiniband/hw/mlx5/odp.c b/drivers/infiniband/hw/mlx5/odp.c
+index b8618610737a..1f28c30095dc 100644
+--- a/drivers/infiniband/hw/mlx5/odp.c
++++ b/drivers/infiniband/hw/mlx5/odp.c
+@@ -1885,8 +1885,8 @@ mlx5_ib_odp_destroy_eq(struct mlx5_ib_dev *dev, struct mlx5_ib_pf_eq *eq)
+ 	if (!eq->core)
+ 		return 0;
+ 	mlx5_eq_disable(dev->mdev, eq->core, &eq->irq_nb);
+-	err = mlx5_eq_destroy_generic(dev->mdev, eq->core);
+ 	cancel_work_sync(&eq->work);
++	err = mlx5_eq_destroy_generic(dev->mdev, eq->core);
+ 	destroy_workqueue(eq->wq);
+ 	mempool_destroy(eq->pool);
  
- 	/*
--	 * Invalidate the cache and clear the counters to start from a fresh
--	 * state.
-+	 * Clear the counters to start from a fresh state.
- 	 */
--	reinit_completion(&pfdev->perfcnt->dump_comp);
--	gpu_write(pfdev, GPU_INT_CLEAR,
--		  GPU_IRQ_CLEAN_CACHES_COMPLETED |
--		  GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
-+	gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
- 	gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_CLEAR);
--	gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_INV_CACHES);
--	ret = wait_for_completion_timeout(&pfdev->perfcnt->dump_comp,
--					  msecs_to_jiffies(1000));
--	if (!ret) {
--		ret = -ETIMEDOUT;
--		goto err_vunmap;
--	}
- 
- 	ret = panfrost_mmu_as_get(pfdev, perfcnt->mapping->mmu);
- 	if (ret < 0)
-
 -- 
-2.55.0
+2.43.0
 
