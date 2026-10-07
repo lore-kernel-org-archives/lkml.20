@@ -1,84 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A531218E025
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 14:51:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC0034B4027;
+	Wed,  7 Oct 2026 14:55:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791384703; cv=none; b=FZIpoFzDCpnVUrIayYeNKCcKLZuNlQ2k0kxF1tboQaYyHKIwPfxQl9AL6wYvNgadb8Y2+LDPxOcA95qvTUd6zYwp9qKU3igm+2MEadJOXtPPenW+9mAmziPr4ib9f/Vbi2W/nUjjFuZVrNJ5PuRXazVL8w4VRj7mM0dRTeaKuRc=
+	t=1791384918; cv=none; b=obcboxQkLW2phqGM2SgHap/VaCfMuWpNPZvaEr2VHR7CgoTv1xiLUWuehUJRQHumTV3HKQSi0Bun6yFu1R4PF9aDAVyWgMbACKOqZ0EburbprY9U0QF6GaHsMHVWpoWO3FlN4iPpjgs34sCY+i5bzA6XTQptierx7uO6sshoiCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791384703; c=relaxed/simple;
-	bh=64sH55gGEwMY+Fw2KXIImqn0GDwpwS7PI7uWlPJf1Zc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WWOizQYP3sTTWIt9CanYhHn4yzKFgTken4hbWkTow8qlPjWn+3KCjHlcHpsbAFqacKsTvKYZ2aUEghyvOLIRzBpUg98+TZFfG6FvnI87Ccm3iw0FetWYQyRVHxYtxkG5YAg4GG7xqwnZ/xkBQyvBgq+EBQl2+wsYoaMaQDMQC54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bWHIwmCB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791384918; c=relaxed/simple;
+	bh=jRuZf2Z9vpenxDb+GYJexrqjYoXsd4bLd8+09fF67OA=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=rT3hg3laK9CWeH7dqPPjm04T/unBDiAnG8v246vzTIz88xX73EYPkjlGkCTZTsfT4deQt8IPgsh2wsY2QPhu3FSrsZDVb10pcL0bVZXEYwdXiXmZg18zORP3RcM3tEbyRldc+Yb8L5LUG81lCmqc+HHj16kuk1DXKCH/JckJeUs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=ei/vZLNJ; arc=none smtp.client-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bWHIwmCB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D8D61F0089C
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 14:51:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791384694;
-	bh=dq7PEjyV2HZQoJ2a7ZdJJNJjZ4wuz8neRmWl6VRJ6QI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=bWHIwmCBNQ5XAF7T4M3OSYYT4dHBLDuruLb5jv1h+NJBpbhPsb0VeEOrZgmIF9MvU
-	 vTsoUKnYBJPU0rdhbf1IoDsYP5Buci8kf/QupsIciR4wWwjwg/OcpfkhM/IASbbk33
-	 v+hST5EVirD4bsbsreM/5xMZBy+5sn2nGk/1EMhH/LdjwlEhUDJ8D257ZzeOxkwp99
-	 a4VIRVew7EeXovW1h/pMbXmohJTvGVhmYBHXm1ezzPPz6LY6mkOJEWbAct6HxHlGTo
-	 4OI9PWrFKN/DH67CVBnDMJZmUlMD/YxHLQvnXFZHiD7Sv+ia37rk6WPCRV8Zhm+47G
-	 IKnSIjRzenK9g==
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c2a832c6554so293497866b.2
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 07:51:33 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxH/+ZK36xKlFii3tfSDpnvCJZeKQ3YSw67GJASKhpHQgWFQx/tih/jcaqhhTpf25AycN2+OqgP6D1bVXQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLfDOFD28+X5bKxAff0tiYtDkt3c5IzAzMk8Ibh/oqmEe/NqOFA
-	hZCHt990/PRz9WijiGsxhczo92C6T07aAM5q75+i/XWnOYMDMhwtBiXxeOkXqqV66hpjeuNo9DL
-	7KxPDKDBP1eHN+ZRsXlFXW0ySYmm9mEk=
-X-Received: by 2002:a17:907:c1f:b0:c2a:f1f5:51ef with SMTP id
- a640c23a62f3a-c317bf5fd97mr245414766b.20.1791384692658; Wed, 07 Oct 2026
- 07:51:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="ei/vZLNJ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=7efoYhAx0UinMkFbLmi5X6yxMmqYY3kQVGPcfxylJ5g=;
+	t=1791384914; x=1792594514; b=ei/vZLNJ1qd9NalPYT4ZRmxVmMTz56qqRgmYYgdhpdpycS1
+	pYdhjHXhFrTqi6orFLVcdQ/6g3eHZbYXm5acqkMhGR4UXtEMRSRtjbCk0gJiKPtGJJaK2k7TlxC6X
+	Yt/B0T1mZFadoFrE7LzK4xDtn1BHy5vuKn3ve2a4lz7yU3vhyLvEZuvMQ3bqRnzoMS5AGmkWwQCHN
+	zbNaBZdpeEIqm1zXYcZUCpBoSs7UnNT7dM1Rj0urzwgQBrc+bOtFmUKn4hmoQF8BAeFDwBNHBNxXn
+	f1iHIo1ssoXaFNWqtJtJKuQQC3ROPql3Bun58FTBAGiuVeEWjRkoGrOkjEvAUIWw==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1xET30-00000008AQM-32Ya;
+	Wed, 07 Oct 2026 16:55:10 +0200
+Message-ID: <16aa99921c4e92e8d4da3c84aacbec2e673666aa.camel@sipsolutions.net>
+Subject: Re: [PATCH] wifi: nl80211: don't WARN on a missing self-managed
+ regdom
+From: Johannes Berg <johannes@sipsolutions.net>
+To: =?ISO-8859-1?Q?Fran=E7ois?= Roux <franzelfranzel@gmail.com>
+Cc: Diederik de Haas <diederik@cknow-tech.com>, Emmanuel Grumbach
+	 <emmanuel.grumbach@intel.com>, linux-wireless@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Wed, 07 Oct 2026 16:55:09 +0200
+In-Reply-To: <20261006161744.3804-1-franzelfranzel@gmail.com> (sfid-20261006_181759_239008_AC7457D2)
+References: <20261006161744.3804-1-franzelfranzel@gmail.com>
+	 (sfid-20261006_181759_239008_AC7457D2)
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261007074444.84875-1-tjdqudcks0424@naver.com>
-In-Reply-To: <20261007074444.84875-1-tjdqudcks0424@naver.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Wed, 7 Oct 2026 23:51:19 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd9sNGp8G8N0D=4a_SX89L7zGGGcH_kN0r7WUhvur=fc=g@mail.gmail.com>
-X-Gm-Features: AclHuK_bkq-JfZGVCFr8SYhVctpq1iWXVLnpTj4qGEFOmeQKJ5bY589IIitve58
-Message-ID: <CAKYAXd9sNGp8G8N0D=4a_SX89L7zGGGcH_kN0r7WUhvur=fc=g@mail.gmail.com>
-Subject: Re: [PATCH] ksmbd: validate share path for batch oplock reconnects
-To: Sung Byeongchan <tjdqudcks0424@naver.com>
-Cc: ChenXiaoSong <chenxiaosong@chenxiaosong.com>, 
-	Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, linux-cifs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-malware-bazaar: not-scanned
 
-> @@ -2489,9 +2489,10 @@ int smb2_check_durable_oplock(struct ksmbd_conn *conn,
->                 if (opinfo->level != SMB2_OPLOCK_LEVEL_BATCH) {
->                         pr_err("oplock level is not equal to SMB2_OPLOCK_LEVEL_BATCH\n");
->                         ret = -EBADF;
-> +                       goto out;
->                 }
->
-> -               goto out;
-> +               goto validate_name;
-SMB specification(MS-SMB2) explicitly skip path name validation. The
-filename mismatch check applies only to lease-based opens
-(opinfo->is_lease in ksmbd). This violates the reconnect semantics.
+On Tue, 2026-10-06 at 18:17 +0200, Fran=C3=A7ois Roux wrote:
+> nl80211_get_reg_do() has a WARN_ON() for a self-managed wiphy without a
+> private regdomain. Userspace can trigger it with a plain
+> NL80211_CMD_GET_REG request.
+>=20
+> Drivers can register such a wiphy first and set its regdomain later.
+> ath12k, for example, calls ieee80211_register_hw() and only then applies
+> the regdomain with ath12k_regd_update(). iwd queries the regdomain of a
+> new wiphy as soon as it shows up, so it can hit that window at boot:
+>=20
+>   WARNING: net/wireless/nl80211.c:10828 at nl80211_get_reg_do+0x1d0/0x1fc=
+ [cfg80211], CPU#5: iwd/721
 
->         }
->
->         if (memcmp(conn->ClientGUID, fp->client_guid,
-> @@ -2528,6 +2529,7 @@ int smb2_check_durable_oplock(struct ksmbd_conn *conn,
->                 goto out;
->         }
->
-> +validate_name:
->         if (!ksmbd_inode_pending_delete(fp))
->                 ret = ksmbd_validate_name_reconnect(share, fp, name);
->  out:
-> --
-> 2.43.0
->
+I'm not a fan of this, I think the drivers should have the regdom ready.
+
+> The same trace has been reported with an Intel BE200 (iwlwifi).
+
+I _thought_ we fixed that issue.
+
+Anyway I think we need to fix the bugs, not paper over them. If it comes
+to it we can even put a WARN_ON there to reject wiphy registration w/o a
+regdomain. There should be one. As it is, iwd will get empty data or
+something, that makes no sense.
+
+johannes
