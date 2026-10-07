@@ -1,263 +1,393 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B09A4B0E28
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 16:28:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A18282D9797
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 16:28:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791390525; cv=none; b=OqC5TFJlyfLQ5MZWtvf7a3f45/fzK3NOhPF1Zu2NHBzB33wPMHrPr8+Z7dCDSimzgaXAHDFUtuPLvyvzZWnsVZVeBA6iJE7j/msf6Q79ienuGImSHm+DgsEF9SqSo85u2HRDcGHAAFmlxgyRH3iFp0LdjQvn6LQiHiNCv2Nf7T4=
+	t=1791390540; cv=none; b=dU5A7N9BtH9jvNJqnfqlgdDCBHhgOU5BTg3wn0aHlP9y0wVnSUbg82ewGb2HLfv3yZJ83W9iBysTxqA8Ztmr1Md82R+UeZxmGrsSyXUS62mNz7lpo4OT+thrOQvngKrIeVX6qIZIVuYCp9ESS4K+7zwT4nxrU2WZWGS19SU350Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791390525; c=relaxed/simple;
-	bh=259dEDaWlzVpxlGUwhq/AX7U3geSOV8jkOQL+05Kdks=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=tdnJKykxV4a64eAcG2+xmE2B+k5LUyK//5A1UrF3TfKCyqffC8GgPiRCKDiBANwn/9Oka8e9XdUGm1mA5y3tRCFhSgpnUQjj2MSLk6uUJTcNoctCPLbUq73hehTOVcLzddhL/zVqitvHxbdA/qaUO25gQ4uxPF/UR6GIcQxUEWU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fkMdRjwf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NSTLhUdT; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791390540; c=relaxed/simple;
+	bh=YjVbySo8s7SI7EpG1dwqzESIqbmr48paG/XLJpeI8N4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KZQkbaAzlR/k8c8YxFZzlfSis4xLF8m6bRKkrVg5rj3tlRLYPjrkOX4VaIxxbvwRxQ4TwuKgS9/rMg6UFrpv/AsE/bTqla6FY7pzvyyF0t7HyQ8LUQhWCcKG12m6UzMQ4MmOKflgAbD8XDmsjUHlSApfeZ3XH00K3O2u0hjWR1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f9N8u+Bk; arc=none smtp.client-ip=209.85.208.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fkMdRjwf";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NSTLhUdT"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697EtTOd072537
-	for <linux-kernel@vger.kernel.org>; Wed, 7 Oct 2026 16:28:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=hCX9hHQJ6nF+kufyd4tevz
-	lH5RbSugP5//mR07T9oPY=; b=fkMdRjwfpC3UYuSLGOPnswa/VTjmHuVP2RP3tk
-	Qaq365z8MwvdZjjouLDxNtU2IVBZjuSmUxvauu1a3eDeWwm8s1c2DU0gIGZ5blfg
-	5/evQSKWZrc+Zh2ufid8Fi1bm4uwQtKcfNBmh0wr+sN9IrEAFBFMS2YVZsTiGQ32
-	bt/IFnF9DxzlagvhMj1KxggOHj0A13/B0om79VVIkL3enykO7Gu1P8LZzp0Pe0+Z
-	SVw2b/OQMw+cpcQg7i/kQ4m9Mnnv/JDeDgkFv66kWqVIuf6MUWu1ANe9mMTsr4I0
-	M4mLaP+rj5VtIapW2ENHNd+uNs1aQM5dFZuLpz+KC+PMlaqg==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5pv70rbx-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 16:28:41 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93ce7a85f04so793847585a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 09:28:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f9N8u+Bk"
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3a771ad2a9aso18176971fa.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 09:28:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791390520; x=1791995320; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=hCX9hHQJ6nF+kufyd4tevzlH5RbSugP5//mR07T9oPY=;
-        b=NSTLhUdTCa2evXkHNjZ3kAzkw3DnLADM4+DsOtmuFyPDCQ9M1+dO9oNr5RFF5K5QaC
-         /R16PbqUlobZD8rWm5yN3Z/FPI845mjB4KSEpe4HE3B2hDa2LSd3258LyAbHngn5cNEZ
-         FXH/IAdgMngyQc7Th/JVxsVQ1exCxc2xgrcNe8Ihp9a7Ie9HCIqYloRaTmpCw0Bp9vJw
-         GjtOm2JWP7dUrEt2Y5kDkIVAo4wjKFbSijmAxcTUzFR7qus53puzcC5tjRqmxgaa/Erv
-         534RE3lCYSUVd0rwAnaI1mlEYaOg+bsgmb44y/Dmb+jcTdGYDPrTjy+6CqpO3HW2wZS5
-         HbyQ==
+        d=gmail.com; s=20251104; t=1791390537; x=1791995337; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RVZzMnsixpFGARtt8IMs8sBvKsV/W5PsRCYeKzmQv9o=;
+        b=f9N8u+BkTiUy0AXGB4R/qzBf04A5TYHikniMFMH9Z8HACqDYAlLEtLuyaO0LHnondY
+         B9XD4LHQ7tpQ5RnFZhOkIuu18eHlyAJC8LX97Kfcbso8StKlRC6OFYkw+Qx7x6K2spny
+         eNE6NITuT8+UOaD0cQZEsycoVPIddbKrZ6SKx/0MTPzx7Q5azzqAa3weO+WVbLATL2bA
+         bpDVLl7g0Oa0zAHEUOMSQb8IeLJEjgobNFXaaUalkNnjmpVTaqU1BVw3HA/aRaKlVj/p
+         vOm7EqKbnE/VYp8Xz1avAHMDdWSGhnIEE9Ti+aJrmmKcqG5qYMpAuiRr0ryDV/BcY+i2
+         WCfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791390520; x=1791995320;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=hCX9hHQJ6nF+kufyd4tevzlH5RbSugP5//mR07T9oPY=;
-        b=j8aj7oVrpZnhMdob1QHBdKYH0AVc4UTRiEpzA4LGdY+TxNz6LlAd3ao7BXByW5ZrDK
-         TQ5eAzZJM71XYq5AEubCWeT1ihtrYpxpL+XXYJdHvjXvwrv08MaoF3PIrpiuGwrNWUHI
-         1LOwGLTNjgoKy4giqrjQIz4ClyqlTv+PHZPyML3BLfDUm7IZqAPfJynjYbDjjK9rgE8o
-         f2TCILzEzr/e3tmw0G+brkWroZvw//faDYk8v8yqFbYPG/Ip7wl3mvQY1SQt9IQefg/Z
-         aKcxpBbZFUJxCwP/ULS69xaLtEsz7HSKlbIUUb+Aku3wqM37u9b73m57MaWM0sQHjeit
-         k86g==
-X-Forwarded-Encrypted: i=1; AKwUvByWqE8LcYcIKAp2k2VdZA/3KD5AKuGaOsd/UuBQslhlHwcQuYTRcNJS8gvCbZN5xlBEwpjpXh+7jArs6Z4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mbYKQozaRRAOHsn6a/6V9aUQmyJFIdMdRCUsWo9F5fK0GS9ywB
-	ePfFsP4j+Uj+BTLyXLiRDQ2J1Vw08Z4DwMtLRLJE0TAVgLqPSyZyf8yGy4OHOmn1LhdJIwEp61Q
-	aOQDVqh1SKxg+NSiK4s4mGQuO6AqpmwX/BoJSdXR36mRB+XXCGyDnbr+EkNBVAuNBbv8KkiRNWx
-	4=
-X-Gm-Gg: AYBFou2sYC1RpTXitr42rWRmQPHXUMbBDtaq13sz9MnzfNiLxMmaI8unGyn4dt5pPEN
-	xiIMoiMQx4XCcbJvTyv7F7dJA6JRxv0q7DCrjkWvgatowTaMePJDF7F/65r3xHh4KR2EueCEYKv
-	+YMMj/8R8oNRd698TiQLgLJWIpg8ZcP7fenT+UcQ/CdMeHYDaDxYhfiupJOFLBynEC//66CmTQl
-	7WYrE4EdTwQf9XZGttfd1SksjStPvFlmzhCKgXfSohl449OnXTyiUvyIYzU61lTK6vcyotJP5Ez
-	/jUIV0rb7AIQEFmG2ZumdzCCC5uXJTzv9yy5OJVW82JApHBtgDpwbAd5CE6yvesySblAQcrnRNL
-	EI5qM/Snq
-X-Received: by 2002:a05:620a:40d0:b0:93e:9808:8d6c with SMTP id af79cd13be357-93e9b84ae41mr560209785a.70.1791390520087;
-        Wed, 07 Oct 2026 09:28:40 -0700 (PDT)
-X-Received: by 2002:a05:620a:40d0:b0:93e:9808:8d6c with SMTP id af79cd13be357-93e9b84ae41mr560199185a.70.1791390519216;
-        Wed, 07 Oct 2026 09:28:39 -0700 (PDT)
-Received: from [127.0.1.1] ([188.27.161.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1808d7b52sm31287335e9.2.2026.10.07.09.28.37
+        d=1e100.net; s=20260707; t=1791390537; x=1791995337;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RVZzMnsixpFGARtt8IMs8sBvKsV/W5PsRCYeKzmQv9o=;
+        b=PktwgiA0eQJ6PmK4rI0+9qQmjexh3r4wThT7nY4/xtz/tqLCVgz4Exx3gcyfDOwVAg
+         0VuqszbsD+8m/3NUOnZXB/4zp05lGFo9hz1CH0kMpuszR83VkaLYYi5Op8G+s0lUq8IG
+         rekU9znYHnNdk5FLni/6sN1SwTlm5aTb6mqaPQkHfq0zgXLhJ17yk9TxMeJywPJ5c3e0
+         eUB7UrCcE931aSD4ZC5Ao8ElCGdOxqfOWhVhvbdaqgfdbxgKqWArEhirxI+lvk/aL8sW
+         D5sgPbqvtB0Yt4ADrPiNQgcWRKgEciMr4lI7r8qBOfj14hcgbslmOwmHRMmiPgnC5bh6
+         wT2w==
+X-Forwarded-Encrypted: i=1; AKwUvBwAR1DMd1gmkWB0wAIC2UXGoHGtlcxBd7Y6QgBDpd9MowOkhk0c/2mOHlCq2K9e133tERUD3zqISjJdf2Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJOLuPivfMO16drpDfqXcP3otXJcamaRQ4f1Mazd5By1OlaZjHu
+	HGorpPq8k2Mm0q+s22QlC6Rci6NHwhMdxftffVpP1Ml/TGq8FKzQxVDUwu71bA==
+X-Gm-Gg: AYBFou3Uxuqv3SZKcmaDzYGLkoICbePm7Nwpk1j9Bi2rI84lDE8afAvCqv2iNHEkPfW
+	3vpF2H1MmyrpxWYZ9v0nUOEtvZlo5sG9DFap0I1QmXmiB7fMIIJBTDTRjf/mSIxWKXoaoBg4Y3v
+	hr8Ou58AccCUVUh5zfyMzZVUwxSJ75IsBH0QK1cSTrdwj/2wuKSpY++hLDvFC7fPipupVDX9Ku8
+	nPGX5aWUyZLRlQuVK2ACnttJw0jmllTHjkCgQix4yHuBq08BAbSGiUuJRCdzR1NlZWMeBvJcPJW
+	d1U1h7UhRectOJCNs5bc81GT82GPt201h9KN+JqfvTuu1alpEgfozO6GQaWFs70tODvMmSb3UZU
+	UTs6mS2qq8Mu6+z9IYHI1nSZyN+9yLfSEIcG7LHWZOSAoEPGclYKU4zHa+Jhi8KpDgBaLg6fQmA
+	iDwhcwLWtpaR1yxiRmTyUmJHw4bvY02S+lzT3RifTpsAYPkY3AFEYP63/5oVAREc3cD0G3Os8QF
+	1YduZYibaQS
+X-Received: by 2002:a05:651c:b12:b0:3a6:4739:2008 with SMTP id 38308e7fff4ca-3a9a2a72bbcmr6039921fa.0.1791390536151;
+        Wed, 07 Oct 2026 09:28:56 -0700 (PDT)
+Received: from localhost (soda.int.kasm.eu. [2001:678:a5c:1202:7b92:9ac1:b9ef:5287])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9a1d7648esm7724511fa.26.2026.10.07.09.28.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 09:28:38 -0700 (PDT)
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Date: Wed, 07 Oct 2026 19:28:30 +0300
-Subject: [PATCH] landlock: Move the domain layer counter out of the
- anonymous union
+        Wed, 07 Oct 2026 09:28:53 -0700 (PDT)
+Date: Wed, 7 Oct 2026 18:28:52 +0200
+From: Klara Modin <klarasmodin@gmail.com>
+To: Baoquan He <hebaoquan@kylinos.cn>
+Cc: linux-mm@kvack.org, akpm@linux-foundation.org, chrisl@kernel.org, 
+	kasong@tencent.com, hannes@cmpxchg.org, nphamcs@gmail.com, baohua@kernel.org, 
+	youngjun.park@lge.com, yosry@kernel.org, shikemeng@huaweicloud.com, 
+	chengming.zhou@linux.dev, baoquan.he@linux.dev, david@kernel.org, 
+	linux-kernel@vger.kernel.org, kunwu.chan@gmail.com
+Subject: Re: [PATCH v4 00/14] mm, swap: extendable swap devices (xswap phase
+ I)
+Message-ID: <asZt7-8mcxqc1a02@soda.int.kasm.eu>
+References: <20261003003136.750633-1-hebaoquan@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261007-b4-landlock-fix-domain-fortify-panic-v1-1-042e9108f5f8@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAC1zxmoC/yXNQQ6CMBCF4auQWTtJCwjGqxgXZTrVUZySFo2Ec
- HerLr/k5X8rZE7CGY7VColfkiVqgd1VQFenF0bxxVCburPG9Di0ODr1Y6Q7Bnmjjw8niiGmWcK
- Ck1Mh3FvTdH04UOAGSmpKXLa/m9P57/wcbkzztw3b9gGgTO8BiAAAAA==
-X-Change-ID: 20261007-b4-landlock-fix-domain-fortify-panic-510367f8cfe3
-To: =?utf-8?q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>,
-        =?utf-8?q?G=C3=BCnther_Noack?= <gnoack@google.com>,
-        Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-        "Serge E. Hallyn" <serge@hallyn.com>, Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        Nathan Chancellor <nathan@kernel.org>,
-        Nick Desaulniers <ndesaulniers@google.com>,
-        Bill Wendling <morbo@google.com>,
-        Justin Stitt <justinstitt@google.com>, Tingmao Wang <m@maowtm.org>
-Cc: linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-hardening@vger.kernel.org, llvm@lists.linux.dev,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>
-X-Mailer: b4 0.16-dev-0e65f
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4354;
- i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
- bh=259dEDaWlzVpxlGUwhq/AX7U3geSOV8jkOQL+05Kdks=;
- b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBqxnM0C+OtPHm6Hpq+j4X601QkIY0ort0v/b2SZ
- Yk7SSXStK+JAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCasZzNAAKCRAbX0TJAJUV
- Vv/DD/9jLnB7edsEAPmktBD3LG4PNnZej8sYtwv9KDIUwpja4mHRfdJ44CR/UW6KisAoajD0oWF
- G4UQPgNtZ2Y/V7+vkLu2OtUHT+8W7b1TByK4Ov2meje8FiSVZlky1HH42RWuWVjeWLpWHhbcp2O
- Qj/lcrzYIRg+W5b42GW5sPG9N3L5SnONDebop99Sh4LsatctVmUcHFl33cwRwoggPgeELJwzfjD
- 8LDjR+d5uetFCAyJAh0HjzFBebmuc+AiRzKSzfHOHTm91y5e0PuVsM4VneWlbNUJu0L3ARriJWl
- nR8Bdc7LA+SzYMBeEI4V9Bt1SnSv05tzuV6R64/+alZ1YS6NKab56og/9YTh8hCV8jo4Gs6kPMf
- M0mrUAb5xJUU0dqOXIN0vDGqAopZrTfdidPWBRJcfDAIqC6BDapVJaL1wd7ATZE1LxT3pYtFtot
- w1gNOZHSaoC+SXqI7wClx92Lr9KbxE7o3wj4zWrlAjCJFdSM7RdfB2ss+rR2N4qrHyWR6V3ZmJ2
- yRu56xlPaRC6fOsuBSnwkq3GMrw+QEqAVgffDepl9qS7OVJRBpk+f8NyT1FFF2WdocnwMRE9gQP
- yn9IGqjMM2wFPJHfN/zyT5EHIyi4HqVcqRm+FrMtWP8zdZdg5jXyqD4LiHxHeuRLLOojE1AnuYS
- rzb3ttm71tlqJPA==
-X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
- fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDA2NSBTYWx0ZWRfX0U8F/rxhAcRg
- inEROzUBJyqbLojfuw+p3NhaxOzY8CFBeCc8GrZb7C+TrZw33hcSgWyZIIpcOMjTSYBsU9rzRnT
- UFrSBl95Q0jPUZLOp3r+qpv7sXb7PRw=
-X-Authority-Analysis: v=2.4 cv=J4I/fwnS c=1 sm=1 tr=0 ts=6ac67339 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=EiYrS7xXfcF7w+nkr41hpQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=zhcD6a0htT2TxK9RPLUA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-ORIG-GUID: E3YME9fho5jEtFcw3zqe54S8cbjnDjCs
-X-Proofpoint-GUID: E3YME9fho5jEtFcw3zqe54S8cbjnDjCs
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDA2NSBTYWx0ZWRfX3CPJWZr+TzYr
- Pmn2icKQ+/6c1WN3BqXnCqWKEbcHveYe99h+9ErjxlG/tV3xOqzq4Vn5LhPru/frwnE4Xf56MCz
- Yx8rkqVWuAAkrWTwLHa+R6tITiCMaZh3m1VhKlZXpfTMNDM+XiEUuHKhCPjASkF+ptko4NuxklB
- oOXT7cePadh0RZvNZktmOvSeRtPG9jgyzwi2bSeK8IPRznpQ9E6H3VhFcpGgkLeVdt8MwoLvQxn
- dRIu8aHh6UOi+0zbWp2pzF/AaIUFAXm0LVgixoIlmNclL7fcne9FQV3RwhZGx0DcmevZVh3eTrg
- tXlm8zcN8c7uD9ftBQcclbMaN8dxK1iXqiUVnvpncoU/Mek3MhqR7U9M6Tm6ewbJ9BAmX/ZdCdv
- MZ76c20iFgIbGn1BR55WlSGn7tQFjCl2bMM2gMG1Syb1DeuGsxW3SkQjkcJXp5xxkPqHYcbdyZY
- y2p2riXcNParxON2M0A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-07_05,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 suspectscore=0 lowpriorityscore=0
- priorityscore=1501 bulkscore=0 phishscore=0 clxscore=1015 malwarescore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610070065
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261003003136.750633-1-hebaoquan@kylinos.cn>
 
-With Clang 20 and CONFIG_FORTIFY_SOURCE, stacking Landlock domains can
-trigger a fortify panic in the handled_masks copy in inherit_ruleset():
+On 2026-10-03 08:31:22 +0800, Baoquan He wrote:
+> A normal swap device has a fixed size, set when it is enabled. This
+> does not fit zswap well. With zswap, the swapped data stays in RAM in
+> compressed form. So how much swap a machine can really use depends on
+> how well the workload compresses. It does not depend on a number we
+> pick before we know the workload. If we make the device large enough
+> for the worst case, most of it is never used. If we make it just large
+> enough for the average case, the machine runs out of swap while zswap
+> still has free room.
+> 
+> xswap is a swap device with no backing file. Its swap entries hold pages
+> in zswap, and its cluster_info array lives in a VM_SPARSE area that is
+> mapped a chunk at a time, so the device covers a large address space
+> while costing only the chunks it has actually used. The device grows as
+> the workload needs it and gives the tail back when it does not.
+> 
+> This series is the device itself: the sparse cluster array, growth and
+> shrink, and the interfaces that create and destroy one. It is phase I
+> of three; the physical backend and the swap accounting builds on it.
+> 
+> Design notes
+> ------------
+> 
+> The device is only an address space. si->max is set when the device is
+> created and does not move for its lifetime; what moves is how much of it
+> is mapped. It defaults to twice RAM, and xswap.max= sets another size at
+> boot, in bytes or as a percentage of RAM:
+> 
+>   xswap.max=8G          8 GiB
+>   xswap.max=300%        three times RAM
+> 
+> That is a boot parameter but not a runtime knob because the address space
+> cannot move once the device exists; it is fixed at creation and every
+> mapped index stays valid for the device's life. swap_info_struct carries
+> nr_clusters_max (the address space) and nr_clusters_mapped (the mapped
+> prefix), and the two walkers that touch cluster_info are bounded by the
+> latter.
+> 
+> Growth starts when 85% of the mapped range is in use. The call comes from
+> cluster_alloc_swap_entry(). Growing maps pages into the VM_SPARSE area.
+> Mapping can sleep, so it cannot be done inside the allocation that would
+> otherwise fail. If it were, the swap-out path would have nothing to fall
+> back on.
+> 
+> Shrink gives the free tail back when the mapped range is at most 50% in
+> use. It is triggered when a cluster becomes completely free. Shrinking on
+> a smaller drop is not useful. Growth happens on demand, so the same
+> clusters would just be mapped again, and each unmap also costs an RCU
+> grace period.
+> 
+> A file-less device has no swapon, so /sys/kernel/mm/xswap/create makes
+> one and destroy takes its swap type. The teardown is shared with
+> sys_swapoff() rather than duplicated.
+> 
+> The only argument create takes is a priority. The size comes from
+> xswap.max= at boot, so there is one place to ask for a size and one to
+> ask for a priority, and a priority can be given per device while a size
+> cannot:
+> 
+>   # echo > /sys/kernel/mm/xswap/create          default priority
+>   # echo 100 > /sys/kernel/mm/xswap/create      priority 100
+> 
 
-  __fortify_panic
-  landlock_merge_ruleset
-  __arm64_sys_landlock_restrict_self
+> The default is the highest priority, SWAP_FLAG_PRIO_MASK. An xswap
+> device is then the first one tried, ahead of any ordinary swap device.
+> Setting a lower priority is allowed.
 
-Clang miscalculates the location of the __counted_by counter in the
-anonymous structure nested inside the domain's union.  In an arm64 build,
-__builtin_dynamic_object_size(domain->handled_masks, 1) reads offset 40
-(the first handled_masks entry) instead of offset 36 (num_layers).
-Because the destination domain is zero-initialized and its masks have not
-yet been populated, FORTIFY sees a zero-sized destination and rejects the
-copy of the parent's layers.
+Nice, this is now a good default which the user should not have to
+change.
 
-Move num_layers and handled_masks to the top level of landlock_domain so
-that Clang uses the correct counter.
+> 
+> The device does not move once it exists, so the address space cannot be
+> changed from this interface either. xswap.max= at boot and this together
+> are the whole configuration.
+> 
+> The device needs zswap. Without it swapout takes a swap entry and frees
+> no memory, so creating one fails.
+> 
+> Testing
+> -------
+> 
+> qemu KVM guest, 8G RAM, booted with xswap.max=10G. memhog is a small
+> local helper: it faults <total_gb> of anon, fills it with a fixed
+> pattern, and holds it.
+> 
+> Set up zswap and create a device:
+> 
+>   # echo 1 > /sys/module/zswap/parameters/enabled
+>   # echo > /sys/kernel/mm/xswap/create
+>   # awk 'NR == 1 || /xswap/' /proc/swaps
+>   Filename                Type        Size        Used        Priority
+>   xswap0                  xswap       10485756    0           32767
+>   # cat /sys/kernel/debug/xswap/type0
+>   clusters_max 5120
+>   clusters_mapped 73
+>   usage_pages 0
+>   tail_free 72
+>   grows 0
+>   shrinks 0
+> 
+> Swap 9G of anon through a 2G cgroup:
+> 
+>   # mkdir -p /sys/fs/cgroup/xswap_limit
+>   # echo 2G > /sys/fs/cgroup/xswap_limit/memory.max
+>   # echo max > /sys/fs/cgroup/xswap_limit/memory.swap.max
+>   # ( echo $BASHPID > /sys/fs/cgroup/xswap_limit/cgroup.procs
+>   #   exec env MEMHOG_FILL=pattern numactl --cpunodebind=0 \
+>   #       ./memhog 9 600 ) &
+> 
+> clusters_mapped grows to cover the pages that go to zswap, while
+> SwapTotal stays at 10485756. Throughout, SwapTotal never moves and
+> SwapFree stays in [0, SwapTotal]. Pushing past the size leaves the
+> cgroup out of room and the OOM killer takes the workload, which is the
+> pass signal there.
+> 
+> Growth and shrink, measured with two cgroups so that one keeps its pages
+> while the other goes away:
+> 
+>   idle                           mapped=73    occ=0.000  grows=0   shrinks=0
+>   2G in a 1G cgroup              mapped=803   occ=0.737  grows=8   shrinks=0
+>   3G more in a second 1G cgroup  mapped=2190  occ=0.777  grows=13  shrinks=0
+>   kill the second cgroup         mapped=876   occ=0.675  grows=13  shrinks=1
+> 
+> The second cgroup is started later, so its clusters sit at the tail, and
+> killing it leaves a free tail to take back. The first stays alive, so
+> usage falls but not to zero: that is the state the shrink has to land in.
+> occ is usage over the mapped range, which is what the grow and shrink
+> thresholds are expressed in.
+> 
+>   # echo 0 > /sys/kernel/mm/xswap/destroy
+> 
+> Also tested things as below, and nothing crashed or warned:
+> 
+>   - a shrink racing a swapoff of the same device, 20 rounds
+>   - a cgroup that cannot zswap: it must get no xswap slot, and the
+>     allocator walk must not spin
+>   - a create/destroy cycle: it must not leak per-cluster state
+> 
 
-Assisted-by: LLM
-Fixes: bd3a19800dd1 ("landlock: Add counted_by in landlock_domain")
-Reported-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Co-developed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
----
-Move the domain layer counter and flexible array out of the anonymous
-union to work around Clang 20 reading the wrong counter for __counted_by.
-This fixes the FORTIFY panic when copying the parent domain's layer stack.
+> Open items
+> ----------
+> 
+> - xswap_create() sets si->pages to the whole address space (twice RAM by
+>   default) and _enable_swap_info() adds it to nr_swap_pages and
+>   total_swap_pages, which is what __vm_enough_memory() uses for
+>   overcommit. That raises the commit limit by 2xRAM for a device whose
+>   real capacity is bounded by the zswap pool and by how well the workload
+>   compresses. The question is which semantics overcommit should follow:
+>   worst-case backing, or the address space.
+> 
+> - destroy takes a bare swap type. The type is an internal index that
+>   alloc_swap_info() recycles as soon as SWP_USED clears, so a value read
+>   earlier can name a different device by the time it is written. The
+>   swapoff ABI uses a path for this reason. It wants a generation or
+>   another stable handle.
+> 
+> - The new interfaces (/sys/kernel/mm/xswap/create and destroy, xswap.max=,
+>   the new type string in /proc/swaps) are not documented yet.
 
-Based on next-20260930. Validated arm64 Landlock object builds with
-Clang 20 and GCC 14, with CONFIG_FORTIFY_SOURCE enabled, and checked the
-counter load in Clang-generated code. Not boot-tested.
----
- security/landlock/domain.h | 48 +++++++++++++++++++---------------------------
- 1 file changed, 20 insertions(+), 28 deletions(-)
+To me it feels a bit weird to have the interface split between a kernel
+parameter and sysfs, meaning I have to configure this in two places now.
+As far as I gather, there's also nothing that needs the limit to be
+fixed at boot since it is applied at creation. If we want to expose this
+limit to users (as xswap does) it would be nice to have a 'max'
+shorthand for tha largest possible value, i.e. SWAPFILE_CLUSTER *
+UNIT_MAX (or whatever it might be in the future). That would I guess in
+practice give the same behaviour as vm.overcommit_memory=1 which might
+or might not be desirable.
 
-diff --git a/security/landlock/domain.h b/security/landlock/domain.h
-index caa3d19d2c43..5e65ab004f62 100644
---- a/security/landlock/domain.h
-+++ b/security/landlock/domain.h
-@@ -216,37 +216,29 @@ struct landlock_domain {
- 		/**
- 		 * @work_free: Enables to free a domain within a lockless
- 		 * section.  This is only used by landlock_put_domain_deferred()
--		 * when @usage reaches zero.  The fields @usage, @num_layers and
--		 * @handled_masks are then unused.
-+		 * when @usage reaches zero.  The field @usage is then unused.
- 		 */
- 		struct work_struct work_free;
--		struct {
--			/**
--			 * @usage: Number of credentials referencing this
--			 * domain.
--			 */
--			refcount_t usage;
--			/**
--			 * @num_layers: Number of layers that are used in this
--			 * domain.  This enables to check that all the layers
--			 * allow an access request.
--			 */
--			u32 num_layers;
--			/**
--			 * @handled_masks: Contains the subset of filesystem and
--			 * network actions that are restricted by a domain.  A
--			 * domain saves all layers of merged rulesets in a stack
--			 * (FAM), starting from the first layer to the last one.
--			 * These layers are used when merging rulesets, for user
--			 * space backward compatibility (i.e. future-proof), and
--			 * to properly handle merged rulesets without
--			 * overlapping access rights.  These layers are set once
--			 * and never changed for the lifetime of the domain.
--			 */
--			struct access_masks
--				handled_masks[] __counted_by(num_layers);
--		};
-+		/**
-+		 * @usage: Number of credentials referencing this domain.
-+		 */
-+		refcount_t usage;
- 	};
-+	/**
-+	 * @num_layers: Number of layers that are used in this domain.  This
-+	 * enables to check that all the layers allow an access request.
-+	 */
-+	u32 num_layers;
-+	/**
-+	 * @handled_masks: Contains the subset of filesystem and network actions
-+	 * that are restricted by a domain.  A domain saves all layers of merged
-+	 * rulesets in a stack (FAM), starting from the first layer to the last
-+	 * one.  These layers are used when merging rulesets, for user space
-+	 * backward compatibility (i.e. future-proof), and to properly handle
-+	 * merged rulesets without overlapping access rights.  These layers are
-+	 * set once and never changed for the lifetime of the domain.
-+	 */
-+	struct access_masks handled_masks[] __counted_by(num_layers);
- };
- 
- static inline access_mask_t
-
----
-base-commit: 6c2cb8b8b843d216ab549b678a0d8831c43153e0
-change-id: 20261007-b4-landlock-fix-domain-fortify-panic-510367f8cfe3
-
-Best regards,
---  
-Abel Vesa <abel.vesa@oss.qualcomm.com>
-
+> 
+> Changelog
+> =========
+> v3 -> v4:
+> - Rebased onto the latest mm-new.
+> 
+> - Add boot parameter xswap.max= .
+> 
+> - The device has one size now: set at creation, fixed, with xswap.max= to
+>   ask for another one at boot. v3's runtime ceiling, the per-device limit,
+>   the clamp it wrote and the shrink to that ceiling are all gone as
+>   Johannes suggested (v3's patches 12, 13 and 14).
+> 
+> - v3's patches 2 and 4 are the new patch 3: neither builds a device
+>   alone. It also bounds find_next_to_unuse() and wait_for_allocation(),
+>   which walked up to si->max past the mapped range. Chris suggested
+>   this.
+> 
+> - New patches 11 to 13: a cgroup that cannot zswap is not given an xswap
+>   slot, swap_info_struct max and pages are unsigned long, and debugfs
+>   counters for the mapped range and the grow and shrink counts.
+> 
+> - v3's patches 1 and 3, and 5 to 11, are unchanged; the merge shifts them
+>   to 1 and 2, and 4 to 10.
+> 
+> - Minor comment and cleanup changes.
+> 
+> v2 -> v3:
+> - Rebased onto the latest mm-new.
+> 
+> - The grow path now honors the user-set ceiling (si->nr_clusters) instead
+>   of growing up to nr_clusters_max, and a ceiling below the mapped range
+>   is unmapped exactly instead of rounded to a chunk (patches 12 and 14).
+> 
+> - The limit write clamps the ceiling up to the clusters covering the pages
+>   in use, replacing the earlier WARN_ONCE; si->pages becomes mutable at
+>   runtime (patch 13).
+> 
+> - Minor comment and cleanup changes.
+> 
+> v1->v2:
+> - Patch 1 (mm: zswap: return -ENOENT when the swap device is gone) is not
+>   part of this series; it was posted separately.
+> 
+> - There is only one size knob now. The runtime ceiling and the debugfs
+>   per-device limit are gone. All that is left is the optional per-device
+>   cap, /sys/kernel/mm/xswap/type<N>/limit. Grow and shrink work without
+>   it.
+> 
+> - The shrink no longer keeps its own count of the free tail. It scans the
+>   tail instead, and dropping the counter also removes a call from the
+>   cluster allocation path.
+> 
+> - The priority is no longer a patch of its own. The create attribute
+>   takes it:
+>     echo 100 > /sys/kernel/mm/xswap/create
+> 
+> RFC v3 -> RFC v2
+> - Add patch 16 to support setting xswap device priority at creation.
+>   The create sysfs interface (/sys/kernel/mm/xswap/create) previously
+>   hardcoded every new device's priority to DEF_SWAP_PRIO, it now
+>   accepts an optional priority:
+> 
+>     echo "<percent> [<prio>]" > /sys/kernel/mm/xswap/create
+> 
+> - Bug fix: xswap_lock init ordering. mutex_init(&si->xswap_lock) was called
+>   after xswap_map_clusters() (which locks it), i.e. locking an uninitialized
+>   mutex. Init now before the first xswap_map_clusters() call. Thanks to Klara.
+> 
+> - Bug fix: Fixes a compile error in !CONFIG_XSWAP builds. xswap_debugfs_root
+>   is declared inside CONFIG_XSWAP ifdeffery scope, so the ungarded use
+>   caused error when CONFIG_XSWAP is off.
+> 
+> RFC v2-> RFC v3:
+> - Replace the "header-only swap file + swapon" creation hack with a
+>   proper file-less device created and destroyed via sysfs
+>   (/sys/kernel/mm/xswap/{create,destroy}).  This required the
+>   __swapoff() refactor and the free_swap_cluster_info() signature
+>   change (patches 4, 6, 14).
+> 
+> - Require zswap: refuse to create an xswap device when zswap is
+>   unavailable (patch 15).
+> 
+> - Split the unrelated zswap -ENOENT fix out of the series into a
+>   standalone patch (patch 1).
+> 
+> - Fix nr_free_tail over-counting on concurrent grow, shrink leaking
+>   detached clusters on early bail-out, a re-init race on cluster
+>   spinlocks in xswap_map_clusters(), the nr_clusters_mapped update
+>   ordering, and swapoff accessing the shrinker-unmapped cluster tail.
+> 
+> - Minor cleanups (checkpatch, /proc/swaps alignment, commit messages).
+> 
+> RFC v1-> RFC v2:
+> - Added __GFP_HIGH | __GFP_NOMEMALLOC to alloc_page() and kmalloc_array()
+>   in the grow path, plus memalloc_noreclaim_save/restore() wrapping,
+>   to prevent the grow path from consuming emergency memory reserves
+>   or recursing into swap under PF_MEMALLOC. This is folded into patch 3.
+>   This was pointed out by Nhat.
+> 
+> - Folded the mutex serialization fix into the cluster grow patch (patch
+>   3). This is suggested by Nhat.
+> 
+> - Fixed coding style issues: corrected indentation of declarations in
+>   xswap_unmap_clusters(), removed unnecessary block scope around the
+>   err variable in xswap_map_clusters().
+> 
+> - Rebased onto mm-unstable
+> 
+> Baoquan He (13):
+>   mm, swap: refactor free_swap_cluster_info to take swap_info_struct
+>   mm, swap: back the cluster_info array with a sparse VM_SPARSE area
+>   mm, swap: add sysfs create interface for xswap
+>   mm, swap: add xswap grow trigger on cluster allocation
+>   mm, swap: add xswap_try_shrink and shrink trigger on cluster free
+>   mm, swap: free backing pages in xswap_unmap_clusters
+>   mm, swap: defer xswap shrink to workqueue to avoid lock recursion
+>   mm, swap: refactor swapoff and add xswap_destroy
+>   mm, swap: require zswap for xswap devices
+>   mm, swap: do not give an xswap slot to a cgroup that cannot zswap
+>   mm, swap: widen swap_info_struct max/pages to unsigned long
+>   mm, swap: add debugfs counters for xswap
+>   mm, swap: let the command line set the xswap device size
+> 
+> Chris Li (1):
+>   mm: xswap support for zswap
+> 
+>  include/linux/swap.h |   16 +-
+>  mm/Kconfig           |    9 +
+>  mm/page_io.c         |   19 +
+>  mm/swap_state.c      |    9 +
+>  mm/swapfile.c        | 1221 +++++++++++++++++++++++++++++++++++++++---
+>  mm/zswap.c           |   11 +-
+>  6 files changed, 1205 insertions(+), 80 deletions(-)
+> 
+> 
+> base-commit: 9a0542b19a541eda3f82934ee747c61ec3f18847
+> -- 
+> 2.54.0
+> 
