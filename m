@@ -1,132 +1,146 @@
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relayaws-01.paragon-software.com (relayaws-01.paragon-software.com [35.157.23.187])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ECEB414429
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 21:38:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791409084; cv=pass; b=FcdsOyYsTCxjdFfUnBKcLITVWyjwksdF7deWjVIopJ5x3DnRnV8XTK983RpXe4betI/k44iCVdOnJ3VGkk2epUoOR0Xlnz1cxyzYPl+TN8dJH+QouFSNDzZZWwGz9NeLkyfJzC1wPqe6ZRS5vbZsrVFJ7nTHJHiSBVOLiQif83s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791409084; c=relaxed/simple;
-	bh=NzcreaI1RFMvfvimJoOgzCzh1pxXnio4qwyB0Dh8ccs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fsZCl8WOVSGh74cwqOXRrh1Z9PgUHUkodUX5taTVt7gq5L5l++Cav3GbRkOlMXhyueOzAClqU5q/oOIC8JK22AoCoG8OYPMmicYXJ2lfHKyvNPclDpZVmHS6N1XHdVgAnEBs5rMol8porlWEh36OnPVm5JjR4vkKpRpSqAm3iAI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=INdkZyL4; arc=pass smtp.client-ip=209.85.218.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 627F53CE4B1;
+	Wed,  7 Oct 2026 21:38:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.157.23.187
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791409134; cv=none; b=RtCwR9kcawg5WmFr4pk4ZxrHkaaWoChrXk0FImoiFdjsSWYvwfVcX/9ZccfAT9btXd7Sxyz9sAte1QJyVgdKDqnGGqzgcu0+2jKs5I+UT+U3/eoFlCkIojDE2BIJIZa16NkOj/+BEprYAkdjn7jz4yWKNQah1ipeVjaLW5FcIVo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791409134; c=relaxed/simple;
+	bh=GkUIrRr1ppBry+WpUtDYU+DIKizszRyQMXBou7OYEvw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=Anm6vAQIVUzyj/UBQ51+zIy7b6kk3w7bWbWo4piw5qXFsxjQ7Zaf2uekBBdNABFhrWrA7hWHaPDhm9CTgvvWff/591C3ACr4vCyxNcCZIKcdTlMaYH6vgn9hy1LSrzzE1HpBFjTFD/Qf3D4aBRcAa5XBKEwlF20VDAWrhWw4NHA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com; spf=pass smtp.mailfrom=paragon-software.com; dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b=QcLFVHu1; arc=none smtp.client-ip=35.157.23.187
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paragon-software.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="INdkZyL4"
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c2e2007dd8bso368344266b.2
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 14:38:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791409081; cv=none;
-        d=google.com; s=arc-20260327;
-        b=R7X2fRT83AjVHCmPxq55+vW/YZ8hMjwavgUC4nTF779PMtlMZcshSTCW+XEwr+OxT1
-         3e+Ua5be767R4q/jd1NEo+1U5SbaRHJy2iy9p7pPjVYacjEit8TNY6soxFST4uYJMs/Z
-         doOEPssXBXKectHPgOcNVrez/JkD188MERBPsjnMf4MwiC91l27RBduEPJjL4LO33JyG
-         B8kZyUUR8xxko3RAOMcH48yFyFzLHisUPsTGXCXR48h98VYfwYOQllmwwweYaHEGSYY8
-         Oy0B3qQ3mHgINUd69rJIgNS4Nxu/aBrNBWvgXGstXIkfHBL05RWI5cQ1lf8Nhpb3aqeb
-         ULdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=EYC06AXxDpIadMdoNjvj9ZAubZeaJFsW4WdTyw2S8TU=;
-        fh=khM2Q/mULm3YhkYXHSC2Bik4GJ4NXke73DjMUYgtGrk=;
-        b=NDfZfe3FSPjtvxXpv/p3xVft6xrJbhj6H88UlkYHHd6I07JxQohP3Gq6jk4tZt2pFr
-         P+VIw0ZfKGeeI8K7XVr5gd63OMe4a5I1d7WQZqCrp1oYpYlHlbH2w7CBO2CzfpU+xnHT
-         z+vVyk/tTddjlOEJddrgI8i4SpWY5jsFioTsAlp9GeZYZjBj2w7LpuQAVFEjyyk/PP6O
-         jstEdQas9vBhqp47V48c2VH3X1/g/BwOGOgExbUdj+tt3BlhOB2mpastiL2/fr0MiASv
-         dJcFJ5HG4NX1pnR/byGNriihwfTvH13EyTTDlwYXDZxOalSLqyZz2vGmxZadGRMQFbFg
-         Mshw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b="QcLFVHu1"
+Received: from relayfre-01.paragon-software.com (relayfre-01.paragon-software.com [176.12.100.13])
+	by relayaws-01.paragon-software.com (Postfix) with ESMTPS id 93ABE32C;
+	Wed,  7 Oct 2026 21:33:10 +0000 (UTC)
+Authentication-Results: relayaws-01.paragon-software.com;
+	dkim=pass (1024-bit key; unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.b=QcLFVHu1;
+	dkim-atps=neutral
+Received: from dlg2.mail.paragon-software.com (vdlg-exch-02.paragon-software.com [172.30.1.105])
+	by relayfre-01.paragon-software.com (Postfix) with ESMTPS id E6F7621D9;
+	Wed,  7 Oct 2026 21:32:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791409081; x=1792013881; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EYC06AXxDpIadMdoNjvj9ZAubZeaJFsW4WdTyw2S8TU=;
-        b=INdkZyL4guxAzfAcKevUe8XHzZ6mx2QeicPqSko69ScnZqAy59xB1SeLhJW0QP6PjF
-         ydqrs35E3Qsn0QOpWw2fRYNEdFLEVndLRQeLhdyfUR6yyJW04SgzC46ecPsRmU6aqasq
-         aHKgb5ekNeLa58Nq/9GobNmHBTkNlBhngSeVcAuUW62hYTAangN2RELtoqQI2DT+bASG
-         OOwBFSwBPuXJy+Hn4CYTboLCl+e9z2MQT6y0MiBfpJQVV7RE6Dj1spNXOO+wZuv3oe8C
-         9JiuQ8RSaL2Y5q1ILH16CFAhdS8ltneBtHPKRAOgk9MKW4+K8FT4NYX/uDN7cC//rNve
-         bP8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791409081; x=1792013881;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EYC06AXxDpIadMdoNjvj9ZAubZeaJFsW4WdTyw2S8TU=;
-        b=1btCprcNOgGWIuoRYv0ILChxhS4hT8h4sUDeZHeEoMCsrz2XG+cxSY8bmrJrHhmDDo
-         a4YUxdQf349cNSSAX562KawK8h9GF8zW/gfsG9/oNHv/p8hK+pMnj0nZpjvTG/zHk7cN
-         r6oPz37y6kolBwSIeSt/QS9CJ7wVq1u1uZV0awvVQFIZlXHJuPAoGPQm7z2R7xYTHZAf
-         x83pR4pPrmEadVRY4FT+oE8MiP12rChKemgqDobuZOlEPI7mpS4HD6W9gPX24nXy+yIn
-         YFrolutjtu/E8cKwQo7Bqj3iyRInCrLQnBNWDekKR1OZ1QGdeh0WPEB1jB5oW/vOs9K4
-         EQNA==
-X-Gm-Message-State: AFq9FYJMXY8gA5pv23DCSfJhumF/F+rZOHv83jFEK1KyHKyI+MairD8W
-	QQtfwMrfzAQCRvqhqvcPP3uYB7K81Ec8wpMRdM601H4yfRAVbzyWRPq5TWQo7saragmNJGz8z8o
-	z1GISe94NZ0bw4352dcWRofdhz6tjtBE=
-X-Gm-Gg: AYBFou2/kBK5pI2JrZWq48DLp6J6jxVZgNqJ3K1+qsz4OhvmqrlJJehas2giPWQUQ2H
-	IWKRZB9mIjKZVELLsSS6aufI47Iut0RY5cuvXKbcdqd7N4GaUabm4MUPNU59xBHWQxpZIbPqxio
-	8228R6Oh24yQISHCaauJHXgcK1FMpWKiYaf0TjyHZr8HVV+62CfDsrGS+VnTeQnUlow67eWls2I
-	ho/e++oSuZUM+LLChe1rePeqDyA5u2DzahV6c8HQu+dz5EDiOqpM4CRosZcsYH3NL4uDwZF8OKA
-	ShW6aXWwESWqgWskg6tzTDkGhIFWooQz91zZny/hIoxgTet7C/1z1v3OenSFu+aWx2bVtDvZhgN
-	0qwY5eOpP2tupoR0B8FchNQjbu2s7uVx4mVQfTaM90GVKbojIGkYcDV9leswRRoiBk+2qpzJSV7
-	+VKsQ=
-X-Received: by 2002:a17:907:7fa8:b0:c2d:c534:969c with SMTP id
- a640c23a62f3a-c317bda9b83mr348405866b.21.1791409081382; Wed, 07 Oct 2026
- 14:38:01 -0700 (PDT)
+	d=paragon-software.com; s=mail; t=1791408738;
+	bh=QwUzb8TDVEWRLuySkAhiKAopW46J6Jzx0gohNV2JJ7A=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To;
+	b=QcLFVHu1To/MD+JaRxrK61im3FaIw67Kg8JATNoiZ5davwIhQy9sHe75gZLSkWi1T
+	 uH/4tVqdrap/I+QgT+hJEgmdKS2C/QxVTOK2DquyM4f3qcJlPG+TfEoRou7soFTjP0
+	 a9Q1xMOjfZh1xmqR+wL1OYiBTXBsMspII1DXWCs4=
+Received: from [192.168.95.128] (172.30.20.178) by
+ vdlg-exch-02.paragon-software.com (172.30.1.105) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.7; Thu, 8 Oct 2026 00:32:17 +0300
+Message-ID: <33847e79-7ac8-4e96-95d2-4b8a3cda14b6@paragon-software.com>
+Date: Wed, 7 Oct 2026 23:32:16 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261007212314.969336-1-voytikd@gmail.com>
-In-Reply-To: <20261007212314.969336-1-voytikd@gmail.com>
-From: Dmitry Voytik <voytikd@gmail.com>
-Date: Wed, 7 Oct 2026 23:37:33 +0200
-X-Gm-Features: AclHuK8dWWKZmSjpIJHYzCSo6w3ggm4kF9-9AyeDKpnNH8fVKUNw8pXnfrlN-YI
-Message-ID: <CAAX90H2mnKHb0ZEpEgqOkjHU0y5maUbevYuo17gV3BtmYNtbdQ@mail.gmail.com>
-Subject: Re: [PATCH] alpha: remove a duplicate line in Makefile
-To: Matt Turner <mattst88@gmail.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Richard Henderson <richard.henderson@linaro.org>, Magnus Lindholm <linmag7@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-alpha@vger.kernel.org, 
-	Kent Was <waskent6@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fs/ntfs3: validate that EA entry size covers its name and
+ value
+To: Your Name <qwe.aldo@gmail.com>, <ntfs3@lists.linux.dev>
+CC: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+References: <20260723221045.529665-1-you@example.com>
+Content-Language: en-US
+From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+In-Reply-To: <20260723221045.529665-1-you@example.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: vobn-exch-01.paragon-software.com (172.30.72.13) To
+ vdlg-exch-02.paragon-software.com (172.30.1.105)
 
-Sorry, forgot to add Magnus Lindholm <linmag7@gmail.com>
-Link: https://lore.kernel.org/all/20261007212314.969336-1-voytikd@gmail.com=
-/
+On 7/24/26 00:10, Your Name wrote:
 
-On Wed, Oct 7, 2026 at 11:23=E2=80=AFPM Dmitry Voytik <voytikd@gmail.com> w=
-rote:
+> From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 >
-> Remove redundant duplicate line.
+> ntfs_read_ea() walks the on-disk $EA attribute and checks each EA_FULL
+> entry for consistency.  For an entry with a non-zero ef->size (the
+> offset to the next entry) the loop only verifies that this stride fits
+> in the remaining buffer, and then continues:
 >
-> Fixes: 234306038064 ("alpha: Fix bootpfile and bootpzfile make targets")
-> Reported-by: Kent Was <waskent6@gmail.com>
-> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=3D222101
-> Signed-off-by: Dmitry Voytik <voytikd@gmail.com>
+>          if (ef->size) {
+>                  ea_size = le32_to_cpu(ef->size);
+>                  if (ea_size > bytes)
+>                          goto out1;
+>                  continue;
+>          }
+>
+> It never verifies that the entry's own name (ef->name_len) and value
+> (ef->elength) actually fit inside ef->size.  A later reader trusts
+> ef->elength unconditionally; ntfs_get_ea() does:
+>
+>          len = le16_to_cpu(ea->elength);         /* up to 0xffff */
+>          ...
+>          if (len > size)                         /* size is the user buffer */
+>                  return -ERANGE;
+>          memcpy(buffer, ea->name + ea->name_len + 1, len);
+>
+> A crafted image with a small but valid ef->size (e.g. 24) and
+> ef->elength == 0xffff therefore passes validation, and a getxattr()
+> with a large enough user buffer copies up to 64 KiB starting just past
+> the short entry -- an out-of-bounds read of the ea_all allocation that
+> leaks adjacent kernel heap memory to userspace.
+>
+>    BUG: KASAN: slab-out-of-bounds in ntfs_get_ea+0x2b8/0x3f0
+>    Read of size 65535 ...
+>     ntfs_get_ea -> ntfs_getxattr -> vfs_getxattr -> do_getxattr
+>
+> The zero-ef->size branch already computes the same struct_size() to
+> derive the stride; mirror that in the non-zero branch and reject the
+> entry when its declared size cannot hold the name and value.
+>
+> Fixes: 0e8235d28f3a ("fs/ntfs3: Check fields while reading")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 > ---
->  arch/alpha/boot/Makefile | 1 -
->  1 file changed, 1 deletion(-)
+>   fs/ntfs3/xattr.c | 18 ++++++++++++++++++
+>   1 file changed, 18 insertions(+)
 >
-> diff --git a/arch/alpha/boot/Makefile b/arch/alpha/boot/Makefile
-> index d8dba85e606c..1ac823d93801 100644
-> --- a/arch/alpha/boot/Makefile
-> +++ b/arch/alpha/boot/Makefile
-> @@ -99,7 +99,6 @@ $(obj)/tools/bootph: $(obj)/bootpheader $(OBJSTRIP) FOR=
-CE
->  $(obj)/tools/bootpzh: $(obj)/bootpzheader $(OBJSTRIP) FORCE
->         $(call if_changed,objstrip)
+> diff --git a/fs/ntfs3/xattr.c b/fs/ntfs3/xattr.c
+> index 04814dd29375..57114fb726f7 100644
+> --- a/fs/ntfs3/xattr.c
+> +++ b/fs/ntfs3/xattr.c
+> @@ -155,6 +155,24 @@ static int ntfs_read_ea(struct ntfs_inode *ni, struct EA_FULL **ea,
+>                          ea_size = le32_to_cpu(ef->size);
+>                          if (ea_size > bytes)
+>                                  goto out1;
+> +
+> +                       /* Check if we can use fields ef->name_len and ef->elength. */
+> +                       if (bytes < offsetof(struct EA_FULL, name))
+> +                               goto out1;
+> +
+> +                       /*
+> +                        * The declared entry size (ef->size) must be large
+> +                        * enough to hold the name and value.  Otherwise a later
+> +                        * reader such as ntfs_get_ea() copies ef->elength bytes
+> +                        * starting past the entry, reading out of bounds of the
+> +                        * ea buffer and leaking adjacent heap memory to
+> +                        * userspace via getxattr().
+> +                        */
+> +                       if (struct_size(ef, name,
+> +                                       1 + ef->name_len +
+> +                                               le16_to_cpu(ef->elength)) >
+> +                           ea_size)
+> +                               goto out1;
+>                          continue;
+>                  }
 >
-> -LDFLAGS_bootloader   :=3D -static -T # -N -relax
->  LDFLAGS_bootloader   :=3D -static -T # -N -relax
->  LDFLAGS_bootpheader  :=3D -static -T # -N -relax
->  LDFLAGS_bootpzheader :=3D -static -T # -N -relax
 > --
-> 2.55.0
->
+> 2.43.0
+
+Hello,
+
+Your patch was applied, thank you.
+
+Regards,
+Konstantin
+
