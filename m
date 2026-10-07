@@ -1,138 +1,131 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DC8A3B05A0
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:10:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791371419; cv=none; b=NYRMDYjyCzgDnPrzLJRDSGxt+/Nz1u4ndFO/DwKeloMwnQw0nzc3qEizuwN8QK9kNU1jAG9TN+xeinT8v63yHJTz8Ryk3ahSM1V2/PmL6UwWCoCqj6yVa4DUc24Y9ty76NvI9j4C6UwIr/kchRx1pnTlLhah+DY9DrKFTSXl958=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791371419; c=relaxed/simple;
-	bh=H3PDzDrtO5c8WYmCowPyg7cQ4FV1kL+eaDhtUert0sI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=s65mfNGSKi9nUaQ0T3R9KQ/+9jwmy4yN7YuyLlkiYNTMYU+CvjqhqWtu39J1KYcbEGfpH4MWSDt1ZT+QSLXW0C+LNpY0w7mGaAtfTKVth3fiCM2K0/z/U8plD+cuCAVuMQYvjCm+lzMK7pOTmXmjgBVCyNrfrWaptyBHi5pbbns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bt0e4QUU; arc=none smtp.client-ip=209.85.215.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DEDE48D869
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:13:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791371624; cv=pass; b=i/Df4oDBzglErTFc8arq/2uIZ/Gg5U2XDkdT7XagHYcJB22LLELx8FUEtySDcVFJOQIGZ/+r/QJk14OalHThiKPOGcr8det7/C+oeHNHh4lYLY0IGmwxFpel8hP6cewD5MrYdu3PvfLAuU8/mHp4gL6Bi/WBvhClrTgS8hH45+k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791371624; c=relaxed/simple;
+	bh=f+RisWKCQLZOEfrvNgEfr/uIKD0wCzcM3ghzQdvYe+U=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QMdx0407k1iizdMNWQKF/PwWBMzLyL5c4z72ew5N/rO4j+nobZ0MDWx77V++c57b++DI7se6+sadn4+Wi0kMO8vTFqsBMRZ11ITenYs69gtWcF7Br969UcqMWGEmyqmVQBidsTc2Id1mXLNHNkXWW74+ol9h/Y5HfOu2hORtBfQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NhFllpbc; arc=pass smtp.client-ip=209.85.167.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bt0e4QUU"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc1d57602e8so744263a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 04:10:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NhFllpbc"
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5ba40832934so5797e87.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 04:13:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791371607; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fTK4qwlQayG2ML6U9S7h6Vhs63IjxCThw1w0reCl9FcThLVsvHNvP9/oJRSU1jq4dF
+         KLzj0xouHrcmoInC+Kb0li8ytn85YVh7xoTd6qun7desWqCC/i3wwo9K0avA2sfvLABM
+         C9L/IeSKuq4N+SEsECPkkXs0dVGFtD+xA7fbg41y0FNnZBUoImJ4ixlb78qXAhdLp+sf
+         lskm8hNTn6yFcMHw1tD5CXroN4VqBuA8rcL072DqAtJwst9TaK3v2WkLuWV3Xgzg3ZGZ
+         tXJv4QWMB0cY2P3lPvXzh6CbWbgE9SPLgKexWJ4xpjCPF2pcuOMa76SnUS88QS2KAUZb
+         8WrQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=f+RisWKCQLZOEfrvNgEfr/uIKD0wCzcM3ghzQdvYe+U=;
+        fh=b7Yzs9Ku2yaIpOjwVL7SNseQw8XocGLqGvPWU9ymtYc=;
+        b=kU5eYJdRbQ65Nb5Z6tDhWjwuDYkdMN5GWFSntjn8wAegDZ2YDJURBpfLU6hteUWolQ
+         BRq5O4TUFVqKw+pVQ+KB+eJ+E/oc4Wx2GsOn8vRVol5UNRhs2/pssfhcr5IOO7kc+t06
+         lhgplrve9Rj3j1NM+3RBiC30XaAIUqYFkPU79hX//FLgYs8wf4BXp6u6Aat7DkzashBy
+         NASfU7w25sBMJAvip6O5IYRiP1bDK3OeOgkFFF28uQxveliSeszzFAJ0DTY839zhlAJQ
+         fQIq9kmBt1rBRaVgsjauub+/iOkqc/NKEuWETiJNZPBQXdCxVaMdFF+9lhDMrfoMGKaS
+         /pdA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791371402; x=1791976202; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZrZPU62D++2Mpf09f9HLGIFyK7TMDyESiaONSZX8Yvw=;
-        b=Bt0e4QUUfLPs8vfmGhBKqHde4p3Zeg8VEjrEnwmZW3o2WwOX0is29QZDpEYjigrfk3
-         c9G0W3QOJA/3kbdHX9V5oDBiHiz5Zy8GafnBwjx0hqMgD0KQyNd5NEXCUHIVeBsrcYhz
-         GnrggQj1eY6ZvVs3o6Hyu5NQnQ4hnZKPzg3HVLscpTyNt2qc5wbWw+ScoSr2iCDFGyEM
-         PHrMDbNfcMTKWzn4yAltr9iZwVAMjscR1JawREqiQ0fpYiDT5uWvURi9GOzjhMDhM1Fr
-         O8uc4fbekxLirPRIH0ePtbtLaUdO6N4ZbwrKI4pZ3QKc53lwAjIO/L5DkvYCX4R+Fa9e
-         A+jA==
+        d=google.com; s=20251104; t=1791371607; x=1791976407; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=f+RisWKCQLZOEfrvNgEfr/uIKD0wCzcM3ghzQdvYe+U=;
+        b=NhFllpbc6WrYCF0igkisKJuq2Lg0cbsTJIr/8fVrq8iA10QcPgskFHhSCeSBgX3Uxx
+         Y2AvzOxqrDOxAO213eZtroAy7qWAxuj5mPiuOWTIZdrioPHXXXi5JR1Dl/OBrcAFh780
+         B8WzJ2TljWUi25aVaPyJ6pEJLmQ0XAGp1tV2c0yqG2OPkel4fw6rRzZj/nqOEzPpoexe
+         OkVhQ392gwTOwWXlbCDnjyldDiKnc6gYU4UhBH+5iGAWsHkpvFRGZUyo7X7HQ+o/qmB6
+         M6C6osC7gfiq5sBXXNk/klD3cofVsQtfF0HHNk0S64VM0GihxJF2eSOg/1/SYyNRwdEM
+         2EhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791371402; x=1791976202;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZrZPU62D++2Mpf09f9HLGIFyK7TMDyESiaONSZX8Yvw=;
-        b=gZxivPKw60lAdsPLjsOFALKYRGrxnEQHicbre80vor1ASp66K76Nc9OaLP6GLrK2kL
-         GvWlZC/SqAM/wA4IS1oyfFePvfGNXbl9sHcmYYOeqgHdGXV50B9iT1pULSXWXgmVQGx9
-         GRHPrQmDDZd9IlK5VsIltGkKlyDmXhbiH5ag7kkR9OVv1MoYJLW5UBpiXNa258u94xuO
-         0EzfGcIaM2lcqrXFwccofrS5rl5kHxWjK/8rsILi1i7HcOhCJUuyS9Ik3QIuPEH277Pu
-         NCXbsyLQ4IOlUxuKt1dX653p+1hzrzwiIbgFPnifzpOwexUtv8P0O6vSTvkOHZ+BT3B+
-         9g6A==
-X-Forwarded-Encrypted: i=1; AKwUvBwVLzZinu0Rsmi41ITX4kTlCx6/DsRP/WTJj2R4edTO43RpBhkRREB/2S3xKA0aw/4SL+jxyt11vbl+z/E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKxAbf002rioHZGwDlBWMBlWZu3K4Av3+i82ykOCEAEug7clDna
-	sGedxpq3KXQ92ZWh+7vPfyA9nfHWqGIypjFqki35WQWf0dOoCqa2ZM83
-X-Gm-Gg: AYBFou298la/W5/tGPhLjRt3DhVyTH+aLdYn00WuOY6XtFbL/WM9kanXaXFd6qVd9S0
-	U2uXdumxw/4BfyQsje7EQBJZi6odFxZ7nXYPtUz61qugLDVR8eGiyrenGUTfZf4ZjuOje5sgATM
-	0oikE8jc9JD8rpqr7j9F/PB8k9MVB1hkEYquFZz42K05Cki4gCR87Y1tjPYF3NSxsYDzoLpcSN9
-	v01l15FyQrhZ0qRnoBP4rUBmRy+L3q//1DaabaEovXWiuGeqWsxlr4Y7s75/uohsSEV1Vs2VD3C
-	7PfPMfYxkdddI2gzZ5+7aPlu9aX5oLkF+0xJF22MHENKgoM1fR37232BR/B7DHkNF7QH9YD+f12
-	/iAN4ZxVrsbbIkgYL8XeQK+exAOhZbZLLpub3NrL7410xlCP+g/qVAcUimlvZ0F9SMAEhdY7YYR
-	lU6aJAL87sWi05Y6aURA2G0RK6Bp9c7rstSqs9HxpblH4N+wob16LqBNwPgdgbVR+WXHsHu7fCl
-	DewGLvbshvi4L4xvDsMcQITjyxurbTYNCNdf2iMJ5ObzTaoATU7fm9sqCSG5Z27D6lgkQiNvEv7
-	TnQx8XAASAOx0Q==
-X-Received: by 2002:a17:90b:4cd0:b0:3a6:f1d2:57f8 with SMTP id 98e67ed59e1d1-3a8a08354bbmr1628776a91.2.1791371402126;
-        Wed, 07 Oct 2026 04:10:02 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8a5ec70dbsm1328745a91.2.2026.10.07.04.09.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 04:10:01 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: Mark Brown <broonie@kernel.org>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Trevor Wu <trevor.wu@mediatek.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	cassiogabrielcontato@gmail.com,
-	Haotian Zhang <vulab@iscas.ac.cn>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Cyril Chao <Cyril.Chao@mediatek.com>,
-	Tuo Li <islituo@gmail.com>,
-	Rosen Penev <rosenp@gmail.com>,
-	Garlic Tseng <garlic.tseng@mediatek.com>,
-	Alexandre Mergnat <amergnat@baylibre.com>,
-	Dan Carpenter <error27@gmail.com>,
-	linux-sound@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH v2 4/4] ASoC: mediatek: mt8365: Handle constraint return value in FE startup
-Date: Wed,  7 Oct 2026 18:08:58 +0700
-Message-ID: <20261007110858.509341-5-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261007110858.509341-1-phucduc.bui@gmail.com>
-References: <20261007110858.509341-1-phucduc.bui@gmail.com>
+        d=1e100.net; s=20260707; t=1791371607; x=1791976407;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=f+RisWKCQLZOEfrvNgEfr/uIKD0wCzcM3ghzQdvYe+U=;
+        b=wqlUYOtOfsI749q2EQJkm/6POz70AxvF0DFldLjVnqyXvJIftDObVszjWVHSo0A3Z6
+         0mbiGPLB8E92EItKBOtnFqcogzCGaqar7aTicuNZijXsaaE/0lh0yex1bw8M9ah1GCkC
+         K2RgX1rbo3e0Ir1em79A75ORkfOeWwIx5bUbX5nLRQlkD84HdqcPZlhEH1rr1flmFEKk
+         n2LtVhvyey/JUEVEQRA2vIuhxvmDSZ7KBuNdrIe2q5xcNusM+nc8XFKKTc5qPWt0f782
+         XqA4aC2B2tynYI40ROPLsHQV5SkwhgrQnNDr+wnrBX8UTgKbtV/0OUzvswfBGanUkK/Z
+         Oxkw==
+X-Forwarded-Encrypted: i=1; AKwUvBzcACirJxPMJN5xrw29piVdyKqNlk/AWCI+QDqIPN7JdRuhirqKmevLmlyJjecHGtw7v85iEfvFq7EOPeE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLA2pbhxsPfoT9xmAeHDtPoE4F0fVG08tXl5Y6lhC4ZxCpTmDDy
+	VmPn4X5gv49ogitIs7zzEjnQHL6/WKCh3uewJ11Am1eccFG3kwZVlgDNkwnB2+MC84mJYWKF/zi
+	ALQQ8Di4dmajAd/H1avvMFuxaMPWx54UxrX/ZMiFQ
+X-Gm-Gg: AYBFou1VOFvyhVM8XI2t2gTrZOmTo1ljk6+5v+KHfH8q36m0saRW3oqunzsocH4iaSt
+	kXPm/2hiuZ3FAQhKCeI4NGe10yZOPBa34QGXWz+MRFabqqTcsuqrLG7QVNiD8vOeMChVUMIkjS2
+	DLFhDyKPzl3/KIHz+XvetSEtLm3z6phcJLU0qVEYup4U4cWkh7hAEwWh/EC31SSzDlAyKEjaP/t
+	7TlqMecKDIDhnmd3f2ibBzwbcsB6W8B8R7xG06y6jpS2cVxSItC2DUFxQ098cJ+ODizfVs4quBy
+	P7hdPnXq8K1s1QyPTNl95TZIP/i66UyLKbRGOxKjI+gto/sJiyHnoq4pM5szx2/eYg==
+X-Received: by 2002:a05:6512:135b:b0:5b8:f142:cf3 with SMTP id
+ 2adb3069b0e04-5bcca65b3acmr273089e87.11.1791371606791; Wed, 07 Oct 2026
+ 04:13:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261007073537.2454351-1-suzuki.poulose@arm.com> <20261007073537.2454351-8-suzuki.poulose@arm.com>
+In-Reply-To: <20261007073537.2454351-8-suzuki.poulose@arm.com>
+From: Fuad Tabba <tabba@google.com>
+Date: Wed, 7 Oct 2026 13:12:50 +0200
+X-Gm-Features: AclHuK8WLpu77qQsvdg4MDduFoR68Hrl6zUyd6Su64I0GC1JFRH6-dZAB7pnQNs
+Message-ID: <CA+EHjTy2WuCui_O8sYXviCmgLQfZ-j-jOBQqRY9NOXzMGQ5k+Q@mail.gmail.com>
+Subject: Re: [PATCH v23 07/14] KVM: arm64: Refactor the vcpu_load to allow for
+ VM specific callbacks
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org, 
+	will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, steven.price@arm.com, 
+	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com, 
+	joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev, 
+	gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, 
+	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, 
+	lpieralisi@kernel.org, enju.kohei@fujitsu.com, sudeep.holla@arm.com, 
+	jonathan.cameron@oss.qualcomm.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+On Wed, 7 Oct 2026 at 09:36, Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
+>
+> To keep the VCPU load/put handling cleaner with the different kinds of VM
+> types, we are about to introduce VM specific callbacks to do just the right
+> thing. In preparation for that, make some refactoring to add the change
+> easier by mainly feature specific configurations to individual wrappers,
+> so that different callbacks could reuse the helpers.
+>
+> Adds vcpu_prepare_mmu()/vcpu_put_mmu() wrappers to load/put MMU related
+> configurations for !pKVM guests. Additionally makes it explicit that
+> kvm_arm_vmid_clear_active() is not required for pKVM host.
+>
+> Add vcpu_load_pvtime(), vcpu_set_wfx_traps() wrappers for handling the
+> corresponding configurations.
+>
+> While at it, also make it clear that the timer loading constraints only
+> apply for the VHE.
+>
+> No functional changes intended. Based on a work by Marc Zyngier.
+>
+> Reviewed-by: Gavin Shan <gshan@redhat.com>
+> Tested-by: Gavin Shan <gshan@redhat.com>
+> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
 
-snd_pcm_hw_constraint_integer() may return 1, which is then returned
-from mt8365_afe_fe_startup(). ASoC only treats 0 as success when marking
-the DAI as started, so .shutdown() can be skipped on rollback.
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
 
-Return 0 explicitly on success.
-
-Fixes: e1991d102bc2 ("ASoC: mediatek: mt8365: Add the AFE driver support")
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
----
- sound/soc/mediatek/mt8365/mt8365-afe-pcm.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/mediatek/mt8365/mt8365-afe-pcm.c b/sound/soc/mediatek/mt8365/mt8365-afe-pcm.c
-index e9497246f37c..314235557fdf 100644
---- a/sound/soc/mediatek/mt8365/mt8365-afe-pcm.c
-+++ b/sound/soc/mediatek/mt8365/mt8365-afe-pcm.c
-@@ -514,11 +514,14 @@ static int mt8365_afe_fe_startup(struct snd_pcm_substream *substream,
- 	snd_soc_set_runtime_hwparams(substream, afe->mtk_afe_hardware);
- 
- 	ret = snd_pcm_hw_constraint_integer(runtime, SNDRV_PCM_HW_PARAM_PERIODS);
--	if (ret < 0)
-+	if (ret < 0) {
- 		dev_err(afe->dev, "snd_pcm_hw_constraint_integer failed\n");
-+		return ret;
-+	}
- 
- 	mt8365_afe_enable_main_clk(afe);
--	return ret;
-+
-+	return 0;
- }
- 
- static void mt8365_afe_fe_shutdown(struct snd_pcm_substream *substream,
--- 
-2.43.0
-
+Cheers,
+/fuad
