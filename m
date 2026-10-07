@@ -1,43 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A3C648123D;
-	Wed,  7 Oct 2026 13:04:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C52A29408;
+	Wed,  7 Oct 2026 13:05:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791378260; cv=none; b=KfhoPsE5Onxd321Km5d8MTDl7jaqB3f2D/VFeBqVWOvFZZeikcAcycbZKjhP/R0VYu3T4dBQpotJlR1K9cOKLGez20U2xTef77orwXD/ldW0nvXjSvwQ0vsWuAL8gvhJ7Z9TEY38TnIBPavfKLJYinExvDZjUtSWFWYgdmi2Pno=
+	t=1791378317; cv=none; b=TlzTo6ZZ3jRUc98rZ/pqaY5f/RuQ4HVpW3X7Kfzh3vq0WXTtlObis0wwHWyzavIy1/yYUdV4PnJYNjdy87KrWgxLDgm47dNQPw6Wev9KKtEEn6acFwr9vxj5s1VjlrEgaLPPLnilUFFl4EvJ4Tc4xNALqKi7x4li5CWKp9L9U+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791378260; c=relaxed/simple;
-	bh=5mZkqvWfwnKehqKFwrP7aZW+mFT+j0HzqFsdn24VQTQ=;
+	s=arc-20240116; t=1791378317; c=relaxed/simple;
+	bh=2tP+ifbjocSY1XmYcSlhdCFp12TTOlHyhXW/Mu7FTRY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O/TNn7if229I5vWW2bHGB01nz2ziP1+UBWDzt7yGguFUpDe5KtGAwkzoCIF4U+2ekBC5IjPMjmcyH+jQKF3eUEWxn27Tc8JVzkQBIMW+jIzNHQfkPVeUmExL0AEtsmUKGmt8E0FjgF/XyOTU1OydXWCWctU3ZttXaDjTxVFTkoE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ck86f0xc; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=OuWhxNFq5HvmDetGYzDbqbqxqDO2H5C+Xu8Nn0BjrBE+uvcRcbrED57Qtvcy9P4zaSYfGUeReUxjsnRJnAi3UhW6u8D+yBaLuQxr35qkx5o1HcCq3r/Zlp5F329Y2vFzda6ji3TjXjyIlwSzBCQU3Sj4UY1Kq7cPxD/0k2Rb7ls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iksfkcwV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ck86f0xc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4F1C1F0089C;
-	Wed,  7 Oct 2026 13:04:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iksfkcwV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CA211F0089B;
+	Wed,  7 Oct 2026 13:05:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791378249;
-	bh=84dEnMeuxrpA4ZytGyYSFXT69ied57NAHmkJ88VCEwo=;
+	s=k20260515; t=1791378309;
+	bh=1xyFY2/qjSfzfOEEqstRe13yg3w1MmOIvKuE98LYfVs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ck86f0xc2CyGGyVLDv7x7A5CYBIiIREoK9vzmSZrJJoVU5Fui+jaOoBwuvPC1akts
-	 VK5Vkqyv3ceUs1NDgN2lzNiJZ/WyZ1g9fCWRhSn4CWWLfrS/Pmr1w7JOvyWMTzq2aD
-	 EQr9IXjicpH4f35gCg6N26FMrbndK4O0orx5NkbJIUpcTvAZF7ITsBuRPjREWPDP05
-	 UvdwEIDsHbnpZZOHorMYCPgIAf3gE4P1TRY+9jKlDwa7wJyivbvnXejfBaJ7CZXCg7
-	 BJk1go18+uvlkRXX98pfwLIp+AElof1cXWWFD6moSkHw5ulwXCP3yUQOJokSdaOvhw
-	 GWysHkg2VvgNA==
-Date: Wed, 7 Oct 2026 14:04:05 +0100
+	b=iksfkcwV7xFdTzISErXb2Xu1BYx2pGEMxaKg71yI1MLQEgNXOSHwv2IkjDJz5HAjs
+	 7Bpp0JlaK+Zyvli16Ls0FnmcH3a+t5bKOUOpnolE0BRhO6IbT0YRWSwDhrj0zcWNNR
+	 h5FS274dckjwIrUJPXEEKVcVyEZkzHZFgFMF5mVHkMdHTomN9xSB2hpIYEQJCq7T+i
+	 Utb3ZVdl1Cn3+4BoMHMCOjErkn6QGCqm4fRq44WLzEN8xBZrcUx7SMMqrGonXOY0tC
+	 hE2m90UNaT5aSgAouLeciwD9kq+vWoFCDMEgB8kXoaApbq+EccC9kS+v8v7Il3w8bD
+	 jAG80pIB85LIQ==
+Date: Wed, 7 Oct 2026 14:05:03 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Jisheng Zhang <jszhang@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+To: Thomas Bonnefille <thomas.bonnefille@bootlin.com>
+Cc: Puranjay Mohan <puranjay@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: serial: snps-dw-apb-uart: Add Synaptics
- sl2610 uart
-Message-ID: <20261007-450d3d9a4f4a2c07cc088067@squawk>
-References: <20261005151918.25259-1-jszhang@kernel.org>
+	Conor Dooley <conor+dt@kernel.org>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	=?iso-8859-1?Q?Miqu=E8l?= Raynal <miquel.raynal@bootlin.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: iio: ti,tmp117: describe interrupts for
+ TMP117
+Message-ID: <20261007-b011a79717a2ebec6f613c6c@squawk>
+References: <20261005-add-tmp117-notif-v1-0-c6cef6fad64c@bootlin.com>
+ <20261005-add-tmp117-notif-v1-1-c6cef6fad64c@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,76 +52,85 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bj9ENhqRtHEDsn4P"
+	protocol="application/pgp-signature"; boundary="ETSjIwFJfDXvsQMH"
 Content-Disposition: inline
-In-Reply-To: <20261005151918.25259-1-jszhang@kernel.org>
+In-Reply-To: <20261005-add-tmp117-notif-v1-1-c6cef6fad64c@bootlin.com>
 
---bj9ENhqRtHEDsn4P
+--ETSjIwFJfDXvsQMH
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 05, 2026 at 11:19:18PM +0800, Jisheng Zhang wrote:
-> Add the compatible for the UARTs of the Synaptics SL2610, which are
-> compatible with the Synopsys DesignWare APB UART.
+On Mon, Oct 05, 2026 at 04:44:19PM +0200, Thomas Bonnefille wrote:
+> The TMP117 can send alerts when the temperature crosses a low or high
+> limit. This triggers an interrupt on the ALERT pin.
 >=20
-> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+> Add the optional interrupts property.
+>=20
+> Signed-off-by: Thomas Bonnefille <thomas.bonnefille@bootlin.com>
 > ---
+>  Documentation/devicetree/bindings/iio/temperature/ti,tmp117.yaml | 9 +++=
+++++++
+>  1 file changed, 9 insertions(+)
 >=20
-> since v1:
->  - use sl2610 instead of sl261x
->  - send as a separate patch
->=20
->  .../devicetree/bindings/serial/snps-dw-apb-uart.yaml | 12 +++++++++++-
->  1 file changed, 11 insertions(+), 1 deletion(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.ya=
-ml b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-> index 664305de4986..a40f2737e71b 100644
-> --- a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-> +++ b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-> @@ -34,7 +34,16 @@ allOf:
->        properties:
->          resets:
->            minItems: 2
-> -    else:
+> diff --git a/Documentation/devicetree/bindings/iio/temperature/ti,tmp117.=
+yaml b/Documentation/devicetree/bindings/iio/temperature/ti,tmp117.yaml
+> index 7fb3e68207919..68ee936722ded 100644
+> --- a/Documentation/devicetree/bindings/iio/temperature/ti,tmp117.yaml
+> +++ b/Documentation/devicetree/bindings/iio/temperature/ti,tmp117.yaml
+> @@ -30,6 +30,11 @@ properties:
+>    reg:
+>      maxItems: 1
+> =20
+> +  interrupts:
+> +    description: |
+
+Valid comment here, but I wouldn't respin for it.
+
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
+
+Cheers,
+COnor,
+
+> +      Interrupt line connected to the ALERT output of the sensor.
+> +    maxItems: 1
 > +
-> +  - if:
-> +      not:
-> +        properties:
-> +          compatible:
-> +            contains:
-> +              enum:
-> +                - starfive,jh7110-uart
-> +                - syna,sl2610-uart
-
-Is the number of uart resets on this device variable?
-
-> +    then:
->        properties:
->          resets:
->            maxItems: 1
-> @@ -80,6 +89,7 @@ properties:
->                - starfive,jh7100-hsuart
->                - starfive,jh7100-uart
->                - starfive,jh7110-uart
-> +              - syna,sl2610-uart
->                - ultrarisc,dp1000-uart
->            - const: snps,dw-apb-uart
->        - const: snps,dw-apb-uart
+>    vcc-supply:
+>      description: provide VCC power to the sensor.
+> =20
+> @@ -45,6 +50,8 @@ additionalProperties: false
+> =20
+>  examples:
+>    - |
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +
+>      i2c {
+>          #address-cells =3D <1>;
+>          #size-cells =3D <0>;
+> @@ -52,6 +59,8 @@ examples:
+>          tmp117@48 {
+>              compatible =3D "ti,tmp117";
+>              reg =3D <0x48>;
+> +            interrupt-parent =3D <&gpio0>;
+> +            interrupts =3D <5 IRQ_TYPE_LEVEL_LOW>;
+>              vcc-supply =3D <&pmic_reg_3v3>;
+>          };
+>      };
+>=20
 > --=20
-> 2.53.0
+> 2.55.0
 >=20
 
---bj9ENhqRtHEDsn4P
+--ETSjIwFJfDXvsQMH
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasZDRQAKCRB4tDGHoIJi
-0jcSAP0TrHMLDbVz+kxj8bftwsGZujBCJhGVBfHKLKOcWYrA6AD/X6tmnmvPEqja
-kAVRwzx2SZtcrWuwhzEkVEC6gvvWswE=
-=AK5Q
+iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasZDfwAKCRB4tDGHoIJi
+0th3AQCowekS+yV2wRtr/tMfZMPC0FEQS9GbKJj4Gn9d8UjiyAD8DCZzJh3a+y+v
+Qh0cu4sn1ha7AjTvvYk9ivy4Y+euwQ4=
+=OXVZ
 -----END PGP SIGNATURE-----
 
---bj9ENhqRtHEDsn4P--
+--ETSjIwFJfDXvsQMH--
