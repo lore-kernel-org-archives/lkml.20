@@ -1,73 +1,149 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 102C726E71F
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 04:48:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B0547404E;
+	Wed,  7 Oct 2026 04:51:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791348499; cv=none; b=cNEhb30qFtGDCYXZ+XZK9muxuK6Hs/VrbinXyPkXmINkRSBA6YMzBx4TsqjZ3WDZl3hlnNyON37jshwEBL5FytLuq6F4yFZwnP2swup8oPGNM/ulvEoy8C1/8mwvi8QdxSNMBSTCHD9KkVKd8UeIMl1cEN6cDB9IA8KDi0TvhHU=
+	t=1791348665; cv=none; b=JcbQCC79l17AZgA+vvTIikUAGncJmf8m2M97AtWm98BgvBas3aG7mpOhH/Y760ZCI3rUYckra3dn9zfM9zsACAOF03kCY3G4o9QAa0eVAxHLlw4dbrBFkOlNsN3Z7sT75sQWX5XO0b6umm9MUQzp+xfsz129uaASSPs6fXLrQ+w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791348499; c=relaxed/simple;
-	bh=LUOwIF/+RKSg4yeAuSHwTalkrYAuYrT8ZtBENuizEq4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=i7IzlBzn7C8B3lB+hLFv/cpT6vn2zUMlyj45ujXhy32bCJnU8wfq+elXXodH34zhwjAUFQz15vRQyWlX/NmaB9ctRpD9rUx3atlpCrmK/0MYC9VOUEIB5AixbzQ6EDxvcfiQYtak1oehSmLlvRCHVzHwiwn7atiHDHZBVRmdH2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c66NvjnN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791348665; c=relaxed/simple;
+	bh=SRXAnyoTwVbaKw5DdyoF0nZjfpXM9Peq19YZng+OWAo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-Id; b=svzFNZC34s8IVz3UJgv0pNTsXSeRvJ96wA/wB2c8AOymXacm9pbLoUHBetf1TslpScXjYdpjXFCRkxDUq3js0KV/ulADg5abB33pHxbhQmHutiNmpqxXVYpXZxOSID/A+8v6V54+3tR0dtj5LHXSf4tuRHmGGW2Hqc97kA2qW+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lRq/cv3J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c66NvjnN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA8A51F0089C
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 04:48:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lRq/cv3J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 601511F0089B;
+	Wed,  7 Oct 2026 04:50:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791348496;
-	bh=LI/GifCYkuyachy7bv9KoRPB+5bzVn2Chv8jale9T0E=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=c66NvjnNcdEWzLOlRO43M/oCgHpFTx5N6QOluYzF2FsuqaqZ9kSlksDekIxYjGa/p
-	 IYpPf1UN5oBSRCF7kclHg9yHYtFk3bJf+Bm9MoR04KDz4O3EvKgi2ZsDVkbRMO4yAP
-	 tDTGNmfQHK0XXsKVjCQcwXnrHmM9c8Xwl++dXWl8UpBSRFfJ0ABcsc0Sd5gEhw3M+V
-	 wwPc/z2YtdeSpIldEl0NGdqc6MSsGSykBah1iY+lr5zcS8lBmy+ziV/XfCSNy/xkpN
-	 KqLR60M/DKcqC2dF+Rvfr2C/0tdLaecI9u/m7vhEUPdCI5Z3LqWeYdBqxLDaDiuCJR
-	 cZz42FatNFYrw==
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c2a4e013a44so535964766b.2
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 21:48:16 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx6ECvIxNkMJSCcQTf0rDev6ku2BXbQ+lighTv7rYQSCJjeNeoZNuwq+Pa9ZAoVmf5FQs/3kAnqIerTz5M=@vger.kernel.org
-X-Gm-Message-State: AFuF++mmeWTqUBWszDxm0S8j3Bpf4DQtiNnMGM3ORCF93ukDugK8jrl+
-	7ScqFa48TI7YUOEDxCYzQVD2++c6q3pOj/K9I84z305l58OqoO260bX510Ip+V793t/K+KV3b5F
-	fQ0JEPkolmdQkp+f5pJ4LSqpHEC9g4n0=
-X-Received: by 2002:a17:907:3e20:b0:c2e:4f16:fbf with SMTP id
- a640c23a62f3a-c317c09e5c1mr89396466b.31.1791348495342; Tue, 06 Oct 2026
- 21:48:15 -0700 (PDT)
+	s=k20260515; t=1791348663;
+	bh=YfZUOyUfb3wd5BZD5cwO1pIKgms+v7U6RGWL1mBY3dE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lRq/cv3JeDXOU7UAotnpyWzkc5IyRNKfUTmp/K9D+Lvv0ReiYLI3VHi2G6fPb9Fe6
+	 7hMSRWZiJzioAzkgYeQ4OZlo46uV7DUJzNK2T/BSEGGy8WuhUDq7EGYxcz6mf1AzO1
+	 edgEZI5EJtHT2BuB0W6X9LHDsshHEijdDUpm+qzeHYEQ4f4TLLsoDqqregETx9niGK
+	 6VutLbFMjj+zfDEKx43onqPWM3GpcsQStQG0HYQ6GlJQkLLe7R88X2ck4BZu+ONvqc
+	 7eCfuniZGMkIRBclQDfx2EL8TK1Cidt28FtIWDSMXLSMYWKmrELbdvaeU+ORXcvP6L
+	 uzWlvJbA5sDeA==
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+To: chuck@wolber.net
+Cc: Masami Hiramatsu <mhiramat@kernel.org>, Marco Elver <elver@google.com>,
+ kasan-dev@googlegroups.com, nathan@kernel.org, akpm@linux-foundation.org,
+ anton.ivanov@cambridgegreys.com, oberpar@linux.ibm.com, ardb@kernel.org,
+ arnd@arndb.de, bhelgaas@google.com, bp@alien8.de, dave.hansen@linux.intel.com,
+ dvyukov@google.com, hpa@zytor.com, jinghao7@illinois.edu,
+ johannes@sipsolutions.net, jpoimboe@kernel.org, justinstitt@google.com,
+ kees@kernel.org, kent.overstreet@linux.dev, linux-arch@vger.kernel.org,
+ linux-efi@vger.kernel.org, linux-kbuild@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ linux-um@lists.infradead.org, llvm@lists.linux.dev, luto@kernel.org,
+ marinov@illinois.edu, masahiroy@kernel.org, maskray@google.com,
+ mathieu.desnoyers@efficios.com, mingo@redhat.com, morbo@google.com,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ "Paul E. McKenney" <paulmck@kernel.org>, richard@nod.at,
+ Steven Rostedt <rostedt@goodmis.org>, samitolvanen@google.com,
+ tglx@linutronix.de, tingxur@illinois.edu, tyxu@illinois.edu,
+ wentaoz5@illinois.edu, x86@kernel.org, peterz@infradead.org,
+ Sasha Levin <sashal@kernel.org>, Aleksandr Nogikh <nogikh@google.com>,
+ Taras Madan <tarasmadan@google.com>, Alexander Potapenko <glider@google.com>
+Subject: Re: [PROPOSAL] Replace gcov and kcov with llvm-cov
+Date: Wed, 07 Oct 2026 04:50:47 +0000
+In-Reply-To: <c84149c4-26c3-476e-93d5-4fe72f7c708b@app.fastmail.com>
+References:
+ 00ed0b57-ad05-4c5d-b152-7c81df94b23a@app.fastmail.comCANpmjNOaykC4McAj=gZghqPSQc9aGBP_CjgKmp3n2yjeJTxDSA>@mail.gmail.com<41913a77-5c57-4967-8166-765dd5dde1bf@app.fastmail.com
+ 20261007023045.04BD71F0089B@smtp.kernel.org
+ <c84149c4-26c3-476e-93d5-4fe72f7c708b@app.fastmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261004135638.1888530-1-anmuxixixi@gmail.com> <20261004135638.1888530-2-anmuxixixi@gmail.com>
-In-Reply-To: <20261004135638.1888530-2-anmuxixixi@gmail.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Wed, 7 Oct 2026 13:48:02 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd9d9qzt2mxQNQoUiwHR6EkzxD2LAPWijY2DxSV8gYLkJQ@mail.gmail.com>
-X-Gm-Features: AclHuK9U2Ugsb7y5_33gEeoGDoTuYmFee95M_cfEaV0iY9mMTQN8iU9mA3G9Xco
-Message-ID: <CAKYAXd9d9qzt2mxQNQoUiwHR6EkzxD2LAPWijY2DxSV8gYLkJQ@mail.gmail.com>
-Subject: Re: [PATCH v7 1/3] exfat: add a Bloom filter for negative name lookups
-To: Yang Wen <anmuxixixi@gmail.com>
-Cc: sj1557.seo@samsung.com, chizhiling@163.com, yuezhang.mo@sony.com, 
-	exfat@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Message-Id: <20261007045050.601511F0089B@smtp.kernel.org>
 
->  /* read a directory entry from the opened directory */
->  static int exfat_readdir(struct inode *inode, loff_t *cpos, struct exfat_dir_entry *dir_entry)
->  {
-> @@ -1035,6 +1216,8 @@ int exfat_find_dir_entry(struct super_block *sb, struct exfat_inode_info *ei,
+On Wed, 07 Oct 2026 04:17:42 +0000, Chuck Wolber <chuck@wolber.net> wrote:
+> On Wed, Oct 7, 2026, at 2:30 AM, Masami Hiramatsu wrote:
+> > On Tue, 06 Oct 2026 16:27:11 +0000, Chuck Wolber <chuck@wolber.net> wrote:
+> >> On Tue, Oct 6, 2026, at 4:10 PM, Marco Elver wrote:
+> >> > On Tue, 6 Oct 2026 at 17:14, Chuck Wolber <chuck@wolber.net> wrote:
+> >
+> >> >> If there is a desire to take this in pieces or implement other
+> >> >> intermediate steps, let me know. Otherwise I can generate a
+> >> >> monolithic set all at once.
+> >> >>
+> >> >> [1] https://lore.kernel.org/lkml/20240905043245.1389509-1-wentaoz5@illinois.edu/
+> >> >>
+> >> > >> > llvm-cov is generally useful to have; llvm-cov is closest to
+> >> > >> > gcov, so that might make sense to replace.
+> >>
+> >> Swapping llvm-cov for gcov to start with is pretty straightforward,
+> >> so I can aim my initial patch set there.
+> >
+> > Hmm, is it necessary to remove gcov? Would it be difficult to simply
+> > add support for llvm-cov and enable (make kconfig selectable) one or
+> > the other depending on the compiler?
 >
->         if (num_entries < 0)
->                 return num_entries;
-> +       if (!exfat_name_filter_maybe_contains(&ei->vfs_inode, p_uniname))
-> +               return -ENOENT;
-This early return bypasses the normal lookup path, which resets or
-rebuilds ei->hint_femp. For example, a prior FS_IOC_GETFSLABEL on a
-volume without a label can leave a root-directory hint with cur.size
-set to zero. 0002 patch marks that hint as usable for any create
-through min_entries = 1. If the first deleted run is too short and the
-search crosses a cluster boundary, exfat_chain_advance() sees a zero
-length chain and returns -EIO. Could this path invalidate the hint, or
-could the volume-label scan avoid publishing an invalid chain hint?
+> Not strictly necessary, no. And what you are describing is what our
+> original patches do.
+
+OK, let me check it.
+
+>
+> The concern was why we would want to have three separate code coverage
+> tools in the kernel. Each has their own way of doing things, and they
+> can all live together in the kernel harmoniously.
+>
+> But the concern was raised so I am trying to find a way forward.
+>
+> The llvm-cov approach gives results that are reliably tied to actual
+> lines of source, so that is the one I reflexively reach for any time I
+> need code coverage. I am at a loss (but definitely willing to be
+> educated) as to what value gcov style coverage provides in comparison.
+>
+
+I agree with llvm-cov is better than GCOV. But since gcc users can
+NOT use this feature, for checking code coverage in the kernel,
+we still need to keep it for gcc users.
+
+> I also found some interesting possibilities using intrinsics to enable
+> boot time tracing with llvm-cov. That is, of course, experimental and
+> not something I am considering for the intial patch-set. But it got me
+> thinking about broader configurability that supports more granular forms
+> of coverage that _may_ address kcov needs in the long term.
+
+Ah, that's an interesting idea :)
+
+>
+> I have been working on this off-and on for a few years and still really
+> want to see this idea succeed. Any guidance on a workable path forward
+> would be greatly appreciated.
+>
+> Another option, proposed by Sasha Levin[1], was to use a single
+> /sys/kernel/debug/coverage interface, quoting him here:
+>
+> "To clarify, are you suggesting that we'll have something like a single
+>  /sys/kernel/debug/coverage interface that is producing the same structured
+>  output whether we use gcov or llvm?"
+>
+> I am not sure it is feasible to use the same structured ouput, but it
+> would isolate things down to a single interface with KConfig knobs being
+> used to select which coverage data one can expect to find there.
+
+Yeah, that soulds reasonable for me.
+
+Thank you,
+
+>
+>
+> [1] https://lore.kernel.org/lkml/aba_HgSbzLGm6VBQ@laps/
+>
+>
+> Thank you,
+>
+> ..Ch:W..
+
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
