@@ -1,196 +1,372 @@
-Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com [209.85.217.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 885D45304B3
-	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:55:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791914142; cv=pass; b=j38E+VhqVsImpyrNZxkgSexsKr0XhN3hkJXj5bNTTj6z/+1maSiGoXW2JV07+OLI+/W5cXljwvniydiWk9m3Vkfe1RpdLQfzkGfZypegYSjbnxv6LRNdsGCsB3H/3SMccG+8DnV4P8OT0iCPODW9e8S4bMlmGGgXu/sypfLzZls=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791914142; c=relaxed/simple;
-	bh=SQgjO5qMcrjkdqWkFJWQ2/5aeiMU8vBt2jrTtWhC0bw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=t5wci58IoYawcfXltx25csxR0ubRzD1oWu/5AaRuY1CIvESLpq8EX95d7rl6FCAJ01o2ZFineg5Y4tMlrrMQDCpCBMmLob9ORZx16LJsDuLmTD9ZNebYfTwRBwSQ39J7eSL9Kx7jiI+DKAFTCe6ZWbcvUI6W9pojiDCFXROL9f8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b=JNXQg/VP; arc=pass smtp.client-ip=209.85.217.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 284315218A6
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:55:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791914151; cv=none; b=co3ETmpAZQc0S6zEs60BYAX3NIBKVyxBmVi0NJSempwXiydfO0JM/XfJaabL+m70sM8OOavDSKfINpd5g9lGXHtMsgkJety8eUTlNfqDkP6xOLtXBD7Bo/oFCLZbkpRosa8gOheVmOF1YwN5DcgFz3bNp0Pf6HgiIREN7m7XpBI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791914151; c=relaxed/simple;
+	bh=j+zoSRdpxPqIN7Wq5Lo9cK4LMFAPTuaAjwcCvy4HSOQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uLGhwaP+gtMdO5bgaZZ/GTe6wkpP1treu+9klM8gc4vjlVkTdtXNo3HrYGhaOFnsbxYrMCEs8BJ0JLtN62xhBp3ay0/8V2fxnQiuv1RDGuhSkR47j6yhyQ1TBgve7HC+Syx+Xvwei6jZA2W0Q5svbGHZAB+4XO4onW8w1edQHHg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=OZNruD5o; dkim=fail (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=BX2s35zm reason="signature verification failed"; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b="JNXQg/VP"
-Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-7c1ecff2b1fso942849137.1
-        for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 10:55:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791914138; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mXh48vc1lYJCYA7kCiM1ucp3EJ6DCtx8L47kJe21l9VDxEDUe8E6/J/6Qn6CvPBtCu
-         gD+yU/WI+MsCF20XPxhv/UIqklBmQh8ywRFSBFhsNupEDdCV+opOe7ZDAbEN9awFn4hp
-         YstLihCBavU4CELA5zGhKjIFU/r1BnPeEBTaO+tWU5I0pyRFbECVlp2YR2ktW1f3WlSV
-         en9RZXKnl0LG0MshNwcYMrCMOG02t1bqRiCq2+OjFb9LJ/pE4O7geSwwLrg2/A8sdgds
-         A1vbKe4pkbfvzXm3b2VVf0gFuKI3+YHUuknM5jcjheUp+uNCerij6KexCKTd0sB1gdHB
-         pQ+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=xw10GollzpDXFQSLBXSRG9PlzHoCfGflID06EBih6gE=;
-        fh=p74dOpxCAtLBC06Rf6ymuNvXUJZtAmiRe9cCDP79uOs=;
-        b=gngf4ANmAb1dv+9+pWCZcbGaWGXWU+B/jzD/4v53/ScdhOc4dUm8nc/K77Af4C22k4
-         C0t6gEQZQg1WNpB3YJvQKA1BTHNSvlrjap7ZD0pdqfEikEWW86w7ncXycd9Prp+KT7tY
-         6Cwf+jh58r5zItQQemJju6b0pLUjyeij4tSk9w5b5OTa9mzKUQdWAe/PlZs5E4pwv52m
-         54s3B1d6A4D7w+x+MWW6xlk+YBb8jDE/HYEDWX1+u7DO7XUsSV17S8i17novLL7xraHK
-         Fcb450z53Q+b5VhyYQyAwxo6IZ17OIrFTuc0OjPD8PZBT1bssCLctCY+WSRGk5AS9FNr
-         OiwQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=everpuredata.com; s=google; t=1791914138; x=1792518938; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xw10GollzpDXFQSLBXSRG9PlzHoCfGflID06EBih6gE=;
-        b=JNXQg/VPNBWzxhfwnGsYc8nw7bu2uInI8zdyWeaDgFlcDS9O4Go81kChcz9YmrbGiu
-         tidJ+GJ741R/bS9MC0l++8xX/cIuOEGxn2mC0tAon5YQ7a6k/yiAXD13xhozJ3PwwALm
-         z7qUefr4rpgAEJjWdYjAbiXJ3IfCrey3Sknd+DDQePCmufbcccnLS5l1fWtf2PcMJ6do
-         0B/mVcSCVGy126WhsPGX3R7PFDOKjPla98LnX8eyZV+jAjb5eyEPOLsDbPvZPND/2pE9
-         aex0p1YZdx2wa4UQ+VNHnwuqU3MmQ5c2WvHZckXykd1ioU7bfUv75p/kIWyM4A990Y7q
-         P0MA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791914138; x=1792518938;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xw10GollzpDXFQSLBXSRG9PlzHoCfGflID06EBih6gE=;
-        b=XCC3QClTQ2M6wMrSCw4weiEzHkG5Nlfq4OGO4rZgWuBUC9aKGD0XTVGaXY4EUz8Ikx
-         NzEJdbfZBgK2lDv30A4e9Qz/wG84fRJQuEpJnAExE9bRNPS7eKo3LPqBf4vISwZ1MrCc
-         9tUARd2brm/TCtA0yMQhD9XsoMOCHzlqi+j983mINBCRPzFWUcPgEAf8f0f9TruWJsUP
-         13vhU4uwdThva19qznKoDeNIbV5Pq/DDKL9gjPeM/LG8aqhG+OIqnyecQbB2KdrNKJsa
-         3B33knM72bIidfy+H9KgAj/LcYa1XHHDZBuZl2K7lE6tmfuAX2deTTSEan6QOotMkaL5
-         x+1g==
-X-Forwarded-Encrypted: i=1; AKwUvBxWKlqCDjEOEeC7BPdwMs5QlkUsQFkSVKNPvOhqQwTLuI+dRoPYfT7fJCZHJ9gYRpWTDSqC28x5iBLupvw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJTX+LNNbdwmXJkmdncnVgenf3MWAc/maW6M2FjtZSmWY8X1pf4
-	XndX9rBRUqXDFkcOfeLsnKuY1mukHgcYgjOHCA6/jHqOvDd3YUduumkMd6/VFQnv2z5f/TdjOic
-	29eauCPv8K9ZnDoe8VNuoW9D7iFRApiLL9Z3/pLMwmg==
-X-Gm-Gg: AYBFou0+9mcnz6Guo1MyV4CCdHBabsGmhh0FDRdx49FzSnZ8ZAr+TGjUSyDEujOidVQ
-	s7bwNOnu57RCYBZ/c7p9GbwjdFnN9i8V2LZK0DYyh6G1psdzvdqzIyN52ivSl0UrB6s28xATPWp
-	AeZ/7r1z0I2U2SEd7HZCGDEsfxDmtWj9e3a5K+tbUKe4izoBd7Hyh49HPLX8kXOmCYOUH6DtgVz
-	9iityTOaSDPe52yNzkXbXVw4Dg7ZRG3lPz0RbUdngiFmm0LoNU2y1YRa63+KfbRfISv/f37rWel
-	5B+uhuRgFBDK/NQBOkxrZpKVc9Kco74eY5Lcvs+msJ1C71XvVNrEQ1zAFx2DmCCBiCse1wr+jw3
-	OE0mePXE1NpId+2mHS+P+0gmtDGmH+8Y8LrmeCrxIw5K6L/oUE3P2Ma/eL66x5LlWaPGWn1P2X1
-	cqEGdmhd54FAulodmo1kjo9eTh5ThHzckDE38naxY=
-X-Received: by 2002:a05:6102:f85:b0:7af:4a46:4c12 with SMTP id
- ada2fe7eead31-7cb36987a6bmr3459618137.2.1791914138076; Tue, 13 Oct 2026
- 10:55:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="OZNruD5o";
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="BX2s35zm"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 5F67BC653FD
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:56:43 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id BB0C66075C
+	for <linux-kernel@vger.kernel.org>; Tue, 13 Oct 2026 17:55:47 +0000 (UTC)
+Received: by mail.galae.net (Postcow, from userid 0)
+	id 3297511D718C1; Tue, 13 Oct 2026 19:50:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791914147; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=6IA45njCs+K8ONeWT2j1aoDtNB0+FUWw9L3He9ST5WM=;
+	b=OZNruD5ovXKMIwDgXIEydbjzuffX7P+jOSqeny7xPl3TE5H2dBpx4OjmYeKAlj/mYRoyQj
+	CWZ20Y/Vdwo7KsrUl/jBnjefjGhG1CXsfmS9thimSNcDUn4IqTGUHyM7MQXJALwJF4cl2o
+	RnXkBGz6EjDy20Zr+hPb7w0NHcD2GJxti+iyI77GAgBDb8578pv4yJdlX9F+Bg9ludcvDf
+	rVGq8Vz1jfTZEuMXZSox8I0VAwUjmlsL7w21jqomxyICdWe9+/scuV8hhmg8LGUPylGs5u
+	LurNrC6MF2bQ5AXOa3rYlv2MWL7asajvBFSt4unk4JN0Hq0lJXx2zeVJRRx+GA==
+Authentication-Results: mail.galae.net;
+	none
+Received: from mail.galae.net ([172.22.1.253])
+	by 9e7fea892943 with LMTP
+	id YB3FEpUrxmp1NQ0AtaWaaQ
+	(envelope-from <kory.maincent@bootlin.com>)
+	for <kory.maincent@bootlin.com>; Wed, 07 Oct 2026 13:23:01 +0200
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 90EDF11D5011B;
+	Wed,  7 Oct 2026 13:22:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791372180; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=PvKbS35WCOo741y4COP9Dw8++nPpWhukTi3m3k0URa4=;
+	b=BX2s35zmkef7Sd0hozR3MEerPUh9PNugMMxhrJSYacDtHw6B6CaRddr7h/Vj4ELoYsW2PX
+	dNfWX5KT0tPIYItO/7rQaJOqTGzOHCcAxzfznmT2WeF8PmBUBNiGlDXCjgSp7H8kba0se7
+	bAX0oUvspDTjjIc3zY6v2GBf1PMzIuzoWI/mn7RCgtg7efTOgMYjJDvHqIXA4PLsDrdOnf
+	bL/bxb7yDYjl0Gyz4KPA0uLBvD0RfrprksbARuYMz+KXXL+gvZBBDbedjC3D2MHsRrsyL1
+	QcuG5IvKuwJPX2GbuKjw74wU7rms2yhkwyB5NYbReYAdv1Lq9dJ9/ugjJqNvNw==
+Message-ID: <a259892d-1b6b-4caa-82d3-ba24efd5a409@bootlin.com>
+Date: Wed, 7 Oct 2026 13:22:49 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013002701.1957686-1-rjethwani@purestorage.com> <as37-A3DKONrFuxs@krikkit>
-In-Reply-To: <as37-A3DKONrFuxs@krikkit>
-From: Rishikesh Jethwani <rjethwani@everpuredata.com>
-Date: Tue, 13 Oct 2026 10:55:26 -0700
-X-Gm-Features: AclHuK_wQkqntYOIxy2Ar-py7TItAzxl71amVVkxjGfGZLHJpFnvXugBsb0o8yY
-Message-ID: <CAKaoeS1E7jMyP8F9a+SAheE4+o6RG2VOdA5uiSjZe5yX+E0wEg@mail.gmail.com>
-Subject: Re: [PATCH net] tls: refuse RX records after record-number exhaustion
-To: Sabrina Dubroca <sd@queasysnail.net>
-Cc: Jakub Kicinski <kuba@kernel.org>, John Fastabend <john.fastabend@gmail.com>, 
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, netdev@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Betterbird (Linux)
+Subject: Re: [PATCH net 0/3] net: freescale: fix PTP_EXTTS_REQUEST2 for QorIQ
+ 1588
+To: vjardin@free.fr, Yangbo Lu <yangbo.lu@nxp.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Jacob Keller <jacob.e.keller@intel.com>,
+ Claudiu Manoil <claudiu.manoil@nxp.com>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>, Wei Fang <wei.fang@nxp.com>,
+ Clark Wang <xiaoning.wang@nxp.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ imx@lists.linux.dev, Ioana Ciornei <ioana.ciornei@nxp.com>
+References: <20261006-for-upstream-qoriq-ptp-extts-flags-v1-0-b4a161b92832@free.fr>
+From: Kory Maincent <kory.maincent@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <20261006-for-upstream-qoriq-ptp-extts-flags-v1-0-b4a161b92832@free.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
+X-Last-TLS-Session-Version: None
+X-Rspamd-Queue-Id: 3297511D718C1
+X-Spamd-Result: default: False [2.51 / 30.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DATE_IN_PAST(1.00)[150];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_NO_TLS_LAST(0.10)[];
+	XM_UA_NO_VERSION(0.01)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	BCC(0.00)[];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[kory.maincent@bootlin.com];
+	MIME_TRACE(0.00)[0:+];
+	TAGGED_RCPT(0.00)[netdev];
+	RCPT_COUNT_TWELVE(0.00)[17];
+	DKIM_SIGNED(0.00)[bootlin.com:s=dkim];
+	FREEMAIL_TO(0.00)[free.fr,nxp.com,lunn.ch,davemloft.net,kernel.org,redhat.com,gmail.com,intel.com];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	URIBL_BLOCKED(0.00)[linux.dev:email,bootlin.com:email,bootlin.com:mid,bootlin.com:url,localhost:rdns,localhost:helo,galae.net:url,intel.com:email,nxp.com:email,lunn.ch:email,davemloft.net:email];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	MAILCOW_DOMAIN_HEADER_FROM(0.00)[bootlin.com];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000]
 
-On Tue, Oct 13, 2026 at 2:38=E2=80=AFAM Sabrina Dubroca <sd@queasysnail.net=
-> wrote:
->
-> 2026-10-12, 18:27:01 -0600, Rishikesh Jethwani wrote:
-> > A receive socket records sequence-number exhaustion only in sk_err.
-> > After processing record UINT64_MAX, it advances the counter to zero and
-> > reports EBADMSG, but SO_ERROR or sock_error() can clear that error.
->
-> I vaguely remember a discussion around making some fatal errors more
-> permanent (ie not use sk_err).
 
-Do you have a pointer to that thread? If there's a preferred way to make
-these errors sticky, I'd rather use it than add a one-off flag.
 
-> > parser-ready record also bypasses the socket-error check in the record
-> > wait. The receiver can then accept a record authenticated for sequence
-> > zero under the same exhausted key.
->
-> I guess, but what's the problem with wrapping as long as we don't
-> reuse the same record number?
+On 10/6/26 15:34, Vincent Jardin via B4 Relay wrote:
+> Since commit 7c571ac57d9d ("net: ptp: introduce .supported_extts_flags
+> to ptp_clock_info"), the PTP core rejects every PTP_EXTTS_REQUEST2
+> request for a driver that does not set .supported_extts_flags. The three
+> users of the QorIQ 1588 (dpaa2-ptp, enetc, ptp_qoriq),
+> so linuxptp ts2phc cannot arm their external timestamp inputs.
+> 
+> The timer timestamps the rising edge only, since ptp_qoriq_init() clears
+> ETEP1 and ETEP2. Each patch declares PTP_RISING_EDGE | PTP_STRICT_FLAGS
+> for one driver.
+> 
+> Patch 1 fixes the failure seen on an LX2160A board.
+> Patches 2 and 3 are build-tested/code review only.
 
-You're right, in practice there isn't one. The only way to get there is
-for userspace to install a rec_seq close to the limit, so sequence 0 was
-never used under that key and nothing can be replayed. Starting there
-already breaks RFC 8446 5.3, which requires the first record under a
-key to use sequence number 0.
+Reviewed-by: Kory Maincent <kory.maincent@bootlin.com>
 
-What's left is consistency. Today the wrap gives at most one EBADMSG,
-and none if the next record has already been parsed. After that recv
-continues at record 0, which is neither rekeying nor terminating. TX
-behaves the same way: the UINT64_MAX record is queued, and it goes out
-once SO_ERROR is cleared.
+Thank you!
+-- 
+Köry Maincent, Bootlin
+Embedded Linux and kernel engineering
+https://bootlin.com
 
-So I'll drop the security framing and the Fixes tag. I can either drop
-the patch, or send a minimal version for net/net-next that makes the wrap
-error stick on both RX and TX, without touching the rekey path. Which
-would you prefer?
+text:
+Message-ID: <a259892d-1b6b-4caa-82d3-ba24efd5a409@bootlin.com>
+Date: Wed, 7 Oct 2026 13:22:49 +0200
+MIME-Version: 1.0
+User-Agent: Betterbird (Linux)
+Bcc: kory.maincent@bootlin.com
+Subject: Re: [PATCH net 0/3] net: freescale: fix PTP_EXTTS_REQUEST2 for QorIQ
+ 1588
+To: vjardin@free.fr, Yangbo Lu <yangbo.lu@nxp.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Jacob Keller <jacob.e.keller@intel.com>,
+ Claudiu Manoil <claudiu.manoil@nxp.com>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>, Wei Fang <wei.fang@nxp.com>,
+ Clark Wang <xiaoning.wang@nxp.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ imx@lists.linux.dev, Ioana Ciornei <ioana.ciornei@nxp.com>
+References: <20261006-for-upstream-qoriq-ptp-extts-flags-v1-0-b4a161b92832@free.fr>
+From: Kory Maincent <kory.maincent@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <20261006-for-upstream-qoriq-ptp-extts-flags-v1-0-b4a161b92832@free.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-> > Getting there needs an initial record number installed close to the
-> > limit, since 2^64 records cannot be exchanged in practice, and a peer
-> > that sends the wrapped record, which the Linux TX path refuses to do.
-> >
-> > Mark the RX key exhausted when its record number wraps, and refuse to
-> > wait for or decrypt another record under it, or to replace the key.
-> > Plaintext that is already decrypted can still be read. RFC 8446 lets a
-> > sender retire a key with a KeyUpdate as its last record, so in that
-> > case leave sk_err alone, report the pending key update as usual and
-> > let the new TLS_RX key clear the mark.
-> >
-> > Add fixed AES-GCM wire vectors and TLS 1.2/1.3 selftests for queued
-> > wrapped records, SO_ERROR clearing, splice, peek, partial reads, TLS
-> > 1.3 key replacement and a KeyUpdate in the last record. Every case
-> > first verifies the penultimate record succeeds. The vectors avoid a
-> > userspace crypto dependency and the TX path's refusal to generate the
-> > maximum-number record.
->
-> For 1.3, just do a "silent rekey" (change the key but don't send a
-> keyupdate) on the TX side to record number 0 with the same key? And it
-> should be enough to test this with just 1.3.
 
-Agreed, that gets rid of the fixed vectors. Since 1.3 only uses the
-record number in the nonce, TX can also produce the UINT64_MAX record
-cleanly, using rec_seq 0 and the IV XORed with UINT64_MAX. If the patch
-stays, the test will be 1.3-only and built that way.
 
-> > diff --git a/net/tls/tls_main.c b/net/tls/tls_main.c
-> > index fbb274287aa5..63bef0153182 100644
-> > --- a/net/tls/tls_main.c
-> > +++ b/net/tls/tls_main.c
-> > @@ -730,6 +730,15 @@ static int do_tls_setsockopt_conf(struct sock *sk,=
- sockptr_t optval,
-> >                       conf =3D TLS_SW;
-> >               }
-> >       } else {
-> > +             struct tls_sw_context_rx *rx_ctx =3D tls_sw_ctx_rx(ctx);
-> > +
-> > +             /* Only a KeyUpdate may follow the last record number */
-> > +             if (update && rx_ctx->rec_seq_exhausted &&
-> > +                 !rx_ctx->key_update_pending) {
->
-> I'm really confused by this.
+On 10/6/26 15:34, Vincent Jardin via B4 Relay wrote:
+> Since commit 7c571ac57d9d ("net: ptp: introduce .supported_extts_flags
+> to ptp_clock_info"), the PTP core rejects every PTP_EXTTS_REQUEST2
+> request for a driver that does not set .supported_extts_flags. The three
+> users of the QorIQ 1588 (dpaa2-ptp, enetc, ptp_qoriq),
+> so linuxptp ts2phc cannot arm their external timestamp inputs.
+> 
+> The timer timestamps the rising edge only, since ptp_qoriq_init() clears
+> ETEP1 and ETEP2. Each patch declares PTP_RISING_EDGE | PTP_STRICT_FLAGS
+> for one driver.
+> 
+> Patch 1 fixes the failure seen on an LX2160A board.
+> Patches 2 and 3 are build-tested/code review only.
 
-It refused a TLS_RX rekey after a
-a wrap that didn't include a KeyUpdate. A new key is harmless, as you
-say, so I'll remove it.
+Reviewed-by: Kory Maincent <kory.maincent@bootlin.com>
 
-> > +                     rc =3D -EBADMSG;
-> > +                     goto err_crypto_info;
-> > +             }
-> > +
->
-> --
-> Sabrina
+Thank you!
+-- 
+Köry Maincent, Bootlin
+Embedded Linux and kernel engineering
+https://bootlin.com
+
+text:
+Return-Path: <netdev+bounces-342316-kory.maincent=bootlin.com@vger.kernel.org>
+Delivered-To: kory.maincent@bootlin.com
+Received: from mail.galae.net ([172.22.1.253])
+	by 9e7fea892943 with LMTP
+	id UHMYGtM3xmrHxw0AtaWaaQ
+	(envelope-from <netdev+bounces-342316-kory.maincent=bootlin.com@vger.kernel.org>)
+	for <kory.maincent@bootlin.com>; Wed, 07 Oct 2026 14:15:15 +0200
+X-Original-To: kory.maincent@bootlin.com
+Received: from smtpin-01.galae.net (smtpin-01.galae.net [51.159.2.148])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.galae.net (Postcow) with ESMTPS id 01B0911D50173
+	for <kory.maincent@bootlin.com>; Wed,  7 Oct 2026 14:15:10 +0200 (CEST)
+Authentication-Results: mail.galae.net;
+	dkim=pass header.d=bootlin.com header.s=dkim header.b=BX2s35zm;
+	arc=pass ("subspace.kernel.org:s=arc-20240116:i=1");
+	dmarc=pass (policy=reject) header.from=bootlin.com;
+	spf=pass (mail.galae.net: domain of "netdev+bounces-342316-kory.maincent=bootlin.com@vger.kernel.org" designates 172.234.253.10 as permitted sender) smtp.mailfrom="netdev+bounces-342316-kory.maincent=bootlin.com@vger.kernel.org"
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com;
+	s=dkim; t=1791375311;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:
+	 list-unsubscribe:list-subscribe:dkim-signature;
+	bh=PvKbS35WCOo741y4COP9Dw8++nPpWhukTi3m3k0URa4=;
+	b=0yhkHEgiICxNRjk62IuxxGjduWVV1wN4wVmRxRNSohv5Tm63DkwFV6mLaZmimr8/NnRP3+
+	9la/FkwEEVyKpi91bVAhTiFutd/7O7yWZ7MuPCC2ZiHJNuJlMn60x/ahU0zM+757o0Oymt
+	a2ltDrPBJpYtAwpy0mMStZXV+pOBzRvk6XRdSzrLDBTobSyJYaqJHANkEDfM170w4c+hBR
+	CpOeBmV5Xs5s5Bl/kRuOrguDZxSZ62RvUm1IPHEb650i+RcwH9f4o70uxKwqjj6PJRsRX4
+	GBmasQBpvbwSQvFlSny0OlQSAS534krbzSLbmgn3AZs3Qp9qC5u3ox9HPuI3sw==
+ARC-Authentication-Results: i=2;
+	mail.galae.net;
+	dkim=pass header.d=bootlin.com header.s=dkim header.b=BX2s35zm;
+	arc=pass ("subspace.kernel.org:s=arc-20240116:i=1");
+	dmarc=pass (policy=reject) header.from=bootlin.com;
+	spf=pass (mail.galae.net: domain of "netdev+bounces-342316-kory.maincent=bootlin.com@vger.kernel.org" designates 172.234.253.10 as permitted sender) smtp.mailfrom="netdev+bounces-342316-kory.maincent=bootlin.com@vger.kernel.org"
+ARC-Seal: i=2; s=dkim; d=bootlin.com; t=1791375311; a=rsa-sha256; cv=pass;
+	b=DeCJhqJTpIlMrLrjUHS+c9rAees+Ku6qXSBBl7kjqZw9oWLDbdFe1wEDJSamfAX+HK13tr
+	r61x0ZUJTVB4NFoRkcTUp1MLnL1FYwQ5g+t6W9GcvVQBmxMPOErpI6QhO8ZOklbLDvf0EZ
+	ICAf0HPvIfk5QJQ75C9suU8f4MFSlZubV4UrTLeHD70Xc5N0Hx2F+8HJ8nkdV/DMgHOqPa
+	hAw/eVoYE1Y+RmUM1lI04+Le14rkkbqomeykMUWVviKsPu0XFu+U6Dh3iF8gKqEEVyc0gZ
+	m+e3q7GpivRcAF5Df7apnn0efZzmUbRKgj+EKJPBt25W6AzRZsuXeSKOfw3iow==
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
+	by smtpin-01.galae.net (Postfix) with ESMTPS id 5F46C340C98
+	for <kory.maincent@bootlin.com>; Wed,  7 Oct 2026 12:15:10 +0000 (UTC)
+Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
+	by sea.lore.kernel.org (Postfix) with ESMTP id 32EB863063
+	for <kory.maincent@bootlin.com>; Wed,  7 Oct 2026 11:30:49 +0000 (UTC)
+Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 316384908DA;
+	Wed,  7 Oct 2026 11:23:28 +0000 (UTC)
+X-Original-To: netdev@vger.kernel.org
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C68CF48D864
+	for <netdev@vger.kernel.org>; Wed,  7 Oct 2026 11:23:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791372205; cv=none; b=rxSepAA7qUBkIoBbeR3yfPw5CGNxeyTi4VaHLMb/luddLdifsv+NVMBXRj1BrZeTPV8UG8iuikbimTP8VpgZJSSV5jUzsa0Gw2YRtaPGC81aWsnfmYhvEcCK1zKpYu5pz4vrZ7MhE8x9dk5/EcmOBKER9pPVm6qh7imhUyX9YVs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791372205; c=relaxed/simple;
+	bh=h8d/UDxIiosp7oKyeZyf8gbt0wo0wMFoYO35PxF2CZg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pGNWxW2ydr/TsctW+3e5qKMSINpTJ6qFNnVYXe0bd0Zduu+AdTm2JdiZWFWWvzIkB2+s/xeKfXjU1ONio6bqRhuNLU969dVLEvkLLXcXRPphbSGXEsKnSqApSKQXUPOhL1ALs+DqJrlFSR/E7yS/TXyWv6GiQTIUBTjfacJ2ftY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=BX2s35zm; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id CE30C1A1152;
+	Wed,  7 Oct 2026 11:23:01 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 91A8E6074B;
+	Wed,  7 Oct 2026 11:23:01 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 90EDF11D5011B;
+	Wed,  7 Oct 2026 13:22:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791372180; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=PvKbS35WCOo741y4COP9Dw8++nPpWhukTi3m3k0URa4=;
+	b=BX2s35zmkef7Sd0hozR3MEerPUh9PNugMMxhrJSYacDtHw6B6CaRddr7h/Vj4ELoYsW2PX
+	dNfWX5KT0tPIYItO/7rQaJOqTGzOHCcAxzfznmT2WeF8PmBUBNiGlDXCjgSp7H8kba0se7
+	bAX0oUvspDTjjIc3zY6v2GBf1PMzIuzoWI/mn7RCgtg7efTOgMYjJDvHqIXA4PLsDrdOnf
+	bL/bxb7yDYjl0Gyz4KPA0uLBvD0RfrprksbARuYMz+KXXL+gvZBBDbedjC3D2MHsRrsyL1
+	QcuG5IvKuwJPX2GbuKjw74wU7rms2yhkwyB5NYbReYAdv1Lq9dJ9/ugjJqNvNw==
+Message-ID: <a259892d-1b6b-4caa-82d3-ba24efd5a409@bootlin.com>
+Date: Wed, 7 Oct 2026 13:22:49 +0200
+Precedence: bulk
+X-Mailing-List: netdev@vger.kernel.org
+List-Id: <netdev.vger.kernel.org>
+List-Subscribe: <mailto:netdev+subscribe@vger.kernel.org>
+List-Unsubscribe: <mailto:netdev+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Betterbird (Linux)
+Subject: Re: [PATCH net 0/3] net: freescale: fix PTP_EXTTS_REQUEST2 for QorIQ
+ 1588
+To: vjardin@free.fr, Yangbo Lu <yangbo.lu@nxp.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Jacob Keller <jacob.e.keller@intel.com>,
+ Claudiu Manoil <claudiu.manoil@nxp.com>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>, Wei Fang <wei.fang@nxp.com>,
+ Clark Wang <xiaoning.wang@nxp.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ imx@lists.linux.dev, Ioana Ciornei <ioana.ciornei@nxp.com>
+References: <20261006-for-upstream-qoriq-ptp-extts-flags-v1-0-b4a161b92832@free.fr>
+From: Kory Maincent <kory.maincent@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <20261006-for-upstream-qoriq-ptp-extts-flags-v1-0-b4a161b92832@free.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
+X-Last-TLS-Session-Version: TLSv1.3
+X-Spamd-Result: default: False [-2000.46 / 30.00];
+	MAILCOW_WHITE(-1998.00)[];
+	SUSPICIOUS_RECIPS(1.50)[];
+	IP_REPUTATION_HAM(-1.41)[asn: 63949(-0.40), country: SG(-0.01), ip: 172.234.253.10(-1.00)];
+	ARC_ALLOW(-1.00)[subspace.kernel.org:s=arc-20240116:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[bootlin.com,reject];
+	BAYES_HAM(-0.39)[71.86%];
+	R_SPF_ALLOW(-0.20)[+ip4:172.234.253.10:c];
+	R_DKIM_ALLOW(-0.20)[bootlin.com:s=dkim];
+	MAILLIST(-0.15)[generic];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	HAS_LIST_UNSUB(-0.01)[];
+	MX_GOOD(-0.01)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FREEMAIL_TO(0.00)[free.fr,nxp.com,lunn.ch,davemloft.net,kernel.org,redhat.com,gmail.com,intel.com];
+	MAILCOW_DOMAIN_HEADER_FROM(0.00)[bootlin.com];
+	RCPT_COUNT_TWELVE(0.00)[17];
+	TO_DN_SOME(0.00)[];
+	RCPT_MAILCOW_DOMAIN(0.00)[bootlin.com];
+	MIME_TRACE(0.00)[0:+];
+	BCC(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	URIBL_BLOCKED(0.00)[bootlin.com:mid,bootlin.com:url,bootlin.com:email,bootlin.com:dkim,sea.lore.kernel.org:helo,sea.lore.kernel.org:rdns];
+	RCVD_TLS_LAST(0.00)[];
+	RBL_SENDERSCORE_REPUT_BLOCKED(0.00)[172.234.253.10:from];
+	ARC_SIGNED(0.00)[bootlin.com:s=dkim:i=2];
+	DNSWL_BLOCKED(0.00)[212.83.136.155:received,185.246.84.56:received,212.83.139.233:received,100.90.174.1:received,172.234.253.10:from];
+	NEURAL_HAM(-0.00)[-1.000];
+	MID_RHS_MATCH_FROM(0.00)[];
+	PRECEDENCE_BULK(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[kory.maincent@bootlin.com,netdev@vger.kernel.org];
+	TAGGED_FROM(0.00)[bounces-342316-kory.maincent=bootlin.com];
+	DWL_DNSWL_BLOCKED(0.00)[bootlin.com:dkim];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[bootlin.com:+];
+	TAGGED_RCPT(0.00)[netdev];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	EXTERNAL_RELAY_AUTHENTICATED(0.00)[];
+	ASN(0.00)[asn:63949, ipnet:172.234.224.0/19, country:SG];
+	RCVD_COUNT_SEVEN(0.00)[7]
+X-Rspamd-Queue-Id: 01B0911D50173
+
+
+
+On 10/6/26 15:34, Vincent Jardin via B4 Relay wrote:
+> Since commit 7c571ac57d9d ("net: ptp: introduce .supported_extts_flags
+> to ptp_clock_info"), the PTP core rejects every PTP_EXTTS_REQUEST2
+> request for a driver that does not set .supported_extts_flags. The three
+> users of the QorIQ 1588 (dpaa2-ptp, enetc, ptp_qoriq),
+> so linuxptp ts2phc cannot arm their external timestamp inputs.
+> 
+> The timer timestamps the rising edge only, since ptp_qoriq_init() clears
+> ETEP1 and ETEP2. Each patch declares PTP_RISING_EDGE | PTP_STRICT_FLAGS
+> for one driver.
+> 
+> Patch 1 fixes the failure seen on an LX2160A board.
+> Patches 2 and 3 are build-tested/code review only.
+
+Reviewed-by: Kory Maincent <kory.maincent@bootlin.com>
+
+Thank you!
+-- 
+Köry Maincent, Bootlin
+Embedded Linux and kernel engineering
+https://bootlin.com
+
+
