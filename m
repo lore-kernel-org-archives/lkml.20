@@ -1,85 +1,85 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6D1D3DAAD2;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 904263DA5DE;
 	Wed,  7 Oct 2026 17:20:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791393658; cv=none; b=uG7CZiC/psU16uvXU0ZGJ1V7beLYw4RR3cus4KtAGOwvc3VtfOPfy2cwNaWRBlRz49gkcb14g9rwWVasT4lfPtE+Oj4r66qRxiRz5i4Phe36BYbh3J/qh7QRwiM2mq6NSA8U+ziyTLF80qMm1rg9lhaw/5B5tVXN/ok4Adj0wAE=
+	t=1791393659; cv=none; b=cH99NizdlJ0oxyQxFb1N+Dj4OwJPN7JqFyVkF5gIhNg2TpSqj39VqNcOqNb2WFpBnaTYQylhtH+Qj99eElJeA9AHV/I4J0zGg0kwiMvba2ZITlDQzlmBsTwnkI/GaiM1UxOI4fSFOnR8XomDh7le7Mui81aL8aa1myhPBYPn2xg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791393658; c=relaxed/simple;
-	bh=YqdcpTJqYZjlmX/P/LKvgMu8wTHnl7Gwap2cRMrTaB0=;
+	s=arc-20240116; t=1791393659; c=relaxed/simple;
+	bh=0qqBygVyh2s7AVyFozenI3LQns112e18D3VVOfGpKog=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GPUQq13wpeM0A33otbqkOBpR9gLIe1eDhVzMFHCtnmsgQG5Kf4aiBUGNtz73yYhXdPqyVKrxkMESP2tHVpKDXimIkl+OOGDpgl7bbJzDsCv3FUjwp2tA3aibSpz1oZ7AMbI/qvke9xSvhu/q5AUyV2YXRze5wX/QFGJy5hnL7C0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=R1FeFqCI; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Mq/E6POg; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=R1FeFqCI; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Mq/E6POg; arc=none smtp.client-ip=195.135.223.131
+	 MIME-Version; b=JY7kY+3p2BBVJFHhk/grrGB1N8REpAvQP68r22pjP/kI9l0bHic907/bmhEPN6ixkqHndjQhwW126gLUTv3ttTcldhc1hOCant3Q5SgiQB/PMEpztz6NPxCadTfF7wD8R+JfU7FX9kG+HN/Y4ZrF/WlafnzMRM23h/iuWfkLbNA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=q8Npbkdc; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=vvFVJfWI; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=q8Npbkdc; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=vvFVJfWI; arc=none smtp.client-ip=195.135.223.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="R1FeFqCI";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Mq/E6POg";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="R1FeFqCI";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Mq/E6POg"
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="q8Npbkdc";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="vvFVJfWI";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="q8Npbkdc";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="vvFVJfWI"
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id DD50B1F44F;
+	by smtp-out1.suse.de (Postfix) with ESMTPS id CF03421BBF;
 	Wed,  7 Oct 2026 17:20:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
 	t=1791393655; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=rgLxZv35CgS7g0IWTbXthBD3uAd5BPazCxgcizGnc9s=;
-	b=R1FeFqCIjKL/F5S+9boRGY6FOwshVBq89H3yskQQ+kWD9o10WWbYRoOLdRXP6Sgr9nun+h
-	DnPwON7G6uT90yooSTtmCiRyhoVLfoLKPnrjUgnbOmfAB6yeiSdUb0lX+9xHBwz4GHG+pw
-	v+p7CZHW+tuwKGyzwQxCwGIJTNYPwOM=
+	bh=T0pu1p+K69r6ZCCEAmAJ1EHzNWTY3ZRlNdMXPAjZztM=;
+	b=q8NpbkdcpJ/7PlNK/m71XiWfdPDL973k4fGBKMlm3Dm29zV2Riudodd2oIvVaE6rAy8lHx
+	Ia6g3uzC6GVrRHiQY3FwenexbdDDDGYc7xq5i53mXpsgy7SOLs7ABpyTCvOHtiydgZTQ2V
+	tDg+NK7Q30ZZhwWtLV3JxPK5N7jhDoU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
 	s=susede2_ed25519; t=1791393655;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=rgLxZv35CgS7g0IWTbXthBD3uAd5BPazCxgcizGnc9s=;
-	b=Mq/E6POgcI1Ok5cnZ+XtaqZm3jjHptzKstbPF2O4qyyZgoTNQ5NSv1zjO03OGL2lyJyqsb
-	B3t4z383BYB8QJAQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=R1FeFqCI;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="Mq/E6POg"
+	bh=T0pu1p+K69r6ZCCEAmAJ1EHzNWTY3ZRlNdMXPAjZztM=;
+	b=vvFVJfWIjQA50V//zykDDUEqYCvmsrB7bJvcRbFOccrO9Lm/DqCK5Htn3weQ7r/Xvoe07N
+	fAZP/CD5reyeUuCw==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=q8Npbkdc;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=vvFVJfWI
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
 	t=1791393655; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=rgLxZv35CgS7g0IWTbXthBD3uAd5BPazCxgcizGnc9s=;
-	b=R1FeFqCIjKL/F5S+9boRGY6FOwshVBq89H3yskQQ+kWD9o10WWbYRoOLdRXP6Sgr9nun+h
-	DnPwON7G6uT90yooSTtmCiRyhoVLfoLKPnrjUgnbOmfAB6yeiSdUb0lX+9xHBwz4GHG+pw
-	v+p7CZHW+tuwKGyzwQxCwGIJTNYPwOM=
+	bh=T0pu1p+K69r6ZCCEAmAJ1EHzNWTY3ZRlNdMXPAjZztM=;
+	b=q8NpbkdcpJ/7PlNK/m71XiWfdPDL973k4fGBKMlm3Dm29zV2Riudodd2oIvVaE6rAy8lHx
+	Ia6g3uzC6GVrRHiQY3FwenexbdDDDGYc7xq5i53mXpsgy7SOLs7ABpyTCvOHtiydgZTQ2V
+	tDg+NK7Q30ZZhwWtLV3JxPK5N7jhDoU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
 	s=susede2_ed25519; t=1791393655;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=rgLxZv35CgS7g0IWTbXthBD3uAd5BPazCxgcizGnc9s=;
-	b=Mq/E6POgcI1Ok5cnZ+XtaqZm3jjHptzKstbPF2O4qyyZgoTNQ5NSv1zjO03OGL2lyJyqsb
-	B3t4z383BYB8QJAQ==
+	bh=T0pu1p+K69r6ZCCEAmAJ1EHzNWTY3ZRlNdMXPAjZztM=;
+	b=vvFVJfWIjQA50V//zykDDUEqYCvmsrB7bJvcRbFOccrO9Lm/DqCK5Htn3weQ7r/Xvoe07N
+	fAZP/CD5reyeUuCw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 63178139BD;
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 38E13139B6;
 	Wed,  7 Oct 2026 17:20:55 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 8rcALXZ/xmp1CgAAD6G6ig:T9
+	id 8rcALXZ/xmp1CgAAD6G6ig:T6
 	(envelope-from <tiwai@suse.de>); Wed, 07 Oct 2026 17:20:55 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: linux-sound@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH v3 8/8] ALSA: core: Add missing barriers for power_ref vs card->shutdown
-Date: Wed,  7 Oct 2026 19:20:44 +0200
-Message-ID: <20261007172051.13240-9-tiwai@suse.de>
+Subject: [PATCH v3 5/8] ALSA: usb-audio: Fix data race at mixer_ctl_feature_info()
+Date: Wed,  7 Oct 2026 19:20:41 +0200
+Message-ID: <20261007172051.13240-6-tiwai@suse.de>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261007172051.13240-1-tiwai@suse.de>
 References: <20261007172051.13240-1-tiwai@suse.de>
@@ -120,50 +120,128 @@ X-Spamd-Result: default: False [-3.01 / 50.00];
 X-Rspamd-Action: no action
 X-Spam-Score: -3.01
 X-Spam-Level: 
-X-Rspamd-Queue-Id: DD50B1F44F
+X-Rspamd-Queue-Id: CF03421BBF
 
-snd_power_ref_and_wait() increments card->power_ref and then reads
-card->shutdown (and the power state) locklessly, while
-snd_card_disconnect() sets card->shutdown and then waits for
-power_ref to drop to zero via snd_power_sync_ref().  Due to the
-missing barrier on both sides, the caller proceeds with shutdown still
-seen as false, while the disconnect side sees a zero refcount and
-continues tearing down incorrectly.
+The info callback for USB-audio mixer controls for feature unit has a
+dynamic initialization of the contents with the check of
+cval->initialized flag.  But, since the info callback may be
+concurrently called, this may lead to a data race, giving back an
+inconsistent state.  Similarly, get and put callbacks may have
+concurrent accesses and can get bogus states.
 
-For addressing the potential race, add smp_mb__after_atomic() after
-the refcount increment and smp_mb() before snd_power_sync_ref() in
-snd_card_disconnect().
+For avoiding the data race, introduce a mutex locking for the
+controls and protect against concurrent info callback calls.
 
-Fixes: e94fdbd7b25d ("ALSA: control: Track in-flight control read/write/tlv accesses")
 Reported-by: Sashiko <sashiko-bot@kernel.org>
-Assisted-by: LLM
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/core/init.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ sound/usb/mixer.c | 14 +++++++++++++-
+ sound/usb/mixer.h |  1 +
+ 2 files changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/sound/core/init.c b/sound/core/init.c
-index 7878c0e6103c..dbe2acfa59fe 100644
---- a/sound/core/init.c
-+++ b/sound/core/init.c
-@@ -535,6 +535,8 @@ void snd_card_disconnect(struct snd_card *card)
- 		clear_bit(card->number, snd_cards_lock);
+diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+index 9d8007ea95d5..695d51f7aeb4 100644
+--- a/sound/usb/mixer.c
++++ b/sound/usb/mixer.c
+@@ -1531,6 +1531,7 @@ static int mixer_ctl_feature_info(struct snd_kcontrol *kcontrol,
+ 	struct usb_mixer_elem_info *cval = snd_kcontrol_chip(kcontrol);
+ 	int ret;
+ 
++	guard(mutex)(&cval->head.mixer->lock);
+ 	if (cval->val_type == USB_MIXER_BOOLEAN ||
+ 	    cval->val_type == USB_MIXER_INV_BOOLEAN)
+ 		uinfo->type = SNDRV_CTL_ELEM_TYPE_BOOLEAN;
+@@ -1565,6 +1566,7 @@ static int mixer_ctl_feature_get(struct snd_kcontrol *kcontrol,
+ 	struct usb_mixer_elem_info *cval = snd_kcontrol_chip(kcontrol);
+ 	int c, cnt, val, err;
+ 
++	guard(mutex)(&cval->head.mixer->lock);
+ 	ucontrol->value.integer.value[0] = cval->min;
+ 	if (cval->cmask) {
+ 		cnt = 0;
+@@ -1595,10 +1597,12 @@ static int mixer_ctl_feature_put(struct snd_kcontrol *kcontrol,
+ 				 struct snd_ctl_elem_value *ucontrol)
+ {
+ 	struct usb_mixer_elem_info *cval = snd_kcontrol_chip(kcontrol);
+-	int max_val = get_max_exposed(cval);
++	int max_val;
+ 	int c, cnt, val, oval, err;
+ 	int changed = 0;
+ 
++	guard(mutex)(&cval->head.mixer->lock);
++	max_val = get_max_exposed(cval);
+ 	if (cval->cmask) {
+ 		cnt = 0;
+ 		for (c = 0; c < MAX_CHANNELS; c++) {
+@@ -1646,6 +1650,7 @@ static int mixer_ctl_master_bool_get(struct snd_kcontrol *kcontrol,
+ 	struct usb_mixer_elem_info *cval = snd_kcontrol_chip(kcontrol);
+ 	int val, err;
+ 
++	guard(mutex)(&cval->head.mixer->lock);
+ 	err = snd_usb_get_cur_mix_value(cval, 0, 0, &val);
+ 	if (err < 0)
+ 		return filter_error(cval, err);
+@@ -2592,6 +2597,7 @@ static int mixer_ctl_procunit_get(struct snd_kcontrol *kcontrol,
+ 	struct usb_mixer_elem_info *cval = snd_kcontrol_chip(kcontrol);
+ 	int err, val;
+ 
++	guard(mutex)(&cval->head.mixer->lock);
+ 	err = get_cur_ctl_value(cval, cval->control << 8, &val);
+ 	if (err < 0) {
+ 		ucontrol->value.integer.value[0] = cval->min;
+@@ -2609,6 +2615,7 @@ static int mixer_ctl_procunit_put(struct snd_kcontrol *kcontrol,
+ 	struct usb_mixer_elem_info *cval = snd_kcontrol_chip(kcontrol);
+ 	int val, oval, err;
+ 
++	guard(mutex)(&cval->head.mixer->lock);
+ 	err = get_cur_ctl_value(cval, cval->control << 8, &oval);
+ 	if (err < 0)
+ 		return filter_error(cval, err);
+@@ -2960,6 +2967,7 @@ static int mixer_ctl_selector_get(struct snd_kcontrol *kcontrol,
+ 	struct usb_mixer_elem_info *cval = snd_kcontrol_chip(kcontrol);
+ 	int val, err;
+ 
++	guard(mutex)(&cval->head.mixer->lock);
+ 	err = get_cur_ctl_value(cval, cval->control << 8, &val);
+ 	if (err < 0) {
+ 		ucontrol->value.enumerated.item[0] = 0;
+@@ -2977,6 +2985,7 @@ static int mixer_ctl_selector_put(struct snd_kcontrol *kcontrol,
+ 	struct usb_mixer_elem_info *cval = snd_kcontrol_chip(kcontrol);
+ 	int val, oval, err;
+ 
++	guard(mutex)(&cval->head.mixer->lock);
+ 	err = get_cur_ctl_value(cval, cval->control << 8, &oval);
+ 	if (err < 0)
+ 		return filter_error(cval, err);
+@@ -3249,6 +3258,7 @@ static void snd_usb_mixer_free(struct usb_mixer_interface *mixer)
+ 	}
+ 	usb_free_urb(mixer->rc_urb);
+ 	kfree(mixer->rc_setup_packet);
++	mutex_destroy(&mixer->lock);
+ 	kfree(mixer);
+ }
+ 
+@@ -3893,6 +3903,8 @@ int snd_usb_create_mixer(struct snd_usb_audio *chip, int ctrlif)
+ 		return -ENOMEM;
  	}
  
-+	/* order card->shutdown store against power_ref read */
-+	smp_mb();
- 	snd_power_sync_ref(card);
- }
- EXPORT_SYMBOL(snd_card_disconnect);
-@@ -1152,6 +1154,8 @@ EXPORT_SYMBOL(snd_card_file_remove);
- int snd_power_ref_and_wait(struct snd_card *card)
- {
- 	snd_power_ref(card);
-+	/* order power_ref increment against card->shutdown read */
-+	smp_mb__after_atomic();
- 	if (snd_power_get_state(card) != SNDRV_CTL_POWER_D0) {
- 		wait_event_cmd(card->power_sleep,
- 			       card->shutdown ||
++	mutex_init(&mixer->lock);
++
+ 	mixer->hostif = &usb_ifnum_to_if(chip->dev, ctrlif)->altsetting[0];
+ 	switch (get_iface_desc(mixer->hostif)->bInterfaceProtocol) {
+ 	case UAC_VERSION_1:
+diff --git a/sound/usb/mixer.h b/sound/usb/mixer.h
+index cf45c39cbccc..2ff4490f97c2 100644
+--- a/sound/usb/mixer.h
++++ b/sound/usb/mixer.h
+@@ -18,6 +18,7 @@ struct usb_mixer_interface {
+ 	struct usb_host_interface *hostif;
+ 	struct list_head list;
+ 	unsigned int ignore_ctl_error;
++	struct mutex lock; /* lock for feature unit callbacks */
+ 	/* UAC2 status interrupt endpoint; owned by mixer.c */
+ 	struct urb *urb;
+ 	/* array[MAX_ID_ELEMS], indexed by unit id */
 -- 
 2.55.0
 
