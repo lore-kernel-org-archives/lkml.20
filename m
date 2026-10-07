@@ -1,62 +1,65 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 797B717A2F6
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 01:32:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBA21331EA3
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 01:32:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791336736; cv=none; b=NPthQbhD2j9okudno2q1QmkXMsXd7prK12X+T27bdwDbKqDuA2xNbjupr9q7zqsYETuu+DkR+bmaz62Vn4JDp2UuXxc37Eu57R3EjPtHpwPIO4HU/FkOpQNJLsTCqtbPQVNve1REX1QVi1kkesNwueyGRkyR76JAZWm665VuMXM=
+	t=1791336737; cv=none; b=he/r7xsN0tE3FKZGfQIXZwoMV/edev5re8GqbEpLUgelmtFrjfujGCUQd/IHU4UpeCJzYHKUbAYK9uHvPD56OsSo+HNqGh7VApouz2vz9WyaYZz1gaaOWfwI9xhtLQQ6kkZA30yNNkbMX5iZjKDOXUkruxDYhWHvZA7npiQ53Lk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791336736; c=relaxed/simple;
-	bh=QiaXich+youzrooQKoppxmyMfy3XmwjU4ozTtqYqLIo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q0ax4Er4zeRX7A5WUrMofdT6lF2yA3bXg1JxoRmftuI2RKapmrm21WXawZdmD0YFrwZWimHoDwvtIRZ30CppH8d/K7L7xEYacJL8qCuaEZl31xvg2+JylCAnDuER7KYVEQ2/ffa9lM/xAz308oO7c2MhidMqrfbp+W60MVXpJ68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=btfPN0Bq; arc=none smtp.client-ip=209.85.128.54
+	s=arc-20240116; t=1791336737; c=relaxed/simple;
+	bh=lqtmMOq9NyJHWkCTixF/EfRvdzo9ti4x7BRbdW0dvpo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rImPWfneo6Uz0rtMMReDO1wIDssNnkUsbBIVn70xV4K09ZabKiZnAEvRy/6IRKSJYooNrv7SZ7b8YlSEeVaFWCumiJ0CF5d/wRa8nWcoQqjx1lls3TtQIk6ynxpUxZT8TxW+MNpyKbdZVGVXKu5MRo7T/cGQM47PUjoKUOhSyLg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FVCasvP9; arc=none smtp.client-ip=209.85.128.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="btfPN0Bq"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so33208855e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 18:32:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FVCasvP9"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a16c1608faso15399065e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 18:32:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791336733; x=1791941533; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hvzB42gUMiV/KR6lqPvi8GnnActkQyAM+I4+Sj3I6TM=;
-        b=btfPN0BqGEmD7+CM3Z1lZhknO6acCyjQ+VgZeeOd4DvRnGUobYDjvgpNg3w0x5z7fC
-         PeEC/BNaKpfHGg9K3gHJrHaLN5eivJ06o/hUqyzTxX3rvMGCpaacU+uaYkiHrM5L/0iQ
-         WgfpeYy2N5ZUF/LeqjETRpkWeqq8iRCSC7+OCkcbBAweU93AIhhcQ+A0Dc5E8v1vjyQc
-         7gJbEfCpSgKY8Xuj9dyaONqXPRH7wrYoob1BSdrPHaFEE8fbP8PSOGtgfrfu9rcudWkS
-         +H59848huFe8LeXHoz4eoyG6BzAmjma+Oauz47CXbX1xp0QEbaXNUWLplL3+Cd9y73cv
-         kMZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791336733; x=1791941533;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791336734; x=1791941534; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hvzB42gUMiV/KR6lqPvi8GnnActkQyAM+I4+Sj3I6TM=;
-        b=KMD2wOjm4Zd8VDGkTGHF4QW3zMLwbHthJycwHQE5ixB7WO2xotWsvzSKLhcVcY59w3
-         nHTIuAgVwYzHdg3szGSjkIg/zgNCWhvUXnkuPBhXfiXUna8wOxJbiOi90w70bHEwxqAT
-         pUJ/yGdqnfdguha/qqURTKBElYfK5eDloI01TvTwzU8+xFTeNK48p3vL3Wa1c7HveqL4
-         b3hjVj9JkknjBQdwgV3FN4Oe9jBpSvs8Rk0iu01jlHW3Nj7IGPOVsARIAOoU/liNFHh/
-         dES9wp3nBjM5Zla6/ePeQ1Dg2JXPDxvX/b3aGynnX/QXFA/IkxPXgHtyum6k8EzlozW9
-         ThYw==
-X-Forwarded-Encrypted: i=1; AKwUvBz3aeYXHKgH0gXOWXDr+E8R30NvsQpx7iwBInnqeXdWQ25g4JjdeVyrT2xWGCzMmbdFqWgm+/37fD7qvxQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mxixlLe8AMYbAobBLsVGQbaGDRLTLvk/NwLVgkg4LqeMj2/wwN
-	Fxo93iB60PTN4VPKWe5DIYhZ2FxRUtbubwRHgSznbsCJBvFFpNnWj+vh
-X-Gm-Gg: AYBFou3XiaHL7zXTSGWya9EY7a4tTeMFhA8Be0zmeubFX9bx/gt5xr66pylV6rL7/3M
-	X0uzPZ7LAsHWYFd6jZrwQjnnKRSFBqJiLAmA2Td7/v554/IHt44LiqvkvF603QbUU4pRD2LDnFr
-	0TijT9PJ4ja8t57JGSPQLVBmnPLGPH0S0BaeEzTpB6sySAFuK/CENoJ2+xYObmk498gN6CpBU/K
-	O1vNtGsQbVWC6Vw37r6QjkP80HPnlj9wb28yXTwV5b0s/B3epk3n6FNAIsYm4Uqkb5OMvwUHcKw
-	qQ04dVEmVEZceeeG0NAb3v3GJeqagtNcAIRpad1pKEtLiSOfrntD8oFmJQApyLU/A7RR+x+z96h
-	qFAeMfG+FWuadkGtdycdyG/Iv+l2lg0wqxitpjjyk/hx8Zw8YMB1VREFkZa0P0X82AVyY6xOTu/
-	07DG9oXp9hPgFighp86a3/NUxCT7Xio+M3wT6FDGZY1qnnqkpRWhiQNHe7zJOUYVCmQgM7q1QKg
-	Wwa3FW4HT8WhySFy5OE997tRNr3CK6p0nAkI1YsmRhTbOZd8UJz4htI83CUQFrHsZ5SoGH7eOaj
-X-Received: by 2002:a05:600c:3f16:b0:4a0:23f:8b0d with SMTP id 5b1f17b1804b1-4a1800d3f2emr7099925e9.2.1791336732453;
-        Tue, 06 Oct 2026 18:32:12 -0700 (PDT)
+        bh=BooWm7URUcyrH2E2qkRWxlx7KQoz7GWFpr53v56Fl9k=;
+        b=FVCasvP9FCP4taYfm6Pp/cJbtg0TdDpMFZR+V35uZjUu/heOUawDO/hCI3FrJy7fam
+         NxnrzLwPmxlSjWwfVN7YOjGfFSMrRKOl8sd8FuEPSoc0dGOX6DWbyA2D9GZ+kaM6Tq3R
+         WsQfYp8wfZsByC0cIN3TQTcLMXHett9eoe//LvN/EODYGz9a2a2utouHWA4BsIAGkpJw
+         ERZME37rRAn9urM61FVbZJxXusNQ3ywvEOQMMMUQoXpyYT72VEea5HK6808szxd0JFVb
+         ChYZ7fQERoUoIQQuMFUtmMkMNsxJ1pU3mICfe02ZgQEtL9OFGjxIduJizyWOuXpmSA3t
+         v/NA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791336734; x=1791941534;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BooWm7URUcyrH2E2qkRWxlx7KQoz7GWFpr53v56Fl9k=;
+        b=xxjxlD9FGO/YMcgtI9zM11a8pq8RmUvEA/jn1hypWS55L8g+51wLEZ2GLAQaHpaOw7
+         sX9GsP8bq+ZM4IGTEqYOgKJND8WoWVp/T7pJ1ecmBvEO0oRzkqUfmIy6XkGyGrVsPehH
+         CvhWSQxd8AKt3ZdZ2eG02KBlYnd7jedRDdwqiixV5LHjD6y1+mj9wOKVZHhKENx5QsO/
+         yj9OjGtqg1LP3DZRcJyknnoYtfpNGOv2zbBzTe68fKKcqLBJsDy5408tfrK0E6jbfndP
+         EOX9o+CoQGmyyl3nDGcWppQPvr5aPvxRtrSxSpC6A9UGZn+1BagbKxz8icTPj3JQjVlN
+         gtqw==
+X-Forwarded-Encrypted: i=1; AKwUvBwoJ6YhJRh08hq6kHClj5/rbmil0FpRQnyLcSr2pIo9SVFZGTUBxgfaVGnueIJxWH/T1uHIaSZ3gt6HN2M=@vger.kernel.org
+X-Gm-Message-State: AFuF++l05Sd4TiY0+UpKZXEUodf6zAB1rXrLfiYpnLAU17XBJbGagJRz
+	Quf0rDrofrl2JoaL9aALu7APNGmGo9UTjwV1UEpTWkt7h5ZjxrAObfTD
+X-Gm-Gg: AYBFou04DZU9gkY9A64VjLJ/7yqG8ZOIBLkxO7ZURKc/m/lpHL0sjXVuPmalgEZSqTQ
+	UgWmI8AmlJQjcxG4srXvHFhjOZXVKfu6z/ud3Oh/tRlq8JewIMESkB1Lum5Dn3W3dLFlqiQ6HGD
+	9gc7kwTzMbhSpcDx5U9YQS1vcpOySUEhc+MlvMuAQQWwz86uKRf37GPwsharrbRaPWK8nRHSofA
+	LFuPGD9hLuaMTGA2s3IlNvnWY3McD8iC5anuLPN2bMG4/7JhoI59W02+sju0hM4SCc4aOrFlIZO
+	8dXaIlxRkuZboNs9sUER12YigwDfp8ZfCCSoawEsH+GlEzC6dfRMCsMwvIomqa9J4A5dpwmtedd
+	rjbaCDzcgKWRcV71IgFnGybGHbmHbi35+coqRqzMSAgu8xlqFWHUEBViU0NgGjIvNNTgCl612br
+	qFTvu3GA+nw9YL5zwpsiWWrg+DXSqkc2CFtXdnesYMp3MJUxzSMD2FYqHyjpyLnGX/9PuY46qZE
+	ahNc7vWoPHd3Fmn8rjfw/cawWY0uBW0ZoGmFA65gbyRk++7KY5UjtBoyBaYSZmpVCmmB/9ebjwV
+	ldIMbylxwBw=
+X-Received: by 2002:a05:600c:810c:b0:49f:c5aa:9ef4 with SMTP id 5b1f17b1804b1-4a180422b6fmr8623225e9.8.1791336734141;
+        Tue, 06 Oct 2026 18:32:14 -0700 (PDT)
 Received: from 127.mynet ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f6538b7sm21183615e9.13.2026.10.06.18.32.10
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f6538b7sm21183615e9.13.2026.10.06.18.32.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 18:32:11 -0700 (PDT)
+        Tue, 06 Oct 2026 18:32:13 -0700 (PDT)
 From: Pavel Begunkov <asml.silence@gmail.com>
 To: linux-block@vger.kernel.org
 Cc: asml.silence@gmail.com,
@@ -88,10 +91,12 @@ Cc: asml.silence@gmail.com,
 	Mikulas Patocka <mpatocka@redhat.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>,
 	dm-devel@lists.linux.dev
-Subject: [PATCH v8 00/13] Add dmabuf read/write via io_uring
-Date: Wed,  7 Oct 2026 02:31:43 +0100
-Message-ID: <cover.1791336002.git.asml.silence@gmail.com>
+Subject: [PATCH v8 01/13] block: always adjust bi_offset on bio_advance_iter
+Date: Wed,  7 Oct 2026 02:31:44 +0100
+Message-ID: <beec7303891dac21cd620d2a47842f843b391192.1791336002.git.asml.silence@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <cover.1791336002.git.asml.silence@gmail.com>
+References: <cover.1791336002.git.asml.silence@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -100,161 +105,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The patch set allows to register a dmabuf to an io_uring instance for
-a specified file and use it with io_uring read / write requests. The
-infrastructure is not tied to io_uring and there could be more users
-in the future. A similar idea was attempted some years ago by Keith [1],
-from where I borrowed a number of changes. Later it was brough back up
-to life by Tushar and Vishal.
+Extend bio_no_advance_iter() iteration to also increment the offset.
+It's not currently needed because the currently listed request types
+don't have a buffer, but will be useful once we add bios backed by
+dma-buf, which don't have a bvec but work with a single range.
 
-It's an opt-in feature for files, and they need to implement a new
-file operation to use it. Only NVMe block devices are supported in this
-series. The user API is built on top of io_uring's "registered buffers",
-where a dmabuf is registered in a special way, but after it can be used
-as any other "registered buffer" with IORING_OP_{READ,WRITE}_FIXED
-requests. It's created via a new file operation and the resulted map is
-then passed through the I/O stack in a new iterator type. There is some
-additional infrastructure to glue it together, count requests, manage
-lifetime and implement invalidation.
+Suggested-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
+---
+ drivers/md/dm-io-rewind.c |  6 ++++--
+ include/linux/bio.h       | 12 ++++++++----
+ 2 files changed, 12 insertions(+), 6 deletions(-)
 
-Tushar, William, Phil did a lot of testing and experimentation on various
-devices with previous versions of the patch set, and I've received lots
-of help from Anuj, Kanchan and Nitesh with investigations, testing, and
-patching. Earlier benchmarks by Anuj for IOMMU optimisations with udmabuf
-showed:
-
-STRICT: before = 570 KIOPS, after = 5.01 MIOPS
-LAZY: before = 1.93 MIOPS, after = 5.01 MIOPS
-PASSTHROUGH: before = 5.01 MIOPS, after = 5.01 MIOPS
-
-# Patch set structure:
-- Patches 1-2 introduce internal API and infrastructure mediating
-  io_uring and target subsystem / devices
-- Patches 3-5: block layer support + prep patches
-- Patches 6-8 implement NVMe support
-- Patches 9-13 add io_uring support and uapi.
-
-There are some liburing tests that can serve as an example:
-git: https://github.com/isilence/liburing.git rw-dmabuf-tests-v8
-url: https://github.com/isilence/liburing/tree/rw-dmabuf-tests-v8
-
-The patches are based on Jens' for-next. Also available as a branch:
-git: https://github.com/isilence/linux.git rw-dmabuf-v8
-url: https://github.com/isilence/linux/tree/rw-dmabuf-v8
-
-[1] https://lore.kernel.org/io-uring/20220805162444.3985535-1-kbusch@fb.com/
-
-v8: - fix blkdev_buffered_write() returning 0
-    - fix kvmalloc-kfree mismatch
-    - fix invalidation hang
-    - remove cpu dma sync as unnecessary for dev-to-dev transfers
-    - move nvme dma-buf code into a new file
-    - tighten dma-buf [re]export around io_uring issue
-    - simplify dma-buf-io locking/sync as proposed by Matthew Brost
-
-v7: - refcount *_io_ctx 
-    - wait rcu grace period for ctx->map before freeing maps
-    - increment map counters under dma resv lock
-    - more comments about bio splitting
-    - make ->unmap responsible for freeing maps to match ->map
-    - replace dma_sync_single* with full table sync
-    - detach dma-buf on nvme reset after cancel nvme_cancel_tagset
-
-v6: - remove fences and wait on invalidation synchronously
-    - report all map requests are detached earlier, outside of wq
-    - handle nvme removal
-    - gate nvme_free_descriptors() on iod->nr_descriptors 
-    - fix error handling in nvme_rq_setup_dmabuf_map() 
-    - fix iov_iter_alignment()
-    - relax the 1G io_uring registered dma-buf limit
-    - fix type overflow issue in bio split
-    - allocate struct dma_buf_io_ctx inside the dma-buf-io code
-    - harden block checks against dma-buf + buffered io
-
-v5: - Reject dma-buf with buffered IO for raw bdev
-    - Add lim->max_segments bio splitting
-    - Add bio_iov_iter_set() helper
-    - Fix io_uring uapi validation
-    - Other minor changes
-    NVMe:
-    - Rename nvme_pci_sgl_set_data() to nvme_pci_dma_iter_set_sgl(), split 
-      into its own prep patch.
-    - Convert segment walk loops to do-while.
-    - Drop adjacent segment coalescing logic.
-    - Drop first_dma/first_len from nvme_pci_dmabuf_sgl_nents()
-    - Remove entries > NVME_MAX_SEGS bailout; moving to the block layer.
-    - Factor SGL vs PRP decision making into a helper.
-
-v4: - https://lore.kernel.org/all/cover.1785274111.git.asml.silence@gmail.com/
-    - Add sgl support from Anuj
-    - Move it under drivers/dma-buf/ and rename
-    - Fix mis-sized allocations
-    - Fix io_uring re-import mishandling
-    - Drop map before io_uring "task work"
-    - Move blk-mq callback to block_device_operations
-    - Convert bio flag to REQ_OP*
-    - Other small changes
-
-v3: https://lore.kernel.org/io-uring/cover.1777475843.git.asml.silence@gmail.com/
-    - Rework io_uring registration
-    - Move token/map infrastructure code out of blk-mq
-    - Simplify callbacks: remove a separate blk-mq table, which was
-      mostly just forwarding calls (to nvme).
-    - Don't skip dma sync depending on request direction
-    - Fix a couple of hangs
-    - Rename s/dma/dmabuf/
-    - Other small changes
-
-v2: - Don't pass raw dma addresses, wrap it into a driver specific object
-    - Split into two objects: token and map
-    - Implement move_notify
-
-Anuj Gupta (2):
-  nvme-pci: rename nvme_pci_sgl_set_data to nvme_pci_dma_iter_set_sgl
-  nvme-pci: add SGL support for the dmabuf path
-
-Pavel Begunkov (11):
-  block: always adjust bi_offset on bio_advance_iter
-  block: introduce dma map backed bio type
-  block: add dma-buf support for raw bdev
-  nvme-pci: implement dma-buf backed requests
-  nvme seaparate file
-  nvme sgl fixup
-  io_uring/rsrc: introduce buf registration structure
-  io_uring/rsrc: extend buffer update
-  io_uring/rsrc: add uncloneable regbuf flag
-  io_uring/rsrc: add regbuf import flags
-  io_uring/rsrc: add dmabuf backed registered buffers
-
- block/bio.c                    |  15 +-
- block/blk-merge.c              |  50 +++++++
- block/fops.c                   |  24 +++-
- drivers/md/dm-io-rewind.c      |   6 +-
- drivers/nvme/host/Makefile     |   1 +
- drivers/nvme/host/core.c       |  12 ++
- drivers/nvme/host/nvme.h       |   2 +
- drivers/nvme/host/pci-dmabuf.c | 164 ++++++++++++++++++++++
- drivers/nvme/host/pci-dmabuf.h |  73 ++++++++++
- drivers/nvme/host/pci.c        | 249 ++++++++++++++++++++++++++++++++-
- include/linux/bio.h            |  21 +--
- include/linux/blk-mq.h         |   7 +
- include/linux/blk_types.h      |  14 +-
- include/linux/blkdev.h         |   2 +
- include/linux/bvec.h           |   3 +-
- include/linux/io_uring_types.h |   5 +
- include/uapi/linux/io_uring.h  |  31 +++-
- io_uring/Makefile              |   1 +
- io_uring/dma-buf.c             |  68 +++++++++
- io_uring/dma-buf.h             |  67 +++++++++
- io_uring/rsrc.c                | 172 +++++++++++++++++------
- io_uring/rsrc.h                |  32 ++++-
- io_uring/rw.c                  |  33 +++--
- 23 files changed, 974 insertions(+), 78 deletions(-)
- create mode 100644 drivers/nvme/host/pci-dmabuf.c
- create mode 100644 drivers/nvme/host/pci-dmabuf.h
- create mode 100644 io_uring/dma-buf.c
- create mode 100644 io_uring/dma-buf.h
-
+diff --git a/drivers/md/dm-io-rewind.c b/drivers/md/dm-io-rewind.c
+index 04f3fc8aeb6f..b22719c6411c 100644
+--- a/drivers/md/dm-io-rewind.c
++++ b/drivers/md/dm-io-rewind.c
+@@ -113,10 +113,12 @@ static inline void dm_bio_rewind_iter(const struct bio *bio,
+ 	iter->bi_sector -= bytes >> 9;
+ 
+ 	/* No advance means no rewind */
+-	if (bio_no_advance_iter(bio))
++	if (bio_no_advance_iter(bio)) {
+ 		iter->bi_size += bytes;
+-	else
++		iter->bi_offset -= bytes;
++	} else {
+ 		dm_bvec_iter_rewind(bio->bi_io_vec, iter, bytes);
++	}
+ }
+ 
+ /**
+diff --git a/include/linux/bio.h b/include/linux/bio.h
+index 17944e44b584..892ca469c570 100644
+--- a/include/linux/bio.h
++++ b/include/linux/bio.h
+@@ -113,11 +113,13 @@ static inline void bio_advance_iter(const struct bio *bio,
+ {
+ 	iter->bi_sector += bytes >> 9;
+ 
+-	if (bio_no_advance_iter(bio))
++	if (bio_no_advance_iter(bio)) {
+ 		iter->bi_size -= bytes;
+-	else
++		iter->bi_offset += bytes;
++	} else {
+ 		bvec_iter_advance(bio->bi_io_vec, iter, bytes);
+ 		/* TODO: It is reasonable to complete bio with error here. */
++	}
+ }
+ 
+ /* @bytes should be less or equal to bvec[i->bi_idx].bv_len */
+@@ -127,10 +129,12 @@ static inline void bio_advance_iter_single(const struct bio *bio,
+ {
+ 	iter->bi_sector += bytes >> 9;
+ 
+-	if (bio_no_advance_iter(bio))
++	if (bio_no_advance_iter(bio)) {
+ 		iter->bi_size -= bytes;
+-	else
++		iter->bi_offset += bytes;
++	} else {
+ 		bvec_iter_advance_single(bio->bi_io_vec, iter, bytes);
++	}
+ }
+ 
+ void __bio_advance(struct bio *, unsigned bytes);
 -- 
 2.54.0
 
