@@ -1,87 +1,299 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 427584477F1
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:45:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D92437EFFD
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:48:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791373518; cv=none; b=AzbxRVczZjsRAudxF925F3vF9YOrxL7s65hgXx2lBrXBTaPOL1nuEWbHV+DEUbScorTbn894elB7KtIkTY/XZl05NFmZaJPSM6g9tcnzIVxlwb0l8Cysxb2uEX+8EuXL1hX9AlS9+vuQfudwiLdmLZ9SO7ITJaLgCXbUu0Ngt+Q=
+	t=1791373729; cv=none; b=JnYtWMM4Fr7u+DHfJULeKLTQPI4v6m6IrMvht3hP0+XrZWBkEuVrnsXX4JITPGTHI8Zr5k4+TALeWWfl5sywj5BvtdRqyST0B8G4Gj1ve+4zZOLttcAykh4PcdRELma60M59PH7FOPS6mn7xOEcmzbH3yxXJoEdZYrmaOHhHUOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791373518; c=relaxed/simple;
-	bh=nz28DfqvHtefyNegxqFh1duVUJANumKDTLI00w9IPY8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CYGJLqwZuXZF1gjWhVZhUBEDE8RkJpxEZisPzG+/K72ipHtcovAX6gR1KSP11wUJ0j0Fk6LgZU5vy23cxB2+p4520tHmn7xr9TVsvIDe5a78iwNR5lVDj3cEyJVg79lRGcLODa0Ft1d5DNHjyYtRP4NOMHk5OC1Qz5nD+J7Oses=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cvu055ET; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791373729; c=relaxed/simple;
+	bh=gIaTyk5W0brwPCMp283WK+OpliUHp2YXuHMsiDXA1dw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TuQ5GmGJbYajLsHszqA46NJijp7153tdReABxlhJoYaR5YJcN7LyCWHObALr0T8Ymmyvnz+aqX1UCSfDc09yQd8vw17J/TGr60lqDO2M6fkWMn0EU0YoNS/2oZZHJl8oqWdyET1dfX/vVQFChsMCjRL5UxWvidiosYi/cMx5EH8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U7l+Zla/; arc=none smtp.client-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cvu055ET"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 036061F0089B
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 11:45:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791373510;
-	bh=nz28DfqvHtefyNegxqFh1duVUJANumKDTLI00w9IPY8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=cvu055ETLVJ5XMoJM+CIrEuMDk3VJcs4AkkpZyeaSYjh3dki7VugPtMmqvJgXLtfU
-	 9I0GaD0ZZnzMsIETGB2Og49KiQw04ltHIXVjMyQQ90yjmB0ZFoAzYBt+pGo55Mt75K
-	 xRhoA1OYlIeTUWZNh/bt7VgEtsMSwM5PgDufIE6qfHnnEIpzI9aDdFBXqd0gxwb2bX
-	 tFgccpiyrigskdeLjA+4WVk998CWg3r6ORsvLp1bTSvN3rnsP4AJOIQosk5VBBoxBQ
-	 POgjg2Hn2xgm0eVeVlJvxvay9RBIjte8KT7XEsLhAwilfzJFAcbKcr8Uzcs59D0r/E
-	 4SosWiCUJdY/A==
-Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3a1e9f55e03so45802061fa.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 04:45:09 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzKEZBkFk/ERJ1PKW/YvMiVBiu7xFBpPQsanhHFil6fTwfrcJmbzDAEdBYwfCd4u6o/EQzgIlzggYcNQok=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJfhbSdvU7iTeHQVwToX7R7EQLroxvDgEzW0Hu+lLdgH+kIxY5Z
-	Ruv6LycnAg7/lrW10iogfTo8C//PUdS5r/AGYpoMGp0jAkxexDDqhU0l1F94GOiqlP8YrP80LyP
-	38i0gynqjcZR5XOIg3dTe+s9f4xqca8U=
-X-Received: by 2002:a05:651c:b08:b0:3a6:6831:6e28 with SMTP id
- 38308e7fff4ca-3a9a2c34eb6mr4880381fa.6.1791373508809; Wed, 07 Oct 2026
- 04:45:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U7l+Zla/"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8899a204034so965709b3a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 04:48:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791373717; x=1791978517; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sWMIGXFkPMPmBZIlItDDaoveYneHjrBFtGWysWCizdk=;
+        b=U7l+Zla/CkFegdajnteKQ0W4OsIAIStkFnTTQDpCia/ohxlppXgoQjbmhDSTF+xoYq
+         lf6MRl3B6ZGSboNEgxbBNiFTyeRpMIj7LQtawSaQ0vasxlzvM/gD2zyem7aQrEj2xlBZ
+         aX+87HD1mtJTqSUE5zC4iGiuGOkIityyq7pZwr49E/z+xz1qFqHHG0PULhlhBWypFBKD
+         vFxlvCuQyGn9ydGMR/GVNP0cqXLOrQgFwVB1Z7On7XWGO4VNDUM3gWv29J4zZs9f1yUX
+         jE3U1w56cSCVgTntefARj8OPwW6QSAhhlVfuvih9Z0ODFB2Rvoi7syuO8X5G9/Gd6ox1
+         8OmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791373717; x=1791978517;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sWMIGXFkPMPmBZIlItDDaoveYneHjrBFtGWysWCizdk=;
+        b=F1iOoNQBHb+OeryA7dCU3bzKy+PRhzJ4CFtYlscu7TzZEv4OssyMN9KZOAvazkmdz1
+         rg01ASURTvoTv/QoUTUvygQbSdcFC1mNAG3+oWNwi6tO5IRgxUpFrKALKFwPd+ASH7F6
+         snwitglmVrBen+KiklipsjuqvBcaP/a05dvUe2feAD/+KP9vG7EITLj4x2i19Omj7ctb
+         LMF5QX4h3j5UQM2gjQrywK7Pu+fZqIN1FseNT+BhG0FNWsoHGbNcGj3AJqyKS6PFTURY
+         yrY1HI4nk1TY7ecQMn23aj+hkowSd6tQ+nSsILel/0NId897zCJplDqalGhCs/TuZA5x
+         B7Iw==
+X-Forwarded-Encrypted: i=1; AKwUvBxk7bbxTbWvKslxg2QkJzI7EaqKyx355wAOr4gyR1030lhVOchPU4PLTELVORosP/vgRdTpV61JcZSgcxA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nJtkOiKiRPcfC53CofoARBecuwzU35sVsHS/2amC0+3lbk16Gn
+	trNtySnO8vYIVuM+DwNZD6QEHrC+HcMFGfsyyZcqaOeufGFgClDq+PHx
+X-Gm-Gg: AYBFou3U1tOlwF48c8vUIKXc3fffPJqaiFegZU8LQEa5kfikrLntu7dIt5EjZzH9/rl
+	pYdwv47lUjExL9jI3Kv/ejUyPR/WrFBVtdNuCRVZe/hiNMt+aAZ1/VlOTWJe1hlsO6+l7Ig3GwF
+	cAtj2tm5hnDMJM8lRXsm18ARw7Nca9Vsr12SIGqxDCLRj9ANxtae94R4G/gLCUxIELsst4CT/YO
+	VsUABU2Lo8Es6ytJ38KAxzViOjncfSXZf/hRzD6PvMyVO28OApwrTSy+/2I2enEnJfC+zocCwqn
+	XyvsII6p1bomYVClhXREAqSfJBXQL/FD4kMon6k7VgtsDa/sDq5c1UNY0OBDZTnN3q5Ddd0g2YB
+	NsBDfpZU+SMg1BZue9IjDprX8pLM5JpKGRsEKCfxTsw+taNANmMk51c2OFDT1mgfmX3w7qxF4Cg
+	xXSHECUGBAJ9zkOsiLovnLETsW7XSLa421VyjtB67LQhlraLgJWjan4eZIW50zC6oU4ekkV6K+H
+	Lt+w+5wsKBVx/3JEjlBu+qUngg=
+X-Received: by 2002:a05:6a00:9504:b0:881:ac65:715e with SMTP id d2e1a72fcca58-891b5bcd274mr1520415b3a.58.1791373717127;
+        Wed, 07 Oct 2026 04:48:37 -0700 (PDT)
+Received: from obadmin-Precision-3680.atlascopco.group ([167.103.3.1])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89188ff2376sm1192645b3a.25.2026.10.07.04.48.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 04:48:36 -0700 (PDT)
+From: Sahaj Chaudhari <sahaj123.sc@gmail.com>
+To: Christian Brauner <brauner@kernel.org>,
+	Shuah Khan <shuah@kernel.org>
+Cc: Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Sahaj Chaudhari <sahaj123.sc@gmail.com>
+Subject: [PATCH] selftests: pid_namespace: test fork with dead ancestor
+Date: Wed,  7 Oct 2026 17:19:14 +0530
+Message-ID: <20261007114914.1668934-1-sahaj123.sc@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261006231900.3230373-1-briannorris@chromium.org> <20261006161337.5.Ica4bfaf179a86c8d77f8f845826602914b81181b@changeid>
-In-Reply-To: <20261006161337.5.Ica4bfaf179a86c8d77f8f845826602914b81181b@changeid>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 7 Oct 2026 13:44:54 +0200
-X-Gmail-Original-Message-ID: <CAD++jLm0w_fs-O_BSwTVbGOwozB7yBcFAgTe=ubzFE_SxWjSUA@mail.gmail.com>
-X-Gm-Features: AclHuK_tq1pfIubCAp0KCEs_RXsZkfKO4Fx3eMbI5PAcOYf2xBy3KSKKGEfBZkw
-Message-ID: <CAD++jLm0w_fs-O_BSwTVbGOwozB7yBcFAgTe=ubzFE_SxWjSUA@mail.gmail.com>
-Subject: Re: [PATCH 05/13] pinctrl: qcom: lpass-lpi: Discard
- pm_runtime_put_autosuspend() return values
-To: Brian Norris <briannorris@chromium.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, linux-pm@vger.kernel.org, 
-	Ulf Hansson <ulfh@kernel.org>, linux-kernel@vger.kernel.org, 
-	Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 7, 2026 at 1:19=E2=80=AFAM Brian Norris <briannorris@chromium.o=
-rg> wrote:
+Add a regression test for fork() into a PID namespace whose parent
+namespace has lost its init process. Since the kernel cannot assign the
+new process a PID in that dead ancestor, fork() must fail with ENOMEM.
 
-> Passing the pm_runtime_put_autosuspend() return value to callers is not
-> particularly useful.
->
-> Returning an error code from pm_runtime_put_autosuspend() merely means
-> that it has not queued up a timer or work item to check whether or not
-> the device can be suspended and there are many perfectly valid
-> situations in which that can happen, like after writing "on" to the
-> device's runtime PM "control" attribute in sysfs for one example.
->
-> Accordingly, update the LPASS LPI pinctrl driver to simply discard the
-> return value of pm_runtime_put_autosuspend() and return 0 to the
-> callers.
->
-> This will facilitate a planned change of the
-> pm_runtime_put_autosuspend() return type to void in the future, similar
-> to commit 3afd8df02433 ("PM: runtime: Change pm_runtime_put() return
-> type to void").
->
-> Signed-off-by: Brian Norris <briannorris@chromium.org>
+Create the nested PID namespaces, keep the child namespace handle open
+after its init process exits, then enter it and verify fork() fails.
 
-Acked-by: Linus Walleij <linusw@kernel.org>
+Register the test with the PID namespace selftests and ignore its
+generated binary. Skip when namespace operations are denied or procfs
+cannot provide the pid_for_children handle.
 
-Yours,
-Linus Walleij
+Signed-off-by: Sahaj Chaudhari <sahaj123.sc@gmail.com>
+---
+ .../selftests/pid_namespace/.gitignore        |   1 +
+ .../testing/selftests/pid_namespace/Makefile  |   2 +-
+ .../pid_namespace/pidns_dead_ancestor.c       | 174 ++++++++++++++++++
+ 3 files changed, 176 insertions(+), 1 deletion(-)
+ create mode 100644 tools/testing/selftests/pid_namespace/pidns_dead_ancestor.c
+
+diff --git a/tools/testing/selftests/pid_namespace/.gitignore b/tools/testing/selftests/pid_namespace/.gitignore
+index c647c6eb33672..b87295802a73c 100644
+--- a/tools/testing/selftests/pid_namespace/.gitignore
++++ b/tools/testing/selftests/pid_namespace/.gitignore
+@@ -1,3 +1,4 @@
+ pid_max
++pidns_dead_ancestor
+ pidns_init_via_setns
+ regression_enomem
+diff --git a/tools/testing/selftests/pid_namespace/Makefile b/tools/testing/selftests/pid_namespace/Makefile
+index b01a924ac04bd..3199e6bebbdd8 100644
+--- a/tools/testing/selftests/pid_namespace/Makefile
++++ b/tools/testing/selftests/pid_namespace/Makefile
+@@ -1,7 +1,7 @@
+ # SPDX-License-Identifier: GPL-2.0
+ CFLAGS += -g $(KHDR_INCLUDES)
+ 
+-TEST_GEN_PROGS = regression_enomem pid_max pidns_init_via_setns
++TEST_GEN_PROGS = regression_enomem pid_max pidns_dead_ancestor pidns_init_via_setns
+ 
+ LOCAL_HDRS += $(selfdir)/pidfd/pidfd.h
+ 
+diff --git a/tools/testing/selftests/pid_namespace/pidns_dead_ancestor.c b/tools/testing/selftests/pid_namespace/pidns_dead_ancestor.c
+new file mode 100644
+index 0000000000000..7524d4975ec75
+--- /dev/null
++++ b/tools/testing/selftests/pid_namespace/pidns_dead_ancestor.c
+@@ -0,0 +1,174 @@
++// SPDX-License-Identifier: GPL-2.0
++#define _GNU_SOURCE
++
++#include <errno.h>
++#include <fcntl.h>
++#include <sched.h>
++#include <signal.h>
++#include <stdio.h>
++#include <sys/mman.h>
++#include <sys/types.h>
++#include <sys/wait.h>
++#include <unistd.h>
++
++#include "kselftest_harness.h"
++
++#define STACK_SIZE (1024 * 1024)
++
++struct pidns_init_args {
++	int ready_read;
++	int ready_write;
++	int release_read;
++	int release_write;
++};
++
++static int pidns_init(void *data)
++{
++	struct pidns_init_args *args = data;
++	char release;
++	int error = 0;
++
++	close(args->ready_read);
++	close(args->release_write);
++	if (unshare(CLONE_NEWPID))
++		error = errno;
++	if (write(args->ready_write, &error, sizeof(error)) != sizeof(error))
++		return 1;
++	close(args->ready_write);
++	if (error)
++		return 0;
++	if (read(args->release_read, &release, sizeof(release)) != sizeof(release))
++		return 1;
++	close(args->release_read);
++	return 0;
++}
++
++static int create_unborn_pidns(void)
++{
++	struct pidns_init_args args;
++	char path[64], release = 0;
++	void *stack;
++	pid_t child;
++	int ready[2], release_pipe[2], error, status, nsfd = -1;
++	ssize_t n;
++
++	if (pipe(ready))
++		return -1;
++	if (pipe(release_pipe)) {
++		error = errno;
++		close(ready[0]);
++		close(ready[1]);
++		errno = error;
++		return -1;
++	}
++
++	stack = mmap(NULL, STACK_SIZE, PROT_READ | PROT_WRITE,
++		     MAP_PRIVATE | MAP_ANONYMOUS | MAP_STACK, -1, 0);
++	if (stack == MAP_FAILED) {
++		error = errno;
++		close(ready[0]);
++		close(ready[1]);
++		close(release_pipe[0]);
++		close(release_pipe[1]);
++		errno = error;
++		return -1;
++	}
++
++	args = (struct pidns_init_args) {
++		.ready_read = ready[0],
++		.ready_write = ready[1],
++		.release_read = release_pipe[0],
++		.release_write = release_pipe[1],
++	};
++	child = clone(pidns_init, stack + STACK_SIZE, CLONE_NEWPID | SIGCHLD,
++		      &args);
++	if (child < 0)
++		goto err_munmap;
++
++	close(ready[1]);
++	close(release_pipe[0]);
++	n = read(ready[0], &error, sizeof(error));
++	if (n != sizeof(error)) {
++		error = n < 0 ? errno : EIO;
++		goto release_child;
++	}
++	if (error)
++		goto release_child;
++
++	snprintf(path, sizeof(path), "/proc/%d/ns/pid_for_children", child);
++	nsfd = open(path, O_RDONLY | O_CLOEXEC);
++	if (nsfd < 0) {
++		error = errno;
++		goto release_child;
++	}
++
++release_child:
++	write(release_pipe[1], &release, sizeof(release));
++	close(release_pipe[1]);
++	close(ready[0]);
++	if (waitpid(child, &status, 0) != child || !WIFEXITED(status) ||
++	    WEXITSTATUS(status)) {
++		if (!error)
++			error = ECHILD;
++		if (nsfd >= 0)
++			close(nsfd);
++		nsfd = -1;
++	}
++	munmap(stack, STACK_SIZE);
++	if (error) {
++		errno = error;
++		return -1;
++	}
++	return nsfd;
++
++err_munmap:
++	error = errno;
++	munmap(stack, STACK_SIZE);
++	close(ready[0]);
++	close(ready[1]);
++	close(release_pipe[0]);
++	close(release_pipe[1]);
++	errno = error;
++	return -1;
++}
++
++TEST(pidns_dead_ancestor_rejects_fork)
++{
++	int original_fd, target_fd, fork_errno, ret;
++	pid_t child;
++
++	target_fd = create_unborn_pidns();
++	if (target_fd < 0) {
++		if (errno == ENOENT)
++			SKIP(return, "PID namespace handle unavailable through procfs\n");
++		if (errno == EPERM || errno == EACCES || errno == EINVAL)
++			SKIP(return, "PID namespace creation requires privileges\n");
++		ASSERT_GE(target_fd, 0);
++	}
++
++	original_fd = open("/proc/self/ns/pid_for_children", O_RDONLY | O_CLOEXEC);
++	ASSERT_GE(original_fd, 0);
++	ret = setns(target_fd, CLONE_NEWPID);
++	if (ret) {
++		if (errno == EPERM || errno == EACCES)
++			SKIP(return, "setns into PID namespace requires privileges\n");
++	}
++	ASSERT_EQ(0, ret);
++
++	child = fork();
++	fork_errno = errno;
++	if (child == 0)
++		_exit(0);
++
++	if (child > 0)
++		ASSERT_EQ(child, waitpid(child, NULL, 0));
++	ret = setns(original_fd, CLONE_NEWPID);
++	close(original_fd);
++	close(target_fd);
++	ASSERT_EQ(0, ret);
++
++	ASSERT_EQ(-1, child);
++	ASSERT_EQ(ENOMEM, fork_errno);
++}
++
++TEST_HARNESS_MAIN
