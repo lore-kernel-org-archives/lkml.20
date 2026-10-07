@@ -1,48 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83C5041D228;
-	Wed,  7 Oct 2026 09:41:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AEC23CB550;
+	Wed,  7 Oct 2026 09:42:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791366113; cv=none; b=aWUXvuJkI+C4OVk+suleC6Qq6bENZRvYJC5XjovEGK73qarnG75zg/Im+ylabPc0kEeG7P78x2NwKQzf5QDi6ORd1bHuqEkc52+/sG0kmU+88fywgaPQMYPbBmuu3WrTGnblcMMtKKFO/iWliMSY//jGOERmfc2a3A0whZoLABs=
+	t=1791366163; cv=none; b=UJl4mTK1XSGPJafEFLRCzubqg1QxW3C1yTtvJczP06hVaM9gFhVrCSau5W6bvRXRU8DJw36Fb4o4lVk9xW7JRGSQqZ3aykuVG61tNoWl2KM35+Ml4xFMxXtmc+D0MR8036j4D+z8GCi+11A0swX4VS2qsPMTfFr1dgsRL4qXdSw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791366113; c=relaxed/simple;
-	bh=WK9vhPgzSth+kJw3yIz3GCDJcb2aZvBnFXRqEEdiY/8=;
+	s=arc-20240116; t=1791366163; c=relaxed/simple;
+	bh=RPvTKzOPpkanvhFAdk04mMPSZkPF1y8YqFDPhe4s7Ck=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=t+G9XrCDnZVOabrmQdY2LSlRVxZqhaPBz6YXt8/gDJ71HDud6XmcvaQY7/4Ilu3Q2AG0OXkmJkIdmzyH4oEoRZ53OOQ+3ID5u2rtsGkx0EYI74DWWYId80TWe5ZwIrI3b3ExtFsefaxxqkJgE4fdz+mPKarISmfr55QR2BQL1VY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZfI59p1C; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=oUui6+vkYyQB8tBRO4KalwSZBDZYEsX6zdkwCNqDtoMwh2Kj35o9SiN0aElhis19h/c4DLIwGpKu7vTSusDAyyoh65SkB/YxhEPXesUZtuKOFe3fooe5ENzUmC+BjcmC+OYA9B75mAoxnPTb5ZphGeZut0OwMAsBf3ZRclClGfU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZOaAU465; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZfI59p1C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B413A1F0089B;
-	Wed,  7 Oct 2026 09:41:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZOaAU465"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 577E51F0089B;
+	Wed,  7 Oct 2026 09:42:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791366105;
-	bh=dg0m5pCV+kHWbFQxgfAVP5N/SaUbE4+F9mJpEm2Zr9g=;
+	s=k20260515; t=1791366156;
+	bh=wIn1L1gfQj7N8u3iWEkYckq5FViJ5Jz175iKiyzC2LI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZfI59p1CCXGQBkUuHoUrJGA8YsBmBzORm+uLYregJRivh0ufO0WJ88BL+Vw3/JF3A
-	 JYtkz4iOv4TDC7CFVECfQ1s6bTKircJ8Uz4ZNPMJJ7vilIVX2OJx/Uj7Xxn6cthqnF
-	 xjJCgW+/AQq6Vs70U3IQIJTkroLwft+ri4z7hRdLykSTgNeAOhOXBoBjv9B3OCJGq4
-	 dXPlMHGGhOYMJ1PlRgOQahvVH7KwvKEj1rEQ6MENRF3WaIFZcdUGRy2FomBbxosqYl
-	 ex6qehdY2BjJ+wevdoDuQ9AFIFNXejHJp4l0yF0bo6EwKLtkAonigeZynerNbqMNnZ
-	 9Ciok8D8KAbwQ==
-Date: Wed, 7 Oct 2026 11:41:41 +0200
-From: Nathan Chancellor <nathan@kernel.org>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: Kjetil Oftedal <oftedal@gmail.com>, sparclinux@vger.kernel.org,
-	"David S. Miller" <davem@davemloft.net>,
-	Andreas Larsson <andreas@gaisler.com>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:CLANG/LLVM BUILD SUPPORT:Keyword:b(?i:clang|llvm)b" <llvm@lists.linux.dev>
-Subject: Re: [PATCH] sparc64: Define p4d_page() instead of stubbing it to NULL
-Message-ID: <20261007094141.GA1527675@ax162>
-References: <20261005203930.246598-1-rosenp@gmail.com>
- <CALMQjD-udSokCKS07VFWauBQzac5BTPJqbORhskxgddsuX1vLw@mail.gmail.com>
- <20261006083103.GA3041473@ax162>
- <CAKxU2N-ZE7dwiGzVgxDYFvm2R0BE0nah2WehGcjpym=Kq68dYw@mail.gmail.com>
+	b=ZOaAU465YTrz+nGfYqI38zzy6WSgX/GrmFVWspraWSZ2GrCyaCeWh8Lc1DtihcFo5
+	 OirEoS9k3h5G3PCpP+MrXuQUhj1izPNej2TwzhCnXwfJBLh/55KH5vfx9/3/KvqNKL
+	 cIncUe4r4OHg7CrtDktQ8BQBzJ/XEaXWDtUMYqW/+L92Isj7f4Y7DeWIgLQuS2dJTW
+	 JNatg5QLBCQRcev0cyJFcaQ5UO5AHwpH4TxXEBlLi8T81ix5hwE+ixDgu8MeWI+C2e
+	 bGXAZ5X0o5tAtpz8Nb32rtJI9VsO9eKJ1E2ier8P7z8uSTypc1Pi0ZXA6Tkq5wbW/Z
+	 rZvpY0UzqUkzg==
+Received: from johan by theta with local (Exim 4.100.1)
+	(envelope-from <johan@kernel.org>)
+	id 1xEOAL-000000006it-0qbh;
+	Wed, 07 Oct 2026 11:42:25 +0200
+Date: Wed, 7 Oct 2026 11:42:25 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Rahul Rao <shreeramrahul94@gmail.com>
+Cc: Vaibhav Agarwal <vaibhav.sr@gmail.com>,
+	Mark Greer <mgreer@animalcreek.com>, Alex Elder <elder@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: greybus: audio: do not use iterator after list
+ loop
+Message-ID: <asYUAdQs0dwvi2nT@hovoldconsulting.com>
+References: <20261007091104.15366-1-shreeramrahul94@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,25 +50,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAKxU2N-ZE7dwiGzVgxDYFvm2R0BE0nah2WehGcjpym=Kq68dYw@mail.gmail.com>
+In-Reply-To: <20261007091104.15366-1-shreeramrahul94@gmail.com>
 
-On Tue, Oct 06, 2026 at 05:00:30PM -0700, Rosen Penev wrote:
-> LLM suggests as an alternative:
-> 
-> /* sparc64 has no p4d leaf mappings, so this is never called */
-> static inline struct page *p4d_page(p4d_t p4d)
-> {
->       return NULL;
-> }
-> 
-> Not sure how to proceed.
+On Wed, Oct 07, 2026 at 02:41:04PM +0530, Rahul Rao wrote:
+> Using the list iterator variable outside the loop breaks iterator scope
+> semantics and can result in invalid memory access if the loop completes
+> without finding a match.
 
-That seems like a more reasonable fix to me, as it is still obvious this
-is not supported while hiding the NULL value from clang's frontend that
-emits the warning. It could be worth a comment that it is an inline
-function and not a macro to avoid the warning but I guess that is up to
-the sparc maintainers.
+No, it cannot. I rejected another patch like this earlier this week:
 
--- 
-Cheers,
-Nathan
+	https://lore.kernel.org/all/asNhLGdigxSqU5Op@hovoldconsulting.com/
+
+I assume this was something flagged by coccinelle here too, which you
+should have mentioned in your commit message.
+
+I don't know what the warning message looks like but the term
+"potential" is key here. You still need to look at the code to determine
+whether there is an actual issue or not.
+
+Johan
