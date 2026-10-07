@@ -1,151 +1,84 @@
-Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CEFC3BB130
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 17:29:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFBAD3E9C0D;
+	Wed,  7 Oct 2026 17:30:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791394199; cv=none; b=PtU06vYVu8MWteM2K0fhzEJzy+eJ03Xet/3yABTCJyXdizdnALrmhrCu963s8fYwRBH9K+YApBaU2hOggFVMQpRty9m7U2K/FcVmqsUoJ/gMXnlUNNVyxmcOMhjPw+K14NdWXeBoRznxu+uHIKILMDPRUnQJ3pFDAFVDZTYnsik=
+	t=1791394211; cv=none; b=eO7T08fYzJCDl6p/mmvGVITBEtPQfU0wVkr4cI61ZNAnm3Rl2hwaY0uo/THA3l5f83j6NJIidpwosmK2qLTYCzJ+nznUnF4QhdwD3Vg5ChdX/A+eihAsTl/jPkQTsnTfF9xDqYdr1nRq0VIIbE2KHTpUTM+/IiBWfc1twVs4+Us=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791394199; c=relaxed/simple;
-	bh=nxcEIJsP5P568+JqspaC5riVmJMyvmOUZ8MmoVK6k4E=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=jY3ik8RUU3IfFM3I5D6wT4t2tSYWtVs4j6Sp3SFqh3R0hQ0hUBzjYWBG1K3RKv/32EwcRp0hT1BmMusLuUud48rcNc8K0kKMAADMyWdp3C6qVM7p4gBzBTy46PXqs9QhAC61gWiL+1RG4ileVNM6McmZl6VAEOJoKEnuws+LqCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=jELXcHWU; arc=none smtp.client-ip=209.85.219.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	s=arc-20240116; t=1791394211; c=relaxed/simple;
+	bh=HGvvoLJP10gnNnOOSDxghRi1TMp0exg4SbmrbKrQLHw=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=h47byal3MnviB8dnWLyD0tg5pmcML5yY7tzUY5y/HKqyxWkg6SegmE+owN8CIx8umnZ8y+0kdCkWQme2AS45DjiRDK6fEsuWF0JPn+kcsPg1Ca706urvLcXZQxsEWyt3YPr5Ft+WB+Eb1qV6sOKl7QKvTHyh1RvWrdV0xIRIZHg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rz9Wj1LS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="jELXcHWU"
-Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-918df0c71e3so21759486d6.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 10:29:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1791394197; x=1791998997; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Ulf4knBkH5u1TnqCidkxaqLV4+gGgnRz6zb0SQK2E4w=;
-        b=jELXcHWUKU643dyRwTkXtJw+kClt4BKIxhjIEuFqqg3pqoXH9TBv0+9Y6Gke98T9vT
-         UsEAxkvAmlJ46I6ywBuf8vU8Hbl/zlFTz9d0MKL6869grSzYxIxEtZR/wXPuL0CLhHeu
-         j64hhAUjDVP3iqGpzv3BtMlIkE9RUhqQPMZxavMfP7ZEZS/e101snUYzfL9npTktOhkt
-         5nw7IGUUcZ9+W4dGcM8QXtksaWsNUDCb1ZlWlb0i+FGMU6V/w8B28Leqv0zqUHMpBcAs
-         zNhDhidDtwmfYrAxfI1+5i43sMZb3msLnWyT1ezsZxA5E3oL03ssttzL7E4ybFKByBYw
-         77RQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791394197; x=1791998997;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Ulf4knBkH5u1TnqCidkxaqLV4+gGgnRz6zb0SQK2E4w=;
-        b=kuUL1OWgn8CxLIN5IQFTDDF2/7oYnqco0rcxdeWsLHFyiqVLclPmPjjWZN/RUGJqFA
-         SjbyeESvytKc6rBzxcivTJ5+xjNo1b8QdMR0vJqqV6GkqYxrudDqmZeMjBktZcCG1ZYi
-         qt56WQwpCsUlA65aj0KJkUzDXqle3rvBFjYIer/P+3dfXqMqg+hFnOYBvClHwQXsLLMX
-         /W8ZbO4WCSnXC6X/jXQOdoJY9f1bGXVXZFbpiD+/NQ7Z1HokMLs1OtNtN1MuKLJp0tHR
-         JL68Qlixrh4e4oRnKVR4srJbSwtpkF4YEOPQfEmK0C7+XmCTSH2i18ansLzPiPnCojzV
-         Aucg==
-X-Forwarded-Encrypted: i=1; AKwUvBzqXNsE6CvUmzM7of1px3z6WQLRkdP/5gVVwFWqg6bD5RKp/CLaSfmUgP6pQV99HSDFEj4X/CgD1glol6I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJfovGyrJIcSlImz8GY3g2l+en1Ae5HulV7JZvM5aNk5pnnP8uN
-	jb7D9ybFztThQVvNf5KyKIhJ9/tOPu4miYTC554EdOTOR7HQ3hdEMHpLxfxInvelEx0=
-X-Gm-Gg: AYBFou3LqmRh3F5BugyyhDy6+Q1Rny269iWRlV/MazipajUKehnDFsQVs5QqZsszRVi
-	MJV9i4DVnPa+RKwCBIPKTOn8WQmR8pnClE8owy+h8ZFD0pY2j1q0nPdk09qDsrlsNQhRKZnK7hh
-	A6CFgRI6fLdu2rQz3QUrDGwk4BetIvyDNj47VblBdkCScTaYz1Cf8hHfAXO2MrMyuJi7MVT6Nv6
-	8da8YgGBgMjJpF9uJTv/M7Lmdxp6gHy7o4jy/o5Zz7N7y/QpfjiCi9ISwSNqix+nDz3nAqf/rUP
-	Ke0aHXek5hZNq3T1k2aja6pdffCUEhgJNbTbjGnYV2DQHwlemjgbRQcX/toq1nqxSOkaEJNcrsm
-	BvR09qRimsrUbw1vf9Ia/1llc+cMhjWaMP+pRtHEIDmfL5ev3M/gX5NQzD641NuBm8gX/MsFbD+
-	VcIbneBuoMt10DnU8g8tAhggqzU+uSpW+11SOlMzNXcsMkqtDAAAOiGqELy4EzjSS9YuiAWhlH5
-	uEUVGzE72f51hU=
-X-Received: by 2002:a05:6214:451d:b0:914:4129:92de with SMTP id 6a1803df08f44-919976b94acmr54775506d6.1.1791394196971;
-        Wed, 07 Oct 2026 10:29:56 -0700 (PDT)
-Received: from toxicpanda.com ([153.61.196.240])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91996d0556fsm25727146d6.22.2026.10.07.10.29.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 10:29:55 -0700 (PDT)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Wed, 07 Oct 2026 17:29:34 +0000
-Subject: [PATCH net] net: skbuff: don't leave stale bytes in
- skb_copy_and_csum_bits()
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rz9Wj1LS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 459BB1F00893;
+	Wed,  7 Oct 2026 17:30:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791394209;
+	bh=H4U181XWY95js4QOgkmsJvJ2CGlpF7bU7HPOqz3meVc=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=Rz9Wj1LSgZxN1V1MakSZVpiLdoOfhEfqdiSLu6jaZygtNr/0g7XKrPjMy5Lf45sJ4
+	 NOKshmDnyEyUcTc7QEmV8n4cGx4tkZ5TN1Mh0/NZJgXdF3zVnELgGTZ2w071owKBpE
+	 RwDl+3xXBEfkJcdtOya9FwE0JgGzHnwe71e0WKA/MVe7nOS0IxFEZG6+rKbeNd/bww
+	 u0r4zzeP1VuztYht0MBRRit88R6p1tNFMIoDstNM9wv+qXaVZSIig5lKQ5z7o3XsCE
+	 QAGkGazSdI/i5smPDWbOTRh8GETwg2nzUcr9ZOvhbWi/0+gaQQVS0B94uNR009S5E0
+	 fDtuUdYpKSyzw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A3063808209;
+	Wed,  7 Oct 2026 17:30:09 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261007-b4-skb-copy-csum-stale-bytes-v1-1-adbbde033fb3@toxicpanda.com>
-X-B4-Tracking: v=1; b=H4sIAH2BxmoC/3WNyw6CMBBFf4XM2gkPqzX+inHRqYNUsTSdYiSEf
- 7fg2uU5uTl3BuHoWOBczBD57cQNPkO9K8B2xt8Z3S0zNFVzrKtKIymUJ6EdwoRWxhdKMj0jTYk
- FFbWadL1vDicLOREit+6z5S/gOcH1J2WkB9u0htcZGcmFaLztVtWHklS5yb9XsCxf9OZ47bwAA
- AA=
-X-Change-ID: 20261007-b4-skb-copy-csum-stale-bytes-4bf7b713258c
-To: "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Willem de Bruijn <willemb@google.com>, Kaiyuan Zhang <kaiyuanz@google.com>, 
- Mina Almasry <almasrymina@google.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1791394194; l=2000;
- i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=nxcEIJsP5P568+JqspaC5riVmJMyvmOUZ8MmoVK6k4E=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
- JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QMRBnjw/ta2UpP2RDQp1kaRlRViFZAVb3ZvXE4JKuE81FPw9Fm+YTe89rAnJKPUv4QeMME4FEqF
- +mbfSHILnggE=
-X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
- fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] Bluetooth: MGMT: Reject quality report requests during
+ unregister
+From: patchwork-bot+bluetooth@kernel.org
+Message-Id: 
+ <179139420777.3628206.6252425087306372679.git-patchwork-notify@kernel.org>
+Date: Wed, 07 Oct 2026 17:30:07 +0000
+References: 
+ <pm-bluetooth-objects-candidate-0186-v1-e03b4f1d5ba49b962cec@gmail.com>
+In-Reply-To: 
+ <pm-bluetooth-objects-candidate-0186-v1-e03b4f1d5ba49b962cec@gmail.com>
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: marcel@holtmann.org, luiz.dentz@gmail.com,
+ linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
+ baijiaju1990@gmail.com, jjzuming@gmail.com
 
-When skb_copy_and_csum_bits() reaches unreadable frags it returns 0
-after copying only the linear part, and the rest of the caller's buffer
-is left as it was.  The callers copy into a buffer that is about to go
-out on the wire: an ICMP error quoting the offending packet, or a
-driver's TX bounce buffer in skb_copy_and_csum_dev().  Neither buffer
-is zeroed beforehand, so whatever was in memory there gets sent.
+Hello:
 
-Zero the part of the buffer we didn't fill.  The checksum usually
-won't match the data any more, so the receiver will usually drop the
-packet, but either way it no longer carries anything it shouldn't.
-Only zero for a positive @len, a negative one from a broken caller must
-not turn into a huge memset().
+This patch was applied to bluetooth/bluetooth-next.git (master)
+by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
 
-Fixes: 65249feb6b3d ("net: add support for skbs with unreadable frags")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
----
-This was patch 1 of the skbuff BUG_ON() series; Willem asked for it to go
-to net on its own:
-https://lore.kernel.org/r/willemdebruijn.kernel.235bf1cecf85f@gmail.com
+On Tue,  6 Oct 2026 15:24:31 +0800 you wrote:
+> A quality report request must not call a driver callback after its
+> module text has been released. hci_mgmt_cmd() holds an hci_dev reference
+> through set_exp_feature(), but that reference only preserves the device
+> allocation. set_quality_report_func() takes req_lock and invokes
+> hdev->set_quality_report without checking HCI_UNREGISTER.
+> 
+> This is unsafe when a SET_EXP_FEATURE request for an Intel controller
+> would change HCI_QUALITY_REPORT and is delayed before taking req_lock
+> while the controller is removed. With btintel_pcie and btintel built as
+> modules and no other btintel dependents, the following order is
+> possible:
+> 
+> [...]
 
-Tested on net with a module that marks a nonlinear skb unreadable: the
-part of the buffer past the linear data is zeroed, and a negative @len
-leaves the buffer alone.
+Here is the summary with links:
+  - Bluetooth: MGMT: Reject quality report requests during unregister
+    https://git.kernel.org/bluetooth/bluetooth-next/c/ba9fb67965c9
 
-Thanks,
-Josef
----
- net/core/skbuff.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index 4aea06d5167d..41beaf625421 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -3633,8 +3633,12 @@ __wsum skb_copy_and_csum_bits(const struct sk_buff *skb, int offset,
- 		pos	= copy;
- 	}
- 
--	if (!skb_frags_readable(skb))
-+	if (!skb_frags_readable(skb)) {
-+		/* Don't hand the caller a buffer with stale bytes in it. */
-+		if (len > 0)
-+			memset(to, 0, len);
- 		return 0;
-+	}
- 
- 	for (i = 0; i < skb_shinfo(skb)->nr_frags; i++) {
- 		int end;
-
----
-base-commit: 23609bce9e1de525d1d0e73fc68c6e7971d0b49e
-change-id: 20261007-b4-skb-copy-csum-stale-bytes-4bf7b713258c
 
