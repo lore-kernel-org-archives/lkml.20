@@ -1,78 +1,84 @@
-Received: from mta1.migadu.com (out-153.mta1.migadu.com [95.215.58.153])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E99238236E
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 06:46:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.153
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B8C3BB109
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 06:49:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791355588; cv=none; b=RJN7fah9JJXOblgnB1p8tj3e3fZyMnZ0ZyaJDhGAPg+/nHs7bdT77HrKNxegkdxix33cKeOrSRl+5bSQxikgrdSNzCRpGFhbPHCXBR4WjbFSDfqw1h7favSZYr8wauWMlwhSsr9/TYTRmRFgyi2QSLsuvAb1OJa9MAe6lY3FCdA=
+	t=1791355752; cv=none; b=oWBYx2IDO4kCO71cvUNYhR2u/k9eVxlyDt+QHNw6N8M2jvmWmjjdda3UxrMu99EpJql48NoCmBdkUMX9Z7F1II8ITC4NJPUfEJsnksq42xteBkuBCrJdmyJ595X6jnXJ8ts0yvpQ5gEWaz0mqaN4G6a7Cup+Q5Yg69tfiKwpTa0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791355588; c=relaxed/simple;
-	bh=U3Wf62xC5r7GPaaJsND27Q/x6Q226FUTfzXzF0+A+bo=;
+	s=arc-20240116; t=1791355752; c=relaxed/simple;
+	bh=kVXuH7H4PDcskImrivyP/VtzUO54yTkMmhV+cSg/PdA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Jvh4YXGbTBXByuJ6fEJ8yB+Ez3LOLh5KrpNGXoyjy68+pyhuk3U2hBiwWwcH6FP0J9zNyt7Ep2Rq4VDxoS4Fo7cCMMY9PPlsruaSC2LWws5J/VppYpFuxP7GjGJ6jeucggh32yvxNRJqivopBqn3ZL0jtp+Re+Wvci6UPY2ahns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=YVq07FRZ; arc=none smtp.client-ip=95.215.58.153
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 To:Cc:Content-Type; b=I0ytS6tilHMfScrPT7v9qlJeU5ZxQyFXW7dw4rbsI++/U2B65OfpBCxy4w5VslmRLO/VRD6z5XoiKFemGa0n3pj+Q9oqmMWunByioVrMsI4T1wiHa92Q8sxYVepn1Zy1H9NwxRo1yYblKAenEBeQfX9TalLn53l569WUsgZWrLQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dg/APZQ9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="YVq07FRZ"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=U3Wf62xC5r7GPaaJsND27Q/x6Q226FUTfzXzF0+A+bo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791355583; v=1; x=1791960383;
- b=YVq07FRZ4Szq6vctGkk2jNAyG8zq1X9C6URD2iK7jy5g+shElvxpVeGOrdecVNo7R491ybGi
- Kune0CwT/4lkJjlHnQJYlqjSiPA0mqyRiYx+Q8WsfCYtiO5cfAsmodGv8gz2PUfMU9A3ui6+KVe
- 5ROBHLwSCOaOFmBud6FG0BoU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a8dd8ecf57e12d8b;
-	Wed, 07 Oct 2026 03:25:47 +0000
-X-Mizu-Trace-ID: a8dd8ecf57e12d8b
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5bcc04c71f5so4660e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 20:25:43 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwYPoj21+btQMYgorcAXdIs7xX1B3ylm40uXtUs/ubcU3k23qmGWRrvNbTBrwoWdtNjtfkOzPMyoGzUf9E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKR+biPJd4+2XPDw0w7jslyvgfKLBk05WBMe+arCR0hujfG0BDm
-	LwDuDW2eWY44wOFGvDWWlBnv8jI+2v/hEFTNUTGcehqWsslzTurtzi5BJWsZbYLjpIIrAeldqZi
-	D+D+aMTx7guLjJKgeBI1gCn0fb3Q+sk7xZBu5JgnL
-X-Received: by 2002:a05:6512:ba4:b0:5bb:661:7db4 with SMTP id
- 2adb3069b0e04-5bcca011cc1mr293031e87.0.1791343542819; Tue, 06 Oct 2026
- 20:25:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dg/APZQ9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3CA91F0089D
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 06:49:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791355751;
+	bh=kVXuH7H4PDcskImrivyP/VtzUO54yTkMmhV+cSg/PdA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=dg/APZQ9ejy4HmKPDmWJ49DQjYI8eWTCX2U9HoU5cpY3x9Rp89PIqyA8NLJL0FwtJ
+	 GMzK4tUOwWk49yYln+oGbbud0wd+E1ne0Fmx4u/kimPS1vwfpbRml7GQ+ixnK3WLy5
+	 adZ7iVP2QncNkxmIKC3Dhq6N3u2YYx+tYwo97iXjIw81UJ7iupGbyvfRCJaeqOgE3+
+	 VTVO/i9lEVYeS//KnuemuoJQ9Bhbgdxg47sJreGtLXkIMBl+Vr5niUOqlFYNtkozg9
+	 mGCFqSQyXN8Tou3REIxsoHqM2zX/h5J9SJoWUqMbRVurUKh76v8oQHNBpM1OPIMfQC
+	 G4LuA1C3AaIVA==
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5ba7ed32ccdso4163475e87.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 23:49:10 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxg4ukuCPZ1HHhYi1os67VtvAp9KNKAUgBwqI5B1KN3TIiDMgUcV1uoxH5P0vvl3QqI+PHyMLYcPRCA36k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLU241ldRrUFXEM/3ZUmmfk8ueiBcT7VtHlslczUMI+39hJ2BUU
+	ctPe/ZIGWAUlWvzuZfvsWvHpRkOQ3OSGihgSUDJM5w2/laSuVolW4bJAj7n9aOCzsjVJn9RiZbm
+	k5IusqYiX7JXE8+iuoRdLay693nqUuUk=
+X-Received: by 2002:ac2:51cb:0:b0:5ba:3443:aa2e with SMTP id
+ 2adb3069b0e04-5bcd06dde9emr392580e87.21.1791355749772; Tue, 06 Oct 2026
+ 23:49:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260924165329.1684155-1-fuad.tabba@linux.dev> <05714056-53b7-46ce-86eb-fdb7d2afe1fa@arm.com>
-In-Reply-To: <05714056-53b7-46ce-86eb-fdb7d2afe1fa@arm.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Wed, 7 Oct 2026 05:25:06 +0200
-X-Gmail-Original-Message-ID: <CA+EHjTzde+d7UFowKCeBnpD+8mFPcuUn1m2gLsDm9ViEgPfsQg@mail.gmail.com>
-X-Gm-Features: AclHuK9K0Yw9pVF-s7nnkYWE_sJH6hYt2igpYcN7bP3h2C7iBW5sGaqUNJ48r1k
-Message-ID: <CA+EHjTzde+d7UFowKCeBnpD+8mFPcuUn1m2gLsDm9ViEgPfsQg@mail.gmail.com>
-Subject: Re: [PATCH v4] KVM: arm64: Trap guest MPAM accesses whenever MPAM is implemented
-To: Ben Horgan <ben.horgan@arm.com>, Oliver Upton <oupton@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, James Morse <james.morse@arm.com>, Xi Ruoyao <xry111@xry111.site>, 
-	Mark Rutland <mark.rutland@arm.com>, Joey Gouly <joey.gouly@arm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Gavin Shan <gshan@redhat.com>, 
-	Yuan Yao <yaoyuan@linux.alibaba.com>, linux-arm-kernel@lists.infradead.org, 
-	kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20260917-scmi-pinctrl-generics-v2-0-3eeee364257f@oss.qualcomm.com>
+In-Reply-To: <20260917-scmi-pinctrl-generics-v2-0-3eeee364257f@oss.qualcomm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 7 Oct 2026 08:48:56 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkgBKDvbxsnhsBE_Qqs6TA8how4J2jvKm=tdpx4P+4JdA@mail.gmail.com>
+X-Gm-Features: AclHuK9LebUk8FXXJTxUAdYqh6ANC6YbZR1Kg-AkYL0dvrplEgSlwXOq9S4AtEE
+Message-ID: <CAD++jLkgBKDvbxsnhsBE_Qqs6TA8how4J2jvKm=tdpx4P+4JdA@mail.gmail.com>
+Subject: Re: [PATCH v2 0/3] pinctrl: scmi: Replace get function and group info
+ with generic callbacks
+To: Alex Tran <alex.tran@oss.qualcomm.com>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>, Cristian Marussi <cristian.marussi@arm.com>, 
+	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Ben,
+On Fri, Sep 18, 2026 at 12:56=E2=80=AFAM Alex Tran <alex.tran@oss.qualcomm.=
+com> wrote:
 
-On Fri, 25 Sep 2026 10:22:00 +0100, Ben Horgan <ben.horgan@arm.com> wrote:
-[...]
-> IIUC, this patch also covers the mismatched system case where EL3 f/w may set MPAMEN for cpus that
-> support MPAM but system_supports_mpam() returns false.
+> This series refactors the SCMI pinctrl driver to eliminate metadata
+> getter callbacks to be replaced with pinctrl and pinmux generics
+> provided by the pinctrl core.
+>
+> Previously, the driver implemented its own get_functions_count,
+> get_function_name, get_function_groups, get_groups_count,
+> get_group_name, and get_group_pins callbacks, which required
+> maintaining driver metadata like the functions and count.
+>
+> The pinctrl core already has support to store and manage this
+> topology in the pinctrl_dev via its own internal radix trees.
+> By registering functions and groups at probe time using
+> pinmux_generic_add_function and pinctrl_generic_add_group, the
+> driver can delegate group and function metadata management to
+> the core.
+>
+> Signed-off-by: Alex Tran <alex.tran@oss.qualcomm.com>
 
-Yes. HAS_MPAM is set per CPU from that CPU's own ID registers, so the
-traps depend on neither system_supports_mpam() nor MPAMEN.
+Patches applied!
 
-Oliver, gentle ping on this one too :)
-
-Thanks,
-/fuad
+Yours,
+Linus Walleij
