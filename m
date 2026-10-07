@@ -1,170 +1,152 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AF663A63F3;
-	Wed,  7 Oct 2026 12:56:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791377779; cv=pass; b=G6YGR9NNDKZY2ind2oJS4X+GcchEmMHlb+Zu+g6cXxrn4rbMdKro2vKjf0VO/XVaHiyF1Hn+IMJR2TtkDoTM3zOyIPVZtV+ImTDqgc/wY4cPEHccBpRL/lZrw+5xSqZLEiLxrZBoos0WvmLwK6jvm86uq1FEvowWJFmc7ziQWBo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791377779; c=relaxed/simple;
-	bh=Pmg8cPHdnp67KvvGtaNcEeC/CYMt2+14QU8E50FcYvA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MI+sY3dbBoaut1QihWTYQTNyf8S8dt9UZzzj9mMES+x87JUCU/tPLR0x/6mEca9J5Jg5n1QibzU7mLHY3UkytZHEMfu5+h6sj4hL2GG6TpXbBnu+HEuRhIKs0GKSxinIpYogddsM62Lz0iZ/LCnPB59fcCCxB+i0OTqnZ8Ec8FY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=gPW7/um3; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B63CB416873;
+	Wed,  7 Oct 2026 12:56:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791377794; cv=none; b=oafVYpUcaI/LuxJQ5ExDlIAy9At+95fz2FLvPwfUCxJ1wpxgU1tHY49FXGCyNzxy/XA6/uSgenuGgwKMSPITzZnp/hxZxDYSTnqSVUWDfjFOZ9PsUMTGjKF+OafOnzuenljZIG3MXYQcKu03cNYC63203XIc2k/YYZreDTXJIdM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791377794; c=relaxed/simple;
+	bh=Wc8IB0edWVGgQ80Cx3uFojUV4Vhr/RFS1m7KR7vHpmE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=qbYcEIDCs+3jWyEIxlJZzDkrAkebtIl4tTyPX7RcAagzxPOlEOTk0i8iUNFe+BSHBpbee4FW84M5a2aqRAGHFQ/omWvVhQOTf9z5i5s4Ms0Av/9IcTJB3278lr7ZpjuSci/VDSkypmDl1hvhK1Xvfd2fcuK/QNw/hfxyzXRcj3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OKziODL0; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="gPW7/um3"
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 57809201DC1;
-	Wed, 07 Oct 2026 14:55:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791377759;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vkwpWfXMu4S0YB/C5Qy7MCV0wk07++yiLxRo5FMELXk=;
-	b=gPW7/um36CQpXofP4o46aD2MiEVJiT/O0u+G0GEI+tRyUBj20x3MEG4XRpqHegZuR2iITt
-	x5VeuKaWg+rtOJIUnC0wlnWUsmvrjurG9eKEGmrW6hkUgHi5nlX0ofnUhxVk4Tgs1RU9QV
-	EDq8MKWd6doU3REGvwVRWu9W/40RvQRwM8JnS+Qr/T8C9hlQvoPmpHU3l+9ODcy8nJvAzq
-	RsaIacD3uUF6YuHJZM9kybthZS2OW4z/bQoC0kZzwVHDKRrnE95hVP/sWZ86lDX+aFXArq
-	O9FcWlnAlEv7bD/dMxZYDpIU3AB2m7gfDpDK+gePCviHfa1z04aPeZk7YJqr/g==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1791377759; a=rsa-sha256;
-	cv=none;
-	b=PoCUKdeganCHBBazzPK00RM2n6rnKqISwBKFgp0Tl6VTMvdqTT6KqRDMDKRrC0Vv9MLfsP
-	6Xk+9HjulpdkkqgihmyC7xNrfjsmx9hC3VuwnRRdQTuUW0+3aDOSy+lJteVw6G6+AtpkJm
-	FLmXF1aeNTosruU/g078gSWotF9B4NjZZc4vwgDtVDwhtV/lmBAiN7NGvv+vCXTJSHZBIG
-	0ZzmlSdPenUOAzBVZZiEiuk0MOzDFk4bQrj8AOImuwws6VMJz3VnkCk5UQxTByAq5gFHtq
-	dJy4vR+bSMbvwFvZqjunlokShzrZwbRLTht6q++8KExEMZxb8pdesEf55adZfw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791377759;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vkwpWfXMu4S0YB/C5Qy7MCV0wk07++yiLxRo5FMELXk=;
-	b=GvTTV4Dg1Yo3HmeLkQFEwMKWc5SBFgzPMHECtzr5M2GuQ+obTVBkDHgu92R8fVrkok7GDK
-	g5c9zeQNbhc4aD7EXjZR7vAODRn695dYPqXVflLBwwQ6ZQQlmuD3eEHmkzm643ljMdEvpN
-	88YG3rdbpdmJDEiAqqJGu1bvm9huiBsuDlOzegQ7ae3E7cYpqvJiwEB+Sj5R4YLiDAmNll
-	mAsQl/OftXXPjV4Gv4r1hRxbo5nEmHmsNYHS9wy+LTuU4LEk32SKMcjCs/qaah2kCphHQ8
-	rWQJ2nlpVVeOIlvJ7ff4vJTI7A4KPwK0Rr6/3rCH0EjXHdfLQqddNsbGIUlHFw==
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xERBf-004ie0-0o;
-	Wed, 07 Oct 2026 14:55:59 +0200
-Received: from pengutronix.de (90-182-211-1.rcp.o2.cz [90.182.211.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id CE3355BBA6A;
-	Wed, 07 Oct 2026 12:55:58 +0000 (UTC)
-Date: Wed, 7 Oct 2026 14:55:58 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: =?utf-8?B?U3TDqXBoYW5l?= Grosjean <stephane.grosjean@free.fr>
-Cc: mailhol@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-can@vger.kernel.org, kernel@pengutronix.de, s grosjean <s.grosjean@peak-system.fr>, 
-	kuba@kernel.org
-Subject: Re: [PATCH can-next 6/7] can: peak_usb: Add bus error reporting for
- the PCAN-USB FD family
-Message-ID: <20261007-nostalgic-wapiti-of-fascination-ee80b0-mkl@pengutronix.de>
-References: <20261005-ancient-viper-of-swiftness-c884c3-mkl@pengutronix.de>
- <597196165.930416749.1791299468914.JavaMail.root@zimbra65-e11.priv.proxad.net>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OKziODL0"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697BV9rf3687353;
+	Wed, 7 Oct 2026 12:55:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	OlKUE9ylFAD8NCtlw73fnFqtcH/esRsqk0VoFtGwfZs=; b=OKziODL0My/UpEjN
+	BCenq4ulv/GAwdbHpi2n0DBdClNwKOZ7zdt2iiF3KK6S+jaEQW59HqgdCemh7kvG
+	eqRtlzbRbYix0GhRYsU75VKCPdbyNd+hEeJVbQ6dPvuuB2jz0RC9X6Apw68VNXdN
+	ZbX38llQXko/HXRDqMObhlEitjdd6mHV/izvfIpPaz8YKlFXArkuaybHcHYTo6qr
+	3xKB8K6CRturB60GRz5oAzaBMaGkUu8vsKQ+4JI33R/415G7E0RFLYpAEcJXXygo
+	k1FT0mbdhwdody+vPKYk4cplFYTQlYPeZyvWkWosLn0kTRlFOmtHOJSzYF4/24br
+	LqRLYA==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5mgr8ffh-13
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 07 Oct 2026 12:55:57 +0000 (GMT)
+Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69776nGU1872895;
+	Wed, 7 Oct 2026 07:06:49 GMT
+Received: from hu-ffaruque-hyd.qualcomm.com (hu-ffaruque-hyd.qualcomm.com [10.147.245.31])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTP id 69776m1r1872875;
+	Wed, 07 Oct 2026 07:06:49 +0000 (GMT)
+From: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+Date: Wed, 07 Oct 2026 12:36:36 +0530
+Subject: [PATCH v16 1/6] power: Extend power_on_reason.h for upcoming PSCRR
+ framework
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6izpg7bozbhdg7bd"
-Content-Disposition: inline
-In-Reply-To: <597196165.930416749.1791299468914.JavaMail.root@zimbra65-e11.priv.proxad.net>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261007-pscrr-framework-v16-1-3642c277bebb@oss.qualcomm.com>
+References: <20261007-pscrr-framework-v16-0-3642c277bebb@oss.qualcomm.com>
+In-Reply-To: <20261007-pscrr-framework-v16-0-3642c277bebb@oss.qualcomm.com>
+To: Sebastian Reichel <sre@kernel.org>, Benson Leung <bleung@chromium.org>,
+        Tzung-Bi Shih <tzungbi@kernel.org>,
+        Guenter Roeck <groeck@chromium.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Matti Vaittinen <mazziesaccount@gmail.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Oleksij Rempel <o.rempel@pengutronix.de>,
+        Pengutronix Kernel Team <kernel@pengutronix.de>
+Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev,
+        avaneesh.dwivedi@oss.qualcomm.com,
+        Umang Chheda <umang.chheda@oss.qualcomm.com>,
+        Ulf Hansson <ulfh@kernel.org>,
+        Faruque Ansari <faruque.ansari@oss.qualcomm.com>,
+        Sebastian Reichel <sebastian.reichel@collabora.com>,
+        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDA1MSBTYWx0ZWRfX3oxSvWMz6kTp
+ +ZPf11W64awXyARBDXTWn1X4gh0H3K5PwIusu3mBI0N3QcHJXTfVQnMeIoctXp5D7KCRfPctGta
+ EZymNGnGM7pOagmEiuQxDcqYngTdVqdIqOHF239I/eeukCKC2F2dMyxL+iR4CptC4Wo7v2ZaD2v
+ Y9szHAxYELUz/EOZRFEU0ARvvPLJ3kyIoPxFKRVooFzAIonVaqPZaCb53HazLzISDqIxJhc7XPL
+ xmLOuSpgJB3yTXxkRaGvFOuNOTgeJ0dm7L3SNh64pKIH0jT6ycQKNTJMlqK4MUUiVsj6/FuSRr4
+ TZs0vvBHRKdD5GFB0ODE4zyj5UIFAmzjNebu+IkCdKNGae/NaWn+aZExryZSRqqVhtU1acl0KCT
+ MrfJLGqC2iSnpE6AHQbYXb/eBZY5ZmU4n1dmizrpOq9tR19AI1BhVY0a7zEt1iwvvXBJMp85gCb
+ 7K33b528gv1d5UTO7bg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDA1MSBTYWx0ZWRfXxqcDGBbLppGK
+ xcjya6kSr3lgbl5CdXk0Wk3h9yGz4WLYYO7G4YHurOo7O1S45+aC4HSr7vni9of1PZ8ie8IxnGH
+ eZZ+wggG48rHDYUp/2hP6ymhheLvHf4=
+X-Proofpoint-ORIG-GUID: tjQEDfzAdyoBBiJknVG1ixBHvfS4U1qA
+X-Proofpoint-GUID: tjQEDfzAdyoBBiJknVG1ixBHvfS4U1qA
+X-Authority-Analysis: v=2.4 cv=OYkNnRTY c=1 sm=1 tr=0 ts=6ac6415d cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=QX4gbG5DAAAA:8
+ a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=7kjejDXy1mYeYQkWB3oA:9 a=QEXdDO2ut3YA:10
+ a=AbAUZ8qAyYyZVLSsDulk:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-07_04,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0 phishscore=0
+ bulkscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070051
 
+Prepare for the introduction of the Power State Change Reason Recorder
+(PSCRR) framework by expanding the power_on_reason.h header. This
+extension includes new power-on reasons:
+- POWER_ON_REASON_OVER_CURRENT for over-current conditions.
+- POWER_ON_REASON_REGULATOR_FAILURE for regulator failures.
+- POWER_ON_REASON_OVER_TEMPERATURE for over temperature situations.
+- POWER_ON_REASON_EC_PANIC for EC panics.
+- POWER_ON_REASON_EXTERNAL for an external reset source.
 
---6izpg7bozbhdg7bd
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH can-next 6/7] can: peak_usb: Add bus error reporting for
- the PCAN-USB FD family
-MIME-Version: 1.0
+Co-developed-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Reviewed-by: Matti Vaittinen <mazziesaccount@gmail.com>
+Reviewed-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Signed-off-by: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
 
-On 06.10.2026 17:11:08, St=C3=A9phane Grosjean wrote:
-> I think I've pulled on a loose thread and ended up uncovering a much
-> larger issue.
->
-> My original goal was to work on some improvements and cleanup for the
-> PEAK USB drivers. However, while reviewing the series, Sashiko started
-> pointing out places where the new code was still trusting data
-> received from the USB device without sufficient validation.
->
-> After fixing those issues and respinning the series, the next round of
-> comments raised a different question: if these checks are necessary in
-> the newly added code, why are similar assumptions still present
-> elsewhere in the driver?
->
-> The more I look at it, the more it seems that I'm mixing two different
-> objectives in the same series:
->
-> - functional improvements and cleanups intended for linux-can-next,
-> - hardening changes required because USB devices can no longer be
->   considered inherently trustworthy.
+changes v12:
+- add POWER_ON_REASON_EXTERNAL
+changes v10:
+- add Reviewed-by: Sebastian Reichel ...
+changes v6:
+- add POWER_ON_REASON_EC_PANIC
+- s/POWER_ON_REASON_OVERTEMPERATURE/POWER_ON_REASON_OVER_TEMPERATURE
+---
+ include/linux/power/power_on_reason.h | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-As far as I know, the Linux thread model is to trust USB devices. If you
-don't there's infrastructure that USB devices are mistrusted, i.e.
-disabled, by default.
+diff --git a/include/linux/power/power_on_reason.h b/include/linux/power/power_on_reason.h
+index 95a1ec0c403c..13e61ace14f5 100644
+--- a/include/linux/power/power_on_reason.h
++++ b/include/linux/power/power_on_reason.h
+@@ -15,5 +15,10 @@
+ #define POWER_ON_REASON_XTAL_FAIL "crystal oscillator failure"
+ #define POWER_ON_REASON_BROWN_OUT "brown-out reset"
+ #define POWER_ON_REASON_UNKNOWN "unknown reason"
++#define POWER_ON_REASON_OVER_CURRENT "over current"
++#define POWER_ON_REASON_REGULATOR_FAILURE "regulator failure"
++#define POWER_ON_REASON_OVER_TEMPERATURE "over temperature"
++#define POWER_ON_REASON_EC_PANIC "EC panic"
++#define POWER_ON_REASON_EXTERNAL "external reset"
+ 
+ #endif /* POWER_ON_REASON_H */
 
-On the other hand I really appreciate that you take time to fix these
-issues.
+-- 
+2.34.1
 
-> Given that every new fix tends to reveal additional places where the
-> driver relies on the same trust assumptions, I wonder whether it would
-> be better to pause the planned enhancements for now and first perform
-> a dedicated pass over the entire driver focused on robustness and
-> security.
-
-Yes. That's a good idea!
-
-> My idea would be to start with a separate series whose sole purpose is
-> to audit and harden the driver against malformed or unexpected data
-> coming from the USB device, and only resume the functional
-> improvements once that baseline is in place.
-
-I think this is the best way to move forward! As these issues are found
-by bots, the current consensus is to mainline them via net-next. I think
-you should add a Fixes tag. I'm not sure if we should add stable on Cc.
-For now try without and let's see what the humans and the bots say to
-this approach. :)
-
-regards,
-Marc
-
-P.S.: I'm not quite sure myself yet how we should handle the details;
-we'll have to wait and see what feedback we get. We'll just learn as we
-go.
-
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---6izpg7bozbhdg7bd
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCasZBWwAKCRDMOmT6rpmt
-0iupAQDjVaXKwNa3OP3MN2rKP7s+sub6sbxJA5lQxtgFnuDO9gD/fmjx254C4H0j
-pOHlybQo4cSEwcLGc2quJvp6MaaNjQs=
-=f21C
------END PGP SIGNATURE-----
-
---6izpg7bozbhdg7bd--
