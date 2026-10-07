@@ -1,68 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F1913D093F;
-	Wed,  7 Oct 2026 06:04:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEAEF346A18
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 06:04:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791353043; cv=none; b=RMUEVn347QtmAN7JuVdWU8ytntfFkkp/lluORChxim44X58AcZnHVTjTbItxj34z5U/Ai4eO0YsLFP5XXgNGVzidrLiHoVyvlT2G1DMTk2XbOquHJScAp5mgJsIh2BA8MpJLfqkjQqMzFAUSVwAyaBqbYf4MjHsslCLCaHodjcU=
+	t=1791353055; cv=none; b=TQhsNvBeN5h6URP1ZrqJTaZfFwE8vphKrXR/uKeutyxBiSspnA7OB8wIPuS1IsP43Y99oF6rGJA2ekTRf1Yf7SndQHnrpE5YlZw+nFErXOGt1kpOpRRTVOVWJqRnIkAkaKmq/63I2OjFQCt2a2n9lVmqvrJ6WZca12hLqBezhUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791353043; c=relaxed/simple;
-	bh=x8GQ9TqAFu5driuvo38kqzYt3n324pebOlaNmEELI+s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=XtNXrmovjOOW14A63mgC9qGjxa5kYhVgt4M46BYnXERe4t67AJ+X04A9QmE8ZMAK5VHVYPTuyexQHQH+5WRihf+b+sSTe0kxr+j2VxTIz8EwPij50MX1SWT4+0FCxE6Tw8NynR0BacBZKCG4MDv3kybqruTgNvVuBIkVPyEDG5I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mrYImYwf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791353055; c=relaxed/simple;
+	bh=SlxywiYNTN/vMh+tKJ4hiU9xxky0J2NSIW3uscQ7HSI=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=uBnGZWClx5cZC86uakqnmVXm5id+ZEQwME3cg5DCEAxEEtjvw6F5PojbEduLEyMUaLU8nvmAXI+4hdtzJaY1Thnzc+kvu3bdbl+btQAdi9BlgPgWXNhztTK2HWSV/w+NXt4+19704cKTEUw2GV38zdZSIcZ8dMLk3jVVLLvqcXE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=KYJUkqEm; arc=none smtp.client-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mrYImYwf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 024F81F0089B;
-	Wed,  7 Oct 2026 06:04:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791353041;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mrYImYwfb6HlFitrfKZqxlOqgSoAK4RGLncabK3gFo6N2SXKlmmntQXNVOOG8Fmg/
-	 rhy5XPOkLsJdlSywR5FIE+N9LmVMYI7mqSJCVrj3vMIsZkUNlUQtwIAdqoLJvCF12Q
-	 +q8rPhAXKqZzHkHjL7rLczoHTR6A+to2JbZw3DLnVgDuIMsN0pNZ34r8rZQaMGVQVD
-	 BpOsdEEDhK1FFiUhgMr2+TsmId8eLqkmQ9qd3FjgLbFX9xu9kCdp2XGn0/g5A1PpL8
-	 bV8F01J2sUulc5llp5LXrT21au0tlFHCGuFpq+WSMvDWVVhUTVvQMZVRKN04pp6V3v
-	 /ads8hMbua3NQ==
-From: netdev-bot+sinfo@kernel.org
-To: Yiming Qian <yimingqian591@gmail.com>
-Cc: Nikolay Aleksandrov <razor@blackwall.org>,
- Ido Schimmel <idosch@nvidia.com>, "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- bridge@lists.linux.dev, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: 
- Re: [PATCH net] net: bridge: don't under-estimate the VLAN tunnel info size
-Date: Wed, 07 Oct 2026 06:04:00 +0000
-Message-ID: <179135304050.2527009.8103377902303247171@kernel.org>
-In-Reply-To: <20261007055939.63100-1-yimingqian591@gmail.com>
-References: <20261007055939.63100-1-yimingqian591@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="KYJUkqEm"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d7443e0f0bso60779725ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 23:04:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791353054; x=1791957854; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=7Dzf0BvAXFZBe0f6pp2D4e8a/RDTV83MOaX+nbQF2dU=;
+        b=KYJUkqEm7p7IrmirtjpieozljBw/CiMrrYqj+cql+lbGyUMDjzKe3k0EdS2KQrD01Y
+         1bp1guWzLKhxhcLOt3jhfMscf7aAx/pg/eb5omXOFAmud6LviE3ueKq2F5N9I96Ly9NQ
+         gpVEnBqZ4UXVOW2rUjUslu1MQFqquZb0J0t1o3OBuyUycAmcNgMU95CKJ6Jv/X3SklDC
+         5yToVw8wwzsE4h76vjX3dY9l3bpTBuKudtVuaL9UYVdNS5BLVFO8refpFlvAP374BXes
+         KgWrHWdwTYbT57L8CaT0TdbSHbQgsR0EiN8gknN8hC7iQxrG7KwLblH4d2vYug393utV
+         lNEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791353054; x=1791957854;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7Dzf0BvAXFZBe0f6pp2D4e8a/RDTV83MOaX+nbQF2dU=;
+        b=RCgvl9xTXQd//o67ROyOFzCNU1Zh+4/D25fO4ZJ1M0yhhqXC3QrLZHXWyHgJbwfqxI
+         J3atNwmc189eQvOl5J3QxoGG2VZfW5zx+zKe8Sd0MgkX2N8Ues90JCrZtyfCR4OT9/hs
+         WGllO9OS+AEcPrwGRZjLNH423p7aQ87AZocfGaYUBderC4it7RWKl/KWH3vkGdn2q74j
+         XI4hNq3RYCsLTHDdtKAuGLHcDGbK1Ft7cqmQoe7qCC8BLWzaiuTBCEtiOXUCaCeYjzRt
+         EHGTO57WqETo/AtOMIwAqTzDH7IOt6jkeKNCBB0mQZnmcMBpdeWlyzva3ju54W5oAjyc
+         gjCg==
+X-Forwarded-Encrypted: i=1; AKwUvBx//GjwCB4eyvXxit8jK0pdz9H+hby6/3BdxRIALcuzIeb9V1c4i9EtD18OMrh+O/ec1JRorOLnPD/5/2o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLSnF4g3BZ7f2UNadVmnZ/sOJ2wa3pp+y7nBg6Gs8BDf4Wko40Q
+	BYi4fu2q4wLzaXt/yxqHkxhGknCz+hBnT63d7RaIoRVU/gBPCh3IJgwH3gz/jpqtU1bFyd+oVak
+	4YPXT2Q==
+X-Received: from plkb5.prod.google.com ([2002:a17:903:fa5:b0:2e6:13a2:7648])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:f706:b0:2e6:1715:e468
+ with SMTP id d9443c01a7336-2e61715e6cdmr2886455ad.61.1791353053953; Tue, 06
+ Oct 2026 23:04:13 -0700 (PDT)
+Date: Tue, 6 Oct 2026 23:04:13 -0700
+In-Reply-To: <CALMp9eS0=HgM02Ff4mv6RLHVoM3EgavhKu_P6J-oTWTMbk9zng@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+References: <20260930173635.3362655-1-seanjc@google.com> <20260930173635.3362655-14-seanjc@google.com>
+ <CALMp9eS0=HgM02Ff4mv6RLHVoM3EgavhKu_P6J-oTWTMbk9zng@mail.gmail.com>
+Message-ID: <asXg3cJvaeqMOfAr@google.com>
+Subject: Re: [PATCH v3 13/21] KVM: selftests: Use KVM's reported TSC KHz as
+ L0's frequency (sanity checked)
+From: Sean Christopherson <seanjc@google.com>
+To: Jim Mattson <jmattson@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>, Sashiko Bot <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi!
+On Tue, Oct 06, 2026, Jim Mattson wrote:
+> On Wed, Sep 30, 2026 at 12:04=E2=80=AFPM Sean Christopherson <seanjc@goog=
+le.com> wrote:
+> >
+> > Use KVM's reported default TSC frequency as L0's frequency instead of
+> > calibrating L0's frequency using RDTSC.  Trying to calibrate the freque=
+ncy
+> > in userspace is all but guaranteed to be wildly inaccurate, e.g. due to
+> > interrupts, preemption, etc, and no known CPU supports TSC scaling with=
+out
+> > also having a constant TSC.  I.e. there's no need to calibrate the curr=
+ent
+> > frequency, as it should also be the same as KVM's default frequency.
+> >
+> > Opportunistically sanity check KVM's reported frequency against what is
+> > observed via RDTSC, e.g. so that KVM_GET_TSC_KHZ or platform issues sho=
+w up
+> > much earlier in the test, before VMs get involved.
+> >
+> > Signed-off-by: Sean Christopherson <seanjc@google.com>
+> > ---
+> >  .../kvm/x86/nested_tsc_scaling_test.c         | 25 +++++++++++++------
+> >  1 file changed, 17 insertions(+), 8 deletions(-)
+> >
+> > diff --git a/tools/testing/selftests/kvm/x86/nested_tsc_scaling_test.c =
+b/tools/testing/selftests/kvm/x86/nested_tsc_scaling_test.c
+> > index d790ab36a198..a78585af0ffd 100644
+> > --- a/tools/testing/selftests/kvm/x86/nested_tsc_scaling_test.c
+> > +++ b/tools/testing/selftests/kvm/x86/nested_tsc_scaling_test.c
+> > @@ -137,7 +137,7 @@ static void l1_guest_code(void *data)
+> >
+> >  static void test_tsc_scaling(u64 l0_tsc_freq, u64 l1_scale_factor, u64=
+ l2_scale_factor)
+> >  {
+> > -       u64 tsc_khz, l1_tsc_freq, l2_tsc_freq;
+> > +       u64 l1_tsc_freq, l2_tsc_freq;
+> >         struct kvm_vcpu *vcpu;
+> >         struct kvm_vm *vm;
+> >         gva_t guest_gva;
+> > @@ -159,11 +159,8 @@ static void test_tsc_scaling(u64 l0_tsc_freq, u64 =
+l1_scale_factor, u64 l2_scale_
+> >
+> >         vcpu_args_set(vcpu, 1, guest_gva);
+> >
+> > -       tsc_khz =3D __vcpu_ioctl(vcpu, KVM_GET_TSC_KHZ, NULL);
+> > -       TEST_ASSERT(tsc_khz !=3D -1, "vcpu ioctl KVM_GET_TSC_KHZ failed=
+");
+> > -
+> >         /* scale down L1's TSC frequency */
+> > -       vcpu_ioctl(vcpu, KVM_SET_TSC_KHZ, (void *) (tsc_khz / l1_scale_=
+factor));
+> > +       vcpu_ioctl(vcpu, KVM_SET_TSC_KHZ, (void *) (l0_tsc_freq / l1_sc=
+ale_factor));
+>=20
+> Our internal Sashiko complains:
+>=20
+> [Severity: Medium]
+> Is l0_tsc_freq passed to KVM_SET_TSC_KHZ in Hz rather than KHz?
+>=20
+> In main(), l0_tsc_freq is calculated in Hz by multiplying the KVM_GET_TSC=
+_KHZ
+> result by 1000. Passing this value divided by l1_scale_factor into
+> KVM_SET_TSC_KHZ configures the guest TSC frequency 1000x larger than
+> intended, since the ioctl expects a value in KHz.
+>=20
+> I concur.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
-
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
-
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+Drat, I thought I had fixed all of those goofs.
