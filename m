@@ -1,147 +1,191 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011034.outbound.protection.outlook.com [40.107.208.34])
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011019.outbound.protection.outlook.com [52.101.52.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E09744BD36E;
-	Wed,  7 Oct 2026 15:29:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE7C4BD378
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 15:29:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.19
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791386965; cv=fail; b=ZCpl7YT8caPSSYSqkqqxN1rcwE9bWS1VQJzlKMv+1xxgfAmexMjpnQps41z94VnVbSXeqUlqk7AY0Vnt+uuQ0zs3r2OhMZtdct24nDabdzu2hX5sXEfkzcLG68xOqyuroqyuIdruZy5DqbNkb9dnE04m6WabLto8EDM1qvJ4W+Q=
+	t=1791386970; cv=fail; b=mKlVYEOlm0gr5UGZJWaVFphtgiV/l9OwuzhvZ7AZwugO2pYLABdtWiKsRmMUGpTxV3LfJqCr4eTHWo9ElzrFRJiqt3NzUgJodp3YJ8GsSaD8ZxFeLtILLtq6Dd2P8/5CLGregjkGz+YmNZE8Tk9ZhJ/t/fi1l+fRD/z597m9wFs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791386965; c=relaxed/simple;
-	bh=P+RZGtmgRmiISHT0TvznAUQ8EVODC/kL83bspdueIvY=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=itzjqKlEE6Y02drtpwJST9+4sk0OAqBf8QtlrJlqOXrj2S6475V6liAY0JdqPnMEZ8tPWdAohB1tbTs6/ClRgxk9aaPobkeWy8E7o1+mskZtuE3C1l3Nj6zxMOGkx5jqZfSuCQIvSiI8JJDN921MC7grNfaRPVkDbpN0SuY6Ffg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=HE488piI; arc=fail smtp.client-ip=40.107.208.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1791386970; c=relaxed/simple;
+	bh=nhiaayr6+eRAaXhQFCgpXOB+PrUbUc1tQp/2ywvDmIU=;
+	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
+	 In-Reply-To:MIME-Version; b=dWJvUMKvodKxBlN1fW+4rrwZyEJkFHbYYfR4yNKaiKRbyjNd4cbjt22NYFMzCtbydciWBbx1m1wpG5wZLmG7TrWwpaQfdovO2HN0By2+Z/NusX6sJDpWEB3n7shX2AFxKEViA6Kq1XNiU2zMjLj5Im9JJFsp7is0VfjX3xLpmIA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=DD1EUKZL; arc=fail smtp.client-ip=52.101.52.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="HE488piI"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="DD1EUKZL"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sP9K9DmfTWxZRrtx3z1CUtNntkbisZOzizKaBzsuooiCrN7oXaU/3YhwXpmNkXUed7X/JinfLpHJFQK4LvNwfsSveZR27NTT9xdPacVne7p2s8IpIxwxNHa6Y/NIkoPr5VIK8p0ToCOsOowimU324Y+KVBM5YBtL4Qf9WF/3/rODlz0BnOP/eDd9VDqkli6uTaDyrmlNQf7Hq2l/sQihsKyTSJFa/gW0RwFCLBKl2orOwbARiuwKUYZYzojHIm/ai3pQkv+7cMYOpXcvlYR3fSIvU1yDSFG8XlsS0MVcvyf/SyhiYzC8cFUri2Yl+9X94FZdjWZ8Qz/BZ8jKaqZDLA==
+ b=ByApR1vvEhYbxgp96sf+0Y5iynOpNBJqqlrabIiLfGOgBVHAj4Gn0pSjJqtrF6IDIC9bKW7XayLx4UvpZRfRCcS71Sb9Ws9H/mhZHjRaeOGaiV8fFMz41UQr/cZC79FXFIhYiR0iPg7MkyLZGif/3OLFx+QIELMJdM1dBF8ogr9TxgzfP26glWzyJ4dl2o9LADKqgjR+MZT67rJMLP4rid+tM3ETFulcYR6GorB0G0xkN7RbCteDM83C4o77FQ46pDjR0ofHWKYVghJfA8VLUP9ybjYuzTVvYJoPR7TDeyhCnVHS3JYee5NdW/GIYYyMWge8hJbRSVM9pBkAasGTeA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZkgLhue0tjAIDJ/+Ra2QfyTXeq6iNMz8xFTcM2ZOaQs=;
- b=i6IoJ/bjj5HE52WCeuCBOCwy9GR7C6O/SfonjjH3H+a9HN0IEBE1XKau0csDqkNT6jautR2ROds5fZw3l5ogqE6U6h8ooJrtFzXrJ+vwH9lELkK3BUea/CpZMnEyzlAeCc0yomPxB1T5M/Py343uVHDEhn1JEBo0HFFcwP5Rgy5aX6qeyKUERCiBV0NeMJ17HbyTaoltMohF76qduMyTkk/QPCIiRUy1YW6IvIVWknE5R3fQR36w7RULV75Mfjxsf4lkzEiMBrjBL7Xgt18i2rJ84t5tcAKD/BpuJk/OvZVavx2YbqQpob44w2YX9b4AUyjNuN+ORkogjOpgSbKx4w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=qz85Dk0BKnQg1xkZo4YmLVVhLiRQFjdfKkKk4qoiayg=;
+ b=wdnUG/2mZ0MMbWyVbtYUZK7wM0xyFJg9LJabpx3vg98BIT4NJv20O29QIYFdfK4IoYUwM6ql4N6H/8RKMzTZjJq8fiN+haS4tx4mpbrH/qFpUYYK+i7PIo99BfMPqP3CyvMVCINL2Nabz2AdJqZEqOIeTOBmhae15nBaSech47tqBYjo6/tI5Ff9kScrRiR9A0Rdv1mEa7Ft4uRnXnmENbugUDrNpBMWNAsQf+JxfjZI/6nVoSjpfSgzQx28PVopn3U0a9+M2XlvFQW5bAqkaAzUIQsj8d1I9oHATXm3IBnkUuhN8cm+N2/LBhR2Ujqaqmg6TsxfxuTP+omjV8Y4Dw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZkgLhue0tjAIDJ/+Ra2QfyTXeq6iNMz8xFTcM2ZOaQs=;
- b=HE488piIzLHbOOdkFvpDeoVsny5sCIUJtHbutD70or6GHp08Gh+hDBYG7C5rrk/67i1VyhbxlOrF04m50WQ9tjnSxMDmmWsBjrtQlk8XKDMH1PQQmqy9dc/64THCT17sg6cv9DHEFxP2Fx5c/aceiQxXRmDbtBtcCAbtv+9eQvs=
-Received: from BLAPR03CA0128.namprd03.prod.outlook.com (2603:10b6:208:32e::13)
- by PH7PR12MB6441.namprd12.prod.outlook.com (2603:10b6:510:1fb::10) with
+ bh=qz85Dk0BKnQg1xkZo4YmLVVhLiRQFjdfKkKk4qoiayg=;
+ b=DD1EUKZLHbOetCPJ8NnK0UIH/PkVobt6oS/Y/0z/bSvj4dsgjeO7ROO6lOetEUp2MYtsh6sOse6GIiSHK4wAOh5c38HnALgCSwd67aR9p5q/gWh1u4MrNCfsvX2DUnVI3zCMvUKN4looDvfOyf7eYG1zcQ1H6dz97Z3aTEnknnfK/tYnVLUJNHVX2M+YGYkf7yCtuW6QZG4cu/wgYTBQuCORGJ75qaJN4RFsz9G1sLj1BXcjKO5NIKTX4EqOd7juC5oDNj0ezMbcULEldQxSQeyVYuzNx8hx/tXwCeRarTA6M23ikz8189ItNSg9rYO35nTk2DjnXdmKg5RNBim7mA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by IA3PR12MB660778.namprd12.prod.outlook.com (2603:10b6:208:61d::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
- 2026 15:29:15 +0000
-Received: from BN1PEPF00018073.namprd04.prod.outlook.com
- (2603:10b6:208:32e:cafe::12) by BLAPR03CA0128.outlook.office365.com
- (2603:10b6:208:32e::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Wed, 7
- Oct 2026 15:29:15 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF00018073.mail.protection.outlook.com (10.167.245.201) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Wed, 7 Oct 2026 15:29:15 +0000
-Received: from sindhu.amdval.net (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
- 2026 10:29:09 -0500
-From: Sandipan Das <sandipan.das@amd.com>
-To: <linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-CC: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim
-	<namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, "Alexander
- Shishkin" <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>, Thomas Gleixner <tglx@kernel.org>,
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
-	<x86@kernel.org>, "H . Peter Anvin" <hpa@zytor.com>, Ravi Bangoria
-	<ravi.bangoria@amd.com>, Ananth Narayan <ananth.narayan@amd.com>, "Sandipan
- Das" <sandipan.das@amd.com>
-Subject: [PATCH] perf/x86/amd/uncore: Extend num_umc_pmc to fix UMC discovery
-Date: Wed, 7 Oct 2026 20:57:46 +0530
-Message-ID: <20261007152746.3658877-1-sandipan.das@amd.com>
-X-Mailer: git-send-email 2.53.0
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Wed, 7 Oct
+ 2026 15:29:17 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0472.016; Wed, 7 Oct 2026
+ 15:29:17 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 08 Oct 2026 00:29:15 +0900
+Message-Id: <DLYPOE6YLNWU.2PDPIJN9TDEGD@nvidia.com>
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Thorsten Blum" <blum@kernel.org>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Gary Guo" <gary@garyguo.net>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>, "Tim
+ Kovalenko" <tim.kovalenko@proton.me>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2] gpu: nova-core: firmware: fwsec: use zeroed() to
+ zero-pad buffers
+References: <20261007080708.124563-2-blum@kernel.org>
+In-Reply-To: <20261007080708.124563-2-blum@kernel.org>
+X-ClientProxiedBy: TY4P301CA0082.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:36f::14) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00018073:EE_|PH7PR12MB6441:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8a9ffab5-3157-48e1-1761-08df2487bf23
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|IA3PR12MB660778:EE_
+X-MS-Office365-Filtering-Correlation-Id: 801fe9a6-d056-4902-4d29-08df2487c047
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|36860700016|376014|7416014|23010399003|6133799003|18002099003|10067099003|5023799004|11063799006|56012099006;
+	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|10070799003|18002099003|10067099003|22082099003|11063799006|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	Sv0DFleDmID7a6N+gh1sS5u++YOVLxyU1ShWOJKTlBsHip8RcISp9n2QguiPFR2sVUrDombaJCkpJEvo65aeu+MqQ4kuje1cuUvBj91ziMmpqCfHCzz6GJcl+3vFnZZrgnuVokrRyMtCc6DHTon2fPwsZXSjwM6EdCXKzoMNs/RkN+DBrlh/8Dw6LSEXUzPSApUTRNocL5BEtv/Ap+UIfpy4RgjcrP4JAwz9ZVdfjGb/gwe/t4e7mxDah0HT3sCUvakVLWca1rvFkdWOGA0bfet4GgPTMxYy+s67ndkuvy/HLUd6cLNltwgCfSTUDG4P3T/bsLQLilfbWh45rBQbABJj1c1SU0asoqJrXGDkpP+mt4ecbUowoahMaQ4f/WsG6SK2KZccsw2X5jyrs9FVeskDhw+VzKYQDLm7PTXl4ndTktS7LucpeuS8Yx8TkwKORmhrUBBwYG8qP9MUxskBNE25j4QFwvmOrm6hddKfUVOx/D/dJpOINBqe0ojRjNsxByxyZg1PX0ZPWJJMeWxMvNE39cF2sPukyvs/ggZ6yPFZYu1Pf0rY1x/sG+UH1ssU3jTUHrIq6Ow46liDMnmd3YhiWWmNUcD3KHIS8B0799PYPL3tEm2KKF+J81OcBfJAYT4x4OJDU8ghnoKCCcXCeZCEEiAnve8uonCYr16HjAvYHj/SStBhkfyU1NCNatN7ZyiQSCOSV91BKVfFBgxMUw==
+	jIgJcCTg9G9RVUnLLoplsSKLsSbKOe6xwJAEtSGoMuPG1iZxcnn6eKAUXsRXCgSxEOpu/5VLz44yF3fA/B8sPEnSzdHrqw6DetBPzy+KBRBgXlGAC+vFhRG+sIgzw2F1oHumL/RgqwkKX8fvALdpMvLNpAaSADQX9fW7PUfsHSp6113cSPd3o0ipm54oAx8IKYAYB5ji8HSd45IRfAzSxGSg89USsPp6hVaf+IpLRZMd3TqwRJUBOIbSskXZL8qkpZu/RZrhvAznzE8ET1i8dWM87zwB69YK/RGPzAAoFe7me9mwW9dx9GFNreDb6v2jujcMK58PLI6tRzygX+ZPB6nhXXWQgWJsKN5rTTf/41g+qn6Aolk59w5egzcxCbZYGNuJqOc01wocc4DugCnXoa0r8MG9dmBFAnhMOfvzhGVCYcBlx+sWYAPvMWXyMVRpKwURzfOArlNChatbpbUXKHLDcqYV/2BYAapw6DvwgPeH/Tgwx0/npYwTIe9xztABby6MTCoYuXKKFoBrRpteNsVByq9F7CSRec8hyysNkwEXqVVkRGC21XXy8mIndLwWl2WcFVGzeS7QLlpPP4KBGum6/jgdCoakG4fedSB9qUY5XTqWXDPe65dtiva3Gi7W9fq3TDKAtzzmWNfsJ/KN5YR2M21hDWZPYoLmK6OqZr0=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(7416014)(23010399003)(6133799003)(18002099003)(10067099003)(5023799004)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(10070799003)(18002099003)(10067099003)(22082099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	BcrqU9MMSYJxMev0gi5T8nRqRUM/AbgT04JSESZ70YZHvFhl/eQEr2Pf3VRtqM1m0s3z7X3gE4fDUh3W8s0k/Tv0M/mwc+95vpHj3AjxI5ObjqF4uicPVckWdOB9BRS57FhhPNUZyhGoIYk3vG0TXcf4+duhU1RGuMFeXY8h/3WF/X2Y8+3lPg8G2Zd3d/Anj/mzfvA5S/WYQHOiPYewk3SYPisJOvRiWD/+UsPcIJ/PgC6ViaBhz4qnTbD0V5oqUg8UKao5FkPTQBYhMem9YASxKopQxCW4u7YuFNnbv+BGcGffIwkQPNZj46iEpLMsp79mbUEPIcVcXWqNN/mwuxTLVuoHBLreOKr4EvUTUOkDa/IMGoC9zscoTO3aHjL1AvmRLHdJs4TtrgxljckRlumz6tRsE1c25DC8eSPamGTC7g9HdnvRpMmlw0EvqT1c
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 15:29:15.5400
+	=?utf-8?B?a2xLSzkzVVNZMVR1NkZIbTNIS2tiejNhUVM4VkRQcUp6ZFdHeWp4UUViOWFh?=
+ =?utf-8?B?a0NzNFR4M1Vrenp5U2JGS0RycDgzSjgwYjE1R0xtOU1GWng1QVZTaTZISHRN?=
+ =?utf-8?B?aFhwbzJqNEdENWhYN3J5L3pjVG5jcENhVXhhajVacjVxcC84WjR2THpaNXdq?=
+ =?utf-8?B?YUNlOUdSL01ibWZaY3Qzb0cyVkhzM1dsbEhOcElQNDZ3aTFnbnBDWjV2MktH?=
+ =?utf-8?B?NGNnQy9Vb1ZUNEhjNFJWdzgvNDVOcUI5dFRGbnpzamVZYkQ3M1BMeTdMcTFC?=
+ =?utf-8?B?N3I1Skk1eENmYk5ZTE4wb0RpMjdFd1h1a2cweENyU0l0OEs2QUo0T0Z6SGVY?=
+ =?utf-8?B?WDh3REQ0N2VvTEd6TVplaURrQ0ZwR0MrVDZyMjdmaXYxNVc1UGlCMXF0Tkpp?=
+ =?utf-8?B?bzRrRWpuS3NmOVhkRWx5ZVIvVyt2ajM2eVI4a3NYYnc0NW5CdFRoS09hV1hz?=
+ =?utf-8?B?YTdOc3UrZ3hOUHRtNjNXbGwrUHEyNitISlpFSnBwRy81NEEwOUNyVjZQMWZi?=
+ =?utf-8?B?QjN2a3M5bVZuVCtPSHVLRmNzcVZDQWI2ZjRQa0RnZDdzL3QvRWxTNXF0TUY2?=
+ =?utf-8?B?U3VONVFPcUNtRlk5ZEhBKzQ5OWRCL2l2ZUJQbHI4V25qK1VDdGdiOEZUaGxy?=
+ =?utf-8?B?WE5wTEJTcVBpK1VuK25wdU9aTWs4U3FxaVVuWmVVYXByY0FXejlFZ0d6d0pv?=
+ =?utf-8?B?dk5hVTQ4MUN6c3ZRQjZacVZCYWhqLzJJSWlBSm1xQmZnTWRDR3FiQmRvSUo3?=
+ =?utf-8?B?TGhwU25kK1VpMklkSFNJY1hHbHVjbzdLRHVibGorR1NNRlBVTVF2TFZIelUr?=
+ =?utf-8?B?ODkzSlFId1NoYmhwbk5TOWJlaVhnR0phSWZqZFZPV0sxTkJFZDk1RFZicDlY?=
+ =?utf-8?B?SG5XZ0lvR0R4dHh5QjFLY09iZVc0cmcxbUl4YU5LYkluZ3FwQ3RYT3lHR25k?=
+ =?utf-8?B?eURjb3FOZk4rNDBXam9kdGNUUSswc0Z4OWg0UnpmZ0NWTVQ5bmZLR3hrUTVY?=
+ =?utf-8?B?bWh0OXhoTWZ2dUk2LzJ1eUhsamZjSEVJSVk4S1pzUmpBRzlNNkRnNkU1eUd0?=
+ =?utf-8?B?cnZoalByODZDVUJyc0VZYjE1dXNKM2NNTDc0Z1ZvMnBjem9ReU5peERSb3l6?=
+ =?utf-8?B?WDNMeUtGT21sQzBmZGdNQTY2T1pLczhzTzFwaVFrN1BnRHNHNW4va1gwSVBE?=
+ =?utf-8?B?VHZoL3YxNE1Wb0QrTzVQanVmR0orN09LdHJRa1RBVVNNeWswVEFvVkRtVU1Y?=
+ =?utf-8?B?T2IxbU9DSUZIcUpvcVVUSTllQUF0NUovaERoMGp4bnI1SisvVDlaZ0VodlU4?=
+ =?utf-8?B?Ri9EaXR5S3VPczlITkZuREZtVFZEcWtDQkpOMWFLdmxVdVhyUm9vQUZVV09j?=
+ =?utf-8?B?djhiaEdOV0RsREJQUHl0M1VkanNMVjlXbjNuenVqWVYxOVVDVFZXRHRnaEVi?=
+ =?utf-8?B?WHZWREMrSkRZTjFlODFBUDlPU3g5cVNjWWlTbzhsWnJxVmF6OUUxczVJeS8z?=
+ =?utf-8?B?bnNFdEZpR0hIRGFVaVVrc2hnQXU3Rkc2VmZmV21sdlFVNW1YTUowd0JmRjRK?=
+ =?utf-8?B?cStNVG8vM3ZBQ1dXWWVXc1VOMFlMYktTaGc2dmZhdVRCUitrUXhYaU45bEVI?=
+ =?utf-8?B?THRJdXUyMDh5ZWJUZmRLVURyVVVoelFFOHpRYW94aHpmVi9qOE92aVN1eFBG?=
+ =?utf-8?B?Z3FyVXlxSlhLV1U3UTNReDRhaG43cW5zSXFxSzJ1eEt6MUlyZ1M4d0ZOVHNt?=
+ =?utf-8?B?Ui91QzNuN2dHMkIvMWlZVnIrdEkrTGRIMVgwOUt0YVB1TmlHNTd2a2hxNFNS?=
+ =?utf-8?B?TThEeWhJbEdyanBINVN0ZTlzblJYZUxKWnBwYzV3SmpUcFE0OXlIbVNqMTMv?=
+ =?utf-8?B?QVVCNjFjK3FiOHR5QjR1c1VNdFJOemh6R0txRmtxNzBRQXFYYUxoSXFhemoy?=
+ =?utf-8?B?VVBtaVVQVWJQNTJ1WU1vUGFaNjF2NDdYRG1Bclgzb0xyaG5BSEdzT2MzMTJI?=
+ =?utf-8?B?VEFrMjJwNXB5bXMzdFZjZklFdXhGMGc5UUJhTUdvMVliZEY1WWtJeitzMm04?=
+ =?utf-8?B?WlZISU50d3loeDZVVlpQbUtkZlN3bHhDbGphZllrdVFuaXpoNFMzSVhHbm5p?=
+ =?utf-8?B?UVppSU84d3RybmZPNTlSQUFhVHRhVmdaaklaOWNwVDlYOGdQOTJ6eElxeWxM?=
+ =?utf-8?B?Q1dlelRpQkE5RUdOWmFZZG9mSzdCeHcvTmZZcWNSWlN5ZDZkNm1VSWdyQXZp?=
+ =?utf-8?B?S3Bid3U0MGlpRWppNE0yajBZUGtPaHpiWjZkb3MzekVBb09GcGNjN3NmYlpJ?=
+ =?utf-8?B?b0NvdmhMYUFIWjAxemYycEg2STdqa25KS0c5ZlVtc2M3VDBEekplbnV5aXZ2?=
+ =?utf-8?Q?z0icdPmjYFcONZvgzJLqTE58rYDkPtEH+mbRuSzpYd18E?=
+X-MS-Exchange-AntiSpam-MessageData-1: 9c4oHJpvj5Beyg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 801fe9a6-d056-4902-4d29-08df2487c047
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 15:29:17.6087
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8a9ffab5-3157-48e1-1761-08df2487bf23
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF00018073.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6441
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hrqt7QXra9lrY5s0E1SK97FpnTPHYETzF92oA2sS+Y6vmeZ5fc5Ld8V3NxrEotAA+OyxoaooKbynW8HVBcAB+g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR12MB660778
 
-The number of Unified Memory Controller (UMC) counters is advertised by
-CPUID 0x80000022[EBX].NumPerfCtrUmc which corresponds to num_umc_pmc.
-NumPerfCtrUmc was introduced in Zen 4 with a width of six bits (21:16)
-but Zen 5 documentation revised it to eight bits (23:16).
+On Wed Oct 7, 2026 at 5:07 PM JST, Thorsten Blum wrote:
+> Use KVec::zeroed() to allocate the zero-padded microcode buffer and copy
+> the bootloader code into it. Also use KVVec::zeroed() to initialize the
+> firmware object's leading zero padding.
+>
+> Signed-off-by: Thorsten Blum <blum@kernel.org>
+> ---
+> Changes in v2:
+> - Add a // PANIC comment to copy_from_slice() (Danilo)
+> - v1: https://lore.kernel.org/r/20261006100442.80432-3-blum@kernel.org/
+> ---
+>  drivers/gpu/nova-core/firmware/fwsec/bootloader.rs | 10 ++++------
+>  1 file changed, 4 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs b/drivers=
+/gpu/nova-core/firmware/fwsec/bootloader.rs
+> index ec4d92317a93..1aa08ae8de78 100644
+> --- a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
+> +++ b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
+> @@ -137,10 +137,9 @@ pub(crate) fn new(
+>                  .align_up(Alignment::new::<{ falcon::MEM_BLOCK_ALIGNMENT=
+ }>())
+>                  .ok_or(EINVAL)?;
+> =20
+> -            let mut ucode =3D KVec::with_capacity(aligned_code_size, GFP=
+_KERNEL)?;
+> -            ucode.extend_from_slice(code, GFP_KERNEL)?;
+> -            ucode.resize(aligned_code_size, 0, GFP_KERNEL)?;
+> -
+> +            let mut ucode =3D KVec::zeroed(aligned_code_size, GFP_KERNEL=
+)?;
+> +            // PANIC: ucode is sliced to code.len(); code.len() <=3D ali=
+gned_code_size.
+> +            ucode[..code.len()].copy_from_slice(code);
 
-No issues were observed thus far because the maximum possible count,
-which depends on the maximum number of UMCs across the product lineup,
-remained the same as that of Zen 4. Six bits were still enough to
-accommodate the value. However, Zen 6 can have values as high as 64 in
-fully-populated configurations and run into discovery issues since the
-two most significant bits are ignored. Fix this by extending the size
-of the bitfield to eight bits.
+As I mentioned on the previous revision, I think not inserting panic
+sites should take priority over other considerations. Besides this code
+effectively writes he `code` area twice (not that this is a big
+concern).
 
-For Zen 4 processors, the two most significant bits that documentation
-flags as reserved, are guaranteed to be zero.
+I guess if we want to introduce a new `Vec` API to cover this better, it
+should be some kind of constructor cloning a slice - `from_slice` maybe?
 
-Fixes: 25e56847821f ("perf/x86/amd/uncore: Add memory controller support")
-Signed-off-by: Sandipan Das <sandipan.das@amd.com>
----
- arch/x86/include/asm/perf_event.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+>              ucode
+>          };
+> =20
+> @@ -162,8 +161,7 @@ pub(crate) fn new(
+>                      .ok_or(EOVERFLOW)?
+>              };
+> =20
+> -            let mut firmware_obj =3D KVVec::new();
+> -            firmware_obj.extend_with(align_padding, 0u8, GFP_KERNEL)?;
+> +            let mut firmware_obj =3D KVVec::zeroed(align_padding, GFP_KE=
+RNEL)?;
 
-diff --git a/arch/x86/include/asm/perf_event.h b/arch/x86/include/asm/perf_event.h
-index 5c92d43bbef8..18b8b0c0c5e3 100644
---- a/arch/x86/include/asm/perf_event.h
-+++ b/arch/x86/include/asm/perf_event.h
-@@ -298,7 +298,7 @@ union cpuid_0x80000022_ebx {
- 		/* Number of Data Fabric Counters */
- 		unsigned int	num_df_pmc:6;
- 		/* Number of Unified Memory Controller Counters */
--		unsigned int	num_umc_pmc:6;
-+		unsigned int	num_umc_pmc:8;
- 	} split;
- 	unsigned int		full;
- };
--- 
-2.53.0
-
+This hunk is fine though.
