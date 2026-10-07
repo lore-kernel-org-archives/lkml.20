@@ -1,211 +1,236 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010019.outbound.protection.outlook.com [52.101.201.19])
+Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net [217.70.183.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E0C14B95D2;
-	Wed,  7 Oct 2026 15:39:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.19
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791387555; cv=fail; b=pyN3FWtAfl+EowWKZ5YJjQwn1P0dvy4vBvlAbhD02a2P8M4P6pwmKjqsTFqt1VqZCAkSXoFSZB3vl48/BYOQOOFgZ2ozYI8H2rw7pviIXn4bCzk96OO8sxBr0fXXKAplXZBwMsiKIHH8aP28AclyHBE/zyc1INYCTjMxUaZacs8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791387555; c=relaxed/simple;
-	bh=v3FZA9OOCn9bkG2Kuc9wHA1Ox7dSHOnq7zVH6tVrJLE=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=lrq/MoLAuE4oNqlzQtxidw2qF7ajDpnmJ/I2tjXMiWCcPZpwAElvcFbbgcX8Z2h5AqVpImVy74jVMHn5DK/+USKbmROMkbldG7/BOGkD+w7zKpitfMYX1WO8N9ngvwLntAwBN0XO6oD/f24DptOrcgzVv4q8SpPzGHSkW6ssS0o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=4PMowi7/; arc=fail smtp.client-ip=52.101.201.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="4PMowi7/"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uAVgZgT/jV61mZ+Tj3DtV6b22OojD+kKPdqnv4wzaq05x8eQ5g/2hWOxnizJCWhhJKJJl4v5wnaBBUG8eR0T0ow8CNCDN3Ur//DR1mcVPaylxrG0UN00YwvxCo5DbLTpdIrK2Dupqku/mqRAe3D9ScBhfsQnZOz+H8rZ7HfQ5ynvcjHRcUQu3bqA7jk2lmPgYT5OQ5YggQZJrUNSOMveLSc6uqSHbEU9SAN5wyGeGJ02IHr1DNVuk2bsU2JtzQnm82APhhCoyCuq9GvN5luJ77qM1B9yL67/gzhPL1Aru2lSLBl56M/qFD4vUElluoDjGBftS6ZFslUGGfFHDiOYow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5kS38SFFPd4PM1dvS26knCW1hoim9hf1/PjDTkrdt8U=;
- b=SL0vKts1xP+Apfk8JYc2i7A18IYNTgODsDuzGpkuIhn2crLQMsRLzOeoMMm3g1/6xt8yoRo2ar8Bj8WOatr4jzlukwIPQ9ElO35338GlRJm0Si5AAlYnP6DuNby+S1EVb5sPthRS8G+TAClgEZcjVm3y52YsNLISL3jpHDJcTPXDx79y9f9p+R/XpuOMZzTPqqPDYz/de7MWJhbLNo3sx71vvgot+YZKHOxNzR4LUem9wCnnCD7UZD3nExl0skaArHdWs7qyIUTq/+NM7X/9yAKoli89FEn+lAUprLtlvj5LNeSDsLyEKrKRL8AWLx+Jke6jSL3WFaNG9fLQLhWXYQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5kS38SFFPd4PM1dvS26knCW1hoim9hf1/PjDTkrdt8U=;
- b=4PMowi7/zjhw9nWJf9Snclf934VgGv697IpY/DkXIud/dELVUMmykUs6i/xq5cOXasObaKzqnTnfM73ckzW93U+/6O4H63mtkKqiAi6ABOV9ZqIVlxoktM/pi8duXX+LyIuWEnUXp+mMGb7MdOwipW9Zy6vnkTRhUIlE/6o6H2c=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ1PR12MB6217.namprd12.prod.outlook.com (2603:10b6:a03:458::6)
- by DM6PR12MB4449.namprd12.prod.outlook.com (2603:10b6:5:2a5::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.33; Wed, 7 Oct
- 2026 15:36:35 +0000
-Received: from SJ1PR12MB6217.namprd12.prod.outlook.com
- ([fe80::bdbb:19b0:4f1b:44e5]) by SJ1PR12MB6217.namprd12.prod.outlook.com
- ([fe80::bdbb:19b0:4f1b:44e5%6]) with mapi id 15.21.0451.022; Wed, 7 Oct 2026
- 15:36:35 +0000
-Message-ID: <27c4fc52-c565-4173-b2e4-714ffc90a0fe@amd.com>
-Date: Wed, 7 Oct 2026 11:36:29 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [Patch v3 7/7] crypto/ccp: Implement SNP Download Firmware EX
-To: Shantanu Sinha <shansinha@google.com>, thomas.lendacky@amd.com
-Cc: mcgrof@kernel.org, russ.weight@linux.dev, dakr@kernel.org,
- ashish.kalra@amd.com, herbert@gondor.apana.org.au, davem@davemloft.net,
- linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
- gregkh@linuxfoundation.org, rafael@kernel.org, chao.gao@intel.com,
- aik@amd.com, tycho@kernel.org, nikunj@amd.com, michael.roth@amd.com
-References: <c3384e1e-6fa4-4b3b-aaa5-a325bffcd10d@amd.com>
- <20261006210914.2708183-1-shansinha@google.com>
-Content-Language: en-US
-From: "Pratik R. Sampat" <prsampat@amd.com>
-In-Reply-To: <20261006210914.2708183-1-shansinha@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CH0PR03CA0083.namprd03.prod.outlook.com
- (2603:10b6:610:cc::28) To SJ1PR12MB6217.namprd12.prod.outlook.com
- (2603:10b6:a03:458::6)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FCA74BA1D1
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 15:39:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.200
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791387582; cv=none; b=fbbcAAAZU4Cfpk9T9NVFyHTfR4/lA/cQbQvHxZeSH648MGT+sGe9jYc/3+ajsdspboKToKMUMbC/WnwS5AM7w3SfmEEL/WVRjafoOrSaCF5O3vUXQ7MekADdG9UAUYFuasBzbWhTo3C0LCNekKdczoAN+bfamYs/o4BkPlHb1XE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791387582; c=relaxed/simple;
+	bh=LcK0JwkQF26W9j73g6p+7P2mTvZ02+gjad+QXOUpeeI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E7HW8FCTYObw/yfDEZfarRsO7rqRaHganqr02BxkDn7HGUim6x8h3UJoijoqPDuXg9j6nyGmpGpauGomk3b7SAt9b6HyZG8QNEgpP629bXmNGU5D/S7HDFdQjmTSfzY5CwewMO9d+3f3n4S54hSBVlnGLrOiGU/ddM8oajPHF9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr; spf=pass smtp.mailfrom=ghiti.fr; arc=none smtp.client-ip=217.70.183.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ghiti.fr
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 99B603ED0B;
+	Wed,  7 Oct 2026 15:39:20 +0000 (UTC)
+From: Alexandre Ghiti <alex@ghiti.fr>
+To: akpm@linux-foundation.org,
+	hannes@cmpxchg.org,
+	yosry@kernel.org,
+	nphamcs@gmail.com
+Cc: shikemeng@huaweicloud.com,
+	baoquan.he@linux.dev,
+	youngjun.park@lge.com,
+	chengming.zhou@linux.dev,
+	david@kernel.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	kasong@tencent.com,
+	ryncsn@gmail.com,
+	chrisl@kernel.org,
+	baohua@kernel.org,
+	usama.arif@linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Alexandre Ghiti <alex@ghiti.fr>
+Subject: [PATCH v3] mm: bypass swap readahead for zswap
+Date: Wed,  7 Oct 2026 17:39:08 +0200
+Message-ID: <20261007153915.53429-1-alex@ghiti.fr>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PR12MB6217:EE_|DM6PR12MB4449:EE_
-X-MS-Office365-Filtering-Correlation-Id: aee15467-a0c0-4f49-54c9-08df2488c525
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|56012099006|5023799004|11063799006|4143699003|22082099003|18002099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	5TqS7tB/nrLd0JlCDUJmyIWt+0IEFnmkpKx697fBYxwlXvEGgZfk8en+Xl9vlUkVhaD2MUU/1WzHKitkERhhny9OggQXkaiW0KeU0Om49of+VRO6aXv10EKH//G5Cor8Ts6NmLtIr6eFJgMBlv4QkAA0+uSwnRzrJW5ltOGmsox0A0YFI+J9xGVPkduEzTubV4s3pqhrSSQsB8cR/PDuk/xhiAEyZkVftD8bkw81BOeau6ytPgaG0mtopJ740vXC15GebEElnoilnk1/lDmZIe1jnVjXY8dLO6oIH4omlYP18QDdG3hGONgzslyw7u3cDLEuywL+YeFprgJmvNpWucaU4wIaA7/eyLMPVtamvfB2Co8ukl/iA+O/SrOC24CIwoT3YCSUzNKR8AFasZslE5wrrdvHw+TPeEaJocSoeO7qu4W6C/56DW71/HLH/MEbAbgQrbiQadvptK3mHeWAjhfMnn07uuLoAwH7ZJ5R2R4XtOgJtbwY3O12DuaAN3rmG1Fxjy+9o8jOwg6nG1e68wY7ApiQEglQemCPgtaHiGtVVZuLtCCX/NjLWow0PMQutxRtXgWEBQ6qrS+sQxtZf3MNwD2OhEAo6RMijqdaf2fQQsL6i4uWH2p6LASnRI/KnlnRuALc6qzmfGa/lwZvinUIZJ/NuR6DED6gXXNwVM0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ1PR12MB6217.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(56012099006)(5023799004)(11063799006)(4143699003)(22082099003)(18002099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YitXUU1ZaUtYbUVRSXZlODZ3ZEN3YW9OSmxOSGtLLzU5UmRuWmpHekpRN21t?=
- =?utf-8?B?Q2M3UU1xSEQ3TE82Q2ZuUlY3aWpGckFPV29qV3ROekZUS21jK2lSbGdqbkZF?=
- =?utf-8?B?RU9NeHNWYmFBV2ZBSC9seC9aWjJ5WFpLajBwK3VOZXhPRjVtSFFLM3B0RUh3?=
- =?utf-8?B?SGJWaUFoOEl4SER1Q0MvSkJDeU55ek5rMnRqMDBFb3h5dG95bnN0aEpPdnhY?=
- =?utf-8?B?eS83cXNXVG5yN1E1UmV0Y3hoOUQvM21UdncxRnZKL016ejIycm9OeXFUOHZB?=
- =?utf-8?B?OUhvN09TUFBaUDU1RHhIWkdtZXpPWm9BR1ozRGNycUZLMkxOVUt1amtUUjZH?=
- =?utf-8?B?TTM2UW10cW9QR09KM1N0eEtYOW9FTlJicXlxbXFXMTY2ejNwL3hhc3FpUmVz?=
- =?utf-8?B?aGJndHB3bjJGRU5LQ21JdU1XN3pTZ2lUdklWdVNLVUVmOFZMVVlrQ1Mybkw3?=
- =?utf-8?B?eDlMTlJVNURBWFhNNzhxd0ZJMThFV2E5Vnc4SmFBQnk2YzhsSTRXdWxRZWNI?=
- =?utf-8?B?Z2VpM1JUZC9LQ0pVR2hBejZFN091WHpXZXNZTHRWQzVKRG1TS3MxY2NVakxH?=
- =?utf-8?B?cEpHWFduN3dieWRhUUk0UHVaOUFYSFE2NVMrRFIwMmYydXMzakt4YzJ1YVhy?=
- =?utf-8?B?SDlLRmQyelZmL25nL2hLNjNXaXdGTDVWTDFVOTQ4a2hCSDhvS0NWTDlLN2sw?=
- =?utf-8?B?YStLVWRoTUZIUEo5TWEwRytOVVZhOVFGcWlJbEh0YnA3YkxXTFVuL1VlL2Fk?=
- =?utf-8?B?R2FZbHRXRldrTmJBaG9sb3Ruek5RSFVFcnh0SGgvKzlKU3NRQkpRWDVqR2tq?=
- =?utf-8?B?Zk9zbCt6clU4WFg2MnJJZHArZVFkZ2Z5SzZmWDRhSXIzWXRMMXZLeWRUck1M?=
- =?utf-8?B?dGFybkljY1grUXIraHR2anZWNUV2UnRmc2dFUlJUczVQQkJPbnRMVnlvdDJO?=
- =?utf-8?B?dktwZ0tsdmJKY2tLTVZ4TklDd3VFaDBnZmozZEJuVTMrWjZLS1g0SlZvd1p2?=
- =?utf-8?B?OVpMeGwybk5ER0VzQWhvVVRwMUF4UElNOGVNVUhuYkZZV2RvdUNhcWMwd21O?=
- =?utf-8?B?czM2ZjhTWHVaQ3V0Vlp3R0tUT2JKVllYcTE3SnpZeWFoYXdMVmVPU1JVWEpw?=
- =?utf-8?B?R1JlWTdUSWl3cUo2QnVzVlRpdzhwOHBwWnl3cWp5eStnNTFseHdNYzc3TmtU?=
- =?utf-8?B?cURpN21mbDl3azJIWXo4Nk9pMTU3V3JpSGNGZHZTdmRjV2pmb3QrNFgrZTNt?=
- =?utf-8?B?TkhUYzlPYkVwUis1cm1GQVhmUlpTMXplN3ZEeE9OaWRtQldjRElkMXFZcVlV?=
- =?utf-8?B?UGpQNHpQNnFHaWI1eTF5eFJSL2dHS2FvVzRrMFY4NWRyN3cxbEVsejVzNU9P?=
- =?utf-8?B?WUVBVjIyVUxUU2FXc1E3bWpzNk1Kak1SWjBjWWJuZjloaFRsdm1mazBEd0Y1?=
- =?utf-8?B?a1RwcVV0SXpTdUZuYkZKN0JFdzZYaktwQVNtdXUrVTdFVUswU0RVZW5iYWdV?=
- =?utf-8?B?MUtVdGs1UE9vK0NmdXF5Z1JQZEQvZllTV2kwNUxaazkvSmFtZmJJeGxjdWdn?=
- =?utf-8?B?OFVNb2lTOWZSM2JkaVdPT21qNnBUUldXNmN6YnFFMHdWOGZ5ZWtjUGxuZW5P?=
- =?utf-8?B?L1RPSmx3OVhMblFtb0JzbXptZFRVRDloN09Ndy9yb1Qyb3BCZ2RNeExpaVVr?=
- =?utf-8?B?UzZkY0V6SEdDdGlxMU0vMGtNQ1ExV2s0NnliV3ZWSE1rSDZVTm1sK3ZKVEtB?=
- =?utf-8?B?QXpGcTVHNjd6TXVFN2d2TjhiU1g5OG5vVDRIV25Oa2QvR0w4RVgrbXBzZGdD?=
- =?utf-8?B?TVZFK0JZZmhHR0tibnVLN0xKZ1Q1cVRDSFlTa2lCTDVLSzhUc09manFaNVkr?=
- =?utf-8?B?Q00rV0ZIWEc5blBYS250VktNdkk1QU9udlM4TVdDTmMzcVFMenVuZ1N1U1hH?=
- =?utf-8?B?eFdkYnRVR3RDWHJwR3JLZFF1OGJtMy9neEkzNzVTcXpOQlUvcVN0dlY0WWNR?=
- =?utf-8?B?Z0NCVjRDQ0IwNHpNY2t1YytoRHIrUjFRWXFRZ0ZQTjZ3cVd4YU9JcUF1YTk5?=
- =?utf-8?B?QkU4Q2FaeGJlNGtta1BHWTc0NjMxK21Ld0tNQlhTbDNTdnZHRm42WktST0Ni?=
- =?utf-8?B?ZitUK2tiTUZJd24ybFJ6RXY2aGwvR2UrajBjN1FWRnpsbGl6TEZoRDgyaHhN?=
- =?utf-8?B?eGZyVnZ6bzA2YmpGcjdZRysrZSt0cmJ4Q2lMcEpOc1F5cU5aMUZHWUoza2JF?=
- =?utf-8?B?TjFRMDIrT1YrV29LQUJZa3o0bDZ0RmkwckR3L1ZNL2U4R3o3SmdpelFwbUdK?=
- =?utf-8?Q?/gyXlESZYl7IzK5XBd?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: aee15467-a0c0-4f49-54c9-08df2488c525
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PR12MB6217.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 15:36:35.2820
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jGbPUpJgWZ5HduuXqX9de4JFLsjD2AV7/sqTYC/fhOCj3eN0iHAXB4s6lWC4b4BjOXLZD4rvGzyJRgDa8kvKgg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4449
+Content-Transfer-Encoding: 8bit
+X-GND-Sasl: alex@ghiti.fr
+X-GND-Score: 0
+X-GND-Cause: dmFkZTFP1SzsGG2TRP1EL7olQ2wIwic2hq4WA8U6oUihmWJQO4j1F9rLVuRRtycUEZZaBDSZFV53dwDMuuWwSOQfNdf4qP1r6laiiFRDmdTchAuRwWz3vc4YWUjK0707CH1QJQYfWdvHwD4MzpNf0QDrjrKu0lOgyJn8ANugkG3Fa3GgJH0kj7LS642h912u7KumPMito6lyhOOd0f0A38S9GJ9AxkU93qpohN6UO8xLeAc4wmFv779PwYUzccha5lveTMhOLQwQxlpAA7Gcn6DMO0lQ/nRIL508SQWXMz5CKr0e0pXQJ7QGvyAWRGDvlXjZCHvh6xGCOPNVn361/5EDOMIMKE3DGtOr3WIL7JdsOC2BLBLV9bqKXAuHAUOHTFLuN4RpzZgrnR+HKDY7fVXZjmN+VNR76CtAgTCKx8WnUGr+f2JYUBDCgA40ZsC4caGUp528vR2lWQlTpWfiLteKawh9O4d2On8a/vFrfhRRRFOZKVZlU7U78ytcqnOW8HUtrTKAFr84A7eaOjp2nJhHvjVsszdYsL75x9+Plo4hF5o4wuGiI3Q0CqzGCuNN/QcfdYR5eVsBlpmjYGwpEKphAi4p/bc15hp0lgiCxicDeKhziMyXFfJKQK10SnmKL9h0dBaQShf7xi4RvB4vEewoDVXG5pGUo2Eo/fYggHP6oPLLaQ
+X-GND-State: clean
 
+Commit 0bcac06f27d7 ("mm, swap: skip swapcache for swapin of synchronous
+device") made SWP_SYNCHRONOUS_IO devices (e.g. zram) skip swap readahead.
 
+zswap is the same kind of in-memory, synchronous backend as zram, not a
+swap device flagged SWP_SYNCHRONOUS_IO so it still goes through
+swapin_readahead().
 
-On 10/6/26 4:09 PM, Shantanu Sinha wrote:
-> On 10/6/26 12:55 PM, Pratik R. Sampat wrote:
->> On 10/6/26 12:32 PM, Tom Lendacky wrote:
->>> On 10/6/26 11:41, Pratik R. Sampat wrote:
->>>> However, a fresh allocation with SNP initialized just goes through
->>>> rmp_mark_pages_firmware(), so my understanding of what the new firmware needs
->>>> is the reclaim -> make shared -> mark firmware cycle, not necessarily new
->>>> memory.
->>>
->>> Sounds like some good info to have as a comment above the call then.
-> 
-> I had looked at cycling briefly, but it gets tricky. If we reclaim the
-> pages in sev_fw_upload_shutdown_platform() and re-init gets skipped
-> because of RESTORE_REQUIRED or a dead PSP, the buffers are still
-> allocated but aren't marked as firmware pages, so all subsequent paths
-> need to be aware of that.
-> 
-> Reclaiming after the update avoids that, but relies on the new image
-> accepting a reclaim of pages the old image's INIT left behind, which I'm
-> not sure works, though I haven't tested it.
-> 
-> In either case, failure handling also seemed tricky, and the fallback
-> would just be free and re-allocate anyway.
+Here are the results from bypassing readahead for zswap too: it was
+measured with a kernel build (make -j16) in a memcg, zswap=zstd, shrinker
+off, on Sapphire Rapids and 3 iterations.
 
-Agreed.
+  768M memcg (sustained swap thrash):
+    metric                 mm-new    + bypass    delta
+    build time (s)          405.0       341.7    -15.6%
+    zswap-in (GB)            79.5        53.0     -33%
+    zswap-out (GB)          144.8       115.6     -20%
+    swap readahead (pages)  6.79M       0.45M     -93%
+    swap_ra hit (%)          72.1        89.9     +18pp
 
-> 
-> The only issue I see with freeing is that the TMR is a 2M buffer that
-> needs to be contiguous. If the new allocation fails, INIT carries on
-> without a TMR and without any error (it's only logged in dmesg), even
-> though SEV-ES is now disabled. It should be very rare (since we did
-> just free the TMR and can probably get the same block back), but it
-> seems worth mentioning in a comment.
+  1G memcg (light pressure, build not memory-bound):
+    metric                 mm-new    + bypass    delta
+    build time (s)          177.7       176.0    ~same (no regression)
+    zswap-in (GB)            10.2         7.5     -26%
+    zswap-out (GB)           27.7        25.1      -9%
+    swap readahead (pages)  1.07M       0.08M     -93%
+    swap_ra hit (%)          68.6        87.2     +19pp
 
-Sure, I can add this to the comment too.
+Similar gains were observed on an AMD EPYC 7D13 host.
 
-> 
->>> The memory holding the firmware on the call to the ASP has to be
->>> contiguous, so you're likely to fail on the alloc_pages() if the image
->>> is too large. Up to you if you want to keep it.
-> 
-> I think it's better to keep the explicit check and error message. If the
-> size check falls through to the alloc_pages() failure, userspace sees
-> device-busy, which doesn't communicate the right intent.
-> 
+The gain is from no longer prefetching pages that are pointless for an
+in-memory backend: readahead inflates anon residency and thrashes the
+page cache (file pages get evicted and re-read), lengthens each fault by
+synchronously (de)compressing a cluster of neighbours, and adds
+compression traffic when those extra pages are reclaimed.
 
-Ack.
+Bypassing swap readahead for zswap therefore makes sense.
 
-> One other small thing. If the platform data refresh in
-> sev_fw_upload_write() fails after DLFW_EX has succeeded, it returns
-> hw-error even when the PSP is still alive and the new image is running.
-> I may be missing a reason for that, but would something like this make
-> sense?
-> 
->  	if (sev_get_api_version()) {
-> -		dev_err(sev->dev, "SNP platform data refresh after firmware update failed\n");
-> -		return FW_UPLOAD_ERR_HW_ERROR;
-> +		dev_warn(sev->dev, "SNP platform data refresh after firmware update failed\n");
-> +		return psp_dead ? FW_UPLOAD_ERR_HW_ERROR : FW_UPLOAD_ERR_NONE;
->  	}
-> 
+Suggested-by: Usama Arif <usama.arif@linux.dev>
+Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
+---
+Changes in v3:
+- Go back to the RFC's single patch: readahead windows that mix zswap
+  and disk entries will be dealt with later, the priority is to merge the
+  zswap readahead bypass
+- Move the check into a swap helper, swap_entry_synchronous(), instead
+  of open-coding it in do_swap_page() (David)
+- Bail out early when zswap was never enabled or the tree is empty, so
+  disk-only systems pay a static branch (Kairui, Nhat)
+- Reuse zswap_is_present() rather than adding zswap_present_test()
+  (Yosry)
+- Rebase on mm-new
 
-I haven't typically seen this fail for any other reason apart from potentially
-failing the PSP call but I do see a few paths where this could potentially
-happen. So, only returning an error when PSP is dead makes sense to me.
+Changes in v2:
+- Keep readahead, but overlap the decompression of zswap neighbours with
+  the disk I/O of the window, and bypass it when the target needs no
+  disk I/O (Yosry, Nhat, Barry)
 
-> Apart from these, everything else I tested in v3 works on Milan.
+v2: https://lore.kernel.org/all/20260722163536.773166-1-alex@ghiti.fr/
+RFC: https://lore.kernel.org/all/20260624075700.751467-1-alex@ghiti.fr/
 
-Thanks, for testing this out!
+ include/linux/zswap.h |  6 ++++++
+ mm/memory.c           |  4 ++--
+ mm/swap.h             | 25 +++++++++++++++++++++++++
+ mm/zswap.c            |  5 ++++-
+ 4 files changed, 37 insertions(+), 3 deletions(-)
 
---Pratik
-
-> 
-> Thanks,
-> Shantanu
+diff --git a/include/linux/zswap.h b/include/linux/zswap.h
+index df6cafbe95dc..94746fb71bb6 100644
+--- a/include/linux/zswap.h
++++ b/include/linux/zswap.h
+@@ -35,6 +35,7 @@ void zswap_lruvec_state_init(struct lruvec *lruvec);
+ void zswap_folio_swapin(struct folio *folio);
+ bool zswap_is_enabled(void);
+ bool zswap_never_enabled(void);
++bool zswap_is_present(swp_entry_t entry, unsigned int nr);
+ #else
+ 
+ struct zswap_lruvec_state {};
+@@ -73,6 +74,11 @@ static inline bool zswap_never_enabled(void)
+ 	return true;
+ }
+ 
++static inline bool zswap_is_present(swp_entry_t entry, unsigned int nr)
++{
++	return false;
++}
++
+ #endif
+ 
+ #endif /* _LINUX_ZSWAP_H */
+diff --git a/mm/memory.c b/mm/memory.c
+index 330cde31bf8b..396bc71a265f 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -5030,8 +5030,8 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
+ 	if (folio)
+ 		swap_update_readahead(folio, vma, vmf->address);
+ 	if (!folio) {
+-		/* Swapin bypasses readahead for SWP_SYNCHRONOUS_IO devices */
+-		if (data_race(si->flags & SWP_SYNCHRONOUS_IO))
++		/* Swapin bypasses readahead for SWP_SYNCHRONOUS_IO devices and zswap */
++		if (swap_entry_synchronous(si, entry))
+ 			folio = swapin_sync(entry, GFP_HIGHUSER_MOVABLE,
+ 					    thp_swapin_suitable_orders(vmf) | BIT(0),
+ 					    vmf, NULL, 0);
+diff --git a/mm/swap.h b/mm/swap.h
+index d5bf21f517dc..b8181bd056ee 100644
+--- a/mm/swap.h
++++ b/mm/swap.h
+@@ -94,6 +94,7 @@ static inline int mem_cgroup_swappiness(const struct mem_cgroup *memcg)
+ 
+ #ifdef CONFIG_SWAP
+ #include <linux/swapops.h> /* for swp_offset */
++#include <linux/zswap.h> /* for zswap_is_present */
+ #include <linux/blk_types.h> /* for bio_end_io_t */
+ 
+ static inline unsigned int swp_cluster_offset(swp_entry_t entry)
+@@ -336,6 +337,24 @@ struct folio *swapin_sync(swp_entry_t entry, gfp_t flag, unsigned long orders,
+ void swap_update_readahead(struct folio *folio, struct vm_area_struct *vma,
+ 			   unsigned long addr);
+ 
++/**
++ * swap_entry_synchronous - check if @entry is read synchronously
++ * @si: the swap device of @entry
++ * @entry: the swap entry
++ *
++ * SWP_SYNCHRONOUS_IO devices and zswap complete a read in the faulting
++ * context, so swap readahead has no asynchronous I/O to overlap.
++ *
++ * Context: The caller must hold a reference on @si. The answer is a hint: the
++ * entry can be written back from zswap or freed concurrently.
++ */
++static inline bool swap_entry_synchronous(struct swap_info_struct *si,
++					  swp_entry_t entry)
++{
++	return data_race(si->flags & SWP_SYNCHRONOUS_IO) ||
++	       zswap_is_present(entry, 1);
++}
++
+ #else /* CONFIG_SWAP */
+ 
+ static inline struct swap_cluster_info *swap_cluster_get_and_lock(
+@@ -423,6 +442,12 @@ static inline void swap_update_readahead(struct folio *folio,
+ {
+ }
+ 
++static inline bool swap_entry_synchronous(struct swap_info_struct *si,
++					  swp_entry_t entry)
++{
++	return false;
++}
++
+ static inline int swap_writeout(struct swap_io_ctx *ctx, struct folio *folio)
+ {
+ 	return 0;
+diff --git a/mm/zswap.c b/mm/zswap.c
+index eb3494491410..1dcf77d5edae 100644
+--- a/mm/zswap.c
++++ b/mm/zswap.c
+@@ -1605,12 +1605,15 @@ bool zswap_store(struct folio *folio)
+  * change under it.
+  * Return: true if at least one slot in the range is in zswap.
+  */
+-static bool zswap_is_present(swp_entry_t entry, unsigned int nr)
++bool zswap_is_present(swp_entry_t entry, unsigned int nr)
+ {
+ 	pgoff_t offset = swp_offset(entry);
+ 	struct xarray *tree = swap_zswap_tree(entry);
+ 	unsigned long index = offset;
+ 
++	if (zswap_never_enabled() || xa_empty(tree))
++		return false;
++
+ 	/*
+ 	 * A pinned range is at most SWAPFILE_CLUSTER slots and is aligned to
+ 	 * its own size, so one tree covers all of it and a single lookup is
+-- 
+2.53.0-Meta
 
