@@ -1,80 +1,54 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E4BD416873
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 16:37:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B874839E6FD;
+	Wed,  7 Oct 2026 16:38:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791391048; cv=none; b=FyHEgNoVE5IZQinDK2WRGpw4xoEd82esWdRrOmuoSetnvO17rWprkZP1Z9yGG4SLqcPUC27JfhR1FRz52Iq+RAvQ1hYp7vEOjnKL9nBIVKVbnEeDu3l1P4ac7fhScJYnj+8Aenc2f68VwUQJPSkhOSOvuln99FoT8O0Ty4iWQ+c=
+	t=1791391103; cv=none; b=ZVczPKHW5bsnlK+dbkjxlfTbddkijAtRrWOvqag5uu1qLPaNuGExY1vrva7QrNf+6CULEOpWPXjAXQ4IrNeiW+DqLJ5HFU0zPGUDz+LKvbEXBSTVC0qnd745//u4E7BxGEH3yqJvGg+d1AlQ7kgzNXIcuu2yI9EqaoIcQgcwVKw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791391048; c=relaxed/simple;
-	bh=nVxKF4JUnFA8pYDHYkDQgqgrgnBto0O4WtcNzT812io=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tUxAs4ViKh9tWCvbAKOehRsO1oUmdd8gLHkEHhbJ6aBGJ21EOcSo8tKYTduQpwN6ppfhV6109r6LJOO/V4cXkMP+VUCra84rMi2xfcBXbpjgi2G5v2yzMt69OKpkLlHImF6rs1WU0DmGKtKb8RbyYUjH4Ve6k5M9FXdAeqquG70=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jT/PU6R7; arc=none smtp.client-ip=209.85.216.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791391103; c=relaxed/simple;
+	bh=rt+DI0Zaj7t1gLzFkXpDITiac40k4MGIO8meOBYmFCU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FkP7yUos9Fhl6rmiMQMHaAu9wUfnZqHJuKYFkZUbOE2liiYghr9Wki0SIwx0jqQCJFUMwdjivS8uOzCMQGm7q4ct/XmJKkZftYRB4hkqPNMY3Kn4rMmsJu2PEEz0LjY1iqBBgUfDrEiLkCTT2xUNL1U5GUcLUyvm/e0ji6o3DGo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=UkFfAXte; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jT/PU6R7"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3a865731ee4so1835603a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 09:37:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791391047; x=1791995847; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zzmCTlN2LKpQDlGX69irecctA25CCs8mwLmZ5GzVuOQ=;
-        b=jT/PU6R795cHyNLYNdCOHMxVBj9kA0pQuW27xjM+kCrL+mkO5/KW50zrMwsIOqJ2rV
-         F6r1Aeb5NakLhcZ8EVG37qXvDupssRFlblKU17T8EyUdipgruLM1xL4Eqe1cEt+hEIcN
-         t4naVjRUEklNORrXabTei6bQq2E1spytnByC2eG9/7CYzWvYQzG04h92ByzZHbm/g46O
-         2uTfN++I5p+URCVbR2ZQg1n1hU6s/JxdlMCALhTNDHYIkTpSefsJEyMEkqhVjIhaUt6w
-         o8+m06n+GnaDGRwDGGJkbuQJqnT8KBfB8ow8Cxe6PelIRGPF2j6tYEMF59jkGdiQWt9o
-         nRAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791391047; x=1791995847;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zzmCTlN2LKpQDlGX69irecctA25CCs8mwLmZ5GzVuOQ=;
-        b=TcTSUZufeviACrKJpzQYOGB3N66vFGRcUqjL475hiBsFx+nEJ4HktTqCWcy4N9tb+n
-         FB8ChY/yr5W7DZeC6bC9NW8kcI65gzSoBI/6rpUIOSisTNU0rhOXepp7uRchE3bjleXA
-         Ka7LUL+Gg4HUauF31ATaCfL4ZKV+r8FdccuINdivugLChyPnleGo9o4yq8yx9G9yHQRQ
-         1K1Wn14ltuRDXxToocd1wp4opW2J9WjHNU/B98MGy6cKnm+dr4737uYP08FSiAcf4ujO
-         ArsPdJzkaBXksz2Nz4cGWSv9umD7PAj466uzmvhv3V7DPdYsQnkifKh3W28oW9MmpbGx
-         1MgA==
-X-Forwarded-Encrypted: i=1; AKwUvBwJRy7gtbgqiOL71HwFzU0wNEqVsTn27h2Nvjbq5/PkBV7I7UQkw6Askb47iS8NCteb/izgJpxL8pIxjDw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIR6QgDKR8nM78oUX3x6dcu/dirbzBm/LNM3pAFES+nXhLQahWd
-	HUgKb+GzC+pHBvfDk9fG4H3KLtiHEtUydZb+4XR47Ch0/1o6AwAubutv
-X-Gm-Gg: AYBFou2hM8788Hmf41vOjSGoPA6ynVbNl25PuphgesjDtB3hbfiLc7ozrvYUQiGebR1
-	tBAQcxmNFwBdkES1Ek6FRX5MohhgAHLI+4TWGqMz0do6mSZrgruIDbPGBqjvwoHgV7rirSUBMle
-	DBUN4EuO7rmf8OxnrmTozgRUYmVbsRMH21MJHhh9RMXu/tHHJpyNqDPBpQJuYiRq/DDc1Uz91XZ
-	Jw+Nb59Ia3EggBKjaj3UkBXf0JF1cDDJkIMqPZ5q2WUqH0RDj4FzxV81MFNG61ASpuG27HqJ7iy
-	qTIY2P+CMRG1NUgk8gDNooF2wIVW4q0WOfo6a3h71nuKn0XY7adSsTNrbAoYckrVhkhEh9m8UjI
-	6mpUpTs5BZRBUkYMZM6TZaWoy/XTyprpmtwRZt2rKCEQBb6Xs9ONtkXsl+lg4p86/W8S5GR66If
-	s5jPcg1pNsiC6kSDs74qSLC2bm75Nk6HNM7gbVsV8XDT3xnX1Lc92Pr3gKj9BZ3URYZJNIc9ppA
-	1efF67WmKsaVMUNQDkqJ+/FI6NInxtukuVetrPONZCQA6zf/Cx/f4fMKAR54o7ffo0b+ErXNc4c
-	4Jeei4MMZiNPNhxqpFolMP0HiMkrF2s/HZLiGvxG7IyZMg==
-X-Received: by 2002:a17:90b:2e90:b0:3aa:548f:eb7d with SMTP id 98e67ed59e1d1-3aa548ff22emr28279a91.20.1791391046569;
-        Wed, 07 Oct 2026 09:37:26 -0700 (PDT)
-Received: from LAPTOP-97G9G880.domain.name ([106.222.201.193])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9d94ef876sm262958a91.0.2026.10.07.09.37.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 09:37:24 -0700 (PDT)
-From: Karthikeyan KS <karthiproffesional@gmail.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	Mike Christie <michael.christie@oracle.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	virtualization@lists.linux.dev,
-	kvm@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Karthikeyan KS <karthiproffesional@gmail.com>,
-	John Hubbard <jhubbard@nvidia.com>
-Subject: [PATCH] vhost-scsi: use FOLL_PIN for DMA page pinning
-Date: Wed,  7 Oct 2026 16:37:16 +0000
-Message-ID: <20261007163716.707102-1-karthiproffesional@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="UkFfAXte"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4j0Jhn135gzKnYC;
+	Wed, 07 Oct 2026 18:38:17 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1791391097;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=2Ezflyex2QCq4IDhV46iLXvD5SXyLtu7Un9mXAhjKQE=;
+	b=UkFfAXtexXMe4siEWkyoHJ7MLt9nnrmneb00G00NlXzSKyG2mdf+UNnktckKGk2nPnUkki
+	ueDkpfo5Yq1KIJJq7XvES43wbpRTJOFu57yqBFD4LUn3Uofvxo/kEj3P07j9/axs+NKdwv
+	CxUfTARcVHCHVOMSj7gnaFOEWz+UOxUlgM0ZTBjbV59KzB1vG1UVFJkvjVf8FIte5lgjYd
+	jRVVoTd2irs6lA9k09ObJEmN8vp9J5joXIGZmHwK8MG3tuzF2dzXF0tnpXF37HRDV2SWZ2
+	KqH91ITWRUWJvrK0lSp9YBxYVeHbhsx5vUzZzElveAvuHNYEMjjg/0dVg7AsDQ==
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+To: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-kbuild@vger.kernel.org,
+	oe-kbuild-all@lists.linux.dev,
+	linux-debuggers@vger.kernel.org,
+	tools@linux.kernel.org,
+	workflows@vger.kernel.org (open list:DOCUMENTATION PROCESS),
+	linux-doc@vger.kernel.org (open list:DOCUMENTATION),
+	linux-kernel@vger.kernel.org (open list)
+Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
+	Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
+	Nicolas Schier <n.schier@fritz.com>
+Subject: [PATCH RFC] changes.rst: introduce 'Required for'-column
+Date: Wed,  7 Oct 2026 18:37:37 +0200
+Message-ID: <20261007163736.3942745-2-manuelebnerli@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,161 +56,155 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: dddea4e6f5fbbada107
+X-MBO-RS-META: rx4z7z4tgdgubcmsyy11wmkig53ae4fe
 
-vhost_scsi_map_to_sgl() pins guest buffer pages via
-iov_iter_get_pages2() (FOLL_GET), which does not prevent
-copy-on-write or page migration while DMA is in flight. Switch to
-iov_iter_extract_pages() (FOLL_PIN), which does.
+The optional tag isn't obvious nor defined. Therefore remove the tag and
+add column 'Required for' to make it easier to define the need for the tools.
 
-Cc: Jason Wang <jasowangio@gmail.com>
-Cc: Mike Christie <michael.christie@oracle.com>
-Cc: John Hubbard <jhubbard@nvidia.com>
-Cc: Michael S. Tsirkin <mst@redhat.com>
-Cc: virtualization@lists.linux.dev
-Signed-off-by: Karthikeyan KS <karthiproffesional@gmail.com>
+CC: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+CC: Nicolas Schier <n.schier@fritz.com>
 ---
- drivers/vhost/scsi.c | 49 ++++++++++++++++++++++++++++++--------------
- 1 file changed, 34 insertions(+), 15 deletions(-)
+If anybody has info to add to or refine the new column I would appreciate it a lot.
+Please forward this to list or people which can contribute to this patch.
 
-diff --git a/drivers/vhost/scsi.c b/drivers/vhost/scsi.c
-index 7a1f39a327da..e14b4da4ea9c 100644
---- a/drivers/vhost/scsi.c
-+++ b/drivers/vhost/scsi.c
-@@ -115,6 +115,8 @@ struct vhost_scsi_cmd {
- 	u32 tvc_sgl_count;
- 	u32 tvc_prot_sgl_count;
- 	u32 copied_iov:1;
-+	u32 tvc_need_unpin:1;
-+	u32 tvc_prot_need_unpin:1;
- 	const void *read_iov;
- 	struct iov_iter *read_iter;
- 	struct scatterlist *sgl;
-@@ -433,8 +435,13 @@ static void vhost_scsi_release_cmd_res(struct se_cmd *se_cmd)
+There's also the option to remove the 'Command to check the version'-column
+and refer to scripts/ver_linux - and with this also removing the duplicated
+information-issue.
+
+[v3]
+ Rearange column space of the table in order to add column instead of replacing column
+ add some requirements to the table
+
+[v2]
+ Ditch footnotes in favor of a column
+ Replace 'Check Version Command'-column with optional-column
+ https://lore.kernel.org/all/20260831152523.638881-1-manuelebnerli@mailbox.org/
+
+[v1]
+ https://lore.kernel.org/all/20260812122426.1636227-2-manuelebnerli@mailbox.org/
+---
+ Documentation/process/changes.rst | 97 ++++++++++++++++---------------
+ 1 file changed, 51 insertions(+), 46 deletions(-)
+
+diff --git a/Documentation/process/changes.rst b/Documentation/process/changes.rst
+index 28f2ca633..dafe0530f 100644
+--- a/Documentation/process/changes.rst
++++ b/Documentation/process/changes.rst
+@@ -1,13 +1,14 @@
+ .. _changes:
  
- 			if (tv_cmd->copied_iov)
- 				__free_page(page);
--			else
--				put_page(page);
-+			else if (tv_cmd->tvc_need_unpin)
-+				unpin_user_page(page);
-+			/*
-+			 * Else: iov_iter_extract_pages() took neither a ref
-+			 * nor a pin on this page (ITER_KVEC/BVEC/etc), so
-+			 * there is nothing to release here.
-+			 */
- 		}
- 		kfree(tv_cmd->read_iter);
- 		kfree(tv_cmd->read_iov);
-@@ -443,8 +450,8 @@ static void vhost_scsi_release_cmd_res(struct se_cmd *se_cmd)
- 	if (tv_cmd->tvc_prot_sgl_count) {
- 		for_each_sgtable_sg(&tv_cmd->prot_table, sg, i) {
- 			page = sg_page(sg);
--			if (page)
--				put_page(page);
-+			if (page && tv_cmd->tvc_prot_need_unpin)
-+				unpin_user_page(page);
- 		}
- 		sg_free_table_chained(&tv_cmd->prot_table, vs->inline_sg_cnt);
- 	}
-@@ -773,7 +780,8 @@ vhost_scsi_get_cmd(struct vhost_virtqueue *vq, u64 scsi_tag)
+-Minimal requirements to compile the Kernel
+-++++++++++++++++++++++++++++++++++++++++++
++Minimal requirements to interact with the Kernel
++++++++++++++++++++++++++++++++++++++++++++++++++
  
- static void vhost_scsi_revert_map_iov_to_sgl(struct iov_iter *iter,
- 					     struct scatterlist *curr,
--					     struct scatterlist *end)
-+					     struct scatterlist *end,
-+					     bool need_unpin)
- {
- 	size_t revert_bytes = 0;
- 	struct page *page;
-@@ -782,7 +790,8 @@ static void vhost_scsi_revert_map_iov_to_sgl(struct iov_iter *iter,
- 		page = sg_page(curr);
+ Intro
+ =====
  
- 		if (page) {
--			put_page(page);
-+			if (need_unpin)
-+				unpin_user_page(page);
- 			revert_bytes += curr->length;
- 		}
- 		/* Clear so we can re-use it for the copy path */
-@@ -812,9 +821,9 @@ vhost_scsi_map_to_sgl(struct vhost_scsi_cmd *cmd,
- 	size_t offset;
- 	unsigned int n, npages = 0;
+-This document is designed to provide a list of the minimum levels of
+-software necessary to run the current kernel version.
++This document is designed to provide a list of the minimum versions of
++software necessary to change code, compile, install and boot the current
++kernel version.
  
--	bytes = iov_iter_get_pages2(iter, pages, LONG_MAX,
--				VHOST_SCSI_PREALLOC_UPAGES, &offset);
--	/* No pages were pinned */
-+	bytes = iov_iter_extract_pages(iter, &pages, LONG_MAX,
-+				VHOST_SCSI_PREALLOC_UPAGES, 0, &offset);
-+	/* No pages were extracted */
- 	if (bytes <= 0)
- 		return bytes < 0 ? bytes : -EFAULT;
+ This document is originally based on my "Changes" file for 2.0.x kernels
+ and therefore owes credit to the same people as that file (Jared Mauch,
+@@ -27,48 +28,52 @@ running a Linux kernel.  Also, not all tools are necessary on all
+ systems; obviously, if you don't have any PC Card hardware, for example,
+ you probably do not need to concern yourself with pcmciautils.
  
-@@ -837,7 +846,7 @@ vhost_scsi_map_to_sgl(struct vhost_scsi_cmd *cmd,
- 		    cmd->tvc_sgl_count > BIO_MAX_VECS) {
- 			WARN_ONCE(true,
- 				  "vhost-scsi detected misaligned IO. Performance may be degraded.");
--			goto revert_iter_get_pages;
-+			goto revert_iter_extract_pages;
- 		}
- 
- 		sg_set_page(sg, pages[npages++], n, offset);
-@@ -849,14 +858,17 @@ vhost_scsi_map_to_sgl(struct vhost_scsi_cmd *cmd,
- 	*sgl = sg;
- 	return npages;
- 
--revert_iter_get_pages:
--	vhost_scsi_revert_map_iov_to_sgl(iter, *sgl, sg);
-+revert_iter_extract_pages:
-+	vhost_scsi_revert_map_iov_to_sgl(iter, *sgl, sg,
-+			is_prot ? cmd->tvc_prot_need_unpin : cmd->tvc_need_unpin);
- 
- 	iov_iter_revert(iter, bytes);
- 	while (bytes) {
- 		n = min_t(unsigned int, PAGE_SIZE, bytes);
- 
--		put_page(pages[npages++]);
-+		if (is_prot ? cmd->tvc_prot_need_unpin : cmd->tvc_need_unpin)
-+			unpin_user_page(pages[npages]);
-+		npages++;
- 		bytes -= n;
- 	}
- 
-@@ -926,6 +938,7 @@ vhost_scsi_copy_iov_to_sgl(struct vhost_scsi_cmd *cmd, struct iov_iter *iter,
- 	}
- 
- 	cmd->copied_iov = 1;
-+	cmd->tvc_need_unpin = 0;
- 	return 0;
- 
- err:
-@@ -950,11 +963,17 @@ vhost_scsi_map_iov_to_sgl(struct vhost_scsi_cmd *cmd, struct iov_iter *iter,
- 	struct scatterlist *sg = sg_table->sgl;
- 	int ret;
- 
-+	if (is_prot)
-+		cmd->tvc_prot_need_unpin = iov_iter_extract_will_pin(iter);
-+	else
-+		cmd->tvc_need_unpin = iov_iter_extract_will_pin(iter);
+-====================== ===============  ========================================
+-        Program        Minimal version       Command to check the version
+-====================== ===============  ========================================
+-bash                   4.2              bash --version
+-bc                     1.06.95          bc --version
+-bindgen (optional)     0.71.1           bindgen --version
+-binutils               2.30             ld -v
+-bison                  2.0              bison --version
+-btrfs-progs            0.18             btrfs --version
+-Clang/LLVM (optional)  17.0.1           clang --version
+-e2fsprogs              1.41.4           e2fsck -V
+-flex                   2.5.35           flex --version
+-gdb                    7.2              gdb --version
+-GNU awk (optional)     5.1.0            gawk --version
+-GNU C                  8.1              gcc --version
+-GNU make               4.0              make --version
+-GNU tar                1.28             tar --version
+-GRUB                   0.93             grub --version || grub-install --version
+-gtags (optional)       6.6.5            gtags --version
+-iptables               1.4.2            iptables -V
+-jfsutils               1.1.3            fsck.jfs -V
+-kmod                   13               kmod -V
+-mcelog                 0.6              mcelog --version
+-mkimage (optional)     2017.01          mkimage --version
+-nfs-utils              1.0.5            showmount --version
+-openssl & libcrypto    1.0.0            openssl version
+-pahole                 1.26             pahole --version
+-pcmciautils            004              pccardctl -V
+-pigz (optional)        2.4              pigz --version
+-PPP                    2.4.0            pppd --version
+-procps                 3.2.0            ps --version
+-Python                 3.9.x            python3 --version
+-quota-tools            3.09             quota -V
+-Rust (optional)        1.85.0           rustc --version
+-Sphinx\ [#f1]_         3.4.3            sphinx-build --version
+-squashfs-tools         4.0              mksquashfs -version
+-udev                   081              udevadm --version
+-util-linux             2.10o            mount --version
+-xfsprogs               2.6.0            xfs_db -V
+-====================== ===============  ========================================
+-
+-.. [#f1] Sphinx is needed only to build the Kernel documentation
++==============  ========  =======================  ========================================
++    Program     Minimal      Command to check                  Required for
++                version         the version
++==============  ========  =======================  ========================================
++bash            4.2       bash --version           general requirement
++bc              1.06.95   bc --version             Kbuild (
++bindgen         0.71.1    bindgen --version        CONFIG_RUST=y
++binutils        2.30      ld -v
++bison           2.0       bison --version          Kbuild (.config)
++btrfs-progs     0.18      btrfs --version
++Clang/LLVM      17.0.1    clang --version          alternative to GNU C (gcc)
++e2fsprogs       1.41.4    e2fsck -V                ext4
++flex            2.5.35    flex --version           Kbuild (.config)
++gdb             7.2       gdb --version            Debugging
++GNU awk         5.1.0     gawk --version           objtool, CONFIG_SYSTEM_BLACKLIST_HASH_LIST=y
++GNU C           8.1       gcc --version            alternative to Clang/LLVM (clang)
++GNU make        4.0       make --version
++GNU tar         1.28      tar --version
++GRUB            0.93      grub --version ||
++                          grub-install --version
++gtags           6.6.5     gtags --version          to generate tag files through ``make gtags``
++iptables        1.4.2     iptables -V
++jfsutils        1.1.3     fsck.jfs -V
++kmod            13        kmod -V
++mcelog          0.6       mcelog --version
++mkimage         2017.01   mkimage --version        Flat Image Tree (FIT) or ARCH=arc, arm or powerpc
++nfs-utils       1.0.5     showmount --version
++openssl         1.0.0     openssl version
++pahole          1.26      pahole --version
++pcmciautils     004       pccardctl -V
++pigz            2.4       pigz --version           Compile and boot with KPGZIP=y
++PPP             2.4.0     pppd --version
++procps          3.2.0     ps --version
++Python          3.9.x     python3 --version
++quota-tools     3.09      quota -V
++Rust            1.85.0    rustc --version          CONFIG_RUST=y
++Sphinx          3.4.3     sphinx-build --version   build kernel documentation
++squashfs-tools  4.0       mksquashfs -version
++udev            081       udevadm --version
++util-linux      2.10o     mount --version
++xfsprogs        2.6.0     xfs_db -V
++==============  ========  =======================  ========================================
++    Program     Minimal      Command to check                  Required for
++                version      check the version
++==============  ========  =======================  ========================================
 +
- 	while (iov_iter_count(iter)) {
- 		ret = vhost_scsi_map_to_sgl(cmd, iter, sg_table, &sg, is_prot);
- 		if (ret < 0) {
- 			vhost_scsi_revert_map_iov_to_sgl(iter, sg_table->sgl,
--							 sg);
-+					sg, is_prot ? cmd->tvc_prot_need_unpin :
-+						      cmd->tvc_need_unpin);
- 			return ret;
- 		}
- 	}
-@@ -1392,7 +1411,7 @@ vhost_scsi_handle_vq(struct vhost_scsi *vs, struct vhost_virtqueue *vq)
- 		/*
- 		 * If T10_PI header + payload is present, setup prot_iter values
- 		 * and recalculate data_iter for vhost_scsi_mapal() mapping to
--		 * host scatterlists via get_user_pages_fast().
-+		 * host scatterlists via iov_iter_extract_pages().
- 		 */
- 		if (t10_pi) {
- 			if (v_req_pi.pi_bytesout) {
+ 
+ Kernel compilation
+ ******************
 -- 
-2.43.0
+2.55.0
 
