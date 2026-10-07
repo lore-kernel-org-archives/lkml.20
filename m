@@ -1,111 +1,152 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63AEC3CF054
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 04:55:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB6E3369D60
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 04:59:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791348932; cv=none; b=jXKgfiZcRI6oVYPUcyFJErML6RnSmYI1SGpoPFAuAwbp920S8+XOYiT6gF4Z8XEyjOoZPJCmQ3JAaocqgqV3b/h0o6c8crlj36bqfzJUa5ztd0Rv4hkN2s/gVMA8Svdd/psv8yhRhDeyCyBuABPtWuTMY0RA0VWQ6WzUq+t7D+c=
+	t=1791349141; cv=none; b=tvKtd6UxOWa9KQuyVNya6PTm4ZJ+7OSwnqgoUwww66aev46z45Ghz6jdH4f/iEiDcI9NDiOii9FV2XwcscTaS79T09fHErNHOax6A/LxhOeixx+daCljIgJ4USiWlsxSdpD3kfXPmOql0FDzgwP1Ph7MbNgH0y4TPHwn1938b94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791348932; c=relaxed/simple;
-	bh=Nhv3V2PEZv9DaIywRXpuQSuo3SZq1+RM/crAjovCZI4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ujDpEwKrr89zVuZSk44yWWzwdwtsxTvyxQawi3q55clFpVciwtkDCZ9LFzl2tcPzboKHhcHW48MbZIOeC+LewPvQy9ygZ5WqaXsdtWS/hhEa6kBdQpIKt916hDVh/abRc/fx7TdrFSmfClcf13bpA/hEfpRy7FeZabejqgr4Z6k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nv1p8xdO; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791349141; c=relaxed/simple;
+	bh=l/2ftnIEdG5YTjfePpkZh3FtNXsMdQ2M02mUro4v5Hw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rKCOGux+deOOPDiYVdH8hQlhl48Y2eQL9wypYoLjLQZUu65ptrMyG/z8y13PysqWQDCsl0Pr3AG503QnyZotGA9+yGvqzFJMdveX+8NGzxAyoyv8ttWrAhAKvSHQAJw1L7UzwyHHo1gjDoSu82niN6Bm96GPnfW6+m/L4SqElj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dPG07Ukz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nv1p8xdO"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48b02a2359aso1287162f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 21:55:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791348929; x=1791953729; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=b3BMYKHdF12goXCIRPvU4kuoDtK1ZjXLgJnPKF5B85U=;
-        b=nv1p8xdOrJSa+fS4UFEPMKCZObdcb3VEA4/dpjO8cn+D/m1KHvU9dk6/9GtrymYrr2
-         oYrncpqYUTMy//jC9et2PLN+bNT5GgGtUvogFSZsMBZ9ygumJEUOTOKUOO4skQN/lanA
-         Q1n88xUpUJXPx9GICSvP8EUpE9twC48OJBBUlj1zqAx/Iwzvz/wmVVKY7nhz0f+XYnA7
-         SLK7/kNjOnYkWhoSWoV/lMGqnzYQ0Pf6Onmc3qT7rBKqMJ+XqxrQXXXMtg6+xUrwU9Td
-         kRCaqenkx+DI44JFC/VO5MT/mU3GLWnUQpoRNJ94JKDdHjtx/sdN9CIO6+TfqdBO8TDV
-         8i/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791348929; x=1791953729;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=b3BMYKHdF12goXCIRPvU4kuoDtK1ZjXLgJnPKF5B85U=;
-        b=0yQZzPviUD+ZOKU6WD2aG3Vu2cdP0OlYpzODjqs7Vg+r9S5rlwTYgqHNdaAFMUZldm
-         CC3OlaN+mjTSR6Xaxk3yGSbWLmps5FCUmFWAXdeN9i/rWHQc4F2QWDE6clLLRS7VgSrG
-         Uzhuybe5iHug0Cn250FdbnBglVL+7IHw5OYBTVj3WUtnbpVyC4sreuVOPNdrELkk9yhJ
-         kLWRFrrls+ZSTsmzzHgkQhvWzJS8Olmsq9sBCuB2JpbMXkdkEr1PjnWTOapEWNHPSnJO
-         I+Jz+oSPNU8B61T1ug3BCS9p2fFmy3OS+Sb907wTGBU+1FL47gide80ZrcAEFta0OcDE
-         G96A==
-X-Forwarded-Encrypted: i=1; AKwUvBxX1W0mVoejjdp1Sk4mgJYkYDCC2CGF11BfUBH+leCLhZ+mI6Qs6IUtNtEU40eIY2i+tZEjo4euK4nGlDg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLTDIhx8dkbntCwIdwNOeyupkKwyS8Zg1AnHyEEROuRs2EVJrr/
-	NvGd8xWbOuNGWo+h2xugP33tIusPczTQa7N+QP69317wFKK/NkcpvQDZ
-X-Gm-Gg: AYBFou2uzl38qVFXjUEbz40l9M89xfKpkgaMBW/kzyZjcbjHEJS2c+wkx/g2tf5A4Ys
-	Ao7kV+mzvh4VDLlUbW1PLx/esxwEn87mMF+1atrneI7ngt1gM/6cua1xbDArHyPDbCVXVgiMRuO
-	vGJz345FP0DK//LGEzPuyTMbUVkgzOe+f8Ss6yqQ/+NsLy5vckcFuD9u3uDf1nSrkyZ+RvNHTcO
-	L5BA5i0FaFVyangWiGdS1UUuiPOyrdh+asLSoOdoG7PMHAmUc9SE03jZiCeNmHZfUpePdaxSHEa
-	JrCyuU+8NZTHpwmjzu0P7+LDZGdeJil467fqArr3ds23qwt64eZ3V3bS6SXZNtBcg3ORzeQw357
-	dihlI+TnC0AW1/NblV/i0uP3gcrMMZFjJLRt1yqg84ybGd1go77jy5tKVKmyOK4CImDoZHB1gGF
-	7rk7IhmidP87fZA/hSTQKKgswYD3AUtPtUXayyN+M8XmpBitDkGcpAQ/hWNR0QC0A=
-X-Received: by 2002:a5d:658c:0:b0:48c:4a62:9b31 with SMTP id ffacd0b85a97d-48c72749bbemr1719860f8f.5.1791348929426;
-        Tue, 06 Oct 2026 21:55:29 -0700 (PDT)
-Received: from kali ([169.224.126.44])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c75b56537sm888360f8f.59.2026.10.06.21.55.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 21:55:28 -0700 (PDT)
-From: Ali Firas <alishmery18@gmail.com>
-To: pabeni@redhat.com,
-	netdev@vger.kernel.org,
-	idosch@nvidia.com
-Cc: kuba@kernel.org,
-	davem@davemloft.net,
-	edumazet@google.com,
-	andrew+netdev@lunn.ch,
-	horms@kernel.org,
-	razor@blackwall.org,
-	roopa@nvidia.com,
-	shuah@kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v3 0/6] vxlan: vnifilter: bound a single request and account per-VNI memory
-Date: Wed,  7 Oct 2026 07:54:34 +0300
-Message-ID: <20261007045434.499651-1-alishmery18@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <7913b40f-f7d2-41ec-acb2-1edc7f2b833c@redhat.com>
-References: <7913b40f-f7d2-41ec-acb2-1edc7f2b833c@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dPG07Ukz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BB561F0089F
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 04:59:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791349140;
+	bh=+UrfWL3UvFqqOtBI9YS1pYrE4A0aG18X4nJK8L2sb0c=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=dPG07UkzAr5KO01jGMEi3N/1+X7rDBDiXyoMVRWWxzp0HM6KcdnfZKzNhsRWnZafZ
+	 HoaHR5HovA+uWHyPNfb+njIdlHZCVoQEB/q7WkMn3+1ilMKjv+TUKsjXYj5iQKrRIv
+	 QEe8uM9RQJTCLg0EPYfahIuo3xvzNF5EyFTJ4VxUnnWRX2i/Mz4pGOY88kAEd2akgP
+	 1pM1Aj1SP82Iu1FUWgznxem/9W2Je/FTPXmLk6OW8CJ/R3/XJbTcZS78IyiSvx/NCW
+	 kCn+giiF2POXgjb0rGn5K5MfrvNGev4pNfcx9WGz10Yqym9bilESmqCaxqrLVYCYoM
+	 PfgaV1F+4QEAg==
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c2a4e013a44so536717266b.2
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 21:59:00 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxD5H6t7Tfn71RCyGMNtf1PkclLvJSNGe5Tdo0T/iInusQ7HkB5dbzv3jVz8lF70No7WMPG3L+iLN7+eCM=@vger.kernel.org
+X-Gm-Message-State: AFuF++m8/5K2Y//kPghWXKTKBqDjiEQSP551wQltO1pNST7WYkvWCEes
+	oABQX9LQHUTOahZkJDghZtxu91ESbyuJlHrmq22Sb3f62L4PXpMAH2rBnW6HGl8y2+JVxuCDkRZ
+	cpA1IVzQW9XjJeSpqhmRzKmeqaAIzoGs=
+X-Received: by 2002:a17:907:9620:b0:c29:60b7:3f14 with SMTP id
+ a640c23a62f3a-c317c175a31mr95063866b.46.1791349139088; Tue, 06 Oct 2026
+ 21:58:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261004135638.1888530-1-anmuxixixi@gmail.com>
+In-Reply-To: <20261004135638.1888530-1-anmuxixixi@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Wed, 7 Oct 2026 13:58:46 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd_2PTzdiQQUp=C0_mz6ot_hnm3=VYKGcZtRujbWka+LWA@mail.gmail.com>
+X-Gm-Features: AclHuK8O-zocPPGsOtjzlTPbQDuWMv89n9ZpiZqykH8g1lux9wXVld54aWzCxPU
+Message-ID: <CAKYAXd_2PTzdiQQUp=C0_mz6ot_hnm3=VYKGcZtRujbWka+LWA@mail.gmail.com>
+Subject: Re: [PATCH v7 0/3] exfat: speed up file creation in large directories
+To: Yang Wen <anmuxixixi@gmail.com>
+Cc: sj1557.seo@samsung.com, chizhiling@163.com, yuezhang.mo@sony.com, 
+	exfat@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/1/26 13:45, Paolo Abeni wrote:
-> Sashiko complain WRT partial accounting of patch 5/6 looks legit.
+On Sun, Oct 4, 2026 at 10:57=E2=80=AFPM Yang Wen <anmuxixixi@gmail.com> wro=
+te:
+>
+> Negative name lookups and empty-entry allocation can repeatedly scan a
+> directory from the beginning. Bulk creation in a large directory therefor=
+e
+> approaches O(N^2).
+>
+> This series separates the optimization into three independently reviewabl=
+e
+> steps. Patch 1 adds the Bloom filter used to reject definite name misses.
+> Patch 2 retains and correctly invalidates the next-empty-entry hint.
+> Patch 3 adds the LRU and shrinker used to reclaim filters under memory
+> pressure.
+>
+> Test environment:
+>   QEMU TCG multi-thread, 4 vCPUs, 6 GiB RAM
+>   4 GiB exFAT image, 32 KiB clusters
+>
+> The measured results were:
+>
+>                          Before          After
+>   real                   589.48 s        30.09 s
+>   user                     4.72 s         3.40 s
+>   sys                    584.63 s        26.65 s
+>
+>
+> Changes in v7:
+> - Size each Bloom filter from the allocated directory size, using four bi=
+ts
+>   per on-disk entry and clamping the bitmap between 512 bytes and 4 MiB.
+> - Track set bits and discard a filter when one third of its bits are set =
+or
+>   directory growth requires a larger bitmap. Rebuild it lazily after a
+>   later complete negative lookup.
+> - Account reclaimable filters in pages so shrinker accounting follows the=
+ir
+>   dynamic allocation sizes.
+> - Preserve the shrinker core's scan budget and return SHRINK_STOP when th=
+e
+>   LRU is already empty, preventing repeated no-progress scans.
+>
+> Changes in v6:
+> - Invalidate the name filter when committing a new entry set fails, befor=
+e
+>   attempting rollback. Despite the reported write error, the new name may
+>   already have reached disk.
+> - Move rename/move error invalidation into the Bloom filter patch so that
+>   each patch remains correct when applied independently.
+>
+> Changes in v5:
+> - Rebase the series onto the exFAT maintainer's dev branch.
+> - Treat every non-negative exfat_find_empty_entry() return value as a
+>   successful allocation in the volume-label path.
+> - Record the minimum entry-set size for which a saved empty-entry hint is
+>   valid. A shorter entry set now rescans from the beginning and can reuse=
+ a
+>   smaller hole that an earlier, longer entry set could not use.
+>
+> Changes in v4:
+> - Publish the next-empty-entry hint only after the directory entry set is
+>   successfully committed, so post-allocation failures cannot skip an unus=
+ed
+>   slot.
+> - Invalidate the destination name filter when rename or move fails becaus=
+e
+>   the new entry may already exist on disk.
+>
+> Changes in v3:
+> - Split the change into Bloom filter, empty-entry hint, and shrinker
+>   patches.
+> - Accept filenames containing exactly 255 UTF-16 code units while buildin=
+g
+>   the Bloom filter.
+> - Invalidate the empty-entry hint in every path that can free directory
+>   entries, preventing stale hints from skipping earlier holes.
+>
+> Changes in v2:
+> - Move exfat_name_filter_free() to exfat_evict_inode() because
+>   ->free_inode() may run from an RCU callback in softirq context.
+>
+> Yang Wen (3):
+>   exfat: add a Bloom filter for negative name lookups
+The removal of blank lines in unlink/rmdir/rename is unrelated to this
+patch, and the code will be put back in that place in 2/3. It would be
+better to drop it.
 
-Agreed. A VNI that carries a remote also creates an FDB entry, an rdst
-and a per-CPU dst cache, none of them accounted. v4 accounts those
-allocations on the vnifilter path, passing gfp down rather than flipping
-the shared helper, so the learning path keeps plain GFP_ATOMIC.
+>   exfat: retain the next empty directory entry hint
+>   exfat: reclaim name filters under memory pressure
+Please check if Sashiko' review points are false alarms.
 
-> Also it would make sense to reword a bit the commit message of patch 1 and
-> 2 to reflect the above.
+https://sashiko.dev/#/patchset/20261004135638.1888530-1-anmuxixixi%40gmail.=
+com
 
-Will do.
-
-v4 will also bound the dump per nlmsg rather than per entry, per
-Sashiko's note on patch 4: a device holding 8192 contiguous VNIs can
-still dump as one message that replay refuses.
-
-On the Fixes: tag asked for on patch 2 -- Jakub asked for net-next
-without one, so I am not adding it:
-
-  https://lore.kernel.org/netdev/20260921150904.65a704eb@kernel.org/
-
-pw-bot: cr
+Thanks!
