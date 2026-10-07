@@ -1,384 +1,232 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from outbound-ip199b.ess.barracuda.com (outbound-ip199b.ess.barracuda.com [209.222.82.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71D463BB13D;
-	Wed,  7 Oct 2026 18:22:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791397324; cv=none; b=q/QPyAiCUA9ZPh4sl40sTS0ZZ1yaN3fXeQ8UeC/uizsUkS8Ake46st6yiOAenTWfvIzl0OiD4P+WF2Ia6VsVLrJRr112PqNtO00gmAVwKnnmNUlYd4FXhbZraZdYJqtzWutKWSCoF4gSVo6KnMp5GKnrk5u2sGk1CN+c/IGPwpI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791397324; c=relaxed/simple;
-	bh=yxz1xWZhWytuO3CKDQJ/z72wF59AaWV52nP0Rm224zI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HoBOAWHtE/JEK+dExjdf0lHh6rGFfTq+9GGWfCdAHhZCmPfyWeXMAN5yl8CMKIcB2VV4a+IpscXLPUOBAmcHdB/JqD9bGaNldQY32KGxd0UGvAYkrJtUY7B4CbQwcydbBtlqate7ABNAuc/9TOxJvN7ZAw+khc3jO07QAZ8m1lQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=clREpFGb; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADC873E5A38;
+	Wed,  7 Oct 2026 18:22:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=209.222.82.137
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791397398; cv=fail; b=PN8t7hX2XQtQHByulwFo497S+Fpa1G13bSTm6RtcYAwmI11OgSwGpuVlk8iumf5zMumV3YhstU6zxdr/LLbamgljkEnxL0W/JQpY5rGQ+XFu6oCCAe3sGBSifZneeEb6/UuoatN+LT6kiUbc0IljEA8AOovZq/YjQkw31ndKpiM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791397398; c=relaxed/simple;
+	bh=rioOcZZzJ1n37mMt4vTZwu1xUip8xMEfORGQOpeORa0=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=HSWKIRrJ985LOJ2tRBE/XSpW0jAn7JfrscbM1Cl8mI8GiC8lz1fFCEAzslXv9kDlNo6+NDlApXDn8tnzamHLwohiIAsqwVXXZ33xSbndDHDBug0OMiLUqWVtrlfTB+nkHNO4LcnO97F5NhN+T+fv8UrBzTLa1IuQQckvInEylhM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opengear.com; spf=pass smtp.mailfrom=digi.com; dkim=pass (2048-bit key) header.d=opengear.com header.i=@opengear.com header.b=ED82x0kR; arc=fail smtp.client-ip=209.222.82.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opengear.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="clREpFGb"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697F5NX52822901;
-	Wed, 7 Oct 2026 18:21:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=en18buxSWB8tkBM5D
-	jdd83iWax4fZB02hX2gH5clJ0o=; b=clREpFGbrbj85tllp15x14X3MOFSd7C3z
-	10iIU8WLP79EJIvEpE3eJmh+GaGpf7rPOi2yJ5c78FiloVwPbsctGKmVSt3B0Dqs
-	OdGHhSaF/TpEehFmrI+PG+Iqz3saoHvwlqc2p0tRf4M4nSEzYF2XdtH+2kI2I/8h
-	AfNLlNvZYzZu7oUSWtS72jIMxhAJWehUSW5CGx9+sgvKKP9da/YIov0xpf6Y0gc7
-	eKMnRVEPU2xLu5cfbrf9KWpVIfAh13+qTKgkZWPYwiQkjqm3iCuz/YZkvY1VkPqZ
-	Jkgrdkjb4uZBcyxKSlf2Xu4SywxzZyFzZwDAF+ThClmsbLnDkRy9A==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2se5q4vh-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 07 Oct 2026 18:21:40 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 697IHVow2307737;
-	Wed, 7 Oct 2026 18:21:39 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h3dhgyta1-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 07 Oct 2026 18:21:39 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 697ILZ9650004458
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 7 Oct 2026 18:21:35 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id AB3DD2004B;
-	Wed,  7 Oct 2026 18:21:35 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5ADB820040;
-	Wed,  7 Oct 2026 18:21:31 +0000 (GMT)
-Received: from localhost.localdomain (unknown [9.39.25.208])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed,  7 Oct 2026 18:21:31 +0000 (GMT)
-From: Amit Machhiwal <amachhiw@linux.ibm.com>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org
-Cc: Amit Machhiwal <amachhiw@linux.ibm.com>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-        Shrikanth Hegde <sshegde@linux.ibm.com>, kvm-ppc@vger.kernel.org,
-        kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Gautam Menghani <gautam@linux.ibm.com>,
-        Harsh Prateek Bora <harshpb@linux.ibm.com>,
-        R Nageswara Sastry <rnsastry@linux.ibm.com>,
-        Alexander Graf <agraf@suse.de>, linux-hardening@vger.kernel.org,
-        stable@vger.kernel.org, Avi Kivity <avi@redhat.com>
-Subject: [PATCH v4 2/3] KVM: PPC: Book3S HV: Add preempt_disable() around virtual-mode HPTE bit-lock users
-Date: Wed,  7 Oct 2026 23:51:14 +0530
-Message-ID: <20261007182116.12479-3-amachhiw@linux.ibm.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261007182116.12479-1-amachhiw@linux.ibm.com>
-References: <20261007182116.12479-1-amachhiw@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=opengear.com header.i=@opengear.com header.b="ED82x0kR"
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11023090.outbound.protection.outlook.com [40.93.196.90]) by mx-outbound22-136.us-east-2b.ess.aws.cudaops.com (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO); Wed, 07 Oct 2026 18:22:46 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lto1sYGDONnj1QJ3lwTxgyhBp9FVf2YvCEGO45iOzuXNPG8t+2lohBNNF1yGsyvRw9gUla2iT9AZBRnLR0V4vHFEWiEjP7ihxD1Oa1glr7GomTvOjKc0MQxI2bKDBbNRK/UT5MsgOPBYOWvWZTleimHjiKaHB4b6XlKNPU5VxoW1+djNNGQe3MKJeOuYZJ7rKnQWFJeuX3xNuMjKkNpCptSWAtLhg4m+ju3VIdNxzYVaeCf1gzVKvzcQyxP81+g6hReeYupChfYlsUNNyHzRrpjCQ3POEMBYHR7F5Pgph1oj9xdwphNDCMuwb6k8colU9lnl5H3ydzgmeL9KSFOjnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZC9AAdAy4w/WWDQdUSbHObcQsKLUv64UvKZWctrh7M4=;
+ b=ZzgURo44sBgC7mEMV+WUETvkVox8c2LUWF7rHUESCnerVUdg2dpUPLc/IXl5lr1MHQWvCv0U31V2IONceu8jIe4/ro3nT0LHFv+Vkyg4VyKLjEFAQiwmcRRABjLTIdYStL1ySx7ULFoJCbUmkbQFrmjUX3rIO00IZ2CDJxpgr7gX64sHd+xyYR4OmDgPqJW44ixviffWR1lh6ydBU38MZLDdp/1+QZUM3EmfiEYXXBcj6En6dVJX4NgXsIY16DnNtAa/coPIqFaSxCCmFFxLI8SFPBJdMItrFpYz4+e6rRCvOc68tdeUvn6omwWv+roQIbOZStHDiFnltFtIRP5rtA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=digi.com; dmarc=pass action=none header.from=opengear.com;
+ dkim=pass header.d=opengear.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=opengear.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZC9AAdAy4w/WWDQdUSbHObcQsKLUv64UvKZWctrh7M4=;
+ b=ED82x0kRcLVMtnd2uhDKiraa5KBPRZK87ln6zOeUci+RF56GjmkYijF4AavQf+rzaDNGCHFwhZ7m8AQk6QttvCVAZ6lZqvjjHm1b7GPZDVjfAlQwIWa9dRcoCKL1q8AHDEtY3chfYFi/pn3Odw2cQwxvwhUVJPJtoQkeLs26HCv9fKD/HhSnAEre6wFppWAF2URGe9HtoMwHMUP20ztdCICaj46H13OQhl1n2eco8nkknRIpg6KbrbKj9KL6EBCQFT0vD0XMOGDdZExnwSoet1/3K4bbOhSlpDjIFTECWnpjrMMbiwxX6fz90EI3DVd7H0OZXqm23z2PuW9nDTy/eA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=opengear.com;
+Received: from MWHPR1001MB2095.namprd10.prod.outlook.com
+ (2603:10b6:301:32::34) by CY5PR10MB6142.namprd10.prod.outlook.com
+ (2603:10b6:930:36::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.6; Wed, 7 Oct 2026
+ 18:22:41 +0000
+Received: from MWHPR1001MB2095.namprd10.prod.outlook.com
+ ([fe80::3933:62ac:2729:f017]) by MWHPR1001MB2095.namprd10.prod.outlook.com
+ ([fe80::3933:62ac:2729:f017%7]) with mapi id 15.21.0496.010; Wed, 7 Oct 2026
+ 18:22:41 +0000
+From: Peter Hunt <peter.hunt@opengear.com>
+To: loic.poulain@oss.qualcomm.com,
+	ryazanov.s.a@gmail.com
+Cc: johannes@sipsolutions.net,
+	mani@kernel.org,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
+	mhi@lists.linux.dev,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Peter Hunt <peter.hunt@opengear.com>
+Subject: [PATCH net-next v8 0/2] net: wwan: support DTR/RTS on AT ports via MHI IP_CTRL
+Date: Wed,  7 Oct 2026 12:22:36 -0600
+Message-ID: <20261007182238.1154851-1-peter.hunt@opengear.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SJ0PR03CA0045.namprd03.prod.outlook.com
+ (2603:10b6:a03:33e::20) To MWHPR1001MB2095.namprd10.prod.outlook.com
+ (2603:10b6:301:32::34)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDA3MiBTYWx0ZWRfXylbgpwvZmjTX
- sW+GhgZZuA7wFlkFFEGG5VlrVsMluBnkXOt/rnMx2BlNeALLPR4SZ07kUH/k3O3BDFlb2Wk3HRj
- UY2ZqBJMr/DWZItqCv8Rbcm5zvOMgPo=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDA3MiBTYWx0ZWRfX8Znf7pd5sDOC
- ozSR3/u6UgB3y2JOND7omhelkAF+eQrZioU6g9bEi18ygyEeDVO3c98m9wglYZlvrEugVYgarL9
- O/yXSUfoc7rxVXynRBTVxedAWfZjfERFpr/P70E10j5Lro8razqk6gOlE/JV6dj7T9bSDmYgGw0
- PYeeCxAY0D57yv206In7C4DSF9UcVrl0gJvgr5lUzBAhGh81xpU/2GPilnzwNYjnaPyBjfHnRJ7
- PswUPCx6BvSm/QgEefD2qzuuZIJsktQZ0skqDAdsPKHb6/Ch3om0zPVxCIMhaOwc+3/BaQoAI4+
- MnylD2okj7N7RHiwYNceMeORIUxsz0vFR9GfEniGbM3LhH20vIPCAb35O+hB9U6btEN/C15xmKN
- OAWT8L8O2WTLxYEhIDIJlf/bPvWgXubrbKtD3J/tqtpkPYbYQXWx5phFgtrPLQGB/esPm7gsDMv
- /rkL8nhttsYysrU4xxg==
-X-Proofpoint-GUID: 7fOmBDx9kIIBr8fJ3SchTiSBabVwO3P8
-X-Authority-Analysis: v=2.4 cv=UNRIjyfy c=1 sm=1 tr=0 ts=6ac68db5 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=_8QwL2uVTp0K3HJSAJcA:9
-X-Proofpoint-ORIG-GUID: JvCe07sVOH2QSvs9Wc6UZ2DQ6ZBO_KJP
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-07_05,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 adultscore=0 bulkscore=0 lowpriorityscore=0
- phishscore=0 clxscore=1015 priorityscore=1501 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070072
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWHPR1001MB2095:EE_|CY5PR10MB6142:EE_
+X-MS-Office365-Filtering-Correlation-Id: e88df0ca-390a-40b4-98e3-08df249ff981
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|7416014|18002099003|11063799006|6133799003|3023799007|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	gkMGMxjmf4klm9tsdyqtasm70ICtoT04yzLVtAjngFjmOMI+dJ5nZ0plyt3Y+NGl1CpS/FnodgZ9EKwzz/mV5jkpmoZ2Xi6BUKi8KAe3HF6rV5YinAC8Plo6RwZvs6Kej1xV/M+sRC9MJ77ei9BXIoOdvbOxU3t0ao7cXVJHAl+NMYq6FD6VWL6dgjmLtqSaSEmI27lCh/zS0aIQReXS7m2gCQV5mtC/DljYcoQ7jl6yZjhNUmdJ7GEs/1X/AcJ/JPq01JoIKOgynY+MZhZpU+md6qwc84UiBvuTaQTjTe/B3yKb0XIBUqL2huLT2gy5/zi386Nn9A4ofpP/0LtjyNo8ElFmNKRAlBXYl+bmFH1WYY7k/+o/oO/XMSOZ+Uu/bVpP+3xViOEld74wML1q87JVainDkrUUt0qeCFkW96z9NSGMMtdXiftLWe7io5kh+sDYWwixfB1rZVdBCmku+u43BchtYWUSGNXzr7HbFBtv+nnLABVrKe7QQWD6n0rwPD/hbDO5mQYdS3lmiiQwt/Oe+CietWvpD23HbptjqoGFKmMcGJi3UK1gKV8Mkr17RmFl2nCf0rRRKAL0T55+cWZKtrCqAxsxuVB1jj8xgi3OUjz7s8/oGjRIQOjoxoQAZM8vDpMLQJyZ+8ECG+5Y9Qt+dZ2BvkOTOpYOTdX0G30=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MWHPR1001MB2095.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(7416014)(18002099003)(11063799006)(6133799003)(3023799007)(10067099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?qnaAYrxnG623WsXtCSXtOJ4JPuLzV/O+z/1XcwXtGnoHbLMzdYpYz7rspaon?=
+ =?us-ascii?Q?2YDRSQ1yKjezf++l+OGS21vl+6J4e1PMOVm3ZNKNesu2C2+fBVYARrMlTuTz?=
+ =?us-ascii?Q?DOwZ0EwZtXlzx2+kBDecgTLseg0syS0AdPcJenFKp3cgvZEwhvk7SZuMoVLJ?=
+ =?us-ascii?Q?X9F9FLJ4hPQ1X/Zp4iiMIQz1c5nHaYVHj5Vzu0bih0mGhXPks3LLuQpikK5d?=
+ =?us-ascii?Q?eB8W5DsZvOW1SyBaBWqzndJMNztaA/KVynG4RYzfvPttvKoxoLzu1M7co/0w?=
+ =?us-ascii?Q?32oEe86tm7PP3+3hZUydbP57vrtngm2OrCCIcIGC9LplTVQAHDiNv9baQIud?=
+ =?us-ascii?Q?vqM1QDjWO30WuTkzIek6dYb/m5zZpphzR3K+W0jhTfmID9JI3s+x9Civxk48?=
+ =?us-ascii?Q?LhB4h3E5NRvD+ETAcTggpgvTFFwZOeKwMHa1EWRuXXazq4LlL7CgSagZ94+U?=
+ =?us-ascii?Q?KChVpRFyjM8Cv9gdULcwifC0I7wKGV7Z9egUIBHna0LoS3e70dwkjayck64R?=
+ =?us-ascii?Q?gsX1SWjh9ltA7LYGwcmYUF92IfRqnn/nwHTwJa3e0kj4BMXOGobqhNPAbHQJ?=
+ =?us-ascii?Q?IHPWdmVay4uPX7kkZzeuIlLh96YBXygrfMuK/BZx2inIhh4aPU1RBG/TQ/k0?=
+ =?us-ascii?Q?34T5hRzqgGT428oRbjmt6UV9yS5a603hfFyQj5+qUb8bGOnRP8iJ6OR6oMQa?=
+ =?us-ascii?Q?IPWKBUvowDoEVXKFQHhYr7VEUezrGCaX6ROKRWi8HcplMcOu/hphXdVXmJPY?=
+ =?us-ascii?Q?BmNbFjd+oiH04207k4+BjCNVIRwaM4iRLzxGeouLOunSfaML6X3R9MSNFapB?=
+ =?us-ascii?Q?/cVV64UubXtaCiNzZZ5nAe/LVldGuftji6KMAR2/eUQCfoJoT6/O2YK2ptzJ?=
+ =?us-ascii?Q?8wiF24A5HanZVdl0XTJ+FELL0Y3lipyJRWs8mZAx9mo9Lu0COQWJF+E5KpPE?=
+ =?us-ascii?Q?N7Y12F36MnYDMAuuHDRUKghhUT9+1CrA6Esd5MkULZKZPSx7JBrS0MfO735H?=
+ =?us-ascii?Q?C/rskaaZn/+kteEYlRgd8utma34nHfa7+RDcvondvWpp1ZWnmWsbk88290DZ?=
+ =?us-ascii?Q?Mqc7jiOsXfT03AXnxJb6dmnnCyPG+/EntqHhagt9qSAdESHA+STMrJPSSX14?=
+ =?us-ascii?Q?pq4erkoPp30yz5GK7dz8JKuXpX83AAEziTAWTg4ONVHRWJ4h3pixGf67z1Zv?=
+ =?us-ascii?Q?qGpBtUi99puv3PU+3tBqi+Lpe3/maz/WyeCFNiI3dYrzYQwChzIqjZ46Ud7o?=
+ =?us-ascii?Q?wvH38MOgTdfUVnVUS1qyoJilctT9TgBBeftSE/b9oDCi3ks0kWHFTTovEy1D?=
+ =?us-ascii?Q?OaO30VN/jVrQHuYaQPvQhcqlmquOYDnRvd/2RPn+vhY4wpfS6sae7vKfVYZs?=
+ =?us-ascii?Q?vtr6BRUttsys2eGBFhaJYya6+FDEBqeZUtGQ4pVFF+qzvn3OtTYgpEG2n+Xt?=
+ =?us-ascii?Q?4t2c31vnnTDNrvL4sirCRo7i5rhKtNl86/FZknXPYoYRNoN8RZd17ghGzBzu?=
+ =?us-ascii?Q?Kjt/ozdm4IlvpbTqCm9BA9dBcNGhQ8e6M/q4GxTO+xJwprkgzB0CzzVUDJGG?=
+ =?us-ascii?Q?991Yy/GrIyVsI/I75p8v8LRfQK1kExT94Qc89hkKoktI8xsbAgz4tLVMLmN0?=
+ =?us-ascii?Q?r2G4MYuhLt/fajuJSK0kQnAHGIfaVlRkoUOOIe7wYDQzz5SbrEcFiVqDfqGn?=
+ =?us-ascii?Q?plmSKDW76+2d+NcrwkzuPsgCUKXoDhvkmzZy/23bOe2lDMse?=
+X-Exchange-RoutingPolicyChecked:
+	yQwlsF0vQnZR6grzX24TplBnapSxahlW19T3ZhgqmVXJ9VESGh+1ZTF4H/gBqj189I0x4pZULpZ+tKSJOM/iuuhsM9WrvJ0gbHv5pXBKwy2GcIKn+6FN3QzB4rCNS1T1VS313IGwFxv1kcR0rvmFw3PjTsFRCEHLEGAN9UO7pecrDooT/zEzLB3ZDnPv3ON8aNYWiHzvv/Z7jyrJkqaZ1ajxL45URVxddlx/WEBwrInOj59P6oX58KzkCY8AwP8T2neEicf+S3G33lN+tYxPUc3iZnVWef1YEi7smCdJBCdcAjhSs3bAFnNigxeYIbxgLAqVv37D7K2dpdbxywKvQA==
+X-OriginatorOrg: opengear.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e88df0ca-390a-40b4-98e3-08df249ff981
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2095.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 18:22:41.5535
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: abb4cdb7-1b7e-483e-a143-7ebfd1184b9e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RJXkysMe6AZ7eOXu1BVoMEBZCgDbZlqZH2sqUJGx8D87j3XzBQFFEJPfqp70eHuB
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR10MB6142
+X-BESS-ID: 1791397366-105768-9835-2110-1
+X-BESS-VER: 2019.1_20260924.1519
+X-BESS-Apparent-Source-IP: 40.93.196.90
+X-BESS-Parts: H4sIAAAAAAACA4uuVkqtKFGyUioBkjpK+cVKViZmxpZAVgZQ0DIlLTHRKDk1zT
+	QtKTkpxdTI2NIyzcQ4zSIxycjAINFQqTYWAIPrBG1BAAAA
+X-BESS-Outbound-Spam-Score: 0.40
+X-BESS-Outbound-Spam-Report: Code version 3.2, rules version 3.2.2.276674 [from 
+	cloudscan13-20.us-east-2a.ess.aws.cudaops.com]
+	Rule breakdown below
+	 pts rule name              description
+	---- ---------------------- --------------------------------
+	0.00 BSF_BESS_OUTBOUND      META: BESS Outbound 
+	0.40 BSF_SC0_SA085b         META: Custom Rule SA085b 
+X-BESS-Outbound-Spam-Status: SCORE=0.40 using account:ESS112744 scores of KILL_LEVEL=7.0 tests=BSF_BESS_OUTBOUND, BSF_SC0_SA085b
+X-BESS-BRTS-Status:1
 
-kvmppc_hv_find_lock_hpte() requires virtual-mode callers to run with
-preemption disabled, because it can return with HPTE_V_HVLOCK still held
-until the caller later unlocks the HPTE.  Existing virtual-mode callers
-in book3s_64_mmu_hv.c already follow that rule, but several paths do
-not.
+Qualcomm/Sierra SDX55/SDX65 modems (e.g. EM9291) withhold unsolicited AT
+result codes until the host asserts DTR. The in-tree mhi_wwan_ctrl driver
+exposes AT ports but never signals DTR, so URCs never reach userspace.
 
-kvmppc_handle_exit_hv() calls kvmppc_hpte_hv_fault() for hash-mode
-data-side and instruction-side faults after guest exit with preemption
-enabled.  kvmppc_pseries_do_hcall() executes virtual-mode HPT hcall
-handlers via kvmppc_pseries_do_hpt_hcall() with preemption enabled; the
-handlers for H_ENTER, H_REMOVE, H_READ, H_CLEAR_MOD, H_CLEAR_REF,
-H_PROTECT, and H_BULK_REMOVE all spin on try_lock_hpte() or lock_rmap().
-H_ENTER also reaches kvmppc_do_h_enter(), which uses arch_spin_lock() on
-kvm->mmu_lock.  That raw lock choice is intentional because
-kvmppc_do_h_enter() is also called from real-mode paths, so the correct
-fix is to establish the proper preemption context at the virtual-mode
-caller boundary.  kvm_htab_write(), the HPT migration restore path, also
-called kvmppc_do_h_remove() directly with preemption enabled from two
-sites: once in the n_valid loop to evict any occupied slot before
-inserting a new HPTE, and once in the n_invalid loop to evict any
-occupied slot that the restore marks as invalid.  This was inconsistent:
-the insert in the same function already used the guarded
-kvmppc_virtmode_do_h_enter() helper.
+Patch 1 extends the wwan core with an optional ->dtr_rts(port, mdmbits)
+port op. The TIOCM bitmask state is tracked in the wwan core, which raises
+DTR/RTS on first open of an AT port whose driver implements ->dtr_rts,
+drops them on last close (if HUPCL is set, which is the default for AT
+ports) and on port removal, and passes the resolved bitmask to the
+driver on TIOCMSET/TIOCMBIC/TIOCMBIS.
 
-On the host side, kvm_unmap_rmapp(), kvm_age_rmapp(),
-kvm_test_clear_dirty_npages(), and resize_hpt_rehash_hpte() also acquire
-HPTE_V_HVLOCK via try_lock_hpte() in process context with preemption
-enabled, serving MMU notifier callbacks, dirty-log harvesting, and HPT
-resize respectively.
+Patch 2 adds a second mhi_driver to mhi_wwan_ctrl that binds the IP_CTRL
+channel and implements ->dtr_rts by sending the host serial state to the
+modem over that channel. The existing AT/QMI/MBIM data path is untouched.
 
-If any of these threads is preempted while holding HPTE_V_HVLOCK, any
-other thread on the same CPU spinning on the same bit-lock can never
-make progress, as the lock owner cannot be rescheduled to release it.
-This is particularly acute when the spinning thread has preemption
-disabled: it will never yield, causing a permanent CPU hang.
+This is a two-patch series. The pci_generic patch from v5 that
+enumerates the IP_CTRL channel for the Sierra EM919x/EM929x has been
+applied to mhi-next by Mani as commit 83c29a55b89e ("bus: mhi: host:
+pci_generic: Add IP_CTRL channel for Sierra EM919x/EM929x"). There is no
+build dependency between the two, without that commit the IP_CTRL driver
+simply never binds and ->dtr_rts is a no-op.
 
-Fix this by adding preempt_disable()/preempt_enable() pairs around the
-two kvmppc_hpte_hv_fault() call sites in kvmppc_handle_exit_hv() and
-around the kvmppc_pseries_do_hpt_hcall() invocation in
-kvmppc_pseries_do_hcall().
+Note on the ->dtr_rts signature (Loic):
 
-For kvm_htab_write(), introduce kvmppc_virtmode_do_h_remove(), a thin
-wrapper that brackets kvmppc_do_h_remove() with preempt_disable()/
-preempt_enable(), mirroring the existing kvmppc_virtmode_do_h_enter()
-pattern.  The wrapper retains the full flags and avpn parameters so that
-future virtual-mode callers can use the H_AVPN and H_ANDCOND conditional
-guards if needed.  Note that kvmppc_do_h_remove() spins on both
-HPTE_V_HVLOCK and lock_rmap() (via remove_revmap_chain()); preemption
-must be disabled across both bit-locks.
+In v3 I replaced ->tiocmget/->tiocmset with ->dtr_rts(port, bool on)
+modelled on tty_port_operations, and moved the TIOCM handling into the
+wwan core, as you suggested on v2. Review of v3 and v4 then pointed out
+that a single bool cannot represent the two lines independently. With
+TIOCMBIC/TIOCMBIS on one line while the other is in the opposite state,
+the line state sent to the modem no longer matches what TIOCMGET reports
+(e.g. RTS re-asserted after TIOCMBIC(TIOCM_RTS)).
 
-For kvm_unmap_rmapp() and kvm_age_rmapp(), place preempt_disable() before
-lock_rmap() so that both the rmap chain lock and the subsequent
-HPTE_V_HVLOCK bit-lock are held under a single non-preemptible window.
-There is an ABBA ordering constraint between the two locks: the rmap chain
-lock must be dropped before spinning on the HPTE bit-lock (documented in
-the comment above the try_lock_hpte() call in kvm_unmap_rmapp()).  To
-preserve this, preempt_enable() is called after unlock_rmap() on the
-failed try_lock_hpte() retry path and on any early-exit path, before the
-cpu_relax() spin, so the HPTE lock owner can be scheduled.
+Since v5 the op keeps the dtr_rts name and the core still owns all TIOCM
+handling, but it is passed the resolved TIOCM bitmask instead of a bool,
+so the driver can drive DTR and RTS independently. I kept the dtr_rts
+name deliberately, following your v2 preference over ->tiocmset, even
+though the signature now differs from tty_port_operations.dtr_rts. The
+open/close paths still behave as tty_port dtr_rts does. Is this
+acceptable to you, or would you prefer a different shape, for example a
+bool ->dtr_rts for open/close plus a separate op for the ioctl path?
 
-For kvm_test_clear_dirty_npages(), remove the per-iteration
-preempt_disable()/preempt_enable() pairs: this function has a single call
-site, kvmppc_hv_get_dirty_log_hpt(), which already holds preempt_disable()
-across the entire loop, making the inner guards redundant.
+Changes in v8 (Loic Poulain's review of v7, no functional change):
+- Patch 1: add wwan_port_raise_dtr_rts() as the counterpart of
+  wwan_port_drop_dtr_rts() and move the open-path handling into it
+- Patch 1: do the AT port and ->dtr_rts checks inside both helpers
+- Patch 1: use scoped_guard() for data_lock in the helpers
 
-For resize_hpt_rehash_hpte(), place preempt_disable() before the
-unconditional try_lock_hpte() spin loop and preempt_enable() after
-unlock_hpte() at the single exit point.  This function is called from
-kvm_vm_ioctl_resize_hpt_commit(), which first quiesces all vCPUs by
-clearing kvm->arch.mmu_ready and calling on_each_cpu() to flush any vCPU
-currently running in guest mode back to host.  With all vCPUs out of the
-guest, no vCPU thread can hold HPTE_V_HVLOCK; any remaining lock holder
-(an MMU notifier callback or dirty-log walker) runs on a separate CPU
-and is not preempted, so the spin always makes forward progress.
+Changes in v7 (all from the Sashiko review of v6):
+- Patch 1: drop DTR/RTS on last close only if HUPCL is set, as a TTY
+  does, and default HUPCL on for AT ports so close behaviour is
+  unchanged unless userspace clears it with TCSETS
+- Patch 1: wwan_remove_port() passes the masked mdmbits rather than 0,
+  via a helper shared with the close path
+- Patch 2: retry a failed DL sink buffer requeue from a delayed work
+  item on -ENOMEM, and log other failures
+- Patch 2: note in the commit message that the IP_CTRL channel entry
+  for the EM919x/EM929x is 83c29a55b89e in the MHI tree
 
-Fixes: 6165d5dd99db ("KVM: PPC: Book3S HV: add virtual mode handlers for HPT hcalls and page faults")
-Cc: stable@vger.kernel.org # v5.14+
-Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
----
-Changes in v4:
-- Introduced kvmppc_virtmode_do_h_remove(), a thin wrapper bracketing
-  kvmppc_do_h_remove() with preempt_disable()/preempt_enable(), mirroring
-  kvmppc_virtmode_do_h_enter().  Replaced both raw kvmppc_do_h_remove() call
-  sites in kvm_htab_write() with the new wrapper.
-- Updated commit message to document the kvm_htab_write() fix.
-- Dropped Reviewed-by from Shrikanth as the patch was materially extended.
+Changes in v6:
+- Rebased onto net-next, dropped the pci_generic patch (now in mhi-next)
+- Patch 1: snapshot mdmbits under data_lock before calling ->dtr_rts from
+  the open/close paths
+- Patch 2: allocate the IP_CTRL DL sink buffer separately instead of
+  embedding it in struct mhi_wwan_dtr (DMA safety on non-coherent
+  platforms), and do not requeue it when the DL transfer completes with an
+  error such as -ENOTCONN during channel teardown
 
- arch/powerpc/kvm/book3s_64_mmu_hv.c | 33 +++++++++++++++++++++++++++--
- arch/powerpc/kvm/book3s_hv.c        | 10 +++++++++
- 2 files changed, 41 insertions(+), 2 deletions(-)
+v7: https://lore.kernel.org/netdev/20261006040422.3208888-1-peter.hunt@opengear.com/
+v6: https://lore.kernel.org/netdev/20261001204614.3481089-1-peter.hunt@opengear.com/
+v5: https://lore.kernel.org/netdev/20260819224927.2274790-1-peter.hunt@opengear.com/
+v4: https://lore.kernel.org/netdev/20260816121705.858013-1-peter.hunt@opengear.com/
+v3: https://lore.kernel.org/netdev/20260807215042.2714442-1-peter.hunt@opengear.com/
+v2: https://lore.kernel.org/netdev/20260806155253.3378294-1-peter.hunt@opengear.com/
+v1: https://lore.kernel.org/netdev/20260804233411.1953445-1-peter.hunt@opengear.com/
 
-diff --git a/arch/powerpc/kvm/book3s_64_mmu_hv.c b/arch/powerpc/kvm/book3s_64_mmu_hv.c
-index 2ccb3d138f46..e8f73c8f9780 100644
---- a/arch/powerpc/kvm/book3s_64_mmu_hv.c
-+++ b/arch/powerpc/kvm/book3s_64_mmu_hv.c
-@@ -47,6 +47,9 @@
- static long kvmppc_virtmode_do_h_enter(struct kvm *kvm, unsigned long flags,
- 				long pte_index, unsigned long pteh,
- 				unsigned long ptel, unsigned long *pte_idx_ret);
-+static void kvmppc_virtmode_do_h_remove(struct kvm *kvm, unsigned long flags,
-+				unsigned long pte_index, unsigned long avpn,
-+				unsigned long *hpret);
- 
- struct kvm_resize_hpt {
- 	/* These fields read-only after init */
-@@ -308,6 +311,22 @@ static long kvmppc_virtmode_do_h_enter(struct kvm *kvm, unsigned long flags,
- 
- }
- 
-+/*
-+ * Virtual-mode H_REMOVE.  kvmppc_do_h_remove() is also called from real mode,
-+ * where preempt_disable() is not usable, so the guard stays here. The function
-+ * spins on HPTE_V_HVLOCK and then lock_rmap() (via remove_revmap_chain());
-+ * preemption must be disabled across both bit-locks so that spinning callers
-+ * holding preempt_disable() can make forward progress.
-+ */
-+static void kvmppc_virtmode_do_h_remove(struct kvm *kvm, unsigned long flags,
-+				unsigned long pte_index, unsigned long avpn,
-+				unsigned long *hpret)
-+{
-+	preempt_disable();
-+	kvmppc_do_h_remove(kvm, flags, pte_index, avpn, hpret);
-+	preempt_enable();
-+}
-+
- static struct kvmppc_slb *kvmppc_mmu_book3s_hv_find_slbe(struct kvm_vcpu *vcpu,
- 							 gva_t eaddr)
- {
-@@ -810,9 +829,11 @@ static void kvm_unmap_rmapp(struct kvm *kvm, struct kvm_memory_slot *memslot,
- 
- 	rmapp = &memslot->arch.rmap[gfn - memslot->base_gfn];
- 	for (;;) {
-+		preempt_disable();
- 		lock_rmap(rmapp);
- 		if (!(*rmapp & KVMPPC_RMAP_PRESENT)) {
- 			unlock_rmap(rmapp);
-+			preempt_enable();
- 			break;
- 		}
- 
-@@ -826,6 +847,7 @@ static void kvm_unmap_rmapp(struct kvm *kvm, struct kvm_memory_slot *memslot,
- 		if (!try_lock_hpte(hptep, HPTE_V_HVLOCK)) {
- 			/* unlock rmap before spinning on the HPTE lock */
- 			unlock_rmap(rmapp);
-+			preempt_enable();
- 			while (be64_to_cpu(hptep[0]) & HPTE_V_HVLOCK)
- 				cpu_relax();
- 			continue;
-@@ -834,6 +856,7 @@ static void kvm_unmap_rmapp(struct kvm *kvm, struct kvm_memory_slot *memslot,
- 		kvmppc_unmap_hpte(kvm, i, memslot, rmapp, gfn);
- 		unlock_rmap(rmapp);
- 		__unlock_hpte(hptep, be64_to_cpu(hptep[0]));
-+		preempt_enable();
- 	}
- }
- 
-@@ -890,6 +913,7 @@ static bool kvm_age_rmapp(struct kvm *kvm, struct kvm_memory_slot *memslot,
- 
- 	rmapp = &memslot->arch.rmap[gfn - memslot->base_gfn];
-  retry:
-+	preempt_disable();
- 	lock_rmap(rmapp);
- 	if (*rmapp & KVMPPC_RMAP_REFERENCED) {
- 		*rmapp &= ~KVMPPC_RMAP_REFERENCED;
-@@ -897,6 +921,7 @@ static bool kvm_age_rmapp(struct kvm *kvm, struct kvm_memory_slot *memslot,
- 	}
- 	if (!(*rmapp & KVMPPC_RMAP_PRESENT)) {
- 		unlock_rmap(rmapp);
-+		preempt_enable();
- 		return ret;
- 	}
- 
-@@ -912,6 +937,7 @@ static bool kvm_age_rmapp(struct kvm *kvm, struct kvm_memory_slot *memslot,
- 		if (!try_lock_hpte(hptep, HPTE_V_HVLOCK)) {
- 			/* unlock rmap before spinning on the HPTE lock */
- 			unlock_rmap(rmapp);
-+			preempt_enable();
- 			while (be64_to_cpu(hptep[0]) & HPTE_V_HVLOCK)
- 				cpu_relax();
- 			goto retry;
-@@ -931,6 +957,7 @@ static bool kvm_age_rmapp(struct kvm *kvm, struct kvm_memory_slot *memslot,
- 	} while ((i = j) != head);
- 
- 	unlock_rmap(rmapp);
-+	preempt_enable();
- 	return ret;
- }
- 
-@@ -1219,6 +1246,7 @@ static unsigned long resize_hpt_rehash_hpte(struct kvm_resize_hpt *resize,
- 	if (!(vpte & HPTE_V_VALID) && !(vpte & HPTE_V_ABSENT))
- 		return 0; /* nothing to do */
- 
-+	preempt_disable();
- 	while (!try_lock_hpte(hptep, HPTE_V_HVLOCK))
- 		cpu_relax();
- 
-@@ -1346,6 +1374,7 @@ static unsigned long resize_hpt_rehash_hpte(struct kvm_resize_hpt *resize,
- 
- out:
- 	unlock_hpte(hptep, vpte);
-+	preempt_enable();
- 	return ret;
- }
- 
-@@ -1868,7 +1897,7 @@ static ssize_t kvm_htab_write(struct file *file, const char __user *buf,
- 			nb += HPTE_SIZE;
- 
- 			if (be64_to_cpu(hptp[0]) & (HPTE_V_VALID | HPTE_V_ABSENT))
--				kvmppc_do_h_remove(kvm, 0, i, 0, tmp);
-+				kvmppc_virtmode_do_h_remove(kvm, 0, i, 0, tmp);
- 			err = -EIO;
- 			ret = kvmppc_virtmode_do_h_enter(kvm, H_EXACT, i, v, r,
- 							 tmp);
-@@ -1897,7 +1926,7 @@ static ssize_t kvm_htab_write(struct file *file, const char __user *buf,
- 
- 		for (j = 0; j < hdr.n_invalid; ++j) {
- 			if (be64_to_cpu(hptp[0]) & (HPTE_V_VALID | HPTE_V_ABSENT))
--				kvmppc_do_h_remove(kvm, 0, i, 0, tmp);
-+				kvmppc_virtmode_do_h_remove(kvm, 0, i, 0, tmp);
- 			++i;
- 			hptp += 2;
- 		}
-diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
-index 46dd550115a4..56083b415a29 100644
---- a/arch/powerpc/kvm/book3s_hv.c
-+++ b/arch/powerpc/kvm/book3s_hv.c
-@@ -1159,6 +1159,10 @@ static long kvmppc_h_rpt_invalidate(struct kvm_vcpu *vcpu,
- 	return H_SUCCESS;
- }
- 
-+/*
-+ * Must be called with preemption disabled. The HPT hcall handlers spin
-+ * on HPTE bit-locks and cannot make any blocking/sleeping calls.
-+ */
- static long kvmppc_pseries_do_hpt_hcall(struct kvm_vcpu *vcpu, unsigned long req)
- {
- 	switch (req) {
-@@ -1212,9 +1216,11 @@ int kvmppc_pseries_do_hcall(struct kvm_vcpu *vcpu)
- 	case H_CLEAR_REF:
- 	case H_PROTECT:
- 	case H_BULK_REMOVE:
-+		preempt_disable();
- 		idx = srcu_read_lock(&kvm->srcu);
- 		ret = kvmppc_pseries_do_hpt_hcall(vcpu, req);
- 		srcu_read_unlock(&kvm->srcu, idx);
-+		preempt_enable();
- 		if (ret == H_TOO_HARD)
- 			return RESUME_HOST;
- 		break;
-@@ -1834,8 +1840,10 @@ static int kvmppc_handle_exit_hv(struct kvm_vcpu *vcpu,
- 		else
- 			vsid = vcpu->arch.fault_gpa;
- 
-+		preempt_disable();
- 		err = kvmppc_hpte_hv_fault(vcpu, vcpu->arch.fault_dar,
- 				vsid, vcpu->arch.fault_dsisr, true);
-+		preempt_enable();
- 		if (err == 0) {
- 			r = RESUME_GUEST;
- 		} else if (err == -1 || err == -2) {
-@@ -1881,8 +1889,10 @@ static int kvmppc_handle_exit_hv(struct kvm_vcpu *vcpu,
- 		else
- 			vsid = vcpu->arch.fault_gpa;
- 
-+		preempt_disable();
- 		err = kvmppc_hpte_hv_fault(vcpu, vcpu->arch.fault_dar,
- 				vsid, vcpu->arch.fault_dsisr, false);
-+		preempt_enable();
- 		if (err == 0) {
- 			r = RESUME_GUEST;
- 		} else if (err == -1) {
+Peter Hunt (2):
+  net: wwan: core: propagate modem control signals to port drivers
+  net: wwan: mhi_wwan_ctrl: drive DTR/RTS via the IP_CTRL channel
+
+ drivers/net/wwan/mhi_wwan_ctrl.c | 239 ++++++++++++++++++++++++++++++-
+ drivers/net/wwan/wwan_core.c     |  69 ++++++++-
+ include/linux/wwan.h             |   3 +
+ 3 files changed, 308 insertions(+), 3 deletions(-)
+
 -- 
-2.54.0 (Apple Git-157)
+2.43.0
 
