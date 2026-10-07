@@ -1,46 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C673D567F;
-	Thu,  8 Oct 2026 07:18:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA21E3D4126;
+	Thu,  8 Oct 2026 07:18:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791443914; cv=none; b=fDjDtjzF1vF3K9pZQmUXjyG28fGlrdVi/YztyEZfjC/tLrhE+enAxx0bpx3Jwnjn1bJumr5nZUQQ5ukEQefHfQmAbHMV51RzUgs9JVeSOfLFlCw/PsUEGJS9qwRUvbjoSIGDPmKFMtxWIZ4CiPOIDssDAa2U8lO0OtjH6l/AS34=
+	t=1791443921; cv=none; b=AfJWK+OMNYsXZdiUkcSYQ1ik692NM9FQqPGZeOzAlk3dK+kc8n3ylxUOxblYynVnYb28BZr57nr8q9ukqoC0HZ2Q8sOPrQHMW5SMMX9G/S+2X3nxwChMbb4xJVIYFLhjO8/ryd/qOgoFQpRv8EQ48TQkuNS5X6M0smrukMqqmjM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791443914; c=relaxed/simple;
-	bh=TdV+HWlIgLPpyXaQywH7Oz1pJ3kWIQBUtaKLYOr1Kg4=;
+	s=arc-20240116; t=1791443921; c=relaxed/simple;
+	bh=ewOrkXq+bRrRDu4Os3t+fofh63NLyEAcQqs+crabOPA=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=TM0pMACpz6/iKOg7TuUS4syAHmjQFiSf6AEWUryZmf84u1Cf0QCzKe4H1i3WQE9hGGc/zJD4bAW4ETGMz7rIXpuC3KVGZdpCZoW63yQZBUThPa6XLyPolPYzYdUpHQfK1iwDgWVeBW9lCsA/cbMiVa/exSqxDXUDBOMoHc8+TqQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CBKdaQCC; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=YeFD09zprFDKLhhXhjWUsusA5DG6x9PVIJzvfUd5yC4eDCfTIOiMdoPv4vQrqSFp+L2rhEmrACGCKb/SF1DTchq4afSpbqxzM8/swjGlSDO3B1zenZMBF0TMsQSZs9jeEscLj8OoFMJTMP2L5QKFdWwTuBjRHtMc0zJijAlF8Lo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kC/60pwd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CBKdaQCC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF2561F000FF;
-	Thu,  8 Oct 2026 07:18:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kC/60pwd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 743981F000FF;
+	Thu,  8 Oct 2026 07:18:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791443912;
-	bh=i/+stlfT2Lq4mGo5w75oYKPCnXjZu8T9iSajrBuvcns=;
+	s=k20260515; t=1791443919;
+	bh=8+E9PpSt30DONVGdXRDcCFh8gVJfGqofFixgdMEE1W4=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=CBKdaQCCiq+NykJWI54gfNhND0k374+HwZx5OI4FZ9lQUyiAbwaLJ6N6xE9HmyNTB
-	 3O1iPRkSPvxshfZE2VAbWt8gnb1WZRAtb/aharJCALgEvjMlCON3NJ9emmut5Tmh1s
-	 MtBoCKtHRHer/N+1nygw9yvI5q2xy5nTdOFdSwpbD5RYbzc7ed+aWQIwMuU9TP0qbK
-	 Iq03VBWOu1iJP9/+FwlQaV3d/hTY6ZNwylvB6LJozmKCk0qBBzJK5lxZeav4ajfA2N
-	 vqw9s99w4jahrA829IwwP1tBONBPL3mIyOFAx2+9tiACDFWgIpVewn6F/4w+G1+9nR
-	 wlU8xe6G5msKQ==
+	b=kC/60pwdbWi1cPSoq42bI8r5T63qbWxifDyeQrYYqOtCUkxQ8+WzWKTOnrYcEFAZF
+	 UvC8Qah/yQCfbyr+5sSzOMofK8Kf1uMQE1tG0Q1/yC+UE0lrpsd7tSw4MsosYKpBy/
+	 qUZldWdRwyELOpu06w35/FQ8pVX8bySjSGzxI/tUFaJ5Aqd+L2I0QfRnkpHDlcYhmT
+	 o5HqellicQdxUn5BeFWIGEVrW+3GeBMUCH0a5m0sR3eShJ8igmxyjJ4yWHcpbDnFSt
+	 pSss0r4xQpT6YBZy+0LEGbgPSbPomsMBuaSrZl84apGBXynEd3+Y+A0ylKpzwh9SA2
+	 MWwZvrB6LzWbA==
 From: Mark Brown <broonie@kernel.org>
-To: David Rhodes <david.rhodes@cirrus.com>, 
- Richard Fitzgerald <rf@opensource.cirrus.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, 
- Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
-Cc: linux-sound@vger.kernel.org, patches@opensource.cirrus.com, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261001-cs35l45-ldpm-v1-0-545787a5afe5@opensource.cirrus.com>
-References: <20261001-cs35l45-ldpm-v1-0-545787a5afe5@opensource.cirrus.com>
-Subject: Re: [PATCH 0/2] ASoC: cs35l45: Adds support for LDPM feature
-Message-Id: <179137129144.2423942.14604502978432997591.b4-ty@b4>
-Date: Wed, 07 Oct 2026 13:08:11 +0200
+To: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, 
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>, 
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
+ Yung-Chuan Liao <yung-chuan.liao@linux.intel.com>, 
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Yauhen Kharuzhy <jekhor@gmail.com>, linux-sound@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260925135915.338670-1-mauriziocasciano7@gmail.com>
+References: <20260925135915.338670-1-mauriziocasciano7@gmail.com>
+Subject: Re: [PATCH v9 0/2] ASoC: Intel: Add Yoga Book RT5677 support
+Message-Id: <179138829586.2423942.18161759839325954291.b4-ty@b4>
+Date: Wed, 07 Oct 2026 17:51:35 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,27 +51,26 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1560; i=broonie@kernel.org;
- h=from:subject:message-id; bh=TdV+HWlIgLPpyXaQywH7Oz1pJ3kWIQBUtaKLYOr1Kg4=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqx0PBJOjDawjK4aUtqQKPKHtk4ljWO4TMwHfX4
- PgWso5MH/KJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCasdDwQAKCRAk1otyXVSH
- 0CJIB/4orVHGkGhwrQFh353DYNNe8EDA0f/U1RjPKhK1wryRs/gfL/OvDUytRbt1VUR6+W4cgis
- 37OzbdRFYNIDb3E/jx4xsSv/Azu8GiJlpxECeb7KzZSeKwLGJB2AzJB3UnYaqiKKH/bR6LUvSS+
- xxzI5TLHyZMmCv9TXctINhSRdxf2ZT5Eou3fk1wYzZWNnLYTlc4TOvt1wTjB/ynQ/tlmlmINc2q
- Hr3w5o7cJHeOhhOhCYwD6snZ7woYUfZVWHih2Q2SCQ1QOam1dZz+edBZtVCWgKniqDpUuj2AqCQ
- l+ZOn8DDqxZCDApaWMhMlNhdH+vjmlsOxCJ2nEfZ673ssIfo
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1439; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=ewOrkXq+bRrRDu4Os3t+fofh63NLyEAcQqs+crabOPA=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqx0PJtREz5y/BlIXj3OUoflWYD9Yo2lmZP91SF
+ XFXpQlEe0eJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCasdDyQAKCRAk1otyXVSH
+ 0H4iB/0WKVU+KlwwgfqVeqDuA5GN4WVmugwIBYO7s9+w9Q1EcmqffiP2oHHdGpVE/Tc4Ya0Xuq8
+ kHmSHtMpSYHouC3EvYdLRPgC3g/wbwBAsf48et4wEuOQCaLSmRf8pCx0VH9Gr1awQbc6ZXGVtts
+ xJj5xVwi6vV37faKKOKyyyBkFI8hfR4fmVyTkP9CHpSEs834HMDx83TlrOzcNXNRCjpZHSbbnIG
+ +IqOUfqYEaKpsAKL0raqqVzs649Z/2llytFhA8Inr/BibkbtgaUZDbwaLYKtkTgWcNw7oKub7gd
+ MPT8V+TAfY1Zq1I6YlgE+4/oQx75hyZsjspb99kKl6dSVGHV
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Thu, 01 Oct 2026 10:14:26 -0500, Ricardo Rivera-Matos wrote:
-> ASoC: cs35l45: Adds support for LDPM feature
+On Fri, 25 Sep 2026 15:59:13 +0200, Maurizio Casciano wrote:
+> ASoC: Intel: Add Yoga Book RT5677 support
 > 
-> The CS35L45 has an input signal level dependent power
-> management (LDPM) feature. The feature is used to reduce
-> power consumption when the amplifier is playing sustained
-> low amplitude audio. This feature is made up of two
-> responding groups each with a distinct threshold level and
-> entry time delay.
+> Hi,
+> 
+> This series adds the Cherry Trail machine driver and machine-table entry
+> needed by the Lenovo Yoga Book YB1-X91F/L with its RT5677 codec and
+> TS3A227E headset detector.
 > 
 > [...]
 
@@ -80,10 +80,10 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: dt-bindings: cs35l45: Adds LDPM settings
-      https://git.kernel.org/broonie/sound/c/cd4c07a11ef0
-[2/2] ASoC: cs35l45: Adds support for LDPM feature
-      https://git.kernel.org/broonie/sound/c/0ad64fbbb7ed
+[1/2] ASoC: Intel: Add Cherry Trail RT5677 machine driver
+      https://git.kernel.org/broonie/sound/c/5a0c90cb911c
+[2/2] ASoC: Intel: cht: Add Yoga Book RT5677 machine entry
+      https://git.kernel.org/broonie/sound/c/a0448ff85187
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
