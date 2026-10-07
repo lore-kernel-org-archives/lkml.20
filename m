@@ -1,153 +1,123 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-oo2-f0.google.com (mail-oo2-f0.google.com [74.125.231.128])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 515BB37204C;
-	Wed,  7 Oct 2026 17:27:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791394056; cv=none; b=bW2sdJVaCJvEq3idzujdE/c3e8y/e4fqX32PYteKo97Pr/+qAoewaR9LaIEeaOhvoI01eyQd0DAJKqIAnySA75f11bDul/HJPG1Fe5pYVUX8Gb/+qfY7xmPNVO2CkKMuFeM1IV6647LF2Wlb3mc957Aj0aZ5A6igpHrVkhhqNy8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791394056; c=relaxed/simple;
-	bh=hXqSgFKDPIcS+L/fbJ2NBvaZ9EyEjspTbq6kaJOERGg=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JNAubou6hwsgdHUkUaVNsIodqW5pUEqXEak9nu4UDl+iHSE3HBupJyhzGXzcZsZxOUTK+QLhYdVVwX+VndmWCTCHyQok3lMwHPvwNnIL3QLYOlPXnTPK09mAF8UnYdxBBTJJ36uyfAYQZw9k2/K5j/6OslAthkgLkuJXw9Erj+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=qTDOgatK; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=YMxPQhCE; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=qTDOgatK; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=YMxPQhCE; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFB5D356766
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 17:29:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.128
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791394188; cv=pass; b=gdgR8yDXmT4Ad4SRtnIvGLBYbIoXOAwrrG+RvgwB7FqxAV0sFTb6Ztkp1TXD+ldXlRCyTzoWCj8YZxEMzqviLAZstkgiemXXAoZErl4aqlYkixLJ1QuxHCTco+vX12mUsicSPhK2lxlFInFwe+SM7aXotCOuR1qERk8G0hfUzMQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791394188; c=relaxed/simple;
+	bh=zTRKIT0s2tS4ywlRW4Caixv+Mc/Gnk/vX5KSCXqaq5I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VGVnUobtK4ej7mvHiRzDP4bGsGRXgyWnRxFYy3rZj9+spJpAF00eI/Xy6WaDTNQ5G163AbRf5U0nUJu4nkxf1AxTPPpbD6LEjagCyUI9d94BsWNEcgeB/ZMb9CprxImX12DT974M6RZoBF1KlEcFvGr0a7Q3Zjmi+GpG47Bxbs4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PGaUx81Q; arc=pass smtp.client-ip=74.125.231.128
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="qTDOgatK";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="YMxPQhCE";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="qTDOgatK";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="YMxPQhCE"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 4AB2821BA8;
-	Wed,  7 Oct 2026 17:27:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791394053; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4qvTJqYu40uS+axdODPIBD9MW1AJRPDCwhsFzGRu5Ns=;
-	b=qTDOgatKqKAuI8fj3lzNt3y3AwS1WqQaJSTcqSJBVBexC5CpJOHw5Fuo46iJ147hCZfAyR
-	tVzhyhCYifgsV2DLoXeqn9x9Ee0KfSWr7AFD01Wytu+qwbGUZMGvidaUOPdK9FRBiUFJ2x
-	WJ5Wy1Aw2fWZvXa1pVKCz5hU3/88KtE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791394053;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4qvTJqYu40uS+axdODPIBD9MW1AJRPDCwhsFzGRu5Ns=;
-	b=YMxPQhCELhG1mAiC8+I1FLUmjPOvHOc1kU8QxXougslexlSX64wTQJElieacOXWNPa227Z
-	aKv/3Fp4HWeRSaBg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791394053; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4qvTJqYu40uS+axdODPIBD9MW1AJRPDCwhsFzGRu5Ns=;
-	b=qTDOgatKqKAuI8fj3lzNt3y3AwS1WqQaJSTcqSJBVBexC5CpJOHw5Fuo46iJ147hCZfAyR
-	tVzhyhCYifgsV2DLoXeqn9x9Ee0KfSWr7AFD01Wytu+qwbGUZMGvidaUOPdK9FRBiUFJ2x
-	WJ5Wy1Aw2fWZvXa1pVKCz5hU3/88KtE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791394053;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4qvTJqYu40uS+axdODPIBD9MW1AJRPDCwhsFzGRu5Ns=;
-	b=YMxPQhCELhG1mAiC8+I1FLUmjPOvHOc1kU8QxXougslexlSX64wTQJElieacOXWNPa227Z
-	aKv/3Fp4HWeRSaBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1C11913354;
-	Wed,  7 Oct 2026 17:27:33 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id J5a1OQSBxmrUEAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 07 Oct 2026 17:27:33 +0000
-Date: Wed, 07 Oct 2026 19:27:24 +0200
-Message-ID: <87ece1775v.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Devin Christensen <dchristensen8@proton.me>
-Cc: tiwai@suse.de,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5] ALSA: hda/ca0132: Add Sound BlasterX AE-5 external RGB LED strip support
-In-Reply-To: <20261007163207.2621040-1-dchristensen8@proton.me>
-References: <20261005141244.2130023-1-dchristensen8@proton.me>
-	<87mrsrorxc.wl-tiwai@suse.de>
-	<20261006152520.1409881-1-dchristensen8@proton.me>
-	<20261007163207.2621040-1-dchristensen8@proton.me>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PGaUx81Q"
+Received: by mail-oo2-f0.google.com with SMTP id 46e09a7af769-824040a3379so1977380a34.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 10:29:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791394186; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ch527Biq88k3H9+qbKcLTrN4SVXFkHG4LUA1Q38ODhKAgEcYjtO8VUf3iA1UK5ZnTw
+         1V8UnltAfUvLndgFBbc+0tPJhSQAQcs+Xwh3AaPZaf8Jv6jGPpU3j+UIvIKW20jRrSU+
+         sWz2RqmDrRckdnbfhIRjqQ4577P4i3sz36upLNWdxGGkwYBSF0siXCehL9S/mniDjRgl
+         jl4sFGpCXZIeStMO1e3VUikahyzJy4byTtnVTGhNGIC4hZktkkoEbp+jcciGgVWdXNG5
+         BBx+DdrPav9Yv1ULs2Sabs9cWaE7F6bVJFrJSaL7rN4aKphQZemIQsjAgQOF2u9RJQTP
+         H02Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=YnViTh6p04B6V5Rf/libt8dMfoBMvVqz2GPx2ijVnM0=;
+        fh=8zot1upSI2H8R6lmImMcAZxMGhNVqbOcRaR+I24P3hE=;
+        b=QyLD+Ms2f+K/f7IY/4OTsm/ClPPFdLR67QTwsE123Tu6cxldAgY6GuXZgcWUwrKP4V
+         ecrpr9K9OdDr9TJWFbUC6S5mQIPo4UKwv7hO6axiA3DUFVcE8LIDVKW+ldfFK8Mcavtf
+         BKiY5kPaWSEDLhPlW7Cx319Vk2F/NtT8ONCEWBN+zP3Za9u7K5vIFvTGmm5O7jNJH2Yk
+         ORFTnXJrQdDDmA+SEzDW6jdMz6xvU/hHtwohfWzTeURGxxJIexBc0frcRhClZQN8roCp
+         7RagJmhAN+ccsv2bzntMjMp8HpdEkijttFEign+ok+TtDuOs7wlVIa/6KhONc0CUinG3
+         IxSw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791394186; x=1791998986; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YnViTh6p04B6V5Rf/libt8dMfoBMvVqz2GPx2ijVnM0=;
+        b=PGaUx81QKnvLqC7bDwSMY/z8Nqbmf6a+1L5WRxFb1rx2cSujFAT/MEQJMI/RJL3y07
+         gvUq4QLJn72zWMVgplmXC/SPFxlPh907Oz7qJrTimqwdp6Zxj2fPwpi7kq8vH7WuMPw0
+         r8tmDJ5o5pFgd9+E3AsxKHZ+Xulw4mkDKh5YoiL2geX4CdCL7Un8D5AXDM57+gRU/nSx
+         B/fIoHCxu35V2tXPPG6N4suOCYAOqmI/fZSjkyVrEcFIL4doJgxXJbi/xFrlMOwiXkW3
+         N/RokhItCo7NiV3XPbeFqO1Jfzz83A1bxBiO8783IXO1GI522ttLAjnPycIXu8AmIwx7
+         kjIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791394186; x=1791998986;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=YnViTh6p04B6V5Rf/libt8dMfoBMvVqz2GPx2ijVnM0=;
+        b=SymU4m0Wk+20dymt9Mpe4YcCQThlzRC8LcmjJWQMK/kk8vV0gY+/lQW8/Wejj2D+km
+         xwGkofMc+y2yKSssf8ocVp9MFb+gPfbP3hkYBZ1Oz4UssXQimWE2xNcTX4xRpt+TI/1G
+         gGT/+3nA5pb9z+rKYHq3kCcF/DPWDxBN+BUZUksuR9yuZv+b0MwaB4re4zpTYGWaV6UM
+         ucUhdEMTHw5ucz+UnSLkLmqMnvLhtv+MyCqAuN4NWnEEzescsiujzziIv9QDkl6M+Spk
+         X6WD3QTCvEp+nbfmY2l1QU3pFw/6umpc9C5WdojeV60imrugj0vSe+gkm9twLKWfIcZQ
+         mMzw==
+X-Forwarded-Encrypted: i=1; AKwUvBxg8SKZt8OTLCbJsR2OPqmnxxVojE+5A14oX96JCmfI7jsjwEkB0gpmaxano7E0hamw9Bz58c2UVv01xk8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mlEL3tj6TaXw4XELMupo9rkjHQNfXvFI4KFQyEpq/a1kK5mXvu
+	0WrfhJxMYpT2PZ3Dwas8D93/oXoiurSzu7Lv81IB1LKOr4nyaHuf8aFXIoOO7zFSdV66Sn/ceYI
+	uJyDcd2SbGhPx7sofnc7s63W5aadqong=
+X-Gm-Gg: AYBFou3V9AyNPa6BgXbkNpwkHSlC15GNEyHbaGQirL0jlPIgBEQmVSR1jqQo9uJg2+i
+	+dyK61pKgnbW0y0KcYRJ4yRInYh0HpXOVwB5wAmgfDQwZYSCS16Lnl7wEMvRvXYqRdhdBr2qDS0
+	tMlUcrvM/GzdkN+CNVnevGRxgaSgLH0e6xI1bSAbT5pFkk8KjUAHiW31cFmNwobQJDIvs385FZe
+	fwzem28tXU9SGcvqGfPQXunyZd4F8s1jzPwG4YgUeIjrr7sbMikqTbCqquTsTFZlhPPJPD8F+ku
+	upIT4Ee1F9MJGgB9Jxfgjgx7eBwluAzqal3AmauRvSps43cZcNJarkZKv1CFnZvu+yy4MGjuOJn
+	cUESjwoE6WeEF1w==
+X-Received: by 2002:a05:6808:4f69:b0:4ec:ba7c:1dbe with SMTP id
+ 5614622812f47-4fc4729811bmr3186518b6e.66.1791394186597; Wed, 07 Oct 2026
+ 10:29:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Flag: NO
-X-Spam-Score: -3.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.994];
-	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+MIME-Version: 1.0
+References: <20261007-fix-disable-irq-safely-v1-0-45746f9a92de@oss.qualcomm.com>
+ <20261007-fix-disable-irq-safely-v1-2-45746f9a92de@oss.qualcomm.com>
+In-Reply-To: <20261007-fix-disable-irq-safely-v1-2-45746f9a92de@oss.qualcomm.com>
+From: Hungyu Lin <dennylin0707@gmail.com>
+Date: Wed, 7 Oct 2026 10:29:35 -0700
+X-Gm-Features: AclHuK9vHOpqv4f2YdIvTFbohefG3iRaIeqgIeMjJY_8igy6Stps8jGud7-4xKQ
+Message-ID: <CAGEkeHd_KRRUZ8Kqvmf2BWF8stVg=_FSbx701ibS=KdoAy4FZw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] media: qcom: iris: Wait for threaded IRQ completion
+ during power-off
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
+	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+	"Bryan O'Donoghue" <bod@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Stefan Schmidt <stefan.schmidt@linaro.org>, Hans Verkuil <hverkuil@kernel.org>, 
+	"Bryan O'Donoghue" <bryan.odonoghue@linaro.org>, linux-media@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 07 Oct 2026 18:32:14 +0200,
-Devin Christensen wrote:
-> 
-> The Sound BlasterX AE-5 and AE-5 Plus expose a 3-pin 5V addressable RGB
-> header driven directly by the CA0113 PCIe-to-HD-Audio bridge. Rather
-> than using the CA0132 DSP or MMIO GPIO, the CA0113 contains an
-> autonomous HDA link sniffer that snoops a designated HDA DMA playback
-> stream, extracts the 24-bit GRB color payload, and serializes it as
-> 800 kHz single-wire NRZ pulses to the strip (WS2812B protocol).
-> 
-> Expose the strip through volatile card control elements:
-> 
->   "AE-5 LED Strip"        (RW, BYTES): 300-byte RGB payload representing
->                           up to 100 addressable LEDs (3 bytes per LED).
->   "AE-5 LED Strip Count"  (RW, INTEGER): Active LED count (1..100).
-> 
-> The controls are marked with IFACE_CARD and SNDRV_CTL_ELEM_ACCESS_VOLATILE
-> so changes do not trigger unnecessary audio daemon wakeups or state
-> restoration by alsactl.
-> 
-> Writes allocate an idle HDA playback stream, format a 32 KB DMA buffer
-> populated with repeating WS2812 frames (preamble, audio words per LED,
-> and reset gap), configure the CA0113 BAR2 serializers and stream-tag
-> pin mux, and pulse the stream long enough for the reset latch to fire.
-> Access is serialized with a per-spec mutex, and the controls are only
-> registered on QUIRK_AE5 devices.
-> 
-> The strip transport uses snd_hdac_dsp_prepare() / snd_hdac_dsp_cleanup(),
-> which require CONFIG_SND_HDA_DSP_LOADER. All strip-related code and struct
-> fields are conditionally compiled under
-> IS_ENABLED(CONFIG_SND_HDA_DSP_LOADER), with a no-op stub for
-> ae5_add_strip_controls() when disabled.
-> 
-> Signed-off-by: Devin Christensen <dchristensen8@proton.me>
+> +       if (!iris_vpu_watchdog(core, core->intr_status))
+> +               iris_vpu_disable_irq(core);
 
-Applied now to for-next branch.  Thanks.
+If the IRQ thread records a watchdog after this check, while
+disable_irq() is waiting, it skips enable_irq(). The hard handler and
+helper would then have disabled the IRQ twice, but the next power-on
+only enables it once.
 
+Could the helper recheck the watchdog after disable_irq() returns and
+core->lock is reacquired, then call enable_irq() once to balance its
+extra disable in that case?
 
-Takashi
+If you use this approach for the watchdog fix, could you also add:
+
+Suggested-by: Hungyu Lin <dennylin0707@gmail.com>
+
+Thanks,
+Hungyu
