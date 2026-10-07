@@ -1,151 +1,126 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7F98360745;
-	Wed,  7 Oct 2026 06:03:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791352984; cv=none; b=pvqjT6aPFgJEcbmiNRXPfCVHDHqCKF1syjFzqUay9kMcI41WEbgkyNi7jEs5yCiVNGcDLFHRKuZ0oGZWXqrGSalE3RRuCLj3olb4u/WkIHhZc+SN+n0wttDSRhx6ylxcRNPBT71I3p4Sfp9HTRNFD8yghJXtTG1/z4v5ssu5690=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791352984; c=relaxed/simple;
-	bh=Twd4QPSMnhEAZ6eNYHQPUdwe08ccOUjpfOhnOIWIgcQ=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=IWxLMsTsRZVjDsIdOLdBAiAN0OY/kzXATeq2kxNoRFfmR8+KZx8dFb3NtgGjl8Q+Za2NxNkaGqTJvTGRIxDjTcPKTt0djM1gZYmPjlyOe0wBjON86BPtxgZbsLx218c5lEq6sD9i8BXzqWBaeIS/gePuQcPhzdjTHExqW7LpRgk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=ec0v8xVG; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B33B331EDF
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 06:03:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791352986; cv=pass; b=X40LjI3PrKMEx10N+JKXiEtpd0Gj1PaxdKj8rl72ICJASFQghub7ktrFAf5Ez6oTrwmxKLMjDhXJB/86dDHjSzO1bLSV3/bCYWyO1HeIL/PbJzktEKz52wrHAdkrNfzSzcK1+3hRoSQCKCFnzQ1PFWtWehPU2iop7Upr/6pAkNs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791352986; c=relaxed/simple;
+	bh=FieSFhLdozKsUNyoEr9PXiW853gnhNUhDQ5NE6wOnaU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Zx+Hb5o6+utQEGIk2gsAizzlldzNH9nVihxk1/qzybJfEsXc0CtKR75oNoogQdiq2czEARtZx6dlg3w0/yj710w3Inmdq5p3+rghpUWA7ORP3EQoXoLu2zHUljvTpG1v0UP4jmzcYb47b4VTCMMChUGKLrwgWASaoZu46UqRk6o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=U81xgbUH; arc=pass smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ec0v8xVG"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6974aM8I1409150;
-	Wed, 7 Oct 2026 06:03:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=I5jlJn
-	E0No2ZIr3sR2xudJs8qzwwleE6Sl8rMLfLRW4=; b=ec0v8xVG7Wzn5XnpDGaDJ5
-	BkLmhpEg9Dp/ZOQFmGkKihJibmKunuiNmQr0QJ877JnHdnqk1zDHVhFfHpNhB31x
-	t9HqvsIqqPD1l0GUhsIVsJzYCA3T5e2TDW7Q2gZD5pdyv6ABCdo/akY4QxzC5B30
-	a9yhThvtmaQfu2nHyJmVw6WbxHkmbTVW8dS2MX1lte68Fo5hENJXq/Qgz6fMFGe8
-	1WwyCDtOsPoftJpz6y71pWkAA5SqX48+4wHwhNMR82Vyuh9sQeVXRTfbNDIqju89
-	aYu66r4Q44dTteeYTGsjHPI5kUIVogfduYGn6AH6+V9Putm7jwOMBbi9IQjaLVeQ
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2q4juat0-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 07 Oct 2026 06:03:02 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6974WZVJ100192;
-	Wed, 7 Oct 2026 06:03:01 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h5f3tr8s5-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 07 Oct 2026 06:03:01 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69762vME52560228
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 7 Oct 2026 06:02:58 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E338A20043;
-	Wed,  7 Oct 2026 06:02:57 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5A72E20040;
-	Wed,  7 Oct 2026 06:02:57 +0000 (GMT)
-Received: from localhost (unknown [9.111.168.1])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed,  7 Oct 2026 06:02:57 +0000 (GMT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="U81xgbUH"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-487048857f6so1144731f8f.3
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 23:03:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791352984; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Lzi42ZUhMZv7o7l6k8+Qw3AyR7573kZz8woxRALVG+AB/bb4iyGC1XP1oBE/DmZEmg
+         EC77/x7JA4toew2jWSGKWVaRg7i7paDGN6VVqo1MbqSpgWJHtWawlpCbScQLEMtZM5Yb
+         KngVuRfKyNJZlfwAmxZo4w6Dw3X57zDz6XxK9bnJiV7/KqD0sVHK310eGR/w5DcrcV3F
+         dP85c59ehOhsQ84JTyNklYtysCwBzeVJwDRonL+luSRjS0fkjtr9W0QslGHO1OTgq9KN
+         rt6csaWUUIcP5ZYR6KUv6GYFe01vKfzU0i5vdANXlD2XuteC3HoUa7Opnl0MxWasMoV/
+         EfrA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=FieSFhLdozKsUNyoEr9PXiW853gnhNUhDQ5NE6wOnaU=;
+        fh=YcVtoMC1pRZimeaBw7rgxzJH++7drNiN7LPxf/FgA+4=;
+        b=j35mBZWdGjDlicTZT7Cvib2MeoFu6oeBMf3Cq6edAdnITsaL2+5tEmGORxzmLPiFI5
+         ljgz/FJDOTZQPrBDiANrXRv6Q8gPbgJNZwP5xylRQeaDwxUFvK914iFKYoYiQ5JwkFRQ
+         o6lrFxn0ZxCTc1rFheUVftfe+D/diof0eq3pQeR97etj8D3l48f33cuk3TpY7/yBjj8y
+         yhcvoHLikPdgsdJv01J+cNDADYSzjWqj5pNWMW18Twp5NXOPvnlFFLy5dfvRJdzWPtje
+         J9T3HpxDmRjRnltLZV3EJQnLnq/cB+6OhB4Y63ui5kf6MexPbHdtagOQ+v5lZhVT9Yse
+         7DZQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791352984; x=1791957784; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FieSFhLdozKsUNyoEr9PXiW853gnhNUhDQ5NE6wOnaU=;
+        b=U81xgbUHTEHIe+zPE0e5sgxSsNp4Z+8+8Tf0uxVgUtba7L69pBa4pyRqmeIZ61G4MC
+         eQsY21rWt9/cHrkQ9PQX3jWtgZQB/YTdRLE/kTz58O6z8BB1jfAJCgyh5rUNEVZV4JGs
+         2JiU14f/B4RueP3vHu49LFGDXEIJeRP+O/OhiFxs0AfRrqjP1Epy7XdxIkyEGD92/44j
+         N3l3PssF+yiL6hRChw+3c5xI0jNLv6bGgIkPec/zh3Hpn4PyOPqpe8ciaH4lZz8mrua5
+         v9Fxx//Tmao35o7LJTP3nYiP/pksSC+kIjhE9dZiQoilqkKHv0EtUEA71nu4GO8ntZgf
+         FCrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791352984; x=1791957784;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FieSFhLdozKsUNyoEr9PXiW853gnhNUhDQ5NE6wOnaU=;
+        b=qolvF3QJ7toyaHdmvGa9V/4+BylElipHswpx3cbXuy3izgFDoChljgAtfX4cavvsLI
+         NliLXsZ5yBPSBvySSxShEyX+GbaN/ZQPbE6WIxX/aCzKesITaBo2oJtiSpw6eVMXqB1e
+         LtU25tLG0XpzfpXBFcClLOT9tvBj7eBsQ2eap9QOxqE+fjzfrJQFKim9uVjyMHAluZjh
+         pZNTKcceIEXDehDNvOb9DkrsCxsgJri6tPnLOXVfD3TqJ/v423QfhbB5ZOguWPyZkdUM
+         LF3MNxz5mPvTZdpbLfZl3UdbDeF6AUIfWO98WuyK0JPhFoxFjlHRBJKmIwoxvokrsdP3
+         5KAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy76kqbmBW3Km4Gg7XRGzg5NLQ6tIb/p7lH0SdBPQMZwX9fb27PFbXmKHaP/X6V/UO/sGlGXILxm+2vQB4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLYvJ/IBQvZr4zEuSPxPtvIDLP9yG5c54HP1va7AKLxrXoSWkG9
+	XVL4XVszkOC736mobCtiwNb6v7q4n8jeT5IZtMsNeug996jygYs9u3h3CvCvsjtUIDAj5cHEBML
+	rWxGrMln7yQLdPzxd4729No6qKJgsFGXy4doYYA4p
+X-Gm-Gg: AYBFou12OFZfRSN6LUgjBxWcWTAzclP2Mz6fZFIuso9Qt+gdnk+YcumyryWG94bGu2e
+	TYq2ice3pcL4Cy7dVig7y87N+Si6ePOEaZd+DenlX7TsGwSYlSRNXFJAJlRSGqBFEPsZJWRdMm7
+	YJQsyoAzOpHlO5Q3ysO5pu/lHIVjnjIoJlpJFBy5FMJsdFly8DUD8YAVECLJRMilSYdKDGEY/4v
+	gmDoaZoYXCT/7B6tvheCmDjSgAEXVR8HZU18ewKUL/SBGEXLEtn6gPloKKe2pc0nlSl9j+CLtwk
+	lfeLp70kznOyUnoxAv9BtubFmHV4FO49Ns0Up5tIKnWOP4es0xWKrVo0+3L3ZeKbtpUPfuWvyJp
+	VfNnjaiA+iY/WRGmceGN0gg==
+X-Received: by 2002:a05:6000:22c4:b0:487:27f9:840 with SMTP id
+ ffacd0b85a97d-48c72898491mr2425269f8f.53.1791352982922; Tue, 06 Oct 2026
+ 23:03:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+References: <20261005-devres-6-18-backport-v1-5-06dcf0e592d5@google.com> <2026-10-06-1-daily-reply-0001-rust-irq-cookie-7.2@kernel.org>
+In-Reply-To: <2026-10-06-1-daily-reply-0001-rust-irq-cookie-7.2@kernel.org>
+From: Alice Ryhl <aliceryhl@google.com>
+Date: Wed, 7 Oct 2026 08:02:50 +0200
+X-Gm-Features: AclHuK8hcWrWSzFx2gPHGU-ZsxcJZ1WfkgDVOXDwBNO83no3aGdcmvQVaOUlmNg
+Message-ID: <CAH5fLghSL4skGJZM3wmvq=PYiHVgB6gRUZTg18wSx8x2rETT6g@mail.gmail.com>
+Subject: Re: [PATCH 6.18.y 5/5] rust: irq: pass RegistrationInner as cookie to request_irq
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Benno Lossin <lossin@kernel.org>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Boqun Feng <boqun.feng@gmail.com>, Boris Brezillon <boris.brezillon@collabora.com>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Eliot Courtney <ecourtney@nvidia.com>, 
+	Gary Guo <gary@garyguo.net>, Markus Probst <markus.probst@posteo.de>, 
+	Miguel Ojeda <ojeda@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 07 Oct 2026 08:02:57 +0200
-Message-Id: <DLYDMSY53U6G.3SEUW3DCM70AZ@linux.ibm.com>
-From: "Tobias Schumacher" <ts@linux.ibm.com>
-To: "Niklas Schnelle" <schnelle@linux.ibm.com>,
-        "Tobias Schumacher"
- <ts@linux.ibm.com>,
-        "Gerd Bayer" <gbayer@linux.ibm.com>,
-        "Julian Ruess"
- <julianr@linux.ibm.com>,
-        "Farhan Ali" <alifm@linux.ibm.com>,
-        "Christian
- Borntraeger" <borntraeger@linux.ibm.com>,
-        "Halil Pasic"
- <pasic@linux.ibm.com>,
-        "Matthew Rosato" <mjrosato@linux.ibm.com>
-Cc: "Heiko Carstens" <hca@linux.ibm.com>, "Vasily Gorbik"
- <gor@linux.ibm.com>,
-        "Alexander Gordeev" <agordeev@linux.ibm.com>,
-        "Sven
- Schnelle" <svens@linux.ibm.com>, <linux-s390@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 4/7] s390/pci: Fix use-after-free race in zpci
- floating interrupt cleanup
-X-Mailer: aerc HEAD-0d169b7
-References: <20261005-s390_irq_domain_fixes-v2-0-d45b824874c0@linux.ibm.com>
- <20261005-s390_irq_domain_fixes-v2-4-d45b824874c0@linux.ibm.com>
- <ff4e4c7cbd39dd457892589a5f75e9be0bcc060f.camel@linux.ibm.com>
-In-Reply-To: <ff4e4c7cbd39dd457892589a5f75e9be0bcc060f.camel@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: vn-bktPFFv58jOlubg4XYe-q0xb9XyK1
-X-Proofpoint-GUID: vn-bktPFFv58jOlubg4XYe-q0xb9XyK1
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAyMiBTYWx0ZWRfX4Hy/jl2hyyK0
- XenSjvEGPYtch9Ynw9jot3UPC8V3uO0ioueBJ4nV8FDAVTxSOjuZXB032HKhLQTI+um1Cm8K92n
- iG/k4CJz0AeRIyCymmLqWNTfvLM++8g=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAyMiBTYWx0ZWRfXz5NRqxr7XQwk
- vqpNtOFNsUeocgTk5Disg7NZDhhr3XeQD6QcgmRUJ0ugV+EncnuTLtzqLs9qQzatCHReWYIFfSx
- FhJAtRb8OQszuW2hBoork7hJaaojgTIhOCYEBOZmUWcYYWGhZaUAz1WQXVVIFLrx3UEUUWjS5Ut
- XCfBq9J6mIgmS7l6A1rnLU/Z1ij5o/pBHhpuRVmolioJmQ/3zgGzIRW13vAey0Qb7WzfSCVbxwr
- br7XcgloKsIu8W1rI9gdrPxy5Yeauz71yljH+51QgbP89csKWFZnVcxj8CoRXVgUje+isUSYu4S
- hi2MRuFtxir1uKewOlIBkiyfir0BScconb5DozIV9VJuEF+9iSRedNlKZrIpGL6/s6cdsK/bFz5
- 2M8h9HyhHhhmFOktQ1tbRol2di6zER6ofmJHlI0z/5qtd17teQQD6oMj4JzQAydI+3cGhz5X7Aw
- WvZ9XUKVCexlH5p0Qug==
-X-Authority-Analysis: v=2.4 cv=eYeo7LEH c=1 sm=1 tr=0 ts=6ac5e096 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=A5doXAPnzZ6mdjI_Yh0A:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-07_02,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 clxscore=1015
- spamscore=0 malwarescore=0 priorityscore=1501 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070022
 
-On Tue Oct 6, 2026 at 9:23 PM CEST, Niklas Schnelle wrote:
-> On Mon, 2026-10-05 at 14:03 +0200, Tobias Schumacher wrote:
-
-> --- snip ---
-
->> @@ -660,10 +664,12 @@ void __init zpci_irq_exit(void)
->>
->>  	if (irq_delivery =3D=3D DIRECTED) {
->>  		for_each_possible_cpu(cpu) {
->> -			airq_iv_release(zpci_ibv[cpu]);
->> +			airq_iv_release(zpci_dibv[cpu]);
->>  		}
->> +		kfree(zpci_dibv);
->> +	} else {
->> +		kfree(zpci_ibv);
->>  	}
->> -	kfree(zpci_ibv);
->>  	if (zpci_sbv)
->>  		airq_iv_release(zpci_sbv);
->>  	unregister_adapter_interrupt(&zpci_airq);
+On Tue, Oct 6, 2026 at 11:36=E2=80=AFPM Sasha Levin <sashal@kernel.org> wro=
+te:
 >
-> This is pre-existing but my additional LLM review noticed it. It
-> seems like a theoretical race and against the reverse cleanup vs setup
-> rule, that kfree(zpci_ibv) is done before
-> unregister_adapter_interrupt().
+> > This is not needed in mainline because commit 98c63ce4d760 ("rust: irq:
+> > make Registration compatible with lifetime-bound drivers") removed
+> > Devres from irq::Registration.
+>
+> 7.2 has the same uninitialized read. Devres::new() returns Result<Self>
+> there as well, since ba268514ea14 ("rust: devres: fix race condition due
+> to nesting") is already in v7.0, and the refactor you cite only arrives i=
+n
+> v7.3. This patch does not apply to 7.2 as is, because d1880d5f5899 ("rust=
+:
+> irq: move 'static bounds to traits") moved the context lines.
+>
+> Could you send a 7.2.y variant of this patch? We will queue the 6.18
+> series together with it.
 
-Good point. Since this goes back to the original adapter interrput code,
-I'll probably add a separate patch in v3.
+Sent! Thanks!
 
-Thanks,
-Tobias
-
+Alice
