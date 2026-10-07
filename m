@@ -1,313 +1,231 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 656E53F12E3
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 05:44:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E996B3C73D9;
+	Wed,  7 Oct 2026 05:44:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791351881; cv=none; b=uJYPvJsW4t/BnyWVJhaRxWyH59GIv/hpW65umN4jWWtpHVDs2A+RhXjiYCp5AyReSk+6h1l9qOduRXxZ2dkI/5u6YdSQ93AhRdhGNAy5v9pVrf6cZSf0uIMPRRlGyUctZD9xIlxgzUqc0p509LVlgQwiWNhukw//3GzeX+xX3Tg=
+	t=1791351896; cv=none; b=jEmObrmCiWoN7X4YHIzLQsj9kgXyY3mC1g1CFh389fFqv9n/fdezKBg3rHo6QyHMbCw4lRykolsGT+1tSOcaviF1WlUiQB87xdYyJO2Ptvpquc9kHZW5VLHb401ZFb77RQlR2pI1omgfnt589HDT7BI38mjn18RImN5cKm3KbiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791351881; c=relaxed/simple;
-	bh=ynjoLLi/n3KHDvPRST29+7ahVSC3TrfwzXl6tLKusn4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=l+qJTTlyThd3ya1zImiheqgEsYB4pu5PMPL2kq/+CTXpP3v6yvayGhOTdv0uwl7B8R9q4y44QzwjVfqj7hgdkhouAHi0nHMFRA73OPM78GPz9zUZz0mSKWz9RaX2aoaHmdvtnMvGzv/CCkhEXBSktHh5UUUmtyoIrHu9YmwvTBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P5JoKDh7; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791351896; c=relaxed/simple;
+	bh=J/2Onj7V0dCNt1OC5RVVVBIM5Bm0bM1Pvp7qNP3PQ7c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rLqVQVXtHm9CF8jPJa+22t2CFdHFkyVESun7ppAWCzFhPelAXhOaycCaRgD7pmtfcg1rpUBqIbhqc1ayRUuVrj+vZQFP/UnIZn+erChgFgr08CftbXxEbZpjET0cqK4z7nOKz6xV561tKHbANwY/uWqxtRLeuQJNGqUH+01iozc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Lg9gZRDv; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P5JoKDh7"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49ff680331aso36668985e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 22:44:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791351878; x=1791956678; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Dm9oz8PbVLbTHr6sUh2Zmk88hMu2YoF1bMSolTgGPRo=;
-        b=P5JoKDh7EBaOp2EyL3T1jBlCMcsAfzyZAcWxZV1tCF48Hik3o6VXsQs/k59rdTGL9J
-         BzrwMAzKkGR5sKoEWuO79WMkWObmaXF/I5MUV4K8Qwp8FP/thRaZfopof5DJxZMzCdWK
-         r0W+2Qv4npUO3DZV0nVpII+VIPvRoH0jS/PuxYDI4csg4BQGZsGI888PADi3QwYYmV0w
-         CRbcBXg5CK07GA2133R5LY2CE/vqJoJE1KL5LFlgopocou3Diw06S7VFR+K4qjLidiXO
-         qBCfb7/We2U39DgmxKOm9n4PiAXSZT6V6fv9clPr5TYVAMz9cBuElnnz9zkzyMmzL2iF
-         0Jxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791351878; x=1791956678;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Dm9oz8PbVLbTHr6sUh2Zmk88hMu2YoF1bMSolTgGPRo=;
-        b=RRpMDdOfIGZdkWbysJaxFpaayZsoqxE0zxCVkHLbvdMecHNNtgxjwPMWjfjfz2zzOg
-         s9/oTK9kkLHWwOqK2/LTSVkPc+ujqZDljBEU7sUyicFrhVlhiIKRdOsDRtVcxacdgih6
-         s18bJ7fdW5ugTltr3xU8Fl5qmt/l7ZQpEnzWeLbtUH/T8v678Q968PUDiSPBUHXdN25v
-         UZNFfGOUv4h/0HjYhrnjG24bH0bV4pCpN8y1iFyfrdTdDSB2tQWxaanxHghlR0/CSFXS
-         NOa8Ccp40H3pIyYMiQBbYTnrAPUEHvOIhePplIS8QhYyjwIIqyvoZ8vMVbK1SY/Zoo1D
-         zqeA==
-X-Forwarded-Encrypted: i=1; AKwUvBz0+8X7T7Bp5xOlyjj+uzxBEe70wWdDw7N8OIWc6IE/mg1QyMn5q/chL3AL1/NGpHjiywOTc8rpt5HM7qc=@vger.kernel.org
-X-Gm-Message-State: AFuF++ldZUZnslEIV+6fZvAomURv/nHJhF/6x8D51RVHw5BSs5jPW7By
-	4kan1YZLhAH1e7Y1BHOBwO5+NjIAaLWscOYH0RtE9ABuMn43qfotHMQOK7dOq4Nr
-X-Gm-Gg: AYBFou3BEGTJsAp1QkwHFHlkbXEcrxhopj7DVeta4p9w0oH6Ux/9Uf+FACc7JZvij0h
-	7RY3i6Sco2/L1BrXKpge0FrT4DUMPTTfYXwjPC+HbfhlkDzmqdsgd+tD1BfmqXFm028Lh+G7Aao
-	DnJwfvoXyV7Fwq4EzOjW0w+QcxIhi5XQ3LvPvYwk7tlAuDR18ZUn3mCEwzVgRWeMvFM2wj/0dcZ
-	JItCW5yHG/Fvw1Nhtbs5ehXQB4aalTlPIpoNYk8grh7DgZz0wr730nrv2cz2c5nFTP87s3lkoI7
-	1EjeeTaF2duDeFnTsIG5fSw8nEdnyxiDgeNglK/t9Ns6dSHnhrITkOd80A291sarnrDc5iUPNB9
-	J4YqAjNKXJIfR7Lf62CB8U5lhSUahbNZbDHU4JZEe7RhYDhzNo5UIH2yIZcRvQA3meNADaGmZNF
-	EP6ksNQ/fKTTnhYXsnRgVMISGF0U3djY1RoR113IHpgj0gLGVBLTrKN0cNk3oK4oXsus8/vs4Cf
-	p32VMAdbMCBDdA2hL5EFHm661YLgVMnKXXL7jbT+kJCB44vEoS1kQ9gGk1j8S5EhyNAUTl6OeqW
-	sYuu0Nxi8O3disg3Bn46VngA4G5BG886BZ4amKnlY3V5oE+iu3U50zjiwEeM3pmsywmhRpCbvG+
-	MrIL7li744vDogCvOzQ==
-X-Received: by 2002:a05:600c:5252:b0:4a0:4a8:d444 with SMTP id 5b1f17b1804b1-4a1806878c3mr10840485e9.33.1791351877434;
-        Tue, 06 Oct 2026 22:44:37 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a1e1-2201-60f4-32e0-4d59-5772.310.pool.telefonica.de. [2a02:3100:a1e1:2201:60f4:32e0:4d59:5772])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178a17ac9sm121780835e9.1.2026.10.06.22.44.36
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 06 Oct 2026 22:44:37 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	linux-input@vger.kernel.org
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Florian Echtler <floe@butterbrot.org>,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFT PATCH] Input: sur40 - fix DMA handling in video capture
-Date: Wed,  7 Oct 2026 07:44:30 +0200
-Message-Id: <20261007054430.40155-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Lg9gZRDv"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6974aRBi1409397;
+	Wed, 7 Oct 2026 05:43:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=v7L/Is
+	haQTpFkZXyxWFqEsTIV8AsMHyaRbeSGHo8YfA=; b=Lg9gZRDv/AHcQhkK/ClVn8
+	F7Z087kOG8Oqv6jFqCO1Y29YjeCsU0/Vw+AGbjUO/rdEfzmGEf7Oe0uvkcqX2x/A
+	dYe0tQ7/oBLop+5HaqG5vnGDLubnYIgjSWBloU8AHWuWVuTsSZWzTWBPgLT0v+6T
+	Of4tkObUBhrHZDhmS5D/RGbKgEdpQQSdEZbub841mF6ZfUOJJOiQzjg1HGr5zZis
+	qXZmS7tJYBFc3qpXPifsMHYoCleyno+zTpYsIUIZ39Ei1LFayBILCYG77FUpx39R
+	z1Po0XMCA/LyfcaPx5UfdNSwd/SoBe7q7zQsXPir93A6CDms6uLbJB1yexP6aWfw
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2q4ju8ym-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 07 Oct 2026 05:43:43 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6974WZAa1376982;
+	Wed, 7 Oct 2026 05:43:43 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h5a6dh4tx-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 07 Oct 2026 05:43:42 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6975hdCp53346648
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 7 Oct 2026 05:43:39 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 091E120043;
+	Wed,  7 Oct 2026 05:43:39 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 44B6E20040;
+	Wed,  7 Oct 2026 05:43:24 +0000 (GMT)
+Received: from [9.39.25.200] (unknown [9.39.25.200])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed,  7 Oct 2026 05:43:23 +0000 (GMT)
+Message-ID: <bebd59dc-9932-41fe-9fa6-4d2cc8d15080@linux.ibm.com>
+Date: Wed, 7 Oct 2026 11:13:22 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v3 01/13] lib/sbm: Introduce helpers for architectures
+ to configure LLC properties
+To: K Prateek Nayak <kprateek.nayak@amd.com>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
+        Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+        Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+        WANG Xuerui <kernel@xen0n.name>, Michael Ellerman <mpe@ellerman.id.au>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        Christophe Leroy <chleroy@kernel.org>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, "H. Peter Anvin" <hpa@zytor.com>,
+        Peter Zijlstra <peterz@infradead.org>, Chen Yu <yu.c.chen@intel.com>,
+        Tim Chen <tim.c.chen@linux.intel.com>, Ingo Molnar <mingo@redhat.com>,
+        Juri Lelli <juri.lelli@redhat.com>,
+        Vincent Guittot <vincent.guittot@linaro.org>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
+        linux-arch@vger.kernel.org, linux-s390@vger.kernel.org,
+        linuxppc-dev@lists.ozlabs.org, linux-mips@vger.kernel.org,
+        loongarch@lists.linux.dev, driver-core@lists.linux.dev,
+        Sudeep Holla <sudeep.holla@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Danilo Krummrich <dakr@kernel.org>,
+        Huacai Chen <chenhuacai@kernel.org>,
+        Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+        Jiaxun Yang <jiaxun.yang@flygoat.com>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Heiko Carstens
+ <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        "David S. Miller" <davem@davemloft.net>,
+        Andreas Larsson <andreas@gaisler.com>,
+        Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org
+References: <20261001192849.74788-1-kprateek.nayak@amd.com>
+ <20261001192849.74788-2-kprateek.nayak@amd.com>
+Content-Language: en-US
+From: Shrikanth Hegde <sshegde@linux.ibm.com>
+In-Reply-To: <20261001192849.74788-2-kprateek.nayak@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: vXOs2a9YsPxXPDWlk_fQyGt8XKTYkFF0
+X-Proofpoint-GUID: 2WtIRldL-8sD5UVml5UoIOzm4QtQsPt2
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAyMiBTYWx0ZWRfX4mmsO4sZrzgh
+ Mnz82Xsy9mtTsApcqK0EAgEkzT4QpnInFmT6PSo9P+6m7GNW3kllHyAFrEHvN8jteYJUtvpuHQj
+ El1nV5BdZCUVdPS8R8bOCCO0l8cdcDs=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAyMiBTYWx0ZWRfXz5bhW5BOP3yo
+ AXAKxpdMGdB9WPsPxUav3ccKlkRMSPMiL1DdhZ/aaocq9pBD5owUvsjp7UwsLADW+LfHCXgHXOV
+ ICGHlnq44UE3Wn3keBJD7fz/SzRvqaVtLPF6iUY5SeMSpB/xn1nSNa9jbZSH45cW99+vJoKuWQv
+ MCGXoYLJ+vbML8Yo03KebUPu3SEePbQlxMlqfB0nBozsITzDNYz4sab2NN13tJLUE6QaCKS5XOB
+ lqR1d167/luKGtIMXXtHrSvyP4QyawZIixwl88x3raFUxxSqX45J1mrcbPY/3gmp8yvqgx/hKVE
+ itpSyPUNRseZXLG5uA+3p8F8CA7g9XihfRSltNw4fYtBqPV7qtzIUT+bo3QR5kBBxf3ZxMPexG6
+ Q4gjmHEvySzZMPerQ11VZS0GwUj1hSAI9DhooY2dnKV5223VIfs4ozYNRv1VhGSZpk8+kfNaL0K
+ Kt0sBNcLkTQefrFM9OQ==
+X-Authority-Analysis: v=2.4 cv=eYeo7LEH c=1 sm=1 tr=0 ts=6ac5dc10 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=zd2uoN0lAAAA:8
+ a=H_lJn1gU1r1qM_BORgYA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-07_02,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 clxscore=1011
+ spamscore=0 malwarescore=0 priorityscore=1501 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070022
 
-Video capture has failed since commit 6eb0233ec2d0 ("usb: don't
-inherity DMA properties for USB devices"). sur40 gives the USB
-interface device to vb2_dma_sg, but the interface no longer has a DMA
-mask. The mapping fails, leaving no entries for usb_sg_init().
+Hi Prateek.
 
-Using the host controller device with vb2_dma_sg would give
-usb_sg_init() an already DMA-mapped scatterlist. The USB core maps that
-list for the host controller itself. Mapping it twice overwrites the DMA
-addresses, and vb2 later unmaps addresses it does not own.
+I ran the series on 320 CPU power11 system today.
+hackbench shows high regression across the different number of groups and
+it is more severe at lower number of groups. I haven't run anything else yet.
 
-Imported dma-bufs cannot supply the CPU-side scatterlist that
-usb_sg_init() needs. Importers may use only the DMA fields of the
-attachment table. DMABUF_DEBUG makes this misuse deterministic by
-clearing its page and length fields.
+I haven't taken a look at the patches yet. Post your talk today will try to
+go through and see if i can spot something.
 
-Use vb2_vmalloc for capture buffers. Receive each frame into a
-driver-owned, page-backed scatterlist, then copy it through the vb2
-mapping. Synchronize CPU writes to imported dma-bufs with
-dma_buf_begin_cpu_access() and dma_buf_end_cpu_access().
+On 10/2/26 12:58 AM, K Prateek Nayak wrote:
+> Subsequent commits will add arch/ hooks to configure the sparsebitmask
+> (sbm) topology - number of sbm instance and the maximum CPUs that a
+> single instance can represent.
+> 
+> Introduce sbm_set_topology() that helps architectures configure the sbm
+> topology. Also add arch_sbm_cpu_instance_id() which will be used to map
+> CPUs to the sbm instances during init to keep CPUs on the same instance
+> on the same sbm leaf.
+> 
+> Individual arch/ users will be added one at a time in the subsequent
+> commits.
+> 
+> Signed-off-by: K Prateek Nayak <kprateek.nayak@amd.com>
+> ---
+>   include/linux/sbm.h |  8 ++++++++
+>   lib/Makefile        |  2 +-
+>   lib/sbm.c           | 27 +++++++++++++++++++++++++++
+>   3 files changed, 36 insertions(+), 1 deletion(-)
+>   create mode 100644 include/linux/sbm.h
+>   create mode 100644 lib/sbm.c
+> 
+> diff --git a/include/linux/sbm.h b/include/linux/sbm.h
+> new file mode 100644
+> index 000000000000..adac12ed233a
+> --- /dev/null
+> +++ b/include/linux/sbm.h
+> @@ -0,0 +1,8 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +#ifndef _LINUX_SBM_H
+> +#define _LINUX_SBM_H
+> +
+> +int arch_sbm_cpu_instance_id(int cpu);
+> +void sbm_set_topology(int num_instances, int max_threads_per_instance);
+> +
+> +#endif /* _LINUX_SBM_H */
+> diff --git a/lib/Makefile b/lib/Makefile
+> index dfab958327c5..7776330f5b25 100644
+> --- a/lib/Makefile
+> +++ b/lib/Makefile
+> @@ -40,7 +40,7 @@ lib-y := ctype.o string.o vsprintf.o cmdline.o \
+>   	 is_single_threaded.o plist.o decompress.o kobject_uevent.o \
+>   	 earlycpio.o seq_buf.o siphash.o dec_and_lock.o \
+>   	 nmi_backtrace.o win_minmax.o memcat_p.o \
+> -	 buildid.o objpool.o iomem_copy.o sys_info.o
+> +	 buildid.o objpool.o iomem_copy.o sys_info.o sbm.o
+>   
+>   lib-$(CONFIG_UNION_FIND) += union_find.o
+>   lib-$(CONFIG_PRINTK) += dump_stack.o
+> diff --git a/lib/sbm.c b/lib/sbm.c
+> new file mode 100644
+> index 000000000000..82280e3306de
+> --- /dev/null
+> +++ b/lib/sbm.c
+> @@ -0,0 +1,27 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +#include <linux/sbm.h>
+> +#include <linux/init.h>
+> +#include <linux/printk.h>
+> +
+> +static int sbm_max_threads_per_instance = -1;
+> +static int sbm_num_instance = -1;
+> +
+> +/*
+> + * In absence of an arch definition, consider all CPUs to
+> + * belong to the same sbm instance.
+> + */
+> +int __weak arch_sbm_cpu_instance_id(int cpu)
+> +{
+> +	return 0;
+> +}
+> +
+> +void __init sbm_set_topology(int num_instances, int max_threads_per_instance)
+> +{
+> +	sbm_max_threads_per_instance = max_threads_per_instance;
+> +	sbm_num_instance = num_instances;
+> +
+> +	pr_info("sbm topology set to %d instance(s) with a maximum of %d thread(s) per instance\n",
+> +		sbm_num_instance,
+> +		sbm_max_threads_per_instance);
+> +}
 
-Verified with a custom QEMU model and raw-gadget emulation. Not tested
-on real hardware.
+nit: Stray empty line at the end.
 
-Fixes: 6eb0233ec2d0 ("usb: don't inherity DMA properties for USB devices")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-RFT because I do not have SUR40 hardware. Testing on a Microsoft Surface
-2.0 / Samsung SUR40 would be appreciated.
+> +
 
-The current RFT passed an x86-64 W=1 build of sur40.o with
-DMABUF_DEBUG=y. Runtime testing used v7.3-rc4-70-gfe2ec83746e5 on QEMU
-TCG with KASAN, DMA_API_DEBUG and DMABUF_DEBUG:
 
-- a custom SUR40 model behind qemu-xhci and Intel IOMMU strict mode;
-- raw-gadget on dummy_hcd.
-
-Each setup captured 300 MMAP frames and 300 udmabuf frames. Every frame
-contained the expected sequence data. The xHCI/IOMMU run produced no
-DMA-API report. The dummy_hcd run reported udmabuf's separate maximum
-segment-size issue, which also reproduces through DMA_BUF_IOCTL_SYNC
-without sur40.
-
-Nguyen Ngoc Thang's pending disconnect fixes move resource cleanup to a
-v4l2 release callback:
-
-https://lore.kernel.org/r/20260920113949.12726-1-ngocthang2710.1999@gmail.com/
-
-If that series lands first, the sgl_free() added here must move to the
-release callback as well.
-
- drivers/input/touchscreen/Kconfig |  5 ++-
- drivers/input/touchscreen/sur40.c | 68 ++++++++++++++++++++++++++-----
- 2 files changed, 61 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen/Kconfig
-index 9b9ae8ac3f7f..e433db3d340f 100644
---- a/drivers/input/touchscreen/Kconfig
-+++ b/drivers/input/touchscreen/Kconfig
-@@ -1276,9 +1276,10 @@ config TOUCHSCREEN_SUN4I
- 
- config TOUCHSCREEN_SUR40
- 	tristate "Samsung SUR40 (Surface 2.0/PixelSense) touchscreen"
--	depends on USB && MEDIA_USB_SUPPORT && HAS_DMA
-+	depends on USB && MEDIA_USB_SUPPORT
- 	depends on VIDEO_DEV
--	select VIDEOBUF2_DMA_SG
-+	select SGL_ALLOC
-+	select VIDEOBUF2_VMALLOC
- 	help
- 	  Say Y here if you want support for the Samsung SUR40 touchscreen
- 	  (also known as Microsoft Surface 2.0 or Microsoft PixelSense).
-diff --git a/drivers/input/touchscreen/sur40.c b/drivers/input/touchscreen/sur40.c
-index 09d8c5f8d09f..72e3f0fa1f4c 100644
---- a/drivers/input/touchscreen/sur40.c
-+++ b/drivers/input/touchscreen/sur40.c
-@@ -20,6 +20,7 @@
- #include <linux/kernel.h>
- #include <linux/errno.h>
- #include <linux/delay.h>
-+#include <linux/dma-buf.h>
- #include <linux/init.h>
- #include <linux/slab.h>
- #include <linux/module.h>
-@@ -36,7 +37,7 @@
- #include <media/v4l2-ioctl.h>
- #include <media/v4l2-ctrls.h>
- #include <media/videobuf2-v4l2.h>
--#include <media/videobuf2-dma-sg.h>
-+#include <media/videobuf2-vmalloc.h>
- 
- /* read 512 bytes from endpoint 0x86 -> get header + blobs */
- struct sur40_header {
-@@ -221,6 +222,8 @@ struct sur40_state {
- 
- 	struct sur40_data *bulk_in_buffer;
- 	size_t bulk_in_size;
-+	struct scatterlist *video_sgl;
-+	unsigned int video_nents;
- 	u8 bulk_in_epaddr;
- 	u8 vsvideo;
- 
-@@ -531,8 +534,10 @@ static void sur40_process_video(struct sur40_state *sur40)
- 	struct sur40_image_header *img = (void *)(sur40->bulk_in_buffer);
- 	struct sur40_buffer *new_buf;
- 	struct usb_sg_request sgr;
--	struct sg_table *sgt;
-+	unsigned int size = sur40->pix_fmt.sizeimage;
-+	struct dma_buf *dbuf = NULL;
- 	int result, bulk_read;
-+	void *vaddr;
- 
- 	if (!vb2_start_streaming_called(&sur40->queue))
- 		return;
-@@ -579,11 +584,17 @@ static void sur40_process_video(struct sur40_state *sur40)
- 
- 	dev_dbg(sur40->dev, "header acquired\n");
- 
--	sgt = vb2_dma_sg_plane_desc(&new_buf->vb.vb2_buf, 0);
-+	vaddr = vb2_plane_vaddr(&new_buf->vb.vb2_buf, 0);
-+	if (!vaddr)
-+		goto err_poll;
- 
-+	/*
-+	 * vb2_plane_vaddr() may return a vmalloc or vmap address. Receive
-+	 * into page-backed memory so the USB core can map it for DMA.
-+	 */
- 	result = usb_sg_init(&sgr, sur40->usbdev,
- 		usb_rcvbulkpipe(sur40->usbdev, VIDEO_ENDPOINT), 0,
--		sgt->sgl, sgt->nents, sur40->pix_fmt.sizeimage, 0);
-+		sur40->video_sgl, sur40->video_nents, size, 0);
- 	if (result < 0) {
- 		dev_err(sur40->dev, "error %d in usb_sg_init\n", result);
- 		goto err_poll;
-@@ -595,6 +606,39 @@ static void sur40_process_video(struct sur40_state *sur40)
- 		goto err_poll;
- 	}
- 
-+	if (sgr.bytes != size) {
-+		dev_err(sur40->dev, "short image (%zu of %u bytes)\n",
-+			sgr.bytes, size);
-+		goto err_poll;
-+	}
-+
-+	/*
-+	 * vb2_vmalloc does not synchronize CPU access to imported dma-bufs,
-+	 * so bracket the copy into one here.
-+	 */
-+	if (new_buf->vb.vb2_buf.memory == VB2_MEMORY_DMABUF)
-+		dbuf = new_buf->vb.vb2_buf.planes[0].dbuf;
-+
-+	if (dbuf) {
-+		result = dma_buf_begin_cpu_access(dbuf, DMA_TO_DEVICE);
-+		if (result) {
-+			dev_err(sur40->dev, "error %d in begin_cpu_access\n",
-+				result);
-+			goto err_poll;
-+		}
-+	}
-+
-+	sg_copy_to_buffer(sur40->video_sgl, sur40->video_nents, vaddr, size);
-+
-+	if (dbuf) {
-+		result = dma_buf_end_cpu_access(dbuf, DMA_TO_DEVICE);
-+		if (result) {
-+			dev_err(sur40->dev, "error %d in end_cpu_access\n",
-+				result);
-+			goto err_poll;
-+		}
-+	}
-+
- 	dev_dbg(sur40->dev, "image acquired\n");
- 
- 	/* return error if streaming was stopped in the meantime */
-@@ -725,6 +769,13 @@ static int sur40_probe(struct usb_interface *interface,
- 		goto err_free_input;
- 	}
- 
-+	sur40->video_sgl = sgl_alloc(sur40_pix_format[0].sizeimage, GFP_KERNEL,
-+				     &sur40->video_nents);
-+	if (!sur40->video_sgl) {
-+		error = -ENOMEM;
-+		goto err_free_buffer;
-+	}
-+
- 	/* register the video master device */
- 	snprintf(sur40->v4l2.name, sizeof(sur40->v4l2.name), "%s", DRIVER_LONG);
- 	error = v4l2_device_register(sur40->dev, &sur40->v4l2);
-@@ -811,6 +862,7 @@ static int sur40_probe(struct usb_interface *interface,
- err_unreg_v4l2:
- 	v4l2_device_unregister(&sur40->v4l2);
- err_free_buffer:
-+	sgl_free(sur40->video_sgl);
- 	kfree(sur40->bulk_in_buffer);
- err_free_input:
- 	input_free_device(input);
-@@ -831,6 +883,7 @@ static void sur40_disconnect(struct usb_interface *interface)
- 	video_unregister_device(&sur40->vdev);
- 	v4l2_device_unregister(&sur40->v4l2);
- 
-+	sgl_free(sur40->video_sgl);
- 	kfree(sur40->bulk_in_buffer);
- 	kfree(sur40);
- 
-@@ -1114,15 +1167,10 @@ static const struct vb2_ops sur40_queue_ops = {
- 
- static const struct vb2_queue sur40_queue = {
- 	.type = V4L2_BUF_TYPE_VIDEO_CAPTURE,
--	/*
--	 * VB2_USERPTR in currently not enabled: passing a user pointer to
--	 * dma-sg will result in segment sizes that are not a multiple of
--	 * 512 bytes, which is required by the host controller.
--	*/
- 	.io_modes = VB2_MMAP | VB2_READ | VB2_DMABUF,
- 	.buf_struct_size = sizeof(struct sur40_buffer),
- 	.ops = &sur40_queue_ops,
--	.mem_ops = &vb2_dma_sg_memops,
-+	.mem_ops = &vb2_vmalloc_memops,
- 	.timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_MONOTONIC,
- 	.min_queued_buffers = 3,
- };
-
-base-commit: 2c3418fffa9d037b2038a6db48be63f9e2291806
--- 
-2.53.0
