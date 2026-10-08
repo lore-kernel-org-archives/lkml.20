@@ -1,216 +1,127 @@
-Received: from mta0.migadu.com (out-15.mta0.migadu.com [91.218.175.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D3373A48F7
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 04:39:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0F7727280A;
+	Thu,  8 Oct 2026 04:42:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791434365; cv=none; b=jZWro8oEMY1l9xIBn6LYf4jBb6kfW9qNP5dPr+jW4688kBgq7lfmggZoajEhxuEjBPWDWTm/PppTHDMv7diUnHt19Xq3MqpiXWTKQipIQUvI/tS5q2CRAzc7AZxmWeuAwZKdgxw7MtUqhLHNus7BeQj7OTFwJ7ghkK+DnreEGHs=
+	t=1791434556; cv=none; b=Zll6TcrP8YwWEyV6NqKQJ5pcxIDmXgiWMggN3RgdMkOSUwUBTgudFd7Az32J7dKoS3QS84kYW7wns0V3eGvOHG7E9qBuS6An/TKM8SAnKGvz7Z/fyD0EF9pn5rGBIzRAxUxlUosx/W/UOydqjKsVvF65tCFZwJgEdrmXzsfw6Fo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791434365; c=relaxed/simple;
-	bh=Rx/tqj4wkyZ6VSBTAWBfFMGKzOaN07eLyd4U5584Wl8=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=AOr4+HbDhaeZjFmg2Gg7rNRhxX+BGuQE0xnSC67qNT4BKIG9UsaQJ1vQGAa/qO35R0dHi/7rkto/5OSEqMXlEvgY0IFAaosWEjKWnZQNSf/Tom4x1LWk1/w1vhQ70KSb2ZvfigKlVWP63WShX5NErb5xyKOqqH0+uLYLrMb77a4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Co8pMymN; arc=none smtp.client-ip=91.218.175.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791434556; c=relaxed/simple;
+	bh=+XA/w6VxM2eofFf1OMi1Jh/SSAmMxhFgPC954APuTWA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MfIjJHRgSY//1FqRwdm3bnRnM5ev3uO8g7qAY+l6eGzuUw0kxBlWXWz6BL7IzPH1miFn5X+bG7LRQcTBf2wq3JpxYJPIJWP2ggL7iEOzeIC3LoUD4+mNi5C6aUx71gbKRzxWB90Fy170yUffWHhjQvAVuDBUTwKbt8YnuBRBPgM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GIjOSyoz; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Co8pMymN"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Rx/tqj4wkyZ6VSBTAWBfFMGKzOaN07eLyd4U5584Wl8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791434361; v=1; x=1792039161;
- b=Co8pMymNq6jUiNTUkebwzeriYuzG4Ivrcs+qPDWGV8nUoJZ8KyGVcL21+6C2aR8KHyahPgFq
- mcLVKku8yvVx3Vi3zrCSqxeLBk7HmIzkBDDQXENBJBbHaAGixu+AgCRh+NlyoJhhfRx3z2g2Uzr
- 6aYxbMITTbku9F3ZNQgLdPq8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2d52907cc6520490;
-	Thu, 08 Oct 2026 04:39:20 +0000
-X-Mizu-Trace-ID: 2d52907cc6520490
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <8fd657b9-4bd4-48a4-a359-62096ba14bec@linux.dev>
-Date: Thu, 8 Oct 2026 12:39:12 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GIjOSyoz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791434555; x=1822970555;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=+XA/w6VxM2eofFf1OMi1Jh/SSAmMxhFgPC954APuTWA=;
+  b=GIjOSyozSSTcCGj3a9GZy/lhQRvaskVB7ydLTHmoYd+fSBQ0T4jokrtq
+   UifRmNw6Z1iTOKosoahbcQA2hrsbJI0h5XZsrCOpBqRJ3yuierSllcoct
+   CswsL9wGNh1t3N7Uf05BHHx7mwj3bzUbHp0lcPAjJxW8ISv04UVdfqP0s
+   qLj8oygnnnCrihi7mFwgasmkejWBw/KAkl7RwBRxJ0yuVGDphzeWuGzJE
+   6a68fbMX019EWgf1oXjYqOTHmQYgWpC48MUBXeGpq6lQa3f27XkiFCbda
+   5KpYhqieBc6mDKRyL8cni++00pBd7H0+87QBUmjRuJwxyKjHlQwd4NfLA
+   w==;
+X-CSE-ConnectionGUID: wFrWDkZ3TPyWt/P4NfnnLg==
+X-CSE-MsgGUID: IR/tLFdJStu11BoMLp85FQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="216563"
+X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
+   d="scan'208";a="216563"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 21:42:34 -0700
+X-CSE-ConnectionGUID: RklQlDB1Qbyy1O5DV7LQsw==
+X-CSE-MsgGUID: B/zUO1erSxeEvCWcJIO2HQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
+   d="scan'208";a="251441"
+Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
+  by fmviesa007.fm.intel.com with ESMTP; 07 Oct 2026 21:42:30 -0700
+Date: Thu, 8 Oct 2026 12:39:20 +0800
+From: Xu Yilun <yilun.xu@linux.intel.com>
+To: Tony Lindgren <tony.lindgren@linux.intel.com>
+Cc: x86@kernel.org, linux-coco@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, dave.hansen@intel.com,
+	kvm@vger.kernel.org, yilun.xu@intel.com, xiaoyao.li@intel.com,
+	sohil.mehta@intel.com, adrian.hunter@intel.com,
+	kishen.maloor@intel.com, peter.fang@intel.com,
+	baolu.lu@linux.intel.com, zhenzhong.duan@intel.com,
+	chao.gao@intel.com, artem.bityutskiy@linux.intel.com,
+	nik.borisov@suse.com
+Subject: Re: [PATCH v3 6/6] x86/virt/tdx: Support DPAMT when adding memory
+ for the extensions
+Message-ID: <asceeI8LD5ltEOje@yilunxu-OptiPlex-7050>
+References: <20261006-tdx-module-ext-v3-0-db52cb05b918@linux.intel.com>
+ <20261006-tdx-module-ext-v3-6-db52cb05b918@linux.intel.com>
+ <asR64ovVXEmTVgg6@tlindgre-MOBL1>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, sched-ext@lists.linux.dev,
- linux-kernel@vger.kernel.org, Emil Tsalapatis <emil@etsalapatis.com>,
- David Dai <david.dai@linux.dev>
-Subject: Re: [PATCH sched_ext/for-7.4] sched_ext: Clear a sub-scheduler's caps
- before ops.sub_detach()
-To: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
- Andrea Righi <arighi@nvidia.com>, Changwoo Min <changwoo@igalia.com>
-References: <b46300eda6da03d56262fcdcbfc9b4fa@kernel.org>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <b46300eda6da03d56262fcdcbfc9b4fa@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <asR64ovVXEmTVgg6@tlindgre-MOBL1>
 
-Hello Tejun,
-
-在 2026/10/7 04:31, Tejun Heo 写道:
-> A sub-scheduler can leave standing state behind on the cids delegated to it,
-> cpuperf targets being the obvious case, and the kernel does not track who
-> wrote it. Restoring it is the parent's job and ops.sub_detach() is the place
-> for it. Today the parent can't rely on that: the dying sub-scheduler keeps
-> every cap until it is marked dead after ops.exit(), so its ops.exit() or a
-> late timer can write after the parent has cleaned up.
+On Tue, Oct 06, 2026 at 07:36:50AM +0300, Tony Lindgren wrote:
+> On Tue, Oct 06, 2026 at 01:41:50AM +0800, Xu Yilun wrote:
+> > The TDX module uses Physical Address Metadata Table (PAMT) to track some
+> > state for each page of physical memory that it might use. 3 levels of
+> > PAMTs are used to track pages of different sizes - 1GB, 2MB and 4KB.
+> > Dynamic PAMT (DPAMT) allows saving memory by allocating 4KB PAMT
+> > dynamically, while the 1GB and 2MB levels remain allocated on TDX module
+> > initialization. The kernel has helpers to install 4K DPAMT.
+> > 
+> > Although the memory for the extensions is tens of megabytes and the host
+> > allocates it in a large chunk, the TDX module accepts it at 4K
+> > granularity. Thus the host has to install 4K DPAMT for each page of it.
+> > 
+> > Call tdx_pamt_get() for each page before adding it to TDX module.
+> > Normally, these operations should not fail, and if they do,
+> > intentionally keep the error handling as simple as before - leak all
+> > pages, including the installed 4K DPAMT metadata.
+> > 
+> > Signed-off-by: Xu Yilun <yilun.xu@linux.intel.com>
+> > ---
+> > v3:
+> >  - New patch
+> > ---
+> >  arch/x86/virt/vmx/tdx/tdx.c | 9 ++++++++-
+> >  1 file changed, 8 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/arch/x86/virt/vmx/tdx/tdx.c b/arch/x86/virt/vmx/tdx/tdx.c
+> > index 5d5f9da1ab02..27a7039ee443 100644
+> > --- a/arch/x86/virt/vmx/tdx/tdx.c
+> > +++ b/arch/x86/virt/vmx/tdx/tdx.c
+> > @@ -1330,8 +1330,15 @@ static __init int tdx_ext_mem_setup(void)
+> >  		struct page *chunk = page + added_pages;
+> >  		unsigned int i;
+> >  
+> > -		for (i = 0; i < chunk_pages; i++)
+> > +		for (i = 0; i < chunk_pages; i++) {
+> > +			ret = tdx_pamt_get(page_to_pfn(chunk + i), NULL);
+> > +			if (ret) {
+> > +				WARN(1, "DPAMT setup error for extensions, stranded all pages\n");
+> > +				goto out_free_hpa_list;
+> > +			}
+> > +
+> >  			hpa_list->phys[i] = page_to_phys(chunk + i);
+> > +		}
+> >  
+> >  		ret = tdx_ext_mem_add(hpa_list, chunk_pages);
+> >  		if (ret) {
+> > 
 > 
-> Clear every cap of the sub-scheduler before ops.sub_detach(). The pshard
-> caps go first as a pending sync recomputes ecaps from them, and ecaps are
-> then zeroed directly. A grant racing the clear is refused under the child's
-> pshard lock, so nothing hands the caps back.
-> 
-> Fixes: 86094b95efcf ("sched_ext: Add per-shard cap delegation for sub-schedulers")
-> Signed-off-by: Tejun Heo <tj@kernel.org>
-> ---
-> Applied to sched_ext/for-7.4.
-> 
+> How about just fold this change in into patch 3/6?
 
-Tested this patch on a kvm guest running a sched_ext/for-7.4 based
-tree with the patch applied, using a pair of cid-form test schedulers:
-a parent that grants SCX_CAP_PERF | SCX_CAP_ENQ_IMMED on a cgroup to a
-child, and the child writing cpuperf target 1 from ops.tick(). The
-parent either restores SCX_CPUPERF_ONE for the delegated cids in
-ops.sub_detach() or does nothing, and rq->scx.cpuperf_target is
-sampled every second.
-
-With a restoring parent: the child writes target 1 while alive; after
-SIGTERM and disable, the parent's ops.sub_detach() write of
-SCX_CPUPERF_ONE lands and stays - the child's ops.exit() and timers no
-longer overtake the parent's cleanup, which is exactly the gap this
-patch closes.
-
-With a parent that does not restore: the child's last written target
-persists after the child goes away, as expected from treating the
-target as last-writer-wins state.
-
-Both runs are clean with lockdep enabled (no warnings or splats).
-
-Tested-by: Tao Cui <cuitao@kylinos.cn>
-Reviewed-by: Tao Cui <cuitao@kylinos.cn>
-
-Thanks.
---
-Tao
-
->  kernel/sched/ext/internal.h |    7 ++++++
->  kernel/sched/ext/sub.c      |   49 ++++++++++++++++++++++++++++++++++++++++----
->  2 files changed, 52 insertions(+), 4 deletions(-)
-> 
-> --- a/kernel/sched/ext/internal.h
-> +++ b/kernel/sched/ext/internal.h
-> @@ -828,6 +828,10 @@ struct sched_ext_ops {
->  	/**
->  	 * @sub_detach: Detach a sub-scheduler
->  	 * @args: argument container, see the struct definition
-> +	 *
-> +	 * The sub-scheduler holds no caps by this point and can no longer
-> +	 * affect any cid. Whatever was delegated to it, e.g. cpuperf targets,
-> +	 * is the parent's to restore here.
->  	 */
->  	void (*sub_detach)(struct scx_sub_detach_args *args);
->  
-> @@ -911,6 +915,9 @@ struct sched_ext_ops {
->  	 * ops.exit() is also called on ops.init() failure, which is a bit
->  	 * unusual. This is to allow rich reporting through @info on how
->  	 * ops.init() failed.
-> +	 *
-> +	 * A sub-scheduler holds no caps by the time ops.exit() runs. Its
-> +	 * cap-gated kfuncs are denied.
->  	 */
->  	void (*exit)(struct scx_exit_info *info);
->  
-> --- a/kernel/sched/ext/sub.c
-> +++ b/kernel/sched/ext/sub.c
-> @@ -1154,6 +1154,34 @@ void scx_offline_ecaps(struct rq *rq)
->  }
->  
->  /*
-> + * Clear every cap @sch holds. The pshard caps go first as they are the source a
-> + * pending sync recomputes ecaps from. ecaps are then zeroed directly for the
-> + * cap checks.
-> + */
-> +static void clear_all_caps(struct scx_sched *sch)
-> +{
-> +	s32 si, cpu;
-> +	u32 cap_bit;
-> +
-> +	/* enable may have failed before scx_alloc_pshards() */
-> +	if (!sch->pshard)
-> +		return;
-> +
-> +	for (si = 0; si < sch->nr_pshards; si++) {
-> +		struct scx_pshard *ps = sch->pshard[si];
-> +
-> +		guard(raw_spinlock_irqsave)(&ps->lock);
-> +		for (cap_bit = 0; cap_bit < __SCX_NR_CAPS; cap_bit++)
-> +			scx_cmask_clear(&ps->caps[cap_bit].cmask);
-> +	}
-> +
-> +	for_each_possible_cpu(cpu) {
-> +		guard(rq_lock_irqsave)(cpu_rq(cpu));
-> +		WRITE_ONCE(per_cpu_ptr(sch->pcpu, cpu)->ecaps, 0);
-> +	}
-> +}
-> +
-> +/*
->   * @pcpu's sched was unhashed before the grace period, so nothing re-queues its
->   * sync node. Remove the node from @rq's pending list so the pcpu can be freed.
->   */
-> @@ -1628,6 +1656,12 @@ dump:
->  
->  	scx_unlink_sched(sch);
->  
-> +	/*
-> +	 * The parent restores what it delegated in ops.sub_detach(). @sch must
-> +	 * hold no caps by then.
-> +	 */
-> +	clear_all_caps(sch);
-> +
->  	mutex_unlock(&scx_enable_mutex);
->  
->  	/*
-> @@ -2306,8 +2340,8 @@ static s32 sub_cap_preamble(u64 cgroup_i
->   * All-or-nothing keeps the caller-visible result binary per cid, so the denied
->   * mask is one mask to interpret rather than a per-cap matrix.
->   *
-> - * Return 0 on full success, -EPERM if any cid was refused, or a negative
-> - * errno on other failures.
-> + * Return 0 on full success, -EPERM if any cid was refused, -ENODEV if the child
-> + * is gone or being disabled, or a negative errno on other failures.
->   */
->  __bpf_kfunc s32 scx_bpf_sub_grant(u64 cgroup_id, u64 caps,
->  				  const struct scx_cmask *cmask__arena,
-> @@ -2361,6 +2395,12 @@ __bpf_kfunc s32 scx_bpf_sub_grant(u64 cg
->  		scoped_guard (raw_spinlock, &pps->lock) {
->  			guard(raw_spinlock_nested)(&cps->lock);
->  
-> +			/* the child is being disabled, see clear_all_caps() */
-> +			if (unlikely(READ_ONCE(child->aborting))) {
-> +				ret = -ENODEV;
-> +				goto out;
-> +			}
-> +
->  			/*
->  			 * Narrow granted_cids to cids the parent holds every
->  			 * requested cap on. All-or-nothing per cid.
-> @@ -2413,9 +2453,10 @@ __bpf_kfunc s32 scx_bpf_sub_grant(u64 cg
->  		}
->  	}
->  
-> +	ret = any_denied ? -EPERM : 0;
-> +out:
->  	caps_updated_deliver(&to_deliver);
-> -
-> -	return any_denied ? -EPERM : 0;
-> +	return ret;
->  }
->  
->  /**
-
+I think patch 3/6 is already quite heavy. Is it good that I put this
+patch right after patch 3/6?
