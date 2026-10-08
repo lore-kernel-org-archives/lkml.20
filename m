@@ -1,81 +1,113 @@
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA6D54E534D
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 15:31:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E3D4E533F;
+	Thu,  8 Oct 2026 15:31:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791473489; cv=none; b=rziOerIRZO/TAWaFH9vCQlrvpoh2QuMx4SrkGRo5bMx6LuEg8Rn5/lzi2A1F+Ghm3e1t/DDI3tT/18toxBW06xXaUEI/WKoVmTpDL1bA4OfMmY+6yztL+ftKsgAFyZSJJgFXAxMqqb0Vndkx2vA5k5SNfAA6S4TjeSSsKPw6DLE=
+	t=1791473489; cv=none; b=rxphPjPrCnrV3t+ZtTjCoO/dDoLC3uNTpGm3ArG/a23htuMAYY8t+me/zkPYjMAvdjyYfvzvCtGYHF9a6bQ+qo5zbbeoXlDWx5ue+Qw5X+8GMl4q2DtvxZlDg+pCyRFHj/PzErq0Soy+vyKrFm1zdoXB6gieTmqpBU81k02v2TI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791473489; c=relaxed/simple;
-	bh=oDaSEX/pIqfKV5uj9IYzUN7B+7DRkmqbgpoK8ZZOe58=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=bItXcA5ZIv88jyNbeE/jSP+3doorR5Vyo75WyqVQ3YSFKhHYSFI7hA2H6+WOUzNI+5f+ir0s2H5ao9SBLlgau3NgBNMslc/YupUtIS+U6MiNP7Z1htefswWrpYgAFsoqS7W4rog6Yai4xPOyCbNn13+uN/WavNPyxFS/rbh62rI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=G7kxtx87; arc=none smtp.client-ip=18.9.28.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
+	bh=z5JyqdjBAFKr3gmdYDGazOEacf+lSxusgwLqGM0Levw=;
+	h=Date:From:To:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=lU1jDHgKWoB0KhyWpPKyh9aLaFETsB3szeJ05b0ueeVhHi/JBaLBE70nbU2aISseltmQgIgG5a14HfmSvUg/3J1oSop8C1rGs6tcGdStxDBlMmj5PRxXRcQGs7dROeCCh92PuK6NdWMgC6xbu/mW+PLAj4hrlW2BXhmvnsOgyIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=notCj0oY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="G7kxtx87"
-Received: from trampoline.thunk.org (pool-173-48-119-87.bstnma.fios.verizon.net [173.48.119.87])
-	(authenticated bits=0)
-        (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 698FVE7Y005074
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 8 Oct 2026 11:31:15 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
-	t=1791473476; bh=TDgPycyAuELHd+uKktXGNGhoNcYyqXzCo38wWDsNrqI=;
-	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
-	b=G7kxtx87eBv2P/4KJtGCNlRiD07Vg+fwAta92mhwDxuJvlr2PBgPSUaHkghiGd5t3
-	 he57cYefmoEHnOVJCBxZJop/7oxpIbKYUfxSEZpmo1EKXSAh2r11byPIiEvbZoucbk
-	 Vy+P6AAjFKn+I5dW6zwZLZpDToCf2Iulo0ifr8aj7MeR7vQQqWuDD++ZsAaKIhA39G
-	 wn2dDYCYg0N1H2xf6JmahWU/2evltGhSQdhNYwoBEL+hAEQrgKD/zpDTy3aJqSdxig
-	 OJShO6RjiKdUtmlsaWnyEnDmZt40H3IUZRYwaPSyvegnFKk1en/OmKwjVZo/nFqeZl
-	 P1TjdThPZm2EQ==
-Received: by trampoline.thunk.org (Postfix, from userid 15806)
-	id 24C672E00B9; Thu, 08 Oct 2026 11:31:14 -0400 (EDT)
-Date: Thu, 8 Oct 2026 11:31:14 -0400
-From: "Theodore Ts'o" <tytso@mit.edu>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Linux Kernel Developers List <linux-kernel@vger.kernel.org>,
-        Ext4 Developers List <linux-ext4@vger.kernel.org>
-Subject: [GIT PULL] last minute changes for ext4
-Message-ID: <ase1cbY1IuELJ7jQ@mit.edu>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="notCj0oY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06C501F000FF;
+	Thu,  8 Oct 2026 15:31:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1791473488;
+	bh=1C8aurPJzK/wJUnjdRt/POJZVmCHvh4rqZatlItZkIw=;
+	h=Date:From:To:Subject:In-Reply-To:References;
+	b=notCj0oYOmJTZdKJ1nQwQDZzte5321kXLZnZgmSnB8CCKK4MLhVBq3f7b7fo4KfWl
+	 e0pzoOLjGssbkrTRqAfMg032MTqcuGRkIjxMcF8DRaD4Lnl7lesVWIicUdcRQrpIlx
+	 XEEpb3ejC4rgB8SYVtXxji8IGLxk/RcbLZK8bhQM=
+Date: Thu, 8 Oct 2026 08:31:27 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Jan Kara <jack@suse.cz>, Ayush Ranjan <ayushr@modal.com>, Pedro Falcato
+ <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, Matthew Wilcox
+ <willy@infradead.org>, Baolin Wang <baolin.wang@linux.alibaba.com>, David
+ Hildenbrand <david@kernel.org>, Gregory Price <gourry@gourry.net>,
+ linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [BUG] shmem: FALLOC_FL_PUNCH_HOLE vs fault-around race corrupts
+ page cache / rss counters
+Message-Id: <20261008083127.0305bac995e8b84c67e46bbb@linux-foundation.org>
+In-Reply-To: <20261008082304.bc6f4bd6c80fe6432abd4fc5@linux-foundation.org>
+References: <20260924061708.1645968-1-ayushr@modal.com>
+	<arTdLsBENhrpOyk-@pedro-suse.tail5790ac.ts.net>
+	<20260925053027.1998394-1-ayushr@modal.com>
+	<20260925065013.3682431-1-ayushr@modal.com>
+	<20261003033107.1488699-1-ayushr@modal.com>
+	<20261004222831.bdd648a2b406f02747dd9e40@linux-foundation.org>
+	<fyswoh7wpxzlbnjjanggjd2jz6yispmeirhwjl3wzi57nacddb@bjkb6kxyfcal>
+	<20261008082304.bc6f4bd6c80fe6432abd4fc5@linux-foundation.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The following changes since commit 93f51579e7df248780214094418f205253383cc5:
+On Thu, 8 Oct 2026 08:23:04 -0700 Andrew Morton <akpm@linux-foundation.org> wrote:
 
-  Linux 7.3-rc4 (2026-09-20 13:48:15 -0700)
+> A useful next step would be to instrument truncate_cleanup_folio(), e.g. warn
+> immediately after unmap_mapping_folio() if folio_mapped() is still true.
+> That should distinguish "unmap failed to remove an existing mapping" from
+> "some path installed a new mapping afterwards", and narrow this down
+> considerably.
 
-are available in the Git repository at:
+does this seem useful?  If so I can add it to mm-new/linux-next for a
+while.
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/tytso/ext4.git tags/ext4_for_linus-7.3-rc7
 
-for you to fetch changes up to 3e78d7b063230d39ffc42e80ee665b6c32a6adeb:
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: mm/truncate: catch shmem folios still mapped after unmap
+Date: Thu Oct  8 08:29:04 AM PDT 2026
 
-  ext4: mark data=journal as deprecated and will be removed in January 2028. (2026-10-08 11:21:30 -0400)
+Instrument truncate_cleanup_folio() to determine where the shmem "still
+mapped when deleted" state is introduced.
 
-----------------------------------------------------------------
-Mark the ext4 data=journal feature as being deprecated and will be
-removed in 2028.
+truncate_inode_folio() calls truncate_cleanup_folio() under the folio
+lock, and truncate_cleanup_folio() calls unmap_mapping_folio() before
+filemap_remove_folio().  If a shmem folio is still mapped immediately
+after that unmap, then the unmap itself failed to remove all mappings (or
+a path outside the folio-lock serialization installed one concurrently).
 
-Also designate the primary branch that Sashiko and other tools use to
-find the primary development branch in the ext4 tree.
+If this warning does not fire but the later "still mapped when deleted"
+warning still does, the mapping must have appeared after this point.  That
+distinguishes the two cases without otherwise changing truncate behavior.
 
-----------------------------------------------------------------
-Matthias Goergens (1):
-      MAINTAINERS: name the ext4 dev branch
+Limit the diagnostic to shmem and dump the folio on the first occurrence.
 
-Theodore Ts'o (1):
-      ext4: mark data=journal as deprecated and will be removed in January 2028.
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
 
- Documentation/admin-guide/ext4.rst | 6 ++++--
- MAINTAINERS                        | 2 +-
- fs/ext4/super.c                    | 1 +
- 3 files changed, 6 insertions(+), 3 deletions(-)
+ mm/truncate.c |   10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+--- a/mm/truncate.c~shmem-truncate-unmap-debug
++++ a/mm/truncate.c
+@@ -156,6 +156,16 @@ static void truncate_cleanup_folio(struc
+ 	if (folio_mapped(folio))
+ 		unmap_mapping_folio(folio);
+ 
++	/*
++	 * Pin down where the shmem "still mapped when deleted" state appears:
++	 * if the folio is clear here but mapped at removal, something installed
++	 * a mapping after cleanup rather than surviving unmap_mapping_folio().
++	 */
++	if (shmem_mapping(folio->mapping) &&
++	    WARN_ON_ONCE(folio_mapped(folio)))
++		dump_page(&folio->page,
++			  "shmem folio still mapped after unmap_mapping_folio");
++
+ 	if (folio_needs_release(folio))
+ 		folio_invalidate(folio, 0, folio_size(folio));
+ 
+_
+
