@@ -1,285 +1,223 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E9882D3EEB
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 05:50:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.9
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791438604; cv=fail; b=ls2nuxGQsv+t9AKCiJW+oEMAH57r1DdA+aGDOE3i3+UMjFUMHA9oTNS3WaCG3EQncgNjZBL3f+8a1gVqcH7wVrnWoXYsEsy7HtOFjBLkKzwJZ3GenY4Yyd8kvqH5GKeLksqV47xR82z+eyJfHzCCRMUybjxyNvWnXzwPa/m/Y3g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791438604; c=relaxed/simple;
-	bh=6WqJdlXZecZpCH9XfZTfHiLo5Le1/XWPQfOJf+pMRzs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=FeRuaH+q094s/K0KFzET63QKc9EqVvDV8/qdUvE7aGiCIqvw/W0mcgyV6K4y+4seSceNfqmwU4Cv15mbEwoUDokTglGR7+nGhBQZ1ubCxVWSK6+s8zMMaRhJ1winCL0/ur8Ap+lphPbg0/voEGX6Jc5ZIUzGfmE+JkK5wy0lYPY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=c2RRaTa4; arc=fail smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F5CB363C48
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 05:51:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791438719; cv=none; b=Ok46Gl/H3qpWcP1dB/quYLnp02Ft03voBLJuDeTJwp3zyHn8GZuBsvAMix0vvBvQ/enYAbOV1Eizf940xmEwiyfkl93URdQGOrx4jnHhgIKRDd0CGvjjRhWh0glJcOEGBoIiQWWy6jgXDjyAtRfY2jVqtrFM4Qghvwv6It4q90k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791438719; c=relaxed/simple;
+	bh=dMfCKBLj00WS6ud9NDYUeA29CVFfLdKEAWEavgqpzr0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kOPtrIFPPYwXAxVBGPSX5y+2nAKWayf4qq39X8cBG1lv4Aj0fmp4bumEdmXAlDXbqs8Jk+cBDsVwSo9BjJWbrT0UZggaOs51oWnBYLtORm6fnM2Nj2mVePJDB7XL1QQAJi7a45Ol+I/mcWTbTrMZ+pPXpEjkODm+VNcmE/BjYe8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cxtXKdEc; arc=none smtp.client-ip=209.85.215.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="c2RRaTa4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791438603; x=1822974603;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=6WqJdlXZecZpCH9XfZTfHiLo5Le1/XWPQfOJf+pMRzs=;
-  b=c2RRaTa4/7jNDUuHZhw9lL/olhj7IKLC4kR3/X6BfuQ953+QZCZfiSiy
-   SHApRLtvAWvrsFPi222I06gFsV3z9vpYySWHY1XNWSWzecyltZzbaaMpj
-   u9XLJE9aumUd073e2sHsE9SitXATcEpwVAt+oDuXEdFKkx46skpBuOawq
-   sbZ8G4CE0SEYefEmOdk95RO+8ME9haZljXGBNqsXhBtdgsYOAuAXVOqSL
-   IzQc7Pzl9z1rC0R6GQDQmwzYyiwC1ch0lj/mLDYBPR68amFGEyOSrFYJO
-   HjHvlVMHMYaPGqawoKuLWYU6wVv2CN2OaI/0fCAZbD1Rd0EbeAlghHQsF
-   A==;
-X-CSE-ConnectionGUID: p/xUob9WR16jXKm35bToMQ==
-X-CSE-MsgGUID: KBe9BFAgSzObI8rfOB9JAw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="99666"
-X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
-   d="scan'208";a="99666"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 22:50:02 -0700
-X-CSE-ConnectionGUID: oC/Gol+ZR2OECn2oBU3Dhg==
-X-CSE-MsgGUID: 8S2C6aY9RTu8w6x0toC0EQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
-   d="scan'208";a="255557"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 22:50:03 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 7 Oct 2026 22:50:01 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Wed, 7 Oct 2026 22:50:01 -0700
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.34)
- by edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 7 Oct 2026 22:50:01 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mz4IczQdXhSLseSHE++yYBLmbU74HNphtBP9Eo/EW1TN9SjnHxJEm3pSfXBzrOZYzLlY0F7gJpA8nWQyM2LqMb3JfD8ZfBvo6/wq9ATUy8FXnz0FWmQaqvGV+FI9Gu7qw9ej1I6l6g7Nv7TZC4S5ciErQJJPnD1EVror4dFEDDblRoLEzloFBI090bPUgo0FCYebA0KQv6VJkmwyIXiF3ZXTPJrM48yZGXh/hP1bCXN/37uvBQpXUYrdHxKnLD/FfbfPcH5RXbm5RUssBK/S4LBsefsiNsYk4wsMbcfX0yh3JyrC2MAfS0edAPORsOU6w8k/C/Lkqf2vhVMHWw8XSQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0vvoDOgREhDf3W7lZrJCvL+pFGE/McKzA1cnalqqsVU=;
- b=NN7L8r259GuQcnlDvU5yNaPOOz4h8IRHrlPqr7a4WVUnNWMYKpixpPvvU/Jor7Gwn9ikPX5yUMU8v8q3iELXdyPIT1iMCrdFoxJndLPtRRlibWrA0fXzBIPYwknW4YExJ2oDpltMGthU2+mKj0J94cXTitudDWwOEO0MOiO1suoMjJg7hUNGjCaS3itZVt8QBlS/BXO4vQa6t5TM5LZgmWbnc6HUuj71LI8Fhtah1fHbrDAtcQt3yR8A5ROsm1QdWMVg/BMCiBYrR6zWDEPyqu3547NYWCjeLJLVHA/njOoxipimcyfMIFgiNt9u8aDDhZ+J7468Qa13LOP9VHfPQg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from IA3PR11MB9136.namprd11.prod.outlook.com (2603:10b6:208:574::12)
- by PH0PR11MB5829.namprd11.prod.outlook.com (2603:10b6:510:140::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Thu, 8 Oct
- 2026 05:49:58 +0000
-Received: from IA3PR11MB9136.namprd11.prod.outlook.com
- ([fe80::37b4:37a9:4f3:518b]) by IA3PR11MB9136.namprd11.prod.outlook.com
- ([fe80::37b4:37a9:4f3:518b%5]) with mapi id 15.21.0496.010; Thu, 8 Oct 2026
- 05:49:58 +0000
-From: "Duan, Zhenzhong" <zhenzhong.duan@intel.com>
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
-	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"x86@kernel.org" <x86@kernel.org>
-CC: "Li, Xiaoyao" <xiaoyao.li@intel.com>, "Hansen, Dave"
-	<dave.hansen@intel.com>, "dave.hansen@linux.intel.com"
-	<dave.hansen@linux.intel.com>, "kas@kernel.org" <kas@kernel.org>,
-	"mingo@redhat.com" <mingo@redhat.com>, "seanjc@google.com"
-	<seanjc@google.com>, "pbonzini@redhat.com" <pbonzini@redhat.com>, "Peng, Chao
- P" <chao.p.peng@intel.com>, "Verma, Vishal L" <vishal.l.verma@intel.com>,
-	"jgg@nvidia.com" <jgg@nvidia.com>, "aneesh.kumar@kernel.org"
-	<aneesh.kumar@kernel.org>, "Tian, Kevin" <kevin.tian@intel.com>,
-	"hpa@zytor.com" <hpa@zytor.com>, "tglx@kernel.org" <tglx@kernel.org>,
-	"nicolinc@nvidia.com" <nicolinc@nvidia.com>, "bp@alien8.de" <bp@alien8.de>,
-	"Gao, Chao" <chao.gao@intel.com>, "aik@amd.com" <aik@amd.com>,
-	"yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>
-Subject: RE: [RFC PATCH 08/15] x86/tdx: Add TDG.MMIO.ACCEPT module call
- wrapper for TDX Connect
-Thread-Topic: [RFC PATCH 08/15] x86/tdx: Add TDG.MMIO.ACCEPT module call
- wrapper for TDX Connect
-Thread-Index: AQHdS9rIdRCadJg8uEm6GsazTtQ82bbeZNsAgBSotGA=
-Date: Thu, 8 Oct 2026 05:49:58 +0000
-Message-ID: <IA3PR11MB9136B922CD5755958ED5D30892932@IA3PR11MB9136.namprd11.prod.outlook.com>
-References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
-	 <20260924041032.1096569-9-zhenzhong.duan@intel.com>
- <3d38cbbd51f8e75d5a3886ca203447fd19a3dad1.camel@intel.com>
-In-Reply-To: <3d38cbbd51f8e75d5a3886ca203447fd19a3dad1.camel@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA3PR11MB9136:EE_|PH0PR11MB5829:EE_
-x-ms-office365-filtering-correlation-id: b5b78e01-8848-4c14-eafb-08df24fffc79
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|7416014|23010399003|1800799024|376014|366016|18002099003|22082099003|10067099003|38070700021|11063799006|4143699003|56012099006;
-x-microsoft-antispam-message-info: Kwf9iE2E0kBrQ/79RS2HweQxf+76CiD9QWDxyfF9PgvcY1dZ3yobPeddkbZ22azlLMyWSBVe6jhfPcuAVdbXSHHrP3UhQ2yU9c5Kz/7/0zYRzjvy81aOlIRtPZPoCN2698P4G0KDcmf8h9oKSyIJTmZ3jl93mq/fboX5obTaWj7uD51N/vD/9tAizhNnwQQWVtrD7W2AgqoS4aZYsSgNr1c2+kITOha91ybcGPtcHPqItHHRb83lavrkPsuss4lH9RbjLqLCOy/QY+vZeBuhizlak8p3trZpuCDevqV1X3nLQ+eRDr5ZQgQ9LZQQnkRhkIEgdhhsyUgpdf0/JrhP/GKVvy8NN0C06FBnoxcfmIlVQDiuvS5j94eBPztS2X/Dbv5ZGnfpwXGC2tW7BTPuWLOYUB1hsZWHHGSRvE5oGeVb/08ClAWFEdcqdn+tiIJevlFy1Si4KZ6DF4FJFzdw7n75SGdO4TeA7borlMHPGleS5g5MwndnF2d1UVQxf1IEt8F34c0Zp6XistFUgLaPrNmtvds2EJFA7OdHHFL4KHeuooXIRAQzIiw+IjQmHmeJYze+DENg6qhktfmgGPF8aGQVBoR6AlK14Xry9/Oi+IOcUd+edob/BooE9wzUTY7FtMIAM62AEZtB2UPRe8gOGRidVYX0Mjh6VR3tgDfpDjbgGdAYoGzZ5Wf/orYT3uozq6bHSXffUT+peApkGwMOzK3Mmlp65I97byl8m2t5F0A=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB9136.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(1800799024)(376014)(366016)(18002099003)(22082099003)(10067099003)(38070700021)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?bAyj+zW/rKfN2uxM6tOiJ42boHLxotbkIdN57+UgPWRlU4tZcrzSTL0eg8Le?=
- =?us-ascii?Q?NW7WZhWCdYQXlpvMNcikR98ge0qI3vsmf9Ej8V4jV6UneXQnpxXeyYB2jpz/?=
- =?us-ascii?Q?jOsiEz8Kdba4jx5gfCWwFgVEKjSKEqp1PKUm5UXnkEQlVODXEerPjmSiOXMP?=
- =?us-ascii?Q?Y/98Mtbt0wxtn1ZQSVBgGsNbpgDWw0VWS6/1HgX6Q+e/5x8cvKXMuIR9vB3b?=
- =?us-ascii?Q?qErXAJ56nrBTGrKhhhHYRECHKyirXgYjXmI96aFnNlTPMJJ4komBSR0FRXnT?=
- =?us-ascii?Q?8cn8FVZhwSZl9BiIU9onjQ0SuDVoAdSnZlJ+IbQ7xHH5wLVyaKNL+LS8lGb4?=
- =?us-ascii?Q?NltT6W6lOLs/Udfg6+y76cAHKnd55NwECVP+7ruGQMCaoNQ0cEl2I2cOuiNY?=
- =?us-ascii?Q?0iYlnijLgQAaLPZz1E6PqL1JFandFWZvMt0F/SI0IjZu7lcfIubg3hcUVET5?=
- =?us-ascii?Q?/vBMIRvwuXIDNj2FWXbtFFsCI+kT5GxYtg3Drqas0Q6PmrzHWd/jXx2WbzyV?=
- =?us-ascii?Q?bSVpNIv8atZYPoEf8Yxjc6hKhVYC2ukT6l/+rtUoZa8KB9hZ87awZsGdsARe?=
- =?us-ascii?Q?FOO/pm8FpPw02j1DMgeFPl3VR+wyRCdsOdMYd9j/C3t+0l5XBHyQ7TyDie8U?=
- =?us-ascii?Q?Abc9t+RQhSofQ9UwcME5I6q9CzhghiW8xutmikQhvrJ1G55T2FnIde4YRdcQ?=
- =?us-ascii?Q?VF232Jli5dHQ3nlJE/kLFQELZnbbsKI4Q+mkAC79uHQsw74TtEOfjma+7vZm?=
- =?us-ascii?Q?kHxf7P4/utykN5nWili+K0mQIZ4aE/20d8Qh5ImSMmSVjHc0b8qLmyCv3vXz?=
- =?us-ascii?Q?pmrHMxwNseFPP/Y5gT8cVcGvbFoPqT9zqlzdj3t1qFDeqfZxWcejZrOYkKOo?=
- =?us-ascii?Q?IGT7ZhaoFFO21eP4UgRwYys9pWgeOaNzLv2I19Kv3xN2UV96kOvfiGo0hlRt?=
- =?us-ascii?Q?4P989UTrUn6EfmpSEfCeTzqGtZmO5sXrpUd88qGiBvUBlk7t02NRFYmzRjP3?=
- =?us-ascii?Q?d5LyWOKEhtO1wt5TqHQoBV5eLh0MRjxKTGqy6ZF66lmhnKWtBr63qfnoPkWp?=
- =?us-ascii?Q?45M13vsdAFQLBEbAqBpJy0CkfeEloWepxuXFdV7hN1rR5IC+w3k3GlWu/rRh?=
- =?us-ascii?Q?G4UHmgK29SI+wxlZh022wOuNv8xZSensibIdJ37MzUn3u6TdsNjxwsvZOtB5?=
- =?us-ascii?Q?u3G0Jh5m/PBUCFGbqp0t+NM38nYnOxzhQPMhU+K43jf1AO5ICFxxSxhcJ263?=
- =?us-ascii?Q?Mn7aLC1gfOEUJLOexhTDIDk+Eb7FDNUtdrvKd2rBOFVyT+4BY9KAo//PfHM0?=
- =?us-ascii?Q?z/rvi1ZNIXXyoPJr+wODoefoSXQSqflEcFMZrjQoabmiMkkZIteAY6p8x307?=
- =?us-ascii?Q?gSoQtzGnw89Ar4LgVvylPDLuWjYEDqzb7uUs91S1eqBlJtA4jFiZ0mms3Z4d?=
- =?us-ascii?Q?Djx+ZqJOw1W4SnqHV8qJMQ+5RK4Jnf5XGyLo34r+ySZFye6J/8Yv0RIC0xG9?=
- =?us-ascii?Q?2XRgUDh/I2XsTYjzIUabbS3H/KpyK+slis7p73F/3DRvtyO0LlUfd6nZ1yZw?=
- =?us-ascii?Q?vIBCl9exhldpZmAqrc4/mXX4MPVCK+0kzClSI1Su3qhNiYtw2oILnKBwPeUI?=
- =?us-ascii?Q?8f8ViFSLNyeukKdApAMEFdyUIk4wIhvXljpOUrWFsdPFXxkHNKCWg+sTMcVo?=
- =?us-ascii?Q?NtHiuZCttPXHIznyLJvQDVU8/up3mb/tzMtvderwGQRfagEitUx/Zt0J+mPL?=
- =?us-ascii?Q?08XFxgRONw=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cxtXKdEc"
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc52c1b8286so159961a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 22:51:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791438717; x=1792043517; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tgnizjf+WTXk43Y5M7x3KZcvpBPDG9WlcPau0YfMzHc=;
+        b=cxtXKdEc6POiYFaVSgFOXNjSZNtSmWpVUU6F8K8xKHxx667AMMbNKVeYkr+pC7hDPv
+         IeAuKyaxBXE3gPYOib9Al4ijcC5fTgMOzNpEPihv4+U4ArJRhi7f1TYyXBEhOMAAWyEI
+         lt+dqW4Izmd7n4M6c748fz8jHHYBQQvl4HuUJGb92Bqj/rLGycNmf+cpqLOfwMxy2s1W
+         kJLxsgZQqxeeLURNxNSMt/+3xDUhEjpdEy/Ky9c7b6iKnb6pL3/ptnlXCkzZuh1pqoWl
+         kM99XD4gdJpNq7fPQki+TmxLM64O0d/VU3h5wBNEYOmAqVHVgBS6m+HRJp5w/19zWQ2Q
+         mF/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791438717; x=1792043517;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tgnizjf+WTXk43Y5M7x3KZcvpBPDG9WlcPau0YfMzHc=;
+        b=C/3UXkQgb72wPEl/T10rjLt2eoYmal7m3HtP3ZY7RshrCYS/FVXSta/YAKdTlnuP1k
+         HtJz1Gj/bKogyrJGs8fTc3NU9ov916TWPmQ/B1hfB7fyX+SYhr7Tqj86T3GsAkXYSosn
+         DALrjNGfQaoe0EsNsbQMDR5mRy9xDSycHKu/Fwg9hoYxUEJE2AcXj1Di9Ie/PKP5RAty
+         mO8yIX7T3d+dcS+yr7NxMo6oe6nGYyOk/0u1mRs95ci8R1/XG2JsChvKES04kruNpZ1M
+         x9R0O08fbPof6tA3beWZlzGh3KYBRli0Tpia1uGzGzLRmgDwWpC6ilAXN6n2c93MU2fK
+         +NAg==
+X-Forwarded-Encrypted: i=1; AKwUvBwaJc43c0jpYP7izDLiZE5FuzNEuQsW6zErugMuVnRUIYK9IE4+Vpoty9+56H5UNAxfHOHyel1+1OfNusM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI8L+mT7IsN2rqdZ8Y25INxKszTQUmgJ8eGEK+xylGGBt1DuAFu
+	Uoo9fBycyMpj+Jo5biznQfOhdjrUSaFluXfyamhgn8d4JpHTFEWF12f9
+X-Gm-Gg: AYBFou1y44u6LhS3ZZE0qALQY4V3OTRg4tH+xPFb/kjIlhCPyUTvp6aUOTC+4gbORQU
+	rYF08LAawUOnpwpBh6Pt3IR0W4jNTRO6o58IUWmiuSPxcWpzo/PmiyxtZw3AOzbCVPWiObfDM3/
+	dYN/IUtkOFPfCh7+yHNC9j8eqRlcSHlGqh9I9dcDfPvWnJfUiMXDVxMjJg0TWnY8eZ6HTYvGCpN
+	eAhSw8CHUAkuhGsfbpqKvIcRQGJCP+1xj4eH+wvV+a1rHkDbbvqHrVPM1psVeRGTXNclXHs0Us7
+	MjK0EAtPCQB69/0NHmtVzGo/5nSfF8hRh0jnpfoSXqntC4kDOjzS0Gj0iDZOx/MJqg2NGHyuh+K
+	3oxkjrkaaPItpop8UsWmb1RuMeDKW2+HP9xf5OZIny2Wp5BFdAx2Fe7D86AN7YNll4b+7eTMpT8
+	Fq3lk1/5mDpbkIR77baBcBhu9pk764q/T0iQPRQBPhVtzyAvWHK8VWwrM7+kKfWSHIUG1fZVXJ8
+	apcmJzYFj4c8KDHR6K8E7wF+z6bnvzC1HY=
+X-Received: by 2002:a17:90a:d450:b0:3a0:d82b:237b with SMTP id 98e67ed59e1d1-3aaed7eb293mr718759a91.25.1791438716883;
+        Wed, 07 Oct 2026 22:51:56 -0700 (PDT)
+Received: from obadmin-Precision-3680.atlascopco.group ([167.103.3.1])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9ff5c7db6sm2746571a91.16.2026.10.07.22.51.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 22:51:56 -0700 (PDT)
+From: Sahaj Chaudhari <sahaj123.sc@gmail.com>
+To: kuniyu@google.com
+Cc: netdev@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	shuah@kernel.org
+Subject: [RFC net-next] selftests: af_unix: test zero-length MSG_PEEK with OOB data
+Date: Thu,  8 Oct 2026 11:22:33 +0530
+Message-ID: <20261008055233.3413445-1-sahaj123.sc@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: SVEcmlXAgEy0oQvAGS8Ba+p8pDGxDyxPWhq6F34ZTajY3VsiJIiOFwGo5rpWcf6jRa1U/q/hET5Y0KeyD0fJvMgkH7D29Va1cOoVL74s7NN9BAqxJTrO6eOMQ1VOaL3DGJkl7LqyniiXh2r6mxjOjIQW9iDH9ykG3ZhVlUTdnwUWrUUNMXySY0c6pC7QJ94CRGE4P1CkGSO/JUrFdZOvxZzwC2/zT03aPtDx7yrC/Bo+Xl4VOkKETz8L/Y5fVsqrzSkGjEbGgbwSL4juQ/9QHqlCuSNeQPY8dGL6A4H/dEAx0xF7dYWcSFerHdhsCxckou1JTuN/QqSvZxsqe2ZfSA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB9136.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b5b78e01-8848-4c14-eafb-08df24fffc79
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Oct 2026 05:49:58.0957
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: PCe4uBsm6xS6I77e/LHEpV1KfqJNc2yC9oRVBPj4SUpliBCfi5zUwA/lgCGAFcpje/qQZIlKSafIsbQfULjQNRToEU1FuNpBEaCnp9jmOXo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB5829
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
+A zero-length MSG_PEEK on an AF_UNIX stream socket can busy-loop when
+an OOB skb is queued. Add a regression test that sends MSG_OOB and
+checks that recv(..., 0, MSG_PEEK) returns promptly in a child process.
+Skip the test when AF_UNIX OOB support is unavailable.
 
+Register the test as a normal generated program so it is included in
+the AF_UNIX selftest run.
 
->-----Original Message-----
->From: Edgecombe, Rick P <rick.p.edgecombe@intel.com>
->Subject: Re: [RFC PATCH 08/15] x86/tdx: Add TDG.MMIO.ACCEPT module call
->wrapper for TDX Connect
->
->On Thu, 2026-09-24 at 12:10 +0800, Zhenzhong Duan wrote:
->> TDG.MMIO.ACCEPT verifies and accepts a pending private MMIO range for
->> a trusted device.
->>
->> The MMIO range to be accepted can be a sub-range of the MMIO ranges
->> originally defined in the Device Interface Report. Because the TDX
->> module caches these ranges from the Device Interface Report, the guest
->> does not need to pass the explicit physical start and end addresses of
->> the MMIO range. Instead, it only needs to provide the target MMIO
->> range index, the offset within that range, and the size to be accepted.
->>
->> Translate TDX module return codes into Linux errno values.
->>
->> Signed-off-by: Zhenzhong Duan <zhenzhong.duan@intel.com>
->
->We are going to need a lot more info about what this TDG call is doing. Lo=
-ok at
->the host side seamcall wrapper commits for examples.
+The regression was fixed by commit 6e5ee08eb585 ("af_unix: Return
+immediately when manage_oob() returns NULL for 0-length buffer.").
 
-OK, will do.
+Tested: fails on 7.0.0-34-generic (expected regression); passes in QEMU
+with a kernel built from 0c2669a9f4a1.
 
->
->> ---
->>  arch/x86/coco/tdx/tdx_connect.c   | 38 +++++++++++++++++++++++++++++++
->>  arch/x86/include/asm/shared/tdx.h |  1 +
->>  arch/x86/include/asm/tdx.h        |  1 +
->>  3 files changed, 40 insertions(+)
->>
->> diff --git a/arch/x86/coco/tdx/tdx_connect.c
->b/arch/x86/coco/tdx/tdx_connect.c
->> index 1409b1a30cc6..09a92fe23357 100644
->> --- a/arch/x86/coco/tdx/tdx_connect.c
->> +++ b/arch/x86/coco/tdx/tdx_connect.c
->> @@ -71,3 +71,41 @@ int tdx_mcall_tdi_read(u64 func_id, u64 field, u64 *v=
-alue)
->>  	return tdx_mcall_tdi_to_errno(ret);
->>  }
->>  EXPORT_SYMBOL_FOR_MODULES(tdx_mcall_tdi_read, "tdx-guest");
->> +
->> +/**
->> + * tdx_mcall_mmio_accept() - Accept a pending private MMIO mapping of a
->> + *                           Trust Device Interface (TDI) instance
->> + * @func_id: Function identifier specifying the TDI instance
->> + * @index: MMIO range index from the Device Interface Report
->> + * @pg_offset: Range offset to start accepting the subrange from, in pa=
-ges
->> + * @page_cnt: Count of pages to accept
->> + * @gpa: GPA base address the subrange mapped to
->> + *
->> + * Verify and accept a pending private MMIO mapping. Upon success, the
->MMIO
->> + * pages are set as mapped in the TDX module.
->> + *
->> + * Return 0 on success, -EINVAL for unaligned GPA, -ENXIO for invalid o=
-perands,
->> + * -EBUSY for busy operation, -ENODEV for TDI not present or invalid me=
-tadata,
->> + * or -EIO on other TDCALL failures.
->> + *
->> + */
->> +int tdx_mcall_mmio_accept(u64 func_id, u64 index, u32 pg_offset, u32
->page_cnt, phys_addr_t gpa)
->> +{
->
->offset is 0 for all callers in this series. So I'd think to drop it unless=
- there
->is some other code coming very very soon.
+Signed-off-by: Sahaj Chaudhari <sahaj123.sc@gmail.com>
+---
+ .../testing/selftests/net/af_unix/.gitignore  |  1 +
+ tools/testing/selftests/net/af_unix/Makefile  |  1 +
+ .../net/af_unix/unix_oob_zero_peek.c          | 89 +++++++++++++++++++
+ 3 files changed, 91 insertions(+)
+ create mode 100644 tools/testing/selftests/net/af_unix/unix_oob_zero_peek.c
 
-Will do.
+diff --git a/tools/testing/selftests/net/af_unix/.gitignore b/tools/testing/selftests/net/af_unix/.gitignore
+index 954f0958dd03..b95a86fb77f5 100644
+--- a/tools/testing/selftests/net/af_unix/.gitignore
++++ b/tools/testing/selftests/net/af_unix/.gitignore
+@@ -9,3 +9,4 @@ so_peek_off
+ unix_connect
+ unix_connreset
+ unix_listen
++unix_oob_zero_peek
+diff --git a/tools/testing/selftests/net/af_unix/Makefile b/tools/testing/selftests/net/af_unix/Makefile
+index a66f10fb0c23..5fbd00741e50 100644
+--- a/tools/testing/selftests/net/af_unix/Makefile
++++ b/tools/testing/selftests/net/af_unix/Makefile
+@@ -16,6 +16,7 @@ TEST_GEN_PROGS := \
+ 	unix_connect \
+ 	unix_connreset \
+ 	unix_listen \
++	unix_oob_zero_peek \
+ # end of TEST_GEN_PROGS
+ 
+ TEST_GEN_FILES := scm_rights_denial_lsm.bpf.o
+diff --git a/tools/testing/selftests/net/af_unix/unix_oob_zero_peek.c b/tools/testing/selftests/net/af_unix/unix_oob_zero_peek.c
+new file mode 100644
+index 000000000000..52a14d0901b4
+--- /dev/null
++++ b/tools/testing/selftests/net/af_unix/unix_oob_zero_peek.c
+@@ -0,0 +1,89 @@
++// SPDX-License-Identifier: GPL-2.0
++
++#include <errno.h>
++#include <poll.h>
++#include <signal.h>
++#include <sys/socket.h>
++#include <sys/types.h>
++#include <sys/wait.h>
++#include <unistd.h>
++
++#include "kselftest.h"
++
++#define RECV_TIMEOUT_MS 150
++
++struct recv_result {
++	ssize_t result;
++	int error;
++};
++
++int main(void)
++{
++	struct recv_result result;
++	struct pollfd pfd;
++	char byte = 'x';
++	int sockets[2], pipefd[2], status;
++	ssize_t n;
++	pid_t child;
++
++	ksft_print_header();
++	if (socketpair(AF_UNIX, SOCK_STREAM | SOCK_CLOEXEC, 0, sockets))
++		ksft_exit_fail_perror("socketpair");
++	if (send(sockets[0], &byte, sizeof(byte), MSG_OOB) != sizeof(byte)) {
++		if (errno == EOPNOTSUPP || errno == EINVAL)
++			ksft_exit_skip("AF_UNIX OOB support is unavailable\n");
++		ksft_exit_fail_perror("send MSG_OOB");
++	}
++	if (pipe(pipefd))
++		ksft_exit_fail_perror("pipe");
++
++	ksft_set_plan(1);
++	child = fork();
++	if (child < 0)
++		ksft_exit_fail_perror("fork");
++	if (!child) {
++		struct recv_result child_result;
++
++		close(sockets[0]);
++		close(pipefd[0]);
++		errno = 0;
++		child_result.result = recv(sockets[1], &byte, 0, MSG_PEEK);
++		child_result.error = errno;
++		if (write(pipefd[1], &child_result, sizeof(child_result)) !=
++		    sizeof(child_result))
++			_exit(1);
++		_exit(0);
++	}
++
++	close(sockets[1]);
++	close(pipefd[1]);
++	pfd.fd = pipefd[0];
++	pfd.events = POLLIN;
++	n = poll(&pfd, 1, RECV_TIMEOUT_MS);
++	if (n <= 0) {
++		kill(child, SIGKILL);
++		waitpid(child, &status, 0);
++		ksft_test_result_fail("zero-length MSG_PEEK did not return promptly\n");
++		ksft_finished();
++	}
++
++	n = read(pipefd[0], &result, sizeof(result));
++	if (n != sizeof(result)) {
++		waitpid(child, &status, 0);
++		ksft_test_result_fail("worker did not report the recv result\n");
++		ksft_finished();
++	}
++	if (waitpid(child, &status, 0) != child || !WIFEXITED(status) ||
++	    WEXITSTATUS(status)) {
++		ksft_test_result_fail("worker did not exit successfully\n");
++		ksft_finished();
++	}
++	if (result.result != 0) {
++		errno = result.error;
++		ksft_test_result_fail("zero-length MSG_PEEK returned an error\n");
++		ksft_finished();
++	}
++
++	ksft_test_result_pass("zero-length MSG_PEEK returned immediately\n");
++	ksft_finished();
++}
+-- 
+2.43.0
 
->
->Can we turn some of these others into proper types? Why not pass struct
->pci_tsm_mmio_entry or struct pci_dev pointers instead of raw unsigned ints=
-?
->
->Actually, the only caller just accepts the whole pci_tsm_mmio_entry, so yo=
-u just
->need:
->
->int tdx_mcall_mmio_accept(struct pci_dev *dev, struct pci_tsm_mmio_entry
->*entry)
->
->What do you think?
-
-Yes, it's cleaner. But how about below to use func_id as first parameter to=
- align with other TDI specific mcalls.
-
-int tdx_mcall_mmio_accept(u64 func_id, struct pci_tsm_mmio_entry *entry)
-
-Or maybe passing "struct pci_dev *dev" for all TDI specific mcalls?
-
->
->> +	struct tdx_module_args args =3D {
->> +		.rcx =3D gpa | TDX_PS_4K,
->
->Always 4KB?
-
-Spec says:
-
-"RCX	GPA_BASE_AND_LVL: GPA Base address. MMIOMT_L0 level (4KB pages) is sup=
-ported"
-
-> Needs an explanation in the log at least.
-
-Sure, will do.
-
-Thanks
-Zhenzhong
