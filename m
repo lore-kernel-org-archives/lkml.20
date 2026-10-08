@@ -1,79 +1,75 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63F6A31716D
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 06:32:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6A883BAD80
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 06:32:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791441148; cv=none; b=c+VkRW3GDe83TNxJLnt5IV8TTN1H/9eb4u2gOdKCLr8ykv9qjf9XqJsZ4i97MTTDDK4VMVRoQnYwi54EwHS1mH9BTis2eEc9lEJdULWgeyWoMjc4r3i2c5cGwJR/3pnrfDtJ/S1IUByBtIP+Acti8UBnrUQI+KbCMux76vvZaTk=
+	t=1791441179; cv=none; b=bsGuCWnPYi5nNj6/9rLzFhhSQ1ppMic62pAZzQdC1UL3AKzCpHMs/FcBrQwTJdTj2ORqQnhWMkT+UKmUxOLS2P6jywRkquZIISHUsb9asldO3YglMsK2Rkcqj7GJWZGQ958Q/cPUpe5BAMM+rc0QqUzGI7PrRD9hBZD4+Tt5tCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791441148; c=relaxed/simple;
-	bh=fXmx+nGIvpnbd8pe1FIdZyIWo74jnyWSmg4x2wEcVuk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=EIdEkgBSFfAIX5Qew/CBCz8MuKr6dlrrVJ2CMBJR0rpI9Bf36UK9RbEpnex/MOECnWKcSzCYkIOHOcDy7/yfPbtvDMFCXmXH0C+LSPz+e2bgtPTpwy/kUHFTnOmyWOGdBgxSdw41kWgvf94s2X3e3UmmGBEobwKzx1H8UgiQbsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SYUq83FT; arc=none smtp.client-ip=209.85.216.43
+	s=arc-20240116; t=1791441179; c=relaxed/simple;
+	bh=aIwAUAWsiODGxZ224eOITcUPvbEFhGe0KOPRy13kkHo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=Tm6U/SiVmk1XL94381Y0YqPa3EaNc60P3gCAdkX27V3Tsb8p799HbfKXsBbirlcjImM0KpsVesqRLZiILCAajiDlMu8OyjBYrSN9Y5NvVscEUG53GRDFJAXe70uDPJ3aJZjwiHEif3rrlAinnc1FJIGOwzWpjT/hHTS4jawA7O4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i8T+Zh/y; arc=none smtp.client-ip=209.85.216.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SYUq83FT"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3a80d1c98f5so2889388a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 23:32:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i8T+Zh/y"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3a813079a55so209325a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 23:32:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791441147; x=1792045947; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791441177; x=1792045977; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Gm+ycg3N8xZsnvvFcj4//dpA7uaGdP+7wCmofLbeyyQ=;
-        b=SYUq83FTW6jbz/hJ9sGNmBZWy6TrLZ7xhIRiOsYXvCPCENo/yoEzHzuHY83bkx26mq
-         cU1P37rQmm0jVRR0hSTqXaWucQRH/+g1IlpPE0uYyB69PdHQjruC6na3LTkKlWSUPt8B
-         EYXdRW3fwPZiM+xQxOigdfTVL2atXMRTLSE9pAxCBGtQUu+BjRXjwK1RZrOuOy2VaIoS
-         iqRlFUX7xsWITt9ySnLLEb0jtklO2mak8UDT2zmhxmoS7+FLFgaXw8eY1eMwbc14GqwM
-         PFOput95x6YVXhQ7B9t0INPUObmaPDA/E7lFUow6QiH2niVZYmvZT/sD+eBnZ/RtSRCQ
-         wwxA==
+        bh=dmdCkCPZNwQQ7ZHzl51SdYDb62VPGEqmXUOyx3/kjWI=;
+        b=i8T+Zh/yhOm7bCVzGL/fz1BzcOK9N7Ck6tLrtOVF/wFulJHFmbTdBPwgmBxmzeEkBQ
+         PlPb83QRaLasW1F3OzKEYVMIxgZh4Bt1hgZhBsYO88zs4Q0ceUkumt0i3Dih9RNc3GEE
+         kbGvtMsrek/YhfKQjBT7drfAA5YU9kVy+MxobXC0ATG5JyfhK47NbY76SpYuFSseNpiH
+         2q2o14iHINNENUxZT/2Kpx/bly2y8M7nmJAd3piESLRpu4Fsbl+oD9gkO/BRAMk4uSgJ
+         mLjFjXzbYWJHs8Jvhos8hxdGnnsiZUdjjtnVTnhHQBnXWGdnODDBLKePsLie2kObYwx4
+         HJ+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791441147; x=1792045947;
+        d=1e100.net; s=20260707; t=1791441177; x=1792045977;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Gm+ycg3N8xZsnvvFcj4//dpA7uaGdP+7wCmofLbeyyQ=;
-        b=2ykTp4rbsryadAIvDVYmwgFbpoOKtVBQEw6xPaUyk3tWFLP9C2/Rr3MC9DiWSmX22Q
-         Q7yQYGbuYbBq4ip7i4Sme/dGwMwqWrAFOWocH0aB15xQddxVsRyj8TFN2YNuXtjPeDZ0
-         JldDm67USmPZ6gZ8kY27XyU+HXAtqv20g1V/wqrrjjjiRKwbGLXppUVAUoS1/yNH6++j
-         ssaqyocrjnvBPXXcyCVfm3HfHg76UlTxtcwsJT6EZ/1joP2JFDRcH1/ht01tF3elxQlo
-         K1jbNkDy5GgfAopxe3bwlcFTYJzEJUfUdMuhQLmSpOnxWtSvtq4HeH3ZzWCAhCpP88qX
-         LTZg==
-X-Forwarded-Encrypted: i=1; AKwUvBzwvigbKcn4mzwGetgrWSe5NDOw7eufAXPNBMlXuojHstoROvT6EwBXsru/XRr1lTHZJX7qVeL697S1ClY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIbGZDZrHr6Y+72/jEqPcFCZeAUZanV87c2zFQu0aK3V8vPyOBO
-	iOs9X6XCGIlFYYUTyeFsKBGFVT0yeBh0/XhIBSHpNAMFOpMi+rrLhjRw
-X-Gm-Gg: AYBFou2aF+C43gxuL/v4kKgZNeYMdyJXW6rRUXmAVeg4zagfVpDPmiWaHgQtfmgvzJC
-	aF/Fbr+R+2rrf2rV4pV0E4tbi/i7eTf5RCJCNAiQNXmnetMMzstLqS3qMQdrhJscUR+7qrd3o8G
-	i3A1JwoBV2uH5UlJUGzfbcFqG137WWKns55I+muERWxEnrpzMQb1LUzQuNQztwahIOhLPAJ0gip
-	J/MoM6tBWl/20LKG6ZhoPPF2BSVxaEcS4qV4XmVR5UI3klsP77Ew0XsF3xDIHBYl04FyokZw30R
-	m0VZBkfdbFBWgYcVr9aJyT2LENR1QZ30GnB6i9HujnCeDWkmoWIPwysJWeO3WAxFrtEIHP+A7Kf
-	UvI/ixb7/Ap7NmR/2h9u0uUu+dHrzKoRYtZPRqNRtYfXUVVmPpItK4yGODjB3GkFA+9FHD44K43
-	ezH076Cm5hWD+aYx6v/UwESS8cYXo1wwC7RaL6NU4tzRszHGr/VvJjJj0EeQDb28Osag==
-X-Received: by 2002:a17:90b:4ccc:b0:3a8:6a2f:3ee3 with SMTP id 98e67ed59e1d1-3a8a1be4d13mr4369691a91.49.1791441146478;
-        Wed, 07 Oct 2026 23:32:26 -0700 (PDT)
+        bh=dmdCkCPZNwQQ7ZHzl51SdYDb62VPGEqmXUOyx3/kjWI=;
+        b=xGMVSQse2MsIzIgrSBWUk6FPp/8xzgPIdRaB002ctLOCo8/E+ZhYFWzECqAzGcW+aT
+         MW3bJf8t/hkHv8V1Eeb4XUHI3/bwu2daBddHY481H7PrY15l5Ms6g5l7bX91yPkTRdWV
+         ZHAuyKOxcbqF0qkh5Xw/DMTx+yylDgOOJ605450xe9Ppz3os933Xq9N8e7Rj5LbBMcxz
+         QKWzGjDtHGQtBKhOwW10X25iwKR314jD0dr2rJJQlLhGpRzv4PbHBZcx6T9bIQkJ1+8e
+         ix/gZ/UVAwBAwnI/8OnEFmMus6n885KgKV27bpSQCsYJ7j3f2NvFwBaQAH7+SSD63w1Z
+         3n8A==
+X-Forwarded-Encrypted: i=1; AKwUvBy+NHVRIHyS9p5uYK5y30AguYbz98bJ6Q9QC5e5vEhOqosGjoFQowBYQTScXluX1LUPEsRrQnqHcUEwplg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLo+W74YCXlqAQaiF/ajnlC8Nog5bVs+UkFxqWRU1ifHCHeJTUb
+	zixSyYCgWQYBEMW6q1l/vHMAiPFMjF+X9LSwM5LumTnE/ufXoghDKiX5
+X-Gm-Gg: AYBFou18ov0WSGEHBODNmGjqV7g78lwnxnpdn8MOkdFIote3OdtNExC6Rni3R/VNPXL
+	pcOX4SgUWvxsAw2enH/9YJJVdopGhtAOG6O/q5n9543NMr8Uiy28vCEWryUAdzo/CDcilyPiV65
+	3tqMK5i2eil6I4R1jx2OPNQhwtR2XUOCRom7QPHLMqhQZy6hGYviMJ3KyCIJ91CnjgZbShbFq9K
+	8s0xqvd/LRZROynEhCkpaOzHYO2Y2nyT63XPAhUgrn3ibDqpKMxyttlf6Qwd25u3Fo6JZ+6D7Yp
+	8Owepk8OAmVsjSUThPRYkJrvZqqzdBc9k8HjuMh0DrIcUnaKecqwIDYJGrcEtcFn16mF9SoaN3c
+	S/xA2nYUYr/m4Bdyf5PHrtdQnLJL3ab4X8F+C+taJjPZKumbGLhyaaFctLUIuLQjoGfy57eC84W
+	rVbLVMrMPIyYip9ScrDTP1vz0m6xn6p3F565y4kb3dQz7RLAnb5jSiFhAHcF0N8VCNTK2DBWXGl
+	ddzcA==
+X-Received: by 2002:a17:90b:4f90:b0:3a6:f1d2:57e7 with SMTP id 98e67ed59e1d1-3aadffb032cmr865522a91.11.1791441177046;
+        Wed, 07 Oct 2026 23:32:57 -0700 (PDT)
 Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9ff8669eesm2717780a91.10.2026.10.07.23.32.21
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9f1a7e9e4sm2882285a91.7.2026.10.07.23.32.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 23:32:26 -0700 (PDT)
+        Wed, 07 Oct 2026 23:32:56 -0700 (PDT)
 From: Cen Zhang <zzzccc427@gmail.com>
-To: dsahern@kernel.org,
-	idosch@nvidia.com,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	jiri@resnulli.us
-Cc: netdev@vger.kernel.org,
+To: miklos@szeredi.hu,
+	bo.liu@linux.alibaba.com,
+	vgoyal@redhat.com
+Cc: fuse-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	baijiaju1990@gmail.com,
 	jjzuming@gmail.com,
 	zzzccc427@gmail.com
-Subject: [PATCH] ipv4: Serialize netconf GET requests with RTNL
-Date: Thu,  8 Oct 2026 14:32:18 +0800
-Message-Id: <pm-ip-core-objects-candidate-0002-v3-4af089192b0b62b40b9c@gmail.com>
+Subject: [PATCH] fuse: dax: Clear stale mapping when inline reclaim lookup misses
+Date: Thu,  8 Oct 2026 14:32:51 +0800
+Message-Id: <pm-fuse-full-objects-candidate-0016-v2-f3854498f12705839ecb@gmail.com>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -84,206 +80,141 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-An in_device returned by in_dev_get() must stay alive until
-inet_netconf_get_devconf() finishes reading its cnf. However, the helper
-samples dev->ip_ptr under RCU and unconditionally increments refcnt,
-then returns the pointer outside RCU without checking whether the count
-was already zero. The net_device reference held by the request does not
-retain the separately allocated in_device.
+A mapping returned by inline reclaim must be detached from its inode
+and the connection's busy list before it can be reused. However,
+inode_inline_reclaim_one_dmap() leaves dmap unchanged when its second
+tree lookup misses. It sets retry but returns the old pointer, and
+alloc_dax_mapping_reclaim() accepts a non-NULL result before checking
+retry.
 
-A down interface without IPv4 addresses or multicast owners can have
-only the ip_ptr publication reference. Lowering its MTU below
-IPV4_MIN_MTU invokes inetdev_destroy() through the RTNL-held
-NETDEV_CHANGEMTU notifier. RTM_GETNETCONF runs without RTNL, allowing
-the final put to follow its pointer sample but precede its increment:
+With DAX enabled, an exhausted free pool sends a file read or a
+non-extending write into inline reclaim. A pinned DAX page can make
+fuse_dax_break_layouts() wait. The inode tree semaphore is already
+released, and fuse_wait_dax_page() drops the inode's invalidate_lock
+while scheduling. This permits the following ordering:
 
-  RTM_GETNETCONF                   MTU change (RTNL held)
-  in_dev_get():
-    rcu_read_lock()
-    sample dev->ip_ptr
-                                  inetdev_destroy():
-                                    clear dev->ip_ptr
-                                    in_dev_put(): refcnt -> 0
-                                    call_rcu(in_dev_free_rcu)
-    refcount_inc() from zero
-    rcu_read_unlock()
-                                  in_dev_free_rcu(): kfree()
-  inet_netconf_fill_devconf():
-    read in_dev->cnf
+  1. Inline reclaim on inode I selects mapping D and copies its index
+     under fi->dax->sem, then releases the semaphore and waits with
+     invalidate_lock dropped.
+  2. After the page is unpinned, the reclaim worker acquires I's
+     invalidate_lock before the inline caller resumes. It relooks up
+     the index under fi->dax->sem, removes D and returns it to the free
+     pool under fcd->lock.
+  3. Mapping setup on inode J takes D from the free pool and publishes
+     it in J's tree and the busy list. J has separate inode locks.
+  4. Inline reclaim reacquires I's invalidate_lock and fi->dax->sem.
+     Its lookup misses, but it returns D. Setup on I then reuses D
+     while J still owns it.
 
-The zero-count increment warns and saturates the refcount, but cannot
-cancel the queued free. Once the request leaves RCU, the callback can
-free the attachment before the configuration read, causing a
-use-after-free. Restoring a valid MTU can publish a new attachment on
-the same device while the request still holds the old pointer.
+Successful stale setup remaps the same DAX window and reinserts the
+embedded tree and list nodes, allowing accesses to reach another
+file's data and corrupting the mapping structures. A setup error or
+an existing mapping on I instead puts the active slot on the free
+list. Later reclaim can encounter a cleared inode pointer in the
+corrupted busy list.
 
-Drop RTNL_FLAG_DOIT_UNLOCKED so rtnetlink holds RTNL from lookup through
-reply construction and reference release. This serializes the request
-with inetdev_destroy(), preventing the publication reference from being
-dropped during acquisition or use. The dump handler already holds RCU
-through its configuration reads and keeps RTNL_FLAG_DUMP_UNLOCKED.
+Clear dmap on the missing-node branch, as in the adjacent branch for
+a mapping still in use. Returning NULL with retry set makes the
+allocator retry through the existing pool and tree lookups after
+releasing both inode locks, rather than reuse an unreserved slot.
 
 KASAN report as below:
 
-    BUG: KASAN: slab-use-after-free in inet_netconf_fill_devconf+0x748/0x790
-    Read of size 4 at addr ffff88811d70b958 by task ip_core_fixture/498
+    BUG: KASAN: null-ptr-deref in igrab+0x2d/0x260
+    Write of size 4 at addr 00000000000001e8 by task kworker/u16:0/12
 
-    CPU: 1 UID: 0 PID: 498 Comm: ip_core_fixture Tainted: G        W           7.2.0-rc5-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
+    CPU: 0 UID: 0 PID: 12 Comm: kworker/u16:0 Tainted: G        W           7.2.0-rc5-pmb-fuse-functional-v2+ #1 PREEMPT(lazy)
     Tainted: [W]=WARN
-    Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+    Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.16.0-0-gd239552ce722-prebuilt.qemu.org 04/01/2014
+    Workqueue: events_dfl_long fuse_dax_free_mem_worker
     Call Trace:
      <TASK>
      dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? inet_netconf_fill_devconf+0x748/0x790
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20d/0x410
-     ? inet_netconf_fill_devconf+0x748/0x790
      kasan_report+0xe0/0x110
-     ? inet_netconf_fill_devconf+0x748/0x790
-     inet_netconf_fill_devconf+0x748/0x790
-     ? __pfx_inet_netconf_fill_devconf+0x10/0x10
-     ? inet_netconf_get_devconf+0xaef/0xe40
-     inet_netconf_get_devconf+0x41c/0xe40
-     ? __pfx_inet_netconf_get_devconf+0x10/0x10
-     ? __pfx_inet_netconf_get_devconf+0x10/0x10
-     ? rtnetlink_rcv_msg+0x795/0xce0
+     ? igrab+0x2d/0x260
+     kasan_check_range+0x105/0x1b0
+     igrab+0x2d/0x260
+     fuse_dax_free_mem_worker+0x172/0x9e0
+     process_one_work+0x908/0x19c0
+     ? __pfx_process_one_work+0x10/0x10
      ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_release+0xc8/0x280
-     ? __pfx_inet_netconf_get_devconf+0x10/0x10
-     rtnetlink_rcv_msg+0x7b9/0xce0
-     ? __pfx_rtnetlink_rcv_msg+0x10/0x10
+     ? lock_is_held_type+0x8f/0x100
      ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __lock_acquire+0x466/0x2260
-     ? lock_acquire+0x17b/0x2f0
-     netlink_rcv_skb+0x133/0x390
-     ? __pfx_rtnetlink_rcv_msg+0x10/0x10
-     ? __pfx_netlink_rcv_skb+0x10/0x10
-     ? netlink_deliver_tap+0xdf/0xbd0
+     worker_thread+0x65c/0xe40
+     ? __pfx_worker_thread+0x10/0x10
+     kthread+0x34f/0x460
      ? srso_alias_return_thunk+0x5/0xfbef5
-     ? netlink_deliver_tap+0x173/0xbd0
-     netlink_unicast+0x504/0x840
-     ? __pfx_netlink_unicast+0x10/0x10
-     netlink_sendmsg+0x7f7/0xcf0
-     ? __pfx_netlink_sendmsg+0x10/0x10
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork+0x659/0x940
+     ? __pfx_ret_from_fork+0x10/0x10
      ? srso_alias_return_thunk+0x5/0xfbef5
-     ? selinux_socket_sendmsg+0x160/0x280
-     ? __pfx_netlink_sendmsg+0x10/0x10
-     ____sys_sendmsg+0x88b/0x9d0
-     ? __pfx_____sys_sendmsg+0x10/0x10
-     ___sys_sendmsg+0x125/0x1d0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx____sys_sendmsg+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_release+0xc8/0x280
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? netlink_bind+0x518/0x900
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     __sys_sendmsg+0x13e/0x1e0
-     ? __pfx___sys_sendmsg+0x10/0x10
-     do_syscall_64+0x115/0x6a0
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    RIP: 0033:0x7f8ea8b31687
-    Code: 48 89 fa 4c 89 df e8 58 b3 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
-    RSP: 002b:00007fff83200d90 EFLAGS: 00000202 ORIG_RAX: 000000000000002e
-    RAX: ffffffffffffffda RBX: 00007f8ea8a9f780 RCX: 00007f8ea8b31687
-    RDX: 0000000000000000 RSI: 00007fff83200e50 RDI: 0000000000000003
-    RBP: 00007fff83202ed0 R08: 0000000000000000 R09: 0000000000000000
-    R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000000
-    R13: 00007fff83203070 R14: 00007f8ea8cdd000 R15: 0000559d62722c80
+     ? __switch_to+0x74f/0xf80
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork_asm+0x1a/0x30
      </TASK>
-
-    Allocated by task 496:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_kmalloc+0xaa/0xb0
-     __kmalloc_cache_noprof+0x251/0x630
-     inetdev_init+0x60/0x550
-     inetdev_event+0x71e/0x1780
-     notifier_call_chain+0xbb/0x330
-     call_netdevice_notifiers_info+0xa2/0xf0
-     register_netdevice+0x17b0/0x2090
-     rtnl_newlink+0x1a30/0x1f40
-     rtnetlink_rcv_msg+0x7b9/0xce0
-     netlink_rcv_skb+0x133/0x390
-     netlink_unicast+0x504/0x840
-     netlink_sendmsg+0x7f7/0xcf0
-     ____sys_sendmsg+0x88b/0x9d0
-     ___sys_sendmsg+0x125/0x1d0
-     __sys_sendmsg+0x13e/0x1e0
-     do_syscall_64+0x115/0x6a0
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-    Freed by task 0:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     kfree+0x12b/0x530
-     in_dev_free_rcu+0x51/0x90
-     rcu_core+0x661/0x1d10
-     handle_softirqs+0x201/0x930
-     __irq_exit_rcu+0x110/0x1e0
-     irq_exit_rcu+0xe/0x20
-     sysvec_apic_timer_interrupt+0x6c/0x80
-     asm_sysvec_apic_timer_interrupt+0x1a/0x20
-
-    Last potentially related work creation:
-     kasan_save_stack+0x33/0x60
-     kasan_record_aux_stack+0xa7/0xc0
-     __call_rcu_common.constprop.0+0x76/0xbd0
-     in_dev_finish_destroy+0x12e/0x190
-     inetdev_event+0xa37/0x1780
-     notifier_call_chain+0xbb/0x330
-     call_netdevice_notifiers_info+0xa2/0xf0
-     netif_set_mtu_ext+0x47d/0x6a0
-     netif_set_mtu+0x8b/0x120
-     dev_set_mtu+0xb9/0x180
-     dev_ifsioc+0x3b8/0x1820
-     dev_ioctl+0x301/0xf80
-     sock_do_ioctl+0x1dc/0x2b0
-     sock_ioctl+0x41b/0x670
-     __x64_sys_ioctl+0x163/0x1d0
-     do_syscall_64+0x115/0x6a0
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-    The buggy address belongs to the object at ffff88811d70b800
-     which belongs to the cache kmalloc-512 of size 512
-    The buggy address is located 344 bytes inside of
-     freed 512-byte region [ffff88811d70b800, ffff88811d70ba00)
-
-    The buggy address belongs to the physical page:
-    page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x11d70b
-    flags: 0x200000000000000(node=0|zone=2)
-    page_type: f5(slab)
-    raw: 0200000000000000 ffff888100042780 dead000000000122 0000000000000000
-    raw: 0000000000000000 0000000000040004 00000000f5000000 0000000000000000
-    page dumped because: kasan: bad access detected
-
-    Memory state around the buggy address:
-     ffff88811d70b800: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-     ffff88811d70b880: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-    >ffff88811d70b900: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                                                        ^
-     ffff88811d70b980: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-     ffff88811d70ba00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
     ==================================================================
 
-Fixes: bbcf91053bb6 ("inet: do not use RTNL in inet_netconf_get_devconf()")
+Oops report as below:
+
+    Oops: general protection fault, probably for non-canonical address 0xdffffc000000003d: 0000 [#1] SMP KASAN NOPTI
+    KASAN: null-ptr-deref in range [0x00000000000001e8-0x00000000000001ef]
+    CPU: 0 UID: 0 PID: 12 Comm: kworker/u16:0 Tainted: G    B   W           7.2.0-rc5-pmb-fuse-functional-v2+ #1 PREEMPT(lazy)
+    Tainted: [B]=BAD_PAGE, [W]=WARN
+    Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.16.0-0-gd239552ce722-prebuilt.qemu.org 04/01/2014
+    Workqueue: events_dfl_long fuse_dax_free_mem_worker
+    RIP: 0010:igrab+0x3e/0x260
+    Code: 4c 8d a5 e8 01 00 00 e8 d0 82 92 ff be 04 00 00 00 4c 89 e7 e8 63 91 f3 ff 4c 89 e2 48 b8 00 00 00 00 00 fc ff df 48 c1 ea 03 <0f> b6 14 02 4c 89 e0 83 e0 07 83 c0 03 38 d0 7c 08 84 d2 0f 85 c5
+    RSP: 0018:ffff8881009dfbb0 EFLAGS: 00010212
+    RAX: dffffc0000000000 RBX: dffffc0000000000 RCX: ffffffff81e63d2b
+    RDX: 000000000000003d RSI: 0000000000000008 RDI: ffffffff8af59680
+    RBP: 0000000000000000 R08: 0000000000000001 R09: fffffbfff15eb2d0
+    R10: ffffffff8af59687 R11: 6e696c6261736944 R12: 00000000000001e8
+    R13: ffff888113c90100 R14: ffff888113c90148 R15: ffff888113c90100
+    FS:  0000000000000000(0000) GS:ffff8881fd71a000(0000) knlGS:0000000000000000
+    CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+    CR2: 00007f2c45b15000 CR3: 00000001129f3002 CR4: 0000000000770ef0
+    PKRU: 55555554
+    Call Trace:
+     <TASK>
+     fuse_dax_free_mem_worker+0x172/0x9e0
+     process_one_work+0x908/0x19c0
+     ? __pfx_process_one_work+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_is_held_type+0x8f/0x100
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     worker_thread+0x65c/0xe40
+     ? __pfx_worker_thread+0x10/0x10
+     kthread+0x34f/0x460
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork+0x659/0x940
+     ? __pfx_ret_from_fork+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __switch_to+0x74f/0xf80
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork_asm+0x1a/0x30
+     </TASK>
+    Modules linked in:
+    clocksource: Marking clocksource tsc unstable due to frequency skew
+    clocksource: Watchdog               kvm-clock interval:            22712ns
+    clocksource: Clocksource                  tsc interval:            22542ns
+    tsc: Marking TSC unstable due to clocksource watchdog
+    ---[ end trace 0000000000000000 ]---
+
+Fixes: 9a752d18c85ae ("virtiofs: add logic to free up a memory range")
 Assisted-by: LLM
 Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 ---
 
-diff --git a/net/ipv4/devinet.c b/net/ipv4/devinet.c
-index 5b6b11c943e453742b4893f1c9bd9e70d3d37a6f..4e9de0c6b2c1426c4b4c8638a0a6da4be9c2034d 100644
---- a/net/ipv4/devinet.c
-+++ b/net/ipv4/devinet.c
-@@ -2958,7 +2958,7 @@ static const struct rtnl_msg_handler devinet_rtnl_msg_handlers[] __initconst = {
- 	 .flags = RTNL_FLAG_DUMP_UNLOCKED | RTNL_FLAG_DUMP_SPLIT_NLM_DONE},
- 	{.protocol = PF_INET, .msgtype = RTM_GETNETCONF,
- 	 .doit = inet_netconf_get_devconf, .dumpit = inet_netconf_dump_devconf,
--	 .flags = RTNL_FLAG_DOIT_UNLOCKED | RTNL_FLAG_DUMP_UNLOCKED},
-+	 .flags = RTNL_FLAG_DUMP_UNLOCKED},
- 	{.owner = THIS_MODULE, .protocol = PF_INET, .msgtype = RTM_GETMULTICAST,
- 	 .dumpit = inet_dump_ifmcaddr, .flags = RTNL_FLAG_DUMP_UNLOCKED},
- };
+diff --git a/fs/fuse/dax.c b/fs/fuse/dax.c
+index 85cdf0199bc0b8fb121324ffaf8046a054cbfadf..361538bc41e5a44d01da11b76070f8af0e783b2b 100644
+--- a/fs/fuse/dax.c
++++ b/fs/fuse/dax.c
+@@ -951,6 +951,7 @@ inode_inline_reclaim_one_dmap(struct fuse_conn_dax *fcd, struct inode *inode,
+ 	node = interval_tree_iter_first(&fi->dax->tree, start_idx, start_idx);
+ 	/* Range already got reclaimed by somebody else */
+ 	if (!node) {
++		dmap = NULL;
+ 		if (retry)
+ 			*retry = true;
+ 		goto out_write_dmap_sem;
