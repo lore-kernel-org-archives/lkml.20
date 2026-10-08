@@ -1,78 +1,83 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 249E04A49BC
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:26:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A5384ACC81
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:26:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791465992; cv=none; b=u4ggDd8cnzB/uWvHGFUW9vr673b4Mn4ODOYM3r6JSj4F9vcfjj2qo9Vg0fRYy4DaZGVjq8tUv3UgcWZlXSVVt55kS06CSLz5R/inQAv+FzIgcZoLlLG53eDYKeliwJI0qVBLd/F2t9lVF8OEhx/CeCGWLjCKvei4N+uJnslMpYI=
+	t=1791466004; cv=none; b=oOqCsGTa6HukPsJCdNKGOojRTLz+lwt4/7Stytjr+1Qf3W5QaTjaaqaEMboIRb3FsSUtJwpoWx7QKTt8JQcAHX1Tih7wnEELygwTzk6ir8CZvAQ+dGozwjSrovHj3TuM0xIixRyl5Sp3HyLaFwRELDG6OZeNzFZf9rFOioYB9Z4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791465992; c=relaxed/simple;
-	bh=8ZTTcvJ6pMLKzEcbB5RE4trvo0lhMVk+f9x9P8nhzcc=;
+	s=arc-20240116; t=1791466004; c=relaxed/simple;
+	bh=4+oidOGBkLU3RVPlbDNuWGYCR4gSNYmvVnmdx5guRng=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=etB0JL8EqiCqzQ0Rw95eAOZV2KjC/JC/06ttJEhnNy/+fFyO+PbhwkVoccVDswElZ6f4KrKkS9Q/98UEHnFs40ez5AlCGNBYU48wq2cTwKNFgqYWBu+aWLaVc341eY8Y784Zjv1Tmu0qYD09TOeLYog9YscspsFk/S/04xWWXVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iiL4VIJ9; arc=none smtp.client-ip=209.85.221.53
+	 MIME-Version; b=MiORbe30lzWYkJt8Kr4KbqQcwfdBNMMeHUpTLfeKGAr1wFgnRRAlSmfPYTAb81f4snrA9R2oOQoTkAxkAR6WiqQlyBIKw8avCPEbbmE3VZd658xKb5SHQoBlwhfqJlt0hy5oqlCKm4+1HYROIhZXZyi/24ALGrku/nXgAZxbGHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lTwl6BII; arc=none smtp.client-ip=209.85.216.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iiL4VIJ9"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-487048857f6so2629535f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:26:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lTwl6BII"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3856d6fbcb3so2811138a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:26:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791465981; x=1792070781; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791466000; x=1792070800; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SrpJoFjsD8GO+k4lY1Fdpbp0OUi5skMrml0Ia9JAUZI=;
-        b=iiL4VIJ994jRrTAiZGGgHpZJspiZw152bX5+z/8ax35ZudBs3/6mHU2MhiCZqj8IXn
-         jtIc52a5B77xTJSjnO+gUHWn+gVexdngXH+27pJmibyBbM60ovxr/sGjSKqTYLWSBw/9
-         qARvKe8y4ITQ+qJ8rEqevXkVXGDN0AZsdcSSQWxPN0/TPBEWQz//a1vR4o5Zl/3rmhdm
-         ldOvEvEa/XT+vmhKP7RqWCAvVE30Yo4wL07lkdz/Gh/Z9tMPoIzsovkoyQ3jKIBTTE7H
-         tfaZYpa7AQmvzOZLFDPnoZY+ocMuhVuKNYmd8L77vZS0pGtZHXqNza5Y4EeNULDWYG8z
-         sXIg==
+        bh=tWWUckXEiaUS4FFQC/CuWp7QuZDCeEAuIScuLrpjPYI=;
+        b=lTwl6BII0sfTIm+UyltqxMhVfQiQeu8PPa6YfjQbHoBxDO6tLXP2nElW6Vux4Q0Q7u
+         qCavTQi6ntCzOBFRVRnHS4t4hHg6tOyVH/zkUB5TKMmir7ZssU/OEOd8uORRm1yFmGjk
+         9eqkOh9F4bEmCgaNGT93cUDDYDv6j4kNONcT+LvRYKiqB5HHiRSCzcvNBoQO+w8oelLx
+         oz18fCfJtigkY2tvQKw7CAhdOEllQGRwciY02tzXjnHKsAcwjkqoYo1eIHYF8dVoeLPM
+         u02Y4YdTh4RgHfZ3wTDYXWOlowy9VcyJpXiRH/2IAkcsAIgACXtvjF2nQFAavoHq0ljl
+         vGUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791465981; x=1792070781;
+        d=1e100.net; s=20260707; t=1791466000; x=1792070800;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SrpJoFjsD8GO+k4lY1Fdpbp0OUi5skMrml0Ia9JAUZI=;
-        b=KD2lXK4yE9pTVAL3zeCD+CL1HhlroFvDnU1/l/o8IyFNMQseKAFPjXP6jzQj8Jko2e
-         uEdxgMgWNpjkcGJdptKXqJuWWVJw+hzRn/xeelEJ8sQ5frPjDdd9ptd63rYAe/ixpR4R
-         tmdTqK8NHK74cOWsHQFSp9QjDqc0/Z8++zErOoA81B9Qul4lzfzIH+RSNZEB4Wxn6Bjr
-         RH+R6YZHEOwkWp/IDoC4LMEQMwQvelMr2EtGERGIoR9q6oK4JADPCC9DL68RXlwi3TjK
-         /v+4g/EW16cr5B1ogQzDWl2Um1tJ7zTBPkNLIMCQFjZbtMs20TjAWkqJlH/I16zxa+bK
-         OOlw==
-X-Forwarded-Encrypted: i=1; AKwUvByP8wwKiwvkanIvE6BEVZHLvF0MZOuH5n7nJowt0MUvaVdzP40oQAvsE0fj/CoUbQ0w/j+xAe/26Ghm9S8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kfaooG0A+KjwH8fqx6DgIssNqU8YgQwL0VEtXWNJnCkqjChVp+
-	sRxUW+UYPAEpHz5zTlgHwrsLtqlu1TXyntP8HM9B2SGBjy9GzZ9Wfa8=
-X-Gm-Gg: AYBFou3EmzJVxW/jYT0GSqA4ZlxPUtNQQg2M6BYQkIqPfOXZyhNX5kGZfeQk4r5oVxN
-	Cl8ZEo19RHmmsEd/TT+RzIe37l+49aiVxJ1vCROgt4rFfOsNbzTmzTsUZC4CWWTRm9N4Zogvbcy
-	KPfICObturx2tiBZE6s2sZuvi+roeBxOO6KH9V+nnghfO0T7R63h1cjI4t4T3/9qxBrViwflahn
-	89u1Ix4mwwaPVhn+lKqYO+1aQMEfc+7z97BKS8iQoK6hUaYUT4ZwOlzafvKvwiFb7fuJnjlUZnQ
-	7HYrTZh/TWLfVEZf43/yXG+pbxOFTtQpM73NcFg+uySh6lEvfhfhcUiyIzBsDzOI1iV1IiX8atG
-	MQKcsiVr6+mNjUiibUKTUBBHtkJPw2g47Crb66X4Prg3b7hU8g27yeX5OODIHt5O44gnQUFUiyA
-	CstLF5Ef2DyfPo2eF9tBr/nFU1PhrXARnwnCQ8GI+pe5OtDYp3n1qfHN4GlvJ/stwFCYpvwRTGr
-	um0U2BRKRKutv8vQQoK9XK25eAFUhLcJ5DW5kFAeNPtLE5/uCP4sI4=
-X-Received: by 2002:a05:600c:154a:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-4a18043b5fcmr98401565e9.16.1791465981008;
-        Thu, 08 Oct 2026 06:26:21 -0700 (PDT)
-Received: from surface.. (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1842a349bsm71479105e9.2.2026.10.08.06.26.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 06:26:19 -0700 (PDT)
-From: "D. Manresa" <dmanresa@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Daniel Scally <dan.scally@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Fernando Rimoli <fernandorimoli11@gmail.com>,
-	linux-media@vger.kernel.org,
+        bh=tWWUckXEiaUS4FFQC/CuWp7QuZDCeEAuIScuLrpjPYI=;
+        b=GVi1tEDz4OW+JHwwZldDYnAcBg8cZjbJCP4MHeyMgMS0IQMKY6DSzchSykwjn2Mc8c
+         qxw/OOqvHT+jqlV/HCiJDYNONzRhMNUSSauhlIB1+Zg/eFKCzA94aYAFz1EynD/J9uAa
+         J5XJCowLSgJW7EH/lDQ8HeZtrdq3fM5hZghhRnCmXEenQTkfv+DL1i7MlSXB5YrJAFKp
+         GRaJ4mj6d5OZ3nd9tyrokmHnImSK98JIsQ5XGeQ/IIStqxeEp1RbfUecLr1q60+zyMJV
+         UuPEnL2BpRVt9y1l+pSCGs2CsyFQN703uhxoL3HzUXWTiBsG3NKWvtomD3NVLhmfLiHG
+         KurA==
+X-Forwarded-Encrypted: i=1; AKwUvBw8Cx4vgzP6c4DSb6BqtH//3wDrVMPJddNtW1KnDFdHCkWSYii3QAPQnGjoPzKiF3IFtTcRUg8KQ+P8Nuk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLhPnwpRzn7fQU2FbnHdSvffUrRnsJaMlHptArpnmI3pI9hev8g
+	h/D+pac7PMCM2yvDjIz83XV+E1SUBoVMqXMSTYEZcm9QqVQeW59DQTKB
+X-Gm-Gg: AYBFou00Nql7VZpM18ndRId8qb+RbPQZsT1EO7bQfbGqxIdJoXNsclXvELE5lHT+FTR
+	j1k7t/ibSn5h7t9CkF/Ddmqo35yflJ0CzkY//T1Jezo8Y1edFRm7x/EgVGk0geT7lBhU9KLYJC9
+	IOCGJ8UuO9vEX21BtEZPLE3Z78BHIB1j2UvofT4u1GYQYrjr9T33fetN6aTWZI2vPZ9rRDuo2sU
+	09msL1aEdjv59BtcHQBfJ/g1HcLjnDf2LkPVphCBtooKmOk3FprXJnCmE2l5plxUa322hqtSisl
+	kNfga5wf3/MoLxjo9ki15mU0y7QhhFnW8h/xTtalwLNuKRtriPu78wAY8ZizXyMghGEI7Un+/4F
+	jqZEj9AdgwYGCkOVaAghV0VjoJG4ARLesDKCVmj25LHsvfyctsw8NqZ6Xc9rEzJVKEkgslhU1VK
+	NsjKfRarf1uxx/HWyZOQcDl+yqWxz+95rqA5jg3frfND/Eh8Qxno2to9Jg7mblwWNzJ7QZ6A==
+X-Received: by 2002:a17:90b:3ec9:b0:3a9:8482:420 with SMTP id 98e67ed59e1d1-3a984821aadmr2781565a91.40.1791465995577;
+        Thu, 08 Oct 2026 06:26:35 -0700 (PDT)
+Received: from localhost.localdomain ([2a05:dfc1:8bc4:feda::11])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab1e8b7d4csm476312a91.16.2026.10.08.06.26.22
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 08 Oct 2026 06:26:27 -0700 (PDT)
+From: Jemmy Wong <jemmywong512@gmail.com>
+To: Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>
+Cc: Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Tim Chen <tim.c.chen@linux.intel.com>,
+	Jemmy Wong <jemmywong512@gmail.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/2] media: ipu-bridge: reuse the software nodes on rebind
-Date: Thu,  8 Oct 2026 15:26:14 +0200
-Message-ID: <20261008132614.2456716-3-dmanresa@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261008132614.2456716-1-dmanresa@gmail.com>
-References: <20261008132614.2456716-1-dmanresa@gmail.com>
+Subject: [PATCH 2/3] sched/core: Flush pending runtime for the execution context
+Date: Thu,  8 Oct 2026 21:26:03 +0800
+Message-ID: <20261008132604.98242-3-jemmywong512@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261008132604.98242-1-jemmywong512@gmail.com>
+References: <20261008132604.98242-1-jemmywong512@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,92 +86,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The software nodes registered by ipu_bridge_init() are deliberately
-never unregistered, and the intended design is for a rebind to reuse
-the already registered nodes. That reuse path however only exists for
-the case where the IPU device kept its secondary fwnode link, which the
-fwnode graph check at the top of ipu_bridge_init() detects: then the
-function returns early. When the link is gone, ipu_bridge_init()
-unconditionally registers the IPU HID software node again, which fails
-with -EEXIST on the sysfs name (the node from the previous bind is
-still registered) and the IPU driver fails to probe.
+task_sched_runtime() reports sum_exec_runtime to getrusage() and
+CLOCK_THREAD_CPUTIME_ID. It commits the open run interval first, but
+only when @p is the donor, using @p->sched_class->update_curr().
 
-That is exactly what happens when the IPU PCI device is removed and
-re-scanned: device_del() unsets the ACPI companion, and
-set_primary_fwnode(dev, NULL) then clears the ACPI fwnode's ->secondary
-pointer, so the fwnode graph check on the next probe finds no endpoints
-and falls through to registration. Observed on a Surface Pro 7+ (IPU6):
+The interval is not added to the donor. The donor class's update_curr()
+reads the donor's exec_start, and update_se() charges that delta to
+rq->curr. Under proxy execution those tasks differ: the lock holder is
+on CPU as rq->curr, and the waiter blocked on the mutex is rq->donor.
+A runtime read of the lock holder skipped the flush and dropped the
+time since the last update.
 
-  echo 1 > /sys/bus/pci/devices/0000:00:05.0/remove
-  modprobe -r intel_ipu6_isys intel_ipu6   # ipu-bridge unloads too
-  echo 1 > /sys/bus/pci/rescan
-  modprobe intel_ipu6
+Commit the interval when @p is rq->curr, through the donor class's
+update_curr(). The delta is still taken from the donor's exec_start
+and still applied to @p. Without CONFIG_SCHED_PROXY_EXEC, curr and
+donor are a union and therefore the same task, so the condition is
+unchanged.
 
-  sysfs: cannot create duplicate filename '/kernel/software_nodes/INT343E'
-  intel-ipu6 0000:00:05.0: Failed to register the IPU HID node
-  intel-ipu6: probe of 0000:00:05.0 failed with error -17
-
-after which the cameras are unusable until reboot.
-
-Add the missing reuse path: if the IPU software node is already
-registered, look it up with software_node_find_by_name(), point the
-device's secondary fwnode at it and return success. That is all a
-rebind needs: the sensor, IVSC and VCM links live on devices that
-survive an IPU unbind, so nothing has cleared those.
-
-software_node_find_by_name() takes a reference on the node it returns;
-drop it right away since the node is kept alive by its never dropped
-registration.
-
+Fixes: aa4f74dfd42b ("sched: Fix runtime accounting w/ split exec & sched contexts")
+Signed-off-by: Jemmy Wong <jemmywong512@gmail.com>
 Assisted-by: LLM
-Fixes: 803abec64ef9 ("media: ipu3-cio2: Add cio2-bridge to ipu3-cio2 driver")
-Signed-off-by: D. Manresa <dmanresa@gmail.com>
 ---
- drivers/media/pci/intel/ipu-bridge.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ kernel/sched/core.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-index b9779c3..f0fadc0 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -1099,6 +1099,7 @@ static DEFINE_MUTEX(ipu_bridge_mutex);
- int ipu_bridge_init(struct device *dev,
- 		    ipu_parse_sensor_fwnode_t parse_sensor_fwnode)
- {
-+	const struct software_node *ipu_node;
- 	struct fwnode_handle *fwnode;
- 	struct ipu_bridge *bridge;
- 	unsigned int i;
-@@ -1109,6 +1110,29 @@ int ipu_bridge_init(struct device *dev,
- 	if (!ipu_bridge_check_fwnode_graph(dev_fwnode(dev)))
- 		return 0;
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 1fe40de6ebe3..b2005fafae59 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -5715,14 +5715,18 @@ unsigned long long task_sched_runtime(struct task_struct *p)
  
-+	/*
-+	 * The software nodes registered by a previous ipu_bridge_init() call
-+	 * are deliberately kept registered when the module is unloaded, and
-+	 * the sensors' ACPI fwnodes still have them as their secondary
-+	 * fwnodes. If the IPU software node is already registered this is a
-+	 * rebind, e.g. after the PCI device was removed and re-scanned,
-+	 * which drops the IPU's secondary fwnode link. Registering the nodes
-+	 * again would fail with -EEXIST, so instead reuse them and just
-+	 * restore the IPU's secondary fwnode link.
-+	 */
-+	ipu_node = software_node_find_by_name(NULL, IPU_HID);
-+	if (ipu_node) {
-+		fwnode = software_node_fwnode(ipu_node);
-+		set_secondary_fwnode(dev, fwnode);
-+		/*
-+		 * The node stays registered, it does not need the reference
-+		 * software_node_find_by_name() took to stay alive.
-+		 */
-+		fwnode_handle_put(fwnode);
-+		dev_dbg(dev, "Reusing the previously registered software nodes\n");
-+		return 0;
-+	}
-+
- 	if (!ipu_bridge_ivsc_is_ready())
- 		return dev_err_probe(dev, -EPROBE_DEFER,
- 				     "waiting for IVSC to become ready\n");
+ 	rq = task_rq_lock(p, &rf);
+ 	/*
+-	 * Must be ->curr _and_ ->on_rq.  If dequeued, we would
+-	 * project cycles that may never be accounted to this
++	 * Must be the execution context _and_ ->on_rq.  If dequeued, we
++	 * would project cycles that may never be accounted to this
+ 	 * thread, breaking clock_gettime().
++	 *
++	 * Pending time is charged to rq->curr by update_se(), not the
++	 * donor.  Under proxy execution those can differ; flush via the
++	 * donor's update_curr() so the delta lands on p.
+ 	 */
+-	if (task_current_donor(rq, p) && task_on_rq_queued(p)) {
++	if (task_current(rq, p) && task_on_rq_queued(p)) {
+ 		prefetch_curr_exec_start(p);
+ 		update_rq_clock(rq);
+-		p->sched_class->update_curr(rq);
++		rq->donor->sched_class->update_curr(rq);
+ 	}
+ 	ns = p->se.sum_exec_runtime;
+ 	task_rq_unlock(rq, p, &rf);
 -- 
-2.43.0
+2.54.0 (Apple Git-157)
 
