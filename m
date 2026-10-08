@@ -1,132 +1,83 @@
-Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 265D23EC830
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 08:12:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CED013D4101;
+	Thu,  8 Oct 2026 08:12:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791447159; cv=none; b=aulChHVzp7RE5w2gXHUDk7CWw5Eqpw/2U9ypA983ZLHRJw3lUUFNKRWCdKzdt+8W0c0VxxaQZw0QTSmET4q9B0AIQyYOHTvW5X2QF38uW2iOulyR0cTbnSq9HxkOspTn8sDgY+4QgDNfiy+5zb4dsc6wLdwRh+Z44tkj7u8LioM=
+	t=1791447176; cv=none; b=ZyUj4EqgE5FM5Ech+xi5ZcGUVOTnvkZiVeBGhtCzTKhM+qlPlT8CHpdecpXDkkscQBI0fXDIleB6oDUuZ2XHl6x96L+HikwigcHd0WL+xRq6UWjjTNvL9DjEI3ZvwWgmuMX192qojuPRQ3TVHG3wYaHSqug/2JZVzqR3NfqaeNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791447159; c=relaxed/simple;
-	bh=niQ+/qy75dHnLZd2nYzhxgjuKUUIs7nhkwQtX9TGYBo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=K4kMNuaOyNtyVkJnYfeG9svDLQ2F6jiME4UJKgg+dg0QCIy2q/hlHHm8zJ1aMNiZZ4Zp6zpYEACxVPUr3of1XceLu2Sz2PzeK9sDUlzG/rmV6fQo8cnKuaPOT55OfTn1LXAzSHEneUkPmZCw7hbnSptghAvxOADEMXJIeQJjzOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=xCpcy42S; arc=none smtp.client-ip=113.46.200.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1791447176; c=relaxed/simple;
+	bh=TCIte7MDbqlGpnlVAvbYVUXLOdukV4uvMPq14vwQquQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TbnkpWFfoAg81238u1H519gQbp0OMwsM11R632pDtdJ+dhogwRyYYpRIvFZ4oOj03dzoGloKMvys1T1+Mf4kiqNSvVTMqkbJLNt0h/t3Gf9jn0psvsGqGlzsB4aCm1BXgtDT+t239ni9Vf6sk47Qf3BM/fDjORbVHaTtxdfDetc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=swGk4w6o; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="xCpcy42S"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=q86C4+wQJqBq95W/ZrCF57RUMIh12mIvymieYtRqSKQ=;
-	b=xCpcy42SMFyqW7jHMGgAWk06lsLb/UlmWRgB+83TmvKYhzr4SdacsZzbKANEUKz0fzyvs5oio
-	Xo3zYe3f7oHQ0q34P2OjFQ4JBdls2XsZdH6ScQgWrTVhoa/0rYbAOu5Nr9E2cHMgdsa19IB3lYh
-	dqUDAB8djimDU0sjgT9Ejyw=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
-	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4j0j8z0XDDznTbJ;
-	Thu,  8 Oct 2026 16:00:35 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id D3D3F40578;
-	Thu,  8 Oct 2026 16:12:30 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 8 Oct
- 2026 16:12:30 +0800
-Message-ID: <aefc8c70-9423-446f-9e07-163c975cc00b@huawei.com>
-Date: Thu, 8 Oct 2026 16:12:28 +0800
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="swGk4w6o"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=/NpMgLXRRZpW3DmO3Yv4qNoVqFNxjzsb/RxwbkWUJzA=; 
+	b=swGk4w6oDojPgsqXTg9Vq5Jz+crDgkW+bLXi8NDHgFYzvoVpxZY+01tHWr1id6jJGZ1nChSgB9g
+	cp6JnVVxscTNWzaOHRq65KboHqhvWhJApXtuD5xjrxu6/3WuoRwG9+gI+3PUh8ooyPQrbcMOlHdBs
+	E5czUzSr1n0NNjhJOt+Rj2M9ICTQ/j6KXnxyvaMAyvHJQ3aa1Cbq4klXWTweIFpaRevw1ax2S7doM
+	7epj8pZcDe7KVH5lA01gJEs+2nZ7S4xVgfL7z83kiedXI+kVTwND+BYoi0/TgIzSHuFgy62MIn6pI
+	iH0fxRvwy7wCxJ85gnbL5EOUJbZsAmy4ve2g==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xEjFA-00000001nXu-0w6g;
+	Thu, 08 Oct 2026 16:12:49 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Thu, 08 Oct 2026 19:12:48 +1100
+Date: Thu, 8 Oct 2026 19:12:48 +1100
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: vjardin@free.fr
+Cc: Horia =?utf-8?Q?Geant=C4=83?= <horia.geanta@nxp.com>,
+	Pankaj Gupta <pankaj.gupta@nxp.com>,
+	Sahil Malhotra <sahil.malhotra@nxp.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] crypto: caam/qi2 - reset the DPSECI at probe only when
+ enabled
+Message-ID: <asdQgEO3fZ0H3zfm@gondor.apana.org.au>
+References: <20260928-for-upstream-caam-qi2-dpseci-reset-v1-1-042be6c05472@free.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/21] arm64: percpu: Specialise set_my_cpu_offset()
- for the primary CPU
-To: Will Deacon <will@kernel.org>, <linux-arm-kernel@lists.infradead.org>
-CC: <linux-kernel@vger.kernel.org>, Arnd Bergmann <arnd@arndb.de>, Ard
- Biesheuvel <ardb@kernel.org>, Ada Couprie Diaz <ada.coupriediaz@arm.com>,
-	David Hildenbrand <david@kernel.org>, Catalin Marinas
-	<catalin.marinas@arm.com>, Vladimir Murzin <vladimir.murzin@arm.com>, Mark
- Rutland <mark.rutland@arm.com>, Mostafa Saleh <smostafa@google.com>, Lorenzo
- Stoakes <ljs@kernel.org>, Oliver Upton <oupton@kernel.org>, Linus Walleij
-	<linusw@kernel.org>, Marc Zyngier <maz@kernel.org>
-References: <20260918161407.2300-1-will@kernel.org>
- <20260918161407.2300-11-will@kernel.org>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20260918161407.2300-11-will@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260928-for-upstream-caam-qi2-dpseci-reset-v1-1-042be6c05472@free.fr>
 
-
-
-在 2026/9/19 0:13, Will Deacon 写道:
-> set_my_cpu_offset() is only called from smp_prepare_boot_cpu() which
-> runs once on the primary CPU and before alternatives have been applied.
+On Mon, Sep 28, 2026 at 04:06:56PM +0200, Vincent Jardin via B4 Relay wrote:
+> From: Vincent Jardin <vjardin@free.fr>
 > 
-> Rework the function so that it operates only on the boot CPU offset,
-> drop the unused alternative code sequence and internalise it into smp.c
-> alongside its only caller.
+> Since the commit
+>   060ce5037d5f ("crypto: caam/qi2 - add support for dpseci_reset()")
+> probe resets every DPSECI.
 > 
-> Signed-off-by: Will Deacon <will@kernel.org>
+> On a DPSECI the MC has just created from the DPL, never enabled,
+> MC 10.40.x then logs for each of its queues:
+> 
+>   [E, qbman_rec_isr:396, QBMAN]  QBMAN recoverable event 0x1000000
+>   [E, dpmng_dump_rerr_fqid:1335, QBMAN]  REL_FQ (FQ[0]) has 1 messages, dumping up to 16:
+>   [W, DPSECI]  DPSECI ID[0]: Flush on queue 43 not confirmed
+> 
+> That is 16 error lines for an 8-queue DPSECI, at every boot, although
+> there is nothing to flush: a disabled DPSECI has no request in flight.
+> 
+> The reset at remove is unchanged.
+> 
+> Signed-off-by: Vincent Jardin <vjardin@free.fr>
 > ---
->  arch/arm64/include/asm/percpu.h | 8 --------
->  arch/arm64/kernel/smp.c         | 8 +++++++-
->  2 files changed, 7 insertions(+), 9 deletions(-)
-> 
-> diff --git a/arch/arm64/include/asm/percpu.h b/arch/arm64/include/asm/percpu.h
-> index b57b2bb00967..3dc7291b16e9 100644
-> --- a/arch/arm64/include/asm/percpu.h
-> +++ b/arch/arm64/include/asm/percpu.h
-> @@ -12,14 +12,6 @@
->  #include <asm/stack_pointer.h>
->  #include <asm/sysreg.h>
->  
-> -static inline void set_my_cpu_offset(unsigned long off)
-> -{
-> -	asm volatile(ALTERNATIVE("msr tpidr_el1, %0",
-> -				 "msr tpidr_el2, %0",
-> -				 ARM64_HAS_VIRT_HOST_EXTN)
-> -			:: "r" (off) : "memory");
-> -}
-> -
->  static inline unsigned long __hyp_my_cpu_offset(void)
->  {
->  	/*
-> diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
-> index a61dc3016a11..702dee8d0db5 100644
-> --- a/arch/arm64/kernel/smp.c
-> +++ b/arch/arm64/kernel/smp.c
-> @@ -446,6 +446,12 @@ void __init smp_cpus_done(unsigned int max_cpus)
->  	mark_linear_text_alias_ro();
->  }
->  
-> +static void __init set_boot_cpu_offset(void)
-> +{
-> +	asm volatile("msr tpidr_el1, %0"
-> +			:: "r" (per_cpu_offset(0)) : "memory");
-> +}
+>  drivers/crypto/caam/caamalg_qi2.c | 15 +++++++++++++--
+>  1 file changed, 13 insertions(+), 2 deletions(-)
 
-Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
-
-> +
->  void __init smp_prepare_boot_cpu(void)
->  {
->  	/*
-> @@ -453,7 +459,7 @@ void __init smp_prepare_boot_cpu(void)
->  	 * setup_per_cpu_areas(), and CPU0's boot time per-cpu area will be
->  	 * freed shortly, so we must move over to the runtime per-cpu area.
->  	 */
-> -	set_my_cpu_offset(per_cpu_offset(smp_processor_id()));
-> +	set_boot_cpu_offset();
->  
->  	cpuinfo_store_boot_cpu();
->  	setup_boot_cpu_features();
-
+Patch applied.  Thanks.
 -- 
-Best regards,
-Jinjie
-
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
