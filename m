@@ -1,221 +1,76 @@
-Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D049738F636
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 09:26:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.110
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA5D63DB310
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 09:26:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791451595; cv=none; b=PQRidrQn7pGeyEKDqV1Mdm7y/TdvWHwfNK9KH8i6yizB63jC/Zx0UxsyiyR2bE/mfyINeWgW9qsNKP2ta95uiQYQYNbA9AiHpActhywA3QaG0FOrQSy8mvZPYEnJSzE5WFOtOYKJla67qlXz06uydkpTFxGwsaDUzM8y3j/GUmQ=
+	t=1791451612; cv=none; b=iG15j+iO7tBSOBNjZAybjcA4MhWbGbTCAa9EvSUEEtxQi5wUpFalGgkL2G2AjzoUXcSgkPHcsBM3gy+9FJOyHnDJNDGVz4br7k2DSpLLa8cZokvHzKxHGeylOGul2+YPS8fBQAQum5m/jMw9XCLcHPQSOW8oGie3KNhYC6Hg8iE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791451595; c=relaxed/simple;
-	bh=AEAXAuTCdshlj5vRoyiPc7JMFlLaifZhRawd6zu8CKo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=J2WjhVcMIOeFfFldG3zRJRRIQHrM3W7P1U8oocY81RlSPsccvFRThFGv9zMQeogM5V6LNf6XnWnb9wUG1sAz8V3SXdw2tlcltMk6ZDrF9Z8SSiui7XsJUVhqBe7GbHH7D/JMS/MyrMVHuotbGYhM09Qw4jbMdqUVOFTWFun1oEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=JQOLT+2t; arc=none smtp.client-ip=115.124.30.110
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1791451612; c=relaxed/simple;
+	bh=Gt9wOt6ppWinNnlK25gmA8B5TgnA7EoQQNGwpQhgqhY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jTH6DE3OuQjXkk9MMAyghsWN2ZGIuhszaQyPpQWVQj9DSacZyMLnRDt4cGMvg9ZCWeTdb+u5CwnM6XG15fjhAK+VIuqyusPMlm+NT75M9HuvvR0Fe2F5+jU+TlL59nhAFDyK1yh/gmNULmudks8R4yCg8ltWBM14u70k0SJDzPk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mjz5do9c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="JQOLT+2t"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1791451589; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=IvCHuh0QHvSSi6smvSQRsZh/QZENLvAcoAmd6HNiFHo=;
-	b=JQOLT+2tVgaeLbjeDDOgqAi7FLDH8NAOStGHftLngpVPRUI399bhfFK6ReblyQYsKlEMTvmifwODDDJQtUi61P53bAPYK2s5MRoUNGKXQ3EsQFFtgL3winTFMvP1YLeF0UkZzpf4qPbGBii4+0Ys+UWCxvh+MlppvUydGiV8HZI=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XCNMuXW_1791451587;
-Received: from 30.221.149.122(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XCNMuXW_1791451587 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 08 Oct 2026 17:26:28 +0800
-Message-ID: <ad5a4d68-0667-46b4-ba28-a0ff0be5c1fb@linux.alibaba.com>
-Date: Thu, 8 Oct 2026 17:26:26 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mjz5do9c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 678311F000FF
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 09:26:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791451610;
+	bh=Gt9wOt6ppWinNnlK25gmA8B5TgnA7EoQQNGwpQhgqhY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=mjz5do9cqfDHvrm+G7S07/jhE6GVNePDHu+bXqvTdKUk+YIB8+NfkjYZOfMPvHPe1
+	 SHZmL8QQ4DUuoF2rZY2XEEv6l+rltbK7ZK/9GTUVpIwoqWz7xBZuncJXupRoUEmMjs
+	 nKvVLlYS1E62dlGwRCCpSqmnLZt7fGjsFn2E3eRZuwPyWVVbhD1fummMM8cvy2DEsd
+	 TCF53VHltwQx9u/Y00sj0cukczKm1wSDeFVOet1JjtEDTyH2++rh9dbjPjEPT20Xvk
+	 PhhFn7/5C5VBM8AvxzPhyHxgx7Vtm0G11uT8APuZhrzHyI2NRNdUiu8T2xkW+j8KEF
+	 4N5RAXcFbZsqw==
+Received: by mail-oa1-f44.google.com with SMTP id 586e51a60fabf-49e0ee9e7afso1020542fac.2
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 02:26:50 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByfn5oghDYLo0o/fu00IzDfK+ntSnc1/dSZU6CqKQmVgL10JZZj62EphX5Gg3ocJUoCvrUYlJyt8jpaRvE=@vger.kernel.org
+X-Gm-Message-State: AFuF++md5zeZ2VIHsp6Jndnv3mT2EicnRtn4GcySw9fg+FkalYGHnpiO
+	sKaG9HprOKpC7dMYQcbo2aM9qG+DbUj9mDBpu2r+3fwPjtnNGzSca8IfW8hjFU24BJ6ul4Z1pux
+	RLKzp7KRtL6dhU0AnXiM5HiYprmwmsm8=
+X-Received: by 2002:a05:6871:3869:b0:49c:3eca:25ef with SMTP id
+ 586e51a60fabf-4a2591d9e5dmr3983078fac.8.1791451609827; Thu, 08 Oct 2026
+ 02:26:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] ocfs2: validate la_size before
- ocfs2_clear_local_alloc()
-To: Dmitry Morgun <d.morgun@ispras.ru>, ocfs2-devel@lists.linux.dev
-Cc: heming.zhao@suse.com, mark@fasheh.com, jlbec@evilplan.org,
- linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
-References: <20261006122842.1537-1-d.morgun@ispras.ru>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <20261006122842.1537-1-d.morgun@ispras.ru>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260929-mali-c55-irq-supend-resume-v1-0-e3af34afff12@kernel.org> <CA+V-a8sSaGYcMUpXhX+mr2C44zLj2Hgnwj4pQS1t5YrZN1ejqQ@mail.gmail.com>
+In-Reply-To: <CA+V-a8sSaGYcMUpXhX+mr2C44zLj2Hgnwj4pQS1t5YrZN1ejqQ@mail.gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 8 Oct 2026 11:26:34 +0200
+X-Gmail-Original-Message-ID: <CAD++jLk-VZ+hv2+x++kq5K61ORxOgYgqmu_wCw_sX5k6-J2h3w@mail.gmail.com>
+X-Gm-Features: AclHuK-KUSWV_pbziOSS0NdajQVOl_Xc-5mQYGJWfN3ER9TYzr2GWSy9oAbKNzg
+Message-ID: <CAD++jLk-VZ+hv2+x++kq5K61ORxOgYgqmu_wCw_sX5k6-J2h3w@mail.gmail.com>
+Subject: Re: [PATCH 0/3] media: mali-c55: Fix IRQ lifetime and wake handling
+To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Cc: Li Youhong <dayou5941@163.com>, Daniel Scally <dan.scally@ideasonboard.com>, 
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Nayden Kanchev <nayden.kanchev@arm.com>, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Tue, Oct 6, 2026 at 1:43=E2=80=AFPM Lad, Prabhakar
+<prabhakar.csengg@gmail.com> wrote:
 
+> Can you please share the dependency patches or branch, as these don't
+> apply cleanly. I tried the latest 'next' and 'media/next' branches
+> with no luck.
 
-On 10/6/26 8:28 PM, Dmitry Morgun wrote:
-> la_size, like the journal dirty flag, is read from disk. If dirty != 0,
-> ocfs2_begin_local_alloc_recovery() is called, which invokes
-> ocfs2_clear_local_alloc(). At this point, ocfs2_clear_local_alloc()
-> uses la_size as the loop bound without validating it first. If
-> la_size is oversized, the loop writes past the end of la_bitmap and
-> may eventually start writing into memory that has already been freed.
-> 
-> BUG: KASAN: use-after-free in ocfs2_clear_local_alloc fs/ocfs2/localalloc.c:919 [inline]
-> BUG: KASAN: use-after-free in ocfs2_begin_local_alloc_recovery+0xb07/0xc00 fs/ocfs2/localalloc.c:515
-> CPU: 1 PID: 2386 Comm: syz.2.190 Not tainted 6.1.174-syzkaller-00520-g10c505401422 #0
-> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
-> Call Trace:
->  <TASK>
->  ocfs2_clear_local_alloc fs/ocfs2/localalloc.c:919 [inline]
->  ocfs2_begin_local_alloc_recovery+0xb07/0xc00 fs/ocfs2/localalloc.c:515
->  ocfs2_check_volume fs/ocfs2/super.c:2448 [inline]
->  ocfs2_mount_volume fs/ocfs2/super.c:1819 [inline]
->  ocfs2_fill_super+0x2033/0x3dc0 fs/ocfs2/super.c:1082
->  mount_bdev+0x356/0x410 fs/super.c:1443
->  legacy_get_tree+0x108/0x220 fs/fs_context.c:632
->  vfs_get_tree+0x8e/0x300 fs/super.c:1573
->  do_new_mount fs/namespace.c:3078 [inline]
->  path_mount+0x6af/0x1f70 fs/namespace.c:3408
->  do_mount fs/namespace.c:3421 [inline]
->  __do_sys_mount fs/namespace.c:3629 [inline]
->  __se_sys_mount fs/namespace.c:3606 [inline]
->  __x64_sys_mount+0x283/0x300 fs/namespace.c:3606
->  do_syscall_x64 arch/x86/entry/common.c:46 [inline]
->  do_syscall_64+0x35/0x80 fs/namespace.c:76
->  entry_SYSCALL_64_after_hwframe+0x6e/0xd8
-> 
-> The existing la_size check in ocfs2_load_local_alloc() runs after
-> ocfs2_clear_local_alloc() on this recovery path. Memory corruption
-> can therefore occur before the invalid size is detected and
-> -EINVAL is returned.
-> 
-> Reject inodes without OCFS2_LOCAL_ALLOC_FL in
-> ocfs2_begin_local_alloc_recovery() before copying or clearing the
-> bitmap, returning -EINVAL. The recovery code interprets id2 as
-> i_lab, so it must not proceed when the local allocation flag is
-> missing.
-> 
-> Add la_size validation to ocfs2_validate_inode_block() for inodes
-> marked with OCFS2_LOCAL_ALLOC_FL. Reject zero or a size exceeding
-> the bitmap capacity through ocfs2_error(), which marks the
-> filesystem read-only and returns -EROFS. The flag check in recovery
+They are just based on a clean v7.3-rc1 from Torvalds:
+https://git.kernel.org/pub/scm/linux/kernel/git/linusw/linux-integrator.git=
+/log/?h=3Db4/mali-c55-irq-supend-resume
 
-The behavior depends on errors= settings, so -EROFS is not always true. 
+I can rebase on media/next and resend if that's desirable?
 
-> prevents a corrupted inode from bypassing this validation by
-> clearing OCFS2_LOCAL_ALLOC_FL.
-> 
-> Keep the existing size check in ocfs2_load_local_alloc(), whose
-> flag check also accepts OCFS2_BITMAP_FL without OCFS2_LOCAL_ALLOC_FL.
-> 
-> The new checks can also return errors during node recovery. The
-> recovery thread leaves a failed node in the recovery map and
-> immediately retries it, so a persistent error prevents the loop
-> from completing. Release the super lock and exit through the
-> worker error path on failure, preserving the error status and
-> leaving the failed node in the recovery map.
-> 
-> Found by Linux Verification Center (linuxtesting.org) with Syzkaller.
-> 
-> Fixes: ccd979bdbce9 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Dmitry Morgun <d.morgun@ispras.ru>
-> ---
-> v4:
-> - Supersede v3, which was an unintended resend of the v1-based
->   implementation.
-> - Move la_size validation from
->   ocfs2_begin_local_alloc_recovery() to
->   ocfs2_validate_inode_block() (Joseph Qi).
-> - Reject local allocation recovery when OCFS2_LOCAL_ALLOC_FL is
->   missing, before copying or clearing the bitmap (Heming Zhao).
-> - Keep the existing size check in ocfs2_load_local_alloc().
-> - Release the super lock and exit the recovery thread on error,
->   preserving the error status and the failed recovery-map entry
->   instead of immediately retrying the same node.
-> 
-> Link to v3:
-> https://lore.kernel.org/ocfs2-devel/20260831143734.7243-1-d.morgun@ispras.ru/
-> 
-> v3:
-> - Unintended resend of the v1-based implementation.
-> 
-> v2:
-> - Not posted publicly.
-> 
-> Link to v1:
-> https://lore.kernel.org/all/20260810113508.8513-1-d.morgun@ispras.ru/
-> 
->  fs/ocfs2/inode.c      | 13 +++++++++++++
->  fs/ocfs2/journal.c    |  2 ++
->  fs/ocfs2/localalloc.c |  9 ++++++++-
->  3 files changed, 23 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
-> index 9a6b1af4c..cc2233268 100644
-> --- a/fs/ocfs2/inode.c
-> +++ b/fs/ocfs2/inode.c
-> @@ -1477,6 +1477,19 @@ int ocfs2_validate_inode_block(struct super_block *sb,
->  		}
->  	}
->  
-> +	if (le32_to_cpu(di->i_flags) & OCFS2_LOCAL_ALLOC_FL) {
-> +		struct ocfs2_local_alloc *la = &di->id2.i_lab;
-> +
-> +		if (la->la_size == 0 ||
-> +		    le16_to_cpu(la->la_size) > ocfs2_local_alloc_size(sb)) {
-> +			rc = ocfs2_error(sb,
-> +					 "Invalid dinode #%llu: invalid la_size %u\n",
-> +					 (unsigned long long)bh->b_blocknr,
-> +					 le16_to_cpu(la->la_size));
-> +			goto bail;
-> +		}
-> +	}
-> +
->  	rc = 0;
->  
->  bail:
-> diff --git a/fs/ocfs2/journal.c b/fs/ocfs2/journal.c
-> index 7f5fd16d3..46983a061 100644
-> --- a/fs/ocfs2/journal.c
-> +++ b/fs/ocfs2/journal.c
-> @@ -1525,6 +1525,8 @@ static int __ocfs2_recovery_thread(void *arg)
->  			     status, node_num,
->  			     MAJOR(osb->sb->s_dev), MINOR(osb->sb->s_dev));
->  			mlog(ML_ERROR, "Volume requires unmount.\n");
-> +			ocfs2_super_unlock(osb, 1);
-> +			goto bail;
-
-This fires on any non-zero status from ocfs2_recover_node(), not only on
-persistent ones, e.g. -ENOMEM returns from
-ocfs2_begin_local_alloc_recovery().
-
-Thanks,
-Joseph
-
->  		}
->  
->  		spin_lock(&osb->osb_lock);
-> diff --git a/fs/ocfs2/localalloc.c b/fs/ocfs2/localalloc.c
-> index c4426d12a..c5c80a17b 100644
-> --- a/fs/ocfs2/localalloc.c
-> +++ b/fs/ocfs2/localalloc.c
-> @@ -504,6 +504,14 @@ int ocfs2_begin_local_alloc_recovery(struct ocfs2_super *osb,
->  		goto bail;
->  	}
->  
-> +	alloc = (struct ocfs2_dinode *)alloc_bh->b_data;
-> +	if (!(le32_to_cpu(alloc->i_flags) & OCFS2_LOCAL_ALLOC_FL)) {
-> +		mlog(ML_ERROR, "Invalid local alloc inode, %llu\n",
-> +		     (unsigned long long)OCFS2_I(inode)->ip_blkno);
-> +		status = -EINVAL;
-> +		goto bail;
-> +	}
-> +
->  	*alloc_copy = kmalloc(alloc_bh->b_size, GFP_KERNEL);
->  	if (!(*alloc_copy)) {
->  		status = -ENOMEM;
-> @@ -511,7 +519,6 @@ int ocfs2_begin_local_alloc_recovery(struct ocfs2_super *osb,
->  	}
->  	memcpy((*alloc_copy), alloc_bh->b_data, alloc_bh->b_size);
->  
-> -	alloc = (struct ocfs2_dinode *) alloc_bh->b_data;
->  	ocfs2_clear_local_alloc(alloc);
->  
->  	ocfs2_compute_meta_ecc(osb->sb, alloc_bh->b_data, &alloc->i_check);
-
+Yours,
+Linus Walleij
