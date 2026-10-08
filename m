@@ -1,71 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7315F38E5E9;
-	Thu,  8 Oct 2026 19:48:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9C70338E5E9;
+	Thu,  8 Oct 2026 19:48:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791488900; cv=none; b=pVcq+xM2kyKYnAPpZYWO0qHDctbUI/MN9A+SJZhMZhh4Gt5KU5VCxq1ejVkh8EKKtT/Egd7tQo9MFMcxv3wjJs2i8Dr61Yoj60q6W9Kr7YK8YWM3DZjsRcAlPAyE9irmthoBMAGSVEDAOCLxEKoA5UXn3ev0zAdmSo534WtS2Lk=
+	t=1791488924; cv=none; b=qGXEX5R5Em0OZO/gXMKShlRZqJd5ZW42y5aJx7FsuI5JRidwJyyL2yv1ZzF+RYknKW1kWSC1/jZSpD2NIlTl2oGwljynzUm3+4qO2XjWhN8Acoy4+TvTFfj+yaGrWbebyp9nEXQgagfX94umZqsrUJKDXSSosV74/mnRT5RavIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791488900; c=relaxed/simple;
-	bh=M5uIu6puK46fm6TLtTf711PSDJI5UlPdFbtyWHKvUP4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cIsNCUaM542aB9lQGvzZjtSsfvgbcm5llKNm3g+o05AtAk4BGH+NP9LB/dIBXV86O5wWgWZ/06qSu91obJZ281uk3rymjLT/UlyvOX1yAcF6Piz+Egduy1Z6lRDodpgmV+QKZUYXrGPF5M2IWlNnR0wdi5/FQe2bwBdcyVqhXxw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G61gZWg7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791488924; c=relaxed/simple;
+	bh=+Al8iAM4S2p4vBygCdBdTA3YKZzHNUtQxaLYd9uWWSA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XXEBsjNibm2/FEP3Y66F8yln7/AJ1TBElPFJG3Ypytzi7HXWu+eOg2s9aEUfVQR5540X8ChH6zfMydRx68zD/G7i6bI7dBeXXFKSKPvENs+ntpzvVFh9LyMra1tS/VOLOcWAkNeQxDPkzcMuSvomcqLVBnDt5/1E33uGiYwR3Hc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=atZfvnKI; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G61gZWg7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAEFC1F000FF;
-	Thu,  8 Oct 2026 19:48:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791488897;
-	bh=/3W//7HChM3zyLxsRiM/y4C5pytan37O8X+1p3KOCdU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=G61gZWg7IxdkHW0KM1z0Ny2daAUxNkEKceH41inswh1JTwKSVUpsEbHR0XPq/GtMI
-	 NiJoqyiwC4pKoBOfKyc8BDIkrAgJ1ggQHwCUXYHfTcjZHVcFhbt/0dQuOkPmPVjFq+
-	 CE+o2KDoA8XOskaJRF+vDjxBlW4eusoBqmaU0HlXhdU/wnPNMHQeI0NPvk9i4/gl3V
-	 Wa+P7OViqLToo1MQrDOXz+yQtac0xwW1nNSSJHPelEK9omqreIg9B0Pe1yM9S0LW5L
-	 +7+KHs/u8J9QB8uUguiHvuLIvTujGLkD51eiE7eoXM111NN0Z0rZBBKA2Bg3ttN65t
-	 qajbIWRFqggzA==
-Date: Thu, 8 Oct 2026 14:48:16 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Cc: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-	Conor Dooley <conor+dt@kernel.org>, Kevin Lu <kevin-lu@ti.com>,
-	Shenghao Ding <shenghao-ding@ti.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org,
-	Srinivas Kandagatla <srini@kernel.org>,
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	Sen Wang <sen@ti.com>, Mark Brown <broonie@kernel.org>,
-	devicetree@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>, Baojun Xu <baojun.xu@ti.com>
-Subject: Re: [PATCH v2 4/5] ASoC: dt-bindings: qcom,sm8250: Add Nord sound
- card
-Message-ID: <179148889658.900686.10369549179867357791.robh@kernel.org>
-References: <20261008-nord-asoc-driver-support-v2-v2-0-0b6f7e94060d@oss.qualcomm.com>
- <20261008-nord-asoc-driver-support-v2-v2-4-0b6f7e94060d@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="atZfvnKI"
+Received: from mac.lan (unknown [4.194.122.162])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 111ED20B7168;
+	Thu,  8 Oct 2026 12:47:35 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 111ED20B7168
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1791488866;
+	bh=9+lNjYpny4CcV0G2OLWLWcCQ9nD5E2Jh4vrTh6nPu7Q=;
+	h=From:To:Cc:Subject:Date:From;
+	b=atZfvnKIhS80uvYsEYHKu0H14DPKwyA+ixEixhMdPRdAaQsxUewoe+vK7aGVIZtzC
+	 YULtkQhO8L9AATcTq9NXn28pS5lLUfAISIXX+pQl9bYgIA1lhRto7SrmKbYu9J7xWp
+	 5DavYgMMo77hnm+ttF6PiGsJFVOE4QMOMV7jx2qw=
+From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
+To: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
+	Ilya Maximets <i.maximets@ovn.org>,
+	Kexin Sun <kexinsun@smail.nju.edu.cn>,
+	Enrico Pozzobon <enrico.pozzobon@dissecto.com>,
+	Breno Leitao <leitao@debian.org>,
+	David Rheinsberg <david@readahead.eu>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	AutonomousCodeSecurity@microsoft.com,
+	tgopinath@linux.microsoft.com,
+	Cen Zhang <cenzhang@linux.microsoft.com>
+Subject: [PATCH net] netlink: do not copy to user space under netlink_lock_table()
+Date: Thu,  8 Oct 2026 15:48:24 -0400
+Message-ID: <20261008194824.52351-1-cenzhang@linux.microsoft.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261008-nord-asoc-driver-support-v2-v2-4-0b6f7e94060d@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
+netlink_getsockopt() handles NETLINK_LIST_MEMBERSHIPS by copying the
+socket's group bitmap to user space with copy_to_iter() under
+netlink_lock_table(). However, copy_to_iter() writes to a user address
+and can trigger a page fault, and how long that fault takes is up to the
+owner of the page. An unprivileged user can make it take as long as they
+want, e.g. by mapping a memfd page and keeping it hole punched from
+another thread. While the fault is pending, the caller still counts as a
+holder of nl_table_users.
 
-On Thu, 08 Oct 2026 16:36:44 +0530, Mohammad Rafi Shaik wrote:
-> Document the bindings for the Qualcomm Nord sound card.
-> 
-> The bindings are the same as for other newer Qualcomm ADSP
-> sound cards, thus keep them in existing qcom,sm8250.yaml file.
-> 
-> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/sound/qcom,sm8250.yaml | 1 +
->  1 file changed, 1 insertion(+)
-> 
+nl_table_users is one global counter shared by every netlink protocol
+and every network namespace, and netlink_table_grab() waits for it to
+drop to zero in TASK_UNINTERRUPTIBLE with no timeout and no signal
+check. Therefore, by holding one page fault open, an unprivileged user
+blocks every task on the machine that needs netlink_table_grab(): e.g.,
+close of a netlink socket, multicast group join, and network namespace
+creation. The blocked tasks stay in an unkillable D state until the
+attacker lets the fault finish, and hung task detector reports is as
+following:
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+  INFO: task V1-nl-close:103 blocked for more than 122 seconds.
+  task:V1-nl-close     state:D stack:14448 pid:103 ...
+  Call Trace:
+   schedule+0x36/0xf0
+   netlink_table_grab.part.0+0x66/0xe0
+   netlink_release+0x6d4/0x780
+   __x64_sys_close+0x38/0x80
 
+Fix this by taking a kmemdup() snapshot of the bitmap under
+netlink_lock_table() and copying the snapshot to user space after the
+lock is released.
+
+Fixes: 47191d65b647 ("netlink: fix locking around NETLINK_LIST_MEMBERSHIPS")
+Reported-by: AutonomousCodeSecurity@microsoft.com
+Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
+---
+ net/netlink/af_netlink.c | 20 ++++++++++++++++----
+ 1 file changed, 16 insertions(+), 4 deletions(-)
+
+diff --git a/net/netlink/af_netlink.c b/net/netlink/af_netlink.c
+index 9fdf964224ab..f61ff699761f 100644
+--- a/net/netlink/af_netlink.c
++++ b/net/netlink/af_netlink.c
+@@ -1767,24 +1767,36 @@ static int netlink_getsockopt(struct socket *sock, int level, int optname,
+ 		flag = NETLINK_F_RECV_NO_ENOBUFS;
+ 		break;
+ 	case NETLINK_LIST_MEMBERSHIPS: {
++		unsigned long *groups = NULL;
+ 		int pos, idx, shift, err = 0;
++		unsigned int ngroups;
+ 
++		/* copy_to_iter() may sleep in a page fault, do it unlocked. */
+ 		netlink_lock_table();
+-		for (pos = 0; pos * 8 < nlk->ngroups; pos += sizeof(u32)) {
++		ngroups = nlk->ngroups;
++		if (ngroups)
++			groups = kmemdup(nlk->groups, NLGRPSZ(ngroups),
++					 GFP_KERNEL);
++		netlink_unlock_table();
++
++		if (ngroups && !groups)
++			return -ENOMEM;
++
++		for (pos = 0; pos * 8 < ngroups; pos += sizeof(u32)) {
+ 			if (len - pos < sizeof(u32))
+ 				break;
+ 
+ 			idx = pos / sizeof(unsigned long);
+ 			shift = (pos % sizeof(unsigned long)) * 8;
+-			group = (u32)(nlk->groups[idx] >> shift);
++			group = (u32)(groups[idx] >> shift);
+ 			if (copy_to_iter(&group, sizeof(u32),
+ 					 &opt->iter_out) != sizeof(u32)) {
+ 				err = -EFAULT;
+ 				break;
+ 			}
+ 		}
+-		opt->optlen = ALIGN(BITS_TO_BYTES(nlk->ngroups), sizeof(u32));
+-		netlink_unlock_table();
++		opt->optlen = ALIGN(BITS_TO_BYTES(ngroups), sizeof(u32));
++		kfree(groups);
+ 		return err;
+ 	}
+ 	case NETLINK_LISTEN_ALL_NSID:
+-- 
+2.55.0
