@@ -1,200 +1,116 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7D294477F1
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 22:41:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 348EC47F3A0;
+	Thu,  8 Oct 2026 22:41:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791499276; cv=none; b=SKJ8A1Hyf61+XeuqjMKO/L89LjTFffknFNexRKYtjlEU17FK9Wl4oo9cFCC1gGBDMTKZkjYs7x32aix2N9nKtRop6e3+IPIKvEMb2c97RXNOs+q2AibezJm+iRbY1byk4gyX2vz2dYRXev7kUJZ3OON2sjNU5FllhQc2mfKG2V0=
+	t=1791499290; cv=none; b=AOAJbD6m4zzQJOInWGRFZzynCkU2mcEvXV73d/21oewRq/oogIl+0xAD0wB3Fw6AillTaBMH7Gu1Z4kkSGiFCPKbgrBMGkuW3CUkbaMhkAb4mt86J76CL+Wo7cVy2DonPqpdMSjqCPko+ovEYSdfGSGmDxewTyFYlPJAFEJfU3s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791499276; c=relaxed/simple;
-	bh=iagalCOt4SPH6sjffSH4/8LpeUolMcpalzpFaQ3ZZTk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AbovM9c57PftUqAe5YyxhpdM0uY8tESoYTwRbVTauBepHlOW3mv/hdcoSPdjTA5GeXsKrKLHaQe2l/PNWDMv0Bzzx1/mRuvPdUsX14TcyyKqoqvaCPm8oZLXB4kMG6uw7dlju7OnX8KGST/0AitQGhNAcD5Jq+2hrwGSYio/8po=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a161d9b8c7so26010595e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 15:41:14 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791499273; x=1792104073;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vcyu1IFRGhKQixf4T9pww9oH3TOTqCtgW78hSpt3A8A=;
-        b=stnBdJDEIxXJFyWBWNbOD/otxPlMd0oKVoZtC7qUwgnudpx105KC5DYZpAIxewXlIC
-         FSrUI3/+RnwH2CzNiETizf8nlH+G3MQ8bJzfmuSZeoq78sJyIGu5d3+oeR2tYSg5AYjS
-         b5IBSwW22IO66HkS6xf2DhluRXHoq6gMdL+OoDRITnKBbeivY7av6sCOclSE71dlWsaa
-         HgjA4VxvCasU8KXDmekUWHyJzItuGev+KJWCH2rjMRi1hvzfS7BMpkxYZub9kqAqsvIf
-         1cwsfUshmEE4Ha+qkaQRMj2d4r3d85pnqBLqxE8sJtQF+XEnYAhit3/qHR+aKPYHo2pg
-         vVOg==
-X-Gm-Message-State: AFuF++mmGFrlruZzGFE1w5hlOG1DycZ90hSkfh/X/FQlaSvIKV/Ma4/F
-	YFdOMho3gLFNWstuUWeEdTbZOC0gkFo1N/OTJVIZWQTdfkH/eF2VY3iO9NOyOkkuxCA=
-X-Gm-Gg: AYBFou21yq1vTvXRmSlMDJG5zZEhaQGThlbZeOwpnlmLeSWtXya33P5dMwTXkgbeB8b
-	fPO5czSe/KZdFAqNHScYDJvDF3q18vRTrtXRlCOtUauMycbLLLkZkiTgtaM1+jT8vk32xXuEVsC
-	uQbYoT4I7kQM4Bla6Kxj/z2L3MEZ6Pcp2OysE4jhTxgbE07sXJc7dC7l1kryErFPGX4yh1DthoX
-	DWj20bwY0x7ZJVeVwKfHo5anXbvRA/wzbtxKDCf8ZkQtrwZ25qfHRMrznuOIR/15iavwjvjujn1
-	JTDBao7NcX5NSRaAXKmkdsWDWm2ZXMbza/Sj5woBMOYxODTypyw9kra1Lh440hn/IEtxFpAGx4p
-	vLZl1/6/i2DuDt4YnE5RzJ/D74a+a611ZAVEGeqcZs2srrRlzSRYjneAITNJzuO/PbxfWybwf72
-	GCL38TgsfZoOGDesg2JOLflb9qTKnKd13oshJHlbtnxYvE3N+qStgS2H/B5/3ZA/VHI2+m+nXDB
-	mZJ3H9ZWHBzIjSF8dl5GGjG72g=
-X-Received: by 2002:a05:600c:5252:b0:4a0:1aa0:7cfa with SMTP id 5b1f17b1804b1-4a18041c4b2mr132254105e9.12.1791499272911;
-        Thu, 08 Oct 2026 15:41:12 -0700 (PDT)
-Received: from white (bba-217-165-185-173.alshamil.net.ae. [217.165.185.173])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a18bc6a48fsm15055275e9.1.2026.10.08.15.41.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 15:41:12 -0700 (PDT)
-From: "Denis Efremov (Oracle)" <efremov@linux.com>
-To: linux-block@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	"Denis Efremov (Oracle)" <efremov@linux.com>
-Subject: [PATCH] floppy: remove usage_count
-Date: Fri,  9 Oct 2026 02:40:33 +0400
-Message-ID: <20261008224033.3134735-1-efremov@linux.com>
-X-Mailer: git-send-email 2.56.0
+	s=arc-20240116; t=1791499290; c=relaxed/simple;
+	bh=kY8lun+I6df2z89WNcQ2hOi7c1wes9jNAnRP0SsGzgk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=hTQaRj7ZbcKtu6FUjnFiyot7f0/se6fDIWYZbJdXJ6DKLrkdW/hIpVnfofYT8qS7a9viSMUfxMnTEekqF2eIHaI6ftB77IDwPQ9g+ahTmefmAjJV4bKlJgDHKSOi9YtUA8sMrBeitlZZApjdXoQy9pDVo4A+ehi8HvoaUpwE8sc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oqfZbaxC; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oqfZbaxC"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 92679C2BCF5;
+	Thu,  8 Oct 2026 22:41:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791499289;
+	bh=kY8lun+I6df2z89WNcQ2hOi7c1wes9jNAnRP0SsGzgk=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=oqfZbaxC78eLwSv2dhK1+41mEYge2R88Ykp7Qa4+hE9nKaso/BT9C5dALg5xPGc91
+	 Gem7sl5nUul9TsIDS5zZhPgutn2zV45CuK16QlAypTa0+hfwTNUBhXL8iHrChVgDq0
+	 anfsH+CGLKn9fCgJlqtDpIp8N6ctU/FJaTYIgk3G/lhKgA+D043mdt8pYjDDet8sQc
+	 bgiswKduUwftgxh76WOtBuHvVxoTtcFHDDHngcKY9yRdL3HzSQxQnDi3LCXeISlX+K
+	 L/+yoY5CZTt0dkNDGhWqmZLWnP3eahS16gOxx0pRGE/m+cq6ymsqkSnYI2GLfwVHFk
+	 3IOxGT81JJGpg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7CA2FCA6015;
+	Thu,  8 Oct 2026 22:41:29 +0000 (UTC)
+From: Aleksei Berezin via B4 Relay <devnull+8967858b87.gmail.com@kernel.org>
+Date: Fri, 09 Oct 2026 02:41:19 +0400
+Subject: [PATCH] usb: typec: ucsi: acpi: Add quirk for ASUS ROG Zephyrus
+ Duo 16 GX650PI
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261009-usb-next-v1-1-95a2288ad9b2@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ5AMBCF4avIrDVpuyh1FbHQdjAWJR1EIu6uW
+ H7J/94FjImQoSkuSHgQ0xIzVFmAn/o4oqCQDVpqo6S0YmcnIp6bsHWllPMmmFpDzteEA53fVdv
+ 95t3N6Ld3D/f9AGN/umRsAAAA
+X-Change-ID: 20261009-usb-next-98711bc6d682
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Aleksei Berezin <8967858b87@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791499288; l=1846;
+ i=8967858b87@gmail.com; s=20261008; h=from:subject:message-id;
+ bh=ZUe/15qN0Mxppoewg6G+nswhtqP0+uFLTWd6xRy/srQ=;
+ b=aFGDFPYr/q9xe/9xPwSfFaRdQg99nHoip7c4m6WlX0hbAwKQubuYB6n+t/UGnYeLj6fARomJb
+ oE9OETqmDJZDEArjhlb/kBmG49xbG0nPBWUoXYm+DL6Kjzgf5GKM8z7
+X-Developer-Key: i=8967858b87@gmail.com; a=ed25519;
+ pk=njtzBWPS2xf9KvwkMcmThxWGBoNdXiBOrAswIsycbXg=
+X-Endpoint-Received: by B4 Relay for 8967858b87@gmail.com/20261008 with
+ auth_id=1137
+X-Original-From: Aleksei Berezin <8967858b87@gmail.com>
+Reply-To: 8967858b87@gmail.com
 
-usage_count used to count openers and FDC users. Since commit
-3e541a4ae534 ("[PATCH] lockdep: floppy.c irq release fix") the only
-caller of floppy_grab_irq_and_dma() is do_floppy_init(), which runs it
-once for all controllers and drives before any disk is added.
-floppy_release_irq_and_dma() runs only after that grab has succeeded:
-on init failure after del_gendisk(), or on module exit. The count is 1
-for as long as a floppy disk exists, so it carries no information.
+From: Aleksei Berezin <8967858b87@gmail.com>
 
-The usage_count == 0 checks in lock_fdc(), floppy_queue_rq() and
-floppy_revalidate() never fire. The one in floppy_queue_rq() would oops
-if it did, since it dereferences current_req, which is NULL when nothing
-is in flight. The nested-grab early return in floppy_grab_irq_and_dma(),
-the atomic_dec_and_test() in floppy_release_irq_and_dma() and the
-usage_count tests before the release calls always go the same way.
+On the ASUS ROG Zephyrus Duo 16 (GX650PI, BIOS GX650PI.314) the firmware
+loads the EC-based variant of the AMD CPM UCSI SSDT ("CPMUCSI"). Its _DSM
+read function only copies MESSAGE_IN and CCI from the EC into the shared
+mailbox and never fills in the VERSION field. The only code that sets the
+version (M31F) lives in the "UCSIPLT" SSDT of the I2C-based variant, which
+is present in the firmware image but not loaded on this machine.
 
-Remove the counter and the checks.
+As a result ucsi_register() reads a zero version and the probe fails
+silently with -ENODEV, so neither Type-C port is registered and no
+typec, usb_power_delivery or ucsi-source-psy devices are created.
 
-Signed-off-by: Denis Efremov (Oracle) <efremov@linux.com>
+Reuse the existing zero-version workaround from the Acer Nitro ANV15-41
+quirk and assume UCSI 1.2 on this machine. With this change both ports,
+the PD partner and the UCSI power supplies are registered and report the
+connected USB PD charger correctly.
+
+Assisted-by: Claude Opus 5.5 iasl
+Signed-off-by: Aleksei Berezin <8967858b87@gmail.com>
 ---
- drivers/block/floppy.c | 31 ++-----------------------------
- 1 file changed, 2 insertions(+), 29 deletions(-)
+ drivers/usb/typec/ucsi/ucsi_acpi.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/block/floppy.c b/drivers/block/floppy.c
-index f04397b8e381..a08ed982f013 100644
---- a/drivers/block/floppy.c
-+++ b/drivers/block/floppy.c
-@@ -566,8 +566,6 @@ static int floppy_revalidate(struct gendisk *disk);
- #define NEED_1_RECAL	-2
- #define NEED_2_RECAL	-3
- 
--static atomic_t usage_count = ATOMIC_INIT(0);
--
- /* buffer related variables */
- static int buffer_track = -1;
- static int buffer_drive = -1;
-@@ -883,10 +881,6 @@ static void set_fdc(int drive)
-  */
- static int lock_fdc(int drive)
- {
--	if (WARN(atomic_read(&usage_count) == 0,
--		 "Trying to lock fdc while usage count=0\n"))
--		return -1;
--
- 	if (wait_event_interruptible(fdc_wait, !test_and_set_bit(0, &fdc_busy)))
- 		return -EINTR;
- 
-@@ -2854,12 +2848,6 @@ static blk_status_t floppy_queue_rq(struct blk_mq_hw_ctx *hctx,
- 		 "VFS: %s called on non-open device\n", __func__))
- 		return BLK_STS_IOERR;
- 
--	if (WARN(atomic_read(&usage_count) == 0,
--		 "warning: usage count=0, current_req=%p sect=%ld flags=%llx\n",
--		 current_req, (long)blk_rq_pos(current_req),
--		 (__force unsigned long long) current_req->cmd_flags))
--		return BLK_STS_IOERR;
--
- 	if (test_and_set_bit(0, &fdc_busy)) {
- 		/* fdc busy, this new request will be treated when the
- 		   current one is done */
-@@ -4178,10 +4166,6 @@ static int floppy_revalidate(struct gendisk *disk)
- 	    test_bit(FD_VERIFY_BIT, &drive_state[drive].flags) ||
- 	    test_bit(drive, &fake_change) ||
- 	    drive_no_geom(drive)) {
--		if (WARN(atomic_read(&usage_count) == 0,
--			 "VFS: revalidate called on non-open device.\n"))
--			return -EFAULT;
--
- 		res = lock_fdc(drive);
- 		if (res)
- 			return res;
-@@ -4744,8 +4728,7 @@ static int __init do_floppy_init(void)
- 		}
- 	}
- out_release_dma:
--	if (atomic_read(&usage_count))
--		floppy_release_irq_and_dma();
-+	floppy_release_irq_and_dma();
- out_unreg_driver:
- 	platform_driver_unregister(&floppy_driver);
- out_unreg_blkdev:
-@@ -4825,9 +4808,6 @@ static int floppy_grab_irq_and_dma(void)
- {
- 	int fdc;
- 
--	if (atomic_inc_return(&usage_count) > 1)
--		return 0;
--
- 	/*
- 	 * We might have scheduled a free_irq(), wait it to
- 	 * drain first:
-@@ -4837,7 +4817,6 @@ static int floppy_grab_irq_and_dma(void)
- 	if (fd_request_irq()) {
- 		DPRINT("Unable to grab IRQ%d for the floppy driver\n",
- 		       FLOPPY_IRQ);
--		atomic_dec(&usage_count);
- 		return -1;
- 	}
- 	if (fd_request_dma()) {
-@@ -4847,7 +4826,6 @@ static int floppy_grab_irq_and_dma(void)
- 			use_virtual_dma = can_use_virtual_dma = 1;
- 		if (!(can_use_virtual_dma & 1)) {
- 			fd_free_irq();
--			atomic_dec(&usage_count);
- 			return -1;
- 		}
- 	}
-@@ -4883,7 +4861,6 @@ static int floppy_grab_irq_and_dma(void)
- 	while (--fdc >= 0)
- 		floppy_release_regions(fdc);
- 	current_fdc = 0;
--	atomic_dec(&usage_count);
- 	return -1;
- }
- 
-@@ -4896,9 +4873,6 @@ static void floppy_release_irq_and_dma(void)
- 	long tmpsize;
- 	unsigned long tmpaddr;
- 
--	if (!atomic_dec_and_test(&usage_count))
--		return;
--
- 	if (irqdma_allocated) {
- 		fd_disable_dma();
- 		fd_free_dma();
-@@ -4994,8 +4968,7 @@ static void __exit floppy_module_exit(void)
- 	cancel_delayed_work_sync(&fd_timeout);
- 	cancel_delayed_work_sync(&fd_timer);
- 
--	if (atomic_read(&usage_count))
--		floppy_release_irq_and_dma();
-+	floppy_release_irq_and_dma();
- 
- 	/* eject disk, if any */
- 	fd_eject(0);
+diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucsi/ucsi_acpi.c
+index 5697ccc24..c8e6efdba 100644
+--- a/drivers/usb/typec/ucsi/ucsi_acpi.c
++++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
+@@ -196,6 +196,13 @@ static const struct dmi_system_id ucsi_acpi_quirks[] = {
+ 		},
+ 		.driver_data = (void *)&ucsi_acer_ops,
+ 	},
++	{
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
++			DMI_MATCH(DMI_BOARD_NAME, "GX650PI"),
++		},
++		.driver_data = (void *)&ucsi_acer_ops,
++	},
+ 	{
+ 		.matches = {
+ 			DMI_MATCH(DMI_SYS_VENDOR, "LG Electronics"),
 
-base-commit: 6c377d19d4a5116d9bec5203aa3c6c11523e7898
--- 
-2.56.0
+---
+base-commit: 42bcac323cc3b16566fed8c5b250318ad02a0de0
+change-id: 20261009-usb-next-98711bc6d682
+
+Best regards,
+--  
+Aleksei Berezin <8967858b87@gmail.com>
+
 
