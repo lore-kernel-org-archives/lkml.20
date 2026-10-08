@@ -1,223 +1,278 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F5CB363C48
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 05:51:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98EBE246788
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 05:52:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791438719; cv=none; b=Ok46Gl/H3qpWcP1dB/quYLnp02Ft03voBLJuDeTJwp3zyHn8GZuBsvAMix0vvBvQ/enYAbOV1Eizf940xmEwiyfkl93URdQGOrx4jnHhgIKRDd0CGvjjRhWh0glJcOEGBoIiQWWy6jgXDjyAtRfY2jVqtrFM4Qghvwv6It4q90k=
+	t=1791438739; cv=none; b=jv+2+YpdXnbI7mFnJzFif7dw/Ul8YWVuypOvokvjHKyYEDuR66tHP0M5t8dOGAOVLyx/GpugA8fv9pSR+CVIcNW6IGBGlvHCNGaZJwVpRfGNT0/xYxAZ+VqUbagtOPGs8KcUO0wvuM69vQqRudIDOWdpXNjHN7dwqOW9kiMtdWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791438719; c=relaxed/simple;
-	bh=dMfCKBLj00WS6ud9NDYUeA29CVFfLdKEAWEavgqpzr0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kOPtrIFPPYwXAxVBGPSX5y+2nAKWayf4qq39X8cBG1lv4Aj0fmp4bumEdmXAlDXbqs8Jk+cBDsVwSo9BjJWbrT0UZggaOs51oWnBYLtORm6fnM2Nj2mVePJDB7XL1QQAJi7a45Ol+I/mcWTbTrMZ+pPXpEjkODm+VNcmE/BjYe8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cxtXKdEc; arc=none smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791438739; c=relaxed/simple;
+	bh=eQV9p9UYhsQ3ApYT0Wh4i0ldneTjolAW8NyWSQEXrtU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eP2ipqx2VqZOs+wyaPbVqQvQLyIZvIawu84Chek+DvB6iK3aiE9nJ+ME4IrkSUPvQTjFthRqBo76RjQ7vsP3XvYw9kj03UiUlKChGvphMCxZL90iiMKUcxlCci/h5B+kTBXMZ9LZ9//8zEd2H/oo2MWEVRGd1CijSDgDyRZgkUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ny2TzCJV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RFhivXFy; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cxtXKdEc"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc52c1b8286so159961a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 22:51:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ny2TzCJV";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RFhivXFy"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6984BZhe313867
+	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 05:52:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	eQV9p9UYhsQ3ApYT0Wh4i0ldneTjolAW8NyWSQEXrtU=; b=Ny2TzCJVR2wZYgLe
+	QbVAU/dgqbupsn9ExdPxgbi6YZmWbKmmx8V5YH1dZFf9uB8kUnQcO3P8WvvgZVGb
+	+ENAlmVMtF8R9+Q+s42e2mVu/xweeWKpkmC2+hT8lyJtdhCgn9iWRI11rg1z37sR
+	ITodF/lToSxtGSWJrHNX+vh5fQyN9jXW/x64b1uEc8O+XEQh29Aiy5hGvClyQub4
+	GNs4e5B0mdiYVp44k5NZ4uGyiyckfqIDMhRl/+3cDzv6FF/jKuY9K3mZn9lPdocY
+	A2yvs+vYGUhg6TfqgEh+KvFE7FRVmOFIf8RMCdm1cNaHaE3mV4YMoIj2TVJa63y2
+	RIpH5g==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe319ng-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 05:52:15 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e818ca61bfso1907485ad.2
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 22:52:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791438717; x=1792043517; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tgnizjf+WTXk43Y5M7x3KZcvpBPDG9WlcPau0YfMzHc=;
-        b=cxtXKdEc6POiYFaVSgFOXNjSZNtSmWpVUU6F8K8xKHxx667AMMbNKVeYkr+pC7hDPv
-         IeAuKyaxBXE3gPYOib9Al4ijcC5fTgMOzNpEPihv4+U4ArJRhi7f1TYyXBEhOMAAWyEI
-         lt+dqW4Izmd7n4M6c748fz8jHHYBQQvl4HuUJGb92Bqj/rLGycNmf+cpqLOfwMxy2s1W
-         kJLxsgZQqxeeLURNxNSMt/+3xDUhEjpdEy/Ky9c7b6iKnb6pL3/ptnlXCkzZuh1pqoWl
-         kM99XD4gdJpNq7fPQki+TmxLM64O0d/VU3h5wBNEYOmAqVHVgBS6m+HRJp5w/19zWQ2Q
-         mF/g==
+        d=oss.qualcomm.com; s=google; t=1791438735; x=1792043535; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eQV9p9UYhsQ3ApYT0Wh4i0ldneTjolAW8NyWSQEXrtU=;
+        b=RFhivXFyvvDLoJ0YGEt/iAGZjZq38JV+mjI6WiaVpFuLVt84WcPifRJjNgHyXQ/joL
+         8KqF6yFAlqgs/jOocgjlRp8+KCrnOe9vytpKpQuXF3Nti7wN2oJKEHtdTahGtevJcyqV
+         pVDiF2osuNj8G7r2C0zIGDgTS7J0who4ZR2OPXK/4vP81hZCPJwtFCb+E596DfFzbufz
+         w2sZIbqTsS32edEBv3tcW73Oc9ZCw1nEvSFeBGZluFj5Vzp6hQ4Wqn+gL6OOJ4kNziOG
+         gRr/d8OWjJXvvpI1ep3lOcqNPaikwm8gkeKdaxwTmYNpf8Q8z/GHlAH8JXObpefnf4qN
+         m9IA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791438717; x=1792043517;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791438735; x=1792043535;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tgnizjf+WTXk43Y5M7x3KZcvpBPDG9WlcPau0YfMzHc=;
-        b=C/3UXkQgb72wPEl/T10rjLt2eoYmal7m3HtP3ZY7RshrCYS/FVXSta/YAKdTlnuP1k
-         HtJz1Gj/bKogyrJGs8fTc3NU9ov916TWPmQ/B1hfB7fyX+SYhr7Tqj86T3GsAkXYSosn
-         DALrjNGfQaoe0EsNsbQMDR5mRy9xDSycHKu/Fwg9hoYxUEJE2AcXj1Di9Ie/PKP5RAty
-         mO8yIX7T3d+dcS+yr7NxMo6oe6nGYyOk/0u1mRs95ci8R1/XG2JsChvKES04kruNpZ1M
-         x9R0O08fbPof6tA3beWZlzGh3KYBRli0Tpia1uGzGzLRmgDwWpC6ilAXN6n2c93MU2fK
-         +NAg==
-X-Forwarded-Encrypted: i=1; AKwUvBwaJc43c0jpYP7izDLiZE5FuzNEuQsW6zErugMuVnRUIYK9IE4+Vpoty9+56H5UNAxfHOHyel1+1OfNusM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI8L+mT7IsN2rqdZ8Y25INxKszTQUmgJ8eGEK+xylGGBt1DuAFu
-	Uoo9fBycyMpj+Jo5biznQfOhdjrUSaFluXfyamhgn8d4JpHTFEWF12f9
-X-Gm-Gg: AYBFou1y44u6LhS3ZZE0qALQY4V3OTRg4tH+xPFb/kjIlhCPyUTvp6aUOTC+4gbORQU
-	rYF08LAawUOnpwpBh6Pt3IR0W4jNTRO6o58IUWmiuSPxcWpzo/PmiyxtZw3AOzbCVPWiObfDM3/
-	dYN/IUtkOFPfCh7+yHNC9j8eqRlcSHlGqh9I9dcDfPvWnJfUiMXDVxMjJg0TWnY8eZ6HTYvGCpN
-	eAhSw8CHUAkuhGsfbpqKvIcRQGJCP+1xj4eH+wvV+a1rHkDbbvqHrVPM1psVeRGTXNclXHs0Us7
-	MjK0EAtPCQB69/0NHmtVzGo/5nSfF8hRh0jnpfoSXqntC4kDOjzS0Gj0iDZOx/MJqg2NGHyuh+K
-	3oxkjrkaaPItpop8UsWmb1RuMeDKW2+HP9xf5OZIny2Wp5BFdAx2Fe7D86AN7YNll4b+7eTMpT8
-	Fq3lk1/5mDpbkIR77baBcBhu9pk764q/T0iQPRQBPhVtzyAvWHK8VWwrM7+kKfWSHIUG1fZVXJ8
-	apcmJzYFj4c8KDHR6K8E7wF+z6bnvzC1HY=
-X-Received: by 2002:a17:90a:d450:b0:3a0:d82b:237b with SMTP id 98e67ed59e1d1-3aaed7eb293mr718759a91.25.1791438716883;
-        Wed, 07 Oct 2026 22:51:56 -0700 (PDT)
-Received: from obadmin-Precision-3680.atlascopco.group ([167.103.3.1])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9ff5c7db6sm2746571a91.16.2026.10.07.22.51.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 22:51:56 -0700 (PDT)
-From: Sahaj Chaudhari <sahaj123.sc@gmail.com>
-To: kuniyu@google.com
-Cc: netdev@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	shuah@kernel.org
-Subject: [RFC net-next] selftests: af_unix: test zero-length MSG_PEEK with OOB data
-Date: Thu,  8 Oct 2026 11:22:33 +0530
-Message-ID: <20261008055233.3413445-1-sahaj123.sc@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=eQV9p9UYhsQ3ApYT0Wh4i0ldneTjolAW8NyWSQEXrtU=;
+        b=Ai1uUO+3r3KPMvJCNz6A9cuuI2WrTkKHyqZvxRra3Izh9cuZfuqAqTWiwnpFgdTAvo
+         +1HS3ZxbCi8Nsmp1YwbfeOTM9i1sxWQP+RChWZMSvqgLLiW8XPrZHhE/d1XRwlh8XV3N
+         mslVpZrjVAGPVgKZ2tG1Z9L+UCqsqNOYDp5JkHx6Ynv+9qECsuWYz5g55CBxp9+cyWvq
+         UMM3fKOecEmMmnHaxV0irSus91NYkVxZonJKHrfTk4ociejRLzyzcb9zoUxU54yL9p15
+         3lUJ+ICW6rvvno0So+Ph66xCRx64Ix4Rrsihw4I5XTGl0ZOOyR/ce14mEMnbGKqXc1Vu
+         EIkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzxj992FWlyx2gNJlnsEMW7+1W4swaoX7Q7Xd5XI8o4R10mWGS6QNpQGC47GwKWPpfjuIzWCwUfM3wr+48=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLAO3uuUT7CGVbIp38rxxar2bCYviEKTvJiMqKmXF9EchKxzQ2P
+	7ebLqEyheB6ZKkbGe70kooVOw9JhOMzyHhdtJag6vmDDOIxJgSgoUjdyGg5mztH9Nt7BHpRf8Jz
+	qRNs1bTZ8Rl+4joIBTa32ExCaqSOevlBq9LFCSkivzwttGW7/RYXn66LzI69FI9J4ijw=
+X-Gm-Gg: AYBFou0PUlzNK8L/DwULEUssAv8W5dls5a07QbCAsM/YCzGypYpurUcbB1EFIikEBtV
+	jMow+i99HGIZUKohLkRQ803N23UfQKOCIAW4aIKs1bv8gw3P4kc7W+m07QzYhfnkpnGMwG8pi5E
+	4aYynQ4+YPSsr3puhom2rICC2xL0t+kfoqKvrM2fZ8VyEpOLzl3exwYQUHFkzWhxdbGbmftSsdb
+	gUJPj/kMLWr/C3+oIa5GYcD9q4fhUnrQwAffFqHBMpUKw1yC2XXe8Pi/+5jXifLgtiK3Y0Y1Sfh
+	xd4iNB6GIFzlSGICJ6UK1ydaahdWsfq68BG5Fr4ZBYmOgP3IFRWGQv88OgX7agp/K8QhQf0jCnw
+	wNzkube+tm1RxpLdSlGh2F1ns+wJwXrbd
+X-Received: by 2002:a17:90b:17c2:b0:3a8:10e2:acfc with SMTP id 98e67ed59e1d1-3a8a1ceec9cmr3579233a91.65.1791438734948;
+        Wed, 07 Oct 2026 22:52:14 -0700 (PDT)
+X-Received: by 2002:a17:90b:17c2:b0:3a8:10e2:acfc with SMTP id 98e67ed59e1d1-3a8a1ceec9cmr3579214a91.65.1791438734295;
+        Wed, 07 Oct 2026 22:52:14 -0700 (PDT)
+Received: from [10.218.42.145] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9f1a79babsm2629601a91.6.2026.10.07.22.52.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 07 Oct 2026 22:52:13 -0700 (PDT)
+Message-ID: <ad34ebc7-df81-414f-848c-0d5b820227b8@oss.qualcomm.com>
+Date: Thu, 8 Oct 2026 11:22:06 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/6] PCI/bwctrl: Set host bridge OPP and optionally
+ disable ASPM around link retraining
+To: Val Packett <val@packett.cool>, Bjorn Helgaas <bhelgaas@google.com>,
+        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+        Jingoo Han <jingoohan1@gmail.com>,
+        Lorenzo Pieralisi
+ <lpieralisi@kernel.org>,
+        Rob Herring <robh@kernel.org>, Jeff Johnson <jjohnson@kernel.org>,
+        Bartosz Golaszewski <brgl@bgdev.pl>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, mhi@lists.linux.dev,
+        linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
+        qiang.yu@oss.qualcomm.com
+References: <20260819-bwscale-v5-0-6dea79786b37@oss.qualcomm.com>
+ <20260819-bwscale-v5-1-6dea79786b37@oss.qualcomm.com>
+ <f189cfc2-c36a-4bf5-bac7-36ddb15cc7a4@packett.cool>
+Content-Language: en-US
+From: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+In-Reply-To: <f189cfc2-c36a-4bf5-bac7-36ddb15cc7a4@packett.cool>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAyMyBTYWx0ZWRfX4yAjX29pu9Bo
+ jTWQgVvjwF5xSQqwERBwpzo+rU0do6rAmpUwkBvba55unWovwCnLjfBduc7VAg0uhflVDLeSMTg
+ GSgGXjoSPy3G/Qu4ZhwdScW3jrty6oDTHxAcxR3yCDKTny+Qalf0Ilv/31DT56R45rQLkfS7vk4
+ IHnp/SgMsbRlplHoE6KuBJrqBy8ArA8DJsBhgjle8ISN8HIjyiY4ZNn/+ipedX4zxkzNTFWZY+q
+ wXdVFQ72KrRc3MsC4IGEVHajBJTG6f6OfeIslwsgPExjyL8gp0oIUa/Axnqw3K0CQWPwdMpNC0s
+ nVIn67T6kD0lc/HXgddo0rL7V9+6yoyTsQcaalts8YC8P/tJ+/DCEdXttcus8S6OSaOaY0U+a9L
+ L3m8HM7PTBU2BnWG/6IldLTFcuwmyO20AFZtOdX0yFQ7toHNsMO8Tujzj/NmroE4Z2wQwOKQ00W
+ /TcL2LnIofCqcxRx97A==
+X-Proofpoint-ORIG-GUID: Y8rqNuZw3rPJywXk0LP3d0lsuHLmLqt6
+X-Proofpoint-GUID: Y8rqNuZw3rPJywXk0LP3d0lsuHLmLqt6
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAyMyBTYWx0ZWRfX30P1DG2CP+Iw
+ 6pJc9ZgoyOomvpve7w38a7HeLRcx1TDHQRbSzRuogwjFe2/Jv4XVfzBuNTPiYQ/hoVoCfJEU8tZ
+ zCLoNPMl81p9elABD6BRbYm4i3F1zjI=
+X-Authority-Analysis: v=2.4 cv=KcdHIgYD c=1 sm=1 tr=0 ts=6ac72f8f cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=6HI80psrSe5n1y8aGwAA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-08_02,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0
+ phishscore=0 priorityscore=1501 clxscore=1015 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080023
 
-A zero-length MSG_PEEK on an AF_UNIX stream socket can busy-loop when
-an OOB skb is queued. Add a regression test that sends MSG_OOB and
-checks that recv(..., 0, MSG_PEEK) returns promptly in a child process.
-Skip the test when AF_UNIX OOB support is unavailable.
 
-Register the test as a normal generated program so it is included in
-the AF_UNIX selftest run.
 
-The regression was fixed by commit 6e5ee08eb585 ("af_unix: Return
-immediately when manage_oob() returns NULL for 0-length buffer.").
+On 10/7/2026 2:41 PM, Val Packett wrote:
+>
+> On 8/19/26 10:25 AM, Krishna Chaitanya Chundru wrote:
+>> PCIe host bridge controllers may need their operating point raised before
+>> retraining to a higher link speed so that hardware resources (e.g., RPMh
+>> votes on Qualcomm platforms) are available at the requested data rate.
+>> After retraining, the operating point must be updated to reflect the
+>> actual negotiated speed.
+>>
+>> Add pcie_set_opp() to look up an OPP on the host bridge parent device
+>> using a key of (per-lane frequency in kHz, LNKCTL2 Target Link Speed
+>> level).  Keying by generation rather than total bandwidth lets OPP tables
+>> remain width-independent.
+>>
+>> In pcie_set_target_speed(), call pcie_set_opp() before retraining only
+>> when upscaling (speed_req > cur_bus_speed), since only raising the
+>> operating point requires pre-staging hardware.  After retraining, call
+>> pcie_set_opp() unconditionally with the actual cur_bus_speed to settle
+>> the votes.  Both calls are skipped for downstream ports of PCIe switches,
+>> as those are outside the host controller's scope.
+>>
+>> Some controllers also require ASPM to be disabled around link retraining.
+>> Add a disable_aspm_for_retrain flag to pci_host_bridge; when set,
+>> pcie_set_target_speed() saves the child device's ASPM state, disables all
+>> ASPM link states before retraining, and restores them afterward.
+>>
+>> Signed-off-by: Krishna Chaitanya Chundru<krishna.chundru@oss.qualcomm.com>
+>> ---
+>> [..]
+>> @@ -176,6 +231,12 @@ int pcie_set_target_speed(struct pci_dev *port, enum
+>> pci_bus_speed speed_req,
+>>           !list_empty(&bus->devices))
+>>           ret = -EAGAIN;
+>>   +    if (bus && is_rootbus && host) {
+>> +        if (child && host->disable_aspm_for_retrain)
+>> +            pci_enable_link_state_locked(child, aspm_state);
+>> +        pcie_set_opp(port, host, bus->cur_bus_speed);
+>> +    }
+>> +
+>>       return ret;
+>>   }
+>
+> ASPM is not actually reenabled here:
+>
+> LnkCap: Port #0, Speed 16GT/s, Width x4, ASPM L1, Exit Latency L1 <8us
+>         ClockPM- Surprise- LLActRep- BwNot- ASPMOptComp+
+> LnkCtl: ASPM Disabled; RCB 128 bytes, LnkDisable- CommClk+
+>         ExtSynch+ ClockPM- AutWidDis- BWInt- AutBWInt- FltModeDis-
+> LnkSta: Speed 2.5GT/s (downgraded), Width x4
+>         TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+>
+>
+> Because as the comment for pci_enable_link_state(_locked) says, "note that
+> this does not enable states disabled by pci_disable_link_state(). Use
+> pci_force_enable_link_state() for that"!
+>
+> This needs something like:
+>
+>
+> diff --git a/drivers/pci/pcie/aspm.c b/drivers/pci/pcie/aspm.c
+> index 4bad311dc7..c54f2658e0 100644
+> --- a/drivers/pci/pcie/aspm.c
+> +++ b/drivers/pci/pcie/aspm.c
+> @@ -1709,6 +1709,12 @@
+>  }
+>  EXPORT_SYMBOL(pci_force_enable_link_state);
+>
+> +int pci_force_enable_link_state_locked(struct pci_dev *pdev, int state)
+> +{
+> +    return __pci_enable_link_state(pdev, state, true, true);
+> +}
+> +EXPORT_SYMBOL(pci_force_enable_link_state_locked);
+> +
+>  void pcie_aspm_remove_cap(struct pci_dev *pdev, u32 lnkcap)
+>  {
+>      if (lnkcap & PCI_EXP_LNKCAP_ASPM_L0S)
+> diff --git a/drivers/pci/pcie/bwctrl.c b/drivers/pci/pcie/bwctrl.c
+> index 623731b96c..530b9047a0 100644
+> --- a/drivers/pci/pcie/bwctrl.c
+> +++ b/drivers/pci/pcie/bwctrl.c
+> @@ -211,7 +211,7 @@
+>
+>      if (bus && is_rootbus && host) {
+>          if (child && host->disable_aspm_for_retrain)
+> -            pci_enable_link_state_locked(child, aspm_state);
+> +            pci_force_enable_link_state_locked(child, aspm_state);
+>          pcie_set_opp(port, host, bus->cur_bus_speed);
+>      }
+>
+> diff --git a/include/linux/pci.h b/include/linux/pci.h
+> index 9f20bae6d7..59d7b67c9d 100644
+> --- a/include/linux/pci.h
+> +++ b/include/linux/pci.h
+> @@ -1960,6 +1960,7 @@
+>  int pci_enable_link_state(struct pci_dev *pdev, int state);
+>  int pci_enable_link_state_locked(struct pci_dev *pdev, int state);
+>  int pci_force_enable_link_state(struct pci_dev *pdev, int state);
+> +int pci_force_enable_link_state_locked(struct pci_dev *pdev, int state);
+>  void pcie_no_aspm(void);
+>  bool pcie_aspm_support_enabled(void);
+>  u32 pcie_aspm_enabled(struct pci_dev *pdev);
+> @@ -1974,6 +1975,8 @@
+>  { return 0; }
+>  static inline int pci_force_enable_link_state(struct pci_dev *pdev, int state)
+>  { return 0; }
+> +static inline int pci_force_enable_link_state_locked(struct pci_dev *pdev,
+> int state)
+> +{ return 0; }
+>  static inline void pcie_no_aspm(void) { }
+>  static inline bool pcie_aspm_support_enabled(void) { return false; }
+>  static inline u32 pcie_aspm_enabled(struct pci_dev *pdev) { return 0; }
+>
+> (the addition of the new force+locked variant should go as a separate
+> commit, but well)
+>
+> With that,
+>
+> Tested-by: Val Packett <val@packett.cool> # x1e80100-dell-latitude-7455
+Thanks Val for testing and pointing the ASPM issue, there is actually patch
+for this[1], I missed this new API change, I will fix in the next series.
 
-Tested: fails on 7.0.0-34-generic (expected regression); passes in QEMU
-with a kernel built from 0c2669a9f4a1.
+[1] [PATCH v3 2/8] PCI/ASPM: Add pci_force_enable_link_state() API -
+Manivannan Sadhasivam
+<https://lore.kernel.org/all/20260708-pci-aspm-fix-v3-2-6bd72451746e@kernel.org/>
 
-Signed-off-by: Sahaj Chaudhari <sahaj123.sc@gmail.com>
----
- .../testing/selftests/net/af_unix/.gitignore  |  1 +
- tools/testing/selftests/net/af_unix/Makefile  |  1 +
- .../net/af_unix/unix_oob_zero_peek.c          | 89 +++++++++++++++++++
- 3 files changed, 91 insertions(+)
- create mode 100644 tools/testing/selftests/net/af_unix/unix_oob_zero_peek.c
-
-diff --git a/tools/testing/selftests/net/af_unix/.gitignore b/tools/testing/selftests/net/af_unix/.gitignore
-index 954f0958dd03..b95a86fb77f5 100644
---- a/tools/testing/selftests/net/af_unix/.gitignore
-+++ b/tools/testing/selftests/net/af_unix/.gitignore
-@@ -9,3 +9,4 @@ so_peek_off
- unix_connect
- unix_connreset
- unix_listen
-+unix_oob_zero_peek
-diff --git a/tools/testing/selftests/net/af_unix/Makefile b/tools/testing/selftests/net/af_unix/Makefile
-index a66f10fb0c23..5fbd00741e50 100644
---- a/tools/testing/selftests/net/af_unix/Makefile
-+++ b/tools/testing/selftests/net/af_unix/Makefile
-@@ -16,6 +16,7 @@ TEST_GEN_PROGS := \
- 	unix_connect \
- 	unix_connreset \
- 	unix_listen \
-+	unix_oob_zero_peek \
- # end of TEST_GEN_PROGS
- 
- TEST_GEN_FILES := scm_rights_denial_lsm.bpf.o
-diff --git a/tools/testing/selftests/net/af_unix/unix_oob_zero_peek.c b/tools/testing/selftests/net/af_unix/unix_oob_zero_peek.c
-new file mode 100644
-index 000000000000..52a14d0901b4
---- /dev/null
-+++ b/tools/testing/selftests/net/af_unix/unix_oob_zero_peek.c
-@@ -0,0 +1,89 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <errno.h>
-+#include <poll.h>
-+#include <signal.h>
-+#include <sys/socket.h>
-+#include <sys/types.h>
-+#include <sys/wait.h>
-+#include <unistd.h>
-+
-+#include "kselftest.h"
-+
-+#define RECV_TIMEOUT_MS 150
-+
-+struct recv_result {
-+	ssize_t result;
-+	int error;
-+};
-+
-+int main(void)
-+{
-+	struct recv_result result;
-+	struct pollfd pfd;
-+	char byte = 'x';
-+	int sockets[2], pipefd[2], status;
-+	ssize_t n;
-+	pid_t child;
-+
-+	ksft_print_header();
-+	if (socketpair(AF_UNIX, SOCK_STREAM | SOCK_CLOEXEC, 0, sockets))
-+		ksft_exit_fail_perror("socketpair");
-+	if (send(sockets[0], &byte, sizeof(byte), MSG_OOB) != sizeof(byte)) {
-+		if (errno == EOPNOTSUPP || errno == EINVAL)
-+			ksft_exit_skip("AF_UNIX OOB support is unavailable\n");
-+		ksft_exit_fail_perror("send MSG_OOB");
-+	}
-+	if (pipe(pipefd))
-+		ksft_exit_fail_perror("pipe");
-+
-+	ksft_set_plan(1);
-+	child = fork();
-+	if (child < 0)
-+		ksft_exit_fail_perror("fork");
-+	if (!child) {
-+		struct recv_result child_result;
-+
-+		close(sockets[0]);
-+		close(pipefd[0]);
-+		errno = 0;
-+		child_result.result = recv(sockets[1], &byte, 0, MSG_PEEK);
-+		child_result.error = errno;
-+		if (write(pipefd[1], &child_result, sizeof(child_result)) !=
-+		    sizeof(child_result))
-+			_exit(1);
-+		_exit(0);
-+	}
-+
-+	close(sockets[1]);
-+	close(pipefd[1]);
-+	pfd.fd = pipefd[0];
-+	pfd.events = POLLIN;
-+	n = poll(&pfd, 1, RECV_TIMEOUT_MS);
-+	if (n <= 0) {
-+		kill(child, SIGKILL);
-+		waitpid(child, &status, 0);
-+		ksft_test_result_fail("zero-length MSG_PEEK did not return promptly\n");
-+		ksft_finished();
-+	}
-+
-+	n = read(pipefd[0], &result, sizeof(result));
-+	if (n != sizeof(result)) {
-+		waitpid(child, &status, 0);
-+		ksft_test_result_fail("worker did not report the recv result\n");
-+		ksft_finished();
-+	}
-+	if (waitpid(child, &status, 0) != child || !WIFEXITED(status) ||
-+	    WEXITSTATUS(status)) {
-+		ksft_test_result_fail("worker did not exit successfully\n");
-+		ksft_finished();
-+	}
-+	if (result.result != 0) {
-+		errno = result.error;
-+		ksft_test_result_fail("zero-length MSG_PEEK returned an error\n");
-+		ksft_finished();
-+	}
-+
-+	ksft_test_result_pass("zero-length MSG_PEEK returned immediately\n");
-+	ksft_finished();
-+}
--- 
-2.43.0
+- Krishna Chaitanya.
+>
+> Well, tested without that too, but losing ASPM is not good :)
+>
+>
+> Thanks,
+> ~val
+>
 
