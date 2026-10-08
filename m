@@ -1,163 +1,100 @@
-Received: from mail-pj2-f7.google.com (mail-pj2-f7.google.com [74.125.227.135])
+Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D62F497B7D
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 15:54:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.135
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FDC83D34A2
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 15:55:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791474855; cv=none; b=o2bPM+eK9va/j6RDfZD1eHbg4zA8Rd7/YwjEw+xozjuZCdr2urTAIQeUuaAOGsop6OrbiAfW0SVxLk4I0+P7VtckMCQYhlDyNhgd6mWYLfoFrnFKbX+XC0HFRBbWsiE3cuhq0iidig8voMqzamxDjbHrjLT2iRneE6MO0HeS9Mc=
+	t=1791474941; cv=none; b=Cy1jDsnRcxenmdDrfYkl8u9cX2eH3vHOyo0vVfjrZV70qpFx7/OLWRIjWgC5qjbFq+r58P2pi/BBfXkH9gRQfy9BBEsV1+PvuMNSc3YWTIJGy3J5d5UIAgkOz+su+KI0GfROD0oprCSPgDLpvozgjjmD1NUEyL2nhg1WXiuIu5M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791474855; c=relaxed/simple;
-	bh=S1II56ylg/97q6dhjDqRpRIkCOMFFzoLox0FF2Ni0VI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZOvfyBxtGDXQDEHydqTLtnpVls4BtwxrzOlHBjpm5pb2bLz1c4JvHtHhjVk9Qovmc6nRt+yW+/BnP5f2SR+GuvnmZaXjcJOoth+SL52GayP9HoMTiP7ZqP14/cmxIli920KqIpLOjlyjsrqz3gTGqmo5qQ+KZ59LIL7oqCtdwWA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=embeddedlinux.blog; spf=pass smtp.mailfrom=embeddedlinux.blog; dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b=dSLzE9l9; arc=none smtp.client-ip=74.125.227.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=embeddedlinux.blog
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=embeddedlinux.blog
+	s=arc-20240116; t=1791474941; c=relaxed/simple;
+	bh=zwt9pXj6gsP311a3qUbJjUn5uS37s7OXRVsn6XcqW0I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MN8wBsvLgMDOf2jYMxTABDeI6cobUWvEsoX1qzVRJQscnmy5yluJamB0XZkBz5T8Ui8rjTKhQjP60XOESh8xGx31u+COB4CrBLF6To9oNQetKa5F+f1jOX84nJK5AM/a83147h+NqW48SApqfXzw4loLZrn469AT7SpI3wQ0Cpc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=bvBMuBv7; arc=none smtp.client-ip=209.85.219.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b="dSLzE9l9"
-Received: by mail-pj2-f7.google.com with SMTP id 98e67ed59e1d1-39e501442e2so2034788a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 08:54:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="bvBMuBv7"
+Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-917b78dfe30so45420106d6.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 08:55:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=embeddedlinux.blog; s=google; t=1791474852; x=1792079652; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sE8lwTNdLkYWc1LQF/cZxBSB3EKclBzuC8NPFeXmPwo=;
-        b=dSLzE9l9Y6mYySM54duzz4qGRgu2KgjjVtRQYYg20qBU5iBdtH1SfI9KeoUivrcUkX
-         DiTQsFcoan3vDnRDpREMSNMfTQzWEmvlsy5XTpxHbWteNwVpaVeCm+V3l1bCNJZREmzG
-         ryEDojpMyTjCuPIGJKyjXfCpGOJioUcISNScgVRXNyFVYnc+IBxIkt3QLkajdTWi2792
-         o84iZqPHaaX2ix/c4neK7lD33QZZk9LN5/84sGdA8At1cwvJtd1qibHnd6hdeJdoOgLn
-         TbfnPdWT7wLzDOHPBNF9wi2EbesHOVbCP3Sc3te3uxNAizukOIM+xrAO4kcFA494yTkq
-         janw==
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1791474939; x=1792079739; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1CQKLWLbGN0QJLQsdroI+hIQ5HSO8HVAfjGuz3Kaqvg=;
+        b=bvBMuBv7Vx/nk9TAQr9bHHwPE3RAYHNVYCMspOahMqMtGEDBZW9suGaoG5yI7Nu1JT
+         RUbKWgpVCoYHi3YjtgU6jc2syeJB2ztkyi6is2BUpLKJttq2DVjwqaN0KjT8g8zgBd8U
+         +nE13O8NErcHLdjKNQVFgRK13u8sCIyLupNl4T/rCMV6XaB3sKPvMbaT8nwGnD6xVFJp
+         qWotU8iE1O2O8QpMglWLq5n7BGd6RSdAhDplV4AwW1cNY0q6vIc2cHhvJTdOuLpfvztt
+         jtZ3tcV4tbTfDfNoYzIyjvXN2Qd/4+UIPwCJcrlmpe7N6+qseADVtCr+VgRfC0INDSJ5
+         KmAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791474852; x=1792079652;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791474939; x=1792079739;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sE8lwTNdLkYWc1LQF/cZxBSB3EKclBzuC8NPFeXmPwo=;
-        b=IeANJp1Zrkf8GYTLCEHG0gS7s319GbIGKhSAHudUf6YBw5DDvgBGI4H4EPnlzuNv2T
-         eoXIGZHu5HkYo8MyKrJXsu39obmtARIC039nHX/MZNrdgvDdFi6MIzoBXtxKTNWVNPYg
-         N8sYlqu/FEfIX25d8YLlMQtrfwtXfN4OE8U7uaZ20yBFP1gX/BjwkKeztYUfraR+9ZRL
-         +8xUDUFza8rSwzGt0aEMKUCpzkGM25Up21w/G4dxVAWaEZIp0wrS8KDV67O09h5qsYyd
-         x2mKAsWwdNiK99Fi0OqwO8b3kvtnySySmIq5zdTlxT/y96Om61ZLDqj6TPt4VB0DhOO8
-         slfA==
-X-Forwarded-Encrypted: i=1; AKwUvByX/MOGjoUFriL8ctmyEdpq5h4ckXIb8JNUI7nIvey1K/Cby+xpwBNVn+LMb+l3gBXqCs9pYrIGyoEownE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJOswoU6KOcBmfDQ+yxcJa+l5MiApeykb/zDHMSU5wCuhkAA1Z5
-	Y9Fq5cGDzHA8S78sMc40NLsqcKT2cQsVFqtb7zc2/33SwMh6Efxl4GeuQsykmckVINt/A28QMvq
-	mMijD1bkZZXoxqiHU
-X-Gm-Gg: AYBFou0jkbK9gn/+QLc1Sn9mm6DF+4MMbv+MHMmKOcTSC3np7BBt9fEPUYGj5Y5HKGJ
-	ZyMpNhVaR8Bc0gYb3aRAAiToyIfavbGjwNC0j/y33ZHMrTN4y/KI72NQlsqAFI+a4ErTBI4MFMC
-	hXdFSpxhpSFrsX9sDj02LxhZ2m+ytCTvwaJTA1blORNA+vzm4/JpDUOyI0f95hVkNSYG/XM+Xbf
-	2ZGQYcP6zsoYQuWEK30JiFnHVL52FVBPuDTHbZWNJ0ISfHLtsjQZDkzOquv63fsRR3LPlCWdWVz
-	eQEKMrFKCTGLIr4TGxqvgisAFMAo4RkJEVgD+P0RMw701ryDnntWn1Qq13mF7rl27cUa9YB2wq7
-	NSmvv0XeFsPudNaDZQCh4ZjbSTT2bfB1ytg9jcHM4hRqVr7zfMvRPt+ykqQSbi+A9SCV4/aFCYs
-	19yYkdy0ZhB4ljvjKWhxLnW2+UB5hAO4R3DWO12cTxNh99rU6FfQ/SHK6db3q7t6T1Va33QvKRa
-	yiRqNs=
-X-Received: by 2002:a17:90b:1812:b0:3a4:b061:2765 with SMTP id 98e67ed59e1d1-3a8a072a80dmr5549464a91.15.1791474852449;
-        Thu, 08 Oct 2026 08:54:12 -0700 (PDT)
-Received: from ltu.. ([116.101.18.9])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd357149824sm293486a12.18.2026.10.08.08.54.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 08:54:11 -0700 (PDT)
-From: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
-To: Bin Liu <b-liu@ti.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Johan Hovold <johan@kernel.org>,
-	Paul Cercueil <paul@crapouillou.net>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] usb: musb: Disable the D+ pullup during system suspend
-Date: Thu,  8 Oct 2026 22:54:02 +0700
-Message-Id: <20261008155402.66266-1-tien.nguyenminh@embeddedlinux.blog>
-X-Mailer: git-send-email 2.34.1
+        bh=1CQKLWLbGN0QJLQsdroI+hIQ5HSO8HVAfjGuz3Kaqvg=;
+        b=FuHvkNEDd4V64sYL1eRpuquO/RSApZJJPwsD8qbF/ly/hPu1/NLq8VbL9KfpnMGL/1
+         qrlYSGiis7IgPlpVnPth1SIw11X+MIrnfhDOTM96plyBTHa0R+Auj6ZPvPQTG1CRL4R+
+         kb3EdP08LXIJHGzFUmWSJPkphcWj2hBTGTfRCjs6c8W7aCOPy4tdbTalBdvyAm15Z+7y
+         wwSxILmXDK7NYxPjWsoDTsryzTHO1K83VrDNm0khtKeA+k8j8uqa7q9qsblTX2cL9C+G
+         n3rrjR9+ZCgAuWy2KDwx2QeqRX07+aJw2g52LzVuP/5TSjFr5rku4z37spFZVxEB8Z3r
+         Gh1g==
+X-Forwarded-Encrypted: i=1; AKwUvBynZ2X7YiCDHtcYBLwFOPxv7padazve4juQ9t44ufHqJs3YNO6hyu+JEvN+JL2iU/qNDiOjG8xQim79M40=@vger.kernel.org
+X-Gm-Message-State: AFuF++m0DREWbj7JXC+rzCsB1d/y+/ZuE7HQaQfGKwNq1+qOy7k/RCa2
+	oOmN96SJM6kKjg4wmE3Fcv5Vb/PNgu7OMv5NFrdBdOMAYVbTa6tc+Y2GdnZlTPYGoVg=
+X-Gm-Gg: AYBFou3FWgAtW0RaKArkZ7uw1NG2dEboqfWnfsL3RZdaJKdiWuqkmAWPcp8jHc/joLD
+	c2HceIpObVYuyxt0Ls1UCXclwOM3BmoZugIUtStJzi4Ih0/7njrhuSEjSVmNjS6rwTuwPmMPC18
+	TORfXFN5uR60pCXMbuyTJgBxmwbFA7exSeqyA91JiIG4Ib9pMzr4qip64tKm0JZA+Vt36EW+8WC
+	9yuImLjGnaMZICLt4/Sr/h+oGgiCXy0Bi/w/vr2jeVhmDl1aLc7+hc6c9qXZ+Bw1oLsgOSSIzan
+	nzWvdBASTnnTAJ099Mzbgj2xRQYJujckLlQtO5t0hU0/39eE9TiBhQMubefk7725Xs27TSZlB1V
+	uvjUFBPBzNqI5ibkeFBn6Dejw2glO5MdiGJ3/RsxMjYZDWISO9qFsVZDvD5IeAdRddKq1rSyHf7
+	MoF2fssy2Qg0fBvDCenpnWU0ReJgWVwAzuvKynhW+CDnTk2svRWD4GUW14wdkOBV7DiS5r2FnjI
+	JOPnCzi+Q==
+X-Received: by 2002:a05:620a:1789:b0:93e:9807:978c with SMTP id af79cd13be357-93e9b859774mr1077911885a.77.1791474938972;
+        Thu, 08 Oct 2026 08:55:38 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93e98f6b4basm507577585a.6.2026.10.08.08.55.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 08 Oct 2026 08:55:36 -0700 (PDT)
+Message-ID: <223c5189-bfda-4c63-b09f-4ebd01bd144a@riscstar.com>
+Date: Thu, 8 Oct 2026 10:55:34 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/3] PCI: of: update endpoint ranges dynamically
+To: Andrea della Porta <andrea.porta@suse.com>
+Cc: bhelgaas@google.com, lizhi.hou@amd.com, herve.codina@bootlin.com,
+ daniel@riscstar.com, mohdayaa@qti.qualcomm.com, lbiancon@qti.qualcomm.com,
+ mani@kernel.org, robh@kernel.org, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260924222444.1351466-1-elder@riscstar.com>
+ <ase6toUhGn0XD0v9@apocalypse>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <ase6toUhGn0XD0v9@apocalypse>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-When musb_suspend() clears DEVCTL, the host sees a disconnect. But VBUS
-is still there, so the controller can start a new session on its own
-and, with SOFTCONN still set, pull D+ up again while its interrupts are
-masked. The host then fails to enumerate the gadget ("unable to
-enumerate USB device") and gives up, and nothing at resume makes it try
-again. On a T113-S3 board the gadget link never survived an s2idle
-cycle.
+On 10/8/26 10:45 AM, Andrea della Porta wrote:
+> After a quick test, it seems that it's not working out of the
+> box on my RPi5. Let me investigate a bit to see what's wrong.
 
-Clear SOFTCONN once the context is saved; musb_restore_context() puts
-it back on resume. This is what the FIXME asked for, as USB can't wake
-us in time with the interrupts masked. Platforms that power the PHY off
-during suspend, like the AM335x, never showed the problem: D+ drops
-with the PHY.
+THANK YOU FOR TESTING THIS!!!
 
-Fixes: 6fc6f4b87cb3 ("usb: musb: Disable interrupts on suspend, enable them on resume")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
----
-Changes in v2:
-- Comment: why only some platforms see this; where the PHY is powered
-  off during suspend, D+ drops anyway (Andreas Kemnade).
-- Message: one sentence on the same, in place of the da8xx one; da8xx
-  powers its PHY off during suspend, so its host saw a disconnect
-  before the patch as well.
-- "Disable" instead of "Drop" in the subject.
-- The code is the same as in v1.
-- Link to v1: https://lore.kernel.org/all/20260927164145.1956429-1-tien.nguyenminh@embeddedlinux.blog/
+My hope was that the recent change (to avoid doing any
+updating of ranges property unless it was found to be
+"empty") would avoid any trouble with the RPi5.
 
-I found this on a T113-S3 board (sunxi, s2idle, Intel xHCI host): ssh
-over the gadget never came back after a suspend. With the patch, all 30
-cycles I ran re-enumerated after resume.
+I'm eager to hear what more you find.  Please let me
+know if I can be of any other help.
 
-To check for regressions, I also tried a BeagleBone Black (AM335x,
-dsps glue, suspend to RAM). There the link came back after every
-resume (10 cycles without the patch, 30 with it), as
-am335x_phy_suspend() powers the PHY off. A test on an OMAP3 board
-(omap2430 glue, twl4030 PHY) would be welcome.
-
- drivers/usb/musb/musb_core.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/usb/musb/musb_core.c b/drivers/usb/musb/musb_core.c
-index 73ac25f536..39b0845108 100644
---- a/drivers/usb/musb/musb_core.c
-+++ b/drivers/usb/musb/musb_core.c
-@@ -2825,18 +2825,26 @@ static int musb_suspend(struct device *dev)
- 
- 	spin_lock_irqsave(&musb->lock, flags);
- 
-+	musb_save_context(musb);
-+
- 	if (is_peripheral_active(musb)) {
--		/* FIXME force disconnect unless we know USB will wake
--		 * the system up quickly enough to respond ...
-+		/*
-+		 * We can't answer a host with the interrupts off, so disable
-+		 * the D+ pullup. musb_restore_context() puts back the state
-+		 * saved above. Where the PHY is powered off during suspend
-+		 * (AM335x, for one), D+ drops anyway; where it stays powered,
-+		 * as on sunxi, the host would see a device that can't answer.
- 		 */
-+		u8 power = musb_readb(musb->mregs, MUSB_POWER);
-+
-+		musb_writeb(musb->mregs, MUSB_POWER,
-+			    power & ~MUSB_POWER_SOFTCONN);
- 	} else if (is_host_active(musb)) {
- 		/* we know all the children are suspended; sometimes
- 		 * they will even be wakeup-enabled.
- 		 */
- 	}
- 
--	musb_save_context(musb);
--
- 	spin_unlock_irqrestore(&musb->lock, flags);
- 	return 0;
- }
-
-base-commit: 165768bb70265b5c38cf0b73fafd75be235f8b14
--- 
-2.34.1
-
+					-Alex
