@@ -1,441 +1,262 @@
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAFD74CEE7E
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 15:24:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 252254DDB5E;
+	Thu,  8 Oct 2026 15:25:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791473099; cv=none; b=XLR8DinKhLmGpuxsHiPyGxTr2shK8/AcxXsJKPVvNf4IgEBsLQJfclPpf1BbkUOm61CMTEgWsJtfhivwVkj7lclimRdpX9wEGtcArOphL2XaODO4ZZnQoKJBfVNQ8bXXRrE1cpS5iptan38gJ/wk1L9BaN2ZXsCu/c2ZGvK3cDc=
+	t=1791473128; cv=none; b=rrwf/Pcjq+m5q+CbbzTC3/XbG+5nkdtGPoF5b3suosWZtxD85KGKD85lC6FgV+6gg8oZj1X+SLQnvKdq5JqEND1tewD1ImYBIR8fBEFepSRTeinRjy91Ri7bK5ROfMUJa/7fYaZoizYx4fpCUzwIFegs0rliCH3dA11Yr50WPe0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791473099; c=relaxed/simple;
-	bh=HTdEZDv26Tk7ebILMcPVVhvSLqPBxTm/7ciDg4rSm+s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:MIME-Version:
-	 Content-Type:References; b=RBZU4Im0QoBIkqh/CwHvKfztEUpLZd9PXqaHFLkEnm1rFTWZnEN04bQHKI1jiPI9dKbo+hCMNZcBzQvRPzoQ7zwnFzhqi9fg0JeddbD2VRCCdv9dg00cmfXPRMK/cTa0bLkUSZDB5jjA5UtmAQXcgiOL3JwFpDFfcwBvcpCqSF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=fJplXQHW; arc=none smtp.client-ip=210.118.77.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1791473128; c=relaxed/simple;
+	bh=qzA+CnpV0uZy5WY/xHiR3kvedwLglhUPGsIscSVUSiY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UUotqQRNmjd9Q+NoK1bFDO8FzFRkrkOo5LV5F/OFJvXrH9YoS5b0vVCuNHTmRG1Q5l5Cf5zIYtFPIbESsvZbJnhg+HbrIkDGrz+ASjya2ztQubBZQmfncBD8dFETmjvxM9mOTHLiSGF/nY/wYVYUbn/Dq1KQibgXo2DWZ4rHINo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=M52b1/ww; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="fJplXQHW"
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261008152451euoutp0281cd2d77bbf8dd62eef4df0197f6cd29~cl0kAHzFj1875218752euoutp02e
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 15:24:51 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261008152451euoutp0281cd2d77bbf8dd62eef4df0197f6cd29~cl0kAHzFj1875218752euoutp02e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1791473091;
-	bh=ERVdm4di+9RXnDgzuRnCLRBAlns0X+joSQyaeObc6xw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=fJplXQHWYOcPPL9oLeeir6WDeZaxswnIUcP2my8V5Qrdh+zP8D5ADRcNIqP7KWYX6
-	 bL3k1l6xOK+DDqoq6z9GBu8uGHVuXopnw+Ztl996FrWrwnbMcT2aneQe5E3R2SWns0
-	 2Tf0bHK1oZg+OwHltXQ8i5ZYmcl0RWHFYq+E0Ks8=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261008152450eucas1p1d5517eadc2c1d684ff6d4ddc010f6331~cl0jJWujw1586515865eucas1p1X;
-	Thu,  8 Oct 2026 15:24:50 +0000 (GMT)
-Received: from AMDC4653.digital.local (unknown [106.120.51.32]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261008152450eusmtip28a46462ba50891b5187d5e5d2a19153c~cl0iqhLjS3039130391eusmtip2Q;
-	Thu,  8 Oct 2026 15:24:50 +0000 (GMT)
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-To: linux-mm@kvack.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Mike Rapoport
-	<rppt@kernel.org>, Rob Herring <robh@kernel.org>, Saravana Kannan
-	<saravanak@kernel.org>, Oreoluwa Babatunde
-	<oreoluwa.babatunde@oss.qualcomm.com>, Wandun <chenwandun1@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH v2 2/2] of: reserved_mem: allocate and map the reserved_mem
- array early
-Date: Thu,  8 Oct 2026 17:24:01 +0200
-Message-ID: <20261008152403.766439-3-m.szyprowski@samsung.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261008152403.766439-1-m.szyprowski@samsung.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="M52b1/ww"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 698EZddw1466499;
+	Thu, 8 Oct 2026 15:24:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=Ihc/VC
+	MLJPRL/rsDVJc3FGJurErXTdf3yr0pnt9Dc8c=; b=M52b1/ww6uJ4ZpXDnRrpqi
+	2oKc6XLtEW9LKd3BSOKqS7pmLmqD4expM6g2rW/0aLVk7XO8Q6QCdyRahkQYBsuV
+	zH96NTI5GZ8qAEpyyQLovWvzpOfkuUS7iYucwJNqXLkxU0VV0iUY4XtNIfYwaizN
+	5yz4qQ1myuK1TS3xSgSIHF01H5HDkPPwlJfK07Wx5fLG5bpnQDnb8gQZeuL1Bv5E
+	ObpaGkTxTwkCvvxTTijVHBxu4HNJH0IDpVfufwAbOJGOmPWpDdaN2b9bYvB32Eg0
+	vo+k+W/YXPxUrDdycYxH4TRK5DhaHsiB4VHSDwQH5+NTt3xF/YPHqxR8Y0y3JXgA
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h5xjw4awa-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 08 Oct 2026 15:24:56 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 698EXhUg2355485;
+	Thu, 8 Oct 2026 15:24:56 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h5f3txsa8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 08 Oct 2026 15:24:55 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 698FOqCX54985094
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 8 Oct 2026 15:24:52 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 5404D2004D;
+	Thu,  8 Oct 2026 15:24:52 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id BB0DE2004E;
+	Thu,  8 Oct 2026 15:24:51 +0000 (GMT)
+Received: from [9.224.76.67] (unknown [9.224.76.67])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu,  8 Oct 2026 15:24:51 +0000 (GMT)
+Message-ID: <ffbeae31-0e93-4386-8e0e-dba13960b283@linux.ibm.com>
+Date: Thu, 8 Oct 2026 17:24:51 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 0/2] sched: Introduce idle SMT priority for asymmetric
+ capacity systems
+To: Shrikanth Hegde <sshegde@linux.ibm.com>, Andrea Righi <arighi@nvidia.com>
+Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+        Juri Lelli <juri.lelli@redhat.com>,
+        Vincent Guittot <vincent.guittot@linaro.org>,
+        Dietmar Eggemann <dietmar.eggemann@arm.com>,
+        Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+        Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+        K Prateek Nayak <kprateek.nayak@amd.com>,
+        Heiko Carstens
+ <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Tim Chen <tim.c.chen@linux.intel.com>, Chen Yu <yu.c.chen@intel.com>,
+        Ilya Leoshkevich <iii@linux.ibm.com>, linux-kernel@vger.kernel.org,
+        linux-s390@vger.kernel.org
+References: <20261008-hiperdispatchfix-v1-0-73fe41081070@linux.ibm.com>
+ <aseIPhrDGCYFtJNE@gpd4> <90454932-1d82-450a-ac4c-499acdedb9d7@linux.ibm.com>
+Content-Language: en-US
+From: Mete Durlu <meted@linux.ibm.com>
+In-Reply-To: <90454932-1d82-450a-ac4c-499acdedb9d7@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261008152450eucas1p1d5517eadc2c1d684ff6d4ddc010f6331
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261008152450eucas1p1d5517eadc2c1d684ff6d4ddc010f6331
-X-EPHeader: CA
-X-CMS-RootMailID: 20261008152450eucas1p1d5517eadc2c1d684ff6d4ddc010f6331
-References: <20261008152403.766439-1-m.szyprowski@samsung.com>
-	<CGME20261008152450eucas1p1d5517eadc2c1d684ff6d4ddc010f6331@eucas1p1.samsung.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA2MCBTYWx0ZWRfX1kFqbR1NsuQk
+ T3e9xGNBrKw+CvWGb8YNWMlilq6k2vlDsAVq6gcfiJczoa9MU3Om6OtRjH863B2WN/qqdL6akhN
+ FkuxoYPq0g8bv6JUXMP60jFY1HhrsTU=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA2MCBTYWx0ZWRfX/FSCnmQzx8OX
+ V8dsQn71A1dpX8Q0E3FXfKeOOWBQgZND6cURoo5/4prD9CxRekq3J9Bu0mSPia+cMSPKQkndAUF
+ G9j2krBa0PPOpgHtr2iPPZtKEUHTutn9Tgaj5Fsgtr8XVB9BdHWOdfl6tkgW6PLZCMBcGXnOfGB
+ MvyOR9d1axSfKz1xm0A6XhgpaLYHgbuo92O5PIxePHMIyh40cXnxZeeE+0HQ4kCWCGCNloE/ja8
+ RwZTlAhMQ3JbHSvbG1R42hjSHvxifBUgCxXnDEAvUJJykfl/QcF7fNpFuF3qjkkQF5Ea85uoPhk
+ h+g9dfMwndiT9G1HpP/ivKpytma4aYhyHx93lAGpIiLWEgt7JbKfWTNAkBmEx+YVyx2tO/+8aaj
+ Th/rDWOVARF7k7yf1xgs29QTmSJGpHqJIbcAHvZe87wF4MhDpLO1Y9GzVv5NEey50SqYrSi+6lg
+ YL12c0bOL4LdDbcB/Xg==
+X-Proofpoint-GUID: 3QBBLIyyXYkC6eDv1gr4cmLeP1Sx1lMy
+X-Proofpoint-ORIG-GUID: ELfwMHtu85vXieifXcWAyW8dozrolNQr
+X-Authority-Analysis: v=2.4 cv=XcwcX455 c=1 sm=1 tr=0 ts=6ac7b5c9 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=tSu9hKwbF8gy7e_CysEA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-08_05,2026-10-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 lowpriorityscore=0 priorityscore=1501 phishscore=0
+ malwarescore=0 bulkscore=0 adultscore=0 spamscore=0 suspectscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610020000
+ definitions=main-2610080060
 
-Get rid of the static, limited-size reserved_mem array and replace it
-with array allocated by memblock_alloc_raw() and accessed through a
-temporary early_memremap() mapping. Such mapping is needed for some
-architectures (like ARM64), where linear map is not yet available during
-early boot scan. Having a single, writeable array with all reserved
-regions removes the need to perform two step initialization introduced
-by commit 8a6e02d0c00e ("of: reserved_mem: Restructure how the reserved
-memory regions are processed"), so all regions can be processed
-directly during the early scan again.
+On 08/10/2026 16:58, Shrikanth Hegde wrote:
+> Hi Meter/Andrea.
+> 
+> On 10/8/26 5:40 PM, Andrea Righi wrote:
+>> Hi Mete,
+>>
+>> On Thu, Oct 08, 2026 at 10:30:46AM +0200, Mete Durlu wrote:
+>>> Summary
+>>> ===========================================================================
+>>> On systems with asymmetric CPU capacities, the scheduler prefers 
+>>> fully idle
+>>> cores over idle SMT siblings of busy cores. This works generally well 
+>>> but
+>>> virtualized platforms where low capacity cores should be avoided are not
+>>> considered. Introduce a new config option and arch hook to prioritize
+>>> SMT utilization.
+> 
+> That's true only under physical CPU contention right? or is it always?
 
-Suggested-by: Mike Rapoport <rppt@kernel.org>
-Link: https://lore.kernel.org/all/asc6brs_g0ky0wOM@kernel.org/
-Assisted-By: LLM
-Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
----
- drivers/of/fdt.c             |   3 -
- drivers/of/of_private.h      |   2 -
- drivers/of/of_reserved_mem.c | 247 +++++++++++++----------------------
- 3 files changed, 92 insertions(+), 160 deletions(-)
+Right, because of that s390 treats all CPUs as equal and starts to
+assign lower capacities to CPUs with low entitlement once a certain
+steal time threshold is crossed (aka physical CPU contention).
 
-diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
-index ecc923102622..a58efdcbac7f 100644
---- a/drivers/of/fdt.c
-+++ b/drivers/of/fdt.c
-@@ -1283,9 +1283,6 @@ void __init unflatten_device_tree(void)
- {
- 	void *fdt = initial_boot_params;
- 
--	/* Save the statically-placed regions in the reserved_mem array */
--	fdt_scan_reserved_mem_late();
--
- 	/* Populate an empty root node when bootloader doesn't provide one */
- 	if (!fdt) {
- 		fdt = (void *) __dtb_empty_root_begin;
-diff --git a/drivers/of/of_private.h b/drivers/of/of_private.h
-index 0ae16da066e2..895f868b4cfa 100644
---- a/drivers/of/of_private.h
-+++ b/drivers/of/of_private.h
-@@ -9,7 +9,6 @@
-  */
- 
- #define FDT_ALIGN_SIZE 8
--#define MAX_RESERVED_REGIONS    64
- 
- /**
-  * struct alias_prop - Alias property in 'aliases' node
-@@ -186,7 +185,6 @@ static inline struct device_node *__of_get_dma_parent(const struct device_node *
- #endif
- 
- int fdt_scan_reserved_mem(void);
--void __init fdt_scan_reserved_mem_late(void);
- 
- bool of_fdt_device_is_available(const void *blob, unsigned long node);
- 
-diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-index 300fb236ab59..8d8fa7242d4a 100644
---- a/drivers/of/of_reserved_mem.c
-+++ b/drivers/of/of_reserved_mem.c
-@@ -24,12 +24,12 @@
- #include <linux/slab.h>
- #include <linux/memblock.h>
- #include <linux/kmemleak.h>
-+#include <asm/early_ioremap.h>
- 
- #include "of_private.h"
- 
--static struct reserved_mem reserved_mem_array[MAX_RESERVED_REGIONS] __initdata;
--static struct reserved_mem *reserved_mem __refdata = reserved_mem_array;
--static int total_reserved_mem_cnt = MAX_RESERVED_REGIONS;
-+static struct reserved_mem *reserved_mem __refdata;
-+static int total_reserved_mem_cnt;
- static int reserved_mem_count;
- 
- static int __init early_init_dt_alloc_reserved_memory_arch(phys_addr_t size,
-@@ -59,56 +59,46 @@ static int __init early_init_dt_alloc_reserved_memory_arch(phys_addr_t size,
- }
- 
- /*
-- * alloc_reserved_mem_array() - allocate memory for the reserved_mem
-- * array using memblock
-+ * reserved_mem_array_map() - make the freshly allocated reserved_mem array
-+ * accessible during early boot
-  *
-- * This function is used to allocate memory for the reserved_mem
-- * array according to the total number of reserved memory regions
-- * defined in the DT.
-- * After the new array is allocated, the information stored in
-- * the initial static array is copied over to this new array and
-- * the new array is used from this point on.
-+ * On some architectures (i.e. ARM64) the linear mapping is not yet usable when
-+ * the reserved memory regions are scanned, so the array has to be accessed
-+ * through a temporary early mapping.
-  */
--static int __init alloc_reserved_mem_array(void)
-+static struct reserved_mem * __init reserved_mem_array_map(struct reserved_mem *array,
-+							   size_t size)
- {
--	struct reserved_mem *new_array;
--	size_t alloc_size, copy_size, memset_size;
--	int ret;
-+	if (IS_ENABLED(CONFIG_GENERIC_EARLY_IOREMAP))
-+		return early_memremap(__pa(array), size);
-+	else
-+		return array;
-+}
- 
--	if (!total_reserved_mem_cnt)
--		return 0;
-+static void __init reserved_mem_array_unmap(struct reserved_mem *map, size_t size)
-+{
-+	if (IS_ENABLED(CONFIG_GENERIC_EARLY_IOREMAP))
-+		early_memunmap(map, size);
-+}
- 
--	alloc_size = array_size(total_reserved_mem_cnt, sizeof(*new_array));
--	if (alloc_size == SIZE_MAX) {
--		ret = -EOVERFLOW;
--		goto fail;
--	}
-+/*
-+ * count_reserved_mem_nodes() - count the nodes that might need an entry in the
-+ * reserved_mem array
-+ */
-+static int __init count_reserved_mem_nodes(const void *fdt, int node)
-+{
-+	int child, len, count = 0;
- 
--	new_array = memblock_alloc(alloc_size, SMP_CACHE_BYTES);
--	if (!new_array) {
--		ret = -ENOMEM;
--		goto fail;
--	}
-+	fdt_for_each_subnode(child, fdt, node) {
-+		if (!of_fdt_device_is_available(fdt, child))
-+			continue;
- 
--	copy_size = array_size(reserved_mem_count, sizeof(*new_array));
--	if (copy_size == SIZE_MAX) {
--		memblock_free(new_array, alloc_size);
--		ret = -EOVERFLOW;
--		goto fail;
-+		/* static regions use 'reg', dynamic ones use 'size' */
-+		if ((of_flat_dt_get_addr_size_prop(child, "reg", &len) && len) ||
-+		    (of_get_flat_dt_prop(child, "size", &len) && len))
-+			count++;
- 	}
--
--	memset_size = alloc_size - copy_size;
--
--	memcpy(new_array, reserved_mem, copy_size);
--	memset(new_array + reserved_mem_count, 0, memset_size);
--
--	reserved_mem = new_array;
--	return 0;
--
--fail:
--	pr_err("Failed to allocate memory for reserved_mem array with err: %d", ret);
--	reserved_mem_count = 0;
--	return ret;
-+	return count;
- }
- 
- static void fdt_init_reserved_mem_node(unsigned long node, const char *uname,
-@@ -169,6 +159,7 @@ static int __init __reserved_mem_reserve_reg(unsigned long node,
- 
- 	if (size && early_init_dt_reserve_memory(base, size, nomap) == 0) {
- 		fdt_fixup_reserved_mem_node(node, base, size);
-+		fdt_init_reserved_mem_node(node, uname, base, size);
- 		pr_debug("Reserved memory: reserved region for node '%s': base %pa, size %lu MiB\n",
- 			 uname, &base, (unsigned long)(size / SZ_1M));
- 	} else {
-@@ -381,143 +372,89 @@ static void __init __rmem_check_for_overlap(void)
- 	}
- }
- 
--/**
-- * fdt_scan_reserved_mem_late() - Scan FDT and initialize remaining reserved
-- * memory regions.
-- *
-- * This function is used to scan again through the DT and initialize the
-- * "static" reserved memory regions, that are defined using the "reg"
-- * property. Each such region is then initialized with its specific init
-- * function and stored in the global reserved_mem array.
-- */
--void __init fdt_scan_reserved_mem_late(void)
--{
--	const void *fdt = initial_boot_params;
--	phys_addr_t base, size;
--	int node, child;
--
--	if (!fdt)
--		return;
--
--	node = fdt_path_offset(fdt, "/reserved-memory");
--	if (node < 0) {
--		pr_info("Reserved memory: No reserved-memory node in the DT\n");
--		return;
--	}
--
--	/* Attempt dynamic allocation of a new reserved_mem array */
--	if (alloc_reserved_mem_array())
--		return;
--
--	if (__reserved_mem_check_root(node)) {
--		pr_err("Reserved memory: unsupported node format, ignoring\n");
--		return;
--	}
--
--	fdt_for_each_subnode(child, fdt, node) {
--		const __be32 *prop;
--		const char *uname;
--		u64 b, s;
--		int ret;
--		int len;
--
--		if (!of_fdt_device_is_available(fdt, child))
--			continue;
--
--		prop = of_flat_dt_get_addr_size_prop(child, "reg", &len);
--		if (!prop || !len)
--			continue;
--
--		ret = fdt_validate_reserved_mem_node(child, NULL);
--		if (ret && ret != -ENODEV)
--			continue;
--
--		of_flat_dt_read_addr_size(prop, 0, &b, &s);
--		base = b;
--		size = s;
--
--		if (size) {
--			uname = fdt_get_name(fdt, child, NULL);
--			fdt_init_reserved_mem_node(child, uname, base, size);
--		}
--	}
--
--	/* check for overlapping reserved regions */
--	__rmem_check_for_overlap();
--}
- 
- /*
-  * fdt_scan_reserved_mem() - reserve and allocate memory occupied by
-  * reserved memory regions.
-  *
-- * This function is used to scan through the FDT and mark memory occupied
-- * by all static (defined by the "reg" property) reserved memory regions.
-- * Then memory for all dynamic regions (defined by size & alignment) is
-- * allocated, a region specific init function is called and region information
-- * is stored in the reserved_mem array.
-+ * This function is used to scan through the FDT and count the number of
-+ * reserved memory regions, so the reserved_mem array can be allocated with
-+ * the exact size. Then all static (defined by the "reg" property) reserved
-+ * memory regions are marked as reserved, memory for all dynamic regions
-+ * (defined by size & alignment) is allocated, a region specific init function
-+ * is called and region information is stored in the reserved_mem array.
-  */
- int __init fdt_scan_reserved_mem(void)
- {
--	int node, child;
--	int dynamic_nodes_cnt = 0, count = 0;
--	int dynamic_nodes[MAX_RESERVED_REGIONS];
-+	struct reserved_mem *array, *map;
-+	size_t array_bytes;
-+	int node, child, cnt;
- 	const void *fdt = initial_boot_params;
- 
- 	node = fdt_path_offset(fdt, "/reserved-memory");
--	if (node < 0) {
--		total_reserved_mem_cnt = 0;
-+	if (node < 0)
- 		return -ENODEV;
--	}
- 
- 	if (__reserved_mem_check_root(node) != 0) {
- 		pr_err("Reserved memory: unsupported node format, ignoring\n");
--		total_reserved_mem_cnt = 0;
- 		return -EINVAL;
- 	}
- 
--	fdt_for_each_subnode(child, fdt, node) {
--		const char *uname;
--		int err;
-+	/* First pass: count the entries needed for the reserved_mem array */
-+	cnt = count_reserved_mem_nodes(fdt, node);
-+	if (!cnt)
-+		return 0;
- 
--		if (!of_fdt_device_is_available(fdt, child))
--			continue;
-+	array_bytes = array_size(cnt, sizeof(*array));
-+	array = memblock_alloc_raw(array_bytes, SMP_CACHE_BYTES);
-+	if (!array) {
-+		pr_err("Failed to allocate memory for reserved_mem array\n");
-+		return -ENOMEM;
-+	}
- 
--		uname = fdt_get_name(fdt, child, NULL);
-+	map = reserved_mem_array_map(array, array_bytes);
-+	if (!map) {
-+		pr_err("Failed to map memory for reserved_mem array\n");
-+		memblock_free(array, array_bytes);
-+		return -ENOMEM;
-+	}
-+	memset(map, 0, array_bytes);
- 
--		err = __reserved_mem_reserve_reg(child, uname);
--		if (!err)
--			count++;
-+	reserved_mem = map;
-+	total_reserved_mem_cnt = cnt;
- 
--		/*
--		 * Save the nodes for the dynamically-placed regions
--		 * into an array which will be used for allocation right
--		 * after all the statically-placed regions are reserved
--		 * or marked as no-map. This is done to avoid dynamically
--		 * allocating from one of the statically-placed regions.
--		 */
--		if (err != -ENOENT || !of_get_flat_dt_prop(child, "size", NULL))
-+	/* Second pass: reserve and initialize the static regions */
-+	fdt_for_each_subnode(child, fdt, node) {
-+		if (!of_fdt_device_is_available(fdt, child))
- 			continue;
- 
--		if (dynamic_nodes_cnt == MAX_RESERVED_REGIONS) {
--			pr_err("too many defined dynamic regions, skip '%s'\n",
--			       uname);
-+		__reserved_mem_reserve_reg(child,
-+					   fdt_get_name(fdt, child, NULL));
-+	}
-+
-+	/*
-+	 * Allocate the dynamically-placed regions only after all the
-+	 * statically-placed regions are reserved or marked as no-map. This
-+	 * is done to avoid dynamically allocating from one of the
-+	 * statically-placed regions.
-+	 */
-+	fdt_for_each_subnode(child, fdt, node) {
-+		int len;
-+
-+		if (!of_fdt_device_is_available(fdt, child) ||
-+		    (of_flat_dt_get_addr_size_prop(child, "reg", &len) && len))
- 			continue;
--		}
- 
--		dynamic_nodes[dynamic_nodes_cnt] = child;
--		dynamic_nodes_cnt++;
--	}
--	for (int i = 0; i < dynamic_nodes_cnt; i++) {
--		const char *uname;
--		int err;
--
--		child = dynamic_nodes[i];
--		uname = fdt_get_name(fdt, child, NULL);
--		err = __reserved_mem_alloc_size(child, uname);
--		if (!err)
--			count++;
-+		__reserved_mem_alloc_size(child,
-+					  fdt_get_name(fdt, child, NULL));
- 	}
--	total_reserved_mem_cnt = count;
-+
-+	/* check for overlapping reserved regions */
-+	__rmem_check_for_overlap();
-+
-+	/* Switch to the permanent address of the array */
-+	reserved_mem_array_unmap(map, array_bytes);
-+	reserved_mem = array;
- 	return 0;
- }
- 
--- 
-2.43.0
+>>>
+>>> Background
+>>> ===========================================================================
+>>> The scheduler has been moving toward better utilization of fully idle 
+>>> cores
+>>> and avoiding SMT penalties. This trend (notably after commit 
+>>> 25a32e400a14
+>>> ("sched/fair: Prefer fully-idle SMT cores in asym-capacity idle 
+>>> selection")
+>>> broke the behavior s390 is relying on to concentrate workloads on its
+>>> high-capacity cores. On s390 CPU capacities represent the CPUs runtime
+>>> entitlement assigned by the hypervisor. The idle SMT siblings of busy
+>>> high-capacity cores start to perform better than fully idle low-capacity
+>>> cores as the whole machine(containing the logical partitions) starts
+>>> approaching to a {fully,over}loaded state. Grouping load on high- 
+>>> capacity
+>>> cores keeps shared low-capacity cores(which are shared more 
+>>> aggressively)
+>>> idle longer, reducing noise to neighboring partitions and improving
+>>> overall performance.
+>>>
 
+[...snip...]
+
+>>> Considerations and Open Questions
+>>> ===========================================================================
+>>> The main goal for this series is adding a simple mechanism for
+>>> architectures to switch between idle core and idle SMT priority while
+>>> keeping the introduced footprint as small as possible. But there are
+>>> some ideas and questions to consider;
+>>>
+>>> 1. Should arch_needs_idle_smt_prio() hook be removed?
+>>>     The architecture hook is there to allow for any sort of logic to
+>>>     dynamically decide when to flip the mechanism, but it can also be
+>>>     removed if everyone agrees that this behaviour is not something that
+>>>     should be dynamically flipped. It can be simply tied to detection of
+>>>     asymmetric capacities and selection of Kconfig option.
+>>>
+>>> 2. Is there a simpler way to implement this mechanism?
+>>>     The proposed approach is chosen as the other features effecting the
+>>>     scheduler's behavior, use the same method. If there is a more
+>>>     efficient way to implement the same mechanism I'd be glad to use
+>>>     that instead.
+>>>
+>>> 3. There are no performance measurements *yet*.
+>>>     On s390 the ideal conditions for this mechanism to be beneficial
+>>>     usually surface when the whole system is fully loaded and resource
+>>>     sharing between the logical partitions starts to get expensive.
+>>>     Creating such an environment requires time, therefore no benchmark
+>>>     results are available yet.
+> 
+> If it only under contention, then you probably don't want to use low 
+> cores for
+> anything right? If above is yes, then using steal governor would help to 
+> avoid low
+> core if you mark them as non-preferred. (which i guess you guys are 
+> exploring already)
+
+IMO it should be dynamically adjustable depending on the contention
+level. But yes, on worst case low capacity cores should be avoided by
+marking them as non-preferred.
+
+> But, find_new_ilb isn't aware of preferred CPU state as of initial patches.
+> I had thought of making a change to pick a idle preferred CPU instead of 
+> a idle non-preferred
+> core for idle load balancing. It is not done due to below reasons.
+> - Performance numbers didn't show any major improvements with real life 
+> workloads.
+> - Code becomes quite complex for find_new_ilb.
+
+IIUC, find_new_ilb() finds an idle CPU that can do load balancing
+for other idle CPUs. As long as the tasks don't land on non-preferred
+CPUs, where ilb occurs should not matter. (At least for s390)
+
+>>
+>> I'm wondering if we could build on Shrikanth's cpu_preferred_mask 
+>> infrastructure
+>> to express a "soft preference" for the s390 higher-entitlement CPUs. 
+>> Unlike the
+>> mask's current behavior, soft preference would allow tasks to spill 
+>> onto other
+>> CPUs once the preferred CPUs have no idle threads available (we have 
+>> something
+>> like this in sched_ext's scx_cosmos).
+>>
+> 
+> cpu_preferred infra won't allow to spill over if preferred CPUs don't 
+> have an idle CPU.
+> It rather enforces packing onto preferred CPUs even if it means rq has 
+> more than 1 task.
+
+I think what Andrea has in mind is something similar to what he did with
+select_idle_capacity(). Depending on the state of the non-preferred mask
+and other factors cores and SMT siblings can be evaluated as ideal
+candidate somehow. Wouldn't it be possible to extend the
+infrastructure you introduced to achieve this?
+
+>> That might let us preserve the general preference for fully idle SMT 
+>> cores while
+>> searching in this order: fully idle preferred cores, idle SMT threads on
+>> preferred cores, then non-preferred cores. This current patch series 
+>> seems to
+>> drop the first distinction, allowing a partially idle preferred core 
+>> to win even
+>> when another preferred core is fully idle.
+>>
+>> This would need to coexist with the steal governor's stronger use of
+>> cpu_preferred_mask, so I'm suggesting it as a potential direction to 
+>> explore
+>> rather than a drop-in replacement.
+
+I think this makes a lot of sense. An approach to first fill preferred
+CPUs before spilling to the non-preferred cores until contention
+forces the evacuation of non-prefered CPUs.
+
+Shrikanth, would it make sense if I try to find a way to extend your
+current implementation in this way?
+
+Thanks!
+-Mete
