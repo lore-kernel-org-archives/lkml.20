@@ -1,76 +1,86 @@
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-237.mta1.migadu.com [95.215.58.237])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1086299929
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 05:46:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C9972DF126
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 05:47:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.237
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791438407; cv=none; b=hAM+jk9ygN52sjQmslIkmXsfGaLOEuWmOndoxxglON2GpooC2QnlVk4RIyM7Jcxstdi29tkDC6m1Q3L3bIokwg9gv8URxLOcH+viQJV3QUUWyiT/cR3p794v3UCVnJ2kefnCC0bnk8gsj3/qaGbF++Z1TAJBNE5gLBrYb0y6nh4=
+	t=1791438433; cv=none; b=gWU/IMMTBm01JhmZ6MpWKw2v2aIQEqMN7BcSqPF16bycYqe0583uVl5b5mRuJOsfdgNLKzSvZa5Sl/3GVSLM8tWF/c5KvMfKGxy05AjXFuZcdIMPXG1dX62iTXySFEfGCfhQGvgR2RejMkrg46hvl1MKO8gMM5A3J4d/Xj+8Skw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791438407; c=relaxed/simple;
-	bh=Y2qAsGLpYTjiJnvNAXmsNNCQ9/gXHBk9YyAa8JpoLSo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Kab5Ftv2Lc5aQx0CVquAUrISselQh1RtQ1gJgYfdJK6yI4PV5Fw8RlP/BtEuK1UAoJ80bFClB703BCGCkg6TlouANzhcREb4X6ycwZBnq7zSfo0ZkJygKd7F5Ws6oZ78sPI9bnavOcOZ0zyI18OhWtI+qEnJB2m4HbycCMjorB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=Jf3EmRSf; arc=none smtp.client-ip=220.197.31.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	s=arc-20240116; t=1791438433; c=relaxed/simple;
+	bh=Oxi9M9WIAPNUTBUO7azXc2qlMNdidYUbADdfUbmOkDU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=s09c5+Fi4YFui6IM2uANjQ/RsIIxxjfKOe20GD5vGmUv73Byxxhb7Vtgk4SgkiFxWlIlwuotM3QoRtC18tGnKSHQhFTguYamsL8BNjFhwqrKFTzHUhEeFMmAsnglwjuq2Ng8ciuM1bIq8Ue2psGWrR7kOM+O+N2ZtDqbuYeLAJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wgRhgWdB; arc=none smtp.client-ip=95.215.58.237
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="Jf3EmRSf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=CA
-	RflcBGpvRN9r7V0tWqypeX79CxYIU+874ZDeCSN/0=; b=Jf3EmRSfIltCfdFpQL
-	j1M/RuLOlIuVPmipLei5NpwfAqq2v9yscMNET26fb0pn6SHTybIvEcx1X0TF57VJ
-	A/63GUquJXR7eJjBnhzckLCTS6GJfK3+ldCCMTZnQrthPlpThQEx7pYV8XTwjC4o
-	kSiGWz5x50uQ5JSsz3PTaqIuc=
-Received: from nzzhao-ThinkCentre-M760t.mioffice.cn (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD336sXK8dqurzWAg--.64007S2;
-	Thu, 08 Oct 2026 13:33:12 +0800 (CST)
-From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
-To: Daeho Jeong <daeho43@gmail.com>
-Cc: Chao Yu <chao@kernel.org>,
-	Barry Song <baohua@kernel.org>,
-	Nanzhe Zhao <nzzhao@126.com>,
-	Juan Yescas <jyescas@google.com>,
-	Dev Jain <Dev.Jain@arm.com>,
-	linux-kernel@vger.kernel.org,
-	David Hildenbrand <David.Hildenbrand@arm.com>,
-	linux-f2fs-devel@lists.sourceforge.net,
-	Bo Zhang <zhangbo56@xiaomi.com>,
-	Kalesh Singh <kaleshsingh@google.com>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Pengfei Li <lipengfei28@xiaomi.com>,
-	Ryan Roberts <Ryan.Roberts@arm.com>
-Subject: Re: [PATCH v2 03/14] f2fs: support regular file buffered writes on large folios
-Date: Thu,  8 Oct 2026 13:33:11 +0800
-Message-ID: <20261008053311.712223-1-zhaonanzhe@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CACOAw_zwgUPLkU5BJGE3p2fXecEncPYwRAq0hOB71oks0JUpPQ@mail.gmail.com>
-References: <20260915041909.2903887-1-zhaonanzhe@xiaomi.com> <20260915041909.2903887-4-zhaonanzhe@xiaomi.com> <CACOAw_zwgUPLkU5BJGE3p2fXecEncPYwRAq0hOB71oks0JUpPQ@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wgRhgWdB"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Oxi9M9WIAPNUTBUO7azXc2qlMNdidYUbADdfUbmOkDU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791438429; v=1; x=1792043229;
+ b=wgRhgWdB/f+satF80/R21WU8Ji31U9YZDFl3rdY91bcAowK5CgF7P2etgBFXaY71F7tUrt9D
+ 8E1u2nNPYW+hyUaD5I6GmnhlGk1wfTKdYNYqx5WZsCZOuVHP4gvJrJ3F8fnsdtGyq1+n1XMQiN7
+ tovEytfgHME2zbZHovm2EZuM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 46a23afb19c5ec56;
+	Thu, 08 Oct 2026 05:47:08 +0000
+X-Mizu-Trace-ID: 46a23afb19c5ec56
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 8 Oct 2026 13:47:33 +0800
+From: Chenguang Zhao <chenguang.zhao@linux.dev>
+To: Prathamesh Deshpande <prathameshdeshpande7@gmail.com>
+Cc: Leon Romanovsky <leon@kernel.org>, Tariq Toukan <tariqt@mellanox.com>,
+	Saeed Mahameed <saeedm@mellanox.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>, linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org, saeedm@nvidia.com, tariqt@nvidia.com
+Subject: Re: [PATCH rdma] RDMA/mlx5: Cancel deferred page-fault EQ work
+ before teardown
+Message-ID: <20261008054733.GA256585@pc>
+References: <20261007234216.2765-1-prathameshdeshpande7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD336sXK8dqurzWAg--.64007S2
-X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvj4REWlvDUUUU
-Sender: nzzhao@126.com
-X-CM-SenderInfo: xq22xtbr6rjloofrz/xtbBsRldLWrHKxm8tAAA3P
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261007234216.2765-1-prathameshdeshpande7@gmail.com>
 
-Hi Daeho,
+On Thu, Oct 08, 2026 at 12:42:11AM +0100, Prathamesh Deshpande wrote:
+> Page-fault EQ work can remain queued after the notifier is disabled.
+> Destroying the EQ before cancelling that work can let the worker access
+> freed EQ memory.
+> 
+> Cancel the deferred work before destroying the EQ.
+> 
+> Fixes: d5d284b829a6 ("{net,IB}/mlx5: Move Page fault EQ and ODP logic to RDMA")
+> Signed-off-by: Prathamesh Deshpande <prathameshdeshpande7@gmail.com>
+> ---
+>  drivers/infiniband/hw/mlx5/odp.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/infiniband/hw/mlx5/odp.c b/drivers/infiniband/hw/mlx5/odp.c
+> index b8618610737a..1f28c30095dc 100644
+> --- a/drivers/infiniband/hw/mlx5/odp.c
+> +++ b/drivers/infiniband/hw/mlx5/odp.c
+> @@ -1885,8 +1885,8 @@ mlx5_ib_odp_destroy_eq(struct mlx5_ib_dev *dev, struct mlx5_ib_pf_eq *eq)
+>  	if (!eq->core)
+>  		return 0;
+>  	mlx5_eq_disable(dev->mdev, eq->core, &eq->irq_nb);
+> -	err = mlx5_eq_destroy_generic(dev->mdev, eq->core);
+>  	cancel_work_sync(&eq->work);
+> +	err = mlx5_eq_destroy_generic(dev->mdev, eq->core);
+>  	destroy_workqueue(eq->wq);
+>  	mempool_destroy(eq->pool);
+>  
+> -- 
+> 2.43.0
+> 
 
-Thanks for the change.  I would like to integrate it into v3, folding it
-into the "f2fs: support regular file buffered writes on large folios"
-commit.
+Looks correct. 
 
-My patch adjusts the signature of 'prepare_atomic_write_begin()': for large
-folio compatibility, the 'unsigned int len' parameter is replaced by 'pgoff_t index',
-so that the helper can be called in a loop from 'prepare_large_folio_atomic_write_begin()'. 
-I found that len was a dead parameter in the original 'prepare_atomic_write_begin()', 
-so in v3 I will not pass blen to 'prepare_atomic_write_begin()'.
-
-Thanks,
-Nanzhe
-
+Reviewed-by: Chenguang Zhao <zhaochenguang@kylinos.cn>
