@@ -1,200 +1,164 @@
-Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D76D23A564
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 20:59:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08FC23783AD;
+	Thu,  8 Oct 2026 21:00:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791493200; cv=none; b=mcbVM5ZHBYEUmgIXS5UlTi5l1zTkdnZjdxnJE5qxMEb4HooOV/9HahAqnMURPpNwWxQeU6JAlOjvvOajNsx8edWCd+bkupHJt96uxvdBbCDacsvKTORILhdhiZ9JmKTXSbnWKqxIpJYlxSrFTWHTyqxbo+iaNxoojQVt1esVhxg=
+	t=1791493207; cv=none; b=KVPg6XVNr6rVK5KMq2NdqEnXrAEi4OQrZf/edjPfe0iWA/RSqlqP3YzoblvZrbZC/A/H+ZlhjyJ9XEMgM0VfCwifuDbx2jaT/MPATzE+p3orMA8FFH792nI7io1mT2hexUFGYi0EOdI6JjaHgfh7Zg4DM1yssapyK2LOUzjXxvI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791493200; c=relaxed/simple;
-	bh=ZSqN70r27tz0dBTGFGExJE8gBajqQvCl+6z1RjfY5cg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jsnIIYGvJiGSw1Eg9bozwsfSUJIhxBTeQ1pg/nV4wgvtHfhX+JhrjQ9169FfdBup0TVrzscTKIErsMPRByvr5epI83EViaGBvFsYXWs4JRtbrnoCnRtI4NqTkKsWco7CfbBFOV/EIaLjyRimKlKeQXZuXPtbhwAT/zNQot05qDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=invisiblethingslab.com; spf=pass smtp.mailfrom=invisiblethingslab.com; dkim=pass (2048-bit key) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.b=HDkaD2HH; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Dtg9fjTA; arc=none smtp.client-ip=103.168.172.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=invisiblethingslab.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=invisiblethingslab.com
+	s=arc-20240116; t=1791493207; c=relaxed/simple;
+	bh=uM9+1GAisBxiLO8yV3nzEvDIfDn41Yg5KDHiX1GklC0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=q5uoI7WZLME1pHLP8NHS6EPsyRQXIvj8l/9pRPy/geWA7/wkQJ92BQDAzCkkkDYzDF3ryz6eisFEDyzr6DxSILFWTYggB8DguEdaUT8lMtLzJ5xSkHAW9U1roQDcoL3ML6xtioBEC6rDTM7COzAtQtVN0arBUFeDNY8X+UDLgAg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eGFVnejg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.b="HDkaD2HH";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Dtg9fjTA"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.phl.internal (Postfix) with ESMTP id ABF39EC0328
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 16:59:57 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Thu, 08 Oct 2026 16:59:57 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1791493197; x=1791579597; bh=7+AhoGYgBy
-	NcaiYeKP8aO75OvP8u4IEViIBwpAS096A=; b=HDkaD2HHXiKLOIJzRRtBiS/kuu
-	ZFuk2VBU7fv0DNoonmmzZYBQbTQXAGayoQSExsTmaetb0ONAfPrzwwb/giz0yV7v
-	sxjaeSpWsW/ovDYipFsltIYIFHBHynHI8lkifRyeXm3Jsxsx5DBAWW47ncps8K8I
-	7rIMXNbN8VNJ3lMMk8hzJVRJvhtD5BogmM9ML4lMCtkGIru9ZXu2C9xqWUQm5Dgk
-	bbVVqqot03yIsU4/OHzryBr2knopUDVRd970BUIH6/iqbpeBmw8//nOvwKIZiPLl
-	EW3ELCLEXELQW6LbgV+BKR9/+//rlNSEGN/hB6PV7SmFGU0ywmSM00gkmtoA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791493197; x=
-	1791579597; bh=7+AhoGYgByNcaiYeKP8aO75OvP8u4IEViIBwpAS096A=; b=D
-	tg9fjTAvPJ9OhvaLC8feeBlklqc1zaObW29YJqw9P+mLBMqldjj4KWlqyvgvdrY7
-	MqqBNPouZh+VF5qmCC1SJ9ZmsMrP4bnbOTwLkqAFEZtRdAeaV1eC9LB3nGvpArKP
-	WCjD5FrAEQTPX3kffA4qwzz41EsIAU/3CtGpecx68rSTmgp7h5kCNtuv//+N4DUi
-	VHoVHZjoB6ntoiTtCFu+n2JKHmLw0h5bqYSaezshrFjIVSxybkIQ/U8YWlkeiCEj
-	HPkizOg+wuYC9rvLLxWLOoik5EHCpOhHVl8ZI6cNQP2KO+5ognRsvI/ygJv+oPvZ
-	UsVUiPasMhM9ibSHBrmAA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=invisiblethingslab.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791493197; d=invisiblethingslab.com;
-	mf=PHZhbEBpbnZpc2libGV0aGluZ3NsYWIuY29tPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:hPsFMuB6kx/K6yGya0DQgll9zR6oELwlxvmtOLHisJH9lgk
-	3A/LywmPK+lE6Z7+HafroD17nxcz6O5hq84aNi+NIVhWX943c2cwwweyjq5S/kqg
-	htpc2pUC+6vgoBFhMKY6xEmtn8zUYRzNlP0810pX64gVFG5RIqtmhf46Y56x2Omz
-	1Ov3XT8kRPyQMba7iviAhiPT0nkaue1C6r55pZ2Pn0WhJg1ydPtNJoHKJoWqKCnC
-	XEsPfCeFtBQiqEF0q/dN5ycdHIVENkV01EwVBS3ewOgf35AJ/ZsBN2W6hh+sJkvt
-	cP21Ms31sQxzRlYNb2d1yAKb/rsYJAdMeAHNzYw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=15;
-	hn=autocrypt,cc,content-language,content-transfer-encoding,
-	content-type,date,feedback-id,from,in-reply-to,message-id,
-	mime-version,references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:i6JEWJ4IPoj6sTPShGKAeVCIv0NwupZWYTrqHINYiMg=:ZSqN70r27tz0dBTGFGExJE8gBajqQvCl+6z1RjfY5cg=;
-X-ME-Sender: <xms:TQTIanUpo6kzgT77SOJl9Q8ZTGfgO6PLri8G5asRgWPcYaTy458elQ>
-    <xme:TQTIajS4WR0dLTwqFWxHLB4uSs4DNZ5wstBdWnpnHuHsRhGxS0PQFMi6k6Cgw_eBi
-    RsHNftC8YE_ajEMTNnqKLZYAEymvhrz-VU5uV74ZkGVhxI9BjYl>
-X-ME-Received: <xmr:TQTIasBzGcqTEiBeq-EsDKVR5QcAE0UQ6xsdQw-1Qrz24BPgPdIYGqdZk2yDkV8R_jFZiwUDsNbWwZMsI27D_BoExDHa6AXGPw>
-X-ME-Proxy-Cause: dmFkZTGWHnmgy+7bRoDaOQ8rB99ldtlBzRyzoeZaSC1i9ZR+w9Y50+YZBHoyWGoOSGl/iS
-    rrtGM0CUf8X/1jcWn9wdCFp+EmBgTY8pOkA16G/rkskNMOTXsGZ/qqYpyOf7R/tilVFWbg
-    Z/Wn75wbEdZkCJF6oQyrPqZSoz6TZHVVJg+Cmwdx6+Cy8GLpHWuOqdSYKVl3DvHv59+1rz
-    gWo6xFVkKdeO9I13ZlpJJl6kr7kL6eVRvF9FjBJvTDNYMBGX9zJjWx7tlRZJmWKwqxjkIZ
-    DDFh1wWJeyZhotKxBNuXjWOZ14Lp70Rb5JVm6RhIAO7YRlCJl0hCCvBifh7vomSZ7bJZAW
-    5c8RHZv5YNqNT1SVJJzPgWX/nIbVY8qqwUU20nW6tdMNdGtKc4FTdXTDIkSkG5VNBVwVC+
-    sfCfY3d9mZlGsq1RbBJwzasXhtv1lzhiAk65GqE7hNV2jz4l+xmN6x8W4kxUY1Njx6iJYB
-    H8c6kohYtyhLomKz6hTUIgg8rQeGoGdPYDMnZAhktV/9X7gVLONAUSsiMZ5EnmkiMgePyV
-    IgMVOO33DqFR+pcyOpjJhX+Uqe4tKNJohTWkilbFkMw48WQWWLGxsTONmV1re8KKgfCr3x
-    zn72x4nFrxtjH1ZYJ5U0HmQlTenrDtw0ownjB40VOehOBomg+ZXWZJly8ZVA
-X-ME-Proxy: <xmx:TQTIajsQVVDoGvUVokR830jD3vmx82GcVytywP3vjq90ZgVUj54JEw>
-    <xmx:TQTIai9zm-AeLomp9CEO6xe7FqpX5HmG-Ma_RIFVA7iYrmI5jbcnkg>
-    <xmx:TQTIaiSEHtuCxtHHRvTWaWvk1iLnA9uJIPHhBLmDSyODWdYOBkOQWQ>
-    <xmx:TQTIasUuYqIQKZry4Uhs5C9AK3lZbXREZWK4ayd3whuvd2Sz_EprfQ>
-    <xmx:TQTIakaIIo1w5HlbJxrr28rqeksuqaLeU7BHfziBwpI_npr9TPi5bJgd>
-Feedback-ID: i001e48d0:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 8 Oct 2026 16:59:54 -0400 (EDT)
-Message-ID: <4d86ec37-ce27-4556-966e-4b4e80ec0718@invisiblethingslab.com>
-Date: Thu, 8 Oct 2026 17:59:51 -0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eGFVnejg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 945371F00893;
+	Thu,  8 Oct 2026 21:00:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791493205;
+	bh=wNkFP7ef8kESWjXFB8a6H8v6I9TvDNhblU/gkA5sfQw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eGFVnejgzlFtkHtMAC9R8bNKY8H55YyB8NxBVCFtUM+pizxiUAVPNUOyzg+YoekQ1
+	 qo7GVHBOB+I5JkV6TkAozA8cYyBO2efX8ZB6Z7KFNfDoxW/rO5Q+oGVYk+ZxjD4rvS
+	 Q5LxxwaDJqTDOJwPjW8RUJCBBDBAlsVq/6kwnOgdXhwm+nFWAiaAzSzNUiwCK1zoRe
+	 Ga/cY51CV967MiV7nfm71qvMkA2M14OTBAMJ9x633psEFcWmtaPhxTEcFwEyNTYhKS
+	 A7s8449IafPMv0Wh40DfS1EoTE4xot/ci6NlWUpuN9AqKqEZAX5sk5DN/PalunDY2+
+	 rqrbZ/gRSKJoA==
+Date: Thu, 8 Oct 2026 16:00:04 -0500
+From: Rob Herring <robh@kernel.org>
+To: Yin Li <yin.li@oss.qualcomm.com>
+Cc: James Morse <james.morse@arm.com>,
+	Shanker Donthineni <sdonthineni@nvidia.com>,
+	Ben Horgan <ben.horgan@arm.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	Fenghua Yu <fenghuay@nvidia.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Gavin Shan <gshan@redhat.com>,
+	Andre Przywara <andre.przywara@arm.com>,
+	Drew Fustini <fustini@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
+	trilok.soni@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
+	ganapatrao.kulkarni@oss.qualcomm.com,
+	Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
+	Huang Yiwei <huang.yiwei@oss.qualcomm.com>,
+	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH DNM v3 8/8] arm64: dts: qcom: kaanapali: Add MPAM MSC
+ nodes for the L2 caches
+Message-ID: <20261008210004.GA1318789-robh@kernel.org>
+References: <20261008-mpam-resctrl-dt-knp-support-v3-0-35196c2b43bf@oss.qualcomm.com>
+ <20261008-mpam-resctrl-dt-knp-support-v3-8-35196c2b43bf@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/virtio: do not enforce blob_alignment in
- cross-domain contexts
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Simona Vetter <simona@ffwll.ch>, Sergio Lopez <slp@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20261006154913.2689067-2-val@invisiblethingslab.com>
- <8b0fbe1a-1410-42d7-8031-611795ae39d9@collabora.com>
-Content-Language: en-US
-From: Val Packett <val@invisiblethingslab.com>
-Autocrypt: addr=val@invisiblethingslab.com; keydata=
- xm8EaFTEiRMFK4EEACIDAwQ+qzawvLuE95iu+QkRqp8P9z6XvFopWtYOaEnYf/nE8KWCnsCD
- jz82tdbKBpmVOdR6ViLD9tzHvaZ1NqZ9mbrszMXq09VfefoCfZp8jnA2yCT8Y4ykmv6902Ne
- NnlkVwrNKFZhbCBQYWNrZXR0IDx2YWxAaW52aXNpYmxldGhpbmdzbGFiLmNvbT7CswQTEwkA
- OxYhBAFMrro+oMGIFPc7Uc87uZxqzalRBQJoVMSJAhsDBQsJCAcCAiICBhUKCQgLAgQWAgMB
- Ah4HAheAAAoJEM87uZxqzalRlIIBf0cujzfSLhvib9iY8LBh8Tirgypm+hJHoY563xhP0YRS
- pmqZ6goIuSGpEKcW5mV3egF/TLLAOjsfroWae4giImTVOJvLOsUycxAP4O5b1Qiy+cCGsHKA
- nCRzrvqnPkyf4OeRznMEaFTEiRIFK4EEACIDAwSffe3tlMmmg3eKVp7SJ+CNZLN0M5qzHSCV
- dBBkIVvEJo+8SDg4jrx/832rxpvMCz2+x7+OHaeBHKafhOWUccYBLKqV/3nBftxCkbzXDbfY
- d02BY9H4wBIn0Y3GnwoIXRgDAQkJwpgEGBMJACAWIQQBTK66PqDBiBT3O1HPO7mcas2pUQUC
- aFTEiQIbDAAKCRDPO7mcas2pUaptAX9f7yUJLGU4C6XjMJvXd8Sz6cGTyxkngPtUyFiNqtad
- /GXBi3vHKYNfSrdqJ8wmZ8MBgOqWaaa1wE4/3qZU8d4RNR8mF7O40WYK/wdf1ycq1uGad8PN
- UDOwAqdfvuF3w8QMPw==
-In-Reply-To: <8b0fbe1a-1410-42d7-8031-611795ae39d9@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008-mpam-resctrl-dt-knp-support-v3-8-35196c2b43bf@oss.qualcomm.com>
 
+On Thu, Oct 08, 2026 at 02:41:17PM +0800, Yin Li wrote:
+> Add an MPAM MSC device node for each L2 cache. Each MSC is nested
+> directly under its L2 cache node so that the cache node is the MSC's
+> parent device and its CPU affinity is derived from that cache.
+> 
+> The L2 cache nodes are placed directly under the root node. The root is
+> the root of the physical address space, so each cache node only needs an
+> identity 'ranges' property for its nested MSC's 'reg' to be resolved to
+> a physical address. The two caches use distinct node names (l2-cache-0
+> and l2-cache-1) since a cache node has no MMIO unit-address of its own.
+> 
+> The nodes are disabled by default. Production firmware does not expose
+> MSC register access to the OS, so these nodes can only be enabled on a
+> local test setup where firmware permits direct MMIO access to the MSCs.
+> This DTS is therefore only an example for other platform DT authors and
+> is not intended to be merged.
+> 
+> Co-developed-by: Huang Yiwei <huang.yiwei@oss.qualcomm.com>
+> Signed-off-by: Huang Yiwei <huang.yiwei@oss.qualcomm.com>
+> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/kaanapali.dtsi | 50 +++++++++++++++++++++++++--------
+>  1 file changed, 38 insertions(+), 12 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+> index 131fd2a16c54..b1dcb1e9c570 100644
+> --- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+> @@ -48,12 +48,6 @@ cpu0: cpu@0 {
+>  			power-domains = <&cpu_pd0>, <&scmi_perf 0>;
+>  			power-domain-names = "psci", "perf";
+>  			#cooling-cells = <2>;
+> -
+> -			l2_0: l2-cache {
+> -				compatible = "cache";
+> -				cache-level = <2>;
+> -				cache-unified;
+> -			};
+>  		};
+>  
+>  		cpu1: cpu@100 {
+> @@ -120,12 +114,6 @@ cpu6: cpu@10000 {
+>  			power-domains = <&cpu_pd6>, <&scmi_perf 1>;
+>  			power-domain-names = "psci", "perf";
+>  			#cooling-cells = <2>;
+> -
+> -			l2_1: l2-cache {
+> -				compatible = "cache";
+> -				cache-level = <2>;
+> -				cache-unified;
+> -			};
+>  		};
+>  
+>  		cpu7: cpu@10100 {
+> @@ -531,6 +519,44 @@ soccp_smp2p_in: slave-kernel {
+>  		};
+>  	};
+>  
+> +	l2_0: l2-cache-0 {
 
-On 10/8/26 4:33 AM, Dmitry Osipenko wrote:
-> On 10/6/26 18:42, Val Packett wrote:
->> VIRTIO_GPU_F_BLOB_ALIGNMENT is designed for GPU rendering context types,
->> however VIRTIO_GPU_CAPSET_CROSS_DOMAIN is not one of those. Resources
->> created under cross-domain contexts are arbitrary shared system memory
->> files, which includes unusual things like Wayland keymaps received
->> from the host compositor. Do not enforce alignment requirements there.
->>
->> Fixes: 47248e0d8264 ("drm/virtio: honor blob_alignment requirements")
->> Signed-off-by: Val Packett <val@invisiblethingslab.com>
->> ---
->>
->> v2: also check has_virgl_3d to prevent dereferencing NULL vfpriv
->> v1: https://lore.kernel.org/all/20261006004044.2242154-1-val@invisiblethingslab.com/
->>
->> ~val
->>
->> ---
->>   drivers/gpu/drm/virtio/virtgpu_ioctl.c | 4 +++-
->>   1 file changed, 3 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
->> index 3ddd5481d6bc..4d5ae062834d 100644
->> --- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
->> +++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
->> @@ -551,7 +551,9 @@ static int verify_blob(struct virtio_gpu_device *vgdev,
->>   	params->blob_flags = rc_blob->blob_flags;
->>   	params->blob_hints = rc_blob->blob_hints;
->>   
->> -	if (vgdev->has_blob_alignment &&
->> +	if (vgdev->has_blob_alignment && vgdev->has_virgl_3d &&
->> +	    (vfpriv->context_init & VIRTIO_GPU_CONTEXT_INIT_CAPSET_ID_MASK) !=
->> +	    VIRTIO_GPU_CAPSET_CROSS_DOMAIN &&
->>   	    !IS_ALIGNED(params->size, vgdev->blob_alignment))
->>   		return -EINVAL;
->>   
-> What userspace has this problem and why it re-purposes virtio-gpu to act
-> as udmabuf for arbitrary data that never reaches host?
+cache@19870000
 
-Sorry, what do you mean by that?
+> +		compatible = "cache";
 
-This is not related to data that "never reaches host" at all! The error 
-I referred to in the patch message literally says "received *from* the 
-host"…??
+You need a specific compatible here for your implementation.
 
-Guest userspace is any of the cross-domain proxies:
+> +		cache-level = <2>;
+> +		cache-unified;
+> +		cache-size = <0xc00000>;
+> +		ranges;
 
-* https://codeberg.org/drakulix/wl-cross-domain-proxy
-* https://github.com/talex5/wayland-proxy-virtwl
-* https://github.com/google/sommelier-rs (or old C++ version)
+Are there any other registers for the cache other than the MSC? If not, 
+then:
 
-VIRTIO_GPU_CAPSET_CROSS_DOMAIN "repurposes virtio-gpu" to act as a 
-cross-VM UNIX socket transport that supports fd passing. By referring to 
-virtio-gpu resources in the send command the guest can make the device 
-send the resources' corresponding host fds to the host Wayland 
-compositor. It can refer to resources from other contexts, in order to 
-present drm/venus/etc rendered buffers on Wayland surfaces. (i.e. the 
-host would send the actual dma-buf from virglrenderer) But the resources 
-created on the cross-domain context itself are system memory buffers, 
-generally used for software rendering and miscellaneous Wayland "stuff" 
-like keymaps which are sent *from* the host, and exposed to Wayland 
-clients in the guest. Socket receive handling in rutabaga-gfx stores 
-incoming fds and returns their IDs to the guest, then the guest does a 
-CREATE_BLOB with matching blob_id, which creates a virtio-gpu resource 
-from the incoming buffer, so the guest can just MAP_BLOB it. These are 
-the blobs that are not aligned to anything because they're just 
-arbitrary memfds on the host.
+ranges = <0x0 0x19870000 0x10000>;
 
-~val
+If there are, you need 'reg' here.
 
+> +
+> +		#address-cells = <2>;
+> +		#size-cells = <2>;
+
+You don't need 64 bits of address and size here.
+
+> +
+> +		msc@19870000 {
+> +			compatible = "arm,mpam-msc";
+> +			reg = <0x0 0x19870000 0x0 0x10000>;
+
+The MPAM register length is 0x321C.
+
+Rob
