@@ -1,199 +1,161 @@
-Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com [209.85.167.169])
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D80A389106
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 19:55:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791489354; cv=pass; b=EdwYkfo68blB0Ndnm5Ss3jTNPgLKIQ3IP8+AANWIuHPC4w1Gg04onMO2po9YEtX2w+BHZj6scIiYUGW/w7OWmwxUtfLC5ojsH4z+2heOq5sueob7T9t92EpJrZVl2E34OQsUEHL4lOH4coWxd6US4607j77qkB7y7YvNhZa7VgI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791489354; c=relaxed/simple;
-	bh=ziHAPQRoMkwgfKKfZIoohuKulG35BvtusPrpDG8odo0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tFI59Sw6aUlPfyb78ZiUKcfVON10tX6OSQB2+kcfbKPWJlndajQV5HcBdKiG6P6bObJTlzU2a87O5FPv5YVnHnI4WtRSut0pogVfkY4tvXHmzU9Sh/UMWtZLW9ABtL9qeHpzL8A+CYJqmBmGD/mJXFG8NjG0kq1X+s9YQicZ93Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=slItrefq; arc=pass smtp.client-ip=209.85.167.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15976386441
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 19:56:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791489386; cv=none; b=amRms5+bWS4wCbJFSv0KQLPEDZY+FW36F3KxMBa26MjGmPDK4C4XYvorYDvUyV7l9LnsPIHtOouvytLjaWuEbPfqPeSxSZPRXylmzD44qGn91J8i56j/wQAwvF8CdcQITZtODX+63HywK4ImoiALhdVJfQNMjYFu8OiK/dMbe+w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791489386; c=relaxed/simple;
+	bh=D4K0GXojNGjvr1AbkeLUSfw3kOHSP/1aVzKIdo8uIlE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=l/vdfb/bfFgyPV8bM2jSeAv3RmSaIggp3xTyT0gtYqpHDRrGCUCVE09Lay4Qt6l+P+bZuoANtw4NjcSP6OUSaQ0fpeoUk5pOiweplFtAEE7LJwGyaanQl7AM7V+UGHGeY6pxJOptX6xwYZHUn1WLFJNMSty3WF38H7KL7nYmOQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H2c58+hO; arc=none smtp.client-ip=209.85.218.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="slItrefq"
-Received: by mail-oi1-f169.google.com with SMTP id 5614622812f47-4e5c8b3facaso119813b6e.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 12:55:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791489352; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YHW8iLtJPsmnbC7019TmQvIpRXYNDKkC+z6WoZwXoUcboKeFS5RiPDTVq4Zfjp/qZv
-         kMLzUMpwdhghbS0qUKOI3ifeIU1j6jNIS5s/45ln8h3uX5rU8+WZoNuxuaHtFwv/9UVB
-         kGqJxUdvDcO4wkePVtfIvtw1bqc+QGQrzR9otObUtUYbIpVftGN9sU8A0ERMesLBbvf4
-         hZ3kKjYukW37migucZcO8TQTylBO+JVA6h1imjNHQ1VE9ee73dZ9Wt4DYLJ6ofizgUZ9
-         zCpqohzjEDh0VAUofxRlqWQlZNC58SMniTjhVNY3r3cdsRjCnuQZPOzGMIS0ePsMzKzr
-         8WDQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=zgcV5jlz2rBvJZUAbH1QsAzR+KCXqGBXEWNrdPfT0UQ=;
-        fh=cqMeUtUM8yaaGDFFLVUJQZbKL95ZNxjJl9qSLDSHUn8=;
-        b=AISXqUbNVR+Khhv6r3SGnQ70jaULp9FHFIwznsulu2rLPnXbHLJD2tLovWBscs6/eT
-         TvFxv9hx9jk7K3mx9XyYpT+1r1iC1GYEgutT7BmvrvxupCaQObPFdFo2joOEq0ObNeF3
-         tDhrgX3eUMl14VngBqFQOG1wLwgp6Gj33Vl5zxM9VWhTRTLshFbE/LPhrx+Ynn6WfZ1J
-         e1wp2VxQPAAAp6orf6U/FAPH8v+RE0mrcTa6sLb2dy4V+3GJe0wqyG/8QMpSIyGPDT9Y
-         S2+ZuHP4rv7FewUOncTy40d8SNKVXIrBGrxW9J+6H1lRcA9dXwOTQAAzIsyXE6x1TlfQ
-         ToDw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H2c58+hO"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c2e8c710847so458361666b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 12:56:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791489352; x=1792094152; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zgcV5jlz2rBvJZUAbH1QsAzR+KCXqGBXEWNrdPfT0UQ=;
-        b=slItrefqsZEZ62X5Mpm4xNTkRfqFqnU/ZkKtuVIakpXiSTQR/yVhVcsy6vFwX0Veqg
-         oPQYLETZpy8jNxUfldNasUAAd2v06+uvC5Ev1xZYXvfTiBBkgxjRlVSZtB9brOMv/0I5
-         CmbbIGl4nHqq7ZZN6RbTgnmCif14B8RRz2ivv5sBFrhTGrwGwrLr8XtXj/KdOd+sP8Sf
-         kTSTc/kK8pua+ImWs1FyqgVrTNUnmBoilw7r2nBsIa1fuok3bL5xo+DvP/POiVkhrcjz
-         ywyiGS46vNYDHL15imaS+fsjrDE2BrQB160ndbMsRZcdbOuvRnIzrrfZrsrNQeXvsIvm
-         ZvLw==
+        d=gmail.com; s=20251104; t=1791489383; x=1792094183; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=t+pnQvX2Ln0ty0BBS0HTGOY5DxdQhaFsMGL4gqOpSC8=;
+        b=H2c58+hO+MeT+WYg40PyuKLvPskqg/GChmtqULoKDXeR2S7Zeq/1S11AOHu8ipXvWZ
+         o1b0qjIhvw67Zlg1UrGiMzhgcXuJDba0T8zovo0r8eBeW71i7eqI0vp8DNztKXoZHgup
+         ue2KfjbP7OL6pJPL9d0yxLgAbWo9n53GRr8Qw0cYROoAEg++gm6idHgAM50dqPP16lc2
+         VJaaLy0RJKMYCVRIYLgQhFiPtXpo6JPc/IgOHrQu00fIKR/JglYL3pBnINYul6XJqYxZ
+         tEXfvHYHK/ASfEktQ+BUYCPIzCad+3sTkMLsAi+LmPgN64uyHcYxtTE0hNg+FVWOEQ8n
+         axgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791489352; x=1792094152;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zgcV5jlz2rBvJZUAbH1QsAzR+KCXqGBXEWNrdPfT0UQ=;
-        b=aaW/qnaLWNrFiGjyHK4U4kw5RikiSsjjPxtkPemXd3yaF8KwSgAGIWnZF/HbfoK2yo
-         SGahHIs/yoBBxdzth839XWqdBI5iIQAl4fIlAmudaJ3zrf6t7p2hfC4Qid5ZLxljcSAC
-         9BGinvMj2RQpiinsnW5GvREpOaFX9TxmEP9Mhr950Dw3PsfiyNXgyCgA0eYMVblN53LJ
-         lNKwaAnf021UuWHcUif/+M4RFbd+WfkYeHSPUNxef2FeCqAaLRoxrWjNPiKrhPMaZbjz
-         0rQ4uHoxcvfPUZUC5b5lHvEJ6GpVAVveRIUGR1SaXUxyxnAkicTvj25dt0zI9rRJ/9ee
-         ni/Q==
-X-Forwarded-Encrypted: i=1; AKwUvByTGFdq/tyxppvUPnoZmnwTTyoO0nXAdO0IpJpc8LMDJS96DFkDwjuZtlsNN64r9njk9+kYFRVF1WBExmk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lHNy+oal5ywqbPA6S73nptZ4Iz6XKE8//JllfhQUFj1VAA9POD
-	CXfxpubrP8dr4HDGJ7Z/SDcoSs6Na0m8pIyf01JPJAk8C1ejZ0SwVJTtKriN8qLUSwUuljnofj2
-	Z/VV2AlK/U17impBBrX8FLgVNEUwGmJM=
-X-Gm-Gg: AYBFou1gpmtY2y/kCVsJb5Is6+ARQ+WXYMAiUlNAKlVJaB0rjT1qnsrpWqBB7ugkot1
-	82LZx4obkRTgsBhu+5kn4nZWKaixaa3TpSTqWfMFsiagsOlyPcYBNDNI3ytRrdzXnOdUVlSDJFu
-	T7y0UYuDkOjstS+K4XXMhFI+nMpB2gfIpljGzHTqgsq9uRPGxKtKJoKndmQStkL+VaeoqhR5zOj
-	HmooeaXepff0sdbKB0BxTywEmLn8BUZ3662LK3O8riwUjKuV9pQpDsEPJhooHj5A71bbu1fc2bv
-	YrD2GFi6b4z1W7waTbNB7jbRUGcgtku/egxU4i7usZEZc7NkGwAcPWTxBTDbprS9d0VFFUM=
-X-Received: by 2002:a05:6808:1925:b0:497:d23f:e621 with SMTP id
- 5614622812f47-503efe694c5mr5822680b6e.2.1791489351869; Thu, 08 Oct 2026
- 12:55:51 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791489383; x=1792094183;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=t+pnQvX2Ln0ty0BBS0HTGOY5DxdQhaFsMGL4gqOpSC8=;
+        b=0YUiEGEaadTsS8jAoNpUxJxGn3xMq9wPaYmEOh67dOO7cUcsguuQrq45e+KbBZsxdh
+         P1ryo0gWpCvMsO2OKz2f4+LDj/kDqjNWiSWw1kgiwpDkPPp2vZ63BZV2GDsXKIhMGyTJ
+         1H5XnihdvV9G7sFAEM6Hi742z/QwvSmd6/pIHd0lgFr0ehfJd7arXTVsaO4zr5yKEDT8
+         rM1jno7y2+3XiziakO2mW4bEXMu9bumrm6XErf33TMp31HGR+jX+3PfsH1coHJvHd92l
+         tMwQUJGWlz0iP8WIx5+eLVsIkTeztRWclkFaTU3qFBqLg00B803pcUDmpr9Iopxe8Ic8
+         OWPg==
+X-Forwarded-Encrypted: i=1; AKwUvBwySJYWlwkSWo2vaMlHS+6VxsqZw9Zc8LT8KZjJuRVtAHEuWGFDBlzcCfm5vLfjAzT/I5c/+BhsMo4Vn2A=@vger.kernel.org
+X-Gm-Message-State: AFuF++n3lkYwLeoy3HX1wzBi4fIssU7Jodshar1y2e2iy7FxL1HsQq8u
+	VoQthVFifN6wetiGax3uCwMG0plKizYNnw8sZFf6EmVnX9qrBfN0D+Hi
+X-Gm-Gg: AYBFou26z+bUV4ZMo1D/aqt0TevBbDOdngtf32Vr+Pd5rGZcJxrzIzsNKUhm6dyLNDd
+	A8+HBnrmSXRyXBGlhGfArsK7lKskOXimaFFt9mJUkAsWhA729F5Lrb8AoJigBDovOyF9FftA8gP
+	6D/Z7i9lUHOegI6AGNr5Q+6GAPTz6n/pV6cZOqHO1vGyuK7GPTNPri2zVI1hobHJIqwr+yRuV6G
+	YeJ/PsN5hyWqdTrPvbv5hqcy4icUqpm3Q2HUL/Ytg/PM2g7kri+5Wv7V6wNqxyWcnWM1XoqX6KK
+	OubyPMg6A7PTXxj6iwiqf3VdGifM8+telgJsaPJ9Rs1+34QsV3mtFmMktfAWpUSB9wf5kHfYtGf
+	u90zwzA2GYxfXbqa/qKSc6mdVBhcQMVUXYrn3QiYSbQMT5ITtzfNfEIF73BVu2QwAi8ZVqw0V/c
+	1LDGyGs27Dy9JlhKT/AWZkS9XxoSmzusFNanvQ04qziUvpAPbb4dfFin8Hy1Q07lT5eObhj6wab
+	xohwD/voN7vx5pqGJHOzqChj/Vf7d3u4N1CUmvH
+X-Received: by 2002:a17:906:c106:b0:c2e:2fb6:ff37 with SMTP id a640c23a62f3a-c317bdb14fbmr630342466b.21.1791489383297;
+        Thu, 08 Oct 2026 12:56:23 -0700 (PDT)
+Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a4d0c2efsm9906266b.26.2026.10.08.12.56.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 12:56:22 -0700 (PDT)
+From: Magnus Lindholm <linmag7@gmail.com>
+To: richard.henderson@linaro.org,
+	mattst88@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-alpha@vger.kernel.org
+Cc: linmag7@gmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/3] alpha: load the MMU context when switch_mm() switches the current task
+Date: Thu,  8 Oct 2026 21:55:16 +0200
+Message-ID: <20261008195608.965266-2-linmag7@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261008195608.965266-1-linmag7@gmail.com>
+References: <20261008195608.965266-1-linmag7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261006-netcons-fixes-next-v1-0-231cd26f8c51@gmail.com>
- <20261006-netcons-fixes-next-v1-1-231cd26f8c51@gmail.com> <afc14b81-32b3-4f91-8b0c-0152889f80f6@kernel.org>
-In-Reply-To: <afc14b81-32b3-4f91-8b0c-0152889f80f6@kernel.org>
-From: Gustavo Luiz Duarte <gustavold@gmail.com>
-Date: Thu, 8 Oct 2026 20:55:40 +0100
-X-Gm-Features: AclHuK-BFm-kWbsOrrSZkaU1W93cEM2S6Thw1jvB5mRVOK1OnYY5Oo50P8TSVug
-Message-ID: <CAGSyskUE2CM_i_+o2Dtf+_OriRyad+UzG4S-rzOeTL18LnZheQ@mail.gmail.com>
-Subject: Re: [PATCH net-next 1/2] netconsole: avoid printing partially updated
- target attributes
-To: Eric Dumazet <edumazet@kernel.org>
-Cc: Breno Leitao <leitao@debian.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Sashiko <netdev-bot+sashiko@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Eric, thanks for the review!
+ev5_switch_mm() only prepares the incoming PCB. The context is installed
+by PAL_swpctx, which alpha_switch_to() issues against that PCB on the way
+out of the scheduler.
 
-On Tue, Oct 6, 2026 at 9:35=E2=80=AFPM Eric Dumazet <edumazet@kernel.org> w=
-rote:
->
->
->
-> On 10/6/26 20:58, Gustavo Luiz Duarte wrote:
-> > The configfs store callbacks all serialize on dynamic_netconsole_mutex
-> > but not on the read side, so reading an attribute while it is being
-> > written returns a partially updated value.
-> >
-> > Hold dynamic_netconsole_mutex on *_show() callbacks to avoid racing wit=
-h
-> > writers.
-> >
-> > The dev_name_show() callback can also race with
-> > netconsole_netdev_event() writing to np.dev_name due to
-> > NETDEV_CHANGENAME. So it needs to hold RTNL in addition to
-> > dynamic_netconsole_mutex.
-> >
-> > Reported-by: Sashiko <netdev-bot+sashiko@kernel.org>
-> > Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260814-ne=
-tcons_ipv6-v3-7-bc0915e8c75f@gmail.com
-> > Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928-ne=
-tcons-fixes-v1-0-bb5ffe5e698a%40gmail.com
-> > Signed-off-by: Gustavo Luiz Duarte <gustavold@gmail.com>
-> > ---
-> >   drivers/net/netconsole.c | 62 +++++++++++++++++++++++++++++++++++++++=
----------
-> >   1 file changed, 51 insertions(+), 11 deletions(-)
-> >
-> > diff --git a/drivers/net/netconsole.c b/drivers/net/netconsole.c
-> > index 267254f046de..188beacb308d 100644
-> > --- a/drivers/net/netconsole.c
-> > +++ b/drivers/net/netconsole.c
-> > @@ -859,7 +859,19 @@ static ssize_t release_show(struct config_item *it=
-em, char *buf)
-> >
-> >   static ssize_t dev_name_show(struct config_item *item, char *buf)
-> >   {
-> > -     return sysfs_emit(buf, "%s\n", to_target(item)->np.dev_name);
-> > +     struct netconsole_target *nt =3D to_target(item);
-> > +     int ret;
-> > +
-> > +     dynamic_netconsole_mutex_lock();
-> > +     /* Hold RTNL to prevent racing against netconsole_netdev_event()
-> > +      * changing np.dev_name.
-> > +      */
-> > +     rtnl_lock();
-> > +     ret =3D sysfs_emit(buf, "%s\n", nt->np.dev_name);
-> > +     rtnl_unlock();
-> > +     dynamic_netconsole_mutex_unlock();
-> > +
-> > +     return ret;
-> >   }
->
-> Please do not add rtnl_lock() in a _show() sysfs handler unless there is
-> no other way?
->
-> Something like:
->
->      dynamic_netconsole_mutex_lock();
->      strscpy(name, nt->np.dev_name, sizeof(name));
->      if (nt->state =3D=3D STATE_ENABLED) {
->          struct net_device *dev =3D nt->np.dev;
->
->          if (dev)
->              netdev_copy_name(dev, name);
+Two callers reach switch_mm_irqs_off() without going through
+alpha_switch_to(): kthread_use_mm(), which borrows an mm for the current
+kernel thread, and sched_force_init_mm() on the CPU-hotplug teardown path.
+Neither explicitly loads the context, so the task can carry on running
+under whatever was loaded before while current->mm says otherwise.
 
-This could lead to a use-after-free if we race with NETDEV_UNREGISTER
-and 'dev' gets freed. It is the same issue I'm trying to fix in [1].
-Claude suggested adding an rcu_read_lock(). Since
-unregister_netdevice_many_notify() calls synchronize_rcu(), it is
-guaranteed that the net_device won't be freed until the grace period
-finishes.
-Something like:
+The stale page-table root need not be swapper_pg_dir; it may belong to a
+user process that ran on the CPU earlier, and the kthread's user accesses
+can then read and write that process's memory wherever the stale mappings
+allow. Translations taken that way can also end up tagged with the
+borrowed mm's ASN: ev5_switch_mm() writes that ASN into the PCB, which the
+next PAL_swpctx installs against the stale ptbr. An address the stale
+tables do not map faults instead, and since do_page_fault() resolves
+faults against current->mm without reloading the context, the same access
+can fault again on return.
 
-  dynamic_netconsole_mutex_lock();
-  strscpy(name, nt->np.dev_name, sizeof(name));
-  rcu_read_lock();
-  dev =3D READ_ONCE(nt->np.dev);
-  if (nt->state =3D=3D STATE_ENABLED && dev)
-        netdev_copy_name(dev, name);
-  rcu_read_unlock();
-  dynamic_netconsole_mutex_unlock();
-  return sysfs_emit(buf, "%s\n", name);
+sched_force_init_mm() needs CONFIG_HOTPLUG_CPU, which alpha does not
+support, so kthread_use_mm() is the only one of the two reachable in
+practice; the fix below tests the caller's identity rather than
+special-casing either one.
 
-Also, netdev_copy_name is not an exported symbol, I would have to
-EXPORT_SYMBOL(netdev_copy_name).
+The scheduler passes the incoming task, which is not current until
+alpha_switch_to() runs; both direct callers pass current. Test for that
+and load the context the way activate_mm() does. Both hold interrupts
+disabled across switch_mm_irqs_off(), so this completes before any
+shootdown can be taken and needs no asn_lock handshake.
 
-Would something like this be acceptable?
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+Tested-by: Matt Turner <mattst88@gmail.com>
+---
+ arch/alpha/include/asm/mmu_context.h | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-I can try and apply the same RCU approach to [1]. We don't have a
-similar seqlock for dev_addr though, does it make sense to create one?
+diff --git a/arch/alpha/include/asm/mmu_context.h b/arch/alpha/include/asm/mmu_context.h
+index 825d3b9605c9..6ecc8a0676cb 100644
+--- a/arch/alpha/include/asm/mmu_context.h
++++ b/arch/alpha/include/asm/mmu_context.h
+@@ -130,6 +130,8 @@ __get_new_mm_context(struct mm_struct *mm, long cpu)
+ 	return next;
+ }
+ 
++extern void __load_new_mm_context(struct mm_struct *);
++
+ __EXTERN_INLINE void
+ ev5_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
+ 	      struct task_struct *next)
+@@ -139,6 +141,15 @@ ev5_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
+ 	unsigned long mmc;
+ 	long cpu = smp_processor_id();
+ 
++	/*
++	 * kthread_use_mm() and sched_force_init_mm() switch current's mm
++	 * without alpha_switch_to(), which is what loads the context.
++	 */
++	if (next == current) {
++		__load_new_mm_context(next_mm);
++		return;
++	}
++
+ #ifdef CONFIG_SMP
+ 	cpu_data[cpu].asn_lock = 1;
+ 	barrier();
+@@ -160,7 +171,6 @@ ev5_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
+ 	task_thread_info(next)->pcb.asn = mmc & HARDWARE_ASN_MASK;
+ }
+ 
+-extern void __load_new_mm_context(struct mm_struct *);
+ asmlinkage void do_page_fault(unsigned long address, unsigned long mmcsr,
+ 			      long cause, struct pt_regs *regs);
+ 
+-- 
+2.43.0
 
-[1] https://lore.kernel.org/all/20261006-netcons-fixes-v2-2-ca652d55fd4a@gm=
-ail.com
