@@ -1,69 +1,69 @@
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
+Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51B1F43F4AD
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 21:03:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C625C43F0BB
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 21:03:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791493409; cv=none; b=T0rB6z2prVO8A8ORMtjIaJZUkmiopvxMmDblH5EVf/pk5YSvsNj9wgyEZyPCNa2GJxvjCt2cvus2h1Nusjc/CWDg2Y3iMFxrPvLYdZAX2QuqRenRN1x+ImbyBsGTzpnHFp0oGf1PHe9Ocsakr+3wVBrMfJFiGuKysZQC4OX/PdY=
+	t=1791493416; cv=none; b=amQoPEBFh3Vv2eb5wg4IAx6YzOWVdIrub0ejZyczoGHmNpY+i9DyYMQ7z9Ikgtf3HZZdf3CxP/ZpKgsHDrjhEDMz6mxzgj9uGzS82G4ROBaGQc5iR0tF+fYXxbssisccpRNh3EC8EWnQl5a6RE21pkNErEAQWtyw1DzZsHDwO6M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791493409; c=relaxed/simple;
-	bh=YaVSidg1Bo1cVWoGQJzV4z/nBT+SLxbK+9NmCYkL+oY=;
+	s=arc-20240116; t=1791493416; c=relaxed/simple;
+	bh=3f5WzTjnDsDOAnT0hR8gZXIWFT9KoT8c/AVMjDx6NOM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LStwPEB8HNKczUVJZTc90TVIbjmXhUk4UidVytcTLuDrZMLDLnu0tc4q5vWcgj8XNQGvd+eulh1etyCdNtGCwrzCUHj9tT7lKXexjPUtV98ZKGxDv38a/RhxSZvfDyKQ+bEQJv+wRgFStK6tmauN3I2ycMyu1YsftseIaVqIifc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=AjOYLTDS; arc=none smtp.client-ip=209.85.222.179
+	 In-Reply-To:To:Cc; b=Ikfd3CM6716DBUzDDlUhegJ5kr0zfnhd8HE4sfGsVevT4EpxTikY4pxreT/h/Wb5eCmgPmkhfI9+E2f9tihY9OZi064QGxqrI+VNMz98UOjHlecdQZHpY1iBC0vvZ8gkCWdTrm09BYAYCsCoklTIvFsmoY/izAADuSeEc9YJRww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=q7pzm3nr; arc=none smtp.client-ip=209.85.160.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="AjOYLTDS"
-Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-93e56c287b3so460761185a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 14:03:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="q7pzm3nr"
+Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-53381e53b80so38886541cf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 14:03:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1791493404; x=1792098204; darn=vger.kernel.org;
+        d=toxicpanda.com; s=google; t=1791493410; x=1792098210; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=a3FpKl0vN7petfzZgqIhlc2NP9KQ4OIDsR/ta4Cqq6o=;
-        b=AjOYLTDS2cqWkdkUZGMU065Mk5FOnngjH2nFmADmNP1dwfBF+IFoGU3kgPLaBFf0XX
-         DZ3RNrFPdTram8cF9juATXQ3BVS+xAOvEWXLSftPRlZDZj3yn0kGPQhpLzubJKSlHlP2
-         2VaSzD2wwo1dJmIHeTEKETB97ri2QWKye+H30U4IRBfw9MMTro6VE6qp9pXA+G/aC8oE
-         F3BL6ri2SE4TordWaZXfakliW2CWezh7B28Pne1M1QX3mZWkq20GgFqxzvt60mimd0Xa
-         wRATTpDM2dWJLpb3jrpO0ChV5F/e4nYs56TPh4NrWSd7apC0M2bDZe7hwNbmkWGJbSue
-         cBMg==
+        bh=blrnvRK83a0BrC00ZsKjSLnGbEsSK17m6K1yrBXm/SE=;
+        b=q7pzm3nrFDtplCyFUQ2gMv1Uz59Vk3Up1x+wsTJP5aAGDqd4kqjwAGU2qebIPCtwEN
+         PBRgOvLMPWJFn4NOV4DMZU3RWVV5R2hK/JKmk4ym6BrIZzZwpysiExnW3DiPDpnbzLzh
+         7soCgzjgGz2WRekTxJNydvIyyes3/wBZID4pF0MZEMVVFJfX2ELHel8PVUUYDUCrfDOj
+         jAWOabz9qAx/QGzQ1yXwMSI/GzjlFAtyDihsj/Yd21lkB688nZqzCe9Fp1PC+kxLHch2
+         nif2IB7em0In6/IjmmOwd5Y7lMK5ZDUCW3oLVViyqKtW3AqsB3YhgZhotV0Y46e8SUhn
+         8vLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791493404; x=1792098204;
+        d=1e100.net; s=20260707; t=1791493410; x=1792098210;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=a3FpKl0vN7petfzZgqIhlc2NP9KQ4OIDsR/ta4Cqq6o=;
-        b=gXd2NP5V8MgvzgKGiNyEqrvW3G5BZaxWso+sSWP3C0o0OoTaQKvAhNNzTZtWbvixLX
-         i02Dkp9w7ThDVtS8NmLm2R9Xth13adKrsE5d7BSy/0b2WGPRf0Qtz8hgVRNaYQ6/lemN
-         KVTzQG8K0LSjXm7DnV99P75Tj0TTilRnZ5PUjAR0V9+0AlIY0iahEeRIY5eus/8nVfgT
-         3JDHsdnlS6hc8ohLAOSdqQ7EJ4tj0BzaZRx8FegwHpdn26vajbxihEjdeYj6CslpePdI
-         J21yLaMhZQxagpNndQqJ1j8v+tu3YD2rrmpxDZFCtbjYLoosVGG10eP8/2+fHGtqA93T
-         myOQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzJHTZXNtv/WzKn1C1zJbO34qFhn/YVqiW0jzTIeHgMHUninbGrfo2Y9jFOiD3DLnBzBEsUx7S33xK8o34=@vger.kernel.org
-X-Gm-Message-State: AFuF++mcqfkx8zbq+YuLwtqaypGSuqo9eEpmOJgACbqUef9HpKDloUGF
-	3N1WbMEo7/2OCIHvxFV5s7evpUqPXod1QNqCaw0VODM48TLK/Kdy0rBeAig14juIXh0=
-X-Gm-Gg: AYBFou0CiStBvWEC3SJk7xbqioBeCDKfy6jQ9FwGFuHCft+yiTuMqDaMiHAs4ckl8p0
-	2NE0xamzK0jJjVSnv5av3/mc7UgEdnkJJXVALrpXQQnTENe5VkcHCo2ymo1qDI7uic3EWrzUg9g
-	ahcN6Tmkmt63rBZ1Z9DjKod5GdafytZ7yxo1ZukhicxrP7WDHspTSHL7dr398l/bZ25zMO8hcyB
-	qBDkid0kMGcUGB1FaUehVbwWfRBab2uJMgsyZe/HlH5aYHnBmujUZfXv0we0vkjDM25jBnqwFmv
-	sP6jdqFOmhdsBTKvZCT7s9V3hNwpRyJDZIYGcpBmVScxk+G3mKhqYwNd/har8uc3RGqI3XGVCE6
-	Q5r3UI2J2j7zwvIfeHr7unUahAgY15dTmIkO9hCyMO4WrnrxbJGD58n79w8tnC9J+chE6VWkEPA
-	bW2Me5qaO1jdrpG4Ve9H7zjdUuK+0FQBfzZdlqPv8oQ9hEQi4P2qgRV/zNGTUwZlCGWm/zYD5uF
-	RRDh9MqTQCpTx3HErB8Ti3ISA==
-X-Received: by 2002:a05:620a:29c7:b0:93b:beb3:5898 with SMTP id af79cd13be357-93e9b807709mr1263365385a.49.1791493403829;
-        Thu, 08 Oct 2026 14:03:23 -0700 (PDT)
+        bh=blrnvRK83a0BrC00ZsKjSLnGbEsSK17m6K1yrBXm/SE=;
+        b=UCOLATiPiCzCanCIV7TNykgYX8XcSxGE4ENF1lESf9XdAidPbVwYOSVlb0dNUEM/vL
+         B+MSK2pg6tLzre+J+pMaLchv34fTLT5JwOF9BJ9MlmFzAKkOujdM8+xFiH7cYHkspkPw
+         kNjr3l+JeUoQd35jBLUdbW49Ws1edRIFz9cHXSK5l8tRe+RTfSiBGAZSlPULZwXaLJQY
+         6FXD4TwKlOlrB1AJg0b5ml+/H49O4aFGCyhIPJaRznRu6VwLdefihJQyvE1+s7tqIUV9
+         XeC7GURm6mnzqLbSreYXLMDuKeblzSyJq9+AJd2/cob3hpC9wGN2E1wa8Ho7uolQVohq
+         Ji5g==
+X-Forwarded-Encrypted: i=1; AKwUvBzRLHWdXUYZ9G/hfAtSRH3n5r/S5o2NXc2318fFrfK06jk0/Y/VY1e9KlubU+syEyUMWSsJjgvh6qz4gQM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nusiZxTpZYGcb5n2sqd8tymsL7QjHnwHBmtezpX00Oa6O+7Qq5
+	sjb5+kzsfB5WT9nibQsLRheZ3X91EFraTHYhoNap/HCHA65qxeC0SybLAZTZQ6hRD+o=
+X-Gm-Gg: AYBFou0izvpPpnzdJX+1B26ZHZEDwEmHV8Yde9IxTlFfz4+WX0OG5FoEWZhtTg9fPFv
+	EnhgrrFR0231Xf9FJTqAXkQFQaY8FUCfQ1L+UmnZh5feN+U69wik/bXvSfGFwq0mfCGX7423hBk
+	owdmDVDPUDfMSEdPYrZPZX3dPLIOKKOuVys0Aex+yCLpPb7vzibfdBh1q+nsgWJ7gdO8oJCH7Ti
+	YeCc6Na3lcWvt7OYwTt9rqjHOCn0MjHmOeRapEiVyt1R4UQUGEykvaSSro3THKdRib3PF2jIPpv
+	9NFG064kQI7G/kg4ctAAc8/avrsJqvJPytXJruG5kJVSaQvQvvKBBmYRmVMza28dgA+oXVl6q4/
+	JgUKhleEdvGt23wweECCv5pAt3pSwN4mBsIiLQaP5n3WMncwFA8ePTRjeAqFgZGpc1E4Y/kq1HG
+	U2z9IoaGEoQkVDkxXuUo9CDdo34x58tnTvPR5sCY1tPncVMnqFxH8vggm5ZPz32OkiPF8oDxWxG
+	FJ74NVGFcatKZE=
+X-Received: by 2002:a05:620a:1d03:b0:93e:9809:dbff with SMTP id af79cd13be357-93e9b8ecbf4mr1178890585a.82.1791493410404;
+        Thu, 08 Oct 2026 14:03:30 -0700 (PDT)
 Received: from toxicpanda.com ([153.61.196.247])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb9724fd1sm26327885a.1.2026.10.08.14.03.21
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb99074f7sm22172785a.46.2026.10.08.14.03.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 14:03:22 -0700 (PDT)
+        Thu, 08 Oct 2026 14:03:29 -0700 (PDT)
 From: Josef Bacik <josef@toxicpanda.com>
-Date: Thu, 08 Oct 2026 21:02:49 +0000
-Subject: [PATCH net-next v2 02/10] net: ftmac100: check for failure when
- pulling in the RX header
+Date: Thu, 08 Oct 2026 21:02:51 +0000
+Subject: [PATCH net-next v2 04/10] net: niu: check for failure when pulling
+ in the RX header
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-b4-pskb-pull-tail-drivers-v2-2-8f2bd9bee138@toxicpanda.com>
+Message-Id: <20261008-b4-pskb-pull-tail-drivers-v2-4-8f2bd9bee138@toxicpanda.com>
 References: <20261008-b4-pskb-pull-tail-drivers-v2-0-8f2bd9bee138@toxicpanda.com>
 In-Reply-To: <20261008-b4-pskb-pull-tail-drivers-v2-0-8f2bd9bee138@toxicpanda.com>
 To: Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
@@ -92,62 +92,48 @@ Cc: Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>,
  xen-devel@lists.xenproject.org, intel-wired-lan@lists.osuosl.org, 
  Josef Bacik <josef@toxicpanda.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1791493384; l=1745;
+X-Developer-Signature: v=1; a=openssh-sha256; t=1791493385; l=1236;
  i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=YaVSidg1Bo1cVWoGQJzV4z/nBT+SLxbK+9NmCYkL+oY=;
+ bh=3f5WzTjnDsDOAnT0hR8gZXIWFT9KoT8c/AVMjDx6NOM=;
  b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
  JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QKPRKOQSDQ67QodM++vQrU2bAaf9t1GHfgEbAcRMIyyvBlr3tTyXLKb7mAyGosVPXukX94UmJf/
- pTxPq3ZQboAQ=
+ QHTAZLO2IxS2OmXjiwrMC0xtj/kaDkW3OSxxKLc7dWB8wtA0dY5E/Ye18IDZRljWIONenVbHWP+
+ B0r4Rpj6pmA0=
 X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
  fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-ftmac100_rx_packet() uses __pskb_pull_tail() to pull either the
-Ethernet header or, for small frames, the whole frame into the skb
-head, and ignores the return value.  If that pull ever failed,
-eth_type_trans() would find less than ETH_HLEN in the head and BUG()
-in __skb_pull().
+niu_process_rx_pkt() uses __pskb_pull_tail() to pull the hardware RX
+header and the Ethernet header into the skb head, and ignores the
+return value.  If that pull failed, the skb_pull() of the RX header
+right after it would BUG() in __skb_pull().
 
 It doesn't fail today because the skb is freshly allocated, isn't
-shared and has room in the head, but that's only true because of how
-this driver allocates.  Use pskb_may_pull() for the header and
-__skb_linearize() for small frames, which is what the two pulls are
-doing, and drop the frame if either fails.
+shared and has room in the head.  Use pskb_may_pull() anyway and drop
+the packet if it fails, rather than depending on that.
 
 Assisted-by: LLM
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 ---
- drivers/net/ethernet/faraday/ftmac100.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/net/ethernet/sun/niu.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/faraday/ftmac100.c b/drivers/net/ethernet/faraday/ftmac100.c
-index 40ba001d4b3f..a1eb04ead2d8 100644
---- a/drivers/net/ethernet/faraday/ftmac100.c
-+++ b/drivers/net/ethernet/faraday/ftmac100.c
-@@ -469,15 +469,21 @@ static bool ftmac100_rx_packet(struct ftmac100 *priv, int *processed)
- 	if (length > 128) {
- 		skb->truesize += PAGE_SIZE;
- 		/* We pull the minimum amount into linear part */
--		__pskb_pull_tail(skb, ETH_HLEN);
-+		ret = pskb_may_pull(skb, ETH_HLEN);
- 	} else {
- 		/* Small frames are copied into linear part to free one page */
--		__pskb_pull_tail(skb, length);
-+		ret = !__skb_linearize(skb);
- 	}
- 	ftmac100_alloc_rx_page(priv, rxdes, GFP_ATOMIC);
+diff --git a/drivers/net/ethernet/sun/niu.c b/drivers/net/ethernet/sun/niu.c
+index c74a97fe5464..d1c0e868004d 100644
+--- a/drivers/net/ethernet/sun/niu.c
++++ b/drivers/net/ethernet/sun/niu.c
+@@ -3488,7 +3488,11 @@ static int niu_process_rx_pkt(struct napi_struct *napi, struct niu *np,
  
- 	ftmac100_rx_pointer_advance(priv);
- 
-+	if (unlikely(!ret)) {
-+		netdev->stats.rx_dropped++;
+ 	len += sizeof(*rh);
+ 	len = min_t(int, len, sizeof(*rh) + VLAN_ETH_HLEN);
+-	__pskb_pull_tail(skb, len);
++	if (unlikely(!pskb_may_pull(skb, len))) {
++		rp->rx_dropped++;
 +		kfree_skb(skb);
-+		return true;
++		return num_rcr;
 +	}
-+
- 	skb->protocol = eth_type_trans(skb, netdev);
  
- 	netdev->stats.rx_packets++;
+ 	rh = (struct rx_pkt_hdr1 *) skb->data;
+ 	if (np->dev->features & NETIF_F_RXHASH)
 
 -- 
 2.55.0
