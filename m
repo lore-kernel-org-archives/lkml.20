@@ -1,211 +1,230 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D8ED3D6498;
-	Thu,  8 Oct 2026 08:25:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791447956; cv=fail; b=srVKxnZ2FliidZCojdSZZM1hyUIXPFQZ592P2O9RW1SV86VbQjIQWqvpFGC9CBwZpn5lgLOshLXdVtCO5cKo+jWej8XXl/XQlZyvXFI0biRkRrjC5VYw9qLslhcCLjB+BYytYqk7PFgzJtpFvK64XUX9XV3lRwioMzww3VHfbHI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791447956; c=relaxed/simple;
-	bh=+ll3S2rEsBHIPoEgyytGUuQ5DWO4+rFyjDIl918Zj7o=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=am7Ym3Xzzkmv/yw0+oCZdcZrutNABShlVcW0F+QIXmXiTXDb7Bu3zdJGRW5ztZqdYftIjm0A8W0aEnMcaEuVhjg8KzS4lnYi/CDywsh44i62h8lqMLn5y35fDX+GBr0rDDlQU1FMnkehA2U1xqI35sve69aX5aN8iWAKb9Fn4gU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=H98BhnpO; arc=fail smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFDF34252D5
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 08:26:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791447981; cv=none; b=awjQCtM70Cg/M0vkaSuasbADRkmHBOh4Etav1pTQLMuF+TUZPIR/rsabgi7R5JuyIlZUKiALR4lWbMS5/VJkLuNTCsZY7K/FvLrIW7cJ4OzzIac8jH56Jq2/3yMRZwepkH4hrZD2Fwl2d+hI/6xm4cx80Suodm3e8yRXKr5KEIM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791447981; c=relaxed/simple;
+	bh=tZlGcH7kdTHWEpSMO3QVfn4WCD4FT3cunBUkS42WjLA=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kBrxriB/tPBsvgYq/99MnuzKTZZlULvK34JoMQ2+dofTR1fJMIaObkHKwiPDS3/PnhG5ayDmw90UCjATd5xiTPKMYiEv5HBhbzOboWy4gdchgclAnx5Ry4YHHRBf+oYAbbLPE7HhlZtwuIoKt8Jp9Lo5NPl5VUkOXN+QsKJePCU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qyfQU+9I; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="H98BhnpO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791447956; x=1822983956;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=+ll3S2rEsBHIPoEgyytGUuQ5DWO4+rFyjDIl918Zj7o=;
-  b=H98BhnpOSAt2q8V/GqZswPXuG9P7cyi0OgOB+twEYnbM5J6K1JGZKk9w
-   QzZPiL6jshV0aDMfG3HpnTvCWMQQONQ+Z8bTtu91L22Fhe0kibdxCCoI4
-   YfTtLDJAQAS4nEgk6Q2/Pn78yxA5Rf89kWI2xWtgZ57Wt78RKW1hoQhNn
-   tzA92FcvCYV8Vj2h4IWoS6CbgX13Nd2DwKUCkK9E7tGcScDbicvShByYG
-   tFlscumRFehmuUTTFtV/yjCIQxixplOsdyqhrgYizWT/9KrN+ZHSXKUiw
-   WWC8pw7vYXdBZBAGq4bVHIpyGvjnWDczGDD5/DxhpMhFf8L6K5/E7IjP8
-   Q==;
-X-CSE-ConnectionGUID: ogBjQY+8SqakBjo1cqOaKQ==
-X-CSE-MsgGUID: CF8dowV0QVeet67n5+IPHA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="216706"
-X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
-   d="scan'208";a="216706"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 01:25:55 -0700
-X-CSE-ConnectionGUID: 7A4jc5skTwu60nQ1f+pC1Q==
-X-CSE-MsgGUID: oisvYU7cS0KyORBae5Tq+w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
-   d="scan'208";a="434004"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 01:25:54 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 8 Oct 2026 01:25:39 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Thu, 8 Oct 2026 01:25:39 -0700
-Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.59) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 8 Oct 2026 01:25:38 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=F7kr56JFafr6K032QF7WChJi8xfywT7ug4pNb5ZmGKRjmmBXonmdcy9sxX5m9f3LhwCfwDZv4BymPPgJT6hvSB1cWGLVahtf/dKQ25r5pV2Jj/Ou59aVUGouZxzRJQFmGqzKTAZSO33Y+C0XlnEm2ad4jqk6T8BPKZB2UShbq5+vO34qnGTqkPT08ntQ8LrON0Qy6HsA3e9OI0AY0cbLiRxpi8yMolXgxru8wxvA1+h+DTr5QdXuCqlynQPKIdVhEliL+OBzLJvF37CCi9zqDduhlD4rCkHUQRPiHeSH4tiGjoOols8J4DdTU9SN/MM9xA1OcUssFr1ex1RFxCNO/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CWJYMCXJUE1dyVuSOV1DKRf+pPux73i8gOxW//fSTPI=;
- b=eXg3n1tJdZ2DmmpIxKEGP0YqksJmjNb0P74tHUlGyU+dyCI1E49HQ8pGu8BOJDkyMkyTPQjA08OQhtoCbdQnG1ivUk4WjSKUzV6unvvjaazwguso3jps2sNh58KXPD5mMqO+V/2cz3L8esqP1CaP8zf8P/yKoAk0uIFK4aeVdlU0GVfhNVjmp0hjUnH+iN/Fa9St21jZlj1WoSa6ycstQEE/ZeYcz/YAGcpoO8w15KKieyMsK7qbWGcyguTOj03vkY8gSECN3q6x0cQVechw/Kh5YGAOgW3tbTR7sHD4mDF9PifTwjJNf3/MNBTrpdClzqEWFQWuLruhfTk812Xidg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH7PR11MB6006.namprd11.prod.outlook.com (2603:10b6:510:1e1::13)
- by PH3PPF4EB9556A6.namprd11.prod.outlook.com (2603:10b6:518:1::d1f) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Thu, 8 Oct
- 2026 08:25:36 +0000
-Received: from PH7PR11MB6006.namprd11.prod.outlook.com
- ([fe80::4e2d:28f0:ede9:73bd]) by PH7PR11MB6006.namprd11.prod.outlook.com
- ([fe80::4e2d:28f0:ede9:73bd%6]) with mapi id 15.21.0496.015; Thu, 8 Oct 2026
- 08:25:36 +0000
-Message-ID: <f6980bc7-28e6-4794-a88d-9ec8d0c6c8a5@intel.com>
-Date: Thu, 8 Oct 2026 10:25:28 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 0/2] ASoC: Intel: Add Yoga Book RT5677 support
-To: Mark Brown <broonie@kernel.org>, Maurizio Casciano
-	<mauriziocasciano7@gmail.com>
-CC: Liam Girdwood <liam.r.girdwood@linux.intel.com>, Peter Ujfalusi
-	<peter.ujfalusi@linux.intel.com>, Yung-Chuan Liao
-	<yung-chuan.liao@linux.intel.com>, Kai Vehmanen
-	<kai.vehmanen@linux.intel.com>, Pierre-Louis Bossart
-	<pierre-louis.bossart@linux.dev>, Jaroslav Kysela <perex@perex.cz>, "Takashi
- Iwai" <tiwai@suse.com>, Yauhen Kharuzhy <jekhor@gmail.com>,
-	<linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-References: <20260925135915.338670-1-mauriziocasciano7@gmail.com>
- <179138829586.2423942.18161759839325954291.b4-ty@b4>
-Content-Language: en-US
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-In-Reply-To: <179138829586.2423942.18161759839325954291.b4-ty@b4>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: VI1PR07CA0257.eurprd07.prod.outlook.com
- (2603:10a6:803:b4::24) To PH7PR11MB6006.namprd11.prod.outlook.com
- (2603:10b6:510:1e1::13)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qyfQU+9I"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3a89d1ca907so1634076a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 01:26:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791447979; x=1792052779; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CS7qZDwIHCGcSr4m98IhvTEAv/dtevMpM6fVYctnKQg=;
+        b=qyfQU+9IA8htJsjIPF89/lB0NK9735Us/3SJRuAMzeqKGor3hvytkoSVmaJOBIb9vw
+         csYbMRbvKC1IrNy2XH7n774vWXgCaoz9vez0RaNjqohfJqKFY39YW1FtDuuoQLerp+N5
+         mS1Q2WFcdtdj4iP4QF8IyQ0la5/sMcYCKMXSo9J2jmM5SqDi0riHhS9dSoegqUvDfwBF
+         0kNP9xjrQ6QT5CJH81VxLyYf9T9cX94n/vUoRa2kJjmXeu5kWS6a2JjgABTDOCheJR0Z
+         Fl939DZlKxe6wXkEA9C5HhqXpt8ggndaf4I/gCbN0TSXkHkq4mx4nkt1zLtWJOahl1YX
+         Ri8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791447979; x=1792052779;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CS7qZDwIHCGcSr4m98IhvTEAv/dtevMpM6fVYctnKQg=;
+        b=sgn1hy0ZLOSdTpLCR3rHM8SsJuZX1leb15GCCaHo3gPiET86/kjoDzMqtsjCO9KQ2I
+         iGAY1vZnNjUTb2RqxuL4gcSbZlYSPR7BO+LDlANDm5PZH94r4S+M/YYn3UlpPF3EJ9Z3
+         uBEGK5vgD+6O0rzLlUSnBEy5WS/sIt4FiF9odQQj33ZO+8Bt0PlvldMOtGlW9lRyBUSx
+         mDvgdj/UkhXvIoqy9aCMG5FvSd0J47N95CU3M6yBNd0u6V8bnhAID6D9xom7wHkGOU2J
+         QfXSRtLHLLastRj9NSoIC43jDVqcxXWMAc4UVh6iDuJE8FRMz7Zlm1WR6/GePdniv4pi
+         vMGA==
+X-Forwarded-Encrypted: i=1; AKwUvBynB4W0lkKkms80e0gA9MXXVHMYkSt9i7EHQjUYiZ52XrZeGgCHs9ouK36FATKrhLrY/hqnwOl8T8oGydE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJULv6tLYkOrcPuQtf+Wdvww4gwyKEnkPp9f6wiCE9Z9GVRk0oZ
+	0yUf/rhoIakuJ2XQEEika/v25L5CKsmGNhu/BLIs5sek3It3p2NwmBI6
+X-Gm-Gg: AYBFou0otkgrTXXImv75JLYoWAVXiUvAGZBdvIV0/8iu9lB6w+ogRV7Tkr6frs8rcXt
+	0caNjPd+hOZyg5T4Ou4EmcKCbgE5o7BzEtPxTeO75VTBDoC+FWw63WxQwL7hvbN2EeyRWCcugRQ
+	21z17Qr5D1RkMfkBuk4lZGi62Mgqa69nWrzO4Zcl027bmHQn0j8PISAQUCM2+/3mAs90qzyBDbX
+	tJDoW7UU1vKQi9odO9EZiUSepl5dgc0ud/RlAcoW9vw7ShdgpQ6OvPHnsz1YeyYZekRdEdTWQq3
+	LvTreU5/kSL6CNzEwCuVW+1Cc/yyH4HBBdoRvh+GPftTCjbC3NQyGJywzlVaK8uVzqZMlazt0qZ
+	b0ApumohFFRPu67elwbtJW3p4YRP4ZNe7UVkuK1Zg+B1/zLILzcmrv1/q1Qe2mVDvaIRe8GFEGY
+	5hjIft0BsSN2maF/Lgi9A1ftVZfN6fdvAcE0t2HZKSR0m5Wd4ryLJdZCG0X+Gf38J37Lj/QIOYD
+	cuCDzwDMTp1BqqZ6ESvRFTFxALw0Po40zsSOYpjEV2kSdLn/YePGQ5R3+e+zSsrcPFjJ4hVCqAY
+	5grTZ8aT3yYSIw==
+X-Received: by 2002:a17:90b:498e:b0:39e:6a80:b799 with SMTP id 98e67ed59e1d1-3a8a0f2599amr4163262a91.41.1791447979142;
+        Thu, 08 Oct 2026 01:26:19 -0700 (PDT)
+Received: from 4470NRD-ASU.ssi.samsung.com (c-24-19-224-150.hsd1.wa.comcast.net. [24.19.224.150])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a89d5ced5asm4299357a91.0.2026.10.08.01.26.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 01:26:18 -0700 (PDT)
+From: Anisa Su <anisa.su887@gmail.com>
+X-Google-Original-From: Anisa Su <anisa.su@samsung.com>
+Date: Thu, 8 Oct 2026 01:26:17 -0700
+To: Anisa Su <anisa.su887@gmail.com>
+Cc: linux-cxl@vger.kernel.org, nvdimm@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Dan Williams <djbw@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Davidlohr Bueso <dave@stgolabs.net>, Ira Weiny <iweiny@kernel.org>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Fan Ni <nifan.cxl@gmail.com>, Li Ming <ming.li@zohomail.com>,
+	Benjamin Cheatham <benjamin.cheatham@amd.com>,
+	Gregory Price <gourry@gourry.net>,
+	Richard Cheng <icheng@nvidia.com>
+Subject: Re: [PATCH v15 0/8] DCD Prep Series
+Message-ID: <asdTqSxNO0OoHpOh@4470NRD-ASU.ssi.samsung.com>
+References: <20261007201828.952-1-anisa.su@samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR11MB6006:EE_|PH3PPF4EB9556A6:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4be856db-834c-499d-76b1-08df2515ba64
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|366016|1800799024|376014|23010399003|18002099003|10067099003|22082099003|11063799006|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info: YoHk52BlJlyqWzbwBb4GppJ2kK0WdjdTUK+/0hOwJC2Eq/m9tJYrXLaUE4OIp925qxiDMmeL44Q97cMeRN19Hj3zmD73jEYkCvXjRFjs68LFmPnGrISiKdtd3jdVBLmwATX37dyAM8BolqWTUUaidj3jc73eejn0Ygn2SNHdiHA17rO2+oBWfTVcsGqK4F0ie+He+a9gbMCjfsR2gWGFHFHAJBDGk/BCphcaQbxvnGURxPJ7f1NFUHoAWzejuDtLBJOvtYO5WUGWnR1nWSmKdYplXPdd8CCtO5rthW9Zt83AIyT2AeTjjvoTouKuOL7SXT745jv+AZhrFPvcnJCuZib26mHq2QJ8OXX/17q0kyTfN/b8vrV8Ia4B6OPlY4v/u7fgVQ/x3TcTqeHUeZADzYM7EA5LzfDRuFTFUJ0EP1oYKoeWKA7Amnm1leXHLTCW+phMxpTr3FAPI1O5tPJYZ/wqE1xONnJH6Fu2G3U65qSTjSkdEXwLcc9FOHX9eC6h6Y8o869TqmYQErSPH+EoJA+arIc+ZzWDuEeZgoBllVCn79gErYY1lY8XMNwZbBvSSCDuIimuC+bE5cmquPBr0cD8A125wPTkjEFgSlqQuZMn5xdN29oOw+Ga13d9yWM/t81SOAMlekiVofdNt4FSZuifejCv/kMFef/BIleVzrc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6006.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(1800799024)(376014)(23010399003)(18002099003)(10067099003)(22082099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Tjd6YXZKRDE1ZGlXWVJiZFVwcUlNclFZMjI1eDhZSEhHRkdaVjlpUEkwTzcy?=
- =?utf-8?B?RkFucktuVXRPTHhjdm8yWEhHM0s4REp3UDhMMW9VallqYVlTWDBsL3IzV2dr?=
- =?utf-8?B?a01NRnhLU25xaHB0UTdCM0FydzhYS284cjg5eTBJbC9qMEpPNnVxTUNJdWZw?=
- =?utf-8?B?cXVrK1N1NjRtM2pxMzYwWEVtcllmV295bkdrd0J5eWVBeTQrcjJXREUzTlc3?=
- =?utf-8?B?OHNzL3hleDBvVWxiczBubTNRTVdmMkhmS2FtZGVBeittdk1ZYTlHbnB1bjgy?=
- =?utf-8?B?UERIYVFURGs5VVNFR2YwZytySGZRZlY2ak5yRlNrVCtXdGZ4L0wza1RpQTNW?=
- =?utf-8?B?cHBUTzdSU1F6V3RFcCtGWGt1V1dzYjZDNm9SWkRRZmFuU0hmcnRKaWNQaDgx?=
- =?utf-8?B?Skd1WG5VVzlHcC9JT2hPdDByN3FnTjM2Q0hrZC95Y1p3ZDFmaHkyMXZEelh0?=
- =?utf-8?B?eFRpNUFrQ2NaQVI4d01yZEFpUU5oZ3hTMTJ0NlFtZWNOaGJCM0V0ZDFYd1dU?=
- =?utf-8?B?RjZTWUZBRzJRRW9FUE9yclJGQTdqWEtrRmduMG9FemxVam55TDNlMElWbktZ?=
- =?utf-8?B?WW9TZUg3azF0c0RzU0tvQ0o2Ukk5Wm5WaTE4bUUvU3dCZHVQQ2k0Uzczczh3?=
- =?utf-8?B?QWtJS1czRDFYcnVCK2Z1L0YwUFpnSms1OVg5QjdEZlUvckdYcFF5UXFMTlFl?=
- =?utf-8?B?aDJibFh0b0d2enJyeXZma2ZkY01ITWFsdFdRc3FUd0VXOVBZaHFqOXdjbTJ4?=
- =?utf-8?B?WHVFeW1GQUJ0UXpWdWZ5dWQ0cFBncVhmaEE3RWU3Yll1Qk9kY2NMOHFTZXN0?=
- =?utf-8?B?N29LWU02cTc0emVvWHBqdHQ0allkeDVmbGNRMmlsUFg5U1lCRzJMNi9Uc0ox?=
- =?utf-8?B?dHV6NEhDNTNBaXNGYUhlczlzQUJnMG0vakU1YVQ1ckFSN1RMY0VoZk9aa0R3?=
- =?utf-8?B?TFY5aTl1eXpJdGQ4R2I4bEhjWjZUWFBxMTBFREQwTUNHRExVMjYzSXdGYVp3?=
- =?utf-8?B?Z0JWcTRHWFdCcm93TU5OS0NSL25tSU1FQ3N2bnpqK01oKzl6bjJJVW5zclQw?=
- =?utf-8?B?L2pKTTZWRnJPM25TK0NFZllEZjJRbWl5Ni8zMEorbWRLWmlnVUhheW43ZDZX?=
- =?utf-8?B?S3N0VUs4VDhxdVlYeVI3a1Y1cXlwMUh6RGNEeTB0UVhpalJwWkJUbmVXbElZ?=
- =?utf-8?B?WDdwRW01RzRHMzdpWmpvSUtuTmRoQkRWM09tdXlFQmY0QlBKYUlPVnNGTXVS?=
- =?utf-8?B?Z3hIT25yMzJPUC9TY1hxZ01ZbytHMXlFdDJJaUpaU2pkdy9MTlRVWUQyMnBR?=
- =?utf-8?B?a3UyTUsvYkZaZmhWVWRVWFZubk16bTlRME1ONVhVdFdaUW1IeSsreFFpK0lj?=
- =?utf-8?B?UVZVZjgvK0ViRjhDRHdWZEEzNzBZRWY3UFoxZjZrZXlxMTFFa3l6WXk5R0pl?=
- =?utf-8?B?T0Y4MTExZnhheU1wRHZSV0FBV3hsT3NhQ2lWM29xcjFKd0pOM0tPdUlzUVVM?=
- =?utf-8?B?YkZ3NmE3MzZpYzZUV1drV1dOQ244aHZiTmpzaWpucXZ0RDlNeVhhUlhSbmlQ?=
- =?utf-8?B?b0NmNkd1NG81NkFKL3p5U3ZpaldwN213cHBOMzN5djV0VURkZFZDT2tsYVQ3?=
- =?utf-8?B?V3ZMSUZVYmNWRjRuZGJsbmprQXNlM0xpc0txaVBtb2pKcmhsbXJLcTRrOHM3?=
- =?utf-8?B?amJNeU9SOTBmRWIvaExtcDNjUmxyaW0yM1B5NC9ueGVicHQrM251L2VjUnRw?=
- =?utf-8?B?eUxTOXZTZXI3b3FPcDJSc0gxbkZTWGlFT2I4MkhQQURZbWkxMHdwVXZURUNo?=
- =?utf-8?B?NjVXRmJzd3B5YVdWeWNDUVB6U01laHI4MjhabW0yeUk4am83VEM3TjlieUYw?=
- =?utf-8?B?MDE3VC9JQk1PRVVhVG14V1Z6ZFlOeFYwbDlRSHQ0R2ptQlp1eFg0NHhwdmlm?=
- =?utf-8?B?QUQ2RVBBb0lXMTRxS0hVRm1tcWhBZTdyanlqRHV5NDMrb3dqR0UyNXJnWWtp?=
- =?utf-8?B?YmxHZ1k1RGdLd3VpQjJxMXhCQ1lJa0tVVzBqNkdMM1I3TEdNdm91N2NNcVVF?=
- =?utf-8?B?UFpydjNZaitvWDVFbDl1SEpaL0Q2UkVQdzFmd2xsdS84OW9SUHcxeERuMFNV?=
- =?utf-8?B?cmNuaEQrWXNHdlJjQ04vbllzWWpkRy9wRm1jZmxEUU4zcEZHeWdlRkkvdXgv?=
- =?utf-8?B?c0o4NkU3OENPdDZxandxdW5BTTR3bFovTHd6TFljbXJUYlBjSTFQOUxaLzhy?=
- =?utf-8?B?amc0TlI4b1dtaGkwK00zOHJBMWJYYmgzdWxNd1hkczh1SXBpb015QUgvamhH?=
- =?utf-8?B?dkZRTGVCWUIwVTBCNWVwTDdGVHpFNjlPazl1a3l0eGVrTkxNTis3UT09?=
-X-Exchange-RoutingPolicyChecked: 4j5BKF9zieZv3/sfyWwDJVnQfLOFU3vW7DNkbVroUssBE/xBkZNK4uQOWKT/i8nR4Orzl8DUUsRc5ktMZMCP2UtHNpD6bNGNJE+5iFuuLaptEFNIn/RT9kiShrrp3kbZcQ+CLNEZ+A4r9wh2Q8VUIEZkXuYAZ2jC5v7JTO2C5113zI2Ph9RsEju+DXPO1w17Aosv84MC+FqgxHwsMXFRTt7koo4lG/nQmYkxvCPWZJZNudeDOVIwvhGWfE3JGu7NmeQdwLJIDK9kMj7FlfylnfvPIPpLI9CRW8+sJeBlQsvsTtYKG791Bk2PciUwj3cMeoABSzna3NmC+r+iApuftg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4be856db-834c-499d-76b1-08df2515ba64
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6006.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 08:25:36.2616
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QZs3KJMTWwA35k1Q24VG7H9FiQg7v9cVqopPBTr2oKrlus0AKb8krT6goJfC2rkmJbcmxaYEAF7eKK698KqDxRQFfs2P+17kPbHXBzq/wfM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH3PPF4EB9556A6
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261007201828.952-1-anisa.su@samsung.com>
 
-On 10/7/2026 5:51 PM, Mark Brown wrote:
-> On Fri, 25 Sep 2026 15:59:13 +0200, Maurizio Casciano wrote:
->> ASoC: Intel: Add Yoga Book RT5677 support
->>
->> Hi,
->>
->> This series adds the Cherry Trail machine driver and machine-table entry
->> needed by the Lenovo Yoga Book YB1-X91F/L with its RT5677 codec and
->> TS3A227E headset detector.
->>
->> [...]
+On Wed, Oct 07, 2026 at 01:16:33PM -0700, Anisa Su wrote:
+> These are the first eight patches of the Dynamic Capacity Device (DCD)
+> series. They set up: DCD enumeration, CDAT handling for DC partitions,
+> the event interrupt plumbing, a preparatory refactor, and
+> documentation of the DPA partition layout. They stand alone and keep DCD
+> disabled. They are not dependent on the rest of the series.
 > 
-> Applied to
+> Patch 1 detects the 48h command set and then leaves mds->dcd_supported
+> false. The flag is only turned on by the series that adds DCD event
+> handling, so every DCD specific path added here is shut off at runtime:
+> cxl_configure_dcd() never runs, no DC partition is created, no DCD
+> interrupt is armed, and the CXL_PARTMODE_DYNAMIC_RAM paths are
+> unreachable. The intent is to land the enumeration and plumbing while
+> the extent to DAX pipeline is still under review.
 > 
->    https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+> Based on v7.3-rc6
 > 
-> Thanks!
+> v14: https://lore.kernel.org/linux-cxl/20260918203049.7273-1-anisa.su@samsung.com/T/#m0b6ade9da2d4fefa8aab3bb7db7c29516bc3f955
 > 
-> [1/2] ASoC: Intel: Add Cherry Trail RT5677 machine driver
->       https://git.kernel.org/broonie/sound/c/5a0c90cb911c
-> [2/2] ASoC: Intel: cht: Add Yoga Book RT5677 machine entry
->       https://git.kernel.org/broonie/sound/c/a0448ff85187
+[snip] 
+> Testing
+> =======
+> This series leaves mds->dcd_supported false on purpose, so
+> cxl_configure_dcd(), cxl_dev_dc_identify() and cxl_dc_check() are
+> unreachable at runtime as posted. The tests below are done with the rest
+> of the series on top, otherwise testing would not yield any meaningful
+> results.
 > 
-> All being well this means that it will be integrated into the linux-next
-> tree (usually sometime in the next 24 hours) and sent to Linus during
-> the next merge window (or sooner if it is a bug fix), however if
-> problems are discovered then the patch may be dropped or reverted.
+> HW:
+> Waiting on results from partner team.
 > 
-> You may get further e-mails resulting from automated or manual testing
-> and review of the tree, please engage with people reporting problems and
-> send followup patches addressing any issues that are reported if needed.
-> 
-> If any updates are required or you are submitting further changes they
-> should be sent as incremental updates against current git, existing
-> patches will not be replaced.
-> 
-> Please add any relevant lists and maintainers to the CCs when replying
-> to this mail.
-I'm sorry Mark, didn't find time to properly review v9. However, given
-the number of comments of mine addressed throughout the entire review of
-this board, and its existing state it LGTM:
+For the series:
 
-Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
+Tested-by: Wonjae Lee <wj28.lee@samsung.com>
+Tested-by: Junhee Park <jh9934.park@samsung.com>
+Tested-by: Heesoo Kim <habil.kim@samsung.com>
+
+Test adding 1 extent/release to ensure interrupt configuration and DSMAS are
+read properly.
+
+FMAPI Add command is issued from BMC:
+busctl call xyz.openbmc_project.MCTP_SMBus_PCIe_slot \
+  /xyz/openbmc_project/mctp xyz.openbmc_project.MCTP.Base \
+  SendReceiveMctpMessagePayload yayq \
+  9 101 \
+  8 0 72 0 0 0x53 88 0 0 0 0 0 0 \
+  0 1 84 0 0 72 0 4 0x56 72 0 0 0 0 0 0 \
+  0 0 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \
+  1 0 0 0 \
+  0 0 0 0 1 0 0 0 \
+  0 0 0 0x80 0 0 0 0 \
+  0x7a 0x1d 0x4e 0x90 0xc3 0xb2 0x4f 0x57 0x8e 0x6d 0x21 0x5f 0x9a 0xb0 0xc4 0xd3 \
+  0 0 \
+  0 0 0 0 0 0 \
+  100
+
+To add 1 extent with 2GB size, tag=7a1d4e90-c3b2-4f57-8e6d-215f9ab0c4d3 and
+shared sequence num = 0.
+The device is shareable, so adding fails without any tag or seq num.
+
+[Thu Oct  8 16:59:57 2026] cxl_core:cxl_mem_get_event_records:1875: cxl_pci 0000:0b:00.0: Reading event logs: 10
+[Thu Oct  8 16:59:57 2026] cxl_pci:__cxl_pci_mbox_send_cmd:264: cxl_pci 0000:0b:00.0: Sending command: 0x0100
+[Thu Oct  8 16:59:57 2026] cxl_pci:cxl_pci_mbox_wait_for_doorbell:75: cxl_pci 0000:0b:00.0: Doorbell wait took 0ms
+[Thu Oct  8 16:59:57 2026] cxl_core:cxl_handle_dcd_event_records:1779: cxl_pci 0000:0b:00.0: DCD event add : DPA:0x100000000 LEN:0x80000000
+[Thu Oct  8 16:59:57 2026] cxl_core:cxl_extent_dc_partition:230: cxl_pci 0000:0b:00.0: DC extent DPA [range 0x0000000100000000-0x000000017fffffff] (DCR:[range 0x0000000000000000-0x0000001fffffffff])(7a1d4e90-c3b2-4f57-8e6d-215f9ab0c4d3)
+[Thu Oct  8 16:59:57 2026] cxl_core:cxl_extent_dc_partition:230: cxl_pci 0000:0b:00.0: DC extent DPA [range 0x0000000100000000-0x000000017fffffff] (DCR:[range 0x0000000000000000-0x0000001fffffffff])(7a1d4e90-c3b2-4f57-8e6d-215f9ab0c4d3)
+[Thu Oct  8 16:59:57 2026] cxl_core:cxl_extent_dc_partition:230: cxl_pci 0000:0b:00.0: DC extent DPA [range 0x0000000100000000-0x000000017fffffff] (DCR:[range 0x0000000000000000-0x0000001fffffffff])(7a1d4e90-c3b2-4f57-8e6d-215f9ab0c4d3)
+[Thu Oct  8 16:59:57 2026] cxl_core:__cxl_dpa_to_region:3100: cxl decoder9.0: dpa:0x100000000 mapped in region:region0
+[Thu Oct  8 16:59:57 2026] cxl_core:cxl_add_extent:517: cxl decoder9.0: Add extent [range 0x0000000100000000-0x000000017fffffff] (7a1d4e90-c3b2-4f57-8e6d-215f9ab0c4d3)
+[Thu Oct  8 16:59:57 2026] cxl_core:cxlr_add_extent:444: cxl_dax_region dax_region0: Alloc new tag group
+[Thu Oct  8 16:59:57 2026] cxl_core:online_tag_group:732:  extent0.3: dc_extent HPA [range 0x0000000100000000-0x000000017fffffff] (7a1d4e90-c3b2-4f57-8e6d-215f9ab0c4d3)
+[Thu Oct  8 16:59:57 2026] cxl_core:__cxlr_notify_extent:394: cxl_dax_region dax_region0: Trying notify: type 0 tag 7a1d4e90-c3b2-4f57-8e6d-215f9ab0c4d3
+[Thu Oct  8 16:59:57 2026] cxl_core:__cxlr_notify_extent:411: cxl_dax_region dax_region0: Notify: type 0 tag 7a1d4e90-c3b2-4f57-8e6d-215f9ab0c4d3
+[Thu Oct  8 16:59:57 2026] cxl_pci:__cxl_pci_mbox_send_cmd:264: cxl_pci 0000:0b:00.0: Sending command: 0x4802
+[Thu Oct  8 16:59:57 2026] cxl_pci:cxl_pci_mbox_wait_for_doorbell:75: cxl_pci 0000:0b:00.0: Doorbell wait took 1ms
+[Thu Oct  8 16:59:57 2026] cxl_core:cxl_clear_event_record:1080: cxl_pci 0000:0b:00.0: Event log '4': Clearing 9
+[Thu Oct  8 16:59:57 2026] cxl_pci:__cxl_pci_mbox_send_cmd:264: cxl_pci 0000:0b:00.0: Sending command: 0x0101
+[Thu Oct  8 16:59:57 2026] cxl_pci:cxl_pci_mbox_wait_for_doorbell:75: cxl_pci 0000:0b:00.0: Doorbell wait took 0ms
+[Thu Oct  8 16:59:57 2026] cxl_pci:__cxl_pci_mbox_send_cmd:264: cxl_pci 0000:0b:00.0: Sending command: 0x0100
+[Thu Oct  8 16:59:57 2026] cxl_pci:cxl_pci_mbox_wait_for_doorbell:75: cxl_pci 0000:0b:00.0: Doorbell wait took 0ms
+[Thu Oct  8 17:00:07 2026] cxl_core:cxl_mem_get_event_records:1875: cxl_pci 0000:0b:00.0: Reading event logs: 10
+[Thu Oct  8 17:00:07 2026] cxl_pci:__cxl_pci_mbox_send_cmd:264: cxl_pci 0000:0b:00.0: Sending command: 0x0100
+[Thu Oct  8 17:00:07 2026] cxl_pci:cxl_pci_mbox_wait_for_doorbell:75: cxl_pci 0000:0b:00.0: Doorbell wait took 0ms
+[Thu Oct  8 17:00:07 2026] cxl_core:cxl_handle_dcd_event_records:1779: cxl_pci 0000:0b:00.0: DCD event release : DPA:0x100000000 LEN:0x80000000
+[Thu Oct  8 17:00:07 2026] cxl_core:__cxl_dpa_to_region:3100: cxl decoder9.0: dpa:0x100000000 mapped in region:region0
+[Thu Oct  8 17:00:08 2026] cxl_core:__cxlr_notify_extent:394: cxl_dax_region dax_region0: Trying notify: type 1 tag 7a1d4e90-c3b2-4f57-8e6d-215f9ab0c4d3
+[Thu Oct  8 17:00:08 2026] cxl_core:__cxlr_notify_extent:411: cxl_dax_region dax_region0: Notify: type 1 tag 7a1d4e90-c3b2-4f57-8e6d-215f9ab0c4d3
+[Thu Oct  8 17:00:08 2026] cxl_core:dc_extent_unregister:528:  extent0.3: DAX region rm extent HPA [range 0x0000000100000000-0x000000017fffffff]
+[Thu Oct  8 17:00:08 2026] cxl_core:cxled_release_extent:70: cxl decoder9.0: Remove extent [range 0x0000000100000000-0x000000017fffffff] (7a1d4e90-c3b2-4f57-8e6d-215f9ab0c4d3)
+[Thu Oct  8 17:00:08 2026] cxl_core:memdev_release_extent:1201: cxl_pci 0000:0b:00.0: Release response dpa [range 0x0000000100000000-0x000000017fffffff]
+[Thu Oct  8 17:00:08 2026] cxl_pci:__cxl_pci_mbox_send_cmd:264: cxl_pci 0000:0b:00.0: Sending command: 0x4803
+[Thu Oct  8 17:00:08 2026] cxl_pci:cxl_pci_mbox_wait_for_doorbell:75: cxl_pci 0000:0b:00.0: Doorbell wait took 0ms
+[Thu Oct  8 17:00:08 2026] cxl_core:cxl_clear_event_record:1080: cxl_pci 0000:0b:00.0: Event log '4': Clearing 11
+[Thu Oct  8 17:00:08 2026] cxl_pci:__cxl_pci_mbox_send_cmd:264: cxl_pci 0000:0b:00.0: Sending command: 0x0101
+[Thu Oct  8 17:00:08 2026] cxl_pci:cxl_pci_mbox_wait_for_doorbell:75: cxl_pci 0000:0b:00.0: Doorbell wait took 0ms
+[Thu Oct  8 17:00:08 2026] cxl_pci:__cxl_pci_mbox_send_cmd:264: cxl_pci 0000:0b:00.0: Sending command: 0x0100
+[Thu Oct  8 17:00:08 2026] cxl_pci:cxl_pci_mbox_wait_for_doorbell:75: cxl_pci 0000:0b:00.0: Doorbell wait took 0ms
+
+> cxl_test:
+> ndctl's cxl suite against cxl_test (7.3.0-rc6, CXL as modules)
+> 16 of 17 pass, cxl-features.sh skips for lack of FWCTL, and
+> cxl-dcd.sh passes.
+> 
+> QEMU:
+> Tested extent add/release and DAX device create/destroy.
+> Tested that expected errors are printed from malformed Get DC Configuration
+> payload.
+> 
+> Anisa Su (1):
+>   Documentation/cxl: Document DPA partition layout and ordering rules
+> 
+> Ira Weiny (7):
+>   cxl/mbox: Flag support for Dynamic Capacity Devices (DCD)
+>   cxl/mem: Read dynamic capacity configuration from the device
+>   cxl/cdat: Gather DSMAS data for DCD partitions
+>   cxl/events: Split event msgnum configuration from irq setup
+>   cxl/pci: Factor out interrupt policy check
+>   cxl/mem: Configure dynamic capacity interrupts
+>   cxl/core: Enforce partition order/simplify partition calls
+> 
+>  .../driver-api/cxl/linux/cxl-driver.rst       |  35 +++
+>  Documentation/driver-api/cxl/maturity-map.rst |   4 +
+>  drivers/cxl/core/cdat.c                       |  97 +++++-
+>  drivers/cxl/core/hdm.c                        |  24 +-
+>  drivers/cxl/core/mbox.c                       | 285 ++++++++++++++++++
+>  drivers/cxl/core/memdev.c                     |  94 ++++--
+>  drivers/cxl/cxl.h                             |  14 +-
+>  drivers/cxl/cxlmem.h                          |  88 +++++-
+>  drivers/cxl/mem.c                             |   2 +-
+>  drivers/cxl/pci.c                             | 176 +++++++++--
+>  include/cxl/cxl.h                             |  29 +-
+>  tools/testing/cxl/test/mem.c                  |   2 +-
+>  12 files changed, 761 insertions(+), 89 deletions(-)
+> 
+> 
+> base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
+> -- 
+> 2.43.0
+> 
