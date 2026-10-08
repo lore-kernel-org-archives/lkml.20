@@ -1,123 +1,160 @@
-Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0E393CBE79
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 06:55:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.220
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791442507; cv=none; b=GRm2GdI84r8sH7uMyG90V4lt/15gy8OwPe52BnGzJK5hlcyJAm/1ht8vniuDyXITLf5tZuvkLJuJt3BJgZyGPzeCH0gCf4qtFGgFTpqgCWRjMx3waL7Wu3c40XJ+nV+Y1d6EFNOjrowT335NhovFeeaJmwVJrzlgo9fWfmUMIg0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791442507; c=relaxed/simple;
-	bh=jICRMY7vD8zo5aVmu92ZJQedWWvFzzWowT6JET4rvVs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=tKv8THIsPwUwZKtGxF7b6OUTWK28+5G8Avj66SswJMsguqrV5eu49CvoOnxt8/uovx3lunUfQSAEEn8UnH8x3nCQFf4Jqtsw4UQQ/Kf8EYQRjisQMNYh4D/2bjYaLs+B8WeosS6qYLE9YBKO5/O/5TxoXJ/8ANv1l/v1U+j0VxE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=ucUuazig; arc=none smtp.client-ip=113.46.200.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14BAE3CF05D
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 06:55:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.180
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791442519; cv=pass; b=f6pMCWuo8aZRJ23mFnkb+d50vBFPFhHnBsHEKch6z+76vg3hyI48QJt9S/UGdWXFXhtZnQyjoQhzCfIMJfneygbt7DS3QI/8t5f3/uDU6hPz5/dXBA+1u8Wk6DtqZjmIDJI8Uj60YSwZKbdbeWwCQfZcfjyr0ABqrCOH2XOP5zY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791442519; c=relaxed/simple;
+	bh=LAU+lAaONCsbyhUKz3NVx/NrIoGX2BWhWJ83XVPrkW0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QF1KTZAPMz3m2GpT8p8X7R+n5L0dBNqlikSNGm8WDofGpXaWRSyTccx3m1dGkL/D621PWCwnCYtrFXM0p4AWVfdKkgof6+0w7LjLnhxl0t+z37hLGkNNfp/a5vkUqn4sefL81eC4MxeAeFIqm/9WxSA5mWCJ176ywNkDtQJWr20=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JfA82dpf; arc=pass smtp.client-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="ucUuazig"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=3Ele1vlbSomyiSBoUzoimnTmuiwSnUrUWA5wS4kbapQ=;
-	b=ucUuazigWRp1V1+LbQc2FgmgpLRTcMZsKgMnZIyYVef7EtpyHy9mG1fIIq0Y3wwm37+G21sd1
-	YB8i3ZPAcew4vA46UAaRmTsToMkdy7JfL8MCWraTfBqyapF5mt4bv+0UTIfp1eJEtdHt7PBCAIi
-	BdYBQCA5d+FaEJhpTSSH0iU=
-Received: from mail.maildlp.com (unknown [172.19.162.223])
-	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4j0gRX1FtWz12LHn;
-	Thu,  8 Oct 2026 14:43:04 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id B372D40577;
-	Thu,  8 Oct 2026 14:55:01 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 8 Oct
- 2026 14:55:00 +0800
-Message-ID: <476fe846-af4f-4cdd-b98b-86cc053b37c2@huawei.com>
-Date: Thu, 8 Oct 2026 14:54:59 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JfA82dpf"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc52c1b8286so188728a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 23:55:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791442517; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cWZPjNS5VJJmNHX4j9zlHO4eksDLeY6zB0lJ1eODjqTANcbJVP31QV3Nlmxo9/ruRX
+         DqmA5MliUEEkO18FJM/gCqYjCkBEaEMLClyeB2BzOAUefC31umzhoIp/KQV4ux1UiYiA
+         2JGPypgvDXmHNwH64o2f+Lx6wH3LtrdUuiUeDeWxxMBDjbjaTW19dLhlQ5JcCMZmLasn
+         E7LwufrnK35OsFlTF0mi7F7xBlHvmsjCVWQLknmitsGQ52877yrPvu1psReE1UVVVdJZ
+         f7lLyWHkF0crVMnr26tgNs+RoqU06tUO3JFrwffwIagF0MvfECeDAHsOjzgwdax1+Smn
+         2CSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=GwVHKedpjNUKuB2nBCCOQbetrG9q4vZVX+BP70vaR40=;
+        fh=A5MrFGf5RZ5AFd7U1DvQzI9Kic+MkFAIYkLVMfI88NM=;
+        b=jv9AQ9Y/dmPVfQTrHspI4KvybIPqFgd+2owZltTZT7HCJOTw4Z/21NsXItYYqsZnT/
+         sSa/8p8dJ5b/CRJnfbnlzi+GUZzLTE+Syv/qs2xs72TZUVMCx26ljtoBMR8lh9IFXEEX
+         XRE8ITU9L5zCNj/wE8Ht0mzmthSoEa2/SytQ3bgb87DnY9bMXl2darhpfcN9UbdMbYdD
+         wzhhaplKG7uFRM+Nu3oDJcKLOJUdxq+qqREJ3RyIrLFB/C6nsLxSb+b2YxnECX1tst49
+         Y5Y3SpMvz33fmkrjKjFgUXI7oEvltT/DDwRVI3ZSkGiGqC45PBLaVEIABm8ogWr3atAB
+         C7TA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791442517; x=1792047317; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GwVHKedpjNUKuB2nBCCOQbetrG9q4vZVX+BP70vaR40=;
+        b=JfA82dpfOuVdgDazmoj+VL39H28VT2HM/BiZqQZJLKkhrONqnBZQI1g2IBB/YAezCp
+         6L2ubSBVe7N+kSpJVblp3DxCS3QFHffRp7ePqiVmBSfI1V/vjwFIBlMd1qJ4l4kBQIv4
+         Opbe/QAL89fcInWCeq/8guMlRNDWPIlLPp2agXMGzHX3kkQg1o/eTc4BpI804+3EKajh
+         I1+qVcp7TiVFxpRrFeQSiHHyhMZgA7R5+Cn4dfaxcaqdNZfUzVEnizuh5hm+2RT5/bQE
+         6FHQm5V6Qstlbv1jjfx7+8ntKfjKbTlKdt4MagxOtQ1q7B+zXWjJEO8vL3ZYs4YpJ/lZ
+         Dauw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791442517; x=1792047317;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GwVHKedpjNUKuB2nBCCOQbetrG9q4vZVX+BP70vaR40=;
+        b=Bt+DnyMh9dFLcG/meNDxZqPjZN/dHq04Vr1ctdioTSe5VjTLqYgQz7fbIqW2DZAM+Q
+         iqMnNmTYXG56MxwxkyKG3N2eWgk02sQMmU41GdNu0jW6DN5bwlwWY5mH03lk+Nbbkd7W
+         fnkiOE7TWQKanJOHcPbAlgJY9kRwYBlmyLW9vRC5DmjNcB3FAb89fbLvfhTT+5kKQuC3
+         vHlaea4v/tdq9xnruJwQ5o10e9tBorNaelUZkB9gd8f5CXwtW3DkooA8NpgTDvPXSZyu
+         6mk7pjyy6FOvsaS+kjK0wYDmXYrgMk/0cLtVJyP7vzPmtpmVo4DZULug9DcUxoCtTbp5
+         dH3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBy0vaKExPeOYjt0DElQmYYMkI0AjQjOxcK0vLj2dTw1PcSGGZCafadPIYGBkZimN0n8jpkoAFG3tMPE5Z8=@vger.kernel.org
+X-Gm-Message-State: AFuF++llSp4g1ABaGuaadlg5BOoQpUiq0QebbWPUN8iCh6eZy6WfBZWf
+	XdeLrN7eXmonrLbFv2GAPZwRvBMllLbAXU/tb4iopyZg2br5BtIk4q2WCcn7z4TbPeVWVJPlFFV
+	mUVcaC9Ggiin8QOT7/FGBuIxzlZQyTLw=
+X-Gm-Gg: AYBFou1vHktqVFae33HMiBJ9PlR9l+6LlP/uSN90VbKwx2iqQDMf++JohRHGDaTSCAN
+	TPi0FJNzUQw9Axp5s8WckQf/EL1fAhrCsMSEqH+ZMdrG151Lrd558MiJ8eay04qgeViu7fNLHof
+	Y19Svktvl+vGDATQRq3s1ryuiyH7qDaBRzhpZW8NvpT6g4DTkNHy2u2UkKQFls2iScqjk1zYd/3
+	d7UWeIWO0pacIJmmFJCeLO7h5vFkjpmVM7LlvWnna+5MgHJHMou1PvwRTlScVSkrvFdn7E7cfus
+	iwsc665Tqd1U8Wae6+RUFikicJhr4V6VjDeDPaPtVDLjoDqlPI8ivdBv2WwpTGuCZ3oeoNo=
+X-Received: by 2002:a05:6a21:3e09:b0:3de:3bfb:dc65 with SMTP id
+ adf61e73a8af0-3e14c5a1255mr1132038637.34.1791442517344; Wed, 07 Oct 2026
+ 23:55:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/21] arm64: entry: Only check for stack overflow on
- exceptions from EL1
-To: Will Deacon <will@kernel.org>, <linux-arm-kernel@lists.infradead.org>
-CC: <linux-kernel@vger.kernel.org>, Arnd Bergmann <arnd@arndb.de>, Ard
- Biesheuvel <ardb@kernel.org>, Ada Couprie Diaz <ada.coupriediaz@arm.com>,
-	David Hildenbrand <david@kernel.org>, Catalin Marinas
-	<catalin.marinas@arm.com>, Vladimir Murzin <vladimir.murzin@arm.com>, Mark
- Rutland <mark.rutland@arm.com>, Mostafa Saleh <smostafa@google.com>, Lorenzo
- Stoakes <ljs@kernel.org>, Oliver Upton <oupton@kernel.org>, Linus Walleij
-	<linusw@kernel.org>, Marc Zyngier <maz@kernel.org>
-References: <20260918161407.2300-1-will@kernel.org>
- <20260918161407.2300-3-will@kernel.org>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20260918161407.2300-3-will@kernel.org>
+References: <20261005202731.153971-1-pmazzini@gmail.com> <20261005202731.153971-4-pmazzini@gmail.com>
+ <20261007211626.GA338242-robh@kernel.org>
+In-Reply-To: <20261007211626.GA338242-robh@kernel.org>
+From: Pablo Mazzini <pmazzini@gmail.com>
+Date: Thu, 8 Oct 2026 07:54:59 +0100
+X-Gm-Features: AclHuK9HNWmbYmgrwOCN8Dj1r6Aaf0O489JwabVju8_e_8zgAdvV8DQG3O2TPc8
+Message-ID: <CAAxh=jsoFDfNGEtcWvxe5VNH-knf8LZg9aVh800LF9t-7m1qbA@mail.gmail.com>
+Subject: Re: [PATCH v3 03/11] dt-bindings: pinctrl: sun4i-a10: add Allwinner B288
+To: Rob Herring <robh@kernel.org>, andre.przywara@arm.com
+Cc: Chen-Yu Tsai <wens@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Maxime Ripard <mripard@kernel.org>, 
+	Samuel Holland <samuel@sholland.org>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Content-Transfer-Encoding: quoted-printable
 
+Hi Rob,
 
+The B288 uses the same scheme as the A523, and the A733 queued for
+7.4, which the shared pinctrl-sunxi-dt helper parses, so I'd rather
+stay consistent with them.
+Andre, what do you think?
 
-在 2026/9/19 0:13, Will Deacon 写道:
-> Checking for kernel stack overflow on entry from EL0 is largely
-> pointless and gets in the way of using SPSel to switch to the overflow
-> stack. If the kernel stack overflows on entry from userspace, that
-> implies that it was unbalanced on the last exception return which means
-> we can't sensibly reason about the state of the system given that we
-> could've returned to an arbitrary virtual address in an arbitrary mode.
-> 
-> Remove the stack overflow check from the EL0 exception entry path.
-> 
-> Cc: Mark Rutland <mark.rutland@arm.com>
-> Signed-off-by: Will Deacon <will@kernel.org>
-> ---
->  arch/arm64/kernel/entry.S | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/arch/arm64/kernel/entry.S b/arch/arm64/kernel/entry.S
-> index 59f045e496ec..b5d8277f608a 100644
-> --- a/arch/arm64/kernel/entry.S
-> +++ b/arch/arm64/kernel/entry.S
-> @@ -54,6 +54,8 @@
->  	.endif
->  
->  	sub	sp, sp, #PT_REGS_SIZE
-> +
-> +	.if	\el == 1
->  	/*
->  	 * Test whether the SP has overflowed, without corrupting a GPR.
->  	 * Task and IRQ stacks are aligned so that SP & (1 << THREAD_SHIFT)
-> @@ -64,8 +66,11 @@
->  	tbnz	x0, #THREAD_SHIFT, 0f
->  	sub	x0, sp, x0			// x0'' = sp' - x0' = (sp + x0) - sp = x0
->  	sub	sp, sp, x0			// sp'' = sp' - x0 = (sp + x0) - x0 = sp
-> +	.endif
-> +
->  	b	el\el\ht\()_\regsize\()_\label
->  
-> +	.if	\el == 1
->  0:
->  	/*
->  	 * Either we've just detected an overflow, or we've taken an exception
-> @@ -96,6 +101,7 @@
->  	sub	sp, sp, x0
->  	mrs	x0, tpidrro_el0
->  	b	el\el\ht\()_\regsize\()_\label
-> +	.endif
+Thanks,
+Pablo
 
-LGTM
-Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
-
->  .org .Lventry_start\@ + 128	// Did we overflow the ventry slot?
->  	.endm
->  
-
--- 
-Best regards,
-Jinjie
-
+On Wed, Oct 7, 2026 at 10:16=E2=80=AFPM Rob Herring <robh@kernel.org> wrote=
+:
+>
+> On Mon, Oct 05, 2026 at 09:27:23PM +0100, Pablo Mazzini wrote:
+> > The B288 driver takes its mux values from the DT, so allwinner,pinmux
+> > becomes an allowed property here, required for this compatible only.
+> >
+> > Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
+> > ---
+> >  .../pinctrl/allwinner,sun4i-a10-pinctrl.yaml  | 22 +++++++++++++++++++
+> >  1 file changed, 22 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/pinctrl/allwinner,sun4i-=
+a10-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/allwinner,sun4=
+i-a10-pinctrl.yaml
+> > index 45b7a0b6c626..b1f093d218f5 100644
+> > --- a/Documentation/devicetree/bindings/pinctrl/allwinner,sun4i-a10-pin=
+ctrl.yaml
+> > +++ b/Documentation/devicetree/bindings/pinctrl/allwinner,sun4i-a10-pin=
+ctrl.yaml
+> > @@ -39,6 +39,7 @@ properties:
+> >        - allwinner,sun8i-a33-pinctrl
+> >        - allwinner,sun8i-a83t-pinctrl
+> >        - allwinner,sun8i-a83t-r-pinctrl
+> > +      - allwinner,sun8i-b288-pinctrl
+> >        - allwinner,sun8i-h3-pinctrl
+> >        - allwinner,sun8i-h3-r-pinctrl
+> >        - allwinner,sun8i-r40-pinctrl
+> > @@ -120,6 +121,15 @@ patternProperties:
+> >          $ref: /schemas/types.yaml#/definitions/uint32
+> >          enum: [10, 20, 30, 40]
+> >
+> > +      allwinner,pinmux:
+> > +        $ref: /schemas/types.yaml#/definitions/uint32-array
+> > +        description:
+> > +          Pinmux selector value, for each pin. Only used by SoCs whose
+> > +          driver takes the mux values from the DT instead of an in-dri=
+ver
+> > +          table. Almost every time this value is the same for all pins=
+, so
+> > +          any array shorter than the number of pins will repeat the la=
+st
+> > +          value, to allow just specifying a single cell, for all cells=
+.
+>
+> Perhaps new platforms should move to the common 'pinmux' property?
+>
+> Rob
