@@ -1,120 +1,82 @@
-Received: from mail.hallyn.com (mail.hallyn.com [178.63.66.53])
+Received: from sender-op-o15.zoho.eu (sender-op-o15.zoho.eu [136.143.169.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EB412E7397;
-	Thu,  8 Oct 2026 14:20:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.63.66.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791469207; cv=none; b=TjEnRrmNQD08Rio42QGxPbhv7jjWSmaWU3iIwAdPJOJgjxjHxbLqTAebfzeN9z7mcTMCrgQUa0Q5ANTzs4iKMFClm0I4x3ANzU8TSQFZxRtVa/endTd7F6g2ZtUXLBdpNLgtPl3q2hwe2spHhvYFEI22XdlwMe4idAaePEWXijU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791469207; c=relaxed/simple;
-	bh=8lZWM8B0zV5VlDIHmxlzHz/fdA0/tQ95UUPWTA8m1hw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h+vfIkRv+nGTKcE8xD4TsAktbZAHP2qXhzehh+TuLp1agWVNCT2+tlzRdIpSGZFp5WAJTHReP29oYopEbDnaIGAcBQ5oh15Fl1Zz3bgLJi9f7vOo58Jm2s06t9BjRvfBBAnfrYhVUdvNSjzcOMHAxcLLkvbSL7O/0mQxQqh7iv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hallyn.com; spf=pass smtp.mailfrom=hallyn.com; dkim=pass (2048-bit key) header.d=hallyn.com header.i=@hallyn.com header.b=kVPaDT53; arc=none smtp.client-ip=178.63.66.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hallyn.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hallyn.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A1E82EEE8C
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 14:20:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791469228; cv=pass; b=MHq7/qiiYrlGr8INTuCg3/IICHm397Aq9b0mv3jLMtLAfPMJ6xqBFXmX3n0H/u76uiIQUC0sgY0jiJhA8kfuIauRnovrzT0yqDTnJoyt/Y5ajcla+nw9g7vVLLS8Gi3lvWstpDLDA9F2HgtqID/p+WdJdB/tNOMBKbPpq5Kmbyk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791469228; c=relaxed/simple;
+	bh=7H7GHV2tpd9DQz0mx8nIagNiDC6A1GJJbocolPx7T98=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=DchKRWN1NJAQm3byQmaQMKWwaXqQ9YcjRpSlibcfuie1zlTlomFcmfW37fWrY39S56dUZmrIGg926f6xPXwYgBLTyDzm4QVp6wdyIEgyuWtR+JToZPqvAcLRMhSozOdi2gmlxWBzzZc5svrZf701RsXl+1qAYQTn8B2jPKFBkiQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv; spf=pass smtp.mailfrom=iav.lv; dkim=pass (1024-bit key) header.d=iav.lv header.i=iav@iav.lv header.b=PWfaoUeh; arc=pass smtp.client-ip=136.143.169.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hallyn.com header.i=@hallyn.com header.b="kVPaDT53"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=hallyn.com; s=mail;
-	t=1791469202; bh=8lZWM8B0zV5VlDIHmxlzHz/fdA0/tQ95UUPWTA8m1hw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=kVPaDT53ktwxUwDg6clOYeBoL76opCPs2OTL2U5/RxG+LVTqI2v3Evnus7ieHKlMU
-	 g9zb0pitb8zQftt4ZekymDdrHrsyg2HhIcKM0X4x9zfX4cVK4i8NdQfo4P5XeXGnLg
-	 AYbC9oJpeLomBNeyx1DLGdL3qw7JEgmk0UoJ7EHDn0CcOuxK0xPQKR1gN3tpypQ6jF
-	 Dz6G+9irLYtgNb1evSJ1Re3h2RG0VMTfm8Tp3D5p1XKTV3N6pzrIdE9jgygzkQYAdE
-	 k8k1JIqNXJqFpUiKGBT+hIfWbpaf/Fxbtx1FlsjansH2Aedl9u/StcGd7i6eL0D7a2
-	 ELYM6oAffQp+Q==
-Received: by mail.hallyn.com (Postfix, from userid 1001)
-	id 0CF81196B; Thu,  8 Oct 2026 09:20:01 -0500 (CDT)
-Date: Thu, 8 Oct 2026 09:20:01 -0500
-From: "Serge E. Hallyn" <serge@hallyn.com>
-To: Gregory Price <gourry@gourry.net>
-Cc: Sasha Levin <sashal@kernel.org>, linux-api@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, linux-kbuild@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, workflows@vger.kernel.org,
-	tools@kernel.org, x86@kernel.org, Thomas Gleixner <tglx@kernel.org>,
-	"Paul E . McKenney" <paulmck@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Dmitry Vyukov <dvyukov@google.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Cyril Hrubis <chrubis@suse.cz>, Kees Cook <kees@kernel.org>,
-	Jake Edge <jake@lwn.net>,
-	David Laight <david.laight.linux@gmail.com>,
-	Gabriele Paoloni <gpaoloni@redhat.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Masahiro Yamada <masahiroy@kernel.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Subject: Re: [PATCH v5 05/11] kernel/api: add API specification for sys_open
-Message-ID: <asemkQ2v0di0Eea3@hallyn.com>
-References: <20261008084956.2911790-1-sashal@kernel.org>
- <20261008084956.2911790-6-sashal@kernel.org>
- <aseRXi7hMWBBc0tB@hallyn.com>
- <aseWPV6ZRQM3JOMN@gourry-fedora-PF4VCD3F>
+	dkim=pass (1024-bit key) header.d=iav.lv header.i=iav@iav.lv header.b="PWfaoUeh"
+ARC-Seal: i=1; a=rsa-sha256; t=1791469199; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=B9eUFbUFWwy+2EylRYhJhGUtWUmB8HuyzXWW0t6BvoWrSKpDj1lgBTy/WOJoyy0dclVDPeyKiwtvUFT8Kk0kc3WbGwheHcHfcAiD6vXUktcDDPbpUM+9tOYxhesMzB7yKULBDZbKfAgNGFvzLtE0N+keg/qqnAXXvdlL5/PJhe8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1791469199; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=7H7GHV2tpd9DQz0mx8nIagNiDC6A1GJJbocolPx7T98=; 
+	b=fpfGEzomxY5Qk7S8L75uDxyhpCXzletoUou2RkZ+uAmi5yDgow/Wlne75r2uXzGrmMbaSPwguXRQo/PQGSe45/THWial4zGM4rx8SLt+YiWTiqDv83+1awd8x4SWJu6hKR35jjnZ4sWWABqWTyIFypzbq8GSOcWbu406R49Z3p4=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=iav.lv;
+	spf=pass  smtp.mailfrom=iav@iav.lv;
+	dmarc=pass header.from=<iav@iav.lv>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791469199;
+	s=zoho; d=iav.lv; i=iav@iav.lv;
+	h=Date:Date:Message-ID:From:From:To:To:Cc:Cc:Subject:Subject:In-Reply-To:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=7H7GHV2tpd9DQz0mx8nIagNiDC6A1GJJbocolPx7T98=;
+	b=PWfaoUeh8JsfEE2VS9gnSMNZgcBJuy0C8d6EJrBqI1DjFTk4lyxYG4Hk1KKAB/xz
+	IWUyL4reb45QH+TTHeV1JPQx11dbrbixSf6Hq8ca0OYuO/xab5LgIO+joINrUcVgpQI
+	Y5fIxXl9rDD0/GnvDx1P4pFcvcvlFV9/BWjiRCr4=
+Received: by smtp.zoho.eu with SMTPS id 1791469196359881.6653594573447;
+	Thu, 8 Oct 2026 16:19:56 +0200 (CEST)
+Date: Thu, 08 Oct 2026 17:19:54 +0300
+Message-ID: <a12a6d283cd8382311117c6b95bfee23.iav@iav.lv>
+From: Igor Velkov <iav@iav.lv>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, Martin Blumenstingl <martin.blumenstingl@googlemail.com>, linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, iav@iav.lv
+Subject: Re: [PATCH] irqchip/meson-gpio: Allow the GPIO interrupts to wake the system
+In-Reply-To: <70897195-0ffc-4d80-80d4-e60f87c6101e@linaro.org>
+References: <20261008-meson-gpio-wake-v1-1-b0af1598d469@iav.lv> <70897195-0ffc-4d80-80d4-e60f87c6101e@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aseWPV6ZRQM3JOMN@gourry-fedora-PF4VCD3F>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 08, 2026 at 09:13:38AM -0400, Gregory Price wrote:
-> On Thu, Oct 08, 2026 at 07:49:34AM -0500, Serge E. Hallyn wrote:
-> > On Thu, Oct 08, 2026 at 04:49:45AM -0400, Sasha Levin wrote:
-> > > Add KAPI-annotated kerneldoc for the sys_open system call in fs/open.c.
-> > > 
-> > > The specification documents parameter constraints (pathname, flags
-> > > bitmask, permission mode), 24 error conditions, locking requirements,
-> > > side effects, required capabilities, and usage examples.
-> > > 
-> > > Assisted-by: LLM
-> > > Signed-off-by: Sasha Levin <sashal@kernel.org>
-> > 
-> > I know Kees and Jonathan and others asked for exactly this.  But one
-> > downside to this is it makes just paging through fs/open.c a lot more
-> > painful.  Maybe it's worth it.  Maybe "noone will ever do that again" bc
-> > that's why we have ai and tools.  But a) that's how I've historically
-> > done a lot of code research, b) IMO something like a manpages section 2
-> > under Documentation/ would be a great place for this, and c) we can also
-> > use tools to always sync these, or even show/edit in a single view when
-> > you want  ('kdocedit fs/open.c').
-> >
-> 
-> In many, many other projects i've worked on, these docs are placed in
-> the header as opposed to the .c file, but I understand there is some
-> pain that comes with ifdef.
-> 
-> Keeping it in the header ties the definition to exactly the location
-> external users import to find the function - so it makes sense.
-> 
-> But separating the contracts from the code guarantees they'll go stale,
+On 08.10.2026 10:36, Neil Armstrong wrote:
+> The code sound valid but the this paragraph means nothing, adding or removing
+> IRQCHIP_SKIP_SET_WAKE should not change the fact PCF8563 would wake up the ODROID-HC4
+> since the BL301 firmware hardcodes which gpio can wakeup.
 
-OTOH these descriptions are so long that IMO they are guaranteed to go
-stale anyway :)  While I'm editing a return value at the bottom of the
-fn, most or all of the description is already going to be off my
-terminal.
+The test was suspend-to-idle, not mem. The SoC never enters the firmware
+suspend there, so BL301 does not pick the wakeup source: the CPUs sit in
+cpuidle and any interrupt left enabled in the GIC brings them out.
 
-> so I don't think shoving it in Documentation/ does anyone any good.
+Whether that wakes the *system* is decided by genirq. suspend_device_irqs()
+keeps an interrupt enabled only when irqd_is_wakeup_set(), and that is what
+enable_irq_wake() sets. Without the flag enable_irq_wake() fails with
+-ENXIO, the interrupt is suspended, and when it fires the flow handler
+masks it (irq_can_handle_actions(): irqd_irq_disabled -> IRQS_PENDING,
+mask_irq()). The alarm fires once, nothing calls pm_system_irq_wakeup(),
+s2idle carries on and the board stays asleep until a power cycle. With the
+flag the interrupt is armed, pm_system_irq_wakeup() ends s2idle, and
+/sys/power/pm_wakeup_irq shows the alarm. That is the 4/4 against 0/1.
 
-If every build auto-generates an update and then looks for and flags
-meaningful changes (API breakages), then a) that is more reliable and b)
-it doesn't matter where the docs are.
+> I guess this flag simply removes an error when setting the gpio as wakeup source
+> which means nothing in this platform anyway. So please rephrase.
 
-Even if there's just a three line comment above a fn, history proves
-that it will not reliably stay in sync as the fn changes.  An automation
-step/check is needed.
+For mem you are right: the firmware chooses the wakeup sources and this
+flag changes nothing there. v2 will say s2idle explicitly and describe the
+mechanism above.
 
-> ~Gregory
+Igor
