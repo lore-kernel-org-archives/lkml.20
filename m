@@ -1,67 +1,62 @@
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+Received: from sonic305-21.consmr.mail.ne1.yahoo.com (sonic305-21.consmr.mail.ne1.yahoo.com [66.163.185.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7120D4B829F
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 15:16:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4250035C185
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 15:18:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.185.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791472613; cv=none; b=tGORGrnhSo085jGZUaYuk8cEvgcWsxjIbCY1Ia3C3/27+8sXsBPMCsMwrqGSAhIqNZDq8+wXvbv+0gCN7yKryUulXFMsANA8IqQuOIfOqQ2PIJ8Ic/STWq3XHupdmSZCpfGmrVdhCxkEsstiwpJGvZ6gPmCxZO1RexNSS7SnW7U=
+	t=1791472686; cv=none; b=LFh/uIZBb0YCgJ3Vdl1pe9Uy4JZZ3tXc2DDodL5pWj5mj6EkF1h4ThmGYutSqrWNdMKFOMyj1K/2uHD3kc8LzqmUM97xQ0ZUkMOZqCSWE/dbug1b15jDowy9xRBSWmT87z/5nx9mjhq5IXoxUUs5pBbSwo9pHl/XDa7T/oM0dC0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791472613; c=relaxed/simple;
-	bh=ZTBqoYhGDm+J/pFaw0Ch+MdV1zAK5Ys8DujDZL9Y4RY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZP0gst2KeSh+Q2TwIsz6OKvHDBRGhmZmd+0xaHW3Y3exmXr24lydggF2VrvAIvP96+PqadLTFoXAymuqkPHlwoLOkeX9+aHtAetwx4yj2SVJ4nK0r4fC+mfPM1Q9zjjlm1C6UWwiY+J5tYJk1pyLjHpD92NE+jNYMvGBA/ckfSE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ipot0wNf; arc=none smtp.client-ip=209.85.218.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791472686; c=relaxed/simple;
+	bh=f/wiRAdiJOaNh64TOWWc4NkVf6u4Pk76gXMZr1RLqs0=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=lyfMHntlJ4tjKcK16CxMEpn4HbCOoYHRlAZfSg3NbL/SLHHgY/9CWRxMp1divpBPcbPU3tWxnZ+pQDK3GLDiwox+L8cfdJhxTpioPCI9D4b2PYvh+m13uIxzpLVreWhAUzXw7tWno9G/JndHEnTyZXEZQE/KawbKOyNnQ3435gU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=qLmdOKwi; arc=none smtp.client-ip=66.163.185.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ipot0wNf"
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c2e36c3478aso793744966b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 08:16:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791472607; x=1792077407; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=l6I4Ey1RdgYWJmoD601d9WiKcqtmCdqt9tXemaY6tL0=;
-        b=ipot0wNf3Qv6pjAOTaGMAyNNVONQFoAhpm71v1k/rcIJ0Oqn+6gY0w2plpdjWjBdEW
-         bqe+QNDBPPgKjS2Yid4mdrLpVmx2JufklxPaKisdRl/8BtWxf4VYZP+ojxhlLMLRWkHM
-         CKDlzG0T09TW/tjpPz1gyYcis8Sl1PsH1VuQj5wK7b9Bpp3KI+q+sQsd3vsMVZ/lo2El
-         jRDlTop7xKMXGg+XHpquOYoJjhTRZBImdF5qHeumbAYSP0rIB0QCXOH9Cilh+MHtSrGS
-         bdtOPUUdL8MERSNMoMUcCStrNnAXwGPMj2hc1VTNk1U8nwbG/psoJH0ZVaRdA68duTiD
-         6Kuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791472607; x=1792077407;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=l6I4Ey1RdgYWJmoD601d9WiKcqtmCdqt9tXemaY6tL0=;
-        b=XyBWpt8f43Q9nzBaRzqtCp2nblE5juXvd2ihV9nwoS9xNCdS/8sUnrlLegNhVcGrE/
-         QEo9zfKNl5GVSO9qVJwI2bhEfsehPbPLYXdy0nml1EpwL5jwPD/3AOJjbefa8PvE6Uph
-         V5wkJUjL4djjll8IsqpmmzDmNIVLFcbgKC/yEEUBbJcZbVAtN6vVf0GkSk1mQ16u/SvW
-         /hnt96ECDBBTgSGok1xIZnbbOtFrGb7kF04bVt8AW3NDAN4NdRYfSF8ySP/wUfHriNol
-         430f2W2Co2ITkj0+DT5iRIw0U/o72umVqe3YgfA09uxL/WneUGUTJls1GmB0V8+Ni6//
-         rNWA==
-X-Forwarded-Encrypted: i=1; AKwUvBxJitguHNlAaq5i11Ic720mpYhTXLJaRDyjjoECSo1RI6ZC4fMoSLSRRJm/KUIsqrSZsbnX04QRbCDdbZo=@vger.kernel.org
-X-Gm-Message-State: AFuF++lw+fb6RkMXFsXDpH/A7Q7uxnp9cKXPpMREe9xOYWv6nFW4kim1
-	kfAIkx9dIrnmOiFhbkuqo5Y5IBHzwaAm/T97diQpnY67nXF0/CalQP92caRE/q5jPSg=
-X-Gm-Gg: AYBFou0aNaPxbTCIoMMtg32qOYfK3vDQwq7K5+JdcVKA2Hycxk/7RXphySYxAnfcuvK
-	8MnBuuZZB7M7tmjP6Li8rtGm7PQAcmo1jw/JGmTMxykLeU9JHOsjJ8IChDBRsUusPyuQtoKkOmp
-	nS/NgdFP+LAaAIBjEr+q21uKYWQGXUiMhl1p0SzSUlufLyC0GWpFsKloLftwd3nWPgZrVFocB8S
-	NxP7UrTvIr8vunmJ9msdLjPy+skpA2shTDT5zk8GYL/JWn6FHeCmt7UjOj9fPWO2fRWuNpJmEBm
-	xNL2hTsOTg6PFJ+zCrsFEff5pRXxQ/9VxAJ7BqBGLH4pu5P76SCLgCb3sZQLKdr4AI2ljCRomck
-	u/2a8y4W6yW2cHWQ7zhqsPhjlUsJpYd0+wIUDSOjdlag1Uin5MZTNsKfy4TEQ30BzpgR0Gpd7n4
-	tnSObfWk3S3jPecliT8vcvEmZimie5N67icfaPNBMkyoZLXUOHAcjfLGS7J4LAOoi+lxhBGCFCR
-	vfmWUnIZwta
-X-Received: by 2002:a17:907:3ea6:b0:c26:19e3:e982 with SMTP id a640c23a62f3a-c317c0bb076mr560631666b.34.1791472607404;
-        Thu, 08 Oct 2026 08:16:47 -0700 (PDT)
-Received: from [192.168.0.167] ([109.77.203.235])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a1012ab2sm10963766b.85.2026.10.08.08.16.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Oct 2026 08:16:46 -0700 (PDT)
-Message-ID: <a0a9a782-8ab4-4f32-97fd-f030203fbc49@linaro.org>
-Date: Thu, 8 Oct 2026 16:16:45 +0100
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="qLmdOKwi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791472682; bh=bqZ02vFEPGDtgaJ/nkEruzf5gv5S3ccF0CTYZo/fxJM=; h=Date:Subject:From:To:Cc:References:In-Reply-To:From:Subject:Reply-To; b=qLmdOKwihmMW5FOs3g+50nbwDor93rc0Wp24ZNngEAA2Xvd+zzE2sg9didb8Wc0TYSia0Hhfi6oxnxsLZgOq5SvAdTGZEsaCz8EM9zjv7Xohcw6p76WW1abalUp8npaQPb+ar+PKDYaea/rkcYEeR+b6BGUDLjn7iFCAD/S4qW813RSZaIAyBmBRT+2An6xj5XC49mX+fMgAN6NCUL2VW3HnetrByhLw9hef541P6g1/MkQtb6/C2FrkEEalY7Z0NGoEuClytqExlwxq7tefo2/QZf2eQojTfTzCTt10J004TgOw/CM/WKOwlOBybJFyw7xx5tiTNFMmj+K3QA3+PA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791472682; bh=ZMeLPHxNiMkkCM3qlqhGJsPHHi9x/5UWDzNBnlGSW9c=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=emknF0/CWUiO8ruKdpH8xVPWFSI1X+LCVlAT2e0598k2xwh7LiJSVbGFDBTAw2BwZ1W+/QWMf9xHkhXMQsV3xcd7l1vvN/4ukvLu0lw9ICSJkCNCtMPCQK8iN6KvYT/yl3RiIxyS1uluDIT1nkWZ2ORV8+e7qV6eOYGaflmpfWQJEZFx5tfYfrXLNHdu01JT8KmHO7//B6WDhTfacw2pNvD2ljG8qasF+9IkK4Atefw51dh4T8++JHKIIuxIOgTDKIwVzg2oiyOAf3TT9nS90BJ/gyKkle+TkAFzCEFGzQFo9As58IgZC1zhxnQgaW72Olc7SCVfBH3F+MFPwyzgTw==
+X-YMail-OSG: pyFDNkYVM1nbBy8cB0UE0Jp.tZbnUBMtz2L_Q9J1n2RzNawXAJalTEW35EDGO7H
+ cVvOrJEbey2szNAqdAdF_SZLc6mIVL6jrrwjKRS6q1Wxzd4kyf_tFyO6kecMxmMh0FZUN9TSZ1xq
+ mRwT52k0naF0fN8cze7aB_0zCSOqelmyklZwqhEnfoOFHAFwVymmhtg3l5gyGgMyTjtp2RmmuEyZ
+ oMqgevpjX57toShAdXv3nXbixdQzjXextO9pC0ARLqdNUpmYqkE6v2JhVxzLaCFc8jfTuhlPnhEr
+ mcxjXhOyVEAaFt5InkZ3bj7p7ipxwykbBiMeWamqly2D6OCbXj4M8x5_QOzcmGhlji0DBAM_ucJy
+ QwbGo8gkNR6lmd64e2V6QHicR4Bntz_w2uuooIrhai5ls3VVP1typvgxjbJcNRVg_sjdVIF4W6lX
+ _o5em9252miyLkVPOocVE.87PcglddRIGWQ8xbkfDLf4lIMcKhPqs_WF5TyVTtJTVvE1ieu4iQ0T
+ Q9aY_2d6KKNqlFQ1RoOVtF6l2UnM7OaQwdYEIObxzp_e2W348LWoVDuUFQlsg0YFSXWP6PYS_W3r
+ d6rawFR0go_BPQB_dBrQonEmUJszXOD2MTRZ6ERykYfkMGBwErydyDrtmheHppFsT4qcEMA0uPbR
+ UOJ0EP5I7YUwkHEbTtxwwIld_hsseG9A2h5g7BDa9YuZjMq1zNbn2UoopPkNEq2fEaqtUg7takt_
+ Pr1MjrIDC38qDMPuAG8ilMvQezvo4.OBCsTHD7cbs_jsxGRjbA9qPRqo8gLPM6qf1dQbtbWRx42t
+ t9_u_jiDT1PAgbTLGiR2GcmUt7rkyIpT.lGK3vaqiK44HRjWvMQ8SHT4kIljhD.XPTcpZgld5Lld
+ 8O7DzerSRGz6LViu40tnVRVUnDnIFEskJI4Fmbju0lKQMmwwCXguKEb8znRQRmU3ozcnpbDLbfFt
+ Q2gYme871VkoOVHo7cYEzQhu_TcJvZJaX1HYaC_lv0W.EeMpIZPftvr_qWyTZnUlHDbYlTt8BoQJ
+ BPxaFqGM_psfV82QXVyyMWVc4Sl6HfVBcmlKl_gmzQ0y5d_15VcHwSzaFLXiC39HXNguy_YkxQ5e
+ 1iAWISFc6WNbsJhMyWF0R..Q7pDb2AOc_hR907fVLXX96cTQqJ.MjDgh6MUDmp1QQNTCViRYk6JA
+ 9fcW4Q3uIWwsgyUKiLs9In8E1BniASu92MXvsJ9s5FdUfcJSC4JjgVd7p.gxv7_zUiS_c6PLeD6h
+ xr2dmYmSgpjf3Lz0KNGIVCcVb0UGrRvOPOYbqlbZc4A53wnqyM4h.C.Pcr9ZwYkZMuDFxIbQuiV3
+ 1_EsXuXZgdPc.VGma0UAB4vakMN1aaPgyYtO8F_L7GTFxV3Dasme3dbvYmJDRLEWi2LyVhuIm5kK
+ Z.3W9807Pj6Q8gUp0S38Kqf.ksE3kO6ohlPkb05vjaLlHEZ5L_XUXV.aYKqDgh9.NOyqTi10ZucX
+ mL4Nv54my1ZV7Wf3XSna9qExGLHi9s3IQk6TVf2Dv02rUJy2cUzukpeEuViVArwqeu8aOLvPZzcO
+ 3loYmWGcU2SIkdyXqoiutiIgvmiTZQ2huBVHoIKGwN21yd..Dxl3IAqYMJO.P8nzbVq_n7NNPRO6
+ V.i5qrn0KriQSQh5a2LcYOjPC100YwoFSWG74rwMkfpzsZ_dvBSiIjTrkBj2KTYgsLmgGJ0lgw7w
+ HRd7QZsHii3rnw7Ypr6sXaMYJD5pcAxYMvAcKlFOj0auxLWmem28THoa2Nb8F_Rzq_P76JlnIFGL
+ ZlMjlPmfBhIrF2QBNK4XU3a9wuajUSpAmv5krXZQhAVMULK6ZD_b9_5Zoj8MZoLafYzc54TRlZoN
+ 4U4MEH57Xnlo5NNBR1ZzHedU1lhSuXN2_YtVHNDIiZMKInW.eC.tGQJx6N4a0RzMybGz5wK5DONc
+ IN6Eao8o2h.IknNdjJHjQDjFWRoO1gJHM8zPpnqBdyRw_R5xVIVFOwcQmGdvIGQmE_CvNZZUt7kA
+ _m8PATA3pYDBiG2WdEPI9NOeA82MxorAnfB2cRKJ3tqKjC_r1U8ZPRi9vYuXei713DqKQ7nZcIX1
+ 4huZBSj9FTl5i77ywsFRpMHVZpObkuqXf_kksEGyxVBBjHzPqeeH3B3_ZVNFGTxLygvqI1cZs5wC
+ QJ7nKpNBCOfBe5cXJifYBHM.3vBfsPdXJCTO4LZplBUnn3XXb31dssxyUjJsKY9fimMYm3hRIEy1
+ tAy381THakKg0otHlKmmeLY4Xikma_burKdeKcIEauADnMpDjYeCSg9V31LMiT2.LQYWVQu2qQGl
+ _R6gixpG9jhR6SEwpOT8Ton7pfyGYFerIXvqXfza2qoI-
+X-Sonic-MF: <namiltd@yahoo.com>
+X-Sonic-ID: b12aa3a1-130d-46d2-bc72-b7633dcb8303
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic305.consmr.mail.ne1.yahoo.com with HTTP; Thu, 8 Oct 2026 15:18:02 +0000
+Received: by hermes--production-ir2-5dd9bf4598-c2rmk (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 46a763abb20b372b1e2d53c07276f718;
+          Thu, 08 Oct 2026 15:07:44 +0000 (UTC)
+Message-ID: <058a5e14-76ea-4c88-bc52-f37e3e502a92@yahoo.com>
+Date: Thu, 8 Oct 2026 17:07:41 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,98 +64,56 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 25/74] media: qcom: camss: vfe: Define output based VFE
- controls
-To: "Gjorgji Rosikopulos (Consultant)"
- <gjorgji.rosikopulos@oss.qualcomm.com>, Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>,
- Richard Acayan <mailingradian@gmail.com>, Hans Verkuil
- <hverkuil@kernel.org>, Gjorgji Rosikopulos <quic_grosikop@quicinc.com>,
- Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, Robert Foss
- <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+Subject: Re: [PATCH net-next 4/8] net: dsa: realtek: rtl8365mb: set RGMII mode
+ for family D
+From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: linusw@kernel.org, alsi@bang-olufsen.dk, olteanv@gmail.com,
+ kuba@kernel.org, davem@davemloft.net, edumazet@google.com,
+ pabeni@redhat.com, linux@armlinux.org.uk, luizluca@gmail.com,
+ maxime.chevallier@bootlin.com, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org
-References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
- <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-25-ed985aefd611@kernel.org>
- <307f12f9-8805-4b3c-92d7-422d994fdeff@oss.qualcomm.com>
- <0d1c5d19-68f8-4d44-9efd-f7d1aeaa7b32@linaro.org>
- <5e19888d-d037-41e8-a3ca-f92d9991f3d5@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <5e19888d-d037-41e8-a3ca-f92d9991f3d5@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <84fc7483-b22d-45ea-a3b8-3285dc357265@yahoo.com>
+ <dd78e00b-c161-4915-a917-3b5694139621@yahoo.com>
+ <eec36c89-b6fd-405d-a951-aec0677b149d@lunn.ch>
+ <fdddb05d-f733-4b28-9442-11adf7223cdf@yahoo.com>
+Content-Language: pl
+In-Reply-To: <fdddb05d-f733-4b28-9442-11adf7223cdf@yahoo.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailer: WebService/1.1.26668 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
-On 08/10/2026 12:35, Gjorgji Rosikopulos (Consultant) wrote:
-> Hi Bryan,
+On 10/8/2026 4:09 PM, Mieczyslaw Nalewaj wrote:
+> On 10/8/2026 3:22 AM, Andrew Lunn wrote:
+>>> +#define RTL8365MB_D_REG_EXT_TXC_DLY				0x13f9
+>>> +#define   RTL8365MB_D_EXT1_RGMII_TX_DLY_MASK			GENMASK(5, 3)
+>>
+>> The current code looks at tx-internal-delay-ps and
+>> rx-internal-delay-ps and programs some other registers. It is not
+>> clear to me that the code you are adding here is correct when combined
+>> with the current code. Please could you look at the delay
+>> configuration.
+>>
+>>     Andrew
 > 
-> On 10/8/2026 2:17 PM, Bryan O'Donoghue wrote:
->> On 08/10/2026 06:55, Gjorgji Rosikopulos (Consultant) wrote:
->>>> +
->>>> +	/* Output based API - new and shiny */
->>>> +	void (*vfe_output_start)(struct vfe_device *vfe, struct vfe_output *output);
->>>> +	void (*vfe_output_stop)(struct vfe_device *vfe, struct vfe_output *output);
->>>> +	void (*vfe_output_buf_done)(struct vfe_device *vfe, struct vfe_output *output);
->>>> +	void (*vfe_output_update)(struct vfe_device *vfe, struct vfe_output *output,
->>>> +				  struct camss_buffer *buf);
->>>> +
->>> This also deserves good commit message, this is exact copy of the other RDI API with other arguments 🙂 Shall we migrate
->>> all existing drivers to this api in respect to use other deprecated API but having both of them leave in vfe file which
->>> creates even more confusion and readability of the code?
->> Ah but that's the point.
->>
->> You add in a parallel API which is 1:1 but which can be extended to
->> describe completion groups not WM indexes.
->>
->> WM indexes have always been wrong - limited to RDI and we have all sorts
->> of spaghetti code to work around that indexing mismatch.
->>
->> The fix is to stop doing that so yes, implement output / bus-client /
->> completion group - with wm and planes described in the output layer and
->> then move everything to that new interface.
->>
->> Including new submissions. The only real barrier is finding old
->> hardware, making the changes and ensuring nothing breaks.
->>
->> Since there's no DT dependency its "just software" - easy.
-> You are maintainer and responsible of the code. But i also want to make the point
-> again (which i think others may share) that having one vfe core code which is trying to support
-> different architectures of the ISP's which are quite different is not correct, it is match easier
-> to have different implementations based on ISP generation (different sub-device) and abstract some
-> handlers which are shared. As of today camss vfe have mixed interfaces try to match multiple
-> generations in one implementation. So that said i will not be convinced that the direction
-> which camss is moving is good. However we need to live with it and add support as you are
-> proposing, so all is good lets wait those changes to be cleanup and we will start re-basing.
+> 0x13f9 is EXT_TXC_DLY in the vendor code. It holds 3-bit TX delay
+> fields per external interface, separately for RGMII ([2:0] EXT0,
+> [5:3] EXT1, [8:6] EXT2) and for GMII ([11:9] EXT0, [14:12] EXT1).
+> The vendor RGMII setup path for EXT1 clears the RGMII field [5:3], so
+> this is an extra TX clock delay next to the TXDELAY bit in RGMXF, and
+> the GMII fields are not touched. Clearing it makes tx-internal-delay-ps
+> the only source of TX delay instead of whatever the bootloader left
+> behind. I'll say so in the commit message and a comment in v2.
+> 
+> Regards,
+> 
+> Mieczyslaw
 
-Well for me its about sustainability and paying down technical debt.
+Hi Andrew,
 
-RDI as WM indexes is just wrong and I firmly subscribe to Joel Spolsky's 
-edict "fix bugs before writing new code".
+Correction to my previous mail: the bootloader is not involved. The
+init jam table writes 0x0090 to 0x13f9, leaving the EXT1 RGMII TX delay
+field [5:3] at 2, so without the clear it would stay on top of
+tx-internal-delay-ps. I'll say so in the commit message in v2.
 
-https://www.joelonsoftware.com/2000/08/09/the-joel-test-12-steps-to-better-code/
-
-The WM/RDI indexing is absolutely a bug - a design bug - that's just 
-been a 'baked in' thing that's been repeated over and over again it 
-hasn't mattered while we've been RDI only but, that won't do now.
-
-Its also why I've been so dogmatic about insisting on drivers/phy to 
-represent the PHY - its a PHY, so make it a PHY; anything else is a 
-design bug.
-
-So from that principle the logical result is fix the representations - 
-not implement something else in parallel - we should be able to resue 
-existing proven code as much as possible - it also keeps us more honest 
-WRT to maintaining the user-space contract re: interface stability.
-
-€0.02
-
-To your point about different versions of the VFE that may be true but 
-at least for the bit in front of me right now I don't see the need for 
-different version of the VFE core.
-
----
-bod
+Thanks,
