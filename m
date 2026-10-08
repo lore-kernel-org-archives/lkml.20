@@ -1,224 +1,192 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 670673D25AF;
-	Thu,  8 Oct 2026 10:14:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D4383B14D7;
+	Thu,  8 Oct 2026 10:14:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791454450; cv=none; b=CrufAta7TnYotG5nibjx4cPbPWH3/X9j35ELm6cj28SOMkIFb6BUoKFQzAR+nOdMwIGfU+0F1PwM01rEP7hwvyIfWoy239C/P7ZbmI/pxUDIAUrqL6pY6tRhvlhDwdb3lCXZgsvRipRN8jx8HM7pAOlSPkkFmXe/MXc/atxGUik=
+	t=1791454492; cv=none; b=QCMtTeMALzYJbxgEiVykB6LYgHRSmWcmEHa61JOURzOwjScd4/Qy4wPc5E088Pgbu1i7JTz72zGWIKCfjhVP5MpY5ErYO5C0phQQgE1WMbJuqsuqEebBJzvtJBqrWjvo61CTctsa4MfXbFTnNBIkcx4KVJ3emEwKUv6FU0e+cOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791454450; c=relaxed/simple;
-	bh=CccT5TB+pQ4zubx3i/KhMe1hKRb8P8ETiVDiouPaM6Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pqfWQxfKKpgNtSOYdsrmg4KnN30PJxouBQFRPMl2JUTx76gr+er5ZmmyrxL11ASDSgdMorQJ5em4sh02t/4XBLgGVyUsQK5eOu/JTQCgf2uwh1QHWgLbQWb31OJdmg/N90/jnWA5DCloMUeei8ZJdimlg2eyAmSMDdiukB2lNYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gRMVtVVI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791454492; c=relaxed/simple;
+	bh=mb+knxQeWrLQpgSQvPFgzD84aJw7bFwp6tZ2hcWcGGo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Nip8d9qAeHZLgryh9VHi+dtIruoBrdXTWKelJD1wSy96G20fPgX1rP/yuz17XOFcfPJsF5afSBLjqV2GqyTblOb3ZNnQjSvAIVM9WCuRAhXBR4oJbPDl9Y87trKEq63EKm5JROW7HgvBLZJAEbLpzW8nr12E2nkcbAuSacoxzMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=DmDHRn5C; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gRMVtVVI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FF0E1F000FF;
-	Thu,  8 Oct 2026 10:14:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791454449;
-	bh=H/RXgr/8jtdvQ/043uKgHLi3KX8oQAHjKho/r5JmOlo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gRMVtVVIeEW5wX3XMpuJp+VdWS3JxmStErKhKOwhHzfqtKtZX2nZ9G0ZezwZB5Bmk
-	 ARlD558EBEFDS9qrbAHLzdBlaR7IDfeXLEZGVoc0JTu1B9U0o2Jalx9f9QMu8kQ8yi
-	 PPPXSbyXzSVVrceuO+LySV3bpr4TiMfyEuWpu/1GRE009j9Wvv211IMd+QrZUw0z0L
-	 9NWM9umRfnw/RO0INIm1CRNlt+U+n7I/wzRO6G81rMGDm5W6QElKIfqBWWKi5sPPdN
-	 UFbVWIeryLEkPH2YgqKkGyT8rReWFQqZ1QS8ZzVNPRMny4ACyKUe8I+Oy+giF+C6Zc
-	 ccPnxIl7e5VZg==
-Date: Thu, 8 Oct 2026 11:14:03 +0100
-From: Conor Dooley <conor@kernel.org>
-To: radu.sabau@analog.com
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Alexandru Ardelean <alexandru.ardelean@analog.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/6] dt-bindings: iio: imu: Add bindings for ADI
- ADIS16607
-Message-ID: <20261008-fba3b6449e19245b845ab442@squawk>
-References: <20261008-adis16607-v2-0-7c94df80878a@analog.com>
- <20261008-adis16607-v2-2-7c94df80878a@analog.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="DmDHRn5C"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 32D551A1196;
+	Thu,  8 Oct 2026 10:14:42 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id EFE5B60341;
+	Thu,  8 Oct 2026 10:14:41 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3C50410333874;
+	Thu,  8 Oct 2026 12:14:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791454480; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=mdRZrJtN9FgdZCPO3nME/34pN1D6OmSnqjEe0tYXdVE=;
+	b=DmDHRn5CPrt/BbOThmCBjnAmlKyqU3XDz6zCOs0/WG5jeiwuZRNwtdARLhor8mGpKXY/xy
+	UUdQUvpw8i8nR+GfitrKZkypI3S1FlaPf9x9cijrs89n7nfMQLLTchQA25kw/uxI2aenOp
+	8Mafjhf8QH0ka1ZPYz/sS6lsGUge9/VF8dpF3CV1Qj+HnrbWdTkRzpzyBJD0WFvv/IBO18
+	dJuFjfmteEw2F1O59bnMnh/gBUQ0BRwX/1wcYV9lKujGo8WbUv/rxruhLC3ay5kmzcWqu4
+	eu06kzZl+6x4o4N10U896lHWeQ3wgdtyI0xNs2SPDB3iNmAFh1PEYXYG7LGRtg==
+Message-ID: <bea80b7e-3d44-4662-b3b2-e97a7f903aa9@bootlin.com>
+Date: Thu, 8 Oct 2026 12:14:31 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="JT0wtQh0oKH8tN3L"
-Content-Disposition: inline
-In-Reply-To: <20261008-adis16607-v2-2-7c94df80878a@analog.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v2] net: stmmac: dwxgmac2: enable L2 split header
+ support
+To: Sagar Cheluvegowda <sagar.cheluvegowda@oss.qualcomm.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: netdev@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
+ Hongmei Xu <hongmei.xu@oss.qualcomm.com>,
+ Abhishek Chauhan <abhishek.chauhan@oss.qualcomm.com>,
+ Sarosh Hasan <sarosh.hasan@oss.qualcomm.com>
+References: <20261007183905.2582759-1-sagar.cheluvegowda@oss.qualcomm.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20261007183905.2582759-1-sagar.cheluvegowda@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
---JT0wtQh0oKH8tN3L
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi,
 
-On Thu, Oct 08, 2026 at 11:31:54AM +0300, Radu Sabau via B4 Relay wrote:
-> From: Radu Sabau <radu.sabau@analog.com>
->=20
-> Add device tree bindings for the Analog Devices ADIS16607 Precision
-> MEMS Inertial Measurement Unit. The ADIS16607 integrates a triaxial
-> gyroscope, triaxial accelerometer, and temperature sensor, and
-> communicates over SPI Half-Duplex.
->=20
-> Two compatible variants are supported: adis16607-2 and adis16607-3.
->=20
-> The binding exposes optional properties for:
->   - An external clock for sync mode (falling back to the internal 8 kHz
->     clock when absent)
->   - A hardware reset GPIO (active low)
->   - FIFO mode for buffered data acquisition with a configurable watermark
->=20
-> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
+On 10/7/26 20:39, Sagar Cheluvegowda wrote:
+> XGMAC2 doesn't program the MAC extended configuration registers
+> needed for L2 header splitting when split-header mode is enabled,
+> so tagged AV packets can't use the split-header path. Configure
+> split mode (SPLM) and header saving (SAVE_EN) in XGMAC_EXT_CFG1,
+> extending the dwmac4 sequence added by commit d10f1a4e44c3 ("net:
+> stmmac: Programming sequence for VLAN packets with split header")
+> to XGMAC2.
+> 
+> Also fix the RX header-length calculation for split-header
+> descriptors. Per the XGMAC2 descriptor format, RDES3's L34T and
+> L2T fields are only valid on the last descriptor (LD set); on a
+> non-last descriptor they can hold stale write-back data from a
+> previous packet. Read the header length from RDES2[9:0] directly
+> for non-last descriptors, and only consult L34T/L2T on the last
+> descriptor: RDES2[9:0] for IP packets (L34T set) and RDES2[9:2]
+> for non-IP packets (L2T set).
+> 
+> Finally, disable the variable-length preamble when L2 splitting
+> is enabled. A variable-length preamble shifts the position of the
+> Ethernet header, making the L2 split offset non-deterministic.
+> 
+> Co-developed-by: Abhishek Chauhan <abhishek.chauhan@oss.qualcomm.com>
+> Signed-off-by: Abhishek Chauhan <abhishek.chauhan@oss.qualcomm.com>
+> Co-developed-by: Sarosh Hasan <sarosh.hasan@oss.qualcomm.com>
+> Signed-off-by: Sarosh Hasan <sarosh.hasan@oss.qualcomm.com>
+> Signed-off-by: Sagar Cheluvegowda <sagar.cheluvegowda@oss.qualcomm.com>
 > ---
->  .../devicetree/bindings/iio/imu/adi,adis16607.yaml | 83 ++++++++++++++++=
-++++++
->  MAINTAINERS                                        |  7 ++
->  2 files changed, 90 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/iio/imu/adi,adis16607.yaml=
- b/Documentation/devicetree/bindings/iio/imu/adi,adis16607.yaml
-> new file mode 100644
-> index 000000000000..b08809e2f327
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/imu/adi,adis16607.yaml
-> @@ -0,0 +1,83 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/imu/adi,adis16607.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Analog Devices ADIS16607 IMU
-> +
-> +maintainers:
-> +  - Radu Sabau <radu.sabau@analog.com>
-> +
-> +description: |
-> +  Analog Devices ADIS16607 Precision MEMS Inertial Measurement Unit (IMU)
-> +  with a triaxial gyroscope, triaxial accelerometer, and temperature sen=
-sor.
-> +  Uses SPI Half-Duplex communication protocol.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - adi,adis16607-2
-> +      - adi,adis16607-3
+> v2:
+>   - Add XGMAC_CONFIG1_SPLM_MASK and use it in XGMAC_CONFIG1_SPLM()
+> v1: https://lore.kernel.org/netdev/20260922232116.889630-1-sagar.cheluvegowda@oss.qualcomm.com/
+> 
+>  drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h       |  8 ++++++++
+>  drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c | 12 +++++++++++-
+>  drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c   | 10 ++++++++++
+>  3 files changed, 29 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> index f8ab347f7b5b..fb29dd489714 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> @@ -167,6 +167,12 @@
+>  #define XGMAC_HW_FEATURE4		0x0000012c
+>  #define XGMAC_HWFEAT_EASP		BIT(4)
+>  #define XGMAC_HWFEAT_PCSEL		GENMASK(1, 0)
+> +#define XGMAC_EXT_CFG0			0x140
 
-Commit message says they're compatible, binding says they're not!
+Let's keep it coherent and use 0x00000140
 
+> +#define XGMAC_EXT_CFG0_VPRE		BIT(8)
+> +#define XGMAC_EXT_CFG1			0x00000144
+> +#define XGMAC_CONFIG1_SAVE_EN		BIT(24)
+> +#define XGMAC_CONFIG1_SPLM_MASK		GENMASK(9, 8)
+> +#define XGMAC_CONFIG1_SPLM(v)		FIELD_PREP(XGMAC_CONFIG1_SPLM_MASK, v)
+>  #define XGMAC_MAC_DPP_FSM_INT_STATUS	0x00000150
+>  #define XGMAC_MAC_FSM_CONTROL		0x00000158
+>  #define XGMAC_PRTYEN			BIT(1)
+> @@ -434,6 +440,7 @@
+>  #define XGMAC_RDES2_L4FM		BIT(28)
+>  #define XGMAC_RDES2_L3FM		BIT(27)
+>  #define XGMAC_RDES2_HL			GENMASK(9, 0)
+> +#define XGMAC_RDES2_NONIPHL		GENMASK(9, 2)
+>  #define XGMAC_RDES3_OWN			BIT(31)
+>  #define XGMAC_RDES3_CTXT		BIT(30)
+>  #define XGMAC_RDES3_IOC			BIT(30)
+> @@ -441,6 +448,7 @@
+>  #define XGMAC_RDES3_CDA			BIT(27)
+>  #define XGMAC_RDES3_RSV			BIT(26)
+>  #define XGMAC_RDES3_L34T		GENMASK(23, 20)
+> +#define XGMAC_RDES3_L2T			GENMASK(19, 16)
+>  #define XGMAC_RDES3_ET_LT		GENMASK(19, 16)
+>  #define XGMAC_L34T_IP4TCP		0x1
+>  #define XGMAC_L34T_IP4UDP		0x2
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+> index 6719ac6e395b..65ac5403ec58 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+> @@ -292,8 +292,18 @@ static int dwxgmac2_get_rx_hash(struct dma_desc *p, u32 *hash,
+>  
+>  static void dwxgmac2_get_rx_header_len(struct dma_desc *p, unsigned int *len)
+>  {
+> -	if (le32_to_cpu(p->des3) & XGMAC_RDES3_L34T)
+> +	u32 rdes3 = le32_to_cpu(p->des3);
 > +
-> +  reg:
-> +    maxItems: 1
+> +	/* when FD=1 and LD=0, HL is RDES2[9:0] */
+> +	if (!(rdes3 & XGMAC_RDES3_LD)) {
+> +		*len = le32_to_cpu(p->des2) & XGMAC_RDES2_HL;
+> +		return;
+> +	}
 > +
-> +  spi-cpha: true
+> +	if (rdes3 & XGMAC_RDES3_L34T)
+>  		*len = le32_to_cpu(p->des2) & XGMAC_RDES2_HL;
+> +	else if (rdes3 & XGMAC_RDES3_L2T)
+> +		*len = (le32_to_cpu(p->des2) & XGMAC_RDES2_NONIPHL) >> 2;
+>  }
+>  
+>  static void dwxgmac2_set_sec_addr(struct dma_desc *p, dma_addr_t addr, bool is_valid)
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+> index ff83858ebc1f..0a9c787305a4 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+> @@ -561,6 +561,16 @@ static void dwxgmac2_enable_sph(struct stmmac_priv *priv, void __iomem *ioaddr,
+>  	value |= XGMAC_CONFIG_HDSMS_256; /* Segment max 256 bytes */
+>  	writel(value, ioaddr + XGMAC_RX_CONFIG);
+>  
+> +	value = readl(ioaddr + XGMAC_EXT_CFG1);
+> +	value |= XGMAC_CONFIG1_SPLM(1);
+> +	value |= XGMAC_CONFIG1_SAVE_EN;
+> +	writel(value, ioaddr + XGMAC_EXT_CFG1);
 > +
-> +  spi-cpol: true
+> +	/* Disable variable preambles to keep the L2 split offset deterministic. */
+> +	value = readl(ioaddr + XGMAC_EXT_CFG0);
+> +	value &= ~XGMAC_EXT_CFG0_VPRE;
+> +	writel(value, ioaddr + XGMAC_EXT_CFG0);
 > +
-> +  spi-max-frequency:
-> +    maximum: 10000000
-> +
-> +  vdd-supply: true
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    description:
-> +      Optional external clock for sync mode. If not provided, the intern=
-al
-> +      8 kHz clock is used.
-> +    maxItems: 1
-> +
-> +  reset-gpios:
-> +    description:
-> +      Optional GPIO for hardware reset. If specified, it will be asserted
-> +      during driver probe. The line is active low.
+>  	value = readl(ioaddr + XGMAC_DMA_CH_CONTROL(chan));
+>  	if (en)
+>  		value |= XGMAC_SPH;
 
-Drop the second sentence, since that's a linux driver specific detail.
-pw-bot: changes-requested
+The rest looks good to me :)
 
-Thanks,
-COnor,
+Maxime
 
-> +    maxItems: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - spi-cpha
-> +  - spi-cpol
-> +  - vdd-supply
-> +
-> +allOf:
-> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +    #include <dt-bindings/gpio/gpio.h>
-> +    spi {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        imu@0 {
-> +            compatible =3D "adi,adis16607-2";
-> +            reg =3D <0>;
-> +            spi-cpha;
-> +            spi-cpol;
-> +            spi-max-frequency =3D <10000000>;
-> +            vdd-supply =3D <&vdd>;
-> +            interrupts =3D <4 IRQ_TYPE_LEVEL_HIGH>;
-> +            interrupt-parent =3D <&gpio>;
-> +            clocks =3D <&sync_clk>;
-> +            reset-gpios =3D <&gpio 10 GPIO_ACTIVE_LOW>;
-> +        };
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index a7fd31320b38..f6ad73be5260 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -1717,6 +1717,13 @@ S:	Supported
->  W:	https://ez.analog.com/linux-software-drivers
->  F:	Documentation/devicetree/bindings/iio/imu/adi,adis16550.yaml
-> =20
-> +ANALOG DEVICES INC ADIS16607 DRIVER
-> +M:	Radu Sabau <radu.sabau@analog.com>
-> +L:	linux-iio@vger.kernel.org
-> +S:	Supported
-> +W:	https://ez.analog.com/linux-software-drivers
-> +F:	Documentation/devicetree/bindings/iio/imu/adi,adis16607.yaml
-> +
->  ANALOG DEVICES INC ADL8113 DRIVER
->  M:	Antoniu Miclaus <antoniu.miclaus@analog.com>
->  L:	linux-iio@vger.kernel.org
->=20
-> --=20
-> 2.43.0
->=20
->=20
-
---JT0wtQh0oKH8tN3L
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasds6wAKCRB4tDGHoIJi
-0kTQAP93Z+zHbyLKGxqq6f/YHGoY5ZI7Ia1SyQLfDcUEHBT1NgD+PHdFSEnFQuKe
-kcD3AebH8Rj6JhDqPjjlkIlQulvKEgw=
-=4SJ/
------END PGP SIGNATURE-----
-
---JT0wtQh0oKH8tN3L--
