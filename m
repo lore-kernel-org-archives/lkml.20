@@ -1,132 +1,119 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D7F36F91F
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 03:44:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0729C36F91F;
+	Thu,  8 Oct 2026 03:44:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791431048; cv=none; b=toNCebl3EFWbYB/GaQNx8Cjvwviewr+XktX+RNr6ABRz8sBGtaSEj1gj/EOf+79KrhA/sUmNazEcLuMaEiyXk5/8xrpByc/Zq7Og8HLbexL/PnRSNvI8wcXXoh/AH02eBhv3M+Ni6nj9m0w5nmKWyaw23mlhhzcVfVpI9O4k3jA=
+	t=1791431093; cv=none; b=LW3xKp/n8Xzx6C0Ez+ftU2y9rWHEcSPteJusi8qNqU1byUleIZ/e8h/WWvPgTFVVJENeMP6soH/rJdQTD2ouDy6O8F503vtnjixOiYPHZnGWpYS21rs0UvGz1kSnNVPkOncidEKj41OLZbsSo2q/7zy+Q6tGpQKbR/+bZwM+nZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791431048; c=relaxed/simple;
-	bh=Cigqw7alaqMD6veKjChnhLsYweDGOcKz7YUcqTCBfzA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IGhYKYktnCjQiFrF381Hr+sVd7rk0Wa+pUZsK/vLgMU1wQPjNNXZZvEltZhLTBLFoiSEcO/lzNVvoofvHjpRmVbO8ahYt3tBQ0cM1rf1eSUCtkCbYT5C/eQ4z5A3gsf9YC7/FogLn1/n+/CsOuQBDPqXNBV7lAloklMry3HZtDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TT5Ivd84; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791431093; c=relaxed/simple;
+	bh=l8FGwTF2AqdaoQ0RvXAoKk8wuM5SPe0apwnGvih3fuI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=izx/RCOkbBwc5MRCtxaJYxdFz/ed/GuNsB/aSPtCm8itJW5seSuqgw+SeVzRIwXmegOjfQfFFoMqkmIarQ4gOepMbvy6irhkGFAWSq285ggl5sYKodvmdXyzD5EUivSu10mXHBuwYVf0H6rdEbEp2sYh8LkIM/7OTv89dcdg6kU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lVYZFyax; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TT5Ivd84"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e6038cebefso12643315ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 20:44:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791431046; x=1792035846; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1UWwPXhJHy9dia16H9fR1NKH9kFmP3Q3JfyJUA2WzN0=;
-        b=TT5Ivd84+8fJ6DSLKJOaVdR1ZcybNDZF6cV1QMMpUa4aJQmAJT9SawW1OeGvkpMwSO
-         cGINbsWmvBCabboVKphOHk1EF/jYWGocaYzwyair2d8Xk3Pomrz1mqEK/eJTEm/aBIYD
-         ZEfIU+v8GKpcQVavzB0X6dPJ/XqXkqWbsKHlxdFoExnEUzqMqOEy2mqBr28M3oD7JGyf
-         YA/7l1VRYFZd3imTkR66rX+kZQ/b6hy4XsorBrfav7OpcZSB97yjYYOAR9aNPmqo8b+G
-         cD+MzRSy++T+nd4hlLcVAHZGix0omZKKnEFdlB2ZsGN2/1EloKBvy6s2f1Z2YowE9uTD
-         01fg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791431046; x=1792035846;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1UWwPXhJHy9dia16H9fR1NKH9kFmP3Q3JfyJUA2WzN0=;
-        b=ZezLWOdj8NOH3AK9cK3//JcRDnTJQ3EU6dtg22p56rgN0WvZZ4Lx0lKU0gv6H+xcB6
-         lkqDzUkBfSsz1jZ0mAW8FPElWLaqKLsk5cFcjXeOGJNrfUlN6pCOcnd4VMhSbKxLkMWZ
-         Uy631kiDZ2DhdtOGGBOUxSYA6lncxapWQ9fS8lWqfuJcr+J3xOiTU2OrS9nGmP3CTsmw
-         U8ADhzueyXcDPa8i/nNB7TAuV5EG4RTYyTWvccWrf0z9jmzaZz58l7QK9IyYlWeAF8A+
-         l3BpmoFmuYrmn5pOirynGmD3bC767CXeauVo3dDVEC+nKoF/TYJbHWSaX+m51DKPUTEg
-         tRtQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy3WIyPvJzGp6ffDjuhtTYUn0w74ceI5CY5hWDm/hktU34h2cbYhK/P+xzMZRIKVBeiCXPed4fhs65KwWI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIVVYnAMicJiw78y95eo0ga9UMPI7GkpJ5uqK+qaJV6UG0i1/tV
-	RFTiMXlIeoZF6pQzZXONVGXlRRruW/UnH5MnnvbgjhWS3MFmxeDWmrsa
-X-Gm-Gg: AYBFou14BLv6hHZSPOThpV4N+X5J61Vs1GSPj+g+nbwRp3GImq4gClvfZPuq+q+JXD4
-	tm450ZlPPBR8L+81kgcZi1Mh4HDQnUnG3vklQW/m0BoAVVFkyXSc6H+sbsmS1p8LCqg2YT+eHio
-	HY0vxouLftMU5EtSu5MbArC5ywHinXQjM+F0GjNE/tEnrMHFJA84dMMrDB+bpnIsyFLUhLdiuYM
-	VhjwWyYHLcA4j/cSNIzaJFwRg0+QHUN/yyJXvabZtoUDDvtZ1v8Pl1Z1RR9+3DGO5Ei+1QYNh/k
-	3JMYn3nEGsQIGmWtzQ0z46wdorAQVRyM9GncLFPMigAkeH4jnG9EUW4GfCnE17TRCTNRLHyDsFS
-	6Zofu5n9TLDOwSYZ7Zd5qsOc11Ygq83pTumO5JTMvDkQncX5npU1lIJ7B9MhVDX8HyiTwLXUccG
-	tZU3dbzVSpAIVOUiXz+nnSGUpM9QqOTPAMOiMDjN6TFe8Nojqie7zQOxXsk4q2AsEIo2vRyQ==
-X-Received: by 2002:a17:903:110c:b0:2dd:c100:943d with SMTP id d9443c01a7336-2e60057c861mr46793765ad.59.1791431045966;
-        Wed, 07 Oct 2026 20:44:05 -0700 (PDT)
-Received: from kdev.. ([108.180.130.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e60482ccb3sm18614595ad.51.2026.10.07.20.44.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 20:44:04 -0700 (PDT)
-From: Babanpreet Singh <bbnpreetsingh@gmail.com>
-To: Paul Moore <paul@paul-moore.com>,
-	Eric Paris <eparis@redhat.com>
-Cc: audit@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Babanpreet Singh <bbnpreetsingh@gmail.com>,
-	syzbot+39b8fea0641107a1ccee@syzkaller.appspotmail.com
-Subject: [PATCH v2] audit: annotate the lockless read of the audit control lock owner
-Date: Thu,  8 Oct 2026 03:44:03 +0000
-Message-ID: <20261008034403.7-1-bbnpreetsingh@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lVYZFyax"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6B7B1F000FF;
+	Thu,  8 Oct 2026 03:44:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791431091;
+	bh=aVCywcmTgZV0JLf3OiewVcrZqNd7Lr+G7Z98xka/5po=;
+	h=From:Subject:Date:To:Cc;
+	b=lVYZFyaxUSQCaabUnuhzn6w4zrpT47hgyOpbVAkXbmNZu+YHoh0ldFHtRgfKCx+EE
+	 7hFIQPkmq7xrUzbTBWbJtaqvRoUXF2N1RtZCZoCzQ9+eX75/Zvc2wDRR2E4B/DKerV
+	 7/Te1Vl0PYMMuxmF+kb/c2tfoHk4pIdfb1XEoy0vp+kDSxY23++UWZNiN+AKfwa6rw
+	 Lg0W6bKZvlP9AU3CUjBfC6Wu47Pe6BqH7YBdAU62Mw5fDiwZzCwcCnayDAZNQ1Ggyg
+	 HwwIWmfG+BlAl0qg0kmqUuO8qAgPEwGVxZEu+1spk3MuUKgD9hhI8TLSxE5aZiksN2
+	 YgMqAOcdzt/AQ==
+From: Yixun Lan <dlan@kernel.org>
+Subject: [PATCH v2 0/2] PM: spacemit: Add power domain support
+Date: Thu, 08 Oct 2026 03:44:28 +0000
+Message-Id: <20261008-04-k3-pm-support-v2-0-6f778a53dd2d@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqDMBBA4avIrB0Yovh3ldKFmkmdFjVktBQkd
+ zfa5bd47wDlIKzQZQcE/orKuiSYPINx6pcXo9hkMGQqaqlFKvFToJ9Rd+/XsCEN7Eripna2hpT
+ 5wE5+9/Lx/Fv34c3jdn0gxhMzQmkYdAAAAA==
+X-Change-ID: 20260909-04-k3-pm-support-0bef40e87fd7
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: Icenowy Zheng <uwu@icenowy.me>, Iker Pedrosa <ikerpedrosam@gmail.com>, 
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-pm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Yixun Lan <dlan@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1909; i=dlan@kernel.org;
+ h=from:subject:message-id; bh=l8FGwTF2AqdaoQ0RvXAoKk8wuM5SPe0apwnGvih3fuI=;
+ b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBqxxGmCApwz/x2lwt/8Lmrh1k9FSkd+J/kZiLik
+ VBNNGSb2kOJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCascRphsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
+ maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
+ QACgkQMarqR1lNu+3hpRAAg9q7RKB8tNhnOWOn+sPugundTYNccTp5gk+xKOAs2LD2DWJl91QB+
+ 2bewwtCnFl288cYCJccAhDi//jXoKoovT8JWiJE93g0OftvXte2vwWxgNgVc2UyYgcKk+c02/ba
+ KWyTLhJzvVnxaFLfLsCwbLnTAYXBbjurV+gviPfqauLycq9W7kNFeNcxHJWDsZ9MRSEgofOQTlH
+ mhsQ7KusX4vybJ6YNZRzGOukKHEUtBx/badTbMxljWSQpUnNoCbLlgCriC47z9u1CFgaZGhGdXK
+ +v6GyaE/OGnx9E6SzBYtXkj5ICLRcEEhaDMa2Y47wjJeADaivNcmyuGWiPe/yxJrLJ4ju0adYrQ
+ FLyhgjpVrB2KgklMfmLsibMPJlQPm5y2JHP7QsPIUvqrjj4bHN+CgnxJOugh8DU2wtb7aHsyI1e
+ TQ/zTvE/wEg0U8H/peN8pMS06P6VmO1c3oCRYG4Ag1fwsnl+BdgKiDqr/K7dwcAyVcrWzPDUHu9
+ 9mBueT3klB67dC64mYGRIDbpleccoHR3v/E297nolPBH5KZiemSC7G8FrxzX/futoJtMS+v7qUB
+ IfUYIy8NiN99M8kTNi+JGlleIiO7xUP4X9iy0mnM6c6w1L4kgAjaHBgWb0SVyRymRTqIIzlKfEt
+ 87Tf45/ULix0bM9sKujB7wQXDITIFo=
+X-Developer-Key: i=dlan@kernel.org; a=openpgp;
+ fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
 
-audit_ctl_owner_current() reads the lock owner without taking the lock
-and KCSAN complains about it. Only the current task can store itself as
-owner, so the check can't give a wrong answer. Mark the accesses with
-READ_ONCE() and WRITE_ONCE().
+In this series, we try to add a Power Domain driver support for SpacemiT
+K1/K3 SoCs, the driver implement the power-switch functionaly which support
+power on/off, and it's based on Linux Generic PM Domain framework and
+similiar to vendor K1's implementation, but unlike the K3's vendor
+version which is more complicated.
 
-Reported-by: syzbot+39b8fea0641107a1ccee@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=39b8fea0641107a1ccee
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Babanpreet Singh <bbnpreetsingh@gmail.com>
+  The DTS patch is obsolete, so drop it. For devices required PM property,
+the DT part can be sent in separate patch.
+
+  In order to test this series, a prerequisite CCU patches are needed,
+which can be found here [1].
+
+Link: https://lore.kernel.org/spacemit/20261008-04-k3-clk-pm-aux-v1-0-8372d7307694@kernel.org/ [1]
+Signed-off-by: Yixun Lan <dlan@kernel.org>
 ---
-v2: drop the comment in audit_ctl_owner_current(). The KCSAN build of
-audit.o disassembles the same as v1.
-v1: https://lore.kernel.org/all/20261002011712.7-1-bbnpreetsingh@gmail.com/
-Compile tested only (gcc W=1 and the KCSAN instrumentation diff); I
-could not reproduce the race in QEMU.
+Changes in v2:
+- convert to auxilary driver
+- no need dt-binding doc, drop it
+- drop dts patch
+- support to build as module
+- set always on for K3 audio pm 
+- no global variable for struct spacemit_pmu
+- no force to do power-off in spacemit_pd_power_on()
+- check return value of pm_genpd_init()
+- adjust license header format
+- Link to v1: https://patch.msgid.link/20260918-04-k3-pm-support-v1-0-0acd2b36b96f@kernel.org
 
- kernel/audit.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+---
+Yixun Lan (2):
+      dt-bindings: power: spacemit: Add power domain controller IDs
+      pmdomain: spacemit: Add power domain driver
 
-diff --git a/kernel/audit.c b/kernel/audit.c
-index 631d6d4a23cfd..d0c2036bde759 100644
---- a/kernel/audit.c
-+++ b/kernel/audit.c
-@@ -247,7 +247,7 @@ int auditd_test_task(struct task_struct *task)
- void audit_ctl_lock(void)
- {
- 	mutex_lock(&audit_cmd_mutex.lock);
--	audit_cmd_mutex.owner = current;
-+	WRITE_ONCE(audit_cmd_mutex.owner, current);
- }
- 
- /**
-@@ -255,7 +255,7 @@ void audit_ctl_lock(void)
-  */
- void audit_ctl_unlock(void)
- {
--	audit_cmd_mutex.owner = NULL;
-+	WRITE_ONCE(audit_cmd_mutex.owner, NULL);
- 	mutex_unlock(&audit_cmd_mutex.lock);
- }
- 
-@@ -268,7 +268,7 @@ void audit_ctl_unlock(void)
-  */
- static bool audit_ctl_owner_current(void)
- {
--	return (current == audit_cmd_mutex.owner);
-+	return (current == READ_ONCE(audit_cmd_mutex.owner));
- }
- 
- /**
+ drivers/pmdomain/Kconfig                        |   1 +
+ drivers/pmdomain/Makefile                       |   1 +
+ drivers/pmdomain/spacemit/Kconfig               |  21 ++
+ drivers/pmdomain/spacemit/Makefile              |   1 +
+ drivers/pmdomain/spacemit/spacemit-pm-domains.c | 413 ++++++++++++++++++++++++
+ include/dt-bindings/power/spacemit,k1-power.h   |  14 +
+ include/dt-bindings/power/spacemit,k3-power.h   |  12 +
+ 7 files changed, 463 insertions(+)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260909-04-k3-pm-support-0bef40e87fd7
 
-base-commit: a8bdcf944504980635c2069b4a4cfcf677b09bbb
--- 
-2.43.0
+Best regards,
+--  
+Yixun Lan <dlan@kernel.org>
 
