@@ -1,131 +1,174 @@
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B02831DA57;
-	Thu,  8 Oct 2026 03:10:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=111.22.67.137
+Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54E711BD9D0;
+	Thu,  8 Oct 2026 03:11:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791429050; cv=none; b=tgubAAS2RH/n2/ePfJECwwphnUdFH6vLlEPwvDPUYM173pnreyAWePp0xc0B+tgo1+bV8f5bXs37ar0Yh3Tp7AcDYl+w4BDpGZxJL1xkuQV9nErSDkfbHgdwJjJX7cBEQbsAb9AyMjf9qXG/yRhCcxTXHLsOT7vPwel/vu8A7pg=
+	t=1791429098; cv=none; b=ZPRMcEQB4Hdz/BpQ6l5Wjis8Tcy807WGAYmjwQWPN2sP7Tag0vgrgqbszN4Ek5qwWidjUhTD1iL9mMI22xAh2DS9XlxxKfjRwdbo2EGJ26haML902vO9yWBkQzqZuhrK+D/JV1WAwhnlNSO63QhWcasOV0yVffIrTm4Vh0QqHoc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791429050; c=relaxed/simple;
-	bh=TQ2iUFMwvL7RF9GVlG5grjdNcDasf2Uxxka0SgKT0cM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=M7lgmUKBkT8JSAnt3UJweRkDbsa+4OJz79syTI7f48+INcyvcxaiaMV0DGp04vSIj90XnJ6N01IoT7yQpXIuBBeNIxtxFu15grYfNijc5A2TyoOCoYX5hnB4h7L4yJUwv7Oo0RMp7ircwz7nSptjVWraEodVj8xZ0jUn+UVLR8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com; spf=pass smtp.mailfrom=cmss.chinamobile.com; dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b=VK4qdkri; arc=none smtp.client-ip=111.22.67.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	s=arc-20240116; t=1791429098; c=relaxed/simple;
+	bh=3lFjYCxe8XVsB1lwh0y7mBlYEnrUXDiZXtAHT+AMPIA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=Gd7nxKfwQzGql5m1129dwn0faIjNP+nr5mxUrW/s0PUIKJqoYZWLykTrfy3hNn9c6f+PB0aFWmg+BP4VkhDiXX4SChZqyNfvr8vsIupUJUeodnFqcopqM30m6oaNo8v7k5e2PyUcsH81mYvynacEpLcVQG8AiHee2vcv0f9bK38=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=h-partners.com; dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b=pMEQFdBl; arc=none smtp.client-ip=113.46.200.225
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=h-partners.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b="VK4qdkri"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=VK4qdkri3Fir7Ua5Ca6ybw5owzi/xCkA8W8Z5xoIluxIBH7IHpiTKTsHAaSxkpRU3BS76pyuJJNAq
-	 jeSUrM7zy6q6cze5qq2VAho7o/0+DcO9Kd30Mzz7+3iByBvbKO8wHc5M+ZfssbJt7zCMmm/lRLZY5v
-	 buvNRhZNF/wguwbA=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86ac709b0125-5052a;
-	Thu, 08 Oct 2026 11:10:41 +0800 (CST)
-X-RM-TRANSID:2ee86ac709b0125-5052a
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.localdomain (unknown[223.108.79.99])
-	by rmsmtp-syy-appsvr02-12002 (RichMail) with SMTP id 2ee26ac709af673-024c3;
-	Thu, 08 Oct 2026 11:10:41 +0800 (CST)
-X-RM-TRANSID:2ee26ac709af673-024c3
-From: lvjunyu <lvjunyu@cmss.chinamobile.com>
-To: netdev-bot+sashiko@kernel.org
-Cc: pablo@netfilter.org,
-	fw@strlen.de,
-	phil@nwl.cc,
-	netfilter-devel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	kuba@kernel.org,
-	lvjunyu <lvjunyu@cmss.chinamobile.com>
-Subject: Re: [PATCH v2] netfilter: nf_nat: Fix stale outer UDP checksum on VXLAN encapsulated packets
-Date: Tue, 22 Sep 2026 14:14:41 +0800
-Message-ID: <20260922061441.752117-1-lvjunyu@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260921130312.686493-1-lvjunyu@cmss.chinamobile.com>
-References: <20260921130312.686493-1-lvjunyu@cmss.chinamobile.com>
+	dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b="pMEQFdBl"
+dkim-signature: v=1; a=rsa-sha256; d=h-partners.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=EnAilI4OKlZkOu1J/21Tk8Yja2DTm5YBtKfiECaMkEY=;
+	b=pMEQFdBlcL4rvGZvtimghz+ug5SD7NvSyTViLXt22VlA4n3OZ1HAWLombKm/ZvEiRagt5DFLN
+	sneokgFD1Qd6N5Cn4SmL0N/TZ5mtH8Y/kmHKdfmh4YG92k4htm7dcKaTG3zLao/hIAAFXwyX5Ux
+	vU6XSZFNbMeJ/WdhM2Nkgk0=
+Received: from mail.maildlp.com (unknown [172.19.163.214])
+	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4j0ZTD2Zf6z1K9d4;
+	Thu,  8 Oct 2026 10:59:12 +0800 (CST)
+Received: from kwepemp500001.china.huawei.com (unknown [7.202.195.40])
+	by mail.maildlp.com (Postfix) with ESMTPS id F33734056C;
+	Thu,  8 Oct 2026 11:11:26 +0800 (CST)
+Received: from kwepemp500015.china.huawei.com (7.202.195.9) by
+ kwepemp500001.china.huawei.com (7.202.195.40) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 8 Oct 2026 11:11:26 +0800
+Received: from [10.67.120.108] (10.67.120.108) by
+ kwepemp500015.china.huawei.com (7.202.195.9) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 8 Oct 2026 11:11:26 +0800
+Message-ID: <ba5d9188-937c-237c-e104-9b66e7c3be3e@huawei.com>
+Date: Thu, 8 Oct 2026 11:11:25 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.1
+Subject: Re: [PATCH v4] scsi: libsas: Fix SMP IO deadlock during HA resume
+Content-Language: en-CA
+To: John Garry <john.garry@linux.dev>, <yanaijie@huawei.com>,
+	<jejb@linux.ibm.com>, <mkp@kernel.org>
+CC: <linux-scsi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linuxarm@huawei.com>, <liuyonglong@huawei.com>, <kangfenglong@huawei.com>
+References: <20260928040234.992912-1-yangxingui@huawei.com>
+ <820657c2-1cbd-47d8-92f2-477531692135@linux.dev>
+From: yangxingui <yangxingui@huawei.com>
+In-Reply-To: <820657c2-1cbd-47d8-92f2-477531692135@linux.dev>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemp500015.china.huawei.com (7.202.195.9)
 
-On the Sashiko AI review comments:
+Hi, John
 
-> [Medium] Peer call-site divergence: after this patch nf_nat's
-> __udp_manip_pkt() treats a CHECKSUM_PARTIAL skb whose offload target...
+On 2026/9/30 18:40, John Garry wrote:
+> On 9/28/26 05:02, Xingui Yang wrote:
+>> smp_execute_task_sg() calls pm_runtime_get_sync() on the host before
+>> issuing an SMP command. When that command is itself issued from the
+>> HA resume path, the get_sync() deadlocks: it waits for the ongoing
+>> resume (the device is RPM_RESUMING), while the resume is blocked in
+>> sas_drain_work() waiting for that same SMP IO to complete.
+>>
+>> The deadlock needs an expander-attached SATA disk. 
+> 
+> What do you mean by "deadlock needs an expander-attached SATA disk?
+Yes, that is the only configuration whose resume-time hard reset is
+implemented as an SMP command. The disk's phy belongs to the
+expander, so the ATA EH hard reset is an SMP PHY CONTROL sent to the
+expander (sas_ata_hard_reset() -> sas_phy_reset() ->
+sas_smp_phy_control() -> smp_execute_task_sg()), a directly attached
+SATA disk resets the HBA's own phy through lldd_control_phy(), and
+SSP devices are reset through TMFs, so neither issues SMP on resume.
+An SMP request from outside the resume path cannot construct the
+cycle either: a BSG request arriving while a resume is in progress
+blocks waiting for that resume (get_sync() before this patch,
+resume_and_get() at the new call site) before it takes the expander
+cmd_mutex, and the resume waits for nothing in the BSG context - it
+can only be a victim of the deadlock, never a participant.
 
-The flowtable software path (nf_flow_nat_ip_udp) is not reached by
-the packets this patch fixes. VXLAN outer headers are locally
-generated via vxlan_xmit() -> udp_set_csum() and traverse OUTPUT ->
-POSTROUTING, where they hit the conntrack NAT path
-(__udp_manip_pkt). The flowtable hook (nf_flow_offload_ip_hook)
-processes forwarded flows with offloaded conntrack entries; the
-VXLAN outer flow uses a random source port (MASQUERADE
---random-fully) and represents a new conntrack entry that has not
-yet been offloaded.
+> 
+>> During
+>> sas_resume_ha() -> sas_drain_work(), DISCE_RESUME ->
+>> sas_resume_sata() -> ata_sas_port_resume() requests ATA_EH_RESET,
+>> and the hard reset for such a disk is done via SMP PHY CONTROL
+>> (sas_ata_hard_reset() -> sas_phy_reset() -> sas_smp_phy_control() ->
+>> smp_execute_task_sg()). Direct-attached SATA resets through
+>> lldd_control_phy() and SSP devices use TMFs, so neither hits this.
+>>
+>> Replace the get_sync()/put_sync() pair with
+>> pm_runtime_get_noresume()/pm_runtime_put(). smp_execute_task_sg()
+>> only needs to hold off autosuspend while the SMP is in flight, and it
+>> must not try to resume the host: a sync resume issued from the HA
+>> resume path itself is what deadlocks, and by the time sas_resume_ha()
+>> runs, hw_init has already reinitialized the hardware, so the device
+>> is accessible without one.
+>>
+>> The usage reference is still required. 
+> 
+> Do you mean that usage reference from pm_runtime_get_noresume() is still 
+> required?
 
-The architectural inconsistency is acknowledged: if flowtable
-offload of VXLAN tunnel flows is ever introduced, the same LCO
-detection would be needed in nf_flow_nat_ip_udp(). The
-zero-checksum gate difference (do_csum = !!hdr->check vs.
-udph->check || ip_summed == CHECKSUM_PARTIAL) is pre-existing and
-unrelated to this patch.
+Yes, the reference taken by the pm_runtime_get_noresume() which
+replaces the get_sync(). It is not an artefact of the conversion:
+the chained revalidation described in the next paragraph runs
+outside the event workers' PM references, so without it its SMP
+could race autosuspend.
 
-> [Medium] Incomplete/asymmetric fix: the same unguarded
-> nf_csum_update() pattern exists at three sibling sites...
+>> Discovery work normally runs
+>> inside an event worker's PM reference, taken at
+>> sas_notify_port_event() notify time and held until the handler has
+>> flushed the disco queue. sas_rediscover_ex_phy() however requeues
+>> DISCE_REVALIDATE_DOMAIN from within the revalidation worker itself,
+>> and flush_workqueue() does not wait for work items queued during
+>> execution, so that chained revalidation runs with no outer PM
+>> reference - without the get_noresume(), its SMP could race
+>> autosuspend.
+>>
+>> For the BSG path, sas_smp_handler() is the only caller which may
+>> find the host autosuspended: expander SMP requests do not go through
+>> any SCSI device request queue, so nothing else in that path holds
+>> the host awake. Resume it there with pm_runtime_resume_and_get()
+>> and check the result.
+>>
+>> Fixes: 3dbbbf656b850 ("scsi: libsas: Fix HA resume deadlock and 
+>> hisi_sas disk-wake race")
+>> Signed-off-by: Xingui Yang <yangxingui@huawei.com>
+> 
+> Question: do you have a (non-hisi_sas) SAS HBA card whose driver uses 
+> libsas? pm8001 would be such an example. It would be nice to verify that 
+> all these and other non-rpm libsas changes does cause regression there.
 
-The LCO state being fixed is specific to the UDP encapsulation
-path: udp_set_csum() LCO branch writes a complete checksum into
-uh->check while setting csum_start to the inner transport header.
-This split state does not occur for the sibling call sites:
+We don't have a pm8001 card at hand. From analysis the patch is a
+no-op for the LLDDs without runtime PM support: pm8001 and isci
+only register system suspend/resume through SIMPLE_DEV_PM_OPS(), and
+aic94xx and mvsas register no PM ops at all. For every PCI device
+the PCI core forbids runtime PM by default and marks the device
+runtime-active (pci_pm_init()), and enables runtime PM later
+(pci_bus_add_device()), those devices are thus permanently RPM_ACTIVE
+with the usage counter held, and can never runtime-suspend. In that
+state get_noresume()/put() only moves the usage counter - exactly
+what the get_sync()/put_sync() they replace did - and
+pm_runtime_resume_and_get() in sas_smp_handler() succeeds (runtime
+PM is enabled and the device is already active), so the new error
+check never rejects a request on them.
 
-- tcp_manip_pkt(): TCP checksum includes the pseudo-header
-  (addresses + ports); the offload target is the TCP header itself
-  (csum_start points at the TCP header, not an inner header), so
-  the offload-target test would not match.
+The only observable difference would be userspace enabling runtime
+PM (power/control = auto) on a driver which does not support it, and
+that configuration is broken independently of this patch.
 
-- icmpv6_manip_pkt(): ICMPv6 checksum includes a pseudo-header;
-  the offload target is the ICMPv6 header itself.
+Conversely, should an LLDD gain runtime PM support later, it would
+need this patch: the deadlock is in the shared resume path - any
+runtime-resuming LLDD with an expander-attached SATA disk in the
+domain hits it identically - and the reference/resume split
+completes the generic protection model, while the LLDD-side
+obligations (device links, hw reinit before sas_resume_ha()) are
+unchanged.
 
-- Headers embedded in ICMP errors (via
-  nf_nat_icmp_reply_translation): these are byte copies in the
-  ICMP payload, not live checksum-offloaded data; ip_summed is
-  typically NONE or COMPLETE.
 
-- nf_nat_*_csum_recalc(): handles length field changes in the
-  pseudo-header, a different scenario.
-
-Putting the offload-target test in a shared helper (e.g.,
-wrapping nf_csum_update()) is architecturally sound and could be
-done as a follow-up. This patch is intentionally scoped to the
-UDP path where the bug is observed and verified.
-
-> [Low] The new comment states that both the address and the port
-> delta are "applying the address and port deltas with the wrong
-> sign"...
-
-The reviewer is correct. The two cases are distinct:
-
-- Port delta (pseudohdr=false, PARTIAL): no-op -- neither branch
-  in inet_proto_csum_replace4() is taken.
-
-- Address delta (pseudohdr=true, PARTIAL): applied to wrong seed
-  -- the else-if(pseudohdr) branch operates on an uncomplemented
-  value.
-
-The comment will be reworded to distinguish "not applied at all"
-(port) from "applied to the wrong seed" (address) in the next
-revision.
-
-pw-bot: cr
+Thanks,
+Xingui
 
 
