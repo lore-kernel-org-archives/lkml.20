@@ -1,127 +1,232 @@
-Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BCE43DE447;
-	Thu,  8 Oct 2026 12:25:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 642603CEB84
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 12:27:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791462361; cv=none; b=m/dUby6ptL10J3zAsVRT1SIHpGfvqdamnOuvh+5BgQL7Ejg9Kl0VqGMbubWIy82fepo6w430HK6ngNayXuAq8zOtSwxpGD85o8jtnFDpYprs4je4BP/LZvpc7Kr+5beKcBVjQFE+j4SM119o2tn1vaBUj1LnekmR5QZ/ZplHOdo=
+	t=1791462472; cv=none; b=tbKgScEfqbKVRcHMhdXmgHbebGgQc4jnwNscvqH4Y116KJbr5c8k77AVEbijog9gJCP5PD8FFBL0NFqs2HcJdU1PWJMHCIH+iG/RU/axCQXb+6KP3aODJUFWTOKducO7TtpMarSFHtBnoNjQVur1k8hWDeJM6GBtXec1UGEof50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791462361; c=relaxed/simple;
-	bh=ShWtfG9u2K1dTXPJPw4n3h27fklSDuQid+CDWBFCOko=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=quQdZlbEDpZM2Gt+59rrf+V5eSe2pmaYKdGPUIxnaCSxGRL7EU1/3F16r2KndkXR96t/0UzjB5r5+DRUt4eTQCHbh5kgOMjk08uT32FDnwirkIh4WVhGQnY3bYcP668el+fU49/cmrygw18EzSe5xFibvKqSmtJjdFooAfem7GI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinsec.com.cn; spf=pass smtp.mailfrom=kylinsec.com.cn; arc=none smtp.client-ip=54.204.34.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinsec.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinsec.com.cn
-X-QQ-mid: esmtpgz12t1791462286t3d3cebb7
-X-QQ-Originating-IP: dntKYlK6rW/Wxi0Fnkt8GxWBxdeEbJ3cwn8ue03XfWU=
-Received: from [192.168.21.56] ( [111.8.45.130])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 08 Oct 2026 20:24:44 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 13193396850255337370
-EX-QQ-RecipientCnt: 10
-Message-ID: <5C3461E42FDA1F15+836b6b0d-e24f-47e2-bf04-59d02ca35a1b@kylinsec.com.cn>
-Date: Thu, 8 Oct 2026 20:24:44 +0800
+	s=arc-20240116; t=1791462472; c=relaxed/simple;
+	bh=xtUWwVi939SGl/ohM86LcZcgN9CXnjakppsJNLg2QnI=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=MkWx0E9jnx9SiUlxh1JKaQwQUD1yLWnRDTKfnGIbUGs6Lq8huF/dFxlgRTNfBGN6VDFlJ8vlLhu1IplOBZOcGDbnb1N+Q+07GanhuUaWpfro3I20g95qkOCRoNQKATLGJJ2jJmSo/9C5rjOTh1eAtmKsrnAAymt639XI+36vjxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=a2OAf/xd; arc=none smtp.client-ip=115.124.30.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="a2OAf/xd"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1791462465; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=S4pC/C3NxjQLlNjZ6DpCC9hdKIj4KySjTI5lbmDlMRQ=;
+	b=a2OAf/xdhNEwy3imSvVD+ICzOkBU//3q4CPYs15TRq+AjWAkI117cOeaih0gv0K7A38ZUqFxPaE204AuIe2Vbl0KDCgcjU+PQAOPSmug06Pip6Q6l8A09g7y7glkcUxdkmRC1GJfaG1AAxfL+cOSaP4afoSHi/+psyEWyF0jtc4=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R571e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XCPtjHc_1791462464;
+Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XCPtjHc_1791462464 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 08 Oct 2026 20:27:44 +0800
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Heming Zhao <heming.zhao@suse.com>,
+	Anderson Ferneda <anderson.ferneda@braza.com.br>
+Cc: Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 2/2] ocfs2: deal with legacy signed xattr name hash values
+Date: Thu,  8 Oct 2026 20:27:43 +0800
+Message-Id: <20261008122743.616779-2-joseph.qi@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3
+In-Reply-To: <20261008122743.616779-1-joseph.qi@linux.alibaba.com>
+References: <20261008122743.616779-1-joseph.qi@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] rtc: ftrtc010: fix negative offset handling and smatch
- warning
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: Dan Carpenter <error27@gmail.com>,
- Hans Ulli Kroll <ulli.kroll@googlemail.com>,
- Linus Walleij <linusw@kernel.org>, linux-arm-kernel@lists.infradead.org,
- linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Deng Yingchao <dengyingchao@kylinsec.com.cn>,
- Qin Yungao <qinyungao@kylinsec.com.cn>, Luo Qiu <luoqiu@kylinsec.com.cn>
-References: <0C8AEB5636132B0C+20261008113732.581825-1-liudalin@kylinsec.com.cn>
- <20261008115913bfd12cb4@mail.local>
-Content-Language: en-US
-From: liudalin <liudalin@kylinsec.com.cn>
-In-Reply-To: <20261008115913bfd12cb4@mail.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:kylinsec.com.cn:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: M3ziZXKDk+iOECg/2pUDzdLQDWA0HgClOpH5zmO/sr1ExRZq5zw+Orat
-	o3Du0leuo3jrgq8zCMg8ZuK0g00jQVJ1JhDRk2MaIuuxMj8TP8Yt4sK5ZFm4FfOcNFUd9fa
-	Rmtctit4atjCCma3muISqnJllepfxRO0Izmw7Kn0awXJWQwQOX2s7oEf8a8YM2grPiwvtGo
-	BTyee9Ub9FEwkewYYO05sMzfT0cZVqcSHOrWeQfGYWM6XXtNAfC+vwFIwDxzgg3J8daUECk
-	6yZt5Rw3Ze2jrn2OvkApEj30qVEgRpy5iUNefTjdTG1J+PR1nLeq6AyjowS1DXmfZc8xmZV
-	05cXXk3GvZicH7ReFf0z72wu45QITxckBHYxz29DGPBFGsNfXig7hW9jcDuo4oZG409v1iN
-	OhLK51eUsgaS3xsfH7LMvX5VVG4KgYSk3rt3k/JPn6t9qdDL05zfwZrnxg/qLYl/tnrsvOU
-	ifOZpMGDGVSN+cWBoHSRXkKTOTIwIRnyEDcaqhMYhKgHYd5TYRwI7VAxcbVCdLFrIznam28
-	cglMuM7YmRW5HUCksQhYNX4C8aymylcF85H3EK+G/Vzd/GjkxPXdDwtG2+iPra3AY4N0WZ0
-	kuv4mEI8T5zZKlJo9g/HYLu3JNG48J61VlGC3bwkAlySAGEKt02d2YSMweiRwlKxH5HEoXg
-	9v8JW5LLOz0lty8bvu+CJuQ/cko7IsDjyP2o5lQgP55a/BsDnnu6E9GrbgEv0Go8ku5X5S4
-	alh0TfWAMmly5S+r2736/j3ixuyUAA2Xepx/VVkx5SPtIv4OdijhUsPgIUPfsRuV0q0dQ8v
-	DQ8/xeWoHPqN7cP/YN8zvTTDxgwR6otBYQTX6gaLjqd67fltXNaGW1KZvuuOkSLr55hEOtW
-	fxs8kwe0bH1HhO9yPoNeM1yASDOnKPEusO5PfGF2ItQP/qUSwbTW3iX9TS2S0mXq7lAVxzg
-	X6/6dYfsMqBNYNLl2mui/ni8QSGEKfCQGzTXFoG3+zykTBMo9zB7OqWMkpSCiijOd82YpmY
-	F+hoqBU9UDKFnDfXsuvziw2vkzW4FzMJhF+oQOKFChMY78FWOzie7JvmhEmnxM8lvGxarnC
-	A==
-X-QQ-XMRINFO: NS+P29fieYNwYjjdscdc6tBlmgA8e/Wkkg==
-X-QQ-RECHKSPAM: 0
 
+Commit 3bc753c06dd0 ("kbuild: treat char as always unsigned") set
+-funsigned-char globally, which changed the result of the naked 'char'
+load in ocfs2_xattr_name_hash():
 
-在 2026/10/8 19:59, Alexandre Belloni 写道:
-> On 08/10/2026 19:37:32+0800, Liu Dalin wrote:
->> A prior attempted to fix the 32-bit arithmetic overflow by turning
->> the implicit u32-to-timeu64_t cast into an explicit one. However,
->> all calculations still happen in u32, inheriting the existing
->> negative offset sign-extension bug, and the explicit cast triggers
->> smatch "cast after binop" warning.
->>
-> AI is lying to you, offset will never ever be negative.
+	hash = (hash << OCFS2_HASH_SHIFT) ^
+	       (hash >> (8*sizeof(hash) - OCFS2_HASH_SHIFT)) ^
+	       *name++;
 
-Agreed, Thanks for review!!
+A name byte >= 0x80 used to sign-extend and now zero-extends, so the
+hash no longer matches the xe_name_hash an older kernel stored.  An
+indexed xattr tree is searched by that hash alone, and both the bucket
+binary search and the entry scan within it stop as soon as the wanted
+hash falls below an entry's, so the entry is never reached: getxattr,
+setxattr and removexattr return -ENODATA for a name that listxattr
+still lists.
 
-with rtc_dev->range_min = (u64)days * 86400 + hour * 3600 + min * 60 + sec;
-         rtc_dev->range_max = U32_MAX + rtc_dev->range_min;
+Search with the current unsigned hash and, on a miss, retry with the
+legacy signed one, as ext4 does in commit f3bbac32475b2 ("ext4: deal
+with legacy signed xattr name hash values").  New entries are always
+stored under the unsigned hash.  Skip the retry when the two hashes are
+equal, so that a miss on an ASCII name does not walk the tree twice.
 
-offset will never ever be negative.
+A miss is not empty handed: ocfs2_xattr_bucket_find() leaves xs->bucket
+holding the bucket a new entry would go into.  So after a double miss
+drop it and search once more with the unsigned hash, otherwise a new
+entry would be placed by its legacy hash and stored under its unsigned
+one, breaking the ordering the search relies on.
 
->
->> The FTRTC010 RECORD register stores a signed 32-bit two's complement
->> offset exposed through readl() as a u32. Casting the whole u32
->> expression result to timeu64_t performs zero extension, so negative
->> offsets become huge positive values.
->>
->> Fix it by casting offset to s32 first to correctly interpret the
->> two's complement sign, then promote all operands to timeu64_t so all
->> calculations are done in 64-bit space. days/hour/min/sec are
->> non-negative hardware counters, so promoting them directly to
->> timeu64_t is safe.
->>
->> Fixes: 1d61d2592c1f ("rtc: gemini/ftrtc010: rename driver and symbols")
->>
->> Signed-off-by: Liu Dalin <liudalin@kylinsec.com.cn>
->> ---
->>   drivers/rtc/rtc-ftrtc010.c | 3 ++-
->>   1 file changed, 2 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/rtc/rtc-ftrtc010.c b/drivers/rtc/rtc-ftrtc010.c
->> index b29c96be40f4..65fe1e872239 100644
->> --- a/drivers/rtc/rtc-ftrtc010.c
->> +++ b/drivers/rtc/rtc-ftrtc010.c
->> @@ -72,7 +72,8 @@ static int ftrtc010_rtc_read_time(struct device *dev, struct rtc_time *tm)
->>   	days = readl(rtc->rtc_base + FTRTC010_RTC_DAYS);
->>   	offset = readl(rtc->rtc_base + FTRTC010_RTC_RECORD);
->>   
->> -	time = (timeu64_t)(offset + days * 86400 + hour * 3600 + min * 60 + sec);
->> +	time = (timeu64_t)(s32)offset + (timeu64_t)days * 86400 +
->> +	       (timeu64_t)hour * 3600 + (timeu64_t)min * 60 + (timeu64_t)sec;
->>   
->>   	rtc_time64_to_tm(time, tm);
->>   
->> -- 
->> 2.43.0
->>
+Only indexed trees are affected; inline xattrs and non-indexed xattr
+blocks compare names with memcmp and never look at the hash.
+
+Also spell out the signedness instead of leaving the current hash to
+-funsigned-char, as commit 854f0912f813 ("ext4: make xattr char
+unsignedness in hash explicit") did, so that both variants stay correct
+if this is backported to a kernel without the flag.
+
+Exposed-by: 3bc753c06dd0 ("kbuild: treat char as always unsigned")
+Cc: stable@vger.kernel.org # 6.2+
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+---
+ fs/ocfs2/xattr.c | 93 ++++++++++++++++++++++++++++++++++++++++++------
+ 1 file changed, 82 insertions(+), 11 deletions(-)
+
+diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
+index a428fe908116..0834883ae971 100644
+--- a/fs/ocfs2/xattr.c
++++ b/fs/ocfs2/xattr.c
+@@ -601,9 +601,10 @@ static inline const char *ocfs2_xattr_prefix(int name_index)
+ 	return handler ? xattr_prefix(handler) : NULL;
+ }
+ 
+-static u32 ocfs2_xattr_name_hash(struct inode *inode,
+-				 const char *name,
+-				 int name_len)
++static u32 __ocfs2_xattr_name_hash(struct inode *inode,
++				   const char *name,
++				   int name_len,
++				   bool legacy_signed)
+ {
+ 	/* Get hash value of uuid from super block */
+ 	u32 hash = OCFS2_SB(inode->i_sb)->uuid_hash;
+@@ -612,13 +613,30 @@ static u32 ocfs2_xattr_name_hash(struct inode *inode,
+ 	/* hash extended attribute name */
+ 	for (i = 0; i < name_len; i++) {
+ 		hash = (hash << OCFS2_HASH_SHIFT) ^
+-		       (hash >> (8*sizeof(hash) - OCFS2_HASH_SHIFT)) ^
+-		       *name++;
++		       (hash >> (8*sizeof(hash) - OCFS2_HASH_SHIFT));
++		if (legacy_signed)
++			hash ^= (signed char)name[i];
++		else
++			hash ^= (unsigned char)name[i];
+ 	}
+ 
+ 	return hash;
+ }
+ 
++static u32 ocfs2_xattr_name_hash(struct inode *inode,
++				 const char *name,
++				 int name_len)
++{
++	return __ocfs2_xattr_name_hash(inode, name, name_len, false);
++}
++
++static u32 ocfs2_xattr_name_hash_signed(struct inode *inode,
++					const char *name,
++					int name_len)
++{
++	return __ocfs2_xattr_name_hash(inode, name, name_len, true);
++}
++
+ static int ocfs2_xattr_entry_real_size(int name_len, size_t value_len)
+ {
+ 	return namevalue_size(name_len, value_len) +
+@@ -4304,11 +4322,12 @@ static int ocfs2_xattr_bucket_find(struct inode *inode,
+ 	return ret;
+ }
+ 
+-static int ocfs2_xattr_index_block_find(struct inode *inode,
+-					struct buffer_head *root_bh,
+-					int name_index,
+-					const char *name,
+-					struct ocfs2_xattr_search *xs)
++static int __ocfs2_xattr_index_block_find(struct inode *inode,
++					  struct buffer_head *root_bh,
++					  int name_index,
++					  const char *name,
++					  u32 name_hash,
++					  struct ocfs2_xattr_search *xs)
+ {
+ 	int ret;
+ 	struct ocfs2_xattr_block *xb =
+@@ -4317,7 +4336,6 @@ static int ocfs2_xattr_index_block_find(struct inode *inode,
+ 	struct ocfs2_extent_list *el = &xb_root->xt_list;
+ 	u64 p_blkno = 0;
+ 	u32 first_hash, num_clusters = 0;
+-	u32 name_hash = ocfs2_xattr_name_hash(inode, name, strlen(name));
+ 
+ 	if (le16_to_cpu(el->l_next_free_rec) == 0)
+ 		return -ENODATA;
+@@ -4348,6 +4366,59 @@ static int ocfs2_xattr_index_block_find(struct inode *inode,
+ 	return ret;
+ }
+ 
++static int ocfs2_xattr_index_block_find(struct inode *inode,
++					struct buffer_head *root_bh,
++					int name_index,
++					const char *name,
++					struct ocfs2_xattr_search *xs)
++{
++	u32 name_hash, legacy_hash;
++	int name_len = strlen(name);
++	int ret;
++
++	name_hash = ocfs2_xattr_name_hash(inode, name, name_len);
++
++	ret = __ocfs2_xattr_index_block_find(inode, root_bh, name_index, name,
++					     name_hash, xs);
++	if (ret != -ENODATA)
++		return ret;
++
++	/*
++	 * Nothing under the current hash.  The entry may have been stored by
++	 * an older kernel, which sign-extended the name bytes when hashing.
++	 * Skip the retry when the two hashes are equal, so that a name made
++	 * only of ASCII does not have to walk the tree twice.
++	 */
++	legacy_hash = ocfs2_xattr_name_hash_signed(inode, name, name_len);
++	if (legacy_hash == name_hash)
++		return ret;
++
++	/*
++	 * A miss still leaves xs->bucket holding the bucket a new entry would
++	 * be inserted into, so drop it before searching again.
++	 */
++	ocfs2_xattr_bucket_relse(xs->bucket);
++
++	ret = __ocfs2_xattr_index_block_find(inode, root_bh, name_index, name,
++					     legacy_hash, xs);
++	if (!ret) {
++		pr_warn_once("ocfs2: xattr tree with signed name hash\n");
++		return ret;
++	}
++	if (ret != -ENODATA)
++		return ret;
++
++	/*
++	 * Not under either hash.  Restore the unsigned placement, since that
++	 * is where a new entry is stored: leaving the bucket where the legacy
++	 * hash put it would break the ordering the search relies on.
++	 */
++	ocfs2_xattr_bucket_relse(xs->bucket);
++
++	return __ocfs2_xattr_index_block_find(inode, root_bh, name_index, name,
++					      name_hash, xs);
++}
++
+ static int ocfs2_iterate_xattr_buckets(struct inode *inode,
+ 				       u64 blkno,
+ 				       u32 clusters,
+-- 
+2.39.3
 
