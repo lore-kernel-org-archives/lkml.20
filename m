@@ -1,96 +1,145 @@
-Received: from wxsgout04.xfusion.com (wxsgout03.xfusion.com [36.139.52.80])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC5C23AD530
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 16:59:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=36.139.52.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F0E63ACF17;
+	Thu,  8 Oct 2026 17:03:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791478797; cv=none; b=UqhZkLZMC1L9PpOAnlPJYpWbbqIgb0eDbonNVaiAUeZROXx07RukLravEwb7uHjjOdjPQyBOSk9x+nKKbPWHtBO8k/bmitDLGNhPqLXdWnSLsMFqN3vox2hlcStTO5BJ0m8zAVjxuiHyO1UD5o7mi4mJa3DmbLhHjQoSm+eXcB8=
+	t=1791478987; cv=none; b=Q5ZRED+oWGSVcsQxj8sPRMDt34RKLlShwhbPTnGEO4hp/SGv4DTIICABqLI2ai/Oyd1IjtJIcJ7bg38XQCyAfI+/UjynlfdI7bqvizOOuvrm0hL9WawmMtPyY+a0Yx43+4WD+EEvtWLbKIDV1wTBD4tfoZuFgVSSs1aNgHXMMsA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791478797; c=relaxed/simple;
-	bh=DPS89jnvGKfosnNmRUYPSk22BtY8EzulP4pxtvNuLic=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Cpf5kU5SZ9n50ElP2urBgD86wPnPlP6Z9lzesDdwrewJ3YJgd77DnqbqWUHhPt1Nat8+UAaZgg9cGc0Bb2RUZRvLSqt6bE2rh62y5J9US0ta4uU9tUfVpONKK/KwYYf9XHExmwN5jUnfPYJU6L4XkAHRNDx0+bWKAyuXGR5lMFs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xfusion.com; spf=pass smtp.mailfrom=xfusion.com; arc=none smtp.client-ip=36.139.52.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xfusion.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xfusion.com
-Received: from wuxpheds03048.xfusion.com (unknown [10.32.143.30])
-	by wxsgout04.xfusion.com (SkyGuard) with ESMTPS id 4j0wjw3TzqzBDpk5;
-	Fri,  9 Oct 2026 00:41:24 +0800 (CST)
-Received: from DESKTOP-Q8I2N5U.xfusion.com (10.82.130.100) by
- wuxpheds03048.xfusion.com (10.32.143.30) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_RSA_WITH_AES_128_CBC_SHA256) id 15.2.2562.46;
- Fri, 9 Oct 2026 00:41:53 +0800
-From: shechenglong <shechenglong@xfusion.com>
-To: <dmitry.osipenko@collabora.com>, <airlied@redhat.com>,
-	<kraxel@redhat.com>, <tzimmermann@suse.de>
-CC: <gurchetansingh@chromium.org>, <olvaffe@gmail.com>,
-	<maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>, <simona@ffwll.ch>,
-	<dri-devel@lists.freedesktop.org>, <virtualization@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, <stone.xulei@xfusion.com>,
-	<chenjialong@xfusion.com>
-Subject: Re: [PATCH RESEND] drm/virtio: expose GEM memory statistics through fdinfo
-Date: Fri, 9 Oct 2026 00:41:34 +0800
-Message-ID: <20261008164135.510-1-shechenglong@xfusion.com>
-X-Mailer: git-send-email 2.37.1.windows.1
-In-Reply-To: <ce72b2f5-1343-44e9-89fe-e2de4efb7e9c@collabora.com>
-References: <ce72b2f5-1343-44e9-89fe-e2de4efb7e9c@collabora.com>
+	s=arc-20240116; t=1791478987; c=relaxed/simple;
+	bh=J9cx9pMDMvILCUgaH6jkkc0B9b6i+Cq9CtRvXhNbwTE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SPuFIvn1qH0xdyCgO6sECzTrq3xssE04WV02rwMdQZuGue0jeSp192cOQ9iaWQ7djRcEM4Bc/aTb712kh/TV5ksOQa34Oobprdh8qotw5Ez51FI9WGhePhsca81ODHjoRDiceD3K+uJGGybQoHYpxAvrJftU6BU2OGNdkyGU6iI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jKYgBGYE; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jKYgBGYE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791478985; x=1823014985;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=J9cx9pMDMvILCUgaH6jkkc0B9b6i+Cq9CtRvXhNbwTE=;
+  b=jKYgBGYEX5W0krxYn1PpYG9DgAZ7uvzYma4eHs8KdY+L6D+4qr6+JGD2
+   xrk/tdz7muBRG1224qt1chBTAmt6BO4gkVGQBhsQ9vXZaaBm2IucK2zKh
+   IifsMDxbFIT9u0i3g4Hxz/nFJ/rfx417qE81VkbnjkDG5pgq9paDNcmyc
+   drx8vAOPO5ArQlETvkWdLIM9O+ItHPmKgSlQ09tjwsMRshvsuvoQoL1qf
+   3kwQllZgKdCurTJ/9fWpzW2aeJ8PZ8Pt/eP1v6nIh7xoIchOHqsfuobrm
+   ezDyW+Vw98bM2hj4ci6FKbFMpB1BMUbrbqvNUICmMRJRkIqSfSdnSFIDt
+   A==;
+X-CSE-ConnectionGUID: lFGVUVyYSPW3R8SFIDfysg==
+X-CSE-MsgGUID: s/z4s2k9RjeeJjXddtMYmg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="268902"
+X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
+   d="scan'208";a="268902"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 10:03:04 -0700
+X-CSE-ConnectionGUID: jTsoPRl6S6+tTa4GE81akw==
+X-CSE-MsgGUID: Dc6OB/68R4e8kzQ2gWr6cA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
+   d="scan'208";a="428776"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa006.fm.intel.com with ESMTP; 08 Oct 2026 10:03:00 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xErWC-000000004hw-3Viu;
+	Thu, 08 Oct 2026 17:02:56 +0000
+Date: Fri, 9 Oct 2026 01:02:31 +0800
+From: kernel test robot <lkp@intel.com>
+To: Emerson Busson <emersonbusson@gmail.com>, mhklinux@outlook.com
+Cc: oe-kbuild-all@lists.linux.dev, kys@microsoft.com,
+	haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
+	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, gregkh@linuxfoundation.org,
+	linux-kernel@vger.kernel.org, linux-hyperv@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: Re: [PATCH v2 10/14] hv: vmbus: pin buffer pages across UIO mmap to
+ close the reclaim race
+Message-ID: <202610090020.wViiihcQ-lkp@intel.com>
+References: <20261007190752.336426-11-emersonbusson@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: wuxpheds03045.xfusion.com (10.32.131.99) To
- wuxpheds03048.xfusion.com (10.32.143.30)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261007190752.336426-11-emersonbusson@gmail.com>
 
-On Thu, 8 Oct 2026 00:44:34 +0300, Dmitry Osipenko wrote:
-> Usefulness of this change is dubious. VirtIO-GPU has different types of
-> RAM, I'd expect them all represented properly instead of only shmem.
+Hi Emerson,
 
-Hi Dmitry,
+kernel test robot noticed the following build warnings:
 
-Thanks for the review.
+[auto build test WARNING on char-misc/char-misc-testing]
+[also build test WARNING on char-misc/char-misc-next char-misc/char-misc-linus linus/master v7.3-rc6 next-20261008]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Agreed that a generic memory collector does not map well onto
-virtio-gpu, given its different memory types. For v2, I plan to
-replace it with virtio-gpu-specific accounting and to document the
-semantics of each reported value explicitly:
+url:    https://github.com/intel-lab-lkp/linux/commits/Emerson-Busson/hv-vmbus-convert-ring-backing-through-the-chunk-allocator/20261007-160739
+base:   char-misc/char-misc-testing
+patch link:    https://lore.kernel.org/r/20261007190752.336426-11-emersonbusson%40gmail.com
+patch subject: [PATCH v2 10/14] hv: vmbus: pin buffer pages across UIO mmap to close the reclaim race
+config: i386-randconfig-1013-20261008 (https://download.01.org/0day-ci/archive/20261009/202610090020.wViiihcQ-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261009/202610090020.wViiihcQ-lkp@intel.com/reproduce)
 
-- Guest shmem objects: reported under the "memory" region as
-  drm-total/drm-shared, based on the guest GEM object size. These
-  reflect the requested buffer size; drm-resident, if reported, would
-  be derived from the actual state of the guest backing pages.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610090020.wViiihcQ-lkp@intel.com/
 
-- Host-only blobs (VIRTGPU_BLOB_MEM_HOST3D): reported under a separate
-  region, tentatively "host3d", using the requested blob size. These
-  values would be documented as logical sizes and not as actual host
-  RAM or VRAM consumption.
+All warnings (new ones prefixed by >>):
 
-- Mixed blobs (VIRTGPU_BLOB_MEM_HOST3D_GUEST): the guest shadow
-  backing is accounted under "memory", while the logical blob size is
-  exposed through a separate, documented supplementary key. This
-  distinguishes mixed resources from guest-only ones without
-  presenting the supplementary value as additional measured host
-  memory.
+   In file included from include/linux/dev_printk.h:14,
+                    from include/linux/device.h:15,
+                    from drivers/uio/uio_hv_generic.c:22:
+   drivers/uio/uio_hv_generic_mmap_test.c: In function 'hv_uio_ring_mmap_range_test':
+>> include/linux/limits.h:25:25: warning: conversion from 'long long unsigned int' to 'long unsigned int' changes value from '18446744073709551615' to '4294967295' [-Woverflow]
+      25 | #define U64_MAX         ((u64)~0ULL)
+         |                         ^~~~~~~~~~~~
+   include/linux/compiler.h:76:45: note: in definition of macro 'likely'
+      76 | # define likely(x)      __builtin_expect(!!(x), 1)
+         |                                             ^
+   include/kunit/test.h:810:9: note: in expansion of macro 'KUNIT_UNARY_ASSERTION'
+     810 |         KUNIT_UNARY_ASSERTION(test,                                            \
+         |         ^~~~~~~~~~~~~~~~~~~~~
+   include/kunit/test.h:1017:9: note: in expansion of macro 'KUNIT_FALSE_MSG_ASSERTION'
+    1017 |         KUNIT_FALSE_MSG_ASSERTION(test,                                        \
+         |         ^~~~~~~~~~~~~~~~~~~~~~~~~
+   include/kunit/test.h:1014:9: note: in expansion of macro 'KUNIT_EXPECT_FALSE_MSG'
+    1014 |         KUNIT_EXPECT_FALSE_MSG(test, condition, NULL)
+         |         ^~~~~~~~~~~~~~~~~~~~~~
+   drivers/uio/uio_hv_generic_mmap_test.c:35:9: note: in expansion of macro 'KUNIT_EXPECT_FALSE'
+      35 |         KUNIT_EXPECT_FALSE(test,
+         |         ^~~~~~~~~~~~~~~~~~
+   drivers/uio/uio_hv_generic_mmap_test.c:36:55: note: in expansion of macro 'U64_MAX'
+      36 |                            hv_uio_mmap_range_valid(8, U64_MAX, 1));
+         |                                                       ^~~~~~~
 
-- Imported dma-bufs: handled explicitly, without assuming that they
-  are backed by local shmem.
 
-Usage of the host-visible memory region would be reported separately
-from the backing statistics and would not be used to infer host
-residency.
+vim +25 include/linux/limits.h
 
-The actual host allocation size and residency, including legacy virgl
-resources and the host part of mixed blobs, are not available through
-the existing guest/host interface. Reporting them would require
-additional host/renderer support, so I propose leaving that out of
-this series unless you consider it a prerequisite.
+3c9d017cc283df Andy Shevchenko 2023-08-04  14  
+54d50897d544c8 Masahiro Yamada 2019-03-07  15  #define U8_MAX		((u8)~0U)
+54d50897d544c8 Masahiro Yamada 2019-03-07  16  #define S8_MAX		((s8)(U8_MAX >> 1))
+54d50897d544c8 Masahiro Yamada 2019-03-07  17  #define S8_MIN		((s8)(-S8_MAX - 1))
+54d50897d544c8 Masahiro Yamada 2019-03-07  18  #define U16_MAX		((u16)~0U)
+54d50897d544c8 Masahiro Yamada 2019-03-07  19  #define S16_MAX		((s16)(U16_MAX >> 1))
+54d50897d544c8 Masahiro Yamada 2019-03-07  20  #define S16_MIN		((s16)(-S16_MAX - 1))
+54d50897d544c8 Masahiro Yamada 2019-03-07  21  #define U32_MAX		((u32)~0U)
+3f50f132d8400e John Fastabend  2020-03-30  22  #define U32_MIN		((u32)0)
+54d50897d544c8 Masahiro Yamada 2019-03-07  23  #define S32_MAX		((s32)(U32_MAX >> 1))
+54d50897d544c8 Masahiro Yamada 2019-03-07  24  #define S32_MIN		((s32)(-S32_MAX - 1))
+54d50897d544c8 Masahiro Yamada 2019-03-07 @25  #define U64_MAX		((u64)~0ULL)
+54d50897d544c8 Masahiro Yamada 2019-03-07  26  #define S64_MAX		((s64)(U64_MAX >> 1))
+54d50897d544c8 Masahiro Yamada 2019-03-07  27  #define S64_MIN		((s64)(-S64_MAX - 1))
+54d50897d544c8 Masahiro Yamada 2019-03-07  28  
 
-Does this scope match your expectations for v2? Are there other
-memory types or accounting semantics you would like covered?
-
-Best regards,
-Chenglong She
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
