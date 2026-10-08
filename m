@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60B713EB80E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE0B4471264;
 	Thu,  8 Oct 2026 08:32:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791448345; cv=none; b=Rzd4Jt/U6mdHbTEj+zm9rvIKGoSFOyHz4pYIikj7V7JngW9m8kVjqa3lg2WCVYvApgjBR+RrGebq8LiAa+opjb2qTGidfs5SCNh2jU4UE0iF3sgO3slG+clwd+aL9dcvTeZ0b0HgzfmRM1+DkO3H/v4oEM0L3QV+3V+GcxU1+VI=
+	t=1791448345; cv=none; b=XMVAkNRXJ2qqB9mwFaRnt2qqPr6/XxUlMo4rAzPD6m3X/cVP9OIUZjQ3pAq0xeH0B0z6pmXuzJRrR9Iqoa4MsSv5dhbiwmjK+x5KJi688ynFP9/0nk+NBVrKQl5cMXILQOOnecDTHUGFUmH4+q5Hpx+86QfygywVC6riw9nW7D8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791448345; c=relaxed/simple;
-	bh=CHUa3CIptPM+AuegdDFqUN/HnmyGERs+o61XJrJLhB0=;
+	bh=wqjtZfYdSyq87rdyaySlCVMf79FASBdXubMvbq5w7KM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cLWWtzdAvGcDbajmWvUZVcRVxTB/bx6EIS5RvY81h8p6oYDQqgEkAGsFAr6Gr9gEY/VvWRaSPzakMX4JW5hrn7lySj7ciujWUniNmHtjxqPE7mmV+X/aNT2r5VBts8V0zwcwEFYYN19MH6ONPKo3z0R0WpDfsP/6GWu6XtywiBY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VE2DX2u3; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=gCUjA+LEn8JuEak59VS1Qzy1xEMqxxO+yZzNPuI/qdEDFfRWiUYe+YQl8K5erLfqjf+oMwrYcXfmqwMXxJVCSpqNv3/loYrsWmCq0SKk4QimCGZFIMmgc82XISwIveRNwuRAgSeE4mX2kJGX0rpY8Ji/6d0pjaMZPHGfwqNel58=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hwq2WMCy; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VE2DX2u3"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D944BC2BCF5;
-	Thu,  8 Oct 2026 08:32:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hwq2WMCy"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2E75DC4AF11;
+	Thu,  8 Oct 2026 08:32:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791448344;
-	bh=CHUa3CIptPM+AuegdDFqUN/HnmyGERs+o61XJrJLhB0=;
+	s=k20201202; t=1791448345;
+	bh=wqjtZfYdSyq87rdyaySlCVMf79FASBdXubMvbq5w7KM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=VE2DX2u3ySBx4puVbKJXi+pprMbWR+KvsqQxGYnTTqz/jI6DZwPO3MAiXqiJJU3px
-	 upvImJbQgUZ3W1JUKBGBYzbs8v8ZVeRmhLIKDn6FDKl9b3YmI/exm9n0iR6CmBH5qF
-	 /fIRsi053eCxjvc0+kfUa+uhpbAdeUcgMnj6KD3LffDt/D9LI/UmhNlh/hy/TDyDnS
-	 e1Vn6fPCbRSTQCBQ8NXthpU2wcY/H1rOP8S97ictmYtaotDdN1KQRmKldY0sIMBzBb
-	 fd/C/Jk2ZDtFNVX2FOSgLhkkGXo3OMP7CEyD8U9TT3oYAr/69zsPNF0g+R65Svytmq
-	 bb3ELADhow2Ew==
+	b=hwq2WMCyJ0dIW450QjhNCzBqjCMNQloM1A5abTbJi7LRSPi7Q7ekzzjpp56gjRMkR
+	 wOxLuexTdatDuQ0acYgk7bToYT5qh//t2XNhxksAq2NUvhcxhY72p8onOz3/ulPVMx
+	 BngPO9bpvbVjKCaxXCWGwRZoVU7ZRcpdd7ZvfiZxHQvMczUmL4pwRRCzWDfUGOH17C
+	 IahaouBxXY7+NeerhY3QhzquqVn7I9j/hdhOMP1QzPxa1ibD/fWGjFxiBUItprQFyc
+	 W1jEfAzr+/KWxSCfOwHgmf/ewApeV1EBlrA2bCcnn8Z+qoIa0MUFDd1MMnBIl5Y8GH
+	 2kH27rtiItCOg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B8B6DCA6007;
-	Thu,  8 Oct 2026 08:32:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 149B7CA600B;
+	Thu,  8 Oct 2026 08:32:25 +0000 (UTC)
 From: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
-Date: Thu, 08 Oct 2026 11:31:53 +0300
-Subject: [PATCH v2 1/6] iio: imu: adis: Add optional self_test callback and
- fix custom reset dispatch
+Date: Thu, 08 Oct 2026 11:31:57 +0300
+Subject: [PATCH v2 5/6] iio: imu: adis16607: Add external clock sync
+ support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,8 +40,8 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-adis16607-v2-1-7c94df80878a@analog.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261008-adis16607-v2-5-7c94df80878a@analog.com>
 References: <20261008-adis16607-v2-0-7c94df80878a@analog.com>
 In-Reply-To: <20261008-adis16607-v2-0-7c94df80878a@analog.com>
 To: Lars-Peter Clausen <lars@metafoo.de>, 
@@ -56,11 +56,11 @@ Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, Radu Sabau <radu.sabau@analog.com>, 
  Jonathan Cameron <jic23@kernel.org>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791448342; l=4428;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791448343; l=5885;
  i=radu.sabau@analog.com; s=20261001; h=from:subject:message-id;
- bh=4zYxfWazA1Fswb+viIHSKDytamUuXTXoJzm+4Hj5n4E=;
- b=SuSSCUdsHREIASAbDcG4iO+aEvGm35E9LRdq8S6vM2Kvij66XmmHlOlHJ0BAwHxBb8K3LHeij
- jI3xPAz+Q7IARj8NOlBiHB53GG8SZZzDEvI4EsJMsWOIWBwJPEUPpUi
+ bh=1CKBAD3Qy+qLZgYcU4cSY2B5g+NSBbHeriyyv2liYZ4=;
+ b=fylgWk2azz5iRPSHhtfEdOgTZDarCc2XazRIfMIxZPnJ05e40N7rh6kENYUCp6caGf/m7ojv2
+ UAnogN8jQHHBP4WFN3D3dkriVIVZCCE7kW17z5wDCpwchZ3Ifw4o489
 X-Developer-Key: i=radu.sabau@analog.com; a=ed25519;
  pk=XOZSO/Ut8qfYw7khL8lUF65Pgl+VLihISyS+Iy9jY8c=
 X-Endpoint-Received: by B4 Relay for radu.sabau@analog.com/20261001 with
@@ -70,119 +70,194 @@ Reply-To: radu.sabau@analog.com
 
 From: Radu Sabau <radu.sabau@analog.com>
 
-Add an optional self_test callback to struct adis_data, for devices
-whose self-test doesn't fit the generic mask-write/sleep/check-status
-sequence. Purely additive: defaults to NULL, no change for existing
-drivers.
+Add support for an optional external clock (clocks property),
+selecting between SYNC_DIRECT and SYNC_SCALED modes depending on the
+supplied frequency, with the internal 8 kHz clock used as the default
+when no clock is provided.
 
-Also fix __adis_initial_startup()'s no-reset-gpio path: it called
-__adis_reset() directly instead of adis->ops->reset(), silently
-ignoring any driver's custom reset implementation. Invisible until now
-since adis_default_ops.reset is __adis_reset() itself. Dispatch
-through adis->ops->reset() instead, adding the settle-time sleep at
-the call site for custom ops (documented not to sleep internally)
-while skipping it for the default op (which already sleeps
-internally).
-
-Fixes: ecb010d44108 ("iio: imu: adis: Refactor adis_initial_startup")
 Signed-off-by: Radu Sabau <radu.sabau@analog.com>
 ---
- drivers/iio/imu/adis.c       | 30 +++++++++++++++++++++++-------
- include/linux/iio/imu/adis.h | 14 ++++++++++++++
- 2 files changed, 37 insertions(+), 7 deletions(-)
+ drivers/iio/imu/adis16607.c | 102 +++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 95 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/iio/imu/adis.c b/drivers/iio/imu/adis.c
-index a2bc1d14ed91..306777526a11 100644
---- a/drivers/iio/imu/adis.c
-+++ b/drivers/iio/imu/adis.c
-@@ -355,11 +355,20 @@ int __adis_reset(struct adis *adis)
- }
- EXPORT_SYMBOL_NS_GPL(__adis_reset, "IIO_ADIS_LIB");
+diff --git a/drivers/iio/imu/adis16607.c b/drivers/iio/imu/adis16607.c
+index 90688037cbd3..0147eba0b173 100644
+--- a/drivers/iio/imu/adis16607.c
++++ b/drivers/iio/imu/adis16607.c
+@@ -6,6 +6,7 @@
+  */
+ #include <linux/bitfield.h>
+ #include <linux/bitops.h>
++#include <linux/clk.h>
+ #include <linux/debugfs.h>
+ #include <linux/delay.h>
+ #include <linux/iio/buffer.h>
+@@ -47,6 +48,7 @@
+ #define ADIS16607_REG_FIFO_WORD_CNT	0x2B
+ #define ADIS16607_REG_USER_GPIO_CFG	0x2F
+ #define ADIS16607_REG_SPI_HALFDUPLEX	0x32
++#define ADIS16607_REG_USER_SYNC		0x33
+ #define ADIS16607_REG_USER_DATA_CFG	0x34
+ #define ADIS16607_REG_USER_FIFO_CFG	0x35
+ #define ADIS16607_REG_SOFT_RESET	0x36
+@@ -59,10 +61,12 @@
  
-+static const struct adis_ops adis_default_ops = {
-+	.read = __adis_read_reg,
-+	.write = __adis_write_reg,
-+	.reset = __adis_reset,
+ /* Masks */
+ #define ADIS16607_RESET_GPIO_MASK	GENMASK(2, 0)
++#define ADIS16607_SYNC_GPIO_MASK	GENMASK(8, 6)
+ #define ADIS16607_DR_GPIO_MASK		GENMASK(11, 9)
+ #define ADIS16607_DEV_NOK_MASK		GENMASK(14, 12)
+ #define ADIS16607_DATA_CNTR_EN_MASK	BIT(14)
+ #define ADIS16607_BURST32_MASK		BIT(15)
++#define ADIS16607_SYNC_MODE_MASK	BIT(15)
+ #define ADIS16607_BOOTLOADER_BUSY_MASK	BIT(0)
+ 
+ /* FIFO masks */
+@@ -89,8 +93,22 @@
+ #define ADIS16607_ACCEL_Z_DELTA_MAX	4000
+ #define ADIS16607_GYRO_DELTA_MAX	2600
+ 
++/* Sync modes */
++enum adis16607_sync_mode {
++	ADIS16607_SYNC_DEFAULT,
++	ADIS16607_SYNC_DIRECT,
++	ADIS16607_SYNC_SCALED,
 +};
 +
- static int adis_self_test(struct adis *adis)
- {
- 	int ret;
- 	const struct adis_timeout *timeouts = adis->data->timeouts;
- 
-+	if (adis->data->self_test)
-+		return adis->data->self_test(adis);
++struct adis16607_sync {
++	u16 sync_mode;
++	u16 min_rate;
++	u16 max_rate;
++};
 +
- 	ret = __adis_write_reg_16(adis, adis->data->self_test_reg,
- 				  adis->data->self_test_mask);
- 	if (ret) {
-@@ -413,7 +422,20 @@ int __adis_initial_startup(struct adis *adis)
- 		gpiod_set_value_cansleep(gpio, 0);
- 		msleep(timeouts->reset_ms);
- 	} else {
--		ret = __adis_reset(adis);
-+		ret = adis->ops->reset(adis);
-+		if (ret)
-+			return ret;
-+		/*
-+		 * The default reset op (__adis_reset()) already sleeps the
-+		 * settle time internally. Custom reset ops are documented
-+		 * (struct adis_ops::reset) not to, so sleep here for them.
-+		 */
-+		if (adis->ops != &adis_default_ops)
-+			msleep(timeouts->sw_reset_ms);
+ struct adis16607_chip_info {
+ 	const struct iio_chan_spec *channels;
++	const struct adis16607_sync *sync_mode;
+ 	const char *name;
+ 	u32 num_channels;
+ 	u32 gyro_max_val;
+@@ -102,6 +120,7 @@ struct adis16607_chip_info {
+ 	u32 deltvel_max_val;
+ 	u32 int_clk;
+ 	u16 max_dec;
++	u8 num_sync;
+ };
+ 
+ struct adis16607 {
+@@ -109,6 +128,7 @@ struct adis16607 {
+ 	struct adis adis;
+ 	unsigned long clk_freq;	/* millihertz */
+ 	u64 sample_period_ns;
++	u32 sync_mode;
+ 	u16 fifo_watermark;
+ 	/* Scratch buffer used for FIFO pop operations, see adis16607_fifo_pop() */
+ 	u8 *fifo_buf;
+@@ -1089,6 +1109,12 @@ static const struct iio_info adis16607_info = {
+ 	.hwfifo_set_watermark = adis16607_set_watermark,
+ };
+ 
++static const struct adis16607_sync adis16607_sync_modes[] = {
++	{ ADIS16607_SYNC_DEFAULT, 0, 0 },
++	{ ADIS16607_SYNC_DIRECT, 401, 8000 },
++	{ ADIS16607_SYNC_SCALED, 1, 400 },
++};
++
+ static const char * const adis16607_status_error_msgs[] = {
+ 	[9] = "Boot Memory Failure",
+ 	[11] = "Power Supply Failure",
+@@ -1128,7 +1154,9 @@ static const struct adis_data adis16607_data = {
+ 	.temp_scale	= 5,						\
+ 	.deltvel_max_val = IIO_G_TO_M_S_2(40),				\
+ 	.int_clk	= 8000,						\
+-	.max_dec	= 65535
++	.max_dec	= 65535,					\
++	.sync_mode	= adis16607_sync_modes,				\
++	.num_sync	= ARRAY_SIZE(adis16607_sync_modes)
+ 
+ static const struct adis16607_chip_info adis16607_2_chip_info = {
+ 	ADIS16607_CHIP_INFO_COMMON,
+@@ -1146,15 +1174,75 @@ static const struct adis16607_chip_info adis16607_3_chip_info = {
+ 	.deltang_max_val = IIO_DEGREE_TO_RAD(2000),
+ };
+ 
+-/*
+- * No external clock sync support yet: always run on the internal clock.
+- * Default dec=0 after reset, so period = 1 / clk_freq.
+- */
+ static int adis16607_config_clk(struct adis16607 *st)
+ {
+-	st->clk_freq = (unsigned long)st->info->int_clk * 1000;
++	struct device *dev = &st->adis.spi->dev;
++	const struct adis16607_sync *sync_mode_data = NULL;
++	unsigned long ext_clk_hz;
++	struct clk *clk;
++	int i;
++
++	clk = devm_clk_get_optional_enabled(dev, NULL);
++	if (IS_ERR(clk))
++		return PTR_ERR(clk);
++
++	if (!clk) {
++		st->clk_freq = (unsigned long)st->info->int_clk * 1000;
++		st->sync_mode = ADIS16607_SYNC_DEFAULT;
++		st->sample_period_ns = DIV_ROUND_CLOSEST_ULL((u64)NSEC_PER_SEC * 1000ULL,
++							     st->clk_freq);
++		return 0;
 +	}
 +
-+	if (adis->data->post_reset_setup) {
-+		ret = adis->data->post_reset_setup(adis);
- 		if (ret)
- 			return ret;
- 	}
-@@ -491,12 +513,6 @@ int adis_single_conversion(struct iio_dev *indio_dev,
++	ext_clk_hz = clk_get_rate(clk);
++
++	for (i = 1; i < st->info->num_sync; i++) {
++		if (ext_clk_hz >= st->info->sync_mode[i].min_rate &&
++		    ext_clk_hz <= st->info->sync_mode[i].max_rate) {
++			sync_mode_data = &st->info->sync_mode[i];
++			break;
++		}
++	}
++
++	if (!sync_mode_data)
++		return dev_err_probe(dev, -EINVAL,
++				     "Clk rate: %lu not in a valid range\n",
++				     ext_clk_hz);
++
++	st->sync_mode = sync_mode_data->sync_mode;
++	/* DIRECT: external clock is the effective internal rate */
++	st->clk_freq = ext_clk_hz * 1000;
++
++	/* Configure sync via USER_GPIO_CFG and USER_SYNC registers */
++	if (st->sync_mode != ADIS16607_SYNC_DEFAULT) {
++		int ret;
++
++		/* Enable sync GPIO function */
++		ret = adis_update_bits_base(&st->adis, ADIS16607_REG_USER_GPIO_CFG,
++					    ADIS16607_SYNC_GPIO_MASK,
++					    FIELD_PREP(ADIS16607_SYNC_GPIO_MASK, 1), 2);
++		if (ret)
++			return ret;
++
++		/* Set sync mode in USER_SYNC register */
++		if (st->sync_mode == ADIS16607_SYNC_SCALED) {
++			u16 sync_scale;
++
++			sync_scale = st->info->int_clk / ext_clk_hz;
++			ret = adis_write_reg_16(&st->adis, ADIS16607_REG_USER_SYNC,
++						ADIS16607_SYNC_MODE_MASK | sync_scale);
++			if (ret)
++				return ret;
++
++			/* SCALED: effective rate is int_clk (ext_clk × sync_scale ≈ int_clk) */
++			st->clk_freq = (unsigned long)st->info->int_clk * 1000;
++		}
++	}
++
++	/* Default dec=0 after reset: period = 1 / clk_freq */
+ 	st->sample_period_ns = DIV_ROUND_CLOSEST_ULL((u64)NSEC_PER_SEC * 1000ULL,
+-						     st->clk_freq);
++						      st->clk_freq);
++
+ 	return 0;
  }
- EXPORT_SYMBOL_NS_GPL(adis_single_conversion, "IIO_ADISLIB");
  
--static const struct adis_ops adis_default_ops = {
--	.read = __adis_read_reg,
--	.write = __adis_write_reg,
--	.reset = __adis_reset,
--};
--
- /**
-  * adis_init() - Initialize adis device structure
-  * @adis:	The adis device
-diff --git a/include/linux/iio/imu/adis.h b/include/linux/iio/imu/adis.h
-index bfb6df68e6c9..06058843e02b 100644
---- a/include/linux/iio/imu/adis.h
-+++ b/include/linux/iio/imu/adis.h
-@@ -51,6 +51,18 @@ struct adis_timeout {
-  * @self_test_mask: Bitmask of supported self-test operations
-  * @self_test_reg: Register address to request self test command
-  * @self_test_no_autoclear: True if device's self-test needs clear of ctrl reg
-+ * @post_reset_setup: Optional device-specific hook called after reset,
-+ *		before self-test. Not all ADIS devices need extra bring-up
-+ *		between reset and self-test (SPI mode locking, status or
-+ *		bootloader checks, pin or burst-mode configuration, etc.) -
-+ *		only called when set. Must return 0 on success, a negative
-+ *		error code otherwise.
-+ * @self_test: Optional device-specific self-test override. When set,
-+ *		it is called instead of the generic mask-write/sleep/
-+ *		check-status sequence. The callback owns its own pass/fail
-+ *		determination entirely (it should call __adis_check_status()
-+ *		itself if it wants status-register checks). Must return 0 on
-+ *		success, a negative error code otherwise.
-  * @status_error_msgs: Array of error messages
-  * @status_error_mask: Bitmask of errors supported by the device
-  * @timeouts: Chip specific delays
-@@ -81,6 +93,8 @@ struct adis_data {
- 	unsigned int self_test_mask;
- 	unsigned int self_test_reg;
- 	bool self_test_no_autoclear;
-+	int (*post_reset_setup)(struct adis *adis);
-+	int (*self_test)(struct adis *adis);
- 	const struct adis_timeout *timeouts;
- 
- 	const char * const *status_error_msgs;
 
 -- 
 2.43.0
