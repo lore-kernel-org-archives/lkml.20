@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FE6B3DD50B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A649A450410;
 	Thu,  8 Oct 2026 12:15:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791461741; cv=none; b=nYmlVNEfClFeGWOOqvmT0xxVhuXU2kWRx73E31UqOAky7hpZLKE3Zu6HCiu51FCtx+JTZpKC+SiohPjYLVvdjOMQKg7EV2Xpmcr+8kCYmiBtlNl2Lb9M7wtnS7NshWYtG/NB7TBOIegq8bbiSqiNLUzLNiVkxoxQcnQz0Vd1/20=
+	t=1791461741; cv=none; b=ai3MNHSaEeh1sPYmW4Q/Tgxexl7TosAJwPJ2n5MYnUt2uyspq78pK9m+MAHU0NHsUkuT1nIxUWjWmp3yodzXUDYUagt8KOnNknMgNQwWbDOJDKAEUSTO0QoJMdPvjzIO+L/TJy03asjbJ4IJiocCwyvjNM8KG1AcCyAc5f5Zwqc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791461741; c=relaxed/simple;
-	bh=4ODUPMV03VdBemqJmmhvAVMXz/2NymhIvG+Z8fEazdk=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=mCCbGTc4aHRu5R6F60ReuxsmOFHmPAi8fT/IdRct+vaXdj0xJVIvufshY/3SBMR3cv8nE+ppxssUHnHuzcwEHhKyppldKWG2EPBBzztEyAKoZ5j2LmYrPGUf6/d6KO3NVRqMZjMf0CQbvuq2gb5/4oydruWV8PqcPoTUjnS+TLw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WnIfY0MP; arc=none smtp.client-ip=10.30.226.201
+	bh=Vdvmb/idCconkunwe5vqiLNHSM1hVRs9qmxEo8J62CU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=kD221gC8bq3bBdjIQo3yEI6h7NyXKSp6DXr4pUDGs7h6F4m6ifZqKukMJ9TxqTMHBJDMRPbERf2LHEJr6RMQXdudo2RB6Cvd+8cGPSqGKHe5q8B+dOSNNHEfKEIAnqO1juvjbxOb/gbg3Di8BmIabBUFqR+Dv9JYTBSpzlI19H0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tcUx1Tgz; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WnIfY0MP"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 35D71C2BCC7;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tcUx1Tgz"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5F3B5C2BCF5;
 	Thu,  8 Oct 2026 12:15:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1791461741;
-	bh=4ODUPMV03VdBemqJmmhvAVMXz/2NymhIvG+Z8fEazdk=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=WnIfY0MP30ldQmC7BEHmqnRO89oB7ldDTfgZZYxclJdeXEJtQHWpCEKPvNgT12cVQ
-	 Cge24dhxgyo+EN2y1WJrzASc5+p0SzcoiMr36C6tp5MixvaybkKe09F8F00ZNxoIRE
-	 GYb6fH+t2DG5tVoNhzWeu6KAnvTmkzsR4OLN0gbJXt3C1KSe5slhlYjR0qLPKaGNyi
-	 b7MFrfef1aNOib7GtEVepNX241/YsJ4s/QIUV7AeMxfQH6c/7d0T9X8QUYF4+sSmtD
-	 fLXJJQg12lHS36F1ZJGdZCeDqV9qSUpQvi4xdbtN4SKYBe1Pi13gYEf11YpCGeFs7x
-	 6M+CfUR6biLOA==
+	bh=Vdvmb/idCconkunwe5vqiLNHSM1hVRs9qmxEo8J62CU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=tcUx1Tgzhe2IrqtHXyPnyeX6hfmOsewW3geO5QA7zbZJDJcKL6vWAen9NZVss5Q7P
+	 O4nyZWcD/CIHQafRBmDPHD0NfSm/NKRjWao6KSEroYIcO5X88MA85g0uhmfhfA1iRY
+	 awUQGhx1Zy25J6EQLjavbnVa5wplmnxNylx3L7Ulb4GaJOBrmEw3rQvWT1Q8c8Jw4e
+	 pcfYFyOANszFuuom9rZYho4L58G56cX/l6N4rO5HDDZCzcmyI0rwE8Ib3M/TGNSr2S
+	 J95clSoIbvUkzwF1OmR7PqMZRx5m3HSBfFwZzt9X3/aqJ+dwAnAobYy5IJGUdYEwO3
+	 5NbtB7daNwU+w==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F432CA600C;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4100ECA6007;
 	Thu,  8 Oct 2026 12:15:41 +0000 (UTC)
 From: Michael Reeves via B4 Relay <devnull+michael.reeves077.gmail.com@kernel.org>
-Subject: [PATCH 0/2] arm64: Add support for Apple M3 and M4 CPUs in KVM
-Date: Thu, 08 Oct 2026 23:15:39 +1100
-Message-Id: <20261008-apple-m3-m4-kvm-v1-0-7bb4cbf3d63b@gmail.com>
+Date: Thu, 08 Oct 2026 23:15:41 +1100
+Subject: [PATCH 2/2] arm64: Apply existing Apple CPU workarounds to M3 and
+ M4
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,10 +41,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAGuJx2oC/yWMyw6DIBBFf8XMupMiGvv4laYLBsZKW5CANU2M/
- y7o8tzHWSBxtJzgXi0QebbJjj5DfapAD8q/GK3JDFLIrhbiiiqEL6Nr0LX4mR3ShW4kuWlJG8i
- vELm3/934eB6cfvRmPRVNWZBKjBSV10OJTFT9dD60uzDXsK4bk1jkupoAAAA=
-X-Change-ID: 20261008-apple-m3-m4-kvm-b7b9b2e34bcd
+Message-Id: <20261008-apple-m3-m4-kvm-v1-2-7bb4cbf3d63b@gmail.com>
+References: <20261008-apple-m3-m4-kvm-v1-0-7bb4cbf3d63b@gmail.com>
+In-Reply-To: <20261008-apple-m3-m4-kvm-v1-0-7bb4cbf3d63b@gmail.com>
 To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
  Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
  Mark Rutland <mark.rutland@arm.com>
@@ -57,12 +57,12 @@ Cc: Myria Sarvay <myrialsarvay@gmail.com>,
  asahi@lists.linux.dev, linux-kernel@vger.kernel.org, 
  Michael Reeves <michael.reeves077@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791461739; l=982;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791461740; l=1320;
  i=michael.reeves077@gmail.com; s=20261008-m3-m4-kvm;
  h=from:subject:message-id;
- bh=4ODUPMV03VdBemqJmmhvAVMXz/2NymhIvG+Z8fEazdk=;
- b=k9godCQ6k6IjLO6XtMj7BaWGkvsuz4j44cDDnNlgk3dwYIILYaqrFQ97KPhtRllK9LFE+rJd8
- 0aEIs/00G9xCt0t6+sdBFeJJ0xjg+9U/gDMEq966ZXDfR7WTihdCdDr
+ bh=4DZxVFKEdF/Pu4GYU+OpToXoJYmi+szLHgZHQGkaf0M=;
+ b=abXZoPRVUxn8QpLlM9NH1pz4/xpj6h3GJjVNe/wpQmf4rPCSbEySETEDlYQg8trN+7qvOD4b8
+ FO5G/JfJ2FRBRnINns7srdp/CPX57G11XBwKnKf9G6NvfH+fnb8cNu4
 X-Developer-Key: i=michael.reeves077@gmail.com; a=ed25519;
  pk=oi7WuppQ1A+qFZp9DdfIwDnpC3WZ+XY6fJK1upV/CSY=
 X-Endpoint-Received: by B4 Relay for
@@ -70,38 +70,41 @@ X-Endpoint-Received: by B4 Relay for
 X-Original-From: Michael Reeves <michael.reeves077@gmail.com>
 Reply-To: michael.reeves077@gmail.com
 
-Hi,
+From: Michael Reeves <michael.reeves077@gmail.com>
 
-This series enables KVM support on Apple Silicon M3 series and base M4
-CPUs.
+Add M3, M3 Pro, M3 Max and base M4 to apple_cpus so they receive the
+existing PMU trap and broken SEIS workarounds needed by KVM.
 
-The first patch adds the part numbers and MIDR definitions for M3
-(base, Pro and Max) and base M4 CPU cores.
-
-The second patch adds these CPUs to the existing Apple CPU workarounds
-list, which is required for KVM to function correctly.
-
-This series was developed from testing on:
-- Apple M3 and M3 Pro by Michael Reeves
-- Apple M3 Max by Myria Sarvay and Yureka Lilian
-- Apple M4 by Yureka Lilian
-
+Co-developed-by: Yureka Lilian <yureka@cyberchaos.dev>
+Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+Tested-by: Yureka Lilian <yureka@cyberchaos.dev>
+Tested-by: Myria Sarvay <myrialsarvay@gmail.com>
+Signed-off-by: Michael Reeves <michael.reeves077@gmail.com>
 ---
-Michael Reeves (1):
-      arm64: Apply existing Apple CPU workarounds to M3 and M4
+ arch/arm64/kernel/cpu_errata.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-Myria Sarvay (1):
-      arm64: Add Apple M3 and M4 CPU part numbers
+diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
+index e0c094025..8a7703b86 100644
+--- a/arch/arm64/kernel/cpu_errata.c
++++ b/arch/arm64/kernel/cpu_errata.c
+@@ -288,6 +288,14 @@ static const struct midr_range apple_cpus[] = {
+ 	MIDR_ALL_VERSIONS(MIDR_APPLE_M2_AVALANCHE_PRO),
+ 	MIDR_ALL_VERSIONS(MIDR_APPLE_M2_BLIZZARD_MAX),
+ 	MIDR_ALL_VERSIONS(MIDR_APPLE_M2_AVALANCHE_MAX),
++	MIDR_ALL_VERSIONS(MIDR_APPLE_M3_SAWTOOTH),
++	MIDR_ALL_VERSIONS(MIDR_APPLE_M3_EVEREST),
++	MIDR_ALL_VERSIONS(MIDR_APPLE_M3_SAWTOOTH_PRO),
++	MIDR_ALL_VERSIONS(MIDR_APPLE_M3_EVEREST_PRO),
++	MIDR_ALL_VERSIONS(MIDR_APPLE_M3_SAWTOOTH_MAX),
++	MIDR_ALL_VERSIONS(MIDR_APPLE_M3_EVEREST_MAX),
++	MIDR_ALL_VERSIONS(MIDR_APPLE_M4_DONAN_ECORE),
++	MIDR_ALL_VERSIONS(MIDR_APPLE_M4_DONAN_PCORE),
+ 	{},
+ };
+ 
 
- arch/arm64/include/asm/cputype.h | 16 ++++++++++++++++
- arch/arm64/kernel/cpu_errata.c   |  8 ++++++++
- 2 files changed, 24 insertions(+)
----
-base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
-change-id: 20261008-apple-m3-m4-kvm-b7b9b2e34bcd
-
-Best regards,
---  
-Michael Reeves <michael.reeves077@gmail.com>
+-- 
+2.56.0
 
 
