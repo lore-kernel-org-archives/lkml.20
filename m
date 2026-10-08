@@ -1,66 +1,85 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B30CD47206D;
-	Thu,  8 Oct 2026 08:36:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0222C3EC830;
+	Thu,  8 Oct 2026 08:36:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791448590; cv=none; b=dgTB2h2BDMGRlhRlykq1cS+F+4hCr4UwcsE04EWpK4X1YdjnVXy21KnaRyetfQ1QVC99HN6joN1eQIfBkmTXzRB8EzZ74XLGMnxfsIDqi4p5w+NFvqzC1B3icN5TmNh4veXeYLulC5UVNp9xBUE6qVKYdqE7jzYv+5yHy6AC/LM=
+	t=1791448608; cv=none; b=H7eeP8zLif7VSPk3JN35x0P5KMvf63EvVfR1TAScFAPh4M7JoZkbNJ7d+fLiPZXpUJVhSVj/ewgulPzvQWC6AJy2tZoLjlAStwsvRlTzcFAFJKsaaZe4tIkuzUeISdQXWGMxGYvZs/LmGZgxG1wDt/ClOMLdv6Xx7aHoEa2QA+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791448590; c=relaxed/simple;
-	bh=52PWPkkSBeKlJQE8U411SF09zasg2JpEnqS5XrIESD4=;
+	s=arc-20240116; t=1791448608; c=relaxed/simple;
+	bh=2CnL9zUWhVoDK+CrhOc4XAGFdTLKxKk4z4dtrk7xVJY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Tp7YuFMAQhnuHSASabYItRy4gzA84sRvq49KxqbsH6NRW4/LpCG0Kl9iMTCjic7muwFYhzp8C+/QzTIfFWBlk6RqaMZHNtABWzaS5VmslYBT8jOE4e371TbYkQkGMP5o6ZxpbMNds7ZhSV/3Cj9DmnUalyCW1M51KjERrFrc+3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=E80Z7VWo; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	 Content-Type:Content-Disposition:In-Reply-To; b=DTYnN0Sfn0yq0ydy1cRdY1j/Rtltrbhq/L/LZILSIgfAzksbkYGm2A+hkuUAxOhYM+/7rP9W2RGzNIP5u819f0drOyGehqIQU4l6MTWvbJsm8+01tNrYvW8ZbQ+187UI+G4Vgv4+WJnWm1wsXpQrNxqCjUipAnn0k+eV5VGnVLI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hl9HS+hY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="E80Z7VWo"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=9WX991k/EwP8NDLtyOX+ZpuAfd+ibtLEBSgnh2Kmjq4=; 
-	b=E80Z7VWo6wl0gv8XVreOSQhM0YJXbo/ja3JeTZ53hOlVYj2tX5Y1/TY1+RCH7/8jt/ltZnpZBlZ
-	Tejy09djcqe6HqTieYdXIbdPTaK/Z5GxCxEDL7AUQEMGXM2JpNsqj3OfAuFQaWeKYZVfaPgAQ84/P
-	U79xYVsq60JHSygtMsk8BFOgQIXacM0yf5sGD47UwMjhy8R5ZXdJj8eOBgXKneL1KBRLQHJ9ykWwj
-	6OghTPoL0ypyHYnUt5zKTVIUq3pDot64nxUS7frZgvPtrpyEpsWA67rTOAVYfFBFIEyarUBiVuezD
-	hpOVIelHd9z+3Qhjxb+essDHIZFvHMJqg0WA==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xEjc0-00000001o96-0Kmo;
-	Thu, 08 Oct 2026 16:36:25 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Thu, 08 Oct 2026 19:36:24 +1100
-Date: Thu, 8 Oct 2026 19:36:24 +1100
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: =?iso-8859-1?B?Suly6W15?= Jean <jeremy.jean@oss.cyber.gouv.fr>
-Cc: horia.geanta@nxp.com, pankaj.gupta@nxp.com, gaurav.jain@nxp.com,
-	davem@davemloft.net, linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] crypto: caam - reject overlong RSA CRT parameters
-Message-ID: <asdWCJgRzQuH1wH0@gondor.apana.org.au>
-References: <20260810154024.3178145-1-Jeremy.Jean@oss.cyber.gouv.fr>
- <ao4xobfWhs5Ss8Uy@gondor.apana.org.au>
- <752d9ff313bb52a7f8d2295161c1d9a4@oss.cyber.gouv.fr>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hl9HS+hY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88E871F000FF;
+	Thu,  8 Oct 2026 08:36:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791448607;
+	bh=2CnL9zUWhVoDK+CrhOc4XAGFdTLKxKk4z4dtrk7xVJY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Hl9HS+hYhcUaWZQ+m2rEEM+ITObU/vWUZx1BDy/OoEKXA3sZ+PhMmaWMATUSBxoKv
+	 W1DdoJdfwS3W653HZNJfR1197VkjVc6ojEBzR8ZKG5FTibA20i0ZjdcBJEMHwBBFeY
+	 ZKuTtXtRHAcdJvb96vgeBV9W7frxYHWslkBYQJXCVplu+mNW1SUyQr7DHlK96M1p/B
+	 5ih7PtYZL+gWPzUW9WV+mSbsby2DqzHXMNfB7nf02XU8/HahcuDdRWM7Ezdeq9vPH9
+	 5yx81leof3+gjaE9tcuV/Hfk12dOlvOsJYvJCaCKEp0KYFTKy0t1LQy+uv//7rVNmi
+	 XwaoyCADJY86g==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 3F9531AC57CE; Thu, 08 Oct 2026 09:36:45 +0100 (BST)
+Date: Thu, 8 Oct 2026 10:36:45 +0200
+From: Mark Brown <broonie@kernel.org>
+To: Paul Cercueil <paul.cercueil@bootlin.com>
+Cc: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>,
+	Takahiro Kuwano <takahiro.kuwano@infineon.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>,
+	"Guilherme G . Piccoli" <gpiccoli@igalia.com>,
+	linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-spi@vger.kernel.org, Tanmay Jagdale <tanmay@marvell.com>
+Subject: Re: [PATCH 3/5] spi: cadence-xspi: Add irq-less support
+Message-ID: <asdWHQGNfEeGop2M@sirena.co.uk>
+References: <20261005081141.33688-1-paul.cercueil@bootlin.com>
+ <20261005081141.33688-4-paul.cercueil@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="wJo3xw8ck7BgNLyf"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <752d9ff313bb52a7f8d2295161c1d9a4@oss.cyber.gouv.fr>
+In-Reply-To: <20261005081141.33688-4-paul.cercueil@bootlin.com>
+X-Cookie: You will forget that you ever knew me.
 
-On Sat, Oct 03, 2026 at 11:21:44PM +0200, Jérémy Jean wrote:
->
-> I don't know for sure, but it is still getting fixed, e.g.,
-> https://lore.kernel.org/all/FF2F0DC4D3930E6A+20260923101457.204629-1-zhaojinming@uniontech.com/
 
-Can you please repost with a Cc to the new maintainer?
+--wJo3xw8ck7BgNLyf
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Thanks,
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+On Mon, Oct 05, 2026 at 10:11:38AM +0200, Paul Cercueil wrote:
+> From: Tanmay Jagdale <tanmay@marvell.com>
+>=20
+> Make the interrupt line optional. If not provided, the driver will
+> instead resort to polling registers.
+
+This needs a binding update to make the interrupts property optional.
+
+--wJo3xw8ck7BgNLyf
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCasdWHQAKCRAv73Ows9A4
+iWUOAQDv4d3so/X+bhkXiwXbiv6FktJQd3kLoft2zuG5ZbHvWQEAmrSz/6cIYlHX
+JE35pttFWPJJ0Vqr4e5t5xZuFSZ4sws=
+=sI7R
+-----END PGP SIGNATURE-----
+
+--wJo3xw8ck7BgNLyf--
