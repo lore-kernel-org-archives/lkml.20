@@ -1,194 +1,277 @@
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010016.outbound.protection.outlook.com [40.93.198.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBDAF3B0ADB
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 03:24:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.180
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791429863; cv=none; b=Wiys7ePRRFmsJP9PU1jNhitTTG4DKDFu7D8v1HX8DAhwLTlV01VoNsZfTkkoFYI1yx4CS+IAqOGfIm8+XDw9fgPpD17uzAooJflhft72DokA9akIM6rqwOzHU+7IbNq9h7i+MiGVVuMet0JHgI0QRf7QlSKz+sx1q9FMAQpK0+U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791429863; c=relaxed/simple;
-	bh=MiGh0F1fXpTDGtwJXf27agb2AocbQkG5vNBYtclmnCQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=SbaiUm6L8jodnzECSiKpzHQOnHGo3nVUpqt5M/E3RIemFgguVdC6V+nFlAvKue8ZgvY4K6xMC4/wk/3J7ExsgoMG3yaIwOO5YVtK2Th8runEBKLhFWrNL3dlPWDkdBudcjUdLKg+TA4H5SLtrX2rfLHyEdgP3Iil9AU30khS9dc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XwyPYW1Y; arc=none smtp.client-ip=209.85.128.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CD173AFCF0
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 03:24:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.16
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791429862; cv=fail; b=CZSCeaZzF5ujjduxWlpHIcgtmwaOI7JdxUDgUidmEGTZrixDIryI8xfr5CnE4H4oQlXtd/KNo1bJ8H3u79pnsuRuakXWfXkzJH5S7MVO5KszNyzDQB20RdqQzVzc0cod4UzKAw4iutqhnanvyS1sxjnJ1g/MzMTi2pHdozwnb4Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791429862; c=relaxed/simple;
+	bh=5VYy4TID6vfNWq4S6tSXM5NEkzuIwS0SDL3ouYunaAk=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Djbv6YzORgr8YRmPs2WkwR89KgNFaCtqLfe2frldhF6qkudXOgygQYx6ZomPtvN4S9b8SS+UKUqfSufAT1Xvj8hjAAsMrAkVkxbh5FI1rgnqEVkOoEZVGDF3UvdFmDeyP5scO2dvE28MkE2D4weCx/DpsO0KVf7U3mKiKhEtRt4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=etqgqAQp; arc=fail smtp.client-ip=40.93.198.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XwyPYW1Y"
-Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8565d77c277so28454827b3.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 20:24:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791429859; x=1792034659; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=S4S8uHhcZPXnDPMPsSq6PcQ2rrfio9+ag3jtaYhXorg=;
-        b=XwyPYW1YR0shtp7/oWqLQusOlt/V/la1tz7CbyZ2TxdSHw4VoQ0tif3R69htkVg3G3
-         ORvbCkWmUqARkQ7rh576E5CmEoOx8iVmQT5U8VNAJ/OxxAeYpZUfNtaxNQ+nIPKqzyNz
-         svScc1egRT6ngLcs+0Y4KMW3VMWUFTrtuqkjl5z1MvQuUlHI759sJEPkIf6mGcUUx7zm
-         z202dypLmRbY0su4CxNYLM8FZMFq83vz7GFyCbhtAnw0Alp6Y4/FKn0FQmbNP4K+3LsW
-         PL1W2XHENR3cLvnbjnauDsYCTRWqH1Mp08ck8p4qZtbsFhEJBXJwDl5IkEjNFLxWQYSy
-         jSKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791429859; x=1792034659;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=S4S8uHhcZPXnDPMPsSq6PcQ2rrfio9+ag3jtaYhXorg=;
-        b=MYIy0Fpy4MHYXaV2p8vHfmF9bs3olWCGyEpQvxfDHacP3155HaQizNnUSMePj7XcLQ
-         HfPasgU0zEv7uA/x/I+M55fCwf+OjhcbSbva/TXwrwIqv7azzdwMVMYYfrG1HpqiTBwk
-         McKu1/HhvXijyBgfKVdSKAeub1CUa7tToe1IsWrSKwScbDKVSHTKo9ZQK15LqjEHDo0j
-         LG2BQ70EbZ5G+/eVNnmA6vAGwP5rbxFhTTwS0WUFMZyouIl5WeJPyOdQx7VaDwOpr8Lm
-         ErtzErSKgvdf6/Nt/+hNvSLf/uyR1e5N4soWJC5U8jUNeKoosICfgPACASkzdU1WjUeV
-         4leQ==
-X-Forwarded-Encrypted: i=1; AKwUvByIoTT1ezEK7Sn41m+opL/7B67G+diqANapcEf2oC9dHXH4i4dLnycrejDLAvzqioyqUSlPKzrVPgCTetY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJ50WeyHVyWUHnPgXcwzxg1xm8wd1QuGYv8kuKON6tIZBzc1PJ
-	rHTl+1uNjOf1gnrJ7fvk8hDl3w7QCRaMTjE4Azak7inj2jooW1fkEdp2
-X-Gm-Gg: AYBFou1ZHghby7+8cPz1x2DwJIoXFOG73vit7rxrw66wdmom9MfZGR6MXnseLV+gVvE
-	gZZMeLuDw4qcU0a4Gx2rRN8hQMUeQmbcBbnXNaiRVbT2H2iIqxBGZLxmX/schi24BPJVZU4Ax0x
-	DiFMiVzZV7ZyTalqC58VHecij94RkoYab0Ci8S16erxOA6DuT3iTPCGJLQ0qayd1a3KrU7TqAlt
-	qvaSlxyVsRmSMVu/4U+ATwC/hK2+wsdPBUoPoEOPkT1+DYbURkbDj18ZCA3YUPlcWnm2QLxvii5
-	89ki8FbaDukpfMsIUQlGAcj5ofwkE9qd2Sv0wX9M8sPheOehc4YLAHN+RKDOz9ToENBD9kGELsE
-	wfeaO64VjCKHrtcb9KnxNep+qIR1XLoUdcEPUIEaJSXBXeyAaZt8TlywD5PJ4GxsU4Y6mltVLs2
-	pJJdYXhFOYmrR22clDib8wIU8cjyDWx4My1XZ6M7kOhnc4KoZai8Q4/mlZOE/L4BHF0Dw/9rs=
-X-Received: by 2002:a05:690c:281:b0:8b0:702f:3253 with SMTP id 00721157ae682-8b070304f03mr3338477b3.31.1791429859132;
-        Wed, 07 Oct 2026 20:24:19 -0700 (PDT)
-Received: from localhost ([2600:1702:7a90:6f9f:8bc4:8aec:108d:7a04])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b05ab73a8bsm15350057b3.24.2026.10.07.20.24.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 20:24:17 -0700 (PDT)
-From: Matt Turner <mattst88@gmail.com>
-Date: Wed, 07 Oct 2026 23:24:07 -0400
-Subject: [PATCH v2 4/6] alpha: define granularity hint PTE bits
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="etqgqAQp"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BrkkxXpqlxboQIDpPCzyVOhCyQBSjsyN7QJvWupxuaQhrtnHxWUA4wmTQi+Ma/6THVeKTF1HygkfEBDvRKmzaNNj2ccOe11oBdw9aM3Hk6S7vyA76Eik3By969zeXEyVf91hNHOX6cqOhSEeo6J2tmeA30MXxCUegayTp9hjiJPa8MwIpDStNXjTZpTRcKvRtWx6hFh62J4P+4GjKTuqu48lNzZqSQkk6dNUyNqeY/ayyfKF+ZSER4KAFv5S1qCAt/zLYb+YuwpIQqL0QYBl5sx9tteKy15dvTCshvkdSDSDqujdr4wDgU4pjW5yvo1DKHfBhGFRBoHRsC+kLHPnwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lruPHpMnSAqQ7+KylmrsQGgabK4zWyabJ4xhzT6ny8M=;
+ b=V+cea0Y/xOnOvoiHZ7SGcHl0E8qZYwmFX95ZSLCb3rViFTHjPViptpVPQDXoLF0+RHjBXTZ27tuMdxesQvEW5775DgufWJCv/i6p+JhbfL+pWfgU6mnmDKAA8lS2CdOZKE4VgqKsC4uXr9gmtRTlV2boswba7KiRouNQqxpzsQ7WvWzdLsLE72LbiPXfdi0/F3gXQjEeFCKHAkXRa+eYrnj44dqp4bJ9HzDVBuAZZ4S7TiM5jV7dydehWtdoUyzLdqhH8ySmlkW4g9nkgG0EngWPsBRK3trPKHj6SM/vEzyTJ0X21qGz9cT8uU72F+uzzwTzT+iVgBQmTtlNQkVbfQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lruPHpMnSAqQ7+KylmrsQGgabK4zWyabJ4xhzT6ny8M=;
+ b=etqgqAQpVch4DehkvHPDv1RmjJ6dUg+KT3QXwdvbV3I4yWV39uefjtvgjpbxRTMhp4huyJVIGUbUjh4OZI8xR5DIZ/+dvH2QPp/t/5mFd0NYWV5HPCcNuZEDvETT9feQdXO+khfR4JhzOH2BLFTkZguVxELm37sxUsvqBXlaOvY=
+Received: from SJ0PR05CA0027.namprd05.prod.outlook.com (2603:10b6:a03:33b::32)
+ by CY8PR12MB7754.namprd12.prod.outlook.com (2603:10b6:930:86::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Thu, 8 Oct
+ 2026 03:24:15 +0000
+Received: from SJ1PEPF000037AC.namprd03.prod.outlook.com
+ (2603:10b6:a03:33b:cafe::95) by SJ0PR05CA0027.outlook.office365.com
+ (2603:10b6:a03:33b::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.19 via Frontend Transport; Thu, 8
+ Oct 2026 03:24:15 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF000037AC.mail.protection.outlook.com (10.167.244.186) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.496.14 via Frontend Transport; Thu, 8 Oct 2026 03:24:15 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
+ 2026 22:24:06 -0500
+Received: from xsjdavidzha51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Wed, 7 Oct 2026 22:24:06 -0500
+From: David Zhang <yidong.zhang@amd.com>
+To: <quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
+	<max.zhen@amd.com>, <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+CC: David Zhang <yidong.zhang@amd.com>, <sonal.santan@amd.com>,
+	<mario.limonciello@amd.com>, Wendy Liang <wendy.liang@amd.com>
+Subject: [PATCH V3 13/19] accel/amdxdna: Prepare for AIE4 command submission
+Date: Wed, 7 Oct 2026 20:23:42 -0700
+Message-ID: <20261008032348.2044667-14-yidong.zhang@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261008032348.2044667-1-yidong.zhang@amd.com>
+References: <yidong.zhang@amd.com>
+ <20261008032348.2044667-1-yidong.zhang@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261007-alpha-hugepages-v2-4-8e108af2d961@gmail.com>
-References: <20261007-alpha-hugepages-v2-0-8e108af2d961@gmail.com>
-In-Reply-To: <20261007-alpha-hugepages-v2-0-8e108af2d961@gmail.com>
-To: Richard Henderson <richard.henderson@linaro.org>, 
- Magnus Lindholm <linmag7@gmail.com>, 
- Axel Rasmussen <axelrasmussen@google.com>, 
- Andrew Morton <akpm@linux-foundation.org>, Peter Xu <peterx@redhat.com>
-Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Matt Turner <mattst88@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4428; i=mattst88@gmail.com;
- h=from:subject:message-id; bh=MiGh0F1fXpTDGtwJXf27agb2AocbQkG5vNBYtclmnCQ=;
- b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLKO81yZUH3d/clGvw+e5reSEzm4HZm6CpntV+5b7d7cP
- 5lvRXBRx0cWBjEuhpliiixx6xVZZrXtWOpzWvoXzBxWJpAh0iINDEDAwsCXm5hXaqRjpGeqbahn
- CGToGMVD5PQYNDKLi0tTi3TTCooc8vJLEksy8/OK9fILUvMK0gv00jLTSjIy8ouKU4FG6OWllpi
- 6OroZGRqYWDpamDlZOJqaODs7GTq5OTo6uzoZWZqbGDhbOpq4WpozcHEKwFxjeYyR4Xxrq8alQ1
- Xc297uyzrhmW4X/ud+/06fHqk5ckpHKhZk6jH8T2ucd3Lx6dZQ/icvDd/cspD8cOP25XvKJ7XuH
- Zs97yuDJDMA
-X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
- fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000037AC:EE_|CY8PR12MB7754:EE_
+X-MS-Office365-Filtering-Correlation-Id: e5619669-7320-4a95-9d92-08df24eba165
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|376014|23010399003|1800799024|5023799004|10067099003|56012099006|4143699003|3023799007|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	BKcSuPqZNvyUBmXdC7G8Ab4enNMbYH5FRHIU5rRLS8LPvFcJsHv4d0uNqHiz1SuhTR9NzyByBcM56DivdGZOKfgpy/aLpaVA9A9l7IebwQet4S9yh+6yGg+wwwMHiGoZizwKHLOAs3gY5sPxqJi7ITsD/RP+yHRUFrNj+pmUMI0zuV6/Q+csgoyFQx9giMqsRbW9/N/La9q2iZZnvvYe4ngzdW7kQoZCnTCetU05KvYcXsemYFmqPL4OXyiOmg5YiVFnuGsZrTeBr6N/qK0Ndjn5dD/TNB+oF+tayoytW57UujqWoCYKd517hodNaBYDbztvY91r6FRxAmm1GoR8g4rihblP38TIKEgXwqoKWBI4TsVkSwN6oHVxShfxYnyT/mY4nVL0D+hrxMLlNpYhLQa4bUPL5NuJFbOWpWvItWva2RFDDbRoS8or2tdC3lWVOHMZNMHRSBxZ0yyCen1V14JdNWb23L0dPlu+xmG0ISf2Uw+maDzvq5E7x0zm7BodpDPBHiw58kItukE0RndhIgVijlTu1Uixp23zTwPVnCgjte+4FWudW3YYQ/mDS2wpts/6a9GNBmolHcUwPIbqIZ5SBlpqHomrU277UprBkCYw3KsJXq6gmNHA7C7LuzMJY41BkKEBthgzNcVRzUptF/nrJ0vX9can2F6SjhGMlPOq4MUw8aqKqtnLHb5dS+U2JSz1c3Vi3W2zCnLj4978Sw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(23010399003)(1800799024)(5023799004)(10067099003)(56012099006)(4143699003)(3023799007)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	HbDdIOkkNhUwTPfOjnYaa72xta/RkMX75euUb8lw9k+Q/dlqs3oh0sY9AsRgOHcFJv5BR1Xq1e1OvNGQ1/PYFTE2VrNjXv9OCDbIvMWCVcT0N31otiCkEPa7BNRK5th88w1IP0LerYeJwgTF/S2p0rGPcTjjlXVjN/AWdXERMioBOjzTy3QPUJjFhX3zGf1ybGAaD3mpU6RSwAmRaU/r7YCBmmSwkJPb63SHxsaqBG24tZKdgAwDfNzy5pbVXy/QM7SIqZA+dhDs7PmOcFWHSXal903AmnfspLYYzbjNPY9yFAgedZNOgzZ7Qclb1iCug9OErodcWWP/B64e8lTUU9l17YmGqKXbQB8NqonoNO+8aHtAU+IJmHDvk4iqNKSA2HVvCYZ/6o5EejqG9WE0NV+U26tTWlX0Cn/eQcqZ43V4dEET7USnYPFIg5Y5UXrM
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 03:24:15.2335
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e5619669-7320-4a95-9d92-08df24eba165
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF000037AC.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7754
 
-Bits <6:5> of the Alpha PTE are the granularity hint, described in Table
-22-3 of the Alpha Architecture Reference Manual. A hint of N marks the
-PTE as one of a block of 8^N physically contiguous, naturally aligned
-pages that the translation buffer may map with a single entry. With 8KB
-pages that gives 64KB, 512KB and 4MB blocks.
+Prepare the data structures and completion wait helpers required for
+AIE4 command submission:
+- Define struct amdxdna_cmd_start_dpu in amdxdna_ctx.h for the
+  ERT_START_DPU payload.
+- Extend union amdxdna_job_priv with an aie4 member for queue list
+  linkage and job state tracking.
+- Implement smp_rmb() ordering and non-sleeping retry in
+  get_read_index(), returning zero (no completion) when the sample
+  is still invalid after the retry.
+- Update check_cmd_done() and aie4_cmd_wait() to detect asynchronous
+  device disconnect and reset via check_cert_comp_linked().
 
-Define the field and the helpers to encode and decode it. Nothing sets a
-non-zero hint yet.
+get_read_index() returns 0 for an invalid sample. Since 0 <= any
+sequence number, callers never treat it as a completion. If this
+happens while the context is disconnected, aie4_cmd_wait() returns
+-EAGAIN so the caller retries the wait until a valid read_index is
+observed; the command state and fence are not affected.
 
-Add the hint to _PAGE_CHG_MASK so that pte_modify() preserves it. Swap
-PTEs leave bits <31:0> clear, so pte_huge() is false on swap, migration
-and marker entries, and page table entries above the last level keep a
-zero hint where pmd_bad() would reject anything else.
-
-Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
-Tested-by: Magnus Lindholm <linmag7@gmail.com>
-Signed-off-by: Matt Turner <mattst88@gmail.com>
+Co-developed-by: Max Zhen <max.zhen@amd.com>
+Signed-off-by: Max Zhen <max.zhen@amd.com>
+Co-developed-by: Wendy Liang <wendy.liang@amd.com>
+Signed-off-by: Wendy Liang <wendy.liang@amd.com>
+Signed-off-by: David Zhang <yidong.zhang@amd.com>
 ---
- arch/alpha/include/asm/pgtable.h | 51 +++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 50 insertions(+), 1 deletion(-)
+ drivers/accel/amdxdna/aie4_ctx.c    | 58 ++++++++++++++++++++---------
+ drivers/accel/amdxdna/amdxdna_ctx.h | 20 ++++++++++
+ 2 files changed, 60 insertions(+), 18 deletions(-)
 
-diff --git a/arch/alpha/include/asm/pgtable.h b/arch/alpha/include/asm/pgtable.h
-index d22e28b956fb..7cf685a694b6 100644
---- a/arch/alpha/include/asm/pgtable.h
-+++ b/arch/alpha/include/asm/pgtable.h
-@@ -65,6 +65,8 @@ struct vm_area_struct;
- #define _PAGE_FOW	0x0004	/* used for page protection (fault on write) */
- #define _PAGE_FOE	0x0008	/* used for page protection (fault on exec) */
- #define _PAGE_ASM	0x0010
-+#define _PAGE_GH_MASK	0x0060	/* granularity hint, PTE<6:5> */
-+#define _PAGE_GH_SHIFT	5
- #define _PAGE_KRE	0x0100	/* kernel read enable, in __ACCESS_BITS */
- #define _PAGE_URE	0x0200	/* user read enable, in __ACCESS_BITS */
- #define _PAGE_KWE	0x1000	/* kernel write enable, in __DIRTY_BITS */
-@@ -95,7 +97,36 @@ struct vm_area_struct;
- #define _PFN_MASK	0xFFFFFFFF00000000UL
+diff --git a/drivers/accel/amdxdna/aie4_ctx.c b/drivers/accel/amdxdna/aie4_ctx.c
+index 226570367f71..09c92b1b5134 100644
+--- a/drivers/accel/amdxdna/aie4_ctx.c
++++ b/drivers/accel/amdxdna/aie4_ctx.c
+@@ -394,34 +394,46 @@ static inline bool valid_queue_index(u64 read, u64 write, u32 capacity)
  
- #define _PAGE_TABLE	(_PAGE_VALID | __DIRTY_BITS | __ACCESS_BITS)
--#define _PAGE_CHG_MASK	(_PFN_MASK | __DIRTY_BITS | __ACCESS_BITS | _PAGE_SPECIAL)
-+/*
-+ * pte_modify() must preserve the granularity hint, or
-+ * hugetlb_change_protection() would turn a block into single-page PTEs.
-+ */
-+#define _PAGE_CHG_MASK	(_PFN_MASK | __DIRTY_BITS | __ACCESS_BITS | \
-+			 _PAGE_GH_MASK | _PAGE_SPECIAL)
+ static u64 get_read_index(struct amdxdna_hwctx *hwctx)
+ {
+-	u64 wi = READ_ONCE(*hwctx->priv->umq_write_index);
+-	u64 ri = READ_ONCE(*hwctx->priv->umq_read_index);
++	struct amdxdna_hwctx_priv *priv = hwctx->priv;
+ 	struct amdxdna_dev *xdna = hwctx->client->xdna;
++	u64 ri, wi;
 +
-+/*
-+ * Granularity hints. A PTE with hint order N is one of a block of 8^N
-+ * physically contiguous pages, naturally aligned both virtually and
-+ * physically, that the TB may map with a single entry. With 8KB pages the
-+ * four encodings give 8KB, 64KB, 512KB and 4MB.
-+ *
-+ * Every PTE of a block must still carry the PFN of its own page, and all of
-+ * them must agree in bits <15:0>: the protection, fault, hint and valid bits.
-+ * __ACCESS_BITS and __DIRTY_BITS reach into that range, so young and dirty
-+ * updates have to be applied to the whole block too.
-+ *
-+ * The hint is advisory: an implementation that ignores it still translates
-+ * correctly through the individual PTEs, so it is safe to set on any Alpha.
-+ */
-+#define GH_ORDER_MAX	4			/* hint orders 0..3 */
-+
-+#define gh_cont_shift(order)	(PAGE_SHIFT + 3 * (order))
-+#define gh_cont_size(order)	(1UL << gh_cont_shift(order))
-+#define gh_cont_mask(order)	(~(gh_cont_size(order) - 1))
-+#define gh_pte_num(order)	(1UL << (3 * (order)))
-+
-+#define for_each_gh_order(order) \
-+	for ((order) = 1; (order) < GH_ORDER_MAX; (order)++)
++	/* Sample read_index before write_index to guarantee wi >= ri. */
++	ri = READ_ONCE(*priv->umq_read_index);
++	/* Order the read_index sample before the write_index sample. */
++	smp_rmb();
++	wi = READ_ONCE(priv->write_index);
  
- /*
-  * All the normal masks have the "page accessed" bits on, as any time they are used,
-@@ -261,6 +292,24 @@ extern inline pte_t pte_mkyoung(pte_t pte)	{ pte_val(pte) |= __ACCESS_BITS; retu
- extern inline int pte_special(pte_t pte)	{ return pte_val(pte) & _PAGE_SPECIAL; }
- extern inline pte_t pte_mkspecial(pte_t pte)	{ pte_val(pte) |= _PAGE_SPECIAL; return pte; }
+-	/*
+-	 * CERT cannot update read index as uint64 atomically. Driver may read
+-	 * half-updated read index when it has bits in high 32bit. In case read
+-	 * index is not valid, wait for some time and retry once. It should
+-	 * allow CERT to complete the read index update.
+-	 */
++	/* Non-atomic 64-bit counter update by CERT; re-sample once if invalid. */
+ 	if (!valid_queue_index(ri, wi, CTX_MAX_CMDS)) {
+-		XDNA_WARN(xdna, "Invalid index, ri %llu, wi %llu", ri, wi);
+-		usleep_range(100, 200);
+-		ri = READ_ONCE(*hwctx->priv->umq_read_index);
++		ri = READ_ONCE(*priv->umq_read_index);
++		/* Order the read_index sample before the write_index sample. */
++		smp_rmb();
++		wi = READ_ONCE(priv->write_index);
+ 		if (!valid_queue_index(ri, wi, CTX_MAX_CMDS)) {
+-			XDNA_ERR(xdna, "Invalid index after retry, ri %llu, wi %llu", ri, wi);
+-			ri = 0;
++			/* 0 <= any seq: callers always treat it as "not done" and retry. */
++			XDNA_DBG(xdna, "Invalid index, ri %llu, wi %llu", ri, wi);
++			return 0;
+ 		}
+ 	}
  
-+extern inline unsigned int pte_gh_order(pte_t pte)
+ 	return ri;
+ }
+ 
+-static inline bool check_cmd_done(struct amdxdna_hwctx *hwctx, u64 seq)
++/* Verify cert_comp remains linked to detect disconnect or reset. */
++static bool check_cert_comp_linked(struct amdxdna_hwctx *hwctx, struct cert_comp *comp)
 +{
-+	return (pte_val(pte) & _PAGE_GH_MASK) >> _PAGE_GH_SHIFT;
++	/* READ_ONCE pairs with the link/unlink WRITE_ONCE. */
++	return comp == READ_ONCE(hwctx->priv->cert_comp);
 +}
 +
-+extern inline pte_t pte_mkgh(pte_t pte, unsigned int order)
-+{
-+	pte_val(pte) &= ~_PAGE_GH_MASK;
-+	pte_val(pte) |= (unsigned long)order << _PAGE_GH_SHIFT;
-+	return pte;
-+}
-+
++static inline bool check_cmd_done(struct amdxdna_hwctx *hwctx, u64 seq, struct cert_comp *comp)
+ {
+-	u64 read_idx = get_read_index(hwctx);
++	/* Lockless check for wait_event condition; detects completion or disconnect. */
++	if (!check_cert_comp_linked(hwctx, comp))
++		return true;
+ 
+-	return read_idx > seq;
++	return get_read_index(hwctx) > seq;
+ }
+ 
+ int aie4_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq, u32 timeout)
+@@ -437,11 +449,21 @@ int aie4_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq, u32 timeout)
+ 		wait_jifs = msecs_to_jiffies(timeout);
+ 
+ 	ret = wait_event_interruptible_timeout(cert_comp->waitq,
+-					       (check_cmd_done(hwctx, seq)),
++					       check_cmd_done(hwctx, seq, cert_comp),
+ 					       wait_jifs);
+ 
+-	if (!ret)
++	if (!ret) {
+ 		ret = -ETIME;
++	} else if (ret > 0 && !check_cert_comp_linked(hwctx, cert_comp) &&
++		   get_read_index(hwctx) <= seq) {
++		/*
++		 * Disconnected, or read_index invalid (0), before completion was
++		 * seen. -EAGAIN is by design: the caller retries the wait until a
++		 * valid read_index is observed. Command state and fence are not
++		 * affected.
++		 */
++		ret = -EAGAIN;
++	}
+ 
+ 	aie4_put_cert_comp(cert_comp);
+ 
+diff --git a/drivers/accel/amdxdna/amdxdna_ctx.h b/drivers/accel/amdxdna/amdxdna_ctx.h
+index 9bbc3db4ebde..b3677851d1c5 100644
+--- a/drivers/accel/amdxdna/amdxdna_ctx.h
++++ b/drivers/accel/amdxdna/amdxdna_ctx.h
+@@ -48,6 +48,18 @@ struct amdxdna_cmd_start_npu {
+ 	u32 prop_args[];  /* properties and regular kernel arguments */
+ };
+ 
 +/*
-+ * Swap PTEs leave bits <31:0> clear, so this is false for every swap,
-+ * migration and marker entry, not just for ordinary small pages.
++ * struct amdxdna_cmd_start_dpu - interpretation of data payload for
++ * ERT_START_DPU in amdxdna_cmd.
 + */
-+extern inline int pte_huge(pte_t pte)		{ return pte_val(pte) & _PAGE_GH_MASK; }
++struct amdxdna_cmd_start_dpu {
++	u64 dtrace_buffer;		/* dtrace buffer address 2 words */
++	u64 instruction_buffer;		/* buffer address 2 words */
++	u32 instruction_buffer_size;	/* size of buffer in bytes */
++	u16 uc_index;			/* microblaze controller index */
++	u16 chained;			/* number of following amdxdna_cmd_start_dpu elements */
++};
 +
  /*
-  * The smp_rmb() in the following functions are required to order the load of
-  * *dir (the pointer in the top level page table) with any subsequent load of
-
+  * Interpretation of the beginning of data payload for ERT_CMD_CHAIN in
+  * amdxdna_cmd. The rest of the payload in amdxdna_cmd is cmd BO handles.
+@@ -138,8 +150,14 @@ struct amdxdna_drv_cmd {
+ };
+ 
+ struct app_health_report;
++
+ union amdxdna_job_priv {
+ 	struct app_health_report *aie2_health;
++	/* aie4 kernel submission: queue linkage + job state */
++	struct {
++		struct list_head	list;
++		u32			state;
++	} aie4;
+ };
+ 
+ struct amdxdna_sched_job {
+@@ -162,6 +180,8 @@ struct amdxdna_sched_job {
+ };
+ 
+ #define aie2_job_health priv.aie2_health
++#define aie4_job_list	priv.aie4.list
++#define aie4_job_state	priv.aie4.state
+ 
+ static inline u32
+ amdxdna_cmd_get_op(struct amdxdna_gem_obj *abo)
 -- 
-2.55.0
+2.34.1
 
