@@ -1,76 +1,79 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE944F4757
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 18:55:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 612184F4744
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 18:55:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791485748; cv=none; b=AWnMkqRTuGTU4YZTYECiY9+DTGRcCGu5efLbuWL02LOyH6UZNUn4qiAu8w5iCocEoX+8Rq2V4INT9zvswyles3KHKZDFSgn+oF+ViBHhhqMOOFw9l2QXrNbwHUu65t/O2IOGz9/WCWT6BeZ5i8uYwIaMcrNLb0iE4hJx3dP8sUM=
+	t=1791485750; cv=none; b=YkhUuExwcuS9e6l37zrOB00WVMBGq7gY3QVWLgYoxJ6C46ownFZ/Kl3idvP62Gv0JutL33x8qIFOlk5he6+m1tgEfA/5JANWCTde06B4/unInPEpDpyR1hnDE5tB3AQ/a+X4hewWqC3HMHjZ1slqcOOtkhH35v7J/ETtsrbXACA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791485748; c=relaxed/simple;
-	bh=//vq31uucGfgZgR+08QPA/vwvOya2PztDY7k7BX/FOg=;
+	s=arc-20240116; t=1791485750; c=relaxed/simple;
+	bh=IgB3sZHNZ2GnpYpDmh39i8B9BgxADBtTRCiRUlW7RBs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CCk1A22EW+V+0XmvbYEgO7DBvMZRN+QZ6FcgrORzcmEhwdj7FKiQON0QTknRYex3KUMS3lhYAGAYf6VmXSFVKqVlgrL6DPRVmkXkzYRTyj3gxW/6ueT1HAknITQ+VdhGDD+fopzWwYJuSf+3Hqd/uVm9U/mOhOfcsRaVPh16jyo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rrell.co; spf=pass smtp.mailfrom=rrell.co; dkim=pass (2048-bit key) header.d=rrell.co header.i=@rrell.co header.b=gfWTx3tx; arc=none smtp.client-ip=209.85.216.52
+	 MIME-Version:Content-Type; b=qGtFCwmCyEC1pEHi28uZGU0WC5r6zzO88S1CTOfZGSPG23OkzwelHKuCD+XmaKlNJUAiW+9g9I9b7PPDYctuJkLUKbVGcuS97ijkxKuzq365THbfefY9SsjwcNW8vwapuPJoQGUUEQvEJDp4NvE0g/Kkp6/LyG1Kkfx2ZpPVuOE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rrell.co; spf=pass smtp.mailfrom=rrell.co; dkim=pass (2048-bit key) header.d=rrell.co header.i=@rrell.co header.b=hnlbnynh; arc=none smtp.client-ip=209.85.215.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rrell.co
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rrell.co
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rrell.co header.i=@rrell.co header.b="gfWTx3tx"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-398b3c37877so2205034a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 11:55:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=rrell.co header.i=@rrell.co header.b="hnlbnynh"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-ccc7a6070b4so1786721a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 11:55:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rrell.co; s=google; t=1791485746; x=1792090546; darn=vger.kernel.org;
+        d=rrell.co; s=google; t=1791485749; x=1792090549; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=OwScGEwPZUR1mnPa2JDhNTpifxn+9CP5+3PlAIWMVPk=;
-        b=gfWTx3txB3eEqrdVci6e+6yFxRkagLHv1lL+LYWFguTUgGyV/rBWHzY+Qmy3w0TrDl
-         hNZEuc8NtLZ93zivITGTGcLBRdg0ktsCYB5Ho9iLC8o8lEUIiSzjRMxIORf1RFLFNYCX
-         nMB7U2jC77Rc6/afAjgFMXzfNAHQt3xR+bUJpBnYHE7mQVkZkf3/Ce2jsRVYA0+hs2wy
-         Do+AHE2tk/Ek9mAwmjGgG8i6MbKgjywaJriaFmBzwlyckdZJiyxVJ3AAC0P+EWbieWmu
-         m3xNIOiwePL1xRVolZXNS1Hd6f3HJ5OWDSHKJv7bRAA/1/Wrvn2cCDvnKNd3TETgL2dt
-         XAnQ==
+        bh=IgB3sZHNZ2GnpYpDmh39i8B9BgxADBtTRCiRUlW7RBs=;
+        b=hnlbnynhgEH+/YQ8wKGSrgMpsk5IoIcrcfS6uRXLrd5NZ40XmGepTnUpGynHJ6fY0f
+         VXgzDTiFv1kpoFV5gQQg0vvc6CDEJMY6W4XLFYPYgfaS+OZ0Bg9nTjB7IbwKPL0VW3Kf
+         A52vSdUDzOTxJF0MgI//OhOwv+Up6L6SCH3KC1TCkJ4lsnT4bM7BEZD1m958frarRwvn
+         LWWBjrYevGwKdwzo21zPkoxQRgF+8mp6rBaIHFtY3zEAFDlWyL7TOR1eS5hqFrddKtb5
+         qp4Hs3NCQvFpP8gYbMGrvd/mSkSTOAIhUXawj0FgkcDm8oPpsBR8BT2oj2eYW4MCvAMQ
+         8bHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791485746; x=1792090546;
+        d=1e100.net; s=20260707; t=1791485749; x=1792090549;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=OwScGEwPZUR1mnPa2JDhNTpifxn+9CP5+3PlAIWMVPk=;
-        b=Md/txhlgjSJJXBeM5NoUzzyZ+65oxt3QqKPs8ZEiOOgPLZGcH7fJserkqdvBaBuqRZ
-         g268O1w7DdUfbVGvljp3L+W7sjYeyk9F1ok8PzcdBQXPerushx0tdIXrJUtW6jSi3057
-         7GiiPoGtMAE03I4CuWZtvF/zg+Ezl6sqQ3WWte9II5/xVjlK7ERHPis/uEOPR9P5LjoX
-         MoXpD4lTyeQwbTLjsFBh3cL0OZYlZsf7FFBrBTcpXIcDeiRpaPX/tZTJVALhHP+FoU5t
-         eTlb2sAB/b6PwmMln6oKVM8E85YYhIHCe7gRkM6zXeuDc2sS03vW3/tT+/+yHK97Y74w
-         QYEA==
-X-Forwarded-Encrypted: i=1; AKwUvBwzbvNP4ooWpLLQWPcU/B5exJ8xi+EMY2GE2jhOo6jMPNSUUSCGMyErmfV1LMxKUUGisayk+H8/dQLiia0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJY6i1Jfmg7peodsqBTpJCc/fKI57c00NPd9HXuBRW2O1CO/2gB
-	ghhZaG36v9SlfoA0Ze2A/mdSMKU0BVAAvpNyiqy/ocC3T82Ry8YgjZtnq154e+ZBsRY=
-X-Gm-Gg: AYBFou0DclVjvqVWz6F19nt+UMhzTuSOY8r7PKjnsuCq2xKtrReuQDOb3fMxvYvMRuA
-	lfMicVJsJVYBxDjg3jylEq8f1mDoS70s9UcxDAGt39/JSOl1rQa2vT5d8r66pMnBpEMaff9gQ56
-	dQfzVBVEN6n6Xhq5q3uD/+dlKNl7JK3GX71IKM3cPJiHQhVU2VPmY4X15JPeimXI16zHQJaIhsT
-	+PqKPF1xchNpIeTVVOB/DoyYospOICWD5D8bVkWk9gIgaEG4noYvjumRQxfaZCMemtxkvNJ7OEq
-	rSA44bYri6TH03Pti8bgTCLKC4O/lAKk+8j/Py4VoM5Aepc+IJdqweFu9WaPVMVKXQcN1KvrfS9
-	/O7cJuSfZHyigxY4zvu2RrxSC3h/C/foEbImYxy5+KOAq0nqQbrMyzFWuQOVVZDSPzTPh3dXZCo
-	rbe9Nu6cmgRrk2rwuP5PO4TVIaFjMzbeyb1P0UO4RMvg+CXQ1vEjWGdPu0mige4YDfqGepA52Lu
-	ZgdYg==
-X-Received: by 2002:a17:90a:d445:b0:3a4:bbb9:e912 with SMTP id 98e67ed59e1d1-3a8a192992dmr4940277a91.23.1791485745623;
-        Thu, 08 Oct 2026 11:55:45 -0700 (PDT)
+        bh=IgB3sZHNZ2GnpYpDmh39i8B9BgxADBtTRCiRUlW7RBs=;
+        b=Xh9akqBjYdEJKIUzN/iMW+/8l6LloqOguKKXDX2F8CigD0e6qKp+2lk+Y4LTPfvlxr
+         wEzkLKIDH5gXK33Ei/ZJ0o9C6jDl1jhhZCe6Nh9YVWnKLXTOgFNzvK+N3ULdvlJaS1e9
+         ZtvMKxzdLKe2Nu3Xa21lxGPyLjS/5BBcUw9xY4ey8z4p1BSMCK4MJ+2D7YlWbeRVnjed
+         yDs/cLATA4GXfYMgTEw14SMhpxJsJ8o8W+Aw5tjzVYKnm4CLbyxxm9NS6jK4ZnjJlWD3
+         h7uJI0tzEdiNTKi3QBiqzCv8qae2hDL9QmzKhqbExekNQYFFeL6NMvS4ESzE287mTEm+
+         vdPQ==
+X-Forwarded-Encrypted: i=1; AKwUvByuS8HL6HOQoIUSl+Xs7Sxmya7rvzJ1vBo6m5+MTo+MWbJp0Bb6wO8IPp6bqGM3ceM05YBBFAFROwK847Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYItQNYUlN6yvYRWaNISAsk+SgB8xai0Dv0GINAx8ow/jF2lJgv8
+	BXrpssMvmQF+G5wGjPvqbsPYGKTDNgV1QpyO0hGn4XxjOTLN0y7yetMFoEc0+vU06bo=
+X-Gm-Gg: AYBFou3cZN058e9vDXFxjRIvj7XDWyKqw7MA7nyraNSaCavvjFa7zk3TvYDAehDF1bg
+	jYK4oc0haPggXO3k7A0x+5p4fCLCqT6bhNXMPYsodjq20Hw8ib7EruPlHwXyRy3pI5HYkDAWIHp
+	EK70lDmnL/gmPluOPjqUv78DHSDQpJUssimNnxxER0ODUJiLEFD1tUMTSM9oGKfiuMz1TOkYxki
+	CC+0GkmUHJIBTjHVjY8bGCEOjtLj42mKeRLuieWEZh3iNaks1nu1sfR6bfmp79t0aO2YTSVoDGI
+	gbGuJ/hvc9BUBGUsS/E5kfd/zGKI2SEUHuhb1C/qjw4OF2npv269Oe7GMxG1HvTihvzCLrbYXve
+	51gdUiWMw3To1Rp01rBvDVAbIbf243JWko+5u5xgYsk0/2jpKOa6zPp1PxKbrRVlSc9UQNc0b7Q
+	hboQ3xVy5WneO4IFx4m3w+O9SdXRMB/kF7QpL065tFKuNX9k54ZjCIq3F2GqRLBVxmOkl5p48sp
+	m5T7g==
+X-Received: by 2002:a17:90b:28ce:b0:3a6:582e:5e17 with SMTP id 98e67ed59e1d1-3ab36d2514bmr5568a91.48.1791485748615;
+        Thu, 08 Oct 2026 11:55:48 -0700 (PDT)
 Received: from omarchy.tailc658b0.ts.net ([172.92.210.157])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab3386997csm140023a91.3.2026.10.08.11.55.45
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab3690474esm54003a91.0.2026.10.08.11.55.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 11:55:45 -0700 (PDT)
+        Thu, 08 Oct 2026 11:55:48 -0700 (PDT)
 From: Darrell Gum <d@rrell.co>
 To: =?UTF-8?q?Francisco=20Beltr=C3=A1n=20Millal=C3=A9n?= <fbeltranmillalen@gmail.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
+Cc: rafael@kernel.org,
+	bhelgaas@google.com,
+	linux-acpi@vger.kernel.org,
 	linux-pci@vger.kernel.org,
+	lenb@kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] PCI: Extend Apple Thunderbolt power quirk to Alpine Ridge
-Date: Thu,  8 Oct 2026 11:55:42 -0700
-Message-ID: <20261008185543.85892-1-d@rrell.co>
+Subject: Re: [PATCH] ACPI: PCI: take native PME control on Apple machines
+Date: Thu,  8 Oct 2026 11:55:45 -0700
+Message-ID: <20261008185546.86200-1-d@rrell.co>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260924132815.24430-1-fbeltranmillalen@gmail.com>
-References: <20260924132815.24430-1-fbeltranmillalen@gmail.com>
+In-Reply-To: <20260924132859.24751-1-fbeltranmillalen@gmail.com>
+References: <20260924132859.24751-1-fbeltranmillalen@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,36 +83,29 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Thu, 24 Sep 2026 10:28:15 -0300, Francisco Beltrán Millalén wrote:
-> On Macs with an Alpine Ridge Thunderbolt 3 controller, suspending to RAM
+On Thu, 24 Sep 2026 10:28:59 -0300, Francisco Beltrán Millalén wrote:
+> Since commit 7bc5a2bad0b8 ("ACPI: Support _OSI("Darwin") correctly")
 [...]
 
 Tested on a second MacBookPro14,3 on 7.2.5 (Omarchy's linux-omarchy
-7.2.5-3). It has two Alpine Ridge 4C controllers, with upstream
-bridges 8086:1578 at 04:00.0 and 7a:00.0. Your PCI/PM v2 series (with
-e18d1abc3bff) and the Apple native PME patch were applied as well.
-The full report is in reply to the series:
+7.2.5-3). Your PCI/PM v2 series and the Alpine Ridge quirk were
+applied as well. The full report is in reply to the series:
 https://lore.kernel.org/all/20260930141914.6678-1-fbeltranmillalen@gmail.com/
 
-For this patch:
+Stock 7.2.5: with both Thunderbolt xHCIs (8086:15d4 at 07:00.0 and
+7d:00.0) runtime-suspended, plugging a USB 3 stick into any USB-C port
+produced no kernel messages at all. With power/control=on, it
+enumerated at SuperSpeed immediately.
 
-- The quirk fired on both upstream bridges ("quirk: cutting power to
-  Thunderbolt controller...").
-- pm_test=platform passes. The stock kernel hard-hung there 3 out of
-  3 times, with or without brcmfmac loaded.
-- Real S3 resumed on every attempt, about half a dozen cycles
-  including lid closes on battery. noirq resume is about 16 s, with
-  about 11 s of it in each upstream bridge.
-- With a USB 3 stick attached on the 7a:00.0 side (xHCI 7d:00.0),
-  the quirk logged for both bridges during a lid-close S3. The stick
-  was still there after resume: no disconnect logged, still at
-  5000 Mbps, filesystem readable. A replug about 2 min later
-  re-enumerated it at SuperSpeed.
-- On that cycle the empty side's xHCI logged "xhci_hcd 0000:07:00.0:
-  xHC error in resume, USBSTS 0x401, Reinit" and recovered.
+With this patch, _OSC reads "OS assumes control of [PCIeHotplug
+SHPCHotplug PME AER PCIeCapability LTR DPC]". With both controllers
+left at power/control=auto, the same stick enumerated at SuperSpeed
+within about 1 s, and 7d:00.0 runtime-resumed on its own. A later
+run gave the same result: about 1 s when plugged in before a lid-close
+S3, and about 3 s for a replug about 2 min after resume, still with
+power/control=auto.
 
-The patches were tested together, not bisected. Only one S3 cycle
-had a device attached (a USB stick, no real Thunderbolt device). The
-no-wake-on-plug trade-off is untested here.
+The patches were tested together, not bisected. This is the result
+that maps most directly onto this one patch.
 
 Tested-by: Darrell Gum <d@rrell.co>
