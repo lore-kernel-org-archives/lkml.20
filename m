@@ -1,46 +1,47 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 226312D3EEB;
-	Thu,  8 Oct 2026 00:57:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 821983033F7;
+	Thu,  8 Oct 2026 00:57:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791421046; cv=none; b=cRUHGHmSzW9g9mJyxFPBf6NMa4MUuVs0dOH8rMlZg2Ah8I6As1YiohU3cEwLDCDNNu10whzRZFweMOErfrhw/mrgb+DprF4URuMeLeRgKHyb3+3IYdpmoUYU8ifaX8tSxYvRW5zq5l5U9dEBXELjzMp9HBei4exDOLYaJIvUPi8=
+	t=1791421048; cv=none; b=Y5cxv2zrwzwX3jDRTx3+FBJj29oEyxQ9C8SqANKN9uNpL05HY+pntI1XY22cZ4dZiD7D31c7fBvR/Zt6PmU9nRGjajDq6hZ7Doi5PBMXhxfyNzhk5zLcBE2LPEPLOyUyvC+d5VbOGRsmcFfmTN0Q4Vn7Yb5iLkP86vwLUdFHhiw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791421046; c=relaxed/simple;
-	bh=v+uSw36GybNN2AGUfreiFXduP10nY5Y7dqtBjLQeQuY=;
+	s=arc-20240116; t=1791421048; c=relaxed/simple;
+	bh=q6aqTcPApwoZIH99lg+gmqxeisLInlIv8sHdIheY+l0=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=R1W2+dzfhZ97q7Mb30B4ZGWhS9ufr5cp2JPw4Szh5v13sKOqt9UI+VnKA95IbfnNoIy6EaLk34VjQVaILQUI7CunxYdMIo/2jZeaXjwI6pxKBvs8f2Q4jQ5tCMPKD83vWKeBYIPPCO4r0FFwrU3E5DJRS7lIwZT/1+C69PhGBeE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XZ/1pE5U; arc=none smtp.client-ip=205.220.168.131
+	 MIME-Version:Content-Type; b=FqEEt6SK7e2fkzgFrv13/jjuU9jPLFgUMn8h2tfVgG1LB+yF3cQWJR6zMoLGM6BJgjz1iFXP59kitoMKqML7pjHSNWdeQzEjYVjHVgPKAUXPWpl8JgPsh942HIfpPhDhW51PsbXiyzcsvLDq4RJyjvw6eREydu7FvX6yeYyFhO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Rnf1OTX1; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XZ/1pE5U"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697LuQQP1972902;
-	Thu, 8 Oct 2026 00:56:58 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Rnf1OTX1"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697LtcCr4151874;
+	Thu, 8 Oct 2026 00:56:59 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=66wVtErp65k
-	toVjojyWaNKc9JasNCG4qA0Rm2AEFoBs=; b=XZ/1pE5UulMDUOU/0l2toPYkZ0w
-	OLKZQCPUkH5BT6Cm+i0Uajxm3ZU2ZRTzN4y80aUsmCkLwJvJFtHTcjgz6EGvppzt
-	dKLAKmrNyqgY5q1YV6rBXpht4PYulBpSGUF+wAfkOEDPS9ts6IZJitYDEj4dvHDJ
-	YSM6VFSucWOn6zaUckdizOWmDABSW0bi0rJ/FA0aal9ZEo+O0y3aLUhsj+n+NlJn
-	0tfTpXuzdUpIJ7k/7/SYO3stlnL1rbtlrSBmJDT95HkPIykfS/ejlw4RMymM176c
-	TRZoTtepBGnKevJKFUiDwfkjftBtdYfdvNC0Lfu5xqi0cQ1yAVGIeZlIv6w==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe68fnu-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	EqRY0JvMDN+0milvFlxc64ylkS8xwlQMdLA0GSny/Bg=; b=Rnf1OTX1ui4/3muQ
+	97oSXG3LdzMb6l6dQ5akn/FCENwmhnVjHa5c8ckWuNASClejameKGiew1HFdTce0
+	hH0qpliMMMh7V79lQocuSK7kx+RtEzoUxx8E4cX3kHonf5VFST05y/mGafbIplUH
+	ep12Isz38jVkG/yB+wN4fhAYLdx0z+QulCHqydfWktmadTjSAivIbXUpBjreAee6
+	gFd9z+iCM74bZaRjKiCQXRMI/4tzX0MZsN/LHcxaed0aLHTZyrVOHEg4RJqANP3Y
+	asnYEqNPd7fA7XQyfrArqWz8tl5C5FYYsiLo5qRVNXQ24cXdu5cClXfqd8t0eDFM
+	gUT8CA==
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com [129.46.96.20])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe38egx-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 08 Oct 2026 00:56:57 +0000 (GMT)
-Received: from pps.filterd (nalasppmta04.qualcomm.com [127.0.0.1])
-	by NALASPPMTA04.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6980uvnf1544288;
+	Thu, 08 Oct 2026 00:56:58 +0000 (GMT)
+Received: from pps.filterd (nalasppmta01.qualcomm.com [127.0.0.1])
+	by NALASPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6980uvXj1429389;
 	Thu, 8 Oct 2026 00:56:57 GMT
 Received: from hu-devc-lv-u22-c.qualcomm.com (hu-subashab-lv.qualcomm.com [10.81.24.15])
-	by NALASPPMTA04.qualcomm.com (PPS) with ESMTPS id 6980uuBj1544281
+	by NALASPPMTA01.qualcomm.com (PPS) with ESMTPS id 6980uvs01429360
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
 	Thu, 08 Oct 2026 00:56:57 +0000 (GMT)
 Received: by hu-devc-lv-u22-c.qualcomm.com (Postfix, from userid 212624)
-	id A7DFBAD6; Wed,  7 Oct 2026 17:56:56 -0700 (PDT)
+	id C38DAADB; Wed,  7 Oct 2026 17:56:56 -0700 (PDT)
 From: Subash Abhinov Kasiviswanathan <subash.a.kasiviswanathan@oss.qualcomm.com>
 To: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
         pabeni@redhat.com, andrew+netdev@lunn.ch, corbet@lwn.net
@@ -49,9 +50,9 @@ Cc: horms@kernel.org, skhan@linuxfoundation.org, rdunlap@infradead.org,
         linux-kernel@vger.kernel.org,
         Subash Abhinov Kasiviswanathan <subash.a.kasiviswanathan@oss.qualcomm.com>,
         Sean Tranchetti <sean.tranchetti@oss.qualcomm.com>
-Subject: [PATCH net-next v2 3/8] net: qualcomm: rmnet: Process MAPv5 frames as a list
-Date: Wed,  7 Oct 2026 17:55:40 -0700
-Message-Id: <20261008005543.2630828-4-subash.a.kasiviswanathan@oss.qualcomm.com>
+Subject: [PATCH net-next v2 8/8] docs: networking: Add documentation for the coalescing support in rmnet
+Date: Wed,  7 Oct 2026 17:55:45 -0700
+Message-Id: <20261008005543.2630828-9-subash.a.kasiviswanathan@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261008005543.2630828-1-subash.a.kasiviswanathan@oss.qualcomm.com>
 References: <20261008005543.2630828-1-subash.a.kasiviswanathan@oss.qualcomm.com>
@@ -61,210 +62,254 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Proofpoint-Reinject: loops=2 maxloops=12
 X-QCInternal: smtphost
 X-QCInternal: smtphost
-X-Proofpoint-ORIG-GUID: qhUwgdXYVimPPQb1BRLTKsrK9WehENDR
-X-Authority-Analysis: v=2.4 cv=HcWB3SE8 c=1 sm=1 tr=0 ts=6ac6ea5a cx=c_pps
+X-Proofpoint-GUID: C01Q2O1VyNTyZpXtkwZZaTL_m2rL1TI9
+X-Authority-Analysis: v=2.4 cv=QOz91QLL c=1 sm=1 tr=0 ts=6ac6ea5a cx=c_pps
  a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=WmGS0fCEuoS5Zl8EK2wA:9
-X-Proofpoint-GUID: qhUwgdXYVimPPQb1BRLTKsrK9WehENDR
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAwMyBTYWx0ZWRfXx+RXb8aFkC7/
- /bQt1Ub0B0NLYPBZyRb1PbHn1qf9QXykAyOZxdsMWwl3S2ZWFiU5CZBN1hvIAKzWXJ6+73xla4H
- ON3evwAbs0LSXIK4Qud4UZwsImESvjh5VELyeS17rnlq9Kv+WjlkT8Gz8nwc5B9ZwP0Cl8Ikiit
- sZucUk5KEZEr9xEfb3OcfKntbWiDJuvgVFM/U1JTqFvXiVZAdvh2Nbbeiw9ST4OpGnLJYe+iyvz
- z3OCG2rk23Ld3tuuXM5iatsDjLhdfMBwNZT8aXOKFbFPun7ffdvoG8uDt2oSkec7lEnoTUa1LDI
- NxAFqGmpSgFDhOl07w6Qp1QXuw89CZDj+8XAid1OmqoY7K/PP+kmTyt53VzEurhHUpTcJqjDb4/
- gO/VNzHnTDBA3LJUGE+m9Mf4IQ8GZYJ0PK+bBjogGwvTcuuNL8EoiMcD9Rl93mKU50qhPCBlg8R
- Z5Oly9d0tvVhNAoRQkQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAwMyBTYWx0ZWRfX6OQ9r1/ZC1D2
- UxrRfW5NZA1OnFTCkKW/uwCnXohb3XjMPBA7R5XHxWBwo34kjJzEKM7Ob8Fuhw8XgEbS8QzJXRM
- 3BY/FXwGRqdT5klulURYFsGzCeN3vcI=
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=_MdbunYu9wahxpo5STcA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=O8hF6Hzn-FEA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAwMyBTYWx0ZWRfX0tW/EdVYPD3V
+ ejJKF4E++o4gHbSIXt8d505Nc7zmhWMJu4lwDDuLlCAUnHjHGxijMytTiAvf6Dfb8RqliVVqiuZ
+ iKih3h9VUuyUxO62IYOp7rfz7r02p20=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAwMyBTYWx0ZWRfX8eR0TIL3aSCi
+ 4Kp0YvWLfdBHjGl7+ZLhD9/2gQZ1tBuFgvucdW1fqvfVL5IbnWRSah1nprfk/8+et+yUXC4CG2L
+ eCOAVOiaTjUEaZ93m3Io4uwc7sPwDPuIQepGHtNAkjafzQ7TGROVBTO2ncCl/5IdK2JJEozgaP7
+ DqtDlXWqOQyMV1RNeOndTsBUOHd5U6pwjIwIY+f7WeaEZlINHSuEW2bQRLxByEFZgFpOWJLrVOu
+ OeH944+zialkoyWs9j7f6eIHUpWKF9mHfBFJe5NNroCiVPL20+t4wHDqa9U1FZNdovq0CuEhhtl
+ 9cINb2FJvU4B+f9ZAWQ7JGal7o87XClt9jWW/OC9s1a+xUbyEjMLhjdi+Y7USKCSoLGq9DK62QG
+ mjBm+rLNDtTmATngDvmpi9GGwWJ3mqDcTCll5ZIZQhcU7++y4cSx8Y6xta7UPEZckLj89DJlR2e
+ 3nHXyYKBRLe/NaDNREA==
+X-Proofpoint-ORIG-GUID: C01Q2O1VyNTyZpXtkwZZaTL_m2rL1TI9
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-07_07,2026-10-06_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 spamscore=0 bulkscore=0 adultscore=0
- priorityscore=1501 impostorscore=0 suspectscore=0 phishscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610020000
- definitions=main-2610080003
+ clxscore=1015 priorityscore=1501 lowpriorityscore=0 spamscore=0 phishscore=0
+ impostorscore=0 adultscore=0 bulkscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080003
 
-Add support for handling the MAP packets as a list in preparation for
-the subsequent patch in the series  which adds support for handling the
-coalescing packets. This is needed as a single coalescing MAP packet could
-yield multiple IP packets.
+Add information about the MAPv5 coalescing header covering the layout
+and the information from the fields in the header.
 
-There is no functional change in the handling of the previously
-supported MAP packet formats.
+Document the IFLA_RMNET_FLAGS coalescing rules. Ingress coalescing
+requires MAPv5 checksum offload, and MAPv4 and MAPv5 checksum
+configurations cannot be enabled together in either direction. A direction
+may leave checksum offload disabled.
+
+Document that the frame-level CSUM valid indication is distinct from the
+per-packet CSUM error bitmap. Multi-packet coalesced frames require RX
+checksum offload and rx-gro-hw. Single-packet frames are delivered as
+normal non-GSO skbs when those features are disabled.
 
 Co-developed-by: Sean Tranchetti <sean.tranchetti@oss.qualcomm.com>
 Signed-off-by: Sean Tranchetti <sean.tranchetti@oss.qualcomm.com>
 Signed-off-by: Subash Abhinov Kasiviswanathan <subash.a.kasiviswanathan@oss.qualcomm.com>
 ---
-v2: no change
-v1: https://lore.kernel.org/all/20260930051345.857443-3-subash.a.kasiviswanathan@oss.qualcomm.com/
+v2:
+  - Update the documentation and commit text to clarify the hardware behavior
+v1: https://lore.kernel.org/all/20260930051345.857443-8-subash.a.kasiviswanathan@oss.qualcomm.com/
 
- .../ethernet/qualcomm/rmnet/rmnet_handlers.c  | 22 +++++--
- .../net/ethernet/qualcomm/rmnet/rmnet_map.h   |  4 +-
- .../ethernet/qualcomm/rmnet/rmnet_map_data.c  | 57 ++++++++++++-------
- 3 files changed, 58 insertions(+), 25 deletions(-)
+ .../cellular/qualcomm/rmnet.rst               | 153 +++++++++++++++++-
+ 1 file changed, 145 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/net/ethernet/qualcomm/rmnet/rmnet_handlers.c b/drivers/net/ethernet/qualcomm/rmnet/rmnet_handlers.c
-index aa5523f4618e..ab1dfbd833e3 100644
---- a/drivers/net/ethernet/qualcomm/rmnet/rmnet_handlers.c
-+++ b/drivers/net/ethernet/qualcomm/rmnet/rmnet_handlers.c
-@@ -50,6 +50,16 @@ rmnet_deliver_skb(struct sk_buff *skb)
- 	gro_cells_receive(&priv->gro_cells, skb);
- }
+diff --git a/Documentation/networking/device_drivers/cellular/qualcomm/rmnet.rst b/Documentation/networking/device_drivers/cellular/qualcomm/rmnet.rst
+index 5aedbabb7382..52f92d2fba31 100644
+--- a/Documentation/networking/device_drivers/cellular/qualcomm/rmnet.rst
++++ b/Documentation/networking/device_drivers/cellular/qualcomm/rmnet.rst
+@@ -125,8 +125,8 @@ Command (1)/ Data (0) bit value is to indicate if the packet is a MAP command
+ or data packet. Command packet is used for transport level flow control. Data
+ packets are standard IP packets.
  
-+static void rmnet_deliver_skb_list(struct sk_buff_head *head)
-+{
-+	struct sk_buff *skb;
+-Next header is used to indicate the presence of another header, currently is
+-limited to checksum header.
++Next header is used to indicate the presence of another header, currently
++limited to the checksum and coalescing headers.
+ 
+ Padding is the number of bytes to be appended to the payload to
+ ensure 4 byte alignment.
+@@ -150,11 +150,11 @@ Header Type is to indicate the type of header, this usually is set to CHECKSUM
+ 
+ Header types
+ 
+-= ===============
++= ======================
+ 0 Reserved
+-1 Reserved
++1 coalescing header
+ 2 checksum header
+-= ===============
++= ======================
+ 
+ Checksum Valid is to indicate whether the header checksum is valid. Value of 1
+ implies that checksum is calculated on this packet and is valid, value of 0
+@@ -162,8 +162,109 @@ indicates that the calculated packet checksum is invalid.
+ 
+ Reserved bits must be zero when sent and ignored when received.
+ 
+-e. MAP packet v1/v5 (command specific)
+---------------------------------------
++e. Coalescing header v5
++------------------------
 +
-+	while ((skb = __skb_dequeue(head))) {
-+		rmnet_set_skb_proto(skb);
-+		rmnet_deliver_skb(skb);
-+	}
-+}
++Hardware can coalesce multiple same-flow IP packets into a single MAP frame
++to reduce per-packet overhead at high data rates.  Packets are grouped into
++NLOs, with all packets in each NLO having the same length.  The coalescing
++header (header type 1) describes the coalesced content.
 +
- /* MAP handler */
- 
- static void
-@@ -59,6 +69,7 @@ __rmnet_map_ingress_handler(struct sk_buff *skb,
- {
- 	struct rmnet_map_header *map_header = (void *)skb->data;
- 	struct rmnet_endpoint *ep;
-+	struct sk_buff_head list;
- 	u16 len, pad;
- 	u8 mux_id;
- 
-@@ -83,12 +94,12 @@ __rmnet_map_ingress_handler(struct sk_buff *skb,
- 
- 	skb->dev = ep->egress_dev;
- 
-+	__skb_queue_head_init(&list);
++Packet format::
 +
- 	if ((data_format & RMNET_FLAGS_INGRESS_MAP_CKSUMV5) &&
- 	    (map_header->flags & MAP_NEXT_HEADER_FLAG)) {
--		if (rmnet_map_process_next_hdr_packet(skb, len))
-+		if (rmnet_map_process_next_hdr_packet(skb, &list, len))
- 			goto free_skb;
--		skb_pull(skb, sizeof(*map_header));
--		rmnet_set_skb_proto(skb);
- 	} else {
- 		/* Subtract MAP header */
- 		skb_pull(skb, sizeof(*map_header));
-@@ -96,10 +107,11 @@ __rmnet_map_ingress_handler(struct sk_buff *skb,
- 		if (data_format & RMNET_FLAGS_INGRESS_MAP_CKSUMV4 &&
- 		    !rmnet_map_checksum_downlink_packet(skb, len + pad))
- 			skb->ip_summed = CHECKSUM_UNNECESSARY;
-+		skb_trim(skb, len);
-+		__skb_queue_tail(&list, skb);
- 	}
- 
--	skb_trim(skb, len);
--	rmnet_deliver_skb(skb);
-+	rmnet_deliver_skb_list(&list);
- 	return;
- 
- free_skb:
-diff --git a/drivers/net/ethernet/qualcomm/rmnet/rmnet_map.h b/drivers/net/ethernet/qualcomm/rmnet/rmnet_map.h
-index 0977e495f591..ef738ce015d4 100644
---- a/drivers/net/ethernet/qualcomm/rmnet/rmnet_map.h
-+++ b/drivers/net/ethernet/qualcomm/rmnet/rmnet_map.h
-@@ -53,7 +53,9 @@ void rmnet_map_checksum_uplink_packet(struct sk_buff *skb,
- 				      struct rmnet_port *port,
- 				      struct net_device *orig_dev,
- 				      int csum_type);
--int rmnet_map_process_next_hdr_packet(struct sk_buff *skb, u16 len);
-+int rmnet_map_process_next_hdr_packet(struct sk_buff *skb,
-+				      struct sk_buff_head *list,
-+				      u16 len);
- unsigned int rmnet_map_tx_aggregate(struct sk_buff *skb, struct rmnet_port *port,
- 				    struct net_device *orig_dev);
- void rmnet_map_tx_aggregate_init(struct rmnet_port *port);
-diff --git a/drivers/net/ethernet/qualcomm/rmnet/rmnet_map_data.c b/drivers/net/ethernet/qualcomm/rmnet/rmnet_map_data.c
-index 39d6d084e73f..577f2758e385 100644
---- a/drivers/net/ethernet/qualcomm/rmnet/rmnet_map_data.c
-+++ b/drivers/net/ethernet/qualcomm/rmnet/rmnet_map_data.c
-@@ -497,35 +497,54 @@ void rmnet_map_checksum_uplink_packet(struct sk_buff *skb,
- 	}
- }
- 
--/* Process a MAPv5 packet header */
-+static struct rmnet_map_v5_csum_header *
-+rmnet_map_get_next_hdr(struct sk_buff *skb)
-+{
-+	return (struct rmnet_map_v5_csum_header *)(skb->data +
-+						   sizeof(struct rmnet_map_header));
-+}
++  Bit         0 - 6         7          8           9-11         12-15
++  Function  Header Type  Next Header  CSUM valid  Num NLOs    (reserved)
 +
-+static u8 rmnet_map_get_next_hdr_type(struct sk_buff *skb)
-+{
-+	struct rmnet_map_v5_csum_header *hdr = rmnet_map_get_next_hdr(skb);
++  Bit        16-19        20-23
++  Function  Close value  Close type
 +
-+	return u8_get_bits(hdr->header_info, MAPV5_HDRINFO_HDR_TYPE_FMASK);
-+}
++  Bit        24-27        28-31
++  Function  (reserved)    VEID
 +
-+static bool rmnet_map_get_csum_valid(struct sk_buff *skb)
-+{
-+	struct rmnet_map_v5_csum_header *hdr = rmnet_map_get_next_hdr(skb);
++  Bit           32 - 47        48 - 55            56 - 63
++  Function   Packet length  CSUM error bitmap  Num packets (NLO 0)
 +
-+	return !!(hdr->csum_info & MAPV5_CSUMINFO_VALID_FLAG);
-+}
++  ... (up to 6 NLO entries total, same 32-bit format per entry)
 +
- int rmnet_map_process_next_hdr_packet(struct sk_buff *skb,
-+				      struct sk_buff_head *list,
- 				      u16 len)
- {
- 	struct rmnet_priv *priv = netdev_priv(skb->dev);
--	struct rmnet_map_v5_csum_header *next_hdr;
--	u8 nexthdr_type;
++Header Type is set to 1 (coalescing).
++
++The MAP header ``pkt_len`` includes the coalescing header, coalesced packet
++data, and any MAP padding.
++
++Num NLOs (Number-Length Objects) is the count of active NLO entries
++(1 – 6).  Each NLO describes a group of consecutive coalesced packets
++that all share the same IP packet length.
++
++Num NLOs identifies the active prefix of the six NLO slots.  The header
++always contains all six slots and remains 28 bytes long regardless of Num
++NLOs.  A slot with ``num_packets == 0`` ends the active NLO prefix.  The
++full coalescing header is included in the MAP header's ``pkt_len``.
++
++Some hardware may report Num NLOs incorrectly.  For compatibility, receivers
++should derive the active prefix from ``num_packets`` when needed.  This
++requires unused slots to have ``num_packets == 0``.
++
++CSUM valid (bit 8) is a frame-level indication that the hardware checksum is
++valid for all packets in the frame. It is distinct from the per-packet CSUM
++error bitmap in each NLO entry.
++
++For a single-NLO, single-packet frame, CSUM valid must not be trusted when
++the close reason is a FIN/PSH close, a packet limit, a byte limit, or a time
++limit.  In these cases, the rmnet driver treats the packet checksum as
++unverified and lets the network stack validate it instead of relying on the
++coalescing checksum indications.
++IPv4 UDP packets with a zero checksum remain valid because that checksum is
++optional.
++
++Close type and close value encode the hardware reason that coalescing
++was terminated for this frame:
++
++Close type values:
++
++= ==============================
++0 non-coalesced (single packet)
++1 IP flow miss
++2 transport flow miss
++3 hardware limit (see value)
++4 coalescing closed (FIN/PSH)
++= ==============================
++
++Close value (used when close type is 3):
++
++= ==================
++0 NL limit reached
++1 packet limit
++2 byte limit
++3 time limit
++4 eviction
++= ==================
++
++VEID is the virtual endpoint ID of the originating flow.
++
++Each NLO entry::
++
++  Bit         0 - 15        16 - 23            24 - 31
++  Function  Pkt length   CSUM error bitmap   Num packets
++
++Pkt length is the full IP packet length, including the IP header, transport
++header, and payload, for every packet in this NLO group. The IP and transport
++headers are present once in the coalesced frame and are not repeated for each
++packet.
++
++CSUM error bitmap is one 48-bit stream formed by concatenating the
++``csum_error_bitmap`` bytes from all six NLO slots in slot order. Packet 0
++corresponds to bit 0 of slot 0's bitmap byte, and bits are consumed from
++least significant bit to most significant bit. The bit stream is indexed by
++the packet's absolute position in the frame and does not restart at an NLO
++boundary. If an NLO contains more than eight packets, its error bits
++continue into the bitmap byte of the following slot. Bitmap bytes in slots
++after the active NLO prefix may therefore contain continuation bits and must
++not be ignored.
++
++Num packets is the count of coalesced packets described by this NLO.
++
++f. MAP packet v1/v5 (command specific)
++---------------------------------------
  
--	next_hdr = (struct rmnet_map_v5_csum_header *)(skb->data +
--			sizeof(struct rmnet_map_header));
-+	switch (rmnet_map_get_next_hdr_type(skb)) {
-+	case RMNET_MAP_HEADER_TYPE_CSUM_OFFLOAD:
-+		if (unlikely(!(skb->dev->features & NETIF_F_RXCSUM))) {
-+			priv->stats.csum_sw++;
-+		} else if (rmnet_map_get_csum_valid(skb)) {
-+			priv->stats.csum_ok++;
-+			skb->ip_summed = CHECKSUM_UNNECESSARY;
-+		} else {
-+			priv->stats.csum_valid_unset++;
-+		}
+ Packet format::
  
--	nexthdr_type = u8_get_bits(next_hdr->header_info,
--				   MAPV5_HDRINFO_HDR_TYPE_FMASK);
-+		skb_pull(skb, sizeof(struct rmnet_map_header) +
-+			      sizeof(struct rmnet_map_v5_csum_header));
-+		skb_trim(skb, len);
-+		__skb_queue_tail(list, skb);
-+		break;
+@@ -187,7 +288,7 @@ Command types
+ 3 is for error during processing of commands
+ = ==========================================
  
--	if (nexthdr_type != RMNET_MAP_HEADER_TYPE_CSUM_OFFLOAD)
-+	default:
- 		return -EINVAL;
--
--	if (unlikely(!(skb->dev->features & NETIF_F_RXCSUM))) {
--		priv->stats.csum_sw++;
--	} else if (next_hdr->csum_info & MAPV5_CSUMINFO_VALID_FLAG) {
--		priv->stats.csum_ok++;
--		skb->ip_summed = CHECKSUM_UNNECESSARY;
--	} else {
--		priv->stats.csum_valid_unset++;
- 	}
+-f. Aggregation
++g. Aggregation
+ --------------
  
--	/* Pull csum v5 header */
--	skb_pull(skb, sizeof(*next_hdr));
--
- 	return 0;
- }
+ Aggregation is multiple MAP packets (can be data or command) delivered to
+@@ -208,3 +309,39 @@ rmnet userspace configuration is done through netlink using iproute2
+ https://git.kernel.org/pub/scm/network/iproute2/iproute2.git/
  
+ The driver uses rtnl_link_ops for communication.
++
++The data format flags controlling the ingress and egress processing
++pipeline are set via the ``IFLA_RMNET_FLAGS`` attribute
++(``struct ifla_rmnet_flags``).
++
++Relevant ingress flags:
++
++``RMNET_FLAGS_INGRESS_DEAGGREGATION``
++  Enable MAP frame de-aggregation.
++
++``RMNET_FLAGS_INGRESS_MAP_CKSUMV4``
++  Enable MAPv4 downlink checksum offload.
++
++``RMNET_FLAGS_INGRESS_MAP_CKSUMV5``
++  Enable MAPv5 downlink checksum offload (header type 2).
++
++``RMNET_FLAGS_INGRESS_COALESCE``
++  Enable MAPv5 downlink hardware coalescing (header type 1).
++  This flag requires ``RMNET_FLAGS_INGRESS_MAP_CKSUMV5``. MAPv4 and
++  MAPv5 checksum flags cannot be enabled together in either direction.
++  A direction may leave checksum offload disabled. Invalid combinations
++  are rejected.
++  When RX checksum offload and ``rx-gro-hw`` are enabled, valid
++  multi-packet coalesced frames can be delivered as batched GSO SKBs.
++  Otherwise, multi-packet coalesced frames are rejected. A coalesced frame
++  containing one packet is delivered as a normal non-GSO skb. IP options,
++  IPv6 extension headers, and zero-payload packets can also prevent GSO
++  processing for a frame.
++
++Relevant egress flags:
++
++``RMNET_FLAGS_EGRESS_MAP_CKSUMV4``
++  Enable MAPv4 uplink checksum offload.
++
++``RMNET_FLAGS_EGRESS_MAP_CKSUMV5``
++  Enable MAPv5 uplink checksum offload.
 -- 
 2.34.1
 
