@@ -1,151 +1,301 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30774358372
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 04:01:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B8D6358372
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 04:01:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791432115; cv=none; b=I73ZWSm+CBsIOVXNdSnd2sMXx1sUpB/OisSv1PUZqB8PkdW32L187vV1MFLO6zCyR4cAvaW+8VyCRf6xGbeSoS/DYcY2culr9FmGWEzpZqXaWnWjxhZwl2i+qZLDYdQDXpAmtAKQhkwwXgQpixF4L4ZLl9jakASD8g3Wt67oryU=
+	t=1791432121; cv=none; b=acV9InyUKucN3uDQFTEGmhBLumjbfhvoRiWKFYt9PQx8/T+AS9iS6yDlooQf7zpk5f5QpKLhUTqT4bNac1f6tbX2DoKLoZocUrx7n2bVUsE5FQ0c+oy8SOGZoNx7CBfPJNJ3Im367xu9l8QfVc5XczfdAidJZv7v6BfV6X+uFEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791432115; c=relaxed/simple;
-	bh=HWGlhnjAsKdJcawkVeuPvrsKBkaz2dTusqjN5Q+J2tE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=JvnHUNkKmNoVzIUWu3tNVbuWHkdTR+gm9v2VYaAL0VrUep61Jpx28PzCrFGDJ3XrM2A67rUxPb3cfQ7EyMF6GL75V59m1GN+LdNmjUlqruYgbRHGc7BCP1iz9ykVyyqYvrcGWySsz1xlcnPd7SimyGciwNbFE9yCeE4iLuQQCuM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ts9Piag5; arc=none smtp.client-ip=209.85.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791432121; c=relaxed/simple;
+	bh=S2HX0NxKa03U27J+jIphYK1NDRJiLWnKVLa3qhkVVGI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q79qWEoYRQZqsiQgXvzQydf6wMKPUSyE5Yx45502RspxAXMdWUv/HDfo5IMvT7+ri+tDbp+Kh+ByAQeYfkK95Wuxn6DH/1cR7pvOwm0UEzz/+4qTPxRcM6vJ3nsILbMrpB2YgkmnZ0WB/r/0qBZ0l6Lkse6JHJcqDOdKy9/q68Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=LNRe18Kk; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ts9Piag5"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2db18e5cb56so21725405ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 21:01:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="LNRe18Kk"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3a813079a55so154242a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 21:01:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791432112; x=1792036912; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rHUntJAA/mwo/FHuh8v4le2k0YfNGeacRBz3GsN1kMw=;
-        b=Ts9Piag5xkkTz/RebI0HKYBI93yR5LQqs/UcuKYKQc8WT/UO7YBcryHjFgkEF5vneV
-         ZhpGq7We16DJsWq5KNjWoPX6bLD7d2Z/kz7lWLp0kGFqBJ0OBMfhmiNfCUxfdF+BAne5
-         apWlaX0bYrYqM2diHjkWe4XPB599bNVzPdTAgLVyIFH3cuxyJve/ctwQJ6sGfMiikwz4
-         S3gmxfRw/kWz03aSIkzg35a4ra9zbzfAAnRBGM4xyMPYFdMmGHuYyE4EygOCkFUjuc/F
-         qpgnBryJ+g59ZkY744uI5s66wLqOQVzPxvQh5ud7ixi86juljOTAsGEkmmQMEexzfCPC
-         YGlA==
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791432118; x=1792036918; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eo0Mxm2U7pH93nJD67q7zSOE038zz8DvuAtE9yTrVy8=;
+        b=LNRe18KkAxka7eVkrty7ZugRh7Sk8Gl8khPeQHboYbDsx/p44rUYGlslW1IO2HFCer
+         x9HgwIm0X/9X5scMMamVYh8iQ52m1sGmJA93dJVUzXs/Kw30PvTi6h0yDz7+ZaKH7sM0
+         6Ql4KOUrJ2AdI5EjZ8uOs568ePhz43tKtIqqSGgGY3vl9woUYLPZWwX3QcTzR2m6Aqj/
+         H1MdZOdpn4513pg8nwnDl4ri51SjsKOrtSuTX474wLLkEvZVkyLzsL6iyP/OOTXkYPYD
+         T0PGH3a3MVEGnJNDbAS/q4tZPhAKLN82aYzTazejzDegDpR91Jvx44+/o/8UTQHpnOxR
+         llNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791432112; x=1792036912;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rHUntJAA/mwo/FHuh8v4le2k0YfNGeacRBz3GsN1kMw=;
-        b=fw1UZDtyILR2O+Qwy4RzB0oqQnAMRD2T5NHNibFs1gcp1EBga3jR1wmdh2jinZ6444
-         B+B14hj61Y5oT/RYqRZfKpFfIvYXBYWQkk3Fdbyz5GU6JvMPB6APkbmsn6dset9OYxom
-         d7d6R9x33ImZFyFefvm2qRxIFgdkH8rvgwmoZJt8XNo1SwqXabinrGxzj1580Du5IMQz
-         SItOImf8o4PDUipvgNAcmbvlrMFGvMEesETwLfCtQGwF7v7+2l+7zmZnPuqK1pYjRTdS
-         FABl5k75OWKTtM7rldsxIS4pYf/Y0Ax+fTKyqJ2gc7otsTlND64s5L7bGTV5xIfr0n2+
-         5QLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwJAx8ppBwEjhyInuW2LG+IqaDblbcv4ROW0DMBwgHc9Hb/jB60vthoZRgSH9iH34+Y/zfGaRdcMrEVjEE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIMlRCcC+uQvWnAFEmx4zjtUGP9yzy1zMmTY9WiEnpMfyKxVRuN
-	ZHHCLBl5VyWG1/Jhu2htYH4cojOR75wIXt7ALmvcavEW9M3wckVRNz4lSCgq/Dfi
-X-Gm-Gg: AYBFou3eNYqUyC+klkprOY2LQC6j7mEo/gJ5plXHdKrlorCD9lyB7p80emp9aNFKHqo
-	LwNPjU4SCcQXlWcTLJ7XNRaGV/UgnTmIA+ptG7cDGkGb3PynpN680sFI1EZQo7T0DDxIoAyyjJm
-	GX1tGXm0Xsr9ke4ORDySxdRgw3aiAGQ2jWXqnn2o8L03ylwU/hcp5iln0AtHqjigfrqpaCCBQa6
-	qIgWS/NsznUJId7zepZ9kZmfv/PnCLVYZbOoDzgpmvqTHWGjm+z56ZeIRCSCKdAbw2E8yfmGDEV
-	Q/iDLuB78xet1ecd1n48BmrHL2viLVbTtEUZ7dZZIPZ+nIszXMueqUmKrXYTKkNF66+c1Py9/in
-	1UPoEGlEWIV+udLqvS2FvxjZjunWtUeU3h9M4LuTbzipdR4jlySGxTAWYcOmiWwLjmH1bZ4GEXn
-	SgGh9dMO6xtzuZO38W3lJ1yBHNYNV6/mI2N3puaVRBle0sMc1YjDr8PvEySCO6EV+Pfg==
-X-Received: by 2002:a17:90a:1541:b0:3a8:c0cd:57f8 with SMTP id 98e67ed59e1d1-3a8c0dcd10cmr1695006a91.4.1791432112448;
-        Wed, 07 Oct 2026 21:01:52 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9f1bfbafasm2654738a91.11.2026.10.07.21.01.49
+        d=1e100.net; s=20260707; t=1791432118; x=1792036918;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eo0Mxm2U7pH93nJD67q7zSOE038zz8DvuAtE9yTrVy8=;
+        b=Au7O+22SLDPKKA0gUiYWBzz0a45opUh0JVTjem9Vq0mLCjzp8RguJ0VGjJNxDaPNIx
+         cVmmVt45APiMJpVEogl3azu9d7SOg5K6K97SDg1SPIE5dkVmkRSsPcc3hj5zjBo6HRtC
+         yVzLogIMCVIFZ8X2HmcAQHuWguZagaBoGSU7YFuTvfjstKphtojjaPdGuox9030HOIVP
+         /pSybbGmXlGFr8SE231Yzmwkbu2Ic1258wnZ0Euq4k8NAQ/wJ9l2tMBzvqD3iiYZkulW
+         rwWEMnlgBr+tlI7PSafVRgRMGkaVmNplOgptHuRTZVwm2LEheYUIrX592Dg/RTStkNnr
+         ni2A==
+X-Forwarded-Encrypted: i=1; AKwUvBzDiZjMKgKviA8/Qpn+rhoISCTZazZc+2ctz7DcJNxwhrk8QLIsbq1/lk85TvT7gueRS5Yoh8NDPXZ6FGQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLnExhWtVuefSRVHsLOWhZaKWX0Ft3eX2t/wfN3ijmLaS+VMqaL
+	wp74ir9tgmu4JtvPhYv2ohpR6puDlY3HgoXVyqChr1EEiZh3ActAC8F8jOYdPITl1jo=
+X-Gm-Gg: AYBFou3XkC8K7oingB4VZToR8Wh2ztSs88osfBcaJxZDZCu+F/KG/jHJYj4E4eF+cwg
+	liAFBWJzGu7UMXrXkDVKu2L5utKLWQV6NhRmvh2+/e25ILIcNzyHtIaB8oNNcdSxCa5TclQ7jm7
+	OM1oSH/RdO6BvrEq+oyeOgGXv6eU8KBFbUHpvZg2HxI3AkXKs//dh5co4ZWEwusJo97tkLdJ5f+
+	YMr9c08n3ffxFqFv6cyXU3fS0pcnvWL9A8l+xxARaY350DrjY4jE8pEHS6G4YRctaJvAxK3l3Hu
+	1EYBAYLiyNP56CmQ1AFJo+ZY8/D10qWARWs7ZPBW96tJwmB50TGth5/OMlieu2d6XEqo0/keVXl
+	PWxDXUStZGOauHbpZHhyZnPMwB6UP/QxXN5xK80dBwnUYffNvY3McrufJqq5676rmVm1dYA/Iga
+	p4jxtUsbOUU6YWPhoBbHCtkBaavZcY+xJcWRobNhxKdlJev/ilB3SrioSiu4JA0JrQjJnMw6VKq
+	wO8gA==
+X-Received: by 2002:a17:90b:2d4c:b0:3a0:c31d:80c with SMTP id 98e67ed59e1d1-3aadff4891amr663631a91.9.1791432117993;
+        Wed, 07 Oct 2026 21:01:57 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9ff5cd5c3sm2505994a91.17.2026.10.07.21.01.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 21:01:52 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: marcel@holtmann.org,
-	luiz.dentz@gmail.com
-Cc: linux-bluetooth@vger.kernel.org,
+        Wed, 07 Oct 2026 21:01:57 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: michael.christie@oracle.com,
+	martin.petersen@oracle.com,
+	lduncan@suse.com,
+	cleech@redhat.com,
+	James.Bottomley@HansenPartnership.com
+Cc: linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] Bluetooth: hci_debugfs: Pin the module for open dut_mode files
-Date: Thu,  8 Oct 2026 12:01:46 +0800
-Message-Id: <pm-bluetooth-objects-candidate-0251-v5-7e4e8154d66ac0e60df2@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH v6] scsi: libiscsi_tcp: zero the unsent part of a short read
+Date: Thu,  8 Oct 2026 13:01:29 +0900
+Message-ID: <20261008040129.747538-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-An open dut_mode file retains dut_mode_fops in the debugfs proxy state.
-The table must remain allocated until the final close has finished
-accessing it. However, dut_mode_fops has no owner, so fops_get()
-succeeds without taking a Bluetooth module reference.
+A target can finish a read without sending the data.  iscsi_tcp_data_in()
+bounds each Data-In PDU against the command buffer but never adds them up,
+so a completion that declares no underflow is believed and the command
+ends with DID_OK.  The pages keep whatever they held.
 
-With CONFIG_BT=m and Bluetooth debugfs enabled, a descriptor can remain
-open across controller removal and module unload if all other module
-references have been dropped. After hci_debugfs_create_basic() publishes
-the file, the following order is possible:
+Over a 1 MiB pread of a file that had never been read, 999424 bytes came
+back as the contents of an unrelated file the same process had written
+earlier.  pread() returned 1048576 and errno was 0.
 
-    File holder                     Controller/module teardown
-    -----------                     --------------------------
-    open dut_mode
-      full_proxy_open_regular()
-      fops_get(): owner == NULL
-      debugfs_file_put()
-    keep descriptor open            hci_unregister_dev()
-                                    hci_release_dev()
-                                      debugfs_remove_recursive()
-                                    delete_module()
-                                      bt_exit()
-                                      free_module()
-    close descriptor after unload
-      full_proxy_release()
-        read real_fops->release
+Count the Data-In payload per task and, when the command completes, zero
+the tail of the read buffer that was never received.  Whatever the
+midlayer reports as transferred the caller then sees zeroes instead of
+stale page contents, so no completion status has to be special-cased.
+Writes are untouched.
 
-Debugfs removal drains active callbacks, but an idle open descriptor is
-not an active user. Its dentry retains the saved table pointer until
-close. full_proxy_release() then reads the release field, even though
-it is NULL, and fops_put() reads the owner field from freed module
-storage. The close can fault in full_proxy_release(), as shown below.
-
-Set the owner of dut_mode_fops to THIS_MODULE, matching the tables
-created by DEFINE_SHOW_ATTRIBUTE in the same file. The existing debugfs
-fops_get()/fops_put() pair then keeps Bluetooth loaded until close has
-finished using the table, preventing normal unload with the file open.
-
-Oops report as below:
-    BUG: unable to handle page fault for address: fffffbfff8056f03
-    #PF: supervisor read access in kernel mode
-    #PF: error_code(0x0000) - not-present page
-    PGD 1a7ff6067 P4D 1a7ff6067 PUD 1a7ff2067 PMD 100ad6067 PTE 0
-    Oops: Oops: 0000 [#1] SMP KASAN NOPTI
-    Call Trace:
-     <TASK>
-     __fput+0x39f/0xa60
-     fput_close_sync+0xff/0x200
-     ? __pfx_fput_close_sync+0x10/0x10
-     ? dnotify_flush+0x22/0x4b0
-     __x64_sys_close+0x8c/0xf0
-     do_syscall_64+0x115/0x6a0
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-Fixes: 4b4148e9acc1 ("Bluetooth: Add support for setting DUT mode")
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-
-Assisted-by: LLM
+Fixes: a081c13e39b5 ("[SCSI] iscsi_tcp: split module into lib and lld")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
+v6: change approach.  Instead of deciding from the status, the sense, the
+    service response and the residual whether the target promised the whole
+    buffer, zero the bytes that did not arrive.  The previous versions kept
+    growing because every completion shape that reports a full transfer has
+    to be enumerated - SAM_STAT_GOOD, CHECK_CONDITION with RECOVERED_ERROR,
+    and whatever a future upper-level driver decides - and missing one hands
+    the caller the previous contents of those pages.  Zeroing the tail is
+    independent of all of it: whatever the midlayer reports as transferred,
+    the caller sees zeroes.  That also removes the need to fail the command,
+    so a legitimate error reply no longer costs the connection.  The
+    predictor and its three call sites go away; the per-task counter, its
+    reset and the continuity check stay.
+v5: do not check a response that did not complete at the target
+    (ISCSI_STATUS_CMD_COMPLETED), since iscsi_scsi_cmd_rsp() already fails
+    it with DID_ERROR, and treat a residual larger than the command buffer
+    as a protocol error rather than a reason to skip the check (noted by
+    Sashiko AI review).  The remaining case it raised, CHECK_CONDITION with
+    a data segment shorter than two bytes, needs no change: libiscsi fails
+    that with DID_BAD_TARGET, so the data is never handed to the caller.
+v4: also validate coverage when the status is CHECK_CONDITION with a sense
+    key of RECOVERED_ERROR.  sd_done() counts RECOVERED_ERROR as the whole
+    buffer transferred, so v3's "skip every non-GOOD status" left a target
+    able to short a read and still have it reported as a full success
+    (noted by Sashiko AI review).
+    The Data-In continuity check requires in-order Data-In and so does not
+    interoperate with a target that negotiates DataPDUInOrder=No; that is
+    deliberate, as making a safety check conditional on a peer-negotiated
+    value would let the peer turn it off.
+v3: only validate coverage for SAM_STAT_GOOD completions; a non-GOOD reply
+    such as CHECK_CONDITION that omits the underflow flag must not be
+    treated as a short read (noted by Sashiko AI review).
+v2: take back_lock once on the SCSI Response path and make the counter
+    uint32_t, both per Mike Christie's review.
 
-diff --git a/net/bluetooth/hci_debugfs.c b/net/bluetooth/hci_debugfs.c
-index 2559fb6324d63d5fc84d530d2a19f2602ac06d3d..f17b5c960522cb22140322e4781775e4e2f6b711 100644
---- a/net/bluetooth/hci_debugfs.c
-+++ b/net/bluetooth/hci_debugfs.c
-@@ -1315,6 +1315,7 @@ static ssize_t dut_mode_write(struct file *file, const char __user *user_buf,
+On "was it built over another patch?" - no, v1 was generated against
+v7.2-rc5 directly.  It stopped applying because c1dea15f819cd ("scsi:
+libiscsi_tcp: Bound SCSI Response data segment to the connection
+buffer") folded ISCSI_OP_SCSI_CMD_RSP into the shared response case,
+which is the block v1's last hunk patched.
+
+v1: https://lore.kernel.org/all/20260814121428.359541-1-yhlee@isslab.korea.ac.kr/
+
+ drivers/scsi/libiscsi_tcp.c | 85 +++++++++++++++++++++++++++++++++++--
+ include/scsi/libiscsi_tcp.h |  1 +
+ 2 files changed, 83 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/scsi/libiscsi_tcp.c b/drivers/scsi/libiscsi_tcp.c
+index d35f93451ee9b..00bdbcc6e27e3 100644
+--- a/drivers/scsi/libiscsi_tcp.c
++++ b/drivers/scsi/libiscsi_tcp.c
+@@ -397,6 +397,61 @@ void iscsi_tcp_hdr_recv_prep(struct iscsi_tcp_conn *tcp_conn)
  }
+ EXPORT_SYMBOL_GPL(iscsi_tcp_hdr_recv_prep);
  
- static const struct file_operations dut_mode_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= dut_mode_read,
- 	.write		= dut_mode_write,
++/**
++ * iscsi_tcp_zero_unread - zero the part of a read buffer the target never sent
++ * @task: scsi command task
++ *
++ * A target can end a read without sending all of the data, in any of the ways
++ * a completion can be reported.  Rather than predict from the status, the
++ * sense and the residual whether the buffer was promised in full, zero the
++ * bytes that did not arrive.  Whatever the midlayer then reports as
++ * transferred, the caller sees zeroes and not the previous contents of those
++ * pages.
++ *
++ * The continuity check in iscsi_tcp_data_in() means the bytes that did not
++ * arrive are exactly the tail, so one range covers them.
++ */
++static void iscsi_tcp_zero_unread(struct iscsi_task *task)
++{
++	struct iscsi_tcp_task *tcp_task = task->dd_data;
++	struct scsi_cmnd *sc = task->sc;
++
++	if (!sc || sc->sc_data_direction != DMA_FROM_DEVICE ||
++	    tcp_task->data_in_bytes >= sc->sdb.length)
++		return;
++
++	sg_zero_buffer(sc->sdb.table.sgl, sc->sdb.table.nents,
++		       sc->sdb.length - tcp_task->data_in_bytes,
++		       tcp_task->data_in_bytes);
++}
++
++/**
++ * iscsi_tcp_complete_cmd - zero any unread tail, then complete the command
++ * @conn: iscsi connection
++ * @hdr: the PDU carrying the status
++ * @data: data segment of that PDU, if it has one
++ * @datalen: length of @data
++ *
++ * back_lock is taken once for the lookup, the fill and the completion.
++ */
++static int iscsi_tcp_complete_cmd(struct iscsi_conn *conn, struct iscsi_hdr *hdr,
++				  char *data, int datalen)
++{
++	struct iscsi_task *task;
++	int rc;
++
++	spin_lock(&conn->session->back_lock);
++	task = iscsi_itt_to_ctask(conn, hdr->itt);
++	if (!task) {
++		spin_unlock(&conn->session->back_lock);
++		return ISCSI_ERR_BAD_ITT;
++	}
++	iscsi_tcp_zero_unread(task);
++	rc = __iscsi_complete_pdu(conn, hdr, data, datalen);
++	spin_unlock(&conn->session->back_lock);
++	return rc;
++}
++
+ /*
+  * Handle incoming reply to any other type of command
+  */
+@@ -410,8 +465,13 @@ iscsi_tcp_data_recv_done(struct iscsi_tcp_conn *tcp_conn,
+ 	if (!iscsi_tcp_dgst_verify(tcp_conn, segment))
+ 		return ISCSI_ERR_DATA_DGST;
+ 
+-	rc = iscsi_complete_pdu(conn, tcp_conn->in.hdr,
+-			conn->data, tcp_conn->in.datalen);
++	if ((tcp_conn->in.hdr->opcode & ISCSI_OPCODE_MASK) ==
++	    ISCSI_OP_SCSI_CMD_RSP)
++		rc = iscsi_tcp_complete_cmd(conn, tcp_conn->in.hdr, conn->data,
++					    tcp_conn->in.datalen);
++	else
++		rc = iscsi_complete_pdu(conn, tcp_conn->in.hdr, conn->data,
++					tcp_conn->in.datalen);
+ 	if (rc)
+ 		return rc;
+ 
+@@ -509,6 +569,11 @@ static int iscsi_tcp_data_in(struct iscsi_conn *conn, struct iscsi_task *task)
+ 		return ISCSI_ERR_DATA_OFFSET;
+ 	}
+ 
++	if (tcp_task->data_offset != tcp_task->data_in_bytes)
++		return ISCSI_ERR_DATA_OFFSET;
++
++	tcp_task->data_in_bytes += tcp_conn->in.datalen;
++
+ 	conn->datain_pdus_cnt++;
+ 	return 0;
+ }
+@@ -658,7 +723,7 @@ iscsi_tcp_process_data_in(struct iscsi_tcp_conn *tcp_conn,
+ 
+ 	/* check for non-exceptional status */
+ 	if (hdr->flags & ISCSI_FLAG_DATA_STATUS) {
+-		rc = iscsi_complete_pdu(conn, tcp_conn->in.hdr, NULL, 0);
++		rc = iscsi_tcp_complete_cmd(conn, tcp_conn->in.hdr, NULL, 0);
+ 		if (rc)
+ 			return rc;
+ 	}
+@@ -752,6 +817,14 @@ iscsi_tcp_hdr_dissect(struct iscsi_conn *conn, struct iscsi_hdr *hdr)
+ 			spin_unlock(&conn->session->back_lock);
+ 			return rc;
+ 		}
++		/*
++		 * A Data-In with no data segment can still carry the status,
++		 * and it completes the command here rather than from
++		 * iscsi_tcp_process_data_in(), so fill the tail on this path
++		 * too.
++		 */
++		if (hdr->flags & ISCSI_FLAG_DATA_STATUS)
++			iscsi_tcp_zero_unread(task);
+ 		rc = __iscsi_complete_pdu(conn, hdr, NULL, 0);
+ 		spin_unlock(&conn->session->back_lock);
+ 		break;
+@@ -783,6 +856,11 @@ iscsi_tcp_hdr_dissect(struct iscsi_conn *conn, struct iscsi_hdr *hdr)
+ 			break;
+ 		}
+ 
++		if (opcode == ISCSI_OP_SCSI_CMD_RSP && !tcp_conn->in.datalen) {
++			rc = iscsi_tcp_complete_cmd(conn, hdr, NULL, 0);
++			break;
++		}
++
+ 		/* If there's data coming in with the response,
+ 		 * receive it to the connection's buffer.
+ 		 */
+@@ -995,6 +1073,7 @@ int iscsi_tcp_task_init(struct iscsi_task *task)
+ 
+ 	BUG_ON(kfifo_len(&tcp_task->r2tqueue));
+ 	tcp_task->exp_datasn = 0;
++	tcp_task->data_in_bytes = 0;
+ 
+ 	/* Prepare PDU, optionally w/ immediate data */
+ 	ISCSI_DBG_TCP(conn, "task deq [itt 0x%x imm %d unsol %d]\n",
+diff --git a/include/scsi/libiscsi_tcp.h b/include/scsi/libiscsi_tcp.h
+index ef53d4bea28a0..a6e63db75d674 100644
+--- a/include/scsi/libiscsi_tcp.h
++++ b/include/scsi/libiscsi_tcp.h
+@@ -66,6 +66,7 @@ struct iscsi_tcp_conn {
+ 
+ struct iscsi_tcp_task {
+ 	uint32_t		exp_datasn;	/* expected target's R2TSN/DataSN */
++	uint32_t		data_in_bytes;	/* Data-In payload received */
+ 	int			data_offset;
+ 	struct iscsi_r2t_info	*r2t;		/* in progress solict R2T */
+ 	struct iscsi_pool	r2tpool;
+
+base-commit: 2c3418fffa9d037b2038a6db48be63f9e2291806
+-- 
+2.43.0
+
