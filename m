@@ -1,40 +1,32 @@
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FF4D3DD532
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 07:58:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24BEB3C343F;
+	Thu,  8 Oct 2026 07:59:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791446290; cv=none; b=qPlfSzVscyBm8FJWa8XyW2VjpdIB1rK4PdqyJJ53eRq2Qx240yfghunIcpVSdlrH8ZRx6n+sDXS4XcZQBxmcxgNFVeX1F9rnet45rbk9Dk5slvmhJ18+FH5dSEm+PbCIQXJ4Kk/Aha/QLk+OQLkLAHH5gCWfFwcsg0B5kSW9jaE=
+	t=1791446351; cv=none; b=S4N1TKMpcFpVW6vm02A6AwsBhCA0QFbFIejmdPzlm3CLdue2o7JJWps5M3FAzyRy/kxZVGH/aF09e7dACl89BvQ+yJC8sW7/R14WSDH0Fyu+82PoYfxQNeZqqIfd6/aaZqcrjAoRlsqUfugRhWKKqLBKIkdoaoG3+CqnoveCAE4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791446290; c=relaxed/simple;
-	bh=DM5sfE57k+oBbpxjf4rcXl0KuiRMMelT5rNy3JAZ9Vg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=DKzZr1ONYqCup1d6h+5MRHVBweE7XxqZVhnHZgpn/lp3q5FGQ2HVJf8Q3fdRan7FNBYehc/0zuLDgmDq4kB1JeX5oLs7RfB/c4a8NEIf32CX1nL55xkLPleBjClJ1zfteJAt1r3enY0XumPTA1qC8vNZd+B+q2W5CMho/7tpR7s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=JJ9PrRuN; arc=none smtp.client-ip=113.46.200.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1791446351; c=relaxed/simple;
+	bh=qDJV4NUK9keKCwSgXigvksFKxRBTA2m8mTNRC0Bn7eg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=du31s4piuw56fVfVKTzDQ1Z5M/ZJFtttqQfDzeXYfJZgC2nOZ6JCEa83syu1ym37y7ndW6ooBpk0NXoIxPJfBILsXU8AObW7usQ1MZpAtGT3Lfd4jY8V96Kt5C/cCO0FLZICHAvaWgOJVd2Xbg57JUAC9FnNrBMy9vT7comnzOU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=fVnhGmaO; arc=none smtp.client-ip=115.124.30.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="JJ9PrRuN"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=VV97U+fI+2BU63oSyzjtBz89NKgr2GCnmm8FLfD0RyY=;
-	b=JJ9PrRuNTyQACbAsJpgBXsMOj+ibz4H/Bw2cZG2xFX16XmzWjQxGuGI1RhEnJlSSSUlnKLxQg
-	VkMRieu4gxl0qYqDMLs0PVbXOHBpIEYS+fr3Jh+nuzm+/yjQsnhmJ77BbGRAF5YtGtnrG+e4t7e
-	VJh27x1ulFNNLg1rg3cnDwY=
-Received: from mail.maildlp.com (unknown [172.19.162.140])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4j0hr02Rrcz1T4MQ;
-	Thu,  8 Oct 2026 15:45:52 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 1C3DE203C1;
-	Thu,  8 Oct 2026 15:58:05 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 8 Oct
- 2026 15:58:04 +0800
-Message-ID: <37913984-3cf0-4bfb-8adf-f87ec65c8b75@huawei.com>
-Date: Thu, 8 Oct 2026 15:58:02 +0800
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="fVnhGmaO"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1791446339; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=HcrCKp2Z/lN3tk4V8Y2aF9bTvR6+Hep4GNXCTRa+zWE=;
+	b=fVnhGmaOL9Oz8hO+1ur5ogeXt+UlLmnY/0KWY0+xtijK+oglL14GoqDVZOHQoAoECZ5LB0L3OkDK3xT1CwtL+qJ0lsXYKktBIgql6ZboLYmlydhtjhii/gW5SG/p4kv3JQbM1Yr9Z69yCJ5p805bR5y7a5z2eEIIe1maqah+H9g=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R181e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---0XCMHsUt_1791446336;
+Received: from 30.74.113.73(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XCMHsUt_1791446336 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 08 Oct 2026 15:58:57 +0800
+Message-ID: <6aa5a165-3ba6-4974-b549-fed7318ead49@linux.alibaba.com>
+Date: Thu, 8 Oct 2026 15:58:56 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,78 +34,42 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/21] arm64: stackprotector: Re-enable per-task
- stackprotector
-To: Will Deacon <will@kernel.org>, <linux-arm-kernel@lists.infradead.org>
-CC: <linux-kernel@vger.kernel.org>, Arnd Bergmann <arnd@arndb.de>, Ard
- Biesheuvel <ardb@kernel.org>, Ada Couprie Diaz <ada.coupriediaz@arm.com>,
-	David Hildenbrand <david@kernel.org>, Catalin Marinas
-	<catalin.marinas@arm.com>, Vladimir Murzin <vladimir.murzin@arm.com>, Mark
- Rutland <mark.rutland@arm.com>, Mostafa Saleh <smostafa@google.com>, Lorenzo
- Stoakes <ljs@kernel.org>, Oliver Upton <oupton@kernel.org>, Linus Walleij
-	<linusw@kernel.org>, Marc Zyngier <maz@kernel.org>
-References: <20260918161407.2300-1-will@kernel.org>
- <20260918161407.2300-10-will@kernel.org>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20260918161407.2300-10-will@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Subject: Re: [BUG] shmem: FALLOC_FL_PUNCH_HOLE vs fault-around race corrupts
+ page cache / rss counters
+To: Ayush Ranjan <ayushr@modal.com>, Pedro Falcato <pfalcato@suse.de>
+Cc: Hugh Dickins <hughd@google.com>, Matthew Wilcox <willy@infradead.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Jan Kara <jack@suse.cz>,
+ David Hildenbrand <david@kernel.org>, Gregory Price <gourry@gourry.net>,
+ linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260924061708.1645968-1-ayushr@modal.com>
+ <arTdLsBENhrpOyk-@pedro-suse.tail5790ac.ts.net>
+ <20260925053027.1998394-1-ayushr@modal.com>
+ <20260925065013.3682431-1-ayushr@modal.com>
+ <20261003033107.1488699-1-ayushr@modal.com>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20261003033107.1488699-1-ayushr@modal.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
 
-在 2026/9/19 0:13, Will Deacon 写道:
-> Now that 'current' resides in TPIDRRO_EL0, update the per-task
-> stackprotector compiler invocation to use the new register.
+On 10/3/26 11:31 AM, Ayush Ranjan wrote:
+> Hi all,
 > 
-> Note that this requires a very recent build of clang [1], as (unlike
-> GCC), it historically rejected all registers other than SP_EL0.
+> Gentle ping on this. 
+
+Sorry for the late reply due to my vacation.
+
+The reproducer in my previous mail [1] triggers
+> "Bad page cache ... still mapped when deleted" on 6.18.46 within a
+> couple of minutes on a 128-CPU bare-metal box, with no fork() and no
+> gVisor involved.
 > 
-> Cc: Mark Rutland <mark.rutland@arm.com>
-> Link: https://github.com/llvm/llvm-project/pull/188054 [1]
-> Signed-off-by: Will Deacon <will@kernel.org>
-> ---
->  arch/arm64/Kconfig  | 3 +--
->  arch/arm64/Makefile | 2 +-
->  2 files changed, 2 insertions(+), 3 deletions(-)
-> 
-> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-> index b8270b301809..020fcaf36b1b 100644
-> --- a/arch/arm64/Kconfig
-> +++ b/arch/arm64/Kconfig
-> @@ -2450,12 +2450,11 @@ config RANDOMIZE_MODULE_REGION_FULL
->  	  exhaustion, modules might be able to fall back to a larger 2GB area.
->  
->  config CC_HAVE_STACKPROTECTOR_SYSREG
-> -	def_bool $(cc-option,-mstack-protector-guard=sysreg -mstack-protector-guard-reg=sp_el0 -mstack-protector-guard-offset=0)
-> +	def_bool $(cc-option,-mstack-protector-guard=sysreg -mstack-protector-guard-reg=tpidrro_el0 -mstack-protector-guard-offset=0)
->  
->  config STACKPROTECTOR_PER_TASK
->  	def_bool y
->  	depends on STACKPROTECTOR && CC_HAVE_STACKPROTECTOR_SYSREG
-> -	depends on BROKEN
->  
->  config UNWIND_PATCH_PAC_INTO_SCS
->  	bool "Enable shadow call stack dynamically using code patching"
-> diff --git a/arch/arm64/Makefile b/arch/arm64/Makefile
-> index 6b005c8fef70..a293ab67818f 100644
-> --- a/arch/arm64/Makefile
-> +++ b/arch/arm64/Makefile
-> @@ -72,7 +72,7 @@ ifeq ($(CONFIG_STACKPROTECTOR_PER_TASK),y)
->  prepare: stack_protector_prepare
->  stack_protector_prepare: prepare0
->  	$(eval KBUILD_CFLAGS += -mstack-protector-guard=sysreg		  \
-> -				-mstack-protector-guard-reg=sp_el0	  \
-> +				-mstack-protector-guard-reg=tpidrro_el0	  \
+> We continue to hit this in production at low frequency, so I am happy
+> to test patches or collect more data if that would help.
 
-Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
-
->  				-mstack-protector-guard-offset=$(shell	  \
->  			awk '{if ($$2 == "TSK_STACK_CANARY") print $$3;}' \
->  				$(objtree)/include/generated/asm-offsets.h))
-
--- 
-Best regards,
-Jinjie
+Now I can reproduce this issue on my machine with the latest mm-unstable 
+branch, and I understand the race. I have confirmed that Andrew's patch 
+can fix it. You can try Andrew's patch.
 
