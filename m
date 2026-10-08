@@ -1,212 +1,235 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20D61493631
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 10:23:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64FFD495050
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 10:23:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791454995; cv=none; b=gqYfYPIo9niQlQkJhv/pe9Wc5tpDVObl5b3OAGupfa9YGWkLL20+1OeG+V3DcWXICQug3W0ug2rOpJtXKBNkhN0t3XCkP61QHv3EOGwt4RCx0Sg+R+IBwxjqz3xikRfByiiQG3PxJ1qpjg6wsWTxYB3Ybn9aq609zsx5rP1PwNs=
+	t=1791454997; cv=none; b=OdkAqCbDSvIzUzv9IR6S63dmqU4ucZ0lYcb08wgWDoyUxm8IYWaaG0Kx9jZq8KiS7wQ0oKESxYYsT/kgjQbSQk+37j+q47TgtfGtuBegRRdzeskf6EIypMWXn6HUbYcP2VAhkt1wWwt4LcMqUGUmR+PMQwNc8ZJEm7c03MBvtLM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791454995; c=relaxed/simple;
-	bh=1fWYKc6uzLH2whfDkm7TWoiFw1Rm0HcoWhLnt9kusfE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gcV+wDoNzOsKQ9v6bv6Zg2ambfhgUDn489EEztaw39AgDEsqXCEwG7kyDWxARUHABjj+Lls1ouWLS+mWZ8nbSCijdk2vrzE1RcLzJjZHRYjKXQ3Wk2i8ECu6f+S/qMWgh11LfnbTGPEuyvIMKmWUG0WFEbrXi0SMLE0kChuaV9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KFW28EZg; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KFW28EZg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791454993;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=F6Ri3pHIl20gecDqbC09Y5YclV6WJYtvm9nxg+QZeGM=;
-	b=KFW28EZgXBPZZt286RPLsHHGfea8xn7Z+m8meDCw0QHq506JOy3KJL1J+ytpj58U9sedYw
-	SVHOTrKRFfOizPUDLrpj9qJMq4n8Y+TO0lcVMImZZAa/dDjc4sYJm72tgcxtNL628RNV4X
-	oaVMYbq3vT69bT1oAI4PBieYy75yv9M=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-609-S9gJu8cNMoy0HNO_Y9nC1A-1; Thu,
- 08 Oct 2026 06:23:07 -0400
-X-MC-Unique: S9gJu8cNMoy0HNO_Y9nC1A-1
-X-Mimecast-MFC-AGG-ID: S9gJu8cNMoy0HNO_Y9nC1A_1791454985
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 96D72195D00A;
-	Thu,  8 Oct 2026 10:23:04 +0000 (UTC)
-Received: from warthog.com (unknown [10.44.32.90])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 4A7F118002B6;
-	Thu,  8 Oct 2026 10:22:57 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-To: Christian Brauner <christian@brauner.io>
-Cc: David Howells <dhowells@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	Stefan Metzmacher <metze@samba.org>,
-	Eric Van Hensbergen <ericvh@kernel.org>,
-	Dominique Martinet <asmadeus@codewreck.org>,
-	Ilya Dryomov <idryomov@gmail.com>,
-	netfs@lists.linux.dev,
-	linux-afs@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	ceph-devel@vger.kernel.org,
-	v9fs@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v17 0/8] netfs: Use a bvecq chain position abstraction
-Date: Thu,  8 Oct 2026 11:22:44 +0100
-Message-ID: <20261008102253.1003776-1-dhowells@redhat.com>
+	s=arc-20240116; t=1791454997; c=relaxed/simple;
+	bh=xtqW2t6U4jA5AiaQeEAmtfis7i9MMzQZBXitVBMb0gc=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=MKFiC2SqimRkzYCCIOpeIsTjSgmzLWvDVVhOSblnO5MPjuwgZw2S6GOWkHMiXPPz0/fKG4Rui7OEMOPDELEwOQC41CG/Sl9S9Yt+RbdtrKx/zzT+9r6r2wc9rIJiweTtAEgNR8DJPod1PHB4Xr4w4XJElcXktSXytagFc5Y7q/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4f8281066c4so6702113b6e.2
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 03:23:16 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791454995; x=1792059795;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NKTQKj+HbiuDg2ygRxPpEbKcFjItV4NRbnxi8nTtwx4=;
+        b=Q30TCpCL57SpwSCVPYmaZ1HcOSmmlFDn9GG/ChiYgJNBk2+90EyUZPjejXZfVtw8Me
+         5XmWX1PsTeTxaSz05pUeYOPK9rA2Ls0yWLvnivPOlZ3hagerXP5+b0NBJzwdddinJkPS
+         Rk6bxqVQaAXN7aX1X5/KVFAeoD7wWii/EmwJrjCdZZAX3l8t7oE1oxAX1JTf/2fvwIbT
+         YtQwUhgVAGOon2HGpJ45HFCKaIqQS+PqtmdEIBy0jO8R8LfaoJ5y6iAJpkU+tDIeOoyl
+         3wljt9DkbNhsPBdKtd8c6lKKpgsUxsUJcYsRBxuf8odGXuMS1JiFSk1TauapmLQtzuK9
+         nQ4Q==
+X-Gm-Message-State: AFuF++lDjRxsOpyyBohnVW5jZXv6U0mlQvvR/oJQ2nTxTwsBlTyV8G+W
+	lfibWNTvZ/+WIxNt/lf9hA7KbV/59vNIs4rOmVRHF0A098/393ZKVb76kZzg0ZVVgiY/jFJPgwE
+	yb2u+c59BOcs1GmFfDpT1P1EOciK37JIW3joDz3RgvguVWe0/bS8ldSJb7RA=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+X-Received: by 2002:a05:6808:2e4f:b0:4b9:a829:f00e with SMTP id
+ 5614622812f47-4fc46480531mr4235671b6e.26.1791454995186; Thu, 08 Oct 2026
+ 03:23:15 -0700 (PDT)
+Date: Thu, 08 Oct 2026 03:23:15 -0700
+In-Reply-To: <6a88eb8b.ae6ddae5.3da009.0049.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac76f13.70ed5d86.2ac85.0004.GAE@google.com>
+Subject: Forwarded: [PATCH] wifi: cfg80211: defer self-managed regulatory
+ processing to per-wiphy work
+From: syzbot <syzbot+2ad5f42cd6ca88f0107c@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Christian,
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
-Could you pull these patches please into your vfs-7.4.netfs branch?  This
-is the fourth of five batches.  The primary purpose of this batch is to add
-an abstraction for a position in a bvecq chain and make use of it.
+***
 
-With that in mind, this patchset does the following:
+Subject: [PATCH] wifi: cfg80211: defer self-managed regulatory processing to per-wiphy work
+Author: emmaonana18@gmail.com
 
- (1) Add a struct, bvecq_pos, to refer to a position in a bvecq chain.
-     This is a tuple of ( bvecq pointer, slot and offset } and the position
-     struct holds (for now) a ref on the bvecq pointed to.
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
- (2) Change unbuffered/DIO to extract the supplied user buffers into a
-     bvecq chain rather than a bio_vec[] up front.  This means that
-     netfslib then uses bvecq chains for everything.
+reg_process_self_managed_hints() currently acquires each registered
+wiphy's mutex while called with RTNL held. This can deadlock with a
+concurrent path that holds a wiphy mutex and waits for RTNL.
 
- (3) Add a folio count to the readahead_control struct and then makes
-     readahead pre-create its buffer using that count to determine how many
-     slots are required.
+Defer processing of individual self-managed regulatory hints to the
+per-wiphy wiphy_work instead. The dispatcher, which runs with RTNL held,
+only checks whether a regulatory hint is pending and queues the
+corresponding work item.
 
- (4) Change netfslib to use the bvecq_pos struct to keep track of the whole
-     request buffer and various points in it where loading, dispatch and
-     collection are taking place and to also keep track of the slice given
-     to each subrequest.
+The regulatory update is then processed with the wiphy mutex held and
+without RTNL. This removes the RTNL -> wiphy mutex acquisition from the
+synchronous regulatory-processing path.
 
-This was split from v11 of a larger netfslib series[1].
+Also start the regulatory channel-enforcement grace timer only if a
+self-managed regulatory update was actually applied, preserving the
+ordering between regulatory updates and channel enforcement while
+avoiding spurious timers. Cancel any pending self-managed work during
+wiphy regulatory deregistration.
 
-The patches can also be found here:
+Fixes: f4e72e375807 ("wifi: cfg80211: reduce RTNL holding in regulatory enforcement")
+Reported-by: syzbot+2ad5f42cd6ca88f0107c@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=2ad5f42cd6ca88f0107c
+Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+---
+ net/wireless/core.c |  1 +
+ net/wireless/core.h |  1 +
+ net/wireless/reg.c  | 39 ++++++++++++++++++++++++++++++---------
+ net/wireless/reg.h  |  7 +++++++
+ 4 files changed, 39 insertions(+), 9 deletions(-)
 
-	https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=netfs-next-4
-
-Thanks,
-David
-
-Changes
-=======
-ver #17)
-- Fixed issues brought up by sashiko[5]:
-  - In bvecq_slice(), return 0 immediately if max_size or max_slots are 0.
-  - Make sure that sreq_max_{len,segs} are initialised before calling
-    prepare_read.
-- Fixed an issue brought up by the kernel test robot[6]:
-  - In netfs_read_gaps(), use umax() rather than max() when comparing a
-    signed and an unsigned int.
-
-ver #16)
-- Fixed issues brought up by sashiko[4]:
-  - In bvecq_pos_nudge(), recheck the old bvecq, not the new one.
-  - In bvecq_slice(), recheck the old bvecq.
-  - In bvecq_pos_step(), don't assume the new bvecq has slots, but rather
-    check it.
-
-ver #15)
-- In netfs_extract_iter(), set BVECQ_MEM_EXTERNAL rather than
-  BVECQ_MEM_PAGECACHE for unpinned memory.
-- In netfs_clear_unread_dio(), don't need to update subreq->transferred
-  as the caller overwrites it after.
-- Fixed issues brought up by sashiko[3]:
-  - In netfs_extract_iter(), remove redundant max_len check.
-  - In bvecq_pos_nudge(), make sure the recheck is checking the old bvecq,
-    not the new.
-  - In netfs_unlock_abandoned_read_pages(), start from collect_cursor.slot,
-    not from slot zero.
-  - In netfs_pgpriv2_copy_to_cache(), cancel the caching also if we fail to
-    allocate a bvecq.
-  - In netfs_retry_write_stream(), use the same superfluity detection as
-    the read side.
-  - In netfs_write_subrequest_terminated(), only set the RETRY flag on
-    short uploads, not short cache writes.
-
-ver #14)
-- Fixed issues brought up by sashiko[2]:
-  - In netfs_extract_iter(), limit the number of slots per bvecq to what
-    will fit inside a 4KiB allocation.
-  - In netfs_rreq_assess_dio(), only set the page dirty if it's from GUP or
-    it's from the pagecache.
-  - In bvecq_zero(), skip the call to bvec_zero() if part == 0.
-  - In bvecq_delete_spent(), prefer returning true because more slots got
-    added to returning false because we hit the chain end.
-  - In netfs_read_gaps(), fix a leak of already allocated sink folios if we
-    get OOM when allocating a sink folios.
-  - In netfs_clear_unread_dio(), fix double call to iov_iter_zero().
-
-ver #13)
-- Rebased on -rc6 to account for some conflicting fixes.
-- Fixed a bug in netfs_prepare_read_iterator() where comparison was being
-  made against the wrong thing when limiting a subreq's size.
-
-ver #12)
-- Split from v11 of "netfs: Keep track of folios in a segmented bio_vec[]
-  chain"[1]
-
-[1] https://lore.kernel.org/r/20260902173350.3468672-1-dhowells@redhat.com/
-[2] https://sashiko.dev/#/patchset/20261006205947.608356-1-dhowells%40redhat.com
-[3] https://sashiko.dev/#/patchset/20261007142001.851620-1-dhowells%40redhat.com
-[4] https://sashiko.dev/#/patchset/20261008074346.936909-1-dhowells%40redhat.com
-[5] https://sashiko.dev/#/patchset/20261008084722.963948-1-dhowells%40redhat.com
-[6] https://lore.kernel.org/oe-kbuild-all/202610080217.U3kveBFn-lkp@intel.com/
-
-David Howells (8):
-  mm: Make readahead store folio count in readahead_control
-  netfs: Add a function to extract from an iter into a bvecq
-  netfs: Make unbuffered/DIO read and write use bvecq
-  netfs: Add some tools for managing a position in a bvecq chain
-  netfs: Provide a func to load the readahead buffers into a bvecq chain
-  netfs: Use bvecq_pos to hold the buffer positions
-  netfs: Remove the rolling_buffer implementation
-  netfs: Remove netfs_extract_user_iter()
-
- fs/afs/dir.c                   |   5 +-
- fs/afs/symlink.c               |   6 +-
- fs/cachefiles/io.c             |  12 -
- fs/netfs/Makefile              |   1 -
- fs/netfs/buffered_read.c       | 182 ++++++++-------
- fs/netfs/bvecq.c               | 327 +++++++++++++++++++++++++++
- fs/netfs/direct_read.c         |  81 +++----
- fs/netfs/direct_write.c        |  67 +++---
- fs/netfs/internal.h            |   4 +-
- fs/netfs/iterator.c            | 398 ++++++++++-----------------------
- fs/netfs/misc.c                |  18 --
- fs/netfs/objects.c             |  16 +-
- fs/netfs/read_collect.c        | 106 +++++----
- fs/netfs/read_pgpriv2.c        |  88 +++++---
- fs/netfs/read_retry.c          |  87 ++++---
- fs/netfs/read_single.c         |  19 +-
- fs/netfs/rolling_buffer.c      | 182 ---------------
- fs/netfs/write_collect.c       |  73 +++---
- fs/netfs/write_issue.c         | 166 +++++++++-----
- fs/netfs/write_retry.c         |  73 +++---
- include/linux/bvecq.h          | 185 +++++++++++++++
- include/linux/netfs.h          |  25 ++-
- include/linux/pagemap.h        |  10 +
- include/linux/rolling_buffer.h |  47 ----
- include/trace/events/netfs.h   |  32 ++-
- mm/readahead.c                 |   5 +
- 26 files changed, 1264 insertions(+), 951 deletions(-)
- delete mode 100644 fs/netfs/rolling_buffer.c
- delete mode 100644 include/linux/rolling_buffer.h
+diff --git a/net/wireless/core.c b/net/wireless/core.c
+index cde3ca85494d..3dfbfb0c10f3 100644
+--- a/net/wireless/core.c
++++ b/net/wireless/core.c
+@@ -671,6 +671,7 @@ struct wiphy *wiphy_new_nm(const struct cfg80211_ops *ops, int sizeof_priv,
+ 	INIT_WORK(&rdev->sched_scan_res_wk, cfg80211_sched_scan_results_wk);
+ 	wiphy_work_init(&rdev->reg_check_chans_wk, reg_leave_invalid_chans_wk);
+ 	INIT_WORK(&rdev->reg_leave_nan_wk, reg_leave_invalid_nan_wk);
++	wiphy_work_init(&rdev->reg_self_managed_wk, reg_process_self_managed_hint_wk);
+ 	INIT_WORK(&rdev->propagate_radar_detect_wk,
+ 		  cfg80211_propagate_radar_detect_wk);
+ 	INIT_WORK(&rdev->propagate_cac_done_wk, cfg80211_propagate_cac_done_wk);
+diff --git a/net/wireless/core.h b/net/wireless/core.h
+index 6138d207caf4..2b3239d0cf1f 100644
+--- a/net/wireless/core.h
++++ b/net/wireless/core.h
+@@ -116,6 +116,7 @@ struct cfg80211_registered_device {
+ 	struct work_struct sched_scan_res_wk;
+ 	struct wiphy_work reg_check_chans_wk;
+ 	struct work_struct reg_leave_nan_wk;
++	struct wiphy_work reg_self_managed_wk;
+ 
+ 	struct cfg80211_chan_def radar_chandef;
+ 	struct work_struct propagate_radar_detect_wk;
+diff --git a/net/wireless/reg.c b/net/wireless/reg.c
+index 11665e0a7efc..22022e7da7ec 100644
+--- a/net/wireless/reg.c
++++ b/net/wireless/reg.c
+@@ -3180,7 +3180,7 @@ static void reg_process_pending_beacon_hints(void)
+ 	spin_unlock_bh(&reg_pending_beacons_lock);
+ }
+ 
+-static void reg_process_self_managed_hint(struct wiphy *wiphy)
++static bool reg_process_self_managed_hint(struct wiphy *wiphy)
+ {
+ 	struct cfg80211_registered_device *rdev = wiphy_to_rdev(wiphy);
+ 	const struct ieee80211_regdomain *tmp;
+@@ -3188,7 +3188,6 @@ static void reg_process_self_managed_hint(struct wiphy *wiphy)
+ 	enum nl80211_band band;
+ 	struct regulatory_request request = {};
+ 
+-	ASSERT_RTNL();
+ 	lockdep_assert_wiphy(wiphy);
+ 
+ 	spin_lock(&reg_requests_lock);
+@@ -3197,7 +3196,7 @@ static void reg_process_self_managed_hint(struct wiphy *wiphy)
+ 	spin_unlock(&reg_requests_lock);
+ 
+ 	if (!regd)
+-		return;
++		return false;
+ 
+ 	tmp = get_wiphy_regdom(wiphy);
+ 	rcu_assign_pointer(wiphy->regd, regd);
+@@ -3217,6 +3216,15 @@ static void reg_process_self_managed_hint(struct wiphy *wiphy)
+ 		reg_call_notifier(wiphy, &request);
+ 
+ 	nl80211_send_wiphy_reg_change_event(&request);
++	return true;
++}
++
++void reg_process_self_managed_hint_wk(struct wiphy *wiphy, struct wiphy_work *work)
++{
++	lockdep_assert_held(&wiphy->mtx);
++
++	if (reg_process_self_managed_hint(wiphy))
++		reg_check_channels();
+ }
+ 
+ static void reg_process_self_managed_hints(void)
+@@ -3226,12 +3234,17 @@ static void reg_process_self_managed_hints(void)
+ 	ASSERT_RTNL();
+ 
+ 	for_each_rdev(rdev) {
+-		guard(wiphy)(&rdev->wiphy);
++		bool has_hint;
+ 
+-		reg_process_self_managed_hint(&rdev->wiphy);
+-	}
++		spin_lock(&reg_requests_lock);
++		has_hint = !!rdev->requested_regd;
++		spin_unlock(&reg_requests_lock);
+ 
+-	reg_check_channels();
++		if (!has_hint)
++			continue;
++
++		wiphy_work_queue(&rdev->wiphy, &rdev->reg_self_managed_wk);
++	}
+ }
+ 
+ static void reg_todo(struct work_struct *work)
+@@ -4110,8 +4123,8 @@ int regulatory_set_wiphy_regd_sync(struct wiphy *wiphy,
+ 		return ret;
+ 
+ 	/* process the request immediately */
+-	reg_process_self_managed_hint(wiphy);
+-	reg_check_channels();
++	if (reg_process_self_managed_hint(wiphy))
++		reg_check_channels();
+ 	return 0;
+ }
+ EXPORT_SYMBOL(regulatory_set_wiphy_regd_sync);
+@@ -4144,9 +4157,17 @@ void wiphy_regulatory_register(struct wiphy *wiphy)
+ 
+ void wiphy_regulatory_deregister(struct wiphy *wiphy)
+ {
++	struct cfg80211_registered_device *rdev = wiphy_to_rdev(wiphy);
+ 	struct wiphy *request_wiphy = NULL;
+ 	struct regulatory_request *lr;
+ 
++	spin_lock(&reg_requests_lock);
++	kfree(rdev->requested_regd);
++	rdev->requested_regd = NULL;
++	spin_unlock(&reg_requests_lock);
++
++	wiphy_work_cancel(wiphy, &rdev->reg_self_managed_wk);
++
+ 	lr = get_last_request();
+ 
+ 	if (!reg_dev_ignore_cell_hint(wiphy))
+diff --git a/net/wireless/reg.h b/net/wireless/reg.h
+index c587079ead8f..4cfac05c6178 100644
+--- a/net/wireless/reg.h
++++ b/net/wireless/reg.h
+@@ -194,6 +194,13 @@ void reg_leave_invalid_chans_wk(struct wiphy *wiphy, struct wiphy_work *work);
+  */
+ void reg_leave_invalid_nan_wk(struct work_struct *work);
+ 
++/**
++ * reg_process_self_managed_hint_wk - process self-managed hint for a wiphy
++ * @wiphy: the wiphy to process
++ * @work: the work struct
++ */
++void reg_process_self_managed_hint_wk(struct wiphy *wiphy, struct wiphy_work *work);
++
+ extern const u8 shipped_regdb_certs[];
+ extern unsigned int shipped_regdb_certs_len;
+ extern const u8 extra_regdb_certs[];
+-- 
+2.43.0
 
