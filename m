@@ -1,124 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B97003C1D6A
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 07:50:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 996BB3D5236;
+	Thu,  8 Oct 2026 07:50:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791445841; cv=none; b=hel3qwXWPkgUbl87jn9X3nyiURkDiVYCUkB3zq5aOC9WBgmKxSff+QBuZTB6Bmsqf3s9K3n4i1ZBSGQT3UQ1PvANAwEg4vSLH9h1lgnPLc//jVfUJUdR5irdSAsfRgIiqpPsM/YNlSmO6XejMGcUbyMWassZuRFfBrOm4mTQu7w=
+	t=1791445853; cv=none; b=d2jVC1K9gJ/mrMuY0+BHsS1GM442+nAG78LZ1Jrg4INVUMjCqjFzcparKibaAI6aGoISidQ/zZ4NB/EDI67jVl01qciMbrspFd9R0Y3AqMJfMJSqfQc3NObGQrr5eZpJr7tlvYywi75d0ntVcFNBakefst0csuchtJQ3so7m3dg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791445841; c=relaxed/simple;
-	bh=WeHImkokxLCrrOlY3pI+lQb1DsrGqfSisOxSY3/B7Bk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WxDgxMbrOpj6XMD/680uCjIb81w4fDkYwgr1dDIPUFqK7zoLo9WLOYo7cDesoRyT9GiF2mRhHaG2BA4/JiEk2WjtdnC4fTz7RTMJVP0WjMVWna1j6s1HCFW+02QeEdyy5Hc/1lfOEBMg1aqq1+W3BrWioWWPqPJh/pFWRy0GS+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IyYqNrIg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791445853; c=relaxed/simple;
+	bh=M7FNo7bgBUiaWI/HcaQdIdCBXfKJLk20mb3qyz9nUno=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ObD4j4bMPzxM88/ZA60pfWMyDDui/3bHFlK9u5WY2A6uFLlkkUII6y94Ff4rMSNXNfDSYxssks1SJnZpR+HlkSude40Mx1jmW9K0+ak1Livde4qQMjKOLrjRse4Gt8p8gaciD6ZlxDA2pXrX5J4t5iDH7qlxMgOsUUUaS7CWg08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=WruXY8bo; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IyYqNrIg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06AC21F0089A;
-	Thu,  8 Oct 2026 07:50:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791445840;
-	bh=RjEfQ8K0k/MG2FrlywYZFAm1b1OQE1BGLhy0qHVcnUc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IyYqNrIgnpzzFIJm9VUcTtkTa/krazKwEPDJeihSX4TjZ5OOGBpyYwUlIPuD9VI+7
-	 gt8vqVLzPaEghj/4b0MzpHynDxYWhC1VIZVySweXqqAfXuiMsy3AgYcQ6UPXwMJ3BX
-	 raudmfsPGitA+aKfIVXQ/VuF6BoCayOg6VimigLs8RKNfSuVWa4ymDVuc2Gg4DUlL0
-	 8CwN+kn9fuiNIgA3V2lJiOpM2kqPREEMzfkoVJszNR1OD7tzg84PbR9oGrikrx6skE
-	 IhTnuCnQRZR9qv/bytscnWbigqBHaWNn3esyk9f7W3mHvF5iSTdF2iLDLc65qFSTI3
-	 2ZubRZZ27uv3Q==
-Date: Thu, 8 Oct 2026 09:50:35 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Shradha Gupta <shradhagupta@linux.microsoft.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Mark Brown <broonie@kernel.org>, Kees Cook <kees@kernel.org>,
-	kexec@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] kexec: Add helper to report an active kexec reboot
-Message-ID: <asdLS9lRSL30eD34@kernel.org>
-References: <20261001132128.1703511-1-shradhagupta@linux.microsoft.com>
- <20261001132147.1703600-1-shradhagupta@linux.microsoft.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="WruXY8bo"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 906B61516;
+	Thu,  8 Oct 2026 00:50:47 -0700 (PDT)
+Received: from [192.168.178.72] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 919353F959;
+	Thu,  8 Oct 2026 00:50:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791445850; bh=M7FNo7bgBUiaWI/HcaQdIdCBXfKJLk20mb3qyz9nUno=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=WruXY8bopBSNctghFvI9GjTqI11dUVfJNNXm7mmPDtfD+stzVxn15wyrJqYoJoAbM
+	 dc4UCzdiloByiV4ihV+DpAtpow+9tmDOHN1OmU15LZfRMWAy3cv/FyXuqNNgmC33Af
+	 38uGRqrsjRkL7XEBmLtEKfw5g8VV96G9cwXmkj/U=
+Message-ID: <6bb97a9e-cc9c-48c0-bf6d-3a1c6e8048f2@arm.com>
+Date: Thu, 8 Oct 2026 09:50:46 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001132147.1703600-1-shradhagupta@linux.microsoft.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 03/11] dt-bindings: pinctrl: sun4i-a10: add Allwinner
+ B288
+To: Rob Herring <robh@kernel.org>, Pablo Mazzini <pmazzini@gmail.com>
+Cc: Chen-Yu Tsai <wens@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-sunxi@lists.linux.dev
+References: <20261005202731.153971-1-pmazzini@gmail.com>
+ <20261005202731.153971-4-pmazzini@gmail.com>
+ <20261007211626.GA338242-robh@kernel.org>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20261007211626.GA338242-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 01, 2026 at 06:21:44AM -0700, Shradha Gupta wrote:
-> A shutdown callback in a loadable module may need to distinguish a
-> kexec reboot from a normal restart, halt, or poweroff. The Hyper-V
-> VMBus driver needs this distinction when moving its kexec cleanup into
-> a common syscore shutdown callback.
-> 
-> Add kexec_is_in_progress() and export it to GPL modules so the callback
-> can remain guarded when VMBus is built as a module. Provide a false
-> inline implementation when CONFIG_KEXEC_CORE is disabled.
-> 
-> The helper reports only the normal kexec reboot path. Crash kexec and
-> preserve-context kexec do not set this state.
-> 
-> Signed-off-by: Shradha Gupta <shradhagupta@linux.microsoft.com>
+Hi,
 
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-
-> ---
->  include/linux/kexec.h | 2 ++
->  kernel/kexec_core.c   | 7 +++++++
->  2 files changed, 9 insertions(+)
+On 10/7/26 23:16, Rob Herring wrote:
+> On Mon, Oct 05, 2026 at 09:27:23PM +0100, Pablo Mazzini wrote:
+>> The B288 driver takes its mux values from the DT, so allwinner,pinmux
+>> becomes an allowed property here, required for this compatible only.
+>>
+>> Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
+>> ---
+>>   .../pinctrl/allwinner,sun4i-a10-pinctrl.yaml  | 22 +++++++++++++++++++
+>>   1 file changed, 22 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/pinctrl/allwinner,sun4i-a10-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/allwinner,sun4i-a10-pinctrl.yaml
+>> index 45b7a0b6c626..b1f093d218f5 100644
+>> --- a/Documentation/devicetree/bindings/pinctrl/allwinner,sun4i-a10-pinctrl.yaml
+>> +++ b/Documentation/devicetree/bindings/pinctrl/allwinner,sun4i-a10-pinctrl.yaml
+>> @@ -39,6 +39,7 @@ properties:
+>>         - allwinner,sun8i-a33-pinctrl
+>>         - allwinner,sun8i-a83t-pinctrl
+>>         - allwinner,sun8i-a83t-r-pinctrl
+>> +      - allwinner,sun8i-b288-pinctrl
+>>         - allwinner,sun8i-h3-pinctrl
+>>         - allwinner,sun8i-h3-r-pinctrl
+>>         - allwinner,sun8i-r40-pinctrl
+>> @@ -120,6 +121,15 @@ patternProperties:
+>>           $ref: /schemas/types.yaml#/definitions/uint32
+>>           enum: [10, 20, 30, 40]
+>>   
+>> +      allwinner,pinmux:
+>> +        $ref: /schemas/types.yaml#/definitions/uint32-array
+>> +        description:
+>> +          Pinmux selector value, for each pin. Only used by SoCs whose
+>> +          driver takes the mux values from the DT instead of an in-driver
+>> +          table. Almost every time this value is the same for all pins, so
+>> +          any array shorter than the number of pins will repeat the last
+>> +          value, to allow just specifying a single cell, for all cells.
 > 
-> diff --git a/include/linux/kexec.h b/include/linux/kexec.h
-> index 8a22bc9b8c6c..827a5311d97a 100644
-> --- a/include/linux/kexec.h
-> +++ b/include/linux/kexec.h
-> @@ -468,6 +468,7 @@ bool kexec_load_permitted(int kexec_image_type);
->  
->  /* flag to track if kexec reboot is in progress */
->  extern bool kexec_in_progress;
-> +bool kexec_is_in_progress(void);
->  
->  #ifndef page_to_boot_pfn
->  static inline unsigned long page_to_boot_pfn(struct page *page)
-> @@ -544,6 +545,7 @@ static inline void *kimage_map_segment(struct kimage *image, int idx)
->  { return NULL; }
->  static inline void kimage_unmap_segment(void *buffer) { }
->  #define kexec_in_progress false
-> +static inline bool kexec_is_in_progress(void) { return false; }
->  #endif /* CONFIG_KEXEC_CORE */
->  
->  #ifdef CONFIG_KEXEC_SIG
-> diff --git a/kernel/kexec_core.c b/kernel/kexec_core.c
-> index dc770b9a6d05..282c7b3c6c35 100644
-> --- a/kernel/kexec_core.c
-> +++ b/kernel/kexec_core.c
-> @@ -23,6 +23,7 @@
->  #include <linux/hardirq.h>
->  #include <linux/elf.h>
->  #include <linux/elfcore.h>
-> +#include <linux/export.h>
->  #include <linux/utsname.h>
->  #include <linux/numa.h>
->  #include <linux/suspend.h>
-> @@ -54,6 +55,12 @@ atomic_t __kexec_lock = ATOMIC_INIT(0);
->  /* Flag to indicate we are going to kexec a new kernel */
->  bool kexec_in_progress = false;
->  
-> +bool kexec_is_in_progress(void)
-> +{
-> +	return kexec_in_progress;
-> +}
-> +EXPORT_SYMBOL_GPL(kexec_is_in_progress);
-> +
->  bool kexec_file_dbg_print;
->  
->  /*
-> -- 
-> 2.43.0
+> Perhaps new platforms should move to the common 'pinmux' property?
 
--- 
-Sincerely yours,
-Mike.
+If you mean to just drop the allwinner prefix: this has been discussed, 
+but NAKed, because the generic property carries a different semantic. 
+And implementing that generic behaviour in the existing sunxi pinctrl 
+driver would be quite some effort (read: a rewrite), without any obvious 
+win, so we decided back then to not boil the ocean here, and just go 
+with a special property.
+
+Cheers,
+Andre
+
