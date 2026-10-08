@@ -1,148 +1,162 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D00F3B1035
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 04:26:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7714833B6EF;
+	Thu,  8 Oct 2026 04:27:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791433607; cv=none; b=W3dofpQ6OFD38IvETxMyTcCPWbsqMaBHtnZ/TKbdTd0bymx2CgysQdFTtOleceQB5g9Bt4nRsVvEFDAL9VLiFi+CmdsWZHeKECHyA2y+MsMlgI5XpY582mIVX07/8E8uZJFofpw9ASdqGsxBfy0DP3wC4+3vDzyQTUZ2dsDEodo=
+	t=1791433620; cv=none; b=F5o1gJSk2C42s77VMfWMNNDi6W7XkGuGQVPXdDMCLWNIq0B9qnXRf8YjFg4vHuGBI3obHrLFENhtKdUvOMbHC5gfldFKudEkxt+peEe+v6N8Q3Ou0Ok6jLBOvnnDqBbf16L69ae4N+8JBkJdSdRErKy2Zs9Gre6nPC6aedOMuRI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791433607; c=relaxed/simple;
-	bh=cUv6hh3W9DWi6C990WriU1Uo7wUq9iqSOj3YbxBud9I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=D/rsM/dJI08c8OcCHk9dXOsbhWL6YLfM0hlCK4+L2fOE6KSCknB+FVNp56RYlsYlSikqwfJrkUbXzDT9SUJAb4AqLL8HSEKZzpu9mQUbS7h4PbwWQVSVjtuhIN4eK+ZdBjBpXdzQu9QOSof1nTXzqBeLTTXqPkV3T1xaVZ/DMek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U2BDqdFj; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791433620; c=relaxed/simple;
+	bh=l27bWrfddOJK7P2yJT5xwUQcpylWpGnEOKiwyAdUIkU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=mk5YZm+8BDfHYxKSxD5aaNu1qcf1heteHfSstYXj3E+o9WT44N8R9IPmqIv0bVl7VmS/duCQyfZlF3STKihNAKFLmTHmzJzsa7RsAnr7c7dOJlv14RiZK5/wMxwgck3bgT2DwyBqCeMezhbuwfFIvue1AlfSSPv7MFYbq31WPXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cCcCRqfv; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U2BDqdFj"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a1688d7769so30005175e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 21:26:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791433604; x=1792038404; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nvEa6S/dJFZJC2lyZ675Rkq41lS8wP1soF2ixtoNMag=;
-        b=U2BDqdFjyq1cd1JLOJj355IoZ2cWKLkgs6pw5vrgtL3jIC9NZncGGplWgb/9o3rop/
-         jO3XRZV43A8FSbXclyZ6xZQLjxGGDhxWu33f8nYIVNUSTB/am4L1j6VcV44CviQL5dP8
-         M3j8fptz0dxHqGd+C2wn05m8hjMW8Pg90n9/D9Heb+FNEsMSW2k4MOU3FFKhX5SXBRJ3
-         /vdNuGCveHT/mmGykEqRJqO4MhZB/17b5yL21B5e5+zt6SYKdj/gyf06YHezXeg3Nl8O
-         ICfC4MyTkDuY3LuA362H6FZ6O6XkyjtIY02LeP8+pWqG6K6CW4ABKByIdOvQfHO029yT
-         UpLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791433604; x=1792038404;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nvEa6S/dJFZJC2lyZ675Rkq41lS8wP1soF2ixtoNMag=;
-        b=pp2+X6GwQqzZ6DNgbLCQQqK9c4I2OTebm4GEKPaJOLN2Um1FIq/B/GPDq7DbPJoNVi
-         oENwWYnD75ul4VyhBBXonB48wr/UWMx69yfmmwT0CDIOnMJ2iQEhcsUcGZsMEEnhiLkR
-         rL36NhQ/QlgGSYNpRji3rBK6jllFVXiOsRJr5+IrE56D5rxbhcmDEPHeKC44bkCOI9h6
-         92e0eVwBjf57ZCa1O9+95O22ulU0PAJKGQuqFUx8GbA8NGIH4Gpp56ZuAc8zTdryUUwY
-         34qv+XJJ/ap26bvLEqcKTxZ3OmCicGjnjFPpGSOTs6exzbg7ZT/A+o73gTRRerdUFQsi
-         12tw==
-X-Forwarded-Encrypted: i=1; AKwUvBxjihVZqGIZLucSYZqt8f61iE+dItlqa9YJ4vyD0rcDFyE1TxfO6gTV9XjqpSIcnal2yGzgnKEKmibev14=@vger.kernel.org
-X-Gm-Message-State: AFuF++mUG4RA+2ncO7Ed3H0u2jKSoDEtUhyOava+OFgOtptv5tdZxCY1
-	AprWC2V+L8LVZx63+tTB69p+o1adMvhLb/+0ArgYrSKsm+Ym2XeZpq/B
-X-Gm-Gg: AYBFou1GvTWp/RmIMd0Wt7HUNLXflBmtm2M6ckkF5XRLnMkapOqJWDPcoYyji15Q/pF
-	066Aaq84gCMXwEJwrkGW3l/NPxOC3Q6PAuHn/N7eHshLS8jUw/GSmEuGs63cleBzdy/DfTP4YLx
-	RxWx1pLS3FQieIpQXppG6+IpY3KJmPMy3AxAAo19Lq0ILNJNG69RUeCjqp/ieBLaqamdmS0wR33
-	oW169T4+23kB1TUE+GGGSFYDXygKobEErhz1mzQ8EN88wEIHTksdm1oSZx74lGgf7zjTeWZHNrw
-	GM6dPbvP+DuZj+2/3U8KOfq3JX/Ddz1Y0YN5WevA99iAmFDvG3FVpY2QafkffebmMuqQoqTpIlP
-	hdrXtCBspG2hf+ahbYczFOZvwVASgXOm+GWsztjy0YdOK36BLrnHgNVVIiB7V8s05fe/gXf0a6T
-	zZlsloup+Cx6zMaYQ6lxogHN8TUXcspbFdJ5updaoLOkMaJmHoPnjjqK4d5AG1ZnXVN93pT5kyz
-	WwgpCvM2oxco55mOnWTtBvoCVUePBEgym/922+jy6XOCUJOxfCkp2CSOkN7XY/krZHxG5Gli6yS
-	tNLiuee0zhYzYGcuisDseS8p5Uv4lQf6vS7ju9ZwoA3IOM2jyMVOdgnRwDc44nMsGtlZO36Qd/B
-	CZWD+p2FVP9jeyKN25sAVUBEH5ZvX/To6RCd2PggAbeT2MDfK4i2wvA==
-X-Received: by 2002:a05:600c:4fcb:b0:4a1:746e:589a with SMTP id 5b1f17b1804b1-4a18045579amr66658625e9.18.1791433603701;
-        Wed, 07 Oct 2026 21:26:43 -0700 (PDT)
-Received: from localhost.localdomain (host-95-239-230-248.retail.telecomitalia.it. [95.239.230.248])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f486b6fsm88071375e9.1.2026.10.07.21.26.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 21:26:41 -0700 (PDT)
-From: Nicola Fiorillo <nicfio@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/2] media: v4l2-subdev: Fix NULL pointer dereference in the EXT_CTRLS ioctls
-Date: Thu,  8 Oct 2026 06:26:00 +0200
-Message-ID: <20261008042600.275884-3-nicfio@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261008042600.275884-1-nicfio@gmail.com>
-References: <20261008042600.275884-1-nicfio@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cCcCRqfv"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E3D3EC2BCF5;
+	Thu,  8 Oct 2026 04:26:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791433620;
+	bh=l27bWrfddOJK7P2yJT5xwUQcpylWpGnEOKiwyAdUIkU=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=cCcCRqfvfa/h3DRWRyaPgsZmk6wWeTvf/yEDFpzxIypnWX/GJJSLtR8VHmxuYpECy
+	 nHbtD1pWuMiS0+m27dBbRCA3CENC5D7XLv5nHbWOGxsSSDvYnx8lOIzT0oKR4jIpfz
+	 AjW7qB0HzmkQrATgkRNu0N8HRako5tJshcPPKVQnF+uLt+B3fBovdiNg0sRlunK9Or
+	 6wcXO1gBaonR+W3m/8soG1GSl22VjaQ36afbj2TBmKiN7iQZ7shUkunP6mDPEH0deC
+	 +y8/ss28nrHOW7qr8V5jQyNyhwV5FEqQSP6bwN+Ik0q3YRaGTThDuNEbGTZZGd6Jjh
+	 0cYWVhfR4fE4w==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B5EA0CA6002;
+	Thu,  8 Oct 2026 04:26:59 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Date: Thu, 08 Oct 2026 07:26:56 +0300
+Subject: [PATCH] mmc: meson-gx: honour the busy timeout for R1b commands
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261008-meson-gx-busy-timeout-v1-1-d92f3c68c409@iav.lv>
+X-B4-Tracking: v=1; b=H4sIAI8bx2oC/x3MSwqEMBBF0a1IjS2IhtamtyIO/Dy1BiaSMqKIe
+ +/g8AzuvUkRBEq/7KaAQ1S8SyjyjIalczNYxmQqTVkVxnx4hXrH88l91It3WeHjzjW+sNM49Ba
+ WUrsFTHK+36Z9nj8F1fTsZwAAAA==
+To: Ulf Hansson <ulfh@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ linux-mmc@vger.kernel.org, linux-amlogic@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Igor Velkov <iav@iav.lv>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3870; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=T7oobr9NpP0BRx9jjcdEGQ9sD4psJISkXHbN62KiO2U=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFnHpSe9NV/Q+DxiwluPyffc47acXirLP3tx2Rl21gdl6
+ TPWBr237ShlYRDjYpAVU2SZcEjjVsaSq3/9PcwfwMxhZQIZwsDFKQATufaAkeFG2p0pt2wvqLDX
+ LL+q6Ne3cYG+pnV6ecrBjpcvpDwmRnMw/A9nsoy8N+dx0Dpukd91x6dIz9w7hdvgxC4rxU32+84
+ 9duEEAA==
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Reply-To: iav@iav.lv
 
-VIDIOC_G_EXT_CTRLS, VIDIOC_S_EXT_CTRLS and VIDIOC_TRY_EXT_CTRLS on a
-sub-device node pass sd->v4l2_dev->mdev to the control framework.
-v4l2_device_unregister_subdev() clears sd->v4l2_dev before it
-unregisters the device node, and nothing serialises the
-video_is_registered() checks in v4l2_ioctl() and subdev_do_ioctl_lock()
-against it: sub-device nodes have no vdev->lock, and unregistration
-would not take it anyway. An EXT_CTRLS ioctl on a file handle opened
-before a driver is unbound can therefore dereference NULL:
+From: Igor Velkov <iav@iav.lv>
 
-  KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
-  RIP: 0010:subdev_do_ioctl+0x1926/0x2550
-  Call Trace:
-   subdev_do_ioctl_lock+0x246/0x5c0
-   video_usercopy+0x47b/0xcc0
-   v4l2_ioctl+0x187/0x1f0
-   __x64_sys_ioctl+0x134/0x1c0
+For a command without data the driver programs a fixed 1024 ms into the
+CMD_CFG timeout field, and for R1b the controller waits for the card to
+release busy within that time. The driver does not set max_busy_timeout,
+so the core sends erase and cache flush as R1b with busy timeouts of up
+to 60 s and 30 s, and the controller gives up after one second:
 
-Use vdev->v4l2_dev->mdev instead, as the previous patch does in
-subdev_open(), and as the video node ioctls already do.
+  mmc_erase: erase error -110, status 0x0
+  mmc1: cache flush error -110
 
-Found by reading the code, then reproduced in QEMU with KASAN: with the
-previous patch applied, threads looping on VIDIOC_G_EXT_CTRLS on vimc's
-sub-device nodes while vimc is unbound and rebound hit the oops above;
-with this patch the same test shows no oops, KASAN report or warning.
+Program the timeout from cmd->busy_timeout, rounded up to a power of
+two and kept within 1024..32768 ms, and report 32768 ms, the largest
+value the field holds, as max_busy_timeout. The core then sizes discards
+to fit and, for a longer wait, sends R1 and polls for busy itself.
+sdhci takes its command timeout from cmd->busy_timeout in the same way.
 
-Fixes: c41e9cff704a ("media: v4l2-ctrls: support g/s_ext_ctrls for requests")
-Cc: stable@vger.kernel.org
+Fixes: 51c5d8447bd7 ("MMC: meson: initial support for GX platforms")
 Assisted-by: LLM
-Signed-off-by: Nicola Fiorillo <nicfio@gmail.com>
+Signed-off-by: Igor Velkov <iav@iav.lv>
 ---
- drivers/media/v4l2-core/v4l2-subdev.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Tested on ODROID-N2+ (S922X), 256 GB eMMC, btrfs root with discard=async, Armbian builds in docker as load.
+Without the patch (7.3-rc6): 262 errors in 3 h and 68 in 2.5 h in two runs; the first came 4 and 43 min into the build.
+With the patch (7.3-rc6): 0 in 2.4 h.
+On 7.1 with the previous eMMC module, a synthetic test (20 GiB write + fstrim) gave 48 errors without the patch, 0 and 0 with it.
 
-diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
-index c56ca328f..1a2ae7c13 100644
---- a/drivers/media/v4l2-core/v4l2-subdev.c
-+++ b/drivers/media/v4l2-core/v4l2-subdev.c
-@@ -775,19 +775,19 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
- 		if (!vfh->ctrl_handler)
- 			return -ENOTTY;
- 		return v4l2_g_ext_ctrls(vfh->ctrl_handler,
--					vdev, sd->v4l2_dev->mdev, arg);
-+					vdev, vdev->v4l2_dev->mdev, arg);
+The timeout is rounded up to a power of two: the field holds powers of two only, and the timeout is a lower bound.
+MMC_CAP_WAIT_WHILE_BUSY is not set: I have not checked that the controller waits for busy on every R1b command, HS400 switches included.
+---
+ drivers/mmc/host/meson-gx-mmc.c | 22 ++++++++++++++++++++--
+ 1 file changed, 20 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/mmc/host/meson-gx-mmc.c b/drivers/mmc/host/meson-gx-mmc.c
+index 7ef16d7c03cb..8de3eb65ccb0 100644
+--- a/drivers/mmc/host/meson-gx-mmc.c
++++ b/drivers/mmc/host/meson-gx-mmc.c
+@@ -125,6 +125,7 @@
+ #define SD_EMMC_CFG_RESP_TIMEOUT 256 /* in clock cycles */
+ #define SD_EMMC_CMD_TIMEOUT 1024 /* in ms */
+ #define SD_EMMC_CMD_TIMEOUT_DATA 4096 /* in ms */
++#define SD_EMMC_CMD_TIMEOUT_MAX 32768 /* in ms, 2^15: limit of CMD_CFG_TIMEOUT_MASK */
+ #define SD_EMMC_CFG_CMD_GAP 16 /* in clock cycles */
+ #define SD_EMMC_DESC_BUF_LEN PAGE_SIZE
  
- 	case VIDIOC_S_EXT_CTRLS:
- 		if (!vfh->ctrl_handler)
- 			return -ENOTTY;
- 		return v4l2_s_ext_ctrls(vfh, vfh->ctrl_handler,
--					vdev, sd->v4l2_dev->mdev, arg);
-+					vdev, vdev->v4l2_dev->mdev, arg);
+@@ -212,7 +213,21 @@ static unsigned int meson_mmc_get_timeout_msecs(struct mmc_data *data)
  
- 	case VIDIOC_TRY_EXT_CTRLS:
- 		if (!vfh->ctrl_handler)
- 			return -ENOTTY;
- 		return v4l2_try_ext_ctrls(vfh->ctrl_handler,
--					  vdev, sd->v4l2_dev->mdev, arg);
-+					  vdev, vdev->v4l2_dev->mdev, arg);
+ 	timeout = roundup_pow_of_two(timeout);
  
- 	case VIDIOC_DQEVENT:
- 		if (!(sd->flags & V4L2_SUBDEV_FL_HAS_EVENTS))
+-	return min(timeout, 32768U); /* max. 2^15 ms */
++	return min_t(unsigned int, timeout, SD_EMMC_CMD_TIMEOUT_MAX);
++}
++
++/* For R1b the controller waits for busy to be released within this timeout. */
++static unsigned int meson_mmc_get_cmd_timeout_msecs(struct mmc_command *cmd)
++{
++	unsigned int timeout = cmd->busy_timeout;
++
++	if (!timeout)
++		return SD_EMMC_CMD_TIMEOUT;
++
++	timeout = roundup_pow_of_two(timeout);
++
++	return clamp_t(unsigned int, timeout, SD_EMMC_CMD_TIMEOUT,
++		       SD_EMMC_CMD_TIMEOUT_MAX);
+ }
+ 
+ static struct mmc_command *meson_mmc_get_next_command(struct mmc_command *cmd)
+@@ -841,7 +856,7 @@ static void meson_mmc_start_cmd(struct mmc_host *mmc, struct mmc_command *cmd)
+ 		cmd_data = host->bounce_dma_addr & CMD_DATA_MASK;
+ 	} else {
+ 		cmd_cfg |= FIELD_PREP(CMD_CFG_TIMEOUT_MASK,
+-				      ilog2(SD_EMMC_CMD_TIMEOUT));
++				      ilog2(meson_mmc_get_cmd_timeout_msecs(cmd)));
+ 	}
+ 
+ 	/* Last descriptor */
+@@ -1168,6 +1183,9 @@ static int meson_mmc_probe(struct platform_device *pdev)
+ 
+ 	mmc->caps |= MMC_CAP_CMD23;
+ 
++	/* The longest busy wait the CMD_CFG timeout field can hold. */
++	mmc->max_busy_timeout = SD_EMMC_CMD_TIMEOUT_MAX;
++
+ 	if (mmc->caps & MMC_CAP_SDIO_IRQ)
+ 		mmc->caps2 |= MMC_CAP2_SDIO_IRQ_NOTHREAD;
+ 
+
+---
+base-commit: fd9af27f6c2319713bb23832066585f8a59a1771
+change-id: 20261005-meson-gx-busy-timeout-7e8e3fdcb3e3
+
+Best regards,
 -- 
-2.47.3
+Igor Velkov <iav@iav.lv>
+
 
