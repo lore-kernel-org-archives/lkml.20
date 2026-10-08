@@ -1,83 +1,90 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF0123F787E;
-	Thu,  8 Oct 2026 09:38:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 147AD478865
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 09:38:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791452303; cv=none; b=TsD8TMGXfCj7uS8v54d+U0ayQkabuTYfIWvxV84xsNL8qBMJz3JJLVUqCRXhbAt25E+nbKZeRggUZs7HyUEzPBa++9v2r66T9H/j8QE8r5N2YSWESdqQTgJ6DCSeQegK6ZCdgYXaFlWrdrHtr8hCZUIddjISQ8UiYHHoAyAre0s=
+	t=1791452315; cv=none; b=Hl1eMoM4o8pclvH/W2ZfdBIdS+Cn3DqlXS6ZCMIo3gvAZ3tGxR8/qX361lyMhyhAD1TU/CQEG+URljfIV4jht8ZdgRn7eG0NAtrqioqniNRb5NcjGkMWjD009m570bOGQVbrG6Cz/yM3Lg3I987VsfJimN4KXPsCaLKrg2uVSqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791452303; c=relaxed/simple;
-	bh=nnscKn1wEp/rtypGzD2BDiO0qA6U94JjEgTxpNHQ01s=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=apPuZHrHLGFYR3A2If8Tj9lcmPq+HN0MZEK+HgdRtyaTzWiTiczR7uOE7ciX5dUmbsaNV9SnNILRbyo46SHI4huU162MfO6n3WoyCCC0+ffjtomfkm4o19cgUNR0dLLkjcgrYOFejIATT0eeuRmXeYU1q/b5xhmyJGVj8XJ+Mik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=UzzVxIaf; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1791452315; c=relaxed/simple;
+	bh=8GqpdePbJjPReA6UVI8QTTW4ehYo0UnnBtMBa51Y5nw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BCvlA/bO/IwuaHXdJ3LBqfQi+nmEp/8IxuclsNidlvgj1gVKGMX6TIsGaq+CEfkcTIXJsxCR90xlytZ1+1L6EPsT4ff+zwtJ1Y1nz3w6cOonk8JNpLJkrYL3o/yk6WavFabKmqJX1CnzoOyeWUSYM7MRLAzYqDRq0zJfY1bE9pU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oCW3V0Kp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="UzzVxIaf"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=6y9keDCpNEXGfcE8lb9J8bKLESkB7T/8lsxsJ3Xb15Y=; b=UzzVxIafzqyagIYaOqTlAL4cJf
-	lwKotMiXPyAJENllgMYS5LlSuo+N57anN6zhd1Ldfpw314mk2oWYAA1uwUsfW9QffPVfmW7lC/TJm
-	n8GgK1auql/A74IyDpwV+NKz13VISgg4iwB7KIU6j1QkKWYFEz7D2oRj+vQ0K+GD8868cMrFPLN5U
-	0MSmfF0DIwQEWp0UFyhyagm4LAn/d7D/FpeIjbKsrz7Qa8IO47QbF5T7YRxpguw8NfoVRBW+3TGys
-	RWa/evFWk8clzDs/eoqaBQwrqWTafRU1IxSq49uk25ZSHh0hSBnJwzAbMb14WUOL1Zc/mCmg5AJSp
-	a1Fvu9XQ==;
-Received: from [::1] (port=58644 helo=pf-012.whm.fr-par.scw.cloud)
-	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
-	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
-	id 1xEkZu-00000003F08-3kWD;
-	Thu, 08 Oct 2026 11:38:18 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oCW3V0Kp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 467581F000FF;
+	Thu,  8 Oct 2026 09:38:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791452311;
+	bh=RKtEOQHPigAoAwo8CF9T0jDnPNUFJucXM8EW3aRhA50=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oCW3V0Kp5hNle2v72y2LEevLzHCpdOqLK/fpTYlnoTB/LQcXo579B1SmOK0hU+ygc
+	 d675R8yy1aR3N2aXDitLuVqAvAn7+XbesNNfsltkPeX8mWG/kbMVtr+cr0bgQH85XT
+	 zNm1mWl+cNM8vWgYAM+zK5vIIQ9HE0GfQgqJxN8UOOI0b80oWDlqGUxI+RUMhcSe8N
+	 /KH4wgCVhSuZP9PGYva4A9B6UFAwB5N/RT9jlL4qW4rWPqDFEqtt0iz3FfYsFGF0Gi
+	 gTTtBiXNpXnRidLvgnpMQ+Cj8RbT/qaNiDA6uzXyXtGAokBPtCdQ9s+GlCFW8un1OG
+	 hzurksoo9zvjg==
+Date: Thu, 8 Oct 2026 10:38:25 +0100
+From: Will Deacon <will@kernel.org>
+To: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Thomas Gleixner <tglx@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Jinjie Ruan <ruanjinjie@huawei.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	David Woodhouse <dwmw@amazon.co.uk>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Marc Zyngier <maz@kernel.org>
+Subject: Re: [PATCH 00/19] arm64: Implement parallel CPU onlining with PSCI
+ v0.2+
+Message-ID: <asdkkXWg_M3TwMrN@willie-the-truck>
+References: <20260907164024.17164-1-will@kernel.org>
+ <3b97d843-c4ba-4384-afab-51067b1b8414@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 08 Oct 2026 11:38:18 +0200
-From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Cc: horia.geanta@nxp.com, pankaj.gupta@nxp.com, gaurav.jain@nxp.com,
- davem@davemloft.net, linux-crypto@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] crypto: caam - reject overlong RSA CRT parameters
-In-Reply-To: <asdWCJgRzQuH1wH0@gondor.apana.org.au>
-References: <20260810154024.3178145-1-Jeremy.Jean@oss.cyber.gouv.fr>
- <ao4xobfWhs5Ss8Uy@gondor.apana.org.au>
- <752d9ff313bb52a7f8d2295161c1d9a4@oss.cyber.gouv.fr>
- <asdWCJgRzQuH1wH0@gondor.apana.org.au>
-User-Agent: Roundcube Webmail/1.6.19
-Message-ID: <f3b5863bad3f025f3ddf859397acddc8@oss.cyber.gouv.fr>
-X-Sender: jeremy.jean@oss.cyber.gouv.fr
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3b97d843-c4ba-4384-afab-51067b1b8414@oss.qualcomm.com>
 
-On 2026-10-08 10:36, Herbert Xu wrote:
-> On Sat, Oct 03, 2026 at 11:21:44PM +0200, Jérémy Jean wrote:
->> 
->> I don't know for sure, but it is still getting fixed, e.g.,
->> https://lore.kernel.org/all/FF2F0DC4D3930E6A+20260923101457.204629-1-zhaojinming@uniontech.com/
+On Tue, Sep 29, 2026 at 02:26:03PM +0530, Pankaj Patil wrote:
+> On 9/7/2026 10:10 PM, Will Deacon wrote:
+> > Hi folks,
+> > 
+> > This series implements CONFIG_HOTPLUG_PARALLEL for arm64 by utilising
+> > the argument to CPU_ON introduced in PSCI v0.2. This supersedes the
+> > previous series from Jinjie [1], and I'm grateful to him for his support
+> > getting this alternative version in shape for posting.
+> > 
+> > I previously spoke at KVM forum about this work last year:
+> > 
+> >   https://www.youtube.com/watch?v=Q6kOshnnQuE
+> > 
+> > There are three major benefits realised by these changes:
+> > 
+> > 1. We ditch our home-brew secondary CPU synchronisation in favour of
+> >    constructs in the core code.
+> > 
+> > 2. They offer a performance advantage on some platforms, where getting a
+> >    CPU into the kernel can take time. I'm hoping Jinjie can provide
+> >    numbers in this case.
+> > 
 > 
-> Can you please repost with a Cc to the new maintainer?
+> Tested on Glymur-CRD - 18 core qcom,oryon-2-2 CPU, saw ~6% improvement
+> in smp bringup and ~12% improvement in cpu hotplug kselftest
 > 
-> Thanks,
+> Tested-by: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
 
-Hopefully done.
+Nice, thanks for giving this a go, Pankaj! I'll post a v2 soon, so it
+would be great if you can try that as well.
 
-Thanks,
-Jérémy
+Cheers,
+
+Will
