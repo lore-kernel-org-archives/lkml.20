@@ -1,298 +1,234 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A5CD3C3F4E
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 06:43:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791441815; cv=none; b=JsHf3iz5MualFsBJuwClndmsV07ZzWs6aEhkQcCCSlWcZ1xHKjgW1J0kI+O5kTl4rftyHNQqCvddZYp5qFW8lebX+akppTlgxi/3Z98n50tEL2ClXT1LC54uhS3mOf1vLuhEbk0T4xyd4uI7ahbrkUtBHZhbK/HOiDcOktv1Q2Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791441815; c=relaxed/simple;
-	bh=HnGgah0wBuNiHykmKHpREb3aXBADRquza6/DXRMn7Dc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pi5+d5h1bHDnIA8pU+VsNVykqVGbYOlJoglf2C+UxGW0G88mUYoe89rVx9iauvth96c+Xlnc3K6MaILDDYe+gN6j0uotCBoCY+1cfDfAIxDCzCSxia2FEDVmYTvckS9GOqMaMSxB4k0eQodNb7pc0tqjL+3FlTM+coVXOXCF1F4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ut1bfziO; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6EBD350A0F
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 06:45:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.20
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791441921; cv=fail; b=PgXxZaLVxTib7J1xlsC5kZOL3MgqKW6tnfhu7fcyaAD87104sqeLL43DeacWjI1N98xzO+BYl8yfwOujWEdahMK9MN5LV32EcW+OV7G/QKM1Pn6kUAQ6BU+daRBila22YI9+nhWAVJXrwcfBfqmTHSgH8qeb/D6VMLSr3xq59zU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791441921; c=relaxed/simple;
+	bh=0OeGEzJI8NIJEpN1f4s7r0gX2dnV/siaBId2TnrL418=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=r/c8yA0WUhuIj08oEsYmBTqL87sSsziA5FmC6BW0vI0dIQ/eGtVkLc4Tej6yNXpaWui+rbPSrA89FCOTmw9r1ygLDmB93CnEbOBTVpy2PJ8mwN5HoLl1TJDvSrFxkbnKTEriHGj4fttIW6vQQPMuRBDa1+IC43ZtZMqAKfXl0lM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HvAOTDQM; arc=fail smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ut1bfziO"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e541dc9cb9so13404255ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 23:43:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791441812; x=1792046612; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tAIjG4ZIMr61qlNuyGnhP301Ha6G3tgAGGAQLhPz8L4=;
-        b=Ut1bfziOWOfNYQDjhwkMVuftq3E6WaBvKLA99+FEGa/qPOvofNGWdKO+jrUD/xvreQ
-         HfU7BqDyIdDX/ihBIAHkwThOhlnXKcwMa4agONtO+xxFxQaSaVVbJKk03cEqD1DJhDWz
-         ZstyP/ISYYBZHKe4cKpRPMESkDbNarCd9zBZEcHthO6/e1t1qosVDEL6BDtd3qkx2noF
-         N3bxEw+AKDUt6QctLNfeNQ6xOfL2pactr/SV54W7GCrvXFRfXeXGquap8D6gwNDPpU9/
-         h16aq7pbJHvYWecuCfJ2SBXeZgPVS3flZejl6AeS3xDqYyAygU9zMjDZ30xdPUfWKqJO
-         Dyig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791441812; x=1792046612;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tAIjG4ZIMr61qlNuyGnhP301Ha6G3tgAGGAQLhPz8L4=;
-        b=PYG9Sinw18Ewy8huMMkU24lN9z/Yw+iITRRCuBbVjhy2aLsFDe3VFcuEelZeSOtfI1
-         u8PF7a9PHiIrRQ7IvRyO2TmFi91pMG/yb1HsP0Oa8jnh9IWP71vMVCmTbrsGPT9KqXaA
-         It40NhnPi8POm4mej+5R0n3mFVGGtIjrdLMIc1fGM9tLPw4TNzvSZFpCf242vztpNdED
-         AQdOhHdf4mzcZFei8Km7+9Fx0JpEAZupFz7gfXTxnPNh5Hiorx6OlZTmF2s1wtTqvk1c
-         Zal6jkX83pM8CYcZ4mO926Zd3Uxjz+5/kyi7Pn0jj6OXW1jgIZ6HY0DXTp6GbkP1Z6Pb
-         jxjw==
-X-Forwarded-Encrypted: i=1; AKwUvBw8HqUd0OuznSbXwSJlMxSZvY761iYdX5YD/EP/a+nubDY7vbQF8hwunC/yDtxmfAob5JDpdTsem/jRkTA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJL4nXb4zoSm0dl/4VoRulZIdvBrP/bqTWgr6TYWGm+aEKpwixp
-	BrRzgSbYkbPr+wCZ8DBSJI0KDpE6ZIUO4Jdreqfxb8ChSh8sc6rlztk1
-X-Gm-Gg: AYBFou1BA9crWYQkPvtZmv74fjozKT101NlnNSm2hdbeRX2O64jzE+yYpzXkzQW0fN1
-	5Ow5Arfrgj3jjSy4DMZNrMx/u4PYybyxqCwFu0HU7RcixhTihfDuHBs49jM0HhZOBmkjf6UDvyk
-	tAKqxbrvjFgSHOK8YaHJbzFX6rJGtyIKm+QF46nzrEEZmWteH3BbnW/iG5SzdG/ZIJy9OTjKNL6
-	gcbLX8utdt8DC6zzrNAkkjinwag1xYeu0hBZe8OzqlPs8FQHb6hSYxLYx8q2/3m4Kkaq3klRxCo
-	0U5WirJe9R7pkCUtEazM4sWVIWr4ynpJrTKWVBjDdgN6ZC8H3xmVZ973SLHADio5/IJ8ra615IG
-	Wj+Tvjg8D29RffGy6fmk5H5oVP0+o27ePpH2epEDZVWwOr6WjMcMK8Wa2oUUDF0T4oxcz+GBshH
-	vb7hSOMYosy0imaoKlwbiVPrHeLyZ6sjXYFDsBLrAdu0/Tq4nwSUzRa9gTLGXBCWX5UStOIsa8E
-	IUs6uiA/yuJOwXQY5NfbzZ7B8eA3SudzWVUjNR/lZqoKEGKMitDaOR+gkbdfnA=
-X-Received: by 2002:a17:903:3c6e:b0:2e5:3451:565 with SMTP id d9443c01a7336-2e6004e63e6mr38271205ad.33.1791441811505;
-        Wed, 07 Oct 2026 23:43:31 -0700 (PDT)
-Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e6046feacdsm19997845ad.18.2026.10.07.23.43.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 23:43:31 -0700 (PDT)
-From: Joey Lu <a0987203069@gmail.com>
-To: sboyd@kernel.org
-Cc: ychuang3@nuvoton.com,
-	schung@nuvoton.com,
-	yclu4@nuvoton.com,
-	bmasney+clk@redhat.com,
-	jbrunet+clk@baylibre.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Joey Lu <a0987203069@gmail.com>
-Subject: [PATCH v2 1/1] clk: nuvoton: ma35d1-divider: use direct formula instead of divider table
-Date: Thu,  8 Oct 2026 14:43:07 +0800
-Message-ID: <20261008064307.2757324-2-a0987203069@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261008064307.2757324-1-a0987203069@gmail.com>
-References: <20261008064307.2757324-1-a0987203069@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HvAOTDQM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791441920; x=1822977920;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=0OeGEzJI8NIJEpN1f4s7r0gX2dnV/siaBId2TnrL418=;
+  b=HvAOTDQM5lKe5A+j0h+q4pGerTBGm7itit3CQ287qfQLX8djKLn1y7to
+   PYqsZl6NLqjBbAV/aC4IQfmAPtJSf8hXLtFBC6Sx9dsrxTQTMyAIihWAG
+   KZDGiAsxSyd/SA1G8JtzB2o6bmxP7bqzeq/7FaSsBbrLu1tFG+c+z1Bzo
+   sI8UivHNHgUsUQj3f36Kdrgfh4aiegSLljDnDCj8X1F1yrKoXyTcOwi2m
+   C+z4rMpAXRE7aK9rOgfYIbq2WHScXOFvBkH2c0BEyaH8gbQOKIojsj2RE
+   oGeODIJDNI70SlBqFAyPexXRf8CAYS5FSScdw8XnN4J7C8IMr8gy3FXGH
+   Q==;
+X-CSE-ConnectionGUID: J2EcngSWQ8Kfch+gnNmidQ==
+X-CSE-MsgGUID: lLmYPsxqSYCX/9OckMpJTw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="224976"
+X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
+   d="scan'208";a="224976"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 23:45:20 -0700
+X-CSE-ConnectionGUID: goGHnfi/S2CVvIZ6yNC6bA==
+X-CSE-MsgGUID: b7qXPCwVS8qFqM5LYuruDw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,145,1787036400"; 
+   d="scan'208";a="46462"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+  by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 23:45:19 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 7 Oct 2026 23:45:18 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Wed, 7 Oct 2026 23:45:18 -0700
+Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.55) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 7 Oct 2026 23:45:17 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RbkU/t9tuPRhA7xKCTUfEGubwdHE87ePDi3ihWhQCBg3Se4YxUZuRz5jKaEZKXTn7Jtm2l33xlHgRXRudziP9jrb7lm0UBf+EbZGZA69fCB7Xwk+O7EzNBCtdyNr9OCoU0UAcDIK5k5YpJOKmzD4LMWnV5GUqfAJ0wDBeYgjSva8JMveorKN0SGqpBo3RZ2AT0Loo4Hn/n1W23EiZ1cUJ6BwMf6hdzXLlFjTVNMC4eDSB0Um/oj39E05u1xAGyobYgrOQSV025NPfnwL0ajnXXfJA/0WqIYnkC/0dGaSrwcsupAVr+WPRGXtMaP7+RuTydHoj7FefY4IhyBh8b2xUQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MGCT/Tai5zMwZjcRr2eGDsWrVoDgDsb6HoQfRovqGwg=;
+ b=EY/84ASz8s41Qh3LeP7FnlL/feB7yIpygocGMvhy6Q6kFK++7uofbOP8DeiQEk5MPsWivXu+wM3DuXTImYWdsTvm4YDcNA/ZHUtmaCVM220F7NjYehyZOgvNwJdryKYCGpDrEktLB7tYlxCuxr63/uNpAy+q6cdSgX2otaiQpKqdxU9Nug98PRlxFO87wA9s19m+mnSVJkNiSUEw7trfSBhr0K0xTs2CDcd0UNNSO3ozqju7gr2XBzJ53nUMW4Qpj6Apb2JTmrdIAe1HQLXE8klUkcUe1h9IFSFku4ZkuZCD++xBUqeEJ8zdwNJiDRm6ZQpSJTti+fUMXdMnjIME1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from IA3PR11MB9136.namprd11.prod.outlook.com (2603:10b6:208:574::12)
+ by IA4PR11MB9057.namprd11.prod.outlook.com (2603:10b6:208:55d::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Thu, 8 Oct
+ 2026 06:45:15 +0000
+Received: from IA3PR11MB9136.namprd11.prod.outlook.com
+ ([fe80::37b4:37a9:4f3:518b]) by IA3PR11MB9136.namprd11.prod.outlook.com
+ ([fe80::37b4:37a9:4f3:518b%5]) with mapi id 15.21.0496.010; Thu, 8 Oct 2026
+ 06:45:15 +0000
+From: "Duan, Zhenzhong" <zhenzhong.duan@intel.com>
+To: Xu Yilun <yilun.xu@linux.intel.com>, "Fang, Peter" <peter.fang@intel.com>
+CC: "x86@kernel.org" <x86@kernel.org>, "linux-coco@lists.linux.dev"
+	<linux-coco@lists.linux.dev>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "dave.hansen@linux.intel.com"
+	<dave.hansen@linux.intel.com>, "tglx@kernel.org" <tglx@kernel.org>,
+	"mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>,
+	"hpa@zytor.com" <hpa@zytor.com>, "Hansen, Dave" <dave.hansen@intel.com>,
+	"kas@kernel.org" <kas@kernel.org>, "Edgecombe, Rick P"
+	<rick.p.edgecombe@intel.com>, "jgg@nvidia.com" <jgg@nvidia.com>,
+	"nicolinc@nvidia.com" <nicolinc@nvidia.com>, "aik@amd.com" <aik@amd.com>,
+	"aneesh.kumar@kernel.org" <aneesh.kumar@kernel.org>, "seanjc@google.com"
+	<seanjc@google.com>, "pbonzini@redhat.com" <pbonzini@redhat.com>, "Gao, Chao"
+	<chao.gao@intel.com>, "Verma, Vishal L" <vishal.l.verma@intel.com>, "Li,
+ Xiaoyao" <xiaoyao.li@intel.com>, "Tian, Kevin" <kevin.tian@intel.com>, "Peng,
+ Chao P" <chao.p.peng@intel.com>
+Subject: RE: [RFC PATCH 01/15] x86/tdx: Export tdg_vm_rd() for tdx-guest
+ module
+Thread-Topic: [RFC PATCH 01/15] x86/tdx: Export tdg_vm_rd() for tdx-guest
+ module
+Thread-Index: AQHdS9q1tfxbPCXw5keeWCW2L3QwOrbnui8AgADxnQCACpyCwA==
+Date: Thu, 8 Oct 2026 06:45:15 +0000
+Message-ID: <IA3PR11MB91366518288A65E26D9C9BA192932@IA3PR11MB9136.namprd11.prod.outlook.com>
+References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
+ <20260924041032.1096569-2-zhenzhong.duan@intel.com>
+ <ar2JlI0ApPCb_C2G@intel.com> <ar5UQg/Q4zePFSzb@yilunxu-OptiPlex-7050>
+In-Reply-To: <ar5UQg/Q4zePFSzb@yilunxu-OptiPlex-7050>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA3PR11MB9136:EE_|IA4PR11MB9057:EE_
+x-ms-office365-filtering-correlation-id: f8dec4db-e019-4198-41ff-08df2507b5be
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|376014|7416014|23010399003|1800799024|38070700021|11063799006|4143699003|10067099003|56012099006|22082099003|18002099003;
+x-microsoft-antispam-message-info: fJhhoyISbKEIZ5z3eCn8mgElmKzZPWebpIJAOLNQGyttcDP3xLvY4gOjiaj0fKQFFqqrCKMjGlIKySSfvzl9SmbpfOxACG7TfYR0NlQQFPxsai5TlYRtRnlvYir6JfGf9RwNHqz1cwbkqGuFhWaO24su5DBLCKEFi8H6fXq7YpE/vkOBfsjyXFIO0CP9ry4PvmgwpwC4hGcQGqczxk4Bg00/5lOANM4IR1EtmRAlPKiX+GAlH1JYoNqB+Q9UMG7wO/Ljfd40cBvl2YVfkTdJAjZ8f+fkij1kNGVsC+jexpEbxTQq1xEI0cn0pRTBroRflgg4I+5cskvlnruHKHNudZEXXZPsdk5h7E6YmwpKWIqOP4UkxSQJxctFyQ7kcSMq+mR5K77McUZBwa/YCb51QG5xmRPy8vXHqfxewNSKpKdIw91FA2huBFcyivx9kOpxSnxLJg1SE/LRg08bM5zNIohFH4RCF4a8aALZkq0c/whPq74eyYuF83xalnhCjCMayEASCkbIW986RuHuvQaClxr+BTnlIi/Puu9vCsSn5gmWWh50QRYnLYW8jxVw1Xas0qgBjEeohU9yArStjzMGe68jld5a3ACs0mCGMi6lNQFt5tuwyT9OUN7mFl7ZhrrshRDljrHCUdWSW5rGzOywRza4uHJwUZJkH9p3PV0sQk5vV0oMXs7t7TMHi+A+V0x5ZsCXgbgh3v3eXuPeoqMAf1K7fYp5cnYDz1Mzqer81PU=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB9136.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(23010399003)(1800799024)(38070700021)(11063799006)(4143699003)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?I3LMScUeSDSmaYerprlqkoRTbXAhSu6QknTjcKFE35BZZm8iNvrQ7HYgTfrn?=
+ =?us-ascii?Q?9bFLG8V6jyPhXwsbdaIm/a5fJUEit7GzqOXh1hQp7oSDC9OJDM6XoZ8w1WmM?=
+ =?us-ascii?Q?i9o27EDWloUQsd4tdigH87zaPg3SdYIYB0xzEO/LV31suuPs2j3atVF6RHxz?=
+ =?us-ascii?Q?yz3Mxtt5d2OIUtqasmgssPtPdjJFgCGPZAXxD2CJgEuZajp3J4rJwo7CJ2cY?=
+ =?us-ascii?Q?ISXBc3qfSrWigNX8ARiKw5CCaNd8GWwMPQgS5HO9wgy9KJdyVwxXcbQ2pKTM?=
+ =?us-ascii?Q?6CIEWgqypxapU3rJcSiYIu2Bf2kyPutSZQhnDhBLiJuWAvsBafKdA/SnQH0O?=
+ =?us-ascii?Q?tpfloOMEYFL3TG0LRS5fX0ounA+OFqmaeACCrUQaEMYB1UDisdPc1mdvIOVc?=
+ =?us-ascii?Q?/G2b87vwOigiS1T7Lj5LDJGacu0PInnfcgu6FStnGL//sR2NqRFGWI19C3Qo?=
+ =?us-ascii?Q?zmxS/Oc9+ARiWrL+FChkkDiokvd7h9UrKKJSiM5VYwLFM3QpLWPd5p4gMZqK?=
+ =?us-ascii?Q?/kk+tJEdHXc9N5i5tg+FZFr44g6nXP17PWLuJj7d8IQVSDb9rPUZH1kBzy++?=
+ =?us-ascii?Q?JEKcWiFaMKfhAcCxu/G8pa5AQLOSRAoHNzOVqBrqAcY+9b5cfq051kVj59zN?=
+ =?us-ascii?Q?YUHDdCtue79malvKpLbNvaffxfYrzxCuqfTWp/93V4z+uogX6trW/Z8S5mRJ?=
+ =?us-ascii?Q?88LZtqp1h2OtsmiHLy9N/5YklXcNo9VR3GOg1B+t/1TUHdeFsu5YNhrz7Qjz?=
+ =?us-ascii?Q?jU8uXSD7ZQLm0JVs77t2OemFDqi199nioedlvN4UdJHpJgMnKT60CrwDL0jR?=
+ =?us-ascii?Q?FPEoLcKV+j8WIKCCquvKj90a8CK8E7m/C+J+yZvhaYHxLLTkfZ2Iq1hbslbm?=
+ =?us-ascii?Q?wBQOS1u4A8BhkMNR+kGW8Bg7UZgioUFoW/GgkLa5iCuO2dtOa2u6MllxCP/Q?=
+ =?us-ascii?Q?MpB3wntMo8/jhQDSwHPqc7A2d+nOnhwgV++gtJhkZSDKkVI+1cjctchbDKVP?=
+ =?us-ascii?Q?YTX/dvyGbrPao4ZYdP1dJDuLeNRggzdbTn38rtrNc60eIL57zDdIRIBNFp8D?=
+ =?us-ascii?Q?snbPhuG1+SW+HtwHnpzMgUC131+bKPVEGn00ODmvKvOfDBo5/87XrVaPMEl7?=
+ =?us-ascii?Q?8UGF1qbPi+1VX2M61Fq9mq0wBw7yPcIoJbFkpS/b2C6Lu8pKfpEZCSDiw3gt?=
+ =?us-ascii?Q?b/8qrgA8aXOUOzt8s4qCYD7NO8UgyoeUoJp0reZFuSDW51vZbfNrDerHeiY2?=
+ =?us-ascii?Q?60XGICf/LgrNCuW+tY38as8B9NyTnLcAqzHtCCRovvISxMsbNcxcZid5Tpsr?=
+ =?us-ascii?Q?5MBbLeIBY75Kpuq9Jbcvl9BeEWuFWLE7exiHzr4lh5bFku0YdfS59xL49fOS?=
+ =?us-ascii?Q?nmrzacMKvz42wh5OJGib4crMNynLf1I3t4jLT7nJFf13aXlZU7uo2Cq1RMSw?=
+ =?us-ascii?Q?cRXFpEmlRbGp2G7xIc1eMyRtaqimrr89zxQ1Eid7a53LaTTUNoqk6n5wUqkp?=
+ =?us-ascii?Q?Kg4tTl3QfayuZGxLij3HUA+w0xYg8XRGAZI2bmGNTzQNPT8BUz90mqcrjBvH?=
+ =?us-ascii?Q?8AVxZfWRBfbxHPmQUN+l6AX+vZM/vZHNJiCgtz/2YXaB6xZzq4sdl20+1KWh?=
+ =?us-ascii?Q?11Y2Se7LKX7h+hqYkdjsae+mP/1IBXbf8QgNqZ8CR7udCaGXCGS1Tb5F1oD/?=
+ =?us-ascii?Q?4ZipEgWIsfHjAy90Yv0MVxs0MpanJE0iRf1eQNCpS4IzrGBD2I2SVOLTuShv?=
+ =?us-ascii?Q?1Br9pUFPUg=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked: y4LjWBbh35xMAOqU/EZlscstBRl25UQHBe41BuDGCj7xNrvjCtX683JDeV+9W7GGV/rnc8NDYDRr9KW14qYMIK9zy9pNQigsQkoslhI+XpL2bBIc4x0RILoJHavRszmI6qTgZr17ncEsvwb8LPJmzaf1kaufk81gOF9jU6JiPd8NcdyBsalJEebofQ7RUaNmWWFTlUmABBhwVybc3E41wT8jNXcCXpJiTm8AgarPMhiNrlAlAe3UzpgiKTlc+2enatGxL7kdCmbX7Mgw8jwWTb2laVnrrXYdOu+VTYLJxnZHXVYGPfh6iOYKL/XnoCop8z8YKlcE4PyGsSW71hV92Q==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB9136.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f8dec4db-e019-4198-41ff-08df2507b5be
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Oct 2026 06:45:15.4003
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: cdqfOMEBpHYpT1JlQ5hI/1EnWXY7S8KDCRoHoZv+DA68FIsuGtHNGcKlzS0HEtliUt6QKcdoq4ypm+BFOq32+XrtHK62IcLD0hAtj7ni3jo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR11MB9057
+X-OriginatorOrg: intel.com
 
-The ADC clock divider register implements rate = parent_rate / (2 * (N + 1)),
-which was previously modeled by building a clk_div_table with one entry per
-possible divider value (up to 2^width entries) and feeding it through the
-generic divider_recalc_rate()/divider_determine_rate()/divider_get_val()
-helpers. That is unnecessary overhead (a large table allocation and a
-linear scan on every rate lookup) for a relationship with a simple
-closed-form expression, so compute the rate directly instead.
 
-Drop the mask_bit/mask mechanism as well. The previous code unconditionally
-OR'd an arbitrary bit into the divider register on every set_rate() call,
-and the one existing caller passed mask_bit as a bitmask value (0x1ffff)
-rather than a bit index, so BIT() shifted by an out-of-range amount, which
-is undefined behavior. The divider field write already clears and rewrites
-only its own bits, so no extra forced bit is needed.
 
-Select the divider with a single helper shared by determine_rate() and
-set_rate(), using closest rounding as before, so the rate promised by
-determine_rate() is the rate that set_rate() programs. The helper clamps
-the divider to the valid range and avoids overflowing 2 * rate for very
-large requested rates, which would otherwise lead to a division by zero.
-Reject a rate of 0 with -EINVAL.
+>-----Original Message-----
+>From: Xu Yilun <yilun.xu@linux.intel.com>
+>Subject: Re: [RFC PATCH 01/15] x86/tdx: Export tdg_vm_rd() for tdx-guest m=
+odule
+>
+>On Wed, Sep 30, 2026 at 03:13:40PM -0700, Peter Fang wrote:
+>> On Thu, Sep 24, 2026 at 12:10:18PM +0800, Zhenzhong Duan wrote:
+>> > Export tdg_vm_rd() to allow the tdx-guest driver module to directly
+>> > read TD-scoped metadata fields from the Trust Domain Control Structure
+>> > (TDCS) via TDG.VM.RD TDCALL.
+>> >
+>> > Since tdg_vm_rd() is read-only and cannot cause harm, exporting it
+>> > directly is simpler and more flexible. This allows the tdx-guest drive=
+r
+>> > to read any TDCS field it needs.
+>> >
+>> > In a following patch, the tdx-guest driver will use tdg_vm_rd() to rea=
+d
+>> > TDCS_CONFIG_FLAGS field directly.
+>>
+>> Can this be a separate helper? I'm adding another helper for
+>> TDCS_QUOTE_MAX_SIZE [1]. I think maybe their patterns should stay consis=
+tent.
+>>
+>> Yilun, any thoughts on this?
+>
+>There was a helper in the series before this public RFC, but was then
+>dropped, something like:
+>
+>int tdx_get_config_flags(u64 *flags)
+>{
+>	u64 sret;
+>
+>	sret =3D tdg_vm_rd(TDCS_CONFIG_FLAGS, flags);
+>	if (sret)
+>		return -EIO;
+>
+>	return 0;
+>}
+>EXPORT_SYMBOL_FOR_MODULES(tdx_get_config_flags, "tdx-guest");
+>
+>The concern is how risky is the tdg_vm_rd() export, and how it impacts
+>the existing tdg_vm_rd() usage, and the tdh_mng_rd() export which reads
+>the same data set on host.
+>
+>My initial concern about the cons of tdg_vm_rd() export are, the
+>SEAMCALL reads any TDCS fields, some of them are writable by tdg_vm_wr()
+>and there is no synchronization between them, so seems not a good kAPI.
+>Reducing the scope to read-only fields (e.g. TDCS_CONFIG_FLAGS) may be a
+>good start.
+>
+>Now there are 2 cases in flight: tdx_get_max_quote_size() helper in DICE
+>and tdg_vm_rd() export here. Maybe we need more cases to see which is
+>better but anyway I agree we'd better stay consistent now.
 
-Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
-Signed-off-by: Joey Lu <a0987203069@gmail.com>
----
- drivers/clk/nuvoton/clk-ma35d1-divider.c | 79 ++++++++++++------------
- drivers/clk/nuvoton/clk-ma35d1.c         |  2 +-
- drivers/clk/nuvoton/clk-ma35d1.h         |  2 +-
- 3 files changed, 42 insertions(+), 41 deletions(-)
+We have below existing use cases which are open-coded.
+Maybe need to stay consistent to them?
 
-diff --git a/drivers/clk/nuvoton/clk-ma35d1-divider.c b/drivers/clk/nuvoton/clk-ma35d1-divider.c
-index e992e7c303419..12a946c989e97 100644
---- a/drivers/clk/nuvoton/clk-ma35d1-divider.c
-+++ b/drivers/clk/nuvoton/clk-ma35d1-divider.c
-@@ -16,8 +16,6 @@ struct ma35d1_adc_clk_div {
- 	void __iomem *reg;
- 	u8 shift;
- 	u8 width;
--	u32 mask;
--	const struct clk_div_table *table;
- 	/* protects concurrent access to clock divider registers */
- 	spinlock_t *lock;
- };
-@@ -29,44 +27,66 @@ static inline struct ma35d1_adc_clk_div *to_ma35d1_adc_clk_div(struct clk_hw *_h
- 
- static unsigned long ma35d1_clkdiv_recalc_rate(struct clk_hw *hw, unsigned long parent_rate)
- {
--	unsigned int val;
- 	struct ma35d1_adc_clk_div *dclk = to_ma35d1_adc_clk_div(hw);
-+	unsigned int val;
- 
- 	val = readl_relaxed(dclk->reg) >> dclk->shift;
- 	val &= clk_div_mask(dclk->width);
--	val += 1;
--	return divider_recalc_rate(hw, parent_rate, val, dclk->table,
--				   CLK_DIVIDER_ROUND_CLOSEST, dclk->width);
-+
-+	return DIV_ROUND_CLOSEST_ULL((u64)parent_rate, 2 * (val + 1));
-+}
-+
-+static unsigned int ma35d1_clkdiv_get_val(struct ma35d1_adc_clk_div *dclk,
-+					  unsigned long parent_rate,
-+					  unsigned long rate)
-+{
-+	unsigned long max = clk_div_mask(dclk->width) + 1;
-+	unsigned long val;
-+
-+	if (rate > parent_rate / 2)
-+		return 1;
-+
-+	val = DIV_ROUND_CLOSEST_ULL((u64)parent_rate, 2 * rate);
-+
-+	return clamp(val, 1UL, max);
- }
- 
- static int ma35d1_clkdiv_determine_rate(struct clk_hw *hw,
- 					struct clk_rate_request *req)
- {
- 	struct ma35d1_adc_clk_div *dclk = to_ma35d1_adc_clk_div(hw);
-+	unsigned int val;
- 
--	return divider_determine_rate(hw, req, dclk->table, dclk->width,
--				      CLK_DIVIDER_ROUND_CLOSEST);
-+	if (!req->rate)
-+		return -EINVAL;
-+
-+	val = ma35d1_clkdiv_get_val(dclk, req->best_parent_rate, req->rate);
-+	req->rate = DIV_ROUND_CLOSEST_ULL((u64)req->best_parent_rate, 2 * val);
-+
-+	return 0;
- }
- 
- static int ma35d1_clkdiv_set_rate(struct clk_hw *hw, unsigned long rate, unsigned long parent_rate)
- {
--	int value;
--	unsigned long flags = 0;
--	u32 data;
- 	struct ma35d1_adc_clk_div *dclk = to_ma35d1_adc_clk_div(hw);
-+	unsigned long flags;
-+	unsigned int val;
-+	u32 data;
- 
--	value = divider_get_val(rate, parent_rate, dclk->table,
--				dclk->width, CLK_DIVIDER_ROUND_CLOSEST);
-+	if (!rate)
-+		return -EINVAL;
-+
-+	val = ma35d1_clkdiv_get_val(dclk, parent_rate, rate);
- 
- 	spin_lock_irqsave(dclk->lock, flags);
- 
- 	data = readl_relaxed(dclk->reg);
- 	data &= ~(clk_div_mask(dclk->width) << dclk->shift);
--	data |= (value - 1) << dclk->shift;
--	data |= dclk->mask;
-+	data |= (val - 1) << dclk->shift;
- 	writel_relaxed(data, dclk->reg);
- 
- 	spin_unlock_irqrestore(dclk->lock, flags);
-+
- 	return 0;
- }
- 
-@@ -79,39 +99,21 @@ static const struct clk_ops ma35d1_adc_clkdiv_ops = {
- struct clk_hw *ma35d1_reg_adc_clkdiv(struct device *dev, const char *name,
- 				     struct clk_hw *parent_hw, spinlock_t *lock,
- 				     unsigned long flags, void __iomem *reg,
--				     u8 shift, u8 width, u32 mask_bit)
-+				     u8 shift, u8 width)
- {
--	struct ma35d1_adc_clk_div *div;
--	struct clk_init_data init;
--	struct clk_div_table *table;
- 	struct clk_parent_data pdata = { .index = 0 };
--	u32 max_div, min_div;
-+	struct ma35d1_adc_clk_div *div;
-+	struct clk_init_data init = {};
- 	struct clk_hw *hw;
- 	int ret;
--	int i;
- 
- 	div = devm_kzalloc(dev, sizeof(*div), GFP_KERNEL);
- 	if (!div)
- 		return ERR_PTR(-ENOMEM);
- 
--	max_div = clk_div_mask(width) + 1;
--	min_div = 1;
--
--	table = devm_kcalloc(dev, max_div + 1, sizeof(*table), GFP_KERNEL);
--	if (!table)
--		return ERR_PTR(-ENOMEM);
--
--	for (i = 0; i < max_div; i++) {
--		table[i].val = min_div + i;
--		table[i].div = 2 * table[i].val;
--	}
--	table[max_div].val = 0;
--	table[max_div].div = 0;
--
--	memset(&init, 0, sizeof(init));
- 	init.name = name;
- 	init.ops = &ma35d1_adc_clkdiv_ops;
--	init.flags |= flags;
-+	init.flags = flags;
- 	pdata.hw = parent_hw;
- 	init.parent_data = &pdata;
- 	init.num_parents = 1;
-@@ -119,15 +121,14 @@ struct clk_hw *ma35d1_reg_adc_clkdiv(struct device *dev, const char *name,
- 	div->reg = reg;
- 	div->shift = shift;
- 	div->width = width;
--	div->mask = mask_bit ? BIT(mask_bit) : 0;
- 	div->lock = lock;
- 	div->hw.init = &init;
--	div->table = table;
- 
- 	hw = &div->hw;
- 	ret = devm_clk_hw_register(dev, hw);
- 	if (ret)
- 		return ERR_PTR(ret);
-+
- 	return hw;
- }
- EXPORT_SYMBOL_GPL(ma35d1_reg_adc_clkdiv);
-diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
-index 9f65d0623517a..f91a8369a2bc7 100644
---- a/drivers/clk/nuvoton/clk-ma35d1.c
-+++ b/drivers/clk/nuvoton/clk-ma35d1.c
-@@ -1017,7 +1017,7 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
- 	hws[ADC_DIV] = ma35d1_reg_adc_clkdiv(dev, "adc_div", hws[PCLK0],
- 					     &ma35d1_lock, 0,
- 					     clk_base + REG_CLK_CLKDIV4,
--					     4, 17, 0x1ffff);
-+					     4, 17);
- 	hws[ADC_GATE] = ma35d1_clk_gate(dev, "adc_gate", "adc_div",
- 					clk_base + REG_CLK_APBCLK2, 24);
- 
-diff --git a/drivers/clk/nuvoton/clk-ma35d1.h b/drivers/clk/nuvoton/clk-ma35d1.h
-index 3adee440f60a3..1fdcd4658b5ff 100644
---- a/drivers/clk/nuvoton/clk-ma35d1.h
-+++ b/drivers/clk/nuvoton/clk-ma35d1.h
-@@ -13,6 +13,6 @@ struct clk_hw *ma35d1_reg_clk_pll(struct device *dev, u32 id, u8 u8mode, const c
- struct clk_hw *ma35d1_reg_adc_clkdiv(struct device *dev, const char *name,
- 				     struct clk_hw *parent_hw, spinlock_t *lock,
- 				     unsigned long flags, void __iomem *reg,
--				     u8 shift, u8 width, u32 mask_bit);
-+				     u8 shift, u8 width);
- 
- #endif /* __DRV_CLK_NUVOTON_MA35D1_H */
--- 
-2.43.0
+             tdg_vm_rd(TDCS_TD_CTLS, &controls);
+             tdg_vm_rd(TDCS_TOPOLOGY_ENUM_CONFIGURED, &configured);
 
+Thanks
+Zhenzhong
