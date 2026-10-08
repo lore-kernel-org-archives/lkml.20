@@ -1,104 +1,63 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 90D26395243;
-	Thu,  8 Oct 2026 19:16:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C786C2F3C19;
+	Thu,  8 Oct 2026 19:16:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791486980; cv=none; b=ahjfE5SDELihtAntuueYNIPxxTqalJskb/Xr7EfX3Asi7S+S+6g7xWrP0tRq+qEzt5Asfta+h9CldDA/n/FIoi/mk57iVyAfSsGWJXLt/QvPsYHpoJizTU+C+F/RI6jNudiVEh744OoeMz4YxmBr/huk7MLvzj+nfbhrlnmoxtQ=
+	t=1791486989; cv=none; b=dzC5Ubzi2lq9/3dpQ32EWcIIigxlXqFBIzeC8I0POiw3bVXAAp+8KwXSzr4yUaPuYT3355rdtxEXyLjIfyv74VOy6TAQa99ANDrhOFVwHAM3+Vq3w2opjoTGjwMLJwuNYynyh8vPV2CAHVzxV3Sblc7TD33B29ibiYnt8t+7ptY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791486980; c=relaxed/simple;
-	bh=AE1EJmh/iQjqIWdsMtJQQMK0DqBYTnvBsHdaPuAdfxM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C12ZoKP5J4ZiYmhMjGj1XOlfiRHzUgB9ID3nC74zgHQDCKo43vqQd1K43zhQvKS2pJJgOtOS7JITQUFhsrK3cGO2Mxy3IFE8nRVQ3OKIHXm+Y3GNzJX6oZHJIhwDLEYUA91c+N5o21s5hLCcZEWDkiniKP8o4nNMehjQGQWFcuY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=gy//8RkZ; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1791486989; c=relaxed/simple;
+	bh=wolTIL0bHEKwihQ5BVKU/vMTJuw4z4vkAlWbVnPYdnU=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=mNpFxTrj72J4/fjq7SpSE2F0LHuivVMSO629nn5hKa9hkxrBzzqYeJscz4xWDK72H6yK7HPxMnvonpBvGwGNh38EjZuPThTPAu2oDT2EoRLxKMere+xHYzyeh+sipIz7HAsoRGbjpaBCjhg+1Ofk6w7BNLWzACzotok5hwY/EZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GLJWRI/6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="gy//8RkZ"
-Received: from mac.lan (unknown [4.194.122.144])
-	by linux.microsoft.com (Postfix) with ESMTPSA id EB8B120B7166;
-	Thu,  8 Oct 2026 12:15:14 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com EB8B120B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1791486920;
-	bh=gO7aKFhmwTvmBkYb+fgLFRiuUC2NVPYTrYp5wtxfFvY=;
-	h=From:To:Cc:Subject:Date:From;
-	b=gy//8RkZb3KBxlmSwEH1aO0P8o956uKWpGXmaG6KELOZhxxFNz+HFycglwOaSF/+Z
-	 nkE8kTfhdF6YiyAUX/rLa5L1S2NVmyB1Vvo5XDiiV1j6PIxiE8oIonXxDpzyS0WXUc
-	 c9DN44cH31VhAsGAXCCH8u3iQcoQdatufRZCI6WE=
-From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: Pavel Begunkov <asml.silence@gmail.com>,
-	io-uring@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	AutonomousCodeSecurity@microsoft.com,
-	tgopinath@linux.microsoft.com,
-	kys@microsoft.com,
-	Cen Zhang <cenzhang@linux.microsoft.com>
-Subject: [PATCH] io_uring/cancel: don't spin on local work the task can't run
-Date: Thu,  8 Oct 2026 15:16:02 -0400
-Message-ID: <20261008191602.45101-1-cenzhang@linux.microsoft.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GLJWRI/6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D5111F000FF;
+	Thu,  8 Oct 2026 19:16:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791486988;
+	bh=V/dD73O0qYWnuhR+33XqIFxZxWXjPtj5XHflOH4Zjvc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=GLJWRI/6MT72mRCXqxt/3cuE0brl79WCWUEzo0FwChIKhsN96PySr9Ey+mZ9pZLtQ
+	 9fVNqZbjFcrzHWuyAQgl1Y59jYdrE0/YnYIbil307iewNozuKZ5GTTZaQ19TyBtRBZ
+	 J/ikBLw2NGDZeZsd6diy0DK8ULj/iTD59ydFnwVtcywwdZ7S2iBdJxplE9rZ/6lohE
+	 1vJbBv9LCOoxbpieBX3634jnTmHE0X5CmfBzkgNtaPU5wr/RG+yKXpg9IhgtcIFjhK
+	 jcMyRvknJc8NrDg+avdGkpHjOetHFAtfS+x8ui/ufXPwP0G9i+Sy7DZNAAMw5ZWWLo
+	 qPV1SXfJiLW0Q==
+Date: Thu, 8 Oct 2026 14:16:26 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Linux regressions mailing list <regressions@lists.linux.dev>,
+	Linux PCI <linux-pci@vger.kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>, Lukas Wunner <lukas@wunner.de>,
+	amd-gfx list <amd-gfx@lists.freedesktop.org>,
+	Christian Koenig <christian.koenig@amd.com>,
+	Vitaly Prosyak <vitaly.prosyak@amd.com>,
+	"Deucher, Alexander" <Alexander.Deucher@amd.com>
+Subject: Re: GPU initialization failure with kernel 7.3
+Message-ID: <20261008191626.GA918896@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CADnq5_MO+ZNOzW+_EH+gUYZ27X_ggWJJ0XdK6m2QW53m_ThtUQ@mail.gmail.com>
 
-From: "Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>
+On Mon, Oct 05, 2026 at 04:14:45PM -0400, Alex Deucher wrote:
+> Hi Lukas,
+> 
+> The following commit causes GPUs to fail to initialize on a number of
+> our servers:
+> eddba19b8b5f ("PCI/AER: Support Advisory Non-Fatal Errors")
+> The change reverts cleanly and the GPUs initialize fine with it
+> reverted.  I've filed a kernel bug to track this:
+> https://bugzilla.kernel.org/show_bug.cgi?id=222095
+> Happy to test patches, etc.
 
-io_uring_cancel_generic() refuses to sleep while any ring on the exiting
-task's tctx has local work pending. It assumes the task is that ring's
-submitter and that the next io_uring_try_cancel_requests() pass will run
-the work. This does not hold for a ring that was still
-IORING_SETUP_R_DISABLED when the task got its tctx node from
-io_uring_create() or io_ringfd_register(). The submitter is set later by
-IORING_REGISTER_ENABLE_RINGS, possibly from another task, and only the
-submitter may run local work on an IORING_SETUP_DEFER_TASKRUN ring. To
-the exiting task the work stays pending forever, the loop never reaches
-schedule(), and the task trips the WARN_ON_ONCE() once and then spins in
-do_exit().
-
-An unprivileged user can set this up at will by creating a disabled
-ring, having a child enable it and stop, posting to the ring with
-IORING_OP_MSG_RING and exiting with a request in flight that only the
-child can complete. The exiting thread burns a CPU until the child runs
-or dies, and with panic_on_warn set the WARN panics the kernel.
-
-Fix by skipping the sleep only when io_allowed_defer_tw_run() allows
-the task to run the work. This is reasonable since work it cannot run
-cannot complete any of its requests either, so nothing is lost by
-sleeping. Drop the WARN_ON_ONCE() since handing a disabled ring to
-another thread is a supported scenario, not a bug state.
-
-Fixes: 360cd42c4e95 ("io_uring: optimise io_req_local_work_add")
-Reported-by: AutonomousCodeSecurity@microsoft.com
-Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <cenzhang@linux.microsoft.com>
----
- io_uring/cancel.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
-
-diff --git a/io_uring/cancel.c b/io_uring/cancel.c
-index 7d7820eab878..4f706aff14fc 100644
---- a/io_uring/cancel.c
-+++ b/io_uring/cancel.c
-@@ -634,12 +634,11 @@ __cold void io_uring_cancel_generic(bool cancel_all, struct io_sq_data *sqd)
- 		prepare_to_wait(&tctx->wait, &wait, TASK_INTERRUPTIBLE);
- 		io_run_task_work();
- 		io_uring_drop_tctx_refs(current);
-+		/* only skip the sleep for local work this task may run */
- 		xa_for_each(&tctx->xa, index, node) {
--			if (io_local_work_pending(node->ctx)) {
--				WARN_ON_ONCE(node->ctx->submitter_task &&
--					     node->ctx->submitter_task != current);
-+			if (io_local_work_pending(node->ctx) &&
-+			    io_allowed_defer_tw_run(node->ctx))
- 				goto end_wait;
--			}
- 		}
- 		/*
- 		 * If we've seen completions, retry without waiting. This
--- 
-2.55.0
-
+#regzbot introduced: eddba19b8b5f
