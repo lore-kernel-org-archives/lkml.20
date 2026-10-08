@@ -1,149 +1,164 @@
-Received: from sender6-pp-e107.zoho.com (sender6-pp-e107.zoho.com [165.173.180.107])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91F95391E7B;
-	Thu,  8 Oct 2026 10:31:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.107
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791455479; cv=pass; b=BCHNgD6tet80iPuNhKE8+eS6axGkMnn2dfzZtBQhrrt4H/5NMJB4yuDW/S7tHUTewGIYWjmlvxraxLcNRIXg21SitQGIQLyp6xbtPAs2Y+2faC+NsYa9B1NvHScErGQC+FGVPVX3Iw7TctqWzEG0+qvdSN65U5P4z0U+/x2ohxs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791455479; c=relaxed/simple;
-	bh=HA8SGj7wkjRDNhhCWgOc+4BuevohIaoxRKoUSNRKTnI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=meSAPH7eQv5PEhLdLbLEO0XXwwEhWboAQcS5iMCko/JqC6s4sy5hOVxMXFThH6BcOPXyBrMYztGX8JuwHOy423i+3/59Ru3UbuxFa4pyEVdqXHv2oaIBSRvxcLfpKr0TOsxWn9s0BS0I+RRD+zDvLT9VkBCGKFmbJc3wXhx3GUE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=Xa4CCTGd; arc=pass smtp.client-ip=165.173.180.107
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B93D848F848;
+	Thu,  8 Oct 2026 10:33:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791455583; cv=none; b=uY6mhmlRBSubbKlwZ+KoRcNYlsMbHg148HorRPW1xgHiUuNlX+o+f0jTs74mRTmd2yNPduaVpjm/NUSY6win8kOEJMEOkcdjpjP+LxPxOGlSKD+2eT+WGHwLhT/NpvUgfXTGnC65sR4yrEMo3WJ8UpMXN8AZtvEQTgPRWdYxR1c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791455583; c=relaxed/simple;
+	bh=AI3ZBMAQ3eLWhZFlrVjzDdUZpkJemDx62honLkjULds=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PapshmBot6wfYKZKpF+OEa9F7V0qSpnXOhwpJnPWQ6sQZjquaqxT5kFKAkDAWZR+xSsIs8S17XrXv2Ssb9vL8Ei1nKLgIOrnVj45F+hLhZj3778FTRDO9+4yn9XUYwGemBK8tKStol2eHQQNkXnNElL0/5XhIVhVc6YN6azQdQQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EaOyYSqC; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="Xa4CCTGd"
-ARC-Seal: i=1; a=rsa-sha256; t=1791455464; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=PXhlqnbIPeeyBMoq4zj6OsSao1PWn2yoke5wffLUsWw9+hZSA3HE8mAowQUYiWMyY0qtCoENa+kjOMJ56T+/8kdKmNUbp4qZMwYm08jJAm55Y7CHf2n1p5S5gfYGlomKC5mwQ0PMkJDbAey8lYRjL+SvKn6xWr3xKYqCcVSmk8E=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791455464; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=TEVIQ7jUIEPxC+HGK4sUt5stotdCUh3Q7I4XuQyq/vU=; 
-	b=fXr22wZyjecSTBJj/MHndJ36pVf9nqiRyPB7zHwKZzGkKj05HnSbZjcxsKt69n2eJ50BhpTY4d7sbrCwCTNQjovej0+HKmC+B9hEdoTMBamGg7aBh+5P9DarQWekC5wvg7gqsThh8ooSsV7MgTVabyr3tjDvKeksDJzW1jkr6PE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=icenowy.me;
-	spf=pass  smtp.mailfrom=uwu@icenowy.me;
-	dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791455464;
-	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
-	bh=TEVIQ7jUIEPxC+HGK4sUt5stotdCUh3Q7I4XuQyq/vU=;
-	b=Xa4CCTGdyQqhGs5mz5XWPtLsG3z3tv3u/QC4Tm+jFyOf5gdqI08/GkVxdXDsiihg
-	M/SxIwLKYhKiq/yRo+yK7sYinL9mvGL9AdSK9JCmSDVH+ItV5tYKD8Xi9KjNqprp0uc
-	pvc+sfdr2Hsg58RX6Npl9fb0qsGzLihjTkNyOM1yyN1HCS3S3Y4QDTItjBEVCvxzOhZ
-	a0QBXFNNJi5d/IGDzMBDhs9vOfvIcHPh8M5aPjUrt/zqt75nhNefFXpitQEgPPY1GUD
-	r0hdD9TywyaqYQhr2uwSq/Zrl9O8bMD59JyL0A+3Nd3F3vffidBWaYN8WW/JI+kd7W1
-	XDv+CgxSCA==
-Received: by smtp.zohomail.com with SMTPS id 1791455462271972.5250923053629;
-	Thu, 8 Oct 2026 03:31:02 -0700 (PDT)
-Message-ID: <cbba422d4ba9bd4a036536a50fadc2760efa1ae2.camel@icenowy.me>
-Subject: Re: [PATCH v2 1/2] dt-bindings: power: spacemit: Add power domain
- controller IDs
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Conor Dooley <conor@kernel.org>, Yixun Lan <dlan@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, Paul
- Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
- <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,  Iker Pedrosa
- <ikerpedrosam@gmail.com>, devicetree@vger.kernel.org,
- linux-riscv@lists.infradead.org, 	spacemit@lists.linux.dev,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Thu, 08 Oct 2026 18:30:55 +0800
-In-Reply-To: <20261008-df80c21d73b287d09b6baa78@squawk>
-References: <20261008-04-k3-pm-support-v2-0-6f778a53dd2d@kernel.org>
-	 <20261008-04-k3-pm-support-v2-1-6f778a53dd2d@kernel.org>
-	 <20261008-df80c21d73b287d09b6baa78@squawk>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EaOyYSqC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791455581; x=1822991581;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=AI3ZBMAQ3eLWhZFlrVjzDdUZpkJemDx62honLkjULds=;
+  b=EaOyYSqCiXP5aflKju6O/h1rKvj18IFZw2vKMN2JrDO+8mWu6lXl38NQ
+   RILKfniYhS9g2+BovvaqM46MTle8ktrYavF2K3kAQJ/F2rkSj5GB0BEX3
+   z8m1b32Ym9h6vGDUsBmgYY1QD3TCB7LOu3/lEanbrt9cgS2t1vkRnPVzP
+   LoVX/24+pUH9m6AYHFEpd4uMSRcQ6l0eSMAMZ9m1cR9EcrLRUqj7y2v75
+   ffDgAyH9N5HlHYBJu0JwNzle0O81QbTKaRP7x6icwBO3jStCUF9DwO+WB
+   0PL3FAI4q+4mXwDrMX6u7qrWVI8D3gTKnmbQOc9R2kelr+VBISA5SnLMl
+   Q==;
+X-CSE-ConnectionGUID: eCqrmw84QsCQkPp5E++RIQ==
+X-CSE-MsgGUID: L3qk0o19TOa96Lf1V9Nw7w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="132379"
+X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
+   d="scan'208";a="132379"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 03:33:00 -0700
+X-CSE-ConnectionGUID: 35EGeBEQTcuoO28zWBm4cg==
+X-CSE-MsgGUID: yOdSKP5kTbGY5nEnkjYrcg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
+   d="scan'208";a="1835115"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa012.fm.intel.com with ESMTP; 08 Oct 2026 03:32:57 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xElQj-000000004Hu-3mTD;
+	Thu, 08 Oct 2026 10:32:53 +0000
+Date: Thu, 8 Oct 2026 18:32:15 +0800
+From: kernel test robot <lkp@intel.com>
+To: Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	linux-s390@vger.kernel.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com
+Subject: Re: [PATCH v8 11/15] s390: Distinguish hardware and software PTEs
+Message-ID: <202610081806.wcWlNqQf-lkp@intel.com>
+References: <c22ed0a2d9ff0f4fff69a17332a377c460d993dc.1791365932.git.agordeev@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c22ed0a2d9ff0f4fff69a17332a377c460d993dc.1791365932.git.agordeev@linux.ibm.com>
 
-=E5=9C=A8 2026-10-08=E5=9B=9B=E7=9A=84 08:27 +0100=EF=BC=8CConor Dooley=E5=
-=86=99=E9=81=93=EF=BC=9A
-> On Thu, Oct 08, 2026 at 03:44:29AM +0000, Yixun Lan wrote:
-> > Add initial power domain driver support for SpacemiT K1/K3 SoC, The
-> > Power
-> > Domain Controller is SoC internal module which is part of APMU
-> > (Advanced
-> > Power Management Unit), it is responsible for managing power across
-> > multi
-> > power domains, which includes power on/off, isolation, power-on
-> > sequence.
->=20
-> You should prob mention that this APMU is already documented
-> elsewhere.
+Hi Alexander,
 
-Maybe it's also meaningful to mention that APMU already has #power-
-domain-cells property, because the first reaction of me is to add such
-a property (and then found it already there).
+kernel test robot noticed the following build errors:
 
-Thanks,
-Icenowy
+[auto build test ERROR on linus/master]
+[also build test ERROR on v7.3-rc6]
+[cannot apply to akpm-mm/mm-everything s390/features kvms390/next next-20261006]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> pw-bot: not-applicable
->=20
-> Thanks,
-> Conor.
->=20
-> >=20
-> > Signed-off-by: Yixun Lan <dlan@kernel.org>
-> > ---
-> > =C2=A0include/dt-bindings/power/spacemit,k1-power.h | 14 ++++++++++++++
-> > =C2=A0include/dt-bindings/power/spacemit,k3-power.h | 12 ++++++++++++
-> > =C2=A02 files changed, 26 insertions(+)
-> >=20
-> > diff --git a/include/dt-bindings/power/spacemit,k1-power.h
-> > b/include/dt-bindings/power/spacemit,k1-power.h
-> > new file mode 100644
-> > index 000000000000..41ef540b5c44
-> > --- /dev/null
-> > +++ b/include/dt-bindings/power/spacemit,k1-power.h
-> > @@ -0,0 +1,14 @@
-> > +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> > +
-> > +#ifndef _DT_BINDINGS_SPACEMIT_K1_POWER_H_
-> > +#define _DT_BINDINGS_SPACEMIT_K1_POWER_H_
-> > +
-> > +#define K1_PMDOMAIN_VPU		0
-> > +#define K1_PMDOMAIN_GPU		1
-> > +#define K1_PMDOMAIN_LCD		2
-> > +#define K1_PMDOMAIN_ISP		3
-> > +#define K1_PMDOMAIN_AUDIO	4
-> > +#define K1_PMDOMAIN_GNSS	5
-> > +#define K1_PMDOMAIN_HDMI	6
-> > +
-> > +#endif
-> > diff --git a/include/dt-bindings/power/spacemit,k3-power.h
-> > b/include/dt-bindings/power/spacemit,k3-power.h
-> > new file mode 100644
-> > index 000000000000..519fbf946312
-> > --- /dev/null
-> > +++ b/include/dt-bindings/power/spacemit,k3-power.h
-> > @@ -0,0 +1,12 @@
-> > +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> > +
-> > +#ifndef _DT_BINDINGS_SPACEMIT_K3_POWER_H_
-> > +#define _DT_BINDINGS_SPACEMIT_K3_POWER_H_
-> > +
-> > +#define K3_PMDOMAIN_VPU		0
-> > +#define K3_PMDOMAIN_GPU		1
-> > +#define K3_PMDOMAIN_AUDIO	2
-> > +#define K3_PMDOMAIN_LCD0	3
-> > +#define K3_PMDOMAIN_LCD1	4
-> > +
-> > +#endif
-> >=20
-> > --=20
-> > 2.56.0
-> >=20
+url:    https://github.com/intel-lab-lkp/linux/commits/Alexander-Gordeev/mm-introduce-hw_pte_t-for-PTE-table-storage/20261007-134144
+base:   linus/master
+patch link:    https://lore.kernel.org/r/c22ed0a2d9ff0f4fff69a17332a377c460d993dc.1791365932.git.agordeev%40linux.ibm.com
+patch subject: [PATCH v8 11/15] s390: Distinguish hardware and software PTEs
+config: s390-allmodconfig (https://download.01.org/0day-ci/archive/20261008/202610081806.wcWlNqQf-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 80cd965b6323b208519f8ab1d5ee86e4ea9862f4)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261008/202610081806.wcWlNqQf-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610081806.wcWlNqQf-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> mm/damon/vaddr.c:303:45: error: incompatible pointer types passing 'pte_t *' to parameter of type 'hw_pte_t *' (aka 'struct __hw_pte_t *') [-Wincompatible-pointer-types]
+     303 |         *entry = huge_ptep_get_and_clear(mm, addr, pte, psize);
+         |                                                    ^~~
+   arch/s390/include/asm/hugetlb.h:34:40: note: passing argument to parameter 'ptep' here
+      34 |                                             unsigned long addr, hw_pte_t *ptep,
+         |                                                                           ^
+   mm/damon/vaddr.c:305:28: error: incompatible pointer types passing 'pte_t *' to parameter of type 'hw_pte_t *' (aka 'struct __hw_pte_t *') [-Wincompatible-pointer-types]
+     305 |         set_huge_pte_at(mm, addr, pte, *entry, psize);
+         |                                   ^~~
+   arch/s390/include/asm/hugetlb.h:22:18: note: passing argument to parameter 'ptep' here
+      22 |                      hw_pte_t *ptep, pte_t pte, unsigned long sz);
+         |                                ^
+>> mm/damon/vaddr.c:318:40: error: incompatible pointer types passing 'hw_pte_t *' (aka 'struct __hw_pte_t *') to parameter of type 'pte_t *' [-Wincompatible-pointer-types]
+     318 |         referenced = damon_hugetlb_ptep_mkold(pte, mm, vma, addr, &entry);
+         |                                               ^~~
+   mm/damon/vaddr.c:296:45: note: passing argument to parameter 'pte' here
+     296 | static bool damon_hugetlb_ptep_mkold(pte_t *pte, struct mm_struct *mm,
+         |                                             ^
+   3 errors generated.
+
+
+vim +303 mm/damon/vaddr.c
+
+3f49584b262cf8 SeongJae Park        2021-09-07  294  
+49f4203aae06ba Baolin Wang          2022-01-14  295  #ifdef CONFIG_HUGETLB_PAGE
+39c0ceedd54557 SJ Park              2026-09-07  296  static bool damon_hugetlb_ptep_mkold(pte_t *pte, struct mm_struct *mm,
+39c0ceedd54557 SJ Park              2026-09-07  297  		struct vm_area_struct *vma, unsigned long addr, pte_t *entry)
+39c0ceedd54557 SJ Park              2026-09-07  298  {
+39c0ceedd54557 SJ Park              2026-09-07  299  	unsigned long psize = huge_page_size(hstate_vma(vma));
+39c0ceedd54557 SJ Park              2026-09-07  300  
+39c0ceedd54557 SJ Park              2026-09-07  301  	if (!pte_young(*entry))
+39c0ceedd54557 SJ Park              2026-09-07  302  		return false;
+39c0ceedd54557 SJ Park              2026-09-07 @303  	*entry = huge_ptep_get_and_clear(mm, addr, pte, psize);
+39c0ceedd54557 SJ Park              2026-09-07  304  	*entry = pte_mkold(*entry);
+39c0ceedd54557 SJ Park              2026-09-07  305  	set_huge_pte_at(mm, addr, pte, *entry, psize);
+39c0ceedd54557 SJ Park              2026-09-07  306  	return true;
+39c0ceedd54557 SJ Park              2026-09-07  307  }
+39c0ceedd54557 SJ Park              2026-09-07  308  
+6ecdfd6e16f5f4 Muhammad Usama Anjum 2026-10-07  309  static void damon_hugetlb_mkold(hw_pte_t *pte, struct mm_struct *mm,
+49f4203aae06ba Baolin Wang          2022-01-14  310  				struct vm_area_struct *vma, unsigned long addr)
+49f4203aae06ba Baolin Wang          2022-01-14  311  {
+49f4203aae06ba Baolin Wang          2022-01-14  312  	bool referenced = false;
+e6c0c03245b14d Christophe Leroy     2024-07-02  313  	pte_t entry = huge_ptep_get(mm, addr, pte);
+6b7cea90c82e10 Kefeng Wang          2022-12-30  314  	struct folio *folio = pfn_folio(pte_pfn(entry));
+49f4203aae06ba Baolin Wang          2022-01-14  315  
+6b7cea90c82e10 Kefeng Wang          2022-12-30  316  	folio_get(folio);
+49f4203aae06ba Baolin Wang          2022-01-14  317  
+39c0ceedd54557 SJ Park              2026-09-07 @318  	referenced = damon_hugetlb_ptep_mkold(pte, mm, vma, addr, &entry);
+49f4203aae06ba Baolin Wang          2022-01-14  319  	if (mmu_notifier_clear_young(mm, addr,
+49f4203aae06ba Baolin Wang          2022-01-14  320  				     addr + huge_page_size(hstate_vma(vma))))
+49f4203aae06ba Baolin Wang          2022-01-14  321  		referenced = true;
+49f4203aae06ba Baolin Wang          2022-01-14  322  
+49f4203aae06ba Baolin Wang          2022-01-14  323  	if (referenced)
+6b7cea90c82e10 Kefeng Wang          2022-12-30  324  		folio_set_young(folio);
+49f4203aae06ba Baolin Wang          2022-01-14  325  
+6b7cea90c82e10 Kefeng Wang          2022-12-30  326  	folio_set_idle(folio);
+6b7cea90c82e10 Kefeng Wang          2022-12-30  327  	folio_put(folio);
+49f4203aae06ba Baolin Wang          2022-01-14  328  }
+49f4203aae06ba Baolin Wang          2022-01-14  329  
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
