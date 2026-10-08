@@ -1,64 +1,64 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A2653EF649
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 07:30:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 751FA3EAC8B
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 07:31:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791444663; cv=none; b=B9XJ5sualMMu4CNHVOEq4rHImzHTURs+zGJqf8I8fokJ4Oc3NMgI7GS5hqe3BTZ4GlH7wAkHXYtCTn5olUTf1MnJ2NONEVwCGn8yiLi6u868z9jq1gu/MAt5X3tqdaW9ikZkG0IvMm4WYgkPISmb5hfoFJXJRF/SxEEIZuYWA18=
+	t=1791444668; cv=none; b=la2dEKfGBYDrJ6b0b9b/g71gTkeGKcUqEYU49HwY/k+VqtluxH8ulD1jxLCUUR5tk7nsXpK7ByEMCxqg9qlBj1QNXji3uk0XVTgqx1IMBaNnoU1jvZTcDZdCQO1mTvZuasGCl8s34hW6A5NgUfMS/i9osHyWsI9N+AzwYMvT+QM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791444663; c=relaxed/simple;
-	bh=QoqC5FWDPTguiDUacor1rhogobE1ykW+PVHQtFAmfKQ=;
+	s=arc-20240116; t=1791444668; c=relaxed/simple;
+	bh=PUS8vg3eKrh52MewEnE+dnBAdvwDYq9NGtz9BnZ1fUU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GBESnuRI3CIwAKLZ90jaksh3X81IxELX5BLyZLI/ckjcSuKmqFYY5Hot/+u9h95tWQvE/V+iPtzUfZIkr+DIBhZHFWqwlpYrqvQyA4kuSK+Hb4aTfSDv5XMymGCA2vjx7cUJ6nOaDAnTguFIWjshw+UyseCpEZ2eUcWNgNIRBb0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=RoLrBi5k; arc=none smtp.client-ip=209.85.215.180
+	 MIME-Version; b=r2AxcpdmTlocmUol6XUUznCuML4alJk7hCfvRlPb0aMOKbQIQuT62fu5dPV35Hk2TsX/SMdCvUen28DO5tA4DNRMnAYezzRHOesM5ret21FXxL5xoceh09FX+w/PhDDJ2twWFwH39aieZLh6pVHYBcF8h5q1+wHIvfveH9zwIng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=FpovHUhc; arc=none smtp.client-ip=209.85.215.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="RoLrBi5k"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cbedd5aece4so175691a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 00:30:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="FpovHUhc"
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cbedd5aece4so175734a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 00:31:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1791444654; x=1792049454; darn=vger.kernel.org;
+        d=bytedance.com; s=google; t=1791444662; x=1792049462; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=n0iL076pHUaLr+l14HbxfZqldd4j3905YwLicSMDih8=;
-        b=RoLrBi5kBuiZ/K5MfYcTf89CF87DRixsB2FN3nC5+9gEFiIN9huoTPPcDeWNhldgFH
-         lTgcOQMaKasNhr5kRzJh+1oXFAG4WwxYQO1LO6ph/1Wdt2X97+iriDG1uky+p2IzIrEj
-         nFAwE8OGePwH3UUf0HEgaHte5kFCNv7vMrZu2NOdd3FHYoUICMRW6ZGpK9iC9mOCGsTS
-         cW1AtmCGDrkmKCage4N5DswIs000wZhcXhRJyXeO6Fmk/vvEu8uIdZsV5RbV2nuRNK8I
-         eeY5KiRgdLZ/rjZJC6Y/rQpjzdQvFEdcxFx8KLr0T4ssAo8+crZhGL2uIedNLQMMVHcf
-         f0IQ==
+        bh=RvkPG82zfhFkpnOg0JOtNiptSg9vrvtxMEvoINVoQXE=;
+        b=FpovHUhcuDEvm7F2ohacfhQnj5Il6NH9HXU9MtyERNKOj2wtaBebj06SWmgZRamX12
+         kKaRUWgcjg2CvcSDUAewqYWidoXztkaI+lGG5YAVQb+ZnM91vsZS7+VbuDzpVGQq9/g6
+         d/IdDa20ChtYGcgWs0RDJGi0gJp8xMd+lknh4l9mIQOIx82RcJnD9LzM7MbRoLGpv4WJ
+         X0dKunGBtkvG9p6/9JMnKp+Rc6irG1t5BO6qlap5Ye61yDTSMKNrRTweZxpWW+4p3LWI
+         PVLxteVd7gJFLPX0F2VoTI1plaFGAIe7PIx7lFkTzarbLgFVT/+3VWUU/Lk7bWlu+Xq/
+         D1rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791444654; x=1792049454;
+        d=1e100.net; s=20260707; t=1791444662; x=1792049462;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=n0iL076pHUaLr+l14HbxfZqldd4j3905YwLicSMDih8=;
-        b=CipndVHvcFPFyKsj84cPfymzF0cf7l6WqqpmmD9Ui8azOq9mNv8b/dGrhlxt/vMrv6
-         BPBngXKkxyEbB3c497ccB9/p2/c9gRXSxw5vuP3mBhrS/1KSpd/i4/+HyBaGNWndoApj
-         zbHfMiw4cjK3sH8tFvjD2frBws/tVNp49P5S+kdc0IQnmXMfuShshY8O63t0IQgCElyS
-         Gn/ckq56NZsses0hvKT4Ssywf+NrJxAE1su7Hbw8cbWOIFItkKGBOXuxMaXpY67+mo5z
-         4Ri/nJqCaKK8KwHpHBY/rYjJgnOg1EvjzKfTmxkEeJCbqLDb6iNFqts4Fz5mgmAhuHnf
-         B4zA==
-X-Forwarded-Encrypted: i=1; AKwUvBwDZcdloie6wnysNiy/6vtU1FMUUW5PVijMVULV34nkUQRccndN4+I+9iUsx8SsLXqJ/7MlI/+s2O8zynQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKb5wx4C049YlpEAYx41cUPgWHNe1cGuepLZtIxHbB9CorLAmsY
-	570rBkB0zWwFtNdzmbflmpiODWcncQ1MU2XiTw7B6V/iOX66p9X0/ZDCIRTvqpCLCzY=
-X-Gm-Gg: AYBFou18lk8AELDZ127oLLGEKSGVDB91wYZX2h/CNPPlsfwvY8lq92Z1iqvwRMpGuaW
-	Vjty89YHwooSm+Q8QYH08dwWg36NutJhCzi1F2OkCozoLr3ij+StdZx3ym8KrtyFli6zHpLkXk2
-	a7iwdsNe1Dp+sqQd9uZ+ogwXMooGeTOTxOyBcsczBls2IH7szP/OxBwxssOq0JVnjUre/PH+y15
-	YHugtWbf30nk6/PrYqcBkTg7cHdCv5NTyCI4rqEPVRx+r9G5vqVtGG+S3pf+uOR+F/wbJJB2vnL
-	W3HOJm+dtbLFnk4OcHuktE0plJiu9gRraYCVeYYj4WCwpQhBOq7b3NzlBRrd7wkqyfhauY75Uc/
-	E9bTZeHbvWe54K5b3BPonfF9DVCAHHj2KBNkkkz3ey9EIte0D1PYk45eK3DuAAy+eBI8L9TS1Fr
-	EQSTLeatnuuQOPzWrRfZrH1m/ThBnsM6QYJWqCfaNUoXbkmeRb2jocvJ+pB1eFv0HlYxvFNgGXB
-	5FqGNi/Xq2g8zQam0oa
-X-Received: by 2002:a17:90b:4a50:b0:39e:6c68:fd92 with SMTP id 98e67ed59e1d1-3aaed9a2992mr859363a91.39.1791444653999;
-        Thu, 08 Oct 2026 00:30:53 -0700 (PDT)
+        bh=RvkPG82zfhFkpnOg0JOtNiptSg9vrvtxMEvoINVoQXE=;
+        b=MNoTNLL+XbLP+oG8sqfFcUF1Zrbnn5vDLPrPVM4OGCB40qAy0UiAvWBgnHPXY2g6lx
+         NmUahY+db6weP3XA9rWIRdcbOigRNxGdPfFj/wIl4L6FJum30Sc1965Lm48NbcfHpPkB
+         /bAKKVdB3ihPS/dJ4XgDgeViFQsqtNMhIy4XSn4J82QvLum+BzVv1ZfXXRQv/q/RCKzo
+         QsBltd/5HwQz6QXRjXa6h2ji3NN8kdLUdR3ib6eUma+sPeM4HgRxjpGVkyE1MWxXcN11
+         74MIoaiDO8a/oXvyJHxA8au5HQiFHT1RkFjZ4Rs8Z7v4GD0pqwsdqBd5dLbhxMiSqB6H
+         AJZA==
+X-Forwarded-Encrypted: i=1; AKwUvBz2O0qPesxxntydPESz7mxN1EWETqolrhoIiH/zCIh04IlObrvhlru+t9mMCrMKQFpxXfJr8NOSGGU1vgs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZeNwFBsFwvixcaH6rlcyUItaMDO24q6PwVDSfIcAcTMejZ4m/
+	BdwGae759Eew7v2OKcrpMUhaLp3pDSCk8OEj7FFVydXeFykZJUZZOvFow5pBBbUkgZY=
+X-Gm-Gg: AYBFou01sHquJ/RqIxVbzESbRprAgeLdWXUDW6ytgPUSPQrlu17lM9d9B19+6LB4Zil
+	5/RrCc0uh68DzMxRM71OBY4swL2HD4TaAnJv+8zkAI6daMG7CHe129CSP6nSzFGUzncadpwsuEL
+	VVWtiCkIYAPrYt26RD4OE6DbZMPrDK2ZYoEmwOrHQTuO4Y9zEwl0zFUrEEHV5xTeOmIJyaAeziG
+	/WeKrN6tyv3sZ+MnJgCzpuyJFCujXdFkCWZCo0yaiob2qeXq9wFDBrodYxCemE1fTejDFkifcXD
+	lPW9oH5xxMEoMMUKYCC2fLFhLEmBu86cycm0rv74C4ZAykh/lNSXjYPaffg3zNgARyX9eHdstPb
+	wNbwmlPXuRnTo0tZGPTDtim4PMw6xmnSx9yCr6xJi91oW4lfEEsuH7V7rQt+UxWI2+I84JUkEOq
+	P8FydVLN8NUtq6MzDy2/Gfe5arKOwg1M8jbuBywz15nqwFHfpbwVmvgHxrWgv3hfNzsb1IwX8nI
+	AgjFadXeP1+EHxA5Lw=
+X-Received: by 2002:a17:90a:610:b0:3a0:e568:ed63 with SMTP id 98e67ed59e1d1-3aadff48952mr575784a91.8.1791444661248;
+        Thu, 08 Oct 2026 00:31:01 -0700 (PDT)
 Received: from n232-176-004.byted.org ([36.110.163.99])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8a438f25dsm3114715a91.2.2026.10.08.00.30.47
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8a438f25dsm3114715a91.2.2026.10.08.00.30.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 00:30:53 -0700 (PDT)
+        Thu, 08 Oct 2026 00:31:00 -0700 (PDT)
 From: Muchun Song <songmuchun@bytedance.com>
 To: akpm@linux-foundation.org
 Cc: linux-mm@kvack.org,
@@ -88,9 +88,9 @@ Cc: linux-mm@kvack.org,
 	apopple@nvidia.com,
 	linux-kernel@vger.kernel.org,
 	muchun.song@linux.dev
-Subject: [PATCH 3/4] riscv/mm: fix missing destructor for hotplug PUD tables
-Date: Thu,  8 Oct 2026 15:30:20 +0800
-Message-ID: <20261008073021.2512665-4-songmuchun@bytedance.com>
+Subject: [PATCH 4/4] arm64/mm: fix destructor for unconstructed hotplug page tables
+Date: Thu,  8 Oct 2026 15:30:21 +0800
+Message-ID: <20261008073021.2512665-5-songmuchun@bytedance.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261008073021.2512665-1-songmuchun@bytedance.com>
 References: <20261008073021.2512665-1-songmuchun@bytedance.com>
@@ -102,37 +102,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit 8472cc4503eb ("riscv: mm: call PUD/P4D ctor in special kernel
-pgtable alloc") made alloc_pud_late() run the PUD page-table constructor.
-However, free_pud_table() still frees non-reserved PUD tables directly
-without decrementing NR_PAGETABLE.
+Commit c594b83457cc ("arm64: mm: call pagetable dtor when freeing
+hot-removed page tables") made free_hotplug_pgtable_page()
+unconditionally run the page-table destructor. This matches page tables
+allocated by the arm64 mapping code, which runs the corresponding
+constructors.
 
-Free PUD tables through the common free_pagetable() helper so that
-constructor-backed tables run the matching destructor before being
-freed.
+However, arm64 also uses the generic sparse-vmemmap population code.
+Runtime intermediate page tables allocated by that code do not run a
+page-table constructor. Freeing one during memory hot-remove therefore
+runs a destructor without a matching constructor and corrupts
+NR_PAGETABLE accounting.
 
-Fixes: 8472cc4503eb ("riscv: mm: call PUD/P4D ctor in special kernel pgtable alloc")
+Use PageTable() to run the destructor only for page-table pages whose
+constructor initialized them. This keeps the arm64-created page-table
+lifecycle balanced while safely freeing constructor-free vmemmap tables.
+
+Fixes: c594b83457cc ("arm64: mm: call pagetable dtor when freeing hot-removed page tables")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Muchun Song <songmuchun@bytedance.com>
 ---
- arch/riscv/mm/init.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ arch/arm64/mm/mmu.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/arch/riscv/mm/init.c b/arch/riscv/mm/init.c
-index 429a0b015ec1..62077539ee78 100644
---- a/arch/riscv/mm/init.c
-+++ b/arch/riscv/mm/init.c
-@@ -1540,10 +1540,7 @@ static void __meminit free_pud_table(pud_t *pud_start, p4d_t *p4d)
- 			return;
- 	}
+diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
+index 7343ac9294f8..688b33095651 100644
+--- a/arch/arm64/mm/mmu.c
++++ b/arch/arm64/mm/mmu.c
+@@ -1495,7 +1495,8 @@ static void free_hotplug_page_range(struct page *page, size_t size,
  
--	if (PageReserved(page))
--		free_reserved_page(page);
--	else
--		__free_pages(page, 0);
-+	free_pagetable(page);
- 	p4d_clear(p4d);
+ static void free_hotplug_pgtable_page(struct page *page)
+ {
+-	pagetable_dtor(page_ptdesc(page));
++	if (PageTable(page))
++		pagetable_dtor(page_ptdesc(page));
+ 	free_hotplug_page_range(page, PAGE_SIZE, NULL);
  }
  
 -- 
