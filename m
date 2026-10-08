@@ -1,189 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0295F3624B3;
-	Thu,  8 Oct 2026 17:33:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D32403976BA
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 17:33:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791480830; cv=none; b=cWUY77rdyLd+h8uUP4rw65/MII9GE2zm+dFV51ngOfCV4o3YYgSYQ+wzGIZfvOK6UDgUCqfy9qvLYxW8wzvQYjvJG9+6XzBfVKPYZh/xQ38J7U/D6n8G6zPvKlzoEPhwybTZaZUn8XHl41Lq+zSHeIpFF+cpt5gAklckQpfKZqM=
+	t=1791480840; cv=none; b=ccuzvfWv91JWdcsTL55uQaLLmET0MPZBxeyEy1Xex7FJvnycEKKFWMzkhu5iFFAcGTt6wIC/+3/YvLWTC9pLve1b6idLjoYBTkwdXRovn62bYoKEacFiOAXzHf/YizH12LeBRSr6w3L8FcUB5uEOjcSOLh1xSmsfFPuzxX3ZG+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791480830; c=relaxed/simple;
-	bh=qjUkLXreYg8MXdiceVPsiNnpljXYWMTyIQ0/Bl5CPWY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VxwIyO/w5ZEleo4k9PWNQPogf9PoNm1WxEqpwS5bW7nQZtWUaZoiInTsvRCDxNt4Jmdf7d7ypA0KQKxJnWJ7kbbd3V1gvoCWnzdJW+Ho6AoC6HiXGsVGWMsDpbz5S/J11AmdEZ7x2mNSKGt9QLuAVpz+QrVuruqxPt/9b8gFLmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hL8aekWD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791480840; c=relaxed/simple;
+	bh=2Dy8NcG3RR4epT6g2CrsOvKssEwIyXFc/uFqGfl3ubA=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=BJdgu3tffeRVHcftGAjNT1yxMrdkqEnYp4M8mLKZTvoWRW6jladubi7+vMIY5xM1TFwI7gCgEFjFipyryFypful1I15BLGnTpLnImmW5WjQa/0PM/Knc32vbL3xmgRhFYPMgpvuR5wx6DWINn3sC8lM2iHx1B9vZCkx59r88PZ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--brianvv.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dYZDvsUJ; arc=none smtp.client-ip=209.85.214.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--brianvv.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hL8aekWD"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 3E0771F000FF;
-	Thu,  8 Oct 2026 17:33:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791480828;
-	bh=G4v32k8/a/EW1WFqBk/X57CZyQESBg0MOmvtF2yjKvU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hL8aekWDig0eQ/IB3W4TdhsV9BzgYHbYp6k6GUoeKwLB0Sw94BQw6k5bNTEfG6we+
-	 CmS19CDTrA+i3vY3gxsUou4g5KeSTL6RktPkWzFyFnIACLQ9/1iJJAWRJ1SKctNQPR
-	 h5zQPYUUhBouwf/IV/JMUXzktSx3NhyHLzdEns+nlYQuUA2jrIjlD+8+orpETlNI07
-	 EUw+hF6ngIpgDdXYrw7pHI4CJBQCMnKtmD/hvFwzXYtJCtdCa2xdJ4ASq9w8KT0Y1c
-	 fvBg49iGVWPDPPI3vPl0qanx5AYZhTIYwPbz3FcES98yY3s52n6tuJdMCh5IjHo08p
-	 Q9K74wOx4Ycbg==
-Date: Thu, 8 Oct 2026 20:33:45 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Andrew Halaney <andrew@amutable.com>
-Cc: David Howells <dhowells@redhat.com>, Alasdair Kergon <agk@redhat.com>,
-	Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Benjamin Marzinski <bmarzins@redhat.com>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Eric Biggers <ebiggers@kernel.org>,
-	"Theodore Y. Ts'o" <tytso@mit.edu>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, dm-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org, bpf@vger.kernel.org,
-	fsverity@lists.linux.dev, linux-doc@vger.kernel.org,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>
-Subject: Re: [PATCH 1/3] keys: add KEY_SPEC_DM_VERITY_KEYRING
-Message-ID: <asfT-SLkty5DC_Rx@kernel.org>
-References: <aqyiCavj3xeNqyAo@kernel.org>
- <20260914-ajhalaney-dmverity-key-identifier-v1-0-01922dc1366a@amutable.com>
- <20260914-ajhalaney-dmverity-key-identifier-v1-1-01922dc1366a@amutable.com>
- <715249.1789718726@warthog.procyon.org.uk>
- <aq2VxlttdlTNlHo6@toolbx>
- <arYzQN1ViuiCBemo@kernel.org>
- <asZlNEFdvidvMdJ5@toolbx>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dYZDvsUJ"
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2e818ca61bfso7130885ad.2
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 10:33:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791480838; x=1792085638; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oL7DYN1cPQUBG7i6wjoO+oNk4/EoYeE3qdEtA4etZEc=;
+        b=dYZDvsUJN2L49BDdITuSWUfH0MqxGt5yWi+2l2n9mFUgfVThge8AojXnAw1pzOUC4x
+         AY8V7IgcFCUvdWLJNOmk+K38WXRJRjefTB5QHc16AamE3nYawXVQdxzmyVIc19JLxXzX
+         d9p3v7AoeQCcLhdLqGsDlpPYqXsPpENeVlEYnXGgiZFs2AtMd+JLmtQI7L8zD1/e3zd6
+         k1TkDIPcGmCnBDsMqlOdoStJTWU8E5HPAZuKG1wCunGEWKLsuQhzX3P6CtRqValzpIn5
+         Cl/gFrCX75yxgymc/IYGkXIg8dNgloC/kJFHgSEYWvk8JNvMvxY8s6BcT+DNSZvc+gto
+         HPgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791480838; x=1792085638;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oL7DYN1cPQUBG7i6wjoO+oNk4/EoYeE3qdEtA4etZEc=;
+        b=Ddo+Ags4Tisr8F9DtBtOPhzNrH2MzpM3v9CZarSfeE8pOX9HdRxaXUrXbet9GE+bFx
+         obwwTX8wvUtu0sv/2JbW4pJohCqJXdo8TmdFagrcJu4JJ5zswk4kLwWPaT8BBB+q2Tcp
+         EIYWq0O76yiTmznOtsRa3WNNr9kMo/NBGaEvHNhiY86y7eYJ+FCmLHR7+c3DntPjSk9p
+         X71VOi0bY7BwLou4kCkroYFUwmn5XCEd/0UQlUh7f1m/UckCWMKOH3oVCI4WuAZlLocN
+         huhxLfsAl0nG3eHwTZfBYm5wT7LtbUgj3ch+y3ToyYtjH15FJDdcByYcjgGemPYhFiyH
+         Y8/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxOawPteaaoZbYFMaFFpbRrNv8rG4ruuiwkkeIXjZn/BzINTJx8A3NtU783xXoOF5r/5gt5RajM9hwlq2Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLzKn9qwfsw+eOfXeSoZfkIg4BNqCMePs9T9AwOtZVqn9e64OFi
+	+aqMiR+klsq+cIJHlpFz9RlVxzvNGGKkmli7MDOVmxBA/LJuxKd4BBSxnT0pzPP/9dWAB6VcFqs
+	NwgTIdMYulg==
+X-Received: from plrs9.prod.google.com ([2002:a17:902:b189:b0:2e2:f2a4:dd99])
+ (user=brianvv job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:d983:b0:2e5:4604:c375
+ with SMTP id d9443c01a7336-2e60056530amr54905285ad.48.1791480837419; Thu, 08
+ Oct 2026 10:33:57 -0700 (PDT)
+Date: Thu,  8 Oct 2026 17:33:34 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <asZlNEFdvidvMdJ5@toolbx>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+Message-ID: <20261008173334.2881475-1-brianvv@google.com>
+Subject: [iwl-net PATCH] idpf: wait for the reset completed state in idpf_check_reset_complete()
+From: Brian Vazquez <brianvv@google.com>
+To: Brian Vazquez <brianvv.kernel@gmail.com>, Tony Nguyen <anthony.l.nguyen@intel.com>, 
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, intel-wired-lan@lists.osuosl.org, 
+	netdev@vger.kernel.org
+Cc: Madhu Chittim <madhu.chittim@intel.com>, 
+	Pavan Kumar Linga <pavan.kumar.linga@intel.com>, Joshua Hay <joshua.a.hay@intel.com>, 
+	Shailendra Bhatnagar <shailendra.bhatnagar@intel.com>, 
+	Sridhar Samudrala <sridhar.samudrala@intel.com>, linux-kernel@vger.kernel.org, 
+	David Decotigny <decot@google.com>, Li Li <boolli@google.com>, 
+	Emil Tantilov <emil.s.tantilov@intel.com>, Brian Vazquez <brianvv@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Oct 07, 2026 at 10:30:14AM -0500, Andrew Halaney wrote:
-> On Fri, Sep 25, 2026 at 11:39:28AM +0300, Jarkko Sakkinen wrote:
-> > On Fri, Sep 18, 2026 at 02:59:49PM -0500, Andrew Halaney wrote:
-> > > On Fri, Sep 18, 2026 at 09:05:26AM +0100, David Howells wrote:
-> > > > Jarkko Sakkinen <jarkko@kernel.org> wrote:
-> > > > 
-> > > > > This is great for discussion but what we want for the commit message
-> > > > > is just motivation and resolution.
-> > > > 
-> > > > Actually, I think it's useful that Andrew wrote up the issues in the commit
-> > > > message - and I think it shows part of the motivation.  The 'writing a fake
-> > > > /proc/keys line in the description' is something I hadn't considered.
-> > > 
-> > > I'll defer to what you all want in the message here, I found it valuable
-> > > but I trend on the side of overly verbose admittedly!
-> > > 
-> > > > 
-> > > > > I don't think we need all this just to say that /proc/keys in a racy
-> > > > > query mechanism for production, which is an issue for dm-verity, given
-> > > > > that nothing else is available.
-> > > > 
-> > > > I think at some point, we will need a system call to search all for all
-> > > > accessible keys matching certain criteria by actually walking the key
-> > > > database.  The problem there is that there may be multiple hits, so we may
-> > > > need something like:
-> > > > 
-> > > > 	int count = find_key(key_serial_t start_id,
-> > > > 			     const char *type, const char *desc_prefix,
-> > > > 			     key_serial_t *results, size_t results_size,
-> > > > 			     unsigned int flags);
-> > > > 
-> > > > Allowing you to do:
-> > > > 
-> > > > 	key_serial_t dm_key;
-> > > > 	int n = find_key(0, "keyring", ".dm_verity", &dm_key, 1,
-> > > > 			 FIND_KEY_EXACT_DESC);
-> > > > 
-> > > > This wouldn't be as fast as a direct lookup since it would have to walk the
-> > > > key tree, doing name comparisons and perm checks on each key of the type.
-> > > > 
-> > > > > And secondly special keys are meant for implicit keyrings so isn't
-> > > > > that all there's to it?
-> > > > 
-> > > > I have no particular objection to setting aside a block of negative key IDs
-> > > > for special keyrings that need to be accessed a lot - though I would make
-> > > > common reg/unreg functions that take the ID to be registered and, say, set the
-> > > > block at -257..-512.  Moving the BFP keyring to -257 and DM to -258.
-> > > 
-> > > To be clear are you suggesting I do that for v2 here? Happy to make the
-> > > change and add some reuse to the registration functions, etc. I'm
-> > > guessing its fine to change the bpf id since its still only in -next?
-> > > 
-> > > The only awkward bit with making that more generic is that dm-verity
-> > > isn't __ro_after_init since its coming from a module possibly, and
-> > > because of the module usage I also protected it with a spinlock in case
-> > > someone's accessing it while you unload the module. Could just use one
-> > > spinlock for the whole generic array, and drop the __ro_after_init I
-> > > suppose.
-> > > 
-> > > Let me know if I'm not following properly!
-> > 
-> > I just read David's response and I think he made fair arguments,
-> > and patches look fine to me.
-> > 
-> > David, did you have anything? I could pick these.
-> > 
-> > Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-> > 
-> 
-> Gentle ping :)
+PFGEN_RSTAT[1:0] / VFGEN_RSTAT[1:0] (PFR_STATE / VFR_STATE) encode the
+function reset progress as a 2-bit state, not a flag:
 
-Understandable :-)
+  00b - reset in progress
+  01b - reset completed, written by the control plane
+  10b - function active, written by the control plane once the function
+        has completed VIRTCHNL2_OP_VERSION
+  11b - reserved
 
-> 
-> Are we happy with these to get picked up?
+idpf_check_reset_complete() tests (reg_val & rstat_m) as a boolean, with
+rstat_m = GENMASK(1, 0), so any non-zero state is taken as "completed",
+although only 01b carries that meaning.
 
-Can you just do a resend that applies on top of latest mainline
-or my tree? I.e. b4 shazam was not happy about this.
+That only works if hardware moves the field to 00b as soon as the reset
+is triggered. On the devices tested it does not: PFSWR transitions
+PFR_STATE to 00b only when the field currently reads 01b. When the
+function is active (10b) the field keeps its value until the control
+plane finishes the reset and writes 01b, which takes a few hundred
+milliseconds.
 
-Full log:
+Consequently, on a hard reset of an active function
+(IDPF_HR_FUNC_RESET) the first poll sees 10b, returns immediately, the
+driver re-creates the mailbox and sends VIRTCHNL2_OP_VERSION while the
+reset is still being processed. The control plane tears the mailbox
+down underneath it, VERSION is never answered, and the driver sits in a
+60 second virtchnl timeout (-ETIME) before going through a second hard
+reset which then succeeds.
 
-$ b4 shazam https://lore.kernel.org/keyrings/20260914-ajhalaney-dmverity-key-identifier-v1-2-01922dc1366a@amutable.com/
-Grabbing thread from lore.kernel.org/all/20260914-ajhalaney-dmverity-key-identifier-v1-2-01922dc1366a@amutable.com/t.mbox.gz
+Make idpf_check_reset_complete() wait for the state to be exactly 01b.
+This is the stricter reading of the register definition and it does not
+depend on how the field got to its current value: functions that are
+still in progress (00b) or active (10b) keep polling until the control
+plane reports completion.
 
-Breaking thread to remove parents of 20260914-ajhalaney-dmverity-key-identifier-v1-0-01922dc1366a@amutable.com
-Checking for newer revisions
-Grabbing search results from lore.kernel.org
-Analyzing 10 messages in the thread
-Analyzing 0 code-review messages
-Checking attestation on all messages, may take a moment...
+Fixes: 8077c727561a ("idpf: add controlq init and reset checks")
+Signed-off-by: Brian Vazquez <brianvv@google.com>
 ---
-  ✗ [PATCH 1/3] keys: add KEY_SPEC_DM_VERITY_KEYRING
-    + Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org> (✓ DKIM/kernel.org)
-    + Reviewed-by: Christian Brauner (Amutable) <brauner@kernel.org> (✓ DKIM/kernel.org)
-  ✗ [PATCH 2/3] keys: add KEY_SPEC_FS_VERITY_KEYRING
-    + Reviewed-by: Christian Brauner (Amutable) <brauner@kernel.org> (✓ DKIM/kernel.org)
-  ✗ [PATCH 3/3] Documentation: keys: document IDs added since KEY_SPEC_REQKEY_AUTH_KEY
-    + Reviewed-by: Christian Brauner (Amutable) <brauner@kernel.org> (✓ DKIM/kernel.org)
-  ---
-  ✗ BADSIG: DKIM/amutable-com.20251104.gappssmtp.com
----
-Total patches: 3
----
- Base: base-commit 1a1de54f7369cd2b5bac0f265910e60ad3a6b4c3 not known, ignoring
-Applying: keys: add KEY_SPEC_DM_VERITY_KEYRING
-Patch failed at 0001 keys: add KEY_SPEC_DM_VERITY_KEYRING
-error: patch failed: include/linux/key.h:441
-error: include/linux/key.h: patch does not apply
-error: patch failed: include/uapi/linux/keyctl.h:25
-error: include/uapi/linux/keyctl.h: patch does not apply
-error: patch failed: security/keys/process_keys.c:25
-error: security/keys/process_keys.c: patch does not apply
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-hint: When you have resolved this problem, run "git am --continue".
-hint: If you prefer to skip this patch, run "git am --skip" instead.
-hint: To restore the original branch and stop patching, run "git am --abort".
-hint: Disable this message with "git config advice.mergeConflict false"
+ drivers/net/ethernet/intel/idpf/idpf.h     | 2 ++
+ drivers/net/ethernet/intel/idpf/idpf_lib.c | 3 ++-
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
-> 
-> Thanks,
-> Andrew
+diff --git a/drivers/net/ethernet/intel/idpf/idpf.h b/drivers/net/ethernet/intel/idpf/idpf.h
+index 470bc23c844c..ce8a1bd0ec8b 100644
+--- a/drivers/net/ethernet/intel/idpf/idpf.h
++++ b/drivers/net/ethernet/intel/idpf/idpf.h
+@@ -166,6 +166,8 @@ struct idpf_netdev_priv {
+ 	spinlock_t stats_lock;
+ };
+ 
++#define IDPF_RSTAT_COMPLETE		0x01
++
+ /**
+  * struct idpf_reset_reg - Reset register offsets/masks
+  * @rstat: Reset status register
+diff --git a/drivers/net/ethernet/intel/idpf/idpf_lib.c b/drivers/net/ethernet/intel/idpf/idpf_lib.c
+index 2c148377540c..a827e0fa67c8 100644
+--- a/drivers/net/ethernet/intel/idpf/idpf_lib.c
++++ b/drivers/net/ethernet/intel/idpf/idpf_lib.c
+@@ -1870,7 +1870,8 @@ static int idpf_check_reset_complete(struct idpf_adapter *adapter,
+ 		 * register for us yet and 0xFFFFFFFF is not a valid value for
+ 		 * the register, so treat that as invalid.
+ 		 */
+-		if (reg_val != 0xFFFFFFFF && (reg_val & reset_reg->rstat_m))
++		if (reg_val != 0xFFFFFFFF &&
++		    (reg_val & reset_reg->rstat_m) == IDPF_RSTAT_COMPLETE)
+ 			return 0;
+ 
+ 		usleep_range(5000, 10000);
+-- 
+2.56.0.385.gd3acb90ef8-goog
 
-Br, Jarkko
