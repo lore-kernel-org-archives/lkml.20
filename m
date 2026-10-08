@@ -1,188 +1,270 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54D5C3BB12B
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 04:26:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8F8A28F5
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 04:26:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791433595; cv=none; b=Rzk70vAMiFC1gaqaHHFAIi2wnj51KS5ixJLhV4MRh2SPTUcj2GUxWTD/fOwzF1jG3TzDA+fOX3z+i3haBL9Tpr1yx1n1dwd4i05xGVQX2OxLu3LE7r5woBgLywDaQkqSVVPHjLaqty9EIQ9Mj/D+vkj8HD0itFeUvp7nBdPF5Vo=
+	t=1791433595; cv=none; b=eVdrK/v5196MCbFzgMTK39ub6UAPrSWmq5Ng/0Q9gNKt9aEge3luFT4UKBILHO6vrLR1X33Z4Pv4luoqKf76yCDp8urjHUzRPwpKTYnziZfOU0aCMB+2yoCfD7rvpLH34TUQ5ZpB8X/4l7tNNQbb07U5ajrmZB8zZkuF3AFHsXY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791433595; c=relaxed/simple;
-	bh=sTkhMB4ltA06ts72EckE27NBb7N2OJMZY7wxccFNX5I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KD5Dg5d3vNKUAGiVCNw0TZITGHrRu3pYtfh0CLLGQ/YL9FkNtowWB+sGtDtimq9sWHm4PJEGMgoCQrHF6BmMxq8s4lKJA6bbEJp+Fc7UF0K8UMBAmKIZ+Kz4x5lgonRZD1x9VrpIriuxtYJ4b7fbf0BK5U0CZvi0JqN1BnbBpbc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=er4tmnVC; arc=none smtp.client-ip=209.85.128.49
+	bh=DqTU2duYyBXWzQoOOLka3IQuCFv4ZPn00ZNt13C7L74=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=cEomwHQBPkZfXyszhlbf6cDNOHWZaow2iiBVd0vR9tBBflrZE1pRtxSOgkFMexKedPqPvi+OSBmyVA4u9YG4eJMZiDtPBrLHqA3v31QSK01x+X7EJ5niWSihzo7vRwcPp65DjbkqxqjzXUICIktQq/wC5RWjHIH7SXqqWWxunas=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cxHHSUhY; arc=none smtp.client-ip=209.85.216.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="er4tmnVC"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a172eb31f0so21985315e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 21:26:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cxHHSUhY"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3964dfb5b9aso2625618a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 21:26:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791433592; x=1792038392; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YGiFzBBeYAOCwBETNLtR3b0UnfyVIA3OqQtNHYKVhsk=;
-        b=er4tmnVCG7Rckkw6xtfTLzRHHVc5m0tT+zOPWmMaDT+mTI20TFm66zih6WcebbhXKc
-         feDi3tB+DpWAxnP7Cdbn+LA0A9aQ4/Iiu77+SOwoerSvflEo5IGREhfgn2PzPbQghukx
-         2bbGGyCXPefPBNgmfOaOUCV8bUxjLTkPX1EeAwoE0xz7OXqB6Qa+Vo+Z3csbgo7bKkmd
-         auPAcFn1+6ulft7cMhk+CEFj9FKY+cP+wRXwu4zCv1CPE5q+IWFOkzj56vqi0YP16qHu
-         Txkf6UMt7N00X36zw/NJW2Hfr0IWAIKruBAQYpdUfgoVtXYPMdI7F5Kd4vMUkVJGuaZl
-         4UUw==
+        d=gmail.com; s=20251104; t=1791433593; x=1792038393; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pNV+UbTFRvLIe+SmhBDORMjcpdTmRGfQreujIFKAUyA=;
+        b=cxHHSUhY6xngmRkB/pbQVTJ2lf3V0HbEOn/P6JrIkjgw1IOdBfgUt5O3g6W+3wryyX
+         IyuMzxCSe8X+FZWcMSj9evvFa0lgteEiPHH0KeGyJTGbSqc7HqW0PVM+o9WwJa11w6GC
+         VXsMnsUVcOsMgldIH12GDKmq7Lui8n7xFZVDPUWs/9pZ9Cfme9rSDeI5U4/Dy541ZYQ/
+         mT+Qu6DNw552GWWGGu76OMV0IHe5SYpgbkB2NQUuRn5zEEJtg7Np6E+SLbBufenZrogp
+         vzQ68/wheCK8zwEQpM9LdDMQ/KkdxMgmjcdpkTi6ZuQzPBw65nNIhSZIta//LlRrE+4P
+         sH4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791433592; x=1792038392;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YGiFzBBeYAOCwBETNLtR3b0UnfyVIA3OqQtNHYKVhsk=;
-        b=uAP5QzjYuDRErfK7W+7o5R55AGdeG/q35cmUGTeYsUXaI7UFOuKtwCR/N87ZYAzbhG
-         F9BCm5QW47s6wdqqFrXOYTbeeEtXazHLbwb8UZOkvBYHZFhsG2nGU9/rGfJA2hc0sBtF
-         rppp/XPOqhso2lL7P4NXeKx+7BSrt0lk/C6kbfKFsVo1r1mwgVwhOhnJhj3rBmk3b/bb
-         ntNoFJX5r70bySIUIZtvQoYVG7R9jgViLjJduxZyII4amEvNpZevY+fpxgvbz12Bun36
-         RPYbO1Q+1hQk5IEiZkTAGqrxXCStr6ywgornOuSZ5eyQO1+6dbkgw4o+U0GjrBhz/1vN
-         V/7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzhJDKozBtKKBLJfEw/kjlKWinp75P6PCwar9AZJo6CIJmKhyYkyWrmJYebdp54kstPJZIM2Ktz6D4Nn/o=@vger.kernel.org
-X-Gm-Message-State: AFuF++mlzXgIqEWWLJgDmAY7p1YkWvTePY34K9aytlSuhLwHSvAhV7eH
-	Ug/H7kzBVQhmzGiQKwRy93c0IzxjL8hFstmDc8En7m+wbnqduAkZubhL
-X-Gm-Gg: AYBFou0lxQnCBFi2hrzL+e0oU78/5ccOHnSiJC/vQ1pfpEKFePSHiBqSBbHzuyrv4LA
-	dnWgO2xiBuczHYYknMgXljm/OmoGYl9aMijOLFc8/NGJb9ug/3PPenvF5nnmgEQVt9AwyvpW2xG
-	TQUh8y7dcYGxkG+iYzBTcXZjRdWu3pb+MJV+Hf+cLLkjnI3O7ZpkJv1Qv/W912vVEd3PXmQ/Df5
-	uAYBJH6MvWYPY42S0xIdfqueMP5PUU7sX9JCsfm9V16lfQGxTLmN5rcZKIOZjjMujhTZ7f/1jT9
-	5f5oH5U66+Cf1TTriJ9dE7bXuJNvYyOjEjDUwBxcJ3AdwGpAdzICuokgo12qgtAuAsGHvaQ1oGv
-	OeR6G6iggEIO3gx4uextJUls1FaDph7D8qQScrgzCXue18viDi0rc/Brv6MXwDn/hSo385CB6Ek
-	bn7E+t9TgWp01iZ8ZaYwPVptW172NVRGkIRNh/TB8eA7yUEdpH8MInGk1qRRiPOQFYyekDv9D3g
-	Z+hMjre8GBP645Li7/v/WOGSEq1Vk/Sein2BP+abKa9FikTFOVi42/GGMyhcBvDL17x3SZ7s112
-	KPvpvEm/jkxm1wEeQ/lYuFFNFnx4n2f0lNEtge1xiUa/puZtYwZMIuiTKy7Y+W4Z0VGBsLCAApz
-	36WAU41M/mrHDpPB0JcxSQBugCRS0F88IBQGxhSVaKuqjvZwSZDsDMw==
-X-Received: by 2002:a05:600c:3f10:b0:4a0:1e3a:411a with SMTP id 5b1f17b1804b1-4a1800d20c3mr73028375e9.1.1791433592305;
-        Wed, 07 Oct 2026 21:26:32 -0700 (PDT)
-Received: from localhost.localdomain (host-95-239-230-248.retail.telecomitalia.it. [95.239.230.248])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f486b6fsm88071375e9.1.2026.10.07.21.26.29
+        d=1e100.net; s=20260707; t=1791433593; x=1792038393;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pNV+UbTFRvLIe+SmhBDORMjcpdTmRGfQreujIFKAUyA=;
+        b=okeLYVlSnEjVpmo4JAwyPuvGVLptFZkznXxey5xiVA9zOm+5gzex4M8WyqmMyEND1p
+         XG2m1WvA28Q3Ke98beWYJ9sFSbiES7LHpdF78Ds6g8Bupl3eJek1Prfs0JzNuNULr4ue
+         ScGtHVCcsF3+KJTr8GJ74YXv1YX5rRzIJs9R9jylOt4E8PtOsflePaU9x9TkcMLR1KGh
+         O/BpvzDScJAkIOP1W4rBNVfSBtG1lxr5AayiZFuUGvnUwsMDcU+J1sQCt1yfz4nImHAu
+         2QvWJ6kWXuujlmRm4D4Q3Vm1LgD6GJH/oZilK3h/Hho29zWo0LPv4o8rQ2/CfZjODNSq
+         7t1g==
+X-Forwarded-Encrypted: i=1; AKwUvBxz3tSw1+9qzVYqEK5xOWLFfgk3WEAiqgXbCdnz3vEJ5K0K0sh/BjCIJ5abfXzi8C2wXnuLjipv88rVZ2U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKt8tJG8FY3NZFgYFQivL4CWk83bMDHGO+sWEqa5ElIWdaA/Zlr
+	3Jmwm9TM2vzFPehS0r/2aVd9Nuz757rxjhrGNqYM/+78CU5Smhbd3WeZ
+X-Gm-Gg: AYBFou1v2Iuj3pIzp06rNo+cMfwuPJH2lRPS2c6q6r/RVXP52JrjbFVZQeEkcZj4AyH
+	1SioIedK4VKGOcFdrCPMgT/FCCKjneuuKIJqOCZXXAv9Zt0Oj5Jt4WdOqRNjPfoQi35MU8r8M0b
+	/2yKzlSYaSUv7DEkE3o6aXOzyx0fPZ52hb9Vf1RxFH3enkdpt1Nh7Vx4pgaZzUxpFQaQZ64aLWr
+	wF05GI2JRFU2rqQ+XrPkf7mwiTzokwbxPeOnhFh5pgKaxt9xFSDKfOTTIaeXsu8Fl/xMPndxrzC
+	2Zc+qdg9t8/FVEMkftdWSMNMPJVftHfhNINYdOt9XDyk7DfReTseOgOuEy0WaUT+y7wKCgsG79C
+	1EZfVy9KIpYHj6jJHZdK05cftMTLjqu5GW4n5mTld1wH4itZREaTZ5FCWQ7nuge+Lr0UvgiONgm
+	mT9LKEEalWtZSgj5IinWj6w2/DZC3/phZUo5yKHoicDkJxQAObxc90PqOE+1ZALNH2HFy7nCEfy
+	h4L
+X-Received: by 2002:a17:90b:3d90:b0:3a0:8050:2ed1 with SMTP id 98e67ed59e1d1-3a8a14f00f2mr3752310a91.63.1791433593109;
+        Wed, 07 Oct 2026 21:26:33 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3aa0cc1fbb2sm2219406a91.17.2026.10.07.21.26.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 21:26:31 -0700 (PDT)
-From: Nicola Fiorillo <nicfio@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 0/2] media: v4l2-subdev: Fix NULL dereferences racing with unbind
-Date: Thu,  8 Oct 2026 06:25:58 +0200
-Message-ID: <20261008042600.275884-1-nicfio@gmail.com>
-X-Mailer: git-send-email 2.47.3
+        Wed, 07 Oct 2026 21:26:32 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: marcel@holtmann.org,
+	luiz.dentz@gmail.com
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH] Bluetooth: L2CAP: Hold the listener while notifying child teardown
+Date: Thu,  8 Oct 2026 12:26:26 +0800
+Message-Id: <pm-bluetooth-objects-candidate-0072-v4-c08f7303b91238d86930@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi,
+A pending child's listener must remain alive until the child's teardown
+callback finishes notifying it. l2cap_sock_teardown_cb() saves the raw
+bt_sk(sk)->parent pointer, calls bt_accept_unlink(), then invokes
+parent->sk_data_ready(). The accept queue holds a reference to the
+child, but the callback takes no reference to the listener across
+unlink.
 
-v4l2_device_unregister_subdev() clears sd->v4l2_dev and, through
-media_gobj_destroy(), sd->entity.graph_obj.mdev before it unregisters
-the sub-device node, and drivers that call media_device_unregister()
-first, as vimc does, clear the latter even earlier. subdev_open()
-dereferences both pointers, and the EXT_CTRLS ioctls the first one, so a
-driver unbind racing with an open or an ioctl on the node oopses. syzbot
-hits the open() case by unbinding vimc.
+When an incoming child has not been accepted, HCI disconnection can
+reach l2cap_conn_del() and the child's teardown callback while another
+task closes the listener. The listener channel has no connection, so the
+child's connection and channel locks do not serialize listener release.
+The following ordering is possible:
 
-Patch 2/3 of v2, now patch 1, checked the two pointers in subdev_open().
-That only narrows the race: the sub-device can be unregistered right
-after the check. A patch along the same lines was also posted in [1].
-This version takes a different approach: it stops reading the
-sub-device's registration state in these file operations and uses the
-node's own vdev->v4l2_dev instead, which unregistration never clears.
-subdev_open() and the EXT_CTRLS ioctls no longer read a pointer that the
-V4L2 core or the driver core clears when a driver is unbound.
+  HCI child teardown                 Listener release
+  lock the child socket
+  save parent
+  bt_accept_unlink(sk)
+                                     drain the empty accept queue
+                                     bt_sock_unlink()
+                                     shut down the listener channel
+                                     sock_orphan()
+                                     l2cap_sock_kill()
+  parent->sk_data_ready(parent)
 
-What this does not fix is the lifetime of the sub-device and of the
-media device when a driver goes away with file handles open, which is
-the known limitation Sakari mentioned on v2 [2]. The commit messages say
-so.
+If no other reference delays freeing the listener, the final
+notification reads sk_data_ready through freed socket storage. The child
+lock cannot stop listener release once the child is no longer on the
+accept queue.
 
-Changes since v2:
-- Patch 1 (was 2/3): use vdev->v4l2_dev->mdev instead of checking
-  sd->v4l2_dev and sd->entity.graph_obj.mdev, and fail with -ENODEV if
-  the media device's driver has been unbound meanwhile.
-- Patch 2 is new: the same dereference of sd->v4l2_dev in the EXT_CTRLS
-  ioctls, found by reading the code.
-- Dropped the two ipu6 patches of v2 (1/3 and 3/3), as I said I would
-  in [3].
-- Rebased on media next.
+Take a listener socket reference before unlinking the child and release
+it after sk_data_ready() returns. While the child remains queued, its
+socket lock prevents listener cleanup from completing the dequeue, so
+the listener is still alive when the reference is acquired. The
+reference then protects the notification after unlink without changing
+lock order or the ordering of queue removal and wakeup.
 
-Testing:
-- Built with W=1 (allmodconfig) at each patch of the series on media
-  next 8e26d4c20ed2.
-- Run in QEMU/KVM (x86_64, 4 vCPUs, KASAN generic inline, vimc built
-  in) on media next 2dcdfb625c3b, which has the same v4l2-subdev.c,
-  one boot per 60 s run. 16 threads either open and close vimc's
-  sub-device nodes, or loop on VIDIOC_G_EXT_CTRLS on handles they keep
-  open across unbinds, while another thread unbinds and rebinds vimc
-  through sysfs every 1 or 30 ms. Each oops kills the thread that hits
-  it; the test re-creates up to 100 per run, so the counts are capped:
+KASAN report as below:
 
-    kernel              open() runs       EXT_CTRLS runs
-    media next          116 + 116 oops    -
-    + patch 1           0 + 0             116 + 116 oops
-    + patches 1 and 2   0 + 0             0 + 0
+    ==================================================================
+    BUG: KASAN: slab-use-after-free in l2cap_sock_teardown_cb+0x467/0x490
+    Read of size 8 at addr ffff88810b99b188 by task kworker/u17:3/516
 
-  The oopses are KASAN null-ptr-derefs in subdev_open() and
-  subdev_do_ioctl() respectively. The EXT_CTRLS runs are not done on
-  plain media next, since they open the nodes too and would oops in
-  subdev_open() as well. The open() runs with patch 1 and all the runs
-  with both patches showed no oops, KASAN report or warning at all:
-  about 8 million successful opens, 1.1 million opens refused with
-  -ENODEV while vimc was being unbound (the test does not tell
-  v4l2_open()'s own check from the new one), and, with both patches,
-  880 million EXT_CTRLS ioctls.
-- Run on the IPU6 tablet where I first hit the open() oops (Intel N100,
-  Chuwi Hi10 X1), with two GalaxyCore sensors, GC5035 and GC8034, whose
-  drivers I have not posted yet. Kernel: media next 9cfc1aca0781 plus
-  those drivers and their ipu-bridge and int3472 changes, with KASAN
-  (generic inline), lockdep and UBSAN. 4 processes either open and
-  close every sub-device node, or loop on VIDIOC_G_EXT_CTRLS on the
-  sensor's node, keeping it open across unbinds, while the sensor's
-  I2C driver is unbound and rebound 300 times through sysfs. One run
-  per sensor and test:
+    Workqueue: hci1 hci_rx_work
+    Call Trace:
+     <TASK>
+     dump_stack_lvl+0x93/0xd0
+     print_report+0xce/0x630
+     ? l2cap_sock_teardown_cb+0x467/0x490
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __virt_addr_valid+0x20d/0x410
+     ? l2cap_sock_teardown_cb+0x467/0x490
+     kasan_report+0xe0/0x110
+     ? l2cap_sock_teardown_cb+0x467/0x490
+     l2cap_sock_teardown_cb+0x467/0x490
+     l2cap_chan_del+0x123/0x8f0
+     l2cap_conn_del+0x31b/0x740
+     ? hci_cmd_sync_submit+0x264/0x320
+     ? __pfx_l2cap_disconn_cfm+0x10/0x10
+     l2cap_disconn_cfm+0x87/0xd0
+     hci_disconn_complete_evt+0x30f/0x990
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     hci_event_packet+0x894/0xc70
+     ? __pfx_hci_disconn_complete_evt+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_hci_event_packet+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? free_zapped_rcu+0xd0/0x1e0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lockdep_hardirqs_on_prepare+0xea/0x1a0
+     ? __pfx_hci_cmd_sync_complete+0x10/0x10
+     ? trace_hardirqs_on+0x18/0x160
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     hci_rx_work+0x367/0xf00
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     process_one_work+0x908/0x19c0
+     ? __pfx_process_one_work+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_is_held_type+0x8f/0x100
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     worker_thread+0x65c/0xe40
+     ? __pfx_worker_thread+0x10/0x10
+     kthread+0x34f/0x460
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork+0x659/0x940
+     ? __pfx_ret_from_fork+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __switch_to+0x74f/0xf80
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork_asm+0x1a/0x30
+     </TASK>
 
-    kernel              open() runs          EXT_CTRLS runs
-    media next          oops at the 4th      -
-                        unbind of the first
-    + patches 1 and 2   0 + 0                0 + 0
+    Allocated by task 502:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     __kasan_kmalloc+0xaa/0xb0
+     __kmalloc_noprof+0x2d7/0x770
+     sk_prot_alloc+0x13e/0x260
+     sk_alloc+0x37/0xb40
+     bt_sock_alloc+0x40/0x3b0
+     l2cap_sock_create+0x116/0x310
+     bt_sock_create+0x171/0x330
+     __sock_create+0x2c4/0x730
+     __sys_socket+0x141/0x210
+     __x64_sys_socket+0x77/0xc0
+     do_syscall_64+0x115/0x6a0
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-  On media next the oops is the KASAN null-ptr-deref in subdev_open().
-  The test stops at the first oops, so the other runs were not done
-  there, and the tablet gives no before and after for patch 2. With
-  both patches: 2.9 million successful opens, 1048 refused with
-  -ENODEV (again from either check), 81 million EXT_CTRLS ioctls, and
-  v4l2-compliance and a 10-frame capture from each sensor still pass
-  after the runs. One warning in the open() run on GC5035:
-  DEBUG_LOCKS_WARN_ON(lock->magic != lock), from
-  __v4l2_subdev_state_alloc() in subdev_open(). The GC5035 driver uses
-  its control handler's mutex as the state lock, and the open took it
-  after the unbind had destroyed it in v4l2_ctrl_handler_free(): that
-  is the lifetime limitation above, which these patches do not touch.
-- syzbot has not tested the series: its report has no public
-  reproducer.
-- I can post the test program if that helps.
+    Freed by task 502:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     kasan_save_free_info+0x3b/0x60
+     __kasan_slab_free+0x5f/0x80
+     kfree+0x307/0x580
+     __sk_destruct+0x64f/0x790
+     sk_destruct+0xb3/0xd0
+     __sk_free+0xdd/0x370
+     sk_free+0x51/0x80
+     l2cap_sock_kill+0x17a/0x2a0
+     l2cap_sock_release+0x1d0/0x310
+     __sock_release+0xb8/0x270
+     sock_close+0x21/0x30
+     __fput+0x39f/0xa60
+     fput_close_sync+0xff/0x200
+     __x64_sys_close+0x8c/0xf0
+     do_syscall_64+0x115/0x6a0
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-[1] https://lore.kernel.org/linux-media/20260919162709.314464-1-ngocthang2710.1999@gmail.com/
-[2] https://lore.kernel.org/linux-media/aqUoLr0JFGEBiJIf@kekkonen.localdomain/
-[3] https://lore.kernel.org/linux-media/178921203630.98144.13238972861597227362@gmail.com/
+    The buggy address belongs to the object at ffff88810b99b000
+                                                                which
+                                belongs to the cache kmalloc-2k of size
+                                2048
+    The buggy address is located 392 bytes inside of
+                                                                freed
+                                2048-byte region [ffff88810b99b000,
+                                ffff88810b99b800)
 
-Nicola Fiorillo (2):
-  media: v4l2-subdev: Fix NULL pointer dereference in subdev_open()
-  media: v4l2-subdev: Fix NULL pointer dereference in the EXT_CTRLS
-    ioctls
+    The buggy address belongs to the physical page:
+        page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0
+    pfn:0x10b998
+    head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+    flags: 0x200000000000040(head|node=0|zone=2)
+    page_type: f5(slab)
+        raw: 0200000000000040 ffff888100042f00 dead000000000100
+    dead000000000122
+        raw: 0000000000000000 0000000000080008 00000000f5000000
+    0000000000000000
+        head: 0200000000000040 ffff888100042f00 dead000000000100
+    dead000000000122
+        head: 0000000000000000 0000000000080008 00000000f5000000
+    0000000000000000
+        head: 0200000000000003 fffffffffffffe01 00000000ffffffff
+    00000000ffffffff
+        head: 0000000000000000 0000000000000000 00000000ffffffff
+    0000000000000000
+    page dumped because: kasan: bad access detected
 
- drivers/media/v4l2-core/v4l2-subdev.c | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
+    Memory state around the buggy address:
+     ffff88810b99b080: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+     ffff88810b99b100: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+    >ffff88810b99b180: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                          ^
+     ffff88810b99b200: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+     ffff88810b99b280: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+    ==================================================================
 
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+---
 
-base-commit: 8e26d4c20ed218db6c3123480a4a4e2545680566
--- 
-2.47.3
-
+diff --git a/net/bluetooth/l2cap_sock.c b/net/bluetooth/l2cap_sock.c
+index c92f31b997ddb0e2290194e30117cd81e1851949..c86f8d8691d1aeb002cbf5f9aeb321f9d308fa1a 100644
+--- a/net/bluetooth/l2cap_sock.c
++++ b/net/bluetooth/l2cap_sock.c
+@@ -1751,8 +1751,14 @@
+ 		sk->sk_err = err;
+ 
+ 		if (parent) {
++			/*
++			 * Keep the listener alive after unlinking the
++			 * child.
++			 */
++			sock_hold(parent);
+ 			bt_accept_unlink(sk);
+ 			parent->sk_data_ready(parent);
++			sock_put(parent);
+ 		} else {
+ 			sk->sk_state_change(sk);
+ 		}
