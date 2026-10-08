@@ -1,129 +1,137 @@
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E8934968E0
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 12:27:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3084A3B9D98
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 12:28:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791462478; cv=none; b=fjBZgY7GzhabMbrmfsPFssHGzXGYU4HXTsVqNdhIHCX4Ji2IOxEvdJmVV6r2c6tbL/SUc2iSqQZyMdlblyEVUj0brkUwQ7xhH010fjOHJ4t0RW/6STlnHdZpb2olNWrMU7NUwgjqX2bkatavNMQYfSssCqdyl4xfCeECppddp9Y=
+	t=1791462536; cv=none; b=cXSaLphEYKdGy6Mp055nZnmsWCgrgfQHSQtgRCagt53y648mAeUtmkJ6RBMkEapCRU6ucAJaRgFmlzcEOyFfq9b3FFy/jarz9R7hUVD/ZFvPpnTL5X0YX1m0xuS4TgPTX2OEkXVCFnGfjjB1YCY5CCNPLg7W/ptFaxfRBwA6zPQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791462478; c=relaxed/simple;
-	bh=M/of0yKyhsge6MIBInUspqDhJmPuNOVFyiktJawrHXk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=J/5FCwPKYA5LlBOCFDTNHKNZ2qWiBSqCWCSk52FCgb9Jx0X/TFSYe3KvBPxDIaK1ZquqCQa2hyr9g5/T58lOlJ5nBEkQTOPWI0Jb3Rt8y19HMDn/7XRrYPJBqQx4czngMfidqjnHZTxPaD1eDaXE684pi0wD5385yA0VoRxNIe0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=tdC5+MT+; arc=none smtp.client-ip=203.254.224.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1791462536; c=relaxed/simple;
+	bh=IbVo6s7b5sBB9lnd9tmlCLjiyw9VvCQfz+4RT3BW5pM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=No0/yJle9JDm1WA2UrvmDS+5TopXrcOK7+RX9lbmTMj4i+FYpmlLdpctrM/5ePeDHMfNgdD/4xcBXyIvciHUHlcT/2MJw7mkDjPUOpxlgUTqtRBr98Yuaa9B4O7caJ+F+3cKDp3coi1cCzC31cZF/YBjMhECSwc91CZp55gyIVA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NfbDHTSx; arc=none smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="tdC5+MT+"
-Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
-	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261008122753epoutp02f94aaf1df2fcc88415bd92981643fa48~cjaDGrQ9_0535405354epoutp02A
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 12:27:53 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261008122753epoutp02f94aaf1df2fcc88415bd92981643fa48~cjaDGrQ9_0535405354epoutp02A
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1791462473;
-	bh=y3JROMvSkErlghFufMEpz2e3fgBQWeAkOo4JhswqA7k=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=tdC5+MT+GmAi5muBRq1BT1yN1ZKyFBL9HVTHiJoMUk9qir3KHpRlhz35ERD8YB6Bl
-	 i1eJ514gd7g1gNeb0KlrladiC9kKg0NHCB+yBiTYgiBHVNFGcUFtxIU50PqOf5+JRY
-	 f9jIGFX133rc42c6pXTmJz1rl62OYAb4OJmJKBEI=
-Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
-	epcas5p3.samsung.com (KnoxPortal) with ESMTPS id
-	20261008122752epcas5p3d0e2b9158c0268ad04675e87ce26f1a2~cjaCjkMAU1506315063epcas5p3z;
-	Thu,  8 Oct 2026 12:27:52 +0000 (GMT)
-Received: from epcas5p1.samsung.com (unknown [182.195.38.93]) by
-	epsnrtp03.localdomain (Postfix) with ESMTP id 4j0q5M5zGqz3hhT3; Thu,  8 Oct
-	2026 12:27:51 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261008122751epcas5p1c1717e88968c87ac8cd3f6f7cd53fd94~cjaBJv_6d1842018420epcas5p1H;
-	Thu,  8 Oct 2026 12:27:51 +0000 (GMT)
-Received: from [107.122.10.194] (unknown [107.122.10.194]) by
-	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261008122747epsmtip1643989c6f636e89fda3b56fc37de2645~cjZ9_NBhB1436814368epsmtip1X;
-	Thu,  8 Oct 2026 12:27:47 +0000 (GMT)
-Message-ID: <bbb87d6b-b7a3-487a-8be4-27f3f9ce4a1b@samsung.com>
-Date: Thu, 8 Oct 2026 17:57:47 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NfbDHTSx"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2db80fcdf8bso21934675ad.2
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 05:28:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791462534; x=1792067334; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=COAThH0ap4EmFyle9qndKOJa6dHiJ8hI93mqQf8LdaM=;
+        b=NfbDHTSxcSTnBm4E49y/qbTrOaokcCeDllIcPxd04VMni+t9gQoUXdK7fK7/W7D21L
+         yCjPNY0DV0GUepQl1+2YP3xsAJ8jvU2b2j/FyCherRbziOcXx8njM0sUWc9+QARH6tWm
+         oA4IEMMfuOJ9vJypwm9GCHcOwHCbfVwQeki4/jL+dQxsTBUSdE0FPMwofUkJRr43fZZO
+         X2dRc6gqR6QtcYdkYcjq2XG4DgNucIA2LU+vJE3477kZmfanmWPbhCCIuqKHXLKgZj2f
+         AoZ7rGSBIGZzxB6J7XCQZYyvacRYjzQQ3wQyCV6iGR6mMQjdUD5HWkl6oQp6BuRlEhIV
+         iCXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791462534; x=1792067334;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=COAThH0ap4EmFyle9qndKOJa6dHiJ8hI93mqQf8LdaM=;
+        b=QELAFBJGA5KreFIuZOw+Dl3AdQy06elnkQgA+1SKlSNFejxlT7dny1WK40QToXshAf
+         KaXILK3CdS6QZdmxkiuKOHFQtQ4HC4bad+F4jISBfzIqY4GSuo9asPuw20NXfPcYL3VF
+         Aw7Cjd0lyGV6kZu47Yl6sCs8rIKf5fXqH6jacbstC+hlHmKYe7fzdRRTYPury5Hkt/R3
+         FcI1WUHJeZ4X/iVhaB5AMFwIgV9VHPVidz8XkFIAB/XNcS6bS9z8vj3p8gwl/2kjqhiY
+         fPZTbHwDyCfx0ngPtL1Mri3K8EjHcBO8ZFXAY0KzFewKLXQzIifkmcoceo29ILNS5Dds
+         VUXA==
+X-Forwarded-Encrypted: i=1; AKwUvBz5kWBIoKW5o9Z2Z5gAmYcQ2zUVf1J8oaiFGnKR4Ys8u0dc9fG5SoI9dTdKX820l80sBRLYRdGv8e0Bcf0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIsjSv+xZnJMmZXid6jRnVQ6mnPsVzM1zyRKIluwFp7AJcltgZH
+	sBY7NSbYNJlfyZy6sRQY87AlK9tcIN3a4bHGU92ks0Ni/tjtqGUNskvMb29qTA==
+X-Gm-Gg: AYBFou20249CBpMHE53hbLa9oTQyO+K1KBy+QULweSmHDohwWz5UXPYvtrHVOCl4T/C
+	BJ8HCv/ZVzZo7hceSUy9+Qc9gHeMqowSgdlGrU8B8G03EP2soHNVIfiySTRCzXxE8YuCEEADy25
+	WUnO1UJmvLstkIa1xLrOLsNVkrmIGwvZ5xqeAEo6CCiR2aJOTcml8/HVD0Y1n2Ik0QcoSMjuuyQ
+	VHsRjOS9ottnRBcQ8MqOxLfJoOhUWBT4QN9XHJwE01ALuNePlM2nkJuBO8Fog30sWnX6DB+gvMY
+	rQy9kpQJumF5IUgkVaXhjFiTrN8MMZgEWFMRqa0zjsOPuBS56o1TTezGt9YxFB7gvNudHCzRnv5
+	0L2X9v+gVkqur0iuMBHj34HE1amt3KDEnJzsJYHfVjd3SrUsPiVvhdU/6gDyqHmXSuHEXW/QneS
+	0PwdZeus6W+OjUu2KXre5BDQmIzNKWDKxfEdC56M+7lXq9m6SrM6Dn8Qj/yd/FJYiunQ==
+X-Received: by 2002:a17:902:ce07:b0:2e2:de8e:7315 with SMTP id d9443c01a7336-2e6004d2ccemr43775815ad.38.1791462534502;
+        Thu, 08 Oct 2026 05:28:54 -0700 (PDT)
+Received: from dungbv.. ([58.186.69.27])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e60443810asm22985415ad.9.2026.10.08.05.28.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 05:28:49 -0700 (PDT)
+From: Bui Viet Dung <dungvn2345@gmail.com>
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Bui Viet Dung <dungvn2345@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] wifi: mac80211_hwsim: Pin module for debugfs file operations
+Date: Thu,  8 Oct 2026 19:28:38 +0700
+Message-ID: <20261008122838.224835-1-dungvn2345@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 05/13] block: add dma-buf support for raw bdev
-To: Pavel Begunkov <asml.silence@gmail.com>, linux-block@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
-	io-uring@vger.kernel.org, Christoph Hellwig <hch@lst.de>, Sumit Semwal
-	<sumit.semwal@linaro.org>, =?UTF-8?Q?Christian_K=C3=B6nig?=
-	<christian.koenig@amd.com>, Keith Busch <kbusch@kernel.org>, Sagi Grimberg
-	<sagi@grimberg.me>, Alexander Viro <viro@zeniv.linux.org.uk>, Christian
-	Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Andrew Morton
-	<akpm@linux-foundation.org>, Jens Axboe <axboe@kernel.dk>, Nitesh Shetty
-	<nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>, Mike Snitzer
-	<snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>, Benjamin
-	Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev
-Content-Language: en-US
-From: Anuj Gupta/Anuj Gupta <anuj20.g@samsung.com>
-In-Reply-To: <af2b48a490186edf38f1d4a5dfd9513574f7a350.1791336930.git.asml.silence@gmail.com>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261008122751epcas5p1c1717e88968c87ac8cd3f6f7cd53fd94
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-542,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261007014324epcas5p2a7f3b03f118c9a1d1c633fe839ed1e46
-References: <cover.1791336930.git.asml.silence@gmail.com>
-	<CGME20261007014324epcas5p2a7f3b03f118c9a1d1c633fe839ed1e46@epcas5p2.samsung.com>
-	<af2b48a490186edf38f1d4a5dfd9513574f7a350.1791336930.git.asml.silence@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On 10/7/2026 7:12 AM, Pavel Begunkov wrote:
-> +static int blkdev_init_dma_buf_io_ctx(struct file *file,
-> +				      struct dma_buf_io_ctx *ctx)
-> +{
-> +	struct block_device *bdev = file_bdev(file);
-> +	struct gendisk *disk = bdev->bd_disk;
-> +
-> +	if (!(file->f_flags & O_DIRECT))
-> +		return -EINVAL;
-> +	if (!disk->fops->init_dma_buf_io_ctx)
-> +		return -EOPNOTSUPP;
+An open debugfs file retains its file_operations pointer in the
+debugfs proxy state. However, hwsim_background_cac_ops and
+hwsim_simulate_incumbent_signal_fops in mac80211_hwsim_main.c have no
+.owner set to THIS_MODULE.
 
-dma-buf doesn't work with PI: bi_dmabuf_map aliases bi_io_vec, and 
-blk_integrity_iterate() walks it as bvecs to generate/verify the 
-checksum. rw-dmabuf liburing test hangs on a PI enabled NVMe. Something 
-like below is needed:
+As a result, full_proxy_open_regular() calls fops_get() which succeeds
+without taking a reference to the mac80211_hwsim module. When a userspace
+process opens either of these debugfs files, a subsequent module unload
+(rmmod mac80211_hwsim) can succeed while the file descriptor remains open.
 
-diff --git a/block/blk-mq.c b/block/blk-mq.c
-index e929f94b25c7..1b7f8cbbda8b 100644
---- a/block/blk-mq.c
-+++ b/block/blk-mq.c
-@@ -3150,6 +3150,12 @@ void blk_mq_submit_bio(struct bio *bio)
-                 goto queue_exit;
-         }
+When the userspace process subsequently closes the descriptor,
+full_proxy_release() accesses the already unmapped file_operations
+structure, triggering a kernel oops in full_proxy_release():
 
-+       if (unlikely(op_is_dmabuf(bio->bi_opf) &&
-+               bdev_has_integrity_csum(bio->bi_bdev))) {
-+               bio_endio_status(bio, BLK_STS_NOTSUPP);
-+               goto queue_exit;
-+       }
-+
-         if ((bio->bi_opf & REQ_POLLED) && !blk_mq_can_poll(q)) {
-                 bio_endio_status(bio, BLK_STS_NOTSUPP);
-                 goto queue_exit;
-diff --git a/block/fops.c b/block/fops.c
-index e9da48ab73be..6c6700df943c 100644
---- a/block/fops.c
-+++ b/block/fops.c
-@@ -976,6 +976,8 @@ static int blkdev_init_dma_buf_io_ctx(struct file *file,
-                 return -EINVAL;
-         if (!disk->fops->init_dma_buf_io_ctx)
-                 return -EOPNOTSUPP;
-+       if (bdev_has_integrity_csum(bdev))
-+               return -EOPNOTSUPP;
-         return disk->fops->init_dma_buf_io_ctx(bdev, ctx);
-  }
+  BUG: unable to handle page fault for address: fffffbfff84f49e7
+  Oops: 0000 [#1] SMP KASAN NOPTI
+  RIP: 0010:full_proxy_release+0x8e/0x140
+  Call Trace:
+   <TASK>
+   __fput+0x39f/0xa60
+   __x64_sys_close+0x80/0xe0
+   do_syscall_64+0xc3/0x590
+   entry_SYSCALL_64_after_hwframe+0x76/0x7e
+   </TASK>
+
+The issue was discovered via manual code audit of mac80211_hwsim_main.c
+and reproduced on a Linux 7.3-rc6 test VM with CONFIG_MAC80211_HWSIM=m.
+
+Set .owner = THIS_MODULE on both debugfs file_operations structures in
+mac80211_hwsim_main.c so that debugfs pins the module until close has
+completed.
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Bui Viet Dung <dungvn2345@gmail.com>
+---
+ drivers/net/wireless/virtual/mac80211_hwsim_main.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/net/wireless/virtual/mac80211_hwsim_main.c b/drivers/net/wireless/virtual/mac80211_hwsim_main.c
+index b9446577ff49..3ae46d78d68a 100644
+--- a/drivers/net/wireless/virtual/mac80211_hwsim_main.c
++++ b/drivers/net/wireless/virtual/mac80211_hwsim_main.c
+@@ -1149,6 +1149,7 @@ static ssize_t hwsim_background_cac_write(struct file *file,
+ }
+ 
+ static const struct file_operations hwsim_background_cac_ops = {
++	.owner = THIS_MODULE,
+ 	.write = hwsim_background_cac_write,
+ 	.open = simple_open,
+ 	.llseek = default_llseek,
+@@ -1209,6 +1210,7 @@ static ssize_t hwsim_simulate_incumbent_signal_write(struct file *file,
+ }
+ 
+ static const struct file_operations hwsim_simulate_incumbent_signal_fops = {
++	.owner	= THIS_MODULE,
+ 	.open	= simple_open,
+ 	.write	= hwsim_simulate_incumbent_signal_write,
+ };
+-- 
+2.43.0
 
