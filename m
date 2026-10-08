@@ -1,126 +1,129 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE3A049890E
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:13:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BD2B30F927
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:14:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791465226; cv=none; b=STdmeRrpNXTjaw3DcouvrtymphkLbClGK4AN5/V8ceNTpvd7tCNHlK0i1ScwLypHkPnVFyz+7sN7/YZ+UEVvP6HghH1yFZbnqO+SHvaXN1hHgY7xAjC048KwEOumSAAN/IsFZjGLKf5ghC9EZ9BWADOUN1jVJ95e2wzB/x+QWDo=
+	t=1791465287; cv=none; b=dV9JLtuasuAbkBNo/eSYP6v+9fl7VeKjMGA46WmlrUwZmMMp3WOxKLDdKi95fIEPtr343HJ+fuev10kubXVxBDQ+kXKZuscRdSIEGFXZaXzxDk8K3fJ2sntNvR9XuMjuQKBiitJPz+p+U1gaZsm0gPk8XOjldI6RFZ1i+QwSyA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791465226; c=relaxed/simple;
-	bh=7qtI5gtgg8HMBmacX6qKEDXcXJKwtRBJ+yKlbMqIu+U=;
+	s=arc-20240116; t=1791465287; c=relaxed/simple;
+	bh=UcDM/7mEbCX0CZ6Wsp3V2npZB89NTnwI/IqneE0GPPA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gtnhoqorOu2eocQ85mq+fuFdHCeXIWBkwvj5ZcJafRcB/T+2u+wxXx9NWsangaPF2KbeTd5Q3cqzmiIWVilVc7wEziqkbtE8y6h285uVyOL033SGHUIDJDiXexkyB4FTZSp7U3k+n4LEME89bCkoA+7uv3ZFwGGBK+RhhY1LGuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=D1SCMzeS; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	 Content-Type:Content-Disposition:In-Reply-To; b=QTdcwxRL/06m+9La6eK3klZS8+rEkrySiOiGy7nnW8jg6xDGmVuuj5fFM2Ew5wcAM3w9zfieDgpLDdN/vlTjT7N/eoWbfDnSVRGUp3LVhOmzg/GhbuhWeVGkG9ciTS4kUQ4SL0/CWbkjjaeCqPutaE/2uyBkS4ZtypuZw+7QOoQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G83LgMta; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="D1SCMzeS"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a161d9b8c7so22378965e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:13:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1791465223; x=1792070023; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HO3C9RpYvCSZ09L6Ew5V40K2HpvgcXSKkDoFhjI9Kx4=;
-        b=D1SCMzeSC+3lNkcoGtnd5MZUOxDZCN3wuNj/aDJI/4LcSRRqrhAqs/Hi9CUNMcqHFF
-         scv7iSSgs0pq4DXVtxK1HcP+TX2UMEUKqgjygaUCO4jjwffdRYQ35mFnULVYKtlpTSr2
-         NHsGPcZZ4Ck5RTw+UneynMefAFGqW4jY2LdZvX3S5iBQvtZZpf3hZOieucAkZf24jP9V
-         NxADxxZhMnMZ1FL/SL8HTUDY6ROMGb323/c7WVSmvIz551S/ndHuV25o7mDAi9hg1ccq
-         PKvBQP/BYKJM244I8ccBCcDKG4NhIg676rJptZyeAXQKxlYl94D2DZjm9gOjO6SQD5pl
-         U8dA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791465223; x=1792070023;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HO3C9RpYvCSZ09L6Ew5V40K2HpvgcXSKkDoFhjI9Kx4=;
-        b=Wwzpf38zqND0/gc9VFFUVXAv+C39QtimhOOuTa2L4tjgGRq+tLntuEunV1IF4+no2x
-         htSeoJ1poXNHk9xf5qGfhfMuqkXyGYu6a7aq9t8UZEmXguBzsN/2nfIjo8sFe+0/oHSy
-         ydMkDmWzihwzSYGLw5gaSlbwPV6MVOY3dICyB08iPcE9VyL+FOD8rQUFKb1CATByPADh
-         hH4BLHYm8tsYEVpBPKIbJ6CHJyyvg578jeSRK9o6uUVVu6UM63I7ypgVpyZ4KqUnmYNJ
-         XUvBqZQszMB6TyC266vI8S/b6CT+vHisdEW1KNS7z3tFaPZzeNKHNV6fXS9nWV+PxJw9
-         tYMw==
-X-Forwarded-Encrypted: i=1; AKwUvBxI3J0XMrlWa1jpuCFOXK8ZT8d0tTIb0hYuuUe8Ep/WuGwrpuZJSSrrIimxIcaQYSGy9l5JTNQ5P76YAuo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nX/GZF4WR00cruIWtLKXEP9O+9Mfy8+PZxrXNcTt2gGhtn02gk
-	cuum1ynv5fPGkwuOcyK41twiykIRRUxAsnL/uc3KfqbFwj5YGVgXv040wMFSXmAnmsU=
-X-Gm-Gg: AYBFou1YszFxHlj/5UP3M3GrjKgJLZRcuRkEHU79gfw5pgyOTz7w0pU3UTbCRWZVfVL
-	xiQA4Qbh2Iz9VFqxmjvd8eHkx0Z/ik+KJ3KC5yzqvvaYuaKhB2o4JAgyFKo+7ghHZRWYclqJH+b
-	UqTihmM0AvDLQfQ6ydY4FBTqqy2LirP2OUgLrQYswWda12QXvvR+Sv3tLcfH6qdxwHvLbbnDKAH
-	KnSm2JCMGVMZc5ok2TxqraZfbEitld+8xRs8CH3ZDHuZyAI7RN+dCDKurEKYKSQv7lXGHCA55il
-	5d5qIhvej9m8cNRvEX3ymqkCYnDBupIgt2a77lxwqwQzwBawrOVhAL/O+AzOFoFjfSBz9RjTNob
-	eWSrlYPmCgAnk8aRJ52wiAF7eEO5TqHlROV2hTO9aKYUE0X8W5/zyqe8T9WZQ2rCt94bOI4y/cu
-	TCdfN7G48f50wmhIM7OmqXZ/aMJ2quMnVO+zYTX8zQdQlRbYikc8Tk0685DBnm5GYP+YTv7I7Yu
-	N6lbzLDVg==
-X-Received: by 2002:a05:600c:19c7:b0:4a1:70f0:ac2 with SMTP id 5b1f17b1804b1-4a180648d69mr101498205e9.24.1791465222920;
-        Thu, 08 Oct 2026 06:13:42 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F ([185.194.184.20])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f493761sm221404825e9.2.2026.10.08.06.13.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 06:13:41 -0700 (PDT)
-Date: Thu, 8 Oct 2026 09:13:38 -0400
-From: Gregory Price <gourry@gourry.net>
-To: "Serge E. Hallyn" <serge@hallyn.com>
-Cc: Sasha Levin <sashal@kernel.org>, linux-api@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-kbuild@vger.kernel.org, linux-kselftest@vger.kernel.org, workflows@vger.kernel.org, 
-	tools@kernel.org, x86@kernel.org, Thomas Gleixner <tglx@kernel.org>, 
-	"Paul E . McKenney" <paulmck@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Dmitry Vyukov <dvyukov@google.com>, 
-	Randy Dunlap <rdunlap@infradead.org>, Cyril Hrubis <chrubis@suse.cz>, Kees Cook <kees@kernel.org>, 
-	Jake Edge <jake@lwn.net>, David Laight <david.laight.linux@gmail.com>, 
-	Gabriele Paoloni <gpaoloni@redhat.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Christian Brauner <brauner@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Andrew Morton <akpm@linux-foundation.org>, Masahiro Yamada <masahiroy@kernel.org>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Nathan Chancellor <nathan@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Subject: Re: [PATCH v5 05/11] kernel/api: add API specification for sys_open
-Message-ID: <aseWPV6ZRQM3JOMN@gourry-fedora-PF4VCD3F>
-References: <20261008084956.2911790-1-sashal@kernel.org>
- <20261008084956.2911790-6-sashal@kernel.org>
- <aseRXi7hMWBBc0tB@hallyn.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G83LgMta"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A167D1F000FF;
+	Thu,  8 Oct 2026 13:14:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791465286;
+	bh=N2acWtY1ipUiffzzGDX0s1gIQ1N+3h0sjovbkkO1ybc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=G83LgMta8QKBoXDi2N2Qw1Zi4vSf9wF2eZmRkJ2KXgf5Dujm2M147rBcetHcNjKAI
+	 LFmnxvDAUHlx2lGQRpzYdf0XMD4/aBlkZIf/1QR3dq/hKyKWrz/8sSievLYusidGN3
+	 a88fUTV6TCtf6XHhv1d+dVkAJllQajhpvIr85X6W4hl+CkFJtRtfaEidDbGQ70ycUT
+	 zlEiz4ucI4FpNHtP6MoPbzIk9/0YHIy7IFbeHZIy+uD5WEgm+5lIN9DNEq6uGpto+F
+	 /qTUfEmMFaIDFzgLoIgwNz3ovYaiiYx8aCYE4pXBjwZlJeqEeNU0htXsrm5LIGPzdq
+	 tMVDbmDzu6iwQ==
+Date: Thu, 8 Oct 2026 14:14:42 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Conor Dooley <conor.dooley@microchip.com>,
+	Daire McNamara <daire.mcnamara@microchip.com>,
+	Felix Gu <ustc.gu@gmail.com>, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] soc: mpfs: use kref cleanup on probe failure
+Message-ID: <20261008-590aec0ad34ba6c65b269ed3@squawk>
+References: <20261007121743.192486-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="25uemib8zQO6l1ld"
+Content-Disposition: inline
+In-Reply-To: <20261007121743.192486-1-lgs201920130244@gmail.com>
+
+--25uemib8zQO6l1ld
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aseRXi7hMWBBc0tB@hallyn.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 08, 2026 at 07:49:34AM -0500, Serge E. Hallyn wrote:
-> On Thu, Oct 08, 2026 at 04:49:45AM -0400, Sasha Levin wrote:
-> > Add KAPI-annotated kerneldoc for the sys_open system call in fs/open.c.
-> > 
-> > The specification documents parameter constraints (pathname, flags
-> > bitmask, permission mode), 24 error conditions, locking requirements,
-> > side effects, required capabilities, and usage examples.
-> > 
-> > Assisted-by: LLM
-> > Signed-off-by: Sasha Levin <sashal@kernel.org>
-> 
-> I know Kees and Jonathan and others asked for exactly this.  But one
-> downside to this is it makes just paging through fs/open.c a lot more
-> painful.  Maybe it's worth it.  Maybe "noone will ever do that again" bc
-> that's why we have ai and tools.  But a) that's how I've historically
-> done a lot of code research, b) IMO something like a manpages section 2
-> under Documentation/ would be a great place for this, and c) we can also
-> use tools to always sync these, or even show/edit in a single view when
-> you want  ('kdocedit fs/open.c').
->
+On Wed, Oct 07, 2026 at 08:17:43PM +0800, Guangshuo Li wrote:
+> After kref_init(), the device_get_match_data() failure path frees the
+> mailbox channel and sys_controller directly, bypassing the matching
+> kref_put() for the initial reference.
+>=20
+> Use mpfs_sys_controller_put() on this path so that the initial
+> reference established by kref_init() is released through the existing
+> kref release callback.
+>=20
+> Rename the error label to reflect that cleanup is now performed
+> through the kref helper.
+>=20
+> This issue was found by manual code inspection.
+>=20
+> Fixes: 75ef23397558 ("soc: microchip: mpfs-sys-controller: fix resource l=
+eak on probe error")
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
+> v2:
+>   - Add the missing Signed-off-by tag.
+>   - Rename out_free_channel to out_put as suggested by Felix.
 
-In many, many other projects i've worked on, these docs are placed in
-the header as opposed to the .c file, but I understand there is some
-pain that comes with ifdef.
+Applied, thanks.
 
-Keeping it in the header ties the definition to exactly the location
-external users import to find the function - so it makes sense.
+Cheers,
+Conor.
 
-But separating the contracts from the code guarantees they'll go stale,
-so I don't think shoving it in Documentation/ does anyone any good.
+>=20
+>  drivers/soc/microchip/mpfs-sys-controller.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/soc/microchip/mpfs-sys-controller.c b/drivers/soc/mi=
+crochip/mpfs-sys-controller.c
+> index 0400a01b2338..ef27e1083f0f 100644
+> --- a/drivers/soc/microchip/mpfs-sys-controller.c
+> +++ b/drivers/soc/microchip/mpfs-sys-controller.c
+> @@ -159,7 +159,7 @@ static int mpfs_sys_controller_probe(struct platform_=
+device *pdev)
+>  	of_data =3D (struct mpfs_syscon_config *) device_get_match_data(dev);
+>  	if (!of_data) {
+>  		ret =3D dev_err_probe(dev, -EINVAL, "Error getting match data\n");
+> -		goto out_free_channel;
+> +		goto out_put;
+>  	}
+> =20
+>  	for (i =3D 0; i < of_data->nb_subdevs; i++) {
+> @@ -173,8 +173,9 @@ static int mpfs_sys_controller_probe(struct platform_=
+device *pdev)
+> =20
+>  	return 0;
+> =20
+> -out_free_channel:
+> -	mbox_free_channel(sys_controller->chan);
+> +out_put:
+> +	mpfs_sys_controller_put(sys_controller);
+> +	return ret;
+>  out_free:
+>  	kfree(sys_controller);
+>  	return ret;
+> --=20
+> 2.43.0
+>=20
 
-~Gregory
+--25uemib8zQO6l1ld
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaseXOAAKCRB4tDGHoIJi
+0mglAP9LFL+rx75JJZVcGF22GeaKs1JrUq0n7zmtswOTmVuBzQD/QJxwNqQuFgfU
+G5Sf9nL2WAzwJajDzPZdbPQJ6p0nSgE=
+=oelW
+-----END PGP SIGNATURE-----
+
+--25uemib8zQO6l1ld--
