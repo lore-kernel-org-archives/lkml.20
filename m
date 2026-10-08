@@ -1,72 +1,77 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D77D33C3F7C
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 06:29:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D32DA3C4557
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 06:30:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791440954; cv=none; b=Fb0LrdE8vji3nchaC/ATr4SPnigb9AFORAXAqAr7buUKCRjxXV9iudlC1bai11ySPvnt7TyLT3jHo/+kl/CN/fQmcZ69UK5wJOanoTHAKecgN7r5jPyl0Tn5+bK47KkJRWuYfYLenqHjzEa1vIbQsP4CokWqiJsOlg5WyGcm6pI=
+	t=1791441014; cv=none; b=kcpnNwptiv+emq0sdeFA8KQijZXMKoOdRSG6J3376HhhwWG0uIOwRCv6xSV0Su0YUhc/YnHSoKjv+mXiHebyg3Ra1iCK/o9qlHHfrTB2J2/v4b9jlv3npaeFZkTbWct8vlJKQa8mFyXMAf1TRj9DvUsEAEuEcFFz08HomJQcf0M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791440954; c=relaxed/simple;
-	bh=Jvpan4dWi71lxbGY7TiGmaQM4y+M5f9WlxOyl/ZFFzo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=YwAJE+kQ2Tk5ryU/31P8fIi96pL7MhaPoRZ7Dqzmsw79SyQXjcV6utT08BMfnZ7aLvK43Ce1DcFehV0Z7X7bDM6hIxoWsB9DBhNgr3DzyEbd6OlUkkDUBnA3wm5mq+pDLpxletYZ12kPnX70zz1SXbPR9aQAzEIHcbw2tcLM0JU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hU5DLSvd; arc=none smtp.client-ip=209.85.216.48
+	s=arc-20240116; t=1791441014; c=relaxed/simple;
+	bh=W1wO5rTJxj54sFCvDMHGklfSMYuJHSqefCd6FoLVcMI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=lOUntTTP56d7+02TWdXQis3c6PxdTCjxSe6gDeajGBKuwiWaw6n/Hn13zL33RNaFlzHFVufw6F5lCuq3jQ5HJGsKhGdGHnKtzDX6mHLcCHjuOG41mCRUn3S5K1b/UfmaYgNb35t8lwORnNnLayW/04AGKXNAFwjhiDf7MOwVGWM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MPNId8X8; arc=none smtp.client-ip=209.85.216.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hU5DLSvd"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3a89d1ca907so1561815a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 23:29:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MPNId8X8"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3a4c80d3d5aso2941196a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 23:30:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791440951; x=1792045751; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791441012; x=1792045812; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ErIg12kw9nT+LPeqjyXQhVml7IYT+IyJFoWMvc7q7ZQ=;
-        b=hU5DLSvdk4i7OFqywykVFMz9XFlDnvoRLi7WDVYfOM/q0YMzBvBFpXJOQ8RjjcdS9w
-         /80ePQE40gXMRNi/RRtiF08uKSmHQZaRqF3Gjdwu2FfzLoCLm7uoc9QAJNRH64oh9WP4
-         PcKuOs7h4/YasRIz95gA3ZiBoMNTvMjaDcEKie2UOV9KdgmE/eZz4EHY65B9v9gvVgKk
-         VP+4Bc8feYscznzgcziL7orTNehUm8/m0YDiVZ47z7FnKYTxGubvbLmfi7424RaIKlTg
-         yzhY/5GQzf4g5kUr92R0koae6QKlEeggsEZd/YjcEy3Jv111NSyGilfK0zMl4mkE0g1l
-         zArg==
+        bh=h130+oraKy+B7FdqSQ8kedGGtt19E8E0V/sHxs3Aigo=;
+        b=MPNId8X8pXDSPnLE5vjQgXIt9e+D3daLlD+5KYbpzAtET827jMl8PQ7ex6j4fwaCWw
+         /Z7LkZYH2QdusrniT9r0lDN91pqluH3BdRUkHfjKUm4Xa6kT2s9DzHNnRGhlo83HWaJI
+         pCaVsbDQBFQUW7/re/zv9v+jMXPwNpOfAAZiCy5jla8z9FDPYyPDjMlDEQEBzdDucuBt
+         XcgZoL9E49dUBUMMzyyfAp1EbNVIpzLUEFL+Omjf7sRLT841vrZFn+nZTVSQ3m3KWjj9
+         T9S6ZKFIpRw8+yyfOxzwk5Q3D3dwCOvpwRDgQupWNaHw17OWjwcypfw3hjtY+RGLYSpi
+         EEtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791440951; x=1792045751;
+        d=1e100.net; s=20260707; t=1791441012; x=1792045812;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ErIg12kw9nT+LPeqjyXQhVml7IYT+IyJFoWMvc7q7ZQ=;
-        b=AD42q1CETT7q7S2RnZvcMLpE6iCxJ/G9b2IeaGnBFRe8UnM8u6tQd14Zv73p9SzFSZ
-         hY+wrSCx97W96ilLwwnCJLhOUb1XBI4mU+/scLTpMMye+cyLV4dzOf4CLYoxqwkEHOKT
-         gPPGSM2MFA23KObsdb9Wwi4RWKIqnjWdj08UIq7Sp6+0ZOqPyGWOnN8vj35NEb1xNH/N
-         JRcFuVYutQZ8PzSryHyPNaNGirA1K1+338cbM6HvWYmBh2NmsIWv7XubHHmWKIXjAmNj
-         musbZ4xvYnnXGaNhFyUyWqA3rTXUAkDq0zrUCQybVlVmuiEIErdO3e3cSjYxXYq8r2s0
-         nQEw==
-X-Forwarded-Encrypted: i=1; AKwUvBwQo0LqWG+kfMQ3cSmJLifvrZqLU06pOwSkYQElrlMa9xLBT9kU7calmxbnn+lZbXv2KRKrmSv+Xm5jJCw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLkaMMqVJZ8iuOPlSzICLPSCBv9ByRVOcbCnaUEmkpBMDDAKOOO
-	45wh4nb7+CmooeUlrAcTlnuM1VDv+6Q3GBhRi1bUFFCKdxpUIf3bZa3/
-X-Gm-Gg: AYBFou3kdxyF4LoTbAUzIV1B8ciIGv1pMmnqogkkNZOImbEhTONDk+ys/Zq+QYb6wwd
-	SyVOqs8+9JjqCD+5wqXZRWlWxYAU9ycVcTdgPQzjHll+sBXfxxfABZYjYlraSqHAoFLsyBpN1pS
-	/F8iE2nMwoiiPtQ70f+pNj0VinFj0ksdTnTDJb70sb0Ml40g0OxxceA5M9MIKZBp4X5CcDp/ys+
-	wTqHFkXf0orWYeIkJQFx0nLkAXzxdeuVj4gnN0sFyWDgsArkEjCZFLmEcchrgiqM913sR/sdGN8
-	22goMMSolKCDJYLYHy4i7yyTcylKmA5HJiVOdA0YwGjVcj7SvdkKNUczkcVSHXnfYpWxcENM+85
-	W1w13ZchHz8IabPRL+2PsOAeIdsEhZ/aPdhgfW8rt9xOHPUo4dcwWvy6LKn4sW1AhtIbGeZ2a6U
-	pNJ00f2buYzLiS5w0y3W/tQmLlFauseHAmfFERy3lgAubay+VPndnTPbDGV12mpo4JPA==
-X-Received: by 2002:a17:90b:3b48:b0:3a4:97ea:f0d8 with SMTP id 98e67ed59e1d1-3a8a1187f01mr4513444a91.51.1791440950814;
-        Wed, 07 Oct 2026 23:29:10 -0700 (PDT)
+        bh=h130+oraKy+B7FdqSQ8kedGGtt19E8E0V/sHxs3Aigo=;
+        b=F0jqrNQkr1HJtgOgyAJYOWgvbfzBuU5m307uQzUZnpPTjYw0NcGgZxKApuR66OEhMe
+         ZyHIseq7A0kcf/fNskt8upWCq7HIbeIapKXVXRJcV52Jg/DDgiz00OwgRJs0piVBVhin
+         hg1T7j/T6pPfvfl7d4FcUDzzQTI3yG6q8DJC2e6nQ0wxv3IFdax+yQjQf7PcFsTFd3di
+         L2cuUswIdBU5X7zMFrOvO/7tWDqAYFuEaAK5IrHrRBe94o8pAlKbbC9MfBTG2/4Z+ttJ
+         Ib4rmUiE5HHZK90inaL/yPwD+5IswBd2BynURE2zRQnNHQS+AP8+u0mLQup7zLY/4DiJ
+         234w==
+X-Forwarded-Encrypted: i=1; AKwUvBycAqywKobHMeOybh8lCHaz5r2MezVJY8OWt3a+eLWUliCaDepgK0voD3Oo2lQLFy7oaKxT/2PgfkEGpyA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLK+EmszCVsiXE0flO71zzVeRsqiKsUFqlvHUHR57TOO3MTSVU6
+	mCGkcLR1d8z9HYymPL1+/NcxgPcVriWOFD5jTDmRLIOdJHWkPjPI7WqY8Nji8Bmk
+X-Gm-Gg: AYBFou00Qhhapx5bk6gIQzx8oVJac/VwVHwEdXGKvDGa+8IEvMTbTDP6Dtd/L1ZJu87
+	C2mUWxVb26UcbViIIBGD82QRcoLk9QcJ5Z5QGF8kmLT7xDH6VZ6IDR0E6rqIrzsyef9C3S6OEgE
+	CKFF6v0WHEa8GoXlkgsWuSER8z/4C3ejKVlw8sTdnF6b+YlZ1IR8QhMVL6T9HTvLOtXKI8Kce5b
+	LQNUWu67u7Gxosa4FUBNraLoSPji19HMV2I4X7NwsDjT2rNG3WaCJI6lFxDNP/O6KKAdLlxu+pm
+	ZIZzNqT7nEgXzHkrc0oJ4m488bPS27YN8yG7mitea/LI1WFHth/J330hEEIzeAPDC3gFzhkIf3X
+	HzamvzcR026ncRNx/3o97EHPls0auTdzMXHcj7iLWc/11Kgpj4duX4Uh4ILxZz90knLqUh95F6W
+	oV8i+yW1gF9cnF7Jnt2Au2IzqV47C5Dbe4DjKOI+JUwTh+2FJ44bR6NDEP7YgufJFUyA==
+X-Received: by 2002:a17:90b:3b4a:b0:39e:d36c:ee54 with SMTP id 98e67ed59e1d1-3a89f649556mr4353286a91.5.1791441011811;
+        Wed, 07 Oct 2026 23:30:11 -0700 (PDT)
 Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8a5f778fasm3546331a91.3.2026.10.07.23.29.08
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9ff8d5896sm2787569a91.12.2026.10.07.23.30.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 23:29:10 -0700 (PDT)
+        Wed, 07 Oct 2026 23:30:11 -0700 (PDT)
 From: Cen Zhang <zzzccc427@gmail.com>
-To: miklos@szeredi.hu
-Cc: fuse-devel@lists.linux.dev,
+To: dhowells@redhat.com,
+	jarkko@kernel.org,
+	paul@paul-moore.com,
+	jmorris@namei.org,
+	serge@hallyn.com
+Cc: keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	baijiaju1990@gmail.com,
 	jjzuming@gmail.com,
 	zzzccc427@gmail.com
-Subject: [PATCH] fuse: serialize processing table installation with I/O
-Date: Thu,  8 Oct 2026 14:29:05 +0800
-Message-Id: <pm-fuse-full-objects-candidate-0002-v2-17d6013e5066de33396c@gmail.com>
+Subject: [PATCH] keys: Protect the type name while describing a key
+Date: Thu,  8 Oct 2026 14:30:06 +0800
+Message-Id: <pm-key-management-objects-candidate-0009-v3-43bbf21d1c452f23d829@gmail.com>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -77,123 +82,113 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The processing table of a /dev/fuse endpoint must be initialized before
-I/O can use it. fuse_dev_open() leaves pq.processing NULL, and
-fuse_dev_install_with_pq() publishes fud->chan before assigning the
-table. fuse_get_dev() accepts the published channel without taking
-fch->lock, so the installer's channel lock does not protect the reader.
+keyctl_describe_key() must keep the key type's name alive until
+kasprintf() has consumed it. The retained key reference keeps the key
+and its description alive, but does not pin the module providing its
+type. The name is passed to kasprintf() without holding key->sem.
 
-On SMP, a daemon can issue FUSE_DEV_IOC_CLONE and read concurrently on
-the same fresh endpoint. If the source channel has a reply-requiring
-request pending and the read copies it successfully, the following
-order is possible:
+kvasprintf() uses the saved name pointer in two formatting passes, with
+a GFP_KERNEL allocation between them. With AF_RXRPC=m, a task that
+passes View permission before type retirement can overlap a privileged
+module unload in this order:
 
-  Clone ioctl                         Daemon read
-  -----------                         -----------
-  fuse_dev_install_with_pq()
-    lock fch->lock
-    publish fud->chan
-                                      fuse_get_dev() sees fud->chan
-                                      fuse_dev_do_read()
-                                        dequeue request under fiq->lock
-                                        lock fpq->lock
-                                        add request to fpq->io
-                                        unlock fpq->lock
-                                        copy request to userspace
-                                        lock fpq->lock
-                                        list_move_tail() to
-                                          fpq->processing[hash]
-    set fud->pq.processing
+1. KEYCTL_DESCRIBE looks up the key, saves key->type->name in the
+   kasprintf() arguments and completes the first formatting pass.
+2. While the formatter is delayed before its second pass,
+   af_rxrpc_exit() calls unregister_key_type(), which removes the type
+   from the registry and waits for key_gc_keytype().
+3. The collector takes key->sem for writing, retypes the retained key
+   to key_type_dead and completes retirement. Unregistration and module
+   exit return, allowing free_module() to release the type and name.
+4. The formatter resumes its second pass and reads the saved name from
+   released module storage, which can fault in string().
 
-The list operation accesses a NULL-derived list head and can fault
-before the installer stores the table.
+Hold key->sem for reading across kasprintf(). The collector then cannot
+retype the key or complete retirement until both formatting passes have
+finished. If retirement wins the lock first, formatting uses the core
+key_type_dead name instead. Release the semaphore immediately after
+kasprintf(), including on allocation failure, before copying to
+userspace.
 
-Take fud->pq.lock before publishing the channel and hold it until
-installation finishes. The reader then waits at its existing queue
-lock until the table is initialized. This follows the fch->lock then
-fpq->lock order already used by abort, resend and device release, and
-preserves the handling of unsuccessful installation.
+Oops report as below:
 
-KASAN report as below:
-
-    Oops: general protection fault, probably for non-canonical address 0xdffffc0000000039: 0000 [#1] SMP KASAN NOPTI
-    KASAN: null-ptr-deref in range [0x00000000000001c8-0x00000000000001cf]
-    CPU: 1 UID: 0 PID: 500 Comm: fuse-clone-race Not tainted 7.2.0-rc5-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
+    BUG: unable to handle page fault for address: fffffbfff8054794
+    #PF: supervisor read access in kernel mode
+    #PF: error_code(0x0000) - not-present page
+    PGD 1a7ff6067 P4D 1a7ff6067 PUD 1a7ff2067 PMD 100b0b067 PTE 0
+    Oops: Oops: 0000 [#1] SMP KASAN NOPTI
+    CPU: 0 UID: 0 PID: 500 Comm: key-fixture Tainted: G           O        7.2.0-rc5-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
+    Tainted: [O]=OOT_MODULE
     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-    RIP: 0010:fuse_dev_do_read+0x1693/0x2480
-    Code: c1 ea 03 80 3c 02 00 0f 85 b9 0b 00 00 4d 89 27 e8 42 07 2c ff 4c 8d 7b 08 48 b8 00 00 00 00 00 fc ff df 4c 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 7f 0a 00 00 4c 8b 63 08 48 89 da 4c 89 ef 4c 89
-    RSP: 0018:ffff888118ecfab0 EFLAGS: 00010216
-    RAX: dffffc0000000000 RBX: 00000000000001c0 RCX: ffffffff8258e60e
-    RDX: 0000000000000039 RSI: 0000000000000000 RDI: ffff8881066f9768
-    RBP: ffff888112b6d7a8 R08: 0000000000000001 R09: 0000000000000001
-    R10: ffffffff893dbc57 R11: ffff888108fbd700 R12: ffff8881066f9760
-    R13: ffff888112b6d7a0 R14: 0000000000000050 R15: 00000000000001c8
-    FS:  00007feb22c636c0(0000) GS:ffff8881fd82c000(0000) knlGS:0000000000000000
+    RIP: 0010:string+0x23f/0x470
+    Code: 48 8b 04 24 48 83 c3 01 41 83 c6 01 48 39 c5 74 34 e8 f5 2e 5e fb 48 89 ef 48 83 c5 01 48 89 f8 48 89 fa 48 c1 e8 03 83 e2 07 <42> 0f b6 04 38 38 d0 7f 08 84 c0 0f 85 d6 01 00 00 44 0f b6 65 ff
+    RSP: 0018:ffff888116307b80 EFLAGS: 00010246
+    RAX: 1ffffffff8054794 RBX: ffff88810a4a52c0 RCX: ffffffff8626be7b
+    RDX: 0000000000000000 RSI: 0000000000000001 RDI: ffffffffc02a3ca0
+    RBP: ffffffffc02a3ca1 R08: 0000000000000001 R09: 0000000000000001
+    R10: ffffffff893cfe57 R11: ffff88811404d700 R12: 00000000ffffffff
+    R13: ffff88810a4a52d4 R14: 0000000000000000 R15: dffffc0000000000
+    FS:  00007fad30f2a780(0000) GS:ffff8881fd7d6000(0000) knlGS:0000000000000000
     CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-    CR2: 00007feb22c62f38 CR3: 0000000107252004 CR4: 0000000000770ef0
+    CR2: fffffbfff8054794 CR3: 0000000104fb7004 CR4: 0000000000770ef0
     PKRU: 55555554
     Call Trace:
      <TASK>
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_fuse_dev_do_read+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_string+0x10/0x10
+     vsnprintf+0x330/0x1110
      ? pmbd_probe_hit_cookie+0xee/0x1c0
-     ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
-     fuse_dev_read+0x19d/0x250
-     ? __pfx_fuse_dev_read+0x10/0x10
+     ? __pfx_vsnprintf+0x10/0x10
      ? srso_alias_return_thunk+0x5/0xfbef5
-     ? security_file_permission+0x26/0x80
-     vfs_read+0x7d2/0xc20
-     ? __pfx_vfs_read+0x10/0x10
-     ksys_read+0x111/0x200
-     ? __pfx_ksys_read+0x10/0x10
+     ? kasprintf+0xc7/0x100
+     kvasprintf+0xe4/0x1a0
+     ? __pfx_kvasprintf+0x10/0x10
+     ? pmbd_gate_site_armed+0x14e/0x1c0
+     ? pmbd_site_is_armed+0xa1/0xd0
      ? srso_alias_return_thunk+0x5/0xfbef5
-     ? restore_fpregs_from_fpstate+0x55/0x100
+     ? map_id_range_up+0x286/0x370
+     kasprintf+0xc7/0x100
+     ? __pfx_kasprintf+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? from_kuid_munged+0xa3/0x130
+     ? __pfx_from_kuid_munged+0x10/0x10
+     keyctl_describe_key+0x26d/0x600
+     __do_sys_keyctl+0x2ed/0x4f0
      do_syscall_64+0x115/0x6a0
      entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    RIP: 0033:0x7feb23d039ee
-    Code: 08 0f 85 f5 4b ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 80 00 00 00 00 48 83 ec 08
-    RSP: 002b:00007feb22c62df8 EFLAGS: 00000246 ORIG_RAX: 0000000000000000
-    RAX: ffffffffffffffda RBX: 00007feb22c636c0 RCX: 00007feb23d039ee
-    RDX: 0000000000010000 RSI: 000055615dac9114 RDI: 0000000000000005
-    RBP: 0000000000000004 R08: 0000000000000000 R09: 0000000000000000
-    R10: 0000000000000000 R11: 0000000000000246 R12: 000055615dac9114
-    R13: 000055615dac9070 R14: ffffffff00000000 R15: 0000000000000001
+    RIP: 0033:0x7fad3103b7b9
+    Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 27 66 0d 00 f7 d8 64 89 01 48
+    RSP: 002b:00007ffeda509798 EFLAGS: 00000246 ORIG_RAX: 00000000000000fa
+    RAX: ffffffffffffffda RBX: 000000000b61be23 RCX: 00007fad3103b7b9
+    RDX: 00007ffeda5097a0 RSI: 000000000b61be23 RDI: 0000000000000006
+    RBP: 00007ffeda5097a0 R08: 0000000000000000 R09: 0000000000000000
+    R10: 0000000000000200 R11: 0000000000000246 R12: 0000000000000000
+    R13: 00007ffeda509b90 R14: 00007fad31168000 R15: 000055ba831cdd08
      </TASK>
-    Modules linked in:
+    Modules linked in: [last unloaded: rxrpc(O)]
+    CR2: fffffbfff8054794
     ---[ end trace 0000000000000000 ]---
-    RIP: 0010:fuse_dev_do_read+0x1693/0x2480
-    Code: c1 ea 03 80 3c 02 00 0f 85 b9 0b 00 00 4d 89 27 e8 42 07 2c ff 4c 8d 7b 08 48 b8 00 00 00 00 00 fc ff df 4c 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 7f 0a 00 00 4c 8b 63 08 48 89 da 4c 89 ef 4c 89
-    RSP: 0018:ffff888118ecfab0 EFLAGS: 00010216
-    RAX: dffffc0000000000 RBX: 00000000000001c0 RCX: ffffffff8258e60e
-    RDX: 0000000000000039 RSI: 0000000000000000 RDI: ffff8881066f9768
-    RBP: ffff888112b6d7a8 R08: 0000000000000001 R09: 0000000000000001
-    R10: ffffffff893dbc57 R11: ffff888108fbd700 R12: ffff8881066f9760
-    R13: ffff888112b6d7a0 R14: 0000000000000050 R15: 00000000000001c8
-    FS:  00007feb22c636c0(0000) GS:ffff8881fd82c000(0000) knlGS:0000000000000000
-    CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-    CR2: 00007feb22c62f38 CR3: 0000000107252004 CR4: 0000000000770ef0
-    PKRU: 55555554
-    Kernel panic - not syncing: Fatal exception
-    Kernel Offset: disabled
-    Rebooting in 1 seconds..
 
-Fixes: 48649c0603bd ("fuse: alloc pqueue before installing fch in fuse_dev")
+Fixes: aa9d4437893f ("KEYS: Fix the size of the key description passed to/from userspace")
 Assisted-by: LLM
 Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 ---
 
-diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
-index 4fec31fc0b845008ae037472065284e8f8dea87e..106daf2d10b34886fa5cda3c641121a08181adb4 100644
---- a/fs/fuse/dev.c
-+++ b/fs/fuse/dev.c
-@@ -466,6 +466,8 @@ static bool fuse_dev_install_with_pq(struct fuse_dev *fud, struct fuse_chan *fch
- 	struct fuse_chan *old_fch;
+diff --git a/security/keys/keyctl.c b/security/keys/keyctl.c
+index d14ace88e529cb77de5386f1f3a99905d4b7688c..5a5efa26ed0ece3a5ab22e37ad7bda7a5a744b83 100644
+--- a/security/keys/keyctl.c
++++ b/security/keys/keyctl.c
+@@ -677,12 +677,14 @@ long keyctl_describe_key(key_serial_t keyid,
  
- 	guard(spinlock)(&fch->lock);
-+	/* Serialize processing table setup with I/O. */
-+	guard(spinlock)(&fud->pq.lock);
- 	/*
- 	 * Pairs with:
- 	 *  - xchg() in fuse_dev_release()
+ 	/* calculate how much information we're going to return */
+ 	ret = -ENOMEM;
++	down_read(&key->sem);
+ 	infobuf = kasprintf(GFP_KERNEL,
+ 			    "%s;%d;%d;%08x;",
+ 			    key->type->name,
+ 			    from_kuid_munged(current_user_ns(), key->uid),
+ 			    from_kgid_munged(current_user_ns(), key->gid),
+ 			    key->perm);
++	up_read(&key->sem);
+ 	if (!infobuf)
+ 		goto error2;
+ 	infolen = strlen(infobuf);
