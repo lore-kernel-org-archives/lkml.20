@@ -1,115 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-43103.protonmail.ch (mail-43103.protonmail.ch [185.70.43.103])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EA42489877
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 09:50:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA07D484883;
+	Thu,  8 Oct 2026 09:50:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.103
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791453052; cv=none; b=Mg5WsQo/ypioVOiaKo1gKgo/wo7ALOuoF9brSkSufBW+HfEJs0PCgBJG/EAvUK0AsdVs9XKlMrgGyzGYzmSMSeSzv1zuNlY5z6TyueYaBqGLdgmh3KR9kmDfI+Jz3FcIFYB1vaKUE8XbEwq6+2ph63HcZsq+8XrTX29MZKjsaQI=
+	t=1791453052; cv=none; b=pjmB+yQ84uZJj4Nydx7RbkYp/VDTmHGNhzaX9Ek8jtsF419VGtH9eASveDtBZaoKFDPyQwSggnVsde0WyG4u/zx+3GEE09f7c45YbyVodSrEowwHHkej6nfEec2x47WlD+iVTq7P1azWxHgpmd2LVOnyYoH/Vuuk9U/esJ7S8YU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791453052; c=relaxed/simple;
-	bh=dph8nydlcGrIQKoDia1sOqYgMx4hrQl+mUMU4Id2UAo=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=c43AAj0FtSq3j/x9Z7xXPlID7sWDDOU57ai15FR0jA9UTm4IpVesZRDVHLvukO5xeI4eAOoZFE1vXKvrnMMS0jDOHyEyK0drFfOFblXscdWIyZfGH/RzLNNN3D8TW+axYOc3yCuljWEx55KCThLh9D5hqEtP6+PmeXxabDguqlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=grbWV59s; arc=none smtp.client-ip=100.103.45.18
+	bh=dF6sKLY+Do9pHHWvxRoqnDDI4GgDYEde6ShyMUMvE5g=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=fAgBCl+YtpuFrlbC9aocIE82MfpVZyc5lDfWkewKb2JfC7UImB0E1GrYyP8prl3sgt50Pp+oARBHwOPK4o+/v/hFlBjShbE7nSLtDZu83ULe+axvdZZKS16nAGoo7Xsy6/2gktWFju08k7o9mbxKo8WBrjt7xIFLeuZsjtI6t6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=gpDXlilU; arc=none smtp.client-ip=185.70.43.103
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="grbWV59s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C2DD1F00898
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 09:50:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791453051;
-	bh=zzjDvXnnH2r3MYJsw1QiaFGNtlAkTXt/3p2V95i9its=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=grbWV59sTws6M6kDa7QNwVfFBDGgS/1LdOIkSkMGzWz83L1NyY7hdUiA5pfIUmIUd
-	 frYXdxbhamyvIjQ53RN0Pr2iMOGsWmHwSjqcXcGRjZTfGqzmS0muLK7I4V6zZ1YMlV
-	 sK9BrpqU02Re7e59gLLWjf5Jwfzvvp+8daSOaVSQQ1rIsuxqclcetE7Y0ABkNhRh0F
-	 pMTdcesHctKG5ogVnyWgQXGVzgbxse3CRUAEciNEfuuWmUSTL1I9j4kC2/Cx6yt6bi
-	 9uJHaAVOUl4YkvTIlm7eRb3xOgN+p8IL4HXRThtJTch73fqPhDXpWuKhxbjIdfvEkO
-	 pNVwBFjtX1TPQ==
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3a1eb6fa0f4so29148061fa.2
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 02:50:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByCrxVQ+kTHh6CFYp5AqNvMp5cmpCwyPB4HXx6gysy5cdfwdSO4a806BNqUDhuAKQqFQulHYtFgTa+rlb0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLMbhQRBjYnls3MUdlIviM6LtU7ADTkYcjXRFrRCjxMnhYNZOIo
-	iKapDOg7R7KmwgVny3K7KfW1MWEyMC8RLBUNC1X91dqGcSrSGmrTMS9Q2NcjluEeF4ksz942qRs
-	lDt/t/DT3jKOGe7c6RUo1exVMb0QPOURsa1zhK5tH5g==
-X-Received: by 2002:a05:651c:2110:b0:3a9:8167:62a with SMTP id
- 38308e7fff4ca-3a9a2d5ef3fmr11294911fa.28.1791453049795; Thu, 08 Oct 2026
- 02:50:49 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 8 Oct 2026 09:50:48 +0000
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 8 Oct 2026 09:50:48 +0000
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20261008-bam-dma-free-irq-v27-1-660e70223e3c@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="gpDXlilU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1791453039; x=1791712239;
+	bh=dF6sKLY+Do9pHHWvxRoqnDDI4GgDYEde6ShyMUMvE5g=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=gpDXlilU6/2oALFV9Gv7sRNQklD21rVBN2GMffuWfxOnfwSWoY8sqVvkNMb9AC9cL
+	 0v45Bpr5RtZSfKV8y0R3jRd+AUZL2roC11nrpB+8IxdsTJr4fcfzY0nJ+WZGWdgNot
+	 uag4QlMk74v+fS6tebcJh5+Rh7i9YEuQDJFRPKvxrzHdcsWs1wAimZu62XEbrKv77m
+	 LNMPEbFq+aBxGBQWUhT1F2C5GA563FMSitXw26dlgiVQ8pmHmKtM4EQdUGrsp2o/OA
+	 1sYutSM2Q7+vvAM2BoV40U9TzCul+gFms4a6bvby7q+XXAvJ2OtWdIPaPXNxos5C7X
+	 3A6zKFj5H4e5A==
+Date: Thu, 08 Oct 2026 09:50:34 +0000
+To: Mahanta Jambigi <mjambigi@linux.ibm.com>
+From: Bryam Vargas <hexlabsecurity@proton.me>
+Cc: Jakub Kicinski <kuba@kernel.org>, Sidraya Jayagond <sidraya@linux.ibm.com>, "D . Wythe" <alibuda@linux.alibaba.com>, "David S . Miller" <davem@davemloft.net>, Wen Gu <guwen@linux.alibaba.com>, Wenjia Zhang <wenjia@linux.ibm.com>, Eric Dumazet <edumazet@kernel.org>, Tony Lu <tonylu@linux.alibaba.com>, Dust Li <dust.li@linux.alibaba.com>, Paolo Abeni <pabeni@redhat.com>, Ursula Braun <ubraun@linux.ibm.com>, Stefan Raspl <raspl@linux.ibm.com>, Simon Horman <horms@kernel.org>, linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v5 0/3] net/smc: bound wire-controlled CDC cursors against the local buffers
+Message-ID: <20261008095028.269577-1-hexlabsecurity@proton.me>
+In-Reply-To: <fc1eb33d-f9da-427c-9e0c-c2ff79d2a1fe@linux.ibm.com>
+References: <20260723-b4-disp-0d07164f-v5-0-6a9e235dbc4e@proton.me> <db896915-5858-4fc3-a56c-77b626980284@linux.ibm.com> <20260901162012.602cc62e@kernel.org> <fc1eb33d-f9da-427c-9e0c-c2ff79d2a1fe@linux.ibm.com>
+Feedback-ID: 199661219:user:proton
+X-Pm-Message-ID: 1a24bcbe52fbbdc86ba114ce928bf68a18f010da
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261008-bam-dma-free-irq-v27-1-660e70223e3c@oss.qualcomm.com>
-Date: Thu, 8 Oct 2026 09:50:48 +0000
-X-Gmail-Original-Message-ID: <CAMRc=MdOLnUgY7CHD1mdB7x=S-LBuHBHvsx8V95DiVjR=zCePA@mail.gmail.com>
-X-Gm-Features: AclHuK8gCrOH-8lbrvxPcOsgTJbpgR03xMfb8jAIWyOn4Lr2qiQuvScWu5tAuqE
-Message-ID: <CAMRc=MdOLnUgY7CHD1mdB7x=S-LBuHBHvsx8V95DiVjR=zCePA@mail.gmail.com>
-Subject: Re: [PATCH v27] dmaengine: qcom: bam_dma: free interrupt before the
- clock in error path
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, brgl@kernel.org, stable@vger.kernel.org, 
-	Sashiko <sashiko-bot@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
-	Frank Li <Frank.Li@kernel.org>, Andy Gross <agross@codeaurora.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 8 Oct 2026 11:30:56 +0200, Bartosz Golaszewski
-<bartosz.golaszewski@oss.qualcomm.com> said:
-> The BAM interrupt is requested with a devres helper and so on error it's
-> freed after probe() returns. We disable the clock before freeing or
-> masking it so it may still fire and we may end up reading BAM registers
-> with clock disabled.
->
-> Stop using devres for interrupts as we free it in remove() manually
-> anyway. Add an appropriate label and free the interrupt before disabling
-> the clock in error path and in remove().
->
-> Cc: stable@vger.kernel.org
-> Fixes: e7c0fe2a5c84 ("dmaengine: add Qualcomm BAM dma driver")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20260427-qcom-qce-cmd-descr-v16-0-945fd1cafbbc%40oss.qualcomm.com?part=2
-> Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> ---
-> This used to be part of the larger BAM DMA pipe locking series and never
-> got picked up despite months on the list. I'm resending it separately.
-> ---
-> Changes in v27:
-> - Rabase on top of current dma/next
-> - Link to v26: https://patch.msgid.link/20261006-bam-dma-free-irq-v26-1-eef5c713d831@oss.qualcomm.com
->
-> Changes in v26:
-> - Rebased on top of current linux-next to address conflicts
-> - Link to v25: https://patch.msgid.link/20261002-bam-dma-free-irq-v25-1-f39e01d19910@oss.qualcomm.com
->
-> Changes in v25:
-> - Don't touch remove(), it's not wrong in its current version
-> - Link to v24: https://patch.msgid.link/20260723-qcom-qce-cmd-descr-v24-0-4f87bb4d9938@oss.qualcomm.com
-> ---
->  drivers/dma/qcom/bam_dma.c | 10 ++++++----
->  1 file changed, 6 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/dma/qcom/bam_dma.c b/drivers/dma/qcom/bam_dma.c
-> index 94cb957d4b187704e207361d629fde00e3e090bf..a626746b5c93496e5c5e885b35a856d38c284448 100644
-> --- a/drivers/dma/qcom/bam_dma.c
-> +++ b/drivers/dma/qcom/bam_dma.c
-> @@ -1332,8 +1332,8 @@ static int bam_dma_probe(struct platform_device *pdev)
->  	for (i = 0; i < bdev->num_channels; i++)
->  		bam_channel_init(bdev, &bdev->channels[i], i);
->
-> -	ret = devm_request_irq(bdev->dev, bdev->irq, bam_dma_irq,
-> -			IRQF_TRIGGER_NONE, "bam_dma", bdev);
-> +	ret = request_irq(bdev->irq, bam_dma_irq, IRQF_TRIGGER_HIGH,
-> +			  "bam_dma", bdev);
+Mahanta,
 
-Please disregard it version, this should have remained IRQF_TRIGGER_NONE.
+You asked twice and got no answer, sorry. I was away: there was a
+major earthquake here, and I was also finishing a postgrad program.
+The program's done and I'm back.
 
-Bart
+It only needed the repost Jakub asked for. v6 is rebased on net, no
+functional change, and picks up Sidraya's R-b on all three patches.
+The one wording fix is in the 2/3 commit message: the OOB read goes to
+the receiving process, not to the peer.
+
+v6: https://lore.kernel.org/all/20261008-b4-disp-f7cd3d96-v6-0-fba616c0920c=
+@proton.me/
+
+Thanks,
+Bryam
+
