@@ -1,216 +1,245 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47AD2496D3C;
-	Thu,  8 Oct 2026 10:41:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CF22496D3C
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 10:41:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791456068; cv=none; b=jbVoP4ZVkBrQP1mMjbGrOwWZhkXy66hWYessHTdjdbObqfdwfZhAgcgvHQivu36VaKv1s0nt4dq8jo/dh9OcOuYSL/Hh096wB1nvOQketzRmzmePQpAumPOvGP982jx45V3k+lZ8U/tYlNcb5Spdo2s6Bj2luqRNX6IGqKRlucs=
+	t=1791456078; cv=none; b=gXjgHCIusrbTWEbQvyzwDuBQpac9vdcWtBtqkBwcJmhljTybfgY8WsrwXVdEu2qSjdxfXmuArsxcBZLRgXqXzz4c5VRYZR0Vzh32k+iWMXI9rl6BiLjbM8fCFFVJmHPIOKf/pFa9/dypjFzZYMtph/xSlsk7Cl3KFq6MhqEjQGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791456068; c=relaxed/simple;
-	bh=RD+41Prv2YBVEcszEbTrjKHioJWroWvXmK1RbDFydcQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jSLJdizz0M/Igf4so3N5Tvk7Au5DYNspYFrGwyxINsRcY5AlU5wbQ5M0M0B8V2dlOY55TuCsD4H7DWuTIUS+RC9duxzqSR5/LNEK2QZ7kmiAyaY2+Ppd73tbWyS8ScUwxPPJxckaOCJqkoNnNcUTpmw/RVHtvMPwIETLIJUajZs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A0101qdY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791456078; c=relaxed/simple;
+	bh=SI7BL7uYLkz4VbjcwL70zImQMlgXNgcKimnneK9XbZM=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=an8XTqDG6swKHbgFL9sLQGWoNNcs6I36Ia6aJpyFa6W+SF98+VPr2KmJfwhejryFLLG6ojk3kvZ0Lkd4pOXi8yyDETtabSiQeasjQnfGYRI99Riaj2UYnoQn0ui2A2Ma+hEp0v4LXb2kHlolVv1TX/XsW23xZJOzyof2U/uwgn0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--tjmercier.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Y4bSo1V5; arc=none smtp.client-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tjmercier.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A0101qdY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 221DF1F000FF;
-	Thu,  8 Oct 2026 10:41:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791456066;
-	bh=CtJ3sX2t+k7O4SihyHn6wnh9lqmM5VVL6sBh7af1M/4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=A0101qdYFBu0hUVMqtM+aCFz4o+0NWpEnRDNdaj/I8FD5Xhzxqf/1ZOCj3D/V64qb
-	 MIRYuo7DOzLQ8vee5yJD3Cs/VMw+3uvclyQWbROOSSbOx8HNkWJ5t6aT5su1T/zPSU
-	 y7QARURDdMneNgMtCkB/YmlPEfD9i+rlISonSDPe2V3g5KyA3UeMXTOIzptrKhL5Z6
-	 cFLON65qhOeFcUrucEP5mWiUPP+upav+fE59jV+BBliO0ip3Z79pBtWJoc7mYeiIEs
-	 6i/uXx30dBWfsuKTRS7maSircJRMMehivTLDRsKzcBXy81f6IJ+oHClXbuREmW4Lq6
-	 C5mcS4T6pSJGQ==
-Date: Thu, 8 Oct 2026 11:41:00 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Joshua Yeong <joshua.yeong@starfivetech.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
-	rafael@kernel.org, viresh.kumar@linaro.org, ulfh@kernel.org,
-	rahul@summations.net, anup@brainfault.org, lftan.linux@gmail.com,
-	alex@ghiti.fr, linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/7] dt-bindings: dvfs: Add RPMI performance service
- bindings
-Message-ID: <20261008-3b6200fdf4f51048d888b4f5@squawk>
-References: <20261008091032.2832333-1-joshua.yeong@starfivetech.com>
- <20261008091032.2832333-3-joshua.yeong@starfivetech.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Y4bSo1V5"
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3aaf955db5fso858787a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 03:41:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791456077; x=1792060877; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=GI25BZ68P/4aQxot5bwfTnmhOzS6eEcht3VnVkOl1sM=;
+        b=Y4bSo1V5KpsyN65Bk3DBHwYksGzPwDkCJwgoA/vtdZe5ArC8LkOIZFJOFuW/VDNqnH
+         B8svd7LEtFmGDFQyTTqgIFRb9sSlf4bl+uTMmIanjLYOStI5gKNuaSZoeTVAQtGo/TWZ
+         FZWFQLX31UGtA3nT4Q7xFq2kKuXh+WC8nvUsbaA8PGxkOJLX/dMrBba9iYx9/f2Jppe+
+         EF0+nWltfFMg5ycfpBLowEN/fj2iei3BTIJ9uhzULtoHIUmS9g+Bp4yLGfU/Ef5g5xxo
+         krntia5XCEhlcoSyqEQ6f7V00gE+tanHFtxTbeAJ6PCE7r4akhOigH3NZ2GGhu7aN/Vq
+         K0VQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791456077; x=1792060877;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GI25BZ68P/4aQxot5bwfTnmhOzS6eEcht3VnVkOl1sM=;
+        b=rcchejMaNi/xnMu6QTVDMTVCirqqKr8/j6ngIs7XhJuUuEyhHCB4qokIWHBkd4khYj
+         YLXDPR4RlnTNIiq8jvAgj0KixzR2dRsb3W2Qz4ApVB9fMvAm8zcQb4GrA2QMSeOKu2ag
+         CrmP4H0mUxHlTEbE8d5BljD31IzYSRpCMzdeO+VQ2ZNxDZxjzu+5kD+fLqza4GQXNIro
+         FpybzZCwi3w/s0t3k3FwkRThLBkJuE8bYywxYZ1xzMmaa2n+GgUA5AHRqfPTzEW0YRmw
+         5kfw+7jn56nhrcSpzEQLMabB+mLM7+9aZMiJVQ89iXPEHyfAa90HpWx5EtIhy6bwUA2K
+         +pXQ==
+X-Forwarded-Encrypted: i=1; AKwUvByjNsbUsP2GuvE0k9uF5CXmhHgs4FF2jdzZwC4M7arlRQZ+R4RNBwxKUKHeAeivVj6AXQr89nnPT9fTusc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI5Cm8LAae42PRmV6LE/tjQkJei7RzBX98v/axC0J0x8Bqgytgc
+	qU09MSD5mh5e/m7K/VwbuZ+n2hR0T9pWxhK7GTTD2gzjuXVQmqJVu1RrdHhRmmybgvUusT+vC6E
+	oamPm7LBkeyKUu89kgQ==
+X-Received: from plbmt8.prod.google.com ([2002:a17:903:b08:b0:2e2:f0cb:8c1e])
+ (user=tjmercier job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:4d0d:b0:3a4:b418:94cf with SMTP id 98e67ed59e1d1-3a8a0728aa1mr4735755a91.14.1791456075984;
+ Thu, 08 Oct 2026 03:41:15 -0700 (PDT)
+Date: Thu,  8 Oct 2026 03:41:04 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="gR/v5yiG/AmM4XPJ"
-Content-Disposition: inline
-In-Reply-To: <20261008091032.2832333-3-joshua.yeong@starfivetech.com>
-
---gR/v5yiG/AmM4XPJ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+Message-ID: <20261008104108.993791-1-tjmercier@google.com>
+Subject: [PATCH bpf-next v9 0/2] bpf: htab: Reduce memory use of hash maps
+From: "T.J. Mercier" <tjmercier@google.com>
+To: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, 
+	memxor@gmail.com, martin.lau@linux.dev, song@kernel.org, 
+	yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com, 
+	ihor.solodrai@linux.dev, mykyta.yatsenko5@gmail.com
+Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	"T.J. Mercier" <tjmercier@google.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 08, 2026 at 05:10:26PM +0800, Joshua Yeong wrote:
-> Add device tree bindings for the RPMI performance service group based
-> controller for the supervisor software.
->=20
-> A CPU names its performance domain through "performance-domains". Any
-> other device names it through "power-domains": the controller is also a
-> power domain provider, with one power domain per performance domain and
-> the levels the domain advertises as the performance states of that
-> power domain.
->=20
-> The RPMI performance service group is defined by the RISC-V Platform
-> Management Interface (RPMI) specification.
->=20
-> Signed-off-by: Joshua Yeong <joshua.yeong@starfivetech.com>
-> ---
->  .../bindings/dvfs/riscv,rpmi-performance.yaml | 88 +++++++++++++++++++
->  1 file changed, 88 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/dvfs/riscv,rpmi-per=
-formance.yaml
->=20
-> diff --git a/Documentation/devicetree/bindings/dvfs/riscv,rpmi-performanc=
-e.yaml b/Documentation/devicetree/bindings/dvfs/riscv,rpmi-performance.yaml
-> new file mode 100644
-> index 000000000000..ec7856cb7257
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/dvfs/riscv,rpmi-performance.yaml
-> @@ -0,0 +1,88 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/dvfs/riscv,rpmi-performance.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: RISC-V RPMI performance service group
-> +
-> +maintainers:
-> +  - Joshua Yeong <joshua.yeong@starfivetech.com>
-> +
-> +description: |
-> +  The RISC-V Platform Management Interface (RPMI) [1] defines a modular =
-and
-> +  extensible messaging protocol for platform management functions. The s=
-upervisor
-> +  software can send and receive RPMI messages via SBI MPXY extension [2]
-> +  or via a dedicated supervisor-mode RPMI transport.
-> +
-> +  The RPMI specification [1] defines performance service group (performa=
-nce
-> +  domain) for accessing and controlling platform-managed performance-rel=
-ated
-> +  resources, as implemented by a platform microcontroller. Supervisor so=
-ftware
-> +  can interact with the RPMI performance service group through an SBI MP=
-XY
-> +  channel or through a dedicated supervisor-mode RPMI transport.
-> +
-> +  The node is a performance domain provider. A CPU references its domain
-> +  through the generic "performance-domains" property described in
-> +  dvfs/performance-domain.yaml.
-> +
-> +  The node can also be a power domain provider, with one power domain fo=
-r each
-> +  performance domain. Any other device that runs in one of the domains
-> +  references it through "power-domains", and each level the domain adver=
-tises
-> +  is a performance state of that power domain.
-> +
-> +  For example, with the provider labelled "performance", a CPU that runs=
- in
-> +  domain 0 and a device that runs in domain 1 reference their domains as:
-> +
-> +    cpu@0 {
-> +        ...
-> +        performance-domains =3D <&performance 0>;
-> +    };
-> +
-> +    gpu@40000000 {
-> +        ...
-> +        power-domains =3D <&performance 1>;
-> +    };
-> +
-> +  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +  References
-> +  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +  [1] RISC-V Platform Management Interface (RPMI) v1.0 (or higher)
-> +      https://github.com/riscv-non-isa/riscv-rpmi/releases
-> +
-> +  [2] RISC-V Supervisor Binary Interface (SBI) v3.0 (or higher)
-> +      https://github.com/riscv-non-isa/riscv-sbi-doc/releases
-> +
-> +properties:
-> +  compatible:
-> +    description:
-> +      Intended for use by the supervisor software.
-> +    const: riscv,rpmi-performance
-> +
-> +  mboxes:
-> +    maxItems: 1
-> +    description:
-> +      Mailbox channel of the underlying RPMI transport or SBI message pr=
-oxy channel.
-> +
-> +  "#performance-domain-cells":
-> +    const: 1
-> +
-> +  "#power-domain-cells":
-> +    const: 1
-> +
-> +required:
-> +  - compatible
-> +  - mboxes
-> +  - "#performance-domain-cells"
+Memory is expensive and scarce these days. This series reduces the
+memory use of BPF hash maps by eliminating the per-element overheads
+below. This saves up to 50% of per-element memory use for standard and
+PCPU hash maps. The memory use of LRU hash maps is unaffected.
 
-Why is performance-domain-cells mandatory? Is it not possible for a
-domain to only control non-cpu devices? If that's the case, this should
-be relaxed to require that either cells property is present I think.
+Map Type & Configuration           | Old size | New size | Savings
+-----------------------------------|----------|----------|--------
+Standard (key =E2=89=A4 8 B, val =E2=89=A4 8 B)    |   64 B   |   32 B   | =
+50.0%
+Per-CPU (prealloc) (key =E2=89=A4 8 B)     |   64 B   |   32 B   | 50.0%
+Per-CPU (non-prealloc) (key =E2=89=A4 8 B) |   64 B   |   40 B   | 37.5%
+LRU (Any key/value size)           |    -     |    -     | 00.0%
 
-Also, all other rpmi/mpxy series have been written such that there's
-both M and S mode bindings in a single file. Why has that approach not
-been taken here?
+1) Unused LRU / PCPU fields in standard and PCPU hash maps (patch 1)
+struct htab_elem is used for all hash map types, and includes fields
+that are not always used (bpf_lru_node, ptr_to_pptr). For standard
+(non-LRU, non-PCPU) hash maps the 24 bytes for the bpf_lru_node (union)
+are entirely overhead and can be eliminated. Non-preallocated PCPU maps
+only need the 8 byte ptr_to_pptr which is currently unioned with the
+unneeded 24 byte bpf_lru_node, so 16 bytes of overhead can be
+eliminated. Preallocated PCPU maps don't need ptr_to_pptr, so 24 bytes
+of overhead can be saved.
 
-Thanks,
-Conor.
+2) Hash caching for small keys (patch 2)
+For hash maps with small key sizes (=E2=89=A4 word size), comparing keys on=
+ly
+requires a single instruction. Currently the 4 byte hash value (8 byte
+aligned and padded) is used for this, but offers no performance
+advantage in this case and can be eliminated.
 
-     =20
-  -
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    rpmi-performance {
-> +        compatible =3D "riscv,rpmi-performance";
-> +        mboxes =3D <&mpxy_mbox 0x1003 0x0>;
-> +        #performance-domain-cells =3D <0x01>;
-> +        #power-domain-cells =3D <0x01>;
-> +    };
-> +...
-> --=20
-> 2.43.0
->=20
+The implementation splits htab_elem into dedicated structures for the
+different map types (htab_elem, htab_elem_pcpu, htab_elem_lru with
+hashed and unhashed variants) so that the map-type specific fields
+exist only in structures where they are necessary. In all hashed
+variants, the hash is always at a -8 byte offset from the start of
+htab_elem. The elem_offset map field supports the different sized
+element headers, and allows dynamic offsets to be kept out of the hot
+lookup path. It is used primarliy for allocation / free, and indexing
+preallocated elements.
 
---gR/v5yiG/AmM4XPJ
-Content-Type: application/pgp-signature; name=signature.asc
+run_bench_htab_mem.sh shows the following changes across 10 runs on my
+3995WX.
 
------BEGIN PGP SIGNATURE-----
+Benchmark (all in kops/sec)  |  Avg. Before  |  Avg. After  | Delta
+-----------------------------|---------------|--------------|--------
+prealloc overwrite           | 116.26 =C2=B1 4.3  | 118.81 =C2=B1 4.2 | +2.=
+19%
+prealloc batch_add_batch_del | 128.43 =C2=B1 3.6  | 128.89 =C2=B1 2.9 | +0.=
+35%
+prealloc add_del_on_diff_cpu | 22.91 =C2=B1 0.69  | 22.44 =C2=B1 0.62 | -2.=
+07%
+normal overwrite             | 72.43 =C2=B1 3.13  | 81.06 =C2=B1 1.49 | +11=
+.9%
+normal batch_add_batch_del   | 45.20 =C2=B1 0.78  | 50.09 =C2=B1 0.56 | +10=
+.8%
+normal add_del_on_diff_cpu   | 12.02 =C2=B1 0.24  | 12.80 =C2=B1 0.18 | +6.=
+49%
 
-iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasdzOwAKCRB4tDGHoIJi
-0uhVAP9nNf2cQXzey6OUbr27FRH3piqVaIY+SNqdVwz/4k9OhgEAgbUoO/rGaoWG
-Di7inGBeW+S88LtFFpy6dE23NMe2ew0=
-=ch7d
------END PGP SIGNATURE-----
+---
+Changes in v9:
+- Rebase on bpf-next/for-next. Resolved conflicts with ab39974240a0
+("bpf: Hold map BTF for the memory allocator destructor record")
 
---gR/v5yiG/AmM4XPJ--
+- Eliminate warnings from old GCC versions about possible OOB memcpy for
+key zero-extension on 32-bit by using min_t with sizeof(dest) for the
+dead (runtime) !htab_has_hash() branch in __lookup_elem_raw.
+Now elem_has_hash replaces htab_has_hash() and no code is generated for
+that dead branch.
+https://lore.kernel.org/all/202610031215.ybqsLvSp-lkp@intel.com/
+
+- Return struct hlist_nulls_node * from __lookup_elem_raw.
+On W=3D2 builds, the following warning occurred:
+    include/linux/list_nulls.h:57:17: warning: =E2=80=98n=E2=80=99 may be u=
+sed uninitialized [-Wmaybe-uninitialized]
+       57 |         return ((unsigned long)ptr) >> 1;
+          |                ~^~~~~~~~~~~~~~~~~~~
+    kernel/bpf/hashtab.c: In function =E2=80=98__htab_map_lookup_elem_u64=
+=E2=80=99:
+    kernel/bpf/hashtab.c:871:34: note: =E2=80=98n=E2=80=99 was declared her=
+e
+      871 |         struct hlist_nulls_node *n;
+
+That is because the compiler cannot prove that __lookup_elem_raw()'s
+out_n pointer is always initialized when the if(l) branch is skipped in
+lookup_nulls_elem_raw(). Returning struct hlist_nulls_node * allows the
+compiler to see that n will always be initialized, and also that
+is_a_nulls(n) is always true for fallthrough case. This also eliminates
+the redundant !is_a_nulls(n) check that hlist_nulls_for_each_entry_rcu()
+already runs.
+
+- Deduplicate key zero-extension with new htab_zero_extend_key helper.
+
+- Update htab_elem_pcpu / htab_elem_pcpu_hashed docs to clarify the
+unhashed variant is for small keys, and the hashed variant is for large
+keys.
+
+Changes in v8:
+- Add htab_elem_lru_node (Sashiko)
+
+- Add Mykyta's Ack
+
+Changes in v7:
+- Rebase on bpf-next/for-next. Resolve conflicts with 63b13537e6b2
+("bpf: Speed up htab lookups for u32/u64 keys")
+
+Changes in v6:
+- Make htab_elem_set_hash branchless like htab_elem_hash
+
+From Alexei Starovoitov:
+- Drop smp_wmb/smp_rmb and WRITE_ONCE/READ_ONCE on hash
+- Drop map size check changes (just use sizeof(struct htab_elem_lru))
+- Drop BUILD_BUG_ON on elem_offset
+
+Changes in v5:
+- Rebase on top of bpf-next/for-next
+
+- Update elem_size check in map_ptr_kern selftest to 40 in first patch
+(Sashiko)
+
+- Place hash at constant compile-time offset before htab_elem, to allow
+removal of key_offset. (Andrii Nakryiko)
+- This avoids dynamic htab->key_offset load and pointer arithmetic. The
+struct declarations got reworked to implement this, and htab_node was
+dropped. All map_in_map changes became unnecessary and were dropped.
+
+- Fix key update before pptr, value initialization for recycled elements
+and lockless readers. (Sashiko finding on internal run)
+- Read / write memory barriers and READ_ONCE() / WRITE_ONCE() were added
+for this.
+
+- Combine rhtab_mem_dtor() and htab_mem_dtor() implementations.
+
+- Fixed the KMALLOC_MAX_SIZE overflow check since sizeof(struct htab_elem)
+shrinks in both patches.
+
+Changes in v4:
+- Removed inline from new functions per BPF CI (netdev/source_inline).
+
+From Mykyta Yatsenko:
+- Factor out duplicate lookup_elem code into __lookup_elem_raw.
+- Use offsetof instead of sizeof for key_offset assignments in
+htab_map_alloc (patch 1).
+- Eliminate branching and htab_elem casting in htab_elem_hash /
+htab_elem_set_hash.
+
+Changes in v3:
+- From Sashiko on torn reads/writes:
+- Use a local unsigned long and READ_ONCE / WRITE_ONCE instead of
+memcmp / memcpy for atomic key comparisons for hashless elements.
+
+Changes in v2:
+- Make maximum key_size for !has_hash depend on word size for atomicity
+on 32-bit.
+
+From Mykyta Yatsenko:
+- Put the htab_elem* common initial sequence in its own struct
+(htab_node) and reuse it across all element types that share it.
+Eliminate associated BUILD_BUG_ON additions.
+- Replace both the hash and key fields with data[].
+- Store has_hash in struct bpf_htab, and avoid per-element reads of it.
+
+T.J. Mercier (2):
+  bpf: htab: Split htab_elem_lru and htab_elem_pcpu off of htab_elem
+  bpf: htab: Reduce elem_size by 8 bytes for small key sizes
+
+ kernel/bpf/hashtab.c                          | 341 +++++++++++++-----
+ .../selftests/bpf/progs/map_ptr_kern.c        |   2 +-
+ 2 files changed, 243 insertions(+), 100 deletions(-)
+
+
+base-commit: e1d84a37cba984388988d2f1ddc84561413f0db2
+--=20
+2.56.0.385.gd3acb90ef8-goog
+
