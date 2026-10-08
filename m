@@ -1,153 +1,130 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2135.outbound.protection.partner.outlook.cn [139.219.17.135])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3070A1C3F0C;
-	Thu,  8 Oct 2026 10:06:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.135
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791454013; cv=fail; b=cPT+etZwKHCAKvPE1hLft9ZeCDBjolcPvvZuyagWkdkd6Z2SsC/SLRSf5NQREJntrwurLO/qW/hNXUxkiPKUA1tgK2Ua8XQnBMiWtazxNygPit3e8HHah3JDEa375vtNCncdKU3AdwSdVSB/8uqT6IwcQEULA114J7IVLXR1+e8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791454013; c=relaxed/simple;
-	bh=M+VwyKIwjr9MhDKvxFH5Lhz7/pTDw14MjLbnU9qsnAw=;
-	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=SrP2o+XMu2dUoxZA7rENYayerkkX6e8tdx4lzdq/TaGPW1Gy5AWroltELpe+F5QCOdgJPKXQmz4U5RbJP7uGyFGZzSHTmUpQNZbG4CZFUBXiVEjkyc5ztvbDsnvqr+p33NX7kHsLrOPmuiqYl0UuVXGn8AiDy5hfDcno+mZ1pgM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Q40EQ501iV9moVQyVOO8zYqGXmS8GUFcZr3ysPZ/qXZPlXLZV6POkN6uwb9z9/hB8uIViflfhxvF3gwNILiFzJLfeWTM2dBFnYPxsSxAK+zTQCzrIv1DRmnIPXtW6bl5llgPjscoAoE6+FoZFwpojnFNuh1/hGtMasxCfax4zVxqFjfHtOHnmz2860g+VJexbMZcgisx9gHBht5xnC0gdbkVpk+Yq5hGJXRJNQ+Lh4LAepoJCGRLt2xUI9yHI2nfz4wsOregOQerpVgyXyD2DRJvfR9FH9w9UD5EkLpuuH+h7XL6EBQ6fM4dePlhwGZclTj/ENYJernZegOXnkksMg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KOOiEbCSBC3s2DsYr7dknPwW2a6tg6hHhhLOB+ZMp4M=;
- b=QykNrXjqTbfM+8GLmWJpmvB4iKTmsL79ibXSWrG5CRs3RA2Vd2IboZEOv+fecByJ+XzJ9QGW1zEbpyHgJeXy5bFHjW/5v4w9HsCD1mwOrXLrdpzB6R0Rnt1lQWXj4rC517wdmHIWEENE+PbchkKyG4CtVkB+mduRjBopX9RuF976jG5K3gCd8/4HamYkQ+njI7/xJPXnghYmAuANDrTv88E8eJyd2NlrrnHiOwFWG3zlfwwRk2Y8lP6UmT8H1v8t+ChPigKYZtXAXi/vb/RSOJh2mvcRecRnLxjBPDCAz6z3rJv6k03zkwLYRpnQkqBsZ0JYSqd6g/ObOZvqw0ttPg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1332.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:16::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Thu, 8 Oct
- 2026 10:06:34 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0496.015; Thu, 8 Oct 2026 10:06:33 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Iwona Winiarska <iwona.winiarska@intel.com>,
-	Guenter Roeck <linux@roeck-us.net>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	openbmc@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Changhuang Liang <changhuang.liang@starfivetech.com>
-Subject: [PATCH v3 0/6] Add StarFive JHB100 PECI support
-Date: Thu,  8 Oct 2026 03:06:17 -0700
-Message-Id: <20261008100623.7085-1-changhuang.liang@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SHXPR01CA0026.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:1b::35) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89C5F282F0C;
+	Thu,  8 Oct 2026 10:07:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791454049; cv=none; b=KzCfqST/5rqWEgqUeG2b26IjkCiTSU2wE8ZrlsuHKHWCiu8SgRGEd8e1MvhD541+nVoe5BxWBQbAzLc6oBEkv/x+d8sGi9KG0B4EH7Wl6AI2W+JjqEPHrbe9vCOjZQGNLCDLZRlF81ndHys6jAaVgQfzK6M9rMaW3izKBaa3kic=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791454049; c=relaxed/simple;
+	bh=j9DZwpoeE6Q7CEkV99qdmSHsIDqYSxLCJsihTLjuDII=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
+	 In-Reply-To:Content-Type; b=EVDmr4j31WPl1N9EnK92D4mFMrLCOsLr1O2FN8yF17GQcXemVTrQEgsD1XKBl7T63n+D2+r5HuRn+PAL5ihLSQz1cnAi3hwurKkqImwFLFHFBvcRhzDIVHvuL4yCMIUkV/l7aTot88bpq5epVEJJ+g3mi2ZH0B42/j+GzXLkxI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lgh0IbeS; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lgh0IbeS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0587F1F000FF;
+	Thu,  8 Oct 2026 10:07:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791454048;
+	bh=de22r/zg30G1J1pa2Wgrn5ld+1U+iNX3sLV2xGrzMWs=;
+	h=Date:Subject:From:To:References:In-Reply-To;
+	b=lgh0IbeSeQ4eR7kd4RAEx3yKsWo24dn4zuf0W/C+5DTcI3WF49g5w0S1npjCry0/f
+	 Dkjx9f6ekhABbdF1rRZMg7kDFx9RovKp6/034G7DbxodPk4DmddLKznW3qOwSTjCw9
+	 RXuxYtDEPtiWsrAIlbCujq8gxEWWdg2e5EERcfgA4pfp8xgpStqVaZWP7QD5MC8JkL
+	 zQUCToeRHSwGBdA2zw+dwvpQfgm/U8z0//RdQI2Cs18Z6NKgZitzryXaMG3EPbMWNf
+	 S034rgTvCvhGAuuC32UlPl8sLIc3jKXcRWcB4uwzceFHKEPQ0OWeNmckk+Atcuts44
+	 sppZAWQFhG2bA==
+Message-ID: <75387e88-a2f9-4a33-97dc-45774bd23a01@kernel.org>
+Date: Thu, 8 Oct 2026 12:07:23 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1332:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8ebd864b-21ab-4d3f-79f4-08df2523d4fd
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|23010399003|52116014|1800799024|376014|366016|38350700014|10067099003|56012099006|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	iCBS1cSSZ8TseJ5YtVEJe++iOMAHSQgukcl8FpIqT0oEfYL9p2lyTr7TjW3VcSbhUCxZ+ib4x2hvcky/4IHuYN81839OiXD+6qunpf7XZfznAO0XB6imaoy1dYnk9GGN+SXcgOzs+cX4JBlSm/K2JwxH0qQ3IZuMSX8/OzuGdoH5lMjT/UVY7OoIDOXJ2hjWP2DOjAF1v7KGjth8roDtqDCQ1aq2YWXkLeCS2cF2fyoYYqIDOdGX0wv/Nr6s2M2ITtGTp6e5RoQbCpjcvh6oLduKhzG2SWWwrujwSOV6bnP0OOPIj26cAkhEaq00EZ4GWq5Mt4OSNcP2OxktK3Q0CBVyabl2VGCtITOSsr0UBCQK1VtwB5n7qbO9nKdugkfrQAolmWuJbd1cr53f1YK/vmEB4Iu1oqZc/XVYow7fQ2Zsf/Eq5E96LiIoJMCyLRDLp0AKEulzgKcdmpoG7teSegJvNACsmA6wAq4ZnHByCFexEtuJRsWaUQTdDDgiZ1Znvwg7+iwPxN7qUyH43v60xaEXel8fCBvdzYaXin6o5FL/pzhYuiPJRL0Z52wJKQJl
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(52116014)(1800799024)(376014)(366016)(38350700014)(10067099003)(56012099006)(18002099003)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Cr/tLNvsUAFWHsMfPXFyW7q/dWElFMbFtzE+rTT1VgWF8CHuwvnQ5EnFULK/?=
- =?us-ascii?Q?0d+MUt7eQhyshQ3cKCwaQuK2vBpkr5jIvg/kdsuH7UDEVyDRWv1WtLRXID6e?=
- =?us-ascii?Q?d4Mmd5gzbAd9tIQJyeW4iDTploxc0izASNCuWSwWBBKpZV4xhO9BDVgsuxuH?=
- =?us-ascii?Q?Wenme6WA1XUK/aLUVZY1yyZMfJCiyEE0pHH2c42lgA2mohTD5dDFZOuQOIaL?=
- =?us-ascii?Q?WvbRhvTC/l0vRPENJNvfqtZttJ6Mxu1kgcdjq5IJ2Lc/RkVuUZH2Xu+OYz6s?=
- =?us-ascii?Q?Rd3BpiH9XVntpIHk2sHUnemDlawd+3dw7g4FQBfKopMMELBnmbj4t6vqcShM?=
- =?us-ascii?Q?HmAfk8RSMWX98yo+H0pgaucuBLSrrKbIyvi/7XesGwFyFFP8wPPc/EDAaNpr?=
- =?us-ascii?Q?3WbVDTKRfbhrgfMJnlNBcm3wPmvdQzSlc1H43/l3RYl4QB5SMIlgj0Pk/Ees?=
- =?us-ascii?Q?Rd48x7dZOwW/gqAcFvrO/11qCe+a2Cp85XC1o2vVz7+XQ1Lh+Unsadw5irqE?=
- =?us-ascii?Q?Ry/jultZOs7lMEr1qAoRSGV03BSxOkfAIAC7qoqYVhv35tweg60yF3CPVRW0?=
- =?us-ascii?Q?CajRUg+tMJaWBbd8Pp5aGezXOSd8e8xiZVJLwobuP6qmserMc7HTWs+IBejK?=
- =?us-ascii?Q?zm4oTgpcS+meqnOLmLh1SahbeVQbc/cnNfxeROkxeKaaCbgsIEHRoof2wIr/?=
- =?us-ascii?Q?/eM8NVABMl7YL9mMFwIcZhHQToLFl6jAVEeRDh/Zb0dy8y841JInUxS+8fW8?=
- =?us-ascii?Q?rufQiu964rwWXyfWfLr65NMF3qtCVTzotPHc/DI/0hXVLIvK8pCnMwnZkI4v?=
- =?us-ascii?Q?PImZf2Vh1fXyXQCtptHhLGMKMxwg/kTwRHpxUoXcw4DkUecD+ZdNSvDqOR89?=
- =?us-ascii?Q?70xFKP4xUbGer2MgWw0yyFRhYHi1zfKUC6hXK4xpw5kjIVyljjzfnmg14gTx?=
- =?us-ascii?Q?hCbuk2Qoa+hzAvso1jr3M9zLUvx+zMmxbSADk3tRC5SyFe2+wbO05Hu1/ZW1?=
- =?us-ascii?Q?qKJ2HMDEwhiJnZ7BYA4/R5IXEysFi1dyAM3Me5CCVGrsBRvqzYKksSkgN6MS?=
- =?us-ascii?Q?WppJv2MYj6nBqh8qPMsQyBf1YthSfORZLJ6lS2TuDY8tTFEQ1yyct6SvficV?=
- =?us-ascii?Q?wLOCfvevLaB200Kx2hjBZMPwWYZzG0tmRYv8OZF2phbrbWalikGe5jIMDF4P?=
- =?us-ascii?Q?Le51Znn8tRSsx6hTswpyR4999zZbY5Ty1b315pfnIbgjJe5ZLBPHSVGRQ47q?=
- =?us-ascii?Q?WZB3Ecz7XlRr4T2psnt2D8EgNUqHKMtSkhBiamm7i+GsR8SbiT7sGK/dp4bg?=
- =?us-ascii?Q?9Scc/noX3Lf8AAx8npxYFiP7fmq/6uhwLTod4H8/QLVfWRK/w+H1Sd8nMzRm?=
- =?us-ascii?Q?nVxLzlnv2Rb836zQRSxd+NSjq9PjarxkQjHmQn6XlgzrHF2pU5lkvsaNjrk+?=
- =?us-ascii?Q?JP7YLVL5eagmVpsvAB9q4ueHwGEfnraTZ9+fdzy60W+OrDJDrE1sUigSzQHa?=
- =?us-ascii?Q?eGHQp6oAf9SMJSza42AXAyMdkOhsmc733nPeJ3m/hp+o7K8dLHrdVfHuXVDC?=
- =?us-ascii?Q?stlWXQ+y+EGrjO1Cuilm54zfwnxKDI12pKSbhz6DV9HeuMhR4mVseX/TA3Jh?=
- =?us-ascii?Q?LT67fWT+yT4ZbdmEvn0UekmKeDuwOVZ5+D0QejZIbxUJ6Dj69QO5dVKJn7GN?=
- =?us-ascii?Q?b7lvFQdbXaZGJRrIYX9qxiX7FKW5R79dfVz8yB3i/xTIVk6OHMjqOIZ/yatx?=
- =?us-ascii?Q?W1+UK39Z18I0Mh6hWn5iqrnzlRAtXVit7NmHgZn1eYWLKX9HNB8h?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ebd864b-21ab-4d3f-79f4-08df2523d4fd
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 10:06:33.8676
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CU/4cgSHYD7nPAbhngYI+z+0d4ZXLWBbwoDUxVx5QXIWaLuMK8/OuzUcNhSRDInDU0QoeJVHJpKktM5M4FVcUOnMrI1Y0jadvEbGtjaFsssiYym2h+jNA1PZ3K7wHayt
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1332
+User-Agent: Mozilla Thunderbird
+Subject: 2026 LF Technical Advisory Board election - voting started
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+To: tab-elections@lists.linux.dev, tech-board-discuss@lists.linux.dev,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ ksummit@lists.linux.dev
+References: <a7f69e8d-1140-44b5-baf8-bacb8c30c01a@kernel.org>
+ <f6c986a1-b3b4-4b0a-bf12-d98357fbc4e5@kernel.org>
+ <51d0a329-e53c-48ea-876e-98208575b770@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <51d0a329-e53c-48ea-876e-98208575b770@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Add PECI controller driver for StarFive JHB100 SoC. The driver
-supports PECI protocol communication for CPU thermal management.
+Hi,
 
-This series has been tested on the JHB100 EVB1 board.
+In the end, we had ten nominations for this year's TAB election:
 
-Changes since v2:
+  - Alexandre Belloni
+  - Nathan Chancellor
+  - Kees Cook
+  - Dave Hansen
+  - Shuah Khan
+  - Jiri Kosina
+  - Miguel Ojeda
+  - Laurent Pinchart
+  - Mike Rapoport
+  - Cong Wang
 
-PATCH 2:
-- Replace devm_reset_control_get() with devm_reset_control_get_exclusive()
+Voting has begun, and everyone eligible for an automatic ballot,
+or who has requested a ballot, should have received voting instructions
+from the CIVS system.  If you were expecting a ballot and did not get
+it, then:
 
-v2: https://lore.kernel.org/all/20260928075956.62298-1-changhuang.liang@starfivetech.com/
-v1: https://lore.kernel.org/all/20260903133408.110847-1-changhuang.liang@starfivetech.com/
+  - Please check your spam folder.
 
-Changhuang Liang (6):
-  dt-bindings: peci: Add StarFive JHB100 PECI controller
-  peci: controller: Add StarFive JHB100 PECI driver
-  peci: Add support for PECI CC 0x83 retry condition
-  peci: cpu: Add Intel Granite Rapids support
-  hwmon: (peci/cputemp) Add support for Granite Rapids (GNR)
-  hwmon: (peci/dimmtemp) Add support for Granite Rapids (GNR)
+  - Have you enabled your email address in the CIVS system?  It will not
+    send you anything until you have done that.  The place to enable an
+    address is https://civs1.civs.us/cgi-bin/opt_in.pl
 
- .../bindings/peci/starfive,jhb100-peci.yaml   |  57 +++
- MAINTAINERS                                   |   8 +
- drivers/hwmon/peci/cputemp.c                  |  21 +
- drivers/hwmon/peci/dimmtemp.c                 |  33 +-
- drivers/peci/controller/Kconfig               |  17 +
- drivers/peci/controller/Makefile              |   1 +
- drivers/peci/controller/peci-starfive.c       | 376 ++++++++++++++++++
- drivers/peci/cpu.c                            |   4 +
- drivers/peci/request.c                        |   2 +
- 9 files changed, 515 insertions(+), 4 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/peci/starfive,jhb100-peci.yaml
- create mode 100644 drivers/peci/controller/peci-starfive.c
+Please contact us at tab-elections@lists.linux.dev if you have
+difficulties or questions.
+
+Voting will remain open through October 15, AoE.
+
+Thanks!
 
 --
-2.25.1
+Cheers,
+The LF TAB elections team
