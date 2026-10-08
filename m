@@ -1,70 +1,67 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D04DC4F3EA0;
-	Thu,  8 Oct 2026 18:23:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A15964F3938;
+	Thu,  8 Oct 2026 18:23:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791483799; cv=none; b=Kjn+RwsVHiIBPuqLGx3MEfEG+h1652mmrxYpvlgb2URvIvL8Ky34gRskDRpJArF0j3SLx8hDmYZBeeNWb35/p3a/1Pq0oLFjn3tNCtW0CxVWAdWfPakKFYNJ+bljeSH995u70WEALOTVvSsxzkI9Clzw2M34EsryMBXwak6NQzw=
+	t=1791483801; cv=none; b=ukGpuXs5KkGnaODOXTBwvF8J4pxwPSCqOLRgjtOs/yux7A5BTokWSxQ8Lrnkgub7E9YeMNRl6+VEdrM4eC21CeTuVUPzMlfnIHUxRVE+5A5uk7SnDnUORS+su/hDbUNJyp2ZXLdXuNgXm+YBhXWM9qbCKEHs8nPBp77ONGhdy14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791483799; c=relaxed/simple;
-	bh=GQExrJkM2tYgTWqNNdoHLqt1rY7QLtXbDygcwgBd8G4=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=TaX0Cbnyhs9TrxEo9nGFupniO+14cU8Xe3mnVpWKhCMqR64Cj/sDgjFlYmI+Mmnbor+o3FUnT+BqqayfCy+Xd0aDteITgGYYJ/IyUoP4e1Byazxw/1j1AFQaVpbQoUvp0A3rJJDoY+Srkrc0WZUBDdimF8wN1ftR1NgASOBoUWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RMwZOEhc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791483801; c=relaxed/simple;
+	bh=voJiBKDo6TtLO+YJAosyPC30c8P4HYREUemQBZdTb8w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FciryHIK9ht9iyRhJF/9CrSr/E1WKqgAeTZOGPhj66JdyM9tKrMdQg3/5bXMd2MOfzTgsALCBOJTXBJ8RbY2rKoowOCx112R389UwtkvwKJymsvrlSDBOE9Pu9TzEVn2h5wQgkW5GpVf+urGThVfmgK5BIgH5lFtTKdN/GIVUdQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=XGr/rzFk; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RMwZOEhc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A6E41F000FF;
-	Thu,  8 Oct 2026 18:23:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791483797;
-	bh=EvRgs+cpndc9p8a2bte1OWIf5p1C7+/tNT7CHOVs22U=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=RMwZOEhc+pk8bQwz7u108dqPGj1cWOYubkfRXGyM2KLOwlqEhPJgMIzY67SnZV60I
-	 xMAkey1dE1gkSDDaNu1cMsxWDmPCW0j9T7Q60dtSDkU0u5LbtOjo7Ps2U76bBVwIT/
-	 7fsSCm/S2AsMYZlNPjcKP0uKAb3wTR53xUGSBk1f8d7kHuRo53AIyi0psU9zYLCRbn
-	 OyXMfN3XhqKp0Xy4cNnTcHznSoIX1N2OHSOnUW3sbGVwHd2YD5SK7VXF44EY+z8P40
-	 ZrExCb1XbGXGKcOe0+buOhi3T8G7L2cIGtq+ofRaY07/rQpHQAUjc0pOzIw+eIrL8W
-	 vXy2+UvmBgd+w==
-Date: Thu, 08 Oct 2026 08:23:16 -1000
-Message-ID: <61b9a8607e1f25ffd316f13135432581@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Andrea Righi <arighi@nvidia.com>
-Cc: David Vernet <void@manifault.com>, Changwoo Min <changwoo@igalia.com>, Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, Vladimir Vdovin <deliran@verdict.gg>, Emil Tsalapatis <etsal@meta.com>, Christian Loehle <christian.loehle@arm.com>, Balbir Singh <balbirs@nvidia.com>, Lee Trager <ltrager@nvidia.com>, sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCHSET sched_ext/for-7.4] sched_ext: Add NUMA balancing support
-In-Reply-To: <20261004072901.3579967-1-arighi@nvidia.com>
-References: <20261004072901.3579967-1-arighi@nvidia.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="XGr/rzFk"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=Wq0FegSrzp/3imzFWJvCAVCalZW0JrXU0E954419sPE=; b=XGr/rzFkf1pHzA2G2/ykP2+JET
+	94pd12J3hx3ceJFyhWO/nqivUA3kctWRJw8GZmDOlTFP1AWzvfhl74+YuY0jqrTE6vH+cBsMx/uLy
+	+C4o9Q5OowPSBGYp4bOiK5n4dRNAgDrl4ZIBnBl51USU/EpqgCPqH+ommTRP5hjTLj4E=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xEsll-009fsi-LK; Thu, 08 Oct 2026 20:23:05 +0200
+Date: Thu, 8 Oct 2026 20:23:05 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Haotian Zhang <vulab@iscas.ac.cn>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	David Daney <david.daney@cavium.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] net: mdio: mdio-mux: fix device_node reference leak on
+ success
+Message-ID: <ed1aa3e6-05a8-4843-ba32-8b2612099b00@lunn.ch>
+References: <20261008175612.2748920-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008175612.2748920-1-vulab@iscas.ac.cn>
 
-Hello, Andrea.
+On Fri, Oct 09, 2026 at 01:56:12AM +0800, Haotian Zhang wrote:
+> mdio_mux_init() obtains a reference to the parent bus device_node with
+> of_parse_phandle() when no mux_bus is passed in. All error paths release
+> it through err_parent_bus, but the success path at the end of the
+> function returns without calling of_node_put(). of_mdio_find_bus() only
+> takes a reference to the embedded struct device, so the device_node
+> reference is leaked for every multiplexer that probes successfully.
 
-On Sun, Oct 04, 2026 at 09:27:06AM +0200, Andrea Righi wrote:
-> This series lets a BPF scheduler opt into the NUMA hinting-fault scan with
-> SCX_OPS_NUMA_BALANCING. The existing scan is driven from the sched_ext tick for
-> the tasks of such a scheduler, and the hinting faults then work for them as they
-> do for fair tasks: the kernel maintains their NUMA fault statistics and
-> preferred node, and migrates the memory a task accesses toward the node it runs
-> on. The tasks themselves are not migrated: their placement is left to the BPF
-> scheduler.
->
-> The resulting preferred node is exposed to BPF schedulers with
-> scx_bpf_task_numa_nid(), which they can use to keep a task close to its memory
-> when placing or balancing it. The value is advisory; nothing in the kernel acts
-> on it for these tasks.
+What would happen if the parent bus was to go away?
 
-Is there a reason to gate this on a separate ops flag? An alternative would be
-an op which is called when a task's preferred node changes, with the initial
-node reported on enable like ops.set_weight(), and enabling the hinting-fault
-scan iff the op is implemented. The scheduler then gets an event it can act on
-rather than a value to poll. The node has a single writer, sched_setnuma(),
-which already dequeues and re-enqueues the task under the rq lock, so the op
-can be called from there the same way ops.set_weight() is called from the
-reweight path.
+    Andrew
 
-Thanks.
-
--- 
-tejun
+---
+pw-bot: cr
