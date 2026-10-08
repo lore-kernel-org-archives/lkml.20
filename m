@@ -1,147 +1,136 @@
-Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com [209.85.217.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 194FC4FD276
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 20:29:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791491361; cv=pass; b=lDoTRWz62Fm+LtX8POd05UmCQ78mCjszc1O7vs1er3mMyX3DJyFMK0zkBYVN42O2jJ5KDYygaV989Ckhb45lGpgAggWDXYeDZMx1K58UfcxDg6mlJHX2RZqnNUY25ndMqwSVJLCJiKIkI2yJ77ubX19yU1xMlx7XHjjN23pOoyo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791491361; c=relaxed/simple;
-	bh=7axkb603a82UmmO6yoTtFA4rswXUCvwHcAJzJKwVvkc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hcUHzYQgd+J5oXMQGMkbxgLpnsQ5aRIHts9uYXw7qHcS0OH4JI1T+ml4VaBOf8b6Du2fgLk3UpPNhYHFsyZ8VvVU5migHlBt9tArumA5AIA+U8X3hxpPi/dB/phqPxjfYlfYKhvRmXi/OaOMUzTx3JIEml3YTem+fDoRLJn5fRk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ubWwUgjm; arc=pass smtp.client-ip=209.85.217.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52EE14FD28C;
+	Thu,  8 Oct 2026 20:29:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791491383; cv=none; b=ERTlw7aKJC4RWU6MPHUtDZqnJSTVK0E59zFwd+I+5ZITpvxvYUlR3/qnheYY5JA4r8qcqcik3XsUOaxiB/eSOD2o2lutu/HfF0oTJ0HzQglK5ueNJsuFsPfhUNdBCTc3ppG8tgLNfBuLnGN1ME4iBd5XU05HmkOmb2QqqTfg3aA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791491383; c=relaxed/simple;
+	bh=NC7dNyTajbmMXFoJJp2t8diqeBigLr4Nw/Gr9EM4jWA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CAyQnpoiJTr0cQthxNW/Nm/+B9nmKmagIg15giDOm7VMFEwPbDHR/NCcvOyNmtgbRKimm12UEZCoVLlIfv5YWoOm3FAKdXDLBPwI2ntgJ2+dKA1D7HNzZgw0T1lKbEICc5eydR/XAlhGw5RYxO3cj9xOLu/1qfLcDDkivHjDjc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hemd2IZK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ubWwUgjm"
-Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-78fb1fb9508so1109177137.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 13:29:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791491358; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qXmqWP5mvtUyEUpggP1ZUAHMG9RtLe8McvDM70Xv4tvL4QCNmkCoLJb5rXl0/732Os
-         LPQdFRJ1L3dR3T5qHcGCyiiRUuZYrj0CqimudFFGcrUEdHsmkIvOY85mDmsNIM77bg46
-         O/6JpKtw/JehPKiyaHYA+k2Owlg43Teoj3vBsdJiQvOt8d1JBFKcolxAhZLY4KWWeH2B
-         zFUxk9RLrAwqqUIBu1HmJQpmii9t9RCXjZ/dQfRHFPevc4DFHtL83Ft+FQ1X0dDL5zA2
-         LIES/auLC2XH9xNZsg6wWaUWpcwUS6SdRVtF3rZoOinu38eQ/ugOfuxa+rKUC/aW5A/U
-         YpBQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=dEYO+uBmenzQsAKFWdFIK9tsQp7aIojLDDws7AJPz68=;
-        fh=be8l56kjBrYwUWWscYWq5Zu2kraQ/SsYCH76TMpscPI=;
-        b=U6z71/ACfotMmSdt9/qErYVM6EgdwPviR+53M21ucNuirx2SKxTqClQvyeGktS8dey
-         Y33Pkk/UNaFBamcgc/g5fnpTmt3kS+eygET15ws3EwRLfsNY3PD6VH1abU3ARHfrLiE6
-         xd/uxG7EzwK+1j+o9XCJ4PS8LWmfxfpTJnU35Ng94wCdxBmvcAWP3idAah16g9NXqZrA
-         p+Fepkj9ZUt3K1wJi5D55IihAzmI5M/aECETVkSCErfn06Y4fEtiHMx7HWq8TH3DLhzM
-         Ki7+F6WhhK/LkBpaeMp9BJcO4MAWZnF0XCn+iyv17a/pYXRsqIvzdnXrH/4BjK9w3P2a
-         tfiQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791491358; x=1792096158; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dEYO+uBmenzQsAKFWdFIK9tsQp7aIojLDDws7AJPz68=;
-        b=ubWwUgjmshpVIK6Kd3t6ndTPrLEDo6MEt7V1pvLj9dwg8zXctxTW8JArssRsunkw6S
-         xRQV28sQWWsWjyqCvNJgq00uaXZCpeNW2UPyMhizeI45hBjNf8+OdfnjrFEUHHsIsWEt
-         kXKaANlAscFQyZJt/88s/38XmOg8OpefiqIyfl3tTTpUdXF7ETTL+VrryhLUGUmr6v80
-         V02Szye8l8s01Mw8d0L4wEc19Yiu5g/Z9eI6u2hPD8wRoU7DnhQJemDR660TngsrEers
-         yVkIMQv6cdk3byciZkVBxiYpU+7EluwC5QBzyUcADrU8AnkmUOGplwXVlRimgpik6PVy
-         kUYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791491358; x=1792096158;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dEYO+uBmenzQsAKFWdFIK9tsQp7aIojLDDws7AJPz68=;
-        b=CY27DGJVCyK0MzJqkwgEyo2IcxcC3GLULpWJR59W51cz1nTZVd5Nnd0SWkGlm29kTY
-         m8rvsHNHS4FD7EiXzqKhsLYHH9png3CUEmGBknltYCRumAVS6UHI6v6qiuPmYD8SAB7U
-         nQyN6S11YAYIMUpdoUh5x8dBGQH68NHJcSGU4xuFH1A4YUGeCHU48zHI+x48OJQofBIZ
-         sGqZL5r71uDL3T1+CwX094j8hKT1kgodUXdGxPiKFaJghrlKZM6u2CZ2/9vmqerZxxOI
-         SSzwpW3QuT5KG39fM5WUtej1zke67jEYfJzAUVmL9o5FLErXosrOWjIzCab8NoRrGG/J
-         BwFA==
-X-Forwarded-Encrypted: i=1; AKwUvBwLxFw07biwx7qetU3xhkV9vxd0adnrpVszJ8lCH82ocFKmyXe9Jzy+TfjayP12M0nLk4Q1yUqM85XAK3I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKa4JXERKi0JxBb0T/yzmW9aOVjBrlBRUXW04+lgh19UhXa1Wm3
-	+ytWq3jD0dyXSCZfx/HbdTuAVT6/tYMlDf4zJENCslg0qotZKgbhuFDqSm79HMDzevhpjouYsUR
-	qeIm8qJSV4Ln+DJRFWcezzXidNOYh9aSvUEUlFkg=
-X-Gm-Gg: AYBFou2hPJ57srkm7m7lVGIZtdDcY5/1Y+KUMk3AgsEv1hXeNo23cy6ayBm50Y/dhiY
-	Nm+qL88fs17T16xF150nJpA+pOoelfUPc8kIb0FjOETUwWelx/qTYlqmMZVtjKKDJNOwlN5pvhb
-	NxojuTJGtnothBtaluPRzIIJxmElITIIUtZZHqM4EJA7kzJETbUWFFggtNZpmmsFNKwM/d/aroU
-	Y6dZU6KvH0Wznrv4zvHY5HlRF4gvr+/12lPjcP3x9/qh90lFmeuZyiJfXvbAOYDT/sqY6mHgwtr
-	hAKdpB5UIYVxDz+Il0Kaexho99UMh1JrXPBZ4YFtwDhd6sb6S2PQwVkt1St8Mfmjl0G6enQCkIW
-	jDDliFMzOWKZPpu9OrqzaJoC1spNInEs=
-X-Received: by 2002:a05:6102:22c2:b0:7ca:7226:b414 with SMTP id
- ada2fe7eead31-7cab8948919mr912611137.19.1791491357086; Thu, 08 Oct 2026
- 13:29:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hemd2IZK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B38611F000FF;
+	Thu,  8 Oct 2026 20:29:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791491379;
+	bh=Xwl0RGPd+ei1IZo+jlKcRN1N2ZJo6fvaXUFegRPV+LU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Hemd2IZK0YK4B5ygibg2JMJzrN1L2zeB0GkxTbichy5C46qSmuQI6VTpHJG3zrrkN
+	 uh74Vnv88QEhxxsWrp7WljJH24yyPsqWu5EE6ZRch98AKD9z3tHfgHHFqfRBrffYWw
+	 8DgOKh7NnZAvl1RBWMZyipMbbOvQ9O//XXeKZ9LPi3HYtSSt+Tcr2D0WI/QCstHEYg
+	 bUfjvKzTt31S5rC5dAz8LF8Uc4OQvt6nSIRegcH669D9iXxwFYFyyLEkxvqKzy/1Kb
+	 rsAICxWiR/MvMBpoY++KvIXM2ESasjnTMe9PJAz+mbjysUusxEwT93J1z1OWJWFsLL
+	 +lWONomah8ykw==
+Date: Thu, 8 Oct 2026 15:29:38 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Jens Emil Schulz =?iso-8859-1?Q?=D8stergaard?= <jensemil.schulzostergaard@microchip.com>
+Cc: Simon Horman <horms@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Woojung Huh <woojung.huh@microchip.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Richard Cochran <richardcochran@gmail.com>, netdev@vger.kernel.org,
+	Daniel Machon <daniel.machon@microchip.com>,
+	UNGLinuxDriver@microchip.com, Jakub Kicinski <kuba@kernel.org>,
+	Steen Hegelund <Steen.Hegelund@microchip.com>,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	Eric Dumazet <edumazet@kernel.org>,
+	linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH net-next v14 2/9] dt-bindings: net: dsa: add Microchip
+ LAN9645x switch
+Message-ID: <179149137855.1158657.10114176594900619381.robh@kernel.org>
+References: <20261008-dsa_lan9645x_switch_driver_base-v14-0-3d2a72661213@microchip.com>
+ <20261008-dsa_lan9645x_switch_driver_base-v14-2-3d2a72661213@microchip.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261005102518.2400984-1-morbo@google.com> <20261006094358.2948476-1-morbo@google.com>
- <202610060642.7C4125F@keescook> <20261007090915.GA1504630@ax162>
- <CAGG=3QXPAa-i4r3Vv6-q25A6EvsxGb5RDLn02z1=a5zo7W-7Vw@mail.gmail.com>
- <20261007093641.GA1527653@ax162> <bc2e2ae7-02e7-4148-8ad2-ab3c1af3dd7a@app.fastmail.com>
- <20261008161724.GA459@ax162> <eb644465-0c41-431c-85a3-f7eb6bd86cf3@app.fastmail.com>
-In-Reply-To: <eb644465-0c41-431c-85a3-f7eb6bd86cf3@app.fastmail.com>
-From: Bill Wendling <morbo@google.com>
-Date: Thu, 8 Oct 2026 13:29:00 -0700
-X-Gm-Features: AclHuK-6rPfWZEe_Z-sw2qrJwskK3Nn8JlizxagKQ-WxeGZ-k4tgZG1nsqTiy3s
-Message-ID: <CAGG=3QUvZ8k1qjT8jjo1Rft0omyQYAcRUWExKvJw7CGD5B7XeQ@mail.gmail.com>
-Subject: Re: [PATCH v4] compiler_types: Allow opting out of __counted_by and __counted_by_ptr
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Mark Brown <broonie@kernel.org>, 
-	Marco Elver <elver@google.com>, alan.maguire@oracle.com, namjain@linux.microsoft.com, 
-	Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, llvm@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261008-dsa_lan9645x_switch_driver_base-v14-2-3d2a72661213@microchip.com>
 
-On Thu, Oct 8, 2026 at 9:41=E2=80=AFAM Ard Biesheuvel <ardb@kernel.org> wro=
-te:
-> On Thu, 8 Oct 2026, at 18:17, Nathan Chancellor wrote:
-> > On Thu, Oct 08, 2026 at 04:50:44PM +0200, Ard Biesheuvel wrote:
-> >> On Wed, 7 Oct 2026, at 11:36, Nathan Chancellor wrote:
-> >> > On Wed, Oct 07, 2026 at 02:32:45AM -0700, Bill Wendling wrote:
-> >> >> Ard,
-> >> >>
-> >> >> What's the reason why x86 doesn't need the KBUILD_CFLAGS flags? Is
-> >> >> there something that breaks things?
-> >> >
-> >> > I think it is mostly historical. See Kees's series to address it:
-> >> >
-> >> >   https://lore.kernel.org/20261006204210.i.137-kees@kernel.org/
-> >> >
-> >>
-> >> I've queued that up now in the EFI tree.
-> >>
-> >> Do we still need this patch then?
-> >
-> > I don't think so, since the efistub should now get
-> > '-fexperimental-late-parse-attributes' from the main KBUILD_CFLAGS,
-> > which is what prompted this patch in the first place:
-> >
-> >
-> > https://lore.kernel.org/CAGG=3D3QWCmQ+LVvn2dtjEauj5WFwvx=3Dpvg4Q6man_A2=
-imdjRe7A@mail.gmail.com/
-> >
-> > As I mentioned up thread and to Kees in person, we should still conside=
-r
-> > adding '-fexperimental-late-parse-attributes' into CC_FLAGS_DIALECT to
-> > cover other areas that may see __counted_by_ptr use but it is probably
-> > not as high priority.
-> >
->
-> Excellent.
 
-What Nathan said about needing this patch. Once Kees's stuff is
-integrated, all should be well and never break again. (very J/K) :-D
+On Thu, 08 Oct 2026 11:05:21 +0200, Jens Emil Schulz Østergaard wrote:
+> Add bindings for LAN9645X switch. We use a fallback compatible for the
+> smallest SKU microchip,lan96455s-switch. The last digit of the part number
+> is the number of usable front ports and the letter is the feature set.
+> 
+> The switch is a child of an externally controlled parent that hands out
+> one regmap per register target, so reg and reg-names describe the target
+> layout the way mscc,vsc7514-switch.yaml does for the equivalent
+> mscc,vsc7512-switch node. That binding, and the mfd parent it hangs off
+> in mscc,ocelot.yaml, is the model this driver and its parent follow.
+> 
+> Reviewed-by: Steen Hegelund <Steen.Hegelund@microchip.com>
+> Signed-off-by: Jens Emil Schulz Østergaard <jensemil.schulzostergaard@microchip.com>
+> ---
+> Changes in v14:
+> - Use the dt-bindings: net: dsa: subject prefix and do not repeat
+>   "bindings" in the subject.
+> - Describe all switch register targets in reg, and the analyzer and
+>   PTP interrupts.
+> 
+> Changes in v13:
+> - Remove section quoting Documentation/networking/phy.rst from commit
+>   message.
+> - Remove rx/tx-internal-delay-ps from example.
+> 
+> Changes in v12:
+> - Remove Rob's Reviewed-by
+> - Match both the port@ and ethernet-port@ spellings, so the per port
+>   constraints apply. dsa.yaml accepts either, and the local pattern only
+>   matched the long form.
+> - Allow 0 as well as 2000 for rx/tx-internal-delay-ps, matching what the
+>   driver accepts, and restrict them to those two values on RGMII ports.
+> - Constrain the ethernet-ports node the way renesas,rzn1-a5psw.yaml does,
+>   with additionalProperties instead of a local dsa-port.yaml $ref.
+> - Put the example properties in canonical order, so dt-check-style
+>   --mode=strict is clean.
+> - Describe the switch register targets in reg, with a matching reg-names,
+>   following mscc,vsc7514-switch.yaml.
+> - Document the default of rx/tx-internal-delay-ps, as
+>   microchip,lan937x.yaml does.
+> - Describe the SKU naming in the binding description.
+> 
+> Changes in v5:
+> - No changes.
+> 
+> Changes in v4:
+> - No changes.
+> 
+> Changes in v3:
+> - remove additionalProperties: true
+> - remove unnecessary | from description
+> - change top level $ref to dsa.yaml#/$defs/ethernet-ports
+> - use ethernet-ports and ethernet-port
+> - move ethernet-ports under properties instead of patternProperties
+> - move unevaluatedProperties: false after $ref
+> - update example to use ethernet-ports and ethernet-port
+> 
+> Changes in v2:
+> - rename file to microchip,lan96455s-switch.yaml
+> - remove led vendor property
+> - add {rx,tx}-internal-delay-ps for rgmii delay
+> - remove labels from example
+> - remove container node from example
+> ---
+>  .../net/dsa/microchip,lan96455s-switch.yaml        | 208 +++++++++++++++++++++
+>  MAINTAINERS                                        |   1 +
+>  2 files changed, 209 insertions(+)
+> 
 
--bw
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+
