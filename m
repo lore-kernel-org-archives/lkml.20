@@ -1,198 +1,183 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012016.outbound.protection.outlook.com [52.101.48.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A9694D0CDC;
-	Thu,  8 Oct 2026 15:33:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791473645; cv=fail; b=HNi3fIhzZc1zwXMmUoLre9lBE4CEAQA44Bjo3z/2nIBeozlANSegNPF6rN7q73xSmE/AYT/In/+UbsCm1sHxCM/RG2bqsD/3CfMWGbeLOan+xy4M1MuGtsZV/qXHdVyXtWmAsAJzwB0iVwzm8Nybz0Hb5j8hk/Y+WtVV13cyII8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791473645; c=relaxed/simple;
-	bh=g7dq4V1X0ejIFIQ+qyzA3MNBtRF9EkqZEkEQUBHZI6Y=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=alAr2reAqKSC3NkB/upTGnUIPnWoqJMTgMnMYrAR/Rg1abM1pZ3vU4NZPP8n09z0J6IxxaYSC6dlNil66CwE7AxtnmzZyplTFn0Bh7FxzRc8hEAAQkbPgO9rt6y0hvYRTwDbOl2Ux5OuAfDeOoDOQvk0Jh+s7bGBBLnnOvmsmeg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=MwSQx0Xx; arc=fail smtp.client-ip=52.101.48.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35DC64C9DF1
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 15:36:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791473820; cv=none; b=As8Y96pIb7BMjCVRi68I05osHA6t+aGANg9KZZBpUrb5v4WnOofQSVWdaXimgPdRbcylTgLeXNOvE6NsBN2+tCWOyjz5Ne1YtF3BLNLEVL6XYcgfKl9mCSk0gHGssr8hRQu6YasLYZYiwHOYpoDfSFKjLFR/pkYTRt9/pqm/Hpg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791473820; c=relaxed/simple;
+	bh=M34RpNu85eWYou4MHB1z0mjdW9jlDQqaminQuSj4T/s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TIs6VCR4O9Wg9Ij0zAV57gOzRQc7SgZmTr6IMpFM1V49zVo87iuq+iGVzPNnClMlcuXD8QzJH2L14UL0K671bem4gZJAIwp3qkxkC+UGcok449k6ummo1QdszxmTqNtxhVIFHRqfDDAxKaP3I0OvAED6BXxyX8ScUV7tTpZQYyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TJDmFSsv; arc=none smtp.client-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="MwSQx0Xx"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ErjR15XSQNWF1Bz8aYcLgi/Ejyt3r4jNFQ+nTecnU2U05OGsGw2ZHcnL6X0YOxP92xMDKYzbREJVgctd03vvn6fzcug7zUISDkqzCukb98K9vj8GGXmUU2YS2yVRjnt4PC2wMp8PgdXkEQ9haKK+OqKi7jGgXvMkHE7D7s5X7EZFBLyA1SCZGu7RiJmXcg/tB/hXemhjEqsye6DQG5a7pUB+bZ7VbVLbTzFSvEmLhzveITJmaknaupds4H7acGN8MJFfj5ksQG9pmrDxMM6PzHCtVWIC6+/TQUpP/8TcszvumHEpfDMFtyCXXZmisjnmtSZxsPCuTziIqknTbloOeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Zo52sS4Nti2L6RM3AS7FjGFYrWgiHoj/QBj4LbXUTa8=;
- b=ntuHRm0QNn7lFVcWnZAsejRItqmilw9RiuiVsojYoeB2s0ZLyEyz7/b2slj+c/7hBwDtuv/Wgd3JgConQddDrGkxTogXZ0IzDe7Wea41/zQvdYNUgWrY6fe69433g9cGrtiPWPHxSwKdWv0MD7e3p3fCTjbQ6lZbYAXjPNQ4WNRs14iueyiRHOPmL30m8QYde+EmY0jk0ZeL5cZEcTFsMytVpaVR7fdI3JhT/uhY2ove2puDy+GgybNd882vT8RPIYWJrLc0iAIHg+wHcyxApERZMcHh6mAhBFelkjhkokJWj+8stIVKeBEaarysvZe5bOwj5ewUH8F/anqLGAk/hA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Zo52sS4Nti2L6RM3AS7FjGFYrWgiHoj/QBj4LbXUTa8=;
- b=MwSQx0Xxmx/+15qQbPPs5owjnV42Zuj/BOih8mEK4ulUXC5RRbpncyHICUIUFq76n1fbBQjS8MLbd4N7ssDBwD6yyCb5bcUAguJxDzwFbkJzPb0912yaBXDDTipb49y46qneC4AfM7sKYvsG2nlRts7KfRWPHbEmr4PpBBoh6rU=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4283.namprd12.prod.outlook.com (2603:10b6:5:211::21)
- by SJ5PPF7B9E98CB6.namprd12.prod.outlook.com (2603:10b6:a0f:fc02::99a) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Thu, 8 Oct
- 2026 15:33:55 +0000
-Received: from DM6PR12MB4283.namprd12.prod.outlook.com
- ([fe80::9eab:812b:ad20:6087]) by DM6PR12MB4283.namprd12.prod.outlook.com
- ([fe80::9eab:812b:ad20:6087%6]) with mapi id 15.21.0496.015; Thu, 8 Oct 2026
- 15:33:54 +0000
-Message-ID: <e8aa32c6-2b9d-4cf0-9840-1d7b252b0792@amd.com>
-Date: Thu, 8 Oct 2026 16:33:28 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2] sfc: fix stale kernel-doc member names in
- net_driver.h
-To: Arnav Kapoor <kapoorarnav43@gmail.com>,
- Edward Cree <ecree.xilinx@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
- linux-net-drivers@amd.com, linux-kernel@vger.kernel.org
-References: <20261007175338.28683-1-kapoorarnav43@gmail.com>
-Content-Language: en-GB
-From: "Austin, Alex (DCCG)" <alex.austin@amd.com>
-In-Reply-To: <20261007175338.28683-1-kapoorarnav43@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P265CA0252.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:350::18) To DM6PR12MB4283.namprd12.prod.outlook.com
- (2603:10b6:5:211::21)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TJDmFSsv"
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8875d220446so1689795b3a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 08:36:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791473818; x=1792078618; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=q0g5RUJYsTuTINK7t/PSk6wKRYNvtbwpJDwV+1FAvsQ=;
+        b=TJDmFSsvPBLPZq/6uZCoJeRVubaC/WS41L+j9ToouZZPzyvMs5kn3K0ePXX8hMk66c
+         8JV8K1i58eZOH4kKpjYj9plLtFcgEwKdxJM0WYjYHxBrMOBxAl4jHhpGlaQ8U0GBUgt/
+         Klg/f4D6GTAKJdKDqT8pKIRtIouaSd09l7qz9pyV/fXc/CXH5KVUmFJZCkDuUTfG+1D5
+         uQFtb4TVXxBjcRuCUC75ZwImid3B+9nFyV7ezcjvW2ahGdrCmYBxBPWpeyCmjmtYr49X
+         sNMT7xwIPQTVzB3ek0ssy1QMi77dNkWWhhn8GaL9H2eNELc2MlWmulzkS1npHkn8o3eJ
+         i+Gw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791473818; x=1792078618;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=q0g5RUJYsTuTINK7t/PSk6wKRYNvtbwpJDwV+1FAvsQ=;
+        b=bRFTtmA83PmwsLX2tuqP/b17ZHImkrNAHJn50V/zH/sCMznr/9l750tDeQar/3X7+v
+         tkYA7pE42qYa14HG75fhG1uF3399sef/cfJUzsGlMJCmuD+rFZzGL1PZSOs9hiiWaXlB
+         YPSuEuDjhh+HEM/tVWoLc6IJWf8nv8QSKKF5s4XCs+bEVsSCWQiXgvPm2CpBo0gLKc09
+         1fhlwbulgaH/rqTw+7mhQRyYY9IhvmEmJJkU0rcMXc50YEXJ61Ra/ZL3ZB1C2psrhvnC
+         28j7yTHep3oBmckFJ8JTaA5GH5ClZCCgyePbP+DggWKLjBtTHd8vAEzU1eNa2/d4pOh1
+         2HSA==
+X-Forwarded-Encrypted: i=1; AKwUvBy+c2i3PmfR8ITHbqSVDOMNrqj4Neu4QbiniybFujCO8c5pgdlyN0UePSV33YVuIPL3KAXu8Z9i9gIoP2s=@vger.kernel.org
+X-Gm-Message-State: AFuF++mXAtSq5eBYADhyTWEoQnRCVimuIV6Bt6xVlXdRjxEVZMWH8Xg7
+	/luVBVkes4xdHxsIiXI2Akp//vvcsdF0Y2/apN6nMWHHhPaMkdqgG6xK
+X-Gm-Gg: AYBFou0JbSbhJtsvsmgENGsdp95iWEsBw3jMPBBLEEx6jB7auD0iw/Oqb5kiJ5MUKOJ
+	zKGlZzji6SNgh4i4J+w+yuFlHKB3Vi/+Q8Ty35qf4Zi53v/yucFfyh765wT9T6I/hadJ7cLxC7t
+	tz7vf5GFm6fO10Wwi/YkRvaotH/vb43QbLUPh6vLBLCyVTIZZ8bh0LlQHIKTSfkjlMPELwhaex1
+	voKDnWnPsn3h47B2JGzqP0Lk0iyHudBM49IguWPrMoO64z0pnDzquMgm+XyxF9dBpMgzWA9E8Wc
+	ANMartmUB0eukizI5WKSlARDxof/FcfwTZB9ggzRCdrYNmOfEDoctFC3E4Y2TuuhtAVuYZvjhLD
+	qVB5lCsNEzB/1ooWjEhzcX6bGGl4oYDb4ihIN7y5DRulr8R7q0/OD8Cvvvo7cW+eFLn20ND9wCK
+	2xqnEOISyIsnHaKUdVxOCIOxFGBisBSPWmXHlOGpvb8Ah2MdZ1zpON1vAejoxUdZClgtMirkXan
+	YXYQaK12IX9yeYfzw==
+X-Received: by 2002:a05:6a21:608a:b0:3dd:85a8:4c57 with SMTP id adf61e73a8af0-3e1340542b4mr4754282637.30.1791473818297;
+        Thu, 08 Oct 2026 08:36:58 -0700 (PDT)
+Received: from arch.localdomain ([161.33.202.10])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd35736f232sm263479a12.26.2026.10.08.08.36.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 08:36:57 -0700 (PDT)
+From: Jun Yan <jerrysteve1101@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Jun Yan <jerrysteve1101@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] arm64: dts: rockchip: Add dma-names to RK356x UART nodes
+Date: Thu,  8 Oct 2026 23:36:16 +0800
+Message-ID: <20261008153620.238580-1-jerrysteve1101@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4283:EE_|SJ5PPF7B9E98CB6:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0848f779-72c2-4723-3f74-08df25518fc7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|18002099003|22082099003|10067099003|11063799006|5023799004|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	yAcpsm18XJR/v4KEcMoHYtuYSKIj76omjyZwdfTz3DKt8gFKM7ikGB/jfUxOvSs6bVVsV/ft1wl+dTddySuAYI2whgowSoZjHQw0y8q21YZOu+XKj+SV8X2EaCFpCCdnW5ODHgu1jP67ZgSHN4EchD99aQiGDvPsBtzVhvMouRCRu4pciC0YhOK8x7SPDuQYdqdepRG6lXQLH0rYXzLKQCVfthaCf4ROFOIbo8qSeT4qzy7FA1g5Qg6Y8Id2FYfC10oQ7X9FpOkMz1MmRr3H3xSWTmEj5zQzCIjt3xxYW/z63veyy3Rv1BYTo4FnJragB+ThG912lvd0dRjZZ4Eyy2Z6kwmcbN/3IAzERseN8FasSZf0cXbRmKiQGxRcWXVBw2O+8fRW0RE2QDhlZ9N34iU/fiDteB4zIADno8vwZzejHonL+26XpnWgxZdbbS8ZyziF4TmdryOU4/DGIimhGUee2/MnYxBqnVCQpZ9V6s9Pm+gLYTdUZ89LDAX3FhUj/0QPTlmNKQqln9FYPIQ1Ch7IZoTd7tVkovFf5x0Eh7xIZE6bKLmkMgFvgyDkYIYxdO3s4NeLg1hcAj8FPx5/6b6fdEttoMeoWCk6yLHO+eSHoY8qtFSlPFAffI45MB3YTSVbkJ3gr0AIVpYTo60rHZyD76XRssXumBQmyYwDkQ0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4283.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(18002099003)(22082099003)(10067099003)(11063799006)(5023799004)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cFV5ODBLSFV4T2JoRnpzZ2hjTWhvVWlIbHZxZmJPcnpRdzRkZVNmZVhqWEdl?=
- =?utf-8?B?dkNZOHJ3QjNPcWdONjM3WGlVNkI4eHRMOTluM0xwLzgvTFo1TTBtbk9lY0JR?=
- =?utf-8?B?bDBRb1pKQ0xsb3k4MnZWdWNLK3ZNcklkWGVEVHlseTdUbjRDbjN5VkJVMHlI?=
- =?utf-8?B?YUJjcGNrRkVCdExzaHBqR1pSYmVnTS9EMC9ocjNnOGxSb0RwT3doWkdZa3V4?=
- =?utf-8?B?OVc3L0NyVk1heEZqdmdDcnBxaWlwYzlpWFVSZVliakYxMGQrZXAycnpqaFFC?=
- =?utf-8?B?alpDYXRzNERIT1JQc3BMc3BDMnE0ZWx6RmdIY21oNTlLQzRGb2xXTDErOEFW?=
- =?utf-8?B?Z3Vnb0tCK3pIUWhPTGJjbzR0UlpudzNaa1V1R0dBd3BER2F6SUhkaURLMjRw?=
- =?utf-8?B?TXdTOGppcG5mVjVCUUFNWU5rdThRbnRzTUxFcUZvSlFSeUJCUDdBTXgzb2pw?=
- =?utf-8?B?eEhOTVcyUE4zcGhUdVBuTmtSZkJKMjVSRlM5SmhJcC9TcUk2WW1vQ3QycGFF?=
- =?utf-8?B?b2w5aXpXSWxSTTQ5bnZCOW1DMHYyZEQ3ZnZza1lhNE1Tb3JZMDVwa0pib01P?=
- =?utf-8?B?MGJZSloxTFVmVXlvbjlrWTg5K09yVEkxaUg5NE0xbFRrNlRRYVUvZ0d1ZmxN?=
- =?utf-8?B?bG93QUJOYm1yWHlNY3NIelU5aExRV29UQzIvVGdVVXcvRUNBSHRieFdjSC82?=
- =?utf-8?B?eVk4eHhHQ0ZNY0h1VGp5bmNRY3M4N05jZG9BdWNHYTgyY0IxOSs3clF0KzE1?=
- =?utf-8?B?bkxyZFRNRVRWdVNpRkdHaG1wSXNQRG5XZ0Zxd0RGWlpKZUVYNlI5OFR2Tmtw?=
- =?utf-8?B?aVFrUWVCcWRXbmw4TWJLWmpMNGZwOEt0Q1k1NmVkaC9VTUpPTjVMMDVYV2ZT?=
- =?utf-8?B?cHNUeExzbVNHTXF6ZTlNSGQvRXM1Q2FkcG90LzlBSmdJaFdVQlZQRmZWb1Qx?=
- =?utf-8?B?eGkrcy9jOFBWSlUxSWRHVXpqc2NzUWJKd1p2RXhKMlVqOWl2QVh0R3VqdTlu?=
- =?utf-8?B?VVlxaVcra3RGUUZzVWQzWUs5UktYUitIN2ZBcGdHM0c4MWtIYXZnVFh0ZWo0?=
- =?utf-8?B?RjhtZFh1UE1PTCsrSElYWHEzZkFFNWdkWjNLMVJmNWNlNkgzZmg2QU1ENS8y?=
- =?utf-8?B?ZVZXZTJUbVc2cnVNdkdyNWY1eUkxVm90STZBbi8zY3hkU0RBbTFPYVcxdUxs?=
- =?utf-8?B?Vnp5WnZmMVMzYUxNN3NOdWx2QllPMmEwdEZva2l0elNWZnhack9ZTUEwTG1Q?=
- =?utf-8?B?Vm5uVnc5L2dSNStiWkJOajNQei8xTmp0bHBpWExLSlFIS2RnR2VpKy9yYzMy?=
- =?utf-8?B?eXRjaTI2d1ZHY25PUWplZTdzc3Y0eGVzT1p3UURjSDhONzlLN294QUw4VEFs?=
- =?utf-8?B?dlZER0wrUkpnL0FCL1lPSGNjVzI4Umk2T1FHY0o5cGtPWFY3S1lBS2pRaGdt?=
- =?utf-8?B?VDJONWYzbG9HN20wZlNRVE15dzFVa0tPVVp6ODI1Rk1iam1hKzhHdDRKUEYr?=
- =?utf-8?B?Ymw0V29wbjdJc2o5bndodmlzRXdFMTJyM0E3L2dzd0MyREd4ZElSV1B1RXc2?=
- =?utf-8?B?WmN0L05OUFdUQkpBY0h5OGxRUkg3VWUxQld3cVJjWUZoaGlMeDl4OGpRVFBD?=
- =?utf-8?B?OEE4VU9Wa2tpM2ZjOTVqRzNwNVBYdXJhc0dWN2tnd0FZUSt5dENway85dWFI?=
- =?utf-8?B?TVV3dzdHeUNXZ09KSDVwN0x3MTRTNGNkNXc1Zk0ycWNSSWRvZnJXQ3Qwd2Fi?=
- =?utf-8?B?MktYOGJKQ0ZJQkwzK2xJSFlkRkhKMXRyYW1xdDN3TXZZWDEvejBSOGVSOGIw?=
- =?utf-8?B?NHYra2IvbmR0SkZ4OGpWNkpoeE53WkFtM0c2ZjMwblBBSnl3a2NUM3ZLWUN3?=
- =?utf-8?B?endvWXgxTzZrQmpqN3R0WXlZMTBPVzF0SzdlSUQvMEgrOVA3WUNOd3NUZlAw?=
- =?utf-8?B?eVBaZ0s2Q0c1aWllc3dxRWovSTZVSDUzc2FJUEVGTGpGVmhLZThKM01OMkx1?=
- =?utf-8?B?R3FNSVNKWWlUVXRIdXFPN1ZvUzBXZ3BUbS9aemN4NVV0Qy9PR0MzV0xHc2tz?=
- =?utf-8?B?QzM2K04yaEprZG8ydVpUY3paQWxOaGtqYjB2Mkt2WnBMaGVNY09raE00NTk2?=
- =?utf-8?B?Z09TMDZXaU9QMExNYmlOQTJPcW5nT01CM2Flb3dnaFc0LytLM1RJOWRHVFg4?=
- =?utf-8?B?WTVhbWVhUm5vQy8yUVpjYjI2UkQyY2RDK2JYQW9YVTJLeS9SMGlxZGc5R012?=
- =?utf-8?B?bVRIQTRlK3RXUWFaMk50RVlxYjl6dHVJQzRDVDF2WHhMYWVaRmNETi85dmpq?=
- =?utf-8?B?MlVZYXdFelNqQm0xMEpmT1VxaVNENkFsQWc2Uy9RcFFCaXRYc3RQQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0848f779-72c2-4723-3f74-08df25518fc7
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4283.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 15:33:54.7238
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: X+rbbnoHvCysxDE1jtkFX85G49Vn2wqC/IpoAefWeLe1zAuVj6WbYtTO7tEkYdakcsTMaI0PDq4wDO7K4BnDOw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF7B9E98CB6
+Content-Transfer-Encoding: 8bit
 
+The RK356x UART nodes define a dmas property but omit the matching
+dma-names property, so the 8250 driver fails to request a DMA channel
+and falls back to PIO, logging:
 
-On 07/10/2026 18:53, Arnav Kapoor wrote:
-> Several kernel-doc comments in net_driver.h describe struct members that
-> have since been renamed or removed, and the EFX_MAX_FRAME_LEN() comment
-> is separated from the macro by the EFX_FRAME_PAD define. kernel-doc
-> reports:
->
->   Excess struct member 'state' description in 'efx_channel'
->   Excess struct member 'state_lock' description in 'efx_channel'
->   Excess struct member 'indir_table' description in 'efx_rss_context'
->   Excess struct member 'irq_rx_mod_step_us' description in 'efx_nic'
->   Excess struct member 'tx_queue' description in 'efx_nic'
->   Excess struct member 'rx_queue' description in 'efx_nic'
->   Excess struct member 'extra_channel_types' description in 'efx_nic'
->   expecting prototype for EFX_MAX_FRAME_LEN(). Prototype was for
->   EFX_FRAME_PAD() instead
->
-> along with "not described" warnings for the renamed members.
->
-> Fix the member names to match the structs, drop the entries for members
-> that no longer exist, and move the EFX_FRAME_PAD define above the
-> EFX_MAX_FRAME_LEN() comment, documenting its @mtu parameter.
->
-> kernel-doc -Wall also reports three members that are not described
-> because nothing in the driver uses them any more, so remove them rather
-> than document them:
->
->   - efx_channel::busy_poll_state, left behind when commit e7fe9491261e
->     ("sfc: get rid of custom busy polling code") removed its users.
->     @state and @state_lock above were its old kernel-doc entries.
->   - efx_tx_queue::flush_outstanding, only used by the Falcon/Siena
->     flush code, which commit 36ff6393292d ("sfc: Move Siena specific
->     files") moved into siena/ with its own copy of the struct.
->   - efx_rx_queue::min_overfill, whose kernel-doc entry and only
->     assignment were removed by commit ecc910f520ba ("sfc: Make the dmaq
->     size a run-time setting (rather than compile-time)").
->
-> The warnings were found with scripts/kernel-doc -Wall. I don't have sfc
-> hardware; this is compile-tested only.
->
-> No functional change.
->
-> Assisted-by: LLM
-> Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
-> ---
-> Changes in v2:
-> - Remove busy_poll_state, flush_outstanding and min_overfill, which are
->   unused, instead of leaving them undocumented (Simon)
-> - Use the Assisted-by format from coding-assistants.rst
->
-> net_driver.h has further members with no kernel-doc description,
-> mostly in struct efx_nic and struct efx_nic_type. Those are in use, so
-> I'll document them in a separate patch.
->
-> W=1 build of drivers/net/ethernet/sfc/ shows no new warnings.
->
-> v1: https://lore.kernel.org/all/20261003055443.144554-1-kapoorarnav43@gmail.com/
->
->  drivers/net/ethernet/sfc/net_driver.h | 21 +++++++--------------
->  1 file changed, 7 insertions(+), 14 deletions(-)
->
+  of_dma_request_slave_channel: dma-names property of node
+  '/serial@fe650000' missing or empty
 
-Reviewed-by: Alex Austin <alex.austin@amd.com>
+Add the missing dma-names = "tx", "rx" to uart0 through uart9,
+matching other Rockchip SoCs such as the RK3308.
+
+Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+---
+ arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
+index a5832895bd39..098493c04ecc 100644
+--- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
+@@ -443,6 +443,7 @@ uart0: serial@fdd50000 {
+ 		clocks = <&pmucru SCLK_UART0>, <&pmucru PCLK_UART0>;
+ 		clock-names = "baudclk", "apb_pclk";
+ 		dmas = <&dmac0 0>, <&dmac0 1>;
++		dma-names = "tx", "rx";
+ 		pinctrl-0 = <&uart0_xfer>;
+ 		pinctrl-names = "default";
+ 		reg-io-width = <4>;
+@@ -1449,6 +1450,7 @@ uart1: serial@fe650000 {
+ 		clocks = <&cru SCLK_UART1>, <&cru PCLK_UART1>;
+ 		clock-names = "baudclk", "apb_pclk";
+ 		dmas = <&dmac0 2>, <&dmac0 3>;
++		dma-names = "tx", "rx";
+ 		pinctrl-0 = <&uart1m0_xfer>;
+ 		pinctrl-names = "default";
+ 		reg-io-width = <4>;
+@@ -1463,6 +1465,7 @@ uart2: serial@fe660000 {
+ 		clocks = <&cru SCLK_UART2>, <&cru PCLK_UART2>;
+ 		clock-names = "baudclk", "apb_pclk";
+ 		dmas = <&dmac0 4>, <&dmac0 5>;
++		dma-names = "tx", "rx";
+ 		pinctrl-0 = <&uart2m0_xfer>;
+ 		pinctrl-names = "default";
+ 		reg-io-width = <4>;
+@@ -1477,6 +1480,7 @@ uart3: serial@fe670000 {
+ 		clocks = <&cru SCLK_UART3>, <&cru PCLK_UART3>;
+ 		clock-names = "baudclk", "apb_pclk";
+ 		dmas = <&dmac0 6>, <&dmac0 7>;
++		dma-names = "tx", "rx";
+ 		pinctrl-0 = <&uart3m0_xfer>;
+ 		pinctrl-names = "default";
+ 		reg-io-width = <4>;
+@@ -1491,6 +1495,7 @@ uart4: serial@fe680000 {
+ 		clocks = <&cru SCLK_UART4>, <&cru PCLK_UART4>;
+ 		clock-names = "baudclk", "apb_pclk";
+ 		dmas = <&dmac0 8>, <&dmac0 9>;
++		dma-names = "tx", "rx";
+ 		pinctrl-0 = <&uart4m0_xfer>;
+ 		pinctrl-names = "default";
+ 		reg-io-width = <4>;
+@@ -1505,6 +1510,7 @@ uart5: serial@fe690000 {
+ 		clocks = <&cru SCLK_UART5>, <&cru PCLK_UART5>;
+ 		clock-names = "baudclk", "apb_pclk";
+ 		dmas = <&dmac0 10>, <&dmac0 11>;
++		dma-names = "tx", "rx";
+ 		pinctrl-0 = <&uart5m0_xfer>;
+ 		pinctrl-names = "default";
+ 		reg-io-width = <4>;
+@@ -1519,6 +1525,7 @@ uart6: serial@fe6a0000 {
+ 		clocks = <&cru SCLK_UART6>, <&cru PCLK_UART6>;
+ 		clock-names = "baudclk", "apb_pclk";
+ 		dmas = <&dmac0 12>, <&dmac0 13>;
++		dma-names = "tx", "rx";
+ 		pinctrl-0 = <&uart6m0_xfer>;
+ 		pinctrl-names = "default";
+ 		reg-io-width = <4>;
+@@ -1533,6 +1540,7 @@ uart7: serial@fe6b0000 {
+ 		clocks = <&cru SCLK_UART7>, <&cru PCLK_UART7>;
+ 		clock-names = "baudclk", "apb_pclk";
+ 		dmas = <&dmac0 14>, <&dmac0 15>;
++		dma-names = "tx", "rx";
+ 		pinctrl-0 = <&uart7m0_xfer>;
+ 		pinctrl-names = "default";
+ 		reg-io-width = <4>;
+@@ -1547,6 +1555,7 @@ uart8: serial@fe6c0000 {
+ 		clocks = <&cru SCLK_UART8>, <&cru PCLK_UART8>;
+ 		clock-names = "baudclk", "apb_pclk";
+ 		dmas = <&dmac0 16>, <&dmac0 17>;
++		dma-names = "tx", "rx";
+ 		pinctrl-0 = <&uart8m0_xfer>;
+ 		pinctrl-names = "default";
+ 		reg-io-width = <4>;
+@@ -1561,6 +1570,7 @@ uart9: serial@fe6d0000 {
+ 		clocks = <&cru SCLK_UART9>, <&cru PCLK_UART9>;
+ 		clock-names = "baudclk", "apb_pclk";
+ 		dmas = <&dmac0 18>, <&dmac0 19>;
++		dma-names = "tx", "rx";
+ 		pinctrl-0 = <&uart9m0_xfer>;
+ 		pinctrl-names = "default";
+ 		reg-io-width = <4>;
+-- 
+2.56.0
 
