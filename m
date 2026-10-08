@@ -1,383 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 993EE3D5C0B;
-	Thu,  8 Oct 2026 20:06:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6823A3D5663;
+	Thu,  8 Oct 2026 20:08:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791490015; cv=none; b=MBrA2Dc16CkNX0zCpBIkRmZOMbzplKTZm5/YuMFvMHpZuJukigJBr1ocxe5PB16vKCPrS4/1GYBAaVxZ5Q4gzf8IypgFOg3XDdrOl9bDMle2jyaKf07BWcPv6Mshm2+LVUClEMqMPpsVi4fLqFivTV328ILXDWXR09ZfEFV6Ml0=
+	t=1791490117; cv=none; b=fHQXpZv37wVyvhABOvquxqAmUou5is64ceZ4qtWuhUBTPQiCzTpE7tClocW+NCp75yawKAs36n6e6TvbJLs3spDAH5Ctze+HiBtWAIWMV4ru+zmJT0G2kEgz0XqtrfpfoEPMQYnasSk20iRcYxV1xaYpVLsb6rKl1cYk5waCLNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791490015; c=relaxed/simple;
-	bh=+1UXuBlykCv/CnwH+J6WwoCPPKwdXCtGYAE06efthRs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=VZ6yXFesutSmqnu7Gp8juoibH7PtAjbi+yHExbpxDg/NZXhrbQWKC3vH39M1lUVK90cAehyFu9y4zRmKNwnmoNBXWTBEPFw5oNJ8/I91CWofzxk+pqxzdrtitac2rIdT8Ru4jL3FBvfX8oE8wZN9pIFT58X2R95pl15rnx3aDVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B++917J5; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791490117; c=relaxed/simple;
+	bh=Sc4fMsvIwqkBAjMFj9hplC8Cttee3nMmLujAzRDb2Jg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tOxB62lMyy1eK3R/D7OpLEuMGGkCANgNE4TxjoDf8FdaL8WsSDKl3xhpLkahXdU/xNodTHsUeg5+4kNaqviilbwai9CIa1FoRojlPzrJfuFSvwzxnoCNl+tq+NMBbXfx5/eJ8N/49MlTyAQCSz8reKllFHpysOCke6RSBjebo+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C4u4/XCN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B++917J5"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4ECE5C2BCFC;
-	Thu,  8 Oct 2026 20:06:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791490015;
-	bh=+1UXuBlykCv/CnwH+J6WwoCPPKwdXCtGYAE06efthRs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=B++917J54w1BDt6hz9SkwBhASDtsXtFtsTfA7K5zzPD7X0w8oeROfd6ppjPD/Ij0u
-	 8EUQ7IRP0v/HffnHauo8JR5dYqBpfihW3fc3ZVNVRsCUIDw0OzodixL8oxpqC9/m18
-	 97O3kMqQx06KyUgvxgyA4NPFS694FF4oxaH2NQdny5S7DVVSt6KzYvh+2rVHRGkBbu
-	 PexmbO2SHqx3ww0y5g/6sJyjwAsW6iEcJNNRnFb85dYq6HWCr28K5QXTwF0pbL/NAR
-	 T0WlasRqBe5uZ8G8BGR3s8Qp+sCdezs9E1RSWQWoO2TjB2aZfxhBszLAyPmUHYzBCs
-	 ZG9qffA1ocg3A==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2E285CA6015;
-	Thu,  8 Oct 2026 20:06:55 +0000 (UTC)
-From: Fabio Forni via B4 Relay <devnull+development.redaril.me@kernel.org>
-Date: Thu, 08 Oct 2026 22:06:54 +0200
-Subject: [PATCH v4 2/3] mux: convert to use fwnode interface
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C4u4/XCN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD0D51F000FF;
+	Thu,  8 Oct 2026 20:08:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791490116;
+	bh=vdt4LgR1i/9D2iXObtflcBx+b8pFRSIJlmL34GzbKts=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=C4u4/XCNUrBgrjzr1kGfaeJQBnXOXpiULH9hGNUq0l+ayGKK3I8nVMWEgL2MccEwU
+	 yzqvqxYvF+2M5N1sGnuRqE1165FMSOqVwaBC6eOTFKZfSypMyv9qKpLvf+fjnEPn5U
+	 3k+/LvKwqO0BmoxWMghg3X7NjH5ZNeZhGG9pUDYtUECk4AkXwMq2MqvNAzPQBJdLHy
+	 +8VQPzOasRpDAAUDm0NXkkKe8ZAJnw4NdJHb58e76HFL8KuhT5fFg04oJCOVo97gv5
+	 d0EJ7pIxogG0NYk9GhmOSZltjrUIy31MTwIrBoyIQCSKQj1uLyHllv9H5NRC1vSzlF
+	 pe+0Cb8V5U3ZQ==
+Date: Thu, 8 Oct 2026 15:08:35 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Luo Jie <jie.luo@oss.qualcomm.com>
+Cc: Pavithra R <quic_pavir@quicinc.com>, Paolo Abeni <pabeni@redhat.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Eric Dumazet <edumazet@kernel.org>, linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	"David S. Miller" <davem@davemloft.net>, linux-doc@vger.kernel.org,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Suruchi Agarwal <quic_suruchia@quicinc.com>,
+	Jakub Kicinski <kuba@kernel.org>, quic_kkumarcs@quicinc.com,
+	devicetree@vger.kernel.org, quic_linchen@quicinc.com,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Lei Wei <quic_leiwei@quicinc.com>, Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org
+Subject: Re: [PATCH net-next 03/11] dt-bindings: net: qcom,ipq9574-ppe: Add
+ IPQ5424 PPE support
+Message-ID: <179149011467.959134.13186621321621219297.robh@kernel.org>
+References: <20261008-qcom_ipq5424_ppe-v1-0-16caf43e44ee@oss.qualcomm.com>
+ <20261008-qcom_ipq5424_ppe-v1-3-16caf43e44ee@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-mux_fwnode-v4-2-ba3330e44b2a@redaril.me>
-References: <20261008-mux_fwnode-v4-0-ba3330e44b2a@redaril.me>
-In-Reply-To: <20261008-mux_fwnode-v4-0-ba3330e44b2a@redaril.me>
-To: Peter Rosin <peda@lysator.liu.se>, Linus Walleij <linusw@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jonathan Cameron <jic23@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
- xu.yang_2@nxp.com, 
- =?utf-8?q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>, 
- Fabio Forni <development@redaril.me>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=11904;
- i=development@redaril.me; h=from:subject:message-id;
- bh=/XvF9DCpFygtN9Q7c/OX7DNEAiUGzGE5eK1FGku7+QA=;
- b=owGbwMvMwCXWeKho1tqFWemMp9WSGLKOf7/zQ3Kd8MzOORNuOl3955JsqB6xyItvT+VC9fd2b
- me7ptus6yhlYRDjYpAVU2T572S0qdvMxOhWv0QtzBxWJpAhDFycAjCRc3wM/z20fu7znMu0Ladz
- paXEeu1Z045v+rU4KsWzcAVDNROT/WRGhssKGZEvFabnrf/iauEs7Ne65sfp5Uferm9e4GLqcSk
- 2ngEA
-X-Developer-Key: i=development@redaril.me; a=openpgp;
- fpr=FF4232B28B363432DA8F187D81C2729AADA16A67
-X-Endpoint-Received: by B4 Relay for development@redaril.me/default with
- auth_id=1033
-X-Original-From: Fabio Forni <development@redaril.me>
-Reply-To: development@redaril.me
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008-qcom_ipq5424_ppe-v1-3-16caf43e44ee@oss.qualcomm.com>
 
-From: Fabio Forni <development@redaril.me>
 
-As firmware node is a more common abstract, this will convert the whole
-thing to fwnode interface.
+On Thu, 08 Oct 2026 07:51:35 -0700, Luo Jie wrote:
+> IPQ5424 integrates the same PPE switch core as IPQ9574, but requires a
+> different, smaller set of interconnect paths, and has only 3 front panel
+> ports plus the EDMA FIFO interface, without the EIP FIFO.
+> 
+> Add the IPQ5424 compatible, describe the interconnect paths of each SoC,
+> and limit the Ethernet ports of IPQ5424 to ports 1-3.
+> 
+> Signed-off-by: Luo Jie <jie.luo@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/net/qcom,ipq9574-ppe.yaml  | 87 +++++++++++++++++-----
+>  1 file changed, 70 insertions(+), 17 deletions(-)
+> 
 
-Co-developed-by: Xu Yang <xu.yang_2@nxp.com>
-Signed-off-by: Xu Yang <xu.yang_2@nxp.com>
-Signed-off-by: Fabio Forni <development@redaril.me>
----
- drivers/mux/core.c                    | 96 ++++++++++++++++++-----------------
- drivers/pinctrl/pinctrl-generic-mux.c |  4 +-
- include/linux/mux/consumer.h          |  6 ++-
- 3 files changed, 57 insertions(+), 49 deletions(-)
-
-diff --git a/drivers/mux/core.c b/drivers/mux/core.c
-index 6ca40d73ea0e..d5095905b02e 100644
---- a/drivers/mux/core.c
-+++ b/drivers/mux/core.c
-@@ -18,7 +18,7 @@
- #include <linux/module.h>
- #include <linux/mux/consumer.h>
- #include <linux/mux/driver.h>
--#include <linux/of.h>
-+#include <linux/property.h>
- #include <linux/slab.h>
- 
- /*
-@@ -118,6 +118,7 @@ struct mux_chip *mux_chip_alloc(struct device *dev,
- 	mux_chip->dev.type = &mux_type;
- 	mux_chip->dev.parent = dev;
- 	mux_chip->dev.of_node = dev->of_node;
-+	mux_chip->dev.fwnode = dev->fwnode;
- 	dev_set_drvdata(&mux_chip->dev, mux_chip);
- 
- 	mux_chip->id = ida_alloc(&mux_ida, GFP_KERNEL);
-@@ -517,11 +518,11 @@ int mux_state_deselect(struct mux_state *mstate)
- EXPORT_SYMBOL_GPL(mux_state_deselect);
- 
- /* Note this function returns a reference to the mux_chip dev. */
--static struct mux_chip *of_find_mux_chip_by_node(struct device_node *np)
-+static struct mux_chip *mux_chip_find_by_fwnode(struct fwnode_handle *fwnode)
- {
- 	struct device *dev;
- 
--	dev = class_find_device_by_of_node(&mux_class, np);
-+	dev = class_find_device_by_fwnode(&mux_class, fwnode);
- 
- 	return dev ? to_mux_chip(dev) : NULL;
- }
-@@ -533,7 +534,7 @@ static struct mux_chip *of_find_mux_chip_by_node(struct device_node *np)
-  * @state: Pointer to where the requested state is returned, or NULL when
-  *         the required multiplexer states are handled by other means.
-  * @optional: Whether to return NULL and silence errors when mux doesn't exist.
-- * @node: the device nodes, use dev->of_node if it is NULL.
-+ * @node: the device nodes, use dev's fwnode if it is NULL.
-  *
-  * When a mux-control is found, it is the caller's responsibility to call
-  * mux_control_put() on it when it is no longer needed.
-@@ -543,10 +544,10 @@ static struct mux_chip *of_find_mux_chip_by_node(struct device_node *np)
-  */
- static struct mux_control *mux_get(struct device *dev, const char *mux_name,
- 				   unsigned int *state, bool optional,
--				   struct device_node *node)
-+				   struct fwnode_handle *node)
- {
--	struct device_node *np = node ? node : dev->of_node;
--	struct of_phandle_args args;
-+	struct fwnode_handle *fwnode = node ? node : dev_fwnode(dev);
-+	struct fwnode_reference_args args;
- 	struct mux_chip *mux_chip;
- 	unsigned int controller;
- 	int index = 0;
-@@ -554,11 +555,13 @@ static struct mux_control *mux_get(struct device *dev, const char *mux_name,
- 
- 	if (mux_name) {
- 		if (state)
--			index = of_property_match_string(np, "mux-state-names",
--							 mux_name);
-+			index = fwnode_property_match_string(fwnode,
-+							     "mux-state-names",
-+							     mux_name);
- 		else
--			index = of_property_match_string(np, "mux-control-names",
--							 mux_name);
-+			index = fwnode_property_match_string(fwnode,
-+							     "mux-control-names",
-+							     mux_name);
- 		if (index < 0 && optional) {
- 			return NULL;
- 		} else if (index < 0) {
-@@ -569,24 +572,25 @@ static struct mux_control *mux_get(struct device *dev, const char *mux_name,
- 	}
- 
- 	if (state)
--		ret = of_parse_phandle_with_args(np,
--						 "mux-states", "#mux-state-cells",
--						 index, &args);
-+		ret = fwnode_property_get_reference_args(fwnode, "mux-states",
-+							 "#mux-state-cells", 0,
-+							 index, &args);
- 	else
--		ret = of_parse_phandle_with_args(np,
--						 "mux-controls", "#mux-control-cells",
--						 index, &args);
-+		ret = fwnode_property_get_reference_args(fwnode,
-+							 "mux-controls", "#mux-control-cells",
-+							 0, index, &args);
-+
- 	if (ret) {
- 		if (optional && ret == -ENOENT)
- 			return NULL;
- 
--		dev_err(dev, "%pOF: failed to get mux-%s %s(%i)\n",
--			np, state ? "state" : "control",
--			mux_name ?: "", index);
-+		dev_err(dev, "%pfw: failed to get mux-%s %s(%i)\n",
-+			fwnode, state ? "state" : "control", mux_name ?: "",
-+			index);
- 		return ERR_PTR(ret);
- 	}
- 
--	mux_chip = of_find_mux_chip_by_node(args.np);
-+	mux_chip = mux_chip_find_by_fwnode(args.fwnode);
- 	if (!mux_chip) {
- 		ret = -EPROBE_DEFER;
- 		goto end;
-@@ -594,15 +598,15 @@ static struct mux_control *mux_get(struct device *dev, const char *mux_name,
- 
- 	controller = 0;
- 	if (state) {
--		if (args.args_count > 2 || args.args_count == 0 ||
--		    (args.args_count < 2 && mux_chip->controllers > 1)) {
--			dev_err(dev, "%pOF: wrong #mux-state-cells for %pOF\n",
--				np, args.np);
-+		if (args.nargs > 2 || args.nargs == 0 ||
-+		    (args.nargs < 2 && mux_chip->controllers > 1)) {
-+			dev_err(dev, "%pfw: wrong #mux-state-cells for %pfw\n",
-+				fwnode, args.fwnode);
- 			ret = -EINVAL;
- 			goto end;
- 		}
- 
--		if (args.args_count == 2) {
-+		if (args.nargs == 2) {
- 			controller = args.args[0];
- 			*state = args.args[1];
- 		} else {
-@@ -610,27 +614,27 @@ static struct mux_control *mux_get(struct device *dev, const char *mux_name,
- 		}
- 
- 	} else {
--		if (args.args_count > 1 ||
--		    (!args.args_count && mux_chip->controllers > 1)) {
--			dev_err(dev, "%pOF: wrong #mux-control-cells for %pOF\n",
--				np, args.np);
-+		if (args.nargs > 1 ||
-+		    (!args.nargs && mux_chip->controllers > 1)) {
-+			dev_err(dev, "%pfw: wrong #mux-control-cells for %pfw\n",
-+				fwnode, args.fwnode);
- 			ret = -EINVAL;
- 			goto end;
- 		}
- 
--		if (args.args_count)
-+		if (args.nargs)
- 			controller = args.args[0];
- 	}
- 
- 	if (controller >= mux_chip->controllers) {
--		dev_err(dev, "%pOF: bad mux controller %u specified in %pOF\n",
--			np, controller, args.np);
-+		dev_err(dev, "%pfw: bad mux controller %u specified in %pfw\n",
-+			fwnode, controller, args.fwnode);
- 		ret = -EINVAL;
- 		goto end;
- 	}
- 
- end:
--	of_node_put(args.np);
-+	fwnode_handle_put(args.fwnode);
- 	if (ret < 0) {
- 		if (mux_chip)
- 			put_device(&mux_chip->dev);
-@@ -726,14 +730,14 @@ EXPORT_SYMBOL_GPL(devm_mux_control_get);
-  * @dev: The device that needs a mux-state.
-  * @mux_name: The name identifying the mux-state.
-  * @optional: Whether to return NULL and silence errors when mux doesn't exist.
-- * @np: the device nodes, use dev->of_node if it is NULL.
-+ * @node: the device nodes, use dev's fwnode if it is NULL.
-  *
-  * Return: Pointer to the mux-state on success, an ERR_PTR with a negative
-  * errno on error, or NULL if optional is true and mux doesn't exist.
-  */
- static struct mux_state *
- mux_state_get(struct device *dev, const char *mux_name, bool optional,
--	      struct device_node *np)
-+	      struct fwnode_handle *node)
- {
- 	struct mux_state *mstate;
- 
-@@ -741,7 +745,7 @@ mux_state_get(struct device *dev, const char *mux_name, bool optional,
- 	if (!mstate)
- 		return ERR_PTR(-ENOMEM);
- 
--	mstate->mux = mux_get(dev, mux_name, &mstate->state, optional, np);
-+	mstate->mux = mux_get(dev, mux_name, &mstate->state, optional, node);
- 	if (IS_ERR(mstate->mux)) {
- 		int err = PTR_ERR(mstate->mux);
- 
-@@ -783,7 +787,7 @@ static void devm_mux_state_release(struct device *dev, void *res)
-  * @dev: The device that needs a mux-state.
-  * @mux_name: The name identifying the mux-state.
-  * @optional: Whether to return NULL and silence errors when mux doesn't exist.
-- * @np: The device nodes, use dev->of_node if it is NULL.
-+ * @node: The device nodes, use dev's fwnode if it is NULL.
-  * @init: Optional function pointer for mux-state object initialisation.
-  * @exit: Optional function pointer for mux-state object cleanup on release.
-  *
-@@ -791,7 +795,7 @@ static void devm_mux_state_release(struct device *dev, void *res)
-  * errno on error, or NULL if optional is true and mux doesn't exist.
-  */
- static struct mux_state *__devm_mux_state_get(struct device *dev, const char *mux_name,
--					      bool optional, struct device_node *np,
-+					      bool optional, struct fwnode_handle *node,
- 					      int (*init)(struct mux_state *mstate),
- 					      int (*exit)(struct mux_state *mstate))
- {
-@@ -799,7 +803,7 @@ static struct mux_state *__devm_mux_state_get(struct device *dev, const char *mu
- 	struct mux_state *mstate;
- 	int ret;
- 
--	mstate = mux_state_get(dev, mux_name, optional, np);
-+	mstate = mux_state_get(dev, mux_name, optional, node);
- 	if (IS_ERR(mstate))
- 		return ERR_CAST(mstate);
- 	else if (optional && !mstate)
-@@ -833,23 +837,23 @@ static struct mux_state *__devm_mux_state_get(struct device *dev, const char *mu
- }
- 
- /**
-- * devm_mux_state_get_from_np() - Get the mux-state for a device, with resource
-+ * devm_mux_state_get_from_fwnode() - Get the mux-state for a device, with resource
-  *				  management.
-  * @dev: The device that needs a mux-control.
-  * @mux_name: The name identifying the mux-control.
-- * @np: the device nodes, use dev->of_node if it is NULL.
-+ * @node: the device nodes, use dev's fwnode if it is NULL.
-  *
-  * Return: Pointer to the mux-state, or an ERR_PTR with a negative errno.
-  *
-  * The mux-state will automatically be freed on release.
-  */
- struct mux_state *
--devm_mux_state_get_from_np(struct device *dev, const char *mux_name,
--			   struct device_node *np)
-+devm_mux_state_get_from_fwnode(struct device *dev, const char *mux_name,
-+			       struct fwnode_handle *node)
- {
--	return __devm_mux_state_get(dev, mux_name, false, np, NULL, NULL);
-+	return __devm_mux_state_get(dev, mux_name, false, node, NULL, NULL);
- }
--EXPORT_SYMBOL_GPL(devm_mux_state_get_from_np);
-+EXPORT_SYMBOL_GPL(devm_mux_state_get_from_fwnode);
- 
- /**
-  * devm_mux_state_get_optional() - Get the optional mux-state for a device,
-diff --git a/drivers/pinctrl/pinctrl-generic-mux.c b/drivers/pinctrl/pinctrl-generic-mux.c
-index 202b72351efb..6d5b6100c5ca 100644
---- a/drivers/pinctrl/pinctrl-generic-mux.c
-+++ b/drivers/pinctrl/pinctrl-generic-mux.c
-@@ -50,7 +50,9 @@ mux_pinmux_dt_node_to_map(struct pinctrl_dev *pctldev,
- 	if (!group_names)
- 		return -ENOMEM;
- 
--	function->mux_state = devm_mux_state_get_from_np(pctldev->dev, NULL, np_config);
-+	function->mux_state = devm_mux_state_get_from_fwnode(pctldev->dev,
-+							     NULL,
-+							     of_fwnode_handle(np_config));
- 	if (IS_ERR(function->mux_state))
- 		return PTR_ERR(function->mux_state);
- 
-diff --git a/include/linux/mux/consumer.h b/include/linux/mux/consumer.h
-index 449e38e6e2c5..7d121217ca96 100644
---- a/include/linux/mux/consumer.h
-+++ b/include/linux/mux/consumer.h
-@@ -11,6 +11,7 @@
- #define _LINUX_MUX_CONSUMER_H
- 
- #include <linux/compiler.h>
-+#include <linux/device.h>
- 
- struct device;
- struct mux_control;
-@@ -62,7 +63,8 @@ void mux_control_put(struct mux_control *mux);
- struct mux_control *devm_mux_control_get(struct device *dev, const char *mux_name);
- 
- struct mux_state *
--devm_mux_state_get_from_np(struct device *dev, const char *mux_name, struct device_node *np);
-+devm_mux_state_get_from_fwnode(struct device *dev, const char *mux_name,
-+			       struct fwnode_handle *node);
- 
- struct mux_state *devm_mux_state_get_optional(struct device *dev, const char *mux_name);
- struct mux_state *devm_mux_state_get_selected(struct device *dev, const char *mux_name);
-@@ -165,6 +167,6 @@ static inline struct mux_state *devm_mux_state_get_optional_selected(struct devi
- #endif /* CONFIG_MULTIPLEXER */
- 
- #define devm_mux_state_get(dev, mux_name)		\
--	devm_mux_state_get_from_np(dev, mux_name, NULL)
-+	devm_mux_state_get_from_fwnode(dev, mux_name, NULL)
- 
- #endif /* _LINUX_MUX_CONSUMER_H */
-
--- 
-2.56.0
-
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
