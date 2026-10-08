@@ -1,127 +1,96 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03D833C10AC
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 07:55:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E705D3C10A0
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 07:55:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791446103; cv=none; b=tkXQVttR9r0BijGYiM1bajod0NbGpAkEiwm2qdsaZbgb/7OA41BjKQAcNvN5y1S9DChihHVwyT6c8YGVSi20SwALOO6nILWbo2KC1k5Y8mxKM6T7vOTX5lQs7fBXP131nFdLJ9OuklrrIIPTggI1++sam470RpgBxGw0FpC0ufM=
+	t=1791446155; cv=none; b=T2GXTR/Yk42gVHS1uenKzPNObI9vmmzZ+lwUsVp3SVXTNBrZr21IUz5cuRmqAkPmPGXKvYbbAAWpGDPNWJ6Rwq7Vl36JQUdHP8uQbYBfEqN5R3uh2FldkMD3G2HIIiLBPt4JGIkJ2UCXcBplmFfkKHgyFnr/gbflSWnoPuZFBkw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791446103; c=relaxed/simple;
-	bh=0sdnIgsW/7O1yxiEVd1NMidwd+7MWbZHjpGHHLdtTqA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ei1aT7mwDBYdk8bexVboB1szP6Ow00nMiJWVq3tTifEkW/7TgOCKiXaGfcoFSr3/waDxf84gpL/wAhunn6vDPSJ0LaJMryNh1GzGhPkZ3RkJDUiJNPvOMIv7mpyO3buX2V8jymOsQnoFvpBDUKc0mF2QUeNkHAkU3mN3yaxMOqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rU7WxcG9; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791446155; c=relaxed/simple;
+	bh=VhUIOWcTsP6emZW5WDH02Sng+YRMBHdm/M1O2WGQAos=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=ttzdgQgUNcft8CisABEDjVOY0dbQacLGlOmxVo9R/w7jC6Yob5YaQ/XhOmBd45FbhSAI32epj0hYRXzRlD9KE9Ym4UiBoY9+NN4iwtBuF6SzrdIW75IqFIvZvRg8NSfXOikGCMl+uTCALAGyMq2IhN/sfSwNjy7hYFkkJlhc2DI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=HTI2c04x; arc=none smtp.client-ip=113.46.200.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rU7WxcG9"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a168355946so24437075e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 00:55:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791446100; x=1792050900; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ee/nOmTXlnTKv+9t3QjlgWh7DWnVNJTswfF5DULCt7Y=;
-        b=rU7WxcG9FQ0WfjIRwN1QBSLd274UzEmREVCwG86VNZzOQmO8RPn9nEwshv1ingB29r
-         0PYo8nHouyZqKjpxwUniaw0Q1frLN44A4iCnB0GSPmqUU26Y9g1p4V388xwZZ5lKNxlM
-         +28usrukC8nX4XDcLGN5p9H040pWwYFazZyi7R7pRVeRsKyTvFQk+bG3wbgw6rHoEBgr
-         V8+EfHtLjTzet6Hlf2iricUGa+06RiMPap1ksxPcMF4kYjE8+YLf6PbcXEyBFsK9E0Hu
-         Lb9X8JuE1DJgofXm1V1jcyouRR7iHGnMEjox1ekaezJRPn1vcS0dnwfLAKS36t7C5Jzj
-         6ThA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791446100; x=1792050900;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ee/nOmTXlnTKv+9t3QjlgWh7DWnVNJTswfF5DULCt7Y=;
-        b=uwNy4+ujA5hLHHCkqyZWJBDfYVuN/taupHZTOuk2RP83FPpkuiwcWSgdp31pvLSHQZ
-         /t3OCeLUY1b7lSAVzHVhMHjZE0Dh2Z5dkCUDo7JqyysxWSylXOGhjulxSMtsaMWWJW0P
-         S3dsvp5gGLWsr9eqSRZ1Db/7MHN3W8Mf4LJ5esXm6jGtzZgcnucSAv3awDKjUCg2WYVA
-         cQVXGNFnh7E8xfpD4Zlm4wN9AQ8KyzRQ3a9XtnoyHcqIDXcYZd7ejtLQoMoLQEGi5rdH
-         1DO/5smxae6vxkTQnFXKzuTBV5jWqbiDile3zA0mJ2gq6o/+yBLooaJAsKi22T+SKu+I
-         O79g==
-X-Forwarded-Encrypted: i=1; AKwUvBweKTG0lapzkADcjeLJMM2qQtM+6ojQ3AznkcxiuExUF2/wbPN0Ak1vwRzD4yWk2DPncAvVdN41zJygdUY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lYzLlWeK3WPzErafrdf4sf+cQX2rNrYyeT38WbZOeX+v9v8WUz
-	btSqKgZ3Dlgz9MiwUqbNl13Q/HXndKY4SgYUqiFsAYr7SE/sh7NioanG
-X-Gm-Gg: AYBFou22c5X0TkNYQE50nBYd3ZH4hcPo/ETPxdE54ZEDWHlu3ez79AT2LZJ8SFMmuVh
-	5im53iQTkDLp2LCSnsHiGBUYoiDbqoosUEW3A9dDXoVrUflZwTN0lYZnuZ/bS7Szmv7bjodDdvF
-	6PIY4wR/SG9ou2E/OqW1P3kWAxg2pc1sxwqaWACjWCloH0z6Gmpti1KkT20V5RKZxb3J9G2Z2hq
-	FLf9r2EB8nkUI3n2ongTg/oY5bms39x2wi283m4mkTRRmxSIerjeHrTBZ9B6uFmS/1AFeyE3/Nd
-	qqlEPdeTSzVRT8Qnsog8Kv6W/GV8UVa/4QaCMlvW70RSCz95r9+26OXDhIV1ALXagREPk/ZEZkE
-	44FmfFXL0ppAhtc3jiG9umBhjXly4HLtOF4pxM2FhUXg0mnkH4IynyNTeNPh0jA6U/SL0i5G+ic
-	Q8v+Iwlf+Vp2uyFQtXiAGQ15tMy/ZPq5U8iL4XDf2siLYkvdgS1PmuPbteqZSPMFdySJJllU1sT
-	rPBYmAh2kmAYTwwE0oSjWMyXG73f9PZ0vPhcVWxsCcqiwN35du0JbPkNj/posz8NSIIsfhFFZDm
-	Yr7yL3b34uwqOyyRt4TpmbKzetgdhR951JiJX/PmN2W9efShOqsscuvAxKnYIZBtxO5MwXfFST3
-	6BNn65wqNRg2I5NxGVcZ9643wSE8OlM1J3xkCxM7aJ0JJ3yQh7ZaNSEVPJeDpPL3LI2M1Ct5Mx0
-	T5rvvw
-X-Received: by 2002:a05:600c:4594:b0:4a0:1cfd:321 with SMTP id 5b1f17b1804b1-4a180313bbcmr78950685e9.12.1791446100084;
-        Thu, 08 Oct 2026 00:55:00 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d1245bsm9635929f8f.26.2026.10.08.00.54.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 00:54:59 -0700 (PDT)
-Date: Thu, 8 Oct 2026 09:54:59 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Christopher Hoover <ch@murgatroid.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Jiri Kosina <jikos@kernel.org>,
- Benjamin Tissoires <bentiss@kernel.org>, Srinivas Pandruvada
- <srinivas.pandruvada@linux.intel.com>, David Lechner
- <dlechner@baylibre.com>, nuno.sa@analog.com, Andy Shevchenko
- <andy@kernel.org>, linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] iio: hid-sensors: fix shared callbacks in
- temperature and humidity
-Message-ID: <20261008095459.000023f9@gmail.com>
-In-Reply-To: <20261007184423.622445-1-ch@murgatroid.com>
-References: <20261007072329.27806-1-ch@murgatroid.com>
-	<20261007184423.622445-1-ch@murgatroid.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="HTI2c04x"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=GPJBGY61Mm0F59zwvDOhWaqucyLE0EcmWlV1wN0R5g4=;
+	b=HTI2c04xSQNkehN/7k3oL/b/H5NHGvyNiRp3EnjSFvHuf/u7VJibTMYXu9g9XuAl5L4UEMUJe
+	CQIoH7vgTxMtu3k/S4GlN2ZQDgLorIcE3GRWgGRKrNRQpHLleadQbV/t4HA0cqZv7Jk4MfozRfy
+	viYlIt31jyeJhBxRPnmczfU=
+Received: from mail.maildlp.com (unknown [172.19.162.92])
+	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4j0hnG50l7zKm9J;
+	Thu,  8 Oct 2026 15:43:30 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id A256D40586;
+	Thu,  8 Oct 2026 15:55:48 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 8 Oct
+ 2026 15:55:47 +0800
+Message-ID: <7d3fd515-50fe-4f11-a44b-68192c84f1df@huawei.com>
+Date: Thu, 8 Oct 2026 15:55:46 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 07/21] selftests/bpf: arm64: Use TPIDRRO_EL0 instead of
+ SP_EL0 for 'current'
+To: Will Deacon <will@kernel.org>, <linux-arm-kernel@lists.infradead.org>
+CC: <linux-kernel@vger.kernel.org>, Arnd Bergmann <arnd@arndb.de>, Ard
+ Biesheuvel <ardb@kernel.org>, Ada Couprie Diaz <ada.coupriediaz@arm.com>,
+	David Hildenbrand <david@kernel.org>, Catalin Marinas
+	<catalin.marinas@arm.com>, Vladimir Murzin <vladimir.murzin@arm.com>, Mark
+ Rutland <mark.rutland@arm.com>, Mostafa Saleh <smostafa@google.com>, Lorenzo
+ Stoakes <ljs@kernel.org>, Oliver Upton <oupton@kernel.org>, Linus Walleij
+	<linusw@kernel.org>, Marc Zyngier <maz@kernel.org>
+References: <20260918161407.2300-1-will@kernel.org>
+ <20260918161407.2300-8-will@kernel.org>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20260918161407.2300-8-will@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On Wed,  7 Oct 2026 11:44:20 -0700
-Christopher Hoover <ch@murgatroid.com> wrote:
 
-> hid-sensor-temperature and hid-sensor-humidity share one static
-> struct hid_sensor_hub_callbacks across instances and overwrite its pdev
-> on every probe.  With two temperature sensors, reports for one go to
-> the other's pdev; once that device is removed,
-> temperature_capture_sample() dereferences NULL.  I hit this on 7.0
-> with two uhid-created sensors.
-> 
-> Patches 2-3 make the callbacks per instance, as the other HID sensor
-> drivers do.  Patch 1 makes sensor_hub_remove_callback() take
-> pdata->lock, as sensor_hub_raw_event() does, so a report racing an
-> unbind cannot call through the freed callbacks.
-> 
-> Changes in v2:
-> - New patch 1, for the use-after-free on unbind found by the Sashiko
->   review of v1.
-> 
-> Christopher Hoover (3):
->   HID: hid-sensor-hub: Synchronize callback removal with raw events
->   iio: temperature: hid-sensor-temperature: Use per-instance callbacks
->   iio: humidity: hid-sensor-humidity: Use per-instance callbacks
-> 
->  drivers/hid/hid-sensor-hub.c                     | 12 ++++++++++--
->  drivers/iio/humidity/hid-sensor-humidity.c       | 12 +++++-------
->  drivers/iio/temperature/hid-sensor-temperature.c | 12 +++++-------
->  3 files changed, 20 insertions(+), 16 deletions(-)
-> 
-> 
-> base-commit: 9ee8306121495d2a25aa5d1bfd519f2748786b83
 
-Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+在 2026/9/19 0:13, Will Deacon 写道:
+> The current task pointer now lives in TPIDRRO_EL0 instead of SP_EL0, so
+> update the bpf selftests with the new register allocation.
+> 
+> Cc: Mark Rutland <mark.rutland@arm.com>
+> Signed-off-by: Will Deacon <will@kernel.org>
+> ---
+>  tools/testing/selftests/bpf/progs/verifier_jit_inline.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/tools/testing/selftests/bpf/progs/verifier_jit_inline.c b/tools/testing/selftests/bpf/progs/verifier_jit_inline.c
+> index 02e562f56f9d..a3d6c095acc3 100644
+> --- a/tools/testing/selftests/bpf/progs/verifier_jit_inline.c
+> +++ b/tools/testing/selftests/bpf/progs/verifier_jit_inline.c
+> @@ -9,7 +9,7 @@ __success __retval(0)
+>  __arch_x86_64
+>  __jited("	addq	%gs:{{.*}}, %rax")
+>  __arch_arm64
+> -__jited("	mrs	x8, SP_EL0")
+> +__jited("	mrs	x8, TPIDRRO_EL0")
+
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+
+>  __arch_riscv64
+>  __jited("	mv	a5, tp")
+>  __arch_loongarch
 
 -- 
-Kind regards,
-Joshua Crofts
+Best regards,
+Jinjie
+
