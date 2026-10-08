@@ -1,49 +1,36 @@
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-15.mta0.migadu.com [91.218.175.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2D4637CD52
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 04:37:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.24
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D3373A48F7
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 04:39:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791434277; cv=none; b=NP+5fqo4+5VK3BeiXhgmP1cfr2RAWlARCc74Lt31e6HU1Sy0n2jWFwZMoooxbko1G5OK7U1STDf4bShkAOOJ+YH8GKxoWfWeQbLrnVbuq4UFoKA/iYlsB458h6FvQYl0fW6wkavHL80pxTWn65bc1SCVYjUFSTmU91Qu7QuRqH8=
+	t=1791434365; cv=none; b=jZWro8oEMY1l9xIBn6LYf4jBb6kfW9qNP5dPr+jW4688kBgq7lfmggZoajEhxuEjBPWDWTm/PppTHDMv7diUnHt19Xq3MqpiXWTKQipIQUvI/tS5q2CRAzc7AZxmWeuAwZKdgxw7MtUqhLHNus7BeQj7OTFwJ7ghkK+DnreEGHs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791434277; c=relaxed/simple;
-	bh=weNrrQav3Omgfq0Qboj6ToKOI/kTX3MRt6OBS5VAWRo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=pEhM/+aCE4/u7/Vbr7AJG19oHPU+m5DucLwCFtOUitKrakA8x7u0a/CPiZZGHs8eQhSCwBiPW2v/cSFvZmqBlQBzJG1xZEM38Vy5cNugW7mZDmppJStsN9rS65DPaokog9YRHXe64QJEQoFJW5v5T5CnvTC/S64H4bXisDADkuE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=jjT/Y7Su; arc=none smtp.client-ip=203.254.224.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1791434365; c=relaxed/simple;
+	bh=Rx/tqj4wkyZ6VSBTAWBfFMGKzOaN07eLyd4U5584Wl8=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=AOr4+HbDhaeZjFmg2Gg7rNRhxX+BGuQE0xnSC67qNT4BKIG9UsaQJ1vQGAa/qO35R0dHi/7rkto/5OSEqMXlEvgY0IFAaosWEjKWnZQNSf/Tom4x1LWk1/w1vhQ70KSb2ZvfigKlVWP63WShX5NErb5xyKOqqH0+uLYLrMb77a4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Co8pMymN; arc=none smtp.client-ip=91.218.175.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="jjT/Y7Su"
-Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
-	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20261008043751epoutp019ed4cbe8ca95891931cf9645c472150d~cc-qKgz6b2212122121epoutp01V
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 04:37:51 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20261008043751epoutp019ed4cbe8ca95891931cf9645c472150d~cc-qKgz6b2212122121epoutp01V
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1791434271;
-	bh=CoRXBFa57LuN2z8UOryR16SfCaWjD5KTrh3/Tzeky90=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=jjT/Y7Su7BlLdX7e1El5ztQl7II6k2HID8ISJmeV+krSX1clksHyxwElkpR7oXTo6
-	 gzu58gPrg/y9C0hVY5ysFGY1I5ASbsAPW+Rmc0WGDMjuqNxDgbKRolARujiLgXtXWO
-	 hUs67Eqyu4RlkksfnItG/2dr4XwAJxIb4KSKy1Z0=
-Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
-	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
-	20261008043751epcas5p2ac16c92b0274860fa8bdf6566cd995f0~cc-pwhj5d3214432144epcas5p2V;
-	Thu,  8 Oct 2026 04:37:51 +0000 (GMT)
-Received: from epcas5p3.samsung.com (unknown [182.195.38.91]) by
-	epsnrtp01.localdomain (Postfix) with ESMTP id 4j0cg23T9Gz6B9mK; Thu,  8 Oct
-	2026 04:37:50 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
-	20261008043749epcas5p304a7d5351b9a8a2b9fa6baa4d2d2eb35~cc-ohn4Bg1330013300epcas5p3U;
-	Thu,  8 Oct 2026 04:37:49 +0000 (GMT)
-Received: from [107.122.5.126] (unknown [107.122.5.126]) by
-	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261008043747epsmtip2d3eee15d74435f4ec6dcf6daa8c0708f~cc-meeDs31553615536epsmtip2k;
-	Thu,  8 Oct 2026 04:37:47 +0000 (GMT)
-Message-ID: <bc43e3f5-ba0c-4f91-b765-ee35021bf089@samsung.com>
-Date: Thu, 8 Oct 2026 10:07:46 +0530
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Co8pMymN"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Rx/tqj4wkyZ6VSBTAWBfFMGKzOaN07eLyd4U5584Wl8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791434361; v=1; x=1792039161;
+ b=Co8pMymNq6jUiNTUkebwzeriYuzG4Ivrcs+qPDWGV8nUoJZ8KyGVcL21+6C2aR8KHyahPgFq
+ mcLVKku8yvVx3Vi3zrCSqxeLBk7HmIzkBDDQXENBJBbHaAGixu+AgCRh+NlyoJhhfRx3z2g2Uzr
+ 6aYxbMITTbku9F3ZNQgLdPq8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2d52907cc6520490;
+	Thu, 08 Oct 2026 04:39:20 +0000
+X-Mizu-Trace-ID: 2d52907cc6520490
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <8fd657b9-4bd4-48a4-a359-62096ba14bec@linux.dev>
+Date: Thu, 8 Oct 2026 12:39:12 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,126 +38,179 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] usb: dwc3: gadget: Prevent EP resource conflicts
- during StartTransfer
-To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Cc: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
-	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"jh0801.jung@samsung.com" <jh0801.jung@samsung.com>, "dh10.jung@samsung.com"
-	<dh10.jung@samsung.com>, "akash.m5@samsung.com" <akash.m5@samsung.com>,
-	"hongpooh.kim@samsung.com" <hongpooh.kim@samsung.com>,
-	"eomji.oh@samsung.com" <eomji.oh@samsung.com>, "h10.kim@samsung.com"
-	<h10.kim@samsung.com>, "shijie.cai@samsung.com" <shijie.cai@samsung.com>,
-	"alim.akhtar@samsung.com" <alim.akhtar@samsung.com>,
-	"muhammed.ali@samsung.com" <muhammed.ali@samsung.com>,
-	"thiagu.r@samsung.com" <thiagu.r@samsung.com>, "pritam.sutar@samsung.com"
-	<pritam.sutar@samsung.com>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>
-Content-Language: en-US
-From: Selvarasu Ganesan <selvarasu.g@samsung.com>
-In-Reply-To: <asbJfaj5OIhHBunD@vbox>
+Cc: cui.tao@linux.dev, sched-ext@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Emil Tsalapatis <emil@etsalapatis.com>,
+ David Dai <david.dai@linux.dev>
+Subject: Re: [PATCH sched_ext/for-7.4] sched_ext: Clear a sub-scheduler's caps
+ before ops.sub_detach()
+To: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
+ Andrea Righi <arighi@nvidia.com>, Changwoo Min <changwoo@igalia.com>
+References: <b46300eda6da03d56262fcdcbfc9b4fa@kernel.org>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <b46300eda6da03d56262fcdcbfc9b4fa@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261008043749epcas5p304a7d5351b9a8a2b9fa6baa4d2d2eb35
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-542,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261007020654epcas5p1d6f8d2d6f5215abcec7d6c6f90b8b8c6
-References: <20260306214123.3jnlzd2tmtwggch2@synopsys.com>
-	<7f8a7341-3701-4ade-a198-cf86719da931@samsung.com> <arsnMM-GvuXwBKCX@vbox>
-	<5d7501ea-4579-44a5-9a7e-91ef1f10b2bb@samsung.com> <asBhDmy-3DymDKQH@vbox>
-	<3fdda532-8181-48e9-b58d-cad7289408e7@samsung.com>
-	<CGME20261007020654epcas5p1d6f8d2d6f5215abcec7d6c6f90b8b8c6@epcas5p1.samsung.com>
-	<asWmW1jmzedIV5SP@vbox> <ff5d6900-374b-44d8-967f-0af16ae53437@samsung.com>
-	<98f16da0-5e24-4dd1-8f9f-79a1a5e7656c@samsung.com> <asbJfaj5OIhHBunD@vbox>
 
+Hello Tejun,
 
-On 10/8/2026 5:29 AM, Thinh Nguyen wrote:
-> On Wed, Oct 07, 2026, Selvarasu Ganesan wrote:
->> Sorry for the format issue. The updated answers as below,
->>
->> No, the endpoint completion event is not seen after the -ETIMEDOUT error.
->>
->> The proposed fix works well for the __dwc3_gadget_ep_set_halt sequence,
->> where DWC3_EP_END_TRANSFER_PENDING must be set to prevent dwc3_ep_queue
->> from starting a new transfer during a EP transfer timeout.
->>
->> But, this is unnecessary for __dwc3_gadget_ep_disable. Since there's no
->> way to clear the pending flag if the interrupt is missed and no
->> dwc3_ep_queue calls occur until the EP is re-enabled, preserving
->> DWC3_EP_END_TRANSFER_PENDING here provides no benefit.
->>
->> So, the below changes is not necessary in ep disable,
->>
-> We still need to keep DWC3_EP_END_TRANSFER_PENDING in ep_disable. That's
-> for the normal case where the End Transfer completes after ep_disable
-> returns, which is the original issue. If the command never completes,
-> the endpoint resource is stuck regardless. Clearing the flag only lead
-> to a NO_RESOURCE error later.
+在 2026/10/7 04:31, Tejun Heo 写道:
+> A sub-scheduler can leave standing state behind on the cids delegated to it,
+> cpuperf targets being the obvious case, and the kernel does not track who
+> wrote it. Restoring it is the parent's job and ops.sub_detach() is the place
+> for it. Today the parent can't rely on that: the dying sub-scheduler keeps
+> every cap until it is marked dead after ops.exit(), so its ops.exit() or a
+> late timer can write after the parent has cleaned up.
+> 
+> Clear every cap of the sub-scheduler before ops.sub_detach(). The pshard
+> caps go first as a pending sync recomputes ecaps from them, and ecaps are
+> then zeroed directly. A grant racing the clear is refused under the child's
+> pshard lock, so nothing hands the caps back.
+> 
+> Fixes: 86094b95efcf ("sched_ext: Add per-shard cap delegation for sub-schedulers")
+> Signed-off-by: Tejun Heo <tj@kernel.org>
+> ---
+> Applied to sched_ext/for-7.4.
+> 
 
-Agreed.
+Tested this patch on a kvm guest running a sched_ext/for-7.4 based
+tree with the patch applied, using a pair of cid-form test schedulers:
+a parent that grants SCX_CAP_PERF | SCX_CAP_ENQ_IMMED on a cgroup to a
+child, and the child writing cpuperf target 1 from ops.tick(). The
+parent either restores SCX_CPUPERF_ONE for the delegated cids in
+ops.sub_detach() or does nothing, and rq->scx.cpuperf_target is
+sampled every second.
 
->
-> As for the dwc3_gadget_ep_queue() race during giveback, keeping
-> DWC3_EP_TRANSFER_STARTED isn't right. We should reject the queue when
-> the endpoint is disabled. This should be a separate patch:
+With a restoring parent: the child writes target 1 while alive; after
+SIGTERM and disable, the parent's ops.sub_detach() write of
+SCX_CPUPERF_ONE lands and stays - the child's ops.exit() and timers no
+longer overtake the parent's cleanup, which is exactly the gap this
+patch closes.
 
-Agreed.
+With a parent that does not restore: the child's last written target
+persists after the child goes away, as expected from treating the
+target as last-writer-wins state.
 
->
-> diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
-> index ee837235630a..eb6666b7bb98 100644
-> --- a/drivers/usb/dwc3/gadget.c
-> +++ b/drivers/usb/dwc3/gadget.c
-> @@ -1084,6 +1084,8 @@ static int __dwc3_gadget_ep_disable(struct dwc3_ep *dep)
->   	reg &= ~DWC3_DALEPENA_EP(dep->number);
->   	dwc3_writel(dwc, DWC3_DALEPENA, reg);
->   
-> +	dep->flags &= ~DWC3_EP_ENABLED;
+Both runs are clean with lockdep enabled (no warnings or splats).
+
+Tested-by: Tao Cui <cuitao@kylinos.cn>
+Reviewed-by: Tao Cui <cuitao@kylinos.cn>
+
+Thanks.
+--
+Tao
+
+>  kernel/sched/ext/internal.h |    7 ++++++
+>  kernel/sched/ext/sub.c      |   49 ++++++++++++++++++++++++++++++++++++++++----
+>  2 files changed, 52 insertions(+), 4 deletions(-)
+> 
+> --- a/kernel/sched/ext/internal.h
+> +++ b/kernel/sched/ext/internal.h
+> @@ -828,6 +828,10 @@ struct sched_ext_ops {
+>  	/**
+>  	 * @sub_detach: Detach a sub-scheduler
+>  	 * @args: argument container, see the struct definition
+> +	 *
+> +	 * The sub-scheduler holds no caps by this point and can no longer
+> +	 * affect any cid. Whatever was delegated to it, e.g. cpuperf targets,
+> +	 * is the parent's to restore here.
+>  	 */
+>  	void (*sub_detach)(struct scx_sub_detach_args *args);
+>  
+> @@ -911,6 +915,9 @@ struct sched_ext_ops {
+>  	 * ops.exit() is also called on ops.init() failure, which is a bit
+>  	 * unusual. This is to allow rich reporting through @info on how
+>  	 * ops.init() failed.
+> +	 *
+> +	 * A sub-scheduler holds no caps by the time ops.exit() runs. Its
+> +	 * cap-gated kfuncs are denied.
+>  	 */
+>  	void (*exit)(struct scx_exit_info *info);
+>  
+> --- a/kernel/sched/ext/sub.c
+> +++ b/kernel/sched/ext/sub.c
+> @@ -1154,6 +1154,34 @@ void scx_offline_ecaps(struct rq *rq)
+>  }
+>  
+>  /*
+> + * Clear every cap @sch holds. The pshard caps go first as they are the source a
+> + * pending sync recomputes ecaps from. ecaps are then zeroed directly for the
+> + * cap checks.
+> + */
+> +static void clear_all_caps(struct scx_sched *sch)
+> +{
+> +	s32 si, cpu;
+> +	u32 cap_bit;
 > +
->   	dwc3_remove_requests(dwc, dep, -ESHUTDOWN);
->   
->   	dep->stream_capable = false;
-> @@ -1990,7 +1992,8 @@ static int __dwc3_gadget_ep_queue(struct dwc3_ep *dep, struct dwc3_request *req)
->   {
->   	struct dwc3		*dwc = dep->dwc;
->   
-> -	if (!dep->endpoint.desc || !dwc->pullups_connected || !dwc->connected) {
-> +	if (!(dep->flags & DWC3_EP_ENABLED) || !dep->endpoint.desc ||
-> +	    !dwc->pullups_connected || !dwc->connected) {
->   		dev_dbg(dwc->dev, "%s: can't queue to disabled endpoint\n",
->   				dep->name);
->   		return -ESHUTDOWN;
->
-Thanks for suggestion. We will test this patch to confirm no resource 
-issue in race condition.
+> +	/* enable may have failed before scx_alloc_pshards() */
+> +	if (!sch->pshard)
+> +		return;
+> +
+> +	for (si = 0; si < sch->nr_pshards; si++) {
+> +		struct scx_pshard *ps = sch->pshard[si];
+> +
+> +		guard(raw_spinlock_irqsave)(&ps->lock);
+> +		for (cap_bit = 0; cap_bit < __SCX_NR_CAPS; cap_bit++)
+> +			scx_cmask_clear(&ps->caps[cap_bit].cmask);
+> +	}
+> +
+> +	for_each_possible_cpu(cpu) {
+> +		guard(rq_lock_irqsave)(cpu_rq(cpu));
+> +		WRITE_ONCE(per_cpu_ptr(sch->pcpu, cpu)->ecaps, 0);
+> +	}
+> +}
+> +
+> +/*
+>   * @pcpu's sched was unhashed before the grace period, so nothing re-queues its
+>   * sync node. Remove the node from @rq's pending list so the pcpu can be freed.
+>   */
+> @@ -1628,6 +1656,12 @@ dump:
+>  
+>  	scx_unlink_sched(sch);
+>  
+> +	/*
+> +	 * The parent restores what it delegated in ops.sub_detach(). @sch must
+> +	 * hold no caps by then.
+> +	 */
+> +	clear_all_caps(sch);
+> +
+>  	mutex_unlock(&scx_enable_mutex);
+>  
+>  	/*
+> @@ -2306,8 +2340,8 @@ static s32 sub_cap_preamble(u64 cgroup_i
+>   * All-or-nothing keeps the caller-visible result binary per cid, so the denied
+>   * mask is one mask to interpret rather than a per-cap matrix.
+>   *
+> - * Return 0 on full success, -EPERM if any cid was refused, or a negative
+> - * errno on other failures.
+> + * Return 0 on full success, -EPERM if any cid was refused, -ENODEV if the child
+> + * is gone or being disabled, or a negative errno on other failures.
+>   */
+>  __bpf_kfunc s32 scx_bpf_sub_grant(u64 cgroup_id, u64 caps,
+>  				  const struct scx_cmask *cmask__arena,
+> @@ -2361,6 +2395,12 @@ __bpf_kfunc s32 scx_bpf_sub_grant(u64 cg
+>  		scoped_guard (raw_spinlock, &pps->lock) {
+>  			guard(raw_spinlock_nested)(&cps->lock);
+>  
+> +			/* the child is being disabled, see clear_all_caps() */
+> +			if (unlikely(READ_ONCE(child->aborting))) {
+> +				ret = -ENODEV;
+> +				goto out;
+> +			}
+> +
+>  			/*
+>  			 * Narrow granted_cids to cids the parent holds every
+>  			 * requested cap on. All-or-nothing per cid.
+> @@ -2413,9 +2453,10 @@ __bpf_kfunc s32 scx_bpf_sub_grant(u64 cg
+>  		}
+>  	}
+>  
+> +	ret = any_denied ? -EPERM : 0;
+> +out:
+>  	caps_updated_deliver(&to_deliver);
+> -
+> -	return any_denied ? -EPERM : 0;
+> +	return ret;
+>  }
+>  
+>  /**
 
-> The End Transfer command not completing is also a separate issue. I
-> asked you to check whether the command would eventually complete with
-> the additional code, and it appears it doesn't.
-  We have confirmed that the completion event is never seen, once the 
-timeout occurs for end transfer. It appears the command is indeed 
-hanging in the hardware, as you suspected.
-
->
-> Can you provide some more info on your setup:
->   * IP and version
->   * connected speed
->   * endpoint direction (is it always OUT?)
->   * Is there any active transfer
->   * tracepoints
-* IP and version : 0xc120:   0x33313130
-* connected speed : HS mode
-* endpoint direction (is it always OUT?) : Yes its always OUT
-* Is there any active transfer : No, There is evidences from the log to 
-say there is a active transfer.
-* tracepoints: There is no dwc3 traces for this issue as of now due to 
-its low reproduction rate in the customer's setup.
-
-
-Thanks,
-Selva
-> Thanks,
-> Thinh
