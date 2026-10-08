@@ -1,100 +1,216 @@
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FDC83D34A2
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 15:55:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA4614E430F;
+	Thu,  8 Oct 2026 15:57:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791474941; cv=none; b=Cy1jDsnRcxenmdDrfYkl8u9cX2eH3vHOyo0vVfjrZV70qpFx7/OLWRIjWgC5qjbFq+r58P2pi/BBfXkH9gRQfy9BBEsV1+PvuMNSc3YWTIJGy3J5d5UIAgkOz+su+KI0GfROD0oprCSPgDLpvozgjjmD1NUEyL2nhg1WXiuIu5M=
+	t=1791475047; cv=none; b=DtIA53p2bltGpyGh6noerGJKSMg2sQMM4qvgP/Qh7Mx83k9CKTPlMLslJOi+zVGJXAYnBILHzEKl4haSJP2OstWSe4a8IZappiIvCDDxXySHue5/HHtu+oq6dCWCsVdTO/7j3BKgNCRvyww3AdqOo3362AuU3Yb66T2rG2SgXok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791474941; c=relaxed/simple;
-	bh=zwt9pXj6gsP311a3qUbJjUn5uS37s7OXRVsn6XcqW0I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MN8wBsvLgMDOf2jYMxTABDeI6cobUWvEsoX1qzVRJQscnmy5yluJamB0XZkBz5T8Ui8rjTKhQjP60XOESh8xGx31u+COB4CrBLF6To9oNQetKa5F+f1jOX84nJK5AM/a83147h+NqW48SApqfXzw4loLZrn469AT7SpI3wQ0Cpc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=bvBMuBv7; arc=none smtp.client-ip=209.85.219.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1791475047; c=relaxed/simple;
+	bh=9QpGYylqVU+dkG/hPow3ZQCYbNMa2H+zS0gjOW8ma6Q=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=SwSMyPsuDdOCL9B3J8jqtCKT5sd/4ZagrXyUri3N/6pNIdFHu4BcweMJDD8TIdN7uGZXljVmwOVm1VM05i0Efr90ETuC/8f+cM01GrXvoZJnjUR4yZpV+GIVuLS2Dqau1l4fpTmOncbXKePDdbuXK5K+PN0TDAvRK9slJocyeIQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I/tLX98W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="bvBMuBv7"
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-917b78dfe30so45420106d6.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 08:55:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1791474939; x=1792079739; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1CQKLWLbGN0QJLQsdroI+hIQ5HSO8HVAfjGuz3Kaqvg=;
-        b=bvBMuBv7Vx/nk9TAQr9bHHwPE3RAYHNVYCMspOahMqMtGEDBZW9suGaoG5yI7Nu1JT
-         RUbKWgpVCoYHi3YjtgU6jc2syeJB2ztkyi6is2BUpLKJttq2DVjwqaN0KjT8g8zgBd8U
-         +nE13O8NErcHLdjKNQVFgRK13u8sCIyLupNl4T/rCMV6XaB3sKPvMbaT8nwGnD6xVFJp
-         qWotU8iE1O2O8QpMglWLq5n7BGd6RSdAhDplV4AwW1cNY0q6vIc2cHhvJTdOuLpfvztt
-         jtZ3tcV4tbTfDfNoYzIyjvXN2Qd/4+UIPwCJcrlmpe7N6+qseADVtCr+VgRfC0INDSJ5
-         KmAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791474939; x=1792079739;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1CQKLWLbGN0QJLQsdroI+hIQ5HSO8HVAfjGuz3Kaqvg=;
-        b=FuHvkNEDd4V64sYL1eRpuquO/RSApZJJPwsD8qbF/ly/hPu1/NLq8VbL9KfpnMGL/1
-         qrlYSGiis7IgPlpVnPth1SIw11X+MIrnfhDOTM96plyBTHa0R+Auj6ZPvPQTG1CRL4R+
-         kb3EdP08LXIJHGzFUmWSJPkphcWj2hBTGTfRCjs6c8W7aCOPy4tdbTalBdvyAm15Z+7y
-         wwSxILmXDK7NYxPjWsoDTsryzTHO1K83VrDNm0khtKeA+k8j8uqa7q9qsblTX2cL9C+G
-         n3rrjR9+ZCgAuWy2KDwx2QeqRX07+aJw2g52LzVuP/5TSjFr5rku4z37spFZVxEB8Z3r
-         Gh1g==
-X-Forwarded-Encrypted: i=1; AKwUvBynZ2X7YiCDHtcYBLwFOPxv7padazve4juQ9t44ufHqJs3YNO6hyu+JEvN+JL2iU/qNDiOjG8xQim79M40=@vger.kernel.org
-X-Gm-Message-State: AFuF++m0DREWbj7JXC+rzCsB1d/y+/ZuE7HQaQfGKwNq1+qOy7k/RCa2
-	oOmN96SJM6kKjg4wmE3Fcv5Vb/PNgu7OMv5NFrdBdOMAYVbTa6tc+Y2GdnZlTPYGoVg=
-X-Gm-Gg: AYBFou3FWgAtW0RaKArkZ7uw1NG2dEboqfWnfsL3RZdaJKdiWuqkmAWPcp8jHc/joLD
-	c2HceIpObVYuyxt0Ls1UCXclwOM3BmoZugIUtStJzi4Ih0/7njrhuSEjSVmNjS6rwTuwPmMPC18
-	TORfXFN5uR60pCXMbuyTJgBxmwbFA7exSeqyA91JiIG4Ib9pMzr4qip64tKm0JZA+Vt36EW+8WC
-	9yuImLjGnaMZICLt4/Sr/h+oGgiCXy0Bi/w/vr2jeVhmDl1aLc7+hc6c9qXZ+Bw1oLsgOSSIzan
-	nzWvdBASTnnTAJ099Mzbgj2xRQYJujckLlQtO5t0hU0/39eE9TiBhQMubefk7725Xs27TSZlB1V
-	uvjUFBPBzNqI5ibkeFBn6Dejw2glO5MdiGJ3/RsxMjYZDWISO9qFsVZDvD5IeAdRddKq1rSyHf7
-	MoF2fssy2Qg0fBvDCenpnWU0ReJgWVwAzuvKynhW+CDnTk2svRWD4GUW14wdkOBV7DiS5r2FnjI
-	JOPnCzi+Q==
-X-Received: by 2002:a05:620a:1789:b0:93e:9807:978c with SMTP id af79cd13be357-93e9b859774mr1077911885a.77.1791474938972;
-        Thu, 08 Oct 2026 08:55:38 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93e98f6b4basm507577585a.6.2026.10.08.08.55.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Oct 2026 08:55:36 -0700 (PDT)
-Message-ID: <223c5189-bfda-4c63-b09f-4ebd01bd144a@riscstar.com>
-Date: Thu, 8 Oct 2026 10:55:34 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I/tLX98W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A76AA1F000FF;
+	Thu,  8 Oct 2026 15:57:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791475043;
+	bh=oW4vd/fkJGW56OrO8Qa4BwDCUVbvSoixy58F/rnwivw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=I/tLX98WUWBFM/GWMZUBRtD63lFi/eWNv784tsfa3wqkWjSIibv4JwzaaoMuF99O2
+	 w/8Z9HRLf5o7IbCnRHaPdUO1jcQHFqgsw/PisVIxl0AikeFt7yK7yPFAfl9kgDqydL
+	 A9b6I6dn7l7U4yqqOj/yyloijjetwHJcdQEQcD+N5S/uKSWhXuYG6KDv7k21nKzvoG
+	 zOwzc0VqW/7am3dzK3E6KZ1U7Nym67p9u+VNVBWH98dZ1qFzlto/Xe6JASkNZoWJ0h
+	 LhH9Ueao60vaUh+F4WvkYnyM9hhgQus09E5F3q4W9tYMimTjAgsONsttY/CKheFQWA
+	 pFnORDZWECA9w==
+Subject: Re: [PATCH net v2] sctp: revalidate output stream after association
+ connect wait
+From: netdev-bot+sashiko@kernel.org
+To: 4ncienth@gmail.com
+Cc: marcelo.leitner@gmail.com, lucien.xin@gmail.com, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ linux-sctp@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Thu, 08 Oct 2026 15:57:22 +0000
+Message-ID: <179147504220.434549.18146896790420057417@kernel.org>
+In-Reply-To: <20261007035739.3472432-1-4ncienth@gmail.com>
+References: <20261007035739.3472432-1-4ncienth@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/3] PCI: of: update endpoint ranges dynamically
-To: Andrea della Porta <andrea.porta@suse.com>
-Cc: bhelgaas@google.com, lizhi.hou@amd.com, herve.codina@bootlin.com,
- daniel@riscstar.com, mohdayaa@qti.qualcomm.com, lbiancon@qti.qualcomm.com,
- mani@kernel.org, robh@kernel.org, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260924222444.1351466-1-elder@riscstar.com>
- <ase6toUhGn0XD0v9@apocalypse>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <ase6toUhGn0XD0v9@apocalypse>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 10/8/26 10:45 AM, Andrea della Porta wrote:
-> After a quick test, it seems that it's not working out of the
-> box on my RPi5. Let me investigate a bit to see what's wrong.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-THANK YOU FOR TESTING THIS!!!
+Critical: 0 · High: 0 · Medium: 1 (1) · Low: 0
 
-My hope was that the recent change (to avoid doing any
-updating of ranges property unless it was found to be
-"empty") would avoid any trouble with the RPi5.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-I'm eager to hear what more you find.  Please let me
-know if I can be of any other help.
+- [Medium] sctp: UAPI breakage leaking -ESRCH to userspace on stream
+  validation failure
 
-					-Alex
+Pre-existing issues:
+- [Medium] Pre-existing ownership problem on the sndbuf-wait error path
+  in net/sctp/socket.c, not introduced by this patch.
+
+--
+
+sctp: revalidate output stream after association connect wait
+
+This commit moves the output stream range check and the extension check
+into a new helper, sctp_sendmsg_check_stream(). It runs that helper again
+after both the sndbuf wait and the connect wait in sctp_sendmsg_to_asoc().
+If the check fails after the connect wait, the error becomes -ESRCH, so the
+caller does not free the auto-created, already established association.
+
+> diff --git a/net/sctp/socket.c b/net/sctp/socket.c
+> index e35692dd8d303..321898f22d80d 100644
+> --- a/net/sctp/socket.c
+> +++ b/net/sctp/socket.c
+> @@ -1786,6 +1786,18 @@ static int sctp_sendmsg_check_sflags(struct sctp_association *asoc,
+>  	return 1;
+>  }
+>  
+> +static int sctp_sendmsg_check_stream(struct sctp_association *asoc,
+> +				     struct sctp_sndrcvinfo *sinfo)
+> +{
+> +	if (unlikely(sinfo->sinfo_stream >= asoc->stream.outcnt))
+> +		return -EINVAL;
+> +
+> +	if (unlikely(!SCTP_SO(&asoc->stream, sinfo->sinfo_stream)->ext))
+> +		return sctp_stream_init_ext(&asoc->stream, sinfo->sinfo_stream);
+> +
+> +	return 0;
+> +}
+> +
+
+[ ... ]
+
+> @@ -1830,10 +1835,9 @@ static int sctp_sendmsg_to_asoc(struct sctp_association *asoc,
+>  		err = sctp_wait_for_sndbuf(asoc, transport, &timeo, msg_len);
+>  		if (err)
+>  			goto err;
+> -		if (unlikely(sinfo->sinfo_stream >= asoc->stream.outcnt)) {
+> -			err = -EINVAL;
+> +		err = sctp_sendmsg_check_stream(asoc, sinfo);
+> +		if (err)
+>  			goto err;
+> -		}
+>  	}
+
+[Severity: Medium]
+This is a pre-existing issue, not one introduced by this patch. Does the
+ownership reasoning from the connect wait also apply to this re-check after
+the sndbuf wait?
+
+The caller, sctp_sendmsg(), frees a new association on any error except
+-ESRCH. It does not check whether the association is still CLOSED:
+
+	err = sctp_sendmsg_to_asoc(asoc, msg, msg_len, transport, sinfo);
+	if (err < 0 && err != -ESRCH && new)
+		sctp_association_free(asoc);
+
+sctp_assoc_add_peer() has already hashed the new association's transport at
+this point. On a UDP-style socket, another sender can find the association
+through sctp_endpoint_lookup_assoc() while this thread sleeps in
+sctp_wait_for_sndbuf() with the socket lock dropped.
+
+A possible sequence:
+
+thread A (creates the asoc, new == true)
+sctp_sendmsg_to_asoc()
+  sctp_wait_for_sndbuf()
+    release_sock()
+
+thread B (sends to the same peer)
+sctp_sendmsg()
+  sctp_endpoint_lookup_assoc()   <- finds the CLOSED asoc
+  sctp_sendmsg_to_asoc()
+    sctp_primitive_ASSOCIATE()
+
+the peer's INIT-ACK shrinks asoc->stream.outcnt below A's sinfo_stream
+
+thread A
+    lock_sock()
+  sctp_sendmsg_check_stream()    <- returns -EINVAL
+sctp_sendmsg()
+  sctp_association_free()
+
+Would this tear down an association that the state machine now owns
+(COOKIE_ECHOED or ESTABLISHED)? No ABORT would be sent to the peer, and the
+counter and socket state would be left inconsistent. The commit message says
+it avoids this outcome for the connect wait by returning -ESRCH.
+
+The baseline already had the -EINVAL re-check here. The other
+sctp_wait_for_sndbuf() errors (-EAGAIN, -EPIPE, -ERESTARTSYS) also reach
+the same free. With this patch, sctp_stream_init_ext() failures (-ENOMEM or
+a scheduler init_sid error) reach it as well.
+
+Should sctp_sendmsg() check whether the association is still CLOSED before
+freeing it? Or should this path remap the error the same way the connect
+wait path does? Earlier commits c863850ce22e1b and 4f1da630d13de0 used a
+similar -ESRCH remapping.
+
+[ ... ]
+
+> @@ -1848,6 +1852,11 @@ static int sctp_sendmsg_to_asoc(struct sctp_association *asoc,
+>  				err = -ESRCH;
+>  				goto err;
+>  			}
+> +			err = sctp_sendmsg_check_stream(asoc, sinfo);
+> +			if (err) {
+> +				err = -ESRCH;
+> +				goto err;
+> +			}
+>  		} else {
+>  			wait_connect = true;
+>  		}
+
+[Severity: Medium]
+Does this leak the internal -ESRCH sentinel to userspace?
+
+sctp_sendmsg() returns its result through sctp_error(), and
+sctp_error() only special-cases -EPIPE. Whatever
+sctp_sendmsg_to_asoc() returns here therefore reaches the sendmsg()
+caller unchanged.
+
+With this hunk, sending on an sinfo_stream that the peer did not grant
+can return ESRCH. That happens only on the first send of an implicitly
+created association with intl_enable set. The same request on an
+existing association, or after the sndbuf wait, returns EINVAL. An
+-ENOMEM from sctp_stream_init_ext(), or an error from the scheduler's
+init_sid hook, is also reported as ESRCH.
+
+ESRCH ("No such process") hides the real cause from the application.
+It also misleads, because the association is alive and ESTABLISHED at
+this point, and a later send on a valid stream would succeed. Since
+this is Cc stable, the errno change would also appear in stable
+kernels.
+
+The connect wait failure path just above already returns -ESRCH to
+userspace, but that case is pre-existing. This patch extends the
+behavior to an argument validation failure.
+
+The remapping only exists to keep sctp_sendmsg() from calling
+sctp_association_free(). Could the ownership decision be made
+separately from the errno? For example, sctp_sendmsg() could free the
+new association only while it is still CLOSED. Alternatively,
+sctp_sendmsg_to_asoc() could report ownership through a separate
+out-parameter. Either way the original -EINVAL or -ENOMEM would reach
+userspace. Or is there a reason the errno has to carry this?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261007035739.3472432-1-4ncienth%40gmail.com
