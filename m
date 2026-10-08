@@ -1,81 +1,40 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7622330D3E8
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 07:07:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94C49547054
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 07:07:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791443242; cv=none; b=aImBjOwDCUTwLaTGn+GfZhO+8SVfjhzljc0b0zGzrunDin4u8i7eLVWZKAqQ7YgQTyIXCI97zBTR3Q2gCMuaBITuLxwL82EVtHg2pfQwTKN8JXH6iTWfR3/DKsSH4UyWV2+rd5waM6mB52cK+Gf2Yjge0fFet4nu4lonql1i+TQ=
+	t=1791443257; cv=none; b=JygVO3Vw49bSAev83F8OlpoHOj8cmiecwXghPWeBIj9UtjHHggCicS2lZcWOsQ06IxOyAZC/7ePEPtXBbQafdPVXUNtOhOep9gsHUEC2RW84/Uxdptc+1E+PVGGdcWTQJlD31RGf3QaNN6/3d/aT4U6aJQd4KuYicSqAPbDFppo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791443242; c=relaxed/simple;
-	bh=+LYfGfNbEhJrO8TwYGVq82QUevdS50sGk31etSR8dKw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=S6pypPMAlagwmFDfXTAfEURV/fWyUa5Pejm6PVXDn9DR4PUaBdRENlp7y0vvEjY5MNGMMf/ggOx2CyYIbY56+/FDBq7zAumSXYaNa+TDYvN2xRoUqb7IyqDloC7xChy3wEgXGQeqiX95FwGIifbqb4RvxVu8GXOJUaE5LahpUFY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=pttfKnLC; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=GQkTiTsS; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=pttfKnLC; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=GQkTiTsS; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791443257; c=relaxed/simple;
+	bh=J9erMPCqC7xifCWhqvYUzMlKCIPwz8WZ6JUsgCpgm3Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=oVWy2dnC2x4KjfFeAphzdUSpf5yyXQh9S8Tk6cpjawdJz/X8iPSPHGp0lvaM5DW32vUrynW/VrVccF6gkJEX3sv02cgDWkN7NTZb9t8TI8b1GeHAFzwyiAHA6HkPnfehON314lfS1VdqmzYAc/1crMoyt9cKIOhnXv7jeTxprBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=yIBsPu/x; arc=none smtp.client-ip=113.46.200.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="pttfKnLC";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="GQkTiTsS";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="pttfKnLC";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="GQkTiTsS"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 1BBDC1F786;
-	Thu,  8 Oct 2026 07:07:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791443238; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GwjPw1mZUywYnKuWFhbnJ8X46JLzymUOdUflsOOTtw4=;
-	b=pttfKnLCpk8vXshpeOFF21/8arvxxZE+LBWUTfS0mYL07v3Zx//9YMCP58V/CI2J+AiPlY
-	iki1O4AVlMAHlmPyQDf7lAwKh5plPax8W9e7oPnSFCNw6QbLonW6SXXsxJFZy1yXnrhO+3
-	SNH3Zf16Gkp5PhgkEt67c9/+il5/4zI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791443238;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GwjPw1mZUywYnKuWFhbnJ8X46JLzymUOdUflsOOTtw4=;
-	b=GQkTiTsS+E456gCn6w3l9jIdqyxk5qAGvskqcWRcv3iXKLFz8aIO/mfEdaDKzSX3Fb3U22
-	Y79oTlqmHoJ8KEDw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=pttfKnLC;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=GQkTiTsS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791443238; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GwjPw1mZUywYnKuWFhbnJ8X46JLzymUOdUflsOOTtw4=;
-	b=pttfKnLCpk8vXshpeOFF21/8arvxxZE+LBWUTfS0mYL07v3Zx//9YMCP58V/CI2J+AiPlY
-	iki1O4AVlMAHlmPyQDf7lAwKh5plPax8W9e7oPnSFCNw6QbLonW6SXXsxJFZy1yXnrhO+3
-	SNH3Zf16Gkp5PhgkEt67c9/+il5/4zI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791443238;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GwjPw1mZUywYnKuWFhbnJ8X46JLzymUOdUflsOOTtw4=;
-	b=GQkTiTsS+E456gCn6w3l9jIdqyxk5qAGvskqcWRcv3iXKLFz8aIO/mfEdaDKzSX3Fb3U22
-	Y79oTlqmHoJ8KEDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C1E8713354;
-	Thu,  8 Oct 2026 07:07:17 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id cx66JCVBx2qjZAAAD6G6ig
-	(envelope-from <hare@suse.de>); Thu, 08 Oct 2026 07:07:17 +0000
-Message-ID: <0632ec1e-dcd3-42f9-bd0c-a809a6f6db09@suse.de>
-Date: Thu, 8 Oct 2026 09:07:17 +0200
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="yIBsPu/x"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=0ww36d7lvRgL2utdgp0HYz+PlDtTfH54SleiAfqBREo=;
+	b=yIBsPu/xFBl0IFbXnRxjHpIDRhVx5Eujlk04HEvl6gc8FLhRkbMrUYP3XM71VGxdCn7Iufk+D
+	jmUYjpNLHcc3Bi8yV7MncHhAnXQJPDOcpR9iHW/Ck6HevFTDLPh7vH6Q/wUh9fu8Lm0BFGxGrjP
+	1FZVTG4cE8XZpL2hiP0+nq4=
+Received: from mail.maildlp.com (unknown [172.19.163.127])
+	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4j0gjc686GzmV8f;
+	Thu,  8 Oct 2026 14:55:16 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 9746140572;
+	Thu,  8 Oct 2026 15:07:30 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 8 Oct
+ 2026 15:07:29 +0800
+Message-ID: <a3e6fd37-41be-4dfb-917d-c3e906bae56c@huawei.com>
+Date: Thu, 8 Oct 2026 15:07:28 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,93 +42,69 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] nvme: auth: validate DHCHAP secret before stopping
- authentication
-To: Sreeraj S Kurup <sreekuttan2156239@gmail.com>,
- linux-nvme@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org, kbusch@kernel.org, axboe@kernel.dk,
- hch@lst.de, sagi@grimberg.me
-References: <0602191a-81ce-4f8a-90d0-b47ba2bc36ac@suse.de>
- <20261003125115.2523-1-sreekuttan2156239@gmail.com>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20261003125115.2523-1-sreekuttan2156239@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v2 04/21] arm64: bpf: Add support for generating reads of
+ TPIDRRO_EL0
+To: Will Deacon <will@kernel.org>, <linux-arm-kernel@lists.infradead.org>
+CC: <linux-kernel@vger.kernel.org>, Arnd Bergmann <arnd@arndb.de>, Ard
+ Biesheuvel <ardb@kernel.org>, Ada Couprie Diaz <ada.coupriediaz@arm.com>,
+	David Hildenbrand <david@kernel.org>, Catalin Marinas
+	<catalin.marinas@arm.com>, Vladimir Murzin <vladimir.murzin@arm.com>, Mark
+ Rutland <mark.rutland@arm.com>, Mostafa Saleh <smostafa@google.com>, Lorenzo
+ Stoakes <ljs@kernel.org>, Oliver Upton <oupton@kernel.org>, Linus Walleij
+	<linusw@kernel.org>, Marc Zyngier <maz@kernel.org>
+References: <20260918161407.2300-1-will@kernel.org>
+ <20260918161407.2300-5-will@kernel.org>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20260918161407.2300-5-will@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-4.50 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-0.996];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	MX_GOOD(-0.01)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com,lists.infradead.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:email,suse.de:dkim];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Action: no action
-X-Spam-Score: -4.50
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 1BBDC1F786
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On 10/3/26 2:51 PM, Sreeraj S Kurup wrote:
-> Hi Hannes,
+
+
+在 2026/9/19 0:13, Will Deacon 写道:
+> In preparation for storing 'current' in TPIDRRO_EL0, add support for the
+> instruction encoding of "MRS Rt, TPIDRRO_EL0" to the BPF JIT.
 > 
-> Yes, I agree that stopping the currently running authentication when the admin
-> requests a new one is intentional.
+> Cc: Mark Rutland <mark.rutland@arm.com>
+> Signed-off-by: Will Deacon <will@kernel.org>
+> ---
+>  arch/arm64/include/asm/insn.h | 1 +
+>  arch/arm64/net/bpf_jit.h      | 2 ++
+>  2 files changed, 3 insertions(+)
 > 
-> The issue I was pointing out is slightly different: if the new key is invalid,
- > we never actually get to the point where the new authentication can be
- > started again. "nvme_auth_stop()" has already stopped the existing
- > authentication, and the parser returns an error before the restart
- > path is reached.>
-> So the question is whether writing an invalid replacement key should
- > leave the previous authentication stopped, or whether the key should
- > first be parsed/validated and only then replace the existing
- > authentication state.>
-> If the intended semantics are that an invalid key write should not
- > disturb an already running authentication, then moving the validation
- > before "nvme_auth_stop()" would make the operation effectively
- > transactional:>
-> validate new key
->      -> error: leave existing authentication unchanged
->      -> success: stop old authentication and start with new key
-> 
-> If, however, the intended semantics are that any attempted replacement
- > stops the existing authentication even when the replacement is
- > invalid, then I agree that the current behaviour is intentional and
- > the patch doesn't fix a bug.>
-Hmm. Actually, I'm not sure. Both sides have something going for it.
-Stopping the transaction first follows the perceived will of the admin
-to start a new authentication. And that will is arguably independent
-on the question as to whether the new key is valid.
-But at the same time one cannot start a new authentication if the key
-is invalid.
+> diff --git a/arch/arm64/include/asm/insn.h b/arch/arm64/include/asm/insn.h
+> index 1ce75a442638..0e739740513d 100644
+> --- a/arch/arm64/include/asm/insn.h
+> +++ b/arch/arm64/include/asm/insn.h
+> @@ -136,6 +136,7 @@ enum aarch64_insn_special_register {
+>  };
+>  
+>  enum aarch64_insn_system_register {
+> +	AARCH64_INSN_SYSREG_TPIDRRO_EL0	= 0x5e83,
 
-So I don't know. Let me think.
 
-Cheers,
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
-Hannes
+>  	AARCH64_INSN_SYSREG_TPIDR_EL1	= 0x4684,
+>  	AARCH64_INSN_SYSREG_TPIDR_EL2	= 0x6682,
+>  	AARCH64_INSN_SYSREG_SP_EL0	= 0x4208,
+> diff --git a/arch/arm64/net/bpf_jit.h b/arch/arm64/net/bpf_jit.h
+> index b2fe6e6dcf44..df469a005373 100644
+> --- a/arch/arm64/net/bpf_jit.h
+> +++ b/arch/arm64/net/bpf_jit.h
+> @@ -331,6 +331,8 @@
+>  	aarch64_insn_gen_adr(0, offset, Rd, AARCH64_INSN_ADR_TYPE_ADR)
+>  
+>  /* MRS */
+> +#define A64_MRS_TPIDRRO_EL0(Rt) \
+> +	aarch64_insn_gen_mrs(Rt, AARCH64_INSN_SYSREG_TPIDRRO_EL0)
+>  #define A64_MRS_TPIDR_EL1(Rt) \
+>  	aarch64_insn_gen_mrs(Rt, AARCH64_INSN_SYSREG_TPIDR_EL1)
+>  #define A64_MRS_TPIDR_EL2(Rt) \
+
 -- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+Best regards,
+Jinjie
+
