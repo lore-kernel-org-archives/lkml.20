@@ -1,74 +1,71 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 872984A13B9
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:03:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF22845A288;
+	Thu,  8 Oct 2026 13:04:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.126.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791464611; cv=none; b=ehhWvHjPKgCEOeYIDmh+kg5Il2xjRbyJc9OZHOP7q6RvY4Bya3Fjw+9FYwNnvOmmuXD6L3jIZbu3A4JwlmVcaX6F3bTz5tRLnDg0St05eOhHJJHTsOgFdf8CaC7zslQ18Jp6p8TY32Nn1HfOlyLGb9+l50OFuoTNLEpcJXCBaCU=
+	t=1791464686; cv=none; b=nInO4tXGJ9odlySgC/fPVEzM8FvILu9pKo8bW+zDXv6UYgdRZnwv3jZdf0/DimfL+NXkfvqPCAzlUSipSJwMLJIuTOl5SVm66ZwgTu7Q2RgKUDy8+wIbSbgCO8TG3xqqukEe83qIj2EUokrCen6OE2Cr4Qe60myYt4sfXKuvbS4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791464611; c=relaxed/simple;
-	bh=tjHHvBOnmwG0ZHs7tnVhwy6OVxptOIoFLkVOYGXNK0w=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QNeHqaOIPJkPRKdl6DneL1ZQtabte1TkrIOSKMqOH02A7qW9xObaO/f3JLRQWrScRGJclbG7frJY1Lng8Q7SU/9oWLSS1gHzwgUpBvRLzx/Kri0wIDqXVoNx5Or25CM9mJi68l3TeuP3Q9sHuE1RuZntWYA+T6J/jRud/TsClTU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b=GhdpSs4V; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791464686; c=relaxed/simple;
+	bh=Rh4hXJLKyAcuCe8NCjmCKEHqY5gcCNMva4h1Ro/Fnxg=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=mT7xlYcFrK6CJHPQ4JWy/wZyDYgVDNKaVEKPvc3rkTZDh8ePnm3TUFlX81VzcNtGnFp5twrxE7rADYyK2opTMKndha1XZ5fM9FA4t5Ztrj6UWhZYtuBRnK/75oVK+Zi2ZBLrpD8OI4RvshijiB49MvkiBuNcEJ09npWGJKY9nj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net; spf=pass smtp.mailfrom=weissschuh.net; dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b=sCp3rm++; arc=none smtp.client-ip=159.69.126.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b="GhdpSs4V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C8F91F000FF
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:03:29 +0000 (UTC)
-Authentication-Results: smtp.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=GhdpSs4V
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105;
-	t=1791464604;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tjHHvBOnmwG0ZHs7tnVhwy6OVxptOIoFLkVOYGXNK0w=;
-	b=GhdpSs4V8bflIoqwcdpPbvT1rqF+MAEGqN7gji6jQG+TOAYxqxkf5LTPUVVg7jR6+KqouX
-	KdX+tx1GHqNSsjMW0+LsUXS7mVYPKEs9hPeKbwF8nQjm/k8Yg30gcayedlG9j3ES3DbprS
-	46UBYZfEzpF47ywgdm/1bTu8RkVyOCA=
-Received: 
-	by mail.zx2c4.com (OpenSMTPD) with ESMTPSA id acfd6500 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO)
-	for <linux-kernel@vger.kernel.org>;
-	Thu, 8 Oct 2026 13:03:23 +0000 (UTC)
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c2e3846d1caso438522466b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:03:23 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx0rNXQlHLvCj9RHlMp1Q9SOgoyG4/97drWPkBbNIurQpIG/Vunx+CZxrMbcfkZ6xLK/B5LSQdb8d5dKAA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mR/igRN2eUPpqz4c2vtqux9b1hUwO2UycBFp63kTE+2vOdAPtM
-	ZTkbLctREEauGZSTR4R6YMafTgVittenV/9U1Rhbyg5V57w0hUdSxEoIHg26+9co780ccJ0uFjv
-	9l+J0YLns1oAS2YrGINEh8c2o+uFAZZw=
-X-Received: by 2002:a17:907:1ca2:b0:c2e:3124:2394 with SMTP id
- a640c23a62f3a-c317c104ea5mr573093066b.41.1791464602409; Thu, 08 Oct 2026
- 06:03:22 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b="sCp3rm++"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+	s=mail; t=1791464674;
+	bh=Rh4hXJLKyAcuCe8NCjmCKEHqY5gcCNMva4h1Ro/Fnxg=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+	b=sCp3rm++HWSf4DnTrV8vUKBRubwoelJVKY9zJsMNeSiwTpqImye91XwODndVH3zIr
+	 RjVh1X16zGBfBRbyHpFzX1N4ZHpXs0kDEC3rUAuRhj0UjWGY9aMCmNr/gYMAyu9KYs
+	 qDGuKw4MJVTCrreu/S4TAuR5YPdf+STGNy6M1uKM=
+Date: Thu, 8 Oct 2026 15:04:20 +0200
+From: =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+To: Ard Biesheuvel <ardb+git@google.com>
+Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Ard Biesheuvel <ardb@kernel.org>
+Message-ID: <91f74adb-e1ff-4687-8ccf-66ff2583d680@weissschuh.net>
+In-Reply-To: <20261008081317.2602565-4-ardb+git@google.com>
+References: <20261008081317.2602565-4-ardb+git@google.com>
+Subject: Re: [PATCH v2 0/2] EFI sysfs constification
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261008-get-maintainer-the-rest-fallback-v1-1-7d26d0b7aa34@linuxfoundation.org>
-In-Reply-To: <20261008-get-maintainer-the-rest-fallback-v1-1-7d26d0b7aa34@linuxfoundation.org>
-From: "Jason A. Donenfeld" <Jason@zx2c4.com>
-Date: Thu, 8 Oct 2026 15:03:11 +0200
-X-Gmail-Original-Message-ID: <CAHmME9rh7k0vNrBt4yF7fOgir3yuhrFawPnmsJpeYBCLg-r6bA@mail.gmail.com>
-X-Gm-Features: AclHuK-Yejlvpf36uWR33GrvVlEEyQTSLxOHNFx01AUdH7X8hSv_BcZkGCtiyPE
-Message-ID: <CAHmME9rh7k0vNrBt4yF7fOgir3yuhrFawPnmsJpeYBCLg-r6bA@mail.gmail.com>
-Subject: Re: [PATCH] get_maintainer: only use THE REST as a fallback
-To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Cc: Joe Perches <joe@perches.com>, linux-kernel@vger.kernel.org, users@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
+X-Correlation-ID: <91f74adb-e1ff-4687-8ccf-66ff2583d680@weissschuh.net>
 
-Hi Konstantin,
+Oct 8, 2026 10:13:25 Ard Biesheuvel <ardb+git@google.com>:
 
-On Thu, Oct 8, 2026 at 2:56=E2=80=AFPM Konstantin Ryabitsev
-<konstantin@linuxfoundation.org> wrote:
-> This issue came up during the 2026 Maintainer Summit and the consensus
-> was that "always include linux-kernel for every patch" was never the
-> intent.
+> From: Ard Biesheuvel <ardb@kernel.org>
+>
+> Constify static sysfs node accessors in the EFI core code. While at it,
+> switch to sysfs_emit() where appropriate.
+>
+> Changes since v1:
+> - constify efi_runtime_show() prototype and use __KOBJ_ATTR
+> - add sysfs_emit() patch
 
-Thanks for communicating this! I had always assumed the opposite,
-based on what I saw happening. Glad it's been settled.
+Reviewed-by: Thomas Wei=C3=9Fschuh <linux@weissschuh.net>
 
-Jason
+> Ard Biesheuvel (2):
+> =C2=A0 efi: Constify sysfs attributes
+> =C2=A0 efi: Use sysfs_emit() not sprintf() to generate sysfs file content=
+s
+>
+> arch/x86/platform/efi/efi.c | 13 ++---
+> drivers/firmware/efi/efi.c=C2=A0 | 52 +++++++++++---------
+> include/linux/efi.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
+=A0 3 +-
+> 3 files changed, 37 insertions(+), 31 deletions(-)
+>
+> --
+> 2.56.0.360.g66cac248cb-goog
+
