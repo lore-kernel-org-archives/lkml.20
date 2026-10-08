@@ -1,138 +1,184 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013054.outbound.protection.outlook.com [52.101.83.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CEFE49505D
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 10:42:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791456138; cv=fail; b=uaMi6JMYG1xLdVLVnJMAV8cedvqGE9OnQ2LC92Vto6KwPLtnXj5Cd2ioQsc37jwHMw4UN2Cj7qdXME08ZLNRMS6z/cS8hqU99fxHZMIm55pvionVU5Yrg9ZWw6CDxT4swKAYKzZEAHQ9nMaXeElLI6qP94XEGAoPNNi+GrLrlQI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791456138; c=relaxed/simple;
-	bh=IiY4eOIs8J7uAWi7PGNUM9GHXOK/i8AU7rGMcwmbFds=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=QBN9PuPlQXsZdsXn8dXrM4WUxTD+CnlGahS5aaRJGWBiwdnNibzeDd5CgycWaMsSDahXQt9b7zDJDSjKo6LkvEJw4cQjqRFr9s0fpn8ogWZbnb4AyIdeMf44aOKAidZy8OwKK2I1ZmPwMs1M/zU5GMgjjovuxMfHBbbvF66Dllc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=WdsxKquO; arc=fail smtp.client-ip=52.101.83.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80BBC497B6C
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 10:42:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791456142; cv=none; b=VDTdbveNAjK4y5hEJKiQp8lfkb4oKagwDlOcWOLUx+2/w/M/XTndPu6VCTmN2xKnXzNwlzCjynLN3/nqbdr+XgPitojlSkbdlXjKNL+7EccZ7cA4KdR6p5hE85VybDotwyBrNLtaT5bFRe6re/OHZetrvrXpvmIaNX1YAqDenNM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791456142; c=relaxed/simple;
+	bh=6dFh3KYbxtITJpRD4kNPYQg713kSVg+CYVFiW9/LyIQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oCGC8R92LjAozbE6U0qFMyVQSG8j2xVh7T8HP7wHye9IA+C9OSLgJf3LrSeMLV2Xgqb2be1kpy4iYpfLHkWlxl93ZLJRIIA/2ixHqA/UCbn3fv2a6XXO8lJ17skZTorltUDA8aTd91xGzXYtU7vsM1Wd6WtqC+hSK11EtC1GorE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YlMjk0/t; arc=none smtp.client-ip=74.125.82.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="WdsxKquO"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AQU0q/Ht8KbbssvPaYg/XQwvDTJ7FszSso1AFOUxxml/pMkLvPXkjvdTmBmGdLkMehxK8Q3YAS/2k5Cz/lOEFUsodUQqbnLbFkTACoiKL2S6ilWJUUr9SxgEuvmRk52yXHOCF8Se8qIMMMcSEa6fJXqvzg39UXdwMm9i2MjkuW8ntLfxIdPO9vgJgpiJ6SWPB9+YK6s9fO/rgMZqzUGj+ErctZIU/Hl7/g2rVut75ve3TlUU8h6QxHj1X53zi2Z9xfYOqV6vSxt7K18K6z68DaQGNmenv+4n2uNdZLOtTcwJ/OZb9l9krnsKjYiggXQCAbdxaUsUUFDw8gdJs0GG+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IiY4eOIs8J7uAWi7PGNUM9GHXOK/i8AU7rGMcwmbFds=;
- b=e86qRgm1XBOqK3yA09xmGxOXbec9X5G4HEeg4gLfQh1RzfxHNBAxphowUbK+z8E6pGeXdxKoFYlvuVtFB7DcswHy53yaa+6P7dlXqHmV/v7wKRn1h6yTGX5+34CSqDnho4XxYxzNCov93Iy2SfgW6CDgx0bBT6jZKuzPeMT0/e2rNSzkiF7kAZUlFTY7nz+FCA8W8EiGeEkMupj5z81MYj6RvRT0/5JjZr3Wa201XQrkB1TeoRj9GZu/kpAg7lRwhQqUQltvr/m2HrB4ipNVcZCsxIIOYQV/UnqPoms8fuu8Jnk9/YT5g1WbvVmiYhnV2rtinnzyPmDa0heX2HOkaw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IiY4eOIs8J7uAWi7PGNUM9GHXOK/i8AU7rGMcwmbFds=;
- b=WdsxKquO4DlUEb11lCpbORXOzgkcu1P+YKmCBpmBk/CEbaecDm/bv1e3ejxrPAHUA3DZg9smPzRHpXblNWomIb1YxZvFwaxlL62v7hp9pd0vr43QvnQ796xBjAOOfsXoG4mHGzfpcLVjfIAzEg4pJAdKM7jLTq6CNaiH83zJ7oZSd10sFqBsgdHQJjX0tYA3RihuyWW2N6sntSd4rtYJ+hzNqUMJ9XFp1FfoJ/HdbIvc5Zc0zCFc/W+iTVKL4dmuQbHKgbnGpsQFjQHzECMJ5UJCR4AGyC8Y9DPRZnrwzhVp6uMx5N6ev28ElRpKJHf7+YmtURDnuGblruH7sbz4Hw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by PA4PR04MB9365.eurprd04.prod.outlook.com (2603:10a6:102:2a8::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Thu, 8 Oct
- 2026 10:42:08 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0496.010; Thu, 8 Oct 2026
- 10:42:08 +0000
-Date: Thu, 8 Oct 2026 18:46:41 +0800
-From: Peng Fan <peng.fan@oss.nxp.com>
-To: Michael Reeves <michael.reeves077@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
-	Andrew Ballance <andrewjballance@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
-	maple-tree@lists.infradead.org, asahi@lists.linux.dev,
-	linux-mm@kvack.org
-Subject: Re: [PATCH v3 1/2] regmap: Remove debugfs before cache teardown
-Message-ID: <asd0kW0o6Cn4KIgD@shlinux89>
-References: <20261006-regcache-lifecycle-submit-v3-0-37bdd82fd47c@gmail.com>
- <20261006-regcache-lifecycle-submit-v3-1-37bdd82fd47c@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261006-regcache-lifecycle-submit-v3-1-37bdd82fd47c@gmail.com>
-X-ClientProxiedBy: SG2P153CA0026.APCP153.PROD.OUTLOOK.COM (2603:1096:4:c7::13)
- To AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YlMjk0/t"
+Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-15943c9c005so1850521c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 03:42:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791456139; x=1792060939; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=p0qhtd+efK/Hc1Em0lvih3vUFvGAfNajebBLWEpeLzs=;
+        b=YlMjk0/tPe5syvZERUokFN4x0f9x1azhRPRznbhR4w+oVtneJuFsWlXKKnoAS5OQzS
+         0cId1lznhca7JFP/FXdzJA5L+TW9sZpWSKzez9OMHDodODINcVOMGiL+7XTGAQMdVqhD
+         ybD40uu8LN0VZfUCahLXx3rfPFFNfpJlmXUR4t+mI1+yYwtmrGHI02ZlGAoTN57ROlgH
+         6PQ+XLiyQLrF1y6eB43smRyV2bzv3jiZF7PIqOi0nlSfd0RZ8C7xAA20VbxNq9tg6E0S
+         +JyFyc2Gzw29tOwxrmqkMdihIL3PWWdAzEABJllMcRrJ8kHmIRqXBIqTJndOJbltM4t9
+         EDzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791456139; x=1792060939;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=p0qhtd+efK/Hc1Em0lvih3vUFvGAfNajebBLWEpeLzs=;
+        b=r2JB+UmHEd/8/UjvugoZ0qB2XITdHvirdHtJ1BKMEud8qEyvT0h1Rr0NPy9JVgcyxQ
+         Nfo/1r0Q0KGlkxTj5+bBBdL2G4W2CkVEBoU9h0lVpc4fTnXiAdXMI90dN0nVxhOpAipZ
+         tLGsETjp8AuL3JCiJQVLuRrtKyMdKdWzzu99BtACKlz/3z4OdAXWD+r9tCVSDHXnH55K
+         0ccnm3AxN8DRx5nVXykpHgix52A68JBjp7Y7F6gKNVRze44GURRChcfBq38i/SU8REZa
+         ExP/ViMeATqCxDg9OGcr19/sXNnNLEusvO1e4RBr17R6c/9r48GXrzO9Ke/ZZBAT8Uy0
+         D4sA==
+X-Forwarded-Encrypted: i=1; AKwUvByR/BFCrPvNajmy/QeJBrz3awIhrn4lBT6ylGyTWX9D/WVl2I/3OGvNDlivMC04kerPn/biDzteB8YDFiE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLx3bb9NYjfPQuPJ2TvFjAfW/nCcgYhdCSFOk4GH0FK1EhFns7
+	GwnsOFlHaeBf7yHVWeoKz6nd6u5GiPwN7JdR03Tyi+G/SdboDHwK5n2C
+X-Gm-Gg: AYBFou3jrEy31xARv+bP6w8UqWbE7PX9t4QPCdRFfWtnCOKWQRy++KmB9w9rSG1Dm8y
+	CLsB8S/naXBU5F1cMyssA9F8a6aKSBflUGa69huVNJNIeW2oLMn8nB7rt3GUtavS4sJB9xuhNYQ
+	VITr4HT0pqzNIJbuBtP7OGDDxDp+JFcBrZFb+dh09WMfiNSstgElp541fsW9VkOqbzFhQhTVu4C
+	4M8IzEV+WHCnIL4dlxq9uE3hwELxWk8whCYtu+btM8Tk12U+hQ/jxwPwvDFO63My0O7ZKZWptsH
+	Y1p5HKyFouYnX3OyGa9ibhyf+WJ9apOlTI7wNXlGNzLSi/ZIIyUTijLISmwP08ag3S990BRSMjJ
+	y69/uYIYot0JU36w8mVTgxrQpuJPsHjA8p+xiHlTwxlCFiz2O4MgcIWSV9dg9HXpSE9qf0dUgTG
+	vun7O91HdJlllGFSqbRZkHelwNEMi86cP/yfdoKTT/mRJEjj4iWqImADVMIm4PsTSG2Wd0CCe8/
+	5cxpQwyDiYZqWCE9GBPMwmQN01OqhaCM5C2O8Tdxa+ScRnEW79VXulrC8ljPPDH3MNNHAO3c44c
+	zt7Y+SMRs/2fUtM=
+X-Received: by 2002:a05:701b:4501:10b0:15f:6789:2c2a with SMTP id a92af1059eb24-16207d7c2a4mr5290246c88.36.1791456139402;
+        Thu, 08 Oct 2026 03:42:19 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3517810b895sm7496369eec.17.2026.10.08.03.42.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 03:42:18 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	povik+lin@cutebit.org,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Andrei Simion <andrei.simion@microchip.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Xiubo Li <Xiubo.Lee@gmail.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Kees Cook <kees@kernel.org>,
+	Syed Saba Kareem <syed.sabakareem@amd.com>,
+	wangdicheng <wangdicheng@kylinos.cn>,
+	Chris Bainbridge <chris.bainbridge@gmail.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Neo Chang <YLCHANG2@nuvoton.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	u.kleine-koenig@baylibre.com,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+	Hemanth Selam <hemanth.selam@gmail.com>,
+	Md Shofiqul Islam <shofiqtest@gmail.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Zain Aboobacker <zainaboobacker33@gmail.com>,
+	Sang-Heon Jeon <ekffu200098@gmail.com>,
+	Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
+	Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
+	Bo Shen <voice.shen@atmel.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	linux-sound@vger.kernel.org,
+	asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	patches@opensource.cirrus.com,
+	linuxppc-dev@lists.ozlabs.org,
+	imx@lists.linux.dev,
+	linux-rockchip@lists.infradead.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH 13/24] ASoC: codecs: nau8821: Ensure the DAI is marked as started on success
+Date: Thu,  8 Oct 2026 17:38:20 +0700
+Message-ID: <20261008103831.542533-14-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261008103831.542533-1-phucduc.bui@gmail.com>
+References: <20261008103831.542533-1-phucduc.bui@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|PA4PR04MB9365:EE_
-X-MS-Office365-Filtering-Correlation-Id: c86168a0-7aa3-4c2e-138d-08df2528cd5b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|19092799006|376014|366016|23010399003|7416014|18002099003|22082099003|4143699003|6133799003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	kwqMRPWGrdvN+9YuoiLFiEuhIG94oR9pXYXd3P5ADd5eOAFfKuzGOowaxMBnRsaA0+VrSVdO+lgAZwyyH9qHHup6xHnEvJNNuLWALfDtTTf16vIrDquwl3udjUq9R9Om4uy6LtNV5UqM7IgN73RALDadtAK+qP9MZdjtpKpsD8a3OusV5UB9WZVFiG5pBoCMkFLjsRVsOJXBPFY7LwfQE7wNaFenyhgx5BJX94yABFTBjmSeo/EGJo5m2pg8t0VEx7Zz7eyr6lQBz16C0C1x4uBN4rkMJQbWD1s6TVjd5NFCeXTyVqI6Bwz6QQ0wJYhBx2FbvHtXoPWHhYqrbkbiindVkX81Ed7TXRhTg8vA8kAJi6W/3fzmsSAIFRR7QBFE8wyjHuF2sZgLj+hudWXwJTudXimCR1PT6YJTcV1CTTppUqyabKftpaUajy4BnGyOr+eCqi1+4U02zjqN/cVkpaFoz7WCmKGAXgpSeCTfkSffzCyLy/1n9uiRCeA+fE2q/wOfSOcl+GQYBIPegc+AJ4Ir44d/6LjAKtErzszNEx53UjLtQ+reaxWc89rsSO1Xby/ed3RTYK9LUDDtNdoGl9nV1Rf5HOtaujdQzDBeH78kHOIv7HccNHFGflfobMNC5EEgsmGnGwjA0X3lkNrwM//FAdtWrjlbpz++qA26HuI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(376014)(366016)(23010399003)(7416014)(18002099003)(22082099003)(4143699003)(6133799003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Dt2EuQn3TaNjZvYToTCVmStwlqS6AoBjHBygfsTCI2TdGOhy3R4o9CHT4KN3?=
- =?us-ascii?Q?8mONHZ+9m9Qd2TR5Z1G/s+HfASfQXfw+rtIBkqwUsP3Bxhe1fp6wLjnulx7o?=
- =?us-ascii?Q?9TU1TAoty59J6Zir4b086gB2bVtjBODPAPMA83d6mg7pZ5eNFj5bHhvJkLiN?=
- =?us-ascii?Q?wbl5v8v/GXrSC7RcvGh8IuAh606YWyQxKvNAfwzR/KMvR8UnT18XJEq+i6nD?=
- =?us-ascii?Q?JKQI9Iju1FPqb/MnbOcO1K6nHZG9j9wCNVW4xiAUln3YpVNywuSxm3YhBZOp?=
- =?us-ascii?Q?ojeU2ZICqdcCvpZQdWFjFnTxZbc1i5CSxzWbXdFVwpKF/hShZcklDlJ6hTQ7?=
- =?us-ascii?Q?CB78F5A0kJOrF5WnpsuDMYQEqwn4SvsHMvQGlqj+YmsZt1u+DzkBREO5y3Bw?=
- =?us-ascii?Q?SLCHZkUFRlJOm0AY2EfsVnHdf1Ordo5WEApXndJ7ODDQqVi7ybIjqJMK5ruC?=
- =?us-ascii?Q?T1Jnqaz5Llbt3/5S/wNXZxX0vGP8BMQZsuCAhmCB04V9yBHTBayoztpAijFO?=
- =?us-ascii?Q?6vX+F97pBmyBE+PQldiR2WDIxk2lmg9vq0u26n2vf1hhq8Sqv/uQdyGozcAX?=
- =?us-ascii?Q?bB0UFzgDoR3TJRUSSwA+Z34fjSacl0qS6wJM7FdtWZoq1ugu97aW9BFsCJWF?=
- =?us-ascii?Q?rhx5+1Pnsk0+5HsnZteSHxLMjJwt3tfXFS6ZBajF2aCh2NCqEgf+aWrbigG6?=
- =?us-ascii?Q?T7Ol2YeRSIl/5H3HgJM1gVZRRBQOf+qNKwZpjO0OmHAAbhrVJl9Lw5SbfRRU?=
- =?us-ascii?Q?+Jv2z/xYt1t98Zf01Oq1ED2oA8w6+9Rue8nP9W9WxYijuxvvNUlHJyD7j9f5?=
- =?us-ascii?Q?C95B5v4U6lRd9/3k3YaIBFW0Conk5TT4kxf22424MRQOjtD1PaRQj1/WfgQt?=
- =?us-ascii?Q?MClf44e5IBtOwA9DaIkwgnH0ePicDbPmgizYNma1ZUo35rBaDCjP2CxrZqFV?=
- =?us-ascii?Q?AYaycAmanhJuHV1oURxNoIZ6YPTRYd+m96pB7oNQn+vb+jIMQiOAwzVxX9QL?=
- =?us-ascii?Q?tBWSk8ARo7y3r/DzykQ1AU5ki1XW0ALUWq6UxMY4c97jbR5h5yax9C+X0bQG?=
- =?us-ascii?Q?+9ssDFVkf9RUQcsAB13TNLbbeBUiqMUeJRAq7404W2CM4H934izIIHMQoTLO?=
- =?us-ascii?Q?nMcxs7/RNQxACbVaQGYsSSGV8BjoOZkV0WVRP7Gl69XO8i9flQH1It1EaOYh?=
- =?us-ascii?Q?bGVlRvPAuxYSwHjYKZWIgDHo4xlJraYGe7ZTKM4Ub3nMRo8zQWWGTIdJpcgL?=
- =?us-ascii?Q?GTLsywXRXRi9/Z5d/6Q4qv1SAaBvVZBNpz6iLzPD5aO9jTfDifAi0wj/RhU9?=
- =?us-ascii?Q?CJa2FShdBT5nt1wnJ4Ce3GByYAO/ESqkWeOUg2m0BEebTiAitWpiDxpi1pws?=
- =?us-ascii?Q?N6uYN9l0/WKVxW66hXxMxmBtZ8JoyAwvb/ThygFuLKYjkk9GjjtqiXd/AFE2?=
- =?us-ascii?Q?XfJiJBy8CSPI9x2MwGSA1YS5b6IpYWmmIWtGTM+QtNB6AoLtLejiOx/csXoq?=
- =?us-ascii?Q?WxuukoxINVPSdsD+jlDmiywAtvl6JBGTY46wcyCoHQDRRXKqqWz6Wlg79EVu?=
- =?us-ascii?Q?paE2Ai93l3rhYgEOuX1dm5szpxI3U1Ey3Y76dMCEA5/FE+exZ7oUpt+1QEzN?=
- =?us-ascii?Q?bBiuE4trxvicmns2uNmLvrJHMJHTIGFr84wMvQAqX4tsspJLngaKXNZ13tYG?=
- =?us-ascii?Q?EHI9k1qUM4XDi+do7zeADNNcC+47ruGDwDlf3ENb/XS2uh+N5uC/JVw/b9bW?=
- =?us-ascii?Q?KeY+t+5GG2c1v9OyhXYCubVmd+jnxZtXUi6Dvns9ZyeJfRL+Npca?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c86168a0-7aa3-4c2e-138d-08df2528cd5b
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 10:42:08.7168
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0TKJsSTkNBbrTzD2jGlbi9OGzuMct6o0fuXFnHYRJa0QSg+31aoDWtHsek7+XSJDc2JHYedjmrkCYOVEGv7YhQPuWYLHNXKoA90rexB603zYGzAjNBBCC2s8aQ2EEIWB
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB9365
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 06, 2026 at 06:03:15PM +1100, Michael Reeves wrote:
->regmap_exit() and regmap_reinit_cache() destroy the register cache before
->removing debugfs. A concurrent debugfs cache operation can therefore
->access cache state after the backend exit callback starts freeing it.
->
->Remove debugfs before cache teardown, and clear the debugfs pointer after
->removal. During cache reinitialization, recreate debugfs only after the
->new cache initializes successfully.
->
->Signed-off-by: Michael Reeves <michael.reeves077@gmail.com>
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-Reviewed-by: Peng Fan <peng.fan@nxp.com>
+snd_pcm_hw_constraint_minmax() may return 1, which is then returned
+from nau8821_dai_startup(). ASoC only marks the DAI as started when
+.startup() returns 0.
+
+This currently has no functional impact, as nau8821_dai_ops has no
+.shutdown() callback. Still, return 0 explicitly on success to
+match what ASoC expects and ensure the DAI is correctly marked as
+started.
+
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+---
+ sound/soc/codecs/nau8821.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
+
+diff --git a/sound/soc/codecs/nau8821.c b/sound/soc/codecs/nau8821.c
+index ecadbaee1037..935df063822c 100644
+--- a/sound/soc/codecs/nau8821.c
++++ b/sound/soc/codecs/nau8821.c
+@@ -829,14 +829,19 @@ static int nau8821_dai_startup(struct snd_pcm_substream *substream,
+ 	struct snd_soc_component *component = dai->component;
+ 	struct nau8821 *nau8821 = snd_soc_component_get_drvdata(component);
+ 	const struct nau8821_osr_attr *osr;
++	int ret;
+ 
+ 	osr = nau8821_get_osr(nau8821, substream->stream);
+ 	if (!osr || !osr->osr)
+ 		return -EINVAL;
+ 
+-	return snd_pcm_hw_constraint_minmax(substream->runtime,
+-					    SNDRV_PCM_HW_PARAM_RATE,
+-					    0, CLK_DA_AD_MAX / osr->osr);
++	ret = snd_pcm_hw_constraint_minmax(substream->runtime,
++					   SNDRV_PCM_HW_PARAM_RATE,
++					   0, CLK_DA_AD_MAX / osr->osr);
++	if (ret < 0)
++		return ret;
++
++	return 0;
+ }
+ 
+ static int nau8821_hw_params(struct snd_pcm_substream *substream,
+-- 
+2.43.0
+
