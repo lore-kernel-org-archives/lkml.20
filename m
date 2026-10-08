@@ -1,175 +1,193 @@
-Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com [209.85.208.70])
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 537583644C4
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 19:08:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 354993A5431
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 19:08:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791486515; cv=none; b=l6wAr8stD9uWI/7/zDVT9PsK7NHiOlC5Xw1s2ujNWzsld9jYcAQPMigEfUBmAliuZt5Uhdd48YGPzWipOnmVQy/u+5WsRzVGtffQML1XJom+oddDGPG84vyF7FhlCxjOgrNAIFMbvrom9bxMCKuQ0nMSrQVoWUVoC6Je1hG9gBM=
+	t=1791486519; cv=none; b=MvO3ZhEJPl1Ukt7aOMjZOQFYjdx/Bl8RWJdpTzQRwEOPaQ5MyNowcJlpkCnM+RMT/I6C26G13yLFKfornY4/kHjegwzPxSPpvnzgnOYnxHTx3CPze5ToJ3aE2pP0GlNhs2OPRkgqhXpmg+vD07ov5MscYKnvnkST8itNOyZULPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791486515; c=relaxed/simple;
-	bh=cLhBToCW9aAVI6Lsxs/uY79KQglzyJzx5T72mQEaqLU=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=Sk2WzceavYv0qheE9rxTac0hbr0zRrqKLsPKR2XkZ6TzLRW5TxcFY0o4NE59MOeg4Mc2pSQREKfNYWvRb4BphBwkGcJucJVOGfhhdVzgAl7Wv4RNpriCc49P35+j3Pp+i9rrD0K/LMOWYkjUNGlJ0FeFQUA7gGneL48MDh01sAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=oYnUbLY9; arc=none smtp.client-ip=209.85.208.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
+	s=arc-20240116; t=1791486519; c=relaxed/simple;
+	bh=Zir4Ph3FKLRzBTHiYIba+VfmJzMS/v9zNFVDu0Pjrt4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=q2GahfVQZCdmpnz6AmJ7gF7++G7KXavnqJbyP9HdoRNB/pqsjAOPjWc1tjRkpV8qPIu9RxRjnCWLmbBVSaQ3CuIWTAWBUGERT9jv8yZNWBJhnfVyrTyVH4UV6O+rVzDgeJgh/Mv8YOgYjwy6xnEQKlHlUSiZtDo7Fu1UydJuV6M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=RWK9bvoY; arc=none smtp.client-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="oYnUbLY9"
-Received: by mail-ed1-f70.google.com with SMTP id 4fb4d7f45d1cf-6a9a19c8bdbso1850427a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 12:08:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="RWK9bvoY"
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-351f7a0b13bso602073eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 12:08:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791486512; x=1792091312; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=p7HbPFLbPRXHp9XhuAZ/3vm7gntFtncf0PzNuO46BI0=;
-        b=oYnUbLY94Y8YRUdMsgMAzB3yKFgMAai1VFfH7OZD6h6KUmwliy0obJcUxvrmmoeQJh
-         wZAw2H/o2i2GIIYW0jmlayDNyS4KkHu/7aAz87CjasKr5VJ3pvKYuIh652aKO8W3evR6
-         WjsOVvBokK88y2UQdkpJWEBb7M9m3IHGsG+xA1tJYnNyiJkd3kv3YhsqqSR2llPK12u7
-         ZSoNLFnwdRpqOOSKl3NlzWdHevMq80UlYyYgZV5hSlupfXOtRsPhC9RfHWcCPHRGRYzR
-         V06jKEKBK83ZmNBGFsRNNxRsCDpMyyGX/s8wN1iKJPRXH38m8zlCUN1GXK+Q/xY0hXsX
-         AAIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791486512; x=1792091312;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=trailofbits.com; s=google; t=1791486515; x=1792091315; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=p7HbPFLbPRXHp9XhuAZ/3vm7gntFtncf0PzNuO46BI0=;
-        b=JA1Wc3qVrBcVQTDOJTplKkWSDrfc/CFeNp1LXhehPGZxM612eTh4/Tb7v85PO3Bv/B
-         cjcahvdG+Ry2Ney3d926/yxGfKxdQTi4zo8s4WK3lyRn0waM3oIj4488ONx+MZONqEl4
-         oe6wn92rOkh9b4Yugxba/Is1LuvVAtow4nKJFTI5lIAighEXGcKPmphmYJ+dhty7nvQh
-         ilbooRgdJg7EGHpFE0LsjqpDxrjPi3kLcNCVH/raEt4UEFDdCq0ZAp50IXOIikyQprEX
-         pswWwCg0u7ZqjrQ0S/CVf393sdkJuGToaLYBc9ZfSFOFhFnC7qIGnhkudmDYurrbDmLg
-         NeVw==
-X-Forwarded-Encrypted: i=1; AKwUvBzKNYC8Rzb18gOQhxItR7/DpEzWODlA5k844smFHV4UJilOeW1CK9vEw3J7y2NhgEKgXoMfBTWgrEAV9w8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI07amsJm0LPCEHv3hvS333Mq9xyir8MQLnX5/acGZj+9ysBhYu
-	DyM+1dmAD5tRIpY13AhlYwxlFd0LlKGLcol7j+Xf4Xxubqrv6O/rwOWQs0ki+mhRokxiJ9syJEH
-	T+KnyAVlk/ef5hkQoLw==
-X-Received: from edbgy14.prod.google.com ([2002:a05:6402:5bce:b0:6ac:b91c:a379])
- (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6402:50c9:b0:6af:a270:b2a7 with SMTP id 4fb4d7f45d1cf-6b0118ea2damr3315575a12.0.1791486512418;
- Thu, 08 Oct 2026 12:08:32 -0700 (PDT)
-Date: Thu,  8 Oct 2026 19:08:28 +0000
-In-Reply-To: <20261008190828.3221718-1-tarunsahu@google.com>
+        bh=5apqDPTTuz0tcu66C6sdhKkioJqFGVwtFVltYn4up0I=;
+        b=RWK9bvoYyMwJ15/n+Wg75puZ6CXOUL5gIKCyPgZYt+MJ4Tp2vEnxh1iYc8EMg9aoBn
+         63pB5BTLWEkNRqHJFdd/Rx3MPA+5DAw9cIETtIKF1QJeF7GRXlLLIguYO7/w96MRRVRz
+         GidVgi0l4STuK1b65FHY7pircJZvi1aqHhVpD39ahHm+nkVmgsxx9jiCCehY3/Klmt9x
+         oE/OvjXYa7qjbhq+JwKvZ1SMP+Dd5fw8C5nLoNC67bJuieZM/eJdfzvh6gGsRDC+75ws
+         FY8vfNv9Lz6QE/1qSGnVjdeSkW/O12IsEJRWh8cyfv2Sl4Uj5FRtekkM42148V3H98CD
+         Qf2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791486515; x=1792091315;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5apqDPTTuz0tcu66C6sdhKkioJqFGVwtFVltYn4up0I=;
+        b=MkGQpdmJOsYVHGF5oba6D5G6Bz0pu+2muMHiUXGaJfLtaIIkhyupORQmigWvDhuQ6D
+         xX/g+ATh6h+vBbc/m9sD5HpzQZR7Rjt07B04zGYYgMu6brwbH360/opY55siaYomth3Q
+         gcjpLZIdP3i1D6nBt19AEvvvdU0g479/WjhfAYAzQIFYKdBMaQx7LKdFRgaXEsu0Dy5E
+         IlQJKxS8cQsAEeVsALr1fY64+F48S6Xf8PfFOUWFRogderV2xlPv5JXBEvb012w0jN+7
+         nHzxp5W89QUWj3zotkKV62PkPW8xFJ14X3Qp5WaTZmvVNucKgWfp6AIxb/83VokNY6gW
+         SmvA==
+X-Forwarded-Encrypted: i=1; AKwUvBymhJr/d0CAetfXmmH2+o3i/p0FOlBINA4xBhws+E1Pe2YNvvncSB72gzOMNBXsc3qjXJjfQTm9bYnUD0A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLXFLFnbwS2sbyHOT3sLBwIgZa3gKYyZe+rKOvVgWuvWm3yi7If
+	ACynqEW1KakJ8Utf761MqnRN845jDVBEbNNI3DzDKadqRhaD+L9CFFABKYkHtBzAt3Y=
+X-Gm-Gg: AYBFou2NrO0dRaaOeX5kIfc+HrX7sERm1LpN8fVBouldH/RZb4JqHliggeGibhJJxQo
+	yBdyUvO9vRwC71zPWJEiEPzzy/ZF8hKq2bAADv+9Jr7yCUsgGUzIcnPrOWZzxIoGxcUh44MnAOq
+	maI0GlcXME49x0CwjnL+2Mge6nXlPZQjC6RxEJrHq7YWlw0PEcLLcFTNWcse4GxXmnj+yAmhiaB
+	zDc28aSqyPF3AwZ7NcyrlDP9B7V6NEkb1cAbf86FLzf07TtZmSc4fwq0/hDdQi4YVRQlVaSYbGV
+	Z8p1GR8Xeb9f989N0lqBs3N99ToLi/mrrqtIIwaFsIyYAxR1Ljdkt4QtisaQAHwu+oXkP1SS5f/
+	eTfo2CvMQRz8XLL4c+hkFEzH1j+Hmvu7Oq0v7p89NX97CfBmkbtyGYFZuyRuQR+A+3nZ0u+Eavw
+	BM7k1XdXigI1ngeflkNX2ikQymJ85ZLgmLwKq8kqp/CWpwDmdrFP9aVBMyK3/8Wo+vqUqjmUnYy
+	/Hpqv4ktWY0YB7pW1dMS4YB1SVnWbhsU6A9BJIEI3uPHtDrOq10n18tdyRQ//Y7IGywnow=
+X-Received: by 2002:a05:693c:87cd:20b0:353:5d7a:cabe with SMTP id 5a478bee46e88-3536c53930dmr317574eec.13.1791486515207;
+        Thu, 08 Oct 2026 12:08:35 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:bc88:5ec1:4f8a:5b23])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c841648sm80561eec.3.2026.10.08.12.08.34
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 08 Oct 2026 12:08:34 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Artem Dinaburg <artem@trailofbits.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Gao Xiang <hsiangkao@linux.alibaba.com>,
+	Robert Morris <rtm@csail.mit.edu>,
+	Hongbo Li <lihongbo22@huawei.com>,
+	Gao Xiang <xiang@kernel.org>,
+	Chao Yu <chao@kernel.org>,
+	Yue Hu <huyue2@coolpad.com>,
+	Jeffle Xu <jefflexu@linux.alibaba.com>,
+	linux-erofs@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	Yue Hu <zbestahu@gmail.com>,
+	Sandeep Dhavale <dhavale@google.com>,
+	Hongbo Li <hongbohbli@tencent.com>,
+	Chunhai Guo <guochunhai@vivo.com>
+Subject: [PATCH 6.6.y 1/2] erofs: avoid infinite loops due to corrupted subpage compact indexes
+Date: Thu,  8 Oct 2026 15:08:27 -0400
+Message-ID: <20261008190830.97970-2-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261008190830.97970-1-artem@trailofbits.com>
+References: <20261008190830.97970-1-artem@trailofbits.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261008190828.3221718-1-tarunsahu@google.com>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261008190828.3221718-2-tarunsahu@google.com>
-Subject: [PATCH v4 2/2] memblock: use binary search to locate candidate regions
-From: Tarun Sahu <tarunsahu@google.com>
-To: dmatlack@google.com, Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Pratyush Yadav <pratyush@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>
-Cc: kexec@lists.infradead.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Tarun Sahu <tarunsahu@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Use binary search (memblock_bsearch_start) in memblock_add_range() and
-memblock_isolate_range() to locate candidate regions instead of linearly
-scanning from index 0.
+From: Gao Xiang <hsiangkao@linux.alibaba.com>
 
-Under heavy memory fragmentation (such as KHO page preservation registering
-hundreds of thousands of disjoint folios), scanning from index 0 on every
-insertion and isolation results in O(N^2) complexity, causing boot-time
-memory retrieval to take several minutes (~268s for 393k pages).
+[ Upstream commit e13d315ae077bb7c3c6027cc292401bc0f4ec683 ]
 
-Using binary search reduces the candidate search complexity to O(log N)
-(from O(N)), cutting KHO memory retrieval time from ~268s to ~50ms.
+Robert reported an infinite loop observed by two crafted images.
 
-memblock_search() open codes the same binary search, so reimplement it on
-top of the new helper.
+The root cause is that `clusterofs` can be larger than `lclustersize`
+for !NONHEAD `lclusters` in corrupted subpage compact indexes, e.g.:
 
-Signed-off-by: Tarun Sahu <tarunsahu@google.com>
-Reviewed-by: Pratyush Yadav <pratyush@kernel.org>
+  blocksize = lclustersize = 512   lcn = 6   clusterofs = 515
+
+Move the corresponding check for full compress indexes to
+`z_erofs_load_lcluster_from_disk()` to also cover subpage compact
+compress indexes.
+
+It also fixes the position of `m->type >= Z_EROFS_LCLUSTER_TYPE_MAX`
+check, since it should be placed right after
+`z_erofs_load_{compact,full}_lcluster()`.
+
+[ Backport to 6.6.y: preserve the switch-based full/compact loader and
+  perform the type and cluster-offset validation after either loader
+  using z_logical_clusterbits. ]
+
+Fixes: 8d2517aaeea3 ("erofs: fix up compacted indexes for block size < 4096")
+Fixes: 1a5223c182fd ("erofs: do sanity check on m->type in z_erofs_load_compact_lcluster()")
+Reported-by: Robert Morris <rtm@csail.mit.edu>
+Closes: https://lore.kernel.org/r/35167.1760645886@localhost
+Reviewed-by: Hongbo Li <lihongbo22@huawei.com>
+Signed-off-by: Gao Xiang <hsiangkao@linux.alibaba.com>
+Assisted-by: LLM
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
 ---
- mm/memblock.c | 45 +++++++++++++++++++++++++++++++--------------
- 1 file changed, 31 insertions(+), 14 deletions(-)
+This is patch 1 of 2 in the ordered 6.6.y backport series.
+This change addresses CVE-2025-68251. 6.6 validates clusterofs only in the
+full-index loader, leaving corrupted subpage compact NONHEAD records able
+to drive non-progressing lookback.
+This needed a target-specific adjustment; I called it out in the bracketed
+backport note above.
 
-diff --git a/mm/memblock.c b/mm/memblock.c
-index 59dda7d085f3..614d0a55dd70 100644
---- a/mm/memblock.c
-+++ b/mm/memblock.c
-@@ -586,6 +586,29 @@ static void __init_memblock memblock_insert_region(struct memblock_type *type,
- 	type->total_size += size;
- }
- 
-+/**
-+ * __memblock_search - Find the first region index where rend > base
-+ * @type: memblock type to search
-+ * @base: base physical address of the candidate range
-+ *
-+ * Returns the first region index that could potentially overlap @base.
-+ */
-+static int __init_memblock __memblock_search(struct memblock_type *type,
-+						  phys_addr_t base)
-+{
-+	int mid, low = 0;
-+	int high = type->cnt;
-+
-+	while (low < high) {
-+		mid = (low + high) / 2;
-+		if (type->regions[mid].base + type->regions[mid].size <= base)
-+			low = mid + 1;
-+		else
-+			high = mid;
-+	}
-+	return low;
-+}
-+
- /**
-  * memblock_add_range - add new memblock region
-  * @type: memblock type to add new region into
-@@ -644,8 +667,9 @@ static int __init_memblock memblock_add_range(struct memblock_type *type,
- 	 */
- 	base = obase;
- 	nr_new = 0;
-+	idx = __memblock_search(type, base);
- 
--	for (idx = 0; idx < type->cnt; idx++) {
-+	for (; idx < type->cnt; idx++) {
- 		struct memblock_region *rgn = &type->regions[idx];
- 		phys_addr_t rbase = rgn->base;
- 		phys_addr_t rend = rbase + rgn->size;
-@@ -821,7 +845,9 @@ static int __init_memblock memblock_isolate_range(struct memblock_type *type,
- 		if (memblock_double_array(type, base, size) < 0)
- 			return -ENOMEM;
- 
--	for (idx = 0; idx < type->cnt; idx++) {
-+	idx = __memblock_search(type, base);
-+
-+	for (; idx < type->cnt; idx++) {
- 		struct memblock_region *rgn = &type->regions[idx];
- 		phys_addr_t rbase = rgn->base;
- 		phys_addr_t rend = rbase + rgn->size;
-@@ -2062,19 +2088,10 @@ void __init memblock_mem_limit_remove_map(phys_addr_t limit)
- 
- static int __init_memblock memblock_search(struct memblock_type *type, phys_addr_t addr)
+The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not in 6.6.y.
+
+ fs/erofs/zmap.c | 30 +++++++++++++++++++++++-------
+ 1 file changed, 23 insertions(+), 7 deletions(-)
+
+diff --git a/fs/erofs/zmap.c b/fs/erofs/zmap.c
+index 76566c2cbf63..e53d5239f04d 100644
+--- a/fs/erofs/zmap.c
++++ b/fs/erofs/zmap.c
+@@ -67,10 +67,6 @@ static int z_erofs_load_full_lcluster(struct z_erofs_maprecorder *m,
+ 		if (advise & Z_EROFS_LI_PARTIAL_REF)
+ 			m->partialref = true;
+ 		m->clusterofs = le16_to_cpu(di->di_clusterofs);
+-		if (m->clusterofs >= 1 << vi->z_logical_clusterbits) {
+-			DBG_BUGON(1);
+-			return -EFSCORRUPTED;
+-		}
+ 		m->pblk = le32_to_cpu(di->di_u.blkaddr);
+ 		break;
+ 	default:
+@@ -276,14 +272,34 @@ static int z_erofs_load_compact_lcluster(struct z_erofs_maprecorder *m,
+ static int z_erofs_load_lcluster_from_disk(struct z_erofs_maprecorder *m,
+ 					   unsigned int lcn, bool lookahead)
  {
--	unsigned int left = 0, right = type->cnt;
--
--	do {
--		unsigned int mid = (right + left) / 2;
-+	int idx = __memblock_search(type, addr);
- 
--		if (addr < type->regions[mid].base)
--			right = mid;
--		else if (addr >= (type->regions[mid].base +
--				  type->regions[mid].size))
--			left = mid + 1;
--		else
--			return mid;
--	} while (left < right);
-+	if (idx < type->cnt && addr >= type->regions[idx].base)
-+		return idx;
- 	return -1;
+-	switch (EROFS_I(m->inode)->datalayout) {
++	struct erofs_inode *vi = EROFS_I(m->inode);
++	int err;
++
++	switch (vi->datalayout) {
+ 	case EROFS_INODE_COMPRESSED_FULL:
+-		return z_erofs_load_full_lcluster(m, lcn);
++		err = z_erofs_load_full_lcluster(m, lcn);
++		break;
+ 	case EROFS_INODE_COMPRESSED_COMPACT:
+-		return z_erofs_load_compact_lcluster(m, lcn, lookahead);
++		err = z_erofs_load_compact_lcluster(m, lcn, lookahead);
++		break;
+ 	default:
+ 		return -EINVAL;
+ 	}
++	if (err)
++		return err;
++
++	if (m->type >= Z_EROFS_LCLUSTER_TYPE_MAX) {
++		erofs_err(m->inode->i_sb, "unknown type %u @ lcn %u of nid %llu",
++			  m->type, lcn, vi->nid);
++		DBG_BUGON(1);
++		return -EOPNOTSUPP;
++	}
++	if (m->type != Z_EROFS_LCLUSTER_TYPE_NONHEAD &&
++	    m->clusterofs >= (1 << vi->z_logical_clusterbits)) {
++		DBG_BUGON(1);
++		return -EFSCORRUPTED;
++	}
++	return 0;
  }
  
+ static int z_erofs_extent_lookback(struct z_erofs_maprecorder *m,
 -- 
-2.56.0.385.gd3acb90ef8-goog
+2.39.5
 
