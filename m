@@ -1,236 +1,95 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2A05489FBE
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 09:31:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35964484883;
+	Thu,  8 Oct 2026 09:32:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791451874; cv=none; b=OCdLP6kQ+OZ0D8SVsuYtL/tTDtUR+bY3YGh2t1hoeO9re+NPS/vb63ulAYdbBt7l13jAKVDgQFNPJHyZDVD4oA+QaxhPtSmvvI8YZXmtoB8mvFCCa6xSWYsmmHFzp8+XMSklR85436jB3YIAbVFbQfdlo79YKPGI6ZNpFuItVXg=
+	t=1791451953; cv=none; b=DSYhNZlzDv+fOEA+BcKssi2eUddYFnRYKW+0lLczWnY2wYacmg7rX9c0VhjTPdkup7yPU+7afOwMynJJP8jm6qI5C0yzPucXNakPevvV08ToqdCpMWW8np/3wq8DuyYuS3sQJ/mRhriuvos9T/ogw49dSh6Zt8ymZInByAozibo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791451874; c=relaxed/simple;
-	bh=4K9BvFlMKHfQ+Lv18CAMV9myI5c6fMcJfPP2KtshmTI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=YXlqkFmDKZInxfFMl+NL2nOAWRhNZoIiUAdxEW0uM8lbph69RJMj70Ejv92HJcG/uISqTJ7hmLt646Hpa+6w36DlbAhPJLDZgfsi0uCNuc1yPWLoGFHjfogZE1ruPFhxujxZUFhlJhgp1gvS8nKl1oBNjMbzZaN2dibHTBY72GE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SPaHxSBk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Jv2oBvqB; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791451953; c=relaxed/simple;
+	bh=p8LjtC70Lt6xtWUXRote3XXL3lhLfgfvpQRi+E2lazM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pKNyVTd5PXbupxf/uxkSfxZnNTadBCxdIwkY1ahDCjgJ9XyDJsyPIiVxA2NAxg6r+papCWH62M+MBQHTw2RZ/GcuE2htokq9Pv2O2ij/rXwCtvMj4FnqhRvpaQXWMJ0Iw5UwDDr8Arosg4/OyhGhPaBPUK9Ad2wcE3P2zrbDnP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gH9mpQuL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SPaHxSBk";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Jv2oBvqB"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6987KLoN2167029
-	for <linux-kernel@vger.kernel.org>; Thu, 8 Oct 2026 09:31:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=w2Kn2Qmc7ugy68f/zjB7Cv
-	OIvn/yO+vxbW0OIAcRWww=; b=SPaHxSBk2mSHlmHyBO9uywimHGGjzd5b0Qyn54
-	39FA1LNxTQ8AmZ7QBxva+ivr22S4bTs0Khu9w5flTc5BS49WS2KjkWeuZRU3M0Wi
-	Qzz1B5DvSYkFjHYQyimps2wQme7KS3HdxsGOaxj25dQGKSrTpq81bXnPdxwWZ0lm
-	zZpeLBgaz3QEF/vR47YHbqMlQtEdm+lw3VtCQ9shJUtjRDP0x2SjLk0RQHJVeZWD
-	tnLHpITjY6dd8rgCFs3rowIRf4W6j4zbQQtKWRKBPan7vxP9k20oGobW8ii4j/Eg
-	Jvv36bM3fdZrZLJ2MYqfBxs6ReLXTGN2glA1VxGBwc5mZzcQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe2tamr-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 09:31:09 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93ce7a85f04so977232385a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 02:31:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791451869; x=1792056669; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=w2Kn2Qmc7ugy68f/zjB7CvOIvn/yO+vxbW0OIAcRWww=;
-        b=Jv2oBvqBXPvt8BSBbf7HX3BXMZ6ylEUukSN6Cph0sqlC6KhGx3CZHhMXxDKSoekwbD
-         jDubrbouyfI5K98e+xTIzX4Fi3dBBlomU0wBNUrmlG3/sAW7MqHj2RsR+uUkWinkXl02
-         ts3AupaNhwqXAfgxl3Bf1KOT0fYAcgmwqFBlVTHoriXqSShuPL/AxXIIUt3rEdcNw2Pq
-         U1KO1tjXBh8HDTXYuFRE5Yvd7tdDQabz9T+ZB7bI+CUzEkziUByqBzx9ZVxFWa2YNf1S
-         tiE1ouYelpZFVbaWhtiww79kvuMlTmUugOhqRVYd8v5nrGBlK+wjJjuJ+6u6QRB8MRpv
-         8WFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791451869; x=1792056669;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=w2Kn2Qmc7ugy68f/zjB7CvOIvn/yO+vxbW0OIAcRWww=;
-        b=R6Vjr67Ye9QkTttHqHx4gW9oLbBtYQSuxgyyDMDH3TLot9rfaX+r68z0c5+9DMcy+H
-         c1JK1yjNszyIWqWlBtxxbczXKDqNatUprG70L7K8JESDBA9eQ5dEoQ0pY9Trx1sf2029
-         MbgVVmVbeJxU5/PppNC50StPEO/r8HZ6GyLcsiVvUduMKJ6Xk1LTtcxcvUxO6ncl9rW7
-         QiPal9sa1EGvCTki7wmIHf7EnRn6+CQZR5HVtBx0xL4Abbb7nqlGd1c2F3Vk4TWuhhDR
-         nHjyU8J0M+WrgR1PDnR/tXblmpaV+gvqxetygO4w+iluAUSk9py9zYdGBCyZG9/FZQtS
-         sg+g==
-X-Forwarded-Encrypted: i=1; AKwUvBy9LqtdidC/RRGd/ydvWGcFDkXADGSAB24v9h0kkv0+vA7JEru4xDVrg9idRhYaQwdgNg/Gy+7mWTAsDiM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mjw6dm8HJ3mmvrYXwBd0GjJU0zKRz8LOL/kSFzrJL6WfpSL8IF
-	ioB8PjeUw/mErIEjp99DNtF3jAQaRXdwo0zdIs1l4AL/r3d1NrifEvaEQ6VOZkqqLFFZizwQxQg
-	nlz8n94sLDfQqacjPBOJWvO8d0613t/AztT4eenLTjH+HHN33nUUYptoy41898xOS91PWmsi4Bm
-	c=
-X-Gm-Gg: AYBFou1nP7HUL9CsIee9xYqcmnghjqheovVGsKE2dynkdERsePbNcjOtF37+01pyytP
-	oAqcMkPYH0zHrvDu2QJxUbL8LaQ3YQpfDUyLVzwCLRX87XDIWiYLJsTv1y3fyBUWRN4AnE9liJJ
-	42QyGfp4Jd3/DfZOqD4+7TuYcCz8oV5m+rNluGNEUtxAul3hO/EZB4X0Dy9jGzXHu5rkBXpJtCV
-	GQ+6rwqAnE30fTE7bBg69npQo750qiLyFBQXcofY45ljNTMrInc2hwaVoYeGUDbXkg7aC8RkPpq
-	C9tUaAsE/r99th45wD6sGGVZPxUlu8DNPQObW9LPbe7/o5PSGyusFntcWSJpnJMx1xkEP638n2m
-	/hgqaSRIOK/PXv2kaUzHU4HLIVAvTEqsz/r5Pq/7VpVMTmg==
-X-Received: by 2002:a05:620a:4102:b0:93e:5861:34df with SMTP id af79cd13be357-93e9b7e0695mr912772085a.47.1791451868650;
-        Thu, 08 Oct 2026 02:31:08 -0700 (PDT)
-X-Received: by 2002:a05:620a:4102:b0:93e:5861:34df with SMTP id af79cd13be357-93e9b7e0695mr912765985a.47.1791451867903;
-        Thu, 08 Oct 2026 02:31:07 -0700 (PDT)
-Received: from brgl-qcom.local (90-182-211-1.rcp.o2.cz. [90.182.211.1])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1843bd060sm72236575e9.14.2026.10.08.02.31.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 02:31:07 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Thu, 08 Oct 2026 11:30:56 +0200
-Subject: [PATCH v27] dmaengine: qcom: bam_dma: free interrupt before the
- clock in error path
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gH9mpQuL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83A741F000FF;
+	Thu,  8 Oct 2026 09:32:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791451949;
+	bh=m2dJ95RPTPKjS3DaSCNzCWojqL4oqW5iTSP5QHUo+iM=;
+	h=From:To:Cc:Subject:Date;
+	b=gH9mpQuLv7gvnf9qUNhprXuZ8fg/liCEB6Khbr7S+Z0V3Cfzt+UtDHjG1tAcwPiJA
+	 +80Cb14oynyOBTjgT9hO4SUAtQDPUCPGg7b7Lt/Xn0QIcwul3T/otQY1nBRpZywpXq
+	 f76MHuE/mQZHts76xpZKpV/aJ0Q1u1vR7RNgGUdbUnUgAmVV/XgS8C3XE0B6I0d/9t
+	 PhE0Rezy6N+AwRcQ4CczMogJ7PP7aiec2+CeCZGrHNpctr/URMKYuEOY75ffCtftNa
+	 wY8XsXh4x+8KCUN40lEKuyeNigR0Q4mMjWQ8deHF9xmNPmfZrqyzqE8bilVqqe1QvO
+	 KgftF21n3YI6w==
+From: Tejun Heo <tj@kernel.org>
+To: sched-ext@lists.linux.dev
+Cc: David Vernet <void@manifault.com>,
+	Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	David Dai <david.dai@linux.dev>,
+	linux-kernel@vger.kernel.org,
+	Tejun Heo <tj@kernel.org>
+Subject: [PATCHSET v2 sched_ext/for-7.4] sched_ext: Add ops.sub_child_ecaps_updated()
+Date: Wed,  7 Oct 2026 23:32:26 -1000
+Message-ID: <20261008093228.2015427-1-tj@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-bam-dma-free-irq-v27-1-660e70223e3c@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAM9ix2oC/33NSw6DIBAG4KsY1sUAKmpXvUfTBcJQSYootKaN8
- e4dXXVhupnkn8c3C0kQHSRyzhYSYXbJhQGDqE8Z0b0a7kCdwQYRTEjOmKCd8tR4RW0EnMWJaqX
- LTshGl7IieDZGsO69m9cb5t6lZ4if/cUsqq39R8MNyqktWmDc8Lbl7BJSyqeXeujgfY6FbOos5
- K8kjySJEoCtdM0L0xT8QFrX9Quvj7UeBAEAAA==
-X-Change-ID: 20261002-bam-dma-free-irq-cac4b268c465
-To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-        Andy Gross <agross@codeaurora.org>
-Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
-        linux-kernel@vger.kernel.org, brgl@kernel.org, stable@vger.kernel.org,
-        Sashiko <sashiko-bot@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3473;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=4K9BvFlMKHfQ+Lv18CAMV9myI5c6fMcJfPP2KtshmTI=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqx2LV8XwxmUipbG10DNX/knwzlW9TCpiGjbcOA
- qIbJtWPJsGJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCasdi1QAKCRAFnS7L/zaE
- w3NDD/0W4ee5YF3dX7AKjagavsGUi3P6FvO749+FP1JhLtnrPym2cMfNHKH9zrT5cimn9sU+Pqj
- PhTMmT4DSDzK5gR94rmz+Bx6F+6FQ9z2AblM7unV0z1lbhkd9ZoG1K1hYjG9zOe2vpI0UT5Q89f
- PmBwINwCcS6aZ9AeEMXUZ5ljoitaO8Op6SYwlsWgga7nhkjVON8AaXdUmCE6h/GVN45uS4lN8cx
- sn2229cVn5DUGhMEkzv5BRbqYgtTMboefblQeJSEF18CyU7gtuOTGtwZUXKnbMzGMuA/UjYGX4t
- tm8FRHfciPXvsaufR9eNHdpwL4TKrmYfq7YSKHMuk/+IgHsrkZyGCIokWgPY4S7fPZe/N2LBjlQ
- qazHA8TD50mOPPSkLRi7jT8ebLwiQsT8EbVNPQfFf3/sqGp+rp4FHjCk1EGGaZBEPMn+EKrqHDS
- nn4leTKo0fnpgWQnQ/+9QLlWKE9BgogHME1DeSeTouI4SVVW7hKmg6Q9BqQqgu7YmrLQUwrtYBx
- s7kWhV0gwugPX4JY/wG4l7GKQ9vhzMItDBeS3GY3LMVqhCFFQAqEKsb8XtUw9D6ZRvgEukknUa8
- 1BMdzIOGnopZaVIIb3XybZXVrCTk1WBBpxtdcJywLP1dcVnMe1odA+cI4fvQv1d2QZBkkud2i+a
- 4rqYY+8Bs84QBIQ==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Authority-Analysis: v=2.4 cv=AbMkjHXG c=1 sm=1 tr=0 ts=6ac762dd cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=zRh97aRZNhiOMYVz81Er1w==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=c92rfblmAAAA:8 a=EUspDBNiAAAA:8 a=bC-a23v3AAAA:8 a=VwQbUJbxAAAA:8
- a=sdHaY_b6le-me-Zt7agA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
- a=GvGzcOZaWPEFPQC_NcjD:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-GUID: qwrcwxEiIkxYEZ5WliT2UTmHjtVYz-2p
-X-Proofpoint-ORIG-GUID: qwrcwxEiIkxYEZ5WliT2UTmHjtVYz-2p
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAzNyBTYWx0ZWRfX87Uq/Q/J2QJJ
- kBWAOUTyTUP1tVC8bID5G40N4V6/aiEFLVJOZ7C+5aGDPI5WGvUQs63ck6qXp6A7VKEzXKDUXmu
- DSh6oHMh9nAz6K7FEDzLnrUv7ocTMXg=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAzNyBTYWx0ZWRfX3bP2vzstYk9b
- H7j41nUtoJ0qDNDdRQhVCnOKyCFqRugYDlVZ9Rn0K/yLuS8LocayATMgM3EAxmE9niq5s5exB3F
- 6XHk40KMkGwI1iKQZw1iJAQ/V96N2W+587Fkw5dse3n2GKpZqfTrjLwEDYNHAzTBod0xFUzbKSU
- jQ8Ccw6sfxojw1JfhdIu4dS0RGj83XTvvmsraA6NAFicwuu1TXGgh7zS8xRqYoFisyy0foAlnl1
- CC8APpCHfJTagWNdzexpeH+VbktyzVFPmzW6XXobkzklS1fkpYVCsV/1XxNzy/+O7Ep6KMZAo7W
- NdT/x+aG+DOg3xySnv0+hHWoAJWdkZvGU6XjMyFgcQ2mSuCcwyO55JSMgo+K7MWQlMe107/5zpB
- N/iLDSOpYUtXeVE1NQfg7nyv60da276I20MbZZ5fl5kfGv3hFY5fslX6ZRY5NUIBmWpE8K6ZjG3
- PI4n0UNuncigO01l6Pw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-08_03,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 suspectscore=0 lowpriorityscore=0 spamscore=0
- impostorscore=0 malwarescore=0 adultscore=0 phishscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080037
+Content-Transfer-Encoding: 8bit
 
-The BAM interrupt is requested with a devres helper and so on error it's
-freed after probe() returns. We disable the clock before freeing or
-masking it so it may still fire and we may end up reading BAM registers
-with clock disabled.
+Hello,
 
-Stop using devres for interrupts as we free it in remove() manually
-anyway. Add an appropriate label and free the interrupt before disabling
-the clock in error path and in remove().
+v2: - A sub's disable no longer reports. The report ran the op outside the
+      dispatch path, which meant setting up that path's context for the op's
+      kfuncs and gating the nested sub dispatch at runtime, and keeping the
+      report clear of the PM bypass took a lock that could stall a suspend.
+      The parent knows what it delegated, so ops.sub_detach() is where it
+      restores it, and its kerneldoc now says so (#1).
+    - scx_qmap resets a detaching child's cids from ops.sub_detach() (#2).
 
-Cc: stable@vger.kernel.org
-Fixes: e7c0fe2a5c84 ("dmaengine: add Qualcomm BAM dma driver")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260427-qcom-qce-cmd-descr-v16-0-945fd1cafbbc%40oss.qualcomm.com?part=2
-Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
----
-This used to be part of the larger BAM DMA pipe locking series and never
-got picked up despite months on the list. I'm resending it separately.
----
-Changes in v27:
-- Rabase on top of current dma/next
-- Link to v26: https://patch.msgid.link/20261006-bam-dma-free-irq-v26-1-eef5c713d831@oss.qualcomm.com
+v1: https://lore.kernel.org/r/20261008000352.1689057-1-tj@kernel.org
 
-Changes in v26:
-- Rebased on top of current linux-next to address conflicts
-- Link to v25: https://patch.msgid.link/20261002-bam-dma-free-irq-v25-1-f39e01d19910@oss.qualcomm.com
+A grant or revoke only records the target caps. They take effect on a cid at
+its next dispatch, and nothing tells the parent when. Without that the
+parent cannot act on a revoke, such as resetting the cpuperf target a child
+left on the cid.
 
-Changes in v25:
-- Don't touch remove(), it's not wrong in its current version
-- Link to v24: https://patch.msgid.link/20260723-qcom-qce-cmd-descr-v24-0-4f87bb4d9938@oss.qualcomm.com
----
- drivers/dma/qcom/bam_dma.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+Patch 1 adds ops.sub_child_ecaps_updated(), delivered to the direct parent
+right after the child's own ops.sub_ecaps_updated(), with the child's cgroup
+id and the same before and after caps. A sub's disable reports nothing; the
+parent restores what it delegated from ops.sub_detach(). Patch 2 makes
+scx_qmap reset a child's cpuperf target once its PERF revoke takes effect,
+and from sub_detach() for a detaching child.
 
-diff --git a/drivers/dma/qcom/bam_dma.c b/drivers/dma/qcom/bam_dma.c
-index 94cb957d4b187704e207361d629fde00e3e090bf..a626746b5c93496e5c5e885b35a856d38c284448 100644
---- a/drivers/dma/qcom/bam_dma.c
-+++ b/drivers/dma/qcom/bam_dma.c
-@@ -1332,8 +1332,8 @@ static int bam_dma_probe(struct platform_device *pdev)
- 	for (i = 0; i < bdev->num_channels; i++)
- 		bam_channel_init(bdev, &bdev->channels[i], i);
- 
--	ret = devm_request_irq(bdev->dev, bdev->irq, bam_dma_irq,
--			IRQF_TRIGGER_NONE, "bam_dma", bdev);
-+	ret = request_irq(bdev->irq, bam_dma_irq, IRQF_TRIGGER_HIGH,
-+			  "bam_dma", bdev);
- 	if (ret)
- 		goto err_bam_channel_exit;
- 
-@@ -1366,7 +1366,7 @@ static int bam_dma_probe(struct platform_device *pdev)
- 	ret = dma_async_device_register(&bdev->common);
- 	if (ret) {
- 		dev_err(bdev->dev, "failed to register dma async device\n");
--		goto err_bam_channel_exit;
-+		goto err_free_irq;
- 	}
- 
- 	ret = of_dma_controller_register(pdev->dev.of_node, bam_dma_xlate,
-@@ -1385,6 +1385,8 @@ static int bam_dma_probe(struct platform_device *pdev)
- 
- err_unregister_dma:
- 	dma_async_device_unregister(&bdev->common);
-+err_free_irq:
-+	free_irq(bdev->irq, bdev);
- err_bam_channel_exit:
- 	for (i = 0; i < bdev->num_channels; i++)
- 		tasklet_kill(&bdev->channels[i].vc.task);
-@@ -1410,7 +1412,7 @@ static void bam_dma_remove(struct platform_device *pdev)
- 	/* mask all interrupts for this execution environment */
- 	writel_relaxed(0, bam_addr(bdev, 0,  BAM_IRQ_SRCS_MSK_EE));
- 
--	devm_free_irq(bdev->dev, bdev->irq, bdev);
-+	free_irq(bdev->irq, bdev);
- 
- 	for (i = 0; i < bdev->num_channels; i++) {
- 		bam_dma_terminate_all(&bdev->channels[i].vc.chan);
+Based on sched_ext/for-7.4 (3d7c2f550eef).
 
----
-base-commit: 53b32375c9caf793ff392f762236c90f2a062ae5
-change-id: 20261002-bam-dma-free-irq-cac4b268c465
+This patchset contains the following 2 patches.
 
-Best regards,
--- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+ 0001 sched_ext: Add ops.sub_child_ecaps_updated() to report a child's effective cap changes
+ 0002 sched_ext: scx_qmap: Reset a child's cpuperf targets once its PERF revoke takes effect
 
+The patchset is also available in the following git branch:
+
+ git://git.kernel.org/pub/scm/linux/kernel/git/tj/sched_ext.git sub-child-ecaps-v2
+
+diffstat follows. Thanks.
+
+ kernel/sched/ext/ext.c         |  4 +++
+ kernel/sched/ext/internal.h    | 30 ++++++++++++++++++---
+ kernel/sched/ext/sub.c         | 59 +++++++++++++++++++++++++++++-------------
+ tools/sched_ext/scx_qmap.bpf.c | 33 +++++++++++++++++++++--
+ tools/sched_ext/scx_qmap.c     |  7 +++--
+ tools/sched_ext/scx_qmap.h     |  1 +
+ 6 files changed, 109 insertions(+), 25 deletions(-)
+
+--
+tejun
