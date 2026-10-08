@@ -1,82 +1,248 @@
-Received: from ironport.ite.com.tw (unknown [219.87.157.213])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6733409635;
-	Thu,  8 Oct 2026 08:47:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=219.87.157.213
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791449251; cv=none; b=aJRFIkLFqU9UeSuj8vTY+qGEuQLWnMW8/zl6RGq8PSuGUnwnI5NHXr1Y5uiFL8/mbiH0PwnH7q2RotfmORLs0X6i9OlLBzCREFg2+G62Gx+jZO4ExcwU/AhtnWbh7+M2TR6DBMoLcqRH0I7ydJcp/Atepo3QyQdJcmYfAv5WBLg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791449251; c=relaxed/simple;
-	bh=stoxDGWoH6yUw3sx/BrMLTUT6/QvJj1QWQ9EY0GIJJQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ZyD0lnd3Tu5W4xivZcU9SWLvdrrfoIUdnS5vVqrL8qNwbPos++at7hyFTDi56eOp+t7Bfi/W/G+KZTea4dIEUgm+Uq8tRGd21Ms1rIRf71dCk7umlh8tlQLVN2oGq/NAQ6hx0T7ucLunNS16A+4U6sB9C2z4qDxg5BL4RxR2Xo4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw; spf=pass smtp.mailfrom=ite.com.tw; dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b=QDh78vGV; arc=none smtp.client-ip=219.87.157.213
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59DE5471D0B
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 08:47:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791449255; cv=pass; b=izsiH+FTdwJmrVKhKR7iAbf4dH13vR6+WLgWTsra3K2fWB/Jx3b3wrIEduQy5t3OCFrZYmuNsR9sgBkuaig1iwHapuZhqWn9ouD/gf5V8yegaNNDQgy1pdHx3pkFhFm90ZUlJhTg0Dpy9lVskYkBlAy0D41KWNl6wREMjJsEaaA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791449255; c=relaxed/simple;
+	bh=wnf1Rxz7GOXO2mt1drF6YwLshKbYBKmoC34txj8aINc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pfdA40VBf5rDU2Eq2G7EFblJJPOB3nJURZM+c9sx5hHLgwpMeCGzbEoIlM3YASl+Fnry61iksDReoNQrU48RaxkVKvDQZMTZSp0P+/OXm+8ypFDLDs4RuAFY47eD6GkjYm8jrB+BwPcDWZkPxJbjvvPS4eEHOH1GlKULBcDNDUs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kuUSni7h; arc=pass smtp.client-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b="QDh78vGV"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kuUSni7h"
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c2e4e7351e8so9608966b.2
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 01:47:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791449250; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lXnY5MnxoIx2wLEkqX0KHN5Q2xTtIyRTRy1G2IK2NNpSfpUzXouF0PQCdP1vPE7lYo
+         4vjiQr17irD3DoX8ip2k0SpiLMnbMOFLXSk0uSxEa2CJaT2bEMCDgACjyPKr7ZgcBj2T
+         63Th+VwTAi6Io/egNeJzv51erEUfH3NgLzM7Mw3tmzCQs27629jLEAVRXA6cO8IR+jZQ
+         mQlM2T0rpkuF0YXz3oJrt9ZuyV0lgYTyM+atrtZZ0os9vryJ1lLc6gbbBbyOqtWrxfjR
+         iPUvjG3C3MeTrQox+DC56/IG4wDtgWgnBQTlJRV7ynKkE0o6hsIRagm3bO/XtrelKOKF
+         7D4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0UcH2PL4jFdt0IAXyp77qe+AKdk/VbOyr7Y+0xZparU=;
+        fh=aR/+S59u3hEwzdCFkgzcW/j4Pf6l8gV48KiixqMQCEA=;
+        b=djfGxafrsfnsQFOZ43kYkM3KP5Um8RHSU+EcK1g5/3VDb5ZUWJFY4Ig02tQgDav3ki
+         TPpDicuv/8jUPuy7gszzW3z/lW28K31kDC8nzQ4NY+G0p2mwbkMabHd6AZWRkTiyGAqA
+         nodyMAsf/4xm2UHAUvnCMm/mXwe0rpOyxb/WsbBKjJDqRDQHrui8fLLeIlZTmRFrbMiz
+         GE2dvew0BzbFddL2vc9JEMDV3+TqL0ixiXq639uQCIDq925jNENrbGE51HoIIVXyB7z1
+         BNxFp0rjDrlyXMfqbWKawkzp2z/dcanMXOM5HJWI5IRZTeWDPQorfbqT4BHWJp3H3XpV
+         XRWg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=ite.com.tw; s=dkim;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=stoxDGWoH6yUw3sx/BrMLTUT6/QvJj1QWQ9EY0GIJJQ=;
-  b=QDh78vGVJ5PQlKz9MRjuAY2+y/O1ucvvt/VFWeTofJAlE9R2TIV0BE/r
-   udQHknZ3gbL2oP2Y2wXkEvssrKds6qPi+4TehxeICGwI+8mSnvyNjGi+E
-   oCPr7trfcZvanvTkPxFtTPxm58ryOVRmVdFw4rb/y4YISq6DnB9zafnOP
-   O9bC1ZAAaCpj9XoT5kslI1USNeER23kJKFKJgIYFjlnWYCRA3Fc88+0C9
-   xJdjbYLJIC63WDrB0ffzJd9aJKgmk5n8MxYqZzn85XwgwqdTax73PnGzp
-   1vX8um3qD76Q78bk5giaLwLmyguqQ/DERsSgXholMrLBx1bQMY1Omk5KK
-   g==;
-X-CSE-ConnectionGUID: iJakxy4MSHCN2gukJZvFPw==
-X-CSE-MsgGUID: SENVgCivTZa8a0/1oljTFQ==
-Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
-  by ironport.ite.com.tw with ESMTP; 08 Oct 2026 16:47:18 +0800
-Received: from hscmail1.internal.ite.com.tw (HSCMAIL1.internal.ite.com.tw [192.168.35.58])
-	by mse.ite.com.tw with ESMTP id 6988lECE013055;
-	Thu, 8 Oct 2026 16:47:14 +0800 (+08)
-	(envelope-from amber.kao@ite.com.tw)
-Received: from HSCMAIL1.internal.ite.com.tw (192.168.35.58) by
- HSCMAIL1.internal.ite.com.tw (192.168.35.58) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 8 Oct 2026 16:47:06 +0800
-Received: from HSCMAIL1.internal.ite.com.tw ([fe80::d4ad:7d1f:bb56:79ee]) by
- HSCMAIL1.internal.ite.com.tw ([fe80::d4ad:7d1f:bb56:79ee%6]) with mapi id
- 15.02.2562.046; Thu, 8 Oct 2026 16:47:06 +0800
-From: <amber.kao@ite.com.tw>
-To: <ite_pd@ite.com.tw>, <heikki.krogerus@linux.intel.com>,
-        <gregkh@linuxfoundation.org>, <jeson.yang@ite.com.tw>,
-        <Yaode.Fang@ite.com.tw>
-CC: <linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <ite_pd@ite.com.tw>
-Subject: RE: [PATCH] usb: typec: ucsi: itepd: Add DisplayPort alternate mode
- support
-Thread-Topic: [PATCH] usb: typec: ucsi: itepd: Add DisplayPort alternate mode
- support
-Thread-Index: AQHdUY9uhn56xvoHAU2tkm6QNnbJUbbzX7MQ
-Date: Thu, 8 Oct 2026 08:47:06 +0000
-Message-ID: <4fdd2c07a92046d7bb9bbf51619c7400@ite.com.tw>
-References: <20261001-ucsi-itepd-display-v1-1-f3de9baa2467@ite.com.tw>
-In-Reply-To: <20261001-ucsi-itepd-display-v1-1-f3de9baa2467@ite.com.tw>
-Accept-Language: en-US
-Content-Language: zh-TW
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-tm-snts-smtp: 46B5359048491D65BF1848AC3F3976B601A3F2BDD659CD49642A7686CD6BE8C92002:8
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+        d=gmail.com; s=20251104; t=1791449250; x=1792054050; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0UcH2PL4jFdt0IAXyp77qe+AKdk/VbOyr7Y+0xZparU=;
+        b=kuUSni7hlE4lksl+gPcGL9an60/cobuTciWPG0OHc+15BstRjhLcDuDM1OwQ9BGf/e
+         NjakGT8e6p5scau0Y74rF6mcakjRAxwRiRUzY3OiXBH05XesXmmD2g8dH6YnPFtS9p4t
+         bm7eTNGm7PywFocmIleZf/dVg+prWH4BgkWtOCKHsOdqbPzYyV4JyVGQHS2TTba6zoIm
+         2PLN65i+HaKPTU6OWXSYaJWZsUfNWjDO8UFmcGFkEZSk+erBZn/ydIUOHAkyNW81JN5d
+         GBzF+7ANa+901btPE0aYQwHRNiFzufhlKMI7tpulSek/nGkGgImRm25mO+8b9jX2gOJt
+         WMXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791449250; x=1792054050;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0UcH2PL4jFdt0IAXyp77qe+AKdk/VbOyr7Y+0xZparU=;
+        b=Ex4vSKpwf5jwwadtLgBxfc1MTjHb56nSFIhP3Jr9rK3A8V765s3JbX04NOcHDjBgyx
+         TJnEnGOCJog7h5v5k17WeR14NSokV7r4B3lOfFKeGrLqPJ6RffMbWHqVAz/BGnq8U6Hm
+         9WNV4jlcNn9YhOhtWrK6TkEi53dc/RuCs7+pqm+ytQ63x3sXVEu+1GIKPLLXS6qu4KLN
+         f7+Acwmbsnr5OM+J2nIcnXxeJyVlMmyX2vx9Sqx8MVHMBL+R0X3l1Ih4KNcPhAnTT3Ck
+         qi4eD9p0BcXrhDXyHklE74ruH/qWgop8ric/HWlqy5kWhyWDq6z6kjKXJAuP9KXYJfFm
+         h+4g==
+X-Forwarded-Encrypted: i=1; AKwUvBx6AtinfW1dPynKKr/gQ4nzUcK66a1IgltJFllhFXEqo6jDqhXAQxUl8TxUPTUh07ld3zY6G3EgOCSH6iM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lEhqTCoFG8XbowDunVA/0mqZL8FxmqE2bqhWjodKLqVeR6feO0
+	rMGgSC2o4Ogx/El9Q9hEF6xdM/YE/sMz5hchkVjDaqbcavjpQ96U5b/k8QdN6IWUmRTS+JXQ8o1
+	L76n8refIhANDEvhy2bMeWdlKGpKrVQU=
+X-Gm-Gg: AYBFou1Rhd3ECeYF5+IgzN1gE9OWqQSgiKVsyhjl291d3ja2kSZjsHdvfl6TOe+yBIJ
+	Rg88YZ1s4XASfahQ3efMgP/1Fj0aej5mkIJyJgy/TxjM/Gco5A2IDK1hxKP1TYV2aIbSPKaZAWU
+	Yg/08fnguX0OeJF2vcGEUAqgNdrUSWvWUBbI4WzTq5obx/2qD3tbGRpXz2bIYn7bwSD6bB2upSh
+	trGBEVqtYub8QSTK1PDSaK1WUtbKDjUJwTA8jbDkR19uSjsp3yzib72Ao++oxcyNdWCTtCfB/8S
+	ddHtEW8/rO7NqfW0rCbtlzi1nGem2wdeEt1sdlIDSg5KYiEoJsUra6mo8ZpLfF/ag1IQBmpFlTA
+	8V7iKFtEQwbc=
+X-Received: by 2002:a17:907:3f1a:b0:c29:5637:ed76 with SMTP id
+ a640c23a62f3a-c3190b7f237mr174970566b.2.1791449250106; Thu, 08 Oct 2026
+ 01:47:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MAIL:mse.ite.com.tw 6988lECE013055
+References: <20261003183325.2289707-1-nicoyip.dev@gmail.com> <4bb7f15e-2cd8-4598-9bab-1ea5f5d2bb59@linux.ibm.com>
+In-Reply-To: <4bb7f15e-2cd8-4598-9bab-1ea5f5d2bb59@linux.ibm.com>
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+Date: Thu, 8 Oct 2026 16:47:17 +0800
+X-Gm-Features: AclHuK-HvCltyPhbBd2tQBXjDEN4keSNVUMLUN1JKqvwBHV5wUDOdUDGOh2UcnU
+Message-ID: <CAAo+4rVmRy7Hj-PRuCzuzXg=r5HDib2ztNnBa6On9+Lx1W1Ysw@mail.gmail.com>
+Subject: Re: [PATCH net v2] net/smc: serialize clcsock access with its release
+To: Mahanta Jambigi <mjambigi@linux.ibm.com>
+Cc: "D . Wythe" <alibuda@linux.alibaba.com>, Dust Li <dust.li@linux.alibaba.com>, 
+	Sidraya Jayagond <sidraya@linux.ibm.com>, Tony Lu <tonylu@linux.alibaba.com>, 
+	Wen Gu <guwen@linux.alibaba.com>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-SGkgSGVpa2tpLA0KDQpHZW50bGUgcGluZyBvbiB0aGlzIHBhdGNoLg0KDQpJdCBkZXBlbmRzIG9u
-IHRoZSBJVDUyN3gvSVQ4ODV4IHN1cHBvcnQgc2VyaWVzIHYzIFsxXSwgd2hpY2ggaGFzIG5vdA0K
-YmVlbiBhcHBsaWVkIHlldC4gUGxlYXNlIGxldCBtZSBrbm93IGlmIHlvdSB3b3VsZCBwcmVmZXIg
-dGhhdCBJIHdhaXQNCmZvciB0aGF0IHNlcmllcyB0byBsYW5kIGZpcnN0LCBvciBpZiB0aGVyZSBp
-cyBhbnl0aGluZyBJIHNob3VsZA0KY2hhbmdlLg0KDQpbMV0gaHR0cHM6Ly9sb3JlLmtlcm5lbC5v
-cmcvci8yMDI2MDkyNC11Y3NpLWl0ZXBkLWl0NTI3eC12My0wLWE3MzkyYWEwODdmNUBpdGUuY29t
-LnR3DQoNClRoYW5rcywNCkFtYmVyDQo=
+On Thu, Oct 8, 2026 at 3:32=E2=80=AFPM Mahanta Jambigi <mjambigi@linux.ibm.=
+com> wrote:
+>
+>
+>
+> On 04/10/26 12:03 am, Chengfeng Ye wrote:
+> > Link-group termination can release the CLC socket through
+> > smc_close_active_abort() while the SMC socket is still open, for exampl=
+e
+> > after shutdown(SHUT_WR). A file reference keeps the SMC socket alive bu=
+t
+> > does not prevent this asynchronous release of its CLC socket.
+> >
+> > smc_getname() can race the pointer removal and sock_release(). The same
+> > missing lifetime synchronization affects smc_set_keepalive(), diagnosti=
+c
+> > address copying and an in-flight SMC-R CDC receiver. smc_shutdown() can
+> > also reach its final CLC shutdown after its close helper drops the sock=
+et
+> > lock and a concurrent abort closes the socket. Holding the SMC socket
+> > lock alone is insufficient because CLC release runs outside that lock.
+> >
+> > KASAN reported the getname failure:
+> >
+> >   BUG: KASAN: slab-use-after-free in smc_getname+0x19e/0x1b0
+> >   Read of size 8 at addr ffff888109abb4e0 by task poc/103
+> >   Call Trace:
+> >    smc_getname+0x19e/0x1b0
+> >    do_getsockname+0xe5/0x170
+> >    __sys_getsockname+0x8c/0x100
+> >
+> >   Allocated by task 95:
+> >    sock_alloc_inode+0x1e/0x280
+> >    sock_alloc+0x3d/0x240
+> >    __sock_create+0x7e/0x430
+> >    smc_create+0x121/0x240
+> >
+> >   Freed by task 0:
+> >    kmem_cache_free+0xcc/0x340
+> >    rcu_core+0x50a/0x1850
+> >
+> >   Last potentially related work creation:
+> >    evict+0x446/0x6c0
+> >    smc_clcsock_release+0xa8/0xd0
+> >    smc_close_active_abort+0x26a/0x3a0
+> >    __smc_lgr_terminate.part.0+0x137/0x2e0
+>
+> Hi Chengfeng,
+>
+> Thanks for the KASAN report and the fix. The UAF in smc_getname is real
+> and needs to go to net and stable. However, I think the v2 approach of
+> adding a new spinlock and extending clcsock_release_lock to cover more
+> readers is treating symptoms rather than the root cause. Let me explain
+> what I think should happen instead. What to keep from your patch.
+>
+> Please send a v3 with only the smc_getname fix:
+>
+> int smc_getname(struct socket *sock, struct sockaddr *addr,
+>                 int peer)
+> {
+>         struct smc_sock *smc;
+> +       int rc =3D -EBADF;
+>
+>         if (peer && (sock->sk->sk_state !=3D SMC_ACTIVE) &&
+>             (sock->sk->sk_state !=3D SMC_APPCLOSEWAIT1))
+>                 return -ENOTCONN;
+>
+>         smc =3D smc_sk(sock->sk);
+>
+> -       return smc->clcsock->ops->getname(smc->clcsock, addr, peer);
+> +       mutex_lock(&smc->clcsock_release_lock);
+> +       if (smc->clcsock)
+> +               rc =3D smc->clcsock->ops->getname(smc->clcsock, addr, pee=
+r);
+> +       mutex_unlock(&smc->clcsock_release_lock);
+> +       return rc;
+> }
+>
+> That is 4 lines against the confirmed KASAN-reported UAF, uses
+> infrastructure that already exists (clcsock_release_lock is already held
+> by smc_clcsock_release() when it frees clcsock, and already initialized
+> in smc_sk_init()), and is a clean candidate for stable. Nothing else
+> from v2 is needed for this specific bug.
+>
+> Drop the clcsock_lock spinlock, the CDC change, the diag change, the
+> shutdown change, the connect-abort change, and the smc_accept_dequeue
+> change. Those races are real but I will address them with a proper
+> structural fix as Me & Dust Li have already discussed on LKML in August[1=
+].
+>
+> Why the other races exist and what the right fix is
+>
+> Every race in your v2 =E2=80=94 keepalive, CDC, diag, shutdown, the
+> connect-abort path =E2=80=94 has the same root cause: clcsock can be free=
+d while
+> the SMC socket is still alive. Several close paths call
+> sock_release(clcsock) before the SMC socket's own refcount reaches zero:
+>
+> 1) smc_close_active_abort() =E2=80=94 for PEERCLOSEWAIT*, PROCESSABORT,
+> APPFINCLOSEWAIT states
+> 2) smc_close_passive_work() =E2=80=94 when the passive close work transit=
+ions to
+> SMC_CLOSED
+> 3) __smc_release() =E2=80=94 when sk_state =3D=3D SMC_CLOSED
+>
+> Every access site that can race with those releases is then forced to
+> take clcsock_release_lock and check if (!smc->clcsock). Your v2 adds a
+> second lock on top of this for the BH/atomic readers that cannot take a
+> mutex. This complexity is unnecessary because none of those early paths
+> actually need to destroy the socket =E2=80=94 they only need to stop it.
+> tcp_abort() and kernel_sock_shutdown() are sufficient for that, and both
+> are safe to call more than once. sock_release() is the exception: it
+> frees memory and must happen exactly once.
+>
+> The fix is to move that single sock_release() call to smc_destruct() =E2=
+=80=94
+> the sk->sk_destruct callback that fires from __sk_free() when the last
+> sock reference drops. At that point no concurrent user can exist:
+>
+> 1) fd users are gone: smc_release() calls sock_orphan() before dropping
+> its reference, so no file descriptor can reach the socket after that poin=
+t
+> 2) workqueue contexts (close_work, smc_listen_work) hold a sock_hold()
+> and therefore keep smc_destruct() from running while they are active
+> 3) accept-queue entries hold a sock_hold() via smc_accept_enqueue() for
+> the same reason
+>
+> This gives us a simple invariant: clcsock is non-NULL for the entire
+> lifetime of the SMC socket. With that invariant every reader becomes
+> trivially safe =E2=80=94 no lock needed, no NULL check needed, the race
+> condition simply cannot occur.
+>
+> [1] https://lore.kernel.org/netdev/ao5bB9OCbJ5PQbEp@linux.alibaba.com/
+
+Hi Mahanta,
+
+Thanks for the detailed response. I just sent v3 with only the
+smc_getname() fix.
+
+The additional locking in v2 was added in response to Sashiko=E2=80=99s rev=
+iew
+of v1. I should have checked the August discussion before expanding
+the scope of the patch.
+
+Best regards,
+Chengfeng
