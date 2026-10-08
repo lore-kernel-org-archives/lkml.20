@@ -1,124 +1,100 @@
-Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6EF641F36F;
-	Thu,  8 Oct 2026 13:05:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9BBD44A403
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 13:07:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791464728; cv=none; b=J9b8K2QgqSo5fdVw/RES9QwKOo8L7e4YzdU8rJEOsb4gcn8hdQNvwK0NLLpwFP5RZsgLRDqbRz+o/9ewRBJXzbps7nfsAI2TmS85rkFnSd1jeln+cpMOXG4M8dE9XnkejfQ5XIX5Tn2OidHmn4WY6fSFvXlbowEza9vFBfWWYPk=
+	t=1791464844; cv=none; b=N3jMrH3edSmuaGJzLLgpuqM4t1wcQO4/DNlOUFzHmkrksnBB6SWQn3LD13980J6gOarrNg8xRGMVFgVnbOQ31sjJXcxZucYs5fZM3G4d7gpLRVayWg0UQOX3ZCChRnT5bF6c7LTpwqGnbRusp9Fwp+wOPhZckZp3v85FHcDv5iU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791464728; c=relaxed/simple;
-	bh=ZEoDTOObvnBCavRJv3gTO8TVHfDmiKVq0/1pDwH9Yng=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=HdogE3yAW4so5oCJNhT+02nuEW3cBZJpwtcQInElWFU3pPgLnfWAUnos/mBAR2cRjdY8sTBPVtHmFII/DjT7iWLAWaEhYnuqA0D/8UNftI8GEajjH6HwNnU3Ohlax60svg1PRtajRfQXdOu6yQkFqU76fEQkSWMpDeklqTyhCUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=I3NNF9k+; arc=none smtp.client-ip=117.135.210.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	s=arc-20240116; t=1791464844; c=relaxed/simple;
+	bh=OyzQ4UDKaiyMoT/NVzqvh75hv21N26cEww1Tjs+Q41M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PvfJs/v69K30g6PhhrtWh4x+vQPNkxoFZQzyjUqLx8jTxCIUY1huq4u7r8aqA5yvKfMUYiABM6BZU5pjXlSp7/11IJrfevEJJ3gc47ZeQMb+Vq8qMTH1Vbx5BRmxML+yL0aVFy8vMAdlT4ev+7GtM9UJfYoLi1wZWdHhX7IWJDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=KwuWXawi; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="I3NNF9k+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=sv
-	9Nz32IunShNXMIlQPyrxK/eryKBOVBKQ/L3Je5vIg=; b=I3NNF9k+TpXz/MgOh6
-	mZi8gBTJ1nwX+dtWMAiwb1vczdKrCfAVx+CeWMpiZD4BUNJt6R6JRp+QmVsvaQzE
-	gKCFtNfqVbMtE6RrGa8EspgL96d0AZ/5fnBMiHdasPYSCsjeDNt+fzCfi2fTXx/H
-	t8uvcoVa0uu03P6TUp8y1x0VA=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PykvCgD3v8NWk8dqh6CpBA--.7046S2;
-	Thu, 08 Oct 2026 20:57:58 +0800 (CST)
-From: Linkui Xiao <xiaolinkui@126.com>
-To: anthony.l.nguyen@intel.com,
-	przemyslaw.kitszel@intel.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Linkui Xiao <xiaolinkui@kylinos.cn>
-Subject: [PATCH iwl-net v3 0/3] ice: fix VF representor lock ordering and teardown error paths
-Date: Thu,  8 Oct 2026 20:57:51 +0800
-Message-Id: <20261008125754.3520773-1-xiaolinkui@126.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="KwuWXawi"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48af4d4e61fso1935244f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 06:07:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1791464841; x=1792069641; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7t6+pTQP1CQbEVM19QS/h21zu8MNABf/SgAoLNSosdM=;
+        b=KwuWXawio7HYkh0owZWJE/gmRDJqegpvYiTo3uIgFd50s20QWZaiZE20LTt3gbn0hh
+         Q681zeE0ck52Ex+G9uog/sx5MNUZU1xdC95+XttmEQMqMMSeG+5Rw5yF1tgyc2QxJU2I
+         FnGVP/i97hsmQtS7YA4DH/uDLNuyIpEN/WBaSAFy0HzKpZImTHs7IkJiY6EAeESXzVIt
+         vKJYU4t+u84YPKMygGxawREuZLUmnyl+WK7fTKc5D+G4VGPCJWM//5tsBvUJAReDAvND
+         CAujULbFW1mK+kWM4W8emBVg85qUEUnknotmG5LLvbIG0kAIxjY9kUlyXRmk5v4a6Iwu
+         0v4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791464841; x=1792069641;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7t6+pTQP1CQbEVM19QS/h21zu8MNABf/SgAoLNSosdM=;
+        b=MOOfibI9lpEKf3qS5wkLp18UWB75268EJ2+1tR+bxOqzK5+jcEQgkGhPMonzOmrD5X
+         bmFbdkNacvf41yiHoUfnR987Gj6lTaOiVzmz5gsV7uKjBEODfxQe1wP4XcSywzOuPd/5
+         So+2zkQk2ZGQosqYXDGtZXeu9jby7oJ2FoTNb82dNDU/D6Gz7AAExNh5lNoz6sGrvA30
+         SIzjGyDnkKItXtU00QfdTmYFpzLNqzjnEjJe4my4dNBoPuZP+jvI4Fd4l6AWQbHjix8T
+         y+4mCAA/cl9dIgMMTXcuCmoOx2cNfgaHRPLqdvpKDpteYkXZEOfJjkydniw3gdzamd25
+         2UKw==
+X-Forwarded-Encrypted: i=1; AKwUvByvsFENfY70wOh5pmHKmtt7HPlIBv52YlvTtk58gQz/uRGIepIAoze9Et3IPewvNGkwexKugQzagTnJ7AA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI4/Gd+8i5SnkBbKHswoSexqxbWbB9oBP+tEwtUafWkdNrtp9v9
+	3yopaGQxlAs089Sn3WYP/Pr/gWiLXO3r94z6eRlnXmJsqtIbFjp1VZmxBz9Idnyjucc=
+X-Gm-Gg: AYBFou0L1QvSXaAA5ft4tvV9s3uCZ2ljzQkuj60GBFevazpbTV2Xty6WqDvvQWVusZd
+	jeqoXqS9VNYKPVlE5pqLAfeMzY1DjseVfYa9vOJ/wHnGPNHg2Cw1zOloXyNZ9cGt33ZXj7aw1cm
+	CI8tsZalxrGBnv4pHb0ooJnjajWkDvLm4uHFXeu6J+QsGP5vnNEqCv4MDGhCAnvyOHYpbMhICM/
+	29rx37nsFfuYkqeJ1Pq0TeixXRzSvqavS5Y2tEkx4g5fX4ooBqlDrVQQHJKmJD2LtA0zd45JJEv
+	U+O1x4jHegPt8pm47l7GOLESSA2mHS0mQF7ntwhtIEYSl8dgSiZKKgGkcb+IetXnFqEjl0/AJll
+	zroThbk0PenSKxgrwQRXzZrDl9LbC8z1r8SMMg/5wf7tn2lJENN006yEBLSEiZ03mhKX/FcxRJF
+	d9D1UuRO1dnJtNtpJ413GjzN0YNtSTpVfPMS5L3wbKvPCpXIsho09ajIFRYShpmgL3dVz8nlSd3
+	rnHxItQpg==
+X-Received: by 2002:a5d:64c8:0:b0:48c:43a3:6a74 with SMTP id ffacd0b85a97d-48c7277152bmr11130200f8f.12.1791464840586;
+        Thu, 08 Oct 2026 06:07:20 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F ([185.194.184.20])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c724b660fsm10757165f8f.18.2026.10.08.06.07.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 06:07:20 -0700 (PDT)
+Date: Thu, 8 Oct 2026 09:07:17 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Ayush Ranjan <ayushr@modal.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Hugh Dickins <hughd@google.com>, Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, David Hildenbrand <david@kernel.org>, linux-mm@kvack.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [BUG] shmem: FALLOC_FL_PUNCH_HOLE vs fault-around race corrupts
+ page cache / rss counters
+Message-ID: <aseVAm3vczSTvBwN@gourry-fedora-PF4VCD3F>
+References: <20260924061708.1645968-1-ayushr@modal.com>
+ <arTdLsBENhrpOyk-@pedro-suse.tail5790ac.ts.net>
+ <20260925053027.1998394-1-ayushr@modal.com>
+ <20260925065013.3682431-1-ayushr@modal.com>
+ <20261003033107.1488699-1-ayushr@modal.com>
+ <20261004222831.bdd648a2b406f02747dd9e40@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PykvCgD3v8NWk8dqh6CpBA--.7046S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxuFy7Cr17Gw1xKr45Zr4kCrg_yoW5uFW8pr
-	ZYqw1rKr4kXFyIg3y3Zw18t3WF9a1rKFyUGr1jgrW5C3Z8Gry8Xr47K3y2934jyws3Aa4a
-	vrs0qrykuFyDAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07ULFxUUUUUU=
-X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqRaGXWrHk1ZkYAAA3I
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261004222831.bdd648a2b406f02747dd9e40@linux-foundation.org>
 
-From: Linkui Xiao <xiaolinkui@kylinos.cn>
+On Sun, Oct 04, 2026 at 10:28:31PM -0700, Andrew Morton wrote:
+> fwiw I made gpt and gemini argue about this for a while and ended up
+> with the below.
+>
 
-Patch 1 moves the ice_eswitch_detach_vf() and ice_eswitch_attach_vf()
-calls in ice_free_vfs() and ice_reset_all_vfs() out of vf->cfg_lock.
-Both take the devlink instance lock and RTNL through the representor
-netdev, while ndo_set_vf_mac(), ndo_set_vf_vlan() and the representor's
-ethtool reset take vf->cfg_lock with RTNL already held, so cfg_lock ->
-RTNL against RTNL -> cfg_lock is an inversion; that is the AB-BA
-Sashiko reported. The detach is preceded by a single cfg_lock
-acquisition, which waits out a reset that is already inside the lock:
-ICE_VF_DIS, raised before both loops, keeps later ones out but not one
-that got in ahead of it, and that one can reach
-ice_eswitch_update_repr() on a representor that is being freed with
-free_netdev() + kfree(), with no RCU grace period in between.
+I thought this was resolved by Zi Yan's patches, but it seems they just
+made it harder to hit.  This version looks better than what i'd
+originally conjurred up, so if you end up taking it:
 
-Patch 2 does the same for the teardown loop in ice_start_vfs(), which
-in addition never detaches the representors it attached before the
-failure. That path does not set ICE_VF_DIS and the VFs it unwinds
-already reached ICE_VF_STATE_INIT, so vf->cfg_lock is still needed
-around ice_dis_vf_mappings() and ice_vf_vsi_release(): the
-ice_check_vf_ready_for_cfg() test runs before the lock is taken and
-cannot keep out "ip link set dev <pf> vf N ...". The patch marks the
-VF disabled under cfg_lock before the detach, which also waits out an
-ice_reset_vf() that is already inside the lock.
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
 
-Patch 3 gives back the MSI-X window that ice_init_vf_vsi_res()
-reserves and that none of its error paths releases.
-
-Representors are created and destroyed only under pf->vfs.table_lock,
-so the detach does not need vf->cfg_lock to stay safe against other PF
-operations, and all three functions are called with that lock held.
-
-The three issues were found by manual code inspection; none of them
-was triggered at runtime, and the series is compile tested only, with
-no hardware test.
-
-Changes in v3:
-- New patch 1: move the detach/attach calls in ice_free_vfs() and
-  ice_reset_all_vfs() out of vf->cfg_lock, and take cfg_lock once before
-  the detach so that a reset which is already inside it is waited out.
-  (Przemek Kitszel)
-- Patch 2: detach the representor outside vf->cfg_lock, and mark the VF
-  disabled under cfg_lock before the detach.
-  (Przemek Kitszel, Sashiko AI review)
-- Patch 3: correct the Fixes: tag to 4d38cb44bd32, which replaced the
-  computed first vector index with a reservation from the bitmap and left
-  the error paths below it unchanged; commit a203163274a4 ("ice: simplify
-  VF MSI-X managing") only renamed that helper.
-- Add the information netdev-bot asked for to the commit messages.
-- Drop the Reviewed-by tags from Tomasz Lichwala and Aleksandr Loktionov:
-  patch 2 changed code again, and the hunk in patch 3's teardown loop
-  moved inside vf->cfg_lock.
-
----
-Link: https://lore.kernel.org/netdev/20260928065306.1514795-1-xiaolinkui@126.com/
-
-Linkui Xiao (3):
-  ice: attach and detach VF representors outside of vf->cfg_lock
-  ice: detach the VF representor when ice_start_vfs() fails
-  ice: free the VF MSI-X vectors when VF start fails
-
- drivers/net/ethernet/intel/ice/ice_sriov.c  | 42 ++++++++++++++++++++-
- drivers/net/ethernet/intel/ice/ice_vf_lib.c | 16 +++++++-
- 2 files changed, 54 insertions(+), 4 deletions(-)
-
--- 
-2.25.1
-
+~Gregory
