@@ -1,134 +1,189 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com [209.85.167.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE6643AE1BC;
-	Thu,  8 Oct 2026 16:44:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B0283AE707
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 16:45:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791477897; cv=none; b=WrQVt+iF3REsw/8WOoWO7gGpQThtJyNQua8LIqXoEf0E/dK9AFnS3k0t08psQolUnDx1b9gLVl6/Bz9JkrTupS+KvMAS20PyX48tb7Pc+nASKg1Iri6DYQprmeaqjp60lHMAffhUY1KkltzM3fACkbJTTl/PHhS+6Eb6IaL1Sow=
+	t=1791477919; cv=none; b=jUjACIodyqTALy2W1SDlPfP6YVLMkUhuosd1k4mvLcoQ68YwdJpgymPliR8VGwJWgAueQ7xac4k7qCGgqHPtE2dFHCR3P168DBVVG3imcZqrpq7uo4UCkr0uLEP24FuX3lvjqCVYJddQZvRoCGoKeZD3ZRrHHSls+tiCMVWaTTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791477897; c=relaxed/simple;
-	bh=7tV8BRMZdSjjQ+wFsZrltGhnIcC3NrF9Zo7u9Nf6AX4=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=WFOwG0HCrKKU2fntDxawnOR5r8lk+IBBK2MQnpaaYdftQ2HQIeq+arkrLPb7NhuOKFjudQQcMPyJNwL13kdJdc3HrZoCcR6gcSCBHqchC1CVvbnnVxwwKw5K+yxbz0O9Hw4Ead88TFYU7Yay/s2Y1ZSzBP1zPqnBnq2Uxxwbf2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LwvZOWrK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791477919; c=relaxed/simple;
+	bh=5PYnFE/zsBkyDW+vipipK1OVktzKt+eBP7yMTnpTo9U=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YlThxM3SGArLP0a4POn6MKxtxYwqPswbczYCrG06xB/+JsJfmT56pWjckkZ6Z0MeMYzyYo50BM/vsDKmDvKIssc7oGlCkkYVX+dAMg1P9zCKZiVBPZ7dLr9+IfjN5fl2ur2b/PmaHqOCn+SmOchzvvJ3P3I3MMKcS/l7WOHcRP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mWz5f1N9; arc=none smtp.client-ip=209.85.167.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LwvZOWrK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A3EA1F00899;
-	Thu,  8 Oct 2026 16:44:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791477895;
-	bh=EOLWPkdhYi4qVwglYx9ZNkz+Ir/6UM4RLdYhyJK61e8=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=LwvZOWrKkGHhS2pwGXL1qw6GzOTlDBVh3AGxxnLso8vWwUKGN9nt2y/9cLMoxXKOS
-	 ookn8FRQrHa/BL9IDx+URtnxXV+lraBPS/Rc/JAIAXVKiM7dEvZcHHuRUJa4/6qeCR
-	 VLUE+U1xZA3Sj/hdA8tsX3jcOamJo7G6CrrbQOouxUzdAEp+No2FrMSVxdvFbXcYoI
-	 xHxP3Ix4XBBcAus8d/2RxoXRadYVSKmM/Uw7aW42rdA9ZxNvoMSN03o5NPTInOMxzt
-	 BqxXNzW/3KXJinv3nD/z8fszir3xA5gjiPK3aUe2YWmMsv8SXpabJgTHkDkjTDOcWE
-	 vbm//FqHmSD8g==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 27D91F40066;
-	Thu,  8 Oct 2026 12:44:54 -0400 (EDT)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Thu, 08 Oct 2026 12:44:54 -0400
-X-ME-Sender: <xms:hsjHapdwBb1JALUbXsHPYxLK7WcYz3Ux6hyj8D7ZYi4FQV1l2ehZGg>
-    <xme:hsjHaiBuO_fW6FZVnxnom3A8OJVUuxNNMpC6_hIqEvQTWXF89OiGElUpaAqIKhNsO
-    GTknRLM55z51CBePQuXjSLm3PkTLKgEDtQqS50IBtp__fNp81mnF80G>
-X-ME-Proxy-Cause: dmFkZTGZKaxtIBuY+yj1fQkVEluS1rV9uwLMyU57JUlv6pkSFkT7nyLgauo3S8Imh9UDyg
-    3FWL9SEuXDFtDIyqQlADThGRnqD/32GZSBNgrnlLbb0ThypE1eOYN05l2ISkNPCMyIucVR
-    hU/WhxBfdG84BD/KZiAfx00WXHwL8ctB5qd0w3sxQXKPW7N0HLOlIHjFpRnOzhKvj85fmj
-    1iFN+sdis6Ub8Ox1xGzChegCjUGiwQDK5sn5lBmp3kVDdDDAlrfcUi31TGsvg/nWt1dko6
-    ERPhTbUzGSrEI8YBN3q2Bet1VVSYnatZpF+tGXF+txhl9W6m0zIRYem1VNF8/Wbl/PDJJk
-    kv3m8fHK6Kv3+H92c3xOV6MM+GE84tBJjzLYEEWJIsEkvgtm/KIaoW4EO+wCEeDxci9gwz
-    85IrZmbJd9iBRM4ajExsmHZjGm6dPTLGkqbHxTZBrkFShaNcpur7uuC4yj3++LJUBCgfN7
-    CiibBPopWhQAVVf4uzIUiwhHUFIEAzYVeFvbDkYBYSjuLQGBxoj31QPlWZ34pd74nV2PeA
-    qcjIMls3coxyImy+WFf4I+JgYHMGN6i/CoPp5i4ecAxLimNHnyl6ZopAocFg8W/uRsQ1DG
-    5F/OUeEkBft7aKyIsFd5HPj1Mp13j25V4JhrL20ewBt6RgSCBbrUItxYPirg
-X-ME-Proxy: <xmx:hsjHahoIU3yvzCFHdp6ffFYMlQx-9nZFlt8nO1_cPyQ1E4T011yy8w>
-    <xmx:hsjHavmN3tUMTu2JlHo2OlgVu2fB6Viu-G0RgCXpo9oPcRUl96hnvg>
-    <xmx:hsjHakXFvZXXRXTKgCuvHpENpk3yyCwCI-FPbp7KqKPiH3gxsDufiA>
-    <xmx:hsjHajTVShXEE8VbBss11eugx0DPRuBK5EEAEfkoLrIz3lYtlwvP-A>
-    <xmx:hsjHavAxGf2vTjVSrPliw1d6EQqu42Y_f7lucL1JkZYzrmVRxqkYOBsY>
-Feedback-ID: ifa6e4810:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 0243B780070; Thu,  8 Oct 2026 12:44:54 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mWz5f1N9"
+Received: by mail-oi1-f169.google.com with SMTP id 5614622812f47-4f6dcc0e8ccso830864b6e.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 09:45:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791477917; x=1792082717; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UuXXcDyEq3+vqBhIoHH0IdXSZPJA/Xb1zKM6JTo4TRo=;
+        b=mWz5f1N9cPEpspsjHYXjA/KvlaB3F8TWnI65Sh8QYVoEDUP4YTRtfncfknZHUvWxuq
+         DA8Uv2tQQ/gNsvy8qe9PUc0Zn7Xq8+6B5jZXKsPnV0XhWfBRbJJ0LOxhMluAkx9TNLB8
+         Y1ciWIE61FZh4+TUFdEuMJU4wgCcZ4eDkPepJe/UzyfxRYakatMndbN42kTPW6FSdUxE
+         PATnwCxXN9cdnP46Fhcs5/2aztBWHfKZAwZVQI8TWSOcKrcBk/Y7vmLCHocCKnUzGwV1
+         NfkfRSESRCRSNIzBoBTXSawK95Y7i9++TiUCtivKZ6pgCQH09+Nsgp4V+n+ht6UZMs2u
+         AjMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791477917; x=1792082717;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UuXXcDyEq3+vqBhIoHH0IdXSZPJA/Xb1zKM6JTo4TRo=;
+        b=ra3DcKy6FlbknJp4JAX51Li+sIQmfYdUzebIQ5bHQD8/H4iJmyeZE66y9RqdJjmh1A
+         gOqi9JYmhi+JK8RrbLQDaD5YhTy2p+CH3c4mPeOvBkHN1YloYz/m5ZbHhVBaedpTkkL5
+         Yf/ZOqmRq6GWCy0xrSoRje2pOOfvjCGFmz8ohIlLfARZeSR/+CMEXegNbW459tqKAa0b
+         Ln5rXxYD3goAWsKLQPf6YloG+obsk0QD7s7N9wBuPjqALuT+WeR5/mbC2s7LBsY9i+N0
+         n5Ca27qFXVZWew5CM0GDwHTCpWXjhFFxiGU07WwUqIXOJ96MyCsZ6qixcB6nYUKA87sY
+         0YWA==
+X-Forwarded-Encrypted: i=1; AKwUvByu4hmIoXplUQ4yhX4nAn/BZ0r+FUT497z/ZJPUi57wivnkSYGPtPEQGmxr8Y4dbmXTPf2wp/ix3yXY9RY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mUBYhtLhC1M4ziS7erEgBJLdQMMinRFJ5uVteqedRYaz0A7e8U
+	S+OLq3VaBEWKabuba4jDIIHZul83D5ndz3/+JIQ7VNP9u97wSwycPJ+UOFVcFw==
+X-Gm-Gg: AYBFou39pmnL5qUmiU86qeWAck2LIEFNzevgzkiKredZOlXkc8OEhHqhn4ftw+Iv/S6
+	KDNPBk/JZ+QSYr/4d0o9hyo1uRdjVmyFAZAVjtPVn2GmqCXaHCgOXbg3xSQePqegcffHgtSYPXU
+	4TRGF4hvfphHGALZMmz0FfXHW7QjkI16kkmyyp5IglI40awkCtwCl05BqFn5wq0Dzbge7U+4tZm
+	gHUrvkB80kMs25DQxgMi8cl1m1RSafp5ZQ1hdQfleGH5bu87KK/h+nzli0AMoi43E0Twn4d3/zv
+	QV7GoSxYsT2wxpk3gOm4y298SL7DDXiiL1DrfZ/CEUULxbgl2wXin+gLEO6On7cEmRop8X7fXO7
+	mQ32lZ9teQ0DSixvwDzF9rCcb4fzFcxANc9tH4zvMzCkp8zUBMlqKFoWAdQJfbSl6UZK0SoVRcL
+	AiVXgShGQ2aL4QM0KO11ju7sAAUNR4mlAddgYSmKEo0j+KjQuLRbtcIKckXpKx7LOWuAAwsbcgu
+	o/0Evgs2EOV1w==
+X-Received: by 2002:a05:6808:1581:b0:4ec:1bf1:fa82 with SMTP id 5614622812f47-504bf863556mr1925851b6e.46.1791477916974;
+        Thu, 08 Oct 2026 09:45:16 -0700 (PDT)
+Received: from sheng2080.cmix.louisiana.edu ([130.70.15.5])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4fc484f73c7sm6151566b6e.6.2026.10.08.09.45.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 09:45:12 -0700 (PDT)
+From: Leizhen Zhang <lzsx618@gmail.com>
+To: nathan@kernel.org,
+	nsc@kernel.org
+Cc: julianbraha@gmail.com,
+	linux-kbuild@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] kconfig: fix use-after-free when a variable refers to itself
+Date: Thu,  8 Oct 2026 11:45:04 -0500
+Message-Id: <20261008164504.3683811-1-lzsx618@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: ANi-fZsmwLLZ
-Date: Thu, 08 Oct 2026 12:44:33 -0400
-From: "Chuck Lever" <cel@kernel.org>
-To: daejun7.park@samsung.com
-Cc: "Jeff Layton" <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
- "Olga Kornievskaia" <okorniev@redhat.com>, "Dai Ngo" <Dai.Ngo@oracle.com>,
- "Tom Talpey" <tom@talpey.com>, "Christoph Hellwig" <hch@lst.de>,
- "Carlos Maiolino" <cem@kernel.org>, "Amir Goldstein" <amir73il@gmail.com>,
- "Darrick J. Wong" <djwong@kernel.org>, "Dave Chinner" <dgc@kernel.org>,
- "Sergey Bashirov" <sergeybashirov@gmail.com>,
- "Christian Brauner" <brauner@kernel.org>, linux-nfs@vger.kernel.org,
- linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Message-Id: <235ae19b-fd63-4d01-9fe0-d047a33b55ed@slotpi15m67>
-In-Reply-To: <20261008-xfs-nfsd-map-blocks-v1-8-560026cdccb6@samsung.com>
-References: <20261008-xfs-nfsd-map-blocks-v1-0-560026cdccb6@samsung.com>
- <20261008-xfs-nfsd-map-blocks-v1-8-560026cdccb6@samsung.com>
-Subject: Re: [PATCH 8/8] nfsd: get all extents of a block layout in one ->map_blocks
- call
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Daejun Park <daejun7.park@samsung.com> wrote:
-> @@ -146,42 +124,67 @@ nfsd4_block_proc_layoutget(struct svc_rqst *rqstp, struct inode *inode,
->  		goto out_error;
->  	bl->nr_extents = nr_extents_max;
->  	args->lg_content = bl;
-> +	iomaps = kmalloc_array(nr_extents_max, sizeof(*iomaps), GFP_KERNEL);
-> +	if (!iomaps)
-> +		goto out_error;
+For a simply expanded variable, variable_add() frees the old value of an
+existing variable (or allocates a new variable with an uninitialized
+value) before expanding the right-hand side. If the right-hand side
+refers to the variable itself, which is a common idiom in Makefiles,
+e.g.
 
-nr_extents_max is bounded by PAGE_SIZE so that the per-request buffer
-stays small. But a struct iomap is nearly twice the size of an encoded
-extent, so this array is nearly twice the layout buffer it sits next
-to. On 64 KiB pages that is well over 100 KiB of physically contiguous
-memory per LAYOUTGET. A failure here turns into NFS4ERR_DELAY for
-every request under fragmentation.
+  X := 1
+  X := $(X) 2
 
-Using kvmalloc_array() would cover the large case, or you could cap
-nr_extents_max independently of PAGE_SIZE.
+the expansion reads the freed (or uninitialized) value. With ASan this
+is reported as a heap-use-after-free, or a SEGV if X was undefined.
+Without ASan, X silently ends up as " 2" instead of "1 2".
 
+Expand the right-hand side before updating the variable, initialize the
+value of a newly created variable, and only free the old value when it
+is actually replaced. Add a test case for this.
 
-> +	/*
-> +	 * Get all extents in one call, so that the filesystem maps them
-> +	 * together and they fit.
-> +	 */
-> +	nr_iomaps = nr_extents_max;
-> +	error = sb->s_export_op->block_ops->map_blocks(inode, offset, length,
-> +			iomaps, &nr_iomaps, seg->iomode != IOMODE_READ,
-> +			&device_generation);
+Found by fuzzing Kconfig input with ASan/UBSan.
 
-An RW LAYOUTGET with loga_minlength of 0 is refused by
-nfsd4_block_iomap_to_extent() on the first unwritten extent, so
-currently no write mapping is ever handed out for it. Yet this call
-still passes write, so XFS allocates every hole in the range, updates
-the inode and forces the log before the result is thrown away. With
-one call per request this looks like up to nr_extents_max allocation
-transactions instead of one.
+Fixes: 1175c02506ff ("kconfig: support simply expanded variable")
+Assisted-by: Claude:claude-opus-5-5 ASan UBSan libFuzzer
+Signed-off-by: Leizhen Zhang <lzsx618@gmail.com>
+---
+v2:
+ - Use my real name in the From and Signed-off-by lines. No code
+   changes.
 
-Passing write only when loga_minlength is non-zero, and having
-nfsd4_block_iomap_to_extent() refuse IOMAP_HOLE for IOMODE_RW the way
-it already refuses IOMAP_UNWRITTEN, gives the client the same answer
-without allocating anything. Admittedly this is a pre-existing
-issue -- perhaps a pre-requisite fix for this series is best, so
-that the fix can be backported to LTS.
+v1: https://lore.kernel.org/r/20261005202433.3460844-1-lzsx618@gmail.com
 
-A note about process: the series touches XFS and exportfs. It will
-need to go through the VFS tree, I think, and might conflict with
-what's already in nfsd-testing.
+ scripts/kconfig/preprocess.c                  | 21 ++++++++++++-------
+ .../kconfig/tests/preprocess/variable/Kconfig |  5 +++++
+ .../tests/preprocess/variable/expected_stderr |  1 +
+ 3 files changed, 20 insertions(+), 7 deletions(-)
 
-
+diff --git a/scripts/kconfig/preprocess.c b/scripts/kconfig/preprocess.c
+index 783abcaa5c..db226898c9 100644
+--- a/scripts/kconfig/preprocess.c
++++ b/scripts/kconfig/preprocess.c
+@@ -293,27 +293,33 @@ void variable_add(const char *name, const char *value,
+ 		if (flavor == VAR_APPEND) {
+ 			flavor = v->flavor;
+ 			append = true;
+-		} else {
+-			free(v->value);
+ 		}
+ 	} else {
+ 		/* For undefined variables, += assumes the recursive flavor */
+ 		if (flavor == VAR_APPEND)
+ 			flavor = VAR_RECURSIVE;
++	}
+ 
++	/*
++	 * Expand the value before touching the variable because the
++	 * right-hand side may refer to the variable itself, like
++	 * "X := $(X) foo".
++	 */
++	if (flavor == VAR_SIMPLE)
++		new_value = expand_string(value);
++	else
++		new_value = xstrdup(value);
++
++	if (!v) {
+ 		v = xmalloc(sizeof(*v));
+ 		v->name = xstrdup(name);
++		v->value = NULL;
+ 		v->exp_count = 0;
+ 		list_add_tail(&v->node, &variable_list);
+ 	}
+ 
+ 	v->flavor = flavor;
+ 
+-	if (flavor == VAR_SIMPLE)
+-		new_value = expand_string(value);
+-	else
+-		new_value = xstrdup(value);
+-
+ 	if (append) {
+ 		v->value = xrealloc(v->value,
+ 				    strlen(v->value) + strlen(new_value) + 2);
+@@ -321,6 +327,7 @@ void variable_add(const char *name, const char *value,
+ 		strcat(v->value, new_value);
+ 		free(new_value);
+ 	} else {
++		free(v->value);
+ 		v->value = new_value;
+ 	}
+ }
+diff --git a/scripts/kconfig/tests/preprocess/variable/Kconfig b/scripts/kconfig/tests/preprocess/variable/Kconfig
+index 9ce2f95cbd..226114e86a 100644
+--- a/scripts/kconfig/tests/preprocess/variable/Kconfig
++++ b/scripts/kconfig/tests/preprocess/variable/Kconfig
+@@ -51,3 +51,8 @@ $(warning,$(greeting,Hello))
+ 
+ # Unreferenced parameters are just ignored.
+ $(warning,$(greeting,Hello,John,ignored,ignored))
++
++# Simply expanded variable referring to itself.
++X := 1
++X := $(X) 2
++$(warning,X = $(X))
+diff --git a/scripts/kconfig/tests/preprocess/variable/expected_stderr b/scripts/kconfig/tests/preprocess/variable/expected_stderr
+index a4841c3fdf..7008e3b177 100644
+--- a/scripts/kconfig/tests/preprocess/variable/expected_stderr
++++ b/scripts/kconfig/tests/preprocess/variable/expected_stderr
+@@ -7,3 +7,4 @@ Kconfig:41: AB = 5
+ Kconfig:45: Hello, my name is John.
+ Kconfig:50: Hello, my name is .
+ Kconfig:53: Hello, my name is John.
++Kconfig:58: X = 1 2
 -- 
-Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
+2.34.1
+
