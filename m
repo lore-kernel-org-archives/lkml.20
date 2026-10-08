@@ -1,113 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE323D25A2;
-	Thu,  8 Oct 2026 07:39:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04AC93DC4D3
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 07:41:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791445198; cv=none; b=QPUrSb79BovJpOCKcdMmvhU7q/WS/WVn34/ajMYOGYEJlTyqXbcf9KefDRqSptIUhyFkF2kW8RoWu97b2VOjs/qWS5qMeXNBhamHa40i6jxMOVkjw74whCOoQNc83rWo1fa3NZV+HSTfJem/zlWsfibBDWtEW1pbEmcuJ+Wz4BI=
+	t=1791445296; cv=none; b=p/JSYA/8eMUEIr/9VZEgMzUAOIiCy4NpnPGh9SsM7r++iJyS6tqgt1gvyIFHhgzpaMNC0Z0ZTbYFPB+oIJciZBVrsglsioAZcnTQdGLruA2Godvj5OabYMAcVj7UPTwtC0OlMWKIkKwd3Hxq+g7swTJRzp/qBMvFJUoZhsQ4LAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791445198; c=relaxed/simple;
-	bh=BXliohim3f/11B/NyJNQZCs8luaRUzNHcuHLEGPip3o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U0QgTTRPiX9/hMKbv/Kjs4ccy8J9FToGe8U4IHAd8FGYlcIqghhXtqAhPO7WZHSm4b8YZjZ9VwoT+cCa4X0DOQMFn1pFtvXfAEzAakYNdT/EgxPKpPwX73RmKSSBBAOcizQZvL4cHQJeFRK6B501qdOhRutDqc+mmAnWi1Hb1qE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AaqhK0tC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791445296; c=relaxed/simple;
+	bh=p4eLj3IK1fG9x/qSMIU6H1LY2Et2owyfZqZcFS+5pn4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gpQBuxLOSCJAq1N6cG4HfZABtvU9AjILXnayWPqwA8r1w0qMjK0jGICggtgJt2gr/BhpQ1ZSekukic2SDu4W5glMbO3gJmam0eZsVftOWyIXfaXvnkQ6Mz87lhBmAOiCWpxlVmgxpBQVZb8poCx9Q+VNNYfH6q4KLRr3T+dGds8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hVKj+J9T; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AaqhK0tC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0FF71F000FF;
-	Thu,  8 Oct 2026 07:39:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791445195;
-	bh=CY6cb7MQ4CjUMqGrTBGHTissFhPBASgdIVBTSfMZ4fc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AaqhK0tCNaUGH1Cfs6UZE2ZlvE91lYRZDcfbKdav8wUfjNruU2gzjWZkHfUeoHkhy
-	 pArXudiQZCnevngjwEA2UZkTyx6BNrfqyVpFp74fp7i2k3YeS5HkWJLP5oDiyxJDyl
-	 v4MO/mbSBdv9OyDQkyv3Mvv/ZlC32IVNg3+pEYWEzXyqZH0u22bMCmN4Vk3zkJFmRQ
-	 eQUTLYitqZRHDlUydEFds6CvWlSJJwgK9tfUysxyANrMnwJWCQE2kwsR80yLogzFoK
-	 UmDc4R4DKeRSpoNWkfH9ymrXjMI8/JQJqzsZQ2e/kRzTGjBW+0JhOzwmr9F8uwgPj8
-	 DV5OvshCk7E8A==
-Date: Thu, 8 Oct 2026 13:05:06 +0530
-From: Naveen N Rao <naveen@kernel.org>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Tom Lendacky <thomas.lendacky@amd.com>, Borislav Petkov <bp@alien8.de>, 
-	kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Paolo Bonzini <pbonzini@redhat.com>, Nikunj A Dadhania <nikunj@amd.com>, 
-	Tianyu Lan <tiala@microsoft.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Thomas Gleixner <tglx@kernel.org>
-Subject: Re: [RFC PATCH v3 02/27] x86/apic: Drop savic_eoi() in favor of
- native_apic_msr_eoi() for Secure AVIC
-Message-ID: <asXlwARv1cE1RREu@blrnaveerao1>
-References: <cover.1783490022.git.naveen@kernel.org>
- <36c039713c4b03c87b636635cb4c1f8b98c15eff.1783490022.git.naveen@kernel.org>
- <5f6bcceb-1c48-43e5-bafc-8f86676c4092@amd.com>
- <alX59ewiXXSx7J3R@blrnaveerao1>
- <asSSU2huZDlusYdG@google.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hVKj+J9T"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a1880e1bf1so184585e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 00:41:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791445292; x=1792050092; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oRAYeLKeAT80x2jiBfAEaezNXmhhh78xhPr6M0J8/2M=;
+        b=hVKj+J9TILkyjZfmYLUF0m7f+C9fBIPV54Z6mgpHRSyOV4285p9WJEr5G2jmxay879
+         xQL648Xpu2ec7zcVVJByx0JABiVgm62EJHyqH/w852Sj5/abCIkNWmHfhWY3uRTaTHh8
+         gu2oHiNmwYlTCf4kDrEOErVv1PNJI3EuaDGTSGrRgM2lwtcaLEmyCUdoMjIHlW7rmh+k
+         uqyYOtxuaZkP/QNBFrqSRdCTekma25BOl5l0Madw9YZRCwNQH1RSUZ5S9gJGntZE7ZWI
+         CAqon4ZEUQD3nTUO+Zf5VnRTTExMYdTTLGAGmI6h8/T+kVDPsWe3PZDZzV20Wf6SE0Yv
+         9q2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791445292; x=1792050092;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oRAYeLKeAT80x2jiBfAEaezNXmhhh78xhPr6M0J8/2M=;
+        b=yJnpz04CQ8N+D2lfOqTiMTt+zm8CeaHT/ji0xjKWoug2jfmw95Gc3QRgBTVu6GtJvb
+         +qdy94635rrZwoMJ6eJsc+HtpkxxKzGkh7zFIzhaBuYc4Y2iNZLeb+Xt/ZjCxDohnK6k
+         50nDYC2e6A2+wAteGJCJKfHBnKUOUMQC6YOFVLIRfky0WuODSfYX/NavPgU8Z0EGLIHF
+         wPe5Cto/N/Tgvs5/Sg9rLGiCufaBUZP/NdHR/Oq8KNjzSlOmltEvMoigFQncL+x9g6Xv
+         pu5Vylltvy0JF9yVNjmRd1BfFM6Fry0hUTn8FKYImb+aSuAjcG4kroOe0oHXx1Yme6sI
+         DOfg==
+X-Forwarded-Encrypted: i=1; AKwUvBwnvGjekCpnWM1GyKRhIb+AVhOc1DtjMTYr619pX02Lb7yy3BOR13vvUnad9F4pRDTRqFP6shy7GT4/T0o=@vger.kernel.org
+X-Gm-Message-State: AFuF++mncP9dVsEM0o34RDk8CfTojHMdvXZJybYF37dcWot3NmON+iTA
+	hkZc7t8VvZTwVVEpzVaJKjXtbP/ImcfLkHFDSDzcXW+67NmI/H9bWXcE
+X-Gm-Gg: AYBFou0Io6/j5VIRvbrMw6pK2V76Ztn4eoJep8q8Bldynu2INlkdo6wGw2wRLHs5/qA
+	JZrw2gsKo0l2mTsDUx7ThBGih2ahI9HQeYza2+NmmfUGG8NM3wnSDyGKQby2W4FHbReQb0i5KV0
+	Rskzg6lUO215oUHUhgD93H8h2vt1TJV/U6Fg/GHxy1kta2UF7QoHv8GWezM+l2j4X/z6I9LD1BG
+	24ItbOtqJf4bCcB9rgdgmq393ad+ZL6PdCdCN2+cKnK2PUQwfjsi90P+MP+BIqIo37dPIpxHUYc
+	8GC2Z8exQX+tY2N2fmvRJ/49SujmzixKPxV7/TlA7DAgsK1fIAxxmupuGTTRsSKr2xzz5t/wL0N
+	6Kx4V+xB5A5bEkkAzf1xulEObzlYhGSoxikS1M6NxrpdikxCXqevNhm5DllCvSaqTmx5gHnTKku
+	bqyi9IfAmEz/t7M5dN8Whw1oWktNiyWejInHrdFIu1t1PKMyrIJNybpONft+blSuNXeCTYidCw3
+	IUgse3QHWrNaFVjxP4YudzMPlrauJ/3ggyl2oxe+JoUaQXb7IFrXdYHUxuXfJLqyUvLlfWJWioy
+	21BLFLRzsbXZzjAKwiRXktkhk2nIvB//vuihhzvwsARbQLWP5V+Jvj0ES5W4/dwvPZxey2sRR7i
+	dI3xTgAUeDUsTbgmtIz4gZRN8kN9g8dtBWMPh/FwpBtGPA/wEmrrRiCNPV10EDpBD6v2O2OrxNm
+	3a/WQ/fxKRsEVFVKI=
+X-Received: by 2002:a05:600c:154c:b0:49c:fed6:cd3f with SMTP id 5b1f17b1804b1-4a18043c080mr88363195e9.23.1791445292117;
+        Thu, 08 Oct 2026 00:41:32 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a185d914fdsm68758875e9.7.2026.10.08.00.41.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 00:41:31 -0700 (PDT)
+Date: Thu, 8 Oct 2026 09:41:19 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Alexis Bouzigues via B4 Relay
+ <devnull+BouziguesAlexis.JohnDeere.com@kernel.org>
+Cc: BouziguesAlexis@JohnDeere.com, Jonathan Cameron <jic23@kernel.org>,
+ Lucas Stankus <lucas.p.stankus@gmail.com>, Nuno =?ISO-8859-1?Q?S=E1?=
+ <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
+ David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ Lothar Rubusch <l.rubusch@gmail.com>, linux@analog.com,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] iio: accel: adxl313: add missing buffer selections in
+ Kconfig
+Message-ID: <20261008094119.00003007@gmail.com>
+In-Reply-To: <20261006-fix-adxl313-buffer-deps-review-v1-1-386006c407be@JohnDeere.com>
+References: <20261006-fix-adxl313-buffer-deps-review-v1-1-386006c407be@JohnDeere.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asSSU2huZDlusYdG@google.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 05, 2026 at 11:16:51PM -0700, Sean Christopherson wrote:
-> On Tue, Jul 14, 2026, Naveen N Rao wrote:
-> > On Mon, Jul 13, 2026 at 12:43:45PM -0500, Tom Lendacky wrote:
-> > > On 7/8/26 01:32, Naveen N Rao (AMD) wrote:
-> > > > Drop savic_eoi() in favor of using the native helper that writes to the
-> > > > APIC_EOI MSR. savic_eoi() was added mainly to be able to handle
-> > > > level-triggered interrupts. However, it relies on APIC_TMR indicating a
-> > > > vector to be level-triggered, but APIC_TMR can never have a bit set
-> > > > since it is only updated when the LAPIC accepts a level-triggered
-> > > > interrupt. In the case of a Secure AVIC SEV-SNP guest, all
-> > > > level-triggered interrupt sources are in the VMM (emulated IOAPIC
-> > > > primarily) and KVM accepts them on behalf of the guest resulting in the
-> > > > APIC_TMR in KVM APIC backing page having a bit set. This is never seen
-> > > > by the guest, which has its own private APIC backing page. As such, the
-> > > > savic_eoi() handler is dead code. Remove it.
-> > > > 
-> > > > Fixes: 43b6687ac877 ("x86/apic: Handle EOI writes for Secure AVIC guests")
-> > > > Signed-off-by: Naveen N Rao (AMD) <naveen@kernel.org>
-> > > 
-> > > Another guest change which should be separate from this series.
-> > 
-> > Yes, I have called this out in the cover letter. I see now that I should 
-> > have used a better subject for the cover letter though.
-> > 
-> > > 
-> > > Is this causing issues with this hypervisor support or is just code that
-> > > is never invoked? Do other hypervisors behave the same way and will
-> > > removing this break them?
-> > 
-> > This is code that is never invoked and is independent of the hypervisor.  
-> > No impact to hypervisor code.
+On Tue, 06 Oct 2026 19:08:58 -0500
+Alexis Bouzigues via B4 Relay <devnull+BouziguesAlexis.JohnDeere.com@kernel.org> wrote:
+
+> From: Alexis Bouzigues <BouziguesAlexis@JohnDeere.com>
 > 
-> Doesn't that mean level-triggered interrupts are fundamentally incompatible with
-> Secure AVIC?
+> The FIFO support added to the ADXL313 core uses
+> devm_iio_kfifo_buffer_setup() and iio_push_to_buffers(), but its Kconfig
+> entry does not select the required buffer support. Enabling either
+> frontend without IIO_BUFFER or IIO_KFIFO_BUF causes undefined references
+> to devm_iio_kfifo_buffer_setup_ext() and iio_push_to_buffers().
+> 
+> Select IIO_BUFFER and IIO_KFIFO_BUF from the shared ADXL313 core symbol
+> so both the I2C and SPI frontends have the required dependencies.
+> 
+> Fixes: ff8093fa6ba4 ("iio: accel: adxl313: add buffered FIFO watermark with interrupt handling")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Alexis Bouzigues <BouziguesAlexis@JohnDeere.com>
+> ---
 
-I think so, at least from the hypervisor front. Secure AVIC uses a 
-guest-private, encrypted APIC backing page. KVM's APIC_TMR is not 
-visible to the guest and the only injection mechanism is via 
-VMCB->Requested_IRR field, which can only carry vectors. This means 
-APIC_TMR in the guest backing page will never be set. So, all guest 
-writes to APIC_EOI are accelerated and do not cause an exit.
+Tested-by: Joshua Crofts <joshua.crofts1@gmail.com>
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
 
-The guest could track level-triggered interrupts and notify the 
-hypervisor though. But, it isn't clear to me that is necessarily better.  
-Linux already seems to have a fallback which works for I/O APIC (see 
-below).
+If you're doing the same change for multiple drivers, please send it
+as a series, it will make reviewing easier.
 
-I believe TDX has similar restrictions?
-
-> I don't see how the emulated I/O APIC will ever get an EOI.
-
-My understanding is that the guest will have to signal EOI to the I/O 
-APIC directly. Linux seems to do so (ioapic_ack_level() calls 
-eoi_ioapic_pin() if APIC_TMR is not set for a level-triggered 
-interrupt).
-
-
-- Naveen
-
+-- 
+Kind regards,
+Joshua Crofts
