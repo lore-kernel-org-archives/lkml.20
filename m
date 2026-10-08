@@ -1,214 +1,223 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC494E73A4;
-	Thu,  8 Oct 2026 15:31:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 873524E7803;
+	Thu,  8 Oct 2026 15:32:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791473507; cv=none; b=r1zfqoalbIO9hYAfZYPUVlq71nShgMMJ4y9gdDAvGmf8dM4a5bsARavvuN4sNFt881jMnepZyQDF0ccqxRrHvrFI4ltqaQcHru3VehSh90cg7LwLNT28njkhPONHbzxq7By6kwQdj2Oa0fbEI6Y6r0x7kZ/37iUMj110oGuNMK8=
+	t=1791473577; cv=none; b=b3MabThLDjwsC6R0J3fHucZS8OQ0b2OvAUqRbeoc1QJas3cDGOIkyrdiU6RapqMORA41iL2f21BT8RMPMReLQrZx+4YsVmZpBUxFKZarcox+MndIN72L1+hjRf/v4ULG1uioL1BMrUFZD1i2qOjU4ECaPqZwai+i+S6J3lt3BSw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791473507; c=relaxed/simple;
-	bh=jDH5s6UK7sCe0QaYUrl6cP3J/9H/VXWTV7euB8UqE2k=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=WcO32x/dPKqEltoVQFzm8HC+9IyDIvwyNq+smnOIyF0P82Be30Wrh3kypOTc0Cy69uXgD3e+IrArU6WnG95pNlG2zC1RnZfoKsQ5YSOd9MNGjBkBUwYb7mqtGJqSXqUdJVqcSpp/Zh2wghHIuj4nIy1Q3n650Fld1TUlVY6bqUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nfncSyRU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791473577; c=relaxed/simple;
+	bh=rNLc3mR5PhKHCQokZKj3WvXLO7UNHI4mPzIFOD1RWxU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=abGEkxmMIbSqx9OS9J4Az4p+K1yp4PX9Xv5HfEWYI55EzC1mClAgIntkDDSiCyftnhQDzB/T0Fd6UYtaKoq9toRyKv6IkOpJkOy32Kdt9FgvLKeZWwnl4+KeV3Z2ndWApR+UQWIog6PaHOF01Y8gleOMWQx7B+uKKcC+clt9TSk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=Z5UeDLE+; arc=none smtp.client-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nfncSyRU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 989511F00898;
-	Thu,  8 Oct 2026 15:31:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791473506;
-	bh=jMB7zgmiitN7L/EjhTpwo0HXq/xVNdDVYk0RppFAIZs=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=nfncSyRUN4TzTx7xtiCUvwZ4ImalRkMXuXGK26pFqoHSjlfBlX1S2v4Sd6MACPCh0
-	 Q1tp/m7egoYIqnNDsO7BZaOmEZ6JzZXth9ip7Zd987ztRBT63bOiJYcxJ6Dqdfv+d6
-	 vxJLrd+2US5dRzjcBs1+WttBX0onp+Ll2kPX5DsBWzilScZlQyDEg5aHvh4LmlUyE2
-	 FC51P/7iYk2osAH7ynfyig2J0d67nD3czWwC8Byc6B5YwwolTroQKiF24ss2e6FRfZ
-	 nKDYnWPhKNItcufgnQtmi9/r3jWDRhnlDPqFIaLiG4826jWMWY3Bmy80YIren07C9x
-	 0FdPlBE5Zxvtg==
-Subject: Re: [PATCH net v3 4/4] dpll: zl3073x: notify sibling pin when shared
- output config changes
-From: netdev-bot+sashiko@kernel.org
-To: ivecera@redhat.com
-Cc: netdev@vger.kernel.org, min.li@microchip.com, vadim.fedorenko@linux.dev,
- arkadiusz.kubalewski@intel.com, jiri@resnulli.us, kuba@kernel.org,
- Prathosh.Satish@microchip.com, pabeni@redhat.com,
- linux-kernel@vger.kernel.org
-Date: Thu, 08 Oct 2026 15:31:45 +0000
-Message-ID: <179147350520.434549.16772916744710272674@kernel.org>
-In-Reply-To: <20261006153116.347497-5-ivecera@redhat.com>
-References: <20261006153116.347497-5-ivecera@redhat.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="Z5UeDLE+"
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261008153249euoutp02b4a87ccc77d200f3890d561df189c3bd~cl7g7aAvm2788727887euoutp02g;
+	Thu,  8 Oct 2026 15:32:49 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261008153249euoutp02b4a87ccc77d200f3890d561df189c3bd~cl7g7aAvm2788727887euoutp02g
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791473569;
+	bh=YmUv+dVinO4DGyPfi86Rp05KJ0iKog7r1zuWIsZpoNM=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=Z5UeDLE+dZcsY3l6oA16V8qttCBxPFEJpUpwd2p2jJDN2RWsNpoMi9Gug31sE6gmX
+	 xEpsLkgCQwKTVH4iIL1j1xtexJJNNydzs2KShaf9Uvr/sXk+MAVI8vVIQ+YZBs4a/f
+	 zFRkjDjJ/PUKBoz2RBPEiGBJ0pC1W9GZs22YyXtc=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261008153248eucas1p144bd3391fe1a79a1d6dfcd386c4a7e94~cl7fxbUbR2862828628eucas1p1P;
+	Thu,  8 Oct 2026 15:32:48 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261008153245eusmtip112c16c496ac689d363e975f151c082fb~cl7dN0sE_2339023390eusmtip1f;
+	Thu,  8 Oct 2026 15:32:45 +0000 (GMT)
+Message-ID: <c2e38455-cb31-4854-ab84-4a370fabc1f9@samsung.com>
+Date: Thu, 8 Oct 2026 17:32:44 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH v6 6/8] dma: swiotlb: Centralize memory-encryption pool
+ sizing
+To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Catalin Marinas
+	<catalin.marinas@arm.com>
+Cc: Will Deacon <will@kernel.org>, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Robin Murphy <robin.murphy@arm.com>, Jonathan
+	Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy
+	Dunlap <rdunlap@infradead.org>, Mark Rutland <mark.rutland@arm.com>, Marc
+	Zyngier <maz@kernel.org>, Steven Price <steven.price@arm.com>, Suzuki K
+	Poulose <Suzuki.Poulose@arm.com>, Jiri Pirko <jiri@resnulli.us>, Jason
+	Gunthorpe <jgg@ziepe.ca>, Mostafa Saleh <smostafa@google.com>, Petr Tesarik
+	<ptesarik@suse.com>, Alexey Kardashevskiy <aik@amd.com>, Dan Williams
+	<dan.j.williams@intel.com>, Xu Yilun <yilun.xu@linux.intel.com>, Madhavan
+	Srinivasan <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>, "Christophe Leroy (CS GROUP)"
+	<chleroy@kernel.org>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>, Alexander Gordeev
+	<agordeev@linux.ibm.com>, Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle
+	<svens@linux.ibm.com>, Stefano Stabellini <sstabellini@kernel.org>, Russell
+	King <linux@armlinux.org.uk>, Huacai Chen <chenhuacai@kernel.org>, WANG
+	Xuerui <kernel@xen0n.name>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>, Andy Lutomirski <luto@kernel.org>, Peter
+	Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, Ingo
+	Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
+	<dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
+	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
+	linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org, x86@kernel.org
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <yq5ao6d48dqr.fsf@kernel.org>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20261008153248eucas1p144bd3391fe1a79a1d6dfcd386c4a7e94
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261008143238eucas1p1ee087352709f2a82d2aec95540ae2031
+X-EPHeader: CA
+X-CMS-RootMailID: 20261008143238eucas1p1ee087352709f2a82d2aec95540ae2031
+References: <20260924060756.1325156-1-aneesh.kumar@kernel.org>
+	<20260924060756.1325156-7-aneesh.kumar@kernel.org>
+	<asVs3doaJ4WrT3M2@willie-the-truck> <asYZFXGyafRjjBS0@arm.com>
+	<asYiOgskwi8JYLe_@willie-the-truck> <yq5awlrt3dwo.fsf@kernel.org>
+	<yq5av77c92oo.fsf@kernel.org> <aseRzPshcoys7AJS@arm.com>
+	<CGME20261008143238eucas1p1ee087352709f2a82d2aec95540ae2031@eucas1p1.samsung.com>
+	<yq5ao6d48dqr.fsf@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+On 08.10.2026 16:32, Aneesh Kumar K.V wrote:
+> Catalin Marinas <catalin.marinas@arm.com> writes:
+>> On Thu, Oct 08, 2026 at 11:03:27AM +0530, Aneesh Kumar K.V wrote:
+>>> Aneesh Kumar K.V <aneesh.kumar@kernel.org> writes:
+>>>> Will Deacon <will@kernel.org> writes:
+>>>>> On Wed, Oct 07, 2026 at 11:04:05AM +0100, Catalin Marinas wrote:
+>>>>>> On Tue, Oct 06, 2026 at 10:49:17PM +0100, Will Deacon wrote:
+>>>>>>> On Thu, Sep 24, 2026 at 11:37:54AM +0530, Aneesh Kumar K.V (Arm) wrote:
+>>>>>>>> @@ -496,7 +516,8 @@ swiotlb_select_pool_policy(unsigned int flags)
+>>>>>>>>  	if (swiotlb_force_disable)
+>>>>>>>>  		return SWIOTLB_POOL_NONE;
+>>>>>>>>  
+>>>>>>>> -	if (cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT))
+>>>>>>>> +	if (cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT) &&
+>>>>>>>> +	    !restricted_dma_pool_present)
+>>>>>>>>  		return SWIOTLB_POOL_CC_GUEST;
+>>>>>>> I think this check on the restricted DMA pool is too general -- the pool
+>>>>>>> could be tied to a specific DMA-capable peripheral and so treating its
+>>>>>>> presence as a global property isn't right.
+>>>>>> I agree it's a hack but that was the simplest way to avoid the pVMs
+>>>>>> getting a bounce buffer after this patch. More than happy to leave it
+>>>>>> out and reduce the buffer on cmdline or we come up with some better
+>>>>>> heuristics.
+>>>>> Hrm, that does mean that reverting just this part will regress pVMs
+>>>>> because they'll suddenly be allocating a tonne more memory for an
+>>>>> entirely unused swiotlb buffer. So I think I'd prefer to drop the entire
+>>>>> series until this has been worked out properly.
+>>>>>
+>>>>>> Another option could be the arch code passing another flag that it
+>>>>>> doesn't want an encrypted pool (e.g. when running in a pKVM guest) but I
+>>>>>> don't particularly this either. The arch code doesn't know whether
+>>>>>> there's an alternative pool.
+>>>>> At that point, the default size may as well be driven by the
+>>>>> drivers/virt/coco driver.
+>>>>>
+>>>>>> That said, such heuristics should have been a separate patch to make it
+>>>>>> easier to review/drop.
+>>>>> I think the only right way to get a semi-accurate heuristic is to take
+>>>>> into account the set of dma-capable devices that will use the swiotlb
+>>>>> pool, but that's fiddly and should probably be tackled as a separate
+>>>>> series. Maybe a simpler hack in that direction would be to take the
+>>>>> SWIOTLB_POOL_CC_GUEST if _any_ device is going to use swiotlb? You'll
+>>>>> run into the usual problem of not being able to tell if a device is
+>>>>> DMA-capable or not, but you could probably look for a global restricted
+>>>>> DMA pool and, if that doesn't exist, check for per-device restricted pools
+>>>>> on dma-coherent devices (since restricted DMA isn't supported by ACPI) as
+>>>>> a reasonable approximation.
+>>>> So, something like this?
+>>>>
+>>>> 	if (cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT) &&
+>>>> 	    swiotlb_cc_guest_needs_default_pool())
+>>>> 		return SWIOTLB_POOL_CC_GUEST;
+>>>>
+>>> Detecting a DMA-capable device is not straightforward, and if we get it
+>>> wrong, we will enable SWIOTLB_POOL_CC_GUEST unnecessarily. Would the
+>>> code below be a reasonable approximation of what you suggested?
+>>>
+>>> Another option would be to make swiotlb_cc_guest_needs_default_pool() a
+>>> weak function that architectures can override. arm64 pKVM could then use
+>>> a different scheme (for this patch series default to false). Would that
+>>> be preferable?
+>> Even the rmem check for each device is still a hack that may bite us in
+>> the future (private devices for example would not need swiotlb). I'm
+>> thinking more and more of leaving the sizing an arch-specific decision,
+>> don't bother generalising it at all.
+>>
+>> On pKVM vs CCA guests, there's really nothing specific here to pKVM
+>> guests. The only difference is that confidential guests that so far have
+>> run without a swiotlb buffer will regress if their memory is tight. For
+>> confidential guests without dedicated rmem (either CCA or pKVM), I think
+>> our options are either command line swiotlb sizing or dynamic swiotlb.
+>>
+>> Could you respin your series while leaving out the generic sizing? IOW,
+>> no x86 code generalisation. We can discuss the best strategy on sizing
+>> later (I haven't checked how much of this series still makes sense
+>> without the generic sizing).
+>>
+> It would mostly consist of the first three cleanup patches, followed by
+> three patches that replace the addressing_limit argument with flags.
+>
+> #define SWIOTLB_VERBOSE	(1 << 0) /* verbose initialization */
+> /* Initialize a pool for devices with limited DMA addressing. */
+> #define SWIOTLB_INIT_ADDRESSING_LIMIT	(1 << 1)
+> /* Initialize a pool that requires architecture remapping. */
+> #define SWIOTLB_INIT_REMAP		(1 << 2)
+> /* Initialize a pool for DMA to memory-encrypted host or guest memory. */
+> #define SWIOTLB_INIT_MEM_ENCRYPT		(1 << 3)
+> /* Initialize a pool for unaligned kmalloc bouncing. */
+> #define SWIOTLB_INIT_KMALLOC		(1 << 4)
+> /* Do not initialize a pool unless SWIOTLB is explicitly required. */
+> #define SWIOTLB_INIT_DEFAULT_OFF		(1 << 5)
+>
+> This results in the large change below. I'm not sure we want to do this
+> for no real benefit other than making swiotlb_should_init() slightly
+> easier to follow.
+>
+> static bool __init swiotlb_should_init(unsigned int flags)
+> {
+> 	if (swiotlb_force_disable)
+> 		return false;
+>
+> 	if (swiotlb_force_bounce)
+> 		return true;
+>
+> 	if (flags & (SWIOTLB_INIT_REMAP | SWIOTLB_INIT_MEM_ENCRYPT)))
+> 		return true;
+>
+> 	/* Explicit requirements override an architecture's default opt-out. */
+> 	if (flags & SWIOTLB_INIT_DEFAULT_OFF)
+> 		return false;
+>
+> 	return flags & (SWIOTLB_INIT_ADDRESSING_LIMIT | SWIOTLB_INIT_KMALLOC);
+> }
+>
+> Marek,
+>
+> Patch 3 is a fix, so you may want to take it even if we drop the rest of
+> the series. Perhaps the first three patches could be taken together?
 
-Low priority / nit picks for your consideration:
+Okay, I will take only the first 3 patches to dma-mapping-for-next branch now
+and wait for the remaining patches until they gets sorted out.
 
-- [Low] The commit message describes the old teardown incorrectly.
-- [Low] The documentation for zl3073x_dpll_output_pin_sibling_get() does
-  not match its code, and the commit message's safety claim is only…
-
---
-
-dpll: zl3073x: notify sibling pin when shared output config changes
-
-The P and N pins of a zl3073x output share the divisor, clock type,
-esync and phase compensation registers. This patch adds a sibling
-lookup helper and sends a change notification to the sibling pin from
-frequency_set(), esync_set() and phase_adjust_set(). It also changes
-the order of list_add()/list_del() on zldpll->pins relative to DPLL
-pin registration, and does both under zldpll->lock.
-
-> diff --git a/drivers/dpll/zl3073x/dpll.c b/drivers/dpll/zl3073x/dpll.c
-> index 65107b4cc4f82..9c678acc3e777 100644
-> --- a/drivers/dpll/zl3073x/dpll.c
-> +++ b/drivers/dpll/zl3073x/dpll.c
-
-[ ... ]
-
-> @@ -132,11 +134,39 @@ zl3073x_dpll_pin_get_by_ref(struct zl3073x_dpll *zldpll, u8 ref_id)
->  	return NULL;
->  }
->  
-> +/**
-> + * zl3073x_dpll_output_pin_sibling_get - get the other pin of an output pair
-> + * @pin: output pin whose sibling is sought
-> + *
-> + * Output pin ids are allocated in P/N pairs (P even, N odd) that share a
-> + * single HW output. Looks up the other pin of the pair, if it is
-> + * registered as a dpll_pin on this DPLL.
-> + *
-> + * Return: pointer to sibling pin, or NULL if it is not registered
-> + */
-> +static struct zl3073x_dpll_pin *
-> +zl3073x_dpll_output_pin_sibling_get(struct zl3073x_dpll_pin *pin)
-> +{
-> +	struct zl3073x_dpll_pin *sibling;
-> +
-> +	lockdep_assert_held(&pin->dpll->lock);
-> +
-> +	list_for_each_entry(sibling, &pin->dpll->pins, list) {
-> +		if (!zl3073x_dpll_is_input_pin(sibling) &&
-> +		    sibling->id == (pin->id ^ 1))
-> +			return sibling;
-> +	}
-> +
-> +	return NULL;
-> +}
-
-[Severity: Low]
-Does this kernel-doc match what the helper does? It says NULL is
-returned when the sibling is not registered. The loop only checks list
-membership, direction and id.
-
-This patch makes zl3073x_dpll_pin_register() and
-zl3073x_dpll_nco_pin_register() add the pin to zldpll->pins before
-dpll_pin_register(). It also makes zl3073x_dpll_pin_unregister()
-remove the pin only after dpll_pin_unregister(). During those windows
-the helper can return a pin that is not registered.
-
-esync_set(), frequency_set() and phase_adjust_set() then pass that pin
-directly to __dpll_pin_change_ntf(), whose kernel-doc says:
-
- * @pin: registered pin pointer
-
-The window looks reachable. zl3073x_dpll_register() registers the DPLL
-device before its pins, so a PIN_SET on the P pin can run while the N
-pin's dpll_pin_register() waits on dpll_lock. On teardown, the N pin is
-unregistered while the P pin is still available.
-
-The commit message also says:
-
-  A pin that is transiently on the list while
-  not registered is harmless: __dpll_pin_change_ntf() is a no-op for a
-  pin that is not available
-
-Is that accurate? Only dpll_pin_event_send() checks
-dpll_pin_available(). dpll_pin_notify() runs first and calls the
-in-kernel notifier chain without any check:
-
-__dpll_pin_change_ntf()
-    dpll_pin_notify(pin, pin->clock_id, DPLL_PIN_CHANGED);
-        call_dpll_notifiers(action, &info);
-    return dpll_pin_event_send(DPLL_CMD_PIN_CHANGE_NTF, pin);
-
-So an in-kernel DPLL_PIN_CHANGED event can be sent for a pin that is
-not registered. Nothing in the tree seems to be affected today: the
-only in-tree notifier, ice_dpll_pin_notify(), ignores actions other
-than CREATED and DELETED.
-
-Should the kernel-doc and the commit message be corrected? The other
-option is to check that the sibling is actually registered before it
-is notified.
-
-[ ... ]
-
-> @@ -1784,6 +1874,13 @@ zl3073x_dpll_pin_unregister(struct zl3073x_dpll_pin *pin)
->  	/* Unregister the pin */
->  	dpll_pin_unregister(zldpll->dpll_dev, pin->dpll_pin, ops, pin);
->  
-> +	/* Remove the pin from the list only after it has been unregistered so
-> +	 * that a still-registered pin is always findable as a sibling.
-> +	 */
-> +	mutex_lock(&zldpll->lock);
-> +	list_del(&pin->list);
-> +	mutex_unlock(&zldpll->lock);
-> +
->  	dpll_pin_put(pin->dpll_pin, &pin->tracker);
->  	pin->dpll_pin = NULL;
->  
-> @@ -1803,9 +1900,11 @@ zl3073x_dpll_pins_unregister(struct zl3073x_dpll *zldpll)
->  {
->  	struct zl3073x_dpll_pin *pin, *next;
->  
-> +	/* Unregister each pin before removing it from the list so that a
-> +	 * still-registered pin is always findable as a sibling.
-> +	 */
->  	list_for_each_entry_safe(pin, next, &zldpll->pins, list) {
->  		zl3073x_dpll_pin_unregister(pin);
-> -		list_del(&pin->list);
->  		zl3073x_dpll_pin_free(pin);
->  	}
->  }
-
-[Severity: Low]
-The commit message says:
-
-  and teardown detached the whole list before unregistering any
-  pin, so a sibling that is registered - and thus reachable by a PIN_SET
-  on the other pin - could be missing from the list and never notified.
-
-Does this describe the old teardown correctly? Before this patch,
-zl3073x_dpll_pins_unregister() already unregistered each pin before
-removing it from the list:
-
-	list_for_each_entry_safe(pin, next, &zldpll->pins, list) {
-		zl3073x_dpll_pin_unregister(pin);
-		list_del(&pin->list);
-		zl3073x_dpll_pin_free(pin);
-	}
-
-drivers/dpll/zl3073x/ has no list_splice() or similar call on this
-list. A pin that was still registered therefore stayed on zldpll->pins
-during teardown.
-
-The list and the registration state only got out of step at
-registration time, because dpll_pin_register() ran before list_add().
-On the teardown side, this hunk mainly moves list_del() under
-zldpll->lock, which the new lockdep-asserted lookup needs.
-
-Could the commit message describe what the teardown change actually
-does?
-
+Best regards
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261006153116.347497-1-ivecera%40redhat.com
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
+
