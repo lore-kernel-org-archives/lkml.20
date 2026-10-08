@@ -1,144 +1,200 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEB79357D08;
-	Thu,  8 Oct 2026 20:58:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D76D23A564
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 20:59:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791493126; cv=none; b=hxx9s1OniTOGrdG06Wt/IYJ0DASvPlA4nlCKDEPmTOoeg9N8DHO2xoiy/zi13Fl6p61NAEaDjX/F2jI4JpMKSbj06tDYoM3vGeVsaKJbJ23JqP4velBHV6IAkEYhxyQYlPMvrP1AkGdLYoxFUgJTR36ocKQMNGBQEa8Ac4GWGns=
+	t=1791493200; cv=none; b=mcbVM5ZHBYEUmgIXS5UlTi5l1zTkdnZjdxnJE5qxMEb4HooOV/9HahAqnMURPpNwWxQeU6JAlOjvvOajNsx8edWCd+bkupHJt96uxvdBbCDacsvKTORILhdhiZ9JmKTXSbnWKqxIpJYlxSrFTWHTyqxbo+iaNxoojQVt1esVhxg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791493126; c=relaxed/simple;
-	bh=lHg/uyQ0fkAT6uAgONudVUOSkjJurJvPC8rGOkEpNx4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j0ugSbw9jcFh6y+XV4rYG8vuiY8hB1cPNqhACl8wFYPzULzNLBhgEbKabkg1HPrmkXJGjCJ8rlnUrsNv268QFI08CyE6fKjPyMHvwHzMlT11J5PhKuuXTlzwGEfSbEHQdmbDTY3RTkY4E95LbZRVQ/VgBb1T2i6sNk8cKc9L7TY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c3zw5MC3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791493200; c=relaxed/simple;
+	bh=ZSqN70r27tz0dBTGFGExJE8gBajqQvCl+6z1RjfY5cg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jsnIIYGvJiGSw1Eg9bozwsfSUJIhxBTeQ1pg/nV4wgvtHfhX+JhrjQ9169FfdBup0TVrzscTKIErsMPRByvr5epI83EViaGBvFsYXWs4JRtbrnoCnRtI4NqTkKsWco7CfbBFOV/EIaLjyRimKlKeQXZuXPtbhwAT/zNQot05qDE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=invisiblethingslab.com; spf=pass smtp.mailfrom=invisiblethingslab.com; dkim=pass (2048-bit key) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.b=HDkaD2HH; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Dtg9fjTA; arc=none smtp.client-ip=103.168.172.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=invisiblethingslab.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=invisiblethingslab.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c3zw5MC3"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id EB9761F000FF;
-	Thu,  8 Oct 2026 20:58:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791493125;
-	bh=pDwKVy4Aoq1GoydvAush+WkC9ECSHjmdPN6on930qJs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=c3zw5MC3zAEUmnxFTgRZR2kUn2UNZZEEnfO12xznqShOPXBfsMwZaeCZZN1aACNos
-	 nSonp/nbrMe69otjBlADe3+g63SR07Nk3Q0upHmFtsUvlKJvQOOCFgQA1OvgGaYTNI
-	 wXxJwol8EqS5hit41O6ihQVzQxEsmS7dU+VBlKrJQCMJSSzt1y5LZy66nAbqQRLnhK
-	 u5tANoj3kdmXo80sVPLCrH9FzNTAOPSZvZvzEOLsIkN0jyuiLcORNRbff1iUtf4PpM
-	 Er//1pjI3GjLCybp691L0sDY00dyE40ApqkDnM3puvoxBcZcKjppkW2JmbIQ4nWFZi
-	 GF9GLwMUJbgUQ==
-Date: Thu, 8 Oct 2026 23:58:41 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: adrimg3196@gmail.com
-Cc: linux-kernel@vger.kernel.org, keyrings@vger.kernel.org,
-	dhowells@redhat.com
-Subject: Re: [PATCH v2] KEYS: Fix key_reject_and_link() race with keyring
- restriction
-Message-ID: <asgEAcvTSQ6PBI_m@kernel.org>
-References: <CACO1+RQ5KXAAbjpiQ=cs0wLZ=z+=JQbW_-pgG+BM0f23W112Tg@mail.gmail.com>
- <asf5kyDXUQ3z6RMv@kernel.org>
+	dkim=pass (2048-bit key) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.b="HDkaD2HH";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Dtg9fjTA"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfout.phl.internal (Postfix) with ESMTP id ABF39EC0328
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 16:59:57 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Thu, 08 Oct 2026 16:59:57 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1791493197; x=1791579597; bh=7+AhoGYgBy
+	NcaiYeKP8aO75OvP8u4IEViIBwpAS096A=; b=HDkaD2HHXiKLOIJzRRtBiS/kuu
+	ZFuk2VBU7fv0DNoonmmzZYBQbTQXAGayoQSExsTmaetb0ONAfPrzwwb/giz0yV7v
+	sxjaeSpWsW/ovDYipFsltIYIFHBHynHI8lkifRyeXm3Jsxsx5DBAWW47ncps8K8I
+	7rIMXNbN8VNJ3lMMk8hzJVRJvhtD5BogmM9ML4lMCtkGIru9ZXu2C9xqWUQm5Dgk
+	bbVVqqot03yIsU4/OHzryBr2knopUDVRd970BUIH6/iqbpeBmw8//nOvwKIZiPLl
+	EW3ELCLEXELQW6LbgV+BKR9/+//rlNSEGN/hB6PV7SmFGU0ywmSM00gkmtoA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791493197; x=
+	1791579597; bh=7+AhoGYgByNcaiYeKP8aO75OvP8u4IEViIBwpAS096A=; b=D
+	tg9fjTAvPJ9OhvaLC8feeBlklqc1zaObW29YJqw9P+mLBMqldjj4KWlqyvgvdrY7
+	MqqBNPouZh+VF5qmCC1SJ9ZmsMrP4bnbOTwLkqAFEZtRdAeaV1eC9LB3nGvpArKP
+	WCjD5FrAEQTPX3kffA4qwzz41EsIAU/3CtGpecx68rSTmgp7h5kCNtuv//+N4DUi
+	VHoVHZjoB6ntoiTtCFu+n2JKHmLw0h5bqYSaezshrFjIVSxybkIQ/U8YWlkeiCEj
+	HPkizOg+wuYC9rvLLxWLOoik5EHCpOhHVl8ZI6cNQP2KO+5ognRsvI/ygJv+oPvZ
+	UsVUiPasMhM9ibSHBrmAA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=invisiblethingslab.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791493197; d=invisiblethingslab.com;
+	mf=PHZhbEBpbnZpc2libGV0aGluZ3NsYWIuY29tPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:hPsFMuB6kx/K6yGya0DQgll9zR6oELwlxvmtOLHisJH9lgk
+	3A/LywmPK+lE6Z7+HafroD17nxcz6O5hq84aNi+NIVhWX943c2cwwweyjq5S/kqg
+	htpc2pUC+6vgoBFhMKY6xEmtn8zUYRzNlP0810pX64gVFG5RIqtmhf46Y56x2Omz
+	1Ov3XT8kRPyQMba7iviAhiPT0nkaue1C6r55pZ2Pn0WhJg1ydPtNJoHKJoWqKCnC
+	XEsPfCeFtBQiqEF0q/dN5ycdHIVENkV01EwVBS3ewOgf35AJ/ZsBN2W6hh+sJkvt
+	cP21Ms31sQxzRlYNb2d1yAKb/rsYJAdMeAHNzYw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=15;
+	hn=autocrypt,cc,content-language,content-transfer-encoding,
+	content-type,date,feedback-id,from,in-reply-to,message-id,
+	mime-version,references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:i6JEWJ4IPoj6sTPShGKAeVCIv0NwupZWYTrqHINYiMg=:ZSqN70r27tz0dBTGFGExJE8gBajqQvCl+6z1RjfY5cg=;
+X-ME-Sender: <xms:TQTIanUpo6kzgT77SOJl9Q8ZTGfgO6PLri8G5asRgWPcYaTy458elQ>
+    <xme:TQTIajS4WR0dLTwqFWxHLB4uSs4DNZ5wstBdWnpnHuHsRhGxS0PQFMi6k6Cgw_eBi
+    RsHNftC8YE_ajEMTNnqKLZYAEymvhrz-VU5uV74ZkGVhxI9BjYl>
+X-ME-Received: <xmr:TQTIasBzGcqTEiBeq-EsDKVR5QcAE0UQ6xsdQw-1Qrz24BPgPdIYGqdZk2yDkV8R_jFZiwUDsNbWwZMsI27D_BoExDHa6AXGPw>
+X-ME-Proxy-Cause: dmFkZTGWHnmgy+7bRoDaOQ8rB99ldtlBzRyzoeZaSC1i9ZR+w9Y50+YZBHoyWGoOSGl/iS
+    rrtGM0CUf8X/1jcWn9wdCFp+EmBgTY8pOkA16G/rkskNMOTXsGZ/qqYpyOf7R/tilVFWbg
+    Z/Wn75wbEdZkCJF6oQyrPqZSoz6TZHVVJg+Cmwdx6+Cy8GLpHWuOqdSYKVl3DvHv59+1rz
+    gWo6xFVkKdeO9I13ZlpJJl6kr7kL6eVRvF9FjBJvTDNYMBGX9zJjWx7tlRZJmWKwqxjkIZ
+    DDFh1wWJeyZhotKxBNuXjWOZ14Lp70Rb5JVm6RhIAO7YRlCJl0hCCvBifh7vomSZ7bJZAW
+    5c8RHZv5YNqNT1SVJJzPgWX/nIbVY8qqwUU20nW6tdMNdGtKc4FTdXTDIkSkG5VNBVwVC+
+    sfCfY3d9mZlGsq1RbBJwzasXhtv1lzhiAk65GqE7hNV2jz4l+xmN6x8W4kxUY1Njx6iJYB
+    H8c6kohYtyhLomKz6hTUIgg8rQeGoGdPYDMnZAhktV/9X7gVLONAUSsiMZ5EnmkiMgePyV
+    IgMVOO33DqFR+pcyOpjJhX+Uqe4tKNJohTWkilbFkMw48WQWWLGxsTONmV1re8KKgfCr3x
+    zn72x4nFrxtjH1ZYJ5U0HmQlTenrDtw0ownjB40VOehOBomg+ZXWZJly8ZVA
+X-ME-Proxy: <xmx:TQTIajsQVVDoGvUVokR830jD3vmx82GcVytywP3vjq90ZgVUj54JEw>
+    <xmx:TQTIai9zm-AeLomp9CEO6xe7FqpX5HmG-Ma_RIFVA7iYrmI5jbcnkg>
+    <xmx:TQTIaiSEHtuCxtHHRvTWaWvk1iLnA9uJIPHhBLmDSyODWdYOBkOQWQ>
+    <xmx:TQTIasUuYqIQKZry4Uhs5C9AK3lZbXREZWK4ayd3whuvd2Sz_EprfQ>
+    <xmx:TQTIakaIIo1w5HlbJxrr28rqeksuqaLeU7BHfziBwpI_npr9TPi5bJgd>
+Feedback-ID: i001e48d0:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 8 Oct 2026 16:59:54 -0400 (EDT)
+Message-ID: <4d86ec37-ce27-4556-966e-4b4e80ec0718@invisiblethingslab.com>
+Date: Thu, 8 Oct 2026 17:59:51 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/virtio: do not enforce blob_alignment in
+ cross-domain contexts
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Simona Vetter <simona@ffwll.ch>, Sergio Lopez <slp@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20261006154913.2689067-2-val@invisiblethingslab.com>
+ <8b0fbe1a-1410-42d7-8031-611795ae39d9@collabora.com>
+Content-Language: en-US
+From: Val Packett <val@invisiblethingslab.com>
+Autocrypt: addr=val@invisiblethingslab.com; keydata=
+ xm8EaFTEiRMFK4EEACIDAwQ+qzawvLuE95iu+QkRqp8P9z6XvFopWtYOaEnYf/nE8KWCnsCD
+ jz82tdbKBpmVOdR6ViLD9tzHvaZ1NqZ9mbrszMXq09VfefoCfZp8jnA2yCT8Y4ykmv6902Ne
+ NnlkVwrNKFZhbCBQYWNrZXR0IDx2YWxAaW52aXNpYmxldGhpbmdzbGFiLmNvbT7CswQTEwkA
+ OxYhBAFMrro+oMGIFPc7Uc87uZxqzalRBQJoVMSJAhsDBQsJCAcCAiICBhUKCQgLAgQWAgMB
+ Ah4HAheAAAoJEM87uZxqzalRlIIBf0cujzfSLhvib9iY8LBh8Tirgypm+hJHoY563xhP0YRS
+ pmqZ6goIuSGpEKcW5mV3egF/TLLAOjsfroWae4giImTVOJvLOsUycxAP4O5b1Qiy+cCGsHKA
+ nCRzrvqnPkyf4OeRznMEaFTEiRIFK4EEACIDAwSffe3tlMmmg3eKVp7SJ+CNZLN0M5qzHSCV
+ dBBkIVvEJo+8SDg4jrx/832rxpvMCz2+x7+OHaeBHKafhOWUccYBLKqV/3nBftxCkbzXDbfY
+ d02BY9H4wBIn0Y3GnwoIXRgDAQkJwpgEGBMJACAWIQQBTK66PqDBiBT3O1HPO7mcas2pUQUC
+ aFTEiQIbDAAKCRDPO7mcas2pUaptAX9f7yUJLGU4C6XjMJvXd8Sz6cGTyxkngPtUyFiNqtad
+ /GXBi3vHKYNfSrdqJ8wmZ8MBgOqWaaa1wE4/3qZU8d4RNR8mF7O40WYK/wdf1ycq1uGad8PN
+ UDOwAqdfvuF3w8QMPw==
+In-Reply-To: <8b0fbe1a-1410-42d7-8031-611795ae39d9@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <asf5kyDXUQ3z6RMv@kernel.org>
 
-On Thu, Oct 08, 2026 at 11:14:16PM +0300, Jarkko Sakkinen wrote:
-> On Thu, Oct 08, 2026 at 11:18:02AM -0700, adrimg3196@gmail.com wrote:
-> > Jarkko, you're right — v1 arrived without the diff. Here's v2 with the
-> > full patch.
-> 
-> And it would not be your fault if it had gone to my PR as I have
-> ultimate responsibility for that part.
-> 
-> Anyhow, put side-notes under '---'. It's a good place for these
-> as it does not get pulled into the commit log.
-> 
-> For single-patch submission it is also great place to maintain
-> changelog.
-> 
-> > 
-> > The restrict_link check in key_reject_and_link() is done before taking
-> > the keyring semaphore, racing with a concurrent keyring_restrict()
-> > that installs the restriction while holding the semaphore in write
-> > mode.
-> > 
-> > This is the same pattern that commit dd3ea3fc ("KEYS: Fix add_key()
-> > race with keyring restriction") just fixed in __key_create_or_update()
-> > by moving the restrict_link snapshot to after the semaphore is taken.
-> > 
-> > Move the check under __key_link_lock() so a restriction installed
-> > concurrently cannot be bypassed when linking a negative key.
-> > 
-> 
-> Fixes: 5ac7eace2d00 ("KEYS: Add a facility to restrict new links into a keyring")o
-> > Signed-off-by: Adrian Martinez <adrimg3196@gmail.com>
-> > ---
-> Here.
-> >  security/keys/key.c | 17 +++++++++++------
-> >  1 file changed, 11 insertions(+), 6 deletions(-)
-> > 
-> > --- a/security/keys/key.c
-> > +++ b/security/keys/key.c
-> > @@ -588,10 +588,17 @@ int key_reject_and_link(struct key *key,
-> >  	ret = -EBUSY;
-> > 
-> >  	if (keyring) {
-> > -		if (keyring->restrict_link)
-> > -			return -EPERM;
-> > -
-> >  		link_ret = __key_link_lock(keyring, &key->index_key);
-> >  		if (link_ret == 0) {
-> > +			/*
-> > +			 * Check the restriction under the keyring semaphore.
-> > +			 * keyring_restrict() installs it while holding the
-> > +			 * semaphore, so testing it beforehand races with a
-> > +			 * concurrent restriction install (cf. the fix for
-> > +			 * __key_create_or_update()).
-> > +			 */
-> > +			if (keyring->restrict_link) {
-> > +				__key_link_end(keyring, &key->index_key, edit);
-> > +				return -EPERM;
-> > +			}
-> >  			link_ret = __key_link_begin(keyring, &key->index_key, &edit);
-> >  			if (link_ret < 0)
-> >  				__key_link_end(keyring, &key->index_key, edit);
-> 
-> 
-> Looks good to me, thank you.
-> 
-> Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
 
-So send v3 that addresses:
+On 10/8/26 4:33 AM, Dmitry Osipenko wrote:
+> On 10/6/26 18:42, Val Packett wrote:
+>> VIRTIO_GPU_F_BLOB_ALIGNMENT is designed for GPU rendering context types,
+>> however VIRTIO_GPU_CAPSET_CROSS_DOMAIN is not one of those. Resources
+>> created under cross-domain contexts are arbitrary shared system memory
+>> files, which includes unusual things like Wayland keymaps received
+>> from the host compositor. Do not enforce alignment requirements there.
+>>
+>> Fixes: 47248e0d8264 ("drm/virtio: honor blob_alignment requirements")
+>> Signed-off-by: Val Packett <val@invisiblethingslab.com>
+>> ---
+>>
+>> v2: also check has_virgl_3d to prevent dereferencing NULL vfpriv
+>> v1: https://lore.kernel.org/all/20261006004044.2242154-1-val@invisiblethingslab.com/
+>>
+>> ~val
+>>
+>> ---
+>>   drivers/gpu/drm/virtio/virtgpu_ioctl.c | 4 +++-
+>>   1 file changed, 3 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+>> index 3ddd5481d6bc..4d5ae062834d 100644
+>> --- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+>> +++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+>> @@ -551,7 +551,9 @@ static int verify_blob(struct virtio_gpu_device *vgdev,
+>>   	params->blob_flags = rc_blob->blob_flags;
+>>   	params->blob_hints = rc_blob->blob_hints;
+>>   
+>> -	if (vgdev->has_blob_alignment &&
+>> +	if (vgdev->has_blob_alignment && vgdev->has_virgl_3d &&
+>> +	    (vfpriv->context_init & VIRTIO_GPU_CONTEXT_INIT_CAPSET_ID_MASK) !=
+>> +	    VIRTIO_GPU_CAPSET_CROSS_DOMAIN &&
+>>   	    !IS_ALIGNED(params->size, vgdev->blob_alignment))
+>>   		return -EINVAL;
+>>   
+> What userspace has this problem and why it re-purposes virtio-gpu to act
+> as udmabuf for arbitrary data that never reaches host?
 
-(141) $ b4 shazam https://lore.kernel.org/keyrings/asf5kyDXUQ3z6RMv@kernel.org/T/#t
-Grabbing thread from lore.kernel.org/all/asf5kyDXUQ3z6RMv@kernel.org/t.mbox.gz
-Checking for newer revisions
-Grabbing search results from lore.kernel.org
-Analyzing 3 messages in the thread
-Checking attestation on all messages, may take a moment...
----
-  ✓ [PATCH v2] KEYS: Fix key_reject_and_link() race with keyring restriction
-    + Fixes: 5ac7eace2d00 ("KEYS: Add a facility to restrict new links into a keyring")o (✓ DKIM/kernel.org)
-    + Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org> (✓ DKIM/kernel.org)
-  ---
-  ✓ Signed: DKIM/gmail.com
----
-Total patches: 1
----
-Applying: KEYS: Fix key_reject_and_link() race with keyring restriction
-Patch failed at 0001 KEYS: Fix key_reject_and_link() race with keyring restriction
-error: corrupt patch at line 31
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-hint: When you have resolved this problem, run "git am --continue".
-hint: If you prefer to skip this patch, run "git am --skip" instead.
-hint: To restore the original branch and stop patching, run "git am --abort".
-hint: Disable this message with "git config advice.mergeConflict false"
+Sorry, what do you mean by that?
 
-You can retain my reviewed-by and please add fixes tag while at it.
+This is not related to data that "never reaches host" at all! The error 
+I referred to in the patch message literally says "received *from* the 
+host"…??
 
-Br, Jarkko
+Guest userspace is any of the cross-domain proxies:
+
+* https://codeberg.org/drakulix/wl-cross-domain-proxy
+* https://github.com/talex5/wayland-proxy-virtwl
+* https://github.com/google/sommelier-rs (or old C++ version)
+
+VIRTIO_GPU_CAPSET_CROSS_DOMAIN "repurposes virtio-gpu" to act as a 
+cross-VM UNIX socket transport that supports fd passing. By referring to 
+virtio-gpu resources in the send command the guest can make the device 
+send the resources' corresponding host fds to the host Wayland 
+compositor. It can refer to resources from other contexts, in order to 
+present drm/venus/etc rendered buffers on Wayland surfaces. (i.e. the 
+host would send the actual dma-buf from virglrenderer) But the resources 
+created on the cross-domain context itself are system memory buffers, 
+generally used for software rendering and miscellaneous Wayland "stuff" 
+like keymaps which are sent *from* the host, and exposed to Wayland 
+clients in the guest. Socket receive handling in rutabaga-gfx stores 
+incoming fds and returns their IDs to the guest, then the guest does a 
+CREATE_BLOB with matching blob_id, which creates a virtio-gpu resource 
+from the incoming buffer, so the guest can just MAP_BLOB it. These are 
+the blobs that are not aligned to anything because they're just 
+arbitrary memfds on the host.
+
+~val
+
