@@ -1,331 +1,222 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6801B28C2BF;
-	Thu,  8 Oct 2026 01:25:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C52C627280A
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 01:25:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791422737; cv=none; b=cJ3VLzhwgIHPcbo5ZaRgKC01YlHdB/ifQIXHkuYZA74kMuYCHEAysu3Hvtm0AHnX/ZPs6ZVTimqHW3j+gRQpTSJGAlQCnkDGgM/WB131avYavhAyWo6KbnBuI82UWx5WWLsPteQcSefz06fNyOyJ99787SvXxuDDSNi+i955+a4=
+	t=1791422761; cv=none; b=UzNF+BHVzdDcW1YbOwWyE8DIJt7rKovjBJSm9sqlvHksmG86ZwAOEQ9EG0QEFfMOOEAxt+xTWtVLENUUg8j0UHgdRON+nABmR2/F0E/RggOTpalSYK9bta5OYuee3ZgWpJaRsfx+LV12lizIMX0uIIawxHRy0xeiiRXHD9zvR08=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791422737; c=relaxed/simple;
-	bh=0xNGIzFINU9Ib0PJHoLyc4eKkXwV4zIXiqSU+NopzWU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=rPlA18D57nArawJWumVbM5RAnXWXrCTRA4oAZkZLMjTfZvPPOXmCmSpv/W++pJ1/HnOc2ts05gLvbjCYR/jCFoGn0n/8zPo7LRSqvbKOQXlJVILiQo++494vVTpiOheZDuosRULvv0azSVjNQmFDKJG13D3Ry9kS72Kew8gyl84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cyBx+wOo; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791422761; c=relaxed/simple;
+	bh=L6FxWsQHeaxIM/XeyM/735QYT+ml7DRFuXuaskfSvvg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fZo/KYjbAIvMqUXV0oBpAuVCzCZrdDEe7s3I4aewxY0/zPQSToumi9czNcuqkBuGPHplfNl+7cy1te2QFlZK/FPg+wzczTPua6lafqdGuF7DRIPe/5DzZ1qvrEd6i8JK13QmzT0OgjivOh0dQq6EahMshSN6doCK93BevV4rrcs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OGSolTEv; arc=none smtp.client-ip=209.85.167.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cyBx+wOo"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1EF54C2BCF5;
-	Thu,  8 Oct 2026 01:25:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791422737;
-	bh=0xNGIzFINU9Ib0PJHoLyc4eKkXwV4zIXiqSU+NopzWU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=cyBx+wOon2hc/cYi2s+0h+l0odj3WOU4vEgpkVt1R3+7OGL91gqHJ+yrTgIdDw0pI
-	 FFJSRGkBXiMT0vLVy+tPrDndYa06zcewG0S3gDBv/j3nOEGUmpjFjSzYw97g56uNo5
-	 Z/LJX2MnLKLrpto58Wn1qAtBvRU7ttqsmMpzIwJN3oZairM5trq6DAdxueXuCsNTxf
-	 OMttS3HvS+MmBZxvGACGZtpbdHyZJQx2rCBqCBPoKYOm9qv6/NN9uxFjZMC121dsw6
-	 KfLbgsHuERFQ/vIa8Q5P4HVuaCrih5bgMyEy9sNRDnM6d0kykiI+bwurWi9rHsAr+p
-	 Qmynsrqprq5iw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 02238CA6002;
-	Thu,  8 Oct 2026 01:25:37 +0000 (UTC)
-From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
-Date: Thu, 08 Oct 2026 10:25:37 +0900
-Subject: [PATCH v2 2/2] ext4: track zeroed out blocks of unwritten extents
- for fast commit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OGSolTEv"
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5bcb2ecebb4so2268443e87.2
+        for <linux-kernel@vger.kernel.org>; Wed, 07 Oct 2026 18:25:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791422758; x=1792027558; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AL66qoMRyA6L0GT8rHeIQAOMO/7RHdMXg0Z/7eR2L+0=;
+        b=OGSolTEvR8NWgy27MCEDeStAcRkzYvBpRRVq5pEPOuL1tPdXClDs8a6oEkar28WvPo
+         55Mo3yLpKUjq7/Ume6E/2mmAZ5JWgUmZNte8cvlLhGAkIkIcaOZyZwgTCHvaCAqIqIH5
+         BLKxcp3FyGb8z+LaUmi2/7UdG9No45wgWiiZ3pREJ/wlW7pQIlvexSfXuHwSwWPPc6Wj
+         bnNNBxXgJNNfdhXYVDTL/igktaalQESs8H5IBqUFNxPlLxaTgqK9C6OoiA2DAZr6jeUh
+         ZV5jxrSzWXGfH3i8IWKTRHHmm4UiinbdAfzYuiiQvf90knf6PRb0b+U+BfPiJBe4kb2j
+         MJgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791422758; x=1792027558;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AL66qoMRyA6L0GT8rHeIQAOMO/7RHdMXg0Z/7eR2L+0=;
+        b=jyxQ87RztyhZmTU/HXG6PpLCiEcHgCo+mmdL0IZvEg1c7vmmaOwjQyamBQj/r5Z/AT
+         mU3A85daIb1oaapQzm6abnhhQe+qRTXMR2kFe8g1BdaBhbCWUMvUjR5xol894vKUh6xB
+         BkqGepYa0HMzuNvu8Y7PFyNJPNXyQ/CcGxZ6AtHwjg61PBf1GHki0tVevAXrpvm6/sbl
+         KtEdu7CHy8n/3uy60ESb3jn9LjVZHxNudcdvzK5eo4apb7dxjgSfyuFTDAk1eLwT8XtZ
+         oJ+F/tQ65gU5cWxRlBjuRpV1LbYowIDVvud24KmnetcM32tBrKMeBR/d3Z6Qli55ebse
+         8VHw==
+X-Forwarded-Encrypted: i=1; AKwUvBzEBNQgRXdosJcS4Lh5mTW/gUkxQtxBQHyTWxpv3oPALAKuu1ysdVjGfMicNeofpdxYKVPtRgSiy3Rs5Kw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIjRJjaE50UwttNAfIJTZPU06VHQVRPq9S2D1AWktFwjyc4pbp5
+	qSuaU4dvN/zDQDQ3r7cv9EgUf90CWZMPR2JudsdIvtI0cYQQJLy2bZPDcmS8SioG5Gf+xA==
+X-Gm-Gg: AYBFou3oA2y1L4KkevLnOOPG/dfgKLrSh5AmaCvP/J4bjkmEb/D5mTHe504te2R34M7
+	0F3D0s7Z8eZOz3jhTu+FZ/GO+qty5rQH5/sfBQJlrZeaB3oaZT86Iaj5FD5n6TfFs2ulFmKP4bB
+	70nivOHE9DZknC0sjA54Aq+1K7R4PyT2ouC9kIq50RPxylkP7s39GHegoxKL3HjyP+lNfS+jzP7
+	yEyf/xsflmH602Tkb+WvGSo7gsFNcnjuk0kJr+pS2fUZjvejemwrh3iGSmKFxwATgfm7DIdO0dB
+	Bp4GbUTWzqv0wppwm5lHo6r7dGbXfxALI9aia8gj7MlCVsNatPL9VzJ8K6BfYGyARyjiNqUAiXY
+	D99Vxy/aaTR8LcDnt1PvkKLVty6reXJs7Y/+cJB8rdbPRM48no5Ris6sy6AlWZdxnoxTi7rta++
+	LsosHuLlccknFfjS4zpkgL5w1IbY671bRB7imwwKHBOoWFDeZlko5W+uzXoOnuH/J3EHag3zVw+
+	u0ty87aECecUh5AGF4wlPcEZIapxCUUt/bSswW4yrls
+X-Received: by 2002:a05:6512:3504:b0:5bc:ca67:c34c with SMTP id 2adb3069b0e04-5bcd07003f9mr1337796e87.49.1791422757552;
+        Wed, 07 Oct 2026 18:25:57 -0700 (PDT)
+Received: from dau-home-pc.. ([212.35.183.164])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bcd30745b8sm583013e87.28.2026.10.07.18.25.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 18:25:56 -0700 (PDT)
+From: Anton Danilov <littlesmilingcloud@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Eric Dumazet <edumazet@kernel.org>,
+	Florian Westphal <fw@strlen.de>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Simon Horman <horms@kernel.org>,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Mazin Al Haddad <mazin@getstate.dev>,
+	Matthias May <matthias.may@westermo.com>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net v6] ip6_gre: use skb_vlan_inet_prepare() instead of pskb_inet_may_pull()
+Date: Thu,  8 Oct 2026 04:25:54 +0300
+Message-ID: <20261008012554.202925-1-littlesmilingcloud@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-ext4-fc-zeroout-v2-2-55cab1e24fa3@samsung.com>
-References: <20261008-ext4-fc-zeroout-v2-0-55cab1e24fa3@samsung.com>
-In-Reply-To: <20261008-ext4-fc-zeroout-v2-0-55cab1e24fa3@samsung.com>
-To: Theodore Ts'o <tytso@mit.edu>, linux-ext4@vger.kernel.org
-Cc: Jan Kara <jack@suse.cz>, Andreas Dilger <adilger.kernel@dilger.ca>, 
- Baokun Li <libaokun@linux.alibaba.com>, 
- Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
- Zhang Yi <yi.zhang@huawei.com>, Zhang Yi <yi.zhang@huaweicloud.com>, 
- Harshad Shirwadkar <harshadshirwadkar@gmail.com>, Li Chen <me@linux.beauty>, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Daejun Park <daejun7.park@samsung.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791422735; l=10967;
- i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
- bh=EeLJb4AxMmh8sz/efAgzNlx+RL+D3/GJIG/OmAOBA5k=;
- b=Ls/MyUSqGBiUQSTqKPebNNKw+R1C6Y5tcJBbPHKSTtOejoBOyJ2c+zK2XH2JtHZ3R9MBl7h10
- Uz/HHOhNjcJBhHkeH0XxQdDzw5Elow1ziQ4/Q/bmWEI/evttXg0L/g/
-X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
- pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
-X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
- auth_id=1122
-X-Original-From: Daejun Park <daejun7.park@samsung.com>
-Reply-To: daejun7.park@samsung.com
+Content-Transfer-Encoding: 8bit
 
-From: Daejun Park <daejun7.park@samsung.com>
+ip6gre_tunnel_xmit() and ip6erspan_tunnel_xmit() check the packet length
+with pskb_inet_may_pull(), which looks at skb->protocol only, while the
+code that follows parses the packet through VLAN tags with
+skb_protocol(skb, true). The parsing started to look through the tags
+with the two commits in the Fixes tags; the check was left as it was.
+A VLAN-tagged frame whose inner IPv4/IPv6 header is not in the linear
+area passes the check, and the inner header is read anyway. A 20 byte
+tagged frame on ip6gretap and a 10 byte frame on ip6erspan are sent
+out, while an untagged frame that is too short for its IP header is
+already dropped.
 
-When ext4_ext_convert_to_initialized() converts part of an unwritten
-extent, it may zero out the blocks before and after that range (a side
-only if it fits together with the range in s_extent_max_zeroout_kb,
-32 KiB by default, and the extent ends within i_disksize or the write)
-and convert them to written together with it, instead of splitting them
-off. ext4_split_extent() zeroes out the rest of the extent and converts
-all of it when a split fails with -ENOSPC, -EDQUOT or -ENOMEM. In both
-cases ext4_map_blocks() reports only the mapped range to fast commit, so
-the other converted blocks are not tracked.
+Use skb_vlan_inet_prepare(), as the IPv6 receive path does since
+commit 81c734dae203 ("ip6_tunnel: use skb_vlan_inet_prepare() in
+__ip6_tnl_rcv()"). The second argument (inner_proto_inherit) depends on
+the device: ip6gre_tunnel_xmit() serves both ip6gre (ARPHRD_IP6GRE, no
+MAC header) and ip6gretap (ARPHRD_ETHER), so it is
+dev->type != ARPHRD_ETHER there; ip6erspan is always an Ethernet device,
+so it is false. vxlan does the same with no_eth_encap.
 
-A later write to one of those blocks overwrites a written block in
-place. That changes no mapping and is not tracked either, so the next
-fsync is a fast commit that logs the inode but no range for the block.
-After a crash, replay starts from the last full commit, where the block
-is still part of an unwritten extent, and the fsynced data reads back
-as zeroes. Fast commit tracks one [min, max] range per inode, so this
-shows only when no other block beyond the zeroed ones was tracked in
-the same commit, which makes it easy to miss.
+skb_vlan_inet_prepare() walks the VLAN tags from skb->mac_len - VLAN_HLEN,
+or from ETH_HLEN if skb->mac_len is 0, and on transmit skb->mac_len is
+still what the skb was received with. For a packet that came in through
+an NBMA gre device and is routed out of a VLAN on ip6gretap or ip6erspan,
+the walk starts inside the inner IPv4 header. Clear skb->mac_len for
+Ethernet devices first.
 
-The first conversion runs when writes allocate through ext4_map_blocks()
-with EXT4_GET_BLOCKS_CREATE, for example with -o nodelalloc,
--o dioread_lock or DAX. On a 4 KiB block file system made with
--O fast_commit and mounted with -o nodelalloc,commit=60:
+An ip6gre device created without a remote uses ip6gre_header_ops, and
+ip6gre_header() pushes a pseudo IPv6 header in front of the packet, so
+there skb->data is not where the packet starts. skb_vlan_inet_prepare()
+would move the network header onto that pseudo header, whose payload
+length and GRE words are never written, and an ICMPv6 error for the
+packet then quotes them: KMSAN reports uninit-value in
+icmpv6_push_pending_frames(). Keep pskb_inet_may_pull() for that case,
+as before this change.
 
-  fallocate -l 32k f; sync      # blocks 0-7 unwritten
-  write block 0; fsync f        # zeroes out 1-7, tracks only 0
-  write block 2; fsync f        # in place, nothing tracked
-  crash (kill the VM), mount    # fast commit replay
-  block 2 reads back as zeroes
+With this change the two short frames above are dropped. gre_gso.sh,
+l2_tos_ttl_inherit.sh and the mirror_gre, mirror_gre_vlan,
+mirror_gre_bridge_1q and mirror_gre_changes forwarding selftests pass.
+A constant true instead breaks the ip6gretap cases of mirror_gre.sh,
+and a constant false breaks the ip6gre GSO cases of gre_gso.sh.
 
-Track the range in ext4_issue_zeroout(), where the zeroes are written,
-once the zeroout has succeeded. It takes the handle for that, and so
-does ext4_ext_zeroout(). The EXT4_GET_BLOCKS_CONVERT_UNWRITTEN zeroout
-in ext4_split_extent_zeroout() and the EXT4_GET_BLOCKS_ZERO one in
-ext4_map_create_blocks() zero out the mapped range, which
-ext4_map_blocks() tracks anyway.
-ext4_alloc_file_blocks() zeroes out without a handle and passes NULL:
-ext4_convert_unwritten_extents() right after it tracks the blocks it
-converts through ext4_map_blocks(), and blocks that were already
-written keep their mapping. The callers with a handle hold i_data_sem,
-as fast commit tracking already does when ext4_ext_dirty() changes an
-extent kept in the inode (through ext4_mark_inode_dirty()).
+This fixes the length check in both functions, and the skb_protocol()
+dispatch in ip6gre_tunnel_xmit() for ip6gretap and for ip6gre devices
+created with a remote. Four related, pre-existing problems are left for
+follow-up patches:
 
-Fixes: aa75f4d3daae ("ext4: main fast-commit commit path")
+ - ip6_tnl_xmit() parses the VLAN tags once more after the GRE header
+   has been pushed, so for a tagged frame on ip6gretap with a key or
+   on ip6erspan the TTL and traffic class are not inherited, and if
+   the bytes that parse lands on happen to read as ETH_P_IP, an
+   inherited hop limit is taken from past the end of the frame;
+ - erspan_build_header() and erspan_build_header_v2() read the TOS and,
+   behind an 0x8100 EtherType, the TCI without checking that the frame
+   is long enough, so a 14 to 19 byte frame that passes the check here
+   still gets bytes from past its end into the ERSPAN header;
+ - the ip6gre header_ops branch kept above still has the check/parse
+   mismatch once a remote is set with changelink;
+ - gre_tap_xmit(), erspan_xmit() and ip_tunnel_rcv() on the IPv4 side
+   have the same mismatch.
+
+Fixes: 3f8a8447fd0b ("ip6_gre: use actual protocol to select xmit")
+Fixes: b09ab9c92e50 ("ip6_tunnel: allow to inherit from VLAN encapsulated IP")
+Reported-by: syzbot+6023ea32e206eef7920a@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=6023ea32e206eef7920a
+Suggested-by: Eric Dumazet <edumazet@kernel.org>
 Cc: stable@vger.kernel.org
-Suggested-by: Jan Kara <jack@suse.cz>
-Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+Assisted-by: LLM
+Signed-off-by: Anton Danilov <littlesmilingcloud@gmail.com>
 ---
- fs/ext4/ext4.h         |  5 +++--
- fs/ext4/ext4_extents.h |  3 ++-
- fs/ext4/extents-test.c |  8 +++++---
- fs/ext4/extents.c      | 31 ++++++++++++++++++++-----------
- fs/ext4/inode.c        | 25 +++++++++++++++++--------
- 5 files changed, 47 insertions(+), 25 deletions(-)
+v6: no functional change from v5; commit message only. The AI review
+    of v5 again pointed at wording that reads wider than the code:
+    "fixes the dispatch in ip6gre_tunnel_xmit()" now excludes the
+    header_ops branch, which keeps the old check; the
+    erspan_build_header() reads on 14 to 19 byte frames are listed as
+    a follow-up instead of "the short frame is dropped" suggesting that
+    all of them are; and the ip6_tnl_xmit() item says that an inherited
+    hop limit can come from past the end of a crafted frame, not only
+    from the wrong offset. Measured on net and on this patch: the same
+    bytes, see the reply to the review.
+    Link: https://lore.kernel.org/netdev/179141499719.434549.15788178109134377075@kernel.org/
+v5: https://lore.kernel.org/netdev/20261005231414.932997-1-littlesmilingcloud@gmail.com/
+v4: https://lore.kernel.org/netdev/20261004145205.226974-1-littlesmilingcloud@gmail.com/
+v3: https://lore.kernel.org/netdev/20260119112512.28196-1-fw@strlen.de/
+v2: https://lore.kernel.org/netdev/20260106144529.1424886-1-edumazet@google.com/
+v1: https://lore.kernel.org/netdev/20260105100330.2258612-1-edumazet@google.com/
 
-diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index 7fd078de26..f469b3548b 100644
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
-@@ -3209,8 +3209,9 @@ extern int ext4_get_projid(struct inode *inode, kprojid_t *projid);
- extern void ext4_da_release_space(struct inode *inode, int to_free);
- extern void ext4_da_update_reserve_space(struct inode *inode,
- 					int used, int quota_claim);
--extern int ext4_issue_zeroout(struct inode *inode, ext4_lblk_t lblk,
--			      ext4_fsblk_t pblk, ext4_lblk_t len);
-+extern int ext4_issue_zeroout(handle_t *handle, struct inode *inode,
-+			      ext4_lblk_t lblk, ext4_fsblk_t pblk,
-+			      ext4_lblk_t len);
- 
- static inline bool is_special_ino(struct super_block *sb, unsigned long ino)
- {
-diff --git a/fs/ext4/ext4_extents.h b/fs/ext4/ext4_extents.h
-index ebaf7cc424..f4218ff084 100644
---- a/fs/ext4/ext4_extents.h
-+++ b/fs/ext4/ext4_extents.h
-@@ -267,7 +267,8 @@ static inline void ext4_idx_store_pblock(struct ext4_extent_idx *ix,
- extern int __ext4_ext_dirty(const char *where, unsigned int line,
- 			    handle_t *handle, struct inode *inode,
- 			    struct ext4_ext_path *path);
--extern int ext4_ext_zeroout(struct inode *inode, struct ext4_extent *ex);
-+extern int ext4_ext_zeroout(handle_t *handle, struct inode *inode,
-+			    struct ext4_extent *ex);
- #if IS_ENABLED(CONFIG_EXT4_KUNIT_TESTS)
- extern int ext4_ext_space_root_idx_test(struct inode *inode, int check);
- extern struct ext4_ext_path *ext4_split_convert_extents_test(
-diff --git a/fs/ext4/extents-test.c b/fs/ext4/extents-test.c
-index bd7795a826..4e205de575 100644
---- a/fs/ext4/extents-test.c
-+++ b/fs/ext4/extents-test.c
-@@ -180,7 +180,8 @@ ext4_ext_insert_extent_stub(handle_t *handle, struct inode *inode,
- /*
-  * We will zeroout the equivalent range in the data area
-  */
--static int ext4_ext_zeroout_stub(struct inode *inode, struct ext4_extent *ex)
-+static int ext4_ext_zeroout_stub(handle_t *handle, struct inode *inode,
-+				 struct ext4_extent *ex)
- {
- 	ext4_lblk_t ee_block, off_blk;
- 	loff_t ee_len;
-@@ -203,8 +204,9 @@ static int ext4_ext_zeroout_stub(struct inode *inode, struct ext4_extent *ex)
- 	return 0;
- }
- 
--static int ext4_issue_zeroout_stub(struct inode *inode, ext4_lblk_t lblk,
--				   ext4_fsblk_t pblk, ext4_lblk_t len)
-+static int ext4_issue_zeroout_stub(handle_t *handle, struct inode *inode,
-+				   ext4_lblk_t lblk, ext4_fsblk_t pblk,
-+				   ext4_lblk_t len)
- {
- 	ext4_lblk_t off_blk;
- 	loff_t off_bytes;
-diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
-index d65e30f3c1..aa55e7cf26 100644
---- a/fs/ext4/extents.c
-+++ b/fs/ext4/extents.c
-@@ -3167,17 +3167,18 @@ static void ext4_zeroout_es(struct inode *inode, struct ext4_extent *ex)
- }
- 
- /* FIXME!! we need to try to merge to left or right after zero-out  */
--int ext4_ext_zeroout(struct inode *inode, struct ext4_extent *ex)
-+int ext4_ext_zeroout(handle_t *handle, struct inode *inode,
-+		     struct ext4_extent *ex)
- {
- 	ext4_fsblk_t ee_pblock;
- 	unsigned int ee_len;
- 
--	KUNIT_STATIC_STUB_REDIRECT(ext4_ext_zeroout, inode, ex);
-+	KUNIT_STATIC_STUB_REDIRECT(ext4_ext_zeroout, handle, inode, ex);
- 
- 	ee_len    = ext4_ext_get_actual_len(ex);
- 	ee_pblock = ext4_ext_pblock(ex);
--	return ext4_issue_zeroout(inode, le32_to_cpu(ex->ee_block), ee_pblock,
--				  ee_len);
-+	return ext4_issue_zeroout(handle, inode, le32_to_cpu(ex->ee_block),
-+				  ee_pblock, ee_len);
- }
- 
- /*
-@@ -3347,7 +3348,8 @@ static int ext4_split_extent_zeroout(handle_t *handle, struct inode *inode,
- 			lblk = ee_block;
- 			len = map->m_lblk - ee_block;
- 			pblk = ext4_ext_pblock(ex);
--			err = ext4_issue_zeroout(inode, lblk, pblk, len);
-+			err = ext4_issue_zeroout(handle, inode, lblk, pblk,
-+						 len);
- 			if (err)
- 				/* ZEROOUT failed, just return original error */
- 				return err;
-@@ -3358,7 +3360,8 @@ static int ext4_split_extent_zeroout(handle_t *handle, struct inode *inode,
- 			lblk = map_end;
- 			len = ex_end - map_end;
- 			pblk = ext4_ext_pblock(ex) + (map_end - ee_block);
--			err = ext4_issue_zeroout(inode, lblk, pblk, len);
-+			err = ext4_issue_zeroout(handle, inode, lblk, pblk,
-+						 len);
- 			if (err)
- 				/* ZEROOUT failed, just return original error */
- 				return err;
-@@ -3377,7 +3380,7 @@ static int ext4_split_extent_zeroout(handle_t *handle, struct inode *inode,
- 		lblk = map->m_lblk;
- 		len = map->m_len;
- 		pblk = ext4_ext_pblock(ex) + (map->m_lblk - ee_block);
--		err = ext4_issue_zeroout(inode, lblk, pblk, len);
-+		err = ext4_issue_zeroout(handle, inode, lblk, pblk, len);
- 		if (err)
- 			/* ZEROOUT failed, just return original error */
- 			return err;
-@@ -3754,7 +3757,7 @@ ext4_ext_convert_to_initialized(handle_t *handle, struct inode *inode,
- 			ext4_ext_store_pblock(&zero_ex1,
- 				ext4_ext_pblock(ex) + split_map.m_lblk +
- 				split_map.m_len - ee_block);
--			err = ext4_ext_zeroout(inode, &zero_ex1);
-+			err = ext4_ext_zeroout(handle, inode, &zero_ex1);
- 			if (err) {
- 				zero_ex1.ee_len = 0;
- 				goto fallback;
-@@ -3770,7 +3773,7 @@ ext4_ext_convert_to_initialized(handle_t *handle, struct inode *inode,
- 							ee_block);
- 				ext4_ext_store_pblock(&zero_ex2,
- 						      ext4_ext_pblock(ex));
--				err = ext4_ext_zeroout(inode, &zero_ex2);
-+				err = ext4_ext_zeroout(handle, inode, &zero_ex2);
- 				if (err) {
- 					zero_ex2.ee_len = 0;
- 					goto fallback;
-@@ -4693,8 +4696,14 @@ static int ext4_alloc_file_blocks(struct file *file, loff_t offset, loff_t len,
- 			WARN_ON_ONCE(map.m_lblk + map.m_len >
- 				EXT4_B_TO_LBLK(inode, new_size ?: old_size));
- 
--			ret = ext4_issue_zeroout(inode, map.m_lblk, map.m_pblk,
--						 map.m_len);
-+			/*
-+			 * Zeroed out without a handle, see the comment
-+			 * on EXT4_GET_BLOCKS_ZERO above. The conversion
-+			 * below tracks the blocks it converts for fast
-+			 * commit, and written blocks keep their mapping.
-+			 */
-+			ret = ext4_issue_zeroout(NULL, inode, map.m_lblk,
-+						 map.m_pblk, map.m_len);
- 			if (unlikely(ret))
- 				break;
- 
-diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index 48ef9bb387..618ce271ba 100644
---- a/fs/ext4/inode.c
-+++ b/fs/ext4/inode.c
-@@ -406,23 +406,32 @@ static int __check_block_validity(struct inode *inode, const char *func,
- 	return 0;
- }
- 
--int ext4_issue_zeroout(struct inode *inode, ext4_lblk_t lblk, ext4_fsblk_t pblk,
--		       ext4_lblk_t len)
-+/*
-+ * The zeroes written here are file data. With a @handle the range is tracked
-+ * for fast commit, because some callers zero out blocks outside the range that
-+ * ext4_map_blocks() tracks and convert them to written. A caller without a
-+ * handle must make sure that the conversion tracks the range.
-+ */
-+int ext4_issue_zeroout(handle_t *handle, struct inode *inode, ext4_lblk_t lblk,
-+		       ext4_fsblk_t pblk, ext4_lblk_t len)
- {
+ net/ipv6/ip6_gre.c | 27 ++++++++++++++++++++++++---
+ 1 file changed, 24 insertions(+), 3 deletions(-)
+
+diff --git a/net/ipv6/ip6_gre.c b/net/ipv6/ip6_gre.c
+index 04f7c70b7320..06dd53c5a9e2 100644
+--- a/net/ipv6/ip6_gre.c
++++ b/net/ipv6/ip6_gre.c
+@@ -883,8 +883,23 @@ static netdev_tx_t ip6gre_tunnel_xmit(struct sk_buff *skb,
+ 	__be16 payload_protocol;
  	int ret;
  
--	KUNIT_STATIC_STUB_REDIRECT(ext4_issue_zeroout, inode, lblk, pblk, len);
-+	KUNIT_STATIC_STUB_REDIRECT(ext4_issue_zeroout, handle, inode, lblk, pblk,
-+				   len);
+-	if (!pskb_inet_may_pull(skb))
+-		goto tx_err;
++	if (dev->type != ARPHRD_ETHER && dev->header_ops) {
++		/* ip6gre_header() has pushed a pseudo header in front of
++		 * the packet, so skb->data is not where the packet starts.
++		 */
++		if (!pskb_inet_may_pull(skb))
++			goto tx_err;
++	} else {
++		/* skb_vlan_inet_prepare() and the skb_protocol() dispatch
++		 * below walk the VLAN tags from skb->mac_len - VLAN_HLEN, or
++		 * from ETH_HLEN if it is 0; a forwarded skb still has the
++		 * mac_len of the device it was received on.
++		 */
++		if (dev->type == ARPHRD_ETHER)
++			skb->mac_len = 0;
++		if (skb_vlan_inet_prepare(skb, dev->type != ARPHRD_ETHER))
++			goto tx_err;
++	}
  
- 	if (IS_ENCRYPTED(inode) && S_ISREG(inode->i_mode))
--		return fscrypt_zeroout_range(inode,
-+		ret = fscrypt_zeroout_range(inode,
- 				(loff_t)lblk << inode->i_blkbits,
- 				pblk << (inode->i_blkbits - SECTOR_SHIFT),
- 				(u64)len << inode->i_blkbits);
--
--	ret = sb_issue_zeroout(inode->i_sb, pblk, len, GFP_NOFS);
-+	else
-+		ret = sb_issue_zeroout(inode->i_sb, pblk, len, GFP_NOFS);
- 	if (ret > 0)
- 		ret = 0;
+ 	if (!ip6_tnl_xmit_ctl(t, &t->parms.laddr, &t->parms.raddr))
+ 		goto tx_err;
+@@ -933,7 +948,13 @@ static netdev_tx_t ip6erspan_tunnel_xmit(struct sk_buff *skb,
+ 	__u32 mtu;
+ 	int nhoff;
  
-+	if (!ret && handle)
-+		ext4_fc_track_range(handle, inode, lblk, lblk + len - 1);
- 	return ret;
- }
+-	if (!pskb_inet_may_pull(skb))
++	/* skb_vlan_inet_prepare() below walks the VLAN tags from
++	 * skb->mac_len - VLAN_HLEN, or from ETH_HLEN if it is 0, to check
++	 * the length; a forwarded skb still has the mac_len of the device
++	 * it was received on.
++	 */
++	skb->mac_len = 0;
++	if (skb_vlan_inet_prepare(skb, false))
+ 		goto tx_err;
  
-@@ -657,8 +666,8 @@ int ext4_map_create_blocks(handle_t *handle, struct inode *inode,
- 	 */
- 	if (flags & EXT4_GET_BLOCKS_ZERO &&
- 	    map->m_flags & EXT4_MAP_MAPPED && map->m_flags & EXT4_MAP_NEW) {
--		err = ext4_issue_zeroout(inode, map->m_lblk, map->m_pblk,
--					 map->m_len);
-+		err = ext4_issue_zeroout(handle, inode, map->m_lblk,
-+					 map->m_pblk, map->m_len);
- 		if (err)
- 			return err;
- 	}
-
+ 	if (!ip6_tnl_xmit_ctl(t, &t->parms.laddr, &t->parms.raddr))
 -- 
-2.43.0
-
+2.47.3
 
