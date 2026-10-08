@@ -1,211 +1,208 @@
-Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-54.mta0.migadu.com [91.218.175.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E58377AB3;
-	Thu,  8 Oct 2026 03:26:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BBEE35677E
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 03:26:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791429980; cv=none; b=cGyvLw1H065iq6Jrwi4ZwJTWhWtYFB84Yr5H62HTHwXCoq5H3R2QqSAOXiTVbIVK1xZcesClgYKApkD5rmUoEO0zzoXs8B8CB02aMyTqx/uvHuw0bdBVURL9MnnG9urifHTkgiVS30HpFJsCGyhaCfsnzOR5MfpJLPa9oQGm4/Y=
+	t=1791430020; cv=none; b=bzpwG+cLQXQl2baFhyHNADeRhS7/MNiZwIrWQURdZRyxfPdRPjt30cg3nfkOEptL+4Ii7l8OBLnIBgAFyG7M6YYlUiHrekSWTGsT1hx90GEfFBjINvfLQ3vhyRzb/Z+anLFZ8sX3koFUcmEbofS3ojN6u0eT9499dlWcjR6sCzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791429980; c=relaxed/simple;
-	bh=4+bbyoJnbN9QhiVM+Tb8PRYGG1oYPqsaH6ubjdZ1VBg=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PuQPKITvNbC25SAD2m50k6BrBWUHTfHyaKOGIgM5f4yXbqcTTkGgBiw2W7YAKFb4OpkqOQX40OcQXCReS6JhMFwHIU1BbD08XlrMYBlClQPpzHRHfkXaKWr/DpCzphlisLGhXWSL2DLcxnE9al6dcx+pKIhN6t+8BHPig67VW0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=h-partners.com; dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b=EGoaobsK; arc=none smtp.client-ip=113.46.200.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=h-partners.com
+	s=arc-20240116; t=1791430020; c=relaxed/simple;
+	bh=gmfp3ivCG1+n0TaJLGaQX1ngoAFvegNr6FLCt8R7HoA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TVDt/ibpEKbLo2Oga9YWyP77XM8p7ZZ6sUG4bQCMJ/m5UDdLAt3h1fI6uPISAfXP2qS7I/Co9YGokbyvB9/Or69CPOsMIt9z+BpzNTLJuT4WcFprddHk/8nXtPy7AD9xHP8QYOBaPBKucCRqTRYHlrrrG6N4bYKLdpCFNp30Mwo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=sfRg+Kjg; arc=none smtp.client-ip=91.218.175.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b="EGoaobsK"
-dkim-signature: v=1; a=rsa-sha256; d=h-partners.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=q3nkRrMDKKUltWx8Cz8WPyoG6LCwsOLQCNiBO5EhMeI=;
-	b=EGoaobsKR1/SRoF+8bSOvf4s0zCo8E77YX7/lu3j6IqNpbUB8tNpobk1viKg+BgJw3yMbl6xi
-	Kr3huZoZIxfHCPLebar1dN0N03BXUhwRkPhTClXuq5xtdRoXmcD6141Yq2NDwZ7Gqc5lJmASilP
-	hztWTImWDpRjZPOA8sgmlN4=
-Received: from mail.maildlp.com (unknown [172.19.162.92])
-	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4j0ZpY4j3pznTVj;
-	Thu,  8 Oct 2026 11:14:13 +0800 (CST)
-Received: from kwepemp200002.china.huawei.com (unknown [7.202.194.160])
-	by mail.maildlp.com (Postfix) with ESMTPS id 89D2240586;
-	Thu,  8 Oct 2026 11:26:09 +0800 (CST)
-Received: from kwepemp500015.china.huawei.com (7.202.195.9) by
- kwepemp200002.china.huawei.com (7.202.194.160) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 8 Oct 2026 11:26:09 +0800
-Received: from localhost.localdomain (10.50.163.32) by
- kwepemp500015.china.huawei.com (7.202.195.9) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 8 Oct 2026 11:26:08 +0800
-From: Xingui Yang <yangxingui@huawei.com>
-To: <mkp@kernel.org>, <jejb@linux.ibm.com>, <john.garry@linux.dev>,
-	<yanaijie@huawei.com>
-CC: <linux-scsi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linuxarm@huawei.com>, <liuyonglong@huawei.com>, <kangfenglong@huawei.com>
-Subject: [PATCH v2 4/4] scsi: hisi_sas: Fix spinup failure for SAS SSP devices in Active_Wait state
-Date: Thu, 8 Oct 2026 11:26:05 +0800
-Message-ID: <20261008032605.2853026-5-yangxingui@huawei.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261008032605.2853026-1-yangxingui@huawei.com>
-References: <20261008032605.2853026-1-yangxingui@huawei.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="sfRg+Kjg"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=gmfp3ivCG1+n0TaJLGaQX1ngoAFvegNr6FLCt8R7HoA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791430015; v=1; x=1792034815;
+ b=sfRg+Kjg/eBrMvxARWsZKSW0GqYsZHeSrusj2Kk0BrTlDsimt1UC7y3YMMtdaI3474NOvFRO
+ zox+uJaSfyW1h13gOJ/+ndSgpu4aevbBKF5gbiLKAY/zvUNbeWPCK+GGgOw9uX9k3hoe7SlTPSD
+ v8Op7U01mzcGdG27M+cii8kI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 94fa78c7ea5d33cd;
+	Thu, 08 Oct 2026 03:26:54 +0000
+X-Mizu-Trace-ID: 94fa78c7ea5d33cd
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 8 Oct 2026 11:26:46 +0800
+From: Baoquan He <baoquan.he@linux.dev>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com,
+	chenhuacai@kernel.org, kernel@xen0n.name, maddy@linux.ibm.com,
+	mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org,
+	ritesh.list@gmail.com, sshegde@linux.ibm.com, tglx@kernel.org,
+	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
+	hpa@zytor.com, gregkh@linuxfoundation.org, rafael@kernel.org,
+	dakr@kernel.org, akpm@linux-foundation.org, rppt@kernel.org,
+	pasha.tatashin@soleen.com, pratyush@kernel.org,
+	ruirui.yang@linux.dev, leitao@debian.org, yeoreum.yun@arm.com,
+	sourabhjain@linux.ibm.com, robh@kernel.org, coxu@redhat.com,
+	kees@kernel.org, tangyouling@kylinos.cn, liukexin@kylinos.cn,
+	zhangtianyang@loongson.cn, guodongtai@kylinos.cn,
+	maqianga@uniontech.com, chao.gao@intel.com, kai.huang@intel.com,
+	vishal.l.verma@intel.com, seanjc@google.com, piliu@redhat.com,
+	thuth@redhat.com, jbouron@amazon.com, me@linux.beauty,
+	mclapinski@google.com, graf@amazon.com, bgwin@google.com,
+	hbathini@linux.ibm.com, eric.devolder@oracle.com,
+	takahiro.akashi@linaro.org, james.morse@arm.com,
+	palmer@rivosinc.com, x86@kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org,
+	driver-core@lists.linux.dev, kexec@lists.infradead.org
+Subject: Re: [PATCH v6 00/14] crash: Fix several bugs
+Message-ID: <ascNduTeakZBflVS@fedora>
+References: <20260921090450.807575-1-ruanjinjie@huawei.com>
+ <f4ba3a6b-537d-4328-b0c1-c0e5aa61924f@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- kwepemp500015.china.huawei.com (7.202.195.9)
+In-Reply-To: <f4ba3a6b-537d-4328-b0c1-c0e5aa61924f@huawei.com>
 
-SAS HDDs powered up with RNOT=1 wait in Active_Wait state for a
-NOTIFY(ENABLE SPINUP) primitive and keep returning NOT_READY with
-ASC/ASCQ 0x04/0x11, causing endless mid-layer retries and spinup
-failure.
+On 10/08/26 at 09:57am, Jinjie Ruan wrote:
+> 
+> 
+> 在 2026/9/21 17:04, Jinjie Ruan 写道:
+> > As Baoquan and Catalin suggested, this patch set fixes
+> > several pre-existing code issues found by Sashiko AI [1][2][3].
+> > 
+> > The major improvements and fixes included in this series are:
+> > - Fix several memory leaks for arm64, and similar issues on LoongArch.
+> > - Fix out-of-bounds write on 32-bit Highmem for x86.
+> > - Fix TOCTOU race in crash memory range collection.
+> 
+> Hi all,
+> 
+> Gentle ping.
+> 
+> Could anyone take a look or let me know if there's anything
+> else needed? I can rebase/resend if required.
 
-Parse the sense data in the slot completion path and, when
-LU_NOT_READY_NOTIFY_REQUIRED is returned by a directly-attached SSP
-device, queue work that sends the primitive from process context
-(sl_notify_ssp() contains msleep()). The work takes a runtime PM
-reference, pairing with pm_runtime_put_sync() in the work, so the
-controller stays resumed until the primitive is sent.
+They may need reviewing and ack from different arch. E.g patch 1,
+even though it's changed in kernel/kexec_core.c, the arm64 specific
+handling need be checked and confirmed by arm64 expert.
 
-Fixes: 60b4a5ee9034 ("scsi: hisi_sas: add v3 cq interrupt handler")
-Signed-off-by: Xingui Yang <yangxingui@huawei.com>
----
- drivers/scsi/hisi_sas/hisi_sas.h       |  3 ++
- drivers/scsi/hisi_sas/hisi_sas_main.c  | 42 ++++++++++++++++++++++++++
- drivers/scsi/hisi_sas/hisi_sas_v1_hw.c |  3 ++
- drivers/scsi/hisi_sas/hisi_sas_v2_hw.c |  3 ++
- drivers/scsi/hisi_sas/hisi_sas_v3_hw.c |  3 ++
- 5 files changed, 54 insertions(+)
+I can review changes in generic code and arch I am familiar with, while
+those part I am unfamiliar with need be reviewed by experts of specific
+area.
 
-diff --git a/drivers/scsi/hisi_sas/hisi_sas.h b/drivers/scsi/hisi_sas/hisi_sas.h
-index 1323ed8aa717..d48ba3747b81 100644
---- a/drivers/scsi/hisi_sas/hisi_sas.h
-+++ b/drivers/scsi/hisi_sas/hisi_sas.h
-@@ -163,6 +163,7 @@ enum hisi_sas_phy_event {
- 	HISI_PHYE_PHY_UP   = 0U,
- 	HISI_PHYE_LINK_RESET,
- 	HISI_PHYE_PHY_UP_PM,
-+	HISI_PHYE_SPINUP_NOTIFY,
- 	HISI_PHYES_NUM,
- };
- 
-@@ -689,4 +690,6 @@ extern void hisi_sas_sync_cqs(struct hisi_hba *hisi_hba);
- extern void hisi_sas_sync_poll_cqs(struct hisi_hba *hisi_hba);
- extern void hisi_sas_controller_reset_prepare(struct hisi_hba *hisi_hba);
- extern void hisi_sas_controller_reset_done(struct hisi_hba *hisi_hba);
-+extern void hisi_sas_spinup_notify(struct hisi_hba *hisi_hba,
-+				   struct sas_task *task);
- #endif
-diff --git a/drivers/scsi/hisi_sas/hisi_sas_main.c b/drivers/scsi/hisi_sas/hisi_sas_main.c
-index 944ce19ae2fc..f3b6bb510a71 100644
---- a/drivers/scsi/hisi_sas/hisi_sas_main.c
-+++ b/drivers/scsi/hisi_sas/hisi_sas_main.c
-@@ -996,10 +996,25 @@ static void hisi_sas_phyup_pm_work(struct work_struct *work)
- 	pm_runtime_put_sync(dev);
- }
- 
-+static void hisi_sas_spinup_notify_work(struct work_struct *work)
-+{
-+	struct hisi_sas_phy *phy =
-+		container_of(work, typeof(*phy), works[HISI_PHYE_SPINUP_NOTIFY]);
-+	struct hisi_hba *hisi_hba = phy->hisi_hba;
-+	struct device *dev = hisi_hba->dev;
-+	int phy_no = phy->sas_phy.id;
-+
-+	hisi_hba->hw->sl_notify_ssp(hisi_hba, phy_no);
-+	dev_info(dev, "spinup notify primitive on phy%d\n", phy_no);
-+
-+	pm_runtime_put_sync(dev);
-+}
-+
- static const work_func_t hisi_sas_phye_fns[HISI_PHYES_NUM] = {
- 	[HISI_PHYE_PHY_UP] = hisi_sas_phyup_work,
- 	[HISI_PHYE_LINK_RESET] = hisi_sas_linkreset_work,
- 	[HISI_PHYE_PHY_UP_PM] = hisi_sas_phyup_pm_work,
-+	[HISI_PHYE_SPINUP_NOTIFY] = hisi_sas_spinup_notify_work,
- };
- 
- bool hisi_sas_notify_phy_event(struct hisi_sas_phy *phy,
-@@ -1639,6 +1654,33 @@ void hisi_sas_controller_reset_done(struct hisi_hba *hisi_hba)
- }
- EXPORT_SYMBOL_GPL(hisi_sas_controller_reset_done);
- 
-+void hisi_sas_spinup_notify(struct hisi_hba *hisi_hba,
-+			    struct sas_task *task)
-+{
-+	struct task_status_struct *ts = &task->task_status;
-+	struct domain_device *dev = task->dev;
-+	struct scsi_sense_hdr sshdr;
-+	struct sas_phy *local_phy;
-+	struct hisi_sas_phy *phy;
-+
-+	if (!scsi_normalize_sense(ts->buf, ts->buf_valid_size, &sshdr))
-+		return;
-+
-+	if (sshdr.sense_key != NOT_READY ||
-+	    sshdr.sense_code != LU_NOT_READY_NOTIFY_REQUIRED)
-+		return;
-+
-+	local_phy = sas_get_local_phy(dev);
-+	phy = &hisi_hba->phy[local_phy->number];
-+
-+	pm_runtime_get_noresume(hisi_hba->dev);
-+	if (!hisi_sas_notify_phy_event(phy, HISI_PHYE_SPINUP_NOTIFY))
-+		pm_runtime_put(hisi_hba->dev);
-+
-+	sas_put_local_phy(local_phy);
-+}
-+EXPORT_SYMBOL_GPL(hisi_sas_spinup_notify);
-+
- static int hisi_sas_controller_prereset(struct hisi_hba *hisi_hba)
- {
- 	if (!hisi_hba->hw->soft_reset)
-diff --git a/drivers/scsi/hisi_sas/hisi_sas_v1_hw.c b/drivers/scsi/hisi_sas/hisi_sas_v1_hw.c
-index fa94d7110714..9d89db6e8716 100644
---- a/drivers/scsi/hisi_sas/hisi_sas_v1_hw.c
-+++ b/drivers/scsi/hisi_sas/hisi_sas_v1_hw.c
-@@ -1272,6 +1272,9 @@ static void slot_complete_v1_hw(struct hisi_hba *hisi_hba,
- 				&status_buffer->iu[0];
- 
- 		sas_ssp_task_response(dev, task, iu);
-+		if (ts->stat == SAS_SAM_STAT_CHECK_CONDITION &&
-+		    !dev_parent_is_expander(device))
-+			hisi_sas_spinup_notify(hisi_hba, task);
- 		break;
- 	}
- 	case SAS_PROTOCOL_SMP:
-diff --git a/drivers/scsi/hisi_sas/hisi_sas_v2_hw.c b/drivers/scsi/hisi_sas/hisi_sas_v2_hw.c
-index f3516a0611dd..dd48626db196 100644
---- a/drivers/scsi/hisi_sas/hisi_sas_v2_hw.c
-+++ b/drivers/scsi/hisi_sas/hisi_sas_v2_hw.c
-@@ -2427,6 +2427,9 @@ static void slot_complete_v2_hw(struct hisi_hba *hisi_hba,
- 				&status_buffer->iu[0];
- 
- 		sas_ssp_task_response(dev, task, iu);
-+		if (ts->stat == SAS_SAM_STAT_CHECK_CONDITION &&
-+		    !dev_parent_is_expander(device))
-+			hisi_sas_spinup_notify(hisi_hba, task);
- 		break;
- 	}
- 	case SAS_PROTOCOL_SMP:
-diff --git a/drivers/scsi/hisi_sas/hisi_sas_v3_hw.c b/drivers/scsi/hisi_sas/hisi_sas_v3_hw.c
-index a2011d77915b..95f79bac3dbe 100644
---- a/drivers/scsi/hisi_sas/hisi_sas_v3_hw.c
-+++ b/drivers/scsi/hisi_sas/hisi_sas_v3_hw.c
-@@ -2445,6 +2445,9 @@ static void slot_complete_v3_hw(struct hisi_hba *hisi_hba,
- 			sizeof(struct hisi_sas_err_record);
- 
- 		sas_ssp_task_response(dev, task, iu);
-+		if (ts->stat == SAS_SAM_STAT_CHECK_CONDITION &&
-+		    !dev_parent_is_expander(device))
-+			hisi_sas_spinup_notify(hisi_hba, task);
- 		break;
- 	}
- 	case SAS_PROTOCOL_SMP: {
--- 
-2.43.0
-
+> 
+> > 
+> > This patch set is rebased on v7.3-rc3. Compared to the previous version,
+> > split out arm64 crash hotplug patches as Breno suggested, which are based
+> > on these bugfix patches and will be resubmitted after this patch series
+> > is merged.
+> > 
+> > Slightly tested on x86_64 and arm64 qemu with:
+> > - kexec_load (--kexec-syscall --hotplug)
+> > - kexec_load (--kexec-file-syscall)
+> > 
+> > All boot successfully into the second kernel.
+> > 
+> > [1]: https://lore.kernel.org/all/20260601094805.2928614-1-ruanjinjie@huawei.com/
+> > [2]: https://sashiko.dev/#/patchset/20260729031235.2840255-1-ruanjinjie%40huawei.com
+> > [3]: https://sashiko.dev/#/patchset/20260907125404.922123-1-ruanjinjie%40huawei.com
+> > 
+> > Changes in v6:
+> > - Split out arm64 crash hotplug patches as Breno suggested.
+> > - Remove unused elfcorehdr_updated [4].
+> > - Make the patch split more clear.
+> > - Link to v5: https://lore.kernel.org/all/20260918100442.3841135-1-ruanjinjie@huawei.com/
+> > 
+> > [4]: https://sashiko.dev/#/patchset/20260907125404.922123-1-ruanjinjie%40huawei.com
+> > 
+> > Changs in v5:
+> > - Rebased on v7.3-rc3.
+> > - Fix several pre-existing code issues reported by Sashiko AI review. [3]
+> > - Add an extra slot for memory hot-unplug.
+> > - Add device_hotplug_lock_assert_held() helper.
+> > - Rework to let the hotplug paths to skip CPU events entirely, which avoid
+> >   the TOCTOU race of memory hotplug events and internal CPU offline path
+> >   without holding device_hotplug_lock.
+> > - Link to v4: https://lore.kernel.org/all/20260907125404.922123-1-ruanjinjie@huawei.com/
+> > 
+> > Changes in v4:
+> > - Rebased on v7.3-rc1.
+> > - Update the kexec_core code as Mike suggested.
+> > - Update the LoongArch subject as Huacai suggested.
+> > - Drop crash_dump_dm_crypt patch which will be fixed by Coiby in [4] as
+> >   Sourabh suggested.
+> > - Drop x86 related patches because of branch conflict, which will
+> >   be done later.
+> > - Drop the incorrect CRASH_MAX_MEMORY_RANGES patch.
+> > - Handle elfcorehdr_index in arm64 arch code.
+> > - Link to v3: https://lore.kernel.org/all/20260826092541.3905933-1-ruanjinjie@huawei.com/
+> > 
+> > [4] https://lore.kernel.org/all/20260828084900.1496839-2-coiby.xu@gmail.com/
+> > 
+> > Changes in v3:
+> > - Handle "KEXEC_CRASH_HP_REMOVE_MEMORY" action.
+> > - Fix several pre-existing code issues reported by Sashiko AI review [3].
+> > - Introduce crash_extra_elfcorehdr_size() and elf64_phdr_size() helper.
+> > - Rework related crash and arch code.
+> > - Add test method.
+> > - v2: https://lore.kernel.org/all/20260729031235.2840255-1-ruanjinjie@huawei.com/
+> > 
+> > Changes in v2:
+> > - Split out Powerpc bugfix patch as Mike suggested.
+> > - Use phys_to_virt() instead of __va() in update_crash_elfcorehdr().
+> > - Convert pnum_hdr_sz() to a function.
+> > - Only assign elfcorehdr_index after kexec_add_buffer succeeds, considering
+> >   crash_handle_hotplug_event() already performs validity check on
+> >   elfcorehdr_index:
+> >   - We can safely remove the check for CPU hotplug
+> >     in arch_crash_handle_hotplug_event().
+> >   - The elfcorehdr_index's segment mem will be valid in
+> >     update_crash_elfcorehdr(), so we can safely remove the NULL check.
+> > - Simplify the commit message.
+> > - v1: https://lore.kernel.org/all/20260723131242.1537633-1-ruanjinjie@huawei.com/#t
+> > 
+> > Jinjie Ruan (14):
+> >   kexec: Fix CMA segment address translation with non-zero text_offset
+> >   kexec: Record allocated CMA pages to fix release size mismatch
+> >   kexec: Extract kexec_free_segment_cma() from kimage_free_cma()
+> >   arm64: kexec_file: Fix CMA page leaks in segment placement retry loops
+> >   arm64: kexec_file: Fix elf_headers memory leak in retry loop
+> >   LoongArch: kexec_file: Fix CMA page leaks in segment placement retry
+> >     loops
+> >   LoongArch: kexec_file: Fix elf_headers memory leak in retry loop
+> >   LoongArch: kexec_file: Fix a modified_cmdline leak
+> >   x86/crash: Fix massive out-of-bounds write on 32-bit Highmem
+> >   crash: Extract crash_get_memory_ranges() helper
+> >   crash: Factor out crash_find_elfcorehdr() helper
+> >   crash: Normalize the kexec_load elfcorehdr at load time
+> >   driver core: Add device_hotplug_lock_assert_held() helper
+> >   crash: Fix TOCTOU race in crash memory range collection
+> > 
+> >  arch/arm64/kernel/kexec_image.c            |   1 +
+> >  arch/arm64/kernel/machine_kexec_file.c     |   9 +-
+> >  arch/loongarch/kernel/kexec_efi.c          |   1 +
+> >  arch/loongarch/kernel/machine_kexec.c      |   2 +
+> >  arch/loongarch/kernel/machine_kexec_file.c |  10 +-
+> >  arch/powerpc/kexec/crash.c                 |   1 +
+> >  arch/x86/kernel/crash.c                    |  40 +++++---
+> >  drivers/base/core.c                        |   5 +
+> >  include/linux/crash_core.h                 |   2 +
+> >  include/linux/device.h                     |   1 +
+> >  include/linux/kexec.h                      |   4 +-
+> >  kernel/crash_core.c                        | 114 +++++++++++++++++----
+> >  kernel/kexec.c                             |   4 +
+> >  kernel/kexec_core.c                        |  43 +++++---
+> >  kernel/kexec_file.c                        |  13 ++-
+> >  15 files changed, 192 insertions(+), 58 deletions(-)
+> > 
+> 
+> -- 
+> Best regards,
+> Jinjie
+> 
