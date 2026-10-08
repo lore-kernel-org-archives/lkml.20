@@ -1,46 +1,47 @@
 Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010004.outbound.protection.outlook.com [52.101.201.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D7F8439328;
-	Thu,  8 Oct 2026 08:10:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2FBF447811;
+	Thu,  8 Oct 2026 08:10:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.4
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791447036; cv=fail; b=s6JTOGQT26g42Zc5MEQmPAToGHz1Buvwf7S18zCalCHIqEG3S/GnwEI/2OSDujJrN2x4s1+sxvNNJS8pTTFfJhtuiBA51Oq0ig4IeSliEd3QMhQTDFRXm2xk+xZcM9OtgaF5JieigGbOdHu+/KCFgkw9apq8HznfkE+sdFl97MA=
+	t=1791447039; cv=fail; b=HcNNhZnLT0n58MPUxvQ0GQw0WWemG62xShw3y02ca4zRHwMdpWb34RmlYwVfdPoNYNlEiqvt7Akc72GfEK3oImqL0CtvYMobulKqQmcR2QWI8wpkNCK4LWla23XuuFM8LPl9to6e4T5mmrZfzLK9dfLVHc2CMzOLcSjksT1jidc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791447036; c=relaxed/simple;
-	bh=gGb5H2ZlMwfo96zog9CeX753vUd8MHRydOSkEmc//6Y=;
-	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=L13iV+NQmPHBfaazmWU4KjdP2SW0TFrSOs6OG2nlX6UldZSuMDUb96wCqXtK768ix20eBDHO14WJLBMBMmfWYVONtFxXfl6P65McMDwYbBAD1DDSbwceu8+1i4P1uMRRv/C3jS5FRaRhDq1mb5wX/QtD+eZebBGxziuAWN8G3kg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=aTFNrGhX; arc=fail smtp.client-ip=52.101.201.4
+	s=arc-20240116; t=1791447039; c=relaxed/simple;
+	bh=vY/RZ5WMPEKSUuX1cqguaCN0tIr4loO6/K2oi4bHzsc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=YxSKV4LqYjEI5bwV2v0w2GXOAD/XVjPWbZTH/jbPtK6y/M05sOghzDlq/aOhLLEPCrnkEvnBOJdPitgiKaUihzwemiJ2F2DoBGDhYNGWSGRgRHBFX5BfQxCkAPZdga3Aznc+yEzM/CaNWNwV645MM1tqFFXCdtMlbZaWtVyxwhs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=HVL3Dqqp; arc=fail smtp.client-ip=52.101.201.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="aTFNrGhX"
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="HVL3Dqqp"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AcAoWZyRYLoqfAkrLOMZA6QDE9oOAJOOHGTemZ8H6dGiZHu6FSIsAtvHwwe4IyyCeMJnYabErzRyWejqBcrGM6sOC2mF5aHDTM45uAyfHn7X+EjJT1rN913IVot1543N/x3Ig4KQJ0T6We00swi05I8Nt5+mCgiasNUNluQxscGkZkJtbytphazlVFnCyaPaxTiiBuOiNNu0Au8lbuJCL9Pl4yTEgHuVCVx3FGO65ki05pDsOLwlWRy0U5X6TcTBRjxG/bbR9JQ2VcYAc5onxCn7TYSFFdeovwV+kOoGcRp68pTSy9wgZpb9xjTB6DpnBeZYCJIPBPx1Suj4EweCNA==
+ b=WV/lmlDz8pvc2tnkHUwBuMnyEbiTUZv09BzE78ijwurwVCn1HFXQp4bEwU2g57K3uE7WVyE8VSPvg5C8U9d/r2wcSTJGMzLpOSAdOSTNkD185evR8cThd2cCAkuoQAxCh3uLyY2Haz1tJjzsvM+mMe+eQflcvqkzt4u3fIXPr+YlIhvhqG6URSxz50e1R21VfhIoE2pJrBxIV4abFrRroXAEXDjBUdutmyCQLOvZQZTN3io1Lkz+Uj5tjjCg5dM6ZvY1RWaMw7GGUHyL5EAWIEHkNCuqqpy9Ona8/aOaOx6AezQKqtw2biO5aVicgjPljHLegSQ8PgemD9Bf3gOeVg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jYV44y2kft9rdGvnePe7TKVl4NxVtnaz/k9NEy2T1a0=;
- b=P/A65bkNqjYDlLbUjUr2z6RbP+WUDos4CzY6vRmDR5EG95hBC8qpzSlh4SFavR0i+3sFqmri8RnVDw26Y2xz0FmoFMxqQMHEKTS+UwEG/Pe8BG5vjt+X74p01aXF5WJWA/5zim5MMEJWtRxEGIj0nXu+bGAX4zlxvMoWpa+mydkgT8LhEKF//TGjDeW6yOOdARzYt5z5+QHH/j5odtimO5yfX1ic67h8DZrvfAPNC6RI3s9j/lFtQI4qVZPmbM0aO47w/Rna02m5c+41E5j9rdGqPpV5dk4JoCSDApFtsvutm5+lR/5G8U4+dnlT+QcRXPLJefICK1iN+j6UiycVjg==
+ bh=kW2kgoyCLRsJ2ykllmu3RS1dKnIrvATQutM7/d7bxis=;
+ b=APTkyukw4UrdMS+bL8+HN+Fg5Io6sdtALtU0Suh7Sq2bcT3Qw/C54oXl40J1jgu4wXC1gA1e9UvBhMCPWwCvax2m7GdnKLuO3fqlwj1SWW8KZqnED76LNQY47ac9Ztwt6BiIQivslFG0qAuU/DgF9FBDIgnyfktJMvqgYwIjfP6HT7xrBqfPg/k5BN0u9XFM/lt1z68Dis30FrR8aCFkueQILQWbg32PuJZx9Acbv9Iqxd+Suf+mjAUtrsGpzHRqNnlrIqKVkSZdRGyLXGyWspLsl+Gz6Pg4dpx9lcLBUOSgVJy1KUfd2jX8SImjIKliK6TGcLVCkCINHw5aPDJbNg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
  dkim=pass header.d=altera.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jYV44y2kft9rdGvnePe7TKVl4NxVtnaz/k9NEy2T1a0=;
- b=aTFNrGhXH2fDFnjsh9/XzkmZQuQs9FJPUYgrSwNnb93E5Pui/2f3AkRvqi2MR3Bl2UJdq9LgSS7+OfNIjBfg29f22C96Flx/IMgUgpVAjJbK7WyL1ajhHzQfXsbZfI2aLOA6qNJG8iulQZDGRH3DPXignlZJhCVnGQZQGF7HlNgm7CuFzF5xltj4CDNulo0jLq8G/iDw5Z1/6dyeTBP9xmeaAJs/zhLcVgJUXEzwHWlEVtUdJYJ3UxzTLsucQZyzRYkU34KUU4pR74TnT2Gvn7VwOyA8vuPAgw1ekw3A3UoFA9ImPD6fTKJMqIq4feiv0PWDmaR6uRt6pmmGCHKF7w==
+ bh=kW2kgoyCLRsJ2ykllmu3RS1dKnIrvATQutM7/d7bxis=;
+ b=HVL3DqqpjjgSs4dc1WhN9do52IhzvMVwTB1AGg67iA4HgRTqv1oNaO0MWGPD+NuOV6LX/bsJr5yZ3huoezptGGz7b5mGXJ6ttvcFlNwhW+NaTE8grbEvVwaQAFYX1YuoxXB7Iv8Wnr8rll4Ek9/Ula0ofDKKUWrFInTtYrEpD+506UwZJVvTmLS2banu6yVcZkkyBbezqPbNVXpPmK22cYUobfKJj3iryXqAMiq9zD0P+q4MYWACWkesB2RxpFjeS78dAkLmebarNZGAYmmNjn1deka5t84+vQiJbDTKxqauxFBiNZPZ+ZMfeQS0kPs2zBUcRUKRnppsl8Qdsmrnyg==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=altera.com;
 Received: from LV8PR03MB7398.namprd03.prod.outlook.com (2603:10b6:408:18f::13)
  by CH4PR03MB7745.namprd03.prod.outlook.com (2603:10b6:610:243::22) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Thu, 8 Oct
- 2026 08:10:22 +0000
+ 2026 08:10:27 +0000
 Received: from LV8PR03MB7398.namprd03.prod.outlook.com
  ([fe80::9d6:b5c1:7f72:e982]) by LV8PR03MB7398.namprd03.prod.outlook.com
  ([fe80::9d6:b5c1:7f72:e982%4]) with mapi id 15.21.0496.015; Thu, 8 Oct 2026
- 08:10:22 +0000
+ 08:10:27 +0000
 From: genevieve.chan@altera.com
 To: Dinh Nguyen <dinguyen@kernel.org>,
 	Rob Herring <robh@kernel.org>,
@@ -48,10 +49,12 @@ To: Dinh Nguyen <dinguyen@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>
 Cc: devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 0/2] arm64: dts: socfpga: agilex: add SoCDK multi-QSPI board
-Date: Thu,  8 Oct 2026 16:10:12 +0800
-Message-Id: <20261008081014.35006-1-genevieve.chan@altera.com>
+Subject: [PATCH v3 2/2] arm64: dts: socfpga: agilex: add SoCDK multi-QSPI board
+Date: Thu,  8 Oct 2026 16:10:14 +0800
+Message-Id: <20261008081014.35006-3-genevieve.chan@altera.com>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20261008081014.35006-1-genevieve.chan@altera.com>
+References: <20261008081014.35006-1-genevieve.chan@altera.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-ClientProxiedBy: SI3PR01CA0008.apcprd01.prod.exchangelabs.com
@@ -65,103 +68,317 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: LV8PR03MB7398:EE_|CH4PR03MB7745:EE_
-X-MS-Office365-Filtering-Correlation-Id: 708a203e-e56a-4025-6a51-08df2513999f
+X-MS-Office365-Filtering-Correlation-Id: f98d65a5-5de5-48a9-8029-08df25139c7a
 X-MS-Exchange-AtpMessageProperties: SA
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|56012099006|11063799006|10067099003|18002099003|55112099003;
+	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|56012099006|11063799006|10067099003|18002099003|55112099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	21kdeEn1HIQ7DiOrdtA4xxzk+QCc3vsPAzEjIQZRCMH2H7WHvcay2xXCDo6XQfVmP8FGtd0pB7036MjIQfCFvvYTwKVfE12x5HskrQpdgnsGmuJe5k0FDfUwEYdmcG5TeJA5uiTTSYGKHcxjOOX93Ay5zepRtkjUMWh/am5uHXQ/l7rJWVAEYeyaEt3zPsu1w869meBXJN7uToFfvSvbCkuSaMdisX6DCErICm66s0r0zHIcvc3m+GP0mlNvgoaOr7cj+LxZWCgLjbtKbQOgo6dZtxsdPcy+ahWetKmEdBTcf0MobhX19Mq5mKJ5LdcBYM/5DgGfapjtf6uKO2aZoJ7vl8k1VEuLkAyxMOfp6D5UEt2Vlq4Wm+mg5A0Ro9pFas8yzWBuOmF0he++a65CU2HFerE91vGx2psJTcyVQIueDfxQvlax/bhzWpIS6WhScj/lyCQlw+S44TWAQwZneHCxbR5gR0ZxJtrS37Qr6mERqWAhvczzeBt/KeAHI3+qJLroCzHSCcPTfEf0FSTCl8mRlu2f6wVRnGVXlgMq/l3EYkpJ1fHYU1NgjT2g2duj6Gbfo80U1s71rx5dXQnQPyzAG7Y6zEAVue0AYkVCFps1DJog0JkF4S/hD1A8PP5kOA5ti4jf1vkD5Dh2SqdxyN+l4vWYEEfB0ZE/c3Hly30=
+	+mXe/nQCoIsDp56ZbcmnTF9QLEKsMcuAkIPZgT/0gK9c5RtZVCY2KGoD2QVE/U0+hdAV9KS4EzQCpYDxEPNtwdgqH6j52Kk//Z3zrnqWwTMZcBTMZYJPR1a7WB7WBqMOBv93AItR7LGOHoRBfUT1J/N+31gYIgEtWP0Z9mr4pTDkgthh3GnfikR6Rl1pd8X4kc9M8SjiwyYhMcrEE+T2dHRKvyR6DpW5PM9wSwUYFkeqSoAAXNRNGa0Hyg4uBp8Hnb/KdGvNkJDnYFvFssf7+LRPY/k1S6FQi/8F/z+MWDOvhVwmpxnojTg7gIfT3oSKKRhfEgutM4qg7jfJ/UeWKSTg8yNcwc2S8mT7OuXGrqI+wbv7m7d2hZa+EmF1c2D7GcMhkpW0NJqE3B88WtePKR0cc0YUvf7AVzmTB2nWGP8RAc7jDStalhiw14tZbQyFg2tFyFFX1kSREYLV08nD0kgpqNjcqFZmC/pbu2ku2pTECTqSGuh1LAdMG1oetNUq+DR11QNf810aTKV2I4AfTqWT1GqUHMBszx+KYanXGzh5WOsZ6PH+ag3DquooLJOUpAIAEmhX4t8kJeRHtIrcYz44kk7qap+lri6eJl7uUPZ4bpRv9SP00Qqxguh4DAA3njVV8u8my4LMA3bEJtJxVOzK8qqCk3oX1wt5r0Z3w5E=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR03MB7398.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(56012099006)(11063799006)(10067099003)(18002099003)(55112099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR03MB7398.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(56012099006)(11063799006)(10067099003)(18002099003)(55112099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?RdwVXF3OWik7+ZFWvvkWnZM0m99oAH4DCCeSbVuYtcNZdOf8NwupxF/KjpWT?=
- =?us-ascii?Q?AP1SoxY7zoUEXiznZpdkm46t3S+XvRkCau0p5eoeWd/rom7n9oYyxN8QCq+C?=
- =?us-ascii?Q?Xq92qrfTCMeTT/qgLFK03dHwApXPjl4dd8RfyyQn/emGhmi4XhTi0NUyoyr7?=
- =?us-ascii?Q?6JK5wjkIgNU9c4yT/ftHqmILL0JmFs3yclNTDspPMbS+Da3FZAA7wYxnac5+?=
- =?us-ascii?Q?BHJYbPsxzSEs5X2kYGMOosIr7iNrkWf4NhDcQ4ElNtUtrXM52i0mQBN+weeD?=
- =?us-ascii?Q?MgY25D1LQTpUJHPi7fd5AIC5i2QvFyZD8JD5fWwdH8VY9LmEE+QI9WXfSdd7?=
- =?us-ascii?Q?bJrIdiCoKsx5TiN9rNXUzisdUEVN4biC1UdkFi1lxDFPko+Zyn7iotGTG3UC?=
- =?us-ascii?Q?eLd5xf70Rz8JbSdPYCyOp0XACG5XF3QexfHFyeQy8WbPeSTQ4OymtbAySSLV?=
- =?us-ascii?Q?oMnMAB49UqsAlrcU1/n21idJUfiNc8IQe2VJzL0Y0JMCUKFC48bIk65U/L4y?=
- =?us-ascii?Q?TWfoyvgckhOWcIIjF85w3RVxu9r8S3B4SHJaR6UWBvioxtj/cjLT3s60ICWE?=
- =?us-ascii?Q?FJ8gTD4YDkRQB2q2UvtD6/39dblT4EeaO920PZrUgUi4JuK4qC1TH12BKIaN?=
- =?us-ascii?Q?d5HkH50atZERd6jyRC4KBDMGZDXjwOBgPW+w8+3e9eKPr8KudHkXOD9VprO6?=
- =?us-ascii?Q?ubsMQpllnB5zkHnUNW8Mr/9q/E1lfHztTjy833jJFbqPctCui3NcIqUPEwFs?=
- =?us-ascii?Q?UwHLkwH95B8fy/zGGePfO1DIWaN7KDDuszsWTkZnwTBVqVbJFUR9sSp9HwUy?=
- =?us-ascii?Q?Ej/SA5YY9DFQn6yAR4P2rQmfGsMPQBIIl+UBOovuBXOOjq79ni+DOTGM5k2w?=
- =?us-ascii?Q?UMc1YpdSKNF88fzKLv3HxO1alhW3okWCI0wbTePFubWOwd4Z5GBncu4pTK5z?=
- =?us-ascii?Q?Mccomm8D4X14d8II+4f3rSNGuD/ME+m09rYekx/Xi/6seMiqA47wsIRrT6dF?=
- =?us-ascii?Q?lQgh6xDLqY8rMJrTXdQ/i3PnWSNoi9jChXrdK0kmJFK/TYpbdLjn8pA700OS?=
- =?us-ascii?Q?agGsN8Mb40PwXvT65E2Id0IiyIMhh7KR6Of24Drny7VmWoC0PRD0g5rzfpl1?=
- =?us-ascii?Q?iGS/S1tJEHiWx/BDg5QW1ed0H3Z13zAb4FFzYpNPjXNbBl8MDK8NzUc14epJ?=
- =?us-ascii?Q?u7ey7z1+cH6+uObFyd+wQ/tgFY5HvF07oi1blQlWKEhWxSuiKYprgbseY0bl?=
- =?us-ascii?Q?+astWUNcFe81yFp8Oc/Vg4snsiwlEcyYk6KK1daBnsX1j56ekt7RkGMZigoh?=
- =?us-ascii?Q?qwpy+j1saZnuY2a7VI4fdaPC4Vd/WqZmGfQUIb72zAqY1JXrdNusN7hELlzy?=
- =?us-ascii?Q?cTzOBQLz6TJfPPSYDlgRdH0ZoQ6yT/yrOcFUiGI3d5/9/dulkTCcHr6XULqn?=
- =?us-ascii?Q?GlB0g8MlJAymlvAjItj0cf+DWGXofmAzaEOjlXqtMCn0xAL2OGcmC15rsq7L?=
- =?us-ascii?Q?6ztH/QGQneoolDl420m1nncfj9+QEbkv8tF9gwdEUPW7t+IABmR81aZ89dFH?=
- =?us-ascii?Q?hdNZw1dA/QM6U2dGFObSEmluOf2TUUFmdG3VgV7eXdHjStxlhSnhtmDiN9pJ?=
- =?us-ascii?Q?WwpJgrwkXDo/gDBo/SlGSDB/beXkVARZu+n4y5L9r9RdE3jnOQgZuBPznH/5?=
- =?us-ascii?Q?SDvn/P87A4Xj13OJVenEobAoutsqECozpxqq67szCZIoqTiwx4Ap4xgVvqJT?=
- =?us-ascii?Q?ii6ooOYg5xgkxdx3XUzJbp9BhIqocn4=3D?=
+	=?us-ascii?Q?Aws3/7fIrUaDsGRer8G4V17v010kPM6rMk3ogJ0KTH1YlHVm0x3ZZA9Ptguo?=
+ =?us-ascii?Q?azbfEj28gzA1AdLsYd2jPbpCw+jfO0TAjx+3axXfc11jUAJILKbw/MqNj582?=
+ =?us-ascii?Q?QcOQPH4K/xRWVXc6TV7p0UY8MfyIG5TyBZ/t4V9kYxGO3m2PE1THZY2oCKt0?=
+ =?us-ascii?Q?7tYWZXUHgmlkurdHn8PLI+hzvmt6biLgrtsX3EFRYIFajI0/89dZf4EhJ31v?=
+ =?us-ascii?Q?IQfpwU2ZzbcKUcUG7bnHLwH1dv9rQPFcPqVCCAoQ9C1e+kcIaQ4Huvf97DNB?=
+ =?us-ascii?Q?Py8kKEUIsj+zElu0vGqz8I5zAkUzIrT12ZB9EST2dpMJkoR2OHlwiWwhtusg?=
+ =?us-ascii?Q?J6fUvu7HYDt7xedHr4Gylb72EfOcUhIBCanY1QMImE5n3wSf6TxgcFeGTUwm?=
+ =?us-ascii?Q?8bnQKiDP/7w9kmfB1aIk2D1yGJ2k3k9L5Tb/+5uf8ph8Ac9Xgz9rMTLNK56X?=
+ =?us-ascii?Q?gSzShnGNDe1F/nRYnVwbKTLrtOh8jIeZnf8t/RjXv0AP/4t1e5bceQzBkP9k?=
+ =?us-ascii?Q?9Clgv8EoTUdT2bvn9adb+xwZpg7HJyGAqK6oWMOglU8beJxXRoZIMRLlzHDa?=
+ =?us-ascii?Q?Ibj/KIe63DTvA8u3/BQR2IBKf8YqNvLQQcBd0U0HMKo5t+zlq7B3MilQ5/rw?=
+ =?us-ascii?Q?duwNscqAAs0lKCDBc9v7ikkKqC3H1UCc0j3OsuugTURfKfrWi2e0S3NIdHKL?=
+ =?us-ascii?Q?Rc7ZZ2z7cHugQpqrJV187mXnwdGJPSTfAqAZ7p9fCym4zDWO83zjW/MLow4u?=
+ =?us-ascii?Q?6Um4pvl9OR0RaKgLChGwu4YhCPIz6Ly9dtH4uJZhgkm8u+S4Cw3tAW4onZdd?=
+ =?us-ascii?Q?+PZMk4Msp29xZh/9y/KnxrH5CX+7CVF44EI+LnqoUbPaUm9qQsX2+Hd5vNcx?=
+ =?us-ascii?Q?xw1m3MXcESwqraq+5sr/BLvvpmhfl+9qXo38cwwn09RDzO7zRf+h1Mi8QIBk?=
+ =?us-ascii?Q?dm4lAp0qIa7mPM3oZgwBPbh/e04P0MCb7rOs/4ni3GBI6tWQKCbcUtB3SbqK?=
+ =?us-ascii?Q?XBaLc88RJGHjjML7bMlUV6QaRmN3AKiiyQjGtkzmE3RBJC6pONqDMx3KOChe?=
+ =?us-ascii?Q?RBsdHPZu6QnuSG8YfI61kTZQsnxdYddAnx27Ps/MwQdO0qrFacogW8LiODVx?=
+ =?us-ascii?Q?dTF8Vw3V44MBqSfsgv436WfMZX8+fPaR9tcWNu8qd0H67aY7/puJPwNq/Vq4?=
+ =?us-ascii?Q?6DRz/WNiKdI1w1QwJWboaXilVZmUGIop1UHOdRE2feUcM/XNExHM6ux44up+?=
+ =?us-ascii?Q?rPu4SyBB8XaJHk7f1oCDEKtc29r/ic6qNiP0xTMzFAp0ZIM2/S8MBNSRuNPk?=
+ =?us-ascii?Q?e0BCJDQg8V89k62w/LnKo456XJw0T4ASKFdRZh+c3jDF5/NiMUfiU6P+uGfA?=
+ =?us-ascii?Q?h+nZkm9CDxHY0DwD2M3Uw6okh8CPPal3aLU8B/DIQqxaGKVzizPlleiqYEBa?=
+ =?us-ascii?Q?sIO4qk92EZ8sTPOsXFDSonlw6MwE/ufWBchd1WjA5vwBhQtvcvXYKEM/3jtL?=
+ =?us-ascii?Q?V1xKnsKb7bukHNuu9Z3bnX6pwdXZ2HpKlIHaAJI5I8z+ti57UVXnMPaE0SCz?=
+ =?us-ascii?Q?4CnQXjoTIaPwvs+D8QbbT8+/bmz6jBbPgx1408z0ZKDQXK6rLEWkhJQ2gwem?=
+ =?us-ascii?Q?cSvLth68V89PelabBeTaa/ePgQAfGfWoLIcGz5jkjcH6RKEogMaSdMI21uct?=
+ =?us-ascii?Q?r3DWhc1IqFKHKVTYU1U7TBc/MY+5cQKFr3kFP7o3njeMsWvcghqbSjpCHH/g?=
+ =?us-ascii?Q?mf3LigzOlb7mCJQ+GNsAo7IFhZ7o+Cc=3D?=
 X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 708a203e-e56a-4025-6a51-08df2513999f
+X-MS-Exchange-CrossTenant-Network-Message-Id: f98d65a5-5de5-48a9-8029-08df25139c7a
 X-MS-Exchange-CrossTenant-AuthSource: LV8PR03MB7398.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 08:10:22.3875
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 08:10:27.0714
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NL+4ULzl4BHhsFjU/mPZVpVeULngCdsE1tsOK10YBOub8Zijy/vUlRazi/St/Kl05QgxwvAkuDZRQTD++n2FPVEWZhxS8znuJufE0gSp7Vk=
+X-MS-Exchange-CrossTenant-UserPrincipalName: iYwG0RwbgX0LPYT2VUZ2lheEiQYb9qizV+G1QoC7r5z1BPET7nnU9Lf51zFrW/5khSpAUDPleU1uxtq4NtyqqCvxU8IYC1eLNCd8UcHmpkI=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR03MB7745
 
 From: Genevieve Chan <genevieve.chan@altera.com>
 
-The Agilex SoCDK is populated with a single QSPI flash by default. A
-multi-QSPI daughter board can be fitted in its place. That board connects
-four Micron MT25QU02G devices (256 MiB each, 1 GiB total) to the HPS
-QSPI controller on chip selects 0-3. Each device is one "Boot and fpga
-data" partition covering the whole flash, and is described in quad mode
-at 25 MHz.
+Add a device tree for the Agilex SoCDK fitted with the multi-QSPI
+daughter board. The daughter board replaces the single QSPI flash of
+the default SoCDK with four Micron MT25QU02G flashes on chip selects
+0-3, which allows the system to use up to 1 GiB of QSPI storage.
 
-This is a board-level population difference, in the same way the
-existing SoCDK eMMC and NAND variants differ from the default SoCDK.
-The HPS is the Agilex SoC, later marketed as Agilex 7 F-Series. The
-programming model is unchanged, so the board falls back to
-"intel,socfpga-agilex" and does not add an F-Series SoC compatible.
-Agilex 7 M-Series is a different device and already has its own
-fallback.
+The board is otherwise identical to the SoCDK and builds on
+socfpga_agilex.dtsi.
 
-Patch 1 documents that compatible next to the other Agilex SoCDK
-boards. Patch 2 adds socfpga_agilex_socdk_multiqspi.dts. UART,
-Ethernet, USB, SDMMC, LEDs and the watchdog match the SoCDK; the QSPI
-node is the difference.
-
+Signed-off-by: Genevieve Chan <genevieve.chan@altera.com>
+---
 Changes in v3:
-- Rebase onto the socfpga for-next branch, which moved the SoCFPGA
-  device trees to arch/arm64/boot/dts/altera/. The new DTS is added
-  there.
-- Reword the subject of patch 2 to avoid repeating "Agilex" (Dinh).
-- Add Conor's Acked-by to patch 1.
+- Reword subject to avoid repeating "Agilex".
+- Move the DTS to arch/arm64/boot/dts/altera/, following the move of
+  the SoCFPGA device trees in for-next.
 
 Changes in v2:
-- Rename the compatible, DTS filename and model, dropping "agilex7f".
-- State in the binding patch why the fallback is "intel,socfpga-agilex".
-- Describe the daughter card instead of restating the diff.
+- Rename file, compatible and model to drop the "agilex7f" prefix.
+- Reword commit message to describe the hardware.
 
-Genevieve Chan (2):
-  dt-bindings: arm: altera: add Agilex SoCDK multi-QSPI board
-  arm64: dts: socfpga: agilex: add SoCDK multi-QSPI board
+ arch/arm64/boot/dts/altera/Makefile           |   1 +
+ .../altera/socfpga_agilex_socdk_multiqspi.dts | 213 ++++++++++++++++++
+ 2 files changed, 214 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/altera/socfpga_agilex_socdk_multiqspi.dts
 
- Documentation/devicetree/bindings/arm/altera.yaml  |   1 +
- arch/arm64/boot/dts/altera/Makefile                |   1 +
- .../dts/altera/socfpga_agilex_socdk_multiqspi.dts  | 213 +++++++++++++++++++++
- 3 files changed, 215 insertions(+)
-
-base-commit: fd26798a69439d6693a1f83b0763031b306cfb4f
---
+diff --git a/arch/arm64/boot/dts/altera/Makefile b/arch/arm64/boot/dts/altera/Makefile
+index 8f41349103b8..d38fe88a1cc8 100644
+--- a/arch/arm64/boot/dts/altera/Makefile
++++ b/arch/arm64/boot/dts/altera/Makefile
+@@ -2,6 +2,7 @@
+ dtb-$(CONFIG_ARCH_INTEL_SOCFPGA) += socfpga_agilex_n6000.dtb \
+ 				socfpga_agilex_socdk.dtb \
+ 				socfpga_agilex_socdk_emmc.dtb \
++				socfpga_agilex_socdk_multiqspi.dtb \
+ 				socfpga_agilex_socdk_nand.dtb \
+ 				socfpga_agilex3_socdk.dtb \
+ 				socfpga_agilex5_socdk.dtb \
+diff --git a/arch/arm64/boot/dts/altera/socfpga_agilex_socdk_multiqspi.dts b/arch/arm64/boot/dts/altera/socfpga_agilex_socdk_multiqspi.dts
+new file mode 100644
+index 000000000000..0bf087fa7553
+--- /dev/null
++++ b/arch/arm64/boot/dts/altera/socfpga_agilex_socdk_multiqspi.dts
+@@ -0,0 +1,213 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2026, Intel Corporation
++ */
++#include "socfpga_agilex.dtsi"
++
++/ {
++	model = "SoCFPGA Agilex SoCDK multi-QSPI daughter board";
++	compatible = "intel,socfpga-agilex-socdk-multiqspi", "intel,socfpga-agilex";
++
++	aliases {
++		serial0 = &uart0;
++		ethernet0 = &gmac0;
++		ethernet1 = &gmac1;
++		ethernet2 = &gmac2;
++	};
++
++	chosen {
++		stdout-path = "serial0:115200n8";
++	};
++
++	leds {
++		compatible = "gpio-leds";
++		led0 {
++			label = "hps_led0";
++			gpios = <&portb 20 GPIO_ACTIVE_HIGH>;
++		};
++
++		led1 {
++			label = "hps_led1";
++			gpios = <&portb 19 GPIO_ACTIVE_HIGH>;
++		};
++
++		led2 {
++			label = "hps_led2";
++			gpios = <&portb 21 GPIO_ACTIVE_HIGH>;
++		};
++	};
++
++	memory@80000000 {
++		device_type = "memory";
++		/* We expect the bootloader to fill in the reg */
++		reg = <0 0x80000000 0 0>;
++	};
++};
++
++&gpio1 {
++	status = "okay";
++};
++
++&gmac0 {
++	status = "okay";
++	/* PHY delays are configured via skew properties */
++	phy-mode = "rgmii";
++	phy-handle = <&phy0>;
++
++	max-frame-size = <9000>;
++
++	mdio0 {
++		#address-cells = <1>;
++		#size-cells = <0>;
++		compatible = "snps,dwmac-mdio";
++		phy0: ethernet-phy@4 {
++			reg = <4>;
++
++			txd0-skew-ps = <0>; /* -420ps */
++			txd1-skew-ps = <0>; /* -420ps */
++			txd2-skew-ps = <0>; /* -420ps */
++			txd3-skew-ps = <0>; /* -420ps */
++			rxd0-skew-ps = <420>; /* 0ps */
++			rxd1-skew-ps = <420>; /* 0ps */
++			rxd2-skew-ps = <420>; /* 0ps */
++			rxd3-skew-ps = <420>; /* 0ps */
++			txen-skew-ps = <0>; /* -420ps */
++			txc-skew-ps = <900>; /* 0ps */
++			rxdv-skew-ps = <420>; /* 0ps */
++			rxc-skew-ps = <1680>; /* 780ps */
++		};
++	};
++};
++
++&mmc {
++	status = "okay";
++	cap-sd-highspeed;
++	broken-cd;
++	bus-width = <4>;
++	clk-phase-sd-hs = <0>, <135>;
++};
++
++&osc1 {
++	clock-frequency = <25000000>;
++};
++
++&uart0 {
++	status = "okay";
++};
++
++&usb0 {
++	status = "okay";
++	disable-over-current;
++};
++
++&watchdog0 {
++	status = "okay";
++};
++
++&qspi {
++	status = "okay";
++
++	flash@0 {
++		compatible = "micron,mt25qu02g", "jedec,spi-nor";
++		reg = <0>;
++		spi-max-frequency = <25000000>;
++
++		m25p,fast-read;
++		cdns,read-delay = <2>;
++		cdns,tshsl-ns = <50>;
++		cdns,tsd2d-ns = <50>;
++		cdns,tchsh-ns = <4>;
++		cdns,tslch-ns = <4>;
++		spi-tx-bus-width = <4>;
++		spi-rx-bus-width = <4>;
++
++		partitions {
++			compatible = "fixed-partitions";
++			#address-cells = <1>;
++			#size-cells = <1>;
++
++			qspi_boot0: partition@0 {
++				label = "Boot and fpga data";
++				reg = <0x0 0x10000000>;
++			};
++		};
++	};
++
++	flash@1 {
++		compatible = "micron,mt25qu02g", "jedec,spi-nor";
++		reg = <1>;
++		spi-max-frequency = <25000000>;
++
++		m25p,fast-read;
++		cdns,read-delay = <2>;
++		cdns,tshsl-ns = <50>;
++		cdns,tsd2d-ns = <50>;
++		cdns,tchsh-ns = <4>;
++		cdns,tslch-ns = <4>;
++		spi-tx-bus-width = <4>;
++		spi-rx-bus-width = <4>;
++
++		partitions {
++			compatible = "fixed-partitions";
++			#address-cells = <1>;
++			#size-cells = <1>;
++
++			qspi_boot1: partition@0 {
++				label = "Boot and fpga data";
++				reg = <0x0 0x10000000>;
++			};
++		};
++	};
++
++	flash@2 {
++		compatible = "micron,mt25qu02g", "jedec,spi-nor";
++		reg = <2>;
++		spi-max-frequency = <25000000>;
++
++		m25p,fast-read;
++		cdns,read-delay = <2>;
++		cdns,tshsl-ns = <50>;
++		cdns,tsd2d-ns = <50>;
++		cdns,tchsh-ns = <4>;
++		cdns,tslch-ns = <4>;
++		spi-tx-bus-width = <4>;
++		spi-rx-bus-width = <4>;
++
++		partitions {
++			compatible = "fixed-partitions";
++			#address-cells = <1>;
++			#size-cells = <1>;
++
++			qspi_boot2: partition@0 {
++				label = "Boot and fpga data";
++				reg = <0x0 0x10000000>;
++			};
++		};
++	};
++
++	flash@3 {
++		compatible = "micron,mt25qu02g", "jedec,spi-nor";
++		reg = <3>;
++		spi-max-frequency = <25000000>;
++
++		m25p,fast-read;
++		cdns,read-delay = <2>;
++		cdns,tshsl-ns = <50>;
++		cdns,tsd2d-ns = <50>;
++		cdns,tchsh-ns = <4>;
++		cdns,tslch-ns = <4>;
++		spi-tx-bus-width = <4>;
++		spi-rx-bus-width = <4>;
++
++		partitions {
++			compatible = "fixed-partitions";
++			#address-cells = <1>;
++			#size-cells = <1>;
++
++			qspi_boot3: partition@0 {
++				label = "Boot and fpga data";
++				reg = <0x0 0x10000000>;
++			};
++		};
++	};
++};
+-- 
 2.43.7
+
