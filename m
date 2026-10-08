@@ -1,156 +1,139 @@
-Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B196543CED8
-	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 21:03:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791493433; cv=pass; b=s5A9BtrxibptcLYKIO2X22uOnE4O/yjGWdsGFJKXV6RF0uixjcHx3+LNtL2JgAGsooqUpdUqcY7WlHLsTpGZWbNQVMLPpczMzemBMzEfrL+v7OCYGTm2OfrWC/IuPTJ6X/i0fIzy0tcONGbK6F8DsYSYI5o+pDRzAxa7MtWYM1Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AEC9443E31
+	for <linux-kernel@vger.kernel.org>; Thu,  8 Oct 2026 21:03:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.176
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791493433; cv=none; b=CfrooclxBFIogmSSZWPFynxtZ54Ht8zAP9karNQlZyPztkuqebweuWAw51hMiT9kq4VOF8ezZHpjABeIuYbrUKRez9/5QJTM1/OBDGGotdC3XZuNoatPqA80/SX1tr+bhq8bq7jb/k5IjS/dngIPgcxcAvxOXTbJL6qKVEdjVoU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791493433; c=relaxed/simple;
-	bh=vl6P2d7bzS5ltJJCjjguAr4o4FboZty4KMxvPMf44as=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ikomK0MYjcKUm0i8Jx3T71b3VurCEGn9xQjNATC7a7eoFJunE8Vj/D5TrBePixQcvj3OKRXIDqVVcPHoTEnZEBn4ZGGftFlFyjncBCdzSwDxvnQ7qFr1G9BnzALVA5Oytu/4Ghy2hTJO08QQW9111LuM/eSSqJ8/v6Io8jWpvqI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UXb/7leP; arc=pass smtp.client-ip=74.125.224.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=ySH+2yHpni3G+Qu86hbeGyzGTFoSfZJVBnTvasjUVEw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=GU5Z+WWZ73eqmKN1LQIS8CjfRz7as0zkeZZUIImwh35YDBTPH3nQVfMYSiikvX5XyA1uUyCApmWAQc6H+KkEj5dV6nZkQXkRg/SiKrqhQ5aTozfgu1X3N1N8oybM6FXNPwLGgRsHF+5mV0qUO7shE1mts8ClTobVIPB+GmUOzMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=Wp6QSne/; arc=none smtp.client-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UXb/7leP"
-Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-675676afc3cso4064205d50.3
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 14:03:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791493425; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bSb1BsmBEcIXlYdGjpCVcel74oND4YgYkSnCBNUucouXfFjKqOsMgZIIRnC42PHuKN
-         P04OJh7MQXAm9AxbcEg5acgnXSYFiJAPaBRTukGtMXtK4nOf8b/rsFp4tZJDn4kjKw6c
-         EUTjWQR1LFi74MwQeOPNBgwE5Afwj0BEHz3ou6eBPJ5eZQ0P/eug1hNWQ+tXLt+PVoMf
-         2FChe2qhY+2izoTzt31xAPJEeCvXjOw/grmozfvVjqg2hxUvySKkU8wI9ai8GqiKP9xd
-         UcEVA/gA9pBYrY0ATZjUCFP8nOyCMxt/LThYlGLbXn4JqkTTNpl6go6H7M2oKJnrCacj
-         X4Jw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=vl6P2d7bzS5ltJJCjjguAr4o4FboZty4KMxvPMf44as=;
-        fh=tcCALMGQMHC3yUC117o0QGCtsFMp0BXB6pcd1WotzfM=;
-        b=Edl91WK/H6Kv2c0GqJfTZvpY4vY5XwIv8Q7oa2U+vNbB7sCcQS3iCg5CSwUdqWmGPn
-         VGTbdTF7GZ+BG7KP9/sMpxTbdWlmvk5kgr3iH7GgwewNaibgKIP/OTHFntypeIkPC+jV
-         QVPWZPqEXTKvBgJx4HUg2WMN+uCNSQkqhN2xsGJHBz5bj0I01Oncv13IEqim2gCT5mlA
-         lappA80CCjqlZsEvv7C0QfvvQC1fMYHI5YvWdZ4O8h0U0G21oa8ycK0TqK80PQFgnZEH
-         tAVfsBiOwz6ZmtGGEOlWsABSngTYZHvaovt3End3SzdHFLheXENB9Lmnti1CTiu2oBNV
-         E2Lw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="Wp6QSne/"
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-533861a59b8so64505501cf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 14:03:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791493425; x=1792098225; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vl6P2d7bzS5ltJJCjjguAr4o4FboZty4KMxvPMf44as=;
-        b=UXb/7leP6TGNYUifCSK0ZJavuFWdrwXthwZiI6/dWlDhkOz4RHlfPFOujRweRjd/ks
-         OiWVTAmZK3nO0GggLSZfwN8B2gWdsKQnsSA10Ke8dGWQcFCYicp3IP29KG+cTVlhft1w
-         MqB6+615PiU0qCOGJw3Q6YbiFMFan84RlyjV7Yza1ad85M2NkQJjvLH25YMwb4W7MkWm
-         YhFIrndChRBySsVyrWboOrEPjUSAZ5+X4aSujD0WUKIkNPX7+GH6Z6rbyigdR49T1uSW
-         qp6t7DKOC3r4nvc8GB5W9LGamVawPCFTigLsreM+nINugjPbXlzsMQ41BFDXrMOH6PHD
-         SCQg==
+        d=toxicpanda.com; s=google; t=1791493422; x=1792098222; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=soiW+4bnwYoMWX+4s8jp0T9nXKlporFXyr3eC0IUFGM=;
+        b=Wp6QSne/U1g2tAbxpoJGXXElPPKvwRG7qHAd2CyRr6yYlSUclR6DJXa1AJVbQy/PUd
+         snN+/rNCdKO2rv32A8sBI+zfcr/mzuKnPs/EELhIER2KDHbZq2goiULPAUw5cRwHWEyr
+         QsiO/3/wE3yOW/imb4JuBVwA2e8xcMCp9b/s4TWOhcMMMOXBqKWGImKQ85ZjrAaneHPR
+         l0WJdx2k1t0zP+Bla23WKithJzZAFkuN5yTfH8qURoqjs+lqF4RKQWnSWQpVsDqSzxco
+         UPdyNAoBFstOsz2yVn5aC1cjgma3xjcD6MNWUqzNomSx1bu6tGCOZrlPLtTFpTx1CW/2
+         oPLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791493425; x=1792098225;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1791493422; x=1792098222;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vl6P2d7bzS5ltJJCjjguAr4o4FboZty4KMxvPMf44as=;
-        b=TZUWDvv++kW/hwgbMyMub3gncn0xa06Wc7jbHg8WoOjHGiq+/mhhJ4I5obE+Z6FYwz
-         Reh8FYnYlQafpeYNShVmDWZcy1VuddLE1LABHDHZpfjVCv7Koq5uMeesrspDh4gaw/Ee
-         nk9ivmu8FttRkpkDWklX4bSTdYPa61Ai3B7CAJMhtt9kbqo2H0XpDh5YlOvenELNQPjV
-         xC0vf8U8O107RtDufHdAyLNSoEIPZYZK4zs/DLnIF4TPQGREnHAionz7VLZc4KKyZkkh
-         yYc093RDGZ6WVwi0+LJIPj+GV3adEbXOjagSlEO+E63ekBuio+2pDvzGAJc9ENPsHhg5
-         OI7w==
-X-Forwarded-Encrypted: i=1; AKwUvBwuqgoYWdrkSJ5z7hGofsAW2Db2KwnFl8888EGBTLBT+3Bejkk60/K/NHDIvCpog3FMiCHMxx3sRwjcCxg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJwI0OfHZUJOPDyn+T5RjagpByg3oSCTprQLobYsu/wGhzoh3A0
-	JP4QV0M+CtWwQ0hvgokHsknOIVdx30kQwIrLM+I1ZXxaCaB8D2JIiBFBOwsHm5oDde5jpFkSkB7
-	mDszSCG8viNy2vW6gAotWmA7cLVCDIFI=
-X-Gm-Gg: AYBFou0mZ0yxGcfvpi6ch7Z16F+xXGkLunZp6m3AGdVyFlpiRB+ZizN5EeJGh4GedHo
-	tZIk1RgIHAU+a4Or9eSZPscWuQX81WhIq0ooDtLnrv9zPkQkZ3krnHej17XkPbzIslmup+VWdu/
-	HfbptCJbJxVmlP1AR/+Y3QwuuzGos1jLSAI78Ylf7m8kLWBpdISzCrY3EKp2F6V+fZUqx/YsiTk
-	BbVTQmn1VrLQwfDvHpUqdfagvhZa7d40GyUsNu48Df4suMRw/ZfKknL8ax2mODabNSsXRREbnEG
-	ZBUw8LzmSlEz2uEZkl6q+xpM2hE4l02bxxpUlxc3y/ni56DNIMkstPSYM1UiYy2e+XtpHUx9V/h
-	hdQz4weLmYrEO3YQGBPRuZJy8B4zYqFLEP+stLQa3DWLv9x5uMuNJ
-X-Received: by 2002:a05:690e:11cd:b0:674:1e05:9b81 with SMTP id
- 956f58d0204a3-6793628e483mr25302d50.91.1791493425421; Thu, 08 Oct 2026
- 14:03:45 -0700 (PDT)
+        bh=soiW+4bnwYoMWX+4s8jp0T9nXKlporFXyr3eC0IUFGM=;
+        b=KsXlbrKlC2B0D3T55VwSTMjIfIu4qSZnYS6qIuwhTkmPwWUxAtDt3SxIGia3p6rdi9
+         +NYCmPrTTh1AzFZGRUJ7b1TnRWrttbdF6xbTmYF3CDu+lBz2fyCyG+lbKYMZ3fR3/S7X
+         gMmu8anX/FEl+9rtU0CYHPEt5miZLpop+pD5mSWbGndB+oq/diidsTL3pbzlKvQKUgZw
+         QuViZffV9sLpeH4yJoB92nZUAj9EPCwhBiR/lqAYP1/dr1ZL61e03BZofVJZoy6MQA9Q
+         WcF4qTqGjQHCx+hF3TIffb68qdyk5ZihUfKBmmdO2SEeLVtLvkafxKEOT4BIYEje+zzt
+         dlig==
+X-Forwarded-Encrypted: i=1; AKwUvByuMuvGDv8E2D0bIvgrgsR1nOnTRDiAzXyVjTzoQCSja9Y3fWaE3d3wwijZq9TsttxGbItULaE+0yBa3TE=@vger.kernel.org
+X-Gm-Message-State: AFuF++n2HmIjCOguo4JgGkBbkFh7wuq/AfHVw94h7KCujrcPMHTjw0CO
+	UzzFTaJtq2mXEUyrGdmPB/0KPV8CIQZoexCqTgmVeQjbrS/CcKRDnozDvlPHiSvBASI=
+X-Gm-Gg: AYBFou2k8MiJYbk6nS368Y2YqVuQXFkSIDJCK6b9G4EbTe5sWtK2UghWbelfGHOkAru
+	IqI+QVwlXqZnEZLyhvki1JJ4CHoDre9h8WkAlotewVbvMBCZugekty0IoXa2OntIqoo190RfWwA
+	be9HLjlw86Df11B0KR/z8ww1sGS1+JsJ/UgTOX5LXyippkl/yi5p+GIvskjj4xETZvnboyDQi6X
+	6nCb4SfG5VfnJdMhJ4CS8XBIevbzvZhSBFGZMhaQ5+p1iQC4eystgfTedNIv3+ABPfy23tlbwKN
+	aKHSHI8u5XrG9Et8i5ZaHzksqhmzjoSZxl1WUBuQHM53L3AS0Izms+LWC4xBlsPa3p0YoaD4hxB
+	vjnhmLd/oU60PlOtGxjdV85+Dedh2jTpJ7fx6YK2rObKivEnyLWtQWErdrDOr1HhTFJM1PmXKyh
+	6A0AgTIjn7zAsqmil8tN+aZbd5JWxU420iidJNoUoanrRO3FORJW9YezgX3+drBdFk34pVG15lZ
+	OSYvYasxxndgJg=
+X-Received: by 2002:a05:622a:4016:b0:530:f634:467f with SMTP id d75a77b69052e-53575391446mr121614331cf.15.1791493421782;
+        Thu, 08 Oct 2026 14:03:41 -0700 (PDT)
+Received: from toxicpanda.com ([153.61.196.241])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b6fa262sm3360381cf.6.2026.10.08.14.03.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 14:03:41 -0700 (PDT)
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Thu, 08 Oct 2026 21:02:56 +0000
+Subject: [PATCH net-next v2 09/10] qlcnic: use pskb_may_pull() to pull
+ excess TX frags into the head
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261008124106.665014-1-Jason@zx2c4.com> <willemdebruijn.kernel.cf8fec88827c@gmail.com>
- <CAHmME9r+O=3i4JP94P0-gFwghfWtD=vLa1g3KB-LvW+xFbJWHA@mail.gmail.com>
-In-Reply-To: <CAHmME9r+O=3i4JP94P0-gFwghfWtD=vLa1g3KB-LvW+xFbJWHA@mail.gmail.com>
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Date: Thu, 8 Oct 2026 17:03:06 -0400
-X-Gm-Features: AclHuK_qKmc6ZKE8_x2MdYae4trfNS2WogXUatNfjY-lv9_2jJsmiBMEjOiQbLM
-Message-ID: <CAF=yD-LO0u5z8SU_Aktu0-0aeM-1UknYsGc+rCpD3y9bpwxtwg@mail.gmail.com>
-Subject: Re: [PATCH net] udp_tunnel: drop packets when hibernating
-To: "Jason A. Donenfeld" <Jason@zx2c4.com>
-Cc: rafael@kernel.org, lenb@kernel.org, pavel@kernel.org, kuba@kernel.org, 
-	pabeni@redhat.com, linux-pm@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	=?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <jeremy.jean@oss.cyber.gouv.fr>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261008-b4-pskb-pull-tail-drivers-v2-9-8f2bd9bee138@toxicpanda.com>
+References: <20261008-b4-pskb-pull-tail-drivers-v2-0-8f2bd9bee138@toxicpanda.com>
+In-Reply-To: <20261008-b4-pskb-pull-tail-drivers-v2-0-8f2bd9bee138@toxicpanda.com>
+To: Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Eric Dumazet <edumazet@kernel.org>, "David S. Miller" <davem@davemloft.net>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>, 
+ Mark Bloch <mbloch@nvidia.com>, Leon Romanovsky <leon@kernel.org>, 
+ Juergen Gross <jgross@suse.com>, 
+ Stefano Stabellini <sstabellini@kernel.org>, 
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+ Tony Nguyen <anthony.l.nguyen@intel.com>, 
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
+ Manish Chopra <manishc@marvell.com>, Rahul Verma <rahulv@marvell.com>, 
+ GR-Linux-NIC-Dev@marvell.com, Shahed Shaikh <shshaikh@marvell.com>, 
+ Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org, 
+ xen-devel@lists.xenproject.org, intel-wired-lan@lists.osuosl.org, 
+ Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1791493385; l=1476;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=ySH+2yHpni3G+Qu86hbeGyzGTFoSfZJVBnTvasjUVEw=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QPIm2UmKVJ/FEKcAKGan3gEEsd83c98i++zBisuax140+xkclErvJSJq3lYfXk1tL7clYoB6cuo
+ y7erG0zM7/wc=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-On Thu, Oct 8, 2026 at 3:58=E2=80=AFPM Jason A. Donenfeld <Jason@zx2c4.com>=
- wrote:
->
-> Hi Willem,
->
-> On Thu, Oct 8, 2026 at 8:37=E2=80=AFPM Willem de Bruijn
-> <willemdebruijn.kernel@gmail.com> wrote:
-> > Jason A. Donenfeld wrote:
-> > > The kernel's various networking applications keep churning away after
-> > > userspace is frozen during hibernation, even as a memory snapshot is
-> > > being made. This can lead many network applications to an inconsisten=
-t
-> > > state, replaying packets and cryptographic state changes. For example=
-,
-> > > on wireguard, there's the possibility of this sequence:
-> > >
-> > > 1) hibernating begins
-> > > 2) handshake state cleared
-> > > 3) keypairs cleared
-> > > 4) new handshake round trip completes
-> > > 5) machine memory is snapshotted
-> > > 6) packet is sent using new keypair
-> > > 7) machine is restored to state (5)
-> > > 8) packet is sent using new keypair
-> > >
-> > > The idea is to prevent (6) from happening, especially if (6) and (8)
-> > > contain different data, but the same key and nonce. Presumably the sa=
-me
-> > > issue applies to other users of udp_tunnel too.
-> > >
-> > > Fix this by just dropping sending and receiving packets during the
-> > > hibernation sequence.
-> >
-> > A few high level questions:
-> >
-> > If the issue is reuse of key + nonce during send, why include receive
-> > side functions? Specifically tunnel (encap_rcv) functions.
->
-> Because I suppose (4) probably shouldn't be possible after (1). I
-> explicitly clear the result of (4) in a PM notifier. It seems wrong
-> for that to then be violated after. Similarly, userspace doesn't get
-> packets after that point either.
+qlcnic_xmit_frame() pulls the frags that don't fit in a TX descriptor
+into the head with __pskb_pull_tail().  It already checks the result.
+Switch to pskb_may_pull(), which takes the length the head should end up
+with and checks it against the skb, so this driver no longer calls
+__pskb_pull_tail() directly.
 
-Since this is an issue specific with security protocols and reuse of
-their state across freeze and restore, is that the more suitable
-location for this check? Drop transmit of packets with that risk
-(unique for that connection nonce) only, if freezing.
+__pskb_pull_tail() also releases empty frags, even when there's nothing
+to pull, so if the frags being pulled are all empty it still gets the
+frag count under the limit.  pskb_may_pull() returns early in that case,
+so follow it with skb_drop_empty_frags().
 
-> > Is this a problem specific to UDP tunnels?
->
-> The stateless nature makes it more poignant there.
+Assisted-by: LLM
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+---
+ drivers/net/ethernet/qlogic/qlcnic/qlcnic_io.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-udp_queue_rcv_one_skb is the UDP hot path. Since it touches all
-packets, the last resort for adding checks that are relevant too only
-a small subset of packets.
+diff --git a/drivers/net/ethernet/qlogic/qlcnic/qlcnic_io.c b/drivers/net/ethernet/qlogic/qlcnic/qlcnic_io.c
+index 761ef3bc8193..e7ab5586798b 100644
+--- a/drivers/net/ethernet/qlogic/qlcnic/qlcnic_io.c
++++ b/drivers/net/ethernet/qlogic/qlcnic/qlcnic_io.c
+@@ -682,7 +682,8 @@ netdev_tx_t qlcnic_xmit_frame(struct sk_buff *skb, struct net_device *netdev)
+ 		for (i = 0; i < (frag_count - QLCNIC_MAX_FRAGS_PER_TX); i++)
+ 			delta += skb_frag_size(&skb_shinfo(skb)->frags[i]);
+ 
+-		if (!__pskb_pull_tail(skb, delta))
++		if (!pskb_may_pull(skb, skb_headlen(skb) + delta) ||
++		    skb_drop_empty_frags(skb, GFP_ATOMIC))
+ 			goto drop_packet;
+ 
+ 		frag_count = 1 + skb_shinfo(skb)->nr_frags;
+
+-- 
+2.55.0
+
